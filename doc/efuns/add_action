@@ -1,0 +1,43 @@
+
+     aaaadddddddd____aaaaccccttttiiiioooonnnn((((3333))))          MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))           aaaadddddddd____aaaaccccttttiiiioooonnnn((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          add_action() - bind a command verb to a local function
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void add_action( string | function fun, string | string *
+          cmd, int flag );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Set up a local function <fun> to be called when user input
+          matches the command <cmd>. Functions called by a player
+          command will get the arguments as a string. It must then
+          return 0 if it was the wrong command, otherwise 1.
+
+          If the second argument is an array, then all the commands in
+          the array will call the second function.  It is possible to
+          find out which command called the function with
+          query_verb().
+
+          If it was the wrong command, the parser will continue
+          searching for another command, until one returns true or
+          give error message to player.
+
+          Usually add_action() is called only from an init() routine.
+          The object that defines commands must be present to the
+          player, either being the player, being carried by the
+          player, being the room around the player, or being an object
+          in the same room as the player.
+
+          If argument <flag> is 1, then only the leading characters of
+          the command has to match the verb <cmd> and the entire verb
+          is returned by query_verb().  If argument <flag> is 2, then
+          again, only the leading characters must match, but
+          query_verb() will only return the characters following
+          <cmd>.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          query_verb(3), remove_action(3), init(4)
+
+     Page 1                                          (printed 3/16/95)
+

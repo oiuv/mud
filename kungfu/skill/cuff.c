@@ -1,0 +1,3 @@
+// cuff.c
+
+inherit SKILL;

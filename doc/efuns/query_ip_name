@@ -1,0 +1,22 @@
+
+     qqqquuuueeeerrrryyyy____iiiipppp____nnnnaaaammmmeeee((((3333))))       MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))        qqqquuuueeeerrrryyyy____iiiipppp____nnnnaaaammmmeeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          query_ip_name() - return the ip name of a given player
+          object.
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          string query_ip_name( object ob );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Return the IP address for player `ob'.  An asynchronous
+          process `addr_server' is used to find out these name in
+          parallel.  If there are any failures to find the ip-name,
+          then the ip-number is returned instead.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          query_ip_number(3), query_host_name(3), resolve(3),
+          socket_address(3)
+
+     Page 1                                          (printed 3/16/95)
+

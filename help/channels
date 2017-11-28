@@ -1,0 +1,45 @@
+$HIY$【交流和聊天频道】$NOR$
+
+您可用下列指令来和其他玩家交流和聊天。
+泥潭的聊天功能对玩家的成长很重要的，甚至有的玩家就是以聊天
+为目的进入游戏的。因此我们尽量提供丰富的聊天功能：
+
+$HIY$公开频道$NOR$
+        $HIC$chat$NOR$     闲聊
+        $HIC$rumor$NOR$    谣言
+        $HIC$sing$NOR$     歌唱
+        $HIC$party$NOR$    帮派
+        $HIC$family$NOR$   同门
+        $HIC$inter$NOR$    同盟
+        $HIC$bill$NOR$     交易
+        $HIC$ultra$NOR$    宗师
+        $HIC$ic$NOR$       网际
+        $HIC$rultra$NOR$   网际宗师
+
+上述命令只要在后面加上内容如：“chat 你好！”就可以了。 另外
+我们也提供了很多动作描述，如hi等，使用的方法是：“chat* hi”
+动作描述可以用$HIY$semote$NOR$或是$HIY$femote$NOR$命令获得。
+
+注意：其中的网际宗师频道$HIC$rultra$NOR$是一个用来收听的频道，如果你打
+开了这个频道，那么会自动收听其他站点的大宗师的交谈。本地的宗
+师交谈会自动转换成$HIC$chat$NOR$频道的对话。
+
+$HIY$私人频道$NOR$
+        $HIC$tell$NOR$ sb 信息      告诉别人信息
+        $HIC$reply$NOR$ 信息        回答别人信息
+        $HIC$whisper$NOR$ sb 信息   和别人耳语（需在同一房间内）
+        $HIC$say$NOR$ 信息          说话（同一房间内均可听到） 
+        $HIC$ask$NOR$ sb about 信息 问话（同一房间内均可听到） 
+        $HIC$answer$NOR$ 信息       回答（同一房间内均可听到） 
+
+$HIY$设置$NOR$
+
+如果你为了避免其他人的骚扰，可以使用$HIC$no_emote/can_emote$NOR$的设置
+来避免你不欢迎的玩家对你做表情动作，同时你也可以设置$HIC$no_tell
+can_tell$NOR$来避免你不喜欢得玩家和你交谈。
+
+如果你和多人交谈，可能感觉到$HIY$reply$NOR$ 命令使用不便，因为在你回答
+的时候很有可能回答错对象，这样你可以使用$HIC$jam_talk$NOR$的方式，让你
+逐条逐条的回答，或是手工翻动信息。具体你可以参考$HIY$help settings$NOR$
+和相关的命令帮助。
+

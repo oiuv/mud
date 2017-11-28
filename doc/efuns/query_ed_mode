@@ -1,0 +1,23 @@
+
+     qqqquuuueeeerrrryyyy____eeeedddd____mmmmooooddddeeee((((3333))))       MMMMuuuuddddOOOOSSSS ((((22222222 JJJJaaaannnn 1111999999995555))))       qqqquuuueeeerrrryyyy____eeeedddd____mmmmooooddddeeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          query_ed_mode() - find out the status of the current ed
+          session
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int query_ed_mode()
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Finds the status of the ed session for the current object,
+          if one exists.  It returns:
+
+                        0 - the current object is at a normal ed
+          prompt (':')            -1 - the current object isn't in ed
+                    -2 - the current object is at the more prompt in
+          the                middle of help           >0 - the object
+          is at a prompt for a line.  The number                is the
+          line number.
+
+     Page 1                                          (printed 3/16/95)
+

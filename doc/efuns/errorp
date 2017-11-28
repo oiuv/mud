@@ -1,0 +1,28 @@
+
+     eeeerrrrrrrroooorrrrpppp((((3333))))              MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))               eeeerrrrrrrroooorrrrpppp((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          errorp() - determine whether or not a given variable is an
+          error code
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int errorp( mixed arg );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Returns 1 if `arg' is an integer that is an error code.
+
+          Eventually efuns will be modified to return standard error
+          codes so that code like this will be possible:
+
+               if (errorp(result = efun_call()))
+                   printf("error = %d\n", result);
+
+          In future, there will also be a perror(result) efun to
+          return error string that goes with a particular error
+          integer.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          nullp(3), undefinedp(3)
+
+     Page 1                                          (printed 3/16/95)
+

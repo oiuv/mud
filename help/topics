@@ -1,0 +1,59 @@
+ ────────────────────────────────────
+ $BBLU$$HIY$                            【本游戏的说明文件】                        $NOR$
+ ────────────────────────────────────
+     $HIC$以下是说明文件，你可以用  $HIG$help$HIC$ <$HIR$主题$HIC$>  得到更进一步的说明。$NOR$
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃$BBLU$$HIY$                               【游戏概况】                           $NOR$┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃$HIC$〖intro      〗  $NOR$$HIG$泥潭总体简介          $NOR$$HIC$〖feature    〗  $NOR$$HIW$泥潭特殊总汇  $NOR$┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃$BBLU$$HIY$                               【游戏介绍】                           $NOR$┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃$HIC$〖skills     〗  $NOR$$HIG$武功说明总汇          $NOR$$HIC$〖newbie     〗  $NOR$$HIW$泥潭新手指南  $NOR$┃
+┃$HIC$〖closed     〗  $NOR$$HIG$宗师闭关说明          $NOR$$HIC$〖combine    〗  $NOR$$HIW$物品合成说明  $NOR$┃
+┃$HIC$〖poison     〗  $NOR$$HIG$泥潭毒功说明          $NOR$$HIC$〖whatsnew   〗  $NOR$$HIR$重要更新说明  $NOR$┃
+┃$HIC$〖settings   〗  $NOR$$HIG$环境变量设置          $NOR$$HIC$〖channels   〗  $NOR$$HIW$交流频道说明  $NOR$┃
+┃$HIC$〖room       〗  $NOR$$HIG$住房系统说明          $NOR$$HIC$〖event      〗  $NOR$$HIW$特殊事件介绍  $NOR$┃
+┃$HIC$〖schedule   〗  $NOR$$HIG$计划练功介绍          $NOR$$HIC$〖trade      〗  $NOR$$HIW$商业系统说明  $NOR$┃
+┃$HIC$〖reborn     〗  $NOR$$HIG$转世重生介绍          $NOR$$HIC$〖weapon     〗  $NOR$$HIW$武器纹身说明  $NOR$┃
+┃$HIC$〖item       〗  $NOR$$HIG$任务奖励物品          $NOR$$HIC$〖product    〗  $NOR$$HIW$生产系统介绍  $NOR$┃
+┃$HIC$〖marry      〗  $NOR$$HIG$婚姻系统说明          $NOR$$HIC$〖gift       〗  $NOR$$HIW$天赋属性介绍  $NOR$┃
+┃$HIC$〖league.2   〗  $NOR$$HIG$结义联盟说明          $NOR$$HIC$〖force      〗  $NOR$$HIW$内功简介说明  $NOR$┃     
+┃$HIC$〖sp_skills  〗  $NOR$$HIG$超级武功介绍          $NOR$$HIC$〖maps       〗  $NOR$$HIW$泥潭地图总册  $NOR$┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃$BBLU$$HIY$                               【游戏指令】                           $NOR$┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃$HIC$〖cmds       〗  $NOR$$HIG$泥潭常用指令          $NOR$$HIC$〖cmdtalk    〗  $NOR$$HIW$聊天命令详析  $NOR$┃
+┃$HIC$〖cmdaction  〗  $NOR$$HIG$冒险命令详析          $NOR$$HIC$〖cmdsystem  〗  $NOR$$HIW$系统命令详析  $NOR$┃
+┃$HIC$〖cmdskill   〗  $NOR$$HIG$武功命令详析          $NOR$$HIC$〖cmdspecial 〗  $NOR$$HIW$特殊命令详析  $NOR$┃
+┃$HIC$〖cmdtrade   〗  $NOR$$HIG$商业指令详析          $NOR$$HIC$〖commands   〗  $NOR$$HIW$泥潭命令列表  $NOR$┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃$BBLU$$HIY$                               【任务说明】                           $NOR$┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃$HIC$〖work        〗  $NOR$$HIG$初级工作介绍         $NOR$$HIC$〖freequest  〗  $NOR$$HIW$自由任务简介  $NOR$┃ 
+┃$HIC$〖quest       〗  $NOR$$HIG$门派任务简介         $NOR$$HIC$〖challenge  〗  $NOR$$HIW$挑战任务简介  $NOR$┃
+┃$HIC$〖mirror      〗  $NOR$$HIG$宝镜任务简介         $NOR$$HIC$〖invade     〗  $NOR$$HIW$外敌任务介绍  $NOR$┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃$BBLU$$HIY$                               【门派介绍】                           $NOR$┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃$HIC$〖shaolin     〗  $NOR$$HIG$少林派介绍           $NOR$$HIC$〖wudang     〗  $NOR$$HIW$武当派介绍    $NOR$┃
+┃$HIC$〖emei        〗  $NOR$$HIG$峨嵋派介绍           $NOR$$HIC$〖huashan    〗  $NOR$$HIW$华山派介绍    $NOR$┃
+┃$HIC$〖gaibang     〗  $NOR$$HIG$丐帮之介绍           $NOR$$HIC$〖taohua     〗  $NOR$$HIW$桃花岛介绍    $NOR$┃
+┃$HIC$〖xingxiu     〗  $NOR$$HIG$星宿派介绍           $NOR$$HIC$〖xiaoyao    〗  $NOR$$HIW$逍遥派介绍    $NOR$┃
+┃$HIC$〖gumu        〗  $NOR$$HIG$古墓派介绍           $NOR$$HIC$〖quanzhen   〗  $NOR$$HIW$全真派介绍    $NOR$┃
+┃$HIC$〖xuanming    〗  $NOR$$HIG$玄冥谷介绍           $NOR$$HIC$〖kunlun     〗  $NOR$$HIW$昆仑派介绍    $NOR$┃
+┃$HIC$〖mingjiao    〗  $NOR$$HIG$明教之介绍           $NOR$$HIC$〖riyue      〗  $NOR$$HIW$日月神教介绍  $NOR$┃
+┃$HIC$〖lingjiu     〗  $NOR$$HIG$灵鹫宫介绍           $NOR$$HIC$〖song       〗  $NOR$$HIW$嵩山派介绍    $NOR$┃
+┃$HIC$〖dalunsi     〗  $NOR$$HIG$大轮寺介绍           $NOR$$HIC$〖tiezhang   〗  $NOR$$HIW$铁掌帮介绍    $NOR$┃
+┃$HIC$〖honghua     〗  $NOR$$HIG$红花会介绍           $NOR$$HIC$〖xuedao     〗  $NOR$$HIW$血刀门介绍    $NOR$┃
+┃$HIC$〖wudu        〗  $NOR$$HIG$五毒教介绍           $NOR$$HIC$〖meizhuang  〗  $NOR$$HIW$梅庄之介绍    $NOR$┃         
+┃$HIC$〖zhenyuan    〗  $NOR$$HIG$镇远镖局介绍         $NOR$$HIC$〖hengshan   〗  $NOR$$HIW$衡山派介绍    $NOR$┃   
+┃$HIC$〖jueqing     〗  $NOR$$HIG$绝情谷介绍                                          $NOR$┃    
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃$BBLU$$HIY$                               【世家介绍】                           $NOR$┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+┃$HIC$〖ouyang      〗  $NOR$$HIG$欧阳世家介绍         $NOR$$HIC$〖hu         〗  $NOR$$HIW$关外胡家介绍  $NOR$┃
+┃$HIC$〖murong      〗  $NOR$$HIG$慕容世家介绍         $NOR$$HIC$〖duan       〗  $NOR$$HIW$段氏皇族介绍  $NOR$┃
+┃$HIC$〖miao        〗  $NOR$$HIG$中原苗家介绍                                        $NOR$┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+

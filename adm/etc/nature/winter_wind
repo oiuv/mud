@@ -1,0 +1,72 @@
+#  Spring rainny day phase
+#  The definition of day phase
+#  Format:
+#       length          length of the phase in seconds
+#       time_msg        msg sent to outdoors user at phase starts
+#       desc_msg        desc looked during the period before next phase
+#       event_fun       the function is called in NATURE_D at the phase starts
+#
+#  Phase starts at 0:00 every day
+#
+#  Note the length of a phase is in minutes of a day.
+#
+
+# The two lines defines the data format in 2 lines as
+#
+#  field1:field2:field3....
+#  format1:format2:format3....
+#
+
+hour:time_msg:desc_msg:event_fun:outcolor
+%d:%s:%s:%s:%s
+
+# The following lines are data, each non-blank line will fill in each field
+# in each record sequently.
+
+0
+$HIC$【天色】$BLU$已经是午夜了，寒风挟卷着枯枝落叶，沙沙声不绝于耳。
+$HIC$【寒冬】$BLU$夜幕低垂，寒风肆虐
+event_midnight
+$BLU$
+
+3
+$HIC$【天色】$HIC$天渐渐亮了，天空惨白的，大地还笼罩在夜幕之中。
+$HIC$【寒冬】$HIC$天渐渐亮了，天上没有晨星
+event_dawn
+$HIC$
+
+6
+$HIC$【天色】$WHT$天光终于放亮了，风裹着云在天上飞速的跑着。
+$HIC$【寒冬】$WHT$起风了，树木光秃秃的在风中瑟瑟的发抖
+event_sunrise
+$WHT$
+
+9
+$HIC$【天色】$WHT$风更大了，卡的一声，枯枝从树上落了下来，转眼又不知被吹到了什么地方。
+$HIC$【寒冬】$WHT$风更大了，呼呼的吹着，逞着自己摧枯拉朽的力量
+event_morning
+$WHT$
+
+12
+$HIC$【天色】$WHT$已经是正午了，风没有一点停的意思，天空惨白惨白的。
+$HIC$【寒冬】$WHT$现在是正午时分，天阴着，凛冽的北风呼呼的吹着
+event_noon
+$WHT$
+
+15
+$HIC$【天色】$HIW$风渐渐的小了些，惨白的太阳也些许露出了半张脸。
+$HIC$【寒冬】$HIW$风小些了，空气中透着冰冷的气息
+event_afternoon
+$HIW$
+
+18
+$HIC$【天色】$HIR$残阳如血，风停了，树枝掉了不少在地上。
+$HIC$【寒冬】$HIR$夕阳正徘徊在西方的地平线上，无力的喘息着
+event_evening
+$HIR$
+
+21
+$HIC$【天色】$HIB$夜晚降临了，风裹尘沙，寒意入骨。
+$HIC$【寒冬】$HIB$夜幕笼罩著大地，风沙刺骨
+event_night
+$HIB$

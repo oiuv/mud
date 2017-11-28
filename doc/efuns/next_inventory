@@ -1,0 +1,22 @@
+
+     nnnneeeexxxxtttt____iiiinnnnvvvveeeennnnttttoooorrrryyyy((((3333))))      MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))       nnnneeeexxxxtttt____iiiinnnnvvvveeeennnnttttoooorrrryyyy((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          next_inventory() - return the next object in the same
+          inventory
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          object next_inventory( object ob );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Return the next object in the same inventory as `ob'.
+
+          Warning: If the object `ob' is moved by "move_object()",
+          then "next_inventory()" will return an object from the new
+          inventory.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          first_inventory(3), all_inventory(3), deep_inventory(3)
+
+     Page 1                                          (printed 3/16/95)
+

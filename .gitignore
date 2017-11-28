@@ -1,0 +1,12 @@
+/binaries
+/data
+/dump
+/fluffos64
+/log
+/temp
+/tmp
+/version
+config.cfg
+driver.*
+OBJ_DUMP
+

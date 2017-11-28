@@ -1,0 +1,72 @@
+#  Spring fine day phase
+#  The definition of day phase
+#  Format:
+#       length          length of the phase in seconds
+#       time_msg        msg sent to outdoors user at phase starts
+#       desc_msg        desc looked during the period before next phase
+#       event_fun       the function is called in NATURE_D at the phase starts
+#
+#  Phase starts at 0:00 every day
+#
+#  Note the length of a phase is in minutes of a day.
+#
+
+# The two lines defines the data format in 2 lines as
+#
+#  field1:field2:field3....
+#  format1:format2:format3....
+#
+
+hour:time_msg:desc_msg:event_fun:outcolor
+%d:%s:%s:%s:%s
+
+# The following lines are data, each non-blank line will fill in each field
+# in each record sequently.
+
+0
+$HIC$【天色】$BLU$冬夜的星空，璀璨夺目，寒风里的枯枝摇曳着星海无限灿烂的辉煌。
+$HIC$【寒冬】$BLU$夜幕低垂，满天繁星
+event_midnight
+$BLU$
+
+3
+$HIC$【天色】$HIC$竹敲残月落，鸡鸣晓日升，东方泛起了鱼肚白，天空瓦蓝瓦蓝的。
+$HIC$【寒冬】$HIC$东方的天空渐渐的发白了
+event_dawn
+$HIC$
+
+6
+$HIC$【天色】$HIY$一道耀眼的金光倏的从东方的天边射了出来，一轮红日升了起来。
+$HIC$【寒冬】$HIY$太阳刚从东方的地平线升起
+event_sunrise
+$HIY$
+
+9
+$HIC$【天色】$HIY$太阳挂在东方的蔚蓝的天空中散射着金色的光芒，但照在身上清冷清冷的一点也不暖和。
+$HIC$【寒冬】$HIY$太阳正高挂在东方的天空中
+event_morning
+$HIY$
+
+12
+$HIC$【天色】$HIW$已经是正午了，太阳从你正上方照耀著大地，吝啬的散发着热量。
+$HIC$【寒冬】$HIW$现在是正午时分，太阳高挂在你的头顶正上方
+event_noon
+$HIW$
+
+15
+$HIC$【天色】$WHT$太阳开始从西方的天空中慢慢沉落下去，带着惨白的脸色。
+$HIC$【寒冬】$WHT$太阳正高挂在西方的天空中
+event_afternoon
+$WHT$
+
+18
+$HIC$【天色】$HIR$傍晚了，太阳的馀晖在西方的天空飘动着，满天红霞。
+$HIC$【寒冬】$HIR$残阳如血，一轮火红的夕阳正徘徊在西方的地平线上
+event_evening
+$HIR$
+
+21
+$HIC$【天色】$HIB$夜晚降临了，宝蓝色的天空中露出了滴滴晶莹的星点。
+$HIC$【寒冬】$HIB$夜幕笼罩著大地
+event_night
+$HIB$

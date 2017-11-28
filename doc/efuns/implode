@@ -1,0 +1,19 @@
+
+     iiiimmmmppppllllooooddddeeee((((3333))))             MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))              iiiimmmmppppllllooooddddeeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          implode() - concatenate strings
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          string implode( mixed *arr, string del );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Concatenate all strings found in array `arr', with the
+          string `del' between each element. Only strings are used
+          from the array.  elements that are not strings are ignored.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          explode(3), sprintf(3)
+
+     Page 1                                          (printed 3/16/95)
+

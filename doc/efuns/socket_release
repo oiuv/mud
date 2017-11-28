@@ -1,0 +1,47 @@
+
+     ssssoooocccckkkkeeeetttt____rrrreeeelllleeeeaaaasssseeee((((3333))))      MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))       ssssoooocccckkkkeeeetttt____rrrreeeelllleeeeaaaasssseeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          socket_release() - release ownership of a socket to another
+          object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          #include <socket_err.h>
+
+          int socket_release( int socket, object ob,
+                              string release_callback );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          socket_release() is used to change ownership (and control)
+          of a socket to another object.  It is useful in daemon
+          objects (like inetd) which handle connection set-up and then
+          transfer a connected socket to another object for further
+          processing.
+
+          Socket ownership transfer involves a handshake between the
+          current owner object and the socket to which the current
+          owner wishes to transfer the socket.  The handshake is
+          initiated when socket_release() is called.  socket_release()
+          does appropriate security/integrity checking and then calls
+          the release_callback function in object ob.  This function
+          is used to notify ob that socket ownership is being
+          transferred to it.  It is then ob's responsibility to call
+          socket_acquire() within the release callback function.  If
+          socket_acquire() is called then the handshake is complete
+          and socket ownership has been successfully transferred to
+          ob.  ob may decline to accept responsibility for the socket
+          by not calling socket_acquire(), in which case ownership
+          does not change and the current socket owner must decide how
+          to respond to this.
+
+          If the socket owner is successfully transfered then
+          socket_release() returns EESUCCESS.  If ob does not accept
+          ownership for the socket then EESOCKNOTRLSD is returned.
+          Other errors can be returned based on security violation,
+          bad socket descriptor vbalues, etc.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          socket_acquire(3)
+
+     Page 1                                          (printed 3/16/95)
+

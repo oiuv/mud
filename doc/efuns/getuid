@@ -1,0 +1,20 @@
+
+     ggggeeeettttuuuuiiiidddd((((3333))))              MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))               ggggeeeettttuuuuiiiidddd((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          getuid() - return the user id (uid) of an object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          string getuid( object ob );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Returns the user id of an object.  The uid of an object is
+          determined at object creation by the creator_file()
+          function.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          seteuid(3), geteuid(3), export_uid(3), this_object(3),
+          previous_object(3), creator_file(4), valid_seteuid(4)
+
+     Page 1                                          (printed 3/16/95)
+

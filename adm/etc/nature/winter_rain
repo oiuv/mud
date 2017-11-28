@@ -1,0 +1,72 @@
+#  Spring rainny day phase
+#  The definition of day phase
+#  Format:
+#       length          length of the phase in seconds
+#       time_msg        msg sent to outdoors user at phase starts
+#       desc_msg        desc looked during the period before next phase
+#       event_fun       the function is called in NATURE_D at the phase starts
+#
+#  Phase starts at 0:00 every day
+#
+#  Note the length of a phase is in minutes of a day.
+#
+
+# The two lines defines the data format in 2 lines as
+#
+#  field1:field2:field3....
+#  format1:format2:format3....
+#
+
+hour:time_msg:desc_msg:event_fun:outcolor
+%d:%s:%s:%s:%s
+
+# The following lines are data, each non-blank line will fill in each field
+# in each record sequently.
+
+0
+$HIC$【天色】$BLU$已经是午夜了，天空黑沉沉一片，没有一丝星光。
+$HIC$【寒冬】$BLU$夜幕低垂，星星眨着眼
+event_midnight
+$BLU$
+
+3
+$HIC$【天色】$HIC$天渐渐亮了，竟飘起了雪花，一片片轻轻无言地飘落。
+$HIC$【寒冬】$HIC$东方的天空布满了灰蒙蒙的云层
+event_dawn
+$HIC$
+
+6
+$HIC$【天色】$WHT$雪加着绵绵的小雨无声的下着，不一会地上就湿了。
+$HIC$【寒冬】$WHT$小雪夹杂着雨无声无息的下着
+event_sunrise
+$WHT$
+
+9
+$HIC$【天色】$WHT$雪越下越大了，竟然飘起了棉絮般的大雪，纷纷扬扬好象没个终了的时候。
+$HIC$【寒冬】$WHT$棉絮般的大雪纷纷扬扬的从灰暗的天空中飘落下来
+event_morning
+$WHT$
+
+12
+$HIC$【天色】$WHT$已经是正午了，雪仍然下着，从苍穹中撒落下来的鹅毛。大地一片苍茫。
+$HIC$【寒冬】$WHT$现在是正午时分，天上的云严严实实的，雪下个不停，天地已是一片洁白了
+event_noon
+$WHT$
+
+15
+$HIC$【天色】$HIC$雪终于停了，空气凉丝丝的透着一股凉意，太阳出来了照的大地一片银白。
+$HIC$【寒冬】$HIC$太阳也出来了，大地银装素裹，分外悦目
+event_afternoon
+$HIC$
+
+18
+$HIC$【天色】$HIB$傍晚了，天地间渐渐暗了下来。
+$HIC$【寒冬】$HIB$天渐渐黑了，雪色反光倒也并不很黑
+event_evening
+$HIB$
+
+21
+$HIC$【天色】$HIB$夜晚降临了，满目洁白的世界，粉砌琼雕一般。
+$HIC$【寒冬】$HIB$夜幕笼罩著大地，万物在洁白的厚雪下沉沉睡去
+event_night
+$HIB$

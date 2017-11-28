@@ -1,0 +1,19 @@
+
+     qqqquuuueeeerrrryyyy____llllooooaaaadddd____aaaavvvveeeerrrraaaaggggeeee((((3333))))  MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))   qqqquuuueeeerrrryyyy____llllooooaaaadddd____aaaavvvveeeerrrraaaaggggeeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          query_load_average() - forces an error to occur in an
+          object.
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          string query_load_average( void );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          This function returns a string which reports two things: 1)
+          user commands per second, and 2) compiled lines per second.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          rusage(3)
+
+     Page 1                                          (printed 3/16/95)
+

@@ -1,0 +1,188 @@
+$HIR$注：很多命令都是有多个单词对应的，如果要了解某个命令的详细情
+    况，就输入$HIY$(help xxxx) $HIR$以查询$HIC$xxxx$HIR$命令的详情，包括参数和可
+    以用的同义词。$NOR$
+
+$HIY$【用户命令】$NOR$
+
+alias           定义命令的缩写。
+assist          帮助同门的人完成任务。
+bjtime          现在的北京时间。
+boss            老板保护屏幕。
+bossgone        取消老板保护屏幕。
+brothers        查看兄弟的信息、绝交。
+cls             清屏幕。
+describe        对自己的描述说明。
+exit            当你想暂时离开游戏时, 可利用此一指令。
+femote          根据关键字查找表情动词。
+finger          显示线上玩家资料。
+hatred          显示自己所在的门派的仇恨对象和程度。
+help            显示某一类别、某条命令的帮助。
+hide            隐藏自己的物品。
+hp              显示你的精, 气, 神数值。
+id              让你知道物品的英文名称及名字。
+idle            使一个人发呆。
+inventory       列出你目前身上所携带的所有物品。
+league          查看结义同盟的信息。
+miss            追寻自己的物品。
+news            阅读目前的新闻。
+nick            为自己取一个响亮的名号或头衔或取消绰号。
+passwd          这个指令可以修改你的人物密码。
+pkd             这个指令可以让你查看目前在屠人场中人物。
+save            把你辛苦奋斗的结果存起来。
+score           显示你的基本资料。
+semote          列出目前所能使用的$HIY$emote$NOR$。
+set             设定一些环境变数，请见 $HIY$help settings$NOR$。
+skip            跳过当前收到的信息，查看下一条。
+suicide         自杀。死了就一了百了了。呵呵。
+summon          呼唤自己的物品。
+swear           和朋友结拜，成为异姓骨肉。
+system          显示目前游戏使用资源的情况。
+time            现在的时辰。
+title           显示你目前的阶级和头衔。
+top             显示目前江湖上所有门派的声望。
+unset           删除环境变数的设定。请参见$HIY$set$NOR$。
+uptime          告诉您该泥巴游戏已经连续执行了多久。
+version         显示游戏目前所用的 MudOS driver 版本。
+who             可以列出所有在线上的玩家及其等级。
+wizlist         列出目前所有的巫师名单。
+
+$HIY$【交流探险命令】$NOR$
+
+ansuan          暗算位于<方向>的<人物>。
+apply           使用一个物品。
+ask             打听，解谜。
+attack          让动物攻击敌人。
+beg             乞讨。
+check           打听别人所学过的技能。
+close           这个指令可以让你关上门。
+cook            做饭，干什么？当然是可以吃了。
+come            让动物跟随主人行动。
+daub            在身上、武器、防具上面涂抹东西。
+drive           赶车。
+drop            让你丢下你所携带的物品。
+drug            在食物里面下毒。
+emote           表情动词。参照$HIY$semote$NOR$。
+fight           让你向一个人物「讨教」或者是「切磋武艺」。
+fill            为某个容器续水。
+follow          跟随某人或生物。$HIY$follow none$NOR$ 则停止跟随。
+get             让你捡起地上或容器内的某样物品。
+give            让你将某样物品给别人。
+go              往指定的方向移动。可以用$HIY$e,w,s,n,u,d,enter,out$NOR$等代替。
+guard           守护命令。
+halt            停止战斗、打坐、吐纳等。
+hand            将某件物品拿在手上，以备他用。
+hit             直接向一个人物「进招」。
+kill            你主动开始攻击一个人物，并且试图杀死对方。
+look            查看你所在的环境、某件物品、生物、或是方向。
+makelove        和某人做爱。
+map             绘制地图。
+open            可以让你打开门。
+pour            将某样毒品下到一个容器中的饮食中。
+push            将他人推开。
+put             将某样物品放进一个容器。
+refuse          拒绝某人提出的要求。
+release         结束主奴状态，将动物放离。
+remove          脱掉身上某件防具。
+reply           和刚才用 $HIY$tell$NOR$ 和你说话的使用者说话。
+ride            你骑上代步的已驯养的动物。
+right           同意某人提出的要求。
+say             所有跟你在同一个房间的人都会听到你说的话。
+sleep           睡觉。在可以睡觉的地方睡觉，恢复体力。
+stab            让你将一件道具插在地上。
+stay            停止动物的跟随状态。 
+steal           偷他人身上的东西。
+stop            让动物停止对人的攻击。 
+surrender       投降终止战斗。
+team            队伍指令。
+tell            和其他地方的使用者说话。
+to              可以一次输出多行以上的文字, <指令>通常是输出
+                讯息的指令如$HIY$say, tell, describe, chat, reply$NOR$。
+touch           触摸一件道具，看看会发生什么特殊的事情。
+touxi           向敌人偷袭。偷袭不成时，则会招至反击。
+                特别适合于经验低的玩家向经验高的玩家拚命。
+train           驯化某动物。
+tune            让你选择是否要收听某一频道的讯息。
+unride          让你从骑着的已驯养的动物上跳下来。
+unwield         这个指令让你放下手中的武器。
+vote            此命令提议对某人采取行动，由大家投票决定。
+wash            洗手，物品、防具。
+wear            装备某件防具。
+whisper         用来和同一房间中的人耳语。
+wield           装备某件物品作武器。
+
+$HIY$【各种技能命令】$NOR$
+
+abandon         放弃一项你所学过的技能。
+apprentice      让你拜某人为师。
+berserk         发作，令自己发怒。
+burning         发泄愤怒，提升战斗力。
+closed          大宗师可以用这条指令进行闭关修炼。
+combine         合并物品，生成新的物品。
+derive          汲取实战体会，以提升自己的武学修养。
+detach          请求师傅把你开除。
+enable          指定所要用的技能，需指明技能种类和技能名称。
+enchase         把一个物品镶嵌到另外一个物品中去。
+enforce         指定每次击中敌人时，要发出几点内力伤敌。
+exercise        打坐，运气练功，将气转为内力。
+exert           用内力进行一些特异功能。
+expell          让你开除不成才的弟子。
+imbue           将一个物品浸入到另一个物品中。
+jingzuo         静坐，修炼自己的能力。
+learn           你向别人请教有关某一种技能的疑难问题。
+perform         使用你所学的外功(拳脚、剑法、刀法....)
+                的一些特殊的攻击方式或招式（绝招）。
+persuade        劝架。峨嵋弟子专用。
+pique           在战斗时激发愤怒攻击。
+practice        练习某个种类的技能，这个技能必须是经过
+prepare         指定所要用的拳术技能。
+recruit         让你收某人为弟子。
+research        你对某一种技能进行研究。
+respirate       打坐修行，将你的精转变成精力。
+san             使一个物品圣化以激发它的潜能。
+skills          让你查询所学过的技能。
+study           通过阅读秘笈或其他物品自学某些技巧。
+teach           向你的弟子解释有关某一种技能的疑难问题。
+
+$HIY$【巫师常用命令简介】$NOR$
+
+$HIM$精灵(immortal)$NOR$
+
+cpemote         复制表情动词。
+edemote         编写、删除表情动词。
+flyto           飞到某个场景或某个玩家所在的地方。
+rnemote         更换表情动词的名字。
+
+$HIG$巫师学徒(apprentice)$NOR$
+
+finger          查看目前使用者的IP地址。
+
+$HIC$巫师(apprentice)$NOR$
+
+cd              更换当前所在的路径。
+cp              复制文件。
+mv              移动档案。
+rm              删除文件或路径。
+edit            在线编辑档案。
+more            查阅大档案。
+who1            浏览在线玩家的简略状态。
+who2            浏览在线玩家所出的地点。
+copyskill       复制一个NPC或是其他玩家的属性和武功技能。
+
+$HIY$大巫师(arch)$NOR$
+
+promote         修改使用者的权限。
+examine         检查所有玩家/某个玩家的数据是否异常。
+kickout         将使用者踢出系统。
+purge           删除使用者档案。
+throw           禁闭某个使用者。
+free            释放某个使用者。
+dest            析构物品或是使用者。
+restore         恢复一个玩家的备份数据。
+
+$HIW$天神(admin)$NOR$
+
+auth            文件授权，修改某个巫师对档案的读写权限。
+qinfo           查看当前所有的任务信息。
+grant           授权其他巫师使用某些命令。
+version         版本同步命令。
+query           查询游戏层次数据库中的信息。

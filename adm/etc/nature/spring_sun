@@ -1,0 +1,72 @@
+#  Spring fine day phase
+#  The definition of day phase
+#  Format:
+#       length          length of the phase in seconds
+#       time_msg        msg sent to outdoors user at phase starts
+#       desc_msg        desc looked during the period before next phase
+#       event_fun       the function is called in NATURE_D at the phase starts
+#
+#  Phase starts at 0:00 every day
+#
+#  Note the length of a phase is in minutes of a day.
+#
+
+# The two lines defines the data format in 2 lines as
+#
+#  field1:field2:field3....
+#  format1:format2:format3....
+#
+
+hour:time_msg:desc_msg:event_fun:outcolor
+%d:%s:%s:%s:%s
+
+# The following lines are data, each non-blank line will fill in each field
+# in each record sequently.
+
+0
+$HIC$【天色】$BLU$已经是午夜了，明月当空，春寒料峭。
+$HIG$【暖春】$BLU$夜幕低垂，满天繁星
+event_midnight
+$BLU$
+
+3
+$HIC$【天色】$HIC$玉兔西垂，长庚东升，东方泛起了鱼肚白。
+$HIG$【暖春】$HIC$东方的天空渐渐的发白了
+event_dawn
+$HIC$
+
+6
+$HIC$【天色】$HIY$一道耀眼的金光倏的从东方的天边射了出来，一轮红日跃出天际。
+$HIG$【暖春】$HIY$太阳从东方的地平线冉冉升起，放射着耀眼的光芒
+event_sunrise
+$HIY$
+
+9
+$HIC$【天色】$HIG$太阳已经高高地挂在东方的碧蓝的天空中散射着柔和的光芒，轻轻洒在嫩绿的枝芽上。
+$HIG$【暖春】$HIG$灿烂的阳光遍洒在大地新发的嫩绿枝芽上
+event_morning
+$HIG$
+
+12
+$HIC$【天色】$HIG$已经是正午了，阳光下蝶飞蜂舞，百花丛里掩不住春泥的芬芳。
+$HIG$【暖春】$HIG$现在是正午时分，太阳高挂在你的头顶正上方
+event_noon
+$HIG$
+
+15
+$HIC$【天色】$HIC$太阳开始从西方的瓦蓝瓦蓝的天空中，暖暖地照着万物生机。
+$HIG$【暖春】$HIC$太阳正高挂在西方的天空中
+event_afternoon
+$HIC$
+
+18
+$HIC$【天色】$HIR$傍晚了，太阳的馀晖将西方的天空映成一片火红。
+$HIG$【暖春】$HIR$一轮火红的夕阳正徘徊在西方的地平线上
+event_evening
+$HIR$
+
+21
+$HIC$【天色】$HIB$结束一天的喧闹，夜晚悄悄地降临了。
+$HIG$【暖春】$HIB$夜幕笼罩著大地，四野渐渐沉寂
+event_night
+$HIB$

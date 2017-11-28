@@ -1,0 +1,18 @@
+
+     aaaappppppppllllyyyy((((3333))))               MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))                aaaappppppppllllyyyy((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          apply() - evaluate a function pointer
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          mixed apply(mixed f, mixed *args)
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          If f is a function, f is called with the array 'args'
+          expanded as it's arguments.  For example,
+
+          apply(f, ({ 1, 2, 3 }) ) is the same as evaluate(f, 1, 2,
+          3);
+
+     Page 1                                          (printed 3/16/95)
+

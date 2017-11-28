@@ -1,0 +1,29 @@
+
+     mmmmaaaapppp____aaaarrrrrrrraaaayyyy((((3333))))           MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))            mmmmaaaapppp____aaaarrrrrrrraaaayyyy((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          map_array() - modify an array of elements via application of
+          a function
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          mixed *map_array( mixed *arr, string fun, object ob,
+                            mixed extra, ... );
+          mixed *map_array( mixed *arr, function f, mixed extra, ... );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Returns an array holding the items of `arr' mapped through
+          either `ob->fun()' or 'f'.  The function is called for each
+          element in 'arr' with that element as a parameter. A second
+          parameter `extra' is sent in each call if given.  Principal
+          function:
+
+               foreach (index) arr[index] = ob->fun(arr[index],extra);
+
+          The value returned by `ob->fun(arr[.index.], extra)' replaces the existing
+          element in the array. If `arr' is not an array, then 0 will be returned.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          filter_array(3), sort_array(3), map(3)
+
+     Page 1                                          (printed 3/16/95)
+

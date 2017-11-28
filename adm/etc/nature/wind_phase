@@ -1,0 +1,65 @@
+#
+#  The definition of day phase
+#  Format:
+#       length          length of the phase in seconds
+#       time_msg        msg sent to outdoors user at phase starts
+#       desc_msg        desc looked during the period before next phase
+#       event_fun       the function is called in NATURE_D at the phase starts
+#
+#  Phase starts at 0:00 every day
+#
+#  Note the length of a phase is in minutes of a day.
+#
+
+# The two lines defines the data format in 2 lines as
+#
+#  field1:field2:field3....
+#  format1:format2:format3....
+#
+
+length:time_msg:desc_msg:event_fun
+%d:%s:%s:%s
+
+# The following lines are data, each non-blank line will fill in each field
+# in each record sequently.
+
+240
+东方的天空中开始出现一丝微曦。
+东方的天空已逐渐发白
+event_dawn
+
+120
+太阳从东方的地平线升起了。
+太阳刚从东方的地平线升起
+event_sunrise
+
+180
+太阳已经高高地挂在东方的天空中。
+太阳正高挂在东方的天空中
+event_morning
+
+180
+已经是正午了，太阳从你正上方照耀著大地。
+现在是正午时分，太阳高挂在你的头顶正上方
+event_noon
+
+180
+太阳开始从西方的天空中慢慢西沉。
+太阳正高挂在西方的天空中
+event_afternoon
+
+180
+傍晚了，太阳的馀晖将西方的天空映成一片火红。
+一轮火红的夕阳正徘徊在西方的地平线上
+event_evening
+
+120
+夜晚降临了。
+夜幕笼罩著大地
+event_night
+
+240
+已经是午夜了。
+夜幕低垂，满天繁星
+event_midnight
+

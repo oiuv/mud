@@ -1,0 +1,33 @@
+
+指令格式: league info [玩家] | hatred [玩家] | member [同盟名字] | top
+          
+查看目前你结义的同盟的各种信息，其中：
+
+info     ：查看同盟中的人物，成员状态，声望。
+hatred   ：查看同盟的仇恨对象。
+member   ：查看某个同盟的成员（仅巫师可用）。
+top      ：查看结义同盟的声望排名。
+
+add      ：增加一个同盟成员。
+kick     ：开除一个同盟成员。
+dismiss  ：强行解散当前同盟。
+？       ：查看有关同盟指令的信息。
+kill     ：号召同一房间的成员攻击某一目标（计划中的玩家除外）。
+grant    ：修改成员权限。
+           格式： league grant [id] [0-4]
+                  0 ：取消该成员所有权限。
+                  1 ：league add [] 权限。 
+                  2 ：league kill [] 权限。 
+                  3 ：league kick [] 权限。
+                  4 ：待扩展。
+            注：权限是从0到4递增，比如赋予了某人（league grant who 3）的权限，
+                那么该人不但有kick的权限，而且低于kick以下的权限（add, kill）
+                都将拥有。
+
+set      ： 参数设置。
+            格式：league set <参数>  <变量> 。
+                  league set          ：显示当前设置。
+                  league set no_kill  ：不参与同盟战斗（不响应任何人号召league kill）。
+                  league set weiwang  ：每次获取威望的时候将分给同盟 weiwang％　的威望。     
+
+see also: team (团体同盟)

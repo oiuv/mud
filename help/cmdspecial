@@ -1,0 +1,49 @@
+泥潭常用指令详细解说如下：
+
+
+    本游戏的玩家可以使用五大类指令：系统指令、聊天指令、
+冒险指令、武功指令以及特殊指令。基本指令是ＭＵＤ一般都有
+的指令，故用英文表示。括号内表示可用的命令缩写。
+
+
+
+$HIY$【钱庄用指令】$NOR$
+
+    $HIC$check$NOR$
+    指令格式：check或check〈人物〉。
+    在银行中是查账，丐帮弟子可以有它察别人的功夫。
+
+    $HIC$withdraw(qu)$NOR$
+    指令格式：withdraw 数量 货币类。
+    取款，例如：withdraw 1 silver。
+    取款在扬州要收取百分之十的手续费。其它地方却不一定。
+
+    $HIC$deposit(cun)$NOR$
+    指令格式：deposite 。
+    存款，例如：deposite 10 silver。存款免收手续费。
+
+    $HIC$convert(duihuan)$NOR$
+    指令格式：convert 数量 旧货币 to 新货币。
+    兑换货币，例如：convert 300 silver to gold。
+
+
+$HIY$【店铺用指令】$NOR$
+
+    $HIC$list$NOR$
+    指令格式：list。在商店中查有什么物品。
+
+    $HIC$buy$NOR$
+    指令格式：buy 〈物名〉 from 〈人名〉。这个指令让你购
+买你所需要的东西。
+
+    $HIC$sell$NOR$
+    指令格式：sell 〈物名〉或sell 〈物名〉 to 〈人名〉。
+    卖掉你不要的东西。
+
+    $HIC$value$NOR$
+    指令格式：value 〈物名〉。 
+    给物品估价。
+
+    $HIC$redeem$NOR$
+    指令格式：redeem 〈玩家名〉。
+    把人赎出来。

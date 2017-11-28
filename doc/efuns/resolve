@@ -1,0 +1,30 @@
+
+     rrrreeeessssoooollllvvvveeee((((3333))))             MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))              rrrreeeessssoooollllvvvveeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          resolve() - resolve an internet address to domain name, or
+          vice versa
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int resolve( string address, string callback_func );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          resolve() resolves `address', which should be an internet
+          address in the form "127.0.0.1" or a domain name, into its
+          domain name, or internet address.  When the resolve is
+          complete, `callback_func' will be called in the current
+          object.  The form of the callback is:
+
+          void callback(string address, string resolved, int key);
+
+          `key' will match up with the number that the call to
+          resolve() returned.  `address' will be the domain name of
+          the host, and `resolved' the dotted decimal ip address.  The
+          unknown value will be 0 if the lookup failed.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          query_host_name(3), socket_address(3), query_ip_name(3),
+          query_ip_number(3)
+
+     Page 1                                          (printed 3/16/95)
+

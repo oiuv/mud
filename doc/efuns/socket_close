@@ -1,0 +1,34 @@
+
+     ssssoooocccckkkkeeeetttt____cccclllloooosssseeee((((3333))))        MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))         ssssoooocccckkkkeeeetttt____cccclllloooosssseeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          socket_close() - close a socket
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          #include <socket_err.h>
+
+          int socket_close( int s );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          socket_close() closes socket s. This frees a socket efun
+          slot for use.
+
+     RRRREEEETTTTUUUURRRRNNNN VVVVAAAALLLLUUUUEEEESSSS
+          socket_close() returns:
+
+               EESUCCESS on success.
+
+               a negative value indicated below on error.
+
+     EEEERRRRRRRROOOORRRRSSSS
+          EEFDRANGE      Descriptor out of range.
+
+          EEBADF         Descriptor is invalid.
+
+          EESECURITY     Security violation attempted.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          socket_accept(3), socket_create(3)
+
+     Page 1                                          (printed 3/16/95)
+

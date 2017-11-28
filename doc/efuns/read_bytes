@@ -1,0 +1,23 @@
+
+     rrrreeeeaaaadddd____bbbbyyyytttteeeessss((((3333))))          MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))           rrrreeeeaaaadddd____bbbbyyyytttteeeessss((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          read_bytes() - reads a contiguous series of bytes from a
+          file into a string
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          string read_bytes( string path, int start, int length );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          This function reads 'length' bytes beginning at byte #
+          'start' in the file named 'path'.  The bytes are returned as
+          a string.  Note that (start + length) must not be past the
+          end of the file or else read_bytes will fail.  If the second
+          and third arguments are omitted, the entire file is
+          returned.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          read_file(3), write_bytes(3)
+
+     Page 1                                          (printed 3/16/95)
+

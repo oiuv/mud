@@ -1,0 +1,23 @@
+
+     ssssnnnnoooooooopppp((((3333))))               MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))                ssssnnnnoooooooopppp((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          snoop() - snoop an interactive user
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          varargs object snoop( object snooper, object snoopee );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          When both arguments are used, begins snooping of `snoopee'
+          by `snooper'.  If the second argument is omitted, turns off
+          all snooping by `snoopee'.  Security for snoop() is normally
+          controlled by a simul_efun.  snoop() returns `snoopee' if
+          successful in the two-argument case, and `snooper' if it was
+          successful in the single-argument case.  A return of 0
+          indicates failure.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          query_snoop(3), query_snooping(3)
+
+     Page 1                                          (printed 3/16/95)
+

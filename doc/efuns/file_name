@@ -1,0 +1,22 @@
+
+     ffffiiiilllleeee____nnnnaaaammmmeeee((((3333))))           MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))            ffffiiiilllleeee____nnnnaaaammmmeeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          file_name() - get the file name of an object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          string file_name( object ob );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          file_name() returns the name of the file from which <ob> was
+          loaded.  If the object is a cloned object, then file_name()
+          will not be an actual file on disk, but will be the name of
+          the file from which the object was originally cloned,
+          appended with an octothorpe (#) and the object instance
+          number.  Object instance numbers start at 0 when the game is
+          booted, and increase by one for each object cloned, hence
+          the number is unique for each cloned object.  <ob> defaults
+          to this_object() if not specified.
+
+     Page 1                                          (printed 3/16/95)
+

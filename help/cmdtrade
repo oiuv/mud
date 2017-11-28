@@ -1,0 +1,56 @@
+──────────────────────────────
+$BBLU$$HIY$                      【商业指令介绍】                      $NOR$
+──────────────────────────────
+
+$HIY$【店铺命令】$NOR$
+
+设定伙计描述：$HIC$modify  <项目> <内容>$NOR$
+
+              店铺伙计的描述项目共包括名字($HIY$name$NOR$)、信息($HIY$desc$NOR$)
+              头衔($HIY$title$NOR$)以及绰号($HIY$nickname$NOR$)四项。
+
+货物标价出售：$HIC$stock   <货物> <价值> *$NOR$
+
+              其中货物价值($HIY$value$NOR$)中的($HIY$*$NOR$)乃是以铜板作为单位的
+              价格，最高可标价一千两黄金，而税金则是提取交易
+              货物成交价格的百分之一。
+
+货物取消出售：$HIC$unstock <货物>$NOR$
+
+设置店铺贵宾：$HIC$invite | vip <id> <num>$NOR$
+
+              为店铺添加贵宾,其中($HIY$num 1 - 9$NOR$)表示可对享受该待
+              遇的玩家打一至九折，而($HIY$num 10$NOR$)表示取消指定贵宾
+              资格，仅输入($HIY$invite$NOR$)则可查看当前的贵宾名单。
+
+设置店铺黑户：$HIC$ban | unwelcome <id>$NOR$
+
+              为店铺添加黑户，有黑户标记的玩家不能在该店铺购
+              买任何物品。使用($HIY$ban - <id>$NOR$)则可以取消指定了的
+              黑户,仅输入($HIY$ban$NOR$)则可查看当前已设定好的黑户名单。
+
+$HIY$【拍卖命令】$NOR$
+
+列出拍卖店铺：$HIC$list$NOR$
+举牌参与竞价：$HIC$jupai$NOR$
+
+$HIY$【巫师命令】$NOR$
+
+初始所有店铺：$HIC$shop reset$NOR$
+指定店铺主人：$HIC$shop owner$NOR$
+开放指定店铺：$HIC$shop open$NOR$
+关闭指定店铺：$HIC$shop close$NOR$
+开始店铺拍卖：$HIC$start$NOR$
+进行自动拍卖：$HIC$auto$NOR$
+禁止某人参加：$HIC$ban$NOR$
+选择拍卖店铺：$HIC$qiao$NOR$
+结束店铺拍卖：$HIC$finish$NOR$
+
+──────────────────────────────
+$BBLU$$HIY$                        【 综  述 】                        $NOR$
+──────────────────────────────
+游戏中的所有的玩家均可通过($HIY$shop$NOR$)指令来查看当前的店铺状况。各
+个城市的店铺均在该地区的马厩二楼，因此交通非常便利。只要用心
+经营，富甲天下便不再是梦想。通过经商来操纵整个游戏和掌管天下
+货物流向，把握住武林豪杰的命脉，叱咤风云，指日可待。
+

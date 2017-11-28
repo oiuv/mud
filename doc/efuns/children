@@ -1,0 +1,29 @@
+
+     cccchhhhiiiillllddddrrrreeeennnn((((3333))))            MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))             cccchhhhiiiillllddddrrrreeeennnn((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          children() - returns an array of objects cloned from a given
+          object.
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          object *children( string name );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          This efunction returns an array of objects that have been
+          cloned from the file named by 'name', as well as the object
+          'name' itself, if loaded.  An example use of children() is
+          to find all objects that have been cloned from the user
+          object:
+
+               object *list;
+
+               list = children("/obj/user");
+
+          This lets you find all users (both netdead and interactive
+          whereas users() only reports interactive users).
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          deep_inherit_list(3), inherit_list(3), objects(3)
+
+     Page 1                                          (printed 3/16/95)
+

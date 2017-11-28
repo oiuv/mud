@@ -1,0 +1,26 @@
+
+     ccccaaaallllllll____oooouuuutttt((((3333))))            MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))             ccccaaaallllllll____oooouuuutttt((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          call_out() - delayed function call in same object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void call_out( string | function fun, int delay, mixed arg
+          );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Set up a call of function <fun> in this_object(). The call
+          will take place in <delay> seconds, with the argument <arg>
+          provided. <arg> can be of any type.
+
+          Please note that you can't rely on write() or say() in <fun>
+          since this_player() is set to 0. Use tell_object() instead.
+
+          The define THIS_PLAYER_IN_CALL_OUT exists to remedy the
+          above problem.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          remove_call_out(3), call_out_info(3)
+
+     Page 1                                          (printed 3/16/95)
+

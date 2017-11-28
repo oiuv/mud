@@ -1,0 +1,25 @@
+
+     ffffuuuunnnnccccttttiiiioooonnnn____eeeexxxxiiiissssttttssss((((3333))))     MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))      ffffuuuunnnnccccttttiiiioooonnnn____eeeexxxxiiiissssttttssss((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          function_exists() - find the file containing a given
+          function in an object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSYYYYSSSS
+          string function_exists( string str, object ob );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Return the file name of the object that defines the function
+          `str' in object `ob'. The returned value can be other than
+          `file_name(ob)' if the function is defined by an inherited
+          object.
+
+          0 is returned if the function was not defined.
+
+          Note that function_exists() does not check shadows.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          call_other(3), call_out(3), functionp(3), valid_shadow(4)
+
+     Page 1                                          (printed 3/16/95)
+

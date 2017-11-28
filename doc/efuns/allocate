@@ -1,0 +1,19 @@
+
+     aaaallllllllooooccccaaaatttteeee((((3333))))            MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))             aaaallllllllooooccccaaaatttteeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          allocate() - allocate an array
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          mixed *allocate( int size );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Allocate an array of <size> elements.  The number of
+          elements must be >= 0 and not bigger than a system maximum
+          (usually ~10000).  All elements are initialized to 0.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          sizeof(3), allocate_mapping(3)
+
+     Page 1                                          (printed 3/16/95)
+

@@ -1,0 +1,35 @@
+本游戏的命令分为下列几类：
+
+$HIY$【玩家命令】$NOR$
+$HIC$
+assist    alias     bjtime    boss      bossgone  brothers  cls
+describe  divorce   engage    exit      finger    hatred    help
+hp        hide      id        idle      inventory league    mail
+mudlist   miss      nick      news      passwd    pkd       quest
+save      score     semote    set       skip      suicide   summon
+swear     system    top       time      title     title     tune
+unset     uptime    version   who       wimpy     wizlist
+$NOR$
+
+$HIY$【探险命令】$NOR$
+$HIC$
+ansuan    apply     ask       assist    attack    beg       check
+close     come      daub      drive     drop      drug      emote
+enchase   fight     follow    get       give      go        guard
+halt      hand      hit       hubo      imbue     kill      look
+makelove  map       open      pour      push      put       refuse
+release   remove    reply     ride      right     say       semote
+san       sleep     stab      stay      steal     stop      surrender
+team      tell      to        touch     touxi     train     unride
+unwield   vote      wash      wear      whisper   wield
+$NOR$
+
+$HIY$【武功命令】$NOR$
+$HIC$
+abadon/fangqi       apprentice/bai      derive/jiqu         detach/tuoli
+enable/jifa         enforce/jiali       exercise/dazuo      exert/yun
+expell/kaichu       jingzuo             learn/xue           perform/yong
+persuade/quanjia    practice/lian       prepare/bei         recruit/shou
+research|yanjiu     respirate/tuna      skills/cha          study/du
+teach/jiao
+$NOR$

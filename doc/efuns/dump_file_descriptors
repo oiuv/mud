@@ -1,0 +1,40 @@
+
+     dddduuuummmmpppp____ffffiiiilllleeee____ddddeeeessssccccrrrriiiippppttttoooorrrrssss((((3333))))MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))dddduuuummmmpppp____ffffiiiilllleeee____ddddeeeessssccccrrrriiiippppttttoooorrrrssss((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          dump_file_descriptors() - dump the MudOS process file
+          descriptor table
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void dump_file_descriptors( void );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          This function is provided to assist in debugging the MudOS
+          driver and helps overcome deficiencies in some UN*X
+          implementations which do not provide equivalent or superior
+          debugging facilities as part of the operating system itself.
+          The interpretation of the output is very system-dependent.
+          Each file descriptor is checked to determine whether it
+          refers to an open file.  If so, information is displayed
+          from the "stat structure" returned by the fstat() system
+          call.
+
+          The following output was produced on Lambda Realms running
+          on a Sequent DYNIX/ptx system:
+
+          Fd  Device Number  Inode   Mode    Uid    Gid      Size
+          --  -------------  -----  ------  -----  -----  ----------
+           0     3      2    10319  c  666      0      3           0
+           1    79      7   164598  f  644   2862      1      789522
+           2    79      7   164598  f  644   2862      1      789522
+           3    40    33b     6925  c    0   2862      1           0
+           4    40    2a4     6943  c    0   2862      1           0
+           5    79      7   164599  f  600   2862      1       44784
+           6    40    2e2   145996  c    0   2862      1           0
+           7    79      7   164601  f  644   2862      1         506
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          dump_socket_status(3)
+
+     Page 1                                          (printed 3/16/95)
+

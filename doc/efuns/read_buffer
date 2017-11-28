@@ -1,0 +1,34 @@
+
+     rrrreeeeaaaadddd____bbbbuuuuffffffffeeeerrrr((((3333))))         MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))          rrrreeeeaaaadddd____bbbbuuuuffffffffeeeerrrr((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          read_buffer() - read from a file and return a buffer, or
+          return part of a buffer as a string
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          string | buffer read_buffer( string | buffer src,
+                                       int start,  int len );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          If `src' is a string (filename), then the filename will be
+          read, starting at byte # `start', for `len' bytes, and
+          returned as a buffer.  If neither argument is given, the
+          entire file is read.
+
+          If `src' is a buffer, then characters are read from the
+          buffer beginning at byte # `start' in the buffer, and for
+          `len' # of bytes, and returned as a string.
+
+          Note that the maximum number of bytes you can read from a
+          file and into a buffer is controlled via the 'maximum byte
+          transfer' parameter in the runtime config file.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          write_buffer(3), allocate_buffer(3), bufferp(3),
+          read_bytes(3), write_bytes(3)
+
+     AAAAUUUUTTTTHHHHOOOORRRR
+          Truilkan
+
+     Page 1                                          (printed 3/16/95)
+

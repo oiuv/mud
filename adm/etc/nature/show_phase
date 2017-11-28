@@ -1,0 +1,72 @@
+#
+#  The definition of day phase
+#  Format:
+#       length          length of the phase in seconds
+#       time_msg        msg sent to outdoors user at phase starts
+#       desc_msg        desc looked during the period before next phase
+#       event_fun       the function is called in NATURE_D at the phase starts
+#
+#  Phase starts at 0:00 every day
+#
+#  Note the length of a phase is in minutes of a day.
+#
+
+# The two lines defines the data format in 2 lines as
+#
+#  field1:field2:field3....
+#  format1:format2:format3....
+#
+
+length:time_msg:desc_msg:event_fun:outcolor
+%d:%s:%s:%s
+
+# The following lines are data, each non-blank line will fill in each field
+# in each record sequently.
+
+0
+$HIC$【天色】$BLU$已经是午夜了。
+$HIG$【窗外】$BLU$夜幕低垂，满天繁星
+event_midnight
+$BLU$
+
+3
+$HIC$【天色】$WHT$东方的天空中开始出现一丝微曦。
+$HIG$【窗外】$WHT$东方的天空已逐渐发白
+event_dawn
+$WHT$
+
+6
+$HIC$【天色】$HIC$太阳从东方的地平线升起了。
+$HIG$【窗外】$HIC$太阳刚从东方的地平线升起
+event_sunrise
+$HIC$
+
+9
+$HIC$【天色】$HIW$太阳已经高高地挂在东方的天空中。
+$HIG$【窗外】$HIW$太阳正高挂在东方的天空中
+event_morning
+$HIW$
+
+12
+$HIC$【天色】$HIY$已经是正午了，太阳从你正上方照耀著大地。
+$HIG$【窗外】$HIY$现在是正午时分，太阳高挂在你的头顶正上方
+event_noon
+$HIY$
+
+15
+$HIC$【天色】$GRN$太阳开始从西方的天空中慢慢西沉。
+$HIG$【窗外】$GRN$太阳正高挂在西方的天空中
+event_afternoon
+$GRN$
+
+18
+$HIC$【天色】$HIR$傍晚了，太阳的馀晖将西方的天空映成一片火红。
+$HIG$【窗外】$HIR$一轮火红的夕阳正徘徊在西方的地平线上
+event_evening
+$HIR$
+
+21
+$HIC$【天色】$HIB$夜晚降临了。
+$HIG$【窗外】$HIB$夜幕笼罩著大地
+event_night
+$HIB$

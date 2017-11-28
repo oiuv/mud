@@ -1,0 +1,20 @@
+
+     eeeevvvvaaaallll____ccccoooosssstttt((((3333))))           MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))            eeeevvvvaaaallll____ccccoooosssstttt((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          eval_cost() - returns the evaluation cost remaining
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void eval_cost()
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          eval_cost() returns the number of instructions that can be
+          executed before the driver decides it is in an infinite
+          loop.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          catch(3), error(3), throw(3), error_handler(4),
+          set_eval_limit(3), reset_eval_cost()
+
+     Page 1                                          (printed 3/16/95)
+

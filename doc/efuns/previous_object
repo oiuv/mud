@@ -1,0 +1,26 @@
+
+     pppprrrreeeevvvviiiioooouuuussss____oooobbbbjjjjeeeecccctttt((((3333))))     MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))      pppprrrreeeevvvviiiioooouuuussss____oooobbbbjjjjeeeecccctttt((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          previous_object() - returns the object(s) that called the
+          current function
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          mixed previous_object( int | void );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Returns an object pointer to the object, if any, that called
+          current function.  Note that local function calls do not set
+          previous_object() to the current object, but leave it
+          unchanged.  If passed a positive integer, it goes back the
+          given number of previous objects in the calling chain.
+          previous_object(0) is the same as previous_object(),
+          previous_object(1) is the previous object's
+          previous_object(), etc.  previous_object(-1) returns an
+          array containing all of the previous objects.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          call_other(3), call_out(3), origin(3)
+
+     Page 1                                          (printed 3/16/95)
+

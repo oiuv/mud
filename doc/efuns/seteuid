@@ -1,0 +1,25 @@
+
+     sssseeeetttteeeeuuuuiiiidddd((((3333))))             MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))              sssseeeetttteeeeuuuuiiiidddd((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          seteuid() - set the effective user id (euid) of an object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int seteuid( string str );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Set effective uid to `str'.  valid_seteuid() in master.c
+          controls which values the euid of an object may be set to.
+
+          When this value is 0, then the current object's uid can be
+          changed by export_uid(), and only then.
+
+          But, when the value is 0, no objects can be loaded or cloned
+          by this object.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          export_uid(3), getuid(3), geteuid(3), this_object(3),
+          valid_seteuid(4)
+
+     Page 1                                          (printed 3/16/95)
+

@@ -1,0 +1,50 @@
+──────────────────────────────
+$BBLU$$HIW$                        【拱猪玩法】                        $NOR$
+──────────────────────────────
+
+一．	拱猪用牌
+
+	为了方便用户输入，我采取了 OKbridge 的表示法，即：
+	花色用： S = 黑桃， H = 红心， D = 方块， C = 梅花
+	大小用： 2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K, A
+	例如：黑桃９为 S9，红心Ｋ为 HK，以此类推……
+	
+二．	指令列表：
+	
+	bid <card>
+		卖牌，只在卖牌时用。 example: bid sq
+
+	claim [yes|no]
+		发出全收要求，其他玩家可以通过或否决。
+		example: claim		发出要求	
+		example: claim yes	同意
+		example: claim no	否决
+		
+	deal
+		桌长命令，开始发牌。
+
+	leave
+		离开所在的牌局。
+
+	pass
+		卖牌结束。
+
+	play <card>
+		出牌。 example: play d7
+
+	refresh	
+		显示自己手中的牌。		
+
+	sell <card>
+		和 bid 完全一样。
+
+	sit <dir>
+		加入牌局，如果是第一个加入的人，将被指定为桌长。
+		example: sit south
+
+	skip 
+		桌长命令，跳过这副牌。
+
+	另外可以用 l table 和 l scoreboard 得到更多的消息。
+
+Ｂｙ　翔少爷　（１９９６．１．２）

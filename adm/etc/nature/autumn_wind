@@ -1,0 +1,72 @@
+#  Spring rainny day phase
+#  The definition of day phase
+#  Format:
+#       length          length of the phase in seconds
+#       time_msg        msg sent to outdoors user at phase starts
+#       desc_msg        desc looked during the period before next phase
+#       event_fun       the function is called in NATURE_D at the phase starts
+#
+#  Phase starts at 0:00 every day
+#
+#  Note the length of a phase is in minutes of a day.
+#
+
+# The two lines defines the data format in 2 lines as
+#
+#  field1:field2:field3....
+#  format1:format2:format3....
+#
+
+hour:time_msg:desc_msg:event_fun:outcolor
+%d:%s:%s:%s:%s
+
+# The following lines are data, each non-blank line will fill in each field
+# in each record sequently.
+
+0
+$HIC$【天色】$BLU$已经是午夜了，夜风拂过漫天的繁星。
+$HIY$【爽秋】$BLU$更深夜沉，满天繁星
+event_midnight
+$BLU$
+
+3
+$HIC$【天色】$CYN$东方渐渐露出了鱼肚白，明亮的启明星悄然融化在天际幕后。
+$HIY$【爽秋】$CYN$东方的地平线上渐渐有了黎明的颜色
+event_dawn
+$CYN$
+
+6
+$HIC$【天色】$WHT$太阳从东方的地平线升起了，苍白无力地发射着光芒。
+$HIY$【爽秋】$WHT$起风了，一片片发黄的树叶，纷纷扬扬随风飘起
+event_sunrise
+$WHT$
+
+9
+$HIC$【天色】$HIY$风更大了，卷着枯叶，沙土在地上飞快地打着旋。
+$HIY$【爽秋】$HIY$风更大了，呼呼的吹着，树上的枯叶一片片的落了下来
+event_morning
+$HIY$
+
+12
+$HIC$【天色】$HIY$已经是正午了，风没有一点停的意思，太阳早已不知藏到了什么地方。
+$HIY$【爽秋】$HIY$现在是正午时分，遮天蔽日的尘土飞得老高，天色黄黄的
+event_noon
+$HIY$
+
+15
+$HIC$【天色】$HIW$风渐渐的小了些，太阳又露出了半张脸，在西方的天空中小心的看着这个世界。
+$HIY$【爽秋】$HIW$风小些了，尘土渐渐落了下来，太阳也出来了
+event_afternoon
+$HIW$
+
+18
+$HIC$【天色】$HIR$残阳如血，风停了，树上的叶子掉了好多。
+$HIY$【爽秋】$HIR$一轮火红的夕阳正徘徊在西方的地平线上，天边被染成了一片鲜红
+event_evening
+$HIR$
+
+21
+$HIC$【天色】$HIB$夜幕被晚风轻轻地拉上，大地慢慢安静下来了。
+$HIY$【爽秋】$HIB$夜幕笼罩著大地，四野的秋虫在呢喃
+event_night
+$HIB$

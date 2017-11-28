@@ -1,0 +1,16 @@
+
+$HIC$┌───────────────────────────┐
+│                $NOR$$WHT$店铺拍卖巫师操作手册$HIC$                  │
+├───────────────────────────┤
+│ $NOR$$WHT$①  拍卖启动前确保已经初始化($HIY$shop reset$NOR$$WHT$)所有店铺。$HIC$   │
+│ $NOR$$WHT$②  启动拍卖($HIY$start <任意参数>$NOR$$WHT$)进程，缺省为手工操作。$HIC$ │
+│ $NOR$$WHT$③  拍卖指定店铺指令为($HIY$auction <店铺名称>$NOR$$WHT$)。$HIC$         │
+│ $NOR$$WHT$④  手工操作转为自动进程指令为($HIY$auto$NOR$$WHT$)。$HIC$               │
+│ $NOR$$WHT$⑤  查看当前拍卖情况指令($HIY$paimailist$NOR$$WHT$)。$HIC$               │
+│ $NOR$$WHT$⑥  取消玩家拍卖资格($HIY$unwelcome <id> [1|0]$NOR$$WHT$)。$HIC$         │
+│ $NOR$$WHT$⑦  请使用落棰($HIY$qiao$NOR$$WHT$)宣报拍卖价格。$HIC$                   │
+│ $NOR$$WHT$⑧  结束拍卖($HIY$finish$NOR$$WHT$)，店铺全部拍卖完毕才能使用。$HIC$     │
+│ $NOR$$WHT$⑨  主持巫师断线、离开或发呆，拍卖将转化为自动进程。$HIC$ │
+│ $NOR$$WHT$⑩  系统将会记录下整个拍卖的全过程。$HIC$                 │
+└───────────────────────────┘$NOR$
+

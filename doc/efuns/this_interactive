@@ -1,0 +1,17 @@
+
+     tttthhhhiiiissss____iiiinnnntttteeeerrrraaaaccccttttiiiivvvveeee((((3333))))    MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))     tttthhhhiiiissss____iiiinnnntttteeeerrrraaaaccccttttiiiivvvveeee((((3333))))
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          object this_interactive();
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Return the object representing the player that caused the
+          calling function to be called.  This returns what
+          this_player() was originally even if it changed later due to
+          enable_commands() or command()
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          this_object(3), this_player()
+
+     Page 1                                          (printed 3/16/95)
+
