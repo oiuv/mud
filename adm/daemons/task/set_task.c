@@ -179,13 +179,17 @@ int do_return(object ob, object me, string arg)
        return notify_fail("你还是得等人家醒了再说吧。\n");
 
 
-    if ( me->query("mirror_task/task_time") != ob->query("task_time") )
+    /*if ( me->query("mirror_task/task_time") != ob->query("task_time") )
        {
          me->delete("mirror_task");
          me->set("mirror_task/task_time", ob->query("task_time") );
-       }
-
+       }*/
+	   //取消task每轮清零
+	if(me->query("mirror_task/count")<30)
        me->add("mirror_task/count",1);
+	else
+		me->set("mirror_task/count",1);
+
        me->add("mirror_count",1);
 
        count =  me->query("mirror_task/count");
