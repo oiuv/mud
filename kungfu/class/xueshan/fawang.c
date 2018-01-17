@@ -74,7 +74,7 @@ LONG);
         set_skill("cuff", 280);
         set_skill("yujiamu-quan", 280);
         set_skill("parry", 300);
-        set_skill("lamaism", 300);
+        set_skill("lamaism", 360);
         set_skill("literate", 300);
         set_skill("sanscrit", 300);
         set_skill("martial-cognize", 300);
