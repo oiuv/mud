@@ -171,12 +171,12 @@ int do_du(string arg)
 
         if (skill == "九阴神爪")
         {
-                if (me->query("can_perform/jinyin-baiguzhao/zhua"))
+                if (me->query("can_perform/jiuyin-baiguzhao/zhua"))
                 {
                         write("你不是已经会了吗？\n"); 
                         return 1;
                 }
-                if (me->query_skill("jinyin-baiguzhao", 1) < 120)
+                if (me->query_skill("jiuyin-baiguzhao", 1) < 120)
                 {
                         write("你九阴白骨爪不够熟练，无法领悟该招。\n");
                         return 1;
@@ -185,12 +185,12 @@ int do_du(string arg)
                 tell_object(me, HIG "你学会了「九阴神爪」。\n" NOR);
                 me->receive_damage("jing", 80);
                 me->start_busy(2);
-                me->set("can_perform/jinyin-baiguzhao/zhua", 1);
+                me->set("can_perform/jiuyin-baiguzhao/zhua", 1);
 
            	if (me->can_improve_skill("claw"))
                    	me->improve_skill("claw", 1500000);
-           	if (me->can_improve_skill("jinyin-baiguzhao"))
-                   	me->improve_skill("jinyin-baiguzhao", 1500000); 
+           	if (me->can_improve_skill("jiuyin-baiguzhao"))
+                   	me->improve_skill("jiuyin-baiguzhao", 1500000); 
            	if (me->can_improve_skill("martial-cognize"))
                    	me->improve_skill("martial-cognize", 1500000);
 
@@ -201,12 +201,12 @@ int do_du(string arg)
 
         if (skill == "夺命连环爪")
         {
-                if (me->query("can_perform/jinyin-baiguzhao/duo"))
+                if (me->query("can_perform/jiuyin-baiguzhao/duo"))
                 {
                         write("你不是已经会了吗？\n"); 
                         return 1;
                 }
-                if (me->query_skill("jinyin-baiguzhao", 1) < 140)
+                if (me->query_skill("jiuyin-baiguzhao", 1) < 140)
                 {
                         write("你九阴白骨爪不够熟练，无法领悟该招。\n");
                         return 1;
@@ -215,12 +215,12 @@ int do_du(string arg)
                 tell_object(me, HIG "你学会了「夺命连环爪」。\n" NOR);
                 me->receive_damage("jing", 80);
                 me->start_busy(2);
-                me->set("can_perform/jinyin-baiguzhao/duo", 1);
+                me->set("can_perform/jiuyin-baiguzhao/duo", 1);
 
            	if (me->can_improve_skill("claw"))
                    	me->improve_skill("claw", 1500000);
-           	if (me->can_improve_skill("jinyin-baiguzhao"))
-                   	me->improve_skill("jinyin-baiguzhao", 1500000); 
+           	if (me->can_improve_skill("jiuyin-baiguzhao"))
+                   	me->improve_skill("jiuyin-baiguzhao", 1500000); 
            	if (me->can_improve_skill("martial-cognize"))
                    	me->improve_skill("martial-cognize", 1500000);
 
