@@ -73,7 +73,7 @@ int perform(object me, object target)
                 //增强伤害
                 me->add_temp("apply/damage", count);
                 me->add_temp("apply/unarmed_damage", count);
-                i += random(6);
+				i += 1+random(5); //由0~5修改为1~5
         } else
         {
                 msg += CYN "$n" CYN "见$N" CYN "身法好快，哪里"
