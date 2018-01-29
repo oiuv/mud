@@ -359,6 +359,7 @@ int difficult_level()
 }
 */
 //转世特技六阴鬼脉降低研究难度 by 薪有所属
+//进一步降低降低研究难度200 by over 20180129
 int difficult_level()
 {
      object me; 
@@ -370,7 +371,7 @@ int difficult_level()
      if (! me->query("special_skill/guimai"))
         return 1200;
      else
-        return 1000 - lv;
+        return 800 - lv;
 
 }
 string perform_action_file(string action)
