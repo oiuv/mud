@@ -21,6 +21,9 @@ int perform(object me, object target)
 
         if (! me->is_fighting(target))
                 return notify_fail("「万蛊噬天」只能对战斗中的对手使用。\n");
+//晕倒后不可以再出pfm by over 20180129
+		if (! living(target))
+                return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         if (me->query_skill_prepared("hand") != "qianzhu-wandushou")
                 return notify_fail("你没有准备使用千蛛万毒手，无法施展万蛊噬天。\n");
