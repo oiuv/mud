@@ -64,16 +64,16 @@ int perform(object me, object target)
 	msg = HIR "$N" HIR "默运葵花魔功，身形变得奇快无比，接连从不同的方位向$n"
               HIR "攻出数招！\n" NOR;
         i = 5;
-        if (lvl * 11 / 20 + random(lvl) > (int)target->query_skill("dodge", 1))
+        if (lvl * 2 / 3 + random(lvl) > (int)target->query_skill("dodge", 1))
         {
                 msg += HIR "$n" HIR "只觉得眼前一花，发现四周都是$N"
                        HIR "的身影，不由暗生惧意，接连后退。\n" NOR;
-                count = me->query_skill("kuihua-mogong", 1) / 5;
+                count = me->query_skill("kuihua-mogong", 1) / 4
                 me->add_temp("apply/attack", count);
                 //增强伤害
                 me->add_temp("apply/damage", count);
                 me->add_temp("apply/unarmed_damage", count);
-                i += random(6);
+				i += 1+random(5); //由0~5修改为1~5
         } else
         {
                 msg += CYN "$n" CYN "见$N" CYN "身法好快，哪里"

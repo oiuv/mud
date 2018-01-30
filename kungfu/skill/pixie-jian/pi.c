@@ -61,10 +61,17 @@ int perform(object me, object target)
               HIW "幻作数道虚影，顿时无数星光一齐射向$n" HIW "！\n" NOR;
         message_combatd(msg, me, target);
 
-        count = skill / 4;
-        me->add_temp("apply/attack", count);
-        me->add_temp("apply/damage", count);
-        me->add_temp("apply/unarmed_dage", count);
+		//修正无命中条件限制bug，并降低增伤效果
+        dp = target->query_skill("dodge", 1);
+        if (skill / 2 + random(skill) > dp)
+		{
+			count = skill / 6;
+			me->add_temp("apply/attack", count);
+			me->add_temp("apply/damage", count);
+			me->add_temp("apply/unarmed_dage", count);
+		}
+		else
+			count = skill / 15;
 
         me->add_temp("pixie-jian/hit_msg", 1);
 

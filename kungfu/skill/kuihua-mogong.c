@@ -179,7 +179,7 @@ int valid_learn(object me)
 
         level = me->query_skill("kuihua-mogong", 1);
 
-        if ((int)me->query_skill("martial-cognize", 1) < level)
+        if ((int)me->query_skill("martial-cognize", 1) < 500 && (int)me->query_skill("martial-cognize", 1) < level)
                 return notify_fail("你觉得自己的武学修养有限，难以领会更高深的葵花魔功。\n");
 
         for (i = 0; i < sizeof(usage_skills); i++)
@@ -202,6 +202,7 @@ int difficult_level()
 */
 
 //转世特技六阴鬼脉降低研究难度 by 薪有所属
+//无鬼脉特技研究难度降低，基本平衡4大终极武功 by MK 2018-01-30
 int difficult_level()
 {
      object me; 
@@ -211,7 +212,7 @@ int difficult_level()
      if (lv > 200) lv = 200; 
      
      if (! me->query("special_skill/guimai"))
-        return 1400;
+        return 1400 - lv;
      else
         return 1200 - lv;
 }

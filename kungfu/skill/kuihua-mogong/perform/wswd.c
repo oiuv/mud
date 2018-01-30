@@ -30,10 +30,10 @@ int perform(object me, object target)
     if (me->query_skill("kuihua-mogong", 1) < 400)
         return notify_fail("以你目前的修为来看，还不足以运用"WS"\n");
 	
-    if (me->query("max_neili") < 2000)
+    if (me->query("max_neili") < 8000)
         return notify_fail("你的内力修为不够运用"WS"所需！\n");
 	
-    if (me->query("neili") < 1000)
+    if (me->query("neili") < 1500)
         return notify_fail("你的内力不够运用"WS"所需！\n");
 	        
 	if (! living(target))
@@ -58,11 +58,13 @@ int perform(object me, object target)
               HIY "$n" BLU "只觉得已经跌入了万劫魔域之中，"HIY"$N手中"+weapon->name()+
               WHT "如同地狱中的鬼火般，从各个方位刺了过来，避无可避！\n" NOR);  
 			  
-            if(me->query("can_perform/kuihua-mogong/wd"))
-                call_out("perform2", 0, me, target);
-            else       //没学会无对
-                call_out("check_wd", 3, me);
-        }             
+        }
+		//取消无双未命中时无对无法触发的设定 by MK 2018-01-30
+        if(me->query("can_perform/kuihua-mogong/wd"))
+            call_out("perform2", 0, me, target);
+        else       //没学会无对
+            call_out("check_wd", 3, me);
+
         message_vision(msg, me, target);
 			
     return 1;
