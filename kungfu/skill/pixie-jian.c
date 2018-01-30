@@ -359,20 +359,19 @@ int difficult_level()
 }
 */
 //转世特技六阴鬼脉降低研究难度 by 薪有所属
-//进一步降低降低研究难度200 by over 20180129
+//已削弱辟邪pfm效果，故小幅降低研究难度 by over and MK 18-01-23
 int difficult_level()
 {
      object me; 
      int lv;
      me = this_player(); 
      lv = me->query_skill("pixie-jian", 1) - 180; 
-     if (lv > 200) lv = 200; 
+     if (lv > 400) lv = 400; 
      
      if (! me->query("special_skill/guimai"))
-        return 1200;
+        return 1200 - lv/2;	
      else
-        return 800 - lv;
-
+        return 1000 - lv;
 }
 string perform_action_file(string action)
 {

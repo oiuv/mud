@@ -30,10 +30,10 @@ int perform(object me, object target)
     if (me->query_skill("kuihua-mogong", 1) < 400)
         return notify_fail("以你目前的修为来看，还不足以运用"WS"\n");
 	
-    if (me->query("max_neili") < 7000)
-        return notify_fail("你的内力修为不够，难以施展"WSWD"！\n");
+    if (me->query("max_neili") < 8000)
+        return notify_fail("你的内力修为不够运用"WS"所需！\n");
 	
-    if (me->query("neili") < 1000)
+    if (me->query("neili") < 1500)
         return notify_fail("你的内力不够运用"WS"所需！\n");
 	        
 	if (! living(target))
@@ -43,7 +43,7 @@ int perform(object me, object target)
     msg =HIM "$N突然身形一转眨眼间使出葵花魔功的终极绝招----"NOR""WSWD""HIM"之"NOR""WS"\n"HIW"$N眼神莹然有光，似乎进入了魔境之中。\n"
     "$N手中" + weapon->name() + "化做无双剑影攻向$n。\n";
 
-        if (ap *2/3 + random(ap) < dp)
+        if (ap *3/5 + random(ap) < dp)
         {
             msg += HIG "然而$n" HIG "抵挡得法，将$N" HIG
             "的攻势一一化解。\n" NOR;
@@ -59,7 +59,7 @@ int perform(object me, object target)
               WHT "如同地狱中的鬼火般，从各个方位刺了过来，避无可避！\n" NOR);  
 			  
         }
-		//取消无双未命中时无对无法触发的设定 by MK
+		//取消无双未命中时无对无法触发的设定 by MK 2018-01-30
         if(me->query("can_perform/kuihua-mogong/wd"))
             call_out("perform2", 0, me, target);
         else       //没学会无对
@@ -84,7 +84,7 @@ int perform2(object me, object target)
 		
         msg =HIM "说时迟那时快，$N身形逆转使出了"NOR""WSWD"之"WD""HIM"式，刹那间天空阴云密布，\n"NOR""HIM"$n的心脏几乎停止了跳动，呆呆的望着$N\n"NOR;
 
-        if (ap *3/ 5 + random(ap) < dp)
+        if (ap / 2 + random(ap) < dp)
         {
             msg += HIG "这时$n屏住呼吸" HIG "抵挡得法，将$N" HIG"的攻势一一化解。\n" NOR;
 			  me->start_busy(2);
