@@ -36,8 +36,9 @@ int perform(object me, object target)
         if (! living(target))
               return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIY "$N" HIY "双掌一错，幻化出无数掌影，层层叠荡向$n"
+		msg = HIY "$N" HIY "双掌一错，幻化出无数掌影，层层叠荡向$n"
               HIY "逼去！\n" NOR;
+		message_combatd(msg, me, target);	//修正pfm描述信息显示时间错误 by MK
 
         ap = me->query_skill("jiujin-shengong", 1);
         dp = target->query_skill("parry", 1);
@@ -63,7 +64,6 @@ int perform(object me, object target)
         me->add("neili", -320);
 
         me->add_temp("apply/attack", -count);
-	message_combatd(msg, me, target);
 
 	return 1;
 }
