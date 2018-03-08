@@ -58,10 +58,12 @@ void create()
                 HERB("heshouwu"),       // ºÎÊ×ÎÚ
                 HERB("honghua"),        // ºì»¨
                 HERB("huangqi"),        // »ÆÜÎ
+				HERB("hugu"),			// »¢¹Ç
                 HERB("juhua"),          // ¾Õ»¨
                 HERB("lanhua"),         // À¼»¨
                 HERB("lingxian"),       // ÁéÏÉ
                 HERB("lingzhi"),        // ÁéÖ¥
+				HERB("lurong"),		// Â¹È×
                 HERB("mahuang"),        // Âé»Æ
                 HERB("moyao"),          // Ã»Ò©
                 HERB("niuhuang"),       // Å£»Æ
@@ -82,6 +84,7 @@ void create()
                 HERB("wulingzhi"),      // ÎåÁéÖ¬
                 HERB("xiefen"),         // Ð«·Û
                 HERB("xijiao"),         // Ï¬½Ç
+				HERB("xiongdan"),		// ÐÜµ¨
                 HERB("xionghuang"),     // ÐÛ»Æ
                 HERB("xuejie"),         // Ñª½ß
                 HERB("xuelian"),        // Ñ©Á«
