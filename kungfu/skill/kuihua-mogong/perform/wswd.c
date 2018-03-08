@@ -12,7 +12,7 @@ int perform(object me, object target)
 	object weapon;
     string msg;
     int ap, dp;
-    int damage;
+    int damage,busy,cost;
 
     if( !target ) target = offensive_target(me);
 	
@@ -30,8 +30,8 @@ int perform(object me, object target)
     if (me->query_skill("kuihua-mogong", 1) < 400)
         return notify_fail("以你目前的修为来看，还不足以运用"WS"\n");
 	
-    if (me->query("max_neili") < 2000)
-        return notify_fail("你的内力修为不够运用"WS"所需！\n");
+    if (me->query("max_neili") < 7000)
+        return notify_fail("你的内力修为不够运用"WSWD"所需！\n");
 	
     if (me->query("neili") < 1000)
         return notify_fail("你的内力不够运用"WS"所需！\n");
@@ -46,28 +46,32 @@ int perform(object me, object target)
         if (ap *3/5 + random(ap) < dp)
         {
             msg += HIG "然而$n" HIG "抵挡得法，将$N" HIG
-            "的攻势一一化解。\n" NOR;
-			me->start_busy(2);
+            "的攻势化解。\n" NOR;
+			busy = 2;
             me->add("neili", -300);
         } else
         {
-			me->start_busy(1);
-            me->add("neili",-500);
+			busy = 1;
+            me->add("neili", -500);
             damage = ap + random(ap * 1 / 4) - random(100);
             msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 80,
               HIY "$n" BLU "只觉得已经跌入了万劫魔域之中，"HIY"$N手中"+weapon->name()+
               WHT "如同地狱中的鬼火般，从各个方位刺了过来，避无可避！\n" NOR);  
 			  
-            if(me->query("can_perform/kuihua-mogong/wd"))
-                call_out("perform2", 0, me, target);
-            else       //没学会无对
+            if(me->query("can_perform/kuihua-mogong/wd")){
+                call_out("perform2", 0, me, target, busy);
+			}
+            else{
+				//没学会无对
+				me->start_busy(busy);
                 call_out("check_wd", 3, me);
+			}
         }             
         message_vision(msg, me, target);
 			
     return 1;
 }
-int perform2(object me, object target)
+int perform2(object me, object target,int busy)
 {       int ap, dp;
         string msg;
         int damage;	
@@ -85,17 +89,18 @@ int perform2(object me, object target)
         if (ap / 2 + random(ap) < dp)
         {
             msg += HIG "这时$n屏住呼吸" HIG "抵挡得法，将$N" HIG"的攻势一一化解。\n" NOR;
-			  me->start_busy(2);
+			  busy += 2;
               me->add("neili", -300);
         } else
         {
-			me->start_busy(1);
+			busy += 1;
             me->add("neili",-600);
             damage = ap + random(ap * 1 / 2) - random(100);
             msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 100,
               HIY "$n" BLU "只觉身上如同万剑穿心一般，"HIY"$N"
               WHT "如同死神一般，势必要取$n性命！\n" NOR);
         }
+		me->start_busy(busy);
         message_vision(msg, me, target);
         return 1;
 }
