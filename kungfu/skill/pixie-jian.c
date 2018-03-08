@@ -359,16 +359,17 @@ int difficult_level()
 }
 */
 //转世特技六阴鬼脉降低研究难度 by 薪有所属
+//已削弱辟邪pfm效果，故小幅降低研究难度 by over and MK
 int difficult_level()
 {
      object me; 
      int lv;
      me = this_player(); 
      lv = me->query_skill("pixie-jian", 1) - 180; 
-     if (lv > 200) lv = 200; 
+     if (lv > 400) lv = 400; 
      
      if (! me->query("special_skill/guimai"))
-        return 1200;
+        return 1200 - lv;
      else
         return 1000 - lv;
 
