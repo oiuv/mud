@@ -469,6 +469,7 @@ void zhuan_player(object me)
         me->delete("opinions");              // 宗师身份
         me->delete("out_family");            // 出师历练
 
+        me->delete("quest");					// 门派任务
         me->delete("quest_count");           // 门派任务
         me->delete("map");                   // 地图标志
         me->delete("rumor");                 // 事件记录
