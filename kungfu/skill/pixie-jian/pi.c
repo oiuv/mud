@@ -60,14 +60,8 @@ int perform(object me, object target)
         msg = HIW "$N" HIW "身形忽然变快，蓦的冲向$n" HIW "，" + name +
               HIW "幻作数道虚影，顿时无数星光一齐射向$n" HIW "！\n" NOR;
         message_combatd(msg, me, target);
-		
-		//修正伤害加成不经判断bug
-		dp = target->query_skill("dodge", 1);
-        if (skill / 2 + random(skill) > dp)
-			count = skill / 6;	//降低辟邪剑伤害加成
-		else
-			count = skill / 15;
 
+        count = skill / 4;
         me->add_temp("apply/attack", count);
         me->add_temp("apply/damage", count);
         me->add_temp("apply/unarmed_dage", count);
