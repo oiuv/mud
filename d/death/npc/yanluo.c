@@ -51,20 +51,20 @@ void create()
         set("max_neili", 50000);
         set("jiali", 800);
 
-        set("combat_exp", 50000000);
+        set("combat_exp", 100000000);
 
-        set_skill("unarmed", 800);
-        set_skill("finger", 800);
-        set_skill("claw", 800);
-        set_skill("strike", 800);
-        set_skill("hand", 800);
-        set_skill("cuff", 800);
-        set_skill("parry", 800);
-        set_skill("dodge", 800);
-        set_skill("force", 800);
-        set_skill("jiuyin-shengong", 800);
-        set_skill("magic", 800);
-        set_skill("literate", 800);
+        set_skill("unarmed", 999);
+        set_skill("finger", 999);
+        set_skill("claw", 999);
+        set_skill("strike", 999);
+        set_skill("hand", 999);
+        set_skill("cuff", 999);
+        set_skill("parry", 999);
+        set_skill("dodge", 999);
+        set_skill("force", 999);
+        set_skill("jiuyin-shengong", 999);
+        set_skill("magic", 999);
+        set_skill("literate", 999);
 
         map_skill("parry", "jiuyin-shengong");
         map_skill("force", "jiuyin-shengong");

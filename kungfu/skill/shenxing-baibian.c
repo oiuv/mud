@@ -38,3 +38,8 @@ int practice_skill(object me)
       me->add("neill", -14);
       return 1;
 }
+
+string perform_action_file(string action)
+{
+        return __DIR__"shenxing-baibian/" + action;
+}

@@ -7,8 +7,6 @@ string *ob_list = ({
                 "/clone/fam/gift/int2",
                 "/clone/fam/gift/con2",
                 "/clone/fam/gift/dex2",
-                "/clone/fam/item/zijin",
-                "/clone/fam/item/wujin",
 });
 
 void create()

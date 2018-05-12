@@ -62,7 +62,7 @@ mapping mixed_poison(mapping p1, mapping p2)
 int do_effect(object ob, string cnd, mapping p)
 {
         mapping cnd_info;
-//      int d;
+        int d;
 
         if (! p || ! intp(p["level"]) || ! intp(p["duration"]) ||
             ! stringp(p["id"]))
@@ -126,7 +126,9 @@ int dispel(object me, object ob, mapping cnd)
         }
 
         // È¥Òì³£ÄÜÁ¦
-        power = me->query_skill("force") + me->query_skill("poison") / 2;
+        power = me->query_skill("force") + 
+				me->query_skill("poison") / 2 + 
+				me->query_skill("medical") / 4;
         if (me == ob)
         {
                 if (cnd["id"] == me->query("id"))
@@ -209,7 +211,7 @@ string die_reason(string name)
         if (! name || name == "¶¾")
                 return "¶¾·¢ÉíÍöÁË";
         else
-                return name + HIM "·¢×÷ÉíÍöÁË÷";
+                return name + HIM "·¢×÷ÉíÍöÁË?;
 }
 
 int update_condition(object me, mapping cnd)

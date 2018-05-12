@@ -10,26 +10,26 @@ inherit F_OBSAVE;
 inherit F_NOCLONE;
 
 int is_item_make() { return 1; }
-
-#define	LEVEL1		5
-#define	LEVEL2		10
-#define	LEVEL3		30
-#define	LEVEL4		100
-#define	LEVEL5		300
-#define	LEVEL6		1000
-#define	LEVEL7		3000
-#define	LEVEL8		10000
-#define	LEVEL9		50000
+//新lib这里全部加了一个0 ~_~
+#define	LEVEL1		50
+#define	LEVEL2		100
+#define	LEVEL3		300
+#define	LEVEL4		1000
+#define	LEVEL5		3000
+#define	LEVEL6		10000
+#define	LEVEL7		30000
+#define	LEVEL8		100000
+#define	LEVEL9		500000
 #define MAX_LEVEL       LEVEL9
 #define ULTRA_LEVEL     (LEVEL9 + 1)
 
-STATIC_VAR_TAG int *levels = ({ LEVEL1, LEVEL2, LEVEL3, LEVEL4,
+static int *levels = ({ LEVEL1, LEVEL2, LEVEL3, LEVEL4,
                         LEVEL5, LEVEL6, LEVEL7, LEVEL8,
                         LEVEL9 });
 
-STATIC_VAR_TAG int performing  = 0;
-STATIC_VAR_TAG int attack_lvl  = 0;
-STATIC_VAR_TAG int defense_lvl = 0;
+static int performing  = 0;
+static int attack_lvl  = 0;
+static int defense_lvl = 0;
 
 int is_stay_in_room() { return attack_lvl >= ULTRA_LEVEL; }
 

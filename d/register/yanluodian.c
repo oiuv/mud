@@ -110,13 +110,13 @@ int do_wash(string arg)
         if( !arg || sscanf(arg, "%d %d %d %d", tmpstr, tmpint, tmpcon,tmpdex)!=4 )
                 return notify_fail("指令格式：washto <膂力> <悟性> <根骨> <身法>\n");
         if( tmpstr>30) return notify_fail("你所选择的膂力参数不能大于30。\n");
-        if( tmpstr<13) return notify_fail("你所选择的膂力参数不能小于13。\n");
+        if( tmpstr<10) return notify_fail("你所选择的膂力参数不能小于13。\n");
         if( tmpint>30) return notify_fail("你所选择的悟性参数不能大于30。\n");
-        if( tmpint<13) return notify_fail("你所选择的悟性参数不能小于13。\n");
+        if( tmpint<10) return notify_fail("你所选择的悟性参数不能小于13。\n");
         if( tmpcon>30) return notify_fail("你所选择的根骨参数不能大于30。\n");
-        if( tmpcon<13) return notify_fail("你所选择的根骨参数不能小于13。\n");
+        if( tmpcon<10) return notify_fail("你所选择的根骨参数不能小于13。\n");
         if( tmpdex>30) return notify_fail("你所选择的身法参数不能大于30。\n");
-        if( tmpdex<13) return notify_fail("你所选择的身法参数不能小于13。\n");
+        if( tmpdex<10) return notify_fail("你所选择的身法参数不能小于13。\n");
         if((tmpstr+tmpint+tmpcon+tmpdex)!=80) return notify_fail("你所选择的属性总和必须为80。\n");
 
         write(HIC "你跳入忘忧池，顿时被一股激流卷了进去。\n" NOR, me);

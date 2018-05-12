@@ -20,7 +20,9 @@ void create()
                 set("material_attrib", "ying luo");
                 set("material_name", HIW "七色璎珞" NOR);
                 set("can_make", "all");
-                set("power_point", 200);
+				set("not_make", ({ "战衣", "腰带", "护腕", "靴子" }));
+                //set("power_point", 200);
+				set("power_point", 50);
         }
 }
 

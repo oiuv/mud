@@ -154,9 +154,8 @@ int do_return(object ob, object me, string arg)
 {
     string target, item;
     object who,pay;
-    //int count,exp,pot,tihui,gx;
-    int count,exp,pot,gx;
-    //增加阅历奖励 2016-12-21
+    int count,exp,pot,tihui,gx;
+	//增加阅历奖励 2016-12-21
     int score;
     int kar;
         
@@ -189,8 +188,7 @@ int do_return(object ob, object me, string arg)
        me->add("mirror_count",1);
 
        count =  me->query("mirror_task/count");
- 
-/*
+ /* 
     exp = 1000 + random(1000);
    
     if ( count > 20 ) pot = 800 + random(100);
@@ -218,10 +216,8 @@ int do_return(object ob, object me, string arg)
     if ( count == 10 ) pot += 1000;
     if ( count == 20 ) pot += 3000;
     if ( count == 30 ) pot += 10000;//每次更新30个task物品，故30个全部完成理应加大奖励幅度（我怎么感觉30个全完成是不可能的事情。。。） 2017-02-02
-
-
-
-    //gx = 1 + random(2);
+    
+	//gx = 1 + random(2);
     gx = 2 + random(2);
     //增加阅历奖励 2016-12-21
     kar = me->query("kar");//修改阅历增加和福缘挂钩 2016-12-21
@@ -244,7 +240,7 @@ int do_return(object ob, object me, string arg)
                      "个宝镜任务。\n"NOR +
                   HIG"通过这次锻炼，你获得了"NOR HIR + chinese_number(exp)+
                   HIG"点经验，"NOR HIW + chinese_number(pot) + NOR
-                  HIG"点潜能，"NOR HIC + chinese_number(score) + NOR + HIG"点阅历。\n"NOR
+                  HIG"点潜能。\n"NOR
                   HIW"外加奖励三十两白银，以及" + chinese_number(gx) +
                   "点门派贡献。\n"NOR);
     if ( me->query("mirror_count"))
@@ -302,18 +298,16 @@ string set_item(object me)
         // 完成400个task：稀有特殊合成材料
         string *ob4_list = ({
                 "/clone/fam/item/xuantie",//天山玄铁（100point，打造刀、剑）
-                "/clone/fam/etc/lv5f",  //极北寒玉
-                "/clone/fam/etc/prize4",//圣杯
-                "/clone/fam/etc/prize5",//神圣血清
+                //"/clone/fam/etc/lv5f",  //极北寒玉
+                //"/clone/fam/etc/prize4",//圣杯
+                //"/clone/fam/etc/prize5",//神圣血清
+				"/clone/fam/max/xuanhuang-1",
+				"/clone/fam/max/longjia-1",
         });
 
-         // 完成500个task：无花果、新增珍稀刺青大图
+         // 完成500个task：无花果
         string *ob5_list = ({
-                "/clone/fam/obj/guo",//无花果
-                "/clone/fam/obj/guo",//无花果（加大无花果出现机率）
-                //"/clone/tattoo/spc11",//本草知识大图
-                //"/clone/tattoo/spc12",//狂暴铁拳大图
-                //"/clone/tattoo/spc13",//周天运转大图
+                "/clone/fam/obj/guo",
         });
         string gift;
         object item;
@@ -328,7 +322,7 @@ string set_item(object me)
         	
         if (me->query("mirror_count") == 200)
         {
-                gift = ob2_list[random(sizeof(ob2_list))];
+                gift = ob1_list[random(sizeof(ob2_list))];
               //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
               //me->name(1), me->query("id"), ctime(time())));
 
@@ -336,7 +330,7 @@ string set_item(object me)
         	
         if (me->query("mirror_count") == 300)
         {
-                gift = ob3_list[random(sizeof(ob3_list))];
+                gift = ob1_list[random(sizeof(ob3_list))];
               //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
               //me->name(1), me->query("id"), ctime(time())));
 
@@ -344,7 +338,7 @@ string set_item(object me)
         
         if (me->query("mirror_count") == 400)
         {
-                gift = ob4_list[random(sizeof(ob4_list))];
+                gift = ob1_list[random(sizeof(ob4_list))];
               //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
               //me->name(1), me->query("id"), ctime(time())));
 
@@ -353,7 +347,7 @@ string set_item(object me)
         if (me->query("mirror_count") == 500)
         {
               me->delete("mirror_count");
-              gift = ob5_list[random(sizeof(ob5_list))];
+              gift = ob2_list[random(sizeof(ob5_list))];
               //log_file("static/mirror", sprintf("%s(%s) 获得无花果 at %s.\n",
               //me->name(1), me->query("id"), ctime(time())));
 

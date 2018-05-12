@@ -4,6 +4,8 @@ inherit NPC;
 #define HEILONG    "/clone/lonely/heilongbian"
 #define LING       "/clone/lonely/item/tongjiling"
 
+mixed ask_skill1();
+
 void create()
 {
         object ob;
@@ -62,7 +64,8 @@ LONG);
 
         set("inquiry", ([
                 "史松"   : "谁杀了史松这奸贼，我可以帮他提高江湖威望。",
-                "断字诀" : "我总得留两手吧？",
+                //"断字诀" : "我总得留两手吧？",
+				"断字诀" : (: ask_skill1 :),
         ]));
 
         set("chat_chance", 2);
@@ -141,5 +144,44 @@ int recognize_apprentice(object me, string skill)
                 command("say 俺就只有这一套刀法拿得出手。");
                 return -1;
         }
+        return 1;
+}
+
+mixed ask_skill1()
+{
+        object me;
+
+        me = this_player();
+
+        if (me->query("can_perform/wuhu-duanmendao/duan"))
+                return "这一招我不是已经教过你了吗？";
+
+        if (me->query_skill("wuhu-duanmendao", 1) < 1)
+                return "你连五虎断门刀都没学，还谈什么绝招可言？";
+
+        //if (me->query("gongxian") < 200)
+        //        return "你在教内甚无作为，这招我暂时还不能传你。";
+
+        if (me->query("score") > 500000)
+                return "你已是成名大侠，就算学会这招又有什么用？";
+
+        if (me->query_skill("force") < 100)
+                return "你的内功火候尚需提高，练好了再来找我吧。";
+
+        if (me->query_skill("wuhu-duanmendao", 1) < 60)
+                return "你的五虎断门刀还练得不到家，自己下去练练再来吧！";
+
+        message_sort(HIY "\n$n" HIY "朝$N" HIY "微微点了点头，说道：“看"
+                     "好了！”说完$n" HIY "一声断喝，猛然伏地，手中钢刀，"
+                     "携着开天辟地之势连出数刀，气势恢弘之极，顿时一片白"
+                     "光向前直滚而去！真可谓是惊天地，泣鬼神，直把$N" HIY
+                     "看得目瞪口呆。\n\n" NOR, me, this_object()); 
+					 
+        command("nod2");
+        command("say 招式便是如此，你自己下去练吧。");
+        tell_object(me, HIC "你学会了「断」字决。\n" NOR);
+        me->set("can_perform/wuhu-duanmendao/duan", 1);
+        //me->add("gongxian", -200);
+
         return 1;
 }

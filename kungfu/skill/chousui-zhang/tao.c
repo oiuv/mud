@@ -59,10 +59,8 @@ int perform(object me, object target)
               "听$N" HIR "骨骼“噼里啪啦”一阵爆响，双臂顺着喷出的"
               "血柱一推，刹那间一座丈来高的奇毒火墙拔地而起，带\n"
               "着排山倒海之势向$n" HIR "涌去！\n" NOR;
-        //me->start_busy(4 + random(4));
-        me->start_busy(3 + random(3));
-        //me->set("neili", 0);
-        me->add("neili", -1000);
+        me->start_busy(4 + random(4));
+        me->set("neili", 0);
         me->add("max_neili", -50);
 
         lvl = me->query_skill("chousui-zhang", 1);
@@ -75,7 +73,7 @@ int perform(object me, object target)
                        "的推出，掌风澎湃，强大的气流顿时将火浪"
                        "刮得倒转，竟然掉头向$N" WHT "扑去。\n\n" NOR;
                 msg += HIR "$N" HIR "一声惨笑，长叹一声，眼前一黑，倒在了地上。\n\n" NOR;
-                //me->add("max_neili", -random(50));
+                me->add("max_neili", -random(50));
 
                 remove_call_out("unconcious_me");
                 call_out("unconcious_me", 1, me);               
@@ -83,7 +81,8 @@ int perform(object me, object target)
         } else
         {
                 ap = me->query_skill("poison", 1) / 2 +
-                     me->query_skill("force");
+					 me->query_skill("force, 1");
+                     //me->query_skill("force");
                 if (ap + random(ap) < target->query_skill("dodge"))
                 {
                         msg += CYN "$n" CYN "见势不妙，急忙腾挪身形，避开了$N" CYN "的攻击。\n" NOR;
@@ -94,7 +93,7 @@ int perform(object me, object target)
                 {
                         msg += HIR "$n" HIR "见滔天热浪扑面涌来，只觉眼前一片通红，"
                                "已被卷入火浪，毒焰席卷全身，连骨头都要烤焦一般。\n" NOR;
-                        //me->add("max_neili", -random(50));
+                        me->add("max_neili", -random(50));
                         target->affect_by("fire_poison",
                                        ([ "level" : me->query("jiali") * 3 + random(me->query("jiali") * 2),
                                           "id"    : me->query("id"),

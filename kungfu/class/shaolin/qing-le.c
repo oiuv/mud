@@ -6,7 +6,7 @@ inherit NPC;
 string ask_me_1();
 string ask_me_2();
 
-STATIC_VAR_TAG string *check_skill = ({
+static string *check_skill = ({
         "buddhism",
         "dodge",
         "shaolin-shenfa",
@@ -121,16 +121,19 @@ string ask_me_2()
 	mapping fam; 
 	object ob;
 	object me;
-	int i;
-	
+	int i, n, lvl;
+
 	me = this_player();
-	if (!(fam = me->query("family")) ||
-            fam["family_name"] != "少林派")
+	if (!(fam = me->query("family")) || fam["family_name"] != "少林派")
 		return RANK_D->query_respect(me) + 
 		"与本派素无来往，不知此话从何谈起？";
 
+	n = fam["generation"];
+	n = 41 - n;
+	lvl = n * 20 + 30;
+	
 	for(i=0; i< sizeof(check_skill); i++) {
-		if (me->query_skill(check_skill[i], 1) < 30)
+		if (me->query_skill(check_skill[i], 1) < lvl)
 		return RANK_D->query_respect(me) +
 		       "你" + to_chinese(check_skill[i]) +
                        "的功力不够，不能领取达摩令。";

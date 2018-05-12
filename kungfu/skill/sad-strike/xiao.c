@@ -65,7 +65,7 @@ int perform(object me, object target)
         me->add_temp("apply/attack", count);
 
         me->add("neili", -400);
-        for (i = 0; i < 8; i++)
+        for (i = 0; i < 6; i++)
         {
                 if (! me->is_fighting(target))
                         break;

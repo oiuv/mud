@@ -256,6 +256,11 @@ int get_ready(object me)
 
 int get_finish(object me)
 {
+		if (!ob->query("reborn"))
+		{
+				tell_object(me, "你还没有转世，不能演练六脉神剑。\n");
+                return 0;
+		}
         if (me->query("int") < 36)
         {
                 tell_object(me, "你演练完毕，只感六种剑法毫无牵连，看来依你的悟性，无"
@@ -316,7 +321,7 @@ int get_finish(object me)
                 return 0;           
         }
 
-        if (random(10) < 7)
+        if (random(10) > 7)
         {
                 tell_object(me, "你觉得有所感悟，或许再演练一次就能融会贯通，练成六脉"
                                 "神剑。\n");

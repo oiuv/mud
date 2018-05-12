@@ -54,7 +54,11 @@ int do_effect(object me)
         message_vision(WHT "$N" WHT "一仰脖，吞下了一" +
                        query("base_unit") + name() + WHT
                        "。\n" NOR, me);
-
+		if (me->query("gift/gift_all") >= 10)
+		{
+                tell_object(me, "已经超过10颗啦，是药三分毒，再吃小心拉肚子。\n");
+				me->add("gift/gift_all", -1);
+        } else
         if (me->query("gift/" + query("gift_type") + "/all") >= 10)
         {
                 tell_object(me, "你觉得这药好象没什么效果。\n");
@@ -69,8 +73,7 @@ int do_effect(object me)
         } else
         {
                 tell_object(me, query("gift_msg"));
-                tell_object(me, HIC "你的" + query("gift_name") +
-                                HIC "永久增加一点。\n" NOR);
+                tell_object(me, HIC "你的" + query("gift_name") + HIC "永久增加一点。\n" NOR);
 
                 // 记录成功的记号
                 me->add("gift/" + query("gift_type") + "/succeed", 1);
@@ -81,7 +84,8 @@ int do_effect(object me)
 
         // 记录入吃丹的总量
         me->add("gift/" + query("gift_type") + "/all", 1);
-
+		me->add("gift/gift_all", 1);
+		
         add_amount(-1);
         if (query_amount() < 1)
                 destruct(this_object());

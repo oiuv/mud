@@ -6,7 +6,7 @@
 #include <quest.h>
 
 #pragma optimize
-//#pragma save_binary
+#pragma save_binary
 
 inherit F_DBASE;
 
@@ -37,234 +37,175 @@ private void special_bonus(object me, object who, mixed arg)
         // 随机奖励
         
         string *ob1_list = ({
-                "/clone/fam/pill/puti1",
-                "/clone/fam/pill/sheli1",
-                "/clone/fam/pill/linghui1",
-                "/clone/fam/pill/full1",
-                "/clone/fam/pill/neili1",
-                "/clone/fam/etc/va1",
-                "/clone/fam/etc/va2",
-                "/clone/fam/etc/va3",
-                "/clone/fam/etc/va4",
-                "/clone/fam/etc/va5",
-                "/clone/fam/etc/va6",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danA_5.c",
+
+				"/d/beijing/npc/dan/danB4_.c",
+				"/d/beijing/npc/dan/danB5_.c",
+				"/d/beijing/npc/dan/danB6_.c",
+
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danC_5.c",
+
+				"/d/beijing/npc/dan/danD_4.c",
+				"/d/beijing/npc/dan/danD_5.c",
+				"/d/beijing/npc/dan/danD_6.c",
+
+				"/d/beijing/npc/dan/danM_4.c",
+				"/d/beijing/npc/dan/danM_5.c",
+				"/d/beijing/npc/dan/danM_6.c",
+				"/d/beijing/npc/dan/danM_7.c",
+				"/d/beijing/npc/dan/danM_8.c",
+				"/d/beijing/npc/dan/danM_9.c",
+
+				"/d/beijing/npc/dan/danS_1.c",
+				"/d/beijing/npc/dan/danS_2.c",
+				"/d/beijing/npc/dan/danS_4.c",
+				"/d/beijing/npc/dan/danS_4.c",
+				"/d/beijing/npc/dan/danS_5.c",
+				
+				"/clone/fam/pill/full1",
+				"/clone/fam/pill/linghui1",
+				"/clone/fam/pill/linghui2",
         });
 
         // 完成三十个任务
         string *ob2_list = ({
-                "/clone/fam/pill/puti2",
-                "/clone/fam/pill/sheli2",
-                "/clone/fam/pill/linghui2",
-                "/clone/fam/pill/food1",
-                "/clone/fam/pill/neili2",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_4.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_4.c",
+				"/d/beijing/npc/dan/danM_4.c",
+				"/clone/fam/pill/linghui1",
+				"/clone/fam/pill/linghui2",
         });
 
         // 完成五十个任务
         string *ob3_list = ({
-                "/clone/fam/pill/puti3",
-                "/clone/fam/pill/sheli3",
-                            /*取消各种宝石碎片
-                            "/clone/gift/cdiamond",
-                            "/clone/gift/cagate",
-                            "/clone/gift/ccrystal",
-                            "/clone/gift/cjade",
-                            */
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_4.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_4.c",
+				"/d/beijing/npc/dan/danM_4.c",
+				"/clone/fam/pill/linghui1",
+				"/clone/fam/pill/linghui2",
         });
 
         // 完成一百个任务
         string *ob4_list = ({
-                "/clone/fam/pill/puti4",
-                "/clone/fam/pill/sheli4",
-               
-                "/clone/fam/gift/str1",
-                "/clone/fam/gift/int1",
-                "/clone/fam/gift/con1",
-                "/clone/fam/gift/dex1",
-                
-                "/clone/fam/item/handan",
-                "/clone/fam/item/bixue",
-                "/clone/fam/item/zijin",
-                "/clone/fam/item/wujin",
-                "/clone/fam/item/taijin",
-                "/clone/fam/pill/renshen1",
-                "/clone/fam/pill/lingzhi1",
-                "/clone/fam/pill/xuelian1",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_4.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_4.c",
+				"/d/beijing/npc/dan/danM_4.c",
         });
 
         // 完成两百个任务
         string *ob5_list = ({
-                "/clone/fam/etc/lv5a",
-                "/clone/fam/etc/lv5b",
-                "/clone/fam/etc/lv5c",
-                "/clone/fam/etc/lv5d",
-                "/clone/fam/etc/lv5e",
-                "/clone/fam/pill/renshen2",
-                "/clone/fam/pill/lingzhi2",
-                "/clone/fam/pill/xuelian2",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_4.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_4.c",
+				"/d/beijing/npc/dan/danM_4.c",
         });
 
         // 完成三百个任务
         string *ob6_list = ({
-               
-                "/clone/fam/gift/str2",
-                "/clone/fam/gift/int2",
-                "/clone/fam/gift/con2",
-                "/clone/fam/gift/dex2",
-                "/clone/fam/pill/renshen3",
-                "/clone/fam/pill/lingzhi3",
-                "/clone/fam/pill/xuelian3",
-                "/clone/fam/item/zhenlong",
-                "/clone/fam/item/jiulei",
-                "/clone/fam/item/panlong",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_4.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_4.c",
+				"/d/beijing/npc/dan/danM_4.c",
         });
 
         // 完成四百个任务
         string *ob7_list = ({
-                "/clone/tattoo/buttock1",
-                "/clone/tattoo/buttock2",
-                "/clone/tattoo/buttock3",
-                "/clone/tattoo/buttock4",
-                "/clone/tattoo/buttock5",
-                "/clone/tattoo/buttock6",
-                "/clone/tattoo/buttock7",
-                "/clone/tattoo/buttock8",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_4.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_4.c",
+				"/d/beijing/npc/dan/danM_5.c",
         });
 
         // 完成五百个任务
         string *ob8_list = ({
-                "/clone/fam/gift/str2",
-                "/clone/fam/gift/int2",
-                "/clone/fam/gift/con2",
-                "/clone/fam/gift/dex2",
-                "/clone/fam/pill/renshen3",
-                "/clone/fam/pill/lingzhi3",
-                "/clone/fam/pill/xuelian3",
-                "/clone/fam/etc/lv7a",
-                "/clone/fam/etc/lv7b",
-                "/clone/fam/etc/lv7c",
-                "/clone/fam/etc/lv7d",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_5.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_5.c",
+				"/d/beijing/npc/dan/danM_6.c",
+				"/d/beijing/npc/dan/danM_5.c",
         });
 
         // 完成六百个任务
         string *ob9_list = ({
-                "/clone/tattoo/body1",
-                "/clone/tattoo/body2",
-                "/clone/tattoo/body3",
-                "/clone/tattoo/body4",
-                /*
-                //只保留极品刺青奖励
-                "/clone/tattoo/body5",
-                "/clone/tattoo/body6",
-                "/clone/tattoo/body7",
-                "/clone/tattoo/body8",
-                "/clone/tattoo/body9",
-                "/clone/tattoo/body10",
-                */
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_5.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_5.c",
+				"/d/beijing/npc/dan/danM_7.c",
+				"/d/beijing/npc/dan/danM_6.c",
         });
 
         // 完成七百个任务
         string *ob10_list = ({
-                "/clone/fam/pill/yulu",
-                "/clone/fam/pill/dimai",
-                "/clone/fam/pill/renshen4",
-                "/clone/fam/pill/lingzhi4",
-                "/clone/fam/pill/xuelian4",
-                "/clone/fam/item/baxian",
-                "/clone/fam/item/kunlun",
-                "/clone/fam/item/haoyue",
-                "/clone/fam/item/leihuo",
-                "/clone/fam/item/yinzhu",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_5.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_5.c",
+				"/d/beijing/npc/dan/danM_8.c",
+				"/d/beijing/npc/dan/danM_7.c",
         });
 
         // 完成八百个任务
         string *ob11_list = ({
-                "/clone/tattoo/spcs1",
-                "/clone/tattoo/spcs2",
-                "/clone/tattoo/spcs3",
-                "/clone/tattoo/spcs4",
-                "/clone/tattoo/spcs5",
-                "/clone/tattoo/spcs6",
-                "/clone/tattoo/spcs7",
-                "/clone/tattoo/spcs8",
-                "/clone/tattoo/spcs9",
-                "/clone/tattoo/spcs10",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_5.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_5.c",
+				"/d/beijing/npc/dan/danM_8.c",
+				"/d/beijing/npc/dan/danA_5.c",
+				"/d/beijing/npc/dan/danB_6.c",
+				"/d/beijing/npc/dan/danC_5.c",
+				"/d/beijing/npc/dan/danD_6.c",
+				"/d/beijing/npc/dan/danM_9.c",
         });
 
         // 完成九百个任务
         string *ob12_list = ({
-                "/clone/fam/skpaper/blade1",
-                "/clone/fam/skpaper/claw1",
-                "/clone/fam/skpaper/club1",
-                "/clone/fam/skpaper/cuff1",
-                "/clone/fam/skpaper/dagger1",
-                "/clone/fam/skpaper/finger1",
-                "/clone/fam/skpaper/hammer1",
-                "/clone/fam/skpaper/hand1",
-                "/clone/fam/skpaper/parry1",
-                "/clone/fam/skpaper/staff1",
-                "/clone/fam/skpaper/strike1",
-                "/clone/fam/skpaper/sword1",
-                "/clone/fam/skpaper/throwing1",
-                "/clone/fam/skpaper/unarmed1",
-                "/clone/fam/skpaper/whip1",
+				"/d/beijing/npc/dan/danA_5.c",
+				"/d/beijing/npc/dan/danB_6.c",
+				"/d/beijing/npc/dan/danC_5.c",
+				"/d/beijing/npc/dan/danD_6.c",
+				"/d/beijing/npc/dan/danM_9.c",
+				"/d/beijing/npc/dan/danS_1.c",
+				"/d/beijing/npc/dan/danS_2.c",
+				"/d/beijing/npc/dan/danS_4.c",
+				"/d/beijing/npc/dan/danS_4.c",
+				"/d/beijing/npc/dan/danS_5.c",
         });
 
         // 完成一千个任务
         string *ob13_list = ({
-                "/clone/fam/gift/str3",
-                "/clone/fam/gift/int3",
-                "/clone/fam/gift/con3",
-                "/clone/fam/gift/dex3",
-                "/clone/fam/item/yanluo",
-                "/clone/fam/item/lihuo",
+				"/d/beijing/npc/dan/danS_1.c",
+				"/d/beijing/npc/dan/danS_2.c",
+				"/d/beijing/npc/dan/danS_4.c",
+				"/d/beijing/npc/dan/danS_4.c",
+				"/d/beijing/npc/dan/danS_5.c",
                 "/clone/fam/item/qiankun_stone",
+				"/clone/fam/item/yanluo",
+				"/clone/fam/item/lihuo",
+				"/clone/fam/gift/str3",
+				"/clone/fam/gift/con3",
+				"/clone/fam/gift/int3",
+				"/clone/fam/gift/dex3",
         });
         
-        //新增1000万exp且1000任务奖励 by 薪有所属
+        //新增5000万exp且1000任务奖励 by 薪有所属
         string *ob14_list = ({
-                "/clone/fam/gift/str3",
-                "/clone/fam/gift/int3",
-                "/clone/fam/gift/con3",
-                "/clone/fam/gift/dex3",
-                "/clone/fam/item/yanluo",
-                "/clone/fam/item/lihuo",
-                "/clone/fam/item/qiankun_stone",
-                "/clone/tattoo/spc1",
-                "/clone/tattoo/spc2",
-                "/clone/tattoo/spc3",
-                "/clone/tattoo/spc4",
-                "/clone/tattoo/spc5",
-                "/clone/tattoo/spc6",
-                "/clone/tattoo/spc7",
-                "/clone/tattoo/spc8",
-                "/clone/tattoo/spc9",
-                "/clone/tattoo/spc10",    
-        });
-        
-        //新增2000万exp且1000任务奖励 by 薪有所属
-        string *ob15_list = ({
-                "/clone/fam/etc/bipo",
-                "/clone/fam/etc/huanshi",
-                "/clone/fam/etc/binghuozhu",
-                "/clone/fam/etc/leishenzhu",
-                "/clone/fam/item/bless_water",
+				"/clone/fam/obj/guo.c",
                 "/clone/fam/max/tianshu1",
-                "/clone/tattoo/spc11",
-                "/clone/tattoo/spc12",
-                "/clone/tattoo/spc13",
-        });
-        
-        //新增5000万exp且1000任务奖励 by 薪有所属 2017-01-31
-        string *ob16_list = ({
-                "/clone/fam/obj/guo",
-                "/clone/fam/obj/guo",     
-        });
-        
-        //新增1亿exp且1000任务奖励 by 薪有所属 2017-01-31
-        string *ob17_list = ({
-                "/clone/fam/obj/guo",
-                "/clone/fam/obj/guo",      
-                "/d/death/obj/tianjing",
+                
         });
 
         string un, gift;
@@ -277,33 +218,13 @@ private void special_bonus(object me, object who, mixed arg)
         
         if (stringp(arg))
                 gift = arg;
-                
+        	     
         else
-        	//新增1亿exp且1000任务奖励 by 薪有所属
-        if ((who->query("quest_count") == 1000)&&(exp>=100000000))
-        {
-                gift = ob17_list[random(sizeof(ob17_list))];
-                gongxian = 2500;
-        } else
         	//新增5000万exp且1000任务奖励 by 薪有所属
         if ((who->query("quest_count") == 1000)&&(exp>=50000000))
         {
-                gift = ob16_list[random(sizeof(ob16_list))];
-                gongxian = 2000;
-        } else
-        	     
-        	//新增2000万exp且1000任务奖励 by 薪有所属
-        if ((who->query("quest_count") == 1000)&&(exp>=20000000))
-        {
-                gift = ob15_list[random(sizeof(ob15_list))];
-                gongxian = 1000;
-        } else
-        	
-        //新增1000万exp且1000任务奖励 by 薪有所属
-        if ((who->query("quest_count") == 1000)&&(exp>=10000000))
-        {
                 gift = ob14_list[random(sizeof(ob14_list))];
-                gongxian = 700;
+                gongxian = 1000;
         } else
         
         
@@ -463,7 +384,7 @@ public mixed accept_ask(object me, object who, string topic)
                         message_sort(HIY "$N" HIY "对$n" HIY "欣慰的点了"
                                      "点头，道：看来我们" + my_fam + "又"
                                      "出了一位人才啊！你记住了，我辈武人"
-                                     "，切记不可好勇争斗，要多做行侠仗义"
+                                     "，切忌不可好勇争斗，要多做行侠仗义"
                                      "之事！\n" NOR, me, who);
                 } else
                 if (me->is_bad())
@@ -691,12 +612,12 @@ int ask_quest(object me, object who)
                 NPC_D->place_npc(ob, who->query("combat_exp") < 500000  ? ({ "大理一带", "终南山", "关外", "西域" }) :
                                      who->query("combat_exp") < 800000 ? ({ "大理一带", "终南山", "西域" }) : 0);
                 NPC_D->set_from_me(ob, who, 100);
-                ob->add_temp("apply/attack", ob->query_skill("force") * (level - 1) / 20);
-					     //(level - 1) / 15);
-                ob->add_temp("apply/dodge", ob->query_skill("force") * (level - 1) / 20);
-					    //(level - 1) / 15);
-                ob->add_temp("apply/parry", ob->query_skill("force") * (level - 1) / 20);
-					    //(level - 1) / 15);
+                ob->add_temp("apply/attack", ob->query_skill("force") *
+					     (level - 1) / 15);
+                ob->add_temp("apply/dodge", ob->query_skill("force") *
+					    (level - 1) / 15);
+                ob->add_temp("apply/parry", ob->query_skill("force") *
+					    (level - 1) / 15);
                 ob->add_temp("apply/damage", 5 + level * 7);
                 ob->add_temp("apply/unarmed_damage", 5 + level * 7);
                 ob->add_temp("apply/armor", 10 + level * 15);
@@ -1001,7 +922,8 @@ int accept_object(object me, object who, object ob)
                         bonus = 1;
 
                 destruct(ob);
-                lvl = NPC_D->check_level(who);
+                //lvl = NPC_D->check_level(who); 取消了npc等级设定，固定+20
+				lvl = 20;
                 exp = 10 + random(5) + lvl;
                 pot = 5 + random(3) + lvl;
                 mar = 1 + random(2);
@@ -1053,23 +975,6 @@ int accept_object(object me, object who, object ob)
                         weiwang += 1 + random(5);
                         score += 1 + random(5);
                 }
-                //新增根据exp修正奖励 2016-12-21
-                if (who->query("combat_exp") > 20000000)
-                	{
-                		exp += 200 + random(100);
-                    pot += 100 + random(100);
-                	} else
-                if (who->query("combat_exp") > 10000000)
-                	{
-                		exp += 100 + random(100);
-                    pot += 60 + random(60);
-                	} else
-                  {
-                  	exp += 0;
-                    pot += 0;
-                  }
-                
-                //新增根据exp修正奖励完毕 2016-12-21
 
                 switch (quest_level = q["level"])
                 {
@@ -1277,7 +1182,7 @@ int accept_object(object me, object who, object ob)
         who->add("gongxian", gongxian);
 
         // 随机停止发送任务，必须等完成一定数量的freequest才能继续。
-        if (random(500) == 1 && quest_count >= 100 && ! who->query_temp("wiz_test"))
+        if (random(100) == 1 && quest_count >= 30 && ! who->query_temp("wiz_test"))
                 who->add("quest/freequest", 1 + random(3));
 
         return 1;

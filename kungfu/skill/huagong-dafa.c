@@ -9,8 +9,7 @@ int valid_enable(string usage) { return usage == "force"; }
 
 int valid_force(string force)
 {
-    return force == "guixi-gong" ||
-           force == "freezing-force";
+    return force == "guixi-gong";
 }
 
 int query_neili_improve(object me)
@@ -55,6 +54,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
         mapping result;
         int ap, dp;
         int jiali;
+		int lvl;
 
         if ((int) me->query_skill("huagong-dafa", 1) < 80 ||
             ! living(me))
@@ -62,14 +62,17 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
 
         if ((jiali = ob->query("jiali")) < 1)
                 return;
-
+		lvl = me->query_skill("huagong-dafa", 1);
         ap = ob->query_skill("force") + ob->query_skill("dodge");
         dp = me->query_skill("force") + me->query_skill("dodge");
         if (ap / 2 + random(ap) < dp)
         {
                 result = ([ "damage" : -damage ]);
-
-                switch (random(3))
+				
+				if (ob->query("neili") > jiali)
+						ob->add("neili", -jiali);
+				
+				switch (random(3))
                 {
                 case 0:
                         result += ([ "msg" : HIM "$N" HIM "只觉得内力源源而泻"
@@ -85,6 +88,12 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
                                              "只觉得$n竟似毫不费力。\n" NOR ]);
                         break;
                 }
+				
+				ob->affect_by("freezing",
+                               ([ "level"    : jiali,
+                                  "id"       : me->query("id"),
+                                  "duration" : lvl / 60 + random(lvl / 30) ]));
+				
                 return result;
         }
 }

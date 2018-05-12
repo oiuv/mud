@@ -9,7 +9,7 @@ int perform(object me, object target)
 {
 	object weapon, ob;
 	string msg/*, string1*/;
-//	int count;
+	int lev;
  
         if (userp(me) && ! me->query("can_perform/wuhu-duanmendao/duan"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -41,12 +41,34 @@ int perform(object me, object target)
 
 	me->clean_up_enemy();
 	ob = me->select_opponent();
+	lev = me->query_skill("wuhu-duanmendao", 1);
 
 	COMBAT_D->do_attack(me, ob, me->query_temp("weapon"));
 	COMBAT_D->do_attack(me, ob, me->query_temp("weapon"));
 	COMBAT_D->do_attack(me, ob, me->query_temp("weapon"));
+	if (random(2) == 1)
+		{
+			me->add_temp("apply/attack", lev/2); 
+			me->add_temp("apply/damage", lev/2);
+			message_combatd(HIW  "$N从左面劈出第四刀！\n" NOR, me, target); 
+			COMBAT_D->do_attack(me, ob, me->query_temp("weapon"));
+			me->add_temp("apply/attack", -lev/2); 
+			me->add_temp("apply/damage", -lev/2);
+			
+			if (random(2) == 1)
+			{
+				me->add_temp("apply/attack", lev); 
+				me->add_temp("apply/damage", lev);
+				message_combatd(RED  "$N从右面劈出第五刀！\n" NOR, me, target); 
+				COMBAT_D->do_attack(me, ob, me->query_temp("weapon"));
+				me->add_temp("apply/attack", -lev); 
+				me->add_temp("apply/damage", -lev);
+			}
+			
+		}
+	
 
-	me->add("neili", -150);
+	me->add("neili", -100);
 	me->start_busy(1 + random(3));
 	return 1;
 }

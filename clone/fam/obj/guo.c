@@ -88,6 +88,7 @@ int do_eat( string arg )
 
          me->add("gift/" + me->query_temp("wish_sub_tianfu") + "/fail", -1);
          me->add("gift/" + me->query_temp("wish_sub_tianfu") + "/all", -1);
+		 me->add("gift/gift_all", -1);
         
          me->delete_temp("wish_sub_tianfu");
          me->delete_temp("wish_sub_tianfu1");

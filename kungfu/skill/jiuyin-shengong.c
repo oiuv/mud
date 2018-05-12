@@ -199,7 +199,7 @@ int get_finish(object me)
                 return 0;
         }
 
-        if (random(10) < 8)
+        if (random(10) > 8)
         {
                 tell_object(me, "你觉得有所感悟，或许再演练一次就能融会贯通，将二者合一。\n");
                 return 0;

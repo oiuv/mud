@@ -9,7 +9,7 @@ int perform(object me, object target)
 {
         string msg;
         int damage;
-        int ap, dp;
+        int ap, dp, flvl;
 
         if (userp(me) && ! me->query("can_perform/liuyang-zhang/zhong"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -26,7 +26,10 @@ int perform(object me, object target)
                 return notify_fail("你的天山六阳掌不够娴熟，难以施展" ZHONG "。\n");
 
         if (me->query_skill_mapped("strike") != "liuyang-zhang")
-                return notify_fail("你没有激发天山六阳掌，难以施展" ZHONG "。\n");
+                return notify_fail("你没有激发掌法天山六阳掌，难以施展" ZHONG "。\n");
+			
+		if (me->query_skill_mapped("throwing") != "liuyang-zhang")
+                return notify_fail("你没有激发暗器天山六阳掌，难以施展" ZHONG "。\n");
 
         if (me->query_skill_prepared("strike") != "liuyang-zhang")
                 return notify_fail("你现在没有准备天山六阳掌，难以施展" ZHONG "。\n");
@@ -40,9 +43,10 @@ int perform(object me, object target)
         msg = HIW "$N" HIW "逆运真气，化空气中的水露为寒冰，凝于掌中，继而掌"
               "出如风，轻飘飘地向$n" HIW "拍落。\n";
 
-        ap = me->query_skill("strike");
-        dp = target->query_skill("force");
-        if (ap / 2 + random(ap) > dp)
+        ap = me->query_skill("force") + me->query_skill("throwing") + me->query_skill("medical");
+        dp = target->query_skill("force") + target->query_skill("dodge");
+		flvl = me->query("jiali");
+        if (ap / 3 + random(ap) > dp)
         {
                 target->receive_wound("jing", 10 + random(5), me);
                 damage = ap / 2 + random(ap / 2);
@@ -51,7 +55,7 @@ int perform(object me, object target)
                                            "，紧接着身子一颤，$P" HIR "那枚生死符"
                                            "已种入$p" HIR "体内！\n" NOR);
                 target->affect_by("ss_poison",
-                               ([ "level" : me->query("jiali") + random(me->query("jiali")),
+                               ([ "level" : flvl + random(flvl * 2),
                                   "id"    : me->query("id"),
                                   "duration" : ap / 70 + random(ap / 30) ]));
                 me->start_busy(1 + random(4));

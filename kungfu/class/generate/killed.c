@@ -15,13 +15,14 @@ void create()
         ::create();
         set("gender", random(5) ? "男性" : "女性");
         NPC_D->generate_cn_name(this_object());
-        set("age", 30 + random(30));
+		//set("age", 30 + random(30));
+        set("age", 14 + random(40));
         set("long", "");
         set("attitude", "friendly");
         set("chat_chance", 30);
         set("chat_msg", ({ (: random_move :) }));
         set("chat_chance_combat", 120);
-        set("scale", 150);
+        set("scale", 100);
         set("no_get", 1);
 
         set_temp("apply/armor", 100);
@@ -33,33 +34,75 @@ void create()
         setup();
         if (clonep()) keep_heart_beat();
 }
-
+//独立于玩家气精内 by 大曾
 void set_from_me(object me)
 {
         int exp;
         mapping my;
+		int s, f, x, y, z;
 
         NPC_D->init_npc_skill(this_object(), NPC_D->check_level(me));
         my = query_entire_dbase();
+		s = this_object()->query_con() + this_object()->query_str();
+		f = this_object()->query_int();
+		z = (int)this_object()->query_skill("force", 1);
+		
+		my["max_jingli"] =  my["magic_points"] / 30 + f * 30;
+		if (my["animaout"])
+            my["max_jingli"] += my["max_jingli"] * 4 / 10;
 
-        if (my["max_qi"] > 6000)
-                my["max_qi"] = 6000;
+		my["max_neili"] = z * 15 + my["con"] * 15;
+		if (my["breakup"])
+            my["max_neili"] += my["max_neili"] * 4 / 10;
+		if (my["class"] == "bonze")
+			my["max_neili"]  += 500;
 
-        if (my["max_jing"] < my["max_qi"] / 2)
-                my["max_jing"] = my["max_qi"] / 2;
+        my["max_qi"]     = 100;
+		my["max_qi"]    += (my["age"] - 14) * s * 2 / 3;
+		my["max_qi"]    += (int)my["max_neili"] / 4;
+		 // 太极神功配合道学心法加气
+		if ((x = (int)this_object()->query_skill("taoism", 1)) > 39 &&
+            (y = (int)this_object()->query_skill("taiji-shengong", 1)) > 39)
+            {
+                if (x > 350) x = (x - 350) / 2 + 350;
+                if (y > 350) y = (y - 350) / 2 + 350;
+                if (x > 200) x = (x - 200) / 2 + 200;
+                if (y > 200) y = (y - 200) / 2 + 200;
 
-        if (my["max_jing"] > 3000)
-                my["max_jing"] = 3000;
+                my["max_qi"] += (x + 100 ) * (y + 100) / 100;
+            } else
+			// 碧波神功配合碧海潮生曲加气
+            if ((x = (int)this_object()->query_skill("bihai-chaosheng", 1)) > 39 &&
+                (y = (int)this_object()->query_skill("bibo-shengong", 1)) > 39)
+                {
+                    if (x > 250) x = (x - 250) / 2 + 250;
+                    if (y > 250) y = (y - 250) / 2 + 250;
+                    if (x > 120) x = (x - 120) / 2 + 120;
+                    if (y > 120) y = (y - 120) / 2 + 120;
 
-        my["eff_jing"] = my["max_jing"];
-        my["jing"] = my["max_jing"];
-        my["eff_qi"] = my["max_qi"];
-        my["qi"] = my["max_qi"];
+                    my["max_qi"] += (x + 100 ) * (y + 100) / 100;
+                }
+
+            if (my["breakup"])
+                my["max_qi"] += my["max_qi"];
+
+		my["eff_qi"]     = my["max_qi"];
+        my["qi"]         = my["max_qi"];
+		
+        my["max_jing"]   = 100;
+		my["max_jing"]  += (my["age"] - 14) * s * 2 / 3;
+		my["max_jing"]  += (int)my["max_jingli"] / 4;
+		if (my["breakup"])
+            my["max_jing"] += my["max_jing"];
+		if (my["animaout"])
+            my["max_jing"] += my["max_jing"];
+
+        my["eff_jing"]   = my["max_jing"];
+        my["jing"]       = my["max_jing"];
+		my["eff_jingli"]   = my["max_jingli"];
+        my["jingli"]       = my["max_jingli"];
+        my["neili"]       = my["max_neili"];
         my["quest_count"] = me->query("quest_count");
-
-        exp = me->query("combat_exp") * 11 / 10;
-        if (exp > query("combat_exp"))
-                set("combat_exp", exp);
 
 
         if (my["combat_exp"] > 200000 && random(100) < 5)
@@ -68,8 +111,12 @@ void set_from_me(object me)
                 set_temp("multi-enemy", 1);
         }
 
-
-        my["jiali"] = query_skill("force") / 3;
+        if (my["combat_exp"] > 800000){
+                my["jiali"] = query_skill("force") / 3;
+        }
+        else{
+                my["jiali"] = query_skill("force") / 6;
+        }
         if (query("place") == "西域")
                 set_temp("dest_time", 900 + time());
         else
@@ -78,7 +125,7 @@ void set_from_me(object me)
 
 void kill_ob(object ob)
 {
-        //int lvl;
+        int lvl;
 
         if (! is_busy())
                 exert_function("powerup");
@@ -88,10 +135,81 @@ void kill_ob(object ob)
                 ::kill_ob(ob);
                 return;
         }
+		
+		if (lvl = query_temp("multi-enemy"))
+        {
+                // 出现多个敌人
+                delete_temp("multi-enemy");
+                call_out("do_help_me", 1 + random(2), ob);
+        }
 
         ::kill_ob(ob);
 }
+void do_help_me(object ob)
+{
+        if (! objectp(ob) || environment(ob) != environment() ||
+	    ! living(ob))
+                return;
 
+        switch (random(3))
+        {
+        case 0:
+                message_vision(HIW "\n$N" HIW "大声喝道：“好一个" +
+                               ob->name(1) +
+                               HIW "！各位，不要再等了，快出来帮" +
+                               RANK_D->query_self(this_object()) +
+                               "一把！”\n" NOR, this_object(), ob);
+                break;
+
+        case 1:
+                message_vision(HIW "\n$N" HIW "忽然撮舌吹"
+                               "哨，你听了不禁微微一愣。\n" NOR,
+                               this_object());
+                break;
+
+        case 2:
+                message_vision(HIW "\n$N" HIW "一声长啸，声音"
+                               "绵泊不绝，远远的传了开去。\n" NOR,
+                               this_object());
+                break;
+        }
+
+        call_out("do_continue_help", 1 + random(4), ob);
+}
+
+void do_continue_help(object ob)
+{
+        int n;
+        object *obs;
+
+        if (! objectp(ob) || environment(ob) != environment())
+                return;
+
+        n = random(3) + 1;
+        ob->set_temp("quest/help_count", n);
+        message("vision", HIR "说时迟，那时快！突然转出" +
+                          chinese_number(n) +
+                          "个人，一起冲上前来，看来是早"
+                          "有防备！\n" NOR, environment());
+
+        // 生成帮手
+        obs = allocate(n);
+        while (n--)
+        {
+                obs[n] = new(CLASS_D("generate") + "/killed.c");
+                NPC_D->set_from_me(obs[n], ob, 100);
+                obs[n]->delete_temp("multi-enemy");
+                obs[n]->set_temp("help_who", this_object());
+                obs[n]->set_temp("is_helper", 1);
+        }
+
+        // 参与战斗 */
+        set_temp("help_ob", obs);
+        set_temp("help_count", sizeof(obs));
+        obs->move(environment());
+        obs->set_leader(this_object());
+        obs->kill_ob(ob);
+}
 int filter_to_bonus(object ob, object aob)
 {
         if (! playerp(ob) || ! living(ob) ||

@@ -117,7 +117,7 @@ mapping mixed_poison(mapping p1, mapping p2)
 int do_effect(object ob, string cnd, mapping p)
 {
         mapping cnd_info;
-//      int d;
+        int d;
 
         if (! p || ! intp(p["level"]) || ! intp(p["duration"]) ||
             ! stringp(p["id"]))
@@ -172,6 +172,7 @@ int dispel(object me, object ob, mapping cnd)
         my_lvl = me->query_skill("force") +
                  me->query_skill("poison") / 5 +
                  me->query_skill("dispel-poison", 1) +
+				 me->query_skill("medical") / 5 +
                  me->query_temp("apply/dispel-poison");
         if (need_lvl > my_lvl)
         {
@@ -313,7 +314,7 @@ int qi_damage(object me, mapping cnd)
 }
 
 // die reason
-varargs string die_reason(string name)
+string die_reason(string name)
 {
         if (! name || name == "¶¾")
                 return "¶¾·¢ÉíÍöÁË";

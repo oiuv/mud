@@ -1,9 +1,10 @@
 // npcd.c
 
 #pragma optimize
-//#pragma save_binary
+#pragma save_binary
 
 #include <command.h>
+#include <user.h>
 #include <npc/name.h>
 #include <npc/chinese.c>
 #include <npc/japanese.c>
@@ -15,6 +16,7 @@
 #define DUGU_QIUBAI             "/kungfu/class/ultra/dugu"
 #define KUIHUA_TAIJIAN          "/kungfu/class/ultra/kuihua"
 #define HUO_SHAN                "/kungfu/class/ultra/huoshan"
+
 
 mapping place = ([
         "洛阳城"   : ({ "/d/luoyang/xidoor", "/d/luoyang/beidoor",
@@ -94,6 +96,28 @@ mapping place = ([
                         "/d/dali/wumeng", "/d/dali/hongsheng", }),
 ]);
 
+
+/*mapping levels = ([
+//      combat_exp   skill_level
+//      保证五十万以前任务容易完成，八十万之前简单完成。
+        50000      : 20,                // level 1
+        100000     : 30,                // level 2
+        200000     : 40,                // level 3
+        400000     : 50,                // level 4
+        500000     : 120,               // level 5
+        800000     : 150,               // level 6
+        1200000    : 175,               // level 7
+        1600000    : 200,               // level 8
+        2000000    : 225,               // level 9
+        2500000    : 250,               // level 10
+        3000000    : 275,               // level 11
+        4000000    : 300,               // level 12
+        5500000    : 350,               // level 13
+        7500000    : 400,               // level 14
+        9000000    : 450,               // level 15
+        15000000   : 500,               // level 16
+]);
+
 //新增高级别npc by 薪有所属
 mapping levels = ([
 //      combat_exp   skill_level
@@ -115,49 +139,51 @@ mapping levels = ([
         9000000    : 450,               // level 15
         15000000   : 500,               // level 16
         
-        
-        //新增级别 by 薪有所属
+        //新增10个级别，如果杀不动就不要想转世了
+        //另外杀不动也可去转做task和杀外敌等手动或其它非杀敌任务。
+        //by 薪有所属
         20000000   : 550,               // level 17
         28000000   : 600,               // level 18
         35000000   : 650,               // level 19
         42000000   : 700,               // level 20
-        /*
-        //npc级别到20.
         52000000   : 750,               // level 21
         62000000   : 800,               // level 22
         73000000   : 850,               // level 23
         86000000   : 900,               // level 24
         100000000  : 950,               // level 25
-        120000000  : 1000,              // level 26
-        */
-]);
-// return the character(ob) 's level, 0 is lowest
+        120000000  : 1000,               // level 26
+]);*/
+
+// return the character(ob) 's level, 0 is lowest 修改 by 大曾
 int check_level(object ob)
 {
-        int *exp;
-        int i;
+        int exp;
 
-        exp = sort_array(keys(levels), 1);
-        for (i = 0; i < sizeof(exp); i++)
-                if (ob->query("combat_exp") < exp[i]) break;
+        exp = ob->query("combat_exp");
 
-        return i;
+        return exp;
 }
 
-// set the the level of the npc's skill
+// set the the level of the npc's skill 修改 by 大曾
 void init_npc_skill(object ob, int lvl)
 {
         int sk_lvl;
         string *ks;
         int i;
         int exp;
-
-        if (lvl < 1) lvl = 1;
-        if (lvl >= sizeof(levels)) lvl = sizeof(levels) - 1;
-
-        exp = sort_array(keys(levels), 1)[lvl - 1];
+		
+        exp = lvl;
         ob->set("combat_exp", exp);
-        sk_lvl = levels[exp];
+		if (exp > 800000)
+            sk_lvl = to_int(pow(to_float(exp*10), 1.0 / 3)) * 0.95;
+	    else
+			//sk_lvl = to_int(pow(to_float(exp*10), 1.0 / 3)) * (0.60 + exp * 3 / 8000000);
+			sk_lvl = to_int(pow(to_float(exp*10), 1.0 / 3)) * (0.50 + to_float(exp) * 3 / 8000000);
+		ob->set("magic_points", sk_lvl * 20);
+		if (sk_lvl >= 350)
+			ob->set("breakup", 1);
+		if (sk_lvl >= 500)
+			ob->set("animaout", 1);
         if (! ob->query_skills())
                 return;
         ks = keys(ob->query_skills());
@@ -243,10 +269,14 @@ object create_challenger()
         return create_npc(n[random(sizeof(n))], lvl);
 }
 
-// set the basic parameter from me
+// 完全独立的NPC属性系统 by 大曾
 void set_from_me(object tob, object fob, int scale)
 {
         mapping my, hp_status;
+		int i;
+        int points;
+        int tmpstr, tmpint, tmpcon, tmpdex;	
+		tmpstr = tmpint = tmpcon = tmpdex = 10;
 
         hp_status = fob->query_entire_dbase();
         my = tob->query_entire_dbase();
@@ -257,13 +287,22 @@ void set_from_me(object tob, object fob, int scale)
                         my["scale"] = 100;
                 scale = my["scale"];
         }
-
-        my["str"] = hp_status["str"] * scale / 100;
-        my["int"] = hp_status["int"] * scale / 100;
-        my["con"] = hp_status["con"] * scale / 100;
-        my["dex"] = hp_status["dex"] * scale / 100;
-
-        my["max_qi"]     = hp_status["max_qi"]   * scale / 100;
+        points = 90 - (tmpstr + tmpint + tmpcon + tmpdex);
+        for (i = 0; i < points; i++) {
+                switch (random(4)) {
+                case 0: if (tmpstr < 30) tmpstr++; else i--; break;
+                case 1: if (tmpint < 30) tmpint++; else i--; break;
+                case 2: if (tmpcon < 30) tmpcon++; else i--; break;
+                case 3: if (tmpdex < 30) tmpdex++; else i--; break;
+                }
+        }
+        my["str"] = tmpstr;
+        my["con"] = tmpcon;
+        my["dex"] = tmpdex;
+        my["int"] = tmpint;
+		my["per"] = 5 + random(25);
+		
+		my["max_qi"]     = hp_status["max_qi"]   * scale / 100;
         my["eff_qi"]     = my["max_qi"];
         my["qi"]         = my["max_qi"];
         my["max_jing"]   = hp_status["max_jing"] * scale / 100;
@@ -271,17 +310,11 @@ void set_from_me(object tob, object fob, int scale)
         my["jing"]       = my["max_jing"];
         my["max_neili"]  = hp_status["max_neili"]* scale / 100;
         my["jiali"]      = tob->query_skill("force") / 3;
-        /*
         if (my["max_neili"] > 9000)
                 // max_neili not more then 9k
                 my["max_neili"] = 9000;
-         */
-         //增大npc内力上限范围，限制一下玩家的call die 2017-02-06
-         if (my["max_neili"] > 15000)
-                my["max_neili"] = 15000;
-         
         my["neili"]      = my["max_neili"] * 2;
-
+		
         tob->set_from_me(fob, scale);
 }
 
@@ -307,7 +340,7 @@ void place_npc(object ob, string *not_place, string *in_place)
         string *kp;
         string p;
         string startroom;
-        //object pos;
+        object pos;
 
         // select the place
         if (! arrayp(in_place))

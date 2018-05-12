@@ -2,7 +2,7 @@
 // Update by Vin for Heros.cn
 
 #pragma optimize
-//#pragma save_binary
+#pragma save_binary
 
 #include <ansi.h>
 #include <command.h>
@@ -15,16 +15,14 @@ string *imbue_list = ({
         "/clone/fam/gift/con3",
         "/clone/fam/gift/str3",
         "/clone/fam/gift/dex3",
-        "/clone/fam/item/bless_water",
-        "/clone/fam/etc/lv7d",
-        "/clone/fam/etc/lv7c",
+        //"/clone/fam/item/bless_water",
+        //"/clone/fam/etc/lv7d",
+        //"/clone/fam/etc/lv7c",
 });
 
 // 浸入的次数的随机界限：如果每次IMBUE以后取0-IMBUE次数的随机
 // 数大于这个数值，则IMBUE最终成功。
-//#define RANDOM_IMBUE_OK         100
-//降低san10兵需要的次数基数 2017-02-20
-#define RANDOM_IMBUE_OK         50
+#define RANDOM_IMBUE_OK         100
 
 // 每次浸入需要圣化的次数
 #define SAN_PER_IMBUE           5
@@ -386,7 +384,7 @@ mixed do_touch(object me, object item)
                 obs = filter_array(all_inventory(environment(me)), (: userp :));
                 foreach (ob in obs)
                 {
-                        my = ob->query_entire_dbase();
+					    my = ob->query_entire_dbase();
                         my["jing"]   = my["eff_jing"] = my["max_jing"];
                         my["qi"]     = my["eff_qi"]   = my["max_qi"];
                         my["neili"]  = my["max_neili"];
@@ -398,7 +396,8 @@ mixed do_touch(object me, object item)
         } else
         if (me->query("neili") < me->query("max_neili"))
         {
-                me->set("neili", me->query("max_neili"));
+				//取消10B效果
+                //me->set("neili", me->query("max_neili"));
                 tell_object(me, HIC "你只觉一股热气至丹田冉冉升起，"
                                 "说不出的舒服。\n" NOR);
         }
@@ -788,8 +787,8 @@ mixed weapon10lv_hit_ob(object me, object victim, object weapon, int damage_bonu
 // 9级兵器攻击对手
 mixed weapon_hit_ob(object me, object victim, object weapon, int damage_bonus)
 {
-//      int ap;
-//      int dp;
+        int ap;
+        int dp;
         int damage;
 
         if (random(2)) return;

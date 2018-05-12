@@ -16,7 +16,8 @@ void create()
               set("material_attrib", "silk");
               set("material_name", CYN "ÐþÎä¼×¿Ç" NOR);
               set("can_make", ({ "»¤¼×" }));
-              set("power_point", 120);
+              //set("power_point", 120);
+			  set("power_point", 40);
 	}
 }
 

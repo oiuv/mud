@@ -6,7 +6,7 @@
 #include <quest.h>
 
 #pragma optimize
-//#pragma save_binary
+#pragma save_binary
 
 inherit F_DBASE;
 
@@ -36,178 +36,170 @@ private void special_bonus(object me, object who, mixed arg)
 
         // 随机奖励
         string *ob1_list = ({
-                "/clone/fam/pill/puti1",
-                "/clone/fam/pill/sheli1",
-                "/clone/fam/pill/linghui1",
-                "/clone/fam/pill/full1",
-                "/clone/fam/pill/neili1",
-                "/clone/fam/etc/va1",
-                "/clone/fam/etc/va2",
-                "/clone/fam/etc/va3",
-                "/clone/fam/etc/va4",
-                "/clone/fam/etc/va5",
-                "/clone/fam/etc/va6",
+                "/d/beijing/npc/dan/danA_1.c",
+				"/d/beijing/npc/dan/danA_2.c",
+				"/d/beijing/npc/dan/danA_3.c",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danA_5.c",
+
+				"/d/beijing/npc/dan/danB1_.c",
+				"/d/beijing/npc/dan/danB2_.c",
+				"/d/beijing/npc/dan/danB3_.c",
+				"/d/beijing/npc/dan/danB4_.c",
+				"/d/beijing/npc/dan/danB5_.c",
+				"/d/beijing/npc/dan/danB6_.c",
+
+				"/d/beijing/npc/dan/danC_1.c",
+				"/d/beijing/npc/dan/danC_2.c",
+				"/d/beijing/npc/dan/danC_3.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danC_5.c",
+
+				"/d/beijing/npc/dan/danD_1.c",
+				"/d/beijing/npc/dan/danD_2.c",
+				"/d/beijing/npc/dan/danD_3.c",
+				"/d/beijing/npc/dan/danD_4.c",
+				"/d/beijing/npc/dan/danD_5.c",
+				"/d/beijing/npc/dan/danD_6.c",
+
+				"/d/beijing/npc/dan/danM_1.c",
+				"/d/beijing/npc/dan/danM_2.c",
+				"/d/beijing/npc/dan/danM_3.c",
+				"/d/beijing/npc/dan/danM_4.c",
+				"/d/beijing/npc/dan/danM_5.c",
+				"/d/beijing/npc/dan/danM_6.c",
+				"/d/beijing/npc/dan/danM_7.c",
+				"/d/beijing/npc/dan/danM_8.c",
+				"/d/beijing/npc/dan/danM_9.c",
+
+				"/d/beijing/npc/dan/danS_1.c",
+				"/d/beijing/npc/dan/danS_2.c",
+				"/d/beijing/npc/dan/danS_3.c",
+				"/d/beijing/npc/dan/danS_4.c",
+				"/d/beijing/npc/dan/danS_5.c",
         });
 
         // 完成三十个任务
         string *ob2_list = ({
-                "/clone/fam/pill/puti2",
-                "/clone/fam/pill/sheli2",
-                "/clone/fam/pill/linghui2",
-                "/clone/fam/pill/food1",
-                "/clone/fam/pill/neili2",
+				"/d/beijing/npc/dan/danA_1.c",
+				"/d/beijing/npc/dan/danB_1.c",
+				"/d/beijing/npc/dan/danC_1.c",
+				"/d/beijing/npc/dan/danD_1.c",
+				"/d/beijing/npc/dan/danM_1.c",
         });
 
         // 完成五十个任务
         string *ob3_list = ({
-                "/clone/fam/pill/puti3",
-                "/clone/fam/pill/sheli3",
-                            "/clone/gift/cdiamond",
-                            "/clone/gift/cagate",
-                            "/clone/gift/ccrystal",
-                            "/clone/gift/cjade",
+				"/d/beijing/npc/dan/danA_1.c",
+				"/d/beijing/npc/dan/danB_1.c",
+				"/d/beijing/npc/dan/danC_1.c",
+				"/d/beijing/npc/dan/danD_1.c",
+				"/d/beijing/npc/dan/danM_1.c",
         });
 
         // 完成一百个任务
         string *ob4_list = ({
-                "/clone/fam/pill/puti4",
-                "/clone/fam/pill/sheli4",
-                "/clone/fam/gift/str1",
-                "/clone/fam/gift/int1",
-                "/clone/fam/gift/con1",
-                "/clone/fam/gift/dex1",
-                "/clone/fam/item/handan",
-                "/clone/fam/item/bixue",
-                "/clone/fam/item/zijin",
-                "/clone/fam/item/wujin",
-                "/clone/fam/item/taijin",
-                "/clone/fam/pill/renshen1",
-                "/clone/fam/pill/lingzhi1",
-                "/clone/fam/pill/xuelian1",
+				"/d/beijing/npc/dan/danA_2.c",
+				"/d/beijing/npc/dan/danB_2.c",
+				"/d/beijing/npc/dan/danC_2.c",
+				"/d/beijing/npc/dan/danD_2.c",
+				"/d/beijing/npc/dan/danM_2.c",
         });
 
         // 完成两百个任务
         string *ob5_list = ({
-                "/clone/fam/etc/lv5a",
-                "/clone/fam/etc/lv5b",
-                "/clone/fam/etc/lv5c",
-                "/clone/fam/etc/lv5d",
-                "/clone/fam/etc/lv5e",
-                "/clone/fam/pill/renshen2",
-                "/clone/fam/pill/lingzhi2",
-                "/clone/fam/pill/xuelian2",
+				"/d/beijing/npc/dan/danA_2.c",
+				"/d/beijing/npc/dan/danB_2.c",
+				"/d/beijing/npc/dan/danC_2.c",
+				"/d/beijing/npc/dan/danD_2.c",
+				"/d/beijing/npc/dan/danM_3.c",
         });
 
         // 完成三百个任务
         string *ob6_list = ({
-                "/clone/fam/gift/str2",
-                "/clone/fam/gift/int2",
-                "/clone/fam/gift/con2",
-                "/clone/fam/gift/dex2",
-                "/clone/fam/pill/renshen3",
-                "/clone/fam/pill/lingzhi3",
-                "/clone/fam/pill/xuelian3",
-                "/clone/fam/item/zhenlong",
-                "/clone/fam/item/jiulei",
-                "/clone/fam/item/panlong",
+				"/d/beijing/npc/dan/danA_3.c",
+				"/d/beijing/npc/dan/danB_3.c",
+				"/d/beijing/npc/dan/danC_3.c",
+				"/d/beijing/npc/dan/danD_3.c",
+				"/d/beijing/npc/dan/danM_4.c",
+				"/d/beijing/npc/dan/danM_3.c",
         });
 
         // 完成四百个任务
         string *ob7_list = ({
-                "/clone/tattoo/buttock1",
-                "/clone/tattoo/buttock2",
-                "/clone/tattoo/buttock3",
-                "/clone/tattoo/buttock4",
-                "/clone/tattoo/buttock5",
-                "/clone/tattoo/buttock6",
-                "/clone/tattoo/buttock7",
-                "/clone/tattoo/buttock8",
+				"/d/beijing/npc/dan/danA_3.c",
+				"/d/beijing/npc/dan/danB_4.c",
+				"/d/beijing/npc/dan/danC_3.c",
+				"/d/beijing/npc/dan/danD_4.c",
+				"/d/beijing/npc/dan/danM_5.c",
+				"/d/beijing/npc/dan/danM_4.c",
         });
 
         // 完成五百个任务
         string *ob8_list = ({
-                "/clone/fam/gift/str2",
-                "/clone/fam/gift/int2",
-                "/clone/fam/gift/con2",
-                "/clone/fam/gift/dex2",
-                "/clone/fam/pill/renshen3",
-                "/clone/fam/pill/lingzhi3",
-                "/clone/fam/pill/xuelian3",
-                "/clone/fam/etc/lv7a",
-                "/clone/fam/etc/lv7b",
-                "/clone/fam/etc/lv7c",
-                "/clone/fam/etc/lv7d",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_5.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_5.c",
+				"/d/beijing/npc/dan/danM_6.c",
+				"/d/beijing/npc/dan/danM_5.c",
         });
 
         // 完成六百个任务
         string *ob9_list = ({
-                "/clone/tattoo/body1",
-                "/clone/tattoo/body2",
-                "/clone/tattoo/body3",
-                "/clone/tattoo/body4",
-                "/clone/tattoo/body5",
-                "/clone/tattoo/body6",
-                "/clone/tattoo/body7",
-                "/clone/tattoo/body8",
-                "/clone/tattoo/body9",
-                "/clone/tattoo/body10",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_5.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_5.c",
+				"/d/beijing/npc/dan/danM_7.c",
+				"/d/beijing/npc/dan/danM_6.c",
         });
 
         // 完成七百个任务
         string *ob10_list = ({
-                "/clone/fam/pill/yulu",
-                "/clone/fam/pill/dimai",
-                "/clone/fam/pill/renshen4",
-                "/clone/fam/pill/lingzhi4",
-                "/clone/fam/pill/xuelian4",
-                "/clone/fam/item/baxian",
-                "/clone/fam/item/kunlun",
-                "/clone/fam/item/haoyue",
-                "/clone/fam/item/leihuo",
-                "/clone/fam/item/yinzhu",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_5.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_5.c",
+				"/d/beijing/npc/dan/danM_8.c",
+				"/d/beijing/npc/dan/danM_7.c",
         });
 
         // 完成八百个任务
         string *ob11_list = ({
-                "/clone/tattoo/spcs1",
-                "/clone/tattoo/spcs2",
-                "/clone/tattoo/spcs3",
-                "/clone/tattoo/spcs4",
-                "/clone/tattoo/spcs5",
-                "/clone/tattoo/spcs6",
-                "/clone/tattoo/spcs7",
-                "/clone/tattoo/spcs8",
-                "/clone/tattoo/spcs9",
-                "/clone/tattoo/spcs10",
+				"/d/beijing/npc/dan/danA_4.c",
+				"/d/beijing/npc/dan/danB_5.c",
+				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danD_5.c",
+				"/d/beijing/npc/dan/danM_8.c",
+				"/d/beijing/npc/dan/danA_5.c",
+				"/d/beijing/npc/dan/danB_6.c",
+				"/d/beijing/npc/dan/danC_5.c",
+				"/d/beijing/npc/dan/danD_6.c",
+				"/d/beijing/npc/dan/danM_9.c",
         });
 
         // 完成九百个任务
         string *ob12_list = ({
-                "/clone/fam/skpaper/blade1",
-                "/clone/fam/skpaper/claw1",
-                "/clone/fam/skpaper/club1",
-                "/clone/fam/skpaper/cuff1",
-                "/clone/fam/skpaper/dagger1",
-                "/clone/fam/skpaper/finger1",
-                "/clone/fam/skpaper/hammer1",
-                "/clone/fam/skpaper/hand1",
-                "/clone/fam/skpaper/parry1",
-                "/clone/fam/skpaper/staff1",
-                "/clone/fam/skpaper/strike1",
-                "/clone/fam/skpaper/sword1",
-                "/clone/fam/skpaper/throwing1",
-                "/clone/fam/skpaper/unarmed1",
-                "/clone/fam/skpaper/whip1",
+				"/d/beijing/npc/dan/danA_5.c",
+				"/d/beijing/npc/dan/danB_6.c",
+				"/d/beijing/npc/dan/danC_5.c",
+				"/d/beijing/npc/dan/danD_6.c",
+				"/d/beijing/npc/dan/danM_9.c",
+				"/d/beijing/npc/dan/danS_1.c",
+				"/d/beijing/npc/dan/danS_2.c",
+				"/d/beijing/npc/dan/danS_3.c",
+				"/d/beijing/npc/dan/danS_4.c",
+				"/d/beijing/npc/dan/danS_5.c",
         });
 
         // 完成一千个任务
         string *ob13_list = ({
-                "/clone/fam/gift/str3",
-                "/clone/fam/gift/int3",
-                "/clone/fam/gift/con3",
-                "/clone/fam/gift/dex3",
-                "/clone/fam/item/yanluo",
-                "/clone/fam/item/lihuo",
+				"/d/beijing/npc/dan/danS_1.c",
+				"/d/beijing/npc/dan/danS_2.c",
+				"/d/beijing/npc/dan/danS_3.c",
+				"/d/beijing/npc/dan/danS_4.c",
+				"/d/beijing/npc/dan/danS_5.c",
                 "/clone/fam/item/qiankun_stone",
         });
 

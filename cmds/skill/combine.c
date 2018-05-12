@@ -10,9 +10,9 @@ mapping combine_list = ([
 
         // 镇狱惊天丸
         ({ "/clone/fam/max/xuanhuang-1",
-           "/clone/fam/max/longjia-1",
-           "/clone/fam/item/kunlun-1",
-           "/clone/fam/item/baxian-1", }) : "/clone/fam/max/zhenyu",
+           "/clone/fam/max/longjia-1",}) : "/clone/fam/max/zhenyu",
+           //"/clone/fam/item/kunlun-1",
+           //"/clone/fam/item/baxian-1", 
 
         // 子午龙甲丹
         ({ "/clone/fam/pill/dimai-1",
@@ -102,7 +102,13 @@ mapping combine_list = ([
            "/clone/fam/gift/con2-1",
            "/clone/fam/gift/dex2-1", }) : "/clone/fam/max/tianshu2",
            	
-        // 忘情天书
+        // 忘情天书 新增4*85丹
+        ({ "/clone/fam/gift/str3-1",
+           "/clone/fam/gift/int3-1",
+           "/clone/fam/gift/dex3-1",
+           "/clone/fam/gift/con3-1", }) : "/clone/fam/max/tianshu1",
+		   
+		 // 忘情天书
         ({ "/clone/fam/etc/lv5a-1",
            "/clone/fam/etc/lv5b-1",
            "/clone/fam/etc/lv5d-1",

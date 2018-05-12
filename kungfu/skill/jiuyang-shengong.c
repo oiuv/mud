@@ -187,7 +187,7 @@ int get_finish(object me)
                 return 0;
         }
 
-        if (random(10) < 8)
+        if (random(10) > 8)
         {
                 tell_object(me, "你觉得有所感悟，或许再演练一次就能融会贯通"
                                 "，将二者合一。\n");
@@ -206,7 +206,7 @@ mapping query_sub_skills()
         return sub_skills;
 }
 
-int valid_enable(string usage)
+/*int valid_enable(string usage)
 { 
         object me = this_player();
 
@@ -216,6 +216,11 @@ int valid_enable(string usage)
                 return usage == "force" || usage == "unarmed" || usage =="parry"
                     || usage == "sword" || usage =="blade";
        
+}*/
+
+int valid_enable(string usage)
+{             
+        return usage == "force";  
 }
 
 int valid_force(string force) { return 1; }

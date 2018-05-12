@@ -243,11 +243,11 @@ int practice_skill(object me)
 
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-        if (damage_bonus < 100) return 0;
+        if (damage_bonus < 150) return 0;
 
-        if (damage_bonus / 5 > victim->query_str())
+        if (damage_bonus / 6 > victim->query_str())
         {
-                victim->receive_wound("qi", (damage_bonus - 100) / 2, me);
+                victim->receive_wound("qi", (damage_bonus - 80) / 3, me);
                 return HIR "只听" + victim->name() +
                        HIR "一声闷哼，“哇”的喷出了一大口鲜血！\n" NOR;
         }
