@@ -17,7 +17,7 @@ void init()
          time() - query_temp("last_chat") >60 )
       {
          command("waidi 我现在占领了"NOR HIM + environment(ob)->query("short")
-                 +NOR HIW"伙记们我们继续杀呀！"NOR);
+                 +NOR HIW"，伙记们我们继续杀呀！"NOR);
          set_temp("last_chat",time());
          add_temp("total_chat",1);
       }  
