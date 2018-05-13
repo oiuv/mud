@@ -1,13 +1,9 @@
 /binaries
 /data
 /dump
-/fluffos64
 /log
 /temp
 /tmp
 /version
-config.cfg
 driver.*
 OBJ_DUMP
-!e2c_dict.o
-!emoted.o
