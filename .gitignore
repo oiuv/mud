@@ -6,5 +6,4 @@
 /temp
 /tmp
 /version
-driver.*
-OBJ_DUMP
+*DUMP
