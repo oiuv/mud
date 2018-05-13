@@ -6,7 +6,7 @@ inherit NPC;
 string ask_me_1();
 string ask_me_2();
 
-static string *check_skill = ({
+STATIC_VAR_TAG string *check_skill = ({
         "buddhism",
         "dodge",
         "shaolin-shenfa",
