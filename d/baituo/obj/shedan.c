@@ -3,7 +3,7 @@
 // Jay 3/18/96
 // ryu added effect_in_liquid
 
-inherit PILL;
+inherit POWDER;
 #include <ansi.h>;
 int cure_ob(string);
 
@@ -29,10 +29,6 @@ int do_eat(string arg)
 */
 
 
-void init()
-{
-	add_action("do_pour", "drop");
-}
 int cure_ob(object me)
 {
    message_vision("$N≥‘œ¬“ª¡£" + name() + "°£\n", me);
