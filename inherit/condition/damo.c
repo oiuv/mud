@@ -211,7 +211,7 @@ string die_reason(string name)
         if (! name || name == "毒")
                 return "毒发身亡了";
         else
-                return name + HIM "发作身亡了?;
+                return name + HIM "发作身亡了?";
 }
 
 int update_condition(object me, mapping cnd)

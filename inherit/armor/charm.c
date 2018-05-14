@@ -33,7 +33,7 @@ string extra_long()
                 str += sprintf(HIW "绑定类型 : %s\n" NOR, type);
         } 
         str += sprintf(HIW "重    量 : %d\n" NOR, this_object()->query_weight());
-        str += sprintf(HIW "防 护 力 : %d\n" NOR, query("armor_prop/armor"));
+        str += sprintf(HIW "防 护 力 : %d\n" NOR, this_object()->query("armor_prop/armor"));
         // str += sprintf(HIW "镶嵌凹槽 : %d\n" NOR, (int)query("enchase/flute"));
         if (mapp(need = query("need")) && sizeof(need))
                 foreach (string key in keys(need))

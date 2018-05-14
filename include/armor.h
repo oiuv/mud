@@ -25,5 +25,6 @@
 #define TYPE_FINGER	"finger"
 #define TYPE_HANDS	"hands"
 #define TYPE_BOOTS	"boots"
+#define TYPE_CHARM	"charm"
 
 #endif

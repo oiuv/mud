@@ -81,7 +81,7 @@ void set_from_me( object me )
     my["eff_qi"]    = my["max_qi"];
     my["qi"]    = my["max_qi"];
 
-    exp = query( "combat_exp", me ) * 11 / 10;
+    exp = me->query( "combat_exp" ) * 11 / 10;
     if ( exp > query( "combat_exp" ) )
         set( "combat_exp", exp );
 

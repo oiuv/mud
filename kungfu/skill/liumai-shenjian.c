@@ -256,7 +256,7 @@ int get_ready(object me)
 
 int get_finish(object me)
 {
-		if (!ob->query("reborn"))
+		if (!me->query("reborn"))
 		{
 				tell_object(me, "你还没有转世，不能演练六脉神剑。\n");
                 return 0;

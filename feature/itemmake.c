@@ -23,13 +23,13 @@ int is_item_make() { return 1; }
 #define MAX_LEVEL       LEVEL9
 #define ULTRA_LEVEL     (LEVEL9 + 1)
 
-static int *levels = ({ LEVEL1, LEVEL2, LEVEL3, LEVEL4,
+STATIC_VAR_TAG int *levels = ({ LEVEL1, LEVEL2, LEVEL3, LEVEL4,
                         LEVEL5, LEVEL6, LEVEL7, LEVEL8,
                         LEVEL9 });
 
-static int performing  = 0;
-static int attack_lvl  = 0;
-static int defense_lvl = 0;
+STATIC_VAR_TAG int performing  = 0;
+STATIC_VAR_TAG int attack_lvl  = 0;
+STATIC_VAR_TAG int defense_lvl = 0;
 
 int is_stay_in_room() { return attack_lvl >= ULTRA_LEVEL; }
 
