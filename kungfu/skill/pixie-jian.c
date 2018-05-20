@@ -326,7 +326,7 @@ int query_effect_dodge(object attacker, object me)
 
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-        if (random(10) >= 5  && me->query("special_skill/ghost"))
+        if (random(10) >= 5  && me->query("special_skill/guimai"))
         {
                 if (random(3))
                 {
