@@ -10,7 +10,7 @@ int query_neili_improve(object me)
         if (me->query("special_skill/guimai"))
                 return lvl * lvl * 20 * 15 / 100 / 200;
         else
-                return lvl * lvl * 17 * 15 / 100 / 200;
+                return lvl * lvl * 12 * 15 / 100 / 200;
 }
 
 string *dodge_msg = ({
@@ -191,6 +191,9 @@ int valid_learn(object me)
         if (me->query_skill("parry", 1) < 100)
                 return notify_fail("你的基本架造造诣太浅，无法理解辟邪剑法。\n");
 
+        if (me->query_skill("force", 1) < 100)
+                return notify_fail("你的基本内功造诣太浅，无法理解辟邪剑法。\n");
+
         if (me->query_skill("sword", 1) < me->query_skill("pixie-jian", 1))
                 return notify_fail("你的基本剑法造诣有限，无法理解更高深的辟邪剑法。\n");
 
@@ -202,6 +205,9 @@ int valid_learn(object me)
 
         if (me->query_skill("unarmed", 1) < me->query_skill("pixie-jian", 1))
                 return notify_fail("你的基本拳脚造诣有限，无法理解更高深的辟邪剑法。\n");
+
+        if (me->query_skill("force", 1) < me->query_skill("pixie-jian", 1))
+                return notify_fail("你的基本内功造诣有限，无法理解更高深的辟邪剑法。\n");
 
         return 1;
 }
@@ -234,6 +240,9 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
         int ap, dp, mp;
 
         if ((int)me->query_skill("pixie-jian", 1) < 100 ||
+			me->query_skill_mapped("force") != "pixie-jian" ||
+			me->query_skill_mapped("dodge") != "pixie-jian" ||
+			me->query_skill_mapped("parry") != "pixie-jian" ||
             ! living(me))
                 return;
 
@@ -347,19 +356,18 @@ int difficult_level()
 }
 */
 //转世特技六阴鬼脉降低研究难度 by 薪有所属
-//已削弱辟邪pfm效果，故小幅降低研究难度 by over and MK
 int difficult_level()
 {
      object me; 
      int lv;
      me = this_player(); 
      lv = me->query_skill("pixie-jian", 1) - 180; 
-     if (lv > 400) lv = 400; 
+     if (lv > 200) lv = 200; 
      
      if (! me->query("special_skill/guimai"))
-        return 1200 - lv;
+        return 1400 - lv;
      else
-        return 1000 - lv;
+        return 1200 - lv;
 
 }
 string perform_action_file(string action)
