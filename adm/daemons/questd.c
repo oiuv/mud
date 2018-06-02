@@ -37,27 +37,11 @@ private void special_bonus(object me, object who, mixed arg)
         // 随机奖励
         
         string *ob1_list = ({
-				"/d/beijing/npc/dan/danA_4.c",
 				"/d/beijing/npc/dan/danA_5.c",
-
-				"/d/beijing/npc/dan/danB4_.c",
-				"/d/beijing/npc/dan/danB5_.c",
-				"/d/beijing/npc/dan/danB6_.c",
-
-				"/d/beijing/npc/dan/danC_4.c",
+				"/d/beijing/npc/dan/danB_6.c",
 				"/d/beijing/npc/dan/danC_5.c",
-
-				"/d/beijing/npc/dan/danD_4.c",
-				"/d/beijing/npc/dan/danD_5.c",
 				"/d/beijing/npc/dan/danD_6.c",
-
-				"/d/beijing/npc/dan/danM_4.c",
-				"/d/beijing/npc/dan/danM_5.c",
-				"/d/beijing/npc/dan/danM_6.c",
-				"/d/beijing/npc/dan/danM_7.c",
-				"/d/beijing/npc/dan/danM_8.c",
 				"/d/beijing/npc/dan/danM_9.c",
-
 				"/d/beijing/npc/dan/danS_1.c",
 				"/d/beijing/npc/dan/danS_2.c",
 				"/d/beijing/npc/dan/danS_4.c",
@@ -71,128 +55,64 @@ private void special_bonus(object me, object who, mixed arg)
 
         // 完成三十个任务
         string *ob2_list = ({
-				"/d/beijing/npc/dan/danA_4.c",
-				"/d/beijing/npc/dan/danB_4.c",
-				"/d/beijing/npc/dan/danC_4.c",
-				"/d/beijing/npc/dan/danD_4.c",
-				"/d/beijing/npc/dan/danM_4.c",
+				"/clone/fam/pill/full1",
 				"/clone/fam/pill/linghui1",
-				"/clone/fam/pill/linghui2",
         });
 
         // 完成五十个任务
         string *ob3_list = ({
-				"/d/beijing/npc/dan/danA_4.c",
-				"/d/beijing/npc/dan/danB_4.c",
-				"/d/beijing/npc/dan/danC_4.c",
-				"/d/beijing/npc/dan/danD_4.c",
-				"/d/beijing/npc/dan/danM_4.c",
+				"/clone/fam/pill/full1",
 				"/clone/fam/pill/linghui1",
-				"/clone/fam/pill/linghui2",
         });
 
         // 完成一百个任务
         string *ob4_list = ({
-				"/d/beijing/npc/dan/danA_4.c",
-				"/d/beijing/npc/dan/danB_4.c",
-				"/d/beijing/npc/dan/danC_4.c",
-				"/d/beijing/npc/dan/danD_4.c",
-				"/d/beijing/npc/dan/danM_4.c",
+				"/clone/fam/pill/linghui1",
         });
 
         // 完成两百个任务
         string *ob5_list = ({
-				"/d/beijing/npc/dan/danA_4.c",
-				"/d/beijing/npc/dan/danB_4.c",
-				"/d/beijing/npc/dan/danC_4.c",
-				"/d/beijing/npc/dan/danD_4.c",
-				"/d/beijing/npc/dan/danM_4.c",
+				"/clone/fam/pill/linghui2",
         });
 
         // 完成三百个任务
         string *ob6_list = ({
-				"/d/beijing/npc/dan/danA_4.c",
-				"/d/beijing/npc/dan/danB_4.c",
-				"/d/beijing/npc/dan/danC_4.c",
-				"/d/beijing/npc/dan/danD_4.c",
-				"/d/beijing/npc/dan/danM_4.c",
+				"/clone/fam/pill/linghui2",
         });
 
         // 完成四百个任务
         string *ob7_list = ({
-				"/d/beijing/npc/dan/danA_4.c",
-				"/d/beijing/npc/dan/danB_4.c",
-				"/d/beijing/npc/dan/danC_4.c",
-				"/d/beijing/npc/dan/danD_4.c",
-				"/d/beijing/npc/dan/danM_5.c",
+				"/clone/fam/pill/linghui2",
         });
 
         // 完成五百个任务
         string *ob8_list = ({
 				"/d/beijing/npc/dan/danA_4.c",
-				"/d/beijing/npc/dan/danB_5.c",
-				"/d/beijing/npc/dan/danC_4.c",
-				"/d/beijing/npc/dan/danD_5.c",
-				"/d/beijing/npc/dan/danM_6.c",
-				"/d/beijing/npc/dan/danM_5.c",
         });
 
         // 完成六百个任务
         string *ob9_list = ({
 				"/d/beijing/npc/dan/danA_4.c",
-				"/d/beijing/npc/dan/danB_5.c",
-				"/d/beijing/npc/dan/danC_4.c",
-				"/d/beijing/npc/dan/danD_5.c",
-				"/d/beijing/npc/dan/danM_7.c",
-				"/d/beijing/npc/dan/danM_6.c",
         });
 
         // 完成七百个任务
         string *ob10_list = ({
 				"/d/beijing/npc/dan/danA_4.c",
-				"/d/beijing/npc/dan/danB_5.c",
-				"/d/beijing/npc/dan/danC_4.c",
-				"/d/beijing/npc/dan/danD_5.c",
-				"/d/beijing/npc/dan/danM_8.c",
-				"/d/beijing/npc/dan/danM_7.c",
         });
 
         // 完成八百个任务
         string *ob11_list = ({
-				"/d/beijing/npc/dan/danA_4.c",
-				"/d/beijing/npc/dan/danB_5.c",
-				"/d/beijing/npc/dan/danC_4.c",
-				"/d/beijing/npc/dan/danD_5.c",
-				"/d/beijing/npc/dan/danM_8.c",
 				"/d/beijing/npc/dan/danA_5.c",
-				"/d/beijing/npc/dan/danB_6.c",
-				"/d/beijing/npc/dan/danC_5.c",
-				"/d/beijing/npc/dan/danD_6.c",
-				"/d/beijing/npc/dan/danM_9.c",
         });
 
         // 完成九百个任务
         string *ob12_list = ({
 				"/d/beijing/npc/dan/danA_5.c",
-				"/d/beijing/npc/dan/danB_6.c",
-				"/d/beijing/npc/dan/danC_5.c",
-				"/d/beijing/npc/dan/danD_6.c",
-				"/d/beijing/npc/dan/danM_9.c",
-				"/d/beijing/npc/dan/danS_1.c",
-				"/d/beijing/npc/dan/danS_2.c",
-				"/d/beijing/npc/dan/danS_4.c",
-				"/d/beijing/npc/dan/danS_4.c",
-				"/d/beijing/npc/dan/danS_5.c",
         });
 
         // 完成一千个任务
         string *ob13_list = ({
-				"/d/beijing/npc/dan/danS_1.c",
-				"/d/beijing/npc/dan/danS_2.c",
-				"/d/beijing/npc/dan/danS_4.c",
-				"/d/beijing/npc/dan/danS_4.c",
-				"/d/beijing/npc/dan/danS_5.c",
-                "/clone/fam/item/qiankun_stone",
+				"/clone/fam/item/qiankun_stone",
 				"/clone/fam/item/yanluo",
 				"/clone/fam/item/lihuo",
 				"/clone/fam/gift/str3",
@@ -922,8 +842,7 @@ int accept_object(object me, object who, object ob)
                         bonus = 1;
 
                 destruct(ob);
-                //lvl = NPC_D->check_level(who); 取消了npc等级设定，固定+20
-				lvl = 20;
+                lvl = NPC_D->check_level(who);
                 exp = 10 + random(5) + lvl;
                 pot = 5 + random(3) + lvl;
                 mar = 1 + random(2);

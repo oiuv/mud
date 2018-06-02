@@ -13,7 +13,8 @@ int is_body_part() { return 1; }
 void create()
 {
         set_name(RED "残肢" NOR, ({ "body part"}));
-        set_weight(500);
+        //set_weight(500);调整人头的重量
+		set_weight(50);
         if (clonep())
                 set_default_object(__FILE__);
         else {

@@ -72,14 +72,15 @@ int main(object me, string arg)
                 return notify_fail("也许是缺乏实战经验，你的练习总没法进步。\n");
 
         me->set_temp("time/practice", t);
-
+		
+		//练习和int挂钩 by 大曾
         if (skill >= 500)
-                improve = skill_basic / 30;
+                improve = skill_basic / (int) me->query("int");
         else
         if (skill >= 300)
-                improve = skill_basic / 10;
+                improve = skill_basic * 3 / (int) me->query("int");
         else
-                improve = skill_basic / 5 + 1;
+                improve = skill_basic * 6 / (int) me->query("int") + 30 / (int) me->query("int");
 
 //转世特技武星转世 by 薪有所属
         if (me->query("special_skill/wuxing"))

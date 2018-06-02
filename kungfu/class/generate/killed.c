@@ -15,8 +15,7 @@ void create()
         ::create();
         set("gender", random(5) ? "男性" : "女性");
         NPC_D->generate_cn_name(this_object());
-		//set("age", 30 + random(30));
-        set("age", 14 + random(40));
+        set("age", 30 + random(30));
         set("long", "");
         set("attitude", "friendly");
         set("chat_chance", 30);
@@ -32,6 +31,7 @@ void create()
 
         add_money("silver", 10 + random(20));
         setup();
+		
         if (clonep()) keep_heart_beat();
 }
 //独立于玩家气精内 by 大曾
@@ -41,7 +41,7 @@ void set_from_me(object me)
         mapping my;
 		int s, f, x, y, z;
 
-        NPC_D->init_npc_skill(this_object(), NPC_D->check_level(me));
+        NPC_D->init_npc_skill(this_object(), NPC_D->get_exp(me));
         my = query_entire_dbase();
 		s = this_object()->query_con() + this_object()->query_str();
 		f = this_object()->query_int();
@@ -104,10 +104,10 @@ void set_from_me(object me)
         my["neili"]       = my["max_neili"];
         my["quest_count"] = me->query("quest_count");
 
-
-        if (my["combat_exp"] > 200000 && random(100) < 5)
+		//修改20w-->50w by hong
+        if (my["combat_exp"] > 500000 && random(100) < 5)
         {
-                // 经验 > 200K，5%几率出现多个敌人
+                // 经验 > 500K，5%几率出现多个敌人
                 set_temp("multi-enemy", 1);
         }
 
@@ -408,7 +408,7 @@ void unconcious()
                         my["jing"]     = my["max_jing"];
                         my["eff_qi"]   = my["max_qi"] * 2 / 3;
                         my["qi"]       = my["eff_qi"];
-                        my["neili"]    = my["max_neili"] * 2;
+                        my["neili"]    = my["max_neili"];
                         if (! intp(query_temp("escape_times")))
                                 set_temp("escape_times", 1);
                         else

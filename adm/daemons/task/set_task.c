@@ -301,8 +301,8 @@ string set_item(object me)
                 //"/clone/fam/etc/lv5f",  //极北寒玉
                 //"/clone/fam/etc/prize4",//圣杯
                 //"/clone/fam/etc/prize5",//神圣血清
-				"/clone/fam/max/xuanhuang-1",
-				"/clone/fam/max/longjia-1",
+				"/clone/fam/max/xuanhuang",
+				"/clone/fam/max/longjia",
         });
 
          // 完成500个task：无花果

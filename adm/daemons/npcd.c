@@ -117,11 +117,10 @@ mapping place = ([
         9000000    : 450,               // level 15
         15000000   : 500,               // level 16
 ]);
-
+*/
 //新增高级别npc by 薪有所属
 mapping levels = ([
 //      combat_exp   skill_level
-//      保证五十万以前任务容易完成，八十万之前简单完成。
         50000      : 20,                // level 1
         100000     : 30,                // level 2
         200000     : 40,                // level 3
@@ -152,10 +151,23 @@ mapping levels = ([
         86000000   : 900,               // level 24
         100000000  : 950,               // level 25
         120000000  : 1000,               // level 26
-]);*/
+]);
 
-// return the character(ob) 's level, 0 is lowest 修改 by 大曾
+// return the character(ob) 's level, 0 is lowest 
 int check_level(object ob)
+{
+        int *exp;
+        int i;
+
+        exp = sort_array(keys(levels), 1);
+        for (i = 0; i < sizeof(exp); i++)
+                if (ob->query("combat_exp") < exp[i]) break;
+
+        return i;
+}
+
+// return the character(ob) 's exp, by 大曾
+int get_exp(object ob)
 {
         int exp;
 
@@ -165,20 +177,23 @@ int check_level(object ob)
 }
 
 // set the the level of the npc's skill 修改 by 大曾
-void init_npc_skill(object ob, int lvl)
+void init_npc_skill(object ob, int exp)
 {
         int sk_lvl;
         string *ks;
         int i;
-        int exp;
-		
-        exp = lvl;
+        
         ob->set("combat_exp", exp);
-		if (exp > 800000)
-            sk_lvl = to_int(pow(to_float(exp*10), 1.0 / 3)) * 0.95;
+		
+		if (exp < 500000)
+			sk_lvl = to_int(pow(to_float(exp*10), 1.0 / 3)) * 0.4;
+		else if (exp < 800000)
+            sk_lvl = to_int(pow(to_float(exp*10), 1.0 / 3)) * (0.50 + to_float(exp * 3 ) / 8000000);
+		else if (exp < 20000000)
+			sk_lvl = to_int(pow(to_float(exp*10), 1.0 / 3)) * 0.8;
 	    else
-			//sk_lvl = to_int(pow(to_float(exp*10), 1.0 / 3)) * (0.60 + exp * 3 / 8000000);
-			sk_lvl = to_int(pow(to_float(exp*10), 1.0 / 3)) * (0.50 + to_float(exp) * 3 / 8000000);
+			sk_lvl = to_int(pow(to_float(exp*10), 1.0 / 3)) * 0.9;
+		
 		ob->set("magic_points", sk_lvl * 20);
 		if (sk_lvl >= 350)
 			ob->set("breakup", 1);
@@ -287,7 +302,7 @@ void set_from_me(object tob, object fob, int scale)
                         my["scale"] = 100;
                 scale = my["scale"];
         }
-        points = 90 - (tmpstr + tmpint + tmpcon + tmpdex);
+        points = 80 - (tmpstr + tmpint + tmpcon + tmpdex);//NPC没有先天丹吃
         for (i = 0; i < points; i++) {
                 switch (random(4)) {
                 case 0: if (tmpstr < 30) tmpstr++; else i--; break;
@@ -308,12 +323,13 @@ void set_from_me(object tob, object fob, int scale)
         my["max_jing"]   = hp_status["max_jing"] * scale / 100;
         my["eff_jing"]   = my["max_jing"];
         my["jing"]       = my["max_jing"];
-        my["max_neili"]  = hp_status["max_neili"]* scale / 100;
-        my["jiali"]      = tob->query_skill("force") / 3;
-        if (my["max_neili"] > 9000)
+        my["max_neili"]  = hp_status["max_neili"]* scale / 130;//适当减少NPC的最大内力，约为理论最大内力的77%，毕竟玩家很难保证内力吃满
+        my["jiali"]      = tob->query_skill("force") / 4;//适当减少NPC加力3->4
+		//取消NPC最大内力上限9000的设定
+        /*if (my["max_neili"] > 9000)
                 // max_neili not more then 9k
-                my["max_neili"] = 9000;
-        my["neili"]      = my["max_neili"] * 2;
+                my["max_neili"] = 9000;*/
+        my["neili"]      = my["max_neili"];//取消NPC内力为2倍最大内力的设定
 		
         tob->set_from_me(fob, scale);
 }

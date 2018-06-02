@@ -33,7 +33,7 @@ int do_effect(object me)
 
         message_vision(HIY "$N" HIY "一仰脖，吞下了一" + un + na +
                        HIY "。\n" NOR, me);
-        me->add("magic_points", 5 + random(6));
+        me->add("magic_points", 50 + random(60));
 
         me->start_busy(3);
         add_amount(-1);
