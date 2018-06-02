@@ -1,5 +1,17 @@
 #include <ansi.h>
+inherit FORCE;
 inherit SKILL;
+
+int query_neili_improve(object me)
+{
+        int lvl;
+
+        lvl = (int)me->query_skill("pixie-jian", 1);
+        if (me->query("special_skill/guimai"))
+                return lvl * lvl * 20 * 15 / 100 / 200;
+        else
+                return lvl * lvl * 12 * 15 / 100 / 200;
+}
 
 string *dodge_msg = ({
         "突然之间，白影急幌，$n向后滑出丈余，立时又回到了原地，躲过了$N这一招。\n",
@@ -142,6 +154,7 @@ int valid_enable(string usage)
         return usage == "sword" ||
                usage == "dodge" ||
                usage == "parry" ||
+               usage == "force" ||
                usage == "unarmed";
 }
 
@@ -178,6 +191,9 @@ int valid_learn(object me)
         if (me->query_skill("parry", 1) < 100)
                 return notify_fail("你的基本架造造诣太浅，无法理解辟邪剑法。\n");
 
+        if (me->query_skill("force", 1) < 100)
+                return notify_fail("你的基本内功造诣太浅，无法理解辟邪剑法。\n");
+
         if (me->query_skill("sword", 1) < me->query_skill("pixie-jian", 1))
                 return notify_fail("你的基本剑法造诣有限，无法理解更高深的辟邪剑法。\n");
 
@@ -189,6 +205,9 @@ int valid_learn(object me)
 
         if (me->query_skill("unarmed", 1) < me->query_skill("pixie-jian", 1))
                 return notify_fail("你的基本拳脚造诣有限，无法理解更高深的辟邪剑法。\n");
+
+        if (me->query_skill("force", 1) < me->query_skill("pixie-jian", 1))
+                return notify_fail("你的基本内功造诣有限，无法理解更高深的辟邪剑法。\n");
 
         return 1;
 }
@@ -221,6 +240,9 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
         int ap, dp, mp;
 
         if ((int)me->query_skill("pixie-jian", 1) < 100 ||
+			me->query_skill_mapped("force") != "pixie-jian" ||
+			me->query_skill_mapped("dodge") != "pixie-jian" ||
+			me->query_skill_mapped("parry") != "pixie-jian" ||
             ! living(me))
                 return;
 
@@ -302,49 +324,24 @@ int query_effect_dodge(object attacker, object me)
         return 130;
 }
 
-mixed hit_ob(object me, object victim, int damage_bonus, int i, int attack_time)
+mixed hit_ob(object me, object victim, int damage_bonus)
 {
-        object weapon;
-        string name;
-
-        weapon = me->query_temp("weapon");
-
-        if (me->query_temp("weapon"))
-	        name = "手中" + weapon->name();
-        else
-	        name = finger_name[random(sizeof(finger_name))];
-
-        attack_time = (int)(me->query_skill("pixie-jian", 1) / 40);
-
-        if (attack_time > 8)
-                attack_time = 8;
-
-        if (me->is_busy()
-           || random(2) == 0
-           || ! living(victim)
-           || victim->is_busy()
-           || damage_bonus < 120
-           || me->query("neili") < 300
-           || me->query_temp("action_flag") == 0
-           || me->query_skill("pixie-jian", 1) < 120)
-        	return 0;
-
-        // 避免在使用Pfm时讯息重复
-        if (! me->query_temp("pixie-jian/hit_msg"))
-	        message_vision(HIW "\n霎时间只见$N" HIW "鬼魅般揉身冲上，" + name +
-        	               HIW "指指点点，宛如夜雨流星，连续刺向$n" HIW "！\n"
-                	       NOR, me, victim);
-
-	me->start_busy(1 + random(attack_time));
-        me->add("neili", -attack_time * 20);
-        for (i = 0; i < attack_time; i++)
+        if (random(10) >= 5  && me->query("special_skill/ghost"))
         {
-                if (! me->is_fighting(victim))
-                        break;
-                COMBAT_D->do_attack(me, victim, weapon, 0);
+                if (random(3))
+                {
+                        victim->receive_wound("qi", damage_bonus / 4, me);
+                        return HIR "只见" + victim->name() +
+                               HIR "不寒而栗，身上数处地方渗出血丝！\n" NOR;
+                }
+                else
+                {
+                        victim->receive_wound("qi", damage_bonus / 3, me);
+                        victim->receive_wound("jing", damage_bonus / 4, me);
+                        return HIR "只见" + victim->name() +
+                               HIR "神情恍惚，鲜血从身上数个穴位渗出！\n" NOR;
+                }
         }
-
-        return 1;
 }
 
 int practice_skill(object me)
@@ -359,22 +356,26 @@ int difficult_level()
 }
 */
 //转世特技六阴鬼脉降低研究难度 by 薪有所属
-//已削弱辟邪pfm效果，故小幅降低研究难度 by over and MK
 int difficult_level()
 {
      object me; 
      int lv;
      me = this_player(); 
      lv = me->query_skill("pixie-jian", 1) - 180; 
-     if (lv > 400) lv = 400; 
+     if (lv > 200) lv = 200; 
      
      if (! me->query("special_skill/guimai"))
-        return 1200 - lv;
+        return 1400 - lv;
      else
-        return 1000 - lv;
+        return 1200 - lv;
 
 }
 string perform_action_file(string action)
 {
-        return __DIR__"pixie-jian/" + action;
+        return __DIR__"pixie-jian/perform/" + action;
+}
+
+string exert_function_file(string action)
+{
+        return __DIR__"pixie-jian/exert/" + action;
 }
