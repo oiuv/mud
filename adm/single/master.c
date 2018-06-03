@@ -8,7 +8,7 @@
 // updated by Doing Lu for hell (2K)
 // Modify By Linux@lxtx for yh 2003.3
 
-#pragma optimize
+//#pragma optimize
 //#pragma save_binary
 
 #include <config.h>
