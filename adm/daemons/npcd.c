@@ -1,7 +1,7 @@
 // npcd.c
 
 #pragma optimize
-#pragma save_binary
+//#pragma save_binary
 
 #include <command.h>
 #include <user.h>
@@ -356,7 +356,7 @@ void place_npc(object ob, string *not_place, string *in_place)
         string *kp;
         string p;
         string startroom;
-        object pos;
+        //object pos;
 
         // select the place
         if (! arrayp(in_place))

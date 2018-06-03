@@ -1,6 +1,5 @@
 #include <ansi.h>
 inherit FORCE;
-inherit SKILL;
 
 int query_neili_improve(object me)
 {

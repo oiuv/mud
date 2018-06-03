@@ -717,7 +717,7 @@ int do_show(string arg)
 {
         object ob;
         object me;
-        int n;
+        //int n;
 
         if (! arg)
                 return notify_fail("你要亮出什么东西？\n");
@@ -753,7 +753,7 @@ int do_show(string arg)
 mixed ask_skill6()
 {
         object me;
-        object ob;
+        //object ob;
         me = this_player();
         if (me->query("can_learn/qianzhu-wandushou"))
                 return "我不是已经告诉过你了吗？";

@@ -153,9 +153,9 @@ void set_task()
 int do_return(object ob, object me, string arg)
 {
     string target, item;
-    object who,pay;
-    int count,exp,pot,tihui,gx;
-	//增加阅历奖励 2016-12-21
+    object who, pay;
+    int count, exp, pot, gx;
+    //增加阅历奖励 2016-12-21
     int score;
     int kar;
         
@@ -201,10 +201,10 @@ int do_return(object ob, object me, string arg)
     if ( count == 20 ) pot += 1000;
     if ( count == 30 ) pot += 1500;
 */
-//调整task任务pot奖励 2017-02-02
+    //调整task任务pot奖励 2017-02-02
     exp = 1000 + random(1000);
-//宝镜定位越用灵力越低定位越模糊，也就是说每次更新一轮的30个任务内越后来寻找难度越大，故越后来pot奖励越大 2017-02-02
-//进一步提高task任务奖励。其实作为手动任务，如果不是因为担心出现全自动task机器人严重影响平衡，task任务的奖励还应该大得多。 2017-02-24
+    //宝镜定位越用灵力越低定位越模糊，也就是说每次更新一轮的30个任务内越后来寻找难度越大，故越后来pot奖励越大 2017-02-02
+    //进一步提高task任务奖励。其实作为手动任务，如果不是因为担心出现全自动task机器人严重影响平衡，task任务的奖励还应该大得多。 2017-02-24
     if ( count > 20 ) pot = 5000 + random(2500);
     else
     if ( count > 10 ) pot = 2000 + random(1000);
@@ -216,15 +216,13 @@ int do_return(object ob, object me, string arg)
     if ( count == 10 ) pot += 1000;
     if ( count == 20 ) pot += 3000;
     if ( count == 30 ) pot += 10000;//每次更新30个task物品，故30个全部完成理应加大奖励幅度（我怎么感觉30个全完成是不可能的事情。。。） 2017-02-02
-    
-	//gx = 1 + random(2);
+
     gx = 2 + random(2);
     //增加阅历奖励 2016-12-21
     kar = me->query("kar");//修改阅历增加和福缘挂钩 2016-12-21
     score = 20 + random(kar);
     me->add("combat_exp", exp);
     me->add("potential", pot);
-  //  me->add("experience", tihui);
     me->add("gongxian", gx);
     //增加阅历奖励 2016-12-21
     me->add("score",score);
@@ -264,7 +262,7 @@ int do_return(object ob, object me, string arg)
  destruct(ob);
     //task增加100、200、400任务奖品 by 薪有所属
     if ( me->query("mirror_count") == 100 || me->query("mirror_count") == 200 || me->query("mirror_count") == 300 ||
-    	   me->query("mirror_count") == 400 || me->query("mirror_count") == 500 )
+           me->query("mirror_count") == 400 || me->query("mirror_count") == 500 )
        call_other(__FILE__,"set_item", me);
     return 1;
 
@@ -272,7 +270,7 @@ int do_return(object ob, object me, string arg)
 
 string set_item(object me)
 {
-	//task增加100、200、400任务奖品 by 薪有所属
+    //task增加100、200、400任务奖品 by 薪有所属
         // 完成100个task：美容丸、福源丹
          string *ob1_list = ({
                 "/clone/fam/gift/perwan",
@@ -301,8 +299,8 @@ string set_item(object me)
                 //"/clone/fam/etc/lv5f",  //极北寒玉
                 //"/clone/fam/etc/prize4",//圣杯
                 //"/clone/fam/etc/prize5",//神圣血清
-				"/clone/fam/max/xuanhuang",
-				"/clone/fam/max/longjia",
+                "/clone/fam/max/xuanhuang",
+                "/clone/fam/max/longjia",
         });
 
          // 完成500个task：无花果
@@ -319,7 +317,7 @@ string set_item(object me)
               //me->name(1), me->query("id"), ctime(time())));
 
         } else
-        	
+            
         if (me->query("mirror_count") == 200)
         {
                 gift = ob1_list[random(sizeof(ob2_list))];
@@ -327,7 +325,7 @@ string set_item(object me)
               //me->name(1), me->query("id"), ctime(time())));
 
         } else
-        	
+            
         if (me->query("mirror_count") == 300)
         {
                 gift = ob1_list[random(sizeof(ob3_list))];
