@@ -6,5 +6,6 @@
 /temp
 /tmp
 /version
+.DS_Store
 *DUMP
 desktop.ini
