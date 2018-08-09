@@ -1,3 +1,4 @@
+/backup
 /binaries
 /data
 /dump
@@ -6,7 +7,6 @@
 /temp
 /tmp
 /version
-config.cfg
-driver.*
-OBJ_DUMP
-
+.DS_Store
+*DUMP
+*.ini
