@@ -1,11 +1,3 @@
-/backup
-/binaries
-/data
-/dump
-/log
-/temp
-/tmp
-/version
 .DS_Store
 *DUMP
 desktop.ini
