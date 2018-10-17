@@ -1,8 +1,10 @@
-# 梦幻泥潭MUD
+# [梦幻泥潭MUD](http://mud.ren:3166/)
 
-> mud.ren:5555 [更新日志](https://github.com/oiuv/mud/blob/master/CHANGELOG.md)
+> [更新日志](https://github.com/oiuv/mud/blob/master/CHANGELOG.md)
 
-推荐使用 [FluffOS](https://github.com/fluffos/fluffos) 驱动本LIB：
+推荐使用 [FluffOS](https://github.com/fluffos/fluffos) 驱动本LIB，编译流程请参考：[FluffOS 编译实例](https://www.mud.ren/topics/6)
+
+游戏演示：http://mud.ren:3166/ (WEB访问)　或　mud.ren:5555 (TELENT访问)
  
 >mudinfo
 
