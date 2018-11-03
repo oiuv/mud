@@ -4,7 +4,9 @@
 
 推荐使用 [FluffOS](https://github.com/fluffos/fluffos) 驱动本LIB，编译流程请参考：[FluffOS 编译实例](https://www.mud.ren/topics/6)
 
-游戏演示：mud.ren:5555 (TELENT访问)
+游戏演示：
+* mud.ren:5555 (TELENT访问)
+* http://www.mud.ren:8080/ (WEB访问)
  
 >mudinfo
 
