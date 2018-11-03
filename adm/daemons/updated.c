@@ -86,7 +86,7 @@ void check_user(object ob)
 	if (! mapp(skill_status = ob->query_skills())) return;
 	sname  = keys(skill_status);
 
-	for (i = 0; i < sizeof(skill_status); i++) 
+	for (i = 0; i < sizeof(skill_status); i++)
 	{
 		level = skill_status[sname[i]];
                 if (file_size(SKILL_D(sname[i]) + ".c") == -1)
@@ -100,7 +100,7 @@ void check_user(object ob)
             		while (level &&
 			       (level - 1) * (level -1 ) * (level - 1) / 10 > combat_exp)
             		       level--;
-        
+
             		ob->set_skill(sname[i], level);
                 }
 	}
@@ -374,10 +374,10 @@ void born_player(object me)
                 // 先天容貌 < 20 不会天颜永驻
                 if (me->query("per") < 20)
                         files -= ({ "youth" });
-                        
-                        
-                 // 先天悟性 < 16 不会天赋聪颖 2016.12.07
-                if (me->query("int") < 16)
+
+
+                 // 先天悟性 < 26 不会天赋聪颖
+                if (me->query("int") < 26)
                         files -= ({ "clever" });
 
                 // 获得第一项技能
@@ -387,9 +387,8 @@ void born_player(object me)
                 msg += SPECIAL_D(special)->name();
 
                 files -= ({ special });
-                //增大3特技出现几率
-                //百分百3特技 2016.12.09
-                if (sizeof(files) && random(10) < 10)
+                // 百分百第二特技
+                if (sizeof(files) && random(2) < 10)
                 {
                         // 获得第二项技能
                         special = files[random(sizeof(files))];
@@ -397,7 +396,8 @@ void born_player(object me)
                         msg += HIG "、" NOR + SPECIAL_D(special)->name();
 
                         files -= ({ special });
-                        if (sizeof(files) && random(10) < 10)
+                        // 百分百第三特技
+                        if (sizeof(files) && random(3) < 10)
                         {
                                 // 获得第三项技能
                                 special = files[random(sizeof(files))];
@@ -456,13 +456,13 @@ void zhuan_player(object me)
         me->delete("detach");                // 脱离记录
         me->delete("betrayer");              // 叛师记录
         me->delete("long");                  // 个人描述
-        
+
         me->delete("combat");                // PK  记录
         me->delete("animaout");              // 元婴出世
         me->delete("breakup");               // 任督二脉
         me->delete("can_learn");             // 技能解密
         me->delete("can_make");              // 制药记录
-        
+
         me->delete("env");                   // 个人设定
         me->delete("gift");                  // 吃丹记录（含九转）
         me->delete("opinion");               // 评价记录
@@ -475,20 +475,20 @@ void zhuan_player(object me)
         me->delete("rumor");                 // 事件记录
         me->delete("schedule");              // 计划记录
         me->delete("skybook");               // 天书记录（三丹记录）
-       
+
         me->delete("luohan_winner");         //过阵记录
         me->delete("story");                 // 中的故事
-        
+
         me->delete("DiZangPass");            // 转世任务
         me->delete("HellZhenPass");          // 转世任务
         me->delete("SkyPass");               // 转世任务
         me->delete("over_quest");            // 转世任务
-        
+
         //获取转生前门派，用于脱离时无损判断 by 薪有所属
         menpai1 = me->query("family/family_name");
         me->set("old_family_name",menpai1);
         me->delete("family");                // 门派记录
-        
+
         //转世set
         me->set("title", "普通百姓");        // 个人称号
         me->set("character", "国士无双");    // 转世性格
@@ -498,11 +498,11 @@ void zhuan_player(object me)
         me->delete("can_learned");             // 技能解密2(太玄)
         me->delete("mirror_task");             // task记录
         me->delete("mirror_count");             // task记录
-        
+
         me->delete("death");                  // 生死玄关
-        
+
         me->delete("can_perform");         //武功绝招
-        
+
         me->delete("learned_literate");        //学过读书写字
 
         me->set("gongxian",0);                  //贡献清零
@@ -510,11 +510,11 @@ void zhuan_player(object me)
         me->set("weiwang",0);                  //威望清零
         me->set("experience",0);             //体会清零
         me->set("learned_experience",0);     //体会清零
-       
+
         me->set("max_neili",0);                  //内力清零
         me->set("neili",0);                  //内力清零
-        me->set("jiali",0); 
-       
+        me->set("jiali",0);
+
         me->set("max_jingli",0);                  //精力清零
         me->set("jingli",0);                    //精力清零
         me->set("jiajing",0);                  //精力清零
@@ -525,27 +525,27 @@ void zhuan_player(object me)
         me->set("potential",0);       //潜能清零
         me->set("magic_learned",0);      //灵慧清零
         me->set("magic_points",0);      //灵慧清零
-        
-        
-        
+
+
+
         //me->set("static/marry",0);      //黯然记录
         //me->set("static/sadly",0);      //黯然记录
         me->delete("static");//黯然记录
-        
-        //hp set    
+
+        //hp set
         me->set("max_qi", 100);
         me->set("eff_qi", me->query("max_qi"));
         me->set("qi", me->query("eff_qi"));
         me->set("max_jing", 100);
         me->set("eff_jing", me->query("max_jing"));
         me->set("jing", me->query("eff_jing"));
-    
+
         me->set("mud_age", 0);
         me->set("age", 14);
         me->set("birthday", time());
 
         all_skills = me->query_skills();
-        
+
         //判断是否有技能，有技能才清除技能。否则没技能时原清除技能代码会报错。 by 薪有所属
         //虽说正常转世肯定不会0技能，但完全可以最后一步放弃所有技能。。。
         if (all_skills)
@@ -566,19 +566,19 @@ void zhuan_player(object me)
         files = ({ "guibian", "guimai", "jinshen", "piyi",
                    "qinzong", "wuxing", "shenyan","tiandao",
                 });
-                
+
           //转世固定赠送神眼特技，故随机时神眼特技先行排除
           files -= ({ "shenyan" });
-          
+
           //转世先天悟性小于16时直接赠送互搏特技，先天悟性在16（含）至25（含）之间时有机率随机到互搏特技
-          //先天悟性26（含）以上时不会随机到互搏特技 by 薪有所属     
+          //先天悟性26（含）以上时不会随机到互搏特技 by 薪有所属
          if (me->query("int") < 16 || me->query("int") > 25)
          	files -= ({ "tiandao" });
-         	
+
          	//转世先天悟性小于35点不会随机到count特技 by 薪有所属
          if (me->query("int") < 35)
          	files -= ({ "qinzong" });
-         	
+
          	//转世int<22或dex<26,极限也无法达到葵花要求时不给鬼脉特技 2017-03-29
          if (me->query("int") < 22 || me->query("dex") < 26)
          	files -= ({ "guimai" });
@@ -604,10 +604,10 @@ void zhuan_player(object me)
        	me->set("special_skill/tiandao", 1);
        	else
         me->set("special_skill/clever", 1);
-        
+
         if (me->query("per") < 20)
         me->set("per",20);
-        
+
         me->set("special_skill/youth", 1);
         me->set("special_skill/shenyan", 1);
         me->set("special_skill/wrath", 1);
@@ -631,16 +631,16 @@ void zhuan_player(object me)
 
         message("channel:rumor", HIR "【转世重生】" + me->query("name") +
                 "获得转世技能--" + HIG "天颜永驻" NOR + HIR "！\n" NOR, users());
-                
+
         message("channel:rumor", HIR "【转世重生】" + me->query("name") +
                 "获得转世技能--" + HIC "通慧神眼" NOR + HIR "！\n" NOR, users());
-                
+
         message("channel:rumor", HIR "【转世重生】" + me->query("name") +
                 "获得转世技能--" + HIR "愤怒之心" NOR + HIR "！\n" NOR, users());
-                
+
         message("channel:rumor", HIR "【转世重生】" + me->query("name") +
                 "获得转世技能--" + HIC "周天运转" NOR + HIR "！\n" NOR, users());
-                
+
         message("channel:rumor", HIR "【转世重生】" + me->query("name") +
                 "获得转世技能--" + HIR "移经易脉" NOR + HIR "！\n" NOR, users());
 

@@ -45,7 +45,7 @@ object find_body(string name);
 int check_legal_id(string arg);
 int check_legal_name(string arg, int maxlen);
 
-void create() 
+void create()
 {
 	seteuid(ROOT_UID);
 	set("channel_id", "连线精灵");
@@ -99,7 +99,7 @@ void logon(object ob)
 		else ppl_cnt++;
 	}
 #if 1
-        if (iplimit > 9)
+        if (iplimit > 5)
         {
 		write("对不起，" + LOCAL_MUD_NAME() + "限制相同ip多重登录。\n");
 		destruct(ob);
@@ -183,7 +183,7 @@ private void get_id(string arg, object ob)
 		destruct(ob);
 		return;
 	}
-	
+
 */
 	if ((string)ob->set("id", arg) != arg)
         {
@@ -402,7 +402,7 @@ private void confirm_relogin(string yn, object ob, object user)
                       HIY "y/n" NOR + WHT ")" NOR);
 		input_to("confirm_relogin", ob, user);
 		return;
-	}	
+	}
 
 	if (yn[0]!='y' && yn[0]!='Y')
 	{
@@ -443,7 +443,7 @@ private void confirm_id(string yn, object ob)
 		write("\n使用这个名字将会创造一个新的人物，您确定吗(y/n)？");
 		input_to("confirm_id", ob);
 		return;
-	}	
+	}
 
 	if (yn[0] != 'y' && yn[0] != 'Y')
         {
@@ -655,7 +655,7 @@ private void confirm_password(string pass, object ob)
 
         write(WHT "\n请您选择（输入数字" HIC "1" NOR + WHT "—" HIC "5"
               NOR + WHT "）在「" HIR "武林群侠传" NOR + WHT "」中您想要"
-              "扮演的角色类型：
+              "扮演的角色类型(目前版本类型选择对游戏体验无任何影响)：
 ┏━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┓
 ┃" HIC "①" HIY " 猛士型" NOR + WHT " ┃" HIC "②" HIY " 智慧型" NOR +
  WHT " ┃" HIC "③" HIY " 耐力型" NOR + WHT " ┃" HIC "④" HIY " 敏捷型"
@@ -817,13 +817,13 @@ private void init_new_player(object user)
         NAME_D->map_name(user->query("name"), user->query("id"));
 
         // 设置必要的环境参数
-        
+
         //user->set("env/prompt", "time");
         user->set("env/wimpy", 60);
         //设定不自动转宗师频道，防止困扰玩家 by 薪有所属
         user->set("env/no_autoultra", 1);
 }
-		
+
 varargs void enter_world(object ob, object user, int silent)
 {
 	object cloth, shoe/*, room*/, login_ob;
@@ -833,13 +833,13 @@ varargs void enter_world(object ob, object user, int silent)
         object sob; // 检查身上物品是否过多，查询是否有作弊嫌疑
         int i;
         string *sobs = ({
-                "xisui xiandan", 
-                "wuji xiandan", 
-                 "tonghui xiandan", 
+                "xisui xiandan",
+                "wuji xiandan",
+                 "tonghui xiandan",
                 "zhuyuan xiandan",
-                "wuhua guo", 
+                "wuhua guo",
         });
-                         
+
         if (! is_root(previous_object()))
                 return;
 
@@ -857,7 +857,7 @@ varargs void enter_world(object ob, object user, int silent)
         	user->set("water", user->max_water_capacity());
 	}
 
-	// In case of new player, we save them here right aftre setup 
+	// In case of new player, we save them here right aftre setup
 	// compeleted.
 	user->save();
         user->set("last_save", time());
@@ -1002,7 +1002,7 @@ varargs void enter_world(object ob, object user, int silent)
         }
 
         destruct(login_ob);
-       
+
         // 检查同盟情况
         "/cmds/usr/league"->main(this_player(), "check");
 
@@ -1014,7 +1014,7 @@ varargs void enter_world(object ob, object user, int silent)
              {
                     if (sob->query_amount() > 20)
                              log_file("warning", this_player()->name() + "(" +
-                                      this_player()->query("id") + ") has more than" + " " + 
+                                      this_player()->query("id") + ") has more than" + " " +
                                       sob->query_amount() + " "+ sobs[i] + "\n");
 
                     if (sob->query_amount() > 30)
@@ -1023,7 +1023,7 @@ varargs void enter_world(object ob, object user, int silent)
                               this_player()->get_into_prison(this_object(), 0, 144400);
                               break;
                      }
-                           
+
               }
         }
 
@@ -1034,7 +1034,7 @@ varargs void enter_world(object ob, object user, int silent)
 
 
         if (new_mail_n)
-                tell_object(user, HIG"【炎黄邮件系统】：你有 " 
+                tell_object(user, HIG"【炎黄邮件系统】：你有 "
                             HIY + new_mail_n + HIG " 封新邮件，请到邮件中心查阅！\n" NOR);
 */
 	CHANNEL_D->do_channel(this_object(), "sys",
@@ -1068,11 +1068,11 @@ varargs void reconnect(object ob, object user, int silent)
         object sob; // 检查身上物品，是否有作弊嫌疑
         int i;
         string *sobs = ({
-                "xisui xiandan", 
-                "wuji xiandan", 
-                 "tonghui xiandan", 
+                "xisui xiandan",
+                "wuji xiandan",
+                 "tonghui xiandan",
                 "zhuyuan xiandan",
-                "wuhua guo", 
+                "wuhua guo",
         });
 
 	user->set_temp("link_ob", ob);
@@ -1101,12 +1101,12 @@ varargs void reconnect(object ob, object user, int silent)
                                       this_player()->query("id") + ") has more than" + " " +
                                       sob->query_amount() + " " + sobs[i] + "\n");
                     if (sob->query_amount() > 100)
-                    {                                           
+                    {
                               log_file("logind_throw", this_player()->name() + " had been throwed by 连线精灵。\n");
                               this_player()->get_into_prison(this_object(), 0, 144400);
                               break;
                      }
-                           
+
               }
         }
 
@@ -1116,7 +1116,7 @@ varargs void reconnect(object ob, object user, int silent)
         new_mail_n = get_info(user->query("id"), "newmail", "", 0);
 
         if (new_mail_n)
-                tell_object(this_player(), HIG"【炎黄邮件系统】：你有 " 
+                tell_object(this_player(), HIG"【炎黄邮件系统】：你有 "
                             HIY + new_mail_n + HIG " 封新邮件，请到邮件中心查阅！\n" NOR);
 */
 	CHANNEL_D->do_channel( this_object(), "sys",
@@ -1141,7 +1141,7 @@ int check_legal_id(string id)
                       "殊的含意，不能用做英文名字。\n");
                 return 0;
         }
-        
+
 	i = strlen(id);
 
 	if ((strlen(id) < 3) || (strlen(id) > 10))
@@ -1175,7 +1175,7 @@ int check_legal_name(string name, int maxlen)
                       "」取名字。\n" NOR);
 		return 0;
 	}
-	
+
 	if ((strlen(name) < 2) || (strlen(name) > maxlen))
 	{
 		write(WHT "对不起，你的中文姓名不能太长。\n" NOR);
