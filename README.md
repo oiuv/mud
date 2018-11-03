@@ -21,3 +21,5 @@
 		 连续执行的时间：  七分三十六秒
 
 		 Mud 现在的状态：  系统函数库改写中.
+
+<img src="https://app.oiuv.cn/storage/screen/15412505885870.png" alt="mud.ren:5555">
