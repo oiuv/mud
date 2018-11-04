@@ -24,4 +24,6 @@
 
 		 Mud 现在的状态：  系统函数库改写中.
 
-<img src="https://app.oiuv.cn/storage/screen/15412505885870.png" alt="mud.ren:5555">
+<img src="https://app.oiuv.cn/storage/screen/15413245501980.png" alt="mud.ren:5555">
+
+<img src="https://app.oiuv.cn/storage/screen/15412507048054.png" alt="mud.ren:5555">
