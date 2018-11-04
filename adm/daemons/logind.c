@@ -655,12 +655,13 @@ private void confirm_password(string pass, object ob)
 
         write(WHT "\n请您选择（输入数字" HIC "1" NOR + WHT "—" HIC "5"
               NOR + WHT "）在「" HIR "武林群侠传" NOR + WHT "」中您想要"
-              "扮演的角色类型(目前版本类型选择对游戏体验无任何影响)：
+              "扮演的角色类型：
 ┏━━━━━┳━━━━━┳━━━━━┳━━━━━┳━━━━━┓
 ┃" HIC "①" HIY " 猛士型" NOR + WHT " ┃" HIC "②" HIY " 智慧型" NOR +
  WHT " ┃" HIC "③" HIY " 耐力型" NOR + WHT " ┃" HIC "④" HIY " 敏捷型"
  NOR + WHT " ┃" HIC "⑤" HIY " 均衡型" NOR + WHT " ┃
-┗━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┛\n" NOR);
+┗━━━━━┻━━━━━┻━━━━━┻━━━━━┻━━━━━┛
+(提示：类型选择对游戏体验暂无任何影响)\n" NOR);
         input_to("get_type", ob);
 }
 
@@ -1070,7 +1071,7 @@ varargs void reconnect(object ob, object user, int silent)
         string *sobs = ({
                 "xisui xiandan",
                 "wuji xiandan",
-                 "tonghui xiandan",
+                "tonghui xiandan",
                 "zhuyuan xiandan",
                 "wuhua guo",
         });
