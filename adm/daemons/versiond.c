@@ -12,7 +12,7 @@
 inherit F_DBASE;
 inherit F_SAVE;
 
-#define AGENT_IP        ({}) 
+#define AGENT_IP        ({})
 
 // 删除命令
 #define RM_CMD          "/cmds/wiz/rm"
@@ -61,16 +61,16 @@ inherit F_SAVE;
 #define VERSION_PORT    12
 
 // 不需要构造的目录
-STATIC_VAR_TAG string *exclude_dir = ({ "/adm/etc", "/adm/log", "/adm/daemons", 
-                                "/data", "/backup", "/log", "/dump", "/temp", "/binaries", VERSION_DIR, 
-                                //"/clone", "/include", "/help", "/d", "/cmds", "/feature", "/kungfu", "/inherit", "/b", "/shadow", 
+STATIC_VAR_TAG string *exclude_dir = ({ "/adm/etc", "/adm/log", "/adm/daemons", "/.git",
+                                "/data", "/backup", "/log", "/dump", "/temp", "/binaries", VERSION_DIR,
+                                //"/clone", "/include", "/help", "/d", "/cmds", "/feature", "/kungfu", "/inherit", "/b", "/shadow",
                                 "/doc", "/grant", "/u", });
 // 额外需要构造的文件
 STATIC_VAR_TAG string *include_dir = ({ "/data/e2c_dict.o", "/data/emoted.o", "/data/newsd.o",
                                 "/adm/etc/quest", "/adm/etc/preload" });
 
 // 需要发布C源程序的目录
-STATIC_VAR_TAG string *release_src = ({ "/clone/misc/wedding-ring.c", 
+STATIC_VAR_TAG string *release_src = ({ "/clone/misc/wedding-ring.c",
                                 "/clone/misc/depot_ob.c",
                                 "/d/room/%*s" });
 
@@ -299,7 +299,7 @@ int generate_version()
 
         // 初始化整理信息
         build_init_data();
-        
+
         message_system("系统正在生成可以执行的发布版本，您的游戏速度可能会受到影响。\n");
         write("开始生成版本...\n");
 
@@ -556,14 +556,14 @@ private void build_version(string path, mapping here)
                 case -1:
                         // 没有这个目录或是文件，直接继续
                         return;
-        
+
                 case -2:
                         // 这是一个目录，我首先需要确保生成合适的映
                         // 射数据
                         here = ([ ]);
                         set(FILES + path, here);
                         break;
-        
+
                 default:
                         // 这是一个普通文件，直接生成版本信息
 
@@ -919,7 +919,7 @@ int is_version_ok() { return version_ok; }
 int is_boot_synchronizing()
 {
         if (! version_ok && ! stringp(query_temp("operator")))
-                return 1;           
+                return 1;
 }
 
 // 是否是版本发布服务器
@@ -956,7 +956,7 @@ void send_command(int fd, string cmd)
         if (! fd)
                 // 检查当前连接的VFD
                 if (! (fd = vfd)) return;
-                
+
 
         cmd += "\n";
         if (sizeof(client_info[PENDING_WRITE]))
@@ -1602,7 +1602,7 @@ private void syn_read_callback(int fd, buffer buf)
                 if (! client_info[FILE_NAME])
                 {
                         // 没有文件名字，接收的是普通应答信息
-        
+
                         // 计算我应该从缓冲区中读出的字节数目，因为
                         // 可能不能一次获得普通的应答信息，因此我将
                         // 这些信息累计到RESULT_BUFFER中， 一直到读
@@ -1617,7 +1617,7 @@ private void syn_read_callback(int fd, buffer buf)
                         client_info[RESULT_BUFFER] += read_buffer(buf, 0, len);
                         // 取剩余的buffer
                         buf = buf[len..<1];
-        
+
                         if (client_info[FILE_POS] >= NORMAL_RESULT_LEN)
                         {
                                 // 读到了一条通常的返回信息，重新设
@@ -1625,12 +1625,12 @@ private void syn_read_callback(int fd, buffer buf)
                                 str = client_info[RESULT_BUFFER];
                                 client_info[RESULT_BUFFER] = "";
                                 client_info[FILE_POS] = 0;
-        
+
                                 // 处理接收到的结果信息
                                 syn_receive_result(str);
                         }
                 }
-        
+
                 DEBUG_LOG(sprintf("buf = %O(%d) ... file_name = %O(%d)\n",
                                                           buf, sizeof(buf),
                                                           client_info[FILE_NAME],
@@ -1721,7 +1721,7 @@ private void in_listen_callback(int fd)
 
         address = socket_address(new_fd);
         if (! stringp(address) || sscanf(address, "%s %d", ip, port) != 2 ||
-              member_array(ip, AGENT_IP) == -1) 
+              member_array(ip, AGENT_IP) == -1)
         {
                 // 这个地址没有经过授权
                 socket_close(new_fd);
@@ -1875,7 +1875,7 @@ private void in_write_callback(int fd)
 
                         // 发送处理完毕
                         break;
-        
+
                 default:
                         // 未定义状态，无操作
                         return;
