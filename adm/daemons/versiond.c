@@ -61,9 +61,9 @@ inherit F_SAVE;
 #define VERSION_PORT    12
 
 // 不需要构造的目录
-STATIC_VAR_TAG string *exclude_dir = ({ "/adm/etc", "/adm/log", 
+STATIC_VAR_TAG string *exclude_dir = ({ "/adm/etc", "/adm/log", "/adm/daemons", 
                                 "/data", "/backup", "/log", "/dump", "/temp", "/binaries", VERSION_DIR, 
-                                //"/adm", "/clone", "/include", "/help", "/d", "/cmds", "/feature", "/kungfu", "/inherit", "/b", "/shadow", 
+                                //"/clone", "/include", "/help", "/d", "/cmds", "/feature", "/kungfu", "/inherit", "/b", "/shadow", 
                                 "/doc", "/grant", "/u", });
 // 额外需要构造的文件
 STATIC_VAR_TAG string *include_dir = ({ "/data/e2c_dict.o", "/data/emoted.o", "/data/newsd.o",
