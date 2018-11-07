@@ -185,7 +185,7 @@ void update_age()
 
         if (! environment() ||
             ! environment()->is_chat_room() ||
-            ! query("env/halt_age"))		
+            ! query("env/halt_age"))
         {
                 // Update age
 	        add("mud_age", delta);
@@ -338,7 +338,7 @@ int query_neili_limit()
 
         skill_names = keys(skills);
 
-        base_lvl = ((int) skills["force"]) / 2; 
+        base_lvl = ((int) skills["force"]) / 2;
         neili_limit = base_lvl * 10;
         for (i = 0; i < sizeof(skill_names); i++)
         {
@@ -388,7 +388,7 @@ int query_current_neili_limit()
         {
                 neili += (int)query_skill(force, 1) * 10;
                 neili += SKILL_D(force)->query_neili_improve(this_object());
-        }    
+        }
 
         neili += neili * query("improve/neili") / 100;
         if (query("breakup"))
@@ -396,7 +396,7 @@ int query_current_neili_limit()
 
         if (query("special_skill/mystery"))
                 neili += query("con") * 15;
-                
+
              // 转世技能六阴鬼脉增加内力上限 by 薪有所属
         if (query("special_skill/guimai"))
                 neili += neili * 3 / 20;
@@ -421,9 +421,9 @@ int query_jingli_limit()
 
         force = query_skill_mapped("force");
         if (stringp(force) && force != "")
-        {                
+        {
                 limit += SKILL_D(force)->query_jingli_improve(this_object());
-        }    
+        }
 
         return limit;
 }
@@ -441,31 +441,28 @@ int query_potential_limit()
 
         // 玄黄紫箐丹提升潜能上限
         if (query("skybook/item/xuanhuang"))
-	        //i += 250;
-	        i += 5000;
+	        i += 1000;
 
         // 子午龙甲丹提升潜能上限
         if (query("skybook/item/longjia"))
-	        //i += 250;
-	        i += 5000;
+	        i += 1000;
 
         // 镇狱惊天丸提升潜能上限
         if (query("skybook/item/zhenyu"))
-	        //i += 500;
-	        i += 10000;
+	        i += 3000;
 
 	if (query("reborn"))
 		p = 200000;
 	else
         if (ultrap(this_object()))
-		p = 100000 + i;
+		p = 50000 + i;
 
         // 乾坤无量增加潜能上限
 	else
         if (query("special_skill/potential"))
-		p = query_int() * 200 + 80000 + i;
+		p = query_int() * 200 + 10000 + i * 2;
         else
-		p = query_int() * 100 + 50000 + i;
+		p = query_int() * 100 + i;
 
         return (int)query("learned_points") + p;
 }
@@ -845,7 +842,7 @@ varargs void die(object killer)
                 if (living(this_object()))
                         enable_player();
         }
-        
+
         ::die(killer);
         save();
 }
@@ -921,11 +918,11 @@ int query_max_craze()
 
         case "心狠手辣" :
                 return CRAZE_LIMIT_2;
-                
+
         //新增国士无双怒气 by 薪有所属
         case "国士无双" :
                 return CRAZE_LIMIT_3;
-        
+
         default:
                 return 0;
         }
