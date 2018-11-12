@@ -12,7 +12,7 @@ mapping combine_list = ([
         ({ "/clone/fam/max/xuanhuang-1",
            "/clone/fam/max/longjia-1",}) : "/clone/fam/max/zhenyu",
            //"/clone/fam/item/kunlun-1",
-           //"/clone/fam/item/baxian-1", 
+           //"/clone/fam/item/baxian-1",
 
         // 子午龙甲丹
         ({ "/clone/fam/pill/dimai-1",
@@ -94,21 +94,14 @@ mapping combine_list = ([
         // 佛尊舍利
         ({ "/clone/fam/pill/sheli1-1",
            "/clone/fam/pill/full1-1", }) : "/clone/fam/pill/sheli2",
-           	
-        //取消饕餮特技后新增无字天书合成
-        //无字天书
-        ({ "/clone/fam/gift/str2-1",
-           "/clone/fam/gift/int2-1",
-           "/clone/fam/gift/con2-1",
-           "/clone/fam/gift/dex2-1", }) : "/clone/fam/max/tianshu2",
-           	
+
         // 忘情天书 新增4*85丹
         ({ "/clone/fam/gift/str3-1",
            "/clone/fam/gift/int3-1",
            "/clone/fam/gift/dex3-1",
            "/clone/fam/gift/con3-1", }) : "/clone/fam/max/tianshu1",
-		   
-		 // 忘情天书
+
+		    // 忘情天书
         ({ "/clone/fam/etc/lv5a-1",
            "/clone/fam/etc/lv5b-1",
            "/clone/fam/etc/lv5d-1",
@@ -288,24 +281,33 @@ mapping combine_list = ([
 
         // 辉石
         ({ "/clone/fam/item/stone3-1",
-           "/clone/fam/item/stone1-1",
-           }) : "/clone/fam/item/stone4",
+           "/clone/fam/item/stone1-1" }) : "/clone/fam/item/stone4",
 
         // 皓石
         ({ "/clone/fam/item/stone2-1",
-           "/clone/fam/item/stone1-1",
-           }) : "/clone/fam/item/stone3",
+           "/clone/fam/item/stone1-1" }) : "/clone/fam/item/stone3",
 
 
         // 辉月华石
         ({ "/clone/fam/item/stone1-1",
            "/clone/fam/item/stone4-1",
            "/clone/fam/item/stone3-1",
-           "/clone/fam/item/stone2-1",
-           }) : "/clone/fam/item/stone5",
+           "/clone/fam/item/stone2-1" }) : "/clone/fam/item/stone5",
 
-//新增无花果及85丹合成
-// 许愿无花果，消除一次吃丹失败
+       //取消饕餮特技后新增无字天书合成
+       //无字天书
+       ({ "/clone/fam/gift/str1-1",
+          "/clone/fam/gift/int1-1",
+          "/clone/fam/gift/con1-1",
+          "/clone/fam/gift/dex1-1" }) : "/clone/fam/max/tianshu2",
+
+      ({ "/clone/fam/gift/str2-1",
+         "/clone/fam/gift/int2-1",
+         "/clone/fam/gift/con2-1",
+         "/clone/fam/gift/dex2-1", }) : "/clone/fam/gift/kardan",
+
+        //新增无花果及85丹合成
+        //许愿无花果，消除一次吃丹失败
        ({ "/clone/fam/gift/str3-1",
           "/clone/fam/gift/int3-1",
           "/clone/fam/gift/con3-1",
@@ -316,36 +318,36 @@ mapping combine_list = ([
           "/clone/fam/gift/dex2-1",
        }) : "/clone/fam/obj/guo",
 
-     // 四个五成丹加一个七成丹合成一个8.5成丹(str)
-       ({ "/clone/fam/gift/str1-1",  
-          "/clone/fam/gift/int1-1",  
-          "/clone/fam/gift/con1-1",  
-          "/clone/fam/gift/dex1-1",  
-          "/clone/fam/gift/str2-1",                  
+     // 四个七成丹加一个五成丹合成一个8.5成丹(str)
+       ({ "/clone/fam/gift/str2-1",
+          "/clone/fam/gift/int2-1",
+          "/clone/fam/gift/con2-1",
+          "/clone/fam/gift/dex2-1",
+          "/clone/fam/gift/str1-1",
         }) : "/clone/fam/gift/str3",
 
-     // 四个五成丹加一个七成丹合成一个8.5成丹(int)
-       ({ "/clone/fam/gift/str1-1",  
-          "/clone/fam/gift/int1-1",  
-          "/clone/fam/gift/con1-1",  
-          "/clone/fam/gift/dex1-1",  
-          "/clone/fam/gift/int2-1",                  
+     // 四个七成丹加一个五成丹合成一个8.5成丹(int)
+       ({ "/clone/fam/gift/str2-1",
+          "/clone/fam/gift/int2-1",
+          "/clone/fam/gift/con2-1",
+          "/clone/fam/gift/dex2-1",
+          "/clone/fam/gift/int1-1",
         }) : "/clone/fam/gift/int3",
 
-     // 四个五成丹加一个七成丹合成一个8.5成丹(con)
-       ({ "/clone/fam/gift/str1-1",  
-          "/clone/fam/gift/int1-1",  
-          "/clone/fam/gift/con1-1",  
-          "/clone/fam/gift/dex1-1",
-          "/clone/fam/gift/con2-1",                  
+     // 四个七成丹加一个五成丹合成一个8.5成丹(con)
+       ({ "/clone/fam/gift/str2-1",
+          "/clone/fam/gift/int2-1",
+          "/clone/fam/gift/con2-1",
+          "/clone/fam/gift/dex2-1",
+          "/clone/fam/gift/con1-1",
         }) : "/clone/fam/gift/con3",
 
-     // 四个五成丹加一个七成丹合成一个8.5成丹(dex)
-       ({ "/clone/fam/gift/str1-1",  
-          "/clone/fam/gift/int1-1",  
-          "/clone/fam/gift/con1-1",  
-          "/clone/fam/gift/dex1-1", 
-          "/clone/fam/gift/dex2-1",                  
+     // 四个七成丹加一个五成丹合成一个8.5成丹(dex)
+       ({ "/clone/fam/gift/str2-1",
+          "/clone/fam/gift/int2-1",
+          "/clone/fam/gift/con2-1",
+          "/clone/fam/gift/dex2-1",
+          "/clone/fam/gift/dex1-1",
         }) : "/clone/fam/gift/dex3",
 
         /******************************************
@@ -413,7 +415,7 @@ mapping combine_list = ([
           "/clone/fam/etc/lv5d-1",
           "/clone/fam/item/zhenlong-1",
            }) : "/clone/fam/etc/leishentong",
-       
+
 ]);
 
 int main(object me, string arg)

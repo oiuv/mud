@@ -346,6 +346,8 @@ void born_player(object me)
                 for (i = 0; i < sizeof(files); i++)
                         sscanf(files[i], "%s.c", files[i]);
 
+                // 特殊先天属性先行排除
+                files -= ({ "lighting" });
                 // 去除转世特技
                 files -= ({ "guibian", "guimai", "jinshen", "piyi",
                    "qinzong", "wuxing", "shenyan","tiandao"});

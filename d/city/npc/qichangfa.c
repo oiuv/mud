@@ -20,7 +20,7 @@ void create()
 		"戚老板最近暴发横财，所谓是三年不开张，开张管三年。\n");
 	set_skill("unarmed", 50);
 	set_skill("dodge", 50);
-	set_skill("higgling", 500);	
+	set_skill("higgling", 500);
 	set_temp("apply/damage", 15);
 
 	set("combat_exp", 800000);
@@ -44,7 +44,7 @@ void create()
 		"/clone/fam/gift/int2"    : 5000000,
 		"/clone/fam/gift/con2"    : 5000000,
 		"/clone/fam/gift/dex2"    : 5000000,
-    "/clone/fam/gift/kardan"  : 1000000,
+    "/clone/fam/gift/kardan"  : 10000000,
     "/clone/fam/gift/perwan"  : 1000000,
     "/clone/medicine/baoming" : 1000000,
     	//售价100gold以下的不变
@@ -144,11 +144,11 @@ void recover()
         p["jing" ] = p["max_jing"];
 }
 /*
-int recognize_apprentice(object me, string skill) 
+int recognize_apprentice(object me, string skill)
 {
-        if (skill == "higgling") 
-                return 1;                
-        else 
+        if (skill == "higgling")
+                return 1;
+        else
                 return 0;
 }
 */

@@ -35,4 +35,3 @@ int do_effect(object me)
         destruct(this_object());
         return 1;
 }
-

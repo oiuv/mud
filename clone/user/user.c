@@ -441,15 +441,15 @@ int query_potential_limit()
 
         // 玄黄紫箐丹提升潜能上限
         if (query("skybook/item/xuanhuang"))
-	        i += 1000;
+	        i += 2500;
 
         // 子午龙甲丹提升潜能上限
         if (query("skybook/item/longjia"))
-	        i += 1000;
+	        i += 2500;
 
         // 镇狱惊天丸提升潜能上限
         if (query("skybook/item/zhenyu"))
-	        i += 3000;
+	        i += 5000;
 
 	if (query("reborn"))
 		p = 200000;
@@ -675,7 +675,7 @@ int ban_say(int raw)
 
         if (is_in_prison())
         {
-                notify_fail("你省省吧，好好做你的牢，少折腾。\n");
+                notify_fail("你省省吧，好好坐你的牢，少折腾。\n");
                 return 1;
         }
 
