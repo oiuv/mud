@@ -17,14 +17,14 @@ LONG);
         set("no_fight", 1);
         set("can_trade", 1);
         set("no_sleep_room", 1);
-        set("objects",([ 
-                "/clone/food/peanut":5, 
-                "/clone/game/fruit":1, 
+        set("objects",([
+                "/clone/food/peanut":5,
+                "/clone/game/fruit":1,
                 "/clone/game/mint":1,
-                	"/adm/npc/horseboss":1,
+                //"/adm/npc/horseboss":1,
                 //__DIR__"npc/yanruyu":1,
-               //"/adm/npc/beastseller":1,
-        ])); 
+							  __DIR__"npc/qichangfa":1,
+        ]));
         set("exits", ([
                 "north" : __DIR__"kedian",
                 "east" : __DIR__"qiyuan/qiyuan1",
@@ -33,5 +33,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-
-

@@ -28,13 +28,13 @@ void create()
 
         set("inquiry", ([
                 "宝物" : (: do_answer :),
-                "还我"     : "哼！我这里是有进无出！",
-                "我的钱"     : "什么你的钱，地上的就是我的！",
-                "钱"         : "想钱啊？自己去挣！",
-                "东西"   : "扔掉就没了！嘿嘿。",
+                "还我" : "哼！我这里是有进无出！",
+                "我的钱" : "什么你的钱，地上的就是我的！",
+                "马哨" : "我这的马哨可要比镇远镖局的质量更好哦。",
+                "东西" : "扔掉就没了！嘿嘿。",
 		            "天王保命丹" : "卖！卖！二百两黄金一粒！",
-		            "翡翠兰"     : "可治百毒啊！有气就能活！",
-		            "朱睛冰蟾"   : "虽然不象翡翠兰那样可起死回生，但是能解百毒！",
+		            "翡翠兰" : "可治百毒啊！有气就能活！",
+		            "朱睛冰蟾" : "虽然不象翡翠兰那样可起死回生，但是能解百毒！",
         ]));
 //售价100gold以上的五折 2017-02-20
 	set("vendor_goods", ([
@@ -44,13 +44,14 @@ void create()
 		"/clone/fam/gift/int2"    : 5000000,
 		"/clone/fam/gift/con2"    : 5000000,
 		"/clone/fam/gift/dex2"    : 5000000,
-    "/clone/fam/gift/kardan"  : 10000000,
+    "/clone/fam/gift/kardan"  : 1000000,
     "/clone/fam/gift/perwan"  : 1000000,
     "/clone/medicine/baoming" : 1000000,
     	//售价100gold以下的不变
     "/clone/book/tianmo_book" : 200000,
     "/clone/book/zhengqi_book": 200000,
-    "/clone/weapon/goldbow3.c": 200000,
+    "/clone/weapon/goldbow3": 200000,
+		"/clone/misc/whistle": 200000,
 	]));
 
 	setup();

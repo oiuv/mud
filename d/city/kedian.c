@@ -27,7 +27,6 @@ LONG );
 	]));
 	set("objects", ([
 		__DIR__"npc/xiaoer" : 1,
-		__DIR__"npc/qichangfa":1,
 	]));
 	set("exits", ([
 		"west" : __DIR__"beidajie1",
@@ -38,7 +37,7 @@ LONG );
 
 	setup();
 	"/clone/board/kedian_b"->foo();
-        "/adm/npc/beichou"->come_here();
+  "/adm/npc/beichou"->come_here();
 }
 
 void init()
