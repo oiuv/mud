@@ -86,7 +86,7 @@ void init_quest(string qob_name, int amount)
         NPC1_ID = npc1->query("id");
         NPC2_ID = npc2->query("id");
         AMOUNT = amount;
-        
+
         // 物品承载，保证送货的NPC拿得动足够的重量
         npc2->set_max_encumbrance(1000000);
         qob->move(npc2);
@@ -118,7 +118,7 @@ void init_quest(string qob_name, int amount)
         // 定会存在（因为任务析构的时候会清除NPC），所以可以
         // 让NPC引用本地的"npc_accept_object"函数。
         npc1->set_temp("override/accept_object", (: npc_accept_object :));
-        
+
         // 切换到正常状态
         change_status(QUEST_READY);
 
@@ -173,7 +173,7 @@ mixed ask_for_qob(object npc2, object qob, string qob_name)
                                npc2, me);
                 return 1;
         }
-        
+
         if (objectp(qob) && environment(qob) == npc2 && qob->query_amount())
         {
                 if (me->query_encumbrance() + qob->weight() / qob->query_amount() <
@@ -183,7 +183,7 @@ mixed ask_for_qob(object npc2, object qob, string qob_name)
                                        "点点头道：好吧，这批货可是非常重要"
                                        "的，你一定要准时送到啊。\n" NOR, npc2, me);
 
-                        tell_object(me, HIY + npc2->name() + HIY "把一" + 
+                        tell_object(me, HIY + npc2->name() + HIY "把一" +
                                         qob->query("base_unit") + qob_name +
                                         HIY "交给了你托运。\n" NOR);
 
@@ -197,7 +197,7 @@ mixed ask_for_qob(object npc2, object qob, string qob_name)
                 } else
                 {
                         message_vision(CYN "$N" CYN "眯着眼睛瞥了$n" CYN "一"
-                                       "眼，叹了口气道：" + RANK_D->query_respect(me) + 
+                                       "眼，叹了口气道：" + RANK_D->query_respect(me) +
                                        CYN "，这批货你运得了么？\n" NOR, npc2, me);
                 }
         } else
@@ -270,7 +270,7 @@ string query_introduce(object knower)
 
         return CYN "听说" HIY + NPC2_NAME + NOR CYN "急需将一批" +
                HIY + QOB_NAME + NOR CYN "送到" HIY + NPC1_NAME + NOR
-               CYN "哪儿，你有没有兴趣？" NOR;
+               CYN "那儿，你有没有兴趣？" NOR;
 }
 
 // 任务提示
@@ -305,7 +305,7 @@ int npc_accept_object(object me, object who, object ob)
                                "道：我要这干什么？\n" NOR, me, who);
                 return 0;
         }
-        
+
         if (ob->query("id") != QOB_ID)
         {
                 message_vision(CYN "$N" CYN "瞪着$n" CYN "，使劲的摇着头"
@@ -336,7 +336,7 @@ int npc_accept_object(object me, object who, object ob)
                 CHANNEL_D->do_channel(find_object(QUEST_D), "rumor",
                                       "听说" + who->name(1) + "(" +
                                       who->query("id") + ")替" +
-                                      me->name() + HIM "安全送到了" + 
+                                      me->name() + HIM "安全送到了" +
                                       "一批" + ob->name() + HIM "。" NOR);*/
                 call_out("do_finish", 4);
                 change_status("stopping");
@@ -366,8 +366,8 @@ int npc_accept_object(object me, object who, object ob)
                         score = score / 2 + 1;
                 }
         }
- */     
- 
+ */
+
           if (who->query("combat_exp") > 1000000)
                 {
                         // 再次削弱奖励
@@ -375,9 +375,9 @@ int npc_accept_object(object me, object who, object ob)
                         pot = pot / 2 + 1;
                         score = score / 2 + 1;
                 }
-                
-                
-                  
+
+
+
         if (mapp(b = query("bonus/" + who->query("id"))))
         {
                 // 正在奖励该人中
