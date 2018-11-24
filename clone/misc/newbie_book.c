@@ -28,7 +28,6 @@ void init()
 int do_du(string arg)
 {
 		if (arg == "book")
-			return HELP_CMD->main(this_player(), "feature");
+			return HELP_CMD->main(this_player(), "newbie");
 		return 0;
 }
-
