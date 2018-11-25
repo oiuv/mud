@@ -306,13 +306,13 @@ int npc_accept_object(object me, object who, object ob)
                               "pot" : 150 + random(100),
                               "score" : 30 + random(20),
                               "percent" : percent ]));
-/*
+
         CHANNEL_D->do_channel(find_object(QUEST_D), "rumor",
                               "听说" + who->name(1) + "(" +
                               who->query("id") + ")替" +
                               me->name() + HIM "找到了" + ob->name() +
                               HIM "，平息了一场武林风波。" NOR);
-*/
+
         // 被列为门派中断的自由任务
         if (who->query("quest/freequest") > 0)
                 GIFT_D->delay_freequest_bonus(who);

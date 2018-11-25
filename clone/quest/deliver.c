@@ -332,12 +332,13 @@ int npc_accept_object(object me, object who, object ob)
                 // 所有的物品全部接收完了，准备结束任务
                 message_vision(CYN "$N" CYN "抹了抹头上的汗，道：总算"
                                "全运到了，这事可真够罗嗦的。\n" NOR, me);
-/*
+
                 CHANNEL_D->do_channel(find_object(QUEST_D), "rumor",
                                       "听说" + who->name(1) + "(" +
                                       who->query("id") + ")替" +
                                       me->name() + HIM "安全送到了" +
-                                      "一批" + ob->name() + HIM "。" NOR);*/
+                                      "一批" + ob->name() + HIM "。" NOR);
+
                 call_out("do_finish", 4);
                 change_status("stopping");
         } else

@@ -217,11 +217,12 @@ int npc_accept_object(object me, object who, object ob)
                 // 所有的物品全部接收完了，准备结束任务
                 message_vision(HIY "$N" HIY "抹了抹头上的汗，道：总算全备齐了"
                                "，这事可真够罗嗦的。\n" NOR, me);
-/*
+
                 CHANNEL_D->do_channel(this_object(), "rumor",
                                       "听说" + who->name(1) +
                                       "(" + who->query("id") + ")替" +
-                                      me->name() + HIM + "备齐了" + SOB_NAME + "。");*/
+                                      me->name() + HIM + "备齐了" + SOB_NAME + "。");
+
                 call_out("do_finish", 4);
                 restore_npc();
                 change_status("stopping");
@@ -248,8 +249,8 @@ int npc_accept_object(object me, object who, object ob)
                         score = score / 2 + 1;
                 }
         }
- */     
- 
+ */
+
         if (who->query("combat_exp") > 1000000)
                 {
                         // 再次削弱奖励
@@ -257,9 +258,9 @@ int npc_accept_object(object me, object who, object ob)
                         pot = pot / 2 + 1;
                         score = score / 2 + 1;
                 }
-                
-                
-                  
+
+
+
         if (mapp(b = query("bonus/" + who->query("id"))))
         {
                 // 正在奖励该人中

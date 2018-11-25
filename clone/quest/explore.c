@@ -263,7 +263,7 @@ string ask_qob(object knower, object me)
                         str -= ({ 0 });
                         exits = "大概具有" + implode(str, "、") + "出口";
                 }
-        
+
                 message("vision", WHT + knower->name() + "看了看四周，鬼鬼祟祟"
                                   "的在" + me->name() + WHT "耳边说了些什么。\n"
                                   NOR, environment(me), ({ me }));
@@ -382,14 +382,14 @@ int npc_accept_object(object me, object who, object ob)
                "prompt"  : "在寻找" + QOB_NAME + HIC
                            "的过程中，经过锻炼" ]);
         GIFT_D->delay_bonus(who, b);
-/*
+
         CHANNEL_D->do_channel(this_object(), "rumor",
                               "听说" + who->name(1) +
                               "(" + who->query("id") +
                               ")替" + me->name() + HIM +
                               "找到了" + QOB_NAME + HIM
                               "，领到了赏银。" NOR);
-*/
+
         destruct(ob);
         call_out("cancel_quest", 0);
         return -1;
