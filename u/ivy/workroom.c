@@ -12,15 +12,13 @@ void create()
                 "down"  : "/d/city/tree",
                 "up"  : "/d/sky/tianmen",
         ]));
-        //MOYE->come_here();
-/*
-        set("objects",([ 
-                __DIR__"clone/beast/qilin" : 1,
+
+        set("objects",([
+                "/d/city/npc/yanruyu" : 1,
         ]));
-*/
+
         set("valid_startroom", 1);
-        set("sleep_room", 1);
+        set("outdoors", "sky");
         setup();
         replace_program(ROOM);
 }
-
