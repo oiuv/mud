@@ -74,16 +74,20 @@ int main(object me, string arg)
                 UPDATE_D->check_user(me);
                 return 1;
         }
-        /*
+
         if (skill == "zhengqi-jue")
         {
-                return notify_fail("侠义之辈不可失去本心，你忘不掉这项技能。\n");
+                return notify_fail("侠义之辈不可失去本心，你不能放弃这项技能。\n");
+        }
+        if (skill == "tianmo-jue")
+        {
+                return notify_fail("入了魔道，还想回头？你无法放弃这项技能。\n");
         }
         if (skill == "yangyan-shu")
         {
-                return notify_fail("想想放弃养颜后自己就没现在好看，你感觉整个人都不好了。\n");
+                return notify_fail("想想放弃养颜后自己就不好看了，你感觉整个人都不好了。\n");
         }
-        */
+
         name = to_chinese(skill);
         if (name[0] < 160) name = "这项技能";
         skill_lvl = (int)me->query_skill(skill, 1);
@@ -91,8 +95,6 @@ int main(object me, string arg)
         {
                 me->delete_skill(skill);
                 write("好了。\n");
-                // 曾经学过读书写字
-                if (skill == "literate") me->set("learned_literate", 1);
                 return 1;
         }
 
@@ -111,8 +113,6 @@ int main(object me, string arg)
         {
                 me->set_skill(skill, skill_lvl);
                 write("你集中精力不再想" + name + "，结果有所效果。\n");
-                // 曾经学过读书写字
-                if (skill == "literate") me->set("learned_literate", 1);
         }
         return 1;
 }
@@ -131,4 +131,3 @@ int help()
 TEXT );
     return 1;
 }
-
