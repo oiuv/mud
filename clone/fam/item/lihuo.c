@@ -18,7 +18,7 @@ void create()
                 set("material_name", HIC "Àë" HIR "»ð" HIC "Ðþ" HIW "±ù" HIC "Óñ" NOR);
                 set("can_make", "all");
                 set("not_make", ({ "Õ½ÒÂ", "Ñü´ø", "»¤Íó", "Ñ¥×Ó", "±Þ" }));
-                set("power_point", 30);
+                set("power_point", 90);
         }
 }
 
@@ -26,4 +26,3 @@ int query_autoload()
 {
         return 1;
 }
-

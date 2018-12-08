@@ -158,7 +158,7 @@ int do_return(object ob, object me, string arg)
     //增加阅历奖励 2016-12-21
     int score;
     int kar;
-        
+
     if (! arg) return notify_fail("你要给谁什么东西？\n");
 
     if (sscanf(arg, "%s to %s", item, target) != 2 &&
@@ -188,9 +188,9 @@ int do_return(object ob, object me, string arg)
        me->add("mirror_count",1);
 
        count =  me->query("mirror_task/count");
- /* 
+ /*
     exp = 1000 + random(1000);
-   
+
     if ( count > 20 ) pot = 800 + random(100);
     else
     if ( count > 10 ) pot = 700 + random(100);
@@ -275,8 +275,10 @@ string set_item(object me)
          string *ob1_list = ({
                 "/clone/fam/gift/perwan",
                 "/clone/fam/gift/kardan",
+                "/clone/fam/etc/prize4",//圣杯
+                "/clone/fam/etc/prize5",//神圣血清
         });
-        
+
         // 完成200个task：7成丹
         string *ob2_list = ({
                 "/clone/fam/gift/str2",
@@ -284,7 +286,7 @@ string set_item(object me)
                 "/clone/fam/gift/con2",
                 "/clone/fam/gift/dex2",
         });
-        
+
         // 完成300个task：85成丹
         string *ob3_list = ({
                 "/clone/fam/gift/str3",
@@ -292,20 +294,21 @@ string set_item(object me)
                 "/clone/fam/gift/con3",
                 "/clone/fam/gift/dex3",
         });
-        
+
         // 完成400个task：稀有特殊合成材料
         string *ob4_list = ({
                 "/clone/fam/item/xuantie",//天山玄铁（100point，打造刀、剑）
-                //"/clone/fam/etc/lv5f",  //极北寒玉
-                //"/clone/fam/etc/prize4",//圣杯
-                //"/clone/fam/etc/prize5",//神圣血清
-                "/clone/fam/max/xuanhuang",
-                "/clone/fam/max/longjia",
+                "/clone/fam/etc/bipo",
+                "/clone/fam/etc/huanshi",
+                "/clone/fam/etc/binghuozhu",
+                "/clone/fam/etc/leishenzhu",
         });
 
          // 完成500个task：无花果
         string *ob5_list = ({
                 "/clone/fam/obj/guo",
+                "/clone/fam/max/xuanhuang",
+                "/clone/fam/max/longjia",
         });
         string gift;
         object item;
@@ -317,7 +320,7 @@ string set_item(object me)
               //me->name(1), me->query("id"), ctime(time())));
 
         } else
-            
+
         if (me->query("mirror_count") == 200)
         {
                 gift = ob1_list[random(sizeof(ob2_list))];
@@ -325,7 +328,7 @@ string set_item(object me)
               //me->name(1), me->query("id"), ctime(time())));
 
         } else
-            
+
         if (me->query("mirror_count") == 300)
         {
                 gift = ob1_list[random(sizeof(ob3_list))];
@@ -333,7 +336,7 @@ string set_item(object me)
               //me->name(1), me->query("id"), ctime(time())));
 
         } else
-        
+
         if (me->query("mirror_count") == 400)
         {
                 gift = ob1_list[random(sizeof(ob4_list))];

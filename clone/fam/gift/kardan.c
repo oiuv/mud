@@ -6,7 +6,7 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIY "福缘丹" NOR, ({ "kar dan", "dan", "kar" }) );
+        set_name(HIY "福缘丹" NOR, ({ "fuyuan dan", "fuyuan", "dan" }) );
         set_weight(200);
         if( clonep() )
                 set_default_object(__FILE__);
@@ -28,7 +28,7 @@ int do_effect(object me)
                 tell_object(me, "你觉得嘴里非常的苦。\n");
         } else
         {
-                tell_object(me, HIG "你觉得你的运气开始好起来，你的福缘提升了。\n" NOR);
+                tell_object(me, HIG "你觉得你的运气开始好起来了。\n" NOR);
                 me->add("kar", 1);
         }
 
