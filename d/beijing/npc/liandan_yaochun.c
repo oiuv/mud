@@ -38,6 +38,8 @@ void create()
         set_skill("medical", 200);
         set_skill("zhenjiu-shu", 200);
         set_skill("liandan-shu", 200);
+        set_skill("bencao-changshi", 200);
+        set_skill("bencao-shuli", 200);
         set_skill("literate", 200);
 
         map_skill("medical", "bencao-shuli");
@@ -53,18 +55,12 @@ void create()
                 "药材"    :  "去找我的小童，他会帮你处理。\n",
                 "原料"    :  "去找我的小童，他会帮你处理。\n",
                 "yaocai"  :  "去找我的小童，他会帮你处理。\n",
-                //"药"      :  "去找我的小童，他会帮你处理。\n",
                 "医术"    : (: ask_me :),
-                //"学医术"  : (: ask_me :),
-                //"学习医术": (: ask_me :),
                 "炼丹术"  : (: ask_me :),
                 "针灸术"  : (: ask_me :),
-                "本草术理": (: ask_me :),
+                "本草术理": "掌握本草常识才能领悟高深的本草术理。\n",
                 "基本医术": (: ask_me :),
-                //"学习"    : (: ask_me :),
-                //"学技"    : (: ask_me :),
                 "银针"    : (: ask_yinzhen :),
-                //"针"      : (: ask_yinzhen :),
                 "针灸"    : (: ask_yinzhen :),
         ]));
         setup();
@@ -107,7 +103,7 @@ int do_liandan()
                 me->add("combat_exp", exp);
 	        me->improve_potential(pot);
 
-                if (me->query("potential") > me->query_potential_limit()) 
+                if (me->query("potential") > me->query_potential_limit())
 			pot = 1;
 
                 tell_object(me, HIC "你获得了" + chinese_number(exp) +
@@ -127,7 +123,7 @@ int do_liandan()
         }
 }
 
-string ask_me() 
+string ask_me()
 {
         object me;
 
@@ -146,7 +142,7 @@ string ask_me()
                 return "你侠义正事做得不够，多多行善之后我自然会传授给你。";
 
         me->set("can_learn_medical/yaochun", 1);
-               return "既然你欲诚心钻研学医之道，我就成全成全你吧。"; 
+               return "既然你欲诚心钻研学医之道，我就成全成全你吧。";
 }
 
 int recognize_apprentice(object me, string skill)
@@ -191,11 +187,11 @@ int recognize_apprentice(object me, string skill)
 
 string ask_yinzhen()
 {
-//      mapping fam; 
+//      mapping fam;
         object ob;
         object me = this_player();
 
-        if (me->query("shen") < -0)
+        if (me->query("shen") < 0)
                 return "你走吧，我的神针可不会给你这样的人。";
 
         if ((int)me->query_skill("zhenjiu-shu", 1) < 60)

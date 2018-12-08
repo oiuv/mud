@@ -29,7 +29,8 @@ void create()
 			"exp_required":	 0,	// minimum combat experience required
 			"jing_cost":    10, 	// jing cost every time study this
 			"difficulty":	15,	// the base int to learn this skill
-			"max_skill":	29,	// the maximum level you can learn
+			"max_skill":	149,	// the maximum level you can learn
+			"min_skill" : 100,
 		]) );
 	}
 }

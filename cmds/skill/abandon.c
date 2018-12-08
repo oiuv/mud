@@ -77,15 +77,15 @@ int main(object me, string arg)
 
         if (skill == "zhengqi-jue")
         {
-                return notify_fail("侠义之辈不可失去本心，你不能放弃这项技能。\n");
+                return notify_fail("你发现自己似乎记性太好，没有半点效果。\n");
         }
         if (skill == "tianmo-jue")
         {
-                return notify_fail("入了魔道，还想回头？你无法放弃这项技能。\n");
+                return notify_fail("你发现自己似乎记性太好，没有半点效果。\n");
         }
         if (skill == "yangyan-shu")
         {
-                return notify_fail("想想放弃养颜后自己就不好看了，你感觉整个人都不好了。\n");
+                return notify_fail("你发现自己似乎记性太好，没有半点效果。\n");
         }
 
         name = to_chinese(skill);
