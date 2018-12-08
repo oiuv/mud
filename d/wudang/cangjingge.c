@@ -1,17 +1,17 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 string* books = ({
         "laozi1",
-        "daodejing-i",
+        "daodejing",
         "laozi2",
-        "daodejing-i",
+        "daodejing",
         "laozi8",
-        "daodejing-i",
+        "daodejing",
         "laozi13",
         "laozi1",
         "laozi16",
-        "daodejing-i",
+        "daodejing",
         "laozi18"
 });
 
