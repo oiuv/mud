@@ -108,7 +108,7 @@ int receive_summon(object me, object item)
         {
               message_sort(HIM "\n只见四周金光散布，祥云朵朵，远处有凤凰盘绕，麒麟逐戏。耳边"
                            "传来阵阵梵音。$N" HIM "一声长啸，" + item->query("name") + HIM
-                           "破空而来 ……。\n\n" NOR, me); 
+                           "破空而来 ……。\n\n" NOR, me);
         }
         else
 
@@ -396,8 +396,8 @@ mixed do_touch(object me, object item)
         } else
         if (me->query("neili") < me->query("max_neili"))
         {
-				//取消10B效果
-                //me->set("neili", me->query("max_neili"));
+                me->set("neili", me->query("max_neili"));
+                me->start_busy(1 + random(5));
                 tell_object(me, HIC "你只觉一股热气至丹田冉冉升起，"
                                 "说不出的舒服。\n" NOR);
         }
@@ -627,7 +627,7 @@ mixed weapon10lv_hit_ob(object me, object victim, object weapon, int damage_bonu
         resistance = 0;
         //jingjia = me->query("jiajing");
         jingjia = me->query("jiali") / 3;
-      
+
         switch (magic["type"])
         {
         case "lighting":
