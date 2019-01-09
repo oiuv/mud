@@ -15,7 +15,7 @@ int practice_skill(object me)
 
 void skill_improved(object me)
 {
-    tell_object(me, HIR "你感觉自己内心充满了杀戮的欲望！”\n" NOR );
+    tell_object(me, HIR "你感觉自己内心充满了杀戮的欲望！\n" NOR );
     me->add("shen", -200);
 }
 
