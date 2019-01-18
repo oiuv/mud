@@ -1,4 +1,6 @@
 *
-!channel
-!static
 !.gitignore
+!channel
+!file
+!static
+!user
