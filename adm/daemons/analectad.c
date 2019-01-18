@@ -1,7 +1,7 @@
 // analectad.c
 // Create by jjgod for hell. 2002/01/27.
 
-//#pragma optimize
+#pragma optimize
 //#pragma save_binary
 
 #include <ansi.h>
