@@ -11,7 +11,7 @@ private int do_purge_players(int day);
 int main(object me, string arg)
 {
 	string name, reason;
-	int day;
+//	int day;
         object ob;
 
         if (! SECURITY_D->valid_grant(me, "(arch)"))

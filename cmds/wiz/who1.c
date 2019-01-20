@@ -8,7 +8,7 @@ inherit F_CLEAN_UP;
 int main(object me, string str)
 {
         object where, ob, *ob_list, *wiz_ob;
-        string stri;
+//      string stri;
         mapping dbase;
         string line;
         int i;

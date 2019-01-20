@@ -7,7 +7,7 @@ inherit F_CLEAN_UP;
 
 int main(object me, mapping info)
 {
-        string msg;
+//      string msg;
         seteuid(geteuid());
 
         if (! is_root(previous_object()))
@@ -26,4 +26,3 @@ int main(object me, mapping info)
 
         return 1;
 }
-

@@ -34,8 +34,8 @@ int do_du(string arg)
 {
         object me = this_player();
         object where = environment(me);
-        mapping skill;
-        int plvl, con, improve;
+//      mapping skill;
+        int plvl, con/*, improve*/;
         int neili_lost;
 
         if (! arg || ! id(arg))
@@ -259,9 +259,9 @@ int do_yanjiu(string arg)
 {
         object me = this_player();
         object where = environment(me);
-        object ob;
+//      object ob;
         string pfm, jiasha;
-        int lv;
+//      int lv;
 
         if (! arg)
         {

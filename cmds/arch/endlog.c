@@ -5,7 +5,7 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-        object ob;
+//      object ob;
         string wiz_status;
 
         if (! SECURITY_D->valid_grant(me, "(arch)"))

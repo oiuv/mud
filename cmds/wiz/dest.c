@@ -4,7 +4,7 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-	string option, target, msg;
+	string option, target/*, msg*/;
 	object obj;
         int opt_clone;
         object *obs;

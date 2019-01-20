@@ -7,7 +7,7 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-        string wiz_status;
+//      string wiz_status;
         mapping log;
         string *ks;
         object *obs;

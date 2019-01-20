@@ -4,8 +4,8 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-	mapping before, after;
-	int stime, usertime, eval_cost;
+//	mapping before,after;
+	int /*stime,usertime,*/ eval_cost;
 
         if (! SECURITY_D->valid_grant(me, "(wizard)"))
                 return 0;

@@ -10,9 +10,9 @@ int do_sort_players(int day);
 
 int main(object me, string arg)
 {
-	string name, reason;
-	string status;
-	int day;
+//	string name,reason;
+//	string status;
+//	int day;
 
         if (! SECURITY_D->valid_grant(me, "(arch)"))
                 return 0;
@@ -29,8 +29,8 @@ int do_sort_players(int day)
 {
 	int i, j, count, fail, succ;
 	string *dir, *ppls, name;
-        string sdir, ufile;
-	mixed info;
+        string sdir/*, ufile*/;
+//	mixed info;
         object login_ob, user_ob;
 
 	seteuid(getuid());

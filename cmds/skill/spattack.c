@@ -163,7 +163,7 @@ void do_here_fight(object me, object couple, object target, int n)
 {
         int need, cost;
         int enhance1, enhance2, count;
-        string msg;
+//      string msg;
 
         if (n > 500) n = 500;
         need = 300 - n / 2;

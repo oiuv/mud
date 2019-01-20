@@ -57,7 +57,7 @@ string long()
 {
 	mapping *notes;
 	int i, last_time_read;
-	string msg, myid;
+	string msg/*, myid*/;
 
 	notes = query("notes");
 	msg = query("long");

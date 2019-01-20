@@ -16,7 +16,7 @@ void create() { seteuid(getuid()); }
 
 int main(object me, string arg)
 {
-        object ob;
+//      object ob;
         string msg;
         string dir;
         string para;
@@ -407,4 +407,3 @@ HELP
     );
     return 1;
 }
-

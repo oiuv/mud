@@ -11,7 +11,7 @@ int main(object me, string arg)
 {
         object env;
         int origin;
-	string msg;
+//	string msg;
         string to;
 
         if (! SECURITY_D->valid_grant(me, "(wizard)"))

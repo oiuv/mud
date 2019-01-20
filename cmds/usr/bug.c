@@ -8,8 +8,8 @@ int main(object me, string arg)
 {
         object ob;
 
-        string sp, add;
-        int bug, bugp;
+        string sp/*, add*/;
+        int bug/*, bugp*/;
 
         seteuid(getuid(me));
 
@@ -131,4 +131,3 @@ int help(object me)
 HELP);
         return 1;
 }
-

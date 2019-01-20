@@ -53,7 +53,7 @@ string do_unwield()
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
         int n;
-        int my_exp, ob_exp;
+//      int my_exp,ob_exp;
 
         if (me->query_skill("sword") < 250)
                 return damage_bonus / 2;

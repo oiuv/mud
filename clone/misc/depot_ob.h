@@ -81,8 +81,8 @@ int do_take(string arg)
         object me, ob;
         object *obs;
         int n, amount, num;
-        string *ks;
-        string k, un;
+//      string *ks;
+        string /*k,*/ un;
 
         me = this_player();
 
@@ -166,7 +166,7 @@ int do_take(string arg)
 
 int do_store(string arg)
 {
-        int i, n, k, amount;
+        int i, n/*, k*/, amount;
         string item;
         object me, ob1, ob2, *inv;
 
@@ -467,4 +467,3 @@ mixed save_dbase_data()
         }
         return data;
 }
-

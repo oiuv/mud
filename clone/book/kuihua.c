@@ -30,9 +30,9 @@ int do_du(string arg)
 {
         object me = this_player();
         object where = environment(me);
-        object ob;
-        mapping skill;
-        int plvl, con, improve;
+//      object ob;
+//      mapping skill;
+        int plvl, con/*, improve*/;
         int neili_lost;
 
         if (! arg || ! id(arg))

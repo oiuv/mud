@@ -13,7 +13,7 @@ int vote(object me, object victim)
         int vv;	        // valid voter numbers
         int vc;         // vote count;
         int df;
-        string channel;
+//      string channel;
         string *juser, *jip, my_id, my_ip;
         string my_name, v_name;
 

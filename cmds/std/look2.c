@@ -428,7 +428,7 @@ int look_item(object me, object obj)
         mapping count;
         mapping equiped;
         mapping unit;
-        mapping *inset;
+//      mapping *inset;
         string short_name;
 
         string str;
@@ -444,7 +444,7 @@ int look_item(object me, object obj)
         string *apply3;
         int i;
         int f;
-        int n;
+//      int n;
 
         count   = ([]);
         unit    = ([]);
@@ -779,11 +779,11 @@ string description(object obj)
 int look_living(object me, object obj)
 {
         int per;
-        int spi;
+//      int spi;
         int age;
-        int weight;
-        string str, limb_status, pro, desc;
-        mixed *inv;
+//      int weight;
+        string str/*, limb_status*/, pro, desc;
+//      mixed *inv;
         mapping my_fam, fam;
         int me_shen, obj_shen;
         string league_name;

@@ -94,7 +94,7 @@ void reset_pai()
 int reset_all()
 {
 	// 重置整个游戏
-	int i;
+//	int i;
 
 	has_start = 0;
 	if(sizeof(player)!=0)
@@ -168,8 +168,8 @@ int do_reset(string arg)
 
 int do_restart(string arg)
 {
-	int i;
-	string* key;
+//	int i;
+//	string* key;
 
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩，开始什么啊！\n");
@@ -244,9 +244,9 @@ int do_xipai(string arg)
 
 int do_chupai(string arg)
 {
-	int i,sum,j,done,temp,id;
+	int /*i,*/sum/*,j*/,done/*,temp*/,id;
 	mixed* inv;
-	string cmd;
+//	string cmd;
 	object ob;
 		
 	if(!is_playing(this_player()))
@@ -378,7 +378,7 @@ object get_player(string id)
 
 int is_playing(object ob)
 {
-	int i;
+//	int i;
 	string id;
 	id = ob->query("id");
 	if(stringp(player[id]))
@@ -394,7 +394,7 @@ int sizeof_pai(mixed* p)
 string view_pai(string which)
 {
 	mixed* pai;
-	int show_all,i,j;
+	int /*show_all,*/i/*,j*/;
 	string s,p;
 
 	pai = player_hand[which];
@@ -440,10 +440,10 @@ int do_nextone(string arg)
 
 int do_pass(string arg)
 {
-	string old,str;
+	string old/*,str*/;
 	string* key;
-	mixed* inv;
-	int i,temp;
+//	mixed* inv;
+	int i/*,temp*/;
 
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩牌啊！\n");

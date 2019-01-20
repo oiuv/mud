@@ -7,7 +7,7 @@
 int main(object me, string arg)
 {
         object obj;
-        int skill, count;
+        int /*skill,*/ count;
 
         if (environment(me)->query("no_fight"))
                 return notify_fail("ÕâÀï½ûÖ¹Õ½¶·¡£\n");

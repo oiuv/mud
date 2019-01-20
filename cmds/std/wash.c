@@ -80,7 +80,7 @@ int main(object me, string arg)
 
         if (dest->query("equipped") == "worn")
         {
-                function f;
+                // function f;
 
                 if (! REMOVE_CMD->do_remove(me, dest))
                         return 0;

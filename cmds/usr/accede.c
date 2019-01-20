@@ -7,7 +7,7 @@ inherit F_CLEAN_UP;
 int main(object me, string arg)
 {
         object ob;
-        mapping q;
+//      mapping q;
         string type;
 
         while (arg)

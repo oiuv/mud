@@ -180,9 +180,9 @@ private void get_new_pass(string pass, object ob)
 private void confirm_new_pass(string pass, object ob, string new_pass)
 {
         object me;
-        object body;
-        string email;
-        string msg;
+//      object body;
+//      string email;
+//      string msg;
 
         if (! objectp(ob))
         {
@@ -258,9 +258,9 @@ private void get_new_ad_pass(string pass, object ob)
 private void confirm_new_ad_pass(string pass, object ob, string new_pass)
 {
         object me;
-        object body;
-        string email;
-        string msg;
+//      object body;
+//      string email;
+//      string msg;
 
         if (! objectp(ob))
         {

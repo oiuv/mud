@@ -55,7 +55,7 @@ string long()
 {
 	mapping *notes;
 	int i, j, last_time_read, new_report;
-	string msg, myid;
+	string msg/*, myid*/;
 
 	notes = query("notes");
 	if( !pointerp(notes) || !sizeof(notes) ) return query("long");

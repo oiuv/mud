@@ -21,7 +21,7 @@ int do_effect(object me)
 {
         string mapsk;
         int effect;
-        int neili;
+//      int neili;
 
         log_file("static/using", sprintf("%s(%s) eat дт╟в╫П at %s.\n",
                  me->name(1), me->query("id"), ctime(time())));

@@ -6,7 +6,7 @@ void del_jingzuoed(object me);
 
 int main(object me, string arg)
 {
-        mapping fam;
+//      mapping fam;
         object where = environment(me);
 
         seteuid(getuid());

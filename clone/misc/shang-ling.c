@@ -22,7 +22,7 @@ void init()
 
 int do_stock(string arg)
 {
-        object obj, me,goods;
+        object /*obj,*/ me,goods;
         int amount, value,i;
         mapping all_goods;
         string beishu, *args;
@@ -105,10 +105,10 @@ int do_stock(string arg)
 
 int do_unstock(string arg)
 {
-        object obj, me, goods;
-        int i, amount, value, have_it = 0;
+        object /*obj,*/ me, goods;
+        int i/*, amount, value*/, have_it = 0;
         mapping all_goods;
-        string *goods_key, beishu;
+        string *goods_key/*, beishu*/;
         
         me = this_player();
 

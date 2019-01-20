@@ -10,8 +10,8 @@ int main(object me, string arg)
 {
         object ob;
         object *team;
-        object *assistors;
-        mapping q;
+//      object *assistors;
+//      mapping q;
 
         if (! arg)
         {
@@ -178,7 +178,7 @@ int do_right(object me, object ob)
 // 拒绝对方加入
 int do_refuse(object me, object ob)
 {
-        object *ob_team;
+//      object *ob_team;
 
         if (ob->query_temp("pending/assist") != me)
         {

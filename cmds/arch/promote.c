@@ -7,7 +7,7 @@ int main(object me, string arg)
 {
 	object ob;
 	string old_status, new_status;
-	int my_level, ob_level, level;
+//	int my_level,ob_level,level;
 
         if (! SECURITY_D->valid_grant(me, "(arch)"))
                 return 0;

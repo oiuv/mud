@@ -8,7 +8,7 @@ inherit F_CLEAN_UP;
 int main(object me, string arg)
 {
         mapping total;
-        object *obs, *dst;
+        object *obs/*, *dst*/;
         object qob;
 
 	seteuid(getuid());

@@ -175,7 +175,7 @@ string build_se(object who)
 	mixed *s;
 	string r,t;
 	int i,y,num;
-	object ob;
+//	object ob;
 
 	if(!who)
 		return "";
@@ -497,7 +497,7 @@ int do_guess(string arg)
 	int n,p,ok;
 	object ob;
 	object me;
-	string nextone;
+//	string nextone;
 	
 	me = this_player();
 	if(!is_playing(me))
@@ -824,4 +824,3 @@ HELP
 	);
         return 1;
 }
-

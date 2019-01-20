@@ -6,7 +6,7 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-	string what, who;
+	string /*what,*/ who;
 	object ob, victim;
 	mapping myfam, vtfam;
 	int sp, dp;
@@ -72,9 +72,9 @@ int main(object me, string arg)
 
 private void compelete_dushi(object me, object victim, object ob, int sp, int dp)
 {
-	int amount;
-	object ob1;
-	object where = environment(me);
+//	int amount;
+//	object ob1;
+//	object where = environment(me);
 
 	if (objectp(me))
                 me->delete_temp("dushi");

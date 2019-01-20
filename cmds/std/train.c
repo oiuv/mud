@@ -6,10 +6,10 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-	object ob,where;
-	mapping fam;
+	object ob/*,where*/;
+//	mapping fam;
 	int sp, dp;
-	int i, cost, train_level;
+	int /*i,*/ cost, train_level;
 
 	seteuid(getuid());
 

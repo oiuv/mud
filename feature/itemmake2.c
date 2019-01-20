@@ -409,7 +409,7 @@ int restore()
 // 保存数据
 int save()
 {
-	int res;
+//	int res;
 
         if (base_name(this_object()) + ".c" == __FILE__)
                 return 0;
@@ -420,9 +420,9 @@ int save()
 // 9/10级兵器攻击对手
 mixed weapon_hit_ob(object me, object victim, int damage_bonus)
 {
-        int ap;
-        int dp;
-        int damage;
+//      int ap;
+//      int dp;
+//      int damage;
 
         if (attack_lvl < MAX_LEVEL ||
 	    query("owner/" + me->query("id")) < MAX_LEVEL * 80)

@@ -56,7 +56,7 @@ void init()
 
 int do_mkroom(string arg)
 {
-	string file, dir, code;
+	string file, dir/*, code*/;
 
 	if( !arg ) return notify_fail("指令格式：mkroom <房间档名> [<方向>]\n");
 	if( sscanf(arg, "%s %s", file, dir)!=2 )

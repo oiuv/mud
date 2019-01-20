@@ -4,7 +4,7 @@ inherit F_CLEAN_UP;
 
 int main(object me, string str)
 {
-	object ob, where, *ob_list;
+	object /*ob,where,*/ *ob_list;
 	int old_size, i;
 
         if (! SECURITY_D->valid_grant(me, "(arch)"))

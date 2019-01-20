@@ -8,7 +8,7 @@ int main(object me, string arg)
         string what, who;
         object env;
         object ob, victim;
-        mapping myfam, vtfam;
+        mapping myfam/*, vtfam*/;
         int sp, dp;
 
         env = environment(me);
@@ -92,7 +92,7 @@ int main(object me, string arg)
 
 void compelete_steal(object me, object victim, object ob, int sp, int dp)
 {
-        mapping myfam, vtfam;
+//      mapping myfam,vtfam;
         int steal_level;
 
         if (! objectp(me))
@@ -215,4 +215,3 @@ int help(object me)
 HELP );
         return 1;
 }
-

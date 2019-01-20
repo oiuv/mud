@@ -15,7 +15,7 @@ public void search_dir(object me, int raw);
 
 int main(object me, string arg)
 {
-        int i;
+//      int i;
         int copy_user;
 
         if (! SECURITY_D->valid_grant(me, "(arch)"))
@@ -141,7 +141,7 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
         object user_ob;
         string result;
         int day;
-        int age;
+//      int age;
         int online;
         mixed *st;
 

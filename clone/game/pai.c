@@ -125,7 +125,7 @@ void reset_pai()
 
 int reset_all()
 {
-	int i;
+//	int i;
 
 	has_start = 0;
 	if(sizeof(player)!=0)
@@ -239,8 +239,8 @@ int do_reset(string arg)
 
 int do_restart(string arg)
 {
-	int i;
-	string* key;
+//	int i;
+//	string* key;
 
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩，开始什么啊！\n");
@@ -329,7 +329,7 @@ int do_xipai(string arg)
 
 int do_sortpai(string arg)
 {
-	int i,sum,which,v=0,j,it;
+	int i,sum/*,which*/,v=0,j,it;
 	int c1,c2;
 	string temp;
 	mixed* pai;
@@ -465,7 +465,7 @@ int do_paipai(string arg)
 {
 	int i,sum,j;
 	string* key;
-	string cmd;
+//	string cmd;
 	
 
 	if(!is_playing(this_player()))
@@ -490,9 +490,9 @@ int do_paipai(string arg)
 
 int do_mopai(string arg)
 {
-	int i,sum,j;
-	string* key;
-	string cmd;
+//	int i,sum,j;
+//	string* key;
+//	string cmd;
 	
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩啊！\n");
@@ -502,9 +502,9 @@ int do_mopai(string arg)
 
 int do_chupai(string arg)
 {
-	int i,sum,j,done,temp;
+	int /*i,*/sum/*,j*/,done/*,temp*/;
 	mixed* inv;
-	string cmd;
+//	string cmd;
 	object ob;
 	
 	if(!is_playing(this_player()))
@@ -565,10 +565,10 @@ int do_chupai(string arg)
 
 int do_showpai(string arg)
 {
-	int i,sum,j;
-	string* key;
-	string cmd;
-	object ob;
+//	int i,sum,j;
+//	string* key;
+//	string cmd;
+//	object ob;
 	
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩啊！\n");
@@ -585,10 +585,10 @@ int do_showpai(string arg)
 
 int do_hidepai(string arg)
 {
-	int i,sum,j;
-	string* key;
-	string cmd;
-	object ob;
+//	int i,sum,j;
+//	string* key;
+//	string cmd;
+//	object ob;
 	
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩啊！\n");
@@ -605,10 +605,10 @@ int do_hidepai(string arg)
 
 int do_takebackpai(string arg)
 {
-	int i,sum,j;
-	string* key;
+//	int i,sum,j;
+//	string* key;
 	string cmd,where;
-	object ob;
+//	object ob;
 	
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩啊！\n");
@@ -680,7 +680,7 @@ string extra_long()
 int pick_out(string from, int id)
 {
 	int i,j,s;
-	string* p;
+//	string* p;
 	mixed* pai;
 		
 	pai = get_pais(from);
@@ -707,7 +707,7 @@ int pick_out(string from, int id)
 int pick_out2(string from, int id)
 {
 	int i,j,s;
-	string* p;
+//	string* p;
 	mixed* pai;
 		
 	pai = get_pais(from);
@@ -793,7 +793,7 @@ object get_player(string id)
 
 int is_playing(object ob)
 {
-	int i;
+//	int i;
 	string id;
 	id = ob->query("id");
 	if(stringp(player[id]))
@@ -868,7 +868,7 @@ int valid_show(object who,string which)
 string view_pai(object who,string which)
 {
 	mixed* pai;
-	int show_all,i,j;
+	int /*show_all,*/i/*,j*/;
 	string s,p;
 
 	pai = get_pais(which);
@@ -958,10 +958,10 @@ int do_removej(string arg)
 
 int do_pass(string arg)
 {
-	string old,str;
+	string old/*,str*/;
 	string* key;
-	mixed* inv;
-	int i,temp;
+//	mixed* inv;
+	int i/*,temp*/;
 
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩牌啊！\n");
@@ -1015,7 +1015,7 @@ int do_end(string arg)
 	mixed* pai;
 	string* p;
 	int i;
-	object ob;
+//	object ob;
 
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩牌啊！\n");
@@ -1120,8 +1120,8 @@ void auto_order()
 
 int do_setmode(string arg)
 {
-	int vmode = 0,i;
-	mixed* inv;
+	int vmode = 0/*,i*/;
+//	mixed* inv;
 	
 	if(!arg)
 		return notify_fail("setmode [模式] 请参照帮助。\n");
@@ -1244,7 +1244,7 @@ int do_removec(string arg)
 
 int do_paipai2(string arg)
 {
-	int i;
+//	int i;
 	
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩啊！\n");
@@ -1259,7 +1259,7 @@ int do_paipai2(string arg)
 
 int do_daopai(string arg)
 {
-	int i;
+//	int i;
 	
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩，开始什么啊！\n");
@@ -1383,4 +1383,3 @@ void finish_21()
 	msg(r);
 	who_play = 0;
 }
-

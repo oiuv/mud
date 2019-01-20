@@ -9,7 +9,7 @@ int main(object me, string str)
         object where, ob;
         object *ob_list, *wiz_ob;
         mapping dbase;
-        string stri;
+//      string stri;
         int admin;
         int i;
 

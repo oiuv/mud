@@ -9,7 +9,7 @@ int main(object me, string arg)
         object ob, victim;
         int sp, dp;
 
-        object where = environment(me);
+//      object where = environment(me);
 
         seteuid(getuid());
 

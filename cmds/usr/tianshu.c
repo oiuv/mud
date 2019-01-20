@@ -26,9 +26,9 @@ void songwu(object me);
 
 int main(object me, string arg)
 {
-        object aaa, ob, env;
-        int i, j, j1, j2;
-        string id, name;
+//      object aaa,ob,env;
+//      int i,j,j1,j2;
+//      string id,name;
 
 	if (! arg)
 	{
@@ -257,7 +257,7 @@ void xiansuo(object me)
 
 void renwu(object me)
 {
-        string shu,tasklist,file,*lines,task,*words;
+        string /*shu,*/tasklist,file,*lines,task,*words;
         mapping sss=(["class":"kill","name":"ren","exp":1]);
         object env,*inv,ob;
         int i,j=-1,level,size,up,down;

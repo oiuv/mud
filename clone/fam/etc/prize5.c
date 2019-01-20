@@ -24,7 +24,7 @@ int do_drink(string arg)
 {
         object me = this_player();
 
-        string mapsk;
+//      string mapsk;
         int na, un;
         mapping my = me->query_entire_dbase();
 

@@ -10,8 +10,8 @@ int main(object me, string arg)
         string from, to;
         mapping emote;
         mapping toemote;
-        int i;
-        string *ks;
+//      int i;
+//      string *ks;
 
         if (! present("emote editor", me) &&
             ! SECURITY_D->valid_grant(me, "(immortal)"))
@@ -53,4 +53,3 @@ see also£ºedemote¡¢cpemote
 HELP );
         return 1;
 }
-

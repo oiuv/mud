@@ -9,9 +9,9 @@ void create() { seteuid(getuid()); }
 int main(object me, string arg)
 {
 	object ob;
-	string *skname;
-	mapping skills;
-	int i;
+//	string *skname;
+//	mapping skills;
+//	int i;
 
 	if( !arg || !ob = present(arg, environment(me)) )
 		return notify_fail("你要将谁逐出师门？\n");

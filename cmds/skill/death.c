@@ -11,7 +11,7 @@ void create() { seteuid(getuid()); }
 
 int main(object me, string arg)
 {
-        int exercise_cost;
+//      int exercise_cost;
         object where;
 
         seteuid(getuid());

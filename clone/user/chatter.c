@@ -322,7 +322,7 @@ int do_look(string arg)
         object me = this_object();
         object ob;
         object env;
-        string msg;
+//      string msg;
         string add;
         string fun;
 

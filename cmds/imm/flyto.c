@@ -7,9 +7,9 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-        string home;
+//      string home;
         object obj;
-        string msg;
+//      string msg;
 
         if (! SECURITY_D->valid_grant(me, "(immortal)"))
                 return 0;

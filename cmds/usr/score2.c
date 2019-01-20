@@ -31,7 +31,7 @@ int main(object me, string arg)
         mapping my;
         mapping mci;
         int age, rmb, month;
-        string line, str, race, skill_type;
+        string line/*, str*/, race, skill_type;
         object weapon;
         int attack_points, dodge_points, parry_points;
 
@@ -307,7 +307,7 @@ int main(object me, string arg)
 
         while (playerp(ob))
         {
-                string op;
+//              string op;
 
    line += CYN"-"NOR+YEL"-"NOR
            +CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR
@@ -357,7 +357,7 @@ int main(object me, string arg)
         }
         while (playerp(ob))
         {
-                string op;
+//              string op;
 
                           line += HIW "  ÕòÓü¾ªÌìÍè£º " NOR;
                 if (ob->query("skybook/item/zhenyu"))
@@ -498,4 +498,3 @@ int help(object me)
 HELP);
         return 1;
 }
-

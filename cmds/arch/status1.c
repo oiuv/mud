@@ -1,4 +1,3 @@
-
   // status.c
   // Smallfish@Huaxia
   
@@ -26,11 +25,11 @@ int stat_fun(mapping st, object ob)
   
 int main(object me, string arg)
 {
-          object ob;
+//        object ob;
           string msg;
           mixed lt;
           mapping st;
-          string bn;
+//        string bn;
           string *ks;
           object *obs;
           int i;

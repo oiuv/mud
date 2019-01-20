@@ -143,7 +143,7 @@ int do_pull(string arg)
 
 int do_shoot(string arg)
 {
-        object me, victim, ob, env, obj, arrow, where;
+        object me, victim, ob, env, obj, arrow/*, where*/;
         string enemy, dir, dest, target;
         mapping exit;
 
@@ -226,9 +226,9 @@ int do_shoot(string arg)
 
 private int shoot_result(object me, object victim, object ob)
 {
-		  object ob2, *inv;
+		  object ob2/*, *inv*/;
 		  string *limbs, str, dodge_skill, limb, result;
-		  int i, embedded, ap, dp, damage, time, power, level, jiali;
+		  int /*i,embedded,*/ ap, dp/*, damage, time*/, power, level, jiali;
 
 
 	if( me->query("neili") > me->query("jiali") )
@@ -348,4 +348,3 @@ private int shoot_result(object me, object victim, object ob)
       }
         return 1;
 }
-

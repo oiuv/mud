@@ -40,10 +40,10 @@ int do_du(string arg)
 {
         object me = this_player();
         object where = environment(me);
-        object ob;
+//      object ob;
 
         string skill, book, msg;
-        int lv;
+//      int lv;
 
         if (! arg)
         {

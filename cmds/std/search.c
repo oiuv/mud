@@ -114,7 +114,7 @@ object found(object me, object env)
         mapping cs, ns;
         mapping os;
         object  ob;
-        mixed   sob;
+//      mixed   sob;
         int sum;
         int i;
 

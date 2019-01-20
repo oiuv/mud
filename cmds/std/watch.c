@@ -93,10 +93,10 @@ int look_item(object me, object obj)
 int look_living(object me, object obj)
 {
         int per;
-        int spi;
+//      int spi;
         int age;
-        int weight;
-        string str, limb_status, pro;
+//      int weight;
+        string str/*, limb_status*/, pro;
         mixed *inv;
         mapping my_fam, fam;
         int me_shen, obj_shen;
@@ -277,4 +277,3 @@ HELP
 );
         return 1;
 }
-

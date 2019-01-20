@@ -14,7 +14,7 @@ int main(object user, mapping info)
         string index;
         string val;
         int result;
-        int made = 0;
+//      int made = 0;
         string *chg = ({ });
 
         seteuid(getuid());
@@ -61,4 +61,3 @@ int main(object user, mapping info)
 
         return result;
 }
-

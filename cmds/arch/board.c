@@ -10,7 +10,7 @@ int main(object me, string arg)
 {
         string *file;
         string msg;
-        string board;
+//      string board;
         int i, j;
 
         if (! SECURITY_D->valid_grant(me, "(arch)"))

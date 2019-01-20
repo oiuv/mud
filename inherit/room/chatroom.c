@@ -323,7 +323,7 @@ int do_kickout(string arg)
 {
         object me;
         object ob;
-        int i;
+//      int i;
 
         me = this_player();
         if (! is_owner(me))
@@ -363,7 +363,7 @@ int do_kickout(string arg)
 int do_closechat()
 {
         object me;
-        object ob;
+//      object ob;
         object *obs;
         int i;
 
@@ -474,7 +474,7 @@ int do_secret(string arg)
 int do_topic(string arg)
 {
         object me;
-        object ob;
+//      object ob;
 
         me = this_player();
         if (! is_owner(me))
@@ -637,4 +637,3 @@ int clean_up()
 
 	return 1;
 }
-

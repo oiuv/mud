@@ -8,7 +8,7 @@ int main(object me, string arg)
 {
         object *ob;
         int i, m, num;
-        string msg, *file, str1, str2;
+        string msg, *file/*, str1, str2*/;
 
         msg = "";
         file = ({ });
