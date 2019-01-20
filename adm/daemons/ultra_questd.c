@@ -913,7 +913,7 @@ void check_going(object me, object who)
 int need_accede(object me, object who)
 {
         string skill, ma, wa;
-        string suc_msg, fai_msg, msg;
+        string suc_msg, fai_msg/*, msg*/;
         int lvl;
 
         // 准备比较的技能属性
@@ -1061,8 +1061,8 @@ int need_accede(object me, object who)
 // 接受任务需求的物品
 int accept_object(object me, object who, object ob)
 {
-        string msg;
-        string type, obj;
+//      string msg;
+        string type/*, obj*/;
 
         // 如果没有领取任务
         if (! who->query("ultra_quest/quest"))

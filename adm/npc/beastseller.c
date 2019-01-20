@@ -148,7 +148,7 @@ void get_subtype(string arg, object ob)
 void get_gender(string arg, object ob)
 {
         int n;
-        object beast;
+//      object beast;
         
         sscanf(arg, "%d", n);
 
@@ -362,8 +362,8 @@ void build_beast(object ob)
 
 int accept_object(object me, object ob)
 {
-        string filename;
-        string file;
+//      string filename;
+//      string file;
        
 
         if (me->query_skill("training", 1) < 30)
@@ -436,7 +436,7 @@ int check_legal_id(string id)
 int check_legal_name(string name, int max_len)
 {
         int i;
-        string  *legalname;             //not implemented..may add later
+//      string  *legalname;             //not implemented..may add later
         
         i = strlen(name);
         if ((strlen(name) < 2) || (strlen(name) > max_len )) 

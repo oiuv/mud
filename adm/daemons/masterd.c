@@ -329,7 +329,7 @@ public mixed give_item(object who, object ob, mapping b)
         string msg;                     // 对于某些返回信息的描述
         string sk1, sk2, sk3;           // 所需要的武功名称
         int lv1, lv2, lv3;              // 所对应的武功等级
-        int free;                       // 是否为公共物品派送
+//      int free;                       // 是否为公共物品派送
         int master;                     // 是否只有直属弟子才能领取
         int generation;                 // 门派中的辈份要求
         string family;                  // 给予物品者的门派
