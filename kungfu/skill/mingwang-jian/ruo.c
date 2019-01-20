@@ -9,7 +9,7 @@ int perform(object me, object target)
 {
 	object weapon;
 	string msg;
-        int ap, dp;
+  // int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/mingwang-jian/ruo"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");

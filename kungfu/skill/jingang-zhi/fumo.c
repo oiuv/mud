@@ -7,11 +7,11 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        object weapon;
+        // object weapon;
         string msg;
         int ap, dp;
         int damage;
-        
+
         if (userp(me) && ! me->query("can_perform/jingang-zhi/fumo"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
@@ -29,10 +29,10 @@ int perform(object me, object target)
 
         if (me->query_skill("jingang-zhi", 1) < 150)
                 return notify_fail("你的大力金刚指修为不够，目前不能使用「金刚伏魔诀」！\n");
-                
+
         if ((me->query_skill_mapped("force") != "hunyuan-yiqi") && (me->query_skill_mapped("force") != "yijinjing") && (me->query_skill_mapped("force") != "luohan-fumogong"))
                 return notify_fail("你现在没有激发少林内功为内功，难以施展「金刚伏魔诀」。\n");
-                
+
         if (me->query("neili") < 400)
                 return notify_fail("你的真气不够，无法使用「金刚伏魔诀」！\n");
 

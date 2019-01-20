@@ -6,7 +6,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        object weapon;
+        // object weapon;
         string msg;
         int damage, dp;
 
@@ -113,4 +113,3 @@ int perform2(object me, object target)
         message_vision(msg, me, target);
         return 1;
 }
-

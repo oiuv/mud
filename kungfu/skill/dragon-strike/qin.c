@@ -8,7 +8,7 @@ int perform(object me)
 {
         string msg;
         object weapon, target;
-        int skill, ap, dp;
+        int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/dragon-strike/qin"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");

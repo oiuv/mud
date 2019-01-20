@@ -1,14 +1,14 @@
 // qinna.c 擒拿
- 
+
 #include <ansi.h>
 #include <combat.h>
- 
+
 inherit F_SSERVER;
- 
+
 int perform(object me)
 {
 	string msg;
-	object weapon, target;
+	object target;
 	int skill, ap, dp, damage;
 
         if (! target)
@@ -27,8 +27,8 @@ int perform(object me)
 
 	if (me->query("neili") < 100)
 		return notify_fail("你的真气不够，无法运用「擒拿」！\n");
- 
-	if (me->query_skill_mapped("hand") != "fengyun-shou") 
+
+	if (me->query_skill_mapped("hand") != "fengyun-shou")
 		return notify_fail("你没有激发风云手，无法使用「擒拿」！\n");
 
        if (! living(target))
@@ -36,7 +36,7 @@ int perform(object me)
 
 	msg = HIC "$N" HIC "贴上前来，和$n" HIC "近身搏击，只见$P"
 	      "的手忽折忽扭，或抓或甩，令人眼花缭乱！\n" NOR;
- 
+
 	ap = me->query_skill("hand");
 	dp = target->query_skill("parry");
 	if (ap / 2 + random(ap) > dp)

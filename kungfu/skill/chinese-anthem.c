@@ -17,7 +17,7 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-        object ob;
+        // object ob;
 
         if ((int)me->query("jing") < 80)
                 return notify_fail("你的精神不够好，没法练习了。\n");
@@ -43,7 +43,7 @@ void do_effect(object me)
         lvl = me->query_skill("chinese-anthem", 1);
 
         if (lvl < 200) return;
-        
+
         // special effort
         target = 0;
         attacker = 0;
@@ -74,7 +74,7 @@ void do_effect(object me)
                         msg = HIR "\n一时间$N" HIR "不觉是热血沸腾，对$n"
                               HIR "大喝道：“东洋倭贼，还不受死？”\n" NOR;
                 message_vision(msg, attacker, target);
-                
+
                 i = (lvl - 200) / 10;
                 if (i > 10) i = 10;
                 while (i--)

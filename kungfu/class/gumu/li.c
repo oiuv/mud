@@ -28,19 +28,19 @@ LONG);
 
         set_skill("unarmed", 220);
         set_skill("force", 220);
-        set_skill("suxin-jue", 220);        
+        set_skill("suxin-jue", 220);
         set_skill("yunv-xinjing", 220);
         set_skill("dodge", 220);
         set_skill("yunv-shenfa", 220);
         set_skill("qixing-bu", 220);
-	set_skill("whip", 240);
+	      set_skill("whip", 240);
         set_skill("yunzhou-fufa", 240);
         set_skill("sanwu-shou", 240);
         set_skill("strike", 220);
         set_skill("chilian-shenzhang", 220);
         set_skill("wudu-shenzhang", 220);
         set_skill("sword", 220);
-        set_skill("yunv-jian", 220);  
+        set_skill("yunv-jian", 220);
         set_skill("unarmed", 220);
         set_skill("meinv-quan", 220);
         set_skill("throwing", 240);
@@ -98,7 +98,7 @@ LONG);
 int do_look(string target)
 {
         object me;
- 
+
         me = this_player();
 
         if (! id(target))
@@ -255,7 +255,7 @@ string ask_zhen()
 {
         object me;
         object ob;
-        mapping fam;
+        // mapping fam;
 
         me = this_player();
 
@@ -271,7 +271,7 @@ string ask_zhen()
                 return "你来晚了，我手头的冰魄银针已经发完了。\n";
 
         add("bingpo-zhen", -1);
-        
+
         message_vision(HIY "$N拿出一根" HIW "冰魄银针" HIY "递给$n。\n" NOR, this_object(), me);
 
         ob = new("/d/gumu/obj/bingpo-zhen");

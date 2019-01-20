@@ -46,21 +46,20 @@ int dispel(object me, object ob, int duration)
 
 int update_condition(object me, int duration)
 {
-	int limit;
+	// int limit;
 
 	if (! living(me) && (me->query("eff_qi") < 100 || me->query("eff_jing") < 50))
-        {
-                me->set_temp("die_reason", "因为强自修炼乾坤大挪移神功，走火入魔而死");
-		me->die();
-		return 0;
-	} else
-        {
-                me->receive_wound("qi", 100);
-                me->receive_wound("jing", 50);
-		tell_object(me, HIR "你觉得丹田阵阵寒冷，可是脸上却"
+  {
+          me->set_temp("die_reason", "因为强自修炼乾坤大挪移神功，走火入魔而死");
+      		me->die();
+      		return 0;
+	} else {
+          me->receive_wound("qi", 100);
+          me->receive_wound("jing", 50);
+		      tell_object(me, HIR "你觉得丹田阵阵寒冷，可是脸上却"
                             "好像发烧一样火热之极。\n" NOR);
-		message("vision", me->name() + "脸色忽青忽红，强忍着运功抗争。\n",
-			environment(me), me);
+		      message("vision", me->name() + "脸色忽青忽红，强忍着运功抗争。\n",
+			           environment(me), me);
 	}
 
 	return 1;

@@ -27,7 +27,7 @@ int try_to_learn_jy();
 
 void create()
 {
-        object ob;
+  object ob;
 	set_name("张三丰", ({ "zhang sanfeng", "zhang", "sanfeng" }));
 	set("nickname", HIW "太极真人" NOR);
 	set("long", "他就是武当派开山鼻祖、当今武林的泰山北斗张\n"
@@ -42,11 +42,11 @@ void create()
 	set("int", 39);
 	set("con", 40);
 	set("dex", 32);
-	
+
 	set("max_qi", 10000);
 	set("max_jing", 10000);
-        set("max_jingli", 10000);
-        set("jingli", 10000);
+  set("max_jingli", 10000);
+  set("jingli", 10000);
 	set("max_neili", 12000);
 	set("neili", 12000);
 	set("jiali", 250);
@@ -54,8 +54,8 @@ void create()
 	set("score", 1200000);
 
 	set_skill("force", 420);
-        set_skill("taiji-shengong", 420);
-        set_skill("wudang-jiuyang", 200);
+  set_skill("taiji-shengong", 420);
+  set_skill("wudang-jiuyang", 200);
 	set_skill("wudang-xinfa", 400);
 	set_skill("dodge", 420);
 	set_skill("tiyunzong", 420);
@@ -66,10 +66,10 @@ void create()
 	set_skill("wudang-zhang", 400);
 	set_skill("yitian-zhang", 400);
 	set_skill("zhenshan-zhang", 400);
-        set_skill("hand", 400);
-        set_skill("paiyun-shou", 400);
-        set_skill("claw", 400);
-        set_skill("huzhua-shou", 400);
+  set_skill("hand", 400);
+  set_skill("paiyun-shou", 400);
+  set_skill("claw", 400);
+  set_skill("huzhua-shou", 400);
 	set_skill("parry", 420);
 	set_skill("sword", 420);
 	set_skill("wudang-jian", 400);
@@ -77,17 +77,17 @@ void create()
 	set_skill("rouyun-jian", 400);
 	set_skill("raozhi-roujian", 400);
 	set_skill("liangyi-jian", 400);
-        set_skill("taiji-jian", 420);
+  set_skill("taiji-jian", 420);
 	set_skill("blade", 400);
 	set_skill("taiji-dao", 400);
 	set_skill("xuanxu-dao", 400);
-        set_skill("throwing", 400);
-        set_skill("furong-jinzhen", 400);
+  set_skill("throwing", 400);
+  set_skill("furong-jinzhen", 400);
 	set_skill("taoism", 400);
 	set_skill("literate", 280);
 	set_skill("medical", 240);
 	set_skill("wudang-yaoli", 240);
-        set_skill("martial-cognize", 400);
+  set_skill("martial-cognize", 400);
 
 	map_skill("force", "taiji-shengong");
 	map_skill("dodge", "tiyunzong");
@@ -98,37 +98,37 @@ void create()
 	map_skill("parry", "taiji-jian");
 	map_skill("sword", "taiji-jian");
 	map_skill("blade", "taiji-dao");
-        map_skill("throwing"  , "furong-jinzhen");
-        map_skill("medical", "wudang-yaoli");
+  map_skill("throwing"  , "furong-jinzhen");
+  map_skill("medical", "wudang-yaoli");
 
 	prepare_skill("unarmed", "taiji-quan");
 	prepare_skill("strike", "wudang-zhang");
 
-        set("no_teach", ([
-                "wudang-jiuyang" : (: try_to_learn_jy :),
-        ]));
+  set("no_teach", ([
+          "wudang-jiuyang" : (: try_to_learn_jy :),
+  ]));
 
 	create_family("武当派", 1, "开山祖师");
 	set("class", "taoist");
 
-        set("inquiry", ([
-                "真武剑"     : (: ask_jian :),
-                "觉远"       : (: ask_jiuyang :),
-                "九阳真经"   : (: ask_jiuyang :),
-                "九阳神功"   : (: ask_jiuyang :),
-                "武当九阳功" : (: ask_jiuyang :),
-                "鹤嘴劲"     : (: ask_skill1 :),
-                "震字诀"     : (: ask_skill2 :),
-                "引字诀"     : (: ask_skill3 :),
-                "挤字诀"     : (: ask_skill4 :),
-                "粘字诀"     : (: ask_skill5 :),
-                "太极图"     : (: ask_skill6 :),
-                "缠字诀"     : (: ask_skill7 :),
-                "随字诀"     : (: ask_skill8 :),
-                "驾字诀"     : (: ask_skill9 :),
-                "剑轮岚转"   : (: ask_skill10 :),
-                "真武除邪"   : (: ask_skill11 :),
-        ]));
+  set("inquiry", ([
+          "真武剑"     : (: ask_jian :),
+          "觉远"       : (: ask_jiuyang :),
+          "九阳真经"   : (: ask_jiuyang :),
+          "九阳神功"   : (: ask_jiuyang :),
+          "武当九阳功" : (: ask_jiuyang :),
+          "鹤嘴劲"     : (: ask_skill1 :),
+          "震字诀"     : (: ask_skill2 :),
+          "引字诀"     : (: ask_skill3 :),
+          "挤字诀"     : (: ask_skill4 :),
+          "粘字诀"     : (: ask_skill5 :),
+          "太极图"     : (: ask_skill6 :),
+          "缠字诀"     : (: ask_skill7 :),
+          "随字诀"     : (: ask_skill8 :),
+          "驾字诀"     : (: ask_skill9 :),
+          "剑轮岚转"   : (: ask_skill10 :),
+          "真武除邪"   : (: ask_skill11 :),
+  ]));
 
 	set("chat_chance_combat", 120);
 	set("chat_msg_combat", ({
@@ -137,11 +137,11 @@ void create()
 		(: perform_action, "sword.sui" :),
 		(: perform_action, "sword.zhuan" :),
 		(: perform_action, "sword.zhenwu" :),
-                (: perform_action, "unarmed.tu" :),
-                (: perform_action, "unarmed.zhen" :),
-                (: perform_action, "unarmed.zhan" :),
-                (: perform_action, "unarmed.ji" :),
-                (: perform_action, "unarmed.yin" :),
+    (: perform_action, "unarmed.tu" :),
+    (: perform_action, "unarmed.zhen" :),
+    (: perform_action, "unarmed.zhan" :),
+    (: perform_action, "unarmed.ji" :),
+    (: perform_action, "unarmed.yin" :),
 		(: exert_function, "recover" :),
 		(: exert_function, "powerup" :),
 		(: exert_function, "shield" :),
@@ -149,34 +149,34 @@ void create()
 
 	setup();
 
-        if (clonep())
-        {
-                ob = find_object(ZHENWU_SWORD);
-                if (! ob) ob = load_object(ZHENWU_SWORD);
-                if (! environment(ob))
-                {
-                        ob->move(this_object());
-                        ob->wield();
-                } else
-                {
-                        ob = new("/clone/weapon/changjian");
-                        ob->move(this_object());
-                        ob->wield();
-                }
-        }
+  if (clonep())
+  {
+          ob = find_object(ZHENWU_SWORD);
+          if (! ob) ob = load_object(ZHENWU_SWORD);
+          if (! environment(ob))
+          {
+                  ob->move(this_object());
+                  ob->wield();
+          } else
+          {
+                  ob = new("/clone/weapon/changjian");
+                  ob->move(this_object());
+                  ob->wield();
+          }
+  }
 
 	carry_object("/d/wudang/obj/greyrobe")->wear();
 }
 
 void attempt_apprentice(object ob)
 {
-        if (! permit_recruit(ob))
-                return;
+  if (! permit_recruit(ob))
+          return;
 
 	if ((int)ob->query_skill("wudang-xinfa", 1) < 120)
 	{
-		command("say 我武当派乃内家武功，最重视内功心法。"); 
-		command("say " + RANK_D->query_respect(ob) + 
+		command("say 我武当派乃内家武功，最重视内功心法。");
+		command("say " + RANK_D->query_respect(ob) +
 			"是否还应该在武当心法上多下点功夫？");
 		return;
 	}
@@ -195,7 +195,7 @@ void attempt_apprentice(object ob)
 		return;
 	}
 
-        if (ob->query_skill("taoism", 1) < 120)
+  if (ob->query_skill("taoism", 1) < 120)
 	{
 		command("say 我武当派武功全从道藏悟出。");
 		command("say 你对道家心法的领悟还不够。");
@@ -518,7 +518,7 @@ mixed ask_skill6()
                              "，所谓真与幻象其实并无分别啊！$n" HIY "哈"
                              "哈长笑道：明白就好，明白就好，以后勿得轻易"
                              "使用，你去吧。\n\n", me, this_object());
-                               
+
                 tell_object(me, HIC "你学会了道家密技「太极图」。\n" NOR);
                 if (me->can_improve_skill("taoism"))
                         me->improve_skill("taoism", 1500000);
@@ -863,11 +863,11 @@ int accept_object(object me, object ob)
 
 mixed ask_jiuyang()
 {
-        object ob;
+        // object ob;
         object me;
         me = this_player();
 
-        if (me->query("can_learn/jiuyang-shengong/wudang")) 
+        if (me->query("can_learn/jiuyang-shengong/wudang"))
                 return "老道已经答应传授你武当九阳功了，你怎么还那么罗嗦？";
 
         if (! me->query("can_learn/jiuyang-shengong/kunlun"))

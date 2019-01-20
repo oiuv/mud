@@ -24,7 +24,7 @@ void create()
 
 void set_from_me(object me)
 {
-        int exp;
+        // int exp;
 
         NPC_D->init_npc_skill(this_object(), NPC_D->check_level(me));
 }

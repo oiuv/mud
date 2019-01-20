@@ -6,7 +6,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        mapping prepare;
+        // mapping prepare;
         string msg;
         int skill;
         int delta;
@@ -78,4 +78,3 @@ int perform(object me, object target)
 
         return 1;
 }
-

@@ -121,7 +121,7 @@ LONG);
 
 void attempt_apprentice(object me)
 {
-        string purename, name, new_name;
+        // string purename, name, new_name;
 
         if (! permit_recruit(me))
                 return;

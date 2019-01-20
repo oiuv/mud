@@ -129,7 +129,7 @@ LONG);
 
 void attempt_apprentice(object me)
 {
-        string purename, name, new_name;
+        // string purename, name, new_name;
 
         if (! permit_recruit(me))
                 return;
@@ -436,4 +436,3 @@ int accept_object(object me, object ob)
         destruct(ob);
         return 1;
 }
-

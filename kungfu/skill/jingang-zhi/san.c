@@ -5,16 +5,16 @@
 
 inherit F_SSERVER;
 
-string *xue_name = ({ 
+string *xue_name = ({
 "劳宫穴", "膻中穴", "曲池穴", "关元穴", "曲骨穴", "中极穴",
 "承浆穴", "天突穴", "百会穴", "幽门穴", "章门穴", "大横穴",
-"紫宫穴", "冷渊穴", "天井穴", "极泉穴", "清灵穴", "至阳穴", }); 
+"紫宫穴", "冷渊穴", "天井穴", "极泉穴", "清灵穴", "至阳穴", });
 
 int perform(object me, object target)
 {
         int damage, lvl;
-        string msg, wp;
-        object weapon;
+        string msg;
+        // object weapon;
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/jingang-zhi/san"))
@@ -25,7 +25,7 @@ int perform(object me, object target)
         if (! target || ! me->is_fighting(target))
 
                 return notify_fail(DIE "只能对战斗中的对手使用。\n");
- 
+
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail(DIE "只能空手施展。\n");
 
@@ -55,14 +55,14 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-        damage = (int)me->query_skill("finger") + (int)me->query_skill("force") + (int)me->query_skill("jinluo-xue",1); 
+        damage = (int)me->query_skill("finger") + (int)me->query_skill("force") + (int)me->query_skill("jinluo-xue",1);
         damage += random(damage);
         lvl = (int)me->query_skill("jingang-zhi", 1);
         ap = me->query_skill("finger");
         dp = target->query_skill("parry");
 
         msg = HIW "突然间";
-        
+
         msg += "$N" HIW "凝气于指，「" HIR "一指点三脉" HIW "」点出，顿时一股"
                "纯阳的内力直袭$n" HIW "胸口！\n" NOR;
         if (ap * 2 / 3 + random(ap) > dp)
@@ -79,12 +79,11 @@ int perform(object me, object target)
                 msg += CYN "可是$p" CYN "镇定自如，全力化解了$P"
                        CYN "这精妙的一指。\n" NOR;
         }
-       
-        
+
+
         me->start_busy(3 + random(3));
         me->add("neili", -800);
         message_combatd(msg, me, target);
 
         return 1;
 }
-

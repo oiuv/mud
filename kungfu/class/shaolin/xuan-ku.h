@@ -28,7 +28,7 @@ string *checks = ({
 
 string ask_me()
 {
-	mapping fam, my_fam, skl; 
+	mapping fam, my_fam, skl;
         object fighter, me, room, monk;
 	string *sname;
 	int i,j;
@@ -43,32 +43,32 @@ string ask_me()
 
 	skl = fighter->query_skills();
 	if (sizeof(skl) <= 1)
-		return RANK_D->query_respect(fighter) + 
+		return RANK_D->query_respect(fighter) +
 		"功力不够，不够资格闯罗汉大阵。";
 	sname  = keys(skl);
 	for (i = 0; i < sizeof(skl); i++)
         {
 		if (member_array(sname[i], checks) != -1 &&
-                    skl[sname[i]] < 80) 
-		        return RANK_D->query_respect(fighter) + 
+                    skl[sname[i]] < 80)
+		        return RANK_D->query_respect(fighter) +
 		               "功力不够，不够资格闯罗汉大阵。";
 	}
 	if (fighter->query("luohan_winner"))
-		return RANK_D->query_respect(fighter) + 
+		return RANK_D->query_respect(fighter) +
 		"已然闯过罗汉大阵，可不要拿老衲开这等玩笑。";
 
 	if (mapp(fam = fighter->query("family")) &&
 	    fam["family_name"] == "少林派" &&
 	    fam["generation"] > (my_fam["generation"] + 2))
-		return RANK_D->query_respect(fighter) + 
+		return RANK_D->query_respect(fighter) +
 		"辈份不合，不够资格闯罗汉大阵。";
 
         if ((int)fighter->query("guilty") > 0)
-		return RANK_D->query_respect(fighter) + 
+		return RANK_D->query_respect(fighter) +
 		"你累犯数戒，身带重罪，我如何能准许你闯罗汉大阵！";
 
 	if (me->query("assigned_fighter"))
-		return RANK_D->query_respect(fighter) + 
+		return RANK_D->query_respect(fighter) +
 		"，今日已有人挑战罗汉大阵，你过一段时间再来吧。";
 
 	fighter->set_temp("xuanku-asked", 1);
@@ -76,26 +76,26 @@ string ask_me()
 	say("\n玄苦说道：好吧，我来召集罗汉堂长老们于东练武"
             "场集合，我稍候在中央练武场上等你。\n");
 
-	me->set("assigned_fighter", fighter->query("id")); 		
-	
+	me->set("assigned_fighter", fighter->query("id"));
+
 	if (! fighter->query_temp("xuannan-asked"))
 	say("\n玄苦又道：请你速去告知般若堂玄难大师，请他即"
             "刻招集般若堂诸罗汉于西练武场集合。\n");
 
         message_vision("\n玄苦大师往南离开。\n\n", fighter);
 
-        for (j = 1; j < 10; j++) 
+        for (j = 1; j < 10; j++)
 	{
                 if (! (room = find_object("/d/shaolin/luohan" + j)))
                 room = load_object("/d/shaolin/luohan" + j);
-                
+
   		me->move(room);
-                
+
 		if (! objectp(monk = present(names[j-1], room)))
 		{
 	        	me->move("/d/shaolin/luohan5");
         	        message_vision("\n玄苦大师走了过来。\n\n", fighter);
-			return "真是对不起，罗汉堂中有人不在，无法举行罗汉大阵。\n";	
+			return "真是对不起，罗汉堂中有人不在，无法举行罗汉大阵。\n";
 		}
 
                 message("vision", "\n玄苦大师走了过来，跟" +
@@ -107,7 +107,7 @@ string ask_me()
                         "罗汉点了点头，快步走了出去。\n",
                         room, monk);
 	}
-	
+
         me->move("/d/shaolin/wuchang");
 
         call_out("waiting", 1, me);
@@ -123,7 +123,7 @@ int waiting(object me)
 	if (wait_time == 300)
 	{
 		say( "玄苦说道：看来他不会来了，我们回去罢！\n\n");
-		call_out("do_back", 0, me);		
+		call_out("do_back", 0, me);
 	}
 
 	if (! objectp(fighter = present(me->query("assigned_fighter"), environment(me))))
@@ -148,7 +148,7 @@ int waiting(object me)
 
 int preparing(object me, object fighter)
 {
-	object monk, room, ob;
+	object monk, room;
 
 	if (! (room = find_object("/d/shaolin/wuchang")))
 	        room = load_object("/d/shaolin/wuchang");
@@ -195,7 +195,7 @@ int fighting(object me, object fighter, int count)
                 if (objectp(monk1))
 		        monk1->move(room2);
 	}
-		
+
 	if (count >= 1 && count <= 9)
         {
 		monk2 = present(names[count-1], room2);
@@ -229,13 +229,13 @@ int fighting(object me, object fighter, int count)
 		count++;
 		call_out("fighting", 2, me, fighter, count);
 	}
- 
+
 	return 1;
 }
 
 int do_recruit(object me, object fighter)
 {
-	mapping ft_fam, my_fam;
+	mapping ft_fam;
 
 	fighter->delete_temp("beat_count");
 	fighter->delete_temp("fighting");
@@ -257,18 +257,18 @@ int do_recruit(object me, object fighter)
 		call_out("do_back", 30, me );
 	}
 
-		
+
 	return 1;
 }
 
 int do_back(object me)
 {
-        object monk, room1, room2;
+  object monk, room1, room2;
 	int i;
 
 	message("vision", "\n玄苦大师挥了挥手， 罗汉堂长老们"
                 "随即鱼贯离开练武场。\n", environment(me) );
-	
+
         if (! (room1 = find_object("/d/shaolin/wuchang")))
                 room1 = load_object("/d/shaolin/wuchang");
 
@@ -285,7 +285,7 @@ int do_back(object me)
         if (! (room1 = find_object("/d/shaolin/wuchang2")))
                 room1 = load_object("/d/shaolin/wuchang2");
 
-	for (i = 1; i < 10; i++) 
+	for (i = 1; i < 10; i++)
 	{
                 if (! (room2 = find_object("/d/shaolin/luohan" + i)))
                         room2 = load_object("/d/shaolin/luohan" + i);
@@ -294,9 +294,8 @@ int do_back(object me)
 	                monk->move(room2);
 	}
 
-        me->delete("assigned_fighter");	
+        me->delete("assigned_fighter");
 	me->move("/d/shaolin/luohan5");
 
 	return 1;
 }
-

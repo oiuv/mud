@@ -6,16 +6,16 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-        object *obs;
-        object der;
+	// object weapon;
+  object *obs;
+  object der;
 	string msg;
-        int ap, dp;
-        int damage;
-        int level;
-        int i;
+  int ap, dp;
+  int damage;
+  int level;
+  int i;
 
-        me->clean_up_enemy();
+  me->clean_up_enemy();
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
@@ -77,7 +77,7 @@ int perform(object me, object target)
                 name = der->name();
                 if (name == target->name()) name = "另一个" + name;
                 msg += HIG "结果$p" HIG "发出的招式不由自主"
-                       "的变了方向，突然攻向" + name + HIG "，不禁令" + 
+                       "的变了方向，突然攻向" + name + HIG "，不禁令" +
                        name + HIG "大吃一惊，招架不迭！" NOR;
         }
 

@@ -12,7 +12,7 @@ int perform(object me, object target)
         string type;
         mapping prepare;
         int n;
-        int skill, ap, dp, damage, ss;
+        int skill, ap, dp, ss;
 
         me->clean_up_enemy();
         if (! target) target = me->select_opponent();
@@ -37,7 +37,7 @@ int perform(object me, object target)
         if (weapon2) type = weapon2->query("skill_type");
         else if (! prepare || sizeof(prepare) == 0) type = "unarmed";
         else if (sizeof(prepare) == 1) type = (keys(prepare))[0];
-        else if (sizeof(prepare) == 2) 
+        else if (sizeof(prepare) == 2)
                 type = (keys(prepare))[target->query_temp("action_flag")];
 
         ap = skill + me->query_skill("sword", 1) / 2;

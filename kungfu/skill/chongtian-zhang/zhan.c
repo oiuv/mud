@@ -7,9 +7,9 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-	int damage;
-	string msg;
+				// object weapon;
+				int damage;
+				string msg;
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/chongtian-zhang/zhan"))
@@ -17,11 +17,11 @@ int perform(object me, object target)
 
         if (! target)
         {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
+				        me->clean_up_enemy();
+				        target = me->select_opponent();
         }
 
-	if (! target || ! me->is_fighting(target))
+				if (! target || ! me->is_fighting(target))
                 return notify_fail(ZHAN "只能对战斗中的对手使用。\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))

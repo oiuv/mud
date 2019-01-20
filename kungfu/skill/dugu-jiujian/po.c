@@ -13,10 +13,10 @@ int perform(object me, object target)
         string type;
         mapping prepare;
         int n;
-        int skill, ap, dp, damage, ss;
+        int skill, ap, dp, ss;
 
         if (me->query("can_learn/dugu-jiujian/nothing"))
-                return notify_fail("你所使用的外功中没有这种功能。\n");                
+                return notify_fail("你所使用的外功中没有这种功能。\n");
 
         if (userp(me) && me->query("can_perform/dugu/po") < 100)
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -36,7 +36,7 @@ int perform(object me, object target)
            || weapon->query("skill_type") != "sword")
                 return notify_fail("你使用的武器不对，无法施展" PO "。\n");
 
-        if (me->query_skill_mapped("sword") != "dugu-jiujian") 
+        if (me->query_skill_mapped("sword") != "dugu-jiujian")
                 return notify_fail("你没有激发独孤九剑，无法施展" PO "。\n");
 
         if (! living(target))
@@ -48,7 +48,7 @@ int perform(object me, object target)
         if (weapon2) type = weapon2->query("skill_type");
         else if (! prepare || sizeof(prepare) == 0) type = "unarmed";
         else if (sizeof(prepare) == 1) type = (keys(prepare))[0];
-        else if (sizeof(prepare) == 2) 
+        else if (sizeof(prepare) == 2)
                 type = (keys(prepare))[target->query_temp("action_flag")];
 
         ap = skill + me->query_skill("sword", 1);
@@ -68,7 +68,7 @@ int perform(object me, object target)
         if (ap + random(ap) > dp)
         {
                 msg = HIC "$N" HIC "随意挥洒手中的" + weapon->name() +
-                      HIC "，招招从出其不意的方位直指$n" 
+                      HIC "，招招从出其不意的方位直指$n"
                       HIC + to_chinese(type)[4..<1] + "中的破绽。\n" NOR;
 
                 n = 7 + random(7);

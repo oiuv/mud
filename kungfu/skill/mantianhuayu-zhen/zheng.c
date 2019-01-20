@@ -6,7 +6,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        int skill, i;
+        int skill;
         int n;
         int my_exp, ob_exp;
         string pmsg;
@@ -76,4 +76,3 @@ int perform(object me, object target)
         me->reset_action();
         return 1;
 }
-

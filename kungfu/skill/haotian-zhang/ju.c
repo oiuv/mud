@@ -7,7 +7,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        object weapon;
+        // object weapon;
         int damage;
         string msg;
 
@@ -22,7 +22,7 @@ int perform(object me, object target)
 
 	if (! target || ! me->is_fighting(target))
 		return notify_fail(JU "只能对战斗中的对手使用。\n");
- 
+
 	if (objectp(me->query_temp("weapon")))
                 return notify_fail(JU "只能空手施展。\n");
 

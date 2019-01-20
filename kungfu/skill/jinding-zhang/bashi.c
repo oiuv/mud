@@ -7,10 +7,10 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        object weapon;
+        // object weapon;
         int damage;
         string msg;
-        int count,d_count,qi, maxqi, skill;
+        // int count,d_count,qi, maxqi, skill;
 
         if (userp(me) && ! me->query("can_perform/jinding-zhang/bashi"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");

@@ -8,8 +8,8 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        int skill, i;
-        int n;
+        int skill;
+        // int i, n;
         int my_exp, ob_exp, p;
         string pmsg;
         string msg;
@@ -64,7 +64,7 @@ int perform(object me, object target)
 
                 COMBAT_D->clear_ahinfo();
                 weapon->hit_ob(me, target, me->query("jiali") + 100);
-    
+
                 p = (int)target->query("qi") * 100 / (int)target->query("max_qi");
 
                 if (stringp(pmsg = COMBAT_D->query_ahinfo()))

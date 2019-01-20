@@ -11,7 +11,7 @@ int perform(object me, object target)
         string msg;
         object weapon;
         int n;
-        int skill, ap, dp, damage;
+        int skill, ap, dp;
 
 
         if (userp(me) && ! me->query("can_perform/jiuyin-shengong/zhi"))

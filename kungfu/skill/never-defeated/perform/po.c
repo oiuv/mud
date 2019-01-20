@@ -9,7 +9,7 @@ int perform(object me, object target)
         string msg;
         object weapon, weapon2;
         int n;
-        int skill, skill2, ap, dp, damage;
+        int skill, skill2, ap, dp;
         string type;
 
         if (! target)
@@ -98,4 +98,3 @@ int perform(object me, object target)
         message_combatd(msg, me, target);
         return 1;
 }
-

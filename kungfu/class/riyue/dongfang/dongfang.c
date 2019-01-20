@@ -17,7 +17,6 @@ int p, j;
 
 void create()
 {
-        object ob;
 	set_name(HIR "东方不败" NOR, ({ "dongfang bubai", "dongfang", "bubai" }));
 	set("long", " 她就是东方不败，看起来不男不女，样子却甚为妖媚。\n");
 	set("gender", "无性");
@@ -27,11 +26,11 @@ void create()
 	set("int", 39);
 	set("con", 50);
 	set("dex", 62);
-	
+
 	set("max_qi", 10000);
 	set("max_jing", 10000);
-        set("max_jingli", 10000);
-        set("jingli", 10000);
+  set("max_jingli", 10000);
+  set("jingli", 10000);
 	set("max_neili", 12000);
 	set("neili", 12000);
 	set("jiali", 550);
@@ -39,35 +38,35 @@ void create()
 	set("score", 1200000);
 
 	set_skill("force", 450);
-        set_skill("parry", 450);
-        set_skill("dodge", 450);
-        set_skill("sword", 450);
-        set_skill("unarmed", 450);
-        set_skill("literate", 350);
-        set_skill("martial-cognize", 400);
-        set_skill("kuihua-mogong", 450);
+  set_skill("parry", 450);
+  set_skill("dodge", 450);
+  set_skill("sword", 450);
+  set_skill("unarmed", 450);
+  set_skill("literate", 350);
+  set_skill("martial-cognize", 400);
+  set_skill("kuihua-mogong", 450);
 
 	map_skill("force", "kuihua-mogong");
 	map_skill("dodge", "kuihua-mogong");
 	map_skill("unarmed", "kuihua-mogong");
 	map_skill("sword", "kuihua-mogong");
-        map_skill("parry", "kuihua-mogong");
+  map_skill("parry", "kuihua-mogong");
 
 	prepare_skill("unarmed", "kuihua-mogong");
 
 	create_family("日月神教", 2, "弟子");
 
-        set("inquiry", ([
-                "杨莲亭"    :    "莲弟 ……\n",
-                "任我行"    :    "哼 ……，我当初真该杀了他。\n",
-                "葵花魔功"  :    (: ask_kuihua :),
-                "无声无息"  :    (: ask_skill1 :),
-                "无穷无尽"  :    (: ask_skill2 :),
-                "无边无际"  :    (: ask_skill3 :),
-                "无法无天"  :    (: ask_skill4 :),
-                "无双无对"  :    (: ask_skill5 :),
-                
-        ]));
+  set("inquiry", ([
+          "杨莲亭"    :    "莲弟 ……\n",
+          "任我行"    :    "哼 ……，我当初真该杀了他。\n",
+          "葵花魔功"  :    (: ask_kuihua :),
+          "无声无息"  :    (: ask_skill1 :),
+          "无穷无尽"  :    (: ask_skill2 :),
+          "无边无际"  :    (: ask_skill3 :),
+          "无法无天"  :    (: ask_skill4 :),
+          "无双无对"  :    (: ask_skill5 :),
+
+  ]));
 
 	set("chat_chance_combat", 120);
 	set("chat_msg_combat", ({
@@ -76,10 +75,10 @@ void create()
 		(: perform_action, "sword.tian" :),
 		(: perform_action, "sword.qiong" :),
 		(: perform_action, "sword.zhenwu" :),
-                (: perform_action, "dodge.sheng" :),
-                (: perform_action, "unarmed.bian" :),
-                (: perform_action, "unarmed.tian" :),
-                (: perform_action, "unarmed.qiong" :),
+    (: perform_action, "dodge.sheng" :),
+    (: perform_action, "unarmed.bian" :),
+    (: perform_action, "unarmed.tian" :),
+    (: perform_action, "unarmed.qiong" :),
 		(: exert_function, "recover" :),
 		(: exert_function, "powerup" :),
 		(: exert_function, "shield" :),
@@ -88,7 +87,7 @@ void create()
 
 	setup();
 
-        carry_object(__DIR__"zhen")->wield();
+  carry_object(__DIR__"zhen")->wield();
 	carry_object(__DIR__"changpao")->wear();
 }
 
@@ -101,7 +100,7 @@ mixed ask_kuihua()
         if (me->query_temp("teach_kh"))
         {
             command("shake");
-            
+
             return 1;
         }
         //转世特技六阴鬼脉免除无性限制 by 薪有所属
@@ -136,22 +135,22 @@ mixed ask_kuihua()
         if (me->query("qi") < 2000)
         {
               me->unconcious();
-              return 1;              
+              return 1;
         }
-        
+
         //me->receive_wound("qi", me->query("qi") / 2);
         me->receive_wound("qi", me->query("qi") / 4);
         me->add("neili", -(2000 - lv));
         me->start_busy(2 + random(2));
         p = (int)me->query("qi") * 100 / (int)me->query("max_qi");
         tell_object(me, "(你" + eff_status_msg(p) + ")\n\n");
-   
+
         j = 0;
-    
+
         remove_call_out("teach_kuihua");
         call_out("teach_kuihua", 2, me, lv);
-        
-        return 1;        
+
+        return 1;
 }
 
 void teach_kuihua(object me, int lv)
@@ -193,7 +192,7 @@ void teach_kuihua(object me, int lv)
               message_sort(HIW "东方不败再未有任何言语，只是玩弄着自己的指甲 ……\n" NOR, me);
 
               if (random(10) > 7)return;
-              
+
               write(HIM "你仔细回味刚才那惊心动魄的一幕，回想东方不败施展的各种招式，猛然间你一声长叹，"
                         "心中疑虑顿然消除 ……\n" NOR);
               if (me->can_improve_skill("force"))
@@ -216,7 +215,7 @@ void teach_kuihua(object me, int lv)
 
         remove_call_out("teach_kuihua");
         call_out("teach_kuihua", 3, me, lv);
-                       
+
 }
 
 mixed ask_skill1()
@@ -224,7 +223,7 @@ mixed ask_skill1()
         object me = this_player();
         //转世特技六阴鬼脉免除无性限制 by 薪有所属
        if (! me->query("special_skill/guimai"))
-       	{        
+       	{
         if (me->query("gender") != "无性")
         {
                command("heng");
@@ -259,12 +258,12 @@ mixed ask_skill1()
 }
 
 mixed ask_skill2()
-{       
+{
         object me = this_player();
-        
+
 //转世特技六阴鬼脉免除无性限制 by 薪有所属
        if (! me->query("special_skill/guimai"))
-       	{        
+       	{
         if (me->query("gender") != "无性")
         {
                command("heng");
@@ -282,7 +281,7 @@ mixed ask_skill2()
                command("say 你葵花魔功还不够娴熟，还不快下去多加练习。");
                return 1;
         }
-      
+
         command("heihei");
         tell_object(me, HIR "\n东方不败尖啸一声，猛然进步欺前，一招竟直袭向虚空，速度之快，令人称奇。\n" NOR);
         command("say 看清楚了？！");
@@ -304,10 +303,10 @@ mixed ask_skill2()
 mixed ask_skill3()
 {
         object me = this_player();
-        
+
 //转世特技六阴鬼脉免除无性限制 by 薪有所属
        if (! me->query("special_skill/guimai"))
-       	{        
+       	{
         if (me->query("gender") != "无性")
         {
                command("heng");
@@ -324,7 +323,7 @@ mixed ask_skill3()
         {
                command("say 你葵花魔功还不够娴熟，还不快下去多加练习。");
                return 1;
-        }      
+        }
         command("heihei");
         tell_object(me, HIR "\n东方不败一声尖啸，身体猛然旋转不定，霎那间似乎有千万根银针，齐齐卷向虚空 ……\n" NOR);
         command("say 这招威力巨大，能伤对方丹元，使其短期内不能施展任何外功！");
@@ -346,10 +345,10 @@ mixed ask_skill3()
 mixed ask_skill4()
 {
         object me = this_player();
-        
+
  //转世特技六阴鬼脉免除无性限制 by 薪有所属
        if (! me->query("special_skill/guimai"))
-       	{        
+       	{
         if (me->query("gender") != "无性")
         {
                command("heng");
@@ -366,7 +365,7 @@ mixed ask_skill4()
         {
                command("say 你葵花魔功还不够娴熟，还不快下去多加练习。");
                return 1;
-        }      
+        }
         command("heihei");
         command("say 看好了！");
         tell_object(me, HIR "\n东方不败默运葵花魔功，身形变得奇快无比，接连从不同的方位向虚空攻出数招！\n" NOR);
@@ -390,15 +389,15 @@ mixed ask_skills5()
 {
         write("制作中 ……\n");
         return 1;
-}      
+}
 */
 mixed ask_skill5()
-{       
+{
         object me = this_player();
-        
+
  //转世特技六阴鬼脉免除无性限制 by 薪有所属
        if (! me->query("special_skill/guimai"))
-       	{        
+       	{
         if (me->query("gender") != "无性")
         {
                command("heng");
@@ -416,7 +415,7 @@ mixed ask_skill5()
                command("say 你葵花魔功还不够娴熟，还不快下去多加练习。");
                return 1;
         }
-      
+
         command("heihei");
         tell_object(me, HIR "\n东方不败尖啸一声，猛然进步欺前，竟然转眼间耍了九十九招，速度之快，着实令人佩服！\n" NOR);
         command("say 看清楚了？！");

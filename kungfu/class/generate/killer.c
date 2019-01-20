@@ -6,7 +6,6 @@ inherit CLASS_D("generate") + "/chinese";
 
 void create()
 {
-        mapping my;
 
         ::create();
         set("gender", "ÄÐÐÔ" );

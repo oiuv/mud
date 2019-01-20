@@ -3,7 +3,7 @@ inherit F_SSERVER;
 
 int perform(object me,object target)
 {
-        int sp, dp, temp;
+        // int sp, dp, temp;
         int my_skill, my_force, tg_age, skill_count, duli;
 
         if (userp(me) && ! me->query("can_perform/qianzhu-wandushou/suck"))
@@ -13,13 +13,13 @@ int perform(object me,object target)
                 return notify_fail("这里太嘈杂，你不能静下心来修炼。\n");
 
         if( !objectp(target)
-        ||  target->query_temp("owner_id") != me->query("id") )   
+        ||  target->query_temp("owner_id") != me->query("id") )
                 return notify_fail("你要吸取什么毒虫的毒素？\n");
 
      /*   if( target->query("age") < 99 )
                 return notify_fail("你看清楚点，那东西像是毒虫吗？\n"); */
 	if( ! target->query("worm_poison") )
-		  return notify_fail("你看清楚点，那东西像是毒虫吗？\n"); 
+		  return notify_fail("你看清楚点，那东西像是毒虫吗？\n");
 
         my_skill = (int)me->query_skill("qianzhu-wandushou", 1);
         my_force = (int)me->query_skill("xiuluo-yinshagong", 1);
@@ -46,11 +46,11 @@ int perform(object me,object target)
         if (! me->can_improve_skill("qianzhu-wandushou"))
                 return notify_fail("你的实战经验不够，无法继续修炼千蛛万毒手！\n");
 
-     
+
          if( tg_age - my_skill >= 50 )
-                return notify_fail(target->query("name") + "的毒力对你来说太强了，小心把小命送了！\n"); 
+                return notify_fail(target->query("name") + "的毒力对你来说太强了，小心把小命送了！\n");
          if( my_skill - tg_age >= 50 )
-                return notify_fail(target->query("name") + "的毒力对你来说已经太轻微了！\n"); 
+                return notify_fail(target->query("name") + "的毒力对你来说已经太轻微了！\n");
 
         if( (int)me->query("neili") < 200 )
                 return notify_fail("你的内力不够，不足以对抗毒气，别把小命送掉。\n");
@@ -84,7 +84,7 @@ int perform(object me,object target)
         {
                 duli = 7;
         }
-    
+
         //skill_count = duli * (10 + random((int)me->query_int()));
         skill_count = duli * (50 + random((int)me->query_int()));
         me->improve_skill("qianzhu-wandushou", skill_count);

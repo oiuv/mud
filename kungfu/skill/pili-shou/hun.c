@@ -1,16 +1,16 @@
 // 天地混元
- 
+
 #include <ansi.h>
 #include <combat.h>
 
 #define WU "「" HIW "天地混元" NOR "」"
- 
+
 inherit F_SSERVER;
- 
+
 int perform(object me, object target)
 {
 	string msg;
-	object weapon;
+	// object weapon;
 	int skill, ap, dp, damage;
 
         if (! target)
@@ -24,7 +24,7 @@ int perform(object me, object target)
 
 	if (! me->is_fighting(target))
 		return notify_fail(WU "只能对战斗中的对手使用。\n");
- 
+
 	skill = me->query_skill("pili-shou", 1);
 
 	if (skill < 140)
@@ -38,7 +38,7 @@ int perform(object me, object target)
 
 	if (me->query("neili") < 340)
 		return notify_fail("你的内力不够，无法施展" WU "！\n");
- 
+
         if (me->query_skill_prepared("hand") != "pili-shou")
                 return notify_fail("你没有准备使用混元霹雳手，无法施展" WU "！\n");
 
@@ -47,7 +47,7 @@ int perform(object me, object target)
 
 	msg = HIC "$N" HIC "怒喝一声，施出绝招「" HIW "天地混元" HIC "」，双掌交错"
               "袭向$n" HIC "，掌风凌厉，隐隐带有风雷之势。\n" NOR;
- 
+
 	ap = me->query_skill("hand") + me->query_skill("force");
 	dp = target->query_skill("force") + target->query_skill("parry");
 	if (ap / 2 + random(ap) > dp)

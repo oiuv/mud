@@ -6,7 +6,7 @@ int exert(object me, object target)
 {
         object du;
         int an, dn, ap, dp;
-        int f, i, skill;
+        int f, skill;
         string msg;
 
         f = me->query_skill_mapped("force");
@@ -120,4 +120,3 @@ int exert(object me, object target)
 
         return 1;
 }
-

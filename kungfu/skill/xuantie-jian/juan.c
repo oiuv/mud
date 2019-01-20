@@ -9,8 +9,8 @@ inherit F_SSERVER;
 int perform(object me, object target)
 {
         object weapon;
-        int damage;
-	int ap, dp;
+        // int damage;
+        int ap, dp;
         string msg;
 
         if (userp(me) && ! me->query("can_perform/xuantie-jian/juan"))

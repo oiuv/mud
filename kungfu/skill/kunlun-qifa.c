@@ -7,8 +7,8 @@ inherit SKILL;
 
 int valid_learn(object me)
 {
-        object ob;
-  
+        // object ob;
+
         if (me->query_skill("throwing", 1) < 50)
                 return notify_fail("你的暗器技能不够娴熟。\n");
 

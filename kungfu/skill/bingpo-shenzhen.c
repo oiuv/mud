@@ -2,9 +2,9 @@
 
 inherit SKILL;
 
-int valid_enable(string usage) 
-{ 
-       return usage == "throwing"; 
+int valid_enable(string usage)
+{
+       return usage == "throwing";
 }
 
 int valid_learn(object me)
@@ -26,7 +26,7 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-        object weapon;
+        // object weapon;
 
         if ((int)me->query("qi") < 80)
                 return notify_fail("你的体力太低了。\n");

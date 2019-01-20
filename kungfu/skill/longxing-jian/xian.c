@@ -5,14 +5,14 @@
 int perform(object me)
 {
         int skill;
-        string msg;
+        // string msg;
 
         if (! me->is_fighting())
                 return notify_fail("神龙再现只能在战斗中使用。\n");
 
         if ((int)me->query_skill("longxing-jian", 1) < 150)
                 return notify_fail("你的龙形剑法不够娴熟，不会使用神龙再现。\n");
-        
+
         if ((int)me->query_skill("buddhism", 1) < 150)
                 return notify_fail("你的佛法修为不够娴熟，不会使用神龙再现。\n");
 
@@ -36,4 +36,3 @@ int perform(object me)
 
         return 1;
 }
-

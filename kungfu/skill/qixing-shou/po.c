@@ -10,7 +10,7 @@ int perform(object me, object target)
         int damage;
         string msg;
         object weapon;
-        string wname;
+        // string wname;
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/qixing-shou/po"))

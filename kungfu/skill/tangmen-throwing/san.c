@@ -12,7 +12,7 @@ inherit F_SSERVER;
 
 int perform( object me, object target )
 {
-	int	skill, i, p, n;
+	int	skill, p, n;
 	int	ap, dp, damage;
 	string	pmsg;
 	string	msg;
@@ -125,5 +125,3 @@ int perform( object me, object target )
 	}
 	return(1);
 }
-
-

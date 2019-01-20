@@ -69,7 +69,7 @@ mapping mixed_poison(mapping p1, mapping p2)
                 p["name"]   = p1["name"];
                 p["remain"] = r;
                 return p;
-        }        
+        }
 
         if (! p1)
         {
@@ -117,7 +117,7 @@ mapping mixed_poison(mapping p1, mapping p2)
 int do_effect(object ob, string cnd, mapping p)
 {
         mapping cnd_info;
-        int d;
+        // int d;
 
         if (! p || ! intp(p["level"]) || ! intp(p["duration"]) ||
             ! stringp(p["id"]))
@@ -154,8 +154,8 @@ int dispel(object me, object ob, mapping cnd)
         }
 
         need_lvl = cnd["level"] + 10;
-	if (ob->query("breakup"))
-		need_lvl = need_lvl * 7 / 10;
+      	if (ob->query("breakup"))
+      		      need_lvl = need_lvl * 7 / 10;
 
         if (ob->query("immune/poison") == -1)
                 need_lvl = 1;

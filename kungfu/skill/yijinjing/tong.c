@@ -8,14 +8,14 @@ void remove_effect(object me, int amount);
 
 int exert(object me, object target)
 {
-        int skill, qi, maxqi;
+        int skill;
 
 
         //if (me->query("family/family_name") != "少林派")
         //        return notify_fail("你不是少林弟子，无法使用“易筋通脉”。\n");
         if (userp(me) && ! me->query("can_perform/yijinjing/tong"))
                 return notify_fail("你所学的内功中没有这种功能。\n");
-                
+
         if (target != me)
                 return notify_fail("你只能用易筋经来为自己易筋通脉。 \n");
 
@@ -52,4 +52,3 @@ int exert(object me, object target)
 
         return 1;
 }
-

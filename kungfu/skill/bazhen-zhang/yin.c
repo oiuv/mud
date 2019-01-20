@@ -7,7 +7,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        object weapon;
+        // object weapon;
         int damage;
         string msg;
 
@@ -28,10 +28,10 @@ int perform(object me, object target)
         if ((int)me->query_skill("bazhen-zhang", 1) < 130)
                 return notify_fail("你的八阵八卦掌不够娴熟，难以施展" YIN "。\n");
 
-        if (me->query_skill_mapped("strike") != "bazhen-zhang") 
+        if (me->query_skill_mapped("strike") != "bazhen-zhang")
                 return notify_fail("你没有激发八阵八卦掌，难以施展" YIN "。\n");
 
-        if (me->query_skill_prepared("strike") != "bazhen-zhang") 
+        if (me->query_skill_prepared("strike") != "bazhen-zhang")
                 return notify_fail("你没有准备八阵八卦掌，难以施展" YIN "。\n");
 
         if ((int)me->query("neili") < 300)

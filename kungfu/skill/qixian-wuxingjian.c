@@ -3,9 +3,9 @@
 
 inherit SKILL;
 
-string *xue_name = ({ 
+string *xue_name = ({
 "劳宫穴", "膻中穴", "曲池穴", "关元穴", "曲骨穴", "中极穴", "承浆穴", "天突穴", "百会穴",
-"幽门穴", "章门穴", "大横穴", "紫宫穴", "冷渊穴", "天井穴", "极泉穴", "清灵穴", "至阳穴", }); 
+"幽门穴", "章门穴", "大横穴", "紫宫穴", "冷渊穴", "天井穴", "极泉穴", "清灵穴", "至阳穴", });
 
 mapping *action_unarmed = ({
 ([      "action": "$N使一招「弦外有音」，双手猛然击出，空气中暴响出“呜”的一声，一股气流如风一般卷向$n的$l",
@@ -154,12 +154,12 @@ mapping *action_sword = ({
 ]),
 });
 
-int valid_enable(string usage) 
-{  
+int valid_enable(string usage)
+{
         return usage == "unarmed"
             || usage == "parry"
             || usage == "sword"
-            || usage == "tanqin-jifa"; 
+            || usage == "tanqin-jifa";
 }
 
 int valid_learn(object me)
@@ -208,15 +208,15 @@ mapping query_action(object me, object weapon)
         level = (int) me->query_skill("qixian-wuxingjian", 1);
 
         if ( ! weapon)
-        {                
+        {
              for(i = sizeof(action_unarmed); i > 0; i--)
                      if(level >= action_unarmed[i-1]["lvl"])
                              return action_unarmed[NewRandom(i, 20, level/5)];
-        }        
+        }
         else
              for(i = sizeof(action_sword); i > 0; i--)
                      if(level > action_sword[i-1]["lvl"])
-                             return action_sword[NewRandom(i, 20, level/5)];        
+                             return action_sword[NewRandom(i, 20, level/5)];
 }
 
 int practice_skill(object me)
@@ -234,9 +234,9 @@ int practice_skill(object me)
 
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-        string name, weapon;
+        string name;
         name = xue_name[random(sizeof(xue_name))];
-    
+
         if (me->query_skill("qixian-wuxingjian", 1) < 180
            || me->query("max_neili") < 2500
            || me->query("neili") < 500
@@ -323,7 +323,7 @@ void do_effect(object me)
                 obs[i]->receive_wound("jing", damage / 2, me);
                 obs[i]->receive_damage("qi", damage * 2, me);
                 obs[i]->receive_wound("qi", damage * 2, me);
-                
+
                 tell_object(obs[i], HIR "你听得心神不定，只感呼吸不畅，鼓膜轰鸣，目不视物，几欲晕倒。\n" NOR);
         }
 }

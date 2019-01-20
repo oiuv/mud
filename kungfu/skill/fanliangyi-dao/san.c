@@ -6,20 +6,20 @@
 inherit F_SSERVER;
 
 #define SAN "「" HIG "华岳三神峰" NOR "」"
- 
+
 int perform(object me, object target)
 {
 	object weapon;
 	string msg;
-	int i, damage;
-        int ap, dp;
- 
-        if (! target) target = offensive_target(me);
+	int damage;
+  int ap, dp;
 
-        if (userp(me) && ! me->query("can_perform/fanliangyi-dao/san"))
-                return notify_fail("你所使用的外功中没有这种功能。\n");
+  if (! target) target = offensive_target(me);
 
-        if (! target || ! me->is_fighting(target))
+  if (userp(me) && ! me->query("can_perform/fanliangyi-dao/san"))
+          return notify_fail("你所使用的外功中没有这种功能。\n");
+
+  if (! target || ! me->is_fighting(target))
 		return notify_fail(SAN "只能在战斗中对对手使用。\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
@@ -46,11 +46,11 @@ int perform(object me, object target)
 
 	msg = HIY "\n$N" HIY "使出华山派绝技「" HIG "华岳三神峰" HIY "」，身"
               "法突然变得异常灵动飘忽！手中" + weapon->name() + HIY "连连卷"
-              "向$n" HIY "。" NOR; 
+              "向$n" HIY "。" NOR;
 	message_sort(msg, me, target);
 
         msg = HIW "$N" HIW "反转" + weapon->name() + HIW "，忽然一刀劈出，威力无穷。\n" NOR;
-        
+
         ap = me->query_skill("blade");
         dp = target->query_skill("parry");
 

@@ -4,7 +4,7 @@
 
 int exert( object me, object target )
 {
-	int	i;
+	// int	i;
 	string	force_name;
 	mapping conditions;
 

@@ -10,8 +10,8 @@
 
 #include <ansi.h>
 #include <combat.h>
-inherit SKILL;
 #include "/kungfu/skill/eff_msg.h";
+inherit SKILL;
 inherit F_SSERVER;
 
 mapping *action = ({
@@ -35,7 +35,7 @@ mapping *action = ({
         "weapon" : HIR "参合破体剑气" NOR,
         "damage_type" : "刺伤"
 ]),
-([      
+([
         "action": "只见$N十指箕张，随手指指点点，将「" HIY "祁连五绝指" NOR "」及"
                   "「" HIY "大天龙指" NOR "」的精髓招式同时使出，\n顿时剑气纵横，尘"
                   "砂四起，逼向$n而去",
@@ -47,7 +47,7 @@ mapping *action = ({
         "weapon" : HIR "参合破体剑气" NOR,
         "damage_type" : "刺伤"
 ]),
-([      
+([
         "action": "只见$N纵身跃起，长啸一声，凌空而下，「" HIM "七星剑气" NOR "」已射"
                   "向$n全身各处",
         "force" : 460,
@@ -100,7 +100,7 @@ int get_ready(object me)
 
 int get_finish(object me)
 {
-        object ob;
+        // object ob;
 
         if (me->query("int") < 34)
         {
@@ -209,7 +209,7 @@ int practice_skill(object me)
 {
         int cost;
 
-        if (me->query_skill("canhe-zhi", 1) > 120 
+        if (me->query_skill("canhe-zhi", 1) > 120
             && me->query_skill("zihui-xinfa", 1) < 120)
                 return notify_fail("你紫徽心法修为不够，这样下去恐怕会走火入魔！\n");
 
@@ -245,7 +245,7 @@ mapping query_action(object me, object weapon)
                                 "weapon" : HIR "参合破体剑气" NOR,
                                 "damage_type": "刺伤"
 		        ]);
-        } 
+        }
 
         return action[random(sizeof(action))];
 }
@@ -287,11 +287,11 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         lvl = me->query_skill("canhe-zhi", 1);
 
         // 身负六脉神剑绝技可以将参合剑气折回
-        if (slv = target->query_skill("liumai-shenjian", 1) > 200 
+        if (slv = target->query_skill("liumai-shenjian", 1) > 200
             && target->query_skill_prepared("finger") == "liumai-shenjian"
             && slv >= me->query_skill("canhe-zhi", 1) - 60
             && random(10) == 0)
-        {  
+        {
                 msg = action[random(sizeof(action))]["action"];
                 msg += HIY "\n但见$n" HIY "斜斜一指点出，指出如风，剑气纵横，嗤然"
                        "作响，竟将$N" HIY "的剑气全部折回，反向自己射去！\n" NOR;

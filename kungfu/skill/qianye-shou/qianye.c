@@ -1,21 +1,21 @@
 // qianye.c 千叶佛手
- 
+
 #include <ansi.h>
 #include <combat.h>
- 
+
 inherit F_SSERVER;
- 
+
 int perform(object me)
 {
 	string msg;
-	object weapon, target;
+	object target;
 	int skill, ap, dp, damage;
 
-        if (! target)
-        {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
-        }
+  if (! target)
+  {
+    me->clean_up_enemy();
+    target = me->select_opponent();
+  }
 
 	if (! target || ! me->is_fighting(target))
 		return notify_fail("「千叶佛手」只能在战斗中对对手使用。\n");
@@ -27,8 +27,8 @@ int perform(object me)
 
 	if (me->query("neili") < 100)
 		return notify_fail("你的真气不够，无法运用「千叶佛手」！\n");
- 
-	if (me->query_skill_mapped("hand") != "qianye-shou") 
+
+	if (me->query_skill_mapped("hand") != "qianye-shou")
 		return notify_fail("你没有激发千叶手，无法使用「千叶佛手」！\n");
 
        if (! living(target))
@@ -37,7 +37,7 @@ int perform(object me)
 	msg = HIC "$N" HIC "倏的靠近$n" HIC "，伸手一晃，"
 	      "化出无数掌影，如同你有千百只手一齐攻向" HIC
               "$n！\n" NOR;
- 
+
 	ap = me->query_skill("force") + me->query_skill("hand");
 	dp = target->query_skill("parry") + target->query_skill("dodge");
 	if (ap / 2 + random(ap) > dp)

@@ -7,7 +7,7 @@ void remove_effect(object me, int a_amount, int d_amount);
 
 int perform(object me)
 {
-        object weapon;
+        // object weapon;
         int skill;
         string msg;
 

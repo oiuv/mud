@@ -6,7 +6,7 @@
 #include <combat.h>
 
 inherit F_SSERVER;
- 
+
 int perform(object me, object target)
 {
         mapping p;
@@ -15,8 +15,8 @@ int perform(object me, object target)
         int amount;
         int exp;
         int lvl;
-        int sk;
- 
+        // int sk;
+
         if (! target)
                 return notify_fail("ÄãÒªÈ¡ÄÄÌõÉßµÄ¶¾ÒºÁ·Ò©£¿\n");
 
@@ -51,7 +51,7 @@ int perform(object me, object target)
         amount = p["level"] * p["remain"];
         if (amount > lvl)
                 amount = lvl;
-        
+
         p["remain"] = (p["level"] * p["remain"] - amount) /
                        p["level"];
         target->apply_condition("poison-supply", 1);
@@ -99,4 +99,3 @@ int perform(object me, object target)
 
         return 1;
 }
-

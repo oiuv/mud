@@ -5,7 +5,7 @@
 int perform(object me)
 {
 	int skill;
-	string msg;
+	// string msg;
 
 	if (! me->is_fighting())
 		return notify_fail("唱仙法只能在战斗中使用。\n");

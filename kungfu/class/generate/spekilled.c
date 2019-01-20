@@ -184,7 +184,7 @@ void die( object killer )
     int gongxian;           /*  */
     object  *t;             /* 杀死我的人的队伍列表 */
     object  tob;
-    int i;
+    // int i;
 
     /* 找到杀了我(NPC)或是打晕我的人 */
     if ( !objectp( dob = killer ) )
@@ -252,7 +252,7 @@ void random_move()
 {
     string  dir;
     string  * route;
-    object  master;
+    // object  master;
     object  *listeners;
 
     if ( time() > query_temp( "dest_time" ) ||
@@ -334,4 +334,3 @@ void init()
     if ( !"/cmds/std/kill"->main( this_object(), me->query( "id" ) ) )
         kill_ob( me );
 }
-

@@ -20,7 +20,7 @@ int valid_force(string force)
 
 int valid_learn(object me)
 {
-        int lvl = (int)me->query_skill("changsheng-jue", 1);
+        // int lvl = (int)me->query_skill("changsheng-jue", 1);
 
         if (me->query("character") != "狡黠多变")
                 return notify_fail("你心中暗想：这不过是道家练气的口诀罢了，哪里是什么神功？\n");
@@ -46,4 +46,3 @@ string exert_function_file(string func)
 {
         return __DIR__"changsheng-jue/" + func;
 }
-

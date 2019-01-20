@@ -9,7 +9,7 @@ int perform(object me)
 {
         string msg;
         object weapon, target;
-        int skill, ap, dp, neili_wound, jing_wound;
+        int skill, ap, dp, jing_wound;
 
         if (userp(me) && ! me->query("can_perform/kunlun-jian/fanyin"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -79,4 +79,3 @@ int perform(object me)
         message_combatd(msg, me, target);
         return 1;
 }
-

@@ -1,14 +1,14 @@
 // fen.c 焚身
- 
+
 #include <ansi.h>
 #include <combat.h>
- 
+
 inherit F_SSERVER;
- 
+
 int perform(object me)
 {
 	string msg;
-	object weapon, target;
+	object target;
 	int skill, ap, dp;
 	int damage;
 
@@ -23,7 +23,7 @@ int perform(object me)
 
 	if (! target || ! me->is_fighting(target))
                 return notify_fail("「焚身」只能对战斗中的对手使用。\n");
- 
+
         skill = me->query_skill("huoyan-dao", 1);
 
 	if (skill < 120)
@@ -34,7 +34,7 @@ int perform(object me)
 
 	if (me->query("neili") < 400)
                 return notify_fail("你的内力不够，无法运功！\n");
- 
+
        if (! living(target))
               return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 

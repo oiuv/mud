@@ -103,7 +103,7 @@ string ask_buy()
 string ask_job()
 {
         object me;
-        object *obs;
+        // object *obs;
 
         me = this_player();
         if (me->query_temp("job/copy"))
@@ -127,8 +127,8 @@ string ask_job()
 
         if (! interactive(me))
                 return "...";
-/*
-//取消人数限制
+        /*
+        // 取消人数限制
         obs = filter_array(all_inventory(environment()),
                            (: interactive($1) &&
                               $1 != $(me) &&
@@ -136,7 +136,7 @@ string ask_job()
                               query_ip_number($1) == query_ip_number($(me)) :));
         if (sizeof(obs) > 0)
                 return "我这已经有" + obs[0]->name() + "在干活了，你等等吧。";
-*/
+        */
         me->set_temp("job/copy", 1);
         return "好，你就帮我抄书(copy)吧！笔墨纸砚在这儿。";
 }
@@ -217,17 +217,15 @@ int working(object me)
                        "这是给你的报酬！你可以在我这里学点文化。\n";
                 me->delete_temp("job/copy");
                 me->delete_temp("job/step");
-				// 奖励增加3+5倍（2013-12-01 21:00:00）
+                // 奖励增加3+5倍（2013-12-01 21:00:00）
                 b = 40 + random(20);
                 me->add_temp("mark/朱", 20);
                 me->add("combat_exp", b);
                 me->improve_potential((b + 20) / 3);
-//新增工作时会读书才加读书技能，防止坑了太玄id by 薪有所属 2016.12.11
-if (me->query_skill("literate",1))
-	{
-                if (me->query_skill("literate", 1) < 100)
-                        me->improve_skill("literate", (b + 5) / 2);
-}
+
+                if (me->query_skill("literate",1) && me->query_skill("literate", 1) < 100)
+                    me->improve_skill("literate", (b + 5) / 2);
+
                 ob = new("/clone/money/coin");
                 ob->set_amount(50);
                 ob->move(me, 1);

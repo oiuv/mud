@@ -10,8 +10,8 @@ void remove_effect(object me, int a_amount, int d_amount);
 int perform(object me, object target)
 {
 	object weapon;
-        int damage;
-	int skill;
+  int damage;
+	// int skill;
 	string msg;
 
 	if (! target) target = offensive_target(me);
@@ -25,10 +25,10 @@ int perform(object me, object target)
 
 	if ((int)me->query_skill("yunu-sword", 1) < 80)
 		return notify_fail("你的玉女金针十三剑不够娴熟，不会使用「无双无对」。\n");
-	
+
 	if ((int)me->query_skill("force") < 120)
 		return notify_fail("你的内功不够娴熟，不会使用「无双无对」。\n");
-	
+
 	if ((int)me->query("neili") < 300)
 		return notify_fail("你的内力不够。\n");
 
