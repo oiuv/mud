@@ -56,7 +56,7 @@ void init()
 void death_stage(object ob, int stage)
 {
 	int i;
-	object *inv, mailbox;
+	object *inv/*, mailbox*/;
 	if (! ob || ! present(ob)) return;
 
 	tell_object(ob, death_msg[stage]);

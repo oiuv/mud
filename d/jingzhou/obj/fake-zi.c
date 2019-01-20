@@ -28,7 +28,7 @@ void create()
 
 int do_eat(string arg)
 {
-	int force_limit, neili_limit, force_skill, add_skill, improve;
+	int force_limit, neili_limit, force_skill/*, add_skill, improve*/;
 
 	object me = this_player();
 
@@ -61,4 +61,3 @@ int do_eat(string arg)
 	destruct(this_object());
 	return 1;
 }
-

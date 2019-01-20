@@ -27,9 +27,9 @@ void create()
 int do_du(string arg)
 {
         object me = this_player();
-        object where = environment(me);
-        object ob;
-        mapping skill;
+//      object where = environment(me);
+//      object ob;
+//      mapping skill;
         int pxlevel; 
 
         if (!(arg=="xianglong miji" || arg == "book" || arg == "miji" ))
@@ -83,4 +83,3 @@ int do_du(string arg)
         write("Äã×ĞÏ¸ÑĞ¶Á½µÁúÊ®°ËÕÆÃØóÅ£¬ÆÄÓĞĞÄµÃ¡£\n");
         return 1;
 }
-

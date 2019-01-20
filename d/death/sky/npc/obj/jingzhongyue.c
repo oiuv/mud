@@ -22,10 +22,9 @@ void create()
 }
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-        int pro;
+//      int pro;
         int dam;
         dam = (int) me->query("str");
         victim->receive_damage("jing", dam);
         return HIY "井中月划出一道炽热的黄芒，$n" HIY "只感到心神俱碎。\n" NOR;
 }
-

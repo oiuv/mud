@@ -70,7 +70,7 @@ void greeting(object me)
 
 int ask_back()
 {
-        object ob;
+//      object ob;
         object me = this_player();
 
         if (! me->query_temp("marks/back"))
@@ -95,4 +95,3 @@ void unconcious()
 {
         die();
 }
-

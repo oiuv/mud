@@ -24,7 +24,7 @@ void create()
 
 int do_effect(object me)
 {
-	int heal, recover, jing, e_jing, m_jing;
+	int /*heal,*/ recover, jing, e_jing, m_jing;
 	recover = 5;
 
 	if ((int)me->query("water") >= (int)me->max_water_capacity())
@@ -51,4 +51,3 @@ int do_effect(object me)
 	}
 	return 1;
 }
-

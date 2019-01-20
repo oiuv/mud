@@ -62,7 +62,7 @@ void create()
 
 void init()
 {
-        object ob;
+//      object ob;
 
         ::init();
         add_action("do_selete", "choose");
@@ -145,7 +145,7 @@ void get_gender(string arg, object ob)
 int check_legal_id(string id)
 {
         int i;
-        string *legalid;
+//      string *legalid;
         object ppl;   
           
         i = strlen(id);
@@ -195,7 +195,7 @@ int check_legal_id(string id)
 int check_legal_name(string name, int max_len)
 {
         int i;
-        string  *legalname;             //not implemented..may add later
+//      string  *legalname;             //not implemented..may add later
         
         i = strlen(name);
         if ((strlen(name) < 2) || (strlen(name) > max_len )) 
@@ -330,7 +330,7 @@ void build_pet(object ob)
         string msg;
         string fn;
         string fc;
-        int rev;
+//      int rev;
         object pet;
              
         string pet_type = ob->query_temp("pet/pet_type");

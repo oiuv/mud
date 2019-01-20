@@ -24,7 +24,7 @@ void create()
 
 int do_eat(string arg)
 {
-        object ob;
+//      object ob;
         object me = this_player();
         int max;
 

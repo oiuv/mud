@@ -20,7 +20,7 @@ int do_effect(object me)
 {
         string mapsk;
         int effect;
-        int neili;
+//      int neili;
 
         effect = 0;
 

@@ -28,7 +28,7 @@ void create()
 
 int do_du(string arg)
 {
-        string dir;
+//      string dir;
 
         if( ! arg || arg == "" ) return 0;
 
@@ -42,10 +42,10 @@ int do_du(string arg)
 int do_yanjiu(string arg)
 {
         object me = this_player();
-        object where = environment(me);
-        object ob;
+//      object where = environment(me);
+//      object ob;
         string skill, book;
-        int lv;
+//      int lv;
 
         if(! arg)
         {

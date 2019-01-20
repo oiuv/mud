@@ -63,7 +63,7 @@ string look_stone()
 
 string look_fen()
 {
-        object me = this_player();
+//      object me = this_player();
         object ob, noname, xuantie;
         string msg;
         

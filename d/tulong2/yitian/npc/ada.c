@@ -158,7 +158,7 @@ int begin()
 void unconcious()
 {
         object ob;
-        object me = this_player();
+//      object me = this_player();
 
         if (objectp(query("anti")))
         {

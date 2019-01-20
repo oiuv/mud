@@ -15,7 +15,7 @@ int do_effect()
 
 int broil(object me, object ob)
 {
-        object fob;
+//      object fob;
 
         me = this_player();
 	if (me->is_busy())

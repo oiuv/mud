@@ -56,7 +56,7 @@ LONG);
 
 int do_tiao(string arg)
 {
-        object ob, me = this_player();
+        object /*ob,*/ me = this_player();
 
         if (! this_object()->query("mark/light"))
                 return notify_fail("洞里一片漆黑，你根本探不清方向。\n");

@@ -25,7 +25,7 @@ void init()
 int do_dian(string arg)
 {
 	object me;
-	string item, target; 
+//	string item,target; 
 
 	me = this_player();
 	if(!arg||arg!="xiang")

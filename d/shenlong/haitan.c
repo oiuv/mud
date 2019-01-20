@@ -32,7 +32,7 @@ void init()
 int do_enter ( string arg )
 {
         object ob;
-        string dir;
+//      string dir;
 
         ob = this_player();
         if (arg != "chuan")
@@ -57,4 +57,3 @@ void home(object ob)
         tell_object(ob, "大船终于抵达了中原的一个繁华城市。你走下船来。\n");
         ob->move("/b/tulong/haigang");
 }
-

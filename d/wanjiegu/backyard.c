@@ -35,7 +35,7 @@ void init()
 
 void check_trigger()
 {
-        object room;
+//      object room;
         if ((int)query("trigger") == 9 &&
             !query("exits/north"))
         {
@@ -48,7 +48,7 @@ void check_trigger()
 
 int do_push(string arg)
 {
-        string dir;
+//      string dir;
         object me = this_player();
 
         if (me->is_busy())

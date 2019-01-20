@@ -39,7 +39,7 @@ int do_wield(string arg)
 
         object ob;
         string str;
-	int i, count;
+//	int i,count;
 
         if (!id(arg))   return notify_fail("你要装备什么？\n");
 
@@ -65,4 +65,3 @@ int do_wield(string arg)
         else
                 return 0;
 }
-

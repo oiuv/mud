@@ -28,8 +28,8 @@ int do_du(string arg)
 {
         object me = this_player();
         object where = environment(me);
-        object ob;
-        mapping skill;
+//      object ob;
+//      mapping skill;
         int level; 
         int neili_lost;
 
@@ -126,4 +126,3 @@ int do_du(string arg)
         write("你研读《铁掌掌谱》，颇有心得。\n");
         return 1;
 }
-

@@ -46,7 +46,7 @@ void greeting(object ob)
 
 int accept_object(object who, object ob)
 {
-	object obn;
+//	object obn;
 
         if (! ob->query("money_id"))
                 return 0;

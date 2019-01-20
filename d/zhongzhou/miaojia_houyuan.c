@@ -31,7 +31,7 @@ void init()
 int do_think(string arg)
 {
         object me;
-        object weapon;
+//      object weapon;
         me = this_player();
 
         if (! living(me)) return 0;

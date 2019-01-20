@@ -87,7 +87,7 @@ int do_yun(string arg)
 
 int do_get(string arg)
 {
-        object obj, env, shelf;
+        object obj/*, env, shelf*/;
         string what, where;
 
         if (! arg) return 0;
@@ -159,4 +159,3 @@ void greeting(object ob)
         command("yi");
         command("say 哼，今天来我这里添乱的人还真不少！");
 }
-

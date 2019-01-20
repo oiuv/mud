@@ -1,4 +1,4 @@
-#pragma save_binary
+// #pragma save_binary
 
 #include <weapon.h>
 #include <ansi.h>
@@ -14,10 +14,9 @@ void create()
                 set("unit", "柄");
                 set("long", "一柄断了的长剑\n");
                 set("value", 0);
-                set("rigidity",8000);   
+                set("rigidity",8000);
                 set("material", "steel");
         }
         init_sword(1);
         setup();
 }
-

@@ -43,7 +43,7 @@ void init()
 
 int do_move(string arg)
 {
-        string dir;
+//      string dir;
 
         if( ! arg || arg == "" ) return 0;
 
@@ -57,7 +57,7 @@ int do_move(string arg)
 
 void check_trigger()
 {
-        object room;
+//      object room;
 
         if( (int)query("zuo") == 3
         && (int)query("you") == 3
@@ -76,7 +76,7 @@ void check_trigger()
 
 void close_passage()
 {
-        object room;
+//      object room;
 
         if( ! query("exits/down") ) return;
         message("vision", WHT "\n石桌忽然「轧轧轧」一阵响动，缓缓地移回"
@@ -127,7 +127,7 @@ int do_turn(string arg)
 
 int do_say(string arg)
 {
-        string dir;
+//      string dir;
 
         if( ! arg || arg == "" ) return 0;
 

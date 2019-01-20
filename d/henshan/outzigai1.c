@@ -56,7 +56,7 @@ void init()
 {
 	object me = this_player();
         object here;
-        string msg;
+//      string msg;
 
         if ( !here = find_object(__DIR__"outzigai1"))
               here = load_object(__DIR__"outzigai1");
@@ -164,7 +164,7 @@ LONG);
 
 void auto_close()
 {
-	object obin,obout,me=this_player();
+	object obin,obout/*,me=this_player()*/;
 
 	if ( !obin = find_object(__DIR__"zigaihole"))
               obin = load_object(__DIR__"zigaihole");
@@ -206,7 +206,6 @@ int valid_leave(object me,string dir)
 	return 1;
 
 }
-
 
 
 

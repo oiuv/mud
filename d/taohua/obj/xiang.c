@@ -28,7 +28,7 @@ void init()
 
 int do_array(string arg)
 {
-        object me, env, *ob;
+        object me, env/*, *ob*/;
         string desc;
         int skill;
         mapping exit;

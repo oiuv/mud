@@ -66,7 +66,7 @@ void create()
 }
 string ask_me_1(string name)
 {
-	mapping fam; 
+//	mapping fam; 
 	object ob;
 	
 	if (  present(name, this_player()) )
@@ -88,7 +88,7 @@ string ask_me_1(string name)
 
 string ask_me_2(string name)
 {
-	mapping fam; 
+//	mapping fam; 
 	object ob;
 	
 	if (query("beixin_count") < 1)

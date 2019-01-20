@@ -34,7 +34,7 @@ void create()
 
 int do_eat(string arg)
 {
-        object ob;
+//      object ob;
         object me = this_player();
 
         if (!id(arg))
@@ -57,7 +57,7 @@ int do_eat(string arg)
 
 void xiqu1(string arg)
 {
-        object ob;
+//      object ob;
         object me = this_player();
 
         message_vision(HIW "\n只见一股光芒从何氏壁中流入$N" HIW
@@ -68,7 +68,7 @@ void xiqu1(string arg)
 
 void xiqu2(string arg)
 {
-        object ob;
+//      object ob;
         object me = this_player();
 
         message_vision(HIW "\n几许后，又一股光芒从$N" HIW "的身"
@@ -79,7 +79,7 @@ void xiqu2(string arg)
 
 void xiqu3(string arg)
 {
-        object ob;
+//      object ob;
         object me = this_player();
 
         message_vision(HIW "\n过了一会儿，又是一股光芒从何氏壁"
@@ -91,7 +91,7 @@ void xiqu3(string arg)
 
 void xiqu4(string arg)
 {
-        object ob;
+//      object ob;
         object me = this_player();
 
         message_vision(HIW "\n随即又见一股光芒从$N" HIW "的身体"
@@ -102,7 +102,7 @@ void xiqu4(string arg)
 
 void xiqu5(string arg)
 {
-        object ob;
+//      object ob;
         object me = this_player();
 
         message_vision(HIW "\n刹那间光华暴涨，光芒又从何氏壁"
@@ -113,7 +113,7 @@ void xiqu5(string arg)
 
 void xiqu6(string arg)
 {
-        object ob;
+//      object ob;
         object me = this_player();
 
         message_vision(HIY "\n只见$N" HIY "和何氏壁同时发出无"
@@ -125,7 +125,7 @@ void xiqu6(string arg)
 
 void xiqu7(string arg)
 {
-        object ob;
+//      object ob;
         object me = this_player();
         int exp, pot, li1, li2, max;
 
@@ -189,4 +189,3 @@ void xiqu7(string arg)
         destruct(this_object());
         return 0;
 }
-

@@ -1,4 +1,3 @@
-
 #include <ansi.h>
 inherit ROOM; 
 
@@ -23,7 +22,7 @@ LONG NOR);
 
 int valid_leave(object me, string dir)
 {
-        int i;
+//      int i;
         object ob;
         me = this_player();
         if (dir == "down")

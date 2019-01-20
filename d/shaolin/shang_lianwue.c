@@ -75,7 +75,7 @@ int do_jida(string arg)
 int do_tiao(string arg)
 {
         object me;
-        object weapon;
+//      object weapon;
         me = this_player();
 
         if (! living(me) || arg != "shakeng")

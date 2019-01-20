@@ -33,7 +33,7 @@ void init()
 int do_enter( string arg)
 {
         object ob;
-        string dir;
+//      string dir;
 
         ob = this_player();
         if (arg !="chuan" && arg !="zhou")

@@ -53,7 +53,7 @@ int heal_up()
 
 void leave()
 {
-        object stone;
+//      object stone;
         this_object()->add("time", 1);
         if ((int)this_object()->query("time") >= 3) 
 	{

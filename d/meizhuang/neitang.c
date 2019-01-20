@@ -28,7 +28,7 @@ void init()
 }
 int do_push(string arg)
 {
-        string dir;
+//      string dir;
         object me=this_player();
 
         if( !arg || arg=="" ) {write("ÄãÏëÍÆÊ²Ã´£¿\n");return 1;}
@@ -50,4 +50,3 @@ int do_push(string arg)
 
                  }
 }
-

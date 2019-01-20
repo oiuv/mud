@@ -5,7 +5,7 @@ inherit ROOM;
 
 void create()
 {
-        object ob1, ob2;
+//      object ob1,ob2;
         set("short", "南岩迷宫");
         set("long", @LONG
 你现在南岩宫地下密室中，高挂的腕粗的油烛照得满堂透

@@ -40,7 +40,7 @@ void init()
 
 int do_tiao()
 {
-        object me = this_player();
+//      object me = this_player();
 
         write(@LONG
 但见远处峭壁如一座极大的屏风，冲天而起，峭壁中部离地约二十馀丈处，生
@@ -85,4 +85,3 @@ int do_jump(string arg)
       
        return 1;
 }
-

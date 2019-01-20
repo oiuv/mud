@@ -63,7 +63,7 @@ LONG );
 
 string ask_me()
 {
-        object ob, me;
+        object /*ob,*/ me;
 
         me = this_player();
         if (me->query("family/family_name") != "¹ØÍâºú¼Ò")

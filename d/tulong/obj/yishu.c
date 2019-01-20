@@ -25,9 +25,9 @@ void create()
 int do_du(string arg)
 {
         object me = this_player();
-        object where = environment(me);
-        object ob;
-        mapping skill;
+//      object where = environment(me);
+//      object ob;
+//      mapping skill;
         int pxlevel; 
 
         if (!(arg=="wumu yishu" || arg == "book" || arg == "yishu" ))
@@ -77,4 +77,3 @@ int do_du(string arg)
         write("你仔细研读武穆遗书中兵法，颇有心得。\n");
         return 1;
 }
-

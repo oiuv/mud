@@ -25,7 +25,7 @@ void create()
 
 int do_effect(object me)
 {
-        int heal, recover, jing, e_jing, m_jing;
+        int /*heal,*/ recover, jing, e_jing, m_jing;
 
         recover = 5;
 

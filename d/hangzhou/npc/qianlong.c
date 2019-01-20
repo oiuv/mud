@@ -28,7 +28,7 @@ void init()
 
 int do_kneel()
 {
-	int i;
+//	int i;
         object chen, me = this_player();
 
         if (objectp(chen = present("chen jialuo", environment(me))))

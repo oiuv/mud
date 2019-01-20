@@ -68,7 +68,7 @@ void greeting(object ob)
 
 void serve_tea(object who)
 {
-        object obt, obc, obn;
+        object /*obt,obc,*/ obn;
         object room;
 
         if (! who || environment(who) != environment()) return;
@@ -99,4 +99,3 @@ void reset()
 {
 	set("can_supply", 15);
 }
-

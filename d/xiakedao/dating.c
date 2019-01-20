@@ -39,7 +39,7 @@ void init()
 int do_push(string arg)
 {
         object me = this_player();
-        int n, i;
+        int n/*, i*/;
 
         if (! arg || arg != "pingfeng")
         {
@@ -70,4 +70,3 @@ void close(object room)
         message("vision", "屏风自动又合上了。\n", room);
         room->delete("exits/south");
 }
-

@@ -85,7 +85,7 @@ int do_move(string arg)
 void close_andao()
 {
     	object room;
-        int i;
+//      int i;
 
         if (! query("exits/down")) return;
     		message("vision", HIY "\n只听乒地一声响，老君像自动"

@@ -27,8 +27,8 @@ void init()
 int do_du(string arg)
 {
         object me = this_player();
-        object where = environment(me);
-        object ob;
+//      object where = environment(me);
+//      object ob;
         string skill, book;
         int lv;
 
@@ -164,5 +164,4 @@ int do_du(string arg)
                 return 1;
         }
 }
-
 

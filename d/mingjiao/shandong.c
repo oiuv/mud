@@ -28,8 +28,8 @@ void init()
 
 int do_break(string arg)
 {
-        object *ob, me = this_player();
-        int i;
+        object /**ob,*/ me = this_player();
+//      int i;
 
         if (arg != "men")
 		return notify_fail("你在干吗? \n");
@@ -64,4 +64,3 @@ void close(object room)
         message("vision", "石门又在轧轧声响，缓缓闭上。\n"NOR, room);
         room->delete("exits/enter");
 }
-

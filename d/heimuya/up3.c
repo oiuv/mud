@@ -109,7 +109,7 @@ void close_passage()
 
 int do_insert(string arg)
 {
-    string dir;
+//  string dir;
     object ob;
     object me;
 

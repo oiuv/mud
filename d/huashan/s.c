@@ -7,7 +7,7 @@ string look_door();
 
 void create()
 {
-        string msg;
+//      string msg;
 
         set("short", "ÇÍ±Ú");
         set("exits", ([
@@ -83,4 +83,3 @@ string look_door()
         return msg;
 
 }
-

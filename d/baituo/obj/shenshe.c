@@ -21,7 +21,7 @@ void init()
 
 int do_home()
 {
-	string dir;
+//	string dir;
 	object me = this_player();
         object env;
 

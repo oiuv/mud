@@ -34,7 +34,7 @@ int do_shot(string arg)
         object me, ob, target;
         int myskill, tgskill;
         int mylev, damage;
-        string fam;
+//      string fam;
 
         me = this_player();
 

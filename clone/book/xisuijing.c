@@ -40,7 +40,7 @@ void init()
 int do_study(string arg)
 {
         object where;
-        object ob = this_object();
+//      object ob = this_object();
         object me = this_player();
         int cost, exp;
         int i;
@@ -98,4 +98,3 @@ int do_study(string arg)
         }
         return 1;
 }
-

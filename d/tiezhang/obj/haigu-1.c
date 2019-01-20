@@ -32,7 +32,7 @@ void create()
 
 int do_move(string arg)
 {
-        object book;
+//      object book;
         object me = this_player();
         if (!id(arg))
                 return 0;
@@ -46,5 +46,4 @@ HIR"$N轻轻地挪动骸骨，突然从骸骨的身后射出一枚钢针，刺入$N的体内。\n"NOR, this_p
                 return 1;
         }
 }
-
 

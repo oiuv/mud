@@ -22,7 +22,7 @@ void create()
 }
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-        int pro;
+//      int pro;
         int dam;
         dam = (int) me->query("dex");
         victim->add("neili", -dam * 10);
@@ -32,4 +32,3 @@ mixed hit_ob(object me, object victim, int damage_bonus)
 
         return HIW "倚天剑携着飕飕刺骨风声，直直刺向$n，$n只感到全身的内力竟一丝丝随着剑锋涌出。\n" NOR;
 }
-

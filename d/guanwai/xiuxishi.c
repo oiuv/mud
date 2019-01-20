@@ -110,7 +110,7 @@ int do_open(string arg)
 
 int valid_leave(object me, string dir)
 {
-        object room;
+//      object room;
 
         if ( !::valid_leave(me, dir) )
                 return 0;

@@ -70,7 +70,7 @@ void create()
 
 int ask_bijian()
 {
-        object weapon, obj;
+        object weapon/*, obj*/;
         object me = this_player(), ob = this_object();
 
         if (me->query_temp("want_bijian")) 

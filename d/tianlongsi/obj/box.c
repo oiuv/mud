@@ -24,7 +24,7 @@ void init()
 
 int do_open(string arg)
 {
-	object me, ob;
+	object me/*, ob*/;
 	
 	me = this_player();
 

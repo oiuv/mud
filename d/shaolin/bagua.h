@@ -8,7 +8,7 @@ string* dirs = ({
 
 int check_dirs(object me, string dir)
 {
-	int i, bc, count;
+	int /*i,*/ bc, count;
 	if (member_array(dir, dirs) != -1)
 	{
 		bc = me->query_temp("bagua/count");

@@ -60,7 +60,7 @@ string look_bi()
 
 int do_think(string arg)
 {
-        object here, me = this_player();
+        object /*here,*/ me = this_player();
         int add;
 
         if (me->query("special_skill/clever"))

@@ -23,7 +23,7 @@ void create()
 }
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-        int pro;
+//      int pro;
         int dam;
         dam = (int) me->query("str");
         victim->receive_damage("jing",dam * 2);
@@ -61,4 +61,3 @@ int do_open(string arg, object me)
                 return 1;
         }
 }
-

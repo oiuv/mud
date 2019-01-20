@@ -20,8 +20,8 @@ LONG );
 
 int valid_leave(object me, string dir)
 {
-	object obj;
-        int i;
+//	object obj;
+//      int i;
 
 	switch (NATURE_D->query_month())
         {

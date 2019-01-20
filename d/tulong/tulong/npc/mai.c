@@ -107,7 +107,7 @@ void init()
 
 int do_get(string arg)
 {
-        object obj,env,ding;
+        object obj/*,env,ding*/;
         string what,where;
 
         if(!arg) 
@@ -133,4 +133,3 @@ int do_get(string arg)
         }
         return 0;
 }
-

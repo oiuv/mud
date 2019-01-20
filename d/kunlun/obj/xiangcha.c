@@ -32,7 +32,7 @@ void init()
 int do_drink(string arg)
 {
 
-	int heal, recover, jing, e_jing, m_jing;
+	int /*heal,*/ recover, jing, e_jing, m_jing;
 	
 	recover = 5;
 	

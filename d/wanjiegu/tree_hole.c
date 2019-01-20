@@ -41,10 +41,9 @@ int do_pull(string arg)
 
 void close_passage()
 {
-        object room;
+//      object room;
 
         if( !query("exits/enter") ) return;
         delete("exits/enter");
         message("vision","木板晃了晃，将下面的洞口盖住了。\n", this_object() );
 }
-

@@ -35,7 +35,7 @@ void init()
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
         int n;
-        int my_exp, ob_exp;
+//      int my_exp,ob_exp;
 
         if (me->query_skill_mapped("sword") != "qixian-wuxingjian" ||
             me->query_skill("qixian-wuxingjian", 1) < 100)

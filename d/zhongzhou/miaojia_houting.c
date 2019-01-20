@@ -27,8 +27,8 @@ LONG);
 
 int valid_leave(object me, string dir)
 {
-        int i;
-        object ob;
+//      int i;
+//      object ob;
         me = this_player();
 
         if (dir == "north" || dir == "south")

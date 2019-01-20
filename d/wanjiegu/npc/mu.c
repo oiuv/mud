@@ -59,8 +59,8 @@ int accept_object(object who, object ob)
 
 void do_give(object me)
 {
-        object room = find_object(__DIR__"backyard");
-        object who;
+//      object room = find_object(__DIR__"backyard");
+//      object who;
 
         message_vision("木婉清将绝情花吃了下去，她中的「阴阳合和散」的药性解除了！\n",me);
         command("say 太谢谢了，我这就要离开这是非之地，后会有期！");
@@ -71,4 +71,3 @@ void do_give(object me)
 
         destruct( this_object() );
 }
-

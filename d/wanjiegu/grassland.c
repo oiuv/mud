@@ -46,7 +46,7 @@ int do_knock(string arg)
 
 void close_passage()
 {
-        object room;
+//      object room;
 
         if( !query("exits/north") ) return;
         delete("exits/north");

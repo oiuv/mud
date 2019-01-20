@@ -30,7 +30,7 @@ void init()
 
 int do_open(string arg)
 {
-        object obj;
+//      object obj;
         object me;
 
         if (! arg || arg == "")

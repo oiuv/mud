@@ -85,7 +85,7 @@ public string openlock(string lock)
 {       
         string opened, str_want_open;
         mixed result;
-        int i;
+//      int i;
         object s;
 
         if (! stringp(query("lock/opened")) ||

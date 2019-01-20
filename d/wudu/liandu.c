@@ -29,7 +29,7 @@ void init()
 
 int do_lianzhi (string arg)
 {
-        object ob, me = this_player();
+        object /*ob,*/ me = this_player();
         int time = 15 + random(15);
 
         if (me->query("family/family_name") != "Îå¶¾½Ì")

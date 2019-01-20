@@ -31,7 +31,7 @@ void init()
 int do_think(string arg)
 {
         object me;
-        object weapon;
+//      object weapon;
         me = this_player();
 
         if ( ! living(me)) return 0;
@@ -76,8 +76,8 @@ int do_think(string arg)
 int do_canwu(string arg)
 {
         object me = this_player();
-        object ob;
-        object ob1;
+//      object ob;
+//      object ob1;
 
         if (arg != "wall" && arg != "shu")
                 return notify_fail("ÄãÒª²ÎÎòÊ²Ã´£¿\n");
@@ -145,4 +145,3 @@ int do_canwu(string arg)
 
         return 1;
 }
-

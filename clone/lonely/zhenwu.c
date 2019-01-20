@@ -74,7 +74,7 @@ string do_unwield()
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
         int n;
-        int my_exp, ob_exp;
+//      int my_exp,ob_exp;
 
         if (me->is_bad() || victim->is_good())
                 return - damage_bonus / 2;
@@ -113,5 +113,4 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         // double effect
         return damage_bonus;
 }
-
 
