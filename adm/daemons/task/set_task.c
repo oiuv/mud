@@ -22,7 +22,7 @@ void task_reminder()
       if ( ! zixu) zixu = load_object(ZIXU);
 
       CHANNEL_D->do_channel(zixu, "chat",
-                  HIR"请注意，宝镜任务将于三分种后重新分布。\n" NOR);
+                  HIR"请注意，宝镜任务将于三分钟后重新分布。\n" NOR);
 
       remove_call_out("set_task");
       call_out("set_task", 180);
@@ -215,7 +215,8 @@ int do_return(object ob, object me, string arg)
 
     if ( count == 10 ) pot += 1000;
     if ( count == 20 ) pot += 3000;
-    if ( count == 30 ) pot += 10000;//每次更新30个task物品，故30个全部完成理应加大奖励幅度（我怎么感觉30个全完成是不可能的事情。。。） 2017-02-02
+    //每次更新30个task物品，故30个全部完成理应加大奖励幅度（我怎么感觉30个全完成是不可能的事情）
+    if ( count == 30 ) pot += 10000;
 
     gx = 2 + random(2);
     //增加阅历奖励 2016-12-21
