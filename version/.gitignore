@@ -1,2 +1,6 @@
-*
-!.gitignore
+*DUMP
+.DS_Store
+desktop.ini
+driver
+portbind
+version
