@@ -44,6 +44,6 @@ int broil(object me, object ob)
         set("long", "Ò»" + query("unit") + "¿¾µÃÏãÅçÅçµÄÒ°Öí" + name() + "¡£\n");
         set_name("¿¾" + name(), 0);
         delete("only_do_effect");
-	me->start_busy(1);
+        me->start_busy(1);
         return 1;
 }

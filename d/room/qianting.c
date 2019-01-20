@@ -5,7 +5,7 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-     object ob;
+  object ob; // log报warning,但这个不能注释掉，在生成房间时会用到ob变量
 
 	set("short", "前庭");             /* EXAMPLE */
 //**    set("short", "ROOM_NAME前庭");
