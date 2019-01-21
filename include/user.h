@@ -9,7 +9,7 @@
 // Kick out net-dead users in 15 minutes
 #define NET_DEAD_TIMEOUT		900
 
-// Kick out idle users in 20 minutes
-#define IDLE_TIMEOUT			1200
+// Kick out idle users in 5 minutes
+#define IDLE_TIMEOUT			300
 
 #endif

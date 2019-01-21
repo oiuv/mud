@@ -20,9 +20,9 @@ STATIC_VAR_TAG int last_age_set = 0;            // 上一次更新AGE的时间
 STATIC_VAR_TAG int user_say = 0;                // 一定时间以内玩家做的say-action
 STATIC_VAR_TAG int user_command = 0;            // 一定时间以内玩家发送的命令
 STATIC_VAR_TAG int attach_flag = 0;             // 是否正在和系统联络
-int        at_time = 0;                 // 在什么时间计算的
-int        ban_to = 0;                  // 在什么时间解禁玩家
-string     ban_say_msg = "";            // 禁止说话的消息
+int        at_time = 0;                 				// 在什么时间计算的
+int        ban_to = 0;                  				// 在什么时间解禁玩家
+string     ban_say_msg = "";            				// 禁止说话的消息
 
 STATIC_VAR_TAG string my_defeater_id;           // 上一次打晕你的人ID
 STATIC_VAR_TAG string my_killer_id;             // 上一次杀你的人的ID
@@ -173,7 +173,7 @@ void update_age()
         int age;
         int delta;
 
-	if (! last_age_set)
+				if (! last_age_set)
         {
                 last_age_set = time();
                 add("mud_age", 0);
@@ -193,81 +193,98 @@ void update_age()
                         time_to_leave -= delta;
         }
 
-	last_age_set = time();
+				last_age_set = time();
         age = query("age_modify") + query("mud_age") / 86400;
         if (age > 118) age = 46 + (age - 118) / 4; else
         if (age > 28)  age = 16 + (age - 28) / 3; else
         if (age > 4)   age = 4  + (age - 4) / 2;
         age += 14;
-	set("age", age);
+				set("age", age);
 }
 
 void setup()
 {
-	// We want set age first before new player got initialized with
-	// random age.
+				// We want set age first before new player got initialized with
+				// random age.
         last_age_set = 0;
-	update_age();
+				update_age();
 
-	::setup();
+				::setup();
 
         // set the enable flag to enable save
         set_temp("user_setup", 1);
 
-	restore_autoload();
+				restore_autoload();
 
-	if (query("doing"))
+				if (query("doing"))
                 CLOSE_D->continue_doing(this_object());
 }
 
 void user_dump(int type)
 {
+  object me = this_object();
+	// mapping my = query_entire_dbase();
+
 	switch(type)
-        {
-	case DUMP_NET_DEAD:
-                if (environment())
-                {
-			tell_room(environment(), query("name") + "断线超过 " +
-			          NET_DEAD_TIMEOUT / 60 + " 分钟，自动退出这个世界。\n");
-                }
-		catch(command("quit"));
-                if (this_object() && ! query("doing"))
-                {
-                        // command quit failed.
-			QUIT_CMD->force_quit(this_object());
-                }
-		break;
+  {
+			case DUMP_NET_DEAD:
+          if (environment())
+          {
+						tell_room(environment(), query("name") + "断线超过 " +
+          		NET_DEAD_TIMEOUT / 60 + " 分钟，自动退出这个世界。\n");
+          }
+					catch(command("quit"));
+          if (me && ! query("doing"))
+          {
+              // command quit failed.
+							QUIT_CMD->force_quit(me);
+          }
+					break;
 
-	case DUMP_IDLE:
-                if (query_temp("learned_idle_force"))
-                {
-                        message_vision(HIM "$N" HIM "狂笑三声，叫道：我终于"
-                                       "明白了。\n" NOR, this_object());
+			case DUMP_IDLE:
+          if (query_temp("learned_idle_force"))
+          {
+              message_vision(HIM "$N" HIM "狂笑三声，叫道：我终于"
+                             "明白了。\n" NOR, this_object());
 
-                        tell_object(this_object(), "你经过长时间的发"
-                                    "呆，终于对发呆神功的理解又深了一层！\n");
+              tell_object(me, "你经过长时间的发呆，终于对发呆神功的理解又深了一层！\n");
 
-                        improve_skill("idle-force", 360000);
-                        delete_temp("learned_idle_force");
-                } else
-	                tell_object(this_object(), "对不起，您已经发呆超过 " +
-		                    IDLE_TIMEOUT / 60 + " 分钟了，请下次再来。\n");
-                if (environment())
-                {
-		        tell_room(environment(), WHT "突然间一阵风吹来，将正"
-                                                 "在发呆的" + query("name") +
-			                         WHT "化为一堆飞灰，消失了。"
-                                                 "\n" NOR, ({ this_object() }));
-                }
-		command("quit");
-                if (this_object() && ! query("doing"))
-                {
-                        // command quit failed.
-			QUIT_CMD->force_quit(this_object());
-                }
+              improve_skill("idle-force", 360000);
+              delete_temp("learned_idle_force");
+
+							if (environment())
+							{
+										tell_room(environment(), WHT "突然间一阵风吹来，将正"
+													"在发呆的" + query("name") +
+												 	WHT "化为一堆飞灰，消失了。"
+												 	"\n" NOR, ({ me }));
+							}
+
+							command("quit");
+							if (me && ! query("doing"))
+							{
+										// command quit failed.
+										QUIT_CMD->force_quit(me);
+							}
+          } else if (!query_temp("startidle")){
+							tell_object(me, "您已经发呆超过 " +
+									IDLE_TIMEOUT / 60 + " 分钟了，开始研究发呆神功。\n");
+							set_temp("startidle", 1);
+					} else if (query_skill("idle-force", 1) < 500) {
+						  /*
+							tell_object(me, "您已经发呆 " +
+									query_idle(me) + " 秒钟了。\n");
+							if ((! mapp(my["env"]) || ! my["env"]["keep_idle"])) {
+									tell_object(me, "您没有设置keep_idle。\n");
+							} else {
+									tell_object(me, "您已经设置keep_idle。\n");
+							}
+							*/
+							improve_skill("idle-force", 100);
+					}
 	        break;
-	default:
-                return;
+			default:
+          return;
 	}
 }
 
@@ -277,7 +294,7 @@ private void net_dead()
 {
 	object link_ob;
 
-        this_object()->remove_interactive();
+  this_object()->remove_interactive();
 
 	if (! query("doing"))
 		set_heart_beat(0);
@@ -296,16 +313,15 @@ private void net_dead()
 
 	net_dead = 1;
 	if (userp(this_object()) && ! query("doing"))
-        {
+  {
 		call_out("user_dump", NET_DEAD_TIMEOUT, DUMP_NET_DEAD);
-	        tell_room(environment(), query("name") + "断线了。\n", this_object());
+    tell_room(environment(), query("name") + "断线了。\n", this_object());
 	        CHANNEL_D->do_channel(this_object(), "sys", "断线了。");
-                remove_all_enemy(1);
-	} else
-        {
-                if (environment())
-                        message("vision", name() + "离线了。\n",
-				environment(), ({ this_object() }));
+    remove_all_enemy(1);
+	} else {
+    if (environment())
+      message("vision", name() + "离线了。\n",
+					environment(), ({ this_object() }));
 	}
 }
 
@@ -439,32 +455,32 @@ int query_potential_limit()
 
 	i = 0;
 
-        // 玄黄紫箐丹提升潜能上限
-        if (query("skybook/item/xuanhuang"))
-	        i += 2500;
+  // 玄黄紫箐丹提升潜能上限
+  if (query("skybook/item/xuanhuang"))
+    i += 2500;
 
-        // 子午龙甲丹提升潜能上限
-        if (query("skybook/item/longjia"))
-	        i += 2500;
+  // 子午龙甲丹提升潜能上限
+  if (query("skybook/item/longjia"))
+    i += 2500;
 
-        // 镇狱惊天丸提升潜能上限
-        if (query("skybook/item/zhenyu"))
-	        i += 5000;
+  // 镇狱惊天丸提升潜能上限
+  if (query("skybook/item/zhenyu"))
+    i += 5000;
 
 	if (query("reborn"))
 		p = 200000;
 	else
-        if (ultrap(this_object()))
+  if (ultrap(this_object()))
 		p = 50000 + i;
 
-        // 乾坤无量增加潜能上限
+  // 乾坤无量增加潜能上限
 	else
-        if (query("special_skill/potential"))
+  if (query("special_skill/potential"))
 		p = query_int() * 200 + 10000 + i * 2;
-        else
+  else
 		p = query_int() * 100 + i;
 
-        return (int)query("learned_points") + p;
+  return (int)query("learned_points") + p;
 }
 
 int query_experience_limit()

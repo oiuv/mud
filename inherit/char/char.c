@@ -96,11 +96,11 @@ void heart_beat()
                 prompt = my["env"]["prompt"];
                 if ((prompt == "time" || prompt == "mud" || prompt == "hp") &&
                     is_waiting_command() && ! me->is_attach_system())
-                    
+
                 {
                         write_prompt();
                 }
-                
+
         }
 
         // If we're dying or falling unconcious?
@@ -199,10 +199,10 @@ void heart_beat()
                 if (period < 0 || period > 15 * 60)
                 {
                         string msg;
-						/*
+                        /*
                         msg = HIR "【武林通典】" NOR + WHT "您目前的"
                               "资料已被载入史册。\n" NOR;
-						*/
+                        */
                         msg = HIY "【江湖公告】" NOR + WHT "欢迎加入官方"
                               "游戏QQ群：9783836。\n" NOR;
 
@@ -212,7 +212,7 @@ void heart_beat()
 
                         set("last_save", t);
                         tell_object(me, msg);
-            }
+                }
         }
 
         if (! interactive(me))
@@ -229,8 +229,7 @@ void heart_beat()
                 }
         }
 
-        if (query_idle(me) > IDLE_TIMEOUT && ! wizardp(me) &&
-            (! mapp(my["env"]) || ! my["env"]["keep_idle"]))
+        if (query_idle(me) > IDLE_TIMEOUT && ! wizardp(me))
                 me->user_dump(DUMP_IDLE);
 }
 
@@ -288,9 +287,9 @@ varargs string short(int raw)
         {
                 str = query("name") + "(" + query("id") + ")";
                 if (! stringp(title = query_temp("title")))
-               
+
                 title = query("title");
-/*          
+/*
                 // 显示同盟
                 if (me->query("league/league_name"))
                 {
@@ -328,11 +327,11 @@ varargs string short(int raw)
                 case "closed":
                         str += HIY " <闭关中>" NOR;
                         break;
-                        
+
                 case "animaout":
                         str += HIY " <元婴中>" NOR;
                         break;
-                        
+
                 case "death":
                         str += HIY " <生死中>" NOR;
                         break;
