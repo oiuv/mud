@@ -64,11 +64,25 @@ int update_dir(object me, string dir, int continueable, int *total)
 
     if (! is_root(previous_object()))
         return 0;
-        
-    if (dir == "/.git/")
-        // 不编译lib版本控制目录
+    // 不编译lib版本控制目录
+    if (dir == "/.git/"
+     || dir == "/cygdrive/"
+     || dir == "/dev/"
+     || dir == "/proc/"
+     || dir == "/backup/"
+     || dir == "/bin/"
+     || dir == "/binaries/"
+     || dir == "/data/"
+     || dir == "/doc/"
+     || dir == "/dump/"
+     || dir == "/grant/"
+     || dir == "/help/"
+     || dir == "/log/"
+     || dir == "/version/"
+       )
+
         return 1;
-        
+
     file = get_dir(dir, -1);
     if (! sizeof(file))
     {
@@ -181,7 +195,7 @@ int help(object me)
 {
   write(@HELP
 指令格式 : updateall <路径名> [1]
- 
+
 这个指令可以更新某个路径下的全部档案, 并将新档的内容载入记
 忆体内. 如果后面尾随标志1， 则编译遇到错误时将不会中止。
 HELP
