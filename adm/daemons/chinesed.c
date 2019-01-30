@@ -2,8 +2,8 @@
 // by Annihilator@ES
 // modified by Ivy@Heros.YD
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #include <localtime.h>
 

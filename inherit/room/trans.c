@@ -1,7 +1,7 @@
 // trans.c
 // by doing
 
-//#pragma save_binary
+// #pragma save_binary
 
 #include <room.h>
 #include <ansi.h>

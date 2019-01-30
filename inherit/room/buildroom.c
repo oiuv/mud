@@ -13,7 +13,7 @@
 // query_room_name:将返回具有该名字的房屋的代号。
 // query_room_id  :将返回具有该代号的房屋的名字。
 
-//#pragma save_binary
+// #pragma save_binary
 
 #include <ansi.h>
 

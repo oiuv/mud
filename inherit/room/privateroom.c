@@ -6,7 +6,7 @@
 //
 // KEY_DOOR如果有，将是大门的位置。
 
-//#pragma save_binary
+// #pragma save_binary
 
 #include <ansi.h>
 

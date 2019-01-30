@@ -6,8 +6,8 @@
 #include <net/socket.h>
 #include <version.h>
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 inherit F_DBASE;
 inherit F_SAVE;

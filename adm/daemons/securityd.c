@@ -1,7 +1,7 @@
 // securityd.c
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #include <login.h>
 #include <ansi.h>

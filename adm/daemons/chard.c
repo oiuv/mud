@@ -3,8 +3,8 @@
 // Modified by Xiang@XKX
 // Updated by Doing
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #define HUMAN_RACE "/adm/daemons/race/human"
 #define BEAST_RACE "/adm/daemons/race/beast"

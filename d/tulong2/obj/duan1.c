@@ -1,4 +1,4 @@
-//#pragma save_binary
+// #pragma save_binary
 
 #include <weapon.h>
 #include <ansi.h>

@@ -1,7 +1,7 @@
 // char.c
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #include <action.h>
 #include <ansi.h>

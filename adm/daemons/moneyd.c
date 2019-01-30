@@ -3,8 +3,8 @@
 // by Xiang@XKX (95/12/22)
 // Update by Doing for Hell
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 string money_str(int amount)
 {

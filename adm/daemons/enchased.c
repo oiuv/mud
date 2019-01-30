@@ -2,8 +2,8 @@
 
 #include <ansi.h>
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #define NAME    0
 #define DESC    1

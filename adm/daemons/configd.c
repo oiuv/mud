@@ -2,8 +2,8 @@
 
 #include <runtime_config.h>
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 inherit F_DBASE;
 

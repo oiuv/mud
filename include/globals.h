@@ -1,7 +1,7 @@
 // globals.h
 // this file will be automatically included by the driver
 
-//#pragma save_binary
+// #pragma save_binary
 
 //mudos use this
 //#define STATIC_FUNC_TAG static

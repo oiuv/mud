@@ -1,5 +1,5 @@
 //insert.c
-#pragma optimize
+// #pragma optimize
 #include <dbase.h>
 
 inherit F_CLEAN_UP;

@@ -2,7 +2,7 @@
 // Updated by Doing for optimize
 // The apply/long & short has been canceled
 
-//#pragma save_binary
+// #pragma save_binary
 
 #include <dbase.h>
 #include <room.h>

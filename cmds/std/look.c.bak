@@ -1,5 +1,5 @@
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #include <room.h>
 #include <ansi.h>

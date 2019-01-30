@@ -39,7 +39,7 @@
  * 据自己的系统考量调整。                             *
  ******************************************************/
 
-#pragma optimize
+// #pragma optimize
 
 #define N		8
 #define S		4

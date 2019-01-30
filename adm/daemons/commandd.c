@@ -4,8 +4,8 @@
 // By Annihilator (11/07/94)
 // Update by Doing Lu
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 mapping search = ([ ]);
 

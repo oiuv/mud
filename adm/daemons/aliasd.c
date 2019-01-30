@@ -1,7 +1,7 @@
 // aliasd.c
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 mapping global_alias = ([
 	"l":		"look",

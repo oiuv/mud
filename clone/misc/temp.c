@@ -3,8 +3,8 @@
 // move from an room to another room, this object will be
 // used.
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 inherit ROOM;
 

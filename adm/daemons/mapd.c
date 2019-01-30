@@ -1,7 +1,7 @@
 // mapd.c
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #include <ansi.h>
 

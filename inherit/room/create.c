@@ -2,7 +2,7 @@
 // create chat room
 // by Doing
 
-//#pragma save_binary
+// #pragma save_binary
 
 #include <ansi.h>
 #include <room.h>

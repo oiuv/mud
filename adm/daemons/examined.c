@@ -1,7 +1,7 @@
 // examined.c
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #include <localtime.h>
 

@@ -1,7 +1,7 @@
 // npcd.c
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #include <command.h>
 #include <user.h>

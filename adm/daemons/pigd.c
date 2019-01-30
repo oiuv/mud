@@ -1,6 +1,6 @@
 // pigd.c π∞÷Ì Daemon
 
-#pragma optimize
+// #pragma optimize
 
 #include <pig.h>
 inherit F_DBASE;

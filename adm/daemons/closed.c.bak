@@ -1,7 +1,7 @@
 // closed.c
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #define CLOSED_CMD              "/cmds/skill/closed"
 #define BREAKUP_CMD             "/cmds/skill/breakup"

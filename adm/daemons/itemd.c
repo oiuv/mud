@@ -1,8 +1,8 @@
 // itemd.c
 // Update by Vin for Heros.cn
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #include <ansi.h>
 #include <command.h>

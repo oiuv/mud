@@ -1,8 +1,8 @@
 // combatd.c
 // Update by Doing for HELL
 
-#pragma optimize
-//#pragma save_binary
+// #pragma optimize
+// #pragma save_binary
 
 #include <ansi.h>
 #include <skill.h>

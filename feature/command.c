@@ -3,7 +3,7 @@
 // Modified by Xiang@XKX (12/15/95)
 // Updated by Doing for HELL (2K)
 
-#pragma optimize
+// #pragma optimize
 
 #include <command.h>
 #include <dbase.h>
