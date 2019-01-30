@@ -11,7 +11,7 @@
 #define STATIC_FUNC_TAG private
 #define STATIC_VAR_TAG  nosave
 
-#define DEBUG 1
+#define DEBUG 0
 // Important directories
 #define BACKUP_DIR      "/backup/"
 #define COMMAND_DIR     "/cmds/"
