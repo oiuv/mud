@@ -3,15 +3,14 @@
 
 // #pragma save_binary
 
-//mudos use this
-//#define STATIC_FUNC_TAG static
-//#define STATIC_VAR_TAG  static
-
-//fluffos use this
+// mudos use this
+// #define STATIC_FUNC_TAG static
+// #define STATIC_VAR_TAG  static
+//
+// fluffos use this
 #define STATIC_FUNC_TAG private
 #define STATIC_VAR_TAG  nosave
 
-#define DEBUG 0
 // Important directories
 #define BACKUP_DIR      "/backup/"
 #define COMMAND_DIR     "/cmds/"
@@ -199,7 +198,7 @@
 
 // Profiling switches
 //
-// If you changed any of these defines, you'll need reboot to make it 
+// If you changed any of these defines, you'll need reboot to make it
 // in effect.
 
 // Install information

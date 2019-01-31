@@ -14,6 +14,8 @@
 #include <config.h>
 #include <localtime.h>
 
+STATIC_VAR_TAG int DEBUG = 0;
+
 object connect()
 {
     object login_ob;
@@ -58,7 +60,7 @@ void crash(string error, object command_giver, object current_object)
 #endif
     mixed cmds;
     int i;
-    
+
     efun::shout("系统核心发出一声惨叫：哇—哩—咧—\n");
     efun::shout("系统核心告诉你：要当机了，自己保重吧！\n");
     log_file("static/CRASHES", MUD_NAME + " crashed on: " + ctime(time()) +
@@ -68,14 +70,14 @@ void crash(string error, object command_giver, object current_object)
         log_file("static/CRASHES",
                  sprintf("this_player: %O\n", command_giver));
         cmds = command_giver->query_commands();
-        for (i = 0; i < sizeof(cmds); i++) 
+        for (i = 0; i < sizeof(cmds); i++)
         {
                 if (cmds[i][2] == command_giver) continue;
                 log_file("static/CRASHES",
                          sprintf("%-15s  %2d %O\n", cmds[i][0], cmds[i][1], cmds[i][2]));
         }
         if (environment(command_giver))
-                log_file("static/CRASHES", 
+                log_file("static/CRASHES",
                          sprintf("in where: %s(%s)。\n", environment(command_giver)->query("short"),
                                  base_name(environment(command_giver))));
         log_file("static/CRASHES",
@@ -328,6 +330,9 @@ int valid_shadow(object ob)
 {
     object pre;
 
+    if(DEBUG)
+        write("[MASTER_OB]->valid_shadow():" + ob + "\n");
+
     pre = previous_object();
     if (geteuid(pre) == ROOT_UID ||
         sscanf(file_name(pre), "/shadow/%*s"))
@@ -344,6 +349,8 @@ int valid_shadow(object ob)
 //   object compile-time
 int valid_override( string file, string name )
 {
+    if(DEBUG)
+        write("[MASTER_OB]->valid_override():" + file + "(" + name + ")\n");
     // simul_efun can override any simul_efun by Annihilator
     if (file == SIMUL_EFUN_OB || file == MASTER_OB)
         return 1;
@@ -374,6 +381,8 @@ int valid_seteuid(object ob, string str)
 // valid_socket: controls access to socket efunctions
 int valid_socket(object eff_user, string fun, mixed *info)
 {
+    if(DEBUG)
+        write("[MASTER_OB]->valid_socket():" + eff_user + "(" + fun + ")\n");
     return 1;
 }
 
@@ -381,12 +390,16 @@ int valid_socket(object eff_user, string fun, mixed *info)
 //   asm { }
 int valid_asm(string file)
 {
+    if(DEBUG)
+        write("[MASTER_OB]->valid_asm():" + file + "\n");
     return 1;
 }
 
 // valid_compile: controls whether or not an file can be compiled
 int valid_compile(string file)
 {
+    if(DEBUG)
+        write("[MASTER_OB]->valid_compile():" + file + "\n");
     if (! find_object(VERSION_D))
         return 1;
 
@@ -400,6 +413,8 @@ int valid_compile(string file)
 //   see hidden objects
 int valid_hide(object who)
 {
+    if(DEBUG)
+        write("[MASTER_OB]->valid_hide():" + who + "\n");
     return 1;
 }
 
@@ -416,6 +431,8 @@ int valid_object(object ob)
 //   between paths
 int valid_link(string original, string reference)
 {
+    if(DEBUG)
+        write("[MASTER_OB]->valid_link():" + original + "-" + reference + "\n");
     return 0;
 }
 
@@ -424,11 +441,13 @@ int valid_link(string original, string reference)
 //   (see config file)
 int valid_save_binary(string filename)
 {
+    if(DEBUG)
+        write("[MASTER_OB]->valid_save_binary():" + filename + "\n");
     return 1;
 }
 
 // valid_write: write privileges; called with the file name, the object
-//   initiating the call, and the function by which they called it. 
+//   initiating the call, and the function by which they called it.
 int valid_write(string file, mixed user, string func)
 {
     object ob;
@@ -444,7 +463,7 @@ int valid_write(string file, mixed user, string func)
 int valid_read(string file, mixed user, string func)
 {
     object ob;
-    if (DEBUG) 
+    if (DEBUG)
         write("[MASTER_OB]->valid_read():" + file + "(" + func + ")\n");
     if (ob = find_object(SECURITY_D))
         return (int)ob->valid_read(file, user, func);
@@ -478,6 +497,11 @@ int valid_bind(object binder, object old_owner, object new_owner)
 {
     object ob;
 
+    if(DEBUG){
+        write("[MASTER_OB]->valid_bind():" + binder + "\n");
+        write("([old : " + old_owner + ", new : " + new_owner + "])\n");
+    }
+
     if (ob = find_object(SECURITY_D))
         return (int)ob->valid_bind(binder, old_owner, new_owner);
 
@@ -508,4 +532,15 @@ int direct_run_binary(string file)
     // 没有找到CONFIG_D && VERSION_D，不编译，直接运行
     // BIN代码。
     return 1;
+}
+
+// driver 启动测试: -fdebug
+void flag(string str) {
+    switch (str) {
+        case "debug":
+            DEBUG = 1;
+            break;
+        default:
+            write("[MASTER_OB]->flag():The only supproted flag is 'debug', got '" + str + "'.\n");
+    }
 }
