@@ -1,5 +1,5 @@
 // fengqi.c
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit KNOWER;
 inherit F_DEALER;
@@ -28,9 +28,9 @@ LONG );
 }
 
 void init()
-{	
-	object ob; 
-//	mapping myfam; 
+{
+	object ob;
+//	mapping myfam;
 
 	ob = this_player();
 

@@ -1,4 +1,4 @@
-#include <ansi.h>; 
+#include <ansi.h>
 inherit BOOK;
 
 void create()

@@ -1,7 +1,7 @@
 // heimu-ling.c єЪДѕБо
 
 inherit ITEM;
-#include <ansi.h>;
+#include <ansi.h>
 void create()
 {
         set_name(BLK"єЪДѕБо"NOR, ({"heimu ling", "heimu", "ling"}));
@@ -16,4 +16,3 @@ void create()
                 set("material", "wood");
         }
 }
-

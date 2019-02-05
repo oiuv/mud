@@ -1,9 +1,9 @@
 inherit NPC;
-#include <ansi.h>;
+#include <ansi.h>
 
 void create()
 {
-        set_name("弟子", ({ "di zi", "di", "zi" }) );      
+        set_name("弟子", ({ "di zi", "di", "zi" }) );
         set("gender", "男性");
         set("age", 23);
         set("attitude", "peaceful");
@@ -34,11 +34,10 @@ void create()
         map_skill("parry", "jueqing-jian");
         map_skill("dodge", "jueqing-shenfa");
         map_skill("force", "jueqing-xinfa");
-    
+
         create_family("绝情谷", 5, "男弟子");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/cloth/cloth")->wear();
 }
-

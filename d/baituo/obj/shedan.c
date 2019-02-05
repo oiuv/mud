@@ -4,7 +4,7 @@
 // ryu added effect_in_liquid
 
 inherit POWDER;
-#include <ansi.h>;
+#include <ansi.h>
 int cure_ob(string);
 
 

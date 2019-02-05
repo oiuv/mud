@@ -1,7 +1,7 @@
 // liujing.c
 inherit NPC;
 inherit F_MASTER;
-#include <ansi.h>;
+#include <ansi.h>
 void create()
 {
         set_name("ÁõÝ¼", ({ "liu jing", "jing" }) );
@@ -42,4 +42,3 @@ void create()
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/cloth/female1-cloth")->wear();
 }
-

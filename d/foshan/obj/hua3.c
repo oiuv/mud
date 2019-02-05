@@ -1,6 +1,6 @@
 // hua3.c
-#include <ansi.h>;
-#include <armor.h>;
+#include <ansi.h>
+#include <armor.h>
 inherit HEAD;
 
 void create()

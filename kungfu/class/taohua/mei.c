@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 inherit NPC;
 
 #define YINJIAO    "/clone/lonely/yinjiaobian"
@@ -138,7 +138,7 @@ void kill_ob (object ob)
 }
 
 mixed ask_skill()
-{      
+{
         object me = this_player();
 
         if (me->query("can_perform/jiuyin-shengong/zhua"))
@@ -158,8 +158,8 @@ mixed ask_skill()
         }
 
         if (me->query_skill("claw", 1) < 240)
-               return "你基本爪法不够娴熟，我不能传你这招！";        
- 
+               return "你基本爪法不够娴熟，我不能传你这招！";
+
         if (me->query_skill("force", 1) < 260)
                return "你内功修为不够，我不能传你这招！";
 
@@ -171,7 +171,7 @@ mixed ask_skill()
 
         command("heihei");
         command("say 小心~~！");
-        message_sort(HIM "梅超风左手成爪，尖啸一声，猛然间抓向$N" HIM "的肩膀，$N" HIM 
+        message_sort(HIM "梅超风左手成爪，尖啸一声，猛然间抓向$N" HIM "的肩膀，$N" HIM
                      "微微一笑，随手招架，只见梅超风左手忽然收回，右手却猛地抓出，速度之"
                      "快，方位之准，直袭$N" HIM "檀中大穴。$N" HIM "只觉得一股阴风袭过，"
                      "早已无力招架，梅超风却突然收招，右手却停留在你檀中穴上，只需要稍稍"
@@ -188,24 +188,24 @@ mixed ask_skill()
 
         me->set("can_perform/jiuyin-shengong/zhua", 1);
         tell_object(me, HIG "你学会了「九阴神爪」！\n" NOR);
-       
+
         return 1;
 }
 
-int accept_object(object me, object ob) 
+int accept_object(object me, object ob)
 {
         if (base_name(ob) != "/clone/lonely/book/zhenjing2")
-          
-        {
-               command("say 你给我这种东西干什么？");               
-               return 0;
-        } 
 
-        command("heihei");        
-        command("say 好吧，既然这样，我就传你绝招，你可以随时来问我！"); 
+        {
+               command("say 你给我这种东西干什么？");
+               return 0;
+        }
+
+        command("heihei");
+        command("say 好吧，既然这样，我就传你绝招，你可以随时来问我！");
         tell_object(me, HIG "梅超风决定传你「九阴神抓」！\n" NOR);
         destruct(ob);
         me->set("can_learn/jiuyin-shengong/zhua", 1);
- 
-        return 1;        
+
+        return 1;
 }

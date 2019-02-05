@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 inherit ITEM;
 
 string *names = ({
@@ -23,4 +23,3 @@ void create()
         }
         setup();
 }
-

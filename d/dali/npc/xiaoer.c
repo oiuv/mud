@@ -1,8 +1,7 @@
 // waiter.c
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit KNOWER;
-#include <ansi.h>;
 
 void create()
 {
@@ -19,7 +18,7 @@ void create()
 }
 
 void init()
-{	
+{
 	object ob;
 
 	::init();
@@ -46,8 +45,8 @@ void greeting(object ob)
 
 int accept_object(object who, object ob)
 {
-	
-	if (ob->query("money_id") && ob->value() >= 500) 
+
+	if (ob->query("money_id") && ob->value() >= 500)
 	{
 		tell_object(who, "小二一哈腰，说道：多谢您老，客官请上楼歇息。\n");
 

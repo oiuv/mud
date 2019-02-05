@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit KNOWER;
 inherit F_DEALER;
@@ -23,7 +23,7 @@ void create()
                 "阿庆" : "我们家阿庆去北边做生意去了耶。\n",
                 "生意" : "这个么……\n",
         ]));
-        
+
         set("vendor_goods", ({
                 __DIR__"obj/peanut",
                 __DIR__"obj/tofu",
@@ -36,7 +36,7 @@ void create()
 void init()
 {
         object ob;
-        
+
         ::init();
         if (interactive(ob = this_player()) && ! is_fighting())
         {
@@ -64,4 +64,3 @@ void greeting(object ob)
                 break;
         }
 }
-

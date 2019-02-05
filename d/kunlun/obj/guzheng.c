@@ -1,7 +1,7 @@
 // guzheng.c π≈Û›
 // cck 4/7/97
 
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit ITEM;
 
@@ -19,5 +19,3 @@ void create()
 		set("material", "steel");
       }
 }
-
-

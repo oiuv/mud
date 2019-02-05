@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit KNOWER;
 
@@ -28,7 +28,7 @@ void create()
         set("jiali", 50);
         set("combat_exp", 400000);
         set("score", 20000);
-         
+
         set_skill("force", 160);
         set_skill("yijin-duangu", 160);
         set_skill("dodge", 160);

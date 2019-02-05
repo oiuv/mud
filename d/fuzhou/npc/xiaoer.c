@@ -1,5 +1,5 @@
 // waiter.c
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit KNOWER;
 
@@ -12,13 +12,13 @@ void create()
         set("long", "这位店小二正笑咪咪地忙著，还不时拿起挂在脖子上的抹布擦脸。\n");
         set("combat_exp", 100);
         set("attitude", "friendly");
-        
+
         set("rank_info/respect", "小二哥");
         setup();
 }
 
 void init()
-{       
+{
         object ob;
 
         ::init();
@@ -47,8 +47,8 @@ void greeting(object ob)
 
 int accept_object(object who, object ob)
 {
-        
-        if (ob->query("money_id") && ob->value() >= 5000) 
+
+        if (ob->query("money_id") && ob->value() >= 5000)
         {
                 tell_object(who, "小二一哈腰，说道：多谢您老，客官请上楼歇息。\n");
 
@@ -59,4 +59,3 @@ int accept_object(object who, object ob)
 
         return 0;
 }
-
