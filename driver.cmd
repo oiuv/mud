@@ -1,3 +1,3 @@
 :start
-bin\driver.exe config.cfg
+bin\driver.exe config.cfg -fdebug
 goto start

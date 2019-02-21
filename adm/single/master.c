@@ -1,13 +1,6 @@
-//
-// master.c
-//
-// for ES II mudlib
-// original from Lil
-// rewritten by Annihilator (11/07/94)
-// modified by Xiang for XKX (12/15/95)
-// updated by Doing Lu for hell (2K)
-// Modify By Linux@lxtx for yh 2003.3
-
+/**
+ * master.c
+ */
 // #pragma optimize
 // #pragma save_binary
 
@@ -15,6 +8,7 @@
 #include <localtime.h>
 
 STATIC_VAR_TAG int DEBUG = 0;
+#include "master/valid.c"
 
 object connect()
 {
@@ -25,9 +19,9 @@ object connect()
 
     if (err)
     {
-            write("现在有人正在修改使用者连线部份的程式，请待会再来。\n");
-            //write(err);
-            destruct(this_object());
+        write("现在有人正在修改使用者连线部份的程式，请待会再来。\n");
+        //write(err);
+        destruct(this_object());
     }
     return login_ob;
 }
@@ -41,9 +35,9 @@ mixed compile_object(string file)
     object daemon;
 
     if (daemon = find_object(VIRTUAL_D))
-            return daemon->compile_object(file);
+        return daemon->compile_object(file);
     else
-            return 0;
+        return 0;
 }
 
 // This is called when there is a driver segmentation fault or a bus error,
@@ -72,14 +66,14 @@ void crash(string error, object command_giver, object current_object)
         cmds = command_giver->query_commands();
         for (i = 0; i < sizeof(cmds); i++)
         {
-                if (cmds[i][2] == command_giver) continue;
-                log_file("static/CRASHES",
-                         sprintf("%-15s  %2d %O\n", cmds[i][0], cmds[i][1], cmds[i][2]));
+            if (cmds[i][2] == command_giver) continue;
+            log_file("static/CRASHES",
+                     sprintf("%-15s  %2d %O\n", cmds[i][0], cmds[i][1], cmds[i][2]));
         }
         if (environment(command_giver))
-                log_file("static/CRASHES",
-                         sprintf("in where: %s(%s)。\n", environment(command_giver)->query("short"),
-                                 base_name(environment(command_giver))));
+            log_file("static/CRASHES",
+                     sprintf("in where: %s(%s)。\n", environment(command_giver)->query("short"),
+                             base_name(environment(command_giver))));
         log_file("static/CRASHES",
                  sprintf( "this_player: %O 。 end command (%s)\n", command_giver, command_giver->query_last_input()));
     }
@@ -130,12 +124,12 @@ STATIC_FUNC_TAG string *update_file(string file)
 
     str = read_file(file);
     if (!str)
-            return ({});
+        return ({});
 
     list = explode(str, "\n");
     for (i = 0; i < sizeof(list); i++)
-            if (list[i][0] == '#')
-                    list[i] = 0;
+        if (list[i][0] == '#')
+            list[i] = 0;
 
     list -= ({ 0 });
     return list;
@@ -270,15 +264,15 @@ string standard_trace(mapping error, int caught)
 
     if (! error["object"] && (me = this_player()))
     {
-            res += sprintf("当前玩家：%s(%s) - %O  所在环境：%O\n",
-                           me->name(1), me->query("id"), me, environment(me));
+        res += sprintf("当前玩家：%s(%s) - %O  所在环境：%O\n",
+                       me->name(1), me->query("id"), me, environment(me));
         cmds = me->query_commands();
         res += me->name(1) + "身上及四周的物品与所在的环境提供以下指令：\n";
         for(i = 0; i<sizeof(cmds); i++)
             res += sprintf("%-15s  %2d %O\n",
-                                   cmds[i][0], cmds[i][1], cmds[i][2]);
+                           cmds[i][0], cmds[i][1], cmds[i][2]);
 
-            res += sprintf("当前的命令：%O\n", me->query_last_input());
+        res += sprintf("当前的命令：%O\n", me->query_last_input());
     }
 
     i = 0;
@@ -288,13 +282,13 @@ string standard_trace(mapping error, int caught)
         // filter error trace of messaged & chat command
         for (; i < s; i++)
         {
-                string prog;
-                prog = "/" + error["trace"][i]["program"];
-                if (prog != MESSAGE_D + ".c" &&
-                    ! sscanf(prog, "/cmds/chat/%*s") &&
-                    prog != "/clone/user/chatter.c" &&
-                    prog != F_COMMAND)
-                        break;
+            string prog;
+            prog = "/" + error["trace"][i]["program"];
+            if (prog != MESSAGE_D + ".c" &&
+                ! sscanf(prog, "/cmds/chat/%*s") &&
+                prog != "/clone/user/chatter.c" &&
+                prog != F_COMMAND)
+                    break;
         }
     }
 
@@ -325,152 +319,6 @@ string error_handler(mapping error, int caught)
     return standard_trace(error, caught);
 }
 
-// valid_shadow: controls whether an object may be shadowed or not
-int valid_shadow(object ob)
-{
-    object pre;
-
-    if(DEBUG)
-        write("[MASTER_OB]->valid_shadow():" + ob + "\n");
-
-    pre = previous_object();
-    if (geteuid(pre) == ROOT_UID ||
-        sscanf(file_name(pre), "/shadow/%*s"))
-    {
-        return 1;
-    }
-
-    log_file("shadow", sprintf("%O try to shadow %O failed.\n", pre, ob));
-    return 0;
-}
-
-// valid_override: controls which simul_efuns may be overridden with
-//   efun:: prefix and which may not.  This function is only called at
-//   object compile-time
-int valid_override( string file, string name )
-{
-    if(DEBUG)
-        write("[MASTER_OB]->valid_override():" + file + "(" + name + ")\n");
-    // simul_efun can override any simul_efun by Annihilator
-    if (file == SIMUL_EFUN_OB || file == MASTER_OB)
-        return 1;
-
-    // Must use the move() defined in F_MOVE.
-    if ((name == "move_object") && file != F_MOVE && file != F_COMMAND)
-        return 0;
-
-    if ((name == "destruct") && ! sscanf(file, "/adm/simul_efun/%s", file))
-        return 0;
-
-    //  may also wish to protect destruct, shutdown, snoop, and exec.
-    return 1;
-}
-
-// valid_seteuid: determines whether an object ob can become euid str
-int valid_seteuid(object ob, string str)
-{
-    if(DEBUG){
-        write("[MASTER_OB]->valid_seteuid():\n");
-        write("([obj : " + ob + ", euid : " + str + "])\n");
-    }
-    if (find_object(SECURITY_D))
-            return (int)SECURITY_D->valid_seteuid( ob, str );
-    return 1;
-}
-
-// valid_socket: controls access to socket efunctions
-int valid_socket(object eff_user, string fun, mixed *info)
-{
-    if(DEBUG)
-        write("[MASTER_OB]->valid_socket():" + eff_user + "(" + fun + ")\n");
-    return 1;
-}
-
-// valid_asm: controls whether or not an LPC->C compiled object can use
-//   asm { }
-int valid_asm(string file)
-{
-    if(DEBUG)
-        write("[MASTER_OB]->valid_asm():" + file + "\n");
-    return 1;
-}
-
-// valid_compile: controls whether or not an file can be compiled
-int valid_compile(string file)
-{
-    if(DEBUG)
-        write("[MASTER_OB]->valid_compile():" + file + "\n");
-    if (! find_object(VERSION_D))
-        return 1;
-
-    if (VERSION_D->is_release_server())
-        return 1;
-
-    return file_valid(file) == 1;
-}
-
-// valid_hide: controls the use of the set_hide() efun, to hide objects or
-//   see hidden objects
-int valid_hide(object who)
-{
-    if(DEBUG)
-        write("[MASTER_OB]->valid_hide():" + who + "\n");
-    return 1;
-}
-
-// valid_object: controls whether an object loaded by the driver should
-//   exist
-int valid_object(object ob)
-{
-    if(DEBUG)
-        write("[MASTER_OB]->valid_object():" + ob + "\n");
-    return (! clonep(ob)) || inherits(F_MOVE, ob);
-}
-
-// valid_link: controls use of the link() efun for creating hard links
-//   between paths
-int valid_link(string original, string reference)
-{
-    if(DEBUG)
-        write("[MASTER_OB]->valid_link():" + original + "-" + reference + "\n");
-    return 0;
-}
-
-// valid_save_binary: controls whether an object can save a binary
-//   image of itself to the specified "save binaries directory"
-//   (see config file)
-int valid_save_binary(string filename)
-{
-    if(DEBUG)
-        write("[MASTER_OB]->valid_save_binary():" + filename + "\n");
-    return 1;
-}
-
-// valid_write: write privileges; called with the file name, the object
-//   initiating the call, and the function by which they called it.
-int valid_write(string file, mixed user, string func)
-{
-    object ob;
-    if(DEBUG)
-        write("[MASTER_OB]->valid_write():" + file + "(" + func + ")\n");
-    if (ob = find_object(SECURITY_D))
-        return (int)ob->valid_write(file, user, func);
-
-    return 0;
-}
-
-// valid_read: read privileges; called exactly the same as valid_write()
-int valid_read(string file, mixed user, string func)
-{
-    object ob;
-    if (DEBUG)
-        write("[MASTER_OB]->valid_read():" + file + "(" + func + ")\n");
-    if (ob = find_object(SECURITY_D))
-        return (int)ob->valid_read(file, user, func);
-
-    return 1;
-}
-
 string object_name(object ob)
 {
     if (ob) return ob->name();
@@ -478,7 +326,7 @@ string object_name(object ob)
 
 void create()
 {
-    write("master: loaded successfully.\n");
+    write("master_ob loaded successfully.\n");
 }
 
 void check_daemons()
@@ -491,21 +339,6 @@ void check_daemons()
 
     for (i = 0; i < sizeof(sp); i++)
         if (stringp(sp[i])) preload(sp[i]);
-}
-
-int valid_bind(object binder, object old_owner, object new_owner)
-{
-    object ob;
-
-    if(DEBUG){
-        write("[MASTER_OB]->valid_bind():" + binder + "\n");
-        write("([old : " + old_owner + ", new : " + new_owner + "])\n");
-    }
-
-    if (ob = find_object(SECURITY_D))
-        return (int)ob->valid_bind(binder, old_owner, new_owner);
-
-    return 1;
 }
 
 // 是否直接运行BINARY，不调用文件。
