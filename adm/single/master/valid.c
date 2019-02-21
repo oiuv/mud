@@ -2,6 +2,7 @@
  * 权限控制apply方法
  * 返回１为允许，返回０为拒绝
  */
+STATIC_VAR_TAG int DEBUG = 0;
 
 // controls the use of the bind() efun
 int valid_bind(object binder, object old_owner, object new_owner)

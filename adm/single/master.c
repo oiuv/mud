@@ -7,7 +7,6 @@
 #include <config.h>
 #include <localtime.h>
 
-STATIC_VAR_TAG int DEBUG = 0;
 #include "master/valid.c"
 
 object connect()
