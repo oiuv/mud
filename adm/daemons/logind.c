@@ -685,9 +685,9 @@ private void get_gender(string gender, object ob)
     user->set("gender", ob->query_temp("gender"));
     ob->set("registered", 0);
     user->set("registered", 0);
-    log_file("usage", sprintf("%s(%s) was created from %s (%s)\n",
-            user->query("name"), user->query("id"),
-            query_ip_number(ob), ctime(time())));
+    // log_file("usage", sprintf("%s(%s) was created from %s (%s)\n",
+    //         user->query("name"), user->query("id"),
+    //         query_ip_number(ob), ctime(time())));
     init_new_player(user);
     enter_world(ob, user);
     write("\n");
