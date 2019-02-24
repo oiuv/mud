@@ -157,24 +157,26 @@ int main(object me, string arg)
             }
             break;
         case "find_living":
-            if (sizeof(args) == 2) {
-                debug("find_living " + sprintf("Result ：%s", find_living(args[1]) + "!"));
+            if (sizeof(args) > 1) {
+                sscanf(arg, "%s %s", args[0], args[1]);
+                debug("find_living " + sprintf("%s - %s", args[1], find_living(args[1]) + "!"));
             } else {
                 debug("[Warning]参数格式：find_living id！");
             }
             break;
 
         case "present":
-            if (sizeof(args) == 2) {
+            if (sizeof(args) > 1) {
+                sscanf(arg, "%s %s", args[0], args[1]);
                 ob = present(args[1], env);
                 if(objectp(ob))
-                    debug("present " + sprintf("Result ：%s", ob->query("name") + "!"));
+                    debug("present " + sprintf("%s - %s", args[1], ob->query("name") + "!"));
                 else if (objectp(ob = present(args[1],me))) {
-                    debug("present " + sprintf("Result ：%s", ob->query("name") + "!"));
+                    debug("present " + sprintf("%s - %s", args[1], ob->query("name") + "!"));
                 } else
-                    debug(sprintf("DEBUG：%s - %s", args[1], "未找到!"));
+                    debug(sprintf("DEBUG：%s - %s", args[1], "在当前环境未找到!"));
             } else {
-                debug("[Warning]参数格式：present 玩家id！");
+                debug("[Warning]参数格式：present id！");
             }
             break;
 
@@ -247,7 +249,7 @@ void print_r(mixed *arr)
                 }
                 write(arr[i] + "\n");
             }
-            
+
         }
         for(j=0; j<step; j++){
             write("  ");
