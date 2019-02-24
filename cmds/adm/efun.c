@@ -5,7 +5,7 @@ void print_r(mixed *arr);
 void debug(string);
 int help();
 
-nosave int j = 0;
+nosave int step = 0; // print_r 缩进层级
 
 void create() { seteuid(getuid()); }
 
@@ -29,7 +29,7 @@ int main(object me, string arg)
                 arr[0][0] = allocate(1 + random(10), (: $1 :));
                 arr[0][0][0] = allocate(1 + random(10), (: $1 :));
                 arr[0][0][0][0] = allocate(1 + random(10), (: $1 :));
-            write("\n");
+            debug(arg);
             print_r(arr);
             break;
 
@@ -76,25 +76,32 @@ int main(object me, string arg)
             break;
 
         case "heart_beats":
+            debug(arg);
             print_r(heart_beats()); // set_heart_beat()
             break;
         case "named_livings":
+            debug(arg);
             print_r(named_livings()); // set_living_name()
             break;
         case "users":
+            debug(arg);
             print_r(users());
             break;
         case "livings":
+            debug(arg);
             print_r(livings()); // enable_commands()
             break;
         case "objects":
+            debug(arg);
             print_r(objects());
             print_r(objects((: clonep :)));
             break;
         case "deep_inventory":
+            debug(arg);
             print_r(deep_inventory(env));
             break;
         case "all_inventory":
+            debug(arg);
             print_r(all_inventory(env));
             break;
         case "first_inventory":
@@ -107,6 +114,7 @@ int main(object me, string arg)
             debug("我的位置：" + env);
             break;
         case "children":
+            debug(arg);
             print_r(children("/clone/user/user"));
             break;
         case "master":
@@ -114,15 +122,19 @@ int main(object me, string arg)
             break;
 
         case "inherit_list":
+            debug(arg);
             print_r(inherit_list(this_player()));
             break;
         case "deep_inherit_list":
+            debug(arg);
             print_r(deep_inherit_list(this_player()));
             break;
         case "all_previous_objects":
+            debug(arg);
             print_r(all_previous_objects());
             break;
         case "call_out_info":
+            debug(arg);
             print_r(call_out_info());
             break;
 
@@ -215,29 +227,29 @@ HELP
 
 void print_r(mixed *arr)
 {
-    int i, k;
+    int i, j;
     if (sizeof(arr)) {
-        for(k=0; k<j; k++){
+        for(j=0; j<step; j++){
             write("  ");
         }
         write(YEL "({\n" NOR);
         for(i = 0; i < sizeof(arr); i++)
         {
             if (arrayp(arr[i])) {
-                j++;
+                step++;
                 print_r(arr[i]);
-                j--;
+                step--;
             }
             else
             {
-                for(k=0; k<(j+1); k++){
+                for(j=0; j<(step+1); j++){
                     write("  ");
                 }
                 write(arr[i] + "\n");
             }
             
         }
-        for(k=0; k<j; k++){
+        for(j=0; j<step; j++){
             write("  ");
         }
         write(YEL "})\n" NOR);
