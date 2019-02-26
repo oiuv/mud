@@ -31,8 +31,8 @@
 #include <net/socket.h> /* includes socket_errors.h indirectly */
 #include <getconfig.h>
 
-#define DAEMON_IP "128.83.194.11" /* actlab */
-#define PASSWORD "spin,ach"
+#define DAEMON_IP "118.190.104.241" /* actlab */
+#define PASSWORD "mud.ren"
 
 // undefine this if you don't want logging of errors
 #define LOG_INFO

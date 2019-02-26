@@ -12,10 +12,10 @@ wiz lock : 0
 
 # INTERNET互连网络中MUD的名字
 internet mud name : mud.ren
-# my_ip : 42.96.187.115
+# my_ip : 118.190.104.241
 
 # MUDOS
-& mudos : FluffOS 3.0
+& mudos : FluffOS v2019
 
 # 编码方式
 encoding : GB
