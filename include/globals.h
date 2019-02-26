@@ -1,7 +1,8 @@
 // globals.h
 // this file will be automatically included by the driver
 
-// #pragma save_binary
+#ifndef GLOBALS_H
+#define GLOBALS_H
 
 #ifndef FLUFFOS
 // mudos use this
@@ -202,3 +203,5 @@
 #define INSTALL_COMBAT_TEST     1
 
 #undef PROFILE_COMMANDS
+
+#endif /* GLOBALS_H */
