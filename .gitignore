@@ -1,6 +1,5 @@
-*DUMP
 .DS_Store
-desktop.ini
+.ini
+*dump
 driver
-portbind
 version

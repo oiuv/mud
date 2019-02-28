@@ -10,8 +10,8 @@ int valid_bind(object binder, object old_owner, object new_owner)
     object ob;
 
     if(DEBUG){
-        write("[MASTER_OB]->valid_bind():" + binder + "\n");
-        write("([old : " + old_owner + ", new : " + new_owner + "])\n");
+        write("[MASTER_OB]->valid_bind():" + file_name(binder) + "\n");
+        write("([old : " + file_name(old_owner) + ", new : " + file_name(new_owner) + "])\n");
     }
 
     if (ob = find_object(SECURITY_D))
@@ -25,7 +25,7 @@ mixed valid_database(object caller, string func, mixed *info)
 {
     if(DEBUG > 1){
         write("[MASTER_OB]->valid_database():\n");
-        write("([caller : " + caller + ", func : " + func + "])\n");
+        write("([caller : " + file_name(caller) + ", func : " + func + "])\n");
     }
     if (func == "connect")
         return "secret"; // mysqlÊý¾Ý¿âÃÜÂë
@@ -38,7 +38,7 @@ mixed valid_database(object caller, string func, mixed *info)
 int valid_hide(object who)
 {
     if(DEBUG)
-        write("[MASTER_OB]->valid_hide():" + who + "\n");
+        write("[MASTER_OB]->valid_hide():" + file_name(who) + "\n");
     return 1;
 }
 
@@ -55,7 +55,7 @@ int valid_link(string original, string reference)
 int valid_object(object ob)
 {
     if(DEBUG)
-        write("[MASTER_OB]->valid_object():" + ob + "\n");
+        write("[MASTER_OB]->valid_object():" + file_name(ob) + "\n");
     return (! clonep(ob)) || inherits(F_MOVE, ob);
 }
 
@@ -110,7 +110,7 @@ int valid_seteuid(object ob, string str)
 {
     if(DEBUG){
         write("[MASTER_OB]->valid_seteuid():\n");
-        write("([obj : " + ob + ", euid : " + str + "])\n");
+        write("([obj : " + file_name(ob) + ", euid : " + str + "])\n");
     }
     if (find_object(SECURITY_D))
         return (int)SECURITY_D->valid_seteuid( ob, str );
@@ -123,7 +123,7 @@ int valid_shadow(object ob)
     object pre;
 
     if(DEBUG)
-        write("[MASTER_OB]->valid_shadow():" + ob + "\n");
+        write("[MASTER_OB]->valid_shadow():" + file_name(ob) + "\n");
 
     pre = previous_object();
     if (geteuid(pre) == ROOT_UID ||
@@ -140,7 +140,7 @@ int valid_shadow(object ob)
 int valid_socket(object eff_user, string fun, mixed *info)
 {
     if(DEBUG)
-        write("[MASTER_OB]->valid_socket():" + eff_user + "(" + fun + ")\n");
+        write("[MASTER_OB]->valid_socket():" + file_name(eff_user) + "(" + fun + ")\n");
     return 1;
 }
 
