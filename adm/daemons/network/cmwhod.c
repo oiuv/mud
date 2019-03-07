@@ -58,7 +58,7 @@
 
 #define TAB "\t"
 #define GENERATION "0"
-#define	UDP_PORT	6888
+#define	UDP_PORT	3160
 #define CLIENT_VERSION "mwp 1.2"
 
 STATIC_VAR_TAG string mwhod_addr;

@@ -97,7 +97,7 @@ STATIC_VAR_TAG mixed *total_build;
 string *fetch_file_list = 0;
 
 #if 0
-#define DEBUG_LOG(s)       tell_object(find_player("doing"), s)
+#define DEBUG_LOG(s)       tell_object(find_player("ivy"), s)
 #else
 #define DEBUG_LOG(s)
 #endif

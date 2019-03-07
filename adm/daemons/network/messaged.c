@@ -17,10 +17,10 @@
 
 inherit F_DBASE;
 
-#define ENABLE_LOG              0
+#define ENABLE_LOG              1
 
 #if ENABLE_LOG
-#define DEBUG_OUT(msg)          if (find_player("doing")) tell_object(find_player("doing"), (msg) + "\n")
+#define DEBUG_OUT(msg)          if (find_player("ivy")) tell_object(find_player("ivy"), (msg) + "\n")
 #else
 #define DEBUG_OUT(msg)
 #endif
@@ -195,7 +195,7 @@ private void read_callback(int sock, string msg, string addr)
         string value;   // message item's value
         mapping info = ([ ]);   // total message item
 
-	DEBUG_OUT("MSG: Got " + msg);
+        DEBUG_OUT("MSG: Got " + msg);
 
         while (sscanf(msg, "%s:%s" SEP "%s", index, value, msg) == 3)
                 info[index] = value;
@@ -388,9 +388,9 @@ private int user_logon(mapping info)
                 return error_msg("暂时无法接入系统，请稍候再试。\n");
         }
 
-	seteuid(user);
-	export_uid(me);
-	seteuid(getuid());
+        seteuid(user);
+        export_uid(me);
+        seteuid(getuid());
 
         me->setup();
         me->set_name(body->name(1), ({ user }));

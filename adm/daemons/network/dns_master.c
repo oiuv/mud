@@ -891,7 +891,7 @@ void create()
 
 	// initialise the udp socket, if successful start the database system
 	if (startup_udp()) init_database();
-    //CHANNEL_D->do_channel(this_object(), "sys", "MUD 互联核心 DNS_MASTER 已经启动。 \n");
+    CHANNEL_D->do_channel(this_object(), "sys", "MUD 互联核心 DNS_MASTER 已经启动。 \n");
 }
 
 void remove()
