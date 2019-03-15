@@ -10,8 +10,8 @@ int valid_bind(object binder, object old_owner, object new_owner)
     object ob;
 
     if(DEBUG){
-        write("[MASTER_OB]->valid_bind():" + file_name(binder) + "\n");
-        write("([old : " + file_name(old_owner) + ", new : " + file_name(new_owner) + "])\n");
+        debug_message("[MASTER_OB]->valid_bind():" + file_name(binder) + "!");
+        debug_message("([old : " + file_name(old_owner) + ", new : " + file_name(new_owner) + "])");
     }
 
     if (ob = find_object(SECURITY_D))
@@ -23,9 +23,9 @@ int valid_bind(object binder, object old_owner, object new_owner)
 // Each of the database efunctions calls valid_database() prior to executing.
 mixed valid_database(object caller, string func, mixed *info)
 {
-    if(DEBUG > 1){
-        write("[MASTER_OB]->valid_database():\n");
-        write("([caller : " + file_name(caller) + ", func : " + func + "])\n");
+    if(DEBUG){
+        debug_message("[MASTER_OB]->valid_database():");
+        debug_message("([caller : " + file_name(caller) + ", func : " + func + "])");
     }
     if (func == "connect")
         return "secret"; // mysqlÊý¾Ý¿âÃÜÂë
@@ -38,7 +38,7 @@ mixed valid_database(object caller, string func, mixed *info)
 int valid_hide(object who)
 {
     if(DEBUG)
-        write("[MASTER_OB]->valid_hide():" + file_name(who) + "\n");
+        debug_message("[MASTER_OB]->valid_hide():" + file_name(who) + "!");
     return 1;
 }
 
@@ -47,7 +47,7 @@ int valid_hide(object who)
 int valid_link(string original, string reference)
 {
     if(DEBUG)
-        write("[MASTER_OB]->valid_link():" + original + "-" + reference + "\n");
+        debug_message("[MASTER_OB]->valid_link():" + original + "-" + reference + "!");
     return 0;
 }
 
@@ -55,7 +55,7 @@ int valid_link(string original, string reference)
 int valid_object(object ob)
 {
     if(DEBUG)
-        write("[MASTER_OB]->valid_object():" + file_name(ob) + "\n");
+        debug_message("[MASTER_OB]->valid_object():" + file_name(ob) + "!");
     return (! clonep(ob)) || inherits(F_MOVE, ob);
 }
 
@@ -65,7 +65,7 @@ int valid_object(object ob)
 int valid_override(string file, string name, string main_file)
 {
     if(DEBUG)
-        write("[MASTER_OB]->valid_override():" + file + "(" + name + ")\n");
+        debug_message("[MASTER_OB]->valid_override():" + file + "(" + name + ")!");
 
     // simul_efun can override any simul_efun by Annihilator
     if (file == SIMUL_EFUN_OB || file == MASTER_OB)
@@ -87,7 +87,7 @@ int valid_read(string file, mixed user, string func)
 {
     object ob;
     if (DEBUG)
-        write("[MASTER_OB]->valid_read():" + file + "(" + func + ")\n");
+        debug_message("[MASTER_OB]->valid_read():" + file + "(" + func + ")");
 
     if (ob = find_object(SECURITY_D))
         return (int)ob->valid_read(file, user, func);
@@ -101,7 +101,7 @@ int valid_read(string file, mixed user, string func)
 int valid_save_binary(string filename)
 {
     if(DEBUG)
-        write("[MASTER_OB]->valid_save_binary():" + filename + "\n");
+        debug_message("[MASTER_OB]->valid_save_binary():" + filename + "!");
     return 1;
 }
 
@@ -109,8 +109,8 @@ int valid_save_binary(string filename)
 int valid_seteuid(object ob, string str)
 {
     if(DEBUG){
-        write("[MASTER_OB]->valid_seteuid():\n");
-        write("([obj : " + file_name(ob) + ", euid : " + str + "])\n");
+        debug_message("[MASTER_OB]->valid_seteuid():");
+        debug_message("([obj : " + file_name(ob) + ", euid : " + str + "])");
     }
     if (find_object(SECURITY_D))
         return (int)SECURITY_D->valid_seteuid( ob, str );
@@ -123,7 +123,7 @@ int valid_shadow(object ob)
     object pre;
 
     if(DEBUG)
-        write("[MASTER_OB]->valid_shadow():" + file_name(ob) + "\n");
+        debug_message("[MASTER_OB]->valid_shadow():" + file_name(ob) + "!");
 
     pre = previous_object();
     if (geteuid(pre) == ROOT_UID ||
@@ -140,7 +140,7 @@ int valid_shadow(object ob)
 int valid_socket(object eff_user, string fun, mixed *info)
 {
     if(DEBUG)
-        write("[MASTER_OB]->valid_socket():" + file_name(eff_user) + "(" + fun + ")\n");
+        debug_message("[MASTER_OB]->valid_socket():" + file_name(eff_user) + "(" + fun + ")");
     return 1;
 }
 
@@ -150,7 +150,7 @@ int valid_write(string file, mixed user, string func)
 {
     object ob;
     if(DEBUG)
-        write("[MASTER_OB]->valid_write():" + file + "(" + func + ")\n");
+        debug_message("[MASTER_OB]->valid_write():" + file + "(" + func + ")");
     if (ob = find_object(SECURITY_D))
         return (int)ob->valid_write(file, user, func);
 
@@ -165,7 +165,7 @@ int valid_write(string file, mixed user, string func)
 int valid_asm(string file)
 {
     if(DEBUG)
-        write("[MASTER_OB]->valid_asm():" + file + "\n");
+        debug_message("[MASTER_OB]->valid_asm():" + file + "!");
     return 1;
 }
 
@@ -173,7 +173,7 @@ int valid_asm(string file)
 int valid_compile(string file)
 {
     if(DEBUG)
-        write("[MASTER_OB]->valid_compile():" + file + "\n");
+        debug_message("[MASTER_OB]->valid_compile():" + file + "!");
     if (! find_object(VERSION_D))
         return 1;
 

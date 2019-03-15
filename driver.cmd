@@ -1,8 +1,5 @@
 :start
 
-:: DEBUG mode : -fdebug
-:: bin\driver.exe config.cfg -fdebug
-
-bin\driver.exe config.cfg
+bin\driver.exe config.ini -d -fdebug
 
 goto start
