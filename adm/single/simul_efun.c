@@ -22,5 +22,5 @@
 void create()
 {
     seteuid(getuid());
-    write("simul_efun loaded successfully.\n");
+    debug_message("simul_efun loaded successfully.");
 }

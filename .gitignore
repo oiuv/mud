@@ -2,4 +2,5 @@
 .ini
 *.log
 *dump
+swapfile*
 version

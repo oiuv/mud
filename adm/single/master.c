@@ -325,7 +325,7 @@ string object_name(object ob)
 
 void create()
 {
-    write("master_ob loaded successfully.\n");
+    debug_message("master_ob loaded successfully.");
 }
 
 void check_daemons()
