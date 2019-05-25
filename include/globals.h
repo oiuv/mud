@@ -4,7 +4,7 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-#ifndef FLUFFOS
+#ifndef __SENSIBLE_MODIFIERS__
 // mudos use this
 #define STATIC_FUNC_TAG static
 #define STATIC_VAR_TAG  static
