@@ -1,7 +1,5 @@
 :start
 
 
-bin\driver.exe config.ini -d -fdebug
-
-
+bin\driver.exe config.ini -d
 goto start

@@ -5,7 +5,7 @@ void print_r(mixed *arr);
 void debug(string);
 int help();
 
-nosave int step = 0; // print_r 缩进层级
+STATIC_VAR_TAG int step = 0; // print_r 缩进层级
 
 void create() { seteuid(getuid()); }
 
@@ -24,11 +24,15 @@ int main(object me, string arg)
     args = explode(arg," ");
     switch(args[0]){
         case "allocate":
-                arr = allocate(1 + random(10), (: $1 :));
-                arr[0] = allocate(1 + random(10), (: $1 :));
-                arr[0][0] = allocate(1 + random(10), (: $1 :));
-                arr[0][0][0] = allocate(1 + random(10), (: $1 :));
-                arr[0][0][0][0] = allocate(1 + random(10), (: $1 :));
+#ifdef FLUFFOS
+            arr = allocate(1 + random(10), (: $1 :));
+            arr[0] = allocate(1 + random(10), (: $1 :));
+            arr[0][0] = allocate(1 + random(10), (: $1 :));
+            arr[0][0][0] = allocate(1 + random(10), (: $1 :));
+            arr[0][0][0][0] = allocate(1 + random(10), (: $1 :));
+#else
+            arr = allocate(5);
+#endif
             debug(arg);
             print_r(arr);
             break;
@@ -47,13 +51,13 @@ int main(object me, string arg)
             debug("previous_object:" + previous_object());
             break;
         case "this_object":
-            debug("this_object:" + this_object());
+            debug("this_object:" + file_name(this_object()));
             break;
         case "this_player":
-            debug("this_player:" + this_player());
+            debug("this_player:" + file_name(this_player()));
             break;
         case "this_interactive":
-            debug("this_interactive:" + this_interactive());
+            debug("this_interactive:" + file_name(this_interactive()));
             break;
 
         case "abs":
@@ -69,12 +73,12 @@ int main(object me, string arg)
             debug_message("void debug_message(string msg);");
             debug("debug_message:请打开debug.log查看结果 ^_^");
             break;
-
+#ifdef FLUFFOS
         case "element_of":
             arr = ({1, 2, 3, 4, 5});
             debug("element_of(({1, 2, 3, 4, 5})) = " + element_of(arr));
             break;
-
+#endif
         case "heart_beats":
             debug(arg);
             print_r(heart_beats()); // set_heart_beat()
@@ -105,20 +109,20 @@ int main(object me, string arg)
             print_r(all_inventory(env));
             break;
         case "first_inventory":
-            debug("first_inventory：" + first_inventory(env));
+            debug("first_inventory：" + file_name(first_inventory(env)));
             break;
         case "next_inventory":
-            debug("next_inventory：" + next_inventory(me));
+            debug("next_inventory：" + file_name(next_inventory(me)));
             break;
         case "environment":
-            debug("我的位置：" + env);
+            debug("我的位置：" + file_name(env));
             break;
         case "children":
             debug(arg);
             print_r(children("/clone/user/user"));
             break;
         case "master":
-            debug("MASTER_OB:" + master());
+            debug("MASTER_OB:" + file_name(master()));
             break;
 
         case "inherit_list":
@@ -145,13 +149,14 @@ int main(object me, string arg)
             shout("shout() - sends a message to all living objects\n");
             debug("所有其他玩家都已收到一条消息");
             break;
+#ifdef FLUFFOS
         case "real_time":
             debug("real_time:" + real_time());
             break;
-
+#endif
         case "find_player":
             if (sizeof(args) == 2) {
-                debug("find_player " + sprintf("Result ：%s", find_player(args[1]) + "!"));
+                debug("find_player " + sprintf("Result ：%s", file_name(find_player(args[1])) + "!"));
             } else {
                 debug("[Warning]参数格式：find_player 玩家id！");
             }
@@ -159,7 +164,7 @@ int main(object me, string arg)
         case "find_living":
             if (sizeof(args) > 1) {
                 sscanf(arg, "%s %s", args[0], args[1]);
-                debug("find_living " + sprintf("%s - %s", args[1], find_living(args[1]) + "!"));
+                debug("find_living " + sprintf("%s - %s", args[1], file_name(find_living(args[1])) + "!"));
             } else {
                 debug("[Warning]参数格式：find_living id！");
             }

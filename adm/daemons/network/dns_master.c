@@ -201,7 +201,7 @@ void read_callback(int sock, string msg, string addr)
 	args["HOSTADDRESS"] = addr;
 
 	// some muds don 't send their name out in a network friendly form
-	if (args["NAME"]) 
+	if (args["NAME"])
 		args["ALIAS"] = htonn(args["NAME"]);
 
         if (VERSION_D->is_release_server())
@@ -252,7 +252,7 @@ void send_shutdown()
 string start_message()
 {
 	return sprintf("||NAME:%s||VERSION:%s||MUDNAME:%s||DRIVER:%s||USERS:%d"
-                       "||MUDLIB:%s||HOST:%s||PORT:%s||ENCODING:%s"
+                       "||MUDLIB:%s||HOST:%s||PORT:%O||ENCODING:%s"
 		       "||PORTUDP:%d||TIME:%s||ZONE:%s",
                        Mud_name(), MUDLIB_VERSION, LOCAL_MUD_NAME(), MUD_DRIVER,
                        sizeof(filter_array(users(), (: ! wizardp($1) ||
@@ -329,7 +329,7 @@ void refresh_database()
 	call_out("refresh_database", REFRESH_INTERVAL);
 	list = list_nodes;
 	i = sizeof(list);
-  
+
 	while (i--)
         {
 		if (sscanf(list[i], "%s %d", boot_addr, boot_port) != 2)
@@ -383,7 +383,7 @@ void set_mud_info(string name, mapping junk)
 	if (! (ACCESS_CHECK(previous_object())) &&
 	    file_name(previous_object())[0..strlen(AUX_PATH) - 1] != AUX_PATH)
 		return;
-  
+
 	name = htonn( name );
 
 	while (name[strlen(name) - 1] == '.' )
