@@ -94,23 +94,23 @@ string locate(string file)
         string domain_file;
         string *all_place;
         string the_place;
-        
-       if (sscanf(file, "/f/%*s")) 
+
+       if (sscanf(file, "/f/%*s"))
                return "副本";
 
        domain_file = domain_file(file);
-        
+
         if (! undefinedp(place[domain_file]))
         {
                 all_place = place[domain_file][1];
                 the_place = place[domain_file][0];
-                if (member_array(file, all_place) != -1)                       
+                if (member_array(file, all_place) != -1)
                         return the_place;
         }
-        
+
         if (! undefinedp(region_names[domain_file]))
                 return region_names[domain_file];
-        
+
         return "未知区域";
 }
 
@@ -159,7 +159,7 @@ int main(object me, string arg)
 
                         if (! obj)
                                 return notify_fail("那里没有这样东西。\n");
-                }        
+                }
 
                 if( obj || (obj = present(arg, environment(me))) || (obj = present(arg, me)) )
                 {
@@ -186,14 +186,14 @@ int look_room(object me, object env, int brief)
         {
                 str = sprintf( HIC + "%s" + NOR + "%s\n    %s%s" + NOR,
                         env->short(),
-                        wizardp(me)? " - " + file_name(env): " - ",
+                        wizardp(me)? " - " + file_name(env): " - " + env->coordinate(),
                         env->long(),
                         env->query("outdoors") ? NATURE_D->outdoor_room_description() : "");
         } else
         {
                 str = sprintf( HIC + "%s" + NOR + "%s\n" + NOR,
                         env->short(),
-                        wizardp(me)? " - " + file_name(env): "");
+                        wizardp(me)? " - " + file_name(env): " - " + env->coordinate());
         }
 
 
@@ -216,7 +216,7 @@ int look_room(object me, object env, int brief)
 
         str += look_all_inventory_of_room(me, env, RETURN_RESULT);
         tell_object(me, str);
-        
+
         return 1;
 }
 
@@ -236,7 +236,7 @@ string desc_of_objects(object *obs)
                 str = "";
                 count   = ([]);
                 unit    = ([]);
-    
+
                 for (i = 0; i < sizeof(obs); i++)
                 {
                         if (stringp(league_name = obs[i]->query("league/league_name")))
@@ -252,7 +252,7 @@ string desc_of_objects(object *obs)
                         else
                                 count[short_name] += 1;
                 }
-    
+
                 dk = sort_array(keys(count), 1);
                 for (i = 0; i < sizeof(dk); i++)
                 {
@@ -335,7 +335,7 @@ int look_item(object me, object obj)
         apply1 = ({});
         apply2 = ({});
         apply3 = ({});
-                
+
         str = obj->long();
  /*if (obj->query("no_identify"))
         {
@@ -350,7 +350,7 @@ int look_item(object me, object obj)
                 else
                 if (obj->query("armor_type"))
                         applied_prop = obj->query("armor_prop");
-                  /*      
+                  /*
                 if (arrayp(apply1) && sizeof(apply1) > 0) {
                         str += "---------------兵器附加--------------\n";
                         for (i = 0; i<sizeof(apply1); i++)
@@ -380,9 +380,9 @@ int look_item(object me, object obj)
                 }
           if (mapp(obj->query("enchase/spe_data")))
                         special_prop += obj->query("enchase/spe_data");
-                     */   
+                     */
                 if (mapp(applied_prop) && sizeof(applied_prop) > 0)
-                        apply3 = keys(applied_prop);                        
+                        apply3 = keys(applied_prop);
                 if (arrayp(apply3) && sizeof(apply3) > 0)
                 {
                         for (i = 0; i<sizeof(apply3); i++)
@@ -409,7 +409,7 @@ int look_item(object me, object obj)
                 }
                 str += "-------------------------------------\n";
         }
-       
+
         while (mapp(obj->query_temp("daub")))
         {
                 if (! obj->query_temp("daub/poison/remain"))
@@ -626,7 +626,7 @@ string description(object obj)
             if (obj->query("special_skill/youth")) age = 14;
             if ((string) obj->query("gender") == "男性" || (string) obj->query("gender") == "无性")
             {
-                    if (per >=40) 
+                    if (per >=40)
                         return HIW"现在一派神人气度，仙风道骨，举止出尘。\n"NOR;
                 if (per <= 39 && (per > 38))
                         return HIG"现在神清气爽，骨格清奇，宛若仙人。\n"NOR;
@@ -690,7 +690,7 @@ string description(object obj)
                         return RED"生得眉歪眼斜，瘌头癣脚，不象人样。\n"NOR;
             } else
             {
-               if (per >=40) 
+               if (per >=40)
                         return HIW"现在宛如玉雕冰塑，似梦似幻，已不再是凡间人物\n"NOR;
                 if (per <= 39 && (per > 38))
                         return HIG"现在美若天仙，不沾一丝烟尘。\n"NOR;
@@ -795,7 +795,7 @@ int look_living(object me, object obj)
                 message("vision", me->name() + "正盯著你看，不知道在打"
 			"什么主意。\n", obj);
 		message("vision", me->name() + "盯着" + obj->name() +
-			"看了一会儿，不知道在打什么主意。\n", 
+			"看了一会儿，不知道在打什么主意。\n",
 			environment(me), ({ me, obj }));
 	}
 

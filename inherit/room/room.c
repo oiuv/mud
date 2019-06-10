@@ -74,7 +74,7 @@ void reset()
 
         //
         // Check loaded objects to match the objects specified in "objects"
-        // while query("objects") is 
+        // while query("objects") is
         // ([ <object filename>: <amount>, ..... ])
         // and query_temp("objects") is
         // ([ <object filename>: ({ob1, ob2, ...}), .... ])
@@ -82,7 +82,7 @@ void reset()
         set("no_clean_up", 0);
         ob_list = query("objects");
         if (! mapp(ob_list)) return;
-        
+
         if (! mapp(ob = query_temp("objects")))
                 ob = allocate_mapping(sizeof(ob_list));
         list = keys(ob_list);
@@ -344,6 +344,57 @@ varargs string long()
        return query("long");
 }
 #endif
+
+// 设置环境区域和坐标
+varargs void setArea(int x, int y, int z, string area)
+{
+    set("outdoors", area);
+    set("zone", ([
+        "x" : x,
+        "y" : y,
+        "z" : z,
+    ]));
+}
+
+// 获取环境坐标
+string coordinate()
+{
+    mapping coordinate = query("zone");
+    int x, y, z;
+
+    if (!mapp(coordinate))
+        coordinate = ([]);
+    x = coordinate["x"];
+    y = coordinate["y"];
+    z = coordinate["z"];
+
+    return sprintf("(%d,%d,%d)", x, y, z);
+}
+
+void removeExit(string dir)
+{
+    mapping exits = query("exits");
+    if (mapp(exits) && exits[dir])
+        map_delete(exits, dir);
+}
+
+void removeRandomExit()
+{
+    mapping exits = query("exits");
+    if (mapp(exits) && sizeof(exits) > 1)
+    {
+        removeExit(element_of(keys(exits)));
+    }
+}
+
+void addExit(string dir, string dest)
+{
+    mapping exits = query("exits");
+    if (!mapp(exits))
+        exits = ([]);
+    if (!exits[dir])
+        exits[dir] = dest;
+}
 
 void replace_program(string ob)
 {

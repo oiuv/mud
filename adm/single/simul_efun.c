@@ -6,6 +6,7 @@
 #include "simul_efun/atoi.c"
 #include "simul_efun/chinese.c"
 #include "simul_efun/file.c"
+#include "simul_efun/fluffos.c"
 #include "simul_efun/gender.c"
 #include "simul_efun/object.c"
 #include "simul_efun/override.c"
