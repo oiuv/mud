@@ -61,14 +61,13 @@ object select_character()
     object ob;
 
     obs = filter_array(all_interactive(),
-                       //(: ultrap($1) &&
                        (: living($1) &&
-                        $1->query("combat_exp") >= 500000 &&
-                        $1->query_skill("sword", 1) > 100 &&
-                        $1->query_skill("sanfen-jianshu", 1) < 1 &&
-                        $1->query("family/family_name") == "红花会" &&
-                        !wizardp($1) &&
-                        !$1->query("story/sanfenjian") :));
+                          $1->query("combat_exp") >= 500000 &&
+                          $1->query_skill("sword", 1) > 100 &&
+                          $1->query_skill("sanfen-jianshu", 1) < 1 &&
+                          $1->query("family/family_name") == "红花会" &&
+                          !wizardp($1) && !$1->query("story/sanfenjian")
+                       :));
     if (!sizeof(obs))
         return 0;
 
@@ -89,9 +88,9 @@ mixed query_story_message(int step)
     msg = story[step];
     if (stringp(msg))
     {
-        msg = replace_string(msg, "$N", char_name);
-        msg = replace_string(msg, "$F", family_name);
-        msg = replace_string(msg, "$ID", char_id);
+        msg = replace_string(msg, "$N", char_name ? char_name : char_name = "小鱼儿");
+        msg = replace_string(msg, "$F", family_name ? family_name : family_name = "恶人谷");
+        msg = replace_string(msg, "$ID", char_id ? char_id : char_id = "none");
     }
     return msg;
 }

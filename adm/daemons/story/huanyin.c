@@ -37,66 +37,63 @@ STATIC_VAR_TAG mixed *story = ({
 
 void create()
 {
-        seteuid(getuid());
+    seteuid(getuid());
 }
 
 string prompt() { return HIG "【武林传闻】" NOR; }
 
 object select_character()
 {
-        object *obs;
-        object ob;
+    object *obs;
+    object ob;
 
-        obs = filter_array(all_interactive(),
-                           // (: ultrap($1) &&
-                           (: living($1) &&
-                $1->query_skill("huanyin-zhi", 1) < 1 &&
-                //$1->query("family/family_name") &&
-                $1->query("family/family_name") && $1->query("family/family_name") != "明教" &&
-                $1->query("combat_exp") >= 400000 &&
-                !wizardp($1) &&
-                !$1->query("story/huanyin") :));
-        if (!sizeof(obs))
-                return 0;
+    obs = filter_array(all_interactive(),
+                       (: living($1) && $1->query_skill("huanyin-zhi", 1) < 1 &&
+                          $1->query("family/family_name") && $1->query("family/family_name") != "明教" &&
+                          $1->query("combat_exp") >= 400000 && !wizardp($1) &&
+                          !$1->query("story/huanyin")
+                       :));
+    if (!sizeof(obs))
+        return 0;
 
-        ob = obs[random(sizeof(obs))];
-        char_id = ob->query("id");
-        char_name = ob->name(1);
-        family_name = ob->query("family/family_name");
-        return ob;
+    ob = obs[random(sizeof(obs))];
+    char_id = ob->query("id");
+    char_name = ob->name(1);
+    family_name = ob->query("family/family_name");
+    return ob;
 }
 
 mixed query_story_message(int step)
 {
-        mixed msg;
+    mixed msg;
 
-        if (step >= sizeof(story))
-                return 0;
+    if (step >= sizeof(story))
+        return 0;
 
-        msg = story[step];
-        if (stringp(msg))
-        {
-                msg = replace_string(msg, "$N", char_name);
-                msg = replace_string(msg, "$F", family_name);
-                msg = replace_string(msg, "$ID", char_id);
-        }
-        return msg;
+    msg = story[step];
+    if (stringp(msg))
+    {
+        msg = replace_string(msg, "$N", char_name ? char_name : char_name = "扫地僧");
+        msg = replace_string(msg, "$F", family_name ? family_name : family_name = "少林寺");
+        msg = replace_string(msg, "$ID", char_id ? char_id : char_id = "none");
+    }
+    return msg;
 }
 
 int give_gift()
 {
-        object ob;
+    object ob;
 
-        ob = find_player(char_id);
-        if (!ob)
-                return 1;
-
-        if (ob->query_skill("huanyin-zhi", 1) < 10)
-                ob->set_skill("huanyin-zhi", 10);
-
-        ob->set("story/huanyin", 1);
-        tell_object(ob, HIC "你从成昆那里学习到了幻阴指法。\n" NOR);
-        CHANNEL_D->do_channel(this_object(), "rumor", "听说" + ob->name(1) + "从成昆那里学习到了幻阴指法。");
-        STORY_D->remove_story("huanyin");
+    ob = find_player(char_id);
+    if (!ob)
         return 1;
+
+    if (ob->query_skill("huanyin-zhi", 1) < 10)
+        ob->set_skill("huanyin-zhi", 10);
+
+    ob->set("story/huanyin", 1);
+    tell_object(ob, HIC "你从成昆那里学习到了幻阴指法。\n" NOR);
+    CHANNEL_D->do_channel(this_object(), "rumor", "听说" + ob->name(1) + "从成昆那里学习到了幻阴指法。");
+    STORY_D->remove_story("huanyin");
+    return 1;
 }

@@ -56,11 +56,10 @@ object select_character()
     object ob;
 
     obs = filter_array(all_interactive(),
-                       (: living($1) &&
-                                 $1->query_skill("bizhen-qingzhang", 1) < 1 &&
-                                 $1->query("combat_exp") >= 400000 &&
-                                 !wizardp($1) &&
-                                 !$1->query("story/bizhen") :));
+                       (: living($1) && $1->query_skill("bizhen-qingzhang", 1) < 1 &&
+                          $1->query("combat_exp") >= 400000 && !wizardp($1) &&
+                          !$1->query("story/bizhen")
+                       :));
     if (!sizeof(obs))
         return 0;
 
@@ -80,8 +79,8 @@ mixed query_story_message(int step)
     msg = story[step];
     if (stringp(msg))
     {
-        msg = replace_string(msg, "$N", char_name);
-        msg = replace_string(msg, "$ID", char_id);
+        msg = replace_string(msg, "$N", char_name ? char_name : char_name = "Â·ÈË¼×");
+        msg = replace_string(msg, "$ID", char_id ? char_id : char_id = "none");
     }
     return msg;
 }
