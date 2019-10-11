@@ -120,8 +120,8 @@ void wakeup(object me)
         {
             me->set("qi",    me->query("eff_qi"));
             me->set("jing",  me->query("eff_jing"));
-            me->add("neili", me->query("max_neili") / 2 -
-                 me->query("neili") / 2 );
+            me->add("neili", me->query("max_neili") * 4 / 5 -
+                 me->query("neili") * 4 / 5 );
             message("vision", me->name() + "一觉醒来，精力充沛"
                   "地活动了一下筋骨。\n",
                   environment(me), ({ me }));

@@ -140,6 +140,13 @@ mapping channels = ([
                         "name"     : "外敌入侵",
                         "omit_log" : 1,
                 ]),
+                /*
+        "rzr": ([      "msg_speak": HIC "【人造人】%s：%s\n" NOR,
+                        "msg_emote": HIC "【人造人】%s" NOR,
+                        "msg_color": HIC,
+                        "name"     : "人造人",
+                ]),
+                */
 ]);
 
 void create()
@@ -247,10 +254,6 @@ varargs int do_channel(object me, string verb, string arg, int emote)
                 if (verb == "ic" && me->query("age") < 18)
                         return notify_fail("你必须成年以后才能使用" + channels[verb]["name"] +
                                            "频道。\n");
-
-                if (verb == "rumor" && me->query("age") < 30)
-                       return notify_fail("等你三十岁以后再使用" + channels[verb]["name"] +
-                                          "频道吧。\n");
         }
 
         // now we can be sure it's indeed a channel message:
@@ -268,10 +271,9 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         // player broadcasting need consume jing
         if (userp(me) && ! wizardp(me) && verb == "rumor" &&
             ! objectp(present("rumor generator", me)))
-                if (me->query("jing") > 50)
-                  me->add("jing", -random(36));
-                else
-                  return notify_fail("你已经没力气散播谣言了！\n");
+                if (me->query("jing") > 50) me->add("jing", -random(36))
+                        ; else
+                return notify_fail("你已经没力气散播谣言了！\n");
 
         if (userp(me) && me->ban_say(1)) return 0;
 
@@ -353,15 +355,15 @@ varargs int do_channel(object me, string verb, string arg, int emote)
                         case 4:
                                 fname = "【 " + fname[0..1] + "  " + fname[2..3] + " 】";
                                 break;
-
+        
                         case 6:
                                 fname = "【 " + fname + " 】";
                                 break;
-
+        
                         case 8:
                                 fname = "【" + fname + "】";
                                 break;
-
+        
                         case 10:
                                 fname = "【" + fname[0..7] + "】";
                                 break;
@@ -375,12 +377,12 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         if (verb == "shout")
         {
             	if (! arg) return notify_fail("你想要大叫什么？\n");
-
+            
                 if (! wizardp(me) && userp(me))
                 {
                         if (me->query("neili") < 500)
                                 return notify_fail("你的内力太差，无法喊出那么大的声音。\n");
-
+                    
                         me->add("neili", - (random(200) + 300));
                 }
 
@@ -453,12 +455,12 @@ varargs int do_channel(object me, string verb, string arg, int emote)
                 else
                         arg = EMOTE_D->do_emote(me, vb, emote_arg, 1,
                                         0, channels[verb]["msg_color"]);
-
+        
                 if (! arg && emote == 2)
                 	arg = (channels[verb]["anonymous"] ? channels[verb]["anonymous"]
                                                            : me->name(channels[verb]["name_raw"])) +
                                                              vb + "\n";
-
+        
                 if (! arg)
 			return 0;
         }

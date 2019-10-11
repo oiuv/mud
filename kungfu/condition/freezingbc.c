@@ -30,7 +30,7 @@ string update_msg_self()
     return HIG "忽然浑身一阵寒冷，浑身几乎冻僵！\n" NOR;
 }
 
-string die_reason(string name)
+string die_reason(string reason)
 {
     return "寒毒发作，冻僵倒毙";
 }

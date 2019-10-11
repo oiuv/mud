@@ -11,10 +11,10 @@ void create()
 ¶«Î÷¡£
 LONG);
     set("exits", ([
-        "out" : __DIR__ "wave2",
+        "out":__DIR__ "wave2",
     ]));
     set("objects", ([
-        "/clone/beast/xuanmang" : 1,
+        "/clone/beast/xuanmang":1,
     ]));
     setup();
 }

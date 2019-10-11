@@ -45,15 +45,19 @@ int perform(object me, object target)
 	me->add("neili", -150);
 
         me->add_temp("apply/attack", 40);
+		me->add_temp("apply/damage", 10);
       	COMBAT_D->do_attack(me, target, weapon, 0);
 
         me->add_temp("apply/attack", 60);
+		me->add_temp("apply/damage", 30);
 	COMBAT_D->do_attack(me, target, weapon, 0);
 
         me->add_temp("apply/attack", 80);
+		me->add_temp("apply/damage", 50);
 	COMBAT_D->do_attack(me, target, weapon, 0);
 
         me->add_temp("apply/attack", -180);
+		me->add_temp("apply/damage", -90);
 	me->start_busy(1 + random(3));
 	return 1;
 }

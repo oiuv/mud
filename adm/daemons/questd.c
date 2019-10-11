@@ -1,6 +1,6 @@
 // questd.c 处理任务的守护进程
 // 包括师门任务函数载体和系统注册任务(SYSREG_QUEST)
-// Updated by Vin for heros.cn 
+// Updated by Vin for heros.cn
 
 #include <ansi.h>
 #include <quest.h>
@@ -16,6 +16,7 @@ public void   set_information(object qob, string key, mixed info);
 public mixed  query_information(object qob, string key);
 public void   remove_information(object qob, string key);
 public void   remove_all_information(object qob);
+public void remove_quest(string name);
 public string generate_information(object knower, object who, string topic);
 public void   start_all_quest();
 
@@ -35,119 +36,125 @@ private void special_bonus(object me, object who, mixed arg)
         int gongxian;
 
         // 随机奖励
-        
+
         string *ob1_list = ({
-				"/d/beijing/npc/dan/danA_5.c",
-				"/d/beijing/npc/dan/danB_6.c",
-				"/d/beijing/npc/dan/danC_5.c",
-				"/d/beijing/npc/dan/danD_6.c",
-				"/d/beijing/npc/dan/danM_9.c",
-				"/d/beijing/npc/dan/danS_1.c",
-				"/d/beijing/npc/dan/danS_2.c",
-				"/d/beijing/npc/dan/danS_4.c",
-				"/d/beijing/npc/dan/danS_4.c",
-				"/d/beijing/npc/dan/danS_5.c",
-				
-				"/clone/fam/pill/full1",
-				"/clone/fam/pill/linghui1",
-				"/clone/fam/pill/linghui2",
+                "/d/beijing/npc/dan/danA_5.c",
+                "/d/beijing/npc/dan/danB_6.c",
+                "/d/beijing/npc/dan/danC_5.c",
+                "/d/beijing/npc/dan/danD_6.c",
+                "/d/beijing/npc/dan/danM_9.c",
+                "/d/beijing/npc/dan/danS_1.c",
+                "/d/beijing/npc/dan/danS_2.c",
+                "/d/beijing/npc/dan/danS_4.c",
+                "/d/beijing/npc/dan/danS_4.c",
+                "/d/beijing/npc/dan/danS_5.c",
+
+                "/clone/fam/pill/full1",
+                "/clone/fam/pill/linghui1",
+                "/clone/fam/pill/linghui2",
         });
 
         // 完成三十个任务
         string *ob2_list = ({
-				"/clone/fam/pill/full1",
-				"/clone/fam/pill/linghui1",
+                "/clone/fam/pill/full1",
+                "/clone/fam/pill/linghui1",
+                "/clone/fam/pill/linghui2",
         });
 
         // 完成五十个任务
         string *ob3_list = ({
-				"/clone/fam/pill/full1",
-				"/clone/fam/pill/linghui1",
+                "/clone/fam/pill/full1",
+                "/clone/fam/pill/linghui1",
+                "/clone/fam/pill/linghui2",
         });
 
         // 完成一百个任务
         string *ob4_list = ({
-				"/clone/fam/pill/linghui1",
+                "/clone/fam/pill/linghui2",
+                "/clone/fam/pill/linghui1",
+                "/clone/fam/pill/linghui2",
         });
-
+/*
         // 完成两百个任务
         string *ob5_list = ({
-				"/clone/fam/pill/linghui2",
+                //"/clone/fam/pill/linghui2",
         });
 
         // 完成三百个任务
         string *ob6_list = ({
-				"/clone/fam/pill/linghui2",
+                //"/clone/fam/pill/linghui2",
         });
 
         // 完成四百个任务
         string *ob7_list = ({
-				"/clone/fam/pill/linghui2",
+                //"/clone/fam/pill/linghui2",
         });
 
         // 完成五百个任务
         string *ob8_list = ({
-				"/d/beijing/npc/dan/danA_4.c",
+                //"/d/beijing/npc/dan/danA_4.c",
         });
 
         // 完成六百个任务
         string *ob9_list = ({
-				"/d/beijing/npc/dan/danA_4.c",
+                //"/d/beijing/npc/dan/danA_4.c",
         });
 
         // 完成七百个任务
         string *ob10_list = ({
-				"/d/beijing/npc/dan/danA_4.c",
+                //"/d/beijing/npc/dan/danA_4.c",
         });
 
         // 完成八百个任务
         string *ob11_list = ({
-				"/d/beijing/npc/dan/danA_5.c",
+                //"/d/beijing/npc/dan/danA_5.c",
         });
 
         // 完成九百个任务
         string *ob12_list = ({
-				"/d/beijing/npc/dan/danA_5.c",
+                //"/d/beijing/npc/dan/danA_5.c",
         });
-
+ */
         // 完成一千个任务
         string *ob13_list = ({
-				"/clone/fam/item/qiankun_stone",
-				"/clone/fam/item/yanluo",
-				"/clone/fam/item/lihuo",
-				"/clone/fam/gift/str3",
-				"/clone/fam/gift/con3",
-				"/clone/fam/gift/int3",
-				"/clone/fam/gift/dex3",
+                "/clone/fam/item/qiankun_stone",
+                "/clone/fam/item/yanluo",
+                "/clone/fam/item/lihuo",
+                "/clone/fam/item/yanluo",
+                "/clone/fam/item/lihuo",
+                "/clone/fam/gift/str3",
+                "/clone/fam/gift/con3",
+                "/clone/fam/gift/int3",
+                "/clone/fam/gift/dex3",
         });
-        
+
         //新增5000万exp且1000任务奖励 by 薪有所属
         string *ob14_list = ({
-				"/clone/fam/obj/guo.c",
+                "/clone/fam/obj/guo.c",
                 "/clone/fam/max/tianshu1",
-                
+
         });
 
         string un, gift;
         object ob;
-        
+
         //新增exp限制
         //考虑到开放了转世，故放弃exp限制
         int exp;
         exp = who->query("combat_exp");
-        
+
         if (stringp(arg))
                 gift = arg;
-        	     
+
         else
-        	//新增5000万exp且1000任务奖励 by 薪有所属
+            //新增5000万exp且1000任务奖励 by 薪有所属
         if ((who->query("quest_count") == 1000)&&(exp>=50000000))
         {
                 gift = ob14_list[random(sizeof(ob14_list))];
                 gongxian = 1000;
         } else
-        
-        
+
+
         //考虑到开放了转世，故放弃exp限制
         //if ((who->query("quest_count") == 1000)&&(exp>=1000000))
         if (who->query("quest_count") == 1000)
@@ -155,7 +162,7 @@ private void special_bonus(object me, object who, mixed arg)
                 gift = ob13_list[random(sizeof(ob13_list))];
                 gongxian = 500;
         } else
-
+/*
         if (who->query("quest_count") == 900)
         //if ((who->query("quest_count") == 900)&&(exp>=900000))
         {
@@ -211,7 +218,7 @@ private void special_bonus(object me, object who, mixed arg)
                 gift = ob5_list[random(sizeof(ob5_list))];
                 gongxian = 150;
         } else
-
+*/
         if (who->query("quest_count") == 100)
         //if ((who->query("quest_count") == 100)&&(exp>=100000))
         {
@@ -347,6 +354,7 @@ int ask_quest(object me, object who)
         int exp;                // WHO的经验
         int t;                  // 用来计算时间的变量
         int level;              // QUEST的等级
+        int reborn;				//转世次数
         string place;
         string gender;
 
@@ -372,7 +380,7 @@ int ask_quest(object me, object who)
         q = who->query("quest");
         if (mapp(q))
         {
-        	if (q["freequest"] > 0)
+            if (q["freequest"] > 0)
                 {
                         message_vision(CYN "$N" CYN "对$n" CYN "说道：我这里暂"
                                        "时也没什么事情，你还是自己锻炼一段时间"
@@ -500,14 +508,14 @@ int ask_quest(object me, object who)
                         tell_object(who, HIY "看来还是得加强自己的江湖威望才行。\n" NOR);
                         return 1;
                 }
-*/        
+*/
                 if (who->is_bad() && me->is_good())
                 {
                         message_vision(CYN "$N" CYN "大怒道：岂有此理！你居然已经误"
                                        "入歧途，还敢来见我！\n" NOR, me, who);
                         return 1;
                 }
-        
+
                 if (who->is_good() && me->is_bad())
                 {
                         message_vision(CYN "$N" CYN "大怒道：岂有此理！才几天不见，"
@@ -521,23 +529,34 @@ int ask_quest(object me, object who)
                 message_vision(HIG "系统文件更新中，暂时取消杀人任务，送信任务保留。\n" NOR, me,who);
                                who->start_busy(1);
                 return 1;
-                
+
                 */
 
+                reborn = 0;
+                reborn = who->query("reborn/count");
                 level = who->query_temp("quest/next_level");
                 if (level < 0 || level > MAX_QUEST_LEVEL)
                         level = 0;
-
-                ob = new(CLASS_D("generate") + "/killed.c");
+                level += reborn;
+                who->delete_temp("super");
+                //添加转世超级npc
+                if (who->query("reborn") && who->query("combat_exp") > 800000 && random(50) <= reborn)
+                {
+                    who->set_temp("super", reborn);
+                    ob = new(CLASS_D("generate") + "/killed_super.c");
+                    ob->set("can_learn/dugu-jiujian/nothing", 1);
+                }
+                else
+                    ob = new(CLASS_D("generate") + "/killed.c");
                 NPC_D->place_npc(ob, who->query("combat_exp") < 500000  ? ({ "大理一带", "终南山", "关外", "西域" }) :
                                      who->query("combat_exp") < 800000 ? ({ "大理一带", "终南山", "西域" }) : 0);
                 NPC_D->set_from_me(ob, who, 100);
-                ob->add_temp("apply/attack", ob->query_skill("force") *
-					     (level - 1) / 15);
-                ob->add_temp("apply/dodge", ob->query_skill("force") *
-					    (level - 1) / 15);
-                ob->add_temp("apply/parry", ob->query_skill("force") *
-					    (level - 1) / 15);
+                ob->add_temp("apply/attack", ob->query_skill("force", 1) *
+                         (level - 1) / 15);
+                ob->add_temp("apply/dodge", ob->query_skill("force", 1) *
+                        (level - 1) / 15);
+                ob->add_temp("apply/parry", ob->query_skill("force", 1) *
+                        (level - 1) / 15);
                 ob->add_temp("apply/damage", 5 + level * 7);
                 ob->add_temp("apply/unarmed_damage", 5 + level * 7);
                 ob->add_temp("apply/armor", 10 + level * 15);
@@ -658,10 +677,10 @@ int ask_quest(object me, object who)
         message("vision", WHT + me->name() + WHT "在你耳边悄声说道：你务必要在"
                           NOR + HIY + CHINESE_D->chinese_monthday(t) + NOR + WHT
                           "之前完成！\n" NOR, who);
-         
+
         /*
         //测试后门，非测试时注释掉
-        if (who->query("id") == "ivy")
+        if (who->query("id") == "ice")
         {
                 who->move(environment(ob));
                 message_vision(CYN "$N" CYN "马不停蹄的赶到$n所在地。\n" NOR, who, ob);
@@ -690,6 +709,7 @@ int accept_object(object me, object who, object ob)
         int quest_count;        // 连续QUEST的数目
         int timeover;           // 标志：超时了？
         int added;              // 做任务的时候额外出现的敌人或敌人逃走
+        int reborn;				//新增转世次数
         mixed special = 0;      // 是否有特殊奖励
 
         if (me->query("family/family_name") != who->query("family/family_name"))
@@ -712,7 +732,7 @@ int accept_object(object me, object who, object ob)
                 }
 
                 message_vision(CYN "$N" CYN "瞪着$n" CYN "道：干什么？交给你"
-                               "的活你不打算干了？\n" NOR, me, who);        
+                               "的活你不打算干了？\n" NOR, me, who);
                 return -1;
         }
 
@@ -765,7 +785,7 @@ int accept_object(object me, object who, object ob)
         {
                 if (! mapp(q) || ! ob->is_corpse() && ! ob->is_head())
                         return 0;
-        
+
                 if (! stringp(ob->query("owner_id")))
                 {
                         message_vision(CYN "$N" CYN "捂着鼻子看了看" + ob->name()
@@ -773,7 +793,7 @@ int accept_object(object me, object who, object ob)
                                        "拿走。\n" NOR, me);
                         return 0;
                 }
-                
+
          if (ob->query("taskob") == q["id"])
                 {
                         message_vision(CYN "$N" CYN "捂着鼻子看了看" + ob->name()
@@ -781,8 +801,8 @@ int accept_object(object me, object who, object ob)
                                        "拿走。\n" NOR, me);
                         return 0;
                 }
-        
-        
+
+
                 if (ob->query("owner_id") != q["id"])
                         return 0;
 
@@ -842,9 +862,10 @@ int accept_object(object me, object who, object ob)
                         bonus = 1;
 
                 destruct(ob);
+                reborn = who->query("reborn/count");
                 lvl = NPC_D->check_level(who);
-                exp = 10 + random(5) + lvl;
-                pot = 5 + random(3) + lvl;
+                exp = 10 + random(5) + lvl + reborn;
+                pot = 5 + random(3) + lvl + reborn;
                 mar = 1 + random(2);
                 weiwang = 2 + random(3) + lvl / 2;
                 score = 2 + random(3) + lvl / 2;
@@ -894,6 +915,7 @@ int accept_object(object me, object who, object ob)
                         weiwang += 1 + random(5);
                         score += 1 + random(5);
                 }
+
 
                 switch (quest_level = q["level"])
                 {
@@ -1024,6 +1046,7 @@ int accept_object(object me, object who, object ob)
                 who->set_temp("quest/next_level", quest_level);
         }
 
+
         if ((added = (int)who->query_temp("quest/help_count")) > 0)
         {
                 msg += HIY "$N" HIY "又道：这次敌人伏下帮手，而你能随机应变，"
@@ -1038,7 +1061,14 @@ int accept_object(object me, object who, object ob)
                 exp += exp * added / 2;
                 pot += pot * added / 2;
         }
-
+        //BK之后潜能奖励补贴
+        if (who->query("breakup"))
+        {
+                pot += random((int)who->query_skill("force", 1)/3);
+        }
+        //转世出现超级npc额外奖励潜能,体会
+        pot += random(pot * who->query_temp("super"));
+        mar += random(mar * who->query_temp("super"));
         message_vision(msg, me, who);
         who->delete("quest");
         if (! bonus) return 1;
@@ -1049,6 +1079,16 @@ int accept_object(object me, object who, object ob)
         weiwang /= bonus;
         score /= bonus;
         gongxian /= bonus;
+
+        if (me->query("family/family_name") == "无门无派")
+        {
+            exp += random(exp/2);
+            pot += random(pot/2);
+            mar += random(mar/2);
+            weiwang += random(weiwang/2);
+            score += random(score/2);
+            gongxian += random(gongxian/2);
+        }
 
         // bouns
         if (timeover)
@@ -1063,7 +1103,7 @@ int accept_object(object me, object who, object ob)
         {
                 // 百分之一的几率直接赠送物品奖励
                 if ((quest_count >= 100 && random(200) == 1) || special)
-			special_bonus(me, who, special);
+            special_bonus(me, who, special);
         }
 
         if (who->query("potential") >= who->query_potential_limit())
@@ -1077,11 +1117,11 @@ int accept_object(object me, object who, object ob)
         //八面玲珑增加贡献几率由25%提高到50% by 薪有所属
         if (who->query("special_skill/cunning"))
                 gongxian = gongxian + random(2);
-              
-                
+
+
          // 转世特技诡辩奇学增加门派贡献值 by 薪有所属
          if (who->query("special_skill/guibian"))
-         	gongxian = gongxian * 2;
+             gongxian = gongxian * 2;
 
         message("vision", sprintf(HIC "通过这次锻炼你获得了%s点经验，"
                                   "%s点潜能及%s点实战体会。\n同时还增"
@@ -1101,7 +1141,7 @@ int accept_object(object me, object who, object ob)
         who->add("gongxian", gongxian);
 
         // 随机停止发送任务，必须等完成一定数量的freequest才能继续。
-        if (random(100) == 1 && quest_count >= 30 && ! who->query_temp("wiz_test"))
+        if (random(100) == 1 && quest_count >= 50 && ! who->query_temp("wiz_test"))
                 who->add("quest/freequest", 1 + random(3));
 
         return 1;
@@ -1118,7 +1158,7 @@ int cancel_quest(object me, object who)
         int k;
 
         dbase = who->query_entire_dbase();
-              
+
         if (! mapp(q = dbase["quest"]) ||
             q["master_id"] != me->query("id"))
                 return notify_fail("我没给你什么任务啊？\n");
@@ -1142,13 +1182,13 @@ int cancel_quest(object me, object who)
                         {
                             message_vision(HIG "$N" HIG "对$n" HIG "道：看在你对师门忠心耿耿"
                                         "的份上，这次就不重罚了。\n" NOR, me, who);
-                        } else 
+                        } else
                         {
                             who->delete("quest_count");
                         }
                 }
 
-	            who->delete_temp("quest/next_level");
+                who->delete_temp("quest/next_level");
                 n = (40 + random(40) + NPC_D->check_level(who) * 5);
                 g = (10 + random(10) + NPC_D->check_level(who));
 
@@ -1192,7 +1232,7 @@ int cancel_quest(object me, object who)
         }
                 // notice place
                 message("vision", msg + "。\n" NOR, who);
-              
+
               break;
 
         case "letter":
@@ -1245,13 +1285,13 @@ int cancel_quest(object me, object who)
     任务对象的自动机器：
 
                                       消息收集完全
-            <原生态> -> 人物生成态 -----------+ 
+            <原生态> -> 人物生成态 -----------+
                            /                  |
                  <Timeout>/    <Timeout>      |
                    -------<---------------\   |
                  /                         \  v
             <结束态>   <--------------- 人物出现态
-                            杀死该人             
+                            杀死该人
 
 <原生态>和<结束态>是系统规定的状态，<Timeout> 是系统原先保留
 的事件。而人物生成态和人物出现态是该任务特有的状态，另外消息
@@ -1418,6 +1458,35 @@ public void remove_all_information(object qob)
         // 务本身，而一个提供消息的任务清除所有消息也具有相
         // 同的含义。
         map_delete(total, qob);
+}
+
+// 删除某一个任务
+public void remove_quest(string name)
+{
+        mapping total;
+        object *obs;
+        object qob;
+
+        if (! mapp(total = query("information")))
+                return;
+
+        obs = keys(total);
+        obs = filter_array(obs, (: objectp($1) :));
+
+        if (! sizeof(obs))
+                return;
+
+        qob = find_object(name);
+        if (! objectp(qob) || member_array(qob, obs) == -1)
+        {
+                obs = filter_array(obs, (: $1->name() == $(name) :));
+                if (! sizeof(obs))
+                        return;
+                qob = obs[0];
+        }
+
+        remove_all_information(qob);
+        return;
 }
 
 // QUEST系统重新启动的时候收集所有任务对象的消息

@@ -61,7 +61,17 @@ mapping *action = ({
         "damage": 130,
         "lvl"   : 180,
         "damage_type": "割伤"
-])
+]),
+([      "action": " "RED" 圣火令法之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
+        "attack" : (int)this_player()->query_skill("sword", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
+        "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
+        "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
+        "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
+        "lvl"    : 200,
+        "skill_name" : "极意",
+        "damage_type": "割伤"
+]),
 });
 
 int valid_enable(string usage) { return usage == "sword" || usage == "parry"; }
@@ -76,9 +86,6 @@ int valid_learn(object me)
 
         if ((int)me->query_skill("sword", 1) < 200)
                 return notify_fail("你的基本剑法火候不到，无法学习圣火令法。\n");
-
-        if (me->query("int") < 32)
-                return notify_fail("你先天悟性不足，无法领会圣火令法。\n");
 
         if (me->query("max_neili") < 2400)
                 return notify_fail("你的内功修为不足，无法学习圣火令法。\n");
@@ -144,12 +151,18 @@ int practice_skill(object me)
 // 对应perform canxue出现额外的攻击效应。
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-        if (me->query_temp("shenghuo-ling/max_hit"))
-        {
-                victim->receive_wound("qi", damage_bonus);
-                return HIR "只听“噗嗤”一声，一股鲜血至$n" HIR "胸前射出！"
-                       "\n" NOR;
-        }
+	int count = 0;
+	
+	count += random(me->query_skill("shenghuo-shengong", 1)/2);
+	count += damage_bonus;
+	
+	victim->receive_damage("qi", count);
+		
+    if (me->query_temp("shenghuo-ling/max_hit"))
+    {
+		victim->receive_wound("qi", damage_bonus);
+    }
+	return HIR "只听“噗嗤”一声，一股鲜血至$n" HIR "胸前射出！\n" NOR;
 }
 
 string perform_action_file(string action)

@@ -117,7 +117,8 @@ mapping *actionw = ({
         "damage_type":"刺伤"]),
 });
 
-string *usage_skills = ({"unarmed", "sword", "dodge", "parry", "force"});
+string *usage_skills = ({"unarmed", "sword", "dodge",
+                         "parry", "force"});
 
 int valid_enable(string usage)
 {
@@ -149,24 +150,29 @@ int valid_learn(object me)
     int i;
 
     if ((int)me->query("combat_exp") < 3000000)
-        return notify_fail("你觉得葵花魔功深奥之极，凭自己的战斗经验一时间难以领会。\n");
+        return notify_fail("你觉得葵花魔功深奥之极，"
+                           "凭自己的战斗经验一时间难以领会。\n");
 
     if ((int)me->query_skill("martial-cognize", 1) < 150)
-        return notify_fail("你觉得葵花魔功过于深奥之极，以自己的武学修养全然无法明白。\n");
+        return notify_fail("你觉得葵花魔功过于深奥之极，以"
+                           "自己的武学修养全然无法明白。\n");
 
     if (me->query("character") != "阴险奸诈" && me->query("character") != "心狠手辣" && me->query("character") != "国士无双")
-        return notify_fail("你看了葵花魔功这些阴险毒辣的武功，不由的心惊肉跳，难以领会。\n");
+        return notify_fail("你看了葵花魔功这些阴险毒辣的武功，不"
+                           "由的心惊肉跳，难以领会。\n");
 
     if (me->query("dex") < 38)
-        return notify_fail("你觉得自己的身法不够灵动，不可能掌握这么飘缈玄奇的葵花魔功。\n");
+        return notify_fail("你觉得自己的身法不够灵动，不可能掌握这么飘缈"
+                           "玄奇的葵花魔功。\n");
 
     if (me->query("int") < 34)
-        return notify_fail("你觉得自己的先天悟性不够，不可能领悟这么高深玄奇的葵花魔功。\n");
+        return notify_fail("你觉得自己的先天悟性不够，不可能领悟这么高深"
+                           "玄奇的葵花魔功。\n");
 
     level = me->query_skill("kuihua-mogong", 1);
 
-    // 武学修养超过500时，取消武学修养对葵花魔攻的限制 by MK
-    if ((int)me->query_skill("martial-cognize", 1) < level && (int)me->query_skill("martial-cognize", 1) < 500)
+    // 武学修养超过300时，取消武学修养对葵花魔攻的限制 by MK
+    if ((int)me->query_skill("martial-cognize", 1) < level && (int)me->query_skill("martial-cognize", 1) < 300)
         return notify_fail("你觉得自己的武学修养有限，难以领会更高深的葵花魔功。\n");
 
     for (i = 0; i < sizeof(usage_skills); i++)
@@ -184,7 +190,7 @@ int practice_skill(object me)
 /*
 int difficult_level()
 {
-    return 1400;
+        return 1400;
 }
 */
 
@@ -309,7 +315,7 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
     if (attack_time > 9)
         attack_time = 9;
 
-    if (me->is_busy() || random(2) == 0 || !living(victim) || damage_bonus < 120 || me->query("neili") < 300 || me->query_temp("action_flag") == 0 || me->query_skill("kuihua-mogong", 1) < 200)
+    if (me->is_busy() || random(2) == 0 || !living(victim) || damage_bonus < 120 || me->query("neili") < 300 || me->query_temp("action_flag") || me->query_skill("kuihua-mogong", 1) < 200)
         return 0;
 
     // 避免在使用Pfm时讯息重复

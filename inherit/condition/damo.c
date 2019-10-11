@@ -25,7 +25,7 @@ mapping mixed_poison(mapping p1, mapping p2)
                 p["name"]   = p1["name"];
                 p["remain"] = r;
                 return p;
-        }
+        }        
 
         if (! p1)
         {
@@ -62,7 +62,7 @@ mapping mixed_poison(mapping p1, mapping p2)
 int do_effect(object ob, string cnd, mapping p)
 {
         mapping cnd_info;
-        // int d;
+//      int d;
 
         if (! p || ! intp(p["level"]) || ! intp(p["duration"]) ||
             ! stringp(p["id"]))
@@ -126,8 +126,8 @@ int dispel(object me, object ob, mapping cnd)
         }
 
         // 去异常能力
-        power = me->query_skill("force") +
-				me->query_skill("poison") / 2 +
+        power = me->query_skill("force") + 
+				me->query_skill("poison") / 2 + 
 				me->query_skill("medical") / 4;
         if (me == ob)
         {

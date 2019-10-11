@@ -1,4 +1,4 @@
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit KNOWER;
 inherit F_DEALER;
@@ -20,7 +20,7 @@ void create()
                 "结婚" : "结婚？你有几万两黄金？筹够了来找我吧。\n",
                 "生意" : "这个么……还将就。\n",
         ]));
-
+        
         set("vendor_goods", ({
                 "/d/city/npc/obj/peanut",
                 "/d/city/npc/obj/tofu",
@@ -33,7 +33,7 @@ void create()
 void init()
 {
         object ob;
-
+        
         ::init();
         if (interactive(ob = this_player()) && ! is_fighting())
         {
@@ -61,3 +61,4 @@ void greeting(object ob)
                 break;
         }
 }
+

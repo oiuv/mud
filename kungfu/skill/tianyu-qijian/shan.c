@@ -8,7 +8,7 @@ inherit F_SSERVER;
 int perform(object me, object target)
 {
 	object weapon;
-  int ap, dp;
+        int ap, dp/*, damage*/;
 	string msg;
 
         if (userp(me) && ! me->query("can_perform/tianyu-qijian/shan"))
@@ -34,7 +34,7 @@ int perform(object me, object target)
 
 	if ((int)me->query("neili") < 100)
 		return notify_fail("你现在的真气不足，难以施展" SHAN "。\n");
-
+			
         if (me->query_skill_mapped("sword") != "tianyu-qijian")
                 return notify_fail("你没有激发天羽奇剑，难以施展" SHAN "。\n");
 

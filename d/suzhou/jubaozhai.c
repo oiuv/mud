@@ -11,6 +11,8 @@ void create()
 都有分店。它发行的银票信誉非常好，通行全国。
     在对面的墙上挂了块牌子(paizi)。
 LONG );
+//	set("outdoors", "suzhou");
+	set("no_clean_up", 0);
 	set("item_desc", ([
 		"paizi" : @TEXT
      本钱庄提供以下服务：
@@ -32,3 +34,4 @@ TEXT
 	setup();
 	replace_program(ROOM);
 }
+

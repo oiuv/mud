@@ -47,7 +47,7 @@ void greeting(object me)
        command("kick " + me->query("id"));
        message("vision", me->name() +"被老鸨婆一脚踢出门外。\n",
                 environment(me), ({me}));
-       me->move("/d/beijing/wang_8");
+       //me->move("/d/beijing/wang_8");
        message("vision", me->name() +"被人从怡红院里踢了出来，栽倒在地上，磕掉两颗门牙。\n", 
                 environment(me), ({me}));
 

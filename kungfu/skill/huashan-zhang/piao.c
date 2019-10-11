@@ -8,7 +8,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	// object weapon;
+//	object weapon;
 	string msg;
 
 	if (! target) target = offensive_target(me);
@@ -21,7 +21,7 @@ int perform(object me, object target)
 
 	if (target->is_busy())
 		return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧！\n");
-
+		
 	if ((int)me->query_skill("huashan-zhang", 1) < 30)
 		return notify_fail("你的华山掌法不够娴熟，不会使用" FEI  "。\n");
 
@@ -35,7 +35,7 @@ int perform(object me, object target)
                return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         msg = HIM "\n猛然间$N" HIM "双掌不断拍向$n" HIM "出，风声呼呼，攻到途中忽又左"
-              "手虚出右手作势欲发，虚虚实实，飘渺不定，正是华山绝招「" HIG  "飞絮飘渺" HIM
+              "手虚出右手作势欲发，虚虚实实，飘渺不定，正是华山绝招「" HIG  "飞絮飘渺" HIM 
               "」。 顷刻剑$n" HIM "已被$N" HIM "掌风笼罩。\n" NOR;
 
         me->add("neili", -30);

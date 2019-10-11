@@ -10,8 +10,8 @@ int perform(object me, object target)
 {
         string msg;
         int ap, dp;
-        int count;
-        int i;
+        int lvl, count;
+        int i, n;
  
         if (userp(me) && ! me->query("can_perform/sad-strike/xiao"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -48,7 +48,12 @@ int perform(object me, object target)
 
         ap = me->query_skill("unarmed") + me->query_skill("force");
         dp = target->query_skill("parry") + target->queru_skill("force");
-
+		lvl = me->query_skill("sad-strike", 1);
+		n = 6;
+		
+		if (lvl > 600) 
+			n += (int)(lvl - 400) / 200;
+		
         if (ap / 2 + random(ap) > dp)
         {
                 count = ap / 10;
@@ -64,8 +69,8 @@ int perform(object me, object target)
         message_sort(msg, me, target);
         me->add_temp("apply/attack", count);
 
-        me->add("neili", -400);
-        for (i = 0; i < 6; i++)
+        me->add("neili", -70 * n);
+        for (i = 0; i < n; i++)
         {
                 if (! me->is_fighting(target))
                         break;
@@ -75,7 +80,7 @@ int perform(object me, object target)
                 COMBAT_D->do_attack(me, target, 0, 0);
         }
 
-        me->start_busy(2 + random(5));
+        me->start_busy(2 + random(4));
         me->add_temp("apply/attack", -count);
 
         return 1;

@@ -1,7 +1,7 @@
 // chi.c
 inherit NPC;
 inherit F_MASTER;
-#include <ansi.h>
+#include <ansi.h>;
 void create()
 {
         set_name("³Ù°Ù³Ç", ({ "chi baicheng", "baicheng", "chi" }) );
@@ -40,3 +40,4 @@ void create()
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/misc/cloth")->wear();
 }
+

@@ -44,10 +44,12 @@ int perform(object me, object target)
               "手一振，霎时棒影窜动，疾刺$n" HIG "胸前要穴。\n" NOR;
 
         ap = me->query_skill("staff") +
-             me->query_skill("martial-cognize",1);
+             me->query_skill("martial-cognize", 1) +
+			 me->query("str") * 8;
 
         dp = target->query_skill("dodge") +
-             target->query_skill("martial-cognize",1);
+             target->query_skill("martial-cognize", 1) +
+			 target->query("dex") * 8;
 
         if (ap / 2 + random(ap) > dp)
         {

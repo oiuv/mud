@@ -318,8 +318,8 @@ private int work_step_6(object me, object ob)
 int do_help(string arg)
 {
 	object me;
-        object ob;
-
+    object ob;
+	
 	me = this_player();
 	if (me->query_temp("item/status") != "waiting")
 	{
@@ -361,7 +361,7 @@ int do_help(string arg)
                        "一道" HIW "白光" HIR "直冲霄汉。\n\n" NOR, me);
 
         ob = query_temp("item/making");
-        ob->add("item/point", ob->query("item/point") * me->query_skill("force") / 500);
+		ob->add("item/point", ob->query("item/point") * me->query_skill("force") / 800);//500->800
 	me->delete_temp("item/can_help");
 	me->add("max_neili", -200);
 	me->add("neili", -200);

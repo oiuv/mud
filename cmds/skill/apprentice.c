@@ -71,7 +71,8 @@ int main(object me, string arg)
 
         // betrayer ?
         if (mapp(family) && family["family_name"] != ob_family["family_name"] &&
-            me->query_temp("pending/betrayer") != ob)
+            me->query_temp("pending/betrayer") != ob &&
+			family["family_name"] != "无门无派")
         {
                 write(HIR "你这是打算判师吗？判师很可能遭到严厉惩罚。\n" NOR +
                       HIC "如果你下了决心，就再输入一次这条命令。\n" NOR);

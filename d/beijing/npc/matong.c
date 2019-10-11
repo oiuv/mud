@@ -35,16 +35,16 @@ void create()
         set_temp("apply/defense", 40);
         set_temp("apply/armor", 30);
         set("chat_chance",2);
-
-        //todo 防止马匹过多，可以考虑领马哨加一个cd限制。
+        /*
+        //防止马匹过多，取消马哨。以后可以考虑领马哨加一个cd限制。
         set("inquiry", ([
                 "马哨" : (: give_mashao :),
         ]));
-
+        */
         setup();
         carry_object("/clone/misc/cloth")->wear();
 }
-
+   
 void init()
 {
         object ob;
@@ -83,7 +83,7 @@ int accept_object(object who, object ob)
                                who);
                 return 0;
         }
-        else
+        else  
                 message_vision(CYN "马童皱眉道：“这东西还是你自个儿留着吧。"
                                "”\n" NOR, who);
         return 1;

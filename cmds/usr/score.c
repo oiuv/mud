@@ -321,7 +321,7 @@ int main(object me, string arg)
 
                 line += HIY "                 转世重生：   " NOR;
                 if (my["reborn"])
-                        line += HIC "○" NOR;
+                        line += HIC + ob->query("reborn/count") + NOR;
                 else
                         line += HIR "×" NOR;
 

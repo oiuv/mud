@@ -63,7 +63,7 @@ int perform(object me, object target)
         if (ap / 2 + random(ap) > dp)
         { 
                 damage = ap + random(ap / 2);
-                me->add("neili", -300);
+                me->add("neili", -150);
 
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 60,
                                           (: final1, me, target, lvl :));
@@ -71,7 +71,7 @@ int perform(object me, object target)
         } else
         {
                 msg += HIY "$n" HIY "看见$N" HIY "来势汹涌，急忙提气跃开。\n" NOR;
-                me->add("neili", -180);
+                me->add("neili", -75);
         }
         message_sort(msg, me, target);
          
@@ -80,7 +80,7 @@ int perform(object me, object target)
         if (ap / 2 + random(ap) > dp)
         { 
                 damage = ap + random(ap / 2);
-                me->add("neili", -400);
+                me->add("neili", -200);
 
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 70,
                                           (: final2, me, target, lvl :));
@@ -88,7 +88,7 @@ int perform(object me, object target)
         } else
         {
                 msg += HIY "$n" HIY "看见$N" HIY "来势汹涌，急忙提气跃开。\n" NOR;
-                me->add("neili", -180);
+                me->add("neili", -100);
         }
         message_sort(msg, me, target);
 

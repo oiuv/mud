@@ -46,7 +46,7 @@ int perform(object me, object target)
         lvl = me->query_skill("yinfeng-dao", 1);
 
         ap = me->query_skill("strike") + me->query_skill("force");
-        dp = target->query_skill("parry") + me->query_skill("dodge");
+        dp = target->query_skill("parry") + target->query_skill("dodge");
 
         if (ap / 2 + random(ap) > dp)
         {

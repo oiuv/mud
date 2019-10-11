@@ -208,10 +208,16 @@ mapping query_sub_skills()
 string *usage_mapped_skills = ({"unarmed", "dodge", "parry", "force"});
 string *usage_skills = ({"unarmed", "strike", "claw", "hand", "cuff", "dodge", "whip", "parry", "force"});
 string *usage_skills2 = ({"unarmed", "dodge", "force"});
+string *usage_skills3 = ({"force"});
 
 int valid_enable(string usage)
 {
-    return (member_array(usage, usage_skills) != -1);
+    object me = this_player();
+
+    if (!me->query("reborn"))
+        return (member_array(usage, usage_skills3) != -1);
+    else
+        return (member_array(usage, usage_skills) != -1);
 }
 
 int valid_force(string force) { return 1; }

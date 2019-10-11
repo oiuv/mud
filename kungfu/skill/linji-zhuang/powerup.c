@@ -8,7 +8,7 @@ void remove_effect(object me, int amount, int di);
 
 int exert(object me, object target)
 {
-        int skill;
+        int skill, skill2;
         int di;
         object weapon;
 
@@ -21,13 +21,15 @@ int exert(object me, object target)
         if ((int)me->query_temp("powerup"))
                 return notify_fail("你已经在运功中了。\n");
 
-        skill = me->query_skill("force");
+        skill = me->query_skill("linji-zhuang", 1);
+		skill2 = me->query_skill("mahayana", 1);
 
         me->add("neili", -100);
         me->receive_damage("qi", 0);
 
         if (me->query("sex")) di = 0; else di = skill / 2;
         if (di > 100) di = 100;
+		di += skill2 / 10;
 
         message_combatd(MAG "$N" MAG "微一凝神，运起临济庄，一声娇喝，"
                         "四周的空气仿佛都凝固了！\n" NOR, me);
@@ -53,7 +55,7 @@ int exert(object me, object target)
         me->set_temp("powerup", 1);
         me->start_call_out((: call_other,__FILE__, "remove_effect", me, skill / 3, di :), skill);
 
-        if (me->is_fighting()) me->start_busy(3);
+        if (me->is_fighting()) me->start_busy(1 + random(3));
 
         return 1;
 }

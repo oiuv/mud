@@ -8,7 +8,7 @@ inherit F_SSERVER;
 int perform(object me, object target)
 {
 	object weapon;
-  int ap, dp;
+        int ap, dp/*, damage*/;
 	string msg;
 
         if (userp(me) && ! me->query("can_perform/luoying-shenjian/sui"))

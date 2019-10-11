@@ -1,5 +1,5 @@
 // Room: /d/xiakedao/road7.c
-
+  
 #include <ansi.h>
 
 inherit ROOM;
@@ -17,7 +17,7 @@ LONG );
                 "southup"   : __DIR__"road8",
                 "northdown" : __DIR__"road6",
         ]));
-
+        set("outdoors", "xiakedao");
         setup();
         replace_program(ROOM);
 }

@@ -1,4 +1,6 @@
 // updateall.c
+// by Doing
+
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
@@ -183,7 +185,7 @@ int update_file(object me, string file)
 
 int help(object me)
 {
-  write(@HELP
+    write(@HELP
 指令格式 : updateall <路径名> [1]
 
 这个指令可以更新某个路径下的全部档案, 并将新档的内容载入记

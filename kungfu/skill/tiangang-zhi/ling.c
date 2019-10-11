@@ -21,7 +21,7 @@ int perform(object me, object target)
 	if ((int)me->query_skill("force") < 150)
 		return notify_fail("你内功火候不够，难以施展" LING "。\n");
 
-	if ((int)me->query_skill("tiangang-zhi") < 100)
+	if ((int)me->query_skill("tiangang-zhi", 1) < 100)
 		return notify_fail("你的天罡指穴法修为不够，难以施展" LING "。\n");
 
 	if ((int)me->query("neili") < 100)

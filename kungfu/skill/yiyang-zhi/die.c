@@ -16,6 +16,12 @@ int perform(object me, object target)
         string msg, wp;
         object weapon;
         int ap, dp;
+		
+		float improve;
+		int lvl, m, n;
+		string martial;
+		string *ks;
+		martial = "finger";
 
         if (userp(me) && ! me->query("can_perform/yiyang-zhi/die"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -52,13 +58,32 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-        damage = (int)me->query_skill("finger");
-        damage += random(damage);
+        lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+		lvl = lvl * 4 / 5;
+		ks = keys(me->query_skills(martial));
+		improve = 0;
+		n = 0;
+		//最多给予5个技能的加成
+		for (m = 0; m < sizeof(ks); m++)
+		{
+			if (SKILL_D(ks[m])->valid_enable(martial))
+			{
+				n += 1;
+				improve += (int)me->query_skill(ks[m], 1);
+				if (n > 4 )
+					break;
+			}
+		}
+		
+		improve = improve * 5 / 100 / lvl;
 
         ap = me->query_skill("finger");
         dp = target->query_skill("parry");
-
-        msg = HIW "突然间";
+		
+		ap += ap * improve;
+		damage = ap + random(ap);
+		
+		msg = HIW "突然间";
 
         if (objectp(weapon = target->query_temp("weapon")))
         {
@@ -69,19 +94,20 @@ int perform(object me, object target)
 
                 ap = me->query_skill("finger");
                 dp = target->query_skill("force");
+				ap += ap * improve;
 
                 if (ap / 3 + random(ap) > dp)
                 {
                         msg += HIR "霎时间$n" HIR "只觉得手腕一麻，手中" + wp +
                                HIR "再也拿持不住，脱手掉在地上。\n\n" HIW "紧"
                                "接着";
-                        me->add("neili", -150);
+                        me->add("neili", -80);
                         weapon->move(environment(target));
                 } else
                 {
                         msg += CYN "可是$n" CYN "将手中" + wp + NOR + CYN "转"
                                "动如轮，终于化解了这一招。\n\n" HIW "紧接着";
-                        me->add("neili", -100);
+                        me->add("neili", -50);
                 }
         }
 
@@ -104,6 +130,7 @@ int perform(object me, object target)
 
         ap = me->query_skill("finger");
         dp = target->query_skill("dodge");
+		ap += ap * improve;
 
         msg += "\n" HIW "接着$N" HIW "踏前一步，体内真气迸发，隔空一指劲点$n" HIW
                "而去，指气纵横，嗤然作响！\n" NOR;
@@ -124,6 +151,7 @@ int perform(object me, object target)
 
         ap = me->query_skill("finger");
         dp = target->query_skill("force");
+		ap += ap * improve;
 
         msg += "\n" HIW "最后$N" HIW "一声猛喝，单指“嗤”的一声点出，纯阳指力同"
                "时笼罩$n" HIW "全身诸多要穴！\n" NOR;
@@ -151,8 +179,8 @@ int perform(object me, object target)
         }
         //me->start_busy(4 + random(4));
         me->start_busy(3 + random(3));
-        me->add("neili", -800);
-	target->delete_temp("yiyang-zhi/die");
+        me->add("neili", -400);
+		target->delete_temp("yiyang-zhi/die");
         message_combatd(msg, me, target);
 
         if (! target->query("neili"))

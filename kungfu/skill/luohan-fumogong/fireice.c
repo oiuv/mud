@@ -38,13 +38,13 @@ int exert(object me, object target)
                         HIR "火" HIW "九重天" HIC "」真气，聚力"
                         "于掌间，光华流动，煞为壮观。\n" NOR, me);
 
-        me->add_temp("apply/unarmed_damage", skill / 4);
-        me->add_temp("apply/damage", skill / 4);
-        me->add_temp("apply/armor", skill / 2);
+        me->add_temp("apply/unarmed_damage", skill / 5);
+        me->add_temp("apply/damage", skill / 5);
+        me->add_temp("apply/armor", skill * 2 / 5);
         me->set_temp("fireice", 1);
 
         me->start_call_out((: call_other, __FILE__, "remove_effect",
-                              me, skill / 4 :), skill);
+                              me, skill / 5 :), skill);
 
         if (me->is_fighting())
                 me->start_busy(3);

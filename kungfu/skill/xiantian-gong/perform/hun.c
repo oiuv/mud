@@ -7,7 +7,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        // object weapon;
+//      object weapon;
         int ap, dp;
         int i, count;
         string msg;
@@ -47,8 +47,8 @@ int perform(object me, object target)
         msg = HIW "\n$N" HIW "施出天地混元，全身真气急速运转，引得周围气流波"
               "动不已，层层叠叠涌向$n" HIW "！\n" NOR;
 
-        ap = me->query_skill("unarmed") + me->query("con") * 10;
-        dp = target->query_skill("parry") + target->query("dex") * 10;
+        ap = me->query_skill("unarmed") + me->query("con") * 20;
+        dp = target->query_skill("parry") + target->query("dex") * 20;
 
         if (ap / 2 + random(ap) > dp)
         {
@@ -64,6 +64,7 @@ int perform(object me, object target)
 
         message_vision(msg, me, target);
         me->add_temp("apply/attack", count);
+        me->add_temp("apply/unarmed_damage", count / 2);
 
         me->add("neili", -280);
 
@@ -79,6 +80,7 @@ int perform(object me, object target)
 
         me->start_busy(1 + random(5));
         me->add_temp("apply/attack", -count);
+        me->add_temp("apply/unarmed_damage", -count / 2);
 
         return 1;
 }

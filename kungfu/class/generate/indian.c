@@ -107,8 +107,6 @@ void competition_with(object ob)
 void lost()
 {
         string *ob_list = ({
-                "/clone/fam/pill/puti4",
-                "/clone/fam/pill/sheli4",
                 "/clone/fam/gift/str2",
                 "/clone/fam/gift/int2",
                 "/clone/fam/gift/con2",

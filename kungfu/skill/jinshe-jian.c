@@ -84,6 +84,15 @@ mapping *action = ({
 	"damage": 200,
 	"damage_type": "刺伤"
 ]),
+([      "action": " "RED" 金蛇剑之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
+        "attack" : (int)this_player()->query_skill("sword", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
+        "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
+        "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
+        "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
+        //"lvl"    : 300,
+        "damage_type": "刺伤"
+]),
 });
 
 string query_skill_name(int level)
@@ -168,6 +177,45 @@ mixed hit_ob(object me, object victim, int damage_bonus)
        }
 }
 */
+//金蛇剑增加特效金蛇锥
+
+mixed hit_ob(object me, object victim)
+{
+        int lvl, lvl2;
+        object weapon, anqi;
+        
+        lvl = me->query_skill("jinshe-jian", 1);
+		lvl2 = me->query_skill("jinshe-zhui", 1);
+		anqi = me->query_temp("handing");
+
+        if (me->query("neili") < 300
+           || me->query_skill_mapped("sword") != "jinshe-jian"
+           ||! objectp(weapon = me->query_temp("weapon"))
+           || weapon->query("skill_type") != "sword")
+                return 0;
+					 
+		if (! objectp(anqi)
+			|| (string)anqi->query("skill_type") != "throwing"
+			|| lvl2 < 100)
+				return 0;
+
+        me->add("neili", -50);
+
+        if (random(10) == 1)
+        {
+                 message_sort(HIW "\n$N" HIW "剑锋一转，手中" + weapon->name() + HIW
+                              "犹如灵蛇般地舞动着，竟将$n" HIW "周身缠绕。\n" NOR); 
+                 me->start_busy(1);
+                 victim->start_busy(1 + random(lvl2 / 50));
+        } else
+		if (random(6) == 1)
+		{
+				victim->receive_wound("qi", (lvl2 - 80) / 2, me);
+				return HIR "只见" + victim->name() +
+                       HIR "脸色一变，皱了一下眉头！\n" NOR;
+		}
+}
+
 int valid_learn(object me)
 {
 
@@ -191,7 +239,7 @@ int valid_learn(object me)
 
 	if ((int)me->query_skill("martial-cognize", 1) < 220)
 		return notify_fail("你的武学修养不足，没有办法领悟金蛇剑法。\n");
-
+/*
         if (me->query("character") == "心狠手辣")
                 return notify_fail("你一心想杀尽敌人，没能理解金蛇剑法。\n");
 
@@ -200,7 +248,7 @@ int valid_learn(object me)
 
         if (me->query("character") == "光明磊落")
                 return notify_fail("你心中暗道：什么金蛇剑法，乱七八糟的，没有半点气势。\n");
-
+*/
 	if ((int)me->query_skill("sword", 1) < (int)me->query_skill("jinshe-jian", 1))
 		return notify_fail("你的基本剑法水平有限，无法领会更高深的金蛇剑法。\n");
 

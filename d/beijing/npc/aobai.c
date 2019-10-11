@@ -21,24 +21,24 @@ void create()
 	set("dex", 25);
 	set("max_qi", 1500);
 	set("max_jing", 1500);
-	set("neili", 2500);
-	set("max_neili", 2500);
+	set("neili", 1500);
+	set("max_neili", 1500);
 	set("jiali", 100);
-	set("combat_exp", 250000);
+	set("combat_exp", 150000);
 	set("score", 50000);
 
-	set_skill("unarmed", 150);
-	set_skill("dodge", 150);
-	set_skill("parry", 150);
+	set_skill("unarmed", 120);
+	set_skill("dodge", 120);
+	set_skill("parry", 120);
 	set_skill("sword", 120);
-	set_skill("force", 150);
-	set_skill("changquan", 150);
-	set_skill("feiyan-zoubi", 150);
+	set_skill("force", 120);
+	set_skill("huashan-jian", 120);
+	set_skill("shaolin-shenfa", 120);
 	set_skill("literate", 100);
 
-	map_skill("dodge", "feiyan-zoubi");
-	map_skill("parry", "changquan");
-	map_skill("unarmed", "changquan");
+	map_skill("dodge", "shaolin-shenfa");
+	map_skill("parry", "huashan-jian");
+	map_skill("sword", "huashan-jian");
 
 	setup();
         carry_object(__DIR__"obj/goldcloth1")->wear();

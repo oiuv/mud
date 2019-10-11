@@ -1,5 +1,5 @@
 // huoyan-dao.c 火焰刀
-
+#include <ansi.h>
 inherit SKILL;
 
 mapping *action = ({
@@ -83,6 +83,16 @@ mapping *action = ({
         "damage": 109,
         "damage_type" : "瘀伤",
 ]),
+([      "action": " "RED" 火焰刀之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force", 1)/3 + random((int)this_player()->query_skill("force")),
+        "attack" : (int)this_player()->query_skill("strike", 1)/4 + random((int)this_player()->query_skill("strike", 1)/2),
+        "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
+        "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
+        "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("strike", 1)/2),
+        "lvl"    : 200,
+        "skill_name" : "极意",
+        "damage_type": "内伤"
+]),
 });
 
 
@@ -96,17 +106,26 @@ int valid_combine(string combo)
 
 int valid_learn(object me)
 {
+	int skill;
+	skill = me->query_skill("huoyan-dao", 1);
+	
 	if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
 		return notify_fail("练火焰刀必须空手。\n");
 
+	if ((int)me->query("con") < 32)
+        return notify_fail("你的先天根骨孱弱，难以修炼火焰刀。\n");
+	
+	if ((int)me->query("shen") > - skill * 1000)
+		return notify_fail("你的杀气不够，难以领悟更高深的火焰刀。\n");
+	
 	if ((int)me->query("max_neili") < 1200)
 		return notify_fail("你的内力不够。\n");
 
 	if ((int)me->query_skill("force") < 150)
 		return notify_fail("你的内功火候太浅。\n");
 
-        if (me->query_skill("strike", 1) < me->query_skill("huoyan-dao", 1))
-                return notify_fail("你的基本掌法火候有限，无法领会更高深的火焰刀法。\n");
+    if (me->query_skill("strike", 1) < me->query_skill("huoyan-dao", 1))
+        return notify_fail("你的基本掌法火候有限，无法领会更高深的火焰刀法。\n");
 
 	return 1;
 }
@@ -130,7 +149,9 @@ mapping query_action(object me, object weapon)
 
 int practice_skill(object me)
 {
-	// object weapon;
+//	object weapon;
+	int cost;
+	cost = me->query_skill("huoyan-dao", 1) / 5 + 60;
 
 	if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
 		return notify_fail("练火焰刀必须空手。\n");
@@ -142,8 +163,46 @@ int practice_skill(object me)
 		return notify_fail("你的内力不够，练不了火焰刀。\n");
 
 	me->receive_damage("qi", 55);
-        me->add("neili", -62);
+    me->add("neili", -cost);
 	return 1;
+}
+
+mixed hit_ob(object me, object victim, int damage_bonus)
+{
+        int lvl, lvl2, damage;
+		//object cloth;
+		//string msg;
+
+        lvl = me->query_skill("huoyan-dao", 1);
+		lvl2 = victim->query_skill("force") / 2;
+
+        if (damage_bonus < 150 || lvl < 150) return 0;
+
+        if (lvl + damage_bonus / 10 > lvl2 + victim->query_con())
+        {
+				/*if (objectp(cloth = victim->query_temp("armor/cloth"))
+					&& cloth->query("consistence") > 0)
+					{
+						cloth->add("consistence", -10);
+						msg = HIR "只见$n身上的" + cloth->name() + "突然烧了起来。\n" NOR;
+						message_combatd(msg, me, victim);
+					}
+						
+				if (cloth->query("consistence") < 0)
+					cloth->set("consistence", 0);
+				*/
+				if (me->query("shen") < - lvl * lvl * lvl)
+					damage = damage_bonus + random(lvl);
+				else
+					damage = damage_bonus;
+                victim->receive_wound("qi", (damage - 80) / 3, me);
+
+                return random(2) ? HIR "只听$n" HIR "前胸「咔嚓」一声脆响，竟像是"
+                                   "肋骨断折的声音。\n" NOR:
+
+                                   HIR "$n" HIR "一声惨叫，胸前「咔嚓咔嚓」几声脆"
+                                   "响，口中鲜血狂喷。\n" NOR;
+        }
 }
 
 string perform_action_file(string action)

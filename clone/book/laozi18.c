@@ -24,10 +24,9 @@ void create()
 		set("skill", ([
 			"name":	"taoism",	// name of the skill
 			"exp_required":	 0,	// minimum combat experience required
-			"jing_cost":	15, 	// jing cost every time study this
+			"jing_cost":	10, 	// jing cost every time study this
 			"difficulty":	15,	// the base int to learn this skill
-			"max_skill":	59,	// the maximum level you can learn
-			"min_skill" : 50,
+			"max_skill":	29,	// the maximum level you can learn
 		]) );
 	}
 }

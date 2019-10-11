@@ -6,11 +6,11 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-        int skill_lvl;
+        int skill_lvl, sk_lvl;
         int jingcost;
         string skill;
         string name;
-        int lost;
+        int lost, lost_max;
 
         if(! arg || arg == "" || sscanf(arg, "%s", skill) != 1)
                 return notify_fail("你要放弃经验还是某一项技能？\n");
@@ -28,6 +28,8 @@ int main(object me, string arg)
         if (skill == "exp")
         {
                 lost = me->query("combat_exp");
+				sk_lvl = to_int(pow(to_float(lost*10), 1.0 / 3));
+				lost_max = lost - sk_lvl*sk_lvl*sk_lvl/10;
                 if (lost < 1000)
                         return notify_fail("你发现自己现在对武学简直就是一无所知。\n");
 
@@ -42,6 +44,8 @@ int main(object me, string arg)
                 }
 
                 lost = random(lost / 100) + 1;
+				if (lost > lost_max)
+					lost = lost_max;
                 me->add("combat_exp", -lost);
                 switch (random(6))
                 {
@@ -74,20 +78,16 @@ int main(object me, string arg)
                 UPDATE_D->check_user(me);
                 return 1;
         }
-
+        /*
         if (skill == "zhengqi-jue")
         {
-                return notify_fail("你发现自己似乎记性太好，没有半点效果。\n");
-        }
-        if (skill == "tianmo-jue")
-        {
-                return notify_fail("你发现自己似乎记性太好，没有半点效果。\n");
+                return notify_fail("侠义之辈不可失去本心，你忘不掉这项技能。\n");
         }
         if (skill == "yangyan-shu")
         {
-                return notify_fail("你发现自己似乎记性太好，没有半点效果。\n");
+                return notify_fail("想想放弃养颜后自己就没现在好看，你感觉整个人都不好了。\n");
         }
-
+        */
         name = to_chinese(skill);
         if (name[0] < 160) name = "这项技能";
         skill_lvl = (int)me->query_skill(skill, 1);
@@ -95,6 +95,8 @@ int main(object me, string arg)
         {
                 me->delete_skill(skill);
                 write("好了。\n");
+                // 曾经学过读书写字
+                if (skill == "literate") me->set("learned_literate", 1);
                 return 1;
         }
 
@@ -113,6 +115,8 @@ int main(object me, string arg)
         {
                 me->set_skill(skill, skill_lvl);
                 write("你集中精力不再想" + name + "，结果有所效果。\n");
+                // 曾经学过读书写字
+                if (skill == "literate") me->set("learned_literate", 1);
         }
         return 1;
 }
@@ -131,3 +135,4 @@ int help()
 TEXT );
     return 1;
 }
+

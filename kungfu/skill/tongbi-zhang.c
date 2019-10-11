@@ -109,7 +109,7 @@ mapping query_action(object me, object weapon)
 
 int practice_skill(object me)
 {
-        // object weapon;
+//      object weapon;
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail("练通臂六合掌必须空手。\n");

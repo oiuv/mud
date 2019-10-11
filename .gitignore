@@ -1,7 +1,8 @@
-.vscode
-.DS_Store
-.ini
+/bin
+/temp
+/tmp
+/version
 *.log
-*dump
+*DUMP
+desktop.ini
 swapfile*
-version

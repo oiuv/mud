@@ -1,16 +1,16 @@
-#include <ansi.h>
+#include <ansi.h>;
 inherit ITEM;
 
 void create()
 {
-    set_name(YEL "冬不拉" NOR, ({ "dongbula" , "dong", "bula" }));
-    if (clonep())
-            set_default_object(__FILE__);
-    else {
-        set("unit", "把");
-        set("long", YEL "这是一把维吾尔族的弦乐器冬不拉。你可以演奏(play)它。\n" NOR);
-        set("value", 1000);
-    }
+        set_name(YEL "冬不拉" NOR, ({ "dongbula" , "dong", "bula" }));
+        if (clonep())
+                set_default_object(__FILE__);
+        else {
+                set("unit", "把");
+                set("long", YEL "这是一把维吾尔族的弦乐器冬不拉。你可以演奏(play)它。\n" NOR);
+                set("value", 1000);
+        }
 }
 
 void init()
@@ -54,3 +54,4 @@ int do_play(string arg)
         }
         return 1;
 }
+

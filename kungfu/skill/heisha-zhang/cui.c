@@ -46,8 +46,8 @@ int perform(object me, object target)
 
         lvl = me->query_skill("heisha-zhang", 1);
 
-        ap = me->query_skill("strike");
-        dp = target->query_skill("force");
+        ap = me->query_skill("strike") + me->query("con") * 10;
+        dp = target->query_skill("force") + target->query("dex") * 8;
 
         me->start_busy(3);
         if (ap / 2 + random(ap) > dp)

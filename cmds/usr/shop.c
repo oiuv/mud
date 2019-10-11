@@ -2,7 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-#include <ansi.h>
+#include <ansi.h>;
 
 int help(object me);
 
@@ -47,7 +47,7 @@ int main(object me, string arg)
                 }
                 else return help(me);
         }
-
+        
         return 1;
 }
 
@@ -68,3 +68,5 @@ int help (object me)
 HELP);
         return 1;
 }
+
+

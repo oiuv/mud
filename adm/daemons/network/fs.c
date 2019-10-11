@@ -38,7 +38,7 @@ create()
 void
 remote_finger(object source, string user, string mud)
 {
-  //mapping minfo;
+//mapping minfo;
   int msvc;
 
   if(!DNS_MASTER->query_mud_info(mud))

@@ -153,7 +153,7 @@ varargs void check_for_mail( string mudname, int flag )
  
 // If we are here, then we are receiving mail from a mud.
 void incoming_request( mapping info ) {
-  //string        field;
+//string        field;
   
   if( !info["NAME"] || !info["PORTUDP"] ) return;
  

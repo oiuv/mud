@@ -45,11 +45,12 @@ int perform(object me, object target)
               HIG "×ó·âÓÒ±Æ£¬»º»º³¯$n" HIG "ÌôÈ¥¡£\n" NOR;
 
         ap = me->query_skill("staff") +
-             me->query_skill("martial-cognize",1) / 2 +
-             me->query("int") * 10;
+             me->query_skill("martial-cognize",1) +
+			 me->query("family/beggarlvl") * 10 +
+			 me->query("int") * 10;
 
         dp = target->query_skill("dodge") +
-             target->query_skill("martial-cognize",1) / 2 +
+             target->query_skill("martial-cognize",1) +
              target->query("dex") * 10;
 
         if (me->query("max_neili") > target->query("max_neili") * 2)
@@ -69,18 +70,18 @@ int perform(object me, object target)
         } else
         if (ap / 2 + random(ap) > dp)
         {
-                damage = ap / 2 + random(ap);
+                damage = ap + random(ap);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 70,
                                            HIR "Ö»Ìı$n" HIR "Ğ¡ÍÈ´¦¡¸àÍàÍ¡¹Á½Éù´à"
                                            "Ïì£¬¾¹±»$N" HIR "µÄ" + weapon->name() +
                                            HIR "¹á³öÁ½¸öÑª¶´¡£\n" NOR);
-                me->start_busy(3);
+                me->start_busy(1 + random(3));
                 me->add("neili", -200);
         } else
         {
                 msg += CYN "¿É$n" CYN "È«Éñ·ÀÓù£¬²»Â¶°ëµãÆÆÕÀ£¬Ê¹µÃ$N"
                        CYN "ÕâÕĞÎŞ¹¦¶ø·µ¡£\n" NOR;
-                me->start_busy(4);
+                me->start_busy(3);
                 me->add("neili", -100);
         }
         message_combatd(msg, me, target);

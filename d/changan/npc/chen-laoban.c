@@ -1,5 +1,5 @@
 //chen-laoban
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit KNOWER;
 inherit F_DEALER;

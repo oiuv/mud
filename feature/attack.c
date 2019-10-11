@@ -258,8 +258,11 @@ object select_opponent()
 // Stop fighting ob.
 int remove_enemy(object ob)
 {
-        enemy -= ({ ob });
-        return 1;
+        int i;
+		enemy -= ({ ob });
+        if (! (i = sizeof(enemy)))
+			delete_temp("combat_time");//combat_time 玩家战斗时间
+		return 1;
 }
 
 // Stop killing ob.
@@ -284,7 +287,7 @@ int remove_killer(object ob)
 void remove_all_enemy(int force)
 {
         int i;
-
+		delete_temp("combat_time");//combat_time 玩家战斗时间
 	if (! (i = sizeof(enemy)))
 		return;
 
@@ -303,6 +306,7 @@ void remove_all_enemy(int force)
                 }
         }
 
+		
         enemy -= ({ 0 });
 }
 
@@ -455,6 +459,7 @@ int attack()
         if (objectp(opponent))
         {
                 set_temp("last_opponent", opponent);
+				add_temp("combat_time",1);//added by Ciwei@SJ
                 COMBAT_D->fight(this_object(), opponent);
                 return 1;
         } else

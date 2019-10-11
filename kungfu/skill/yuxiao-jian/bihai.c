@@ -56,11 +56,11 @@ int perform(object me, object target)
 
         ap = me->query_skill("yuxiao-jian", 1) +
              me->query_skill("bibo-shengong", 1) +
-             me->query_skill("bihai-chaosheng", 1);
+             me->query_skill("chuixiao-jifa");
 
         dp = target->query_skill("force") +
              target->query_skill("parry") +
-             target->query_skill("bihai-chaosheng", 1);
+             target->query_skill("chuixiao-jifa") / 2;
 
         damage = 0;
 
@@ -117,10 +117,10 @@ int perform(object me, object target)
                 msg += HIC "$n" HIC "暗暗凝神守一，对这箫声自是应付"
                        "裕如。\n" NOR;
 
-        target->receive_damage("jing", damage * 2 / 3, me);
-        target->receive_wound("jing", damage / 2, me);
+        target->receive_damage("jing", damage, me);
+        target->receive_wound("jing", damage * 2 / 3, me);
 
-        me->start_busy(3 + random(3));
+        me->start_busy(1 + random(3));
         me->add("neili", -200);
 
         message_sort(msg, me, target);

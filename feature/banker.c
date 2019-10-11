@@ -4,6 +4,7 @@
 
 #include <dbase.h>
 #include <ansi.h>
+#define REBOOT_CMD      "/cmds/arch/reboot"
 
 int do_check()
 {
@@ -178,5 +179,105 @@ int do_withdraw(string arg)
 
         message_vision(sprintf("$N从银号里取出%s。\n", MONEY_D->money_str(v)), me);
 
+        return 1;
+}
+
+int do_transfer(string arg)
+{
+        string who, what;
+        int value;
+        object me, ob;
+        int amount;
+
+        me = this_player();
+
+        if( me->is_busy() )
+                return notify_fail("你还是等有空了再说吧！\n");
+
+        if( this_object()->is_fighting() )
+                return notify_fail("哟，抱歉啊，我这儿正忙着呢……您请稍候。\n");
+
+        if( REBOOT_CMD->is_rebooting() )
+                return notify_fail("现在本站正在准备重新启动，本钱庄暂停转帐功能。\n");
+
+        if( !arg || sscanf(arg, "%d %s to %s", amount, what, who) != 3 )
+                return notify_fail("命令格式：transfer|zhuan <数量> <货币单位> to <某人>\n");
+
+		if( amount < 1 )
+                return notify_fail("你想转帐多少钱？\n");
+
+        if( amount > 10000 )
+                return notify_fail("这么大的数目，有洗钱的嫌疑，本店可不敢犯法。\n");
+
+        if( file_size("/clone/money/" + what + ".c") < 0 )
+                return notify_fail("你想转帐钱的单位是？\n");
+			
+		what = "/clone/money/" + what;
+        value = amount * what->query("base_value");
+
+		if( value > me->query("balance") || value <= 0 )
+               return notify_fail("你存的钱不够转帐。\n");
+
+		if( !objectp(ob = UPDATE_D->global_find_player(who)) )
+                return notify_fail("没有这个人！\n");
+		
+        me->start_busy(1);
+
+        me->add("balance", -value);
+        ob->add("balance", value);
+        me->save();
+        ob->save();
+        
+        tell_object(ob, HIR + me->query("name") + HIR "从银号里划转"+ MONEY_D->money_str(value) + "到你的帐户上。\n" NOR);
+        tell_object(me, HIR "你从银号里划转"+ MONEY_D->money_str(value) + "到" + ob->query("name") + HIR "的帐户上。\n" NOR);
+        UPDATE_D->global_destruct_player(ob);
+        return 1;
+}
+
+int do_zhuans(string arg)
+{
+        string who;
+        object me, ob;
+        int amount;
+
+        me = this_player();
+
+        if( me->is_busy() )
+                return notify_fail("你还是等有空了再说吧！\n");
+
+        if( this_object()->is_fighting() )
+                return notify_fail("哟，抱歉啊，我这儿正忙着呢……您请稍候。\n");
+
+        if( REBOOT_CMD->is_rebooting() )
+                return notify_fail("现在本站正在准备重新启动，本钱庄暂停转帐功能。\n");
+
+        if( !arg || sscanf(arg, "%d to %s", amount, who) != 2 )
+                return notify_fail("命令格式：zhuans <数量> to <某人>\n");
+
+		if( amount < 1 )
+                return notify_fail("你想转多少门贡？\n");
+			
+		if( amount < 10000 )
+                return notify_fail("一次最少转1w。\n");
+
+        if( amount > 500000 )
+                return notify_fail("一次最多转50w。\n");
+
+        if( amount > me->query("gongxian"))
+               return notify_fail("你的门贡好像不够吧。\n");
+
+		if( !objectp(ob = UPDATE_D->global_find_player(who)) )
+                return notify_fail("没有这个人！\n");
+		
+        me->start_busy(1);
+
+        me->add("gongxian", -amount);
+        ob->add("gongxian", amount / 2);
+        me->save();
+        ob->save();
+        
+        tell_object(ob, HIR + me->query("name") + HIR "转了"+ amount + "门贡给你。\n" NOR);
+        tell_object(me, HIR "你转了" + amount + "门贡给" + ob->query("name") + "。\n" NOR);
+        UPDATE_D->global_destruct_player(ob);
         return 1;
 }

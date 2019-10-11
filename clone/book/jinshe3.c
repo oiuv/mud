@@ -1,9 +1,9 @@
-// jinshe3.c
+// jinshe3.c 
 
 inherit BOOK;
 inherit F_UNIQUE;
 
-#include <ansi.h>
+#include <ansi.h>;
 
 void setup()
 {}
@@ -29,3 +29,4 @@ void create()
 		]));
         }
 }
+

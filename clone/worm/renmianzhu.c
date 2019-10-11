@@ -6,7 +6,7 @@ void create()
         set_name(HIY "人面蛛" NOR, ({ "renmian zhu", "renmian", "zhu" }));
         set("long", HIY "一只脸盆大小的毒蜘蛛，面部便如婴脸一般。\n" NOR);
         set("race", "野兽");
-        set("age", random(200)+100);
+        set("age", random(400)+200);//万
         set("attitude", "peaceful");
 
         set("max_qi", 2000);

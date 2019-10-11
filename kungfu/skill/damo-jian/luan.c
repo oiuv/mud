@@ -74,7 +74,7 @@ string final(object me, object target, int damage)
         target->affect_by("damo_luanqi",
                 ([ "level"    : lvl + random(lvl),
                    "id"       : me->query("id"),
-                   "duration" : lvl / 50 + random(lvl / 20) ]));
+                   "duration" : 5 + random(lvl / 20) ]));
 
         return  HIR "霎时$n" HIR "心头一阵迷惑，体内的真气登时"
                 "不听使唤，四处游走。\n" NOR;

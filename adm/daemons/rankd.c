@@ -14,12 +14,15 @@ string query_rank(object ob)
         int tao;
         int exp;
         int age;
+		string count;
+		
+		count = chinese_number(ob->query("reborn/count"));
 
         if (ob->is_ghost())
                 return HIB "【 鬼  魂 】" NOR;
                 
         if (ob->query("reborn"))
-                return HIW "【"HIY"元"HIR"神"HIG"转"HIC"世"HIW"】" NOR;
+                return HIW "【"HIY"元"HIR"神"HIG + count + HIC"转"HIW"】" NOR;
 
 	if (ob->query("rank_info/rank"))
 		return HIY "【" + ob->query("rank_info/rank") + "】" NOR;
@@ -733,6 +736,8 @@ string query_rank(object ob)
                         return GRN "【 家  丁 】" NOR;
                 case "江南丁氏":
                         return GRN "【 家  丁 】" NOR;
+                case "无门无派":
+                        return GRN "【无门无派】" NOR;
                 default:
                         return GRN "【初入武林】" NOR;
                 }

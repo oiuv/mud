@@ -1,4 +1,4 @@
-#include <ansi.h>
+#include <ansi.h>;
 inherit NPC;
 
 #define ZHENJING    "/clone/lonely/book/zhenjing2"

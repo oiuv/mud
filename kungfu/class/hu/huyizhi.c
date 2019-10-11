@@ -1,4 +1,4 @@
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit NPC;
 inherit F_MASTER;
@@ -21,7 +21,7 @@ LONG);
         set("int", 28);
         set("con", 31);
         set("dex", 33);
-
+    
         set("qi", 4000);
         set("max_qi", 4000);
         set("jing", 2000);

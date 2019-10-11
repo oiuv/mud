@@ -9,7 +9,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        int skill;
+        int skill/*, n*/;
         int ap, dp, p;
         string msg, pmsg;
         object weapon;
@@ -64,16 +64,16 @@ int perform(object me, object target)
                 if (target->query_skill("parry") < me->query_skill("throwing"))
                 {
 
-                        msg += HIR "只听$n" HIR "惨叫一声，" + weapon->name() + HIR
+                        msg += HIR "只听$n" HIR "惨叫一声，" + weapon->name() + HIR 
                                "已经射中要害，只感伤口处透处阵阵寒意，顿觉全身软"
-                               "弱无力。\n"NOR;
-
+                               "弱无力。\n"NOR; 
+  
                         target->receive_damage("qi", skill + random(skill), me);
                         target->receive_wound("qi", skill + random(skill / 2), me);
                         target->set_temp("bingpo", 1);
                         target->add_temp("apply/attack", -70);
                         target->add_temp("apply/dodge", -70);
-                        target->add_temp("apply/parry", -20);
+                        target->add_temp("apply/parry", -20);  
 
                         COMBAT_D->clear_ahinfo();
                         weapon->hit_ob(me, target, me->query("jiali") + 180);
@@ -81,7 +81,7 @@ int perform(object me, object target)
                         p = (int)target->query("qi") * 100 / (int)target->query("max_qi");
 
                         if (stringp(pmsg = COMBAT_D->query_ahinfo()))
-                                 msg += pmsg;
+                                 msg += pmsg;  
 
                         msg += "( $n" + eff_status_msg(p) + " )\n";
 

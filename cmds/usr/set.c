@@ -49,7 +49,6 @@ mapping query_terms() { return ([
         "sign3"           : STRING_TERM,
         "sign4"           : STRING_TERM,
         "sign5"           : STRING_TERM,
-        "captcha"         : STRING_TERM,
         "show_map"        : 0,
 	"wimpy"           : 0,
         "wimpy_apply"     : 0,

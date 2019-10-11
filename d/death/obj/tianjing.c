@@ -20,7 +20,7 @@ void create()
                 set("material_attrib", "tian jing");
                 set("material_name", HIW "å¾ÓîÌì¾§" NOR);
                 set("can_make", "all");
-                set("power_point", 50);
+                set("power_point", 120);
         }
 }
 

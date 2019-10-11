@@ -1,5 +1,5 @@
 // xiaoer3.c ¾ÆµêÐ¡¶þ
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit KNOWER;
 inherit F_DEALER;
@@ -25,7 +25,7 @@ void create()
 }
 
 void init()
-{
+{	
 	::init();
 	remove_call_out("greeting");
 	call_out("greeting", 1, this_player());

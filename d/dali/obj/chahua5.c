@@ -1,6 +1,6 @@
 //chahua5.c
-#include <ansi.h>
-#include <armor.h>
+#include <ansi.h>;
+#include <armor.h>;
 inherit HEAD;
 
 void create()
@@ -10,7 +10,7 @@ void create()
                 set_default_object(__FILE__);
         else {
                 set("unit", "朵");
-                set("long",
+                set("long", 
 "一株茶花，七朵异色同株，枝上共开七朵花，朵朵颜色不同，而且形
 状朵朵不同，各有其妙。\n");
                 set("value", 80);
@@ -23,3 +23,5 @@ void create()
         }
         setup();
 }
+
+

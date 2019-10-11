@@ -19,7 +19,7 @@ int exert(object me, object target)
         if ((int)me->query_temp("powerup"))
                 return notify_fail("你已经在运功中了。\n");
 
-        skill = me->query_skill("force");
+        skill = me->query_skill("liangyi-shengong", 1);
         me->add("neili", -100);
         me->receive_damage("qi", 0);
         message_combatd(HIY "$N" HIY "陡然一声清啸，运起两仪神功，全身"
@@ -30,7 +30,7 @@ int exert(object me, object target)
         me->set_temp("powerup", 1);
 
         me->start_call_out((:call_other, __FILE__, "remove_effect", me, skill / 3:), skill);
-        if (me->is_fighting()) me->start_busy(3);
+        if (me->is_fighting()) me->start_busy(1 + random(3));
         return 1;
 }
 

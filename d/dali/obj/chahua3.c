@@ -1,6 +1,6 @@
 //chahua3.c
-#include <ansi.h>
-#include <armor.h>
+#include <ansi.h>;
+#include <armor.h>;
 inherit HEAD;
 
 void create()
@@ -10,7 +10,7 @@ void create()
                 set_default_object(__FILE__);
         else {
                 set("unit", "朵");
-                set("long",
+                set("long", 
 "一株茶花，枝上共开十三朵花，朵朵颜色不同，决无半分混杂。而
 且十三朵花形状朵朵不同，各有各的妙处，开时齐开，谢时齐谢，
 是仅次于十八学士的天下茶花极品。\n");
@@ -24,3 +24,4 @@ void create()
         }
         setup();
 }
+

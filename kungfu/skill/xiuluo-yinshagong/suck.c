@@ -4,7 +4,7 @@
 #include <combat.h>
 
 inherit F_SSERVER;
-
+ 
 int exert(object me, object target)
 {
         mapping p;
@@ -13,7 +13,7 @@ int exert(object me, object target)
         int amount;
         int exp;
         int lvl;
-        // int sk;
+//      int sk;
 
         if (! target || target == me)
         {
@@ -56,7 +56,7 @@ int exert(object me, object target)
         amount = p["level"] * p["remain"];
         if (amount > lvl)
                 amount = lvl;
-
+        
         p["remain"] = (p["level"] * p["remain"] - amount) /
                        p["level"];
         target->apply_condition("poison-supply", 1);

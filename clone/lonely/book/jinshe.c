@@ -1,9 +1,9 @@
-// jinshe1.c
+// jinshe1.c 
 
 inherit BOOK;
 inherit F_UNIQUE;
 
-#include <ansi.h>
+#include <ansi.h>; 
 
 void setup()
 {}
@@ -117,15 +117,15 @@ int do_du(string arg)
            if (random (5) != 1)
            {
                 write("你研究了半天，仍然无法将「蛇困愁城」融会贯通！\n");
-                me->start_busy(15);
+                me->start_busy(15); 
                 me->set("jing", 1);
                 return 1;
            }
            msg = HIG "$N" HIG "翻看秘芨，仔细研究上面所记载的武学，霎那间忽有所悟"
                      "……\n" NOR;
 
-           msg += HIG "$N" HIG "长叹一声，感慨万千。\n" NOR;
-           message_vision(msg, me);
+           msg += HIG "$N" HIG "长叹一声，感慨万千。\n" NOR; 
+           message_vision(msg, me); 
 
            if (me->can_improve_skill("sword"))
                    me->improve_skill("sword", 1500000);
@@ -136,12 +136,12 @@ int do_du(string arg)
 
            write(HIW "你学会了「" HIG "蛇困愁城" HIW "」。\n" NOR);
            me->set("can_perform/jinshe-jian/kun", 1);
-
+           
            return 1;
         }
-
-        else
-
+    
+        else 
+       
         if (skill == "蛇影万道")
         {
            if (me->query("can_perform/jinshe-jian/wan"))
@@ -164,9 +164,9 @@ int do_du(string arg)
            }
            msg = HIG "$N" HIG "翻看秘芨，仔细研究上面所记载的武学，霎那间忽有所悟"
                      "……\n" NOR;
-           msg += HIG "$N" HIG "长叹一声，感慨万千。\n" NOR;
+           msg += HIG "$N" HIG "长叹一声，感慨万千。\n" NOR; 
 
-           message_vision(msg, me);
+           message_vision(msg, me); 
 
            if (me->can_improve_skill("sword"))
                    me->improve_skill("sword", 1500000);
@@ -180,8 +180,8 @@ int do_du(string arg)
 
            return 1;
         }
-
-        else
+ 
+        else 
 
         if (skill == "金蛇噬天")
         {
@@ -205,8 +205,8 @@ int do_du(string arg)
            }
            msg = HIG "$N" HIG "翻看剑谱，仔细研究上面所记载的武学，霎那间忽有所悟"
                      "……\n" NOR;
-           msg += HIG "$N" HIG "长叹一声，感慨万千。\n" NOR;
-           message_sort(msg, me);
+           msg += HIG "$N" HIG "长叹一声，感慨万千。\n" NOR; 
+           message_sort(msg, me); 
 
            if (me->can_improve_skill("sword"))
                    me->improve_skill("sword", 1500000);
@@ -217,7 +217,7 @@ int do_du(string arg)
 
            write(HIW "你学会了「" HIG "金蛇噬天" HIW "」。\n" NOR);
            me->set("can_perform/jinshe-jian/shi", 1);
-
+           
            return 1;
         }
 }

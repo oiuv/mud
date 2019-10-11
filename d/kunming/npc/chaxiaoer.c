@@ -1,4 +1,4 @@
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit KNOWER;
 inherit F_DEALER;
@@ -16,7 +16,7 @@ void create()
 		"这个茶小二正忙着给客人送茶，递烟。");
 	set("combat_exp", 500);
 	set("attitude", "friendly");
-
+		
 	set("vendor_goods", ({
 		__DIR__"obj/yan",
 		__DIR__"obj/wan",
@@ -27,7 +27,7 @@ void create()
 }
 
 void init()
-{
+{       
         object ob;
 
         ::init();
@@ -52,7 +52,7 @@ void greeting(object ob)
 		     CYN "，马上给你上茶。\n" NOR);
 		break;
 	case 1 :
-		say (CYN "茶小二说道：这位" + RANK_D->query_respect(ob) +
+		say (CYN "茶小二说道：这位" + RANK_D->query_respect(ob) + 
 		     CYN "要不要来两口水烟提提神。\n" NOR);
 		break;
 	}

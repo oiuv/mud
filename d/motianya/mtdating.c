@@ -10,7 +10,7 @@ void create()
 十分开阔，但身周云雾缭绕，当真是置身云端之中，使人心惊肉跳。
 东面有一个小木屋。
 LONG );
-        set("outdoors", "motianya");
+        set("outdoors", "xiakedao");
         set("exits",([
                 "east" : __DIR__"mtxiaowu",
                 "down" : __DIR__"mtyadi",
@@ -19,6 +19,7 @@ LONG );
                 __DIR__"npc/xieyan" : 1,
         ]));
 
+        set("outdoors", "motianya");
         setup();
 }
 

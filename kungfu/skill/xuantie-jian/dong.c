@@ -7,7 +7,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        object weapon;
+        object weapon, weapon_t;
         int damage;
         int ap, dp;
         string wp, msg;
@@ -53,6 +53,19 @@ int perform(object me, object target)
 
         ap = me->query_skill("sword") + me->query_str() * 5;
         dp = target->query_skill("force") + target->query_str() * 5;
+		weapon_t = target->query_temp("weapon");
+		
+		if (weapon_t && random(2) && weapon->query_weight() > 25000 &&
+			(!weapon_t->is_item_make() || weapon_t->query("skill_type") != "hammer"))
+		{
+				msg += HIR "$n" HIR "只觉得一股大力传来，手中" + weapon_t->name() +
+                       HIR "再也拿持不住，脱手而出！\n" NOR;
+				me->add("neili", -120);
+				weapon_t->move(environment(me));
+                weapon_t->set("no_wield", weapon_t->name() + "已经碎掉了，没法装备了。\n");
+                weapon_t->set_name("碎掉的" + weapon_t->name());
+                weapon_t->set("value", 0);
+		}
 
         if (me->query("character") == "光明磊落" || me->query("character")=="国土无双" )
                 ap += ap / 5;
@@ -60,7 +73,7 @@ int perform(object me, object target)
         {
                 target->start_busy(1);
                 damage = ap + random(ap);
-                me->add("neili", -800);
+                me->add("neili", -400);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 120,
                                            HIR "结果$n" HIR "奋力招架，却被$N" HIR
                                            "这一剑震的飞起，口中鲜血狂吐不止！\n" NOR);
@@ -68,7 +81,7 @@ int perform(object me, object target)
         {
                 msg += CYN "可是$n" CYN "看破了$N"
                        CYN "的企图，急忙斜跃避开。\n"NOR;
-                me->add("neili", -500);
+                me->add("neili", -200);
         }
         message_combatd(msg, me, target);
 

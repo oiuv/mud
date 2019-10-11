@@ -92,7 +92,7 @@ void init()
 
 int accept_object(object who, object ob)
 {
-        if (who->query("combat_exp") >= 3500)
+       if (who->query("combat_exp") >= 3500)
         {
                 message_vision("陈有德望着$N说：你的武功应该"
                                "历练江湖才能再长进，不能埋没在这里了。\n", who);

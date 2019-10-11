@@ -1,4 +1,4 @@
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit KNOWER;
 inherit F_DEALER;
@@ -25,7 +25,7 @@ void create()
         set("chat_msg", ({
                 CYN "陈老头一边哼着小调一边拿着抹布打整卫生。\n" NOR,
                 CYN "陈老头一个人嘀咕道：桌子也该换得了。\n" NOR,
-        }) );
+        }) );       
 
         setup();
         carry_object("/d/beijing/npc/obj/cloth")->wear();
@@ -33,7 +33,7 @@ void create()
 }
 
 void init()
-{
+{       
         object ob;
 
         ::init();
@@ -59,3 +59,4 @@ void greeting(object ob)
                 break;
         }
 }
+

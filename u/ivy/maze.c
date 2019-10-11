@@ -11,6 +11,7 @@ varargs void create(int x, int y, int z)
     set("long", "这里是你的心魔幻境，无边无际，四周灰蒙蒙的，也不知道这里会有什么危险。\n");
     set("maze", "maze");
     setArea(x, y, z, "maze");
+    set("valid_startroom", 1);
     set("exits", ([
         "north":__DIR__ "maze/" + x + "," + (y + 1) + "," + z,
         "south":__DIR__ "maze/" + x + "," + (y - 1) + "," + z,

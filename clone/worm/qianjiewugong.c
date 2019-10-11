@@ -6,7 +6,7 @@ void create()
         set_name(RED "千节蜈蚣" NOR, ({ "qianjie wugong", "qianjie", "wugong" }));
         set("long", RED "这是一条三尺多长的蜈蚣，身子由上千个环节组成。\n" NOR);
         set("race", "野兽");
-        set("age", random(200)+100);
+        set("age", random(200)+100);//百
         set("attitude", "peaceful");
 
         set("max_qi", 250);

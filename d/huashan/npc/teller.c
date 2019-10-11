@@ -1,5 +1,5 @@
 // teller.c
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit KNOWER;
 
@@ -71,13 +71,13 @@ int accept_object(object who, object ob)
                 }
                 return 0;
 	}
-
+       
 	if (ob->value() >= 5000)
         {
 		if (who->query_temp("marks/李4"))
                 {
 			write("李铁嘴对你说道：这封信是造好了，但" +
-                              RANK_D->query_respect(who) +
+                              RANK_D->query_respect(who) + 
                               "要是出了事，千万别把我说出来呀。\n");
 			say("李铁嘴给了" + who->query("name") + "一封手信。\n");
 			this_player()->set_temp("marks/李4", 0);

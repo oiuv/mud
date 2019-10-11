@@ -7,7 +7,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        // object weapon;
+//      object weapon;
         int damage;
         string msg;
 
@@ -28,7 +28,7 @@ int perform(object me, object target)
         if ((int)me->query("neili") < 200)
                 return notify_fail("你现在真气不够，无法使用" ZHUI "。\n");
 
-        if (me->query_skill_mapped("strike") != "chuanxin-zhang")
+        if (me->query_skill_mapped("strike") != "chuanxin-zhang") 
                 return notify_fail("你没有激发穿心掌，无法使用" ZHUI "！\n");
 
         if (! living(target))

@@ -237,16 +237,16 @@ mapping *action = ({
 
 string main_skill()
 {
-	return "liumai-shenjian";
+	return "six-finger";
 }
 
 mapping sub_skills = ([
-        "shaoshang-sword"  : 880,
-        "shangyang-sword"  : 880,
-        "zhongchong-sword" : 880,
-        "guanchong-sword"  : 880,
-        "shaoze-sword"     : 880,
-        "shaochong-sword"  : 880,
+        "shaoshang-sword"  : 500,
+        "shangyang-sword"  : 500,
+        "zhongchong-sword" : 500,
+        "guanchong-sword"  : 500,
+        "shaoze-sword"     : 500,
+        "shaochong-sword"  : 500,
 ]);
 
 int get_ready(object me)
@@ -303,17 +303,17 @@ int get_finish(object me)
                 tell_object(me, "你觉得真气不继，无法融会贯通六剑。\n");
                 return 0;
         }
-
+   
         if ((int)me->query_skill("martial-cognize", 1) < 200)
         {
                 tell_object(me, "你演练完毕，发现如果武学修养更上一层因该更有所帮助。\n");
-                return 0;
+                return 0;           
         }
 
         if ((int)me->query_skill("force", 1) < 340)
         {
                 tell_object(me, "你演练完毕，发现自己内功根基太差，无法再继续演练下去。\n");
-                return 0;
+                return 0;           
         }
 
         if (random(10) < 7)
@@ -324,7 +324,7 @@ int get_finish(object me)
         }
 
         tell_object(me, HIY "一阵凡尘往事涌上心头，你几欲放声长叹。眼前不断闪现出六脉"
-                            "剑法，\n霎那间，你终于通晓六脉神剑。\n" NOR);
+                            "剑法，\n霎那间，你终于通晓小六脉神剑。\n" NOR);
         return 1;
 }
 
@@ -408,12 +408,14 @@ int practice_skill(object me)
 
 mixed hit_ob(object me, object victim, int damage_bonus, int i, int attack_time)
 {
-        // string name;
+//      string name;
 
         if (userp(me))
-        	attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 50);
-	      else
-        	attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 25);
+        	//attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 50);
+			attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 80);
+		else
+        	//attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 25);
+			attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 40);
 
         // 放宽NPC的攻击力度
         if (userp(me) && attack_time > 6)
@@ -427,8 +429,8 @@ mixed hit_ob(object me, object victim, int damage_bonus, int i, int attack_time)
            && me->query_skill("martial-cognize", 1) >= 220
            && me->query_skill("liumai-shenjian", 1) >= 180
            && me->query_skill("jingluo-xue", 1) >= 200)
-				{
-	        if (userp(me) && random(3) != 1)
+	{
+	        if (userp(me) && random(4) != 1)
 			        return 0;
 
         	// 避免在使用Pfm时讯息重复
@@ -450,10 +452,10 @@ mixed hit_ob(object me, object victim, int damage_bonus, int i, int attack_time)
                         	break;
                 	COMBAT_D->do_attack(me, victim, 0, 0);
         	}
-				}
+	}
 
-        if (damage_bonus / 5 > victim->query_dex()
-	         && damage_bonus > 150
+           if (damage_bonus / 5 > victim->query_dex()
+	       && damage_bonus > 150
            && me->query("neili") > 200
            && me->query_skill("martial-cognize", 1) >= 220
            && me->query_skill("liumai-shenjian", 1) >= 160
@@ -548,5 +550,5 @@ void skill_improved(object me)
 
 string perform_action_file(string action)
 {
-        return __DIR__"liumai-shenjian/" + action;
+        return __DIR__"liumai-shenjian/" + action; 
 }

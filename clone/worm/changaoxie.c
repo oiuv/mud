@@ -6,7 +6,7 @@ void create()
         set_name(CYN "长螯蝎" NOR, ({ "changao xie", "changao", "xie" }));
         set("long", CYN "这是一只双螯巨大的毒蝎。\n" NOR);
         set("race", "野兽");        
-        set("age", random(200)+100);
+        set("age", random(200)+100);//百
         set("attitude", "peaceful");
 
         set("max_qi", 200);

@@ -14,7 +14,13 @@ int perform(object me, object target)
         int damage;
         string msg;
         int ap, dp;
-        int lvl;
+        int lvl/*, p*/;
+		
+		float improve;
+		int lvls, m, n;
+		string martial;
+		string *ks;
+		martial = "strike";
 
         if (userp(me) && ! me->query("can_perform/xuanming-zhang/xing"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -49,47 +55,68 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         msg = HIW "\n$N" HIW "默运玄冥神功，展出绝招「" HIR "玄冥双行" HIW "」，猛然间欺身"
-              "向前，双掌齐出，掌风阴寒无比，掌未到，风先至，瞬息间双掌已拍向$n" HIW "！\n"NOR;
+              "向前，双掌齐出，掌风阴寒无比，掌未到，风先至，瞬息间双掌已拍向$n" HIW "！\n"NOR;  
 
+		lvls = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+		lvls = lvls * 4 / 5;
+		ks = keys(me->query_skills(martial));
+		improve = 0;
+		n = 0;
+		//最多给予5个技能的加成
+		for (m = 0; m < sizeof(ks); m++)
+		{
+			if (SKILL_D(ks[m])->valid_enable(martial))
+			{
+				n += 1;
+				improve += (int)me->query_skill(ks[m], 1);
+				if (n > 4 )
+					break;
+			}
+		}
+		
+		improve = improve * 3 / 100 / lvls;
+			  
         lvl = me->query_skill("xuanming-zhang", 1);
 
         ap = me->query_skill("strike") + me->query_skill("force");
         dp = target->query_skill("dodge") + target->query_skill("force");
+		
+		ap += ap * improve;
 
         me->start_busy(4);
 
         // 第一掌
 
         msg += HIM "\n$N" HIM "右掌向内一转，忽又向前，猛然间直袭$n" HIM "面门。\n" NOR;
-        if (ap / 2 + random(ap) > dp)
-        {
-                damage = ap + random(ap / 2);
-                me->add("neili", -300);
+        if (ap * 3 / 5 + random(ap) > dp)
+        { 
+                damage = ap / 2 + random(ap);
+                me->add("neili", -200);
 
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 60,
                                           (: final1, me, target, lvl :));
-
+                                           
         } else
         {
                 msg += HIY "$n" HIY "看见$N" HIY "来势汹涌，急忙提气跃开。\n" NOR;
-                me->add("neili", -180);
+                me->add("neili", -100);
         }
         message_sort(msg, me, target);
-
+         
         // 第二掌
         msg = HIM "\n$N" HIM "长舒一口气，左掌紧跟而出，风到掌到，正拍向$n" HIM "胸口。\n" NOR;
         if (ap / 2 + random(ap) > dp)
-        {
-                damage = ap + random(ap / 2);
-                me->add("neili", -400);
+        { 
+                damage = ap * 3 / 5 + random(ap);
+                me->add("neili", -300);
 
-                msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 70,
+                msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 80,
                                           (: final2, me, target, lvl :));
-
+                                           
         } else
         {
                 msg += HIY "$n" HIY "看见$N" HIY "来势汹涌，急忙提气跃开。\n" NOR;
-                me->add("neili", -180);
+                me->add("neili", -150);
         }
         message_sort(msg, me, target);
 

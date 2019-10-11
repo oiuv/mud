@@ -2,13 +2,13 @@
 #include <combat.h>
 
 #define TAN "「" HIW "云中探爪" NOR "」"
-
+ 
 inherit F_SSERVER;
 
 int perform(object me)
 {
         string msg;
-        object target;
+        object /*weapon,*/ target;
         int skill, ap, dp, damage;
 
         if (userp(me) && ! me->query("can_perform/panlong-zhao/tan"))
@@ -30,11 +30,11 @@ int perform(object me)
 
         if (skill < 130)
                 return notify_fail("你的越空盘龙爪等级不够，难以施展" TAN "。\n");
-
-        if (me->query_skill_mapped("claw") != "panlong-zhao")
+ 
+        if (me->query_skill_mapped("claw") != "panlong-zhao") 
                 return notify_fail("你没有激发越空盘龙爪，难以施展" TAN "。\n");
 
-        if (me->query_skill_prepared("claw") != "panlong-zhao")
+        if (me->query_skill_prepared("claw") != "panlong-zhao") 
                 return notify_fail("你没有准备越空盘龙爪，难以施展" TAN "。\n");
 
         if (me->query("neili") < 200)
@@ -45,7 +45,7 @@ int perform(object me)
 
         msg = HIW "$N" HIW "伸出两掌，朝$n" HIW "拍去，待掌至中途，却变掌为爪，幻作两"
               "道金光袭向$n" HIW "各处要脉！\n" NOR;
-
+ 
         ap = me->query_skill("claw");
         dp = target->query_skill("parry");
         if (ap / 2 + random(ap) > dp)

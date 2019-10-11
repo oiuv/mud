@@ -8,14 +8,14 @@ void remove_effect(object me, int a_amount);
 
 int exert(object me, object target)
 {
-        // object weapon;
+//      object weapon;
         int skill;
         string msg;
 
         if ((int)me->query_skill("hamagong", 1) < 120)
                 return notify_fail("你的蛤蟆功不够娴熟，不会经脉倒转。\n");
 
-        if ((int)me->query("neili") < 200)
+        if ((int)me->query("neili") < 200) 
                 return notify_fail("你现在的真气不够。\n");
 
         if ((int)me->query_temp("hmg_dzjm"))

@@ -1,7 +1,7 @@
 // referee.c ¹«Æ½×Ó
 
 inherit NPC;
-#include <ansi.h>
+#include <ansi.h>;
 
 int do_bihua(string arg);
 int do_no();

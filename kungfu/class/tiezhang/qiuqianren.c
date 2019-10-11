@@ -46,6 +46,7 @@ void create()
         set_skill("unarmed", 280);
         set_skill("feilong-zhang", 260);
         set_skill("staff", 260);
+		set_skill("blade", 260);
         set_skill("tianlei-dao", 260);
         set_skill("literate", 200);
         set_skill("martial-cognize", 200);
@@ -57,6 +58,7 @@ void create()
         map_skill("parry", "tie-zhang");
         map_skill("dodge", "dengping-dushui");
         map_skill("staff", "feilong-zhang");
+		map_skill("blade", "tianlei-dao");
 
         prepare_skill("strike", "tie-zhang");
 
@@ -114,20 +116,20 @@ void attempt_apprentice(object me)
                 return;
         }
 
-        if ((int)me->query("combat_exp") < 800000)
+        if ((int)me->query("combat_exp") < 500000)
         {
                 command("heng");
                 command("say 你这点能力怎能继承我的衣钵？");
                 return;
         }
 
-        if ((int)me->query_skill("force") < 260)
+        if ((int)me->query_skill("force") < 220)
         {
                 command("say 要学我的铁掌绝技，内功非精纯不可，你还是先多练练吧。");
                 return;
         }
 
-        if ((int)me->query_skill("strike", 1) < 180)
+        if ((int)me->query_skill("strike", 1) < 160)
         {
                 command("say 要学我的铁掌绝技，需要精湛的掌法作基础，我看你在那上"
                         "面下的工夫还不够啊。");
@@ -185,7 +187,7 @@ int accept_ask(object me, string topic)
                                        "内一张青石桌应声而碎！",
                            "sk1"     : "tie-zhang",
                            "lv1"     : 160,
-                           "force"   : 240,
+                           "force"   : 220,
                            "neili"   : 2200,
                            "gongxian": 600,
                            "shen"    : -65000, ]));
@@ -232,7 +234,7 @@ int accept_ask(object me, string topic)
                            "name"    : "五指刀",
                            "sk1"     : "tie-zhang",
                            "lv1"     : 180,
-                           "force"   : 280,
+                           "force"   : 260,
                            "neili"   : 2500,
                            "gongxian": 700,
                            "shen"    : -90000, ]));

@@ -14,7 +14,7 @@ LONG);
 	set("exits", ([
 		"south" : __DIR__"qianyuan",
 		"north" : __DIR__"tingzi",
-		"east"  : __DIR__"road1" ,
+		"east"  : __DIR__"road1" ,       
 	]));
 	set("item_desc", ([
 		"diao" : HIW "\n这一对白雕正展翅欲飞。如果是桃花岛"
@@ -24,7 +24,7 @@ LONG);
         set("objects", ([
                 __DIR__"npc/shitong" : 2,
         ]));
-
+        set("outdoors", "taohua");
         setup();
 }
 

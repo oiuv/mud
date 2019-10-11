@@ -2,24 +2,26 @@
 #include <ansi.h>
 #define   TASK_OBJ_PATH  "/adm/daemons/task/obj/"       //task物件目录
 
+
+ 
 inherit ITEM;
 
 void create()
 {
-        set_name(HIR"乾" HIY"坤" HIW"宝" HIG "镜" NOR,
+        set_name(HIR"乾" HIY"坤" HIW"宝" HIG "镜" NOR, 
                    ({ "bao jing", "jing", "mirror"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIG "这是道门至宝乾坤镜，据说内蕴乾坤，可定位万物。\n"NOR);
+                set("long", HIG "这是天庭失落的一面宝镜，据说可以千里定位。\n"NOR);                     
                 set("unit", "面");
                 set("weight", 10);
-                set("material", "tian jing");
+                set("material", "tian jing");   
                 set("no_sell", 1);
                 set("no_put",  1);
                 set("no_store",1);
             //    set("no_give",1);
-             }
+             }           
         setup();
 }
 
@@ -32,7 +34,7 @@ void init()
 }
 
 int do_locate( string arg )
-{
+{ 
         //object ob, npc, env, me, room;
         object ob, npc, env, me;
         string msg, *msg_arr, dir_name, dir_total;
@@ -40,17 +42,17 @@ int do_locate( string arg )
         int dir_tot_num, x, rank, file, per;
 
         me = this_player();
-        dir_total = "";
+        dir_total = ""; 
 
     if ( me->is_busy() )
     return notify_fail("你现在正忙，没空使用宝镜！\n");
-
+        
     if ( query("power") <= 0 )
     return notify_fail("这块乾坤宝镜已经没有灵力了！\n");
 
-    if (!arg)
+    if (!arg) 
     return notify_fail("你要定位什么东西？\n");
-
+        
         if ( file_size( TASK_OBJ_PATH + arg + ".c" ) < 0 )
         return notify_fail(HIR"没有这个TASK物品！\n"NOR);
 
@@ -62,11 +64,11 @@ int do_locate( string arg )
         npc = environment(ob);
 
         if (! npc || npc == 0)
-        return notify_fail("确定不了" + arg + "的位置。\n");
+        return notify_fail("确定不了" + arg + "的位置。\n");       
 
         if ( npc->is_player() )
         return notify_fail("这个东西现在已经被别人拿了，你别瞎忙了。\n");
-
+ 
         me->start_busy(2);
 
         if ( ! npc->is_character() )
@@ -75,20 +77,20 @@ int do_locate( string arg )
                 }
         else
                 {
-                        env = environment(npc);
+                        env = environment(npc);                 
                 }
         msg = env->long();   //物品所在房间的描述
         per = sizeof(msg)/2 * ( 100 - query("power"))/100;
 
     dir = env->query("exits");      //物品所在的地方有几个方向
-
+        
     foreach(dir_name in keys(dir))
 
         {
                dir_total += " " + dir_name + " ";
                dir_tot_num += 1;
         }
-
+    
 
          msg_arr = explode(msg,"\n");
 
@@ -103,11 +105,11 @@ int do_locate( string arg )
 
          }
 
-        if ( ! msg || msg == 0)
+        if ( ! msg || msg == 0)        
         return notify_fail("确定不了" + arg + "的位置。\n");
 
            tell_object(me, WHT "乾坤宝镜显示" NOR + ob->name() + NOR
-                       WHT"现在所在地方的描述是:\n\n" NOR + msg + "\n" +
+                       WHT"现在所在地方的描述是:\n\n" NOR + msg + "\n" + 
                          "这个地方的出口有"HIG + dir_total + NOR"。\n");
 
        this_object()->add("power",-(random(3) + 3));
@@ -118,7 +120,7 @@ int do_locate( string arg )
 }
 
 int do_task( string arg)
-{
+{ 
      if ( ! arg )
      {
          //string msg, msg1, msg2, space, *i_list;
@@ -194,10 +196,11 @@ int do_task( string arg)
      }
 
 }
-
 string long()
 {
         return query("power") ? query("long") + HIW"现在宝镜的灵力为：" +
         query("power") + "\n"NOR: query("long") + HIR"现在宝镜的灵力已经"
         "耗尽了。\n"NOR;
 }
+                
+

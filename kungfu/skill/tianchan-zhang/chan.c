@@ -10,7 +10,7 @@ int perform(object me)
         string msg;
         object /*weapon,*/ target;
         int /*skill,*/ ap, dp;
-        int damage, lvl;
+        int damage, lvl, poison;
 
         if (userp(me) && ! me->query("can_perform/tianchan-zhang/chan"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -34,6 +34,7 @@ int perform(object me)
                 return notify_fail("你没有准备使用天蟾掌法，难以施展" CHAN "。\n");
  
         lvl = me->query_skill("tianchan-zhang", 1);
+		poison = me->query_skill("poison");
 
         if (lvl < 120)
                 return notify_fail("你天蟾掌法不够纯熟，难以施展" CHAN "。\n");
@@ -50,13 +51,13 @@ int perform(object me)
         msg = HIR "$N" HIR "一声冷笑，聚气于掌，飞身一跃而起，一招"
                   "携满剧毒的「毒蟾掌」对着$n" HIR "凌空拍下！\n"NOR;
 
-        ap = me->query_skill("strike") + lvl;
+        ap = me->query_skill("strike") + random(poison);
         dp = target->query_skill("parry");
 
-        if ( ap * 2 / 3 + random(ap) > dp + random(dp) )
+        if ( ap + random(ap) > dp + random(dp) )
         {
-                me->add("neili", -200);
-                damage = lvl * 3 / 2 + random(lvl);
+                me->add("neili", -150);
+                damage = lvl * 3 / 2 + random(lvl) + random(poison);
                 target->affect_by("tianchan_zhang", ([
                         "level" : me->query("jiali") + random(me->query("jiali")),
                         "id"    : me->query("id"),

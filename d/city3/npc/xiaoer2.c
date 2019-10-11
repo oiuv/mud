@@ -1,5 +1,5 @@
 // xiaoer2.c ¾ÆµêÐ¡¶þ
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit KNOWER;
 inherit F_DEALER;
@@ -26,9 +26,9 @@ void create()
 }
 
 void init()
-{
-	object ob;
-//	mapping myfam;
+{	
+	object ob; 
+//	mapping myfam; 
 
 	ob = this_player();
 

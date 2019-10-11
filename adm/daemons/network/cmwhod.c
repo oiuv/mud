@@ -31,8 +31,8 @@
 #include <net/socket.h> /* includes socket_errors.h indirectly */
 #include <getconfig.h>
 
-#define DAEMON_IP "118.190.104.241" /* actlab */
-#define PASSWORD "mud.ren"
+#define DAEMON_IP "128.83.194.11" /* actlab */
+#define PASSWORD "spin,ach"
 
 // undefine this if you don't want logging of errors
 #define LOG_INFO
@@ -58,7 +58,7 @@
 
 #define TAB "\t"
 #define GENERATION "0"
-#define	UDP_PORT	3160
+#define	UDP_PORT	6888
 #define CLIENT_VERSION "mwp 1.2"
 
 STATIC_VAR_TAG string mwhod_addr;
@@ -76,7 +76,7 @@ log_info(string error)
 #endif
 }
 
-void
+STATIC_FUNC_TAG void
 send_data(string datagram)
 {
 #ifdef INTERMUD
@@ -89,13 +89,13 @@ send_data(string datagram)
 #endif /* INTERMUD */
 }
 
-string
+STATIC_FUNC_TAG string
 header(string op)
 {
 	return op + TAB + mudname + TAB + PASSWORD;
 }
 
-void
+STATIC_FUNC_TAG void
 set_keepalive_message()
 {
 	/* uptime() is an efun that returns # of seconds the driver has been up */
@@ -103,14 +103,14 @@ set_keepalive_message()
 		(time() - uptime()) + TAB + GENERATION + TAB + comments;
 }
 
-void
+STATIC_FUNC_TAG void
 set_boot_message()
 {
 	boot_message = header("U") + TAB + mudname + TAB +
 		(time() - uptime()) + TAB + GENERATION + TAB + comments;
 }
 
-void
+STATIC_FUNC_TAG void
 set_comments()
 {
 	comments = __VERSION__ + "/" + CLIENT_VERSION;

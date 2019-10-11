@@ -8,8 +8,8 @@ inherit F_SSERVER;
 int perform(object me, object target)
 {
         string type, msg;
-        object weapon;
-        int i, count;
+        object weapon/*, weapon2*/;
+        int i, count/*, damage*/;
         int ap, dp;
 
         if (me->query_skill("daojian-guizhen", 1) < 200)
@@ -53,8 +53,11 @@ int perform(object me, object target)
               "划空，铺天盖地罩向$n" HIW "，正是一招「" HIW "天下"
               "有" HIR "血" HIW "」。\n" NOR;
 
-        ap = me->query_skill("daojian-guizhen", 1) * 3 / 2 +
-             me->query_skill("martial-cognize", 1);
+        ap = me->query_skill("blade");
+		if(ap < me->query_skill("sword"))
+			ap = me->query_skill("sword");
+        
+		ap += me->query_skill("martial-cognize", 1);
 
         dp = target->query_skill("parry") +
              target->query_skill("martial-cognize", 1);

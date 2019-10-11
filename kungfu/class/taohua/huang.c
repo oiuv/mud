@@ -115,7 +115,7 @@ void create()
         prepare_skill("finger" , "tanzhi-shentong");
 
         set("no_teach", ([
-                "count"           : (: try_to_learn_count :),
+                //"count"           : (: try_to_learn_count :),
                 "bibo-shengong"   : (: try_to_learn_bibo :),
                 "tanzhi-shentong" : (: try_to_learn_tanzhi :),
         ]));
@@ -154,6 +154,8 @@ void create()
                 "碧波神功"   : "…唉…我桃花岛的内功何等厉害，可惜…",
                 "九花玉露丸" : "这个东西难制得紧，你好好学学桃花药理，以后自己制吧。",
                 "无常丹"     : "…嗯…等你学通了桃花药理的奥妙，自己慢慢制吧。",
+				//新增可学阴阳八卦
+				"阴阳八卦"   : (: try_to_learn_count :),
         ]));
 
         create_family("桃花岛", 1, "岛主");
@@ -241,6 +243,36 @@ void attempt_apprentice(object ob)
         command("recruit " + ob->query("id"));
 }
 
+int recognize_apprentice(object ob, string skill)
+{
+        if (! ob->query("can_learn/huang/count"))
+        {
+                message_vision(CYN "$N" CYN "做了个鬼脸，对$n" CYN "说"
+                               "道：我又不是你师父，为啥要教你？\n" NOR,
+                               this_object(), ob);
+                return -1;
+        }
+
+        if (skill == "mathematics" && ob->query_skill("mathematics",1) >= 300)
+        {
+                command("say 好了，就教你这里吧。");
+                return -1;
+        }else if (skill == "mathematics" && ob->query_skill("mathematics",1) > 200)
+        {
+                return 1;
+        }else if (skill == "mathematics" && ob->query_skill("mathematics",1) < 200)
+        {
+                command("say 你的算数太差，要不我还可以指点一二。");
+                return -1;
+        }else if (skill != "count")
+        {
+                command("say 你的武功比我还好，你教我还差不多。");
+                return -1;
+        }
+
+        return 1;
+}
+
 mixed try_to_learn_count()
 {
         object ob = this_player();
@@ -248,7 +280,7 @@ mixed try_to_learn_count()
         if (ob->query("can_learn/huang/count"))
                 return 0;
 
-        if (ob->query_skill("mathematics", 1) >= 200)
+        if (ob->query_skill("mathematics", 1) >= 100)
         {
                 command("nod2");
                 command("say 看来你对算术也颇有见解，今日老夫就教"

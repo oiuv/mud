@@ -17,7 +17,7 @@ int exert(object me, object target)
         if ((int)me->query_temp("powerup"))
                 return notify_fail("你已经在运功中了。\n");
 
-        skill = me->query_skill("force");
+        skill = me->query_skill("xuanming-shengong", 1);
 
         me->add("neili", -100);
         me->receive_damage("qi", 0);

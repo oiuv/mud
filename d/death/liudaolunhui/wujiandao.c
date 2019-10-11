@@ -92,8 +92,12 @@ int do_enter(string arg)
         
         if (! query("poem_said")) return 0;
        
+       //新增防止背人转世 2018-10-21
+        if (! me->query("HellZhenPass"))
+             	return notify_fail("施主怎么来，还请怎么回去吧 ！\n");
        //新增防止转前临时转换门派 2017-02-21
-                if (me->query_skill("force") < 800)
+                if (me->query_skill("martial-cognize", 1) < 600
+					&& me->query_skill("force") < 800)
                 	return notify_fail("你的武功修为太差，去练练再来吧！\n");
       //新增防止转前临时脱离转换门派结束
       

@@ -11,6 +11,10 @@ int do_liandu(string arg);
 void back_owner(object me);
 
 mapping insects = ([
+       // "zhizhu"        : 100000,
+       // "chanchu"       : 100000,
+       // "xiezi"         : 100000,
+       // "wugong"        : 100000,
        "zhizhu":50000,
       "chanchu":50000,
         "xiezi":50000,
@@ -18,6 +22,7 @@ mapping insects = ([
         "duzhu":20000,
        "huoxie":20000,
     "jinwugong":20000,
+     //"heiguafu"      : 5000,
      "heiguafu":10000,
 ]);
 
@@ -167,8 +172,8 @@ void catch_insect(object me)
 
     if (!env->query("outdoors") || env->query("no_insect"))
     {
-        message_vision("香气渐渐散去了，啥也没抓到，看来$N是白忙活了。\n$N叹口气，收回了" +
-                        name() + "。\n", me);
+        message_vision("香气渐渐散去了，啥也没抓到，看来$N是白忙活了。\n"
+                       "$N叹口气，收回了" + name() + "。\n", me);
         back_owner(me);
         return;
     }
@@ -226,7 +231,7 @@ void catch_insect(object me)
             if (!insect->move(this_object()))
             {
                 message_vision("可惜" + name() + "剩下的空间太小了，" + insect->name() +
-                                   "没能钻进去，走掉了。\n", me);
+                               "没能钻进去，走掉了。\n", me);
                 destruct(insect);
                 message_vision("$N叹口气，收回了" + name() + "。\n", me);
                 back_owner(me);
@@ -265,9 +270,6 @@ int do_liandu(string arg)
     if (me->query_skill("poison", 1) < 50)
         return notify_fail("你的基本毒技火候不够，不能练毒。\n");
 
-    if (me->query_skill("huagong-dafa", 1) < 80)
-        return notify_fail("你的化功大法火候不够，不能练毒。\n");
-
     ob = all_inventory(this_object());
     if (!ob)
         return notify_fail("现在" + name() + "里面没有任何东西。\n");
@@ -289,8 +291,7 @@ int do_liandu(string arg)
     if (!amount)
         return notify_fail(name() + "又没啥毒虫，你练什么毒？\n");
 
-    message_vision(HIG "$N" HIG "盘腿坐下，将手伸入" + name() +
-                       HIG "，冥神练功。\n\n" NOR, me);
+    message_vision(HIG "$N" HIG "盘腿坐下，将手伸入" + name() + HIG "，冥神练功。\n\n" NOR, me);
 
     amount = 0;
     for (i = 0; i < sizeof(ob); i++)
@@ -334,10 +335,15 @@ int do_liandu(string arg)
     if (me->can_improve_skill("poison"))
         me->improve_skill("poison", 1 + random(amount / 3) + add);
 
-    if (me->can_improve_skill("huagong-dafa"))
-        me->improve_skill("huagong-dafa", 1 + random(amount / 3) + add);
+    if (me->query("family/family_name") == "星宿派")
+    {
+        if (me->can_improve_skill("poison"))
+            me->improve_skill("poison", 1 + random(amount / 4) + add);
+        if (me->can_improve_skill("huagong-dafa"))
+            me->improve_skill("huagong-dafa", 1 + random(amount / 2) + add);
+    }
 
-    tell_object(me, HIG "你觉得你的「化功大法」和「基本毒技」又有了新的进步。\n" NOR);
+    tell_object(me, HIG "你对基本毒技的理解又有了新的进步。\n" NOR);
 
     return 1;
 }

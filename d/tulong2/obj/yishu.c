@@ -1,6 +1,6 @@
 inherit ITEM;
 inherit F_UNIQUE;
-#include <ansi.h>
+#include <ansi.h>; 
 void setup()
 {}
 void init()
@@ -28,7 +28,7 @@ int do_du(string arg)
 //      object where = environment(me);
 //      object ob;
 //      mapping skill;
-        int pxlevel;
+        int pxlevel; 
 
         if (!(arg=="wumu yishu" || arg == "book" || arg == "yishu" ))
         return 0;
@@ -40,7 +40,7 @@ int do_du(string arg)
                 write("你无法在战斗中专心下来研读新知！\n");
                 return 1;
         }
-        if (!id(arg)) {
+        if (!id(arg)) { 
                 write("你要读什么？\n");
                 return 1;
         }

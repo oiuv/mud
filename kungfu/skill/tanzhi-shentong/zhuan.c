@@ -8,8 +8,14 @@ inherit F_SSERVER;
 int perform(object me, object target)
 {
 //      object weapon;
-        int ap, dp, damage;
+        int ap, dp, damage, count;
         string msg;
+		
+		float improve;
+		int lvls, m, n;
+		string martial;
+		string *ks;
+		martial = "finger";
 
         if (userp(me) && ! me->query("can_perform/tanzhi-shentong/zhuan"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -45,14 +51,35 @@ int perform(object me, object target)
 
         msg = HIC "$N" HIC "将全身功力聚于一指，指劲按照二十八宿方位云贯而出，正"
               "是桃花岛「" HIR "转乾坤" HIC "」绝技。\n" NOR;
+			  
+		lvls = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+		lvls = lvls * 4 / 5;
+		ks = keys(me->query_skills(martial));
+		improve = 0;
+		n = 0;
+		//最多给予5个技能的加成
+		for (m = 0; m < sizeof(ks); m++)
+		{
+			if (SKILL_D(ks[m])->valid_enable(martial))
+			{
+				n += 1;
+				improve += (int)me->query_skill(ks[m], 1);
+				if (n > 4 )
+					break;
+			}
+		}
+		
+		improve = improve * 5 / 100 / lvls;
 
-        ap = me->query_skill("finger", 1) +
+        ap = me->query_skill("finger") +
              me->query_skill("qimen-wuxing", 1) +
              me->query_skill("tanzhi-shentong", 1);
 
-        dp = target->query_skill("force",1) +
+        dp = target->query_skill("force") +
              target->query_skill("parry", 1) +
              target->query_skill("qimen-wuxing", 1);
+		count = me->query_skill("mathematics", 1); 
+		ap += ap * improve;
 
         if (ap / 2 + random(ap) > dp)
         {
@@ -69,9 +96,9 @@ int perform(object me, object target)
                 } else
 		{
                 	me->start_busy(3);
-                	damage = ap / 2 + random(ap);
-                	me->add("neili", -500);
-                	msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 100,
+                	damage = ap + random(ap);
+                	me->add("neili", -(200 + random(count)));
+                	msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, (100 + random(count/10)),
                         	                   HIR "霎那间$n" HIR "只见寒芒一闪，$N"
                                                    HIR "食指已钻入$p" HIR "胸堂半尺，指劲"
                                                    "顿时破体而入。\n你听到“嗤”的一声，"
@@ -80,7 +107,7 @@ int perform(object me, object target)
         } else
         {
                 me->start_busy(2);
-                me->add("neili", -300);
+                me->add("neili", -200);
                 msg += CYN "$p" CYN "见$P" CYN "招式奇特，不感大"
                        "意，顿时向后跃数丈，躲闪开来。\n" NOR;
         }

@@ -104,6 +104,16 @@ mapping *action = ({
         "damage": 125,
         "damage_type":  "摔伤"
 ]),
+([      "action": " "RED" 百花错拳之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
+        "attack" : (int)this_player()->query_skill("unarmed", 1)/4 + random((int)this_player()->query_skill("unarmed", 1)/2),
+        "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
+        "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
+        "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("unarmed", 1)/2),
+        "lvl"    : 200,
+        "skill_name" : "极意",
+        "damage_type": "瘀伤"
+]),
 });
 
 string main_skill() { return "baihua-cuoquan"; }
@@ -267,6 +277,9 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         int lvl;
 
         lvl = me->query_skill("baihua-cuoquan", 1);
+		
+		if (me->query_craze() > 2000 && me->query("jianu"))
+				damage_bonus += me->query("jianu");
 
         if (damage_bonus < 150 || lvl < 150) return 0;
 

@@ -58,7 +58,7 @@ void remove_effect(object me, int skill)
         {
                 me->add_temp("apply/attack", -(skill * 2 / 5));
                 me->add_temp("apply/defense", -(skill * 2 / 5));
-                me->add_temp("apply/weapon_damage", -(skill / 4));
+                me->add_temp("apply/damage", -(skill / 4));
                 me->delete_temp("zhen_yan");
 
                 tell_object(me, "你经过调气养息，又可以继续施展「" HIR "燃木真焰" NOR "」了。\n");

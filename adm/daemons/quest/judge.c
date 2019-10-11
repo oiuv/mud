@@ -15,7 +15,7 @@ void start_quest()
 {
         object qob;
 
-        if (sizeof(children("/clone/quest/judge")) > 10)
+        if (sizeof(children("/clone/quest/judge")) > 15)
                 // 系统中最多10个裁决判案的任务
                 return;
 
@@ -33,6 +33,8 @@ private void heart_beat()
 
         // 如果可以，每次心跳产生一个QUEST
         start_quest();
+        start_quest();
+        start_quest();
 }
 
 // 任务守护进程唤醒这个进程
@@ -46,8 +48,8 @@ void startup()
                 CHANNEL_D->do_channel(find_object(QUEST_D),
                                       "sys", "进程(JUDGE)启动了。");
 
-        // 平均每四分钟产生一个任务
-        set_heart_beat(110 + random(20));
+        // 平均每三分钟产生一个任务
+        set_heart_beat(80 + random(20));
 }
 
 // 停止这个任务进程

@@ -131,8 +131,8 @@ int practice_skill(object me)
 {
         object weapon;
 
-        if ((int)me->query_skill("jiuyin-shengong", 1))
-                return notify_fail("你已将九阴真经上的武功全部融会贯通，不必再分开练习了。\n");
+        //if ((int)me->query_skill("jiuyin-shengong", 1))
+        //        return notify_fail("你已将九阴真经上的武功全部融会贯通，不必再分开练习了。\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "whip")
@@ -145,7 +145,7 @@ int practice_skill(object me)
                 return notify_fail("你的内力不够。\n");
 
         me->receive_damage("qi", 80);
-        me->add("neili", -300);
+        me->add("neili", -120);
         return 1;
 }
 

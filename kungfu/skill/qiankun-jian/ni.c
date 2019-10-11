@@ -11,6 +11,12 @@ int perform(object me, object target)
         string msg;
         int ap, dp;
         int damage;
+		
+		float improve;
+		int lvl, i, n;
+		string martial;
+		string *ks;
+		martial = "sword";
 
         if (userp(me) && ! me->query("can_perform/qiankun-jian/ni"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -42,9 +48,30 @@ int perform(object me, object target)
         msg = HIW "$N" HIW "一声清啸，手中" + weapon->name() +
               HIW "一振，将乾坤剑法逆行施展，顿时剑影重重，万"
               "道光华直追$n" + HIW "而去！\n" NOR;
+			  
+		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+		lvl = lvl * 4 / 5;
+		ks = keys(me->query_skills(martial));
+		improve = 0;
+		n = 0;
+		//最多给予5个技能的加成
+		for (i = 0; i < sizeof(ks); i++)
+		{
+			if (SKILL_D(ks[i])->valid_enable(martial))
+			{
+				n += 1;
+				improve += (int)me->query_skill(ks[i], 1);
+				if (n > 4 )
+					break;
+			}
+		}
+		
+		improve = improve * 3 / 100 / lvl;
 
         ap = me->query_skill("sword") + me->query_skill("force");
         dp = target->query_skill("dodge") + target->query_skill("parry");
+		
+		ap += ap * improve;
 
         if (ap / 2 + random(ap) > dp)
         {

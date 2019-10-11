@@ -10,16 +10,16 @@ inherit F_OBSAVE;
 inherit F_NOCLONE;
 
 int is_item_make() { return 1; }
-//新lib这里全部加了一个0 ~_~
-#define	LEVEL1		50
-#define	LEVEL2		100
-#define	LEVEL3		300
-#define	LEVEL4		1000
-#define	LEVEL5		3000
-#define	LEVEL6		10000
-#define	LEVEL7		30000
-#define	LEVEL8		100000
-#define	LEVEL9		500000
+
+#define	LEVEL1		5
+#define	LEVEL2		10
+#define	LEVEL3		30
+#define	LEVEL4		100
+#define	LEVEL5		300
+#define	LEVEL6		1000
+#define	LEVEL7		3000
+#define	LEVEL8		10000
+#define	LEVEL9		50000
 #define MAX_LEVEL       LEVEL9
 #define ULTRA_LEVEL     (LEVEL9 + 1)
 
@@ -85,7 +85,7 @@ int weapon_level()
         lvl /= 100;
         if (lvl > MAX_LEVEL) lvl = MAX_LEVEL;
 
-        if (lvl == MAX_LEVEL && query("magic/power"))
+        if (lvl == MAX_LEVEL && (query("magic/power") || query("magic/imbue_ok")))
                 // 具有魔法属性
                 lvl = ULTRA_LEVEL;
         return lvl;
@@ -333,15 +333,23 @@ string item_long()
         return "";
 }
 
-// 武器装备的伤害值
+// 武器装备的伤害值，修正为按等级的平方作为基数生效
 int apply_damage()
 {
         int d;
         int p;
+		int lvl;
 
         attack_lvl = weapon_level();
-        p = query("point") / 2;
-        d = attack_lvl * p / MAX_LEVEL + query("bless") * 2; // 乾坤圣水圣化一次增加2点攻击
+		
+        lvl = sizeof(levels);
+        while (--lvl)
+                if (attack_lvl >= levels[lvl])
+                        break;
+        lvl++;
+		
+        p = query("point") / 2;			
+        d = 1.0 * ( lvl * lvl) / (9 * 9) * p + query("bless") * 2; // 乾坤圣水圣化一次增加2点攻击
         return d + p;
 }
 

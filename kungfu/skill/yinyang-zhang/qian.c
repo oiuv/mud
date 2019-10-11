@@ -49,7 +49,7 @@ int perform(object me, object target)
 	{
 		msg = HIR "结果$n" HIR "目不暇接，顿时被$N" HIR "掌"
                       "风所困，顿时阵脚大乱。\n" NOR;
-                me->add_temp("apply/attack", 60);
+                me->add_temp("apply/attack", 100);
         } else
         {
                 msg = HIY "$n" HIY "看清$N" HIY "这几招的来路，但"
@@ -70,7 +70,7 @@ int perform(object me, object target)
 			break;
                 COMBAT_D->do_attack(me, target, 0, 0);
 	}
-        me->add_temp("apply/attack", -50);
+        me->add_temp("apply/attack", -100);
 	me->start_busy(1 + random(attack_time));
 
 	return 1;

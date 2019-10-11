@@ -1,7 +1,7 @@
 // shen.c
 
 inherit NPC;
-#include <ansi.h>
+#include <ansi.h>;
 void create()
 {
 	set_name("ÉòÇà¸Õ", ({ "shen qinggang", "shen", "qinggang" }));
@@ -28,7 +28,7 @@ void create()
 	set_temp("apply/armor", 50);
 	set_temp("apply/damage", 30);
 
-	set("neili", 400);
+	set("neili", 400); 
 	set("max_neili", 400);
 	set("jiali", 10);
 
@@ -36,3 +36,4 @@ void create()
 	carry_object("/clone/weapon/gangdao")->wield();
 	carry_object("/clone/misc/cloth")->wear();
 }
+

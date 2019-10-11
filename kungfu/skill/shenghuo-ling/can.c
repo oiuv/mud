@@ -10,9 +10,15 @@ int perform(object me, object target)
         object weapon;
         string msg;
         int count;
-        int skill;
+        int /*damage,*/ skill;
         int i;
-
+		
+		float improve;
+		int lvl, m, n;
+		string martial;
+		string *ks;
+		martial = "sword";
+ 
         if (! target)
         {
                 me->clean_up_enemy();
@@ -58,6 +64,25 @@ int perform(object me, object target)
         msg = HIR "$N" HIR "一声长啸，手中" + weapon->name() +
               HIR "一转，招数顿时变得诡异无比，从意想不到的方"
               "位攻向$n" HIR "！\n" NOR;
+			  
+		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+		lvl = lvl * 4 / 5;
+		ks = keys(me->query_skills(martial));
+		improve = 0;
+		n = 0;
+		//最多给予5个技能的加成
+		for (m = 0; m < sizeof(ks); m++)
+		{
+			if (SKILL_D(ks[m])->valid_enable(martial))
+			{
+				n += 1;
+				improve += (int)me->query_skill(ks[m], 1);
+				if (n > 4 )
+					break;
+			}
+		}
+		
+		improve = improve * 5 / 100 / lvl;
 
         // 配合圣火令法本身具备的 max_hit带来额外的伤害。
         // 原著中该令法乃很难看透的招数，所以出现增加攻

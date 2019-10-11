@@ -11,11 +11,11 @@ max users : 500
 wiz lock : 0
 
 # INTERNET互连网络中MUD的名字
-internet mud name : mud.ren
-# my_ip : 118.190.104.241
+internet mud name : heros.yd
+# my_ip : 42.96.187.115
 
 # MUDOS
-& mudos : FluffOS v2019
+& mudos : MudOS v22pre11-bin
 
 # 编码方式
 encoding : GB
@@ -27,7 +27,7 @@ smtp server : smtp.qq.com 25
 smtp domain : smtp
 
 # 系统使用SMTP服务器时填写的发送者
-smtp sender : i@mud.ren
+smtp sender : gameivy@qq.com
 
 # 和本系统相联系的MUD服务器
 # mudlist1 : 115.28.10.92 5555                #炎黄
@@ -41,3 +41,4 @@ zone : 云端
 
 # 玩家数据错误时是否要求重新创建玩家
 ask_recreate : 0
+

@@ -197,7 +197,18 @@ mapping query_sub_skills()
 
 int valid_enable(string usage)
 {
-    return usage == "force";
+    object me = this_player();
+
+    if (me->query("reborn"))
+    {
+
+        if (!me->query("can_learn/jiuyang-shengong/enable_weapon"))
+            return usage == "force" || usage == "unarmed" || usage == "parry";
+        else
+            return usage == "force" || usage == "unarmed" || usage == "parry" || usage == "sword" || usage == "blade";
+    }
+    else
+        return usage == "force";
 }
 
 int valid_force(string force) { return 1; }
@@ -212,9 +223,15 @@ mapping query_action(object me, object weapon)
 int valid_learn(object me)
 {
     int level;
+    //      int i;
+
+    //if ((int)me->query_skill("yinyang-shiertian", 1))
+    //return notify_fail("你已将九阳神功融汇贯通，合成了普天之下最"
+    //                   "强的武功，不必再分开学习了。\n");
 
     if (me->query("gender") == "无性")
-        return notify_fail("你无根无性，阴阳不调，难以领会高深的九阳神功。\n");
+        return notify_fail("你无根无性，阴阳不调，难以领会高深的九阳"
+                           "神功。\n");
 
     if (me->query("character") == "狡黠多变")
         return notify_fail("九阳神功正大恢弘，气度俨然，你怎么也学不得神似。\n");
@@ -234,21 +251,25 @@ int valid_learn(object me)
     level = me->query_skill("jiuyang-shengong", 1);
 
     if ((int)me->query_skill("martial-cognize", 1) < 100)
-        return notify_fail("你觉得九阳神功过于深奥，以自己的武学修养全然无法明白。\n");
+        return notify_fail("你觉得九阳神功过于深奥，以自己的武学修养"
+                           "全然无法明白。\n");
 
     if ((int)me->query_skill("force", 1) < 200)
         return notify_fail("你的基本内功修为不足，难以运转九阳神功。\n");
 
     if (me->query_skill("force", 1) < level)
-        return notify_fail("你对基本内功的理解还不够，无法继续领会更高深的九阳神功。\n");
+        return notify_fail("你对基本内功的理解还不够，无法继续领会更"
+                           "高深的九阳神功。\n");
 
     if (me->query_skill("unarmed", 1) < level)
-        return notify_fail("你对基本拳脚的理解还不够，无法继续领会更高深的九阳神功。\n");
+        return notify_fail("你对基本拳脚的理解还不够，无法继续领会更"
+                           "高深的九阳神功。\n");
 
     if (me->query("can_learn/jiuyang-shengong/enable_weapon") &&
         me->query_skill("sword", 1) < level &&
         me->query_skill("blade", 1) < level)
-        return notify_fail("你对刀剑功夫的理解还不够，无法继续领会更高深的九阳神功。\n");
+        return notify_fail("你对刀剑功夫的理解还不够，无法继续领会更"
+                           "高深的九阳神功。\n");
 
     if (!me->query("can_learn/jiuyang-shengong/enable_weapon"))
     {

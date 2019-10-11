@@ -16,6 +16,8 @@ int perform(object me, object target)
         int i;
         int skill;
         int count;
+        int dp;
+		int ap;
 
         if (userp(me) && ! me->query("can_perform/pixie-jian/pi"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -60,11 +62,18 @@ int perform(object me, object target)
         msg = HIW "$N" HIW "身形忽然变快，蓦的冲向$n" HIW "，" + name +
               HIW "幻作数道虚影，顿时无数星光一齐射向$n" HIW "！\n" NOR;
         message_combatd(msg, me, target);
-      
-        count = skill / 4;
+
+		ap = me->query_skill("dodge", 1);
+        dp = target->query_skill("dodge", 1);
+        if (ap / 2 + random(ap) > dp){
+            count = ap / 4;
+        }
+        else{
+            count = ap / 8;
+        }
         me->add_temp("apply/attack", count);
         me->add_temp("apply/damage", count);
-        me->add_temp("apply/unarmed_dage", count);
+        me->add_temp("apply/unarmed_damage", count);
 
         me->add_temp("pixie-jian/hit_msg", 1);
 
@@ -82,7 +91,7 @@ int perform(object me, object target)
         me->start_busy(1 + random(7));
         me->add_temp("apply/attack", -count);
         me->add_temp("apply/damage", -count);
-        me->add_temp("apply/unarmed_dage", -count);
+        me->add_temp("apply/unarmed_damage", -count);
         me->delete_temp("pixie-jian/hit_msg");
         return 1;
 }

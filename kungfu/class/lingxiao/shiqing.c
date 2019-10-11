@@ -1,4 +1,4 @@
-#include <ansi.h>
+#include <ansi.h>;
 
 #define MOJIAN    "/clone/lonely/mojian"
 
@@ -22,7 +22,7 @@ void create()
 飘飘，腰间挂着一柄长剑。
 LONG );
         set("attitude", "peaceful");
-        set("shen_type", 1);
+        set("shen_type", 1); 
         set("str", 32);
         set("int", 31);
         set("con", 33);
@@ -34,7 +34,7 @@ LONG );
         set("max_neili", 5000);
         set("jiali", 180);
         set("combat_exp", 2200000);
-        set("score", 25000);
+        set("score", 25000); 
 
         set_skill("force", 220);
         set_skill("wuwang-shengong", 220);
@@ -105,7 +105,7 @@ int recognize_apprentice(object ob, string skill)
         {
                 command("hmm");
                 command("say 石某与阁下素无渊源，何谈传授二字？\n");
-                return -1;
+                return -1; 
 
         }
 

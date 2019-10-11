@@ -39,6 +39,16 @@ mapping *action = ({
     "skill_name" : "唯我独尊" ,
     "damage_type" : "抓伤"
 ]),
+([      "action": " "RED" 三阴蜈蚣爪之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force")/2 + random((int)this_player()->query_skill("force")),
+        "attack" : (int)this_player()->query_skill("claw")/4 + random((int)this_player()->query_skill("claw")/2),
+        "dodge"  : (int)this_player()->query_skill("dodge")/4 + random((int)this_player()->query_skill("force")/3),
+        "parry"  : (int)this_player()->query_skill("parry")/4 + random((int)this_player()->query_skill("parry")/3),
+        "damage" : (int)this_player()->query_skill("force")/3 + random((int)this_player()->query_skill("claw")/3),
+        "lvl"    : 100,
+        "skill_name" : "极意",
+        "damage_type": "抓伤"
+]),
 });
 
 int valid_enable(string usage) { return usage == "claw" ||  usage == "parry"; }

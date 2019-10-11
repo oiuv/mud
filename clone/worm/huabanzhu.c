@@ -6,7 +6,7 @@ void create()
         set_name(HIR "花斑蛛" NOR, ({ "huaban zhu", "huaban", "zhu" }));
         set("long", HIR "这是一只全身五彩斑斓的毒蜘蛛。\n" NOR);
         set("race", "野兽");
-        set("age", random(200)+100);
+        set("age", random(200)+100);//百
         set("attitude", "peaceful");
 
         set("max_qi", 300);

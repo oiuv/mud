@@ -1,4 +1,4 @@
-#include <ansi.h>
+#include <ansi.h>;
 inherit KNOWER;
 
 void create()

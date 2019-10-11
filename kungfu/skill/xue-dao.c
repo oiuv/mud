@@ -1,6 +1,6 @@
 // xue-dao.c 血刀
-//
 
+#include <ansi.h>
 inherit SKILL;
 
 mapping *action = ({
@@ -83,6 +83,16 @@ mapping *action = ({
         "lvl" : 150,
         "damage" : 85,
         "damage_type" : "割伤",
+]),
+([      "action": " "RED" 血刀之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force")/2 + random((int)this_player()->query_skill("force")),
+        "attack" : (int)this_player()->query_skill("blade")/4 + random((int)this_player()->query_skill("blade")/2),
+        "dodge"  : (int)this_player()->query_skill("dodge")/4 + random((int)this_player()->query_skill("force")/3),
+        "parry"  : (int)this_player()->query_skill("parry")/4 + random((int)this_player()->query_skill("parry")/3),
+        "damage" : (int)this_player()->query_skill("force")/3 + random((int)this_player()->query_skill("blade")/3),
+        "lvl"    : 100,
+        "skill_name" : "极意",
+        "damage_type": "割伤"
 ]),
 });
 

@@ -1,6 +1,6 @@
 inherit ITEM;
 inherit F_FOOD;
-#include <ansi.h>
+#include <ansi.h>;
 
 void create()
 {

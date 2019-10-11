@@ -6,7 +6,7 @@ void create()
         set_name(HIB "黑寡妇" NOR, ({ "hei guafu", "hei", "guafu" }));
         set("long", HIB "这是一只全身充满了剧毒的黑寡妇。\n" NOR);
         set("race", "野兽");
-        set("age", random(200)+100);
+        set("age", random(250)+150);//千
         set("attitude", "peaceful");
 
         set("max_qi", 300);

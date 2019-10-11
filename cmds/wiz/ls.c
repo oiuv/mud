@@ -10,11 +10,11 @@ int sort_list(mixed ob1, mixed ob2);
 
 int main(object me, string arg)
 {
- 	// int mark_loaded;
+// 	int mark_loaded;
 	int i, j, w, col;
 	string dir;
-  string path;
-  int opt_l;
+        string path;
+        int opt_l;
 	mixed *file;
         string result;
 
@@ -137,17 +137,17 @@ int help(object me)
 {
 	write(@HELP
 指令格式: ls [-l] [<路径名>]
-
+ 
 列出目录下所有的子目录及档案, 如果没有指定目录, 则列出所在目录
 的内容，所列出的档案中，白色的代表路径或是已经载入的物件对应的
 文件，正常色的代表普通的文件。红色则表示你对该目录或文件没有写
 入权限。-l参数可以列出详细资料。
-
+ 
 范例:
 'ls /' 会列出所有位於根目录下的档案及子目录。
 'ls /adm/*.c -l' 则会列出/adm/目录下面所有以.c结尾的文件的详细
 资料列表。
-
+ 
 HELP );
 	return 1;
 }

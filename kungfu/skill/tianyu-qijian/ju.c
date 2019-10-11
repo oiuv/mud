@@ -9,6 +9,7 @@ int perform(object me, object target)
 {
 	object weapon;
 	int damage;
+	int ap, dp;
 	string msg;
 
         if (userp(me) && ! me->query("can_perform/tianyu-qijian/ju"))
@@ -41,10 +42,12 @@ int perform(object me, object target)
 	msg = HIR "$N" HIR "手腕轻轻一抖，手中的" + weapon->name() +
 	      HIR "化作一道彩虹，光华眩目，笼罩了$n" HIR "。\n" NOR;
 
-	if (random(me->query_skill("force")) > target->query_skill("force") / 2)
+	ap = me->query_skill("force");
+	dp = target->query_skill("force");
+	if (ap / 2 + random(ap) > dp)
 	{
-		damage = (int)me->query_skill("sword") / 2;
-		damage = damage + random(damage);
+		damage = (int)me->query_skill("sword");
+		damage += random(damage);
 
 		me->add("neili", -160);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 50,

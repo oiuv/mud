@@ -13,10 +13,10 @@ int perform(object me, object target)
         string type;
         mapping prepare;
         int n;
-        int skill, ap, dp, ss;
+        int skill, ap, dp/*, damage*/, ss;
 
         if (me->query("can_learn/dugu-jiujian/nothing"))
-                return notify_fail("你所使用的外功中没有这种功能。\n");
+                return notify_fail("你所使用的外功中没有这种功能。\n");                
 
         if (userp(me) && me->query("can_perform/dugu/po") < 100)
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -36,7 +36,7 @@ int perform(object me, object target)
            || weapon->query("skill_type") != "sword")
                 return notify_fail("你使用的武器不对，无法施展" PO "。\n");
 
-        if (me->query_skill_mapped("sword") != "dugu-jiujian")
+        if (me->query_skill_mapped("sword") != "dugu-jiujian") 
                 return notify_fail("你没有激发独孤九剑，无法施展" PO "。\n");
 
         if (! living(target))
@@ -48,7 +48,7 @@ int perform(object me, object target)
         if (weapon2) type = weapon2->query("skill_type");
         else if (! prepare || sizeof(prepare) == 0) type = "unarmed";
         else if (sizeof(prepare) == 1) type = (keys(prepare))[0];
-        else if (sizeof(prepare) == 2)
+        else if (sizeof(prepare) == 2) 
                 type = (keys(prepare))[target->query_temp("action_flag")];
 
         ap = skill + me->query_skill("sword", 1);
@@ -68,7 +68,7 @@ int perform(object me, object target)
         if (ap + random(ap) > dp)
         {
                 msg = HIC "$N" HIC "随意挥洒手中的" + weapon->name() +
-                      HIC "，招招从出其不意的方位直指$n"
+                      HIC "，招招从出其不意的方位直指$n" 
                       HIC + to_chinese(type)[4..<1] + "中的破绽。\n" NOR;
 
                 n = 7 + random(7);
@@ -80,13 +80,13 @@ int perform(object me, object target)
                                + "剑！\n" NOR;
                         message_combatd(msg, me, target);
 
-                        me->start_busy(1 + random(n));
                         while (n-- && me->is_fighting(target))
                         {
                                 if (! target->is_busy() && random(2))
                                         target->start_busy(1);
                                 COMBAT_D->do_attack(me, target, weapon, 0);
                         }
+						me->start_busy(1 + random(n/2));
 
                         if (weapon2 && random(ap) > dp && type != "pin")
                         {
@@ -111,7 +111,7 @@ int perform(object me, object target)
                 msg = HIC "$N" HIC "拿着手中的" + weapon->name() +
                       HIC "，东戳西指，不过$n" HIC "防守的异常严密，$N"
                       HIC "一时竟然无法找到破绽。\n" NOR;
-                me->start_busy(3 + random(2));
+                me->start_busy(2 + random(2));
                 target->start_busy(1);
         }
         message_combatd(msg, me, target);

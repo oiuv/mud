@@ -5,6 +5,7 @@ inherit NPC;
 inherit F_MASTER;
 
 mixed ask_skill1();
+mixed ask_riyue();
 
 void create()
 {
@@ -65,7 +66,7 @@ LONG);
                 "绝技"        : "你要问什么绝技？",
                 "任我行"      : "任我行乃日月神教上代教主，不过已经失踪很久了。",
                 "东方不败"    : "东方教主武功深不可测，天下无敌。",
-                "日月神教"    : "我们梅庄四友和日月神教已无瓜葛，你提它作甚？",
+                "日月神教"    : (: ask_riyue :),
                 "溪山行旅图"  : "我一直想看看北宋范中立《溪山行旅图》究竟是怎样的。",
                 "醉里乾坤"    : (: ask_skill1 :),
         ]));
@@ -166,4 +167,43 @@ mixed ask_skill1()
         me->add("gongxian", -300);
 
         return 1;
+}
+
+mixed ask_riyue()
+{
+        object me;
+
+        me = this_player();
+
+        if (me->query("family/family_name") != "日月神教")
+        {
+                command("say 本庄只接待神教人士！");
+                return 1;
+        }
+
+        if (me->query("can_learn/meizhuang"))
+        {
+                command("say 你不是已经会了吗？还来找我干什么！");
+                return 1;
+        }
+
+        command("say 恩，那好吧，我就教你泼墨披麻剑。");
+
+        me->set_skill("pomopima-jian", 10);
+		me->set("can_learn/meizhuang", 1);
+		
+		if (me->query("gongxian") > 10000 &&
+			me->query("balance") > 100000000)
+		{
+			me->add("gongxian", -10000);
+			me->add("balance", -100000000);
+			me->set("can_perform/pomopima-jian/zui", 1);
+		}
+
+        tell_object(me, HIG "你学会了泼墨披麻剑！\n" NOR);
+
+        command("say 下去好好练习吧。");
+  
+        return 1;    
+    
 }

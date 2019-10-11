@@ -2,7 +2,7 @@
 
 inherit NPC;
 
-#include <ansi.h>
+#include <ansi.h>;
 void create()
 {
 	set_name("É³Í¨Ìì", ({ "sha tongtian", "sha", "tongtian" }));
@@ -30,7 +30,7 @@ void create()
 	set_temp("apply/armor", 100);
 	set_temp("apply/damage", 100);
 
-	set("neili", 800);
+	set("neili", 800); 
 	set("max_neili", 800);
 	set("jiali", 50);
 
@@ -38,3 +38,4 @@ void create()
 	carry_object("/d/hangzhou/honghua/obj/tiejiang")->wield();
 	carry_object("/d/city/obj/tiejia")->wear();
 }
+

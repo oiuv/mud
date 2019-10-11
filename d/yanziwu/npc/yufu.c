@@ -1,4 +1,4 @@
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit KNOWER;
 
@@ -32,3 +32,4 @@ void create()
         carry_object("/clone/cloth/cloth")->wear();
         add_money("coin", 20);
 }
+

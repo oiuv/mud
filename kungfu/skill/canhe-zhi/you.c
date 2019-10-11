@@ -7,9 +7,9 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        // int damage;
+//      int damage;
         string msg;
-        // int ap, dp;
+//      int ap,dp;
         int i;
 
         if (! target) target = offensive_target(me);
@@ -23,7 +23,7 @@ int perform(object me, object target)
         if (objectp(me->query_temp("weapon")))
                 return notify_fail("你必须空手才能使用" YOU "。\n");
 
-        if ((int)me->query_skill("canhe-zhi", 1) < 120)
+        if ((int)me->query_skill("canhe-zhi", 1) < 200)
                 return notify_fail("你的参合指修为有限，难以施展" YOU "。\n");
 
         if (me->query_skill_mapped("finger") != "canhe-zhi")
@@ -42,7 +42,7 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         msg = HIW "只见$N" HIW "身形一展，身法陡然变得诡异无比，聚力于指悄然点"
-              "出，数股剑气直袭$n" HIW "要穴而去。\n" NOR;
+              "出，数股剑气直袭$n" HIW "要穴而去。\n" NOR;  
 
         message_combatd(msg, me, target);
 

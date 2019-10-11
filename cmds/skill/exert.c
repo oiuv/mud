@@ -16,7 +16,7 @@ int main(object me, string arg)
 	if (! arg)
 		return notify_fail("你要用内功做什么？\n");
 
-        if (me->query_temp("no_exert"))
+        if (me->query_temp("no_exert") || me->query_condition("exert_drug"))
 		return notify_fail(HIR "你只觉得内息一阵紊乱，根本无法控制内息。\n" NOR);
 
 	if (stringp(force = me->query_skill_mapped("force")))

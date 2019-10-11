@@ -1,7 +1,7 @@
 // lin-pingzhi.c
 
 inherit NPC;
-#include <ansi.h>
+#include <ansi.h>;
 void create()
 {
         set_name("¡÷∆Ω÷Æ", ({ "lin pingzhi","lin","pingzhi"}));
@@ -72,3 +72,4 @@ void die()
        	}
 	::die();
 }
+

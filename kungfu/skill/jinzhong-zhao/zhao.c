@@ -26,7 +26,7 @@ int perform(object me, object target)
         if ((int)me->query_temp("special/jinshen"))
                 return notify_fail("你已经运起神魔金身之术了。\n");
 
-        skill = me->query_skill("force");
+        skill = me->query_skill("force", 1) + me->query_skill("jinzhong-zhao", 1) / 2;
         me->add("neili", -300);
         me->receive_damage("qi", 0);
 

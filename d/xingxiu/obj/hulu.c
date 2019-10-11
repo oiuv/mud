@@ -1,6 +1,6 @@
 inherit ITEM;
 inherit F_LIQUID;
-#include <ansi.h>
+#include <ansi.h>;
 
 void create()
 {

@@ -76,7 +76,17 @@ mapping *action = ({
         "lvl" : 200,
         "skill_name" : "无影无踪",
         "damage_type":  "内伤"
-])
+]),
+([      "action": " "RED" 三无三不手之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
+        "attack" : (int)this_player()->query_skill("whip", 1)/4 + random((int)this_player()->query_skill("whip", 1)/2),
+        "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
+        "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
+        "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("whip", 1)/2),
+        "lvl"    : 230,
+        "skill_name" : "极意",
+        "damage_type": "内伤"
+]),
 });
 
 int valid_enable(string usage)
@@ -143,6 +153,24 @@ int practice_skill(object me)
 
         me->receive_damage("qi", 55);
         me->add("neili", -60);
+        return 1;
+}
+
+mixed hit_ob(object me, object victim, int damage_bonus)
+{
+		object weapon = me->query_temp("weapon");
+        if (! living(victim)
+           || me->query("neili") < 200
+           || me->query_skill("sanwu-shou", 1) < 120)
+        	return 0;
+			
+		if (victim->query("shen") > 0 && random(2))
+		{
+				me->add("neili", -30);
+				victim->receive_wound("qi", damage_bonus, me);
+                return HIR "$N" HIR "手中的" + weapon->name() +
+                       HIR "抽尽天下的伪君子。\n" NOR;
+		}
         return 1;
 }
 

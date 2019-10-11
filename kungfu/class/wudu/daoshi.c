@@ -66,7 +66,7 @@ void create()
 }
 
 void init()
-{
+{       
         object ob;
 
         ::init();
@@ -105,7 +105,7 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-        if ((int)ob->query("shen") > 0)
+        if ((int)ob->query("shen") > -1000)
         {
                 command("say 我教弟子贵在随心所欲，不收伪君子。");
                 return;
@@ -146,3 +146,4 @@ mixed ask_me()
         return 1;
 
 }
+

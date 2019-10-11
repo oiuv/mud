@@ -52,6 +52,8 @@ private void heart_beat()
 
         // 如果可以，每次心跳产生一个QUEST
         start_quest();
+        start_quest();
+        start_quest();
 }
 
 // 任务守护进程唤醒这个进程

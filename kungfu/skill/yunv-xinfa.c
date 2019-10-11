@@ -8,7 +8,8 @@ int valid_enable(string usage)
 
 int valid_force(string force)
 {
-    return force == "suxin-jue" || force == "quanzhen-xinfa";
+    return force == "suxin-jue" ||
+           force == "quanzhen-xinfa";
 }
 
 int query_neili_improve(object me)
@@ -67,7 +68,8 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
         victim->receive_damage("qi", damage_bonus, me);
         victim->receive_wound("qi", damage_bonus * 2 / 3, me);
 
-        return HIW "$N" HIW "一声娇喝，将玉女心经功力运至" + wn + HIW "之上，姿势妙曼，令人肃然起敬。\n" NOR;
+        return HIW "$N" HIW "一声娇喝，将玉女心经功力运至" + wn +
+               HIW "之上，姿势妙曼，令人肃然起敬。\n" NOR;
     }
 }
 

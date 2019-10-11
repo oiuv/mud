@@ -15,17 +15,25 @@ string *imbue_list = ({
         "/clone/fam/gift/con3",
         "/clone/fam/gift/str3",
         "/clone/fam/gift/dex3",
+		"/clone/fam/item/stone4",
         //"/clone/fam/item/bless_water",
         //"/clone/fam/etc/lv7d",
         //"/clone/fam/etc/lv7c",
 });
 
+string *imbue_list2 = ({
+        "/clone/fam/max/xuanhuang",//玄黄丹
+		"/clone/fam/max/longjia",//龙甲丹
+		"/clone/fam/obj/guo",//无花果
+        "/clone/fam/item/bless_water",//圣水
+});
+
 // 浸入的次数的随机界限：如果每次IMBUE以后取0-IMBUE次数的随机
 // 数大于这个数值，则IMBUE最终成功。
-#define RANDOM_IMBUE_OK         100
+#define RANDOM_IMBUE_OK         50
 
 // 每次浸入需要圣化的次数
-#define SAN_PER_IMBUE           5
+#define SAN_PER_IMBUE           1
 
 // 杀了人以后的奖励
 void killer_reward(object me, object victim, object item)
@@ -108,7 +116,7 @@ int receive_summon(object me, object item)
         {
               message_sort(HIM "\n只见四周金光散布，祥云朵朵，远处有凤凰盘绕，麒麟逐戏。耳边"
                            "传来阵阵梵音。$N" HIM "一声长啸，" + item->query("name") + HIM
-                           "破空而来 ……。\n\n" NOR, me);
+                           "破空而来 ……。\n\n" NOR, me); 
         }
         else
 
@@ -396,8 +404,8 @@ mixed do_touch(object me, object item)
         } else
         if (me->query("neili") < me->query("max_neili"))
         {
-                me->set("neili", me->query("max_neili"));
-                me->start_busy(1 + random(5));
+				//取消10B效果
+                //me->set("neili", me->query("max_neili"));
                 tell_object(me, HIC "你只觉一股热气至丹田冉冉升起，"
                                 "说不出的舒服。\n" NOR);
         }
@@ -441,9 +449,9 @@ int do_san(object me, object item)
 
         if (item->item_owner() == my_id)
         {
-                if (! count)
-                        return notify_fail("你应该先寻求四位高手协助你先行圣化" +
-                                           item->name() + "。\n");
+                //if (! count)
+                //        return notify_fail("你应该先寻求四位高手协助你先行圣化" +
+                //                           item->name() + "。\n");
 
                 if (count < SAN_PER_IMBUE - 1)
                         return notify_fail("你应该再寻求" +
@@ -504,6 +512,8 @@ int do_san(object me, object item)
         //me->add("max_jingli", -(san * 5 + 50));
         me->add("max_jingli", -(san + 5));
         me->add("jingli", -(san * 5 + 50));
+		me->add("combat_exp", -(san * 100 + 1000));
+		me->add("potential", -(san * 10 + 100));
         item->set("magic/do_san/" + my_id, me->name(1));
         me->start_busy(1);
 
@@ -515,7 +525,15 @@ int do_san(object me, object item)
                         "微微一笑。\n" HIW, environment(me), ({ me }));
 
                 // 选定一个需要imbue的物品
-                item->set("magic/imbue_ob", imbue_list[random(sizeof(imbue_list))]);
+                if (random(10) < 1)
+				{
+					item->add("magic/imbue", random(2) + 1);
+					item->set("magic/imbue_ob", imbue_list2[random(sizeof(imbue_list2))]);
+				}
+				else
+				{
+					item->set("magic/imbue_ob", imbue_list[random(sizeof(imbue_list))]);
+				}
         }
         return 1;
 }
@@ -627,7 +645,7 @@ mixed weapon10lv_hit_ob(object me, object victim, object weapon, int damage_bonu
         resistance = 0;
         //jingjia = me->query("jiajing");
         jingjia = me->query("jiali") / 3;
-
+      
         switch (magic["type"])
         {
         case "lighting":
@@ -787,8 +805,8 @@ mixed weapon10lv_hit_ob(object me, object victim, object weapon, int damage_bonu
 // 9级兵器攻击对手
 mixed weapon_hit_ob(object me, object victim, object weapon, int damage_bonus)
 {
-        //int ap;
-        //int dp;
+//      int ap;
+//      int dp;
         int damage;
 
         if (random(2)) return;
@@ -838,7 +856,7 @@ void continue_attack(object me, object victim, object weapon, int times)
         string msg;
         int ap, dp;
 
-        if (! me || ! victim || ! weapon || ! me->is_fighting(victim))
+        if (! me || ! victim || ! weapon || ! me->is_fighting(victim) || ! living(victim))
                 return;
 
         msg  = HIW "霎时只听$N" HIW "纵声长啸，人与" + weapon->name() +
@@ -894,7 +912,7 @@ void reduce_consistence(object item)
         if (item->query("material") == "tian jing")
                 return;
 
-        if (random(st) > (100 - con) / 7)
+        if (random(st * 10) > (100 - con) / 7)
                 return;
 
         if (item->add("consistence", -1) > 0)

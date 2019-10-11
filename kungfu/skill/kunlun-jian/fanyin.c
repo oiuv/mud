@@ -53,19 +53,19 @@ int perform(object me)
               "轻轻弹拨，剑身微颤，声若龙吟。\n顿时发出一"
               "阵清脆的琴音……\n" NOR;
 
-        skill = me->query_skill("kunlun-jian", 1);
-        ap = me->query_skill("sword");
-        dp = target->query_skill("force");
+        ap = me->query_skill("sword") + me->query_skill("force");
+        dp = target->query_skill("parry") + target->query_skill("force");
+		skill = me->query_skill("tanqin-jifa") + me->query_skill("chuixiao-jifa");
+		ap += skill;
+		dp += target->query_skill("tanqin-jifa") / 2 + target->query_skill("chuixiao-jifa") / 2;
         if (dp < 1) dp = 1;
         if (random(ap) > dp / 2)
         {
                 me->add("neili", -200);
-                jing_wound = (int)me->query_skill("sword") +
-                             (int)me->query_skill("tanqin-jifa", 1);
-                jing_wound = jing_wound / 2 + random(jing_wound / 2);
+                jing_wound = ap / 2 + random(ap / 2) + random(skill);
 
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK,
-                       jing_wound, 60, MAG "$n" MAG "顿时只觉琴音犹"
+                       jing_wound, 80, MAG "$n" MAG "顿时只觉琴音犹"
                        "如两柄利剑一般刺进双耳，刹那间头晕目眩，全身"
                        "刺痛！\n" NOR);
                 me->start_busy(2 + random(2));
@@ -74,8 +74,9 @@ int perform(object me)
                 me->add("neili", -50);
                 msg += CYN "可是$n" CYN "赶忙宁心静气，收敛心神，丝"
                        "毫不受$N" CYN "琴音的干扰。\n" NOR;
-                me->start_busy(3);
+                me->start_busy(2);
         }
         message_combatd(msg, me, target);
         return 1;
 }
+

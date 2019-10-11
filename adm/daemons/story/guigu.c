@@ -53,7 +53,10 @@ object select_character()
     object *obs;
     object ob;
 
-    obs = filter_array(all_interactive(), (: !wizardp($1) && living($1) && $1->query_skill("literate", 1) > 50 && !$1->query("doing") :));
+    obs = filter_array(all_interactive(), (: !wizardp($1) && living($1) &&
+            $1->query_skill("literate", 1) > 50 &&
+            !$1->query("doing") :));
+
     if (!sizeof(obs))
         return 0;
 
@@ -71,10 +74,10 @@ mixed query_story_message(int step)
         return 0;
 
     msg = story[step];
-    if (stringp(msg))
+    if (stringp(msg) && char_name)
     {
-        msg = replace_string(msg, "$N", char_name ? char_name : char_name = "Â·ÈË¼×");
-        msg = replace_string(msg, "$ID", char_id ? char_id : char_id = "none");
+        msg = replace_string(msg, "$N", char_name);
+        msg = replace_string(msg, "$ID", char_id);
     }
     return msg;
 }

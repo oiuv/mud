@@ -38,7 +38,7 @@ int exert(object me, object target)
         if ((int)me->query("neili") < 800)
                 return notify_fail("你的真气不够。\n");
 
-        me->add("neili", -300);
+        me->add("neili", -800);
 
         me->start_busy(5);
 

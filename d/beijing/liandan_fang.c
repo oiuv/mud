@@ -33,9 +33,15 @@ int do_liandan(string arg)
 {
         int time;
         int time2;
+		int skill;
 
         object me = this_player();
-        time = 15 + random(15);
+		skill = me->query_skill("liandan-shu", 1);
+		if(skill > 250)
+			time = 5;
+		else
+			time = 15 - skill / 25;
+        time = time + random(time);
         time2 = time;
         
 
@@ -68,14 +74,12 @@ int do_liandan(string arg)
 }
 
 // 特殊丹列表
-string *SM_LIST = ({ "danS_1", "danS_2", "danS_3", "danS_4", "danS_5",
-                     "danM_5", "danM_9", "danA_5", "danB_6", "danC_5",
-                     "danD_6", });
+string *SM_LIST = ({ "danS_1", "danS_1", "danS_1", "danM_5", "danM_9", 
+                     "danA_5", "danB_6", "danC_5", "danD_6", });
 
 // 普通丹列表
-string *NORMAL_LIST = ({ "danM_3", "danM_4", "danM_7", "danM_8", "danA_3",
-                         "danA_4", "danB_3", "danB_4", "danB_5", "danC_4",
-                         "danD_3", "danD_4", "danD_5", });
+string *NORMAL_LIST = ({ "danM_4", "danM_4", "danM_4", "danM_8", "danA_4", 
+                         "danB_5", "danC_4", "danD_5", "danD_5", "danD_5", });
 
 void liandan(object me)
 {

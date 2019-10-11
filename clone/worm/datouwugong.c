@@ -6,7 +6,7 @@ void create()
         set_name(WHT "大头蜈蚣" NOR, ({ "datou wugong", "datou", "wugong" }));
         set("long", WHT "这是一条全身细长，头部硕大的蜈蚣。\n" NOR);
         set("race", "野兽");
-        set("age", random(200)+100);
+        set("age", random(200)+100);//百
         set("attitude", "peaceful");
 
         set("max_qi", 250);

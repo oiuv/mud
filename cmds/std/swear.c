@@ -118,9 +118,7 @@ int main(object me, string arg)
     me->set_temp("pending/team_swear/member", t);
 
     message_vision("$N大声提议道：“我们众兄弟情"
-                   "投意合，今日为何不结拜，共创" +
-                       "『" + arg + "』”？\n",
-                   me);
+                   "投意合，今日为何不结拜，共创" + "『" + arg + "』”？\n", me);
     me->set_temp("pending/team_swear/name", pure_name);
     me->set_temp("pending/team_swear/accept", ({me}));
     me->set_temp("pending/team_doing", "swear");
@@ -135,11 +133,9 @@ int main(object me, string arg)
                              arg + "』，你是否同意(right/refuse)？\n" +
                              NOR);
         tob->set_temp("pending/answer/" + me->query("id") + "/right",
-                      bind((: call_other, __FILE__, "do_right", tob, me :),
-                           tob));
+                      bind((: call_other, __FILE__, "do_right", tob, me :), tob));
         tob->set_temp("pending/answer/" + me->query("id") + "/refuse",
-                      bind((: call_other, __FILE__, "do_refuse", tob, me :),
-                           tob));
+                      bind((: call_other, __FILE__, "do_refuse", tob, me :), tob));
     }
 
     return 1;
@@ -217,19 +213,26 @@ int do_right(object me, object ob)
         {
             if (!objectp(tob) || environment(tob) != environment(me))
             {
-                fail = "虽然大家都同意了，可惜现在有人不在，$N的提议只好作罢。\n";
+                fail = "虽然大家都同意"
+                       "了，可惜现在有人不在，$N"
+                       "的提议只好作罢。\n";
                 break;
             }
 
             if (!living(tob) || tob->is_fighting())
             {
-                fail = "虽然大家都同意了，可惜现在有人没法和大家一同结义，$N的提议只好作罢。\n";
+                fail = "虽然大家都同意"
+                       "了，可惜现在有人没法和大"
+                       "家一同结义，$N的提议只好作罢。\n";
                 break;
             }
 
             if (mapp(tob->query("league")))
             {
-                fail = "虽然大家都同意了，可惜" + tob->name() + "已经加入了别的同盟了，$N的提议只好作罢。\n";
+                fail = "虽然大家都同意"
+                       "了，可惜" +
+                       tob->name() +
+                       "已经加入了别的同盟了，$N的提议只好作罢。\n";
                 break;
             }
 
@@ -292,7 +295,8 @@ int do_refuse(object me, object ob)
         return notify_fail("你现在已经不在人家的结义考虑范围之内了。\n");
 
     ob->delete_temp("pending/team_swear");
-    message_vision("$N摇了摇头，对$n道：“你们的事情我不管，但是我没有兴趣。”\n", me, ob);
+    message_vision("$N摇了摇头，对$n道：“你们的事情我不管，但是我没有兴趣。”\n",
+                   me, ob);
     t -= ({0});
     message("vision", YEL + me->name(1) + "拒绝了" + ob->name(1) + "的结义提议。\n" NOR, t, me);
     return 1;

@@ -9,15 +9,21 @@ int perform(object me, object target)
 {
 	object weapon;
 	string msg, wp;
-        int ap, dp, damage;
+    int ap, dp, damage;
+	
+		float improve;
+		int lvl, i, n;
+		string martial;
+		string *ks;
+		martial = "hammer";
 
         if (userp(me) && ! me->query("can_perform/riyue-lun/po"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
-	if (! target ) target = offensive_target(me);
+		if (! target ) target = offensive_target(me);
 
-	if (! target || ! me->is_fighting(target))
-		return notify_fail(PO "只能对战斗中的对手使用。\n");
+		if (! target || ! me->is_fighting(target))
+				return notify_fail(PO "只能对战斗中的对手使用。\n");
 
         if ((int)me->query_temp("yuan_man"))
                 return notify_fail("你现在无暇施展" PO "。\n");
@@ -52,8 +58,29 @@ int perform(object me, object target)
 	msg = HIY "$N" HIY "单手高举" + wp + HIY "奋力朝$n" HIY "砸下，气"
               "浪迭起，全然把$n" HIY "卷在其中！\n" NOR;
 
+	lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+	lvl = lvl * 4 / 5;
+		ks = keys(me->query_skills(martial));
+		improve = 0;
+		n = 0;
+		//最多给予5个技能的加成
+		for (i = 0; i < sizeof(ks); i++)
+		{
+			if (SKILL_D(ks[i])->valid_enable(martial))
+			{
+				n += 1;
+				improve += (int)me->query_skill(ks[i], 1);
+				if (n > 4 )
+					break;
+			}
+		}
+		
+		improve = improve * 4 / 100 / lvl;
+			  
 	ap = me->query_skill("force") + me->query("str") * 10;
 	dp = target->query_skill("force") + target->query("con") * 10;
+	
+	ap += ap * improve;
 
 	if (ap / 2 + random(ap) > dp)
 	{

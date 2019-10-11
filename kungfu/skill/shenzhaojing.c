@@ -46,27 +46,33 @@ mapping *action = ({
                 "lvl":250,
         "damage_type":"内伤"]),
 });
-
+/*
 int valid_enable(string usage)
 {
-    int lvl;
-    lvl = (int)this_player()->query_skill("shenzhaojing", 1);
+        int lvl;
+        lvl = (int)this_player()->query_skill("shenzhaojing", 1);
 
-    if (lvl >= 180)
-        return usage == "force" || usage == "unarmed" || usage == "parry";
-    else
-        return usage == "force";
+        if(lvl >= 180)
+                return usage == "force" || usage == "unarmed" || usage == "parry";
+        else
+                return usage == "force";
+
+}*/
+int valid_enable(string usage)
+{
+    return usage == "force";
 }
+
 //修改神照经神功为全兼容内功 2017-02-01
 int valid_force(string force) { return 1; }
 
 int valid_learn(object me)
 {
-    if ((int)me->query("str") < 32)
-        return notify_fail("你先天膂力孱弱，无法修炼神照经神功。\n");
+    //if ((int)me->query("str") < 32)
+    //        return notify_fail("你先天膂力孱弱，无法修炼神照经神功。\n");
 
-    if ((int)me->query("con") < 32)
-        return notify_fail("你先天根骨孱弱，无法修炼神照经神功。\n");
+    //if ((int)me->query("con") < 32)
+    //        return notify_fail("你先天根骨孱弱，无法修炼神照经神功。\n");
 
     if (me->query("gender") == "无性" && me->query("shenzhaojing", 1) > 29)
         return notify_fail("你无根无性，阴阳不调，难以领会高深的神照经神功。\n");
@@ -74,8 +80,8 @@ int valid_learn(object me)
     if ((int)me->query_skill("force", 1) < 200)
         return notify_fail("你的基本内功火候不足，不能学神照经神功。\n");
 
-    if ((int)me->query_skill("unarmed", 1) < 200)
-        return notify_fail("你的基本拳脚火候不足，不能学神照经神功。\n");
+    //if ((int)me->query_skill("unarmed", 1) < 200)
+    //        return notify_fail("你的基本拳脚火候不足，不能学神照经神功。\n");
 
     if ((int)me->query("max_neili", 1) < 4000)
         return notify_fail("你的内力修为不足，不能学神照经神功。\n");
@@ -83,8 +89,8 @@ int valid_learn(object me)
     if (me->query_skill("force", 1) < me->query_skill("shenzhaojing", 1))
         return notify_fail("你的基本内功水平不够，难以锻炼更深厚的神照经神功。\n");
 
-    if (me->query_skill("unarmed", 1) < me->query_skill("shenzhaojing", 1))
-        return notify_fail("你的基本拳脚水平不够，难以锻炼更深厚的神照经神功。\n");
+    //if (me->query_skill("unarmed", 1) < me->query_skill("shenzhaojing", 1))
+    //        return notify_fail("你的基本拳脚水平不够，难以锻炼更深厚的神照经神功。\n");
 
     return ::valid_learn(me);
 }
@@ -115,10 +121,8 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
     {
         victim->receive_wound("qi", (damage_bonus - 100) / 3, me);
         victim->affect_by("shenzhao",
-                          ([
-                                 "level":me->query("jiali") + random(me->query("jiali")),
-                                    "id":me->query("id"),
-                              "duration":lvl / 100 + random(lvl / 10)]));
+                          (["level":me->query("jiali") + random(me->query("jiali")), "id":me->query("id"),
+                            "duration":lvl / 100 + random(lvl / 10)]));
         return HIR "$n" HIR "一声惨嚎，全身骨骼格格格格爆声不绝，肋骨、臂骨、腿骨同时断折。\n" NOR;
     }
 }

@@ -22,7 +22,7 @@ void create()
                 set("can_make", "all");
 				set("not_make", ({ "战衣", "腰带", "护腕", "靴子" }));
                 //set("power_point", 200);
-				set("power_point", 50);
+				set("power_point", 100);
         }
 }
 

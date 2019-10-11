@@ -6,7 +6,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        int skill;
+        int skill/*, i*/;
         int n;
         int my_exp, ob_exp;
         string pmsg;

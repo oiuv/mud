@@ -1,5 +1,5 @@
 //yang-laoban.c
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit KNOWER;
 inherit F_DEALER;
@@ -34,5 +34,6 @@ void create()
 void init()
 {
        add_action("do_buy", "buy");
-       add_action("do_list", "list");
+       add_action("do_list", "list");   
 }
+

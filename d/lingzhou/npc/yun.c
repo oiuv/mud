@@ -2,7 +2,7 @@
 
 inherit NPC;
 
-#include <ansi.h>
+#include <ansi.h>;
 void create()
 {
 
@@ -18,7 +18,7 @@ void create()
 	set("combat_exp", 150000);
 	set("shen_type", -1);
 	set("attitude", "peaceful");
-	set("neili", 1000);
+	set("neili", 1000); 
 	set("max_neili", 1000);
 	set("jiali", 50);
 
@@ -42,3 +42,4 @@ void create()
 	setup();
 	carry_object("/clone/cloth/bupao")->wear();
 }
+

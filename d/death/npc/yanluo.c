@@ -523,13 +523,13 @@ mixed ask_zhuan()
         who = this_player();
         
         //限制只可转世一次 by 薪有所属
-         if (who->query("reborn"))
+        /*if (who->query("reborn"))
         {
         	
                 message_vision("$N对$n一拱手，道：你已经转世过一次了，每人只能转世一次。\n", 
                                this_object(), who);
                 return 1;                
-        }
+        }*/
 
         if ((int)who->query("combat_exp") < 20000000 || ! ultrap(who)) 
         {

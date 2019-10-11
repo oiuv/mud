@@ -6,7 +6,7 @@ int query_neili_improve(object me)
     int lvl;
 
     lvl = (int)me->query_skill("hamagong", 1);
-    return lvl * lvl * 15 * 18 / 100 / 200;
+    return lvl * lvl * 15 * 20 / 100 / 200;
 }
 
 int valid_force(string force)
@@ -54,7 +54,7 @@ int valid_enable(string usage)
     int lvl = (int)this_player()->query_skill("hamagong", 1);
 
     if (lvl >= 180)
-        return usage == "force" || usage == "unarmed" || usage == "parry";
+        return usage == "force" || usage == "strike" || usage == "parry";
     else
         return usage == "force";
 }
@@ -62,13 +62,14 @@ int valid_enable(string usage)
 int valid_learn(object me)
 {
     if (me->query("character") == "光明磊落" || me->query("character") == "狡黠多变")
-        return notify_fail("你心中暗道：这蛤蟆功阴毒异常，估计会伤及自身，还是别练为妙。\n");
+        return notify_fail("你心中暗道：这蛤蟆功阴毒异常，估计会伤及自"
+                           "身，还是别练为妙。\n");
+
+    if ((int)me->query("str") < 32)
+        return notify_fail("你先天臂力孱弱，无法修炼蛤蟆功。\n");
 
     if ((int)me->query("con") < 32)
-        return notify_fail("你先天根骨孱弱，无法修炼蛤蟆功。\n");
-
-    if ((int)me->query("dex") < 32)
-        return notify_fail("你先天身法太差，无法修炼蛤蟆功。\n");
+        return notify_fail("你先天根骨太差，无法修炼蛤蟆功。\n");
 
     if (me->query("gender") == "无性" && me->query("hamagong", 1) > 49)
         return notify_fail("你无根无性，阴阳不调，难以领会高深的蛤蟆功。\n");
@@ -76,8 +77,14 @@ int valid_learn(object me)
     if ((int)me->query_skill("force", 1) < 50 || (int)me->query_skill("force", 1) < (int)me->query_skill("hamagong", 1))
         return notify_fail("你的基本内功火候不足，不能学蛤蟆功。\n");
 
-    if ((int)me->query_skill("unarmed", 1) < 150)
-        return notify_fail("你的基本拳脚火候不足，难以领会蛤蟆功。\n");
+    if ((int)me->query_skill("strike", 1) < 150)
+        return notify_fail("你的基本掌法火候不足，难以领会蛤蟆功。\n");
+
+    if ((int)me->query_skill("force", 1) < (int)me->query_skill("hamagong", 1))
+        return notify_fail("你的基本内功造诣有限，无法理解更高深的蛤蟆功。\n");
+
+    if ((int)me->query_skill("strike", 1) < (int)me->query_skill("hamagong", 1))
+        return notify_fail("你的基本掌法造诣有限，无法理解更高深的蛤蟆功。\n");
 
     if ((int)me->query_skill("poison", 1) < 150)
         return notify_fail("你的基本毒技火候不足，难以领会蛤蟆功。\n");
@@ -103,14 +110,15 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
 
     lvl = me->query_skill("hamagong", 1);
 
-    if (damage_bonus < 150 || lvl < 180 || me->query("neili") < 300 || me->query_temp("weapon") || me->query_temp("secondary_weapon") || me->query_skill_mapped("force") != "hamagong" || me->query_skill_mapped("unarmed") != "hamagong" || me->query_skill_prepared("unarmed") != "hamagong")
+    if (damage_bonus < 150 || lvl < 180 || me->query("neili") < 300 || me->query_temp("weapon") || me->query_temp("secondary_weapon") || me->query_skill_mapped("force") != "hamagong" || me->query_skill_mapped("strike") != "hamagong" || me->query_skill_prepared("strike") != "hamagong")
         return 0;
 
     if (damage_bonus / 6 > victim->query_con())
     {
         me->add("neili", -30);
         victim->receive_wound("qi", (damage_bonus - 90) / 3, me);
-        return HIW "$n" HIW "硬承下$N" HIW "一掌，霎时全身一颤，经脉受震，喷出一口鲜血！\n" NOR;
+        return HIW "$n" HIW "硬承下$N" HIW "一掌，霎时全"
+                   "身一颤，经脉受震，喷出一口鲜血！\n" NOR;
     }
 }
 
@@ -119,12 +127,17 @@ int practice_skill(object me)
     return notify_fail("蛤蟆功只能用学(learn)的来增加熟练度。\n");
 }
 
-string perform_action_file(string action)
-{
-    return __DIR__ "hamagong/perform/" + action;
-}
-
 string exert_function_file(string action)
 {
     return __DIR__ "hamagong/exert/" + action;
+}
+
+int difficult_level()
+{
+    return 600;
+}
+
+string perform_action_file(string action)
+{
+    return __DIR__ "hamagong/perform/" + action;
 }

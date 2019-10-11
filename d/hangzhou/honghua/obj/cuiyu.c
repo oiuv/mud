@@ -1,6 +1,6 @@
 // cuiyu.c
-#include <ansi.h>
-#include <armor.h>
+#include <ansi.h>;
+#include <armor.h>;
 inherit HEAD;
 
 void create()
@@ -10,7 +10,7 @@ void create()
                 set_default_object(__FILE__);
         else {
                 set("unit", "支");
-                set("long",
+                set("long", 
 "一支翠绿的羽毛。\n");
                 set("value", 800);
                 set("material", "plant");

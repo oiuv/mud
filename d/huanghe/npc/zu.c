@@ -1,6 +1,6 @@
 // zu.c
 
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit KNOWER;
 

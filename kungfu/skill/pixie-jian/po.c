@@ -8,14 +8,14 @@ inherit F_SSERVER;
 string final(object me, object target, int damage);
 
 string *finger_name = ({ "左手中指", "左手无名指", "左手食指",
-                         "右手中指", "右手无名指", "右手食指", });
+                         "右手中指", "右手无名指", "右手食指", }); 
 
 int perform(object me, object target)
 {
         int damage;
         string msg, name;
         object weapon;
-        int ap, dp;
+        int /*lvl,*/ ap, dp;
 
         if (userp(me) && ! me->query("can_perform/pixie-jian/po"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");

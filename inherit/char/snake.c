@@ -100,22 +100,26 @@ mixed hit_ob(object me, object ob, int damage)
     {
         if (ob->query("qi") < 150)
         {
-            msg = HIR "你觉得伤口有些发麻，连忙运功化解，但是一时体力不支，难以施为。\n" NOR;
+            msg = HIR "你觉得伤口有些发麻，连忙运功化解，但"
+                      "是一时体力不支，难以施为。\n" NOR;
         }
         else if (ob->query("jing") < 60)
         {
-            msg = HIR "你觉得伤口有些发麻，连忙运功化解，但是一时精神不济，难以施为。\n" NOR;
+            msg = HIR "你觉得伤口有些发麻，连忙运功化解，但"
+                      "是一时精神不济，难以施为。\n" NOR;
         }
         else if (ob->query("neili") < damage / 5 + 50)
         {
-            msg = HIR "你觉得伤口有些发麻，连忙运功化解，但是一时内力不足，难以施为。\n" NOR;
+            msg = HIR "你觉得伤口有些发麻，连忙运功化解，但"
+                      "是一时内力不足，难以施为。\n" NOR;
         }
         else
         {
             ob->add("neili", -damage / 5);
             ob->receive_damage("qi", 20);
             ob->receive_damage("jing", 10);
-            return HIM "你觉得被咬中的地方有些发麻，连忙运功化解毒性。\n" NOR;
+            return HIM "你觉得被咬中的地方有些发麻，连忙运功"
+                       "化解毒性。\n" NOR;
         }
     }
 
@@ -136,7 +140,9 @@ void die(object killer)
     int power, skill;
     string msg;
 
-    message_vision(HIR "\n只见$N" HIR "卷着身子在地上扑腾了几下，死了。\n\n" NOR, ob);
+    message_vision(HIR "\n只见$N" HIR "卷着身子在地上扑腾了"
+                       "几下，死了。\n\n" NOR,
+                   ob);
 
     if (objectp(me = killer) || objectp(me = query_last_damage_from()))
     {
@@ -152,7 +158,8 @@ void die(object killer)
             if (power > 500)
                 power = 500;
 
-            GIFT_D->delay_bonus(me, (["prompt":"通过这次猎取" + ob->name() + HIG "的经历",
+            GIFT_D->delay_bonus(me, (["prompt":"通过这次猎取" + ob->name() +
+                                                   HIG "的经历",
                                            "exp":random(power) + power,
                                            "pot":random(power / 3) + power / 3,
                                          "score":random(power / 4), ]));
@@ -176,14 +183,16 @@ void die(object killer)
                 item = new (ob->query("item3"));
                 item->move(me, 1);
 
-                msg += "及一" + item->query("base_unit") + item->name() + HIC;
+                msg += "及一" + item->query("base_unit") +
+                       item->name() + HIC;
             }
             else if (ob->query("item2") && random(skill) > 30 && random(4) > 2)
             {
                 item = new (ob->query("item2"));
                 item->move(me, 1);
 
-                msg += "及一" + item->query("base_unit") + item->name() + HIC;
+                msg += "及一" + item->query("base_unit") +
+                       item->name() + HIC;
             }
             msg += "。\n\n" NOR;
             tell_object(me, msg);

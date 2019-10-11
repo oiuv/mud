@@ -15,8 +15,8 @@ void create()
                 set("item_origin", 1);
                 set("material_attrib", "stone");
                 set("material_name", NOR + CYN "天山玄铁" NOR);
-                set("can_make", ({ "all" }));
-				        set("not_make", ({ "战衣", "腰带", "护腕", "靴子" }));
+                set("can_make", "all");
+				set("not_make", ({ "战衣", "腰带", "护腕", "靴子" }));
                 set("power_point", 100);
         }
 }
@@ -25,3 +25,4 @@ int query_autoload()
 {
         return 1;
 }
+

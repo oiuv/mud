@@ -8,15 +8,10 @@ inherit ITEM;
 string *VA_LIST = ({ "va1", "va2", "va3", "va4", "va5", "va6", });
 
 // 普通物品列表
-string *NORMAL_LIST = ({ "food1", "full1", "linghui1", "linghui2",
-                         "lingzhi1", "lingzhi2", "neili1", "neili2",
-                         "puti1", "puti2", "renshen1", "renshen2",
-                         "sheli1", "sheli2", "xuelian1", "xuelian2", });
+string *NORMAL_LIST = ({ "food1", "full1", "linghui2", "neili2", "puti2", "sheli2", });
 
 // 特殊物品列表
-string *SM_LIST = ({ "dimai", "yulu", "lingzhi3", "lingzhi4",
-                     "puti3", "puti4", "renshen3", "renshen4",
-                     "sheli3", "sheli4", "xuelian3", "xuelian4",});
+string *SM_LIST = ({ "puti4", "sheli4", });
 
 void create()
 {

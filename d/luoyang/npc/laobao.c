@@ -51,7 +51,7 @@ void greeting(object me)
 
         	message("vision", me->name() + "被老鸨婆一脚踢出门外。\n",
                                   environment(me), ({me}));
-       		me->move("/d/luoyang/sroad5");
+       		//me->move("/d/luoyang/sroad5");
 
        		message("vision", me->name() + "被人从春月楼里踢了出来，"
                                   "栽倒在地上，磕掉两颗门牙。\n", 

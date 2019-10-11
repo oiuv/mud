@@ -20,7 +20,7 @@ int exert(object me, object target)
         if ((int)me->query_temp("shield"))
                 return notify_fail("你已经在运功中了。\n");
 
-        skill = me->query_skill("force");
+        skill = me->query_skill("xiantian-gong", 1);
 
         msg = HIW "$N" HIW "深深吸了一口气，双臂一振，一股浑厚的气劲登"
               "时盘旋在身边四周。\n" NOR;

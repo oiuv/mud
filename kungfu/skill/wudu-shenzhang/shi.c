@@ -10,7 +10,7 @@ inherit F_SSERVER;
 int perform(object me, object target)
 {
         string msg;
-        int damage;
+        int damage, count;
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/wudu-shenzhang/shi"))
@@ -41,35 +41,60 @@ int perform(object me, object target)
 
         ap = me->query_skill("strike");
         dp = target->query_skill("force");
+		count = 0;
+		
+		if (target->query("shen") > 0)
+		{
+			count += 20;
+			ap += ap * 10 / 100;
+		}		
+	
+		if (target->query("gender") != "女性")
+		{
+			count += 30;
+			ap += ap * 15 / 100;
+		}
+		
         if (ap / 2 + random(ap) > dp)
         {
 
-                damage = ap / 2 + random(ap / 2);
-                msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 60,
+                damage = ap + random(ap);
+				damage += damage * count / 100;
+                msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 70 + count,
                                           (: final, me, target, damage :));
-
-                me->start_busy(2 + random(3));
+				me->add("neili", -count);
+                me->start_busy(1 + random(3));
         } else
         {
                 msg += CYN "可是$p" CYN "眼明手快，侧身一跳$P"
                        CYN "已躲过$N这招。\n" NOR;
-                me->start_busy(3);
+                me->start_busy(2);
                 target->start_busy(1);
         }
         message_combatd(msg, me, target);
-
         return 1;
 }
 
 string final(object me, object target, int damage)
 {
-        int ap, dp;
-
+        int ap;
+		int count = 0;
         ap = me->query_skill("strike");
-        dp = target->query_skill("force");
+        
+		if (target->query("shen") > 0)
+		{
+			count += 20;
+			ap += ap * 10 / 100;
+		}		
+	
+		if (target->query("gender") != "女性")
+		{
+			count += 30;
+			ap += ap * 15 / 100;
+		}
 
         target->affect_by("wudu_shenzhang",
-                ([ "level" : me->query("jiali") + random(me->query("jiali")),
+                ([ "level" : me->query("jiali") + random(me->query("jiali")) + count,
                    "id"    : me->query("id"),
                    "duration" : ap / 70 + random(ap / 30) ]));
 

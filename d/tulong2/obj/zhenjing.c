@@ -1,4 +1,4 @@
-#include <ansi.h>
+#include <ansi.h>; 
 inherit ITEM;
 
 void create()
@@ -38,8 +38,8 @@ int do_du(string arg)
                       "research|yanjiu <技能> from <九阴真经>\n");
                 return 1;
         }
-        if(arg == "yijin-duangu" || arg == "shexing-lifan"
-        || arg == "cuixin-zhang" || arg == "jiuyin-baiguzhao"
+        if(arg == "yijin-duangu" || arg == "shexing-lifan"  
+        || arg == "cuixin-zhang" || arg == "jiuyin-baiguzhao" 
         || arg == "jiuyin zhenjing" || arg == "zhenjing" )
         {
                 write("研究九阴真经的指令格式：\n"
@@ -69,7 +69,7 @@ int do_du(string arg)
                 write("这里没有这本书。\n");
                 return 1;
         }
-        if ( skill != "yijin-duangu" && skill != "shexing-lifan"
+        if ( skill != "yijin-duangu" && skill != "shexing-lifan"  
           && skill != "cuixin-zhang" && skill != "jiuyin-baiguzhao" )
         {
                 write(HIW "你可以从九阴真经里研究到易筋锻骨（yijin-duangu），蛇行狸翻（shexing-lifan），\n"
@@ -78,7 +78,7 @@ int do_du(string arg)
         }
         if( me->query_skill("sanscrit", 1) < 199)
         {
-                write("你的梵文水平太低，无法看懂真经里所记载的内容。\n");
+                write("你的梵文水平太低，无法看懂真经里所记载的内容。\n");        
                 return 1;
         }
         if( (int)me->query("combat_exp") < 500000 )
@@ -164,3 +164,4 @@ int do_du(string arg)
                 return 1;
         }
 }
+

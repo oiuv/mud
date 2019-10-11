@@ -5,7 +5,7 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-//**    object ob;
+//   object ob;
 
 	set("short", "ǰͥ");             /* EXAMPLE */
 //**    set("short", "ROOM_NAMEǰͥ");

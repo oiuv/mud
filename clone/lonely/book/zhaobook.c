@@ -1,9 +1,9 @@
-// zhaobook.c
+// zhaobook.c 
 
 inherit BOOK;
 inherit F_UNIQUE;
 
-#include <ansi.h>
+#include <ansi.h>; 
 
 void setup()
 {}
@@ -34,7 +34,7 @@ void create()
 
 void init()
 {
-
+       
         add_action("do_yanjiu", "yanjiu");
         add_action("do_yanjiu", "research");
 }
@@ -59,13 +59,13 @@ int do_du(string arg)
                 write("研读金钟罩秘笈指令格式：read <技能> from <金钟罩秘笈>\n");
                 return 1;
         }
-
+        
         if (me->query("con") < 33)
         {
                 write("你的先天根骨太差，没法领悟金钟罩的精髓\n");
                 return 1;
         }
-
+        
         if (me->query("str") < 33)
         {
                 write("你的先天臂力太差，没法领悟金钟罩的精髓\n");
@@ -131,15 +131,15 @@ int do_du(string arg)
            if (random (5) != 1)
            {
                 write("你研究了半天，仍然无法将「金钟罩」融会贯通！\n");
-                me->start_busy(15);
+                me->start_busy(15); 
                 me->set("jing", 1);
                 return 1;
            }
            msg = HIG "$N" HIG "不停地来回翻看书上的内容，仔细研究上面所记载的武学，霎那间忽有所悟"
                      "……\n" NOR;
 
-           msg += HIG "$N" HIG "猛提真气，仰天长啸一声，一股无形气流瞬间将你包围起来!\n" NOR;
-           message_vision(msg, me);
+           msg += HIG "$N" HIG "猛提真气，仰天长啸一声，一股无形气流瞬间将你包围起来!\n" NOR; 
+           message_vision(msg, me); 
 
            if (me->can_improve_skill("parry"))
                    me->improve_skill("parry", 1500000);
@@ -150,9 +150,9 @@ int do_du(string arg)
 
            write(HIW "你学会了「" HIW "金钟罩" HIW "」。\n" NOR);
            me->set("can_perform/jinzhong-zhao/zhao", 1);
-
+           
            return 1;
-        }
+        }    
 }
 
 int do_yanjiu(string arg)
@@ -216,7 +216,7 @@ int do_yanjiu(string arg)
                 write("你的实战经验不足，再怎么读也没用。\n");
                 return 1;
         }
-
+                   
         if (pfm == "zhao")
         {
            if (me->query("can_perform/jinzhong-zhao/zhao"))
@@ -233,15 +233,15 @@ int do_yanjiu(string arg)
            if (random (5) != 1)
            {
                 write("你研究了半天，仍然无法将「金钟罩」融会贯通！\n");
-                me->start_busy(15);
+                me->start_busy(15); 
                 me->set("jing", 1);
                 return 1;
            }
            message_vision(HIG "$N" HIG "不停地来回翻看书上的内容，仔细研究上面所记载的武学，霎那间忽有所悟"
                      "……\n" NOR,me);
 
-           message_vision(HIG "$N" HIG "猛提真气，仰天长啸一声，一股无形气流瞬间将你包围起来!\n" NOR,me);
-//           message_vision(msg, me);
+           message_vision(HIG "$N" HIG "猛提真气，仰天长啸一声，一股无形气流瞬间将你包围起来!\n" NOR,me); 
+//           message_vision(msg, me); 
 
            if (me->can_improve_skill("parry"))
                    me->improve_skill("parry", 1500000);
@@ -252,7 +252,7 @@ int do_yanjiu(string arg)
 
            write(HIW "你学会了「" HIW "金钟罩" HIW "」。\n" NOR);
            me->set("can_perform/jinzhong-zhao/zhao", 1);
-
+           
            return 1;
-        }
+        }    
 }

@@ -42,7 +42,7 @@ int perform(object me, object target)
         msg = HIW "$N" HIW "凝神聚气，手中" + weapon->name() +
               HIW "回转，划出一个闪亮的剑圈，套向$n" HIW "而去。\n" NOR;
 
-        ap = me->query_skill("sword");
+        ap = me->query_skill("sword") + me->query_skill("taoism", 1);
         dp = target->query_skill("parry");
 
         if (ap / 2 + random(ap) > dp)

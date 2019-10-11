@@ -26,7 +26,7 @@ void create()
     set_weight(1200);
     set("long", @LONG
 一只黄灿灿的木制的鼎，看上去感觉有些诡秘，细闻下却有一股腥味夹杂在香味中。
-LONG);
+LONG );
     set("unit", "只");
     set("value", 50000);
     set("no_sell", 1);

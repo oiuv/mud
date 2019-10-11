@@ -90,8 +90,8 @@ string remote_tell(string cname, string from, string mud, string to, string msg,
 	string fromid;
 	string no_tell;
 	string can_tell;
-//      mapping conn;
-//      string reject;
+        //mapping conn;
+        //string reject;
         string tell_out;
 
 	if (ob = MESSAGE_D->find_user(to))

@@ -7,9 +7,9 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        // object weapon;
-        int damage;
-        string msg;
+//	object weapon;
+	int damage;
+	string msg;
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/tan-tui/wang"))
@@ -21,7 +21,7 @@ int perform(object me, object target)
 	        target = me->select_opponent();
         }
 
-        if (! target || ! me->is_fighting(target))
+	if (! target || ! me->is_fighting(target))
                 return notify_fail(WANG "只能对战斗中的对手使用。\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))

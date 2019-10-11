@@ -139,7 +139,8 @@ int do_swab(string arg)
         if (me->query("combat_exp") < 50000)
                 me->add("combat_exp", exp);
 
-        if (me->query("potential") < me->query_potential_limit())
+        if (me->query("potential") < me->query_potential_limit() &&
+			me->query("combat_exp") < 50000)
                 //me->add("potential", random(3) / 2);
                 me->add("potential", random(50));
 

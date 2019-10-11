@@ -14,6 +14,12 @@ int perform(object me, object target)
         object weapon;
         string wname;
         int ap, dp;
+		
+		float improve;
+		int lvl, m, n;
+		string martial;
+		string *ks;
+		martial = "sword";
 
         if (userp(me) && ! me->query("can_perform/huifeng-jian/jue"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -43,6 +49,25 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         wname = weapon->name();
+		
+		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+		lvl = lvl * 4 / 5;
+		ks = keys(me->query_skills(martial));
+		improve = 0;
+		n = 0;
+		//最多给予5个技能的加成
+		for (m = 0; m < sizeof(ks); m++)
+		{
+			if (SKILL_D(ks[m])->valid_enable(martial))
+			{
+				n += 1;
+				improve += (int)me->query_skill(ks[m], 1);
+				if (n > 4 )
+					break;
+			}
+		}
+		
+		improve = improve * 5 / 100 / lvl;	
 
         //damage = (int)me->query_skill("huifeng-jian", 1) / 3;
         damage = (int)me->query_skill("huifeng-jian", 1) / 2;
@@ -115,11 +140,12 @@ int perform(object me, object target)
         // 第五招
         ap = me->query_skill("sword");
         dp = target->query_skill("parry");
+		ap += ap * improve;
         msg += "\n" HIC "$N" HIC "一声长叹，眼神变得寒冷无情，" + wname +
                HIC "悠悠而转，犹如轻风拂柳，说不清的缠绵之意。\n" NOR;
         if (ap / 2 + random(ap) > dp)
         {
-                msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 20,
+                msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 30,
                                            HIR "$p" HIR "只觉得沐浴在风中一般，对这招竟然是无可抵挡，被"
                                            HIR "剑光削了个血肉模糊！\n" NOR);
         } else

@@ -1,4 +1,4 @@
-#include <ansi.h>
+#include <ansi.h>;
 
 inherit KNOWER;
 inherit F_DEALER;
@@ -18,7 +18,7 @@ void create()
 	set("inquiry", ([
                 "林震南" : "阿南生着那俊，那会琢一个河南七子婆，唉。\n",
 	]));
-
+	
 	set("vendor_goods", ({
 		"/d/fuzhou/obj/xiuhua",
 		"/d/fuzhou/obj/flower_shoe",
@@ -33,7 +33,7 @@ void create()
 
 void init()
 {
-	object ob;
+	object ob;	
 	::init();
 
 	if (interactive(ob = this_player()) && ! is_fighting())

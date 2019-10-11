@@ -8,7 +8,7 @@ mixed ask_me();
 
 void create()
 {
-        set_name("殷梨亭", ({ "yin litin", "yin", "litin" }));
+        set_name("殷梨亭", ({ "yin liting", "yin", "liting" }));
         set("nickname", HIC "武当六侠" NOR);
         set("long", "他就是张三丰的六弟子殷梨亭。他今年三\n"
                     "十岁，精明能干，嫉恶如仇，性如烈火。\n");

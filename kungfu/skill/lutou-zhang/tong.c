@@ -48,8 +48,8 @@ int perform(object me, object target)
 
         message_sort(msg, me, target);
 
-        ap = me->query_skill("staff");
-        dp = target->query_skill("parry");
+        ap = me->query_skill("staff") + me->query("con") * 10;
+        dp = target->query_skill("parry") + target->query("dex") * 10;
 
         if (ap / 2 + random(ap) > dp)
         {

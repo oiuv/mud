@@ -23,8 +23,7 @@ LONG );
 
 int valid_leave(object me, string dir)
 {
-	object ob;
-	if (objectp(ob = present("ao bai", environment(me))) && living(ob) && dir == "north")
-		return notify_fail("鳌拜大声喝道：他奶奶的，你要干嘛？\n\n");
+	if (objectp(present("ao bai", environment(me))) && dir == "north")
+		return notify_fail("鳌府大声喝道：他奶奶的，你要干嘛？\n\n");
 	return ::valid_leave(me, dir);
 }

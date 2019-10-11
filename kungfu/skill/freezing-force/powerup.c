@@ -19,7 +19,7 @@ int exert(object me, object target)
         if ((int)me->query_temp("powerup"))
                 return notify_fail("你已经在运功中了。\n");
 
-        skill = me->query_skill("force");
+        skill = me->query_skill("freezing-force", 1);
 
         message_combatd(HIW "$N" HIW "脸色一寒，一股煞气腾然而起，四下登时阴风瑟瑟，冷意惨惨。\n" NOR, me);
 

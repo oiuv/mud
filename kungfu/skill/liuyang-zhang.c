@@ -1,5 +1,5 @@
 // SKILL liuyang-zhang.c
-
+#include <ansi.h>
 inherit SKILL;
 
 mapping *action = ({
@@ -105,6 +105,16 @@ mapping *action = ({
 	"lvl"   : 160,
 	"skill_name" : "Ñô¸èÌì¾û",
         "damage_type" : "ðöÉË"
+]),
+([      "action": " "RED" ÁùÑôÖ®¼«Òâ "NOR"",
+        "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
+        "attack" : (int)this_player()->query_skill("strike", 1)/4 + random((int)this_player()->query_skill("strike", 1)/2),
+        "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
+        "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
+        "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("strike", 1)/2),
+        "lvl"    : 200,
+        "skill_name" : "¼«Òâ",
+        "damage_type": "ðöÉË"
 ])
 });
 
@@ -160,6 +170,48 @@ int practice_skill(object me)
 	me->receive_damage("qi", 81);
 	me->add("neili", -73);
 	return 1;
+}
+
+mixed hit_ob(object me, object target)
+{
+        int ly, zm, bm, bh, lb;
+		int count_damage, count_attack;
+		int i, n;
+		ly = me->query_skill("liuyang-zhang", 1);
+		zm = me->query_skill("zhemei-shou", 1);
+		bm = me->query_skill("beiming-shengong", 1);
+		bh = me->query_skill("bahuang-gong", 1);
+		lb = me->query_skill("lingbo-weibu", 1);
+		count_damage = bm / 10 + bh / 10;
+		count_attack = lb / 5;
+		
+		if (me->query("family/family_name") == "åÐÒ£ÅÉ" || me->query("family/family_name") == "ÁéðÕ¹¬")
+		{
+			if (random(2) && me->query("neili") > 200 && ! me->query_temp("is_attacking"))
+			{
+				message_vision(HIY "\nÌìÉ½ÁùÑôÕÆ,Â¯»ð´¿Çà£¡\n" NOR, me, target);
+				n = 1;
+				if (random(zm) > 100) n += 1;
+				me->add("neili", -n * 30);
+				me->set_temp("is_attacking", 1);
+				if (me->query_skill_mapped("force") == "beiming-shengong" ||
+					me->query_skill_mapped("force") == "bahuang-gong")
+					me->add_temp("apply/damage", count_damage);
+				if (me->query_skill_mapped("dodge") == "lingbo-weibu")
+					me->add_temp("apply/attack", count_attack);
+				for (i = 0; i < n; i++)
+				{
+					COMBAT_D->do_attack(me, target, 0, 0);
+				}
+				me->delete_temp("is_attacking");
+				if (me->query_skill_mapped("force") == "beiming-shengong" ||
+					me->query_skill_mapped("force") == "bahuang-gong")
+					me->add_temp("apply/damage", -count_damage);
+				if (me->query_skill_mapped("dodge") == "lingbo-weibu")
+					me->add_temp("apply/attack", -count_attack);
+			
+			}
+		}
 }
 
 string perform_action_file(string action)

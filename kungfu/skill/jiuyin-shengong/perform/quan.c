@@ -43,8 +43,10 @@ int perform(object me, object target)
 
 	msg = HIC "$N" HIC "Ò»ÉùÀäºß£¬ÎÕÈ­»÷³ö£¬ÕÐÊ½ÐÛ»ë£¬ÄÑßªÆäÍþ£¡\n" NOR;
  
-	ap = me->query_skill("jiuyin-shengong", 1) * 3 / 2 + me->query("str") * 20 +
-             me->query_skill("martial-cognize", 1);
+	    ap = me->query_skill("unarmed");
+		if(ap < me->query_skill("cuff"))
+			ap = me->query_skill("cuff");
+		ap += me->query_skill("martial-cognize", 1);
 	dp = target->query_skill("dodge") + target->query("dex") * 20 +
              target->query_skill("martial-cognize", 1);
 

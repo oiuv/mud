@@ -6,13 +6,13 @@
 #include <combat.h>
 
 inherit F_SSERVER;
-
+ 
 int perform(object me, object target)
 {
-	// object weapon;
-  string msg;
+//	object weapon;
+        string msg;
 	int i;
-
+ 
 	if (! target)
 	{
 		me->clean_up_enemy();
@@ -21,7 +21,7 @@ int perform(object me, object target)
 
 	if (! target || !me->is_fighting(target))
 		return notify_fail("「狂风绝技」只能在战斗中对对手使用。\n");
-
+ 
 	if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
 		return notify_fail("「狂风绝技」开始时不能拿着兵器！\n");
 

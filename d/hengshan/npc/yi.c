@@ -1,7 +1,7 @@
 // yi.c
 inherit NPC;
 inherit F_MASTER;
-#include <ansi.h>
+#include <ansi.h>;
 void create()
 {
         set_name("¶¨ÒÝÊ¦Ì«", ({ "dingyi shitai", "shitai", "dingyi" }) );
@@ -41,3 +41,4 @@ void create()
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/d/shaolin/obj/xuan-cloth")->wear();
 }
+

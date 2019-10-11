@@ -17,19 +17,19 @@ void create()
 办事卖力，这些年来更是青云直上。
 LONG );
 	set("combat_exp", 1800000);
-  set("shen_type", -1);
+        set("shen_type", -1);
 	set("attitude", "heroism");
-  set("max_neili", 5500);
-  set("neili", 5500);
-  set("max_jing", 2500);
-  set("jing", 2500);
-  set("max_qi", 5000);
-  set("qi", 5000);
+        set("max_neili", 5500);
+        set("neili", 5500);
+        set("max_jing", 2500);
+        set("jing", 2500);
+        set("max_qi", 5000);
+        set("qi", 5000);
 
-  set("str", 35);
-  set("int", 32);
-  set("con", 33);
-  set("dex", 31);
+        set("str", 35);
+        set("int", 32);
+        set("con", 33);
+        set("dex", 31);
 
 	set_skill("unarmed", 200);
 	set_skill("sword", 200);
@@ -46,22 +46,22 @@ LONG );
 	map_skill("unarmed", "taiji-quan");
 	map_skill("parry", "taiji-jian");
 
-  create_family("武当派", 13, "弟子");
+        create_family("武当派", 13, "弟子");
 	setup();
 
 	set_max_encumbrance(100000000);
-  set_temp("apply/attack", 100);
-  set_temp("apply/defense", 100);
-  set_temp("apply/damage", 150);
-  set_temp("apply/armor", 150);
+        set_temp("apply/attack", 100);
+        set_temp("apply/defense", 100);
+        set_temp("apply/damage", 150);
+        set_temp("apply/armor", 150);
 
-  carry_object("/clone/weapon/green_sword")->wield();
-  carry_object("/d/city/obj/tiejia")->wear();
+        carry_object("/clone/weapon/green_sword")->wield();
+        carry_object("/d/city/obj/tiejia")->wear();
 }
 
 void init()
 {
-      add_action("do_halt", "halt");
+        add_action("do_halt", "halt");
 }
 
 int do_halt()
@@ -71,7 +71,7 @@ int do_halt()
         if (this_player() == query_temp("catch_ob"))
         {
                 write(name() + "喝道：“你还想在我面前逃走吗？"
-								"乖乖的束手就擒吧！”\n");
+		      "乖乖的束手就擒吧！”\n");
                 return 1;
         }
 
@@ -85,8 +85,8 @@ void fight_ob(object ob)
 
         if (ob != query_temp("catch_ob"))
         {
-					message_vision("$N对$n大喝道：大胆！居然敢攻击官差？找死么？\n",
-		      this_object(), ob);
+                message_vision("$N对$n大喝道：大胆！居然敢攻击官差？找死么？\n",
+			       this_object(), ob);
 		if (! ob->is_busy())
 			ob->start_busy(2);
         }

@@ -19,7 +19,7 @@ int exert(object me, object target)
         if ((int)me->query_temp("powerup"))
                 return notify_fail("你已经在运功中了。\n");
 
-        skill = me->query_skill("force");
+        skill = me->query_skill("nei-bagua", 1);
         me->add("neili", -100);
         me->receive_damage("qi", 0);
         message_combatd(HIY "$N" HIY "凝神聚气，运起内八卦神功，真气顿时灌满"
@@ -34,7 +34,7 @@ int exert(object me, object target)
                                me, skill :), skill);
 
         if (me->is_fighting())
-       		me->start_busy(3);
+       		me->start_busy(1 + random(3));
 
         return 1;
 }

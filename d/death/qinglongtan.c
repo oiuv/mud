@@ -66,7 +66,7 @@ int do_xun(string arg)
 
         if (me->is_busy())
                 return notify_fail("你现在正忙着呢。\n");
-
+       
         if ((int)me->query("jing") < 100)
                 return notify_fail("你太累了，稍微休息一下吧。\n");
 
@@ -74,15 +74,15 @@ int do_xun(string arg)
                 return notify_fail("你太累了，稍微休息一下吧。\n");
 
         message_vision(HIC "\n$N" HIC "在洞内四处游走，不放过半点蛛"
-                       "丝马迹，仔细的搜寻着洞穴内的一切。\n" NOR, me);
-        remove_call_out("xun");
+                       "丝马迹，仔细的搜寻着洞穴内的一切。\n" NOR, me); 
+        remove_call_out("xun"); 
         call_out("xun", 5, me);
         me->start_busy(5);
         return 1;
 }
-
+ 
 int xun(object me)
-{
+{ 
         object ob;
 //      object ob1;
         if (random(10) < 6)
@@ -107,8 +107,8 @@ int xun(object me)
                 return 1;
         }
 
-   else if (random(10) < 4)
-        {
+   else if (random(10) < 4) 
+        {         
                 me->receive_damage("jing", 300 + random(50));
                 me->receive_damage("qi", 300 + random(50));
                 me->receive_wound("jing", 200 + random(50));
@@ -121,7 +121,7 @@ int xun(object me)
                 return 1;
         }
 
-   else {
+   else { 
                 ob = new("/d/death/npc/qinglong");
                 ob->move("/d/death/qinglongtan");
                 add("qinglong", -1);
@@ -130,15 +130,16 @@ int xun(object me)
                                    "作\n痛。你周围的碧潭寒水急速卷动，"
                                    "激起滔天波浪，眼前一花，一个庞然大"
                                    "物\n出现在你面前，四神兽之首的青龙"
-                                   "终于现身了。\n\n" NOR, me);
+                                   "终于现身了。\n\n" NOR, me); 
                 return 1;
         }
-
+       
 }
 
 int do_move(string arg)
 {
-        object me = this_player();
+        object /*paper,*/
+        me = this_player();
 
         if (! arg || arg == "")
                 return 0;

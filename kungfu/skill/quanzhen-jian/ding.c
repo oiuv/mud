@@ -48,9 +48,9 @@ int perform(object me, object target)
 		         (int)me->query_skill("force", 1) +
 			 (int)me->query_skill("xiantian-gong", 1);
 
-                damage = damage / 3 + random(damage / 3);
+                damage = damage + random(damage / 3);
 
-                me->add("neili", -100);
+                me->add("neili", -80);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 50,
                                            HIR "$n" HIR "看到$N" HIR "这气拔千钧"
                                            "的一击，竟不知如何招架，登时受了重创"

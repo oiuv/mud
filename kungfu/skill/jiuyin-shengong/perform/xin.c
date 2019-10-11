@@ -12,7 +12,7 @@ string final(object me, object target, int damage);
 int perform(object me, object target)
 {
         string msg;
-        int ap, dp;
+        int ap, dp/*, damage*/;
         int times;
 
         me = this_player();
@@ -27,9 +27,9 @@ int perform(object me, object target)
 
         if ((int)me->query_skill("jiuyin-shengong", 1) < 280)
                 return notify_fail("你九阴神功不够娴熟，难以施展" XIN "。\n");
-
+ 
         if ((int)me->query_skill("force", 1) < 280)
-                return notify_fail("你内功根基不够，难以施展" XIN "。\n");
+                return notify_fail("你内功根基不够，难以施展" XIN "。\n");   
 
         if (me->query_skill_mapped("force") != "jiuyin-shengong")
                 return notify_fail("你没有激发九阴神功为内功，难以施展" XIN "。\n");
@@ -39,7 +39,7 @@ int perform(object me, object target)
 
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
-
+                            
         msg = HIM "\n$N" HIM "猛然间尖啸一声，施展出九阴神功中的「" HIR "摄心大法" HIM"」。"
               "只见$N" HIM "各种招式千奇百怪、变化多端，脸上喜怒哀乐，怪状百出。\n" NOR;
 
@@ -49,7 +49,7 @@ int perform(object me, object target)
         if (ap * 11 / 20 + random(ap) > dp)
         {
              msg += HIG "$n" HIG "登时觉得胸口苦闷之极，心神难以自制，喜怒哀乐竟全随着$N" HIG
-                    "而变。顷刻之间，$n" HIG "顿觉精力不济，头晕目眩。\n" NOR;
+                    "而变。顷刻之间，$n" HIG "顿觉精力不济，头晕目眩。\n" NOR; 
 
              me->start_busy(2 + random(4));
              me->add("neili", -400);
@@ -68,7 +68,7 @@ int perform(object me, object target)
              if (target->query_skill("martial-cognize", 1) >= 380)times = ap / 30 + random(6);
              if (target->query_skill("martial-cognize", 1) > 400)times = 8 + random(7);
              remove_call_out("remove_effs");
-             call_out("remove_effs", times, target);
+             call_out("remove_effs", times, target); 	
 
         } else
         {
@@ -87,5 +87,5 @@ void remove_effs(object target)
         if (! objectp(target) || ! target->query_temp("eff/jiuyin-shengong/xin"))return;
         target->delete_temp("eff/jiuyin-shengong/xin");
         tell_object(target, HIW "猛然间你气血上冲，头昏胀痛之感顿然消去，精力逐渐集中起来。\n" NOR);
-        return;
+        return;      
 }

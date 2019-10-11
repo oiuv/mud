@@ -44,7 +44,7 @@ int perform(object me, object target)
               "出如风，轻飘飘地向$n" HIW "拍落。\n";
 
         ap = me->query_skill("force") + me->query_skill("throwing") + me->query_skill("medical");
-        dp = target->query_skill("force") + target->query_skill("dodge");
+        dp = target->query_skill("force") + target->query_skill("medical");
 		flvl = me->query("jiali");
         if (ap / 3 + random(ap) > dp)
         {

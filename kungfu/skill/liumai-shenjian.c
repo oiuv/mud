@@ -241,12 +241,12 @@ string main_skill()
 }
 
 mapping sub_skills = ([
-        "shaoshang-sword"  : 180,
-        "shangyang-sword"  : 180,
-        "zhongchong-sword" : 180,
-        "guanchong-sword"  : 180,
-        "shaoze-sword"     : 180,
-        "shaochong-sword"  : 180,
+        "shaoshang-sword"  : 280,
+        "shangyang-sword"  : 280,
+        "zhongchong-sword" : 280,
+        "guanchong-sword"  : 280,
+        "shaoze-sword"     : 280,
+        "shaochong-sword"  : 280,
 ]);
 
 int get_ready(object me)
@@ -278,26 +278,26 @@ int get_finish(object me)
         if (me->query("gender") == "无性")
                 return notify_fail("你无根无性，阴阳不调，难以演练六脉神剑。\n");
 
-        if (me->query_skill("literate", 1) < 200)
+        if (me->query_skill("literate", 1) < 250)
         {
                 tell_object(me, "你觉得六脉神剑极其深奥，看来多研究一下学问可能更有帮"
                                 "助。\n");
                 return 0;
         }
 
-        if (me->query_skill("lamaism", 1) < 200)
+        if (me->query_skill("lamaism", 1) < 250)
         {
                 tell_object(me, "你演练完毕，发现如果通晓密宗心法应该更有帮助。\n");
                 return 0;
         }
 
-        if (me->query_skill("buddhism", 1) < 200)
+        if (me->query_skill("buddhism", 1) < 250)
         {
                 tell_object(me, "你演练完毕，发现如果通晓禅宗心法应该更有帮助。\n");
                 return 0;
         }
 
-        if (me->query_skill("jingluo-xue", 1) < 200)
+        if (me->query_skill("jingluo-xue", 1) < 250)
         {
                 tell_object(me, "你演练完毕，发现如果通晓经络学应该更有所帮助。\n");
                 return 0;
@@ -308,17 +308,17 @@ int get_finish(object me)
                 tell_object(me, "你觉得真气不继，无法融会贯通六剑。\n");
                 return 0;
         }
-
-        if ((int)me->query_skill("martial-cognize", 1) < 200)
+   
+        if ((int)me->query_skill("martial-cognize", 1) < 250)
         {
                 tell_object(me, "你演练完毕，发现如果武学修养更上一层应该更有所帮助。\n");
-                return 0;
+                return 0;           
         }
 
         if ((int)me->query_skill("force", 1) < 300)
         {
                 tell_object(me, "你演练完毕，发现自己内功根基太差，无法再继续演练下去。\n");
-                return 0;
+                return 0;           
         }
 
         if (random(10) > 7)
@@ -359,22 +359,22 @@ int valid_learn(object me)
       if (me->query("con") < 36)
                 return notify_fail("你研究了一会儿，只觉得眼前金星乱冒，太阳穴突突的跳。\n");
 
-        if (me->query_skill("literate", 1) < 200)
+        if (me->query_skill("literate", 1) < 250)
                 return notify_fail("你觉得六脉神剑极其深奥，不是你这种学问水平所能研究的。\n");
 
-        if (me->query_skill("lamaism", 1) < 200)
+        if (me->query_skill("lamaism", 1) < 250)
                 return notify_fail("你发现这里面有很多奥妙都和密宗心法有关，难以理解。\n");
 
-        if (me->query_skill("buddhism", 1) < 200)
+        if (me->query_skill("buddhism", 1) < 250)
                 return notify_fail("你发现这里面有很多奥妙都和禅宗心法有关，难以理解。\n");
 
-        if (me->query_skill("jingluo-xue", 1) < 200)
+        if (me->query_skill("jingluo-xue", 1) < 250)
                 return notify_fail("你发现这里面有很多奥妙都和人体的经络构造有关，难以理解。\n");
 
         if ((int)me->query("max_neili") < 5000)
                 return notify_fail("你的内力太弱，无法学六脉神剑。\n");
 
-        if ((int)me->query_skill("finger", 1) < 200)
+        if ((int)me->query_skill("finger", 1) < 250)
                 return notify_fail("你的基本指法火候不够。\n");
 
         if ((int)me->query_skill("force", 1) < (int)me->query_skill("liumai-shenjian", 1) + 10)
@@ -413,7 +413,7 @@ int practice_skill(object me)
 
 mixed hit_ob(object me, object victim, int damage_bonus, int i, int attack_time)
 {
-        // string name;
+//      string name;
 
         if (userp(me))
         	attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 50);
@@ -560,5 +560,5 @@ int difficult_level()
 }
 string perform_action_file(string action)
 {
-        return __DIR__"liumai-shenjian/" + action;
+        return __DIR__"liumai-shenjian/" + action; 
 }

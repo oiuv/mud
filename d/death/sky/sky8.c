@@ -34,7 +34,8 @@ void init()
 
 int do_move(string arg)
 {
-        object me = this_player();
+        object /*paper,*/
+        me = this_player();
 
         if (! arg || arg == "")
                 return 0;
@@ -49,7 +50,7 @@ int do_move(string arg)
                 message_vision(HIW "\n$N" HIW "顺着云梯轻轻一"
                                "纵，身体便随着气流飘了上去……\n"
                                NOR, this_player());
-                me->move("/d/death/sky/sky9");
+                me->move("/d/death/sky/sky9"); 
                 return 1;
         }
         return 0;

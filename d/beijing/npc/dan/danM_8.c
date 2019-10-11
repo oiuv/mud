@@ -26,11 +26,11 @@ int do_effect(object me)
 {
         mapping my;
 
-        if (time() - me->query_temp("last_eat/dan(M)") < 400)
+        /*if (time() - me->query_temp("last_eat/dan(M)") < 400)
         {
                 write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
                 return 1;
-        }
+        }*/
 
         my = me->query_entire_dbase();
 
@@ -43,7 +43,7 @@ int do_effect(object me)
         } else
                 message_vision(HIC "$N吃下一粒皓月丹，感觉好像没什么效果。\n" NOR, me);
 
-        me->start_busy(2);
+        me->start_busy(1 + random(3));
 
         add_amount(-1);
         if (query_amount() < 1)
