@@ -10,10 +10,12 @@ int set_leader(object ob)
 {
     if (ob == this_object())
     {
-        debug_message("set_leader: Cannot set " + file_name(ob) + " as leader.\n");
+        debug_message("set_leader: Cannot set " + file_name(ob) + " as leader.");
+        return 0;
     }
 
     leader = ob;
+    return 1;
 }
 
 object query_leader() { return leader; }
@@ -82,6 +84,7 @@ int is_team_leader()
 int set_team(object *t)
 {
     team = t;
+    return 1;
 }
 
 varargs int dismiss_team(object ob)
