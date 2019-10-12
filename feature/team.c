@@ -10,7 +10,7 @@ int set_leader(object ob)
 {
     if (ob == this_object())
     {
-        debug_message("set_leader: Cannot set this_object() as leader.\n");
+        debug_message("set_leader: Cannot set " + file_name(ob) + " as leader.\n");
     }
 
     leader = ob;
