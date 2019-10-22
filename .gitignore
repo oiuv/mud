@@ -4,4 +4,5 @@
 *.log
 *DUMP
 desktop.ini
+driver*
 swapfile*
