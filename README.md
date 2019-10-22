@@ -1,14 +1,22 @@
-# [梦幻泥潭MUD](https://mud.ren)
+# [梦幻泥潭：炎黄MUD](https://mud.ren)
 
 > [更新日志](https://github.com/oiuv/mud/blob/master/CHANGELOG.md)
 
 推荐使用 [FluffOS](https://github.com/fluffos/fluffos) 驱动本LIB，编译流程请参考：[FluffOS 编译实例](https://bbs.mud.ren/threads/2)，如有疑问，推荐加官方游戏QQ群：9783836。
 
-使用以下方式启动游戏会开启调试模式
+Windows系统可以直击下载已经编译好的驱动：[fluffos windows版下载(包括v2017、v2019及旧版兼容driver)](https://bbs.mud.ren/threads/4)
+
+使用以下方式启动游戏会开启调试模式(旧版驱动名称为 driver，新版为 fluffos)
+
 > driver config.cfg -fdebug
 
+或者
+
+> driver config.cfg -d
+
 游戏演示：
-* telnet mud.ren:5555 (正式开放，欢迎游戏)
+
+    telnet mud.ren:5555 (正式开放，欢迎游戏)
 
 <pre>
 > mudinfo
