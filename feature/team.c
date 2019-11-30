@@ -8,9 +8,9 @@ STATIC_VAR_TAG object leader, *team;
 
 int set_leader(object ob)
 {
-    if (ob == this_object())
+    if (objectp(ob) && ob == this_object())
     {
-        debug_message("set_leader: Cannot set " + file_name(this_object()) + " as leader.");
+        debug_message("set_leader: Cannot set " + file_name(ob) + " as leader.");
         return 0;
     }
 
@@ -40,8 +40,7 @@ int follow_me(object ob, string dir)
         if (ob->query("env/no_follow") &&
             me->query_dex() / 2 + random(me->query_dex()) < ob->query_dex())
         {
-            tell_object(me, ob->name() +
-                                "走得好快，你一疏神就跟不上了。\n");
+            tell_object(me, ob->name() + "走得好快，你一疏神就跟不上了。\n");
             return 0;
         }
         return follow_path(dir);
