@@ -1,8 +1,7 @@
-/temp
-/tmp
-/version
+.DS_Store
+.ini
 *.log
-*DUMP
-desktop.ini
+*dump
 driver*
 swapfile*
+version

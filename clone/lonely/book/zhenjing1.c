@@ -1,4 +1,4 @@
-#include <ansi.h>; 
+#include <ansi.h>
 inherit ITEM;
 
 void create()
@@ -85,7 +85,7 @@ int do_du(string arg)
 
         if (me->query_skill("sanscrit", 1) < 200)
         {
-                write("你的梵文水平太低，无法看懂真经里所记载的内容。\n");        
+                write("你的梵文水平太低，无法看懂真经里所记载的内容。\n");
                 return 1;
         }
 

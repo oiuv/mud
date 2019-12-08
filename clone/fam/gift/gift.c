@@ -52,19 +52,18 @@ int do_effect(object me)
     if (me->query("special_skill/lucky"))
         point += 10;
 
-    message_vision(WHT "$N" WHT "一仰脖，吞下了一" + query("base_unit") + name() + WHT "。\n" NOR, me);
-    if (me->query("gift/gift_all") >= 10)
-    {
-        tell_object(me, "已经超过10颗啦，是药三分毒，再吃小心拉肚子。\n");
-        me->add("gift/gift_all", -1);
-    }
-    else if (me->query("gift/" + query("gift_type") + "/all") >= 10)
+    message_vision(WHT "$N" WHT "一仰脖，吞下了一" +
+                       query("base_unit") + name() + WHT "。\n" NOR,
+                   me);
+
+    if (me->query("gift/" + query("gift_type") + "/all") >= 10)
     {
         tell_object(me, "你觉得这药好象没什么效果。\n");
     }
     else if (random(100) >= point)
     {
-        tell_object(me, HIR "不过你觉得这药好像没起到什么作用。\n" NOR);
+        tell_object(me, HIR "不过你觉得这药好像没起到什么"
+                            "作用。\n" NOR);
 
         // 记录失败的记号
         me->add("gift/" + query("gift_type") + "/fail", 1);
@@ -83,7 +82,6 @@ int do_effect(object me)
 
     // 记录入吃丹的总量
     me->add("gift/" + query("gift_type") + "/all", 1);
-    me->add("gift/gift_all", 1);
 
     add_amount(-1);
     if (query_amount() < 1)

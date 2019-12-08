@@ -1,4 +1,4 @@
-#include <ansi.h>; 
+#include <ansi.h>
 inherit ITEM;
 
 void create()
@@ -89,7 +89,7 @@ int do_du(string arg)
 
         if (me->query_skill("sanscrit", 1) < 200)
         {
-                write("你的梵文水平太低，无法看懂真经里所记载的内容。\n");        
+                write("你的梵文水平太低，无法看懂真经里所记载的内容。\n");
                 return 1;
         }
 
@@ -112,7 +112,7 @@ int do_du(string arg)
 
                 if (me->query("can_perform/yinlong-bian/zhu"))
                 {
-                        write("你不是已经会了吗？\n"); 
+                        write("你不是已经会了吗？\n");
                         return 1;
                 }
                 if (me->query_skill("yinlong-bian", 1) < 100)
@@ -128,12 +128,12 @@ int do_du(string arg)
            	if (me->can_improve_skill("whip"))
                    	me->improve_skill("whip", 1500000);
            	if (me->can_improve_skill("yinlong-bian"))
-                   	me->improve_skill("yinlong-bian", 1500000); 
+                   	me->improve_skill("yinlong-bian", 1500000);
            	if (me->can_improve_skill("martial-cognize"))
                    	me->improve_skill("martial-cognize", 1500000);
 
-                return 1;          
- 
+                return 1;
+
         }
 
         else
@@ -143,7 +143,7 @@ int do_du(string arg)
 
                 if (me->query("can_perform/cuixin-zhang/cui"))
                 {
-                        write("你不是已经会了吗？\n"); 
+                        write("你不是已经会了吗？\n");
                         return 1;
                 }
                 if (me->query_skill("cuixin-zhang", 1) < 120)
@@ -160,20 +160,20 @@ int do_du(string arg)
            	if (me->can_improve_skill("strike"))
                    	me->improve_skill("strike", 1500000);
            	if (me->can_improve_skill("cuixin-zhang"))
-                   	me->improve_skill("cuixin-zhang", 1500000); 
+                   	me->improve_skill("cuixin-zhang", 1500000);
            	if (me->can_improve_skill("martial-cognize"))
                    	me->improve_skill("martial-cognize", 1500000);
 
-                return 1; 
+                return 1;
         }
 
-        else 
+        else
 
         if (skill == "九阴神爪")
         {
                 if (me->query("can_perform/jiuyin-baiguzhao/zhua"))
                 {
-                        write("你不是已经会了吗？\n"); 
+                        write("你不是已经会了吗？\n");
                         return 1;
                 }
                 if (me->query_skill("jiuyin-baiguzhao", 1) < 120)
@@ -190,11 +190,11 @@ int do_du(string arg)
            	if (me->can_improve_skill("claw"))
                    	me->improve_skill("claw", 1500000);
            	if (me->can_improve_skill("jiuyin-baiguzhao"))
-                   	me->improve_skill("jiuyin-baiguzhao", 1500000); 
+                   	me->improve_skill("jiuyin-baiguzhao", 1500000);
            	if (me->can_improve_skill("martial-cognize"))
                    	me->improve_skill("martial-cognize", 1500000);
 
-                return 1; 
+                return 1;
         }
 
         else
@@ -203,7 +203,7 @@ int do_du(string arg)
         {
                 if (me->query("can_perform/jiuyin-baiguzhao/duo"))
                 {
-                        write("你不是已经会了吗？\n"); 
+                        write("你不是已经会了吗？\n");
                         return 1;
                 }
                 if (me->query_skill("jiuyin-baiguzhao", 1) < 140)
@@ -220,15 +220,15 @@ int do_du(string arg)
            	if (me->can_improve_skill("claw"))
                    	me->improve_skill("claw", 1500000);
            	if (me->can_improve_skill("jiuyin-baiguzhao"))
-                   	me->improve_skill("jiuyin-baiguzhao", 1500000); 
+                   	me->improve_skill("jiuyin-baiguzhao", 1500000);
            	if (me->can_improve_skill("martial-cognize"))
                    	me->improve_skill("martial-cognize", 1500000);
 
-                return 1; 
+                return 1;
         }
 
         else
-        
+
         if (skill == "jiuyin-baiguzhao" || skill == "九阴白骨爪")
                 skill = "jiuyin-baiguzhao";
         else

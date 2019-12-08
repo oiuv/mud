@@ -10,7 +10,7 @@ inherit F_DBASE;
 void create()
 {
     seteuid(getuid());
-    set("name", HIG "宝镜任务发布精灵" NOR);
+    set("name", HIG "宝镜任务精灵" NOR);
     set("id", "mirror daemon");
     call_out("task_reminder", 20);
 }
@@ -21,7 +21,7 @@ void task_reminder()
     if (!zixu)
         zixu = load_object(ZIXU);
 
-    CHANNEL_D->do_channel(zixu, "chat", HIR "请注意，宝镜任务将于三分钟后重新分布。\n" NOR);
+    CHANNEL_D->do_channel(zixu, "chat", HIR "请注意，宝镜任务将于三分钟后重新分布。" NOR);
 
     remove_call_out("set_task");
     call_out("set_task", 180);
@@ -38,7 +38,7 @@ void set_task()
         zixu = load_object(ZIXU);
     level = random(15) + 1;
 
-    CHANNEL_D->do_channel(zixu, "chat", HIY "宝镜任务重新分布完毕。\n" NOR);
+    CHANNEL_D->do_channel(zixu, "chat", HIY "宝镜任务重新分布完毕。" NOR);
 
     remove_call_out("task_reminder");
     call_out("task_reminder", 1020);
@@ -154,7 +154,7 @@ int do_return(object ob, object me, string arg)
 {
     string target, item;
     object who, pay;
-    int count, exp, pot/*, tihui*/, gx;
+    int count, exp, pot /*, tihui*/, gx;
     //增加阅历奖励 2016-12-21
     int score;
     int kar;
@@ -202,7 +202,7 @@ int do_return(object ob, object me, string arg)
     if ( count == 10 ) pot += 800;
     if ( count == 20 ) pot += 1000;
     if ( count == 30 ) pot += 1500;
-*/
+    */
     //调整task任务pot奖励 2017-02-02
     exp = 1000 + random(1000);
     //宝镜定位越用灵力越低定位越模糊，也就是说每次更新一轮的30个任务内越后来寻找难度越大，故越后来pot奖励越大 2017-02-02
@@ -277,6 +277,8 @@ string set_item(object me)
     string *ob1_list = ({
         "/clone/fam/gift/perwan",
         "/clone/fam/gift/kardan",
+        "/clone/fam/etc/prize4", //圣杯
+        "/clone/fam/etc/prize5", //神圣血清
     });
 
     // 完成200个task：7成丹
@@ -298,13 +300,17 @@ string set_item(object me)
     // 完成400个task：稀有特殊合成材料
     string *ob4_list = ({
         "/clone/fam/item/xuantie", //天山玄铁（100point，打造刀、剑）
-        "/clone/fam/max/xuanhuang",
-        "/clone/fam/max/longjia",
+        "/clone/fam/etc/bipo",
+        "/clone/fam/etc/huanshi",
+        "/clone/fam/etc/binghuozhu",
+        "/clone/fam/etc/leishenzhu",
     });
 
     // 完成500个task：无花果
     string *ob5_list = ({
         "/clone/fam/obj/guo",
+        "/clone/fam/max/xuanhuang",
+        "/clone/fam/max/longjia",
     });
     string gift;
     object item;
@@ -315,33 +321,25 @@ string set_item(object me)
         //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
     }
-    else
-
-        if (me->query("mirror_count") == 200)
+    else if (me->query("mirror_count") == 200)
     {
         gift = ob2_list[random(sizeof(ob2_list))];
         //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
     }
-    else
-
-        if (me->query("mirror_count") == 300)
+    else if (me->query("mirror_count") == 300)
     {
         gift = ob3_list[random(sizeof(ob3_list))];
         //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
     }
-    else
-
-        if (me->query("mirror_count") == 400)
+    else if (me->query("mirror_count") == 400)
     {
         gift = ob4_list[random(sizeof(ob4_list))];
         //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
     }
-    else
-
-        if (me->query("mirror_count") == 500)
+    else if (me->query("mirror_count") == 500)
     {
         me->delete ("mirror_count");
         gift = ob5_list[random(sizeof(ob5_list))];

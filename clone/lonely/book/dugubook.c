@@ -1,4 +1,4 @@
-#include <ansi.h>; 
+#include <ansi.h>
 inherit ITEM;
 // 独孤九剑之无招解迷物件
 // Edit by Rcwiz for Hero
@@ -20,4 +20,3 @@ void create()
                                   "比，如无独孤求败本人讲解，是永远无法参透的。\n");
         }
 }
-

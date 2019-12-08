@@ -28,7 +28,7 @@
 #define DEBUG
 
 // services we always query if we don't know about
-#define STD_SERVICE ({ "mail", "finger", "rwho_q", "tell", "gwizmsg" })
+#define STD_SERVICE ({"mail", "finger", "rwho_q", "tell", "gwizmsg"})
 
 // used by the log() function
 #define MY_LOG_FILE "dns_master"
@@ -37,32 +37,42 @@ inherit F_DBASE;
 
 // global vars
 // the udp port number of the mud, and the socket id of the udp socket
-private int my_port;
-private int socket_id;
+private
+int my_port;
+private
+int socket_id;
 
 // The mapping containing the general mud info.
-private mapping muds;
+private
+mapping muds;
 
 // This mapping has an entry for every mud in the dns, and holds
 // information about the protocols supported for the services
-private mapping mud_svc;
+private
+mapping mud_svc;
 
 // Info about ourselves
-private mapping this_host;
+private
+mapping this_host;
 
 // used for sequencing the requests to the network services
-private int seq_ctr;
-private mapping seq_entries;
+private
+int seq_ctr;
+private
+mapping seq_entries;
 
 // list nodes
-private string *list_nodes;
+private
+string *list_nodes;
 
 // Used for debugging
 #ifdef DEBUG
-#  define debug(x) if(monitor) message("diagnostic", (x), monitor)
+#define debug(x) \
+    if (monitor) \
+    message("diagnostic", (x), monitor)
 STATIC_VAR_TAG object monitor = 0;
 #else
-#  define debug(x)
+#define debug(x)
 #endif
 
 /* prototypes */
@@ -79,7 +89,8 @@ void do_pings();
 void set_mud_info(string name, mapping junk);
 void zap_mud_info(string name, mapping junk);
 void support_q_callback(mapping info);
-private void query_services(string mud, string address, string port, string tcp);
+private
+void query_services(string mud, string address, string port, string tcp);
 
 // name serving functions
 int query_service_method(string mud, string service);
@@ -103,17 +114,19 @@ object query_monitor();
 #endif
 
 // misc functions
-private void restore_euid();
+private
+void restore_euid();
 void aux_log(string file, string entry);
 void aux_warning(string warning);
-private void log(string entry);
+private
+void log(string entry);
 void resolve_callback(string address, string my_ip, int key);
 
 //	----------------------------------------------------------------------------
 //	The UDP(User Datagram Protocol) network functions
 //	----------------------------------------------------------------------------
 // used to inform the slave daemons of the udp port
-int query_udp_port() {	return my_port; }
+int query_udp_port() { return my_port; }
 
 // this function binds our listening socket, and requests a mudlist
 int startup_udp()
@@ -524,7 +537,8 @@ void support_q_callback(mapping info)
 
             // if they don't support something tcp, we check udp
             if (!(mud_svc[mud][cmd] & SVC_KNOWN))
-                SUPPORT_Q->send_support_q(muds[mud]["HOSTADDRESS"], muds[mud]["PORTUDP"], info["PARAM"]);
+                SUPPORT_Q->send_support_q(muds[mud]["HOSTADDRESS"],
+                                          muds[mud]["PORTUDP"], info["PARAM"]);
         }
     } // if (info["CMD"] == "tcp")
     else
@@ -547,7 +561,8 @@ void support_q_callback(mapping info)
 
             // if they don't support something udp, we check tcp
             if (!(mud_svc[mud][cmd] & SVC_KNOWN))
-                SUPPORT_Q->send_support_q(muds[mud]["HOSTADDRESS"], muds[mud]["PORTUDP"], "tcp", info["CMD"]);
+                SUPPORT_Q->send_support_q(muds[mud]["HOSTADDRESS"],
+                                          muds[mud]["PORTUDP"], "tcp", info["CMD"]);
         }
     } // if (info["CMD"] == "tcp")
 
@@ -556,7 +571,8 @@ void support_q_callback(mapping info)
 
 // This queries a mud just added to the database for its supported services
 // What is queries for is dependant on config.h
-private void query_services(string mud, string address, string port, string tcp)
+private
+void query_services(string mud, string address, string port, string tcp)
 {
 #ifdef PREF_MAIL
     if (!(mud_svc[mud]["mail"] & SVC_KNOWN))
@@ -616,7 +632,8 @@ int query_service_method(string mud, string service)
     {
         // if it is a standard service we try to find out
         if (member_array(service, STD_SERVICE) != -1)
-            query_services(mud, muds[mud]["HOSTADDRESS"], muds[mud]["PORTUDP"], muds[mud]["TCP"]);
+            query_services(mud, muds[mud]["HOSTADDRESS"], muds[mud]["PORTUDP"],
+                           muds[mud]["TCP"]);
         return SVC_UNKNOWN;
     }
 
@@ -648,7 +665,8 @@ mapping current_mud_info()
     int n;
 
     n = sizeof(filter_array(users(), (: !wizardp($1) || !$1->query("env/invisible") :)));
-    m = this_host + (["TIME":ctime(time()), "USERS":sprintf("%d", n)]);
+    m = this_host + (["TIME":ctime(time()),
+                        "USERS":sprintf("%d", n)]);
     return m;
 }
 
@@ -773,6 +791,13 @@ void dump_svc_keys()
 
 void set_monitor(object ob)
 {
+    //	string euid;
+
+    /*
+    euid = geteuid(previous_object());
+    if (!euid || !member_group(euid, "admin") && !member_group(euid, "socket"))
+        return;
+*/
     monitor = ob;
 }
 
@@ -786,7 +811,8 @@ object query_monitor()
  * some misc functions
  */
 // Not really used yet
-private void restore_euid()
+private
+void restore_euid()
 {
     seteuid(ROOT_UID);
 }
@@ -811,7 +837,8 @@ void aux_warning(string warning)
 }
 
 // This is for internal use
-private void log(string entry)
+private
+void log(string entry)
 {
     //      string temp;
     log_file(MY_LOG_FILE, sprintf("%s: %s\n", ctime(time()), entry));
@@ -891,7 +918,7 @@ void create()
     // initialise the udp socket, if successful start the database system
     if (startup_udp())
         init_database();
-    //CHANNEL_D->do_channel(this_object(), "sys", "MUD 互联核心 DNS_MASTER 已经启动。 \n");
+    CHANNEL_D->do_channel(this_object(), "sys", "MUD 互联核心 DNS_MASTER 已经启动。 \n");
 }
 
 void remove()

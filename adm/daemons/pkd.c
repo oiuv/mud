@@ -24,22 +24,22 @@ STATIC_VAR_TAG int ready_time = 0;
 // 四次比赛列表
 STATIC_VAR_TAG mapping *tlist = ({
 ([      "name" : "屠人热身赛",
-        "time" : ({ 1000, 1010, }),
-        "exp"  : ({ 1000, 800000 }),
+        "time" : ({ 2200, 2210, }),
+        "exp"  : ({ 1000, 500000 }),
         "last_day" : 0,
 ]),
 ([      "name" : "屠人准备赛",
-        "time" : ({ 1400, 1410, }),
-        "exp"  : ({ 1000, 2000000 }),
+        "time" : ({ 400, 410, }),
+        "exp"  : ({ 1000, 1500000 }),
         "last_day" : 0,
 ]),
 ([      "name" : "屠人选拔赛",
-        "time" : ({ 1800, 1810, }),
-        "exp"  : ({ 1000, 10000000 }),
+        "time" : ({ 1000, 1010, }),
+        "exp"  : ({ 1000, 5000000 }),
         "last_day" : 0,
 ]),
 ([      "name" : "屠人大赛",
-        "time" : ({ 2200, 2210 }),
+        "time" : ({ 1600, 1610 }),
         "exp"  : ({ 1000, 2000000000 }),
         "last_day" : 0,
 ])
@@ -115,13 +115,13 @@ private void heart_beat()
         int last_day;
 
         seteuid(ROOT_UID);
-        lt = localtime(time() + 8 * 60 * 60);
+        lt = localtime(time());
         ti = lt[LT_HOUR] * 100 + lt[LT_MIN];
 
         switch (state)
         {
         case SLEEPING:
-                last_day = (time() + 8 * 60 * 60) / 86400;
+                last_day = time() / 86400;
                 for (i = 0; i < sizeof(tlist); i++)
                 {
                         if (ti < tlist[i]["time"][0] || ti > tlist[i]["time"][1])
@@ -140,7 +140,7 @@ private void heart_beat()
                 break;
 
         case GET_READY:
-                if (time() + 8 * 60 * 60 < ready_time + GET_READY_TIME)
+                if (time() < ready_time + GET_READY_TIME)
                         break;
 
                 // change state to "GET_READY_2";
@@ -161,14 +161,14 @@ private void change_state(int new_state)
         mixed lt;
         int n;
 
-        lt = localtime(time() + 8 * 60 * 60);
+        lt = localtime(time());
         switch (new_state)
         {
         case GET_READY:
                 // kickout the player now in competition
                 kickout_players();
 
-                ready_time = time() + 8 * 60 * 60;
+                ready_time = time();
                 message_competition("听说一年一度的" + tlist[selected]["name"] + "马上就要"
                                     "举行了，不知道今年的冠军是谁？");
                 set_heart_beat(1);
@@ -391,7 +391,7 @@ private void give_bouns(object me)
         msg = HIG "通过这次大赛，你获得了 " + (string)exp + " 点经验";
         if (pot > 0)
         {
-                pot = random(pot) * 3 + 1000;
+                pot = random(pot) * 10 + 1000;
                 msg += "和 " + (string) pot + " 点潜能。\n" NOR;
         } else
         {

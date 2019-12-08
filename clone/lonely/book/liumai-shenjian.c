@@ -1,4 +1,4 @@
-#include <ansi.h>; 
+#include <ansi.h>
 inherit ITEM;
 
 void create()
@@ -116,15 +116,15 @@ int do_du(string arg)
            if (random (10) != 1)
            {
                 write("你研究了半天，仍然无法将「无形剑气」融会贯通！\n");
-                me->start_busy(15); 
+                me->start_busy(15);
                 me->set("jing", 1);
                 return 1;
            }
            msg = HIG "$N" HIG "翻看剑谱，仔细研究上面所记载的武学，霎那间忽有所悟"
                      "……\n" NOR;
            msg += HIG "$N" HIG "中指一按，一股凌厉无伦的无形剑气直奔天际。\n" NOR;
-           msg += HIG "$N" HIG "长叹一声，感慨万千，将内力收回丹田。\n" NOR; 
-           message_vision(msg, me); 
+           msg += HIG "$N" HIG "长叹一声，感慨万千，将内力收回丹田。\n" NOR;
+           message_vision(msg, me);
 
            if (me->can_improve_skill("finger"))
                    me->improve_skill("finger", 1500000);
@@ -138,9 +138,9 @@ int do_du(string arg)
            destruct(this_object());
            return 1;
         }
-    
-        else 
-       
+
+        else
+
         if (skill == "六脉剑气")
         {
            if (me->query("can_perform/liumai-shenjian/six"))
@@ -165,8 +165,8 @@ int do_du(string arg)
                      "……\n" NOR;
            msg += HIW "$N" HIW "摊开双手，手指连弹，霎时间空气炙热，几"
                   "欲沸腾，六道剑气分自六穴，一起冲向天际" HIW "！\n" NOR;
-           msg += HIG "$N" HIG "长叹一声，感慨万千，将内力收回丹田。\n" NOR; 
-           message_vision(msg, me); 
+           msg += HIG "$N" HIG "长叹一声，感慨万千，将内力收回丹田。\n" NOR;
+           message_vision(msg, me);
 
            if (me->can_improve_skill("finger"))
                    me->improve_skill("finger", 1500000);
@@ -180,8 +180,8 @@ int do_du(string arg)
            destruct(this_object());
            return 1;
         }
- 
-        else 
+
+        else
 
         if (skill == "万剑纵横")
         {
@@ -211,10 +211,10 @@ int do_du(string arg)
            msg = HIG "$N" HIG "翻看剑谱，仔细研究上面所记载的武学，霎那间忽有所悟"
                      "……\n" NOR;
            msg += HIM "$N" HIM "一声清啸，十指纷弹，顿觉六脉剑谱已涌上心头，此起"
-                  "彼伏、连绵不绝。霎时剑气如奔，连绵无尽的万道剑气豁然贯向虚空" HIM 
+                  "彼伏、连绵不绝。霎时剑气如奔，连绵无尽的万道剑气豁然贯向虚空" HIM
                   "！\n" NOR;
-           msg += HIG "$N" HIG "长叹一声，感慨万千，将内力收回丹田。\n" NOR; 
-           message_sort(msg, me); 
+           msg += HIG "$N" HIG "长叹一声，感慨万千，将内力收回丹田。\n" NOR;
+           message_sort(msg, me);
 
            if (me->can_improve_skill("finger"))
                    me->improve_skill("finger", 1500000);
@@ -229,16 +229,16 @@ int do_du(string arg)
            return 1;
         }
 
-        else 
-       
+        else
+
         if (me->query_skill("liumai-shenjian", 1))
         {
              write("你不是已经会六脉神剑了吗？还学这干什么？\n");
              return 1;
         }
 
-        else 
- 
+        else
+
         if (skill == "shaochong-sword" || skill == "少冲剑")
 		skill = "shaochong-sword";
         else

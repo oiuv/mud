@@ -12,65 +12,66 @@ int is_body_part() { return 1; }
 
 void create()
 {
-        set_name(RED "²ĞÖ«" NOR, ({ "body part"}));
-        set_weight(500);
-        if (clonep())
-                set_default_object(__FILE__);
-        else {
-                set("unit", "¿é");
-                set("value", 0);
-        	set("food_supply", 15);
-        	set("food_remaining", 4);
-        }
+    set_name(RED "²ĞÖ«" NOR, ({"body part"}));
+    set_weight(50);
+    if (clonep())
+        set_default_object(__FILE__);
+    else
+    {
+        set("unit", "¿é");
+        set("value", 0);
+        set("food_supply", 15);
+        set("food_remaining", 4);
+    }
 }
 
 string long() { return ::long() + extra_desc(); }
 
 int set_from(object owner)
 {
-        apply_effect((: eat_effect :));
-        switch (name())
-        {
-        case "ÑÛÖé":
-        case "¶ú¶ä":
-        case "±Ç×Ó":
-        case "ÉàÍ·":
-        	set("food_supply", 10);
-	        set("food_remaining", 1);
-                break;
-        case "ÊÖÕÆ":
-        case "ÈË½Å":
-        	set("food_supply", 15);
-	        set("food_remaining", 2);
-                break;
-        case "ÊÖ±Û":
-        case "ÈËÍÈ":
-        	set("food_supply", 20);
-	        set("food_remaining", 5);
-                break;
-        default:
-        	set("food_supply", 5);
-	        set("food_remaining", 2);
-        }
-        return 1;
+    apply_effect((: eat_effect :));
+    switch (name())
+    {
+    case "ÑÛÖé":
+    case "¶ú¶ä":
+    case "±Ç×Ó":
+    case "ÉàÍ·":
+        set("food_supply", 10);
+        set("food_remaining", 1);
+        break;
+    case "ÊÖÕÆ":
+    case "ÈË½Å":
+        set("food_supply", 15);
+        set("food_remaining", 2);
+        break;
+    case "ÊÖ±Û":
+    case "ÈËÍÈ":
+        set("food_supply", 20);
+        set("food_remaining", 5);
+        break;
+    default:
+        set("food_supply", 5);
+        set("food_remaining", 2);
+    }
+    return 1;
 }
 
 int finish_eat()
 {
-        object ob;
-        if (name() != "ÊÖ±Û" && name() != "ÈËÍÈ")
-                return 0;
-        ob = new("/clone/misc/bone");
-        ob->move(environment());
+    object ob;
+    if (name() != "ÊÖ±Û" && name() != "ÈËÍÈ")
         return 0;
+    ob = new ("/clone/misc/bone");
+    ob->move(environment());
+    return 0;
 }
 
 void eat_effect()
 {
-        object me;
+    object me;
 
-        me = this_player();
-        me->add("combat/eatman", 1);
-        if (me->query("shen") > -1000)
-                me->set("shen", -1000);
+    me = this_player();
+    me->add("combat/eatman", 1);
+    if (me->query("shen") > -1000)
+        me->set("shen", -1000);
 }
