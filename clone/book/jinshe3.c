@@ -20,12 +20,12 @@ void create()
                 set("long",
         "这是一本用薄纸写成的书。上书：「金蛇秘芨」。\n"
         "书皮泛黄，看来已经保存很久了。\n", );
-		set("skill", ([
-			"name"        : "jinshe-zhang",
-			"exp_required":	100000,
-			"jing_cost"   :	50,
-			"difficulty"  :	35,
-			"max_skill"   : 119,
-		]));
+                set("skill", ([
+                        "name"        : "jinshe-zhang",
+                        "exp_required":	100000,
+                        "jing_cost"   :	50,
+                        "difficulty"  :	35,
+                        "max_skill"   : 119,
+                ]));
         }
 }

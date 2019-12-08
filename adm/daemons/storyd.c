@@ -14,12 +14,9 @@ STATIC_VAR_TAG mapping history;
 STATIC_VAR_TAG int step;
 int filter_listener(object ob);
 
-private
-void init_story();
-private
-void ready_to_start();
-private
-void go_on_process(object ob);
+private void init_story();
+private void ready_to_start();
+private void go_on_process(object ob);
 
 void create()
 {

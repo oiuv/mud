@@ -40,7 +40,7 @@ void incoming_request(mapping info)
         }
 
         str = WHO_CMD->main(0, info["VERBOSE"] ? "-l -i": "-i", 1);
-        
+
         DNS_MASTER->send_udp(info["HOSTADDRESS"], info["PORTUDP"],
             "@@@" + DNS_RWHO_A +
             "||NAME:" + Mud_name() +

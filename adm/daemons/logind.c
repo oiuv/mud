@@ -630,7 +630,7 @@ private void confirm_password(string pass, object ob)
         check_ok(ob);
         return;
     }
-    ob->set_temp("type", "均衡型");
+    ob->set_temp("type", "均衡型"); // 已弃用
     write(WHT "您要扮演男性(" HIY "m" NOR + WHT ")的角色或女性("
         HIY "f" NOR + WHT ")的角色？" NOR);
     input_to("get_gender", ob);

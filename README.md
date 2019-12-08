@@ -18,14 +18,15 @@ Windows系统可以直击下载已经编译好的驱动：[fluffos windows版下
 
     telnet mud.ren:5555 (正式开放，欢迎游戏)
 
+游戏部落：https://bbs.mud.ren/nodes/6 （QQ群：9783836)
+
 <pre>
 > mudinfo
-
 
                          .__________ 系 统 资 讯 __________.
                  ──────────────────────────
                  Mud 的识别名称：  MudRen（云端）
-                 驱动系统的版本：  FluffOS v2019.1.29 (mud.ren)
+                 驱动系统的版本：  FluffOS v2019 (mud.ren)
                  系统函数库版本：  YH Mudlib Ver 2018
                  CPU 使用百分比：  0.602938 % 被这个 Mud 使用中
                  CPU 的负担状况：  6.35 cmds/s, 270.93 comp lines/s
@@ -36,7 +37,6 @@ Windows系统可以直击下载已经编译好的驱动：[fluffos windows版下
                  连续执行的时间：  十四天二十二小时十七分二十二秒
 
                  Mud 现在的状态：  系统函数库改写中
-
 
 </pre>
 <img src="https://app.oiuv.cn/storage/screen/15413245501980.png" alt="mud.ren:5555">

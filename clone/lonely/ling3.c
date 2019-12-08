@@ -36,3 +36,35 @@ void create()
         init_sword(80);
         setup();
 }
+
+mixed hit_ob(object me, object victim, int damage_bonus)
+{
+        int ap, dp;
+        int n;
+
+        ap = me->query_skill("sword");
+        dp = victim->query_skill("dodge");
+
+        if (me->query_skill_mapped("sword") != "shenghuo-ling" ||
+            me->query_skill("shenghuo-ling", 1) < 100 ||
+            ap / 2 + random(ap) < dp)
+                return damage_bonus / 2;
+
+        switch (random(3))
+        {
+        case 0:
+                if (! victim->is_busy())
+                      victim->start_busy(me->query_skill("sword") / 10 + 4);
+                return HIY "$N" HIY "怒喝一声，圣火令犹如灵蛇一般，蜿蜒游动，泛起淡淡金光，竟"
+                       "将$n" HIY "笼罩在金光幻影之下。\n" NOR;
+
+        case 1:
+                n = me->query_skill("sword");
+                victim->receive_damage("qi", n * 2 / 3, me);
+                victim->receive_wound("qi", n * 2 / 3, me);
+                return  HIY "$N" HIY "飞身而起，圣火令自天而下，犹如灵蛇般地舞动着卷向$n" HIY
+                        "周身各处大穴！\n" NOR;
+
+        }
+        return damage_bonus;
+}

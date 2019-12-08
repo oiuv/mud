@@ -1,7 +1,7 @@
 // jiuzhang.c
 
 #include <ansi.h>
- 
+
 inherit BOOK;
 
 void create()
@@ -21,7 +21,7 @@ void create()
                         "jing_cost":  100,
                         "difficulty": 30,
                         "max_skill":  149,
-                        "min_skill":  80
+                        "min_skill":  80,
                 ]));
         }
 }
