@@ -19,6 +19,9 @@ varargs void create(int x, int y, int z)
     {
         addExit("down", __DIR__ "mogong");
         addExit("up", "/d/sky/tianmen");
+        set("objects",([
+            "/d/city/npc/yanruyu" : 1,
+        ]));
     }
 
     /*

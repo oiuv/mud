@@ -14,7 +14,7 @@ int query_str()
         int improve = 0;
 
         tat = query("tattoo/tattoo_str");
-		tat += query("reborn/str");
+        tat += query("reborn/str");
         str = query("str");
 
         if (! mapp(sk = query_skills()))
@@ -38,7 +38,7 @@ int query_int()
         int improve = 0;
 
         tat = query("tattoo/tattoo_int");
-		tat += query("reborn/int");
+        tat += query("reborn/int");
         str = query("int");
 
         if (! mapp(sk = query_skills()))
@@ -57,7 +57,7 @@ int query_con()
         int improve = 0;
 
         tat = query("tattoo/tattoo_con");
-		tat += query("reborn/con");
+        tat += query("reborn/con");
         str = query("con");
 
         if (! mapp(sk = query_skills()))
@@ -76,7 +76,7 @@ int query_dex()
         int improve = 0;
 
         tat = query("tattoo/tattoo_dex");
-		tat += query("reborn/dex");
+        tat += query("reborn/dex");
         str = query("dex");
 
         if (! mapp(sk = query_skills()))

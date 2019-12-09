@@ -1,6 +1,9 @@
 // globals.h
 // this file will be automatically included by the driver
 
+#ifndef GLOBALS_H
+#define GLOBALS_H
+
 #ifndef __SENSIBLE_MODIFIERS__
 // mudos use this
 #define STATIC_FUNC_TAG static
@@ -28,8 +31,6 @@
 #define STORY_DIR       "/adm/daemons/story/"
 #define TEMP_DIR        "/temp/"
 
-#define TEXT2PIC_D      "/adm/daemons/text2pic_d"
-
 // Daemons
 #define ALIAS_D         "/adm/daemons/aliasd"
 #define BAN_D           "/adm/daemons/band"
@@ -54,11 +55,7 @@
 #define ITEM_D          "/adm/daemons/itemd"
 #define LEAGUE_D        "/adm/daemons/leagued"
 #define LOGIN_D         "/adm/daemons/logind"
-//新增 2017-02-19
-//#define TIME_D                  "/adm/daemons/timed"
-//新增 by 薪有所属
 #define ENCHASE_D       "/adm/daemons/enchased"
-//#define MAIL_D          "/adm/daemons/maild"
 #define MAP_D           "/adm/daemons/mapd"
 #define MASTER_D        "/adm/daemons/masterd"
 #define MESSAGE_D       "/adm/daemons/network/messaged"
@@ -82,8 +79,10 @@
 #define WEAPON_D        "/adm/daemons/weapond"
 #define IP_D            "/adm/daemons/ipd"
 #define TASK_D          "/adm/daemons/taskd"
-//#define RZR_NPCD        "/adm/daemons/rzr_d"
-
+#define TEXT2PIC_D      "/adm/daemons/text2pic_d"
+// #define RZR_NPCD        "/adm/daemons/rzr_d"
+// #define TIME_D          "/adm/daemons/timed"
+// #define MAIL_D          "/adm/daemons/maild"
 #define CLASS_D(x)      ("/kungfu/class/" + x)
 #define CONDITION_D(x)  ("/kungfu/condition/" + x)
 #define SKILL_D(x)      ("/kungfu/skill/" + x)
@@ -121,7 +120,7 @@
 #define LIQUID          "/inherit/food/liquid"
 #define MONEY           "/inherit/item/money"
 #define NPC             "/inherit/char/npc"
-#define	PIG_ROOM	"/inherit/room/pigroom"
+#define	PIG_ROOM	    "/inherit/room/pigroom"
 #define PILL            "/inherit/medicine/pill"
 #define POISON          "/inherit/condition/poison"
 #define POISON_INSECT   "/inherit/char/insect"
@@ -142,7 +141,6 @@
 #define BACKBONE_UID    "Backbone"
 
 // Features
-
 #define F_ACTION        "/feature/action.c"
 #define F_ALIAS         "/feature/alias.c"
 #define F_APPRENTICE    "/feature/apprentice.c"
@@ -205,3 +203,5 @@
 #define INSTALL_COMBAT_TEST     1
 
 #undef PROFILE_COMMANDS
+
+#endif /* GLOBALS_H */

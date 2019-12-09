@@ -74,7 +74,7 @@ void interrupt_me(object who, string how)
 
 	if (intp(bak) && intp(interrupt))
 	{
-		if (bak < interrupt)
+		if (bak < interrupt || who != this_object())
                         return;
 	} else
         if (functionp(interrupt))
