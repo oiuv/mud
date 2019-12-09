@@ -352,6 +352,10 @@ int heal_self()
                 // 特殊情况禁止使用内功
                 return 0;
 
+    if (query_condition("exert_drug"))
+        //毒的效果
+        return 0;
+
         my = query_entire_dbase();
         if (my["neili"] < 50)
                 return 0;
@@ -458,6 +462,9 @@ int exert_function(string func)
         // 特殊情况禁止使用内功
         if (this_object()->query_temp("no_exert"))
                 return 0;
+    //毒的效果	
+    if (this_object()->query_temp("exert_drug"))
+        return 0;
 
         if (SKILL_D(force_skill)->exert_function(this_object(), func))
                 return 1;

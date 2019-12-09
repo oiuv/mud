@@ -228,8 +228,7 @@ varargs void create_door(string dir, mixed data, string other_side_dir, int stat
     else
         error("Create_door: Invalid door data, string or mapping expected.\n");
 
-    set("item_desc/" + dir, (
-                                : look_door, dir:));
+    set("item_desc/" + dir, (: look_door, dir :));
 
     if (objectp(ob = find_object(exits[dir])))
     {

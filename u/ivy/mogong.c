@@ -16,7 +16,7 @@ void create()
 µÄÇàÄê¡£
 LONG NOR );
     set("exits", ([
-        "down" : "/d/city/wfoxd",
+        "down":"/d/city/wfoxd",
         "up":__DIR__ "workroom",
     ]));
     set("objects",([
