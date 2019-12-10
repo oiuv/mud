@@ -18,6 +18,7 @@ void create()
         set_skill("cuff", 180);
         set_skill("staff", 180);
         set_skill("club", 180);
+		set_skill("hammer", 180);
         set_temp("apply/attack", 80);
         set_temp("apply/defense", 80);
         set_temp("apply/damage", 20);

@@ -46,4 +46,6 @@ void init()
         add_action("do_deposit", "cun");
         add_action("do_withdraw", "withdraw");
         add_action("do_withdraw", "qu");
+        add_action("do_transfer", "transfer");
+        add_action("do_transfer", "zhuan");
 }

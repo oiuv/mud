@@ -39,7 +39,7 @@ int do_move(string arg)
     me = this_player();
 
     if (! arg || arg != "bei")
-            return notify_fail("你要推什么？\n");
+        return notify_fail("你要推什么？\n");
 
     if ((int)me->query_str() < 30)
         return notify_fail("你将吃奶的劲都用上了，可还是无法把石碑推开。\n");

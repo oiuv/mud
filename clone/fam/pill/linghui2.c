@@ -9,7 +9,7 @@ void create()
         else {
                 set("long", HIW "这是一颗精炼而成的昊天丹，服用后能增加灵慧。\n" NOR);
                 set("base_unit", "颗");
-                set("base_value", 10000);
+                set("base_value", 15000);
                 set("base_weight", 50);
                 set("only_do_effect", 1);
 
@@ -33,7 +33,7 @@ int do_effect(object me)
 
         message_vision(HIY "$N" HIY "一仰脖，吞下了一" + un + na +
                        HIY "。\n" NOR, me);
-        me->add("magic_points", 120 + random(140));
+        me->add("magic_points", 18 + random(24));
 
         me->start_busy(3);
         add_amount(-1);

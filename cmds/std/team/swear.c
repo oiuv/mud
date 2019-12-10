@@ -134,11 +134,9 @@ int main(object me, string arg)
                              me->query("id") + ")想让大家一同结义，创立『" +
                              arg + "』，你是否同意(right/refuse)？\n" NOR);
         tob->set_temp("pending/answer/" + me->query("id") + "/right",
-                      bind((: call_other, __FILE__, "do_right", tob, me :),
-                           tob));
+                      bind((: call_other, __FILE__, "do_right", tob, me :), tob));
         tob->set_temp("pending/answer/" + me->query("id") + "/refuse",
-                      bind((: call_other, __FILE__, "do_refuse", tob, me :),
-                           tob));
+                      bind((: call_other, __FILE__, "do_refuse", tob, me :), tob));
     }
 
     return 1;

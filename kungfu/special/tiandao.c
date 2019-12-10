@@ -10,7 +10,7 @@ string name() { return HIG "天道酬勤" NOR; }
 
 int perform(object me, string skill)
 {
-        if (me->query("int") < 26 && me->query_skill("zuoyou-hubo", 1) < 360)
+        if ((me->query("int") < 26 || me->query("special_skill/qinzong")) && me->query_skill("zuoyou-hubo", 1) < 360 )
                 me->set_skill("zuoyou-hubo", 360);
 
         return notify_fail("你没有过人的才智，但终你一生你都勤恳奋斗，诚\n"

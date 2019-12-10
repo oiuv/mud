@@ -263,9 +263,9 @@ int do_du(string arg)
         else
                 me->improve_skill(skill, me->query("int") + 1);
 
-        me->receive_damage("qi", random(40) + 20);
-        me->receive_damage("jing", random(40) + 20);
-        me->add("neili", -lv);
+        me->receive_damage("qi", random(40) + 10);
+        me->receive_damage("jing", random(40) + 10);
+        me->add("neili", -random(lv));
         message("vision", me->name() + "正专心地研读九阴真经。\n",
                           environment(me), me);
         write("你仔细研读九阴真经，颇有心得。\n");

@@ -8,6 +8,9 @@ void init()
            || ! living(this_object()))
                 return;
 
+        if (me->query("family/family_name") == "Ã÷½Ì")
+            return;
+
         if (me->query_temp("have_yitianjian")
            || present("yitian jian", me))
         {

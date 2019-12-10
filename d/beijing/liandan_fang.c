@@ -35,7 +35,7 @@ int do_liandan(string arg)
         int time2;
 
         object me = this_player();
-        time = 15 + random(15);
+        time = 5 + random(15);
         time2 = time;
         
 

@@ -11,6 +11,7 @@ void create()
 LONG);
         set("objects", ([
                 __DIR__"npc/chen" : 1,
+				__DIR__"npc/txbw" : 1,
         ]));
         set("no_fight", 1);
         set("no_steal", 1);

@@ -17,7 +17,7 @@ void create()
               set("material_name", HIW "БъЅо" NOR);
               set("can_make", ({ "±Ю" }));
               //set("power_point", 120);
-			  set("power_point", 40);
+			  set("power_point", 100);
 	}
 }
 

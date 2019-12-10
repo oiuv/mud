@@ -16,7 +16,7 @@ void create()
                 set("material_attrib", "stone");
                 set("material_name", NOR + HIR "ÑÖÂÞ³ñ" NOR);
                 set("can_make", ({ "Õ½ÒÂ", "Ñü´ø", "»¤Íó", "Ñ¥×Ó", "±Þ" }));
-                set("power_point", 30);
+                set("power_point", 80);
         }
 }
 

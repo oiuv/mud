@@ -36,7 +36,7 @@ int main(object me, string arg)
                         return notify_fail("你要干什么？以为自己有三头六臂啊！\n");
                         
                 //转世特技循影擒踪
-                  if (me->query_skill("count", 1) && ! me->query("special_skill/qinzong"))
+                if (me->query_skill("count", 1) || me->query("special_skill/qinzong"))
                         return notify_fail("你杂学太多，心头烦乱，难以分心二用。\n");
 
                 if (lvl <= 100)

@@ -140,7 +140,7 @@ int main(object me, string arg)
                 sp += HIC "≡" HIY "───────────────────────"
                       "────────" HIC "≡\n" NOR;
                 sp += HIY "【 种 类 】 " HIC "『初始』 『先天』 『成功』 『失败』"
-                      " 『故事』 『刺青』\n" NOR;
+                      " 『故事』 『转世』\n" NOR;
                 sp += HIC "≡" HIY "───────────────────────"
                       "────────" HIC "≡\n" NOR;
 
@@ -153,7 +153,8 @@ int main(object me, string arg)
                 ob->query("gift/str/succeed"),
                 ob->query("gift/str/fail"),
                 ob->query("gift/sun"),
-                ob->query("tattoo/tattoo_str"));
+				ob->query("reborn/str")),
+                //ob->query("tattoo/tattoo_str"));
 
                 sp += sprintf(HIW "【 悟 性 】 " NOR + WHT " [%3d]    ["
                       HIG "%3d" NOR + WHT "]    [" HIW "%3d" NOR + WHT "]    ["
@@ -164,7 +165,8 @@ int main(object me, string arg)
                 ob->query("gift/int/succeed"),
                 ob->query("gift/int/fail"),
                 ob->query("gift/water"),
-                ob->query("tattoo/tattoo_int"));
+				ob->query("reborn/int")),
+                //ob->query("tattoo/tattoo_int"));
 
                 sp += sprintf(HIW "【 根 骨 】 " NOR + WHT " [%3d]    ["
                       HIG "%3d" NOR + WHT "]    [" HIW "%3d" NOR + WHT "]    ["
@@ -175,7 +177,8 @@ int main(object me, string arg)
                 ob->query("gift/con/succeed"),
                 ob->query("gift/con/fail"),
                 ob->query("gift/lighting"),
-                ob->query("tattoo/tattoo_con"));
+				ob->query("reborn/con")),
+                //ob->query("tattoo/tattoo_con"));
 
                 sp += sprintf(HIW "【 身 法 】 " NOR + WHT " [%3d]    ["
                       HIG "%3d" NOR + WHT "]    [" HIW "%3d" NOR + WHT "]    ["
@@ -186,7 +189,8 @@ int main(object me, string arg)
                 ob->query("gift/dex/succeed"),
                 ob->query("gift/dex/fail"),
                 ob->query("gift/feng"),
-                ob->query("tattoo/tattoo_dex"));
+				ob->query("reborn/dex")),
+                //ob->query("tattoo/tattoo_dex"));
 
                 sp += HIC "≡" HIY "───────────────────────"
                       "────────" HIC "≡\n" NOR;

@@ -10,7 +10,6 @@ int sort_list(mixed ob1, mixed ob2);
 
 int main(object me, string arg)
 {
- 	// int mark_loaded;
 	int i, j, w, col;
 	string dir;
   string path;

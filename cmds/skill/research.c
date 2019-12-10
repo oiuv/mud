@@ -95,9 +95,10 @@ int main(object me, string arg)
 
                 if (ks[i] == skill)
                         continue;
-
+				//取消子技能不能加成研究的限制
                 if (SKILL_D(ks[i])->main_skill()
-                   && SKILL_D(ks[i])->main_skill() != ks[i])
+					&& SKILL_D(ks[i])->main_skill() != ks[i]
+					&& me->query_skill(SKILL_D(ks[i])->main_skill(), 1) > 0)
                         continue;
 
                 if (SKILL_D(skill)->valid_enable(ks[i]))
@@ -156,13 +157,13 @@ int main(object me, string arg)
 //相对原版增加300级和500级后的研究速度 2016-12-24
         if (lvl >= 500)
                 //improve += lvl / 75 + me->query("int") / 6;
-                //提升500级后的技能研究速度。 2017-02-18
-                improve += lvl / 50 + me->query("int") / 6;
+                //提升500级后的技能研究速度。
+                improve += lvl / 50 + to_int(pow(me->query("int") / 6.0, 2));
         else
-                improve += lvl / 50 + me->query("int") / 3;            
+                improve += lvl / 50 + to_int(pow(me->query("int") / 12.0, 2));            
        // 转世技能六阴鬼脉提升内功技能的研究速度
         if (me->query("special_skill/guimai") && SKILL_D(skill)->valid_enable("force"))
-                improve += improve * 50 / 100; 
+                improve += improve * 30 / 100; 
 
        //转世特技武星转世 by 薪有所属
         if (me->query("special_skill/wuxing"))

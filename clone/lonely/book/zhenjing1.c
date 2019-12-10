@@ -133,13 +133,13 @@ int do_du(string arg)
 
         // 天赋聪颖增加研读速度
         if (me->query("special_skill/clever"))
-                me->improve_skill(skill, me->query("int") + 11);
+                me->improve_skill(skill, me->query("int") + random(me->query_int()) + 11);
         else
-                me->improve_skill(skill, me->query("int") + 1);
+                me->improve_skill(skill, me->query("int") + random(me->query_int()) + 1);
 
-        me->receive_damage("qi", random(40) + 20);
-        me->receive_damage("jing", random(40) + 20);
-        me->add("neili", -lv);
+        me->receive_damage("qi", random(40) + 10);
+        me->receive_damage("jing", random(40) + 10);
+        me->add("neili", -random(lv));
         message("vision", me->name() + "正专心地研读九阴真经。\n",
                           environment(me), me);
         write("你仔细研读九阴真经，颇有心得。\n");

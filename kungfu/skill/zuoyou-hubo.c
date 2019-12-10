@@ -19,14 +19,13 @@ int valid_learn(object me)
         if (me->query("gender") == "无性" && lvl >= 50)
                 return notify_fail("你默默凝神，试图分心二"
                                    "用，可是却觉得阴阳失调，心浮气躁。\n");
-        /*
-        //由于没开放高悟性互搏，此效果暂无实际效果，故取消。
+        
         //转世特技循影擒踪
-         if (me->query_skill("count", 1) && !me->query("special_skill/qinzong"))
+         if (me->query_skill("count", 1) || me->query("special_skill/qinzong"))
                 return notify_fail("你受到阴阳八卦影响甚深，难以尝" 
                                    "试更高深的分心之术。\n"); 
-*/
-        if (me->query("int") > 15)
+
+        if (me->query("int") > 15 && !me->query("special_skill/tiandao"))
                 return notify_fail("你觉得心烦意乱，难以尝"
                                    "试更高深的分心之术。\n");
 

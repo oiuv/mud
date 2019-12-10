@@ -132,12 +132,13 @@ void init()
      	::init();
 
      	if (interactive(ob = this_player())
-           && userp(ob)
-	   && ! ob->query_temp("mark/guofu_wait")
-           && ! is_fighting())
-	{
-        	if (ob->query("mark/guofu_over"))
+			&& userp(ob)
+			&& ! ob->query_temp("mark/guofu_wait")
+			&& ! is_fighting()
+			&& ! ob->query("can_learn/3skills/guojing"))
 		{
+        	if (ob->query("mark/guofu_over"))
+			{
             		command("hmm");
             		command("say 我不是让你另谋出路吗？又跑回来干嘛？");
             		command("say 敦儒，修文，送" + ob->name() + NOR + CYN "出去！");
@@ -147,10 +148,9 @@ void init()
             		ob->move("/d/xiangyang/westjie1");
             		tell_room(environment(ob), HIC "\n只见两位青年架着" + ob->name() +
                                                    HIC "从郭府大厅走了过来。\n" NOR, ({ ob }));
-            	} else
-        	if (ob->query("mark/guofu_out")
-		   && (int)ob->query("combat_exp") < 100000)
-		{
+            } else
+        	if (ob->query("mark/guofu_out") && (int)ob->query("combat_exp") < 100000)
+			{
             		command("say 你现在的武功已经有一定的底子了，应该多走动走动。");
             		command("say 别老是呆在我这里，这对你帮助不大。敦儒，修文，送客！");
             		message_vision(HIC "\n只见$N" HIC "一招手，顿时从正厅进来了两"
@@ -159,9 +159,9 @@ void init()
             		ob->move("/d/xiangyang/westjie1");
             		tell_room(environment(ob), HIC "\n只见两位青年陪着" + ob->name() +
                                                    HIC "从郭府大厅走了过来。\n" NOR, ({ ob }));
-            	} else
+            } else
         	if ((int)ob->query("combat_exp") > 100000)
-		{
+			{
             		command("say 现在国难当头，蒙古人围攻襄阳，我这里事情繁多。");
             		command("say 恕郭某无礼，还请阁下回去。敦儒，修文，送客！");
             		message_vision(HIC "\n只见$N" HIC "一招手，顿时从正厅进来了两"
@@ -170,9 +170,9 @@ void init()
             		ob->move("/d/xiangyang/westjie1");
             		tell_room(environment(ob), HIC "\n只见两位青年陪着" + ob->name() +
                                                    HIC "从郭府大厅走了过来。\n" NOR, ({ ob }));
-            	} else
+            } else
          	if ((int)ob->query_condition("killer"))
-		{
+			{
             		command("sigh");
             		command("say 你杀性如此之重，我这里也留不得你，你还是走吧。");
             		command("say 敦儒，修文，送客！");
@@ -181,29 +181,29 @@ void init()
                                        this_object(), ob);
             		ob->move("/d/xiangyang/westjie1");
             		ob->set("mark/guofu_over", 1);
-			ob->delete("mark/guofu_ok");
+					ob->delete("mark/guofu_ok");
             		tell_room(environment(ob), HIC "\n只见两位青年架着" + ob->name() +
                                                    HIC "从郭府大厅走了过来。\n" NOR, ({ ob }));
-            	} else
+            } else
                 // 隐藏情节：郭靖教授三门特殊武功
          	if (ob->query("mark/guofu_ok")                //① 确认被收容于郭府
-		   && (int)ob->query("mark/guofu_job") > 200      //② 郭府工作总量大于两百
-		   && (int)ob->query("combat_exp") > 12500        //③ 确认经验值12.5K和40K之间
-                   && (int)ob->query("combat_exp") < 40000
-		   && ! ob->query_temp("job_name")                //④ 此时没有领取工作
-		   && ! ob->query("family/family_name")           //⑤ 没有拜师
-		   && ! ob->query("can_learn/3skills/guojing")    //⑤ 保证以前未触发此情节
-		   && ! stringp(ob->query_skill_mapped("force"))) //⑥ 没有激发特殊内功
-		{
+				&& (int)ob->query("mark/guofu_job") > 200      //② 郭府工作总量大于两百
+				&& (int)ob->query("combat_exp") > 12500        //③ 确认经验值12.5K和40K之间
+                && (int)ob->query("combat_exp") < 40000
+				&& ! ob->query_temp("job_name")                //④ 此时没有领取工作
+				&& ( ! ob->query("family/family_name")|| ob->query("family/family_name") == "无门无派")           //⑤ 没有拜师
+				&& ! ob->query("can_learn/3skills/guojing")    //⑤ 保证以前未触发此情节
+				&& ! stringp(ob->query_skill_mapped("force"))) //⑥ 没有激发特殊内功
+			{
 	                command("look " + ob->query("id"));
             		command("yi");
                 	command("whisper " + ob->query("id") + " 你在我郭府内工作也有"
                                 "一定的时间\n了，怎么连一技之长也没有？以后怎能行走江"
                                 "湖啊？…嗯…这\n样好了，从今日起，你每天到我这里来，"
                                 "我传授你几项简单的\n特殊武功好了。\n" NOR);
-			ob->set("can_learn/3skills/guojing", 1);
-            	}
-         }
+					ob->set("can_learn/3skills/guojing", 1);
+            }
+        }
 }
 
 void attempt_apprentice(object ob)
@@ -222,7 +222,7 @@ int recognize_apprentice(object ob, string skill)
                 return -1;
         }
 
-        if (ob->query("combat_exp") > 40000)
+        if (ob->query("combat_exp") > 40000 && ! ob->query("can_learn/3skills/guojing"))
         {
                 command("say 你经验也不低了，应该多出去锻炼，呆在这对你帮助不大。\n");
                 return -1;
@@ -230,7 +230,7 @@ int recognize_apprentice(object ob, string skill)
 
         if (skill != "force"
            && skill != "guoshi-xinfa"
-	   && skill != "dodge"
+		   && skill != "dodge"
            && skill != "feiyan-zoubi"
            && skill != "unarmed"
            && skill != "changquan")

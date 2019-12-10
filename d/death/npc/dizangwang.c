@@ -23,11 +23,11 @@ void create()
         set("con", 34);
         set("dex", 36);
 
-        set("max_qi", 9999);
-        set("max_jing", 9999);
-        set("neili", 9999);
-        set("max_neili", 9999);
-        set("jiali", 200);
+        set("max_qi", 49999);
+        set("max_jing", 29999);
+        set("neili", 49999);
+        set("max_neili", 49999);
+        set("jiali", 400);
 
         set("combat_exp", 50000000);
                 

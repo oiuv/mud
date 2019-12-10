@@ -123,11 +123,11 @@ int main(object me, string arg)
 
         me->add_temp("apply/attack", attack);
         me->add_temp("apply/damage", damage);
-        me->add_temp("apply/uanrmed_damage", damage);
+        me->add_temp("apply/unarmed_damage", damage);
         COMBAT_D->do_attack(me, target, me->query_temp("weapon"), 0);
         me->add_temp("apply/attack", -attack);
         me->add_temp("apply/damage", -damage);
-        me->add_temp("apply/uanrmed_damage", -damage);
+        me->add_temp("apply/unarmed_damage", -damage);
         me->cost_craze(craze / 4 + random(craze / 2));
         return 1;
 }

@@ -6,11 +6,13 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-        string  msg;
+        string msg, msg1, msg2;
+		mixed files;
         mapping ss;
         string  skill;
         object ob;
         string pro;
+		int i, m;
 
         if (wizardp(me) && stringp(arg) &&
             objectp(ob = find_player(arg)))
@@ -21,7 +23,7 @@ int main(object me, string arg)
 
         pro = (ob == me) ? "你" : ob->name(1);
 
-        if (! ob->query("born"))
+        if (! ob->query("born") && ! ob->query("reborn"))
                 return notify_fail(pro + "还没有出生呐，会什么特技？\n");
 
         if (! mapp(ss = ob->query("special_skill")) ||
@@ -46,8 +48,14 @@ int main(object me, string arg)
                 return SPECIAL_D(skill)->perform(me, skill, arg);
         }
 
+		files = ({ "guibian", "guimai", "jinshen", "piyi",
+                   "qinzong", "wuxing", "shenyan", "tiandao",
+                });
+				
         msg = pro + "现在会以下这些特技：\n";
-        foreach (skill in keys(ss))
+		msg1 = "";
+		msg2 = "";
+ /*       foreach (skill in keys(ss))
         {
                 if (file_size(SPECIAL_D(skill) + ".c") < 0)
                 {
@@ -55,7 +63,28 @@ int main(object me, string arg)
                         continue;
                 }
                 msg += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
-        }
+        }*/
+		foreach (skill in keys(ss))
+		{
+			m = 0;
+			for (i = 0; i < sizeof(files); i++)
+			{
+				if (skill == files[i])
+				{
+					msg2 += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
+					m = 1;
+				}
+				
+			}
+			if (m < 1)
+				msg1 += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
+		}
+		msg += msg1;
+		if (msg2 != "")
+		{
+			msg += HIG " 转 世\n";
+			msg += msg2;
+		}
         write(msg);
         return 1;
 }

@@ -65,7 +65,7 @@ LONG);
 int accept_object(object who, object ob)
 {
         object obj;
-//      object me = this_player();
+        //object me = this_player();
 
         if (! who || environment(who) != environment())
 		return 0;

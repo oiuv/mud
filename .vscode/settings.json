@@ -1,10 +1,10 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "editor.formatOnType": true,
-    "editor.formatOnPaste": false,
     "files.autoGuessEncoding": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
-    "editor.renderWhitespace": "all"
+    "editor.renderWhitespace": "all",
+    "files.eol": "\n"
 }

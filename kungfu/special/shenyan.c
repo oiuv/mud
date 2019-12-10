@@ -1,7 +1,10 @@
-
 #include <ansi.h>
+#include <command.h>
 
 inherit F_CLEAN_UP;
+
+#define HP_CMD              "/cmds/usr/hp"
+#define SKILLS_CMD              "/cmds/skill/skills"
 
 int is_scborn() { return 1; }
 
@@ -32,8 +35,8 @@ int perform(object me, string skill, string arg)
         me->add("neili", -400);
         me->start_busy(2);
 
-        "/cmds/usr/hp"->main(me, arg, 1);
-        "/cmds/skill/cha"->main(me, arg, 1);
+        HP_CMD->main(me, arg, 1);
+        SKILLS_CMD->main(me, arg, 1);
 
         return 1;
 }

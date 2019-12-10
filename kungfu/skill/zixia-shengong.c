@@ -16,16 +16,19 @@ int valid_force(string force)
 int query_neili_improve(object me)
 {
         int lvl;
-
-        lvl = (int)me->query_skill("zixia-shengong", 1);
-        return lvl * lvl * 15 * 14 / 100 / 200;
+		lvl = (int)me->query_skill("zixia-shengong", 1);
+		
+		if ((int)me->query_skill("pixie-jian", 1) > 300)
+		        return lvl * lvl * 15 * 5 / 100 / 200;
+		else
+				return lvl * lvl * 15 * 14 / 100 / 200;
 }
 
 int valid_learn(object me)
 {
-	if (me->query("gender") == "无性" &&
-	    (int)me->query_skill("zixia-shengong", 1) > 49)
-		return notify_fail("你无根无性，阴阳不调，难以领会高深的紫霞神功。\n");
+	//if (me->query("gender") == "无性" &&
+	//    (int)me->query_skill("zixia-shengong", 1) > 49)
+	//	return notify_fail("你无根无性，阴阳不调，难以领会高深的紫霞神功。\n");
 
 	if ((int)me->query_skill("force", 1) < 60)
 		return notify_fail("你的基本内功火候还不够，还不能学习紫霞神功。\n");
@@ -36,6 +39,16 @@ int valid_learn(object me)
 int practice_skill(object me)
 {
 	return notify_fail("紫霞神功只能用学(learn)的来增加熟练度。\n");
+}
+
+int difficult_level(object me)
+{
+		me = this_player();
+
+        if ((int)me->query_skill("pixie-jian", 1) > 300)
+                return 500;
+        else
+                return 50;
 }
 
 string exert_function_file(string func)
