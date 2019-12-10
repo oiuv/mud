@@ -94,10 +94,10 @@ void competition_with(object ob)
 void lost()
 {
         string *ob_list = ({
-                "/clone/fam/gift/str2",
-                "/clone/fam/gift/int2",
-                "/clone/fam/gift/con2",
-                "/clone/fam/gift/dex2",
+                "/clone/fam/etc/prize1",
+                "/clone/fam/etc/prize2",
+                "/clone/fam/etc/prize3",
+                "/clone/fam/etc/prize4",
         });
         object ob;
 

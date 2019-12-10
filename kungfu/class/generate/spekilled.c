@@ -64,7 +64,7 @@ void set_from_me( object me )
     int exp;
     mapping my;
 
-    NPC_D->init_npc_skill( this_object(), NPC_D->get_exp( me ) );
+    NPC_D->init_npc_skill( this_object(), NPC_D->check_level( me ) );
     my = query_entire_dbase();
 
     if ( my["max_qi"] > 10000 )
@@ -184,7 +184,7 @@ void die( object killer )
     int gongxian;           /*  */
     object  *t;             /* 杀死我的人的队伍列表 */
     object  tob;
-//  int i;
+    // int i;
 
     /* 找到杀了我(NPC)或是打晕我的人 */
     if ( !objectp( dob = killer ) )
@@ -252,7 +252,7 @@ void random_move()
 {
     string  dir;
     string  * route;
-//  object  master;
+    // object  master;
     object  *listeners;
 
     if ( time() > query_temp( "dest_time" ) ||

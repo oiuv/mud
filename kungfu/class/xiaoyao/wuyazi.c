@@ -55,7 +55,7 @@ LONG );
         set_skill("lingbo-weibu", 360);
         set_skill("feiyan-zoubi", 340);
         set_skill("throwing", 320);
-		set_skill("strike", 360);
+        set_skill("strike", 360);
         set_skill("panyang-zhang", 340);
         set_skill("liuyang-zhang", 360);
         set_skill("hand", 360);

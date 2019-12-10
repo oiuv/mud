@@ -270,9 +270,6 @@ void give_intercession()
                         GIFT_D->delay_freequest_bonus(me);
         }
 
-        catch(call_other(QUEST_DIR + "judge.c", "start_quest"));
-		QUEST_D->remove_quest("run_ob");
-
         delete_temp("run_ob");
         set_leader(0);
         run_ob->change_status(QUEST_FINISH);

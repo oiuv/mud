@@ -355,14 +355,14 @@ int recognize_apprentice(object me, string skill)
 {
         if (! me->query("can_learn/lingshe-quan/ke"))
         {
-                command("say 干嘛？没拜师就想向俺学东西？");
-                return -1;
+                command("say 干嘛？没拜师就想向本少爷学东西？");
+                return 0;
         }
 
         if (skill != "lingshe-quan")
         {
                 command("say 我可没答应教你其他武功。");
-                return -1;
+                return 0;
         }
         return 1;
 }

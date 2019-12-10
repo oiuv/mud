@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 #include "etc.h"
 
 inherit NPC;
@@ -25,7 +25,7 @@ LONG );
         set("int", 30);
         set("con", 30);
         set("dex", 30);
-    
+
         set("qi", 4200);
         set("max_qi", 4200);
         set("jing", 2000);
@@ -101,7 +101,7 @@ int recognize_apprentice(object ob, string skill)
         {
                 command("heng");
                 command("say 你算什么东西？就是你师父我也不放在眼里。");
-                return -1; 
+                return -1;
 
         }
 

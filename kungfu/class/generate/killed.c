@@ -15,7 +15,7 @@ void create()
         ::create();
         set("gender", random(5) ? "男性" : "女性");
         NPC_D->generate_cn_name(this_object());
-		set("age", 20 + random(40));
+        set("age", 30 + random(30));
         set("long", "");
         set("attitude", "friendly");
         set("chat_chance", 30);
@@ -31,21 +31,22 @@ void create()
 
         add_money("silver", 10 + random(20));
         setup();
+
         if (clonep()) keep_heart_beat();
 }
 //独立于玩家气精内 by 大曾
 void set_from_me(object me)
 {
-        //int exp;
-        mapping my;
+    // int exp;
+    mapping my;
 		int s, f, x, y, z;
 
-        NPC_D->init_npc_skill(this_object(), NPC_D->get_exp(me));
-        my = query_entire_dbase();
+    NPC_D->init_npc_skill(this_object(), NPC_D->get_exp(me));
+    my = query_entire_dbase();
 		s = this_object()->query_con() + this_object()->query_str();
 		f = this_object()->query_int();
 		z = (int)this_object()->query_skill("force", 1);
-		
+
 		my["max_jingli"] =  my["magic_points"] / 30 + f * 30;
 		if (my["animaout"])
             my["max_jingli"] += my["max_jingli"] * 4 / 10;
@@ -87,7 +88,7 @@ void set_from_me(object me)
 
 		my["eff_qi"]     = my["max_qi"];
         my["qi"]         = my["max_qi"];
-		
+
         my["max_jing"]   = 100;
 		my["max_jing"]  += (my["age"] - 14) * s * 2 / 3;
 		my["max_jing"]  += (int)my["max_jingli"] / 4;
@@ -103,10 +104,10 @@ void set_from_me(object me)
         my["neili"]       = my["max_neili"];
         my["quest_count"] = me->query("quest_count");
 
-
-        if (my["combat_exp"] > 200000 && random(100) < 1)
+		//修改20w-->50w by hong
+        if (my["combat_exp"] > 500000 && random(100) < 5)
         {
-                // 经验 > 200K，5%几率出现多个敌人
+                // 经验 > 500K，5%几率出现多个敌人
                 set_temp("multi-enemy", 1);
         }
 
@@ -134,7 +135,7 @@ void kill_ob(object ob)
                 ::kill_ob(ob);
                 return;
         }
-		
+
 		if (lvl = query_temp("multi-enemy"))
         {
                 // 出现多个敌人
@@ -671,7 +672,7 @@ void random_move()
                         if (! living(this_object()))
                                 message_vision("$N缓缓的醒了过来。\n",
                                                this_object());
-                        
+
                         message_vision("$N看看四周，急匆匆的逃走了。\n",
                                        this_object());
                         destruct(this_object());

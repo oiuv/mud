@@ -175,7 +175,7 @@ int accept_ask(object me, string topic)
          case "º×ÐÎ±Ê" :
                 return MASTER_D->give_item(me, this_object(),
                                (["item"     :  BI,
-                                 //"master"   :  1,
+                                 "master"   :  0,
                                  "sk1"      :  "hexing-bifa",
                                  "lv1"      :  100,
                                  "shen"     :  -10000 ]));

@@ -1,6 +1,6 @@
 #include <ansi.h>
 inherit NPC;
-mixed ask_migong();
+
 void create()
 {
         set_name("石破天", ({"shi potian", "shi", "potian"}));
@@ -65,8 +65,6 @@ void create()
                 "史婆婆" : "他是我师父呀，也不知道她现在怎么样了。",
                 "太玄功" : "我…我不知道，这个你别问我。",
                 "太玄神功" : "我…我不知道，这个你别问我。",
-				"迷宫"     : (: ask_migong :),
-				"魔宫"     : (: ask_migong :),
         ]));
 
         create_family("金乌派", 2, "掌门弟子");
@@ -108,30 +106,6 @@ void attempt_apprentice(object ob)
 {
         command("ah");
         command("say 那不成，那不成。我自己都还没学好呢。");
-}
-
-mixed ask_migong()
-{
-        object room, me;
-        me = this_player();
-		
-		if ((int)me->query_skill("martial-cognize", 1) < 120)
-                return "你向我打听这个干什么，还是修炼要紧！";
-
-        if (time() - me->query("ask_migong") < 60)// * 60 * 18cd 18小时 
-                return "你不是刚刚来过吗？怎么还要！";
-
-        if (query_temp("migong"))
-                return "没了，我又不是卖这个的，哪里带得了这么多？";
-
-        me->set("ask_migong", time());
-		me->set_temp("migong", 1);
-		me->delete_temp("fuben_killed");
-		tell_object(me, HIY "生死由命，富贵在天！\n" NOR );
-		room = new("/d/dungeons/hole_fb");
-		me->move(room);
-		
-		return 1;
 }
 
 void unconcious()

@@ -6,7 +6,7 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("俞岱岩", ({ "yu daiyan", "yu" }));  
+        set_name("俞岱岩", ({ "yu daiyan", "yu" }));
         set("nickname", HIC "武当三侠" NOR);
         set("long", "他就是张三丰的三弟子俞岱岩。只见他身穿\n"
                     "一件干干净净的灰色道袍，已年过四十。身\n"
@@ -19,7 +19,7 @@ void create()
         set("int", 28);
         set("con", 31);
         set("dex", 25);
-        
+
         set("max_qi", 5500);
         set("max_jing", 4000);
         set("neili", 6500);
@@ -101,7 +101,7 @@ void init()
 
 void greeting(object ob)
 {
-//      int i;
+        // int i;
 
         if (! objectp(ob) || environment(ob) != environment())
                 return;

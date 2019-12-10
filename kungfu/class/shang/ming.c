@@ -22,7 +22,7 @@ mixed give_letter();
 
 void create()
 {
-//      object ob;
+        // object ob;
         set_name("商剑鸣", ({"shang jianming", "shang", "jianming"}));
         set("gender", "男性");
         set("title", "商家堡堡主");
@@ -418,7 +418,7 @@ mixed ask_skill5()
 
         message_vision(HIY "$n" HIY "笑了笑，伸手将$N" HIY "招到身前，低声在$N" HIY
                        "耳旁嘀咕了半\n天。然后又拔出腰刀翻转数下，斜撩而出。似乎是"
-                       "一种颇为\n独特的刀诀。\n" NOR, me, this_object()); 
+                       "一种颇为\n独特的刀诀。\n" NOR, me, this_object());
         command("nod");
         command("say 这招很简单，稍加练习便行。");
         tell_object(me, HIC "你学会了「寒芒暴卷」。\n" NOR);
@@ -621,7 +621,7 @@ mixed ask_dao()
 
 mixed give_letter()
 {
-        object /*letter,*/ me;
+        object me;
 
 
         me = this_player();
@@ -630,7 +630,7 @@ mixed give_letter()
                 return "你不是已经会了吗？";
 
         if (me->query("family/family_name") != query("family/family_name"))
-                return RANK_D->query_respect(me) + "与我商家堡素无来往，何出此言？";      
+                return RANK_D->query_respect(me) + "与我商家堡素无来往，何出此言？";
 
         if (me->query_skill("bagua-dao", 1) < 1)
                 return "你连八卦刀法都没学，谈什么绝招？";
@@ -668,7 +668,7 @@ mixed give_letter()
         write(HIC "你得到一封书信！\n" NOR);
         me->add("gongxian", -2200);
         return "快去镇远镖局找我师傅吧！";
-      
+
 }
 
 void unconcious()

@@ -262,7 +262,7 @@ int recognize_apprentice(object ob, string skill)
                 return 1;
         }else if (skill == "mathematics" && ob->query_skill("mathematics",1) < 200)
         {
-                command("say 你的算数太差，要不我还可以指点一二。");
+                command("say 你的算术太差，要不我还可以指点一二。");
                 return -1;
         }else if (skill != "count")
         {

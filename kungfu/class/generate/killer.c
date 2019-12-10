@@ -6,7 +6,6 @@ inherit CLASS_D("generate") + "/chinese";
 
 void create()
 {
-//      mapping my;
 
         ::create();
         set("gender", "ÄÐÐÔ" );
@@ -27,7 +26,7 @@ void set_from_me(object me)
         int exp;
         mapping my;
 
-        NPC_D->init_npc_skill(this_object(), NPC_D->get_exp(me));
+        NPC_D->init_npc_skill(this_object(), NPC_D->check_level(me));
         my = query_entire_dbase();
 
         if (my["max_qi"] > 6000)
