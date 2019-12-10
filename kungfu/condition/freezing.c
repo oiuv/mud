@@ -12,20 +12,17 @@ string chinese_name() { return "寒冰真气"; }
 
 string update_msg_others()
 {
-    return HIW "$N" HIW "脸色铁青，四肢僵硬，全身上下竟笼"
-               "罩了一层寒霜。\n" NOR;
+    return HIW "$N" HIW "脸色铁青，四肢僵硬，全身上下竟笼罩了一层寒霜。\n" NOR;
 }
 
 string update_msg_self()
 {
-    return HIW "你只觉全身冰冷无比，四肢百骸难受之极，如堕"
-               "冰狱。\n" NOR;
+    return HIW "你只觉全身冰冷无比，四肢百骸难受之极，如堕冰狱。\n" NOR;
 }
 
 string die_msg_others()
 {
-    return HIW "$N" HIW "僵硬的身子在地上扑腾了几下，就再"
-               "没半点动静了。\n" NOR;
+    return HIW "$N" HIW "僵硬的身子在地上扑腾了几下，就再没半点动静了。\n" NOR;
 }
 
 int jing_damage(object me, mapping cnd)

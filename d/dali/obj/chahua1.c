@@ -1,6 +1,6 @@
 //chahua1.c
-#include <ansi.h>;
-#include <armor.h>;
+#include <ansi.h>
+#include <armor.h>
 inherit HEAD;
 
 void create()
@@ -10,7 +10,7 @@ void create()
                 set_default_object(__FILE__);
         else {
                 set("unit", "朵");
-                set("long", 
+                set("long",
 "一株盛开的茶花，论颜色，一共是十七种。比十八学士少了一色，
 偏又是驳而不纯，开起来或迟或早，花朵又有大有小。它处处东施
 效颦，学那十八学士，却总是不像，好似个半瓶醋的酸丁。\n");

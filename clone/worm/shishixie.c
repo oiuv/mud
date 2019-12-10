@@ -6,7 +6,7 @@ void create()
         set_name(HIR "食尸蝎" NOR, ({ "shishi xie", "shishi", "xie" }));
         set("long", HIR "这是一条三尺来长，全身铁甲的毒蝎子。\n" NOR);
         set("race", "野兽");
-        set("age", random(300)+150);//千
+        set("age", random(200)+100);
         set("attitude", "peaceful");
 
         set("max_qi", 500);

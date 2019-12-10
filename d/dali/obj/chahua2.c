@@ -1,6 +1,6 @@
 //chahua2.c
-#include <ansi.h>;
-#include <armor.h>;
+#include <ansi.h>
+#include <armor.h>
 inherit HEAD;
 
 void create()
@@ -10,7 +10,7 @@ void create()
                 set_default_object(__FILE__);
         else {
                 set("unit", "朵");
-                set("long", 
+                set("long",
 "一株茶花，枝上共开十八朵花，朵朵颜色不同，"HIR"红"NOR"的就是全红，"MAG"紫"NOR"
 的便是全紫，决无半分混杂。而且十八朵花形状朵朵不同，各有各
 的妙处，开时齐开，谢时齐谢，是天下茶花的极品。\n");

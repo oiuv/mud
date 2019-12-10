@@ -58,13 +58,16 @@ int convert(string arg)
 
     if (arg != "snake" && arg != "she")
         return 0;
+
     if (me->query("family/family_name") != "欧阳世家")
         return notify_fail("你不能化蛇为杖。\n");
+
     if (random(me->query_skill("training", 1)) < 20)
     {
         kill_ob(me);
         return 1;
     }
+
     message_vision("$N左手按住蛇头，右手轻抚其七寸，口中念念有词，片刻间将蛇化为一根蛇杖。\n", me, );
     ob = new ("/d/baituo/obj/shezhang");
     ob->move(environment(this_object()));

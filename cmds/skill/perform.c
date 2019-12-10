@@ -9,19 +9,17 @@ private int do_perform(object me, string arg);
 int main(object me, string arg)
 {
         string and;
-		int result;
+	int result;
         int busy;
         int lvl;
-		int debuff;
         string msg;
 	
-		seteuid(getuid());
-		debuff = 60 - (me->query("int") - 16) * 6;
+	seteuid(getuid());
 
-		if (me->is_busy())
-				return notify_fail("( 你上一个动作还没有完成，不能施用外功。)\n");
+	if (me->is_busy())
+		return notify_fail("( 你上一个动作还没有完成，不能施用外功。)\n");
 
-		if (! arg)
+	if (! arg)
                 return notify_fail("你要用外功做什麽？\n");
 
         if (me->query_temp("no_perform"))
@@ -50,9 +48,7 @@ int main(object me, string arg)
                 if (lvl < 360 && random(lvl) < 100)
                 {
                         me->start_busy(1);
-						me->set_temp("debuff/1st", 60);
                         write("你试图分心二用，但是手就是不听使唤。\n");
-						result = do_perform(me, arg);
                         return 1;
                 }
         }
@@ -65,9 +61,6 @@ int main(object me, string arg)
                 write(query_notify_fail());
         else
         {
-				if (debuff < 1)
-                        return notify_fail("你药吃太多了。。。\n");
-			
                 switch (random(4))
                 {
                 case 0:
@@ -92,7 +85,6 @@ int main(object me, string arg)
                 }
 
                 message_combatd(msg, me);
-				me->set_temp("debuff/2nd", debuff);
         }
 
         busy = me->query_busy();

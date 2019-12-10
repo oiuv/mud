@@ -6,7 +6,7 @@ void create()
         set_name(CYN "铁骨蝎" NOR, ({ "tiegu xie", "tiegu", "xie" }));
         set("long", CYN "这是一条全身闪着磷光的毒蝎子。\n" NOR);
         set("race", "野兽");
-        set("age", random(300)+150);//千
+        set("age", random(200)+100);
         set("attitude", "peaceful");
 
         set("max_qi", 500);

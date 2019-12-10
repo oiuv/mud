@@ -24,17 +24,17 @@ int valid_leave(object me, string dir)
 
         if (me->query("family/family_name") == "桃花岛"
            || me->query_skill("qimen-wuxing") >= 150)
-	    {
+	{
 		total_steps = 1; 
         } else
-	     {
+	{
     		me->receive_damage("qi", 15);
     		me->receive_wound("qi", 15);
     		message_vision(HIM "\n突然间一阵桃花瓣象雨点般疾"
 			       "射$N" HIM "。\n\n" NOR, me);
 
 		total_steps = 30;
-	    }
+	}
 
 	if (dir == "north")
             	me->add_temp("taohua/steps",1);

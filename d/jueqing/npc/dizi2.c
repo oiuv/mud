@@ -1,11 +1,11 @@
 inherit NPC;
-#include <ansi.h>;
+#include <ansi.h>
 
-inherit F_GUARDER; 
+inherit F_GUARDER;
 
 void create()
 {
-        set_name("绿衫少女", ({ "lvshan shaonv", "lvshan", "shaonv" }) );      
+        set_name("绿衫少女", ({ "lvshan shaonv", "lvshan", "shaonv" }) );
         set("gender", "女性");
         set("age", 17);
         set("attitude", "peaceful");
@@ -36,11 +36,10 @@ void create()
         map_skill("parry", "jueqing-jian");
         map_skill("dodge", "jueqing-shenfa");
         map_skill("force", "jueqing-xinfa");
-    
+
         create_family("绝情谷", 5, "女弟子");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/d/jueqing/npc/obj/lvshan")->wear();
 }
-

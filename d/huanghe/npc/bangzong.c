@@ -2,7 +2,7 @@
 
 inherit NPC;
 
-#include <ansi.h>;
+#include <ansi.h>
 void create()
 {
 	set_name("ด๓บบ", ({ "da han", "han" }));
@@ -23,11 +23,10 @@ void create()
 	set_skill("dodge", 30);
 	set_skill("parry", 30);
 
-	set("neili", 100); 
+	set("neili", 100);
 	set("max_neili", 100);
 	set("jiali", 10);
 
 	setup();
 	carry_object("/clone/misc/cloth")->wear();
 }
-

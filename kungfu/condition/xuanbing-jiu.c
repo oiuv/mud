@@ -98,49 +98,48 @@ int dispel(object me, object ob, int duration)
 
 int update_condition(object me, int duration)
 {
-//	int limit;
+	// int limit;
 
 	if (! living(me) && (me->query("eff_qi") < 20
-           || me->query("eff_jing") < 10))
+    || me->query("eff_jing") < 10))
+  {
+        me->set_temp("贪饮玄冰碧火酒，内息紊乱而亡");
+        me->die();
+        return 0;
+	} else {
+        me->receive_wound("qi", 20);
+        me->receive_wound("jing", 10);
+
+        if (me->query("max_neili"))
+                me->add("max_neili", -1);
+
+        switch (random(3))
         {
-                me->set_temp("贪饮玄冰碧火酒，内息紊乱而亡");
-		me->die();
-		return 0;
-	} else
-        {
-                me->receive_wound("qi", 20);
-                me->receive_wound("jing", 10);
+        case 0:
+                tell_object(me, HIR "突然间你只觉丹田处有如火烧，全身"
+                                "真气鼓荡，便似要爆裂开一般。\n" NOR);
+                message("vision", HIR "忽见" + me->name() + HIR "须发"
+                        "焦卷，全身散发着滚滚热气，嘶哑着嗓子乱嚎。\n"
+                        NOR, environment(me), me);
+                break;
 
-                if (me->query("max_neili"))
-                        me->add("max_neili", -1);
+        case 1:
+                tell_object(me, HIW "霎时你只觉如同置身冰坚地狱，寒气"
+                                "瞬间游遍全身，说不出的难受。\n" NOR);
+                message("vision", HIW "忽见" + me->name() + HIW "散发"
+                        "出丝丝寒气，全身上下竟然被罩上了一层薄冰。\n"
+                        NOR, environment(me), me);
+                break;
 
-                switch (random(3))
-                {
-                case 0:
-                        tell_object(me, HIR "突然间你只觉丹田处有如火烧，全身"
-                                        "真气鼓荡，便似要爆裂开一般。\n" NOR);
-                        message("vision", HIR "忽见" + me->name() + HIR "须发"
-                                "焦卷，全身散发着滚滚热气，嘶哑着嗓子乱嚎。\n"
-                                NOR, environment(me), me);
-                        break;
-
-                case 1:
-                        tell_object(me, HIW "霎时你只觉如同置身冰坚地狱，寒气"
-                                        "瞬间游遍全身，说不出的难受。\n" NOR);
-                        message("vision", HIW "忽见" + me->name() + HIW "散发"
-                                "出丝丝寒气，全身上下竟然被罩上了一层薄冰。\n"
-                                NOR, environment(me), me);
-                        break;
-
-                default:
-                        tell_object(me, HIB "你只觉丹田处两种真气相互抵触，忽"
-                                        "如" HIW "冰彻" NOR + HIB "，忽如" HIR
-                                        "火炙" NOR + HIB "，苦不勘言。\n" NOR);
-                        message("vision", HIB "突然" + me->name() + HIB "一声"
-                                "尖啸，脸部扭曲得不成人样，在地上不住颤抖。\n"
-                                NOR, environment(me), me);
-                        break;
-                }
+        default:
+                tell_object(me, HIB "你只觉丹田处两种真气相互抵触，忽"
+                                "如" HIW "冰彻" NOR + HIB "，忽如" HIR
+                                "火炙" NOR + HIB "，苦不勘言。\n" NOR);
+                message("vision", HIB "突然" + me->name() + HIB "一声"
+                        "尖啸，脸部扭曲得不成人样，在地上不住颤抖。\n"
+                        NOR, environment(me), me);
+                break;
+        }
 	}
 
         if (me->query("max_neili") < 1)

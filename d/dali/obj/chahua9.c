@@ -1,6 +1,6 @@
 //chahua9.c
 #include <ansi.h>
-#include <armor.h>;
+#include <armor.h>
 inherit HEAD;
 
 void create()
@@ -10,7 +10,7 @@ void create()
                 set_default_object(__FILE__);
         else {
                 set("unit", "朵");
-                set("long", 
+                set("long",
 "一株茶花，大白花而微有隐隐黑斑的，那些黑斑，便是月中的桂枝。\n");
                 set("value", 50);
                 set("material", "plant");
@@ -22,5 +22,3 @@ void create()
         }
         setup();
 }
-
-

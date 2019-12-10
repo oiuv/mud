@@ -8,7 +8,7 @@ int main( object me, string arg )
 {
 	int day, day1, day2, month, *date;
 	write( sprintf( "现在的时间是北京时间 " + ctime( time() ) + "。\n" ) );
-	date	= localtime( time() + 8 * 60 * 60 );
+	date	= localtime( time() );
 	month	= date[4] + 1;
 	day		= date[3];
 	day1	= BEGIN_DAY - day;

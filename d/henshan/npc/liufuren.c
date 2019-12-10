@@ -1,7 +1,7 @@
 // liufuren.c
 inherit NPC;
 inherit F_MASTER;
-#include <ansi.h>;
+#include <ansi.h>
 void create()
 {
         set_name("Áõ·òÈË", ({ "liu furen", "furen" }) );
@@ -19,4 +19,3 @@ void create()
 
         carry_object("/clone/misc/cloth")->wear();
 }
-

@@ -4,12 +4,12 @@ void init()
         object me = this_player();
 
         if (! interactive(me)
-		   || me->is_fighting()
+           || me->is_fighting()
            || ! living(this_object()))
                 return;
-		
-		if (me->query("family/family_name") == "明教")
-			return;
+
+        if (me->query("family/family_name") == "明教")
+            return;
 
         if (me->query_temp("have_yitianjian")
            || present("yitian jian", me))

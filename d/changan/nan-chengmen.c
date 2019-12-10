@@ -19,7 +19,7 @@ LONG);
                 "/clone/npc/walker" : 1,
         ]));
 
-        set("outdoors", 1);
+        set("outdoors", "changan");
         setup();
         replace_program(ROOM);
 }

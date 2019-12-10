@@ -8,13 +8,12 @@ void create()
 阳。官道很是宽广，足可容得下十马并驰。往西直达长安的东门，而东边
 则是洛阳古城。
 LONG);
-        set("outdoors", "luoyang");
+        set("outdoors", "changan");
         set("exits",  ([
                 "east"   :  "/d/luoyang/guandaow4",
                 "west"   :  __DIR__"zhongnan",
         ]));
 
-        set("outdoors", "changan");
         setup();
         replace_program(ROOM);
 }

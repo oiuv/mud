@@ -6,7 +6,7 @@ void create()
         set_name(HIB "百足蜈蚣" NOR, ({ "baizu wugong", "baizu", "wugong" }));
         set("long", WHT "这是一条一尺多长的蜈蚣，长有百足。\n" NOR);
         set("race", "野兽");
-        set("age", random(200)+100);//百
+        set("age", random(200)+100);
         set("attitude", "peaceful");
 
         set("max_qi", 250);

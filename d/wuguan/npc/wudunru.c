@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit KNOWER;
 
@@ -28,7 +28,7 @@ void create()
         set("jiali", 50);
         set("combat_exp", 400000);
         set("score", 20000);
-         
+
         set_skill("force", 160);
         set_skill("yijin-duangu", 160);
         set_skill("dodge", 160);
@@ -147,8 +147,7 @@ void init()
                         	"意下如何？\n");
 		} else
         	if (ob->query("combat_exp") >= 40000
-           	   && ob->query("mark/guofu_ok")
-			   && ! ob->query("mark/guofu_out"))
+           	   && ob->query("mark/guofu_ok"))
 		{
         		command("look " + ob->query("id"));
         		command("haha");
@@ -156,7 +155,7 @@ void init()
                                 "不错。想不到你的进展如\n此神速，再留在"
                                 "郭府已无多大用处，今后还是多去闯荡闯荡吧。\n");
 
-				//ob->delete("mark/guofu_ok");
+				ob->delete("mark/guofu_ok");
 				ob->set("mark/guofu_out", 1);
 				pot += ob->query("mark/guofu_job") * 2;		//潜能奖励与郭府工作次数相关
 				ob->add("combat_exp", exp);

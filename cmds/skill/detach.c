@@ -29,39 +29,6 @@ int main(object me, string arg)
                 return 1;
         }
 
-        if (! me->query("family/family_name") && arg == "无门无派")
-        {
-                return notify_fail("你早已决定投入各大门派，难道你不记得了？\n");
-                return 1;
-        }
-		
-        if ( me->query("family/family_name") != "无门无派" && arg == "无门无派")
-        {
-                return notify_fail("你说自己是无门无派，不怕师父打你屁股吗？\n");
-                return 1;
-        }
-		
-        if (! me->query_temp("pending/want") && me->query("family/family_name") == "无门无派" && arg == "无门无派")
-        {
-                tell_object(me, HIR "\n你确定不再做快意江湖的闲云野鹤，决意选择"
-                                "各大门派吗。\n" NOR + HIC "如果你下了决心，就"
-                                "再输入一次这条命令。\n" NOR);
-                me->set_temp("pending/want", 1);
-                return 1;
-        }
-		
-        if (me->query_temp("pending/want") && me->query("family/family_name") == "无门无派" && arg == "无门无派")
-        {
-                tell_object(me, NOR "\n你考虑良久，最后毅然地摇摇头，心想：还是找个门派做靠山吧。\n" NOR);
-				me->delete_temp("pending/want");
-                me->delete("family");
-				me->set("gongxian", 0);
-				me->delete("quest");
-				me->delete_temp("quest");
-				me->set("title", "普通百姓");
-                return 1;
-        }
-
         if (! me->query_temp("pending/want"))
         {
                 tell_object(me, HIR "\n请注意，一但你脱离师门，将会被废除掉所有"

@@ -6,7 +6,7 @@ void create()
         set_name(WHT "长腿蛛" NOR, ({ "changtui zhu", "changtui", "zhu" }));
         set("long", WHT "这是只腿长寸许，全身毛茸茸的毒蜘蛛。\n" NOR);
         set("race", "野兽");
-        set("age", random(200)+100);//百
+        set("age", random(200)+100);
         set("attitude", "peaceful");
 
         set("max_qi", 200);

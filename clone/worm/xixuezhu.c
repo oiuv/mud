@@ -6,7 +6,7 @@ void create()
         set_name(RED "吸血蛛" NOR, ({ "xixue zhu", "xixue", "zhu" }));
         set("long", RED "一只拳头大小，全身红毛的毒蜘蛛。\n" NOR);
         set("race", "野兽");
-        set("age", random(400)+200);//万
+        set("age", random(200)+100);
         set("attitude", "peaceful");
 
         set("max_qi", 2000);

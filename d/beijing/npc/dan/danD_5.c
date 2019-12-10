@@ -32,15 +32,17 @@ int do_effect(object me)
         mn = (int)me->query("max_neili") * 2;
 
         if (nl > mn)
-                me->set("neili", mn);
-		else
-			    me->add("neili", 1000);
+        {
+                write("你现在内力修为无需服用" + name() + "。\n");
+                return 1;
+        }
 
         me->set_temp("last_eat/dan(D)", time());
 
-        message_vision(RED "$N吃下一粒血麒丹，内力得到了大量的补充。\n" NOR, me);
+        message_vision(RED "$N吃下一粒血麒丹，内力得到了完全的补充。\n" NOR, me);
+        me->add("neili", 1000);
 
-        me->start_busy(2);
+        me->start_busy(3);
 
         add_amount(-1);
         if (query_amount() < 1)

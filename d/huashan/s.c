@@ -7,8 +7,6 @@ string look_door(string dir);
 
 void create()
 {
-    //      string msg;
-
     set("short", "ÇÍ±Ú");
     set("exits", ([
         "hole1":__DIR__ "lockroom1",

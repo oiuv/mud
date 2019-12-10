@@ -1,6 +1,4 @@
 // updateall.c
-// by Doing
-
 #include <ansi.h>
 
 inherit F_CLEAN_UP;

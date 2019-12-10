@@ -23,7 +23,6 @@ mapping places = ([
         "gumu"     : "/d/gumu/mumen",
         "hangzhou" : "/d/hangzhou/road10",
         "heimuya"  : "/d/heimuya/shimen",
-        //"henyang"  : "/d/henshan/hengyang",
         "hengyang"  : "/d/henshan/hengyang",
         "huashan"  : "/d/huashan/shaluo",
         "jiaxing"  : "/d/quanzhou/jiaxing",
@@ -44,6 +43,8 @@ mapping places = ([
         "shaolin"  : "/d/shaolin/shanmen",
         "suzhou"   : "/d/suzhou/canlangting",
         "taishan"  : "/d/taishan/taishanjiao",
+        //新增桃花岛 2018-06-02 
+        "taohua"   : "/d/taohua/haitan",
         "wudang"   : "/d/wudang/jiejianyan",
         "wugong"   : "/d/quanzhen/zhongxin",
         "xiangyang": "/d/xiangyang/guangchang",
@@ -56,13 +57,11 @@ mapping places = ([
         "yongdeng" : "/d/huanghe/yongdeng",
         "zhongnan" : "/d/quanzhen/shanjiao",
         "zhongzhou": "/d/zhongzhou/shizhongxin",
-        	//新增衡山 2017-02-11
+        //新增衡山 2017-02-11
         "hengshan" : "/d/henshan/nantian",
-        	//新增绝情谷、铁掌山 2017-02-18
+        //新增绝情谷、铁掌山 2017-02-18
         "jueqing"  : "/d/jueqing/shanjiao",
         "tiezhang" : "/d/tiezhang/shanjiao",
-		//新增桃花传送 2018-06-02
-		"taohua"   : "/d/taohua/haitan",
         	
         // "hujia"    : "/d/guanwai/xiaoyuan",
         // "tangmen"  : "/d/tangmen/",
@@ -130,9 +129,9 @@ int main(object me, string arg)
            file_size(me->query("private_room/position") + ".c") > 0)
                 room = get_object(me->query("private_room/position"));else
                 
-         //新加family by 薪有所属
+		//新加family by 薪有所属
         // 特殊：古墓2个，绝情谷2个。拜裘千尺后自动转成铁掌帮，实际是铁掌帮有两个？
-//灵鹫下属小门派不管，已被关闭的门派不管。
+		//灵鹫下属小门派不管，已被关闭的门派不管。
 
          if (arg == "family") 
          	{
@@ -174,7 +173,6 @@ int main(object me, string arg)
          				    if (me->query("family/family_name")=="峨嵋派") room = get_object("/d/emei/hcahoudian");else
          				    //补充重新开放的嵩山 2017-02-07
          				    if (me->query("family/family_name")=="嵩山派") room = get_object("/d/songshan/fengchantai");else
-							if (me->query("family/family_name")=="无门无派") room = get_object("/d/luoyang/zuixianlou4");else
          							//古墓分支
          						
          						if (me->query("family/family_name")=="古墓派") 
@@ -239,8 +237,8 @@ wugong   : 武功镇        xiangyang: 襄  阳        xiaoyao  : 逍遥林
 xingxiu  : 星宿海        xuedao   : 血刀门        xueshan  : 雪  山
 yangzhou : 扬  州        yanziwu  : 燕子坞        yongdeng : 永  登
 zhongnan : 终南山        zhongzhou: 中  州        hengshan : 衡  山
-jueqing  : 绝情谷        tiezhang : 铁掌山        family   : 任务使
-home     : 住  房
+jueqing  : 绝情谷        tiezhang : 铁掌山        taohua   : 桃花岛 
+home     : 住  房        family   : 任务使
 
 注：rideto family 可直达门派任务使。只限有门派的人使用，且exp需达到80万。
 

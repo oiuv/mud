@@ -132,8 +132,7 @@ int main(object me, string arg)
 
         tell_object(tob, HIG + me->name(1) + "(" +
                              me->query("id") + ")想让大家一同结义，创立『" +
-                             arg + "』，你是否同意(right/refuse)？\n" +
-                             NOR);
+                             arg + "』，你是否同意(right/refuse)？\n" NOR);
         tob->set_temp("pending/answer/" + me->query("id") + "/right",
                       bind((: call_other, __FILE__, "do_right", tob, me :), tob));
         tob->set_temp("pending/answer/" + me->query("id") + "/refuse",
@@ -297,8 +296,7 @@ int do_refuse(object me, object ob)
         return notify_fail("你现在已经不在人家的结义考虑范围之内了。\n");
 
     ob->delete_temp("pending/team_swear");
-    message_vision("$N摇了摇头，对$n道：“你们的事情我不管，但是我没有兴趣。”\n",
-                   me, ob);
+    message_vision("$N摇了摇头，对$n道：“你们的事情我不管，但是我没有兴趣。”\n", me, ob);
     t -= ({0});
     message("vision", YEL + me->name(1) + "拒绝了" + ob->name(1) + "的结义提议。\n" NOR, t, me);
     return 1;

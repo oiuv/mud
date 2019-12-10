@@ -1,7 +1,7 @@
 // liang.c
 
 inherit NPC;
-#include <ansi.h>;
+#include <ansi.h>
 void create()
 {
 	set_name("Áº×ÓÎÌ", ({ "liang ziwen", "liang", "ziwen" }));
@@ -26,11 +26,10 @@ void create()
 	set_temp("apply/armor", 100);
 	set_temp("apply/damage", 100);
 
-	set("neili", 800); 
+	set("neili", 800);
 	set("max_neili", 800);
 	set("jiali", 50);
 
 	setup();
 	carry_object(__DIR__"obj/changpao")->wear();
 }
-

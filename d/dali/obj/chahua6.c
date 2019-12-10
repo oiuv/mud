@@ -1,6 +1,6 @@
 //chahua6.c
 #include <ansi.h>
-#include <armor.h>;
+#include <armor.h>
 inherit HEAD;
 
 void create()
@@ -10,7 +10,7 @@ void create()
                 set_default_object(__FILE__);
         else {
                 set("unit", "朵");
-                set("long", 
+                set("long",
 "一株茶花，同株开着三朵花，三朵花中"MAG"紫色"NOR"者最大，那是虬髯客，"WHT"白
 色"NOR"者次之，那是李靖，"HIR"红色"NOR"者最娇艳而最小，那是红拂女。朵朵颜色
 不同，而且形状朵朵不同，各有其妙。\n");
@@ -24,5 +24,3 @@ void create()
         }
         setup();
 }
-
-

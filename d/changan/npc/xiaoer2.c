@@ -1,5 +1,5 @@
 //xiaoer.c
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit KNOWER;
 inherit F_DEALER;
@@ -33,7 +33,7 @@ void init()
         object ob;
 
         ::init();
-        if (interactive(ob = this_player()) && !is_fighting()) 
+        if (interactive(ob = this_player()) && !is_fighting())
 	{
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
@@ -47,7 +47,7 @@ void greeting(object ob)
         if (! ob || ! visible(ob) || environment(ob) != environment())
                 return;
         switch(random(3))
-        {  
+        {
         case 0:
                 say("店小二笑咪咪地说道：这位" + RANK_D->query_respect(ob) +
                     "，进来喝两盅，歇歇腿吧。\n");

@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit NPC;
 
@@ -33,12 +33,12 @@ void create()
         set_skill("literate", 40);
 
         setup();
-        carry_object("/clone/weapon/gangzhang")->wield();        
+        carry_object("/clone/weapon/gangzhang")->wield();
         carry_object("/clone/cloth/cloth")->wear();
 }
 
 void init()
-{       
+{
         object ob;
 
         ::init();
@@ -56,4 +56,3 @@ void greeting(object ob)
 
 	say(CYN "青旗弟子高声呼喊道：日月神教，文成武德。千秋万载，一统江湖。\n" NOR);
 }
-

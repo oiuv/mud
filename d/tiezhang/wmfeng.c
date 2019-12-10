@@ -47,8 +47,7 @@ int do_move(string arg)
     if ((int)me->query_skill("force", 1) < 100 )
         return notify_fail("你推了半天，发现石碑还是纹丝不动。\n");
 
-    write(HIY "你扎下马步，深深的吸了口气，将墓碑缓缓的向旁推开，下面露出"
-            "一个黑洞洞的入口。\n" NOR);
+    write(HIY "你扎下马步，深深的吸了口气，将墓碑缓缓的向旁推开，下面露出一个黑洞洞的入口。\n" NOR);
     message("vision", HIR + me->name() + HIR "双膀用力，将墓碑向旁缓缓推"
             "开，下面露出一个黑洞洞的入口。\n" NOR , environment(me), ({me}) );
     set("exits/enter", __DIR__"shijie-1");
@@ -61,7 +60,7 @@ void close_passage()
 {
     if (! query("exits/enter"))
         return;
-    message("vision", HIR "墓碑发出隆隆的声音，缓缓移回原处。\n" NOR, this_object() );
+    message("vision", HIR "墓碑发出隆隆的声音，缓缓移回原处。\n" NOR, this_object());
     delete("exits/enter");
 }
 

@@ -52,7 +52,7 @@ void cai(object me)
 
         skill = (int)me->query_skill("bencao-changshi", 1);
 
-        if (random(8 + skill / 20) == 1)
+        if (random(8) == 1)
         {
                 tell_room(environment(me), HIR "\n草丛中一阵晃动，突然钻出一条"
                                            "毒蛇。\n\n" NOR );
@@ -60,7 +60,7 @@ void cai(object me)
                 ob->move(environment(me));
                 ob->kill_ob(me);
         } else
-        if (random(10 + skill / 20) == 1 &&
+        if (random(10) == 1 &&
            (string)me->query("family/family_name") != "五毒教")
         {
                 tell_room(environment(me), HIR "\n突然间林子后面一阵晃动，跳"
@@ -81,10 +81,10 @@ void cai(object me)
                 me->set_temp("caiyao", 2);
                 message_vision(HIW "$N" HIW "精通百草之道，一眼就发现其中一株"
                                "草苗与众不同，小心翼翼地将它掘了出来。\n" NOR, me);
-                me->improve_skill("bencao-changshi", me->query("int") / 2 + 2);
+                me->improve_skill("bencao-changshi", me->query("int") / 4 + 1);
                 tell_object(me, HIC "在采药过程中你的「本草常识」提高了！\n" NOR);
         } else
-        if (random(10 + skill / 20) > 5)
+        if (random(10) > 5)
         {
                 me->receive_damage("jing", 10 + random(20));
                 me->receive_damage("qi", 10 + random(20));   
@@ -100,7 +100,7 @@ void cai(object me)
                 me->set_temp("caiyao", 2);
                 message_vision(HIG "$N" HIG "找了半天，终于发现其中一株草苗与其"
                                "它的草略有不同，小心翼翼地掘了出来。\n" NOR, me);
-                me->improve_skill("bencao-changshi", me->query("int") / 2 + 2);
+                me->improve_skill("bencao-changshi", me->query("int") / 4 + 1);
                 tell_object(me, HIC "在采药过程中你的「本草常识」提高了！\n" NOR);
         }
 }

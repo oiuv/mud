@@ -6,7 +6,7 @@ void create()
         set_name(HIW "阴山天蜈" NOR, ({ "yinshan tianwu", "yinshan", "tianwu" }));
         set("long", HIW "这是一条三寸多长，长有一双翅膀剧毒蜈蚣。\n" NOR);
         set("race", "野兽");
-        set("age", random(400)+200);//万
+        set("age", random(200)+100);
         set("attitude", "peaceful");
 
         set("max_qi", 3000);

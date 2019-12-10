@@ -33,7 +33,6 @@ void init()
     add_action("do_jump", "jump");
 }
 
-
 int do_jump(string arg)
 {
     object me;

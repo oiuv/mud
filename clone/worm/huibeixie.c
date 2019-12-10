@@ -6,7 +6,7 @@ void create()
         set_name(WHT "灰背蝎" NOR, ({ "huibei xie", "huibei", "xie" }));
         set("long", WHT "这是一只背部长满了灰毛的毒蝎。\n" NOR);
         set("race", "野兽");
-        set("age", random(200)+100);//百
+        set("age", random(200)+100);
         set("attitude", "peaceful");
 
         set("max_qi", 200);

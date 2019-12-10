@@ -26,11 +26,11 @@ int do_effect(object me)
 {
         mapping my;
 
-        /*if (time() - me->query_temp("last_eat/dan(M)") < 400)
+        if (time() - me->query_temp("last_eat/dan(M)") < 400)
         {
                 write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
                 return 1;
-        }*/
+        }
 
         my = me->query_entire_dbase();
 
@@ -39,8 +39,6 @@ int do_effect(object me)
         message_vision(HIY "$N" HIY "吃下一粒" + name() +
                        HIY "，感到内力又雄厚不少。\n" NOR, me);
         me->improve_neili(10);
-		
-		me->start_busy(1 + random(10));
 
         add_amount(-1);
         if (query_amount() < 1)

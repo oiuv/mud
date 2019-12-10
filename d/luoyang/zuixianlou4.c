@@ -16,7 +16,7 @@ LONG);
 	]));
         set("objects", ([
                 //__DIR__"npc/libai" : 1,
-				CLASS_D("none") + "/libai" : 1,
+                CLASS_D("none") + "/libai" : 1,
                 "/d/beijing/npc/richman1" : 2,
         ]));
 	setup();

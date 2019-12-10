@@ -1,6 +1,7 @@
 inherit ITEM;
 inherit F_UNIQUE;
-#include <ansi.h>; 
+#include <ansi.h>
+
 void setup()
 {}
 
@@ -53,8 +54,8 @@ int do_yanjiu(string arg)
                       "research|yanjiu <绝技> from <千蛛万毒手秘笈>\n");
                 return 1;
         }
-        if(arg == "suck"  || arg == "wan"  
-        || arg == "zhugu" || arg == "miji" 
+        if(arg == "suck"  || arg == "wan"
+        || arg == "zhugu" || arg == "miji"
         || arg == "book"  || arg == "qianzhu miji" )
         {
                 write("研究千蛛万毒手秘笈指令格式：\n"
@@ -90,7 +91,7 @@ int do_yanjiu(string arg)
         }
 
         if ( skill != "suck"
-          && skill != "zhugu"  
+          && skill != "zhugu"
           && skill != "wan" )
         {
                 write(WHT "你可以从千蛛万毒手秘笈里研究到吸毒练功法"
@@ -124,7 +125,7 @@ int do_yanjiu(string arg)
                 me->receive_damage("qi", 30);
                 me->receive_damage("jing", 30);
                 me->add("potential", -1);
-                remove_call_out("suck"); 
+                remove_call_out("suck");
                 call_out("suck", 1, me);
                 me->start_busy(2);
                 return 1;
@@ -149,7 +150,7 @@ int do_yanjiu(string arg)
                 me->receive_damage("qi", 30);
                 me->receive_damage("jing", 30);
                 me->add("potential", -1);
-                remove_call_out("zhugu"); 
+                remove_call_out("zhugu");
                 call_out("zhugu", 1, me);
                 me->start_busy(2);
                 return 1;
@@ -174,7 +175,7 @@ int do_yanjiu(string arg)
                 me->receive_damage("qi", 30);
                 me->receive_damage("jing", 30);
                 me->add("potential", -1);
-                remove_call_out("wan"); 
+                remove_call_out("wan");
                 call_out("wan", 1, me);
                 me->start_busy(2);
                 return 1;
@@ -218,7 +219,7 @@ int suck(object me)
                 write(HIY "你对吸毒练功似有所悟，但还是不够深刻，看来还需继续研读才行。\n" NOR);
                 return 1;
         }
-   else { 
+   else {
                 me->improve_skill("qianzhu-wandushou", 5000000);
                 me->improve_skill("poison", 5000000);
                 me->set("can_perform/qianzhu-wandushou/suck", 1);
@@ -265,7 +266,7 @@ int zhugu(object me)
                 write(HIY "你对蛛蛊决似有所悟，但还是不够深刻，看来还需继续研读才行。\n" NOR);
                 return 1;
         }
-   else { 
+   else {
                 me->improve_skill("qianzhu-wandushou", 5000000);
                 me->improve_skill("poison", 5000000);
                 me->set("can_perform/qianzhu-wandushou/zhugu", 1);
@@ -312,7 +313,7 @@ int wan(object me)
                 write(HIY "你对万蛊噬天似有所悟，但还是不够深刻，看来还需继续研读才行。\n" NOR);
                 return 1;
         }
-   else { 
+   else {
                 me->improve_skill("qianzhu-wandushou", 5000000);
                 me->improve_skill("poison", 5000000);
             me->set("can_perform/qianzhu-wandushou/wan", 1);

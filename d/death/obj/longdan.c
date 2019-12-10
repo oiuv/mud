@@ -2,7 +2,7 @@
 inherit ITEM;
 void create()
 {
-        set_name(HIR "Áúµ¨" NOR, ({"long dan"}));
+        set_name(HIR "Áúµ¨" NOR, ({"long dan", "dan", "long"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {

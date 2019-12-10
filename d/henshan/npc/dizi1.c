@@ -1,9 +1,9 @@
 inherit NPC;
-#include <ansi.h>;
+#include <ansi.h>
 
 void create()
 {
-        set_name("µÜ×Ó", ({ "di zi", "di", "zi" }) );      
+        set_name("µÜ×Ó", ({ "di zi", "di", "zi" }) );
         set("gender", "ÄÐÐÔ");
         set("class", "swordsman");
         set("age", 23);
@@ -40,4 +40,3 @@ void create()
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/cloth/cloth")->wear();
 }
-

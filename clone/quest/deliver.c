@@ -98,23 +98,23 @@ void init_quest(string qob_name, int amount)
 
     // 设置对话信息
     npc1->set("inquiry", ([
-                                  name:"啊？你是送它来的？快给我。",
-                              QOB_NAME:"那些货物呀，我这里的生意正急需呢！",
-                                QOB_ID:"那些货物呀，我这里的生意正急需呢！",
-                             NPC1_NAME:"那正是本人啊！",
-                               NPC1_ID:"那正是本人啊！",
-                             NPC2_NAME:"是呀，就是他答应派人送来的！",
-                               NPC2_ID:"是呀，就是他答应派人送来的！",
+                  name:"啊？你是送它来的？快给我。",
+              QOB_NAME:"那些货物呀，我这里的生意正急需呢！",
+                QOB_ID:"那些货物呀，我这里的生意正急需呢！",
+             NPC1_NAME:"那正是本人啊！",
+               NPC1_ID:"那正是本人啊！",
+             NPC2_NAME:"是呀，就是他答应派人送来的！",
+               NPC2_ID:"是呀，就是他答应派人送来的！",
     ]));
 
     npc2->set("inquiry", ([
-                                  name:"没错，你愿意去帮我送这批货！",
-                              QOB_NAME:(: ask_for_qob, npc2, qob, qob->name() :),
-                                QOB_ID:(: ask_for_qob, npc2, qob, qob->name() :),
-                             NPC1_NAME:"这批货就是要送给他的呀！",
-                               NPC1_ID:"这批货就是要送给他的呀！",
-                             NPC2_NAME:"正是在下，有何贵干？",
-                               NPC2_ID:"正是在下，有何贵干？",
+                  name:"没错，你愿意去帮我送这批货！",
+              QOB_NAME:(: ask_for_qob, npc2, qob, qob->name() :),
+                QOB_ID:(: ask_for_qob, npc2, qob, qob->name() :),
+             NPC1_NAME:"这批货就是要送给他的呀！",
+               NPC1_ID:"这批货就是要送给他的呀！",
+             NPC2_NAME:"正是在下，有何贵干？",
+               NPC2_ID:"正是在下，有何贵干？",
     ]));
 
     // 设置接收物品的信息：由于NPC存在的时候该任务对象必
@@ -391,8 +391,7 @@ int npc_accept_object(object me, object who, object ob)
     return -1;
 }
 
-private
-void do_notice(object me, object who, object ob)
+private void do_notice(object me, object who, object ob)
 {
     mapping my = query_entire_dbase();
 
@@ -405,8 +404,7 @@ void do_notice(object me, object who, object ob)
 }
 
 // 准备完成任务
-private
-void do_finish()
+private void do_finish()
 {
     if (sizeof(query("bonus")) > 0)
     {
@@ -419,8 +417,7 @@ void do_finish()
 }
 
 // 给某人奖励
-private
-void do_bonus(string who_id, object who)
+private void do_bonus(string who_id, object who)
 {
     mapping b;
 

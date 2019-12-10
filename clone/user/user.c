@@ -452,17 +452,17 @@ int query_potential_limit()
     // 玄黄紫箐丹提升潜能上限
     if (query("skybook/item/xuanhuang"))
         //i += 250;
-        i += 5000;
+        i += 2500;
 
     // 子午龙甲丹提升潜能上限
     if (query("skybook/item/longjia"))
         //i += 250;
-        i += 5000;
+        i += 2500;
 
     // 镇狱惊天丸提升潜能上限
     if (query("skybook/item/zhenyu"))
         //i += 500;
-        i += 10000;
+        i += 5000;
 
     if (query("reborn"))
         p = 200000;

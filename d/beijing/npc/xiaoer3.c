@@ -1,5 +1,4 @@
-#include <ansi.h>;
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit KNOWER;
 inherit F_DEALER;
@@ -26,7 +25,7 @@ void create()
 }
 
 void init()
-{       
+{
         object ob;
 
         ::init();
@@ -55,4 +54,3 @@ void greeting(object ob)
                 break;
         }
 }
-

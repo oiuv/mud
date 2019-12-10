@@ -11,10 +11,6 @@ int do_liandu(string arg);
 void back_owner(object me);
 
 mapping insects = ([
-       // "zhizhu"        : 100000,
-       // "chanchu"       : 100000,
-       // "xiezi"         : 100000,
-       // "wugong"        : 100000,
        "zhizhu":50000,
       "chanchu":50000,
         "xiezi":50000,
@@ -22,7 +18,6 @@ mapping insects = ([
         "duzhu":20000,
        "huoxie":20000,
     "jinwugong":20000,
-     //"heiguafu"      : 5000,
      "heiguafu":10000,
 ]);
 
@@ -227,7 +222,7 @@ void catch_insect(object me)
                 }
             }
             message_vision(HIG "香气越来越稀薄，突然一" + insect->query("unit") + insect->name() +
-                               HIG "爬进了" + name() + HIG "。\n" NOR, me);
+                           HIG "爬进了" + name() + HIG "。\n" NOR, me);
             if (!insect->move(this_object()))
             {
                 message_vision("可惜" + name() + "剩下的空间太小了，" + insect->name() +
@@ -332,18 +327,20 @@ int do_liandu(string arg)
     else
         add = 0;
 
-    if (me->can_improve_skill("poison"))
-        me->improve_skill("poison", 1 + random(amount / 3) + add);
-
     if (me->query("family/family_name") == "星宿派")
     {
         if (me->can_improve_skill("poison"))
-            me->improve_skill("poison", 1 + random(amount / 4) + add);
+            me->improve_skill("poison", 1 + random(amount / 3) + add);
         if (me->can_improve_skill("huagong-dafa"))
             me->improve_skill("huagong-dafa", 1 + random(amount / 2) + add);
+        tell_object(me, HIG "你觉得你的「化功大法」和「基本毒技」又有了新的进步。\n" NOR);
     }
-
-    tell_object(me, HIG "你对基本毒技的理解又有了新的进步。\n" NOR);
+    else
+    {
+        if (me->can_improve_skill("poison"))
+            me->improve_skill("poison", 1 + random(amount / 4) + add);
+        tell_object(me, HIG "你对基本毒技的理解又有了新的进步。\n" NOR);
+    }
 
     return 1;
 }

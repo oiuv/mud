@@ -26,8 +26,8 @@ LONG );
         set("no_sleep_room", 1);
 
         setup();
-		
-//**    set("practice_improve", 15);  //15% improved
+
+//**    set("practice_improve", 15); // 15% improved
 //**
 //**    set("room_owner", "ROOM_OWNER");
 //**    set("room_name", "ROOM_NAME");

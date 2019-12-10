@@ -72,7 +72,7 @@ $HIC$can_tell$NOR$         <玩家ID>       如果您设定了$HIC$no_tell$NOR$为$HIC$al
 
 $HIC$careful$NOR$          <任意非零值>   设定您现在不饮用或食用附近环境中的物品。
 
-$HIC$keep_idle$NOR$        <任意非零值>   设定如果您发呆时不退出。
+$HIC$keep_idle$NOR$        <任意非零值>   设定如果您发呆时不退出。(该设置已经弃用)
 
 $HIC$default_sign$NOR$     <0 - 4>        设定您现在缺省使用的留言签名。
 
@@ -182,4 +182,3 @@ $HIC$immortal$NOR$         <任意非零值>   不会晕倒或死亡。
 $HIC$msg_out$NOR$          <描述字符串>   使用$HIY$goto$NOR$离开时候的描述。
 
 $HIC$msg_in$NOR$           <描述字符串>   使用$HIY$goto$NOR$到达时的描述。
-
