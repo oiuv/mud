@@ -228,6 +228,13 @@ void start_fight(object me)
         obs->kill_ob(me);
         kill_ob(me);
         close_exit();
+		if (random(2) == 1)
+		{
+			ob = new(CLASS_D("tianlongsi") + "/jiumozhi.c");
+			ob->move(environment());
+			ob->kill_ob(me);
+			ob->force_me("say 竟然敢坏法王的好事！");
+		}
 }
 
 void die(object killer)

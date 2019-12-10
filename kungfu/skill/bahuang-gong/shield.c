@@ -23,7 +23,7 @@ int exert(object me, object target)
 	if ((int)me->query_temp("shield"))
 		return notify_fail("你已经在运功中了。\n");
 
-	skill = me->query_skill("force");
+	skill = me->query_skill("bahuang-gong", 1);
 	me->add("neili", -100);
 	me->receive_damage("qi", 0);
 

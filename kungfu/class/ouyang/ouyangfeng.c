@@ -47,7 +47,7 @@ void create()
 	set("combat_exp", 2500000);
 
 	set_skill("force", 350);
-	set_skill("unarmed", 350);
+	set_skill("strike", 350);
 	set_skill("dodge", 350);
 	set_skill("parry", 350);
 	set_skill("cuff", 350);
@@ -71,6 +71,7 @@ void create()
 
 	map_skill("force", "hamagong");
 	map_skill("dodge", "chanchu-bufa");
+	map_skill("strike", "hamagong");
 	map_skill("cuff",  "lingshe-quan");
 	map_skill("parry", "lingshe-zhangfa");
 	map_skill("staff", "lingshe-zhangfa");
@@ -94,6 +95,7 @@ void create()
 		(: perform_action, "staff.chan" :),
 		(: perform_action, "staff.qianshe" :),
 		(: perform_action, "staff.wuji" :),
+		(: perform_action, "strike.zhen" :),
 		(: perform_action, "cuff.rou" :),
 		(: exert_function, "powerup" :),
 		(: exert_function, "recover" :),

@@ -6,6 +6,8 @@ inherit F_MASTER;
 
 mixed ask_me();
 mixed ask_skill1();
+mixed ask_learn();
+mixed ask_provoke();
 
 void create()
 {
@@ -70,11 +72,14 @@ void create()
         set("chat_msg", ({
             	CYN "冯默风说道：师父疼爱小师妹，他的软猬甲一直由小师妹穿着。\n" NOR,
             	CYN "冯默风自言自语地说道：家师所布置的这个桃花阵真是不简单！\n" NOR,
+            	CYN "冯默风自言自语地说道：最近家师交代说最近会有人上门学艺，都有谁来着……\n" NOR,
         }));
 
         set("inquiry", ([
            	"拜师" : (: ask_me :),
            	"投师" : (: ask_me :),
+           	"带我过迷阵，否则弄死你，信不信？" : (: ask_provoke :),
+           	"学艺" : (: ask_learn :),
            	"东邪" : "家师人称东邪！呵呵。",
            	"西毒" : "欧阳锋是与家师并世齐名的高手，人称老毒物。",
            	"南帝" : "听家师说段王爷现在出家当了和尚，法名一灯。",
@@ -156,6 +161,38 @@ mixed ask_skill1()
         me->set("can_perform/canglang-zhi/tao", 1);
         me->add("gongxian", -50);
 
+        return 1;
+}
+
+mixed ask_learn()
+{
+        object me;
+        me = this_player();
+
+        if (!me->query("can_learn/huang/count"))
+        {
+                command("say 家师没跟我交代过这事，你自己再去问问吧！");
+                return 1;
+        }
+
+        command("say 好吧，我带你过桃花阵，你自己去找岛主吧。");
+        message_vision(HIW "\n$N" HIW "大步的向南走去，$n" HIW "紧随其后。\n\n" NOR,
+                       this_object(), me);
+        this_object()->move("/d/taohua/damen");
+        me->move("/d/taohua/damen");
+        command("say 好了，我带你到大门，你进去就可以见到家师。");
+        message_vision("$N头也不回的往北面离去。\n", this_object());
+        this_object()->move(query("startroom"));
+        message_vision("$N急匆匆的走了过来。\n", this_object());
+        return 1;
+}
+
+mixed ask_provoke()
+{
+        object me;
+        me = this_player();
+
+        command("say 滚犊子，打死你我都不信！");
         return 1;
 }
 

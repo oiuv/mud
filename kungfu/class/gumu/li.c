@@ -120,7 +120,13 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob) )
                 return;
 
-        if ((int)me->query("shen") > -70000)
+        if ((string)me->query("gender") == "男性")
+		{
+				command("say 我李莫愁可不收臭男人做徒弟。");
+                return;
+		}
+		
+		if ((int)me->query("shen") > -70000)
         {
                 command("heng");
                 command("say 我李莫愁可不收心慈手软的人做徒弟。");

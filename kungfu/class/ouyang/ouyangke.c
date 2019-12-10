@@ -259,6 +259,13 @@ int accept_object(object who, object ob)
 	obn=new("/clone/money/silver");
         obn->set_amount(20 + addition);
         obn->move(who);
+		who->add("shen", -addition);
+		who->add("can_learn/lingshe-quan/count", 1 + random(5));
+		if (who->query("can_learn/lingshe-quan/count") > 10)
+		{
+			tell_object(who, HIC "\n既然你帮了我这么多次,就传授你几手武功吧。\n" NOR);
+			who->set("can_learn/lingshe-quan/ke", 1);
+		}
 
         message_vision(HIC "$n" HIC "把" + ob->name() + HIC "交给了$N"
                        HIC "。\n\n" NOR, this_object(), who);
@@ -342,6 +349,22 @@ mixed ask_shenshe()
                        HIC "。\n" NOR, this_object(), me);
         ob->move(me, 1);
         return "嗯，你可得收好了！别到处乱放。";
+}
+
+int recognize_apprentice(object me, string skill)
+{
+        if (! me->query("can_learn/lingshe-quan/ke"))
+        {
+                command("say 干嘛？没拜师就想向本少爷学东西？");
+                return 0;
+        }
+
+        if (skill != "lingshe-quan")
+        {
+                command("say 我可没答应教你其他武功。");
+                return 0;
+        }
+        return 1;
 }
 
 void reset()

@@ -157,6 +157,19 @@ int accept_ask(object me, string topic)
                            "gongxian": 1200,
                            "shen"    : -68000, ]));
                 break;
+		
+		case "ÐþÚ¤Ë«ÐÐ" :
+                return MASTER_D->teach_pfm(me, this_object(),
+                        ([ "perform" : "can_perform/xuanming-zhang/xing",
+                           "name"    : "ÐþÚ¤Ë«ÐÐ",
+                           "sk1"     : "xuanming-zhang",
+                           "lv1"     : 220,
+                           "sk2"     : "xuanming-shengong",
+                           "lv2"     : 220,
+                           "neili"   : 4000,
+                           "gongxian": 1500,
+                           "shen"    : -108000, ]));
+                break;
 
         default:
                 return 0;

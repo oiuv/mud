@@ -6,6 +6,7 @@ inherit F_MASTER;
 
 mixed ask_skill1();
 mixed ask_skill2();
+mixed ask_skill3();
 
 void create()
 {
@@ -41,6 +42,7 @@ LONG);
         set_skill("xuanmen-neigong", 160);
         set_skill("sword", 160);
         set_skill("qixing-jian", 160);
+        set_skill("quanzhen-jian", 160);
         set_skill("dodge", 140);
         set_skill("tianshan-feidu", 140);
         set_skill("parry", 140);
@@ -67,6 +69,7 @@ LONG);
         set("inquiry", ([
                 "剑指南山" : (: ask_skill1 :),
                 "群星璀璨" : (: ask_skill2 :),
+                "三连环" : (: ask_skill3 :),
         ]) );
 
         set("chat_chance_combat", 120);
@@ -195,6 +198,51 @@ mixed ask_skill2()
         me->improve_skill("martial-cognize", 1500000);
         me->set("can_perform/qixing-jian/xing", 1);
         me->add("gongxian", -80);
+
+        return 1;
+}
+
+mixed ask_skill3()
+{
+        object me;
+
+        me = this_player();
+
+        if (me->query("can_perform/quanzhen-jian/lian"))
+                return "这招我不是已经教会你了吗？";
+
+        if (me->query("family/family_name") != query("family/family_name"))
+                return "阁下与贫道素不相识，不知此话从何说起？";
+
+        if (me->query_skill("quanzhen-jian", 1) < 1)
+                return "你连全真剑法都没学，何谈绝招可言？";
+
+        if (me->query("gongxian") < 1000)
+                return "你在我全真教内甚无作为，这招我暂时还不能传你。";
+
+        if (me->query("shen") < 100000)
+                return "你的侠义正事还做得不够，这招我暂时还不能传你。";
+
+        if (me->query_skill("quanzhen-jian", 1) < 180)
+                return "你的全真剑法不够娴熟，练高点再来吧。";
+
+        if (me->query("max_neili") < 2500)
+                return "你的内力修为不够，还是练高点再来吧。";
+
+        message_sort(HIY "\n$n" HIY "点了点头，喝道：“看仔细了。”话音刚"
+                     "落，只见$n" HIY "将全真剑法和掌法、拳脚功夫连环使出，"
+                     "只看得$N" HIY "目不暇接，感叹不已。\n\n" NOR, me, this_object()); 
+
+        command("nod");
+        command("say 你自己下去练习吧。");
+        tell_object(me, HIC "你学会了「三连环」绝技。\n" NOR);
+        if (me->can_improve_skill("sword"))
+                me->improve_skill("sword", 1500000);
+        if (me->can_improve_skill("quanzhen-jian"))
+                me->improve_skill("quanzhen-jian", 1500000);
+        me->improve_skill("martial-cognize", 1500000);
+        me->set("can_perform/quanzhen-jian/lian", 1);
+        me->add("gongxian", -800);
 
         return 1;
 }
