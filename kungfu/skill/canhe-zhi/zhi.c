@@ -7,8 +7,8 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-				// object weapon;
-				string msg;
+//	object weapon;
+	string msg;
         int ap, dp;
         int skill;
 
@@ -24,8 +24,8 @@ int perform(object me, object target)
         if (! me->is_fighting(target))
                 return notify_fail(ZHI "只能对战斗中的对手使用。\n");
 
-				if (target->is_busy())
-								return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");
+	if (target->is_busy())
+		return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");
 
         skill = me->query_skill("canhe-zhi", 1);
 

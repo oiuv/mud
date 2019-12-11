@@ -106,7 +106,6 @@ int perform(object me, object target)
         {
                 ap = me->query_skill("strike") +
                      me->query_skill("poison");
-					 //me->query_skill("poison") * 3 / 4; 增加一些命中
 
                 // 将任务NPC和玩家区分，再计算防御状况
                 if (userp(me))

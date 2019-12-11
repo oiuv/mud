@@ -11,6 +11,12 @@ int perform(object me, object target)
         string msg;
         int ap, dp, damage;
         int i, count;
+		
+		float improve;
+		int lvl, m, n;
+		string martial;
+		string *ks;
+		martial = "sword";
 
         if (userp(me) && ! me->query("can_perform/quanzhen-jian/hua"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -48,11 +54,32 @@ int perform(object me, object target)
         msg = HIW "$N" HIW "一声长吟，将内力全然运到剑上，" + weapon->name() +
               HIW "剑脊顿时" HIM "紫芒" HIW "闪耀，化作数道剑气劲逼$n"
               HIW "。\n" NOR;
+			  
+		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+		lvl = lvl * 4 / 5;
+		ks = keys(me->query_skills(martial));
+		improve = 0;
+		n = 0;
+		//最多给予5个技能的加成
+		for (m = 0; m < sizeof(ks); m++)
+		{
+			if (SKILL_D(ks[m])->valid_enable(martial))
+			{
+				n += 1;
+				improve += (int)me->query_skill(ks[m], 1);
+				if (n > 4 )
+					break;
+			}
+		}
+		
+		improve = improve * 4 / 100 / lvl;
 
         ap = me->query_skill("xiantian-gong", 1) + me->query_skill("sword");
         dp = target->query_skill("force") + target->query_skill("parry", 1) * 2 / 3;
 
-        me->start_busy(3);
+		ap += ap * improve;
+        
+		me->start_busy(3);
         me->add("neili", -200);
 
         if (ap / 2 + random(ap) > dp)

@@ -44,8 +44,10 @@ int perform(object me, object target)
 	      HIY "µÄÒªÑ¨£¡\n" NOR;
 	me->add("neili", -20);
 
-        ap = me->query_skill("jiuyin-shengong", 1) * 3 / 2 +
-             me->query_skill("martial-cognize", 1);
+        ap = me->query_skill("unarmed");
+		if(ap < me->query_skill("claw"))
+			ap = me->query_skill("claw");
+		ap += me->query_skill("martial-cognize", 1);
         dp = target->query_skill("parry") +
              target->query_skill("martial-cognize", 1);
 

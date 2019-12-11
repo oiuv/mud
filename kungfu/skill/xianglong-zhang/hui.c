@@ -3,6 +3,7 @@
 
 #define HUI "「" HIR "亢龙有悔" NOR "」"
 #define HUIP "「" HIR "亢龙有悔" HIW "」"
+#define HUIZ "「" HIY "真·亢龙有悔" HIY "」"
 
 inherit F_SSERVER;
 
@@ -11,6 +12,8 @@ int perform(object me, object target)
         int damage;
         string msg;
         int ap, dp;
+		float improve;
+		improve = 0;
 
         if (userp(me) && ! me->query("can_perform/xianglong-zhang/hui"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -43,12 +46,19 @@ int perform(object me, object target)
 
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
+			
+		if (me->query("family/family_name") == "丐帮")
+		{
+			message_sort( HIY "\n$N" HIY "施展出丐帮绝学 " HUIZ "\n" NOR, me, target);
+			improve += 10 / 100;
+		}
 
         // 第一掌
         //ap = me->query_skill("strike") + me->query("str") * 5;
         //dp = target->query_skill("dodge") + target->query("dex") * 5;
          ap = me->query_skill("strike") + me->query("str") * 10;
          dp = target->query_skill("dodge") + target->query("dex") * 10;
+		 ap += ap * improve;
 
         message_sort(HIW "\n忽然$N" HIW "身形激进，左手一划，右手呼的一掌"
                      "拍向$n" HIW "，正是降龙十八掌" HUIP "。力自掌生之际"
@@ -71,6 +81,7 @@ int perform(object me, object target)
         // 第二掌
         ap = me->query_skill("strike") + me->query("str") * 10;
         dp = target->query_skill("parry") + target->query("int") * 10;
+		ap += ap * improve;
 
         message_sort(HIW "\n$N" HIW "一掌既出，身子已然抢到离$n" HIW "三"
                      "四丈之外，后掌推前掌两股掌力道合并，又是一招" HUIP
@@ -93,6 +104,7 @@ int perform(object me, object target)
         // 第三掌
         ap = me->query_skill("strike") + me->query("str") * 10;
         dp = target->query_skill("force") + target->query("con") * 10;
+		ap += ap * improve;
 
         message_sort(HIW "\n紧跟着$N" HIW "右掌斜挥，前招掌力未消，此招掌"
                      "力又到，竟然又攻出一招" HUIP "，掌夹风势，势如破竹，"

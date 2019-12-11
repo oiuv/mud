@@ -1,3 +1,4 @@
+#include <ansi.h>
 inherit SKILL;
 
 mapping *action = ({
@@ -79,6 +80,16 @@ mapping *action = ({
         "damage": 130,
         "lvl"   : 120,
         "damage_type" : "刺伤"
+]),
+([      "action": " "RED" 回风拂柳剑之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
+        "attack" : (int)this_player()->query_skill("sword", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
+        "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
+        "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
+        "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
+        "lvl"    : 200,
+        "skill_name" : "极意",
+        "damage_type": "刺伤"
 ]),
 });
 

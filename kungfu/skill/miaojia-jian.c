@@ -158,6 +158,16 @@ mapping *action = ({
      "skill_name" : "冲天掌苏秦背剑",
      "damage_type":  "刺伤"
 ]),
+([      "action": " "RED" 苗家剑法之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force")/2 + random((int)this_player()->query_skill("force")),
+        "attack" : (int)this_player()->query_skill("sword")/4 + random((int)this_player()->query_skill("sword")/2),
+        "dodge"  : (int)this_player()->query_skill("dodge")/4 + random((int)this_player()->query_skill("force")/3),
+        "parry"  : (int)this_player()->query_skill("parry")/4 + random((int)this_player()->query_skill("parry")/3),
+        "damage" : (int)this_player()->query_skill("force")/3 + random((int)this_player()->query_skill("sword")/3),
+        "lvl"    : 100,
+        "skill_name" : "极意",
+        "damage_type": "刺伤"
+]),
 });
 
 string main_skill() { return "daojian-guizhen"; }

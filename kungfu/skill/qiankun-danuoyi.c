@@ -48,17 +48,22 @@ int valid_learn(object me)
 
         layer = (int)me->query_skill("qiankun-danuoyi", 1) / 50;
         if (layer > 7) layer = 7;
+		
+		if (me->query("family/family_name") == "明教")
+			layer = 1;
 
-		if (me->query("int") < 36 )
+		//if (me->query("int") < 36 )
+		if (me->query("int") < 29 + layer )
                 return notify_fail("你觉得乾坤大挪移实在是深奥无比，全然无法理解。\n");
 
         //if (me->query("int") < 32 + layer )
         //      return notify_fail("你觉得第" + chinese_number(layer) +
         //                          "层乾坤大挪移实在是深奥无比，全然无法理解。\n");
 
-		if (me->query("int") < 43 + layer - (int)me->query_skill("force")/50)
-                return notify_fail("你觉得第" + chinese_number(layer) +
-                                   "层乾坤大挪移实在是深奥无比，全然无法理解。\n");
+		//if (me->query("int") < 43 + layer - (int)me->query_skill("force")/50)
+		if (me->query("int") < 39 + layer - (int)me->query_skill("force")/50
+			&& me->query("family/family_name") != "明教")
+                return notify_fail("你觉乾坤大挪移实在是深奥无比，全然无法理解。\n");
 
         if ((int)me->query("max_neili") < 5000)
                 return notify_fail("你的内力修为太差，无法修炼乾坤大挪移。\n");
@@ -273,6 +278,23 @@ void nuoyi(object ob, object me)
         }
         me->delete_temp("nuoyi");
         message_sort(msg, me, ob);
+}
+
+int query_effect_parry(object attacker, object me)
+{
+    int lvl;
+	lvl = me->query_skill("qiankun-danuoyi", 1);
+	
+	if (me->query("family/family_name") == "明教")
+	{
+        if (lvl < 80)  return 0;
+        if (lvl < 200) return 40;
+        if (lvl < 280) return 60;
+        if (lvl < 350) return 80;
+        return 100;
+	}
+	else
+		return 0;
 }
 
 int practice_skill(object me)

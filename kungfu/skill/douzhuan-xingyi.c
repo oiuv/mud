@@ -61,20 +61,20 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
         lvl = me->query_skill("douzhuan-xingyi", 1);
       
         // 特殊反伤害几率
-        if (lvl > 280)ran = 50;
-        if (lvl > 300)ran = 45;
-        if (lvl > 320)ran = 35;
-        if (lvl > 350)ran = 30;
-        if (lvl > 380)ran = 20;
-        if (lvl > 400)ran = 10;
-        if (lvl > 450)ran = 8;
-        if (lvl > 500)ran = 6;
+        if (lvl > 200)ran = 30;
+        if (lvl > 240)ran = 25;
+        if (lvl > 280)ran = 20;
+        if (lvl > 320)ran = 15;
+        if (lvl > 360)ran = 10;
+        if (lvl > 400)ran = 8;
+        if (lvl > 450)ran = 6;
+        if (lvl > 500)ran = 4;
 
         // 斗转星移反伤效果
-        if (lvl > 280 &&
-            me->query_skill("zihui-xinfa", 1) > 300 &&
+        if (lvl > 200 &&
+            me->query_skill("zihui-xinfa", 1) > 200 &&
             ! me->is_busy() &&
-            me->query("max_neili") * 2 / 3 > ob->query("max_neili") &&
+            me->query("neili") > ob->query("neili") &&
             me->query("neili") > 500 &&
             mp < 100 &&
             random(ran) == 1 )

@@ -43,14 +43,14 @@ int perform(object me, object target)
               HIY "¡£\n" NOR;
 
         me->add("neili", -75);
-        ap = me->query_skill("sword");
+        ap = me->query_skill("sword") + me->query_skill("mahayana", 1);
         dp = target->query_skill("parry");
 
         me->start_busy(3);
         if (ap / 2 + random(ap) > dp)
         {
                 damage = ap / 2 + random(ap / 3);
-                msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 30,
+                msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 40,
                                            (: final, me, target, damage :));
         } else
         {

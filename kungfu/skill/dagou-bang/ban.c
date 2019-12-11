@@ -74,13 +74,13 @@ int perform(object me, object target)
                                            HIR "只听$n" HIR "小腿处「嗤嗤」两声脆"
                                            "响，竟被$N" HIR "的" + weapon->name() +
                                            HIR "贯出两个血洞。\n" NOR);
-                me->start_busy(3);
+                me->start_busy(1 + random(3));
                 me->add("neili", -200);
         } else
         {
                 msg += CYN "可$n" CYN "全神防御，不露半点破绽，使得$N"
                        CYN "这招无功而返。\n" NOR;
-                me->start_busy(4);
+                me->start_busy(3);
                 me->add("neili", -100);
         }
         message_combatd(msg, me, target);

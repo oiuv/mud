@@ -43,7 +43,13 @@ int perform(object me, object target)
              me->query_skill("dodge", 1) / 2;
 
         dp = target->query_skill("dodge");
-
+		
+		if (target->query("shen") > 0)
+				ap += ap * 10 / 100;
+				
+		if (target->query("gender") != "女性")
+				ap += ap * 15 / 100;
+				
         msg = HIC "\n$N" HIC "身法陡然变快，使出绝招「" HIG "千幻神诀" HIC "」，"
               "双掌不断拍出，\n招式如影如幻，虚实难测，试图扰乱$n" HIC "的攻"
               "势。\n" NOR;
@@ -52,7 +58,7 @@ int perform(object me, object target)
 
         if (random(ap) > dp / 2)
         {
-		msg = HIY "$n" HIY "只见$N" HIY "双掌飘忽不定，毫"
+				msg = HIY "$n" HIY "只见$N" HIY "双掌飘忽不定，毫"
                       "无破绽，竟被困在$N" HIY "的掌风之中。\n" NOR;
 
                 target->start_busy(ap / 45 + 1);

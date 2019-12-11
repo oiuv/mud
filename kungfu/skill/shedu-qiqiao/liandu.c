@@ -6,7 +6,7 @@
 #include <combat.h>
 
 inherit F_SSERVER;
-
+ 
 int perform(object me, object target)
 {
         mapping p;
@@ -15,8 +15,9 @@ int perform(object me, object target)
         int amount;
         int exp;
         int lvl;
-        // int sk;
-
+//      int sk;
+		int sk_lvl;
+ 
         if (! target)
                 return notify_fail("你要取哪条蛇的毒液练药？\n");
 
@@ -51,17 +52,17 @@ int perform(object me, object target)
         amount = p["level"] * p["remain"];
         if (amount > lvl)
                 amount = lvl;
-
-        p["remain"] = (p["level"] * p["remain"] - amount) /
-                       p["level"];
-        target->apply_condition("poison-supply", 1);
-
+        
         if (! amount)
         {
                 msg += WHT "$N" WHT "挤了半天，结果啥也没有挤出来，算是白忙活了。\n\n" NOR;
                 message_vision(msg, me);
                 return 1;
         }
+
+        p["remain"] = (p["level"] * p["remain"] - amount) /
+                       p["level"];
+        target->apply_condition("poison-supply", 1);
 
         if (amount < lvl)
         {
@@ -76,21 +77,23 @@ int perform(object me, object target)
         message_vision(msg, me);
         tell_object(me, HIC "你炼制了一颗蛇毒药丸。\n" NOR);
 
+		sk_lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+		
         // improve skill
-        exp = lvl / 5;
-        me->improve_skill("poison", 2 + random(exp));
+        exp = lvl;
+        //me->improve_skill("poison", exp + random(exp));
         if (me->can_improve_skill("shedu-qiqiao"))
-                me->improve_skill("shedu-qiqiao", 2 + random(exp));
+                me->improve_skill("shedu-qiqiao", exp + random(exp));
 
         //if (me->can_improve_skill("hamagong"))
         //        me->improve_skill("hamagong", 2 + random(exp / 6), 1);
-        if (me->can_improve_skill("poison"))
-                me->improve_skill("poison", 2 + random(exp));
+        if (me->query_skill("poison", 1) < sk_lvl)
+                me->improve_skill("poison", (exp + random(exp)) * 3 / 2);
 
         // create the object
         ob = new("/clone/misc/shedu");
         ob->set("poison", ([
-                "level" : lvl,
+                "level" : (lvl / 60 * 60),
                 "id"    : me->query("id"),
                 "name"  : "蛇毒",
                 "duration" : 10,

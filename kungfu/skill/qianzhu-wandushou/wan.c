@@ -8,7 +8,7 @@ int perform(object me, object target)
         string msg;
         int skill;
         int delta;
-        int i;
+        int i, count, poison;
 
         if (! target)
         {
@@ -30,6 +30,7 @@ int perform(object me, object target)
                 return notify_fail("你没有准备使用千蛛万毒手，无法施展万蛊噬天。\n");
 
         skill = me->query_skill("qianzhu-wandushou", 1);
+		poison = me->query_skill("poison");
 
         if (skill < 220)
                 return notify_fail("你的千蛛万毒手修为有限，无法施展万蛊噬天。\n");
@@ -52,10 +53,14 @@ int perform(object me, object target)
               "漫，笼罩$n" RED "全身！\n\n" NOR;
 
         message_combatd(msg, me, target);
-        delta = -skill / 6;
+        delta = skill / 6;
+		count = 0;
         me->add("neili", -300);
-        target->add_temp("apply/parry", delta);
-        target->add_temp("apply/dodge", delta);
+		if (me->query("family/family_name") == "五毒教")
+			count = (int)(poison / 50) * 3;
+        target->add_temp("apply/parry", -delta);
+        target->add_temp("apply/dodge", -delta);
+		me->add_temp("apply/unarmed_damage", count);
         for (i = 0; i < 5; i++)
         {
                 if (! me->is_fighting(target))
@@ -64,8 +69,9 @@ int perform(object me, object target)
                         target->start_busy(1);
                 COMBAT_D->do_attack(me, target, 0, 0);
         }
-        target->add_temp("apply/parry", -delta);
-        target->add_temp("apply/dodge", -delta);
+        target->add_temp("apply/parry", delta);
+        target->add_temp("apply/dodge", delta);
+		me->add_temp("apply/unarmed_damage", -count);
         me->start_busy(1 + random(5));
 
         return 1;

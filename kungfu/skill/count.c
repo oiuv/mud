@@ -23,7 +23,7 @@ int valid_learn(object me)
 
         if ((int)me->query_skill("mathematics", 1) < (int)me->query_skill("count", 1))
                 return notify_fail("你的算术知识有限，无法理解更深奥的阴阳八卦。\n");
-        /*
+/*
         //由于没开放高悟性互搏，此效果暂无实际效果，故取消。
         //转世特技循影擒踪
         if (me->query_skill("zuoyou-hubo", 1) && !me->query("special_skill/qinzong"))

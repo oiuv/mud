@@ -33,7 +33,7 @@ int exert(object me, object target)
         message_vision("$N深深吸了几口气，脸色看起来好多了。\n", me);
 
         if (me->is_fighting() && ! me->query("special_skill/self"))
-		me->start_busy(1);
+                me->start_busy(1);
 	
 	return 1;
 }

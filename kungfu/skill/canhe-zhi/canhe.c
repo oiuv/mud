@@ -10,7 +10,13 @@ int perform(object me, object target)
 {
         int damage;
         string msg;
-        int ap, dp, slv, clv,p;
+        int ap, dp, slv, clv, p;
+		
+		float improve;
+		int lvl, m, n;
+		string martial;
+		string *ks;
+		martial = "finger";
 
         if (! target) target = offensive_target(me);
 
@@ -23,7 +29,7 @@ int perform(object me, object target)
         if (objectp(me->query_temp("weapon")))
                 return notify_fail("你必须空手才能使用" CANHE "。\n");
 
-        if (clv = (int)me->query_skill("canhe-zhi", 1) < 180)
+        if (clv = (int)me->query_skill("canhe-zhi", 1) < 220)
                 return notify_fail("你的参合指修为有限，难以施展" CANHE "。\n");
 
         if (me->query_skill_prepared("finger") != "canhe-zhi")
@@ -40,6 +46,25 @@ int perform(object me, object target)
 
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
+			
+		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+		lvl = lvl * 4 / 5;
+		ks = keys(me->query_skills(martial));
+		improve = 0;
+		n = 0;
+		//最多给予5个技能的加成
+		for (m = 0; m < sizeof(ks); m++)
+		{
+			if (SKILL_D(ks[m])->valid_enable(martial))
+			{
+				n += 1;
+				improve += (int)me->query_skill(ks[m], 1);
+				if (n > 4 )
+					break;
+			}
+		}
+		
+		improve = improve * 5 / 100 / lvl;
 
         damage = me->query_skill("finger") + me->query_skill("force");
         damage += random(damage);
@@ -47,6 +72,8 @@ int perform(object me, object target)
 
         ap = me->query_skill("finger");
         dp = target->query_skill("dodge");
+		
+		ap += ap * improve;
 
         msg = HIW "只见$N" HIW "十指分摊，霎时破空声骤响，数股剑气至指尖激"
               "射而出，朝$n" HIW "径直奔去！\n" NOR;

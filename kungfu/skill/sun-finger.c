@@ -142,7 +142,7 @@ mapping *action_finger = ({
 ])
 });
 
-
+/*
 mapping *action_staff = ({
 ([      "action" : "$N嘴角轻笑，提$w平胸，看准时机一杖挥出，激起呼呼风声，迅猛无比地直插$n$l",
         "force" : 100,
@@ -180,10 +180,10 @@ mapping *action_staff = ({
         "damage_type" : "刺伤",
 ]),
 });
-
+*/
 int valid_enable(string usage) 
 {  
-	return usage == "finger" || usage == "parry" || usage == "staff"; 
+	return usage == "finger" || usage == "parry"/* || usage == "staff"*/; 
 }
 
 int valid_learn(object me)
@@ -228,16 +228,16 @@ mapping query_action(object me, object weapon)
         int i, level;
         level = (int) me->query_skill("sun-finger", 1);
 
-        if ( ! weapon)
-        {                
+        //if ( ! weapon)
+        //{                
              for(i = sizeof(action_finger); i > 0; i--)
                      if(level >= action_finger[i-1]["lvl"])
                              return action_finger[NewRandom(i, 20, level/5)];
-        }        
-        else
+        //}        
+        /*else
              for(i = sizeof(action_staff); i > 0; i--)
                      if(level > action_staff[i-1]["lvl"])
-                             return action_staff[NewRandom(i, 20, level/5)];        
+                             return action_staff[NewRandom(i, 20, level/5)];      */  
 }
 
 int practice_skill(object me)
@@ -255,7 +255,7 @@ int practice_skill(object me)
 
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-      	string name, weapon;
+      	string name/*, weapon*/;
       	name = xue_name[random(sizeof(xue_name))];
 
       	if (victim->is_busy())
@@ -264,8 +264,8 @@ mixed hit_ob(object me, object victim, int damage_bonus)
       	if (damage_bonus < 150)
             	return 0;
 
-      	if (! objectp(weapon = me->query_temp("weapon")))
-      	{
+      	//if (! objectp(weapon = me->query_temp("weapon")))
+      	//{
             	if ((me->query("neili") > 300)
                	   && me->query_skill("sun-finger", 1) > 100
                	   && ! victim->is_busy())
@@ -282,7 +282,7 @@ mixed hit_ob(object me, object victim, int damage_bonus)
 		              	return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "凌空一指点中" NOR +
                                        HIY + name + NOR + HIR "，真气不由得一滞。\n" NOR;
             	} 
-      	} else
+      	/*} else
       	{
             	if ((me->query("neili") > 300)
                    && me->query_skill("sun-finger", 1) > 100
@@ -295,7 +295,7 @@ mixed hit_ob(object me, object victim, int damage_bonus)
 	                return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "杖端发出的气劲刺中" NOR +
                                HIY + name + NOR +HIR "，真气不由得一滞。\n" NOR;
             	}   
-      	}
+      	}*/
  
 }
 

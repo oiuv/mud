@@ -1,6 +1,6 @@
 // qishang-quan.c -七伤拳
 // modify by rcwiz 2003
-
+#include <ansi.h>
 inherit SKILL;
 
 mapping *action = ({
@@ -18,7 +18,7 @@ mapping *action = ({
 	"damage": 15,
 	"lvl" : 40,
 	"skill_name" : "木已成舟",
-        "damage_type" : "内伤"
+    "damage_type" : "内伤"
 ]),
 ([	"action" : "$N步伐轻灵，两臂伸舒如鞭，一式「水中捞月」，令$n无可躲闪",
 	"force" : 250,
@@ -26,7 +26,7 @@ mapping *action = ({
 	"damage": 20,
 	"lvl" : 70,
 	"skill_name" : "水中捞月",
-        "damage_type" : "内伤"
+    "damage_type" : "内伤"
 ]),
 ([	"action" : "$N身形跃起，一式「火海刀山」，双拳当空击下，势不可挡",
 	"force" : 290,
@@ -34,7 +34,7 @@ mapping *action = ({
 	"damage": 30,
 	"lvl" : 100,
 	"skill_name" : "火海刀山",
-        "damage_type" : "内伤"
+    "damage_type" : "内伤"
 ]),
 ([	"action" : "$N身形一矮，一式「土载万物」，两拳自下而上，攻向$n",
 	"force" : 330,
@@ -42,7 +42,7 @@ mapping *action = ({
 	"damage": 45,
 	"lvl" : 120,
 	"skill_name" : "土载万物",
-        "damage_type" : "内伤"
+    "damage_type" : "内伤"
 ]),
 ([	"action" : "$N身形一转，一式「阴风惨惨」，攻向$n的身前身后",
 	"force" : 350,
@@ -50,7 +50,7 @@ mapping *action = ({
 	"damage": 60,
 	"lvl" : 140,
 	"skill_name" : "阴风惨惨",
-        "damage_type" : "内伤"
+    "damage_type" : "内伤"
 ]),
 ([	"action" : "$N移形换位，步到拳到，一式「阳光普照」，四面八方都是拳影",
 	"force" : 370,
@@ -58,7 +58,7 @@ mapping *action = ({
 	"damage": 75,
 	"lvl" : 150,
 	"skill_name" : "阳光普照",
-        "damage_type" : "内伤"
+    "damage_type" : "内伤"
 ]),
 ([	"action" : "$N长啸一声，向前踏出一步，双拳中宫直进，一式「七者皆伤」，骤然击向$n的前胸",
 	"force" : 390,
@@ -66,22 +66,30 @@ mapping *action = ({
 	"damage": 100,
 	"lvl" : 160,
 	"skill_name" : "七者皆伤",
-        "damage_type" : "内伤"
-])
+    "damage_type" : "内伤"
+]),
+([  "action": " "RED" 七伤拳之极意 "NOR"",
+    "force"  : (int)this_player()->query_skill("force", 1)/3 + random((int)this_player()->query_skill("force")),
+    "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
+    "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("cuff", 1)/2),
+    "lvl"    : 200,
+    "skill_name" : "极意",
+    "damage_type": "内伤"
+]),
 });
 
 int valid_enable(string usage) { return  usage=="cuff" || usage=="parry"; }
 
 int valid_learn(object me)
 {
-	if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-		return notify_fail("练七伤拳必须空手。\n");
+		if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+			return notify_fail("练七伤拳必须空手。\n");
 
-	if ((int)me->query_skill("force", 1) < 120)
-		return notify_fail("你的内功火候不够，无法学七伤拳。\n");
+		if ((int)me->query_skill("force", 1) < 120)
+			return notify_fail("你的内功火候不够，无法学七伤拳。\n");
 
-	if ((int)me->query("max_neili") < 1800)
-		return notify_fail("你的内力修为不够，无法练七伤拳。\n");
+		if ((int)me->query("max_neili") < 1800)
+			return notify_fail("你的内力修为不够，无法练七伤拳。\n");
 
         if ((int)me->query_skill("cuff", 1) < 120)
                 return notify_fail("你的基本拳法火候不够，无法练七伤拳。\n");
@@ -102,8 +110,8 @@ string query_skill_name(int level)
 
 mapping query_action(object me, object weapon)
 {
-        int i, level;
-	level   = (int) me->query_skill("qishang-quan",1);
+		int i, level;
+		level   = (int) me->query_skill("qishang-quan",1);
         for(i = sizeof(action); i > 0; i--)
                 if(level > action[i-1]["lvl"])
                         return action[NewRandom(i, 20, level/5)];
@@ -120,6 +128,31 @@ int practice_skill(object me)
 	me->receive_damage("qi", 55);
 	me->add("neili", -61);
 	return 1;
+}
+
+mixed hit_ob(object me, object victim, int damage_bonus)
+{
+	int damage;
+	
+	if (damage_bonus < 150) return 0;
+	damage = me->query_skill("qishang-quan", 1) * 8000 / me->query("max_neili");
+	
+	if (random(3) == 1)
+	{
+		if (me->query("max_neili") < 8000 &&
+			! me->query_skill("jiuyang-shengong", 1) &&
+			me->query_skill("buddhism", 1) < 400)
+		{
+			if (me->query_max_craze() > 0)
+				me->improve_craze(damage);
+			me->receive_wound("qi", damage, me);
+			tell_object(me, HIR "七伤拳的反噬愈来愈强！\n" NOR);
+		}
+		else
+		{
+			me->receive_heal("qi", random(me->query_skill("qishang-quan", 1) / 3));
+		}
+	}
 }
 
 string perform_action_file(string action)

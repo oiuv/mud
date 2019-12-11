@@ -12,6 +12,9 @@ int exert(object me, object target)
         if (me->is_busy())
                 return notify_fail("等你忙完了手头的事情再说！\n");
 
+        if (me->query_temp("tianmo"))
+                return notify_fail("天魔解体状态不能运功疗伤！\n");
+
         force = me->query_skill_mapped("force");
         if (! stringp(force))
                 return notify_fail("先激发你的特殊内功。\n");

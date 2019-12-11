@@ -55,6 +55,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
         int ap, dp;
         int jiali;
 		int lvl;
+		int poison_level;
 
         if ((int) me->query_skill("huagong-dafa", 1) < 80 ||
             ! living(me))
@@ -62,6 +63,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
 
         if ((jiali = ob->query("jiali")) < 1)
                 return;
+		poison_level = jiali;
 		lvl = me->query_skill("huagong-dafa", 1);
         ap = ob->query_skill("force") + ob->query_skill("dodge");
         dp = me->query_skill("force") + me->query_skill("dodge");
@@ -89,8 +91,11 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
                         break;
                 }
 				
+				if(poison_level > me->query_skill("force") / 2)
+					    poison_level = me->query_skill("force") / 2;
+				
 				ob->affect_by("freezing",
-                               ([ "level"    : jiali,
+                               ([ "level"    : poison_level,
                                   "id"       : me->query("id"),
                                   "duration" : lvl / 60 + random(lvl / 30) ]));
 				

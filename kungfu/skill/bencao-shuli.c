@@ -10,7 +10,7 @@ int valid_learn(object me)
                 return notify_fail("你的基本医术造诣太浅，无"
                                    "法领会深奥的本草术理。\n");
 
-        if ((int)me->query_skill("medical", 1) < (int)me->query_skill("bencao-shuli", 1))
+        if ((int)me->query_skill("medical", 1) < (int)me->query_skill("xingxiu-qishu", 1))
                 return notify_fail("你的基本医术水平有限，无"
                                    "法掌握更深奥的本草术理。\n");
 
@@ -20,3 +20,4 @@ int valid_learn(object me)
 
         return 1;
 }
+

@@ -139,7 +139,18 @@ mapping *action_finger = ({
         "weapon" : HIR "一阳指力" NOR,
         "skill_name" : "三阳开泰",
         "damage_type" : "内伤"
-])
+]),
+([      "action": " "RED" 一阳指之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
+        "attack" : (int)this_player()->query_skill("finger", 1)/4 + random((int)this_player()->query_skill("finger", 1)/2),
+        "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
+        "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
+        "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("finger", 1)/2),
+        "lvl"    : 300,
+		"weapon" : HIR "一阳指力" NOR,
+        "skill_name" : "极意",
+        "damage_type": "内伤"
+]),
 });
 
 
@@ -191,11 +202,11 @@ int valid_learn(object me)
 	if ((string)me->query("gender") != "男性") 
         	return notify_fail("一阳指乃是纯阳玄功，你如何可以修习？\n");
 
-        if ((int)me->query("con") < 34)
-                return notify_fail("你的先天根骨欠佳，无法修炼一阳指。\n");
+        if ((int)me->query("str") < 34)
+                return notify_fail("你的先天膂力欠佳，无法修炼一阳指。\n");
 
-        if ((int)me->query("int") < 32)
-                return notify_fail("你的先天悟性不足，无法领会一阳指。\n");
+        if ((int)me->query("dex") < 30)
+                return notify_fail("你的先天身法不足，无法领会一阳指。\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail("练一阳指必须空手。\n");
@@ -267,18 +278,17 @@ mixed hit_ob(object me, object victim, int damage_bonus)
                	   && me->query_skill("yiyang-zhi", 1) > 100
                	   && me->query_skill("jingluo-xue", 1) > 100)
             	{
-		      	if (! victim->is_busy())
+					if (! victim->is_busy())
 	        	  	victim->start_busy(2);
 
                   	me->add("neili", -50);
                   	victim->receive_wound("qi", (damage_bonus - 100) / 3, me);
 
-			if (victim->query("neili") <= (damage_bonus / 4 + 50))
+					if (victim->query("neili") <= (damage_bonus / 4 + 50))
 	                	victim->set("neili", 0);
                   	else
                         	victim->add("neili", -damage_bonus / 4);
-
-		              	return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "凌空一指点中" NOR +
+					return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "凌空一指点中" NOR +
                                        HIY + name + NOR + HIR "，真气不由得一滞。\n" NOR;
             	} 
       	} else
@@ -287,7 +297,7 @@ mixed hit_ob(object me, object victim, int damage_bonus)
                    && me->query_skill("yiyang-zhi", 1) > 100
                	   && me->query_skill("jingluo-xue", 1) > 100
                    && ! victim->is_busy())
-	    	{
+				{
                 	me->add("neili", -30);
                   	victim->receive_wound("qi", (damage_bonus - 100) / 4, me);
 

@@ -43,7 +43,7 @@ int perform(object me, object target)
               HIY "抖得笔直，劈向$n" HIY "手腕，可是待到中途却又停滞，转往$n"
               HIY "胸口挥去！\n" NOR;
 
-        ap = me->query_skill("whip") + me->query_skill("force");
+        ap = me->query_skill("whip") + me->query_skill("force") + me->query_skill("poison");
         dp = target->query_skill("force") + target->query_skill("parry");
 
         if (ap / 2 + random(ap) > dp)
@@ -57,7 +57,7 @@ int perform(object me, object target)
                                            HIR "的企图，被这一鞭硬击在胸口，鲜血飞"
                                            "溅，皮肉绽开！\n" NOR);
                 message_combatd(msg, me, target);
-                if (ap > 400) ap = 400;
+                //if (ap > 400) ap = 400;
                 dp += target->query_skill("martial-cognize", 1) * 2;
                 if (! target->is_busy() &&
                     weapon->query("material") == "white silk" &&

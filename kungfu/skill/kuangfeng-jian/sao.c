@@ -9,18 +9,18 @@ inherit F_SSERVER;
 int perform(object me, object target)
 {
 	object weapon;
-        string msg;
-        int count;
-        int i;
+    string msg;
+    int count;
+    int i;
  
-        if (! target)
-        {
+    if (! target)
+    {
 	        me->clean_up_enemy();
 	        target = me->select_opponent();
-        }
+    }
 
-        if (userp(me) && ! me->query("can_perform/kuangfeng-jian/sao"))
-                return notify_fail("你所使用的外功中没有这种功能。\n");
+    if (userp(me) && ! me->query("can_perform/kuangfeng-jian/sao"))
+        return notify_fail("你所使用的外功中没有这种功能。\n");
 
 	if (! target || ! me->is_fighting(target))
 		return notify_fail(SAO "只能对战斗中的对手使用。\n");
@@ -29,6 +29,9 @@ int perform(object me, object target)
 	    (string)weapon->query("skill_type") != "sword")
 		return notify_fail("你使用的武器不对！\n");
 
+	if (me->query_skill_mapped("sword") != "kuangfeng-jian")
+                return notify_fail("你没有激发狂风剑法，难以施展" SAO "。\n");
+	
 	if ((int)me->query("neili") < 180)
 		return notify_fail("你的真气不够，无法施展" SAO "！\n");
 
@@ -48,7 +51,7 @@ int perform(object me, object target)
 	message_combatd(msg, me, target);
 	me->add("neili", -150);
 
-	count = me->query_skill("sword") / 2;
+	count = random(me->query_skill("kuangfeng-jian", 1));
 	me->add_temp("apply/attack", count);
 
         for (i = 0; i < 6; i++)

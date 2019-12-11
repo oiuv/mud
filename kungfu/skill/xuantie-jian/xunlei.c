@@ -55,8 +55,8 @@ int perform(object me, object target)
         if( (int)me->query("neili") < 900 )
                 return notify_fail("你现在真气太弱，使不出「迅雷击」。\n"); 
 
-        me->add_temp("apply/str", z / 10);
-        me->add_temp("apply/attack", j / 3); 
+        me->add_temp("apply/str", z / 8);
+        me->add_temp("apply/attack", j / 2); 
  
         msg = BLU "\n$N将手中的"+weapon->name()+"缓缓向$n一压，忽然剑光一闪， 一剑幻为三剑，宛如奔雷掣电攻向$n！\n\n"NOR;
         message_combatd(msg, me, target);
@@ -66,10 +66,10 @@ int perform(object me, object target)
         COMBAT_D->do_attack(me, target, me->query_temp("weapon"));
  
 
-        me->add("neili", -500);
+        me->add("neili", -350);
         
-        me->add_temp("apply/str", -z / 10);
-        me->add_temp("apply/attack", -j / 3);
+        me->add_temp("apply/str", -z / 8);
+        me->add_temp("apply/attack", -j / 2);
 
         me->start_busy(3);
         if( !target->is_busy() )

@@ -1,4 +1,3 @@
-
 #include <ansi.h>
 
 inherit SHAOLIN_SKILL;
@@ -139,3 +138,4 @@ string perform_action_file(string action)
 {
                 return __DIR__"qingyun-bian/" + action;
 }
+

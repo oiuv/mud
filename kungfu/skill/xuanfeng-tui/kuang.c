@@ -10,7 +10,8 @@ int perform(object me, object target)
 	//object weapon;
     string msg;
 	int i;
-
+	int lvl, count;
+	
         if (userp(me) && ! me->query("can_perform/xuanfeng-tui/kuang"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
@@ -48,6 +49,14 @@ int perform(object me, object target)
               "万钧，有若天仙！\n" NOR;
 	message_combatd(msg, me);
 	me->add("neili", -100);
+	lvl = me->query_skill("xuanfeng-tui", 1);
+	count = 0;
+	
+	if (me->query("family/family_name") == "桃花岛")
+		count = lvl / 4;
+	
+	me->add_temp("apply/attack", count);
+	me->add_temp("apply/unarmed_damage", count / 2);
 
 	for (i = 0; i < 6; i++)
 	{
@@ -59,5 +68,7 @@ int perform(object me, object target)
 	}
 
 	me->start_busy(1 + random(6));
+	me->add_temp("apply/attack", -count);
+	me->add_temp("apply/unarmed_damage", -count / 2);
 	return 1;
 }

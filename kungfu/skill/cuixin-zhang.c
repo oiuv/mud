@@ -124,8 +124,8 @@ mapping query_action(object me, object weapon)
 
 int practice_skill(object me)
 {
-        if ((int)me->query_skill("jiuyin-shengong", 1))
-                return notify_fail("你已将九阴真经上的武功全部融会贯通，不必再分开练习了。\n");
+        //if ((int)me->query_skill("jiuyin-shengong", 1))
+        //        return notify_fail("你已将九阴真经上的武功全部融会贯通，不必再分开练习了。\n");
 
         if ((int)me->query("qi") < 100)
                 return notify_fail("你的体力太低了。\n");
@@ -134,7 +134,7 @@ int practice_skill(object me)
                 return notify_fail("你的内力不够。\n");
 
         me->receive_damage("qi", 80);
-        me->add("neili", -150);
+        me->add("neili", -120);
         return 1;
 }
 

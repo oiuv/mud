@@ -62,6 +62,16 @@ mapping *action = ({
         "skill_name" : "ñ·å¾·ÉÏÉ",
         "damage_type" : "ÄÚÉË"
 ]),
+([      "action": " "RED" Æ®Ñ©´©ÔÆÕÆÖ®¼«Òâ "NOR"",
+        "force"  : (int)this_player()->query_skill("force")/2 + random((int)this_player()->query_skill("force")),
+        "attack" : (int)this_player()->query_skill("strike")/4 + random((int)this_player()->query_skill("strike")/2),
+        "dodge"  : (int)this_player()->query_skill("dodge")/4 + random((int)this_player()->query_skill("force")/3),
+        "parry"  : (int)this_player()->query_skill("parry")/4 + random((int)this_player()->query_skill("parry")/3),
+        "damage" : (int)this_player()->query_skill("force")/3 + random((int)this_player()->query_skill("strike")/3),
+        "lvl"    : 100,
+        "skill_name" : "¼«Òâ",
+        "damage_type": "ÄÚÉË"
+]),
 });
 
 int valid_enable(string usage) { return usage == "strike" ||  usage == "parry"; }

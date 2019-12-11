@@ -41,8 +41,8 @@ int practice_skill(object me)
         if ((int)me->query("neili") < 200)
                 return notify_fail("你的内力太差了，不能练习蛇行狸翻。\n");
 
-        me->receive_damage("qi", 100);
-        me->add("neili", -150);
+        me->receive_damage("qi", 80);
+        me->add("neili", -120);
         return 1;
 }
 mixed valid_damage(object ob, object me, int damage, object weapon)

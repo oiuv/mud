@@ -19,9 +19,15 @@ int valid_force(string force)
 int query_neili_improve(object me)
 {
         int lvl;
-
         lvl = (int)me->query_skill("hanbing-zhenqi", 1);
-          return lvl * lvl * 15 * 18 / 100 / 200;
+		
+		if ((int)me->query_skill("pixie-jian", 1) > 300)
+		        return lvl * lvl * 15 * 5 / 100 / 200;
+		else
+		if (me->query("con") < 24)
+				return lvl * lvl * 15 * 10 / 100 / 200;
+		else
+				return lvl * lvl * 15 * 18 / 100 / 200;
 }
 
 int valid_learn(object me)
@@ -29,14 +35,14 @@ int valid_learn(object me)
         if (me->query("character") == "光明磊落")
                 return notify_fail("你心中暗想：我行事光明磊落，学这阴毒的"
                                    "武功做甚。\n");
-
+/*
         if (me->query("gender") == "无性"
            && (int)me->query_skill("hanbing-zhenqi", 1) > 19)
                 return notify_fail("你无根无性，阴阳不调，难以锻炼寒冰真气。\n");
 
         if (me->query("con") < 34)
                 return notify_fail("你先天根骨不够，无法修炼寒冰真气！\n");
-
+*/
         if (me->query_skill("force", 1) < 100)
                 return notify_fail("你的基本内功火候不够，难以锻炼寒冰真气。\n");
 
@@ -69,12 +75,15 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
                    || flvl < 100
                    || random(2) != 1)
                         return;
-
-                if (me->query_temp("weapon")
+				//取消武器限制
+                /*if (me->query_temp("weapon")
                    || me->query_temp("secondary_weapon")
                    || ! me->query_temp("freezing"))
                         return;
-
+*/
+				if (! me->query_temp("freezing"))
+                        return;
+					
                 if (flvl * 2 + random(lvl) > victim->query_skill("force"))
                 {
                         victim->affect_by("freezing",
@@ -96,6 +105,16 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
                 }
         }
         return result;
+}
+
+int difficult_level(object me)
+{
+  		me = this_player();
+
+        if ((int)me->query_skill("pixie-jian", 1) > 300)
+                return 500;
+        else
+                return 50;
 }
 
 string exert_function_file(string func)

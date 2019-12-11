@@ -46,14 +46,14 @@ int perform(object me, object target)
 	msg = HIY "$N" HIY "一声怒喝，手中" + weapon->name() +  HIY "凌空劈斩"
               "而出，刀锋顿时如闪电般贯向$n" HIY "！\n" NOR;
 
-        ap = me->query_skill("blade");
-        dp = target->query_skill("parry");
+        ap = me->query_skill("blade") + me->query_skill("martial-cognize", 1);
+        dp = target->query_skill("parry") + target->query_skill("martial-cognize", 1);
 
         if (ap / 2 + random(ap) > dp)
 	{
-		damage = ap / 3 + random(ap / 3);
+		damage = ap / 3 + random(ap / 2);
                 me->add("neili", -30);
-		msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 15,
+		msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 25,
                                            HIR "$n" HIR "稍作迟疑，不想被$N" HIR
                                            "一刀劈中，顿时一声惨呼，血溅五步！\n" NOR);
 		me->start_busy(2);

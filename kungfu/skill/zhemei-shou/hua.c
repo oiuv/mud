@@ -13,6 +13,12 @@ int perform(object me, object target)
         string msg;
         int ap, dp, p;
         int lv, cost_neili;
+		
+		float improve;
+		int lvl, i, n;
+		string martial;
+		string *ks;
+		martial = "hand";
 
         if (userp(me) && ! me->query("can_perform/zhemei-shou/hua"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -28,8 +34,9 @@ int perform(object me, object target)
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail(HUA "只能空手施展。\n");
 
-        if ((int)me->query_skill("beiming-shengong", 1) < 220)
-                return notify_fail("你的北冥神功火候不够，难以施展" HUA "。\n");
+        if ((int)me->query_skill("beiming-shengong", 1) < 220
+			&& (int)me->query_skill("xiaowuxiang", 1) < 220)
+                return notify_fail("你的逍遥内功火候不够，难以施展" HUA "。\n");
 
         if (lv = (int)me->query_skill("zhemei-shou", 1) < 220)
                 return notify_fail("你逍遥折梅手等级不够，难以施展" HUA "。\n");
@@ -37,8 +44,9 @@ int perform(object me, object target)
         if (me->query("max_neili") < 4000)
                 return notify_fail("你的内力修为不足，难以施展" HUA "。\n");
 
-        if (me->query_skill_mapped("force") != "beiming-shengong")
-                return notify_fail("你没有激发北冥神功，难以施展" HUA "。\n");
+        if (me->query_skill_mapped("force") != "beiming-shengong"
+			&& me->query_skill_mapped("force") != "xiaowuxiang")
+                return notify_fail("你没有激发逍遥内功，难以施展" HUA "。\n");
 
         if (me->query_skill_mapped("hand") != "zhemei-shou")
                 return notify_fail("你没有激发逍遥折梅手，难以施展" HUA "。\n");
@@ -55,9 +63,30 @@ int perform(object me, object target)
         msg = HIM "$N" HIM "深深吸进一口气，单手挥出，掌缘顿时霞光万道，漾出"
               "七色虹彩向$n" HIM "席卷而至。\n" NOR;
 
-        ap = me->query_skill("dodge", 1) + me->query_skill("hand");
-        dp = target->query_skill("dodge", 1) + target->query_skill("parry");
+		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+		lvl = lvl * 4 / 5;
+		ks = keys(me->query_skills(martial));
+		improve = 0;
+		n = 0;
+		//最多给予5个技能的加成
+		for (i = 0; i < sizeof(ks); i++)
+		{
+			if (SKILL_D(ks[i])->valid_enable(martial))
+			{
+				n += 1;
+				improve += (int)me->query_skill(ks[i], 1);
+				if (n > 4 )
+					break;
+			}
+		}
+		
+		improve = improve * 4 / 100 / lvl;
+			  
+        ap = me->query_skill("dodge") + me->query_skill("hand");
+        dp = target->query_skill("dodge") + target->query_skill("parry");
 
+		ap += ap * improve;
+		
         if (target->is_bad() || ! userp(target))
                 ap += ap / 10;
 
@@ -100,14 +129,14 @@ int perform(object me, object target)
                         msg += "( $n" + eff_status_msg(p) + " )\n";
 
                         me->add("neili", cost_neili);
-                        me->start_busy(3);
+                        me->start_busy(2);
                 }
         } else
         {
                 msg += CYN "$p" CYN "见状大惊失色，完全勘破不透$P"
                        CYN "招中奥秘，当即飞身跃起丈许，躲闪开来。\n" NOR;
                 me->add("neili", -200);
-                me->start_busy(4);
+                me->start_busy(3);
         }
         message_combatd(msg, me, target);
 

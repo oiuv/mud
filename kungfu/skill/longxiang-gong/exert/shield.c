@@ -6,10 +6,10 @@ void remove_effect(object me, int amount);
 
 int exert(object me, object target)
 {
-        int skill, lvl, layer;
+        int skill, layer;
 
-        lvl = me->query_skill("longxiang-gong", 1);
-        layer = lvl / 30;
+        skill = me->query_skill("longxiang-gong", 1);
+        layer = skill / 30;
 
         if (layer > 13) layer = 13;
 
@@ -24,8 +24,6 @@ int exert(object me, object target)
 
         if ((int)me->query_temp("shield"))
                 return notify_fail("你已经在运功中了。\n");
-
-        skill = me->query_skill("force");
 
         message_combatd(HIW "$N" HIW "暗聚龙象般若功第" + chinese_number(layer) +
                         "层功力，顿时一股白雾蒸腾而起，瞬间笼罩$N" HIW "全身！\n"

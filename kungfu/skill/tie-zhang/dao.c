@@ -31,10 +31,10 @@ int perform(object me, object target)
         if (me->query_skill_prepared("strike") != "tie-zhang")
                 return notify_fail("你没有准备铁掌掌法，难以施展" DAO "。\n");
 
-        if ((int)me->query_skill("force") < 280)
+        if ((int)me->query_skill("force") < 260)
                 return notify_fail("你的内功修为不够，难以施展" DAO "。\n");
 
-        if ((int)me->query("max_neili") < 2800)
+        if ((int)me->query("max_neili") < 2500)
                 return notify_fail("你的内力修为不够，难以施展" DAO "。\n");
 
         if ((int)me->query("neili") < 400)

@@ -38,7 +38,7 @@ int perform(object me, object target)
 
 	msg = HIW "\n$N" HIW "身法陡快，手中" + weapon->name() + HIW "一扬，"
               "施出绝招「" HIM "内点乾坤" HIW "」，猛然间，" + weapon->name() + HIW
-              "连连点向$n" HIW "周身要穴。" NOR;
+              "连连点向$n" HIW "周身要穴。\n" NOR;
 
         message_sort(msg, me, target);
 

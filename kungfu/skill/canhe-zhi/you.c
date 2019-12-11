@@ -23,7 +23,7 @@ int perform(object me, object target)
         if (objectp(me->query_temp("weapon")))
                 return notify_fail("你必须空手才能使用" YOU "。\n");
 
-        if ((int)me->query_skill("canhe-zhi", 1) < 120)
+        if ((int)me->query_skill("canhe-zhi", 1) < 200)
                 return notify_fail("你的参合指修为有限，难以施展" YOU "。\n");
 
         if (me->query_skill_mapped("finger") != "canhe-zhi")

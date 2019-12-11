@@ -245,6 +245,16 @@ mapping *action = ({
         "lvl" : 250,
         "damage_type" : "瘀伤"
 ]),
+([      "action": " "RED" 太极拳之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("force", 1)/3),
+        "attack" : (int)this_player()->query_skill("unarmed", 1)/5 + random((int)this_player()->query_skill("unarmed", 1)/3),
+        "dodge"  : (int)this_player()->query_skill("dodge", 1)/4 + random((int)this_player()->query_skill("force", 1)/2),
+        "parry"  : (int)this_player()->query_skill("parry", 1)/3 + random((int)this_player()->query_skill("parry", 1)),
+        "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("unarmed", 1)/4),
+        "lvl"    : 300,
+        "skill_name" : "极意",
+        "damage_type": "瘀伤"
+]),
 });
 
 int valid_enable(string usage) { return usage == "unarmed" || usage == "parry"; }
@@ -359,6 +369,27 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
                 }
                 COMBAT_D->set_bhinfo(result);
         }
+}
+
+mixed hit_ob(object me, object victim)
+{
+        int time;
+        time = me->query_temp("combat_time");
+
+        if(time > 10 && random(5) && ! me->query_temp("action_flag"))
+	 {
+		message_vision(RED "太极蓄力，借力打力。\n" NOR, me);
+		me->set_temp("action_flag", 1);
+	 	me->add_temp("apply/attack", time * 10);
+		me->add_temp("apply/parry", time * 10);
+	 	me->add_temp("apply/unarmed_damage", time * 3);
+	 	COMBAT_D->do_attack(me, victim, me->query_temp("weapon"), random(2)?10:30);
+	 	me->add_temp("apply/attack", -time * 10);
+		me->add_temp("apply/parry", -time * 10);
+	 	me->add_temp("apply/unarmed_damage", -time * 3);
+	 	me->delete_temp("action_flag");
+	 	return;
+	 }
 }
 
 int query_effect_parry(object attacker, object me)

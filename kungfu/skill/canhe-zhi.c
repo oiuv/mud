@@ -77,7 +77,18 @@ mapping *action = ({
         "damage": 240,
         "weapon" : HIR "参合破体剑气" NOR,
         "damage_type" : "刺伤"
-])
+]),
+([      "action": " "RED" 参合指之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
+        "attack" : (int)this_player()->query_skill("finger", 1)/4 + random((int)this_player()->query_skill("finger", 1)/2),
+        "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
+        "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
+        "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("finger", 1)/2),
+        //"lvl"    : 100,
+		"weapon" : HIR "参合破体剑气" NOR,
+        //"skill_name" : "极意",
+        "damage_type": "刺伤"
+]),
 });
 
 string main_skill() { return "canhe-zhi"; }

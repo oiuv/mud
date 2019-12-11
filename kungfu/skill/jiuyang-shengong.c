@@ -197,7 +197,18 @@ mapping query_sub_skills()
 
 int valid_enable(string usage)
 {
-    return usage == "force";
+    object me = this_player();
+
+    if (me->query("reborn"))
+    {
+
+        if (!me->query("can_learn/jiuyang-shengong/enable_weapon"))
+            return usage == "force" || usage == "unarmed" || usage == "parry";
+        else
+            return usage == "force" || usage == "unarmed" || usage == "parry" || usage == "sword" || usage == "blade";
+    }
+    else
+        return usage == "force";
 }
 
 int valid_force(string force) { return 1; }

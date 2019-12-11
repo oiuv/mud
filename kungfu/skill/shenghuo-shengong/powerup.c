@@ -17,7 +17,7 @@ int exert(object me, object target)
         if ((int)me->query_temp("powerup"))
                 return notify_fail("你已经在运功中了。\n");
 
-        skill = me->query_skill("force");
+        skill = me->query_skill("shenghuo-shengong", 1);
         me->add("neili", -150);
         message_combatd(HIM "$N默运圣火神功，脸色先由黄翻紫，紧接着由紫翻蓝，再由蓝翻红，最后又恢"
                         "复为黄色，甚为诡异。\n" NOR,me);
@@ -27,7 +27,7 @@ int exert(object me, object target)
         me->set_temp("powerup", 1);
 
         me->start_call_out((:call_other, __FILE__, "remove_effect", me, skill * 1 / 3 :), skill);
-        if (me->is_fighting()) me->start_busy(3);
+        if (me->is_fighting()) me->start_busy(1 + random(3));
         return 1;
 }
 

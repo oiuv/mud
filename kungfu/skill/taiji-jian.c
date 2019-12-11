@@ -254,6 +254,16 @@ mapping *action = ({
         "lvl" : 250,
         "damage_type" : "刺伤"
 ]),
+([      "action": " "RED" 太极剑之极意 "NOR"",
+        "force"  : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("force", 1)/3),
+        "attack" : (int)this_player()->query_skill("sword", 1)/5 + random((int)this_player()->query_skill("sword", 1)/3),
+        "dodge"  : (int)this_player()->query_skill("dodge", 1)/4 + random((int)this_player()->query_skill("force", 1)/2),
+        "parry"  : (int)this_player()->query_skill("parry", 1)/3 + random((int)this_player()->query_skill("parry", 1)),
+        "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("sword", 1)/4),
+        "lvl"    : 300,
+        "skill_name" : "极意",
+        "damage_type": "刺伤"
+]),
 });
 
 

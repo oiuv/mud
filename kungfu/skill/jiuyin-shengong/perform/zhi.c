@@ -46,7 +46,10 @@ int perform(object me, object target)
 
         me->add("neili", -100);
 
-        ap = skill * 3 / 2 + me->query_skill("martial-cognize", 1);
+        ap = me->query_skill("unarmed");
+		if(ap < me->query_skill("finger"))
+			ap = me->query_skill("finger");
+		ap += me->query_skill("martial-cognize", 1);
         dp = target->query_skill("parry") + target->query_skill("martial-cognize", 1);
 
         msg = HIY "$N" HIY "出手成指，随意点戳，似乎看尽了$n"
@@ -59,7 +62,6 @@ int perform(object me, object target)
                         msg += HIY "$n" HIY "见来指玄幻无比，全然无法抵挡，慌乱之下破绽迭出，$N"
                                HIY "随手连出" + chinese_number(n) + "指！\n" NOR;
                         message_combatd(msg, me, target);
-                        me->start_busy(1 + random(n));
                         while (n-- && me->is_fighting(target))
                         {
                                 if (random(2) && ! target->is_busy())
@@ -67,6 +69,7 @@ int perform(object me, object target)
 
                                 COMBAT_D->do_attack(me, target, 0, 0);
                         }
+                        me->start_busy(1 + random(n));
 
                         weapon = target->query_temp("weapon");
                         if (weapon && random(ap) / 2 > dp && weapon->query("type") != "pin")

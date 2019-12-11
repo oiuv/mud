@@ -237,16 +237,16 @@ mapping *action = ({
 
 string main_skill()
 {
-	return "liumai-shenjian";
+	return "six-finger";
 }
 
 mapping sub_skills = ([
-        "shaoshang-sword"  : 880,
-        "shangyang-sword"  : 880,
-        "zhongchong-sword" : 880,
-        "guanchong-sword"  : 880,
-        "shaoze-sword"     : 880,
-        "shaochong-sword"  : 880,
+        "shaoshang-sword"  : 500,
+        "shangyang-sword"  : 500,
+        "zhongchong-sword" : 500,
+        "guanchong-sword"  : 500,
+        "shaoze-sword"     : 500,
+        "shaochong-sword"  : 500,
 ]);
 
 int get_ready(object me)

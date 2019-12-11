@@ -96,7 +96,10 @@ int perform(object me, object target)
                 if (random(2) == 1 && ! target->is_busy())
                         target->start_busy(1);
 
-        	COMBAT_D->do_attack(me, target, 0, i * 2);
+			if(weapon)
+				COMBAT_D->do_attack(me, target, weapon, i * 2);
+			else
+				COMBAT_D->do_attack(me, target, 0, i * 2);
         }
         me->add_temp("apply/attack", -count);
 	me->start_busy(1 + random(5));

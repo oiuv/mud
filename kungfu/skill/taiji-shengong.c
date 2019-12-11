@@ -23,7 +23,7 @@ int query_neili_improve(object me)
 int valid_learn(object me)
 {
         if (me->query("gender") == "无性"
-           && (int)me->query_skill("taiji-shengon", 1) > 19)
+           && (int)me->query_skill("taiji-shengong", 1) > 19)
                 return notify_fail("你无根无性，阴阳不调，难以领会高深的太极神功。\n");
 
         if ((int)me->query_skill("force", 1) < 100)

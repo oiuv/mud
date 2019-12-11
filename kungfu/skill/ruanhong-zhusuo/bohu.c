@@ -13,6 +13,12 @@ int perform(object me, object target)
         string msg;
         int ap, dp;
         int damage;
+		
+		float improve;
+		int lvl, m, n;
+		string martial;
+		string *ks;
+		martial = "whip";
  
         if (! target) target = offensive_target(me);
 
@@ -40,9 +46,30 @@ int perform(object me, object target)
 
         msg = HIY "$N" HIY "一声暴喝，使出「搏虎」诀，手中" + weapon->name() +
               HIY "狂舞，漫天鞭影幻作无数小圈，铺天盖地罩向$n" + HIY "！\n" NOR;
+			  
+		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+		lvl = lvl * 4 / 5;
+		ks = keys(me->query_skills(martial));
+		improve = 0;
+		n = 0;
+		//最多给予5个技能的加成
+		for (m = 0; m < sizeof(ks); m++)
+		{
+			if (SKILL_D(ks[m])->valid_enable(martial))
+			{
+				n += 1;
+				improve += (int)me->query_skill(ks[m], 1);
+				if (n > 4 )
+					break;
+			}
+		}
+		
+		improve = improve * 4 / 100 / lvl;
 
         ap = me->query_skill("whip") + me->query_skill("force");
         dp = target->query_skill("force") + target->query_skill("parry");
+		
+		ap += ap * improve;
 
         if (ap / 2 + random(ap) > dp)
         {

@@ -1,4 +1,5 @@
 inherit SKILL;
+#include <ansi.h>
 
 mapping *action = ({
 ([      "action": "$N使一式「峭壁断云」，手中$w疾挥而下，幻出一道孤光刺向$n的$l",
@@ -116,6 +117,43 @@ int practice_skill(object me)
         me->receive_damage("qi", 100);
         me->add("neili", -55);
         return 1;
+}
+
+mixed hit_ob(object me, object victim, int damage_bonus)
+{
+        int lvl, damage;
+        object weapon = me->query_temp("weapon");
+
+        lvl = me->query_skill("kunlun-jian", 1);
+
+        if (damage_bonus < 120
+           || lvl < 160
+           || random(2)
+           || me->query("neili") < 500
+           || me->query_skill_mapped("sword") != "kunlun-jian" )
+      		return 0;
+
+        if (lvl / 2 + random(lvl) > victim->query_skill("parry", 1))
+        {
+                if (me->query_skill("tanqin-jifa") < 200)
+				{
+					me->add("neili", -80);
+					victim->receive_wound("qi", damage_bonus / 2, me);
+		  
+					return HIW "$N" HIW "手中" + weapon->name() + HIW "犹如神助，从天而下，威不"
+						   "可挡地劈向$n" HIW "，气势恢弘之极。\n" NOR;
+				}
+				else
+				{
+					me->add("neili", -60);
+					damage = damage_bonus / 2 + random(me->query_skill("tanqin-jifa") / 2);
+					victim->receive_wound("jing", damage, me);
+		  
+					return HIW "$N" HIW "手中" + weapon->name() + HIW "犹如神助，伴随渺渺琴音，不"
+						   "可挡地劈向$n" HIW "，气势恢弘之极。\n" NOR;
+				}
+				
+         }
 }
 
 string perform_action_file(string action)
