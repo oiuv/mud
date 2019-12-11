@@ -7,7 +7,6 @@ inherit F_DEALER;
 #define BEAST_OB          "/clone/npc/magicbeast.c"
 #define BEAST_DIR         "/data/beast/"
 
-
 void get_subtype(string arg, object ob);
 void get_gender(string arg, object ob);
 void get_id(string arg, object ob);
@@ -39,7 +38,7 @@ string *beast_unit_name=({
 });
 
 void create()
-{        
+{
         set_name("狂风使者", ({ "kuangfeng shizhe", "kuangfeng", "shizhe" }) );
         set("gender", "男性" );
         set("age", 21);
@@ -49,22 +48,22 @@ void create()
 LONG );
         set("title",HIW"召唤兽商人"NOR);
         set("combat_exp", 5);
-        
-        set("inquiry", ([ 
-                "召唤兽"     : "只要给我一百两黄金，你就能拥有召唤兽了！", 
-                
+
+        set("inquiry", ([
+                "召唤兽"     : "只要给我一百两黄金，你就能拥有召唤兽了！",
+
         ]));
 
-        set_skill("training", 400);    
+        set_skill("training", 400);
         set("chat_chance", 15);
         set("attitude", "friendly");
-	        
+
         setup();
-        carry_object("/clone/cloth/cloth")->wear();   
+        carry_object("/clone/cloth/cloth")->wear();
 }
 
 void init()
-{       
+{
         object ob;
         ::init();
         if( interactive(ob = this_player()) && !is_fighting() ) {
@@ -93,27 +92,27 @@ int do_choose()
 
         if (me->is_busy())
                 return notify_fail("你上一个动作还没有完成。\n");
-                
+
         if (file_size(me->query_save_file() + "-beast.o") > 0 &&
             mapp(me->query("can_whistle")))
                 return notify_fail("你已经拥有你心爱的召唤兽了。\n");
-                                   
+
         if (me->query_skill("training", 1)<200)
                 return notify_fail("你的驭兽术太低了，即使养了召唤兽，也会背弃你而去。\n");
-        
+
         if (! me->query_temp("beast/money"))
         {
                 command("say 这位" + RANK_D->query_respect(me) + "，每只召唤兽一百两黄金，你必须先给钱！");
                 return 1;
         }
-                               
+
         write("您要养哪类召唤兽：\n");
         write(" 1. 马   2. 驴   3. 骡   4. 驼  5. 牛  6. 象\n");
         write(" 7. 狮   8. 虎   9. 豹  10. 鹿 11. 鹤 12. 雕\n");
         write("13. 羊  14. 猴  15. 熊  16. 狼 17. 狐 18. 貂\n");
         write("19. 驹  20. 兽\n");
         write("请选择数字代号：(q 键取消)");
-        
+
         input_to( (: get_subtype :), me);
         return 1;
 }
@@ -121,14 +120,14 @@ int do_choose()
 void get_subtype(string arg, object ob)
 {
         int n;
-   
-        if (arg == "q" || arg == "Q")    
+
+        if (arg == "q" || arg == "Q")
                 return;
 
         sscanf(arg, "%d", n);
-    
-        if (n <= 0 || n > 20)  
-        {               
+
+        if (n <= 0 || n > 20)
+        {
                 write("您要养哪类召唤兽：\n");
                 write(" 1. 马   2. 驴   3. 骡   4. 驼  5. 牛  6. 象\n");
                 write(" 7. 狮   8. 虎   9. 豹  10. 鹿 11. 鹤 12. 雕\n");
@@ -142,17 +141,17 @@ void get_subtype(string arg, object ob)
 
         write("\n");
         write("请设定召唤兽的性别(雄性：1  雌性：0)：");
-        input_to( (: get_gender :), ob ); 
+        input_to( (: get_gender :), ob );
 }
 
 void get_gender(string arg, object ob)
 {
         int n;
 //      object beast;
-        
+
         sscanf(arg, "%d", n);
 
-        if (n != 0 && n != 1)  
+        if (n != 0 && n != 1)
         {
                 write("\n");
                 write("请设定召唤兽的性别(雄性：1  雌性：0)：");
@@ -160,51 +159,51 @@ void get_gender(string arg, object ob)
                 return;
         }
         ob->set_temp("beast/beast_gender", n ? "男性" : "女性");
-          
+
         write("\n");
-       
+
         write(sort_string(CYN "你按照狂风使者的指点开始飞快的念道：“在天的见"
                 "证之下，集勇气、智慧、与美丽于一身的强大生物，幻兽呀！请"
                 "你以最深的灵性，聆听我的倾诉，我－" + ob->query("name") +
                 "－将与你缔结永生的血之盟约，终此生惟有你与我为终生之盟友"
-                "，契。”\n" NOR, 64));        
+                "，契。”\n" NOR, 64));
 
         write(sort_string(WHT "只见你手中的幻兽卵却传来一阵异样，合在掌中的魔"
                 "幻兽卵温度异常的升高，升到几乎烫手的高温，而且里面隐隐有东"
                 "西活动的感觉。$N满心期待中，原本光华的外壳开是出现裂痕，然"
                 "后裂痕加大，一股奇特，说不上香或臭的味道开始散出，充斥整个"
-                "空间。接着，一颗龙眼大小的头伸了出来，看起来有点像" + 
+                "空间。接着，一颗龙眼大小的头伸了出来，看起来有点像" +
                 beast_type_name[ob->query_temp("beast/beast_type") - 1] +  "的样子，接着整个身子全露"
                 "了出来，看来只有巴掌不到的大小，一身应该是银色的，但因为沾"
                 "满了湿滑黏液而泛出珍珠色泽，小幻兽看了$N一眼，伸出小舌头在"
                 "你拇指上舔了几下，发出一声如蚊声的叫声，随即开始吃起卵壳，"
                 "一下子，和它等体积的卵壳一下子就被吃光了，只见它可爱的打了"
                 "个饱嗝，身个懒腰，舒服的窝在$N的掌心中。\n" NOR, 64));
-                
+
         write("\n");
         write("请设定召唤兽的英文 id ：");
-        input_to( (: get_id :), ob ); 
+        input_to( (: get_id :), ob );
 }
 
 void get_id(string arg, object ob)
 {
         arg = lower_case(arg);
-        
-        if (! check_legal_id(arg))   
+
+        if (! check_legal_id(arg))
         {
                 write("\n");
-             
+
                 write("请设定召唤兽的英文 id ：");
-                input_to( (: get_id :), ob ); 
+                input_to( (: get_id :), ob );
                 return;
         }
 
-        arg = replace_string(arg, " ", "_");    
-        
+        arg = replace_string(arg, " ", "_");
+
         // ob->set_temp("beast/beast_id", arg + " " + beast_id_surfix[ob->query_temp("beast/beast_type") - 1]);
         ob->set_temp("beast/beast_id", arg);
         ob->set_temp("beast/beast_unit", beast_unit_name[ob->query_temp("beast/beast_type") - 1]);
-        
+
         write("\n");
         write("请设定召唤兽的中文名：(可加颜色)");
         input_to( (: get_name :), ob);
@@ -214,10 +213,10 @@ void get_name(string arg, object ob)
 {
         string  arg_old;
         string  result;
-       
-                
+
+
         arg_old = arg;
-        
+
         arg = replace_string(arg, "$BLK$", "");
         arg = replace_string(arg, "$RED$", "");
         arg = replace_string(arg, "$GRN$", "");
@@ -235,7 +234,7 @@ void get_name(string arg, object ob)
         arg = replace_string(arg, "$HIW$", "");
         arg = replace_string(arg, "$NOR$", "");
 
-        if (! check_legal_name(arg, 12))  
+        if (! check_legal_name(arg, 12))
         {
                 write("请设定召唤兽的中文名：(可加颜色)");
                 input_to( (: get_name :), ob);
@@ -249,9 +248,9 @@ void get_name(string arg, object ob)
                 input_to( (: get_name :), ob);
                 return;
         }
-        
+
         arg = arg_old;
-        // arg = trans_color(arg, 1); 
+        // arg = trans_color(arg, 1);
         arg = replace_string(arg, "$BLK$", BLK);
         arg = replace_string(arg, "$RED$", RED);
         arg = replace_string(arg, "$GRN$", GRN);
@@ -268,9 +267,9 @@ void get_name(string arg, object ob)
         arg = replace_string(arg, "$HIC$", HIC);
         arg = replace_string(arg, "$HIW$", HIW);
         arg = replace_string(arg, "$NOR$", NOR);
-        
+
         ob->set_temp("beast/beast_name", arg);
-        
+
         write("\n");
         write("请描述召唤兽：(不可加颜色)");
         input_to( (: get_desc :), ob);
@@ -279,8 +278,8 @@ void get_name(string arg, object ob)
 void get_desc(string arg, object ob)
 {
         arg = replace_string(arg, "\"", "");
-        arg = replace_string(arg, "\\", "");  
-        if (! check_legal_name(arg, 60))  
+        arg = replace_string(arg, "\\", "");
+        if (! check_legal_name(arg, 60))
         {
                 write("请描述召唤兽：");
                 input_to( (: get_desc :), ob);
@@ -295,7 +294,7 @@ void get_desc(string arg, object ob)
 void build_beast(object ob)
 {
         string file, filename;
-        object beast, money;        
+        object beast, money;
         string beast_id;
         string beast_name;
         string beast_unit;
@@ -309,25 +308,25 @@ void build_beast(object ob)
         beast_desc = ob->query_temp("beast/beast_desc");
         beast_desc += NOR;
         beast_gender = ob->query_temp("beast/beast_gender");
-        
+
         file = read_file(BEAST_OB);
-        
+
         file = replace_string(file, "BEAST_NAME", beast_name);
-        file = replace_string(file, "BEAST_ID", beast_id);                                                       
-        file = replace_string(file, "BEAST_GENDER", beast_gender);                           
-        file = replace_string(file, "BEAST_UNIT", beast_unit);                          
-        file = replace_string(file, "LONG_DESCRIPTION", 
-                            beast_desc + "\n" + "它是" + 
+        file = replace_string(file, "BEAST_ID", beast_id);
+        file = replace_string(file, "BEAST_GENDER", beast_gender);
+        file = replace_string(file, "BEAST_UNIT", beast_unit);
+        file = replace_string(file, "LONG_DESCRIPTION",
+                            beast_desc + "\n" + "它是" +
                             ob->query("name") + "的召唤兽。\n");
-        
+
         file = replace_string(file, "OWNER_ID", ob->query("id"));
         file = replace_string(file, "OWNER_NAME", ob->query("name"));
-                            
+
         filename = BEAST_DIR + ob->query("id") + "-" + "beast";
-        
+
         if (file_size(filename + ".c") > 0)
         {
-                if (beast = find_object(filename)) 
+                if (beast = find_object(filename))
                         destruct(beast);
                 DBASE_D->clear_object(filename);
                 rm(filename + ".c");
@@ -336,36 +335,31 @@ void build_beast(object ob)
         assure_file(filename);
         write_file(filename + ".c", file); // 写入文件
         VERSION_D->append_sn(filename + ".c"); // 给物品增加识别码
-  
+
         catch(call_other(filename, "???"));
         beast = find_object(filename);
         if (! beast)
         {
-                ob->delete_temp("beast"); 
+                ob->delete_temp("beast");
                 money = new("/clone/money/gold");
                 money->set_amount(100);
                 money->move(ob, 1);
-                message_vision("$N一呆，对$n道：抱歉抱歉！出了一些问题！钱我还是还你吧。\n",
-                               this_object(), ob);
+                message_vision("$N一呆，对$n道：抱歉抱歉！出了一些问题！钱我还是还你吧。\n", this_object(), ob);
                 return;
         }
-        
+
 
         beast->save();
-        destruct(beast);              
+        destruct(beast);
 
-        ob->set("can_whistle/" + beast_id, filename);     
-        ob->delete_temp("beast");        
+        ob->set("can_whistle/" + beast_id, filename);
+        ob->delete_temp("beast");
         command("say 你可以吹声口哨召唤你的召唤兽！<whistle " + beast_id +">\n");
         return;
 }
 
 int accept_object(object me, object ob)
 {
-//      string filename;
-//      string file;
-       
-
         if (me->query_skill("training", 1) < 30)
         {
                 command("say 你的驭兽术不够，即使养了召唤兽，也会离你而去！");
@@ -383,8 +377,7 @@ int accept_object(object me, object ob)
                 {
                         me->set_temp("beast/money",1);
                         command("say 好我收下了！");
-                        command("say " + me->name() +
-                                     "，现在我这里有各种召唤兽卵！");
+                        command("say " + me->name() + "，现在我这里有各种召唤兽卵！");
                         command("say 请选择你要的召唤兽卵 < choose >");
                         destruct(ob);
                         return 1;
@@ -397,38 +390,38 @@ int check_legal_id(string id)
 {
         int i;
         //array legalid;
-        object ppl;   
-          
+        object ppl;
+
         i = strlen(id);
-        
-        if ((strlen(id) < 3) || (strlen(id) > 20)) 
+
+        if ((strlen(id) < 3) || (strlen(id) > 20))
         {
                 write("对不起，英文 id 必须是 3 到 20 个英文字母。\n");
                 return 0;
         }
-        
+
         while(i--)
-        
-        if (id[i] != ' ' && (id[i] < 'a' || id[i] > 'z'))  
+
+        if (id[i] != ' ' && (id[i] < 'a' || id[i] > 'z'))
         {
                 write("对不起，英文 id 只能用英文字母。\n");
                 return 0;
         }
 
         ppl = LOGIN_D->find_body(id);
-        
-        if (ppl || id == "guest" || id == "new") 
+
+        if (ppl || id == "guest" || id == "new")
         {
                 write("这个名字与别的玩家ID相同了．．．");
                 return 0;
         }
 
         if (file_size(sprintf("/data/user/%c/%s", id[0], id)
-                    + __SAVE_EXTENSION__) >= 0) 
+                    + __SAVE_EXTENSION__) >= 0)
         {
                 write("这个名字已经被别的玩家使用了．．．");
                 return 0;
-        } 
+        }
 
         return 1;
 }
@@ -436,22 +429,20 @@ int check_legal_id(string id)
 int check_legal_name(string name, int max_len)
 {
         int i;
-//      string  *legalname;             //not implemented..may add later
-        
+
         i = strlen(name);
-        if ((strlen(name) < 2) || (strlen(name) > max_len )) 
+        if ((strlen(name) < 2) || (strlen(name) > max_len ))
         {
-                write(sprintf("对不起，召唤兽中文字必须是 1 到 %d 个中文字。\n",
-                      max_len / 2));
+                write(sprintf("对不起，召唤兽中文字必须是 1 到 %d 个中文字。\n", max_len / 2));
                 return 0;
         }
-        
+
         if (max_len < 13 && ! is_chinese(name))
         {
                 write("对不起，请您用「中文」为宠物取名字或描述。\n");
                 return 0;
         }
-        return 1; 
+        return 1;
 }
 
 int attempt_apprentice(object ob)
@@ -459,10 +450,10 @@ int attempt_apprentice(object ob)
         command("say 滚！给我一边儿去！");
 }
 
-int recognize_apprentice(object me, string skill) 
+int recognize_apprentice(object me, string skill)
 {
-        if (skill == "training") 
-                return 1;                
-        else 
+        if (skill == "training")
+                return 1;
+        else
                 return 0;
 }
