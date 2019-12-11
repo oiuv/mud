@@ -17,96 +17,120 @@ int query_neili_improve(object me)
 }
 
 mapping *actionf = ({
-    (["action":"$N双手一举，一股劲气澎湃汹涌而来，逼得$n踉踉后退",
+    ([
+             "action":"$N双手一举，一股劲气澎湃汹涌而来，逼得$n踉踉后退",
               "force":540,
              "attack":220,
               "dodge":120,
               "parry":120,
              "damage":155,
-        "damage_type":"瘀伤"]),
-    (["action":"$N右手伸出，霎时一股气流激射而出袭向$n",
+        "damage_type":"瘀伤",
+    ]),
+    ([
+             "action":"$N右手伸出，霎时一股气流激射而出袭向$n",
               "force":560,
              "attack":240,
               "dodge":60,
               "parry":90,
              "damage":230,
-        "damage_type":"瘀伤"]),
-    (["action":"$N大喝一声，左掌一抖，顿时一股气流向$n脸上涌去",
+        "damage_type":"瘀伤",
+    ]),
+    ([
+             "action":"$N大喝一声，左掌一抖，顿时一股气流向$n脸上涌去",
               "force":570,
              "attack":235,
               "dodge":155,
               "parry":135,
              "damage":260,
-        "damage_type":"瘀伤"]),
-    (["action":"$N猱身而上，全身真气暴发，双掌猛地拍向$n",
+        "damage_type":"瘀伤",
+    ]),
+    ([
+             "action":"$N猱身而上，全身真气暴发，双掌猛地拍向$n",
               "force":580,
              "attack":250,
               "dodge":120,
               "parry":75,
              "damage":295,
-        "damage_type":"瘀伤"]),
-    (["action":"$N身法陡快，忽左忽又，突然间$N双掌连连拍出，数股太玄内劲已射向$n",
+        "damage_type":"瘀伤",
+    ]),
+    ([
+             "action":"$N身法陡快，忽左忽又，突然间$N双掌连连拍出，数股太玄内劲已射向$n",
               "force":580,
              "attack":265,
               "dodge":140,
               "parry":125,
              "damage":260,
-        "damage_type":"瘀伤"]),
-    (["action":"$N突然间左手一捺，封住$n退路，右手掌力汹涌而出",
+        "damage_type":"瘀伤",
+    ]),
+    ([
+             "action":"$N突然间左手一捺，封住$n退路，右手掌力汹涌而出",
               "force":580,
              "attack":280,
               "dodge":125,
               "parry":145,
              "damage":380,
-        "damage_type":"瘀伤"]),
+        "damage_type":"瘀伤",
+    ]),
 });
 
 mapping *actionw = ({
-    (["action":"$N攻势如虹，气势非凡，$w忽隐忽现，捉摸不定向$n慢慢攻去",
+    ([
+             "action":"$N攻势如虹，气势非凡，$w忽隐忽现，捉摸不定向$n慢慢攻去",
               "force":510,
              "attack":180,
               "dodge":115,
               "parry":125,
              "damage":325,
-        "damage_type":"内伤"]),
-    (["action":"$N手中的$w龙吟不定，犹如长江滚滚而来，将$n笼罩",
+        "damage_type":"内伤",
+    ]),
+    ([
+             "action":"$N手中的$w龙吟不定，犹如长江滚滚而来，将$n笼罩",
               "force":510,
              "attack":188,
               "dodge":112,
               "parry":115,
              "damage":310,
-        "damage_type":"刺伤"]),
-    (["action":"$N卷起手中的$w，宛如翻江倒海直射向$n而去",
+        "damage_type":"刺伤",
+    ]),
+    ([
+             "action":"$N卷起手中的$w，宛如翻江倒海直射向$n而去",
               "force":532,
              "attack":225,
               "dodge":120,
               "parry":102,
              "damage":365,
-        "damage_type":"刺伤"]),
-    (["action":"$N手中$w幻出一个个光环，顿时将$n团团包围",
+        "damage_type":"刺伤",
+    ]),
+    ([
+             "action":"$N手中$w幻出一个个光环，顿时将$n团团包围",
               "force":565,
              "attack":210,
               "dodge":115,
               "parry":105,
              "damage":390,
-        "damage_type":"内伤"]),
-    (["action":"$N飞身而起，手中$w犹如神龙般地卷向$n",
+        "damage_type":"内伤",
+    ]),
+    ([
+             "action":"$N飞身而起，手中$w犹如神龙般地卷向$n",
               "force":550,
              "attack":248,
               "dodge":110,
               "parry":120,
              "damage":420,
-        "damage_type":"刺伤"]),
+        "damage_type":"刺伤",
+    ]),
 });
 
 mapping *actionbad = ({
-    (["action":"$N正欲施招，却又突然觉得好象忘记了招式，只好胡乱使出。",
+    ([
+             "action":"$N正欲施招，却又突然觉得好象忘记了招式，只好胡乱使出。",
               "force":10,
              "attack":10,
               "dodge":10,
               "parry":10,
              "damage":10,
-        "damage_type":"内伤"]),
+        "damage_type":"内伤",
+    ]),
 });
 
 int valid_enable(string usage)
@@ -116,26 +140,19 @@ int valid_enable(string usage)
     if (me->query_skill("literate", 1) || me->query("learned_literate"))
         return usage == 0;
 
-    if (!me->query("reborn"))
-    {
-        return usage == "force";
-    }
+    if (!me->query("can_learned/taixuan-gong/enable_weapon"))
+        return usage == "force" || usage == "unarmed" || usage == "dodge" || usage == "parry";
+    else if (me->query_skill("sword", 1) < me->query_skill("taixuan-gong", 1) && me->query_skill("blade", 1) < me->query_skill("taixuan-gong", 1))
+        return usage == "force" || usage == "unarmed" || usage == "dodge" || usage == "parry";
+
+    else if (me->query_skill("sword", 1) < me->query_skill("taixuan-gong", 1) && me->query_skill("blade", 1) > me->query_skill("taixuan-gong", 1))
+        return usage == "force" || usage == "unarmed" || usage == "dodge" || usage == "blade" || usage == "parry";
+
+    else if (me->query_skill("sword", 1) > me->query_skill("taixuan-gong", 1) && me->query_skill("blade", 1) < me->query_skill("taixuan-gong", 1))
+        return usage == "force" || usage == "unarmed" || usage == "dodge" || usage == "sword" || usage == "parry";
+
     else
-    {
-        if (!me->query("can_learned/taixuan-gong/enable_weapon"))
-            return usage == "force" || usage == "unarmed" || usage == "dodge" || usage == "parry";
-        else if (me->query_skill("sword", 1) < me->query_skill("taixuan-gong", 1) && me->query_skill("blade", 1) < me->query_skill("taixuan-gong", 1))
-            return usage == "force" || usage == "unarmed" || usage == "dodge" || usage == "parry";
-
-        else if (me->query_skill("sword", 1) < me->query_skill("taixuan-gong", 1) && me->query_skill("blade", 1) > me->query_skill("taixuan-gong", 1))
-            return usage == "force" || usage == "unarmed" || usage == "dodge" || usage == "blade" || usage == "parry";
-
-        else if (me->query_skill("sword", 1) > me->query_skill("taixuan-gong", 1) && me->query_skill("blade", 1) < me->query_skill("taixuan-gong", 1))
-            return usage == "force" || usage == "unarmed" || usage == "dodge" || usage == "sword" || usage == "parry";
-
-        else
-            return usage == "force" || usage == "unarmed" || usage == "dodge" || usage == "blade" || usage == "parry" || usage == "sword";
-    }
+        return usage == "force" || usage == "unarmed" || usage == "dodge" || usage == "blade" || usage == "parry" || usage == "sword";
 }
 
 //修改太玄为兼容内功 by 薪有所属
@@ -252,11 +269,9 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
 
         if (me->query("can_learned/taixuan-gong/enable_weapon") && objectp(weapon))
             return random(2) ? HIM "$N" HIM "一招攻出，竟卷起千层气浪，太玄内劲"
-                                   "顿时源源不绝透过" +
-                                   weapon->name() + HIM "涌入$n" HIM "体内！\n" NOR
+                                   "顿时源源不绝透过" + weapon->name() + HIM "涌入$n" HIM "体内！\n" NOR
                              : HIM "$N" HIM "太玄内劲迸发，$n" HIM "只感全身一震，登时一"
-                                   "股灼热之气透胸而过，" +
-                                   weapon->name() + HIM "鲜血淋漓！\n" NOR;
+                                   "股灼热之气透胸而过，" + weapon->name() + HIM "鲜血淋漓！\n" NOR;
 
         return random(2) ? HIW "$N" HIW "一招攻出，竟卷起千层气浪，太玄内劲"
                                "顿时源源不绝涌入$n" HIW "体内！\n" NOR
@@ -289,12 +304,10 @@ int valid_learn(object me)
     level = me->query_skill("taixuan-gong", 1);
 
     if (me->query_skill("force", 1) < level)
-        return notify_fail("你对基本内功的理解还不够，无法继续领会更"
-                           "高深的太玄功。\n");
+        return notify_fail("你对基本内功的理解还不够，无法继续领会更高深的太玄功。\n");
 
     if (me->query_skill("unarmed", 1) < level)
-        return notify_fail("你对基本拳脚的理解还不够，无法继续领会更"
-                           "高深的太玄功。\n");
+        return notify_fail("你对基本拳脚的理解还不够，无法继续领会更高深的太玄功。\n");
 
     return ::valid_learn(me);
 }

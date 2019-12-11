@@ -6,9 +6,9 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-//	object weapon;
+	// object weapon;
 	string msg;
-        int ap, dp;
+  int ap, dp;
 
 	if (! target) target = offensive_target(me);
 
@@ -17,7 +17,7 @@ int perform(object me, object target)
 
 	if (target->is_busy())
 		return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧！\n");
-		
+
 	if ((int)me->query_skill("sun-finger", 1) < 80)
 		return notify_fail("你的一阳指法不够娴熟，不会使用「神指点穴」。\n");
 

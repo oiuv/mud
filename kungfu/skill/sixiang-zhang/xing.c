@@ -4,11 +4,11 @@
 #define XING "「" HIW "星罗棋布" NOR "」"
 
 inherit F_SSERVER;
- 
+
 int perform(object me)
 {
         string msg;
-        object /*weapon,*/ target;
+        object target;
         int skill, ap, dp, damage;
 
         if (userp(me) && ! me->query("can_perform/sixiang-zhang/xing"))
@@ -33,7 +33,7 @@ int perform(object me)
 
         if (me->query("neili") < 200)
                 return notify_fail("你的真气不够，难以施展" XING "。\n");
- 
+
         if (me->query_skill_mapped("strike") != "sixiang-zhang")
                 return notify_fail("你没有激发四象掌法，难以施展" XING "。\n");
 

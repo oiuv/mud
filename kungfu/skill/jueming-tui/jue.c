@@ -59,10 +59,7 @@ int perform(object me, object target)
                 break;
         }
  
-	ap = me->query_skill("unarmed") + 
-		 me->query_skill("begging", 1) + 
-		 me->query_skill("checking", 1) + 
-		 me->query("str") * 10;
+	ap = me->query_skill("unarmed") + me->query("str") * 10;
 	dp = target->query_skill("dodge") + target->query("dex") * 10;
 	pp = target->query_skill("parry") + target->query("str") * 10;
 

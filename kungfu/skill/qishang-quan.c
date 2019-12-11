@@ -1,8 +1,7 @@
 // qishang-quan.c -七伤拳
 // modify by rcwiz 2003
-
-inherit SKILL;
 #include <ansi.h>
+inherit SKILL;
 
 mapping *action = ({
 ([	"action" : "$N气凝如山，一式「金戈铁马」，双拳蓄势而发，击向$n的$l",

@@ -78,5 +78,5 @@ int perform(object me, object target)
 		}
 		message_combatd(msg, me, target);
 
-		return 1;
+	return 1;
 }

@@ -11,7 +11,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        int skill/*, i*/;
+        int skill;
         int n, p;
         int my_exp, ob_exp;
         string pmsg;
@@ -35,7 +35,7 @@ int perform(object me, object target)
 
         if ((skill = me->query_skill("feixing-shu", 1)) < 100)
                 return notify_fail("你的飞星术不够娴熟，不会使用" YU "。\n");
- 
+
         if ((int)me->query_skill("force", 1) < 120)
                 return notify_fail("你的内功火候不够，不能使用" YU "。\n");
 
@@ -62,7 +62,7 @@ int perform(object me, object target)
         {
                 me->add("neili", -100);
                 n = 1 + random(2);
- 
+
                 if (random(my_exp) > ob_exp) n += 1 + random(2);
                 if (random(my_exp / 2) > ob_exp) n += 1 + random(2);
                 if (random(my_exp / 4) > ob_exp) n += 1 + random(2);
@@ -80,7 +80,7 @@ int perform(object me, object target)
                 if (stringp(pmsg = COMBAT_D->query_ahinfo()))
                         msg += pmsg;
                         msg += "( $n" + eff_status_msg(p) + " )\n";
-                
+
                 message_combatd(msg, me, target);
         } else
         {

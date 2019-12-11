@@ -413,7 +413,7 @@ int practice_skill(object me)
 
 mixed hit_ob(object me, object victim, int damage_bonus, int i, int attack_time)
 {
-//      string name;
+        // string name;
 
         if (userp(me))
         	attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 50);
@@ -560,5 +560,5 @@ int difficult_level()
 }
 string perform_action_file(string action)
 {
-        return __DIR__"liumai-shenjian/" + action; 
+        return __DIR__"liumai-shenjian/" + action;
 }

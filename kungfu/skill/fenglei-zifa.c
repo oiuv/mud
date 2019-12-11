@@ -4,7 +4,7 @@ inherit SKILL;
 
 int valid_learn(object me)
 {
-//      object ob;
+        // object ob;
 
         if ((int)me->query("max_neili") < 500)
                 return notify_fail("你的内力不够，没有办法练风雷子法。\n");

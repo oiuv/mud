@@ -8,7 +8,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-//      object weapon;
+        // object weapon;
         int damage;
         string msg;
         int ap, dp, p;
@@ -102,7 +102,7 @@ int perform(object me, object target)
                 if (lv >= 320)cost_neili = -320;
                 if (lv >= 340)cost_neili = -300;
                 if (lv >= 360)cost_neili = -270;
-                if (lv >= 400)cost_neili = -200; 
+                if (lv >= 400)cost_neili = -200;
                 if (me->query("max_neili") > target->query("max_neili") * 2)
                 {
                         msg += HIM "只听$n" HIM "一声尖啸，$N" HIM "的七色掌"
@@ -127,7 +127,7 @@ int perform(object me, object target)
                         msg += HIM "$n" HIM "只是微微一愣，$N" HIM "的七色掌劲已破体而"
                                "入，$p" HIM "便犹如身置洪炉一般，连呕数口鲜血。\n" NOR;
                         msg += "( $n" + eff_status_msg(p) + " )\n";
-                        
+
                         me->add("neili", cost_neili);
                         me->start_busy(2);
                 }

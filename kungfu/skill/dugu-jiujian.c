@@ -13,7 +13,7 @@ string *parry_msg = ({
         "只见$n不退反进，身如飘风，一式「天柱云气」动向无定，挡住了$P的\n进攻。\n",
         "$n不退反进，使出恒山剑招「绵里藏针」，森森剑气充溢四周！架开了$P的这招\n",
 });
-         
+
 mapping *action = ({
 ([      "action" : "但见$N挺身而上，$w一旋，一招仿佛泰山剑法的「" HIC "来鹤清"
                    "泉" NOR "」直刺$n的$l",
@@ -265,9 +265,9 @@ mapping *action2 = ({
 ]),
 });
 int valid_enable(string usage)
-{ 
+{
         int lvl;
-//      object me = this_player();
+        // object me = this_player();
 
         lvl = (int)this_player()->query_skill("dugu-jiujian", 1);
 
@@ -278,7 +278,7 @@ int valid_enable(string usage)
         }
         else
                 return usage == "parry";
-       
+
 }
 
 mapping query_action(object me, object weapon)
@@ -304,7 +304,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
         ap = ob->query_skill("parry") + mp;
         dp = me->query_skill("parry", 1) / 2 +
              me->query_skill("dugu-jiujian", 1);
-         
+
         // 无招
         if (me->query("can_learn/dugu-jiujian/nothing"))
         {
@@ -315,13 +315,13 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
 
                         result += (["msg" : HIG "$n" HIG "不理会$N" HIG "的攻势，"
                                     "随意挥出一剑，反攻向$N" HIG "。\n" NOR]);
-            
+
                         if (! ob->is_busy())
                         ob->start_busy(1 + random(2));
              }
-             
+
              return result;
-             
+
         }
 
         if (ap / 2 + random(ap) < dp)
@@ -368,7 +368,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
                         break;
 
                 case 6:
-                        result += (["msg" : HIC "只见$n" HIC "不退反进，身如飘风，一式" 
+                        result += (["msg" : HIC "只见$n" HIC "不退反进，身如飘风，一式"
                                             "「" NOR + HIW "天柱云气" NOR + HIC "」动向"
                                             "无定，挡住了进攻。\n" NOR]);
                         break;
@@ -418,32 +418,16 @@ mixed hit_ob(object me, object victim, int damage_bonus)
 {
         int lvl;
         object weapon, weapon2;
-        int i, n, ap, dpp, dpd, dpf;
+        int i, ap, dpp, dpd, dpf;
         string type, msg;
-		int time;
 
         lvl = me->query_skill("dugu-jiujian", 1);
-		time = me->query_temp("combat_time");
-		
-		if(time > 10 && random(5) && ! me->query_temp("action_flag"))
-		{
-			message_vision(RED "独孤九剑，信手拈来。\n" NOR, me);
-			me->set_temp("action_flag", 1);
-			me->add_temp("apply/attack", time * 10);
-			me->add_temp("apply/parry", time * 10);
-			me->add_temp("apply/damage", time * 3);
-			COMBAT_D->do_attack(me, victim, me->query_temp("weapon"), random(2)?10:30);
-			me->add_temp("apply/attack", -time * 10);
-			me->add_temp("apply/parry", -time * 10);
-			me->add_temp("apply/damage", -time * 3);
-			me->delete_temp("action_flag");
-			return;
-		}
 
         if (me->query("neili") < 500
            || me->query_skill_mapped("sword") != "dugu-jiujian"
            ||! objectp(weapon = me->query_temp("weapon"))
-           || weapon->query("skill_type") != "sword")
+           || weapon->query("skill_type") != "sword"
+           || ! me->query("can_learn/dugu-jiujian/nothing"))
                      return 0;
 
         ap = me->query_skill("sword");
@@ -451,23 +435,22 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         dpd = victim->query_skill("dodge");
         dpf = victim->query_skill("force");
 
-		if (me->query("can_learn/dugu-jiujian/nothing"))
-			ap += random(ap / 2);
+
         //me->add("neili", -80);
-		
-		switch(random(3))
+
+        switch(random(3))
         {
            case 1:
-              if (ap * 2 / 3 + random(ap) > dpp)
+              if (ap * 3 / 4 + random(ap) > dpp)
               {
                   me->add("neili", -60);
                   victim->receive_wound("qi", (damage_bonus - 30) / 2, me);
-                  
+
                   return random(2) ? HIR "$N" HIR "一剑攻出，剑气横飞，" + weapon->name() + HIR
                                      "时若游龙穿空，时若惊鸿渡云，却不知这普通的"
                                      "一剑之中竟蕴藏着如此威力。\n" NOR:
                                      HIR "$N" HIR "手中" + weapon->name() + HIR "犹"
-                                     "如生了眼睛一般，一剑随意挥出，竟直刺向$n" HIR 
+                                     "如生了眼睛一般，一剑随意挥出，竟直刺向$n" HIR
                                      "小腹，看似平淡，但方位、力道却拿捏得恰倒好处。\n" NOR;
              }
              break;
@@ -484,22 +467,22 @@ mixed hit_ob(object me, object victim, int damage_bonus)
                   if (weapon2)type = weapon2->query("skill_type");
 
 
-                  if (ap * 2 / 3 + random(ap) >= dpf && weapon2
+                  if (ap * 3 / 4 + random(ap) >= dpf && weapon2
                       && type != "pin")
                   {
                            msg = HIW "$n" HIW "觉得眼前眼花缭乱，手中"
                                  "的" + weapon2->name() + HIW "一时竟"
                                  "然拿捏不住，脱手而出！\n" NOR;
-                           weapon2->move(environment(me));      
-                           me->add("neili", -80);                 
+                           weapon2->move(environment(me));
+                           me->add("neili", -80);
                   } else
                   {
                            msg = HIY "$n" HIY "略得空隙喘息，一时间却"
                                  "也无力反击。\n" NOR;
                            me->add("neili", -40);
                   }
-             }else 
-             if (ap * 2 / 3 + random(ap) > dpd)
+             }else
+             if (ap * 3 / 4 + random(ap) > dpd)
              {
                           msg = HIY "$n" HIY "连忙抵挡，一时间不禁手忙脚乱，"
                                 "无暇反击。\n" NOR;
@@ -517,40 +500,34 @@ mixed hit_ob(object me, object victim, int damage_bonus)
              }
              message_combatd(msg, me, victim);
              break;
-          
+
           default :
-             if (ap * 1 / 2 + random(ap) > dpd && 
+             if (ap * 2 / 3 + random(ap) > dpd &&
                  ! me->is_busy() && lvl > 300 &&
                  ! me->query_temp("dugu-jiujian/lian"))
              {
                 weapon = me->query_temp("weapon");
-                message_sort(HIY "\n$N" HIY "胸藏剑意，手中" + weapon->name() + HIY 
+                message_sort(HIY "\n$N" HIY "胸藏剑意，手中" + weapon->name() + HIY
                              "随意挥洒而出，速度之快，方位之准，显是独孤九剑已达到"
                              "收发自如的境界。\n" NOR,
                              me, victim);
 
                 me->add("neili", -300);
                 me->set_temp("dugu-jiujian/lian", 1);
-				
-				if (me->query("can_learn/dugu-jiujian/nothing"))
-					n = 9;
-				else
-					n = 4;
-				
-                for (i = 0; i < n; i++)
+                for (i = 0; i < 9; i++)
                 {
                     if (! me->is_fighting(victim))
                             break;
-                   
+
                     if (! victim->is_busy() && random(2) == 1)
                             victim->start_busy(1);
 
                     COMBAT_D->do_attack(me, victim, weapon, 0);
                 }
                 me->delete_temp("dugu-jiujian/lian");
-                
+
              }
-             break;                        
+             break;
        }
 }
 
@@ -664,14 +641,14 @@ void skill_improved(object me)
                         me->improve_skill("martial-cognize", 1500000);
 		}
         }
-        
-       
+
+
 }
 
 int difficult_level()
 {
         object me = this_object();
-       
+
         if (me->query("can_learn/dugu-jiujian/nothing"))
                //return 1200;
         return 1000;

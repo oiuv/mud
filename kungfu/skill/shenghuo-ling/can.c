@@ -10,7 +10,7 @@ int perform(object me, object target)
         object weapon;
         string msg;
         int count;
-        int /*damage,*/ skill;
+        int skill;
         int i;
 		
 		float improve;

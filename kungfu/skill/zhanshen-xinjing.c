@@ -16,10 +16,10 @@ int query_neili_improve(object me)
     int lvl;
 
     lvl = (int)me->query_skill("zhanshen-xinjing", 1);
-	if (me->query("family/family_name") == "红花会")
-		return lvl * lvl * 15 * 20 / 100 / 200;
-	else
-		return lvl * lvl * 15 * 15 / 100 / 200;
+    if (me->query("family/family_name") == "红花会")
+        return lvl * lvl * 15 * 20 / 100 / 200;
+    else
+        return lvl * lvl * 15 * 15 / 100 / 200;
 }
 
 int valid_learn(object me)

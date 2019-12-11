@@ -41,8 +41,8 @@ string query_skill_name(int level)
 
 int practice_skill(object me)
 {
-//      object* ob,obj;
-//      int i,skill,damage;
+        // object* ob, obj;
+        // int i,skill,damage;
 
         if ((int)me->query_skill("six-finger", 1))
                 return notify_fail("你已经学齐六脉神剑了。\n");
@@ -57,7 +57,7 @@ int practice_skill(object me)
         me->add("neili", -80);
         return 1;
 }
-                                          
+
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
 	if( damage_bonus < 100 ) return 0;

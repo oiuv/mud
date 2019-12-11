@@ -40,7 +40,7 @@ int perform(object me, object target)
 	msg = HIR "$N" HIR "身子忽进忽退，身形诡秘异常，在$n"
               HIR "身边飘忽不定。\n" NOR;
 
-        ap = me->query_skill("dodge", 1) +
+        ap = me->query_skill("kuihua-mogong", 1) * 3 / 2 +
              me->query_skill("martial-cognize", 1);
         dp = target->query_skill("dodge") +
              target->query_skill("martial-cognize", 1);

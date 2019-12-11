@@ -10,7 +10,7 @@ int perform(object me, object target)
         int damage;
         string msg;
         int i, ap, dp;
-//      object weapon;
+        // object weapon;
 
         if (userp(me) && ! me->query("can_perform/dabei-zhang/bei"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -20,7 +20,7 @@ int perform(object me, object target)
         if (! target || ! me->is_fighting(target))
                 return notify_fail(BEI "只能对战斗中的对手使用。\n");
 
-        if (me->query_temp("weapon") || me->query_temp("secondary_weapon")) 
+        if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail(BEI "只能空手使用。\n");
 
         if ((int)me->query_skill("force") < 300)
@@ -45,13 +45,13 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         msg = HIW "$N" HIW "凄然一声长啸，施出「" HIG "万里鲸涛大悲神诀"
-              HIW "」，双掌翻滚出漫天掌影，尽数拍向$n" HIW "。\n" NOR;  
+              HIW "」，双掌翻滚出漫天掌影，尽数拍向$n" HIW "。\n" NOR;
 
         ap = me->query_skill("strike") + me->query("int") * 10;
         dp = target->query_skill("force") + target->query("int") * 10;
 
         if (ap / 2 + random(ap) > dp)
-        { 
+        {
                 damage = ap + random(ap / 2);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 200,
                                            HIR "$n" HIR "勘破不透掌中虚实，$N" HIR

@@ -48,7 +48,7 @@ int perform(object me, object target)
                 //me->start_busy(2 + random(2));
                 me->start_busy(2);
 
-                damage = (int)me->query_skill("unarmed") + (int)me->query_skill("throwing");
+                damage = (int)me->query_skill("unarmed");
                 damage = damage / 2 + random(damage / 2);
 
                 me->add("neili", -100);

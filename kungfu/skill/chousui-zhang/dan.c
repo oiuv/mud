@@ -10,7 +10,7 @@ string final(object me, object target, int damage);
 int perform(object me, object target)
 {
         object du;
-        int lvl, lvp, damage, pos, duwan;
+        int lvl, lvp, damage, pos;
         int an, dn, ap, dp;
         string name, fire, msg;
 
@@ -47,8 +47,8 @@ int perform(object me, object target)
                 return notify_fail("你现在的内息不足，难以施展" DAN "。\n");
 
         // 任务NPC可以直接施展
-        //if (userp(me) && ! objectp(du = me->query_temp("handing")))
-        //        return notify_fail("你必须拿着(hand)些毒药才能施展" DAN "。\n");
+        if (userp(me) && ! objectp(du = me->query_temp("handing")))
+                return notify_fail("你必须拿着(hand)些毒药才能施展" DAN "。\n");
 
         if (objectp(du) && ! mapp(du->query("poison")))
                 return notify_fail("你手中所拿的" + du->name() + NOR "不"
@@ -81,14 +81,6 @@ int perform(object me, object target)
                 pos = 50 + random(lvp / 2);
                 fire = "一点暗红色的" NOR + RED "火星" HIR;
         }
-		
-		if (objectp(du = me->query_temp("handing")) && mapp(du->query("poison")) &&
-			! du->query("no_shot"))
-			{
-				duwan = random(du->query("poison/level"));
-				pos += duwan;
-				fire = "化作一个绿色的" HIG "奇特的火球" HIR;
-			}
 
         if (objectp(du))
                 name = du->name();
@@ -113,15 +105,12 @@ int perform(object me, object target)
         } else
         {
                 ap = me->query_skill("strike") +
-                     me->query_skill("poison") * 3 / 4 +
-					 me->query_skill("throwing");
-					 //增加一些暗器判定,毕竟后期毒和暗器都跟不上等级
+                     me->query_skill("poison");
 
                 // 将任务NPC和玩家区分，再计算防御状况
                 if (userp(me))
                         dp = target->query_skill("dodge") +
-                             target->query_skill("martial-cognize",1) +
-							 target->query_skill("throwing");
+                             target->query_skill("martial-cognize",1);
                 else
                         dp = target->query_skill("dodge") +
                              target->query_skill("parry");
@@ -130,7 +119,7 @@ int perform(object me, object target)
 
                 if (ap / 2 + random(ap) > dp)
                 {
-                        msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 55 + random(duwan / 10),
+                        msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 55,
                                                   (: final, me, target, damage :));
                         me->start_busy(2);
                         me->add("neili", -220);

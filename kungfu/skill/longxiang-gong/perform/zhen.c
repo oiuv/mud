@@ -7,7 +7,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-//      object weapon;
+        // object weapon;
         int ap, dp, damage, jia;
         int i, count;
         string msg;
@@ -81,22 +81,22 @@ int perform(object me, object target)
 
         	return 1;
 	} else
-        {       
+        {
         	jia = me->query("jiali");
                 damage = ap / 2 + random(jia * 5);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 90,
-                                                   HIR "$n" HIR "不及闪避，顿被$N" HIR 
+                                                   HIR "$n" HIR "不及闪避，顿被$N" HIR
                                 HIR "一下击中，尽伤三焦六脉。\n" NOR);
                         msg += HIR "$n" HIR "被$N" HIR "罡劲所逼，一时无力作出抵挡，竟呆立当场。\n" NOR;
                         count = ap / 10;
-        } 
+        }
 } else
         {
                 msg += HIY "$n" HIY "见$N" HIY "来势迅猛之极，甚难防备，连"
                        "忙振作精神，小心抵挡。\n" NOR;
                 count = 0;
         }
- 
+
         message_combatd(msg, me, target);
         me->add_temp("apply/attack", count);
 

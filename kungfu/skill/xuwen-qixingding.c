@@ -7,8 +7,8 @@ inherit SKILL;
 
 int valid_learn(object me)
 {
-//      object ob;
-  
+        // object ob;
+
         if (me->query_skill("throwing", 1) < 20)
                 return notify_fail("ÄãµÄ°µÆ÷¼¼ÄÜ²»¹»æµÊì¡£\n");
 
@@ -25,7 +25,7 @@ int valid_enable(string usage)
 
 int practice_skill(object me)
 {
-//      object weapon;
+        // object weapon;
 
         if ((int)me->query("qi") < 110)
                 return notify_fail("ÄãµÄÌåÁ¦²»×ãÁ·Ï°ÐéÎÃÆßÐÇ¶¤¡£\n");

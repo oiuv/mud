@@ -7,7 +7,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-//      object weapon;
+        // object weapon;
         int damage;
         string msg;
 
@@ -31,7 +31,7 @@ int perform(object me, object target)
         if ((int)me->query("neili") < 400)
                 return notify_fail("你现在真气不够，难以施展" JUAN "。\n");
 
-        if (me->query_skill_mapped("cuff") != "hua-quan") 
+        if (me->query_skill_mapped("cuff") != "hua-quan")
                 return notify_fail("你没有激发西岳华拳，难以施展" JUAN "。\n");
 
         if (me->query_skill_prepared("cuff") != "hua-quan")

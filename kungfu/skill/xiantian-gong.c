@@ -23,34 +23,42 @@ int valid_force(string force)
 }
 
 mapping *action = ({
-    (["action":"$N单掌一抖，运聚先天功功力，呼啸着向$n的$l处拍去",
+    ([
+             "action":"$N单掌一抖，运聚先天功功力，呼啸着向$n的$l处拍去",
               "dodge":87,
               "force":430,
              "attack":163,
               "parry":81,
              "damage":83,
-        "damage_type":"内伤"]),
-    (["action":"$N右掌平伸，左掌运起先天功的劲力，猛地拍向$n的$l",
+        "damage_type":"内伤",
+]),
+    ([
+             "action":"$N右掌平伸，左掌运起先天功的劲力，猛地拍向$n的$l",
               "dodge":85,
               "force":440,
              "attack":147,
               "parry":77,
              "damage":81,
-        "damage_type":"内伤"]),
-    (["action":"$N身形一展，右掌护住心脉，左掌中攻直进，贯向$n$l",
+        "damage_type":"内伤",
+]),
+    ([
+             "action":"$N身形一展，右掌护住心脉，左掌中攻直进，贯向$n$l",
               "dodge":75,
               "force":450,
              "attack":182,
               "parry":67,
              "damage":93,
-        "damage_type":"内伤"]),
-    (["action":"$N运转先天真气，双掌回圈，顿时一波澎湃的气劲直袭$n",
+        "damage_type":"内伤",
+]),
+    ([
+             "action":"$N运转先天真气，双掌回圈，顿时一波澎湃的气劲直袭$n",
               "dodge":87,
               "force":480,
              "attack":183,
               "parry":85,
              "damage":105,
-        "damage_type":"内伤"]),
+        "damage_type":"内伤",
+]),
 });
 
 int valid_enable(string usage)
@@ -76,7 +84,7 @@ int valid_learn(object me)
         return notify_fail("你的先天根骨孱弱，无法修炼高深的先天功。\n");
 
     //if ( me->query("gender") == "无性" && me->query("xiantian-gong", 1) > 29)
-    //        return notify_fail("你无根无性，阴阳不调，难以领会高深的先天功。\n");
+    //    return notify_fail("你无根无性，阴阳不调，难以领会高深的先天功。\n");
     if ((string)me->query("gender") != "男性")
         return notify_fail("先天功乃是纯阳玄功，只有男子方可修习。\n");
 

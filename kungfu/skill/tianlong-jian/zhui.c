@@ -10,7 +10,7 @@ int perform(object me, object target)
         object weapon;
         string msg;
         int ap, dp, damage;
-//      object ob;
+        // object ob;
 
         if (userp(me) && ! me->query("can_perform/tianlong-jian/zhui"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -65,7 +65,7 @@ int perform(object me, object target)
                        CYN "的这一剑。\n" NOR;
         }
 
-        msg += HIM "\n$N" HIM "随即抽剑回转，撩下劈上，手中" + weapon->name() + HIM 
+        msg += HIM "\n$N" HIM "随即抽剑回转，撩下劈上，手中" + weapon->name() + HIM
                "剑尖一颤，又激荡出一股旋涡劲钻向$n" HIM "。\n" NOR;
         if (ap * 2 / 5 + random(ap) > dp)
         {

@@ -10,7 +10,7 @@ string final(object me, object target, int damage);
 int perform(object me)
 {
         string msg;
-        object /*weapon,*/ target;
+        object target;
         int skill, ap, dp, damage;
 
         if (userp(me) && ! me->query("can_perform/chansi-shou/qin"))
@@ -32,7 +32,7 @@ int perform(object me)
 
         if (skill < 120)
                 return notify_fail("你缠丝擒拿手等级不够，难以施展" QIN "。\n");
- 
+
         if (me->query_skill_mapped("hand") != "chansi-shou")
                 return notify_fail("你没有激发缠丝擒拿手，难以施展" QIN "。\n");
 
@@ -47,7 +47,7 @@ int perform(object me)
 
         msg = HIW "$N" HIW "悄然贴近$n" HIW "，施出缠丝擒拿，双手忽"
               "折忽扭，或抓或甩，直琐$p" HIW "各处要脉。\n" NOR;
- 
+
         ap = me->query_skill("hand");
         dp = target->query_skill("parry");
 

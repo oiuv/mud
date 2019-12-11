@@ -9,32 +9,32 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-//	object weapon;
+	// object weapon;
 	int damage;
 	string msg;
-        int ap, dp;
+  int ap, dp;
 
-        if (! target)
-        {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
-        }
+  if (! target)
+  {
+    me->clean_up_enemy();
+    target = me->select_opponent();
+  }
 
-        if (userp(me) && ! me->query("can_perform/qishang-quan/fei"))
-                return notify_fail("你所使用的外功中没有这种功能。\n");
+  if (userp(me) && ! me->query("can_perform/qishang-quan/fei"))
+          return notify_fail("你所使用的外功中没有这种功能。\n");
 
 	if (! target || ! me->is_fighting(target))
 		return notify_fail(PO "只能对战斗中的对手使用。\n");
 
 	if ((int)me->query_skill("qishang-quan", 1) < 160)
 		return notify_fail("你的七伤拳不够娴熟，无法施展" PO "。\n");
-	                        
+
 	if ((int)me->query_skill("force", 1) < 160)
 		return notify_fail("你的内功修为还不够，无法施展" PO "\n");
 
         if (me->query("max_neili") < 2200)
                 return notify_fail("你内力修为不足，无法施展" PO "\n");
-			
+
 	if ((int)me->query("neili") < 350)
 		return notify_fail("你现在真气不够，无法施展" PO "。\n");
 
@@ -59,7 +59,7 @@ int perform(object me, object target)
 		                           HIR "只听“砰”地一声，$N" HIR "一拳正好打中$n" HIR "胸"
                                            "口，$n" HIR "怪叫一声，吐出一口淤血！\n" NOR);
 		me->start_busy(2);
-	} else 
+	} else
 	{
 		msg += HIC "可是$p" HIC "奋力招架，硬生生的挡开了$P"
                        HIC "这一招。\n"NOR;

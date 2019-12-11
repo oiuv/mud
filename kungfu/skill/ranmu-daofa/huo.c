@@ -18,6 +18,8 @@ int perform(object me, object target)
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "blade")
                 return notify_fail("你使用的武器不对。\n");
+        if (target->is_busy())
+                return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");
 
         if ((me->query_skill_mapped("force") != "hunyuan-yiqi") && (me->query_skill_mapped("force") != "yijinjing") && (me->query_skill_mapped("force") != "luohan-fumogong"))
                 return notify_fail("你现在没有激发少林内功为内功，难以施展「火麒蚀月」。\n");

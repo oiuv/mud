@@ -11,13 +11,6 @@ int perform(object me, object target)
         string msg, wn;
         object weapon;
         int ap, dp;
-		
-		float improve;
-		int lvl, m, n;
-		string martial;
-		string *ks;
-		martial = "sword";
-		
         me = this_player();
 
         if (userp(me) && ! me->query("can_perform/jinshe-jian/shi"))
@@ -59,44 +52,21 @@ int perform(object me, object target)
               "金蛇从天而下，" + weapon->name() + HIY "已将$n" HIY "笼罩。\n" NOR;
 
         message_sort(msg, me, target);
-		
-		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		lvl = lvl * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (m = 0; m < sizeof(ks); m++)
-		{
-			if (SKILL_D(ks[m])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[m], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 4 / 100 / lvl;
         
         ap = me->query_skill("jinshe-jian", 1) +
              me->query_skill("martial-cognize", 1);
 
         dp = target->query_skill("dodge", 1) +
              target->query_skill("martial-cognize", 1);
-			 
-		ap += ap * improve;
-		damage = me->query_skill("jinshe-jian", 1) +
-                 me->query_skill("force", 1) +
-                 me->query_skill("martial-cognize", 1);
-				 
-		if (me->query("family/family_name") == "五毒教")
-				damage += damage / 10;
-			
-		damage += random(damage / 2);
-		
+
         if (ap * 2 / 3 + random(ap) > random(dp))
         {
+                damage = me->query_skill("jinshe-jian", 1) +
+                         me->query_skill("force", 1) +
+                         me->query_skill("martial-cognize", 1);
+
+                damage += random(damage / 2);
+
                 // 十分之一的几率可被招架
                 if (random(10) <= 1 && ap / 2 < dp)
                 {

@@ -26,7 +26,7 @@ int valid_force(string force)
 
 int valid_learn(object me)
 {
-	int /*i,*/ np, nf, nh/*, ns, ts*/;
+  int nf, nh, np;
 	nf = (int)me->query_skill("force", 1);
 	nh = (int)me->query_skill("linji-zhuang", 1);
 	np = (int)me->query_skill("mahayana", 1);

@@ -68,8 +68,7 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
         !me->query_temp("shenghuo-ling/max_hit"))
     {
         message_vision(HIR "\n刹那间$N" HIR "身法陡然加快，剑招连绵而出，招式诡异无比"
-                           "，令$n" HIR "难以琢磨。\n" NOR,
-                       me, victim);
+                           "，令$n" HIR "难以琢磨。\n" NOR, me, victim);
 
         me->start_busy(1 + random(attack_time));
         me->add("neili", -attack_time * 20);

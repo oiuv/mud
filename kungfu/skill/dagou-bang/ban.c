@@ -45,12 +45,11 @@ int perform(object me, object target)
               HIG "×ó·âÓÒ±Æ£¬»º»º³¯$n" HIG "ÌôÈ¥¡£\n" NOR;
 
         ap = me->query_skill("staff") +
-             me->query_skill("martial-cognize",1) +
-			 me->query("family/beggarlvl") * 10 +
-			 me->query("int") * 10;
+             me->query_skill("martial-cognize",1) / 2 +
+             me->query("int") * 10;
 
         dp = target->query_skill("dodge") +
-             target->query_skill("martial-cognize",1) +
+             target->query_skill("martial-cognize",1) / 2 +
              target->query("dex") * 10;
 
         if (me->query("max_neili") > target->query("max_neili") * 2)
@@ -70,7 +69,7 @@ int perform(object me, object target)
         } else
         if (ap / 2 + random(ap) > dp)
         {
-                damage = ap + random(ap);
+                damage = ap / 2 + random(ap);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 70,
                                            HIR "Ö»Ìý$n" HIR "Ð¡ÍÈ´¦¡¸àÍàÍ¡¹Á½Éù´à"
                                            "Ïì£¬¾¹±»$N" HIR "µÄ" + weapon->name() +

@@ -4,7 +4,7 @@ inherit SKILL;
 
 int valid_learn(object me)
 {
-//      object ob;
+        // object ob;
 
         if ((int)me->query("max_neili") < 500)
                 return notify_fail("你的内力不够，没有办法练金蛇锥法。\n");
@@ -12,8 +12,8 @@ int valid_learn(object me)
         if ((int)me->query_skill("force") < 80)
                 return notify_fail("你的内功火候不够，没有办法练金蛇锥法。\n");
 
-	if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("jinshe-zhui", 1))
-		return notify_fail("你的基本暗器水平有限，无法领会更高深的金蛇锥法。\n");
+        if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("jinshe-zhui", 1))
+                return notify_fail("你的基本暗器水平有限，无法领会更高深的金蛇锥法。\n");
 
         return 1;
 }
