@@ -16,7 +16,6 @@
 
 // item index in info
 #define USER                    "user"
-#define NAME                    "name"
 #define SEQUENCE                "sequence"
 #define PASSWORD                "password"
 #define FUNCTION                "function"
