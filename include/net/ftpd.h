@@ -33,8 +33,7 @@
 #define UPATH   socket_info[ fd ][ PATH ]
 #define UDATA   socket_info[ fd ][ DATA ]
 #define MAX_UNIQUE_TRIES 10
-#define MONTHS ({ "Jan", "Feb", "Mar", "Apr", "May", "Jun", \
-                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" })
+#define MONTHS ({ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" })
 #define SECS_IN_YEAR (365 * 24 * 60 * 60)
 /*
  * Listed of recognized commands in order defined in RFC 765
@@ -96,10 +95,8 @@ mapping sitecmdtab = ([
     "time"  : ({ "TIME",  1, "(return local time)" }),
     "help"  : ({ "HELP",  1, "[ <sp> <string> ]" })
 ]);
-#define PERMISSION_DENIED550(S) socket_write( fd, sprintf( \
-      "550 Permission denied to %s.\n", S) )
-#define PERMISSION_DENIED553(S) socket_write( fd, sprintf( \
-      "553 Permission denied to %s.\n", S) )
+#define PERMISSION_DENIED550(S) socket_write( fd, sprintf("550 Permission denied to %s.\n", S))
+#define PERMISSION_DENIED553(S) socket_write( fd, sprintf("553 Permission denied to %s.\n", S))
 /*
  * these flags determine read level access
  */
