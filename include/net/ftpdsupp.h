@@ -10,27 +10,17 @@
  * debugging macros
  */
 #ifdef DEBUG
-#define TP(STR) if ( find_player( TP_CRE ) ) \
-                    tell_object( find_player( TP_CRE ), STR )
+#define TP(STR) if ( find_player( TP_CRE ) ) tell_object( find_player( TP_CRE ), STR )
 #define DEBUG_SEND   /* define to debug data_write_callback() */
 #else
 #define TP(STR)
 #define DEBUG_SEND
 #endif /* DEBUG */
 
-#define CHECK_LOGIN() \
-    if ( !socket_info[ fd ][ LOGGED_IN ] ) { \
-        socket_write( fd, "530 Please login with USER and PASS.\n" ); \
-        break; \
-    }
+#define CHECK_LOGIN() if (!socket_info[ fd ][ LOGGED_IN ]) { socket_write(fd, "530 Please login with USER and PASS.\n"); break; }
 
-#define CHECK_CMD(x) \
-    if ( sizeof(command) == x) { \
-        socket_write( fd, sprintf("500 '%s': command not understood.\n", \
-              command[ 0 ]) ); \
-        break; \
-    }
-   
+#define CHECK_CMD(x)  if (sizeof(command) == x) { socket_write( fd, sprintf("500 '%s': command not understood.\n", command[ 0 ]) ); break; }
+
 /*
  * check_access determines who is allowed to use ftp (assuming the correct
  * password is known).  if check_access() returns 0 then the user is
@@ -199,7 +189,7 @@ int check_site(string who, int fd) {
             sites = regexp(sites, "^sitecheck ");
             if (sites && sizeof(sites)) {
                 arg = sites[0][10..-1];
-                
+
                 /*
                  * parse command line args
                  */
@@ -308,6 +298,5 @@ int check_site(string who, int fd) {
     return 1;
 }
 #endif /* SITE_CHECK */
-
 
 #endif /* _FTPDSUPP_H */

@@ -37,39 +37,29 @@ inherit F_DBASE;
 
 // global vars
 // the udp port number of the mud, and the socket id of the udp socket
-private
-int my_port;
-private
-int socket_id;
+private int my_port;
+private int socket_id;
 
 // The mapping containing the general mud info.
-private
-mapping muds;
+private mapping muds;
 
 // This mapping has an entry for every mud in the dns, and holds
 // information about the protocols supported for the services
-private
-mapping mud_svc;
+private mapping mud_svc;
 
 // Info about ourselves
-private
-mapping this_host;
+private mapping this_host;
 
 // used for sequencing the requests to the network services
-private
-int seq_ctr;
-private
-mapping seq_entries;
+private int seq_ctr;
+private mapping seq_entries;
 
 // list nodes
-private
-string *list_nodes;
+private string *list_nodes;
 
 // Used for debugging
 #ifdef DEBUG
-#define debug(x) \
-    if (monitor) \
-    message("diagnostic", (x), monitor)
+#define debug(x) if (monitor) message("diagnostic", (x), monitor)
 STATIC_VAR_TAG object monitor = 0;
 #else
 #define debug(x)
@@ -89,8 +79,7 @@ void do_pings();
 void set_mud_info(string name, mapping junk);
 void zap_mud_info(string name, mapping junk);
 void support_q_callback(mapping info);
-private
-void query_services(string mud, string address, string port, string tcp);
+private void query_services(string mud, string address, string port, string tcp);
 
 // name serving functions
 int query_service_method(string mud, string service);
@@ -114,12 +103,10 @@ object query_monitor();
 #endif
 
 // misc functions
-private
-void restore_euid();
+private void restore_euid();
 void aux_log(string file, string entry);
 void aux_warning(string warning);
-private
-void log(string entry);
+private void log(string entry);
 void resolve_callback(string address, string my_ip, int key);
 
 //	----------------------------------------------------------------------------
@@ -571,8 +558,7 @@ void support_q_callback(mapping info)
 
 // This queries a mud just added to the database for its supported services
 // What is queries for is dependant on config.h
-private
-void query_services(string mud, string address, string port, string tcp)
+private void query_services(string mud, string address, string port, string tcp)
 {
 #ifdef PREF_MAIL
     if (!(mud_svc[mud]["mail"] & SVC_KNOWN))
@@ -811,8 +797,7 @@ object query_monitor()
  * some misc functions
  */
 // Not really used yet
-private
-void restore_euid()
+private void restore_euid()
 {
     seteuid(ROOT_UID);
 }
@@ -837,8 +822,7 @@ void aux_warning(string warning)
 }
 
 // This is for internal use
-private
-void log(string entry)
+private void log(string entry)
 {
     //      string temp;
     log_file(MY_LOG_FILE, sprintf("%s: %s\n", ctime(time()), entry));
