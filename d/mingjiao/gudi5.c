@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 inherit ROOM;
 
 void create()
@@ -52,13 +52,13 @@ int do_zhuo(string arg)
 
         message_vision(HIW "\n$N" HIW "静静地伏在岸边，见一条"
                        "白鱼游至身前，猛然一掌击落。\n" NOR, me);
- 
+
         if (me->query("combat_exp") < 100000)
         {
                 message("vission", HIR "潭中的大白鱼顿时跳起，"
                                    "你忙伸手去抓，虽然碰到了鱼"
                                    "身，却一滑滑脱了。\n\n" NOR, me);
-	        set("not_fish", 1);
+                set("not_fish", 1);
                 return 1;
         }
 

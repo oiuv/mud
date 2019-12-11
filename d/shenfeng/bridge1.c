@@ -1,4 +1,4 @@
-#include <ansi.h>; 
+#include <ansi.h>
 inherit ROOM;
 
 void create()
@@ -11,9 +11,9 @@ void create()
 LONG);
         set("outdoors", "shenfeng");
 
-        set("exits", ([ 
-        	"south" : __DIR__"xiaojing",
-	]));
+        set("exits", ([
+                "south" : __DIR__"xiaojing",
+        ]));
         set("item_desc",([
                 "bridge" : YEL "这是一条宽约七寸的独木桥，看来只"
                            "能走(zou)过一人。\n" NOR,

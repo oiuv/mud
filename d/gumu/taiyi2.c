@@ -1,5 +1,4 @@
-
-#include <ansi.h>;
+#include <ansi.h>
 inherit ROOM;
 
 void create()
@@ -24,7 +23,7 @@ void init()
 
 int do_climb(string arg)
 {
-        object me = this_player(); 
+        object me = this_player();
 
         if( !arg || arg != "up")
         {

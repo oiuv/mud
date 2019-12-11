@@ -1,19 +1,19 @@
-#include <ansi.h>;
+#include <ansi.h>
 inherit ROOM;
 
 void create()
 {
-	set("short", "悬天石");
-        set("long",
-                "从石上远眺，只见云海苍茫处，险绝万峦生，昆仑一脉，逶迤"
-                "千里，真一派大好江山。悬天石立于昆仑山峰，足下悬崖峭壁，深"
-                "渊万丈。");
-	set("exits", ([
-		"down" : __DIR__"shanlu3",
-	]));
+    set("short", "悬天石");
+    set("long",
+            "从石上远眺，只见云海苍茫处，险绝万峦生，昆仑一脉，逶迤"
+            "千里，真一派大好江山。悬天石立于昆仑山峰，足下悬崖峭壁，深"
+            "渊万丈。");
+    set("exits", ([
+        "down" : __DIR__"shanlu3",
+    ]));
 
-	set("outdoors", "mingjiao");
-	setup();
+    set("outdoors", "mingjiao");
+    setup();
         (CLASS_D("ultra") + "/huoshan")->come_here();
 }
 
@@ -39,29 +39,28 @@ string long()
 
 void init()
 {
-	add_action("do_tiao", "tiao");
-	add_action("do_tiao", "jump");
+    add_action("do_tiao", "tiao");
+    add_action("do_tiao", "jump");
 }
 
 int do_tiao(object me)
 {
-	me = this_player();
-	message_vision(HIY "\n$N" HIY "迟疑了片刻猛地向深渊"
+    me = this_player();
+    message_vision(HIY "\n$N" HIY "迟疑了片刻猛地向深渊"
                        "跳下，人影越飘越小。\n\n" NOR, me);
 
-	if (me->query_dex() > 25)
-	{
-		me->move(__DIR__"gudi1");
-	} else
+    if (me->query_dex() > 25)
+    {
+        me->move(__DIR__"gudi1");
+    } else
         if (me->query_dex() > 20)
-	{
-		me->move(__DIR__"gudi1");
-		me->unconcious();
-	} else
-	{
-		me->move(__DIR__"gudi1");
-		me->die();
-	}
-	return 1;
+    {
+        me->move(__DIR__"gudi1");
+        me->unconcious();
+    } else
+    {
+        me->move(__DIR__"gudi1");
+        me->die();
+    }
+    return 1;
 }
-

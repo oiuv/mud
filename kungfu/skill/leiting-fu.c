@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 inherit SKILL;
 
 mapping *action = ({
@@ -107,7 +107,7 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "hammer" || usage == "parry";
+        return usage == "hammer" || usage == "parry";
 }
 
 int valid_learn(object me)

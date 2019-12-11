@@ -1,4 +1,3 @@
-#include <ansi.h> 
 #include <ansi.h>
 
 inherit NPC;
@@ -52,4 +51,3 @@ void create()
         set_temp("is_riding", BLK "Ñ©ÌãÂí" NOR);
         set_temp("handing", carry_object("/d/mingjiao/yuan/obj/arrow"));
 }
-

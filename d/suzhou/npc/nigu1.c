@@ -1,5 +1,5 @@
 inherit NPC;
-#include <ansi.h>;
+#include <ansi.h>
 
 void create()
 {
@@ -13,7 +13,7 @@ void create()
 }
 
 void init()
-{       
+{
         object ob;
 
         ::init();
@@ -27,7 +27,7 @@ void init()
 void greeting(object ob)
 {
         if (! ob || environment(ob) != environment()) return;
-        say(CYN "尼姑施了一礼说道：这位" + RANK_D->query_respect(ob) + 
+        say(CYN "尼姑施了一礼说道：这位" + RANK_D->query_respect(ob) +
             CYN "，佛家人慈善为本，捐一点银两吧。\n" NOR);
         return;
 }

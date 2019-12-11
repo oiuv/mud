@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit NPC;
 
@@ -33,12 +33,12 @@ void create()
         set_skill("dodge", 80);
         set_skill("literate", 40);
 
-        setup();    
+        setup();
         carry_object("/clone/cloth/cloth")->wear();
 }
 
 void init()
-{       
+{
         object ob;
 
         ::init();
@@ -54,6 +54,5 @@ void greeting(object ob)
 {
         if (! ob || environment(ob) != environment()) return;
 
-	say(CYN "日月弟子高声呼喊道：日月神教，文成武德。千秋万载，一统江湖。\n" NOR);
+        say(CYN "日月弟子高声呼喊道：日月神教，文成武德。千秋万载，一统江湖。\n" NOR);
 }
-

@@ -1,5 +1,5 @@
 inherit ROOM;
-#include <ansi.h>;
+#include <ansi.h>
 
 void create()
 {
@@ -18,4 +18,3 @@ LONG );
         setup();
         replace_program(ROOM);
 }
-

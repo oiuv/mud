@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit ROOM;
 
@@ -8,7 +8,7 @@ int do_open(string arg);
 void create()
 {
         set("short", "凌霄内门");
-        set("long", 
+        set("long",
 "这里是凌霄城的城门。本来凌霄城少有外敌入侵，但由于地
 处西域，隆冬之际常有饿狼前来侵袭，故修筑此大城以做为抵挡。
 向城内望去，只见人头攘攘，很是繁华，想不到在这西域雪山绝
@@ -27,16 +27,16 @@ void create()
                 __DIR__"npc/dizi" : 3,
         ]));
         set("item_desc", ([
-        	"bridge" : WHT "\n这是一张极大的吊桥，乃是凌霄城的一道防线。\n" NOR,
+            "bridge" : WHT "\n这是一张极大的吊桥，乃是凌霄城的一道防线。\n" NOR,
         ]) );
         setup();
-} 
+}
 
 void init()
 {
-        add_action("do_open", "open"); 
+        add_action("do_open", "open");
         add_action("do_close", "close");
-} 
+}
 
 void close_bridge()
 {
@@ -99,23 +99,23 @@ int do_open(string arg)
 
 int valid_leave(object me, string dir)
 {
-    	object *inv;
+        object *inv;
         mapping myfam;
         int i;
 
         myfam = (mapping)me->query("family");
 
-    	if ((! myfam || myfam["family_name"] != "凌霄城" ) && dir == "north")
+        if ((! myfam || myfam["family_name"] != "凌霄城" ) && dir == "north")
         {
-        	inv = all_inventory(me);
-        	for( i = sizeof(inv)-1; i >= 0; i--)
+            inv = all_inventory(me);
+            for( i = sizeof(inv)-1; i >= 0; i--)
 
-            	if (inv[i]->query("weapon_prop") && inv[i]->query("skill_type") &&
-               	   inv[i]->query("equipped"))
+                if (inv[i]->query("weapon_prop") && inv[i]->query("skill_type") &&
+                      inv[i]->query("equipped"))
 
                 if (objectp(present("wen wanfu", environment(me))))
-                    	return notify_fail(CYN "闻万夫身形一展，挡住你道：凌霄城历年"
+                        return notify_fail(CYN "闻万夫身形一展，挡住你道：凌霄城历年"
                                            "来的规矩，外人入城不得佩带兵刃。\n");
-    	}
-    	return ::valid_leave(me, dir);
+        }
+        return ::valid_leave(me, dir);
 }
