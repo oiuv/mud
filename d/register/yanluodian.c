@@ -94,7 +94,6 @@ LONG NOR );
 void init()
 {
     add_action("do_wash", "washto");
-    //add_action("do_wash2", "washto");
     add_action("do_born", "born");
 }
 
@@ -263,7 +262,6 @@ int do_born(string arg)
     me->move(obj);
     me->set("mud_age", 0);
     me->set("age", 14);
-    me->set("family/family_name", "нчценчеи");
     me->save();
     HELP_CMD->main(me, "rules");
 
