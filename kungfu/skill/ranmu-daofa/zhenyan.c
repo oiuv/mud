@@ -43,7 +43,7 @@ int perform(object me, object target)
         if (me->is_fighting())
                 me->start_busy(2);
         skill = me->query_skill("ranmu-daofa",1);
-        me->set_temp("zhen_yan", 1);       
+        me->set_temp("zhen_yan", 1);
         me->add_temp("apply/attack", skill * 2 / 5);
         me->add_temp("apply/defense", skill * 2 / 5);
         me->add_temp("apply/damage", skill / 4);
@@ -64,4 +64,3 @@ void remove_effect(object me, int skill)
                 tell_object(me, "你经过调气养息，又可以继续施展「" HIR "燃木真焰" NOR "」了。\n");
         }
 }
-

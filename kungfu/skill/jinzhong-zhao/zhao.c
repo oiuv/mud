@@ -7,9 +7,9 @@ void remove_effect(object me, int amount);
 int perform(object me, object target)
 {
         int skill;
-        
+
         if (userp(me) && ! me->query("can_perform/jinzhong-zhao/zhao"))
-                return notify_fail("你所使用的外功中没有这种功能。\n");      
+                return notify_fail("你所使用的外功中没有这种功能。\n");
 
         if ((int)me->query("neili") < 400)
                 return notify_fail("你的内力不够。\n");
@@ -22,7 +22,7 @@ int perform(object me, object target)
 
 	      if ((int)me->query_temp("jingangbuhuai"))
                 return notify_fail("你已经运起金刚不坏护体神功了。\n");
-                
+
         if ((int)me->query_temp("special/jinshen"))
                 return notify_fail("你已经运起神魔金身之术了。\n");
 
@@ -55,4 +55,3 @@ void remove_effect(object me, int amount)
                 tell_object(me, "你的[金钟罩]护体神功运行完毕，将内力收回丹田。\n");
         }
 }
-

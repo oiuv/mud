@@ -12,7 +12,7 @@ string *dodge_msg = ({
 });
 
 string *finger_name = ({ "左手中指", "左手无名指", "左手食指",
-                         "右手中指", "右手无名指", "右手食指", }); 
+                         "右手中指", "右手无名指", "右手食指", });
 
 mapping *action = ({
 ([  	"action":"突然之间，白影急幌，$N向后滑出丈余，立时又回到了原地",
@@ -25,7 +25,7 @@ mapping *action = ({
     	"skill_name" : "白影急幌",
     	"damage_type":  "刺伤"
 ]),
-([  	"action":"$N右手伸出，在$n手腕上迅速无比的一按，$n险些击中自己小腹",    
+([  	"action":"$N右手伸出，在$n手腕上迅速无比的一按，$n险些击中自己小腹",
     	"force" : 180,
     	"attack": 50,
     	"parry" : 30,
@@ -346,12 +346,12 @@ int difficult_level()
 //已削弱辟邪pfm效果，故小幅降低研究难度 by over and MK
 int difficult_level()
 {
-     object me; 
+     object me;
      int lv;
-     me = this_player(); 
-     lv = me->query_skill("pixie-jian", 1) - 180; 
-     if (lv > 400) lv = 400; 
-     
+     me = this_player();
+     lv = me->query_skill("pixie-jian", 1) - 180;
+     if (lv > 400) lv = 400;
+
      if (! me->query("special_skill/guimai"))
         return 1200 - lv;
      else
