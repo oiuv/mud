@@ -1,5 +1,4 @@
 #include <ansi.h>
-#include <ansi.h>
 inherit ROOM;
 
 void create()

@@ -1,5 +1,5 @@
 inherit NPC;
-#include <ansi.h>;
+#include <ansi.h>
 
 void create()
 {
@@ -11,4 +11,3 @@ void create()
         set("attitude", "friendly");
         setup();
 }
-

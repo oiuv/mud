@@ -2,12 +2,12 @@
 // Date: Jan. 8 1999 by Winder
 
 inherit ROOM;
-#include <ansi.h>;
+#include <ansi.h>
 
 void create()
 {
-	set("short", "玄武内门");
-	set("long", 
+    set("short", "玄武内门");
+    set("long",
 "这里是襄阳城的北城门的内城门，只见城门上方是三个大
 字。"HIB"
 
@@ -17,19 +17,18 @@ void create()
 们正在盘查要离襄阳城的人。两边是上城头的石阶，向南进入
 城区。\n"
  );
-        set("outdoors", "xiangyang");
+    set("outdoors", "xiangyang");
 
-	set("exits", ([
-		"eastup" : __DIR__"walln1",
-		"westup" : __DIR__"walln2",
-		"south"  : __DIR__"northjie",
-		"north"  : __DIR__"northgate2",
-	]));
-	set("objects", ([
-		__DIR__"npc/pi"   : 1,
-		__DIR__"npc/bing" : 2,
-	]));
-	setup();
-	replace_program(ROOM);
+    set("exits", ([
+        "eastup" : __DIR__"walln1",
+        "westup" : __DIR__"walln2",
+        "south"  : __DIR__"northjie",
+        "north"  : __DIR__"northgate2",
+    ]));
+    set("objects", ([
+        __DIR__"npc/pi"   : 1,
+        __DIR__"npc/bing" : 2,
+    ]));
+    setup();
+    replace_program(ROOM);
 }
-

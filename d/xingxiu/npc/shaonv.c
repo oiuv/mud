@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 inherit NPC;
 
 void create()
@@ -14,12 +14,12 @@ void create()
 }
 
 void init()
-{       
+{
         object ob;
 
         ::init();
         if (interactive(ob = this_player()) && ! is_fighting())
-	{
+        {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
         }
@@ -29,7 +29,7 @@ void greeting(object ob)
 {
         if (! ob || environment(ob) != environment() ) return;
         switch(random(2))
-	{
+        {
         case 0:
                 say(CYN "维吾尔少女说道：这位" + RANK_D->query_respect(ob) +
                     CYN "，进来喝杯奶茶，歇歇腿吧。\n" NOR);
@@ -43,8 +43,8 @@ void greeting(object ob)
 
 int accept_object(object who, object ob)
 {
-        
-        if (ob->query("money_id") && ob->value() >= 5000) 
+
+        if (ob->query("money_id") && ob->value() >= 5000)
         {
                 tell_object(who, CYN "维吾尔少女忙说道：多谢您啦！请上楼歇息吧。\n" NOR);
 

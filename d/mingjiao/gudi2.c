@@ -1,25 +1,25 @@
-#include <ansi.h>;
+#include <ansi.h>
 inherit ROOM;
 
 void create()
 {
-	set("short", "昆仑谷底");
-	set("long", @LONG
+        set("short", "昆仑谷底");
+        set("long", @LONG
 你翻过那堵屏风也似的大山壁来到这里，眼前依旧是一片茫茫
 云海，山石坚硬无比，你看到右边有一株大松树(tree)，左侧山壁
 黑黝黝似乎有个小山洞(dong)。
 LONG );
-	set("item_desc", ([
-		"dong": WHT "一个不知深浅的山洞。\n" NOR,
-		"tree": GRN "一株挺拔健硕的松树。\n" NOR,
-	]));
-	setup();
+        set("item_desc", ([
+                "dong": WHT "一个不知深浅的山洞。\n" NOR,
+                "tree": GRN "一株挺拔健硕的松树。\n" NOR,
+        ]));
+        setup();
 }
 
 void init()
 {
-	add_action("do_enter", "enter");
-	add_action("do_climb", "climb");
+        add_action("do_enter", "enter");
+        add_action("do_climb", "climb");
 }
 
 int do_enter(string arg)
@@ -37,17 +37,17 @@ int do_enter(string arg)
 
         if (ob->is_character())
         {
-				if ( ob == me->query_temp( "is_riding" ) )
-				{
-					message_vision( "$N从$n上飞身跳下。\n", me, ob );
-					me->delete_temp( "is_riding" );
-					ob->delete_temp( "is_rided_by" );
-					ob->move( environment( me ) );
-				} else {
-					ob->move( environment( me ) );
-					message_vision( "\n$N将" + ob->name() + "从背上放了下来"
-							"，躺在地上。\n\n" NOR, me );
-				}
+                                if ( ob == me->query_temp( "is_riding" ) )
+                                {
+                                        message_vision( "$N从$n上飞身跳下。\n", me, ob );
+                                        me->delete_temp( "is_riding" );
+                                        ob->delete_temp( "is_rided_by" );
+                                        ob->move( environment( me ) );
+                                } else {
+                                        ob->move( environment( me ) );
+                                        message_vision( "\n$N将" + ob->name() + "从背上放了下来"
+                                                        "，躺在地上。\n\n" NOR, me );
+                                }
         }
 
         message_vision(HIY "$N" HIY "深吸了一口气，慢慢沿着洞壁往里爬"

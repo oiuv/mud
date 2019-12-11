@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 inherit NPC;
 
 void create()
@@ -48,6 +48,5 @@ int do_serve()
         food->move(me);
         water->move(me);
 
-        return 1; 
+        return 1;
 }
-

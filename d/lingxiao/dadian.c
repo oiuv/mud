@@ -1,12 +1,12 @@
 inherit ROOM;
 string look_duilian();
 
-#include <ansi.h>;
+#include <ansi.h>
 
 void create()
 {
         set("short", "凌霄殿");
-        set("long", 
+        set("long",
 "这里就是凌霄城的根本之地--凌霄殿。向来，不管凌霄城有
 何大事，掌门都会在此召集门人，发号施令。大厅北墙上，挂着
 一个老人的肖像，是当年凌霄城创派祖师的遗像。两边柱子上刻
@@ -32,7 +32,7 @@ void create()
         set("valid_startroom", 1);
         setup();
         "/clone/board/lingxiao_b"->foo();
-} 
+}
 
 string look_duilian()
 {

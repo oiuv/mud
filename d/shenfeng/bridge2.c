@@ -1,4 +1,4 @@
-#include <ansi.h>; 
+#include <ansi.h>
 inherit ROOM;
 
 void create()
@@ -10,13 +10,13 @@ void create()
 两崖相隔，约有五十余丈，往下看，峭壁如刀削，云卷雾涌深
 不见底，投块石子下去，也听不到回声！
 LONG);
-        set("exits", ([ 
-		"north" : __DIR__"xiaojing1",
-	]));
+        set("exits", ([
+                "north" : __DIR__"xiaojing1",
+        ]));
         set("item_desc",([
-		"bridge" : YEL "这是一条宽约七寸的独木桥，看来只"
+                "bridge" : YEL "这是一条宽约七寸的独木桥，看来只"
                            "能走(zou)过一人。\n" NOR,
-	]));
+        ]));
 
         setup();
 }

@@ -1,4 +1,4 @@
-#include <ansi.h>;
+#include <ansi.h>
 
 inherit SKILL;
 
@@ -37,19 +37,19 @@ mapping *action = ({
         "dodge"  : 20,
         "damage" : 40,
         "damage_type" : "瘀伤",
-        "lvl"    : 90,     
+        "lvl"    : 90,
 ]),
 ([      "action" : "$N长袖挥处，两股袖风扑出，$n只觉得密不透风，周身都是掌印，怎么也闪躲不开",
         "force"  : 270,
         "attack" : 50,
         "parry"  : 55,
-        "dodge"  : 35, 
+        "dodge"  : 35,
         "damage" : 65,
-        "lvl"    : 120,        
+        "lvl"    : 120,
         "damage_type" : "瘀伤"
 ]),
 ([      "action" : "$N双臂飞舞，两只手掌宛似化成了千手千掌，任$n如何跃腾闪躲，始终飞不出"
-                   "只掌所围作的圈圈", 
+                   "只掌所围作的圈圈",
         "force"  : 300,
         "attack" : 65,
         "parry"  : 70,
@@ -57,14 +57,14 @@ mapping *action = ({
         "damage" : 80,
         "lvl"    : 150,
         "damage_type" : "瘀伤"
-]), 
+]),
 });
 
-int valid_enable(string usage) 
-{ 
+int valid_enable(string usage)
+{
         int lvl;
         lvl = (int)this_player()->query_skill("tianluo-diwang", 1);
-        
+
         if (lvl > 30)
                return usage == "strike" || usage == "parry";
         else
@@ -72,8 +72,8 @@ int valid_enable(string usage)
 }
 
 int valid_combine(string combo)
-{ 
-        return combo == "meinv-quan"; 
+{
+        return combo == "meinv-quan";
 }
 
 int valid_learn(object me)
@@ -113,8 +113,8 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
 
                 switch (random(2))
                 {
-                case 0:                                             
-                                            
+                case 0:
+
                         result += (["msg" : HIC "$n" HIC "双臂飞舞，似有千掌拍出，密"
                                             HIC "不透风，竟将$N" HIC "的攻势化解。\n" NOR]);
                         break;
@@ -132,7 +132,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
                 {
                 case 0:
                         result = HIY "$n" HIY "双臂飞舞，似有千掌拍出，密不透风，"
-                                 HIY "然而$N" HIY "视之无物，随意出招，进袭$n" 
+                                 HIY "然而$N" HIY "视之无物，随意出招，进袭$n"
                                  HIY "！\n" NOR;
                         break;
 
