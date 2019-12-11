@@ -6,7 +6,7 @@
 inherit F_SSERVER;
 
 string *finger_name = ({ "左手中指", "左手无名指", "左手食指",
-                         "右手中指", "右手无名指", "右手食指", }); 
+                         "右手中指", "右手无名指", "右手食指", });
 
 int perform(object me, object target)
 {
