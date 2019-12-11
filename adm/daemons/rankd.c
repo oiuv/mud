@@ -737,7 +737,7 @@ string query_rank(object ob)
             return GRN "【 家  丁 】" NOR;
         case "江南丁氏":
             return GRN "【 家  丁 】" NOR;
-        case "无门无派":
+        case "侠客盟":
             return GRN "【江湖游侠】" NOR;
         default:
             return GRN "【初入武林】" NOR;

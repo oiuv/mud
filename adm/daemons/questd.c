@@ -1053,7 +1053,7 @@ int accept_object(object me, object who, object ob)
     score /= bonus;
     gongxian /= bonus;
 
-    if (me->query("family/family_name") == "无门无派")
+    if (me->query("family/family_name") == "侠客盟")
     {
         exp += random(exp / 2);
         pot += random(pot / 2);

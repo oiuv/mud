@@ -48,7 +48,7 @@ void check_user(object ob)
 
     my = ob->query_entire_dbase();
 
-    if (ob->query("family/generation") == 0 && ob->query("family/family_name") != "无门无派")
+    if (ob->query("family/generation") == 0 || ob->query("family/family_name") == "无门无派")
         ob->delete ("family");
 
     if (ob->query("gender") == "无性")
@@ -356,8 +356,8 @@ void born_player(object me)
         for (i = 0; i < sizeof(files); i++)
             sscanf(files[i], "%s.c", files[i]);
 
-        // 去除转世特技 //因取消师门药品奖励，故去除本草知识
-        files -= ({"guibian", "guimai", "jinshen", "piyi",
+        // 去除转世特技和特殊技能;因取消师门药品奖励，故去除本草知识
+        files -= ({"guibian", "guimai", "jinshen", "piyi", "lighting",
                    "qinzong", "wuxing", "shenyan", "tiandao", "herb"});
 
         // 性格不符不会愤怒之心
@@ -413,19 +413,19 @@ void born_player(object me)
             }
         }
 
-        // 麒麟血臂增加1点膂力
+        // 麒麟血臂增加2点膂力
         if (me->query("special_skill/strength"))
             me->add("str", 2);
 
-        // 罡睿神慧增加1点悟性
+        // 罡睿神慧增加2点悟性
         if (me->query("special_skill/intellect"))
             me->add("int", 2);
 
-        // 镇蕴七星增加1点根骨
+        // 镇蕴七星增加2点根骨
         if (me->query("special_skill/constitution"))
             me->add("con", 2);
 
-        // 玲珑玉躯增加1点身法
+        // 玲珑玉躯增加2点身法
         if (me->query("special_skill/dexterity"))
             me->add("dex", 2);
 
@@ -504,7 +504,7 @@ void zhuan_player(object me)
     //转世set
     me->set("title", "江湖游侠");              // 个人称号
     me->set("character", "国士无双");          // 转世性格
-    me->set("family/family_name", "无门无派"); //设定转世后默认散人
+    // me->set("family/family_name", "侠客盟"); //设定转世后默认散人
     //补充 by 薪有所属
     me->delete ("tattoo"); // 刺青记录
     //me->delete("special_skill");            // 特技记录
