@@ -20,9 +20,7 @@ inherit F_DBASE;
 #define ENABLE_LOG 1
 
 #if ENABLE_LOG
-#define DEBUG_OUT(msg)      \
-    if (find_player("ivy")) \
-    tell_object(find_player("ivy"), (msg) + "\n")
+#define DEBUG_OUT(msg) if (find_player("ivy")) tell_object(find_player("ivy"), (msg) + "\n")
 #else
 #define DEBUG_OUT(msg)
 #endif
@@ -31,77 +29,47 @@ inherit F_DBASE;
 
 // global vars
 // the udp port number of the mud, and the socket id of the udp socket
-private
-int my_port;
-private
-int socket_id;
+private int my_port;
+private int socket_id;
 
 // connection information
-private
-mapping connection = ([]);
-private
-mapping sending_queue = ([]);
+private mapping connection = ([]);
+private mapping sending_queue = ([]);
 
 // last error message
-private
-string last_error_msg;
-private
-string last_from_addr;
-private
-string current_user;
-private
-int current_sequence;
-private
-int is_send_packet;
-private
-int is_send_ack;
+private string last_error_msg;
+private string last_from_addr;
+private string current_user;
+private int current_sequence;
+private int is_send_packet;
+private int is_send_ack;
 
 // addr & error handle
-private
-void send_udp(string addr, string msg);
-private
-int startup_udp();
-private
-void set_last_addr(string addr);
-private
-string query_last_addr();
-private
-void set_current_user(string user, int sequence);
-private
-string query_current_user();
-private
-int query_current_sequence();
-private
-int error_handle(int n);
+private void send_udp(string addr, string msg);
+private int startup_udp();
+private void set_last_addr(string addr);
+private string query_last_addr();
+private void set_current_user(string user, int sequence);
+private string query_current_user();
+private int query_current_sequence();
+private int error_handle(int n);
 
 // function handle
-private
-void handle_msg(mapping info);
-private
-int user_logon(mapping info);
-private
-void call_fun(mapping info);
-private
-int fun_logout(mapping info);
+private void handle_msg(mapping info);
+private int user_logon(mapping info);
+private void call_fun(mapping info);
+private int fun_logout(mapping info);
 
 // others
-private
-void reply_ack(object user);
-private
-void receive_ack(mapping info);
+private void reply_ack(object user);
+private void receive_ack(mapping info);
 varargs private void notice_user(mixed user, string fun, string msg, string add);
-private
-int ready_to_send(object user, mapping info, mixed notice, mixed finish);
-private
-int direct_send(object user);
-private
-void sort_packet(mixed *packet);
-private
-int queue_msg(string msgto, mapping send_info, mixed user, mixed finish);
-private
-void acktell(object from, object to, string msg);
-private
-void save_data(object user);
+private int ready_to_send(object user, mapping info, mixed notice, mixed finish);
+private int direct_send(object user);
+private void sort_packet(mixed *packet);
+private int queue_msg(string msgto, mapping send_info, mixed user, mixed finish);
+private void acktell(object from, object to, string msg);
+private void save_data(object user);
 varargs private void copy_dbase(object dst, object src, string *item);
 
 // globals function
@@ -119,8 +87,7 @@ varargs void send_env(mixed user, mixed which);
 void user_logout(mixed user, string msg);
 
 // this function binds our listening socket, and requests a mudlist
-private
-int startup_udp()
+private int startup_udp()
 {
     int err_no;
     return 0;
@@ -154,8 +121,7 @@ int startup_udp()
 }
 
 // this is the function used by the udp slave daemons to send packets
-private
-void send_udp(string addr, string msg)
+private void send_udp(string addr, string msg)
 {
     if (!addr || !msg)
         return;
@@ -176,44 +142,38 @@ string query_last_error()
 }
 
 // set the last address info
-private
-void set_last_addr(string addr)
+private void set_last_addr(string addr)
 {
     last_from_addr = addr;
 }
 
 // query the last address info
-private
-string query_last_addr()
+private string query_last_addr()
 {
     return last_from_addr;
 }
 
 // set the current user calling in
-private
-void set_current_user(string user, int sequence)
+private void set_current_user(string user, int sequence)
 {
     current_user = user;
     current_sequence = sequence;
 }
 
 // return the current user calling in
-private
-string query_current_user()
+private string query_current_user()
 {
     return current_user;
 }
 
 // return the current user calling in
-private
-int query_current_sequence()
+private int query_current_sequence()
 {
     return current_sequence;
 }
 
 // handle the error
-private
-int error_handle(int n)
+private int error_handle(int n)
 {
     string fullmsg;
 
@@ -231,8 +191,7 @@ int error_handle(int n)
 // this is called when we receive a udp packet.  We determine which
 // service the packet is for, and send it to the auxiliary daemon of
 // that name
-private
-void read_callback(int sock, string msg, string addr)
+private void read_callback(int sock, string msg, string addr)
 {
     mixed user;          // calling user
     string index;        // message item's index
@@ -288,8 +247,7 @@ void read_callback(int sock, string msg, string addr)
 }
 
 // handle the message
-private
-void handle_msg(mapping info)
+private void handle_msg(mapping info)
 {
     object me;    // the user object
     mapping my;   // me's dbase
@@ -365,8 +323,7 @@ void handle_msg(mapping info)
 }
 
 // I will let a user connect with host in this function
-private
-int user_logon(mapping info)
+private int user_logon(mapping info)
 {
     object me;
     mapping my;
@@ -502,8 +459,7 @@ void user_logout(mixed user, string msg)
 }
 
 // call the function
-private
-void call_fun(mapping info)
+private void call_fun(mapping info)
 {
     object me;
     string inputed;
@@ -586,8 +542,7 @@ void call_fun(mapping info)
 }
 
 // logout an user
-private
-int fun_logout(mapping info)
+private int fun_logout(mapping info)
 {
     object me;
 
@@ -618,8 +573,7 @@ int fun_logout(mapping info)
 }
 
 // public functions
-private
-void reply_ack(object user)
+private void reply_ack(object user)
 {
     string msg;
 
@@ -636,8 +590,7 @@ void reply_ack(object user)
 }
 
 // I has receive the ack from user
-private
-void receive_ack(mapping info)
+private void receive_ack(mapping info)
 {
     object me;
     mapping my;
@@ -729,8 +682,7 @@ varargs private void notice_user(mixed user, string fun, string msg, string add)
 
 // because the message in pakcet may be too long to send, so
 // I need to sort the message, be sure it would too long
-private
-void sort_packet(mixed *packet)
+private void sort_packet(mixed *packet)
 {
     mapping info;
     //      string msg;
@@ -768,8 +720,7 @@ void sort_packet(mixed *packet)
 }
 
 // try to add a packet in queue to send
-private
-int ready_to_send(object user, mapping info, mixed notice, mixed finish)
+private int ready_to_send(object user, mapping info, mixed notice, mixed finish)
 {
     mixed *packet;
     mixed q;
@@ -836,8 +787,7 @@ int ready_to_send(object user, mapping info, mixed notice, mixed finish)
 }
 
 // direct to send to packet to user
-private
-int direct_send(object user)
+private int direct_send(object user)
 {
     mapping my;
     mixed q;
@@ -937,8 +887,7 @@ int direct_send(object user)
 // send a message to user, I must assure the message will
 // arrival, If I haven't receive the confirm message I should
 // send the message again.
-private
-int queue_msg(object msgto, mapping send_info, mixed user, mixed finish)
+private int queue_msg(object msgto, mapping send_info, mixed user, mixed finish)
 {
     //      string addr;
 
@@ -991,8 +940,7 @@ int queue_msg(object msgto, mapping send_info, mixed user, mixed finish)
 }
 
 // save the dbase of the user
-private
-void save_data(object user)
+private void save_data(object user)
 {
     object login_ob;
     object body;
@@ -1051,8 +999,7 @@ void copy_dbase(object dst, object src, string *item)
 
 // heart beat function
 // I will re send all the packet in queue
-private
-void heart_beat()
+private void heart_beat()
 {
     mixed me;
     mapping my;
@@ -1341,8 +1288,7 @@ int send_msg_to(mixed user, string msgto, string msg)
     return 1;
 }
 
-private
-void acktell(object from, object to, string msg)
+private void acktell(object from, object to, string msg)
 {
     if (!to || !from)
         return;
