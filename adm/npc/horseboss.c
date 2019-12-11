@@ -1,16 +1,13 @@
-// Copyright (C) 2003, by Lonely. All rights reserved.
-// This software can not be used, copied, or modified 
-// in any form without the written permission from authors.
-
-inherit NPC;
-
+// horseboss.c
 #include <ansi.h>
 #include <login.h>
+
+inherit NPC;
 
 #define PET_OBJ        "/clone/npc/pet.c"
 #define PET_DIR        "/data/pet/"
 
-int  do_selete();  
+int  do_selete();
 void get_type(string arg, object ob);
 void get_subtype(string arg, object ob);
 void get_gender(string arg,object ob);
@@ -51,7 +48,7 @@ void create()
         set("age", 32);
         set("long", "一个身着朴素的老板，是关东大风堂派驻在扬州城提供坐骑的。\n"
                     "在这里你可以选择(choose)自己称心如意的坐骑。\n");
-                    
+
         set("attitude", "peaceful");
         set_skill("training", 400);
         setup();
@@ -62,8 +59,6 @@ void create()
 
 void init()
 {
-//      object ob;
-
         ::init();
         add_action("do_selete", "choose");
 }
@@ -71,37 +66,37 @@ void init()
 int do_selete()
 {
         object me = this_player();
-                   
+
         if (me->query_skill("training", 1) < 100)
                 return notify_fail("你的驭兽术太低了，即使养了坐骑，也会离你而去。\n");
-        
+
         if (! me->query_temp("pet/money"))
         {
                 command("say 这位" + RANK_D->query_respect(me) + "，每只坐骑一千两黄金！");
                 return 1;
         }
-                               
+
         write("您要养哪类坐骑：\n");
         write(" 1. 马   2. 驴   3. 骡   4. 驼  5. 牛  6. 象\n");
         write(" 7. 狮   8. 虎   9. 豹  10. 鹿 11. 鹤 12. 雕\n");
         write("13. 羊  14. 猴  15. 熊  16. 狼 17. 狐 18. 貂\n");
         write("19. 驹  20. 兽\n");
         write("请选择：(q 键取消)");
-        
+
         input_to( (: get_subtype :), me);
         return 1;
 }
 void get_subtype(string arg, object ob)
 {
         int order;
-   
-        if (arg == "q" || arg == "Q")    
+
+        if (arg == "q" || arg == "Q")
                 return;
 
         sscanf(arg, "%d", order);
-    
-        if (order <= 0 || order > 20)  
-        {               
+
+        if (order <= 0 || order > 20)
+        {
                 write("到大风堂做买卖就得守规矩，选了坐骑就不能后悔了，除非养了也不用它：\n");
                 write("您要养哪类坐骑：\n");
                 write(" 1. 马   2. 驴   3. 骡   4. 驼  5. 牛  6. 象\n");
@@ -112,21 +107,21 @@ void get_subtype(string arg, object ob)
                 input_to( (: get_subtype :), ob);
                 return;
         }
-        
+
         ob->set_temp("pet/pet_type",  order);
 
         write("\n");
         write("请设定坐骑的性别(雄性：1  雌性：0)：");
-        input_to( (: get_gender :), ob ); 
+        input_to( (: get_gender :), ob );
 }
 
 void get_gender(string arg, object ob)
 {
         int gender;
-        
+
         sscanf(arg, "%d", gender);
 
-        if (gender != 0 && gender != 1)  
+        if (gender != 0 && gender != 1)
         {
                 write("\n");
                 write("请设定坐骑的性别(雄性：1  雌性：0)：");
@@ -137,7 +132,7 @@ void get_gender(string arg, object ob)
 
         write("\n");
         write("现在你可以设定英文 id ，请注意，你设定的英文 id 会自动加上后缀坐骑种类 id。\n");
-        write("比如你想设定的 id 是 biyunwulong ju，那么你只要输入 biyunwulong 就可以。\n");        
+        write("比如你想设定的 id 是 biyunwulong ju，那么你只要输入 biyunwulong 就可以。\n");
         write("请设定英文 id ：");
         input_to( (: get_id :), ob );
 }
@@ -145,69 +140,69 @@ void get_gender(string arg, object ob)
 int check_legal_id(string id)
 {
         int i;
-//      string *legalid;
-        object ppl;   
-          
+        // string *legalid;
+        object ppl;
+
         i = strlen(id);
-        
-        if ((strlen(id) < 3) || (strlen(id) > 20)) 
+
+        if ((strlen(id) < 3) || (strlen(id) > 20))
         {
                 write("对不起，英文 id 必须是 3 到 20 个英文字母。\n");
                 return 0;
         }
-        
+
         while(i--)
-        
-        if (id[i] != ' ' && (id[i] < 'a' || id[i] > 'z'))  
+
+        if (id[i] != ' ' && (id[i] < 'a' || id[i] > 'z'))
         {
                 write("对不起，英文 id 只能用英文字母。\n");
                 return 0;
         }
 
         ppl = LOGIN_D->find_body(id);
-        
-        if (ppl || id == "guest" || id == "new") 
+
+        if (ppl || id == "guest" || id == "new")
         {
                 write("这个名字与别的玩家ID相同了．．．");
                 return 0;
         }
 
         if (file_size(sprintf("/data/user/%c/%s", id[0], id)
-                    + __SAVE_EXTENSION__) >= 0) 
+                    + __SAVE_EXTENSION__) >= 0)
         {
                 write("这个名字已经被别的玩家使用了．．．");
                 return 0;
-        } 
-        /*        
+        }
+        /*
         legalid = explode(read_file(BANNED_ID), "\n");
-        for (i = 0; i < sizeof(legalid); i++)   
+        for (i = 0; i < sizeof(legalid); i++)
         {
-                if (id == legalid[i])   
+                if (id == legalid[i])
                 {
                         write("对不起，这种 id 会造成其他人的困扰。\n");
                         return 0;
                 }
         }
-        */    
+        */
         return 1;
 }
 
 int check_legal_name(string name, int max_len)
 {
         int i;
-//      string  *legalname;             //not implemented..may add later
-        
+        // string  *legalname; // not implemented..may add later
+
         i = strlen(name);
-        if ((strlen(name) < 2) || (strlen(name) > max_len )) 
+        if ((strlen(name) < 2) || (strlen(name) > max_len ))
         {
                 write(sprintf("对不起，坐骑中文字必须是 1 到 %d 个中文字。\n",
                       max_len / 2));
                 return 0;
         }
-        
+
         if (max_len < 13 && strsrch(NAME_D->who_is(name), "泥") >= 0)
         {
-                write("对不起，坐骑的名字不能和玩家的名字重复。\n"); 
+                write("对不起，坐骑的名字不能和玩家的名字重复。\n");
                 return 0;
         }
 
@@ -216,29 +211,29 @@ int check_legal_name(string name, int max_len)
                 write("对不起，请您用「中文」为坐骑取名字或描述。\n");
                 return 0;
         }
-        return 1; 
+        return 1;
 }
 
 
 void get_id(string arg, object ob)
 {
         arg = lower_case(arg);
-        
-        if (! check_legal_id(arg))   
+
+        if (! check_legal_id(arg))
         {
                 write("\n");
                 write("现在你可以设定英文 id ，请注意，你设定的英文 id 会自动加上后缀坐骑种类 id。\n");
-                write("比如你想设定的 id 是 biyunwulong ju，那么你只要输入 biyunwulong 就可以。\n");                    
+                write("比如你想设定的 id 是 biyunwulong ju，那么你只要输入 biyunwulong 就可以。\n");
                 write("请设定英文 id ：");
-                input_to( (: get_id :), ob ); 
+                input_to( (: get_id :), ob );
                 return;
         }
 
-        arg = replace_string(arg, " ", "_");    
-        
-       ob->set_temp("pet/pet_id", arg + " " + pet_id_surfix[ob->query_temp("pet/pet_type") - 1]);
+        arg = replace_string(arg, " ", "_");
+
+        ob->set_temp("pet/pet_id", arg + " " + pet_id_surfix[ob->query_temp("pet/pet_type") - 1]);
         ob->set_temp("pet/pet_bz", arg);
-        //ob->set_temp("pet/pet_bz", arg + " " + pet_id_surfix[ob->query_temp("pet/pet_type") - 1]);
+        // ob->set_temp("pet/pet_bz", arg + " " + pet_id_surfix[ob->query_temp("pet/pet_type") - 1]);
         write("\n");
         write("现在你可以设定中文名，请注意，你设定的中文名会加上基本名。\n");
         write("比如你选择的是狮，中文名为小白，名字就会为小白狮。\n");
@@ -249,8 +244,8 @@ void get_id(string arg, object ob)
 void get_name(string arg, object ob)
 {
         string  arg_old;
-        
-                
+
+
         arg_old = arg;
         /*
         arg = trans_color(arg, 1);
@@ -273,7 +268,7 @@ void get_name(string arg, object ob)
         arg = replace_string(arg, "$HIW$", "");
         arg = replace_string(arg, "$NOR$", "");
 
-        if (! check_legal_name(arg, 12))  
+        if (! check_legal_name(arg, 12))
         {
                 write("现在你可以设定中文名，请注意，你设定的中文名会加上基本名。\n");
                 write("比如你选择的是狮，中文名为小白，名字就会为小白狮。\n");
@@ -283,7 +278,7 @@ void get_name(string arg, object ob)
         }
 
         arg = arg_old;
-        // arg = trans_color(arg, 1); 
+        // arg = trans_color(arg, 1);
         arg = replace_string(arg, "$BLK$", BLK);
         arg = replace_string(arg, "$RED$", RED);
         arg = replace_string(arg, "$GRN$", GRN);
@@ -300,9 +295,9 @@ void get_name(string arg, object ob)
         arg = replace_string(arg, "$HIC$", HIC);
         arg = replace_string(arg, "$HIW$", HIW);
         arg = replace_string(arg, "$NOR$", NOR);
-        
+
         ob->set_temp("pet/pet_name", arg);
-        
+
         write("\n");
         write("请描述坐骑：(不可加颜色)");
         input_to( (: get_desc :), ob);
@@ -310,9 +305,9 @@ void get_name(string arg, object ob)
 
 void get_desc(string arg, object ob)
 {
-       
-                
-        if (! check_legal_name(arg, 60))  
+
+
+        if (! check_legal_name(arg, 60))
         {
                 write("请描述坐骑：(不可加颜色)");
                 input_to( (: get_desc :), ob);
@@ -327,44 +322,44 @@ void get_desc(string arg, object ob)
 
 void build_pet(object ob)
 {
-        string *id_list;       
+        string *id_list;
         string msg;
         string fn;
         string fc;
-//      int rev;
+        // int rev;
         object pet;
-             
+
         string pet_type = ob->query_temp("pet/pet_type");
         string pet_id = ob->query_temp("pet/pet_id");
         string pet_name = ob->query_temp("pet/pet_name");
         string pet_desc = ob->query_temp("pet/pet_desc");
-//      string pet_bz = ob->query_temp("pet/pet_bz");
-        string bpet_name = pet_type_name[(int)pet_type - 1];     
+        // string pet_bz = ob->query_temp("pet/pet_bz");
+        string bpet_name = pet_type_name[(int)pet_type - 1];
         string pet_gender = ob->query_temp("pet/pet_gender");
 
         pet_name += bpet_name + NOR;
-        
+
         id_list = ({ pet_id });
-        
+
         fc = read_file(PET_OBJ);
-        
+
         //报错的行号
         fc = replace_string(fc, "PET_NAME", pet_name);
-        fc = replace_string(fc, "PET_ID", pet_id);                                                       
+        fc = replace_string(fc, "PET_ID", pet_id);
         fc = replace_string(fc, "PET_GENDER", pet_gender);
-                            
+
         fc = replace_string(fc, "PET_UNIT",
                             pet_unit_name[(int)pet_type - 1]);
-                            
-        fc = replace_string(fc, "LONG_DESCRIPTION", 
-                            pet_desc + "\n" + "它是" + 
+
+        fc = replace_string(fc, "LONG_DESCRIPTION",
+                            pet_desc + "\n" + "它是" +
                             ob->query("name") + "的坐骑。\n");
-        
+
         fc = replace_string(fc, "OWNER_ID", ob->query("id"));
         fc = replace_string(fc, "OWNER_NAME", ob->query("name"));
-                            
+
         fn = PET_DIR + ob->query("id") + "-" + "pet";
-        
+
         if (file_size(fn + ".c") > 0)
         {
                 if (pet = find_object(fn)) destruct(pet);
@@ -376,20 +371,20 @@ void build_pet(object ob)
         VERSION_D->append_sn(fn + ".c"); // 给物品增加识别码
 
         pet = load_object(fn);
-        
+
         msg = "$N到屋后坐骑培育场牵了" + pet_name + "出来。\n" +
                "恭喜$n养了" + pet_name + "，以后$n可要好好待它。\n";
-               
-        message_vision(msg, this_object(), ob);    
-            
+
+        message_vision(msg, this_object(), ob);
+
         pet->move(environment(ob));
         command("say 你可以吹声口哨召唤你的坐骑！<whistle " + pet_id +">\n");
         ob->set("can_whistle/" + pet_id, fn);
         ob->delete_temp("pet");
         ob->save();
         return;
-       
-       
+
+
 }
 
 int accept_object(object me, object ob)
@@ -414,8 +409,7 @@ int accept_object(object me, object ob)
                 {
                         me->set_temp("pet/money",1);
                         command("say 好我收下了！");
-                        command("say " + me->name() +
-                                     "，现在我这里有各种可当作坐骑的动物！");
+                        command("say " + me->name() + "，现在我这里有各种可当作坐骑的动物！");
                         command("say 请选择你要的动物 < choose >");
                         destruct(ob);
                         return 1;
@@ -423,10 +417,10 @@ int accept_object(object me, object ob)
         }
         return 0;
 }
-int recognize_apprentice(object me, string skill) 
+int recognize_apprentice(object me, string skill)
 {
-        if (skill == "training") 
-                return 1;                
-        else 
+        if (skill == "training")
+                return 1;
+        else
                 return 0;
 }
