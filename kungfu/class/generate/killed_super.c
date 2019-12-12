@@ -15,7 +15,7 @@ void create()
         ::create();
         set("gender", random(5) ? "男性" : "女性");
         NPC_D->generate_cn_name(this_object());
-		set("age", 20 + random(40));
+        set("age", 20 + random(40));
         set("long", "");
         set("attitude", "friendly");
         set("chat_chance", 30);
@@ -38,29 +38,29 @@ void set_from_me(object me)
 {
 //      int exp;
         mapping my;
-		int s, f, x, y, z;
+        int s, f, x, y, z;
 
-        NPC_D->init_npc_skill(this_object(), NPC_D->get_exp(me));
+        NPC_D->init_npc_skill(this_object(), NPC_D->check_level(me));
         my = query_entire_dbase();
-		s = this_object()->query_con() + this_object()->query_str();
-		f = this_object()->query_int();
-		z = (int)this_object()->query_skill("force", 1);
-		
-		my["max_jingli"] =  my["magic_points"] / 30 + f * 30;
-		if (my["animaout"])
+        s = this_object()->query_con() + this_object()->query_str();
+        f = this_object()->query_int();
+        z = (int)this_object()->query_skill("force", 1);
+
+        my["max_jingli"] =  my["magic_points"] / 30 + f * 30;
+        if (my["animaout"])
             my["max_jingli"] += my["max_jingli"] * 4 / 10;
 
-		my["max_neili"] = z * 15 + my["con"] * 15;
-		if (my["breakup"])
+        my["max_neili"] = z * 15 + my["con"] * 15;
+        if (my["breakup"])
             my["max_neili"] += my["max_neili"] * 4 / 10;
-		if (my["class"] == "bonze")
-			my["max_neili"]  += 500;
+        if (my["class"] == "bonze")
+            my["max_neili"]  += 500;
 
         my["max_qi"]     = 100;
-		my["max_qi"]    += (my["age"] - 14) * s * 2 / 3;
-		my["max_qi"]    += (int)my["max_neili"] / 4;
-		 // 太极神功配合道学心法加气
-		if ((x = (int)this_object()->query_skill("taoism", 1)) > 39 &&
+        my["max_qi"]    += (my["age"] - 14) * s * 2 / 3;
+        my["max_qi"]    += (int)my["max_neili"] / 4;
+         // 太极神功配合道学心法加气
+        if ((x = (int)this_object()->query_skill("taoism", 1)) > 39 &&
             (y = (int)this_object()->query_skill("taiji-shengong", 1)) > 39)
             {
                 if (x > 350) x = (x - 350) / 2 + 350;
@@ -70,7 +70,7 @@ void set_from_me(object me)
 
                 my["max_qi"] += (x + 100 ) * (y + 100) / 100;
             } else
-			// 碧波神功配合碧海潮生曲加气
+            // 碧波神功配合碧海潮生曲加气
             if ((x = (int)this_object()->query_skill("bihai-chaosheng", 1)) > 39 &&
                 (y = (int)this_object()->query_skill("bibo-shengong", 1)) > 39)
                 {
@@ -85,20 +85,20 @@ void set_from_me(object me)
             if (my["breakup"])
                 my["max_qi"] += my["max_qi"];
 
-		my["eff_qi"]     = my["max_qi"];
+        my["eff_qi"]     = my["max_qi"];
         my["qi"]         = my["max_qi"];
-		
+
         my["max_jing"]   = 100;
-		my["max_jing"]  += (my["age"] - 14) * s * 2 / 3;
-		my["max_jing"]  += (int)my["max_jingli"] / 4;
-		if (my["breakup"])
+        my["max_jing"]  += (my["age"] - 14) * s * 2 / 3;
+        my["max_jing"]  += (int)my["max_jingli"] / 4;
+        if (my["breakup"])
             my["max_jing"] += my["max_jing"];
-		if (my["animaout"])
+        if (my["animaout"])
             my["max_jing"] += my["max_jing"];
 
         my["eff_jing"]   = my["max_jing"];
         my["jing"]       = my["max_jing"];
-		my["eff_jingli"]   = my["max_jingli"];
+        my["eff_jingli"]   = my["max_jingli"];
         my["jingli"]       = my["max_jingli"];
         my["neili"]       = my["max_neili"];
         my["quest_count"] = me->query("quest_count");
@@ -134,8 +134,8 @@ void kill_ob(object ob)
                 ::kill_ob(ob);
                 return;
         }
-		
-		if (lvl = query_temp("multi-enemy"))
+
+        if (lvl = query_temp("multi-enemy"))
         {
                 // 出现多个敌人
                 delete_temp("multi-enemy");
@@ -147,7 +147,7 @@ void kill_ob(object ob)
 void do_help_me(object ob)
 {
         if (! objectp(ob) || environment(ob) != environment() ||
-	    ! living(ob))
+        ! living(ob))
                 return;
 
         switch (random(3))
@@ -548,7 +548,7 @@ void die(object killer)
                 // 人加上一点随机量，其中打晕这个人的玩家获
                 // 得额外的一些奖励。
                 lvl = NPC_D->check_level(this_object());
-				lvl += random(lvl * 10);
+                lvl += random(lvl * 10);
                 exp = 15 + random(10) + lvl;
                 pot = 9 + random(5) + lvl;
                 weiwang = 8 + random(6) + lvl / 2;
@@ -672,7 +672,7 @@ void random_move()
                         if (! living(this_object()))
                                 message_vision("$N缓缓的醒了过来。\n",
                                                this_object());
-                        
+
                         message_vision("$N看看四周，急匆匆的逃走了。\n",
                                        this_object());
                         destruct(this_object());

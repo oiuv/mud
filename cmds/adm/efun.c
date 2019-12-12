@@ -5,8 +5,6 @@ void print_r(mixed *arr);
 void debug(string);
 int help();
 
-STATIC_VAR_TAG int step = 0; // print_r 缩进层级
-
 void create() { seteuid(getuid()); }
 
 int main(object me, string arg)
@@ -25,16 +23,11 @@ int main(object me, string arg)
     {
     case "allocate":
 #ifdef FLUFFOS
-        arr = allocate(1 + random(10), (
-                                           : $1:));
-        arr[0] = allocate(1 + random(10), (
-                                              : $1:));
-        arr[0][0] = allocate(1 + random(10), (
-                                                 : $1:));
-        arr[0][0][0] = allocate(1 + random(10), (
-                                                    : $1:));
-        arr[0][0][0][0] = allocate(1 + random(10), (
-                                                       : $1:));
+        arr = allocate(1 + random(10), (: $1 :));
+        arr[0] = allocate(1 + random(10), (: $1 :));
+        arr[0][0] = allocate(1 + random(10), (: $1 :));
+        arr[0][0][0] = allocate(1 + random(10), (: $1 :));
+        arr[0][0][0][0] = allocate(1 + random(10), (: $1 :));
 #else
         arr = allocate(5);
 #endif
@@ -103,8 +96,7 @@ int main(object me, string arg)
     case "objects":
         debug(arg);
         print_r(objects());
-        print_r(objects((
-            : clonep:)));
+        print_r(objects((: clonep :)));
         break;
     case "deep_inventory":
         debug(arg);
@@ -256,38 +248,46 @@ HELP
     return 1;
 }
 
-void print_r(mixed *arr)
+// 数组打印 debug
+varargs void print_r(mixed *arr, int step)
 {
     int i, j;
     if (sizeof(arr))
     {
-        for (j = 0; j < step; j++)
-        {
-            write("  ");
-        }
         write(YEL "({\n" NOR);
+
         for (i = 0; i < sizeof(arr); i++)
         {
             if (arrayp(arr[i]))
             {
                 step++;
-                print_r(arr[i]);
+                for (j = 0; j < step; j++)
+                {
+                    write("    ");
+                }
+                write(i + " => ");
+                print_r(arr[i], step);
                 step--;
             }
             else
             {
-                for (j = 0; j < (step + 1); j++)
+                for (j = 0; j <= step; j++)
                 {
-                    write("  ");
+                    write("    ");
                 }
-                write(arr[i] + "\n");
+                write(i + " => " + arr[i] + "\n");
             }
         }
+
         for (j = 0; j < step; j++)
         {
-            write("  ");
+            write("    ");
         }
         write(YEL "})\n" NOR);
+    }
+    else
+    {
+        write(YEL "({ })\n" NOR);
     }
 }
 

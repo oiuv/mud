@@ -38,7 +38,7 @@ void set_from_me(object me, int scale)
     mapping my;
     int s, f, x, y, z;
     // debug_message("scale = " + scale);
-    NPC_D->init_npc_skill(this_object(), NPC_D->get_exp(me));
+    NPC_D->init_npc_skill(this_object(), 0);
     my = query_entire_dbase();
     s = this_object()->query_con() + this_object()->query_str();
     f = this_object()->query_int();

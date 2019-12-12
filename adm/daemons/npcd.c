@@ -219,8 +219,8 @@ mapping place = ([
 
 /*
 mapping levels = ([
-//      combat_exp   skill_level
-//      保证五十万以前任务容易完成，八十万之前简单完成。
+        // combat_exp   skill_level
+        // 保证五十万以前任务容易完成，八十万之前简单完成。
         50000      : 20,                // level 1
         100000     : 30,                // level 2
         200000     : 40,                // level 3
@@ -239,10 +239,8 @@ mapping levels = ([
         15000000   : 500,               // level 16
 ]);
 */
-//新增高级别npc by 薪有所属
+//新增高级别npc
 mapping levels = ([
-        //      combat_exp   skill_level
-        //      保证五十万以前任务容易完成，八十万之前简单完成。
         50000:20,  // level 1
        100000:30,  // level 2
        200000:40,  // level 3
@@ -262,7 +260,7 @@ mapping levels = ([
 
      //新增10个级别，如果杀不动就不要想转世了
      //另外杀不动也可去转做task和杀外敌等手动或其它非杀敌任务。
-     //by 薪有所属
+
      20000000:550,  // level 17
      28000000:600,  // level 18
      35000000:650,  // level 19
@@ -275,7 +273,7 @@ mapping levels = ([
     120000000:1000, // level 26
 ]);
 
-// return the character(ob) 's level, 0 is lowest 修改 by 大曾
+// return the character(ob) 's level, 0 is lowest
 int check_level(object ob)
 {
     int *exp;
@@ -299,8 +297,8 @@ int get_exp(object ob)
     return exp;
 }
 
-// set the the level of the npc's skill 修改 by 大曾
-void init_npc_skill(object ob, int skl)
+// set the the level of the npc's skill
+void init_npc_skill(object ob, int lvl)
 {
     int sk_lvl;
     string *ks;
@@ -308,21 +306,23 @@ void init_npc_skill(object ob, int skl)
     int exp;
     int *exps;
 
-    exp = ob->query("combat_exp");
-
-    if (exp == 3000000 && skl >= 0 && skl <= sizeof(levels))
+    if (lvl > 0 && lvl <= sizeof(levels))
     {
         exps = sort_array(keys(levels), 1);
-        exp = exps[skl];
+        exp = exps[lvl - 1];
+        sk_lvl = levels[exp];
         ob->set("combat_exp", exp);
     }
-
-    if (exp < 600000)
-        sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * 0.4 + 1;
-    else if (exp < 2000000)
-        sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * (0.45 + to_float(exp * 3) / 20000000);
     else
-        sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * 0.75;
+    {
+        exp = ob->query("combat_exp");
+        if (exp < 600000)
+            sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * 0.4 + 1;
+        else if (exp < 2000000)
+            sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * (0.45 + to_float(exp * 3) / 20000000);
+        else
+            sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * 0.75;
+    }
 
     ob->set("magic_points", sk_lvl * 20);
     if (sk_lvl >= 300)
