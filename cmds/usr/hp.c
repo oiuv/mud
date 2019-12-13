@@ -1,19 +1,18 @@
 // hp cmds (Mon  09-04-95)
-// Update by Doing
-// Update by Vin for heros.cn
+// Update by xuefeng@mud.ren
 
 #include <ansi.h>
 inherit F_CLEAN_UP;
 
 string status_color(int current, int max);
- 
+
 int main(object me, string arg)
 {
         object ob;
         mapping my;
         string sp;
         int craze;
- 
+
         seteuid(getuid(me));
 
         if (arg && (arg == "-m"
@@ -91,7 +90,6 @@ int main(object me, string arg)
 
                 sp += sprintf(HIC "【最大加力】 " NOR + WHT " %d\n", ml);
 
-                //sp += HIW "【死亡保护】  " NOR + sprintf("%-22s",
                 sp += HIW "【死亡保护】  " NOR + sprintf("%s",
                       ! ob->query("skybook/guard/death") ? CYN "無保護\t\t   " NOR :
                       HIY "保護中\t\t   " NOR);
@@ -153,7 +151,7 @@ int main(object me, string arg)
                 ob->query("gift/str/succeed"),
                 ob->query("gift/str/fail"),
                 ob->query("gift/sun"),
-				ob->query("reborn/str")),
+                ob->query("reborn/str")),
                 //ob->query("tattoo/tattoo_str"));
 
                 sp += sprintf(HIW "【 悟 性 】 " NOR + WHT " [%3d]    ["
@@ -165,7 +163,7 @@ int main(object me, string arg)
                 ob->query("gift/int/succeed"),
                 ob->query("gift/int/fail"),
                 ob->query("gift/water"),
-				ob->query("reborn/int")),
+                ob->query("reborn/int")),
                 //ob->query("tattoo/tattoo_int"));
 
                 sp += sprintf(HIW "【 根 骨 】 " NOR + WHT " [%3d]    ["
@@ -177,7 +175,7 @@ int main(object me, string arg)
                 ob->query("gift/con/succeed"),
                 ob->query("gift/con/fail"),
                 ob->query("gift/lighting"),
-				ob->query("reborn/con")),
+                ob->query("reborn/con")),
                 //ob->query("tattoo/tattoo_con"));
 
                 sp += sprintf(HIW "【 身 法 】 " NOR + WHT " [%3d]    ["
@@ -189,7 +187,7 @@ int main(object me, string arg)
                 ob->query("gift/dex/succeed"),
                 ob->query("gift/dex/fail"),
                 ob->query("gift/feng"),
-				ob->query("reborn/dex")),
+                ob->query("reborn/dex")),
                 //ob->query("tattoo/tattoo_dex"));
 
                 sp += HIC "≡" HIY "───────────────────────"
@@ -271,11 +269,11 @@ int main(object me, string arg)
         tell_object(me, sp);
         return 1;
 }
- 
+
 string status_color(int current, int max)
 {
         int percent;
- 
+
         if (max > 0)
                 percent = current * 100 / max;
         else
@@ -288,7 +286,7 @@ string status_color(int current, int max)
         if (percent >= 10) return HIR;
         return RED;
 }
- 
+
 int help(object me)
 {
         write(@HELP
