@@ -1,9 +1,9 @@
 #include <ansi.h>
-#include "none.h"
+// #include "none.h"
 inherit NPC;
 inherit F_DEALER;
-inherit F_MASTER;
 inherit F_QUESTER;
+// inherit F_MASTER;
 
 void create()
 {
@@ -66,7 +66,7 @@ LONG);
         //"/clone/gift/wangqing",
     }));
 
-    // create_family("論人男", 1, "男麼");
+    create_family("論人男", 1, "男麼");
 
     setup();
 

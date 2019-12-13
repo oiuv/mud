@@ -336,21 +336,23 @@ public mixed accept_ask(object me, object who, string topic)
 // 如果目前正在协助别人，不能领取任务
 int ask_quest(object me, object who)
 {
-    string fam; // ME的门派信息
-    object ob;  // 任务重的某些物件或人物
-    mapping q;  // WHO的人物
-    object aob; // WHO目前正在协助的对象
-    int exp;    // WHO的经验
-    int t;      // 用来计算时间的变量
-    int level;  // QUEST的等级
-    int reborn; //转世次数
+    string fam, myfam; // 门派信息
+    object ob;         // 任务重的某些物件或人物
+    mapping q;         // WHO的人物
+    object aob;        // WHO目前正在协助的对象
+    int exp;           // WHO的经验
+    int t;             // 用来计算时间的变量
+    int level;         // QUEST的等级
+    int reborn;        //转世次数
     string place;
     string gender;
 
     message_vision("$n向$N打听有关任务的情况。\n", me, who);
 
     fam = me->query("family/family_name");
-    if (who->query("family/family_name") != fam)
+    myfam = who->query("family/family_name");
+
+    if ((!myfam && fam != "侠客盟") || (myfam && myfam != fam))
     {
         message_vision(CYN "$N" CYN "瞪大眼睛看着$n" CYN "，道"
                            "：你又不是我们" + fam + "的，来捣什么乱"
@@ -668,6 +670,7 @@ int accept_object(object me, object who, object ob)
 {
     mapping q;         // WHO的任务
     string msg;        // 掌门说的消息
+    string fam, myfam; // 门派名称
     object dob;        // 打晕敌人的人
     int bonus;         // 奖励(正整数，1是正常)
     int t;             // 用来计算时间的变量
@@ -685,7 +688,12 @@ int accept_object(object me, object who, object ob)
     int reborn;        //新增转世次数
     mixed special = 0; // 是否有特殊奖励
 
-    if (me->query("family/family_name") != who->query("family/family_name"))
+    message_vision("$n向$N打听有关任务的情况。\n", me, who);
+
+    fam = me->query("family/family_name");
+    myfam = who->query("family/family_name");
+
+    if ((!myfam && fam != "侠客盟") || (myfam && myfam != fam))
         return 0;
 
     q = who->query("quest");
@@ -1053,7 +1061,8 @@ int accept_object(object me, object who, object ob)
     score /= bonus;
     gongxian /= bonus;
 
-    if (me->query("family/family_name") == "侠客盟")
+    // 无门派的江湖游侠奖励加成
+    if (!me->query("family/family_name"))
     {
         exp += random(exp / 2);
         pot += random(pot / 2);
