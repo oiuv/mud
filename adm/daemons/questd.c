@@ -154,7 +154,7 @@ private void special_bonus(object me, object who, mixed arg)
         gongxian = 500;
     }
     else
-        /*
+/*
     if (who->query("quest_count") == 900)
     //if ((who->query("quest_count") == 900)&&(exp>=900000))
     {
@@ -225,7 +225,7 @@ private void special_bonus(object me, object who, mixed arg)
         gift = ob1_list[random(sizeof(ob1_list))];
         gongxian = 1;
     }
-    ob = new (gift);
+    ob = new(gift);
 
     if (ob->query("base_unit"))
         un = ob->query("base_unit");
@@ -479,8 +479,8 @@ int ask_quest(object me, object who)
     }
     else
     {
-
-        if (!who->query("out_family"))
+        // 门派中人需要外出历练
+        if (myfam && !who->query("out_family"))
         {
             message_vision(CYN "$N" CYN "摆摆手，对$n" CYN "道：我现在"
                                "这里倒是有一些事情，不过待你外出历练段时间"
@@ -515,7 +515,7 @@ int ask_quest(object me, object who)
             return 1;
         }
 
-        reborn = 0;
+        // reborn = 0;
         reborn = who->query("reborn/count");
         level = who->query_temp("quest/next_level");
         if (level < 0 || level > MAX_QUEST_LEVEL)
@@ -920,7 +920,7 @@ int accept_object(object me, object who, object ob)
             weiwang += weiwang / 4;
             score += score / 4;
             msg += CYN "$N" CYN "对$n" CYN "笑道：真是不错，不愧是"
-                       "我们" + who->query("family/family_name") + "的"
+                       "我们" + fam + "的"
                        "矫矫者。\n" NOR;
             break;
         case 3:
@@ -929,7 +929,7 @@ int accept_object(object me, object who, object ob)
             weiwang += weiwang / 2;
             score += score / 2;
             msg += CYN "$N" CYN "赞许道：非常不错，这次可给我们" +
-                   who->query("family/family_name") + "争脸了。\n" NOR;
+                   fam + "争脸了。\n" NOR;
             break;
         }
 

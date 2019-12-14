@@ -1,17 +1,16 @@
 #include <ansi.h>
-// #include "none.h"
+
 inherit NPC;
 inherit F_DEALER;
 inherit F_QUESTER;
-// inherit F_MASTER;
 
 void create()
 {
     set_name("李白", ({ "li bai", "li", "bai"}));
     set("long", @LONG
-这便是唐朝第一大诗人李太白，只见他须垂三
-尺，面如冠玉，双目炯炯有神。一手持青铜爵，
-一手持长剑，正在独饮。
+这便是唐朝第一大诗人李太白，只见他须垂三尺，面如冠玉，双目炯炯有神。
+一手持青铜爵，一手持长剑，正在独饮。他的诗作《侠客行》名动江湖，现
+被江湖豪侠共尊为侠客盟盟主。
 LONG);
     set("title", "唐朝大诗人");
     set("nickname", HIW "诗仙" NOR);
