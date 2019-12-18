@@ -1062,7 +1062,7 @@ int accept_object(object me, object who, object ob)
     gongxian /= bonus;
 
     // 无门派的江湖游侠奖励加成
-    if (!me->query("family/family_name"))
+    if (!myfam)
     {
         exp += random(exp / 2);
         pot += random(pot / 2);
