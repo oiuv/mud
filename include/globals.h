@@ -76,6 +76,7 @@
 #define UPDATE_D        "/adm/daemons/updated"
 #define VERSION_D       "/adm/daemons/versiond"
 #define VIRTUAL_D       "/adm/daemons/virtuald"
+#define VRM_SERVER      "/adm/daemons/vrm_server"
 #define WEAPON_D        "/adm/daemons/weapond"
 #define IP_D            "/adm/daemons/ipd"
 #define TASK_D          "/adm/daemons/taskd"

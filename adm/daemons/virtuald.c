@@ -1,5 +1,5 @@
 // virtuald.c
-// Modified by Find.
+// Modified by mud.ren.
 
 void create()
 {
@@ -43,20 +43,39 @@ mixed compile_object(string file)
     string *path, cfile;
     object ob;
     int x, y, z, elements, n;
-    // debug_message(file);
+
     path = explode(file, "/");
     n = sizeof(path) - 1;
     cfile = replace_string(file, "/" + path[n], "");
 
-    if (file_size(cfile + ".c") < 1)
-        return 0; // "对象不存在！"
-
     if ((elements = sscanf(path[n], "%d,%d,%d", x, y, z)) != 3)
     {
         if ((elements = sscanf(path[n], "%d,%d", x, y)) != 2)
-            return 0; // "缺少坐标！"
+        {
+            // VRM_SERVER 方式生成迷宫
+            string pname = file;
+            while (1)
+            {
+                int idx = strsrch(pname, "/", -1);
+
+                if (idx == -1)
+                    return 0;
+                if (idx != 0)
+                    pname = pname[0..idx - 1];
+                if (file_size(pname + ".c") >= 0)
+                    if (ob = pname->query_maze_room(file[idx + 1..]))
+                    {
+                        // ob->set_virtual_flag();
+                        return ob;
+                    }
+                if (!idx)
+                    return 0;
+            }
+        }
     }
 
+    if (file_size(cfile + ".c") < 1)
+        return 0; // "对象不存在！"
     if (elements == 2 && !(ob = new (cfile, x, y)))
         return 0; // "编译失败！"
     else if (elements == 3 && !(ob = new (cfile, x, y, z)))
