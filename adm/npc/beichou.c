@@ -369,7 +369,7 @@ int accept_object(object me, object ob)
                 if (va <= 1000)
                         fob->add("ask_cheap", -1);
 
-                else fob->set("ask_cheap", 3);
+                else fob->set("ask_cheap", 1000);
 
                 return 1;
         }
@@ -436,7 +436,7 @@ int ask_bomb()
 
         me = this_player();
         n = ((int)me->query_temp("receive_rumor_time")) - time();
-        if (n < 0) n = 0;        
+        if (n < 0) n = 0;
         n /= 60;
         if (! n)
         {
@@ -599,7 +599,7 @@ int do_list(string arg)
                 return ::do_list();
         }
 
-        message_vision(CYN "$N" CYN "两手忙摆，对$n" CYN 
+        message_vision(CYN "$N" CYN "两手忙摆，对$n" CYN
                        "道：我只卖消息不卖货，嘿嘿。\n" NOR,
                        this_object(), this_player());
         return 1;
@@ -638,8 +638,8 @@ mixed ask_cancel()
 
         if (t > 900)
                 return "走开，你早干什么去了？\n";
-        
+
         me->delete("quest");
 
-        return "好了！\n";        
+        return "好了！\n";
 }
