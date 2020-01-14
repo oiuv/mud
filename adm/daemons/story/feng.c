@@ -45,18 +45,20 @@ mixed random_gift()
 
     ob = obs[random(sizeof(obs))];
 
-    if (ob->query("gift/feng") || random(5))
+    if (ob->query("gift/feng") || !random(ob->query("kar")))
     {
-        msg = HIR + ob->name(1) + "被一阵旋风刮起，重重摔在了地上。" NOR;
-        if (ob->query("combat_exp") < 1000000 ||
-            ob->query("qi") < 1000)
-            ob->unconcious();
-        else
+        if (ob->query("qi") < 1000 || !random(ob->query("kar"))
         {
+            msg = HIR + ob->name(1) + "一声惨叫，软软的倒了下去。" NOR;
             ob->set("qi", 10);
             ob->set("eff_qi", 10);
             ob->set("jing", 1);
             ob->set("eff_jing", 1);
+            ob->unconcious();
+        }
+        else
+        {
+            msg = HIR + ob->name(1) + "有惊无险的避过了天灾，毫发无损。" NOR;
         }
     }
     else
