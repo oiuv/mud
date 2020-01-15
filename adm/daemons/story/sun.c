@@ -50,7 +50,7 @@ mixed random_gift()
 
     if (ob->query("gift/sun") || !random(ob->query("kar")))
     {
-        if (ob->query("qi") < 1000 || !random(ob->query("kar"))
+        if (ob->query("qi") < 1000 || !random(ob->query("kar")))
         {
             msg = HIR + ob->name(1) + "一声惨叫，软软的倒了下去。" NOR;
             ob->set("qi", 10);

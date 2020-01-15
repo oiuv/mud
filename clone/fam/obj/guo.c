@@ -12,7 +12,7 @@ void create()
     else
     {
         set("long", HIC "传说中的仙果，先许愿(wish)再吃(eat)，据说能帮人消除以往吃丹失败的痛苦经历！\n" NOR);
-        set("unit", "粒");
+        set("unit", "个");
         set("value", 100000);
         set("no_sell", 1);
         set("weight", 10);
@@ -96,18 +96,19 @@ int do_eat(string arg)
         message_vision(HIR "$N一口将无花果吞下了肚子，“咕噜噜”地放了个臭屁。\n" NOR, me);
         write(HIG "你的" + me->query_temp("wish_sub_tianfu1") + "的失败记录减少了一点。\n" NOR);
 
-        if (me->query("gift/" + me->query_temp("wish_sub_tianfu") + "/all") > 10)
-        {
-            me->set("gift/" + me->query_temp("wish_sub_tianfu") + "/all", 10);
-        }
+        // if (me->query("gift/" + me->query_temp("wish_sub_tianfu") + "/all") > 10)
+        // {
+        //     me->set("gift/" + me->query_temp("wish_sub_tianfu") + "/all", 10);
+        // }
         if (me->query("gift/gift_all") > 10)
         {
             me->set("gift/gift_all", 10);
         }
 
+        // me->add("gift/" + me->query_temp("wish_sub_tianfu") + "/all", -1);
         me->add("gift/" + me->query_temp("wish_sub_tianfu") + "/fail", -1);
-        me->add("gift/" + me->query_temp("wish_sub_tianfu") + "/all", -1);
         me->add("gift/gift_all", -1);
+        me->add("gift/gift_guo", 1);
 
         me->delete_temp("wish_sub_tianfu");
         me->delete_temp("wish_sub_tianfu1");

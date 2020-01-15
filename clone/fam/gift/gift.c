@@ -58,20 +58,15 @@ int do_effect(object me)
     me->add("gift/" + query("gift_type") + "/all", 1);
     me->add("gift/gift_all", 1);
 
-    add_amount(-1);
-    if (query_amount() < 1)
-        destruct(this_object());
-
+    // if (me->query("gift/" + query("gift_type") + "/all") > 10)
+    // {
+    //     tell_object(me, "你觉得这药好象没什么效果。\n");
+    // }
     // 开放转世后，限制最多吃十颗仙丹，多吃无效
     if (me->query("gift/gift_all") > 10)
     {
         tell_object(me, "已经超过10颗啦，是药三分毒，再吃小心拉肚子。\n");
-        me->add("gift/gift_all", -1);
-    }
-    else if (me->query("gift/" + query("gift_type") + "/all") > 10)
-    {
-        tell_object(me, "你觉得这药好象没什么效果。\n");
-        me->add("gift/" + query("gift_type") + "/all", -1);
+        // me->add("gift/gift_all", -1);
     }
     else if (random(100) >= point)
     {
@@ -91,6 +86,10 @@ int do_effect(object me)
         // 增加相应的天赋属性
         me->add(query("gift_type"), 1);
     }
+
+    add_amount(-1);
+    if (query_amount() < 1)
+        destruct(this_object());
 
     return 1;
 }
