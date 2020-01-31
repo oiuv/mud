@@ -98,7 +98,7 @@ void logon(object ob)
     }
 
 #if 1
-    if (iplimit > 5)
+    if (iplimit > 9)
     {
         write("对不起，" + LOCAL_MUD_NAME() + "限制相同ip多重登录。\n");
         destruct(ob);
