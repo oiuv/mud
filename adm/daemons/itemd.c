@@ -403,7 +403,7 @@ mixed do_touch(object me, object item)
         break;
     }
 
-    me->add("jingli", -150);
+    me->add("jingli", -300);
     msg = replace_string(msg, "$n", item->name());
     message_vision(msg, me);
 
@@ -425,7 +425,7 @@ mixed do_touch(object me, object item)
     else if (me->query("neili") < me->query("max_neili"))
     {
         me->set("neili", me->query("max_neili"));
-        me->start_busy(1 + random(9));
+        me->start_busy(1 + random(3));
         tell_object(me, HIC "你只觉一股热气至丹田冉冉升起，"
                             "说不出的舒服。\n" NOR);
     }
