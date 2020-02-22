@@ -1,37 +1,88 @@
 #include <ansi.h>
 inherit F_CLEAN_UP;
+#define HZK "/adm/etc/language/hzk"
+#define ASC "/adm/etc/language/asc"
+#define DEFAULT_FILL "¡ñ"
+#define DEFAULT_BG "  "
+#define DEFAULT_FCOLOR ""
+#define DEFAULT_BGCOLOR ""
+#define AUTO_SIZE 12
 
-void print_r(mixed *arr);
-void debug(string);
-int help();
+varargs string show(string str, int size, string fill, string bg, string fcolor, string bgcolor)
+{
+    int offset;
+    int *mask = ({0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1});
+    int scale;
+    string char;
+    string *out;
+
+    if(!size)
+        size = AUTO_SIZE;
+
+    out = allocate(size);
+    out = map_array(out, (: $1 = "" :));
+    size *= 2;
+
+    if(!fill || sizeof(fill) != sizeof(bg)) fill = DEFAULT_FILL;
+
+    if(!fcolor) fcolor = DEFAULT_FCOLOR;
+
+    if(!bg || sizeof(fill) != sizeof(bg)) bg = DEFAULT_BG;
+
+    if(!bgcolor) bgcolor = DEFAULT_BGCOLOR;
+
+    for(int k = 0; k < sizeof(str); k++)
+    {
+        if(mask[0] & str[k])
+        {
+            offset = size*( (atoi(sprintf("%d", str[k]))-0xA1)*94 + atoi(sprintf("%d", str[k+1])) - 0xA1 );
+            char = read_bytes(HZK + (size/2), offset, size);
+            k++;
+            scale = 2;
+        } else {
+            offset = str[k] * (size/2);
+            char = read_bytes(ASC + (size/2), offset, (size/2));
+            scale = 1;
+        }
+
+        if(!sizeof(char)) error("TEXT to PIC can't read bytes from character lib\n");
+
+        for(int i = 0; i < sizeof(char); i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                if(mask[j] & char[i])
+                    out[i/scale] += fcolor + fill;
+                else
+                    out[i/scale] += bgcolor + bg;
+            }
+        }
+
+        for(int i = 0; i < sizeof(out); i++)
+        {
+            out[i] = replace_string(out[i], fill + fcolor + fill, fill + fill);
+            out[i] = replace_string(out[i], bg + bgcolor + bg, bg + bg);
+        }
+    }
+    return implode(out, "\n");
+}
 
 void create() { seteuid(getuid()); }
 
 int main(object me, string arg)
 {
-    mixed *args;
-
-    if (!arg || !wizardp(me))
-        return notify_fail("debug what???\n");
+    if (!wizardp(me))
+        return notify_fail("test what???\n");
+    write("\n");
     /**
-     * debug code here
+     * test code here
      */
-    args = explode(arg, " ");
-    switch (args[0])
+    if (arg)
     {
-    case "NPC":
-        debug(NPC_D->check_level(me));
-        debug(NPC_D->get_exp(me));
-        break;
-    case "SK":
-        // NPC_D->init_npc_skill(me, NPC_D->get_exp(me));
-        NPC_D->init_npc_skill(me, 20);
-        break;
-    case "X":
-        printf("%f\n", to_int(pow(to_float(4200000 * 10), 1.0 / 3)) * 0.75);
-        break;
-    default:
-        debug(arg);
+
+        write(show(arg) + "\n");
+        write(arg[0] + "\n");
+        write(arg[1] + "\n");
     }
 
     return 1;
@@ -41,52 +92,4 @@ int help()
 {
     write(origin() + "\n");
     return 1;
-}
-
-// Êý×é´òÓ¡ debug
-varargs void print_r(mixed *arr, int step)
-{
-    int i, j;
-    if (sizeof(arr))
-    {
-        write(YEL "({\n" NOR);
-
-        for (i = 0; i < sizeof(arr); i++)
-        {
-            if (arrayp(arr[i]))
-            {
-                step++;
-                for (j = 0; j < step; j++)
-                {
-                    write("    ");
-                }
-                write(i + " => ");
-                print_r(arr[i], step);
-                step--;
-            }
-            else
-            {
-                for (j = 0; j <= step; j++)
-                {
-                    write("    ");
-                }
-                write(i + " => " + arr[i] + "\n");
-            }
-        }
-
-        for (j = 0; j < step; j++)
-        {
-            write("    ");
-        }
-        write(YEL "})\n" NOR);
-    }
-    else
-    {
-        write(YEL "({ })\n" NOR);
-    }
-}
-
-void debug(string str)
-{
-    write(BRED "Debug:" + str + "\n" NOR);
 }
