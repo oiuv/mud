@@ -54,13 +54,12 @@ int valid_leave(object me, string dir)
              return notify_fail(CYN "\n武敦儒将你拦住，冷笑道：郭"
                                 "府留你不下，你还是走吧。\n" NOR);
 
-/*        if (me->query("mark/guofu_out")
+        if (me->query("mark/guofu_out")
            && present("wu dunru", environment(me))
            && dir == "north")
-             return notify_fail(CYN "\n武敦儒笑道：你再留在郭府已"
-                                "无多大的用处，还是多去闯荡闯荡吧"
-                                "。\n" NOR);
-*/
+            //  return notify_fail(CYN "\n武敦儒笑道：你再留在郭府已无多大的用处，还是多去闯荡闯荡吧。\n" NOR);
+            return 1;
+
         if (me->query("combat_exp") > 5000
            && ! me->query("mark/guofu_ok")
            && present("wu dunru", environment(me))
