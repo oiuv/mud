@@ -1,7 +1,7 @@
 #include <ansi.h>
 
-#define HZK "/adm/etc/language/hzk"
-#define ASC "/adm/etc/language/asc"
+#define HZK "/adm/etc/language/HZK"
+#define ASC "/adm/etc/language/ASC"
 #define DEFAULT_FILL "¡ñ"
 #define DEFAULT_BG "  "
 #define DEFAULT_FCOLOR ""
