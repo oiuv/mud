@@ -21,10 +21,9 @@ void create()
                         "jing_cost" :   30,
                         "difficulty":   30,                     // the base int to learn this skill
                                                                 // modify is gin_cost's (difficulty - int)*5%
-                        "max_skill":    99,                     // the maximum level you can learn
+                        "max_skill":    999,                     // the maximum level you can learn
                         "min_skill":    0                       // the maximum level you can learn
                                                                 // from this object.
                 ]) );
         }
 }
-
