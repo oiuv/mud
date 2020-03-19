@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define GUI "¡¸" HIR "¹í÷ÈÉí·¨" NOR "¡¹"
+#define GUI "ã€Œ" HIR "é¬¼é­…èº«æ³•" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -13,7 +13,7 @@ int perform(object me, object target)
         int skill;
 
         if (userp(me) && ! me->query("can_perform/pixie-jian/gui"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -22,41 +22,41 @@ int perform(object me, object target)
         }
 
         if (! me->is_fighting(target))
-                return notify_fail(GUI "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(GUI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (target->is_busy())
-                return notify_fail(target->name() + "Ä¿Ç°Õý×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É¡£\n");
+                return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ã€‚\n");
 
         skill = me->query_skill("pixie-jian", 1);
 
         if (skill < 100)
-                return notify_fail("ÄãµÄ±ÙÐ°½£·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" GUI "¡£\n");
+                return notify_fail("ä½ çš„è¾Ÿé‚ªå‰‘æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" GUI "ã€‚\n");
 
         if (me->query("neili") < 100)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" GUI "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" GUI "ã€‚\n");
 
         if (me->query_skill_mapped("dodge") != "pixie-jian")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸Ê¹ÓÃ±ÙÐ°½£·¨£¬ÄÑÒÔÊ©Õ¹" GUI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨è¾Ÿé‚ªå‰‘æ³•ï¼Œéš¾ä»¥æ–½å±•" GUI "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIR "$N" HIR "Éí×Óºö½øºöÍË£¬ÍðÈô¹í÷È£¬ÉíÐÎ¹îÃØÒì³££¬ÔÚ$n"
-              HIR "Éí±ßÆ®ºö²»¶¨¡£\n" NOR;
+	msg = HIR "$N" HIR "èº«å­å¿½è¿›å¿½é€€ï¼Œå®›è‹¥é¬¼é­…ï¼Œèº«å½¢è¯¡ç§˜å¼‚å¸¸ï¼Œåœ¨$n"
+              HIR "èº«è¾¹é£˜å¿½ä¸å®šã€‚\n" NOR;
 
         ap = me->query_skill("pixie-jian", 1) * 2;
         dp = target->query_skill("parry");
 
 	if (ap / 2 + random(ap) > dp)
         {
-		msg += HIR "$p" HIR "ö®Ê±Ö»¾õÑÛ»¨çÔÂÒ£¬Ö»ÄÜ½ôÊØÃÅ»§£¬²»"
-                       "¸ÒÍý×Ô³ö»÷£¡\n" NOR;
+		msg += HIR "$p" HIR "éœŽæ—¶åªè§‰çœ¼èŠ±ç¼­ä¹±ï¼Œåªèƒ½ç´§å®ˆé—¨æˆ·ï¼Œä¸"
+                       "æ•¢å¦„è‡ªå‡ºå‡»ï¼\n" NOR;
 		target->start_busy(ap / 45 + 2);
 		me->start_busy(1);
 	} else
         {
-		msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P" CYN "µÄÉí·¨£¬²¢Ã»ÓÐÊÜ"
-                       "µ½ÈÎºÎÓ°Ïì¡£\n" NOR;
+		msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P" CYN "çš„èº«æ³•ï¼Œå¹¶æ²¡æœ‰å—"
+                       "åˆ°ä»»ä½•å½±å“ã€‚\n" NOR;
 		me->start_busy(2);
 	}
         me->add("neili", -50);

@@ -7,23 +7,23 @@ int valid_enable(string usage) { return usage == "poison" || usage == "medical";
 int valid_learn(object me)
 {
         if ((int)me->query_skill("force") < 80)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¬ÎŞ·¨Ñ§Ï°ÃîÊÖÇı¶¾¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œæ— æ³•å­¦ä¹ å¦™æ‰‹é©±æ¯’ã€‚\n");
 
         if ((int)me->query("max_neili") < 350)
-                return notify_fail("ÄãµÄÄÚÁ¦Ì«Èõ£¬ÎŞ·¨Ñ§Ï°ÃîÊÖÇı¶¾¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›å¤ªå¼±ï¼Œæ— æ³•å­¦ä¹ å¦™æ‰‹é©±æ¯’ã€‚\n");
 
         //if ((int)me->query_skill("poison", 1) < 30)
-        //        return notify_fail("ÄãµÄ»ù±¾¶¾¼¼»ğºò²»¹»£¬ÎŞ·¨Ñ§ÃîÊÖÇı¶¾¡£\n");
+        //        return notify_fail("ä½ çš„åŸºæœ¬æ¯’æŠ€ç«å€™ä¸å¤Ÿï¼Œæ— æ³•å­¦å¦™æ‰‹é©±æ¯’ã€‚\n");
 
         //if ((int)me->query_skill("poison", 1) < (int)me->query_skill("dispel-poison", 1))
-        //ÎªÁË¸øºú¼Òµ¶½£id¿ªÌõÂ·ÎÒÒ²ÊÇÂùÆ´µÄ¡£¡£¡£ 2017-02-18
+        //ä¸ºäº†ç»™èƒ¡å®¶åˆ€å‰‘idå¼€æ¡è·¯æˆ‘ä¹Ÿæ˜¯è›®æ‹¼çš„ã€‚ã€‚ã€‚ 2017-02-18
         if (((int)me->query_skill("poison", 1) < (int)me->query_skill("dispel-poison", 1)) && ((int)me->query_skill("medical", 1) < (int)me->query_skill("dispel-poison", 1) + 20))
-                return notify_fail("ÄãµÄ»ù±¾¶¾¼¼ºÍ»ù±¾Ò½Êõ¶¼Ë®Æ½ÓĞÏŞ£¬ÎŞ·¨Áì»á¸ü¸ßÉîµÄÃîÊÖÇı¶¾¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬æ¯’æŠ€å’ŒåŸºæœ¬åŒ»æœ¯éƒ½æ°´å¹³æœ‰é™ï¼Œæ— æ³•é¢†ä¼šæ›´é«˜æ·±çš„å¦™æ‰‹é©±æ¯’ã€‚\n");
 
         return 1;
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("ÃîÊÖÇı¶¾Ö»ÄÜÍ¨¹ıÑ§Ï°»ñµÃ³¤½ø¡£\n");
+        return notify_fail("å¦™æ‰‹é©±æ¯’åªèƒ½é€šè¿‡å­¦ä¹ è·å¾—é•¿è¿›ã€‚\n");
 }

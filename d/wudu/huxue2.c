@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "»¢Ñ¨Éî´¦");
+        set("short", "è™ç©´æ·±å¤„");
         set("long", @LONG
-ÕâÀïÊÇÉ­ÁÖÀïÑÒ¶´µÄÉî´¦£¬¼¸Ö»¸ÕÉúÏÂ¼¸¸öÔÂµÄĞ¡»¢áÌÕı
-ÔÚ¶´ÖĞæÒÏ·£¬ÄãÍ»È»·¢ÏÖ¶´ÄÚ½ÇÂäÀïÓĞÒ»¶Ñ°×¹Ç£¬Äã×ĞÏ¸Ò»¿´
-¾¹È»ÊÇÒ»¾ßÈËÀàµÄÒÅ¹Ç¡£
+è¿™é‡Œæ˜¯æ£®æ—é‡Œå²©æ´çš„æ·±å¤„ï¼Œå‡ åªåˆšç”Ÿä¸‹å‡ ä¸ªæœˆçš„å°è™å´½æ­£
+åœ¨æ´ä¸­å¬‰æˆï¼Œä½ çªç„¶å‘ç°æ´å†…è§’è½é‡Œæœ‰ä¸€å †ç™½éª¨ï¼Œä½ ä»”ç»†ä¸€çœ‹
+ç«Ÿç„¶æ˜¯ä¸€å…·äººç±»çš„é—éª¨ã€‚
 LONG);
 
         set("exits", ([
@@ -17,7 +17,7 @@ LONG);
                 "/clone/quarry/laohu" : 1,
         ]));
         set("item_desc", ([
-            	"bone"  : "Ò»¾ßÈËÀàµÄÒÅ¹Ç£¬ÏÂÃæËÆºõÑ¹×ÅÊ²Ã´¶«Î÷£¬Äã¿ÉÒÔ×ĞÏ¸ËÑË÷(sousuo)Ò»ÏÂ¡£\n",
+            	"bone"  : "ä¸€å…·äººç±»çš„é—éª¨ï¼Œä¸‹é¢ä¼¼ä¹å‹ç€ä»€ä¹ˆä¸œè¥¿ï¼Œä½ å¯ä»¥ä»”ç»†æœç´¢(sousuo)ä¸€ä¸‹ã€‚\n",
         ]) );
 
         setup();
@@ -35,21 +35,21 @@ int do_search(string arg)
 {
         object me = this_player();
         object ob; 
-        if ((! arg) || ! ((arg == "bone") || (arg == "ÒÅ¹Ç")))
-                return notify_fail("ÄãÒªËÑË÷Ê²Ã´£¿\n");
+        if ((! arg) || ! ((arg == "bone") || (arg == "é—éª¨")))
+                return notify_fail("ä½ è¦æœç´¢ä»€ä¹ˆï¼Ÿ\n");
 
-        message_vision(HIR "\n$N" HIR "ÇáÇá²¦¶¯ÄÇ¶Ñ°×¹Ç¡£\n\n" NOR, me);
+        message_vision(HIR "\n$N" HIR "è½»è½»æ‹¨åŠ¨é‚£å †ç™½éª¨ã€‚\n\n" NOR, me);
  
         if(query("not_tongpai"))
         {
-                message("vission", HIR "Ö»ÌıºôÀ²Ò»Éù£¬´ÓÀïÃæ´Ü³öÀ´Ò»Ö»´óÀÏÊó¡£\n" NOR, me);
+                message("vission", HIR "åªå¬å‘¼å•¦ä¸€å£°ï¼Œä»é‡Œé¢çªœå‡ºæ¥ä¸€åªå¤§è€é¼ ã€‚\n" NOR, me);
                 return 1;
         }
 
 
         ob = new(__DIR__"obj/tongpai.c");
         ob->move(environment(me));
-        message_vision(HIY "Ö»Ìı¡°µ±à¥¡­¡­¡±Ò»Éù£¬´ÓÀïÃæ¹ö³öÀ´Ò»ÃæÍ­ÅÆ¡£\n\n\n" NOR, me);
+        message_vision(HIY "åªå¬â€œå½“å•·â€¦â€¦â€ä¸€å£°ï¼Œä»é‡Œé¢æ»šå‡ºæ¥ä¸€é¢é“œç‰Œã€‚\n\n\n" NOR, me);
         set("not_tongpai", 1);
         call_out("regenerate", 86400);
         return 1;

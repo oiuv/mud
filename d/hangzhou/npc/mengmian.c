@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÃÉÃæÈË", ({"mengmianren"}));
-        set("long", "Ò»¸öÃÉÃæ´óºº£¬É±ÆøÌÚÌÚ¡£\n" );
+        set_name("è’™é¢äºº", ({"mengmianren"}));
+        set("long", "ä¸€ä¸ªè’™é¢å¤§æ±‰ï¼Œæ€æ°”è…¾è…¾ã€‚\n" );
 
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("attitude", "peace");
 
         set("chat_chance", 10);

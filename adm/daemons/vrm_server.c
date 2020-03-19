@@ -1,42 +1,42 @@
 /************************************************
  * vrm_server.c                                 *
- * ĞéÄâµÄËæ»úÃÔ¹¬´´ÔìÆ÷ (Virtual Random Maze)     *
+ * è™šæ‹Ÿçš„éšæœºè¿·å®«åˆ›é€ å™¨ (Virtual Random Maze)     *
  *                                              *
  * by Find.                                     *
- *              ÍøÂçÓÎÏ· ÌìÏÂ MUD.               *
+ *              ç½‘ç»œæ¸¸æˆ å¤©ä¸‹ MUD.               *
  ************************************************/
 
 /******************************************************
- * ÃÔ¹¬ÊÇÒ»¸öÓÎÏ·Àï¾­³£ÒªÓÃµ½µÄ¶«Î÷£¬ÒÔÇ°µÄÃÔ¹¬¶¼ĞèÒª *
- * Î×Ê¦Ò»¸ö·¿¼äÒ»¸ö·¿¼äµØÊÖ¹¤»æÖÆ£¬·ÑÊ±·ÑÁ¦£¬¶øÇÒÒ»µ© *
- * ±»Íæ¼ÒÕÒ³öÕıÈ·µÄÏßÂ·£¬ÃÔ¹¬¸ñ¾Ö±»Ğ¹Â©£¬ÃÔ¹¬¾Í²»³ÆÆä *
- * ÎªÃÔ¹¬ÁË£¬ËùÒÔÎ×Ê¦ÃÇ¶¼½Ê¾¡ÄÔÖ­°ÑÃÔ¹¬Éè¼ÆµÄ¾¡Á¿¸´ÔÓ,*
- * µ«ÔÙ¸´ÔÓµÄÃÔ¹¬ÔçÍíÒ²»á±»ÕÒµ½ÕıÈ·µÄÂ·Ïß£¬¶øÇÒ¹ıÓÚ¸´ *
- * ÔÓÄÑ×ßµÄÃÔ¹¬Ò²Ê¹Íæ¼Ò¸Ğ¾õ¹ıÓÚ·±Ëö£¬½µµÍÀÖÈ¤¡£Òò´Ë²ú *
- * Éú´ËÏë·¨¡£                                     *
- * Ëæ»úÃÔ¹¬µÄ²úÉúËã·¨¾¡Á¿¼òµ¥£¬ÃÔ¹¬µÄ´¢´æ¾¡Á¿½ÚÊ¡¼ÇÒä *
- * Ìå£¬ÃÔ¹¬·¿¼ä²ÉÓÃĞéÄâÎï¼ş£¬´¦ÀíÁé»î£¬ÃÔ¹¬·¿¼äÖ»ÓĞÔÚ *
- * Íæ¼Ò×ßµ½Ê±²Å»á×°½øÄÚ´æ£¬¶øÇÒÃÔ¹¬·¿¼äÒ²ÏóÆÕÍ¨µÄROOM *
- * Ò»Ñùµ±Ò»¶ÎÊ±¼äÃ»ÓĞ±»²Î¿¼µ½¿ÉÒÔÏú»Ù½ÚÊ¡¼ÇÒäÌå£¬µ±Õû *
- * ¸öÃÔ¹¬Ò»¶ÎÊ±¼äÃ»ÓĞ±»²Î¿¼µ½¿ÉÒÔ±»ÍêÈ«´İ»Ù£¬ÏÂ´ÎÔÙĞè *
- * ÒªµÄÊ±ºò»áÖØĞÂ½¨Á¢£¬ÓÖ»á²úÉúÒ»¸öĞÂµÄÃÔ¹¬¡£ÇøÓòÎ×Ê¦ *
- * Ğ´×÷Ëæ»úÃÔ¹¬Ö»Ğè¹æ¶¨Ò»Ğ©Ô¤ÉèµÄ²ÎÊıÈçÃÔ¹¬µÄµ¥±ß³¤¡¢ *
- * ·¿¼äÃèÊö¡¢³öÈë¿ÚÃèÊö£¬¼¸Ê®¸öÄËÖÁ¼¸Ç§¸ö·¿¼ä¡¢Â·ÏßÊ± *
- * Ê±²»Í¬µÄËæ»úÃÔ¹¬¾Í½¨Á¢ºÃÁË£¬´ó´óÌá¸ßÁËÇøÓòĞ´×÷Ğ§ÂÊ *
- * ºÍÓÎÏ·µÄ¿ÉÍæĞÔ¡£                                *
- * ´ËÎï¼şÄ¿Ç°ÊÊºÏÓÚËæ»úµÄÃÔ¹¬£¬¼´£ºÃÔ¹¬ÄÚ·¿¼äµÄÃèÊö»ù *
- * ±¾ÏàÍ¬£¬±ÈÈçÒ»Æ¬Ê÷ÁÖ¡¢Ò»Æ¬·ØµØµÈ£¬ÈçÒª´ËÎï¼ş´´×÷Íê *
- * ÕûµÄËæ»úÇøÓò¼´ÓĞÒ»¶¨µÄÇé½Ú¡¢Ò»¶¨¸ñ¾ÖµÄÇøÓò£¬ÔòĞèÒª *
- * ¸ù¾İ×Ô¼ºµÄÇé¿ö¹æ¶¨³öÃÔ¹¬ÄÚ·¿¼äÃèÊöµÄÒ»Ğ©¹æÔò£¬Ê¹Ïà *
- * ÁÚ·¿¼äµÄÃèÊö±ä»¯ºÏÀí£¬·¿¼äÄÚÎï¼şÓëÃèÊöĞ­µ÷¡£Èç¹ûÔ¸ *
- * ÒâÎ×Ê¦¿ÉÒÔÖ»ÖÆ×÷ÃÔ¹¬¼äµÄÁ¬½Ó²¿·Ö£¬¶øÓÃ¼¸¸öÃÔ¹¬×éºÏ *
- * ³ÉÒ»¸öÍêÈ«Ëæ»úµÄÇøÓò£¬¹ş£¬ÄÇÒÔºó×öÎ×Ê¦¿ÉÇáËÉ¶àÁË¡£ *
- * Ä¿Ç°±¾ÓÎÏ·Ê¹ÓÃµÄÃÔ¹¬Ò»°ãÎªµ¥±ß³¤10ÖÁ40£¬µ½µ×ÄÜ×ö¶à *
- * ´óµÄÃÔ¹¬ÎÒÒ²²»ÖªµÀ£¬ÏÂÃæ¶Ô´ËÓĞÒ»¸öËµÃ÷£¬Òª¸ù¾İ×Ô¼º *
- * µÄ·şÎñÆ÷ĞÔÄÜÀ´½²£¬²»¹ıÎÒÏë×îÆÕÍ¨µÄ»úÆ÷ÖÆ×÷Ò»¸öÃæ»ı *
- * Îª100x100µÄÃÔ¹¬Ó¦¸ÃÒ²ÊÇÒ»¼şÇáËÉµÄÊÂÇé¡£           *
- * ÓÉÓÚ²ÉÓÃ virtual object£¬Ç£Éæµ½Ò»µã°²È«ÎÊÌâ£¬ĞèÒª¸ù*
- * ¾İ×Ô¼ºµÄÏµÍ³¿¼Á¿µ÷Õû¡£                             *
+ * è¿·å®«æ˜¯ä¸€ä¸ªæ¸¸æˆé‡Œç»å¸¸è¦ç”¨åˆ°çš„ä¸œè¥¿ï¼Œä»¥å‰çš„è¿·å®«éƒ½éœ€è¦ *
+ * å·«å¸ˆä¸€ä¸ªæˆ¿é—´ä¸€ä¸ªæˆ¿é—´åœ°æ‰‹å·¥ç»˜åˆ¶ï¼Œè´¹æ—¶è´¹åŠ›ï¼Œè€Œä¸”ä¸€æ—¦ *
+ * è¢«ç©å®¶æ‰¾å‡ºæ­£ç¡®çš„çº¿è·¯ï¼Œè¿·å®«æ ¼å±€è¢«æ³„æ¼ï¼Œè¿·å®«å°±ä¸ç§°å…¶ *
+ * ä¸ºè¿·å®«äº†ï¼Œæ‰€ä»¥å·«å¸ˆä»¬éƒ½ç»å°½è„‘æ±æŠŠè¿·å®«è®¾è®¡çš„å°½é‡å¤æ‚,*
+ * ä½†å†å¤æ‚çš„è¿·å®«æ—©æ™šä¹Ÿä¼šè¢«æ‰¾åˆ°æ­£ç¡®çš„è·¯çº¿ï¼Œè€Œä¸”è¿‡äºå¤ *
+ * æ‚éš¾èµ°çš„è¿·å®«ä¹Ÿä½¿ç©å®¶æ„Ÿè§‰è¿‡äºç¹çï¼Œé™ä½ä¹è¶£ã€‚å› æ­¤äº§ *
+ * ç”Ÿæ­¤æƒ³æ³•ã€‚                                     *
+ * éšæœºè¿·å®«çš„äº§ç”Ÿç®—æ³•å°½é‡ç®€å•ï¼Œè¿·å®«çš„å‚¨å­˜å°½é‡èŠ‚çœè®°å¿† *
+ * ä½“ï¼Œè¿·å®«æˆ¿é—´é‡‡ç”¨è™šæ‹Ÿç‰©ä»¶ï¼Œå¤„ç†çµæ´»ï¼Œè¿·å®«æˆ¿é—´åªæœ‰åœ¨ *
+ * ç©å®¶èµ°åˆ°æ—¶æ‰ä¼šè£…è¿›å†…å­˜ï¼Œè€Œä¸”è¿·å®«æˆ¿é—´ä¹Ÿè±¡æ™®é€šçš„ROOM *
+ * ä¸€æ ·å½“ä¸€æ®µæ—¶é—´æ²¡æœ‰è¢«å‚è€ƒåˆ°å¯ä»¥é”€æ¯èŠ‚çœè®°å¿†ä½“ï¼Œå½“æ•´ *
+ * ä¸ªè¿·å®«ä¸€æ®µæ—¶é—´æ²¡æœ‰è¢«å‚è€ƒåˆ°å¯ä»¥è¢«å®Œå…¨æ‘§æ¯ï¼Œä¸‹æ¬¡å†éœ€ *
+ * è¦çš„æ—¶å€™ä¼šé‡æ–°å»ºç«‹ï¼Œåˆä¼šäº§ç”Ÿä¸€ä¸ªæ–°çš„è¿·å®«ã€‚åŒºåŸŸå·«å¸ˆ *
+ * å†™ä½œéšæœºè¿·å®«åªéœ€è§„å®šä¸€äº›é¢„è®¾çš„å‚æ•°å¦‚è¿·å®«çš„å•è¾¹é•¿ã€ *
+ * æˆ¿é—´æè¿°ã€å‡ºå…¥å£æè¿°ï¼Œå‡ åä¸ªä¹ƒè‡³å‡ åƒä¸ªæˆ¿é—´ã€è·¯çº¿æ—¶ *
+ * æ—¶ä¸åŒçš„éšæœºè¿·å®«å°±å»ºç«‹å¥½äº†ï¼Œå¤§å¤§æé«˜äº†åŒºåŸŸå†™ä½œæ•ˆç‡ *
+ * å’Œæ¸¸æˆçš„å¯ç©æ€§ã€‚                                *
+ * æ­¤ç‰©ä»¶ç›®å‰é€‚åˆäºéšæœºçš„è¿·å®«ï¼Œå³ï¼šè¿·å®«å†…æˆ¿é—´çš„æè¿°åŸº *
+ * æœ¬ç›¸åŒï¼Œæ¯”å¦‚ä¸€ç‰‡æ ‘æ—ã€ä¸€ç‰‡åŸåœ°ç­‰ï¼Œå¦‚è¦æ­¤ç‰©ä»¶åˆ›ä½œå®Œ *
+ * æ•´çš„éšæœºåŒºåŸŸå³æœ‰ä¸€å®šçš„æƒ…èŠ‚ã€ä¸€å®šæ ¼å±€çš„åŒºåŸŸï¼Œåˆ™éœ€è¦ *
+ * æ ¹æ®è‡ªå·±çš„æƒ…å†µè§„å®šå‡ºè¿·å®«å†…æˆ¿é—´æè¿°çš„ä¸€äº›è§„åˆ™ï¼Œä½¿ç›¸ *
+ * é‚»æˆ¿é—´çš„æè¿°å˜åŒ–åˆç†ï¼Œæˆ¿é—´å†…ç‰©ä»¶ä¸æè¿°åè°ƒã€‚å¦‚æœæ„¿ *
+ * æ„å·«å¸ˆå¯ä»¥åªåˆ¶ä½œè¿·å®«é—´çš„è¿æ¥éƒ¨åˆ†ï¼Œè€Œç”¨å‡ ä¸ªè¿·å®«ç»„åˆ *
+ * æˆä¸€ä¸ªå®Œå…¨éšæœºçš„åŒºåŸŸï¼Œå“ˆï¼Œé‚£ä»¥ååšå·«å¸ˆå¯è½»æ¾å¤šäº†ã€‚ *
+ * ç›®å‰æœ¬æ¸¸æˆä½¿ç”¨çš„è¿·å®«ä¸€èˆ¬ä¸ºå•è¾¹é•¿10è‡³40ï¼Œåˆ°åº•èƒ½åšå¤š *
+ * å¤§çš„è¿·å®«æˆ‘ä¹Ÿä¸çŸ¥é“ï¼Œä¸‹é¢å¯¹æ­¤æœ‰ä¸€ä¸ªè¯´æ˜ï¼Œè¦æ ¹æ®è‡ªå·± *
+ * çš„æœåŠ¡å™¨æ€§èƒ½æ¥è®²ï¼Œä¸è¿‡æˆ‘æƒ³æœ€æ™®é€šçš„æœºå™¨åˆ¶ä½œä¸€ä¸ªé¢ç§¯ *
+ * ä¸º100x100çš„è¿·å®«åº”è¯¥ä¹Ÿæ˜¯ä¸€ä»¶è½»æ¾çš„äº‹æƒ…ã€‚           *
+ * ç”±äºé‡‡ç”¨ virtual objectï¼Œç‰µæ¶‰åˆ°ä¸€ç‚¹å®‰å…¨é—®é¢˜ï¼Œéœ€è¦æ ¹*
+ * æ®è‡ªå·±çš„ç³»ç»Ÿè€ƒé‡è°ƒæ•´ã€‚                             *
  ******************************************************/
 
 // #pragma optimize
@@ -48,25 +48,25 @@
 #define ALL 15
 
 /****************************************************
- * ÃÔ¹¬µÄµ¥±ß³¤×î´óÖµÄ¿Ç°Ôİ¶¨Îª 100£¬ÓÉÓÚËæ»úÃÔ¹¬µÄ
- * ´´ÔìºÍ²Ù×÷±È½ÏºÄ·Ñ×ÊÔ´µ¥±ß³¤ 100 µÄÃÔ¹¬'Ãæ»ı'¾ÍÊÇ
- * 100x100 µÈÓÚ 10000 ¸ö·¿¼äµÄÒ»¸öÃÔ¹¬£¬Ò»°ã¿ÖÅÂÊÇÓÃ
- * ²»µ½¡£Ò»°ãµÄÊµÊ±ÃÔ¹¬£¨ÊµÊ±ÃÔ¹¬ÊÇÖ¸ÔÚÓÎÏ·ÔËĞĞ¹ı³Ì
- * ÖĞËæÊ±±» destruct Ëæ×ÅĞèÒªÓÖ»áËæÊ±±»´´½¨µÄÃÔ¹¬£©µÄ
- * µ¥±ß³¤ÒÔ 10 µ½ 50 Ö®¼äÎªÒË¡£ÈçĞè´´Ôì¾ŞĞÍÃÔ¹¬ÈçÓĞ¼¸
- * ÍòÄËÖÁÊ®¼¸Íò¸ö·¿¼äµÄÃÔ¹¬£¬Ó¦½«´´½¨¹¤×÷·ÅÖÃÓÚÓÎÏ·Æô
- * ¶¯Ê±×ö£¬ÓÎÏ·Æô¶¯µÄÒ»¶ÎÊ±¼ä£¨±ÈÈç20Ãë£©½ûÖ¹Íæ¼ÒµÇÈë¡£
- * ÓÎÏ·Í¨¹ı¶¨ÆÚÖØĞÂÆô¶¯À´¸üĞÂ´ËÃÔ¹¬¡£
- * ²»ÖªË­»áÓÃµ½ÕâÃ´´óµÄÃÔ¹¬¡£¡£¡£¡£¡£¡£
+ * è¿·å®«çš„å•è¾¹é•¿æœ€å¤§å€¼ç›®å‰æš‚å®šä¸º 100ï¼Œç”±äºéšæœºè¿·å®«çš„
+ * åˆ›é€ å’Œæ“ä½œæ¯”è¾ƒè€—è´¹èµ„æºå•è¾¹é•¿ 100 çš„è¿·å®«'é¢ç§¯'å°±æ˜¯
+ * 100x100 ç­‰äº 10000 ä¸ªæˆ¿é—´çš„ä¸€ä¸ªè¿·å®«ï¼Œä¸€èˆ¬ææ€•æ˜¯ç”¨
+ * ä¸åˆ°ã€‚ä¸€èˆ¬çš„å®æ—¶è¿·å®«ï¼ˆå®æ—¶è¿·å®«æ˜¯æŒ‡åœ¨æ¸¸æˆè¿è¡Œè¿‡ç¨‹
+ * ä¸­éšæ—¶è¢« destruct éšç€éœ€è¦åˆä¼šéšæ—¶è¢«åˆ›å»ºçš„è¿·å®«ï¼‰çš„
+ * å•è¾¹é•¿ä»¥ 10 åˆ° 50 ä¹‹é—´ä¸ºå®œã€‚å¦‚éœ€åˆ›é€ å·¨å‹è¿·å®«å¦‚æœ‰å‡ 
+ * ä¸‡ä¹ƒè‡³åå‡ ä¸‡ä¸ªæˆ¿é—´çš„è¿·å®«ï¼Œåº”å°†åˆ›å»ºå·¥ä½œæ”¾ç½®äºæ¸¸æˆå¯
+ * åŠ¨æ—¶åšï¼Œæ¸¸æˆå¯åŠ¨çš„ä¸€æ®µæ—¶é—´ï¼ˆæ¯”å¦‚20ç§’ï¼‰ç¦æ­¢ç©å®¶ç™»å…¥ã€‚
+ * æ¸¸æˆé€šè¿‡å®šæœŸé‡æ–°å¯åŠ¨æ¥æ›´æ–°æ­¤è¿·å®«ã€‚
+ * ä¸çŸ¥è°ä¼šç”¨åˆ°è¿™ä¹ˆå¤§çš„è¿·å®«ã€‚ã€‚ã€‚ã€‚ã€‚ã€‚
  ****************************************************/
 #define MAX_LONG 100
 
-// Ö»ÒªÄÜÓëÆäËû·¿¼äÏàÁ¬µÄ·¿¼ä¾Í¿Ï¶¨ÓĞÒ»¸öÈë¿Ú.
-// ¶ø¿ÉÄÜµÄ³ö¿ÚÓĞÈı¸ö.
-// define ÕâÏî¹æ¶¨·¿¼ä×î¶àÖ»ÄÜÓĞÁ½¸ö³ö¿Ú.
-// Ò²¾ÍÊÇ¶ÔÓÚÓĞÈı¸ö³ö¿ÚµÄ·¿¼ä»áËæ»ú¹Ø±ÕÒ»¸ö.
-// ²»»áÊ¹Íæ¼ÒÓÉÓÚ¿´µ½ËÄ¸ö·½Ïò¶¼ÓĞ³ö¿ÚºÜ·³
-// ½µµÍÓÎÏ·ÀÖÈ¤¡£
+// åªè¦èƒ½ä¸å…¶ä»–æˆ¿é—´ç›¸è¿çš„æˆ¿é—´å°±è‚¯å®šæœ‰ä¸€ä¸ªå…¥å£.
+// è€Œå¯èƒ½çš„å‡ºå£æœ‰ä¸‰ä¸ª.
+// define è¿™é¡¹è§„å®šæˆ¿é—´æœ€å¤šåªèƒ½æœ‰ä¸¤ä¸ªå‡ºå£.
+// ä¹Ÿå°±æ˜¯å¯¹äºæœ‰ä¸‰ä¸ªå‡ºå£çš„æˆ¿é—´ä¼šéšæœºå…³é—­ä¸€ä¸ª.
+// ä¸ä¼šä½¿ç©å®¶ç”±äºçœ‹åˆ°å››ä¸ªæ–¹å‘éƒ½æœ‰å‡ºå£å¾ˆçƒ¦
+// é™ä½æ¸¸æˆä¹è¶£ã€‚
 #define TWO_VALID_LEAVES
 
 inherit F_CLEAN_UP;
@@ -76,9 +76,9 @@ class coordinate
     int x;
     int y;
 }
-class coordinate *newpath = ({}), /*´ı´¦Àí¶ÓÁĞ*/
-    enter,                          /* Èë¿Ú×ø±ê */
-    leave;                          /* ³ö¿Ú×ø±ê */
+class coordinate *newpath = ({}), /*å¾…å¤„ç†é˜Ÿåˆ—*/
+    enter,                          /* å…¥å£åæ ‡ */
+    leave;                          /* å‡ºå£åæ ‡ */
 
 private string *valid_dirs = ({"south", "north", "west", "east"});
 private mapping reverse_dir = ([
@@ -88,46 +88,46 @@ private mapping reverse_dir = ([
      "east":"west",
 ]);
 
-// È«ÃÔ¹¬³ö¿ÚÕóÁĞ.
+// å…¨è¿·å®«å‡ºå£é˜µåˆ—.
 private mixed *all;
 
-/***************** ÃÔ¹¬µÄÒ»Ğ©Ô¤ÉèÌØĞÔ£º*****************/
-private int l; // ÃÔ¹¬µÄµ¥±ß³¤
-private string *inherit_rooms = ({}); // ÃÔ¹¬ÔÊĞí¼Ì³ĞµÄµµ°¸Ãû³Æ
-private string entry_dir; // ÃÔ¹¬Èë¿Ú·½Ïò
-private string link_entry_dir; // ÃÔ¹¬Èë¿ÚÓëÇøÓòµÄÁ¬½Ó·½Ïò
-private string link_entry_room; // ÃÔ¹¬Èë¿ÚËùÁ¬½ÓÇøÓòµµ°¸µÄÎÄ¼şÃû
-private string link_exit_dir; // ÃÔ¹¬³ö¿ÚÓëÇøÓòµÄÁ¬½Ó·½Ïò
-private string link_exit_room; // ÃÔ¹¬³ö¿ÚËùÁ¬½ÓÇøÓòµµ°¸µÄÎÄ¼şÃû
-private string entry_short; // ÃÔ¹¬Èë¿ÚµÄ¶ÌÃèÊö
-private string entry_desc; // ÃÔ¹¬Èë¿ÚµÄ³¤ÃèÊö
-private string exit_short; // ÃÔ¹¬³ö¿ÚµÄ¶ÌÃèÊö
-private string exit_desc; // ÃÔ¹¬³ö¿ÚµÄ³¤ÃèÊö
-private string *maze_room_desc = ({}); // ÃÔ¹¬·¿¼äµÄ³¤ÃèÊö
-private string maze_room_short; // ÃÔ¹¬·¿¼äµÄ¶ÌÃèÊö
-private int is_outdoors = 0; // ÃÔ¹¬·¿¼äÊÇ·ñÎª»§Íâ
-private string *maze_npcs = ({}); // ÃÔ¹¬ÖĞµÄ¹ÖÎï
+/***************** è¿·å®«çš„ä¸€äº›é¢„è®¾ç‰¹æ€§ï¼š*****************/
+private int l; // è¿·å®«çš„å•è¾¹é•¿
+private string *inherit_rooms = ({}); // è¿·å®«å…è®¸ç»§æ‰¿çš„æ¡£æ¡ˆåç§°
+private string entry_dir; // è¿·å®«å…¥å£æ–¹å‘
+private string link_entry_dir; // è¿·å®«å…¥å£ä¸åŒºåŸŸçš„è¿æ¥æ–¹å‘
+private string link_entry_room; // è¿·å®«å…¥å£æ‰€è¿æ¥åŒºåŸŸæ¡£æ¡ˆçš„æ–‡ä»¶å
+private string link_exit_dir; // è¿·å®«å‡ºå£ä¸åŒºåŸŸçš„è¿æ¥æ–¹å‘
+private string link_exit_room; // è¿·å®«å‡ºå£æ‰€è¿æ¥åŒºåŸŸæ¡£æ¡ˆçš„æ–‡ä»¶å
+private string entry_short; // è¿·å®«å…¥å£çš„çŸ­æè¿°
+private string entry_desc; // è¿·å®«å…¥å£çš„é•¿æè¿°
+private string exit_short; // è¿·å®«å‡ºå£çš„çŸ­æè¿°
+private string exit_desc; // è¿·å®«å‡ºå£çš„é•¿æè¿°
+private string *maze_room_desc = ({}); // è¿·å®«æˆ¿é—´çš„é•¿æè¿°
+private string maze_room_short; // è¿·å®«æˆ¿é—´çš„çŸ­æè¿°
+private int is_outdoors = 0; // è¿·å®«æˆ¿é—´æ˜¯å¦ä¸ºæˆ·å¤–
+private string *maze_npcs = ({}); // è¿·å®«ä¸­çš„æ€ªç‰©
 /******************* ---- END ---- *********************/
 
-// ½¨Á¢±ê¼Ç.
+// å»ºç«‹æ ‡è®°.
 private int maze_built = 0;
 
-// ÖØÖÃÈ«Óò±äÁ¿.
+// é‡ç½®å…¨åŸŸå˜é‡.
 private void refresh_vars();
 
-// ½¨Á¢ÃÔ¹¬
+// å»ºç«‹è¿·å®«
 private void create_maze();
 
-// Ñ¡ÔñËæ»ú³ö¿Ú.
+// é€‰æ‹©éšæœºå‡ºå£.
 private int random_out(int x, int y, int n);
 
-// ´¦ÀíÁ¬½Ó.
+// å¤„ç†è¿æ¥.
 private void link_to_north(int x, int y);
 private void link_to_south(int x, int y);
 private void link_to_west(int x, int y);
 private void link_to_east(int x, int y);
 
-// »æÖÆÒÑ½¨³ÉÃÔ¹¬µÄµØÍ¼.
+// ç»˜åˆ¶å·²å»ºæˆè¿·å®«çš„åœ°å›¾.
 private void paint_vrm_map();
 
 private string mroom_fname(int x, int y)
@@ -135,13 +135,13 @@ private string mroom_fname(int x, int y)
     return sprintf("%s/%d/%d", base_name(this_object()), x, y);
 }
 
-private void refresh_vars() // ÖØÖÃÈ«Óò±äÁ¿.
+private void refresh_vars() // é‡ç½®å…¨åŸŸå˜é‡.
 {
     newpath = ({});
     all = 0;
 }
 
-// ¶ÔÒ»Ğ©±ØÉè²ÎÊıµÄºÏ·¨ĞÔ¼ì²é
+// å¯¹ä¸€äº›å¿…è®¾å‚æ•°çš„åˆæ³•æ€§æ£€æŸ¥
 private int check_vars()
 {
     int i, n;
@@ -198,7 +198,7 @@ private int check_vars()
     return 1;
 }
 
-private int random_out(int x, int y, int n) // Ñ¡ÔñËæ»ú³ö¿Úº¯Êı.
+private int random_out(int x, int y, int n) // é€‰æ‹©éšæœºå‡ºå£å‡½æ•°.
 {
     int *outs = ({}), retn = 0;
     class coordinate temp;
@@ -210,7 +210,7 @@ private int random_out(int x, int y, int n) // Ñ¡ÔñËæ»ú³ö¿Úº¯Êı.
         temp->x = x - 1;
         temp->y = y;
 
-        // Î÷ÃæµÄ·¿¼ä²»ÔÚ´ı´¦ÀíÁĞ±í newpath ÖĞ.
+        // è¥¿é¢çš„æˆ¿é—´ä¸åœ¨å¾…å¤„ç†åˆ—è¡¨ newpath ä¸­.
         //if( member_array(temp,newpath) == -1 )
         outs += ({W});
     }
@@ -222,7 +222,7 @@ private int random_out(int x, int y, int n) // Ñ¡ÔñËæ»ú³ö¿Úº¯Êı.
         temp->x = x + 1;
         temp->y = y;
 
-        // ¶«ÃæµÄ·¿¼ä²»ÔÚ´ı´¦ÀíÁĞ±í newpath ÖĞ.
+        // ä¸œé¢çš„æˆ¿é—´ä¸åœ¨å¾…å¤„ç†åˆ—è¡¨ newpath ä¸­.
         //if( member_array(temp,newpath) == -1 )
         outs += ({E});
     }
@@ -234,7 +234,7 @@ private int random_out(int x, int y, int n) // Ñ¡ÔñËæ»ú³ö¿Úº¯Êı.
         temp->x = x;
         temp->y = y - 1;
 
-        // ÄÏÃæµÄ·¿¼ä²»ÔÚ´ı´¦ÀíÁĞ±í newpath ÖĞ.
+        // å—é¢çš„æˆ¿é—´ä¸åœ¨å¾…å¤„ç†åˆ—è¡¨ newpath ä¸­.
         //if( member_array(temp,newpath) == -1 )
         outs += ({S});
     }
@@ -246,13 +246,13 @@ private int random_out(int x, int y, int n) // Ñ¡ÔñËæ»ú³ö¿Úº¯Êı.
         temp->x = x;
         temp->y = y + 1;
 
-        // ±±ÃæµÄ·¿¼ä²»ÔÚ´ı´¦ÀíÁĞ±í newpath ÖĞ.
+        // åŒ—é¢çš„æˆ¿é—´ä¸åœ¨å¾…å¤„ç†åˆ—è¡¨ newpath ä¸­.
         //if( member_array(temp,newpath) == -1 )
         outs += ({N});
     }
 
 #ifdef TWO_VALID_LEAVES
-    // Èç¹ûÓĞÈı¸ö³ö¿Ú,Ëæ»ú¹Ø±ÕÒ»¸ö.
+    // å¦‚æœæœ‰ä¸‰ä¸ªå‡ºå£,éšæœºå…³é—­ä¸€ä¸ª.
     if (sizeof(outs) >= 3)
         outs -= ({outs[random(sizeof(outs))]});
 #endif
@@ -268,22 +268,22 @@ private void create_maze()
     int i;
     class coordinate *valid_leaves = ({}), temp;
 
-    refresh_vars();    // ÖØÖÃÈ«Óò±äÁ¿.
-    if (!check_vars()) // ¶ÔÒ»Ğ©Ô¤Éè±äÁ¿½øĞĞ¼ì²é¡£
+    refresh_vars();    // é‡ç½®å…¨åŸŸå˜é‡.
+    if (!check_vars()) // å¯¹ä¸€äº›é¢„è®¾å˜é‡è¿›è¡Œæ£€æŸ¥ã€‚
         return;
 
-    // 1.È·¶¨ÃÔ¹¬µ¥±ß³¤.
+    // 1.ç¡®å®šè¿·å®«å•è¾¹é•¿.
     all = allocate(l);
     for (i = 0; i < l; i++)
-        all[i] = allocate(l); // ½¨Á¢Êı×é.
+        all[i] = allocate(l); // å»ºç«‹æ•°ç»„.
 
     enter = new (class coordinate);
 
     switch (entry_dir)
     {
     case "south":
-        // enter Èë¿Ú×ø±ê.
-        enter->x = to_int(l / 2); // È¡ÖĞÃÔ¹¬±È½ÏÆ½ºâ¡£
+        // enter å…¥å£åæ ‡.
+        enter->x = to_int(l / 2); // å–ä¸­è¿·å®«æ¯”è¾ƒå¹³è¡¡ã€‚
         enter->y = 0;
         all[enter->x][enter->y] |= S;
         break;
@@ -304,15 +304,15 @@ private void create_maze()
         break;
     }
 
-    // ´æÈë´ı´¦Àí¶ÓÁĞ.
+    // å­˜å…¥å¾…å¤„ç†é˜Ÿåˆ—.
     newpath += ({enter});
 
-    // ½øÈëÖ÷Ñ­»·.
+    // è¿›å…¥ä¸»å¾ªç¯.
     do
     {
         int x, y, out, numb;
 
-        // ½øĞĞÒ»Ğ©¼à²âÓë³õÊ¼»¯.
+        // è¿›è¡Œä¸€äº›ç›‘æµ‹ä¸åˆå§‹åŒ–.
         if (!(numb = sizeof(newpath)))
             continue;
         numb = random(numb);
@@ -320,17 +320,17 @@ private void create_maze()
         x = newpath[numb]->x;
         y = newpath[numb]->y;
 
-        // Èç¹ûÓĞÈı¸ö¿ÉÄÜµÄ³ö¿ÚËæ»ú¹Ø±ÕÒ»¸ö³ö¿Ú:
+        // å¦‚æœæœ‰ä¸‰ä¸ªå¯èƒ½çš„å‡ºå£éšæœºå…³é—­ä¸€ä¸ªå‡ºå£:
         out = ALL ^ (all[x][y]);
         out = random_out(x, y, out);
 
-        if (!out) // Ã»ÓĞ¿ÉÄÜµÄ³ö¿ÚÁË.
+        if (!out) // æ²¡æœ‰å¯èƒ½çš„å‡ºå£äº†.
         {
             newpath -= ({newpath[numb]});
             continue;
         }
 
-        // ´¦ÀíÁ¬½Ó.
+        // å¤„ç†è¿æ¥.
         if (out & W)
             link_to_west(x, y);
         if (out & E)
@@ -340,7 +340,7 @@ private void create_maze()
         if (out & S)
             link_to_south(x, y);
 
-        // µ±Ç°·¿¼ä´¦ÀíÍê±Ï.
+        // å½“å‰æˆ¿é—´å¤„ç†å®Œæ¯•.
         newpath -= ({newpath[numb]});
     } while (sizeof(newpath));
 
@@ -388,7 +388,7 @@ private void create_maze()
         break;
     }
 
-    if (!(i = sizeof(valid_leaves))) // Ã»ÓĞ³ö¿Ú ĞëÖØĞÂ½¨Á¢
+    if (!(i = sizeof(valid_leaves))) // æ²¡æœ‰å‡ºå£ é¡»é‡æ–°å»ºç«‹
     {
         call_other(this_object(), "create_maze");
         return;
@@ -397,7 +397,7 @@ private void create_maze()
     if (i == 1)
         leave = valid_leaves[0];
     else
-        leave = valid_leaves[random(i)]; // Ëæ»úÑ¡Ò»¸ö.
+        leave = valid_leaves[random(i)]; // éšæœºé€‰ä¸€ä¸ª.
 
     switch (entry_dir)
     {
@@ -415,20 +415,20 @@ private void create_maze()
         break;
     }
 
-    // ÃÔ¹¬´´½¨Íê±Ï¡£
+    // è¿·å®«åˆ›å»ºå®Œæ¯•ã€‚
     maze_built = 1;
 
-    // »æÖÆÍê³ÉµÄÃÔ¹¬µØÍ¼¡£
-    // µØÍ¼ÎÄ¼şÎªÍ¬Ä¿Â¼ÏÂÍ¬ÃûµÄ'.map' ÎÄ¼ş£¬
-    // »æÖÆµØÍ¼Ò²Ğí¿ÉÀûÓÚÇøÓòÎ×Ê¦µÄ¹¤×÷¡£
-    // ÈçĞèÒª¿É¿ª·ÅÎï¼ş¶ÔÓÚ±¾Ä¿Â¼µÄ'Ğ´'¡£
+    // ç»˜åˆ¶å®Œæˆçš„è¿·å®«åœ°å›¾ã€‚
+    // åœ°å›¾æ–‡ä»¶ä¸ºåŒç›®å½•ä¸‹åŒåçš„'.map' æ–‡ä»¶ï¼Œ
+    // ç»˜åˆ¶åœ°å›¾ä¹Ÿè®¸å¯åˆ©äºåŒºåŸŸå·«å¸ˆçš„å·¥ä½œã€‚
+    // å¦‚éœ€è¦å¯å¼€æ”¾ç‰©ä»¶å¯¹äºæœ¬ç›®å½•çš„'å†™'ã€‚
     //paint_vrm_map();
 }
 
 private void link_to_west(int x, int y) // The west room is (x-1,y)
 {
     class coordinate temp;
-    // can't link. µ±Ç°·¿¼äÒÑ¾­ÊÇ×îÎ÷ÃæµÄ·¿¼äÁË.
+    // can't link. å½“å‰æˆ¿é—´å·²ç»æ˜¯æœ€è¥¿é¢çš„æˆ¿é—´äº†.
     if ((x - 1) < 0)
         return;
 
@@ -436,7 +436,7 @@ private void link_to_west(int x, int y) // The west room is (x-1,y)
     temp->x = x - 1;
     temp->y = y;
 
-    // Î÷ÃæµÄ·¿¼äÒÑ¾­ÓÚ path ÖĞ,»òÕß ÒÑÔÚ´ı´¦ÀíÁĞ±í newpath ÖĞ.
+    // è¥¿é¢çš„æˆ¿é—´å·²ç»äº path ä¸­,æˆ–è€… å·²åœ¨å¾…å¤„ç†åˆ—è¡¨ newpath ä¸­.
     if (all[temp->x][temp->y] /*|| member_array(temp,newpath)*/)
         return;
 
@@ -448,7 +448,7 @@ private void link_to_west(int x, int y) // The west room is (x-1,y)
 private void link_to_east(int x, int y) // The east room is (x+1,y)
 {
     class coordinate temp;
-    // can't link. µ±Ç°·¿¼äÒÑ¾­ÊÇ×î¶«ÃæµÄ·¿¼äÁË.
+    // can't link. å½“å‰æˆ¿é—´å·²ç»æ˜¯æœ€ä¸œé¢çš„æˆ¿é—´äº†.
     if ((x + 1) >= l)
         return;
 
@@ -456,7 +456,7 @@ private void link_to_east(int x, int y) // The east room is (x+1,y)
     temp->x = x + 1;
     temp->y = y;
 
-    // ¶«ÃæµÄ·¿¼äÒÑ¾­ÓÚ path ÖĞ,»òÕß ÒÑÔÚ´ı´¦ÀíÁĞ±í newpath ÖĞ.
+    // ä¸œé¢çš„æˆ¿é—´å·²ç»äº path ä¸­,æˆ–è€… å·²åœ¨å¾…å¤„ç†åˆ—è¡¨ newpath ä¸­.
     if (all[temp->x][temp->y] /*|| member_array(temp,newpath)*/)
         return;
 
@@ -468,7 +468,7 @@ private void link_to_east(int x, int y) // The east room is (x+1,y)
 private void link_to_south(int x, int y) // The south room is (x,y-1)
 {
     class coordinate temp;
-    // can't link. µ±Ç°·¿¼äÒÑ¾­ÊÇ×îÄÏ¶ËµÄ·¿¼äÁË.
+    // can't link. å½“å‰æˆ¿é—´å·²ç»æ˜¯æœ€å—ç«¯çš„æˆ¿é—´äº†.
     if ((y - 1) < 0)
         return;
 
@@ -476,7 +476,7 @@ private void link_to_south(int x, int y) // The south room is (x,y-1)
     temp->x = x;
     temp->y = y - 1;
 
-    // ÄÏ¶ËµÄ·¿¼äÒÑ¾­ÓÚ path ÖĞ,»òÕß ÒÑÔÚ´ı´¦ÀíÁĞ±í newpath ÖĞ.
+    // å—ç«¯çš„æˆ¿é—´å·²ç»äº path ä¸­,æˆ–è€… å·²åœ¨å¾…å¤„ç†åˆ—è¡¨ newpath ä¸­.
     if (all[temp->x][temp->y] /*|| member_array(temp,newpath)*/)
         return;
 
@@ -488,7 +488,7 @@ private void link_to_south(int x, int y) // The south room is (x,y-1)
 private void link_to_north(int x, int y) // The north room is (x,y+1)
 {
     class coordinate temp;
-    // can't link. µ±Ç°·¿¼äÒÑ¾­ÊÇ×î±±¶ËµÄ·¿¼äÁË.
+    // can't link. å½“å‰æˆ¿é—´å·²ç»æ˜¯æœ€åŒ—ç«¯çš„æˆ¿é—´äº†.
     if ((y + 1) >= l)
         return;
 
@@ -496,7 +496,7 @@ private void link_to_north(int x, int y) // The north room is (x,y+1)
     temp->x = x;
     temp->y = y + 1;
 
-    // ±±¶ËµÄ·¿¼äÒÑ¾­ÓÚ path ÖĞ,»òÕß ÒÑÔÚ´ı´¦ÀíÁĞ±í newpath ÖĞ.
+    // åŒ—ç«¯çš„æˆ¿é—´å·²ç»äº path ä¸­,æˆ–è€… å·²åœ¨å¾…å¤„ç†åˆ—è¡¨ newpath ä¸­.
     if (all[temp->x][temp->y] /*|| member_array(temp,newpath)*/)
         return;
 
@@ -505,10 +505,10 @@ private void link_to_north(int x, int y) // The north room is (x,y+1)
     newpath += ({temp});
 }
 
-// »æÖÆÒÑ½¨³ÉÃÔ¹¬µÄµØÍ¼.
+// ç»˜åˆ¶å·²å»ºæˆè¿·å®«çš„åœ°å›¾.
 private void paint_vrm_map()
 {
-    string hor = "©¤", ver = "©¦  ", room = "¡ò", sroom = "¡ñ";
+    string hor = "â”€", ver = "â”‚  ", room = "â—", sroom = "â—";
     int x, y;
     string output = "", map_file;
 
@@ -589,8 +589,8 @@ nomask int clean_up()
     }
 }
 
-// Î×Ê¦¿ÉÒÔ update ÇøÓòÃÔ¹¬Ö÷Îï¼şÇ¿ÖÆ¸üĞÂÃÔ¹¬£¬
-// µ«´ËÊ±ÃÔ¹¬ÖĞµÄÍæ¼Ò¾ÍÒªÈ¥ VOID ÁË¡£
+// å·«å¸ˆå¯ä»¥ update åŒºåŸŸè¿·å®«ä¸»ç‰©ä»¶å¼ºåˆ¶æ›´æ–°è¿·å®«ï¼Œ
+// ä½†æ­¤æ—¶è¿·å®«ä¸­çš„ç©å®¶å°±è¦å» VOID äº†ã€‚
 void remove(string euid)
 {
     string fname = base_name(this_object());
@@ -607,26 +607,26 @@ void remove(string euid)
         destruct(sprintf("%s/exit", fname));
 }
 
-/**** ÒÔÏÂÊÇÔ¤ÉèÃÔ¹¬²ÎÊıµÄ½Ó¿Úº¯Êı ****/
-// ÃÔ¹¬µÄµ¥±ß³¤
+/**** ä»¥ä¸‹æ˜¯é¢„è®¾è¿·å®«å‚æ•°çš„æ¥å£å‡½æ•° ****/
+// è¿·å®«çš„å•è¾¹é•¿
 void set_maze_long(int mlong)
 {
     if (!intp(mlong))
         return;
 
-    // ×îĞ¡Îª 5£¬ÔÙĞ¡ÁËÃ»Ê²Ã´ÒâÒå¡£
+    // æœ€å°ä¸º 5ï¼Œå†å°äº†æ²¡ä»€ä¹ˆæ„ä¹‰ã€‚
     if ((mlong < 5) || mlong > MAX_LONG)
         return;
 
     l = mlong;
 }
 
-// ÃÔ¹¬·¿¼äËù¼Ì³ĞµÄÎï¼şµÄµµ°¸Ãû³Æ¡£
+// è¿·å®«æˆ¿é—´æ‰€ç»§æ‰¿çš„ç‰©ä»¶çš„æ¡£æ¡ˆåç§°ã€‚
 void set_inherit_room(mixed rooms)
 {
     if (stringp(rooms))
     {
-        // ´Ëµµ°¸ÊÇ·ñ´æÔÚ
+        // æ­¤æ¡£æ¡ˆæ˜¯å¦å­˜åœ¨
         if (file_size(sprintf("%s.c", rooms)) > 0)
             inherit_rooms = ({rooms});
         return;
@@ -648,20 +648,20 @@ void set_inherit_room(mixed rooms)
     return;
 }
 
-// Èë¿Ú·½Ïò(³ö¿ÚÔÚ¶ÔÃæ)
+// å…¥å£æ–¹å‘(å‡ºå£åœ¨å¯¹é¢)
 void set_entry_dir(string dir)
 {
     if (!stringp(dir))
         return;
 
-    // Èë¿Ú·½ÏòµÄºÏ·¨ĞÔ¼ì²é.
+    // å…¥å£æ–¹å‘çš„åˆæ³•æ€§æ£€æŸ¥.
     if (member_array(dir, valid_dirs) == -1)
         return;
 
     entry_dir = dir;
 }
 
-//Èë¿ÚÓëÇøÓòµÄÁ¬½Ó·½Ïò
+//å…¥å£ä¸åŒºåŸŸçš„è¿æ¥æ–¹å‘
 void set_link_entry_dir(string dir)
 {
     if (!stringp(dir) || dir == "")
@@ -670,7 +670,7 @@ void set_link_entry_dir(string dir)
     link_entry_dir = dir;
 }
 
-// ÃÔ¹¬Èë¿ÚËùÁ¬½ÓÇøÓòµµ°¸µÄÎÄ¼şÃû
+// è¿·å®«å…¥å£æ‰€è¿æ¥åŒºåŸŸæ¡£æ¡ˆçš„æ–‡ä»¶å
 void set_link_entry_room(string lroom)
 {
     if (!stringp(lroom) || lroom == "")
@@ -682,7 +682,7 @@ void set_link_entry_room(string lroom)
     link_entry_room = lroom;
 }
 
-//³ö¿ÚÓëÇøÓòµÄÁ¬½Ó·½Ïò
+//å‡ºå£ä¸åŒºåŸŸçš„è¿æ¥æ–¹å‘
 void set_link_exit_dir(string dir)
 {
     if (!stringp(dir) || dir == "")
@@ -691,7 +691,7 @@ void set_link_exit_dir(string dir)
     link_exit_dir = dir;
 }
 
-// ÃÔ¹¬³ö¿ÚËùÁ¬½ÓÇøÓòµµ°¸µÄÎÄ¼şÃû
+// è¿·å®«å‡ºå£æ‰€è¿æ¥åŒºåŸŸæ¡£æ¡ˆçš„æ–‡ä»¶å
 void set_link_exit_room(string lroom)
 {
     if (!stringp(lroom) || lroom == "")
@@ -703,7 +703,7 @@ void set_link_exit_room(string lroom)
     link_exit_room = lroom;
 }
 
-// ÃÔ¹¬Èë¿ÚµÄ¶ÌÃèÊö
+// è¿·å®«å…¥å£çš„çŸ­æè¿°
 void set_entry_short(string desc)
 {
     if (!stringp(desc) || desc == "")
@@ -712,7 +712,7 @@ void set_entry_short(string desc)
     entry_short = desc;
 }
 
-// ÃÔ¹¬Èë¿ÚµÄ³¤ÃèÊö
+// è¿·å®«å…¥å£çš„é•¿æè¿°
 void set_entry_desc(string desc)
 {
     if (!stringp(desc) || desc == "")
@@ -721,7 +721,7 @@ void set_entry_desc(string desc)
     entry_desc = desc;
 }
 
-// ÃÔ¹¬³ö¿ÚµÄ¶ÌÃèÊö
+// è¿·å®«å‡ºå£çš„çŸ­æè¿°
 void set_exit_short(string desc)
 {
     if (!stringp(desc) || desc == "")
@@ -730,7 +730,7 @@ void set_exit_short(string desc)
     exit_short = desc;
 }
 
-// ÃÔ¹¬³ö¿ÚµÄ³¤ÃèÊö
+// è¿·å®«å‡ºå£çš„é•¿æè¿°
 void set_exit_desc(string desc)
 {
     if (!stringp(desc) || desc == "")
@@ -739,7 +739,7 @@ void set_exit_desc(string desc)
     exit_desc = desc;
 }
 
-//ÃÔ¹¬·¿¼äµÄ¶ÌÃèÊö
+//è¿·å®«æˆ¿é—´çš„çŸ­æè¿°
 void set_maze_room_short(string desc)
 {
     if (!stringp(desc) || desc == "")
@@ -748,8 +748,8 @@ void set_maze_room_short(string desc)
     maze_room_short = desc;
 }
 
-//ÃÔ¹¬·¿¼äµÄÃèÊö£¬Èç¹ûÓĞ¶àÌõÃèÊö£¬ÖÆÔìÃ¿¸ö·¿
-//¼äµÄÊ±ºò»á´ÓÖĞËæ»úÑ¡ÔñÒ»¸ö¡£
+//è¿·å®«æˆ¿é—´çš„æè¿°ï¼Œå¦‚æœæœ‰å¤šæ¡æè¿°ï¼Œåˆ¶é€ æ¯ä¸ªæˆ¿
+//é—´çš„æ—¶å€™ä¼šä»ä¸­éšæœºé€‰æ‹©ä¸€ä¸ªã€‚
 void set_maze_room_desc(mixed desces)
 {
     if (stringp(desces))
@@ -768,7 +768,7 @@ void set_maze_room_desc(mixed desces)
     }
 }
 
-// ÃÔ¹¬·¿¼äÊÇ·ñÎª»§Íâ·¿¼ä
+// è¿·å®«æˆ¿é—´æ˜¯å¦ä¸ºæˆ·å¤–æˆ¿é—´
 void set_outdoors(int outd)
 {
     if (!intp(outd))
@@ -778,12 +778,12 @@ void set_outdoors(int outd)
         is_outdoors = 1;
 }
 
-// ÃÔ¹¬ÖĞµÄ¹ÖÎï
+// è¿·å®«ä¸­çš„æ€ªç‰©
 void set_maze_npcs(mixed npc)
 {
     if (stringp(npc))
     {
-        // ´Ëµµ°¸ÊÇ·ñ´æÔÚ
+        // æ­¤æ¡£æ¡ˆæ˜¯å¦å­˜åœ¨
         if (file_size(sprintf("%s.c", npc)) > 0)
             maze_npcs = ({npc});
         return;
@@ -805,12 +805,12 @@ void set_maze_npcs(mixed npc)
     return;
 }
 
-/**** ÒÔÉÏÊÇÔ¤ÉèÃÔ¹¬²ÎÊıµÄ½Ó¿Úº¯Êı ****/
+/**** ä»¥ä¸Šæ˜¯é¢„è®¾è¿·å®«å‚æ•°çš„æ¥å£å‡½æ•° ****/
 
-// ´´ÔìÃÔ¹¬·¿¼ä£¬ÓÉ VIRTUAL_D µ÷ÓÃ¡£
+// åˆ›é€ è¿·å®«æˆ¿é—´ï¼Œç”± VIRTUAL_D è°ƒç”¨ã€‚
 nomask object query_maze_room(string str)
 {
-    int random_rate = 20; // ·¿¼äÄÚ·ÅÖÃ npc µÄ¿ÉÄÜĞÔ
+    int random_rate = 20; // æˆ¿é—´å†…æ”¾ç½® npc çš„å¯èƒ½æ€§
     int idx, x, y, exits;
     object ob;
     string f;
@@ -821,12 +821,12 @@ nomask object query_maze_room(string str)
     if (!stringp(str) || str == "")
         return 0;
 
-    if (!maze_built) // ÃÔ¹¬Î´½¨Á¢
+    if (!maze_built) // è¿·å®«æœªå»ºç«‹
         create_maze();
     if (!maze_built)
         return 0;
 
-    if (str == "entry") // ÃÔ¹¬Èë¿Ú·¿¼ä
+    if (str == "entry") // è¿·å®«å…¥å£æˆ¿é—´
     {
         f = inherit_rooms[random(sizeof(inherit_rooms))];
 
@@ -849,7 +849,7 @@ nomask object query_maze_room(string str)
         return ob;
     }
 
-    if (str == "exit") // ÃÔ¹¬³ö¿Ú·¿¼ä
+    if (str == "exit") // è¿·å®«å‡ºå£æˆ¿é—´
     {
         f = inherit_rooms[random(sizeof(inherit_rooms))];
 

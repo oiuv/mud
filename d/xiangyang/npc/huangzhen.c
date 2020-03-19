@@ -10,13 +10,13 @@ int do_decide();
 
 void create()
 {
-        set_name("»ÆÕæ", ({ "huang zhen", "zhen", "huang" }));
+        set_name("é»„çœŸ", ({ "huang zhen", "zhen", "huang" }));
         set("long", @LONG
-»ÆÕæÊÇÉñ½£ÏÉÔ³ÄÂÈËÇåµÄ¿ªÃÅ´óµÜ×Ó£¬Ò²ÊÇÕâ
-¸öÇ®×¯µÄÀÏ°å£¬¹ÜÀíÏåÑô¾üâÃ¡£
+é»„çœŸæ˜¯ç¥å‰‘ä»™çŒ¿ç©†äººæ¸…çš„å¼€é—¨å¤§å¼Ÿå­ï¼Œä¹Ÿæ˜¯è¿™
+ä¸ªé’±åº„çš„è€æ¿ï¼Œç®¡ç†è¥„é˜³å†›é¥·ã€‚
 LONG);
-        set("nickname", HIY "Í­±ÊÌúËãÅÌ" NOR);
-        set("gender", "ÄĞĞÔ");
+        set("nickname", HIY "é“œç¬”é“ç®—ç›˜" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 59);
         set("attitude", "peaceful");
         set("per", 21);
@@ -65,15 +65,15 @@ LONG);
         prepare_skill("strike", "hunyuan-zhang");
 
         set("inquiry", ([
-                "Èë»á"     : "ÔÚÎÒÕâÀï£¬¿ÉÒÔ¼ÓÈë(" HIY "join" NOR +
-                             CYN ")ÉÌÒµĞ­»á¡£\n" NOR,
-                "¼ÓÈë"     : "ÔÚÎÒÕâÀï£¬¿ÉÒÔ¼ÓÈë(" HIY "join" NOR +
-                             CYN ")ÉÌÒµĞ­»á¡£\n" NOR,
-                "ÉÌÒµĞ­»á" : "ÔÚÎÒÕâÀï£¬¿ÉÒÔ¼ÓÈë(" HIY "join" NOR +
-                             CYN ")ÉÌÒµĞ­»á¡£\n" NOR,
+                "å…¥ä¼š"     : "åœ¨æˆ‘è¿™é‡Œï¼Œå¯ä»¥åŠ å…¥(" HIY "join" NOR +
+                             CYN ")å•†ä¸šåä¼šã€‚\n" NOR,
+                "åŠ å…¥"     : "åœ¨æˆ‘è¿™é‡Œï¼Œå¯ä»¥åŠ å…¥(" HIY "join" NOR +
+                             CYN ")å•†ä¸šåä¼šã€‚\n" NOR,
+                "å•†ä¸šåä¼š" : "åœ¨æˆ‘è¿™é‡Œï¼Œå¯ä»¥åŠ å…¥(" HIY "join" NOR +
+                             CYN ")å•†ä¸šåä¼šã€‚\n" NOR,
         ]));
 
-        create_family("»ªÉ½ÅÉ", 21, "µÜ×Ó");
+        create_family("åå±±æ´¾", 21, "å¼Ÿå­");
 
         setup();
         carry_object("/clone/misc/cloth")->wear();
@@ -100,20 +100,20 @@ int do_join(string arg)
 {
         object me = this_player();
 
-        if (! arg || arg != "ÉÌÒµĞ­»á")
-                return notify_fail(CYN "»ÆÕæÒ»Àã£¬ËµµÀ£ºÄãÒª¼ÓÈëÊ²Ã´£¿ÎÒ"
-                                   "ÕâÀïÊÇÉÌÒµĞ­»á¡£\n" NOR);
+        if (! arg || arg != "å•†ä¸šåä¼š")
+                return notify_fail(CYN "é»„çœŸä¸€æ¥ï¼Œè¯´é“ï¼šä½ è¦åŠ å…¥ä»€ä¹ˆï¼Ÿæˆ‘"
+                                   "è¿™é‡Œæ˜¯å•†ä¸šåä¼šã€‚\n" NOR);
 
         if (me->query("is_vendor"))
-                return notify_fail(CYN "»ÆÕæÖåÁËÖåÃ¼£¬ËµµÀ£ºÄã²»ÊÇÒÑ¾­¼Ó"
-                                   "ÈëÉÌÒµĞ­»áÁËÃ´£¿\n" NOR);
+                return notify_fail(CYN "é»„çœŸçš±äº†çš±çœ‰ï¼Œè¯´é“ï¼šä½ ä¸æ˜¯å·²ç»åŠ "
+                                   "å…¥å•†ä¸šåä¼šäº†ä¹ˆï¼Ÿ\n" NOR);
 
         if (me->query("bad_vendor"))
-                return notify_fail(CYN "»ÆÕæÀäĞ¦Ò»Éù£¬ËµµÀ£º¼ÈÈ»ÄãÒÑ¾­ÍÑ"
-                                   "ÀëÁËÉÌÒµĞ­»á£¬ÓÖ»ØÀ´×÷Éõ£¿\n" NOR);
+                return notify_fail(CYN "é»„çœŸå†·ç¬‘ä¸€å£°ï¼Œè¯´é“ï¼šæ—¢ç„¶ä½ å·²ç»è„±"
+                                   "ç¦»äº†å•†ä¸šåä¼šï¼Œåˆå›æ¥ä½œç”šï¼Ÿ\n" NOR);
 
-        tell_object(me, CYN "\n»ÆÕæµãÁËµãÍ·£¬ËµµÀ£ºÄãÕæµÄ´òËã(" HIY "dec"
-                        "ide" NOR + CYN ")¼ÓÈëÉÌÒµĞ­»áÃ´£¿¿É¿¼ÂÇÇå³şÁË£¿"
+        tell_object(me, CYN "\né»„çœŸç‚¹äº†ç‚¹å¤´ï¼Œè¯´é“ï¼šä½ çœŸçš„æ‰“ç®—(" HIY "dec"
+                        "ide" NOR + CYN ")åŠ å…¥å•†ä¸šåä¼šä¹ˆï¼Ÿå¯è€ƒè™‘æ¸…æ¥šäº†ï¼Ÿ"
                         "\n" NOR);
         me->set_temp("want_join", 1);
         return 1;
@@ -123,16 +123,16 @@ int do_unjoin(string arg)
 {
         object me = this_player();
 
-        if (! arg || arg != "ÉÌÒµĞ­»á")
-                return notify_fail(CYN "»ÆÕæÖåÁËÖåÃ¼£¬ËµµÀ£ºÄã´òËãÍÑÀëÊ²"
-                                   "Ã´£¿Ëµ»°²»Çå²»³şµÄ¡£\n" NOR);
+        if (! arg || arg != "å•†ä¸šåä¼š")
+                return notify_fail(CYN "é»„çœŸçš±äº†çš±çœ‰ï¼Œè¯´é“ï¼šä½ æ‰“ç®—è„±ç¦»ä»€"
+                                   "ä¹ˆï¼Ÿè¯´è¯ä¸æ¸…ä¸æ¥šçš„ã€‚\n" NOR);
 
         if (! me->query("is_vendor"))
-                return notify_fail(CYN "»ÆÕæÀäĞ¦Ò»Éù£¬Ã»ÀíÄã¡£\n" NOR);
+                return notify_fail(CYN "é»„çœŸå†·ç¬‘ä¸€å£°ï¼Œæ²¡ç†ä½ ã€‚\n" NOR);
 
-        tell_object(me, CYN "\n»ÆÕæÌ¾ÁË¿ÚÆø£¬ËµµÀ£ºÈç¹ûÍÑÀëÉÌÒµĞ­»á£¬ÒÔºó"
-                        "¿É²»ÄÜ·´»Ú¡£ÄãÕæ´òËã(" HIY "decide" NOR + CYN ")"
-                        "ÕâÃ´×öÃ´£¿\n" NOR);
+        tell_object(me, CYN "\né»„çœŸå¹äº†å£æ°”ï¼Œè¯´é“ï¼šå¦‚æœè„±ç¦»å•†ä¸šåä¼šï¼Œä»¥å"
+                        "å¯ä¸èƒ½åæ‚”ã€‚ä½ çœŸæ‰“ç®—(" HIY "decide" NOR + CYN ")"
+                        "è¿™ä¹ˆåšä¹ˆï¼Ÿ\n" NOR);
         me->set_temp("want_tuoli", 1);
         return 1;
 }
@@ -144,8 +144,8 @@ int do_decide()
 
         if (me->query_temp("want_join"))
         {
-                message_vision(HIC "$N" HIC "¶Ô×Å$n" HIC "Î¢Ğ¦µÀ£ºÈç½ñÊÀ"
-                               "µÀÇ®ÄËÍòÄÜÖ®Îï£¬ÒÔºóºÃºÃ¸É°É¡£\n" NOR,
+                message_vision(HIC "$N" HIC "å¯¹ç€$n" HIC "å¾®ç¬‘é“ï¼šå¦‚ä»Šä¸–"
+                               "é“é’±ä¹ƒä¸‡èƒ½ä¹‹ç‰©ï¼Œä»¥åå¥½å¥½å¹²å§ã€‚\n" NOR,
                                this_object(), me);
 
                 me->set("is_vendor", 1);
@@ -158,8 +158,8 @@ int do_decide()
         } else
         if (me->query_temp("want_tuoli"))
         {
-                message_vision(HIC "$N" CYN "¶Ô×Å$n" HIC "µãµãÍ·£¬ÈË¸÷ÓĞ"
-                               "Ö¾£¬´Ó´ËÒÔºóÄãÎÒÔÙÎŞ¹Ï¸ğ¡£\n" NOR,
+                message_vision(HIC "$N" CYN "å¯¹ç€$n" HIC "ç‚¹ç‚¹å¤´ï¼Œäººå„æœ‰"
+                               "å¿—ï¼Œä»æ­¤ä»¥åä½ æˆ‘å†æ— ç“œè‘›ã€‚\n" NOR,
                                this_object(), me);
 
                 me->delete("is_vendor");
@@ -168,15 +168,15 @@ int do_decide()
 
                 if (objectp(ob = present("shang ling", me)));
                 {
-                        message_vision(HIR "$N" HIR "½«$n" HIR "µÄ" NOR +
-                                       ob->name(1) + HIR "×¢ÏúÁË¡£\n" NOR,
+                        message_vision(HIR "$N" HIR "å°†$n" HIR "çš„" NOR +
+                                       ob->name(1) + HIR "æ³¨é”€äº†ã€‚\n" NOR,
                                        this_object(), me);
                         destruct(ob);
                 }
                 return 1;
          }
 
-         return notify_fail(CYN "»ÆÕæÃéÁËÄãÒ»ÑÛ£¬ÖåÁËÖåÃ¼£¬Ã»ÀíÄã¡£\n" NOR);
+         return notify_fail(CYN "é»„çœŸç„äº†ä½ ä¸€çœ¼ï¼Œçš±äº†çš±çœ‰ï¼Œæ²¡ç†ä½ ã€‚\n" NOR);
 }
 
 int do_yao()
@@ -184,28 +184,28 @@ int do_yao()
         object ob, me = this_player();
 
         if (me->query("bad_vendor"))
-                return notify_fail(CYN "»ÆÕæ²»ÄÍ·³µÀ£º×ß¿ª£¬×ß¿ª¡£ÄãÓÖ»Ø"
-                                   "À´×÷Éõ£¿\n" NOR);
+                return notify_fail(CYN "é»„çœŸä¸è€çƒ¦é“ï¼šèµ°å¼€ï¼Œèµ°å¼€ã€‚ä½ åˆå›"
+                                   "æ¥ä½œç”šï¼Ÿ\n" NOR);
 
         if (! me->query("is_vendor"))
-                return notify_fail(CYN "»ÆÕæÃéÁËÄãÒ»ÑÛ£¬Ã»ÀíÄã¡£\n" NOR);
+                return notify_fail(CYN "é»„çœŸç„äº†ä½ ä¸€çœ¼ï¼Œæ²¡ç†ä½ ã€‚\n" NOR);
 
         if (present("shang ling", me))
-                return notify_fail(CYN "»ÆÕæÖåÁËÖåÃ¼µÀ£ºÎÒµÄÌì£¬ÄãÁ¬Õâ¶¼"
-                                   "ÒªÆ­£¿¹ûÈ»ÊÇ¼éÉÌµÄÁÏ¡£\n" NOR);
+                return notify_fail(CYN "é»„çœŸçš±äº†çš±çœ‰é“ï¼šæˆ‘çš„å¤©ï¼Œä½ è¿è¿™éƒ½"
+                                   "è¦éª—ï¼Ÿæœç„¶æ˜¯å¥¸å•†çš„æ–™ã€‚\n" NOR);
 
         if (me->query_temp("shang-ling"))
-                return notify_fail(CYN "»ÆÕæÖåÃ¼µÀ£º¸Õ²ÅÎÒ²»ÊÇ²Å¸øÁËÄãÒ»"
-                                   "ÕÅÃ´£¿ÄÇÃ´¿ì¾ÍÅª¶ªÁË£¿\n" NOR);
+                return notify_fail(CYN "é»„çœŸçš±çœ‰é“ï¼šåˆšæ‰æˆ‘ä¸æ˜¯æ‰ç»™äº†ä½ ä¸€"
+                                   "å¼ ä¹ˆï¼Ÿé‚£ä¹ˆå¿«å°±å¼„ä¸¢äº†ï¼Ÿ\n" NOR);
 
         if (SHOP_D->is_owner(me->query("id")))
-                return notify_fail(CYN "»ÆÕæÎ¢Ğ¦µÀ£ºÄãÏÖÔÚ²»ÊÇÒÑ¾­¿ªµêÁË"
-                                   "Ã´£¿»¹ÒªÕâ¸ö¸ÉÂï¡£\n" NOR);
+                return notify_fail(CYN "é»„çœŸå¾®ç¬‘é“ï¼šä½ ç°åœ¨ä¸æ˜¯å·²ç»å¼€åº—äº†"
+                                   "ä¹ˆï¼Ÿè¿˜è¦è¿™ä¸ªå¹²å˜›ã€‚\n" NOR);
 
         ob = new("/clone/misc/shang-ling");
         ob->move(this_object());
         me->set_temp("shang-ling", 1);
         command("give shang ling to " + me->query("id"));
-        command("say ³Ô·¹µÄ¼Ò»ï×Ô¼º±£¹ÜºÃ£¬±ğÀÏÊÇÀ´·³ÎÒ¡£");
+        command("say åƒé¥­çš„å®¶ä¼™è‡ªå·±ä¿ç®¡å¥½ï¼Œåˆ«è€æ˜¯æ¥çƒ¦æˆ‘ã€‚");
         return 1;
 }

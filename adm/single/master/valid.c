@@ -1,6 +1,6 @@
 /** 
- * È¨ÏÞ¿ØÖÆapply·½·¨
- * ·µ»Ø£±ÎªÔÊÐí£¬·µ»Ø£°Îª¾Ü¾ø
+ * æƒé™æŽ§åˆ¶applyæ–¹æ³•
+ * è¿”å›žï¼‘ä¸ºå…è®¸ï¼Œè¿”å›žï¼ä¸ºæ‹’ç»
  */
 STATIC_VAR_TAG int DEBUG = 0;
 
@@ -28,7 +28,7 @@ mixed valid_database(object caller, string func, mixed *info)
         debug_message("([caller : " + file_name(caller) + ", func : " + func + "])");
     }
     if (func == "connect")
-        return "secret"; // mysqlÊý¾Ý¿âÃÜÂë
+        return "secret"; // mysqlæ•°æ®åº“å¯†ç 
     else
         return 1;
 }
@@ -158,7 +158,7 @@ int valid_write(string file, mixed user, string func)
 }
 
 /**
- * ÒÔÏÂapplyÒÑÊ§Ð§
+ * ä»¥ä¸‹applyå·²å¤±æ•ˆ
  */
  
 // valid_asm: controls whether or not an LPC->C compiled object can use asm {}

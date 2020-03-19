@@ -8,15 +8,15 @@ inherit F_GUARDER;
 
 void create()
 {
-	set_name("½ÓÒıÊ¹", ({"jieyin shi","jieyin","shi",}));
+	set_name("æ¥å¼•ä½¿", ({"jieyin shi","jieyin","shi",}));
 	set("long",
-		"ËûÊÇÒ»Î»¾«Ã÷µÄÖĞÄêÈË£¬Éí´©Ò»¼ş°×²¼³¤ÅÛ¡£\n"
-		"ËûÕıÔÚÉÏÏÂ´òÁ¿×ÅÄã¡£\n"
+		"ä»–æ˜¯ä¸€ä½ç²¾æ˜çš„ä¸­å¹´äººï¼Œèº«ç©¿ä¸€ä»¶ç™½å¸ƒé•¿è¢ã€‚\n"
+		"ä»–æ­£åœ¨ä¸Šä¸‹æ‰“é‡ç€ä½ ã€‚\n"
 		);
 
-	set("title", HIR "Ã÷½Ì" NOR);
+	set("title", HIR "æ˜æ•™" NOR);
 
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
 
 	set("age", 30);

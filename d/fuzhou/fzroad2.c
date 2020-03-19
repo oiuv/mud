@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ÎäÒÄÉ½µÀ");
+	set("short", "æ­¦å¤·å±±é“");
 	set("long", @LONG
-Äã×ßÔÚÕ­Õ­µÄÎäÒÄÉ½Ð¡µÀÉÏ£¬É½Â·Æéá«£¬ÃÜÁÖÉ­É­£¬³£ÓÐ
-³¤³æÒ°ÊÞ³öÃ»¡£ËùÎ½¡¸ÃöµÀ¸ü±ÈÊñµÀÄÑ¡¹³Ï²»ÏàÆÛ¡£Î÷Ãæ¸ô×Å
-³çÑôÏª£¬¾ÍÊÇÆæÐã¼×ÓÚ¶«ÄÏµÄÎäÒÄÉ½ÁË¡£
+ä½ èµ°åœ¨çª„çª„çš„æ­¦å¤·å±±å°é“ä¸Šï¼Œå±±è·¯å´Žå²–ï¼Œå¯†æž—æ£®æ£®ï¼Œå¸¸æœ‰
+é•¿è™«é‡Žå…½å‡ºæ²¡ã€‚æ‰€è°“ã€Œé—½é“æ›´æ¯”èœ€é“éš¾ã€è¯šä¸ç›¸æ¬ºã€‚è¥¿é¢éš”ç€
+å´‡é˜³æºªï¼Œå°±æ˜¯å¥‡ç§€ç”²äºŽä¸œå—çš„æ­¦å¤·å±±äº†ã€‚
 LONG);
 	set("exits", ([
 		"northup" : __DIR__"erbapu",

@@ -18,19 +18,19 @@ int main(object me, string arg)
 	object file_ob;
 
 	if (((int) me->query("age") < 18) && ! wizardp(me))
-		return notify_fail("�������Ƕ�Ϸ��С����һ����ȥ��\n");
+		return notify_fail("民主不是儿戏！小孩子一边玩去！\n");
 
 	if ((int) me->query("vote/deprived"))
         {
-                // �Ƿ񱻰���ͶƱȨ����û�лָ��أ�
+                // 是否被剥夺投票权？还没有恢复呢？
                 if (time() - me->query("vote/deprived") >= 86400)
                         me->delete("vote/deprived");
                 else
-		        return notify_fail("�����𵱳���Ū������������ͶƱȨ���£�׷��Ī����\n");
+		        return notify_fail("你想起当初玩弄民主、被剥夺投票权的事，追悔莫及。\n");
         }
 
     	if (! arg || sscanf(arg, "%s %s", act_name, victim_name) != 2)
-		return notify_fail("����ʥ��һƱ��Ҫ������˲���Ͷ��\n");
+		return notify_fail("这神圣的一票，要想清楚了才能投。\n");
     
 	victim = find_player(victim_name);
         if (! objectp(victim))
@@ -42,12 +42,12 @@ int main(object me, string arg)
                 victim = find_player(victim_name);
         }
 
-	if (! victim) return notify_fail("��ҪͶ˭��Ʊ��\n");
-	if (wizardp(victim)) return notify_fail("��ҪͶ��ʦ��Ʊ��\n");
+	if (! victim) return notify_fail("你要投谁的票？\n");
+	if (wizardp(victim)) return notify_fail("你要投巫师的票？\n");
 		
 	if (! stringp(file = (string)"/cmds/std/vote/" + act_name) ||
             file_size(file + ".c") <= 0)
-                return notify_fail("��ҪͶƱ��ʲô��\n");
+                return notify_fail("你要投票干什么？\n");
 
         call_other(file, "???");
         file_ob = find_object(file);
@@ -56,7 +56,7 @@ int main(object me, string arg)
 	{
 		if ((int)me->query("vote/abuse") > 50)
 		{
-			write(HIG "����Ϊ����ͶƱ��ͶƱȨ����ʱ����24Сʱ��\n" NOR);
+			write(HIG "你因为胡乱投票，投票权被暂时剥夺24小时！\n" NOR);
 			me->set("vote/deprived", time());
 			me->delete("vote/abuse");
 		}
@@ -96,18 +96,18 @@ int valid_voters(object me)
 int help(object me)
 {
 write(@HELP
-ָ���ʽ : vote <����> <ĳ��> 
+指令格式 : vote <动议> <某人> 
 
-�����������ĳ�˲�ȡ�ж����ɴ��ͶƱ��������������������û���˸��飬
-ͶƱ���Զ�ȡ������ǰ����������<����>��
+此命令提议对某人采取行动，由大家投票决定。可是如果五分钟内没有人附议，
+投票会自动取消。当前可以有如下<动议>：
 
-chblk:   �ر�ĳ��Ƶ��������Ʊ���ϣ�ʮ����ͬ����Ǽ򵥶���ͬ�⣬���
-                       �����������14�꣬��ôֻ��Ҫ����ͬ�⼴�ɡ�
-unchblk: ��ĳ��Ƶ��������Ʊ���ϣ�ʮ�����ͬ����Ǽ򵥶���ͬ�⡣
+chblk:   关闭某人频道，需三票以上，十个人同意或是简单多数同意，如果
+                       被表决的玩家14岁，那么只需要三人同意即可。
+unchblk: 打开某人频道，需三票以上，十五个人同意或是简单多数同意。
 
-ע�⣺ͶƱ����ʹ���κβ�ͬIP����ĺϷ�ID�������������ͶƱ����ɧ����
-����ң��򽫵��¼��72Сʱ����PURGE�������ͽ䣬���Ҵ˳ͽ佫������ ID
-������������С��ʹ��ͶƱȨ��
+注意：投票可以使用任何不同IP区域的合法ID，但是如果利用投票恶意骚扰其
+它玩家，则将导致监禁72小时或是PURGE的严厉惩戒，并且此惩戒将波及该 ID
+的所有人物，务必小心使用投票权。
 
 HELP );
     return 1;

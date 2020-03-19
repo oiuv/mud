@@ -4,10 +4,10 @@
 inherit ROOM;
 void create()
 {
-        set("short", "����¤");
+        set("short", "满觉陇");
         set("long", @LONG
-ɽ·����һ��С���䣬�������ܹ𻨳��֡�ÿ�������ʢ����
-Ʈ���������Ϊ����ѩ���硱��������ˮ�ֶ�������ʯ�ݶ���
+山路旁有一个小村落，村落四周桂花成林。每当仲秋，桂花盛开，
+飘香数里。被称为“金雪世界”。西上是水乐洞，东下石屋洞。
 LONG);
         set("exits", ([
                 "westup"    : __DIR__"shuiledong",

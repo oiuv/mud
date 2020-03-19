@@ -18,10 +18,10 @@ int main(object me, string arg)
 	if (! arg)
 	{
 		if (objectp(ob = query_snooping(me)))
-			write("ÄãÏÖÔÚÕýÔÚ¼àÌý" + ob->query("name") +
-			      "ËùÊÕµ½µÄÑ¶Ï¢¡£\n");
+			write("ä½ çŽ°åœ¨æ­£åœ¨ç›‘å¬" + ob->query("name") +
+			      "æ‰€æ”¶åˆ°çš„è®¯æ¯ã€‚\n");
                 else
-                        write("ÄãÏÖÔÚÃ»ÓÐ¼àÌýÈÎºÎÈË¡£\n");
+                        write("ä½ çŽ°åœ¨æ²¡æœ‰ç›‘å¬ä»»ä½•äººã€‚\n");
 
 		return 1;
 	} else
@@ -35,7 +35,7 @@ int main(object me, string arg)
         {
                 if (! SECURITY_D->valid_grant(me, "(admin)"))
                 {
-                        write("²ÎÊý´íÎó¡£\n");
+                        write("å‚æ•°é”™è¯¯ã€‚\n");
                         return 1;
                 }
 
@@ -45,22 +45,22 @@ int main(object me, string arg)
                         ob = find_player(arg);
                 if (! objectp(ob))
                 {
-                        write("Ã»ÓÐÕÒµ½ " + arg + " Õâ¸öÍæ¼Ò£¬ÎÞ·¨²é¿´ÐÅÏ¢¡£\n");
+                        write("æ²¡æœ‰æ‰¾åˆ° " + arg + " è¿™ä¸ªçŽ©å®¶ï¼Œæ— æ³•æŸ¥çœ‹ä¿¡æ¯ã€‚\n");
                         return 1;
                 }
 
-                msg = "Ä¿Ç°ÓÐ¹Ø" + ob->name(1) + "(" + geteuid(ob) + ")µÄ¼àÌýÇé¿öÈçÏÂ£º\n";
+                msg = "ç›®å‰æœ‰å…³" + ob->name(1) + "(" + geteuid(ob) + ")çš„ç›‘å¬æƒ…å†µå¦‚ä¸‹ï¼š\n";
                 if (objectp(sob = query_snooping(ob)))
-                        msg += "ÕýÔÚ¼àÌý" + sob->name(1) + "(" + geteuid(sob) +
-                               ")ÊÕµ½µÄÐÅÏ¢¡£\n";
+                        msg += "æ­£åœ¨ç›‘å¬" + sob->name(1) + "(" + geteuid(sob) +
+                               ")æ”¶åˆ°çš„ä¿¡æ¯ã€‚\n";
                 else
-                        msg += "Ã»ÓÐ¼àÌýÈÎºÎÈË¡£\n";
+                        msg += "æ²¡æœ‰ç›‘å¬ä»»ä½•äººã€‚\n";
 
                 if (objectp(sob = query_snoop(ob)))
-                        msg += "ÕýÔÚ±»" + sob->name(1) + "(" + geteuid(sob) +
-                               ")ÇÔÌý¡£\n";
+                        msg += "æ­£åœ¨è¢«" + sob->name(1) + "(" + geteuid(sob) +
+                               ")çªƒå¬ã€‚\n";
                 else
-                        msg += "Ã»ÓÐ±»ÈÎºÎÈËÇÔÌý¡£\n";
+                        msg += "æ²¡æœ‰è¢«ä»»ä½•äººçªƒå¬ã€‚\n";
 
                 write(msg);
                 return 1;
@@ -69,22 +69,22 @@ int main(object me, string arg)
 	ob = find_player(arg);
 	if (! ob) ob = find_living(arg);
 	if (! ob || ! me->visible(ob))
-		return notify_fail("Ã»ÓÐÕâ¸öÈË¡£\n");
+		return notify_fail("æ²¡æœ‰è¿™ä¸ªäººã€‚\n");
 
 	if (! interactive(ob))
-		return notify_fail("Õâ¸öÍæ¼Ò²»ÔÚÏßÉÏ£¬ÎÞ·¨¼àÌý¡£\n");
+		return notify_fail("è¿™ä¸ªçŽ©å®¶ä¸åœ¨çº¿ä¸Šï¼Œæ— æ³•ç›‘å¬ã€‚\n");
 
 	if (! is_sub(me->query("id"), ob->query("env/can_snoop")) &&
             ! SECURITY_D->valid_grant(me, "(arch)"))
-		return notify_fail("Õâ¸öÍæ¼Ò²»ÔÊÐíÄã¼àÌý¡£\n");
+		return notify_fail("è¿™ä¸ªçŽ©å®¶ä¸å…è®¸ä½ ç›‘å¬ã€‚\n");
 
 	if (wiz_level(ob) > wiz_level(me))
-		return notify_fail("ÄãµÄÈ¨ÏÞ²»¹»¼àÌý¶Ô·½¡£\n");
+		return notify_fail("ä½ çš„æƒé™ä¸å¤Ÿç›‘å¬å¯¹æ–¹ã€‚\n");
 
-	if (me == ob) return notify_fail("ÇëÓÃ snoop none ½â³ý¼àÌý¡£\n");
+	if (me == ob) return notify_fail("è¯·ç”¨ snoop none è§£é™¤ç›‘å¬ã€‚\n");
 		
 	snoop(me, ob);
-	write("ÄãÏÖÔÚ¿ªÊ¼ÇÔÌý" + ob->name(1) + "ËùÊÕµ½µÄÑ¶Ï¢¡£\n");
+	write("ä½ çŽ°åœ¨å¼€å§‹çªƒå¬" + ob->name(1) + "æ‰€æ”¶åˆ°çš„è®¯æ¯ã€‚\n");
 	if (playerp(ob)) log_file("snoop",
 		sprintf("%s(%s-%s) snoops %s on %s.\n", me->name(1),
 			geteuid(me), query_ip_number(ob), ob->name(1),
@@ -96,12 +96,12 @@ int main(object me, string arg)
 int help()
 {
 	write(@TEXT
-Ö¸Áî¸ñÊ½£ºsnoop <Ä³ÈË> | none | -i <Ä³ÈË>
+æŒ‡ä»¤æ ¼å¼ï¼šsnoop <æŸäºº> | none | -i <æŸäºº>
 
-¼àÌýÆäËûÊ¹ÓÃÕßËùÊÕÌýµÄÑ¶Ï¢£¬snoop none ÔòÈ¡Ïû¼àÌý¡£Äã¼àÌý
-¶Ô·½µÄÇ°ÌáÊÇ¶Ô·½ÔÊÐíÄãÕâÃ´×ö£¬¼´ÉèÖÃÁË can_snoop ÎªÄãµÄID¡£
+ç›‘å¬å…¶ä»–ä½¿ç”¨è€…æ‰€æ”¶å¬çš„è®¯æ¯ï¼Œsnoop none åˆ™å–æ¶ˆç›‘å¬ã€‚ä½ ç›‘å¬
+å¯¹æ–¹çš„å‰ææ˜¯å¯¹æ–¹å…è®¸ä½ è¿™ä¹ˆåšï¼Œå³è®¾ç½®äº† can_snoop ä¸ºä½ çš„IDã€‚
 
-Ê¹ÓÃ -i ²ÎÊý¿ÉÒÔ²é¿´Ä³ÈËÄ¿Ç°ÇÔÌýµÄÐÅÏ¢¡£
+ä½¿ç”¨ -i å‚æ•°å¯ä»¥æŸ¥çœ‹æŸäººç›®å‰çªƒå¬çš„ä¿¡æ¯ã€‚
 TEXT );
 	return 1;
 }

@@ -8,19 +8,19 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("Ğş±¯´óÊ¦", ({
+	set_name("ç„æ‚²å¤§å¸ˆ", ({
 		"xuanbei dashi",
 		"xuanbei",
 		"dashi",
 	}));
 	set("long",
-		"ËûÊÇÒ»Î»°×Ğë°×Ã¼µÄÀÏÉ®£¬Éí´©Ò»Ï®ÒøË¿×Ø»ÆôÂôÄ¡£ËûÉí²ÄÉõ¸ß£¬\n"
-		"µ«¹ÇÊİÈç²ñ£¬¶¥ÃÅ¸ßËÊ£¬Ë«Ä¿Õ¿È»ÓĞÉñ¡£\n"
+		"ä»–æ˜¯ä¸€ä½ç™½é¡»ç™½çœ‰çš„è€åƒ§ï¼Œèº«ç©¿ä¸€è¢­é“¶ä¸æ£•é»„è¢ˆè£Ÿã€‚ä»–èº«æç”šé«˜ï¼Œ\n"
+		"ä½†éª¨ç˜¦å¦‚æŸ´ï¼Œé¡¶é—¨é«˜è€¸ï¼ŒåŒç›®æ¹›ç„¶æœ‰ç¥ã€‚\n"
 	);
 
 
-	set("nickname", "´ïÄ¦ÔºÖ÷³Ö");
-	set("gender", "ÄĞĞÔ");
+	set("nickname", "è¾¾æ‘©é™¢ä¸»æŒ");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
 	set("class", "bonze");
 
@@ -67,7 +67,7 @@ void create()
 	prepare_skill("hand", "qianye-shou");
 	prepare_skill("claw", "longzhua-gong");
 
-	create_family("ÉÙÁÖÅÉ", 36, "µÜ×Ó");
+	create_family("å°‘æ—æ´¾", 36, "å¼Ÿå­");
 
 	setup();
 

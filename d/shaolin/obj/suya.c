@@ -1,17 +1,17 @@
-// suji.c ËØÑ¼
+// suji.c ç´ é¸­
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-	set_name("ËØÑ¼", ({"suya", "ya"}));
+	set_name("ç´ é¸­", ({"suya", "ya"}));
 	set_weight(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»Ö»×ö¹¤¿¼¾¿ËØÑ¼¡£\n");
-		set("unit", "Ö»");
+		set("long", "ä¸€åªåšå·¥è€ƒç©¶ç´ é¸­ã€‚\n");
+		set("unit", "åª");
 		set("value", 150);
 		set("food_remaining", 4);
 		set("food_supply", 50);

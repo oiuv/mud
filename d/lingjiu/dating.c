@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "������");
+        set("short", "独尊厅");
         set("long", @LONG
-����ǡ����չ���������������ȫ���Ծ�ʯ���ɣ�ʯ��֮
-�侹�ް���϶�����˳��档���ڴ������ĸ�ʯ������Ϊ��Ӳ
-�Ļ���ʯ���ơ�
+这就是「灵鹫宫」独尊厅。大厅全是以巨石砌成，石块之
+间竟无半点缝隙，令人称奇。厅内矗立着四根石柱，皆为坚硬
+的花岗石所制。
 LONG);
         set("exits", ([
                 "north" : __DIR__"changl15",

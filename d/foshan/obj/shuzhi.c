@@ -7,17 +7,17 @@ inherit STAFF;
 
 void create()
 {
-        set_name(GRN"´óÊ÷Ö¦"NOR, ({ "shu zhi"}));
+        set_name(GRN"å¤§æ ‘æž"NOR, ({ "shu zhi"}));
 	set_weight(1000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¸ù");
-        set("long", "ÕâÊÇÒ»¸ùÅÀÉ½ÓÃµÄÊ÷Ö¦¡£\n");
+		set("unit", "æ ¹");
+        set("long", "è¿™æ˜¯ä¸€æ ¹çˆ¬å±±ç”¨çš„æ ‘æžã€‚\n");
         set("value", 50);
 		set("material", "wood");
-		set("wield_msg", "$NÄÃ³öÒ»¸ù$n£¬ÎÕÔÚÊÖÖÐ¡£\n");
-		set("unwield_msg", "$N·ÅÏÂÊÖÖÐµÄ$n¡£\n");
+		set("wield_msg", "$Næ‹¿å‡ºä¸€æ ¹$nï¼Œæ¡åœ¨æ‰‹ä¸­ã€‚\n");
+		set("unwield_msg", "$Næ”¾ä¸‹æ‰‹ä¸­çš„$nã€‚\n");
 	}
 
 	init_staff(5);
@@ -29,10 +29,10 @@ int fire(object me, object ob)
         object fire;
 
         if (environment()->query_temp("warm") >= 40)
-                return notify_fail("ÕâÀïÒÑ¾­¹»ÈÈµÄÁË£¬Äã»¹ÊÇ»»¸öµØ·½µã»ð°É¡£\n");
+                return notify_fail("è¿™é‡Œå·²ç»å¤Ÿçƒ­çš„äº†ï¼Œä½ è¿˜æ˜¯æ¢ä¸ªåœ°æ–¹ç‚¹ç«å§ã€‚\n");
 
-        message_vision("$NÓÃ" + ob->name() + "µãÈ¼ÁË" + name() +
-                       "£¬Ò»Æ¬ºìºìµÄ»ð¹âÓ³ºìÁËËÄÖÜ¡£\n", me);
+        message_vision("$Nç”¨" + ob->name() + "ç‚¹ç‡ƒäº†" + name() +
+                       "ï¼Œä¸€ç‰‡çº¢çº¢çš„ç«å…‰æ˜ çº¢äº†å››å‘¨ã€‚\n", me);
 
         fire = new("/clone/misc/needfire");
         fire->move(environment(me));

@@ -3,23 +3,23 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "´òÌúÆÌ");
+	set("short", "æ‰“é“é“º");
 	set("long", @LONG
-ÕâÊÇÒ»¼Ò¼òÂªµÄ´òÌúÆÌ£¬ÖÐÐÄ°Ú×ÅÒ»¸ö»ðÂ¯£¬Â¯»ð°ÑËÄÖÜ
-ÕÕµÃÒ»Æ¬Í¨ºì£¬ÄãÒ»×ß½øÈ¥¾Í¸Ðµ½»ëÉí»ðÈÈ¡£Ç½½Ç¶ÑÂúÁËÒÑÍê
-¹¤ºÍÎ´Íê¹¤µÄ²Ëµ¶¡¢Ìú´¸¡¢Ìú¹÷¡¢Ø°Ê×¡¢¿ø¼×µÈÎï¡£Ò»Î»Ìú½³
-ÂúÍ·´óº¹»ÓÎè×ÅÌú´¸£¬×¨ÐÄÖÂÖ¾µØÔÚ´òÌú¡£´òÌúÆÌ¶«Ê×µÄÇ½±Ú
-ÉÏÐü¹Ò×ÅÒ»¸öÅÆ×Ó(paizi)¡£
+è¿™æ˜¯ä¸€å®¶ç®€é™‹çš„æ‰“é“é“ºï¼Œä¸­å¿ƒæ‘†ç€ä¸€ä¸ªç«ç‚‰ï¼Œç‚‰ç«æŠŠå››å‘¨
+ç…§å¾—ä¸€ç‰‡é€šçº¢ï¼Œä½ ä¸€èµ°è¿›åŽ»å°±æ„Ÿåˆ°æµ‘èº«ç«çƒ­ã€‚å¢™è§’å †æ»¡äº†å·²å®Œ
+å·¥å’Œæœªå®Œå·¥çš„èœåˆ€ã€é“é”¤ã€é“æ£ã€åŒ•é¦–ã€ç›”ç”²ç­‰ç‰©ã€‚ä¸€ä½é“åŒ 
+æ»¡å¤´å¤§æ±—æŒ¥èˆžç€é“é”¤ï¼Œä¸“å¿ƒè‡´å¿—åœ°åœ¨æ‰“é“ã€‚æ‰“é“é“ºä¸œé¦–çš„å¢™å£
+ä¸Šæ‚¬æŒ‚ç€ä¸€ä¸ªç‰Œå­(paizi)ã€‚
 LONG);
         set("item_desc", ([
-                "paizi" : WHT "\n\n        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-                              "        ¡ù                    ¡ù\n"
-                              "        ¡ù      " NOR + HIW "¸ºÔðÎ¬ÐÞ" NOR + WHT "      ¡ù\n"
-                              "        ¡ù                    ¡ù\n"
-                              "        ¡ù  " NOR + HIY "repair  <±øÆ÷id>" NOR + WHT "  ¡ù\n"
-                              "        ¡ù                    ¡ù\n"
-                              "        ¡ù                    ¡ù\n"
-                              "        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n\n\n" NOR,
+                "paizi" : WHT "\n\n        â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n"
+                              "        â€»                    â€»\n"
+                              "        â€»      " NOR + HIW "è´Ÿè´£ç»´ä¿®" NOR + WHT "      â€»\n"
+                              "        â€»                    â€»\n"
+                              "        â€»  " NOR + HIY "repair  <å…µå™¨id>" NOR + WHT "  â€»\n"
+                              "        â€»                    â€»\n"
+                              "        â€»                    â€»\n"
+                              "        â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n\n\n" NOR,
         ]));
 	set("exits", ([
 		"north" : __DIR__"dongdajie2",

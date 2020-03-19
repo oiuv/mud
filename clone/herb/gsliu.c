@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(NOR + CYN "¸ÉÊ¯Áñ" NOR, ({ "gan shiliu", "gan", "shiliu", "herb_gsliu" }));
+        set_name(NOR + CYN "å¹²çŸ³æ¦´" NOR, ({ "gan shiliu", "gan", "shiliu", "herb_gsliu" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + CYN "¸ÉÊ¯ÁñÊÇ³£¼ûµÄÖĞÒ©Ò©²Ä¡£\n" NOR);
-                set("base_unit", "Æ¬");
+                set("long", NOR + CYN "å¹²çŸ³æ¦´æ˜¯å¸¸è§çš„ä¸­è¯è¯æã€‚\n" NOR);
+                set("base_unit", "ç‰‡");
                 set("base_value", 200);
                 set("base_weight", 75);
         }

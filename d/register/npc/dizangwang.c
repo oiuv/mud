@@ -6,18 +6,18 @@ void greeting(object me);
 
 void create()
 {
-        set_name("µØ²ØÍõ", ({ "dizang wang", "dizang", "wang" }));
-        set("long", "ËûÈİÃ²ÍşÑÏ£¬²»¿ÉÒ»ÊÀ£¬ÄËÊÇÕÆ¹ÜÈË¼äÉúËÀµÄÉñÏÉ¡£\n");
-        set("title", HIR "ÓÄÚ¤µØ¸®ÉúËÀÖ®Éñ" NOR);
-        set("nickname", HIW "ÓÄÚ¤Ö®Ö÷" NOR);
-        set("gender", "ÄĞĞÔ");
+        set_name("åœ°è—ç‹", ({ "dizang wang", "dizang", "wang" }));
+        set("long", "ä»–å®¹è²Œå¨ä¸¥ï¼Œä¸å¯ä¸€ä¸–ï¼Œä¹ƒæ˜¯æŒç®¡äººé—´ç”Ÿæ­»çš„ç¥ä»™ã€‚\n");
+        set("title", HIR "å¹½å†¥åœ°åºœç”Ÿæ­»ä¹‹ç¥" NOR);
+        set("nickname", HIW "å¹½å†¥ä¹‹ä¸»" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 9999);
         set("attitude", "peaceful");
         set("shen_type", 0);
         set("per", 18);
         setup();
         carry_object("/d/death/npc/obj/cloth2")->wear();
-        create_family(HIR "Ú¤¸®µØ²ØÍõµîÇ°" NOR, 1, "ÓÄÚ¤Ö®Ö÷");
+        create_family(HIR "å†¥åºœåœ°è—ç‹æ®¿å‰" NOR, 1, "å¹½å†¥ä¹‹ä¸»");
 }
 
 void init()
@@ -44,9 +44,9 @@ void greeting(object me)
 
         if (undefinedp(me->query("born")))
         {
-                command("say " + me->query("name") + "£¬Äã¿ì¿ìÔÚÎŞÓÇ³ØÖĞ"
-                        "Ï´ÍÑ½î¹Ç(" NOR + HIY "wash" NOR + CYN ")£¬È»ºóÍ¶"
-                        "Ì¥È¥°É£¡" NOR);
+                command("say " + me->query("name") + "ï¼Œä½ å¿«å¿«åœ¨æ— å¿§æ± ä¸­"
+                        "æ´—è„±ç­‹éª¨(" NOR + HIY "wash" NOR + CYN ")ï¼Œç„¶åæŠ•"
+                        "èƒå»å§ï¼" NOR);
         } else
         {
                 if (wizardp(me))
@@ -54,23 +54,23 @@ void greeting(object me)
                 else
                 {
                         command("kick " + me->query("id"));
-                        command("say ·²ÈËÅÜµ½ÕâÀïÀ´¸ÉÊ²Ã´£¿");
-                        message_vision("$NÒ»½Å°Ñ$nÌßµÃÎŞÓ°ÎŞ×Ù¡£\n\n",
+                        command("say å‡¡äººè·‘åˆ°è¿™é‡Œæ¥å¹²ä»€ä¹ˆï¼Ÿ");
+                        message_vision("$Nä¸€è„šæŠŠ$nè¸¢å¾—æ— å½±æ— è¸ªã€‚\n\n",
                                        this_object(), me);
                         me->move(VOID_OB);
-                        message_vision("\n$NµøÂäµØÉÏ£¬Îæ×ÅÆ¨¹ÉÍÛÍÛ½ĞÁË¼¸Éù¡£\n",
+                        message_vision("\n$Nè·Œè½åœ°ä¸Šï¼Œæ‚ç€å±è‚¡å“‡å“‡å«äº†å‡ å£°ã€‚\n",
                                        me);
                 }
         }
 
         if (undefinedp(me->query("born")) && ! objectp(present("miji", me)))
         {
-                tell_object(me, WHT "\nµØ²ØÍõÔÚÄã¶ú±ßÇÄÉùËµµÀ£º±¾×ùÇÆÄãÈË²»"
-                                "´í£¬ÕâÀïÓĞÒ»±¾ÌìÊé£¬ÏàĞÅÄãÄÃÈ¥ºóÓĞÓÃ¡£\n" NOR);
+                tell_object(me, WHT "\nåœ°è—ç‹åœ¨ä½ è€³è¾¹æ‚„å£°è¯´é“ï¼šæœ¬åº§ç§ä½ äººä¸"
+                                "é”™ï¼Œè¿™é‡Œæœ‰ä¸€æœ¬å¤©ä¹¦ï¼Œç›¸ä¿¡ä½ æ‹¿å»åæœ‰ç”¨ã€‚\n" NOR);
                 command("grin");
                 ob = new ("/clone/misc/newbie_book");
                 ob->move(me, 1);
-                tell_object(me, HIC "µØ²ØÍõÇÄÇÄÈûÁËÒ»±¾ÌìÊé¸øÄã¡£\n" NOR);
+                tell_object(me, HIC "åœ°è—ç‹æ‚„æ‚„å¡äº†ä¸€æœ¬å¤©ä¹¦ç»™ä½ ã€‚\n" NOR);
                 command("ke");
         }
 }
@@ -79,10 +79,10 @@ int attempt_apprentice(object ob)
 {
         if (! ob->query("born"))
         {
-                command("say Äã¿ìÍ¶Ì¥È¥£¬ÔÚÕâÀïÏ¹½ÁºÍÊ²Ã´£¿");
+                command("say ä½ å¿«æŠ•èƒå»ï¼Œåœ¨è¿™é‡Œçæ…å’Œä»€ä¹ˆï¼Ÿ");
                 return 0;
         }
 
-        command("say ¹ö£¡¸øÎÒÒ»±ß¶ùÈ¥£¡");
+        command("say æ»šï¼ç»™æˆ‘ä¸€è¾¹å„¿å»ï¼");
 }
 

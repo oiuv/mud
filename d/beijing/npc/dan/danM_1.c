@@ -4,11 +4,11 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name(HIM"ÁúÏÑµ¤"NOR, ({"longxian dan", "dan"}));
+        set_name(HIM"é¾™æ¶Žä¸¹"NOR, ({"longxian dan", "dan"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("base_unit", "Á£");
+                set("base_unit", "ç²’");
                 set("base_value", 100);
                 set("only_do_effect", 1);
         }
@@ -22,7 +22,7 @@ int do_effect(object me)
 
         if (time() - me->query_temp("last_eat/dan(M)") < 40)
         {
-                write("Äã¸Õ·þÓÃ¹ýÒ©£¬ÐèÒ©ÐÔ·¢»ÓÍêÐ§ÓÃÒÔºó²ÅÄÜ¼ÌÐø·þÓÃ¡£\n");
+                write("ä½ åˆšæœç”¨è¿‡è¯ï¼Œéœ€è¯æ€§å‘æŒ¥å®Œæ•ˆç”¨ä»¥åŽæ‰èƒ½ç»§ç»­æœç”¨ã€‚\n");
                 return 1;
         }
 
@@ -32,13 +32,13 @@ int do_effect(object me)
 
         if (me->improve_neili(1))
         {
-                message_vision(HIM "$N" HIM "³ÔÏÂÒ»Á£ÁúÏÑµ¤£¬Á³ÉÏÉÁ¹ýÒ»µÀ×ÏÆø¡£\n" NOR, me);
-                tell_object(me, "Äã¸Ðµ½ÄÚÁ¦ÓÖÐÛºñÁËÒ»Ð©¡£\n");
+                message_vision(HIM "$N" HIM "åƒä¸‹ä¸€ç²’é¾™æ¶Žä¸¹ï¼Œè„¸ä¸Šé—ªè¿‡ä¸€é“ç´«æ°”ã€‚\n" NOR, me);
+                tell_object(me, "ä½ æ„Ÿåˆ°å†…åŠ›åˆé›„åŽšäº†ä¸€äº›ã€‚\n");
                 me->add("max_neili", 1);
         } else
         {
-                message_vision(HIC "$N" HIC "³ÔÏÂÒ»Á£ÁúÏÑµ¤£¬Á³É«±äÁË±ä£¬ÉÁ¹ýÒ»Ë¿ÇàÆø¡£\n" NOR, me);
-                tell_object(me, "Äã¸Ðµ½ÄÚÏ¢ÅìÅÈ£¬ÄÑÒÔÎüÊÕµ¤Ò©µÄÐ§Á¦¡£\n");
+                message_vision(HIC "$N" HIC "åƒä¸‹ä¸€ç²’é¾™æ¶Žä¸¹ï¼Œè„¸è‰²å˜äº†å˜ï¼Œé—ªè¿‡ä¸€ä¸é’æ°”ã€‚\n" NOR, me);
+                tell_object(me, "ä½ æ„Ÿåˆ°å†…æ¯æ¾Žæ¹ƒï¼Œéš¾ä»¥å¸æ”¶ä¸¹è¯çš„æ•ˆåŠ›ã€‚\n");
         }
 
         me->start_busy(6);

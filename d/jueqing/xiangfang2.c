@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�᷿");
+        set("short", "厢房");
         set("long", @LONG
-���Ǿ������֮Ů��������Ĺ뷿������һ���Ǹ����µ�
-��ױ���������һ���ͭ����һЩ��֬ˮ�ۡ�
+这是绝情谷主之女公孙绿萼的闺房，靠窗一边是个精致的
+梳妆柜，上面放着一面古铜镜和一些胭脂水粉。
 LONG);
         set("exits", ([
                "west"    : __DIR__"changlang3",

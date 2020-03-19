@@ -15,26 +15,26 @@ int do_convert(string arg)
 	object from_ob, to_ob;
 
 	if( !arg || sscanf(arg, "%d %s to %s", amount, from, to)!=3 )
-		return notify_fail("÷∏¡Ó∏Ò Ω£∫convert < ˝¡ø> <ªı±“÷÷¿‡> to <ªı±“÷÷¿‡>\n");
+		return notify_fail("Êåá‰ª§Ê†ºÂºèÔºöconvert <Êï∞Èáè> <Ë¥ßÂ∏ÅÁßçÁ±ª> to <Ë¥ßÂ∏ÅÁßçÁ±ª>\n");
 
 	from_ob = present(from + "_money", this_player());
 	to_ob = present(to + "_money", this_player());
 	if( !to_ob && file_size("/clone/money/" + to + ".c") < 0 )
-		return notify_fail("ƒ„œÎ∂“ªªƒƒ“ª÷÷«Æ£ø\n");
+		return notify_fail("‰Ω†ÊÉ≥ÂÖëÊç¢Âì™‰∏ÄÁßçÈí±Ôºü\n");
 
-	if( !from_ob )		return notify_fail("ƒ„…Ì…œ√ª”–’‚÷÷ªı±“°£\n");
-	if( amount < 1 )	return notify_fail("∂“ªªªı±““ª¥Œ÷¡…Ÿ“™∂“ªª“ª∏ˆ°£\n");
+	if( !from_ob )		return notify_fail("‰Ω†Ë∫´‰∏äÊ≤°ÊúâËøôÁßçË¥ßÂ∏Å„ÄÇ\n");
+	if( amount < 1 )	return notify_fail("ÂÖëÊç¢Ë¥ßÂ∏Å‰∏ÄÊ¨°Ëá≥Â∞ëË¶ÅÂÖëÊç¢‰∏Ä‰∏™„ÄÇ\n");
 		
 	if( (int)from_ob->query_amount() < amount )
-		return notify_fail("ƒ„…Ì…œ√ª”–ƒ«√¥∂‡" + from_ob->query("name") + "°£\n");
+		return notify_fail("‰Ω†Ë∫´‰∏äÊ≤°ÊúâÈÇ£‰πàÂ§ö" + from_ob->query("name") + "„ÄÇ\n");
 
 	bv1 = from_ob->query("base_value");
-	if( !bv1 ) return notify_fail("’‚÷÷∂´Œ˜≤ª÷µ«Æ°£\n");
+	if( !bv1 ) return notify_fail("ËøôÁßç‰∏úË•ø‰∏çÂÄºÈí±„ÄÇ\n");
 
 	bv2 = to_ob ? to_ob->query("base_value") : call_other("/clone/money/" + to, "query", "base_value" );
 
 	if( bv1 < bv2 ) amount -= amount % (bv2 / bv1);
-	if( amount==0 )	return notify_fail("’‚–©" + from_ob->query("name") + "µƒº€÷µÃ´µÕ¡À£¨ªª≤ª∆°£\n");
+	if( amount==0 )	return notify_fail("Ëøô‰∫õ" + from_ob->query("name") + "ÁöÑ‰ª∑ÂÄºÂ§™‰Ωé‰∫ÜÔºåÊç¢‰∏çËµ∑„ÄÇ\n");
 
 	if( !to_ob ) {
 		to_ob = new("/clone/money/" + to);
@@ -43,7 +43,7 @@ int do_convert(string arg)
 	} else
 		to_ob->add_amount(amount * bv1 / bv2);
 
-	message_vision( sprintf("$N¥”…Ì…œ»°≥ˆ%s%s%s£¨ªª≥…%s%s%s°£\n",
+	message_vision( sprintf("$N‰ªéË∫´‰∏äÂèñÂá∫%s%s%sÔºåÊç¢Êàê%s%s%s„ÄÇ\n",
 		chinese_number(amount), from_ob->query("base_unit"), from_ob->query("name"),
 		chinese_number(amount * bv1 / bv2), to_ob->query("base_unit"), to_ob->query("name")),
 		this_player() );

@@ -7,11 +7,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "监狱");
         set("long", @LONG
-�����Ǽ�����ԼĪ���ɼ�����һ���ʯ�ң�ǽ�ںͶ��嶼�Ǵ�ʯ������
-ǽ�������һֻ��Ͱ�������ŵ��ľ��ǳ�����ù����������ǽ�ϵ�С����
-ȥ�����Լ������ָ���һ�ǡ�
+这里是监狱，约莫两丈见方的一间大石室，墙壁和顶板都是大石所砌。
+墙角里放着一只粪桶，鼻中闻到的尽是臭气和霉气。从西面墙上的小窗望
+去，可以见到翰林府的一角。
 LONG );
 
         set("exits", ([
@@ -21,7 +21,7 @@ LONG );
                 __DIR__"npc/dingdian" : 1,
         ]));
 
-        create_door("west", "����", "east", DOOR_CLOSED);
+        create_door("west", "铁门", "east", DOOR_CLOSED);
 	setup();
         replace_program(ROOM);
 }

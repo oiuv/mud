@@ -12,7 +12,7 @@ int main(object me, string str)
                 return 0;
 
         if (! str)
-                return notify_fail("Ö¸Áî¸ñÊ½£ºwhere <ÈËÎï»òµµÃû>\n"); 
+                return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šwhere <äººç‰©æˆ–æ¡£å>\n"); 
 
         ob = find_player(str);
         if (! ob) ob = find_living(str);
@@ -23,13 +23,13 @@ int main(object me, string str)
         }
 
         if (! ob)
-                return notify_fail("Ã»ÓĞÕÒµ½Õâ¸öÎïÆ·¡£\n");
+                return notify_fail("æ²¡æœ‰æ‰¾åˆ°è¿™ä¸ªç‰©å“ã€‚\n");
 
         where = environment(ob);
         if (! where)
-                return notify_fail("Õâ¸öÈË²»ÖªµÀÔÚÄÇÀïÒ®...\n");
+                return notify_fail("è¿™ä¸ªäººä¸çŸ¥é“åœ¨é‚£é‡Œè€¶...\n");
 
-        write(sprintf("%s(%s)ÏÖÔÚÔÚ%s(%s).\n",
+        write(sprintf("%s(%s)ç°åœ¨åœ¨%s(%s).\n",
                 (string)ob->name(1),
                 (string)ob->query("id"),
                 (string)where->short(),
@@ -40,9 +40,9 @@ int main(object me, string str)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: where <ÈËÎïID>
+æŒ‡ä»¤æ ¼å¼: where <äººç‰©ID>
 
-Õâ¸öÖ¸ÁîÊÇÓÃÀ´µÃÖªÈËÎïÄ¿Ç°ËùÔÚµÄÎ»ÖÃ.
+è¿™ä¸ªæŒ‡ä»¤æ˜¯ç”¨æ¥å¾—çŸ¥äººç‰©ç›®å‰æ‰€åœ¨çš„ä½ç½®.
 
 HELP );
         return 1;

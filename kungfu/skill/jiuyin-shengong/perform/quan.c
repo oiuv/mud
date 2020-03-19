@@ -1,11 +1,11 @@
-// quan ¾ÅÒõÉñÈ­
+// quan ä¹é˜´ç¥æ‹³
  
 #include <ansi.h>
 #include <combat.h>
  
 inherit F_SSERVER;
 
-#define QUAN "¡¸" HIW "¾ÅÒõÉñÈ­" NOR "¡¹"
+#define QUAN "ã€Œ" HIW "ä¹é˜´ç¥æ‹³" NOR "ã€"
  
 int perform(object me, object target)
 {
@@ -20,28 +20,28 @@ int perform(object me, object target)
         }
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail(QUAN "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail(QUAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (me->query_skill("jiuyin-shengong", 1) < 230)
-		return notify_fail("ÄãµÄ¾ÅÒõÉñ¹¦»¹²»¹»æµÊì£¬²»ÄÜÊ¹ÓÃ" QUAN "£¡\n");
+		return notify_fail("ä½ çš„ä¹é˜´ç¥åŠŸè¿˜ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸èƒ½ä½¿ç”¨" QUAN "ï¼\n");
 
 	if (me->query_skill("cuff", 1) < 220)
-		return notify_fail("ÄãµÄ»ù±¾È­·¨»¹²»¹»æµÊì£¬²»ÄÜÊ¹ÓÃ" QUAN "£¡\n");
+		return notify_fail("ä½ çš„åŸºæœ¬æ‹³æ³•è¿˜ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸èƒ½ä½¿ç”¨" QUAN "ï¼\n");
 
         if (me->query("neili") < 240)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬²»ÄÜÊ¹ÓÃ" QUAN "£¡\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨" QUAN "ï¼\n");
 
         if (me->query_temp("weapon"))
-                return notify_fail("´ËÕĞÖ»ÄÜ¿ÕÊÖÊ©Õ¹£¡\n");
+                return notify_fail("æ­¤æ‹›åªèƒ½ç©ºæ‰‹æ–½å±•ï¼\n");
 
         if (me->query_skill_prepared("unarmed") != "jiuyin-shengong"
            && me->query_skill_prepared("cuff") != "jiuyin-shengong")
-                return notify_fail("ÄãÃ»ÓĞ×¼±¸Ê¹ÓÃ¾ÅÒõÉñ¹¦£¬ÎŞ·¨Ê©Õ¹" QUAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨ä¹é˜´ç¥åŠŸï¼Œæ— æ³•æ–½å±•" QUAN "ã€‚\n");
  
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIC "$N" HIC "Ò»ÉùÀäºß£¬ÎÕÈ­»÷³ö£¬ÕĞÊ½ĞÛ»ë£¬ÄÑßªÆäÍş£¡\n" NOR;
+	msg = HIC "$N" HIC "ä¸€å£°å†·å“¼ï¼Œæ¡æ‹³å‡»å‡ºï¼Œæ‹›å¼é›„æµ‘ï¼Œéš¾æ“¢å…¶å¨ï¼\n" NOR;
  
 	    ap = me->query_skill("unarmed");
 		if(ap < me->query_skill("cuff"))
@@ -54,14 +54,14 @@ int perform(object me, object target)
         me->add("neili", -50);
         if (ap / 2 + random(ap) < dp)
         {
-		msg += HIG "Ö»¼û$n" HIG "²»»Å²»Ã¦£¬ÇáÇáÒ»ÉÁ£¬¶ã¹ıÁË$N" HIG "ÕâÒ»»÷£¡\n"NOR;
+		msg += HIG "åªè§$n" HIG "ä¸æ…Œä¸å¿™ï¼Œè½»è½»ä¸€é—ªï¼Œèº²è¿‡äº†$N" HIG "è¿™ä¸€å‡»ï¼\n"NOR;
         } else
 	{
 		me->add("neili",-90);
                 damage = ap / 2 + random(ap / 2);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 85 + random(5),
-                                           HIR "$n" HIR "Á¬Ã¦¸ñµ²£¬¿ÉÊÇÕâÒ»È­Á¦µÀºÎµÈÖ®ÖØ£¬ÄÄÀïµÖ"
-                                           "µ²µÃ×¡£¿Ö»±»´òµÃÍÂÑªÈı³ß£¬Á¬ÍËÊı²½£¡\n" NOR);
+                                           HIR "$n" HIR "è¿å¿™æ ¼æŒ¡ï¼Œå¯æ˜¯è¿™ä¸€æ‹³åŠ›é“ä½•ç­‰ä¹‹é‡ï¼Œå“ªé‡ŒæŠµ"
+                                           "æŒ¡å¾—ä½ï¼Ÿåªè¢«æ‰“å¾—åè¡€ä¸‰å°ºï¼Œè¿é€€æ•°æ­¥ï¼\n" NOR);
 	}
 
 	message_combatd(msg, me, target);

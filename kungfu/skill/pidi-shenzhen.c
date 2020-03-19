@@ -7,10 +7,10 @@ int valid_learn(object me)
 //      object ob;
   
         if (me->query_skill("throwing", 1) < 40)
-                return notify_fail("��İ������ܲ�����졣\n");
+                return notify_fail("你的暗器技能不够娴熟。\n");
 
         if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("pidi-shenzhen", 1))
-                return notify_fail("��Ļ�������ˮƽ���ޣ�������������ıٵ����롣\n");
+                return notify_fail("你的基本暗器水平有限，难以领会更精妙的辟地神针。\n");
 
         return 1;
 }
@@ -23,10 +23,10 @@ int valid_enable(string usage)
 int practice_skill(object me)
 {
         if ((int)me->query("qi") < 80)
-                return notify_fail("�����������û�а취��ϰ�ٵ����롣\n");
+                return notify_fail("你的气不够，没有办法练习辟地神针。\n");
 
         if ((int)me->query("neili") < 60)
-                return notify_fail("�������������û�а취��ϰ�ٵ����롣\n");
+                return notify_fail("你的内力不够，没有办法练习辟地神针。\n");
 
         me->receive_damage("qi", 70);
         me->add("neili", -50);

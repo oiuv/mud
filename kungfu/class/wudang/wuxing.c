@@ -5,10 +5,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÎåĞĞµÜ×Ó", ({ "wuxing dizi", "dizi", "wuxing" }));
+        set_name("äº”è¡Œå¼Ÿå­", ({ "wuxing dizi", "dizi", "wuxing" }));
         set("age", 23);
-        set("gender", "ÄĞĞÔ");
-        set("long", "ÕæÎä½£ÕóµÄÎåĞĞ·½Î»µÜ×Ó¡£\n");
+        set("gender", "ç”·æ€§");
+        set("long", "çœŸæ­¦å‰‘é˜µçš„äº”è¡Œæ–¹ä½å¼Ÿå­ã€‚\n");
         set("attitude", "peaceful");
         set("str", 24);
         set("dex", 27);
@@ -24,9 +24,9 @@ void create()
 
         set("chat_chance", 1);
         set("chat_msg", ({
-                CYN "ÎåĞĞµÜ×ÓÆëÉùßººÈ£ºÕæÎä½£Õó£¬ÌìÏÂµÚÒ»£¡\n" NOR,
+                CYN "äº”è¡Œå¼Ÿå­é½å£°å†å–ï¼šçœŸæ­¦å‰‘é˜µï¼Œå¤©ä¸‹ç¬¬ä¸€ï¼\n" NOR,
         }));
-        create_family("Îäµ±ÅÉ", 3, "µÜ×Ó");
+        create_family("æ­¦å½“æ´¾", 3, "å¼Ÿå­");
         setup();
         carry_object("/clone/weapon/changjian");
         carry_object("/d/wudang/obj/wuxingfu")->wear();

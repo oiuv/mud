@@ -3,11 +3,11 @@
 inherit ROOM;
 void create ()
 {
-        set ("short", "Î÷°²µÀ¿Ú");
+        set ("short", "è¥¿å®‰é“å£");
         set ("long", @LONG
-³¤°²³Ç×Ô¹ÅÊÇ·±»ªÊ¤µØ£¬ÎªÊý´ú»Ê³¯½¨¶¼Ö®µØ£¬ÓÖÎªÑÎÉÌ´ó¼ÖËù¾Û
-¼¯£¬Òó¸»¼×ÓÚÌìÏÂ¡£Î÷°²µÀ¿ÚÊÇÒ»¸öËÄÍ¨°Ë´ïµÄÂ·¿Ú£¬¶«·½ÓÐÒ»Ìõ´óÂ·
-Í¨Íù·ö·çµÀ£¬Î÷ÃæÊÇ³¤°²Î÷³ÇÃÅ£¬ÄÏ±±·½ÏòÊÇÓÀÌ©´óµÀ¡£ 
+é•¿å®‰åŸŽè‡ªå¤æ˜¯ç¹åŽèƒœåœ°ï¼Œä¸ºæ•°ä»£çš‡æœå»ºéƒ½ä¹‹åœ°ï¼Œåˆä¸ºç›å•†å¤§è´¾æ‰€èš
+é›†ï¼Œæ®·å¯Œç”²äºŽå¤©ä¸‹ã€‚è¥¿å®‰é“å£æ˜¯ä¸€ä¸ªå››é€šå…«è¾¾çš„è·¯å£ï¼Œä¸œæ–¹æœ‰ä¸€æ¡å¤§è·¯
+é€šå¾€æ‰¶é£Žé“ï¼Œè¥¿é¢æ˜¯é•¿å®‰è¥¿åŸŽé—¨ï¼Œå—åŒ—æ–¹å‘æ˜¯æ°¸æ³°å¤§é“ã€‚ 
 LONG);
         set("exits",([//sizeof() == 5
         	"south" : __DIR__"yongtai-dadao4",

@@ -12,16 +12,16 @@ void reset();
 
 void create()
 {
-	set("short", "ÂëÍ·");
+	set("short", "ç å¤´");
 	set("long", @LONG
-ÕâÊÇÒ»¸öÔÚ½­ÄÏË®Ïç¼«³£¼ûµÄÂëÍ·£¬ÓÉ´Ö²ÚµÄ´óÇàÌõÊ¯´î³É¡£
-±±ÃæËÆºõÓÐÒ»¸ö¼«´óµÄ×¯Ôº¡£¿¿°¶Í£ÓÐÒ»ËÒ´óÓæ´¬(ship)£¬´óÅñÐ±
-¹Ò£¬·ç·«´óÕÅ£¬¿´ÄÇÑù×Ó²»ÊÇÎªÁË³öºþ£¬µ¹ÏóÊÇÕ÷Õ½ÓÃµÄ¡£
+è¿™æ˜¯ä¸€ä¸ªåœ¨æ±Ÿå—æ°´ä¹¡æžå¸¸è§çš„ç å¤´ï¼Œç”±ç²—ç³™çš„å¤§é’æ¡çŸ³æ­æˆã€‚
+åŒ—é¢ä¼¼ä¹Žæœ‰ä¸€ä¸ªæžå¤§çš„åº„é™¢ã€‚é å²¸åœæœ‰ä¸€è‰˜å¤§æ¸”èˆ¹(ship)ï¼Œå¤§ç¯·æ–œ
+æŒ‚ï¼Œé£Žå¸†å¤§å¼ ï¼Œçœ‹é‚£æ ·å­ä¸æ˜¯ä¸ºäº†å‡ºæ¹–ï¼Œå€’è±¡æ˜¯å¾æˆ˜ç”¨çš„ã€‚
 LONG );
         set("outdoors", "guiyun");
 
 	set("item_desc", ([
-		"ship" : "ÕâÊÇÌ«ºþË®µÁ½Ù¸»¼ÃÆ¶µÄÕ½´¬¡£ÉÏÈ¥(shang ship)¾Í³ö·¢¡£\n",
+		"ship" : "è¿™æ˜¯å¤ªæ¹–æ°´ç›—åŠ«å¯ŒæµŽè´«çš„æˆ˜èˆ¹ã€‚ä¸ŠåŽ»(shang ship)å°±å‡ºå‘ã€‚\n",
 	]));
 
 	set("exits", ([
@@ -42,9 +42,9 @@ void init()
         add_action("do_cross", "cross");
 }
 
-/*ÔÚ´Ë¸¶Ç®°Ú¶É»òÂòÓã³Ô*/
-/*£¨µÈ£©¶É´¬¿¿ÁË°¶£¬¸¶ÁËÇ®£¬´¬¼ÒÒ»ÉùßººÈ£¬¿ÍÈËÃÇÒ»Ó¿
- * ¶øÈë£¬Ð¡Ð¡¶É´¬Æ¬¿Ì¼ä±ãÔ½¹ý²¨À½ÌÎÌÎµÄºº½­£¬¿¿ÉÏ±±°¶
+/*åœ¨æ­¤ä»˜é’±æ‘†æ¸¡æˆ–ä¹°é±¼åƒ*/
+/*ï¼ˆç­‰ï¼‰æ¸¡èˆ¹é äº†å²¸ï¼Œä»˜äº†é’±ï¼Œèˆ¹å®¶ä¸€å£°å†å–ï¼Œå®¢äººä»¬ä¸€æ¶Œ
+ * è€Œå…¥ï¼Œå°å°æ¸¡èˆ¹ç‰‡åˆ»é—´ä¾¿è¶Šè¿‡æ³¢æ¾œæ¶›æ¶›çš„æ±‰æ±Ÿï¼Œé ä¸ŠåŒ—å²¸
  */
 
 void check_trigger()
@@ -62,21 +62,21 @@ void check_trigger()
                 room->set("yell_trigger", 1);
                 set("exits/enter", __DIR__"duchuan");
                 room->set("exits/out", __FILE__);
-                message("vision", "Ò»Ò¶±âÖÛ»º»ºµØÊ»ÁË¹ýÀ´£¬ô¹¹«½«Ò»¿éÌ¤½Å"
-                        "°å´îÉÏµÌ°¶£¬ÒÔ±ã³Ë¿Í\nÉÏÏÂ¡£\n", this_object() );
-                message("vision", "ô¹¹«½«Ò»¿éÌ¤½Å°å´îÉÏµÌ°¶£¬ÐÎ³ÉÒ»¸öÏòÉÏ"
-                        "µÄ½×ÌÝ¡£\n", room);
+                message("vision", "ä¸€å¶æ‰èˆŸç¼“ç¼“åœ°é©¶äº†è¿‡æ¥ï¼Œè‰„å…¬å°†ä¸€å—è¸è„š"
+                        "æ¿æ­ä¸Šå ¤å²¸ï¼Œä»¥ä¾¿ä¹˜å®¢\nä¸Šä¸‹ã€‚\n", this_object() );
+                message("vision", "è‰„å…¬å°†ä¸€å—è¸è„šæ¿æ­ä¸Šå ¤å²¸ï¼Œå½¢æˆä¸€ä¸ªå‘ä¸Š"
+                        "çš„é˜¶æ¢¯ã€‚\n", room);
                 remove_call_out("on_board");
                 call_out("on_board", 15);
             } else
-                message("vision", "Ö»ÌýµÃºþÃæÉÏÒþÒþ´«À´£º¡°±ð¼±Âï£¬"
-                        "Õâ¶ùÕýÃ¦×ÅÄÅ¡­¡­¡±\n",this_object() );
+                message("vision", "åªå¬å¾—æ¹–é¢ä¸Šéšéšä¼ æ¥ï¼šâ€œåˆ«æ€¥å˜›ï¼Œ"
+                        "è¿™å„¿æ­£å¿™ç€å‘â€¦â€¦â€\n",this_object() );
         }
         else
             message("vision", "ERROR: boat not found\n", this_object() );
     }
     else 
-        message("vision", "°¶±ßÒ»Ö»¶É´¬ÉÏµÄÀÏô¹¹«ËµµÀ£ºÕýµÈ×ÅÄãÄØ£¬ÉÏÀ´°É¡£\n",
+        message("vision", "å²¸è¾¹ä¸€åªæ¸¡èˆ¹ä¸Šçš„è€è‰„å…¬è¯´é“ï¼šæ­£ç­‰ç€ä½ å‘¢ï¼Œä¸Šæ¥å§ã€‚\n",
                 this_object() );
 }
 
@@ -87,14 +87,14 @@ void on_board()
 
     if (! query("exits/enter")) return;
 
-    message("vision", "ô¹¹«°ÑÌ¤½Å°åÊÕÁËÆðÀ´£¬Öñ¸ÝÒ»µã£¬±âÖÛÏòºþÐÄÊ»È¥¡£\n",
+    message("vision", "è‰„å…¬æŠŠè¸è„šæ¿æ”¶äº†èµ·æ¥ï¼Œç«¹ç¯™ä¸€ç‚¹ï¼Œæ‰èˆŸå‘æ¹–å¿ƒé©¶åŽ»ã€‚\n",
             this_object());
 
     if (room = find_object(__DIR__"duchuan"))
     {
         room->delete("exits/out");
-        message("vision", "ô¹¹«°ÑÌ¤½Å°åÊÕÆðÀ´£¬ËµÁËÒ»Éù¡°×øÎÈà¶¡±£¬"
-                "Öñ¸ÝÒ»µã£¬±âÖÛÏò\nºþÐÄÊ»È¥¡£\n", room );
+        message("vision", "è‰„å…¬æŠŠè¸è„šæ¿æ”¶èµ·æ¥ï¼Œè¯´äº†ä¸€å£°â€œåç¨³å–½â€ï¼Œ"
+                "ç«¹ç¯™ä¸€ç‚¹ï¼Œæ‰èˆŸå‘\næ¹–å¿ƒé©¶åŽ»ã€‚\n", room );
     }
     delete("exits/enter");
 
@@ -108,8 +108,8 @@ void arrive()
     if (room = find_object(__DIR__"duchuan"))
     {
         room->set("exits/out", __DIR__"taihu");
-        message("vision", "ô¹¹«Ëµ¡°µ½À²£¬ÉÏ°¶°É¡±£¬Ëæ¼´°ÑÒ»¿éÌ¤½Å°å"
-                "´îÉÏµÌ°¶¡£\n",room );
+        message("vision", "è‰„å…¬è¯´â€œåˆ°å•¦ï¼Œä¸Šå²¸å§â€ï¼Œéšå³æŠŠä¸€å—è¸è„šæ¿"
+                "æ­ä¸Šå ¤å²¸ã€‚\n",room );
     }
     remove_call_out("close_passage");
     call_out("close_passage", 20);
@@ -121,7 +121,7 @@ void close_passage()
     if (room = find_object(__DIR__"duchuan"))
     {
         room->delete("exits/out");
-        message("vision","ô¹¹«°ÑÌ¤½Å°åÊÕÆðÀ´£¬°Ñ±âÖÛÊ»ÏòºþÐÄ¡£\n", room);
+        message("vision","è‰„å…¬æŠŠè¸è„šæ¿æ”¶èµ·æ¥ï¼ŒæŠŠæ‰èˆŸé©¶å‘æ¹–å¿ƒã€‚\n", room);
         room->delete("yell_trigger"); 
     }
 }
@@ -132,23 +132,23 @@ int do_yell(string arg)
 
     if (! arg || arg == "") return 0;
 
-    if (arg == "boat") arg = "´¬¼Ò";
+    if (arg == "boat") arg = "èˆ¹å®¶";
     if ((int)this_player()->query("age") < 16)
-        message_vision("$NÊ¹³ö³ÔÄÌµÄÁ¦Æøº°ÁËÒ»Éù£º¡°" + arg + "¡±\n",
+        message_vision("$Nä½¿å‡ºåƒå¥¶çš„åŠ›æ°”å–Šäº†ä¸€å£°ï¼šâ€œ" + arg + "â€\n",
                        this_player());
     else if ((int)this_player()->query("neili") > 500)
-        message_vision("$NÎüÁË¿ÚÆø£¬Ò»Éù¡°" + arg + "¡±£¬ÉùÒôÖÐÕýÆ½ºÍµØÔ¶Ô¶´«"
-                       "ÁË³öÈ¥¡£\n", this_player());
+        message_vision("$Nå¸äº†å£æ°”ï¼Œä¸€å£°â€œ" + arg + "â€ï¼Œå£°éŸ³ä¸­æ­£å¹³å’Œåœ°è¿œè¿œä¼ "
+                       "äº†å‡ºåŽ»ã€‚\n", this_player());
     else
-        message_vision("$N¹Ä×ãÖÐÆø£¬³¤Ð¥Ò»Éù£º¡°" + arg + "£¡¡±\n",
+        message_vision("$Né¼“è¶³ä¸­æ°”ï¼Œé•¿å•¸ä¸€å£°ï¼šâ€œ" + arg + "ï¼â€\n",
                        this_player());
-    if (arg == "´¬¼Ò")
+    if (arg == "èˆ¹å®¶")
     {
         check_trigger();
         return 1;
     } else
-        message_vision("ºþÃæÉÏÔ¶Ô¶´«À´Ò»Õó»ØÉù£º¡°" + arg +
-                       "¡«¡«¡«¡±\n", this_player());
+        message_vision("æ¹–é¢ä¸Šè¿œè¿œä¼ æ¥ä¸€é˜µå›žå£°ï¼šâ€œ" + arg +
+                       "ï½žï½žï½žâ€\n", this_player());
     return 1;
 }
 
@@ -159,20 +159,20 @@ int do_cross()
         me = this_player();
         if (me->query_skill("dodge") < 100)
         {
-                tell_object(me, random(2) ? "Äã¾õµÃºþÃæÌ«¿í£¬Ã»ÓÐÊ®×ãµÄ°ÑÎÕÔ¾¹ýÈ¥¡£\n"
-                                          : "Äã¿´×ÅºÆå«µÄÌ«ºþ£¬ÐÄÀï²»½û´òÁË¸öÍ»£¬Ã»¸ÒÂÒÀ´¡£\n");
+                tell_object(me, random(2) ? "ä½ è§‰å¾—æ¹–é¢å¤ªå®½ï¼Œæ²¡æœ‰åè¶³çš„æŠŠæ¡è·ƒè¿‡åŽ»ã€‚\n"
+                                          : "ä½ çœ‹ç€æµ©ç€šçš„å¤ªæ¹–ï¼Œå¿ƒé‡Œä¸ç¦æ‰“äº†ä¸ªçªï¼Œæ²¡æ•¢ä¹±æ¥ã€‚\n");
                 return 1;
         }
 
         if (me->query("neili") < 100)
         {
-                tell_object(me, "ÄãµÄÄÚÁ¦²»¹»£¬»¹ÊÇÐÝÏ¢Ò»ÏÂÔÙËµ°É¡£\n");
+                tell_object(me, "ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œè¿˜æ˜¯ä¼‘æ¯ä¸€ä¸‹å†è¯´å§ã€‚\n");
                 return 1;
         }
 
         me->add("neili", -50);
-        message_vision("$NÉíÐÎÒ»»Î£¬ÒÑÈ»Ô¾½øÌ«ºþ£¬Ö»¼û$P½ÅÌ¤Çå²¨£¬½¥½¥Ô¶È¥¡£\n", me);
-        tell_object(me, "ÄãË³ÀûµÄµ½´ïÁË±Ë°¶£¡\n");
+        message_vision("$Nèº«å½¢ä¸€æ™ƒï¼Œå·²ç„¶è·ƒè¿›å¤ªæ¹–ï¼Œåªè§$Pè„šè¸æ¸…æ³¢ï¼Œæ¸æ¸è¿œåŽ»ã€‚\n", me);
+        tell_object(me, "ä½ é¡ºåˆ©çš„åˆ°è¾¾äº†å½¼å²¸ï¼\n");
         me->move(__DIR__"taihu");
         return 1;
 }
@@ -192,14 +192,14 @@ int do_shang(string arg)
     //string dir;
     if (! arg || arg != "ship")
     {
-         tell_object(this_player() , "ÄãÒª enter ÄÄ¶ù£¿\n");
+         tell_object(this_player() , "ä½ è¦ enter å“ªå„¿ï¼Ÿ\n");
          return 1 ;
     }
     ob = this_player();
-    message_vision("´¬ÉÏÈºµÁÒ»¼û$NÉÏ´¬£¬Ã¦½ÐÁËÒ»Éù£ºÊ×ÁìÀ´ÁË£¬¿ª´¬à¶£¡É±½ð¹·È¥£¡\n", ob);
-    message_vision("´¬ÉÏÉýÆð·«£¬´¬¾ÍÏòºþÖÐº½ÐÐ¡£\n", ob);
+    message_vision("èˆ¹ä¸Šç¾¤ç›—ä¸€è§$Nä¸Šèˆ¹ï¼Œå¿™å«äº†ä¸€å£°ï¼šé¦–é¢†æ¥äº†ï¼Œå¼€èˆ¹å–½ï¼æ€é‡‘ç‹—åŽ»ï¼\n", ob);
+    message_vision("èˆ¹ä¸Šå‡èµ·å¸†ï¼Œèˆ¹å°±å‘æ¹–ä¸­èˆªè¡Œã€‚\n", ob);
     ob ->move("/d/guiyun/ship") ;
-    tell_object(ob, CYN "ÄãÂÊ´¬ÔÚºþÉÏÆÆÀËÇ°ÐÐ£¬Õ½ÆìÁÔÁÔ.......\n" NOR ) ;
+    tell_object(ob, CYN "ä½ çŽ‡èˆ¹åœ¨æ¹–ä¸Šç ´æµªå‰è¡Œï¼Œæˆ˜æ——çŒŽçŒŽ.......\n" NOR ) ;
     call_out("rjinbing", 10 , ob );
     return 1 ;
 }
@@ -211,7 +211,7 @@ void rjinbing(object ob)
           ship = load_object("/d/guiyun/ship");
     if(!( jinship = find_object("/d/guiyun/jinship")))
           jinship = load_object("/d/guiyun/jinship");
-    tell_object(ob, "Õ½´¬ÔÚÒ»ÕóÕóº°É±ÉùÖÐ×²ÉÏÁËÁíÒ»ËÒ´ó´¬¡£\n");
+    tell_object(ob, "æˆ˜èˆ¹åœ¨ä¸€é˜µé˜µå–Šæ€å£°ä¸­æ’žä¸Šäº†å¦ä¸€è‰˜å¤§èˆ¹ã€‚\n");
     ship->set("exits/out", "/d/guiyun/jinship");
     jinship->set("exits/out", "/d/guiyun/ship");
 }

@@ -6,11 +6,11 @@ inherit ROOM;
 
 void create ()
 {
-        set ("short", "±øÆ÷µê");
+        set ("short", "å…µå™¨åº—");
         set ("long", @LONG
-ÕâÀïÊÇ±øÆ÷µê¡£µêÀïµ½´¦Òø¹âÉÁÉÁ£¬ÈÃÈËÑÛ»¨çÔÂÒ¡£±øÆ÷¼ÜÉÏ°Ú×Å
-¸÷ÖÖ±øÆ÷£¬Ê®°Ë°ãÎäÆ÷ÊÇÓ¦ÓÐ¾¡ÓÐ£¬ÑùÑù¾ãÈ«¡£±øÆ÷µêÀÏ°åÊÇÄ½ÈÝÊÀ¼Ò
-µÄ´«ÈË¡£ÄÏÇ½ÉÏ»¹Ð´ÁËÒ»Ê×Ê«(poem)¡£
+è¿™é‡Œæ˜¯å…µå™¨åº—ã€‚åº—é‡Œåˆ°å¤„é“¶å…‰é—ªé—ªï¼Œè®©äººçœ¼èŠ±ç¼­ä¹±ã€‚å…µå™¨æž¶ä¸Šæ‘†ç€
+å„ç§å…µå™¨ï¼Œåå…«èˆ¬æ­¦å™¨æ˜¯åº”æœ‰å°½æœ‰ï¼Œæ ·æ ·ä¿±å…¨ã€‚å…µå™¨åº—è€æ¿æ˜¯æ…•å®¹ä¸–å®¶
+çš„ä¼ äººã€‚å—å¢™ä¸Šè¿˜å†™äº†ä¸€é¦–è¯—(poem)ã€‚
 LONG);
         set("exits", 
         ([ //sizeof() == 1
@@ -18,8 +18,8 @@ LONG);
         ]));
         set("item_desc", ([
         	"poem": HIR @TEXT
-        Ò×Ë®ÏôÏôÎ÷·çÀä£¬×³Ê¿Ò»È¥²»¸´»¹£¡
-        Æ´ËÀµ«Æ¾Èý³ß½££¬ÉîÇéÎ¨ÓÐ¸ººìÑÕ£¡
+        æ˜“æ°´è§è§è¥¿é£Žå†·ï¼Œå£®å£«ä¸€åŽ»ä¸å¤è¿˜ï¼
+        æ‹¼æ­»ä½†å‡­ä¸‰å°ºå‰‘ï¼Œæ·±æƒ…å”¯æœ‰è´Ÿçº¢é¢œï¼
 TEXT NOR
         ]) );
         set("objects", 

@@ -5,9 +5,9 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ÎŞÏàâÖ");
+	set("short", "æ— ç›¸åºµ");
 	set("long", @LONG
-Ò»¸öĞ¡Ğ¡âÖÌÃ¡£
+ä¸€ä¸ªå°å°åºµå ‚ã€‚
 LONG );
 	set("exits", ([
                 "south" : __DIR__"shulin",

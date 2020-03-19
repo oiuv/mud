@@ -1,5 +1,5 @@
 // inherit object: quest.c
-// ËùÓĞÍæ¼ÒÈÎÎñ¼Ì³Ğ´Ë¶ÔÏó
+// æ‰€æœ‰ç©å®¶ä»»åŠ¡ç»§æ‰¿æ­¤å¯¹è±¡
 
 #include <quest.h>
 
@@ -7,12 +7,12 @@ inherit F_DBASE;
 
 mixed quest_name;
 
-STATIC_VAR_TAG int destructing;         // Îö¹¹¶ÔÏóÊ±ºòµÄ±êÖ¾
-STATIC_VAR_TAG string status;           // ÈÎÎñ¶ÔÏóµÄ×´Ì¬
+STATIC_VAR_TAG int destructing;         // ææ„å¯¹è±¡æ—¶å€™çš„æ ‡å¿—
+STATIC_VAR_TAG string status;           // ä»»åŠ¡å¯¹è±¡çš„çŠ¶æ€
 
 int is_quest() { return clonep(this_object()); }
 
-// ÈÎÎñµÄÃû×Ö
+// ä»»åŠ¡çš„åå­—
 varargs string name()
 {
         if (stringp(quest_name))
@@ -21,77 +21,77 @@ varargs string name()
         if (functionp(quest_name))
                 return evaluate(quest_name);
 
-        return "Î´ÃûÈÎÎñ";
+        return "æœªåä»»åŠ¡";
 }
 
-// ÉèÖÃÃû×Ö
+// è®¾ç½®åå­—
 void set_name(string name)
 {
         quest_name = name;
 }
 
-// ¸ÃÈÎÎñÏûÏ¢ÁéÍ¨ÈËÊ¿(knower)¶ÔÄ³ÈË(who)¶øÑÔµÄ½éÉÜ
+// è¯¥ä»»åŠ¡æ¶ˆæ¯çµé€šäººå£«(knower)å¯¹æŸäºº(who)è€Œè¨€çš„ä»‹ç»
 varargs string query_introduce(object knower, object who)
 {
-        // È±Ê¡ÊÇÃ»ÓĞ½éÉÜµÄ - ÄÜ¹»±»É¢²¼µÄÓ¦¸Ã±ØĞëÓĞ½éÉÜ¡£
+        // ç¼ºçœæ˜¯æ²¡æœ‰ä»‹ç»çš„ - èƒ½å¤Ÿè¢«æ•£å¸ƒçš„åº”è¯¥å¿…é¡»æœ‰ä»‹ç»ã€‚
         return 0;
 }
 
-// ¸ÃÈÎÎñÊÇ·ñÄÜ±»ÏûÏ¢ÁéÍ¨ÈËÊ¿(knower)ËùÖªÏş
+// è¯¥ä»»åŠ¡æ˜¯å¦èƒ½è¢«æ¶ˆæ¯çµé€šäººå£«(knower)æ‰€çŸ¥æ™“
 varargs int can_know_by(object knower)
 {
-        // È±Ê¡ÊÇ¿ÉÒÔÖªÏşµÄ
+        // ç¼ºçœæ˜¯å¯ä»¥çŸ¥æ™“çš„
         return 1;
 }
 
-// ¸ÃÈÎÎñÊÇ·ñÄÜ±»ÏûÏ¢ÁéÍ¨ÈËÊ¿(knower)¹ãÎªÉ¢²¼
+// è¯¥ä»»åŠ¡æ˜¯å¦èƒ½è¢«æ¶ˆæ¯çµé€šäººå£«(knower)å¹¿ä¸ºæ•£å¸ƒ
 varargs int can_rumor_by(object knower)
 {
-        // È±Ê¡Ö»Òª¸ÃÈËÖªµÀ¾Í¿ÉÒÔÉ¢²¼
-        // ±ØĞëÒıÓÃthis_object()£¬ÒòÎªcan_know_by() Ò»°ã»á±»
-        // ¾ßÌåµÄÈÎÎñ¶ÔÏóÖØÔØ£¬Èç¹û²»ÒıÓÃthis_object()¾Íµ÷ÓÃ
-        // ²»ÁËÖØÔØµÄº¯Êı¡£
+        // ç¼ºçœåªè¦è¯¥äººçŸ¥é“å°±å¯ä»¥æ•£å¸ƒ
+        // å¿…é¡»å¼•ç”¨this_object()ï¼Œå› ä¸ºcan_know_by() ä¸€èˆ¬ä¼šè¢«
+        // å…·ä½“çš„ä»»åŠ¡å¯¹è±¡é‡è½½ï¼Œå¦‚æœä¸å¼•ç”¨this_object()å°±è°ƒç”¨
+        // ä¸äº†é‡è½½çš„å‡½æ•°ã€‚
         return this_object()->can_know_by(knower);
 }
 
-// ÈÎÎñµÄ³õÊ¼»¯
+// ä»»åŠ¡çš„åˆå§‹åŒ–
 void setup()
 {
         if (! this_object()->is_quest())
                 return;
 
-        // ÕâÊÇÒ»¸öÈÎÎñ
+        // è¿™æ˜¯ä¸€ä¸ªä»»åŠ¡
         status = QUEST_CREATE;
         set("start_time", time());
         QUEST_D->add_quest(this_object());
 }
 
-// ÈÎÎñµÄÎö¹¹º¯Êı¡£
-// Èç¹ûÊÇÊ×ÏÈÎö¹¹Õâ¸öÈÎÎñ¶ÔÏó£¬ÔòdestructingÕâ¸ö±êÊ¶±ØÈ»ÎªÁã£¬
-// ÄÇÃ´ÎÒ¾ÍÉèÖÃ±êÊ¶£¬È»ºó³¢ÊÔµ÷ÓÃÈ¡ÏûÈÎÎñµÄÖØÔØº¯Êı¡£ ÕâÑùÔÚ
-// È¡ÏûÈÎÎñµÄº¯ÊıÖĞµ÷ÓÃÎö¹¹º¯Êı¾Í²»»áÔÙ´ÎÖ´ĞĞ¡£
+// ä»»åŠ¡çš„ææ„å‡½æ•°ã€‚
+// å¦‚æœæ˜¯é¦–å…ˆææ„è¿™ä¸ªä»»åŠ¡å¯¹è±¡ï¼Œåˆ™destructingè¿™ä¸ªæ ‡è¯†å¿…ç„¶ä¸ºé›¶ï¼Œ
+// é‚£ä¹ˆæˆ‘å°±è®¾ç½®æ ‡è¯†ï¼Œç„¶åå°è¯•è°ƒç”¨å–æ¶ˆä»»åŠ¡çš„é‡è½½å‡½æ•°ã€‚ è¿™æ ·åœ¨
+// å–æ¶ˆä»»åŠ¡çš„å‡½æ•°ä¸­è°ƒç”¨ææ„å‡½æ•°å°±ä¸ä¼šå†æ¬¡æ‰§è¡Œã€‚
 void remove()
 {
         if (! destructing && this_object()->is_quest())
         {
                 destructing = 1;
 
-                // ÔÚÎö¹¹Ç°È¡ÏûÈÎÎñ
+                // åœ¨ææ„å‰å–æ¶ˆä»»åŠ¡
                 this_object()->cancel_quest();
         }
 }
 
-// ½áÊøÈÎÎñµÄº¯Êı
-// Ö±½Óµ÷ÓÃÎö¹¹º¯Êı
+// ç»“æŸä»»åŠ¡çš„å‡½æ•°
+// ç›´æ¥è°ƒç”¨ææ„å‡½æ•°
 void cancel_quest()
 {
-        // ÉèÖÃ½áÊøÊ±¼ä
+        // è®¾ç½®ç»“æŸæ—¶é—´
         set("finish_time", time());
 
-        // ´ÓQUEST_DÖĞÈ¥µôÓĞ¹ØÕâ¸ö¶ÔÏóµÄĞÅÏ¢
+        // ä»QUEST_Dä¸­å»æ‰æœ‰å…³è¿™ä¸ªå¯¹è±¡çš„ä¿¡æ¯
         QUEST_D->remove_all_information(this_object());
 
-        // Èç¹ûÃ»ÓĞÎö¹¹Õâ¸öÈÎÎñ£¬ÔòÉèÖÃ±êÊ¶£¬È»ºóÎö¹¹Õâ¸öÈÎÎñ
+        // å¦‚æœæ²¡æœ‰ææ„è¿™ä¸ªä»»åŠ¡ï¼Œåˆ™è®¾ç½®æ ‡è¯†ï¼Œç„¶åææ„è¿™ä¸ªä»»åŠ¡
         if (! destructing)
         {
                 destructing = 1;
@@ -99,36 +99,36 @@ void cancel_quest()
         }
 }
 
-// ²éÑ¯ÈÎÎñ×´Ì¬
+// æŸ¥è¯¢ä»»åŠ¡çŠ¶æ€
 string query_status()
 {
         return status;
 }
 
-// ÈÎÎñ¸Ä±ä×´Ì¬
+// ä»»åŠ¡æ”¹å˜çŠ¶æ€
 void change_status(string new_state)
 {
         if (status == new_state)
-                // ×´Ì¬Ã»ÓĞ±ä»¯
+                // çŠ¶æ€æ²¡æœ‰å˜åŒ–
                 return;
 
         status = new_state;
         if (status == QUEST_FINISH)
         {
-                // Ç¨ÒÆµ½½áÊø×´Ì¬£¿Îö¹¹¶ÔÏó¡£
+                // è¿ç§»åˆ°ç»“æŸçŠ¶æ€ï¼Ÿææ„å¯¹è±¡ã€‚
                 this_object()->cancel_quest();
                 // destruct(this_object());
         }
 }
 
-// ÔÚQUEST_DÄÇÀïµÇ¼ÇÒ»ÌõÏûÏ¢
+// åœ¨QUEST_Dé‚£é‡Œç™»è®°ä¸€æ¡æ¶ˆæ¯
 void set_information(string key, mixed info)
 {
         QUEST_D->set_information(this_object(), key, info);
 }
 
-// ÔÚQUEST_DÄÇÀïµÇ¼Ç×Ô¼ºµÄÏûÏ¢
+// åœ¨QUEST_Dé‚£é‡Œç™»è®°è‡ªå·±çš„æ¶ˆæ¯
 void register_information()
 {
-        // ±ØĞëµÇ¼ÇÒ»¶¨µÄĞÅÏ¢²Å¿ÉÒÔ
+        // å¿…é¡»ç™»è®°ä¸€å®šçš„ä¿¡æ¯æ‰å¯ä»¥
 }

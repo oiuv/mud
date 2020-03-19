@@ -1,4 +1,4 @@
-// moneyd.c  Ç®µÄ¹¦ÄÜ
+// moneyd.c  é’±çš„åŠŸèƒ½
 
 // by Xiang@XKX (95/12/22)
 // Update by Doing for Hell
@@ -12,17 +12,17 @@ string money_str(int amount)
         string output;
 
         if (amount / 10000) {
-                output = chinese_number(amount / 10000) + "Á½»Æ½ğ";
+                output = chinese_number(amount / 10000) + "ä¸¤é»„é‡‘";
                 amount %= 10000;
         }
         else
                 output = "";
         if (amount / 100) {
-                output = output + chinese_number(amount / 100) + "Á½°×Òø";
+                output = output + chinese_number(amount / 100) + "ä¸¤ç™½é“¶";
                 amount %= 100;
         }
         if (amount)
-                return output + chinese_number(amount) + "ÎÄÍ­Ç®";
+                return output + chinese_number(amount) + "æ–‡é“œé’±";
         return output;
 }
 
@@ -35,26 +35,26 @@ string price_str(int amount)
                 amount = 1;
 
         if (amount / 10000) {
-                output = chinese_number(amount / 10000) + "Á½»Æ½ğ";
+                output = chinese_number(amount / 10000) + "ä¸¤é»„é‡‘";
                 amount %= 10000;
         }
         else
                 output = "";
         if (amount / 100) {
 		if (output != "")
-                	output += "ÓÖ" + chinese_number(amount / 100) + "Á½°×Òø";
+                	output += "åˆ" + chinese_number(amount / 100) + "ä¸¤ç™½é“¶";
 		else
-			output = chinese_number(amount / 100) + "Á½°×Òø";
+			output = chinese_number(amount / 100) + "ä¸¤ç™½é“¶";
                 amount %= 100;
         }
         if (amount)
 		if (output != "")
-                	return output + "ÓÖ" + chinese_number(amount) + "ÎÄÍ­°å";
+                	return output + "åˆ" + chinese_number(amount) + "æ–‡é“œæ¿";
 		else
-			return chinese_number(amount) + "ÎÄÍ­°å";
+			return chinese_number(amount) + "æ–‡é“œæ¿";
         return output;
 }
-/*´úÂëĞŞ¸Ä±¸·İ
+/*ä»£ç ä¿®æ”¹å¤‡ä»½
 void pay_player(object who, int amount)
 {
         int v;
@@ -94,7 +94,7 @@ void pay_player(object who, int amount)
 	seteuid(getuid());
         if (amount < 1)
                 amount = 1;
- //Éè¶¨È¡Ç®Ğ¡ÓÚ100goldÊ±²»×Ô¶¯×ªcash£¬È¡100goldÒÔ¼°ÒÔÉÏµÄÇ®Ê±²Å×ªcash 2016-12-22               
+ //è®¾å®šå–é’±å°äº100goldæ—¶ä¸è‡ªåŠ¨è½¬cashï¼Œå–100goldä»¥åŠä»¥ä¸Šçš„é’±æ—¶æ‰è½¬cash 2016-12-22               
              if (v = amount / 100000 && amount>=1000000)
 	{
                 ob = new(CASH_OB);
@@ -103,7 +103,7 @@ void pay_player(object who, int amount)
                 amount %= 100000;
         }        
                 
-//ĞÂÉè¶¨µ÷ÊÔ´úÂë½áÊø 2016-12-22                
+//æ–°è®¾å®šè°ƒè¯•ä»£ç ç»“æŸ 2016-12-22                
   /*      
          if (v = amount / 100000)
 	{
@@ -146,7 +146,7 @@ int player_pay(object who, int amount)
 
 	if ((amount >= 100000 || who->query("doing") == "scheme") &&
             objectp(t_ob = present("cash_money", who)))
-                // °º¹óÎïÆ·»òÊÇ¼Æ»®ÖĞ¿ÉÒÔÊ¹ÓÃÒøÆ±
+                // æ˜‚è´µç‰©å“æˆ–æ˜¯è®¡åˆ’ä¸­å¯ä»¥ä½¿ç”¨é“¶ç¥¨
 		tc = t_ob->query_amount();
 	else
 	{

@@ -33,7 +33,7 @@ int main(object me, string arg)
         */
          if( !wizardp(me) && time() - me->query_temp("last_news")<3 )
         {
-                write("ÏµÍ³Æø´­ÐêµØÌ¾µÀ£ºÂýÂýÀ´ ....\n");  
+                write("ç³»ç»Ÿæ°”å–˜å˜˜åœ°å¹é“ï¼šæ…¢æ…¢æ¥ ....\n");  
                 return 1;
         }
         me->set_temp("last_news", time());
@@ -41,8 +41,8 @@ int main(object me, string arg)
         if (! arg || arg == "" || arg == "all")
         {
                 NEWS_D->show_news(me, (arg != "all") ? 1 : 0);
-                write(HIC "ÔÄ¶ÁÐÂÎÅÖ¸Áî¸ñÊ½£º" HIY "news " NOR "<" HIY "new" NOR "|" HIY "all" NOR "|" HIY "ÐÂÎÅ±àºÅ" NOR ">\n"
-                      HIC "ËÑË÷ÐÂÎÅÖ¸Áî¸ñÊ½£º" HIG "news search " NOR "<" HIG "title" NOR "|" HIG "author" NOR "|" HIG "document" NOR "> <" HIM "¹Ø¼ü×Ö" NOR "|" HIM "¹Ø¼ü´Ê" NOR ">\n");
+                write(HIC "é˜…è¯»æ–°é—»æŒ‡ä»¤æ ¼å¼ï¼š" HIY "news " NOR "<" HIY "new" NOR "|" HIY "all" NOR "|" HIY "æ–°é—»ç¼–å·" NOR ">\n"
+                      HIC "æœç´¢æ–°é—»æŒ‡ä»¤æ ¼å¼ï¼š" HIG "news search " NOR "<" HIG "title" NOR "|" HIG "author" NOR "|" HIG "document" NOR "> <" HIM "å…³é”®å­—" NOR "|" HIM "å…³é”®è¯" NOR ">\n");
                 return 1;
         }
 
@@ -61,30 +61,30 @@ int main(object me, string arg)
         if (sscanf(arg, "search %s", arg) || sscanf(arg, "find %s", arg))
         {
                 NEWS_D->do_search(me, arg);
-                //write(HIC "ÔÄ¶ÁÐÂÎÅÖ¸Áî¸ñÊ½£º" HIY "news " NOR "<" HIY "new" NOR "|" HIY "ÐÂÎÅ±àºÅ" NOR ">\n"
-                     // HIC "ËÑË÷ÐÂÎÅÖ¸Áî¸ñÊ½£º" HIG "news search " NOR "<" HIG "title" NOR "|" HIG "author" NOR "|" HIG "document" NOR "> <" HIM "¹Ø¼ü×Ö" NOR "|" HIM "¹Ø¼ü´Ê" NOR ">\n");
+                //write(HIC "é˜…è¯»æ–°é—»æŒ‡ä»¤æ ¼å¼ï¼š" HIY "news " NOR "<" HIY "new" NOR "|" HIY "æ–°é—»ç¼–å·" NOR ">\n"
+                     // HIC "æœç´¢æ–°é—»æŒ‡ä»¤æ ¼å¼ï¼š" HIG "news search " NOR "<" HIG "title" NOR "|" HIG "author" NOR "|" HIG "document" NOR "> <" HIM "å…³é”®å­—" NOR "|" HIM "å…³é”®è¯" NOR ">\n");
                 return 1;
         }
 
         NEWS_D->do_read(me, arg);
-        //write(HIC "ÔÄ¶ÁÐÂÎÅÖ¸Áî¸ñÊ½£º" HIY "news " NOR "<" HIY "new" NOR "|" HIY "next" NOR "|" HIY "ÐÂÎÅ±àºÅ" NOR ">\n"
-         //     HIC "ËÑË÷ÐÂÎÅÖ¸Áî¸ñÊ½£º" HIG "news search " NOR "<" HIG "title" NOR "|" HIG "author" NOR "|" HIG "document" NOR "> <" HIM "¹Ø¼ü×Ö" NOR "|" HIM "¹Ø¼ü´Ê" NOR ">\n");
+        //write(HIC "é˜…è¯»æ–°é—»æŒ‡ä»¤æ ¼å¼ï¼š" HIY "news " NOR "<" HIY "new" NOR "|" HIY "next" NOR "|" HIY "æ–°é—»ç¼–å·" NOR ">\n"
+         //     HIC "æœç´¢æ–°é—»æŒ‡ä»¤æ ¼å¼ï¼š" HIG "news search " NOR "<" HIG "title" NOR "|" HIG "author" NOR "|" HIG "document" NOR "> <" HIM "å…³é”®å­—" NOR "|" HIM "å…³é”®è¯" NOR ">\n");
         return 1;
 }
 /*
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : news [next] | [<ÐÂÎÅ±àºÅ>] | new | all
+æŒ‡ä»¤æ ¼å¼ : news [next] | [<æ–°é—»ç¼–å·>] | new | all
 
-ÕâÌõÖ¸ÁîÈÃÄãÄã¿ÉÒÔÔÄ¶ÁÓÎÏ·ÖÐµÄÐÂÎÅ¡£ËùÓÐµÄ¸üÐÂºÍÏûÏ¢¶¼ÊÇÍ¨¹ý
-ÐÂÎÅ·¢²¼µÄ¡£
+è¿™æ¡æŒ‡ä»¤è®©ä½ ä½ å¯ä»¥é˜…è¯»æ¸¸æˆä¸­çš„æ–°é—»ã€‚æ‰€æœ‰çš„æ›´æ–°å’Œæ¶ˆæ¯éƒ½æ˜¯é€šè¿‡
+æ–°é—»å‘å¸ƒçš„ã€‚
 
-Ê¹ÓÃ new ²ÎÊý¿ÉÒÔÈÃÄãÔÄ¶Á»¹Ã»ÓÐ¶Á¹ýµÄÐÂÎÅ¡£
-Ê¹ÓÃ all ²ÎÊý¿ÉÒÔÈÃÄã²é¿´ÏµÍ³Ä¿Ç°ËùÓÐµÄÐÂÎÅ¡£
+ä½¿ç”¨ new å‚æ•°å¯ä»¥è®©ä½ é˜…è¯»è¿˜æ²¡æœ‰è¯»è¿‡çš„æ–°é—»ã€‚
+ä½¿ç”¨ all å‚æ•°å¯ä»¥è®©ä½ æŸ¥çœ‹ç³»ç»Ÿç›®å‰æ‰€æœ‰çš„æ–°é—»ã€‚
 
-×ÜÕ¾µÄÎ×Ê¦¿ÉÒÔÍ¨¹ýnews post <±êÌâ>À´·¢²¼ÐÂÎÅ¡£news discardÀ´
-É¾³ýÐÂÎÅ¡£
+æ€»ç«™çš„å·«å¸ˆå¯ä»¥é€šè¿‡news post <æ ‡é¢˜>æ¥å‘å¸ƒæ–°é—»ã€‚news discardæ¥
+åˆ é™¤æ–°é—»ã€‚
 HELP );
     return 1;
 }
@@ -92,21 +92,21 @@ HELP );
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : news [<ÐÂÎÅ±àºÅ>] | new | all
-           news search <title|author|document> <¹Ø¼ü×Ö|¹Ø¼ü´Ê>
+æŒ‡ä»¤æ ¼å¼ : news [<æ–°é—»ç¼–å·>] | new | all
+           news search <title|author|document> <å…³é”®å­—|å…³é”®è¯>
 
-ÕâÌõÖ¸ÁîÈÃÄã¿ÉÒÔÔÄ¶ÁÓÎÏ·ÖÐµÄÐÂÎÅ¡£ËùÓÐµÄ¸üÐÂºÍÏûÏ¢¶¼ÊÇÍ¨¹ýÐÂÎÅ
-·¢²¼µÄ¡£
+è¿™æ¡æŒ‡ä»¤è®©ä½ å¯ä»¥é˜…è¯»æ¸¸æˆä¸­çš„æ–°é—»ã€‚æ‰€æœ‰çš„æ›´æ–°å’Œæ¶ˆæ¯éƒ½æ˜¯é€šè¿‡æ–°é—»
+å‘å¸ƒçš„ã€‚
 
-Ê¹ÓÃ new ²ÎÊý¿ÉÒÔÈÃÄãÔÄ¶Á»¹Ã»ÓÐ¶Á¹ýµÄÐÂÎÅ¡£
-Ê¹ÓÃ all ²ÎÊý¿ÉÒÔÈÃÄã²é¿´ÏµÍ³Ä¿Ç°ËùÓÐµÄÐÂÎÅ¡£
-Ê¹ÓÃ search ²ÎÊý¿ÉÒÔÈÃÄã²éÕÒÏµÍ³Ä¿Ç°·ûºÏËÑË÷Ìõ¼þµÄÐÂÎÅ¡£
-     search <title|author|document> <¹Ø¼ü×Ö|¹Ø¼ü´Ê>
-     ¸ù¾Ý±êÌâ¡¢×÷Õß¡¢ÄÚÈÝËÑË÷°üº¬Ö¸¶¨¹Ø¼ü×Ö»òÕß¹Ø¼ü´ÊµÄÐÂÎÅ¡£
-     ±ÈÈç£ºnews search title ×ªÊÀÏµÍ³ ----½«·µ»ØËùÓÐ±êÌâÖÐ°ü
-     º¬¡°×ªÊÀÏµÍ³¡±µÄÐÂÎÅ¡£
+ä½¿ç”¨ new å‚æ•°å¯ä»¥è®©ä½ é˜…è¯»è¿˜æ²¡æœ‰è¯»è¿‡çš„æ–°é—»ã€‚
+ä½¿ç”¨ all å‚æ•°å¯ä»¥è®©ä½ æŸ¥çœ‹ç³»ç»Ÿç›®å‰æ‰€æœ‰çš„æ–°é—»ã€‚
+ä½¿ç”¨ search å‚æ•°å¯ä»¥è®©ä½ æŸ¥æ‰¾ç³»ç»Ÿç›®å‰ç¬¦åˆæœç´¢æ¡ä»¶çš„æ–°é—»ã€‚
+     search <title|author|document> <å…³é”®å­—|å…³é”®è¯>
+     æ ¹æ®æ ‡é¢˜ã€ä½œè€…ã€å†…å®¹æœç´¢åŒ…å«æŒ‡å®šå…³é”®å­—æˆ–è€…å…³é”®è¯çš„æ–°é—»ã€‚
+     æ¯”å¦‚ï¼šnews search title è½¬ä¸–ç³»ç»Ÿ ----å°†è¿”å›žæ‰€æœ‰æ ‡é¢˜ä¸­åŒ…
+     å«â€œè½¬ä¸–ç³»ç»Ÿâ€çš„æ–°é—»ã€‚
 
-Î×Ê¦¿ÉÒÔÍ¨¹ýnews post <±êÌâ>À´·¢²¼ÐÂÎÅ¡£news discardÀ´É¾³ýÐÂÎÅ¡£
+å·«å¸ˆå¯ä»¥é€šè¿‡news post <æ ‡é¢˜>æ¥å‘å¸ƒæ–°é—»ã€‚news discardæ¥åˆ é™¤æ–°é—»ã€‚
 HELP );
     return 1;
 }

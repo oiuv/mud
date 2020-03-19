@@ -5,13 +5,13 @@ inherit HAMMER;
 
 void create()
 {
-        set_name(CYN "ÌúÆåÅÌ" NOR,({ "tie qipan", "tie", "qipan", "pan" }) );
+        set_name(CYN "é“æ£‹ç›˜" NOR,({ "tie qipan", "tie", "qipan", "pan" }) );
         set_weight(10000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", CYN "Ò»¸öÓÃÉúÌúÖı³ÉµÄÆåÅÌ£¬·Ç³£µÄÖØ¡£\n" NOR);
-                set("unit", "¸ö");
+                set("long", CYN "ä¸€ä¸ªç”¨ç”Ÿé“é“¸æˆçš„æ£‹ç›˜ï¼Œéå¸¸çš„é‡ã€‚\n" NOR);
+                set("unit", "ä¸ª");
                 set("value", 3000);
                 set("no_sell", 1);
                 set("material", "steel");

@@ -1,15 +1,15 @@
-// yaofen.c Ò©·Û
+// yaofen.c è¯ç²‰
 
 inherit ITEM;
 
 void create()
 {
-	set_name("Ò©·Û", ({ "yao fen" , "yao", "fen" }));
+	set_name("è¯ç²‰", ({ "yao fen" , "yao", "fen" }));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "°ü");
-		set("long", "ÕâÊÇÒ»°ü×¨ÖÎÄÚÉËµÄÒ©·Û¡£\n");
+		set("unit", "åŒ…");
+		set("long", "è¿™æ˜¯ä¸€åŒ…ä¸“æ²»å†…ä¼¤çš„è¯ç²‰ã€‚\n");
 		set("value", 1000);
                 set("only_do_effect", 1);
 	}
@@ -18,6 +18,6 @@ void create()
 
 int do_effect(object me)
 {
-	write("Äã³ÔÁËÒ»µãÒ©·Û£¬¾õµÃÑÛ¾¦ÓĞĞ©Í´¡£\n");
+	write("ä½ åƒäº†ä¸€ç‚¹è¯ç²‰ï¼Œè§‰å¾—çœ¼ç›æœ‰äº›ç—›ã€‚\n");
         return 1;
 }

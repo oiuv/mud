@@ -27,7 +27,7 @@ void do_cold(object me, int scale, int con)
                 con = con / 2 + random(con);
         }
         damage = 35 - (con + me->query_temp("apply/warm") + query_temp("warm"));
-	if (me->query("born") == "¹ØÍâºú¼Ò") damage -= 25;
+	if (me->query("born") == "å…³å¤–èƒ¡å®¶") damage -= 25;
         if (damage < 0) damage = 0;
         if (hour <= 6 || hour >= 18) damage += damage / 2;
         if (hour <= 4 || hour >= 22) damage += damage / 2;
@@ -35,26 +35,26 @@ void do_cold(object me, int scale, int con)
         damage *= scale;
         if (damage) me->receive_damage("qi", damage);
         if (damage > 80)
-                msg = HIB "Ò»¹É´Ì¹ÇµÄº®·ç´µ¹ý£¬ÄãÖ»¾õµÃ»ëÉí"
-                      "µÄÑªÒº¶¼¿ì±»¶³×¡ÁË£¡\n" NOR;
+                msg = HIB "ä¸€è‚¡åˆºéª¨çš„å¯’é£Žå¹è¿‡ï¼Œä½ åªè§‰å¾—æµ‘èº«"
+                      "çš„è¡€æ¶²éƒ½å¿«è¢«å†»ä½äº†ï¼\n" NOR;
         else if (damage > 60)
-                msg = HIB "Ò»¹É´Ì¹ÇµÄº®·ç´µ¹ý£¬ÄãÖ»¾õµÃ»ëÉí"
-                      "·Ç³£½©Ó²£¡\n" NOR;
+                msg = HIB "ä¸€è‚¡åˆºéª¨çš„å¯’é£Žå¹è¿‡ï¼Œä½ åªè§‰å¾—æµ‘èº«"
+                      "éžå¸¸åƒµç¡¬ï¼\n" NOR;
         else if (damage > 40)
-                msg = HIB "Ò»¹É´Ì¹ÇµÄº®·ç´µ¹ý£¬ÄãÖ»¾õµÃÀäÆø"
-                      "Í¸¹ýÒÂÉÀ×êÁË½øÀ´£¬»ëÉíÃ»ÓÐ°ëµãÈÈÆø£¡\n" NOR;
+                msg = HIB "ä¸€è‚¡åˆºéª¨çš„å¯’é£Žå¹è¿‡ï¼Œä½ åªè§‰å¾—å†·æ°”"
+                      "é€è¿‡è¡£è¡«é’»äº†è¿›æ¥ï¼Œæµ‘èº«æ²¡æœ‰åŠç‚¹çƒ­æ°”ï¼\n" NOR;
         else if (damage > 20)
-                msg = HIB "Ò»¹É´Ì¹ÇµÄº®·ç´µ¹ý£¬ÄãÖ»¾õµÃÈË¶¼"
-                      "ÒªÂéÄ¾ÁË£¡\n" NOR;
+                msg = HIB "ä¸€è‚¡åˆºéª¨çš„å¯’é£Žå¹è¿‡ï¼Œä½ åªè§‰å¾—äººéƒ½"
+                      "è¦éº»æœ¨äº†ï¼\n" NOR;
         else if (damage > 10)
-                msg = HIB "Ò»¹É´Ì¹ÇµÄº®·ç´µ¹ý£¬ÄãÖ»¾õµÃÌìÆø"
-                      "·Ç³£µÄÀä£¡\n" NOR;
+                msg = HIB "ä¸€è‚¡åˆºéª¨çš„å¯’é£Žå¹è¿‡ï¼Œä½ åªè§‰å¾—å¤©æ°”"
+                      "éžå¸¸çš„å†·ï¼\n" NOR;
         else if (damage > 0)
-                msg = HIB "Ò»¹É´Ì¹ÇµÄº®·ç´µ¹ý£¬Äã¸Ð¾õµ½ÓÐµã"
-                      "Àä£¡\n" NOR;
+                msg = HIB "ä¸€è‚¡åˆºéª¨çš„å¯’é£Žå¹è¿‡ï¼Œä½ æ„Ÿè§‰åˆ°æœ‰ç‚¹"
+                      "å†·ï¼\n" NOR;
         else
-                msg = HIC "Ò»¹É´Ì¹ÇµÄº®·ç´µ¹ý£¬¿ÉÊÇÄãÉíÉÏ»¹"
-                      "ÊÇÍ¦Å¯ºÍµÄ¡£\n" NOR;
+                msg = HIC "ä¸€è‚¡åˆºéª¨çš„å¯’é£Žå¹è¿‡ï¼Œå¯æ˜¯ä½ èº«ä¸Šè¿˜"
+                      "æ˜¯æŒºæš–å’Œçš„ã€‚\n" NOR;
 
         if (me->query("qi") < 50 && damage > 10)
                 me->apply_condition("ill_dongshang",

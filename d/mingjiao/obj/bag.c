@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name("ÓÍ²¼°ü", ({ "bag", "bao" }));
+        set_name("æ²¹å¸ƒåŒ…", ({ "bag", "bao" }));
         set_weight(200);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ö");
-                set("long", "ÕâÊÇÒ»¸öÓÍ²¼°ü¹ü¡£\n");
+                set("unit", "ä¸ª");
+                set("long", "è¿™æ˜¯ä¸€ä¸ªæ²¹å¸ƒåŒ…è£¹ã€‚\n");
                 set("value", 500);
                 set("material", "cloth");
         }
@@ -36,16 +36,16 @@ int do_open(string arg)
 
         if (query("book_count") < 1)
         {
-                write("ÓÍ²¼°üÀïÃæÊ²Ã´Ò²Ã»ÓÐÁË¡£\n");
+                write("æ²¹å¸ƒåŒ…é‡Œé¢ä»€ä¹ˆä¹Ÿæ²¡æœ‰äº†ã€‚\n");
                 return 1;
         }
 
         me = this_player();
         where = environment(me);
-        message_vision(YEL "\n$N" YEL "ÇáÇáµØ°ÑÓÍ²¼°üÀ´¿´Ê±£¬Àï"
-                       "ÃæÔ­À´ÊÇÒ»±¾±¡±¡µÄ¾­Êé£¬Ö»ÒòÓÍ²¼\n°üµÃ½ô"
-                       "ÃÜ£¬Ëä³¤ÆÚ²ØÔÚÔ³¸¹Ö®ÖÐ£¬ÊéÒ³ÈÔÈ»ÍêºÃÎÞËð"
-                       "¡£\n", me);
+        message_vision(YEL "\n$N" YEL "è½»è½»åœ°æŠŠæ²¹å¸ƒåŒ…æ¥çœ‹æ—¶ï¼Œé‡Œ"
+                       "é¢åŽŸæ¥æ˜¯ä¸€æœ¬è–„è–„çš„ç»ä¹¦ï¼Œåªå› æ²¹å¸ƒ\nåŒ…å¾—ç´§"
+                       "å¯†ï¼Œè™½é•¿æœŸè—åœ¨çŒ¿è…¹ä¹‹ä¸­ï¼Œä¹¦é¡µä»ç„¶å®Œå¥½æ— æŸ"
+                       "ã€‚\n", me);
         book = new("/d/mingjiao/obj/jing");
         book->move(me);
         add("book_count", -1);

@@ -7,9 +7,9 @@ inherit NPC;
 void create()
 {
         object ob;
-        set_name("ÓÄÚ¤µÀÈË", ({ "youming daoren", "youming", "daoren" }));
-        set("gender", "ÄĞĞÔ");
-        set("nickname", HIG "ÁëÄÏ" NOR);
+        set_name("å¹½å†¥é“äºº", ({ "youming daoren", "youming", "daoren" }));
+        set("gender", "ç”·æ€§");
+        set("nickname", HIG "å²­å—" NOR);
         set("age", 62);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -47,7 +47,7 @@ void create()
         prepare_skill("finger", "youming-zhi");
 
         set("inquiry", ([
-               "ÓÄÚ¤Ö¸" : "ÕâÕıÊÇÆ¶µÀµÄ¾øÑ§£¬¸óÏÂÎªºÎÖªÏş£¿\n",
+               "å¹½å†¥æŒ‡" : "è¿™æ­£æ˜¯è´«é“çš„ç»å­¦ï¼Œé˜ä¸‹ä¸ºä½•çŸ¥æ™“ï¼Ÿ\n",
         ]));
 
         set("chat_chance_combat", 120);

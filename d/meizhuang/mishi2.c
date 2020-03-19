@@ -3,11 +3,11 @@ inherit ROOM;
 #include <ansi.h>
 void create()
 {
-        set("short", "��԰");
+        set("short", "柳园");
         set("long", @LONG
-����һ��СС��԰�ӣ����������˴��СС����������֦�еĳ��ɼ�
-�أ��еĻ�����֦��Ҷ�����м���һ���ľ(guanmu)�͵Ͱ����ģ�������
-��ǳ�����עĿ���㲻��������࿴�����ۡ�
+这是一座小小的园子，里面种满了大大小小的柳树，柳枝有的长可及
+地，有的还是新枝嫩叶，但中间有一株灌木(guanmu)低低矮矮的，长在那
+里，非常惹人注目，你不禁朝那里多看了两眼。
 LONG
         );
         set("exits", ([

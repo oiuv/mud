@@ -6,13 +6,13 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("´÷ÓÀÃ÷", ({ "dai yongming","dai", "yongming"}));
-  	set("long", "ÕòÔ¶ïÚ¾ÖµÄïÚÊ¦ÖÐÒÔËûÎªÊ×£¬Ò²ÒÔËûÎä¹¦×î\n"
-                    "¸ß£¬¸ù»ù×îºÃ¡£ËûÉíÐÎÐÞ³¤£¬ÏàÃ²¶ËÕý£¬°×\n"
-                    "ÒÂÆ®Æ®£¬Æø¶È²»·²¡£ËäÈ»ÒÑËÄÊ®¶àËê£¬µ«ÒÀ\n"
-                    "È»ÐÎÏóäìÈ÷¡£\n");
-	set("title", "ÕòÔ¶ïÚ¾ÖïÚÊ¦");
-  	set("gender", "ÄÐÐÔ");
+	set_name("æˆ´æ°¸æ˜Ž", ({ "dai yongming","dai", "yongming"}));
+  	set("long", "é•‡è¿œé•–å±€çš„é•–å¸ˆä¸­ä»¥ä»–ä¸ºé¦–ï¼Œä¹Ÿä»¥ä»–æ­¦åŠŸæœ€\n"
+                    "é«˜ï¼Œæ ¹åŸºæœ€å¥½ã€‚ä»–èº«å½¢ä¿®é•¿ï¼Œç›¸è²Œç«¯æ­£ï¼Œç™½\n"
+                    "è¡£é£˜é£˜ï¼Œæ°”åº¦ä¸å‡¡ã€‚è™½ç„¶å·²å››åå¤šå²ï¼Œä½†ä¾\n"
+                    "ç„¶å½¢è±¡æ½‡æ´’ã€‚\n");
+	set("title", "é•‡è¿œé•–å±€é•–å¸ˆ");
+  	set("gender", "ç”·æ€§");
   	set("age", 35);
 	set("class", "fighter");
         set("attitude", "peaceful");
@@ -52,7 +52,7 @@ void create()
 	prepare_skill("cuff", "bagua-quan");
 	prepare_skill("strike", "bagua-zhang");
 
-  	create_family("°ËØÔÃÅ", 3, "µÜ×Ó");
+  	create_family("å…«å¦é—¨", 3, "å¼Ÿå­");
   	setup();
 
   	carry_object("/clone/misc/cloth")->wear();
@@ -64,7 +64,7 @@ void attempt_apprentice(object me)
                 return;
 
         command("en");
-        command("say ¼ÈÈ»ÕâÑù£¬ÄÇÄã¾ÍÁôÏÂ°É¡£");
+        command("say æ—¢ç„¶è¿™æ ·ï¼Œé‚£ä½ å°±ç•™ä¸‹å§ã€‚");
         command("recruit " + me->query("id"));
         if ((string)me->query("class") != "fighter")
                 me->set("class", "fighter");

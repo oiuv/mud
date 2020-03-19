@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "������");
+        set("short", "北岳殿");
         set("long", @LONG
-�������ϸ����ڣ����ٹ��ݣ����Ƽ����죬�������£�񷱮ɭ
-�������������������ң����顰��Ԫ֮������ڱ�����ɽ֮��ȫ
-�����񣬸߿����ࡣ
+北岳殿上负绝壁，下临宫廨，下云级插天，庑门上下，穹碑森
+立。殿正中悬风字形匾，上书“贞元之殿”，殿内北岳恒山之神全
+身塑像，高可丈余。
 LONG);
         set("exits", ([
                 "westup"    : __DIR__"huixiantai",

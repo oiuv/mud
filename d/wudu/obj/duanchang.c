@@ -3,9 +3,9 @@ inherit ITEM;
 
 void create()
 {
-        set_name(GRN "¶Ï³¦²İ" NOR, ({"duanchang cao", "duanchang", "cao"}));
-        set("unit", "Öê");
-        set("long", GRN "ÕâÊÇÒ»ÖêÉÁË¸×ÅÁ×¹âµÄĞ¡²İ¡£\n" NOR);
+        set_name(GRN "æ–­è‚ è‰" NOR, ({"duanchang cao", "duanchang", "cao"}));
+        set("unit", "æ ª");
+        set("long", GRN "è¿™æ˜¯ä¸€æ ªé—ªçƒç€ç£·å…‰çš„å°è‰ã€‚\n" NOR);
         set("value", 10);
         set_weight(100);
         set("only_do_effect", 1);
@@ -14,8 +14,8 @@ void create()
 
 int do_effect(object me)
 {
-        message_vision("$NÒ»Ñö²±£¬½«¶Ï³¦²İÈûÈëÁË×ìÖĞ¡£\n", me);
-        me->set_temp("die_reason", "³ÔÁË¶Ï³¦²İÈ¥¼ûºÚ°×ÎŞ³£ÁË");
+        message_vision("$Nä¸€ä»°è„–ï¼Œå°†æ–­è‚ è‰å¡å…¥äº†å˜´ä¸­ã€‚\n", me);
+        me->set_temp("die_reason", "åƒäº†æ–­è‚ è‰å»è§é»‘ç™½æ— å¸¸äº†");
         me->die();
         destruct(this_object());
         return 1;

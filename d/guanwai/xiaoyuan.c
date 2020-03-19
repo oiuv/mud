@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "СԺ��");
+        set("short", "小院子");
         set("long", @LONG
-����ɽ�����ǰ��һ��СԺ�ӣ�������һ��С�ݣ���Ժ��
-��һ���������ڴ�ɨ��
+这是山间民居前的一座小院子，北面有一个小屋，而院中
+有一个老人正在打扫。
 LONG);
         set("exits", ([
                 "south" : __DIR__"baihe",

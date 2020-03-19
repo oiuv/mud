@@ -9,7 +9,7 @@ void setup()
 
 int do_effect(object me)
 {
-        write("Õâ¿é" + name() + "»¹ÊÇÉúµÄ£¬¿¾ÊìÁËÔÙ³Ô°É¡£\n");
+        write("è¿™å—" + name() + "è¿˜æ˜¯ç”Ÿçš„ï¼Œçƒ¤ç†Ÿäº†å†åƒå§ã€‚\n");
         return 1;
 }
 
@@ -21,14 +21,14 @@ int broil(object me, object ob)
 
 	if (me->is_busy())
 	{
-		write("ÄãÏÖÔÚÃ¦×ÅÄØ£¬¹ý»á¶ùÔÙ¿¾°É¡£\n");
+		write("ä½ çŽ°åœ¨å¿™ç€å‘¢ï¼Œè¿‡ä¼šå„¿å†çƒ¤å§ã€‚\n");
 		return 1;
 	}
 
-        message_sort(HIM "$N" HIM "°Ñ" + name() + HIM "·ÅÔÚ" + ob->name() +
-                     HIM "ÉÏÏ¸Ï¸¿¾×Å£¬Ö»Ìý±Ïà£±Ïà£¼¸Éù£¬ÎÅµÃÒ»ÕóÓÕÈËµÄÏãÎ¶"
-                     "½¥½¥É¢ÁË³öÀ´¡£$N¼û×´Á¬Ã¦°Ñ¿¾ºÃµÄ" + name() + HIM "È¡"
-                     "ÏÂ¡£\n\n" NOR, me);
+        message_sort(HIM "$N" HIM "æŠŠ" + name() + HIM "æ”¾åœ¨" + ob->name() +
+                     HIM "ä¸Šç»†ç»†çƒ¤ç€ï¼Œåªå¬æ¯•å•µæ¯•å•µå‡ å£°ï¼Œé—»å¾—ä¸€é˜µè¯±äººçš„é¦™å‘³"
+                     "æ¸æ¸æ•£äº†å‡ºæ¥ã€‚$Nè§çŠ¶è¿žå¿™æŠŠçƒ¤å¥½çš„" + name() + HIM "å–"
+                     "ä¸‹ã€‚\n\n" NOR, me);
 
         fob = new("/clone/food/meat");
         fob->move(me, 1);

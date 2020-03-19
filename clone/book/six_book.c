@@ -8,13 +8,13 @@ string skl_name();
 
 void create()
 {
-	set_name(HIC "ÁùÂöÉñ½£Æ×" NOR, ({ "sixfinger book", "book"}));
+	set_name(HIC "å…­è„‰ç¥å‰‘è°±" NOR, ({ "sixfinger book", "book"}));
 	set_weight(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±¾");
-                set("long","ÕâÊÇÒ»·ùÍ¼¡£ÉÏÃæ¶¼ÊÇ×İºá½»²æµÄÖ±Ïß¡¢Ô²È¦ºÍ»¡ĞÎ¡£\n");
+		set("unit", "æœ¬");
+                set("long","è¿™æ˜¯ä¸€å¹…å›¾ã€‚ä¸Šé¢éƒ½æ˜¯çºµæ¨ªäº¤å‰çš„ç›´çº¿ã€åœ†åœˆå’Œå¼§å½¢ã€‚\n");
 		set("value", 500);
 		set("material", "paper");
 		set("skill", ([

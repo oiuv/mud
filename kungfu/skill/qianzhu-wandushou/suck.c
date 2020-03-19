@@ -7,66 +7,66 @@ int perform(object me,object target)
         int my_skill, my_force, tg_age, skill_count, duli;
 
         if (userp(me) && ! me->query("can_perform/qianzhu-wandushou/suck"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (environment(me)->query("no_fight"))
-                return notify_fail("ÕâÀïÌ«àÐÔÓ£¬Äã²»ÄÜ¾²ÏÂÐÄÀ´ÐÞÁ¶¡£\n");
+                return notify_fail("è¿™é‡Œå¤ªå˜ˆæ‚ï¼Œä½ ä¸èƒ½é™ä¸‹å¿ƒæ¥ä¿®ç‚¼ã€‚\n");
 
         if( !objectp(target)
         ||  target->query_temp("owner_id") != me->query("id") )
-                return notify_fail("ÄãÒªÎüÈ¡Ê²Ã´¶¾³æµÄ¶¾ËØ£¿\n");
+                return notify_fail("ä½ è¦å¸å–ä»€ä¹ˆæ¯’è™«çš„æ¯’ç´ ï¼Ÿ\n");
 
      /*   if( target->query("age") < 99 )
-                return notify_fail("Äã¿´Çå³þµã£¬ÄÇ¶«Î÷ÏñÊÇ¶¾³æÂð£¿\n"); */
+                return notify_fail("ä½ çœ‹æ¸…æ¥šç‚¹ï¼Œé‚£ä¸œè¥¿åƒæ˜¯æ¯’è™«å—ï¼Ÿ\n"); */
 	if( ! target->query("worm_poison") )
-		  return notify_fail("Äã¿´Çå³þµã£¬ÄÇ¶«Î÷ÏñÊÇ¶¾³æÂð£¿\n");
+		  return notify_fail("ä½ çœ‹æ¸…æ¥šç‚¹ï¼Œé‚£ä¸œè¥¿åƒæ˜¯æ¯’è™«å—ï¼Ÿ\n");
 
         my_skill = (int)me->query_skill("qianzhu-wandushou", 1);
         my_force = (int)me->query_skill("xiuluo-yinshagong", 1);
         tg_age = (int)target->query("age");
 
         if( my_skill < 100 )
-                return notify_fail("ÄãµÄÇ§ÖëÍò¶¾ÊÖ»ðºòÌ«Ç³£¬²»ÄÜÓÃÀ´ÎüÈ¡¶¾ËØ£¡\n");
+                return notify_fail("ä½ çš„åƒè››ä¸‡æ¯’æ‰‹ç«å€™å¤ªæµ…ï¼Œä¸èƒ½ç”¨æ¥å¸å–æ¯’ç´ ï¼\n");
 
         if( objectp(me->query_temp("weapon")) )
-                return notify_fail("Äã±ØÐë¿ÕÊÖ²ÅÄÜÐÞÁ¶Ç§ÖëÍò¶¾ÊÖ£¡\n");
+                return notify_fail("ä½ å¿…é¡»ç©ºæ‰‹æ‰èƒ½ä¿®ç‚¼åƒè››ä¸‡æ¯’æ‰‹ï¼\n");
 
         if( me->is_fighting() )
-                return notify_fail("Õ½¶·ÖÐÎÞ·¨ÐÞÁ¶Ç§ÖëÍò¶¾ÊÖ£¡\n");
+                return notify_fail("æˆ˜æ–—ä¸­æ— æ³•ä¿®ç‚¼åƒè››ä¸‡æ¯’æ‰‹ï¼\n");
 
         if( me->is_busy() )
-                return notify_fail("ÄãÕýÃ¦×ÅÄØ£¡\n");
+                return notify_fail("ä½ æ­£å¿™ç€å‘¢ï¼\n");
 
         if( target->is_fighting() || target->is_busy() )
-                return notify_fail("¶¾³æÕýÃ¦×ÅÄØ£¬²»ÄÜºÍÄãÅäºÏ£¡\n");
+                return notify_fail("æ¯’è™«æ­£å¿™ç€å‘¢ï¼Œä¸èƒ½å’Œä½ é…åˆï¼\n");
 
         if( me->query_temp("wudu_suck") )
-                return notify_fail("ÄãÕýÔÚÐÞÁ¶ÖÐ£¡\n");
+                return notify_fail("ä½ æ­£åœ¨ä¿®ç‚¼ä¸­ï¼\n");
 
         if (! me->can_improve_skill("qianzhu-wandushou"))
-                return notify_fail("ÄãµÄÊµÕ½¾­Ñé²»¹»£¬ÎÞ·¨¼ÌÐøÐÞÁ¶Ç§ÖëÍò¶¾ÊÖ£¡\n");
+                return notify_fail("ä½ çš„å®žæˆ˜ç»éªŒä¸å¤Ÿï¼Œæ— æ³•ç»§ç»­ä¿®ç‚¼åƒè››ä¸‡æ¯’æ‰‹ï¼\n");
 
 
          if( tg_age - my_skill >= 50 )
-                return notify_fail(target->query("name") + "µÄ¶¾Á¦¶ÔÄãÀ´ËµÌ«Ç¿ÁË£¬Ð¡ÐÄ°ÑÐ¡ÃüËÍÁË£¡\n");
+                return notify_fail(target->query("name") + "çš„æ¯’åŠ›å¯¹ä½ æ¥è¯´å¤ªå¼ºäº†ï¼Œå°å¿ƒæŠŠå°å‘½é€äº†ï¼\n");
          if( my_skill - tg_age >= 50 )
-                return notify_fail(target->query("name") + "µÄ¶¾Á¦¶ÔÄãÀ´ËµÒÑ¾­Ì«ÇáÎ¢ÁË£¡\n");
+                return notify_fail(target->query("name") + "çš„æ¯’åŠ›å¯¹ä½ æ¥è¯´å·²ç»å¤ªè½»å¾®äº†ï¼\n");
 
         if( (int)me->query("neili") < 200 )
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬²»×ãÒÔ¶Ô¿¹¶¾Æø£¬±ð°ÑÐ¡ÃüËÍµô¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œä¸è¶³ä»¥å¯¹æŠ—æ¯’æ°”ï¼Œåˆ«æŠŠå°å‘½é€æŽ‰ã€‚\n");
 
         if( (int)target->query("qi") < 50 )
-                return notify_fail( target->query("name") + "ÒÑ¾­ÑÙÑÙÒ»Ï¢ÁË£¬Äã"
-                                    "ÎÞ·¨´ÓËûÌåÄÚÎüÈ¡ÈÎºÎ¶¾ËØ£¡\n");
+                return notify_fail( target->query("name") + "å·²ç»å¥„å¥„ä¸€æ¯äº†ï¼Œä½ "
+                                    "æ— æ³•ä»Žä»–ä½“å†…å¸å–ä»»ä½•æ¯’ç´ ï¼\n");
 
         if( (int)me->query("qi") < 200 )
-                return notify_fail( "Äã¿ì²»ÐÐÁË£¬ÔÙÁ·»áËÍÃüµÄ£¡\n");
+                return notify_fail( "ä½ å¿«ä¸è¡Œäº†ï¼Œå†ç»ƒä¼šé€å‘½çš„ï¼\n");
 
-        tell_object(me, RED "ÄãÐ¡ÐÄÒíÒíµÄ½«ÊÖÉìµ½" + target->query("name") +
-                        RED "µÄÃæÇ°£¬ËüÕÅ×ì¾ÍÒ§×¡ÁËÄãµÄÖÐÖ¸¡£ÄãÉîÎüÒ»¿Ú\nÆø£¬"
-                        "ÃæÉÏ¶ÙÊ±ÕÖ×ÅÒ»¹ÉºÚÆø£¬¶¹´óµÄº¹Öé´Ó¶îÍ·¹öÁËÏÂÀ´¡£ÄãÖ»"
-                        "¾õµÃ" + target->query("name") + RED "µÄ\n¶¾ËØ×ÔÉË´¦"
-                        "Ô´Ô´²»¾øµØÁ÷ÁË½øÀ´£¬ËæÕæÆø±é²¼È«Éí¡£\n\n" NOR );
+        tell_object(me, RED "ä½ å°å¿ƒç¿¼ç¿¼çš„å°†æ‰‹ä¼¸åˆ°" + target->query("name") +
+                        RED "çš„é¢å‰ï¼Œå®ƒå¼ å˜´å°±å’¬ä½äº†ä½ çš„ä¸­æŒ‡ã€‚ä½ æ·±å¸ä¸€å£\næ°”ï¼Œ"
+                        "é¢ä¸Šé¡¿æ—¶ç½©ç€ä¸€è‚¡é»‘æ°”ï¼Œè±†å¤§çš„æ±—ç ä»Žé¢å¤´æ»šäº†ä¸‹æ¥ã€‚ä½ åª"
+                        "è§‰å¾—" + target->query("name") + RED "çš„\næ¯’ç´ è‡ªä¼¤å¤„"
+                        "æºæºä¸ç»åœ°æµäº†è¿›æ¥ï¼ŒéšçœŸæ°”éå¸ƒå…¨èº«ã€‚\n\n" NOR );
 
         target->receive_wound("qi", 5);
 
@@ -89,7 +89,7 @@ int perform(object me,object target)
         skill_count = duli * (50 + random((int)me->query_int()));
         me->improve_skill("qianzhu-wandushou", skill_count);
         me->improve_skill("poison", skill_count);
-        tell_object(me, HIC "ÄãµÄ¡¸Ç§ÖëÍò¶¾ÊÖ¡¹ºÍ¡¸»ù±¾¶¾¼¼¡¹ÊìÁ·¶ÈÌá¸ßÁË£¡\n" NOR);
+        tell_object(me, HIC "ä½ çš„ã€Œåƒè››ä¸‡æ¯’æ‰‹ã€å’Œã€ŒåŸºæœ¬æ¯’æŠ€ã€ç†Ÿç»ƒåº¦æé«˜äº†ï¼\n" NOR);
 
         me->set_temp("wudu_suck", 1);
         call_out("del_wudusuck", 3, me, target);
@@ -101,10 +101,10 @@ void del_wudusuck(object me,object target)
         if( me->query_temp("wudu_suck") )
         {
                 me->delete_temp("wudu_suck");
-                tell_object(me, RED "\nÖ»¼ûËüµÄ¶Ç×ÓÔ½ÕÇÔ½´ó£¬¡°°Éàª¡±Ò»Éù£¬ËÉ"
-                                "¿ª¿ÚµôÔÚÁËµØÉÏ¡£" + target->query("name") + RED
-                                "Îü±¥ÁËÏÊ\nÑª£¬ÉíÉÏÍ¸³öÒ»²ã±¦¹â£¬Éí×Ó¶ÙÊ±ÕÇ´ó"
-                                "ÁËÐí¶à£¡\n\n\n" NOR,);
+                tell_object(me, RED "\nåªè§å®ƒçš„è‚šå­è¶Šæ¶¨è¶Šå¤§ï¼Œâ€œå§å—’â€ä¸€å£°ï¼Œæ¾"
+                                "å¼€å£æŽ‰åœ¨äº†åœ°ä¸Šã€‚" + target->query("name") + RED
+                                "å¸é¥±äº†é²œ\nè¡€ï¼Œèº«ä¸Šé€å‡ºä¸€å±‚å®å…‰ï¼Œèº«å­é¡¿æ—¶æ¶¨å¤§"
+                                "äº†è®¸å¤šï¼\n\n\n" NOR,);
                 me->receive_damage("qi", 20);
         }
 

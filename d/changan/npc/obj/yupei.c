@@ -6,15 +6,15 @@ inherit NECK;
 
 void create()
 {
-        set_name("Áú·ïÓñÅå", ({"yu pei"}));
+        set_name("é¾™å‡¤ç‰ä½©", ({"yu pei"}));
         set_weight(800);
         if (clonep())
         	set_default_object(__FILE__);
         else 
 	{
-        	set("unit", "¸ö");
+        	set("unit", "ä¸ª");
 		set("value", 2000);
-		set("long", "Ò»Ã¶ÓñÅå£¬ÉÏÃæµñ¿Ì×ÅÁú·ïÍ¼°¸£®\n");
+		set("long", "ä¸€æšç‰ä½©ï¼Œä¸Šé¢é›•åˆ»ç€é¾™å‡¤å›¾æ¡ˆï¼\n");
 		set("no_sell", 1);
 		set("material", "steel");
 		set("armor_prop/dodge", 10);

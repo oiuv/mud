@@ -3,10 +3,10 @@
 inherit ROOM;
 void create()
 {
-        set("short", "μ������");
+        set("short", "渭汾流域");
         set("long", @LONG
-�ںӺ�μ�ӻ���ƺӣ���������ˮ�ƣ�Ҳ�����˸������
-ɳ������Ӷ��ǽ����������¡�
+汾河和渭河汇入黄河，增大了其水势，也带来了更多的泥
+沙。这里河东是晋，河西是陕。
 LONG );
         set("exits", ([
                 "south" : __DIR__"huanghe1",

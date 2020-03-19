@@ -1,25 +1,25 @@
-// agile.c Èç¹íËÆ÷È
+// agile.c å¦‚é¬¼ä¼¼é­…
 // Created by Doing Lu 10/7/2K
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return HIC "Èç¹íËÆ÷È" NOR; }
+string name() { return HIC "å¦‚é¬¼ä¼¼é­…" NOR; }
 
 int perform(object me, string skill)
 {
         int count;
 
         if (me->query("qi") < 80)
-                return notify_fail("ÄãµÄÌåÁ¦²»Ö§£¬ÎÞ·¨½ßÁ¦ÌáÉý×Ô¼ºµÄËÙ¶È¡£\n");
+                return notify_fail("ä½ çš„ä½“åŠ›ä¸æ”¯ï¼Œæ— æ³•ç«­åŠ›æå‡è‡ªå·±çš„é€Ÿåº¦ã€‚\n");
 
-        message_vision(HIC "$N" HIC "½Å¼âÒ»µã£¬ÌßÆðÒ»Ð©³¾"
-                       "ÍÁ£¬Õû¸öÈË¶ÙÊ±ÈçÍ¬Ö½ðÎÒ»°ãÆ®Æ®ºöºö¡£\n" NOR, me);
+        message_vision(HIC "$N" HIC "è„šå°–ä¸€ç‚¹ï¼Œè¸¢èµ·ä¸€äº›å°˜"
+                       "åœŸï¼Œæ•´ä¸ªäººé¡¿æ—¶å¦‚åŒçº¸é¹žä¸€èˆ¬é£˜é£˜å¿½å¿½ã€‚\n" NOR, me);
         count = me->query_dex();
 
         if (me->query_temp("special_skill/agile", 1))
-                return notify_fail("ÄãÒÑ¾­½ßÁ¦ÌáÉýÄã×Ô¼ºµÄËÙ¶ÈÁË¡£\n");
+                return notify_fail("ä½ å·²ç»ç«­åŠ›æå‡ä½ è‡ªå·±çš„é€Ÿåº¦äº†ã€‚\n");
 
         me->receive_damage("qi", 40 + random(40));
         me->set_temp("special_skill/agile", 1);
@@ -34,5 +34,5 @@ void remove_effect(object me, int count)
 {
         me->delete_temp("special_skill/agile");
         me->add_temp("apply/dodge", -count);
-        tell_object(me, "ÄãµÄÈç¹íËÆ÷ÈÊ©Õ¹Íê±Ï£¬ÉíÐÎÒ»¶Ù£¬ÓÖÂýÁËÏÂÀ´¡£\n");
+        tell_object(me, "ä½ çš„å¦‚é¬¼ä¼¼é­…æ–½å±•å®Œæ¯•ï¼Œèº«å½¢ä¸€é¡¿ï¼Œåˆæ…¢äº†ä¸‹æ¥ã€‚\n");
 }

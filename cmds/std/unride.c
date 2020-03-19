@@ -11,9 +11,9 @@ int main(object me)
 	object ob;
 
 	if (! objectp(ob = me->query_temp("is_riding")))
-		return notify_fail("ÄãÏÂÊ²Ã´ÏÂ£¡¸ù±¾¾ÍÃ»×ùÆï£¡\n");
+		return notify_fail("ä½ ä¸‹ä»€ä¹ˆä¸‹ï¼æ ¹æœ¬å°±æ²¡åº§éª‘ï¼\n");
 
-	message_vision("$N´Ó$nÉÏ·ÉÉíÌøÏÂ¡£\n", me, ob);
+	message_vision("$Nä»$nä¸Šé£èº«è·³ä¸‹ã€‚\n", me, ob);
 	ob->move( environment(me) );
 	ob->delele_temp("is_rided_by");
 	me->delete_temp("is_riding");
@@ -23,9 +23,9 @@ int main(object me)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : unride | xia
+æŒ‡ä»¤æ ¼å¼ : unride | xia
  
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã´ÓÆï×ÅµÄÒÑÑ±ÑøµÄ¶¯ÎïÉÏÌøÏÂÀ´¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ ä»éª‘ç€çš„å·²é©¯å…»çš„åŠ¨ç‰©ä¸Šè·³ä¸‹æ¥ã€‚
  
 HELP );
     return 1;

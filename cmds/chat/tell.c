@@ -7,10 +7,10 @@ inherit F_CLEAN_UP;
 int main(object user, mapping info)
 {
         if (! stringp(info[MSGTO]))
-                return MESSAGE_D->error_msg("你要发消息给谁？\n");
+                return MESSAGE_D->error_msg("浣犺鍙戞秷鎭粰璋侊紵\n");
 
         if (! stringp(info[MESSAGE]))
-                return MESSAGE_D->error_msg("你要说什么话？\n");
+                return MESSAGE_D->error_msg("浣犺璇翠粈涔堣瘽锛焅n");
 
         return MESSAGE_D->send_msg_to(user, info[MSGTO], info[MESSAGE]);
 }

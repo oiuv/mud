@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define PAN "¡¸" HIR "òñòþÅÌÉí" NOR "¡¹"
+#define PAN "ã€Œ" HIR "è°èŸ’ç›˜èº«" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -13,7 +13,7 @@ int perform(object me, object target)
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/kuimang-dao/pan"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -22,29 +22,29 @@ int perform(object me, object target)
         }
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(PAN "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(PAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "blade")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" PAN "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" PAN "ã€‚\n");
 
         if ((int)me->query_skill("force") < 60)
-                return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹" PAN "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" PAN "ã€‚\n");
 
         if ((int)me->query_skill("kuimang-dao", 1) < 40)
-                return notify_fail("ÄãµÄòñòþµ¶·¨»¹²»µ½¼Ò£¬ÄÑÒÔÊ©Õ¹" PAN "¡£\n");
+                return notify_fail("ä½ çš„è°èŸ’åˆ€æ³•è¿˜ä¸åˆ°å®¶ï¼Œéš¾ä»¥æ–½å±•" PAN "ã€‚\n");
 
         if (me->query_skill_mapped("blade") != "kuimang-dao")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢òñòþµ¶·¨£¬ÄÑÒÔÊ©Õ¹" PAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘è°èŸ’åˆ€æ³•ï¼Œéš¾ä»¥æ–½å±•" PAN "ã€‚\n");
 
         if ((int)me->query("neili") < 50)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" PAN "¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" PAN "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIR "$N" HIR "ÊÖÖÐ" + weapon->name() +  HIR "·­×ª²»¶¨£¬ºöÈ»Ö»¼ûµ¶"
-              "¹âÒ»ÉÁ£¬µ¶·æÒÑÏò$n" HIR "Ð±Ð±ÁÃÈ¥¡£\n" NOR;
+	msg = HIR "$N" HIR "æ‰‹ä¸­" + weapon->name() +  HIR "ç¿»è½¬ä¸å®šï¼Œå¿½ç„¶åªè§åˆ€"
+              "å…‰ä¸€é—ªï¼Œåˆ€é”‹å·²å‘$n" HIR "æ–œæ–œæ’©åŽ»ã€‚\n" NOR;
 
         ap = me->query_skill("blade");
         dp = target->query_skill("parry");
@@ -54,13 +54,13 @@ int perform(object me, object target)
 		damage = ap / 3 + random(ap / 3);
                 me->add("neili", -30);
 		msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 20,
-                                           HIR "$n" HIR "Î¢Î¢Ò»ã¶¼ä£¬ÒÑ±»$N" HIR
-                                           "µ¶·æ´øÖÐ£¬»®³öÒ»µÀÏÊÑªÁÜÀìµÄÉË¿Ú£¡\n" NOR);
+                                           HIR "$n" HIR "å¾®å¾®ä¸€æ„£é—´ï¼Œå·²è¢«$N" HIR
+                                           "åˆ€é”‹å¸¦ä¸­ï¼Œåˆ’å‡ºä¸€é“é²œè¡€æ·‹æ¼“çš„ä¼¤å£ï¼\n" NOR);
 		me->start_busy(2);
 	} else 
 	{
-		msg += CYN "¿ÉÊÇ$p" CYN "Î¢Î¢Ò»Ð¦£¬Éí×Ó³¯Ò»ÅÔÆ«¹ý³ßÐí£¬¶ã¿ª$P"
-                       CYN "ÕâÒ»µ¶¡£\n" NOR;
+		msg += CYN "å¯æ˜¯$p" CYN "å¾®å¾®ä¸€ç¬‘ï¼Œèº«å­æœä¸€æ—åè¿‡å°ºè®¸ï¼Œèº²å¼€$P"
+                       CYN "è¿™ä¸€åˆ€ã€‚\n" NOR;
                 me->add("neili", -10);
 		me->start_busy(3);
 	}

@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�ĳ�");
+	set("short", "赌场");
 	set("long", @LONG
-�����Ƕĳ��Ĵ��ã����ܵķ����ﴫ����ߺ������ĶĲ�
-��������ĳ���ģ���㲻�Ϻܴ󣬵��ĵ�����ȴ����ȫ������
-Ҳ�ǳ��ܵ���
+这里是赌场的大堂，四周的房间里传出来吆五喝六的赌博
+声。这个赌场规模虽算不上很大，但赌的种类却很齐全，服务
+也非常周到。
 LONG );
 	set("objects", ([
 		CLASS_D("shenlong") + "/pang" : 1,

@@ -4,12 +4,12 @@ inherit WHIP;
 
 void create()
 {
-        set_name( HIW "ËøÁ´" NOR, ({ "suo lian", "suo", "lian" }));
+        set_name( HIW "é”é“¾" NOR, ({ "suo lian", "suo", "lian" }));
         set_weight(300);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
+                set("unit", "æ ¹");
                 set("value", 30);
                 set("material", "leather");
         }

@@ -1,10 +1,10 @@
-// zhang.c ¾ÅÒõÉñÕÆ
+// zhang.c ä¹é˜´ç¥æŒ
 
 #include <ansi.h>
 
 inherit F_SSERVER;
 
-#define ZHANG "¡¸" HIM "¾ÅÒõÉñÕÆ" NOR "¡¹"
+#define ZHANG "ã€Œ" HIM "ä¹é˜´ç¥æŒ" NOR "ã€"
 
 int perform(object me, object target)
 {
@@ -13,32 +13,32 @@ int perform(object me, object target)
   int i, count;
 
   if (userp(me) && ! me->query("can_perform/jiuyin-shengong/zhang"))
-          return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+          return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail(ZHANG "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail(ZHANG "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
   if (me->query_temp("weapon"))
-          return notify_fail("´ËÕĞÖ»ÄÜ¿ÕÊÖÊ©Õ¹£¡\n");
+          return notify_fail("æ­¤æ‹›åªèƒ½ç©ºæ‰‹æ–½å±•ï¼\n");
 
 	if ((int)me->query_skill("jiuyin-shengong", 1) < 260)
-		return notify_fail("ÄãµÄ¾ÅÒõÉñ¹¦²»¹»Éîºñ£¬²»»áÊ¹ÓÃ" ZHANG "¡£\n");
+		return notify_fail("ä½ çš„ä¹é˜´ç¥åŠŸä¸å¤Ÿæ·±åšï¼Œä¸ä¼šä½¿ç”¨" ZHANG "ã€‚\n");
 
 	if ((int)me->query_skill("strike", 1) < 220)
-		return notify_fail("ÄãµÄ»ù±¾ÕÆ·¨ĞŞÎª²»¹»£¬²»»áÊ¹ÓÃ" ZHANG "¡£\n");
+		return notify_fail("ä½ çš„åŸºæœ¬æŒæ³•ä¿®ä¸ºä¸å¤Ÿï¼Œä¸ä¼šä½¿ç”¨" ZHANG "ã€‚\n");
 
   if (me->query_skill_prepared("unarmed") != "jiuyin-shengong"
      && me->query_skill_prepared("strike") != "jiuyin-shengong")
-          return notify_fail("ÄãÃ»ÓĞ×¼±¸Ê¹ÓÃ¾ÅÒõÉñ¹¦£¬ÎŞ·¨Ê©Õ¹" ZHANG "¡£\n");
+          return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨ä¹é˜´ç¥åŠŸï¼Œæ— æ³•æ–½å±•" ZHANG "ã€‚\n");
 
   if (! living(target))
-        return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+        return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIY "$N" HIY "Ë«ÕÆÒ»´í£¬»Ã»¯³öÎŞÊıÕÆÓ°£¬²ã²ãµşµ´Ïò$n"
-        HIY "±ÆÈ¥£¡\n" NOR;
-	message_combatd(msg, me, target);	//ĞŞÕıpfmÃèÊöĞÅÏ¢ÏÔÊ¾Ê±¼ä´íÎó by MK
+	msg = HIY "$N" HIY "åŒæŒä¸€é”™ï¼Œå¹»åŒ–å‡ºæ— æ•°æŒå½±ï¼Œå±‚å±‚å è¡å‘$n"
+        HIY "é€¼å»ï¼\n" NOR;
+	message_combatd(msg, me, target);	//ä¿®æ­£pfmæè¿°ä¿¡æ¯æ˜¾ç¤ºæ—¶é—´é”™è¯¯ by MK
 
   ap = me->query_skill("jiujin-shengong", 1);
   dp = target->query_skill("parry", 1);

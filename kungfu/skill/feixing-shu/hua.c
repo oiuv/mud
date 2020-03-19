@@ -7,7 +7,7 @@
 
 inherit F_SSERVER;
 
-#define YU "¡¸" HIG "ÂúÌì»¨Óê" NOR "¡¹"
+#define YU "ã€Œ" HIG "æ»¡å¤©èŠ±é›¨" NOR "ã€"
 
 int perform(object me, object target)
 {
@@ -19,41 +19,41 @@ int perform(object me, object target)
         object weapon;
 
        if (userp(me) && ! me->query("can_perform/feixing-shu/hua"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(YU "Ö»ÄÜÔÚÕ½¶·ÖÐ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(YU "åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("handing")) ||
             (string)weapon->query("skill_type") != "throwing")
-                return notify_fail("ÄãÏÖÔÚÊÖÖÐ²¢Ã»ÓÐÄÃ×Å°µÆ÷¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ‰‹ä¸­å¹¶æ²¡æœ‰æ‹¿ç€æš—å™¨ã€‚\n");
 
         if (weapon->query_amount() < 10)
-                return notify_fail("ÖÁÉÙÒªÓÐÊ®Ã¶°µÆ÷Äã²ÅÄÜÊ©Õ¹" YU "¡£\n");
+                return notify_fail("è‡³å°‘è¦æœ‰åæžšæš—å™¨ä½ æ‰èƒ½æ–½å±•" YU "ã€‚\n");
 
         if ((skill = me->query_skill("feixing-shu", 1)) < 100)
-                return notify_fail("ÄãµÄ·ÉÐÇÊõ²»¹»æµÊì£¬²»»áÊ¹ÓÃ" YU "¡£\n");
+                return notify_fail("ä½ çš„é£žæ˜Ÿæœ¯ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨" YU "ã€‚\n");
 
         if ((int)me->query_skill("force", 1) < 120)
-                return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»¹»£¬²»ÄÜÊ¹ÓÃ" YU "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨" YU "ã€‚\n");
 
         if (me->query_skill_mapped("throwing") != "feixing-shu")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢·ÉÐÇÊõÎª»ù±¾°µÆ÷£¬ÎÞ·¨Ê©Õ¹" YU "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘é£žæ˜Ÿæœ¯ä¸ºåŸºæœ¬æš—å™¨ï¼Œæ— æ³•æ–½å±•" YU "ã€‚\n");
 
         if ((int)me->query("neili") < 250)
-                return notify_fail("ÄãÄÚÁ¦²»¹»ÁË¡£\n");
+                return notify_fail("ä½ å†…åŠ›ä¸å¤Ÿäº†ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         me->add("neili", -100);
         weapon->add_amount(-10);
 
-        msg= HIG "Ö»ÌýÒ»¹É¾¢·ç´Ó$N" HIG "µÄÓÒ²à·¢³ö£¬$N" HIG
-             "ÊÖÖÐµÄ" + weapon->name() + HIG "ÈçÑÌÓê°ãÏò$n"
-             HIG "ÁýÕÖ¹ýÈ¥£¡\n" NOR;
+        msg= HIG "åªå¬ä¸€è‚¡åŠ²é£Žä»Ž$N" HIG "çš„å³ä¾§å‘å‡ºï¼Œ$N" HIG
+             "æ‰‹ä¸­çš„" + weapon->name() + HIG "å¦‚çƒŸé›¨èˆ¬å‘$n"
+             HIG "ç¬¼ç½©è¿‡åŽ»ï¼\n" NOR;
 
         me->start_busy(2);
         my_exp = me->query("combat_exp") + skill * skill / 10 * skill;
@@ -66,9 +66,9 @@ int perform(object me, object target)
                 if (random(my_exp) > ob_exp) n += 1 + random(2);
                 if (random(my_exp / 2) > ob_exp) n += 1 + random(2);
                 if (random(my_exp / 4) > ob_exp) n += 1 + random(2);
-                msg += HIR "½á¹û$n" HIR "·´Ó¦²»¼°£¬ÖÐÁË$N" HIR +
+                msg += HIR "ç»“æžœ$n" HIR "ååº”ä¸åŠï¼Œä¸­äº†$N" HIR +
                        chinese_number(n) + weapon->query("base_unit") +
-                       weapon->name() + HIR "£¡\n" NOR;
+                       weapon->name() + HIR "ï¼\n" NOR;
 
                 target->receive_wound("qi", skill / 3 + random(skill / 3), me);
                 p = (int)target->query("qi") * 100 / (int)target->query("max_qi");
@@ -84,8 +84,8 @@ int perform(object me, object target)
                 message_combatd(msg, me, target);
         } else
         {
-                msg += NOR + CYN "¿ÉÊÇ$n" CYN  "Éí·¨Áé¶¯£¬¶ã¹ýÁË$N" CYN  "·¢³öµÄËùÓÐ" +
-                       weapon->name() + CYN  "¡£\n" NOR;
+                msg += NOR + CYN "å¯æ˜¯$n" CYN  "èº«æ³•çµåŠ¨ï¼Œèº²è¿‡äº†$N" CYN  "å‘å‡ºçš„æ‰€æœ‰" +
+                       weapon->name() + CYN  "ã€‚\n" NOR;
                 message_combatd(msg, me, target);
         }
 

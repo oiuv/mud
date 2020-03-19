@@ -1,4 +1,4 @@
-// ÉÌÒµÏµÍ³×Ü¿Ø³ÌĞò
+// å•†ä¸šç³»ç»Ÿæ€»æ§ç¨‹åº
 // edit by smallfish 2002.3.17
 // Updated by Vin for heros.cn
 // Updated by Jjgod.
@@ -8,156 +8,156 @@
 #include <getconfig.h>
 
 /*
-±¾ÎÄ¼şÎªÉÌÒµÏµÍ³ÖĞµêÆÌµÄÖ÷¸É³ÌĞò
-±¾ÎÄ¼şÌá¹©ÒÔÏÂÎÄ¼şµ÷ÓÃ£º
-/cmds/usr/shop.c                        µêÆÌ²éÑ¯¹ÜÀíÖ¸Áî
-/inherit/char/waiter.c                  »ï¼Æ³ÌĞò½Ó¿ÚÎÄ¼ş
-/inherit/room/shop.c                    µêÆÌ³ÌĞò½Ó¿ÚÎÄ¼ş
+æœ¬æ–‡ä»¶ä¸ºå•†ä¸šç³»ç»Ÿä¸­åº—é“ºçš„ä¸»å¹²ç¨‹åº
+æœ¬æ–‡ä»¶æä¾›ä»¥ä¸‹æ–‡ä»¶è°ƒç”¨ï¼š
+/cmds/usr/shop.c                        åº—é“ºæŸ¥è¯¢ç®¡ç†æŒ‡ä»¤
+/inherit/char/waiter.c                  ä¼™è®¡ç¨‹åºæ¥å£æ–‡ä»¶
+/inherit/room/shop.c                    åº—é“ºç¨‹åºæ¥å£æ–‡ä»¶
 
-µêÆÌÒÔ¼°»ï¼ÆµÄ³ÌĞò´æ·ÅÂ·¾¶£º/clone/shop
-µêÆÌ»ï¼Æ¼Ì³ĞÎÄ¼ş£º/inherit/char/waiter.c
+åº—é“ºä»¥åŠä¼™è®¡çš„ç¨‹åºå­˜æ”¾è·¯å¾„ï¼š/clone/shop
+åº—é“ºä¼™è®¡ç»§æ‰¿æ–‡ä»¶ï¼š/inherit/char/waiter.c
 
-µêÆÌ¼Ì³ĞÎÄ¼ş£º/inherit/room/shop.c
-µêÆÌ»ï¼Æ²úÓÃ *.o ¸ñÊ½µÄÎÄ¼ş´æ´¢£¬´æ´¢ÎÄ¼ş´æ·ÅÓÚ£º/data/shop
-µêÆÌÖ÷Òª±äÁ¿£º
-string owner:           Ö÷ÈËID
-int shop_type£º         µêÆÌ×´Ì¬(0 ±íÊ¾¹Ø±Õ)
-mapping vendor_goods:           »õÎï¼Û¸ñ£¬keys Îª»õÎïµÄ base_name
-mapping vendor_goods_num:       µ¥¸ö»õÎïÊıÁ¿£¬keys Îª»õÎïµÄ base_name
-int all_vendor_goods:           ËùÓĞ»õÎïÊıÁ¿×ÜºÍ
-mapping invite:                 ¹ó±öµÄÕÛ¿Û£¬keys Îª¹ó±öµÄ id
-string *ban:                    ºÚ»§ÁĞ±í£¬keys ÎªºÚ»§ id
+åº—é“ºç»§æ‰¿æ–‡ä»¶ï¼š/inherit/room/shop.c
+åº—é“ºä¼™è®¡äº§ç”¨ *.o æ ¼å¼çš„æ–‡ä»¶å­˜å‚¨ï¼Œå­˜å‚¨æ–‡ä»¶å­˜æ”¾äºï¼š/data/shop
+åº—é“ºä¸»è¦å˜é‡ï¼š
+string owner:           ä¸»äººID
+int shop_typeï¼š         åº—é“ºçŠ¶æ€(0 è¡¨ç¤ºå…³é—­)
+mapping vendor_goods:           è´§ç‰©ä»·æ ¼ï¼Œkeys ä¸ºè´§ç‰©çš„ base_name
+mapping vendor_goods_num:       å•ä¸ªè´§ç‰©æ•°é‡ï¼Œkeys ä¸ºè´§ç‰©çš„ base_name
+int all_vendor_goods:           æ‰€æœ‰è´§ç‰©æ•°é‡æ€»å’Œ
+mapping invite:                 è´µå®¾çš„æŠ˜æ‰£ï¼Œkeys ä¸ºè´µå®¾çš„ id
+string *ban:                    é»‘æˆ·åˆ—è¡¨ï¼Œkeys ä¸ºé»‘æˆ· id
 */
 
-public mapping *query_shop();                                           // ·µ»ØµêÆÌÁĞ±í
-public int is_inited();                                                 // ·µ»ØµêÆÌÊÇ·ñÈ«²¿³õÊ¼»¯
-private int check_owner(string arg);                                    // ¼ì²éµêÆÌÖ÷ÈËºÍµêÆÌ»ï¼ÆÖ÷ÈËÊÇ·ñÏàÍ¬
-public int change_owner(object me,string arg,string owner);             // ĞŞ¸ÄµêÆÌµêÖ÷(µêÆÌÖ÷ÈËºÍµêÆÌ»ï¼ÆÖ÷ÈË)
-public int is_owner(string owner);                                      // ²é¿´Íæ¼Ò owner ÊÇ·ñµêÆÌµêÖ÷
-public int close_all(object me);                                        // ¹Ø±ÕËùÓĞµêÆÌ
-public int close_shop(object me,string arg);                            // ¹Ø±ÕÖ¸¶¨µêÆÌ
-public int open_all(object me);                                         // ¿ª·ÅËùÓĞµêÆÌ
-public int open_shop(object me,string arg);                             // ¿ª·ÅÖ¸¶¨µêÆÌ
-public int reset_all(object me);                                        // ³õÊ¼»¯ËùÓĞµêÆÌ
-public int reset_shop(object me,string arg);                            // ³õÊ¼»¯Ö¸¶¨µêÆÌ
-public int list_shop(object me);                                        // ²éÑ¯µêÆÌ(¹© listshop Ö¸Áîµ÷ÓÃ)
-public string do_modify(object obj, object me, string arg);             // ĞŞ¸ÄµêÆÌ»ï¼ÆµÄÊôĞÔ
-public string do_stock(object ob, object me, string arg);               // ±ê¼Û²¢³öÊÛ»õÎï
-public string do_unstock(object ob, object me, string arg);             // È¡ÏÂ»õÎï
-public string do_list(object ob, object me, string arg);                // ²éÑ¯»õÎï
-public int do_buy(object obj, object me, string arg);                   // ¹ºÂò»õÎï
-private int player_pay(object who, object target, int amount);          // ¸¶¿î£¬¼ÆËãÉÌÒµÆÀ¼ÛÒÔ¼°Ë°ÂÊ
-public string do_jiezhang(object ob, object me);                        // ½áÕÊ(µêÆÌÖ÷ÈË²»ÔÚÏßÊ±ºòµÄµêÆÌÊÕÈë)
-public string list_invite(object ob, object me);                        // ²éÑ¯¹ó±öÁĞ±í
-public string do_invite(object ob, object me, string arg);              // ÉèÖÃ|È¡Ïû ¹ó±ö
-public string list_ban(object ob, object me);                           // ²éÑ¯ºÚ»§ÁĞ±í
-public string do_ban(object ob, object me, string arg);                 // ÉèÖÃ|È¡Ïû ºÚ»§
+public mapping *query_shop();                                           // è¿”å›åº—é“ºåˆ—è¡¨
+public int is_inited();                                                 // è¿”å›åº—é“ºæ˜¯å¦å…¨éƒ¨åˆå§‹åŒ–
+private int check_owner(string arg);                                    // æ£€æŸ¥åº—é“ºä¸»äººå’Œåº—é“ºä¼™è®¡ä¸»äººæ˜¯å¦ç›¸åŒ
+public int change_owner(object me,string arg,string owner);             // ä¿®æ”¹åº—é“ºåº—ä¸»(åº—é“ºä¸»äººå’Œåº—é“ºä¼™è®¡ä¸»äºº)
+public int is_owner(string owner);                                      // æŸ¥çœ‹ç©å®¶ owner æ˜¯å¦åº—é“ºåº—ä¸»
+public int close_all(object me);                                        // å…³é—­æ‰€æœ‰åº—é“º
+public int close_shop(object me,string arg);                            // å…³é—­æŒ‡å®šåº—é“º
+public int open_all(object me);                                         // å¼€æ”¾æ‰€æœ‰åº—é“º
+public int open_shop(object me,string arg);                             // å¼€æ”¾æŒ‡å®šåº—é“º
+public int reset_all(object me);                                        // åˆå§‹åŒ–æ‰€æœ‰åº—é“º
+public int reset_shop(object me,string arg);                            // åˆå§‹åŒ–æŒ‡å®šåº—é“º
+public int list_shop(object me);                                        // æŸ¥è¯¢åº—é“º(ä¾› listshop æŒ‡ä»¤è°ƒç”¨)
+public string do_modify(object obj, object me, string arg);             // ä¿®æ”¹åº—é“ºä¼™è®¡çš„å±æ€§
+public string do_stock(object ob, object me, string arg);               // æ ‡ä»·å¹¶å‡ºå”®è´§ç‰©
+public string do_unstock(object ob, object me, string arg);             // å–ä¸‹è´§ç‰©
+public string do_list(object ob, object me, string arg);                // æŸ¥è¯¢è´§ç‰©
+public int do_buy(object obj, object me, string arg);                   // è´­ä¹°è´§ç‰©
+private int player_pay(object who, object target, int amount);          // ä»˜æ¬¾ï¼Œè®¡ç®—å•†ä¸šè¯„ä»·ä»¥åŠç¨ç‡
+public string do_jiezhang(object ob, object me);                        // ç»“å¸(åº—é“ºä¸»äººä¸åœ¨çº¿æ—¶å€™çš„åº—é“ºæ”¶å…¥)
+public string list_invite(object ob, object me);                        // æŸ¥è¯¢è´µå®¾åˆ—è¡¨
+public string do_invite(object ob, object me, string arg);              // è®¾ç½®|å–æ¶ˆ è´µå®¾
+public string list_ban(object ob, object me);                           // æŸ¥è¯¢é»‘æˆ·åˆ—è¡¨
+public string do_ban(object ob, object me, string arg);                 // è®¾ç½®|å–æ¶ˆ é»‘æˆ·
 private void destruct_it(object ob);                                    
 
 string *special_props = ({ "short", "long" });
 
 STATIC_VAR_TAG mapping *all_shop = ({
         ([
-                "id":             "ÑïÖİ",
-                "name":           "Í¨Ìì¸ó",
+                "id":             "æ‰¬å·",
+                "name":           "é€šå¤©é˜",
                 "start_room":     "yangzhou_shop",
                 "type":           "shop",
                 "price":          800,
         ]),
         ([
-                "id":             "³¤°²",
-                "name":           "°Ù±¦Õ«",
+                "id":             "é•¿å®‰",
+                "name":           "ç™¾å®æ–‹",
                 "start_room":     "changan_shop",
                 "type":           "shop",
                 "price":          500,
         ]),
         ([
-                "id":             "ÂåÑô",
-                "name":           "Ììå¾¸ó",
+                "id":             "æ´›é˜³",
+                "name":           "å¤©å¯°é˜",
                 "start_room":     "luoyang_shop",
                 "type":           "shop",
                 "price":          500,
         ]),
         ([
-                "id":             "±±¾©",
-                "name":           "¾Û±¦ÌÃ",
+                "id":             "åŒ—äº¬",
+                "name":           "èšå®å ‚",
                 "start_room":     "beijing_shop",
                 "type":           "shop",
                 "price":          500,
         ]),
         ([
-                "id":             "´óÀí",
-                "name":           "ôä´äÔ°",
+                "id":             "å¤§ç†",
+                "name":           "ç¿¡ç¿ å›­",
                 "start_room":     "dali_shop",
                 "type":           "shop",
                 "price":          500,
         ]),
         ([
-                "id":             "¿ª·â",
-                "name":           "Íò¾°×¯",
+                "id":             "å¼€å°",
+                "name":           "ä¸‡æ™¯åº„",
                 "start_room":     "kaifeng_shop",
                 "type":           "shop",
                 "price":          500,
         ]),
         ([
-                "id":             "ÏåÑô",
-                "name":           "¾ÛÒåÌÃ",
+                "id":             "è¥„é˜³",
+                "name":           "èšä¹‰å ‚",
                 "start_room":     "xiangyang_shop",
                 "type":           "shop",
                 "price":          500,
         ]),
         ([
-                "id":             "ËÕÖİ",
-                "name":           "ÌıÖñĞù",
+                "id":             "è‹å·",
+                "name":           "å¬ç«¹è½©",
                 "start_room":     "suzhou_shop",
                 "type":           "shop",
                 "price":          500,
         ]),
         ([
-                "id":             "º¼Öİ",
-                "name":           "Óñ»Ê¸ó",
+                "id":             "æ­å·",
+                "name":           "ç‰çš‡é˜",
                 "start_room":     "hangzhou_shop",
                 "type":           "shop",
                 "price":          500,
         ]),
         ([
-                "id":             "·ğÉ½",
-                "name":           "Ó¢ĞÛÂ¥",
+                "id":             "ä½›å±±",
+                "name":           "è‹±é›„æ¥¼",
                 "start_room":     "foshan_shop",
                 "type":           "shop",
                 "price":          300,
         ]),
         ([
-                "id":             "ºâÑô",
-                "name":           "×£ÈÚ¾Ó",
+                "id":             "è¡¡é˜³",
+                "name":           "ç¥èå±…",
                 "start_room":     "hengyang_shop",
                 "type":           "shop",
                 "price":          300,
         ]),
         ([
-                "id":             "ÖĞÖİ",
-                "name":           "°Ùº×Õ«",
+                "id":             "ä¸­å·",
+                "name":           "ç™¾é¹¤æ–‹",
                 "start_room":     "zhongzhou_shop",
                 "type":           "shop",
                 "price":          300,
         ]),
         ([
-                "id":             "¸£Öİ",
-                "name":           "ÌÚÁúÕ«",
+                "id":             "ç¦å·",
+                "name":           "è…¾é¾™æ–‹",
                 "start_room":     "fuzhou_shop",
                 "type":           "shop",
                 "price":          300,
         ]),
         ([
-                "id":             "³É¶¼",
-                "name":           "²ĞÔÂÂ¥",
+                "id":             "æˆéƒ½",
+                "name":           "æ®‹æœˆæ¥¼",
                 "start_room":     "chengdu_shop",
                 "type":           "shop",
                 "price":          300,
         ]),
         ([
-                "id":             "¾£Öİ",
-                "name":           "Îå»ªÂ¥",
+                "id":             "è†å·",
+                "name":           "äº”åæ¥¼",
                 "start_room":     "jingzhou_shop",
                 "type":           "shop",
                 "price":          300,
@@ -215,7 +215,7 @@ private int check_owner(string arg)
                 }
         }
 
-        // Ã»ÓĞÕÒµ½Ö¸¶¨µÄµêÆÌ
+        // æ²¡æœ‰æ‰¾åˆ°æŒ‡å®šçš„åº—é“º
         if (! have_it)
                 return 0;
 
@@ -245,17 +245,17 @@ public int change_owner(object me, string arg, string owner)
 
         if (! have_it)
         {
-                tell_object(me, "¶Ô²»Æğ£¬" + arg + "µêÆÌ²¢²»´æÔÚ¡£\n");
+                tell_object(me, "å¯¹ä¸èµ·ï¼Œ" + arg + "åº—é“ºå¹¶ä¸å­˜åœ¨ã€‚\n");
                 return 1;
         }
 
         if (! check_owner(arg))
         {
-                tell_object(me, "¾¯¸æ£º" + arg + "µêÆÌÖ÷ÈËºÍµêÆÌ»ï¼ÆÖ÷"
-                                "ÈËÊı¾İÒì³££¬Çë×ĞÏ¸¼ì²é¡£\n");
+                tell_object(me, "è­¦å‘Šï¼š" + arg + "åº—é“ºä¸»äººå’Œåº—é“ºä¼™è®¡ä¸»"
+                                "äººæ•°æ®å¼‚å¸¸ï¼Œè¯·ä»”ç»†æ£€æŸ¥ã€‚\n");
 
-                log_file("static/shop", sprintf("%sµêÆÌÊı¾İÒì³££¬Ê±"
-                         "¼ä£º%s¡£\n", arg, ctime(time())));
+                log_file("static/shop", sprintf("%såº—é“ºæ•°æ®å¼‚å¸¸ï¼Œæ—¶"
+                         "é—´ï¼š%sã€‚\n", arg, ctime(time())));
                 return 1;
         }
 
@@ -265,10 +265,10 @@ public int change_owner(object me, string arg, string owner)
         {
                 the_shop->set("owner", owner);
                 the_shop->save();
-                tell_object(me, arg + "µêÆÌµêÖ÷ĞŞ¸ÄÍê±Ï¡£\n");
+                tell_object(me, arg + "åº—é“ºåº—ä¸»ä¿®æ”¹å®Œæ¯•ã€‚\n");
         } else
         {
-                tell_object(me, arg + "µêÆÌÎÄ¼ş²»´æÔÚ£¬Çë×ĞÏ¸²é¿´¡£\n");
+                tell_object(me, arg + "åº—é“ºæ–‡ä»¶ä¸å­˜åœ¨ï¼Œè¯·ä»”ç»†æŸ¥çœ‹ã€‚\n");
                 return 1;
         }
 
@@ -303,7 +303,7 @@ public int close_all(object me)
         return 1;
 }
 
-// ¹Ø±ÕµêÆÌÊÇĞŞ¸ÄµêÆÌµÄ shop_type Îª 0
+// å…³é—­åº—é“ºæ˜¯ä¿®æ”¹åº—é“ºçš„ shop_type ä¸º 0
 public int close_shop(object me, string arg)
 {
         int i, have_it;
@@ -322,16 +322,16 @@ public int close_shop(object me, string arg)
 
         if (! have_it)
         {
-                tell_object(me, "¶Ô²»Æğ£¬" + arg + "µêÆÌ²¢²»´æÔÚ¡£\n");
+                tell_object(me, "å¯¹ä¸èµ·ï¼Œ" + arg + "åº—é“ºå¹¶ä¸å­˜åœ¨ã€‚\n");
                 return 1;
         }
 
         if (! check_owner(arg))
         {
-                tell_object(me, "¾¯¸æ£º" + arg + "µêÆÌÖ÷ÈËºÍµêÆÌ»ï¼ÆÖ÷ÈËÊı"
-                                "¾İÒì³££¬Çë×ĞÏ¸¼ì²é¡£\n");
-                log_file("static/shop",sprintf("%sµêÆÌÊı¾İÒì³££¬Ê±¼ä£º"
-                         "%s¡£\n", arg, ctime(time())));
+                tell_object(me, "è­¦å‘Šï¼š" + arg + "åº—é“ºä¸»äººå’Œåº—é“ºä¼™è®¡ä¸»äººæ•°"
+                                "æ®å¼‚å¸¸ï¼Œè¯·ä»”ç»†æ£€æŸ¥ã€‚\n");
+                log_file("static/shop",sprintf("%såº—é“ºæ•°æ®å¼‚å¸¸ï¼Œæ—¶é—´ï¼š"
+                         "%sã€‚\n", arg, ctime(time())));
                 return 1;
         }
 
@@ -341,10 +341,10 @@ public int close_shop(object me, string arg)
         {
                 the_shop->set("shop_type", 0);
                 the_shop->save();
-                tell_object(me, arg + "µêÆÌ³É¹¦¹Ø±Õ¡£\n");
+                tell_object(me, arg + "åº—é“ºæˆåŠŸå…³é—­ã€‚\n");
         } else
         {
-                tell_object(me, arg + "µêÆÌÎÄ¼ş²»´æÔÚ£¬Çë×ĞÏ¸²é¿´¡£\n");
+                tell_object(me, arg + "åº—é“ºæ–‡ä»¶ä¸å­˜åœ¨ï¼Œè¯·ä»”ç»†æŸ¥çœ‹ã€‚\n");
                 return 1;
         }
         return 1;
@@ -358,7 +358,7 @@ public int open_all(object me)
         return 1;
 }
 
-// ¿ª·ÅµêÆÌÊÇĞŞ¸ÄµêÆÌµÄ shop_type Îª 1
+// å¼€æ”¾åº—é“ºæ˜¯ä¿®æ”¹åº—é“ºçš„ shop_type ä¸º 1
 public int open_shop(object me, string arg)
 {
         int i, have_it;
@@ -375,14 +375,14 @@ public int open_shop(object me, string arg)
         }
         if (! have_it)
         {
-                tell_object(me, "¶Ô²»Æğ£¬" + arg + "µêÆÌ²¢²»´æÔÚ¡£\n");
+                tell_object(me, "å¯¹ä¸èµ·ï¼Œ" + arg + "åº—é“ºå¹¶ä¸å­˜åœ¨ã€‚\n");
                 return 1;
         }
 
         if (! check_owner(arg))
         {
-                tell_object(me,"¾¯¸æ£º" + arg + "µêÆÌÖ÷ÈËºÍµêÆÌ»ï¼ÆÖ÷ÈËÊı¾İÒì³££¬Çë×ĞÏ¸¼ì²é£¡\n");
-                log_file("static/shop", sprintf("%sµêÆÌÊı¾İÒì³££¬Ê±¼ä£º%s¡£\n", arg, ctime(time())));
+                tell_object(me,"è­¦å‘Šï¼š" + arg + "åº—é“ºä¸»äººå’Œåº—é“ºä¼™è®¡ä¸»äººæ•°æ®å¼‚å¸¸ï¼Œè¯·ä»”ç»†æ£€æŸ¥ï¼\n");
+                log_file("static/shop", sprintf("%såº—é“ºæ•°æ®å¼‚å¸¸ï¼Œæ—¶é—´ï¼š%sã€‚\n", arg, ctime(time())));
                 return 1;
         }
 
@@ -392,10 +392,10 @@ public int open_shop(object me, string arg)
         {
                 the_shop->set("shop_type", 1);
                 me->save();
-                tell_object(me, arg + "µêÆÌ³É¹¦¿ª·Å£¡\n");
+                tell_object(me, arg + "åº—é“ºæˆåŠŸå¼€æ”¾ï¼\n");
         } else
         {
-                tell_object(me, arg + "µêÆÌÎÄ¼ş²»´æÔÚ£¬Çë×ĞÏ¸²é¿´£¡\n");
+                tell_object(me, arg + "åº—é“ºæ–‡ä»¶ä¸å­˜åœ¨ï¼Œè¯·ä»”ç»†æŸ¥çœ‹ï¼\n");
                 return 1;
         }
         return 1;
@@ -409,11 +409,11 @@ public int reset_all(object me)
         return 1;
 }
 
-// ³õÊ¼»¯µêÆÌ°üÀ¨£º
-// ¹Ø±ÕµêÆÌ
-// ÉèÖÃµêÆÌºÍ»ï¼ÆµÄÖ÷ÈËÎª¿ÕÖµ
-// Çå³ı»ï¼ÆµÄ»õÎïÒÔ¼°»ï¼ÆµÄ´æ¿î
-// Çå³ı»ï¼ÆµÄ¹ó±öºÍºÚ»§
+// åˆå§‹åŒ–åº—é“ºåŒ…æ‹¬ï¼š
+// å…³é—­åº—é“º
+// è®¾ç½®åº—é“ºå’Œä¼™è®¡çš„ä¸»äººä¸ºç©ºå€¼
+// æ¸…é™¤ä¼™è®¡çš„è´§ç‰©ä»¥åŠä¼™è®¡çš„å­˜æ¬¾
+// æ¸…é™¤ä¼™è®¡çš„è´µå®¾å’Œé»‘æˆ·
 public int reset_shop(object me, string arg)
 {
         int i, have_it;
@@ -432,7 +432,7 @@ public int reset_shop(object me, string arg)
         }
         if (! have_it)
         {
-                tell_object(me,"¶Ô²»Æğ£¬" + arg + "µêÆÌ²¢²»´æÔÚ¡£\n");
+                tell_object(me,"å¯¹ä¸èµ·ï¼Œ" + arg + "åº—é“ºå¹¶ä¸å­˜åœ¨ã€‚\n");
                 return 1;
         }
 
@@ -451,10 +451,10 @@ public int reset_shop(object me, string arg)
 
                 the_shop->save();
 
-                tell_object(me, arg + "µêÆÌ³É¹¦³õÊ¼»¯£¡\n");
+                tell_object(me, arg + "åº—é“ºæˆåŠŸåˆå§‹åŒ–ï¼\n");
         } else
         {
-                tell_object(me, arg + "µêÆÌÎÄ¼ş²»´æÔÚ£¬Çë×ĞÏ¸²é¿´£¡\n");
+                tell_object(me, arg + "åº—é“ºæ–‡ä»¶ä¸å­˜åœ¨ï¼Œè¯·ä»”ç»†æŸ¥çœ‹ï¼\n");
                 return 1;
         }
 
@@ -466,17 +466,17 @@ public int reset_shop(object me, string arg)
                         foreach (prop in props)
                         {
                                 if (prop == "name")
-                                        the_waiter->set_name("µêÆÌ»ï¼Æ", ({ "huo ji", "huo", "ji" }));
+                                        the_waiter->set_name("åº—é“ºä¼™è®¡", ({ "huo ji", "huo", "ji" }));
                                 if (prop == "long")
-                                        the_waiter->set("long", "Ëû¾ÍÊÇÕâ¼ÒµêÆÌµÄ»ï¼Æ¡£\n");
+                                        the_waiter->set("long", "ä»–å°±æ˜¯è¿™å®¶åº—é“ºçš„ä¼™è®¡ã€‚\n");
                                 the_waiter->delete(prop);
                         }
                         the_shop->delete("waiter");
                 }
-                tell_object(me, arg + "»ï¼Æ³É¹¦³õÊ¼»¯£¡\n");
+                tell_object(me, arg + "ä¼™è®¡æˆåŠŸåˆå§‹åŒ–ï¼\n");
         } else
         {
-                tell_object(me, arg + "µêÆÌ»ï¼Æ²»´æÔÚ£¬Çë×ĞÏ¸²é¿´£¡\n");
+                tell_object(me, arg + "åº—é“ºä¼™è®¡ä¸å­˜åœ¨ï¼Œè¯·ä»”ç»†æŸ¥çœ‹ï¼\n");
                 return 1;
         }
         return 1;
@@ -488,9 +488,9 @@ public int list_shop(object me)
         string arg, na, msg;
         object ob, the_shop;
 
-        msg = WHT "µ±Ç°" + LOCAL_MUD_NAME() + "µÄµêÆÌÁĞ±íÈçÏÂ£º\n" NOR;
-        msg += HIC "¡Ô" HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤"
-               "©¤©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
+        msg = WHT "å½“å‰" + LOCAL_MUD_NAME() + "çš„åº—é“ºåˆ—è¡¨å¦‚ä¸‹ï¼š\n" NOR;
+        msg += HIC "â‰¡" HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€"
+               "â”€â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
         for (i = 0; i < sizeof(all_shop); i++)
         {
                 arg = all_shop[i]["id"];
@@ -507,24 +507,24 @@ public int list_shop(object me)
                         na = HIW + ob->query("name");
                 else
                 {
-                        na = GRN "ÀëÏßÍæ¼Ò";
+                        na = GRN "ç¦»çº¿ç©å®¶";
                 }
 
-                msg += sprintf(WHT " µêÆÌ£º" HIG "%s[" HIW "%s" HIG "]\t " NOR +
-                               WHT "¾­Óª×´Ì¬£º" HIG "%s" NOR +
-                               WHT "  µêÆÌÖ÷ÈË£º" HIG "%s\n" NOR,
+                msg += sprintf(WHT " åº—é“ºï¼š" HIG "%s[" HIW "%s" HIG "]\t " NOR +
+                               WHT "ç»è¥çŠ¶æ€ï¼š" HIG "%s" NOR +
+                               WHT "  åº—é“ºä¸»äººï¼š" HIG "%s\n" NOR,
                                all_shop[i]["name"], 
                                arg, 
                                (the_shop->query("shop_type") &&
                                the_shop->query("owner") != "VOID_SHOP") ? HIG
-                               "ÓªÒµÖĞ  " NOR : NOR + GRN "Ôİ²»ÓªÒµ" NOR,
+                               "è¥ä¸šä¸­  " NOR : NOR + GRN "æš‚ä¸è¥ä¸š" NOR,
                                the_shop->query("owner") == "VOID_SHOP" ? NOR +
-                               GRN "·ïÌìÄÏ(ÏµÍ³)" NOR : NOR + na +
+                               GRN "å‡¤å¤©å—(ç³»ç»Ÿ)" NOR : NOR + na +
                                "(" + the_shop->query("owner") + ")" NOR,);
         }
-        msg += HIC "¡Ô" HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤"
-               "©¤©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
-        msg += WHT "×Ü¹²ÓĞ" + chinese_number(sizeof(all_shop)) + "¼ÒµêÆÌ¡£\n" NOR;
+        msg += HIC "â‰¡" HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€"
+               "â”€â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
+        msg += WHT "æ€»å…±æœ‰" + chinese_number(sizeof(all_shop)) + "å®¶åº—é“ºã€‚\n" NOR;
         tell_object(me, msg);
         return 1;
 }
@@ -538,19 +538,19 @@ public string do_modify(object obj, object me, string arg)
         room = environment(obj);
 
         if (! room->query("shop_type"))
-                return "¶Ô²»Æğ£¬¸ÃµêÆÌÄ¿Ç°ÒÑ¾­±»Î×Ê¦¹Ø±Õ¡£\n";
+                return "å¯¹ä¸èµ·ï¼Œè¯¥åº—é“ºç›®å‰å·²ç»è¢«å·«å¸ˆå…³é—­ã€‚\n";
 
         if (! arg || sscanf(arg,"%s %s", item, msg) != 2)
-                return "Éè¶¨¸ñÊ½Îª£ºmodify <ÏîÄ¿> <ÄÚÈİ>\n";
+                return "è®¾å®šæ ¼å¼ä¸ºï¼šmodify <é¡¹ç›®> <å†…å®¹>\n";
 
         if (CHINESE_D->check_control(msg))
-                return "ÃèÊö²»¿ÉÓĞ¿ØÖÆ·û¡£\n";
+                return "æè¿°ä¸å¯æœ‰æ§åˆ¶ç¬¦ã€‚\n";
 
         if (CHINESE_D->check_space(msg))
-                return "ÃèÊö±ØĞè²»º¬¿Õ¸ñ¡£\n";
+                return "æè¿°å¿…éœ€ä¸å«ç©ºæ ¼ã€‚\n";
 
         if (CHINESE_D->check_return(msg))
-                return "ÃèÊö±ØĞè²»º¬»Ø³µ¼ü¡£\n";
+                return "æè¿°å¿…éœ€ä¸å«å›è½¦é”®ã€‚\n";
 
         msg = replace_string(msg, "$BLK$", BLK);
         msg = replace_string(msg, "$RED$", RED);
@@ -574,40 +574,40 @@ public string do_modify(object obj, object me, string arg)
         {
         case "desc":
                 if (CHINESE_D->check_length(msg) > 100)
-                        return "ÄãËùÉè¶¨µÄÃèÊöÌ«³¤ÁË¡£\n";
+                        return "ä½ æ‰€è®¾å®šçš„æè¿°å¤ªé•¿äº†ã€‚\n";
 
                 obj->set("long", msg + NOR "\n");
                 room->set("waiter/long", msg + NOR "\n");
 
                 room->save();
-                return WHT "ÄãÎªµêÆÌ»ï¼ÆÉè¶¨ºÃÁËÃèÊö¡£\n" NOR;
+                return WHT "ä½ ä¸ºåº—é“ºä¼™è®¡è®¾å®šå¥½äº†æè¿°ã€‚\n" NOR;
 
         case "nickname" :
                 if (CHINESE_D->check_length(msg) > 20)
-                        return "ÄãËùÉè¶¨µÄÃèÊöÌ«³¤ÁË¡£\n";
+                        return "ä½ æ‰€è®¾å®šçš„æè¿°å¤ªé•¿äº†ã€‚\n";
 
                 obj->set("nickname", msg + NOR);
                 room->set("waiter/nickname", msg + NOR);
 
                 room->save();
-                return WHT "ÄãÎªµêÆÌ»ï¼ÆÉè¶¨ºÃÁË´ÂºÅ¡£\n" NOR;
+                return WHT "ä½ ä¸ºåº—é“ºä¼™è®¡è®¾å®šå¥½äº†ç»°å·ã€‚\n" NOR;
 
         case "title" :
                 if (CHINESE_D->check_length(msg) > 20)
-                        return "ÄãËùÉè¶¨µÄÃèÊöÌ«³¤ÁË¡£\n";
+                        return "ä½ æ‰€è®¾å®šçš„æè¿°å¤ªé•¿äº†ã€‚\n";
 
                 obj->set("title", msg + NOR);
                 room->set("waiter/title", msg + NOR);
 
                 room->save();
-                return WHT "ÄãÎªµêÆÌ»ï¼ÆÉè¶¨ºÃÁËÍ·ÏÎ¡£\n" NOR;
+                return WHT "ä½ ä¸ºåº—é“ºä¼™è®¡è®¾å®šå¥½äº†å¤´è¡”ã€‚\n" NOR;
 
         case "name" :
                 if (CHINESE_D->check_length(msg) > 10)
-                        return "ÄãËùÉè¶¨µÄÃèÊöÌ«³¤ÁË¡£\n";
+                        return "ä½ æ‰€è®¾å®šçš„æè¿°å¤ªé•¿äº†ã€‚\n";
 
                 if (! is_chinese(msg))
-                        return "µêÆÌ»ï¼ÆµÄĞÕÃûÖ»ÄÜÓÃÖĞÎÄ¡£\n";
+                        return "åº—é“ºä¼™è®¡çš„å§“ååªèƒ½ç”¨ä¸­æ–‡ã€‚\n";
 
                 dbase = obj->query_entire_dbase();
                 dbase["name"] = msg;
@@ -615,9 +615,9 @@ public string do_modify(object obj, object me, string arg)
                 room->set("waiter/name", msg);
 
                 room->save();
-                return WHT "ÄãÎªµêÆÌ»ï¼ÆÉè¶¨ºÃÁËÃû×Ö¡£\n" NOR;
+                return WHT "ä½ ä¸ºåº—é“ºä¼™è®¡è®¾å®šå¥½äº†åå­—ã€‚\n" NOR;
         }
-        return "ÄãÒªĞŞ¸ÄÊ²Ã´£¿\n";
+        return "ä½ è¦ä¿®æ”¹ä»€ä¹ˆï¼Ÿ\n";
 }
 
 public string do_stock(object ob, object me, string arg)
@@ -630,31 +630,31 @@ public string do_stock(object ob, object me, string arg)
         room = environment(ob);
         
         if (! room->query("shop_type"))
-                return "¶Ô²»Æğ£¬¸ÃµêÆÌÄ¿Ç°ÒÑ¾­±»Î×Ê¦¹Ø±Õ¡£\n";
+                return "å¯¹ä¸èµ·ï¼Œè¯¥åº—é“ºç›®å‰å·²ç»è¢«å·«å¸ˆå…³é—­ã€‚\n";
 
         if (! arg || ! sscanf(arg, "%s value %d", arg, value) == 2) 
-                return "Ö¸Áî¸ñÊ½£ºstock <»õÎï> value * (ÆäÖĞ * ÊÇÒÔÍ­°å×÷µ¥Î»µÄ¼Û¸ñ)\n";
+                return "æŒ‡ä»¤æ ¼å¼ï¼šstock <è´§ç‰©> value * (å…¶ä¸­ * æ˜¯ä»¥é“œæ¿ä½œå•ä½çš„ä»·æ ¼)\n";
 
         if (! value)
-                return "Ö¸Áî¸ñÊ½£ºstock <»õÎï> value * (ÆäÖĞ * ÊÇÒÔÍ­°å×÷µ¥Î»µÄ¼Û¸ñ)\n";
+                return "æŒ‡ä»¤æ ¼å¼ï¼šstock <è´§ç‰©> value * (å…¶ä¸­ * æ˜¯ä»¥é“œæ¿ä½œå•ä½çš„ä»·æ ¼)\n";
 
         if (value > 50000000)
-                return "µêÆÌ×î¶à±ê¼ÛÎåÇ§Á½»Æ½ğ£¬Äã¾Í±ğÄÇÃ´ĞÄºÚÁË°É¡£\n";
+                return "åº—é“ºæœ€å¤šæ ‡ä»·äº”åƒä¸¤é»„é‡‘ï¼Œä½ å°±åˆ«é‚£ä¹ˆå¿ƒé»‘äº†å§ã€‚\n";
 
         if (! (goods = present(arg, me)) || ! objectp(goods)) 
-                return "ÄãÉíÉÏ²¢Ã»ÓĞÕâ¸ö»õÎï°¡£¡\n";
+                return "ä½ èº«ä¸Šå¹¶æ²¡æœ‰è¿™ä¸ªè´§ç‰©å•Šï¼\n";
 
         if (goods->query("no_sell"))
-                return "Õâ¸ö¶«Î÷Ì«ÕĞÒ¡ÁË£¬»¹ÊÇ±ğÄÃ³öÀ´··Âô¡£\n";
+                return "è¿™ä¸ªä¸œè¥¿å¤ªæ‹›æ‘‡äº†ï¼Œè¿˜æ˜¯åˆ«æ‹¿å‡ºæ¥è´©å–ã€‚\n";
 
         if (goods->is_character()) 
-                return "Äã²»ÄÜ··Âô»îÎï¡£\n";
+                return "ä½ ä¸èƒ½è´©å–æ´»ç‰©ã€‚\n";
 
         if (goods->query("money_id")) 
-                return "Äã°ÑÇ®Ò²ÄÃÀ´³öÊÛ£¿\n";
+                return "ä½ æŠŠé’±ä¹Ÿæ‹¿æ¥å‡ºå”®ï¼Ÿ\n";
 
         if (room->query("all_vendor_goods") >= 80) 
-                return "ÄãµêÆÌÉÏµÄ¶«Î÷Ì«¶àÁË£¬ÏÈÊÕ¼¸ÖÖ»õÎïÔÙ°Ú°É¡£\n";
+                return "ä½ åº—é“ºä¸Šçš„ä¸œè¥¿å¤ªå¤šäº†ï¼Œå…ˆæ”¶å‡ ç§è´§ç‰©å†æ‘†å§ã€‚\n";
 
         all_goods = room->query("vendor_goods");
 
@@ -673,9 +673,9 @@ public string do_stock(object ob, object me, string arg)
         room->set("vendor_goods_num", all_goods_num);
         room->add("all_vendor_goods", 1);
 
-        message_vision(HIW "$N" HIW "½«¡º" HIG + goods->name(1) +
-                       HIW "¡»±êÉÏ" HIY + MONEY_D->price_str(value) +
-                       HIW "µÄ¼Û¸ñ¿ªÊ¼³öÊÛ¡£\n" NOR, me);
+        message_vision(HIW "$N" HIW "å°†ã€" HIG + goods->name(1) +
+                       HIW "ã€æ ‡ä¸Š" HIY + MONEY_D->price_str(value) +
+                       HIW "çš„ä»·æ ¼å¼€å§‹å‡ºå”®ã€‚\n" NOR, me);
         room->save();
         if (goods->query_amount() && goods->query_amount() > 1) 
         {
@@ -685,7 +685,7 @@ public string do_stock(object ob, object me, string arg)
                 destruct(obj2);
         }
         else destruct(goods);
-        return "Äã°ÚÖÃºÃÁË»õÎï¡£\n";
+        return "ä½ æ‘†ç½®å¥½äº†è´§ç‰©ã€‚\n";
 }
 
 public string do_unstock(object ob, object me, string arg)
@@ -697,19 +697,19 @@ public string do_unstock(object ob, object me, string arg)
 
         room = environment(ob);
         if (! room->query("shop_type"))
-                return "¶Ô²»Æğ£¬¸ÃµêÆÌÄ¿Ç°ÒÑ¾­±»Î×Ê¦¹Ø±Õ¡£\n";
+                return "å¯¹ä¸èµ·ï¼Œè¯¥åº—é“ºç›®å‰å·²ç»è¢«å·«å¸ˆå…³é—­ã€‚\n";
 
         if (! arg)
-                return "Ö¸Áî¸ñÊ½£ºunstock <»õÎï>\n";
+                return "æŒ‡ä»¤æ ¼å¼ï¼šunstock <è´§ç‰©>\n";
 
         if (! room->query("all_vendor_goods")) 
-                return "ÄãÏÖÔÚ»¹Ã»ÓĞ°ÚÉÏÈÎºÎ»õÎï¡£\n";
+                return "ä½ ç°åœ¨è¿˜æ²¡æœ‰æ‘†ä¸Šä»»ä½•è´§ç‰©ã€‚\n";
 
         all_goods = room->query("vendor_goods");
         all_goods_num = room->query("vendor_goods_num");
 
         if (sizeof(all_inventory(me)) >= MAX_ITEM_CARRIED)
-                return "ÄãÉíÉÏµÄ¶«Î÷Ì«¶àÁË£¬Ã»·¨´Ó»õ¼ÜÉÏÈ¡¶«Î÷¡£\n";
+                return "ä½ èº«ä¸Šçš„ä¸œè¥¿å¤ªå¤šäº†ï¼Œæ²¡æ³•ä»è´§æ¶ä¸Šå–ä¸œè¥¿ã€‚\n";
 
         all_goods = room->query("vendor_goods");
 
@@ -737,8 +737,8 @@ public string do_unstock(object ob, object me, string arg)
         }
 
         if (! ob_file)
-                return "ÏÖÔÚ" + environment(ob)->short() + "µÄ»õ¼ÜÉÏ"
-                       "²¢Ã»ÓĞÕâÑù»õÎï¡£\n";
+                return "ç°åœ¨" + environment(ob)->short() + "çš„è´§æ¶ä¸Š"
+                       "å¹¶æ²¡æœ‰è¿™æ ·è´§ç‰©ã€‚\n";
 
         goods = new(ob_file);
 
@@ -751,8 +751,8 @@ public string do_unstock(object ob, object me, string arg)
                 map_delete(all_goods_num, base_name(goods));
         }
 
-        message_vision(HIW "$N" HIW "½«¡º" HIG + goods->name(1) +
-                       HIW "¡»´Ó»õ¼ÜÉÏÈ¡ÏÂÀ´²»ÂôÁË¡£\n" NOR, me);
+        message_vision(HIW "$N" HIW "å°†ã€" HIG + goods->name(1) +
+                       HIW "ã€ä»è´§æ¶ä¸Šå–ä¸‹æ¥ä¸å–äº†ã€‚\n" NOR, me);
    
         room->set("vendor_goods", all_goods);
         room->set("vendor_goods_num", all_goods_num);
@@ -761,10 +761,10 @@ public string do_unstock(object ob, object me, string arg)
         if (! goods->move(me))
         {
                 goods->move(environment(me));
-                tell_object(me, "¿ÉÊÇÄãÒÑ¾­ÄÃ²»¶¯ÁË£¬Ö»ºÃ°Ñ" +
-                                goods->name(1) + NOR "·ÅÔÚµØÉÏ¡£\n");
+                tell_object(me, "å¯æ˜¯ä½ å·²ç»æ‹¿ä¸åŠ¨äº†ï¼Œåªå¥½æŠŠ" +
+                                goods->name(1) + NOR "æ”¾åœ¨åœ°ä¸Šã€‚\n");
         }
-        return "ÄãÈ¡ºÃÁË»õÎï¡£\n";
+        return "ä½ å–å¥½äº†è´§ç‰©ã€‚\n";
 }
 
 public string do_list(object ob, object me, string arg)
@@ -784,15 +784,15 @@ public string do_list(object ob, object me, string arg)
 
         room = environment(ob);
         if (! room->query("shop_type"))
-                return "¶Ô²»Æğ£¬¸ÃµêÆÌÄ¿Ç°ÒÑ¾­±»Î×Ê¦¹Ø±Õ¡£\n";
+                return "å¯¹ä¸èµ·ï¼Œè¯¥åº—é“ºç›®å‰å·²ç»è¢«å·«å¸ˆå…³é—­ã€‚\n";
 
         if (room->query("ban") &&
             member_array(me->query("id"), room->query("ban")) != -1)
-                return "ÄãÊÇÕâ¼ÒµêÆÌ²»ÊÜ»¶Ó­µÄÈËÎï£¬ÎŞ·¨¹ºÂò¶«Î÷¡£\n";
+                return "ä½ æ˜¯è¿™å®¶åº—é“ºä¸å—æ¬¢è¿çš„äººç‰©ï¼Œæ— æ³•è´­ä¹°ä¸œè¥¿ã€‚\n";
 
         if (! room->query("all_vendor_goods")) 
-                return "ÏÖÔÚ" + room->short() + "Ä¿Ç°²¢Ã»"
-                       "ÓĞ³öÊÛÈÎºÎ»õÎï¡£\n";
+                return "ç°åœ¨" + room->short() + "ç›®å‰å¹¶æ²¡"
+                       "æœ‰å‡ºå”®ä»»ä½•è´§ç‰©ã€‚\n";
 
         goods = room->query("vendor_goods");
 
@@ -834,7 +834,7 @@ public string do_list(object ob, object me, string arg)
                 count += ([ short_name : goods_num[gks[i]] ]);
         }
 
-        msg = "¸ÃµêÆÌÄ¿Ç°³öÊÛÒÔÏÂÎïÆ·£º\n";
+        msg = "è¯¥åº—é“ºç›®å‰å‡ºå”®ä»¥ä¸‹ç‰©å“ï¼š\n";
         msg += "-------------------------------------------------------\n";
         dk = sort_array(keys(unit), 1);
 
@@ -844,7 +844,7 @@ public string do_list(object ob, object me, string arg)
                 p = price[dk[i]];
                 //msg += sprintf("%" + sprintf("%d", (30 + color_len(dk[i]))) +
                 msg += sprintf("%" + sprintf("%d", (30)) +
-                               "-s£ºÃ¿%s%s" CYN "(ÏÖ»õ%s)\n" NOR, 
+                               "-sï¼šæ¯%s%s" CYN "(ç°è´§%s)\n" NOR, 
                                dk[i], unit[dk[i]], MONEY_D->price_str(p),
                                chinese_number(count[dk[i]]) + unit[dk[i]]);
         }
@@ -852,13 +852,13 @@ public string do_list(object ob, object me, string arg)
         msg += "-------------------------------------------------------\n";
 
         if (me->query("id") == room->query("owner")) 
-                msg += "×Ü¹²" + chinese_number(room->query("all_vendor_goods")) +
-                       "¼ş»õÎï¡£\n";
+                msg += "æ€»å…±" + chinese_number(room->query("all_vendor_goods")) +
+                       "ä»¶è´§ç‰©ã€‚\n";
 
         if (room->query("invite/" + me->query("id")))
-                msg += WHT "ÄúÊÇ±¾µê¹ó±ö£¬¹ºÂòËùÓĞ»õÎï¾ùÏíÊÜ"
+                msg += WHT "æ‚¨æ˜¯æœ¬åº—è´µå®¾ï¼Œè´­ä¹°æ‰€æœ‰è´§ç‰©å‡äº«å—"
                        HIW + chinese_number(room->query("invite/" + me->query("id"))) +
-                       HIW "ÕÛ" NOR + WHT "µÄÓÅ»İ¡£\n" NOR;
+                       HIW "æŠ˜" NOR + WHT "çš„ä¼˜æƒ ã€‚\n" NOR;
 
         return msg;
 }       
@@ -877,32 +877,32 @@ public int do_buy(object obj, object me, string arg)
         room = environment(obj);
         if (! room->query("shop_type"))
         {
-               tell_object(me, "¶Ô²»Æğ£¬¸ÃµêÆÌÄ¿Ç°ÒÑ¾­±»Î×Ê¦¹Ø±Õ¡£\n");
+               tell_object(me, "å¯¹ä¸èµ·ï¼Œè¯¥åº—é“ºç›®å‰å·²ç»è¢«å·«å¸ˆå…³é—­ã€‚\n");
                return 1;
         }
 
         if (room->query("ban") && member_array(me->query("id"), room->query("ban")) != -1)
         {
 
-               tell_object(me, "ÄãÊÇÕâ¼ÒµêÆÌ²»ÊÜ»¶Ó­µÄÈËÎï£¬ÎŞ·¨¹ºÂò¶«Î÷¡£\n");
+               tell_object(me, "ä½ æ˜¯è¿™å®¶åº—é“ºä¸å—æ¬¢è¿çš„äººç‰©ï¼Œæ— æ³•è´­ä¹°ä¸œè¥¿ã€‚\n");
                return 1;
         }
 
         if(me->is_busy())
         {
-                tell_object(me, "Ê²Ã´ÊÂ¶¼µÃµÈÄãÃ¦ÍêÔÙËµ°É£¡\n");
+                tell_object(me, "ä»€ä¹ˆäº‹éƒ½å¾—ç­‰ä½ å¿™å®Œå†è¯´å§ï¼\n");
                 return 1;
         }
 
         if (! arg)
         {
-                tell_object(me, "ÄãÒªÂòÊ²Ã´¶«Î÷£¿\n");
+                tell_object(me, "ä½ è¦ä¹°ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
                 return 1;
         }
 
         if (sizeof(all_inventory(me)) >= MAX_ITEM_CARRIED)
         {
-                tell_object(me, "ÄãÉíÉÏµÄ¶«Î÷Ì«¶àÁË£¬ÏÈ´¦ÀíÒ»ÏÂÔÙÂò¶«Î÷°É¡£\n");
+                tell_object(me, "ä½ èº«ä¸Šçš„ä¸œè¥¿å¤ªå¤šäº†ï¼Œå…ˆå¤„ç†ä¸€ä¸‹å†ä¹°ä¸œè¥¿å§ã€‚\n");
                 return 1;
         }
 
@@ -933,13 +933,13 @@ public int do_buy(object obj, object me, string arg)
 
         if (! ob_file)
         {
-                tell_object(me, "¸ÃµêÆÌ²¢Ã»ÓĞ³öÊÛÕâÑù»õÎï¡£\n");
+                tell_object(me, "è¯¥åº—é“ºå¹¶æ²¡æœ‰å‡ºå”®è¿™æ ·è´§ç‰©ã€‚\n");
                 return 1;
         }
 
         value = goods[ob_file];
 
-        // Èç¹ûÊÇ¹ó±ö£¬ÔòÓĞÓÅ»İ
+        // å¦‚æœæ˜¯è´µå®¾ï¼Œåˆ™æœ‰ä¼˜æƒ 
         if (room->query("invite/" + me->query("id")))
                 value = value * room->query("invite/" + me->query("id")) / 10;
 
@@ -950,24 +950,24 @@ public int do_buy(object obj, object me, string arg)
         {
         case 0:
                 tell_object(me, CYN + obj->name(1) + NOR +
-                                CYN "ÀäĞ¦µÀ£ºÇî¹âµ°£¬Ò»±ß´ô×ÅÈ¥¡£\n" NOR);
+                                CYN "å†·ç¬‘é“ï¼šç©·å…‰è›‹ï¼Œä¸€è¾¹å‘†ç€å»ã€‚\n" NOR);
                 return 1;
 
         case 2:
                 tell_object(me, CYN + obj->name(1) + NOR +
-                                CYN "ÖåÃ¼µÀ£ºÄú»¹ÓĞÃ»ÓĞÁãÇ®°¡£¿ÒøÆ±ÎÒ¿É"
-                                "ÕÒ²»¿ª¡£\n" NOR);
+                                CYN "çš±çœ‰é“ï¼šæ‚¨è¿˜æœ‰æ²¡æœ‰é›¶é’±å•Šï¼Ÿé“¶ç¥¨æˆ‘å¯"
+                                "æ‰¾ä¸å¼€ã€‚\n" NOR);
                 return 1;
 
         default:
                 if (ob->query_amount())
                 {
-                        message_vision("$N´Ó$nÄÇÀïÂòÏÂÁË" + ob->short() + "¡£\n",
+                        message_vision("$Nä»$né‚£é‡Œä¹°ä¸‹äº†" + ob->short() + "ã€‚\n",
                                         me, obj);
                 } else
                 {
-                        message_vision("$N´Ó$nÄÇÀïÂòÏÂÁËÒ»" + ob->query("unit") + 
-                                       ob->query("name") + "¡£\n", me, obj);
+                        message_vision("$Nä»$né‚£é‡Œä¹°ä¸‹äº†ä¸€" + ob->query("unit") + 
+                                       ob->query("name") + "ã€‚\n", me, obj);
                 }
  
                 ob->move(me, 1);
@@ -1103,21 +1103,21 @@ public string do_jiezhang(object ob, object me)
         
        room = environment(ob);
        if (! room->query("shop_type"))
-               return "¶Ô²»Æğ£¬¸ÃµêÆÌÄ¿Ç°ÒÑ¾­±»Î×Ê¦¹Ø±Õ¡£\n";
+               return "å¯¹ä¸èµ·ï¼Œè¯¥åº—é“ºç›®å‰å·²ç»è¢«å·«å¸ˆå…³é—­ã€‚\n";
 
        amount = room->query("balance");
 
        if (amount < 1)
-              return "Äú²»ÔÚµÄÊ±ºò»¹Ã»ÓĞÈÎºÎµÄÊÕÈë¡£\n";
+              return "æ‚¨ä¸åœ¨çš„æ—¶å€™è¿˜æ²¡æœ‰ä»»ä½•çš„æ”¶å…¥ã€‚\n";
 
        me->add("balance", amount);
        me->add("vendor_score", amount / 10000);
 
-       tell_object(me, HIY "Äú²»ÔÚÏßÊ±¹²ÓĞ" + MONEY_D->price_str(amount) +
-                       HIY "µÄÊÕÈë£¬ÏÖÒÑÈ«²¿×ªÈëÄúµÄÒøºÅ¡£\n");
+       tell_object(me, HIY "æ‚¨ä¸åœ¨çº¿æ—¶å…±æœ‰" + MONEY_D->price_str(amount) +
+                       HIY "çš„æ”¶å…¥ï¼Œç°å·²å…¨éƒ¨è½¬å…¥æ‚¨çš„é“¶å·ã€‚\n");
        room->set("balance", 0);
        room->save();
-       return "½áÕÊÍê±Ï£¬Çë¼´Ê±ºË¶ÔÊıÄ¿¡£\n";
+       return "ç»“å¸å®Œæ¯•ï¼Œè¯·å³æ—¶æ ¸å¯¹æ•°ç›®ã€‚\n";
 }
 
 public string list_invite(object ob, object me)
@@ -1129,25 +1129,25 @@ public string list_invite(object ob, object me)
         
         room = environment(ob);
         if (! room->query("shop_type"))
-                return "¶Ô²»Æğ£¬¸ÃµêÆÌÄ¿Ç°ÒÑ¾­±»Î×Ê¦¹Ø±Õ¡£\n";
+                return "å¯¹ä¸èµ·ï¼Œè¯¥åº—é“ºç›®å‰å·²ç»è¢«å·«å¸ˆå…³é—­ã€‚\n";
 
         invite = room->query("invite");
 
         if (! invite || sizeof(invite) < 1)
-                return "Äú²¢Ã»ÓĞÉè¶¨ÈÎºÎµÄ¹ó±ö¡£\n";
+                return "æ‚¨å¹¶æ²¡æœ‰è®¾å®šä»»ä½•çš„è´µå®¾ã€‚\n";
 
-        msg = HIC "ÄúËù¶¨ÒåµÄ¹ó±öÓĞÒÔÏÂ¼¸Î»£º\n" NOR;
-        msg += HIC "¡Ô" HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
+        msg = HIC "æ‚¨æ‰€å®šä¹‰çš„è´µå®¾æœ‰ä»¥ä¸‹å‡ ä½ï¼š\n" NOR;
+        msg += HIC "â‰¡" HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
         invite_key = sort_array(keys(invite), 1);
 
         for (i = 0; i < sizeof(invite_key); i++)
         {
-                msg += sprintf(CYN "%-20s  " WHT "%sÕÛ\n" NOR,
+                msg += sprintf(CYN "%-20s  " WHT "%sæŠ˜\n" NOR,
                                invite_key[i], chinese_number(invite[invite_key[i]]));
         }
 
-        msg += HIC "¡Ô" HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
-        msg += HIC "×Ü¹²ÓĞ " HIY + sizeof(invite) + HIC " ¸ö¹ó±ö¡£\n" NOR;
+        msg += HIC "â‰¡" HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
+        msg += HIC "æ€»å…±æœ‰ " HIY + sizeof(invite) + HIC " ä¸ªè´µå®¾ã€‚\n" NOR;
         return msg;
 }
 
@@ -1159,37 +1159,37 @@ public string do_invite(object ob, object me, string arg)
         room = environment(ob);
 
         if (! room->query("shop_type"))
-                return "¶Ô²»Æğ£¬¸ÃµêÆÌÄ¿Ç°ÒÑ¾­±»Î×Ê¦¹Ø±Õ¡£\n";
+                return "å¯¹ä¸èµ·ï¼Œè¯¥åº—é“ºç›®å‰å·²ç»è¢«å·«å¸ˆå…³é—­ã€‚\n";
 
         if (! sscanf(arg, "%s %d", arg, num) == 2)
-                return "Ö¸Áî¸ñÊ½£ºinvite <id> <ÕÛÊı>\n";
+                return "æŒ‡ä»¤æ ¼å¼ï¼šinvite <id> <æŠ˜æ•°>\n";
 
         if (num < 1 || num > 10)
-                return "Ö¸Áî¸ñÊ½£ºinvite <id> <ÕÛÊı>\n";
+                return "æŒ‡ä»¤æ ¼å¼ï¼šinvite <id> <æŠ˜æ•°>\n";
 
         if (num == 10)
         {
                 if (! room->query("invite/" + arg))
-                        return CYN + ob->name(1) + NOR + CYN "¶ÔÄãËµµÀ£ºÀÏ"
-                               "°å£¬ÄÇ " + arg + " ±¾À´¾Í²»ÊÇÎÒÃÇµêµÄ¹ó±ö°¡¡£"
+                        return CYN + ob->name(1) + NOR + CYN "å¯¹ä½ è¯´é“ï¼šè€"
+                               "æ¿ï¼Œé‚£ " + arg + " æœ¬æ¥å°±ä¸æ˜¯æˆ‘ä»¬åº—çš„è´µå®¾å•Šã€‚"
                                "\n" NOR;
 
                 room->delete("invite/" + arg);
                 room->save();
-                return CYN + ob->name(1) + NOR + CYN "·­¿ªÕÊ²¾»®ÁË»®£¬¼é"
-                       "Ğ¦µÀ£ºÀÏ°å£¬ÒÑ¾­°´ÕÕÄãµÄ·Ô¸ÀÈ¡Ïûµô " + arg + " µÄ¹ó"
-                       "±ö×Ê¸ñÁË¡£\n" NOR;
+                return CYN + ob->name(1) + NOR + CYN "ç¿»å¼€å¸ç°¿åˆ’äº†åˆ’ï¼Œå¥¸"
+                       "ç¬‘é“ï¼šè€æ¿ï¼Œå·²ç»æŒ‰ç…§ä½ çš„å©å’å–æ¶ˆæ‰ " + arg + " çš„è´µ"
+                       "å®¾èµ„æ ¼äº†ã€‚\n" NOR;
         }
 
         if (sizeof(room->query("invite")) >= 30)
-                return "ÄúÒÑ¾­Éè¶¨ÁËÈıÊ®¸ö¹ó±ö£¬°Ñ²»³£À´µÄÏÈ»®µô°É¡£\n";
+                return "æ‚¨å·²ç»è®¾å®šäº†ä¸‰åä¸ªè´µå®¾ï¼ŒæŠŠä¸å¸¸æ¥çš„å…ˆåˆ’æ‰å§ã€‚\n";
 
         room->set("invite/" + arg, num);
         room->save();
 
-        return CYN + ob->name(1) + NOR + CYN "·­¿ªÕÊ²¾±ßĞ´±ßËµµÀ£ºÀÏ°å£¬ÒÑ"
-               "¾­°´ÕÕÄãµÄ·Ô¸À¶Ô " WHT + arg + CYN " ÊµĞĞ" + HIY + chinese_number(num) +
-               "ÕÛ" + NOR + CYN "ÓÅ»İ¡£\n" NOR;
+        return CYN + ob->name(1) + NOR + CYN "ç¿»å¼€å¸ç°¿è¾¹å†™è¾¹è¯´é“ï¼šè€æ¿ï¼Œå·²"
+               "ç»æŒ‰ç…§ä½ çš„å©å’å¯¹ " WHT + arg + CYN " å®è¡Œ" + HIY + chinese_number(num) +
+               "æŠ˜" + NOR + CYN "ä¼˜æƒ ã€‚\n" NOR;
 }
 
 public string list_ban(object ob, object me)
@@ -1201,23 +1201,23 @@ public string list_ban(object ob, object me)
         room = environment(ob);
 
         if (! room->query("shop_type"))
-               return "¶Ô²»Æğ£¬¸ÃµêÆÌÄ¿Ç°ÒÑ¾­±»Î×Ê¦¹Ø±Õ¡£\n";
+               return "å¯¹ä¸èµ·ï¼Œè¯¥åº—é“ºç›®å‰å·²ç»è¢«å·«å¸ˆå…³é—­ã€‚\n";
 
         ban = room->query("ban");
 
         if (! ban || sizeof(ban) < 1)
         {
-                msg = "Äú²¢Ã»ÓĞÉè¶¨ÈÎºÎµÄºÚ»§¡£\n";
+                msg = "æ‚¨å¹¶æ²¡æœ‰è®¾å®šä»»ä½•çš„é»‘æˆ·ã€‚\n";
                 return msg;
         }
-        msg = HIC "ÄúËù¶¨ÒåµÄºÚ»§ÓĞÈçÏÂÍæ¼Ò£º\n" NOR;
-        msg += HIC "¡Ô" HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
+        msg = HIC "æ‚¨æ‰€å®šä¹‰çš„é»‘æˆ·æœ‰å¦‚ä¸‹ç©å®¶ï¼š\n" NOR;
+        msg += HIC "â‰¡" HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
         for (i = 0;i < sizeof(ban);i++)
         {
                 msg += sprintf(CYN "  %s\n" NOR, ban[i]);
         }
-        msg += HIC "¡Ô" HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
-        msg += HIC "×Ü¹²ÓĞ " HIY + sizeof(ban) + HIC " ¸öºÚ»§¡£\n" NOR;        
+        msg += HIC "â‰¡" HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
+        msg += HIC "æ€»å…±æœ‰ " HIY + sizeof(ban) + HIC " ä¸ªé»‘æˆ·ã€‚\n" NOR;        
         return msg;
 }
 
@@ -1229,7 +1229,7 @@ public string do_ban(object ob, object me, string arg)
         room = environment(ob);
 
         if (! room->query("shop_type"))
-               return "¶Ô²»Æğ£¬¸ÃµêÆÌÄ¿Ç°ÒÑ¾­±»Î×Ê¦¹Ø±Õ¡£\n";
+               return "å¯¹ä¸èµ·ï¼Œè¯¥åº—é“ºç›®å‰å·²ç»è¢«å·«å¸ˆå…³é—­ã€‚\n";
         
         ban = room->query("ban");
 
@@ -1239,29 +1239,29 @@ public string do_ban(object ob, object me, string arg)
         if (sscanf(arg, "%s %s", type, the_id) == 2 && type == "-")
         {
                 if (member_array(the_id, ban) == -1)
-                        return CYN + ob->name(1) + NOR + CYN "¶ÔÄãËµµÀ£ºÀÏ"
-                               "°å£¬ÄÇ " + arg + " ±¾À´¾Í²»ÊÇÎÒÃÇµêµÄºÚ»§°¡¡£"
+                        return CYN + ob->name(1) + NOR + CYN "å¯¹ä½ è¯´é“ï¼šè€"
+                               "æ¿ï¼Œé‚£ " + arg + " æœ¬æ¥å°±ä¸æ˜¯æˆ‘ä»¬åº—çš„é»‘æˆ·å•Šã€‚"
                                "\n" NOR;
 
                 ban -= ({ the_id });
                 room->set("ban", ban);
                 room->save();
-                return CYN + ob->name(1) + NOR + CYN "·­¿ªÕÊ²¾»®ÁË»®£¬¶ÔÄã"
-                       "ÅâĞ¦µÀ£ºÀÏ°å£¬ÒÑ¾­È¡ÏûÁË " + the_id + " ºÚ»§Éí·İ¡£\n";
+                return CYN + ob->name(1) + NOR + CYN "ç¿»å¼€å¸ç°¿åˆ’äº†åˆ’ï¼Œå¯¹ä½ "
+                       "èµ”ç¬‘é“ï¼šè€æ¿ï¼Œå·²ç»å–æ¶ˆäº† " + the_id + " é»‘æˆ·èº«ä»½ã€‚\n";
         }
         
         if (member_array(arg, ban) != -1)
-                return CYN + ob->name(1) + NOR + CYN "¼éĞ¦×ÅµÀ£ºÀÏ°å£¬ÄúÍü"
-                       "¼ÇÁË£¿ÄÇ" + arg + "ÔçÒÑ±»ÁĞÎªºÚ»§À²¡£\n" NOR;
+                return CYN + ob->name(1) + NOR + CYN "å¥¸ç¬‘ç€é“ï¼šè€æ¿ï¼Œæ‚¨å¿˜"
+                       "è®°äº†ï¼Ÿé‚£" + arg + "æ—©å·²è¢«åˆ—ä¸ºé»‘æˆ·å•¦ã€‚\n" NOR;
 
         if (sizeof(ob->query("ban")) >= 30)
-                return "ÄúÒÑ¾­Éè¶¨ÁËÈıÊ®¸öºÚ»§£¬»¹ÊÇÏÈ»®µôÒ»Ğ©°É¡£\n";
+                return "æ‚¨å·²ç»è®¾å®šäº†ä¸‰åä¸ªé»‘æˆ·ï¼Œè¿˜æ˜¯å…ˆåˆ’æ‰ä¸€äº›å§ã€‚\n";
 
         ban += ({ arg });
         room->set("ban", ban);
         room->save();
-        return CYN + ob->name(1) + NOR + CYN "·­¿ªÕÊ²¾±ßĞ´±ßËµµÀ£ºÀÏ°å£¬ÒÑ"
-               "¾­°´ÕÕÄãµÄ·Ô¸À½« " WHT + arg + CYN " ÁĞÎªÁËºÚ»§¡£\n";
+        return CYN + ob->name(1) + NOR + CYN "ç¿»å¼€å¸ç°¿è¾¹å†™è¾¹è¯´é“ï¼šè€æ¿ï¼Œå·²"
+               "ç»æŒ‰ç…§ä½ çš„å©å’å°† " WHT + arg + CYN " åˆ—ä¸ºäº†é»‘æˆ·ã€‚\n";
 }
 
 private void destruct_it(object ob)

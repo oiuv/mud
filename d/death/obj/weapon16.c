@@ -5,12 +5,12 @@ inherit STAFF;
 
 void create()
 {
-        set_name(HIR "°ËÏÉÕÈ" NOR, ({ "baxian zhang", "zhang", "baxian", "staff" }) );
+        set_name(HIR "å…«ä»™æ–" NOR, ({ "baxian zhang", "zhang", "baxian", "staff" }) );
         set_weight(13000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
+                set("unit", "æ ¹");
                 set("value", 1400000);
                 set("material", "steel");
         }

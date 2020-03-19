@@ -1,4 +1,4 @@
-// by ivy on 2013Äê11ÔÂ3ÈÕ 10:07:39
+// by ivy on 2013å¹´11æœˆ3æ—¥ 10:07:39
 inherit NPC;
 /*
 int random2 (int i)
@@ -8,11 +8,11 @@ int random2 (int i)
 */
 void create()
 {
-  set_name("¶·¼¦", ({ "dou ji", "ji" }) );
-  set("race", "Ò°ÊŞ");
-  set("gender", "ĞÛĞÔ");
+  set_name("æ–—é¸¡", ({ "dou ji", "ji" }) );
+  set("race", "é‡å…½");
+  set("gender", "é›„æ€§");
   set("age", 2);
-  set("long", "Ò»Ö»ĞÛôñôñµÄ¶·¼¦¡£\n");
+  set("long", "ä¸€åªé›„èµ³èµ³çš„æ–—é¸¡ã€‚\n");
   set("attitude", "friendly");
   set("max_qi",50);
   set("max_jing",50);
@@ -23,7 +23,7 @@ void create()
   set_skill("unarmed", random(5)+20);
   set_skill("dodge", random(5)+20);
   set_skill("parry", random(5)+20);
-  set("limbs", ({ "Í·²¿", "ÉíÌå", "Î²°Í" }) );
+  set("limbs", ({ "å¤´éƒ¨", "èº«ä½“", "å°¾å·´" }) );
   set("verbs", ({ "poke"}) );
 
   // slow down the douji process.

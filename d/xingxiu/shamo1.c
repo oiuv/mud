@@ -10,7 +10,7 @@ int valid_leave(object me, string dir)
                 if (me->add_temp("out_shamo", 1) >= 3)
                 {
              	    	me->move("/d/xingxiu/silk4");
-                     	write("你累得半死，终於走出了沙漠。\n");
+                     	write("浣犵疮寰楀崐姝伙紝缁堟柤璧板嚭浜嗘矙婕犮�俓n");
         		return -1;
                 }
         }

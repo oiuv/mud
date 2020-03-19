@@ -5,9 +5,9 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("Ğ¡»ï¼Æ", ({ "xiao huoji", "huoji" }));
+        set_name("å°ä¼™è®¡", ({ "xiao huoji", "huoji" }));
         set("shen_type", 1);
-        set("gender", "ÄĞĞÔ" );
+        set("gender", "ç”·æ€§" );
         set("age", 33);
 
         set("combat_exp", 400);

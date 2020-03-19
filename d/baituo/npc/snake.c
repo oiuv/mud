@@ -6,14 +6,14 @@ inherit SNAKE;
 
 void create()
 {
-    set_name("¶¾Éß", ({"snake", "she"}));
+    set_name("æ¯’è›‡", ({"snake", "she"}));
     set("age", 4);
-    set("long", "Ò»Ö»ÓÐ×ÅÈý½ÇÐÎÄÔ´üµÄÉß£¬Î²°ÍÉ³É³×öÏì¡£\n");
+    set("long", "ä¸€åªæœ‰ç€ä¸‰è§’å½¢è„‘è¢‹çš„è›‡ï¼Œå°¾å·´æ²™æ²™åšå“ã€‚\n");
     set("attitude", "peaceful");
 
-    set("msg_fail", "$n³å$NË»µØÒ»ÍÂÉàÍ·");
-    set("msg_succ", "$nË»Ë»×öÏì£¬ÉßÍ·Ëæ×Å$NµÄÊÖ¶¯ÁËÆðÀ´");
-    set("msg_trained", "$nÇÄÎÞÉùÏ¢µØÓÎµ½$NµÄ½ÅÏÂ²»¶¯ÁË");
+    set("msg_fail", "$nå†²$Nå˜¶åœ°ä¸€åèˆŒå¤´");
+    set("msg_succ", "$nå˜¶å˜¶åšå“ï¼Œè›‡å¤´éšç€$Nçš„æ‰‹åŠ¨äº†èµ·æ¥");
+    set("msg_trained", "$næ‚„æ— å£°æ¯åœ°æ¸¸åˆ°$Nçš„è„šä¸‹ä¸åŠ¨äº†");
     set("auto_follow", 0);
     set("wildness", 9);
 
@@ -35,7 +35,7 @@ void init()
     ::init();
     add_action("convert", "bian");
     if (interactive(ob = this_player()) &&
-        ob->query("family/family_name") != "Å·ÑôÊÀ¼Ò" &&
+        ob->query("family/family_name") != "æ¬§é˜³ä¸–å®¶" &&
         random(ob->query_kar() + ob->query_per()) < 30)
     {
         remove_call_out("kill_ob");
@@ -59,8 +59,8 @@ int convert(string arg)
     if (arg != "snake" && arg != "she")
         return 0;
 
-    if (me->query("family/family_name") != "Å·ÑôÊÀ¼Ò")
-        return notify_fail("Äã²»ÄÜ»¯ÉßÎªÕÈ¡£\n");
+    if (me->query("family/family_name") != "æ¬§é˜³ä¸–å®¶")
+        return notify_fail("ä½ ä¸èƒ½åŒ–è›‡ä¸ºæ–ã€‚\n");
 
     if (random(me->query_skill("training", 1)) < 20)
     {
@@ -68,7 +68,7 @@ int convert(string arg)
         return 1;
     }
 
-    message_vision("$N×óÊÖ°´×¡ÉßÍ·£¬ÓÒÊÖÇá¸§ÆäÆß´ç£¬¿ÚÖÐÄîÄîÓÐ´Ê£¬Æ¬¿Ì¼ä½«Éß»¯ÎªÒ»¸ùÉßÕÈ¡£\n", me, );
+    message_vision("$Nå·¦æ‰‹æŒ‰ä½è›‡å¤´ï¼Œå³æ‰‹è½»æŠšå…¶ä¸ƒå¯¸ï¼Œå£ä¸­å¿µå¿µæœ‰è¯ï¼Œç‰‡åˆ»é—´å°†è›‡åŒ–ä¸ºä¸€æ ¹è›‡æ–ã€‚\n", me, );
     ob = new ("/d/baituo/obj/shezhang");
     ob->move(environment(this_object()));
     destruct(this_object());

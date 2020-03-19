@@ -6,31 +6,31 @@ int is_inlaid() { return 1; }
 
 string chinese_s(mixed arg)
 {
-      if (! stringp(arg)) return "ÎŞ";
-      if (arg == "cold") return HIB "±ù" NOR;
-      if (arg == "fire") return HIR "»ğ" NOR;
-      if (arg == "magic") return HIY "Ä§" NOR;
-      if (arg == "wind") return HIW "·ç" NOR;
-      if (arg == "poison") return HIG "¶¾" NOR;
-      if (arg == "lighting") return HIM "µç" NOR;
+      if (! stringp(arg)) return "æ— ";
+      if (arg == "cold") return HIB "å†°" NOR;
+      if (arg == "fire") return HIR "ç«" NOR;
+      if (arg == "magic") return HIY "é­”" NOR;
+      if (arg == "wind") return HIW "é£" NOR;
+      if (arg == "poison") return HIG "æ¯’" NOR;
+      if (arg == "lighting") return HIM "ç”µ" NOR;
 }
 
 string extra_long()
 {
         string str;
         
-        str = "\nÎïÆ·ÀàĞÍ : ÏâÇ¶Îï\n";
-        str += sprintf("ÖØ    Á¿ : %d\n", this_object()->query_weight());
-        str += sprintf("¼á    ¹Ì : %d\n", (int)query("enchase/consistence"));
+        str = "\nç‰©å“ç±»å‹ : é•¶åµŒç‰©\n";
+        str += sprintf("é‡    é‡ : %d\n", this_object()->query_weight());
+        str += sprintf("åš    å›º : %d\n", (int)query("enchase/consistence"));
         if (mapp(query("magic")))
         {  
-                str += sprintf("Ä§Á¦ÊôĞÔ : %s\n", chinese_s(query("magic/type")));              
-                str += sprintf("Ä§ Á¦ Öµ : %d\n", (int)query("magic/power"));  
+                str += sprintf("é­”åŠ›å±æ€§ : %s\n", chinese_s(query("magic/type")));              
+                str += sprintf("é­” åŠ› å€¼ : %d\n", (int)query("magic/power"));  
         }
-        // str += sprintf("Ê¹ÓÃ·½·¨ : ÊäÈëÖ¸Áî enchase %s in <µÀ¾ß> ÏâÇ¶¡£\n", query("id"));
+        // str += sprintf("ä½¿ç”¨æ–¹æ³• : è¾“å…¥æŒ‡ä»¤ enchase %s in <é“å…·> é•¶åµŒã€‚\n", query("id"));
         if (this_object()->query_autoload())
-                str += "ÏÂÏß¶ªÊ§ : ·ñ\n";
+                str += "ä¸‹çº¿ä¸¢å¤± : å¦\n";
         else
-                str += "ÏÂÏß¶ªÊ§ : ÊÇ\n";
+                str += "ä¸‹çº¿ä¸¢å¤± : æ˜¯\n";
         return str;
 }

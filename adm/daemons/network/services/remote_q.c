@@ -20,7 +20,7 @@ inherit F_DBASE;
 void create()
 {
 	seteuid(ROOT_UID);
-	set("channel_id", "ÍøÂ·ÆµµÀ");
+	set("channel_id", "ç½‘è·¯é¢‘é“");
 }
 
 // This is the interface to the intermud channels
@@ -95,7 +95,7 @@ void incoming_request(mapping info)
         		(AUX_PATH + "affirmation_a")->send_affirmation_a(info["HOSTADDRESS"],
         			info["PORTUDP"], "remote_q@" + Mud_name(),
         			info["SOURCE_ID"],
-                                sprintf("%sÃ»ÓÐÕâ¸öÈË(%s)¡£",
+                                sprintf("%sæ²¡æœ‰è¿™ä¸ªäºº(%s)ã€‚",
                                         LOCAL_MUD_NAME(), info["TARGET_ID"]),
                                 "remote_q");
                         return;
@@ -113,7 +113,7 @@ void incoming_request(mapping info)
                 		(AUX_PATH + "affirmation_a")->send_affirmation_a(info["HOSTADDRESS"],
                 			info["PORTUDP"], "remote_q@" + Mud_name(),
                 			info["SOURCE_ID"],
-                                        sprintf("%s(%s@%s)²»½ÓÊÜÄãµÄ±íÇé¶¯×÷¡£",
+                                        sprintf("%s(%s@%s)ä¸æŽ¥å—ä½ çš„è¡¨æƒ…åŠ¨ä½œã€‚",
                                                 ob->name(1), capitalize(ob->query("id")), Mud_name()),
                                         "remote_q");
                                 return;

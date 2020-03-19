@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "������");
+	set("short", "听雨轩");
 	set("long", @LONG
-�����������ݳ��ڵ�һ��Ψһ��һ������ˡ��������Ÿ�
-�ָ������鼮��ʲôС˵�������������������������������
-�书�����ȵȵȵȡ�ֻ�뻨�������ӾͿ�������Ҫ���顣
+听雨轩是苏州城内的一处唯一的一家书店了。这里有着各
+种各样的书籍，什么小说啦、风光旅游啦、手艺制作啦、基本
+武功啦，等等等等。只须花几两银子就可买到你想要的书。
 LONG );
 //	set("outdoors", "suzhou");
 	set("no_clean_up", 0);

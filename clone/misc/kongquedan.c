@@ -6,12 +6,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name(BLU "¿×È¸µ¨" NOR, ({"kongque dan", "dan"}));
+	set_name(BLU "å­”é›€èƒ†" NOR, ({"kongque dan", "dan"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»Æ¿¾ç¶¾µÄ¶¾Ò©, Èç¹ûÓÃÀ´Á¶°µÆ÷ÓĞ¼ûÑª·âºíÖ®Ğ§. \n");
-		set("unit", "Á£");
+		set("long", "ä¸€ç“¶å‰§æ¯’çš„æ¯’è¯, å¦‚æœç”¨æ¥ç‚¼æš—å™¨æœ‰è§è¡€å°å–‰ä¹‹æ•ˆ. \n");
+		set("unit", "ç²’");
 		set("value", 20000);
 		set("only_do_effect", 1);
 	}
@@ -20,8 +20,8 @@ void create()
 
 int do_effect(object me)
 {
-	message_vision("$NÑöÍ·ÕÅ¿ÚÍÌÏÂÒ»Á£" + name() + "¡£\n", me);
-        me->set_temp("die_reason", "³ÔÁË¿×È¸µ¨£¬ÖĞ¶¾ËÀÁË");
+	message_vision("$Nä»°å¤´å¼ å£åä¸‹ä¸€ç²’" + name() + "ã€‚\n", me);
+        me->set_temp("die_reason", "åƒäº†å­”é›€èƒ†ï¼Œä¸­æ¯’æ­»äº†");
 	me->die();
 	destruct(this_object());
 	return 1;

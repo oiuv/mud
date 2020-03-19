@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "走廊");
         set("long", @LONG
-���Ǻ컨���ܶ��ڵ�һ��ľ�Ƶ����ȣ����������ǹ⻬
-�������ȱ�������һ����Ⱦ���㲻ʱ�ܹ����������컨��Ļ�
-�ڻ��ǵ����ڴ��߶���æµ����ͣ��
+这是红花会总舵内的一条木制的走廊，红漆地面很是光滑
+整个走廊被打整得一尘不染。你不时能够看到几个红花会的会
+众或是弟子在此走动，忙碌个不停。
 LONG);
         set("no_clean_up", 0);
         set("exits", ([

@@ -2,7 +2,7 @@
 
 #define HZK "/adm/etc/language/HZK"
 #define ASC "/adm/etc/language/ASC"
-#define DEFAULT_FILL "°Ò"
+#define DEFAULT_FILL "‚óè"
 #define DEFAULT_BG "  "
 #define DEFAULT_FCOLOR ""
 #define DEFAULT_BGCOLOR ""

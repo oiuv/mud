@@ -4,10 +4,10 @@
 inherit ROOM;
 void create()
 {
-	set("short","Õýµî");
+	set("short","æ­£æ®¿");
 	set("long",@LONG
-ÕâÀïÊÇ´óÀí¹ú»Ê¹¬µÄÕýµî£¬´óÀí»ÊµÛÍ¨³£¶¼ÔÚÕâÀï´¦Àí¹úÊÂ£¬
-µ«ÏÖÔÚ»ÊµÛ²»ÔÚ£¬ËùÒÔÏÔµÃ²»ÄÇÃ´¾Ð½÷£¬ÍùÄÏÊÇ³¤ÀÈ¡£
+è¿™é‡Œæ˜¯å¤§ç†å›½çš‡å®«çš„æ­£æ®¿ï¼Œå¤§ç†çš‡å¸é€šå¸¸éƒ½åœ¨è¿™é‡Œå¤„ç†å›½äº‹ï¼Œ
+ä½†çŽ°åœ¨çš‡å¸ä¸åœ¨ï¼Œæ‰€ä»¥æ˜¾å¾—ä¸é‚£ä¹ˆæ‹˜è°¨ï¼Œå¾€å—æ˜¯é•¿å»Šã€‚
 LONG);
 	set("exits",([ /* sizeof() == 1 */
 	    "south"  : __DIR__"hualang",

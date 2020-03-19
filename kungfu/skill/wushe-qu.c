@@ -1,4 +1,4 @@
-// wushe-qu.c ÎèÉßÇú
+// wushe-qu.c èˆè›‡æ›²
 
 #include <ansi.h>
 
@@ -11,10 +11,10 @@ int valid_enable(string usage) { return usage == "guzheng-jifa"; }
 int valid_learn(object me)
 {
         if (me->query_skill("guzheng-jifa", 1) < 100)
-                return notify_fail("ÄãµÄ¹Åóİ¼¼·¨Ë®Æ½²»¹»£¬»¹ÊÇÏÈÁ·ºÃÔÙËµ°É£¡\n");
+                return notify_fail("ä½ çš„å¤ç­æŠ€æ³•æ°´å¹³ä¸å¤Ÿï¼Œè¿˜æ˜¯å…ˆç»ƒå¥½å†è¯´å§ï¼\n");
 
         if (me->query_skill("guzheng-jifa", 1) < me->query_skill("wushe-qu", 1))
-                return notify_fail("ÄãµÄ¹Åóİ¼¼·¨Ë®Æ½ÓĞÏŞ£¬ÎŞ·¨Áì»á¸ü¾«ÃîµÄÎèÉßÇú¡£\n");
+                return notify_fail("ä½ çš„å¤ç­æŠ€æ³•æ°´å¹³æœ‰é™ï¼Œæ— æ³•é¢†ä¼šæ›´ç²¾å¦™çš„èˆè›‡æ›²ã€‚\n");
 
         return 1;
 }
@@ -25,13 +25,13 @@ int practice_skill(object me)
 
         if (! objectp(ob = me->query_temp("handing")) ||
             ! ob->valid_as_zheng())
-                return notify_fail("²»ÄÃ³öóİÀ´£¬ÄãÔõÃ´Á·Ï°£¿\n");
+                return notify_fail("ä¸æ‹¿å‡ºç­æ¥ï¼Œä½ æ€ä¹ˆç»ƒä¹ ï¼Ÿ\n");
 
         if ((int)me->query("jing") < 80)
-                return notify_fail("ÄãµÄ¾«Éñ²»¹»ºÃ£¬Ã»·¨Á·Ï°ÁË¡£\n");
+                return notify_fail("ä½ çš„ç²¾ç¥ä¸å¤Ÿå¥½ï¼Œæ²¡æ³•ç»ƒä¹ äº†ã€‚\n");
 
         if ((int)me->query("qi") < 30)
-                return notify_fail("ÄãÏÖÔÚÊµÔÚÊÇÌ«Æ£±¹ÁË¡£\n");
+                return notify_fail("ä½ ç°åœ¨å®åœ¨æ˜¯å¤ªç–²æƒ«äº†ã€‚\n");
 
         me->receive_damage("jing", 25);
         me->receive_damage("qi", 15);
@@ -57,14 +57,14 @@ void do_effect(object me)
 
         if (lvl < 50)
         {
-                write(HIC "ÄãÂúÍ·´óº¹µÄµ¯ÁË°ëÌì£¬ºÃÏñÃ»ÓĞÊ²Ã´×÷ÓÃ¡£\n" NOR);
+                write(HIC "ä½ æ»¡å¤´å¤§æ±—çš„å¼¹äº†åŠå¤©ï¼Œå¥½åƒæ²¡æœ‰ä»€ä¹ˆä½œç”¨ã€‚\n" NOR);
                 return;
         }
 
         if (me->query("neili") < 50)
         {
                 me->set("neili", 0);
-                write(HIC "ÄãÒşÒş¾õµÃÄÚÁ¦ÓĞĞ©²»¼Ã¡£\n" NOR);
+                write(HIC "ä½ éšéšè§‰å¾—å†…åŠ›æœ‰äº›ä¸æµã€‚\n" NOR);
                 return;
         }
 
@@ -72,11 +72,11 @@ void do_effect(object me)
 
         if (! mapp(env->query("quarrys")))
         {
-                write(HIY "Äãµ¯ÁË°ëÌì£¬µ«ÊÇÃ»ÓĞÒ»ÌõÉß³öÀ´¡£\n" NOR);
+                write(HIY "ä½ å¼¹äº†åŠå¤©ï¼Œä½†æ˜¯æ²¡æœ‰ä¸€æ¡è›‡å‡ºæ¥ã€‚\n" NOR);
                 return;
         }
 
-        // µ÷ÓÃ¸ÃµØÍ¼µÄÉßÀà
+        // è°ƒç”¨è¯¥åœ°å›¾çš„è›‡ç±»
         rs = env->query("quarrys");
 
         st = keys(rs);
@@ -92,7 +92,7 @@ void do_effect(object me)
 
         if (! sum)
         {
-                write(HIY "Äãµ¯ÁË°ëÌì£¬µ«ÊÇËÆºõÃ»ÓĞÊ²Ã´Éß³öÀ´¡£\n" NOR);
+                write(HIY "ä½ å¼¹äº†åŠå¤©ï¼Œä½†æ˜¯ä¼¼ä¹æ²¡æœ‰ä»€ä¹ˆè›‡å‡ºæ¥ã€‚\n" NOR);
                 return;
         }
 
@@ -106,14 +106,14 @@ void do_effect(object me)
 
                         if (! objectp(snake) || ! snake->is_snake())
                         {
-                                write(HIY "Äãµ¯ÁË°ëÌì£¬µ«ÊÇËÆºõÃ»ÓĞÊ²Ã´Éß³öÀ´¡£\n" NOR);
+                                write(HIY "ä½ å¼¹äº†åŠå¤©ï¼Œä½†æ˜¯ä¼¼ä¹æ²¡æœ‰ä»€ä¹ˆè›‡å‡ºæ¥ã€‚\n" NOR);
                                 return;
                         }
 
                         snake->add("snake_poison/level" + random(lvl / 5));
                         snake->move(env);
-                        write(HIR "Äãµ¯ÁËÒ»Çú£¬Ö»ÌıÒ»ÕóàÍàÍ×öÏì£¬Ò»Ìõ" +
-                              snake->name() + HIR "´Ó²İ´ÔÖĞ´ÜÁË³öÀ´¡£\n" NOR);
+                        write(HIR "ä½ å¼¹äº†ä¸€æ›²ï¼Œåªå¬ä¸€é˜µå—¤å—¤åšå“ï¼Œä¸€æ¡" +
+                              snake->name() + HIR "ä»è‰ä¸›ä¸­çªœäº†å‡ºæ¥ã€‚\n" NOR);
                         return;
                 }
                 sum -= rs[st[i]];

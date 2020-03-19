@@ -75,7 +75,7 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
 
         if (channel_emote && channel_emote == 4)
         {
-                // ¸ù¾ÝÆäËûMUD·µ»ØµÄÐÅÏ¢×öÉú³ÉEMOTE±íÇé
+                // æ ¹æ®å…¶ä»–MUDè¿”å›žçš„ä¿¡æ¯åšç”ŸæˆEMOTEè¡¨æƒ…
                 if (sscanf(arg,"mud=%s name=%s id=%s age=%d gender=%s respect=%s rude=%s ",
                                         rwho["mud"],
                                         rwho["name"],
@@ -88,7 +88,7 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
 
                 if (! mapp(def = query_emote(verb)))
                 {
-                        tell_object(me, "Ã»ÓÐ " + verb + " Õâ¸ö±íÇé¶¯´Ê¡£\n");
+                        tell_object(me, "æ²¡æœ‰ " + verb + " è¿™ä¸ªè¡¨æƒ…åŠ¨è¯ã€‚\n");
                         return 0;
                 }
 
@@ -120,7 +120,7 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
                 if (me->query("doing") == "scheme")
                 {
                         if (me->query("jing") < 100)
-                                return notify_fail("ÄãÏÖÔÚµÄ¾«Éñ²»¼Ã£¬µÈÒ»»á¶ù°É¡£\n");
+                                return notify_fail("ä½ çŽ°åœ¨çš„ç²¾ç¥žä¸æµŽï¼Œç­‰ä¸€ä¼šå„¿å§ã€‚\n");
                         me->add("jing", -50);
                 }
         }
@@ -139,7 +139,7 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
                 }
 
                 if (! target->is_character() || ! me->visible(target))
-                        return notify_fail("ÄãÒª¶ÔË­×öÕâ¸ö¶¯×÷£¿\n");
+                        return notify_fail("ä½ è¦å¯¹è°åšè¿™ä¸ªåŠ¨ä½œï¼Ÿ\n");
 
                 no_emote = target->query("env/no_emote");
         	if (! wizardp(me) && userp(me) && (no_emote == "all" || no_emote == "ALL" ||
@@ -147,7 +147,7 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
                 {
                         can_emote = target->query("env/can_emote");
                         if (! is_sub(me->query("id"), can_emote))
-        		        return notify_fail("Õâ¸öÈË²»Ïë½ÓÊÜÄãµÄ¶¯×÷¡£\n");
+        		        return notify_fail("è¿™ä¸ªäººä¸æƒ³æŽ¥å—ä½ çš„åŠ¨ä½œã€‚\n");
                 }
 
                 tar_name = target->name() + default_color;

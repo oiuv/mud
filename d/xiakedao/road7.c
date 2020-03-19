@@ -6,11 +6,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�б�ʯ");
+        set("short", "夹鳖石");
         set("long", @LONG
-������Ǽб�ʯ���˴�ɽ�ƶ��ͣ����˵����޲��ľ�����������
-����˵����ֻ��ƽ����ȥ����ɽ����һ����С�ģ������ױ����鵽
-�¹�֮�С�
+这里便是夹鳖石。此处山势陡峭，行人到此无不心惊胆颤，不敢
+大声说话，只求平安过去。登山的人一个不小心，很容易便会跌堕到
+崖谷之中。
 LONG );
         set("outdoors", "xiakedao");
         set("exits", ([

@@ -1,4 +1,4 @@
-// shoutao.c  ÊÖÌ×
+// shoutao.c  æ‰‹å¥—
 
 #include <armor.h>
 
@@ -6,13 +6,13 @@ inherit HANDS;
 
 void create()
 {
-	set_name( "Æ¤ÊÖÌ×", ({ "gloves", "pi shoutao", "shoutao" }) );
+	set_name( "çš®æ‰‹å¥—", ({ "gloves", "pi shoutao", "shoutao" }) );
 	set_weight(500);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ë«");
-		set("long", "ÕâÊÇÒ»Ë«Æ¤ÊÖÌ×£¬ÉÏÃæÓĞÓ²Îï¿ÌÀÕµÄºÛ¼£¡£\n");
+		set("unit", "åŒ");
+		set("long", "è¿™æ˜¯ä¸€åŒçš®æ‰‹å¥—ï¼Œä¸Šé¢æœ‰ç¡¬ç‰©åˆ»å‹’çš„ç—•è¿¹ã€‚\n");
 		set("value", 4000);
 		set("material", "leather");
 		set("armor_prop/armor", 3);

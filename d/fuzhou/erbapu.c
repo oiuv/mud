@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "إ����");
+	set("short", "廿八铺");
 	set("long", @LONG
-إ���̸߾���ϼ���ϣ�����Ⱥɽ���࣬������ڣ�ʮ��ˬ����
-�����Ǹ���С��С���䣬��Ȼ���������Ŀ��̷��࣬����Ҳֻ��
-һ��СС�͵ꡣ
+廿八铺高居仙霞岭上，四望群山连绵，长风振岗，十分爽利。
+这里是个很小的小村落，虽然南来北往的客商繁多，可是也只有
+一家小小客店。
 LONG );
 	set("exits", ([
 		"north"     : __DIR__"fzroad1",

@@ -21,7 +21,7 @@
 #define SMTP_DOMAIN             ((string) CONFIG_D->query_string("smtp domain"))
 #define SENDER                  ((string) CONFIG_D->query_string("smtp sender"))
 
-// 所有监听的节点
+// 鎵�鏈夌洃鍚殑鑺傜偣
 #define MUDLIST_DNS1            ((string) CONFIG_D->query_string("mudlist1"))
 #define MUDLIST_DNS2            ((string) CONFIG_D->query_string("mudlist2"))
 #define MUDLIST_DNS3            ((string) CONFIG_D->query_string("mudlist3"))

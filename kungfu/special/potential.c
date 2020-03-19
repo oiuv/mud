@@ -1,14 +1,14 @@
-// potential.c 乾坤无量
+// potential.c 涔惧潳鏃犻噺
 // Created by Vin 4/16/2001
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return HIB "乾坤无量" NOR; }
+string name() { return HIB "涔惧潳鏃犻噺" NOR; }
 
 int perform(object me, string skill)
 {
-        return notify_fail("这项技能可使你在成为宗师前的潜能加倍，不需要运用。\n");
+        return notify_fail("杩欓」鎶�鑳藉彲浣夸綘鍦ㄦ垚涓哄畻甯堝墠鐨勬綔鑳藉姞鍊嶏紝涓嶉渶瑕佽繍鐢ㄣ�俓n");
 }
 

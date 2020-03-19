@@ -6,15 +6,15 @@ inherit POISON;
 
 string name() { return "zhurong_jian"; }
 
-string chinese_name() { return "烈炎剑气"; }
+string chinese_name() { return "鐑堢値鍓戞皵"; }
 
 string update_msg_others()
 {
-       return HIR "$N" HIR "一声惨嚎，剑伤处竟犹如被烈火灼烧过一般！\n" NOR;
+       return HIR "$N" HIR "涓�澹版儴鍤庯紝鍓戜激澶勭珶鐘瑰琚儓鐏伡鐑ц繃涓�鑸紒\n" NOR;
 }
 
 string update_msg_self()
 {
-        return HIR "你感到一股锥心的灼痛从剑伤处传来，血液竟似要沸腾了起来！\n" NOR;
+        return HIR "浣犳劅鍒颁竴鑲￠敟蹇冪殑鐏肩棝浠庡墤浼ゅ浼犳潵锛岃娑茬珶浼艰娌歌吘浜嗚捣鏉ワ紒\n" NOR;
 }
 

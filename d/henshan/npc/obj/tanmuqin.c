@@ -6,14 +6,14 @@ inherit MI_QIN;
 
 void create()
 {
-        set_name(NOR + YEL "Ì´Ä¾ÇÙ" NOR, ({ "tanmu qin", "tanmu", "qin" }));
+        set_name(NOR + YEL "æª€æœ¨ç´" NOR, ({ "tanmu qin", "tanmu", "qin" }));
         set_weight(600);
 
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-                set("unit", "°Ñ");
-                set("long", NOR + YEL "Ò»°ÑÌ´Ä¾ËùÖÆµÄÄ¾ÇÙ£¬¹ÅµäÑÅÖÂ¡£\n" NOR);
+                set("unit", "æŠŠ");
+                set("long", NOR + YEL "ä¸€æŠŠæª€æœ¨æ‰€åˆ¶çš„æœ¨ç´ï¼Œå¤å…¸é›…è‡´ã€‚\n" NOR);
 		set("value", 50);
 		set("material", "wood");
 	}

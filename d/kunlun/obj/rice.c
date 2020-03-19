@@ -1,4 +1,4 @@
-// rice.c ´óÃ×·¹
+// rice.c å¤§ç±³é¥­
 // cck 17/6/97
 
 inherit ITEM;
@@ -8,13 +8,13 @@ inherit F_FOOD;
 
 void create()
 {
-	set_name("Ã×·¹",({"rice", "mi fan", "fan" }));
+	set_name("ç±³é¥­",({"rice", "mi fan", "fan" }));
 	set_weight(50);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»Íë¸Õ´Ó¹øÀïÊ¢³öÀ´µÄ´óÃ×·¹£¬»¹Ã°×ÅÈÈÆø¡«¡«¡«\n");
-		set("unit", "Íë");
+		set("long", "ä¸€ç¢—åˆšä»é”…é‡Œç››å‡ºæ¥çš„å¤§ç±³é¥­ï¼Œè¿˜å†’ç€çƒ­æ°”ï½ï½ï½\n");
+		set("unit", "ç¢—");
 		set("value", 120);
 		  set("food_remaining", 5);
 		  set("food_supply", 40);

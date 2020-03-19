@@ -5,13 +5,13 @@ inherit F_LIQUID;
 #include <ansi.h>
 void create()
 {
-	set_name(HIG"Ò°²ËÌÀÍë"NOR, ({"soup"}));
+	set_name(HIG"é‡èœæ±¤ç¢—"NOR, ({"soup"}));
 	set_weight(50);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»ÍëĞÂÏÊÒ°²Ë×öµÄÌÀ¡£\n");
-		set("unit", "Íë");
+		set("long", "ä¸€ç¢—æ–°é²œé‡èœåšçš„æ±¤ã€‚\n");
+		set("unit", "ç¢—");
 		set("value", 10);
                 set("max_liquid", 4);
     }
@@ -20,7 +20,7 @@ void create()
     // we set it to contain tea at the beginning
     set("liquid", ([
         "type": "water",
-        "name": "Ò°²ËÌÀ",
+        "name": "é‡èœæ±¤",
         "remaining": 6,
         "drunk_supply": 20,
     ]));

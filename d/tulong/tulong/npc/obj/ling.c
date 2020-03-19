@@ -5,12 +5,12 @@ inherit SWORD;
 
 void create()
 {
-        set_name(NOR + CYN "ïÙÌúÁî" NOR, ({ "bintie ling", "bintie", "ling" }));
+        set_name(NOR + CYN "é•”é“ä»¤" NOR, ({ "bintie ling", "bintie", "ling" }));
         set_weight(1500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ö§");
+                set("unit", "æ”¯");
                 set("value", 300);
                 set("material", "steel");
         }

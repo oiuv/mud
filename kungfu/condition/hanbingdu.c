@@ -7,17 +7,17 @@ inherit POISON;
 
 string name() { return "hanbingdu"; }
 
-string chinese_name() { return "±ùÆÇÒøÕë¾ç¶¾"; }
+string chinese_name() { return "å†°é­„é“¶é’ˆå‰§æ¯’"; }
 
 string update_msg_others()
 {
-        return HIW "$N" HIW "Á³É«²Ô°×£¬ËÄÖ«½©Ó²£¬È«ÉíÉÏÏÂÍ¸³öÕó"
-               "Õóº®Æø¡£\n" NOR;
+        return HIW "$N" HIW "è„¸è‰²è‹ç™½ï¼Œå››è‚¢åƒµç¡¬ï¼Œå…¨èº«ä¸Šä¸‹é€å‡ºé˜µ"
+               "é˜µå¯’æ°”ã€‚\n" NOR;
 }
 
 string update_msg_self()
 {
-        return HIW "ÄãÖ»¾õÈ«Éí±ùÀäÎŞ±È£¬ËÄÖ«°Ùº¡ÄÑÊÜÖ®¼«£¬Èç¶é"
-               "±ùÓü¡£\n" NOR;
+        return HIW "ä½ åªè§‰å…¨èº«å†°å†·æ— æ¯”ï¼Œå››è‚¢ç™¾éª¸éš¾å—ä¹‹æï¼Œå¦‚å •"
+               "å†°ç‹±ã€‚\n" NOR;
 }
 

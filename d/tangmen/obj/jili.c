@@ -6,19 +6,19 @@ inherit THROWING;
 
 void create()
 {
-        set_name(HIB"¶¾İğŞ¼"NOR, ({ "du jili", "jili" }) );
+        set_name(HIB"æ¯’è’ºè—œ"NOR, ({ "du jili", "jili" }) );
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ğ©");
+                set("unit", "äº›");
                 set("value", 0);
-                set("base_unit", "Ã¶");
+                set("base_unit", "æš");
                 set("base_weight", 300);
                 set("base_value", 0);
                 set("material", "iron");
-                set("long", HIG"¶¾İğŞ¼ÊÇ´ã¶¾°µÆ÷£¬´çĞí´óĞ¡£¬·¢³ö¹îÒìµÄ¹â¡£\n"NOR);
-                set("wield_msg", HIC"$NÑ¸ËÙµØ´ÓÉíÉÏÃş³öÒ»Ğ©¶¾İğŞ¼£¬ÄóÔÚÊÖÖĞ¾Í´ı·¢³ö£¡\n"NOR);
-                set("unwield_msg",HIC"$N½«ÊÖÀïÊ£ÏÂµÄ¶¾İğŞ¼Ò»¶¶¾Í²»¼ûÁË¡£\n"NOR);
+                set("long", HIG"æ¯’è’ºè—œæ˜¯æ·¬æ¯’æš—å™¨ï¼Œå¯¸è®¸å¤§å°ï¼Œå‘å‡ºè¯¡å¼‚çš„å…‰ã€‚\n"NOR);
+                set("wield_msg", HIC"$Nè¿…é€Ÿåœ°ä»èº«ä¸Šæ‘¸å‡ºä¸€äº›æ¯’è’ºè—œï¼Œæåœ¨æ‰‹ä¸­å°±å¾…å‘å‡ºï¼\n"NOR);
+                set("unwield_msg",HIC"$Nå°†æ‰‹é‡Œå‰©ä¸‹çš„æ¯’è’ºè—œä¸€æŠ–å°±ä¸è§äº†ã€‚\n"NOR);
         }
         set_amount(50);
         init_throwing(50);

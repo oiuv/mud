@@ -22,23 +22,23 @@ int main(object me, string arg)
         }
 
         if (amount < 1)
-                return notify_fail("ÄãÏë¸´ÖÆ¶àÉÙ£¿\n");
+                return notify_fail("ä½ æƒ³å¤åˆ¶å¤šå°‘ï¼Ÿ\n");
 
         if (! file) file = me->query("cwf");
         if (! file)
-                return notify_fail("ÄãÒª¸´ÖÆÊ²÷áÎï¼ş£¿\n");
+                return notify_fail("ä½ è¦å¤åˆ¶ä»€éº½ç‰©ä»¶ï¼Ÿ\n");
 
         file = resolve_path(me->query("cwd"), file);
         if (sscanf(file, "%*s.c") != 1) file += ".c";
         me->set("cwf", file);
 
         if (file_size(file) < 0)
-                return notify_fail("Ã»ÓĞÕâ¸öµµ°¸(" + file + ")¡£\n");
+                return notify_fail("æ²¡æœ‰è¿™ä¸ªæ¡£æ¡ˆ(" + file + ")ã€‚\n");
 
-        // ±ØĞë¶Ô¸ÃÎÄ¼ş¿É¶Á²ÅÄÜ¸´ÖÆ¡£
+        // å¿…é¡»å¯¹è¯¥æ–‡ä»¶å¯è¯»æ‰èƒ½å¤åˆ¶ã€‚
         if (! SECURITY_D->valid_read(file, me, "clone"))
         {
-                write("ÄãÃ»ÓĞÈ¨ÏŞ²Ù×÷Õâ¸ö¶ÔÏó¡£\n");
+                write("ä½ æ²¡æœ‰æƒé™æ“ä½œè¿™ä¸ªå¯¹è±¡ã€‚\n");
                 return 1;
         }
 
@@ -47,7 +47,7 @@ int main(object me, string arg)
                 err = catch(call_other(file, "???"));
                 if (err)
                 {
-                        write("ÔØÈëÊ§°Ü£º" + err + "\n");
+                        write("è½½å…¥å¤±è´¥ï¼š" + err + "\n");
                         return 1;
                 }
         }
@@ -59,18 +59,18 @@ int main(object me, string arg)
                 case "gift":
                         if (! sscanf(file, "/clone/special/%*s") &&
                             ! sscanf(file, "/clone/gift/%*s"))
-                                return notify_fail("Äã²»ÄÜ¸´ÖÆÕâ¸öÎïÆ·¡£\n");
+                                return notify_fail("ä½ ä¸èƒ½å¤åˆ¶è¿™ä¸ªç‰©å“ã€‚\n");
                         break;
 
                 case "all":
                         break;
 
                 default:
-                        return notify_fail("Äã²»ÄÜ¸´ÖÆÎïÆ·¡£\n");
+                        return notify_fail("ä½ ä¸èƒ½å¤åˆ¶ç‰©å“ã€‚\n");
                 }
 
                 if (! me->is_admin())
-                        message_system(sprintf("%s(%s)¸´ÖÆÁËÎïÆ·£º%s(%s) ÊıÁ¿£º%d¡£\n",
+                        message_system(sprintf("%s(%s)å¤åˆ¶äº†ç‰©å“ï¼š%s(%s) æ•°é‡ï¼š%dã€‚\n",
                                                me->name(1), me->query("id"),
                                                filter_color(file->name(1)),
                                                file->query("id"), amount));
@@ -81,17 +81,17 @@ int main(object me, string arg)
         err = catch(obj = new(file));
         if (err)
         {
-                write("¸´ÖÆÊ§°Ü£º" + err + "\n");
+                write("å¤åˆ¶å¤±è´¥ï¼š" + err + "\n");
                 return 1;
         }
 
         if (! objectp(obj))
         {
-                write("ÄãÎŞ·¨¸´ÖÆ¸ÃÎïÆ·¡£\n");
+                write("ä½ æ— æ³•å¤åˆ¶è¯¥ç‰©å“ã€‚\n");
                 return 1;
         }
 
-        msg = "Ö»¼û$NÉìÊÖÁè¿ÕÒ»Ö¸£¬±ä³öÁË$n¡£\n";
+        msg = "åªè§$Nä¼¸æ‰‹å‡Œç©ºä¸€æŒ‡ï¼Œå˜å‡ºäº†$nã€‚\n";
 
         obj->set_amount(amount);
         log_file("static/clone", sprintf("%s %-9s clone %s(%d)\n",
@@ -99,17 +99,17 @@ int main(object me, string arg)
                                          base_name(obj), amount));
         if (! obj->is_character() && ! obj->query("no_get") && obj->move(me))
         {
-                write(obj->name(1) + "¸´ÖÆ³É¹¦£¬·ÅÔÚÄãµÄÎïÆ·À¸¡£\n");
+                write(obj->name(1) + "å¤åˆ¶æˆåŠŸï¼Œæ”¾åœ¨ä½ çš„ç‰©å“æ ã€‚\n");
                 message_vision(msg + "\n", me, obj);
         } else
         if (obj->move(environment(me)))
         {
-                write(obj->name(1) + "¸´ÖÆ³É¹¦£¬·ÅÔÚÕâ¸ö·¿¼ä¡£\n");
+                write(obj->name(1) + "å¤åˆ¶æˆåŠŸï¼Œæ”¾åœ¨è¿™ä¸ªæˆ¿é—´ã€‚\n");
                 message_vision(msg + "\n", me, obj);
         } else
         {
                 destruct(obj);
-                return notify_fail("ÎŞ·¨¸´ÖÆ²»ÄÜÒÆ¶¯µÄÎï¼ş(" + file + ")¡£\n");
+                return notify_fail("æ— æ³•å¤åˆ¶ä¸èƒ½ç§»åŠ¨çš„ç‰©ä»¶(" + file + ")ã€‚\n");
         }
 
         if (obj->query_amount() != amount)
@@ -131,11 +131,11 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : clone <ÎÄ¼şÃû> [<ÊıÁ¿>]
+æŒ‡ä»¤æ ¼å¼ : clone <æ–‡ä»¶å> [<æ•°é‡>]
 
-ÀûÓÃ´ËÖ¸Áî¿É¸´ÖÆÈÎºÎÄÜÒÆ¶¯Ö®Îï¼ş(º¬ÈËÎï)¡£
+åˆ©ç”¨æ­¤æŒ‡ä»¤å¯å¤åˆ¶ä»»ä½•èƒ½ç§»åŠ¨ä¹‹ç‰©ä»¶(å«äººç‰©)ã€‚
 
-¸ÃÃüÁîÔÚ¿ÉÒÔ±»ÊÚÈ¨Ê¹ÓÃµÄĞÅÏ¢°üÀ¨£ºgift¡¢all¡£
+è¯¥å‘½ä»¤åœ¨å¯ä»¥è¢«æˆæƒä½¿ç”¨çš„ä¿¡æ¯åŒ…æ‹¬ï¼šgiftã€allã€‚
 
 see also : dest
 HELP );

@@ -6,16 +6,16 @@ inherit HANDS;
 
 void create()
 {
-	set_name("ÌúÊÖÕÆ", ({ "iron hand", "hand", "shu", "book" }));
+	set_name("é“æ‰‹æŒ", ({ "iron hand", "hand", "shu", "book" }));
 	set_weight(2000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else
         {
-		set("unit", "¿é");
+		set("unit", "å—");
 		set("long",
-			"Ò×½î¾­¹¥·ÀÆª\n"
-			"ÕâÊÇÒ»¿éÌúÊÖÕÆ£¬ÉÏÃæ°¼°¼Í¹Í¹¿ÌÂúÁËÈËĞÎ²«»÷µÄ³¡Ãæ¡£\n");
+			"æ˜“ç­‹ç»æ”»é˜²ç¯‡\n"
+			"è¿™æ˜¯ä¸€å—é“æ‰‹æŒï¼Œä¸Šé¢å‡¹å‡¹å‡¸å‡¸åˆ»æ»¡äº†äººå½¢æå‡»çš„åœºé¢ã€‚\n");
 		set("value", 500);
 		set("material", "steel");
 		set("armor_prop/armor", 5);
@@ -44,11 +44,11 @@ int do_study(string arg)
 	object me = this_player();
 
 	if (! arg || ! id(arg))
-		return notify_fail("ÄãÒªÑ§Ê²Ã´£¿\n");
+		return notify_fail("ä½ è¦å­¦ä»€ä¹ˆï¼Ÿ\n");
 
 	if (! me->can_improve_skill("parry"))
 	{
-		write("ÄãµÄÊµÕ½¾­Ñé²»×ã£¬ÎŞ·¨¼ÌĞøÑĞ¶ÁÌúÊÖÕÆµÄÎä¹¦¡£\n");
+		write("ä½ çš„å®æˆ˜ç»éªŒä¸è¶³ï¼Œæ— æ³•ç»§ç»­ç ”è¯»é“æ‰‹æŒçš„æ­¦åŠŸã€‚\n");
 		return 1;
 	}
 
@@ -58,8 +58,8 @@ int do_study(string arg)
 	{
 		me->receive_damage("jing", 20);
 		me->improve_skill("parry", 20 + random(20));
-		message_vision("$NÒ»±ßÕ½¶·£¬Ò»±ß³é¿Õ¼±¼±Ã¦"
-                               "Ã¦µØÄÃ³öÌúÊÖÕÆ×ĞÏ¸ÑĞ¾¿¡£\n", me);
+		message_vision("$Nä¸€è¾¹æˆ˜æ–—ï¼Œä¸€è¾¹æŠ½ç©ºæ€¥æ€¥å¿™"
+                               "å¿™åœ°æ‹¿å‡ºé“æ‰‹æŒä»”ç»†ç ”ç©¶ã€‚\n", me);
 		return 1;
 	}
 

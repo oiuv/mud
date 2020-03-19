@@ -6,11 +6,11 @@ inherit NPC;
 
 void create()
 {
-	set_name("·¶Ò»·É", ({ "fan yifei", "fan"}));
-	set("title", HIB "º×±ÊÃÅÕÆÃÅÈË" NOR);
-	set("long", "ËûÊÇÒ»¸ö°«ÊİµÄÀÏÕß£¬Ò»ÕÅºÚÁ³¡£ÑüÀï²å×ÅÅĞ¹Ù
-±Ê£¬ÈË³Æ¡®ÁÉ¶«º×¡¯¡£\n");
-	set("gender", "ÄĞĞÔ");
+	set_name("èŒƒä¸€é£", ({ "fan yifei", "fan"}));
+	set("title", HIB "é¹¤ç¬”é—¨æŒé—¨äºº" NOR);
+	set("long", "ä»–æ˜¯ä¸€ä¸ªçŸ®ç˜¦çš„è€è€…ï¼Œä¸€å¼ é»‘è„¸ã€‚è…°é‡Œæ’ç€åˆ¤å®˜
+ç¬”ï¼Œäººç§°â€˜è¾½ä¸œé¹¤â€™ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 51);
 	set("attitude", "peaceful");
 	set("shen_type", 1);

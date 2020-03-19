@@ -3,10 +3,10 @@
 inherit ROOM;
 void create()
 {
-        set("short", "ͨԪ��");
+        set("short", "通元谷");
         set("long", @LONG
-ͨԪ�ȹ´����Է��£��ഫΪ�Ź��ϳ���ǰ�޵�֮����������
-���� "ͨԪ" ������Ҳ�ͳ���ͨԪ�ȡ�
+通元谷孤处见性峰下，相传为张果老成仙前修道之所，由于他
+道号 "通元" ，这里也就成了通元谷。
 LONG);
         set("exits", ([ /* sizeof() == 4 */
            "eastup"  : __DIR__"guolaoling",

@@ -3,13 +3,13 @@ inherit NPC;
 
 void create()
 {
-        set_name("Öì×ÓÁø", ({"zhu ziliu", "zhu", "ziliu"}));
-        set("gender", "ÄĞĞÔ");
+        set_name("æœ±å­æŸ³", ({"zhu ziliu", "zhu", "ziliu"}));
+        set("gender", "ç”·æ€§");
         set("age", 55);
-        set("title", HIY "ÄÏµÛËÄ´óµÜ×Ó" NOR);
+        set("title", HIY "å—å¸å››å¤§å¼Ÿå­" NOR);
         set("long", @LONG
-Öì×ÓÁøÄËÊÇÒ»µÆ´óÊ¦µÄËÄ´óµÜ×ÓÖ®Ò»£¬ÏÖÔÚÕıĞ­Öú
-¹ù¾¸¡¢»ÆÈØÕòÊØÏåÑô³Ç¡£
+æœ±å­æŸ³ä¹ƒæ˜¯ä¸€ç¯å¤§å¸ˆçš„å››å¤§å¼Ÿå­ä¹‹ä¸€ï¼Œç°åœ¨æ­£ååŠ©
+éƒ­é–ã€é»„è“‰é•‡å®ˆè¥„é˜³åŸã€‚
 LONG );
         set("attitude", "peaceful");
         set("per", 17);
@@ -50,7 +50,7 @@ LONG );
         prepare_skill("cuff", "jinyu-quan");
         prepare_skill("strike", "wuluo-zhang");
 
-        create_family("¶ÎÊÏ»Ê×å", 6, "¼Ò³¼");
+        create_family("æ®µæ°çš‡æ—", 6, "å®¶è‡£");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -82,29 +82,29 @@ int recognize_apprentice(object ob, string skill)
 {
         if (ob->query("combat_exp") > 40000)
         {
-                command("say Äã¾­ÑéÒ²²»µÍÁË£¬Ó¦¸Ã¶à³öÈ¥¶ÍÁ¶£¬¿É±ğÂñÃ»ÔÚÕâÀï¡£");
+                command("say ä½ ç»éªŒä¹Ÿä¸ä½äº†ï¼Œåº”è¯¥å¤šå‡ºå»é”»ç‚¼ï¼Œå¯åˆ«åŸ‹æ²¡åœ¨è¿™é‡Œã€‚");
                 return -1;
         }
 
         if (skill != "literate")
         {
                 command("shake");
-                command("say ÔÚÕâ¶ùÎÒ×î¶à´«ÊÚÄãÒ»Ğ©¶ÁÊéĞ´×ÖµÄ³£Ê¶¡£");
-                command("say ÆäËüµÄ»¹ÊÇµÈÄã½«À´°İÊ¦ºóÕÒÊ¦¸¸Ñ§°É¡£");
+                command("say åœ¨è¿™å„¿æˆ‘æœ€å¤šä¼ æˆä½ ä¸€äº›è¯»ä¹¦å†™å­—çš„å¸¸è¯†ã€‚");
+                command("say å…¶å®ƒçš„è¿˜æ˜¯ç­‰ä½ å°†æ¥æ‹œå¸ˆåæ‰¾å¸ˆçˆ¶å­¦å§ã€‚");
                 return -1;
         }
 
         if (skill == "literate" && ob->query_skill("literate", 1) > 99)
         {
                 command("haha");
-                command("say ÄãµÄÎÄÑ§ÔìÒèÒÑ¾­·Ç³£²»´íÁË£¬¾Íµ½´ËÎªÖ¹°É¡£");
+                command("say ä½ çš„æ–‡å­¦é€ è¯£å·²ç»éå¸¸ä¸é”™äº†ï¼Œå°±åˆ°æ­¤ä¸ºæ­¢å§ã€‚");
                 return -1;
         }
 
         if (! ob->query_temp("can_learn/zhuziliu"))
         {
                 command("smile");
-                command("say ³ÃÄêÇá¶à¶ÁµãÊéÊÇºÃÊÂ£¬ÎÒ¾Í½ÌÄãµã¶ÁÊéĞ´×ÖµÄ³£Ê¶°É¡£");
+                command("say è¶å¹´è½»å¤šè¯»ç‚¹ä¹¦æ˜¯å¥½äº‹ï¼Œæˆ‘å°±æ•™ä½ ç‚¹è¯»ä¹¦å†™å­—çš„å¸¸è¯†å§ã€‚");
                 ob->set_temp("can_learn/zhuziliu", 1);
         }
         return 1;
@@ -117,7 +117,7 @@ void greeting(object ob)
        if (ob->query_skill("literate") > 99) return;
 
        command("pat " + ob->query("id"));
-       command("say ÕâÎ»" + RANK_D->query_respect(ob) + "£¬¹ıÀ´¸úÎÒÑ§Ğ©Öª"
-               "Ê¶(" HIY "xue zhu ziliu literate" NOR + CYN ")°É¡£" NOR);
+       command("say è¿™ä½" + RANK_D->query_respect(ob) + "ï¼Œè¿‡æ¥è·Ÿæˆ‘å­¦äº›çŸ¥"
+               "è¯†(" HIY "xue zhu ziliu literate" NOR + CYN ")å§ã€‚" NOR);
 
 }

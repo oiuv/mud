@@ -1,4 +1,4 @@
-// ÉñÁúÔÙÏÖ
+// ç¥é¾™å†ç°
 
 #include <ansi.h>
 
@@ -8,26 +8,26 @@ int perform(object me)
         // string msg;
 
         if (! me->is_fighting())
-                return notify_fail("ÉñÁúÔÙÏÖÖ»ÄÜÔÚÕ½¶·ÖĞÊ¹ÓÃ¡£\n");
+                return notify_fail("ç¥é¾™å†ç°åªèƒ½åœ¨æˆ˜æ–—ä¸­ä½¿ç”¨ã€‚\n");
 
         if ((int)me->query_skill("longxing-jian", 1) < 150)
-                return notify_fail("ÄãµÄÁúĞÎ½£·¨²»¹»æµÊì£¬²»»áÊ¹ÓÃÉñÁúÔÙÏÖ¡£\n");
+                return notify_fail("ä½ çš„é¾™å½¢å‰‘æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ç¥é¾™å†ç°ã€‚\n");
 
         if ((int)me->query_skill("buddhism", 1) < 150)
-                return notify_fail("ÄãµÄ·ğ·¨ĞŞÎª²»¹»æµÊì£¬²»»áÊ¹ÓÃÉñÁúÔÙÏÖ¡£\n");
+                return notify_fail("ä½ çš„ä½›æ³•ä¿®ä¸ºä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ç¥é¾™å†ç°ã€‚\n");
 
         if ((int)me->query("neili") < 300)
-                return notify_fail("ÄãÒÑ¾­¾«Æ£Á¦½ß£¬ÄÚÁ¦²»¹»ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»ç²¾ç–²åŠ›ç«­ï¼Œå†…åŠ›ä¸å¤Ÿäº†ã€‚\n");
 
         if ((int)me->query_temp("xian") >= 50)
-                return notify_fail("ÄãÒÑ¾­Äî·ğÄîµÃÌ«¾ÃÁË£¬ÉñÁúÒÑ¾­Ñá¾ëÁË¡£\n");
+                return notify_fail("ä½ å·²ç»å¿µä½›å¿µå¾—å¤ªä¹…äº†ï¼Œç¥é¾™å·²ç»åŒå€¦äº†ã€‚\n");
 
         skill = me->query_skill("force");
 
         me->add("neili", -100);
         me->start_busy(1);
-        message_combatd(HIR "Ö»Ìı$N" HIR "¿ÚÖĞÄîÄîÓĞ´Ê£¬ÉñÁú´ÓÌì¶ø½«£¬"
-                        "×êÈë$NÌåÖĞ£¡\n" NOR, me);
+        message_combatd(HIR "åªå¬$N" HIR "å£ä¸­å¿µå¿µæœ‰è¯ï¼Œç¥é¾™ä»å¤©è€Œå°†ï¼Œ"
+                        "é’»å…¥$Nä½“ä¸­ï¼\n" NOR, me);
 
         me->add_temp("apply/attack", 2);
         me->add_temp("apply/dodge", 1);

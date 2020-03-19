@@ -4,8 +4,8 @@ inherit BULLETIN_BOARD;
 
 void create()
 {
-	set_name("ÁÄÌìÊÒÁôÑÔ°å", ({ "board" }));
-	set("long", "´ó¼Ò¶¼À´¹à¹àË®£¬Ò»ÆğËµ·Ï»°¡£\n" );
+	set_name("èŠå¤©å®¤ç•™è¨€æ¿", ({ "board" }));
+	set("long", "å¤§å®¶éƒ½æ¥çŒçŒæ°´ï¼Œä¸€èµ·è¯´åºŸè¯ã€‚\n" );
 	set("capacity", 100);
         // not setup now
         // I will call setup after set from me
@@ -20,7 +20,7 @@ void set_from_me(object me, object chatroom)
                 return 0;
 
         set("board_id", "chatroom_" + geteuid(me));
-        set_name(me->name(1) + "µÄÁôÑÔ°å", ({ "board" }));
+        set_name(me->name(1) + "çš„ç•™è¨€æ¿", ({ "board" }));
 	set("capacity", 100 + (int)me->query_skill("idle-force", 1));
         setup();
         move(chatroom);
@@ -32,10 +32,10 @@ int do_discard(string arg)
 	int num;
 
 	if (! arg || sscanf(arg, "%d", num) != 1)
-		return notify_fail("Ö¸Áî¸ñÊ½£ºdiscard <ÁôÑÔ±àºÅ>\n");
+		return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šdiscard <ç•™è¨€ç¼–å·>\n");
 	notes = query("notes");
 	if (! arrayp(notes) || num < 1 || num > sizeof(notes))
-		return notify_fail("Ã»ÓĞÕâÕÅÁôÑÔ¡£\n");
+		return notify_fail("æ²¡æœ‰è¿™å¼ ç•™è¨€ã€‚\n");
 	num--;
 	if (notes[num]["author"] != (string) this_player(1)->query("name") + "-" +
                                     this_player(1)->query("id")
@@ -43,13 +43,13 @@ int do_discard(string arg)
 	&&	(string)SECURITY_D->get_status(this_player(1)) != "(admin)"
 	&&      (string)SECURITY_D->get_status(this_player(1)) != "(arch)")
         {
-		write("Õâ¸öÁôÑÔ²»ÊÇÄãĞ´µÄ£¬ÄãÒ²²»ÊÇÕâ¸öÁÄÌìÊÒµÄÀÏ´ó¡£\n");
+		write("è¿™ä¸ªç•™è¨€ä¸æ˜¯ä½ å†™çš„ï¼Œä½ ä¹Ÿä¸æ˜¯è¿™ä¸ªèŠå¤©å®¤çš„è€å¤§ã€‚\n");
                 return 1;
         }
 
 	notes = notes[0..num - 1] + notes[num + 1..sizeof(notes) - 1];
 	set("notes", notes);
 	save();
-	write("É¾³ıµÚ " + (num+1) + " ºÅÁôÑÔ....Ok¡£\n");
+	write("åˆ é™¤ç¬¬ " + (num+1) + " å·ç•™è¨€....Okã€‚\n");
 	return 1;
 }

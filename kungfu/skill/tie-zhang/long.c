@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define LONG "¡¸" HIR "ÁúÓ°ÕÆ" NOR "¡¹"
+#define LONG "ã€Œ" HIR "é¾™å½±æŽŒ" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -13,57 +13,57 @@ int perform(object me, object target)
         int level;
 
         if (userp(me) && ! me->query("can_perform/tie-zhang/long"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(LONG "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(LONG "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(LONG "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(LONG "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if (target->is_busy())
-                return notify_fail(target->name() + "Ä¿Ç°Õý×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É¡£\n");
+                return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ã€‚\n");
 
         if ((level = (int)me->query_skill("tie-zhang", 1)) < 100)
-                return notify_fail("ÄãÌúÕÆÕÆ·¨»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹" LONG "¡£\n");
+                return notify_fail("ä½ é“æŽŒæŽŒæ³•ç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" LONG "ã€‚\n");
 
         if (me->query_skill_mapped("strike") != "tie-zhang")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢ÌúÕÆÕÆ·¨£¬ÄÑÒÔÊ©Õ¹" LONG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘é“æŽŒæŽŒæ³•ï¼Œéš¾ä»¥æ–½å±•" LONG "ã€‚\n");
 
         if (me->query_skill_prepared("strike") != "tie-zhang")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸ÌúÕÆÕÆ·¨£¬ÄÑÒÔÊ©Õ¹" LONG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡é“æŽŒæŽŒæ³•ï¼Œéš¾ä»¥æ–½å±•" LONG "ã€‚\n");
 
         if ((int)me->query_skill("force") < 150)
-                return notify_fail("ÄãµÄÄÚ¹¦ÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" LONG "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" LONG "ã€‚\n");
 
         if ((int)me->query("max_neili") < 1500)
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" LONG "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" LONG "ã€‚\n");
 
         if ((int)me->query("neili") < 200)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" LONG "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" LONG "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = WHT "$N" WHT "Ë«ÕÆ½»´í£¬Ê©³öÌúÕÆ¾ø¼¼¡¸" HIR "ÁúÓ°ÕÆ" NOR +
-              WHT "¡¹£¬ÐýÆð²ã²ã²ÐÓ°£¬ÁýÕÖ$n" WHT "ËÄ·½¡£\n" NOR;  
+        msg = WHT "$N" WHT "åŒæŽŒäº¤é”™ï¼Œæ–½å‡ºé“æŽŒç»æŠ€ã€Œ" HIR "é¾™å½±æŽŒ" NOR +
+              WHT "ã€ï¼Œæ—‹èµ·å±‚å±‚æ®‹å½±ï¼Œç¬¼ç½©$n" WHT "å››æ–¹ã€‚\n" NOR;  
 
         ap = me->query_skill("strike") + me->query("str") * 5;
         dp = target->query_skill("parry") + target->query("dex") * 5;
 
         if (ap / 2 + random(ap) > dp)
         {
-		msg += HIR "²ÐÓ°»Î¶¯¼ä$n" HIR "ÕÐÊ½¶¸È»Ò»½ô£¬¾¹±»$N"
-                       HIR "µÄÕÆÕÐÇ£ÒýµÃÊÖÃ¦½ÅÂÒ£¡\n" NOR;
+		msg += HIR "æ®‹å½±æ™ƒåŠ¨é—´$n" HIR "æ‹›å¼é™¡ç„¶ä¸€ç´§ï¼Œç«Ÿè¢«$N"
+                       HIR "çš„æŽŒæ‹›ç‰µå¼•å¾—æ‰‹å¿™è„šä¹±ï¼\n" NOR;
                 target->start_busy(level / 18 + 2);
                 me->start_busy(2);
                 me->add("neili", -100);
 	} else
         {
-		msg += CYN "¿ÉÊÇ$n" CYN "¿´ÆÆÁË$N"
-                       CYN "µÄÆóÍ¼£¬Õò¶¨½âÕÐ£¬Ò»Ë¿²»ÂÒ¡£\n" NOR;
+		msg += CYN "å¯æ˜¯$n" CYN "çœ‹ç ´äº†$N"
+                       CYN "çš„ä¼å›¾ï¼Œé•‡å®šè§£æ‹›ï¼Œä¸€ä¸ä¸ä¹±ã€‚\n" NOR;
                 me->start_busy(2);
                 me->add("neili", -80);
 	}

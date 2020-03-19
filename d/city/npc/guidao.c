@@ -6,10 +6,10 @@ string ask_me(object who);
 
 void create()
 {
-	set_name("ÍõÎå", ({ "wang wu", "wang", "wu" }));
-	set("title", "×íÏÉÂ¥¾Æ¿Í");
-	set("gender", "ÄÐÐÔ" );
-	set("long", "ÕâÊÇ¸öºÈµÃ×íõ¸õ¸µÄ¾Æ¹í£¬Õý¶¢×ÅÊÖÖÐµÄ¾Æ±­à«à«µØÄîß¶×ÅÊ²÷á¡£\n" );
+	set_name("çŽ‹äº”", ({ "wang wu", "wang", "wu" }));
+	set("title", "é†‰ä»™æ¥¼é…’å®¢");
+	set("gender", "ç”·æ€§" );
+	set("long", "è¿™æ˜¯ä¸ªå–å¾—é†‰é†ºé†ºçš„é…’é¬¼ï¼Œæ­£ç›¯ç€æ‰‹ä¸­çš„é…’æ¯å–ƒå–ƒåœ°å¿µå¨ç€ä»€éº½ã€‚\n" );
 	set("shen_type", -1);
 	set("age", 40);
 	set("str", 25);
@@ -25,14 +25,14 @@ void create()
 	set("attitude", "heroism");
 	set("chat_chance_combat", 15);
 	set("chat_msg_combat", ({
-		CYN "ÍõÎåËµµÀ£ºÄãµ±Õæ³ÔÁË±ª×Óµ¨£¬¸Ò¸ú´óÒ¯½ÏÁ¿£¡\n" NOR,
-		CYN "ÍõÎåºöÈ»»Ó³öÒ»µ¶£¬ÕÐÊý¾«Ææ£¬µ«µ¶µ½ÖÐÍ¾È´ÓÖ¼±Ã¦ÊÕÕÐ¡£\n" NOR,
-		CYN "ÍõÎåËµµÀ£º¿ì¹ö£¡ËãÎÒÊäÁË»¹²»ÐÐ¡­¡­\n" NOR
+		CYN "çŽ‹äº”è¯´é“ï¼šä½ å½“çœŸåƒäº†è±¹å­èƒ†ï¼Œæ•¢è·Ÿå¤§çˆ·è¾ƒé‡ï¼\n" NOR,
+		CYN "çŽ‹äº”å¿½ç„¶æŒ¥å‡ºä¸€åˆ€ï¼Œæ‹›æ•°ç²¾å¥‡ï¼Œä½†åˆ€åˆ°ä¸­é€”å´åˆæ€¥å¿™æ”¶æ‹›ã€‚\n" NOR,
+		CYN "çŽ‹äº”è¯´é“ï¼šå¿«æ»šï¼ç®—æˆ‘è¾“äº†è¿˜ä¸è¡Œâ€¦â€¦\n" NOR
 	}) );
 
 	set("inquiry", ([
-		"ÍõÀÏÎå" : "¹þ¹þ¹þ£¡ÓÐÈ¤ÓÐÈ¤£¬¿ÉÏ§ÄãÈÏ´íÈËÁË¡£" ,
-		"¹íµ¶"   : (: ask_me :),
+		"çŽ‹è€äº”" : "å“ˆå“ˆå“ˆï¼æœ‰è¶£æœ‰è¶£ï¼Œå¯æƒœä½ è®¤é”™äººäº†ã€‚" ,
+		"é¬¼åˆ€"   : (: ask_me :),
 	]) );
 	set_skill("blade", 100);
 	set_skill("dodge", 80);
@@ -55,26 +55,26 @@ string ask_me(object who)
 	if (query("revealed"))
 	{
 		if (is_killing(who))
-			return "Äã¼ÈÈ»ÖªµÀÁËÎÒµÄÉí·Ö£¬½ñÈÕÐÝÏë»îÃü£¡\n";
+			return "ä½ æ—¢ç„¶çŸ¥é“äº†æˆ‘çš„èº«åˆ†ï¼Œä»Šæ—¥ä¼‘æƒ³æ´»å‘½ï¼\n";
 		else {
 			kill_ob(who);
 			who->fight_ob(this_object());
-			return "ÀÏ×Ó¾ÍÊÇ¹íµ¶ÍõÎå£¬¹íµ¶ÍõÎå¾ÍÊÇÄãÀÏ×Ó£¡ÄÉÃüÀ´°É£¡\n";
+			return "è€å­å°±æ˜¯é¬¼åˆ€çŽ‹äº”ï¼Œé¬¼åˆ€çŽ‹äº”å°±æ˜¯ä½ è€å­ï¼çº³å‘½æ¥å§ï¼\n";
 		}
 	}
 
 	if( (random(10) < 5) || is_fighting() )
-		return "ÎÒ¡­¡­ÎÒ²»ÖªµÀ¡£\n";
+		return "æˆ‘â€¦â€¦æˆ‘ä¸çŸ¥é“ã€‚\n";
 
 	set_temp("apply/attack",  80);
 	set_temp("apply/defense", 80);
 	set_temp("apply/damage",  50);
 
-	set("title", HIR "¹íµ¶" NOR);
+	set("title", HIR "é¬¼åˆ€" NOR);
 
-	message("vision", HIY "ÍõÎåÑÛÖÐÍ»È»·Å³öÒìÑùµÄ¹âÃ¢£¬²üÉùËµµÀ£¬¿´¡­¿´À´¡­Äã¶¼ÖªµÀÁË£¿\n"
-		          "ÍõÎå´óºÈÒ»Éù£¬½ÐµÀ£¬¼ÈÈ»Èç´Ë£¬ÀÏ×Ó½ñÌì·´Õý»í³öÈ¥£¬¸úÄãÆ´ÁË¡£\n" 
-		          "ÍõÎåÊ¹¿ªµ¥µ¶£¬ÕÐÊý¾«Ææ£¬³ÁÃÍºÝÀ±£¬ºÍ¸Õ²ÅµÄ×í¹í¼òÖ±ÅÐÈôÁ½ÈË¡£\n" NOR,
+	message("vision", HIY "çŽ‹äº”çœ¼ä¸­çªç„¶æ”¾å‡ºå¼‚æ ·çš„å…‰èŠ’ï¼Œé¢¤å£°è¯´é“ï¼Œçœ‹â€¦çœ‹æ¥â€¦ä½ éƒ½çŸ¥é“äº†ï¼Ÿ\n"
+		          "çŽ‹äº”å¤§å–ä¸€å£°ï¼Œå«é“ï¼Œæ—¢ç„¶å¦‚æ­¤ï¼Œè€å­ä»Šå¤©åæ­£è±å‡ºåŽ»ï¼Œè·Ÿä½ æ‹¼äº†ã€‚\n" 
+		          "çŽ‹äº”ä½¿å¼€å•åˆ€ï¼Œæ‹›æ•°ç²¾å¥‡ï¼Œæ²‰çŒ›ç‹ è¾£ï¼Œå’Œåˆšæ‰çš„é†‰é¬¼ç®€ç›´åˆ¤è‹¥ä¸¤äººã€‚\n" NOR,
 		          environment(), this_object() );
 
 	set("pursuer", 1);
@@ -124,5 +124,5 @@ string ask_me(object who)
         add_money("silver", 50);
         carry_object("/clone/book/tianmo_book");
 	set("revealed", 1);
-	return "ÀÏ×Ó¾ÍÊÇ¹íµ¶ÍõÎå£¬¹íµ¶ÍõÎå¾ÍÊÇÄãÀÏ×Ó£¡ÄÉÃüÀ´°É£¡\n";
+	return "è€å­å°±æ˜¯é¬¼åˆ€çŽ‹äº”ï¼Œé¬¼åˆ€çŽ‹äº”å°±æ˜¯ä½ è€å­ï¼çº³å‘½æ¥å§ï¼\n";
 }

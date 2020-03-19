@@ -1,17 +1,17 @@
-// furong-huagu.c Ü½ÈØ»¨¹½
+// furong-huagu.c èŠ™è“‰èŠ±è‡
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-	set_name("Ü½ÈØ»¨¹½", ({"furong huagu", "huagu"}));
+	set_name("èŠ™è“‰èŠ±è‡", ({"furong huagu", "huagu"}));
 	set_weight(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»ÅèÌÀ³íÖ­Å¨£¬Î¶»¬Ë¬¿ÚµÄÜ½ÈØ»¨¹½ÌÀ¡£\n");
-		set("unit", "Åè");
+		set("long", "ä¸€ç›†æ±¤ç¨ æ±æµ“ï¼Œå‘³æ»‘çˆ½å£çš„èŠ™è“‰èŠ±è‡æ±¤ã€‚\n");
+		set("unit", "ç›†");
 		set("value", 150);
 		set("food_remaining", 4);
 		set("food_supply", 40);

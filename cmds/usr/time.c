@@ -7,7 +7,7 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-	write(sprintf("%sÏÖÔÚµÄÊ±¼äÊÇ£º%s¡£\n" ,
+	write(sprintf("%sç°åœ¨çš„æ—¶é—´æ˜¯ï¼š%sã€‚\n" ,
                       HIR + LOCAL_MUD_NAME() + NOR,
                       NATURE_D->game_time()));
 	return 1;
@@ -16,9 +16,9 @@ int main(object me, string arg)
 int help(object me)
 {
      write(@HELP
-Ö¸Áî¸ñÊ½: time
+æŒ‡ä»¤æ ¼å¼: time
 
-Õâ¸öÖ¸ÁîÈÃÄã(Äã)ÖªµÀÏÖÔÚµÄÊ±³½¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ (ä½ )çŸ¥é“ç°åœ¨çš„æ—¶è¾°ã€‚
 
 HELP
     );

@@ -1,23 +1,23 @@
-// qhcwan.c  Çà»¨´ÉÍë
+// qhcwan.c  é’èŠ±ç“·ç¢—
 
 inherit ITEM;
 inherit F_LIQUID;
 
 void create()
 {
-        set_name("È±¿ÚµÄÇà»¨´ÉÍë", ({"qinghua ciwan", "wan", "ciwan"}));
+        set_name("ç¼ºå£çš„é’èŠ±ç“·ç¢—", ({"qinghua ciwan", "wan", "ciwan"}));
         set_weight(100);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»¸öÈ±ÁË¿ÚµÄ´Ö´ÉÍë¡£\n");
-                set("unit", "¸ö");
+                set("long", "ä¸€ä¸ªç¼ºäº†å£çš„ç²—ç“·ç¢—ã€‚\n");
+                set("unit", "ä¸ª");
                 set("value", 100);
                 set("max_liquid", 15);
         }
         set("liquid", ([
                 "type": "alcohol",
-                "name": "ÇåË®",
+                "name": "æ¸…æ°´",
                 "remaining": 15,
                 "drunk_apply": 3,
         ]));

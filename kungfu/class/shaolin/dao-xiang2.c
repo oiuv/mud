@@ -10,17 +10,17 @@ string ask_me_1();
 
 void create()
 {
-	set_name("µÀÏóìøÊ¦", ({
+	set_name("é“è±¡ç¦…å¸ˆ", ({
 		"daoxiang chanshi",
 		"daoxiang",
 		"chanshi",
 	}));
 	set("long",
-		"ËûÊÇÒ»Î»Éí²Ä¸ß´óµÄÖĞÄêÉ®ÈË£¬Á½±Û´Ö×³£¬°òÀ«ÑüÔ²¡£ËûÊÖ³Ö±ø\n"
-		"ÈĞ£¬Éí´©Ò»Ï®»Ò²¼Ïâ±ßôÂôÄ£¬ËÆºõÓĞÒ»ÉíÎäÒÕ¡£\n"
+		"ä»–æ˜¯ä¸€ä½èº«æé«˜å¤§çš„ä¸­å¹´åƒ§äººï¼Œä¸¤è‡‚ç²—å£®ï¼Œè†€é˜”è…°åœ†ã€‚ä»–æ‰‹æŒå…µ\n"
+		"åˆƒï¼Œèº«ç©¿ä¸€è¢­ç°å¸ƒé•¶è¾¹è¢ˆè£Ÿï¼Œä¼¼ä¹æœ‰ä¸€èº«æ­¦è‰ºã€‚\n"
 	);
 
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
 	set("class", "bonze");
 
@@ -56,10 +56,10 @@ void create()
 
 	prepare_skill("strike", "banruo-zhang");
 
-	create_family("ÉÙÁÖÅÉ", 39, "µÜ×Ó");
+	create_family("å°‘æ—æ´¾", 39, "å¼Ÿå­");
 
 	set("inquiry", ([
-		"½ğ´´Ò©" : (: ask_me_1 :),
+		"é‡‘åˆ›è¯" : (: ask_me_1 :),
 	]));
 
 	set("jin_count", 20);
@@ -73,27 +73,27 @@ string ask_me_1()
 	mapping fam; 
 	object ob;
 	
-	if (!(fam = this_player()->query("family")) || fam["family_name"] != "ÉÙÁÖÅÉ")
+	if (!(fam = this_player()->query("family")) || fam["family_name"] != "å°‘æ—æ´¾")
 		return RANK_D->query_respect(this_player()) + 
-		"Óë±¾ÅÉËØÎŞÀ´Íù£¬²»Öª´Ë»°´ÓºÎÌ¸Æğ£¿";
+		"ä¸æœ¬æ´¾ç´ æ— æ¥å¾€ï¼Œä¸çŸ¥æ­¤è¯ä»ä½•è°ˆèµ·ï¼Ÿ";
 
 	if ( (int)this_player()->query_condition("bonze_drug" ) > 0 )
 		return RANK_D->query_respect(this_player()) + 
-		"ÄãÊÇ²»ÊÇ¸Õ³Ô¹ıÒ©£¬Ôõ÷áÓÖÀ´ÒªÁË£¿ ÁéÒ©¶à³ÔÓĞº¦ÎŞÒË£¬¹ı¶ÎÊ±¼äÔÙÀ´°É¡£";
+		"ä½ æ˜¯ä¸æ˜¯åˆšåƒè¿‡è¯ï¼Œæ€éº½åˆæ¥è¦äº†ï¼Ÿ çµè¯å¤šåƒæœ‰å®³æ— å®œï¼Œè¿‡æ®µæ—¶é—´å†æ¥å§ã€‚";
 
 	if (  present("jin chuangyao", this_player()) )
 		return RANK_D->query_respect(this_player()) + 
-		"ÄãÏÖÔÚÉíÉÏ²»ÊÇÓĞ¿ÅÒ©ÍèÂğ£¬Ôõ÷áÓÖÀ´ÒªÁË£¿ ÕæÊÇÌ°µÃÎŞ÷Ğ£¡";
+		"ä½ ç°åœ¨èº«ä¸Šä¸æ˜¯æœ‰é¢—è¯ä¸¸å—ï¼Œæ€éº½åˆæ¥è¦äº†ï¼Ÿ çœŸæ˜¯è´ªå¾—æ— é¤ï¼";
 
-	if (query("jin_count") < 1) return "¶Ô²»Æğ£¬½ğ´´Ò©ÒÑ¾­·¢ÍêÁË";
+	if (query("jin_count") < 1) return "å¯¹ä¸èµ·ï¼Œé‡‘åˆ›è¯å·²ç»å‘å®Œäº†";
 
 	ob = new("/d/shaolin/obj/jinchuang-yao");
 	ob->move(this_player());
 
 	add("jin_count", -1);
 
-	message_vision("$N»ñµÃÒ»°ü½ğ´´Ò©¡£\n",this_player());
-	return "ºÃ°É£¬¼Ç×¡£¬²»µ½Î£¼±¹ØÍ·²»ÒªÇáÒ×Ê¹ÓÃ´ËÒ©¡£";
+	message_vision("$Nè·å¾—ä¸€åŒ…é‡‘åˆ›è¯ã€‚\n",this_player());
+	return "å¥½å§ï¼Œè®°ä½ï¼Œä¸åˆ°å±æ€¥å…³å¤´ä¸è¦è½»æ˜“ä½¿ç”¨æ­¤è¯ã€‚";
 
 }
 

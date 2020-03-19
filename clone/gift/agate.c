@@ -1,4 +1,4 @@
-// agate.c Âêè§
+// agate.c ç›ç‘™
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,19 +7,19 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIR "Âêè§" NOR, ({ "agate" }) );
+	set_name(HIR "ç›ç‘™" NOR, ({ "agate" }) );
 	set_weight(30);
 	if( clonep() )
 		set_default_object(__FILE__);
         else {
-	        set("long", HIR "Ò»¿é¾§Ó¨ÌŞÍ¸µÄ°µºìÉ«Âêè§¡£\n" NOR);
+	        set("long", HIR "ä¸€å—æ™¶è¹å‰”é€çš„æš—çº¢è‰²ç›ç‘™ã€‚\n" NOR);
                 set("value", 50000);
-		set("unit", "¿é");
+		set("unit", "å—");
                 set("armor_prop/per", 5);
-                set("wear_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´÷ÔÚÍ·ÉÏ¡£\n" NOR);
-                set("remove_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n" NOR);
+                set("wear_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "æˆ´åœ¨å¤´ä¸Šã€‚\n" NOR);
+                set("remove_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "ä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n" NOR);
 	}
         setup();
 }

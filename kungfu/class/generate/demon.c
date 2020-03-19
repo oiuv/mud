@@ -1,4 +1,4 @@
-// »Ã¾³ĞÄÄ§
+// å¹»å¢ƒå¿ƒé­”
 
 #include <ansi.h>
 
@@ -13,12 +13,12 @@ int  is_stay_in_room()  { return 1; }
 void create()
 {
     ::create();
-    set("gender", random(5) ? "ÄĞĞÔ" : "Å®ĞÔ");
-    set_name("ĞÄÄ§", ({"xin mo", "mo", "daemon"}));
+    set("gender", random(5) ? "ç”·æ€§" : "å¥³æ€§");
+    set_name("å¿ƒé­”", ({"xin mo", "mo", "daemon"}));
     // set("age", 20 + random(40));
-    set("long", "ÕâÊÇÄãµÄĞÄÄ§¡£\n");
+    set("long", "è¿™æ˜¯ä½ çš„å¿ƒé­”ã€‚\n");
     set("attitude", "aggressive");
-    set("chat_chance", 1); // 1/120 µÄ»úÂÊ
+    set("chat_chance", 1); // 1/120 çš„æœºç‡
     set("chat_msg", ({ (: random_move :) }));
     set("chat_chance_combat", 120);
     set("scale", 100);
@@ -60,7 +60,7 @@ void set_from_me(object me, int scale)
 
     if ((x = (int)this_object()->query_skill("taoism", 1)) > 39 &&
         (y = (int)this_object()->query_skill("taiji-shengong", 1)) > 39)
-    { // Ì«¼«Éñ¹¦ÅäºÏµÀÑ§ĞÄ·¨¼ÓÆø
+    { // å¤ªæç¥åŠŸé…åˆé“å­¦å¿ƒæ³•åŠ æ°”
         if (x > 350)
             x = (x - 350) / 2 + 350;
         if (y > 350)
@@ -74,7 +74,7 @@ void set_from_me(object me, int scale)
     }
     else if ((x = (int)this_object()->query_skill("bihai-chaosheng", 1)) > 39 &&
              (y = (int)this_object()->query_skill("bibo-shengong", 1)) > 39)
-    { // ±Ì²¨Éñ¹¦ÅäºÏ±Ìº£³±ÉúÇú¼ÓÆø
+    { // ç¢§æ³¢ç¥åŠŸé…åˆç¢§æµ·æ½®ç”Ÿæ›²åŠ æ°”
         if (x > 250)
             x = (x - 250) / 2 + 250;
         if (y > 250)
@@ -126,16 +126,16 @@ void kill_ob(object ob)
     ::kill_ob(ob);
 }
 
-// µ±ÈÎÎñµÄNPCËÀÍöµÄÊ±ºò£¬¼ì²éÊÇ·ñ¿ÉÒÔ½øĞĞ½±ÀøÍæ¼Ò¡£
+// å½“ä»»åŠ¡çš„NPCæ­»äº¡çš„æ—¶å€™ï¼Œæ£€æŸ¥æ˜¯å¦å¯ä»¥è¿›è¡Œå¥–åŠ±ç©å®¶ã€‚
 void die(object killer)
 {
-    int lvl;        // NPCµÄµÈ¼¶
-    int exp;        // ĞèÒª¹Ï·ÖµÄ¾­Ñé
-    int pot;        // ĞèÒª¹Ï·ÖµÄÇ±ÄÜ
-    int weiwang;    // ĞèÒª¹Ï·ÖµÄÍşÍû
-    int score;      // ĞèÒª¹Ï·ÖµÄÔÄÀú
+    int lvl;        // NPCçš„ç­‰çº§
+    int exp;        // éœ€è¦ç“œåˆ†çš„ç»éªŒ
+    int pot;        // éœ€è¦ç“œåˆ†çš„æ½œèƒ½
+    int weiwang;    // éœ€è¦ç“œåˆ†çš„å¨æœ›
+    int score;      // éœ€è¦ç“œåˆ†çš„é˜…å†
 
-    // ÕÒµ½É±ÁËÎÒ(NPC)»òÊÇ´òÔÎÎÒµÄÈË
+    // æ‰¾åˆ°æ€äº†æˆ‘(NPC)æˆ–æ˜¯æ‰“æ™•æˆ‘çš„äºº
     if (!objectp(killer))
         killer = query_temp("last_opponent");
 
@@ -152,11 +152,11 @@ void die(object killer)
             "pot" : pot + random(3),
             "weiwang" : weiwang + random(3),
             "score" : score + random(3),
-            "prompt" : "»÷±Ğ" + name() + "Ö®ºó"
+            "prompt" : "å‡»æ¯™" + name() + "ä¹‹å"
         ]));
     }
 
-    // Õı³£ËÀÍö
+    // æ­£å¸¸æ­»äº¡
     ::die();
 
     return;
@@ -164,21 +164,21 @@ void die(object killer)
 
 int accept_fight(object ob)
 {
-    command("say ºÃ£¡ÔÛÃÇ¾Í±È»®±È»®£¡");
+    command("say å¥½ï¼å’±ä»¬å°±æ¯”åˆ’æ¯”åˆ’ï¼");
     kill_ob(ob);
     return 1;
 }
 
 int accept_hit(object ob)
 {
-    command("say ÄãËÀÈ¥°É£¡");
+    command("say ä½ æ­»å»å§ï¼");
     kill_ob(ob);
     return 1;
 }
 
 int accept_kill(object ob)
 {
-    command("say ºß£¡ÕÒËÀ£¡");
+    command("say å“¼ï¼æ‰¾æ­»ï¼");
     return 1;
 }
 

@@ -2,11 +2,11 @@
 inherit ITEM;
 void create()
 {
-        set_name(HIM "ÌìÏ¼Éñµ¤" NOR, ({"tianxia shendan", "dan"}));
+        set_name(HIM "å¤©éœžç¥žä¸¹" NOR, ({"tianxia shendan", "dan"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Á£");
+                set("unit", "ç²’");
                 set("value", 0);
                 set("only_do_effect", 1);
         }
@@ -20,11 +20,11 @@ int do_effect(object me)
         my = me->query_entire_dbase();
 
         if( me->is_busy() )
-                return notify_fail("¼±Ê²Ã´£¬Ð¡ÐÄ±ðÒ­×ÅÁË¡£\n");
+                return notify_fail("æ€¥ä»€ä¹ˆï¼Œå°å¿ƒåˆ«å™Žç€äº†ã€‚\n");
 
         me->set_temp("last_eat/dan(full)", time());
 
-        message_vision(HIY "$N" HIY "³ÔÏÂÒ»Á£ÌìÏ¼Éñµ¤£¬ÔÙÒ²¸Ð¾õ²»µ½ÈÎºÎÆ£±¹¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "åƒä¸‹ä¸€ç²’å¤©éœžç¥žä¸¹ï¼Œå†ä¹Ÿæ„Ÿè§‰ä¸åˆ°ä»»ä½•ç–²æƒ«ã€‚\n" NOR, me);
         me->set("jingli",me->query("max_jingli"));
         me->set("neili",me->query("max_neili"));
         me->set("jing",me->query("max_jing"));

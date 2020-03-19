@@ -4,10 +4,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("¹Ù±ø", ({ "guan bing", "bing" }));
+        set_name("å®˜å…µ", ({ "guan bing", "bing" }));
         set("age", 18 + random(10));
-        set("gender", "ÄĞĞÔ");
-        set("long","ÕıÔÚÊØ³ÇµÄ¹Ù±ø£¬Ç§Íò²»ÒªÕĞÈÇËûÃÇ£¬·ñÔò¿ÉÄÜ»áÓĞÉ±ÉíÖ®»ö¡£\n");
+        set("gender", "ç”·æ€§");
+        set("long","æ­£åœ¨å®ˆåŸçš„å®˜å…µï¼Œåƒä¸‡ä¸è¦æ‹›æƒ¹ä»–ä»¬ï¼Œå¦åˆ™å¯èƒ½ä¼šæœ‰æ€èº«ä¹‹ç¥¸ã€‚\n");
         set("attitude", "peaceful");
         set("shen_type", 1);
 	set("str", 20);
@@ -41,7 +41,7 @@ void init()
 
 int accept_fight(object me)
 {
-        message_vision("Ğ¡±ø¶Ô$NºÈµÀ£º´óµ¨µóÃñ£¬¾¹¸Ò¹¥»÷³¯Í¢Ãü¹Ù£¿\n", me);
+        message_vision("å°å…µå¯¹$Nå–é“ï¼šå¤§èƒ†åˆæ°‘ï¼Œç«Ÿæ•¢æ”»å‡»æœå»·å‘½å®˜ï¼Ÿ\n", me);
         kill_ob(me);
         return 1;
 }

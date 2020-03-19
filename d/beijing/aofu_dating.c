@@ -3,12 +3,12 @@ inherit ROOM;
 
 void create()
 {
-	set("short","÷¡¸®´óÌü");
+	set("short","é³Œåºœå¤§åŽ…");
 	set("long", @LONG
-ÕâÀïÊÇ÷¡°Ý¸®µÄ´óÌü£¬´óÌüÏàµ±µÄ¿í³¨Ã÷ÁÁ£¬ËÄÖÜµÄÇ½ÉÏÐü¹ÒÂúÁË¸÷³¯Ãû
-ÈËµÄÕæ¼££¬ÕýÌÃ×ø×ÅÒ»¸öÂúÃæò°Ðë£¬Éí²Ä¿ýÎà£¬Éí×Å»ÆÂí¹ÓµÄÖÐÄêÄÐ×Ó£¬¿´À´
-ÄÇ¾ÍÊÇµ±³¯µÚÒ»´ó³¼£¬±»Óù·âÎª¡°ÂúÖÞµÚÒ»ÓÂÊ¿¡±µÄ÷¡°ÝÁË¡£´óÌüÍù±±ÊÇÒ»Ìõ
-×ßÀÈ£¬ÄÇÊÇÍ¨Íù÷¡¸®µÄºóÔºËùÔÚ¡£
+è¿™é‡Œæ˜¯é³Œæ‹œåºœçš„å¤§åŽ…ï¼Œå¤§åŽ…ç›¸å½“çš„å®½æ•žæ˜Žäº®ï¼Œå››å‘¨çš„å¢™ä¸Šæ‚¬æŒ‚æ»¡äº†å„æœå
+äººçš„çœŸè¿¹ï¼Œæ­£å ‚åç€ä¸€ä¸ªæ»¡é¢è™¬é¡»ï¼Œèº«æé­æ¢§ï¼Œèº«ç€é»„é©¬è¤‚çš„ä¸­å¹´ç”·å­ï¼Œçœ‹æ¥
+é‚£å°±æ˜¯å½“æœç¬¬ä¸€å¤§è‡£ï¼Œè¢«å¾¡å°ä¸ºâ€œæ»¡æ´²ç¬¬ä¸€å‹‡å£«â€çš„é³Œæ‹œäº†ã€‚å¤§åŽ…å¾€åŒ—æ˜¯ä¸€æ¡
+èµ°å»Šï¼Œé‚£æ˜¯é€šå¾€é³Œåºœçš„åŽé™¢æ‰€åœ¨ã€‚
 LONG );
 	set("exits", ([
 		"north" :  __DIR__"aofu_zoulang2",
@@ -25,6 +25,6 @@ int valid_leave(object me, string dir)
 {
 	object ob;
 	if (objectp(ob = present("ao bai", environment(me))) && living(ob) && dir == "north")
-		return notify_fail("÷¡°Ý´óÉùºÈµÀ£ºËûÄÌÄÌµÄ£¬ÄãÒª¸ÉÂï£¿\n\n");
+		return notify_fail("é³Œæ‹œå¤§å£°å–é“ï¼šä»–å¥¶å¥¶çš„ï¼Œä½ è¦å¹²å˜›ï¼Ÿ\n\n");
 	return ::valid_leave(me, dir);
 }

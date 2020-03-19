@@ -15,11 +15,11 @@ int main(object me, string arg)
         mixed info;
 	int i, amount;
 
-	if (! arg) return notify_fail("ÄãÒª¸øË­Ê²Ã´¶«Î÷£¿\n");
+	if (! arg) return notify_fail("ä½ è¦ç»™è°ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
 	if (sscanf(arg, "%s to %s", item, target) == 2 ||
 	    sscanf(arg, "%s %s", target, item) == 2 );
-	else return notify_fail("ÄãÒª¸øË­Ê²Ã´¶«Î÷£¿\n");
+	else return notify_fail("ä½ è¦ç»™è°ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
 	if (! objectp(who = present(target, environment(me))))
         {
@@ -27,14 +27,14 @@ int main(object me, string arg)
 
                 if (sscanf(arg, "%s %s %s", ext, target, item) != 3 ||
                     ! objectp(who = present(ext + " " + target, environment(me))))
-		        return notify_fail("ÕâÀïÃ»ÓĞÕâ¸öÈË¡£\n");
+		        return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™ä¸ªäººã€‚\n");
         }
 
         if (me == who)
-                return notify_fail("Äã×Ô¼º¸ø×Ô¼º¶«Î÷¸ÉÂğ£¿\n");
+                return notify_fail("ä½ è‡ªå·±ç»™è‡ªå·±ä¸œè¥¿å¹²å—ï¼Ÿ\n");
 
         if (! living(who))
-                return notify_fail("Äã»¹ÊÇµÃµÈÈË¼ÒĞÑÁËÔÙËµ°É¡£\n");
+                return notify_fail("ä½ è¿˜æ˜¯å¾—ç­‰äººå®¶é†’äº†å†è¯´å§ã€‚\n");
 
 	if (playerp(me) && stringp(no_accept = who->query("env/no_accept")))
         {
@@ -43,29 +43,29 @@ int main(object me, string arg)
                     ! is_sub(me->query("id"), who->query("env/can_accept")))
                 {
                         // user refuse to accept
-		        return notify_fail("ÈË¼ÒÏÖÔÚ²»ÏëÒªÊ²Ã´¶«Î÷¡£\n");
+		        return notify_fail("äººå®¶ç°åœ¨ä¸æƒ³è¦ä»€ä¹ˆä¸œè¥¿ã€‚\n");
                 }
         }
 
 	if (sscanf(item, "%d %s", amount, item) == 2)
         {
 		if (! objectp(obj = present(item, me)))
-			return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+			return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
 		if (me->query_temp("is_riding") == obj)
-			return notify_fail("ÄãÕıÆï×ÅËüÄØ¡£\n");
+			return notify_fail("ä½ æ­£éª‘ç€å®ƒå‘¢ã€‚\n");
 
 		if (info = obj->query("no_drop"))
-			return notify_fail(stringp(info) ? info : "ÕâÑù¶«Î÷²»ÄÜËæ±ã¸øÈË¡£\n");
+			return notify_fail(stringp(info) ? info : "è¿™æ ·ä¸œè¥¿ä¸èƒ½éšä¾¿ç»™äººã€‚\n");
 
 		if (! obj->query_amount())
-			return notify_fail( obj->name() + "²»ÄÜ±»·Ö¿ª¸øÈË¡£\n");
+			return notify_fail( obj->name() + "ä¸èƒ½è¢«åˆ†å¼€ç»™äººã€‚\n");
 
 		if (amount < 1)
-			return notify_fail("¶«Î÷µÄÊıÁ¿ÖÁÉÙÊÇÒ»¸ö¡£\n");
+			return notify_fail("ä¸œè¥¿çš„æ•°é‡è‡³å°‘æ˜¯ä¸€ä¸ªã€‚\n");
 
 		if (amount > obj->query_amount() )
-			return notify_fail("ÄãÃ»ÓĞÄÇÃ´¶àµÄ" + obj->name() + "¡£\n");
+			return notify_fail("ä½ æ²¡æœ‰é‚£ä¹ˆå¤šçš„" + obj->name() + "ã€‚\n");
 
 		else if (amount == (int)obj->query_amount())
                 {
@@ -91,7 +91,7 @@ int main(object me, string arg)
 	if (item == "all")
         {
                 if (time() - me->query_temp("give_all") < 5)
-                        return notify_fail("Çë²»ÒªÆµ·±µÄÊ¹ÓÃ all ²ÎÊı¡£\n");
+                        return notify_fail("è¯·ä¸è¦é¢‘ç¹çš„ä½¿ç”¨ all å‚æ•°ã€‚\n");
 
 		inv = all_inventory(me);
 		for (amount = 0, i = 0; i < sizeof(inv); i++)
@@ -103,24 +103,24 @@ int main(object me, string arg)
 		}
                 if (! amount)
 		{
-                        write("ÄãÊ²Ã´¶¼Ã»ÓĞ¸ø³öÈ¥¡£\n");
+                        write("ä½ ä»€ä¹ˆéƒ½æ²¡æœ‰ç»™å‡ºå»ã€‚\n");
 			return 1;
 		}
                 if (userp(me) && userp(who))
-                        log_file("static/give", sprintf("  %s  %s×ªÒÆËùÓĞ"
-                                 "ÎïÆ·ÖÁ    %s\n", log_time(), log_id(me),
+                        log_file("static/give", sprintf("  %s  %sè½¬ç§»æ‰€æœ‰"
+                                 "ç‰©å“è‡³    %s\n", log_time(), log_id(me),
                                  log_id(who)));
 
-		write("¸øÍêÁË¡£\n");
+		write("ç»™å®Œäº†ã€‚\n");
                 me->set_temp("give_all", time());
 		return 1;
 	}
 
 	if (! objectp(obj = present(item, me)))
-		return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
 	if (me->query_temp("is_riding") == obj)
-		return notify_fail("ÄãÕıÆï×ÅËüÄØ¡£\n");
+		return notify_fail("ä½ æ­£éª‘ç€å®ƒå‘¢ã€‚\n");
 
 	do_give(me, obj, who);
         return 1;
@@ -130,34 +130,34 @@ int do_give(object me, object obj, object who)
 {
 	if (obj->query("no_drop"))
         {
-		tell_object(me, "ÕâÑù¶«Î÷²»ÄÜËæ±ã¸øÈË¡£\n");
+		tell_object(me, "è¿™æ ·ä¸œè¥¿ä¸èƒ½éšä¾¿ç»™äººã€‚\n");
                 return 0;
         }
 
 	if (living(obj))
 	{
-		tell_object(me, "ÌìÄÄ£¡ÄãÔõÃ´Á¬»îÈËÉúÒâÒ²×ö£¿\n");
+		tell_object(me, "å¤©å“ªï¼ä½ æ€ä¹ˆè¿æ´»äººç”Ÿæ„ä¹Ÿåšï¼Ÿ\n");
 		return 0;
 	}
 
 	switch ((string)obj->query("equipped"))
 	{
 	case "worn":
-		tell_object(me, obj->name() + "±ØĞëÍÑÏÂÀ´²ÅÄÜ¸ø±ğÈË¡£\n");
+		tell_object(me, obj->name() + "å¿…é¡»è„±ä¸‹æ¥æ‰èƒ½ç»™åˆ«äººã€‚\n");
                 return 0;
 
 	case "wielded":
-                tell_object(me, obj->name() + "±ØĞë½â³ı×°±¸²ÅÄÜ¸ø±ğÈË¡£\n");
+                tell_object(me, obj->name() + "å¿…é¡»è§£é™¤è£…å¤‡æ‰èƒ½ç»™åˆ«äººã€‚\n");
                 return 0;
 	}
 		
-        message_vision("$NÄÃ³ö" + obj->short() + "¸ø$n¡£\n", me, who);
+        message_vision("$Næ‹¿å‡º" + obj->short() + "ç»™$nã€‚\n", me, who);
 	if (! playerp(who))
         {
                 function f;
                 int r;
 
-                // ½ÓÊÜÎïÆ·µÄÊ±ºòÊ×ÏÈÅĞ¶ÏÊÇ·ñÓĞÖØÔØµÄ½ÓÊÕº¯Êı
+                // æ¥å—ç‰©å“çš„æ—¶å€™é¦–å…ˆåˆ¤æ–­æ˜¯å¦æœ‰é‡è½½çš„æ¥æ”¶å‡½æ•°
                 f = who->query_temp("override/accept_object", 1);
                 if (functionp(f))
                         r = (*f)(who, me, obj);
@@ -165,8 +165,8 @@ int do_give(object me, object obj, object who)
                         r = 0;
 
                 if (! r)
-                        // ÖØÔØµÄº¯Êı²»½ÓÊÜ£¬Ò²²»´¦Àí(·µ»Ø-1)
-                        // ÄÇÃ´¾Íµ÷ÓÃaccept_object½øĞĞ´¦Àí
+                        // é‡è½½çš„å‡½æ•°ä¸æ¥å—ï¼Œä¹Ÿä¸å¤„ç†(è¿”å›-1)
+                        // é‚£ä¹ˆå°±è°ƒç”¨accept_objectè¿›è¡Œå¤„ç†
                         r = who->accept_object(me, obj);
 
                 if (! objectp(who))
@@ -175,7 +175,7 @@ int do_give(object me, object obj, object who)
                 switch (r)
                 {
                 case 0:
-                        message_vision("$n²»¿ÏÒª$NµÄ" + obj->name() + "¡£\n", me, who);
+                        message_vision("$nä¸è‚¯è¦$Nçš„" + obj->name() + "ã€‚\n", me, who);
         		return 0;
                 case -1:
                         // The receiver will handle all the things
@@ -192,14 +192,14 @@ int do_give(object me, object obj, object who)
 
 	if (! playerp(who) && obj->value())
         {
-		message_vision("$n½Ó¹ıÁË$NµÄ" + obj->short() + "¡£\n", me, who);
+		message_vision("$næ¥è¿‡äº†$Nçš„" + obj->short() + "ã€‚\n", me, who);
 		destruct(obj);
 		return 1;
 	}
 
         if (! obj->move(who))
         {
-                message_vision("È»¶ø$nÃ»ÄÜÄÃ×¡$NµÄ" + obj->name() + "¡£\n", me, who);
+                message_vision("ç„¶è€Œ$næ²¡èƒ½æ‹¿ä½$Nçš„" + obj->name() + "ã€‚\n", me, who);
                 return 0;
         }
 
@@ -209,10 +209,10 @@ int do_give(object me, object obj, object who)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½£ºgive <ÎïÆ·Ãû³Æ> | all to <Ä³ÈË>
-          give <Ä³ÈË> <ÎïÆ·Ãû³Æ> | all
+æŒ‡ä»¤æ ¼å¼ï¼šgive <ç‰©å“åç§°> | all to <æŸäºº>
+          give <æŸäºº> <ç‰©å“åç§°> | all
  
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã½«Ä³ÑùÎïÆ·¸ø±ğÈË£¬µ±È»£¬Ê×ÏÈÄãÒªÓµÓĞÕâÑùÎïÆ·¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ å°†æŸæ ·ç‰©å“ç»™åˆ«äººï¼Œå½“ç„¶ï¼Œé¦–å…ˆä½ è¦æ‹¥æœ‰è¿™æ ·ç‰©å“ã€‚
  
 HELP);
         return 1;

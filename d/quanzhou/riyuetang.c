@@ -5,10 +5,10 @@ inherit ROOM;
 
 void create()
 {
-    set("short", "����̶");
+    set("short", "日月潭");
     set("long", @LONG
-��廷������ˮ�α̵�����̶��̶���������֣�̶��
-�������£�Ϊ̨�����ʤ�ء�
+翠峰环抱，湖水澄碧的日月潭，潭北形如日轮，潭南
+弯曲如月，为台湾避暑胜地。
 LONG );
     set("exits", ([
                 "westdown" : __DIR__"chiqian",

@@ -2,12 +2,12 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "Î÷´ó½Ö");
+	set("short", "è¥¿å¤§è¡—");
 	set("long", @LONG
-ÕâÊÇÒ»Ìõ¿íÀ«µÄÇàÊ¯°å½ÖµÀ£¬Ïò¶«Î÷Á½Í·ÑÓÉì¡£Î÷±ßÊÇÒ»
-¸ö´óÊ®×Ö½Ö¿Ú¡£¶«ÃæÊÇÏåÑôµÄÖÐÑë¹ã³¡£¬±±±ßÊÇÈË³Æ¹ù´óÏÀ¹ù
-¾¸µÄ¸®Û¡´óÃÅ£¬²»Ê±µØÓÐÈË´ÓÄÇÀï½ø½ø³ö³ö¡£ÄÏÃæÊÇÒ»¼Òµ±ÆÌ£¬
-ÌýËµÀïÃæ³£ÄÜÂòµ½ÄãËùÐèµÄ¶«Î÷¡£
+è¿™æ˜¯ä¸€æ¡å®½é˜”çš„é’çŸ³æ¿è¡—é“ï¼Œå‘ä¸œè¥¿ä¸¤å¤´å»¶ä¼¸ã€‚è¥¿è¾¹æ˜¯ä¸€
+ä¸ªå¤§åå­—è¡—å£ã€‚ä¸œé¢æ˜¯è¥„é˜³çš„ä¸­å¤®å¹¿åœºï¼ŒåŒ—è¾¹æ˜¯äººç§°éƒ­å¤§ä¾ éƒ­
+é–çš„åºœé‚¸å¤§é—¨ï¼Œä¸æ—¶åœ°æœ‰äººä»Žé‚£é‡Œè¿›è¿›å‡ºå‡ºã€‚å—é¢æ˜¯ä¸€å®¶å½“é“ºï¼Œ
+å¬è¯´é‡Œé¢å¸¸èƒ½ä¹°åˆ°ä½ æ‰€éœ€çš„ä¸œè¥¿ã€‚
 LONG );
         set("outdoors", "xiangyang");
 	set("no_clean_up", 0);

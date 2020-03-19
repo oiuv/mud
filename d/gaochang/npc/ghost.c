@@ -2,9 +2,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("¹Â»êÒ°¹í", ({ "ghost" }));
-        set("long", "Ëû¿´ÆğÀ´ÈôÓĞÈôÎŞ£¬çÎç¿²»¶¨¡£Ò»ÉíÓĞËµ²»³öµÄ¹îÒì¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("å­¤é­‚é‡é¬¼", ({ "ghost" }));
+        set("long", "ä»–çœ‹èµ·æ¥è‹¥æœ‰è‹¥æ— ï¼Œç¼¥ç¼ˆä¸å®šã€‚ä¸€èº«æœ‰è¯´ä¸å‡ºçš„è¯¡å¼‚ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("attitude", "aggressive");
         set("age", 100);
         set("shen_type", 1);

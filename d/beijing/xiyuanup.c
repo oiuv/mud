@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ϷԺ��̨");
+	set("short", "戏院后台");
 	set("long", @LONG
-�����ǳ���ϷԺ�ĺ�̨����̨����ȴ��ɨ�úܸɾ�������Ϸ�����ں�̨
-��ױ�����������ˣ����ú���ֵ��������㡣
+这里是长安戏院的后台，后台不大，却打扫得很干净。几个戏子正在后台
+化妆，看见你来了，都用很奇怪的眼神盯着你。
 LONG );
 	set("exits", ([
 		"south" : __DIR__"xiyuan",

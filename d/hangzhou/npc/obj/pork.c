@@ -1,18 +1,18 @@
-// pork.c ¶«ÆÂÈâ
+// pork.c ä¸œå¡è‚‰
 #include <ansi.h>
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-        set_name(RED"¶«ÆÂÈâ"NOR, ({"pork"}));
+        set_name(RED"ä¸œå¡è‚‰"NOR, ({"pork"}));
         set_weight(1000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»ÍëÏãÅçÅçµÄ¶«ÆÂÈâ£¬ÓÃÎÄ»ğìĞ·ÊÖíÈâ¶ø³É£¬
-ËÕ¶«ÆÂÔÚÄÁÊØº¼ÖİÊ±¿´µ½Ãñ¼ä³ÔÈâ¶øÉÕÖÆ²»µÃ·¨£¬ÒÅ»İ´Ë·¨ÖÁÇ§ÄêÒÔÏÂ¡£\n");
-                set("unit", "Íë");
+                set("long", "ä¸€ç¢—é¦™å–·å–·çš„ä¸œå¡è‚‰ï¼Œç”¨æ–‡ç«ç…¨è‚¥çŒªè‚‰è€Œæˆï¼Œ
+è‹ä¸œå¡åœ¨ç‰§å®ˆæ­å·æ—¶çœ‹åˆ°æ°‘é—´åƒè‚‰è€Œçƒ§åˆ¶ä¸å¾—æ³•ï¼Œé—æƒ æ­¤æ³•è‡³åƒå¹´ä»¥ä¸‹ã€‚\n");
+                set("unit", "ç¢—");
                 set("value", 120);
                 set("food_remaining", 10);
                 set("food_supply", 100);

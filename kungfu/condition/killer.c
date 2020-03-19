@@ -4,10 +4,10 @@ int update_condition(object me, int duration)
 {
 	if (duration < 1)
         {
-		tell_object(me, "¹Ù¸®²»ÔÙÍ¨¼©ÄãÁË£¡\n");
+		tell_object(me, "å®˜åºœä¸å†é€šç¼‰ä½ äº†ï¼\n");
                 CHANNEL_D->do_channel(this_object(), "rumor",
-                        "ÒòÎª" + me->name(1) + "Ò»Ö±Ã»ÄÜ±»" +
-                        "¼©ÄÃ¹é°¸£¬ÌýËµ¹Ù¸®ÒÑ¾­È¡ÏûÁËÍ¨¼©Áî¡£");
+                        "å› ä¸º" + me->name(1) + "ä¸€ç›´æ²¡èƒ½è¢«" +
+                        "ç¼‰æ‹¿å½’æ¡ˆï¼Œå¬è¯´å®˜åºœå·²ç»å–æ¶ˆäº†é€šç¼‰ä»¤ã€‚");
 		return 0;
 	}
 	me->apply_condition("killer", duration - 1);

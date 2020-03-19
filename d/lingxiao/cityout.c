@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "城外");
         set("long", @LONG
-�����������ǵĳ��⣬����������ǰ���Ǹ��ʵĳ�ǽ������
-������ӳ����ߣ���ҪԽǽ���룬�ǲ�̫���ܵġ���������Ұ��
-�ܶ࣬���Բ���ʲô��ȫ�ĵط������ǸϿ���ǰɡ�
+这里是凌霄城的城外，出现在你面前的是高耸的城墙，看来
+如果不从城门走，想要越墙而入，是不太可能的。凌霄城外野狼
+很多，绝对不是什么安全的地方，还是赶快进城吧。
 LONG);
         set("outdoors", "lingxiao");
         set("exits", ([

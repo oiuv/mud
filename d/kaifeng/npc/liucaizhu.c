@@ -2,9 +2,9 @@ inherit NPC;
 
 void create()
 {
-	set_name("Áõ²ÆÖ÷", ({"liu caizhu", "liu", "caizhu"}));
-        set("long", "¿ª·â¸®ÖĞµÄ¸»»§¡£\n" );
-        set("gender", "ÄĞĞÔ");
+	set_name("åˆ˜è´¢ä¸»", ({"liu caizhu", "liu", "caizhu"}));
+        set("long", "å¼€å°åºœä¸­çš„å¯Œæˆ·ã€‚\n" );
+        set("gender", "ç”·æ€§");
         set("attitude", "peace");
         set("age", 42);
         set("str", 20);

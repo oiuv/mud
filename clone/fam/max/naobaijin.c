@@ -4,15 +4,15 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIW "ÄÔ°×½ð" NOR, ({ "nao baijin", "nao", "baijin" }) );
+        set_name(HIW "è„‘ç™½é‡‘" NOR, ({ "nao baijin", "nao", "baijin" }) );
         set_weight(300);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIW "ÉÏÃæÐ´×Å¡¸" HIY "½ñÄêÎÒ¼Ò²»ÊÕÀñ£¬ÊÕÀñÖ»"
-                            "ÊÕÄÔ°×½ð" HIW "¡¹¿´Ñù×ÓÊÇ¸ß¼¶»õ¡£\n" NOR);
+                set("long", HIW "ä¸Šé¢å†™ç€ã€Œ" HIY "ä»Šå¹´æˆ‘å®¶ä¸æ”¶ç¤¼ï¼Œæ”¶ç¤¼åª"
+                            "æ”¶è„‘ç™½é‡‘" HIW "ã€çœ‹æ ·å­æ˜¯é«˜çº§è´§ã€‚\n" NOR);
                 set("value", 500000);
-                set("unit", "ºÐ");
+                set("unit", "ç›’");
                 set("only_do_effect", 1);
         }
 }
@@ -23,13 +23,13 @@ int do_effect(object me)
         int effect;
 //      int neili;
 
-        log_file("static/using", sprintf("%s(%s) eat ÄÔ°×½ð at %s.\n",
+        log_file("static/using", sprintf("%s(%s) eat è„‘ç™½é‡‘ at %s.\n",
                  me->name(1), me->query("id"), ctime(time())));
 
         effect = 0;
 
-       	message_vision(HIW "$N" HIW "¹þ¹þÒ»Ð¦£¬½«Ò»ÕûºÐÄÔ°×½ðÁ¬Í¬"
-                       "ºÐ×ÓÒ»¿éÍÌÏÂ¶ÇÈ¥¡£\n" NOR, me);
+       	message_vision(HIW "$N" HIW "å“ˆå“ˆä¸€ç¬‘ï¼Œå°†ä¸€æ•´ç›’è„‘ç™½é‡‘è¿žåŒ"
+                       "ç›’å­ä¸€å—åžä¸‹è‚šåŽ»ã€‚\n" NOR, me);
 
        	me->add("combat_exp", 100000);
        	me->add("potential", 10000);

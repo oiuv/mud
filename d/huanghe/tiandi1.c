@@ -6,10 +6,10 @@
 inherit ROOM;
 void create()
 {
-	set("short", "���");
+	set("short", "田地");
 	set("long", @LONG
-������ľ����ϡ�裬��Զ����һЩ��ׯ�������������𡣴�ׯ��Χ
-��һ������أ�������һЩ���ڸ�����ũ�ˡ�
+这里林木渐渐稀疏，不远处有一些村庄，炊烟袅袅升起。村庄周围
+是一块块的田地，田里有一些正在耕作的农人。
 LONG );
 	set("exits", ([
 		"south" : __DIR__"shulin3",

@@ -7,17 +7,17 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÊØËÂÉ®±ø", ({
+	set_name("å®ˆå¯ºåƒ§å…µ", ({
 		"seng bing",
 		"seng",
 		"bing",
 	}));
 	set("long",
-		"ËûÊÇÒ»Î»Éí²Ä¸ß´óµÄ×³ÄêÉ®ÈË£¬Á½±Û´Ö×³£¬°òÀ«ÑüÔ²¡£ËûÊÖ³Ö±ø\n"
-		"ÈÐ£¬Éí´©Ò»Ï®»Ò²¼Ïâ±ßôÂôÄ£¬ËÆºõÓÐÒ»ÉíÎäÒÕ¡£\n"
+		"ä»–æ˜¯ä¸€ä½èº«æé«˜å¤§çš„å£®å¹´åƒ§äººï¼Œä¸¤è‡‚ç²—å£®ï¼Œè†€é˜”è…°åœ†ã€‚ä»–æ‰‹æŒå…µ\n"
+		"åˆƒï¼Œèº«ç©¿ä¸€è¢­ç°å¸ƒé•¶è¾¹è¢ˆè£Ÿï¼Œä¼¼ä¹Žæœ‰ä¸€èº«æ­¦è‰ºã€‚\n"
 	);
 
-	set("gender", "ÄÐÐÔ");
+	set("gender", "ç”·æ€§");
 	set("attitude", "peaceful");
 	set("class", "bonze");
 
@@ -70,16 +70,16 @@ void init()
 	if (interactive(ob) 
 	&& !environment(ob)->query("no_fight")
 	&& !present("yingxiong ling", ob) 
-	&& ( (fam = ob->query("family")) && fam["family_name"] != "ÉÙÁÖÅÉ" ) )
+	&& ( (fam = ob->query("family")) && fam["family_name"] != "å°‘æž—æ´¾" ) )
 	{
 		if( !ob->query_temp("warned") ) {
-			command("say ÄãÊÇË­£¿  ÔõÃ´´³µ½ÉÙÁÖËÂÀïÀ´ÁË£¿£¡");
-			command("say ¿ì¸øÎÒËÙËÙÀë¿ª£¬ÏÂ´Î¿´µ½¾ö²»ÇáÈÄ£¡");
+			command("say ä½ æ˜¯è°ï¼Ÿ  æ€Žä¹ˆé—¯åˆ°å°‘æž—å¯ºé‡Œæ¥äº†ï¼Ÿï¼");
+			command("say å¿«ç»™æˆ‘é€Ÿé€Ÿç¦»å¼€ï¼Œä¸‹æ¬¡çœ‹åˆ°å†³ä¸è½»é¥¶ï¼");
 			ob->set_temp("warned", 1);
 		}
 		else if( ob->query_temp("stay") < 10 ) ob->add_temp("stay", 1);
 		else {
-			command("say ´óµ¨¿ñÍ½£¬¾¹¸Ò´³µ½ÉÙÁÖËÂÀïÀ´ÈöÒ°£¡£¡£¡\n");
+			command("say å¤§èƒ†ç‹‚å¾’ï¼Œç«Ÿæ•¢é—¯åˆ°å°‘æž—å¯ºé‡Œæ¥æ’’é‡Žï¼ï¼ï¼\n");
 			me->set_leader(ob);
 			remove_call_out("kill_ob");
 			call_out("kill_ob", 1, ob); 

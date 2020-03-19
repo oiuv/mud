@@ -13,8 +13,8 @@ string memory_expression(int m);
 void create()
 {
         seteuid(ROOT_UID);
-        set("channel_id", "ÄÚ´æ¾«Áé");
-        CHANNEL_D->do_channel( this_object(), "sys", "ÄÚ´æ¼ÇÂ¼¾«ÁéÒÑ¾­Æô¶¯¡£");
+        set("channel_id", "å†…å­˜ç²¾çµ");
+        CHANNEL_D->do_channel( this_object(), "sys", "å†…å­˜è®°å½•ç²¾çµå·²ç»å¯åŠ¨ã€‚");
         recordmem();
 }
 
@@ -29,7 +29,7 @@ void recordmem()
 
         uptime = "/cmds/usr/uptime"->main("-r");
 
-        log_file("meminfo",  sprintf("\nÔËĞĞÊ±¼ä£º%sÏûºÄÄÚ´æ£º%s\n",
+        log_file("meminfo",  sprintf("\nè¿è¡Œæ—¶é—´ï¼š%sæ¶ˆè€—å†…å­˜ï¼š%s\n",
                                      uptime, memcost) );
        
 }

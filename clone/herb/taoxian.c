@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(NOR + MAG "ÌÒÏÉ" NOR, ({ "tao xian", "tao", "xian", "herb_taoxian" }));
+        set_name(NOR + MAG "æ¡ƒä»™" NOR, ({ "tao xian", "tao", "xian", "herb_taoxian" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + MAG "ÌÒÏÉÊÇ³£¼ûµÄÖĞÒ©Ò©²Ä¡£\n" NOR);
-                set("base_unit", "¿é");
+                set("long", NOR + MAG "æ¡ƒä»™æ˜¯å¸¸è§çš„ä¸­è¯è¯æã€‚\n" NOR);
+                set("base_unit", "å—");
                 set("base_value", 5000);
                 set("base_weight", 40);
         }

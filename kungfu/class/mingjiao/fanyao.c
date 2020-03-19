@@ -11,14 +11,14 @@ string ask_me();
 
 void create()
 {
-	set_name("·¶Ò£", ({ "fan yao", "fan", "yao" }));
+	set_name("èŒƒé¥", ({ "fan yao", "fan", "yao" }));
 	set("long",
-        	"ËûÊÇÒ»Î»´ø·¢ĞŞĞĞµÄÍ·ÍÓ£¬Éí´©°×²¼³¤ÅÛ¡£\n"
-        	"ËûµÄÁ³ÉÏÆßÆß°Ë°ËµÄÈ«ÊÇÉË°Ì£¬¼òÖ±¿´²»³ö±¾À´ÃæÄ¿ÁË¡£\n"
+        	"ä»–æ˜¯ä¸€ä½å¸¦å‘ä¿®è¡Œçš„å¤´é™€ï¼Œèº«ç©¿ç™½å¸ƒé•¿è¢ã€‚\n"
+        	"ä»–çš„è„¸ä¸Šä¸ƒä¸ƒå…«å…«çš„å…¨æ˜¯ä¼¤ç–¤ï¼Œç®€ç›´çœ‹ä¸å‡ºæœ¬æ¥é¢ç›®äº†ã€‚\n"
 	);
 
-	set("title",HIR "Ã÷½Ì" HIG "¹âÃ÷ÓÒÊ¹" NOR);
-	set("gender", "ÄĞĞÔ");
+	set("title",HIR "æ˜æ•™" HIG "å…‰æ˜å³ä½¿" NOR);
+	set("gender", "ç”·æ€§");
 	set("attitude", "peaceful");
 	set("class", "bonze");
 
@@ -72,7 +72,7 @@ void create()
 		(: prepare_skill("strike", "sanhua-zhang") :),
 	}) );
 
-	create_family("Ã÷½Ì", 0, "¹âÃ÷ÓÒÊ¹");
+	create_family("æ˜æ•™", 0, "å…‰æ˜å³ä½¿");
 
 	set("coagents", ({
                 ([ "startroom" : "/d/mingjiao/dadian",

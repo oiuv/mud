@@ -3,9 +3,9 @@ inherit WORM;
 
 void create()
 {
-        set_name(HIY "�������" NOR, ({ "jinxian wugong", "jinxian", "wugong" }));
-        set("long", HIY "����һֻ��ɫ����򼣬������һ��Ѫ�ߡ�\n" NOR);
-        set("race", "Ұ��");
+        set_name(HIY "金线蜈蚣" NOR, ({ "jinxian wugong", "jinxian", "wugong" }));
+        set("long", HIY "这是一只金色的蜈蚣，背部有一条血线。\n" NOR);
+        set("race", "野兽");
         set("age", random(200)+100);
         set("attitude", "peaceful");
 
@@ -14,7 +14,7 @@ void create()
 
         set("str", 40);
         set("con", 30);
-        set("limbs", ({ "ͷ��", "����", "β��" }));
+        set("limbs", ({ "头部", "身体", "尾巴" }));
         set("verbs", ({ "bite" }));
 
         set("worm_poison", ([
@@ -36,6 +36,6 @@ void create()
 
 void die()
 {
-        message_vision(HIR "\n$N" HIR "���ڵ��ϣ����ˡ�\n\n" NOR, this_object());
+        message_vision(HIR "\n$N" HIR "倒在地上，死了。\n\n" NOR, this_object());
         destruct(this_object());
 }

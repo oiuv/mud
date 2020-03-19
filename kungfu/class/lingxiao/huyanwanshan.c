@@ -6,11 +6,11 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ºôÑÓÍòÉÆ", ({"huyan wanshan", "huyan", "wanshan"}));
-        set("long", "ºôÑÓÍòÉÆÄËÁèÏü³ÇÑ©É½½£ÅÉÁù´úµÜ×ÓÖÐ½ÏÎª³öÉ«µÄ\n"
-                    "Ò»Î»£¬Æ½Ê±ÉîµÃÊ¦¸¸µÄÏ²°®¡£Ö»¼ûËûÐÛ×ËÓ¢·¢£¬¾«\n"
-                    "Éñ¶¶ËÓ£¬Ò»¿´±ãÖªÎä¹¦²»Èõ¡£\n");
-        set("gender", "ÄÐÐÔ");
+        set_name("å‘¼å»¶ä¸‡å–„", ({"huyan wanshan", "huyan", "wanshan"}));
+        set("long", "å‘¼å»¶ä¸‡å–„ä¹ƒå‡Œå®µåŸŽé›ªå±±å‰‘æ´¾å…­ä»£å¼Ÿå­ä¸­è¾ƒä¸ºå‡ºè‰²çš„\n"
+                    "ä¸€ä½ï¼Œå¹³æ—¶æ·±å¾—å¸ˆçˆ¶çš„å–œçˆ±ã€‚åªè§ä»–é›„å§¿è‹±å‘ï¼Œç²¾\n"
+                    "ç¥žæŠ–æ“žï¼Œä¸€çœ‹ä¾¿çŸ¥æ­¦åŠŸä¸å¼±ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 32);
         set("attitude", "friendly");
         set("shen_type", 1);
@@ -49,7 +49,7 @@ void create()
         prepare_skill("strike", "piaoxu-zhang");
         prepare_skill("cuff", "lingxiao-quan");
 
-        create_family("ÁèÏö³Ç", 6, "µÜ×Ó");
+        create_family("å‡Œéœ„åŸŽ", 6, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -71,6 +71,6 @@ void attempt_apprentice(object me)
         if (! permit_recruit(me))
                 return;
 
-        command("say ºÜºÃ£¬ÄãÒÔºó¾Í¸ú×ÅÎÒ°É¡£");
+        command("say å¾ˆå¥½ï¼Œä½ ä»¥åŽå°±è·Ÿç€æˆ‘å§ã€‚");
         command("recruit " + me->query("id"));
 }

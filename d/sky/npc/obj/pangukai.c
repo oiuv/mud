@@ -3,13 +3,13 @@
 inherit ARMOR;
 void create()
 {
-        set_name( WHT "ÅÌ¹Åîø" NOR,  ({ "pangu kai", "kai", "armor" }));
+        set_name( WHT "ç›˜å¤é“ " NOR,  ({ "pangu kai", "kai", "armor" }));
         set_weight(10000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼û");
-                set("long", "Ò»¼ûºÚ÷î÷îµÄÌú¼×£¬ÉÏÃæµñÓĞÅÌ¹ÅµÄÍ·Ïñ¡£\n");
+                set("unit", "è§");
+                set("long", "ä¸€è§é»‘é»é»çš„é“ç”²ï¼Œä¸Šé¢é›•æœ‰ç›˜å¤çš„å¤´åƒã€‚\n");
                 set("value", 100000);
                 set("material", "cloth");
                 set("armor_prop/armor", 200);

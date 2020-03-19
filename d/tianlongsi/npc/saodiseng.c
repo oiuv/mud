@@ -4,9 +4,9 @@ inherit KNOWER;
 
 void create()
 {
-    set_name("É¨µØÉ®", ({ "saodi seng", "saodi", "seng" }));
-    set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
-    set("gender", "ÄĞĞÔ" );
+    set_name("æ‰«åœ°åƒ§", ({ "saodi seng", "saodi", "seng" }));
+    set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
+    set("gender", "ç”·æ€§" );
     set("class", "bonze");
     set("age", 100);
     set("shen_type", 1);

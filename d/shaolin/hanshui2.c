@@ -3,12 +3,12 @@ inherit RIVER;
 
 void create()
 {
-        set("short", "��ˮ����");
+        set("short", "汉水北岸");
         set("long", @LONG
-��ˮ����Ҳ���൱���֣��Ա����ɿ�������һ����ֱ�Ĺ�
-��ֱͨ�������˵���紾�ӣ�·�Լ������������������Ҷ���
-����ġ��ơ���ӭ��Ʈ�εΪ׳�ۡ�Ҳ�в���С����·��
-������ѱ棬ȴҲ����ʢ����ȴ��
+汉水北岸也是相当热闹，自北岸渡口往北，一条笔直的官
+道直通南阳。此地民风淳朴，路旁夹柳成阴酒厮林立，且都有
+面大大的「酒」旗迎风飘扬，蔚为壮观。也有不少小贩沿路叫
+买，语多难辨，却也令人盛情难却。
 LONG);
         set("arrive_room", "/d/shaolin/hanshui1");
         set("exits", ([

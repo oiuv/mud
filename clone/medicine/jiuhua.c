@@ -5,12 +5,12 @@
 
 void create()
 {
-        set_name(HIG "¾Å»¨ÓñÂ¶Íè" NOR, ({"jiuhua wan", "wan"}));
+        set_name(HIG "ä¹èŠ±çŽ‰éœ²ä¸¸" NOR, ({"jiuhua wan", "wan"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIG "ÕâÊÇÒ»¿Å¾§Ó¨ÌÞÍ¸µÄ¾Å»¨ÓñÂ¶Íè£¬¾ßÓÐÉñÆæµÄÁÆÐ§¡£\n" NOR);
-                set("base_unit", "¿Å");
+                set("long", HIG "è¿™æ˜¯ä¸€é¢—æ™¶èŽ¹å‰”é€çš„ä¹èŠ±çŽ‰éœ²ä¸¸ï¼Œå…·æœ‰ç¥žå¥‡çš„ç–—æ•ˆã€‚\n" NOR);
+                set("base_unit", "é¢—");
                 set("base_value", 8000);
                 set("base_weight", 80);
                 set("only_do_effect", 1);
@@ -43,17 +43,17 @@ int do_effect(object me)
 
         if (time() - me->query_temp("last_eat/jiuhua") < 120)
         {
-                write("Äã¸Õ·þÓÃ¹ýÒ©£¬ÐèÒ©ÐÔ·¢»ÓÍêÐ§ÓÃÒÔºó²ÅÄÜ¼ÌÐø·þÓÃ¡£\n");
+                write("ä½ åˆšæœç”¨è¿‡è¯ï¼Œéœ€è¯æ€§å‘æŒ¥å®Œæ•ˆç”¨ä»¥åŽæ‰èƒ½ç»§ç»­æœç”¨ã€‚\n");
                 return 1;
         }
 
         me->set_temp("last_eat/jiuhua", time());
 
-        message_vision(HIG "$N" HIG "ÂýÂý·þÏÂÒ»¿Å" + name() +
-                       HIG "£¬ºôÎüÍÂÄÉ£¬½«µ¤Ò©Ð§Á¦È«ÊýÎüÊÕ¡£\n" NOR, me);
-        tell_object(me, HIG "²»Ò»»á¶ùÄãÖ»¾õµÃ¾«Éñ±¥Âú£¬ÉñÆøÍê×ã£¬ÄÚÁ¦³äÅæÖ®¼«¡£\n" NOR);
+        message_vision(HIG "$N" HIG "æ…¢æ…¢æœä¸‹ä¸€é¢—" + name() +
+                       HIG "ï¼Œå‘¼å¸åçº³ï¼Œå°†ä¸¹è¯æ•ˆåŠ›å…¨æ•°å¸æ”¶ã€‚\n" NOR, me);
+        tell_object(me, HIG "ä¸ä¸€ä¼šå„¿ä½ åªè§‰å¾—ç²¾ç¥žé¥±æ»¡ï¼Œç¥žæ°”å®Œè¶³ï¼Œå†…åŠ›å……æ²›ä¹‹æžã€‚\n" NOR);
 
-        log_file("static/using", sprintf("%s(%s) eat ¾Å»¨ÓñÂ¶Íè at %s.\n",
+        log_file("static/using", sprintf("%s(%s) eat ä¹èŠ±çŽ‰éœ²ä¸¸ at %s.\n",
                  me->name(1), me->query("id"), ctime(time())));
 
         my = me->query_entire_dbase();

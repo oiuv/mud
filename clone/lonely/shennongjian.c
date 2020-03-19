@@ -5,19 +5,19 @@ inherit STAFF;
 
 void create()
 {
-        set_name(HIG "��ũ�" NOR,({ "shennong jian", "shennong", "jian", "staff" }) );
+        set_name(HIG "神农锏" NOR,({ "shennong jian", "shennong", "jian", "staff" }) );
         set_weight(3800);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", HIG "һ��������ͨ��ҩ�������Ͽ��š���ũ�����֡�\n" NOR);
-                set("unit", "��");
+                set("long", HIG "一柄看似普通的药锄，柄上刻着“神农”二字。\n" NOR);
+                set("unit", "柄");
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "steel");
-                set("wield_msg", HIG "$N" HIG "�γ���ũ�����������ܿ�����"
-                                 "��ʱ����Ũ��Ĳ�ҩ��ζ��\n" NOR);
-                set("unwield_msg", HIG "$N" HIG "����һЦ������ũ��ջء�\n" NOR);
+                set("wield_msg", HIG "$N" HIG "拔出神农锏握在手里，四周空气中"
+                                 "顿时充满浓厚的草药香味。\n" NOR);
+                set("unwield_msg", HIG "$N" HIG "哈哈一笑，将神农锏收回。\n" NOR);
                 set("stable", 100);
         }
         init_staff(130);
@@ -38,16 +38,16 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         case 0:
                 if (! victim->is_busy())
                 victim->start_busy(me->query_skill("staff") / 12 + 2);
-                return HIG "$N" HIG "��������ũﵼ��ٻ���ת����һ�ɴ̱ǵ���ζ"
-                       "��ʱ���������$n" HIG "��״��æ���ˣ�\n" NOR;
+                return HIG "$N" HIG "将手中神农锏急速挥舞转动，一股刺鼻的气味"
+                       "顿时扑面而来，$n" HIG "见状连忙后退！\n" NOR;
 
         case 1:
                 n = me->query_skill("staff");
                 victim->receive_damage("qi", n * 2 / 3, me);
                 victim->receive_wound("qi", n * 2 / 3, me);
-                return HIG "$N" HIG "��������Ȱ�Ʈ����������ũ�һ�����裬��"
-                       "��ǧ�ٸ����ƣ�$n" HIG "��״��������η�壬ֻ�ܹ���ǿ��"
-                       "���ֵ���\n" NOR;
+                return HIG "$N" HIG "身形如鬼魅般飘出，手中神农锏一阵乱舞，犹"
+                       "如千百根相似，$n" HIG "见状不由心生畏惧，只能够勉强作"
+                       "出抵挡！\n" NOR;
         }
         return damage_bonus;
 }

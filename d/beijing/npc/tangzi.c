@@ -2,8 +2,8 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÌË×ÓÊÖ", ({ "tang zi", "zi", "tang" }) );
-        set("gender", "ÄĞĞÔ" );
+        set_name("è¶Ÿå­æ‰‹", ({ "tang zi", "zi", "tang" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 25);
         set("shen_type", 1);
         set("combat_exp", 10000);

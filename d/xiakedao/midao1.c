@@ -1,15 +1,15 @@
-// midao1.c �ܵ�
+// midao1.c 密道
 
 
 inherit ROOM;
 
 void create()
 {
-        set("short", "����ͨ��");
+        set("short", "秘密通道");
         set("long", @LONG
-����һ���ܳ�������ͨ����Ҳ���þ�û�������ˣ��ܵ��г���
-��һ�ֳ�ʪ����ζ����Լ���Ըо��������Ǳ����ʯ�ڣ���ʲôҲ
-��������ֻ���Կ�������ǰ����
+这是一条很长的秘密通道，也许好久没人来过了，密道中充满
+了一种潮湿的气味，隐约可以感觉到四周是冰冷的石壁，你什么也
+看不见，只可以靠摸索着前进。
 LONG );
         set("exits", ([
                "north" : __FILE__,

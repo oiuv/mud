@@ -5,11 +5,11 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("½ğ¸´»¹", ({ "jin fuhuan", "jin","fuhuan" }));
-        set("title", "Öé±¦ĞĞÀÏ°å");
+        set_name("é‡‘å¤è¿˜", ({ "jin fuhuan", "jin","fuhuan" }));
+        set("title", "ç å®è¡Œè€æ¿");
         set("shen_type", 1);
         set("str", 35);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 45);
         set("combat_exp", 50000);
         set("attitude", "friendly");

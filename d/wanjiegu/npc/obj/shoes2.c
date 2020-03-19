@@ -6,23 +6,23 @@ inherit EQUIP;
 
 void create()
 {
-        set_name( "Ğå»¨Ğ¬", ({ "shoes" }) );
+        set_name( "ç»£èŠ±é‹", ({ "shoes" }) );
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ë«");
+                set("unit", "åŒ");
                 set("value", 0);
                 set("zhongling",1);
                 set("zhong",1);
-                set("long","ÕâÊÇÖÓÁéµÄÒ»Ë«ĞåÇòĞ¬¡£\n");
+                set("long","è¿™æ˜¯é’Ÿçµçš„ä¸€åŒç»£çƒé‹ã€‚\n");
                 set("material", "cloth");
                 set("armor_type", "feet");
                 set("armor_prop/personality", 1);
                 set("armor_prop/armor", 2);
                 set("armor_prop/dodge", 2);
                 set("female_only", 1);
-                set("wear_msg","$N´©ÉÏÒ»Ë«$n¡£\n");
-                set("remove_msg","$N½«$nÍÑÁËÏÂÀ´¡£\n");
+                set("wear_msg","$Nç©¿ä¸Šä¸€åŒ$nã€‚\n");
+                set("remove_msg","$Nå°†$nè„±äº†ä¸‹æ¥ã€‚\n");
         }
 }

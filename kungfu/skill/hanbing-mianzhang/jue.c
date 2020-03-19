@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define FEI "¡¸" HIG "Á¬Ãà²»¾ø" NOR "¡¹"
+#define FEI "ã€Œ" HIG "è¿žç»µä¸ç»" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,36 +12,36 @@ int perform(object me, object target)
         int attack_time, i;
 
         if (userp(me) && ! me->query("can_perform/hanbing-mianzhang/jue"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(FEI "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(FEI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(FEI "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(FEI "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if ((int)me->query_skill("hanbing-mianzhang", 1) < 100)
-                return notify_fail("Äãº®±ùÃàÕÆ²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ å¯’å†°ç»µæŽŒä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if (me->query_skill_mapped("strike") != "hanbing-mianzhang")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢º®±ùÃàÕÆ£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å¯’å†°ç»µæŽŒï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if (me->query_skill_prepared("strike") != "hanbing-mianzhang")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸º®±ùÃàÕÆ£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡å¯’å†°ç»µæŽŒï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if ((int)me->query("neili") < 250)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         ap = me->query_skill("strike");
         dp = target->query_skill("parry");
 
-        msg = HIC "\n$N" HIC "Ë«ÕÆ¶¸È»Á¬ÐøÅÄ³ö£¬ÕÆ·çÒõº®ÎÞ±È£¬Ò»ÕÐ"
-              "¡¸" HIG "Á¬Ãà²»¾ø" HIC "¡¹£¬ÒÑÁ¬Á¬ÕÖÏò$n" HIC "¡£\n" NOR;
+        msg = HIC "\n$N" HIC "åŒæŽŒé™¡ç„¶è¿žç»­æ‹å‡ºï¼ŒæŽŒé£Žé˜´å¯’æ— æ¯”ï¼Œä¸€æ‹›"
+              "ã€Œ" HIG "è¿žç»µä¸ç»" HIC "ã€ï¼Œå·²è¿žè¿žç½©å‘$n" HIC "ã€‚\n" NOR;
         message_sort(msg, me, target);
 		
 		if (ap / 2 + random(ap) > dp)

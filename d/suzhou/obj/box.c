@@ -6,14 +6,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name("´ÈÉÆÏä", ({ "cishang xiang", "xiang", "box" }) );
+	set_name("æ…ˆå–„ç®±", ({ "cishang xiang", "xiang", "box" }) );
 	set_weight(3000);
 	set_max_encumbrance(5000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¸ö");
-                set("long", "ÕâÊÇÒ»¸öÐ¡ÃíÀï³£¼ûµÄ´ÈÉÆÏä£¬×¨ÃÅÓÃÀ´½ÓÊÜÉÆÄÐÐÅÅ®ÃÇµÄ¾è¿î¡£\n");
+		set("unit", "ä¸ª");
+                set("long", "è¿™æ˜¯ä¸€ä¸ªå°åº™é‡Œå¸¸è§çš„æ…ˆå–„ç®±ï¼Œä¸“é—¨ç”¨æ¥æŽ¥å—å–„ç”·ä¿¡å¥³ä»¬çš„ææ¬¾ã€‚\n");
 		set("value", 1000);
 		set("material", "wood");
 		set("no_get",1);
@@ -36,7 +36,7 @@ void init()
 		ob=new("/clone/money/silver");
 		ob->set_amount(10);
 		ob->move(this_object());
-		tell_object(me, "\nÄãºöÈ»¿´µ½´ÈÉÆÏäÀïÓÐÊ²÷á¶«Î÷ÔÚÉÁÉÁ·¢¹â£¡\n\n");
+		tell_object(me, "\nä½ å¿½ç„¶çœ‹åˆ°æ…ˆå–„ç®±é‡Œæœ‰ä»€éº½ä¸œè¥¿åœ¨é—ªé—ªå‘å…‰ï¼\n\n");
 		me->add("combat_exp", 1);
 	}
 	add_action("do_put", "put");
@@ -50,19 +50,19 @@ int do_put(string arg)
 
 	me = this_player();
 
-	if(!arg) return notify_fail("ÄãÒª½«Ê²Ã´¶«Î÷·Å½øÄÄÀï£¿\n");
+	if(!arg) return notify_fail("ä½ è¦å°†ä»€ä¹ˆä¸œè¥¿æ”¾è¿›å“ªé‡Œï¼Ÿ\n");
 
 	if( sscanf(arg, "%s in %s", item, target)!=2 
 	||  sscanf(item, "%d %s", amount, item)!=2
 	||  !objectp(obj = present(item, me)) )
 
-	return notify_fail("ÄãÒª¸øË­Ê²Ã´¶«Î÷£¿\n");
+	return notify_fail("ä½ è¦ç»™è°ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
 	if( obj->query("money_id") == "silver" 
 	&&  obj->query_amount() >= 5 && amount >= 5 ) 
 	{
 		if( me->query("begger") > 0) {
-			message_vision( sprintf(HIY "$N½«Ò»%s%s·Å½ø%s¡£\n" NOR,
+			message_vision( sprintf(HIY "$Nå°†ä¸€%s%sæ”¾è¿›%sã€‚\n" NOR,
 				obj->query("unit"), obj->name(), 
 				this_object()->name()),me );
 			obj->set_amount(obj->query_amount() - amount);;

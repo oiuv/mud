@@ -1,17 +1,17 @@
-// putuan.c Ğ¡ÆÑÍÅ
+// putuan.c å°è’²å›¢
 
 inherit ITEM;
 
 void create()
 {
-	set_name("Ğ¡ÆÑÍÅ", ({ "putuan", "pu", "tuan" }));
+	set_name("å°è’²å›¢", ({ "putuan", "pu", "tuan" }));
 	set_weight(500);
 	set_max_encumbrance(10000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¸ö");
-		set("long", "Ò»¸öÆÕÍ¨µÄĞ¡ÆÑÍÅ¡£\n");
+		set("unit", "ä¸ª");
+		set("long", "ä¸€ä¸ªæ™®é€šçš„å°è’²å›¢ã€‚\n");
 		set("value", 100);
 	}
 }

@@ -14,13 +14,13 @@ void init()
 
 void create()
 {
-        set_name("ôÂôÄ", ({"jia sha", "jia", "sha"}));
+        set_name("è¢ˆè£Ÿ", ({"jia sha", "jia", "sha"}));
         set_weight(800);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»¼ş¾ÉµÃÒÑ¾­¿´²»³öÑÕÉ«µÄôÂôÄ£¬ÉÏÃæÓĞºÃ¶à¿ßÁş¡£\n");
-                set("unit", "¼ş");
+                set("long", "ä¸€ä»¶æ—§å¾—å·²ç»çœ‹ä¸å‡ºé¢œè‰²çš„è¢ˆè£Ÿï¼Œä¸Šé¢æœ‰å¥½å¤šçªŸçª¿ã€‚\n");
+                set("unit", "ä»¶");
                 set("material", "cloth");
         }
         setup();
@@ -40,21 +40,21 @@ int do_move(string arg)
                 if (! present("kuihua baodian", me) &&
                     ! query("book_got"))
                 {
-                        message_vision("$NÇáÇáµØÅ²¶¯ôÂôÄ£¬¶¶ÆğÒ»Ğ©"
-                                       "³¾ÍÁ...£¬Í»È»´ÓôÂôÄµÄ¿ßÁşÖĞ"
-                                       "¹ö³öÒ»±¾Êéµ½$N»³ÖĞ¡£\n",
+                        message_vision("$Nè½»è½»åœ°æŒªåŠ¨è¢ˆè£Ÿï¼ŒæŠ–èµ·ä¸€äº›"
+                                       "å°˜åœŸ...ï¼Œçªç„¶ä»è¢ˆè£Ÿçš„çªŸçª¿ä¸­"
+                                       "æ»šå‡ºä¸€æœ¬ä¹¦åˆ°$Næ€€ä¸­ã€‚\n",
                                        this_player());
                         book = new("/clone/book/kuihua");
                         book->move(me);
                         return 1;
                 }
-                message_vision("$NÇáÇáµØÅ²¶¯ôÂôÄ£¬¶¶ÆğÒ»Ğ©³¾ÍÁ£¬Çº"
-                               "µÃ$NÖ±´òÅçÌç¡£\n", this_player());
+                message_vision("$Nè½»è½»åœ°æŒªåŠ¨è¢ˆè£Ÿï¼ŒæŠ–èµ·ä¸€äº›å°˜åœŸï¼Œå‘›"
+                               "å¾—$Nç›´æ‰“å–·åšã€‚\n", this_player());
                 return 1;
         } else
         {
-                message_vision("$NÇáÇáµØÅ²¶¯ôÂôÄ£¬Í»È»´ÓôÂôÄµÄ¿ß"
-                               "ÁşÖĞÃ°³öÒ»¹É¶¾Æø£¬×ê½ø$NµÄ±Ç×ÓÖĞ¡£\n",
+                message_vision("$Nè½»è½»åœ°æŒªåŠ¨è¢ˆè£Ÿï¼Œçªç„¶ä»è¢ˆè£Ÿçš„çªŸ"
+                               "çª¿ä¸­å†’å‡ºä¸€è‚¡æ¯’æ°”ï¼Œé’»è¿›$Nçš„é¼»å­ä¸­ã€‚\n",
                                this_player());
                 me->die();
                 return 1;

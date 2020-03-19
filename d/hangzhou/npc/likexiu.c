@@ -6,12 +6,12 @@ inherit NPC;
 
 void create()
 {
-        set_name("Àî¿ÉĞã", ({ "li kexiu", "li", "kexiu"}) );
-        set("title", "º¼ÖİÌá¶½");
-        set("gender", "ÄĞĞÔ");
+        set_name("æå¯ç§€", ({ "li kexiu", "li", "kexiu"}) );
+        set("title", "æ­å·æç£");
+        set("gender", "ç”·æ€§");
         set("age", 54);
         set("long",
-                "Àî¿ÉĞãÒ»Éí¾ü¹¦¶ø³É·â½®´óÀô£¬Ò»ÉíÎä¹¦×ÔÈ»²»ÈİÇáÊÓ¡£\n");
+                "æå¯ç§€ä¸€èº«å†›åŠŸè€Œæˆå°ç–†å¤§åï¼Œä¸€èº«æ­¦åŠŸè‡ªç„¶ä¸å®¹è½»è§†ã€‚\n");
         set("combat_exp", 150000);
         set("shen_type", -1);
         set("attitude", "heroism");

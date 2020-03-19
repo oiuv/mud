@@ -18,25 +18,25 @@ int main(object me, string arg)
         else
         if (wizardp(me) && wiz_level(me) >= 3)
         {
-                // Ìí¼Ó bug µãÊý
+                // æ·»åŠ  bug ç‚¹æ•°
                 if (sscanf(arg, "+ %s %d", arg, bug) == 2)
                 {
                         if (! objectp(ob = find_player(arg)))
                                 ob = UPDATE_D->global_find_player(arg);
                         if (! objectp(ob))
-                                return notify_fail("ÄãÒªÌí¼ÓË­µÄ±¨¸æµã"
-                                                   "Êý£¿\n");
+                                return notify_fail("ä½ è¦æ·»åŠ è°çš„æŠ¥å‘Šç‚¹"
+                                                   "æ•°ï¼Ÿ\n");
                         if (bug <= 0)
-                                return notify_fail("Äãµ½µ×ÊÇÏëÌí¼Ó»¹ÊÇ"
-                                                   "¼õÉÙ£¿\n");
+                                return notify_fail("ä½ åˆ°åº•æ˜¯æƒ³æ·»åŠ è¿˜æ˜¯"
+                                                   "å‡å°‘ï¼Ÿ\n");
                         ob->add("bug", bug);
-                        sp = sprintf("ÓÃ»§ " WHT "%s" NOR " µÄ±¨¸æµãÊý"
-                                     "Ôö¼ÓÁË " WHT "%d" NOR " µã£¬ÏÖÎª"
-                                     WHT " %d " NOR "µã¡£\n", arg, bug,
+                        sp = sprintf("ç”¨æˆ· " WHT "%s" NOR " çš„æŠ¥å‘Šç‚¹æ•°"
+                                     "å¢žåŠ äº† " WHT "%d" NOR " ç‚¹ï¼ŒçŽ°ä¸º"
+                                     WHT " %d " NOR "ç‚¹ã€‚\n", arg, bug,
                                      ob->query("bug", 1));
 
-                        tell_object(ob, HIG + me->name() + "Ôö¼ÓÁËÄãµÄ " +
-                                        bug + " µã±¨¸æµãÊý¡£\n" NOR);
+                        tell_object(ob, HIG + me->name() + "å¢žåŠ äº†ä½ çš„ " +
+                                        bug + " ç‚¹æŠ¥å‘Šç‚¹æ•°ã€‚\n" NOR);
 
                         log_file("static/bug", sprintf("%s wizard %s a"
                                  "dd   %d bug point to user %s.\n",
@@ -47,28 +47,28 @@ int main(object me, string arg)
                         tell_object(me, sp);
                         return 1;
                 }
-                // ¼õÉÙ bug µãÊý
+                // å‡å°‘ bug ç‚¹æ•°
                 if (sscanf(arg, "- %s %d", arg, bug) == 2)
                 {
                         if (! objectp(ob = find_player(arg)))
                                 ob = UPDATE_D->global_find_player(arg);
                         if (! objectp(ob))
-                                return notify_fail("ÄãÒª¼õÉÙË­µÄ±¨¸æµã"
-                                                   "Êý£¿\n");
+                                return notify_fail("ä½ è¦å‡å°‘è°çš„æŠ¥å‘Šç‚¹"
+                                                   "æ•°ï¼Ÿ\n");
                         if (bug <= 0)
-                                return notify_fail("Äãµ½µ×ÊÇÏë¼õÉÙ»¹ÊÇ"
-                                                   "Ìí¼Ó£¿\n");
+                                return notify_fail("ä½ åˆ°åº•æ˜¯æƒ³å‡å°‘è¿˜æ˜¯"
+                                                   "æ·»åŠ ï¼Ÿ\n");
                         if (ob->query("bug") < 0)
                                 ob->set("bug", 0);
                         ob->add("bug", -bug);
 
-                        sp = sprintf("ÓÃ»§ " WHT "%s" NOR " µÄ±¨¸æµãÊý"
-                                     "¼õÉÙÁË " WHT "%d" NOR " µã£¬ÏÖÎª"
-                                     WHT " %d " NOR "µã¡£\n", arg, bug,
+                        sp = sprintf("ç”¨æˆ· " WHT "%s" NOR " çš„æŠ¥å‘Šç‚¹æ•°"
+                                     "å‡å°‘äº† " WHT "%d" NOR " ç‚¹ï¼ŒçŽ°ä¸º"
+                                     WHT " %d " NOR "ç‚¹ã€‚\n", arg, bug,
                                      ob->query("bug", 1));
 
-                        tell_object(ob, HIG + me->name() + "¼õÉÙÁËÄãµÄ " +
-                                        bug + " µã±¨¸æµãÊý¡£\n" NOR);
+                        tell_object(ob, HIG + me->name() + "å‡å°‘äº†ä½ çš„ " +
+                                        bug + " ç‚¹æŠ¥å‘Šç‚¹æ•°ã€‚\n" NOR);
 
                         log_file("static/bug", sprintf("%s wizard %s m"
                                  "inus %d bug point to user %s.\n",
@@ -84,23 +84,23 @@ int main(object me, string arg)
                 if (! ob || ! ob->is_character()) ob = find_player(arg);
                 if (! ob || ! ob->is_character()) ob = find_living(arg);
                 if (! ob || ! ob->is_character())
-                        return notify_fail("ÄãÒª²ì¿´Ë­µÄ±¨¸æµãÊý£¿\n");
+                        return notify_fail("ä½ è¦å¯Ÿçœ‹è°çš„æŠ¥å‘Šç‚¹æ•°ï¼Ÿ\n");
 
                 if (! userp(ob))
-                        return notify_fail("Ö»ÓÐÍæ¼Ò²Å¾ßÓÐ´Ë²ÎÊý¡£\n");
+                        return notify_fail("åªæœ‰çŽ©å®¶æ‰å…·æœ‰æ­¤å‚æ•°ã€‚\n");
                         
         } else
-                return notify_fail("Ö»ÓÐÎ×Ê¦ÄÜ²ì¿´±ðÈËµÄ×´Ì¬¡£\n");
+                return notify_fail("åªæœ‰å·«å¸ˆèƒ½å¯Ÿçœ‹åˆ«äººçš„çŠ¶æ€ã€‚\n");
  
         bug = ob->query("bug", 1);
 
         if (! bug)
-                sp = ((ob == me ? "Äã" : ob->name()) + "ÔÚ" +
-                         MUD_NAME + NOR "ÖÐÉÐÎÞ±¨¸æ¹ýÈÎºÎ´íÎó¡£\n");
+                sp = ((ob == me ? "ä½ " : ob->name()) + "åœ¨" +
+                         MUD_NAME + NOR "ä¸­å°šæ— æŠ¥å‘Šè¿‡ä»»ä½•é”™è¯¯ã€‚\n");
         else
-                sp = ((ob == me ? "Äã" : ob->name()) + "ÔÚ" +
-                         MUD_NAME + NOR "ÖÐµÄ´íÎó±¨¸æ»ýÀÛµãÊýÎª"
-                         HIC + bug + NOR "µã¡£\n");
+                sp = ((ob == me ? "ä½ " : ob->name()) + "åœ¨" +
+                         MUD_NAME + NOR "ä¸­çš„é”™è¯¯æŠ¥å‘Šç§¯ç´¯ç‚¹æ•°ä¸º"
+                         HIC + bug + NOR "ç‚¹ã€‚\n");
 
         tell_object(me, sp);
         return 1;
@@ -109,24 +109,24 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½£º bug
-           bug       <¶ÔÏóÃû³Æ>               (Î×Ê¦×¨ÓÃ)
-           bug       [+|- <¶ÔÏóÃû³Æ> <µãÊý>]  (Î×Ê¦×¨ÓÃ)
+æŒ‡ä»¤æ ¼å¼ï¼š bug
+           bug       <å¯¹è±¡åç§°>               (å·«å¸ˆä¸“ç”¨)
+           bug       [+|- <å¯¹è±¡åç§°> <ç‚¹æ•°>]  (å·«å¸ˆä¸“ç”¨)
 
-Õâ¸öÖ¸Áî¿ÉÒÔÏÔÊ¾ÄãÔÚÓÎÏ·ÖÐµÄ´íÎó±¨¸æ»ýÀÛµãÊý¡£Íæ¼Ò¿ÉÍ¨¹ý
-´ËµãÊý»ñµÃÒ»Ð©½±Àø¡£Èç¹ûÓÐarchÈ¨ÏÞ»òÒÔÉÏµÄÎ×Ê¦ÔÚÏß£¬¿ÉÖ±
-½ÓÔÚ¹«ÖÚÆµµÀ»ã±¨´íÎó£¬ÕâÊ±Î×Ê¦¿ÉÊÓ BUG´óÐ¡¸øÍæ¼ÒÔö¼Ó±¨¸æ
-µãÊý¡£ÈçÓÎÏ·ÖÐÎÞÎ×Ê¦ÔÚÏß£¬ÇëÓÃÕýÊ½IDÁôÑÔµ½Î×Ê¦»á¿ÍÊÒ£¬ÎÒ
-ÃÇ»áÔÚµÚÒ»Ê±¼äÄÚÐÞ¸´ BUG¼°¸ø´ËIDÔö¼Ó±¨¸æµãÊý¡££¨×¢Òâ£¬Ö»
-ÓÐ»ã±¨ BUGµÄID²ÅÄÜ»ñµÃµãÊý¡£Èç¹ûÒ»¸ö BUG±»Êý¸öÍæ¼ÒÍ¬Ê±·¢
-ÏÖ£¬±¨¸æµãÊý½«¼Óµ½×îÏÈ»ã±¨´Ë BUGµÄIDÉÏ¡££©
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥æ˜¾ç¤ºä½ åœ¨æ¸¸æˆä¸­çš„é”™è¯¯æŠ¥å‘Šç§¯ç´¯ç‚¹æ•°ã€‚çŽ©å®¶å¯é€šè¿‡
+æ­¤ç‚¹æ•°èŽ·å¾—ä¸€äº›å¥–åŠ±ã€‚å¦‚æžœæœ‰archæƒé™æˆ–ä»¥ä¸Šçš„å·«å¸ˆåœ¨çº¿ï¼Œå¯ç›´
+æŽ¥åœ¨å…¬ä¼—é¢‘é“æ±‡æŠ¥é”™è¯¯ï¼Œè¿™æ—¶å·«å¸ˆå¯è§† BUGå¤§å°ç»™çŽ©å®¶å¢žåŠ æŠ¥å‘Š
+ç‚¹æ•°ã€‚å¦‚æ¸¸æˆä¸­æ— å·«å¸ˆåœ¨çº¿ï¼Œè¯·ç”¨æ­£å¼IDç•™è¨€åˆ°å·«å¸ˆä¼šå®¢å®¤ï¼Œæˆ‘
+ä»¬ä¼šåœ¨ç¬¬ä¸€æ—¶é—´å†…ä¿®å¤ BUGåŠç»™æ­¤IDå¢žåŠ æŠ¥å‘Šç‚¹æ•°ã€‚ï¼ˆæ³¨æ„ï¼Œåª
+æœ‰æ±‡æŠ¥ BUGçš„IDæ‰èƒ½èŽ·å¾—ç‚¹æ•°ã€‚å¦‚æžœä¸€ä¸ª BUGè¢«æ•°ä¸ªçŽ©å®¶åŒæ—¶å‘
+çŽ°ï¼ŒæŠ¥å‘Šç‚¹æ•°å°†åŠ åˆ°æœ€å…ˆæ±‡æŠ¥æ­¤ BUGçš„IDä¸Šã€‚ï¼‰
 
-Î×Ê¦¿ÉÒÔÊ¹ÓÃ +|- ²ÎÊýÌí¼Ó»òÕß¼õÉÙÍæ¼ÒµÄ±¨¸æµãÊý¡£
+å·«å¸ˆå¯ä»¥ä½¿ç”¨ +|- å‚æ•°æ·»åŠ æˆ–è€…å‡å°‘çŽ©å®¶çš„æŠ¥å‘Šç‚¹æ•°ã€‚
 
-Ï¸Ð¡´íÎó£º1µã           (º¬´í±ð×Ö¡¢Óï¾ä²»Í¨¡¢°ïÖúÒÅÂ©µÈ)
-Ò»°ã´íÎó£º3µã           (²»»áÓ°Ïìµ½ÓÎÏ·Õý³£½øÐÐµÄ´íÎó)
-ÑÏÖØ´íÎó£º5µã           (ÊÓÇé¿ö¶øÂÛ¡¢°üº¬Ä³Ð©ÏµÍ³´íÎó)
-Á·¹¦´íÎó£º10ÖÁ1000µã    (ÓÐÒæÓÚ×ÔÉíÐÞÁ¶¼°»ñµÃÀûÒæµÄ´íÎó)
+ç»†å°é”™è¯¯ï¼š1ç‚¹           (å«é”™åˆ«å­—ã€è¯­å¥ä¸é€šã€å¸®åŠ©é—æ¼ç­‰)
+ä¸€èˆ¬é”™è¯¯ï¼š3ç‚¹           (ä¸ä¼šå½±å“åˆ°æ¸¸æˆæ­£å¸¸è¿›è¡Œçš„é”™è¯¯)
+ä¸¥é‡é”™è¯¯ï¼š5ç‚¹           (è§†æƒ…å†µè€Œè®ºã€åŒ…å«æŸäº›ç³»ç»Ÿé”™è¯¯)
+ç»ƒåŠŸé”™è¯¯ï¼š10è‡³1000ç‚¹    (æœ‰ç›ŠäºŽè‡ªèº«ä¿®ç‚¼åŠèŽ·å¾—åˆ©ç›Šçš„é”™è¯¯)
 
 HELP);
         return 1;

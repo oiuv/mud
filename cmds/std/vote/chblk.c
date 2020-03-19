@@ -20,15 +20,15 @@ int vote(object me, object victim)
         if (me == victim)
         {
 	        me->add("vote/abuse", 1);
-  	        return notify_fail("Äã²»ÊÇ¿ªÍæÐ¦°É£¿µ±ÐÄ±»°þ¶á±í¾öÈ¨£¡\n");
+  	        return notify_fail("ä½ ä¸æ˜¯å¼€çŽ©ç¬‘å§ï¼Ÿå½“å¿ƒè¢«å‰¥å¤ºè¡¨å†³æƒï¼\n");
         }
 
         if (victim->query_condition("vote_clear") &&
             (reason = victim->query("vote/reason")) && reason != "chblk")
-  	        return notify_fail("Òª°Ñµ±Ç°µÄ±í¾öÍê³ÉÒÔºó²Å¿ÉÒÔÌáÐÂµÄ¶¯Òé¡£\n");
+  	        return notify_fail("è¦æŠŠå½“å‰çš„è¡¨å†³å®Œæˆä»¥åŽæ‰å¯ä»¥ææ–°çš„åŠ¨è®®ã€‚\n");
 
         if (victim->query("chblk_on"))
-  	        return notify_fail(victim->name() + "µÄÆµµÀÒÑ¾­ÊÇ¹Ø±ÕµÄÁË¡£\n");
+  	        return notify_fail(victim->name() + "çš„é¢‘é“å·²ç»æ˜¯å…³é—­çš„äº†ã€‚\n");
 
         if (! victim->query_condition("vote_clear"))
         {
@@ -53,7 +53,7 @@ int vote(object me, object victim)
                 jip = ({ });
   
         if (member_array(my_ip, jip) != -1)
-                return notify_fail("ÄãËùÔÚµÄIPµØÖ·ÒÑ¾­ÓÐÈËÍ¶¹ýÆ±ÁË¡£\n");
+                return notify_fail("ä½ æ‰€åœ¨çš„IPåœ°å€å·²ç»æœ‰äººæŠ•è¿‡ç¥¨äº†ã€‚\n");
         else
         if (member_array(my_id, juser) == -1) 
         {
@@ -62,7 +62,7 @@ int vote(object me, object victim)
         } else
         {
 	        me->add("vote/abuse", 1);
-  	        return notify_fail("Ò»ÈËÒ»Æ±£¡ÀÄÓÃ±í¾öÈ¨ÊÇÒªÊÜ³Í·£µÄ£¡\n");
+  	        return notify_fail("ä¸€äººä¸€ç¥¨ï¼æ»¥ç”¨è¡¨å†³æƒæ˜¯è¦å—æƒ©ç½šçš„ï¼\n");
         }
 
         vv = (int) ("/cmds/std/vote")->valid_voters(me) / 2;
@@ -75,14 +75,14 @@ int vote(object me, object victim)
 
         if (df >= 1)
         {
-	        message("vision", HIG "¡¾ÈËÃñ¹«¾ö¡¿" + me->name(1) + "Í¶Æ±¹Ø±Õ" + victim->name(1) +
-			          "µÄ½»Ì¸ÆµµÀ£¬»¹²î" + sprintf("%d", df) + "Æ±¡£\n" NOR, all_interactive());
+	        message("vision", HIG "ã€äººæ°‘å…¬å†³ã€‘" + me->name(1) + "æŠ•ç¥¨å…³é—­" + victim->name(1) +
+			          "çš„äº¤è°ˆé¢‘é“ï¼Œè¿˜å·®" + sprintf("%d", df) + "ç¥¨ã€‚\n" NOR, all_interactive());
 	        victim->apply_condition("vote_clear", 10);
                 return 1;
         } else
         {
-	        message("vision", HIG "¡¾ÈËÃñ¹«¾ö¡¿" + me->name(1) + "Í¶Æ±¹Ø±Õ" + victim->name(1) +
-			          "µÄ½»Ì¸ÆµµÀ¡£" + victim->name(1) + "µÄ½»Ì¸ÆµµÀ±»¹Ø±ÕÁË£¡\n" NOR, all_interactive());
+	        message("vision", HIG "ã€äººæ°‘å…¬å†³ã€‘" + me->name(1) + "æŠ•ç¥¨å…³é—­" + victim->name(1) +
+			          "çš„äº¤è°ˆé¢‘é“ã€‚" + victim->name(1) + "çš„äº¤è°ˆé¢‘é“è¢«å…³é—­äº†ï¼\n" NOR, all_interactive());
         }
 			
 	victim->clear_condition("vote_clear");

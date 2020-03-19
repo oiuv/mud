@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(NOR + RED "¸ò·Û" NOR, ({ "ha fen", "ha", "fen", "herb_hafen" }));
+        set_name(NOR + RED "è›¤ç²‰" NOR, ({ "ha fen", "ha", "fen", "herb_hafen" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + RED "¸ò·ÛÊÇ³£¼ûµÄÖĞÒ©Ò©²Ä¡£\n" NOR);
-                set("base_unit", "°ü");
+                set("long", NOR + RED "è›¤ç²‰æ˜¯å¸¸è§çš„ä¸­è¯è¯æã€‚\n" NOR);
+                set("base_unit", "åŒ…");
                 set("base_value", 5000);
                 set("base_weight", 50);
         }

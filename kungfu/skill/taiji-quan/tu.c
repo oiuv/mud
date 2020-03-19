@@ -5,7 +5,7 @@
 
 inherit F_SSERVER;
 
-#define TU "¡¸" HIW "Ì«¼«Í¼" NOR "¡¹"
+#define TU "ã€Œ" HIW "å¤ªæå›¾" NOR "ã€"
 
 int perform(object me)
 {
@@ -24,41 +24,41 @@ int perform(object me)
 		martial = "unarmed";
 
         if (userp(me) && me->query("can_perform/taiji-quan/tu") < 10)
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         me->clean_up_enemy();
         if (! me->is_fighting())
-                return notify_fail(TU "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(TU "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(TU "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(TU "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if ((int)me->query_skill("taiji-quan", 1) < 250)
-                return notify_fail("ÄãµÄÌ«¼«È­²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" TU "¡£\n");
+                return notify_fail("ä½ çš„å¤ªææ‹³ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" TU "ã€‚\n");
 
         if ((int)me->query_skill("taiji-shengong", 1) < 300)
-                return notify_fail("ÄãµÄÌ«¼«Éñ¹¦ĞŞÎª»¹²»¹»¸ß£¬ÄÑÒÔÊ©Õ¹" TU "¡£\n");
+                return notify_fail("ä½ çš„å¤ªæç¥åŠŸä¿®ä¸ºè¿˜ä¸å¤Ÿé«˜ï¼Œéš¾ä»¥æ–½å±•" TU "ã€‚\n");
 
         if ((int)me->query_skill("taoism", 1) < 300)
-                return notify_fail("ÄãµÄµÀÑ§ĞÄ·¨ĞŞÎª»¹²»¹»¸ß£¬ÄÑÒÔÊ©Õ¹" TU "¡£\n");
+                return notify_fail("ä½ çš„é“å­¦å¿ƒæ³•ä¿®ä¸ºè¿˜ä¸å¤Ÿé«˜ï¼Œéš¾ä»¥æ–½å±•" TU "ã€‚\n");
 
         if (me->query_skill_mapped("unarmed") != "taiji-quan")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ¼¤·¢Ì«¼«È­£¬ÄÑÒÔÊ©Õ¹" TU "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰æ¿€å‘å¤ªææ‹³ï¼Œéš¾ä»¥æ–½å±•" TU "ã€‚\n");
 
         if (me->query_skill_mapped("force") != "taiji-shengong")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ¼¤·¢Ì«¼«Éñ¹¦£¬ÄÑÒÔÊ©Õ¹" TU "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰æ¿€å‘å¤ªæç¥åŠŸï¼Œéš¾ä»¥æ–½å±•" TU "ã€‚\n");
 
         if (me->query_skill_prepared("unarmed") != "taiji-quan")
-                return notify_fail("ÄãÃ»ÓĞ×¼±¸Ê¹ÓÃÌ«¼«È­£¬ÄÑÒÔÊ©Õ¹" TU "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨å¤ªææ‹³ï¼Œéš¾ä»¥æ–½å±•" TU "ã€‚\n");
 
         if ((int)me->query("jingli") < 1000)
-                return notify_fail("ÄãÏÖÔÚ¾«Á¦²»¹»£¬ÄÑÒÔÊ©Õ¹" TU "¡£\n");
+                return notify_fail("ä½ ç°åœ¨ç²¾åŠ›ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" TU "ã€‚\n");
 
         if ((int)me->query("neili", 1) < 1000)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" TU "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" TU "ã€‚\n");
 
-        msg = HIM "$N" HIM "µ­È»Ò»Ğ¦£¬Ë«ÊÖÇáÇá»®ÁËÊı¸öÈ¦×Ó£¬¶ÙÊ±ËÄÖÜµÄÆø"
-              "Á÷²¨¶¯£¬Ô´Ô´²»¶ÏµÄ±»Ç£Òı½øÀ´¡£\n\n" NOR;
+        msg = HIM "$N" HIM "æ·¡ç„¶ä¸€ç¬‘ï¼ŒåŒæ‰‹è½»è½»åˆ’äº†æ•°ä¸ªåœˆå­ï¼Œé¡¿æ—¶å››å‘¨çš„æ°”"
+              "æµæ³¢åŠ¨ï¼Œæºæºä¸æ–­çš„è¢«ç‰µå¼•è¿›æ¥ã€‚\n\n" NOR;
         message_combatd(msg, me);
 		
 		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
@@ -66,7 +66,7 @@ int perform(object me)
 		ks = keys(me->query_skills(martial));
 		improve = 0;
 		n = 0;
-		//×î¶à¸øÓè5¸ö¼¼ÄÜµÄ¼Ó³É
+		//æœ€å¤šç»™äºˆ5ä¸ªæŠ€èƒ½çš„åŠ æˆ
 		for (m = 0; m < sizeof(ks); m++)
 		{
 			if (SKILL_D(ks[m])->valid_enable(martial))
@@ -97,20 +97,20 @@ int perform(object me)
                         switch (random(3))
                         {
                         case 0:
-                                tell_object(obs[i], HIY "»Ğã±Ö®¼äÄãËÆºõ»Øµ½ÁË¹ıÈ¥µÄÊÀ½ç£¬¾¹"
-                                                    "È»ÔÙÎŞ·¨¿ØÖÆ×ÔÎÒ£¬ºöÈ»ÑÛÇ°µÄÒ»ÇĞ\n"
-                                                    "ÓÖÈ«È»²»¼û£¬ÄãĞÄÍ·Ò»ÂÒ£¬»ëÉíÒ»Õó¾ç"
-                                                    "Í´£¬ÄÚÁ¦ÎÉÂÒÄÑÒÔ¿ØÖÆ£¡\n" NOR);
+                                tell_object(obs[i], HIY "ææƒšä¹‹é—´ä½ ä¼¼ä¹å›åˆ°äº†è¿‡å»çš„ä¸–ç•Œï¼Œç«Ÿ"
+                                                    "ç„¶å†æ— æ³•æ§åˆ¶è‡ªæˆ‘ï¼Œå¿½ç„¶çœ¼å‰çš„ä¸€åˆ‡\n"
+                                                    "åˆå…¨ç„¶ä¸è§ï¼Œä½ å¿ƒå¤´ä¸€ä¹±ï¼Œæµ‘èº«ä¸€é˜µå‰§"
+                                                    "ç—›ï¼Œå†…åŠ›ç´Šä¹±éš¾ä»¥æ§åˆ¶ï¼\n" NOR);
                                 break;
                         case 1:
-                                tell_object(obs[i], HIW "ÄãÑÛÇ°Ò»ÇĞ½¥½¥µÄÄ£ºıÆğÀ´£¬ºÃÏñÊÇµ½"
-                                                    "ÁËÏÉ¾³£¬È»¶øÄãÈ´¾õµÃÄÚÏ¢Ô½À´Ô½ÂÒ£¬\n"
-                                                    "ËÄÖ«Ò»ÕóËáÍ´£¬¼¸ºõÒªÕ¾Á¢²»×¡¡£\n" NOR);
+                                tell_object(obs[i], HIW "ä½ çœ¼å‰ä¸€åˆ‡æ¸æ¸çš„æ¨¡ç³Šèµ·æ¥ï¼Œå¥½åƒæ˜¯åˆ°"
+                                                    "äº†ä»™å¢ƒï¼Œç„¶è€Œä½ å´è§‰å¾—å†…æ¯è¶Šæ¥è¶Šä¹±ï¼Œ\n"
+                                                    "å››è‚¢ä¸€é˜µé…¸ç—›ï¼Œå‡ ä¹è¦ç«™ç«‹ä¸ä½ã€‚\n" NOR);
                                 break;
                         default:
-                                tell_object(obs[i], HIR "Äã¶ú±ßºöÈ»ÏìÆğÒ»¸öÅùö¨£¬ÑÛ¼ûÀ×Éñ»Ó"
-                                                    "Îèµç´¸ÏòÄã´òÀ´£¬Äã²»½û´ó³ÔÒ»¾ª£¬\n"
-                                                    "»ëÉíÉÏÏÂ¶¼²»ÌıÊ¹»½£¬Ö»ÓĞ¸ßÉùºô¾È¡£\n" NOR);
+                                tell_object(obs[i], HIR "ä½ è€³è¾¹å¿½ç„¶å“èµ·ä¸€ä¸ªéœ¹é›³ï¼Œçœ¼è§é›·ç¥æŒ¥"
+                                                    "èˆç”µé”¤å‘ä½ æ‰“æ¥ï¼Œä½ ä¸ç¦å¤§åƒä¸€æƒŠï¼Œ\n"
+                                                    "æµ‘èº«ä¸Šä¸‹éƒ½ä¸å¬ä½¿å”¤ï¼Œåªæœ‰é«˜å£°å‘¼æ•‘ã€‚\n" NOR);
                                 break;
                         }
                         damage = ap / 3 + random(ap / 3);
@@ -126,21 +126,21 @@ int perform(object me)
                         switch (random(3))
                         {
                         case 0:
-                                msg = HIR "Ö»¼û" + obs[i]->name() +
-                                      HIR "ÊÖÎè×ãµ¸£¬ÍüºõËùÒÔ£¬ºö"
-                                      "È»´ó½ĞÒ»Éù£¬ÍÂÑª²»Ö¹£¡\n" NOR;
+                                msg = HIR "åªè§" + obs[i]->name() +
+                                      HIR "æ‰‹èˆè¶³è¹ˆï¼Œå¿˜ä¹æ‰€ä»¥ï¼Œå¿½"
+                                      "ç„¶å¤§å«ä¸€å£°ï¼Œåè¡€ä¸æ­¢ï¼\n" NOR;
                                 msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
                                 break;
                         case 1:
-                                msg = HIR "È´¼û" + obs[i]->name() +
-                                      HIR "ÈİÃ²°§Æİ£¬ËÆºõÏëÆğÁËÊ²"
-                                      "Ã´ÉËĞÄÖ®ÊÂ£¬Éí×ÓÒ»»Î£¬Å»³öÊı¿ÚÏÊÑª£¡\n" NOR;
+                                msg = HIR "å´è§" + obs[i]->name() +
+                                      HIR "å®¹è²Œå“€æˆšï¼Œä¼¼ä¹æƒ³èµ·äº†ä»€"
+                                      "ä¹ˆä¼¤å¿ƒä¹‹äº‹ï¼Œèº«å­ä¸€æ™ƒï¼Œå‘•å‡ºæ•°å£é²œè¡€ï¼\n" NOR;
                                 msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
                                 break;
                         default:
                                 msg = HIR + obs[i]->name() +
-                                      HIR "´ôÁ¢µ±³¡£¬Ò»¶¯²»¶¯£¬ÓĞÈçÖĞ"
-                                      "Ğ°£¬ÆßÇÏ¶¼±Å³öÏÊÑªÀ´¡£\n" NOR;
+                                      HIR "å‘†ç«‹å½“åœºï¼Œä¸€åŠ¨ä¸åŠ¨ï¼Œæœ‰å¦‚ä¸­"
+                                      "é‚ªï¼Œä¸ƒçªéƒ½è¿¸å‡ºé²œè¡€æ¥ã€‚\n" NOR;
                                 msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
                                 break;
                         }
@@ -150,8 +150,8 @@ int perform(object me)
                         flag = 1;
                 } else
                 {
-                        tell_object(obs[i], HIC "Äã·¢ÏÖÑÛÇ°µÄ¾°ÎïËÆ»ÃËÆÕæ£¬Á¬Ã¦"
-                                            "Ä¬ÔËÄÚ¹¦£¬²»ÊÜÀ§ÈÅ¡£\n" NOR);
+                        tell_object(obs[i], HIC "ä½ å‘ç°çœ¼å‰çš„æ™¯ç‰©ä¼¼å¹»ä¼¼çœŸï¼Œè¿å¿™"
+                                            "é»˜è¿å†…åŠŸï¼Œä¸å—å›°æ‰°ã€‚\n" NOR);
                         obs[i]->add("neili", -200);
                 }
                 if (obs[i]->query("neili") < 0)
@@ -159,8 +159,8 @@ int perform(object me)
         }
 
         if (! flag) 
-                message_vision(HIM "È»¶øÃ»ÓĞÈÎºÎÈËÊÜÁË$N"
-			       HIM "µÄÓ°Ïì¡£\n\n" NOR, me, 0, obs);
+                message_vision(HIM "ç„¶è€Œæ²¡æœ‰ä»»ä½•äººå—äº†$N"
+			       HIM "çš„å½±å“ã€‚\n\n" NOR, me, 0, obs);
 
         return 1;
 }

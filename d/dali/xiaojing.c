@@ -4,10 +4,10 @@
 inherit ROOM;
 void create()
 {
-	set("short","ɽ��С��");
+	set("short","山区小径");
 	set("long",@LONG
-������Դɽ������ʯС�����������ѣ�������ľïʢ��������ա�������
-Ҷ������ϡ�ɡ������ౡ�����ϰϰ��
+这是清源山区的碎石小径，曲折蜿蜒，两旁林木茂盛，遮天蔽日。满径落
+叶，柔软稀松。虫鸟啾啾。凉风习习。
 LONG);
 	set("outdoors", "dali");
 	set("exits",([ /* sizeof() == 1 */

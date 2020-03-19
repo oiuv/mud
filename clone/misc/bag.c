@@ -5,12 +5,12 @@ int is_bag() { return 1; }
 
 void create()
 {
-        set_name(NOR + WHT "°ü¹ü" NOR, ({ "bag" }));
+        set_name(NOR + WHT "åŒ…è£¹" NOR, ({ "bag" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ö");
-                set("long", "ÕâÊÇÒ»¸ö°ü¹ü¡£\n");
+                set("unit", "ä¸ª");
+                set("long", "è¿™æ˜¯ä¸€ä¸ªåŒ…è£¹ã€‚\n");
                 set("value", 0);
         }
         setup();

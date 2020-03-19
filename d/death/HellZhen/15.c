@@ -16,7 +16,7 @@ void create()
         name += last_words[random(sizeof(last_words))];
         
         set_name(name, ({ "ghost"}) );
-        set("gender", "ÄĞĞÔ" );
+        set("gender", "ç”·æ€§" );
         set("age", 40);
         set("str", 30);
         set("int", 20);
@@ -86,9 +86,9 @@ void invocation(object target)
         object me = this_object();
 
 
-        msg = HIY "$N" HIY "ÔË×ªÁúÏó°ãÈô¹¦µÚÊ®Èı²ã"
-              "¹¦Á¦£¬Ë«È­Ğ¯×Å¡º" HIR "Ê®ÁúÊ®Ïó" HIY "¡»Ö®Á¦³¯$n" HIY "±À»÷"
-              "\n¶ø³ö£¬È­·æ¹ı´¦£¬¾¹¾íÆğÍòÀï³¾°£¡£\n" NOR;
+        msg = HIY "$N" HIY "è¿è½¬é¾™è±¡èˆ¬è‹¥åŠŸç¬¬åä¸‰å±‚"
+              "åŠŸåŠ›ï¼ŒåŒæ‹³æºç€ã€" HIR "åé¾™åè±¡" HIY "ã€ä¹‹åŠ›æœ$n" HIY "å´©å‡»"
+              "\nè€Œå‡ºï¼Œæ‹³é”‹è¿‡å¤„ï¼Œç«Ÿå·èµ·ä¸‡é‡Œå°˜åŸƒã€‚\n" NOR;
               
         ap = me->query_skill("unarmed") * 3 / 2 + me->query_skill("martial-cognize", 1);
         dp = target->query_skill("force") + target->query_skill("martial-cognize", 1);
@@ -102,23 +102,23 @@ void invocation(object target)
                         target->add_temp("apply/armor", -shd);
                         target->delete_temp("shield");
 
-                        msg += HIW "$N" HIW "î¸ÆøÓ¿ÖÁ£¬¾¹È»¼¤Æğ²ã²ãÆøÀË£¬¶ÙÊ±½«$n"
-                               HIW "µÄ»¤ÌåÕæÆø´İ»ÙµÃµ´È»ÎŞ´æ£¡\n" NOR;
+                        msg += HIW "$N" HIW "ç½¡æ°”æ¶Œè‡³ï¼Œç«Ÿç„¶æ¿€èµ·å±‚å±‚æ°”æµªï¼Œé¡¿æ—¶å°†$n"
+                               HIW "çš„æŠ¤ä½“çœŸæ°”æ‘§æ¯å¾—è¡ç„¶æ— å­˜ï¼\n" NOR;
                 }
 
                 damage = ap + random(ap);
 
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 90,
-                                               HIR "$n" HIR "²»¼°ÉÁ±Ü£¬¶Ù±»$N" HIR
-                                               "Ë«È­»÷¸öÕıÖĞ£¬°ãÈôî¸¾¢ÆÆÌå¶øÈë£¬¾¡"
-                                               "ÉËÈı½¹ÁùÂö¡£\n" NOR);
+                                               HIR "$n" HIR "ä¸åŠé—ªé¿ï¼Œé¡¿è¢«$N" HIR
+                                               "åŒæ‹³å‡»ä¸ªæ­£ä¸­ï¼Œèˆ¬è‹¥ç½¡åŠ²ç ´ä½“è€Œå…¥ï¼Œå°½"
+                                               "ä¼¤ä¸‰ç„¦å…­è„‰ã€‚\n" NOR);
 
                 me->add("neili", -800);  
         }else
         {
                 me->add("neili", -500);
-                msg += CYN "¿ÉÊÇ$p" CYN "Ê¶ÆÆÁË$P"
-                       CYN "ÕâÒ»ÕĞ£¬Ğ±Ğ±Ò»Ô¾±Ü¿ª¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "è¯†ç ´äº†$P"
+                       CYN "è¿™ä¸€æ‹›ï¼Œæ–œæ–œä¸€è·ƒé¿å¼€ã€‚\n" NOR;
         }
         
         message_combatd(msg, me, target);                      

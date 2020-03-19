@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define LING "¡¸" HIC "Áè¿ÕÖ¸Ñ¨" NOR "¡¹"
+#define LING "ã€Œ" HIC "å‡Œç©ºæŒ‡ç©´" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -11,44 +11,44 @@ int perform(object me, object target)
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/tiangang-zhi/ling"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(LING "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(LING "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if ((int)me->query_skill("force") < 150)
-		return notify_fail("ÄãÄÚ¹¦»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹" LING "¡£\n");
+		return notify_fail("ä½ å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" LING "ã€‚\n");
 
 	if ((int)me->query_skill("tiangang-zhi", 1) < 100)
-		return notify_fail("ÄãµÄÌìî¸Ö¸Ñ¨·¨ÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" LING "¡£\n");
+		return notify_fail("ä½ çš„å¤©ç½¡æŒ‡ç©´æ³•ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" LING "ã€‚\n");
 
 	if ((int)me->query("neili") < 100)
-		return notify_fail("ÄãµÄÕæÆøÏÖÔÚ²»¹»£¬ÄÑÒÔÊ©Õ¹" LING "¡£\n");
+		return notify_fail("ä½ çš„çœŸæ°”çŽ°åœ¨ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" LING "ã€‚\n");
 
 	if (target->is_busy())
-		return notify_fail(target->name() + "Ä¿Ç°Õý×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É¡£\n");
+		return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ã€‚\n");
 
         if (me->query_skill_mapped("finger") != "tiangang-zhi")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢Ììî¸Ö¸Ñ¨·¨£¬²»ÄÜÊ©Õ¹" LING "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å¤©ç½¡æŒ‡ç©´æ³•ï¼Œä¸èƒ½æ–½å±•" LING "ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIC "$N" HIC "Ê¹³öÌìî¸Ö¸Ñ¨·¨¾ø¼¼¡¸Áè¿ÕÖ¸Ñ¨¡¹£¬×óÊÖ"
-              "Ò»Á¬ÆßÖ¸Ïò×Å$n" HIC "ÐØÇ°´óÑ¨½ÓÁ¬´Á³ö¡£\n" NOR;
+	msg = HIC "$N" HIC "ä½¿å‡ºå¤©ç½¡æŒ‡ç©´æ³•ç»æŠ€ã€Œå‡Œç©ºæŒ‡ç©´ã€ï¼Œå·¦æ‰‹"
+              "ä¸€è¿žä¸ƒæŒ‡å‘ç€$n" HIC "èƒ¸å‰å¤§ç©´æŽ¥è¿žæˆ³å‡ºã€‚\n" NOR;
         ap = me->query_skill("finger");
         dp = target->query_skill("dodge");
 	if (ap / 2 + random(ap) > dp)
 	{
-		msg += HIR "½á¹û$p" HIR "²»¼°¹¥µÐ£¬Æ´Á¦¶ã±Ü$P"
-                       HIR "Ö¸Á¦¶ÙÊ±¶¯×÷´óÂÒ£¡\n" NOR;
+		msg += HIR "ç»“æžœ$p" HIR "ä¸åŠæ”»æ•Œï¼Œæ‹¼åŠ›èº²é¿$P"
+                       HIR "æŒ‡åŠ›é¡¿æ—¶åŠ¨ä½œå¤§ä¹±ï¼\n" NOR;
 		target->start_busy((int)me->query_skill("tiangang-zhi", 1) / 22 + 2);
 		me->add("neili", -100);
 	} else
 	{
-		msg += CYN "$p" CYN "Çé¼±ÖÇÉú£¬·ÜÁ¦Ò»Ô¾£¬ÍË³öÀÏÔ¶¡£\n" NOR;
+		msg += CYN "$p" CYN "æƒ…æ€¥æ™ºç”Ÿï¼Œå¥‹åŠ›ä¸€è·ƒï¼Œé€€å‡ºè€è¿œã€‚\n" NOR;
 		me->start_busy(3);
                 me->add("neili", -30);
 	}

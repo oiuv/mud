@@ -4,20 +4,20 @@ inherit ROOM;
 
 void create()
 {
-        set("short", HIB "������˾��" NOR);
+        set("short", HIB "【寂灭司】" NOR);
         set("long", HIB @LONG
 
-                    ��         ��         ˾
+                    寂         灭         司
 
-    ����˾�ں���ɭɭ����ʯ����ĵ������ǻҳ��������಼Χᣣ�Χ�
-���ý���˿������Щ��ֵ�ͼ����������һ����ʯ���� (table)��������
-�����������������Ӻܾ�û��ɨ���ˡ�
+    寂灭司内寒气森森，青石铺设的地面满是灰尘。堂周青布围幔，围幔
+上用金银丝线绣着些奇怪的图案，正堂上一张青石桌案 (table)，桌案上
+布满了蛛网，看样子很久没打扫过了。
 
 LONG NOR );
 
         set("item_desc", ([
-                "table" : WHT "һ����ʯ�Ƴɵ������������м���"
-                          "�ѷ죬�������Ѹ�������ܾ��ˡ�\n" NOR,
+                "table" : WHT "一个青石制成的桌案，上面有几许"
+                          "裂缝，看样子已搁在这里很久了。\n" NOR,
         ]));
 
         set("exits", ([

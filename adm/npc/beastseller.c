@@ -17,10 +17,10 @@ int check_legal_name(string name, int max_len);
 int check_legal_id(string arg);
 
 string *beast_type_name = ({
-        "Âí", "Â¿", "Ââ", "ÍÕ", "Å£", "Ïó",
-        "Ê¨", "»¢", "±ª", "Â¹", "º×", "µñ",
-        "Ñò", "ºï", "ĞÜ", "ÀÇ", "ºü", "õõ",
-        "¾Ô", "ÊŞ",
+        "é©¬", "é©´", "éª¡", "é©¼", "ç‰›", "è±¡",
+        "ç‹®", "è™", "è±¹", "é¹¿", "é¹¤", "é›•",
+        "ç¾Š", "çŒ´", "ç†Š", "ç‹¼", "ç‹", "è²‚",
+        "é©¹", "å…½",
 });
 
 string *beast_id_surfix = ({
@@ -31,26 +31,26 @@ string *beast_id_surfix = ({
 });
 
 string *beast_unit_name=({
-        "Æ¥", "Í·", "Í·", "Í·", "Í·", "Í·",
-        "Ö»", "Ö»", "Ö»", "Í·", "Ö»", "Ö»",
-        "Í·", "Ö»", "Ö»", "Ìõ", "Ö»", "Ö»",
-        "Æ¥", "Í·",
+        "åŒ¹", "å¤´", "å¤´", "å¤´", "å¤´", "å¤´",
+        "åª", "åª", "åª", "å¤´", "åª", "åª",
+        "å¤´", "åª", "åª", "æ¡", "åª", "åª",
+        "åŒ¹", "å¤´",
 });
 
 void create()
 {
-        set_name("¿ñ·çÊ¹Õß", ({ "kuangfeng shizhe", "kuangfeng", "shizhe" }) );
-        set("gender", "ÄĞĞÔ" );
+        set_name("ç‹‚é£ä½¿è€…", ({ "kuangfeng shizhe", "kuangfeng", "shizhe" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 21);
         set("long",@LONG
-¿ñ·çÊ¹ÕßÎŞÈËÖªµÀËûÀ´×ÔÄÄÀï£¬×î½üÍ»È»³öÏÖÔÚÑïÖİ³Ç£¬²¢³öÊÛ
-ÉñÆæµÄÕÙ»½ÊŞ£¬ÄãÈç¹ûÏ²»¶µÄ»°£¬²»·ÁÒ²Ñ¡(choose)Ò»Ö»¡£
+ç‹‚é£ä½¿è€…æ— äººçŸ¥é“ä»–æ¥è‡ªå“ªé‡Œï¼Œæœ€è¿‘çªç„¶å‡ºç°åœ¨æ‰¬å·åŸï¼Œå¹¶å‡ºå”®
+ç¥å¥‡çš„å¬å”¤å…½ï¼Œä½ å¦‚æœå–œæ¬¢çš„è¯ï¼Œä¸å¦¨ä¹Ÿé€‰(choose)ä¸€åªã€‚
 LONG );
-        set("title",HIW"ÕÙ»½ÊŞÉÌÈË"NOR);
+        set("title",HIW"å¬å”¤å…½å•†äºº"NOR);
         set("combat_exp", 5);
 
         set("inquiry", ([
-                "ÕÙ»½ÊŞ"     : "Ö»Òª¸øÎÒÒ»°ÙÁ½»Æ½ğ£¬Äã¾ÍÄÜÓµÓĞÕÙ»½ÊŞÁË£¡",
+                "å¬å”¤å…½"     : "åªè¦ç»™æˆ‘ä¸€ç™¾ä¸¤é»„é‡‘ï¼Œä½ å°±èƒ½æ‹¥æœ‰å¬å”¤å…½äº†ï¼",
 
         ]));
 
@@ -80,8 +80,8 @@ void greeting(object ob)
         if( !ob || environment(ob) != environment() ) return;
         switch( random(5) ) {
                 case 0:
-                        say( "¿ñ·çÊ¹ÕßËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob)
-                                + "£¬ÒªÕÙ»½ÊŞÃ´£¿\n");
+                        say( "ç‹‚é£ä½¿è€…è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob)
+                                + "ï¼Œè¦å¬å”¤å…½ä¹ˆï¼Ÿ\n");
                         break;
         }
 }
@@ -91,27 +91,27 @@ int do_choose()
         object me = this_player();
 
         if (me->is_busy())
-                return notify_fail("ÄãÉÏÒ»¸ö¶¯×÷»¹Ã»ÓĞÍê³É¡£\n");
+                return notify_fail("ä½ ä¸Šä¸€ä¸ªåŠ¨ä½œè¿˜æ²¡æœ‰å®Œæˆã€‚\n");
 
         if (file_size(me->query_save_file() + "-beast.o") > 0 &&
             mapp(me->query("can_whistle")))
-                return notify_fail("ÄãÒÑ¾­ÓµÓĞÄãĞÄ°®µÄÕÙ»½ÊŞÁË¡£\n");
+                return notify_fail("ä½ å·²ç»æ‹¥æœ‰ä½ å¿ƒçˆ±çš„å¬å”¤å…½äº†ã€‚\n");
 
         if (me->query_skill("training", 1)<200)
-                return notify_fail("ÄãµÄÔ¦ÊŞÊõÌ«µÍÁË£¬¼´Ê¹ÑøÁËÕÙ»½ÊŞ£¬Ò²»á±³ÆúÄã¶øÈ¥¡£\n");
+                return notify_fail("ä½ çš„é©­å…½æœ¯å¤ªä½äº†ï¼Œå³ä½¿å…»äº†å¬å”¤å…½ï¼Œä¹Ÿä¼šèƒŒå¼ƒä½ è€Œå»ã€‚\n");
 
         if (! me->query_temp("beast/money"))
         {
-                command("say ÕâÎ»" + RANK_D->query_respect(me) + "£¬Ã¿Ö»ÕÙ»½ÊŞÒ»°ÙÁ½»Æ½ğ£¬Äã±ØĞëÏÈ¸øÇ®£¡");
+                command("say è¿™ä½" + RANK_D->query_respect(me) + "ï¼Œæ¯åªå¬å”¤å…½ä¸€ç™¾ä¸¤é»„é‡‘ï¼Œä½ å¿…é¡»å…ˆç»™é’±ï¼");
                 return 1;
         }
 
-        write("ÄúÒªÑøÄÄÀàÕÙ»½ÊŞ£º\n");
-        write(" 1. Âí   2. Â¿   3. Ââ   4. ÍÕ  5. Å£  6. Ïó\n");
-        write(" 7. Ê¨   8. »¢   9. ±ª  10. Â¹ 11. º× 12. µñ\n");
-        write("13. Ñò  14. ºï  15. ĞÜ  16. ÀÇ 17. ºü 18. õõ\n");
-        write("19. ¾Ô  20. ÊŞ\n");
-        write("ÇëÑ¡ÔñÊı×Ö´úºÅ£º(q ¼üÈ¡Ïû)");
+        write("æ‚¨è¦å…»å“ªç±»å¬å”¤å…½ï¼š\n");
+        write(" 1. é©¬   2. é©´   3. éª¡   4. é©¼  5. ç‰›  6. è±¡\n");
+        write(" 7. ç‹®   8. è™   9. è±¹  10. é¹¿ 11. é¹¤ 12. é›•\n");
+        write("13. ç¾Š  14. çŒ´  15. ç†Š  16. ç‹¼ 17. ç‹ 18. è²‚\n");
+        write("19. é©¹  20. å…½\n");
+        write("è¯·é€‰æ‹©æ•°å­—ä»£å·ï¼š(q é”®å–æ¶ˆ)");
 
         input_to( (: get_subtype :), me);
         return 1;
@@ -128,19 +128,19 @@ void get_subtype(string arg, object ob)
 
         if (n <= 0 || n > 20)
         {
-                write("ÄúÒªÑøÄÄÀàÕÙ»½ÊŞ£º\n");
-                write(" 1. Âí   2. Â¿   3. Ââ   4. ÍÕ  5. Å£  6. Ïó\n");
-                write(" 7. Ê¨   8. »¢   9. ±ª  10. Â¹ 11. º× 12. µñ\n");
-                write("13. Ñò  14. ºï  15. ĞÜ  16. ÀÇ 17. ºü 18. õõ\n");
-                write("19. ¾Ô  20. ÊŞ\n");
-                write("ÇëÑ¡ÔñÊı×Ö´úºÅ£º(q ¼üÈ¡Ïû)");
+                write("æ‚¨è¦å…»å“ªç±»å¬å”¤å…½ï¼š\n");
+                write(" 1. é©¬   2. é©´   3. éª¡   4. é©¼  5. ç‰›  6. è±¡\n");
+                write(" 7. ç‹®   8. è™   9. è±¹  10. é¹¿ 11. é¹¤ 12. é›•\n");
+                write("13. ç¾Š  14. çŒ´  15. ç†Š  16. ç‹¼ 17. ç‹ 18. è²‚\n");
+                write("19. é©¹  20. å…½\n");
+                write("è¯·é€‰æ‹©æ•°å­—ä»£å·ï¼š(q é”®å–æ¶ˆ)");
                 input_to( (: get_subtype :), ob);
                 return;
         }
         ob->set_temp("beast/beast_type", n);
 
         write("\n");
-        write("ÇëÉè¶¨ÕÙ»½ÊŞµÄĞÔ±ğ(ĞÛĞÔ£º1  ´ÆĞÔ£º0)£º");
+        write("è¯·è®¾å®šå¬å”¤å…½çš„æ€§åˆ«(é›„æ€§ï¼š1  é›Œæ€§ï¼š0)ï¼š");
         input_to( (: get_gender :), ob );
 }
 
@@ -154,34 +154,34 @@ void get_gender(string arg, object ob)
         if (n != 0 && n != 1)
         {
                 write("\n");
-                write("ÇëÉè¶¨ÕÙ»½ÊŞµÄĞÔ±ğ(ĞÛĞÔ£º1  ´ÆĞÔ£º0)£º");
+                write("è¯·è®¾å®šå¬å”¤å…½çš„æ€§åˆ«(é›„æ€§ï¼š1  é›Œæ€§ï¼š0)ï¼š");
                 input_to( (: get_gender :), ob );
                 return;
         }
-        ob->set_temp("beast/beast_gender", n ? "ÄĞĞÔ" : "Å®ĞÔ");
+        ob->set_temp("beast/beast_gender", n ? "ç”·æ€§" : "å¥³æ€§");
 
         write("\n");
 
-        write(sort_string(CYN "Äã°´ÕÕ¿ñ·çÊ¹ÕßµÄÖ¸µã¿ªÊ¼·É¿ìµÄÄîµÀ£º¡°ÔÚÌìµÄ¼û"
-                "Ö¤Ö®ÏÂ£¬¼¯ÓÂÆø¡¢ÖÇ»Û¡¢ÓëÃÀÀöÓÚÒ»ÉíµÄÇ¿´óÉúÎï£¬»ÃÊŞÑ½£¡Çë"
-                "ÄãÒÔ×îÉîµÄÁéĞÔ£¬ñöÌıÎÒµÄÇãËß£¬ÎÒ£­" + ob->query("name") +
-                "£­½«ÓëÄãµŞ½áÓÀÉúµÄÑªÖ®ÃËÔ¼£¬ÖÕ´ËÉúÎ©ÓĞÄãÓëÎÒÎªÖÕÉúÖ®ÃËÓÑ"
-                "£¬Æõ¡£¡±\n" NOR, 64));
+        write(sort_string(CYN "ä½ æŒ‰ç…§ç‹‚é£ä½¿è€…çš„æŒ‡ç‚¹å¼€å§‹é£å¿«çš„å¿µé“ï¼šâ€œåœ¨å¤©çš„è§"
+                "è¯ä¹‹ä¸‹ï¼Œé›†å‹‡æ°”ã€æ™ºæ…§ã€ä¸ç¾ä¸½äºä¸€èº«çš„å¼ºå¤§ç”Ÿç‰©ï¼Œå¹»å…½å‘€ï¼è¯·"
+                "ä½ ä»¥æœ€æ·±çš„çµæ€§ï¼Œè†å¬æˆ‘çš„å€¾è¯‰ï¼Œæˆ‘ï¼" + ob->query("name") +
+                "ï¼å°†ä¸ä½ ç¼”ç»“æ°¸ç”Ÿçš„è¡€ä¹‹ç›Ÿçº¦ï¼Œç»ˆæ­¤ç”ŸæƒŸæœ‰ä½ ä¸æˆ‘ä¸ºç»ˆç”Ÿä¹‹ç›Ÿå‹"
+                "ï¼Œå¥‘ã€‚â€\n" NOR, 64));
 
-        write(sort_string(WHT "Ö»¼ûÄãÊÖÖĞµÄ»ÃÊŞÂÑÈ´´«À´Ò»ÕóÒìÑù£¬ºÏÔÚÕÆÖĞµÄÄ§"
-                "»ÃÊŞÂÑÎÂ¶ÈÒì³£µÄÉı¸ß£¬Éıµ½¼¸ºõÌÌÊÖµÄ¸ßÎÂ£¬¶øÇÒÀïÃæÒşÒşÓĞ¶«"
-                "Î÷»î¶¯µÄ¸Ğ¾õ¡£$NÂúĞÄÆÚ´ıÖĞ£¬Ô­±¾¹â»ªµÄÍâ¿Ç¿ªÊÇ³öÏÖÁÑºÛ£¬È»"
-                "ºóÁÑºÛ¼Ó´ó£¬Ò»¹ÉÆæÌØ£¬Ëµ²»ÉÏÏã»ò³ôµÄÎ¶µÀ¿ªÊ¼É¢³ö£¬³ä³âÕû¸ö"
-                "¿Õ¼ä¡£½Ó×Å£¬Ò»¿ÅÁúÑÛ´óĞ¡µÄÍ·ÉìÁË³öÀ´£¬¿´ÆğÀ´ÓĞµãÏñ" +
-                beast_type_name[ob->query_temp("beast/beast_type") - 1] +  "µÄÑù×Ó£¬½Ó×ÅÕû¸öÉí×ÓÈ«Â¶"
-                "ÁË³öÀ´£¬¿´À´Ö»ÓĞ°ÍÕÆ²»µ½µÄ´óĞ¡£¬Ò»ÉíÓ¦¸ÃÊÇÒøÉ«µÄ£¬µ«ÒòÎªÕ´"
-                "ÂúÁËÊª»¬ğ¤Òº¶ø·º³öÕäÖéÉ«Ôó£¬Ğ¡»ÃÊŞ¿´ÁË$NÒ»ÑÛ£¬Éì³öĞ¡ÉàÍ·ÔÚ"
-                "ÄãÄ´Ö¸ÉÏÌòÁË¼¸ÏÂ£¬·¢³öÒ»ÉùÈçÎÃÉùµÄ½ĞÉù£¬Ëæ¼´¿ªÊ¼³ÔÆğÂÑ¿Ç£¬"
-                "Ò»ÏÂ×Ó£¬ºÍËüµÈÌå»ıµÄÂÑ¿ÇÒ»ÏÂ×Ó¾Í±»³Ô¹âÁË£¬Ö»¼ûËü¿É°®µÄ´òÁË"
-                "¸ö±¥àÃ£¬Éí¸öÀÁÑü£¬Êæ·şµÄÎÑÔÚ$NµÄÕÆĞÄÖĞ¡£\n" NOR, 64));
+        write(sort_string(WHT "åªè§ä½ æ‰‹ä¸­çš„å¹»å…½åµå´ä¼ æ¥ä¸€é˜µå¼‚æ ·ï¼Œåˆåœ¨æŒä¸­çš„é­”"
+                "å¹»å…½åµæ¸©åº¦å¼‚å¸¸çš„å‡é«˜ï¼Œå‡åˆ°å‡ ä¹çƒ«æ‰‹çš„é«˜æ¸©ï¼Œè€Œä¸”é‡Œé¢éšéšæœ‰ä¸œ"
+                "è¥¿æ´»åŠ¨çš„æ„Ÿè§‰ã€‚$Næ»¡å¿ƒæœŸå¾…ä¸­ï¼ŒåŸæœ¬å…‰åçš„å¤–å£³å¼€æ˜¯å‡ºç°è£‚ç—•ï¼Œç„¶"
+                "åè£‚ç—•åŠ å¤§ï¼Œä¸€è‚¡å¥‡ç‰¹ï¼Œè¯´ä¸ä¸Šé¦™æˆ–è‡­çš„å‘³é“å¼€å§‹æ•£å‡ºï¼Œå……æ–¥æ•´ä¸ª"
+                "ç©ºé—´ã€‚æ¥ç€ï¼Œä¸€é¢—é¾™çœ¼å¤§å°çš„å¤´ä¼¸äº†å‡ºæ¥ï¼Œçœ‹èµ·æ¥æœ‰ç‚¹åƒ" +
+                beast_type_name[ob->query_temp("beast/beast_type") - 1] +  "çš„æ ·å­ï¼Œæ¥ç€æ•´ä¸ªèº«å­å…¨éœ²"
+                "äº†å‡ºæ¥ï¼Œçœ‹æ¥åªæœ‰å·´æŒä¸åˆ°çš„å¤§å°ï¼Œä¸€èº«åº”è¯¥æ˜¯é“¶è‰²çš„ï¼Œä½†å› ä¸ºæ²¾"
+                "æ»¡äº†æ¹¿æ»‘é»æ¶²è€Œæ³›å‡ºçç è‰²æ³½ï¼Œå°å¹»å…½çœ‹äº†$Nä¸€çœ¼ï¼Œä¼¸å‡ºå°èˆŒå¤´åœ¨"
+                "ä½ æ‹‡æŒ‡ä¸Šèˆ”äº†å‡ ä¸‹ï¼Œå‘å‡ºä¸€å£°å¦‚èšŠå£°çš„å«å£°ï¼Œéšå³å¼€å§‹åƒèµ·åµå£³ï¼Œ"
+                "ä¸€ä¸‹å­ï¼Œå’Œå®ƒç­‰ä½“ç§¯çš„åµå£³ä¸€ä¸‹å­å°±è¢«åƒå…‰äº†ï¼Œåªè§å®ƒå¯çˆ±çš„æ‰“äº†"
+                "ä¸ªé¥±å—ï¼Œèº«ä¸ªæ‡’è…°ï¼Œèˆ’æœçš„çªåœ¨$Nçš„æŒå¿ƒä¸­ã€‚\n" NOR, 64));
 
         write("\n");
-        write("ÇëÉè¶¨ÕÙ»½ÊŞµÄÓ¢ÎÄ id £º");
+        write("è¯·è®¾å®šå¬å”¤å…½çš„è‹±æ–‡ id ï¼š");
         input_to( (: get_id :), ob );
 }
 
@@ -193,7 +193,7 @@ void get_id(string arg, object ob)
         {
                 write("\n");
 
-                write("ÇëÉè¶¨ÕÙ»½ÊŞµÄÓ¢ÎÄ id £º");
+                write("è¯·è®¾å®šå¬å”¤å…½çš„è‹±æ–‡ id ï¼š");
                 input_to( (: get_id :), ob );
                 return;
         }
@@ -205,7 +205,7 @@ void get_id(string arg, object ob)
         ob->set_temp("beast/beast_unit", beast_unit_name[ob->query_temp("beast/beast_type") - 1]);
 
         write("\n");
-        write("ÇëÉè¶¨ÕÙ»½ÊŞµÄÖĞÎÄÃû£º(¿É¼ÓÑÕÉ«)");
+        write("è¯·è®¾å®šå¬å”¤å…½çš„ä¸­æ–‡åï¼š(å¯åŠ é¢œè‰²)");
         input_to( (: get_name :), ob);
 }
 
@@ -236,15 +236,15 @@ void get_name(string arg, object ob)
 
         if (! check_legal_name(arg, 12))
         {
-                write("ÇëÉè¶¨ÕÙ»½ÊŞµÄÖĞÎÄÃû£º(¿É¼ÓÑÕÉ«)");
+                write("è¯·è®¾å®šå¬å”¤å…½çš„ä¸­æ–‡åï¼š(å¯åŠ é¢œè‰²)");
                 input_to( (: get_name :), ob);
                 return;
         }
 
         if (stringp(result = NAME_D->invalid_new_name(arg)))
         {
-                write("¶Ô²»Æğ£¬" + result);
-                write(HIR "½ûÖ¹Ê¹ÓÃÓëËûÈËĞÕÃûÏàÍ¬»ò½Ó½üµÄÕÙ»½ÊŞÃû¡£²¢ÒòÑ­RULESÖĞ¶ÔÃû×ÖµÄÏà¹Ø¹æ¶¨¡£"NOR+"\n");
+                write("å¯¹ä¸èµ·ï¼Œ" + result);
+                write(HIR "ç¦æ­¢ä½¿ç”¨ä¸ä»–äººå§“åç›¸åŒæˆ–æ¥è¿‘çš„å¬å”¤å…½åã€‚å¹¶å› å¾ªRULESä¸­å¯¹åå­—çš„ç›¸å…³è§„å®šã€‚"NOR+"\n");
                 input_to( (: get_name :), ob);
                 return;
         }
@@ -271,7 +271,7 @@ void get_name(string arg, object ob)
         ob->set_temp("beast/beast_name", arg);
 
         write("\n");
-        write("ÇëÃèÊöÕÙ»½ÊŞ£º(²»¿É¼ÓÑÕÉ«)");
+        write("è¯·æè¿°å¬å”¤å…½ï¼š(ä¸å¯åŠ é¢œè‰²)");
         input_to( (: get_desc :), ob);
 }
 
@@ -281,7 +281,7 @@ void get_desc(string arg, object ob)
         arg = replace_string(arg, "\\", "");
         if (! check_legal_name(arg, 60))
         {
-                write("ÇëÃèÊöÕÙ»½ÊŞ£º");
+                write("è¯·æè¿°å¬å”¤å…½ï¼š");
                 input_to( (: get_desc :), ob);
                 return;
         }
@@ -316,8 +316,8 @@ void build_beast(object ob)
         file = replace_string(file, "BEAST_GENDER", beast_gender);
         file = replace_string(file, "BEAST_UNIT", beast_unit);
         file = replace_string(file, "LONG_DESCRIPTION",
-                            beast_desc + "\n" + "ËüÊÇ" +
-                            ob->query("name") + "µÄÕÙ»½ÊŞ¡£\n");
+                            beast_desc + "\n" + "å®ƒæ˜¯" +
+                            ob->query("name") + "çš„å¬å”¤å…½ã€‚\n");
 
         file = replace_string(file, "OWNER_ID", ob->query("id"));
         file = replace_string(file, "OWNER_NAME", ob->query("name"));
@@ -333,8 +333,8 @@ void build_beast(object ob)
         }
 
         assure_file(filename);
-        write_file(filename + ".c", file); // Ğ´ÈëÎÄ¼ş
-        VERSION_D->append_sn(filename + ".c"); // ¸øÎïÆ·Ôö¼ÓÊ¶±ğÂë
+        write_file(filename + ".c", file); // å†™å…¥æ–‡ä»¶
+        VERSION_D->append_sn(filename + ".c"); // ç»™ç‰©å“å¢åŠ è¯†åˆ«ç 
 
         catch(call_other(filename, "???"));
         beast = find_object(filename);
@@ -344,7 +344,7 @@ void build_beast(object ob)
                 money = new("/clone/money/gold");
                 money->set_amount(100);
                 money->move(ob, 1);
-                message_vision("$NÒ»´ô£¬¶Ô$nµÀ£º±§Ç¸±§Ç¸£¡³öÁËÒ»Ğ©ÎÊÌâ£¡Ç®ÎÒ»¹ÊÇ»¹Äã°É¡£\n", this_object(), ob);
+                message_vision("$Nä¸€å‘†ï¼Œå¯¹$né“ï¼šæŠ±æ­‰æŠ±æ­‰ï¼å‡ºäº†ä¸€äº›é—®é¢˜ï¼é’±æˆ‘è¿˜æ˜¯è¿˜ä½ å§ã€‚\n", this_object(), ob);
                 return;
         }
 
@@ -354,7 +354,7 @@ void build_beast(object ob)
 
         ob->set("can_whistle/" + beast_id, filename);
         ob->delete_temp("beast");
-        command("say Äã¿ÉÒÔ´µÉù¿ÚÉÚÕÙ»½ÄãµÄÕÙ»½ÊŞ£¡<whistle " + beast_id +">\n");
+        command("say ä½ å¯ä»¥å¹å£°å£å“¨å¬å”¤ä½ çš„å¬å”¤å…½ï¼<whistle " + beast_id +">\n");
         return;
 }
 
@@ -362,7 +362,7 @@ int accept_object(object me, object ob)
 {
         if (me->query_skill("training", 1) < 30)
         {
-                command("say ÄãµÄÔ¦ÊŞÊõ²»¹»£¬¼´Ê¹ÑøÁËÕÙ»½ÊŞ£¬Ò²»áÀëÄã¶øÈ¥£¡");
+                command("say ä½ çš„é©­å…½æœ¯ä¸å¤Ÿï¼Œå³ä½¿å…»äº†å¬å”¤å…½ï¼Œä¹Ÿä¼šç¦»ä½ è€Œå»ï¼");
                 return 0;
         }
 
@@ -370,15 +370,15 @@ int accept_object(object me, object ob)
         {
                 if (ob->value() < 1000000)
                 {
-                        command("say ÕâÎ»¸øµÄÎ´ÃâÉÙÁËµã£¡Ã¿Ö»ÕÙ»½ÊŞÂÑÒªÒ»°ÙÁ½»Æ½ğ£¡");
+                        command("say è¿™ä½ç»™çš„æœªå…å°‘äº†ç‚¹ï¼æ¯åªå¬å”¤å…½åµè¦ä¸€ç™¾ä¸¤é»„é‡‘ï¼");
                         return 0;
                 }
                 else
                 {
                         me->set_temp("beast/money",1);
-                        command("say ºÃÎÒÊÕÏÂÁË£¡");
-                        command("say " + me->name() + "£¬ÏÖÔÚÎÒÕâÀïÓĞ¸÷ÖÖÕÙ»½ÊŞÂÑ£¡");
-                        command("say ÇëÑ¡ÔñÄãÒªµÄÕÙ»½ÊŞÂÑ < choose >");
+                        command("say å¥½æˆ‘æ”¶ä¸‹äº†ï¼");
+                        command("say " + me->name() + "ï¼Œç°åœ¨æˆ‘è¿™é‡Œæœ‰å„ç§å¬å”¤å…½åµï¼");
+                        command("say è¯·é€‰æ‹©ä½ è¦çš„å¬å”¤å…½åµ < choose >");
                         destruct(ob);
                         return 1;
                 }
@@ -396,7 +396,7 @@ int check_legal_id(string id)
 
         if ((strlen(id) < 3) || (strlen(id) > 20))
         {
-                write("¶Ô²»Æğ£¬Ó¢ÎÄ id ±ØĞëÊÇ 3 µ½ 20 ¸öÓ¢ÎÄ×ÖÄ¸¡£\n");
+                write("å¯¹ä¸èµ·ï¼Œè‹±æ–‡ id å¿…é¡»æ˜¯ 3 åˆ° 20 ä¸ªè‹±æ–‡å­—æ¯ã€‚\n");
                 return 0;
         }
 
@@ -404,7 +404,7 @@ int check_legal_id(string id)
 
         if (id[i] != ' ' && (id[i] < 'a' || id[i] > 'z'))
         {
-                write("¶Ô²»Æğ£¬Ó¢ÎÄ id Ö»ÄÜÓÃÓ¢ÎÄ×ÖÄ¸¡£\n");
+                write("å¯¹ä¸èµ·ï¼Œè‹±æ–‡ id åªèƒ½ç”¨è‹±æ–‡å­—æ¯ã€‚\n");
                 return 0;
         }
 
@@ -412,14 +412,14 @@ int check_legal_id(string id)
 
         if (ppl || id == "guest" || id == "new")
         {
-                write("Õâ¸öÃû×ÖÓë±ğµÄÍæ¼ÒIDÏàÍ¬ÁË£®£®£®");
+                write("è¿™ä¸ªåå­—ä¸åˆ«çš„ç©å®¶IDç›¸åŒäº†ï¼ï¼ï¼");
                 return 0;
         }
 
         if (file_size(sprintf("/data/user/%c/%s", id[0], id)
                     + __SAVE_EXTENSION__) >= 0)
         {
-                write("Õâ¸öÃû×ÖÒÑ¾­±»±ğµÄÍæ¼ÒÊ¹ÓÃÁË£®£®£®");
+                write("è¿™ä¸ªåå­—å·²ç»è¢«åˆ«çš„ç©å®¶ä½¿ç”¨äº†ï¼ï¼ï¼");
                 return 0;
         }
 
@@ -433,13 +433,13 @@ int check_legal_name(string name, int max_len)
         i = strlen(name);
         if ((strlen(name) < 2) || (strlen(name) > max_len ))
         {
-                write(sprintf("¶Ô²»Æğ£¬ÕÙ»½ÊŞÖĞÎÄ×Ö±ØĞëÊÇ 1 µ½ %d ¸öÖĞÎÄ×Ö¡£\n", max_len / 2));
+                write(sprintf("å¯¹ä¸èµ·ï¼Œå¬å”¤å…½ä¸­æ–‡å­—å¿…é¡»æ˜¯ 1 åˆ° %d ä¸ªä¸­æ–‡å­—ã€‚\n", max_len / 2));
                 return 0;
         }
 
         if (max_len < 13 && ! is_chinese(name))
         {
-                write("¶Ô²»Æğ£¬ÇëÄúÓÃ¡¸ÖĞÎÄ¡¹Îª³èÎïÈ¡Ãû×Ö»òÃèÊö¡£\n");
+                write("å¯¹ä¸èµ·ï¼Œè¯·æ‚¨ç”¨ã€Œä¸­æ–‡ã€ä¸ºå® ç‰©å–åå­—æˆ–æè¿°ã€‚\n");
                 return 0;
         }
         return 1;
@@ -447,7 +447,7 @@ int check_legal_name(string name, int max_len)
 
 int attempt_apprentice(object ob)
 {
-        command("say ¹ö£¡¸øÎÒÒ»±ß¶ùÈ¥£¡");
+        command("say æ»šï¼ç»™æˆ‘ä¸€è¾¹å„¿å»ï¼");
 }
 
 int recognize_apprentice(object me, string skill)

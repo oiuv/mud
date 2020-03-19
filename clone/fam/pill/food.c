@@ -3,12 +3,12 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name(NOR + WHT "¸ÉÁ¸" NOR, ({ "gan liang", "gan", "liang" }));
+        set_name(NOR + WHT "å¹²ç²®" NOR, ({ "gan liang", "gan", "liang" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + WHT "ÕâÊÇÒ»¿é±ãÓÚÐ¯´øµÄ¸ÉÁ¸¡£\n" NOR);
-                set("base_unit", "¿é");
+                set("long", NOR + WHT "è¿™æ˜¯ä¸€å—ä¾¿äºŽæºå¸¦çš„å¹²ç²®ã€‚\n" NOR);
+                set("base_unit", "å—");
                 set("base_value", 50);
                 set("base_weight", 10);
                 set("only_do_effect", 1);
@@ -21,11 +21,11 @@ int do_effect(object me)
 {
 	if (me->query("food") >= me->max_food_capacity())
         {
-                write("ÄãÒÑ¾­³ÔÌ«±¥ÁË£¬ÔÙÒ²Èû²»ÏÂÈÎºÎ¶«Î÷ÁË¡£\n");
+                write("ä½ å·²ç»åƒå¤ªé¥±äº†ï¼Œå†ä¹Ÿå¡žä¸ä¸‹ä»»ä½•ä¸œè¥¿äº†ã€‚\n");
                 return 1;
         }
 
-        message_vision("$NÃþ³öÒ»¿é" + name() + "¿ÐÁË¼¸¿Ú¡£\n" NOR, me);
+        message_vision("$Næ‘¸å‡ºä¸€å—" + name() + "å•ƒäº†å‡ å£ã€‚\n" NOR, me);
         me->add("food", 100);
 
         add_amount(-1);

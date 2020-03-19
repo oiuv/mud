@@ -3,7 +3,7 @@
 
 inherit F_SSERVER;
 
-#define TAO "¡¸" HIG "±ÌÑæÌÏÌì" NOR "¡¹"
+#define TAO "ã€Œ" HIG "ç¢§ç„°æ»”å¤©" NOR "ã€"
 
 int unconcious_me(object me);
 
@@ -16,49 +16,49 @@ int perform(object me, object target)
         int lvl;
 
         if (userp(me) && ! me->query("can_perform/chousui-zhang/tao"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail("ÄãÖ»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ©Õ¹" TAO "¡£\n");
+                return notify_fail("ä½ åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹æ–½å±•" TAO "ã€‚\n");
 
         if ((int)me->query_skill("chousui-zhang", 1) < 220)
-                return notify_fail("ÄãµÄ³éËèÕÆ»ðºò²»¹»¡£\n");
+                return notify_fail("ä½ çš„æŠ½é«“æŽŒç«å€™ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_skill("poison", 1) < 250)
-                return notify_fail("ÄãµÄ»ù±¾¶¾¼¼»ðºò²»¹»¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬æ¯’æŠ€ç«å€™ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_skill("huagong-dafa", 1) < 220)
-                return notify_fail("ÄãµÄ»¯¹¦´ó·¨»ðºò²»¹»¡£\n");
+                return notify_fail("ä½ çš„åŒ–åŠŸå¤§æ³•ç«å€™ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query("max_neili") < 3000)
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎª²»×ã£¬ÎÞ·¨ÓÃÄÚÁ¦Ê©Õ¹" TAO "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œæ— æ³•ç”¨å†…åŠ›æ–½å±•" TAO "ã€‚\n");
 
         if ((int)me->query("neili") < 3000)
-                return notify_fail("ÄãÏÖÔÚÄÚÏ¢²»×ã£¬ÎÞ·¨ÓÃÄÚÁ¦Ê©Õ¹" TAO "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨å†…æ¯ä¸è¶³ï¼Œæ— æ³•ç”¨å†…åŠ›æ–½å±•" TAO "ã€‚\n");
 
         if (me->query_skill_prepared("strike") != "chousui-zhang")
-                return notify_fail("Äã»¹Ã»ÓÐ×¼±¸³éËèÕÆ£¬ÎÞ·¨Ê©Õ¹" TAO "¡£\n");
+                return notify_fail("ä½ è¿˜æ²¡æœ‰å‡†å¤‡æŠ½é«“æŽŒï¼Œæ— æ³•æ–½å±•" TAO "ã€‚\n");
 
         if (! me->query_temp("powerup"))
-                return notify_fail("Äã±ØÐë½«È«Éí¹¦Á¦¾¡ÊýÌáÆð²ÅÄÜÊ©Õ¹" TAO "¡£\n");
+                return notify_fail("ä½ å¿…é¡»å°†å…¨èº«åŠŸåŠ›å°½æ•°æèµ·æ‰èƒ½æ–½å±•" TAO "ã€‚\n");
 
         if (! objectp(du = me->query_temp("handing")) && userp(me))
-                return notify_fail("ÄãÊ×ÏÈÒªÄÃ×Å(hand)Ò»Ð©¶¾Ò©×÷ÎªÒý×Ó¡£\n");
+                return notify_fail("ä½ é¦–å…ˆè¦æ‹¿ç€(hand)ä¸€äº›æ¯’è¯ä½œä¸ºå¼•å­ã€‚\n");
 
         if (objectp(du) && ! mapp(du->query("poison")))
-                return notify_fail(du->name() + "ÓÖ²»ÊÇ¶¾Ò©£¬ÎÞ·¨ÔËÉä³ö¶¾Ñæ£¿\n");
+                return notify_fail(du->name() + "åˆä¸æ˜¯æ¯’è¯ï¼Œæ— æ³•è¿å°„å‡ºæ¯’ç„°ï¼Ÿ\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIR "Ö»¼û$N" HIR "Ë«Ä¿Ñªºì£¬Í··¢É¢ÂÒ£¬ÃÍµØÑöÌì·¢³öÒ»Éù±¯Ð¥¡£\n\n"
-              "$N" HIR "°ÑÐÄÒ»ºá£¬ÔÚ×Ô¼ºÉà¼âºÝÃüÒ»Ò§£¬½«±ÏÉú¹¦Á¦¾¡"
-              "ÊýÅç³ö£¬¶ÙÊ±Ö»¼û¿ÕÆøÖÐÑªÎíÃÖÂþ£¬ÐÈ³ôÎÞ±È£¬Ëæ¼´ÓÖ\n"
-              "Ìý$N" HIR "¹Ç÷À¡°àèÀïÅ¾À²¡±Ò»Õó±¬Ïì£¬Ë«±ÛË³×ÅÅç³öµÄ"
-              "ÑªÖùÒ»ÍÆ£¬É²ÄÇ¼äÒ»×ùÕÉÀ´¸ßµÄÆæ¶¾»ðÇ½°ÎµØ¶øÆð£¬´ø\n"
-              "×ÅÅÅÉ½µ¹º£Ö®ÊÆÏò$n" HIR "Ó¿È¥£¡\n" NOR;
+        msg = HIR "åªè§$N" HIR "åŒç›®è¡€çº¢ï¼Œå¤´å‘æ•£ä¹±ï¼ŒçŒ›åœ°ä»°å¤©å‘å‡ºä¸€å£°æ‚²å•¸ã€‚\n\n"
+              "$N" HIR "æŠŠå¿ƒä¸€æ¨ªï¼Œåœ¨è‡ªå·±èˆŒå°–ç‹ å‘½ä¸€å’¬ï¼Œå°†æ¯•ç”ŸåŠŸåŠ›å°½"
+              "æ•°å–·å‡ºï¼Œé¡¿æ—¶åªè§ç©ºæ°”ä¸­è¡€é›¾å¼¥æ¼«ï¼Œè…¥è‡­æ— æ¯”ï¼Œéšå³åˆ\n"
+              "å¬$N" HIR "éª¨éª¼â€œå™¼é‡Œå•ªå•¦â€ä¸€é˜µçˆ†å“ï¼ŒåŒè‡‚é¡ºç€å–·å‡ºçš„"
+              "è¡€æŸ±ä¸€æŽ¨ï¼Œåˆ¹é‚£é—´ä¸€åº§ä¸ˆæ¥é«˜çš„å¥‡æ¯’ç«å¢™æ‹”åœ°è€Œèµ·ï¼Œå¸¦\n"
+              "ç€æŽ’å±±å€’æµ·ä¹‹åŠ¿å‘$n" HIR "æ¶ŒåŽ»ï¼\n" NOR;
         me->start_busy(4 + random(4));
         me->set("neili", 0);
         me->add("max_neili", -50);
@@ -69,10 +69,10 @@ int perform(object me, object target)
         if (me->query("max_neili") + random(me->query("max_neili")) <
             target->query("max_neili") * 18 / 10)
         {
-                msg += WHT "$n" WHT "¼û×´Á¬Ã¦ÌáÔËÄÚÁ¦£¬Ë«±ÛÃÍ"
-                       "µÄÍÆ³ö£¬ÕÆ·çÅìÅÈ£¬Ç¿´óµÄÆøÁ÷¶ÙÊ±½«»ðÀË"
-                       "¹ÎµÃµ¹×ª£¬¾¹È»µôÍ·Ïò$N" WHT "ÆËÈ¥¡£\n\n" NOR;
-                msg += HIR "$N" HIR "Ò»Éù²ÒÐ¦£¬³¤Ì¾Ò»Éù£¬ÑÛÇ°Ò»ºÚ£¬µ¹ÔÚÁËµØÉÏ¡£\n\n" NOR;
+                msg += WHT "$n" WHT "è§çŠ¶è¿žå¿™æè¿å†…åŠ›ï¼ŒåŒè‡‚çŒ›"
+                       "çš„æŽ¨å‡ºï¼ŒæŽŒé£Žæ¾Žæ¹ƒï¼Œå¼ºå¤§çš„æ°”æµé¡¿æ—¶å°†ç«æµª"
+                       "åˆ®å¾—å€’è½¬ï¼Œç«Ÿç„¶æŽ‰å¤´å‘$N" WHT "æ‰‘åŽ»ã€‚\n\n" NOR;
+                msg += HIR "$N" HIR "ä¸€å£°æƒ¨ç¬‘ï¼Œé•¿å¹ä¸€å£°ï¼Œçœ¼å‰ä¸€é»‘ï¼Œå€’åœ¨äº†åœ°ä¸Šã€‚\n\n" NOR;
                 me->add("max_neili", -random(50));
 
                 remove_call_out("unconcious_me");
@@ -85,14 +85,14 @@ int perform(object me, object target)
                      //me->query_skill("force");
                 if (ap + random(ap) < target->query_skill("dodge"))
                 {
-                        msg += CYN "$n" CYN "¼ûÊÆ²»Ãî£¬¼±Ã¦ÌÚÅ²ÉíÐÎ£¬±Ü¿ªÁË$N" CYN "µÄ¹¥»÷¡£\n" NOR;
+                        msg += CYN "$n" CYN "è§åŠ¿ä¸å¦™ï¼Œæ€¥å¿™è…¾æŒªèº«å½¢ï¼Œé¿å¼€äº†$N" CYN "çš„æ”»å‡»ã€‚\n" NOR;
                         me->add("max_neili", -random(50));
                         if (! target->is_busy())
                                 target->start_busy(5);
                 } else
                 {
-                        msg += HIR "$n" HIR "¼ûÌÏÌìÈÈÀËÆËÃæÓ¿À´£¬Ö»¾õÑÛÇ°Ò»Æ¬Í¨ºì£¬"
-                               "ÒÑ±»¾íÈë»ðÀË£¬¶¾ÑæÏ¯¾íÈ«Éí£¬Á¬¹ÇÍ·¶¼Òª¿¾½¹Ò»°ã¡£\n" NOR;
+                        msg += HIR "$n" HIR "è§æ»”å¤©çƒ­æµªæ‰‘é¢æ¶Œæ¥ï¼Œåªè§‰çœ¼å‰ä¸€ç‰‡é€šçº¢ï¼Œ"
+                               "å·²è¢«å·å…¥ç«æµªï¼Œæ¯’ç„°å¸­å·å…¨èº«ï¼Œè¿žéª¨å¤´éƒ½è¦çƒ¤ç„¦ä¸€èˆ¬ã€‚\n" NOR;
                         me->add("max_neili", -random(50));
                         target->affect_by("fire_poison",
                                        ([ "level" : me->query("jiali") * 3 + random(me->query("jiali") * 2),

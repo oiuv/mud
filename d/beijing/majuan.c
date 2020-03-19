@@ -2,12 +2,12 @@ inherit ROOM;
 
 void create ()
 {
-  	set ("short", "Âí¾Ç");
+  	set ("short", "é©¬åŽ©");
   	set ("long", @LONG
-ÕâÊÇÕòÔ¶ïÚ¾ÖÀïµÄµÄÂí¾Ç£¬³£Äê¹©Ó¦ÐÂÏÊ²ÝÁÏ¡£Âí¾ÇÐÞµÄÊæÊÊÒì³££¬¶øÇÒ
-»¹ÓÐ×¨ÈËÕÕ¹Ë¡£ÕâÀïµÄÂíÆ¥Î¹±¥Òû×ã£¬Ï´Ë¢µÃ¸ÉÇ¬¾»¾»£¬Æ½Ê±ïÚ¾ÖÀï³öïÚËùÓÃ
-µ½µÄÂíÆ¥¶¼ÊÇÓÉÕâÀï¹©Ó¦µÄ¡£Âí¾ÇÖÐ¶Ñ·ÅÖø¼¸¶Ñ²ÝÁÏ£¬ÕýÖÐÓÐÒ»¿Úãï²Û¡£Âí¾Ç
-µÄÃÅÇ°Ìù×ÅÒ»ÕÅÓÉÍõ½£½ÜÇ×±ÊÊéÐ´µÄ¸æÊ¾(gaoshi)¡£
+è¿™æ˜¯é•‡è¿œé•–å±€é‡Œçš„çš„é©¬åŽ©ï¼Œå¸¸å¹´ä¾›åº”æ–°é²œè‰æ–™ã€‚é©¬åŽ©ä¿®çš„èˆ’é€‚å¼‚å¸¸ï¼Œè€Œä¸”
+è¿˜æœ‰ä¸“äººç…§é¡¾ã€‚è¿™é‡Œçš„é©¬åŒ¹å–‚é¥±é¥®è¶³ï¼Œæ´—åˆ·å¾—å¹²ä¹¾å‡€å‡€ï¼Œå¹³æ—¶é•–å±€é‡Œå‡ºé•–æ‰€ç”¨
+åˆ°çš„é©¬åŒ¹éƒ½æ˜¯ç”±è¿™é‡Œä¾›åº”çš„ã€‚é©¬åŽ©ä¸­å †æ”¾è‘—å‡ å †è‰æ–™ï¼Œæ­£ä¸­æœ‰ä¸€å£æ³”æ§½ã€‚é©¬åŽ©
+çš„é—¨å‰è´´ç€ä¸€å¼ ç”±çŽ‹å‰‘æ°äº²ç¬”ä¹¦å†™çš„å‘Šç¤º(gaoshi)ã€‚
 LONG);
 
   	set("exits", ([
@@ -23,13 +23,13 @@ LONG);
         set("item_desc", ([
                 "gaoshi": @TEXT
 
-ÕòÔ¶ïÚ¾ÖµÄïÚÊ¦¿ÉÒÔÃâ·ÑÆïÂíÖÁÒÔÏÂ³ÇÊÐ¡£
+é•‡è¿œé•–å±€çš„é•–å¸ˆå¯ä»¥å…è´¹éª‘é©¬è‡³ä»¥ä¸‹åŸŽå¸‚ã€‚
 
- ÑïÖÝ³Ç:  rideyz    ËÕÖÝ³Ç:  ridesz
- º¼ÖÝ³Ç:  ridehz    ¸£ÖÝ³Ç:  ridefz
- ´óÀí³Ç:  ridedl    ÏåÑô³Ç:  ridexy
- ÓÀµÇ³Ç:  rideyd    ÒÁÀçÕò:  rideyl
- ·ðÉ½Õò:  ridefs    ¶ëáÒÉ½:  rideem
+ æ‰¬å·žåŸŽ:  rideyz    è‹å·žåŸŽ:  ridesz
+ æ­å·žåŸŽ:  ridehz    ç¦å·žåŸŽ:  ridefz
+ å¤§ç†åŸŽ:  ridedl    è¥„é˜³åŸŽ:  ridexy
+ æ°¸ç™»åŸŽ:  rideyd    ä¼ŠçŠé•‡:  rideyl
+ ä½›å±±é•‡:  ridefs    å³¨åµ‹å±±:  rideem
 
 TEXT]));
 	setup();

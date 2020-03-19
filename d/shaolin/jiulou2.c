@@ -5,16 +5,16 @@ inherit ROOM;
 
 void create()
 {
-	set("name", "Ó­±öÂ¥");
-	set("short", "Ó­±öÂ¥¶þÂ¥");
+	set("name", "è¿Žå®¾æ¥¼");
+	set("short", "è¿Žå®¾æ¥¼äºŒæ¥¼");
 	set("long", @LONG
-ÕâÀïÊÇÑÅ×ù£¬ÎÄÈËÑ§Ê¿¾­³£ÔÚÕâÀïÒ÷Ê«×÷»­£¬¸»ÉÌÍÁºÀÒ²ÔÚÕâÀï
-±ß³ÔºÈ±ß×÷½»Ò×¡£ÕâÀïÒ²ÊÇ³ÇÀï¾Ù°ìÏ²ÑçµÄ×î¼Ñ³¡Ëù¡£ÄãÕ¾ÔÚÂ¥ÉÏÌ÷
-Íû£¬Ö»¾õµÃÐÄ¿õÉñâù¡£¶«ÃæÊÇÒ»³ØºþË®£¬±Ì²¨µ´Ñú¡£±±ÃæÊÇ³çÉ½¾þÁë¡£
-Ç½ÉÏ¹Ò×Å¼Û¸ñÅÆ×Ó(paizi)¡£
+è¿™é‡Œæ˜¯é›…åº§ï¼Œæ–‡äººå­¦å£«ç»å¸¸åœ¨è¿™é‡ŒåŸè¯—ä½œç”»ï¼Œå¯Œå•†åœŸè±ªä¹Ÿåœ¨è¿™é‡Œ
+è¾¹åƒå–è¾¹ä½œäº¤æ˜“ã€‚è¿™é‡Œä¹Ÿæ˜¯åŸŽé‡Œä¸¾åŠžå–œå®´çš„æœ€ä½³åœºæ‰€ã€‚ä½ ç«™åœ¨æ¥¼ä¸Šçœº
+æœ›ï¼Œåªè§‰å¾—å¿ƒæ—·ç¥žæ€¡ã€‚ä¸œé¢æ˜¯ä¸€æ± æ¹–æ°´ï¼Œç¢§æ³¢è¡æ¼¾ã€‚åŒ—é¢æ˜¯å´‡å±±å³»å²­ã€‚
+å¢™ä¸ŠæŒ‚ç€ä»·æ ¼ç‰Œå­(paizi)ã€‚
 LONG );
 	set("item_desc", ([
-		"paizi" : "±¾µê×¨°ìÉÏµÈËØÆë¡£\n",
+		"paizi" : "æœ¬åº—ä¸“åŠžä¸Šç­‰ç´ é½ã€‚\n",
 	]));
 	set("exits", ([
 		"down" : __DIR__"jiulou1",

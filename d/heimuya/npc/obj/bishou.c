@@ -5,13 +5,13 @@ inherit DAGGER;
 
 void create()
 {
-        set_name(HIC "ÔÂÑÀØ°" NOR, ({"yueya bi", "yueya", "bi", "dagger"}));
+        set_name(HIC "æœˆç‰™åŒ•" NOR, ({"yueya bi", "yueya", "bi", "dagger"}));
         set_weight(800);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", HIC "Ò»±ú×ö¹¤¾«Ï¸µÄÓñÖÆØ°Ê×¡£\n" NOR);
+                set("unit", "æŸ„");
+                set("long", HIC "ä¸€æŸ„åšå·¥ç²¾ç»†çš„ç‰åˆ¶åŒ•é¦–ã€‚\n" NOR);
                 set("value", 10000);
                 set("material", "stone");
         }

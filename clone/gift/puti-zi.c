@@ -1,4 +1,4 @@
-// puti-zi.c ÆĞÌá×Ó
+// puti-zi.c è©æå­
 
 #include <ansi.h>
 
@@ -10,14 +10,14 @@ void setup()
 
 void create()
 {
-	set_name(HIG "ÆĞÌá×Ó" NOR, ({"puti zi", "zi"}));
+	set_name(HIG "è©æå­" NOR, ({"puti zi", "zi"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¿Å");
-		set("long", HIG "ÕâÊÇÒ»¿Å¾§Ó¨ÈçÓñµÄÆĞÌá×Ó£¬²É×ÔÁéÉ½·ğ×æ×ù"
-			    "Ç°£¬ÕäÏ¡ÎŞ±È£¬\nÄËÍòÄêÆĞÌáÊ÷Ö®Êµ£¬¹¦ÄÜ»¯°Ù½Ù"
-			    "£¬¶ÉÇ§ÔÖ£¬ÓëÌìµØÍ¬ÊÙ¡£\n");
+		set("unit", "é¢—");
+		set("long", HIG "è¿™æ˜¯ä¸€é¢—æ™¶è¹å¦‚ç‰çš„è©æå­ï¼Œé‡‡è‡ªçµå±±ä½›ç¥–åº§"
+			    "å‰ï¼Œçç¨€æ— æ¯”ï¼Œ\nä¹ƒä¸‡å¹´è©ææ ‘ä¹‹å®ï¼ŒåŠŸèƒ½åŒ–ç™¾åŠ«"
+			    "ï¼Œæ¸¡åƒç¾ï¼Œä¸å¤©åœ°åŒå¯¿ã€‚\n");
 		set("value", 500000);
 		set("only_do_effect", 1);
 	}
@@ -31,8 +31,8 @@ int do_effect(object me)
 	neili_limit = me->query_neili_limit();
 	if ((int)me->query_condition("putizi_drug") > 0)
 	{
-		write("Äã¾õµÃÏÖÔÚÄÚÏ¢Î´¶¨£¬¾­ÂöÒşÒş»¹ÄÜ¸Ğµ½ÕæÆø³åµ´£¬²»"
-		      "¸ÒÃ³È»·şÊ³¡£\n");
+		write("ä½ è§‰å¾—ç°åœ¨å†…æ¯æœªå®šï¼Œç»è„‰éšéšè¿˜èƒ½æ„Ÿåˆ°çœŸæ°”å†²è¡ï¼Œä¸"
+		      "æ•¢è´¸ç„¶æœé£Ÿã€‚\n");
 		return 1;
 	} else
 	if (me->query("max_neili") < neili_limit)
@@ -42,15 +42,15 @@ int do_effect(object me)
 			me->set("max_neili", neili_limit);
 		me->set("neili", me->query("max_neili"));
 
-		message_vision(HIY "$N" HIY "³ÔÏÂÒ»¿ÅÆĞÌá×Ó£¬¶ÙÈ»¼äÖ»¾õÒ»¹ÉºÆ"
-			       "µ´ÎŞ±ÈµÄÕæÆøÖ±³å¶¥ÃÅ£¬Á¬Ã¦ÔË¹¦ÎüÄÉ¡£\n" NOR,
+		message_vision(HIY "$N" HIY "åƒä¸‹ä¸€é¢—è©æå­ï¼Œé¡¿ç„¶é—´åªè§‰ä¸€è‚¡æµ©"
+			       "è¡æ— æ¯”çš„çœŸæ°”ç›´å†²é¡¶é—¨ï¼Œè¿å¿™è¿åŠŸå¸çº³ã€‚\n" NOR,
 			       me);
 		me->apply_condition("putizi_drug", 1000);
 	} else
 	{
-		message_vision(HIY "$N" HIY "Ò»Ñö²±£¬ÍÌÏÂÁËÒ»¿ÅÆĞÌá×Ó¡£\n" NOR,
+		message_vision(HIY "$N" HIY "ä¸€ä»°è„–ï¼Œåä¸‹äº†ä¸€é¢—è©æå­ã€‚\n" NOR,
 			       me);
-		tell_object(me, "Äã¾õµÃÃ»É¶¸Ğ¾õ£¬²»Èç»¨ÉúºÃ³Ô¡£\n");
+		tell_object(me, "ä½ è§‰å¾—æ²¡å•¥æ„Ÿè§‰ï¼Œä¸å¦‚èŠ±ç”Ÿå¥½åƒã€‚\n");
 	}
 
 	me->start_busy(random(5) + 5);

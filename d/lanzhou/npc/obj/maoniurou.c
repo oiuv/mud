@@ -1,17 +1,17 @@
-// maoniurou.c ºÄÅ£Èâ
+// maoniurou.c è€—ç‰›è‚‰
 
 inherit F_FOOD;
 inherit ITEM;
 
 void create()
 {
-	set_name("ºÄÅ£Èâ", ({ "maoniu rou", "rou" }) );
+	set_name("è€—ç‰›è‚‰", ({ "maoniu rou", "rou" }) );
         set_weight(350);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-		set("long", "Ò»¿éÉÕ¿¾µÃÏãÅçÅçµÄºÄÅ£Èâ¡£\n");
-		set("unit", "¿é");
+		set("long", "ä¸€å—çƒ§çƒ¤å¾—é¦™å–·å–·çš„è€—ç‰›è‚‰ã€‚\n");
+		set("unit", "å—");
 		set("value", 100);
 		set("food_remaining", 4);
 		set("food_supply", 25);

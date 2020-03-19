@@ -6,12 +6,12 @@ inherit ITEM;
 
 void create()
 {
-        set_name("À°°ËÖà", ({ "zhou"}));
+        set_name("è…Šå…«ç²¥", ({ "zhou"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Íë");
-                set("long", "ÕâÊÇÒ»ÍëÕä¹óµÄ²¹Æ·À°°ËÖà¡£\n");
+                set("unit", "ç¢—");
+                set("long", "è¿™æ˜¯ä¸€ç¢—çè´µçš„è¡¥å“è…Šå…«ç²¥ã€‚\n");
                 set("value", 20000);
                 set("only_do_effect", 1);
         }
@@ -31,10 +31,10 @@ int do_effect(object me)
                 neili += random(50) + 1;
                 if (neili >= neili_limit) neili = neili_limit;
                 me->add("neili", 25 - random(50));
-                message_vision(HIY "$N" HIY "³ÔÏÂÒ»ÍëÀ°°ËÖà£¬¶ÙÈ»¼ä"
-                               "Ö»¾õÒ»¹ÉÈÈÆøÖ±ÇßĞÄ·Î...\n" NOR, me);
+                message_vision(HIY "$N" HIY "åƒä¸‹ä¸€ç¢—è…Šå…«ç²¥ï¼Œé¡¿ç„¶é—´"
+                               "åªè§‰ä¸€è‚¡çƒ­æ°”ç›´æ²å¿ƒè‚º...\n" NOR, me);
         } else
-                message_vision(HIY "$N" HIY "³ÔÏÂÒ»ÍëÀ°°ËÖà£¬²»ÔõÃ´Ìğ£¬ÓĞµã¿à...\n" NOR,
+                message_vision(HIY "$N" HIY "åƒä¸‹ä¸€ç¢—è…Šå…«ç²¥ï¼Œä¸æ€ä¹ˆç”œï¼Œæœ‰ç‚¹è‹¦...\n" NOR,
                                me);
 
         destruct(this_object());

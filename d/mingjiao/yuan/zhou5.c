@@ -6,9 +6,9 @@ inherit F_UNIQUE;
 
 void create()
 {
-        set_name("ÖÜÎåÊä", ({ "zhou wushu", "wushu", "zhou"}));
-        set("title", HIC "Éñ¼ý°ËÐÛ" NOR);
-        set("gender", "ÄÐÐÔ");
+        set_name("å‘¨äº”è¾“", ({ "zhou wushu", "wushu", "zhou"}));
+        set("title", HIC "ç¥žç®­å…«é›„" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 25);
         set("attitude", "peaceful");
         set("shen_type", -1);
@@ -38,7 +38,7 @@ void create()
         setup();
 
         carry_object("/clone/misc/cloth")->wear();
-	set_temp("is_riding", BLK "Ñ©ÌãÂí" NOR);
+	set_temp("is_riding", BLK "é›ªè¹„é©¬" NOR);
         set_temp("handing", carry_object(__DIR__"obj/arrow"));
         add_money("silver", 10);
 }

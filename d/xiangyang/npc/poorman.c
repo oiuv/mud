@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("Çîºº", ({ "qiong han", "qiong", "han" }));
-        set("gender", "ÄĞĞÔ" );
+        set_name("ç©·æ±‰", ({ "qiong han", "qiong", "han" }));
+        set("gender", "ç”·æ€§" );
         set("age", 33);
-        set("long", "Ò»¸ö¹ÇÊİÈç²ñ£¬ÂúÁ³²ËÉ«µÄÇîºº¡£\n");
+        set("long", "ä¸€ä¸ªéª¨ç˜¦å¦‚æŸ´ï¼Œæ»¡è„¸èœè‰²çš„ç©·æ±‰ã€‚\n");
         set("attitude", "friendly");
         set("combat_exp", 250);
         set("shen_type", 1);
@@ -17,8 +17,8 @@ void create()
         setup();
         set("chat_chance", 15);
         set("chat_msg", ({
-                CYN "ÇîººÀÁÑóÑóµØ´òÁË¸ö¹şÇ·¡£\n" NOR,
-                CYN "ÇîººÌ¾ÁË¿ÚÆø£ºÄÇĞ©ÃÉ¹Å÷²×Óº¦µÃÎÒ¼ÒÆÆÈËÍö¡£\n" NOR,
+                CYN "ç©·æ±‰æ‡’æ´‹æ´‹åœ°æ‰“äº†ä¸ªå“ˆæ¬ ã€‚\n" NOR,
+                CYN "ç©·æ±‰å¹äº†å£æ°”ï¼šé‚£äº›è’™å¤é‘å­å®³å¾—æˆ‘å®¶ç ´äººäº¡ã€‚\n" NOR,
                 (: random_move :)
         }) );
         carry_object("/clone/misc/cloth")->wear();

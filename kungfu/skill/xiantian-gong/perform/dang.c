@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define DANG "¡¸" HIW "ÉñÍşºÆµ´" NOR "¡¹"
+#define DANG "ã€Œ" HIW "ç¥å¨æµ©è¡" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,40 +12,40 @@ int perform(object me, object target)
         string msg;
 
         if (userp(me) && ! me->query("can_perform/xiantian-gong/dang"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(DANG "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(DANG "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(DANG "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(DANG "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if ((int)me->query_skill("xiantian-gong", 1) < 240)
-                return notify_fail("ÄãµÄÏÈÌì¹¦ĞŞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" DANG "¡£\n");
+                return notify_fail("ä½ çš„å…ˆå¤©åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" DANG "ã€‚\n");
 
         if (me->query("max_neili") < 4000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»×ã£¬ÄÑÒÔÊ©Õ¹" DANG "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" DANG "ã€‚\n");
 
         if (me->query_skill_mapped("unarmed") != "xiantian-gong")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢ÏÈÌì¹¦ÎªÈ­½Å£¬ÄÑÒÔÊ©Õ¹" DANG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å…ˆå¤©åŠŸä¸ºæ‹³è„šï¼Œéš¾ä»¥æ–½å±•" DANG "ã€‚\n");
 
         if (me->query_skill_mapped("force") != "xiantian-gong")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢ÏÈÌì¹¦ÎªÄÚ¹¦£¬ÄÑÒÔÊ©Õ¹" DANG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å…ˆå¤©åŠŸä¸ºå†…åŠŸï¼Œéš¾ä»¥æ–½å±•" DANG "ã€‚\n");
 
         if (me->query_skill_prepared("unarmed") != "xiantian-gong")
-                return notify_fail("ÄãÃ»ÓĞ×¼±¸Ê¹ÓÃÏÈÌì¹¦£¬ÄÑÒÔÊ©Õ¹" DANG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨å…ˆå¤©åŠŸï¼Œéš¾ä»¥æ–½å±•" DANG "ã€‚\n");
 
         if (me->query("neili") < 800)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" DANG "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" DANG "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "Ö»¼û$N" HIW "Ë«Ä¿¾«¹âËÄÉä£¬Ë«ÕÆ¶¸È»Ò»Õñ£¬½«ÌåÄÚ»ıĞîµÄ"
-              "ÏÈÌìÕæÆøÔÆ¹áÍÆ³ö£¬¶ÙÊ±ºôĞ¥\nÉù´ó×÷£¬ÏÈÌì¾¢µÀ²ã²ãµşµş£¬ÍğÈç"
-              "ÌÎÀË°ãÓ¿Ïò$n" HIW "¡£\n" NOR;
+        msg = HIW "åªè§$N" HIW "åŒç›®ç²¾å…‰å››å°„ï¼ŒåŒæŒé™¡ç„¶ä¸€æŒ¯ï¼Œå°†ä½“å†…ç§¯è“„çš„"
+              "å…ˆå¤©çœŸæ°”äº‘è´¯æ¨å‡ºï¼Œé¡¿æ—¶å‘¼å•¸\nå£°å¤§ä½œï¼Œå…ˆå¤©åŠ²é“å±‚å±‚å å ï¼Œå®›å¦‚"
+              "æ¶›æµªèˆ¬æ¶Œå‘$n" HIW "ã€‚\n" NOR;
 
         ap = me->query_skill("unarmed") +
              me->query_skill("force");
@@ -59,10 +59,10 @@ int perform(object me, object target)
                 if (me->query("max_neili") > target->query("max_neili") * 2)
                 {
                         me->start_busy(2);
-                        msg += HIR "±ãÔÚ$n" HIR "Î¢Î¢Ò»ã¶¼ä£¬$N" HIR "î¸·çÒÑÈ»"
-                               "¼°Ìå£¬$p" HIR "Ò»Éù°§º¿£¬È«Éí÷ÀÂç¾¡Êı¶ÏÁÑ¡£\n"
-                               NOR "( $n" RED "ÊÜÉË¹ıÖØ£¬ÒÑ¾­ÓĞÈç·çÖĞ²ĞÖò£¬Ëæ"
-                               "Ê±¶¼¿ÉÄÜ¶ÏÆø¡£" NOR ")\n";
+                        msg += HIR "ä¾¿åœ¨$n" HIR "å¾®å¾®ä¸€æ„£é—´ï¼Œ$N" HIR "ç½¡é£å·²ç„¶"
+                               "åŠä½“ï¼Œ$p" HIR "ä¸€å£°å“€åšï¼Œå…¨èº«éª¼ç»œå°½æ•°æ–­è£‚ã€‚\n"
+                               NOR "( $n" RED "å—ä¼¤è¿‡é‡ï¼Œå·²ç»æœ‰å¦‚é£ä¸­æ®‹çƒ›ï¼Œéš"
+                               "æ—¶éƒ½å¯èƒ½æ–­æ°”ã€‚" NOR ")\n";
                         damage = -1;
                 } else
                 {
@@ -70,19 +70,19 @@ int perform(object me, object target)
                         damage = ap / 2 + random(ap);
                         me->add("neili", -400);
                         msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK,
-                                                   damage, 90, HIR "$N" HIR "µÄ"
-                                                   "î¸¾¢µÇÊ±Íß½âÁË$n" HIR "µÄ»¤"
-                                                   "ÌåÕæÆø£¬$p" HIR "ÕæÔªÊÜËğ£¬"
-                                                   "½ÓÁ¬Åç³öÊı¿ÚÏÊÑª¡£\n" NOR);
+                                                   damage, 90, HIR "$N" HIR "çš„"
+                                                   "ç½¡åŠ²ç™»æ—¶ç“¦è§£äº†$n" HIR "çš„æŠ¤"
+                                                   "ä½“çœŸæ°”ï¼Œ$p" HIR "çœŸå…ƒå—æŸï¼Œ"
+                                                   "æ¥è¿å–·å‡ºæ•°å£é²œè¡€ã€‚\n" NOR);
 
                         if (objectp(weapon = target->query_temp("weapon"))
                            && weapon->query("stable", 1) < 100
                            && ap / 3 + random(ap) > dp)
                         {
                                 wp = weapon->name();
-                                msg += HIW "Ö»Ìı¡°ïÏ¡±µÄÒ»Éù´àÏì£¬$n" HIW "ÊÖ"
-                                       "ÖĞµÄ" + wp + HIW "ÔÚ$N" HIW "ÄÚÁ¦¼¤µ´"
-                                       "ÏÂÓ¦Éù¶øËé£¬ÍÑÊÖµøÂäÔÚµØÉÏ¡£\n" NOR;
+                                msg += HIW "åªå¬â€œé”µâ€çš„ä¸€å£°è„†å“ï¼Œ$n" HIW "æ‰‹"
+                                       "ä¸­çš„" + wp + HIW "åœ¨$N" HIW "å†…åŠ›æ¿€è¡"
+                                       "ä¸‹åº”å£°è€Œç¢ï¼Œè„±æ‰‹è·Œè½åœ¨åœ°ä¸Šã€‚\n" NOR;
                                 me->add("neili", -150);
                                 weapon->set("consistence", 0);
                                 weapon->move(environment(target));
@@ -93,9 +93,9 @@ int perform(object me, object target)
                            && ap / 3 + random(ap) > dp)
                         {
                                 cl = cloth->name();
-                                msg += HIW "Ö»Ìı¡°ºä¡±µÄÒ»ÉùÃÆÏì£¬$n" HIW "Éí"
-                                       "×ÅµÄ" + cl + HIW "ÔÚ$N" HIW "ÄÚÁ¦¼¤µ´"
-                                       "ÏÂÓ¦Éù¶øÁÑ£¬»¯³ÉÒ»¿é¿éËéÆ¬¡£\n" NOR;
+                                msg += HIW "åªå¬â€œè½°â€çš„ä¸€å£°é—·å“ï¼Œ$n" HIW "èº«"
+                                       "ç€çš„" + cl + HIW "åœ¨$N" HIW "å†…åŠ›æ¿€è¡"
+                                       "ä¸‹åº”å£°è€Œè£‚ï¼ŒåŒ–æˆä¸€å—å—ç¢ç‰‡ã€‚\n" NOR;
                                 me->add("neili", -150);
                                 cloth->set("consistence", 0);
                                 cloth->move(environment(target));
@@ -106,9 +106,9 @@ int perform(object me, object target)
                            && ap / 3 + random(ap) > dp)
                         {
                                 cl = cloth->name();
-                                msg += HIW "Ö»Ìı¡°ºä¡±µÄÒ»ÉùÃÆÏì£¬$n" HIW "Éí"
-                                       "×ÅµÄ" + cl + HIW "ÔÚ$N" HIW "ÄÚÁ¦¼¤µ´"
-                                       "ÏÂÓ¦Éù¶øËé£¬»¯³ÉÒ»¿é¿éËéÆ¬¡£\n" NOR;
+                                msg += HIW "åªå¬â€œè½°â€çš„ä¸€å£°é—·å“ï¼Œ$n" HIW "èº«"
+                                       "ç€çš„" + cl + HIW "åœ¨$N" HIW "å†…åŠ›æ¿€è¡"
+                                       "ä¸‹åº”å£°è€Œç¢ï¼ŒåŒ–æˆä¸€å—å—ç¢ç‰‡ã€‚\n" NOR;
                                 me->add("neili", -150);
                                 cloth->set("consistence", 0);
                                 cloth->move(environment(target));
@@ -118,8 +118,8 @@ int perform(object me, object target)
         {
                 me->start_busy(4);
                 me->add("neili", -120);
-                msg += CYN "¿ÉÊÇ$p" CYN "ÖªµÀ$P" CYN "ÕâÕĞµÄÀ÷"
-                       "º¦£¬²»¸ÒÓ²½Ó£¬µ±¼´Ğ±Ô¾¶ã±Ü¿ªÀ´¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çŸ¥é“$P" CYN "è¿™æ‹›çš„å‰"
+                       "å®³ï¼Œä¸æ•¢ç¡¬æ¥ï¼Œå½“å³æ–œè·ƒèº²é¿å¼€æ¥ã€‚\n" NOR;
         }
         message_combatd(msg, me, target);
 

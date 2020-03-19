@@ -5,12 +5,12 @@ string ask_me();
 
 void create()
 {
-        set_name("³ÌÁéËØ", ({ "cheng lingsu", "cheng" }));
-        set("gender", "Å®ĞÔ");
+        set_name("ç¨‹çµç´ ", ({ "cheng lingsu", "cheng" }));
+        set("gender", "å¥³æ€§");
         set("age", 24);
         set("long", @long
-Ëı¿´ÉÏÈ¥Ë«Ã¼½ôËø£¬²»ÖªµÀÓĞÊ²Ã´ĞÄÊÂ£¬³¤µÃÏàÃ²Æ½Æ½£¬²¢²»³öÖÚ¡£
-Éí²ÄÊİĞ¡£¬´©×Å´Ö²¼ÒÂÉÀ¡£
+å¥¹çœ‹ä¸Šå»åŒçœ‰ç´§é”ï¼Œä¸çŸ¥é“æœ‰ä»€ä¹ˆå¿ƒäº‹ï¼Œé•¿å¾—ç›¸è²Œå¹³å¹³ï¼Œå¹¶ä¸å‡ºä¼—ã€‚
+èº«æç˜¦å°ï¼Œç©¿ç€ç²—å¸ƒè¡£è¡«ã€‚
 long);
         set("attitude", "peaceful");
         set("str", 22);
@@ -19,7 +19,7 @@ long);
         set("dex", 27);
         set("chat_chance", 10);
         set("chat_msg", ({
-                "³ÌÁéËØ°§°§µÄÌ¾ÁË¿ÚÆø¡£\n",
+                "ç¨‹çµç´ å“€å“€çš„å¹äº†å£æ°”ã€‚\n",
         }));
 
         set("qi", 2500);
@@ -38,8 +38,8 @@ long);
 	set_skill("yaowang-miaoshu", 270);
 
         set("inquiry",([
-                "ºúì³":     "Ëû...Ëû...\n",
-                "Ô¬×ÏÒÂ":   "ÎÒ...ÄãÌáËû¸ÉÊ²Ã´£¿\n"
+                "èƒ¡æ–":     "ä»–...ä»–...\n",
+                "è¢ç´«è¡£":   "æˆ‘...ä½ æä»–å¹²ä»€ä¹ˆï¼Ÿ\n"
         ]));
 
         setup();
@@ -48,10 +48,10 @@ long);
 
 int recognize_apprentice(object me, string skill)
 {
-       // if (me->query("family/family_name") != "Ò©Íõ¹È")
-        if (me->query("family/family_name") != "¹ØÍâºú¼Ò")
+       // if (me->query("family/family_name") != "è¯ç‹è°·")
+        if (me->query("family/family_name") != "å…³å¤–èƒ¡å®¶")
         {
-                command("say ÄãÊÇË­£¿À´¸ÉÊ²Ã´£¿");
+                command("say ä½ æ˜¯è°ï¼Ÿæ¥å¹²ä»€ä¹ˆï¼Ÿ");
                 return -1;
         }
 
@@ -59,21 +59,21 @@ int recognize_apprentice(object me, string skill)
 	    skill != "medical" && skill != "yaowang-miaoshu")
 	    
         {
-                command("say ÎÒÖ»»á¶¾¹¦ºÍÒ½Êõ£¬±ğµÄÎÒ¾ÍÃ»·¨×Ó½ÌÄãÀ²£¡");
+                command("say æˆ‘åªä¼šæ¯’åŠŸå’ŒåŒ»æœ¯ï¼Œåˆ«çš„æˆ‘å°±æ²¡æ³•å­æ•™ä½ å•¦ï¼");
                 return -1;
         }
 
         if ((int)me->query("shen") < 0)
         {
                 command("sigh");
-                command("say ÄãÔõÄÜ×ßÉÏĞ°Â·£¿ÎÒ¿É²»ÄÜ½ÌÄã¡£");
+                command("say ä½ æ€èƒ½èµ°ä¸Šé‚ªè·¯ï¼Ÿæˆ‘å¯ä¸èƒ½æ•™ä½ ã€‚");
                 return -1;
         }
 
         if (! me->query_temp("can_learn/cheng/poison"))
         {
                 me->set_temp("can_learn/cheng/poison", 1);
-                command("say ¿´ÔÚºúì³µÄÃæ×ÓÉÏ£¬ÎÒ¾Í½ÌÄãÒ»µã±¾ÊÂ°É£¬Äã¿ÉÒªºÃ×ÔÎªÖ®£¡");
+                command("say çœ‹åœ¨èƒ¡æ–çš„é¢å­ä¸Šï¼Œæˆ‘å°±æ•™ä½ ä¸€ç‚¹æœ¬äº‹å§ï¼Œä½ å¯è¦å¥½è‡ªä¸ºä¹‹ï¼");
                 return 1;
         }
 

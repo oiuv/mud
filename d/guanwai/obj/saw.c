@@ -8,16 +8,16 @@ int is_saw() { return 1; }
 
 void create()
 {
-	set_name("¸Ö¾â", ({ "gang ju", "ju", "saw" }));
+	set_name("é’¢é”¯", ({ "gang ju", "ju", "saw" }));
 	set_weight(2000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else
         {
                 set("value", 800);
-		set("unit", "Ìõ");
+		set("unit", "æ¡");
                 set("material", "steel");
-		set("long", "ÕâÊÇÒ»ÌõºÚ÷î÷îµÄ¸Ö¾â£¬Ò»°ãÓÃÀ´·¥Ä¾¡£\n");
+		set("long", "è¿™æ˜¯ä¸€æ¡é»‘é»é»çš„é’¢é”¯ï¼Œä¸€èˆ¬ç”¨æ¥ä¼æœ¨ã€‚\n");
 	}
 	setup();
 }

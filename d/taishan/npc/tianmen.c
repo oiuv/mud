@@ -5,9 +5,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÌìÃÅµÀÈË", ({ "tianmen daoren", "daoren", "tianmen" }) );
-        set("gender", "ÄÐÐÔ");
-        set("title", HIG"Ì©É½ÅÉµÚÊ®Èý´úÕÆÃÅ"NOR);
+        set_name("å¤©é—¨é“äºº", ({ "tianmen daoren", "daoren", "tianmen" }) );
+        set("gender", "ç”·æ€§");
+        set("title", HIG"æ³°å±±æ´¾ç¬¬åä¸‰ä»£æŽŒé—¨"NOR);
         set("class", "taoist");
         set("age", 45);
         set("attitude", "peaceful");
@@ -37,7 +37,7 @@ void create()
         map_skill("parry", "taishan-sword");
         map_skill("dodge", "lingxu-bu");
 
-        create_family("Ì©É½ÅÉ", 13, "ÕÆÃÅ");
+        create_family("æ³°å±±æ´¾", 13, "æŽŒé—¨");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();

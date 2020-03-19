@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÀÎ·¿");
+        set("short", "ç‰¢æˆ¿");
         set("long", @LONG
-ÕâÊÇÒ»¼äÒõ°µ³±ÊªµÄÀÎ·¿£¬µØÉÏ¼¸Ö»ÀÏÊóÄªÎÞÅÔÈËÔÚÄÇÀï
-ÕÒ¶«Î÷³Ô¡£¾ÍÖ»ÓÐÌúÃÅÉÏµÄÒ»¸öÐ¡´°»§Í¸Ò»µã¹â½øÀ´¡£ÕâÖÖµØ
-·½¶à´ôÒ»¿ÌÄã¾ÍÒª·¢·è¡£
+è¿™æ˜¯ä¸€é—´é˜´æš—æ½®æ¹¿çš„ç‰¢æˆ¿ï¼Œåœ°ä¸Šå‡ åªè€é¼ èŽ«æ— æ—äººåœ¨é‚£é‡Œ
+æ‰¾ä¸œè¥¿åƒã€‚å°±åªæœ‰é“é—¨ä¸Šçš„ä¸€ä¸ªå°çª—æˆ·é€ä¸€ç‚¹å…‰è¿›æ¥ã€‚è¿™ç§åœ°
+æ–¹å¤šå‘†ä¸€åˆ»ä½ å°±è¦å‘ç–¯ã€‚
 LONG);
         set("exits", ([
                 "west" : __DIR__"xunbu",

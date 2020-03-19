@@ -9,7 +9,7 @@ int update_condition(object me, int duration)
         me->receive_wound("qi", 10);
         me->receive_damage("qi", 10);
 	me->apply_condition("poison_sandu", duration);
-	tell_object(me, HIG "你的体内毒质在反扑自身了！\n" NOR );
+	tell_object(me, HIG "浣犵殑浣撳唴姣掕川鍦ㄥ弽鎵戣嚜韬簡锛乗n" NOR );
 	if( duration < 1 ) return 0;
 	return 1;
 }

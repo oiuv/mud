@@ -4,11 +4,11 @@ inherit KNOWER;
 
 void create()
 {
-        set_name("Óæ·ò", ({ "yu fu", "yu", "fu" }));
-        set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
-        set("gender", "ÄÐÐÔ");
+        set_name("æ¸”å¤«", ({ "yu fu", "yu", "fu" }));
+        set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 40 + random(10));
-        set("long", "Ò»¸öÍ·´÷¶·óÒµÄÓæ·ò£¬ÕýÓÆÈ»×ÔµÃµØÔÚ°¶±ß´¹µö¡£\n");
+        set("long", "ä¸€ä¸ªå¤´æˆ´æ–—ç¬ çš„æ¸”å¤«ï¼Œæ­£æ‚ ç„¶è‡ªå¾—åœ°åœ¨å²¸è¾¹åž‚é’“ã€‚\n");
 
         set("attitude", "friendly");
 
@@ -27,7 +27,7 @@ void create()
         setup();
         set("chat_chance", 1);
         set("chat_msg", ({
-                CYN "Óæ·ò¿´ÁËÄãÒ»ÑÛ£¬×ÔÑÔ×ÔÓïµÀ£ºÕâÊÀµÀÕæÊÇÔ½À´Ô½²»Ì«Æ½ÁË¡£\n" NOR,
+                CYN "æ¸”å¤«çœ‹äº†ä½ ä¸€çœ¼ï¼Œè‡ªè¨€è‡ªè¯­é“ï¼šè¿™ä¸–é“çœŸæ˜¯è¶Šæ¥è¶Šä¸å¤ªå¹³äº†ã€‚\n" NOR,
         }) );
         carry_object("/clone/cloth/cloth")->wear();
         add_money("coin", 20);

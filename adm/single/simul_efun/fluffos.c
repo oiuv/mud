@@ -1,4 +1,4 @@
-// Ä£Äâ fluffos ÐÂÔö efun
+// æ¨¡æ‹Ÿ fluffos æ–°å¢ž efun
 #ifndef FLUFFOS
 
 mixed abs(mixed n)
@@ -17,7 +17,7 @@ mixed element_of(mixed *arr)
 #endif
 
 #ifndef __PACKAGE_TRIM__
-// È¥µôstrÁ½¶ËµÄ¿Õ¸ñ
+// åŽ»æŽ‰strä¸¤ç«¯çš„ç©ºæ ¼
 string trim(string str)
 {
     int len;

@@ -22,27 +22,27 @@ int main(object me, string str)
                         return 1;
                 }
 
-                write("Õâ¸öµØ·½²»ÄÜÂÒ×ö¶¯×÷¡£\n");
+                write("è¿™ä¸ªåœ°æ–¹ä¸èƒ½ä¹±åšåŠ¨ä½œã€‚\n");
                 return 1;
         }
 
         if (me->query("doing") == "scheme")
         {
                 if (me->query("jing") < 100)
-                        return notify_fail("ÄãÏÖÔÚµÄ¾«Éñ²»¼Ã£¬µÈÒ»»á¶ù°É¡£\n");
+                        return notify_fail("ä½ çŽ°åœ¨çš„ç²¾ç¥žä¸æµŽï¼Œç­‰ä¸€ä¼šå„¿å§ã€‚\n");
                 me->add("jing", -50);
         }
 
         if (! str)
         {
-                write(CYN"Äã¿´ÆðÀ´±íÇé·á¸»¡£\n"NOR);
+                write(CYN"ä½ çœ‹èµ·æ¥è¡¨æƒ…ä¸°å¯Œã€‚\n"NOR);
                 tell_room(env, CYN + (string)me->name()+
-		          "¿´ÆðÀ´±íÇé·á¸»¡£\n" + NOR, me);
+		          "çœ‹èµ·æ¥è¡¨æƒ…ä¸°å¯Œã€‚\n" + NOR, me);
                 return 1;
         }
 
         prefix = me->query("env/no_prefix") ? "" : "~";
-        write(CYN "Äã" + str + "\n" NOR);
+        write(CYN "ä½ " + str + "\n" NOR);
         tell_room(env, CYN + prefix + (string)me->name() +
                   str + "\n" NOR, me);
         return 1;
@@ -51,19 +51,19 @@ int main(object me, string str)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½: emote <¶¯×÷´Ê>
+æŒ‡ä»¤æ ¼å¼: emote <åŠ¨ä½œè¯>
 
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã±í´ïÒ»¸öÏµÍ³Ã»ÓÐÔ¤ÉèµÄ¶¯×÷´Ê, ÏµÍ³»á½«ÄãËùÊäÈë
-µÄÎÄ×Ö¼ÓÉÏÄãµÄÐÕÃûááÏÔÊ¾¸øËùÓÐÔÚÍ¬Ò»¸öµØ·½µÄÉúÎï¿´¡£ÎªÁË±ÜÃâÔì
-³ÉÀ§ÈÅ, Íæ¼ÒËùÊäÈëµÄ´Ê¾äÇ°Ãæ»á¼ÓÉÏ ~ ÒÔ¹©Çø±ð¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ è¡¨è¾¾ä¸€ä¸ªç³»ç»Ÿæ²¡æœ‰é¢„è®¾çš„åŠ¨ä½œè¯, ç³»ç»Ÿä¼šå°†ä½ æ‰€è¾“å…¥
+çš„æ–‡å­—åŠ ä¸Šä½ çš„å§“åå¾Œæ˜¾ç¤ºç»™æ‰€æœ‰åœ¨åŒä¸€ä¸ªåœ°æ–¹çš„ç”Ÿç‰©çœ‹ã€‚ä¸ºäº†é¿å…é€ 
+æˆå›°æ‰°, çŽ©å®¶æ‰€è¾“å…¥çš„è¯å¥å‰é¢ä¼šåŠ ä¸Š ~ ä»¥ä¾›åŒºåˆ«ã€‚
 
-·¶Àý: emote ×øÁËÏÂÀ´¡£
-Äã»á¿´¼û: Äã×øÁËÏÂÀ´¡£
-ÆäËûÈË»á¿´µ½: ~°ü×Ó×øÁËÏÂÀ´¡£
+èŒƒä¾‹: emote åäº†ä¸‹æ¥ã€‚
+ä½ ä¼šçœ‹è§: ä½ åäº†ä¸‹æ¥ã€‚
+å…¶ä»–äººä¼šçœ‹åˆ°: ~åŒ…å­åäº†ä¸‹æ¥ã€‚
 
-ÆäÖÐ, °ü×Ó¾ÍÊÇÄãµÄÃû×Ö.
+å…¶ä¸­, åŒ…å­å°±æ˜¯ä½ çš„åå­—.
 
-Ïà¹ØÖ¸Áî: semote
+ç›¸å…³æŒ‡ä»¤: semote
 HELP );
         return 1;
 }

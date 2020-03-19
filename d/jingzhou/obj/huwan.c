@@ -1,4 +1,4 @@
-// huwan.c »¤Íó
+// huwan.c æŠ¤è…•
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,13 +7,13 @@ inherit WRISTS;
 
 void create()
 {
-	set_name( "»¤Íó", ({ "wrists", "hu wan", "huwan" }) );
+	set_name( "æŠ¤è…•", ({ "wrists", "hu wan", "huwan" }) );
 	set_weight(500);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ë«");
-		set("long", "ÕâÊÇÒ»¼ş²¼ÖÊµÄ»¤Íó£¬ÓÃÒÔ±£»¤Íó²¿¡£\n");
+		set("unit", "åŒ");
+		set("long", "è¿™æ˜¯ä¸€ä»¶å¸ƒè´¨çš„æŠ¤è…•ï¼Œç”¨ä»¥ä¿æŠ¤è…•éƒ¨ã€‚\n");
 		set("value", 1300);
 		set("material", "cloth");
 		set("armor_prop/armor", 5);

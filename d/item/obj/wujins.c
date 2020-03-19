@@ -1,4 +1,4 @@
-// wujins.c ÎÚ½ğË¿
+// wujins.c ä¹Œé‡‘ä¸
 
 #include <ansi.h>
 
@@ -6,18 +6,18 @@ inherit ITEM;
 
 void create()
 {
-	set_name(WHT "ÎÚ½ğË¿" NOR, ({ "black silk", "wujin si", "si"}));
+	set_name(WHT "ä¹Œé‡‘ä¸" NOR, ({ "black silk", "wujin si", "si"}));
 	set_weight(1800);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»ÊøºÚ°×Ïà¼äµÄÏ¸Ë¿£¬ÊÇÓÉÎÚ½ğË¿ºÍ²ÏË¿»ìºÏÖ¯¾Í¶ø³É¡£\n");
-		set("unit", "Êø");
+		set("long", "ä¸€æŸé»‘ç™½ç›¸é—´çš„ç»†ä¸ï¼Œæ˜¯ç”±ä¹Œé‡‘ä¸å’Œèš•ä¸æ··åˆç»‡å°±è€Œæˆã€‚\n");
+		set("unit", "æŸ");
 		set("value", 20000);
                 set("item_origin", 1);
                 set("material_attrib", "silk");
-                set("material_name", YEL "ÎÚ½ğË¿" NOR);
-                set("can_make", ({ "±Ş", "»¤¼×", "Õ½ÒÂ", "Ñ¥×Ó", "Ñü´ø" }));
+                set("material_name", YEL "ä¹Œé‡‘ä¸" NOR);
+                set("can_make", ({ "é­", "æŠ¤ç”²", "æˆ˜è¡£", "é´å­", "è…°å¸¦" }));
                 set("power_point", 70);
 	}
 }

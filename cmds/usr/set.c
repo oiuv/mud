@@ -102,9 +102,9 @@ int main(object me, string arg)
  
 	if (! arg || arg == "")
 	{
-		msg = "ÄãÄ¿Ç°Éè¶¨µÄ»·¾³±äÊıÓĞ£º\n";
+		msg = "ä½ ç›®å‰è®¾å®šçš„ç¯å¢ƒå˜æ•°æœ‰ï¼š\n";
 		if (! mapp(env) || ! sizeof(env))
-			msg = "ÄãÄ¿Ç°Ã»ÓĞÉè¶¨ÈÎºÎ»·¾³±äÊı¡£\n";
+			msg = "ä½ ç›®å‰æ²¡æœ‰è®¾å®šä»»ä½•ç¯å¢ƒå˜æ•°ã€‚\n";
 		else
                 {
 			terms = sort_array(keys(env), 1);
@@ -147,24 +147,24 @@ int main(object me, string arg)
 		term = arg;
                 if (term_map[term] & STRING_TERM ||
                     term_map[term] & NUMBER_TERM)
-                        return notify_fail("Äã±ØĞëÖ¸Ã÷Õâ¸ö²ÎÊıµÄÄÚ"
-                                           "Èİ£¬·ñÔòÇëÓÃ unset È¡ÏûÕâ¸ö²ÎÊı¡£\n");
+                        return notify_fail("ä½ å¿…é¡»æŒ‡æ˜è¿™ä¸ªå‚æ•°çš„å†…"
+                                           "å®¹ï¼Œå¦åˆ™è¯·ç”¨ unset å–æ¶ˆè¿™ä¸ªå‚æ•°ã€‚\n");
                 else
 		        data = "YES";
 	}
  
 	if (data == "")
-		return notify_fail("Éè¶¨µÄ²ÎÊıÖµ²»ÄÜÎª¿Õ¡£\n");
+		return notify_fail("è®¾å®šçš„å‚æ•°å€¼ä¸èƒ½ä¸ºç©ºã€‚\n");
 
         if (term_map[term] & NUMBER_TERM)
         {
                 sscanf(data, "%d", data);
 		if (! intp(data)) data = 0;
                 if ((term_map[term] & NON_ZERO) && ! data)
-                        return notify_fail("Õâ¸ö²ÎÊıÖµ²»ÄÜÉèÖÃÎªÁã¡£\n");
+                        return notify_fail("è¿™ä¸ªå‚æ•°å€¼ä¸èƒ½è®¾ç½®ä¸ºé›¶ã€‚\n");
 
                 if ((term_map[term] & NON_NEG) && data < 0)
-                        return notify_fail("Õâ¸ö²ÎÊıÖµ²»ÄÜÉèÖÃÎª¸ºÊı¡£\n");
+                        return notify_fail("è¿™ä¸ªå‚æ•°å€¼ä¸èƒ½è®¾ç½®ä¸ºè´Ÿæ•°ã€‚\n");
         } else
         if (term_map[term] & STRING_TERM &&
             term_map[term] & ENABLE_COLOR)
@@ -177,18 +177,18 @@ int main(object me, string arg)
 	if (term && term != "")
         {
 		if (mapp(env) && undefinedp(env[term]) && sizeof(env) >= MAX_ENV_VARS)
-			return notify_fail("ÄãÉèµÄ»·¾³±äÊıÌ«¶àÁË£¬ÇëÏÈÓÃ unset É¾µô¼¸¸ö°É¡£\n");
+			return notify_fail("ä½ è®¾çš„ç¯å¢ƒå˜æ•°å¤ªå¤šäº†ï¼Œè¯·å…ˆç”¨ unset åˆ æ‰å‡ ä¸ªå§ã€‚\n");
 
 		if (undefinedp(term_map[term]))
-			return notify_fail("ÄãÖ»ÄÜÉè¶¨¹æ¶¨µÄ²ÎÊı£¬Çë²Î¼ûhelp settings¡£\n");
+			return notify_fail("ä½ åªèƒ½è®¾å®šè§„å®šçš„å‚æ•°ï¼Œè¯·å‚è§help settingsã€‚\n");
 
         	if ((wiz_level(me) == 0) && (term_map[term] & WIZ_ONLY))
-                	return notify_fail("Ö»ÓĞÎ×Ê¦ÄÜÓÃÕâ¸öÉè¶¨¡£\n");
+                	return notify_fail("åªæœ‰å·«å¸ˆèƒ½ç”¨è¿™ä¸ªè®¾å®šã€‚\n");
 
 		if (term_map[term] & LIST_TERM)
                 {
                         if (! stringp(data) || data == "YES")
-			        return notify_fail("ÁĞ±í²ÎÊıÖ»ÄÜÒÔ×Ö·û´®ÎªÈ¡Öµ¡£\n");
+			        return notify_fail("åˆ—è¡¨å‚æ•°åªèƒ½ä»¥å­—ç¬¦ä¸²ä¸ºå–å€¼ã€‚\n");
 
                         ks = explode(data, ",") - ({ "" });
                         bs = ({ });
@@ -203,19 +203,19 @@ int main(object me, string arg)
                 if (opt_add || opt_del)
                 {
                         if (! (term_map[term] & LIST_TERM))
-                                return notify_fail("Õâ¸ö²ÎÊı²»¾ßÓĞÁĞ±íÊôĞÔ£¬²»"
-                                                   "ÄÜÊ¹ÓÃ-a»òÔòÊÇ-d²ÎÊı¡£\n");
+                                return notify_fail("è¿™ä¸ªå‚æ•°ä¸å…·æœ‰åˆ—è¡¨å±æ€§ï¼Œä¸"
+                                                   "èƒ½ä½¿ç”¨-aæˆ–åˆ™æ˜¯-då‚æ•°ã€‚\n");
                         if (opt_add)
                                 data = add_sub(data, me->query("env/" + term));
                         else
                                 data = remove_sub(data, me->query("env/" + term));
 			if (strlen(data) > 256)
-				return notify_fail("²ÎÊıÈ¡ÖµÌ«³¤ÁË¡£\n");
+				return notify_fail("å‚æ•°å–å€¼å¤ªé•¿äº†ã€‚\n");
 
                         if (! data)
                         {
                                 me->delete("env/" + term);
-                                write("È¡Ïû»·¾³²ÎÊı£º" + term + "\n");
+                                write("å–æ¶ˆç¯å¢ƒå‚æ•°ï¼š" + term + "\n");
                                 return 1;
                         }
                 }
@@ -230,11 +230,11 @@ int main(object me, string arg)
 				if (d[ks[k]] == data) break;
 			if (k >= sizeof(ks))
 			{
-				write("¸ÃÏî²ÎÊı²»ÄÜÉèÖÃ³É¸ÃÖµ£¬Çë²Î¼ûhelp settings¡£\n");
+				write("è¯¥é¡¹å‚æ•°ä¸èƒ½è®¾ç½®æˆè¯¥å€¼ï¼Œè¯·å‚è§help settingsã€‚\n");
 				return 1;
 			}
 		        me->set("env/" + term, data);
-			write(sprintf("Éè¶¨»·¾³±äÊı£º%s = %O\n", term, ks[k]));
+			write(sprintf("è®¾å®šç¯å¢ƒå˜æ•°ï¼š%s = %O\n", term, ks[k]));
 			return 1;
 		} else
                 if (stringp(data) && ! (term_map[term] & LIST_TERM) &&
@@ -242,7 +242,7 @@ int main(object me, string arg)
                         sscanf(data, "%d", data);
 
 	        me->set("env/" + term, data);
-		write(sprintf("Éè¶¨»·¾³±äÊı£º%s = %O\n", term, data));
+		write(sprintf("è®¾å®šç¯å¢ƒå˜æ•°ï¼š%s = %O\n", term, data));
 		return 1;
 	}
 	return help();
@@ -251,25 +251,25 @@ int main(object me, string arg)
 int help()
 {
 	write(@TEXT
-Ö¸Áî¸ñÊ½£ºset <±äÊıÃû> -a | -d [<²ÎÊı>]
+æŒ‡ä»¤æ ¼å¼ï¼šset <å˜æ•°å> -a | -d [<å‚æ•°>]
  
-Õâ¸öÖ¸ÁîÈÃÄãÉè¶¨Ò»Ğ©»·¾³±äÊı£¬²»¼Ó²ÎÊıÊ±»áÏÔÊ¾ÄãÄ¿Ç°Éè¶¨µÄ»·¾³±äÊı£¬²»Ö¸¶¨
-±äÊıÖµ£¬ÔòÄÚ¶¨ÖµÎª "YES"¡£Èç¹ûÊ¹ÓÃÁË-a²ÎÊı£¬±íÊ¾½«²ÎÊı¼ÓÈëµ½Ô­ÓĞµÄ²ÎÊıÖĞ£¬
-Èç¹ûÊ¹ÓÃÁË-d²ÎÊıÔò±íÊ¾½«²ÎÊı´ÓÔ­ÓĞµÄ²ÎÊıÖĞÈ¥µô¡£Ö»ÓĞ¾ßÓĞ¶àÖµÊôĞÔµÄ²ÎÊı²ÅÄÜ
-Ê¹ÓÃÕâÁ½¸ö²ÎÊı¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ è®¾å®šä¸€äº›ç¯å¢ƒå˜æ•°ï¼Œä¸åŠ å‚æ•°æ—¶ä¼šæ˜¾ç¤ºä½ ç›®å‰è®¾å®šçš„ç¯å¢ƒå˜æ•°ï¼Œä¸æŒ‡å®š
+å˜æ•°å€¼ï¼Œåˆ™å†…å®šå€¼ä¸º "YES"ã€‚å¦‚æœä½¿ç”¨äº†-aå‚æ•°ï¼Œè¡¨ç¤ºå°†å‚æ•°åŠ å…¥åˆ°åŸæœ‰çš„å‚æ•°ä¸­ï¼Œ
+å¦‚æœä½¿ç”¨äº†-då‚æ•°åˆ™è¡¨ç¤ºå°†å‚æ•°ä»åŸæœ‰çš„å‚æ•°ä¸­å»æ‰ã€‚åªæœ‰å…·æœ‰å¤šå€¼å±æ€§çš„å‚æ•°æ‰èƒ½
+ä½¿ç”¨è¿™ä¸¤ä¸ªå‚æ•°ã€‚
 
-±ÈÈçno_tell²ÎÊı£¬¿ÉÒÔÉè¶¨Îª²»ÊÕÌıtestºÍworkµÄ½²»°£º
+æ¯”å¦‚no_tellå‚æ•°ï¼Œå¯ä»¥è®¾å®šä¸ºä¸æ”¶å¬testå’Œworkçš„è®²è¯ï¼š
 set no_tell test,work
 
-Èç¹ûÕâÊ±ºòÄã²»Ï£ÍûÊÕÌınothingµÄ½²»°£¬Ôò¿ÉÒÔ£º
-set no_tell -a nothing  Ò²¿ÉÒÔ£ºset no_tell test,work,nothing
+å¦‚æœè¿™æ—¶å€™ä½ ä¸å¸Œæœ›æ”¶å¬nothingçš„è®²è¯ï¼Œåˆ™å¯ä»¥ï¼š
+set no_tell -a nothing  ä¹Ÿå¯ä»¥ï¼šset no_tell test,work,nothing
 
-Èç¹ûÕâÊ±ºòÄãÏ£ÍûÊÕÌıtestµÄ½²»°£¬Ôò¿ÉÒÔ£º
-set no_tell -d test     Ò²¿ÉÒÔ£ºset no_tell work,nothing
+å¦‚æœè¿™æ—¶å€™ä½ å¸Œæœ›æ”¶å¬testçš„è®²è¯ï¼Œåˆ™å¯ä»¥ï¼š
+set no_tell -d test     ä¹Ÿå¯ä»¥ï¼šset no_tell work,nothing
 
-È¡Ïû±äÊıÉè¶¨ÇëÓÃ unset Ö¸Áî¡£
+å–æ¶ˆå˜æ•°è®¾å®šè¯·ç”¨ unset æŒ‡ä»¤ã€‚
 
-ÖÁì¶ÓĞÄÄĞ©»·¾³±äÊı¿ÉÒÔÉè¶¨£¬Çë¼û help settings¡£
+è‡³æ–¼æœ‰å“ªäº›ç¯å¢ƒå˜æ•°å¯ä»¥è®¾å®šï¼Œè¯·è§ help settingsã€‚
 TEXT
 	);
 	return 1;

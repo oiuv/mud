@@ -1,10 +1,10 @@
-// dbased.c ÓÀ¾Ã¼ÇÒäµÄÊı¾İ¿â(¿ÉÒÔ¼ÇÂ¼ËùÓĞµÄ³¡¾°ºÍÎïÆ·)
-// Êı¾İ¿âÖĞµÄÂ·¾¶ÒÔdbaseÎª¸ù¡¢ÎÄ¼şÂ·¾¶ÎªÍ¾¾¶¡£
-// ±ÈÈç/d/city/kedianÕâ¸ö¶ÔÏó±£´æÔÚÊı¾İ¿âÖĞµÄ½«ÊÇ£º
-// /dbase/d/city/kedian£¬±£´æµÄÄÚÈİÊÇÒ»¸ömixedÀàĞÍ£¬µ±¶ÔÏóµÄ
-// restoreº¯Êı±»µ÷ÓÃµÄÊ±ºò£¬¶ÔÏó±ØĞë±£Ö¤ÓĞreceive_dbase_data
-// º¯ÊıÓÃÀ´½ÓÊÕ±£´æÔÚÊı¾İ¿âÖĞµÄÊı¾İ¡£ µ±¶ÔÏó±£´æµÄÊ±ºò£¬Ôò±Ø
-// ĞëÓĞsave_dbase_dataº¯Êı·µ»ØĞèÒª±£´æµÄÊı¾İ¡£
+// dbased.c æ°¸ä¹…è®°å¿†çš„æ•°æ®åº“(å¯ä»¥è®°å½•æ‰€æœ‰çš„åœºæ™¯å’Œç‰©å“)
+// æ•°æ®åº“ä¸­çš„è·¯å¾„ä»¥dbaseä¸ºæ ¹ã€æ–‡ä»¶è·¯å¾„ä¸ºé€”å¾„ã€‚
+// æ¯”å¦‚/d/city/kedianè¿™ä¸ªå¯¹è±¡ä¿å­˜åœ¨æ•°æ®åº“ä¸­çš„å°†æ˜¯ï¼š
+// /dbase/d/city/kedianï¼Œä¿å­˜çš„å†…å®¹æ˜¯ä¸€ä¸ªmixedç±»å‹ï¼Œå½“å¯¹è±¡çš„
+// restoreå‡½æ•°è¢«è°ƒç”¨çš„æ—¶å€™ï¼Œå¯¹è±¡å¿…é¡»ä¿è¯æœ‰receive_dbase_data
+// å‡½æ•°ç”¨æ¥æ¥æ”¶ä¿å­˜åœ¨æ•°æ®åº“ä¸­çš„æ•°æ®ã€‚ å½“å¯¹è±¡ä¿å­˜çš„æ—¶å€™ï¼Œåˆ™å¿…
+// é¡»æœ‰save_dbase_dataå‡½æ•°è¿”å›éœ€è¦ä¿å­˜çš„æ•°æ®ã€‚
 
 #include <ansi.h>
 
@@ -14,18 +14,18 @@
 inherit F_SAVE;
 inherit F_DBASE;
 
-// ±£´æÊı¾İµÄÓ³Éä±äÁ¿
+// ä¿å­˜æ•°æ®çš„æ˜ å°„å˜é‡
 mapping save_dbase;
 
-// µ÷ÓÃº¯Êıannounec_all_save_objectÊ±ºòµÄ±êÖ¾
+// è°ƒç”¨å‡½æ•°announec_all_save_objectæ—¶å€™çš„æ ‡å¿—
 #define ONLY_SAVE               0
 #define DESTRUCT_OBJECT         1
 STATIC_VAR_TAG  int save_flag = ONLY_SAVE;
 
-// ÄÚ²¿µ÷ÓÃµÄº¯Êı
+// å†…éƒ¨è°ƒç”¨çš„å‡½æ•°
 STATIC_FUNC_TAG int announce_all_save_object(int destruct_flag);
 
-// Ìá¹©¸øÍâ²¿µÄº¯Êı
+// æä¾›ç»™å¤–éƒ¨çš„å‡½æ•°
 mixed   query_data();
 int     set_data(mixed data);
 mixed   query_object_data(object ob);
@@ -45,7 +45,7 @@ void create()
         set_heart_beat(900 + random(20)); // modify by rcwiz
 }
 
-// Êı¾İ¿â¶ÔÏóÎö¹¹º¯Êı
+// æ•°æ®åº“å¯¹è±¡ææ„å‡½æ•°
 int remove(string euid)
 {
         if (previous_object() != find_object(SIMUL_EFUN_OB) ||
@@ -59,7 +59,7 @@ int remove(string euid)
         return 1;
 }
 
-// MUD½«ÒªÍ£Ö¹ÔËĞĞ
+// MUDå°†è¦åœæ­¢è¿è¡Œ
 void mud_shutdown()
 {
         announce_all_save_object(ONLY_SAVE);	//added by Ivy
@@ -67,7 +67,7 @@ void mud_shutdown()
         destruct(this_object());
 }
 
-// Í¨ÖªËùÓĞµÄĞèÒª±£´æÊı¾İµÄ¶ÔÏó
+// é€šçŸ¥æ‰€æœ‰çš„éœ€è¦ä¿å­˜æ•°æ®çš„å¯¹è±¡
 STATIC_FUNC_TAG int announce_all_save_object(int destruct_flag)
 {
         object ob;
@@ -78,16 +78,16 @@ STATIC_FUNC_TAG int announce_all_save_object(int destruct_flag)
                 e = keys(save_dbase);
         else
                 e = ({ });
-        // Í¨ÖªËùÓĞµÄ´æÅÌ¶ÔÏó±£´æÊı¾İ
+        // é€šçŸ¥æ‰€æœ‰çš„å­˜ç›˜å¯¹è±¡ä¿å­˜æ•°æ®
         for (i = 0; i < sizeof(e); i++)
         {
                 if (! stringp(e[i]))
-                        // ²»Ó¦¸Ã²»ÊÇ×Ö·û´®
+                        // ä¸åº”è¯¥ä¸æ˜¯å­—ç¬¦ä¸²
                         map_delete(save_dbase, e[i]);
                 else
                 if (objectp(ob = find_object(e[i])))
                 {
-                        // ÕÒµ½ÁË´æÅÌµÄ¶ÔÏó£¬Í¨ÖªËüÃÇ
+                        // æ‰¾åˆ°äº†å­˜ç›˜çš„å¯¹è±¡ï¼Œé€šçŸ¥å®ƒä»¬
                         if (destruct_flag == DESTRUCT_OBJECT)
                                 catch(destruct(ob));
                         else
@@ -99,7 +99,7 @@ STATIC_FUNC_TAG int announce_all_save_object(int destruct_flag)
         return 1;
 }
 
-// ÇåÀíËùÓĞ¶ÔÏó
+// æ¸…ç†æ‰€æœ‰å¯¹è±¡
 int cleanup_all_save_object(int raw)
 {
 //      object ob;
@@ -111,11 +111,11 @@ int cleanup_all_save_object(int raw)
         else
                 return 1;
 
-        // Í¨ÖªËùÓĞµÄ´æÅÌ¶ÔÏó±£´æÊı¾İ
+        // é€šçŸ¥æ‰€æœ‰çš„å­˜ç›˜å¯¹è±¡ä¿å­˜æ•°æ®
         for (i = 0; i < sizeof(e); i++)
         {
                 if (! stringp(e[i]))
-                        // ²»Ó¦¸Ã²»ÊÇ×Ö·û´®
+                        // ä¸åº”è¯¥ä¸æ˜¯å­—ç¬¦ä¸²
                         map_delete(save_dbase, e[i]);
                 else
                 if (file_size(e[i] + ".c") < 0)
@@ -130,7 +130,7 @@ int cleanup_all_save_object(int raw)
         return 1;
 }
 
-// ĞÄÌøº¯Êı£¬×Ô¶¯±£´æËùÓĞµÄÊı¾İ
+// å¿ƒè·³å‡½æ•°ï¼Œè‡ªåŠ¨ä¿å­˜æ‰€æœ‰çš„æ•°æ®
 STATIC_FUNC_TAG int heart_beat()
 {
         set_heart_beat(900 + random(20));
@@ -139,26 +139,26 @@ STATIC_FUNC_TAG int heart_beat()
 
 string query_save_file() { return DATA_DIR + "dbased"; }
 
-// Ä³¸öÎï¼ş¶ÁÈ¡×Ô¼ºµÄ¼ÇÂ¼
+// æŸä¸ªç‰©ä»¶è¯»å–è‡ªå·±çš„è®°å½•
 mixed query_data()
 {
         return query_object_data(previous_object());
 }
 
-// Ä³¸öÎï¼ş±£´æ×Ô¼ºµÄ¼ÇÂ¼
+// æŸä¸ªç‰©ä»¶ä¿å­˜è‡ªå·±çš„è®°å½•
 int set_data(mixed data)
 {
         return set_object_data(previous_object(), data);
 }
 
-// ¶ÁÈ¡Ä³¸ö¶ÔÏóµÄ¼ÇÂ¼
+// è¯»å–æŸä¸ªå¯¹è±¡çš„è®°å½•
 mixed query_object_data(mixed ob)
 {
         string index;
 
         if (! ob) return 0;
 
-        // Ö»ÓĞROOT»ò¶ÔÏó×Ô¼º²Å¿ÉÒÔ±£´æ»ò¶ÁÈ¡Êı¾İ
+        // åªæœ‰ROOTæˆ–å¯¹è±¡è‡ªå·±æ‰å¯ä»¥ä¿å­˜æˆ–è¯»å–æ•°æ®
         if (! is_root(previous_object()) &&
             previous_object() != ob) return 0;
 
@@ -175,14 +175,14 @@ mixed query_object_data(mixed ob)
         return save_dbase[index];
 }
 
-// ±£´æÄ³¸ö¶ÔÏóµÄ¼ÇÂ¼
+// ä¿å­˜æŸä¸ªå¯¹è±¡çš„è®°å½•
 int set_object_data(mixed ob, mixed data)
 {
         string index;
 
         if (! ob) return 0;
 
-        // Ö»ÓĞROOT»ò¶ÔÏó×Ô¼º²Å¿ÉÒÔ±£´æ»ò¶ÁÈ¡Êı¾İ
+        // åªæœ‰ROOTæˆ–å¯¹è±¡è‡ªå·±æ‰å¯ä»¥ä¿å­˜æˆ–è¯»å–æ•°æ®
         if (! is_root(previous_object()) &&
             previous_object() != ob) return 0;
 
@@ -206,27 +206,27 @@ int set_object_data(mixed ob, mixed data)
         return 1;
 }
 
-// ¶ÁÈ¡ËùÓĞ¶ÔÏóµÄ¼ÇÂ¼
+// è¯»å–æ‰€æœ‰å¯¹è±¡çš„è®°å½•
 mapping query_save_dbase()
 {
         return save_dbase;
 }
 
-// ²éÔÄ±£´æÁËÊı¾İµÄËùÓĞ¶ÔÏó
+// æŸ¥é˜…ä¿å­˜äº†æ•°æ®çš„æ‰€æœ‰å¯¹è±¡
 string *query_saved_object()
 {
         return keys(save_dbase);
 }
 
-// Çå³ıÒ»¸ö¶ÔÏó
+// æ¸…é™¤ä¸€ä¸ªå¯¹è±¡
 int clear_object(mixed ob)
 {
         string index;
         object xob;
 
-        // ÓÉÓÚÒ»¸ö¶ÔÏóÔÚÇå³ıÇ°Ò»°ã»á±£´æ×Ô¼ºµÄÊı¾İ£¬ËùÒÔÒ»µ©Êı¾İÊÜµ½
-        // ËğÉËĞèÒª»Ö¸´¶ÔÏóÎªÔ­Ê¼×´Ì¬µÄÊ±ºò¾Í±ØĞëÏÈÇå³ı¶ÔÏó±¾Éí£¬È»ºó
-        // Çå¿ÕËüµÄÊı¾İ¡£
+        // ç”±äºä¸€ä¸ªå¯¹è±¡åœ¨æ¸…é™¤å‰ä¸€èˆ¬ä¼šä¿å­˜è‡ªå·±çš„æ•°æ®ï¼Œæ‰€ä»¥ä¸€æ—¦æ•°æ®å—åˆ°
+        // æŸä¼¤éœ€è¦æ¢å¤å¯¹è±¡ä¸ºåŸå§‹çŠ¶æ€çš„æ—¶å€™å°±å¿…é¡»å…ˆæ¸…é™¤å¯¹è±¡æœ¬èº«ï¼Œç„¶å
+        // æ¸…ç©ºå®ƒçš„æ•°æ®ã€‚
 
         if (! ob) return 0;
 

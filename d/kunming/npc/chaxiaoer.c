@@ -5,15 +5,15 @@ inherit F_DEALER;
 
 void create()
 {
-	set_name("²èĞ¡¶ş", ({ "xiao er", "xiao" }));
-	set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
+	set_name("èŒ¶å°äºŒ", ({ "xiao er", "xiao" }));
+	set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
 	set("shen_type", 1);
 
 	set("str", 30);
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set("age", 25);
 	set("long",
-		"Õâ¸ö²èĞ¡¶şÕıÃ¦×Å¸ø¿ÍÈËËÍ²è£¬µİÑÌ¡£");
+		"è¿™ä¸ªèŒ¶å°äºŒæ­£å¿™ç€ç»™å®¢äººé€èŒ¶ï¼Œé€’çƒŸã€‚");
 	set("combat_exp", 500);
 	set("attitude", "friendly");
 
@@ -48,12 +48,12 @@ void greeting(object ob)
 	switch(random(2))
         {
 	case 0 :
-		say (CYN "²èĞ¡¶şÈÈÇéµÄËµµ½£ºÕâÎ»" + RANK_D->query_respect(ob) +
-		     CYN "£¬ÂíÉÏ¸øÄãÉÏ²è¡£\n" NOR);
+		say (CYN "èŒ¶å°äºŒçƒ­æƒ…çš„è¯´åˆ°ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+		     CYN "ï¼Œé©¬ä¸Šç»™ä½ ä¸ŠèŒ¶ã€‚\n" NOR);
 		break;
 	case 1 :
-		say (CYN "²èĞ¡¶şËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-		     CYN "Òª²»ÒªÀ´Á½¿ÚË®ÑÌÌáÌáÉñ¡£\n" NOR);
+		say (CYN "èŒ¶å°äºŒè¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+		     CYN "è¦ä¸è¦æ¥ä¸¤å£æ°´çƒŸææç¥ã€‚\n" NOR);
 		break;
 	}
 }

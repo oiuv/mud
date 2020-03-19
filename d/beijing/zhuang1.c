@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "С·");
+	set("short", "小路");
 	set("long", @LONG
-������һ��С·�ϡ�ǰ���·��᫣����˺��١�������һ������
-��С��·��ɽ��
+你走在一条小路上。前面道路崎岖，行人很少。西面有一条蜿蜒
+的小岔路上山。
 LONG );
 	set("exits", ([
 	        "southwest" : __DIR__"road1",

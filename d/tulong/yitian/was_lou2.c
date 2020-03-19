@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "Íò°²ËÂµÚ¶ş²ã");
+        set("short", "ä¸‡å®‰å¯ºç¬¬äºŒå±‚");
         set("long", @LONG
-ÕâÀïÊÇÍò°²ËÂµÄµÚ¶ş²ã£¬ËÂÂ¥ÀïÕ¾×Å¼¸¸öÉí×Å»ğºìôÂôÄµÄºÍÉĞ¡£Ò»¼ûÄãÉÏÂ¥£¬
-Á¢ÂíÏòÄãÆËÀ´¡£
+è¿™é‡Œæ˜¯ä¸‡å®‰å¯ºçš„ç¬¬äºŒå±‚ï¼Œå¯ºæ¥¼é‡Œç«™ç€å‡ ä¸ªèº«ç€ç«çº¢è¢ˆè£Ÿçš„å’Œå°šã€‚ä¸€è§ä½ ä¸Šæ¥¼ï¼Œ
+ç«‹é©¬å‘ä½ æ‰‘æ¥ã€‚
 LONG );
         set("exits", ([
             "down"  : "/d/tulong/yitian/was_houdian",
@@ -22,10 +22,10 @@ LONG );
 int valid_leave(object me, string dir)
 {
         if (dir == "up" && objectp(present("zhang seng", environment(me))))
-           return notify_fail(CYN "ÕÈÉ®ÆëÉùºÈµÀ£ºÄÄÀï×ß£¿¹öÏÂÀ´£¡\n" NOR);
+           return notify_fail(CYN "æ–åƒ§é½å£°å–é“ï¼šå“ªé‡Œèµ°ï¼Ÿæ»šä¸‹æ¥ï¼\n" NOR);
 
         if (dir == "down" && objectp(present("zhang seng", environment(me))))
-           return notify_fail(CYN "ÕÈÉ®ÆëÉùºÈµÀ£ºÄÄÀïÌÓ£¿ÄÉÃüÀ´£¡\n" NOR);
+           return notify_fail(CYN "æ–åƒ§é½å£°å–é“ï¼šå“ªé‡Œé€ƒï¼Ÿçº³å‘½æ¥ï¼\n" NOR);
 
         return ::valid_leave(me, dir);
 }

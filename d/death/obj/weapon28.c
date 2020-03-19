@@ -5,12 +5,12 @@ inherit WHIP;
 
 void create()
 {
-        set_name(HIR "ÁÒ»ğÉñ±Ş" NOR, ({ "liehuo bian", "bian", "liehuo", "whip" }) );
+        set_name(HIR "çƒˆç«ç¥é­" NOR, ({ "liehuo bian", "bian", "liehuo", "whip" }) );
         set_weight(4000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
+                set("unit", "æ ¹");
                 set("value", 420000);
                 set("material", "steel");
         }

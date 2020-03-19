@@ -4,10 +4,10 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("·½Éú", ({ "fang sheng", "fang" }));
-	set("long", "ËûÃæÄ¿´ÈºÍ£¬ÏÔÈ»ÊÇÒ»µÃµÀ¸ßÉ®¡£\n");
+	set_name("æ–¹ç”Ÿ", ({ "fang sheng", "fang" }));
+	set("long", "ä»–é¢ç›®æ…ˆå’Œï¼Œæ˜¾ç„¶æ˜¯ä¸€å¾—é“é«˜åƒ§ã€‚\n");
 
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
 	set("class", "bonze");
 
@@ -52,7 +52,7 @@ void create()
 	prepare_skill("finger", "nianhua-zhi");
 	prepare_skill("strike", "sanhua-zhang");
 
-	create_family("ÉÙÁÖÅÉ", 0, "¸ßÉ®");
+	create_family("å°‘æ—æ´¾", 0, "é«˜åƒ§");
 
 	set("chat_chance_combat", 120);
 	set("chat_msg_combat", ({

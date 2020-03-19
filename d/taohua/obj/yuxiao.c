@@ -5,18 +5,18 @@ inherit XSWORD;
 
 void create()
 {
-        set_name(HIW "ÓñÏô" NOR, ({"yu xiao", "xiao"}));
+        set_name(HIW "ç‰è§" NOR, ({"yu xiao", "xiao"}));
         set_weight(500);
 
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ö§");
-                set("long", "Ò»Ö§°×Óñ×ö³ÉµÄ³¤Ïô£¬¿´ÉÏÈ¥¾§Ó¨ÎÂÈó¡£ÎäÁÖÖĞÈË¾­³£ÒÔÏô´ú½£¡£\n");
+                set("unit", "æ”¯");
+                set("long", "ä¸€æ”¯ç™½ç‰åšæˆçš„é•¿è§ï¼Œçœ‹ä¸Šå»æ™¶è¹æ¸©æ¶¦ã€‚æ­¦æ—ä¸­äººç»å¸¸ä»¥è§ä»£å‰‘ã€‚\n");
                 set("value", 10000);
                 set("material", "stone");
-                set("wield_msg", "$N´óĞäÒ»»Ó£¬ÊÖÖĞÒÑ¶àÁËÒ»Ö§¾§Ó¨ÎÂÈóµÄÓñÏô¡£\n");
-                set("unwield_msg", "$NÊÖÖĞÓñÏôÒ»×ª£¬Õ£ÑÛ¼äÓñÏôÒÑÈ»²»¼ûÓ°×Ù¡£\n");
+                set("wield_msg", "$Nå¤§è¢–ä¸€æŒ¥ï¼Œæ‰‹ä¸­å·²å¤šäº†ä¸€æ”¯æ™¶è¹æ¸©æ¶¦çš„ç‰è§ã€‚\n");
+                set("unwield_msg", "$Næ‰‹ä¸­ç‰è§ä¸€è½¬ï¼Œçœ¨çœ¼é—´ç‰è§å·²ç„¶ä¸è§å½±è¸ªã€‚\n");
         }
         init_xsword(45);
         setup();

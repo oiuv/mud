@@ -3,11 +3,11 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("Æ¤ÇåĞş", ({ "pi qingxuan", "pi", "qingxuan" }));
-        set("gender", "ÄĞĞÔ");
+        set_name("çš®æ¸…ç„", ({ "pi qingxuan", "pi", "qingxuan" }));
+        set("gender", "ç”·æ€§");
         set("age", 24);
         set("class", "taoist");
-        set("long", "ËûÊÇÒ»Î»Ìå¸ñÇ¿½¡µÄÇàÄêµÀÊ¿£¬ËÆºõÉí»³ÎäÒÕ¡£\n");
+        set("long", "ä»–æ˜¯ä¸€ä½ä½“æ ¼å¼ºå¥çš„é’å¹´é“å£«ï¼Œä¼¼ä¹èº«æ€€æ­¦è‰ºã€‚\n");
         set("attitude", "friendly");
         set("shen_type", 1);
         set("str", 26);
@@ -44,7 +44,7 @@ void create()
 
         prepare_skill("finger", "zhongnan-zhi");
 
-        create_family("È«Õæ½Ì", 4, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 4, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -63,6 +63,6 @@ void create()
 void attempt_apprentice(object ob)
 {
         command("ah");
-        command("say ÎÒ¡­ÎÒÒ²²Å¸Õ°İÊ¦²»¾Ã£¬ÔõÄÜÊÕÍ½¡£");
+        command("say æˆ‘â€¦æˆ‘ä¹Ÿæ‰åˆšæ‹œå¸ˆä¸ä¹…ï¼Œæ€èƒ½æ”¶å¾’ã€‚");
         return;
 }

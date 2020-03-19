@@ -7,16 +7,16 @@ int valid_enable(string usage) { return usage == "medical"; }
 int valid_learn(object me)
 {
         if ((int)me->query_skill("medical", 1) < 100)
-                return notify_fail("你的基本医术造诣太浅，无"
-                                   "法领会深奥的本草术理。\n");
+                return notify_fail("浣犵殑鍩烘湰鍖绘湳閫犺澶祬锛屾棤"
+                                   "娉曢浼氭繁濂ョ殑鏈崏鏈悊銆俓n");
 
         if ((int)me->query_skill("medical", 1) < (int)me->query_skill("xingxiu-qishu", 1))
-                return notify_fail("你的基本医术水平有限，无"
-                                   "法掌握更深奥的本草术理。\n");
+                return notify_fail("浣犵殑鍩烘湰鍖绘湳姘村钩鏈夐檺锛屾棤"
+                                   "娉曟帉鎻℃洿娣卞ゥ鐨勬湰鑽夋湳鐞嗐�俓n");
 
         if ((int)me->query_skill("bencao-changshi", 1) < (int)me->query_skill("bencao-shuli", 1))
-                return notify_fail("你的本草常识水平有限，无"
-                                   "法掌握更深奥的本草术理。\n");
+                return notify_fail("浣犵殑鏈崏甯歌瘑姘村钩鏈夐檺锛屾棤"
+                                   "娉曟帉鎻℃洿娣卞ゥ鐨勬湰鑽夋湳鐞嗐�俓n");
 
         return 1;
 }

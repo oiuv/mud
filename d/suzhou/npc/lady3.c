@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ñ¾»·", ({ "ya huan","ya","huan" }) );
-        set("gender", "Å®ĞÔ" );
+        set_name("ä¸«ç¯", ({ "ya huan","ya","huan" }) );
+        set("gender", "å¥³æ€§" );
         set("age", 16);
-        set("long", "ÕâÊÇÒ»¸öÈİÃ²ÇåĞãµÄÌìÕæÎŞĞ°µÄÑ¾»·£¬ÕıÔÚ´òÄÖµÄ¿ªĞÄ¡£\n");
+        set("long", "è¿™æ˜¯ä¸€ä¸ªå®¹è²Œæ¸…ç§€çš„å¤©çœŸæ— é‚ªçš„ä¸«ç¯ï¼Œæ­£åœ¨æ‰“é—¹çš„å¼€å¿ƒã€‚\n");
         set("shen_type", 1);
         set("combat_exp", 1000);
         set("str", 20);
@@ -46,7 +46,7 @@ void init()
 void greeting(object ob)
 {
         if( !ob || environment(ob) != environment() ) return;
-             say("Ñ¾»·Ğ¦×ÅËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob)
-             + "£¬»¶Ó­¹âÁÙÊ¨×ÓÁÖ¡£\n");
+             say("ä¸«ç¯ç¬‘ç€è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob)
+             + "ï¼Œæ¬¢è¿å…‰ä¸´ç‹®å­æ—ã€‚\n");
         return;
 }

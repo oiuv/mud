@@ -1,4 +1,4 @@
-/* whistle.c ÂíÉÚ */
+/* whistle.c é©¬å“¨ */
 
 #include <ansi.h>
 
@@ -18,12 +18,12 @@ void init()
 
 void create()
 {
-    set_name( HIG "ÂíÉÚ" NOR, ({ "ma shao", "shao" }) );
+    set_name( HIG "é©¬å“¨" NOR, ({ "ma shao", "shao" }) );
     if ( clonep() )
         set_default_object( __FILE__ );
     else {
-        set( "unit", "¸ö" );
-        set( "long", HIC "ÕâÊÇÒ»¸öÓñÖÆÂíÉÚ£¬ĞèÒªÂíÊ±´µ(whistle)Ò»ÏÂ¾ÍĞĞÁË¡£\n" NOR );
+        set( "unit", "ä¸ª" );
+        set( "long", HIC "è¿™æ˜¯ä¸€ä¸ªç‰åˆ¶é©¬å“¨ï¼Œéœ€è¦é©¬æ—¶å¹(whistle)ä¸€ä¸‹å°±è¡Œäº†ã€‚\n" NOR );
         set( "family", 0 );
         set( "whistle", 10 );
     }
@@ -39,33 +39,33 @@ int do_whistle()
     object  ob  = this_object();
 
     if ( me->is_busy() || me->query( "doing" ) )
-        return(notify_fail( "ÄãÏÖÔÚÕıÃ¦ÄØ£¬µÈÄãÓĞ¿ÕÁËÔÙËµ°É¡£\n" ) );
+        return(notify_fail( "ä½ ç°åœ¨æ­£å¿™å‘¢ï¼Œç­‰ä½ æœ‰ç©ºäº†å†è¯´å§ã€‚\n" ) );
 
     if ( me->is_in_prison() )
-        return(notify_fail( "ÄãÕıÔÚ×øÀÎÄØ£¬Ïë¸ÉÊ²Ã´£¿£¡\n" ) );
+        return(notify_fail( "ä½ æ­£åœ¨åç‰¢å‘¢ï¼Œæƒ³å¹²ä»€ä¹ˆï¼Ÿï¼\n" ) );
 
     if ( me->is_ghost() )
-        return(notify_fail( "µÈÄã»¹ÁËÑôÔÙÕÙ»½°É¡£\n" ) );
+        return(notify_fail( "ç­‰ä½ è¿˜äº†é˜³å†å¬å”¤å§ã€‚\n" ) );
 
-    if ( ob->query("family") && me->query( "family/family_name" ) != "°ËØÔÃÅ" )
-        return(notify_fail( "ÄãÓÖ²»ÊÇÕòÔ¶ïÚ¾ÖµÄÈË£¬Ã»ÓĞÂíÆ¥¿Éºô»½¡£\n" ) );
+    if ( ob->query("family") && me->query( "family/family_name" ) != "å…«å¦é—¨" )
+        return(notify_fail( "ä½ åˆä¸æ˜¯é•‡è¿œé•–å±€çš„äººï¼Œæ²¡æœ‰é©¬åŒ¹å¯å‘¼å”¤ã€‚\n" ) );
 
     if ( environment( me )->query( "no_ride" ) ||
          environment( me )->query( "maze" ) )
-        return(notify_fail( "Äã·¢ÏÖÕâÀïÓĞµã¹Å¹Ö£¬¿ÚÉÚµÄÉùÒô´«²»³öÈ¥£¡\n" ) );
+        return(notify_fail( "ä½ å‘ç°è¿™é‡Œæœ‰ç‚¹å¤æ€ªï¼Œå£å“¨çš„å£°éŸ³ä¼ ä¸å‡ºå»ï¼\n" ) );
 
     if ( !environment( me )->query( "outdoors" ) )
-        return(notify_fail( "Äã»¹ÊÇµ½»§ÍâÔÙºô»½ÂíÆ¥°É£¡\n" ) );
+        return(notify_fail( "ä½ è¿˜æ˜¯åˆ°æˆ·å¤–å†å‘¼å”¤é©¬åŒ¹å§ï¼\n" ) );
 
     if ( environment( me )->query( "outdoors" ) == "wuguan" )
-        return(notify_fail( "ÄãµÄÂí½ø²»ÁË¹ù¸®£¬ÔÙÔõÃ´´µ¿ÚÉÚÒ²Ã»ÓÃ£¡\n" ) );
+        return(notify_fail( "ä½ çš„é©¬è¿›ä¸äº†éƒ­åºœï¼Œå†æ€ä¹ˆå¹å£å“¨ä¹Ÿæ²¡ç”¨ï¼\n" ) );
 
     if (me->query_temp( "is_riding" ))
-        return(notify_fail( "Äã²»ÊÇÆïÔÚÂíÉÏÂğ£¿\n"));
+        return(notify_fail( "ä½ ä¸æ˜¯éª‘åœ¨é©¬ä¸Šå—ï¼Ÿ\n"));
 
     if (sizeof(filter_array(all_inventory(environment(me)),
                             (: $1->query("ridable") :))))
-        return(notify_fail( "ÄãÉí±ßÒÑ¾­ÓĞÆï×ø¿ÉÓÃÁË£¬²»ÓÃÔÙºô»½°É£¿\n"));
+        return(notify_fail( "ä½ èº«è¾¹å·²ç»æœ‰éª‘åå¯ç”¨äº†ï¼Œä¸ç”¨å†å‘¼å”¤å§ï¼Ÿ\n"));
 
     switch ( random( 3 ) )
     {
@@ -82,15 +82,15 @@ int do_whistle()
     err = catch( horse = new( file ) );
     if ( err || !ob->query( "whistle" ))
     {
-        message_vision( HIM "$N" HIM "´µÁËÒ»ÉùÂíÉÚ£¬"
-                "È»¶øÊ²Ã´Ò²Ã»ÓĞ·¢Éú :)\n" NOR, me );
+        message_vision( HIM "$N" HIM "å¹äº†ä¸€å£°é©¬å“¨ï¼Œ"
+                "ç„¶è€Œä»€ä¹ˆä¹Ÿæ²¡æœ‰å‘ç”Ÿ :)\n" NOR, me );
         return(1);
     }
     horse->move( environment( me ) );
     horse->reset_action();
     horse->set_leader( me );
-    message_vision( HIC "$N" HIC "ÄÃ³öÂíÉÚ´µÁËÒ»Éù£¬"
-            "Ò»Æ¥$n" HIC "´ÓÔ¶´¦ÅÜÁË¹ıÀ´¡£\n" NOR, me, horse );
+    message_vision( HIC "$N" HIC "æ‹¿å‡ºé©¬å“¨å¹äº†ä¸€å£°ï¼Œ"
+            "ä¸€åŒ¹$n" HIC "ä»è¿œå¤„è·‘äº†è¿‡æ¥ã€‚\n" NOR, me, horse );
     ob->add( "whistle", -1 );
     RIDE_CMD->main(me, horse->query("id"));
 

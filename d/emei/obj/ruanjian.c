@@ -1,21 +1,21 @@
-// ruanjian.c Èí½£
+// ruanjian.c è½¯å‰‘
 
 #include <weapon.h>
 inherit SWORD;
 
 void create()
 {
-        set_name("Èí½£", ({ "ruanjian", "jian" }));
+        set_name("è½¯å‰‘", ({ "ruanjian", "jian" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", "ÕâÊÇÒ»±úÓÃÌØÊâ²ÄÁÏÖÆ³ÉµÄ¸Ö½£¡£\n");
+                set("unit", "æŸ„");
+                set("long", "è¿™æ˜¯ä¸€æŸ„ç”¨ç‰¹æ®Šææ–™åˆ¶æˆçš„é’¢å‰‘ã€‚\n");
                 set("value", 150);
                 set("material", "steel");
-                set("wield_msg", "$N¡¸à§¡¹µÄÒ»Éù³é³öÒ»±ú$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»Ø½£ÇÊ¡£\n");
+                set("wield_msg", "$Nã€Œå”°ã€çš„ä¸€å£°æŠ½å‡ºä¸€æŸ„$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›å‰‘é˜ã€‚\n");
         }
         init_sword(35);
         setup();

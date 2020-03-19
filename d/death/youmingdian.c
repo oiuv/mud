@@ -7,10 +7,10 @@ inherit ROOM;
 
 void create ()
 {
-        set("short", HIB "ÓÄÚ¤µî" NOR   );
+        set("short", HIB "å¹½å†¥æ®¿" NOR   );
         set("long", HIB @LONG
-ÕâÀï±ãÊÇÃûÎÅÌìÏÂ£¬ÁîÈËÌáÆğĞÄ¾ªµ¨º®µÄÑÖÓÄÚ¤µî¡£ÈËËÀºó¶¼»áÔÚ
-ÕâÀïÊÜµ½Ó¦ÓĞµÄ´¦ÖÃ¡£ÕıÇ°Ò»ÕÅ´ó×À¡£ÕıÇ°×ø×ÅÊ®µîÑÖÂŞ¡£
+è¿™é‡Œä¾¿æ˜¯åé—»å¤©ä¸‹ï¼Œä»¤äººæèµ·å¿ƒæƒŠèƒ†å¯’çš„é˜å¹½å†¥æ®¿ã€‚äººæ­»åéƒ½ä¼šåœ¨
+è¿™é‡Œå—åˆ°åº”æœ‰çš„å¤„ç½®ã€‚æ­£å‰ä¸€å¼ å¤§æ¡Œã€‚æ­£å‰åç€åæ®¿é˜ç½—ã€‚
 
 LONG NOR);
         set("exits", ([ /* sizeof() == 1 */
@@ -37,9 +37,9 @@ int valid_leave(object me, string dir)
         me = this_player();
         if (dir == "north")
         {
-                if (! me->query("hell_quest/ËøÑôµ¤") && ! me->query("HellZhenPass"))
-                        return notify_fail(CYN "Ê®µîÑÖÂŞ¿´ÁËÄãÒ»ÑÛ£¬ºÈµÀ£ºÄã»¹²»¹ö"
-                                           "»ØÈ¥»¹Ñô£¬À´ÕâÀï´ÕÊ²Ã´ÈÈÄÖ£¡\n" NOR);
+                if (! me->query("hell_quest/é”é˜³ä¸¹") && ! me->query("HellZhenPass"))
+                        return notify_fail(CYN "åæ®¿é˜ç½—çœ‹äº†ä½ ä¸€çœ¼ï¼Œå–é“ï¼šä½ è¿˜ä¸æ»š"
+                                           "å›å»è¿˜é˜³ï¼Œæ¥è¿™é‡Œå‡‘ä»€ä¹ˆçƒ­é—¹ï¼\n" NOR);
         }
         return ::valid_leave(me, dir);
 }

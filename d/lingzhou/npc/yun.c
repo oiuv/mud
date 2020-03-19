@@ -6,15 +6,15 @@ inherit NPC;
 void create()
 {
 
-	set_name("ÔÆÖĞº×", ({ "yun zhonghe", "yun" }));
-	set("gender", "ÄĞĞÔ");
-	set("nickname", HIY"ÇîĞ×¼«¶ñ"NOR);
+	set_name("äº‘ä¸­é¹¤", ({ "yun zhonghe", "yun" }));
+	set("gender", "ç”·æ€§");
+	set("nickname", HIY"ç©·å‡¶ææ¶"NOR);
 	set("age", 34);
 	set("str", 25);
 	set("dex", 16);
 	set("per", 21);
-	set("long", "´ËÈË³¤µÃÓÖ¸ßÓÖÊİÏóÒ»¸Ë´óÖñ¸Í£¬Ëµ»°ÉùÒôºö¼âºö´Ö£¬Ê®·ÖÄÑ
-Ìı£¬´©×ÅÒ»ÉíÇàÉÀ£¬Ò»¸±É«ÃÔÃÔÄ£Ñù¡£\n");
+	set("long", "æ­¤äººé•¿å¾—åˆé«˜åˆç˜¦è±¡ä¸€æ†å¤§ç«¹ç«¿ï¼Œè¯´è¯å£°éŸ³å¿½å°–å¿½ç²—ï¼Œååˆ†éš¾
+å¬ï¼Œç©¿ç€ä¸€èº«é’è¡«ï¼Œä¸€å‰¯è‰²è¿·è¿·æ¨¡æ ·ã€‚\n");
 	set("combat_exp", 150000);
 	set("shen_type", -1);
 	set("attitude", "peaceful");

@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ɽ·");
+        set("short", "山路");
         set("long", @LONG
-���ô˴���һ·�����Ƿ����ʤ��ֻ��·���ɺ���������
-¹��Ⱥ������С�ã����Ǽ��˲�����ż���ŵ�����Ļ��㣬��
-�����԰��á�С¹��ȥ��Ծ�����ǿɰ��������Ŀ�������
+到得此处，一路上已是风物佳胜。只见路旁仙鹤三二、白
+鹿成群，松鼠小兔，尽是见人不惊。偶尔闻到阵阵的花香，又
+见道旁白兔、小鹿来去奔跃，甚是可爱，令人心旷神怡。
 LONG);
         set("outdoors", "jueqing");
         set("exits", ([

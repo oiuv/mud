@@ -1,4 +1,4 @@
-// qin.c ÇÙ
+// qin.c ç´
 
 int play_qin(string arg)
 {

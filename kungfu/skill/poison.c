@@ -1,4 +1,4 @@
-// poison.c 基本毒技
+// poison.c 鍩烘湰姣掓妧
 // Modified by Java Mar.1998
 inherit SKILL;
 
@@ -7,8 +7,8 @@ string type() { return "poison"; }
 
 int valid_learn(object me)
 {
-        if (me->query("character") == "光明磊落")
-                return notify_fail("你心中暗想：我行事光明磊落，学什么毒技！\n");
+        if (me->query("character") == "鍏夋槑纾婅惤")
+                return notify_fail("浣犲績涓殫鎯筹細鎴戣浜嬪厜鏄庣钀斤紝瀛︿粈涔堟瘨鎶�锛乗n");
 
         return 1;
 }

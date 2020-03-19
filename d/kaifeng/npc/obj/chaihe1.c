@@ -3,14 +3,14 @@ inherit STAFF;
 
 void create()
 {
-	set_name("²ñºÌ", ({ "chai he", "staff" }) );
+	set_name("æŸ´ç¦¾", ({ "chai he", "staff" }) );
 	set_weight(2000);
         if (clonep())
         	set_default_object(__FILE__);
 	else {
-   	        set("unit", "¸ù");
+   	        set("unit", "æ ¹");
         	set("material", "wood");
-       		set("long", "ÕâÊÇÒ»¸ù´Ö³¤µÄÊ÷Ö¦¡£\n");
+       		set("long", "è¿™æ˜¯ä¸€æ ¹ç²—é•¿çš„æ ‘æã€‚\n");
         }
         init_staff(5);
         setup();

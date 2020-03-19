@@ -4,11 +4,11 @@
 inherit ROOM;
 void create()
 {
-	set("short", "���幬");
+	set("short", "上清宫");
 	set("long", @LONG
-���幬���Ͼ���������ǰɽ�ţ�������ͣ���Ϊ�鶯�����ڵ�
-�ù�ɫ���ţ������̫���Ͼ���������������������ɽǰĦ��
-ʯ�� "���µ�����ɽ" ���ƻ�񣬺���׳�ۡ�
+上清宫是老君道场。宫前山门，矮树搭就，甚为灵动。宫内殿
+堂古色清雅，正殿供奉太上老君、吕纯阳和张三丰塑像。山前摩崖
+石刻 "天下第五名山" 气势浑厚，很是壮观。
 LONG );
         set("outdoors","qingcheng");
 	set("exits", ([

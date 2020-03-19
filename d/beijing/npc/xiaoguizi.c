@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ð¡¹ð×Ó", ({ "xiao guizi", "xiao", "guizi" }) );
-        set("gender", "ÎÞÐÔ" );
+        set_name("å°æ¡‚å­", ({ "xiao guizi", "xiao", "guizi" }) );
+        set("gender", "æ— æ€§" );
         set("age", 13);
         set("long",
-                "ÕâÎ»Ð¡Ì«¼àÔÚÒ»ÅÔÐ¡ÐÄÊÌºî×Å£¬ÊÖÀïÄÃ×ÅÒ»°üÒ©¡£\n");
+                "è¿™ä½å°å¤ªç›‘åœ¨ä¸€æ—å°å¿ƒä¾ä¾¯ç€ï¼Œæ‰‹é‡Œæ‹¿ç€ä¸€åŒ…è¯ã€‚\n");
         set("combat_exp", 1000);
         set_skill("unarmed", 20);
         set_skill("parry", 20);
@@ -19,12 +19,12 @@ void create()
         set_temp("apply/damage", 5);
 
         set("attitude", "friendly");
-        set("rank_info/respect", "Ð¡¹«¹«");
+        set("rank_info/respect", "å°å…¬å…¬");
         setup();
         set("chat_chance", 5);
         set("chat_msg", ({
-                CYN "Ð¡¹ð×ÓËµµÀ£º¹«¹«£¬ÔÙ·þÒ»¼ÁÒ©£¬ºÃ²»ºÃ£¿\n" NOR,
-                CYN "Ð¡¹ð×ÓµÀ: ÔÙ·þ°ë¼Á£¬¶à°ë²»´ò½ô¡£\n" NOR,
+                CYN "å°æ¡‚å­è¯´é“ï¼šå…¬å…¬ï¼Œå†æœä¸€å‰‚è¯ï¼Œå¥½ä¸å¥½ï¼Ÿ\n" NOR,
+                CYN "å°æ¡‚å­é“: å†æœåŠå‰‚ï¼Œå¤šåŠä¸æ‰“ç´§ã€‚\n" NOR,
         }) );
         carry_object(__DIR__"obj/cloth")->wear();
         carry_object("/d/city/obj/yaofen");

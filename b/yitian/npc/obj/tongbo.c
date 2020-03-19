@@ -3,13 +3,13 @@
 inherit HAMMER;
 void create()
 {
-        set_name(YEL "Í­îà" NOR,  ({ "tong bo", "tong", "bo" }));
+        set_name(YEL "é“œé’¹" NOR,  ({ "tong bo", "tong", "bo" }));
         set_weight(10000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", "Ò»±úÓÃÊìÍ­´òÔìµÄîà¡£\n");
+                set("unit", "æŸ„");
+                set("long", "ä¸€æŸ„ç”¨ç†Ÿé“œæ‰“é€ çš„é’¹ã€‚\n");
                 set("value", 2000);
                 set("material", "gold");
         }

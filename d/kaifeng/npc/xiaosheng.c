@@ -1,9 +1,9 @@
 inherit NPC;
 void create()
 {
-   	set_name("Ğ¡Éú",({"xiao sheng", "xiao", "sheng"}));
-	set("gender","Å®ĞÔ");
-   	set("long", "Ï·¾çÖĞµÄÒ»¸ö½ÅÉ«¡£\n");
+   	set_name("å°ç”Ÿ",({"xiao sheng", "xiao", "sheng"}));
+	set("gender","å¥³æ€§");
+   	set("long", "æˆå‰§ä¸­çš„ä¸€ä¸ªè„šè‰²ã€‚\n");
         set("age", 25);
         set("combat_exp", 7000);
         set("shen_type", 1);

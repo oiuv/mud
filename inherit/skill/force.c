@@ -7,7 +7,7 @@ inherit SKILL;
 int valid_learn(object me)
 {
         if ((int)me->query_skill("force", 1) < 10)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ðºò²»¹»£¬²»ÄÜÑ§Ï°ÌØÊâÄÚ¹¦¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™ä¸å¤Ÿï¼Œä¸èƒ½å­¦ä¹ ç‰¹æ®Šå†…åŠŸã€‚\n");
 
         return 1;
 }
@@ -56,20 +56,20 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
                         me->receive_damage("qi", damage * 4, victim);
                         me->receive_wound("qi", damage * 4, victim);
                         if (damage < 10)
-                                result += ([ "msg" : HIY "$N" HIY "ÊÜµ½$n"
-                                                     HIY "µÄÄÚÁ¦·´Õð£¬ÃÆºßÒ»Éù¡£\n" NOR ]);
+                                result += ([ "msg" : HIY "$N" HIY "å—åˆ°$n"
+                                                     HIY "çš„å†…åŠ›åéœ‡ï¼Œé—·å“¼ä¸€å£°ã€‚\n" NOR ]);
                         else if (damage < 20)
-                                result += ([ "msg" : YEL "$N" YEL "±»$n"
-                                                     YEL "ÒÔÄÚÁ¦·´Õð£¬¡¸ºÙ¡¹µØÒ»ÉùÍËÁËÁ½²½¡£\n" NOR ]);
+                                result += ([ "msg" : YEL "$N" YEL "è¢«$n"
+                                                     YEL "ä»¥å†…åŠ›åéœ‡ï¼Œã€Œå˜¿ã€åœ°ä¸€å£°é€€äº†ä¸¤æ­¥ã€‚\n" NOR ]);
                         else if (damage < 40)
-                                result += ([ "msg" : HIC "$N" HIC "±»$n"
-                                                     HIC "ÒÔÄÚÁ¦Ò»Õð£¬ÐØ¿ÚÓÐÈçÊÜµ½Ò»¼ÇÖØ´¸£¬Á¬ÍËÁËÎåÁù²½£¡\n" NOR ]);
+                                result += ([ "msg" : HIC "$N" HIC "è¢«$n"
+                                                     HIC "ä»¥å†…åŠ›ä¸€éœ‡ï¼Œèƒ¸å£æœ‰å¦‚å—åˆ°ä¸€è®°é‡é”¤ï¼Œè¿žé€€äº†äº”å…­æ­¥ï¼\n" NOR ]);
                         else if (damage < 80)
-                                result += ([ "msg" : HIR "$N" HIR "±»$n"
-                                                     HIR "µÄÄÚÁ¦Ò»Õð£¬ÑÛÇ°Ò»ºÚ£¬Éí×ÓÏòºó·É³öÕÉÐí£¡\n" NOR ]);
+                                result += ([ "msg" : HIR "$N" HIR "è¢«$n"
+                                                     HIR "çš„å†…åŠ›ä¸€éœ‡ï¼Œçœ¼å‰ä¸€é»‘ï¼Œèº«å­å‘åŽé£žå‡ºä¸ˆè®¸ï¼\n" NOR ]);
                         else
-                                result += ([ "msg" : RED "$N" RED "±»$n"
-                                                     RED "µÄÄÚÁ¦Ò»Õð£¬Ö»¾õ»ëÉí¾­ÂöÓû¶Ï£¬ÆøÑªµ¹Á÷£¬¼¸ºõÔÎÁË¹ýÈ¥¡£\n" NOR ]);
+                                result += ([ "msg" : RED "$N" RED "è¢«$n"
+                                                     RED "çš„å†…åŠ›ä¸€éœ‡ï¼Œåªè§‰æµ‘èº«ç»è„‰æ¬²æ–­ï¼Œæ°”è¡€å€’æµï¼Œå‡ ä¹Žæ™•äº†è¿‡åŽ»ã€‚\n" NOR ]);
                         return result;
                 }
 
@@ -115,9 +115,9 @@ int do_effect(object me)
         lvl = me->query_skill("buddhism", 1);
         lvl *= lvl * lvl / 25;
 
-       // if ((me->query("reborn") && (int)me->query_skill("buddhism", 1) > 199) || (me->query("family/family_name") == "ÉÙÁÖÅÉ" && (int)me->query_skill("buddhism", 1) > 299) || (int)me->query_skill("buddhism", 1) > 399)
-       if ((me->query("reborn") && ((int)me->query_skill("buddhism", 1) > 299 || (me->query("family/family_name") == "ÉÙÁÖÅÉ" && (int)me->query_skill("buddhism", 1) > 199))) ||
-       	 (me->query("family/family_name") == "ÉÙÁÖÅÉ" && (int)me->query_skill("buddhism", 1) > 399) || (int)me->query_skill("buddhism", 1) > 499)
+       // if ((me->query("reborn") && (int)me->query_skill("buddhism", 1) > 199) || (me->query("family/family_name") == "å°‘æž—æ´¾" && (int)me->query_skill("buddhism", 1) > 299) || (int)me->query_skill("buddhism", 1) > 399)
+       if ((me->query("reborn") && ((int)me->query_skill("buddhism", 1) > 299 || (me->query("family/family_name") == "å°‘æž—æ´¾" && (int)me->query_skill("buddhism", 1) > 199))) ||
+       	 (me->query("family/family_name") == "å°‘æž—æ´¾" && (int)me->query_skill("buddhism", 1) > 399) || (int)me->query_skill("buddhism", 1) > 499)
         { 
                 n = 1; 
         } else 
@@ -128,10 +128,10 @@ int do_effect(object me)
 
         if (lvl < n * 9 / 10)
         {
-                write(RED "ÄãÖ»¾õµÃÐÄÖÐÒ»Õó½ÊÍ´£¬ÍêÈ«ÎÞ·¨¿ØÖÆÄÚÏ¢£¬ÈÌ"
-                      "²»×¡´ó½ÐÒ»Éù£¬»Æ¶¹°ãµÄº¹Öéä¹ä¹¶øÏÂ¡£\n" NOR);
-                message("vision", RED + me->name() + RED "ºöÈ»´ó½ÐÒ»Éù£¬"
-                        "»Æ¶¹°ãµÄº¹Öéä¹ä¹¶øÏÂ£¬¿´Ñù×ÓÍ´¿àÖ®¼«¡£\n" NOR,
+                write(RED "ä½ åªè§‰å¾—å¿ƒä¸­ä¸€é˜µç»žç—›ï¼Œå®Œå…¨æ— æ³•æŽ§åˆ¶å†…æ¯ï¼Œå¿"
+                      "ä¸ä½å¤§å«ä¸€å£°ï¼Œé»„è±†èˆ¬çš„æ±—ç æ¶”æ¶”è€Œä¸‹ã€‚\n" NOR);
+                message("vision", RED + me->name() + RED "å¿½ç„¶å¤§å«ä¸€å£°ï¼Œ"
+                        "é»„è±†èˆ¬çš„æ±—ç æ¶”æ¶”è€Œä¸‹ï¼Œçœ‹æ ·å­ç—›è‹¦ä¹‹æžã€‚\n" NOR,
                         environment(me), ({ me }));
                 me->receive_damage("jing", 200 + random(200));
                 me->receive_damage("qi", 400 + random(400));
@@ -139,10 +139,10 @@ int do_effect(object me)
         } else
         if (lvl < n)
         {
-                write(HIR "ÄãÖ»¾õµÃÄÚÏ¢Ò»ÕóÎÉÂÒ£¬ËÄÖ«°Ùº¡¶ÙÊ±±ùÀä£¬ÊÖ"
-                      "×ãÃ¼·¢¶¼²»ÓÉ×ÔÖ÷µÄ²ü¶¯¡£\n" NOR);
-                message("vision", HIR + me->name() + RED "»ëÉí¶¼²»×¡µÄ"
-                        "¶¶¶¯£¬Á¬Ã¼·¢¶¼ÔÚÎ¢Î¢²ü¶¯¡£\n" NOR,
+                write(HIR "ä½ åªè§‰å¾—å†…æ¯ä¸€é˜µç´Šä¹±ï¼Œå››è‚¢ç™¾éª¸é¡¿æ—¶å†°å†·ï¼Œæ‰‹"
+                      "è¶³çœ‰å‘éƒ½ä¸ç”±è‡ªä¸»çš„é¢¤åŠ¨ã€‚\n" NOR);
+                message("vision", HIR + me->name() + RED "æµ‘èº«éƒ½ä¸ä½çš„"
+                        "æŠ–åŠ¨ï¼Œè¿žçœ‰å‘éƒ½åœ¨å¾®å¾®é¢¤åŠ¨ã€‚\n" NOR,
                         environment(me), ({ me }));
                 me->receive_damage("jing", 100 + random(100));
                 me->receive_damage("qi", 200 + random(200));
@@ -150,12 +150,12 @@ int do_effect(object me)
         } else
         if (lvl < n * 11 / 10)
         {
-                write(HIY "Äã¾õµÃÓÐµãÐÄ·³ÒâÂÒ£¬µ¤ÌïÖÐÈÈÆøÈç"
-                      "·Ù£¬ÄÚÁ¦ÔËÐÐÓÐÐ©¼èÄÑ¡£\n" NOR);
+                write(HIY "ä½ è§‰å¾—æœ‰ç‚¹å¿ƒçƒ¦æ„ä¹±ï¼Œä¸¹ç”°ä¸­çƒ­æ°”å¦‚"
+                      "ç„šï¼Œå†…åŠ›è¿è¡Œæœ‰äº›è‰°éš¾ã€‚\n" NOR);
         } else
         if (lvl < n * 13 / 10)
         {
-                write(HIC "ÄãÐÄÖÐÓÐµãÒìÑùµÄ¸Ð¾õ¡£\n" NOR);
+                write(HIC "ä½ å¿ƒä¸­æœ‰ç‚¹å¼‚æ ·çš„æ„Ÿè§‰ã€‚\n" NOR);
         }
         return 0;
 }

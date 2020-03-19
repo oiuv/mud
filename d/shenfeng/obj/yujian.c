@@ -5,13 +5,13 @@ inherit SWORD;
 
 void create()
 {
-    	set_name(HIW "Óñ½£" NOR, ({ "yu jian", "yu", "jian", "sword" }));
+    	set_name(HIW "ç‰å‰‘" NOR, ({ "yu jian", "yu", "jian", "sword" }));
     	set_weight(500);
     	if (clonep())
         	set_default_object(__FILE__);
     	else {
-        	set("unit", "±ú");
-        	set("long", HIW "Ò»±úÓÃ°×Óñ×ö³ÉµÄ³¤½££¬Ïàµ±µÄ¾«ÃÀ¡£\n" NOR);
+        	set("unit", "æŸ„");
+        	set("long", HIW "ä¸€æŸ„ç”¨ç™½ç‰åšæˆçš„é•¿å‰‘ï¼Œç›¸å½“çš„ç²¾ç¾ã€‚\n" NOR);
         	set("value", 5000);
         	set("material", "jade");
       	}

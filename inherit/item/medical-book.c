@@ -23,7 +23,7 @@ void setup()
                 return;
 
         ks = keys(med);
-        msg += "ÉÏÃæ¼ÇÔØÁË";
+        msg += "ä¸Šé¢è®°è½½äº†";
         for (i = 0; i < sizeof(ks); i++)
         {
                 if (file_size(MEDICINE(ks[i]) + ".c") < 0)
@@ -33,10 +33,10 @@ void setup()
                         delete("can_make/" + ks[i]);
                         continue;
                 }
-                if (i) msg += "¡¢";
+                if (i) msg += "ã€";
                 msg += MEDICINE(ks[i])->name();
         }
-        msg += "µÄÁ¶ÖÆ·½·¨£¬µ¹ÊÇ¿ÉÒÔ×ĞÏ¸¶Á¶Á(read)£¬×ÁÄ¥Ò»ÏÂ¡£\n";
+        msg += "çš„ç‚¼åˆ¶æ–¹æ³•ï¼Œå€’æ˜¯å¯ä»¥ä»”ç»†è¯»è¯»(read)ï¼Œç¢ç£¨ä¸€ä¸‹ã€‚\n";
         msg = sort_string(msg, 64);
         set("long", msg);
 }
@@ -59,27 +59,27 @@ int do_read(string arg)
         int jing_cost;
 
         if (! arg)
-                return notify_fail("ÄãÒª¶ÁÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦è¯»ä»€ä¹ˆï¼Ÿ\n");
 
         if (sscanf(arg, "%s from %s", m_name, arg) != 2)
-                return notify_fail("ÑĞ¾¿ÅäÖÆÒ©Îï£ºread Ò©Ãû from " +
+                return notify_fail("ç ”ç©¶é…åˆ¶è¯ç‰©ï¼šread è¯å from " +
                                    query("id") + "\n");
 
         if (! id(arg))
-                return notify_fail("Ã»ÓĞÕâ±¾Êé°¡¡£\n");
+                return notify_fail("æ²¡æœ‰è¿™æœ¬ä¹¦å•Šã€‚\n");
 
         med = query("can_make");
         if (! mapp(med) || ! sizeof(med))
         {
-                write(name() + "ÉÏÃæ²¢Ã»ÓĞ¼ÇÔØÈÎºÎÖµµÃ"
-                      "ÌØ±ğÑĞ¾¿µÄÄÚÈİ¡£\n");
+                write(name() + "ä¸Šé¢å¹¶æ²¡æœ‰è®°è½½ä»»ä½•å€¼å¾—"
+                      "ç‰¹åˆ«ç ”ç©¶çš„å†…å®¹ã€‚\n");
                 return 1;
         }
 
         me = this_player();
         if (me->query("can_make/" + m_name))
         {
-                write("ÄãÒÑ¾­Í¨ÏşÁË¡¸" + m_name + "¡¹µÄÃØÃÜ£¬Ã»Ê²Ã´ºÃÑĞ¾¿µÄÁË¡£\n");
+                write("ä½ å·²ç»é€šæ™“äº†ã€Œ" + m_name + "ã€çš„ç§˜å¯†ï¼Œæ²¡ä»€ä¹ˆå¥½ç ”ç©¶çš„äº†ã€‚\n");
                 return 1;
         }
 
@@ -92,18 +92,18 @@ int do_read(string arg)
 
         if (i >= sizeof(ks))
         {
-                write(name() + "ÉÏÃæ²¢Ã»ÓĞ¼ÇÔØÓĞ¹Ø" +
-                      m_name + "µÄÄÚÈİ¡£\n");
+                write(name() + "ä¸Šé¢å¹¶æ²¡æœ‰è®°è½½æœ‰å…³" +
+                      m_name + "çš„å†…å®¹ã€‚\n");
                 return 1;
         }
 
-        fm_name = "¡¸" + MEDICINE(ks[i])->name() + "¡¹";
+        fm_name = "ã€Œ" + MEDICINE(ks[i])->name() + "ã€";
         skill = query("skill/name");
         lvl = (int)me->query_skill(skill, 1);
         if (! lvl)
         {
-                write("ÄãÏÖÔÚ¶Ô" + to_chinese(skill) + "»¹ÊÇ"
-                      "Ò»ÇÏ²»Í¨£¬ÔõÃ´ÑĞ¾¿µÃÃ÷°×£¿\n");
+                write("ä½ ç°åœ¨å¯¹" + to_chinese(skill) + "è¿˜æ˜¯"
+                      "ä¸€çªä¸é€šï¼Œæ€ä¹ˆç ”ç©¶å¾—æ˜ç™½ï¼Ÿ\n");
                 return 1;
         }
 
@@ -111,8 +111,8 @@ int do_read(string arg)
         if (jing_cost > me->query("jing"))
         {
                 me->set("jing", 0);
-                write("Äã¾õµÃÄãÏÖÔÚ¾«Éñ²»¼Ã£¬ÄÑÒÔÑĞ¾¿ÓĞ¹Ø" +
-                      fm_name + "µÄÖªÊ¶¡£\n");
+                write("ä½ è§‰å¾—ä½ ç°åœ¨ç²¾ç¥ä¸æµï¼Œéš¾ä»¥ç ”ç©¶æœ‰å…³" +
+                      fm_name + "çš„çŸ¥è¯†ã€‚\n");
                 return 1;
         }
 
@@ -120,24 +120,24 @@ int do_read(string arg)
 
         if (lvl < (int)med[ks[i]])
         {
-                write("Äã¾õµÃ" + fm_name + "ÊµÔÚÊÇ"
-                      "Ì«¸´ÔÓÁË£¬ÒÔÄãÄ¿Ç°µÄ" + to_chinese(skill) +
-                      "µÄÑ§Ê¶¿ÖÅÂ»¹ÄÑÒÔÅªÃ÷°×¡£\n");
+                write("ä½ è§‰å¾—" + fm_name + "å®åœ¨æ˜¯"
+                      "å¤ªå¤æ‚äº†ï¼Œä»¥ä½ ç›®å‰çš„" + to_chinese(skill) +
+                      "çš„å­¦è¯†ææ€•è¿˜éš¾ä»¥å¼„æ˜ç™½ã€‚\n");
                 return 1;
         }
 
         if (random(lvl) < (int)med[ks[i]])
         {
-                write(random(2) ? "ÄãÑĞ¾¿ÁËÒ»»á¶ùÓĞ¹Ø" + fm_name +
-                                  "µÄÄÚÈİ£¬ÓĞĞ©ÊÕ»ñ£¬²»¹ı»¹Ã»ÓĞ³¹µ×Ã÷°×¡£\n"
-                                : "Äã×ĞÏ¸ÔÄ¶ÁÁËÒ»»á¶ùÓĞ¹Ø" + m_name +
-                                  "µÄÄÚÈİ£¬Ã÷°×ÁË²»ÉÙÆäÖĞ°ÂÃî¡£\n");
+                write(random(2) ? "ä½ ç ”ç©¶äº†ä¸€ä¼šå„¿æœ‰å…³" + fm_name +
+                                  "çš„å†…å®¹ï¼Œæœ‰äº›æ”¶è·ï¼Œä¸è¿‡è¿˜æ²¡æœ‰å½»åº•æ˜ç™½ã€‚\n"
+                                : "ä½ ä»”ç»†é˜…è¯»äº†ä¸€ä¼šå„¿æœ‰å…³" + m_name +
+                                  "çš„å†…å®¹ï¼Œæ˜ç™½äº†ä¸å°‘å…¶ä¸­å¥¥å¦™ã€‚\n");
                 return 1;
         }
 
-        write("ÄãÏ¸Ï¸µÄÑĞ¶ÁÁËÓĞ¹Ø" + fm_name +
-              "µÄÄÚÈİ£¬ÖÕÓÚ»ĞÈ»´óÎò£¬³¹µ×Ã÷°×ÁËÆäÖĞµÄ°ÂÃî¡£\n");
-        write(HIC "ÄãÑ§»áÁËÁ¶ÖÆ" + fm_name + HIC "µÄ·½·¨¡£\n");
+        write("ä½ ç»†ç»†çš„ç ”è¯»äº†æœ‰å…³" + fm_name +
+              "çš„å†…å®¹ï¼Œç»ˆäºæç„¶å¤§æ‚Ÿï¼Œå½»åº•æ˜ç™½äº†å…¶ä¸­çš„å¥¥å¦™ã€‚\n");
+        write(HIC "ä½ å­¦ä¼šäº†ç‚¼åˆ¶" + fm_name + HIC "çš„æ–¹æ³•ã€‚\n");
         me->set("can_make/" + m_name, ks[i]);
         return 1;
 }
@@ -146,17 +146,17 @@ string extra_long()
 {
         string str;
         
-        str =  "\nÎïÆ·ÀàĞÍ    £º    ÃØ±¾\n";
-        str += sprintf("¼ÇÔØÄÚÈİ    £º    %s\n", to_chinese(query("skill/name")));
-        str += sprintf("¾­ÑéÒªÇó    £º    %d\n", query("skill/exp_required"));
-        str += sprintf("ÑĞÏ°ÄÑ¶È    £º    %d\n", query("skill/difficulty"));
-        str += sprintf("ÑĞÏ°ÒªÇó    £º    %s%d¼¶\n", to_chinese(query("skill/name")), query("skill/min_skill"));
-        str += sprintf("ÑĞÏ°ÏŞÖÆ    £º    %d¼¶\n", query("skill/max_skill"));
-        str += sprintf("¾«Á¦ÏûºÄ    £º    %dµã/´Î\n", query("skill/jing_cost"));
-        str += sprintf("ÑĞÏ°·½·¨    £º    ÊäÈëÖ¸Áî du %s ÑĞ¶Á¡£\n", query("id"));
+        str =  "\nç‰©å“ç±»å‹    ï¼š    ç§˜æœ¬\n";
+        str += sprintf("è®°è½½å†…å®¹    ï¼š    %s\n", to_chinese(query("skill/name")));
+        str += sprintf("ç»éªŒè¦æ±‚    ï¼š    %d\n", query("skill/exp_required"));
+        str += sprintf("ç ”ä¹ éš¾åº¦    ï¼š    %d\n", query("skill/difficulty"));
+        str += sprintf("ç ”ä¹ è¦æ±‚    ï¼š    %s%dçº§\n", to_chinese(query("skill/name")), query("skill/min_skill"));
+        str += sprintf("ç ”ä¹ é™åˆ¶    ï¼š    %dçº§\n", query("skill/max_skill"));
+        str += sprintf("ç²¾åŠ›æ¶ˆè€—    ï¼š    %dç‚¹/æ¬¡\n", query("skill/jing_cost"));
+        str += sprintf("ç ”ä¹ æ–¹æ³•    ï¼š    è¾“å…¥æŒ‡ä»¤ du %s ç ”è¯»ã€‚\n", query("id"));
         if (this_object()->query_autoload())
-                str += "ÏÂÏß¶ªÊ§    £º    ·ñ\n";
+                str += "ä¸‹çº¿ä¸¢å¤±    ï¼š    å¦\n";
         else
-                str += "ÏÂÏß¶ªÊ§    £º    ÊÇ\n";
+                str += "ä¸‹çº¿ä¸¢å¤±    ï¼š    æ˜¯\n";
         return str;
 }

@@ -26,15 +26,15 @@ int do_tear(string str)
 	if (! id(str)) return 0;
 
 	if ((string)query("material") != "cloth")
-		return notify_fail("ÄãÖ»ÄÜËº²¼ÁÏµÄÒÂ·ş¡£\n");
+		return notify_fail("ä½ åªèƒ½æ’•å¸ƒæ–™çš„è¡£æœã€‚\n");
 
 	if ((int)query("teared_count") >= 4)
-		return notify_fail( name() + "µÄĞä¿Ú£¬ÏÂ¡õÒÑ¾­Ã»ÓĞ¶àâÅµÄ²¼¿ÉËºÁË¡£\n");
+		return notify_fail( name() + "çš„è¢–å£ï¼Œä¸‹â–¡å·²ç»æ²¡æœ‰å¤šé¦€çš„å¸ƒå¯æ’•äº†ã€‚\n");
 
-	message_vision("$N´Ó" + name() + "ËºÏÂÒ»Ìõ²¼Ìõ¡£\n", this_player() );
+	message_vision("$Nä»" + name() + "æ’•ä¸‹ä¸€æ¡å¸ƒæ¡ã€‚\n", this_player() );
 	add("teared_count", 1);
 	ob = new("/clone/misc/bandage");
-	ob->set_name("´Ó" + name() + "ËºÏÂµÄ²¼Ìõ", ({ "cloth piece", "piece", "cloth" }) );
+	ob->set_name("ä»" + name() + "æ’•ä¸‹çš„å¸ƒæ¡", ({ "cloth piece", "piece", "cloth" }) );
 	if (! ob->move(this_player()))
 		ob->move(environment(this_player()));
 	return 1;
@@ -59,7 +59,7 @@ int washed(int n)
                 n -= n * 7 / 10;
                 break;
         }
-        set_temp("no_wear", "ÏÖÔÚ" + name() + "»¹ÊÇÊªºõºõµÄ£¬ÄãÃ»·¨´©¡£\n");
+        set_temp("no_wear", "ç°åœ¨" + name() + "è¿˜æ˜¯æ¹¿ä¹ä¹çš„ï¼Œä½ æ²¡æ³•ç©¿ã€‚\n");
         delete_temp("daub");
         remove_call_out("dry_cloth");
         if (n) call_out("dry_cloth", n);
@@ -71,7 +71,7 @@ void dry_cloth()
         if (! objectp(this_object()))
                 return;
         delete_temp("no_wear");
-        message("vision", name() + "ÒÑ¾­¸ÉÁË¡£\n", environment());
+        message("vision", name() + "å·²ç»å¹²äº†ã€‚\n", environment());
 }
 
 string extra_long() 
@@ -79,31 +79,31 @@ string extra_long()
         mapping need;
         string str; 
 
-        str = HIW "\nÎïÆ·ÀàĞÍ : ·À¾ß(ÒÂ·ş)\n" NOR; 
+        str = HIW "\nç‰©å“ç±»å‹ : é˜²å…·(è¡£æœ)\n" NOR; 
         if (query("bindable"))
         {
                 string type;
                 int t;
 
                 t = query("bindable");
-                if (t == 1) type = "×°±¸°ó¶¨";
-                else if (t == 2) type = "Ê°È¡°ï¶¨";
-                else if (t == 3) type = "Ö±½Ó°ó¶¨";
-                str += sprintf(HIW "°ó¶¨ÀàĞÍ : %s\n" NOR, type);
+                if (t == 1) type = "è£…å¤‡ç»‘å®š";
+                else if (t == 2) type = "æ‹¾å–å¸®å®š";
+                else if (t == 3) type = "ç›´æ¥ç»‘å®š";
+                str += sprintf(HIW "ç»‘å®šç±»å‹ : %s\n" NOR, type);
         } 
-        str += sprintf(HIW "ÖØ    Á¿ : %d\n" NOR, this_object()->query_weight());
-        str += sprintf(HIW "·À »¤ Á¦ : %d\n" NOR, query("armor_prop/armor"));
-        str += sprintf(HIW "ÏâÇ¶°¼²Û : %d\n" NOR, (int)query("enchase/flute"));
+        str += sprintf(HIW "é‡    é‡ : %d\n" NOR, this_object()->query_weight());
+        str += sprintf(HIW "é˜² æŠ¤ åŠ› : %d\n" NOR, query("armor_prop/armor"));
+        str += sprintf(HIW "é•¶åµŒå‡¹æ§½ : %d\n" NOR, (int)query("enchase/flute"));
         if (mapp(need = query("need")) && sizeof(need))
                 foreach (string key in keys(need))
-                        str += sprintf(HIW "×°±¸ÒªÇó : %s %d\n" NOR,
+                        str += sprintf(HIW "è£…å¤‡è¦æ±‚ : %s %d\n" NOR,
                                        to_chinese(key), need[key]);
         /*
-        str += sprintf(HIW "Ê¹ÓÃ·½Ê½ : ÊäÈëÖ¸Áî wear %s ×°±¸¡£\n" NOR, query("id")); 
-        str += sprintf(HIW "Ê¹ÓÃ·½Ê½ : ÊäÈëÖ¸Áî remove %s Ğ¶ÏÂ¡£\n" NOR, query("id")); 
+        str += sprintf(HIW "ä½¿ç”¨æ–¹å¼ : è¾“å…¥æŒ‡ä»¤ wear %s è£…å¤‡ã€‚\n" NOR, query("id")); 
+        str += sprintf(HIW "ä½¿ç”¨æ–¹å¼ : è¾“å…¥æŒ‡ä»¤ remove %s å¸ä¸‹ã€‚\n" NOR, query("id")); 
         */
-        str += sprintf(HIW "ÏÂÏß¶ªÊ§ : %s\n" NOR,
-                       this_object()->query_autoload() ? "·ñ" : "ÊÇ");
+        str += sprintf(HIW "ä¸‹çº¿ä¸¢å¤± : %s\n" NOR,
+                       this_object()->query_autoload() ? "å¦" : "æ˜¯");
                        
         return str; 
 } 

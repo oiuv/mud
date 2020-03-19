@@ -7,17 +7,17 @@ inherit THROWING;
 
 void create()
 {
-        set_name(WHT "ʯ��" NOR, ({ "shi zi", "shi", "zi" }) );
+        set_name(WHT "石子" NOR, ({ "shi zi", "shi", "zi" }) );
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Щ");
+                set("unit", "些");
                 set("value", 0);
-                set("base_unit", "��");
+                set("base_unit", "颗");
                 set("base_weight", 100);
                 set("base_value", 0);
                 set("material", "iron");
-                set("long", "һ�Ų�ͬ��Сʯ�ӡ�\n");
+                set("long", "一颗不同的小石子。\n");
         }
         set_amount(10);
         init_throwing(2);

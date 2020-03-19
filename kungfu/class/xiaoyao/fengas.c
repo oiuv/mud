@@ -9,12 +9,12 @@ mixed ask_item2();
 
 void create()
 {
-        set_name("·ë°¢Èı", ({ "feng asan", "feng" , "asan"}));
-        set("long", "¾İËµËû¾ÍÊÇÂ³°àµÄºóÈË£¬µ±´úµÄµÚÒ»ÇÉ½³¡£ÊÇ\n"
-                    "Éè¼Æ»ú¹ØµÄÄÜÊÖ¡£\n");
-        set("title", "åĞÒ£ÅÉº¯¹È°ËÓÑ");
-        set("nickname", HIY "ÇÉ½³" NOR);
-        set("gender", "ÄĞĞÔ");
+        set_name("å†¯é˜¿ä¸‰", ({ "feng asan", "feng" , "asan"}));
+        set("long", "æ®è¯´ä»–å°±æ˜¯é²ç­çš„åäººï¼Œå½“ä»£çš„ç¬¬ä¸€å·§åŒ ã€‚æ˜¯\n"
+                    "è®¾è®¡æœºå…³çš„èƒ½æ‰‹ã€‚\n");
+        set("title", "é€é¥æ´¾å‡½è°·å…«å‹");
+        set("nickname", HIY "å·§åŒ " NOR);
+        set("gender", "ç”·æ€§");
         set("age", 40);
         set("attitude", "friendly");
         set("class", "alchemist");
@@ -57,8 +57,8 @@ void create()
         prepare_skill("strike", "panyang-zhang");
 
         set("inquiry", ([
-                "Ìú°ËØÔ" : (: ask_item1 :),
-                "²¼ÕóÏä" : (: ask_item2 :),
+                "é“å…«å¦" : (: ask_item1 :),
+                "å¸ƒé˜µç®±" : (: ask_item2 :),
         ]));
 
         if (random(5) > 3)
@@ -67,7 +67,7 @@ void create()
         if (random(4) > 2)
         	set("xiang_count", 1);
 
-	create_family("åĞÒ£ÅÉ", 3, "µÜ×Ó");
+	create_family("é€é¥æ´¾", 3, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -89,11 +89,11 @@ void attempt_apprentice(object ob)
 
         if (ob->query_int() < 26)
         {
-                command("say ÄãÄÔ´üÓÖ²»Áé¹â£¬ÄÜ¸úÎÒ×öÊ²Ã´£¿");
+                command("say ä½ è„‘è¢‹åˆä¸çµå…‰ï¼Œèƒ½è·Ÿæˆ‘åšä»€ä¹ˆï¼Ÿ");
                 return;
         }
 
-        command("say ºÃ°É£¬ÎÒ¾ÍÊÕÏÂÄãÁË£¬¶à¸É»î£¬ÉÙËµ»°£¡");
+        command("say å¥½å§ï¼Œæˆ‘å°±æ”¶ä¸‹ä½ äº†ï¼Œå¤šå¹²æ´»ï¼Œå°‘è¯´è¯ï¼");
         command("recruit " + ob->query("id"));
 }
 
@@ -104,25 +104,25 @@ mixed ask_item1()
 
         me = this_player();
 
-        if (me->query("family/family_name") != "åĞÒ£ÅÉ")
-                return "ÄãÊÇË­£¿ÄÄÀïÀ´µÄ£¿ÎÒÈÏÊ¶ÄãÃ´£¿";
+        if (me->query("family/family_name") != "é€é¥æ´¾")
+                return "ä½ æ˜¯è°ï¼Ÿå“ªé‡Œæ¥çš„ï¼Ÿæˆ‘è®¤è¯†ä½ ä¹ˆï¼Ÿ";
 
         if (me->query("family/master_id") != "wuya zi"
            && me->query("family/master_id") != "su xinghe")
-                return "¹ş¹ş£¬Äã¸ÕÈëÎÒåĞÒ£ÅÉ¾ÍÎÊÎÒÒª¶«Î÷£¿";
+                return "å“ˆå“ˆï¼Œä½ åˆšå…¥æˆ‘é€é¥æ´¾å°±é—®æˆ‘è¦ä¸œè¥¿ï¼Ÿ";
 
         if (me->query_skill("qimen-wuxing", 1) < 80)
-                return "ÄãÓÖ²»¶®ÆæÃÅÎåĞĞ£¬ÄÃÈ¥¸ÉÂïÓÃ£¿";
+                return "ä½ åˆä¸æ‡‚å¥‡é—¨äº”è¡Œï¼Œæ‹¿å»å¹²å˜›ç”¨ï¼Ÿ";
 
         if (query("bagua_count") < 1)
-                return "ÎÒÕâÀïÒ²Ã»ÓĞÁË£¬Äã×Ô¼ºÈ¥³ÇÀïÂòÒ»¸ö°É¡£";
+                return "æˆ‘è¿™é‡Œä¹Ÿæ²¡æœ‰äº†ï¼Œä½ è‡ªå·±å»åŸé‡Œä¹°ä¸€ä¸ªå§ã€‚";
 
         add("bagua_count", -1);
         ob = new("/d/taohua/obj/bagua");
         ob->move(this_object());
 
         command("give tie bagua to " + me->query("id"));
-        return "ÕâÖ»Ìú°ËØÔÄã¾ÍÏÈÄÃÈ¥ÓÃ°É¡£";
+        return "è¿™åªé“å…«å¦ä½ å°±å…ˆæ‹¿å»ç”¨å§ã€‚";
 }
 
 mixed ask_item2()
@@ -132,23 +132,23 @@ mixed ask_item2()
 
         me = this_player();
 
-        if (me->query("family/family_name") != "åĞÒ£ÅÉ")
-                return "ÄãÊÇË­£¿ÄÄÀïÀ´µÄ£¿ÎÒÈÏÊ¶ÄãÃ´£¿";
+        if (me->query("family/family_name") != "é€é¥æ´¾")
+                return "ä½ æ˜¯è°ï¼Ÿå“ªé‡Œæ¥çš„ï¼Ÿæˆ‘è®¤è¯†ä½ ä¹ˆï¼Ÿ";
 
         if (me->query("family/master_id") != "wuya zi"
            && me->query("family/master_id") != "su xinghe")
-                return "¹ş¹ş£¬Äã¸ÕÈëÎÒåĞÒ£ÅÉ¾ÍÎÊÎÒÒª¶«Î÷£¿";
+                return "å“ˆå“ˆï¼Œä½ åˆšå…¥æˆ‘é€é¥æ´¾å°±é—®æˆ‘è¦ä¸œè¥¿ï¼Ÿ";
 
         if (me->query_skill("qimen-wuxing", 1) < 80)
-                return "ÄãÓÖ²»¶®ÆæÃÅÎåĞĞ£¬ÄÃÈ¥¸ÉÂïÓÃ£¿";
+                return "ä½ åˆä¸æ‡‚å¥‡é—¨äº”è¡Œï¼Œæ‹¿å»å¹²å˜›ç”¨ï¼Ÿ";
 
         if (query("xiang_count") < 1)
-                return "ÎÒÕâÀïÒ²Ã»ÓĞÁË£¬ÄãµÈÁ½ÌìÔÙÀ´°É¡£";
+                return "æˆ‘è¿™é‡Œä¹Ÿæ²¡æœ‰äº†ï¼Œä½ ç­‰ä¸¤å¤©å†æ¥å§ã€‚";
 
         add("xiang_count", -1);
         ob = new("/d/taohua/obj/xiang");
         ob->move(this_object());
 
         command("give buzhen xiang to " + me->query("id"));
-        return "²¼ÕóÏä¸øÄãÁË£¬¿É±ğµ½´¦È¥Ï¹½ÁºÍ¡£";
+        return "å¸ƒé˜µç®±ç»™ä½ äº†ï¼Œå¯åˆ«åˆ°å¤„å»çæ…å’Œã€‚";
 }

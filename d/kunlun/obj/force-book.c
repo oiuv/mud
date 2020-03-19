@@ -3,7 +3,7 @@
 inherit ITEM;
 
 string* titles = ({
-		 "À¥ÂØÅÉÃØ¼®",
+		 "æ˜†ä»‘æ´¾ç§˜ç±",
 });
 
 void create()
@@ -13,8 +13,8 @@ void create()
 		  if( clonep() )
 					 set_default_object(__FILE__);
 		  else {
-		  set("unit", "±¾");
-		  set("long", "ÕâÊÇÀ¥ÂØÅÉÄÚ¹¦ĞÄ·¨µÄÃØ¼®¡£\n");
+		  set("unit", "æœ¬");
+		  set("long", "è¿™æ˜¯æ˜†ä»‘æ´¾å†…åŠŸå¿ƒæ³•çš„ç§˜ç±ã€‚\n");
 		  set("value", 500);
 		  set("material", "paper");
 		  set("skill", ([

@@ -8,12 +8,12 @@ inherit F_UNIQUE;
 mixed ask_back();
 void create()
 {
-        set_name("ÅÖÍ·ÍÓ", ({ "pang toutuo", "pang" ,"toutuo"}));
-        set("title", HIY"ÉñÁú½Ì"NOR"×ó»¤·¨");
-        set("nickname",HIR "ÁÉ¶«ÅÖ×ðÕß" NOR);
-        set("long", "ÕâÍ·ÍÓÉí²ÄÆæ¸ß£¬¶øÇÒÊÝµÃ³öÆæ£»Á³ÉÏÆ¤°ü¹ÇÍ·¡¢Ë«\n"
-                    "Ä¿ÉîÏÝ£¬µ±Õæ±ãÈç½©Ê¬Ò»°ã¡£\n" );
-        set("gender", "ÄÐÐÔ");
+        set_name("èƒ–å¤´é™€", ({ "pang toutuo", "pang" ,"toutuo"}));
+        set("title", HIY"ç¥žé¾™æ•™"NOR"å·¦æŠ¤æ³•");
+        set("nickname",HIR "è¾½ä¸œèƒ–å°Šè€…" NOR);
+        set("long", "è¿™å¤´é™€èº«æå¥‡é«˜ï¼Œè€Œä¸”ç˜¦å¾—å‡ºå¥‡ï¼›è„¸ä¸Šçš®åŒ…éª¨å¤´ã€åŒ\n"
+                    "ç›®æ·±é™·ï¼Œå½“çœŸä¾¿å¦‚åƒµå°¸ä¸€èˆ¬ã€‚\n" );
+        set("gender", "ç”·æ€§");
         set("age", 44);
 
         set("str", 32);
@@ -30,7 +30,7 @@ void create()
         set("jiali", 60);
 
         set("combat_exp", 750000);
-        set("no_get", "±ðÈËÔÚ×öÈÎÎñ£¬ÄãÏë°ÑÈË°áµ½ÄÄÀïÈ¥£¿\n");
+        set("no_get", "åˆ«äººåœ¨åšä»»åŠ¡ï¼Œä½ æƒ³æŠŠäººæ¬åˆ°å“ªé‡ŒåŽ»ï¼Ÿ\n");
         set("shen_type", -1);
         set("attitude", "peaceful");
 
@@ -73,15 +73,15 @@ void create()
         set_temp("apply/unarmed_damage", 120);
         set_temp("apply/armor", 200);
 
-        create_family("ÉñÁú½Ì", 0, "ÏÐÉ¢½ÌÖÚ");
+        create_family("ç¥žé¾™æ•™", 0, "é—²æ•£æ•™ä¼—");
 
         set("inquiry", ([
-                "ÉñÁú½Ì" : "Ò»°ãÈËÊÇÈë²»ÁËÎÒÉñÁú½ÌµÄ(join shenlongjiao).\n",
-                "Èë½Ì"   : "Ò»°ãÈËÊÇÈë²»ÁËÎÒÉñÁú½ÌµÄ(join shenlongjiao).\n",
-                "ºé°²Í¨" : "½ÌÖ÷Æ¢Æø²»ºÃ£¬ÒªÌÖËû»¶ÐÄ²ÅºÃ¡£\n",
-                "½ÌÖ÷"   : "½ÌÖ÷Æ¢Æø²»ºÃ£¬ÒªÌÖËû»¶ÐÄ²ÅºÃ¡£\n",
-                "¿ÚºÅ"   : "ÍòÄê²»ÀÏ£¡ÓÀÏíÏÉ¸££¡ÊÙÓëÌìÆë£¡ÎÄÎäÈÊÊ¥£¡",
-                "ÉñÁú·ÉÌì" : (: ask_back :),
+                "ç¥žé¾™æ•™" : "ä¸€èˆ¬äººæ˜¯å…¥ä¸äº†æˆ‘ç¥žé¾™æ•™çš„(join shenlongjiao).\n",
+                "å…¥æ•™"   : "ä¸€èˆ¬äººæ˜¯å…¥ä¸äº†æˆ‘ç¥žé¾™æ•™çš„(join shenlongjiao).\n",
+                "æ´ªå®‰é€š" : "æ•™ä¸»è„¾æ°”ä¸å¥½ï¼Œè¦è®¨ä»–æ¬¢å¿ƒæ‰å¥½ã€‚\n",
+                "æ•™ä¸»"   : "æ•™ä¸»è„¾æ°”ä¸å¥½ï¼Œè¦è®¨ä»–æ¬¢å¿ƒæ‰å¥½ã€‚\n",
+                "å£å·"   : "ä¸‡å¹´ä¸è€ï¼æ°¸äº«ä»™ç¦ï¼å¯¿ä¸Žå¤©é½ï¼æ–‡æ­¦ä»åœ£ï¼",
+                "ç¥žé¾™é£žå¤©" : (: ask_back :),
         ]));
         setup();
         carry_object("/clone/misc/cloth")->wear();
@@ -90,8 +90,8 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        //command("say ÂýÀ´£¡ÂýÀ´£¡ÄãÏë°ÝÊ¦È¥ÕÒ½ÌÖ÷°É¡£");
-        command("say ÎÒÉñÁú½Ì²»¶ÔÍâÊÕÍ½¡£");
+        //command("say æ…¢æ¥ï¼æ…¢æ¥ï¼ä½ æƒ³æ‹œå¸ˆåŽ»æ‰¾æ•™ä¸»å§ã€‚");
+        command("say æˆ‘ç¥žé¾™æ•™ä¸å¯¹å¤–æ”¶å¾’ã€‚");
 }
 
 void init()
@@ -102,10 +102,10 @@ void init()
 int do_join(string arg)
 {
 	if (arg != "shenlongjiao")
-		return notify_fail("ÄãÒª¼ÓÈëÊ²Ã´×éÖ¯£¿\n"); 
+		return notify_fail("ä½ è¦åŠ å…¥ä»€ä¹ˆç»„ç»‡ï¼Ÿ\n"); 
 
-        message_vision("$N°ÚÁË°ÚÊÖ£¬¶Ô$nµÀ£º¡°ÎÒ¿É²»¸ÒÊÕÄãÈë½Ì£¬Äã»¹ÊÇÈ¥"
-                       "¹ØÍâÉñÁúµºÉÏÈ¥ÕÒÎÒÃÇ½ÌÖ÷ºÃÁË¡±\n",
+        message_vision("$Næ‘†äº†æ‘†æ‰‹ï¼Œå¯¹$né“ï¼šâ€œæˆ‘å¯ä¸æ•¢æ”¶ä½ å…¥æ•™ï¼Œä½ è¿˜æ˜¯åŽ»"
+                       "å…³å¤–ç¥žé¾™å²›ä¸ŠåŽ»æ‰¾æˆ‘ä»¬æ•™ä¸»å¥½äº†â€\n",
                        this_object(), this_player());
         return 1;
 }
@@ -120,18 +120,18 @@ mixed ask_back()
         object me;
 
         me = this_player();
-        if (me->query("family/family_name") != "ÉñÁú½Ì")
+        if (me->query("family/family_name") != "ç¥žé¾™æ•™")
         {
-                message_vision("$NÀäÀäµÄ¿´ÁË$nÒ»ÑÛ£¬²»ÖªµÀÔÚÏëÐ©Ê²Ã´¡£\n",
+                message_vision("$Nå†·å†·çš„çœ‹äº†$nä¸€çœ¼ï¼Œä¸çŸ¥é“åœ¨æƒ³äº›ä»€ä¹ˆã€‚\n",
                                this_object(), me);
                 return -1;
         }
 
-        message_sort(HIY "\n$N" HIY "¿´ÁË¿´$n"
-                     HIY "£¬È»ºóËµµã£º¼ÈÈ»Èç´Ë£¬ÎÒ¾ÍËÍÄã»Øµº¡£\n\n" NOR, this_object(), me);
+        message_sort(HIY "\n$N" HIY "çœ‹äº†çœ‹$n"
+                     HIY "ï¼Œç„¶åŽè¯´ç‚¹ï¼šæ—¢ç„¶å¦‚æ­¤ï¼Œæˆ‘å°±é€ä½ å›žå²›ã€‚\n\n" NOR, this_object(), me);
 
         me->move("/d/shenlong/kongdi");
-        tell_object(me, CYN + name() + "ËµµÀ£º¾ÍËÍÄãµ½ÕâÀï£¬±ðÂÒ×ª±»¶¾ËÀÁË¡£\n"
-                        HIC + name() + "ËµÍê±ã¼±¼±Ã¦Ã¦Àë¿ªÁË¡£\n" NOR);
+        tell_object(me, CYN + name() + "è¯´é“ï¼šå°±é€ä½ åˆ°è¿™é‡Œï¼Œåˆ«ä¹±è½¬è¢«æ¯’æ­»äº†ã€‚\n"
+                        HIC + name() + "è¯´å®Œä¾¿æ€¥æ€¥å¿™å¿™ç¦»å¼€äº†ã€‚\n" NOR);
         return -1;
 }

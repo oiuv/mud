@@ -14,13 +14,13 @@ int main(object me, string arg)
                 return 0;
 
         if (! arg)
-                return notify_fail("Ö¸Áî¸ñÊ½£ºsetsk <Ä³ÈË> [ <¼¼"
-                                   "ÄÜ> | all ] <¼¶±ğÊı>\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šsetsk <æŸäºº> [ <æŠ€"
+                                   "èƒ½> | all ] <çº§åˆ«æ•°>\n");
 
         if (sscanf(arg, "%s %s %d", obj, skill, level) != 3
            && sscanf(arg, "%s %d", skill, level) != 2)
-                return notify_fail("Ö¸Áî¸ñÊ½£ºsetsk <Ä³ÈË> [ <¼¼"
-                                   "ÄÜ> | all ] <¼¶±ğÊı>\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šsetsk <æŸäºº> [ <æŠ€"
+                                   "èƒ½> | all ] <çº§åˆ«æ•°>\n");
 
         if (sscanf(arg, "%s %d", skill, level) == 2)
         {
@@ -37,22 +37,22 @@ int main(object me, string arg)
                         ob = present(obj, environment(me));
 
                 if (! ob)
-                        return notify_fail("Ä¿±ê²»´æÔÚ£¬Èç¹ûÊÇÉè¶¨×ÔÉí"
-                                           "¼¼ÄÜ£¬Ä¿±ê²ÎÊı¿É×÷È±Ê¡¡£\n");
+                        return notify_fail("ç›®æ ‡ä¸å­˜åœ¨ï¼Œå¦‚æœæ˜¯è®¾å®šè‡ªèº«"
+                                           "æŠ€èƒ½ï¼Œç›®æ ‡å‚æ•°å¯ä½œç¼ºçœã€‚\n");
         }
 
         if (wiz_level(me) <= wiz_level(ob) && me != ob)
-                return notify_fail("ÄãÖ»ÄÜ¸øÈ¨ÏŞ±È×Ô¼ºµÍµÄÈËÉè¶¨¼¼ÄÜ¡£\n");
+                return notify_fail("ä½ åªèƒ½ç»™æƒé™æ¯”è‡ªå·±ä½çš„äººè®¾å®šæŠ€èƒ½ã€‚\n");
 
         if (! is_root(me) && playerp(ob) && ! wizardp(ob))
-                return notify_fail("Ö»ÓĞÌìÉñ²ÅÄÜ¸øÍæ¼ÒÉè¶¨¼¼ÄÜ¡£\n");
+                return notify_fail("åªæœ‰å¤©ç¥æ‰èƒ½ç»™ç©å®¶è®¾å®šæŠ€èƒ½ã€‚\n");
 
         if (skill == "all")
         {
                 if (! (skill_status = ob->query_skills())
                    || ! sizeof(skill_status))
-                        return notify_fail("Ä¿±êÃ»ÓĞÑ§»áÈÎºÎ¼¼ÄÜ£¬ÎŞ·¨"
-                                           "Ê¹ÓÃ all ²ÎÊı¡£\n");
+                        return notify_fail("ç›®æ ‡æ²¡æœ‰å­¦ä¼šä»»ä½•æŠ€èƒ½ï¼Œæ— æ³•"
+                                           "ä½¿ç”¨ all å‚æ•°ã€‚\n");
 
                 skills  = keys(skill_status);
                 j = sizeof(skill_status);
@@ -64,15 +64,15 @@ int main(object me, string arg)
                         if (level == 0)
                         {
                                 ob->delete_skill(skills[i]);
-                                printf("Ä¿±ê£º" CYN "%s" WHT "  È¡Ïû¼¼ÄÜ£º"
+                                printf("ç›®æ ‡ï¼š" CYN "%s" WHT "  å–æ¶ˆæŠ€èƒ½ï¼š"
                                        CYN "%s\n" WHT, ob->name() + "(" +
                                        ob->query("id") + ")", to_chinese(skills[i]) +
                                        "(" + skills[i] + ")");
                         } else
                         {
                                 ob->set_skill(skills[i], level);
-                                printf("Ä¿±ê£º" CYN "%s" WHT "  Éè¶¨¼¼ÄÜ£º"
-                                       CYN "%-30s " WHT "µÈ¼¶£º" CYN "%d\n"
+                                printf("ç›®æ ‡ï¼š" CYN "%s" WHT "  è®¾å®šæŠ€èƒ½ï¼š"
+                                       CYN "%-30s " WHT "ç­‰çº§ï¼š" CYN "%d\n"
                                        WHT, ob->name() + "(" + ob->query("id") + ")",
                                        to_chinese(skills[i]) + "(" + skills[i] + ")",
                                        level);
@@ -83,22 +83,22 @@ int main(object me, string arg)
         {
                 if (! stringp(file = SKILL_D(skill))
                    || file_size(file + ".c") <= 0)
-                        return notify_fail("Ã»ÓĞ " + skill + " ÕâÖÖ¼¼ÄÜ´æÔÚ¡£\n");
+                        return notify_fail("æ²¡æœ‰ " + skill + " è¿™ç§æŠ€èƒ½å­˜åœ¨ã€‚\n");
 
                 write(WHT);
 
                 if (level == 0)
                 {
                         ob->delete_skill(skill);
-                        printf("Ä¿±ê£º" CYN "%s" WHT "  È¡Ïû¼¼ÄÜ£º"
+                        printf("ç›®æ ‡ï¼š" CYN "%s" WHT "  å–æ¶ˆæŠ€èƒ½ï¼š"
                                CYN "%s\n" WHT, ob->name() + "(" +
                                ob->query("id") + ")", to_chinese(skill) +
                                "(" + skill + ")");
                 } else
                 {
                         ob->set_skill(skill, level);
-                        printf("Ä¿±ê£º" CYN "%s" WHT "  Éè¶¨¼¼ÄÜ£º"
-                               CYN "%-30s " WHT "µÈ¼¶£º" CYN "%d\n"
+                        printf("ç›®æ ‡ï¼š" CYN "%s" WHT "  è®¾å®šæŠ€èƒ½ï¼š"
+                               CYN "%-30s " WHT "ç­‰çº§ï¼š" CYN "%d\n"
                                WHT, ob->name() + "(" + ob->query("id") + ")",
                                to_chinese(skill) + "(" + skill + ")", level);
                 }
@@ -110,11 +110,11 @@ int main(object me, string arg)
 int help()
 {
         write(@LONG
-Ö¸Áî¸ñÊ½£ºsetsk  <Ä³ÈË>  [ <¼¼ÄÜ> | all ]  <¼¶±ğÊı>
+æŒ‡ä»¤æ ¼å¼ï¼šsetsk  <æŸäºº>  [ <æŠ€èƒ½> | all ]  <çº§åˆ«æ•°>
 
-ÓÃÀ´Éè¶¨Ä³ÈËµÄÄ³ÖÖ¼¼ÄÜµÄ¼¶±ğÊı£¬Èç¹ûµÚ¶şÏîÊÇ allÔò½«ÆäËùÓĞµÄ
-¼¼ÄÜ¸ÄÎªÉè¶¨µÄ¼¶±ğÊı¡£Èç¹ûÑ¡ÔñÁË¼¶±ğÊıÎªÁãÔòÉ¾³ı¸ÃÈË´ËÏî¼¼ÄÜ¡£
-Èç¹ûÃ»ÓĞÖ¸¶¨¶ÔÏó£¬ÔòÏµÍ³Ä¬ÈÏ¶ÔÏóÎªÊ¹ÓÃÕß¡£
+ç”¨æ¥è®¾å®šæŸäººçš„æŸç§æŠ€èƒ½çš„çº§åˆ«æ•°ï¼Œå¦‚æœç¬¬äºŒé¡¹æ˜¯ allåˆ™å°†å…¶æ‰€æœ‰çš„
+æŠ€èƒ½æ”¹ä¸ºè®¾å®šçš„çº§åˆ«æ•°ã€‚å¦‚æœé€‰æ‹©äº†çº§åˆ«æ•°ä¸ºé›¶åˆ™åˆ é™¤è¯¥äººæ­¤é¡¹æŠ€èƒ½ã€‚
+å¦‚æœæ²¡æœ‰æŒ‡å®šå¯¹è±¡ï¼Œåˆ™ç³»ç»Ÿé»˜è®¤å¯¹è±¡ä¸ºä½¿ç”¨è€…ã€‚
 
 LONG);
         return 1;

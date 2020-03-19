@@ -11,7 +11,7 @@ int main(object me, mapping info)
         string msg;
 
         if (! stringp(info[ARG]))
-                return MESSAGE_D->error_msg("请输入你要查询的用户代号。\n");
+                return MESSAGE_D->error_msg("璇疯緭鍏ヤ綘瑕佹煡璇㈢殑鐢ㄦ埛浠ｅ彿銆俓n");
 
 	msg = WHO_CMD->main(me, info[ARG], 1);
         MESSAGE_D->tell_user(me, FUN_VISION, msg);

@@ -5,16 +5,16 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIR "Öì¹û" NOR, ({"zhu guo", "guo"}));
+        set_name(HIR "æœ±æœ" NOR, ({"zhu guo", "guo"}));
         set_weight(20);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¿Å");
-                set("long", "ÕâÊÇÒ»¿ÅÖì¹û£¬Í¨ÌåÏÊºì£¬Ò»Íû¶øÖªÊÇ²»"
-			    "¿É¶àµÃµÄÕäÆ·¡£\n");
+                set("unit", "é¢—");
+                set("long", "è¿™æ˜¯ä¸€é¢—æœ±æœï¼Œé€šä½“é²œçº¢ï¼Œä¸€æœ›è€ŒçŸ¥æ˜¯ä¸"
+			    "å¯å¤šå¾—çš„çå“ã€‚\n");
                 set("value", 10000);
-		set("no_sell", "Õâ¸öĞ¡ºì¶¹Ò²ÄÜÄÃÀ´Âô£¿\n");
+		set("no_sell", "è¿™ä¸ªå°çº¢è±†ä¹Ÿèƒ½æ‹¿æ¥å–ï¼Ÿ\n");
 		set("only_do_effect", 1);
         }
 
@@ -25,8 +25,8 @@ int do_effect(object me)
 {
         me->set("qi", (int)me->query("eff_qi"));
         me->set("neili", (int)me->query("max_neili"));
-        message_vision(HIR "$N" HIR "³ÔÏÂÒ»¿ÅÖì¹û£¬Ö»¾õ¼¢¿ÊÈ«Ïû£¬Ò»¹É"
-		       "Å¯Á÷´Óµ¤ÌïÖ±³åÉÏÀ´¡£\n"NOR,me);
+        message_vision(HIR "$N" HIR "åƒä¸‹ä¸€é¢—æœ±æœï¼Œåªè§‰é¥¥æ¸´å…¨æ¶ˆï¼Œä¸€è‚¡"
+		       "æš–æµä»ä¸¹ç”°ç›´å†²ä¸Šæ¥ã€‚\n"NOR,me);
 
         destruct(this_object());
         return 1;

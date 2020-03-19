@@ -8,12 +8,12 @@ int start, line_n;
 
 int check(int s);
 int clean(string line);
-int isdata(string s); //¶ÔÕâÒ»ĞĞ¼òµ¥·ÖÎö,ÅĞ¶ÏÊÇ·ñÊÇÊı¾İ¶¨ÒåĞĞ
-int peidui(string s); //¶ÔÕâÒ»ĞĞ¼òµ¥·ÖÎö,ÅĞ¶Ï([{}])ÊÇ·ñ²ĞÈ±
+int isdata(string s); //å¯¹è¿™ä¸€è¡Œç®€å•åˆ†æ,åˆ¤æ–­æ˜¯å¦æ˜¯æ•°æ®å®šä¹‰è¡Œ
+int peidui(string s); //å¯¹è¿™ä¸€è¡Œç®€å•åˆ†æ,åˆ¤æ–­([{}])æ˜¯å¦æ®‹ç¼º
 
 int main(object me, string arg)
 {
-    string *founded; //ÒÑ¾­³öÏÖ¹ıµÄ´íÎó
+    string *founded; //å·²ç»å‡ºç°è¿‡çš„é”™è¯¯
 
     unusedvar = "";
     new_f_line = "";
@@ -25,13 +25,13 @@ int main(object me, string arg)
 
     if (file_size(arg) == -1)
     {
-        write(arg + "ÎÄ¼ş²»´æÔÚ¡£\n");
+        write(arg + "æ–‡ä»¶ä¸å­˜åœ¨ã€‚\n");
         return 1;
     }
 
     if (!(file = read_file(arg)) || sizeof(file) == 0)
     {
-        write("ÎŞ·¨¶ÁÈ¡¸ÃÎÄ¼ş£º" + arg + "\n");
+        write("æ— æ³•è¯»å–è¯¥æ–‡ä»¶ï¼š" + arg + "\n");
         return 1;
     }
 
@@ -39,7 +39,7 @@ int main(object me, string arg)
     f_line = explode(file, "\n");
     write_file(arg, "", 1);
     founded = ({});
-    lastw = ""; //ÉÏÒ»¸ö´íÎóÎÄ¼şÃû
+    lastw = ""; //ä¸Šä¸€ä¸ªé”™è¯¯æ–‡ä»¶å
 
     foreach (chk in f_line) //chk log file each line
     {
@@ -51,31 +51,31 @@ int main(object me, string arg)
             }
 
             founded += ({chk});
-            if (lastw != filename) //ĞÂÎÄ¼şÓĞ´í
+            if (lastw != filename) //æ–°æ–‡ä»¶æœ‰é”™
             {
                 if (lastw != "")
                 {
-                    write_file(lastw, implode(wf_line, "\n"), 1); //ÏÈ±£´æĞŞ¸ÄÀÏÎÄ¼ş
+                    write_file(lastw, implode(wf_line, "\n"), 1); //å…ˆä¿å­˜ä¿®æ”¹è€æ–‡ä»¶
                     unusedvar += "----write_file name==" + lastw + " end.....\n\n";
                 }
 
                 lastw = filename;
 
-                if (!(wfile = read_file(filename))) //ÔÙ¶ÁĞÂÎÄ¼ş
+                if (!(wfile = read_file(filename))) //å†è¯»æ–°æ–‡ä»¶
                 {
-                    write("ÎŞ·¨¶ÁÈ¡¸ÃÎÄ¼ş£º" + filename + "\n");
+                    write("æ— æ³•è¯»å–è¯¥æ–‡ä»¶ï¼š" + filename + "\n");
                     return 1;
                 }
 
                 wf_line = explode(wfile, "\n"); //wrong file lines
             }
 
-            //·ñÔò½Ó×ÅĞŞ¸Ä¸Õ²ÅµÄÎÄ¼ş£¬ÒÔÃâÖØ¸´´ò¿ªĞŞ¸Ä´æÅÌÍ¬Ò»ÎÄ¼ş
-            unusedvar += "©³" + filename + " @line=" + line_n + ", Unused variable=" + argv_name + "\n";
+            //å¦åˆ™æ¥ç€ä¿®æ”¹åˆšæ‰çš„æ–‡ä»¶ï¼Œä»¥å…é‡å¤æ‰“å¼€ä¿®æ”¹å­˜ç›˜åŒä¸€æ–‡ä»¶
+            unusedvar += "â”" + filename + " @line=" + line_n + ", Unused variable=" + argv_name + "\n";
 
             if (line_n >= sizeof(wf_line))
             {
-                line_n = sizeof(wf_line) - 1; // ÓĞĞ©ÎÄ¼şĞĞÊıÓĞÎÊÌâ,\n´ò¶Ï»áÉÙÒ»¶şĞĞ
+                line_n = sizeof(wf_line) - 1; // æœ‰äº›æ–‡ä»¶è¡Œæ•°æœ‰é—®é¢˜,\næ‰“æ–­ä¼šå°‘ä¸€äºŒè¡Œ
             }
 
             while (line_n >= 0)
@@ -85,7 +85,7 @@ int main(object me, string arg)
                     //write("line_n number=="+(line_n+1)+"    argv_name is "+argv_name +"\n");
                     start = 0;
 
-                    if (check(start)) //ÕÒµ½²¢ĞŞ¸Ä³É¹¦
+                    if (check(start)) //æ‰¾åˆ°å¹¶ä¿®æ”¹æˆåŠŸ
                     {
                         break;
                     }
@@ -115,28 +115,28 @@ int main(object me, string arg)
     }
 
     write_file(unusedvar_log_file, unusedvar, 1);
-    write_file(arg, new_f_line); //²»ÈÏÊ¶µÄĞ´»ØÔ­logÎÄ¼ş
-    write("ok.check /log/unused.var for examination¡£\n");
+    write_file(arg, new_f_line); //ä¸è®¤è¯†çš„å†™å›åŸlogæ–‡ä»¶
+    write("ok.check /log/unused.var for examinationã€‚\n");
     return 1;
 }
 
-int isdata(string s) //¶ÔÕâÒ»ĞĞ¼òµ¥·ÖÎö,ÅĞ¶ÏÊÇ·ñÊÇÊı¾İ¶¨ÒåĞĞ
+int isdata(string s) //å¯¹è¿™ä¸€è¡Œç®€å•åˆ†æ,åˆ¤æ–­æ˜¯å¦æ˜¯æ•°æ®å®šä¹‰è¡Œ
 {
     string chk,
-        *leixing = ({"int", "string", "object", "mapping", "mixed", "float", "buffer"}); //class,array ºÜÉÙÓĞ£¬¶¨ÒåÁË²»ÓÃ¿ÉÄÜĞÔ¼«Ğ¡
+        *leixing = ({"int", "string", "object", "mapping", "mixed", "float", "buffer"}); //class,array å¾ˆå°‘æœ‰ï¼Œå®šä¹‰äº†ä¸ç”¨å¯èƒ½æ€§æå°
     int n;
 
     foreach (chk in leixing)
     {
         if ((n = strsrch(s, chk)) != -1)
         {
-            if (n != 0 && s[n - 1] != ' ' && s[n - 1] != '\t' && s[n - 1] != ';') // ÀàĞÍÃû³ÆÇ°Ãæ×ÜµÃÊÇ¿Õ°×°É
+            if (n != 0 && s[n - 1] != ' ' && s[n - 1] != '\t' && s[n - 1] != ';') // ç±»å‹åç§°å‰é¢æ€»å¾—æ˜¯ç©ºç™½å§
             {
                 return 0;
             }
 
             n += sizeof(chk);
-            if (s[n] == ' ' || s[n] == '*' || s[n] == '/' || s[n] == '\t') //ÓĞĞ©¶¨ÒåÊı×éÊÇÔÚÀàĞÍºóÃæ¼Ó*£¬»òÄ³Ğ©±äÁ¿ÒÑ¾­×¢ÊÍÒıÆğÎŞ·¨È·ÊµÀàĞÍÃû³Æ
+            if (s[n] == ' ' || s[n] == '*' || s[n] == '/' || s[n] == '\t') //æœ‰äº›å®šä¹‰æ•°ç»„æ˜¯åœ¨ç±»å‹åé¢åŠ *ï¼Œæˆ–æŸäº›å˜é‡å·²ç»æ³¨é‡Šå¼•èµ·æ— æ³•ç¡®å®ç±»å‹åç§°
             {
                 return 1;
             }
@@ -146,28 +146,28 @@ int isdata(string s) //¶ÔÕâÒ»ĞĞ¼òµ¥·ÖÎö,ÅĞ¶ÏÊÇ·ñÊÇÊı¾İ¶¨ÒåĞĞ
     return 0;
 }
 
-int check(int s) //¶ÔÕâÒ»ĞĞÏêÏ¸·ÖÎö
+int check(int s) //å¯¹è¿™ä¸€è¡Œè¯¦ç»†åˆ†æ
 {
-    int temp; //¼ÇÂ¼±äÁ¿×Ö·û´®Î»ÖÃ£¬·ûºÅÅä¶ÔĞÔ£¬·ÀÖ¹ÓĞÈË¿ªÊ¼¶¨Òå±äÁ¿Ê±½øĞĞº¯Êıµ÷ÓÃ¸´ÔÓµÄ¶à±äÁ¿³õÊ¼»¯
+    int temp; //è®°å½•å˜é‡å­—ç¬¦ä¸²ä½ç½®ï¼Œç¬¦å·é…å¯¹æ€§ï¼Œé˜²æ­¢æœ‰äººå¼€å§‹å®šä¹‰å˜é‡æ—¶è¿›è¡Œå‡½æ•°è°ƒç”¨å¤æ‚çš„å¤šå˜é‡åˆå§‹åŒ–
 
     start = s;
 
-    if ((temp = strsrch(wf_line[line_n][s..], argv_name)) != -1) //¼ì²éÇ°ºó×Ö·û£¬¿´ÊÇ·ñÓĞÕâ¸ö±äÁ¿
+    if ((temp = strsrch(wf_line[line_n][s..], argv_name)) != -1) //æ£€æŸ¥å‰åå­—ç¬¦ï¼Œçœ‹æ˜¯å¦æœ‰è¿™ä¸ªå˜é‡
     {
-        start += temp; //¿ªÊ¼Î»ÖÃ
+        start += temp; //å¼€å§‹ä½ç½®
 
         c1 = wf_line[line_n][start - 1..start - 1];
         //write("111argv_name is "+argv_name +" c1 is "+c1+"\n");
 
         if (member_array(c1, ({" ", ",", "*", "/", "\t"})) == -1)
         {
-            return check(start + sizeof(argv_name)); //Ç°Ãæ²»ÊÇ¿Õ¸ñ»ò¶ººÅ»òĞÇºÅ£¬Ó¦¸Ã²»ÊÇ±äÁ¿£¬¼ì²éºóÃæ¿ÉÄÜÓĞÕâ¸ö±äÁ¿
+            return check(start + sizeof(argv_name)); //å‰é¢ä¸æ˜¯ç©ºæ ¼æˆ–é€—å·æˆ–æ˜Ÿå·ï¼Œåº”è¯¥ä¸æ˜¯å˜é‡ï¼Œæ£€æŸ¥åé¢å¯èƒ½æœ‰è¿™ä¸ªå˜é‡
         }
         //write("111\n");
 
         c2 = wf_line[line_n][start + sizeof(argv_name)..start + sizeof(argv_name)];
 
-        if (member_array(c2, ({" ", ",", ";", "=", "/", "\t"})) == -1) //ºóÃæ²»ÊÇ¿Õ¸ñ»ò¶ººÅ»ò·ÖºÅ£¬Ó¦¸Ã²»ÊÇ±äÁ¿£¬¼ì²éºóÃæ¿ÉÄÜÓĞÕâ¸ö±äÁ¿
+        if (member_array(c2, ({" ", ",", ";", "=", "/", "\t"})) == -1) //åé¢ä¸æ˜¯ç©ºæ ¼æˆ–é€—å·æˆ–åˆ†å·ï¼Œåº”è¯¥ä¸æ˜¯å˜é‡ï¼Œæ£€æŸ¥åé¢å¯èƒ½æœ‰è¿™ä¸ªå˜é‡
         {
             return check(start + sizeof(argv_name));
         }
@@ -189,9 +189,9 @@ int check(int s) //¶ÔÕâÒ»ĞĞÏêÏ¸·ÖÎö
             if (peidui(argv_name) == 1)
             {
                 //write("right argv_name is "+argv_name +" c2 is "+c2+"\n");
-                if (c2 == ";" || c2 == "/" || c2 == ",") //Ò»¶¨Òª½áÊø
+                if (c2 == ";" || c2 == "/" || c2 == ",") //ä¸€å®šè¦ç»“æŸ
                 {
-                    if (strsrch(argv_name, ",") == -1) //Ã»ÓĞ¶ººÅ£¬ËµÃ÷ÊÇµÚÒ»¸ö±äÁ¿£¬ĞèÒªÏû³ıºóÃæµÄ£¬
+                    if (strsrch(argv_name, ",") == -1) //æ²¡æœ‰é€—å·ï¼Œè¯´æ˜æ˜¯ç¬¬ä¸€ä¸ªå˜é‡ï¼Œéœ€è¦æ¶ˆé™¤åé¢çš„ï¼Œ
                     {
                         if (c2 == ",")
                         {
@@ -209,16 +209,16 @@ int check(int s) //¶ÔÕâÒ»ĞĞÏêÏ¸·ÖÎö
 
         if (argv_name[0..1] == "* " || argv_name[0..1] == "*\t")
         {
-            argv_name = argv_name[1..]; //·ÀÖ¹ÓĞÈË°Ñ*Ğ´ÔÚÀàĞÍºóÃæµÄÏ°¹ß
+            argv_name = argv_name[1..]; //é˜²æ­¢æœ‰äººæŠŠ*å†™åœ¨ç±»å‹åé¢çš„ä¹ æƒ¯
         }
 
         if (argv_name[0..0] == " " || argv_name[0..0] == "\t")
         {
-            argv_name = argv_name[1..]; //·ÀÖ¹ÒÑÓĞµÄ×¢ÊÍ°Ñ/*Ğ´ÔÚÀàĞÍºóÃæ,µ¼ÖÂÎŞ·¨Ê¶±ğÀàĞÍ
+            argv_name = argv_name[1..]; //é˜²æ­¢å·²æœ‰çš„æ³¨é‡ŠæŠŠ/*å†™åœ¨ç±»å‹åé¢,å¯¼è‡´æ— æ³•è¯†åˆ«ç±»å‹
         }
 
-        unusedvar += "©Çthe wrong is " + "@line" + (line_n + 1) + "¡º" + wf_line[line_n] + "¡»\n";
-        wf_line[line_n] = wf_line[line_n][0..start - 1] + replace_string(wf_line[line_n][start..], argv_name, "/*" + argv_name + "*/", 1); //×¢ÊÍµô±äÁ¿
+        unusedvar += "â”£the wrong is " + "@line" + (line_n + 1) + "ã€" + wf_line[line_n] + "ã€\n";
+        wf_line[line_n] = wf_line[line_n][0..start - 1] + replace_string(wf_line[line_n][start..], argv_name, "/*" + argv_name + "*/", 1); //æ³¨é‡Šæ‰å˜é‡
         clean(wf_line[line_n]);
 
         return 1;
@@ -264,10 +264,10 @@ int clean(string line) //clean so much *//* together,and type name alone
         wf_line[line_n] = replace_string(wf_line[line_n], "//  ", "//");
     }
 
-    unusedvar += "©»the corrected line" + (line_n + 1) + "¡º" + wf_line[line_n] + "¡»\n";
+    unusedvar += "â”—the corrected line" + (line_n + 1) + "ã€" + wf_line[line_n] + "ã€\n";
 }
 
-int peidui(string arg) //from nt7,¶ÔÕâÒ»ĞĞ¼òµ¥·ÖÎö,ÅĞ¶Ï([{}])ÊÇ·ñ²ĞÈ±
+int peidui(string arg) //from nt7,å¯¹è¿™ä¸€è¡Œç®€å•åˆ†æ,åˆ¤æ–­([{}])æ˜¯å¦æ®‹ç¼º
 {
     int idx, chr, mark, marked;
     int s_symbol, m_symbol, b_symbol, d_quote, s_quote;
@@ -340,15 +340,15 @@ int peidui(string arg) //from nt7,¶ÔÕâÒ»ĞĞ¼òµ¥·ÖÎö,ÅĞ¶Ï([{}])ÊÇ·ñ²ĞÈ±
 int help(object me)
 {
     write(@HELP
-    ×Ô¶¯×¢ÊÍµôÔ´ÎÄ¼şÖĞËùÓĞmudos»òfluffos·¢ÏÖµÄÎ´Ê¹ÓÃµÄ±äÁ¿£¬
-ÒÔ½ÚÔ¼ÄÚ´æ£¬×¢ÊÍºóµÄÎÄ¼ş¼ÇÂ¼»á´ÓlogÎÄ¼şÖĞÉ¾³ı£¬ÒÔ¼õĞ¡logÎÄ
-¼ş£¬ÆäËü²»ÈÏÊ¶µÄ´íÎó»áĞ´»ØÔ­logÎÄ¼ş.ÒÔ·½±ãÎ×Ê¦²é´í¡£
-    ÒÑ¾­×¢ÊÍµÄÎÄ¼şÁí¸øÒ»¸ö¼ÇÂ¼£¬Ä¬ÈÏÎÄ¼şÃûÎª/log/unused.var
-Ç°ÃæÊÇlogÎÄ¼ş±¾Éí£¬ºóÃæÊÇĞŞ¸ÄÇé¿öÕı³£Çé¿ö¿ªÊ¼»áĞÎ³ÉÈıĞĞ·â±Õ
-µÄÖÆ±í·û£¬ÒÔ·½±ãÅĞ¶ÏÊÇ·ñ×¢ÊÍÕıÈ·¡£
+    è‡ªåŠ¨æ³¨é‡Šæ‰æºæ–‡ä»¶ä¸­æ‰€æœ‰mudosæˆ–fluffoså‘ç°çš„æœªä½¿ç”¨çš„å˜é‡ï¼Œ
+ä»¥èŠ‚çº¦å†…å­˜ï¼Œæ³¨é‡Šåçš„æ–‡ä»¶è®°å½•ä¼šä»logæ–‡ä»¶ä¸­åˆ é™¤ï¼Œä»¥å‡å°logæ–‡
+ä»¶ï¼Œå…¶å®ƒä¸è®¤è¯†çš„é”™è¯¯ä¼šå†™å›åŸlogæ–‡ä»¶.ä»¥æ–¹ä¾¿å·«å¸ˆæŸ¥é”™ã€‚
+    å·²ç»æ³¨é‡Šçš„æ–‡ä»¶å¦ç»™ä¸€ä¸ªè®°å½•ï¼Œé»˜è®¤æ–‡ä»¶åä¸º/log/unused.var
+å‰é¢æ˜¯logæ–‡ä»¶æœ¬èº«ï¼Œåé¢æ˜¯ä¿®æ”¹æƒ…å†µæ­£å¸¸æƒ…å†µå¼€å§‹ä¼šå½¢æˆä¸‰è¡Œå°é—­
+çš„åˆ¶è¡¨ç¬¦ï¼Œä»¥æ–¹ä¾¿åˆ¤æ–­æ˜¯å¦æ³¨é‡Šæ­£ç¡®ã€‚
 
-Ö¸Áî¸ñÊ½£ºchkunuse [logfile]
-Ã»ÓĞ logfile£¬ÔòlogfileÄ¬ÈÏÎª log/log
+æŒ‡ä»¤æ ¼å¼ï¼šchkunuse [logfile]
+æ²¡æœ‰ logfileï¼Œåˆ™logfileé»˜è®¤ä¸º log/log
 HELP
     );
 

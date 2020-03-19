@@ -3,15 +3,15 @@ inherit ITEM;
 
 void create()
 {
-        set_name(NOR + WHT "ºÎÊ×ÎÚ" NOR, ({ "he shouwu", "he", "shouwu" }));
+        set_name(NOR + WHT "ä½•é¦–ä¹Œ" NOR, ({ "he shouwu", "he", "shouwu" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-	        set("long", NOR + WHT "ÕâÊÇÒ»Ö§ÒÑ³ÉÈËÐÎµÄºÎÊ×"
-                            "ÎÚ£¬¿´À´¿ÉÒÔÈëÒ©¡£\n" NOR);
+	        set("long", NOR + WHT "è¿™æ˜¯ä¸€æ”¯å·²æˆäººå½¢çš„ä½•é¦–"
+                            "ä¹Œï¼Œçœ‹æ¥å¯ä»¥å…¥è¯ã€‚\n" NOR);
         	set_weight(800);
                 set("value", 10000);
-	        set("unit", "Ö§");
+	        set("unit", "æ”¯");
         	set("only_do_effect", 1);
         }
         setup();
@@ -21,11 +21,11 @@ int do_effect(object me)
 {
         if ((int)me->query("max_jingli") < 100)
 	{
-        	write(HIW "Äã³ÔÏÂÁËÒ»Ö§ºÎÊ×ÎÚ£¬Ö»¾õµÃ¾«Éñ½¡ÍúÖ®¼«¡£\n" NOR);
+        	write(HIW "ä½ åƒä¸‹äº†ä¸€æ”¯ä½•é¦–ä¹Œï¼Œåªè§‰å¾—ç²¾ç¥žå¥æ—ºä¹‹æžã€‚\n" NOR);
                 me->improve_jingli(2 + random(1));
         } else
 	{
-                write(HIC "Äã³ÔÏÂÁËÒ»Ö§ºÎÊ×ÎÚ£¬µ«ÊÇºÃÏóÃ»Ê²Ã´ÓÃ¡£\n" NOR);
+                write(HIC "ä½ åƒä¸‹äº†ä¸€æ”¯ä½•é¦–ä¹Œï¼Œä½†æ˜¯å¥½è±¡æ²¡ä»€ä¹ˆç”¨ã€‚\n" NOR);
         }
         destruct(this_object());
         me->unconcious();

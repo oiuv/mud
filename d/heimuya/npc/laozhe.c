@@ -2,13 +2,13 @@ inherit NPC;
  
 void create()
 {
-        set_name("ÀÏÕß", ({ "lao zhe", "oldman" }) );
-        set("gender", "ÄĞĞÔ" );
+        set_name("è€è€…", ({ "lao zhe", "oldman" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 70);
-        set("long", "Õâ¸öÀÏÍ·Õı³éºµÑÌ³éµÃÉÏñ«ÄØ¡£\n");
+        set("long", "è¿™ä¸ªè€å¤´æ­£æŠ½æ—±çƒŸæŠ½å¾—ä¸Šç˜¾å‘¢ã€‚\n");
         set("combat_exp", 1000);
         set("attitude", "friendly");
-        set("rank_info/respect", "ÀÏ´óÒ¯");
+        set("rank_info/respect", "è€å¤§çˆ·");
         setup();
         carry_object("/clone/cloth/cloth")->wear();
         add_money("silver", 10);

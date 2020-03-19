@@ -9,19 +9,19 @@ int main(object me, string arg)
 	tuned_ch = me->query("channels");
 	if( !arg ) {
 		if( !pointerp(tuned_ch) || !sizeof(tuned_ch) )
-			write("�����ڲ�û�������κ�Ƶ����\n");
+			write("你现在并没有收听任何频道。\n");
 		else
-			write("������������Ƶ����" + implode(tuned_ch, ", ") + "��\n");
+			write("你现在收听的频道：" + implode(tuned_ch, ", ") + "。\n");
 		return 1;
 	}
 
 	if( pointerp(tuned_ch) && member_array(arg, tuned_ch)!=-1 ) {
-		write("�ر� " + arg + " Ƶ����\n");
+		write("关闭 " + arg + " 频道。\n");
 		tuned_ch -= ({ arg });
 		me->set("channels", tuned_ch);
 		return 1;
 	} else {
-		write("Ҫ��ĳ��Ƶ��ֻҪ�ø�Ƶ��˵�����ɡ�\n");
+		write("要打开某个频道只要用该频道说话即可。\n");
 		return 1;
 	}
 }
@@ -29,20 +29,20 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-ָ���ʽ��tune [<Ƶ������>]
+指令格式：tune [<频道名称>]
 
-���ָ������ѡ���Ƿ�Ҫ����ĳһƵ����ѶϢ�����û��ָ��Ƶ�����ƣ��ͻ��г�
-��Ŀǰ�����е�Ƶ�������ָ����Ƶ����ԭ�������еľͻ�ص�����֮�򿪡�
+这个指令让你选择是否要收听某一频道的讯息，如果没有指定频道名称，就会列出
+你目前收听中的频道，如果指定了频道，原来收听中的就会关掉，反之打开。
 
-������һ��û�������е�Ƶ�����������Զ������򿪡�
-Ҫ��һ��Ƶ��������ֻҪ�ã�
+如果你对一个没有收听中的频道讲话，会自动将它打开。
+要对一个频道讲话，只要用：
 
-<Ƶ������> <ѶϢ> ....
+<频道名称> <讯息> ....
 
-���ӣ�
+例子：
   chat hello everyone!
   
-������� help channels ��ѯĿǰ����ЩƵ������������
+你可以用 help channels 查询目前有哪些频道可以收听。
 
 see also : chat, rumor ...
 HELP

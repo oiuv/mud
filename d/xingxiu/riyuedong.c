@@ -3,12 +3,12 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÈÕÔÂ¶´");
+        set("short", "æ—¥æœˆæ´ž");
         set("long", @LONG
-ÕâÀïÊÇÐÇËÞÅÉ×Ü¶æËùÔÚµØÈÕÔÂ¶´¡£Ö»¼û¶´ÄÚµÆ»ðÍ¨Ã÷£¬Õý
-ÖÐÒ»°Ñ»¢Æ¤ÒÎÉÏ¶Ë×ø×ÅÐÇËÞÅÉÕÆÃÅÈË¶¡´ºÇï¡£¶´±ÚÉÏ×°ÊÎ×Å»¢
-Æ¤Â¹Í·µñÓð¼°Ò»Ð©×Ö»­ (zihua)¡£¶´Á½²àÊúÁ¢±øÆ÷¼Ü£¬ÉÏÃæÅÅ
-ÁÐµÄ´ó¶àÊÇ¸÷ÖÖ¹÷°ô¡£
+è¿™é‡Œæ˜¯æ˜Ÿå®¿æ´¾æ€»èˆµæ‰€åœ¨åœ°æ—¥æœˆæ´žã€‚åªè§æ´žå†…ç¯ç«é€šæ˜Žï¼Œæ­£
+ä¸­ä¸€æŠŠè™Žçš®æ¤…ä¸Šç«¯åç€æ˜Ÿå®¿æ´¾æŽŒé—¨äººä¸æ˜¥ç§‹ã€‚æ´žå£ä¸Šè£…é¥°ç€è™Ž
+çš®é¹¿å¤´é›•ç¾½åŠä¸€äº›å­—ç”» (zihua)ã€‚æ´žä¸¤ä¾§ç«–ç«‹å…µå™¨æž¶ï¼Œä¸Šé¢æŽ’
+åˆ—çš„å¤§å¤šæ˜¯å„ç§æ£æ£’ã€‚
 LONG);
         set("exits", ([
              "south" : __DIR__"xxh2",
@@ -17,14 +17,14 @@ LONG);
 
         set("item_desc", ([
                 "zihua" :  HIR "\n\n"
-"           ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-"           ¡ù¡ù¡ù¡ù¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ù¡ù¡ù¡ù\n"
-"           ¡ù¡ù¡ù¡ù¡¡" HIW "¹Å¡¡Íþ¡¡µÂ¡¡ÐÇ" HIR "¡¡¡ù¡ù¡ù¡ù\n"
-"           ¡ù¡ù¡ù¡ù¡¡" HIW "½ñ¡¡Õð¡¡Åä¡¡ËÞ" HIR "¡¡¡ù¡ù¡ù¡ù\n"
-"           ¡ù¡ù¡ù¡ù¡¡" HIW "ÎÞ¡¡å¾¡¡Ìì¡¡ÀÏ" HIR "¡¡¡ù¡ù¡ù¡ù\n"
-"           ¡ù¡ù¡ù¡ù¡¡" HIW "±È¡¡Óî¡¡µØ¡¡ÏÉ" HIR "¡¡¡ù¡ù¡ù¡ù\n"
-"           ¡ù¡ù¡ù¡ù¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ù¡ù¡ù¡ù\n"
-"           ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n\n\n\n" NOR,
+"           â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n"
+"           â€»â€»â€»â€»ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€â€»â€»â€»â€»\n"
+"           â€»â€»â€»â€»ã€€" HIW "å¤ã€€å¨ã€€å¾·ã€€æ˜Ÿ" HIR "ã€€â€»â€»â€»â€»\n"
+"           â€»â€»â€»â€»ã€€" HIW "ä»Šã€€éœ‡ã€€é…ã€€å®¿" HIR "ã€€â€»â€»â€»â€»\n"
+"           â€»â€»â€»â€»ã€€" HIW "æ— ã€€å¯°ã€€å¤©ã€€è€" HIR "ã€€â€»â€»â€»â€»\n"
+"           â€»â€»â€»â€»ã€€" HIW "æ¯”ã€€å®‡ã€€åœ°ã€€ä»™" HIR "ã€€â€»â€»â€»â€»\n"
+"           â€»â€»â€»â€»ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€â€»â€»â€»â€»\n"
+"           â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n\n\n\n" NOR,
         ]));
 
         set("objects", ([

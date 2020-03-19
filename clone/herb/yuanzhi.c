@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(NOR + HIB "Ô¶Ö¾" NOR, ({ "yuan zhi", "yuan", "zhi", "herb_yuanzhi" }));
+        set_name(NOR + HIB "è¿œå¿—" NOR, ({ "yuan zhi", "yuan", "zhi", "herb_yuanzhi" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + HIB "Ô¶Ö¾ÊÇ³£¼ûµÄÖĞÒ©Ò©²Ä¡£\n" NOR);
-                set("base_unit", "¸ù");
+                set("long", NOR + HIB "è¿œå¿—æ˜¯å¸¸è§çš„ä¸­è¯è¯æã€‚\n" NOR);
+                set("base_unit", "æ ¹");
                 set("base_value", 3000);
                 set("base_weight", 75);
         }

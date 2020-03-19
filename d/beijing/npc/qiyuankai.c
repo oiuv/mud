@@ -3,10 +3,10 @@ inherit NPC;
 inherit F_MASTER;
 void create()
 {
-        set_name("ÆëÔª¿­", ({ "qi yuankai", "qi" }));
-        set("long", "´ËÈËÉí²ÄÊİ³¤£¬È´ÊÇÆøÓîêÑ°º, ËÆºõÉí»³¾ªÈËÒÕÒµ¡£\n");
-        set("gender", "ÄĞĞÔ");
-        set("title", "¿µÇ×Íõ¸®ÊÌÎÀÍ·Áì" );
+        set_name("é½å…ƒå‡¯", ({ "qi yuankai", "qi" }));
+        set("long", "æ­¤äººèº«æç˜¦é•¿ï¼Œå´æ˜¯æ°”å®‡æš„æ˜‚, ä¼¼ä¹èº«æ€€æƒŠäººè‰ºä¸šã€‚\n");
+        set("gender", "ç”·æ€§");
+        set("title", "åº·äº²ç‹åºœä¾å«å¤´é¢†" );
         set("attitude", "friendly");
         set("age", 47);
         set("shen_type", -1);

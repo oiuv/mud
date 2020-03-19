@@ -1,17 +1,17 @@
-// yanbo.c ÑĞ²§
+// yanbo.c ç ”é’µ
 
 inherit ITEM;
 
 void create()
 {
-	set_name("ÑĞ²§", ({ "yanbo", "bo" }));
+	set_name("ç ”é’µ", ({ "yanbo", "bo" }));
 	set_weight(600);
 	set_max_encumbrance(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ö»");
-		set("long", "Ò»Ö»³ÁµéµéµÄ´ÉÍë£¬¿ÉÒÔÓÃÀ´Ä¥Ò©¡£\n");
+		set("unit", "åª");
+		set("long", "ä¸€åªæ²‰ç”¸ç”¸çš„ç“·ç¢—ï¼Œå¯ä»¥ç”¨æ¥ç£¨è¯ã€‚\n");
 		set("value", 200);
 	}
 }

@@ -1,11 +1,11 @@
 inherit NPC;
 void create()
 {
-        set_name("Ç§·ò³¤", ({ "qianfu zhang", "qianfu", "zhang" }));
+        set_name("åƒå¤«é•¿", ({ "qianfu zhang", "qianfu", "zhang" }));
         set("age", 32);
-        set("gender", "ÄÐÐÔ");
-        set("long", "ÃÉ¹ÅÈêÑôÍõÊÖÏÂ¾«±øµÄÍ·Áì£¬\n"
-                   "Ìå¸ñ½¡×³£¬ÉñÇéÑÏËà¡£\n");
+        set("gender", "ç”·æ€§");
+        set("long", "è’™å¤æ±é˜³çŽ‹æ‰‹ä¸‹ç²¾å…µçš„å¤´é¢†ï¼Œ\n"
+                   "ä½“æ ¼å¥å£®ï¼Œç¥žæƒ…ä¸¥è‚ƒã€‚\n");
         set("attitude", "peaceful");
         set("str", 25);
         set("dex", 20);
@@ -46,7 +46,7 @@ void init()
 
 int accept_fight(object me)
 {
-        command("say ´óÒ¯ÎÒÕýÏëÕÒÈËÉ±ÄÅ£¬½ñÌìËãÄãµ¹Ã¹¡£\n");
+        command("say å¤§çˆ·æˆ‘æ­£æƒ³æ‰¾äººæ€å‘ï¼Œä»Šå¤©ç®—ä½ å€’éœ‰ã€‚\n");
         me->apply_condition("killer", 500);
         kill_ob(me);
         return 1;

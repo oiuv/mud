@@ -3,13 +3,13 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�ʹ�����");
+	set("short", "皇宫北门");
 	set("long", @LONG
-������ǻʹ��ı��ţ��ɸߵ������ų����ţ����Ͻ�ɫ��í���������⡣
-��������վ�����������������������ͣ�Ĵ����Ź��������ˡ����õ�����ֱ
-����Ρ����ΰ�Ĺų�ǽ�ϣ�ʹ�ó�ǽ�Ϸ����Ͻ��ǡ�����˸������Եø����
-ҫ�ۡ������������������ǵ�������������ڻʹ����ŵ��������ࡣ�ӱ�����
-���ذ��ſ��Ե��ﱱ���ı��ǽ���
+这里便是皇宫的北门，丈高的朱红大门敞开着，门上金色的铆钉闪闪发光。
+大门两旁站着两排神情严肃的卫兵，不停的打量着过往的行人。灿烂的阳光直
+射在巍峨雄伟的古城墙上，使得城墙上方“紫禁城”三个烁金大字显得格外的
+耀眼。东厂和西厂两个京城的特务机构架设在皇宫北门的左右两侧。从北方穿
+过地安门可以到达北京的北城郊。
 LONG NOR);
 	set("exits", ([
 		"south" : __DIR__"hg",
@@ -27,6 +27,6 @@ LONG NOR);
 int valid_leave(object me, string dir)
 {
 	if (objectp(present("guan bing", environment(me))) && dir == "south")
-		return notify_fail("��ǰ����������ס������˵�����ʹ��صأ�����Ѱ�����ճ��롣\n\n");
+		return notify_fail("御前侍卫伸手拦住你朗声说道：皇宫重地，岂容寻常百姓出入。\n\n");
 	return ::valid_leave(me, dir);
 }

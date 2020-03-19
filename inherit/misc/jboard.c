@@ -38,7 +38,7 @@ string short()
 
 	notes = query("notes");
 	if( !pointerp(notes) || !sizeof(notes) )
-		return ::short() + " [ Ã»ÓĞÈÎºÎ¹¤×÷¼Æ»­ ]";
+		return ::short() + " [ æ²¡æœ‰ä»»ä½•å·¥ä½œè®¡ç”» ]";
 
 	if( this_player() ) {
 		last_read_time = (int)this_player()->query("board_last_read/" + (string)query("board_id"));
@@ -46,9 +46,9 @@ string short()
 			if( notes[i]["time"] <= last_read_time ) break;
 	}
 	if( unread )
-		return sprintf("%s [ %d ¸ö¹¤×÷¼Æ»­£¬%d ·İĞÂ½ø¶È±¨¸æ ]", ::short(), sizeof(notes), unread);
+		return sprintf("%s [ %d ä¸ªå·¥ä½œè®¡ç”»ï¼Œ%d ä»½æ–°è¿›åº¦æŠ¥å‘Š ]", ::short(), sizeof(notes), unread);
 	else
-		return sprintf("%s [ %d ¸ö¹¤×÷¼Æ»­ ]", ::short(), sizeof(notes));
+		return sprintf("%s [ %d ä¸ªå·¥ä½œè®¡ç”» ]", ::short(), sizeof(notes));
 }
 
 string long()
@@ -92,7 +92,7 @@ void done_describe_project(object me, mapping note, string text)
 		notes += ({ note });
 
 	set("notes", notes);
-	tell_object(me, "ĞÂ¹¤×÷¼Æ»­Ìá³ö¡£\n");
+	tell_object(me, "æ–°å·¥ä½œè®¡ç”»æå‡ºã€‚\n");
 
 	save();
 	return;
@@ -114,7 +114,7 @@ void done_report(object me, mapping report, int project, string text)
 	notes[project]["time"] = time();
 
 	set("notes", notes);
-	tell_object(me, "½ø¶È±¨¸æÍê±Ï¡£\n");
+	tell_object(me, "è¿›åº¦æŠ¥å‘Šå®Œæ¯•ã€‚\n");
 
 	save();
 	return;
@@ -124,7 +124,7 @@ int do_project(string arg)
 {
 	mapping note;
 
-	if(!arg) return notify_fail("¹¤×÷¼Æ»­ÇëÖ¸¶¨Ò»¸ö±êÌâ¡£\n");
+	if(!arg) return notify_fail("å·¥ä½œè®¡ç”»è¯·æŒ‡å®šä¸€ä¸ªæ ‡é¢˜ã€‚\n");
 	
 	note = allocate_mapping(5);
 	note["title"] = arg;
@@ -142,11 +142,11 @@ int do_report(string arg)
 	mapping note, *notes;
 
 	if(!arg || sscanf(arg, "%d %s", num, title)!=2 )
-		return notify_fail("Ö¸Áî¸ñÊ½£ºreport <¼Æ»­±àºÅ> <½ø¶È±¨¸æ±êÌâ>\n");
+		return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šreport <è®¡ç”»ç¼–å·> <è¿›åº¦æŠ¥å‘Šæ ‡é¢˜>\n");
 
 	notes = query("notes");
 	if( !arrayp(notes) || num < 1 || num > sizeof(notes) )
-		return notify_fail("Ã»ÓĞÕâ¸ö¹¤×÷¼Æ»­¡£\n");
+		return notify_fail("æ²¡æœ‰è¿™ä¸ªå·¥ä½œè®¡ç”»ã€‚\n");
 
 	note = allocate_mapping(5);
 	note["title"] = arg;
@@ -168,16 +168,16 @@ int do_read(string arg)
 	notes	= query("notes");
 
 	if( !pointerp(notes) || !sizeof(notes) )
-		return notify_fail("½ø¶È±íÉÏÄ¿Ç°Ã»ÓĞÈÎºÎ¼Æ»­¡£\n");
+		return notify_fail("è¿›åº¦è¡¨ä¸Šç›®å‰æ²¡æœ‰ä»»ä½•è®¡ç”»ã€‚\n");
 
-	if( !arg ) return notify_fail("Ö¸Áî¸ñÊ½£ºread <¼Æ»­±àºÅ>[.<±¨¸æ±àºÅ>]|new|next\n");
+	if( !arg ) return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šread <è®¡ç”»ç¼–å·>[.<æŠ¥å‘Šç¼–å·>]|new|next\n");
 	if( arg=="new" || arg=="next" ) {
 		for(num = 1; num<=sizeof(notes); num++)
 			if( notes[num-1]["time"] > last_read_time ) break;
 	} else if( sscanf(arg, "%d.%d", num, rep)==2 ) {
-		if( num < 1 || num > sizeof(notes) ) return notify_fail("Ã»ÓĞÕâ¸ö¼Æ»­¡£\n");
+		if( num < 1 || num > sizeof(notes) ) return notify_fail("æ²¡æœ‰è¿™ä¸ªè®¡ç”»ã€‚\n");
 		else num--;
-		if( rep < 1 || rep > sizeof(notes[num]["report"]) )	return notify_fail("Ã»ÓĞÕâ¸ö½ø¶È±¨¸æ¡£\n");
+		if( rep < 1 || rep > sizeof(notes[num]["report"]) )	return notify_fail("æ²¡æœ‰è¿™ä¸ªè¿›åº¦æŠ¥å‘Šã€‚\n");
 		else rep --;
 		this_player()->start_more( sprintf(
 "[%d.%d] %s: %s\n-------------------------------------------------------------------\n"
@@ -196,14 +196,14 @@ int do_read(string arg)
 
 		return 1;
 	} if( !sscanf(arg, "%d", num) )
-		return notify_fail("ÄãÒª¶ÁµÚ¼¸¸ö¼Æ»­µÄ¼ò±¨£¿\n");
+		return notify_fail("ä½ è¦è¯»ç¬¬å‡ ä¸ªè®¡ç”»çš„ç®€æŠ¥ï¼Ÿ\n");
 
 	if( num < 1 || num > sizeof(notes) )
-		return notify_fail("Ã»ÓĞÕâ¸ö¼Æ»­¡£\n");
+		return notify_fail("æ²¡æœ‰è¿™ä¸ªè®¡ç”»ã€‚\n");
 	num--;
 	this_player()->start_more( sprintf(
-"[%2d]\t%s\n¸ºÔğÈË£º%s(%s) : %s\n----------------------------------------------------------------------\n%s"
-"----------------------------------------------------------------------\n½ø¶È±¨¸æ£º%d ·İ¡£\n",
+"[%2d]\t%s\nè´Ÿè´£äººï¼š%s(%s) : %s\n----------------------------------------------------------------------\n%s"
+"----------------------------------------------------------------------\nè¿›åº¦æŠ¥å‘Šï¼š%d ä»½ã€‚\n",
 		num + 1,
 		notes[num]["title"],
 		notes[num]["author"], notes[num]["owner"],
@@ -226,18 +226,18 @@ int do_terminate(string arg)
 	int num;
 
 	if( !arg || sscanf(arg, "%d", num)!=1 )
-		return notify_fail("Ö¸Áî¸ñÊ½£ºdiscard <ÁôÑÔ±àºÅ>\n");
+		return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šdiscard <ç•™è¨€ç¼–å·>\n");
 	notes = query("notes");
 	if( !arrayp(notes) || num < 1 || num > sizeof(notes) )
-		return notify_fail("Ã»ÓĞÕâÕÅÁôÑÔ¡£\n");
+		return notify_fail("æ²¡æœ‰è¿™å¼ ç•™è¨€ã€‚\n");
 	num--;
 	if( notes[num]["owner"] != (string)this_player(1)->query("id")
 	&&	(string)SECURITY_D->get_status(this_player(1)) != "(admin)" )
-		return notify_fail("Õâ¸öÁôÑÔ²»ÊÇÄãĞ´µÄ¡£\n");
+		return notify_fail("è¿™ä¸ªç•™è¨€ä¸æ˜¯ä½ å†™çš„ã€‚\n");
 
 	notes = notes[0..num-1] + notes[num+1..sizeof(notes)-1];
 	set("notes", notes);
 	save();
-	write("É¾³ıµÚ " + (num+1) + " ºÅÁôÑÔ....Ok¡£\n");
+	write("åˆ é™¤ç¬¬ " + (num+1) + " å·ç•™è¨€....Okã€‚\n");
 	return 1;
 }

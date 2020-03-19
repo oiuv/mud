@@ -4,20 +4,20 @@ inherit F_LIQUID;
 
 void create()
 {
-	set_name(HIG "±¡ºÉ±ù" NOR, ({"mint ice","mint","ice"}));
+	set_name(HIG "è–„è·å†°" NOR, ({"mint ice","mint","ice"}));
 	set_weight(500);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long",HIG "ÕâÊÇÒ»±­ÌØÖÆµÄ±¡ºÉ±ù£¬¿´ÆğÀ´ÈÃÈË²öÏÑÓûµÎ¡£\n" NOR);
-		set("unit", "±­");
+		set("long",HIG "è¿™æ˜¯ä¸€æ¯ç‰¹åˆ¶çš„è–„è·å†°ï¼Œçœ‹èµ·æ¥è®©äººé¦‹æ¶æ¬²æ»´ã€‚\n" NOR);
+		set("unit", "æ¯");
 		set("value", 1000);
 		set("max_liquid", 5);
 	}
 
 	set("liquid", ([
 		"type": "water",
-                 "name":HIG "±¡ºÉ±ù" NOR,
+                 "name":HIG "è–„è·å†°" NOR,
 		"remaining": 10,
 		"supply": 20,
 		"drunk_apply": 5,

@@ -9,8 +9,8 @@ inherit F_DBASE;
 void create()
 {
         seteuid(ROOT_UID);
-        set("channel_id", "Ö´·¨¾«Áé");
-        CHANNEL_D->do_channel( this_object(), "sys", "Ö´·¨¾«ÁéÒÑ¾­Æô¶¯¡£");
+        set("channel_id", "æ‰§æ³•ç²¾çµ");
+        CHANNEL_D->do_channel( this_object(), "sys", "æ‰§æ³•ç²¾çµå·²ç»å¯åŠ¨ã€‚");
         remove_call_out("monitor");
         call_out("monitor", 1);
 }
@@ -29,25 +29,25 @@ string *catchers = ({
 });
 
 mapping family_punishers = ([
-        "Îäµ±ÅÉ"   : ({ CLASS_D("misc") + "/chongxu" }),
-        "ÉÙÁÖËÂ"   : ({ CLASS_D("misc") + "/fangsheng" }),
-        "»ªÉ½ÅÉ"   : ({ CLASS_D("misc") + "/murenqing" }),
-        "¶ëáÒÅÉ"   : ({ CLASS_D("misc") + "/guoxiang" }),
-        "ÌÒ»¨µº"   : ({ CLASS_D("misc") + "/taogu" }),
-        "ÉñÁú½Ì"   : ({ CLASS_D("misc") + "/zhong" }),
-        "Ø¤°ï"     : ({ CLASS_D("misc") + "/wangjiantong" }),
-        "¹ÅÄ¹ÅÉ"   : ({ CLASS_D("misc") + "/popo" }),
-        "È«Õæ½Ì"   : ({ CLASS_D("misc") + "/laodao" }),
-        "ĞÇËŞÅÉ"   : ({ CLASS_D("misc") + "/xiaoxian" }),
-        "åĞÒ£ÅÉ"   : ({ CLASS_D("misc") + "/liqiushui" }),
-        "´óÂÖËÂ"   : ({ CLASS_D("misc") + "/laoseng" }),
-        "Ñªµ¶ÃÅ"   : ({ CLASS_D("misc") + "/hongri" }),
-        "ÁéğÕ¹¬"   : ({ CLASS_D("misc") + "/tonglao" }),
-        "ºì»¨»á"   : ({ CLASS_D("misc") + "/yuwanting" }),
-        "Ä½ÈİÊÀ¼Ò" : ({ CLASS_D("misc") + "/furen" }),
-        "Å·ÑôÊÀ¼Ò" : ({ CLASS_D("misc") + "/laonu" }),
-        "¹ØÍâºú¼Ò" : ({ CLASS_D("misc") + "/huyidao" }),
-        "¶ÎÊÏ»Ê×å" : ({ CLASS_D("misc") + "/duansh" }),
+        "æ­¦å½“æ´¾"   : ({ CLASS_D("misc") + "/chongxu" }),
+        "å°‘æ—å¯º"   : ({ CLASS_D("misc") + "/fangsheng" }),
+        "åå±±æ´¾"   : ({ CLASS_D("misc") + "/murenqing" }),
+        "å³¨åµ‹æ´¾"   : ({ CLASS_D("misc") + "/guoxiang" }),
+        "æ¡ƒèŠ±å²›"   : ({ CLASS_D("misc") + "/taogu" }),
+        "ç¥é¾™æ•™"   : ({ CLASS_D("misc") + "/zhong" }),
+        "ä¸å¸®"     : ({ CLASS_D("misc") + "/wangjiantong" }),
+        "å¤å¢“æ´¾"   : ({ CLASS_D("misc") + "/popo" }),
+        "å…¨çœŸæ•™"   : ({ CLASS_D("misc") + "/laodao" }),
+        "æ˜Ÿå®¿æ´¾"   : ({ CLASS_D("misc") + "/xiaoxian" }),
+        "é€é¥æ´¾"   : ({ CLASS_D("misc") + "/liqiushui" }),
+        "å¤§è½®å¯º"   : ({ CLASS_D("misc") + "/laoseng" }),
+        "è¡€åˆ€é—¨"   : ({ CLASS_D("misc") + "/hongri" }),
+        "çµé¹«å®«"   : ({ CLASS_D("misc") + "/tonglao" }),
+        "çº¢èŠ±ä¼š"   : ({ CLASS_D("misc") + "/yuwanting" }),
+        "æ…•å®¹ä¸–å®¶" : ({ CLASS_D("misc") + "/furen" }),
+        "æ¬§é˜³ä¸–å®¶" : ({ CLASS_D("misc") + "/laonu" }),
+        "å…³å¤–èƒ¡å®¶" : ({ CLASS_D("misc") + "/huyidao" }),
+        "æ®µæ°çš‡æ—" : ({ CLASS_D("misc") + "/duansh" }),
 ]);
 
 void monitor()
@@ -63,7 +63,7 @@ void monitor()
         call_out("monitor", 180 + random(60));
 
         if (VERSION_D->is_boot_synchronizing())
-                // ÕıÔÚÆô¶¯ÖĞÍ¬²½°æ±¾£¿ÄÇÃ´²»Æô¶¯³Í·£ÏµÍ³
+                // æ­£åœ¨å¯åŠ¨ä¸­åŒæ­¥ç‰ˆæœ¬ï¼Ÿé‚£ä¹ˆä¸å¯åŠ¨æƒ©ç½šç³»ç»Ÿ
                 return;
 
 	// when the pking was going, I won't let the punisher out,
@@ -72,7 +72,7 @@ void monitor()
 		return;
 
         CHANNEL_D->do_channel(this_object(), "sys",
-			      "¸÷´óÃÅÅÉÉ¨ÃèËùÓĞÔÚÏßÍæ¼Ò¡£");
+			      "å„å¤§é—¨æ´¾æ‰«ææ‰€æœ‰åœ¨çº¿ç©å®¶ã€‚");
 
         // search all the player for punishing
         obs = filter_array(users(),

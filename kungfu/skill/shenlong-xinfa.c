@@ -1,4 +1,4 @@
-// shenlong-xinfa.c ÉñÁúĞÄ·¨
+// shenlong-xinfa.c ç¥é¾™å¿ƒæ³•
 
 inherit FORCE;
 
@@ -11,16 +11,16 @@ int valid_force(string force)
 
 int valid_learn(object me)
 {
-	if (me->query("gender") == "ÎŞĞÔ" &&
+	if (me->query("gender") == "æ— æ€§" &&
         (int)me->query_skill("shenlong-xinfa", 1) > 49)
-		return notify_fail("ÄãÎŞ¸ùÎŞĞÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄÉñÁúĞÄ·¨¡£\n");
+		return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„ç¥é¾™å¿ƒæ³•ã€‚\n");
 
 	return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-    return notify_fail("ÉñÁúĞÄ·¨Ö»ÄÜÍ¨¹ıÑ§»òÊÇ´ÓÔËÓÃ(exert)ÖĞÔö¼ÓÊìÁ·¶È¡£\n");
+    return notify_fail("ç¥é¾™å¿ƒæ³•åªèƒ½é€šè¿‡å­¦æˆ–æ˜¯ä»è¿ç”¨(exert)ä¸­å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)

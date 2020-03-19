@@ -9,12 +9,12 @@ string ask_me();
 
 void create()
 {
-	set_name("����", ({ "gou du", "gou", "du" }));
-	set("long", "������ȥҲ�Ǽ�ʮ������ˣ�ȴ�Ǵ�Ȼһ��\n"
-                    "����ӵ�ģ����\n");
-	set("title", "��ң�ɺ��Ȱ���");
-	set("nickname", WHT "���" NOR);
-	set("gender", "����");
+	set_name("苟读", ({ "gou du", "gou", "du" }));
+	set("long", "他看上去也是几十岁的人了，却是纯然一个\n"
+                    "书呆子的模样。\n");
+	set("title", "逍遥派函谷八友");
+	set("nickname", WHT "书呆" NOR);
+	set("gender", "男性");
 	set("age", 50);
 	set("attitude", "friendly");
 	set("class", "scholar");
@@ -25,7 +25,7 @@ void create()
 	set("dex", 25);
 
 	set("inquiry", ([
-		"����" : (:ask_me:),
+		"论语" : (:ask_me:),
 	]) );
 
 	set("max_qi", 1800);
@@ -66,7 +66,7 @@ void create()
                    "id"        : "xue muhua" ]),
         }));
 
-	create_family("��ң��", 3, "����");
+	create_family("逍遥派", 3, "弟子");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -88,12 +88,12 @@ void attempt_apprentice(object ob)
 
         if (ob->query_int() < 26)
         {
-                command("say ��������ͷ��̫�����ϡ���ô�ܹ���ң��");
+                command("say 这个…你的头脑太不开窍…怎么能够逍遥？");
                 return;
         }
 
-        command("say ���ã����ã�");
-        command("say ��ͽ��Զ�����������ֺ���");
+        command("say 甚好，甚好！");
+        command("say 有徒至远方来，不矣乐呼。");
         command("recruit " + ob->query("id"));
 }
 
@@ -104,8 +104,8 @@ string ask_me()
 	ob = this_player(); 
         me = this_object();
 
-        if (ob->query("family/family_name") != "��ң��")
-                return "������Ҫ��";
+        if (ob->query("family/family_name") != "逍遥派")
+                return "干嘛你要？";
 
 	if (ob->query("family/master_id") == "wuya zi" ||
            ob->query("family/master_id") == "su xinghe")
@@ -113,23 +113,23 @@ string ask_me()
 		call_other("/clone/book/lbook4", "???");
                 book = find_object("/clone/book/lbook4");
                 if (! objectp(book) || environment(book))
-                        return "�������ˣ��Ǳ���������Ѿ����͸������ˡ�";
+                        return "你来晚了，那本《论语》我已经赠送给别入了。";
 
-		command("say ��Ҫ�Ȿ����ô����ֻ����ȥ���ǡ�");
-		message_vision(HIY "$N" HIY "�ӻ����ͳ�һ�����飬���˸�$n"
-                               HIY "��\n" NOR, me, ob);
+		command("say 想要这本论语么？你只管拿去就是。");
+		message_vision(HIY "$N" HIY "从怀里掏出一本旧书，交了给$n"
+                               HIY "。\n" NOR, me, ob);
 	        book->move(ob, 1);
-		return "�Ȿ���ǧ��Ҫ������˰�������һ��Ͳ������ˡ�\n";
+		return "这本书可千万不要借给别人啊，他们一借就不还的了。\n";
 	}
 
         if (query("book_count") < 1)
-                return "��������ͷû��ʲô���ˡ�";
+                return "我现在手头没有什么书了。";
 
         add("book_count", -1);
-	command("say �����������û���ˣ����������ɸ��ִ����ֵ������顣");
-	command("say ��Ȼ����ô��ѧ���ҾͰ����͸���ɡ�");
-	message_vision(HIY "$N" HIY "���䵹�����˰��죬�ҳ�һ�����飬���˸�$n"
-                       HIY "��\n" NOR, me, ob);
+	command("say 哈哈，论语就没有了，这里有我派高手从少林盗来的书。");
+	command("say 既然你那么好学，我就把它送给你吧。");
+	message_vision(HIY "$N" HIY "翻箱倒柜找了半天，找出一本旧书，交了给$n"
+                       HIY "。\n" NOR, me, ob);
 	if (random(2) == 1)
                 book = new("/clone/book/strike_book");
 	else
@@ -137,5 +137,5 @@ string ask_me()
                 book = new("/clone/book/hand_book");
 	book->move(ob, 1);
 
-	return "�Ȿ���ǧ��Ҫ������˰�������һ��Ͳ������ˡ�\n";
+	return "这本书可千万不要借给别人啊，他们一借就不还的了。\n";
 }

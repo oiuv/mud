@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ʯ��");
+        set("short", "石洞");
         set("long", @LONG
-����һ��ʯ����Ҳ��֪���˶�ã�ֻ��Խ��Խ�ͣ����г�������
-ˮ֮������������������ö���������ࡣ
+这是一个石洞，也不知走了多久，只觉越走越低，洞中出现了流
+水之声，淙淙争争，清脆悦耳，如击玉磬。
 LONG );
         set("exits", ([
                "east" : __DIR__"dongmen",

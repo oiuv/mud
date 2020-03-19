@@ -5,16 +5,16 @@ inherit ROOM;
 #include <room.h>;
 void create()
 {
-	set("short", "ğ®µÀ");
+	set("short", "ç”¬é“");
 	set("long", @LONG
-ÕâÊÇÒ»ÌõĞ¡Ğ¡µÄğ®µÀ£¬ÖÜÎ§¶¼ÊÇÊ¯±Ú£¬¼«Îª¼áÓ²£¬¿´À´²»ÊÇÊ²Ã´
-Îä¹¦ÄÜ´òÆÆµÄ¡£ÏòÍâµÄÊ¯ÃÅÔçÒÑÇÄÈ»ºÏÉÏ£¬ÄãÖ»ÓĞ¹ÄÓÂÏòÇ°¡£
+è¿™æ˜¯ä¸€æ¡å°å°çš„ç”¬é“ï¼Œå‘¨å›´éƒ½æ˜¯çŸ³å£ï¼Œæä¸ºåšç¡¬ï¼Œçœ‹æ¥ä¸æ˜¯ä»€ä¹ˆ
+æ­¦åŠŸèƒ½æ‰“ç ´çš„ã€‚å‘å¤–çš„çŸ³é—¨æ—©å·²æ‚„ç„¶åˆä¸Šï¼Œä½ åªæœ‰é¼“å‹‡å‘å‰ã€‚
 LONG );
 	set("exits", ([
 		"north" : __DIR__"midao1",
 	]));
 	set("no_clean_up", 0);
 	setup();
-        create_door("north", "Ê¯ÃÅ", "south", !DOOR_CLOSED);
+        create_door("north", "çŸ³é—¨", "south", !DOOR_CLOSED);
 	replace_program(ROOM);
 }

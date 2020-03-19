@@ -13,7 +13,7 @@ int main(object me, string arg)
                 return 0;
 
 	if (! arg)
-                return notify_fail("Ö¸Áî¸ñÊ½ : dest <Îï¼şÖ®Ãû³Æ»òµµÃû>\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼ : dest <ç‰©ä»¶ä¹‹åç§°æˆ–æ¡£å>\n");
 
 	if (sscanf(arg, "%s %s", option, target) == 2 &&
             option == "-c")
@@ -30,7 +30,7 @@ int main(object me, string arg)
 	if (! obj) obj = present(target, environment(me));
 	if (! obj) obj = find_object(target);
 	if (! obj) obj = find_object(resolve_path(me->query("cwd"), target));
-	if (! obj) return notify_fail("Ã»ÓĞÕâÑùÎï¼ş....¡£\n");
+	if (! obj) return notify_fail("æ²¡æœ‰è¿™æ ·ç‰©ä»¶....ã€‚\n");
 
         seteuid(getuid());
 
@@ -43,16 +43,16 @@ int main(object me, string arg)
 
                 case "noneuser":
                         if (playerp(obj))
-                                return notify_fail("Äã²»ÄÜ¶ÔÍæ¼ÒÊ©Õ¹·¨Á¦¡£\n");
+                                return notify_fail("ä½ ä¸èƒ½å¯¹ç©å®¶æ–½å±•æ³•åŠ›ã€‚\n");
                         break;
 
                 case "user":
                         if (! playerp(obj))
-                                return notify_fail("ÄãÖ»ÄÜ¶ÔÍæ¼ÒÊ©Õ¹·¨Á¦¡£\n");
+                                return notify_fail("ä½ åªèƒ½å¯¹ç©å®¶æ–½å±•æ³•åŠ›ã€‚\n");
                         break;
 
                 default:
-                        return notify_fail("Äã²»ÄÜÊ¹ÓÃ¸ÃÃüÁî¡£\n");
+                        return notify_fail("ä½ ä¸èƒ½ä½¿ç”¨è¯¥å‘½ä»¤ã€‚\n");
                 }
         }
 
@@ -60,7 +60,7 @@ int main(object me, string arg)
 
         if (! SECURITY_D->valid_write(base_name(obj), me, "dest"))
         {
-                write("ÄãÃ»ÓĞÈ¨ÏŞ²Ù×÷Õâ¸ö¶ÔÏó¡£\n");
+                write("ä½ æ²¡æœ‰æƒé™æ“ä½œè¿™ä¸ªå¯¹è±¡ã€‚\n");
                 return 1;
         }
 
@@ -68,27 +68,27 @@ int main(object me, string arg)
         {
                 if (clonep(obj))
                 {
-                        write("¸Ã¶ÔÏóÊÇ¸´ÖÆ¶ÔÏó£¬Ã»ÓĞÅÉÉú¶ÔÏó£¬ÎŞ·¨Ö´ĞĞ -c Ñ¡Ïî¡£\n");
+                        write("è¯¥å¯¹è±¡æ˜¯å¤åˆ¶å¯¹è±¡ï¼Œæ²¡æœ‰æ´¾ç”Ÿå¯¹è±¡ï¼Œæ— æ³•æ‰§è¡Œ -c é€‰é¡¹ã€‚\n");
                         return 1;
                 }
 
                 if (obj == find_object(USER_OB))
                 {
-                        write("Äã²»ÄÜÇå³ıÊ¹ÓÃÕßµÄÅÉÉú¶ÔÏó¡£\n");
+                        write("ä½ ä¸èƒ½æ¸…é™¤ä½¿ç”¨è€…çš„æ´¾ç”Ÿå¯¹è±¡ã€‚\n");
                         return 1;
                 }
 
                 if (obj == find_object(LOGIN_OB))
                 {
-                        write("Äã²»ÄÜÇå³ıÊ¹ÓÃÕßÁ¬½ÓĞÅÏ¢µÄÅÉÉú¶ÔÏó¡£\n");
+                        write("ä½ ä¸èƒ½æ¸…é™¤ä½¿ç”¨è€…è¿æ¥ä¿¡æ¯çš„æ´¾ç”Ÿå¯¹è±¡ã€‚\n");
                         return 1;
                 }
 
                 obs = children(base_name(obj));
                 foreach (obj in obs)
                 {
-                        write("Äã´İ»ÙÁË" + obj->name(1) + "(" +
-                              file_name(obj) + ")¡£\n");
+                        write("ä½ æ‘§æ¯äº†" + obj->name(1) + "(" +
+                              file_name(obj) + ")ã€‚\n");
                         destruct(obj);
                 }
                 write("Ok.\n");
@@ -96,13 +96,13 @@ int main(object me, string arg)
         }
 
 	if (me == obj)
-		message_vision("$NÕÙ»½³öÒ»¸öºÚ¶´£¬Ò»Í·×êÁË½øÈ¥¡£\n", me);
+		message_vision("$Nå¬å”¤å‡ºä¸€ä¸ªé»‘æ´ï¼Œä¸€å¤´é’»äº†è¿›å»ã€‚\n", me);
 	else
 	if (environment(me) == environment(obj))
-		message_vision("$NÕÙ»½³öÒ»¸öºÚ¶´£¬Ò»½Å°Ñ½«$nÌßÁË½øÈ¥¡£\n", me, obj);
+		message_vision("$Nå¬å”¤å‡ºä¸€ä¸ªé»‘æ´ï¼Œä¸€è„šæŠŠå°†$nè¸¢äº†è¿›å»ã€‚\n", me, obj);
 
 	destruct(obj);
-	if (obj) write("ÄãÎŞ·¨½«Õâ¸öÎï¼ş´İ»Ù¡£\n"); else
+	if (obj) write("ä½ æ— æ³•å°†è¿™ä¸ªç‰©ä»¶æ‘§æ¯ã€‚\n"); else
 	if (me) write("Ok.\n");
 
 	return 1;
@@ -111,16 +111,16 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : dest [-c] <Îï¼şÖ®Ãû³Æ»òµµÃû>
+æŒ‡ä»¤æ ¼å¼ : dest [-c] <ç‰©ä»¶ä¹‹åç§°æˆ–æ¡£å>
 
-ÀûÓÃ´ËÒ»Ö¸Áî¿É½«Ò»¸öÎï¼ş object ´Ó¼ÇÒäÌåÖĞÇå³ı£¬ÈôÇå³ıÎï¼ş£¬
-ÔòÏÂÒ»´Î²Î¿¼µ½Õâ¸öÎï¼şµÄÊ±ºò»áÖØĞÂ½«Ëü±àÒë¡£
+åˆ©ç”¨æ­¤ä¸€æŒ‡ä»¤å¯å°†ä¸€ä¸ªç‰©ä»¶ object ä»è®°å¿†ä½“ä¸­æ¸…é™¤ï¼Œè‹¥æ¸…é™¤ç‰©ä»¶ï¼Œ
+åˆ™ä¸‹ä¸€æ¬¡å‚è€ƒåˆ°è¿™ä¸ªç‰©ä»¶çš„æ—¶å€™ä¼šé‡æ–°å°†å®ƒç¼–è¯‘ã€‚
 
-Èç¹ûÊ¹ÓÃÁË -c ²ÎÊı£¬Ôò½«Çå³ı¸Ãµµ°¸ÅÉÉú³öµÄËùÓĞ¶ÔÏó¡£
+å¦‚æœä½¿ç”¨äº† -c å‚æ•°ï¼Œåˆ™å°†æ¸…é™¤è¯¥æ¡£æ¡ˆæ´¾ç”Ÿå‡ºçš„æ‰€æœ‰å¯¹è±¡ã€‚
 
-¸ÃÃüÁîÔÚ¿ÉÒÔ±»ÊÚÈ¨Ê¹ÓÃµÄĞÅÏ¢°üÀ¨£ºnoneuser¡¢user¡¢all¡£
+è¯¥å‘½ä»¤åœ¨å¯ä»¥è¢«æˆæƒä½¿ç”¨çš„ä¿¡æ¯åŒ…æ‹¬ï¼šnoneuserã€userã€allã€‚
 
-²Î¿¼×ÊÁÏ£º destruct()
+å‚è€ƒèµ„æ–™ï¼š destruct()
 HELP );
         return 1;
 }

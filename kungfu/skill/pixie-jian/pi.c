@@ -1,12 +1,12 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define PI "¡¸" HIW "ÈºÐ°±ÙÒ×" NOR "¡¹"
+#define PI "ã€Œ" HIW "ç¾¤é‚ªè¾Ÿæ˜“" NOR "ã€"
 
 inherit F_SSERVER;
 
-string *finger_name = ({ "×óÊÖÖÐÖ¸", "×óÊÖÎÞÃûÖ¸", "×óÊÖÊ³Ö¸",
-                         "ÓÒÊÖÖÐÖ¸", "ÓÒÊÖÎÞÃûÖ¸", "ÓÒÊÖÊ³Ö¸", });
+string *finger_name = ({ "å·¦æ‰‹ä¸­æŒ‡", "å·¦æ‰‹æ— åæŒ‡", "å·¦æ‰‹é£ŸæŒ‡",
+                         "å³æ‰‹ä¸­æŒ‡", "å³æ‰‹æ— åæŒ‡", "å³æ‰‹é£ŸæŒ‡", });
 
 int perform(object me, object target)
 {
@@ -20,7 +20,7 @@ int perform(object me, object target)
 		int ap;
 
         if (userp(me) && ! me->query("can_perform/pixie-jian/pi"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -29,38 +29,38 @@ int perform(object me, object target)
         }
 
         if (! me->is_fighting(target))
-                return notify_fail(PI "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(PI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         weapon = me->query_temp("weapon");
 
         if (weapon && weapon->query("skill_type") != "sword" &&
             weapon->query("skill_type") != "pin")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" PI "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" PI "ã€‚\n");
 
         if (me->query_temp("weapon"))
-                name = "ÊÖÖÐ" + weapon->name();
+                name = "æ‰‹ä¸­" + weapon->name();
         else
                 name = finger_name[random(sizeof(finger_name))];
 
         skill = me->query_skill("pixie-jian", 1);
 
         if (skill < 120)
-                return notify_fail("ÄãµÄ±ÙÐ°½£·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" PI "¡£\n");
+                return notify_fail("ä½ çš„è¾Ÿé‚ªå‰‘æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" PI "ã€‚\n");
 
         if (me->query("neili") < 200)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" PI "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" PI "ã€‚\n");
 
         if (weapon && me->query_skill_mapped("sword") != "pixie-jian")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸Ê¹ÓÃ±ÙÐ°½£·¨£¬ÄÑÒÔÊ©Õ¹" PI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨è¾Ÿé‚ªå‰‘æ³•ï¼Œéš¾ä»¥æ–½å±•" PI "ã€‚\n");
 
         if (! weapon && me->query_skill_prepared("unarmed") != "pixie-jian")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸Ê¹ÓÃ±ÙÐ°½£·¨£¬ÄÑÒÔÊ©Õ¹" PI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨è¾Ÿé‚ªå‰‘æ³•ï¼Œéš¾ä»¥æ–½å±•" PI "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "ÉíÐÎºöÈ»±ä¿ì£¬ÝëµÄ³åÏò$n" HIW "£¬" + name +
-              HIW "»Ã×÷ÊýµÀÐéÓ°£¬¶ÙÊ±ÎÞÊýÐÇ¹âÒ»ÆëÉäÏò$n" HIW "£¡\n" NOR;
+        msg = HIW "$N" HIW "èº«å½¢å¿½ç„¶å˜å¿«ï¼Œè“¦çš„å†²å‘$n" HIW "ï¼Œ" + name +
+              HIW "å¹»ä½œæ•°é“è™šå½±ï¼Œé¡¿æ—¶æ— æ•°æ˜Ÿå…‰ä¸€é½å°„å‘$n" HIW "ï¼\n" NOR;
         message_combatd(msg, me, target);
 
 		ap = me->query_skill("dodge", 1);

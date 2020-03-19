@@ -3,11 +3,11 @@ inherit F_DEALER;
 
 void create()
 {
-	set_name("Ò©ÆÌ»ï¼Æ", ({ "yaopu huoji", "huoji" }));
+	set_name("è¯é“ºä¼™è®¡", ({ "yaopu huoji", "huoji" }));
 	set("str", 20);
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set("age", 18);
-	set("long", "ËûÊ®·ÖÇ¿×³£¬¿´ÉÏÈ¥»á¼¸·ÖÎä¹¦£¬¶ÔÒ©ÆÌÉúÒâËÆºõ²¢²»ÔÚºõ¡£\n");
+	set("long", "ä»–ååˆ†å¼ºå£®ï¼Œçœ‹ä¸Šå»ä¼šå‡ åˆ†æ­¦åŠŸï¼Œå¯¹è¯é“ºç”Ÿæ„ä¼¼ä¹å¹¶ä¸åœ¨ä¹ã€‚\n");
 	set("combat_exp", 15000);
 	set("attitude", "friendly");
 	set("vendor_goods", ({

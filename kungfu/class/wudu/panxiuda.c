@@ -6,15 +6,15 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ÅËÐã´ï", ({ "pan xiuda", "pan" }));
-        set("nickname", HIY "Ð¦ÃæÑÖÂÞ" NOR);
+        set_name("æ½˜ç§€è¾¾", ({ "pan xiuda", "pan" }));
+        set("nickname", HIY "ç¬‘é¢é˜Žç½—" NOR);
         set("long", @LONG
-Ëû¾ÍÊÇÎå¶¾½ÌµÄ×ó»¤·¨£¬ÈË³ÆÐ¦ÃæÑÖÂÞµÄÅËÐã
-´ï¡£±ð¿´ËûÒ»Á³Ð¦ÃÐÃÐµÄ£¬µ«ÊÇ³£³£É±ÈËÓÚµ¯
-Ö¸Ö®¼ä¡£
+ä»–å°±æ˜¯äº”æ¯’æ•™çš„å·¦æŠ¤æ³•ï¼Œäººç§°ç¬‘é¢é˜Žç½—çš„æ½˜ç§€
+è¾¾ã€‚åˆ«çœ‹ä»–ä¸€è„¸ç¬‘çœ¯çœ¯çš„ï¼Œä½†æ˜¯å¸¸å¸¸æ€äººäºŽå¼¹
+æŒ‡ä¹‹é—´ã€‚
 LONG);
-        set("title","Îå¶¾½Ì»¤·¨");
-        set("gender", "ÄÐÐÔ");
+        set("title","äº”æ¯’æ•™æŠ¤æ³•");
+        set("gender", "ç”·æ€§");
         set("age", 38);
         set("attitude", "friendly");
         set("shen_type", -1);
@@ -30,7 +30,7 @@ LONG);
         set("combat_exp", 500000);
         set("score", 50000);
 
-        set("gender", "ÄÐÐÔ");
+        set("gender", "ç”·æ€§");
         set("age", 38);
         set("attitude", "friendly");
         set("shen_type", -1);
@@ -73,7 +73,7 @@ LONG);
         prepare_skill("strike", "tianchan-zhang");
         prepare_skill("claw", "wusheng-zhao");
 
-        create_family("Îå¶¾½Ì", 12, "»¤·¨");
+        create_family("äº”æ¯’æ•™", 12, "æŠ¤æ³•");
 
         setup();
 
@@ -90,23 +90,23 @@ void attempt_apprentice(object ob)
 
         if ((int)ob->query("shen") > -5000)
         {
-                command("say ×öÎÒÎå¶¾½ÌµÜ×Ó±ØÐëÐÄºÝÊÖÀ±¡£");
+                command("say åšæˆ‘äº”æ¯’æ•™å¼Ÿå­å¿…é¡»å¿ƒç‹ æ‰‹è¾£ã€‚");
                 return;
         }
         if ((int)ob->query_skill("wudu-xinfa", 1) < 40)
         {
-                command("say ÄãµÄÎå¶¾ÐÄ·¨»¹Ñ§µÄ²»¹»°¡¡£");
+                command("say ä½ çš„äº”æ¯’å¿ƒæ³•è¿˜å­¦çš„ä¸å¤Ÿå•Šã€‚");
                 return;
         }
         if ((int)ob->query_skill("wudu-qishu", 1) < 30)
         {
-                command("say ÎÒÎå¶¾½ÌµÜ×ÓÒÔ¶¾É±ÈË£¬ÐÞÏ°¶¾¼¼ÊÇÊ×ÒªµÄ¡£");
-                command("say ÄãÊÇ·ñ»¹Ó¦¸Ã¶à¶à×êÑÐ±¾ÃÅµÄ¾øÑ§£¿");
+                command("say æˆ‘äº”æ¯’æ•™å¼Ÿå­ä»¥æ¯’æ€äººï¼Œä¿®ä¹ æ¯’æŠ€æ˜¯é¦–è¦çš„ã€‚");
+                command("say ä½ æ˜¯å¦è¿˜åº”è¯¥å¤šå¤šé’»ç ”æœ¬é—¨çš„ç»å­¦ï¼Ÿ");
                 return;
         }
 
         command("smile");
-        command("say ²»´í£¬²»´í¡£");
+        command("say ä¸é”™ï¼Œä¸é”™ã€‚");
         command("recruit " + ob->query("id"));
         return;
 }

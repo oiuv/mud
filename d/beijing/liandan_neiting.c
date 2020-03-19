@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�ش���ҩ������");
+        set("short", "回春堂药店内厅");
         set("long", @LONG
-�����ǻش���ҩ�����������һ�߽��������ҩ����ζ�����滹ҪŨ��
-�ܶࡣ�㿴��һ��Сͯ������������ͷ����ҩ�ġ�
+这里是回春堂药店的内厅，你一走进这里，发现药的气味比外面还要浓上
+很多。你看见一个小童正在这里埋着头整理药材。
 LONG );
         set("no_fight", 1);
         set("objects", ([

@@ -14,7 +14,7 @@ int main(object me, string arg)
                 return 0;
 
 	if (! arg)
-                return notify_fail("Ö¸Áî¸ñÊ½: smash <living>\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼: smash <living>\n");
 
 	ob = present(arg, environment(me));
 	if (! ob || ! me->visible(ob))
@@ -27,7 +27,7 @@ int main(object me, string arg)
                         ob = find_object(arg);
 
                 if (! ob || ! ob->is_character() || ! me->visible(ob))
-                        return notify_fail("ÕÒ²»µ½Õâ¸öÉúÎï¡£\n");
+                        return notify_fail("æ‰¾ä¸åˆ°è¿™ä¸ªç”Ÿç‰©ã€‚\n");
         }
 
         if (! me->is_admin())
@@ -39,19 +39,19 @@ int main(object me, string arg)
 
                 case "npc":
                         if (playerp(ob))
-                                return notify_fail("Äã²»ÄÜ¶ÔÍæ¼ÒÊ©Õ¹·¨Á¦¡£\n");
+                                return notify_fail("ä½ ä¸èƒ½å¯¹ç©å®¶æ–½å±•æ³•åŠ›ã€‚\n");
                         break;
 
                 default:
-                        return notify_fail("Äã²»ÄÜÊ¹ÓÃ¸ÃÃüÁî¡£\n");
+                        return notify_fail("ä½ ä¸èƒ½ä½¿ç”¨è¯¥å‘½ä»¤ã€‚\n");
                 }
         }
 
         if (environment(ob) != environment(me))
         {
-                message("vision", HIY "\nÌì¿ÕÂıÂıµÄ°µÁËÏÂÀ´£¬ºöÈ»¼äÌì¼ÊÒ»ÁÁ£¬Ò»µÀÉÁµç"
-                                  "°éËæ¹ö¹öÀ×ÉùÖ±Âä¶øÏÂ£¬ÕıÕıÅüÖĞ" + ob->name(1) + HIY
-                                  "¡£\n\n" NOR, all_interactive());
+                message("vision", HIY "\nå¤©ç©ºæ…¢æ…¢çš„æš—äº†ä¸‹æ¥ï¼Œå¿½ç„¶é—´å¤©é™…ä¸€äº®ï¼Œä¸€é“é—ªç”µ"
+                                  "ä¼´éšæ»šæ»šé›·å£°ç›´è½è€Œä¸‹ï¼Œæ­£æ­£åŠˆä¸­" + ob->name(1) + HIY
+                                  "ã€‚\n\n" NOR, all_interactive());
                 
                 if (wizardp(ob))
                 {
@@ -61,13 +61,13 @@ int main(object me, string arg)
         
                 if (wiz_level(me) < wiz_level(ob))
                 {
-                        message_vision(HIM "\n$N" HIM "ÉíÉÏÃ°×ÅÂÆÂÆÇàÑÌ£¬"
-                                       "È´Ã»ÓĞ°ëµãÊÂÇé¡£\n\n" NOR,
+                        message_vision(HIM "\n$N" HIM "èº«ä¸Šå†’ç€ç¼•ç¼•é’çƒŸï¼Œ"
+                                       "å´æ²¡æœ‰åŠç‚¹äº‹æƒ…ã€‚\n\n" NOR,
                                        ob);
                         return 1;
                 }
         
-                ob->set_temp("die_reason", "±»" + me->name(1) + "ÓÃÀ×ÅüËÀÁË");
+                ob->set_temp("die_reason", "è¢«" + me->name(1) + "ç”¨é›·åŠˆæ­»äº†");
         
                 ob->receive_damage("qi", 1, me);
         	ob->die();
@@ -76,8 +76,8 @@ int main(object me, string arg)
                 return 1;
         }
 
-        msg = HIC "\n$N" HIC "ÉìÊÖÒ»ÕĞ£¬Ö»¼ûÒ»µÀ" HIY "ÉÁµç" HIC
-              "´ÓÌì¶ø½µ£¬»÷ÖĞÁË$n" HIC "£¡£¡£¡\n" NOR;
+        msg = HIC "\n$N" HIC "ä¼¸æ‰‹ä¸€æ‹›ï¼Œåªè§ä¸€é“" HIY "é—ªç”µ" HIC
+              "ä»å¤©è€Œé™ï¼Œå‡»ä¸­äº†$n" HIC "ï¼ï¼ï¼\n" NOR;
         if (me == ob)
         {
                 msg = replace_string(msg, "$n", "$N");
@@ -88,7 +88,7 @@ int main(object me, string arg)
 
         if (! ob->is_character())
         {
-                message_vision(HIM + ob->name() + HIM "´ÓÕâ¸öÊÀ½çÉÏÏûÊ§ÁË...\n\n"
+                message_vision(HIM + ob->name() + HIM "ä»è¿™ä¸ªä¸–ç•Œä¸Šæ¶ˆå¤±äº†...\n\n"
                                NOR, me);
                 destruct(ob);
                 return 1;
@@ -102,16 +102,16 @@ int main(object me, string arg)
 
         if (wiz_level(me) < wiz_level(ob))
         {
-                message_vision(HIM "\n$N" HIM "ÉíÉÏÃ°×ÅÂÆÂÆÇàÑÌ£¬"
-                               "È´Ã»ÓĞ°ëµãÊÂÇé¡£\n\n" NOR,
+                message_vision(HIM "\n$N" HIM "èº«ä¸Šå†’ç€ç¼•ç¼•é’çƒŸï¼Œ"
+                               "å´æ²¡æœ‰åŠç‚¹äº‹æƒ…ã€‚\n\n" NOR,
                                ob);
                 return 1;
         }
 
-        ob->set_temp("die_reason", "±»À×ÅüËÀÁË");
+        ob->set_temp("die_reason", "è¢«é›·åŠˆæ­»äº†");
 
         if (ob == me)
-               ob->set_temp("die_reason", "»îµÃ²»ÄÍ·³£¬ÓÃÀ×°Ñ×Ô¼ºÅüËÀÁË");
+               ob->set_temp("die_reason", "æ´»å¾—ä¸è€çƒ¦ï¼Œç”¨é›·æŠŠè‡ªå·±åŠˆæ­»äº†");
 
         ob->receive_damage("qi", 1, me);
 	ob->die();
@@ -124,11 +124,11 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: smash <ÉúÎï>
+æŒ‡ä»¤æ ¼å¼: smash <ç”Ÿç‰©>
  
 hehehehehe...........
 
-¸ÃÃüÁîÔÚ¿ÉÒÔ±»ÊÚÈ¨Ê¹ÓÃµÄĞÅÏ¢°üÀ¨£ºnpc¡¢all¡£
+è¯¥å‘½ä»¤åœ¨å¯ä»¥è¢«æˆæƒä½¿ç”¨çš„ä¿¡æ¯åŒ…æ‹¬ï¼šnpcã€allã€‚
 HELP );
         return 1;
 }

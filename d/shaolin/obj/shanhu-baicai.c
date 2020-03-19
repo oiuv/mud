@@ -1,17 +1,17 @@
-// shanhu-baicai.c Éºº÷°×²Ë
+// shanhu-baicai.c çŠç‘šç™½èœ
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-	set_name("Éºº÷°×²Ë", ({"shanhu baicai", "baicai"}));
+	set_name("çŠç‘šç™½èœ", ({"shanhu baicai", "baicai"}));
 	set_weight(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»Åèºì°×Ïà¼ä£¬´àÄÛË¬¿Ú£¬ÇåÏãÓÕÈËµÄÉºº÷°×²Ë¡£\n");
-		set("unit", "Åè");
+		set("long", "ä¸€ç›†çº¢ç™½ç›¸é—´ï¼Œè„†å«©çˆ½å£ï¼Œæ¸…é¦™è¯±äººçš„çŠç‘šç™½èœã€‚\n");
+		set("unit", "ç›†");
 		set("value", 150);
 		set("food_remaining", 4);
 		set("food_supply", 40);

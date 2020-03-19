@@ -13,16 +13,16 @@ int main(object me, string arg)
 	if (me != this_player())
 		return 0;
 
-        if (! arg) return notify_fail("Ö¸Áî¸ñÊ½£ºcat <µµ°¸Ãû>\n");
+        if (! arg) return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šcat <æ¡£æ¡ˆå>\n");
 	file = resolve_path(me->query("cwd"), arg);
         if (file_size(file) < 0)
-		return notify_fail("Ã»ÓĞÕâ¸öµµ°¸¡£\n");
+		return notify_fail("æ²¡æœ‰è¿™ä¸ªæ¡£æ¡ˆã€‚\n");
 
 	if (! SECURITY_D->valid_read(file, me, "cat"))
-		return notify_fail("ÄãÃ»ÓĞÈ¨ÏŞ²é¿´Õâ¸öÎÄ¼ş¡£\n");
+		return notify_fail("ä½ æ²¡æœ‰æƒé™æŸ¥çœ‹è¿™ä¸ªæ–‡ä»¶ã€‚\n");
 
         if (file_size(file) > 32000)
-                write("ÎÄ¼şÌ«³¤£¬ÇëÓÃ more Ö¸Áî²é¿´¡£\n");
+                write("æ–‡ä»¶å¤ªé•¿ï¼Œè¯·ç”¨ more æŒ‡ä»¤æŸ¥çœ‹ã€‚\n");
         else
                 me->start_more(read_file(file));
 	return 1;
@@ -31,10 +31,10 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½£ºcat <µµ°¸Ãû>
+æŒ‡ä»¤æ ¼å¼ï¼šcat <æ¡£æ¡ˆå>
 
-Õâ¸öÖ¸ÁîÈÃÄã¿ÉÒÔ²éÔÄÒ»¸öÎÄ¼şµÄÄÚÈİ¡£
-Ïà¹ØÖ¸Áî£ºmore
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ å¯ä»¥æŸ¥é˜…ä¸€ä¸ªæ–‡ä»¶çš„å†…å®¹ã€‚
+ç›¸å…³æŒ‡ä»¤ï¼šmore
 
 HELP);
         return 1;

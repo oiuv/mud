@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", NOR + RED "��������" NOR);
+        set("short", NOR + RED "大枣树上" NOR);
         set("long", @LONG
-������ʯ���ڵ�һ�ð��̸ߵĴ������ϣ������˴�����Ҷ
-���ǣ��ܲ�͸�硣
+这里是石窟内的一棵百仗高的大枣树上，但见此处被树叶
+所盖，密不透风。
 LONG);
         set("exits", ([
               "up"    :  __DIR__"ontree3",

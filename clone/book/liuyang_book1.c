@@ -2,13 +2,13 @@ inherit BOOK;
 
 void create()
 {
-	set_name( "ÌìÉ½ÁùÑôÕÆ·¨Í¼ÉÏ²á", ({ "zhangfa tu1", "tu1" }));
+	set_name( "å¤©å±±å…­é˜³æŒæ³•å›¾ä¸Šå†Œ", ({ "zhangfa tu1", "tu1" }));
 	set_weight(200);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±¾");
-		set("long", "ÕâÊÇÁùÑôÕÆ·¨ÉÏ²á£¬ÉÏÃæ»­×ÅÒ»Ğ©·×·±¸´ÔÓµÄÕĞÊ½¼°ĞŞÁ··¨ÃÅ¡£\n");
+		set("unit", "æœ¬");
+		set("long", "è¿™æ˜¯å…­é˜³æŒæ³•ä¸Šå†Œï¼Œä¸Šé¢ç”»ç€ä¸€äº›çº·ç¹å¤æ‚çš„æ‹›å¼åŠä¿®ç»ƒæ³•é—¨ã€‚\n");
 		set("value", 500);
 		set("no_put", 1);
 		set("material", "paper");

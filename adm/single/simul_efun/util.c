@@ -77,16 +77,16 @@ string sort_string(string input, int width, int prefix)
 
                         switch ((k < sl - 1) ? input[k..k+1] : 0)
                         {
-                        case "£º":
-                        case "¡±":
-                        case "¡£":
-                        case "£¬":
-                        case "£»":
-                        case "£©":
+                        case "ï¼š":
+                        case "â€":
+                        case "ã€‚":
+                        case "ï¼Œ":
+                        case "ï¼›":
+                        case "ï¼‰":
                         case " )":
-                        case "£¡":
-                        case "£¿":
-                        case "¡¢":
+                        case "ï¼":
+                        case "ï¼Ÿ":
+                        case "ã€":
                                 if (k != i)
                                 {
                                         result += input[i..k + 1];
@@ -176,37 +176,37 @@ string appromix_time(int n, int flag)
         string s;
 
         if (n <= 0)
-                return flag ? "ÂíÉÏ¾Í" : "ÂíÉÏ";
+                return flag ? "é©¬ä¸Šå°±" : "é©¬ä¸Š";
 
         if (n < 60)
-                s = "ÃëÖÓ";
+                s = "ç§’é’Ÿ";
         else
         if (n < 60 * 60)
         {
-                s = "·ÖÖÓ";
+                s = "åˆ†é’Ÿ";
                 n /= 60;
         } else
         if (n < 24 * 60 * 60)
         {
-                s = "Ð¡Ê±";
+                s = "å°æ—¶";
                 n /= 60 * 60;
         } else
         if (n < 30 * 24 * 60 * 60)
         {
-                s = "Ìì";
+                s = "å¤©";
                 n /= 24 * 60 * 60;
         } else
         if (n < 365 * 24 * 60 * 60)
         {
-                s = "¸öÔÂ";
+                s = "ä¸ªæœˆ";
                 n /= 30 * 24 * 60 * 60;
         } else
         {
-                s = "Äê";
+                s = "å¹´";
                 n /= 365 * 24 * 60 * 60;
         }
 
-        if (flag) s += "ÒÔºó";
+        if (flag) s += "ä»¥åŽ";
         return chinese_number(n) + s;
 }
 
@@ -303,7 +303,7 @@ string trans_color(string arg, int raw)
         return arg;
 }
 
-// append color after the $N¡¢$n¡¢$w for the string color won't be
+// append color after the $Nã€$nã€$w for the string color won't be
 // break by the NOR after the name
 string append_color(string arg, string default_color)
 {
@@ -316,8 +316,8 @@ string append_color(string arg, string default_color)
 // change to english sigh to chinese
 string chinese_desc(string arg)
 {
-        arg = replace_string(arg, ",", "£¬");
-        arg = replace_string(arg, "!", "£¡");
+        arg = replace_string(arg, ",", "ï¼Œ");
+        arg = replace_string(arg, "!", "ï¼");
         return arg;
 }
 

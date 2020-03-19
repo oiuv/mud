@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "����ɽ·");
+	set("short", "西域山路");
         set("long", @long
-���н���������һ������һ�죬����������������ǿ����
-;������ʲôǿ����ֻ�ǻ�ɳ���棬����͸�ǣ�ȴҲ��ʵ�Ѱ���
+渐行渐西，天气一天冷似一天，西域昆仑派势力雄强，沿
+途倒并无什么强盗，只是黄沙扑面，寒风透骨，却也着实难熬。
 long);
         set("exits",([
 		"westup" : __DIR__"shanlu2",

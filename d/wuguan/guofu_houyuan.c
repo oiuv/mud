@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��Ժ");
+        set("short", "后院");
         set("long", @LONG
-�����ǹ����ĺ�Ժ������Щ�ɻ����µĵط��������ȥ��
-�ǲ񷿣�������һ��ˮ��������æµ�Ľ����������Լ��Ļ
+这里是郭府的后院，都是些干活做事的地方，东面过去都
+是柴房，西面是一个水房。人们忙碌的进出，干着自己的活。
 LONG);
         set("no_fight", 1);
         set("exits", ([

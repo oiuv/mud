@@ -4,10 +4,10 @@
 inherit ROOM;
 void create()
 {
-        set("short", "�յ�");
+        set("short", "苏堤");
         set("long", @LONG
-ÿ��ʢ�ģ��ο͵��˷׷�Ѱ��СϢ�������������£�������ġ�
-��������ɽ�ţ����������š�
+每当盛夏，游客到此纷纷寻荫小息，堤上绿树交柯，鸣蝉噪鼓。
+北边是望山桥，南面锁澜桥。
 LONG);
         set("exits", ([
             "north"     : __DIR__"suti4",

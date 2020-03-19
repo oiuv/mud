@@ -1,16 +1,16 @@
-// tieyanling.c ÌúÑæÁî
+// tieyanling.c é“ç„°ä»¤
 
 inherit ITEM;
 
 void create()
 {
-        set_name("ÌúÑæÁî", ({"tieyan ling", "tieyan", "ling"}));
+        set_name("é“ç„°ä»¤", ({"tieyan ling", "tieyan", "ling"}));
         set_weight(500);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ãæ");
-                set("long","ÕâÊÇÒ»ÃæºÚ÷î÷îµÄÁîÅÆ£¬ÓÉ½ÌÖ÷Ç©·¢£¬Æ¾´Ë¿ÉÏò×ğ³¤ÌôÕ½¡£\n");
+                set("unit", "é¢");
+                set("long","è¿™æ˜¯ä¸€é¢é»‘é»é»çš„ä»¤ç‰Œï¼Œç”±æ•™ä¸»ç­¾å‘ï¼Œå‡­æ­¤å¯å‘å°Šé•¿æŒ‘æˆ˜ã€‚\n");
                 set("material", "steel");
         }
 }

@@ -1,17 +1,17 @@
-// hsnr.c ºìÉÕÅ£Èâ
+// hsnr.c çº¢çƒ§ç‰›è‚‰
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-    set_name("ºìÉÕÅ£Èâ", ({"hongshao niurou", "niurou"}));
+    set_name("çº¢çƒ§ç‰›è‚‰", ({"hongshao niurou", "niurou"}));
 	set_weight(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-        set("long", "Ò»ÅÌìÀµÃºÜÀÃºÜÏãµÄÅ£Èâ£¬¿´µÃÄãÖ±Á÷¿ÚË®¡£\n");
-        set("unit", "ÅÌ");
+        set("long", "ä¸€ç›˜ç‚–å¾—å¾ˆçƒ‚å¾ˆé¦™çš„ç‰›è‚‰ï¼Œçœ‹å¾—ä½ ç›´æµå£æ°´ã€‚\n");
+        set("unit", "ç›˜");
 		set("value", 150);
 		set("food_remaining", 3);
 		set("food_supply", 60);

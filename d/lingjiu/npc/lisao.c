@@ -6,10 +6,10 @@ inherit NPC;
 
 void create()
 {
-    set_name("ÀîÉ©", ({ "li sao", "li", "sao" }));
+    set_name("æå«‚", ({ "li sao", "li", "sao" }));
 	set("long",
-	    "ËıÊÇ [ÁéğÕ¹¬] µÄ³øÊ¦.\n");
-	set("gender", "Å®ĞÔ");
+	    "å¥¹æ˜¯ [çµé¹«å®«] çš„å¨å¸ˆ.\n");
+	set("gender", "å¥³æ€§");
 	set("age", 30);
 	set("shen_type",1);
 	set("attitude", "peaceful");
@@ -51,7 +51,7 @@ void create()
         prepare_skill("hand", "zhemei-shou");
 	prepare_skill("strike","liuyang-zhang");
 
-	create_family("ÁéğÕ¹¬",3,"µÜ×Ó");
+	create_family("çµé¹«å®«",3,"å¼Ÿå­");
 	setup();
 	carry_object("/d/lingjiu/obj/qingyi")->wear();
             carry_object("/d/lingjiu/obj/doupeng")->wear();

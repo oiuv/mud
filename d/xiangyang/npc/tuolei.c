@@ -7,10 +7,10 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("ÍÏÀ×", ({ "tuo lei", "lei", "tuo" }));
+	set_name("æ‹–é›·", ({ "tuo lei", "lei", "tuo" }));
 	set("long", 
-"ÍÏÀ×ÊÇ³É¼ªË¼º¹Ó××Ó£¬¼áÈÌ¹û¾ö¡£´Ë´Î´ø±øÄÏÀ´£¬ÊÆÈçÆÆÖñ£¬±ø·æ±ÏÂ¶¡£\n");
-	set("gender", "ÄĞĞÔ");
+"æ‹–é›·æ˜¯æˆå‰æ€æ±—å¹¼å­ï¼Œåšå¿æœå†³ã€‚æ­¤æ¬¡å¸¦å…µå—æ¥ï¼ŒåŠ¿å¦‚ç ´ç«¹ï¼Œå…µé”‹æ¯•éœ²ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 18);
 	set("attitude", "friendly");
 	set("shen_type", 1);
@@ -32,7 +32,7 @@ void create()
 	set_skill("unarmed", 40);
 
 	set("env/wimpy", 60);
-	set_temp("is_riding", HIC"ÇàæõÂí"NOR);
+	set_temp("is_riding", HIC"é’éª¢é©¬"NOR);
 	set("env/wimpy", 40);
 
  	setup();

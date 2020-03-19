@@ -4,11 +4,11 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name(HIW"Ñ©²Îµ¤"NOR, ({"xueshen dan", "dan"}));
+        set_name(HIW"é›ªå‚ä¸¹"NOR, ({"xueshen dan", "dan"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("base_unit", "Á£");
+                set("base_unit", "ç²’");
                 set("base_value", 60);
                 set("only_do_effect", 1);
         }
@@ -23,7 +23,7 @@ int do_effect(object me)
 
         if (time() - me->query_temp("last_eat/dan(D)") < 10)
         {
-                write("Äã¸Õ·þÓÃ¹ýÒ©£¬ÐèÒ©ÐÔ·¢»ÓÍêÐ§ÓÃÒÔºó²ÅÄÜ¼ÌÐø·þÓÃ¡£\n");
+                write("ä½ åˆšæœç”¨è¿‡è¯ï¼Œéœ€è¯æ€§å‘æŒ¥å®Œæ•ˆç”¨ä»¥åŽæ‰èƒ½ç»§ç»­æœç”¨ã€‚\n");
                 return 1;
         }
 
@@ -33,13 +33,13 @@ int do_effect(object me)
 
         if (nl > mn)
         {
-                write("ÄãÏÖÔÚÄÚÁ¦ÐÞÎªÎÞÐè·þÓÃ" + name() + "¡£\n");
+                write("ä½ çŽ°åœ¨å†…åŠ›ä¿®ä¸ºæ— éœ€æœç”¨" + name() + "ã€‚\n");
                 return 1;
         }
 
         me->set_temp("last_eat/dan(D)", time());
 
-        message_vision(HIW "$N³ÔÏÂÒ»Á£Ñ©²Îµ¤£¬¸Ðµ½ÄÚÁ¦ÓÐËù²¹³ä¡£\n" NOR, me);
+        message_vision(HIW "$Nåƒä¸‹ä¸€ç²’é›ªå‚ä¸¹ï¼Œæ„Ÿåˆ°å†…åŠ›æœ‰æ‰€è¡¥å……ã€‚\n" NOR, me);
         me->add("neili", 300);
 
         me->start_busy(3);

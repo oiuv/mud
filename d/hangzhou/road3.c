@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��ʯ���");
+        set("short", "青石大道");
         set("long", @LONG
-������߱�ֲ���ɣ���Ŀ�Դ䣬�ȸ���ѩ������Ϊ������ѩ�ɡ���
-�������Ǻ鴺�š��������ϱ㵽�������¡��ϱ���һ����·��
+大道两边遍植青松，满目苍翠，偃盖如雪。被称为“九里雪松”。
+东北边是洪春桥。再向西南便到了灵隐寺。南边是一条土路。
 LONG);
         set("exits", ([
             "southup"     : __DIR__"huangniling",

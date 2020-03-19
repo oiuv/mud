@@ -6,17 +6,17 @@ int dispel(object me, object ob)
 {
 	if (me == ob)
 	{
-		tell_object(me, "ÄãÊÔÍ¼ÔË¹¦»¯½â¶Ï³¦»¨¶¾£¬Í»È»Ò»¸Ğµ½"
-				"ÕóËºĞÄÁÑ·ÎµÄÌÛÍ´£¬¼¸ºõÔÎØÊ¡£\n");
+		tell_object(me, "ä½ è¯•å›¾è¿åŠŸåŒ–è§£æ–­è‚ èŠ±æ¯’ï¼Œçªç„¶ä¸€æ„Ÿåˆ°"
+				"é˜µæ’•å¿ƒè£‚è‚ºçš„ç–¼ç—›ï¼Œå‡ ä¹æ™•å¥ã€‚\n");
 		return -1;
 	}
 
-	tell_object(me, "Äã½«ÕæÆøÊäÈë" + ob->name() + "ÌåÖĞ£¬È´¾õµÃ"
-                        "ÕæÆøÔË×ªÒì³£¹ÖÒì£¬ÄÑÒÔÀí½â£¬\nÍ»È»¼û" + ob->name() +
-			"º¹ÈçÓêÏÂ£¬Á¬Ã¦×¡ÊÖ¡£\n");
-	tell_object(ob, "Äã¾õµÃ" + me->name() + "½«ÄÚÁ¦»º»ºÊäÈëÄãµÄ"
-			"¾­Âö£¬ºöÈ»Ò»ÕóËºĞÄÁÑ·ÎµÄ¾çÍ´£¬\nÓÌÊ¤¶Ï³¦»¨"
-			"¶¾·¢×÷µÄÊ±ºò£¬ÁîÄã¼¸ºõÔÎØÊ¡£\n");
+	tell_object(me, "ä½ å°†çœŸæ°”è¾“å…¥" + ob->name() + "ä½“ä¸­ï¼Œå´è§‰å¾—"
+                        "çœŸæ°”è¿è½¬å¼‚å¸¸æ€ªå¼‚ï¼Œéš¾ä»¥ç†è§£ï¼Œ\nçªç„¶è§" + ob->name() +
+			"æ±—å¦‚é›¨ä¸‹ï¼Œè¿å¿™ä½æ‰‹ã€‚\n");
+	tell_object(ob, "ä½ è§‰å¾—" + me->name() + "å°†å†…åŠ›ç¼“ç¼“è¾“å…¥ä½ çš„"
+			"ç»è„‰ï¼Œå¿½ç„¶ä¸€é˜µæ’•å¿ƒè£‚è‚ºçš„å‰§ç—›ï¼Œ\nçŠ¹èƒœæ–­è‚ èŠ±"
+			"æ¯’å‘ä½œçš„æ—¶å€™ï¼Œä»¤ä½ å‡ ä¹æ™•å¥ã€‚\n");
 	return -1;
 }
 
@@ -24,14 +24,14 @@ int update_condition(object me, int duration)
 {
 	if(me->query_temp("nopoison")) return 0;
 
-	message("vision", HIG + me->name() + "Ò»ÕóÒ¡»Î£¬Á¢×ã"
-			  "²»¶¨¡£\n" NOR,
+	message("vision", HIG + me->name() + "ä¸€é˜µæ‘‡æ™ƒï¼Œç«‹è¶³"
+			  "ä¸å®šã€‚\n" NOR,
 		environment(me), me);
 
 	if(! living(me) &&
 	   (me->query("qi") < 25 || me->query("jing") < 25))
 	{
-      		me->set_temp("die_reason", "¶Ï³¦»¨¶¾·¢×÷£¬²»ÖÎÉíÍöÁË");
+      		me->set_temp("die_reason", "æ–­è‚ èŠ±æ¯’å‘ä½œï¼Œä¸æ²»èº«äº¡äº†");
       		me->die();
       		return 0;
 	}
@@ -42,11 +42,11 @@ int update_condition(object me, int duration)
 	me->receive_damage("qi", 50 + random(50));
 	if (me->query_skill("force") >= 300)
 		me->apply_condition("flower_poison", duration - 1);
-	tell_object(me, HIG "ÄãÖĞµÄ" HIR "¶Ï³¦»¨¶¾" HIG "·¢×÷ÁË£¡\n" NOR );
+	tell_object(me, HIG "ä½ ä¸­çš„" HIR "æ–­è‚ èŠ±æ¯’" HIG "å‘ä½œäº†ï¼\n" NOR );
 	if( duration < 1 )
 	{
-		tell_object(me, HIR "ÄãĞÄ¿ÚÒ»Õó¾çÍ´£¬²»½ûÒ»ÕóÔÎÑ££¬¹ı"
-			    "ºó¸Ğ¾õÈ´ºÃÁËÒ»Ğ©¡£\n" NOR);
+		tell_object(me, HIR "ä½ å¿ƒå£ä¸€é˜µå‰§ç—›ï¼Œä¸ç¦ä¸€é˜µæ™•çœ©ï¼Œè¿‡"
+			    "åæ„Ÿè§‰å´å¥½äº†ä¸€äº›ã€‚\n" NOR);
 		return 0;
 	}
 	return 1;

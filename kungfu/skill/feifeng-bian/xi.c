@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define XI "¡¸" HIW "·ïÆÜÓÚÎà" NOR "¡¹"
+#define XI "ã€Œ" HIW "å‡¤æ –äºŽæ¢§" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,7 +12,7 @@ int perform(object me, object target)
         int i;
 
         if (userp(me) && ! me->query("can_perform/feifeng-bian/xi"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -21,29 +21,29 @@ int perform(object me, object target)
         }
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(XI "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(XI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "whip")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" XI "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" XI "ã€‚\n");
 
 	if ((int)me->query_skill("feifeng-bian", 1) < 120)
-		return notify_fail("ÄãµÄ·É·ï±Þ·¨·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" XI "¡£\n");
+		return notify_fail("ä½ çš„é£žå‡¤éž­æ³•æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" XI "ã€‚\n");
 
         if (me->query_skill_mapped("whip") != "feifeng-bian")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓÐ¼¤·¢·É·ï±Þ·¨£¬ÄÑÒÔÊ©Õ¹" XI "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ²¡æœ‰æ¿€å‘é£žå‡¤éž­æ³•ï¼Œéš¾ä»¥æ–½å±•" XI "ã€‚\n");
 
 	if ((int)me->query_skill("force") < 150)
-		return notify_fail("ÄãµÄÄÚ¹¦ÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" XI "¡£\n");
+		return notify_fail("ä½ çš„å†…åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" XI "ã€‚\n");
 
 	if ((int)me->query("neili") < 300)
-		return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" XI "¡£\n");
+		return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" XI "ã€‚\n");
 	
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "Á¦¹á±ÞÉÒ£¬ÊÖÖÐ" + weapon->name() + HIW "¼±Îè£¬»­"
-              "³öÒ»¸öÓÖÒ»¸öµÄÈ¦×Ó²øÏò$n" HIW "£¡\n" NOR;
+        msg = HIW "$N" HIW "åŠ›è´¯éž­æ¢¢ï¼Œæ‰‹ä¸­" + weapon->name() + HIW "æ€¥èˆžï¼Œç”»"
+              "å‡ºä¸€ä¸ªåˆä¸€ä¸ªçš„åœˆå­ç¼ å‘$n" HIW "ï¼\n" NOR;
         message_combatd(msg, me, target);
 
         me->add("neili", -100);

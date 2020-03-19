@@ -1,13 +1,13 @@
 // search.c
 
-// ��һ��ROOM��Ѱ����Ʒ
-// ����SCORE�Ĳ�ͬ��Ѱ�ҵĶ���ͼ���Ҳ��ͬ��
-// ROOM�������û���������search_objects����������ָ��������
-// �������е�ĳЩ��Ʒ���������ʡ�Ҳ��������no_search ָ����
-// ����������С��ĳһ��ֵ�Ͳ����ҵ��������ֵΪ�㣬��ô����
-// ���ĸ��˵Ľ��������������Ʒ�����Բ������ҵ�������������
-// �����������÷��ݵ���ʽ����Ҳ��������ʱ���������Ǳ�����ʾ
-// ���ݵĻ�������ʱ������ʾ�Ƿ�����ʱ����Ѱ��Ϣ��
+// 在一个ROOM中寻找物品
+// 由于SCORE的不同，寻找的对象和几率也不同。
+// ROOM可以设置环境变量：search_objects，这样可以指定在在这
+// 个房间中的某些物品的搜索几率。也可以设置no_search 指明如
+// 果江湖阅历小于某一个值就不能找到（如果该值为零，那么将不
+// 查阅该人的江湖阅历，这个物品将绝对不可能找到）。这两个变
+// 量可以是设置房屋的正式变量也可以是临时变量，正是变量表示
+// 房屋的环境，临时变量表示是房屋临时的搜寻信息。
 
 #include <ansi.h>
 
@@ -22,22 +22,22 @@ int main(object me, string arg)
         env = environment(me);
 
         if (me->is_busy())
-                return notify_fail("����æ������ͷ���������Ұɣ�\n");
+                return notify_fail("等你忙完了手头的事情再找吧！\n");
 
         if (me->is_fighting())
-                return notify_fail("һ�ߴ��һ���Ҷ�����ֻ�������ó�����\n");
+                return notify_fail("一边打架一边找东西？只有你才想得出来！\n");
 
         if (env->query("no_search") == "all")
-                return notify_fail("��ط������Ҳ���ʲô��������\n");
+                return notify_fail("这地方看来找不出什么东西……\n");
 
         me->set_temp("pending/searching", 1);
-        me->set_short_desc("���ڶ���������");
+        me->set_short_desc("正在东张西望。");
 
-        message("vision", HIC "ֻ��" + me->name() + HIC "�����������Ĵ�����"
-                          "��������֪���ڸ�ʲô��\n" NOR,
+        message("vision", HIC "只见" + me->name() + HIC "深吸口气，四处东瞅"
+                          "西望，不知道在干什么。\n" NOR,
                 environment(me), ({ me }));
 
-        tell_object(me, HIC "�㿪ʼ����������������û��ʲôֵǮ�Ķ�����\n" NOR);
+        tell_object(me, HIC "你开始在这里摸索，看有没有什么值钱的东西。\n" NOR);
         me->start_busy(bind((:call_other, __FILE__, "searching" :), me),
                        bind((:call_other, __FILE__, "halt_searching" :), me));
         return 1;
@@ -200,8 +200,8 @@ int searching(object me)
         env = environment(me);
         if (me->add_temp("pending/searching", 1) > 6)
         {
-                tell_object(me, HIY "�����˰��죬�������һ������ֻ�÷�����\n" NOR);
-                message("vision", HIC + me->name() + HIC "̾�˿��������˷�����\n" NOR,
+                tell_object(me, HIY "你找了半天，结果还是一无所获，只得放弃。\n" NOR);
+                message("vision", HIC + me->name() + HIC "叹了口气，发了发呆。\n" NOR,
                                   env, ({ me }));
                 me->set_short_desc(0);
                 return 0;
@@ -210,8 +210,8 @@ int searching(object me)
         if (me->query("qi") < 30 ||
             me->query("jing") < 30)
         {
-                tell_object(me, HIY "��ʵ��̫ƣ���ˣ�ֻ�÷�����Ѱ�ҡ�\n" NOR);
-                message("vision", HIC + me->name() + HIC "̾�˿�����һ�����ݡ�\n" NOR,
+                tell_object(me, HIY "你实在太疲倦了，只好放弃了寻找。\n" NOR);
+                message("vision", HIC + me->name() + HIC "叹了口气，一脸倦容。\n" NOR,
                         env, ({ me }));
                 me->set_short_desc(0);
                 return 0;
@@ -226,16 +226,16 @@ int searching(object me)
                 if (ob->query("base_unit"))
                         ob->set_amount(random(5) + 1);
 
-                tell_object(me, HIW "��ͻȻ������һ" + ob->query("unit") + ob->name() +
-                                HIW "��\n" NOR);
+                tell_object(me, HIW "你突然发现了一" + ob->query("unit") + ob->name() +
+                                HIW "。\n" NOR);
 
-                message("visoin", HIW + me->name() + HIW "ͻȻ����������֪���ӵ�"
-                                "�ϼ�����ʲô������\n" NOR, env, ({ me }));
+                message("visoin", HIW + me->name() + HIW "突然弯下腰，不知道从地"
+                                "上捡起了什么东西。\n" NOR, env, ({ me }));
 
                 if (! ob->move(me, 1))
                 {
-                        tell_object(me, "��ϧ" + ob->name() + "������"
-                                    "˵̫���ˣ���ֻ���ȷ��ڵ��ϡ�\n");
+                        tell_object(me, "可惜" + ob->name() + "对你来"
+                                    "说太重了，你只好先放在地上。\n");
                 }
                 me->delete_temp("pending/searching");
                 me->add("score", 1 + random(3));
@@ -246,36 +246,36 @@ int searching(object me)
                 switch (random(8))
                 {
                 case 0:
-                        message_vision(HIC "$N" HIC "̾�˿������������������Ĳ�"
-                                       "����\n" NOR, me);
+                        message_vision(HIC "$N" HIC "叹了口气，继续东张西望的查"
+                                       "看。\n" NOR, me);
                         break;
                 case 1:
-                        message_vision(HIC "$N" HIC "�ýŲ��˲���ǰ�������ƺ���"
-                                       "��Ѱʲô��\n" NOR, me);
+                        message_vision(HIC "$N" HIC "用脚拨了拨身前的土，似乎在"
+                                       "找寻什么。\n" NOR, me);
                         break;
                 case 2:
-                        message_vision(HIC "$N" HIC "������üͷ������������ϸ��"
-                                       "���ŵ����һ�С�\n" NOR, me);
+                        message_vision(HIC "$N" HIC "皱了皱眉头，又弯下腰仔细观"
+                                       "察着地面的一切。\n" NOR, me);
                         break;
                 case 3:
-                        message_vision(HIC "$N" HIC "��ת��ͷ����ϸ���˿������"
-                                       "���档\n" NOR, me);
+                        message_vision(HIC "$N" HIC "回转过头，仔细看了看身后的"
+                                       "地面。\n" NOR, me);
                         break;
                 case 4:
-                        message_vision(HIC "$N" HIC "ת�����ӣ������ʹ��̤��̤"
-                                       "���棬̽����ʵ��\n" NOR, me);
+                        message_vision(HIC "$N" HIC "转过身子，伸出脚使劲踏了踏"
+                                       "地面，探个虚实。\n" NOR, me);
                         break;
                 case 5:
-                        message_vision(HIC "$N" HIC "���˾����ֽ��ſ�ʼ�Ĵ���"
-                                       "�������Ź���Χ��һ�С�\n" NOR, me);
+                        message_vision(HIC "$N" HIC "聚了聚神，又接着开始四处张"
+                                       "望，不放过周围的一切。\n" NOR, me);
                         break;
                 case 6:
-                        message_vision(HIC "$N" HIC "̽�����ӣ���������Χ�ĵ���"
-                                       "���û��˼��¡�\n" NOR, me);
+                        message_vision(HIC "$N" HIC "探下身子，轻轻在周围的地面"
+                                       "上敲击了几下。\n" NOR, me);
                         break;
                 default:
-                        message_vision(HIC "$N" HIC "����һ�����������ڵ��ϲ���"
-                                       "ʲô������\n" NOR, me);
+                        message_vision(HIC "$N" HIC "咦了一声，弯下腰在地上拨拉"
+                                       "什么东西。\n" NOR, me);
                         break;
 		}
                 return 1;
@@ -288,8 +288,8 @@ int halt_searching(object me)
 
         env = environment(me);
         me->delete_temp("pending/searching");
-        tell_object(me, HIY "�������Ѱ�ҡ�\n" NOR);
-        message("vision", HIC + me->name() + HIC "��չ��һ������̾�˿�����\n"
+        tell_object(me, HIY "你放弃了寻找。\n" NOR);
+        message("vision", HIC + me->name() + HIC "舒展了一下腰，叹了口气。\n"
                           NOR, env, ({ me }));
         me->set_short_desc(0);
         return 1;
@@ -298,11 +298,11 @@ int halt_searching(object me)
 int help (object me)
 {
         write(@HELP
-ָ���ʽ: search
+指令格式: search
 
-�ڵ���Ѱ�Ҷ��������ҵ�ʲô�أ�ֻ�����֪����ĳЩ�ط��ܹ��ҵ�
-�ö����������󲿷ֵط�ֻ���ҵ�һЩ��ͨ�Ķ�����������ҵ��˶�
-������Ľ�������������˶�����һ�㡣
+在地上寻找东西。能找到什么呢？只有天才知道，某些地方能够找到
+好东西。不过大部分地方只能找到一些普通的东西。如果你找到了东
+西，你的江湖阅历将会因此而增长一点。
  
 HELP );
         return 1;

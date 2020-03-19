@@ -1,17 +1,17 @@
-// liangonge.c Á·¹¦·¿
+// liangonge.c ç»ƒåŠŸæˆ¿
 
 inherit ROOM;
 
 void create()
 {
-        set("short", "¶«Á·¹¦·¿");
+        set("short", "ä¸œç»ƒåŠŸæˆ¿");
         set("long", @LONG
-ÕâÀïÊÇ¶«ÃæµÄÁ·¹¦·¿£¬ÎİÖĞÁ¢×ÅÒ»Ğ©Á·ÎäÕß³£ÓÃµÄÄ¾ÈË¡£
+è¿™é‡Œæ˜¯ä¸œé¢çš„ç»ƒåŠŸæˆ¿ï¼Œå±‹ä¸­ç«‹ç€ä¸€äº›ç»ƒæ­¦è€…å¸¸ç”¨çš„æœ¨äººã€‚
 LONG );
         set("exits", ([
                 "west" : __DIR__"liangong",
         ]));
-        set("for_family", "¹ØÍâºú¼Ò");
+        set("for_family", "å…³å¤–èƒ¡å®¶");
         setup();
 	replace_program(ROOM);
 }

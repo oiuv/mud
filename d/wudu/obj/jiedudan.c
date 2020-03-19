@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIW "Äı±ùµ¤" NOR, ({"ningbing dan", "dan"}));
+        set_name(HIW "å‡å†°ä¸¹" NOR, ({"ningbing dan", "dan"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Á£");
+                set("unit", "ç²’");
                 set("value", 3000);
-                set("long", HIW "Îå¶¾½ÌµÄÉñµ¤£¬ÄÜ½âó¸¶¾¼°É°¶¾¡£\n" NOR);
+                set("long", HIW "äº”æ¯’æ•™çš„ç¥ä¸¹ï¼Œèƒ½è§£èŸ¾æ¯’åŠç ‚æ¯’ã€‚\n" NOR);
                 set("only_do_effect", 1);
         }
         setup();
@@ -17,7 +17,7 @@ void create()
 
 int do_effect(object me)
 {
-        message_vision(HIW "$N" HIW "Ñö²±ÍÌÏÂÒ»Á£Äı±ùµ¤¡£\n" NOR, me);
+        message_vision(HIW "$N" HIW "ä»°è„–åä¸‹ä¸€ç²’å‡å†°ä¸¹ã€‚\n" NOR, me);
 
         if ((int)me->query_condition("tianchan_zhang")
            || (int)me->query_condition("sha_poison"))
@@ -29,7 +29,7 @@ int do_effect(object me)
                         me->clear_condition("sha_poison");
 
                 me->start_busy(2);
-                tell_object(me, HIC "Äã¸Ğµ½ÄÚÏ¢Ò»³©£¬ÌåÄÚµÄ¶¾ËØ¿ªÊ¼ÂıÂıÏûÍË¡£\n" NOR);
+                tell_object(me, HIC "ä½ æ„Ÿåˆ°å†…æ¯ä¸€ç•…ï¼Œä½“å†…çš„æ¯’ç´ å¼€å§‹æ…¢æ…¢æ¶ˆé€€ã€‚\n" NOR);
         }
         destruct(this_object());
         return 1;

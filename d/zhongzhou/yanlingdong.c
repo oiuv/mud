@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-  	set ("short", "���궫·");
+  	set ("short", "延陵东路");
   	set ("long", @LONG
-�������������߾͵������궫·���������ݳ��ڵ�һ����
-�֡����ߵķ��ݿ���ȥ�Ѿ��ܳ¾��ˡ��������⵽���ֵط���
-תһתҲ����һ����ζ��
+从市中心往东走就到了延陵东路，这里中州城内的一条老
+街。两边的房屋看上去已经很陈旧了。出门在外到这种地方来
+转一转也别有一番滋味。
 LONG);
 
 	set("outdoors", "zhongzhou");

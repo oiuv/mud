@@ -16,34 +16,34 @@ int main(object me, string arg)
 
         if (wizardp(me) && stringp(arg) &&
             objectp(ob = find_player(arg)))
-                // ²é¿´ÆäËûÍæ¼ÒµÄÌØÊâ¼¼ÄÜ
+                // æŸ¥çœ‹å…¶ä»–ç©å®¶çš„ç‰¹æ®ŠæŠ€èƒ½
                 arg = 0;
         else
                 ob = me;
 
-        pro = (ob == me) ? "Äã" : ob->name(1);
+        pro = (ob == me) ? "ä½ " : ob->name(1);
 
         if (! ob->query("born") && ! ob->query("reborn"))
-                return notify_fail(pro + "»¹Ã»ÓĞ³öÉúÄÅ£¬»áÊ²Ã´ÌØ¼¼£¿\n");
+                return notify_fail(pro + "è¿˜æ²¡æœ‰å‡ºç”Ÿå‘ï¼Œä¼šä»€ä¹ˆç‰¹æŠ€ï¼Ÿ\n");
 
         if (! mapp(ss = ob->query("special_skill")) ||
             ! sizeof(ss))
-                return notify_fail(pro + "ÏÖÔÚºÃÏñÊ²Ã´ÌØ¼¼¶¼²»»áÅ¶¡£\n");
+                return notify_fail(pro + "ç°åœ¨å¥½åƒä»€ä¹ˆç‰¹æŠ€éƒ½ä¸ä¼šå“¦ã€‚\n");
 
         if (arg && (ob == me))
         {
-                // ÓĞ²ÎÊı£¬ÔËÓÃÌØ¼¼¡£
+                // æœ‰å‚æ•°ï¼Œè¿ç”¨ç‰¹æŠ€ã€‚
                 if (me->is_busy())
-                        return notify_fail("ÄãÏÖÔÚÃ¦×ÅÄØ£¬²»ÄÜÊ¹ÓÃÌØ¼¼¡£\n");
+                        return notify_fail("ä½ ç°åœ¨å¿™ç€å‘¢ï¼Œä¸èƒ½ä½¿ç”¨ç‰¹æŠ€ã€‚\n");
 
                 if (sscanf(arg, "%s %s", skill, arg) != 2)
                         skill = arg;
 
                 if (! me->query("special_skill/" + skill))
-                        return notify_fail("Äã²»»áÕâÖÖÌØ¼¼°¡£¡\n");
+                        return notify_fail("ä½ ä¸ä¼šè¿™ç§ç‰¹æŠ€å•Šï¼\n");
 
                 if (file_size(SPECIAL_D(skill) + ".c") < 0)
-                        return notify_fail("ºÃÏñÃ»ÓĞÕâÖÖÌØ¼¼...\n");
+                        return notify_fail("å¥½åƒæ²¡æœ‰è¿™ç§ç‰¹æŠ€...\n");
 
                 return SPECIAL_D(skill)->perform(me, skill, arg);
         }
@@ -52,14 +52,14 @@ int main(object me, string arg)
                    "qinzong", "wuxing", "shenyan", "tiandao",
                 });
 				
-        msg = pro + "ÏÖÔÚ»áÒÔÏÂÕâĞ©ÌØ¼¼£º\n";
+        msg = pro + "ç°åœ¨ä¼šä»¥ä¸‹è¿™äº›ç‰¹æŠ€ï¼š\n";
 		msg1 = "";
 		msg2 = "";
  /*       foreach (skill in keys(ss))
         {
                 if (file_size(SPECIAL_D(skill) + ".c") < 0)
                 {
-                        write("²»´æÔÚ¼¼ÄÜ£º" + skill + "\n");
+                        write("ä¸å­˜åœ¨æŠ€èƒ½ï¼š" + skill + "\n");
                         continue;
                 }
                 msg += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
@@ -82,7 +82,7 @@ int main(object me, string arg)
 		msg += msg1;
 		if (msg2 != "")
 		{
-			msg += HIG " ×ª ÊÀ\n";
+			msg += HIG " è½¬ ä¸–\n";
 			msg += msg2;
 		}
         write(msg);
@@ -92,12 +92,12 @@ int main(object me, string arg)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : special <skill> | <Íæ¼ÒID>
+æŒ‡ä»¤æ ¼å¼ : special <skill> | <ç©å®¶ID>
 
-Ê¹ÓÃÕâÌõÃüÁî¿ÉÒÔ²é¿´ÄãµÄÌØ¼¼£¬Èç¹ûÒªÔËÓÃÄãµÄÌØ¼¼£¬Ôò¿ÉÒÔ¼ÓÉÏ
-²ÎÊıÖ¸ÃûÊ¹ÓÃÊ²Ã´ÌØ¼¼¡£±ÈÈç£ºspecial hatred£¬ÔËÓÃÉ±Æø¡£
+ä½¿ç”¨è¿™æ¡å‘½ä»¤å¯ä»¥æŸ¥çœ‹ä½ çš„ç‰¹æŠ€ï¼Œå¦‚æœè¦è¿ç”¨ä½ çš„ç‰¹æŠ€ï¼Œåˆ™å¯ä»¥åŠ ä¸Š
+å‚æ•°æŒ‡åä½¿ç”¨ä»€ä¹ˆç‰¹æŠ€ã€‚æ¯”å¦‚ï¼šspecial hatredï¼Œè¿ç”¨æ€æ°”ã€‚
 
-Î×Ê¦¿ÉÒÔ²é¿´ÆäËûÍæ¼ÒËù»áµÄÌØÊâ¼¼ÄÜ¡£
+å·«å¸ˆå¯ä»¥æŸ¥çœ‹å…¶ä»–ç©å®¶æ‰€ä¼šçš„ç‰¹æ®ŠæŠ€èƒ½ã€‚
 
 HELP );
     return 1;

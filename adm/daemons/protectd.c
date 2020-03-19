@@ -12,8 +12,8 @@ void protect();
 void create()
 {
         seteuid(ROOT_UID);
-        set("channel_id", "ÊØ»¤¾«Áé");
-        CHANNEL_D->do_channel( this_object(), "sys", "ÊØ»¤¾«ÁéÒÑ¾­Æô¶¯¡£");
+        set("channel_id", "å®ˆæŠ¤ç²¾çµ");
+        CHANNEL_D->do_channel( this_object(), "sys", "å®ˆæŠ¤ç²¾çµå·²ç»å¯åŠ¨ã€‚");
         call_out("protect", 180);
 }
 

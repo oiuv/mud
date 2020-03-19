@@ -1,4 +1,4 @@
-// Inherit: insect.c ¶¾³æ
+// Inherit: insect.c æ¯’è™«
 
 #include <ansi.h>
 inherit NPC;
@@ -9,7 +9,7 @@ void setup()
 {
         mapping p;
 
-        // ¶¾³æ¾ßÓÐ¶¾ÐÔµÈ¼¶ºÍ¶¾Á¿
+        // æ¯’è™«å…·æœ‰æ¯’æ€§ç­‰çº§å’Œæ¯’é‡
 
         p = this_object()->query("insect_poison");
         if (! p)
@@ -41,7 +41,7 @@ void disappear()
 {
         if (living(this_object()))
         {
-                message_vision("$NÁï×ßÁË¡£\n", this_object());
+                message_vision("$Næºœèµ°äº†ã€‚\n", this_object());
                 destruct(this_object());
         }
 }
@@ -62,11 +62,11 @@ varargs void revive(int quiet)
 
         if (env)
         {
-                tell_object(env, "Äã¾õµÃÉíÉÏÓÐµã²»¶Ô¾¢£¬ºÃÏñÊÇ"
-                            "ÅÜµôÁËÊ²Ã´¶«Î÷¡£\n");
+                tell_object(env, "ä½ è§‰å¾—èº«ä¸Šæœ‰ç‚¹ä¸å¯¹åŠ²ï¼Œå¥½åƒæ˜¯"
+                            "è·‘æŽ‰äº†ä»€ä¹ˆä¸œè¥¿ã€‚\n");
         } else
         {
-                message_vision("$NÐÑÁË¹ýÀ´£¬¶¶ÁË¶¶ÉíÌå£¬ºôÀ²Ò»ÏÂ×Ó¾ÍÏûÊ§ÁË¡£\n",
+                message_vision("$Né†’äº†è¿‡æ¥ï¼ŒæŠ–äº†æŠ–èº«ä½“ï¼Œå‘¼å•¦ä¸€ä¸‹å­å°±æ¶ˆå¤±äº†ã€‚\n",
                                this_object());
                 return;
         }

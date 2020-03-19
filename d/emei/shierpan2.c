@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-      set("short", "Ê®¶şÅÌ");
+      set("short", "åäºŒç›˜");
       set("long", @LONG
-ÕâÀïÊ¯½×¶¸ÕÛ¶àÍä£¬ºÅ³Æ¡¸Ê®¶şÅÌ¡¹¡£ÓÉ´ËÎ÷ÉÏ¿É´ï»ªÑÏ
-¶¥£¬¶«ÏÂÔòµ½ÍòÄêâÖ¡£
+è¿™é‡ŒçŸ³é˜¶é™¡æŠ˜å¤šå¼¯ï¼Œå·ç§°ã€ŒåäºŒç›˜ã€ã€‚ç”±æ­¤è¥¿ä¸Šå¯è¾¾åä¸¥
+é¡¶ï¼Œä¸œä¸‹åˆ™åˆ°ä¸‡å¹´åºµã€‚
 LONG);
       set("outdoors", "emei");
       set("exits", ([
@@ -31,11 +31,11 @@ int valid_leave(object me, string dir)
                         if (me->can_improve_skill("dodge") && c_skill < 100)
                                 me->improve_skill("dodge", 1 + c_skill / 15);
 
-                        tell_object(me, HIC "ÄãÅÀÉÏÊ®¶şÅÌ£¬ÓĞĞ©ÀÛÁË¡£\n" NOR);
+                        tell_object(me, HIC "ä½ çˆ¬ä¸ŠåäºŒç›˜ï¼Œæœ‰äº›ç´¯äº†ã€‚\n" NOR);
                 } else
                 {
                         me->set("qi", 0);
-                        tell_object(me, HIR "ÄãÌ«ÀÛÁË£¬ÔÙÒ²×ß²»¶¯ÁË¡£\n" NOR);
+                        tell_object(me, HIR "ä½ å¤ªç´¯äº†ï¼Œå†ä¹Ÿèµ°ä¸åŠ¨äº†ã€‚\n" NOR);
                         return -1;
                 }
       }

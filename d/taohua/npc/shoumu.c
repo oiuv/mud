@@ -1,14 +1,14 @@
-// shoumu.c ÊØÄ¹¼ÒÅ«
+// shoumu.c å®ˆå¢“å®¶å¥´
 
 inherit NPC;
 
 void create()
 {
-        set_name("ÊØÄ¹¼ÒÅ«", ({ "shou mu" }));
+        set_name("å®ˆå¢“å®¶å¥´", ({ "shou mu" }));
         set("age", 28);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("long",
-"ËûÊÇÌÒ»¨µºµºÖ÷·òÈËµÄÊØÄ¹¼ÒÅ«¡£\n");
+"ä»–æ˜¯æ¡ƒèŠ±å²›å²›ä¸»å¤«äººçš„å®ˆå¢“å®¶å¥´ã€‚\n");
         set("attitude", "peaceful");
         set("str", 24);
         set("dex", 16);
@@ -32,7 +32,7 @@ void create()
         map_skill("dodge", "anying-fuxiang");
         map_skill("unarmed", "jiuyin-baiguzhao");
 
-        create_family("ÌÒ»¨µº", 3, "ÊØÄ¹µÜ×Ó");
+        create_family("æ¡ƒèŠ±å²›", 3, "å®ˆå¢“å¼Ÿå­");
         setup();
         carry_object("/clone/cloth/cloth")->wear();
 }

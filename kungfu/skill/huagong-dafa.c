@@ -1,4 +1,4 @@
-// huagong-dafa.c »¯¹¦´ó·¨
+// huagong-dafa.c åŒ–åŠŸå¤§æ³•
 // Modified by rcwiz 2003
 
 #include <ansi.h>
@@ -22,29 +22,29 @@ int query_neili_improve(object me)
 
 int valid_learn(object me)
 {
-        if (me->query("character") == "¹âÃ÷ÀÚÂä")
-                return notify_fail("ÄãĞÄÖĞ°µÏë£ºÎÒÎªÈË¹âÃ÷ÀÚÂä£¬ÆñÄÜÑ§Ï°ÕâÖÖº¦ÈËÎä¹¦£¿\n");
+        if (me->query("character") == "å…‰æ˜ç£Šè½")
+                return notify_fail("ä½ å¿ƒä¸­æš—æƒ³ï¼šæˆ‘ä¸ºäººå…‰æ˜ç£Šè½ï¼Œå²‚èƒ½å­¦ä¹ è¿™ç§å®³äººæ­¦åŠŸï¼Ÿ\n");
 
-        if (me->query("character") == "½Æ÷ï¶à±ä")
-                return notify_fail("ÄãĞÄÖĞ°µÏë£ºÎÒËäÈ»²»ÊÇÇ«Ç«¾ı×Ó£¬µ«ÕâÖÖËğÈË²»Àû¼ºµÄÎä¹¦Ñ§À´ºÎÓÃ£¿\n");
+        if (me->query("character") == "ç‹¡é» å¤šå˜")
+                return notify_fail("ä½ å¿ƒä¸­æš—æƒ³ï¼šæˆ‘è™½ç„¶ä¸æ˜¯è°¦è°¦å›å­ï¼Œä½†è¿™ç§æŸäººä¸åˆ©å·±çš„æ­¦åŠŸå­¦æ¥ä½•ç”¨ï¼Ÿ\n");
 
         if (me->query("con") < 30)
-                return notify_fail("ÄãÊÔ×ÅÔË×ªÁËÒ»ÏÂÄÚÁ¦£¬µÇÊ±¾õµÃĞØÃÆÄÑÄÍ£¡\n");
+                return notify_fail("ä½ è¯•ç€è¿è½¬äº†ä¸€ä¸‹å†…åŠ›ï¼Œç™»æ—¶è§‰å¾—èƒ¸é—·éš¾è€ï¼\n");
 
         if ((int)me->query_skill("force", 1) < 120)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ğºò²»×ã£¬²»ÄÜÑ§»¯¹¦´ó·¨¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™ä¸è¶³ï¼Œä¸èƒ½å­¦åŒ–åŠŸå¤§æ³•ã€‚\n");
 
         if ((int)me->query_skill("poison", 1) < 120)
-                return notify_fail("ÄãµÄ»ù±¾¶¾¼¼»ğºò²»×ã£¬²»ÄÜÑ§»¯¹¦´ó·¨¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬æ¯’æŠ€ç«å€™ä¸è¶³ï¼Œä¸èƒ½å­¦åŒ–åŠŸå¤§æ³•ã€‚\n");
 
-        if (me->query("gender") == "ÎŞĞÔ" && (int)me->query_skill("huagong-dafa", 1) > 99)
-                return notify_fail("ÄãÎŞ¸ùÎŞĞÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄ»¯¹¦´ó·¨¡£\n");
+        if (me->query("gender") == "æ— æ€§" && (int)me->query_skill("huagong-dafa", 1) > 99)
+                return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„åŒ–åŠŸå¤§æ³•ã€‚\n");
 
         if ((int)me->query_skill("poison", 1) < (int)me->query_skill("huagong-dafa", 1))
-                return notify_fail("ÄãµÄ»ù±¾¶¾¼¼Ë®Æ½ÓĞÏŞ£¬²»ÄÜÁì»á¸ü¸ßÉîµÄ»¯¹¦´ó·¨¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬æ¯’æŠ€æ°´å¹³æœ‰é™ï¼Œä¸èƒ½é¢†ä¼šæ›´é«˜æ·±çš„åŒ–åŠŸå¤§æ³•ã€‚\n");
 
         if ((int)me->query_skill("force", 1) < (int)me->query_skill("huagong-dafa", 1))
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦Ë®Æ½ÓĞÏŞ£¬²»ÄÜÁì»á¸ü¸ßÉîµÄ»¯¹¦´ó·¨¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸæ°´å¹³æœ‰é™ï¼Œä¸èƒ½é¢†ä¼šæ›´é«˜æ·±çš„åŒ–åŠŸå¤§æ³•ã€‚\n");
 
         return ::valid_learn(me);
 }
@@ -77,17 +77,17 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
 				switch (random(3))
                 {
                 case 0:
-                        result += ([ "msg" : HIM "$N" HIM "Ö»¾õµÃÄÚÁ¦Ô´Ô´¶øĞº"
-                                             "£¬²»ÓÉµÃ´ó³ÔÒ»¾ª¡£\n" NOR ]);
+                        result += ([ "msg" : HIM "$N" HIM "åªè§‰å¾—å†…åŠ›æºæºè€Œæ³»"
+                                             "ï¼Œä¸ç”±å¾—å¤§åƒä¸€æƒŠã€‚\n" NOR ]);
                         break;
                 case 1:
-                        result += ([ "msg" : HIM "$N" HIM "Ö»¾õµÃ·¢³öµÄÄÚÁ¦ÓÌ"
-                                             "ÈçÊ¯³Á´óº££¬²»ÖªËù×Ù¡£\n" NOR ]);
+                        result += ([ "msg" : HIM "$N" HIM "åªè§‰å¾—å‘å‡ºçš„å†…åŠ›çŠ¹"
+                                             "å¦‚çŸ³æ²‰å¤§æµ·ï¼Œä¸çŸ¥æ‰€è¸ªã€‚\n" NOR ]);
                         break;
 
                 default:
-                        result += ([ "msg" : HIM "$N" HIM "²»×¡´ß¶¯ÄÚÁ¦£¬µ«ÊÇ"
-                                             "Ö»¾õµÃ$n¾¹ËÆºÁ²»·ÑÁ¦¡£\n" NOR ]);
+                        result += ([ "msg" : HIM "$N" HIM "ä¸ä½å‚¬åŠ¨å†…åŠ›ï¼Œä½†æ˜¯"
+                                             "åªè§‰å¾—$nç«Ÿä¼¼æ¯«ä¸è´¹åŠ›ã€‚\n" NOR ]);
                         break;
                 }
 				
@@ -105,7 +105,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
 
 int practice_skill(object me)
 {
-        return notify_fail("»¯¹¦´ó·¨Ö»ÄÜÓÃÑ§(learn)»òÁ·¶¾µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("åŒ–åŠŸå¤§æ³•åªèƒ½ç”¨å­¦(learn)æˆ–ç»ƒæ¯’çš„æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)

@@ -1,25 +1,25 @@
-// power.c ÌìÉñ½µÊÀ
+// power.c å¤©ç¥é™ä¸–
 // Created by Doing Lu 10/7/2K
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return HIY "ÌìÉñ½µÊÀ" NOR; }
+string name() { return HIY "å¤©ç¥é™ä¸–" NOR; }
 
 int perform(object me, string skill)
 {
         int count;
 
         if (me->query("qi") < 80)
-                return notify_fail("ÄãµÄÌåÁ¦²»Ö§£¬ÎŞ·¨Ñ¸ÃÍÌáÉı×Ô¼ºµÄÕ½¶·Á¦¡£\n");
+                return notify_fail("ä½ çš„ä½“åŠ›ä¸æ”¯ï¼Œæ— æ³•è¿…çŒ›æå‡è‡ªå·±çš„æˆ˜æ–—åŠ›ã€‚\n");
 
-        message_vision(HIY "$N" HIY "Ë«±ÛÒ»ÉìÒ»Ëõ£¬Ï¥²¿Î¢Íä£¬"
-                       "×÷ÊÆÓûÆË¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "åŒè‡‚ä¸€ä¼¸ä¸€ç¼©ï¼Œè†éƒ¨å¾®å¼¯ï¼Œ"
+                       "ä½œåŠ¿æ¬²æ‰‘ã€‚\n" NOR, me);
         count = me->query_str();
 
         if (me->query_temp("special_skill/power", 1))
-                return notify_fail("ÄãÒÑ¾­¾¡Á¦ÌáÉı×Ô¼ºµÄÕ½¶·Á¦ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»å°½åŠ›æå‡è‡ªå·±çš„æˆ˜æ–—åŠ›äº†ã€‚\n");
 
         me->receive_damage("qi", 40 + random(40));
         me->set_temp("special_skill/power", 1);
@@ -34,5 +34,5 @@ void remove_effect(object me, int count)
 {
         me->delete_temp("special_skill/power", 1);
         me->add_temp("apply/attack", -count);
-        tell_object(me, "ÄãÊ©Õ¹ÍêÌìÉñ½µÊÀ£¬ËÉÁËÒ»¿ÚÆø¡£\n");
+        tell_object(me, "ä½ æ–½å±•å®Œå¤©ç¥é™ä¸–ï¼Œæ¾äº†ä¸€å£æ°”ã€‚\n");
 }

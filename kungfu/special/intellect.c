@@ -1,14 +1,14 @@
-// intellect.c 罡睿神慧
+// intellect.c 缃＄澘绁炴収
 // Created by Vin 1/9/2001
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return HIG "罡睿神慧" NOR; }
+string name() { return HIG "缃＄澘绁炴収" NOR; }
 
 int perform(object me, string skill)
 {
-        return notify_fail("这项技能能够使你悟性更高，不需要运用。\n");
+        return notify_fail("杩欓」鎶�鑳借兘澶熶娇浣犳偀鎬ф洿楂橈紝涓嶉渶瑕佽繍鐢ㄣ�俓n");
 }
 

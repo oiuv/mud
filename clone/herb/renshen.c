@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(HIW "ÈË²Î" NOR, ({ "ren shen", "ren", "shen", "herb_renshen" }));
+        set_name(HIW "äººå‚" NOR, ({ "ren shen", "ren", "shen", "herb_renshen" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIW "ÈË²ÎÊÇÆÄÎªÃû¹óµÄÖĞÒ©Ò©²Ä¡£\n" NOR);
-                set("base_unit", "¸ù");
+                set("long", HIW "äººå‚æ˜¯é¢‡ä¸ºåè´µçš„ä¸­è¯è¯æã€‚\n" NOR);
+                set("base_unit", "æ ¹");
                 set("base_value", 10000);
                 set("base_weight", 90);
         }

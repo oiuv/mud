@@ -5,18 +5,18 @@ inherit XSWORD;
 
 void create()
 {
-        set_name(HIW "Óñóï" NOR, ({ "yu xiao", "yu", "xiao" }));
+        set_name(HIW "ç‰ç®«" NOR, ({ "yu xiao", "yu", "xiao" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "Ö§");
-                set("long", HIW "Ò»Ö§°×Óñ×ö³ÉµÄÓñóï£¬¿´ÉÏÈ¥¾§Ó¨ÎÂÈó¡£ÎäÁÖÖĞÈË¾­³£ÒÔóï´ú½£¡£\n" NOR);
+                set("unit", "æ”¯");
+                set("long", HIW "ä¸€æ”¯ç™½ç‰åšæˆçš„ç‰ç®«ï¼Œçœ‹ä¸Šå»æ™¶è¹æ¸©æ¶¦ã€‚æ­¦æ—ä¸­äººç»å¸¸ä»¥ç®«ä»£å‰‘ã€‚\n" NOR);
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "stone");
-                set("wield_msg", HIW "$N" HIW "´óĞäÒ»»Ó£¬ÊÖÖĞÒÑ¶àÁËÒ»Ö§¾§Ó¨ÎÂÈóµÄÓñóï¡£\n" NOR);
-                set("unwield_msg", HIW "$N" HIW "ÊÖÖĞÓñÏôÒ»×ª£¬Õ£ÑÛ¼äÓñóïÒÑÈ»²»¼ûÓ°×Ù¡£\n" NOR);
+                set("wield_msg", HIW "$N" HIW "å¤§è¢–ä¸€æŒ¥ï¼Œæ‰‹ä¸­å·²å¤šäº†ä¸€æ”¯æ™¶è¹æ¸©æ¶¦çš„ç‰ç®«ã€‚\n" NOR);
+                set("unwield_msg", HIW "$N" HIW "æ‰‹ä¸­ç‰è§ä¸€è½¬ï¼Œçœ¨çœ¼é—´ç‰ç®«å·²ç„¶ä¸è§å½±è¸ªã€‚\n" NOR);
                 set("stable", 100);
         }
         init_xsword(90);
@@ -37,15 +37,15 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         case 0:
                 if (! victim->is_busy())
                 victim->start_busy(me->query_skill("sword") / 10 + 2);
-                return HIW "Í»È»¼äÒ»Õó¼âÈñµÄóïÉùÖÁ$N" HIW "´¦´«À´£¬$n" HIW
-                       "¶ÙÊ±Ö»¾õµÃÌ«ÑôÑ¨ÒşÒş´ÌÍ´£¡\n" NOR;
+                return HIW "çªç„¶é—´ä¸€é˜µå°–é”çš„ç®«å£°è‡³$N" HIW "å¤„ä¼ æ¥ï¼Œ$n" HIW
+                       "é¡¿æ—¶åªè§‰å¾—å¤ªé˜³ç©´éšéšåˆºç—›ï¼\n" NOR;
 
         case 1:
                 n = me->query_skill("sword");
                 victim->receive_damage("jing", n / 3, me);
                 victim->receive_wound("jing", n / 3, me);
-                return HIW "$N" HIW "ÊÖÖĞÓñóïËæÕĞÊ½¼¤µ´³öÕóÕóóïÒô£¬$n" HIW
-                       "¶ÙÊ±Ö»¾õÆøÑªÉÏÓ¿£¬ÄÑÊÜÖ®¼«£¡\n" NOR;
+                return HIW "$N" HIW "æ‰‹ä¸­ç‰ç®«éšæ‹›å¼æ¿€è¡å‡ºé˜µé˜µç®«éŸ³ï¼Œ$n" HIW
+                       "é¡¿æ—¶åªè§‰æ°”è¡€ä¸Šæ¶Œï¼Œéš¾å—ä¹‹æï¼\n" NOR;
         }
         return damage_bonus;
 }

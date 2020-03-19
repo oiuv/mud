@@ -5,14 +5,14 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ÆîÖ¾³Ï", ({ "qi zhicheng", "qi", "zhicheng" }));
-        set("gender", "ÄÐÐÔ");
+        set_name("ç¥å¿—è¯š", ({ "qi zhicheng", "qi", "zhicheng" }));
+        set("gender", "ç”·æ€§");
         set("age", 24);
         set("class", "taoist");
         set("long", @LONG
-Ëû¾ÍÊÇÈ«Õæ½ÌµÚÈý´úµÜ×ÓÖÐµÄºÃÊÖ£¬Ì·´¦¶ËµÄ
-´óµÜ×ÓÆîÖ¾³Ï¡£ËûÏàÃ²Ó¢¿¡£¬¾«Ã÷ÄÜ¸É£¬ÉîÊÜ
-³¤±²µÄÐÅÈÎ¡£
+ä»–å°±æ˜¯å…¨çœŸæ•™ç¬¬ä¸‰ä»£å¼Ÿå­ä¸­çš„å¥½æ‰‹ï¼Œè°­å¤„ç«¯çš„
+å¤§å¼Ÿå­ç¥å¿—è¯šã€‚ä»–ç›¸è²Œè‹±ä¿Šï¼Œç²¾æ˜Žèƒ½å¹²ï¼Œæ·±å—
+é•¿è¾ˆçš„ä¿¡ä»»ã€‚
 LONG);
         set("attitude", "friendly");
         set("shen_type",1);
@@ -54,7 +54,7 @@ LONG);
         prepare_skill("finger", "zhongnan-zhi");
         prepare_skill("strike", "chongyang-shenzhang");
 
-        create_family("È«Õæ½Ì", 3, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 3, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -78,10 +78,10 @@ void attempt_apprentice(object ob)
 
         if ((int)ob->query("shen") < 2000)
         {
-                command("say ÄãÐÐÏÀÕÌÒåÖ®ÊÂ×öµÃÌ«ÉÙ£¬ÎÒ²»ÄÜÊÕÄã¡£\n");
+                command("say ä½ è¡Œä¾ ä»—ä¹‰ä¹‹äº‹åšå¾—å¤ªå°‘ï¼Œæˆ‘ä¸èƒ½æ”¶ä½ ã€‚\n");
                 return;
         }
 
-        command("say ºÃ°É£¬ÄÇÄã¾Í¸ú×ÅÎÒ£¬Ã»ÊÂ°ïÃ¦´ò´òÏÂÊÖÒ²ºÃ¡£");
+        command("say å¥½å§ï¼Œé‚£ä½ å°±è·Ÿç€æˆ‘ï¼Œæ²¡äº‹å¸®å¿™æ‰“æ‰“ä¸‹æ‰‹ä¹Ÿå¥½ã€‚");
         command("recruit " + ob->query("id"));
 }

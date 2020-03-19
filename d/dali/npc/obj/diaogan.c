@@ -3,18 +3,18 @@ inherit WHIP;
 
 void create()
 {
-	set_name("µö¸Ë", ({ "diao gan", "diao", "gan" }));
+	set_name("é’“æ†", ({ "diao gan", "diao", "gan" }));
 	set_weight(5000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¸ù");
-		set("long", "ÕâÊÇÒ»¸ùÏ¸³¤µÄÌú¸Ë£¬ÃÍÈ»Ò»¿´²»¹ıÊÇ¸ùÆÕÍ¨µöÓãÓÃµÄµõ¸Ë¡£\n");
+		set("unit", "æ ¹");
+		set("long", "è¿™æ˜¯ä¸€æ ¹ç»†é•¿çš„é“æ†ï¼ŒçŒ›ç„¶ä¸€çœ‹ä¸è¿‡æ˜¯æ ¹æ™®é€šé’“é±¼ç”¨çš„åŠæ†ã€‚\n");
 		set("value", 1500);
 		set("rigidity",100);
 		set("material", "steel");
-		set("wield_msg", "$N³é³öÒ»¸ù$nÎÕÔÚÊÖÖĞ¡£\n");
-		set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»ØÑü¼ä¡£\n");
+		set("wield_msg", "$NæŠ½å‡ºä¸€æ ¹$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+		set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›è…°é—´ã€‚\n");
 	}
   	init_whip(30);
 	setup();

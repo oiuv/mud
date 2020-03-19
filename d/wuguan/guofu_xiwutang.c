@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ϰ����");
+        set("short", "习武堂");
         set("long", @LONG
-�����ǹ����ڵ�ϰ���ã�����һ����ͷ�ڽ����书������
-�����������ͷѧϰ�����������Ϸ����Ÿ��ң�����д�ų�
-�ÿ��п࣬��Ϊ�����ˡ�
+这里是郭府内的习武堂，堂内一个教头在教着武功，几个
+新手正在向教头学习功夫，堂子正上方挂着个匾，上面写着吃
+得苦中苦，放为人上人。
 LONG);
         set("no_fight", 1);
         set("exits", ([

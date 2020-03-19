@@ -1,14 +1,14 @@
-// wrath.c ·ßÅ­Ö®ĞÄ
+// wrath.c æ„¤æ€’ä¹‹å¿ƒ
 // Created by Vin 25/5/2002
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return HIR "·ßÅ­Ö®ĞÄ" NOR; }
+string name() { return HIR "æ„¤æ€’ä¹‹å¿ƒ" NOR; }
 
 int perform(object me, string skill)
 {
-        return notify_fail("ÕâÏî¼¼ÄÜÄÜ¹»Ôö¼ÓÄãµÄ¼ÓÅ­ÉÏÏŞ£¬²»ĞèÒªÔËÓÃ¡£\n");
+        return notify_fail("è¿™é¡¹æŠ€èƒ½èƒ½å¤Ÿå¢åŠ ä½ çš„åŠ æ€’ä¸Šé™ï¼Œä¸éœ€è¦è¿ç”¨ã€‚\n");
 }
 

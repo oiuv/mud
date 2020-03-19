@@ -7,13 +7,13 @@ inherit HEAD;
 
 void create()
 {
-	set_name( HIC "Í·¿ø" NOR, ({ "tou kui", "kui" }) );
+	set_name( HIC "å¤´ç›”" NOR, ({ "tou kui", "kui" }) );
 	set_weight(500);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¶¥");
-                set("long", "ÕâÊÇÒ»¶¥½ğÊôÍ·¿ø£¬ÓÃÒÔ±£»¤Í·²¿¡£\n");
+		set("unit", "é¡¶");
+                set("long", "è¿™æ˜¯ä¸€é¡¶é‡‘å±å¤´ç›”ï¼Œç”¨ä»¥ä¿æŠ¤å¤´éƒ¨ã€‚\n");
 		set("value", 100);
 		set("material", "head");
 		set("armor_prop/armor", 10);

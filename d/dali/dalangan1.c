@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�����");
+        set("short", "大杆栏");
         set("long", @LONG
-����һ�ô��������������ڴ˽���һ���൱��ĸ�������
-��������һ��Ȧ��ʮ��ͷţ���Աߵ�¥���޵��Ŀ���������
-���Ǳ��ص������˼ҡ�
+依着一棵大榕树，摆夷人在此建了一座相当大的杆栏。下
+层这里有一满圈的十几头牛羊。旁边的楼梯修得颇宽。看来这
+里是本地的体面人家。
 LONG);
         set("objects", ([
                 "/clone/quarry/yang2" : 2,

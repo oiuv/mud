@@ -23,10 +23,10 @@ int  check_legal_id(string name);
 void confirm_dispose(string arg, object ob, object fabao_ob);
 
 string* pet_type_name = ({
-        "Âí", "Â¿", "Ââ", "ÍÕ", "Å£", "Ïó",
-        "Ê¨", "»¢", "±ª", "Â¹", "º×", "µñ",
-        "Ñò", "ºï", "ĞÜ", "ÀÇ", "ºü", "õõ",
-        "¾Ô", "ÊŞ",
+        "é©¬", "é©´", "éª¡", "é©¼", "ç‰›", "è±¡",
+        "ç‹®", "è™", "è±¹", "é¹¿", "é¹¤", "é›•",
+        "ç¾Š", "çŒ´", "ç†Š", "ç‹¼", "ç‹", "è²‚",
+        "é©¹", "å…½",
 });
 
 string* pet_id_surfix = ({
@@ -37,20 +37,20 @@ string* pet_id_surfix = ({
 });
 
 string* pet_unit_name=({
-        "Æ¥", "Í·", "Í·", "Í·", "Í·", "Í·",
-        "Ö»", "Ö»", "Ö»", "Í·", "Ö»", "Ö»",
-        "Í·", "Ö»", "Ö»", "Ìõ", "Ö»", "Ö»",
-        "Æ¥", "Í·",
+        "åŒ¹", "å¤´", "å¤´", "å¤´", "å¤´", "å¤´",
+        "åª", "åª", "åª", "å¤´", "åª", "åª",
+        "å¤´", "åª", "åª", "æ¡", "åª", "åª",
+        "åŒ¹", "å¤´",
 });
 
 void create()
 {
-        set_name("ÀÏ°å", ({"pet boss", "boss"}));
-        set("title", "³èÎïµêÀÏ°å");
-        set("gender", "ÄĞĞÔ");
+        set_name("è€æ¿", ({"pet boss", "boss"}));
+        set("title", "å® ç‰©åº—è€æ¿");
+        set("gender", "ç”·æ€§");
         set("age", 32);
-        set("long", "Ò»¸öÉí×ÅÆÓËØµÄÀÏ°å£¬ÊÇ¹Ø¶«´ó·çÌÃÉèÔÚ³¤°²¶«½¼Ìá¹©¸÷Àà×øÆïµÄ¡£\n"
-                    "ÔÚÕâÀïÄã¿ÉÒÔÑ¡Ôñ(choose)×Ô¼º³ÆĞÄÈçÒâµÄ×øÆï¡£\n");
+        set("long", "ä¸€ä¸ªèº«ç€æœ´ç´ çš„è€æ¿ï¼Œæ˜¯å…³ä¸œå¤§é£å ‚è®¾åœ¨é•¿å®‰ä¸œéƒŠæä¾›å„ç±»åéª‘çš„ã€‚\n"
+                    "åœ¨è¿™é‡Œä½ å¯ä»¥é€‰æ‹©(choose)è‡ªå·±ç§°å¿ƒå¦‚æ„çš„åéª‘ã€‚\n");
                     
         set("attitude", "peaceful");
         set_skill("training", 400);
@@ -73,20 +73,20 @@ int do_selete()
         object me = this_player();
                    
         if (me->query_skill("training", 1) < 30)
-                return notify_fail("ÄãµÄÔ¦ÊŞÊõÌ«µÍÁË£¬¼´Ê¹ÑøÁË×øÆï£¬Ò²»áÀëÄã¶øÈ¥¡£\n");
+                return notify_fail("ä½ çš„é©­å…½æœ¯å¤ªä½äº†ï¼Œå³ä½¿å…»äº†åéª‘ï¼Œä¹Ÿä¼šç¦»ä½ è€Œå»ã€‚\n");
         
         if (! me->query_temp("pet/money"))
         {
-                command("say ÕâÎ»" + RANK_D->query_respect(me) + "£¬Ã¿Ö»³èÎïÒ»°ÙÁ½»Æ½ğ£¡");
+                command("say è¿™ä½" + RANK_D->query_respect(me) + "ï¼Œæ¯åªå® ç‰©ä¸€ç™¾ä¸¤é»„é‡‘ï¼");
                 return 1;
         }
                                
-        write("ÄúÒªÑøÄÄÀà×øÆï£º\n");
-        write(" 1. Âí   2. Â¿   3. Ââ   4. ÍÕ  5. Å£  6. Ïó\n");
-        write(" 7. Ê¨   8. »¢   9. ±ª  10. Â¹ 11. º× 12. µñ\n");
-        write("13. Ñò  14. ºï  15. ĞÜ  16. ÀÇ 17. ºü 18. õõ\n");
-        write("19. ¾Ô  20. ÊŞ\n");
-        write("ÇëÑ¡Ôñ£º(q ¼üÈ¡Ïû)");
+        write("æ‚¨è¦å…»å“ªç±»åéª‘ï¼š\n");
+        write(" 1. é©¬   2. é©´   3. éª¡   4. é©¼  5. ç‰›  6. è±¡\n");
+        write(" 7. ç‹®   8. è™   9. è±¹  10. é¹¿ 11. é¹¤ 12. é›•\n");
+        write("13. ç¾Š  14. çŒ´  15. ç†Š  16. ç‹¼ 17. ç‹ 18. è²‚\n");
+        write("19. é©¹  20. å…½\n");
+        write("è¯·é€‰æ‹©ï¼š(q é”®å–æ¶ˆ)");
         
         input_to( (: get_subtype :), me);
         return 1;
@@ -102,13 +102,13 @@ void get_subtype(string arg, object ob)
     
         if (order <= 0 || order > 20)  
         {               
-                write("µ½´ó·çÌÃ×öÂòÂô¾ÍµÃÊØ¹æ¾Ø£¬Ñ¡ÁË×øÆï¾Í²»ÄÜºó»ÚÁË£¬³ı·ÇÑøÁËÒ²²»ÓÃËü£º\n");
-                write("ÄúÒªÑøÄÄÀà×øÆï£º\n");
-                write(" 1. Âí   2. Â¿   3. Ââ   4. ÍÕ  5. Å£  6. Ïó\n");
-                write(" 7. Ê¨   8. »¢   9. ±ª  10. Â¹ 11. º× 12. µñ\n");
-                write("13. Ñò  14. ºï  15. ĞÜ  16. ÀÇ 17. ºü 18. õõ\n");
-                write("19. ¾Ô  20. ÊŞ\n");
-                write("ÇëÑ¡Ôñ£º(q ¼üÈ¡Ïû)");
+                write("åˆ°å¤§é£å ‚åšä¹°å–å°±å¾—å®ˆè§„çŸ©ï¼Œé€‰äº†åéª‘å°±ä¸èƒ½åæ‚”äº†ï¼Œé™¤éå…»äº†ä¹Ÿä¸ç”¨å®ƒï¼š\n");
+                write("æ‚¨è¦å…»å“ªç±»åéª‘ï¼š\n");
+                write(" 1. é©¬   2. é©´   3. éª¡   4. é©¼  5. ç‰›  6. è±¡\n");
+                write(" 7. ç‹®   8. è™   9. è±¹  10. é¹¿ 11. é¹¤ 12. é›•\n");
+                write("13. ç¾Š  14. çŒ´  15. ç†Š  16. ç‹¼ 17. ç‹ 18. è²‚\n");
+                write("19. é©¹  20. å…½\n");
+                write("è¯·é€‰æ‹©ï¼š(q é”®å–æ¶ˆ)");
                 input_to( (: get_subtype :), ob);
                 return;
         }
@@ -116,7 +116,7 @@ void get_subtype(string arg, object ob)
         ob->set_temp("pet/pet_type",  order);
 
         write("\n");
-        write("ÇëÉè¶¨×øÆïµÄĞÔ±ğ(ĞÛĞÔ£º1  ´ÆĞÔ£º0)£º");
+        write("è¯·è®¾å®šåéª‘çš„æ€§åˆ«(é›„æ€§ï¼š1  é›Œæ€§ï¼š0)ï¼š");
         input_to( (: get_gender :), ob ); 
 }
 
@@ -129,16 +129,16 @@ void get_gender(string arg, object ob)
         if (gender != 0 && gender != 1)  
         {
                 write("\n");
-                write("ÇëÉè¶¨×øÆïµÄĞÔ±ğ(ĞÛĞÔ£º1  ´ÆĞÔ£º0)£º");
+                write("è¯·è®¾å®šåéª‘çš„æ€§åˆ«(é›„æ€§ï¼š1  é›Œæ€§ï¼š0)ï¼š");
                 input_to( (: get_gender :), ob );
                 return;
         }
-        ob->set_temp("pet/pet_gender", gender ? "ÄĞĞÔ" : "Å®ĞÔ");
+        ob->set_temp("pet/pet_gender", gender ? "ç”·æ€§" : "å¥³æ€§");
 
         write("\n");
-        write("ÏÖÔÚÄã¿ÉÒÔÉè¶¨Ó¢ÎÄ id £¬Çë×¢Òâ£¬ÄãÉè¶¨µÄÓ¢ÎÄ id »á×Ô¶¯¼ÓÉÏºó×º×øÆïÖÖÀà id¡£\n");
-        write("±ÈÈçÄãÏëÉè¶¨µÄ id ÊÇ biyunwulong ju£¬ÄÇÃ´ÄãÖ»ÒªÊäÈë biyunwulong ¾Í¿ÉÒÔ¡£\n");        
-        write("ÇëÉè¶¨Ó¢ÎÄ id £º");
+        write("ç°åœ¨ä½ å¯ä»¥è®¾å®šè‹±æ–‡ id ï¼Œè¯·æ³¨æ„ï¼Œä½ è®¾å®šçš„è‹±æ–‡ id ä¼šè‡ªåŠ¨åŠ ä¸Šåç¼€åéª‘ç§ç±» idã€‚\n");
+        write("æ¯”å¦‚ä½ æƒ³è®¾å®šçš„ id æ˜¯ biyunwulong juï¼Œé‚£ä¹ˆä½ åªè¦è¾“å…¥ biyunwulong å°±å¯ä»¥ã€‚\n");        
+        write("è¯·è®¾å®šè‹±æ–‡ id ï¼š");
         input_to( (: get_id :), ob );
 }
 
@@ -152,7 +152,7 @@ int check_legal_id(string id)
         
         if ((strlen(id) < 3) || (strlen(id) > 20)) 
         {
-                write("¶Ô²»Æğ£¬Ó¢ÎÄ id ±ØĞëÊÇ 3 µ½ 20 ¸öÓ¢ÎÄ×ÖÄ¸¡£\n");
+                write("å¯¹ä¸èµ·ï¼Œè‹±æ–‡ id å¿…é¡»æ˜¯ 3 åˆ° 20 ä¸ªè‹±æ–‡å­—æ¯ã€‚\n");
                 return 0;
         }
         
@@ -160,7 +160,7 @@ int check_legal_id(string id)
         
         if (id[i] != ' ' && (id[i] < 'a' || id[i] > 'z'))  
         {
-                write("¶Ô²»Æğ£¬Ó¢ÎÄ id Ö»ÄÜÓÃÓ¢ÎÄ×ÖÄ¸¡£\n");
+                write("å¯¹ä¸èµ·ï¼Œè‹±æ–‡ id åªèƒ½ç”¨è‹±æ–‡å­—æ¯ã€‚\n");
                 return 0;
         }
 
@@ -168,14 +168,14 @@ int check_legal_id(string id)
         
         if (ppl || id == "guest" || id == "new") 
         {
-                write("Õâ¸öÃû×ÖÓë±ğµÄÍæ¼ÒIDÏàÍ¬ÁË£®£®£®");
+                write("è¿™ä¸ªåå­—ä¸åˆ«çš„ç©å®¶IDç›¸åŒäº†ï¼ï¼ï¼");
                 return 0;
         }
 
         if (file_size(sprintf("/data/user/%c/%s", id[0], id)
                     + __SAVE_EXTENSION__) >= 0) 
         {
-                write("Õâ¸öÃû×ÖÒÑ¾­±»±ğµÄÍæ¼ÒÊ¹ÓÃÁË£®£®£®");
+                write("è¿™ä¸ªåå­—å·²ç»è¢«åˆ«çš„ç©å®¶ä½¿ç”¨äº†ï¼ï¼ï¼");
                 return 0;
         } 
         /*        
@@ -184,7 +184,7 @@ int check_legal_id(string id)
         {
                 if (id == legalid[i])   
                 {
-                        write("¶Ô²»Æğ£¬ÕâÖÖ id »áÔì³ÉÆäËûÈËµÄÀ§ÈÅ¡£\n");
+                        write("å¯¹ä¸èµ·ï¼Œè¿™ç§ id ä¼šé€ æˆå…¶ä»–äººçš„å›°æ‰°ã€‚\n");
                         return 0;
                 }
         }
@@ -200,20 +200,20 @@ int check_legal_name(string name, int max_len)
         i = strlen(name);
         if ((strlen(name) < 2) || (strlen(name) > max_len )) 
         {
-                write(sprintf("¶Ô²»Æğ£¬×øÆïÖĞÎÄ×Ö±ØĞëÊÇ 1 µ½ %d ¸öÖĞÎÄ×Ö¡£\n",
+                write(sprintf("å¯¹ä¸èµ·ï¼Œåéª‘ä¸­æ–‡å­—å¿…é¡»æ˜¯ 1 åˆ° %d ä¸ªä¸­æ–‡å­—ã€‚\n",
                       max_len / 2));
                 return 0;
         }
         
-        if (max_len < 13 && strsrch(NAME_D->who_is(name), "Äà") >= 0)
+        if (max_len < 13 && strsrch(NAME_D->who_is(name), "æ³¥") >= 0)
         {
-                write("¶Ô²»Æğ£¬×øÆïµÄÃû×Ö²»ÄÜºÍÍæ¼ÒµÄÃû×ÖÖØ¸´¡£\n"); 
+                write("å¯¹ä¸èµ·ï¼Œåéª‘çš„åå­—ä¸èƒ½å’Œç©å®¶çš„åå­—é‡å¤ã€‚\n"); 
                 return 0;
         }
 
         if (max_len < 13 && ! is_chinese(name))
         {
-                write("¶Ô²»Æğ£¬ÇëÄúÓÃ¡¸ÖĞÎÄ¡¹Îª³èÎïÈ¡Ãû×Ö»òÃèÊö¡£\n");
+                write("å¯¹ä¸èµ·ï¼Œè¯·æ‚¨ç”¨ã€Œä¸­æ–‡ã€ä¸ºå® ç‰©å–åå­—æˆ–æè¿°ã€‚\n");
                 return 0;
         }
         return 1; 
@@ -227,9 +227,9 @@ void get_id(string arg, object ob)
         if (! check_legal_id(arg))   
         {
                 write("\n");
-                write("ÏÖÔÚÄã¿ÉÒÔÉè¶¨Ó¢ÎÄ id £¬Çë×¢Òâ£¬ÄãÉè¶¨µÄÓ¢ÎÄ id »á×Ô¶¯¼ÓÉÏºó×º×øÆïÖÖÀà id¡£\n");
-                write("±ÈÈçÄãÏëÉè¶¨µÄ id ÊÇ biyunwulong ju£¬ÄÇÃ´ÄãÖ»ÒªÊäÈë biyunwulong ¾Í¿ÉÒÔ¡£\n");                    
-                write("ÇëÉè¶¨Ó¢ÎÄ id £º");
+                write("ç°åœ¨ä½ å¯ä»¥è®¾å®šè‹±æ–‡ id ï¼Œè¯·æ³¨æ„ï¼Œä½ è®¾å®šçš„è‹±æ–‡ id ä¼šè‡ªåŠ¨åŠ ä¸Šåç¼€åéª‘ç§ç±» idã€‚\n");
+                write("æ¯”å¦‚ä½ æƒ³è®¾å®šçš„ id æ˜¯ biyunwulong juï¼Œé‚£ä¹ˆä½ åªè¦è¾“å…¥ biyunwulong å°±å¯ä»¥ã€‚\n");                    
+                write("è¯·è®¾å®šè‹±æ–‡ id ï¼š");
                 input_to( (: get_id :), ob ); 
                 return;
         }
@@ -239,9 +239,9 @@ void get_id(string arg, object ob)
         ob->set_temp("pet/pet_id", arg + " " + pet_id_surfix[ob->query_temp("pet/pet_type") - 1]);
         //ob->set_temp("pet/pet_bz", arg + " " + pet_id_surfix[ob->query_temp("pet/pet_type") - 1]);
         write("\n");
-        write("ÏÖÔÚÄã¿ÉÒÔÉè¶¨ÖĞÎÄÃû£¬Çë×¢Òâ£¬ÄãÉè¶¨µÄÖĞÎÄÃû»á¼ÓÉÏ»ù±¾Ãû¡£\n");
-        write("±ÈÈçÄãÑ¡ÔñµÄÊÇÊ¨£¬ÖĞÎÄÃûÎªĞ¡°×£¬Ãû×Ö¾Í»áÎªĞ¡°×Ê¨¡£\n");
-        write("ÇëÉè¶¨ÖĞÎÄÃû£º(¿É¼ÓÑÕÉ«)");
+        write("ç°åœ¨ä½ å¯ä»¥è®¾å®šä¸­æ–‡åï¼Œè¯·æ³¨æ„ï¼Œä½ è®¾å®šçš„ä¸­æ–‡åä¼šåŠ ä¸ŠåŸºæœ¬åã€‚\n");
+        write("æ¯”å¦‚ä½ é€‰æ‹©çš„æ˜¯ç‹®ï¼Œä¸­æ–‡åä¸ºå°ç™½ï¼Œåå­—å°±ä¼šä¸ºå°ç™½ç‹®ã€‚\n");
+        write("è¯·è®¾å®šä¸­æ–‡åï¼š(å¯åŠ é¢œè‰²)");
         input_to( (: get_name :), ob);
 }
 
@@ -274,9 +274,9 @@ void get_name(string arg, object ob)
 
         if (! check_legal_name(arg, 12))  
         {
-                write("ÏÖÔÚÄã¿ÉÒÔÉè¶¨ÖĞÎÄÃû£¬Çë×¢Òâ£¬ÄãÉè¶¨µÄÖĞÎÄÃû»á¼ÓÉÏ»ù±¾Ãû¡£\n");
-                write("±ÈÈçÄãÑ¡ÔñµÄÊÇÊ¨£¬ÖĞÎÄÃûÎªĞ¡°×£¬Ãû×Ö¾Í»áÎªĞ¡°×Ê¨¡£\n");
-                write("ÇëÉè¶¨ÖĞÎÄÃû£º(¿É¼ÓÑÕÉ«)");
+                write("ç°åœ¨ä½ å¯ä»¥è®¾å®šä¸­æ–‡åï¼Œè¯·æ³¨æ„ï¼Œä½ è®¾å®šçš„ä¸­æ–‡åä¼šåŠ ä¸ŠåŸºæœ¬åã€‚\n");
+                write("æ¯”å¦‚ä½ é€‰æ‹©çš„æ˜¯ç‹®ï¼Œä¸­æ–‡åä¸ºå°ç™½ï¼Œåå­—å°±ä¼šä¸ºå°ç™½ç‹®ã€‚\n");
+                write("è¯·è®¾å®šä¸­æ–‡åï¼š(å¯åŠ é¢œè‰²)");
                 input_to( (: get_name :), ob);
                 return;
         }
@@ -303,7 +303,7 @@ void get_name(string arg, object ob)
         ob->set_temp("pet/pet_name", arg);
         
         write("\n");
-        write("ÇëÃèÊö×øÆï£º");
+        write("è¯·æè¿°åéª‘ï¼š");
         input_to( (: get_desc :), ob);
 }
 
@@ -313,14 +313,14 @@ void get_desc(string arg, object ob)
                 
         if (! check_legal_name(arg, 60))  
         {
-                write("ÇëÃèÊö×øÆï£º");
+                write("è¯·æè¿°åéª‘ï¼š");
                 input_to( (: get_desc :), ob);
                 return;
         }
 
         ob->set_temp("pet/pet_desc",  arg);
         write("ok\n");
-        //±¨´íµÄĞĞºÅ
+        //æŠ¥é”™çš„è¡Œå·
         build_pet(ob);
 }
 
@@ -347,7 +347,7 @@ void build_pet(object ob)
         
         fc = read_file(PET_OBJ);
         
-        //±¨´íµÄĞĞºÅ
+        //æŠ¥é”™çš„è¡Œå·
         fc = replace_string(fc, "PET_NAME", pet_name);
         fc = replace_string(fc, "PET_ID", pet_id);                                                       
         fc = replace_string(fc, "PET_GENDER", pet_gender);
@@ -356,8 +356,8 @@ void build_pet(object ob)
                             pet_unit_name[(int)pet_type - 1]);
                             
         fc = replace_string(fc, "LONG_DESCRIPTION", 
-                            pet_desc + "\n" + "ËüÊÇ" + 
-                            ob->query("name") + "µÄ×øÆï¡£\n");
+                            pet_desc + "\n" + "å®ƒæ˜¯" + 
+                            ob->query("name") + "çš„åéª‘ã€‚\n");
         
         fc = replace_string(fc, "OWNER_ID", ob->query("id"));
         fc = replace_string(fc, "OWNER_NAME", ob->query("name"));
@@ -371,18 +371,18 @@ void build_pet(object ob)
         }
 
         assure_file(fn);
-        write_file(fn + ".c", fc); // Ğ´ÈëÎÄ¼ş
-        VERSION_D->append_sn(fn + ".c"); // ¸øÎïÆ·Ôö¼ÓÊ¶±ğÂë
+        write_file(fn + ".c", fc); // å†™å…¥æ–‡ä»¶
+        VERSION_D->append_sn(fn + ".c"); // ç»™ç‰©å“å¢åŠ è¯†åˆ«ç 
 
         pet = load_object(fn);
         
-        msg = "$N×ªÉíµ½ÎİºóÂí³¡Ç£ÁË" + pet_name + "³öÀ´¡£\n" +
-               "¹§Ï²$nÑøÁË" + pet_name + "£¬ÒÔºó$n¿ÉÒªºÃºÃ´ıËü¡£\n";
+        msg = "$Nè½¬èº«åˆ°å±‹åé©¬åœºç‰µäº†" + pet_name + "å‡ºæ¥ã€‚\n" +
+               "æ­å–œ$nå…»äº†" + pet_name + "ï¼Œä»¥å$nå¯è¦å¥½å¥½å¾…å®ƒã€‚\n";
                
         message_vision(msg, this_object(), ob);    
             
         pet->move(environment(ob));
-        command("say Äã¿ÉÒÔ´µÉù¿ÚÉÚÕÙ»½ÄãµÄ³èÎï£¡<whistle " + pet_id +">\n");
+        command("say ä½ å¯ä»¥å¹å£°å£å“¨å¬å”¤ä½ çš„å® ç‰©ï¼<whistle " + pet_id +">\n");
         ob->set("can_whistle/" + pet_id, fn);
         ob->delete_temp("pet");
         ob->save();

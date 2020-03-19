@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "Á÷ÔÆÆº");
+        set("short", "æµäº‘åª");
         set("long", @LONG
-Ã¿·êÓêö«£¬ÔÚºóÉ½ÉîÛÖÖÐÉýÌÚÆðÀ´µÄÔÆÉ½Îíº££¬Ó¿¹ýÄÏÌì
-ÃÅÉ½¼¹ÏòÇ°É½ÇãÐº£¬Ö±ÈçÒøºÓ·ÉÐº£¬ÎµÎª×³¹Û£¬Õâ¾ÍÊÇÄÏÌìÃÅ
-µÄÁ÷ÔÆÆæ¾°¡£
+æ¯é€¢é›¨éœï¼Œåœ¨åŽå±±æ·±å£‘ä¸­å‡è…¾èµ·æ¥çš„äº‘å±±é›¾æµ·ï¼Œæ¶Œè¿‡å—å¤©
+é—¨å±±è„Šå‘å‰å±±å€¾æ³»ï¼Œç›´å¦‚é“¶æ²³é£žæ³»ï¼Œè”šä¸ºå£®è§‚ï¼Œè¿™å°±æ˜¯å—å¤©é—¨
+çš„æµäº‘å¥‡æ™¯ã€‚
 LONG);
         set("exits", ([ 
                "westdown"  : __DIR__"nantian",

@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-      set("short", "��ʯ��");
+      set("short", "青石阶");
       set("long", @LONG
-�쵽����ɽ�ˡ�����һ��ͨ������ɽ����ʯ�ף���������
-��Σ�����ʮ�����¡�ʱ���ܼ���Щ������͡�
+快到峨嵋山了。这是一条通往峨嵋山的青石阶，两旁绿树
+荫蔽，空气十分清新。时常能见到些游人香客。
 LONG);
       set("objects", ([
                __DIR__"npc/youngwoman": 1,

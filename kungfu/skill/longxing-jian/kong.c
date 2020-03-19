@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define ZHUAN "¡¸" HIY "½ğÁú¼²¿Õ" NOR "¡¹"
+#define ZHUAN "ã€Œ" HIY "é‡‘é¾™ç–¾ç©º" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -14,47 +14,47 @@ int perform(object me, object target)
         int i, attack_time;
 
         if (userp(me) && ! me->query("can_perform/longxing-jian/kong"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(ZHUAN "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(ZHUAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" ZHUAN "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" ZHUAN "ã€‚\n");
 
         if ((int)me->query_skill("longxing-jian", 1) < 160)
-                return notify_fail("ÄãµÄÁúĞÎ½£·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" ZHUAN "¡£\n");
+                return notify_fail("ä½ çš„é¾™å½¢å‰‘æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" ZHUAN "ã€‚\n");
 
         if (me->query("neili") < 250)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" ZHUAN "¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" ZHUAN "ã€‚\n");
 
         if (me->query_skill_mapped("sword") != "longxing-jian")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢ÁúĞÎ½£·¨£¬ÄÑÒÔÊ©Õ¹" ZHUAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘é¾™å½¢å‰‘æ³•ï¼Œéš¾ä»¥æ–½å±•" ZHUAN "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIY "$N" HIY "Ò»ÉùÇåĞ¥£¬ÊÖÖĞ" + weapon->name() +
-              HIY "ÁúÒ÷²»¶¨£¬»®ÏòĞé¿Õ£¬É²ÄÇ¼ä£¬Ò»µÀ½ğ¹â¼²Éä£¬"
-              HIY "ÓÌÈçÒ»Ìõ½ğÁúÌÚÔ½ÔÚ°ë¿Õ£¬ÃÍµØÉäÏò$n" HIY "¡£\n" NOR;
+        msg = HIY "$N" HIY "ä¸€å£°æ¸…å•¸ï¼Œæ‰‹ä¸­" + weapon->name() +
+              HIY "é¾™åŸä¸å®šï¼Œåˆ’å‘è™šç©ºï¼Œåˆ¹é‚£é—´ï¼Œä¸€é“é‡‘å…‰ç–¾å°„ï¼Œ"
+              HIY "çŠ¹å¦‚ä¸€æ¡é‡‘é¾™è…¾è¶Šåœ¨åŠç©ºï¼ŒçŒ›åœ°å°„å‘$n" HIY "ã€‚\n" NOR;
 
         ap = me->query_skill("sword");
         dp = target->query_skill("parry");
         attack_time = 7;
         if (ap / 2 + random(ap * 2) > dp)
         {
-                msg += HIR "½á¹û$p" HIR "±»$P" HIR
-                       "¹¥ÁË¸ö´ëÊÖ²»¼°£¬Á¬Á¬ºóÍË²»Ï¾£¡\n" NOR;
+                msg += HIR "ç»“æœ$p" HIR "è¢«$P" HIR
+                       "æ”»äº†ä¸ªæªæ‰‹ä¸åŠï¼Œè¿è¿åé€€ä¸æš‡ï¼\n" NOR;
                 count = ap / 6;
                 me->add_temp("apply/attack", count);
                 attack_time += random(ap / 45);
         } else
         {
-                msg += HIC "$n" HIC "¼û$N" HIC "Õâ¼¸½£²¢ÎŞÆÆÕÀ"
-                       "£¬²»¸Ò´óÒâ£¬Ğ¡ĞÄÓ¦¸¶¡£\n" NOR;
+                msg += HIC "$n" HIC "è§$N" HIC "è¿™å‡ å‰‘å¹¶æ— ç ´ç»½"
+                       "ï¼Œä¸æ•¢å¤§æ„ï¼Œå°å¿ƒåº”ä»˜ã€‚\n" NOR;
                 count = 0;
         }
                 

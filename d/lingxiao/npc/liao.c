@@ -3,9 +3,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÁÎ×ÔíÂ", ({"liao zili", "liao"}));
-        set("long", "ÁÎ×ÔíÂÊÇÑ©É½ÅÉÕÆÃÅÈËÍşµÂÏÈÉú°××ÔÔÚµÄÊ¦µÜ¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("å»–è‡ªç º", ({"liao zili", "liao"}));
+        set("long", "å»–è‡ªç ºæ˜¯é›ªå±±æ´¾æŒé—¨äººå¨å¾·å…ˆç”Ÿç™½è‡ªåœ¨çš„å¸ˆå¼Ÿã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 65);
         set("attitude", "friendly");
         set("shen_type", 0);
@@ -46,7 +46,7 @@ void create()
         prepare_skill("strike", "piaoxu-zhang");
         prepare_skill("cuff", "lingxiao-quan");
 
-        create_family("ÁèÏö³Ç", 5, "Ç°±²");
+        create_family("å‡Œéœ„åŸ", 5, "å‰è¾ˆ");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -67,6 +67,6 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        command("say ÀÏ·ò²»ÊÕÍ½£¬ÄãÈ¥ÕÒÎÒÄÇĞ©Í½¶ù°É¡£");
+        command("say è€å¤«ä¸æ”¶å¾’ï¼Œä½ å»æ‰¾æˆ‘é‚£äº›å¾’å„¿å§ã€‚");
 }
 

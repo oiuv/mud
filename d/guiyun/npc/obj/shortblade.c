@@ -6,19 +6,19 @@ inherit THROWING;
 
 void create()
 {
-	set_name("¶Ìµ¶", ({ "short blade", "dao" }));
+	set_name("çŸ­åˆ€", ({ "short blade", "dao" }));
 	set_weight(7000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else
 	{
                 set("value", 0);
-                set("base_unit", "±ú");
+                set("base_unit", "æŸ„");
                 set("base_weight", 300);
                 set("base_value", 0);
                 set("material", "iron");
-		set("unit", "°Ñ");
-		set("long", "ÕâÊÇÒ»À¦·Éµ¶¡£\n");
+		set("unit", "æŠŠ");
+		set("long", "è¿™æ˜¯ä¸€æ†é£åˆ€ã€‚\n");
 		set("value", 1000);
 		set("material", "steel");
 	}

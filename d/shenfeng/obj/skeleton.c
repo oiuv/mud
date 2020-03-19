@@ -2,14 +2,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name("¿İÇ¬µÄº¡¹Ç", ({ "Skeleton", "skeleton", "º¡¹Ç" }));
+	set_name("æ¯ä¹¾çš„éª¸éª¨", ({ "Skeleton", "skeleton", "éª¸éª¨" }));
         set_weight(500);
         if (clonep())
         	set_default_object(__FILE__);
     	else {
-        	set("unit", "¾ß");
-                set("long", "Õâ¸±º¡¹ÇÒÑ¾­ÌÉÔÚÕâÀïºÜ¾ÃÁË¡£\n");
+        	set("unit", "å…·");
+                set("long", "è¿™å‰¯éª¸éª¨å·²ç»èººåœ¨è¿™é‡Œå¾ˆä¹…äº†ã€‚\n");
         	set("value", 1);
-        	set("no_get", "Õâ¶«Î÷Ò»Åö¾ÍÉ¢£¬»¹ÊÇ±ğ¼ğ°É£¡\n");
+        	set("no_get", "è¿™ä¸œè¥¿ä¸€ç¢°å°±æ•£ï¼Œè¿˜æ˜¯åˆ«æ‹£å§ï¼\n");
     	}
 }

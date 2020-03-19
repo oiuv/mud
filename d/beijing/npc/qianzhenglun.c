@@ -1,4 +1,4 @@
-// qianzhenglun.c Ç®ÕýÂ×
+// qianzhenglun.c é’±æ­£ä¼¦
 
 #include <ansi.h>
 
@@ -9,13 +9,13 @@ mapping my_count = ([]);
 
 void create()
 {
-	set_name("Ç®ÕýÂ×", ({ "qian zhenglun","qian", "zhenglun"}));
-  	set("long", "ÕòÔ¶ïÚ¾ÖµÄïÚÊ¦£¬³£ÄêÀ´ÇÚÇÚ¿Ò¿ÒµÄ´òÀí×ÅïÚ\n"
-                    "¾ÖµÄÊÂÎñ£¬ÈÎÀÍÈÎÔ¹£¬ÖÒÐÄ¹¢¹¢¡£ËûµÄ÷Þ½ÇÒÑ\n"
-                    "Î¢¼û°×·¢£¬Æ¤·ô÷îºÚ£¬Éí²Ä¿ýÎà£¬Ñü´Ö±Û³¤£¬\n"
-                    "Ë«ÑÛÓÐÉñ¡£\n");
-	set("title", "ÕòÔ¶ïÚ¾ÖïÚÊ¦");
-  	set("gender", "ÄÐÐÔ");
+	set_name("é’±æ­£ä¼¦", ({ "qian zhenglun","qian", "zhenglun"}));
+  	set("long", "é•‡è¿œé•–å±€çš„é•–å¸ˆï¼Œå¸¸å¹´æ¥å‹¤å‹¤æ³æ³çš„æ‰“ç†ç€é•–\n"
+                    "å±€çš„äº‹åŠ¡ï¼Œä»»åŠ³ä»»æ€¨ï¼Œå¿ å¿ƒè€¿è€¿ã€‚ä»–çš„é¬“è§’å·²\n"
+                    "å¾®è§ç™½å‘ï¼Œçš®è‚¤é»é»‘ï¼Œèº«æé­æ¢§ï¼Œè…°ç²—è‡‚é•¿ï¼Œ\n"
+                    "åŒçœ¼æœ‰ç¥žã€‚\n");
+	set("title", "é•‡è¿œé•–å±€é•–å¸ˆ");
+  	set("gender", "ç”·æ€§");
   	set("age", 45);
 	set("shen_type", 1);
 	set("class", "fighter");
@@ -68,50 +68,50 @@ int do_yao(string arg)
 
      	if (! arg)
 	{
-		tell_object(me, CYN "Ç®ÕýÂ×µÀ£ºÄãÒªÊ²Ã´¶«Î÷£¿\n" NOR);
+		tell_object(me, CYN "é’±æ­£ä¼¦é“ï¼šä½ è¦ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n" NOR);
 		return 1;
 	}
 
-  	if ((string)me->query("family/family_name") != "°ËØÔÃÅ")
-    		return notify_fail(CYN "Ç®ÕýÂ×µÀ£º¶Ô²»Æð£¬Ö»ÓÐïÚ¾ÖÀï"
-                                   "µÄÈË²ÅÄÜÁìÈ¡±øÆ÷¡£\n" NOR);
+  	if ((string)me->query("family/family_name") != "å…«å¦é—¨")
+    		return notify_fail(CYN "é’±æ­£ä¼¦é“ï¼šå¯¹ä¸èµ·ï¼Œåªæœ‰é•–å±€é‡Œ"
+                                   "çš„äººæ‰èƒ½é¢†å–å…µå™¨ã€‚\n" NOR);
 
 	if (arg != "blade" && arg != "sword" && arg != "dagger"
            && arg != "hammer" && arg != "staff" && arg != "throwing"
            && arg != "whip" && arg != "body" && arg != "helmet"
            && arg != "feet"&& arg != "waist")
-     		return notify_fail(CYN "Ç®ÕýÂ×¶ÔÄãÒ¡Í·µÀ£º¶Ô²»Æð£¬ÄãÒªµÄ"
-                                   "¶«Î÷ÎÒÕâÀïÃ»ÓÐ¡£\n" NOR);
+     		return notify_fail(CYN "é’±æ­£ä¼¦å¯¹ä½ æ‘‡å¤´é“ï¼šå¯¹ä¸èµ·ï¼Œä½ è¦çš„"
+                                   "ä¸œè¥¿æˆ‘è¿™é‡Œæ²¡æœ‰ã€‚\n" NOR);
 
     	if (my_count[arg] >= total)
-   		return notify_fail(CYN "Ç®ÕýÂ×µÀ£º¶Ô²»Æð£¬ÄãÒªµÄ¶«Î÷ÎÒ¶¼"
-                                   "ÒÑ¾­·¢ÍêÁË¡£\n" NOR); 
+   		return notify_fail(CYN "é’±æ­£ä¼¦é“ï¼šå¯¹ä¸èµ·ï¼Œä½ è¦çš„ä¸œè¥¿æˆ‘éƒ½"
+                                   "å·²ç»å‘å®Œäº†ã€‚\n" NOR); 
 
     	if (arg == "body" || arg == "helmet"
            || arg == "feet" || arg == "waist")
     	{
    		if (me->query_temp("mark/zhenyuan_armor") >= 3)
-       			return notify_fail(CYN "Ç®ÕýÂ×Å­ÂîµÀ£ºÄãÒªÁËÕâÃ´"
-                                           "¶à¼þ»¤¼×£¬»¹²»¹»£¿\n" NOR);
+       			return notify_fail(CYN "é’±æ­£ä¼¦æ€’éª‚é“ï¼šä½ è¦äº†è¿™ä¹ˆ"
+                                           "å¤šä»¶æŠ¤ç”²ï¼Œè¿˜ä¸å¤Ÿï¼Ÿ\n" NOR);
 
    		me->add_temp("mark/zhenyuan_armor", 1);
     	} else
     	{
    		if (me->query_temp("mark/zhenyuan_weapon") >= 3)
-       			return notify_fail(CYN "Ç®ÕýÂ×Å­ÂîµÀ£ºÄãÒªÁËÕâÃ´"
-                                           "¶à¼þ±øÆ÷£¬»¹²»¹»£¿\n" NOR);
+       			return notify_fail(CYN "é’±æ­£ä¼¦æ€’éª‚é“ï¼šä½ è¦äº†è¿™ä¹ˆ"
+                                           "å¤šä»¶å…µå™¨ï¼Œè¿˜ä¸å¤Ÿï¼Ÿ\n" NOR);
 
    		me->add_temp("mark/zhenyuan_weapon", 1);
     	}
 
     	my_count[arg] += 1;
     	obj = new(__DIR__"obj/" + arg);
-        obj->set("no_sell", "Õâ²»ÊÇÕòÔ¶ïÚ¾ÖÀïµÄ¶«Î÷Ã´£¿ÎÒ¿É²»¸ÒÊÕ¹º¡£");
+        obj->set("no_sell", "è¿™ä¸æ˜¯é•‡è¿œé•–å±€é‡Œçš„ä¸œè¥¿ä¹ˆï¼Ÿæˆ‘å¯ä¸æ•¢æ”¶è´­ã€‚");
         obj->set("value", 50);
-    	command("say ÕâÎ»" + RANK_D->query_respect(me) + "£¬" + 
-                obj->query("name") + "ÎªÊý²»¶à£¬Ç§Íò±ðËæ±ãÈÓ¡£");
-    	message_vision(HIC "Ç®ÕýÂ×¸øÁË$N" HIC "Ò»" + obj->query("unit")
-                       + obj->query("name")+ HIC "¡£\n" NOR, me);
+    	command("say è¿™ä½" + RANK_D->query_respect(me) + "ï¼Œ" + 
+                obj->query("name") + "ä¸ºæ•°ä¸å¤šï¼Œåƒä¸‡åˆ«éšä¾¿æ‰”ã€‚");
+    	message_vision(HIC "é’±æ­£ä¼¦ç»™äº†$N" HIC "ä¸€" + obj->query("unit")
+                       + obj->query("name")+ HIC "ã€‚\n" NOR, me);
     	obj->move(me);
     	return 1;
 }

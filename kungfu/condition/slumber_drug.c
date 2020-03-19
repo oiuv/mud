@@ -8,15 +8,15 @@ int update_condition(object me, int duration)
 
 	limit = (int)me->query("neili") / 50;
 
-	tell_object(me, "Äã¾õµÃÄÔÖĞ»è»è³Á³Á£¬ĞÄÖĞ¿Õµ´µ´µÄ£¬Ö±ÏëÌÉÏÂÀ´Ë¯Ò»¾õ¡£\n");
-	message("vision", me->name() + "Ò¡Í·»ÎÄÔµØÕ¾¶¼Õ¾²»ÎÈ£¬ºÃÏñºÈ×íÁËÒ»Ñù¡£\n",
+	tell_object(me, "ä½ è§‰å¾—è„‘ä¸­æ˜æ˜æ²‰æ²‰ï¼Œå¿ƒä¸­ç©ºè¡è¡çš„ï¼Œç›´æƒ³èººä¸‹æ¥ç¡ä¸€è§‰ã€‚\n");
+	message("vision", me->name() + "æ‘‡å¤´æ™ƒè„‘åœ°ç«™éƒ½ç«™ä¸ç¨³ï¼Œå¥½åƒå–é†‰äº†ä¸€æ ·ã€‚\n",
 		environment(me), me);
 	if( duration > limit ) {
 		if ( living(me) ) me->unconcious();
 		return 0;
 	} else 
         if (me->query("neili") > 500) {
-	        tell_object(me, "Äã·¢¾õ²»Ãî£¬ÃÍÎüÒ»¿ÚÆø£¬µÇÊ±ÇåĞÑÁË²»ÉÙ¡£\n");
+	        tell_object(me, "ä½ å‘è§‰ä¸å¦™ï¼ŒçŒ›å¸ä¸€å£æ°”ï¼Œç™»æ—¶æ¸…é†’äº†ä¸å°‘ã€‚\n");
                 me->add("neili", -100);
                 return 0;
 	}

@@ -5,18 +5,18 @@ inherit HAMMER;
 
 void create()
 {
-        set_name(HIR "ÆÆÑôÉñ¸«" NOR, ({ "poyang fu", "poyang", "fu", "axe" }) );
+        set_name(HIR "ç ´é˜³ç¥æ–§" NOR, ({ "poyang fu", "poyang", "fu", "axe" }) );
         set_weight(26000);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", HIR "Ò»±ú³àºìÉ«µÄµ¥ÊÖ¸«£¬·Ç³£³ÁÖØ£¬·æÑØÇß³öÒ»¹Éº®Òâ¡£\n" NOR);
-                set("unit", "±ú");
+                set("long", HIR "ä¸€æŸ„èµ¤çº¢è‰²çš„å•æ‰‹æ–§ï¼Œéå¸¸æ²‰é‡ï¼Œé”‹æ²¿æ²å‡ºä¸€è‚¡å¯’æ„ã€‚\n" NOR);
+                set("unit", "æŸ„");
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "steel");
-                set("wield_msg", HIR "$N" HIR "ÄÃ³öÒ»±ú¾Ş¸«ÌáÔÚÊÖÖĞ£¬µàÁËµà£¬ÊÔÊÔÖØÁ¿¡£\n" NOR);
-                set("unwield_msg", HIR "$N" HIR "¹ş¹şÒ»Ğ¦£¬½«ÊÖÖĞµÄÆÆÑôÉñ¸«ÊÕ»Ø±³ºó¡£\n" NOR);
+                set("wield_msg", HIR "$N" HIR "æ‹¿å‡ºä¸€æŸ„å·¨æ–§æåœ¨æ‰‹ä¸­ï¼Œæ‚äº†æ‚ï¼Œè¯•è¯•é‡é‡ã€‚\n" NOR);
+                set("unwield_msg", HIR "$N" HIR "å“ˆå“ˆä¸€ç¬‘ï¼Œå°†æ‰‹ä¸­çš„ç ´é˜³ç¥æ–§æ”¶å›èƒŒåã€‚\n" NOR);
                 set("stable", 100);
         }
         init_hammer(160);
@@ -38,8 +38,8 @@ mixed hit_ob(object me, object victim, int damage_bonus)
                 n = me->query_skill("hammer");
                 victim->receive_damage("qi", n, me);
                 victim->receive_wound("qi", n, me);
-                return HIR "$N" HIR "ÃÍµÄÒ»Éù±¬ºÈ£¬ÊÖÖĞÆÆÑôÉñ¸«¾¹È»»Ã×÷Ò»µÀ³¤ºçÏò$n"
-                       HIR "ÅüÈ¥£¡\n" NOR;
+                return HIR "$N" HIR "çŒ›çš„ä¸€å£°çˆ†å–ï¼Œæ‰‹ä¸­ç ´é˜³ç¥æ–§ç«Ÿç„¶å¹»ä½œä¸€é“é•¿è™¹å‘$n"
+                       HIR "åŠˆå»ï¼\n" NOR;
         }
         return damage_bonus;
 }

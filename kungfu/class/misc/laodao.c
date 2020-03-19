@@ -1,4 +1,4 @@
-// laodao.c ÀÏµÀ
+// laodao.c è€é“
 
 #include <ansi.h>
 
@@ -6,9 +6,9 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("ÀÏµÀ", ({ "lao dao", "dao" }));
-	set("long",  "Ëû¿´ÉÏÈ¥ÏÉ·çµÀ¹Ç£¬ÏàÃ²²»Ë×¡£\n");
-	set("gender", "ÄĞĞÔ");
+	set_name("è€é“", ({ "lao dao", "dao" }));
+	set("long",  "ä»–çœ‹ä¸Šå»ä»™é£é“éª¨ï¼Œç›¸è²Œä¸ä¿—ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 64);
 	set("attitude", "peaceful");
 	set("shen_type", 1);
@@ -54,7 +54,7 @@ void create()
         prepare_skill("finger","sun-finger");
         prepare_skill("strike","haotian-zhang");
 
-	create_family("È«Õæ½Ì", 0, "Ç°±²");
+	create_family("å…¨çœŸæ•™", 0, "å‰è¾ˆ");
 
 	set("chat_chance_combat", 120);
 	set("chat_msg_combat", ({

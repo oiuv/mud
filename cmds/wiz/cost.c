@@ -14,21 +14,21 @@ int main(object me, string arg)
                 me = this_player(1);
 
 	seteuid(getuid());
-   	if (! arg) return notify_fail("Ö¸Áî¸ñÊ½£ºcost <Ö¸Áî> [<²ÎÊı> ....]\n");
+   	if (! arg) return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šcost <æŒ‡ä»¤> [<å‚æ•°> ....]\n");
 
 	eval_cost = eval_cost();
 	me->force_me(arg);
 	eval_cost -= eval_cost();
-	write(sprintf("\nEval cost£º%d µ¥Î»\n", eval_cost));
+	write(sprintf("\nEval costï¼š%d å•ä½\n", eval_cost));
 	return 1;
 }
 
 int help()
 {
 	write( @TEXT
-Ö¸Áî¸ñÊ½£ºcost <Ö¸Áî> [<²ÎÊı> .... ]
+æŒ‡ä»¤æ ¼å¼ï¼šcost <æŒ‡ä»¤> [<å‚æ•°> .... ]
 
-Õâ¸öÖ¸ÁîÈÃÄã²âÁ¿ÁíÒ»¸öÖ¸ÁîÖ´ĞĞËùĞèµÄÊ±¼ä¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ æµ‹é‡å¦ä¸€ä¸ªæŒ‡ä»¤æ‰§è¡Œæ‰€éœ€çš„æ—¶é—´ã€‚
 TEXT );
 	return 1 ;
 }

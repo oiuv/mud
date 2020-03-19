@@ -6,13 +6,13 @@ inherit  ITEM;
 
 void  create()
 {
-                set_name("Ê¯µÊ",  ({  "stool"  }));
+                set_name("çŸ³å‡³",  ({  "stool"  }));
                 set_weight(20000);
-        set("long",  "ÕâÊÇÕÅ´óÀíÊ¯ÖÆµÄµÊ×Ó¡£\n"  );
+        set("long",  "è¿™æ˜¯å¼ å¤§ç†çŸ³åˆ¶çš„å‡³å­ã€‚\n"  );
                 if(  clonep()  )
                                 set_default_object(__FILE__);
                 else  {
-                                set("unit",  "ÕÅ");
+                                set("unit",  "å¼ ");
                                 set("material",  "stone");
                 set("value",  2000);
                                 set("no_get",  1);

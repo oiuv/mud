@@ -28,32 +28,32 @@ string extra_long()
         mapping need;
         string str;
 
-        str = HIW "\nÎïÆ·ÀàĞÍ : ±øÆ÷(½£)\n" NOR;
+        str = HIW "\nç‰©å“ç±»å‹ : å…µå™¨(å‰‘)\n" NOR;
         if (query("bindable"))
         {
                 string type;
                 int t;
 
                 t = query("bindable");
-                if (t == 1) type = "×°±¸°ó¶¨";
-                else if (t == 2) type = "Ê°È¡°ï¶¨";
-                else if (t == 3) type = "Ö±½Ó°ó¶¨";
-                str += sprintf(HIW "°ó¶¨ÀàĞÍ : %s\n" NOR, type);
+                if (t == 1) type = "è£…å¤‡ç»‘å®š";
+                else if (t == 2) type = "æ‹¾å–å¸®å®š";
+                else if (t == 3) type = "ç›´æ¥ç»‘å®š";
+                str += sprintf(HIW "ç»‘å®šç±»å‹ : %s\n" NOR, type);
         }
-        str += sprintf(HIW "ÖØ    Á¿ : %d\n" NOR, this_object()->query_weight());
-        str += sprintf(HIW "ÉË º¦ Á¦ : %d\n" NOR, query("weapon_prop/damage"));
-        // str += sprintf(HIW "É±    Â¾ : %d\n" NOR, query("combat/PKS"));
-        str += sprintf(HIW "ÏâÇ¶°¼²Û : %d\n" NOR, (int)query("enchase/flute"));
+        str += sprintf(HIW "é‡    é‡ : %d\n" NOR, this_object()->query_weight());
+        str += sprintf(HIW "ä¼¤ å®³ åŠ› : %d\n" NOR, query("weapon_prop/damage"));
+        // str += sprintf(HIW "æ€    æˆ® : %d\n" NOR, query("combat/PKS"));
+        str += sprintf(HIW "é•¶åµŒå‡¹æ§½ : %d\n" NOR, (int)query("enchase/flute"));
         if (mapp(need = query("need")) && sizeof(need))
                 foreach (string key in keys(need))
-                        str += sprintf(HIW "×°±¸ÒªÇó : %s %d\n" NOR,
+                        str += sprintf(HIW "è£…å¤‡è¦æ±‚ : %s %d\n" NOR,
                                        to_chinese(key), need[key]);
         /*
-        str += sprintf(HIW "Ê¹ÓÃ·½Ê½ : ÊäÈëÖ¸Áî wield %s ×°±¸¡£\n", query("id"));
-        str += sprintf(HIW "Ê¹ÓÃ·½Ê½ : ÊäÈëÖ¸Áî unwield %s Ğ¶ÏÂ¡£\n", query("id"));
+        str += sprintf(HIW "ä½¿ç”¨æ–¹å¼ : è¾“å…¥æŒ‡ä»¤ wield %s è£…å¤‡ã€‚\n", query("id"));
+        str += sprintf(HIW "ä½¿ç”¨æ–¹å¼ : è¾“å…¥æŒ‡ä»¤ unwield %s å¸ä¸‹ã€‚\n", query("id"));
         */
-        str += sprintf(HIW "ÏÂÏß¶ªÊ§ : %s\n" NOR,
-                       this_object()->query_autoload() ? "·ñ" : "ÊÇ");
+        str += sprintf(HIW "ä¸‹çº¿ä¸¢å¤± : %s\n" NOR,
+                       this_object()->query_autoload() ? "å¦" : "æ˜¯");
 
         return str;
 }

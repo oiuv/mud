@@ -1,4 +1,4 @@
-// zhenyu.c ÕòÓü¾ªÌìÍè
+// zhenyu.c é•‡ç‹±æƒŠå¤©ä¸¸
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIW "ÕòÓü¾ªÌìÍè" NOR, ({ "zhenyu wan", "zhenyu", "wan" }) );
+        set_name(HIW "é•‡ç‹±æƒŠå¤©ä¸¸" NOR, ({ "zhenyu wan", "zhenyu", "wan" }) );
         set_weight(3000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIW "Ò»¿ÅÁúÑÛ´óĞ¡µÄÒ©Íè£¬ë³ëµÆË±Ç£¬Ò»ĞáÖ®ÏÂ±ã¾õĞÄ¿õ\n"
-                                "Éñâù¡£Õû¸öÒ©ÍèÁ÷¶¯×Å½ğÊô°ãµÄ¹âÔó£¬ÈëÊÖ³ÁÖØ£¬ÔÚ\n"
-                                "ÕÆĞÄ»¬¶¯²»Í££¬±ãËÆÓĞÉúÃüÒ»°ã¡£\n" NOR);
+                set("long", HIW "ä¸€é¢—é¾™çœ¼å¤§å°çš„è¯ä¸¸ï¼Œæ°¤æ°²æ‰‘é¼»ï¼Œä¸€å—…ä¹‹ä¸‹ä¾¿è§‰å¿ƒæ—·\n"
+                                "ç¥æ€¡ã€‚æ•´ä¸ªè¯ä¸¸æµåŠ¨ç€é‡‘å±èˆ¬çš„å…‰æ³½ï¼Œå…¥æ‰‹æ²‰é‡ï¼Œåœ¨\n"
+                                "æŒå¿ƒæ»‘åŠ¨ä¸åœï¼Œä¾¿ä¼¼æœ‰ç”Ÿå‘½ä¸€èˆ¬ã€‚\n" NOR);
                 set("value", 500000);
-                set("unit", "¿Å");
+                set("unit", "é¢—");
                 set("only_do_effect", 1);
         }
 }
@@ -26,23 +26,23 @@ int do_effect(object me)
         int effect;
 //      int neili;
 
-        log_file("static/using", sprintf("%s(%s) eat ÕòÓü¾ªÌìÍè at %s.\n",
+        log_file("static/using", sprintf("%s(%s) eat é•‡ç‹±æƒŠå¤©ä¸¸ at %s.\n",
                  me->name(1), me->query("id"), ctime(time())));
 
         effect = 0;
 
         if (me->query("skybook/item/zhenyu"))
         {
-	        message_vision(HIR "$N" HIR "Ò»Ñö²±£¬ÍÌÏÂÁËÒ»¿ÅÕòÓü¾ªÌìÍè£¬È´Ìı$P"
-                               HIR "Ò»Éù¼âÏø£¬Åç³öÒ»¿ÚÏÊÑª£¬ÑöÃæ±ãµ¹¡£\n" NOR, me);
+	        message_vision(HIR "$N" HIR "ä¸€ä»°è„–ï¼Œåä¸‹äº†ä¸€é¢—é•‡ç‹±æƒŠå¤©ä¸¸ï¼Œå´å¬$P"
+                               HIR "ä¸€å£°å°–å“®ï¼Œå–·å‡ºä¸€å£é²œè¡€ï¼Œä»°é¢ä¾¿å€’ã€‚\n" NOR, me);
 
-                me->set_temp("die_reason", "Ì°³ÔÕòÓü¾ªÌìÍè£¬½á¹ûÅªµÃÈ«Éí½îÂö¾¡¶Ï"
-                                           "¶øÍö");
+                me->set_temp("die_reason", "è´ªåƒé•‡ç‹±æƒŠå¤©ä¸¸ï¼Œç»“æœå¼„å¾—å…¨èº«ç­‹è„‰å°½æ–­"
+                                           "è€Œäº¡");
                 me->die(); 
         } else
 	{
-        	message_vision(HIW "$N" HIW "Ò»Ñö²±£¬ÍÌÏÂÁËÒ»¿ÅÕòÓü¾ªÌìÍè£¬Ö»¼û$P"
-                               HIW "»ëÉíÒ»²ü£¬ÆßÇÏ¶¼Ã°³ö°×ÑÌÀ´¡£\n" NOR, me);
+        	message_vision(HIW "$N" HIW "ä¸€ä»°è„–ï¼Œåä¸‹äº†ä¸€é¢—é•‡ç‹±æƒŠå¤©ä¸¸ï¼Œåªè§$P"
+                               HIW "æµ‘èº«ä¸€é¢¤ï¼Œä¸ƒçªéƒ½å†’å‡ºç™½çƒŸæ¥ã€‚\n" NOR, me);
 
         	me->add("combat_exp", 200000 + random(100000));
         	me->add("magic_points", 3000);

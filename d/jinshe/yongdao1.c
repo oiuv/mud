@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��");
+        set("short", "甬道");
         set("long", @LONG
-���������˽�ȥ������������һ����խ������������ʵ��ɽ��
-�ڵ�һ���ѷ죬����ʮ����Զ�������ߣ���ǰ�����࣬�ѿ�վֱ��
-��ͦһͦ������ǰ��ȥ��
+你慢慢爬了进去，见是这里是一条狭窄的天生甬道，其实是山腹
+内的一条裂缝，爬了十多丈远，甬道渐高，再前进丈余，已可站直。
+你挺一挺腰，向前走去。
 LONG );
         set("exits", ([ /* sizeof() == 2 */
             "out"  : __DIR__"shanbi",

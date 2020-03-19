@@ -1,4 +1,4 @@
-// hongma.c ÔæºìÂí
+// hongma.c æ£çº¢é©¬
 
 #include <command.h>
 #include <dbase.h>
@@ -9,12 +9,12 @@ inherit NPC;
 
 void create()
 {
-        set_name(RED"ÔæºìÂí"NOR, ({ "zaohongma" }));
-        set("long","Ò»Æ¥¿¥Âí£¬È«Éí»ğºì£¬ÎŞÒ»¸ùÔÓÃ«¡£\n");
-        set("race", "Ò°ÊŞ");
+        set_name(RED"æ£çº¢é©¬"NOR, ({ "zaohongma" }));
+        set("long","ä¸€åŒ¹éªé©¬ï¼Œå…¨èº«ç«çº¢ï¼Œæ— ä¸€æ ¹æ‚æ¯›ã€‚\n");
+        set("race", "é‡å…½");
         set("age", 5);
         set("ridable", 1);
-        set("unit", "Æ¥");
+        set("unit", "åŒ¹");
         set("int", 30);
         set("qi", 300);
         set("max_qi", 300);
@@ -24,7 +24,7 @@ void create()
         set("combat_exp", 50000);
         set("attitude", "peaceful");
 
-        set("limbs", ({ "Í·²¿", "¸¹²¿", "Î²°Í","ºóÍÈ","Ç°ÍÈ" }) );
+        set("limbs", ({ "å¤´éƒ¨", "è…¹éƒ¨", "å°¾å·´","åè…¿","å‰è…¿" }) );
         set("verbs", ({ "bite", "hoof" }) );
         set_temp("apply/attack", 50);
         set_temp("apply/armor", 15);

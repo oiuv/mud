@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define JIANG "¡¸" HIR "ÐÞÂÞ½µÊÀ" NOR "¡¹"
+#define JIANG "ã€Œ" HIR "ä¿®ç½—é™ä¸–" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,7 +12,7 @@ int perform(object me, object target)
         int skill, ap, dp, damage;
 
         if (userp(me) && ! me->query("can_perform/yujiamu-quan/jiang"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -21,34 +21,34 @@ int perform(object me, object target)
         }
 
         if (! me->is_fighting(target))
-                return notify_fail(JIANG "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(JIANG "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(JIANG "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(JIANG "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         skill = me->query_skill("yujiamu-quan", 1);
 
         if (skill < 100)
-                return notify_fail("Äã½ð¸Õè¤åÈÄ¸È­ÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" JIANG "¡£\n");
+                return notify_fail("ä½ é‡‘åˆšç‘œè¿¦æ¯æ‹³ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" JIANG "ã€‚\n");
 
         if (me->query_skill_mapped("cuff") != "yujiamu-quan")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢½ð¸Õè¤åÈÄ¸È­£¬ÄÑÒÔÊ©Õ¹" JIANG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘é‡‘åˆšç‘œè¿¦æ¯æ‹³ï¼Œéš¾ä»¥æ–½å±•" JIANG "ã€‚\n");
 
         if (me->query_skill_prepared("cuff") != "yujiamu-quan")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸½ð¸Õè¤åÈÄ¸È­£¬ÄÑÒÔÊ©Õ¹" JIANG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡é‡‘åˆšç‘œè¿¦æ¯æ‹³ï¼Œéš¾ä»¥æ–½å±•" JIANG "ã€‚\n");
 
         if (me->query("neili") < 180)
-                return notify_fail("ÄãÄ¿Ç°µÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" JIANG "¡£\n");
+                return notify_fail("ä½ ç›®å‰çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" JIANG "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         if (angry = me->query("qi") < me->query("max_qi") / 2)
-                msg = HIR "$N" HIR "Ä¿íý¾ãÁÑ£¬Ò»Éù±¬ºÈ£¬È«Éí¹Ç÷ÀÅüÅ¾×÷Ïì£¬È­"
-                      "Í·ÈçÉÁµç°ã»÷Ïò$n" HIR "µÄÒªº¦£¡\n" NOR;
+                msg = HIR "$N" HIR "ç›®çšä¿±è£‚ï¼Œä¸€å£°çˆ†å–ï¼Œå…¨èº«éª¨éª¼åŠˆå•ªä½œå“ï¼Œæ‹³"
+                      "å¤´å¦‚é—ªç”µèˆ¬å‡»å‘$n" HIR "çš„è¦å®³ï¼\n" NOR;
         else
-                msg = HIR "$N" HIR "´óºÈÒ»Éù£¬ÃæÉ«³àºì£¬È«Éí¹Ç÷ÀÅüÅ¾×÷Ïì£¬È­"
-                      "Í·ÈçÉÁµç°ã»÷Ïò$n" HIR "µÄÒªº¦£¡\n" NOR;
+                msg = HIR "$N" HIR "å¤§å–ä¸€å£°ï¼Œé¢è‰²èµ¤çº¢ï¼Œå…¨èº«éª¨éª¼åŠˆå•ªä½œå“ï¼Œæ‹³"
+                      "å¤´å¦‚é—ªç”µèˆ¬å‡»å‘$n" HIR "çš„è¦å®³ï¼\n" NOR;
 
         ap = me->query_skill("cuff", 1) / 2 + skill;
         dp = target->query_skill("dodge");
@@ -60,13 +60,13 @@ int perform(object me, object target)
                 damage = 10 + skill / 3 + random(skill / 2);
                 if (angry) damage += random(damage / 2);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 35,
-                                           HIR "½á¹û$p" HIR "ÎÞ·¨µÖµ²$P" HIR "ÕâÀ×"
-                                           "öªÒ»»÷£¬µÇÊ±±»´òÍËÊý²½£¬Ò¡»Î²»¶¨¡£\n" NOR);
+                                           HIR "ç»“æžœ$p" HIR "æ— æ³•æŠµæŒ¡$P" HIR "è¿™é›·"
+                                           "éœ†ä¸€å‡»ï¼Œç™»æ—¶è¢«æ‰“é€€æ•°æ­¥ï¼Œæ‘‡æ™ƒä¸å®šã€‚\n" NOR);
         } else
         {
                 me->add("neili",-40);
-                msg += CYN "¿ÉÊÇ$p" CYN "²¢Î´±»ÕâÆøÊÆËùÉå£¬ÇáÒÆ"
-                       "½Å²½£¬¶ã¿ªÁË$P" CYN "µÄ¹¥»÷¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "å¹¶æœªè¢«è¿™æ°”åŠ¿æ‰€æ…‘ï¼Œè½»ç§»"
+                       "è„šæ­¥ï¼Œèº²å¼€äº†$P" CYN "çš„æ”»å‡»ã€‚\n" NOR;
                 me->start_busy(3);
         }
         message_combatd(msg, me, target);

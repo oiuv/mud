@@ -11,12 +11,12 @@ void init()
 
 void create()
 {
-        set_name(HIW "ÃÏÆÅÌÀ" NOR, ({"mengpo tang", "soup", "tang"}));
+        set_name(HIW "å­Ÿå©†æ±¤" NOR, ({"mengpo tang", "soup", "tang"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIW "Ò»ÍëÈÈÆøÌÚÌÚµÄÃÏÆÅÌÀ£¬É¢·¢×ÅÅ¨ÁÒµÄ²ÝÒ©ÆøÎ¶¡£\n");
-                set("unit", "Íë");
+                set("long", HIW "ä¸€ç¢—çƒ­æ°”è…¾è…¾çš„å­Ÿå©†æ±¤ï¼Œæ•£å‘ç€æµ“çƒˆçš„è‰è¯æ°”å‘³ã€‚\n");
+                set("unit", "ç¢—");
                 set("only_do_effect", 1);
         }
         setup();
@@ -29,11 +29,11 @@ int do_eat(string arg)
         int max;
 
         if( me->is_busy() )
-                return notify_fail("¼±Ê²Ã´£¬Ð¡ÐÄ±ðÒ­×ÅÁË¡£\n");
+                return notify_fail("æ€¥ä»€ä¹ˆï¼Œå°å¿ƒåˆ«å™Žç€äº†ã€‚\n");
 
         me->set_temp("last_eat/mengpo_tang", time());
 
-        message_vision(HIW "$N" HIW "Ò»ÑöÍ·£¬½«ÃÏÆÅÌÀÈ«²¿ºÈÁËÏÂÈ¥£¬¾«ÉñÎªÖ®Ò»Õñ¡£\n" NOR, me);
+        message_vision(HIW "$N" HIW "ä¸€ä»°å¤´ï¼Œå°†å­Ÿå©†æ±¤å…¨éƒ¨å–äº†ä¸‹åŽ»ï¼Œç²¾ç¥žä¸ºä¹‹ä¸€æŒ¯ã€‚\n" NOR, me);
 
         me->set("jingli",me->query("max_jingli"));
         me->set("neili",me->query("max_neili"));

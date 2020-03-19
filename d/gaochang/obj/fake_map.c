@@ -3,20 +3,20 @@ inherit ITEM;
 
 void create()
 {
-        set_name(YEL "╦ъ╡Щцт╧╛╣ьм╪" NOR, ({ "map", "ditu" }));
+        set_name(YEL "И╚≤Ф≤▄Х©╥Е╝╚Е°╟Е⌡╬" NOR, ({ "map", "ditu" }));
         set_weight(200);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "уе");
-                set("long", WHT "\nуБйгр╩уе╦ъ╡Щцт╧╛╣ьм╪ё╛рюуум╪й╬ё╛╟╢ртоб╥╫н╩╪╢©и╫ЬхК║ё\n\n" HIW
-                            "║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы\n"
-                            "║Ы║Ы║Ы" NOR + HIR "╤╚" NOR + HIW "║Ы" NOR + HIR "╤╚" NOR + HIW
-                            "║Ы" NOR + HIR "до" NOR + HIW "║Ы" NOR + HIR "нВ" NOR + HIW "║Ы"
-                            NOR + HIR "╠╠" NOR + HIW "║Ы" NOR + HIR "╠╠" NOR + HIW "║Ы" NOR +
-                            HIR "╤╚" NOR + HIW "║Ы" NOR + HIR "╤╚" NOR + HIW "║Ы" NOR + HIR
-                            "до" NOR + HIW "║Ы║Ы║Ы\n"
-                            "║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы║Ы\n\n" NOR);
+                set("unit", "Е╪═");
+                set("long", WHT "\nХ©≥Ф≤╞Д╦─Е╪═И╚≤Ф≤▄Х©╥Е╝╚Е°╟Е⌡╬О╪▄Д╬²Г┘╖Е⌡╬Г╓╨О╪▄Ф▄┴Д╩╔Д╦▀Ф√╧Д╫█Е█ЁЕ▐╞Х©⌡Е┘╔Ц─┌\n\n" HIW
+                            "Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩\n"
+                            "Б─╩Б─╩Б─╩" NOR + HIR "Д╦°" NOR + HIW "Б─╩" NOR + HIR "Д╦°" NOR + HIW
+                            "Б─╩" NOR + HIR "Е█≈" NOR + HIW "Б─╩" NOR + HIR "Х╔©" NOR + HIW "Б─╩"
+                            NOR + HIR "Е▄≈" NOR + HIW "Б─╩" NOR + HIR "Е▄≈" NOR + HIW "Б─╩" NOR +
+                            HIR "Д╦°" NOR + HIW "Б─╩" NOR + HIR "Д╦°" NOR + HIW "Б─╩" NOR + HIR
+                            "Е█≈" NOR + HIW "Б─╩Б─╩Б─╩\n"
+                            "Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩Б─╩\n\n" NOR);
                 set("value", 10);
                 set("material", "paper");
         }

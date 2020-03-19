@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "Ӣ��¥");
+	set("short", "英雄楼");
 	set("long", @LONG
-Ӣ��¥���Ƿ�ɽ������ϰ��졹�����ϵļ�ҵ����¥����
-�νྻ�����п������κ��ݣ�ʮ���Ǹ��̴�֡���ɽ�ش���ͨ
-Ҫ�أ�����Է����˻��治�١�
+英雄楼乃是佛山大豪「南霸天」凤天南的家业。酒楼里桌
+椅洁净。座中客人衣饰豪奢，十九是富商大贾。佛山地处交通
+要地，来这吃饭的人还真不少。
 LONG);
 	set("objects", ([
 	        __DIR__"npc/fengqi": 1,

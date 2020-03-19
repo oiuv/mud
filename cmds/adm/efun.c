@@ -36,10 +36,10 @@ int main(object me, string arg)
         break;
 
     case "call_out":
-        debug("¿ªÊ¼µ¹¼ÇÊ±£¡");
-        call_out("debug", 10, "µ¹¼ÇÊ±10Ãë!");
-        call_out("debug", 20, "µ¹¼ÇÊ±20Ãë!");
-        call_out("debug", 30, "µ¹¼ÇÊ±30Ãë!");
+        debug("å¼€å§‹å€’è®°æ—¶ï¼");
+        call_out("debug", 10, "å€’è®°æ—¶10ç§’!");
+        call_out("debug", 20, "å€’è®°æ—¶20ç§’!");
+        call_out("debug", 30, "å€’è®°æ—¶30ç§’!");
         break;
     case "origin":
         debug("origin:" + origin());
@@ -69,7 +69,7 @@ int main(object me, string arg)
         break;
     case "debug_message":
         debug_message("void debug_message(string msg);");
-        debug("debug_message:Çë´ò¿ªdebug.log²é¿´½á¹û ^_^");
+        debug("debug_message:è¯·æ‰“å¼€debug.logæŸ¥çœ‹ç»“æœ ^_^");
         break;
 #ifdef FLUFFOS
     case "element_of":
@@ -107,13 +107,13 @@ int main(object me, string arg)
         print_r(all_inventory(env));
         break;
     case "first_inventory":
-        debug("first_inventory£º" + file_name(first_inventory(env)));
+        debug("first_inventoryï¼š" + file_name(first_inventory(env)));
         break;
     case "next_inventory":
-        debug("next_inventory£º" + file_name(next_inventory(me)));
+        debug("next_inventoryï¼š" + file_name(next_inventory(me)));
         break;
     case "environment":
-        debug("ÎÒµÄÎ»ÖÃ£º" + file_name(env));
+        debug("æˆ‘çš„ä½ç½®ï¼š" + file_name(env));
         break;
     case "children":
         debug(arg);
@@ -145,7 +145,7 @@ int main(object me, string arg)
         break;
     case "shout":
         shout("shout() - sends a message to all living objects\n");
-        debug("ËùÓĞÆäËûÍæ¼Ò¶¼ÒÑÊÕµ½Ò»ÌõÏûÏ¢");
+        debug("æ‰€æœ‰å…¶ä»–ç©å®¶éƒ½å·²æ”¶åˆ°ä¸€æ¡æ¶ˆæ¯");
         break;
 #ifdef FLUFFOS
     case "real_time":
@@ -155,11 +155,11 @@ int main(object me, string arg)
     case "find_player":
         if (sizeof(args) == 2)
         {
-            debug("find_player " + sprintf("Result £º%s", file_name(find_player(args[1])) + "!"));
+            debug("find_player " + sprintf("Result ï¼š%s", file_name(find_player(args[1])) + "!"));
         }
         else
         {
-            debug("[Warning]²ÎÊı¸ñÊ½£ºfind_player Íæ¼Òid£¡");
+            debug("[Warning]å‚æ•°æ ¼å¼ï¼šfind_player ç©å®¶idï¼");
         }
         break;
     case "find_living":
@@ -170,7 +170,7 @@ int main(object me, string arg)
         }
         else
         {
-            debug("[Warning]²ÎÊı¸ñÊ½£ºfind_living id£¡");
+            debug("[Warning]å‚æ•°æ ¼å¼ï¼šfind_living idï¼");
         }
         break;
 
@@ -186,11 +186,11 @@ int main(object me, string arg)
                 debug("present " + sprintf("%s - %s", args[1], ob->query("name") + "!"));
             }
             else
-                debug(sprintf("DEBUG£º%s - %s", args[1], "ÔÚµ±Ç°»·¾³Î´ÕÒµ½!"));
+                debug(sprintf("DEBUGï¼š%s - %s", args[1], "åœ¨å½“å‰ç¯å¢ƒæœªæ‰¾åˆ°!"));
         }
         else
         {
-            debug("[Warning]²ÎÊı¸ñÊ½£ºpresent id£¡");
+            debug("[Warning]å‚æ•°æ ¼å¼ï¼špresent idï¼");
         }
         break;
 
@@ -200,14 +200,14 @@ int main(object me, string arg)
         {
             mixed dbcon, dbrows, dbres;
             dbcon = db_connect(args[1], args[2], args[3]);
-            debug("Êı¾İ¿âÁ¬½Ó½á¹û£º" + dbcon);
+            debug("æ•°æ®åº“è¿æ¥ç»“æœï¼š" + dbcon);
             if (intp(dbcon))
             {
                 if (sizeof(args) == 6)
                     dbrows = db_exec(dbcon, "SELECT " + args[5] + " FROM " + args[4]);
                 else
                     dbrows = db_exec(dbcon, "SELECT * FROM " + args[4]);
-                debug("Êı¾İ¿â²éÑ¯½á¹û£º" + dbrows);
+                debug("æ•°æ®åº“æŸ¥è¯¢ç»“æœï¼š" + dbrows);
                 if (intp(dbrows) && dbrows)
                 {
                     for (int i = 1; i <= dbrows; i++)
@@ -225,10 +225,10 @@ int main(object me, string arg)
         }
         else
         {
-            debug("[Warning]²ÎÊı¸ñÊ½£ºdb_connect host db user table [field]");
+            debug("[Warning]å‚æ•°æ ¼å¼ï¼šdb_connect host db user table [field]");
         }
 #else
-        debug("¸ÃÇı¶¯²»Ö§³Ö´Ëefun T_T");
+        debug("è¯¥é©±åŠ¨ä¸æ”¯æŒæ­¤efun T_T");
 #endif
         break;
     default:
@@ -242,13 +242,13 @@ int help()
 {
     write(origin() + "\n");
     write(@HELP
-efun²âÊÔÖ¸Áî,ÇëÊ¹ÓÃ efun efun_name args
+efunæµ‹è¯•æŒ‡ä»¤,è¯·ä½¿ç”¨ efun efun_name args
 HELP
     );
     return 1;
 }
 
-// Êı×é´òÓ¡ debug
+// æ•°ç»„æ‰“å° debug
 varargs void print_r(mixed *arr, int step)
 {
     int i, j;

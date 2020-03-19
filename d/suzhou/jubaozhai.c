@@ -5,19 +5,19 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�۱�ի");
+	set("short", "聚宝斋");
 	set("long", @LONG
-����һ�����ֺŵ�Ǯׯ�����м��������ʷ����ȫ������
-���зֵꡣ�����е���Ʊ�����ǳ��ã�ͨ��ȫ����
-    �ڶ����ǽ�Ϲ��˿�����(paizi)��
+这是一家老字号的钱庄，已有几百年的历史，在全国各地
+都有分店。它发行的银票信誉非常好，通行全国。
+    在对面的墙上挂了块牌子(paizi)。
 LONG );
 	set("item_desc", ([
 		"paizi" : @TEXT
-     ��Ǯׯ�ṩ���·���
-      ��Ǯ        deposit����cun
-      ȡǮ        withdraw����qu
-      Ǯ�Ҷһ�    convert����duihuan
-      ����        check����chazhang
+     本钱庄提供以下服务：
+      存钱        deposit或者cun
+      取钱        withdraw或者qu
+      钱币兑换    convert或者duihuan
+      查帐        check或者chazhang
 TEXT
 	]) );
 	set("exits", ([

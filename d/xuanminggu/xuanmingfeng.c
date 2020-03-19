@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "��ڤ��");
+	set("short", "玄冥峰");
 	set("long", @LONG
-���������ڤ���ˣ�ֻ�����ܰ�ѩ���ǣ�Զ��Ⱥɽȴ�Ǵ�
-��һƬ����Ŀ������������Զ����ڤ���д������ˣ�ż�к���
-����֮��С�������Ծ������������û��Ⱥɽ֮�䡣
+这里便是玄冥峰了，只见四周白雪覆盖，远处群山却是葱
+绿一片。举目四望，但见不远处玄冥谷中炊烟了了，偶有猴子
+松鼠之类小生灵忽而跃出，而后又隐没与群山之间。
 LONG );
 	set("exits", ([
 		"southdown"    : __DIR__"shanlu4",

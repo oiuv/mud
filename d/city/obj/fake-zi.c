@@ -1,4 +1,4 @@
-// puti-zi.c ÆĞÌá×Ó
+// puti-zi.c è©æå­
 
 #include <ansi.h>
 
@@ -6,13 +6,13 @@ inherit ITEM;
 
 void create()
 {
-	set_name("ÆĞÌá×Ó", ({"puti zi", "zi"}));
+	set_name("è©æå­", ({"puti zi", "zi"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¿Å");
-		set("long", "ÕâÊÇÒ»¿Å¾§Ó¨ÈçÓñµÄÆĞÌá×Ó£¬²É×ÔÁéÉ½·ğ×æ×ùÇ°£¬ÕäÏ¡ÎŞ±È£¬
-ÄËÍòÄêÆĞÌáÊ÷Ö®Êµ£¬¹¦ÄÜ»¯°Ù½Ù£¬¶ÉÇ§ÔÖ£¬ÓëÌìµØÍ¬ÊÙ¡£\n");
+		set("unit", "é¢—");
+		set("long", "è¿™æ˜¯ä¸€é¢—æ™¶è¹å¦‚ç‰çš„è©æå­ï¼Œé‡‡è‡ªçµå±±ä½›ç¥–åº§å‰ï¼Œçç¨€æ— æ¯”ï¼Œ
+ä¹ƒä¸‡å¹´è©ææ ‘ä¹‹å®ï¼ŒåŠŸèƒ½åŒ–ç™¾åŠ«ï¼Œæ¸¡åƒç¾ï¼Œä¸å¤©åœ°åŒå¯¿ã€‚\n");
 		set("value",100);
                 set("only_do_effect", 1);
 	}
@@ -21,7 +21,7 @@ void create()
 
 int do_effect(object me)
 {
-	message_vision(HIR "$N" HIR "³ÔÏÂÒ»¿ÅÆĞÌá×Ó... ²»ºÃ£¡\n" NOR, me);
+	message_vision(HIR "$N" HIR "åƒä¸‹ä¸€é¢—è©æå­... ä¸å¥½ï¼\n" NOR, me);
 	me->unconcious();
 	destruct(this_object());
 	return 1;

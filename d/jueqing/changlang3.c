@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "长廊");
         set("long", @LONG
-�����������úͺ��õĳ��ȣ��䲻����ľ����Ҳ���ŵ���
-���Ļ��㡣
+这是连接内堂和后堂的长廊，虽不见花木，但也能闻到淡
+淡的花香。
 LONG);
         set("exits", ([
                "north"   : __DIR__"changlang4",

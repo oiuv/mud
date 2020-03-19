@@ -7,18 +7,18 @@ inherit SWORD;
 
 void create()
 {
-	set_name(HIB"ÌúµÑ"NOR, ({"tie di"}));
+	set_name(HIB"é“ç¬›"NOR, ({"tie di"}));
 	set_weight(500);
 
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ö§");
-		set("long", "Ò»Ö§ºÚÌú×ö³ÉµÄ³¤µÑ£¬¿´ÉÏÈ¥¼áÈÌÒì³£¡£\n");
+		set("unit", "æ”¯");
+		set("long", "ä¸€æ”¯é»‘é“åšæˆçš„é•¿ç¬›ï¼Œçœ‹ä¸Šå»åšå¿å¼‚å¸¸ã€‚\n");
 		set("value", 1000);
 		set("material", "bamboo");
-		set("wield_msg", "$N´óĞäÒ»»Ó£¬ÊÖÖĞÒÑ¶àÁËÒ»Ö§ÎÚºÚÓÍ¹âµÄÌúµÑ¡£\n");
-		set("unwield_msg", "$NÊÖÖĞÌúµÑÒ»×ª£¬Õ£ÑÛ¼äÌúµÑÒÑÈ»²»¼ûÓ°×Ù¡£\n");
+		set("wield_msg", "$Nå¤§è¢–ä¸€æŒ¥ï¼Œæ‰‹ä¸­å·²å¤šäº†ä¸€æ”¯ä¹Œé»‘æ²¹å…‰çš„é“ç¬›ã€‚\n");
+		set("unwield_msg", "$Næ‰‹ä¸­é“ç¬›ä¸€è½¬ï¼Œçœ¨çœ¼é—´é“ç¬›å·²ç„¶ä¸è§å½±è¸ªã€‚\n");
 	}
 	init_sword(25);
 	setup();

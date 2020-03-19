@@ -5,13 +5,13 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ÕÅ´äÉ½", ({ "zhang cuishan", "zhang" }));  
-        set("nickname", WHT "Òø¹³Ìú»®" NOR);
+        set_name("å¼ ç¿ å±±", ({ "zhang cuishan", "zhang" }));  
+        set("nickname", WHT "é“¶é’©é“åˆ’" NOR);
         set("long", @LONG
-Ëû¾ÍÊÇÕÅÈı·áµÄÎåµÜ×Ó¡¢Îäµ±ÆßÏÀÖ®ÖĞµÄÕÅ´ä
-É½¡£Éí´©Ò»¼ş¸É¸É¾»¾»µÄ°×É«µÀÅÛ¡£
+ä»–å°±æ˜¯å¼ ä¸‰ä¸°çš„äº”å¼Ÿå­ã€æ­¦å½“ä¸ƒä¾ ä¹‹ä¸­çš„å¼ ç¿ 
+å±±ã€‚èº«ç©¿ä¸€ä»¶å¹²å¹²å‡€å‡€çš„ç™½è‰²é“è¢ã€‚
 LONG);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age",31);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -48,9 +48,9 @@ LONG);
         set_skill("martial-cognize", 200);
 
         set("no_teach", ([
-                "taiji-shengong" : "ÒªÏëÑ§Ï°Ì«¼«Éñ¹¦ÇëÏòÕÅÕæÈËÇë½Ì¡£",
-                "taiji-jian"     : "Ì«¼«½£±ØĞëÕÅÕæÈËÇ×´«¡£",
-                "taiji-quan"     : "Ì«¼«È­±ØĞëÕÅÕæÈËÇ×´«¡£",
+                "taiji-shengong" : "è¦æƒ³å­¦ä¹ å¤ªæç¥åŠŸè¯·å‘å¼ çœŸäººè¯·æ•™ã€‚",
+                "taiji-jian"     : "å¤ªæå‰‘å¿…é¡»å¼ çœŸäººäº²ä¼ ã€‚",
+                "taiji-quan"     : "å¤ªææ‹³å¿…é¡»å¼ çœŸäººäº²ä¼ ã€‚",
         ]));
 
         map_skill("force", "taiji-shengong");
@@ -62,7 +62,7 @@ LONG);
 
         prepare_skill("strike", "yitian-zhang");
 
-        create_family("Îäµ±ÅÉ", 2, "µÜ×Ó");
+        create_family("æ­¦å½“æ´¾", 2, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -79,26 +79,26 @@ LONG);
 
 int accept_fight(object who)
 {
-        command("say ÎÒÊÇ²»»áºÍÄã´ò¼ÜµÄ£¡");
+        command("say æˆ‘æ˜¯ä¸ä¼šå’Œä½ æ‰“æ¶çš„ï¼");
         return 0;
 }
 
 int accept_hit(object who)
 {
-        command("say ÎÒÊÇ²»»áºÍÄã´ò¼ÜµÄ£¡");
+        command("say æˆ‘æ˜¯ä¸ä¼šå’Œä½ æ‰“æ¶çš„ï¼");
         return 0;
 }
 
 int accept_kill(object who)
 {
-        command("say ÔõÃ´£¬ÒªĞĞĞ×Ã´£¿ÔÚÕâÀï¿ÖÅÂÓÉ²»µÃÄã£¡");
-        return notify_fail("É²ÄÇ¼äÄã¾õµÃ»¹ÊÇ²»ÒªÇá¾ÙÍı¶¯ÎªºÃ¡£\n");
+        command("say æ€ä¹ˆï¼Œè¦è¡Œå‡¶ä¹ˆï¼Ÿåœ¨è¿™é‡Œææ€•ç”±ä¸å¾—ä½ ï¼");
+        return notify_fail("åˆ¹é‚£é—´ä½ è§‰å¾—è¿˜æ˜¯ä¸è¦è½»ä¸¾å¦„åŠ¨ä¸ºå¥½ã€‚\n");
 }
 
 int accept_ansuan(object who)
 {
-        return notify_fail("Äã¸ÕÏë°µËã£¬¿ÉÊÇÖ»¼û»á³¡ÀïºÚÑ¹Ñ¹µÄ¼·ÂúÁË"
-                           "ÈË£¬¸ù±¾¿´²»Çå³ş¡£\n");
+        return notify_fail("ä½ åˆšæƒ³æš—ç®—ï¼Œå¯æ˜¯åªè§ä¼šåœºé‡Œé»‘å‹å‹çš„æŒ¤æ»¡äº†"
+                           "äººï¼Œæ ¹æœ¬çœ‹ä¸æ¸…æ¥šã€‚\n");
 }
 
 void receive_damage(string type)
@@ -114,12 +114,12 @@ void receive_wound(string type)
 int begin(object me)
 {
         if (me->query_temp("compare"))
-                return notify_fail("ÕıÔÚºÍ±ğÈË±ÈÊÔÄØ£¡¼±Ê²Ã´¼±£¡\n");
+                return notify_fail("æ­£åœ¨å’Œåˆ«äººæ¯”è¯•å‘¢ï¼æ€¥ä»€ä¹ˆæ€¥ï¼\n");
 
         me->set_temp("compare", 1);
 
-        command("say ¸óÏÂÎä¹¦¸ßÇ¿£¬¾ÍÇë³Ö´ËÍÀÁúµ¶È¥£¬È´ÇëÈÄÁË"
-                "µºÉÏÒ»¸ÉÈËµÄĞÔÃü¡£");
+        command("say é˜ä¸‹æ­¦åŠŸé«˜å¼ºï¼Œå°±è¯·æŒæ­¤å± é¾™åˆ€å»ï¼Œå´è¯·é¥¶äº†"
+                "å²›ä¸Šä¸€å¹²äººçš„æ€§å‘½ã€‚");
 
         remove_call_out("compare1");
         call_out("compare1", 3, me);
@@ -130,13 +130,13 @@ int begin(object me)
 void compare1(object me)
 {
         if (me->query("family/family_name") != query("family/family_name"))
-                message_vision(CYN "\n$N" CYN "ÀäĞ¦µÀ£º¸ÒÎÊ¸óÏÂÊÇË­"
-                               "£¬Æ¾Ê²Ã´¶ÔÎÒ·¢ºÅÊ©Áî£¿ÎÒÃÇÏÈÀ´±ÈÊÔ"
-                               "±ÈÊÔ¡£\n" NOR, me);
+                message_vision(CYN "\n$N" CYN "å†·ç¬‘é“ï¼šæ•¢é—®é˜ä¸‹æ˜¯è°"
+                               "ï¼Œå‡­ä»€ä¹ˆå¯¹æˆ‘å‘å·æ–½ä»¤ï¼Ÿæˆ‘ä»¬å…ˆæ¥æ¯”è¯•"
+                               "æ¯”è¯•ã€‚\n" NOR, me);
         else
-                message_vision(CYN "\n$N" CYN "³ÁÉùµÀ£ºËäÈ»ÎÒÃÇÍ¬³ö"
-                               "Îäµ±£¬µ«ÍÀÁúµ¶ÄË²»ÊÀÖ®Îï£¬ÎÒ¿ÉĞÅÄã"
-                               "²»¹ı¡£\n\n" NOR, me);
+                message_vision(CYN "\n$N" CYN "æ²‰å£°é“ï¼šè™½ç„¶æˆ‘ä»¬åŒå‡º"
+                               "æ­¦å½“ï¼Œä½†å± é¾™åˆ€ä¹ƒä¸ä¸–ä¹‹ç‰©ï¼Œæˆ‘å¯ä¿¡ä½ "
+                               "ä¸è¿‡ã€‚\n\n" NOR, me);
 
         remove_call_out("compare2");
         call_out("compare2", 3, me);
@@ -144,9 +144,9 @@ void compare1(object me)
 
 void compare2(object me)
 {
-        command("say ÎÒ²»¸úÄã´ò¼Ü£¬Ö»ÊÇ±ÈĞ´¼¸¸ö×Ö¡£");
-        message_vision(HIR "\nÕÅ´äÉ½Ëµ×Å»º²½×ßµ½×óÊ×É½·åÇ°Ò»¶Â´óÊ¯±Ú"
-                       "Ç°£¬ÃÍµØÀïË«½ÅÒ»³Å£¬ÌáÉí¶øÆğ¡£\n" NOR,
+        command("say æˆ‘ä¸è·Ÿä½ æ‰“æ¶ï¼Œåªæ˜¯æ¯”å†™å‡ ä¸ªå­—ã€‚");
+        message_vision(HIR "\nå¼ ç¿ å±±è¯´ç€ç¼“æ­¥èµ°åˆ°å·¦é¦–å±±å³°å‰ä¸€å µå¤§çŸ³å£"
+                       "å‰ï¼ŒçŒ›åœ°é‡ŒåŒè„šä¸€æ’‘ï¼Œæèº«è€Œèµ·ã€‚\n" NOR,
                        this_object());
         remove_call_out("compare3");
         call_out("compare3", 4, me);
@@ -154,10 +154,10 @@ void compare2(object me)
 
 void compare3(object me)
 {
-        message_vision(HIR "\nÕÅ´äÉ½ÉíĞÎ×İÆğÕÉÓà£¬¸ú×ÅÊ¹³ö¡¸ÌİÔÆ×İ¡¹¾ø"
-                       "¼¼£¬ÓÒ½ÅÔÚÉ½±ÚÒ»³Å×İÆğÁ½ÕÉ¡£\n\nÖ»¼ûËûÊÖÖĞÅĞ¹Ù"
-                       "±Ê¿´×¼Ê¯Ãæ£¬àÍàÍàÍ¼¸Éù£¬ÒÑĞ´ÁËÒ»¸ö¡¸" HIY "Îä"
-                       HIR "¡¹×Ö¡£\n" NOR, this_object());
+        message_vision(HIR "\nå¼ ç¿ å±±èº«å½¢çºµèµ·ä¸ˆä½™ï¼Œè·Ÿç€ä½¿å‡ºã€Œæ¢¯äº‘çºµã€ç»"
+                       "æŠ€ï¼Œå³è„šåœ¨å±±å£ä¸€æ’‘çºµèµ·ä¸¤ä¸ˆã€‚\n\nåªè§ä»–æ‰‹ä¸­åˆ¤å®˜"
+                       "ç¬”çœ‹å‡†çŸ³é¢ï¼Œå—¤å—¤å—¤å‡ å£°ï¼Œå·²å†™äº†ä¸€ä¸ªã€Œ" HIY "æ­¦"
+                       HIR "ã€å­—ã€‚\n" NOR, this_object());
 
         remove_call_out("compare4");
         call_out("compare4", 4, me);
@@ -165,10 +165,10 @@ void compare3(object me)
 
 void compare4(object me)
 {
-        message_vision(HIR "\nÕÅ´äÉ½Ò»¸ö×ÖĞ´Íê£¬Éí×Ó±ãÒªÂäÏÂ£¬Í»È»×óÊÖ"
-                       "»Ó³ö£¬Òø¹³ÔÚÎÕ£¬Ù¿µØÒ»·­¹³×¡Ê¯±Ú¡£\n\nÕâÊ±ËûÓÖ"
-                       "ÀûÓÃ·ìÏ¶Ö§×¡Éí×ÓµÄÖØÁ¿£¬ÓÒÊÖ¸ú×ÅÓÖĞ´ÁË¸ö¡¸" HIY
-                       "ÁÖ" HIR "¡¹×Ö¡£\n" NOR, this_object());
+        message_vision(HIR "\nå¼ ç¿ å±±ä¸€ä¸ªå­—å†™å®Œï¼Œèº«å­ä¾¿è¦è½ä¸‹ï¼Œçªç„¶å·¦æ‰‹"
+                       "æŒ¥å‡ºï¼Œé“¶é’©åœ¨æ¡ï¼Œå€åœ°ä¸€ç¿»é’©ä½çŸ³å£ã€‚\n\nè¿™æ—¶ä»–åˆ"
+                       "åˆ©ç”¨ç¼éš™æ”¯ä½èº«å­çš„é‡é‡ï¼Œå³æ‰‹è·Ÿç€åˆå†™äº†ä¸ªã€Œ" HIY
+                       "æ—" HIR "ã€å­—ã€‚\n" NOR, this_object());
 
         remove_call_out("compare5");
         call_out("compare5", 4, me);
@@ -176,10 +176,10 @@ void compare4(object me)
 
 void compare5(object me)
 {
-        message_vision(HIR "\nÕÅ´äÉ½Á½¸ö×ÖĞ´°Õ£¬¸ú×ÅÓÖĞ´³ö¡¸" HIY "ÖÁ"
-                       HIR "¡¹×ÖºÍ¡¸" HIY "×ğ" HIR "¡¹×Ö£¬µ«¼ûÊ¯Ğ¼·×·×"
-                       "¶øÏÂ¡£\n\n×Ö¼£»òÈçÁéÉßÅÌÌÚ£¬»òÈçÃÍÊŞÒÙÁ¢£¬Ğëô§"
-                       "¼ä¶şÊ®ËÄ×ÖÒ»ÆëĞ´±Ï¡£\n" NOR, this_object());
+        message_vision(HIR "\nå¼ ç¿ å±±ä¸¤ä¸ªå­—å†™ç½¢ï¼Œè·Ÿç€åˆå†™å‡ºã€Œ" HIY "è‡³"
+                       HIR "ã€å­—å’Œã€Œ" HIY "å°Š" HIR "ã€å­—ï¼Œä½†è§çŸ³å±‘çº·çº·"
+                       "è€Œä¸‹ã€‚\n\nå­—è¿¹æˆ–å¦‚çµè›‡ç›˜è…¾ï¼Œæˆ–å¦‚çŒ›å…½å±¹ç«‹ï¼Œé¡»è‡¾"
+                       "é—´äºŒåå››å­—ä¸€é½å†™æ¯•ã€‚\n" NOR, this_object());
 
         remove_call_out("compare6");
         call_out("compare6", 4, me);
@@ -187,11 +187,11 @@ void compare5(object me)
 
 void compare6(object me)
 {
-        message_vision(HIR "\nÕâÒ»·¬Ê¯±Ú¿ÌÊé£¬µ±ÕæÈçÀî°×Ê«ÔÆ£º\n\n"
-                       HIW "\t\tÆ®·çÖèÓê¾ªìªìª£¬Âä»¨·ÉÑ©ºÎÃ£Ã£¡£\n\n"
-                       "\t\tÆğÀ´Ïò±Ú²»Í£ÊÖ£¬Ò»ĞĞÊı×Ö´óÈç¶·¡£\n\n"
-                       "\t\t»Ğ»ĞÈçÎÅ¹íÉñ¾ª£¬Ê±Ê±Ö»¼ûÁúÉß×ß¡£\n\n"
-                       "\t\t×óÅÌÓÒõ¾Èç¾ªÀ×£¬×´Í¬³şººÏà¹¥Õ½¡£\n\n" NOR,
+        message_vision(HIR "\nè¿™ä¸€ç•ªçŸ³å£åˆ»ä¹¦ï¼Œå½“çœŸå¦‚æç™½è¯—äº‘ï¼š\n\n"
+                       HIW "\t\té£˜é£éª¤é›¨æƒŠé£’é£’ï¼Œè½èŠ±é£é›ªä½•èŒ«èŒ«ã€‚\n\n"
+                       "\t\tèµ·æ¥å‘å£ä¸åœæ‰‹ï¼Œä¸€è¡Œæ•°å­—å¤§å¦‚æ–—ã€‚\n\n"
+                       "\t\tææå¦‚é—»é¬¼ç¥æƒŠï¼Œæ—¶æ—¶åªè§é¾™è›‡èµ°ã€‚\n\n"
+                       "\t\tå·¦ç›˜å³è¹™å¦‚æƒŠé›·ï¼ŒçŠ¶åŒæ¥šæ±‰ç›¸æ”»æˆ˜ã€‚\n\n" NOR,
                        this_object());
 
         remove_call_out("compare7");
@@ -200,20 +200,20 @@ void compare6(object me)
 
 void compare7(object me)
 {
-        message_vision(HIR "\nÕÅ´äÉ½Ğ´µ½¡¸" HIY "·æ" HIR "¡¹×ÖµÄ×îºóÒ»"
-                       "±Ê£¬Òø¹³ÔÚÊ¯±ÚÉÏÒ»³Å£¬ÇáÇáÇÉÇÉÂäÔÚÒóËØËØÉíÅÔ¡£"
+        message_vision(HIR "\nå¼ ç¿ å±±å†™åˆ°ã€Œ" HIY "é”‹" HIR "ã€å­—çš„æœ€åä¸€"
+                       "ç¬”ï¼Œé“¶é’©åœ¨çŸ³å£ä¸Šä¸€æ’‘ï¼Œè½»è½»å·§å·§è½åœ¨æ®·ç´ ç´ èº«æ—ã€‚"
                        "\n" NOR, this_object());
 
-        message_vision(CYN "\n$N" CYN "ÄıÊÓ×ÅÊ¯±ÚÉÏÄÇÈıĞĞ´ó×Ö£¬Á¼¾ÃÁ¼"
-                       "¾Ã£¬Ã»ÓĞ×÷Éù¡£\n" NOR, me);
+        message_vision(CYN "\n$N" CYN "å‡è§†ç€çŸ³å£ä¸Šé‚£ä¸‰è¡Œå¤§å­—ï¼Œè‰¯ä¹…è‰¯"
+                       "ä¹…ï¼Œæ²¡æœ‰ä½œå£°ã€‚\n" NOR, me);
         remove_call_out("shu");
         call_out("shu", 6, me);
 }
 
 void shu(object me)
 {
-        message_vision(CYN "\n$N" CYN "Ì¾ÁË¿ÚÆø£¬ËµµÀ£ºÎÒĞ´²»³ö£¬ÊÇÎÒ"
-                       "ÊäÁË¡£ÇëÎÊ¸óÏÂÓĞºÎ·Ô¸À£¿\n"NOR, me);
+        message_vision(CYN "\n$N" CYN "å¹äº†å£æ°”ï¼Œè¯´é“ï¼šæˆ‘å†™ä¸å‡ºï¼Œæ˜¯æˆ‘"
+                       "è¾“äº†ã€‚è¯·é—®é˜ä¸‹æœ‰ä½•å©å’ï¼Ÿ\n"NOR, me);
         me->delete_temp("bizhang");
         me->set_temp("shu", 1);
         remove_call_out("end");
@@ -225,7 +225,7 @@ void end(object me)
         object ding, dao;
         object obj = present("yin susu");
 
-        command("say ¼ÈÊÇÎÒÊ¤ÁË£¬¾ÍÇëÈÄÁËÒ»¸ÉÈËµÄĞÔÃü£¬ÎÒÃÇ×ß°É¡£");
+        command("say æ—¢æ˜¯æˆ‘èƒœäº†ï¼Œå°±è¯·é¥¶äº†ä¸€å¹²äººçš„æ€§å‘½ï¼Œæˆ‘ä»¬èµ°å§ã€‚");
 
         me->delete_temp("compare");
         ding = present("ding", environment());
@@ -234,20 +234,20 @@ void end(object me)
         if (objectp(dao))
         {
                 GIFT_D->delay_gift_bonus(me, ([ "temp"    : "skybook/tulong/tulongdao",
-                                                "prompt"  : "ÄãÍ¨¹ıÈ¡µÃÍÀÁúµ¶µÄ¾­Àú",
-                                                "rumor"   : "ÔÚÍõÅÌÉ½´ó»á»÷°Ü¸÷Â·Ó¢"
-                                                            "ºÀ£¬¶áµÃÁËÍÀÁú±¦µ¶",
+                                                "prompt"  : "ä½ é€šè¿‡å–å¾—å± é¾™åˆ€çš„ç»å†",
+                                                "rumor"   : "åœ¨ç‹ç›˜å±±å¤§ä¼šå‡»è´¥å„è·¯è‹±"
+                                                            "è±ªï¼Œå¤ºå¾—äº†å± é¾™å®åˆ€",
                                                 "exp"     : random(15000) + 10000,
                                                 "pot"     : random(1000) + 1000,
                                                 "mar"     : random(1000) + 1000,
                                                 "score"   : random(5000) + 3000,
                                                 "weiwang" : random(5000) + 3000, ]));
-                tell_object(me, HIM "\nÄãµÃµ½ÁËÍÀÁú±¦µ¶¡£\n" NOR);
+                tell_object(me, HIM "\nä½ å¾—åˆ°äº†å± é¾™å®åˆ€ã€‚\n" NOR);
                 me->set_temp("have_tulongdao");
                 dao->move(me, 1);
         }
-        message_vision(HIC "\n$N" HIC "ºÍ$n" HIC "µÈÈıÈËÉÏ´¬£¬Ñï·«¶øÈ¥"
-                       "¡£\n\n" NOR, me, this_object());
+        message_vision(HIC "\n$N" HIC "å’Œ$n" HIC "ç­‰ä¸‰äººä¸Šèˆ¹ï¼Œæ‰¬å¸†è€Œå»"
+                       "ã€‚\n\n" NOR, me, this_object());
 
         if (objectp(obj))
                 obj->move("/b/tulong/boat");
@@ -261,33 +261,33 @@ void end(object me)
 
 void storm(object me)
 {
-        message_vision(HIB "\nÍ»È»Ö®¼ä£¬$N" HIB "Éí×ÓÒ»²à£¬¹öÁË¼¸"
-                       "¸ö×ªÉí£¬Ö»ÌıµÃ¼²·çºôĞ¥¡£\n²¨ÀËºä»÷Ö®Éù£¬ËÆ"
-                       "ºõÇ§°Ù¸ö¾ŞÀËÍ¬Ê±Ï®µ½¡£\n" NOR, this_object());
+        message_vision(HIB "\nçªç„¶ä¹‹é—´ï¼Œ$N" HIB "èº«å­ä¸€ä¾§ï¼Œæ»šäº†å‡ "
+                       "ä¸ªè½¬èº«ï¼Œåªå¬å¾—ç–¾é£å‘¼å•¸ã€‚\næ³¢æµªè½°å‡»ä¹‹å£°ï¼Œä¼¼"
+                       "ä¹åƒç™¾ä¸ªå·¨æµªåŒæ—¶è¢­åˆ°ã€‚\n" NOR, this_object());
         remove_call_out("storm2");
         call_out("storm2", 4, me);
 }
 
 void storm2(object me)
 {
-        message_vision(HIB "\n½Åµ×ÏÂ²Õ°å¶·È»¼äÏò×ó²àÈ¥£¬´¬ÖĞµÄº£Ë®"
-                       "ÓÖÏòÍâµ¹Ğº¡£\nµ«ÌıµÃ¿ñ·çºôĞ¥£¬ÉíÖÜ¾¡ÊÇº£Ë®"
-                       "¡£\n" NOR, this_object());
+        message_vision(HIB "\nè„šåº•ä¸‹èˆ±æ¿æ–—ç„¶é—´å‘å·¦ä¾§å»ï¼Œèˆ¹ä¸­çš„æµ·æ°´"
+                       "åˆå‘å¤–å€’æ³»ã€‚\nä½†å¬å¾—ç‹‚é£å‘¼å•¸ï¼Œèº«å‘¨å°½æ˜¯æµ·æ°´"
+                       "ã€‚\n" NOR, this_object());
         remove_call_out("storm3");
         call_out("storm3", 4, me);
 }
 
 void storm3(object me)
 {
-        message_vision(HIB "\nÌìÉÏÎÚÔÆÂıÂıÉ¢¿ª£¬Â¶³öĞÇÒ¹Ö®¹â¡£\n\n"
-                       "´¬ÂıÂıµØÏò¶«Ïò±±Æ®Á÷¡£\n" NOR, this_object());
+        message_vision(HIB "\nå¤©ä¸Šä¹Œäº‘æ…¢æ…¢æ•£å¼€ï¼Œéœ²å‡ºæ˜Ÿå¤œä¹‹å…‰ã€‚\n\n"
+                       "èˆ¹æ…¢æ…¢åœ°å‘ä¸œå‘åŒ—é£˜æµã€‚\n" NOR, this_object());
         remove_call_out("storm4");
         call_out("storm4", 4, me);
 }
 
 void storm4(object me)
 {
-        message_vision(HIB "\n´¬ÂıÂıµØÏò¶«Ïò±±Æ®Á÷¡£\n" NOR,
+        message_vision(HIB "\nèˆ¹æ…¢æ…¢åœ°å‘ä¸œå‘åŒ—é£˜æµã€‚\n" NOR,
                        this_object());
         remove_call_out("storm5");
         call_out("storm5", 4, me);
@@ -295,7 +295,7 @@ void storm4(object me)
 
 void storm5(object me)
 {
-        message_vision(HIB "\n´¬ÂıÂıµØÏò¶«Ïò±±Æ®Á÷¡£\n" NOR,
+        message_vision(HIB "\nèˆ¹æ…¢æ…¢åœ°å‘ä¸œå‘åŒ—é£˜æµã€‚\n" NOR,
                        this_object());
         remove_call_out("storm6");
         call_out("storm6", 4, me);
@@ -303,7 +303,7 @@ void storm5(object me)
 
 void storm6(object me)
 {
-        message_vision(HIB "\n´¬ÂıÂıµØÏò¶«Ïò±±Æ®Á÷¡£\n" NOR,
+        message_vision(HIB "\nèˆ¹æ…¢æ…¢åœ°å‘ä¸œå‘åŒ—é£˜æµã€‚\n" NOR,
                        this_object());
         remove_call_out("arrive");
         call_out("arrive", 4, me);
@@ -316,13 +316,13 @@ void arrive(object me)
         if (objectp(obj))
                 obj->move("/b/tulong/boat3");
 
-        message_vision(HIY "\nÖ»¼ûÕı±±·½Ò»Ìõ´ó´¬ÏòÕâ·½Ê»À´£¬¿´À´»Øµ½"
-                       "ÖĞÔ­ÁË¡£\n\n" NOR, this_object());
+        message_vision(HIY "\nåªè§æ­£åŒ—æ–¹ä¸€æ¡å¤§èˆ¹å‘è¿™æ–¹é©¶æ¥ï¼Œçœ‹æ¥å›åˆ°"
+                       "ä¸­åŸäº†ã€‚\n\n" NOR, this_object());
 
         this_object()->move("/b/tulong/boat3");
         me->move("/b/tulong/boat3");
 
-        message_vision(CYN "\nÕÅ´äÉ½±§È­ËµµÀ£ºÔÛÃÇ¾Í´Ë±ğ¹ı£¬ºó»áÓĞÆÚ¡£"
+        message_vision(CYN "\nå¼ ç¿ å±±æŠ±æ‹³è¯´é“ï¼šå’±ä»¬å°±æ­¤åˆ«è¿‡ï¼Œåä¼šæœ‰æœŸã€‚"
                        "\n\n" NOR, me, this_object());
 }
 
@@ -338,7 +338,7 @@ int do_get(string arg)
 
         env = environment(this_player());
 
-        if (env->short() != "Ñïµ¶Á¢Íş»á³¡")
+        if (env->short() != "æ‰¬åˆ€ç«‹å¨ä¼šåœº")
                 return 0;
 
         if (! arg)
@@ -353,8 +353,8 @@ int do_get(string arg)
 
         if (where == "ding")
         {
-                message_vision(CYN "$N" CYN "ËµµÀ£ºÔÚÏÂÎäµ±ÕÅ´ä"
-                               "É½£¬ÕâÏáÓĞÀíÁË£¡\n" NOR, this_object());
+                message_vision(CYN "$N" CYN "è¯´é“ï¼šåœ¨ä¸‹æ­¦å½“å¼ ç¿ "
+                               "å±±ï¼Œè¿™å¢æœ‰ç†äº†ï¼\n" NOR, this_object());
                 this_player()->delete_temp("bizhang");
                 begin(this_player());
                 return 1;
@@ -364,6 +364,6 @@ int do_get(string arg)
 
 int attempt_apprentice(object ob)
 {
-        command("say ÎÒÏÖÔÚÃ»¿ÕÊÕÍ½£¡");
+        command("say æˆ‘ç°åœ¨æ²¡ç©ºæ”¶å¾’ï¼");
         return 0;
 }

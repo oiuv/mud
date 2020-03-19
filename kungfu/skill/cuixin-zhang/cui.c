@@ -3,7 +3,7 @@
  
 inherit F_SSERVER;
 
-#define CUI "¡¸" HIW "¶áÃü´ßÐÄ" NOR "¡¹"
+#define CUI "ã€Œ" HIW "å¤ºå‘½å‚¬å¿ƒ" NOR "ã€"
 string final(object me, object target, int count);
 void cuixin_end(object me, object target, int count);
 
@@ -15,7 +15,7 @@ int perform(object me)
         int damage, lvl, count; 
 
         if (playerp(me) && ! me->query("can_perform/cuixin-zhang/cui"))
-                return notify_fail("ÄãÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -24,30 +24,30 @@ int perform(object me)
         }
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(CUI "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(CUI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon"))
-                return notify_fail("Äã±ØÐëÊÇ¿ÕÊÖ²ÅÄÜÊ¹ÓÃ£¡\n");
+                return notify_fail("ä½ å¿…é¡»æ˜¯ç©ºæ‰‹æ‰èƒ½ä½¿ç”¨ï¼\n");
  
         lvl = me->query_skill("cuixin-zhang", 1);
 
         if (lvl < 120)
-                return notify_fail("ÄãµÄ´ßÐÄÕÆ»¹²»¹»´¿Êì£¬ÎÞ·¨Ê©Õ¹" CUI "\n");
+                return notify_fail("ä½ çš„å‚¬å¿ƒæŽŒè¿˜ä¸å¤Ÿçº¯ç†Ÿï¼Œæ— æ³•æ–½å±•" CUI "\n");
 
         if (me->query_skill("force") < 120)
-                return notify_fail("ÄãµÄÄÚ¹¦»ðºòÌ«µÍ£¬ÎÞ·¨Ê¹³ö" CUI "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™å¤ªä½Žï¼Œæ— æ³•ä½¿å‡º" CUI "ã€‚\n");
 
         if (me->query("neili") < 500)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬ÎÞ·¨Ê¹³ö" CUI "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œæ— æ³•ä½¿å‡º" CUI "ã€‚\n");
  
         if (! living(target))
-               return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+               return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 		   
 		if (target->query_temp("cuixin"))
-                return notify_fail("¶Ô·½ÒÑ¾­ÕÐ¼Ü»ÁÉ¢£¬·Åµ¨¹¥»÷°É¡£\n");
+                return notify_fail("å¯¹æ–¹å·²ç»æ‹›æž¶æ¶£æ•£ï¼Œæ”¾èƒ†æ”»å‡»å§ã€‚\n");
 
-        msg = HIR "$N" HIR "¾ÛÆøÓÚÕÆ£¬ÑöÌìÒ»Éù¿ñÐ¥£¬É²ÄÇ¼äË«ÕÆ½»´í£¬Ò»ÕÐ"
-                  "¡¸¶áÃü´ßÐÄ¡¹´ø×ÅÒõ¶¾ÄÚ¾¢Ö±¹á$n" HIR "£¡\n"NOR;
+        msg = HIR "$N" HIR "èšæ°”äºŽæŽŒï¼Œä»°å¤©ä¸€å£°ç‹‚å•¸ï¼Œåˆ¹é‚£é—´åŒæŽŒäº¤é”™ï¼Œä¸€æ‹›"
+                  "ã€Œå¤ºå‘½å‚¬å¿ƒã€å¸¦ç€é˜´æ¯’å†…åŠ²ç›´è´¯$n" HIR "ï¼\n"NOR;
 
         
 		ap = me->query_skill("strike") + me->query_skill("force");
@@ -58,7 +58,7 @@ int perform(object me)
 
         if ( ap * 11 / 20 + random(ap) > dp)
         {
-                msg += HIR "Ö»Ìý$n" HIR "²Ò½ÐÒ»Éù£¬Ö»¸ÐÁ½¶úºäÃù£¬Ä¿²»ÊÓÎï£¬ÈíÈíÌ±µ¹¡£\n" NOR;
+                msg += HIR "åªå¬$n" HIR "æƒ¨å«ä¸€å£°ï¼Œåªæ„Ÿä¸¤è€³è½°é¸£ï¼Œç›®ä¸è§†ç‰©ï¼Œè½¯è½¯ç˜«å€’ã€‚\n" NOR;
                 target->affect_by("cuixin_zhang",
                         ([ "level" : me->query("jiali") + random(me->query("jiali")),
                            "id"    : me->query("id"),
@@ -74,7 +74,7 @@ int perform(object me)
         else
         {
 				
-				msg += HIY "$p¼û$PÀ´ÊÆÐÚÓ¿£¬õÔõÔõÄõÄµÄ¶ã¿ªÁËÕâÖÂÃüµÄÒ»»÷£¡\n" NOR;
+				msg += HIY "$pè§$Pæ¥åŠ¿æ±¹æ¶Œï¼Œè¸‰è¸‰è·„è·„çš„èº²å¼€äº†è¿™è‡´å‘½çš„ä¸€å‡»ï¼\n" NOR;
 				me->add("neili", -120);
 				me->start_busy(3);
         }
@@ -98,8 +98,8 @@ void cuixin_end(object me, object target, int count)
         {
                 if (living(target))
                 {
-                        message_combatd(HIC "$N" HIC "µÄÊÓÁ¦ºÍÌýÁ¦Öð½¥»Ö¸´ÁËÖª¾õ¡£\n" NOR, target);
-						tell_object(target, HIY "Äã¸Ðµ½±»ÈÅÂÒµÄÕæÆøÂýÂýÆ½¾²ÁËÏÂÀ´¡£\n" NOR);
+                        message_combatd(HIC "$N" HIC "çš„è§†åŠ›å’Œå¬åŠ›é€æ¸æ¢å¤äº†çŸ¥è§‰ã€‚\n" NOR, target);
+						tell_object(target, HIY "ä½ æ„Ÿåˆ°è¢«æ‰°ä¹±çš„çœŸæ°”æ…¢æ…¢å¹³é™äº†ä¸‹æ¥ã€‚\n" NOR);
                 }
 				target->delete_temp("cuixin");
 				target->add_temp("apply/parry", count);

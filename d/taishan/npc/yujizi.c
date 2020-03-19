@@ -5,8 +5,8 @@ inherit NPC;
 
 void create()
 {
-        set_name("Óñçá×Ó", ({ "yuji zi", "zi", "yuji" }) );
-        set("gender", "ÄÐÐÔ");
+        set_name("çŽ‰çŽ‘å­", ({ "yuji zi", "zi", "yuji" }) );
+        set("gender", "ç”·æ€§");
         set("class", "taoist");
         set("age", 45);
         set("attitude", "peaceful");
@@ -37,7 +37,7 @@ void create()
         map_skill("parry", "taishan-sword");
         map_skill("dodge", "lingxu-bu");
 
-        create_family("Ì©É½ÅÉ", 12, "µÜ×Ó");
+        create_family("æ³°å±±æ´¾", 12, "å¼Ÿå­");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();

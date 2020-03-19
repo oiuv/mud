@@ -3,11 +3,11 @@ inherit NPC;
 
 void create()
 {
-	set_name("¶àÂ¡", ({ "duo long", "duo", "long" }));
-	set("title", HIY "ÓùÇ°ÊÌÎÀ×Ü¹Ü" NOR);
+	set_name("å¤šéš†", ({ "duo long", "duo", "long" }));
+	set("title", HIY "å¾¡å‰ä¾å«æ€»ç®¡" NOR);
 	set("age", 32);
-	set("gender", "ÄÐÐÔ");
-	set("long", "¶àÂ¡ÄËÓùÇ°ÊÌÎÀµÄ×Ü¹Ü£¬Éí²Å¸ß´ó¿ýÎà£¬Ò»ÉíÍâ¼Ò¹¦·òºÜÊÇÁËµÃ¡£\n");
+	set("gender", "ç”·æ€§");
+	set("long", "å¤šéš†ä¹ƒå¾¡å‰ä¾å«çš„æ€»ç®¡ï¼Œèº«æ‰é«˜å¤§é­æ¢§ï¼Œä¸€èº«å¤–å®¶åŠŸå¤«å¾ˆæ˜¯äº†å¾—ã€‚\n");
 	set("attitude", "peaceful");
 
 	set("str", 30);
@@ -27,7 +27,7 @@ void create()
 
        set("chat_chance_combat", 10);
 	set("chat_msg_combat", ({
-		"¶àÂ¡ºÈµÀ£ºËûÄÌÄÌµÄ£¬ÄãÁ¬ÎÒ¶¼¸ÒÈÇ£¿\n",
+		"å¤šéš†å–é“ï¼šä»–å¥¶å¥¶çš„ï¼Œä½ è¿žæˆ‘éƒ½æ•¢æƒ¹ï¼Ÿ\n",
 	}));
 	setup();
        carry_object("/d/beijing/npc/obj/guanfu2")->wear();
@@ -47,7 +47,7 @@ void init()
 
 int accept_fight(object me)
 {
-	command("say Õâ¿ÉÊÇÄã»îÄåÁË×ÔÕÒµÄ£¬ÐÝµÃ¹ÖÎÒÎÞÇé¡£\n");
+	command("say è¿™å¯æ˜¯ä½ æ´»è…»äº†è‡ªæ‰¾çš„ï¼Œä¼‘å¾—æ€ªæˆ‘æ— æƒ…ã€‚\n");
 	me->apply_condition("killer", 500);
 	kill_ob(me);
 	return 1;

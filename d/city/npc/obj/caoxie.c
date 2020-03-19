@@ -1,4 +1,4 @@
-// caoxie.c ²İĞ¬
+// caoxie.c è‰é‹
  
 #include <armor.h>
  
@@ -6,14 +6,14 @@ inherit BOOTS;
  
 void create()
 {
-	set_name("²İĞ¬", ({ "sandals", "cao xie", "xie" }) );
+	set_name("è‰é‹", ({ "sandals", "cao xie", "xie" }) );
 	set_weight(200);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
 		set("material", "wood");
-		set("unit", "Ë«");
-		set("long", "ÕâÊÇÒ»Ë«²İ±àµÄ²İĞ¬£¬ÓÃÒÔ±£»¤×ã²¿¡£\n");
+		set("unit", "åŒ");
+		set("long", "è¿™æ˜¯ä¸€åŒè‰ç¼–çš„è‰é‹ï¼Œç”¨ä»¥ä¿æŠ¤è¶³éƒ¨ã€‚\n");
 		set("value", 100);
 		set("armor_prop/dodge", 2);
 	}

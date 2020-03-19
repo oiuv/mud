@@ -13,26 +13,26 @@ int main(object me, string arg)
 	object obj, dest;
 
 	if (! arg)
-                return notify_fail("ÄãÒªÍùÊ²Ã´µÀ¾ßÉÏÏâÇ¶ÎïÆ·£¿\n");
+                return notify_fail("ä½ è¦å¾€ä»€ä¹ˆé“å…·ä¸Šé•¶åµŒç‰©å“ï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("ÏÈÃ¦ÍêÁËÄãµÄÊÂÇéÔÙ×öÕâ¼þÊÂÇé°É£¡\n");
+                return notify_fail("å…ˆå¿™å®Œäº†ä½ çš„äº‹æƒ…å†åšè¿™ä»¶äº‹æƒ…å§ï¼\n");
 
         if (me->is_fighting())
-                return notify_fail("ÄãÏÖÔÚÕýÔÚ´ò¼Ü£¬Ã»Ê±¼ä×öÕâÐ©ÊÂÇé¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ­£åœ¨æ‰“æž¶ï¼Œæ²¡æ—¶é—´åšè¿™äº›äº‹æƒ…ã€‚\n");
 
         if (sscanf(arg, "%s with %s", item, tessera) != 2 &&
             sscanf(arg, "%s in %s", tessera, item) != 2)
-                return notify_fail("ÄãÒªÍùÕâÉÏÃæÏâÇ¶Ê²Ã´ÎïÆ·£¿\n");
+                return notify_fail("ä½ è¦å¾€è¿™ä¸Šé¢é•¶åµŒä»€ä¹ˆç‰©å“ï¼Ÿ\n");
 
 	if (! objectp(obj = present(tessera, me)))
-		return notify_fail("ÄãÉíÉÏÃ»ÓÐÕâÑù¶«Î÷¿ÉÒÔÓÃÀ´ÏâÇ¶¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿å¯ä»¥ç”¨æ¥é•¶åµŒã€‚\n");
 
 	if (! objectp(dest = present(item, me)))
-		return notify_fail("ÄãÉíÉÏÃ»ÓÐÕâÑùµÀ¾ß¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·é“å…·ã€‚\n");
 
-        notify_fail("ÄãÎÞ·¨°Ñ" + obj->name() + "ÏâÇ¶µ½" +
-                    dest->name() + "ÉÏ¡£\n");
+        notify_fail("ä½ æ— æ³•æŠŠ" + obj->name() + "é•¶åµŒåˆ°" +
+                    dest->name() + "ä¸Šã€‚\n");
 
         return ITEM_D->do_enchase(me, dest, obj);
 	
@@ -43,35 +43,35 @@ int help(object me)
         string msg;
 
         msg = "\n\n"
-"Ö¸Áî¸ñÊ½ : enchase <ÌØÊâÎïÆ·> in <µÀ¾ß>\n"
-"           enchase <µÀ¾ß> with <ÌØÊâÎïÆ·>\n\n"
-"Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã½«Ä³ÑùÌØÊâÎïÆ·ÏâÇ¶µ½ÁíÍâÒ»ÖÖµÀ¾ßÉÏ£¬Ê¹µÃµÀ¾ß\n"
-"¾ßÓÐÌØÊâµÄÄÜÁ¦¡£\n\n"
-HIC "¡¸¿ÉÏâÇ¶ÎïÆ·ÁÐ±í¡¹\n\n"
-"     ÆÕÍ¨£º     ÉñÖ®×êÊ¯£¨µç£©¡¢ÉñÖ®Âêè§£¨»ð£©¡¢ÉñÖ®Ë®¾§£¨Ä§£©¡¢ÉñÖ®ôä´ä£¨±ù£©¡¡ £¨ÐÞÕý£º10£­30£©\n"
-"     ÖÐµÈ£º     Îå²ÊÁáççÖé£¨µç£©¡¢ÇàÁúÑÀ£¨Ä§£©¡¢ÈçÒâÍ¨Ììïã£¨±ù£©¡¢»ÃµØÉñÖé£¨»ð£© £¨ÐÞÕý£º30£­50£©\n"
-"     ¸ß¼¶£º     ±ÌÆÇ±ù¾§¡¢»ÃÊ¯¡¢±ù»ðÖé¡¢À×ÉñÖé¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡         £¨ÐÞÕý£º50£­70£©\n"
-"     ÕäÆ·£º¡¡¡¡ ÉñÖ®º®¾§¡¤±ù¡¢Ä§Ö®ÐÄ¡¤Ä§¡¢»ðÖ®¾«Áé¡¤»ð¡¢À×ÉñÖ®Í«¡¤µç¡¡¡¡         £¨ÐÞÕý£º90£­100£©\n\n"
-"¡¸ÌØÊâºÏ³ÉÎïÆ·¡¹\n\n"
-HIW"      ¡¸±ùÊôÐÔ¡¹\n" 
-"      £¨¿ÉÏâÇ¶£ü50£­70£©  ±ÌÆÇ±ù¾§     = ¼«±±º®Óñ + ÇàÁúÑÀ + ÈçÒâÍ¨Ììïã + Îå²ÊÁáççÖé + ÉñÂ}ÑªÇå\n"
-"      £¨¿ÉÏâÇ¶£ü90£­100£© ÉñÖ®º®¾§¡¤±ù = ±ÌÆÇ±ù¾§ + »ÃµØÉñÖé + Ê¥±­¡¡+ Ç¬À¤Ê¥Ë®\n\n"
-HIY"      ¡¸Ä§ÊôÐÔ¡¹\n"
-"      £¨¿ÉÏâÇ¶£ü50£­70£© »ÃÊ¯          = °ËÏÉÊ¯ + À¥ÂØÊ¯ + ÈçÒâÍ¨Ììïã + Îå²ÊÁáççÖé + ÉñÂ}ÑªÇå\n"
-"      £¨¿ÉÏâÇ¶£ü90£­100£©Ä§Ö®ÐÄ¡¤Ä§    = »ÃÊ¯ +¡¡»ÃµØÉñÖé¡¡+ »ÔÔÂ»ªÊ¯ + Ç¬À¤Ê¥Ë®\n\n"
-HIR"      ¡¸»ðÊôÐÔ¡¹\n"
-"      £¨¿ÉÏâÇ¶£ü50£­70£© ±ù»ðÖé        = Àë»ðÐþ±ùÓñ + »ÃµØÉñÖé + À×»ðº®¾§ + Îå²ÊÁáççÖé + ÉñÂ}ÑªÇå\n"
-"      £¨¿ÉÏâÇ¶£ü90£­100£©»ðÖ®¾«Áé¡¤»ð  = ±ù»ðÖé +¡¡ÈçÒâÍ¨Ììïã¡¡+ Ï¢ÈÀ + Ç¬À¤Ê¥Ë®\n\n"
-HIM"      ¡¸µçÊôÐÔ¡¹\n"
-"      £¨¿ÉÏâÇ¶£ü50£­70£© À×ÉñÖé        =  ÇàÁúÑÀ + ÈçÒâÍ¨Ììïã + À×»ðº®¾§ + Îå²ÊÁáççÖé + ÉñÂ}ÑªÇå\n"
-"      £¨¿ÉÏâÇ¶£ü90£­100£©À×ÉñÖ®Í«¡¤µç  =  À×ÉñÖé + ÈçÒâÍ¨Ììïã¡¡+ ÕòÁúÊ¯ + »ÃµØÉñÖé + Ç¬À¤Ê¥Ë®\n\n" NOR;
+"æŒ‡ä»¤æ ¼å¼ : enchase <ç‰¹æ®Šç‰©å“> in <é“å…·>\n"
+"           enchase <é“å…·> with <ç‰¹æ®Šç‰©å“>\n\n"
+"è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ å°†æŸæ ·ç‰¹æ®Šç‰©å“é•¶åµŒåˆ°å¦å¤–ä¸€ç§é“å…·ä¸Šï¼Œä½¿å¾—é“å…·\n"
+"å…·æœ‰ç‰¹æ®Šçš„èƒ½åŠ›ã€‚\n\n"
+HIC "ã€Œå¯é•¶åµŒç‰©å“åˆ—è¡¨ã€\n\n"
+"     æ™®é€šï¼š     ç¥žä¹‹é’»çŸ³ï¼ˆç”µï¼‰ã€ç¥žä¹‹çŽ›ç‘™ï¼ˆç«ï¼‰ã€ç¥žä¹‹æ°´æ™¶ï¼ˆé­”ï¼‰ã€ç¥žä¹‹ç¿¡ç¿ ï¼ˆå†°ï¼‰ã€€ ï¼ˆä¿®æ­£ï¼š10ï¼30ï¼‰\n"
+"     ä¸­ç­‰ï¼š     äº”å½©çŽ²ç‘ç ï¼ˆç”µï¼‰ã€é’é¾™ç‰™ï¼ˆé­”ï¼‰ã€å¦‚æ„é€šå¤©é•¢ï¼ˆå†°ï¼‰ã€å¹»åœ°ç¥žç ï¼ˆç«ï¼‰ ï¼ˆä¿®æ­£ï¼š30ï¼50ï¼‰\n"
+"     é«˜çº§ï¼š     ç¢§é­„å†°æ™¶ã€å¹»çŸ³ã€å†°ç«ç ã€é›·ç¥žç ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€         ï¼ˆä¿®æ­£ï¼š50ï¼70ï¼‰\n"
+"     çå“ï¼šã€€ã€€ ç¥žä¹‹å¯’æ™¶Â·å†°ã€é­”ä¹‹å¿ƒÂ·é­”ã€ç«ä¹‹ç²¾çµÂ·ç«ã€é›·ç¥žä¹‹çž³Â·ç”µã€€ã€€         ï¼ˆä¿®æ­£ï¼š90ï¼100ï¼‰\n\n"
+"ã€Œç‰¹æ®Šåˆæˆç‰©å“ã€\n\n"
+HIW"      ã€Œå†°å±žæ€§ã€\n" 
+"      ï¼ˆå¯é•¶åµŒï½œ50ï¼70ï¼‰  ç¢§é­„å†°æ™¶     = æžåŒ—å¯’çŽ‰ + é’é¾™ç‰™ + å¦‚æ„é€šå¤©é•¢ + äº”å½©çŽ²ç‘ç  + ç¥žè–è¡€æ¸…\n"
+"      ï¼ˆå¯é•¶åµŒï½œ90ï¼100ï¼‰ ç¥žä¹‹å¯’æ™¶Â·å†° = ç¢§é­„å†°æ™¶ + å¹»åœ°ç¥žç  + åœ£æ¯ã€€+ ä¹¾å¤åœ£æ°´\n\n"
+HIY"      ã€Œé­”å±žæ€§ã€\n"
+"      ï¼ˆå¯é•¶åµŒï½œ50ï¼70ï¼‰ å¹»çŸ³          = å…«ä»™çŸ³ + æ˜†ä»‘çŸ³ + å¦‚æ„é€šå¤©é•¢ + äº”å½©çŽ²ç‘ç  + ç¥žè–è¡€æ¸…\n"
+"      ï¼ˆå¯é•¶åµŒï½œ90ï¼100ï¼‰é­”ä¹‹å¿ƒÂ·é­”    = å¹»çŸ³ +ã€€å¹»åœ°ç¥žç ã€€+ è¾‰æœˆåŽçŸ³ + ä¹¾å¤åœ£æ°´\n\n"
+HIR"      ã€Œç«å±žæ€§ã€\n"
+"      ï¼ˆå¯é•¶åµŒï½œ50ï¼70ï¼‰ å†°ç«ç         = ç¦»ç«çŽ„å†°çŽ‰ + å¹»åœ°ç¥žç  + é›·ç«å¯’æ™¶ + äº”å½©çŽ²ç‘ç  + ç¥žè–è¡€æ¸…\n"
+"      ï¼ˆå¯é•¶åµŒï½œ90ï¼100ï¼‰ç«ä¹‹ç²¾çµÂ·ç«  = å†°ç«ç  +ã€€å¦‚æ„é€šå¤©é•¢ã€€+ æ¯å£¤ + ä¹¾å¤åœ£æ°´\n\n"
+HIM"      ã€Œç”µå±žæ€§ã€\n"
+"      ï¼ˆå¯é•¶åµŒï½œ50ï¼70ï¼‰ é›·ç¥žç         =  é’é¾™ç‰™ + å¦‚æ„é€šå¤©é•¢ + é›·ç«å¯’æ™¶ + äº”å½©çŽ²ç‘ç  + ç¥žè–è¡€æ¸…\n"
+"      ï¼ˆå¯é•¶åµŒï½œ90ï¼100ï¼‰é›·ç¥žä¹‹çž³Â·ç”µ  =  é›·ç¥žç  + å¦‚æ„é€šå¤©é•¢ã€€+ é•‡é¾™çŸ³ + å¹»åœ°ç¥žç  + ä¹¾å¤åœ£æ°´\n\n" NOR;
 
     
-    msg += HIC "¡¸ÌØÊâÊôÐÔËµÃ÷¡¹\n\n";
-    msg += "      ±ù£ºÀä¶³¹¥»÷  ÉËº¦¾«ºÍÆøÑª\n";
-    msg += "      µç£ºÉÁµç¹¥»÷  ÉËº¦ÄÚÁ¦ºÍÆøÑª\n";
-    msg += "      »ð£º»ðÑæ¹¥»÷  ÉËº¦¾«ºÍÆøÑª\n";
-    msg += "      Ä§£ºÄ§·¨¹¥»÷  ÉËº¦ÄÚÁ¦ºÍÆøÑª\n\n\n" NOR;
+    msg += HIC "ã€Œç‰¹æ®Šå±žæ€§è¯´æ˜Žã€\n\n";
+    msg += "      å†°ï¼šå†·å†»æ”»å‡»  ä¼¤å®³ç²¾å’Œæ°”è¡€\n";
+    msg += "      ç”µï¼šé—ªç”µæ”»å‡»  ä¼¤å®³å†…åŠ›å’Œæ°”è¡€\n";
+    msg += "      ç«ï¼šç«ç„°æ”»å‡»  ä¼¤å®³ç²¾å’Œæ°”è¡€\n";
+    msg += "      é­”ï¼šé­”æ³•æ”»å‡»  ä¼¤å®³å†…åŠ›å’Œæ°”è¡€\n\n\n" NOR;
 
     write(msg);
     return 1;

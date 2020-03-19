@@ -6,13 +6,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(RED "¸àÒ©" NOR, ({ "gaoyao" }));
+        set_name(RED "è†è¯" NOR, ({ "gaoyao" }));
         set_weight(100);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", "¿´ÉÏÈ¥ºÜÆæ¹ÖµÄÒ»¸±¸àÒ©£¬°ë±ßºì°ë±ßºÚ¡£\n");
-                set("unit", "¸±");
+                set("long", "çœ‹ä¸Šå»å¾ˆå¥‡æ€ªçš„ä¸€å‰¯è†è¯ï¼ŒåŠè¾¹çº¢åŠè¾¹é»‘ã€‚\n");
+                set("unit", "å‰¯");
                 set("value", 500);
                 set("can_be_applied", 1);
         }
@@ -21,7 +21,7 @@ void create()
 
 int do_apply(object me)
 {
-        write("ÄãËº¿ªÒ©·âÀ´£¬Ö»¼ûÒ»ÕÅÖ½ÉÏÓĞ¸öÃ÷Ä¿£¬Ô»£º¡°È¥Çå¸´Ã÷¸àÒ©¡±¡£\n");
+        write("ä½ æ’•å¼€è¯å°æ¥ï¼Œåªè§ä¸€å¼ çº¸ä¸Šæœ‰ä¸ªæ˜ç›®ï¼Œæ›°ï¼šâ€œå»æ¸…å¤æ˜è†è¯â€ã€‚\n");
         destruct(this_object());
         return 1;
 }

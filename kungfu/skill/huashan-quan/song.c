@@ -5,7 +5,7 @@
 
 inherit F_SSERVER;
 
-#define SONG "¡¸" HIG "²ÔËÉÊ½" NOR "¡¹"
+#define SONG "ã€Œ" HIG "è‹æ¾å¼" NOR "ã€"
 
 int perform(object me, object target)
 {
@@ -21,25 +21,25 @@ int perform(object me, object target)
         }
 
         if (userp(me) && ! me->query("can_perform/huashan-quan/song"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail(SONG "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail(SONG "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if ((int)me->query_skill("huashan-quan", 1) < 40)
-		return notify_fail("ÄãµÄ»ªÉ½È­·¨²»¹»æµÊì£¬ÎÞ·¨Ê©Õ¹" SONG "¡£\n");
+		return notify_fail("ä½ çš„åŽå±±æ‹³æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œæ— æ³•æ–½å±•" SONG "ã€‚\n");
 
 	if ((int)me->query("neili") < 100)
-		return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÎÞ·¨Ê©Õ¹" SONG "¡£\n");
+		return notify_fail("ä½ çŽ°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" SONG "ã€‚\n");
 
         if (me->query_skill_prepared("cuff") != "huashan-quan")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸Ê¹ÓÃÅüÊ¯ÆÆÓñÈ­£¬ÎÞ·¨Ê©Õ¹" SONG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨åŠˆçŸ³ç ´çŽ‰æ‹³ï¼Œæ— æ³•æ–½å±•" SONG "ã€‚\n");
 
         if (! living(target))
-               return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+               return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIY "$N" HIY "Å­ºÈÒ»Éù£¬ÓÒÈ­Ö±³ö£¬¸ÕÃÍÓÐÁ¦£¬ÕýÊÇ»ªÉ½¾ø¼¼¡¸" HIG "²ÔËÉÊ½" HIY
-               "¡¹£¬È­·çºôÏì£¬Ï®Ïò$n" HIY "¡£\n"NOR;
+	msg = HIY "$N" HIY "æ€’å–ä¸€å£°ï¼Œå³æ‹³ç›´å‡ºï¼ŒåˆšçŒ›æœ‰åŠ›ï¼Œæ­£æ˜¯åŽå±±ç»æŠ€ã€Œ" HIG "è‹æ¾å¼" HIY
+               "ã€ï¼Œæ‹³é£Žå‘¼å“ï¼Œè¢­å‘$n" HIY "ã€‚\n"NOR;
 
         ap = me->query_skill("cuff") + me->query_str() * 10;
         dp = target->query_skill("force") + target->query_str() * 10;
@@ -49,13 +49,13 @@ int perform(object me, object target)
 
                 me->add("neili", -60);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 30,
-		                           HIR "Ö»¼û$P" HIR "Ò»È­Ö±³ö£¬$p" HIR
-                                           "ÕýÓûµ²¸ñ£¬È´ÒÑ²»¼°£¬Ò»È­ÖØÖØµØ´òÔÚÉíÉÏ£¡\n" NOR);
+		                           HIR "åªè§$P" HIR "ä¸€æ‹³ç›´å‡ºï¼Œ$p" HIR
+                                           "æ­£æ¬²æŒ¡æ ¼ï¼Œå´å·²ä¸åŠï¼Œä¸€æ‹³é‡é‡åœ°æ‰“åœ¨èº«ä¸Šï¼\n" NOR);
 		me->start_busy(2);
 	} else 
 	{
-		msg += HIC "¿ÉÊÇ$p" HIC "·ÜÁ¦ÕÐ¼Ü£¬Ó²ÉúÉúµÄµ²¿ªÁË$P"
-                       HIC "ÕâÒ»ÕÐ¡£\n"NOR;
+		msg += HIC "å¯æ˜¯$p" HIC "å¥‹åŠ›æ‹›æž¶ï¼Œç¡¬ç”Ÿç”Ÿçš„æŒ¡å¼€äº†$P"
+                       HIC "è¿™ä¸€æ‹›ã€‚\n"NOR;
 		me->add("neili", -50);
 		me->start_busy(3);
 	}

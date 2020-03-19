@@ -5,17 +5,17 @@ inherit DAGGER;
 
 void create()
 {
-        set_name(WHT "Ã«±Ê" NOR, ({ "mao bi", "bi", "mao" }));
+        set_name(WHT "æ¯›ç¬”" NOR, ({ "mao bi", "bi", "mao" }));
         set_weight(6000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ö§");
-                set("long", "Ò»Ö§ÆÕÍ¨µÄÃ«±Ê£¬ÎäÁÖÖĞÈË³£³£ÓÃËü×÷Îª´òÑ¨µÄ±øÆ÷¡£\n");
+                set("unit", "æ”¯");
+                set("long", "ä¸€æ”¯æ™®é€šçš„æ¯›ç¬”ï¼Œæ­¦æ—ä¸­äººå¸¸å¸¸ç”¨å®ƒä½œä¸ºæ‰“ç©´çš„å…µå™¨ã€‚\n");
                 set("value", 200);
                 set("material", "steel");
-                set("wield_msg", "$N´Ó¶µÀïÌÍ³öÒ»°Ñ$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n·Å»Ø¶µÀï¡£\n");
+                set("wield_msg", "$Nä»å…œé‡Œæå‡ºä¸€æŠŠ$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ”¾å›å…œé‡Œã€‚\n");
         }
         init_dagger(15, 0);
         setup();

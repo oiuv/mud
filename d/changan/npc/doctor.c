@@ -5,12 +5,12 @@ inherit F_DEALER;
 
 void create()
 {
-	set_name("Ê±¾Å¹«", ({ "shi jiugong", "shi", "jiugong"}));
+	set_name("æ—¶ä¹å…¬", ({ "shi jiugong", "shi", "jiugong"}));
 	set("str", 60);
-	set("gender", "ÄĞĞÔ");
-        set("title", "Ò©ÆÌÕÆ¹ñ");
+	set("gender", "ç”·æ€§");
+        set("title", "è¯é“ºæŒæŸœ");
 	set("age", 66);
-	set("long", "¾İËµÊ±¾Å¹«Ô­ÊÇ½­ºşÖĞµÄÃûÒ½¡£\n");
+	set("long", "æ®è¯´æ—¶ä¹å…¬åŸæ˜¯æ±Ÿæ¹–ä¸­çš„ååŒ»ã€‚\n");
 	set("combat_exp", 250);
 	set("attitude", "friendly");
 	set("vendor_goods", ({

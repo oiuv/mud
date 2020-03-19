@@ -1,10 +1,10 @@
-// Íæ¼ÒÈÎÎñÊØ»¤½ø³Ì£ºjudge.c
+// ç©å®¶ä»»åŠ¡å®ˆæŠ¤è¿›ç¨‹ï¼šjudge.c
 
 #include <ansi.h>
 
 void startup();
 
-// ÈÎÎñ¶ÔÏó´´½¨
+// ä»»åŠ¡å¯¹è±¡åˆ›å»º
 void create()
 {
     seteuid(getuid());
@@ -17,12 +17,12 @@ void start_quest()
     object qob;
 
     if (sizeof(children("/clone/quest/judge")) > 15)
-        // ÏµÍ³ÖĞ×î¶à15¸ö²Ã¾öÅĞ°¸µÄÈÎÎñ
+        // ç³»ç»Ÿä¸­æœ€å¤š15ä¸ªè£å†³åˆ¤æ¡ˆçš„ä»»åŠ¡
         return;
 
     qob = new ("/clone/quest/judge");
     qob->init_quest();
-    CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "½ø³Ì(JUDGE)" HIR "´´½¨ÁËÒ»¸öÈÎÎñ¡£");
+    CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "è¿›ç¨‹(JUDGE)" HIR "åˆ›å»ºäº†ä¸€ä¸ªä»»åŠ¡ã€‚");
 }
 
 private void heart_beat()
@@ -30,26 +30,26 @@ private void heart_beat()
     if (!find_object(QUEST_D))
         return;
 
-    // Èç¹û¿ÉÒÔ£¬Ã¿´ÎĞÄÌø²úÉúÒ»¸öQUEST
+    // å¦‚æœå¯ä»¥ï¼Œæ¯æ¬¡å¿ƒè·³äº§ç”Ÿä¸€ä¸ªQUEST
     start_quest();
     start_quest();
     start_quest();
 }
 
-// ÈÎÎñÊØ»¤½ø³Ì»½ĞÑÕâ¸ö½ø³Ì
+// ä»»åŠ¡å®ˆæŠ¤è¿›ç¨‹å”¤é†’è¿™ä¸ªè¿›ç¨‹
 void startup()
 {
-    // Æô¶¯
+    // å¯åŠ¨
     if (!find_object(QUEST_D))
         return;
 
     if (!query_heart_beat())
-        CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "½ø³Ì(JUDGE)Æô¶¯ÁË¡£");
+        CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "è¿›ç¨‹(JUDGE)å¯åŠ¨äº†ã€‚");
 
     set_heart_beat(80 + random(20));
 }
 
-// Í£Ö¹Õâ¸öÈÎÎñ½ø³Ì
+// åœæ­¢è¿™ä¸ªä»»åŠ¡è¿›ç¨‹
 void stop()
 {
     set_heart_beat(0);

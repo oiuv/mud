@@ -5,14 +5,14 @@ inherit NPC;
 #include <ansi.h>
 void create()
 {
-	set_name("Å¬¶ùº£", ({ "nu erhai", "nu" }));
-	set("title", HIM"Î÷ÏÄÒ»Æ·ÌÃ"HIG"½ÓÒýÊ¹"NOR);
-	set("gender", "ÄÐÐÔ");
+	set_name("åŠªå„¿æµ·", ({ "nu erhai", "nu" }));
+	set("title", HIM"è¥¿å¤ä¸€å“å ‚"HIG"æŽ¥å¼•ä½¿"NOR);
+	set("gender", "ç”·æ€§");
 	set("age", random(10) + 20);
 	set("str", 25);
 	set("dex", 16);
 	set("per", 13);
-	set("long", "Ò»¸öÉíÐÎ¼«¸ß¡¢±Ç×Ó¼«´ó£¬ÉùÒôÒõÑô¹ÖÆøµÄºº×Ó¡£\n");
+	set("long", "ä¸€ä¸ªèº«å½¢æžé«˜ã€é¼»å­æžå¤§ï¼Œå£°éŸ³é˜´é˜³æ€ªæ°”çš„æ±‰å­ã€‚\n");
 
 	set("combat_exp", 100000);
 	set("shen_type", 1);
@@ -50,7 +50,7 @@ void init()
 
 string ask_me()
 {
-	return "³ÏÕÐÌìÏÂºÀ½Ü¡£ÄãÏë¼ÓÈëÎÒÒ»Æ·ÌÃ(join yipintang)Âð£¿";
+	return "è¯šæ‹›å¤©ä¸‹è±ªæ°ã€‚ä½ æƒ³åŠ å…¥æˆ‘ä¸€å“å ‚(join yipintang)å—ï¼Ÿ";
 }
 
 int do_join(string arg)
@@ -60,13 +60,13 @@ int do_join(string arg)
 
 	ob = this_player () ;
 	if( !arg || arg!="yipintang" )
-		return notify_fail("Å¬¶ùº£ÎÊµÀ£º¡°ÄãÒª¼ÓÈëÊ²Ã´×éÖ¯£¿¡±\n");
+		return notify_fail("åŠªå„¿æµ·é—®é“ï¼šâ€œä½ è¦åŠ å…¥ä»€ä¹ˆç»„ç»‡ï¼Ÿâ€\n");
    	if( (int)ob->query("yipin/joined") )
-		return notify_fail("Å¬¶ùº£Ææ¹ÖµØËµµÀ£º¡°Äã¿ªÊ²Ã´ÍæÐ¦£¿ÄãÒÑ¾­ÊÇÌÃÖÐÈËÁË¡£¡±\n");
+		return notify_fail("åŠªå„¿æµ·å¥‡æ€ªåœ°è¯´é“ï¼šâ€œä½ å¼€ä»€ä¹ˆçŽ©ç¬‘ï¼Ÿä½ å·²ç»æ˜¯å ‚ä¸­äººäº†ã€‚â€\n");
    	if( (int)ob->query("combat_exp") < 1000 )
-		return notify_fail("Å¬¶ùº£¹þµÄÒ»Éù´óÐ¦ÆðÀ´£º¡°ÎÒÃÇÖ»Òª½­ºþÖÐµÄ³ÉÃûÓ¢ÐÛ¡£ÄãËãÊ²Ã´²ÄÁÏ£¿¡±\n");
+		return notify_fail("åŠªå„¿æµ·å“ˆçš„ä¸€å£°å¤§ç¬‘èµ·æ¥ï¼šâ€œæˆ‘ä»¬åªè¦æ±Ÿæ¹–ä¸­çš„æˆåè‹±é›„ã€‚ä½ ç®—ä»€ä¹ˆææ–™ï¼Ÿâ€\n");
 	command("gongxi "+ob->query("id"));
-	message_vision("Å¬¶ùº£³å×Å$NÐ¦µÀ£º¡°ÄÇºÃ£¬ÔÛÃÇÏÖÔÚ¾ÍÊÇÒ»µîÖ®³¼£¬Ò»¼ÒÈËÁË£¡¡±\n",ob);
+	message_vision("åŠªå„¿æµ·å†²ç€$Nç¬‘é“ï¼šâ€œé‚£å¥½ï¼Œå’±ä»¬çŽ°åœ¨å°±æ˜¯ä¸€æ®¿ä¹‹è‡£ï¼Œä¸€å®¶äººäº†ï¼â€\n",ob);
 	ob->set("yipin/joined",1);
 	return 1;
 }

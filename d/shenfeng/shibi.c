@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ʯ��С��");
+        set("short", "石壁小径");
         set("long", @LONG
-�����·�趸��һ������ʯ��֮������������ֻ������
-ɭɭ��������ˡ�·������һ�Ѱ׹ǣ������й�����ҫ������
-���౦ʯ����
+这里道路骤陡，一线天光从石壁之间照射下来，只觉阴气
+森森，寒意逼人。路旁又现一堆白骨，骸骨中光亮闪耀，竟是
+许多宝石珠玉。
 LONG);
         set("outdoors", "shenfeng");
 

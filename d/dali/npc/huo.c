@@ -7,18 +7,18 @@ int ask_for_gongzi();
 
 void create()
 {
-        set_name("»ôÏÈÉú", ({"huo xiansheng", "huo", "xiansheng"}));
+        set_name("éœå…ˆç”Ÿ", ({"huo xiansheng", "huo", "xiansheng"}));
         set("long",
-"ËûÒ»ÉíåååÝ£¬ÐÎÈÝÎ¯Ëö£¬ÕûÌìÃÔÃÔºýºýµÄË¯²»ÐÑÄ£Ñù¡£¿ÉÊÇËûµÄÕËÎñÊ®¼¸ÄêÀ´ÎÞ¿ÉÌôÌÞ¡£
-Ô­À´Ëû¾ÍÊÇ·üÅ£ÅÉµÄ´Þ°ÙÈª£¬Îª±Ü³ð»öÒþ¾ÓÓÚ´Ë¡£\n"
+"ä»–ä¸€èº«é‚‹é¢ï¼Œå½¢å®¹å§”çï¼Œæ•´å¤©è¿·è¿·ç³Šç³Šçš„ç¡ä¸é†’æ¨¡æ ·ã€‚å¯æ˜¯ä»–çš„è´¦åŠ¡åå‡ å¹´æ¥æ— å¯æŒ‘å‰”ã€‚
+åŽŸæ¥ä»–å°±æ˜¯ä¼ç‰›æ´¾çš„å´”ç™¾æ³‰ï¼Œä¸ºé¿ä»‡ç¥¸éšå±…äºŽæ­¤ã€‚\n"
         );
 
-        set("gender", "ÄÐÐÔ");
+        set("gender", "ç”·æ€§");
         set("attitude", "heroism");
 
         set("inquiry",([
-                "¹¤×Ê"    : (: ask_for_gongzi :),
-                "Ð½Ë®"    : (: ask_for_gongzi :),
+                "å·¥èµ„"    : (: ask_for_gongzi :),
+                "è–ªæ°´"    : (: ask_for_gongzi :),
                 "salary"  : (: ask_for_gongzi :),
                 "payment" : (: ask_for_gongzi :),
                 "gongzi"  : (: ask_for_gongzi :),
@@ -61,7 +61,7 @@ int ask_for_gongzi()
 
         me = this_player();
 	oldtitle = me->query("title");
-	if (strsrch(oldtitle, "´óÀíÕòÄÏÍõ¸®Îä½«") >= 0) 
+	if (strsrch(oldtitle, "å¤§ç†é•‡å—çŽ‹åºœæ­¦å°†") >= 0) 
 	{
 	    paytimes = (int)(me->query("mud_age")/7200);
 	    if (me->query("dlpaytimes")<paytimes)
@@ -69,12 +69,12 @@ int ask_for_gongzi()
 	        payment=new("/clone/money/gold");
 	        payment->move(me);
 	        me->add("dlpaytimes",1);
-	        tell_object(me,"»ôÏÈÉúµÀ£ºÕâÊÇÄã±¾ÔÂµÄ·Ý¶î£¬ÊÕºÃ°É¡£\n");
+	        tell_object(me,"éœå…ˆç”Ÿé“ï¼šè¿™æ˜¯ä½ æœ¬æœˆçš„ä»½é¢ï¼Œæ”¶å¥½å§ã€‚\n");
 	    }
-	    else tell_object(me,"»ôÏÈÉúµÀ£ºÆÛ¸ºÎÒÀÏºýÍ¿£¿Äã±¾ÔÂ¹¤×ÊÒÑ¾­ÁìÈ¡¹ýÁË£¡\n");
+	    else tell_object(me,"éœå…ˆç”Ÿé“ï¼šæ¬ºè´Ÿæˆ‘è€ç³Šæ¶‚ï¼Ÿä½ æœ¬æœˆå·¥èµ„å·²ç»é¢†å–è¿‡äº†ï¼\n");
 	}
 	else
-	tell_object(me,"»ôÏÈÉúµÀ£ºÆÛ¸ºÎÒÀÏºýÍ¿£¿µÈÄãÉýµ½Îä½«ÔÙÀ´Áì¹¤×Ê£¡\n");
+	tell_object(me,"éœå…ˆç”Ÿé“ï¼šæ¬ºè´Ÿæˆ‘è€ç³Šæ¶‚ï¼Ÿç­‰ä½ å‡åˆ°æ­¦å°†å†æ¥é¢†å·¥èµ„ï¼\n");
         return 1;
 }
 

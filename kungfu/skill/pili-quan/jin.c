@@ -1,11 +1,11 @@
-// ×ÏÀ×¾¢
+// ç´«é›·åŠ²
 
 #include <ansi.h>
 #include <combat.h>
 
 inherit F_SSERVER;
 
-#define PO "¡¸" MAG "×ÏÀ×¾¢" NOR "¡¹"
+#define PO "ã€Œ" MAG "ç´«é›·åŠ²" NOR "ã€"
 
 int perform(object me, object target)
 {
@@ -21,25 +21,25 @@ int perform(object me, object target)
         }
 
         if (userp(me) && ! me->query("can_perform/pili-quan/jin"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail(PO "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail(PO "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if ((int)me->query_skill("pili-quan", 1) < 40)
-		return notify_fail("ÄãµÄÅùö¨ÉñÈ­²»¹»æµÊì£¬ÎŞ·¨Ê©Õ¹" PO "¡£\n");
+		return notify_fail("ä½ çš„éœ¹é›³ç¥æ‹³ä¸å¤Ÿå¨´ç†Ÿï¼Œæ— æ³•æ–½å±•" PO "ã€‚\n");
 
 	if ((int)me->query("neili") < 200)
-		return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÎŞ·¨Ê©Õ¹" PO "¡£\n");
+		return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" PO "ã€‚\n");
 
         if (me->query_skill_prepared("cuff") != "pili-quan")
-                return notify_fail("ÄãÃ»ÓĞ×¼±¸Ê¹ÓÃÅùö¨ÉñÈ­£¬ÎŞ·¨Ê©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨éœ¹é›³ç¥æ‹³ï¼Œæ— æ³•æ–½å±•" PO "ã€‚\n");
 
         if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIY "$N" HIY "ÉíĞÎÒ»×ª£¬ÔËÁ¦ÓëË«È­£¬Ê©³ö¾øÕĞ¡¸" HIW "×ÏÀ×¾¢" HIY "¡¹£¬Ë«È­Ñ¸ÃÍÎŞ±È"
-              "µÄÏ®Ïò$n" HIY "¡£\n" NOR;
+	msg = HIY "$N" HIY "èº«å½¢ä¸€è½¬ï¼Œè¿åŠ›ä¸åŒæ‹³ï¼Œæ–½å‡ºç»æ‹›ã€Œ" HIW "ç´«é›·åŠ²" HIY "ã€ï¼ŒåŒæ‹³è¿…çŒ›æ— æ¯”"
+              "çš„è¢­å‘$n" HIY "ã€‚\n" NOR;
 
         ap = me->query_skill("cuff");
         dp = target->query_skill("parry");
@@ -49,13 +49,13 @@ int perform(object me, object target)
 
                 me->add("neili", -120);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 55,
-		                           HIR "Ö»¼û$P" HIR "ÕâÒ»È­°Ñ$p" HIR
-                                           "·ÉÁË³öÈ¥£¬ÖØÖØµÄË¤ÔÚµØÉÏ£¬ÍÂÑª²»Ö¹£¡\n" NOR);
+		                           HIR "åªè§$P" HIR "è¿™ä¸€æ‹³æŠŠ$p" HIR
+                                           "é£äº†å‡ºå»ï¼Œé‡é‡çš„æ‘”åœ¨åœ°ä¸Šï¼Œåè¡€ä¸æ­¢ï¼\n" NOR);
 		me->start_busy(2);
 	} else
 	{
-		msg += HIC "¿ÉÊÇ$p" HIC "·ÜÁ¦ÕĞ¼Ü£¬Ó²ÉúÉúµÄµ²¿ªÁË$P"
-                       HIC "ÕâÒ»ÕĞ¡£\n"NOR;
+		msg += HIC "å¯æ˜¯$p" HIC "å¥‹åŠ›æ‹›æ¶ï¼Œç¡¬ç”Ÿç”Ÿçš„æŒ¡å¼€äº†$P"
+                       HIC "è¿™ä¸€æ‹›ã€‚\n"NOR;
 		me->add("neili", -80);
 		me->start_busy(3);
 	}

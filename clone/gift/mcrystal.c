@@ -1,4 +1,4 @@
-// mcrystal.c ÉñÖ®Ë®¾§
+// mcrystal.c ç¥ä¹‹æ°´æ™¶
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,23 +7,23 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIM "ÉñÖ®Ë®¾§" NOR, ({ "magic crystal" }) );
+	set_name(HIM "ç¥ä¹‹æ°´æ™¶" NOR, ({ "magic crystal" }) );
 	set_weight(50);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-                set("long", HIM "Ò»¿éÉÁË¸ÕâÆæÒì¹âÃ¢µÄ·ÛÉ«Ë®¾§£¬"
-                    "ÈÃÈË¸Ğµ½Ò»ÕóÕóµÄĞÄ¼Â¡£\n" NOR);
+                set("long", HIM "ä¸€å—é—ªçƒè¿™å¥‡å¼‚å…‰èŠ’çš„ç²‰è‰²æ°´æ™¶ï¼Œ"
+                    "è®©äººæ„Ÿåˆ°ä¸€é˜µé˜µçš„å¿ƒæ‚¸ã€‚\n" NOR);
                 set("value", 200000);
-		set("unit", "¿é");
+		set("unit", "å—");
                 set("can_be_enchased", 1);
                 set("magic/type", "magic");
                 set("magic/power", 15 + random(16));
                 set("armor_prop/per", 8);
-                set("wear_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´÷ÔÚÍ·ÉÏ¡£\n" NOR);
-                set("remove_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n" NOR);
+                set("wear_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "æˆ´åœ¨å¤´ä¸Šã€‚\n" NOR);
+                set("remove_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "ä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n" NOR);
 	}
         setup();
 }

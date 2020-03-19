@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�ᶽ��");
+        set("short", "提督府");
         set("long", @LONG
-��������ᶽ���˰칫�µĵط�����ǰ������ľ������
-���������ŵģ����ǳɶ��ᶽ����¡�����վ���Ʒ粻������
-�����ױ��̴ӣ�����ȥ��ʮ�ֱ뺷��
+这里便是提督大人办公事的地方。正前方大红楠木案桌后
+正经端坐着的，就是成都提督吴天德。两边站立纹风不动的是
+他的亲兵侍从，看上去都十分彪悍。
 LONG);
         set("exits", ([
             	"south" : __DIR__"tidugate",

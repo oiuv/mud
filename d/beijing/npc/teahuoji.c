@@ -3,11 +3,11 @@ inherit F_VENDOR;
 
 void create()
 {
-	set_name("²èÆÌ»ï¼Æ", ({ "chapu huoji", "chapu", "huoji" }) );
-	set("gender", "ÄĞĞÔ" );
+	set_name("èŒ¶é“ºä¼™è®¡", ({ "chapu huoji", "chapu", "huoji" }) );
+	set("gender", "ç”·æ€§" );
 	set("age", 18);
 	set("long",
-		"Ò»¸öÔÚ²è¹İÀïÅÜÌÃµÄ»ï¼Æ¡£\n");
+		"ä¸€ä¸ªåœ¨èŒ¶é¦†é‡Œè·‘å ‚çš„ä¼™è®¡ã€‚\n");
 	set("shen_type", 1);
 	set("combat_exp", 10000);
        set("str", 10);
@@ -19,7 +19,7 @@ void create()
        set_skill("unarmed",20);
        set("chat_chance", 2);
        set("chat_msg", ({
-                "²èÆÌ»ï¼Æ¶Ô×ÅÄãËµµÀ£ºÕâÎ»¿Í¹Ù£¬ºÈ²èÂğ£¿\n",
+                "èŒ¶é“ºä¼™è®¡å¯¹ç€ä½ è¯´é“ï¼šè¿™ä½å®¢å®˜ï¼Œå–èŒ¶å—ï¼Ÿ\n",
         }) );       
 
 	set("vendor_goods", ({

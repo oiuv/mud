@@ -4,13 +4,13 @@ inherit BOOK;
 
 void create()
 {
-	set_name( "ÕĞ¼ÜÈëÃÅ",({ "parry book","book"}));
+	set_name( "æ‹›æ¶å…¥é—¨",({ "parry book","book"}));
 	set_weight(200);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±¾");
-                set("long","ÕâÊÇÒ»±¾×ß½­ºşÎäÊ¦Ğ´µÄ¹ØÓÚÇ÷±ÜÕĞ¼ÜµÄÊé¼®¡£\n");
+		set("unit", "æœ¬");
+                set("long","è¿™æ˜¯ä¸€æœ¬èµ°æ±Ÿæ¹–æ­¦å¸ˆå†™çš„å…³äºè¶‹é¿æ‹›æ¶çš„ä¹¦ç±ã€‚\n");
 		set("value", 1500);
 		set("material", "paper");
 		set("skill", ([

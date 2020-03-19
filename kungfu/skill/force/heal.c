@@ -7,42 +7,42 @@ int exert(object me, object target)
         string force;
 
         if (me->is_fighting())
-                return notify_fail("Õ½¶·ÖÐÔË¹¦ÁÆÉË£¿ÕÒËÀÂð£¿\n");
+                return notify_fail("æˆ˜æ–—ä¸­è¿åŠŸç–—ä¼¤ï¼Ÿæ‰¾æ­»å—ï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("µÈÄãÃ¦ÍêÁËÊÖÍ·µÄÊÂÇéÔÙËµ£¡\n");
+                return notify_fail("ç­‰ä½ å¿™å®Œäº†æ‰‹å¤´çš„äº‹æƒ…å†è¯´ï¼\n");
 
         if (me->query_temp("tianmo"))
-                return notify_fail("ÌìÄ§½âÌå×´Ì¬²»ÄÜÔË¹¦ÁÆÉË£¡\n");
+                return notify_fail("å¤©é­”è§£ä½“çŠ¶æ€ä¸èƒ½è¿åŠŸç–—ä¼¤ï¼\n");
 
         force = me->query_skill_mapped("force");
         if (! stringp(force))
-                return notify_fail("ÏÈ¼¤·¢ÄãµÄÌØÊâÄÚ¹¦¡£\n");
+                return notify_fail("å…ˆæ¿€å‘ä½ çš„ç‰¹æ®Šå†…åŠŸã€‚\n");
 
         if ((int)me->query("eff_qi") >= (int)me->query("max_qi"))
-                return notify_fail("ÄãÏÖÔÚÆøÑª³äÓ¯£¬²»ÐèÒªÁÆÉË¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ°”è¡€å……ç›ˆï¼Œä¸éœ€è¦ç–—ä¼¤ã€‚\n");
 
         if ((int)me->query_skill(force, 1) < 20)
-                return notify_fail("ÄãµÄ" + to_chinese(force) + "ÐÞÎª»¹²»¹»¡£\n");
+                return notify_fail("ä½ çš„" + to_chinese(force) + "ä¿®ä¸ºè¿˜ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query("neili") < 50)
-                return notify_fail("ÄãµÄÕæÆø²»¹»¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿã€‚\n");
 
         if (! me->query("special_skill/divine") && (int)me->query("eff_qi") < (int)me->query("max_qi") / 5)
-                return notify_fail("ÄãÒÑ¾­ÊÜÉË¹ýÖØ£¬Ö»ÅÂÒ»ÔËÕæÆø±ãÓÐÉúÃüÎ£ÏÕ£¡\n");
+                return notify_fail("ä½ å·²ç»å—ä¼¤è¿‡é‡ï¼Œåªæ€•ä¸€è¿çœŸæ°”ä¾¿æœ‰ç”Ÿå‘½å±é™©ï¼\n");
 
-        message_vision(HIW "$N" HIW "È«Éí·ÅËÉ£¬×øÏÂÀ´¿ªÊ¼ÔË¹¦ÁÆÉË¡£\n" NOR,
+        message_vision(HIW "$N" HIW "å…¨èº«æ”¾æ¾ï¼Œåä¸‹æ¥å¼€å§‹è¿åŠŸç–—ä¼¤ã€‚\n" NOR,
                        me);
 
         me->set_temp("pending/healing", 1);
-        me->set_short_desc("Õý×øÔÚµØÏÂÔË¹¦ÁÆÉË¡£");
+        me->set_short_desc("æ­£ååœ¨åœ°ä¸‹è¿åŠŸç–—ä¼¤ã€‚");
         me->start_busy((:call_other, __FILE__, "healing" :),
                        (:call_other, __FILE__, "halt_healing" :));
 
         return 1;
 }
 
-// ÁÆÉËÖÐ
+// ç–—ä¼¤ä¸­
 int healing(object me)
 {
         string force;
@@ -51,33 +51,33 @@ int healing(object me)
         force = me->query_skill_mapped("force");
         if (! stringp(force))
         {
-                // Ã»ÓÐÌØÊâÄÚ¹¦ÁË£¿
-                tell_object(me, "ÄãÒ»Ê±ÄÑÒÔ¶¨¶áÈçºÎÔËÓÃÄÚÁ¦£¬Ö»ºÃÏÈÔÝÍ£ÁÆÉË¡£\n");
+                // æ²¡æœ‰ç‰¹æ®Šå†…åŠŸäº†ï¼Ÿ
+                tell_object(me, "ä½ ä¸€æ—¶éš¾ä»¥å®šå¤ºå¦‚ä½•è¿ç”¨å†…åŠ›ï¼Œåªå¥½å…ˆæš‚åœç–—ä¼¤ã€‚\n");
                 me->set_temp("pending/healing", 0);
                 me->set_short_desc(0);
-                message_vision("$NÌ¾ÁË¿ÚÆø£¬Ò¡Ò¡»Î»ÎµÄÕ¾ÁËÆðÀ´¡£\n", me);
+                message_vision("$Nå¹äº†å£æ°”ï¼Œæ‘‡æ‘‡æ™ƒæ™ƒçš„ç«™äº†èµ·æ¥ã€‚\n", me);
                 return 0;
         }
 
         if (me->query("eff_qi") < me->query("max_qi"))
         {
-                // ÐèÒª¼ÌÐøÁÆÉË
+                // éœ€è¦ç»§ç»­ç–—ä¼¤
                 if (me->query("neili") < 50)
                 {
-                        tell_object(me, "Äã¾õµÃÕæÆø²»¼Ã£¬ÄÑÒÔÔÚ¾­ÂöÖÐ¼ÌÐøÔË×ªÁÆÉË¡£\n");
+                        tell_object(me, "ä½ è§‰å¾—çœŸæ°”ä¸æµŽï¼Œéš¾ä»¥åœ¨ç»è„‰ä¸­ç»§ç»­è¿è½¬ç–—ä¼¤ã€‚\n");
                         me->set_temp("pending/healing", 0);
                         me->set_short_desc(0);
-                        message_vision("$NÌ¾ÁË¿ÚÆø£¬Ò¡Ò¡»Î»ÎµÄÕ¾ÁËÆðÀ´¡£\n", me);
+                        message_vision("$Nå¹äº†å£æ°”ï¼Œæ‘‡æ‘‡æ™ƒæ™ƒçš„ç«™äº†èµ·æ¥ã€‚\n", me);
                         return 0;
                 }
 
                 recover_points = 10 + (int)me->query_skill("force") / 3;
 
-                // ÌìÓÓÉñÇûÔöÇ¿ÁÆÉËÐ§¹û
+                // å¤©ä½‘ç¥žèº¯å¢žå¼ºç–—ä¼¤æ•ˆæžœ
                 if (me->query("special_skill/divine"))
                         recover_points += (int)me->query_con() * 2;
 
-                // ´òÍ¨ÈÎ¶½¶þÂöÔöÇ¿ÁÆÉËÐ§¹û
+                // æ‰“é€šä»»ç£äºŒè„‰å¢žå¼ºç–—ä¼¤æ•ˆæžœ
                 if (me->query("breakup"))
                         recover_points *= 3;
 
@@ -86,35 +86,35 @@ int healing(object me)
                 switch (random(10))
                 {
                 case 0:
-                        tell_object(me, "ÄãÔËÓÃ" + to_chinese(force) + "ÑØ×Å"
-                                    "Öî´óÑ¨ÂýÂýÔË×ª£¬ÁÆ½âÉËÍ´¡£\n");
+                        tell_object(me, "ä½ è¿ç”¨" + to_chinese(force) + "æ²¿ç€"
+                                    "è¯¸å¤§ç©´æ…¢æ…¢è¿è½¬ï¼Œç–—è§£ä¼¤ç—›ã€‚\n");
                         break;
                 case 1:
-                        tell_object(me, "Äã½«ÄÚÁ¦ÄÉÈëµ¤Ìï£¬ÔÙÉÏÐÐ³å¶¥£¬Í¸Äà¹¬"
-                                    "£¬¶Ù¾õ¾«ÉñË¬¿ì¡£\n");
+                        tell_object(me, "ä½ å°†å†…åŠ›çº³å…¥ä¸¹ç”°ï¼Œå†ä¸Šè¡Œå†²é¡¶ï¼Œé€æ³¥å®«"
+                                    "ï¼Œé¡¿è§‰ç²¾ç¥žçˆ½å¿«ã€‚\n");
                         break;
                 case 2:
-                        tell_object(me, "Äã½«ÄÚÁ¦ÔËÈëËÄÖ«°Ùêà£¬¸´ÓÖ»ØÊÕµ¤Ìï£¬"
-                                    "ÉËÊÆÈ¬Óú²»ÉÙ¡£\n");
+                        tell_object(me, "ä½ å°†å†…åŠ›è¿å…¥å››è‚¢ç™¾èµ…ï¼Œå¤åˆå›žæ”¶ä¸¹ç”°ï¼Œ"
+                                    "ä¼¤åŠ¿ç—Šæ„ˆä¸å°‘ã€‚\n");
                         break;
                 }
 
                 return 1;
         }
 
-        // »Ö¸´Íê±Ï
+        // æ¢å¤å®Œæ¯•
         me->set_temp("pending/exercise", 0);
         me->set_short_desc(0);
-        message_vision(HIY "$N" HIY "ÔË¹¦Íê±Ï£¬ÍÂ³öÒ»¿ÚðöÑª£¬Á³É«¿´ÆðÀ´ºÃ¶àÁË¡£\n" NOR,
+        message_vision(HIY "$N" HIY "è¿åŠŸå®Œæ¯•ï¼Œåå‡ºä¸€å£ç˜€è¡€ï¼Œè„¸è‰²çœ‹èµ·æ¥å¥½å¤šäº†ã€‚\n" NOR,
                        me);
         return 0;
 }
 
-// Í£Ö¹ÁÆÉË
+// åœæ­¢ç–—ä¼¤
 int halt_healing(object me)
 {
-        tell_object(me, "Äã½«ÕæÆøÊÕ»Øµ¤Ìï£¬Î¢Î¢´­Ï¢£¬Õ¾ÁËÆðÀ´¡£\n");
-        tell_room(environment(me), me->name() + "ÃÍµÄÎüÒ»¿ÚÆø£¬Í»È»Õ¾ÁËÆðÀ´¡£\n", me);
+        tell_object(me, "ä½ å°†çœŸæ°”æ”¶å›žä¸¹ç”°ï¼Œå¾®å¾®å–˜æ¯ï¼Œç«™äº†èµ·æ¥ã€‚\n");
+        tell_room(environment(me), me->name() + "çŒ›çš„å¸ä¸€å£æ°”ï¼Œçªç„¶ç«™äº†èµ·æ¥ã€‚\n", me);
         me->set_temp("pending/healing", 0);
         me->set_short_desc(0);
         if (me->query("neili") > 100)

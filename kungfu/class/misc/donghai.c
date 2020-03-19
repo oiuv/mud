@@ -6,12 +6,12 @@ inherit NPC;
 
 void create()
 {
-        set_name("¶«º£ÈıÌ«×Ó", ({ "prince of dragon", "dragon", "san taizi" }) );
-        set("title", HIG "Áú×å" NOR);
-        set("gender", "ÄĞĞÔ");
+        set_name("ä¸œæµ·ä¸‰å¤ªå­", ({ "prince of dragon", "dragon", "san taizi" }) );
+        set("title", HIG "é¾™æ—" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 23);
         set("long", @LONG
-ÕâÊÇÒ»¸öÉñ²ÉŞÈŞÈµÄÄêÇáÈË£¬·ç¶Èôæôæ£¬ÆøÓîĞù°º¡£
+è¿™æ˜¯ä¸€ä¸ªç¥é‡‡å¥•å¥•çš„å¹´è½»äººï¼Œé£åº¦ç¿©ç¿©ï¼Œæ°”å®‡è½©æ˜‚ã€‚
 LONG );
         set("combat_exp", 10000000);
         set("shen_type", 0);
@@ -58,8 +58,8 @@ void fight_ob(object ob)
         if (is_fighting(ob))
                 return;
 
-        message_vision(HIW "$N" HIW "ÀäºßÒ»Éù£¬Ò»¹ÉÔÆÆø×ÔÉíºó"
-                       "ÉıÆğ£¬ËÆÕæËÆ»Ã¡£\n" NOR, this_object(), ob);
+        message_vision(HIW "$N" HIW "å†·å“¼ä¸€å£°ï¼Œä¸€è‚¡äº‘æ°”è‡ªèº«å"
+                       "å‡èµ·ï¼Œä¼¼çœŸä¼¼å¹»ã€‚\n" NOR, this_object(), ob);
 
         ::fight_ob(ob);
         if (! is_killing(ob->query("id")))
@@ -68,7 +68,7 @@ void fight_ob(object ob)
 
 int accept_fight(object ob)
 {
-        message_vision("$NÉ¨ÁË$nÒ»ÑÛ£¬Ã»ÓĞÀí$n¡£\n",
+        message_vision("$Næ‰«äº†$nä¸€çœ¼ï¼Œæ²¡æœ‰ç†$nã€‚\n",
                        this_object(), ob);
         return 0;
 }
@@ -87,8 +87,8 @@ mixed hit_ob(object me, object ob, int damage_bouns)
 {
         ob->receive_wound("qi", 200 + random(200), me);
         me->set("neili", me->query("max_neili"));
-        return HIY "$N" HIY "ÉíÉÏÉÁ¹ıÒ»µÀµç¹â£¬µÇÊ±Áî$n"
-               HIY "»ëÉíÂéÄ¾£¬ÊÖ½ÅËáÈí¡£\n" NOR;
+        return HIY "$N" HIY "èº«ä¸Šé—ªè¿‡ä¸€é“ç”µå…‰ï¼Œç™»æ—¶ä»¤$n"
+               HIY "æµ‘èº«éº»æœ¨ï¼Œæ‰‹è„šé…¸è½¯ã€‚\n" NOR;
 }
 
 void unconcious()
@@ -101,10 +101,10 @@ void die()
         object ob;
 
         ob = new("/clone/gift/cdiamond");
-        command("chat Ñ½£¡Ïë²»µ½·²ÈËÒ²ÓĞÈç´ËÀ÷º¦µÄ£¡");
-        message_sort(HIR "$N" HIR "ÍÂÒ»¿ÚÏÊÑª£¬¼İÔÆ¶øÈ¥¡£Ö»Ìı¶£ÁáÁáÒ»Éù"
-                     "ÇáÏì£¬$N" HIR "\nµôÏÂÁËÒ»" + ob->query("unit") +
-                     ob->name() + HIR "¡£\n", this_object());
+        command("chat å‘€ï¼æƒ³ä¸åˆ°å‡¡äººä¹Ÿæœ‰å¦‚æ­¤å‰å®³çš„ï¼");
+        message_sort(HIR "$N" HIR "åä¸€å£é²œè¡€ï¼Œé©¾äº‘è€Œå»ã€‚åªå¬å®ç²ç²ä¸€å£°"
+                     "è½»å“ï¼Œ$N" HIR "\næ‰ä¸‹äº†ä¸€" + ob->query("unit") +
+                     ob->name() + HIR "ã€‚\n", this_object());
         ob->move(environment());
         destruct(this_object());
 }
@@ -113,10 +113,10 @@ void random_move()
 {
         if (time() - query("born_time") > 1800)
         {
-                message_vision("$N¼±¼±Ã¦Ã¦µÄ×ßÁË¡£\n", this_object());
+                message_vision("$Næ€¥æ€¥å¿™å¿™çš„èµ°äº†ã€‚\n", this_object());
                 CHANNEL_D->do_channel(this_object(), "rumor",
-                        "ÌıËµ" + name() + HIM "ĞŞÁ¶Á¼¾Ã£¬ÔªÆø»Ö¸´£¬"
-                        "ÒÑ¾­°²È»·µ»ØÉñ½ç¡£" NOR);
+                        "å¬è¯´" + name() + HIM "ä¿®ç‚¼è‰¯ä¹…ï¼Œå…ƒæ°”æ¢å¤ï¼Œ"
+                        "å·²ç»å®‰ç„¶è¿”å›ç¥ç•Œã€‚" NOR);
                 destruct(this_object());
                 return;
         }

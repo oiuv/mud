@@ -9,13 +9,13 @@ void setup() {}
 
 void create()
 {
-        set_name(HIM "ÃÅÉñ" NOR, ({ "men shen", "menshen" }));
+        set_name(HIM "é—¨ç¥ž" NOR, ({ "men shen", "menshen" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "ÕâÊÇÒ»ÕÅ»­µÄÎåÑÕÁùÉ«µÄÃÅÉñ£¬³£³£"
-                            "±»ÈËÌùÔÚÃÅÉÏÓÃÀ´Çý³ýÑýÐ°¡£\n");
-                set("unit", "ÕÅ");
+                set("long", "è¿™æ˜¯ä¸€å¼ ç”»çš„äº”é¢œå…­è‰²çš„é—¨ç¥žï¼Œå¸¸å¸¸"
+                            "è¢«äººè´´åœ¨é—¨ä¸Šç”¨æ¥é©±é™¤å¦–é‚ªã€‚\n");
+                set("unit", "å¼ ");
         }
 
         set("no_get", 1);
@@ -41,19 +41,19 @@ void init()
         if (! interactive(me) || env->welcome(me))
                 return;
 
-        message_vision("ÃÅÉñ´óºÈÒ»Éù£º¡°ºÎ·½ÑýÄõ£¬Ò²"
-                       "¸ÒÀ´´Ë£¿¡±Ëµ°ÕÊÖÖÐÍ­´¸Ò»µ´£¬"
-                       "½«$NÒ»´¸´òµÃ·ÉÁË³öÈ¥£¡\n", me);
+        message_vision("é—¨ç¥žå¤§å–ä¸€å£°ï¼šâ€œä½•æ–¹å¦–å­½ï¼Œä¹Ÿ"
+                       "æ•¢æ¥æ­¤ï¼Ÿâ€è¯´ç½¢æ‰‹ä¸­é“œé”¤ä¸€è¡ï¼Œ"
+                       "å°†$Nä¸€é”¤æ‰“å¾—é£žäº†å‡ºåŽ»ï¼\n", me);
         
         if (me->query("id") != "ivy")
                  me->move(env->query("startroom"));
 
-        else message_vision(HIC "ÃÅÉñ¼û´³ÁË»ö£¬ÍËÔÚÒ»±ßÔÙÒ²²»¸ÒËµÊ²Ã´ÁË£¡\n" NOR, me);
+        else message_vision(HIC "é—¨ç¥žè§é—¯äº†ç¥¸ï¼Œé€€åœ¨ä¸€è¾¹å†ä¹Ÿä¸æ•¢è¯´ä»€ä¹ˆäº†ï¼\n" NOR, me);
         me->start_busy(3);
     
         if (me->query("id") != "ivy")
-                message("vision", "Ö»Ìý¡°Åî¡±Ò»Éù£¬" + me->name() +
-                        "·ÉÁË³öÀ´£¬ÉíÉÏÇàÒ»¿é¶ù×ÏÒ»¿é¶ùµÄ¡£\n",
+                message("vision", "åªå¬â€œè“¬â€ä¸€å£°ï¼Œ" + me->name() +
+                        "é£žäº†å‡ºæ¥ï¼Œèº«ä¸Šé’ä¸€å—å„¿ç´«ä¸€å—å„¿çš„ã€‚\n",
                         environment(me), ({ me }));
 }
 

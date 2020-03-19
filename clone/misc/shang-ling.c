@@ -3,14 +3,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name(NOR + WHT "ÉÌÁî" NOR, ({ "shang ling", "shang", "ling" }));
+	set_name(NOR + WHT "å•†ä»¤" NOR, ({ "shang ling", "shang", "ling" }));
 	set_weight(1);
 	if (clonep())
-	set("long", NOR + WHT "ÕâÊÇÒ»ÕÅºìµ×½ğ±ßµÄÍ¨ÉÌÁî£¬ÓÉ´³Íõ¾ü°ä·¢¡£\n" NOR);
-	set("unit", "ÕÅ");
+	set("long", NOR + WHT "è¿™æ˜¯ä¸€å¼ çº¢åº•é‡‘è¾¹çš„é€šå•†ä»¤ï¼Œç”±é—¯ç‹å†›é¢å‘ã€‚\n" NOR);
+	set("unit", "å¼ ");
 	set("value", 5);
 	set("material", "paper");
-	set("no_sell", "ÕâÄêÍ·£¬Äã°Ñ³Ô·¹µÄ¼Ò»ïÒ²ÄÃÀ´ÂôÇ®£¿");
+	set("no_sell", "è¿™å¹´å¤´ï¼Œä½ æŠŠåƒé¥­çš„å®¶ä¼™ä¹Ÿæ‹¿æ¥å–é’±ï¼Ÿ");
 	setup();
 }
 
@@ -30,16 +30,16 @@ int do_stock(string arg)
         me = this_player();
 
         if (! me->query("is_vendor"))
-                return notify_fail("Ö»ÓĞ´ÓÊÂÉÌÒµµÄÈË²ÅÄÜ°ÚÌ¯¡£\n");
+                return notify_fail("åªæœ‰ä»äº‹å•†ä¸šçš„äººæ‰èƒ½æ‘†æ‘Šã€‚\n");
 
         if (! present("shang ling", me))
-                return notify_fail("ÄãµÄÉÌÁî²»ÔÚÉíÉÏ£¬Èç½ñÊÀµÀÂÒ£¬Ğ¡ĞÄÎªÃî¡£\n");
+                return notify_fail("ä½ çš„å•†ä»¤ä¸åœ¨èº«ä¸Šï¼Œå¦‚ä»Šä¸–é“ä¹±ï¼Œå°å¿ƒä¸ºå¦™ã€‚\n");
 
         if (! me->query_temp("on_baitan"))
-                return notify_fail("Äã±ØĞëÊ×ÏÈ°Ú¸öÌ¯Î»(baitan)²ÅÄÜ¶µÊÛ»õÎï¡£\n");
+                return notify_fail("ä½ å¿…é¡»é¦–å…ˆæ‘†ä¸ªæ‘Šä½(baitan)æ‰èƒ½å…œå”®è´§ç‰©ã€‚\n");
 
         if (! arg)
-                return notify_fail("Ö¸Áî¸ñÊ½£ºstock <»õÎï> <Ô­Öµ±¶Êı>\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šstock <è´§ç‰©> <åŸå€¼å€æ•°>\n");
 
         i = sizeof(args = explode(arg, " "));
 
@@ -50,28 +50,28 @@ int do_stock(string arg)
                 arg = replace_string(arg, " " + amount, "");
 
         if (! (goods = present(arg, me)) || ! objectp(goods))
-                return notify_fail("ÄãÉíÉÏ²¢Ã»ÓĞÕâ¸ö»õÎï¡£\n");
+                return notify_fail("ä½ èº«ä¸Šå¹¶æ²¡æœ‰è¿™ä¸ªè´§ç‰©ã€‚\n");
 
         if (goods->is_character())
-                return notify_fail("Äã²»ÄÜ··Âô»îÎï¡£\n");
+                return notify_fail("ä½ ä¸èƒ½è´©å–æ´»ç‰©ã€‚\n");
 
         if (goods->query("money_id"))
-                return notify_fail("Äã´òËã°ÑÇ®Ò²ÄÃÀ´³öÊÛ£¿\n");
+                return notify_fail("ä½ æ‰“ç®—æŠŠé’±ä¹Ÿæ‹¿æ¥å‡ºå”®ï¼Ÿ\n");
 
         if (goods->query("id") == "shang ling")
-                return notify_fail("°ÑÕâ¶«Î÷ÂôÁË£¬Äã¿¿Ê²Ã´À´³Ô·¹£¿\n");
+                return notify_fail("æŠŠè¿™ä¸œè¥¿å–äº†ï¼Œä½ é ä»€ä¹ˆæ¥åƒé¥­ï¼Ÿ\n");
 
         if (goods->is_item_make())
-                return notify_fail("Õâ¶«Î÷ÊÇ¶¨ÁËÃûµÄ£¬ÏàĞÅÃ»ÈËÔ¸È¥Âò¡£\n");
+                return notify_fail("è¿™ä¸œè¥¿æ˜¯å®šäº†åçš„ï¼Œç›¸ä¿¡æ²¡äººæ„¿å»ä¹°ã€‚\n");
 
         if (goods->query("no_drop"))
-                return notify_fail("Õâ¶«Î÷²»ÄÜ³öÊÛ¡£\n");
+                return notify_fail("è¿™ä¸œè¥¿ä¸èƒ½å‡ºå”®ã€‚\n");
 
         if (sizeof(me->query("vendor_goods")) >= 10)
-                return notify_fail("ÄãÒ»´ÎÖ»ÄÜ°ÚÊ®ÖÖ»õÎï£¬°Ñ±ğµÄÏÈÊÕµãÆğÀ´°É¡£\n");
+                return notify_fail("ä½ ä¸€æ¬¡åªèƒ½æ‘†åç§è´§ç‰©ï¼ŒæŠŠåˆ«çš„å…ˆæ”¶ç‚¹èµ·æ¥å§ã€‚\n");
 
         if (amount > 100)
-                return notify_fail("ÎïÆ·³öÊÛ¼Û¸ñ×î¶à¶¨ÎªÔ­¼ÛµÄÒ»°Ù±¶¡£\n");
+                return notify_fail("ç‰©å“å‡ºå”®ä»·æ ¼æœ€å¤šå®šä¸ºåŸä»·çš„ä¸€ç™¾å€ã€‚\n");
 
         value = goods->query("base_value");
 
@@ -81,15 +81,15 @@ int do_stock(string arg)
         if (amount)
         { 
                 value = amount * value;
-                beishu = chinese_number((string)amount) + "±¶¼Û";
+                beishu = chinese_number((string)amount) + "å€ä»·";
         } else
         {
                 value = value/2;
-                beishu = "°ë¼Û";
+                beishu = "åŠä»·";
         }
 
         if (! value)
-                return notify_fail("Õâ¶«Î÷²»ÖµÇ®£¬Ã»ÈË»áÈ¥ÂòµÄ¡£\n");
+                return notify_fail("è¿™ä¸œè¥¿ä¸å€¼é’±ï¼Œæ²¡äººä¼šå»ä¹°çš„ã€‚\n");
 
         all_goods = me->query("vendor_goods");
 
@@ -98,8 +98,8 @@ int do_stock(string arg)
 
         all_goods[base_name(goods)] = value;
         me->set("vendor_goods", all_goods);
-        message_vision(HIW "$N" HIW "½«"+ goods->name(1) + HIW "¶¨Îª" +
-                       beishu + HIW "°ÚÉÏÌ¯×Ó¿ªÊ¼³öÊÛ¡£\n" NOR, me);
+        message_vision(HIW "$N" HIW "å°†"+ goods->name(1) + HIW "å®šä¸º" +
+                       beishu + HIW "æ‘†ä¸Šæ‘Šå­å¼€å§‹å‡ºå”®ã€‚\n" NOR, me);
         return 1;
 }
 
@@ -113,21 +113,21 @@ int do_unstock(string arg)
         me = this_player();
 
         if (! me->query("is_vendor"))
-                return notify_fail("Ö»ÓĞ´ÓÊÂÉÌÒµµÄÈË²ÅÄÜ°ÚÌ¯¡£\n");
+                return notify_fail("åªæœ‰ä»äº‹å•†ä¸šçš„äººæ‰èƒ½æ‘†æ‘Šã€‚\n");
 
         if (! me->query_temp("on_baitan"))
-                return notify_fail("ÄãÄ¿Ç°²¢Ã»ÓĞ°ÚÌ¯¡£\n");
+                return notify_fail("ä½ ç›®å‰å¹¶æ²¡æœ‰æ‘†æ‘Šã€‚\n");
 
         if (! arg)
-                return notify_fail("unstock <»õÎï>\n");
+                return notify_fail("unstock <è´§ç‰©>\n");
 
         if (! (goods = present(arg, me)))
-                return notify_fail("Äã²¢Ã»ÓĞ¶µÊÛÕâ¸ö»õÎï¡£\n");
+                return notify_fail("ä½ å¹¶æ²¡æœ‰å…œå”®è¿™ä¸ªè´§ç‰©ã€‚\n");
 
         all_goods = me->query("vendor_goods");
 
         if (! all_goods)
-                return notify_fail("ÄãÏÖÔÚ²¢Ã»ÓĞ¶µÊÛÈÎºÎ»õÎï¡£\n");
+                return notify_fail("ä½ ç°åœ¨å¹¶æ²¡æœ‰å…œå”®ä»»ä½•è´§ç‰©ã€‚\n");
 
         goods_key = keys(all_goods);
 
@@ -140,10 +140,10 @@ int do_unstock(string arg)
         if (have_it) 
         {
                 map_delete(all_goods, base_name(goods));
-                message_vision(HIW "$N" HIW "½«" + goods->name(1) +
-                               HIW "´ÓÌ¯×ÓÉÏÊÕÆğ²»ÂôÁË¡£\n", me);
+                message_vision(HIW "$N" HIW "å°†" + goods->name(1) +
+                               HIW "ä»æ‘Šå­ä¸Šæ”¶èµ·ä¸å–äº†ã€‚\n", me);
         } else
-                return notify_fail("Äã²¢Ã»ÓĞ¶µÊÛÕâ¸ö»õÎï¡£\n");
+                return notify_fail("ä½ å¹¶æ²¡æœ‰å…œå”®è¿™ä¸ªè´§ç‰©ã€‚\n");
 
         me->set("vendor_goods", all_goods);
         return 1;

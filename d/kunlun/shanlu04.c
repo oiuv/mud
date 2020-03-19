@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ɽ·");
+	set("short", "山路");
         set("long", @long
-ǰ�洫�������������������쵽�ˣ��㲻�ɵüӿ��˽Ų���
-ԶԶ��ȥ���ƺ��Ǹ���㳡��Χ�Ų����������䡣
+前面传来刀剑相碰的声音，快到了，你不由得加快了脚步，
+远远望去，似乎是个大广场，围着不少人在练武。
 long);
         set("exits",([
 		"northdown" : __DIR__"shanlu03",

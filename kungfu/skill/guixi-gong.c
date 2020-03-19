@@ -17,5 +17,5 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-        return notify_fail("¹êÏ¢¹¦Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("é¾Ÿæ¯åŠŸåªèƒ½ç”¨å­¦(learn)çš„æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }

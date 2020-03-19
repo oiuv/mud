@@ -7,8 +7,8 @@ void setInventory(int x, int y, int z);
 
 varargs void create(int x, int y, int z)
 {
-    set("short", "ĞÄÄ§»Ã¾³");
-    set("long", "ÕâÀïÊÇÄãµÄĞÄÄ§»Ã¾³£¬ÎŞ±ßÎŞ¼Ê£¬ËÄÖÜ»ÒÃÉÃÉµÄ£¬Ò²²»ÖªµÀÕâÀï»áÓĞÊ²Ã´Î£ÏÕ¡£\n");
+    set("short", "å¿ƒé­”å¹»å¢ƒ");
+    set("long", "è¿™é‡Œæ˜¯ä½ çš„å¿ƒé­”å¹»å¢ƒï¼Œæ— è¾¹æ— é™…ï¼Œå››å‘¨ç°è’™è’™çš„ï¼Œä¹Ÿä¸çŸ¥é“è¿™é‡Œä¼šæœ‰ä»€ä¹ˆå±é™©ã€‚\n");
     set("maze", "maze");
     setArea(x, y, z, "maze");
     set("valid_startroom", 1);
@@ -21,7 +21,7 @@ varargs void create(int x, int y, int z)
     if (random(3))
     {
         removeRandomExit();
-        // Ëæ»ú¹Ø±ÕµÚ¶ş¸ö³ö¿Ú
+        // éšæœºå…³é—­ç¬¬äºŒä¸ªå‡ºå£
         if (random(2))
         {
             removeRandomExit();
@@ -30,9 +30,9 @@ varargs void create(int x, int y, int z)
 
     if (!random(100))
     {
-        set("long", "ÕâÀïÊÇÎŞ±ßÎŞ¼ÊµÄ»Ã¾³£¬ÔÚÕâµ¥µ÷µÄ»Ã¾³ÖĞÓĞÒ»¸öÉÁÉÁ·¢¹âµÄ´«ËÍÃÅ£¨door£©£¬ÏÔµÃ¸ñÍâĞÑÄ¿¡£\n");
+        set("long", "è¿™é‡Œæ˜¯æ— è¾¹æ— é™…çš„å¹»å¢ƒï¼Œåœ¨è¿™å•è°ƒçš„å¹»å¢ƒä¸­æœ‰ä¸€ä¸ªé—ªé—ªå‘å…‰çš„ä¼ é€é—¨ï¼ˆdoorï¼‰ï¼Œæ˜¾å¾—æ ¼å¤–é†’ç›®ã€‚\n");
         set("item_desc", ([
-            "door":"Àë¿ª(out)ĞÄÄ§»Ã¾³µÄ´«ËÍÃÅ£¡\n",
+            "door":"ç¦»å¼€(out)å¿ƒé­”å¹»å¢ƒçš„ä¼ é€é—¨ï¼\n",
         ]));
         set("exits/out", "/d/city/wumiao2");
     }

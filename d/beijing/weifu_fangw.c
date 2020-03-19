@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "���᷿");
+	set("short", "西厢房");
 	set("long", @LONG
-������¹�����������ߵ�һ���᷿���ǹ��������Ŀ�������ס�ġ��᷿��
-����ż��Ŵ󴲣��������ӡ����й�����ͣ�ʹ�˸���˯�⡣
+这里是鹿鼎公府的西边的一个厢房，是供给王府的客人所居住的。厢房中
+央摆着几张大床，几张桌子。室中光线柔和，使人更增睡意。
 LONG );
 	set("exits", ([
 		"east" : __DIR__"weifu_dating",

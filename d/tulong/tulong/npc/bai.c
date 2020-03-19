@@ -2,16 +2,16 @@
 inherit NPC;
 void create()
 {
-        set_name("°×¹êÊÙ", ({ "bai guishou", "bai", "guishou"}) );
-        set("long", "Ò»¸öÎåÊ®À´ËêµÄÀÏÕß£¬Íº×ÅÍ·¶¥£¬Ò»Éí½áÊµµÄ¼¡Èâ¡£\n");
+        set_name("ç™½é¾Ÿå¯¿", ({ "bai guishou", "bai", "guishou"}) );
+        set("long", "ä¸€ä¸ªäº”åæ¥å²çš„è€è€…ï¼Œç§ƒç€å¤´é¡¶ï¼Œä¸€èº«ç»“å®çš„è‚Œè‚‰ã€‚\n");
         set("attitude", "heroism");
-        set("title", "ÌìÓ¥½Ì");
-        set("nickname", HIW "ĞşÎäÌ³Ì³Ö÷" NOR);
+        set("title", "å¤©é¹°æ•™");
+        set("nickname", HIW "ç„æ­¦å›å›ä¸»" NOR);
         set("combat_exp", 500000);
         set("age", 50);
         set("chat_chance_combat", 2);
         set("chat_msg_combat", ({
-                "°×¹êÊÙºÈµÀ£ºÎŞ³ÜĞ¡Ôô£¬¾¹¸Ò´òÍÀÁúµ¶µÄÖ÷Òâ£¿\n",
+                "ç™½é¾Ÿå¯¿å–é“ï¼šæ— è€»å°è´¼ï¼Œç«Ÿæ•¢æ‰“å± é¾™åˆ€çš„ä¸»æ„ï¼Ÿ\n",
         }) );
         set_skill("force", 100+random(60));
         set_skill("hunyuan-yiqi", 100+random(60));

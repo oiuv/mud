@@ -1,8 +1,8 @@
-//table.c ÆÆ×À×Ó
+//table.c ç ´æ¡Œå­
 inherit ITEM;
 void create()
 {
-        set_name("ÆÆ×À×Ó", ({ "table" , "zhuo zi"}) );
+        set_name("ç ´æ¡Œå­", ({ "table" , "zhuo zi"}) );
         set_weight(5000);
         set_max_encumbrance(8000000);
         set("no_get", 1);
@@ -10,8 +10,8 @@ void create()
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "ÕÅ");
-                set("long", "ÕâÕÅÆÆ×À×Ó·ÅÔÚÕâÀï£¬Ëµ²»³öµÄ¹îÒì¡£\n");
+                set("unit", "å¼ ");
+                set("long", "è¿™å¼ ç ´æ¡Œå­æ”¾åœ¨è¿™é‡Œï¼Œè¯´ä¸å‡ºçš„è¯¡å¼‚ã€‚\n");
                 set("value", 1);
         }
 }

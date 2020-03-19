@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define SHI "¡¸" HIR "Íò¶¾ÊÉÌå" NOR "¡¹"
+#define SHI "ã€Œ" HIR "ä¸‡æ¯’å™¬ä½“" NOR "ã€"
 
 string final(object me, object target, int damage);
 
@@ -14,30 +14,30 @@ int perform(object me, object target)
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/wudu-shenzhang/shi"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(SHI "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(SHI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_skill("force") < 200)
-                return notify_fail("ÄãµÄÄÚ¹¦²»¹»»ğºò£¬ÄÑÒÔÊ©Õ¹" SHI "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸä¸å¤Ÿç«å€™ï¼Œéš¾ä»¥æ–½å±•" SHI "ã€‚\n");
 
         if ((int)me->query_skill("wudu-shenzhang", 1) < 150)
-                return notify_fail("ÄãµÄÎå¶¾ÉñÕÆ²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" SHI "¡£\n");
+                return notify_fail("ä½ çš„äº”æ¯’ç¥æŒä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" SHI "ã€‚\n");
 
         if (me->query_skill_prepared("strike") != "wudu-shenzhang")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ×¼±¸Îå¶¾ÉñÕÆ£¬ÄÑÒÔÊ©Õ¹" SHI "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰å‡†å¤‡äº”æ¯’ç¥æŒï¼Œéš¾ä»¥æ–½å±•" SHI "ã€‚\n");
 
         if (me->query("neili") < 120)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" SHI "¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" SHI "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "½«ÌåÄÚÕæÆøÔËÓÚË«ÕÆÖ®¼ä£¬Ö»¼ûË«ÕÆÎ¢Î¢·º³ö×Ï¹â£¬ÃÍ"
-              "µØÅÄÏò$n¡£\n" NOR;
+        msg = HIW "$N" HIW "å°†ä½“å†…çœŸæ°”è¿äºåŒæŒä¹‹é—´ï¼Œåªè§åŒæŒå¾®å¾®æ³›å‡ºç´«å…‰ï¼ŒçŒ›"
+              "åœ°æ‹å‘$nã€‚\n" NOR;
 
         ap = me->query_skill("strike");
         dp = target->query_skill("force");
@@ -49,7 +49,7 @@ int perform(object me, object target)
 			ap += ap * 10 / 100;
 		}		
 	
-		if (target->query("gender") != "Å®ĞÔ")
+		if (target->query("gender") != "å¥³æ€§")
 		{
 			count += 30;
 			ap += ap * 15 / 100;
@@ -66,8 +66,8 @@ int perform(object me, object target)
                 me->start_busy(1 + random(3));
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "ÑÛÃ÷ÊÖ¿ì£¬²àÉíÒ»Ìø$P"
-                       CYN "ÒÑ¶ã¹ı$NÕâÕĞ¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çœ¼æ˜æ‰‹å¿«ï¼Œä¾§èº«ä¸€è·³$P"
+                       CYN "å·²èº²è¿‡$Nè¿™æ‹›ã€‚\n" NOR;
                 me->start_busy(2);
                 target->start_busy(1);
         }
@@ -87,7 +87,7 @@ string final(object me, object target, int damage)
 			ap += ap * 10 / 100;
 		}		
 	
-		if (target->query("gender") != "Å®ĞÔ")
+		if (target->query("gender") != "å¥³æ€§")
 		{
 			count += 30;
 			ap += ap * 15 / 100;
@@ -100,7 +100,7 @@ string final(object me, object target, int damage)
 
         target->receive_wound("jing", 8 + random(4), me);
 
-        return  HIR "Ö»¼û$n" HIR "±»$N" HIR "Ò»ÕÆÅÄÖĞ"
-                "£¬µ¹ÍË¼¸²½£¬È´¼ûÁ³É«ÒÑÎ¢Î¢·ººÚ¡£\n" NOR;
+        return  HIR "åªè§$n" HIR "è¢«$N" HIR "ä¸€æŒæ‹ä¸­"
+                "ï¼Œå€’é€€å‡ æ­¥ï¼Œå´è§è„¸è‰²å·²å¾®å¾®æ³›é»‘ã€‚\n" NOR;
 
 }

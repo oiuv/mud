@@ -1,5 +1,5 @@
 // guarder.c
-// Ivy Õë¶ÔFamilyWarµ÷Õû
+// Ivy é’ˆå¯¹FamilyWarè°ƒæ•´
 
 #include <ansi.h>
 
@@ -18,7 +18,7 @@ int permit_pass(object ob, string dir)
         if (! living(this_object()))
                 return 1;
 
-        notify_fail("¿´À´" + this_object()->name() + "²»´òËãÈÃÄã¹ıÈ¥¡£\n");
+        notify_fail("çœ‹æ¥" + this_object()->name() + "ä¸æ‰“ç®—è®©ä½ è¿‡å»ã€‚\n");
         fam_name = ob->query("family/family_name");
         my_fam   = (string) this_object()->query("family/family_name");
         born_fam = (string) ob->query("born_family");
@@ -26,8 +26,8 @@ int permit_pass(object ob, string dir)
         war_fam = (string) ob->query("fam_info/family");
         if (war_fam == my_fam)
         {
-				message_vision(CYN "$N" CYN "¿´µ½$n" CYN "¹¥´òµ½ÃÅÅÉºËĞÄµØ´øÀ´ÁË£¬¶ÙÊ±"
-							   "´ó¾ª£¬²Ö»ÊÊ§´ë£¬²»ÖªÈçºÎÓ¦¶Ô¡£\n" NOR,
+				message_vision(CYN "$N" CYN "çœ‹åˆ°$n" CYN "æ”»æ‰“åˆ°é—¨æ´¾æ ¸å¿ƒåœ°å¸¦æ¥äº†ï¼Œé¡¿æ—¶"
+							   "å¤§æƒŠï¼Œä»“çš‡å¤±æªï¼Œä¸çŸ¥å¦‚ä½•åº”å¯¹ã€‚\n" NOR,
 							   this_object(), ob);
                 return 1;
         }
@@ -37,9 +37,9 @@ int permit_pass(object ob, string dir)
 	        if (stringp(msg = this_object()->query("guarder/refuse_home")))
 	                message_vision(msg + "\n", this_object(), ob);
                 else
-                        message_vision(CYN "$N" CYN "ÀäÀäµØ¿´ÁË¿´$n" CYN "£¬µÀ£ºÄã"
-                                       "¼ÈÈ»ÒÑ¾­ÈëÁË" + fam_name + CYN "£¬»¹À´ÎÒÃÇ"
-                                       + my_fam + CYN "¸ÉÊ²Ã´£¿\n" NOR,
+                        message_vision(CYN "$N" CYN "å†·å†·åœ°çœ‹äº†çœ‹$n" CYN "ï¼Œé“ï¼šä½ "
+                                       "æ—¢ç„¶å·²ç»å…¥äº†" + fam_name + CYN "ï¼Œè¿˜æ¥æˆ‘ä»¬"
+                                       + my_fam + CYN "å¹²ä»€ä¹ˆï¼Ÿ\n" NOR,
                                        this_object(), ob);
                 return 0;
         }
@@ -49,8 +49,8 @@ int permit_pass(object ob, string dir)
 	        if (stringp(msg = this_object()->query("guarder/refuse_other")))
 	                message_vision(msg + "\n", this_object(), ob);
 	        else
-                        message_vision(CYN "$N" CYN "ÉìÊÖÀ¹×¡$n" CYN "µÀ£º¶Ô²»Æğ£¬"
-                                       "²»ÊÇÎÒÃÇ" + my_fam + CYN "µÄÈË²»µÃÈëÄÚ£¡\n"
+                        message_vision(CYN "$N" CYN "ä¼¸æ‰‹æ‹¦ä½$n" CYN "é“ï¼šå¯¹ä¸èµ·ï¼Œ"
+                                       "ä¸æ˜¯æˆ‘ä»¬" + my_fam + CYN "çš„äººä¸å¾—å…¥å†…ï¼\n"
                                        NOR, this_object(), ob);
                 return 0;
         }
@@ -64,8 +64,8 @@ int permit_pass(object ob, string dir)
 	                if (stringp(msg = this_object()->query("guarder/refuse_carry")))
 	                        message_vision(msg + "\n", this_object(), ob);
 	                else
-                                message_vision(CYN "$N" CYN "¶Ô$n" CYN "ºÈµÀ£ºÄã±³"
-                                               "µÄÊÇË­£¿»¹²»¿ì¿ì·ÅÏÂ£¡\n" NOR,
+                                message_vision(CYN "$N" CYN "å¯¹$n" CYN "å–é“ï¼šä½ èƒŒ"
+                                               "çš„æ˜¯è°ï¼Ÿè¿˜ä¸å¿«å¿«æ”¾ä¸‹ï¼\n" NOR,
                                                this_object(), ob);
                         return 0;
                 }
@@ -96,17 +96,17 @@ void kill_enemy(object ob)
 
         if (base_name(environment(me)) != (string)me->query("startroom"))
                 return;
-		//ÃÅÅÉºÆ½Ù
+		//é—¨æ´¾æµ©åŠ«
 /*
         if ((string) ob->query("fam_info/family") == (string) me->query("family/family_name"))
         {
-				message_vision(random(2) ? HIY "\n$N" HIW "´óÉùº°µÀ£º´ó¼Ò¿ìÀ´°ïÃ¦°¡£¡\n\n" NOR :
-										   HIR "\n$N" HIW "ºÈµÀ£º²»ºÃ£¡µĞÈË´òÉÏÃÅÀ´ÁË£¡\n\n" NOR, me);
+				message_vision(random(2) ? HIY "\n$N" HIW "å¤§å£°å–Šé“ï¼šå¤§å®¶å¿«æ¥å¸®å¿™å•Šï¼\n\n" NOR :
+										   HIR "\n$N" HIW "å–é“ï¼šä¸å¥½ï¼æ•Œäººæ‰“ä¸Šé—¨æ¥äº†ï¼\n\n" NOR, me);
                 return;
         }
 */
-        message_vision(random(2) ? HIW "\n$N" HIW "´óÉùº°µÀ£º´ó¼Ò¿ìÀ´°ïÃ¦°¡£¡\n\n" NOR :
-                                   HIW "\n$N" HIW "ºÈµÀ£º²»ºÃ£¡ÓĞÈËÌôÉÏÃÅÀ´ÁË£¡\n\n" NOR, me);
+        message_vision(random(2) ? HIW "\n$N" HIW "å¤§å£°å–Šé“ï¼šå¤§å®¶å¿«æ¥å¸®å¿™å•Šï¼\n\n" NOR :
+                                   HIW "\n$N" HIW "å–é“ï¼šä¸å¥½ï¼æœ‰äººæŒ‘ä¸Šé—¨æ¥äº†ï¼\n\n" NOR, me);
         flag = 0;
         for (i = 0; i < sizeof(co); i++)
         {
@@ -119,7 +119,7 @@ void kill_enemy(object ob)
                         if (! objectp(room))
                         {
                                 if (wizardp(this_object()))
-                                        write(sprintf("¶ÁÈ¡Îï¼ş´íÎó£º%s\n²¶×½Ñ¶Ï¢£º%s\n\n",
+                                        write(sprintf("è¯»å–ç‰©ä»¶é”™è¯¯ï¼š%s\næ•æ‰è®¯æ¯ï¼š%s\n\n",
                                               startroom, result));
                                 continue;
                         }
@@ -135,7 +135,7 @@ void kill_enemy(object ob)
         }
 
         if (! flag)
-                message_vision(HIW "½á¹ûÃ»ÓĞÒ»¸öÈË³öÀ´¡£\n" NOR, me);
+                message_vision(HIW "ç»“æœæ²¡æœ‰ä¸€ä¸ªäººå‡ºæ¥ã€‚\n" NOR, me);
 }
 
 int check_enemy(object ob, string type)
@@ -150,13 +150,13 @@ int check_enemy(object ob, string type)
         {
                 if (type == "fight")
                 {
-                        message_vision(CYN "$N" CYN "¶Ô$n" CYN "Ò¡Ò¡Í·µÀ£ºÎÒÏÖÔÚ"
-                                       "Ã»¿Õ¡£\n\n" NOR, me, ob);
+                        message_vision(CYN "$N" CYN "å¯¹$n" CYN "æ‘‡æ‘‡å¤´é“ï¼šæˆ‘ç°åœ¨"
+                                       "æ²¡ç©ºã€‚\n\n" NOR, me, ob);
                         return 0;
                 } else
                 {
-                        message_vision(HIR "$N" HIR "´óºÈµÀ£¬ºÃÄã¸ö" + RANK_D->query_rude(ob) +
-                                       HIR "£¬»îµÃ²»ÄÍ·³ÁË£¡À´ÕâÀïÈöÒ°£¿\n" NOR, me, ob);
+                        message_vision(HIR "$N" HIR "å¤§å–é“ï¼Œå¥½ä½ ä¸ª" + RANK_D->query_rude(ob) +
+                                       HIR "ï¼Œæ´»å¾—ä¸è€çƒ¦äº†ï¼æ¥è¿™é‡Œæ’’é‡ï¼Ÿ\n" NOR, me, ob);
                         me->kill_ob(ob);
                 }
         } else
@@ -164,18 +164,18 @@ int check_enemy(object ob, string type)
         {
         case "hit":
         case "kill":
-                message_vision(HIR "$N" HIR "Á½ÑÛÒ»µÉ£¬ºÈµÀ£º" + ob->query("name") +
-                               HIR "£¬Äã½ñÈÕÊÇÒªÔì·´Âğ£¿\n" NOR, me, ob);
+                message_vision(HIR "$N" HIR "ä¸¤çœ¼ä¸€çªï¼Œå–é“ï¼š" + ob->query("name") +
+                               HIR "ï¼Œä½ ä»Šæ—¥æ˜¯è¦é€ åå—ï¼Ÿ\n" NOR, me, ob);
                 me->kill_ob(ob);
                 break;
 
         case "fight":
 		if (ob->is_apprentice_of(me))
-			message_vision(CYN "$N" CYN "Ò»µÉ$n" CYN "£¬Å­µÀ£ºÄã¸ø"
-                                       "ÎÒºÃºÃÁ·¹¦È¥£¡\n" NOR, me, ob);
+			message_vision(CYN "$N" CYN "ä¸€çª$n" CYN "ï¼Œæ€’é“ï¼šä½ ç»™"
+                                       "æˆ‘å¥½å¥½ç»ƒåŠŸå»ï¼\n" NOR, me, ob);
 		else
-                	message_vision(CYN "$N" CYN "¶Ô$n" CYN "Ò¡Ò¡Í·µÀ£ºÕÒÄã"
-                                       "µÄÊ¦¸µ±È»®È¥¡£\n\n" NOR, me, ob);
+                	message_vision(CYN "$N" CYN "å¯¹$n" CYN "æ‘‡æ‘‡å¤´é“ï¼šæ‰¾ä½ "
+                                       "çš„å¸ˆå‚…æ¯”åˆ’å»ã€‚\n\n" NOR, me, ob);
                 return 0;
         }
 

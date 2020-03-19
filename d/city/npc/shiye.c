@@ -4,9 +4,9 @@ string ask_me();
 
 void create()
 {
-        set_name("Ì·ÓÑ¼Í", ({ "tan youji", "tan" }));
-        set("title", "Öª¸®Ê¦Ò¯");
-        set("gender", "ÄĞĞÔ");
+        set_name("è°­å‹çºª", ({ "tan youji", "tan" }));
+        set("title", "çŸ¥åºœå¸ˆçˆ·");
+        set("gender", "ç”·æ€§");
         set("age", 57);
 
         set("combat_exp", 30000);

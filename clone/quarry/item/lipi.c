@@ -4,12 +4,12 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name(NOR + WHT "ºüÀêÆ¤" NOR, ({ "huli pi", "huli", "pi" }));
+        set_name(NOR + WHT "ç‹ç‹¸çš®" NOR, ({ "huli pi", "huli", "pi" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + WHT "ÕâÊÇÒ»ÕÅÃ«ÖÊÆÄÎª²»´íµÄºüÀêÆ¤¡£\n" NOR);
-                set("base_unit", "ÕÅ");
+                set("long", NOR + WHT "è¿™æ˜¯ä¸€å¼ æ¯›è´¨é¢‡ä¸ºä¸é”™çš„ç‹ç‹¸çš®ã€‚\n" NOR);
+                set("base_unit", "å¼ ");
                 set("base_value", 2000);
                 set("base_weight", 300);
         }

@@ -3,19 +3,19 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "µÜ×Ó¾Ó");
+        set("short", "å¼Ÿå­å±…");
         set("long", @LONG
-ÕâÀïÊÇÈ«ÕæµÜ×Ó¾Ó×¡µÄ·¿¼ä¡£·¿¼äºÜ´ó£¬ÕûÆëµØÆÌ×ÅÒ»ÅÅ
-ÅÅµÄ´²£¬´²ÉÏ±»Èì¶¼ÕÛµþµÃºÜÕûÆë£¬µ«Á¬¸öÈË¶¼Ã»ÓÐ£¬Ò²ÐíËù
-ÓÐµÄµÜ×Ó¶¼È¥Á·¹¦È¥ÁË¡£¿¿Ç½µÄµØ·½ÓÐ¸ö¹ñ×Ó(cabinet)¡£
+è¿™é‡Œæ˜¯å…¨çœŸå¼Ÿå­å±…ä½çš„æˆ¿é—´ã€‚æˆ¿é—´å¾ˆå¤§ï¼Œæ•´é½åœ°é“ºç€ä¸€æŽ’
+æŽ’çš„åºŠï¼ŒåºŠä¸Šè¢«è¤¥éƒ½æŠ˜å å¾—å¾ˆæ•´é½ï¼Œä½†è¿žä¸ªäººéƒ½æ²¡æœ‰ï¼Œä¹Ÿè®¸æ‰€
+æœ‰çš„å¼Ÿå­éƒ½åŽ»ç»ƒåŠŸåŽ»äº†ã€‚é å¢™çš„åœ°æ–¹æœ‰ä¸ªæŸœå­(cabinet)ã€‚
 LONG);
         set("sleep_room",1);
         set("exits", ([
                 "north" : __DIR__"jingxiushi",
         ]));
         set("item_desc", ([
-                "cabinet": RED "ÕâÊÇÒ»¸öºìÄ¾½Ç¹ñ£¬Ò²Ðí"
-                           "ÊÇ¶Ñ·ÅÒÂÎïÓÃµÄ¡£\n" NOR
+                "cabinet": RED "è¿™æ˜¯ä¸€ä¸ªçº¢æœ¨è§’æŸœï¼Œä¹Ÿè®¸"
+                           "æ˜¯å †æ”¾è¡£ç‰©ç”¨çš„ã€‚\n" NOR
         ]));
         set("no_clean_up", 0);
         setup();
@@ -31,10 +31,10 @@ int do_pull(string arg)
         object me = this_player();
 
         if (! arg || arg != "cabinet")
-                return notify_fail("ÄãÒªÀ­¿ªÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦æ‹‰å¼€ä»€ä¹ˆï¼Ÿ\n");
 
-        message_vision(HIY "\n$N" HIY "Ê¹¾¢°Ñ¹ñ×ÓÀ­¿ª£¬ÏÖ³öÒ»¸ö¶´¿Ú¡£"
-                       "Ô­À´ÕâÀïÊÇÃÜÊÒµÄÈë¿Ú¡£\n\n" NOR, me);
+        message_vision(HIY "\n$N" HIY "ä½¿åŠ²æŠŠæŸœå­æ‹‰å¼€ï¼ŒçŽ°å‡ºä¸€ä¸ªæ´žå£ã€‚"
+                       "åŽŸæ¥è¿™é‡Œæ˜¯å¯†å®¤çš„å…¥å£ã€‚\n\n" NOR, me);
         set("exits/down", __DIR__"mishi");
         remove_call_out("close");
         call_out("close", 8, this_object());
@@ -44,7 +44,7 @@ int do_pull(string arg)
 
 void close(object room)
 {
-        message("vision", WHT "¹ñ×ÓÓÖÖ¨Ö¨µØ»Øµ½Ô­µØ£¬°ÑÈë¿Úµ²×¡ÁË¡£\n"
+        message("vision", WHT "æŸœå­åˆå±å±åœ°å›žåˆ°åŽŸåœ°ï¼ŒæŠŠå…¥å£æŒ¡ä½äº†ã€‚\n"
                           NOR, room);
         room->delete("exits/down");
 }

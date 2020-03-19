@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ɽ��");
+        set("short", "山道");
         set("long", @LONG
-������һ����ɽ�����Ƽ�֮�վ���һ��խС���͵�ɽ��ͨ
-��ɽ�ϣ�����ɽ����һƬ��̲��
+西面是一座高山，地势极之险峻，一条窄小陡峭的山道通
+往山上，东边山脚是一片长滩。
 LONG);
         set("outdoors", "heimuya");
         set("exits", ([

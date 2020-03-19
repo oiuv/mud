@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("¸ß´¦²»Ê¤º®", ({ "gaochu busheng han", "gaochu", "han", "lonely" }) );
-        set("gender", "ÄĞĞÔ" );
+        set_name("é«˜å¤„ä¸èƒœå¯’", ({ "gaochu busheng han", "gaochu", "han", "lonely" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 2100);
-        set("long", HIC "Ëû¾ÍÊÇÄàÌ¶ÊÀ½çµÄ´óboss¡ª¡ª¸ß´¦²»Ê¤º®¡£\n" NOR);
+        set("long", HIC "ä»–å°±æ˜¯æ³¥æ½­ä¸–ç•Œçš„å¤§bossâ€”â€”é«˜å¤„ä¸èƒœå¯’ã€‚\n" NOR);
         set("attitude", "friendly");
         set("max_jing", 25000);
         set("max_qi", 25000);
@@ -23,7 +23,7 @@ void create()
         //set("level", 999);
 
         set("inquiry", ([
-                "¾«Ôªµ¤" : "¾«Ôªµ¤ÎÒµÄÈ·ÓĞ£¬²»¹ıÔù¸øÓĞÄÜÁ¦Ö®ÈË£¬ÄãÏÈÂ¶Ò»ÊÖ¸øÎÒÇÆÇÆ¡£\n",                
+                "ç²¾å…ƒä¸¹" : "ç²¾å…ƒä¸¹æˆ‘çš„ç¡®æœ‰ï¼Œä¸è¿‡èµ ç»™æœ‰èƒ½åŠ›ä¹‹äººï¼Œä½ å…ˆéœ²ä¸€æ‰‹ç»™æˆ‘ç§ç§ã€‚\n",                
         ]));
                 
         set_skill("unarmed", 999);
@@ -72,8 +72,8 @@ void create()
         carry_object("/clone/cloth/cloth")->wear();
         carry_object("/clone/weapon/zhujian")->wield();
         
-        create_family("ÈËÉñÄ§Èı½ç", 1, "Èı½çÖ®Ö÷");
-        set("title", HIR "Èı½çÖ®Ö÷" NOR);        
+        create_family("äººç¥é­”ä¸‰ç•Œ", 1, "ä¸‰ç•Œä¹‹ä¸»");
+        set("title", HIR "ä¸‰ç•Œä¹‹ä¸»" NOR);        
 }
 
 void init()
@@ -85,8 +85,8 @@ void init()
 
         if (ultrap(me))
         {
-                message_vision(CYN "$N" CYN "Î¢Î¢Ò»Ğ¦£¬¶Ô$n"
-                               CYN "µãÁËµãÍ·¡£\n" NOR,
+                message_vision(CYN "$N" CYN "å¾®å¾®ä¸€ç¬‘ï¼Œå¯¹$n"
+                               CYN "ç‚¹äº†ç‚¹å¤´ã€‚\n" NOR,
                                this_object(), me);
         }
 }
@@ -98,7 +98,7 @@ int accept_fight(object ob)
 
         if (is_fighting())
         {
-                command("say ÄãµÈ»á£¬ÈÃÎÒ°ÑÃæÇ°µÄÕâ¸ö¼Ò»ï·Åµ¹ÔÙËµ¡£");
+                command("say ä½ ç­‰ä¼šï¼Œè®©æˆ‘æŠŠé¢å‰çš„è¿™ä¸ªå®¶ä¼™æ”¾å€’å†è¯´ã€‚");
                 return 0;
         }
 
@@ -106,12 +106,12 @@ int accept_fight(object ob)
            || query("jing") < query("eff_jing") * 2 / 3
            || query("neili") < query("max_neili") * 2 / 3)
         {
-                command("say ÎÒÏÖÔÚÓĞµãÆ£¾ë£¬´ıÎÒĞª»á¶ùÔÙËµ¡£");
+                command("say æˆ‘ç°åœ¨æœ‰ç‚¹ç–²å€¦ï¼Œå¾…æˆ‘æ­‡ä¼šå„¿å†è¯´ã€‚");
                 return 0;
         }
 
         command("nod");
-        command("say ¾ÍÈÃÎÒÊÔÒ»ÊÔÄãµÄÉíÊÖ£¬¿´¿´Äã¾¿¾¹ÓĞÉ¶Ë®Æ½£¿");
+        command("say å°±è®©æˆ‘è¯•ä¸€è¯•ä½ çš„èº«æ‰‹ï¼Œçœ‹çœ‹ä½ ç©¶ç«Ÿæœ‰å•¥æ°´å¹³ï¼Ÿ");
         competition_with(ob);
         return 1;
 }
@@ -125,10 +125,10 @@ void lost()
         ob = new("/d/death/obj/jingyuandan");
         ob->move(this_object());
 
-        command("say À÷º¦£¬À÷º¦¡£¼ÈÈ»ÄãÊ¤¹ıÁËÎÒ£¬Õâ¸ö¾«Ôªµ¤¾ÍÄÃÈ¥°É¡£");
+        command("say å‰å®³ï¼Œå‰å®³ã€‚æ—¢ç„¶ä½ èƒœè¿‡äº†æˆ‘ï¼Œè¿™ä¸ªç²¾å…ƒä¸¹å°±æ‹¿å»å§ã€‚");
         command("give jingyuan dan to " + me->query("id"));
         me->set("SkyPass", 1);
-        message_vision(HIR "Ö»¼ûÒ»µÀºì¹âÕÕ×ÅÄã£¬½«Äã´ø»ØÑÖÂŞµî¡£\n" NOR, 
+        message_vision(HIR "åªè§ä¸€é“çº¢å…‰ç…§ç€ä½ ï¼Œå°†ä½ å¸¦å›é˜ç½—æ®¿ã€‚\n" NOR, 
                        this_object(), me);        
         me->move("/d/death/yanluodian");
         ::lost();
@@ -143,8 +143,8 @@ void win()
                 command("heihei");
                 return;
         }
-        command("say ¾ÍÄãÕâµãË®Æ½Ò²Ïë´³Ìì½çÊ®¶şÖØÌì£¿ÏÂÈ¥Á·Á·ÔÙÀ´°É¡£");
-        message_vision(HIR "Ö»¼ûÒ»µÀºì¹âÕÕ×ÅÄã£¬½«Äã´ø»ØÑÖÂŞµî¡£\n" NOR, 
+        command("say å°±ä½ è¿™ç‚¹æ°´å¹³ä¹Ÿæƒ³é—¯å¤©ç•ŒåäºŒé‡å¤©ï¼Ÿä¸‹å»ç»ƒç»ƒå†æ¥å§ã€‚");
+        message_vision(HIR "åªè§ä¸€é“çº¢å…‰ç…§ç€ä½ ï¼Œå°†ä½ å¸¦å›é˜ç½—æ®¿ã€‚\n" NOR, 
                        this_object(), me);        
         me->move("/d/death/yanluodian");
         ::win();
@@ -154,13 +154,13 @@ int accept_kill(object me)
 {
         if (me->query("combat_exp") < 20000000)
         {
-                message_vision(CYN "$N" CYN "´óÅ­µÀ£º¡°ÎŞÃûĞ¡±²µ·"
-                               "Ê²Ã´ÂÒ£¿¸øÎÒ¹ö£¡¡±Ëµ°ÕÒ»ÕÆ°Ñ$n" CYN
-                               "Åüµ¹ÔÚµØ¡£\n" NOR, this_object(), me);
+                message_vision(CYN "$N" CYN "å¤§æ€’é“ï¼šâ€œæ— åå°è¾ˆæ£"
+                               "ä»€ä¹ˆä¹±ï¼Ÿç»™æˆ‘æ»šï¼â€è¯´ç½¢ä¸€æŒæŠŠ$n" CYN
+                               "åŠˆå€’åœ¨åœ°ã€‚\n" NOR, this_object(), me);
                 me->unconcious();
                 return -1;
         }
         command("sigh");
-        command("say ºÜºÃ£¡½üÄê»¹ÕæÃ»ÓĞÓöµ½Ê²Ã´¸ÒºÍÎÒ½ÏÁ¿µÄ¸ßÊÖ£¡");
+        command("say å¾ˆå¥½ï¼è¿‘å¹´è¿˜çœŸæ²¡æœ‰é‡åˆ°ä»€ä¹ˆæ•¢å’Œæˆ‘è¾ƒé‡çš„é«˜æ‰‹ï¼");
         return 1;
 }

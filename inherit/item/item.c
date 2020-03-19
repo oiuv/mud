@@ -40,7 +40,7 @@ int fire(object me, object ob)
         string msg;
 
         if (this_object()->is_item_make())
-                return notify_fail("ÄãÀÛµÃÂúÍ·´óº¹£¬ÔõÃ´µãÒ²µã²»×Å¡£\n");
+                return notify_fail("ä½ ç´¯å¾—æ»¡å¤´å¤§æ±—ï¼Œæ€ä¹ˆç‚¹ä¹Ÿç‚¹ä¸ç€ã€‚\n");
 
         if (stringp(msg = query("no_light")))
                 return notify_fail(msg);
@@ -48,21 +48,21 @@ int fire(object me, object ob)
         switch (query("material"))
         {
         case "wood":
-                msg = "$N°Ñ$n·ÅÔÚ$fÏÂÃæµãÈ¼ÁË£¬»ğ¹âÉÁ¶¯£¬½¥"
-                      "½¥Ö»Ê£ÏÂÁËÒ»ÍÅÌ¼·ÛËéÔü¡£\n";
+                msg = "$NæŠŠ$næ”¾åœ¨$fä¸‹é¢ç‚¹ç‡ƒäº†ï¼Œç«å…‰é—ªåŠ¨ï¼Œæ¸"
+                      "æ¸åªå‰©ä¸‹äº†ä¸€å›¢ç¢³ç²‰ç¢æ¸£ã€‚\n";
                 break;
         case "leather":
         case "feather":
         case "silk":
-                msg = "$NÓÃ$f°Ñ$nµã×ÅÁË£¬½á¹ûÉ¢·¢³öÒ»ÕóÁîÈËÄÑÎÅµÄ³ôÎ¶¡£\n";
+                msg = "$Nç”¨$fæŠŠ$nç‚¹ç€äº†ï¼Œç»“æœæ•£å‘å‡ºä¸€é˜µä»¤äººéš¾é—»çš„è‡­å‘³ã€‚\n";
                 break;
         case "paper":
         case "cloth":
-                msg = "$Nµã×ÅÁË$n£¬»ğÃçÉÁÁË¼¸ÉÁ£¬ºÜ¿ì¾Í"
-                      "ÉÕÁË¸ö¸É¸É¾»¾»£¬Ê²Ã´¶¼Ã»ÓĞÊ£ÏÂÀ´¡£\n";
+                msg = "$Nç‚¹ç€äº†$nï¼Œç«è‹—é—ªäº†å‡ é—ªï¼Œå¾ˆå¿«å°±"
+                      "çƒ§äº†ä¸ªå¹²å¹²å‡€å‡€ï¼Œä»€ä¹ˆéƒ½æ²¡æœ‰å‰©ä¸‹æ¥ã€‚\n";
                 break;
         default:
-                return notify_fail("Õâ¶«Î÷¿´ÉÏÈ¥Ã»·¨µã£¬»¹ÊÇÊ¡Ê¡Á¦Æø°É¡£\n");
+                return notify_fail("è¿™ä¸œè¥¿çœ‹ä¸Šå»æ²¡æ³•ç‚¹ï¼Œè¿˜æ˜¯çœçœåŠ›æ°”å§ã€‚\n");
         }
 
         msg = replace_string(msg, "$n", name());
@@ -77,27 +77,27 @@ int fire(object me, object ob)
 string type()
 {
         if ( this_object()->is_weapon() )
-                return "ÎäÆ÷";
+                return "æ­¦å™¨";
         if ( this_object()->is_armor() )
-                return "·À¾ß";
+                return "é˜²å…·";
         if ( this_object()->is_food() )
-                return "Ê³Îï";
+                return "é£Ÿç‰©";
         if ( this_object()->is_liquid() )
-                return "Òû¾ß";
+                return "é¥®å…·";
         if ( this_object()->is_container() )
-                return "ÈİÆ÷";
+                return "å®¹å™¨";
         if ( this_object()->is_book() )
-                return "ÊéÎï";
+                return "ä¹¦ç‰©";
         if ( this_object()->is_money() )
-                return "»õ±Ò";
+                return "è´§å¸";
         if ( this_object()->is_charm() )
-                return "»¤Éí·û";
+                return "æŠ¤èº«ç¬¦";
         if ( this_object()->is_rune() )
-                return "·ûÎÄ";
+                return "ç¬¦æ–‡";
         if ( this_object()->is_inlaid() )
-                return "ÏâÇ¶Îï";
+                return "é•¶åµŒç‰©";
         if ( this_object()->is_task() )
-                return "ÈÎÎñÎïÆ·";
-        return "ÔÓÎï";
+                return "ä»»åŠ¡ç‰©å“";
+        return "æ‚ç‰©";
 }
 

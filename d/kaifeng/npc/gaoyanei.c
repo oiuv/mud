@@ -2,9 +2,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("¸ßÑÃÄÚ",({"gao yanei", "gao", "yanei"}));
+        set_name("é«˜è¡™å†…",({"gao yanei", "gao", "yanei"}));
         set("age", 22);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("attitude", "peaceful");
 
         set("str", 25);
@@ -28,7 +28,7 @@ void create()
 
 int accept_fight(object me)
 {
-        command("say ´óÒ¯ÎÒÕıÏëÕÒÈËÉ±ÄÅ£¬½ñÌìËãÄãµ¹Ã¹¡£\n");
+        command("say å¤§çˆ·æˆ‘æ­£æƒ³æ‰¾äººæ€å‘ï¼Œä»Šå¤©ç®—ä½ å€’éœ‰ã€‚\n");
         kill_ob(me);
         return 1;
 }

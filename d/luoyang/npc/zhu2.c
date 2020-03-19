@@ -5,9 +5,9 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("ÖìÒû", ({ "zhu yin", "zhu", "yin" }));
-        set("gender", "ÄĞĞÔ");
-        set("title", "ÎäÆ÷µêÀÏ°å");
+        set_name("æœ±é¥®", ({ "zhu yin", "zhu", "yin" }));
+        set("gender", "ç”·æ€§");
+        set("title", "æ­¦å™¨åº—è€æ¿");
         set("age", 45);
         set_skill("dodge", 80);
         set_skill("force", 80);
@@ -42,7 +42,7 @@ void create()
                 "/clone/weapon/longbow",
                 "/d/luoyang/npc/obj/sword1",
                 "/d/luoyang/npc/obj/blade1",
-                //ĞÂÔöÎäÆ÷ 2016-12-26
+                //æ–°å¢æ­¦å™¨ 2016-12-26
                 "/d/luoyang/npc/obj/club1",
                 "/d/luoyang/npc/obj/whip1",
                 "/d/luoyang/npc/obj/staff1",

@@ -1,4 +1,4 @@
-//shanfang.c ÓùÉÅ·¿
+//shanfang.c å¾¡è†³æˆ¿
 
 #include <ansi.h>
 
@@ -6,10 +6,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÓùÉÅ·¿");
+        set("short", "å¾¡è†³æˆ¿");
         set("long", @LONG
-»Ê¹¬ÀïµÄÉÅÊ³ÓëÆ½³£Ãñ¼äµÄ×ÔÈ»²»Í¬,ÕâÀï¾ÍÊÇ¸ºÔð»ÊÉÏÓÃÉÅµÄÓù
-ÉÅ·¿.Äã²»½ûÏë°ÑÕâÀïµÄÃÀÎ¶¶¼³¢Ò»±é,¿É±ðÍüÁËÕâ¿ÉÊÇ»Ê¹¬°¡.
+çš‡å®«é‡Œçš„è†³é£Ÿä¸Žå¹³å¸¸æ°‘é—´çš„è‡ªç„¶ä¸åŒ,è¿™é‡Œå°±æ˜¯è´Ÿè´£çš‡ä¸Šç”¨è†³çš„å¾¡
+è†³æˆ¿.ä½ ä¸ç¦æƒ³æŠŠè¿™é‡Œçš„ç¾Žå‘³éƒ½å°ä¸€é,å¯åˆ«å¿˜äº†è¿™å¯æ˜¯çš‡å®«å•Š.
 LONG
         );
         set("exits", ([

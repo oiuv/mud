@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÄêÇáÉÙ¸¾",({ "nianqing shaofu","shaofu" }) );
-        set("gender", "Å®ĞÔ" );
+        set_name("å¹´è½»å°‘å¦‡",({ "nianqing shaofu","shaofu" }) );
+        set("gender", "å¥³æ€§" );
         set("age", 16);
         set("long",
-"ÕâÊÇÒ»¸ö³¤Í¾Æ£±¹µÄÄêÇáÉÙ¸¾¡£\n");
+"è¿™æ˜¯ä¸€ä¸ªé•¿é€”ç–²æƒ«çš„å¹´è½»å°‘å¦‡ã€‚\n");
         set_temp("apply/defense", 5);
         set("combat_exp", 1000);
         set("shen", 500);

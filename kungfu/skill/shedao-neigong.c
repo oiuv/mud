@@ -1,4 +1,4 @@
-// shedao-neigong 蛇岛内功
+// shedao-neigong 铔囧矝鍐呭姛
 
 inherit FORCE;
 
@@ -16,7 +16,7 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-    return notify_fail("蛇岛内功只能通过学或是从运用(exert)中增加熟练度。\n");
+    return notify_fail("铔囧矝鍐呭姛鍙兘閫氳繃瀛︽垨鏄粠杩愮敤(exert)涓鍔犵啛缁冨害銆俓n");
 }
 
 string exert_function_file(string func)

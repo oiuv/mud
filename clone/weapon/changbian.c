@@ -3,17 +3,17 @@ inherit WHIP;
 
 void create()
 {
-        set_name("³¤±Ş", ({ "changbian", "bian" }));
+        set_name("é•¿é­", ({ "changbian", "bian" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", "ÕâÊÇÒ»¸ùÆÕÍ¨µÄ³¤±Ş£¬ÓÉË®Å£Æ¤¾«¹¤±àÖ¯¶ø³É¡£\n");
+                set("unit", "æ ¹");
+                set("long", "è¿™æ˜¯ä¸€æ ¹æ™®é€šçš„é•¿é­ï¼Œç”±æ°´ç‰›çš®ç²¾å·¥ç¼–ç»‡è€Œæˆã€‚\n");
                 set("value", 100);
                 set("material", "leather");
-                set("wield_msg", "$N¡¸à§¡¹µÄÒ»Éù¶¶³öÒ»¸ù$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n¾í»ØÑü¼ä¡£\n");
+                set("wield_msg", "$Nã€Œå”°ã€çš„ä¸€å£°æŠ–å‡ºä¸€æ ¹$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$nå·å›è…°é—´ã€‚\n");
         }
         init_whip(25);
         setup();

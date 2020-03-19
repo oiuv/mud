@@ -5,65 +5,65 @@
 inherit SKILL;
 
 mapping *action = ({
-([      "name"  : "ÓÐ·ïÀ´ÒÇ",
-        "action": "$NÊ¹Ò»ÕÐ¡¸ÓÐ·ïÀ´ÒÇ¡¹£¬ÊÖÖÐ$w½£¹â±©³¤£¬Ïò$nµÄ$l´ÌÈ¥",
+([      "name"  : "æœ‰å‡¤æ¥ä»ª",
+        "action": "$Nä½¿ä¸€æ‹›ã€Œæœ‰å‡¤æ¥ä»ªã€ï¼Œæ‰‹ä¸­$wå‰‘å…‰æš´é•¿ï¼Œå‘$nçš„$låˆºåŽ»",
         "force" : 70,
 	"attack": 10,
 	"parry" : 5,
         "dodge" : 10,
         "damage": 30,
         "lvl"   : 0,
-        "damage_type":  "´ÌÉË"
+        "damage_type":  "åˆºä¼¤"
 ]),
-([      "name"  : "ÎÞ±ßÂäÄ¾",
-        "action": "$N½£ËæÉí×ª£¬Ò»ÕÐ¡¸ÎÞ±ßÂäÄ¾¡¹ÕÖÏò$nµÄ$l",
+([      "name"  : "æ— è¾¹è½æœ¨",
+        "action": "$Nå‰‘éšèº«è½¬ï¼Œä¸€æ‹›ã€Œæ— è¾¹è½æœ¨ã€ç½©å‘$nçš„$l",
         "force" : 120,
 	"attack": 20,
 	"parry" : 15,
         "dodge" : 20,
         "damage": 40,
         "lvl"   : 20,
-        "damage_type":  "´ÌÉË"
+        "damage_type":  "åˆºä¼¤"
 ]),
-([      "name"  : "ºè·ÉÚ¤Ú¤",
-        "action": "$NÎè¶¯$w£¬Ò»ÕÐ¡¸ºè·ÉÚ¤Ú¤¡¹Ð®ÖøÎÞÊý½£¹â´ÌÏò$nµÄ$l",
+([      "name"  : "é¸¿é£žå†¥å†¥",
+        "action": "$NèˆžåŠ¨$wï¼Œä¸€æ‹›ã€Œé¸¿é£žå†¥å†¥ã€æŒŸè‘—æ— æ•°å‰‘å…‰åˆºå‘$nçš„$l",
         "force" : 160,
 	"attack": 25,
 	"parry" : 20,
         "dodge" : 30,
         "damage": 45,
         "lvl"   : 40,
-        "damage_type":  "´ÌÉË"
+        "damage_type":  "åˆºä¼¤"
 ]),
-([      "name"  : "Æ½É³ÂäÑã",
-        "action": "$NÊÖÖÐ$wÁúÒ÷Ò»Éù£¬¼À³ö¡¸Æ½É³ÂäÑã¡¹Íù$nµÄ$l´Ì³öÊý½£",
+([      "name"  : "å¹³æ²™è½é›",
+        "action": "$Næ‰‹ä¸­$wé¾™åŸä¸€å£°ï¼Œç¥­å‡ºã€Œå¹³æ²™è½é›ã€å¾€$nçš„$låˆºå‡ºæ•°å‰‘",
         "force" : 190,
 	"attack": 30,
 	"parry" : 28,
         "dodge" : 35,
         "damage": 50,
         "lvl"   : 60,
-        "damage_type":  "´ÌÉË"
+        "damage_type":  "åˆºä¼¤"
 ]),
-([      "name"  : "½ðÓñÂúÌÃ",
-        "action": "$NÊÖÖÐ$w½£¹â±©³¤£¬Ò»ÕÐ¡¸½ðÓñÂúÌÃ¡¹Íù$n$l´ÌÈ¥",
+([      "name"  : "é‡‘çŽ‰æ»¡å ‚",
+        "action": "$Næ‰‹ä¸­$wå‰‘å…‰æš´é•¿ï¼Œä¸€æ‹›ã€Œé‡‘çŽ‰æ»¡å ‚ã€å¾€$n$låˆºåŽ»",
         "force" : 220,
 	"attack": 40,
 	"parry" : 33,
         "dodge" : 40,
         "damage": 55,
         "lvl"   : 80,
-        "damage_type":  "´ÌÉË"
+        "damage_type":  "åˆºä¼¤"
 ]),
-([      "name"  : "°×ºç¹áÈÕ",
-        "action": "$NÊÖÖÐ$w»¯³ÉÒ»µÀ¹â»¡£¬Ö±Ö¸$n$l£¬Ò»ÕÐ¡¸°×ºç¹áÈÕ¡¹·¢³ö»¢ÏøÁúÒ÷´ÌÈ¥",
+([      "name"  : "ç™½è™¹è´¯æ—¥",
+        "action": "$Næ‰‹ä¸­$wåŒ–æˆä¸€é“å…‰å¼§ï¼Œç›´æŒ‡$n$lï¼Œä¸€æ‹›ã€Œç™½è™¹è´¯æ—¥ã€å‘å‡ºè™Žå“®é¾™åŸåˆºåŽ»",
         "force" : 260,
 	"attack": 50,
 	"parry" : 40,
         "dodge" : -20,
         "damage": 90,
         "lvl"   : 100,
-        "damage_type":  "´ÌÉË"
+        "damage_type":  "åˆºä¼¤"
 ]),
 });
 
@@ -72,14 +72,14 @@ int valid_learn(object me)
     object ob;
 
     if ((int)me->query("max_neili") < 100)
-        return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬Ã»ÓÐ°ì·¨Á·»ªÉ½½£·¨¡£\n");
+        return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œæ²¡æœ‰åŠžæ³•ç»ƒåŽå±±å‰‘æ³•ã€‚\n");
 
     if (! (ob = me->query_temp("weapon"))
     ||  (string)ob->query("skill_type") != "sword" )
-        return notify_fail("Äã±ØÐëÏÈÕÒÒ»°Ñ½£²ÅÄÜÑ§Ï°½£·¨¡£\n");
+        return notify_fail("ä½ å¿…é¡»å…ˆæ‰¾ä¸€æŠŠå‰‘æ‰èƒ½å­¦ä¹ å‰‘æ³•ã€‚\n");
 
     if (me->query_skill("sword", 1) < me->query_skill("huashan-sword", 1))
-	return notify_fail("ÄãµÄ»ù±¾½£·¨»ðºòÓÐÏÞ£¬ÎÞ·¨Áì»á¸ü¸ßÉîµÄ»ªÉ½½£·¨¡£\n");
+	return notify_fail("ä½ çš„åŸºæœ¬å‰‘æ³•ç«å€™æœ‰é™ï¼Œæ— æ³•é¢†ä¼šæ›´é«˜æ·±çš„åŽå±±å‰‘æ³•ã€‚\n");
 
     return 1;
 }
@@ -109,10 +109,10 @@ mapping query_action(object me, object weapon)
 int practice_skill(object me)
 {
     if ((int)me->query("qi") < 60)
-        return notify_fail("ÄãµÄÌåÁ¦Ì«µÍ£¬Ã»ÓÐ°ì·¨Á·Ï°»ªÉ½½£·¨¡£\n");
+        return notify_fail("ä½ çš„ä½“åŠ›å¤ªä½Žï¼Œæ²¡æœ‰åŠžæ³•ç»ƒä¹ åŽå±±å‰‘æ³•ã€‚\n");
                 
     if ((int)me->query("neili") < 40)
-        return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬Ã»ÓÐ°ì·¨Á·Ï°»ªÉ½½£·¨¡£\n");
+        return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œæ²¡æœ‰åŠžæ³•ç»ƒä¹ åŽå±±å‰‘æ³•ã€‚\n");
 
     me->receive_damage("qi", 50);
     me->add("neili", -31);

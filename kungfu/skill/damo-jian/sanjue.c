@@ -1,4 +1,4 @@
-// sanjue.c  ´ïÄ¦½£ ´ïÄ¦Èı¾ø½£
+// sanjue.c  è¾¾æ‘©å‰‘ è¾¾æ‘©ä¸‰ç»å‰‘
 
 #include <ansi.h>
 
@@ -12,31 +12,31 @@ int perform(object me, object target)
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-	        return notify_fail("¡¸´ïÄ¦Èı¾ø½£¡¹Ö»ÄÜÔÚÕ½¶·ÖĞ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+	        return notify_fail("ã€Œè¾¾æ‘©ä¸‰ç»å‰‘ã€åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
               (string)weapon->query("skill_type") != "sword")
-		return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô¡£\n");
+		return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ã€‚\n");
 
 	if (me->query_dex() < 30)
-		return notify_fail("ÄãµÄÉí·¨²»¹»£¬Ä¿Ç°»¹²»ÄÜÊ¹ÓÃÕâÏî¾ø¼¼£¡\n");
+		return notify_fail("ä½ çš„èº«æ³•ä¸å¤Ÿï¼Œç›®å‰è¿˜ä¸èƒ½ä½¿ç”¨è¿™é¡¹ç»æŠ€ï¼\n");
 
 	if (me->query_skill("force") < 200)
-		return notify_fail("ÄãµÄÄÚ¹¦µÄĞŞÎª²»¹»£¬²»ÄÜÊ¹ÓÃÕâÒ»¾ø¼¼£¡\n");
+		return notify_fail("ä½ çš„å†…åŠŸçš„ä¿®ä¸ºä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨è¿™ä¸€ç»æŠ€ï¼\n");
 
 	if (me->query_skill("dodge") < 200)
-		return notify_fail("ÄãµÄÇá¹¦ĞŞÎª²»¹»£¬²»ÄÜÊ¹ÓÃ´ïÄ¦Èı¾ø½££¡\n");
+		return notify_fail("ä½ çš„è½»åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨è¾¾æ‘©ä¸‰ç»å‰‘ï¼\n");
  
 	if (me->query_skill("sword") < 200)
-		return notify_fail("ÄãµÄ½£·¨ĞŞÎª²»¹»£¬Ä¿Ç°²»ÄÜÊ¹ÓÃ´ïÄ¦Èı¾ø½££¡\n");
+		return notify_fail("ä½ çš„å‰‘æ³•ä¿®ä¸ºä¸å¤Ÿï¼Œç›®å‰ä¸èƒ½ä½¿ç”¨è¾¾æ‘©ä¸‰ç»å‰‘ï¼\n");
 
 	if (me->query("neili") < 150)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¬²»ÄÜÊ¹ÓÃ´ïÄ¦Èı¾ø½££¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨è¾¾æ‘©ä¸‰ç»å‰‘ï¼\n");
 
         if (me->query_skill_mapped("sword") != "damo-jian")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢´ïÄ¦½££¬²»ÄÜÊ¹ÓÃ´ïÄ¦Èı¾ø½££¡\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘è¾¾æ‘©å‰‘ï¼Œä¸èƒ½ä½¿ç”¨è¾¾æ‘©ä¸‰ç»å‰‘ï¼\n");
 
-	msg = HIC "$N" HIC "Ê¹³ö´ïÄ¦½£µÄ¾ø¼¼¡¸´ïÄ¦Èı¾ø½£¡¹£¬¹¥ËÙ¶¸È»¼Ó¿ì£¡\n" NOR;
+	msg = HIC "$N" HIC "ä½¿å‡ºè¾¾æ‘©å‰‘çš„ç»æŠ€ã€Œè¾¾æ‘©ä¸‰ç»å‰‘ã€ï¼Œæ”»é€Ÿé™¡ç„¶åŠ å¿«ï¼\n" NOR;
 	message_combatd(msg, me);
 
 	me->add("neili", -75);

@@ -2,11 +2,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("²è¿Í", ({ "cha ke", "cha", "ke" }) );
-        set("gender", "ÄĞĞÔ" );
+        set_name("èŒ¶å®¢", ({ "cha ke", "cha", "ke" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 25);
         set("long",
-              "Ò»¸öÔÚ²èÆÌºÈ²èµÄÈË¡£\n");
+              "ä¸€ä¸ªåœ¨èŒ¶é“ºå–èŒ¶çš„äººã€‚\n");
         set("shen_type", 1);
         set("combat_exp", 10000);
         set("str", 17);
@@ -18,7 +18,7 @@ void create()
         set_skill("unarmed",20);
         set("chat_chance", 1);
         set("chat_msg", ({
-                "²è¿ÍµÍ×ÅÍ·ºÈÁË¿Ú²è¡£\n",
+                "èŒ¶å®¢ä½ç€å¤´å–äº†å£èŒ¶ã€‚\n",
         }) );       
         setup();
         carry_object("/d/beijing/npc/obj/cloth")->wear();

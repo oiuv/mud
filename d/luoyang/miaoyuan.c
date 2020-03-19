@@ -3,12 +3,12 @@ inherit ROOM;
 
 void create()
 {
-    set("short", "ÃçÔ°");
+    set("short", "è‹—å›­");
     set("long", @LONG
-ÕâÀïÊÇÃçÆÌÖ÷ÈËÓÃÀ´Ñø»¨µÄ»¨Åï£¬Ò»¸ö´ó´óµÄÎÂÊÒ£¬½«¸÷ÖÖÑùµÄÆæ»¨
-Òì²ÝºÇ»¤ÔÚÆäÖÐ£¬µ±È»»¨´ÔÖÐ¸ü¶àµÄÊÇÄµµ¤£¬Ö»¼ûÄÇÄµµ¤ºìµÄ£¬°×µÄ£¬ºÚ
-µÄ£¬×ÏµÄ£¬»ÆµÄ£¬¸÷É«¸÷Ñù£¬ÕùÆæ¶·ÑÞ£¬½¿ÑÞÓûµÎ£¬²»À¢ºÍ°×ÂíËÂÒ»Æð³É
-ÎªÁËÂåÑôµÄÏóÕ÷¡£ÄãÒ²¿ÉÒÔÔÚÕâÀïÖÖ»¨¡£
+è¿™é‡Œæ˜¯è‹—é“ºä¸»äººç”¨æ¥å…»èŠ±çš„èŠ±æ£šï¼Œä¸€ä¸ªå¤§å¤§çš„æ¸©å®¤ï¼Œå°†å„ç§æ ·çš„å¥‡èŠ±
+å¼‚è‰å‘µæŠ¤åœ¨å…¶ä¸­ï¼Œå½“ç„¶èŠ±ä¸›ä¸­æ›´å¤šçš„æ˜¯ç‰¡ä¸¹ï¼Œåªè§é‚£ç‰¡ä¸¹çº¢çš„ï¼Œç™½çš„ï¼Œé»‘
+çš„ï¼Œç´«çš„ï¼Œé»„çš„ï¼Œå„è‰²å„æ ·ï¼Œäº‰å¥‡æ–—è‰³ï¼Œå¨‡è‰³æ¬²æ»´ï¼Œä¸æ„§å’Œç™½é©¬å¯ºä¸€èµ·æˆ
+ä¸ºäº†æ´›é˜³çš„è±¡å¾ã€‚ä½ ä¹Ÿå¯ä»¥åœ¨è¿™é‡Œç§èŠ±ã€‚
 LONG);
         set("outdoors", "luoyang");
         set("no_fight",1);
@@ -33,37 +33,37 @@ int do_peiyu()
 
         if (! me->query_temp("zhonghua"))
         {
-                tell_object(me, "ÄãÖÖ×Ó¶¼Ã»ÓÐ£¬»¹ÏëÖÖ»¨£¿\n"); 
+                tell_object(me, "ä½ ç§å­éƒ½æ²¡æœ‰ï¼Œè¿˜æƒ³ç§èŠ±ï¼Ÿ\n"); 
                 return 1;
         }
 
         if (me->query_temp("jiaoshui") == 1)
         {
-                tell_object(me, "ÄãÒÑ¾­Íê³ÉÁËÅàÓýÕâµÀ³ÌÐò£¬ÏÖÔÚ¿ÉÒÔ½½Ë®"
-                                HIY "(jiaoshui)" NOR "¡£\n");
+                tell_object(me, "ä½ å·²ç»å®Œæˆäº†åŸ¹è‚²è¿™é“ç¨‹åºï¼ŒçŽ°åœ¨å¯ä»¥æµ‡æ°´"
+                                HIY "(jiaoshui)" NOR "ã€‚\n");
                 return 1;
         }
 
         if (me->query("combat_exp") < 5000)
         {
-                tell_object(me, "ÄãµÄ¾­ÑéÉÐÇ³£¬»¹ÊÇÏÈµ½´¦¶à×ß¶¯×ß¶¯°É¡£\n");
+                tell_object(me, "ä½ çš„ç»éªŒå°šæµ…ï¼Œè¿˜æ˜¯å…ˆåˆ°å¤„å¤šèµ°åŠ¨èµ°åŠ¨å§ã€‚\n");
                 return 1;
         }
 
         if (me->query("combat_exp") > 30000)
         {
-                tell_object(me, "ÒÔÄãµÄÉí·Ý´ó¸Å²»ÊÊºÏÖÖ»¨ÁË°É¡£\n");
+                tell_object(me, "ä»¥ä½ çš„èº«ä»½å¤§æ¦‚ä¸é€‚åˆç§èŠ±äº†å§ã€‚\n");
                 return 1;
         }
 
         if (me->query("jing") < 50)
         {
-                tell_object(me, "ÄãÒÑ¾­ºÜÆ£±¹ÁË£¬ÐÝÏ¢Ò»ÏÂÔÙ½Ó×ÅÖÖ°É¡£\n");
+                tell_object(me, "ä½ å·²ç»å¾ˆç–²æƒ«äº†ï¼Œä¼‘æ¯ä¸€ä¸‹å†æŽ¥ç€ç§å§ã€‚\n");
                 return 1;
         }
 
-        message_vision(HIC "$N" HIC "°ÑÍÁ¿ÓÖÜÎ§ºÃºÃµØÐÞÕûÁËÒ»ÏÂ£¬Ê¹ÍÁÈÀ¸ü¼Ó"
-                       "ÊÊºÏ»¨µÄÉú³¤¡£\n" NOR, me); 
+        message_vision(HIC "$N" HIC "æŠŠåœŸå‘å‘¨å›´å¥½å¥½åœ°ä¿®æ•´äº†ä¸€ä¸‹ï¼Œä½¿åœŸå£¤æ›´åŠ "
+                       "é€‚åˆèŠ±çš„ç”Ÿé•¿ã€‚\n" NOR, me); 
         me->set_temp("peiyu", 1);
         me->set_temp("jiaoshui", 1);
         me->start_busy(1 + random(3));
@@ -79,17 +79,17 @@ int do_jiaoshui()
 
         if (me->query("jing") < 50)
         {
-                tell_object(me, "ÄãÒÑ¾­ºÜÆ£±¹ÁË£¬ÐÝÏ¢Ò»ÏÂÔÙ½Ó×ÅÖÖ°É¡£\n");
+                tell_object(me, "ä½ å·²ç»å¾ˆç–²æƒ«äº†ï¼Œä¼‘æ¯ä¸€ä¸‹å†æŽ¥ç€ç§å§ã€‚\n");
                 return 1;
         }
         if (me->is_busy())
         {
-                tell_object(me, "ÄãÕýÃ¦×ÅÄØ£¬±ð×Å¼±¡£\n");
+                tell_object(me, "ä½ æ­£å¿™ç€å‘¢ï¼Œåˆ«ç€æ€¥ã€‚\n");
                 return 1;
         }
         if (! me->query_temp("peiyu") == 1)
         {
-                tell_object(me, "ÄãÃ»ÊÂ¸É½½Ê²Ã´Ë®°¡£¡\n");
+                tell_object(me, "ä½ æ²¡äº‹å¹²æµ‡ä»€ä¹ˆæ°´å•Šï¼\n");
                 return 1;
         }
         if (me->query_temp("peiyu") == 2)
@@ -107,10 +107,10 @@ int do_jiaoshui()
 
                         if (random(15) == 1)
                         {
-                                if (random(100) < 5)     //Ôö¼Ó½±Àø»úÂÊ£¨2015-04-01£©
+                                if (random(100) < 5)     //å¢žåŠ å¥–åŠ±æœºçŽ‡ï¼ˆ2015-04-01ï¼‰
                                 {
                                         ob = new("/d/shenlong/obj/hua4");
-                                        message_vision(HIY "$N" HIY "ÖÖ³öÁËÒ»¶äôä´äÀ¼¡£\n"
+                                        message_vision(HIY "$N" HIY "ç§å‡ºäº†ä¸€æœµç¿¡ç¿ å…°ã€‚\n"
                                                        NOR, me);
                                         ob->move(me, 1);
                                         me->delete_temp("jiaoshui");
@@ -123,18 +123,18 @@ int do_jiaoshui()
                                 ob = new("/d/shenlong/obj/hua2");
                                 me->add("combat_exp", 90 + random(10));
                                 me->improve_potential(90 + random(10));
-                                message_vision(HIY "$N" HIY "ÖÖ³öÁËÒ»¶äÎÞÃû»¨¡£\n" NOR,me);
+                                message_vision(HIY "$N" HIY "ç§å‡ºäº†ä¸€æœµæ— åèŠ±ã€‚\n" NOR,me);
                                 return 1;
                         }
-                        message_vision(HIC "$N" HIC "Ê®·ÖÐ¡ÐÄµÄ¸øÐ¡¿ÓÀï½½ÁËÒ»Ð©"
-                                       "Ë®£¬Í»È»Ò»¶ä" + ob->query("name") + HIC
-                                       "´Ó¿ÓÀïÃ°ÁË³öÀ´¡£\n" NOR, me);   
-                        message_vision(HIY "$N" HIY "°ÑËüÕªÁËÏÂÀ´£¬ÄÃÔÚÊÖÀï¡£\n" NOR, me);
+                        message_vision(HIC "$N" HIC "ååˆ†å°å¿ƒçš„ç»™å°å‘é‡Œæµ‡äº†ä¸€äº›"
+                                       "æ°´ï¼Œçªç„¶ä¸€æœµ" + ob->query("name") + HIC
+                                       "ä»Žå‘é‡Œå†’äº†å‡ºæ¥ã€‚\n" NOR, me);   
+                        message_vision(HIY "$N" HIY "æŠŠå®ƒæ‘˜äº†ä¸‹æ¥ï¼Œæ‹¿åœ¨æ‰‹é‡Œã€‚\n" NOR, me);
                         ob->move(me, 1);
                         me->delete_temp("jiaoshui");
                         me->delete_temp("peiyu");
                         me->delete_temp("zhonghua");
-                        //Ôö¼Ó½±Àø5±¶
+                        //å¢žåŠ å¥–åŠ±5å€
                         exp = 50 + random(10);
                         pot = 20 + random(10);
 
@@ -144,13 +144,13 @@ int do_jiaoshui()
                         me->add("combat_exp", exp);
                         me->improve_potential(pot);
 
-                        tell_object(me, HIC "Í¨¹ýÕâ´ÎÑµÁ·£¬Äã»ñµÃÁË" + chinese_number(exp)
-                                        + "µã¾­ÑéºÍ" + chinese_number(pot) + "µãÇ±ÄÜ¡£\n"
+                        tell_object(me, HIC "é€šè¿‡è¿™æ¬¡è®­ç»ƒï¼Œä½ èŽ·å¾—äº†" + chinese_number(exp)
+                                        + "ç‚¹ç»éªŒå’Œ" + chinese_number(pot) + "ç‚¹æ½œèƒ½ã€‚\n"
                                         NOR);
                         return 1; 
                 }
-                message_vision(HIR "$N" HIR "±¿ÊÖ±¿½ÅµÄÄÃÆðË®ºø¸øÐ¡¿ÓÀï½½Ë®£¬½á"
-                               "¹ûË®È÷µÄÌ«¶à°Ñ»¨¸ø»ÙÁË¡£\n", me); 
+                message_vision(HIR "$N" HIR "ç¬¨æ‰‹ç¬¨è„šçš„æ‹¿èµ·æ°´å£¶ç»™å°å‘é‡Œæµ‡æ°´ï¼Œç»“"
+                               "æžœæ°´æ´’çš„å¤ªå¤šæŠŠèŠ±ç»™æ¯äº†ã€‚\n", me); 
                 me->delete_temp("jiaoshui"); 
                 me->delete_temp("zhonghua"); 
                 me->delete_temp("peiyu"); 
@@ -161,7 +161,7 @@ int do_jiaoshui()
         }
         if (me->query_temp("jiaoshui") == 1)
         {
-                message_vision(HIC "$N" HIC "ÄÃÆðË®ºø¸øÐ¡¿Ó½½ÁËÒ»Ð©Ë®¡£\n" NOR, me); 
+                message_vision(HIC "$N" HIC "æ‹¿èµ·æ°´å£¶ç»™å°å‘æµ‡äº†ä¸€äº›æ°´ã€‚\n" NOR, me); 
                 me->add("jing", -30); 
                 me->set_temp("peiyu", 2); 
                 me->start_busy(1 + random(2)); 

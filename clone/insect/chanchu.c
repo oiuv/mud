@@ -1,4 +1,4 @@
-// chanchu.c ó¸òÜ
+// chanchu.c èŸ¾èœ
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit POISON_INSECT;
 
 void create()
 {
-	set_name("ó¸òÜ", ({ "chan chu" }) );
+	set_name("èŸ¾èœ", ({ "chan chu" }) );
         set_weight(350);
-	set("race", "Ò°ÊŞ");
+	set("race", "é‡å…½");
 	set("age", 2);
-	set("long", "Ò»Ö»³¤µÃ¼«Îª¶ñĞÄµÄñ®¸òó¡¡£\n");
+	set("long", "ä¸€åªé•¿å¾—æä¸ºæ¶å¿ƒçš„ç™è›¤èŸ†ã€‚\n");
 	set("attitude", "peaceful");
 	set("str", 20);
 	set("con", 20);
-        set("unit", "Ö»");
-	set("limbs", ({ "Í·²¿", "ÉíÌå", "ÍÜÍÈ" }) );
+        set("unit", "åª");
+	set("limbs", ({ "å¤´éƒ¨", "èº«ä½“", "è›™è…¿" }) );
 	set("verbs", ({ "bite" }) );
 
         set("insect_poison", ([

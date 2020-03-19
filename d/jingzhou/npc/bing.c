@@ -1,13 +1,13 @@
-// bing.c ¹Ù±ø
+// bing.c å®˜å…µ
 
 inherit NPC;
 
 void create()
 {
-	set_name("¹Ù±ø", ({ "guan bing", "bing" }));
+	set_name("å®˜å…µ", ({ "guan bing", "bing" }));
 	set("age", 22);
-	set("gender", "ÄÐÐÔ");
-	set("long", "ËäÈ»¹Ù±øµÄÎäÒÕ²»ÄÜºÍÎäÁÖÈËÊ¿Ïà±È£¬¿ÉÊÇËûÃÇ½²¾¿µÄÊÇÈË¶àÁ¦Á¿´ó¡£\n");
+	set("gender", "ç”·æ€§");
+	set("long", "è™½ç„¶å®˜å…µçš„æ­¦è‰ºä¸èƒ½å’Œæ­¦æž—äººå£«ç›¸æ¯”ï¼Œå¯æ˜¯ä»–ä»¬è®²ç©¶çš„æ˜¯äººå¤šåŠ›é‡å¤§ã€‚\n");
 	set("attitude", "peaceful");
 //	set("vendetta_mark", "authority");
 //      set("pursuer", 1);
@@ -36,8 +36,8 @@ void create()
 
         set("chat_chance_combat", 10);
 	set("chat_msg_combat", ({
-		"¹Ù±øºÈµÀ£º´óµ¨µóÃñ£¬¾¹¸ÒÔì·´²»³É£¿\n",
-		"¹Ù±øºÈµÀ£ºÅÜµÃÁËºÍÉÐÅÜ²»ÁËÃí£¬Äã»¹ÊÇ¿ì¿ìÊøÊÖ¾ÍÇÜ£¡\n",
+		"å®˜å…µå–é“ï¼šå¤§èƒ†åˆæ°‘ï¼Œç«Ÿæ•¢é€ åä¸æˆï¼Ÿ\n",
+		"å®˜å…µå–é“ï¼šè·‘å¾—äº†å’Œå°šè·‘ä¸äº†åº™ï¼Œä½ è¿˜æ˜¯å¿«å¿«æŸæ‰‹å°±æ“’ï¼\n",
 	}));
 	setup();
 	carry_object(__DIR__"obj/gangdao")->wield();
@@ -57,7 +57,7 @@ void init()
 
 int accept_fight(object me)
 {
-	command("say ´óÒ¯ÎÒÕýÏëÕÒÈËÉ±ÄÅ£¬½ñÌìËãÄãµ¹Ã¹¡£\n");
+	command("say å¤§çˆ·æˆ‘æ­£æƒ³æ‰¾äººæ€å‘ï¼Œä»Šå¤©ç®—ä½ å€’éœ‰ã€‚\n");
 	me->apply_condition("killer", 500);
 	kill_ob(me);
 	return 1;

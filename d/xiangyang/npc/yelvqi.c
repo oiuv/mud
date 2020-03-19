@@ -1,4 +1,4 @@
-// yelvqi.c Ò®ÂÉÆë
+// yelvqi.c è€¶å¾‹é½
 
 #include <ansi.h>
 
@@ -7,13 +7,13 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ò®ÂÉÆë", ({ "Yelv qi", "yelv", "qi" }));
-        set("title", "È«Õæ½ÌµÚ¶ş´úµÜ×Ó Ø¤°ïµÚ¶şÊ®Ò»´ú°ïÖ÷");
-        set("gender", "ÄĞĞÔ");
+        set_name("è€¶å¾‹é½", ({ "Yelv qi", "yelv", "qi" }));
+        set("title", "å…¨çœŸæ•™ç¬¬äºŒä»£å¼Ÿå­ ä¸å¸®ç¬¬äºŒåä¸€ä»£å¸®ä¸»");
+        set("gender", "ç”·æ€§");
         set("age", 25);
         set("per", 25);
         set("long",
-        "¹ù¾¸ºÍ»ÆÈØµÄ´óÅ®Ğö£¬¹ùÜ½µÄÕÉ·ò¡£\n",);
+        "éƒ­é–å’Œé»„è“‰çš„å¤§å¥³å©¿ï¼Œéƒ­èŠ™çš„ä¸ˆå¤«ã€‚\n",);
 
         set("combat_exp", 600000);
         set("shen_type", 1);
@@ -35,7 +35,7 @@ void create()
         map_skill("sword","quanzhen-jian");
         map_skill("parry","quanzhen-jian");
 
-        create_family("È«Õæ½Ì", 2, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 2, "å¼Ÿå­");
         set_temp("apply/attack", 50);
         set_temp("apply/defense", 50);
         set_temp("apply/damage", 50);

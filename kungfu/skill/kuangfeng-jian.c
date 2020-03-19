@@ -1,49 +1,49 @@
-//kuangfeng-jian ¿ñ·ç¿ì½£
+//kuangfeng-jian ç‹‚é£Žå¿«å‰‘
 
 #include <ansi.h>
 
 inherit SKILL;
 
 mapping *action = ({
-([      "action" : "$N×ÝÉíÔ¾ÆðÊÖÖÐ$wÇá»Ó£¬Õ¶Ïò$nºó¾±",
+([      "action" : "$Nçºµèº«è·ƒèµ·æ‰‹ä¸­$wè½»æŒ¥ï¼Œæ–©å‘$nåŽé¢ˆ",
         "force"  : 160,
         "attack" : 35,
         "parry"  : 40,
         "dodge"  : 80,
         "damage" : 125,
         "lvl"    : 0,
-        "skill_name" : "·çÆ½ÀË¾²",
-        "damage_type" : "´ÌÉË"
+        "skill_name" : "é£Žå¹³æµªé™",
+        "damage_type" : "åˆºä¼¤"
 ]),
-([      "action" : "$NÊÖÖÐ$wÁ¬»°Èý¸ö»¡ÐÎ£¬Ïò$nµÄÓÒ±ÛÆë¼çÕ¶Âä",
+([      "action" : "$Næ‰‹ä¸­$wè¿žè¯ä¸‰ä¸ªå¼§å½¢ï¼Œå‘$nçš„å³è‡‚é½è‚©æ–©è½",
         "force"  : 180,
         "attack" : 55,
         "parry"  : 52,
         "dodge"  : 95,
         "damage" : 148,
         "lvl"    : 30,
-        "skill_name" : "·çÆðÔÆÓ¿",
-        "damage_type" : "´ÌÉË"
+        "skill_name" : "é£Žèµ·äº‘æ¶Œ",
+        "damage_type" : "åˆºä¼¤"
 ]),
-([      "action" : "$NÇáÓõÒ»Éù£¬Ë¢Ë¢Ë¢Ë¢ËÄ½££¬Ïò$nÐØ£¬¸¹£¬Ñü£¬¼çËÄ´¦Á¬´Ì",
+([      "action" : "$Nè½»åä¸€å£°ï¼Œåˆ·åˆ·åˆ·åˆ·å››å‰‘ï¼Œå‘$nèƒ¸ï¼Œè…¹ï¼Œè…°ï¼Œè‚©å››å¤„è¿žåˆº",
         "force"  : 220,
         "attack" : 81,
         "parry"  : 18,
         "dodge"  : 123,
         "damage" : 195,
         "lvl"    : 60,
-        "skill_name" : "·ç¾í²ÐÔÆ",
-        "damage_type" : "´ÌÉË"
+        "skill_name" : "é£Žå·æ®‹äº‘",
+        "damage_type" : "åˆºä¼¤"
 ]),
-([      "action" : "$NÑöÌìÒ»ÉùÇåÐ¥£¬Ð±ÐÐÏòÇ°£¬$wºáÏ÷Ö±»÷£¬Ñ¸½ÝÎÞ±È£¬»÷Ïò$nµÄ$l",
+([      "action" : "$Nä»°å¤©ä¸€å£°æ¸…å•¸ï¼Œæ–œè¡Œå‘å‰ï¼Œ$wæ¨ªå‰Šç›´å‡»ï¼Œè¿…æ·æ— æ¯”ï¼Œå‡»å‘$nçš„$l",
         "force"  : 280,
         "attack" : 108,
         "parry"  : 20,
         "dodge"  : 152,
         "damage" : 230,
         "lvl"    : 90,
-        "skill_name" : "·çÁ÷ÔÆÉ¢",
-        "damage_type" : "¸îÉË"
+        "skill_name" : "é£Žæµäº‘æ•£",
+        "damage_type" : "å‰²ä¼¤"
 ]),
 });
 
@@ -52,16 +52,16 @@ int valid_enable(string usage) { return usage == "sword" || usage == "parry"; }
 int valid_learn(object me)
 {
         if ((int)me->query("max_neili") < 200)
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎª²»¹»£¬ÎÞ·¨ÐÞÏ°¿ñ·ç¿ì½£¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸å¤Ÿï¼Œæ— æ³•ä¿®ä¹ ç‹‚é£Žå¿«å‰‘ã€‚\n");
 
         if ((int)me->query_skill("dodge", 1) < 90)
-                return notify_fail("ÄãµÄ»ù±¾Çá¹¦»ðºòÌ«Ç³£¬ÎÞ·¨ÐÞÏ°¿ñ·ç¿ì½£¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬è½»åŠŸç«å€™å¤ªæµ…ï¼Œæ— æ³•ä¿®ä¹ ç‹‚é£Žå¿«å‰‘ã€‚\n");
 
         if ((int)me->query_dex() < 28)
-                return notify_fail("ÄãµÄÉí·¨»¹²»¹»Áé»î£¬ÎÞ·¨ÐÞÏ°¿ñ·ç¿ì½£¡£\n");
+                return notify_fail("ä½ çš„èº«æ³•è¿˜ä¸å¤Ÿçµæ´»ï¼Œæ— æ³•ä¿®ä¹ ç‹‚é£Žå¿«å‰‘ã€‚\n");
 
         if ((int)me->query_skill("sword", 1) < (int)me->query_skill("kuangfeng-jian", 1))
-	        return notify_fail("ÄãµÄ»ù±¾½£·¨Ë®Æ½ÓÐÏÞ£¬ÎÞ·¨Áì»á¸ü¸ßÉîµÄ¿ñ·ç¿ì½£¡£\n");
+	        return notify_fail("ä½ çš„åŸºæœ¬å‰‘æ³•æ°´å¹³æœ‰é™ï¼Œæ— æ³•é¢†ä¼šæ›´é«˜æ·±çš„ç‹‚é£Žå¿«å‰‘ã€‚\n");
 
         return 1;
 }
@@ -90,13 +90,13 @@ int practice_skill(object me)
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ã€‚\n");
 
         if ((int)me->query("qi") < 65)
-                return notify_fail("ÄãµÄÌåÁ¦²»¹»Á·¿ñ·ç¿ì½£¡£\n");
+                return notify_fail("ä½ çš„ä½“åŠ›ä¸å¤Ÿç»ƒç‹‚é£Žå¿«å‰‘ã€‚\n");
 
         if ((int)me->query("neili") < 40)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»Á·¿ñ·ç¿ì½£¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿç»ƒç‹‚é£Žå¿«å‰‘ã€‚\n");
 
         me->receive_damage("qi", 60);
         me->add("neili", -36);

@@ -13,12 +13,12 @@ void create()
 {
         string long_desc;
         string *long_list = ({
-                "ÕâÊÇÒ»¸öÊ°»ÄÕß£¬¿´ÉÏÈ¥ÀÏÊµ°Í½»µÄ¡£²»¹ıÌı\n" +
-                "ËµËûºÍ¹Ù¸®ÓĞ½»Çé£¬×îºÃ±ğÈ¥ÕĞÈÇ¡£\n",
+                "è¿™æ˜¯ä¸€ä¸ªæ‹¾è’è€…ï¼Œçœ‹ä¸Šå»è€å®å·´äº¤çš„ã€‚ä¸è¿‡å¬\n" +
+                "è¯´ä»–å’Œå®˜åºœæœ‰äº¤æƒ…ï¼Œæœ€å¥½åˆ«å»æ‹›æƒ¹ã€‚\n",
                 "\n",
         });
         ::create();
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 53 + random(20));
 
         long_desc = long_list[random(sizeof(long_list))];
@@ -83,7 +83,7 @@ void kill_ob(object ob)
 
 int accept_fight(object ob)
 {
-        command("say ºÃ£¡ÔÛÃÇ¾Í±È»®±È»®£¡");
+        command("say å¥½ï¼å’±ä»¬å°±æ¯”åˆ’æ¯”åˆ’ï¼");
         exert_function("powerup");
         kill_ob(ob);
         return 1;
@@ -91,7 +91,7 @@ int accept_fight(object ob)
 
 int accept_hit(object ob)
 {
-        command("say ÄãËÀÈ¥°É£¡");
+        command("say ä½ æ­»å»å§ï¼");
         exert_function("powerup");
         kill_ob(ob);
         return 1;
@@ -99,7 +99,7 @@ int accept_hit(object ob)
 
 int accept_kill(object ob)
 {
-        command("say ºß£¡ÕÒËÀ£¡");
+        command("say å“¼ï¼æ‰¾æ­»ï¼");
         exert_function("powerup");
         return 1;
 }
@@ -109,7 +109,7 @@ void do_leave()
         random_move();
         if ( time() - query_temp("born_time") > 1150 )
         {
-                message_vision("$N¼±¼±Ã¦Ã¦µÄ×ßÁË¡£\n", this_object());
+                message_vision("$Næ€¥æ€¥å¿™å¿™çš„èµ°äº†ã€‚\n", this_object());
                 destruct(this_object());
                 return;
         }
@@ -130,25 +130,25 @@ int accept_ask(object me,string arg)
                {
                   obj[i]->move(me);
 
-                  message_vision(WHT"$N¿´ÁË¿´$n,ÎŞÄÎµØËµµÀ£º¡°°¥£¬¼ÈÈ»±»ÄãÕÒµ½£¬"
-                                 "ÎÒÒ²ÎŞ»°¿ÉËµÁË¡£¡±\n"NOR, this_object(), me);
+                  message_vision(WHT"$Nçœ‹äº†çœ‹$n,æ— å¥ˆåœ°è¯´é“ï¼šâ€œå“ï¼Œæ—¢ç„¶è¢«ä½ æ‰¾åˆ°ï¼Œ"
+                                 "æˆ‘ä¹Ÿæ— è¯å¯è¯´äº†ã€‚â€\n"NOR, this_object(), me);
 
-                  tell_object(me,this_object()->name() + "ÄÃ³ö" +
-                              obj[i]->name() + "¸øÄã¡£\n");
+                  tell_object(me,this_object()->name() + "æ‹¿å‡º" +
+                              obj[i]->name() + "ç»™ä½ ã€‚\n");
 
-                  message("vision", this_object()->name() + "ÄÃ³ö" +
-                              obj[i]->name() + "¸ø" + me->name() + "\n",
+                  message("vision", this_object()->name() + "æ‹¿å‡º" +
+                              obj[i]->name() + "ç»™" + me->name() + "\n",
                               environment(this_object()), ({ me }));
 
 
-                  message_vision("$N¼±¼±Ã¦Ã¦µÄ×ßÁË¡£\n", this_object());
+                  message_vision("$Næ€¥æ€¥å¿™å¿™çš„èµ°äº†ã€‚\n", this_object());
                   destruct(this_object());
 
                   return 1;
                }
                else
                {       
-                   command("say ¹ö¿ª£¬ÉÙ†ªàÂ!");
+                   command("say æ»šå¼€ï¼Œå°‘å•°å—¦!");
                    return 1;
                }
             }
@@ -163,8 +163,8 @@ void unconcious()
 
 void die()
 {
-     command("say ¿¿£¬ÄãÀ´ÕæµÄ£¬ÎÒ¿É²»ÅãÄãÍæÁË!");
-     message_vision("$N¼±¼±Ã¦Ã¦µÄ×ßÁË¡£\n", this_object());
+     command("say é ï¼Œä½ æ¥çœŸçš„ï¼Œæˆ‘å¯ä¸é™ªä½ ç©äº†!");
+     message_vision("$Næ€¥æ€¥å¿™å¿™çš„èµ°äº†ã€‚\n", this_object());
      destruct(this_object());
 
 }

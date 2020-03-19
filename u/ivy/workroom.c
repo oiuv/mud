@@ -3,11 +3,11 @@ inherit ROOM;
 
 varargs void create(int x, int y, int z)
 {
-    set("short", "ÔÆ¶Ë");
+    set("short", "äº‘ç«¯");
     set("long", HIW"
-    ÕâÀïÊÇ¾ÅÏöÔÆÍâ£¬ºÃÉñÆæµÄµØ·½°¡£¬Ö»¿´¶ä¶ä°×ÔÆÆ®£¬ÈÃ
-ÈËĞÄ¿õÉñâù¡£\n");
-    setArea(x, y, z, "ÔÆ¶Ë");
+    è¿™é‡Œæ˜¯ä¹éœ„äº‘å¤–ï¼Œå¥½ç¥å¥‡çš„åœ°æ–¹å•Šï¼Œåªçœ‹æœµæœµç™½äº‘é£˜ï¼Œè®©
+äººå¿ƒæ—·ç¥æ€¡ã€‚\n");
+    setArea(x, y, z, "äº‘ç«¯");
     set("exits", ([
         "north":__DIR__ "workroom/" + x + "," + (y + 1) + "," + z,
         "south":__DIR__ "workroom/" + x + "," + (y - 1) + "," + z,

@@ -6,11 +6,11 @@ inherit F_COAGENT;
 
 void create()
 {
-        set_name("Ðì×ÓÁê", ({ "xu ziling", "xu", "ziling"}));
-        set("long", "Ò»¸ö¿¡ÇÎµÄ°×ÒÂÉÙÄê£¬Ëû¾ÍÊÇÃûÕðÌìÏÂµÄÐì×ÓÁê¡£\n"); 
-        set("nickname", HIR "´óÌÆË«Áú" NOR);
-        set("title", HIY "´ó×ÚÊ¦" NOR);
-        set("gender", "ÄÐÐÔ");
+        set_name("å¾å­é™µ", ({ "xu ziling", "xu", "ziling"}));
+        set("long", "ä¸€ä¸ªä¿Šä¿çš„ç™½è¡£å°‘å¹´ï¼Œä»–å°±æ˜¯åéœ‡å¤©ä¸‹çš„å¾å­é™µã€‚\n"); 
+        set("nickname", HIR "å¤§å”åŒé¾™" NOR);
+        set("title", HIY "å¤§å®—å¸ˆ" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 26);
         set("attitude", "friendly");
         set("shen_type", 1);
@@ -73,7 +73,7 @@ void kill_ob (object ob)
         ::kill_ob(ob);
         if (guard && !guard->is_fighting())
          {
-                 message_vision (CYN "$N´óÅ­µÀ£º¸óÏÂÆÛÈËÌ«Éõ£¬±ð¹ÖÎÒÎÞÇé£¡\n" NOR, guard);
+                 message_vision (CYN "$Nå¤§æ€’é“ï¼šé˜ä¸‹æ¬ºäººå¤ªç”šï¼Œåˆ«æ€ªæˆ‘æ— æƒ…ï¼\n" NOR, guard);
                  guard->kill_ob(ob);
          }
 }

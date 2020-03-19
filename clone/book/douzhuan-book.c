@@ -1,4 +1,4 @@
-// douzhuan-book.c ¶·×ªĞÇÒÆ
+// douzhuan-book.c æ–—è½¬æ˜Ÿç§»
 
 #include <ansi.h>
 
@@ -6,15 +6,15 @@ inherit BOOK;
 
 void create()
 {
-        set_name(CYN "¶·×ªĞÇÒÆ" NOR, ({ "douzhuan book", "douzhuan", "book" }));
+        set_name(CYN "æ–—è½¬æ˜Ÿç§»" NOR, ({ "douzhuan book", "douzhuan", "book" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("unit", "±¾");
+                set("unit", "æœ¬");
                 set("no_sell", 1);
-                set("long", "ÕâÊÇÒ»±¾¼ÇÔØÁËÄ½Èİ¼Ò¶·×ªĞÇÒÆµÄÃØ¼®¡£\n");
+                set("long", "è¿™æ˜¯ä¸€æœ¬è®°è½½äº†æ…•å®¹å®¶æ–—è½¬æ˜Ÿç§»çš„ç§˜ç±ã€‚\n");
                 set("value", 1000);
                 set("material", "paper");
                 set("skill", ([

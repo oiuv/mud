@@ -3,12 +3,12 @@ inherit TRANS_ROOM;
 
 void create()
 {
-        set("short","����");
+        set("short","马厩");
         set("long",@LONG
-���ǿ͵������ǣ����깩Ӧ���ʲ��ϡ����������¹ų�
-��ʷ�ƾá���紾�ӣ������ǻ����ǣ�����Ǻ����տ�������
-��ι�����㣬��ϴˢ�ø�Ǭ���������������µ���ľ���϶���
-����ľ�� (paizi)�������жѷ������Ѳ��ϡ�
+这是客店后的马厩，常年供应新鲜草料。洛阳乃天下古城
+历史悠久、民风淳朴，马夫们会把马牵到马厩好生照看，将它
+们喂饱饮足，再洗刷得干乾净净。马厩雨檐下的烂木柱上钉着
+块破木牌 (paizi)。马厩中堆放著几堆草料。
 LONG);
         set("outdoors", "luoyang");
         set("no_fight", 1);

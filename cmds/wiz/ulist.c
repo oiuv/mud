@@ -22,9 +22,9 @@ int main(object me, string str)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : ulist
+æŒ‡ä»¤æ ¼å¼ : ulist
 
-½«ÏßÉÏËùÓĞÍæ¼ÒµÄ/obj/user number ÏÔÊ¾³öÀ´¡£
+å°†çº¿ä¸Šæ‰€æœ‰ç©å®¶çš„/obj/user number æ˜¾ç¤ºå‡ºæ¥ã€‚
 HELP
     );
     return 1;

@@ -4,12 +4,12 @@ inherit CLUB;
 
 void create()
 {
-        set_name(HIY "³à½ğ¹÷" NOR, ({ "chijin gun", "chijin", "club", "gun" }));
+        set_name(HIY "èµ¤é‡‘æ£" NOR, ({ "chijin gun", "chijin", "club", "gun" }));
         set_weight(5000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
+                set("unit", "æ ¹");
                 set("value", 200000);
                 set("material", "steel");
         }

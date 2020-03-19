@@ -2,10 +2,10 @@
 // created by poet on 2001.10.23
 // added by super
 // for command shell, if any problem ,comment it--jason
-// poet slightly modified it, to prevent flood¡£
-// Super modified again for set vars¡£
+// poet slightly modified it, to prevent floodã€‚
+// Super modified again for set varsã€‚
 // poet modified for stand-alone feature
-// poet made support for void or compound statements¡£
+// poet made support for void or compound statementsã€‚
 
 #include <shell.h>
 
@@ -68,7 +68,7 @@ mixed evaluate_shell(string arg, int novalue)
         me = this_object();
         // poet added restriction for > (wizard)
         if (novalue && (wiz_level(me) < 4))
-                return notify_fail("È¨ÏÞ¾Ü¾ø¡£\n");
+                return notify_fail("æƒé™æ‹’ç»ã€‚\n");
 
         // +2 for the function name and object 'me'
         var = allocate(MAX_VAR_COUNT + 2);
@@ -126,9 +126,9 @@ mixed evaluate_shell(string arg, int novalue)
         if (! write_file(file, content, 1))
         {
                 if (novalue)
-                        return notify_fail("Ð´ÎÄ¼þ³ö´í£¡\n");
+                        return notify_fail("å†™æ–‡ä»¶å‡ºé”™ï¼\n");
                 else
-                        return "Notify fail: Ð´ÎÄ¼þ³ö´í£¡";
+                        return "Notify fail: å†™æ–‡ä»¶å‡ºé”™ï¼";
         }
 
         // fill in environment vars as parameter.
@@ -142,9 +142,9 @@ mixed evaluate_shell(string arg, int novalue)
                 if (novalue) cat(file);
                 rm(file);
                 if (novalue)
-                        return notify_fail("³ÌÐò±àÒëÊ§°Ü£¡\n");
+                        return notify_fail("ç¨‹åºç¼–è¯‘å¤±è´¥ï¼\n");
                 else
-                        return "Notify fail: ³ÌÐò±àÒëÊ§°Ü£¡";
+                        return "Notify fail: ç¨‹åºç¼–è¯‘å¤±è´¥ï¼";
         }
 
         // log the usage.

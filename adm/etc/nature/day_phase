@@ -24,49 +24,49 @@ hour:time_msg:desc_msg:event_fun:outcolor
 # in each record sequently.
 
 0
-$HIC$����ɫ��$BLU$�Ѿ�����ҹ�ˡ�
-$HIG$�����⡿$BLU$ҹĻ�ʹ������췱��
+$HIC$【天色】$BLU$已经是午夜了。
+$HIG$【窗外】$BLU$夜幕低垂，满天繁星
 event_midnight
 $BLU$
 
 3
-$HIC$����ɫ��$HIB$����������п�ʼ����һ˿΢�ء�
-$HIG$�����⡿$HIB$������������𽥷���
+$HIC$【天色】$HIB$东方的天空中开始出现一丝微曦。
+$HIG$【窗外】$HIB$东方的天空已逐渐发白
 event_dawn
 $HIB$
 
 6
-$HIC$����ɫ��$HIR$̫���Ӷ����ĵ�ƽ�������ˡ�һƬ���ĳ�ϼ��
-$HIG$�����⡿$HIR$̫���մӶ����ĵ�ƽ������
+$HIC$【天色】$HIR$太阳从东方的地平线升起了。一片红红的朝霞。
+$HIG$【窗外】$HIR$太阳刚从东方的地平线升起
 event_sunrise
 $HIR$
 
 9
-$HIC$����ɫ��$HIY$̫���Ѿ��߸ߵع��ڶ���������С�
-$HIG$�����⡿$HIY$̫�����߹��ڶ����������
+$HIC$【天色】$HIY$太阳已经高高地挂在东方的天空中。
+$HIG$【窗外】$HIY$太阳正高挂在东方的天空中
 event_morning
 $HIY$
 
 12
-$HIC$����ɫ��$HIW$�Ѿ��������ˣ�̫���������Ϸ���ҫ����ء�
-$HIG$�����⡿$HIW$����������ʱ�֣�̫���߹������ͷ�����Ϸ�
+$HIC$【天色】$HIW$已经是正午了，太阳从你正上方照耀著大地。
+$HIG$【窗外】$HIW$现在是正午时分，太阳高挂在你的头顶正上方
 event_noon
 $HIW$
 
 15
-$HIC$����ɫ��$WHT$̫����ʼ�����������������������
-$HIG$�����⡿$WHT$̫�����߹��������������
+$HIC$【天色】$WHT$太阳开始从西方的天空中慢慢西沉。
+$HIG$【窗外】$WHT$太阳正高挂在西方的天空中
 event_afternoon
 $WHT$
 
 18
-$HIC$����ɫ��$RED$�����ˣ�̫�������ͽ����������ӳ��һƬ��졣
-$HIG$�����⡿$RED$һ�ֻ���Ϧ�����ǻ��������ĵ�ƽ����
+$HIC$【天色】$RED$傍晚了，太阳的馀晖将西方的天空映成一片火红。
+$HIG$【窗外】$RED$一轮火红的夕阳正徘徊在西方的地平线上
 event_evening
 $RED$
 
 21
-$HIC$����ɫ��$CYN$ҹ�������ˡ�
-$HIG$�����⡿$CYN$ҹĻ���������
+$HIC$【天色】$CYN$夜晚降临了。
+$HIG$【窗外】$CYN$夜幕笼罩著大地
 event_night
 $CYN$

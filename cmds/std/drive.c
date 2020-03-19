@@ -37,15 +37,15 @@ int main(object me, string arg)
         int result;
 
         if (! arg)
-                return notify_fail("��Ҫ��ʲô��\n");
+                return notify_fail("你要赶什么？\n");
 
         if (sscanf(arg, "%s %s", arg, dir) != 2)
-                return notify_fail("��Ҫ���ĸ�����ϣ�\n");
+                return notify_fail("你要往哪个方向赶？\n");
 
 	if (! objectp(ob = present(arg, environment(me))))
-                return notify_fail("����û��������������ϰ���\n");
+                return notify_fail("这里没有这样东西让你赶啊！\n");
 
-        notify_fail("�㿴����ˣ��ⲻ������ʹ�ĳ�����\n");
+        notify_fail("你看清楚了，这不是能驱使的车辆！\n");
         if (! ob->can_drive_by(me))
                 return 0;
 
@@ -53,20 +53,20 @@ int main(object me, string arg)
                 dir = dirs[dir];
         else
         if (member_array(dir, values(dirs)) == -1)
-                return notify_fail("�㲻�����������ϳ���\n");
+                return notify_fail("你不能往这个方向赶车。\n");
 
         if (me->is_fighting())
-                return notify_fail("���������ں��˼Ҷ��֣�û�ոϳ���\n");
+                return notify_fail("你现在正在和人家动手，没空赶车。\n");
 
         if (me->is_busy())
-                return notify_fail("����һ��������û����ɣ��ȵȵȰɡ�\n");
+                return notify_fail("你上一个动作还没有完成，先等等吧。\n");
 
-        // �鿴�ݳ�����
+        // 查看驾车技术
         lvl = me->query_skill("driving");
         if (random(lvl + 100) < 50)
         {
-                message_vision("$N��æ���ҵ������˰��죬����" +
-                               ob->name() + "һ��������\n", me);
+                message_vision("$N手忙脚乱的折腾了半天，可是" +
+                               ob->name() + "一动不动。\n", me);
                 me->start_busy(1);
                 return 1;
         }
@@ -84,7 +84,7 @@ int main(object me, string arg)
                         fail = query_fail_msg();
                 } else
                         fail = "";
-                write(fail + "������û������" + ob->name() + "ǰ����\n");
+                write(fail + "你现在没法赶着" + ob->name() + "前进。\n");
                 return 1;
         }
         ob->move(environment(me));
@@ -101,29 +101,29 @@ int main(object me, string arg)
         switch (random(5))
         {
         case 0:
-                msg_leave   = "$Nһ��ߺ�ȣ�����$n��" + cdir + "ʻȥ��\n";
-                msg_arrival = "ֻ��һ��ߺ�ȣ�$N����$n��" + rdir + "ʻ����\n";
+                msg_leave   = "$N一声吆喝，赶着$n向" + cdir + "驶去。\n";
+                msg_arrival = "只听一声吆喝，$N赶着$n从" + rdir + "驶来。\n";
                 break;
         case 1:
-                msg_leave   = "$Nһ�Բ�����ֻ�Ǹ���$n��" + cdir + "ʻȥ��\n";
-                msg_arrival = "ֻ��$N��ͷ���Եĸ���$n��" + rdir + "ʻ�˹�����\n";
+                msg_leave   = "$N一言不发，只是赶着$n向" + cdir + "驶去。\n";
+                msg_arrival = "只见$N闷头闷脑的赶着$n从" + rdir + "驶了过来。\n";
                 break;
         case 2:
-                msg_leave   = "$N�ȵ������ÿ��ˣ��ÿ��ˡ���ֻ���˺�$n�Ѿ���������" +
-                              rdir + "ȥ�ˡ�\n";
-                msg_arrival = "ԶԶ��ֻ��һ������������žͼ�$N����$n�����Ĵ�" +
-                              rdir + "ʻ�˹�����\n";
+                msg_leave   = "$N喝道：“让开了！让开了”，只见人和$n已经滚滚朝着" +
+                              rdir + "去了。\n";
+                msg_arrival = "远远的只听一阵喝声，紧接着就见$N赶着$n滚滚的从" +
+                              rdir + "驶了过来。\n";
                 break;
         case 3:
-                msg_leave   = "$NĨ��Ĩ������������$n��" + rdir + "ȥ�ˡ�\n";
-                msg_arrival = "ֻ��$Nһ��Ĩ����һ�߸���$n��" +
-                              rdir + "ʻ�˹�����\n";
+                msg_leave   = "$N抹了抹汗，继续赶着$n往" + rdir + "去了。\n";
+                msg_arrival = "只见$N一边抹汗，一边赶着$n从" +
+                              rdir + "驶了过来。\n";
                 break;
         default:
-                msg_leave   = "ֻ��¡¡���죬�ͼ�$N�����ĸ���$n��" +
-                              rdir + "ȥ�ˡ�\n";
-                msg_arrival = "ֻ��¡¡���죬�ͼ�$N�����ĸ���$n��" +
-                              rdir + "ʻ����\n";
+                msg_leave   = "只听隆隆声响，就见$N急冲冲的赶着$n奔" +
+                              rdir + "去了。\n";
+                msg_arrival = "只听隆隆声响，就见$N急冲冲的赶着$n从" +
+                              rdir + "驶来。\n";
                 break;
         }
 
@@ -134,8 +134,8 @@ int main(object me, string arg)
 
         message("vision", msg_leave, env);
         message("vision", msg_arrival, environment(me), ({ me }));
-        tell_object(me, "�����" + ob->name() +
-                        "����" + environment(me)->short() + "��\n");
+        tell_object(me, "你赶着" + ob->name() +
+                        "到了" + environment(me)->short() + "。\n");
         ob->set_owner(me);
 	return 1;
 }
@@ -143,11 +143,11 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-ָ���ʽ : drive <����> <����>
+指令格式 : drive <车辆> <方向>
  
-���ָ�����������ĳ������ϳ�����Ȼ���������ĳ����С����
-��ļݳ��������Ƿǳ���죬��ô���ܲ������ɵ���ʹ�������п���
-���������Ҫ���ӳ١���ô�����Լ��ļݳ����������������
+这个指令可以让你向某个方向赶车，当然，这得是你的车才行。如果
+你的驾车技术不是非常娴熟，那么可能不能自由的驱使，而且有可能
+会带来不必要的延迟。怎么锻炼自己的驾车技术？熟能生巧嘛！
  
 HELP );
     return 1;

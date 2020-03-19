@@ -5,12 +5,12 @@ inherit HEAD;
 
 void create()
 {
-        set_name(HIY "Áğ½ğ¿ø" NOR, ({ "liujin kui", "kui"}) );
+        set_name(HIY "ç‰é‡‘ç›”" NOR, ({ "liujin kui", "kui"}) );
         set_weight(20000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ö");
+                set("unit", "ä¸ª");
                 set("value", 250000);
                 set("material", "leather");
                 set("armor_prop/armor", 80);

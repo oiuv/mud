@@ -1,4 +1,4 @@
-// cdiamond.c ×êÊ¯ËéÁ£
+// cdiamond.c é’»çŸ³ç¢ç²’
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,20 +7,20 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIW "×êÊ¯ËéÁ£" NOR, ({ "chipped diamond" }) );
+	set_name(HIW "é’»çŸ³ç¢ç²’" NOR, ({ "chipped diamond" }) );
 	set_weight(25);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-                set("long", HIW "Ò»Á£¾«¹âÉÁÉÁµÄÈçÃ×Á£°ã´óĞ¡"
-                    "µÄ×êÊ¯ËéÁ£¡£\n" NOR);
+                set("long", HIW "ä¸€ç²’ç²¾å…‰é—ªé—ªçš„å¦‚ç±³ç²’èˆ¬å¤§å°"
+                    "çš„é’»çŸ³ç¢ç²’ã€‚\n" NOR);
                 set("value", 20000);
-		set("unit", "Á£");
+		set("unit", "ç²’");
                 set("armor_prop/per", 3);
-                set("wear_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´÷ÔÚÍ·ÉÏ¡£\n" NOR);
-                set("remove_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n" NOR);
+                set("wear_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "æˆ´åœ¨å¤´ä¸Šã€‚\n" NOR);
+                set("remove_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "ä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n" NOR);
 	}
         setup();
 }

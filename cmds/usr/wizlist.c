@@ -16,8 +16,8 @@ int main(object me, string arg)
         mapping r;
         int i, k;
 
-	desc = NOR + LOCAL_MUD_NAME() + "Ä¿Ç°µÄÎ×Ê¦ÓĞ£º\n";
-        desc += HIW "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR;
+	desc = NOR + LOCAL_MUD_NAME() + "ç›®å‰çš„å·«å¸ˆæœ‰ï¼š\n";
+        desc += HIW "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR;
 	list = SECURITY_D->query_wizlist();
         r = ([ ]);
 
@@ -46,7 +46,7 @@ int main(object me, string arg)
                 desc += get_title(list[i]) + r[list[i]] + "\n";
         }
 
-        desc += HIW "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR;
+        desc += HIW "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR;
 	desc += NOR "\n";
         write(desc);
 	return 1;
@@ -70,9 +70,9 @@ int last_strlen(string str)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : wizlist
+æŒ‡ä»¤æ ¼å¼ : wizlist
 
-ÓÃÍ¾ : ÁĞ³öÄ¿Ç°ËùÓĞµÄÎ×Ê¦Ãûµ¥¡£
+ç”¨é€” : åˆ—å‡ºç›®å‰æ‰€æœ‰çš„å·«å¸ˆåå•ã€‚
 HELP
      );
      return 1;

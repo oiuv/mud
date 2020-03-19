@@ -6,13 +6,13 @@ inherit ROOM;
 
 void create ()
 {
-        set ("short", "�ش���ҩ��");
+        set ("short", "回春堂药铺");
         set ("long", @LONG
-���ǳ�����һ�Ҹոտ��Ų��õ�ҩ�̣��ഫԭ�����ϰ��ǽ�������
-���ص�ҽ���е���ҽ���ֶο�֪һ����ҩ���еİ���Ҳʮ�ֿ���������
-���ڿ�Ļ�Ʋ��ĸɸɾ�����ǽ�Ϲ����˱���������л��(bian)��
+这是长安城一家刚刚开张不久的药铺，相传原来的老板是江湖中最
+神秘的医谷中的神医，手段可知一二。药铺中的摆设也十分考究，桌椅
+被勤快的伙计擦的干干净净。墙上挂满了别人送来的谢匾(bian)。
 LONG);
-        set("item_desc", (["bian" : HIW" ���ֻش� \n\n"NOR, ]));
+        set("item_desc", (["bian" : HIW" 妙手回春 \n\n"NOR, ]));
         set("exits", 
         ([ //sizeof() == 1
                 "south" : __DIR__"qixiang6",

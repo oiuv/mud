@@ -6,7 +6,7 @@
 #define FETEMONTH		1
 #define BEGIN_DAY		24
 #define END_DAY			31
-#define FETEDAY			"´º½Ú"
-#define FESTIVAL		"festival/2020/´º½Ú"
+#define FETEDAY			"æ˜¥èŠ‚"
+#define FESTIVAL		"festival/2020/æ˜¥èŠ‚"
 
 #endif

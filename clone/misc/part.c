@@ -1,4 +1,4 @@
-// part.c ÉíÌåÄ³²¿Î»
+// part.c èº«ä½“æŸéƒ¨ä½
 
 #include <ansi.h>
 
@@ -12,13 +12,13 @@ int is_body_part() { return 1; }
 
 void create()
 {
-    set_name(RED "²ĞÖ«" NOR, ({"body part"}));
+    set_name(RED "æ®‹è‚¢" NOR, ({"body part"}));
     set_weight(50);
     if (clonep())
         set_default_object(__FILE__);
     else
     {
-        set("unit", "¿é");
+        set("unit", "å—");
         set("value", 0);
         set("food_supply", 15);
         set("food_remaining", 4);
@@ -32,20 +32,20 @@ int set_from(object owner)
     apply_effect((: eat_effect :));
     switch (name())
     {
-    case "ÑÛÖé":
-    case "¶ú¶ä":
-    case "±Ç×Ó":
-    case "ÉàÍ·":
+    case "çœ¼ç ":
+    case "è€³æœµ":
+    case "é¼»å­":
+    case "èˆŒå¤´":
         set("food_supply", 10);
         set("food_remaining", 1);
         break;
-    case "ÊÖÕÆ":
-    case "ÈË½Å":
+    case "æ‰‹æŒ":
+    case "äººè„š":
         set("food_supply", 15);
         set("food_remaining", 2);
         break;
-    case "ÊÖ±Û":
-    case "ÈËÍÈ":
+    case "æ‰‹è‡‚":
+    case "äººè…¿":
         set("food_supply", 20);
         set("food_remaining", 5);
         break;
@@ -59,7 +59,7 @@ int set_from(object owner)
 int finish_eat()
 {
     object ob;
-    if (name() != "ÊÖ±Û" && name() != "ÈËÍÈ")
+    if (name() != "æ‰‹è‡‚" && name() != "äººè…¿")
         return 0;
     ob = new ("/clone/misc/bone");
     ob->move(environment());

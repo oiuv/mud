@@ -4,12 +4,12 @@ inherit WHIP;
 
 void create()
 {
-        set_name(HIY "³à½ð±Þ" NOR, ({ "chijin bian", "chijin", "whip", "bian" }));
+        set_name(HIY "èµ¤é‡‘éž­" NOR, ({ "chijin bian", "chijin", "whip", "bian" }));
         set_weight(5000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
+                set("unit", "æŸ„");
                 set("value", 200000);
                 set("material", "steel");
         }

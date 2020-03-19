@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("µØÆ¦", ({ "di pi", "di", "pi" }));
-        set("gender", "ÄĞĞÔ" );
+        set_name("åœ°ç—", ({ "di pi", "di", "pi" }));
+        set("gender", "ç”·æ€§" );
         set("age", 20);
-        set("long", "ÕâÊÇÒ»¸öºÈµÄ×íõ¸õ¸µÄµØÆ¦¡£\n");
+        set("long", "è¿™æ˜¯ä¸€ä¸ªå–çš„é†‰é†ºé†ºçš„åœ°ç—ã€‚\n");
         set_temp("apply/attack", 15);
         set_temp("apply/defense", 15);
         set("combat_exp", 750);
@@ -20,8 +20,8 @@ void create()
 
         set("chat_chance", 15);
         set("chat_msg", ({
-                CYN "µØÆ¦ÃÔÃÔºıºıµÄº°µÀ£º¸çÁ©¶ùºÃ°¡£¬Îå¿ıÊÖ°¡£¡\n" NOR,
-                CYN "µØÆ¦¿¿ÔÚÇ½½Ç£¬·¢³öÁËÕóÕóµÄ÷ıÉù¡£\n" NOR,
+                CYN "åœ°ç—è¿·è¿·ç³Šç³Šçš„å–Šé“ï¼šå“¥ä¿©å„¿å¥½å•Šï¼Œäº”é­æ‰‹å•Šï¼\n" NOR,
+                CYN "åœ°ç—é åœ¨å¢™è§’ï¼Œå‘å‡ºäº†é˜µé˜µçš„é¼¾å£°ã€‚\n" NOR,
         }));
         carry_object(__DIR__"obj/cloth")->wear();
         add_money("silver",8);

@@ -5,12 +5,12 @@ inherit CLOTH;
 
 void create()
 {
-        set_name(HIY "½ğË¿¼×" NOR, ({ "jinsi jia", "jinsi", "jia"}));
+        set_name(HIY "é‡‘ä¸ç”²" NOR, ({ "jinsi jia", "jinsi", "jia"}));
         set_weight(10000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼ş");
+                set("unit", "ä»¶");
                 set("value", 30000);
                 set("material", "leather");
                 set("armor_prop/armor", 100);

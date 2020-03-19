@@ -4,9 +4,9 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÍÁæ½¹Ý");
+        set("short", "åœŸå¨¼é¦†");
         set("long", @LONG
-»¹Ã»ÏëºÃÄØ!ºÇºÇ!
+è¿˜æ²¡æƒ³å¥½å‘¢!å‘µå‘µ!
 LONG);
         set("exits", ([ /* sizeof() == 1 */
         	"south" : __DIR__"huarui6",

@@ -4,15 +4,15 @@ inherit SWORD;
 
 void create()
 {
-        set_name(HIW "½£Æø" NOR, ({ "jian qi", "jian", "qi" }));
+        set_name(HIW "å‰‘æ°”" NOR, ({ "jian qi", "jian", "qi" }));
         set_weight(1);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Êø");
-                set("long", HIW "ÕâÊÇÒ»ÊøÓÉÄÚÁ¦»¯³ÉµÄ½£Æø¡£\n" NOR);
+                set("unit", "æŸ");
+                set("long", HIW "è¿™æ˜¯ä¸€æŸç”±å†…åŠ›åŒ–æˆçš„å‰‘æ°”ã€‚\n" NOR);
                 set("value", 0);
-                set("no_drop", "½£ÆøÊÇÓÉÄãµÄÄÚÁ¦»¯³É£¬ÈçºÎÄÜ¹»¶ªÆú£¿\n");
+                set("no_drop", "å‰‘æ°”æ˜¯ç”±ä½ çš„å†…åŠ›åŒ–æˆï¼Œå¦‚ä½•èƒ½å¤Ÿä¸¢å¼ƒï¼Ÿ\n");
                 set("material", "air");
                 set("power", 1000);
         }

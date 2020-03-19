@@ -5,9 +5,9 @@ void setup()
 {}
 void create()
 {
-        set_name(YEL "ÉúËÀ±¡" NOR, ({"book"}));
-        set("unit", "±¾");
-        set("long", "Ò»±¾¼ÇÔØÈË¼äÉúËÀµÄÃû²á¡£\n");
+        set_name(YEL "ç”Ÿæ­»è–„" NOR, ({"book"}));
+        set("unit", "æœ¬");
+        set("long", "ä¸€æœ¬è®°è½½äººé—´ç”Ÿæ­»çš„åå†Œã€‚\n");
         set("value", 100);
         set_weight(200);
         

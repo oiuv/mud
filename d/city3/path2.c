@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "佻�Ϫ");
+	set("short", "浣花溪");
 	set("long", @LONG
-ϪԴת��������ˮ���������������ǰ��վ�ڲ����ձ�ǰ
-����佻�Ϫ���������Ư׹����Ů���佻�ʱ�ڣ�����һ
-����ζ�����߾�����������լ���ٻ�̶��ׯ�ĶŸ����á�
+溪源转北，阵阵水响带着你来到草堂前。站在草堂照壁前
+回首浣花溪，想象万红漂坠，少女清歌浣花时节，别是一
+般滋味。北边就是万里桥西宅，百花潭北庄的杜甫草堂。
 LONG);
         set("outdoors", "chengdu");
 	set("exits", ([

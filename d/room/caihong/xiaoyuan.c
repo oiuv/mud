@@ -1,23 +1,23 @@
-// xiaoyuan.c �ʺ��СԺ
+// xiaoyuan.c 彩虹居小院
 
 //** inherit PRIVATE_ROOM;
 inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "СԺ");             /* EXAMPLE */
-//**    set("short", "ROOM_NAMEСԺ");
+	set("short", "小院");             /* EXAMPLE */
+//**    set("short", "ROOM_NAME小院");
 	set("long", @LONG
-������һ�����ķ�����Ժ�ӣ�Ժǽ�����ú�ש���ɣ�����ߣ����Ƿ�
-����ˬ���䡣Ժ�м��ù�ľ������Ȼ��һ��������Դ�ĸо�������Ժ��
-��һ��ľ�š�
+这里是一个四四方方的院子，院墙都是用红砖砌成，不算高，但是非
+常清爽利落。院中几棵古木成荫，隐然有一种世外桃源的感觉。穿过院子
+有一扇木门。
 LONG );
 
-	set("default_long", "������һ�����ķ�����Ժ�ӣ�Ժǽ������" /* EXAMPLE */
-                            "��ש���ɣ�����ߣ����Ƿǳ���ˬ���䡣" /* EXAMPLE */
-                            "Ժ�м��ù�ľ������Ȼ��һ��������Դ" /* EXAMPLE */
-                            "�ĸо���Ժ��������Լ��ROOM_POSITION"  /* EXAMPLE */
-                            "��Ժ�ӵı�����һ��ľ�š�");           /* EXAMPLE */
+	set("default_long", "这里是一个四四方方的院子，院墙都是用" /* EXAMPLE */
+                            "红砖砌成，不算高，但是非常清爽利落。" /* EXAMPLE */
+                            "院中几棵古木成荫，隐然有一种世外桃源" /* EXAMPLE */
+                            "的感觉。院子外面隐约是ROOM_POSITION"  /* EXAMPLE */
+                            "，院子的北面有一扇木门。");           /* EXAMPLE */
                                                                    /* EXAMPLE */
 //**    set("room_key", "ROOM_KEY");
 	setup();

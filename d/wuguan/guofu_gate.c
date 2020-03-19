@@ -3,19 +3,19 @@ inherit ROOM;
 
 void create()
 {
-  set("short", "¹ù¸®´óÃÅ");
+  set("short", "éƒ­åºœå¤§é—¨");
   set("long",
-"½¨Öş¹ÅÆÓµÄ´óÕ¬Ôº³öÏÖÔÚÄãµÄÑÛÇ°¡£Ö»¼ûÃÅÂ¥¸ßÌô£¬ÃÅÇ°
-Á¢ÁËÁ½¸öÊ¯Ê¨£¬´óÃÅÉÏÊéÁ½¸ö´ó×Ö" YEL "
+"å»ºç­‘å¤æœ´çš„å¤§å®…é™¢å‡ºç°åœ¨ä½ çš„çœ¼å‰ã€‚åªè§é—¨æ¥¼é«˜æŒ‘ï¼Œé—¨å‰
+ç«‹äº†ä¸¤ä¸ªçŸ³ç‹®ï¼Œå¤§é—¨ä¸Šä¹¦ä¸¤ä¸ªå¤§å­—" YEL "
 
-              ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù
-              ¡ù                  ¡ù
-              ¡ù" NOR + HIY "     ¹ù    ¸®" NOR + YEL "     ¡ù
-              ¡ù                  ¡ù
-              ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù" NOR "
+              â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»
+              â€»                  â€»
+              â€»" NOR + HIY "     éƒ­    åºœ" NOR + YEL "     â€»
+              â€»                  â€»
+              â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»" NOR "
 
-Äã´Ó´óÃÅÇÆ½øÈ¥£¬ºÃÏóÀïÃæÈËÀ´ÈËÍù£¬¶¼ºÜ·±Ã¦µÄÑù×Ó¡£ÕâÀï
-Õ¾×ÅÎ»ÇàÄê£¬ÉñÇéÍşÑÏ¡£½Ó´ıÇ°À´±£ÎÀÏåÑôµÄ¸÷·½ÒåÊ¿¡£
+ä½ ä»å¤§é—¨ç§è¿›å»ï¼Œå¥½è±¡é‡Œé¢äººæ¥äººå¾€ï¼Œéƒ½å¾ˆç¹å¿™çš„æ ·å­ã€‚è¿™é‡Œ
+ç«™ç€ä½é’å¹´ï¼Œç¥æƒ…å¨ä¸¥ã€‚æ¥å¾…å‰æ¥ä¿å«è¥„é˜³çš„å„æ–¹ä¹‰å£«ã€‚
 ");
   set("outdoors", "wuguan");
   set("no_ride", 1);
@@ -36,43 +36,43 @@ int valid_leave(object me, string dir)
        && ! me->query("mark/guofu_out")
            && present("wu dunru", environment(me))
            && dir == "south")
-             return notify_fail(CYN "\nÎä¶ØÈåÉìÊÖ½«ÄãÀ¹×¡µÀ£ºÏÖÔÚ"
-                                "ÏåÑô³ÇÄÚ²»Ì«Æ½£¬Äã»¹ÊÇ¶à´ôÒ»»á°É"
-                                "¡£\n" NOR);
+             return notify_fail(CYN "\næ­¦æ•¦å„’ä¼¸æ‰‹å°†ä½ æ‹¦ä½é“ï¼šç°åœ¨"
+                                "è¥„é˜³åŸå†…ä¸å¤ªå¹³ï¼Œä½ è¿˜æ˜¯å¤šå‘†ä¸€ä¼šå§"
+                                "ã€‚\n" NOR);
 
         if (me->query("mark/guofu_ok")
            && present("wu dunru", environment(me))
            && dir == "north"
            && objectp(riding = me->query_temp("is_riding")))
-             return notify_fail(CYN "\nÎä¶ØÈåÉìÊÖ½«ÄãÀ¹×¡µÀ£º²»ÄÜ"
-                                "ÆïÂí½ø¹ù¸®£¬Äã×²µ½ÆäËûÈËÔõÃ´°ì£¿\n" NOR);
+             return notify_fail(CYN "\næ­¦æ•¦å„’ä¼¸æ‰‹å°†ä½ æ‹¦ä½é“ï¼šä¸èƒ½"
+                                "éª‘é©¬è¿›éƒ­åºœï¼Œä½ æ’åˆ°å…¶ä»–äººæ€ä¹ˆåŠï¼Ÿ\n" NOR);
 
 
         if (me->query("mark/guofu_over")
            && present("wu dunru", environment(me))
            && dir == "north")
-             return notify_fail(CYN "\nÎä¶ØÈå½«ÄãÀ¹×¡£¬ÀäĞ¦µÀ£º¹ù"
-                                "¸®ÁôÄã²»ÏÂ£¬Äã»¹ÊÇ×ß°É¡£\n" NOR);
+             return notify_fail(CYN "\næ­¦æ•¦å„’å°†ä½ æ‹¦ä½ï¼Œå†·ç¬‘é“ï¼šéƒ­"
+                                "åºœç•™ä½ ä¸ä¸‹ï¼Œä½ è¿˜æ˜¯èµ°å§ã€‚\n" NOR);
 
         if (me->query("mark/guofu_out")
            && present("wu dunru", environment(me))
            && dir == "north")
-            //  return notify_fail(CYN "\nÎä¶ØÈåĞ¦µÀ£ºÄãÔÙÁôÔÚ¹ù¸®ÒÑÎŞ¶à´óµÄÓÃ´¦£¬»¹ÊÇ¶àÈ¥´³µ´´³µ´°É¡£\n" NOR);
+            //  return notify_fail(CYN "\næ­¦æ•¦å„’ç¬‘é“ï¼šä½ å†ç•™åœ¨éƒ­åºœå·²æ— å¤šå¤§çš„ç”¨å¤„ï¼Œè¿˜æ˜¯å¤šå»é—¯è¡é—¯è¡å§ã€‚\n" NOR);
             return 1;
 
         if (me->query("combat_exp") > 5000
            && ! me->query("mark/guofu_ok")
            && present("wu dunru", environment(me))
            && dir == "north")
-             return notify_fail(CYN "\nÎä¶ØÈå±§È­µÀ£ºÏÖÏåÑôÕıÖµ¶¯"
-                                "ÂÒÊ±ÆÚ£¬Ã»Ê¦¸¸Ğí¿É£¬ÈÎºÎÈË²»µÃÈë"
-                                "ÄÚ¡£\n" NOR);
+             return notify_fail(CYN "\næ­¦æ•¦å„’æŠ±æ‹³é“ï¼šç°è¥„é˜³æ­£å€¼åŠ¨"
+                                "ä¹±æ—¶æœŸï¼Œæ²¡å¸ˆçˆ¶è®¸å¯ï¼Œä»»ä½•äººä¸å¾—å…¥"
+                                "å†…ã€‚\n" NOR);
 
         if (! me->query("mark/guofu_ok")
            && present("wu dunru", environment(me))
            && dir == "north")
-             return notify_fail(CYN "\nÎä¶ØÈåÉìÊÖ½«ÄãÀ¹×¡µÀ£ºÈç¹û"
-                                "Äã²»´òËã°ïÃ¦´òÔÓ£¬¾Í±ğ½øÀ´¡£\n" NOR);
+             return notify_fail(CYN "\næ­¦æ•¦å„’ä¼¸æ‰‹å°†ä½ æ‹¦ä½é“ï¼šå¦‚æœ"
+                                "ä½ ä¸æ‰“ç®—å¸®å¿™æ‰“æ‚ï¼Œå°±åˆ«è¿›æ¥ã€‚\n" NOR);
 
         return ::valid_leave(me, dir);
 }

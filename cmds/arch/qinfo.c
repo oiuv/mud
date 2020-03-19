@@ -24,17 +24,17 @@ int main(object me, string arg)
 
         total = QUEST_D->query("information");
         if (! mapp(total))
-                return notify_fail("µ±Ç°ÏµÍ³Ã»ÓĞÈÎºÎÈÎÎñ¡£\n");
+                return notify_fail("å½“å‰ç³»ç»Ÿæ²¡æœ‰ä»»ä½•ä»»åŠ¡ã€‚\n");
 
         obs = keys(total);
         obs = filter_array(obs, (: objectp($1) :));
 
         if (! sizeof(obs))
-                return notify_fail("µ±Ç°ÏµÍ³Ã»ÓĞÈÎºÎÈÎÎñ¡£\n");
+                return notify_fail("å½“å‰ç³»ç»Ÿæ²¡æœ‰ä»»ä½•ä»»åŠ¡ã€‚\n");
 
         if (arg == "-n")
         {
-                write(NOR + WHT "Ä¿Ç°ÏµÍ³ÖĞ¹²ÓĞ " + HIC + sizeof(obs) + NOR + WHT + " ¸öÈÎÎñ¡£\n");
+                write(NOR + WHT "ç›®å‰ç³»ç»Ÿä¸­å…±æœ‰ " + HIC + sizeof(obs) + NOR + WHT + " ä¸ªä»»åŠ¡ã€‚\n");
                 return 1;
         }
 
@@ -47,20 +47,20 @@ int main(object me, string arg)
                         obs = filter_array(obs, (: $1->name() == $(arg) :));
                         if (! sizeof(obs))
                         {
-                                write("Ä¿Ç°ÏµÍ³ÖĞ²»´æÔÚ " + arg +
-                                      " Õâ¸öÈÎÎñ¡£\n");
+                                write("ç›®å‰ç³»ç»Ÿä¸­ä¸å­˜åœ¨ " + arg +
+                                      " è¿™ä¸ªä»»åŠ¡ã€‚\n");
                                 return 1;
                         }
                         qob = obs[0];
                 }
 
-                write(sprintf("ÓĞ¹ØÈÎÎñ " + qob->name() + " µÄÇé±¨ĞÅÏ¢£º\n%O\n",
+                write(sprintf("æœ‰å…³ä»»åŠ¡ " + qob->name() + " çš„æƒ…æŠ¥ä¿¡æ¯ï¼š\n%O\n",
                               total[qob]));
                 return 1;
         }
 
-        str = WHT "ÈÎÎñÃû³Æ              Ö´ĞĞÊ±¼ä    ×´  Ì¬    ÈÎÎñ¶ÔÏó¶ÔÓ¦µÄÏµÍ³OBJECT\n" NOR
-              HIW "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR;
+        str = WHT "ä»»åŠ¡åç§°              æ‰§è¡Œæ—¶é—´    çŠ¶  æ€    ä»»åŠ¡å¯¹è±¡å¯¹åº”çš„ç³»ç»ŸOBJECT\n" NOR
+              HIW "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR;
         foreach (qob in obs)
         {
                 str += sprintf("%-22s%-12s%-10s%s\n",
@@ -69,8 +69,8 @@ int main(object me, string arg)
                                qob->query_status(),
                                file_name(qob));
         }
-        str += HIW "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR
-               WHT "ÏµÍ³Ä¿Ç°¹²ÓĞ " CYN + sizeof(obs) + WHT " ¸öÈÎÎñ¡£\n" NOR;
+        str += HIW "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR
+               WHT "ç³»ç»Ÿç›®å‰å…±æœ‰ " CYN + sizeof(obs) + WHT " ä¸ªä»»åŠ¡ã€‚\n" NOR;
 
         me->start_more(str);
 
@@ -80,11 +80,11 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : qinfo [<ÈÎÎñÃû³Æ>]
+æŒ‡ä»¤æ ¼å¼ : qinfo [<ä»»åŠ¡åç§°>]
 
-                 -n£º²é¿´ÈÎÎñÊıÁ¿¡£
+                 -nï¼šæŸ¥çœ‹ä»»åŠ¡æ•°é‡ã€‚
 
-´ËÖ¸Áî¿É²é¿´µ±Ç°ÏµÍ³ÓĞµÄÈÎÎñ¡£
+æ­¤æŒ‡ä»¤å¯æŸ¥çœ‹å½“å‰ç³»ç»Ÿæœ‰çš„ä»»åŠ¡ã€‚
 HELP );
 	return 1;
 }

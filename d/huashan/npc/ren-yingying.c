@@ -4,9 +4,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÈÎÓ¯Ó¯", ({ "ren yingying", "yingying" }) );
-        set("title","Ä§½ÌÊ¥¹Ã");
-        set("gender", "Å®ĞÔ" );
+        set_name("ä»»ç›ˆç›ˆ", ({ "ren yingying", "yingying" }) );
+        set("title","é­”æ•™åœ£å§‘");
+        set("gender", "å¥³æ€§" );
         set("age", 19);
         set("str", 16);
         set("con", 30);
@@ -23,7 +23,7 @@ void create()
         set("max_neili", 2800);
         set("jiali", 30);
 
-        set("long",     "ÈÎÓ¯Ó¯ÊÇÄ§½Ì½ÌÖ÷ÈÎÎÒĞĞµÄ¶ÀÉúÅ®¶ù¡£\n");
+        set("long",     "ä»»ç›ˆç›ˆæ˜¯é­”æ•™æ•™ä¸»ä»»æˆ‘è¡Œçš„ç‹¬ç”Ÿå¥³å„¿ã€‚\n");
         set("combat_exp", 250000);
         set("shen_tpye", 1);
         set_skill("unarmed", 90);
@@ -52,7 +52,7 @@ void create()
 
 int accept_fight(object me)
 {
-        command("say Ğ¡Å®×ÓÔõ»áÊÇÄãµÄ¶ÔÊÖ?");
+        command("say å°å¥³å­æ€ä¼šæ˜¯ä½ çš„å¯¹æ‰‹?");
         return 0;
 }
 void init()
@@ -67,13 +67,13 @@ void init()
 }
 void greeting(object ob)
 {
-      say( "ÈÎÓ¯Ó¯Î¢Î¢Ì¾ÁË¿ÚÆø£º¡°²»ÖªµÀÎÒµÄÁîºü´ó¸çÔÚºÎ·½?¡±\n");
+      say( "ä»»ç›ˆç›ˆå¾®å¾®å¹äº†å£æ°”ï¼šâ€œä¸çŸ¥é“æˆ‘çš„ä»¤ç‹å¤§å“¥åœ¨ä½•æ–¹?â€\n");
       if ( ((int)ob->query_dex()>=25) && ((int)ob->query_int()>=25) )
       {
-           tell_object(ob,"ÈÎÓ¯Ó¯ËµµÀ£ºÇëÄãÎñ±ØÕÒµ½ÎÒÁîºü´ó¸ç.\n");
+           tell_object(ob,"ä»»ç›ˆç›ˆè¯´é“ï¼šè¯·ä½ åŠ¡å¿…æ‰¾åˆ°æˆ‘ä»¤ç‹å¤§å“¥.\n");
            ob->set("marks/feng-qingyang",1);
       }
-      tell_object(ob,"ÈÎÓ¯Ó¯ËùÍêÕâ¾ä»°£¬Æ®È»ÒşÈ¥.\n");
+      tell_object(ob,"ä»»ç›ˆç›ˆæ‰€å®Œè¿™å¥è¯ï¼Œé£˜ç„¶éšå».\n");
       call_out("goway",10);
 }
 void goway(){

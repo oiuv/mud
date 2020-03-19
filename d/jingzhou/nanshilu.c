@@ -1,10 +1,10 @@
 inherit ROOM;
 void create()
 {
-        set("short", "��ʯ·" );
+        set("short", "碎石路" );
         set("long", @LONG
-����һ������ʯ�̳ɵ�·����Ȼ��Щ������ȴ�ܿ�������
-����ȥ���ǳ����ˡ�
+这是一条由碎石铺成的路，虽然有些颠簸，却很宽阔，再
+往南去就是长江了。
 LONG);
         set("exits", ([
   		"north" :__DIR__"jznanmen",

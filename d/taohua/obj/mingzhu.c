@@ -3,9 +3,9 @@ inherit ITEM;
 
 void create()
 {
-    set_name("Ã÷Öé", ({ "ming zhu" ,"zhu", }) );
-    set("unit", "¿Å");
+    set_name("æ˜ç ", ({ "ming zhu" ,"zhu", }) );
+    set("unit", "é¢—");
  set("value",10000);
-    set("long","ÕâÊÇÒ»¿Åº±¼ûµÄÉÏºÃÃ÷Öé£¬¿´À´Öµ²»ÉÙÇ®¡£\n");
+    set("long","è¿™æ˜¯ä¸€é¢—ç½•è§çš„ä¸Šå¥½æ˜ç ï¼Œçœ‹æ¥å€¼ä¸å°‘é’±ã€‚\n");
     set_weight(100);
 }

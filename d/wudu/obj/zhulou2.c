@@ -6,7 +6,7 @@ inherit WAIST;
 void create()
 {
         object ob;
-        set_name("ÖñÂ¨", ({"zhu lou", "zhu", "lou"}));
+        set_name("ç«¹ç¯“", ({"zhu lou", "zhu", "lou"}));
         set_weight(300);
         set_max_encumbrance(15000);
         if (clonep())
@@ -85,10 +85,10 @@ void create()
 		}
         } else
         {
-                set("unit", "¸ö");
-                set("long", "ÕâÊÇÒ»¸öĞ¡¿Ú´ó¶ÇµÄÖñÂ¨£¬³£ÓÃÀ´´æ·Å²İÒ©¡£\n");
-                set("wear_msg", "$N½«ÖñÂ¨±³ÔÚ±³ÉÏ¡£\n");
-                set("remove_msg", "$N½«ÖñÂ¨´Ó±³ÉÏ·ÅÁËÏÂÀ´¡£\n");
+                set("unit", "ä¸ª");
+                set("long", "è¿™æ˜¯ä¸€ä¸ªå°å£å¤§è‚šçš„ç«¹ç¯“ï¼Œå¸¸ç”¨æ¥å­˜æ”¾è‰è¯ã€‚\n");
+                set("wear_msg", "$Nå°†ç«¹ç¯“èƒŒåœ¨èƒŒä¸Šã€‚\n");
+                set("remove_msg", "$Nå°†ç«¹ç¯“ä»èƒŒä¸Šæ”¾äº†ä¸‹æ¥ã€‚\n");
                 set("value", 50);
                 set("material", "bamboo");
                 set("armor_prop/armor", 3);

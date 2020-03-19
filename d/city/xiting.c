@@ -2,13 +2,13 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "Î÷Ìü");
+	set("short", "è¥¿åŽ…");
 	set("long", @LONG
-ÕâÀïÊÇÑÃÃÅµÄÎ÷Ìü£¬ÄËÊÇÖª¸®µÄÊé·¿¡£Êé°¸ÉÏÁèÂÒµØ·Å×Å
-¼¸±¾·¢»ÆµÄ¹Å¼®¡£ÒýÆðÄãµÄ×¢ÒâµÄÊÇÇ½ÉÏ¹Ò×ÅÒ»·ùºÜ´óµÄµØÍ¼¡£
+è¿™é‡Œæ˜¯è¡™é—¨çš„è¥¿åŽ…ï¼Œä¹ƒæ˜¯çŸ¥åºœçš„ä¹¦æˆ¿ã€‚ä¹¦æ¡ˆä¸Šå‡Œä¹±åœ°æ”¾ç€
+å‡ æœ¬å‘é»„çš„å¤ç±ã€‚å¼•èµ·ä½ çš„æ³¨æ„çš„æ˜¯å¢™ä¸ŠæŒ‚ç€ä¸€å¹…å¾ˆå¤§çš„åœ°å›¾ã€‚
 LONG);
 	set("item_desc", ([
-		"ditu" : "ÕâÊÇÒ»·ùÑïÖÝÊÐÇøºÍÊÐ½¼µÄµØÍ¼£¬ÉÏÃæÓÐ¸÷ÖÖÑÕÉ«µÄÈ¦È¦µãµã¡£\n",	
+		"ditu" : "è¿™æ˜¯ä¸€å¹…æ‰¬å·žå¸‚åŒºå’Œå¸‚éƒŠçš„åœ°å›¾ï¼Œä¸Šé¢æœ‰å„ç§é¢œè‰²çš„åœˆåœˆç‚¹ç‚¹ã€‚\n",	
 	]));
 	set("exits", ([
 		"east" : __DIR__"ymzhengting",

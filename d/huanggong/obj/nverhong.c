@@ -1,17 +1,17 @@
-// nverhong.c Å®¶ùºì
+// nverhong.c å¥³å„¿çº¢
 
 inherit ITEM;
 inherit F_LIQUID;
 
 void create()
 {
-        set_name("Å®¶ùºì", ({"nver hong", "wine"}));
+        set_name("å¥³å„¿çº¢", ({"nver hong", "wine"}));
         set_weight(700);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»Ì³ÉÏºÃµÄÅ®¶ùºì,´¼ÏãÓÕÈË.\n");
-                set("unit", "Ì³");
+                set("long", "ä¸€å›ä¸Šå¥½çš„å¥³å„¿çº¢,é†‡é¦™è¯±äºº.\n");
+                set("unit", "å›");
                 set("value", 500);
                 set("max_liquid", 15);
         }
@@ -20,7 +20,7 @@ void create()
         // we set it to contain wine at the beginning
         set("liquid", ([
                 "type": "alcohol",
-                "name" : "Å®¶ùºì¾Æ",
+                "name" : "å¥³å„¿çº¢é…’",
                 "remaining": 3,
                 "drunk_supply": 6,
         ]));

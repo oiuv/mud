@@ -7,7 +7,7 @@
 
 inherit F_CLEAN_UP;
 
-// Æô¶¯µÄÊ±¼ä
+// å¯åŠ¨çš„æ—¶é—´
 int start_reboot = 0;
 int last_notice = 0;
 
@@ -26,15 +26,15 @@ int main(object me, string arg)
 
         else flag = 0;
 
-        // memoryd µ÷ÓÃÖØĞÂÆô¶¯ÏµÍ³
+        // memoryd è°ƒç”¨é‡æ–°å¯åŠ¨ç³»ç»Ÿ
         if (flag)
         {
               n = 10;
               start_reboot = time() + n * 60;
               last_notice = time();
               set_heart_beat(1);
-              message_system("ÏµÍ³¾«Áé½«ÔÚÊ®·ÖÖÓÒÔºóÖØĞÂÆô¶¯" + LOCAL_MUD_NAME() + HIW "£¬"
-                             "Çë×¥½ôÊ±¼ä´¦ÀíÄãµÄÈËÎï¡£");
+              message_system("ç³»ç»Ÿç²¾çµå°†åœ¨ååˆ†é’Ÿä»¥åé‡æ–°å¯åŠ¨" + LOCAL_MUD_NAME() + HIW "ï¼Œ"
+                             "è¯·æŠ“ç´§æ—¶é—´å¤„ç†ä½ çš„äººç‰©ã€‚");
 
               return 1;
         }
@@ -44,7 +44,7 @@ int main(object me, string arg)
 
         if (! arg)
         {
-                write("Ö¸Áî¸ñÊ½: reboot [-f] | soon | after <n>\n");
+                write("æŒ‡ä»¤æ ¼å¼: reboot [-f] | soon | after <n>\n");
                 return 1;
         }
 
@@ -58,18 +58,18 @@ int main(object me, string arg)
                         
 	        if (! is_root(me) )
                 {
-		        write("ÄãÃ»ÓĞÈ¨ÏŞÇ¿ÖÆÍ£Ö¹" + LOCAL_MUD_NAME() + "¡£\n");
+		        write("ä½ æ²¡æœ‰æƒé™å¼ºåˆ¶åœæ­¢" + LOCAL_MUD_NAME() + "ã€‚\n");
                         return 1;
                 }
 
-                message_system(str + "Ç¿ĞĞÆô¶¯ÁË" + LOCAL_MUD_NAME() + "¡£");
+                message_system(str + "å¼ºè¡Œå¯åŠ¨äº†" + LOCAL_MUD_NAME() + "ã€‚");
                 shutdown(0);
                 return 1;
         }
 
 	if (wiz_level(me) < 4 && ! flag)
         {
-		write("ÄãÃ»ÓĞÈ¨ÏŞÖØĞÂÆô¶¯" + LOCAL_MUD_NAME() + "¡£\n");
+		write("ä½ æ²¡æœ‰æƒé™é‡æ–°å¯åŠ¨" + LOCAL_MUD_NAME() + "ã€‚\n");
                 return 1;
         }
 
@@ -79,7 +79,7 @@ int main(object me, string arg)
                 {
                         if (arg != "cancel")
                         {
-                                write("²ÎÊı´íÎó£¬Çë²é¿´°ïÖú¡£\n");
+                                write("å‚æ•°é”™è¯¯ï¼Œè¯·æŸ¥çœ‹å¸®åŠ©ã€‚\n");
                                 return 1;
                         }
 
@@ -87,35 +87,35 @@ int main(object me, string arg)
                         {
                                 start_reboot = 0;
                                 set_heart_beat(0);
-                                message_system(str + "È¡ÏûÁËÆô¶¯£¬ÓÎÏ·¼ÌĞø½øĞĞ¡£");
+                                message_system(str + "å–æ¶ˆäº†å¯åŠ¨ï¼Œæ¸¸æˆç»§ç»­è¿›è¡Œã€‚");
                                 write("Ok.\n");
                                 return 1;
                         }
 
-                        write("ÏÖÔÚMUDÕıÔÚÕı³£µÄÔËĞĞ¡£\n");
+                        write("ç°åœ¨MUDæ­£åœ¨æ­£å¸¸çš„è¿è¡Œã€‚\n");
                         return 1;
                 }
-                message_system(str + "ÖØĞÂÆô¶¯ÁË" + LOCAL_MUD_NAME() + "¡£");
+                message_system(str + "é‡æ–°å¯åŠ¨äº†" + LOCAL_MUD_NAME() + "ã€‚");
                 reboot_mud();
         }
 
         if (n < 1)
         {
-                write("Ã»ÓĞÕâÃ´¶ÌµÄÊ±¼ä£¬Äã²»ÈçÑ¡Ôñ soon Á¢¿ÌÆô¶¯¡£\n");
+                write("æ²¡æœ‰è¿™ä¹ˆçŸ­çš„æ—¶é—´ï¼Œä½ ä¸å¦‚é€‰æ‹© soon ç«‹åˆ»å¯åŠ¨ã€‚\n");
                 return 1;
         }
 
         if (n > 10)
         {
-                write("ÕâÃ´¾Ã£¿Äã»¹ÊÇµÈÒ»»á¶ùÔÙÆô¶¯°É¡£\n");
+                write("è¿™ä¹ˆä¹…ï¼Ÿä½ è¿˜æ˜¯ç­‰ä¸€ä¼šå„¿å†å¯åŠ¨å§ã€‚\n");
                 return 1;
         }
 
         start_reboot = time() + n * 60;
         last_notice = time();
         set_heart_beat(1);
-        message_system(str + "¾ö¶¨ÔÚ" + chinese_number(n) +
-                       "·ÖÖÓÒÔºóÖØĞÂÆô¶¯" + LOCAL_MUD_NAME() + "¡£");
+        message_system(str + "å†³å®šåœ¨" + chinese_number(n) +
+                       "åˆ†é’Ÿä»¥åé‡æ–°å¯åŠ¨" + LOCAL_MUD_NAME() + "ã€‚");
         return 1;
 }
 
@@ -134,15 +134,15 @@ private void heart_beat()
                 return;
         }
 
-        if (n >= 60) str = chinese_number(n / 60) + "·ÖÖÓ"; else
+        if (n >= 60) str = chinese_number(n / 60) + "åˆ†é’Ÿ"; else
                      str = "";
-        if (n % 60) str += chinese_number(n % 60) + "Ãë";
+        if (n % 60) str += chinese_number(n % 60) + "ç§’";
 
         t = time() - last_notice;
         if ((n >= 60 && t >= 60) || (n < 60 && n >= 10 && t >= 10) || n < 10)
         {
-                message_system(LOCAL_MUD_NAME() + "½«ÔÚ" +
-                               str + "ÒÔºóÖØĞÂÆô¶¯£¬Çë×¥½ôÊ±¼ä´¦ÀíÄãµÄÈËÎï¡£");
+                message_system(LOCAL_MUD_NAME() + "å°†åœ¨" +
+                               str + "ä»¥åé‡æ–°å¯åŠ¨ï¼Œè¯·æŠ“ç´§æ—¶é—´å¤„ç†ä½ çš„äººç‰©ã€‚");
                 last_notice = time();
         }
 }
@@ -152,7 +152,7 @@ private void reboot_mud()
 	object *user, link_ob;
 	int i;
 
-	message_system("ÓÎÏ·ÖØĞÂÆô¶¯£¬ÇëÉÔºòÒ»·ÖÖÓÔÙ login ¡£\n");
+	message_system("æ¸¸æˆé‡æ–°å¯åŠ¨ï¼Œè¯·ç¨å€™ä¸€åˆ†é’Ÿå† login ã€‚\n");
 
 	user = users();
 	for (i = 0; i < sizeof(user); i++)
@@ -164,7 +164,7 @@ private void reboot_mud()
 		if (objectp(link_ob)) link_ob->save();
 	}
 
-        // ±£´æËùÓĞµÄÊØ»¤½ø³ÌµÄÊı¾İ
+        // ä¿å­˜æ‰€æœ‰çš„å®ˆæŠ¤è¿›ç¨‹çš„æ•°æ®
         reset_eval_cost();
 	if (find_object(DNS_MASTER)) DNS_MASTER->send_shutdown();
         if (find_object(NAME_D))     NAME_D->mud_shutdown();
@@ -178,15 +178,15 @@ private void reboot_mud()
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: reboot [-f] | soon | after <n> | cancel
+æŒ‡ä»¤æ ¼å¼: reboot [-f] | soon | after <n> | cancel
  
-ÖØĞÂÆğ¶¯ÓÎÏ·¡£Èç¹û²ÉÓÃ -f ²ÎÊı£¬ÔòÏµÍ³Ç¿ÖÆÆô¶¯£¬¶ø²»±£´æÈÎºÎ
-½ø¶È£¬ÕâÊÇ¹©ÏµÍ³³ö´íÊ±Ê¹ÓÃµÄ¡£Èç¹ûÊ¹ÓÃÁË²ÎÊısoon£¬ÔòÏµÍ³½«Á¢
-¿ÌÖØĞÂÆô¶¯£¬¶øÊ¹ÓÃ after n ÔòÏµÍ³½«ÔÚ n ·ÖÖÓÒÔºóÖØĞÂÆô¶¯¡£
+é‡æ–°èµ·åŠ¨æ¸¸æˆã€‚å¦‚æœé‡‡ç”¨ -f å‚æ•°ï¼Œåˆ™ç³»ç»Ÿå¼ºåˆ¶å¯åŠ¨ï¼Œè€Œä¸ä¿å­˜ä»»ä½•
+è¿›åº¦ï¼Œè¿™æ˜¯ä¾›ç³»ç»Ÿå‡ºé”™æ—¶ä½¿ç”¨çš„ã€‚å¦‚æœä½¿ç”¨äº†å‚æ•°soonï¼Œåˆ™ç³»ç»Ÿå°†ç«‹
+åˆ»é‡æ–°å¯åŠ¨ï¼Œè€Œä½¿ç”¨ after n åˆ™ç³»ç»Ÿå°†åœ¨ n åˆ†é’Ÿä»¥åé‡æ–°å¯åŠ¨ã€‚
 
-Ê¹ÓÃÁË -f ²ÎÊıÔò soon ºÍ after ÎŞĞ§¡£
+ä½¿ç”¨äº† -f å‚æ•°åˆ™ soon å’Œ after æ— æ•ˆã€‚
 
-Èç¹ûÊ¹ÓÃÁË after ²ÎÊı£¬¿ÉÒÔÊ¹ÓÃ cancel ²ÎÊıÖĞÖ¹Æô¶¯µÄ¹ı³Ì¡£
+å¦‚æœä½¿ç”¨äº† after å‚æ•°ï¼Œå¯ä»¥ä½¿ç”¨ cancel å‚æ•°ä¸­æ­¢å¯åŠ¨çš„è¿‡ç¨‹ã€‚
  
 HELP );
         return 1;

@@ -3,11 +3,11 @@ inherit TRANS_ROOM;
 
 void create()
 {
-      set("short","����");
+      set("short","马厩");
       set("long",@LONG
-���ǹ�������ǣ�����ຮ֮�أ��ķ����ʲ��ϡ��������󺺹��ܳ�
-�࣬�����ǻ����ǣ�����Ǻ����տ���������ι�����㣬��ϴˢ�ø�Ǭ��
-����һֱ�ź򵽿�����·������ѩ���µ�ľ���϶���һ����ľ��(paizi)��
+这是关外的马厩，关外苦寒之地，颇乏新鲜草料。但东北大汉惯能吃
+苦，马夫们会把马牵到马厩好生照看，将它们喂饱饮足，再洗刷得干乾净
+净，一直伺候到客人上路。马厩雪披下的木柱上钉着一块破木牌(paizi)。
 LONG);
       set("exits",([
                 "east"      : __DIR__"kedian",

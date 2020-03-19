@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define LEI "¡¸" HIR "ÕÆÐÄÀ×" NOR "¡¹"
+#define LEI "ã€Œ" HIR "æŽŒå¿ƒé›·" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,40 +12,40 @@ int perform(object me, object target)
         int damage;
 
         if (userp(me) && ! me->query("can_perform/tie-zhang/lei"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(LEI "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(LEI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(LEI "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(LEI "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if ((int)me->query_skill("tie-zhang", 1) < 160)
-                return notify_fail("ÄãÌúÕÆÕÆ·¨»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹" LEI "¡£\n");
+                return notify_fail("ä½ é“æŽŒæŽŒæ³•ç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" LEI "ã€‚\n");
 
         if (me->query_skill_mapped("strike") != "tie-zhang")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢ÌúÕÆÕÆ·¨£¬ÄÑÒÔÊ©Õ¹" LEI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘é“æŽŒæŽŒæ³•ï¼Œéš¾ä»¥æ–½å±•" LEI "ã€‚\n");
 
         if (me->query_skill_prepared("strike") != "tie-zhang")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸ÌúÕÆÕÆ·¨£¬ÄÑÒÔÊ©Õ¹" LEI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡é“æŽŒæŽŒæ³•ï¼Œéš¾ä»¥æ–½å±•" LEI "ã€‚\n");
 
         if ((int)me->query_skill("force") < 220)
-                return notify_fail("ÄãµÄÄÚ¹¦ÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" LEI "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" LEI "ã€‚\n");
 
         if ((int)me->query("max_neili") < 2200)
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" LEI "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" LEI "ã€‚\n");
 
         if ((int)me->query("neili") < 300)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" LEI "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" LEI "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = WHT "$N" WHT "ÔË×ªÕæÆøÊ©³ö¡¸" HIR "ÕÆÐÄÀ×" NOR +
-              WHT "¡¹¾ø¼¼£¬Ë«ÕÆ·­ºì£¬ÓÐÈç»ðÉÕ£¬³¯$n" WHT "ÃÍ"
-              "È»ÅÄ³ö¡£\n" NOR;
+        msg = WHT "$N" WHT "è¿è½¬çœŸæ°”æ–½å‡ºã€Œ" HIR "æŽŒå¿ƒé›·" NOR +
+              WHT "ã€ç»æŠ€ï¼ŒåŒæŽŒç¿»çº¢ï¼Œæœ‰å¦‚ç«çƒ§ï¼Œæœ$n" WHT "çŒ›"
+              "ç„¶æ‹å‡ºã€‚\n" NOR;
 
         ap = me->query_skill("strike") + me->query("str") * 8;
         dp = target->query_skill("parry") + target->query("con") * 8;
@@ -54,15 +54,15 @@ int perform(object me, object target)
         {
                 damage = ap + random(ap / 2);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 65,
-                                           HIR "½á¹ûÖ»Ìý$n" HIR "Ò»ÉùÃÆºß£¬±»$N"
-                                           HIR "Ò»ÕÆÅü¸öÕý×Å£¬¿ÚÖÐÏÊÑª¿ñÅç¶ø³ö¡£"
+                                           HIR "ç»“æžœåªå¬$n" HIR "ä¸€å£°é—·å“¼ï¼Œè¢«$N"
+                                           HIR "ä¸€æŽŒåŠˆä¸ªæ­£ç€ï¼Œå£ä¸­é²œè¡€ç‹‚å–·è€Œå‡ºã€‚"
                                            "\n" NOR);
                 me->add("neili", -250);
                 me->start_busy(3);
         } else
         {
-                msg += CYN "$n" CYN "ÑÛ¼û$N" CYN "À´ÊÆÐÚÓ¿£¬Ë¿ºÁ"
-                       "²»¸ÒÐ¡êï£¬¼±Ã¦ÉÁÔÚÁËÒ»ÅÔ¡£\n" NOR;
+                msg += CYN "$n" CYN "çœ¼è§$N" CYN "æ¥åŠ¿æ±¹æ¶Œï¼Œä¸æ¯«"
+                       "ä¸æ•¢å°è§‘ï¼Œæ€¥å¿™é—ªåœ¨äº†ä¸€æ—ã€‚\n" NOR;
                 me->add("neili", -100);
                 me->start_busy(4);
         }

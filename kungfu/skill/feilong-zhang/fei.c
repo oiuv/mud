@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define FEI "¡¸" HIY "Áú·ÉÊÆ" NOR "¡¹"
+#define FEI "ã€Œ" HIY "é¾™é£žåŠ¿" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -13,39 +13,39 @@ int perform(object me, object target)
         int ap, dp, wn;
 
         if (userp(me) && ! me->query("can_perform/feilong-zhang/fei"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(FEI "Ö»ÄÜÔÚÕ½¶·ÖÐ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(FEI "åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon"))
            || (string)weapon->query("skill_type") != "staff")
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if ((int)me->query_skill("feilong-zhang", 1) < 160)
-                return notify_fail("Äã·ÉÁúÕÈ·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ é£žé¾™æ–æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if (me->query_skill_mapped("staff") != "feilong-zhang")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢·ÉÁúÕÈ·¨£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘é£žé¾™æ–æ³•ï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if ((int)me->query_skill("force") < 240)
-                return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if ((int)me->query("max_neili") < 2500)
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if ((int)me->query("neili") < 500)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         wn = weapon->name();
 
-        msg = HIW "$N" HIW "àÁÄ¿´óºÈ£¬½«È«Éí¾¢Á¦ÔËÓÚÓÒ±Û£¬ÕÆÖÐ" + wn +
-              HIW "¶ÙÊ±ÀëÊÖÉä³ö£¬³¯$n" HIW "·ÉÈ¥£¡\n" NOR;
+        msg = HIW "$N" HIW "å—”ç›®å¤§å–ï¼Œå°†å…¨èº«åŠ²åŠ›è¿äºŽå³è‡‚ï¼ŒæŽŒä¸­" + wn +
+              HIW "é¡¿æ—¶ç¦»æ‰‹å°„å‡ºï¼Œæœ$n" HIW "é£žåŽ»ï¼\n" NOR;
 
         ap = me->query_skill("staff");
         dp = target->query_skill("dodge");
@@ -55,21 +55,21 @@ int perform(object me, object target)
                 damage = ap / 2 + random(ap / 2);
                 damage += random(damage);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 55,
-                                           HIR "$n" HIR "Ö»¾õÒ»¹É¾¢·çÏ®µ½£¬ÉÁ±Ü"
-                                           "²»¼°£¬ÄÇ¸ù" + wn + HIR "ÕýºÃ»÷ÖÐÐØ¿Ú"
-                                           "£¬×²¶ÏÊý¸ùÀß¹Ç¡£\n" NOR);
+                                           HIR "$n" HIR "åªè§‰ä¸€è‚¡åŠ²é£Žè¢­åˆ°ï¼Œé—ªé¿"
+                                           "ä¸åŠï¼Œé‚£æ ¹" + wn + HIR "æ­£å¥½å‡»ä¸­èƒ¸å£"
+                                           "ï¼Œæ’žæ–­æ•°æ ¹è‚‹éª¨ã€‚\n" NOR);
                 me->start_busy(3);
                 me->add("neili", -300);
         } else
         {
-                msg += CYN "$n" CYN "¼û$N" CYN "ÆøÊÆÈçºç£¬²»¸ÒÓ²"
-                       "½Ó£¬µ±¼´ÏòºóºáÒÆÊý³ß£¬¶ãÉÁ¿ªÀ´¡£\n" NOR;
+                msg += CYN "$n" CYN "è§$N" CYN "æ°”åŠ¿å¦‚è™¹ï¼Œä¸æ•¢ç¡¬"
+                       "æŽ¥ï¼Œå½“å³å‘åŽæ¨ªç§»æ•°å°ºï¼Œèº²é—ªå¼€æ¥ã€‚\n" NOR;
                 me->start_busy(4);
                 me->add("neili", -200);
         }
 
-        msg += HIY "Ö»¼ûÄÇ¸ù" + wn + HIY "ÓàÊÆ²»¾¡£¬ÓÖÏòÇ°·É³öÊý"
-               "ÕÉ£¬·½²ÅÃ»ÈëÍÁÖÐ¡£\n" NOR;
+        msg += HIY "åªè§é‚£æ ¹" + wn + HIY "ä½™åŠ¿ä¸å°½ï¼Œåˆå‘å‰é£žå‡ºæ•°"
+               "ä¸ˆï¼Œæ–¹æ‰æ²¡å…¥åœŸä¸­ã€‚\n" NOR;
         weapon->move(environment(me));
 
         message_combatd(msg, me, target);

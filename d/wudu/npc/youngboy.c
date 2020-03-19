@@ -1,14 +1,14 @@
-// youngboy.c  Ãç×åÉÙÄê
+// youngboy.c  è‹—æ—å°‘å¹´
 inherit NPC;
 
 void create()
 {
-        set_name("Ãç×åÉÙÄê", ({ "young boy", "boy" }));
-        set("gender", "ÄĞĞÔ");
+        set_name("è‹—æ—å°‘å¹´", ({ "young boy", "boy" }));
+        set("gender", "ç”·æ€§");
         set("age", 20);
        set("per",30);
        set("max_qi",400);
-        set("long", "Ò»¸öÉí´©Ãç×å·şÊÎµÄÓ¢¿¡ÉÙÄê¡£\n");
+        set("long", "ä¸€ä¸ªèº«ç©¿è‹—æ—æœé¥°çš„è‹±ä¿Šå°‘å¹´ã€‚\n");
         set("combat_exp", 8000);
         set("shen_type", 1);
        set_skill("unarmed", 30);

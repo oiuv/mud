@@ -4,13 +4,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIG "ÂÌ¾Õ»¨" NOR, ({ "lv juhua", "juhua" }));
+        set_name(HIG "ç»¿èŠèŠ±" NOR, ({ "lv juhua", "juhua" }));
         set("weight", 100);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long","Ò»Åèµ­ÂÌµÄ¾Õ»¨£¬½Ğ×ö¡°´ºË®±Ì²¨¡±¡£\n");
-                set("unit", "Åè");
+                set("long","ä¸€ç›†æ·¡ç»¿çš„èŠèŠ±ï¼Œå«åšâ€œæ˜¥æ°´ç¢§æ³¢â€ã€‚\n");
+                set("unit", "ç›†");
                 set("material", "wood");
         }
         setup();

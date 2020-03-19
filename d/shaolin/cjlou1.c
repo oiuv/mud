@@ -2,13 +2,13 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "²Ø¾­¸ó¶þÂ¥");
+        set("short", "è—ç»é˜äºŒæ¥¼");
         set("long", @LONG
-Ç§ÓàÄêÀ´ÉÙÁÖËÂÖ´ÖÐÔ­ÎäÁÖÖ®Å£¶ú£¬×Ô´ïÄ¦ÀÏ×æÒÔÏÂ£¬Àú´ú
-ÈË²Ä±²³ö¡£ÆäÖÐÓÐ²»ÉÙ¸ßÉ®ÒÅÖøÁô´æ£¬»ã¼¯ÖÁ½ñ£¬ÖÕ³ÉÃûÕðÌìÏÂ
-µÄÉÙÁÖÆßÊ®¶þ¾øÒÕ¡£ÉÙÁÖ¾«»ª£¬¾¡¼¯ÓÚ´Ë¡£¶þÂ¥ËÄÃæ¿ª´°£¬È·±£
-Í¨·ç¡£ÖÐ¼äÅÅÁÐ×ÅÎåÅÅ´óÊé¼Ü¡£ËÄÖÜÔò³ÂÁÐ°«¼¸£¬ÒÔ¹©ÔÄ¶Á¡£¼¸
-Î»ÀÏÉ®ÊÖÖ´¾­¾í£¬ÕýÔÚ±ÕÄ¿ÄýË¼¡£
+åƒä½™å¹´æ¥å°‘æž—å¯ºæ‰§ä¸­åŽŸæ­¦æž—ä¹‹ç‰›è€³ï¼Œè‡ªè¾¾æ‘©è€ç¥–ä»¥ä¸‹ï¼ŒåŽ†ä»£
+äººæè¾ˆå‡ºã€‚å…¶ä¸­æœ‰ä¸å°‘é«˜åƒ§é—è‘—ç•™å­˜ï¼Œæ±‡é›†è‡³ä»Šï¼Œç»ˆæˆåéœ‡å¤©ä¸‹
+çš„å°‘æž—ä¸ƒåäºŒç»è‰ºã€‚å°‘æž—ç²¾åŽï¼Œå°½é›†äºŽæ­¤ã€‚äºŒæ¥¼å››é¢å¼€çª—ï¼Œç¡®ä¿
+é€šé£Žã€‚ä¸­é—´æŽ’åˆ—ç€äº”æŽ’å¤§ä¹¦æž¶ã€‚å››å‘¨åˆ™é™ˆåˆ—çŸ®å‡ ï¼Œä»¥ä¾›é˜…è¯»ã€‚å‡ 
+ä½è€åƒ§æ‰‹æ‰§ç»å·ï¼Œæ­£åœ¨é—­ç›®å‡æ€ã€‚
 LONG );
         set("exits", ([
                 "down" : __DIR__"cjlou",
@@ -35,8 +35,8 @@ int valid_leave(object me, string dir)
         ob = deep_inventory(me);
         for (i = 0; i < sizeof(ob); i++)
                 if (ob[i]->id("shaolin wuji")) 
-                        return notify_fail("»ÛÕæËµµÀ£ºÎä¹¦ÃØ¼®Ö»ÐíÔÚ²Ø¾­¸ó"
-                                           "ÄÚÑÐÏ°£¬²»µÃÐ¯´øÍâ³ö£¡\n");
+                        return notify_fail("æ…§çœŸè¯´é“ï¼šæ­¦åŠŸç§˜ç±åªè®¸åœ¨è—ç»é˜"
+                                           "å†…ç ”ä¹ ï¼Œä¸å¾—æºå¸¦å¤–å‡ºï¼\n");
         return ::valid_leave(me, dir);
 }
 

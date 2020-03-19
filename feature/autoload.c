@@ -65,9 +65,9 @@ void restore_autoload()
                         {
                                 if (has_dropped) continue;
                                 has_dropped++;
-                                write("�㷢����Щ�����Ѿ�û�����ˣ����־��ӵ��ˡ�\n");
+                                write("你发现有些东西已经没有用了，随手就扔掉了。\n");
                         } else
-			        write("������ƺ�ʧ����ʲô��Ҫ�Ķ��������֪ͨһ����ʦ��\n");
+			        write("你觉得似乎失落了什么重要的东西，最好通知一下巫师。\n");
 			log_file("autoload", sprintf("Fail to autoload %s of %s, error %s(%s)\n",
 				 file, this_object()->query("name"),
 			         this_object()->query("id"),

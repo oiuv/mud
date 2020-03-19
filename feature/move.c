@@ -30,7 +30,7 @@ nomask void add_encumbrance(int w)
 void over_encumbrance()
 {
 	if (! interactive(this_object())) return;
-	tell_object(this_object(), "ÄãµÄ¸ººÉ¹ıÖØÁË£¡\n");
+	tell_object(this_object(), "ä½ çš„è´Ÿè·è¿‡é‡äº†ï¼\n");
 }
 
 nomask int query_weight() { return weight; }
@@ -69,7 +69,7 @@ varargs int move(mixed dest, int raw)
 	// If we are equipped, unequip first.
 	if (! (is_char = me->is_character()) &&
             query("equipped") && ! me->unequip())
-		return notify_fail("ÄãÃ»ÓĞ°ì·¨È¡ÏÂÕâÑù¶«Î÷¡£\n");
+		return notify_fail("ä½ æ²¡æœ‰åŠæ³•å–ä¸‹è¿™æ ·ä¸œè¥¿ã€‚\n");
 
 	// Find the destination ob for moving.
 	if (objectp(dest))
@@ -97,20 +97,20 @@ varargs int move(mixed dest, int raw)
         {
                 if (raw && environment(ob))
                 {
-                        message_vision("ÓÉÓÚ$n¶ÔÓÚ$N¶øÑÔÊÇÔÚ"
-                                       "ÊÇÌ«ÖØÁË£¬Ö»ºÃÏÈÈÓÔÚÒ»ÅÔ¡£\n",
+                        message_vision("ç”±äº$nå¯¹äº$Nè€Œè¨€æ˜¯åœ¨"
+                                       "æ˜¯å¤ªé‡äº†ï¼Œåªå¥½å…ˆæ‰”åœ¨ä¸€æ—ã€‚\n",
                                        ob, this_object());
                         ob = environment(ob);
                 } else
 		if (ob == this_player())
                 {
 		        return notify_fail(this_object()->name() +
-                                           "¶ÔÄã¶øÑÔÌ«ÖØÁË¡£\n");
+                                           "å¯¹ä½ è€Œè¨€å¤ªé‡äº†ã€‚\n");
 		} else
                 {
 			return notify_fail(this_object()->name() +
-                                           "¶Ô" + ob->name() +
-					   "¶øÑÔÌ«ÖØÁË¡£\n");
+                                           "å¯¹" + ob->name() +
+					   "è€Œè¨€å¤ªé‡äº†ã€‚\n");
                 }
 	}
 
@@ -122,8 +122,8 @@ varargs int move(mixed dest, int raw)
                 if (env != ob && magic_move && userp(env))
                 {
                         if (env->visible(me))
-                                tell_object(env, HIM "ÄãºöÈ»¾õµÃÉíÉÏºÃÏñÇáÁËÒ»"
-                                                 "Ğ©¡£\n" NOR);
+                                tell_object(env, HIM "ä½ å¿½ç„¶è§‰å¾—èº«ä¸Šå¥½åƒè½»äº†ä¸€"
+                                                 "äº›ã€‚\n" NOR);
 
                         if (userp(me))
                         {
@@ -183,8 +183,8 @@ varargs int move(mixed dest, int raw)
         if (magic_move && userp(ob))
         {
                 if (ob->visible(this_object()))
-                        tell_object(ob, HIM "ÄãºöÈ»¾õµÃÉíÉÏºÃÏñÖØÁËÒ»"
-                                         "Ğ©¡£\n" NOR);
+                        tell_object(ob, HIM "ä½ å¿½ç„¶è§‰å¾—èº«ä¸Šå¥½åƒé‡äº†ä¸€"
+                                         "äº›ã€‚\n" NOR);
 
                 if (userp(this_object()))
                         ob->add_temp("person_in_you", 1);
@@ -219,13 +219,13 @@ varargs void remove(string euid)
 			log_file("destruct", sprintf("%s attempt to destruct user object %s (%s)\n",
 			         euid, this_object()->query("id"),
 			         ctime(time())));
-			error("Äã(" + euid + ")²»ÄÜ´İ»ÙÆäËûµÄÊ¹ÓÃÕß¡£\n");
+			error("ä½ (" + euid + ")ä¸èƒ½æ‘§æ¯å…¶ä»–çš„ä½¿ç”¨è€…ã€‚\n");
 		}
 		log_file("destruct", sprintf("%s in %O destruct on %s.\n",
 					     me->query("id"),
 					     environment(me),
 					     ctime(time())));
-		error("Ö»ÓĞROOT²ÅÄÜ´İ»ÙÍæ¼Ò¡£\n");
+		error("åªæœ‰ROOTæ‰èƒ½æ‘§æ¯ç©å®¶ã€‚\n");
 	} else
 	if (me->query("equipped"))
         {
@@ -250,8 +250,8 @@ varargs void remove(string euid)
                 if (is_magic_move() && userp(ob))
                 {
                         if (ob->visible(this_object()))
-                                tell_object(ob, HIM "ÄãºöÈ»¾õµÃÉíÉÏºÃÏñÇáÁËÒ»"
-                                                "Ğ©¡£\n" NOR);
+                                tell_object(ob, HIM "ä½ å¿½ç„¶è§‰å¾—èº«ä¸Šå¥½åƒè½»äº†ä¸€"
+                                                "äº›ã€‚\n" NOR);
 
                         if (userp(me))
                         {
@@ -278,8 +278,8 @@ varargs int move_or_destruct(object dest)
 {
 	if (userp(this_object()))
         {
-		tell_object(this_object(), HIW "\nö®Ê±¼äÒ»ÕóÊ±¿ÕµÄÅ¤Çú½«Äã´«"
-                                           "ËÍµ½ÁíÒ»¸öµØ·½¡£\n\n" NOR);
+		tell_object(this_object(), HIW "\néœæ—¶é—´ä¸€é˜µæ—¶ç©ºçš„æ‰­æ›²å°†ä½ ä¼ "
+                                           "é€åˆ°å¦ä¸€ä¸ªåœ°æ–¹ã€‚\n\n" NOR);
 		move(VOID_OB);
 	} else
         if (this_object()->is_ob_saved())

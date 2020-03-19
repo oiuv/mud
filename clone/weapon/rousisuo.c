@@ -6,17 +6,17 @@ inherit WHIP;
 
 void create()
 {
-        set_name(WHT "ÈáË¿Ë÷" NOR,({ "rousi suo", "suo", "rousi" }) );
+        set_name(WHT "æŸ”ä¸ç´¢" NOR,({ "rousi suo", "suo", "rousi" }) );
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¾í");
+                set("unit", "å·");
                 set("value", 200000);
                 set("no_sell", 1);
-                set("long", HIW "Ò»¾í·Ç³£ÈáÈíµÄÏ¸Ë¿£¬ÄËÌì²ÏË¿ËùÖ¯£¬ÊÇĞÇËŞÈı±¦Ö®Ò»¡£\n" NOR );
-                set("wield_msg", HIW "$N" HIW "ÄÃ³öÒ»¾í$n" HIW "£¬ÇáÇáÌ¯¿ª£¬ÎÕÔÚÊÖÖĞ¡£\n" NOR );
-                set("unwield_msg", HIW "$N" HIW "½«$n" HIW "ÊÕ»Ø³É¾í£¬·Å»ØÑü¼ä¡£\n" NOR );
+                set("long", HIW "ä¸€å·éå¸¸æŸ”è½¯çš„ç»†ä¸ï¼Œä¹ƒå¤©èš•ä¸æ‰€ç»‡ï¼Œæ˜¯æ˜Ÿå®¿ä¸‰å®ä¹‹ä¸€ã€‚\n" NOR );
+                set("wield_msg", HIW "$N" HIW "æ‹¿å‡ºä¸€å·$n" HIW "ï¼Œè½»è½»æ‘Šå¼€ï¼Œæ¡åœ¨æ‰‹ä¸­ã€‚\n" NOR );
+                set("unwield_msg", HIW "$N" HIW "å°†$n" HIW "æ”¶å›æˆå·ï¼Œæ”¾å›è…°é—´ã€‚\n" NOR );
                 set("material", "silk");
                 set("stable", 0);
         }

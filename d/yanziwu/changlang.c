@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "长廊");
         set("long",@LONG
-ֻ���������ߣ�һ�ɸ������󣬲�ʱ�м�ֻ�������ɵĴ�
-�ȼ��ɹ������ȵľ�ͷ��һ����԰���������ƺ�����һ�㣬
-���̲�ס������ȥ������
+只见红栏碧瓦，一派富贵气象，不时有几只燕子灵巧的从
+廊见飞过，长廊的尽头有一座大花园。长廊上似乎还有一层，
+你忍不住想爬上去看看。
 LONG );
         set("exits", ([
             "east"  : __DIR__"huizhen",

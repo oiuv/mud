@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "��·");
+	set("short", "土路");
 	set("long", @LONG
-����һ�����������·������̫����·�ϼ���û�����ˣ�����
-һƬ�ļš�
+这是一条黄土飞扬的路，不算太宽，路上几乎没有行人，四周
+一片荒寂。
 LONG);
 	set("exits",  ([  /*  sizeof()  ==  2  */
 		"northeast" : __DIR__"tulu4",

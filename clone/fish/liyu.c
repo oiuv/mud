@@ -1,4 +1,4 @@
-// liyu.c ÀğÓã
+// liyu.c é²¤é±¼
 
 inherit ITEM;
 
@@ -7,13 +7,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name("ÀğÓã", ({ "liyu", "li yu" }) );
+        set_name("é²¤é±¼", ({ "liyu", "li yu" }) );
         if (clonep())
                 set_default_object(__FILE__);
         else
         {
-	        set("long", "Ò»Ìõ»î±ÄÂÒÌøµÄ´óÀğÓã¡£\n");
-                set("unit", "Ìõ");
+	        set("long", "ä¸€æ¡æ´»è¹¦ä¹±è·³çš„å¤§é²¤é±¼ã€‚\n");
+                set("unit", "æ¡");
         }
 
 	setup();

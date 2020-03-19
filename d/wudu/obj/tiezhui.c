@@ -1,21 +1,21 @@
-// tiechui.c ´óÌú´¸
+// tiechui.c å¤§é“é”¤
 
 #include <weapon.h>
 inherit HAMMER;
 
 void create()
 {
-        set_name("´óÌú´¸", ({ "tiechui", "chui","hammer" }));
+        set_name("å¤§é“é”¤", ({ "tiechui", "chui","hammer" }));
         set_weight(5000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", "ÕâÊÇÒ»±ú³ÁÖØµÄ´óÌú´¸£¬ºóÃæ´ø×Å³¤³¤µÄÌúÁ´¡£\n");
+                set("unit", "æŸ„");
+                set("long", "è¿™æ˜¯ä¸€æŸ„æ²‰é‡çš„å¤§é“é”¤ï¼Œåé¢å¸¦ç€é•¿é•¿çš„é“é“¾ã€‚\n");
                 set("value", 300);
                 set("material", "steel");
-                set("wield_msg", "$N¡¸»©à¥¡¹µÄÒ»Éù,È¡³öÒ»±ú$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n¹Ò»ØÑü¼ä¡£\n");
+                set("wield_msg", "$Nã€Œå“—å•·ã€çš„ä¸€å£°,å–å‡ºä¸€æŸ„$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næŒ‚å›è…°é—´ã€‚\n");
         }
         init_hammer(30);
         setup();

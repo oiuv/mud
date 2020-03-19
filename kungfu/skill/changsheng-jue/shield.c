@@ -9,20 +9,20 @@ int exert(object me, object target)
         int skill;
 
         if (target != me)
-                return notify_fail("你只能用长生决来提升自己的防御力。\n");
+                return notify_fail("浣犲彧鑳界敤闀跨敓鍐虫潵鎻愬崌鑷繁鐨勯槻寰″姏銆俓n");
 
         if ((int)me->query("neili") < 100)
-                return notify_fail("你的内力不够。\n");
+                return notify_fail("浣犵殑鍐呭姏涓嶅銆俓n");
 
         if ((int)me->query_temp("shield"))
-                return notify_fail("你已经在运功中了。\n");
+                return notify_fail("浣犲凡缁忓湪杩愬姛涓簡銆俓n");
 
         skill = me->query_skill("force");
         me->add("neili", -100);
         me->receive_damage("qi", 0);
 
-        message_combatd(HIW "$N" HIW "双手平举过顶，运起长生决"
-                        "内劲，全身笼罩在劲气之中！\n" NOR, me);
+        message_combatd(HIW "$N" HIW "鍙屾墜骞充妇杩囬《锛岃繍璧烽暱鐢熷喅"
+                        "鍐呭姴锛屽叏韬缃╁湪鍔叉皵涔嬩腑锛乗n" NOR, me);
 
         me->add_temp("apply/armor", skill * 3);
         me->set_temp("shield", 1);
@@ -40,7 +40,7 @@ void remove_effect(object me, int amount)
         {
                 me->add_temp("apply/armor", -amount);
                 me->delete_temp("shield");
-                tell_object(me, "你的长生决运行完毕，将内力收回丹田。\n");
+                tell_object(me, "浣犵殑闀跨敓鍐宠繍琛屽畬姣曪紝灏嗗唴鍔涙敹鍥炰腹鐢般�俓n");
         }
 }
 

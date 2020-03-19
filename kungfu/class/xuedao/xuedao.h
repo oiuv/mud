@@ -2,22 +2,22 @@
 
 int permit_recruit(object ob)
 {
-        if (ob->query("detach/я╙╣╤це") || ob->query("betrayer/я╙╣╤це"))
+        if (ob->query("detach/Х║─Е┬─И≈╗") || ob->query("betrayer/Х║─Е┬─И≈╗"))
         {
-                command("say дЦюК©╙акя╙╣╤цецгё╛╬м╠П╩ью╢ё║");
+                command("say Д╫═Г╕╩Е╪─Д╨├Х║─Е┬─И≈╗Д╩╛О╪▄Е╟╠Е┬╚Е⌡·Ф²╔О╪│");
                 return 0;
         }
 
         if (ob->query("betrayer/times"))
         {
-                command("say епй╕ж╝м╫ё╛╨ъё║╨ъё║нр╟ядЦг╖╣╤мР╧пё║");
+                command("say Е┬╓Е╦┬Д╧▀Е╬▓О╪▄Е⌠╪О╪│Е⌠╪О╪│Ф┬▒Ф┼┼Д╫═Е█┐Е┬─Д╦┤Е┴░О╪│");
                 return 0;
         }
 
         if (ob->query("family/family_name") &&
-            ob->query("family/family_name") != "я╙╣╤це")
+            ob->query("family/family_name") != "Х║─Е┬─И≈╗")
         {
-                command("say дЦ╡╩йгря╬╜спакй╕╦╣ц╢ё╛╩╧ю╢╦ий╡ц╢ё©м╣я╖нреиць╪╪╟║ё║");
+                command("say Д╫═Д╦█Ф≤╞Е╥╡Г╩▐Ф°┴Д╨├Е╦┬Е┌┘Д╧┬О╪▄Х©≤Ф²╔Е╧╡Д╩─Д╧┬О╪÷Е│╥Е╜╕Ф┬▒Ф╢╬Г╖≤Ф┼─Е∙┼О╪│");
                 return 0;
         }
 

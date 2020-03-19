@@ -35,7 +35,7 @@ int filter_listener( object ob )
 void create()
 {
     ::create();
-    set( "gender", "ÄĞĞÔ" );
+    set( "gender", "ç”·æ€§" );
     set( "age", 30 + random( 30 ) );
     set( "long", "" );
     set( "attitude", "friendly" );
@@ -91,14 +91,14 @@ void set_from_me( object me )
 
 int accept_fight( object ob )
 {
-    command( "say ÎÒ¿ÉÃ»ĞËÈ¤ÅãÄãÍæ£¬¿ì¸øÎÒ¹ö¿ª¡£" );
+    command( "say æˆ‘å¯æ²¡å…´è¶£é™ªä½ ç©ï¼Œå¿«ç»™æˆ‘æ»šå¼€ã€‚" );
     return(0);
 }
 
 
 int accept_hit( object ob )
 {
-    command( "say µÈÎÒ°ìÍêÕıÊÂÔÙÀ´ÊÕÊ°Äã£¡" );
+    command( "say ç­‰æˆ‘åŠå®Œæ­£äº‹å†æ¥æ”¶æ‹¾ä½ ï¼" );
     return(0);
 }
 
@@ -114,26 +114,26 @@ int accept_kill( object ob )
 
     fam_info = query( "fam_info" );
 
-    /* ¼ì²éÊÇ·ñ´¦ÓÚÕıÔÚ¹¥´ò×´Ì¬ */
+    /* æ£€æŸ¥æ˜¯å¦å¤„äºæ­£åœ¨æ”»æ‰“çŠ¶æ€ */
     if ( "/adm/daemons/story/familywar"->query_status() != ATTACKING )
     {
         if ( ob->query( "family/family_name" ) == fam_info["family"] )
         {
-            command( "say ºß£¡ÎÒÄ¿Ç°ÕıÔÚµÈ´ıÖ¸Áî£¬µÈÏÂÔÙÀ´È¡ÄãĞÔÃü¡£" );
-            return(notify_fail( "¿´À´£¬±ğÈË²»Ğ¼ÓëÄã½»ÊÖ¡£\n" ) );
+            command( "say å“¼ï¼æˆ‘ç›®å‰æ­£åœ¨ç­‰å¾…æŒ‡ä»¤ï¼Œç­‰ä¸‹å†æ¥å–ä½ æ€§å‘½ã€‚" );
+            return(notify_fail( "çœ‹æ¥ï¼Œåˆ«äººä¸å±‘ä¸ä½ äº¤æ‰‹ã€‚\n" ) );
         }else  {
             command( "heng" );
-            return(notify_fail( "¿´À´£¬±ğÈË²»Ğ¼ÓëÄã½»ÊÖ¡£\n" ) );
+            return(notify_fail( "çœ‹æ¥ï¼Œåˆ«äººä¸å±‘ä¸ä½ äº¤æ‰‹ã€‚\n" ) );
         }
-    }else  { /* Ö»½ÓÊÜ×é¶ÓµÄÍæ¼Ò */
+    }else  { /* åªæ¥å—ç»„é˜Ÿçš„ç©å®¶ */
         if ( !pointerp( t = ob->query_team() ) || !sizeof(t) || sizeof(t) < 2 )
         {
-            command( "say ÎÒ´Ó²»ºÍµ¥Ç¹Æ¥ÂíµÄÈË½»ÊÖ¡£" );
-            return(notify_fail( "¿´À´£¬±ğÈË²»Ğ¼ÓëÄã½»ÊÖ¡£\n" ) );
+            command( "say æˆ‘ä»ä¸å’Œå•æªåŒ¹é©¬çš„äººäº¤æ‰‹ã€‚" );
+            return(notify_fail( "çœ‹æ¥ï¼Œåˆ«äººä¸å±‘ä¸ä½ äº¤æ‰‹ã€‚\n" ) );
         }
 
-        message_vision( HIW "$N" HIW "´óÉù½ĞµÀ£º¡°ĞÖµÜÃÇ£¬´ó¼ÒÒ»ÆğÉÏ°¡£¬É±ÁË$n" HIW "Õâ" +
-                RANK_D->query_rude( this_object() ) + "£¡¡±\n" NOR, ob, this_object() );
+        message_vision( HIW "$N" HIW "å¤§å£°å«é“ï¼šâ€œå…„å¼Ÿä»¬ï¼Œå¤§å®¶ä¸€èµ·ä¸Šå•Šï¼Œæ€äº†$n" HIW "è¿™" +
+                RANK_D->query_rude( this_object() ) + "ï¼â€\n" NOR, ob, this_object() );
 
         foreach( killer in t )
         {
@@ -163,30 +163,30 @@ int accept_kill( object ob )
 
 int accept_ansuan( object ob )
 {
-    return(notify_fail( "ÄÇÈË¾¯ÌèĞÔºÃ¸ß£¬ÄãÄÑÒÔÏÂÊÖ¡£\n" ) );
+    return(notify_fail( "é‚£äººè­¦æƒ•æ€§å¥½é«˜ï¼Œä½ éš¾ä»¥ä¸‹æ‰‹ã€‚\n" ) );
 }
 
 
 int accept_touxi( object ob )
 {
-    return(notify_fail( "ÄÇÈË¾¯ÌèĞÔºÃ¸ß£¬ÄãÄÑÒÔÏÂÊÖ¡£\n" ) );
+    return(notify_fail( "é‚£äººè­¦æƒ•æ€§å¥½é«˜ï¼Œä½ éš¾ä»¥ä¸‹æ‰‹ã€‚\n" ) );
 }
 
 
 void die( object killer )
 {
-    object  dob;            /* ´òÔÎÕâ¸öNPCµÄÈË */
-    int n;                  /* ¿ÉÒÔ½±ÀøµÄÈËµÄÊıÄ¿ */
-    int exp;                /* ĞèÒª¹Ï·ÖµÄ¾­Ñé */
-    int pot;                /* ĞèÒª¹Ï·ÖµÄÇ±ÄÜ */
-    int weiwang;            /* ĞèÒª¹Ï·ÖµÄÍşÍû */
-    int score;              /* ĞèÒª¹Ï·ÖµÄÔÄÀú */
+    object  dob;            /* æ‰“æ™•è¿™ä¸ªNPCçš„äºº */
+    int n;                  /* å¯ä»¥å¥–åŠ±çš„äººçš„æ•°ç›® */
+    int exp;                /* éœ€è¦ç“œåˆ†çš„ç»éªŒ */
+    int pot;                /* éœ€è¦ç“œåˆ†çš„æ½œèƒ½ */
+    int weiwang;            /* éœ€è¦ç“œåˆ†çš„å¨æœ› */
+    int score;              /* éœ€è¦ç“œåˆ†çš„é˜…å† */
     int gongxian;           /*  */
-    object  *t;             /* É±ËÀÎÒµÄÈËµÄ¶ÓÎéÁĞ±í */
+    object  *t;             /* æ€æ­»æˆ‘çš„äººçš„é˜Ÿä¼åˆ—è¡¨ */
     object  tob;
     // int i;
 
-    /* ÕÒµ½É±ÁËÎÒ(NPC)»òÊÇ´òÔÎÎÒµÄÈË */
+    /* æ‰¾åˆ°æ€äº†æˆ‘(NPC)æˆ–æ˜¯æ‰“æ™•æˆ‘çš„äºº */
     if ( !objectp( dob = killer ) )
         dob = query_defeated_by();
 
@@ -233,15 +233,15 @@ void die( object killer )
                                "weiwang"  : weiwang + ( (tob == dob) ? 1000 : 0),
                                "score"    : score + ( (tob == dob) ? 1000 : 0),
                                "gongxian" : (n < 4 ? gongxian / 3 : gongxian),
-                               "prompt"  : (pointerp( t ) ? "ÄãµÄ¶ÓÎé»÷±Ğ" + name() + "Ö®ºó" :
-                                    "»÷±Ğ" + name() + "Ö®ºó")]) );
+                               "prompt"  : (pointerp( t ) ? "ä½ çš„é˜Ÿä¼å‡»æ¯™" + name() + "ä¹‹å" :
+                                    "å‡»æ¯™" + name() + "ä¹‹å")]) );
             }
         }
         CHANNEL_D->do_channel( this_object(), "rumor",
-                       sprintf( "ÌıËµ%s¹¥½ø%sÊ±±»%sµÄ¶ÓÎé»÷±ĞÁË£¡",
+                       sprintf( "å¬è¯´%sæ”»è¿›%sæ—¶è¢«%sçš„é˜Ÿä¼å‡»æ¯™äº†ï¼",
                         name(), fam_info["family"], dob->query( "name" ) ) );
     }
-    /* Õı³£ËÀÍö */
+    /* æ­£å¸¸æ­»äº¡ */
     ::die();
 
     return;
@@ -258,9 +258,9 @@ void random_move()
     if ( time() > query_temp( "dest_time" ) ||
          "/adm/daemons/story/familywar"->query_status() == OVER )
     {
-        message_vision( "$N¼±¼±Ã¦Ã¦µÄ×ßÁË¡£\n", this_object() );
+        message_vision( "$Næ€¥æ€¥å¿™å¿™çš„èµ°äº†ã€‚\n", this_object() );
         CHANNEL_D->do_channel( this_object(), "rumor",
-                       sprintf( "ÌıËµ%sËäÈ»³É¹¦µÄ¹¥½ø%s£¬µ«Ò²ÉíÊÜÖØÉË£¬²»µÃ²»ÍËÒş½­ºş±Õ¹ØÖÎÁÆ¡£",
+                       sprintf( "å¬è¯´%sè™½ç„¶æˆåŠŸçš„æ”»è¿›%sï¼Œä½†ä¹Ÿèº«å—é‡ä¼¤ï¼Œä¸å¾—ä¸é€€éšæ±Ÿæ¹–é—­å…³æ²»ç–—ã€‚",
                         name(), fam_info["family"] ) );
         log_file( "static/killed_die", sprintf( "%s %s(%s) vanished because timeout(%d:%d).\n",
                             log_time(), name(), query( "id" ),
@@ -275,18 +275,18 @@ void random_move()
         listeners = filter_array( users(), (: filter_listener:) );
 
         if ( query( "is_leader" ) && random( 3 ) == 0 )
-            message_vision( HIW "$N" HIW "ËµµÀ£º¡°µÜĞÖÃÇ£¬²»Òª×Å¼±£¬µÈÏÂÔÛÃÇ¹¥Èë" +
-                    fam_info["family"] + "£¬´ó¿ªÉ±½ä~£¡¡±\n" NOR, this_object() );
+            message_vision( HIW "$N" HIW "è¯´é“ï¼šâ€œå¼Ÿå…„ä»¬ï¼Œä¸è¦ç€æ€¥ï¼Œç­‰ä¸‹å’±ä»¬æ”»å…¥" +
+                    fam_info["family"] + "ï¼Œå¤§å¼€æ€æˆ’~ï¼â€\n" NOR, this_object() );
         else if ( random( 10 ) == 0 )
-            message_vision( HIC "$N" HIC "ÈÂÈÂµÀ£º¡°ÔõÃ´Ê×Áì»¹²»ÏÂÁî¹¥´ò" +
-                    fam_info["family"] + "ÎÒ¶¼µÈµÃ²»ÄÍ·³ÁË£¡¡±\n" NOR, this_object() );
+            message_vision( HIC "$N" HIC "åš·åš·é“ï¼šâ€œæ€ä¹ˆé¦–é¢†è¿˜ä¸ä¸‹ä»¤æ”»æ‰“" +
+                    fam_info["family"] + "æˆ‘éƒ½ç­‰å¾—ä¸è€çƒ¦äº†ï¼â€\n" NOR, this_object() );
 
         return;
     }
     fam_info    = query( "fam_info" );
     route       = fam_info["route_list"];
 
-    /* ÒÑ¾­×ßµ½ÖÕµã */
+    /* å·²ç»èµ°åˆ°ç»ˆç‚¹ */
     if ( query( "move" ) >= sizeof(route) )
     {
         if ( base_name( environment() ) == fam_info["tar_room_fi"] )
@@ -294,8 +294,8 @@ void random_move()
             if ( !this_object()->is_fighting() )
             {
                 CHANNEL_D->do_channel( this_object(), "rumor",
-                               "ÌıËµÉñÃØ×éÖ¯¹¥µ½" + fam_info["family"] + "µÄ" + fam_info["tar_room_nm"] +
-                               "£¬" + fam_info["family"] + "×Ô´ËÔªÆø´óÉË¡£\n" );
+                               "å¬è¯´ç¥ç§˜ç»„ç»‡æ”»åˆ°" + fam_info["family"] + "çš„" + fam_info["tar_room_nm"] +
+                               "ï¼Œ" + fam_info["family"] + "è‡ªæ­¤å…ƒæ°”å¤§ä¼¤ã€‚\n" );
                 FAMILY_D->add_family_fame( fam_info["family"], -1000 );
                 "/adm/daemons/story/familywar"->change_status( OVER );
             }
@@ -304,10 +304,10 @@ void random_move()
         return;
     }
 
-    /* °´ÕÕÂ·ÓÉÁĞ±íÒÆ¶¯ */
+    /* æŒ‰ç…§è·¯ç”±åˆ—è¡¨ç§»åŠ¨ */
     if ( stringp( dir = route[query( "move" )] ) )
     {
-        command( "say ĞÖµÜÃÇ³å°¡£¬É±µÃËûÃÇÂä»¨Á÷Ë®£¬Æ¬¼×²»Áô£¡" );
+        command( "say å…„å¼Ÿä»¬å†²å•Šï¼Œæ€å¾—ä»–ä»¬è½èŠ±æµæ°´ï¼Œç‰‡ç”²ä¸ç•™ï¼" );
         if ( GO_CMD->main( this_object(), dir ) )
             add( "move", 1 );
 

@@ -4,13 +4,13 @@ inherit ITEM;
 
 void create()
 {
-	set_name("°×Óñ±Ê", ({ "baiyu bi", "bi" }));
+	set_name("ç™½ç‰ç¬”", ({ "baiyu bi", "bi" }));
 	set_weight(300);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ö§");
-		set("long", "¾§Ó¨ÌŞÍ¸µÄµÄºº°×Óñ×ÁÄ¥µÄ±ÊĞÎÊÎÎï¡£\n");
+		set("unit", "æ”¯");
+		set("long", "æ™¶è¹å‰”é€çš„çš„æ±‰ç™½ç‰ç¢ç£¨çš„ç¬”å½¢é¥°ç‰©ã€‚\n");
 		set("value", 3000);
 		set("material", "stone");
 	}

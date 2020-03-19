@@ -11,13 +11,13 @@ mixed ask_me();
 void create()
 {
         object ob1, ob2;
-        set_name("¶ÉÄÑ", ({ "du nan", "du", "nan" }));
+        set_name("æ¸¡éš¾", ({ "du nan", "du", "nan" }));
         set("long", @LONG
-ÕâÊÇÒ»¸öÃæ¼ÕÉîÏİ£¬Êİ¹ÇÁã¶¡µÄÀÏÉ®£¬Ö»¼ûËû
-Á³É«ÆáºÚ£¬ÏóÊÇÉúÌúÖı³É¡£
+è¿™æ˜¯ä¸€ä¸ªé¢é¢Šæ·±é™·ï¼Œç˜¦éª¨é›¶ä¸çš„è€åƒ§ï¼Œåªè§ä»–
+è„¸è‰²æ¼†é»‘ï¼Œè±¡æ˜¯ç”Ÿé“é“¸æˆã€‚
 LONG);
         set("age", 90);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("class", "bonze");
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -34,8 +34,8 @@ LONG);
         set("combat_exp", 3500000);
         set("score", 500000);
 
-        create_family("ÉÙÁÖÅÉ", 35, "³¤ÀÏ");
-        assign_apprentice("µÜ×Ó", 0);
+        create_family("å°‘æ—æ´¾", 35, "é•¿è€");
+        assign_apprentice("å¼Ÿå­", 0);
 
         set_skill("force", 340);
         set_skill("hunyuan-yiqi", 340);
@@ -89,13 +89,13 @@ LONG);
         prepare_skill("strike", "sanhua-zhang");
         
         set("no_teach", ([
-                "shaolin-jiuyang" : "»¹ÊÇ°²ĞÄÑ§Ï°ÉÙÁÖ»ù´¡¹¦·ò°É¡£",
-                //"yijinjing"     : "»¹ÊÇ°²ĞÄÑ§Ï°ÉÙÁÖ»ù´¡¹¦·ò°É¡£",
-             //   "luohan-fumogong"     : "»¹ÊÇ°²ĞÄÑ§Ï°ÉÙÁÖ»ù´¡¹¦·ò°É¡£",
+                "shaolin-jiuyang" : "è¿˜æ˜¯å®‰å¿ƒå­¦ä¹ å°‘æ—åŸºç¡€åŠŸå¤«å§ã€‚",
+                //"yijinjing"     : "è¿˜æ˜¯å®‰å¿ƒå­¦ä¹ å°‘æ—åŸºç¡€åŠŸå¤«å§ã€‚",
+             //   "luohan-fumogong"     : "è¿˜æ˜¯å®‰å¿ƒå­¦ä¹ å°‘æ—åŸºç¡€åŠŸå¤«å§ã€‚",
         ]));
 
         set("inquiry", ([
-                "Éñ²İ½á" : (: ask_me :),
+                "ç¥è‰ç»“" : (: ask_me :),
         ]));
 
         set_temp("apply/attack", 200);
@@ -152,7 +152,7 @@ mixed ask_me()
 
         if (! me->query_temp("valid_in_fumoquan"))
         {
-                command("say ´óµ¨Êó±²£¬¾¹¸ÒÍµÈë½ğ¸Õ·üÄ§È¦£¬ÇÒÈÃÀÏñÄÀ´³¬¶ÈÓëÄã£¡");
+                command("say å¤§èƒ†é¼ è¾ˆï¼Œç«Ÿæ•¢å·å…¥é‡‘åˆšä¼é­”åœˆï¼Œä¸”è®©è€è¡²æ¥è¶…åº¦ä¸ä½ ï¼");
                 kill_ob(me);
                 return 1;
         }
@@ -164,7 +164,7 @@ mixed ask_me()
         }
 
         if (me->query("combat_exp") < 1000000)
-                return "ÄãÕâµãÎ¢Ä©±¾ÊÂ£¬´òÌı´ïÄ¦×æÊ¦ÁôÏÂµÄÀûÆ÷×÷Éõ£¿";
+                return "ä½ è¿™ç‚¹å¾®æœ«æœ¬äº‹ï¼Œæ‰“å¬è¾¾æ‘©ç¥–å¸ˆç•™ä¸‹çš„åˆ©å™¨ä½œç”šï¼Ÿ";
 
         ob = find_object(CAOJIE);
         if (! ob) ob = load_object(CAOJIE);
@@ -178,17 +178,17 @@ mixed ask_me()
         }
 
         if (owner == me)
-                return "¶«Î÷²»ÒÑ¾­¸øÄãÁËÃ´£¿Äã»¹´òËãÔõµÄ£¿";
+                return "ä¸œè¥¿ä¸å·²ç»ç»™ä½ äº†ä¹ˆï¼Ÿä½ è¿˜æ‰“ç®—æ€çš„ï¼Ÿ";
 
         if (owner == environment(me))
         {
                 command("sneer");
                 command("get " + ob->query("id"));
-                return "°ÙÄêÀ´»¹Ã»ÈË¸ÒÓŞÅªÀÏñÄ£¬¹ö¿ª£¡";
+                return "ç™¾å¹´æ¥è¿˜æ²¡äººæ•¢æ„šå¼„è€è¡²ï¼Œæ»šå¼€ï¼";
         }
 
         if (objectp(owner) && owner != this_object())
-                return "´ËÊ±Éñ²İ½á²¢²»ÔÚÀÏñÄÊÖÖĞ¡£";
+                return "æ­¤æ—¶ç¥è‰ç»“å¹¶ä¸åœ¨è€è¡²æ‰‹ä¸­ã€‚";
 
         ob->move(this_object());
 
@@ -202,12 +202,12 @@ int accept_object(object me, object ob)
         if (base_name(ob) != HEISUO
            && base_name(ob) != CAOJIE)
         {
-                command("say Äã¸øÎÒÕâÖÖ¶«Î÷¸ÉÊ²Ã´£¿");
+                command("say ä½ ç»™æˆ‘è¿™ç§ä¸œè¥¿å¹²ä»€ä¹ˆï¼Ÿ");
                 return 0;
         }
 
         command("nod");
-        command("say ÉõºÃ£¬ÉõºÃ¡£");
+        command("say ç”šå¥½ï¼Œç”šå¥½ã€‚");
         destruct(ob);
         return 1;
 }

@@ -5,13 +5,13 @@ inherit NPC;
 
 void create()
 {
-	set_name("²ÉÊ¯ÈË", ({ "caishi ren","ren" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("é‡‡çŸ³äºº", ({ "caishi ren","ren" }));
+	set("gender", "ç”·æ€§");
 	set("age", 22);
 	set("str", 25);
 	set("dex", 16);
 	set("per", 20);
-	set("long", "ÕâÊÇÒ»¸ö¾«×³ºº×Ó¡£\n");
+	set("long", "è¿™æ˜¯ä¸€ä¸ªç²¾å£®æ±‰å­ã€‚\n");
 	set("combat_exp", 6000);
 	set("shen_type", 1);
 	set("attitude", "peaceful");

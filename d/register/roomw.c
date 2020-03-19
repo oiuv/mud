@@ -3,13 +3,13 @@ inherit ROOM;
 
 void create()
 {
-        set("short", NOR + WHT "��Դʯ��" NOR);
+        set("short", NOR + WHT "桃源石屋" NOR);
         set("long", WHT @LONG
 
-                    ��     Դ     ʯ     ��
+                    桃     源     石     屋
 
-    ��������Դ�����һ��Сʯ�ݣ���������ʲô�ر���������һλ
-����������Ȼ�Ĵ󺺣���Ŀ��ת���ض����㿴��
+    这里是桃源西侧的一间小石屋，看不出有什么特别。屋中立着一位
+看似正气凛然的大汉，正目不转睛地盯着你看。
 
 
 LONG NOR );

@@ -1,4 +1,4 @@
-//×ÓÐéµÀÈË
+//å­è™šé“äºº
 
 #include <ansi.h>
 
@@ -14,14 +14,14 @@ int ask_maze();
 void create()
 {
     seteuid(getuid());
-    set_name("×ÓÐéµÀÈË", ({"zixu daoren", "zixu", "daoren"}));
+    set_name("å­è™šé“äºº", ({"zixu daoren", "zixu", "daoren"}));
     set("long", @LONG
-´ËÈËÉí×ÅµÀÅÛ£¬Ðë·¢½Ô°×£¬Ò»¸±ÏÉ·çµÀ¹ÇµÄÆøÅÉ£¬Õâ±ãÊÇÎäÁÖÖÐºÅ³Æ¡¸×ÓÐéÎÚÓÐ¡¹
-¶þµÀÏÉÖÐµÄ×ÓÐéµÀÈË£¬´«Ëµ´ËÈËÔçÒÑµÃµÀ³ÉÏÉ£¬¿ÉÍ¨Éñ½ç¡£
+æ­¤äººèº«ç€é“è¢ï¼Œé¡»å‘çš†ç™½ï¼Œä¸€å‰¯ä»™é£Žé“éª¨çš„æ°”æ´¾ï¼Œè¿™ä¾¿æ˜¯æ­¦æž—ä¸­å·ç§°ã€Œå­è™šä¹Œæœ‰ã€
+äºŒé“ä»™ä¸­çš„å­è™šé“äººï¼Œä¼ è¯´æ­¤äººæ—©å·²å¾—é“æˆä»™ï¼Œå¯é€šç¥žç•Œã€‚
 LONG);
-    set("nickname", HIW "ÏÉ·çµÀ¹Ç" NOR);
-    set("title", HIC "×ÓÐé¹Û¹ÛÖ÷" NOR);
-    set("gender", "ÄÐÐÔ");
+    set("nickname", HIW "ä»™é£Žé“éª¨" NOR);
+    set("title", HIC "å­è™šè§‚è§‚ä¸»" NOR);
+    set("gender", "ç”·æ€§");
     set("age", 108);
     set("attitude", "friendly");
     set("max_jing", 50000);
@@ -38,10 +38,10 @@ LONG);
     set("combat_exp", 12000000);
 
     set("inquiry", ([
-        "Ç¬À¤±¦¾µ" : (: ask_mirror :),
-        "±¦¾µ" : (: ask_mirror :),
+        "ä¹¾å¤å®é•œ" : (: ask_mirror :),
+        "å®é•œ" : (: ask_mirror :),
         // "mirror" : (: ask_mirror :),
-        "ÐÄÄ§" : (: ask_maze :),
+        "å¿ƒé­”" : (: ask_maze :),
     ]));
 
     set_skill("force", 500);
@@ -91,9 +91,9 @@ int ask_maze()
     object me, maze;
     me = this_player();
 
-    message_vision(HIG "$N¶¢×Å$n¿´ÁË¿´£¬ËµµÀ£º¡°ÐÞÎäÖ®ÈË£¬Ò²ÐèÐÞÐÄ£¬Èô²»½÷É÷£¬Ä§ÓÉÐÄÉú£¡\n"
-                        "Æ¶µÀËÍÄãÈëÐÄÄ§»Ã¾³£¬Õ¶É±ÐÄÄ§£¬ÀúÁ·×ÔÎÒ°É¡£¡±\n" NOR
-                        CYN "$NÄîÄîÓÐ´Ê£¬×ªË²¼ä$nÏûÊ§ÔÚ´ó¼ÒÑÛÇ°¡£\n" NOR,
+    message_vision(HIG "$Nç›¯ç€$nçœ‹äº†çœ‹ï¼Œè¯´é“ï¼šâ€œä¿®æ­¦ä¹‹äººï¼Œä¹Ÿéœ€ä¿®å¿ƒï¼Œè‹¥ä¸è°¨æ…Žï¼Œé­”ç”±å¿ƒç”Ÿï¼\n"
+                        "è´«é“é€ä½ å…¥å¿ƒé­”å¹»å¢ƒï¼Œæ–©æ€å¿ƒé­”ï¼ŒåŽ†ç»ƒè‡ªæˆ‘å§ã€‚â€\n" NOR
+                        CYN "$Nå¿µå¿µæœ‰è¯ï¼Œè½¬çž¬é—´$næ¶ˆå¤±åœ¨å¤§å®¶çœ¼å‰ã€‚\n" NOR,
                     this_object(), me);
 
     maze = new(MAZE, 0, 0, getoid(me));
@@ -122,8 +122,8 @@ int ask_mirror()
     if (have == 1)
 
     {
-        message_vision(HIG "$N¶Ô$nËµµÀ£º¡°ÄãÉíÉÏÒÑ¾­ÓÐÒ»¸ö±¦¾µÁË£¬"
-                           "±ðÌ°µÃÎÞÑá£¡¡±\n" NOR,
+        message_vision(HIG "$Nå¯¹$nè¯´é“ï¼šâ€œä½ èº«ä¸Šå·²ç»æœ‰ä¸€ä¸ªå®é•œäº†ï¼Œ"
+                           "åˆ«è´ªå¾—æ— åŽŒï¼â€\n" NOR,
                        this_object(), me);
         return 1;
     }
@@ -133,9 +133,9 @@ int ask_mirror()
         ob = new (MIRROR);
         ob->move(me);
 
-        message_vision(HIG "$N¶¢×Å$n¿´ÁË¿´£¬ËµµÀ£º¡°àÅ£¬Õâ¸ö±¦¾µÄã¿ÉµÃÉ÷ÓÃ£¡\n"
-                           "ºÃºÃÓÃËü¶ÍÁ¶¶ÍÁ¶ÄãµÄÅÐ¶ÏÁ¦ºÍ¹Û²ìÁ¦°É¡£¡±\n" NOR
-                           CYN "$N´Ó»³ÀïÄÃ³öÒ»ÃæÇ¬À¤±¦¾µ½»¸ø$n¡£\n" NOR,
+        message_vision(HIG "$Nç›¯ç€$nçœ‹äº†çœ‹ï¼Œè¯´é“ï¼šâ€œå—¯ï¼Œè¿™ä¸ªå®é•œä½ å¯å¾—æ…Žç”¨ï¼\n"
+                           "å¥½å¥½ç”¨å®ƒé”»ç‚¼é”»ç‚¼ä½ çš„åˆ¤æ–­åŠ›å’Œè§‚å¯ŸåŠ›å§ã€‚â€\n" NOR
+                           CYN "$Nä»Žæ€€é‡Œæ‹¿å‡ºä¸€é¢ä¹¾å¤å®é•œäº¤ç»™$nã€‚\n" NOR,
                        this_object(), me);
         return 1;
     }

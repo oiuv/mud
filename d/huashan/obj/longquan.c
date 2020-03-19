@@ -7,19 +7,19 @@ inherit SWORD;
 
 void create()
 {
-        set_name(CYN"ÁúÈª½£"NOR, ({ "longquan sword", "longquan", "sword" }) );
+        set_name(CYN"é¾™æ³‰å‰‘"NOR, ({ "longquan sword", "longquan", "sword" }) );
         set_weight(4000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
+                set("unit", "æŸ„");
                 set("long",
-"ÕâÊÇ±úÒ»¿´¾ÍÖªµÀÊÇ±¦½£µÄÀûÆ÷¡£\n");
+"è¿™æ˜¯æŸ„ä¸€çœ‹å°±çŸ¥é“æ˜¯å®å‰‘çš„åˆ©å™¨ã€‚\n");
                 set("value", 2400);
                 set("material", "blacksteel");
                 set("wield_msg", 
-"Ö»Ìı¼û¡¸ì¬¡¹µØÒ»Éù£¬$NµÄÊÖÖĞÒÑ¾­¶àÁËÒ»°Ñº®¹âËÄÉäµÄ±¦½£¡ª¡ª$n¡£\n");
-                set("unequip_msg", "$N½«ÊÖÖĞµÄ$n²åÈëÑü¼äµÄ½£ÇÊ¡£\n");
+"åªå¬è§ã€Œé£•ã€åœ°ä¸€å£°ï¼Œ$Nçš„æ‰‹ä¸­å·²ç»å¤šäº†ä¸€æŠŠå¯’å…‰å››å°„çš„å®å‰‘â€”â€”$nã€‚\n");
+                set("unequip_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å…¥è…°é—´çš„å‰‘é˜ã€‚\n");
         }
         init_sword(60);
         setup();

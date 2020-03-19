@@ -16,15 +16,15 @@ int valid_learn(object me)
 {
         int lvl = (int)me->query_skill("miaojia-neigong", 1);
 
-        if ( me->query("gender") == "ÎŞĞÔ" && lvl > 49)
-                return notify_fail("ÄãÎŞ¸ùÎŞĞÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄÃç¼ÒÄÚ¹¦¡£\n");
+        if ( me->query("gender") == "æ— æ€§" && lvl > 49)
+                return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„è‹—å®¶å†…åŠŸã€‚\n");
 
         return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-    return notify_fail("Ãç¼ÒÄÚ¹¦Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+    return notify_fail("è‹—å®¶å†…åŠŸåªèƒ½ç”¨å­¦(learn)çš„æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)

@@ -16,7 +16,7 @@ inherit F_DBASE;
 
 void create() {
 	seteuid(ROOT_UID);
-	set("channel_id", "ÍøÂ·ÆµµÀ");
+	set("channel_id", "ç½‘è·¯é¢‘é“");
 }
 
 void incoming_request(mapping info)

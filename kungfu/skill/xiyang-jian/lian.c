@@ -1,4 +1,4 @@
-// lian.c Î÷ÑóÁ¬»·½£
+// lian.c è¥¿æ´‹è¿žçŽ¯å‰‘
 
 #include <ansi.h>
 
@@ -17,29 +17,29 @@ int perform(object me, object target)
         }
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("¡¸Á¬»·½£¡¹Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ã€Œè¿žçŽ¯å‰‘ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "sword")
-		return notify_fail("±ØÐëÄÃ½£²ÅÄÜÊ©Õ¹¡¸Á¬»·½£¡¹£¡\n");
+		return notify_fail("å¿…é¡»æ‹¿å‰‘æ‰èƒ½æ–½å±•ã€Œè¿žçŽ¯å‰‘ã€ï¼\n");
 
 	if ((int)me->query("neili") < 100)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎÞ·¨Ê©Õ¹¡¸Á¬»·½£¡¹£¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•ã€Œè¿žçŽ¯å‰‘ã€ï¼\n");
 
 	if ((int)me->query_skill("force") < 100)
-		return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹¡¸Á¬»·½£¡¹£¡\n");
+		return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•ã€Œè¿žçŽ¯å‰‘ã€ï¼\n");
 
 	if ((int)me->query_skill("xiyang-jian", 1) < 80)
-		return notify_fail("ÄãµÄÎ÷Ñó½£Êõ»¹²»µ½¼Ò£¬ÎÞ·¨Ê¹ÓÃÁ¬»·½££¡\n");
+		return notify_fail("ä½ çš„è¥¿æ´‹å‰‘æœ¯è¿˜ä¸åˆ°å®¶ï¼Œæ— æ³•ä½¿ç”¨è¿žçŽ¯å‰‘ï¼\n");
 
         if (me->query_skill_mapped("sword") != "xiyang-jian")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢Î÷Ñó½£Êõ£¬ÎÞ·¨Ê¹ÓÃÁ¬»·½££¡\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘è¥¿æ´‹å‰‘æœ¯ï¼Œæ— æ³•ä½¿ç”¨è¿žçŽ¯å‰‘ï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIC "\n$N" HIC "¿ñºÈÒ»Éù£¬Ö»¼ûÉÏÒ»½£¡¢ÏÂÒ»½£¡¢×óÒ»½£¡¢ÓÒÒ»½£¡¢µ±ÖÐÒ»½££¬Ò»Æð´ÌÏò$n"
-              HIC "£¡\n" NOR;
+	msg = HIC "\n$N" HIC "ç‹‚å–ä¸€å£°ï¼Œåªè§ä¸Šä¸€å‰‘ã€ä¸‹ä¸€å‰‘ã€å·¦ä¸€å‰‘ã€å³ä¸€å‰‘ã€å½“ä¸­ä¸€å‰‘ï¼Œä¸€èµ·åˆºå‘$n"
+              HIC "ï¼\n" NOR;
 	message_combatd(msg, me, target);
 	me->add("neili", -100);
 

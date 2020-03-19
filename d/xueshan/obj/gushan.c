@@ -5,18 +5,18 @@ inherit DAGGER;
 
 void create()
 {
-        set_name(NOR + CYN "Ìú¹ÇÉÈ" NOR, ({ "tiegu shan", "tigu", "shan" }));
+        set_name(NOR + CYN "é“éª¨æ‰‡" NOR, ({ "tiegu shan", "tigu", "shan" }));
         set_weight(6000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "°Ñ");
-                set("long", NOR + CYN "ÕâÊÇÒ»°ÑÌú¹ÇÉÈ£¬ÎäÁÖÖĞÈË³£³£"
-                            "ÓÃËü×÷Îª´òÑ¨µÄ±øÆ÷¡£\n" NOR);
+                set("unit", "æŠŠ");
+                set("long", NOR + CYN "è¿™æ˜¯ä¸€æŠŠé“éª¨æ‰‡ï¼Œæ­¦æ—ä¸­äººå¸¸å¸¸"
+                            "ç”¨å®ƒä½œä¸ºæ‰“ç©´çš„å…µå™¨ã€‚\n" NOR);
                 set("value", 3000);
                 set("material", "steel");
-                set("wield_msg", "$N´Ó¶µÀïÌÍ³öÒ»°Ñ$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n·Å»Ø¶µÀï¡£\n");
+                set("wield_msg", "$Nä»å…œé‡Œæå‡ºä¸€æŠŠ$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ”¾å›å…œé‡Œã€‚\n");
         }
         init_dagger(40, 0);
         setup();

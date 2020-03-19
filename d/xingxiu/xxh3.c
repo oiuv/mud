@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "���޺�");
+        set("short", "星宿海");
         set("long", @LONG
-���������޺��ߡ�˵�Ǻ�����ʵ��Ƭ���������󣬵���ʮ
-���ն�����ͨ�����޺������
+这里是星宿海边。说是海，其实是片湖泊和沼泽，地形十
+分险恶。这里通向星宿海的深处。
 LONG );
         set("objects", ([
                 CLASS_D("xingxiu") + "/tianlang" : 1,

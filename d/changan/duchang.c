@@ -14,36 +14,36 @@ int random2 (int i)
 }
 
 mapping gutous = ([ 
-	"tc" : "Í·²Ê",
-        "sd" : "Ë«¶Ô",
-        "qx" : "ÆßĞÇ",
-        "sx" : "É¢ĞÇ",
+	"tc" : "å¤´å½©",
+        "sd" : "åŒå¯¹",
+        "qx" : "ä¸ƒæ˜Ÿ",
+        "sx" : "æ•£æ˜Ÿ",
  ]); 
 
 void create()
 {
-        set("short", "¶Ä³¡");
+        set("short", "èµŒåœº");
         set("long", @LONG
-´óÌüÀï°ÚÂú´ó´óĞ¡Ğ¡µÄ¶Ä×À£¬Ö»ÒªÄÜËµ³öÃûµÄ¶Ä¾ß£¬ÕâÀï
-¶¼ÓĞ¡£½øÀ´ÕâÀïÄãÊ×ÏÈÌıµ½µÄ¾ÍÊÇÉÙÅ®ÃÇ³Ô³ÔµÄĞ¦ÉùºÍÄĞÈËÃÇ
-µÄ´µÅ£Éù£¬ÖÀ÷»×ÓÉù¡­¡­ÔÚÕâÀï£¬Äã¼¸ºõ¾Í¿ÉÒÔÌıµ½ÊÀÉÏËùÓĞ
-²»¹æ¾ØµÄÉùÒô¡£Ç½ÉÏ¹Ò×ÅÒ»¿éÅÆ×Ó(paizi)¡£
+å¤§å…é‡Œæ‘†æ»¡å¤§å¤§å°å°çš„èµŒæ¡Œï¼Œåªè¦èƒ½è¯´å‡ºåçš„èµŒå…·ï¼Œè¿™é‡Œ
+éƒ½æœ‰ã€‚è¿›æ¥è¿™é‡Œä½ é¦–å…ˆå¬åˆ°çš„å°±æ˜¯å°‘å¥³ä»¬åƒåƒçš„ç¬‘å£°å’Œç”·äººä»¬
+çš„å¹ç‰›å£°ï¼Œæ·éª°å­å£°â€¦â€¦åœ¨è¿™é‡Œï¼Œä½ å‡ ä¹å°±å¯ä»¥å¬åˆ°ä¸–ä¸Šæ‰€æœ‰
+ä¸è§„çŸ©çš„å£°éŸ³ã€‚å¢™ä¸ŠæŒ‚ç€ä¸€å—ç‰Œå­(paizi)ã€‚
 LONG);
         set("exits", ([
                 "south" : __DIR__"qixiang3",
         ]));
         set("item_desc", ([
                 "sign": @TEXT
-¶Ä÷»×Ó·½·¨:
+èµŒéª°å­æ–¹æ³•:
 bet <kind> <amount> <money> 
 
-Ö»ÊÕÏÖÒø£¬¸Å²»ÉŞÇ·¡£
+åªæ”¶ç°é“¶ï¼Œæ¦‚ä¸èµŠæ¬ ã€‚
 
 kind:
-    Í·²Ê <tc>£¨÷»ÊıÓÉÃ¿´Î¿ªÅÌÇ°È·¶¨£©      £ºÒ»Ó®ÈıÊ®Áù
-    Ë«¶Ô <sd>£¨Á½÷»ºÅÏàÍ¬£¬ÇÒÎªÅ¼Êı£©      £ºÒ»Ó®Ê®¶ş
-    ÆßĞÇ <qx>£¨Á½÷»Ö®ºÍÎªÆß£©              £ºÒ»Ó®Áù
-    É¢ĞÇ <sx>£¨Á½÷»Ö®ºÍÎªÈı£¬Îå£¬¾Å£¬Ê®Ò»£©£ºÒ»Ó®Èı
+    å¤´å½© <tc>ï¼ˆéª°æ•°ç”±æ¯æ¬¡å¼€ç›˜å‰ç¡®å®šï¼‰      ï¼šä¸€èµ¢ä¸‰åå…­
+    åŒå¯¹ <sd>ï¼ˆä¸¤éª°å·ç›¸åŒï¼Œä¸”ä¸ºå¶æ•°ï¼‰      ï¼šä¸€èµ¢åäºŒ
+    ä¸ƒæ˜Ÿ <qx>ï¼ˆä¸¤éª°ä¹‹å’Œä¸ºä¸ƒï¼‰              ï¼šä¸€èµ¢å…­
+    æ•£æ˜Ÿ <sx>ï¼ˆä¸¤éª°ä¹‹å’Œä¸ºä¸‰ï¼Œäº”ï¼Œä¹ï¼Œåä¸€ï¼‰ï¼šä¸€èµ¢ä¸‰
 TEXT
         ]));
 
@@ -82,47 +82,47 @@ int do_bet(string arg)
         object zj;
 
         if (! objectp(zj = present("zhuang jia", this_object())))
-                return notify_fail("×¯¼Ò¶¼Ã»ÓĞ£¬ÄãÒªºÍË­¶Ä£¿\n");
+                return notify_fail("åº„å®¶éƒ½æ²¡æœ‰ï¼Œä½ è¦å’Œè°èµŒï¼Ÿ\n");
 
         if (! living(zj))
-                return notify_fail("Äã»¹ÊÇµÈ×¯¼ÒĞÑÁËÔÙËµ°É£¡\n");
+                return notify_fail("ä½ è¿˜æ˜¯ç­‰åº„å®¶é†’äº†å†è¯´å§ï¼\n");
 
         if (! arg || sscanf (arg,"%s %d %s", what, amount, money) != 3)
-                return notify_fail("ÇëÊ¹ÓÃ£º bet <Ñº÷»ÖÖÀà> <ÊıÄ¿> <»õ±Ò>\n");
+                return notify_fail("è¯·ä½¿ç”¨ï¼š bet <æŠ¼éª°ç§ç±»> <æ•°ç›®> <è´§å¸>\n");
 
         if (what != "tc" &&
             what != "sd" &&
             what != "qx" &&
             what != "sx")
-                return notify_fail("ÄãÒªÑºÄÄÒ»ÖÖ÷»£¿\n");
+                return notify_fail("ä½ è¦æŠ¼å“ªä¸€ç§éª°ï¼Ÿ\n");
 
         ob = present(money + "_money", me);
         if (! ob)
-                return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÖÖÇ®¡£\n");
+                return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™ç§é’±ã€‚\n");
 
         if (amount < 1)
-                return notify_fail("Çë¶àÑºÒ»Ğ©Ç®¡£\n");
+                return notify_fail("è¯·å¤šæŠ¼ä¸€äº›é’±ã€‚\n");
 
         if (amount > ob->query_amount())
-                return notify_fail("ÄãÉíÉÏµÄÇ®²»¹»Ñº¡£\n");
+                return notify_fail("ä½ èº«ä¸Šçš„é’±ä¸å¤ŸæŠ¼ã€‚\n");
 
 	if (amount > 10)
-		return notify_fail("×¯¼Òº°µÀ£ºÔõÃ´ÁãÁãËéËéµÄÄÇÃ´¶à£¿"
-				   "»»³ÉÕûÆ±ÔÙÀ´ÏÂ×¢£¡\n");
+		return notify_fail("åº„å®¶å–Šé“ï¼šæ€ä¹ˆé›¶é›¶ç¢ç¢çš„é‚£ä¹ˆå¤šï¼Ÿ"
+				   "æ¢æˆæ•´ç¥¨å†æ¥ä¸‹æ³¨ï¼\n");
 
 	if (ob->query("base_value") * amount > 100000)
-		return notify_fail("¶Ä×¢×î´óÊ®Á½»Æ½ğ¡£\n");
+		return notify_fail("èµŒæ³¨æœ€å¤§åä¸¤é»„é‡‘ã€‚\n");
 
         if (me->query_temp("gamble_bet/amount") > 0)
-                return notify_fail("ÄãÒÑ¾­Ñº¹ıÁË¡£\n");
+                return notify_fail("ä½ å·²ç»æŠ¼è¿‡äº†ã€‚\n");
 
         if (room_status > 1)
-                return notify_fail("ÏÖÔÚÕıÔÚ¶ÄÄØ£¬ÉÔµÈÆ¬¿Ì¡£\n");
+                return notify_fail("ç°åœ¨æ­£åœ¨èµŒå‘¢ï¼Œç¨ç­‰ç‰‡åˆ»ã€‚\n");
 
         me->set_temp("gamble_bet/kind", what);
         me->set_temp("gamble_bet/amount", amount);
         me->set_temp("gamble_bet/money", money);
-        message_vision(sprintf("$NÄÃ³ö%s%s%s£¬ÑºÔÚ%sÉÏ¡£\n",
+        message_vision(sprintf("$Næ‹¿å‡º%s%s%sï¼ŒæŠ¼åœ¨%sä¸Šã€‚\n",
                                chinese_number(amount),
                                ob->query("base_unit"),
                                ob->query("name"),
@@ -146,7 +146,7 @@ int valid_leave(object me, string dir)
         if (dir == "south")
         {
                 if (me->query_temp ("gamble_bet/amount") > 0) 
-                message_vision ("$NÈÓÏÂÑº÷»µÄÇ®£¬²»ÒªÁË¡£\n",me);
+                message_vision ("$Næ‰”ä¸‹æŠ¼éª°çš„é’±ï¼Œä¸è¦äº†ã€‚\n",me);
                 me->delete_temp("gamble_bet");
         }
         return ::valid_leave(me,dir);
@@ -159,52 +159,52 @@ void display_bet(object room, int i)
         {
         case 1:
                 str = 
-"©°©¤©¤©¤©´\n"+
-"©¦¡¡¡¡¡¡©¦\n"+
-"©¦¡¡¡ñ¡¡©¦\n"+
-"©¦¡¡¡¡¡¡©¦\n"+
-"©¸©¤©¤©¤©¼\n";
+"â”Œâ”€â”€â”€â”\n"+
+"â”‚ã€€ã€€ã€€â”‚\n"+
+"â”‚ã€€â—ã€€â”‚\n"+
+"â”‚ã€€ã€€ã€€â”‚\n"+
+"â””â”€â”€â”€â”˜\n";
 
                 break;
         case 2:
                 str = 
-"©°©¤©¤©¤©´\n"+
-"©¦¡¡¡¡¡¡©¦\n"+
-"©¦¡ñ¡¡¡ñ©¦\n"+
-"©¦¡¡¡¡¡¡©¦\n"+
-"©¸©¤©¤©¤©¼\n";
+"â”Œâ”€â”€â”€â”\n"+
+"â”‚ã€€ã€€ã€€â”‚\n"+
+"â”‚â—ã€€â—â”‚\n"+
+"â”‚ã€€ã€€ã€€â”‚\n"+
+"â””â”€â”€â”€â”˜\n";
                 break;
         case 3:
                 str =
-"©°©¤©¤©¤©´\n"+
-"©¦¡ñ¡¡¡¡©¦\n"+
-"©¦¡¡¡ñ¡¡©¦\n"+
-"©¦¡¡¡¡¡ñ©¦\n"+
-"©¸©¤©¤©¤©¼\n";
+"â”Œâ”€â”€â”€â”\n"+
+"â”‚â—ã€€ã€€â”‚\n"+
+"â”‚ã€€â—ã€€â”‚\n"+
+"â”‚ã€€ã€€â—â”‚\n"+
+"â””â”€â”€â”€â”˜\n";
                 break;
         case 4:
                 str = 
-"©°©¤©¤©¤©´\n"+
-"©¦¡ñ¡¡¡ñ©¦\n"+
-"©¦¡¡¡¡¡¡©¦\n"+
-"©¦¡ñ¡¡¡ñ©¦\n"+
-"©¸©¤©¤©¤©¼\n";
+"â”Œâ”€â”€â”€â”\n"+
+"â”‚â—ã€€â—â”‚\n"+
+"â”‚ã€€ã€€ã€€â”‚\n"+
+"â”‚â—ã€€â—â”‚\n"+
+"â””â”€â”€â”€â”˜\n";
                 break;
         case 5:
                 str =
-"©°©¤©¤©¤©´\n"+
-"©¦¡ñ¡¡¡ñ©¦\n"+
-"©¦¡¡¡ñ¡¡©¦\n"+
-"©¦¡ñ¡¡¡ñ©¦\n"+
-"©¸©¤©¤©¤©¼\n";
+"â”Œâ”€â”€â”€â”\n"+
+"â”‚â—ã€€â—â”‚\n"+
+"â”‚ã€€â—ã€€â”‚\n"+
+"â”‚â—ã€€â—â”‚\n"+
+"â””â”€â”€â”€â”˜\n";
                 break;
         case 6:
                 str = 
-"©°©¤©¤©¤©´\n"+
-"©¦¡ñ¡¡¡ñ©¦\n"+
-"©¦¡ñ¡¡¡ñ©¦\n"+
-"©¦¡ñ¡¡¡ñ©¦\n"+
-"©¸©¤©¤©¤©¼\n";
+"â”Œâ”€â”€â”€â”\n"+
+"â”‚â—ã€€â—â”‚\n"+
+"â”‚â—ã€€â—â”‚\n"+
+"â”‚â—ã€€â—â”‚\n"+
+"â””â”€â”€â”€â”˜\n";
                 break;
         }
         tell_room(room,str);
@@ -218,8 +218,8 @@ int rdm()
 void gamble_prepare()
 {
         object room = this_object();
-        tell_room (room,"×¯¼Ò³ªµÀ£ºĞÂ¿ªÅÌ£¡Ô¤½ĞÍ·²Ê£¡\n");
-        tell_room (room,"×¯¼Ò½«Á½Ã¶Óñ÷»ÍùÒøÅÌÖĞÒ»Èö¡£\n");
+        tell_room (room,"åº„å®¶å”±é“ï¼šæ–°å¼€ç›˜ï¼é¢„å«å¤´å½©ï¼\n");
+        tell_room (room,"åº„å®¶å°†ä¸¤æšç‰éª°å¾€é“¶ç›˜ä¸­ä¸€æ’’ã€‚\n");
         big[0] = rdm();
         big[1] = rdm();
 // keep two numbers different for a probability == 1/36
@@ -230,9 +230,9 @@ void gamble_prepare()
         }
         display_bet(room,big[0]);
         display_bet(room,big[1]);
-        tell_room(room,"×¯¼Ò½ĞµÀ£ºÍ·²Ê÷»ºÅ"+chinese_number(big[0])+
-        chinese_number(big[1])+"£¡\n");
-        tell_room(room, "½Ó×Å×¯¼ÒÂéÀûµØË³ÊÖ½«Óñ÷»´ÓÅÌÖĞÊÕ»Ø£ºÏÖÔÚ¿ªÅÌÑºÇ®£¡\n");
+        tell_room(room,"åº„å®¶å«é“ï¼šå¤´å½©éª°å·"+chinese_number(big[0])+
+        chinese_number(big[1])+"ï¼\n");
+        tell_room(room, "æ¥ç€åº„å®¶éº»åˆ©åœ°é¡ºæ‰‹å°†ç‰éª°ä»ç›˜ä¸­æ”¶å›ï¼šç°åœ¨å¼€ç›˜æŠ¼é’±ï¼\n");
         room_status = 1;
         call_out("gamble_start",24);
         delete_temp("better");
@@ -241,10 +241,10 @@ void gamble_prepare()
 void gamble_start()
 {
         object room = this_object();
-        tell_room (room,"×¯¼Òº°Éù£º·âÅÌÍ£Ñº£¡\n");
-        tell_room (room,"ÓÖ²¹µÀ£º±¾ÅÌÍ·²Ê÷»ºÅÊÇ"+chinese_number(big[0])+
-        chinese_number(big[1])+"¡£\n");
-        tell_room (room,"È»ºó½«Á½Ã¶Óñ÷»ÈÓ½øÁ½¸ö½ğÖÑ£¬Ò»ÊÖ³ÖÒ»ÖÑÒ¡½«ÆğÀ´¡£\n");
+        tell_room (room,"åº„å®¶å–Šå£°ï¼šå°ç›˜åœæŠ¼ï¼\n");
+        tell_room (room,"åˆè¡¥é“ï¼šæœ¬ç›˜å¤´å½©éª°å·æ˜¯"+chinese_number(big[0])+
+        chinese_number(big[1])+"ã€‚\n");
+        tell_room (room,"ç„¶åå°†ä¸¤æšç‰éª°æ‰”è¿›ä¸¤ä¸ªé‡‘ç›…ï¼Œä¸€æ‰‹æŒä¸€ç›…æ‘‡å°†èµ·æ¥ã€‚\n");
         room_status = 2;
         call_out("gamble_perform", 6, 0);
         call_out("gamble_perform", 12, 1);
@@ -253,7 +253,7 @@ void gamble_start()
 void gamble_perform (int i)
 {
         object room = this_object();
-        tell_room(room, " ½ğÖÑµ¹¿ÛÔÚÒøÅÌÉÏ£¬Óñ÷»¹öÁË³öÀ´¡£\n");
+        tell_room(room, " é‡‘ç›…å€’æ‰£åœ¨é“¶ç›˜ä¸Šï¼Œç‰éª°æ»šäº†å‡ºæ¥ã€‚\n");
         res[i] = rdm();
         display_bet (room,res[i]);
 }
@@ -265,7 +265,7 @@ void player_wins(object who, int total)
         int amount = who->query_temp("gamble_bet/amount");
         total = total * amount;
         money->set_amount(total);
-        message_vision(sprintf("$NÓ®ÁË%s%s%s£¡\n",
+        message_vision(sprintf("$Nèµ¢äº†%s%s%sï¼\n",
                        chinese_number(total),
                        money->query("base_unit"),
                        money->query("name")),
@@ -278,7 +278,7 @@ void player_loses(object who, int total)
         object money = new("/clone/money/" +
 			   who->query_temp("gamble_bet/money"));
         total = who->query_temp("gamble_bet/amount");
-        message_vision(sprintf("×¯¼Ò½«$NÑºÔÚÒøÅÌÖĞµÄ%s%s%sÊÕ×ß¡£\n",
+        message_vision(sprintf("åº„å®¶å°†$NæŠ¼åœ¨é“¶ç›˜ä¸­çš„%s%s%sæ”¶èµ°ã€‚\n",
                                chinese_number(total),
                                money->query("base_unit"),
                                money->query("name")),
@@ -320,12 +320,12 @@ void gamble_finish()
                 }
         }
         if (total == 0)
-                tell_room(room, "×¯¼Ò½ĞµÀ£º" + chinese_number(res[0])+
-                                chinese_number(res[1])+"¡­¡­¿ÕÅÌ£¡\n");
+                tell_room(room, "åº„å®¶å«é“ï¼š" + chinese_number(res[0])+
+                                chinese_number(res[1])+"â€¦â€¦ç©ºç›˜ï¼\n");
         else
-                tell_room(room, "×¯¼Ò½ĞµÀ£º"+chinese_number(res[0])+
-                                chinese_number(res[1])+"¡­¡­" +
-                                               gutous [win]+"£¡\n");
+                tell_room(room, "åº„å®¶å«é“ï¼š"+chinese_number(res[0])+
+                                chinese_number(res[1])+"â€¦â€¦" +
+                                               gutous [win]+"ï¼\n");
         list = query_temp("better");
         i = sizeof(list);
         while (i--)

@@ -3,13 +3,13 @@
 inherit STAFF;
 void create()
 {
-        set_name(WHT "¾«ÌúÕÈ" NOR,  ({ "tie zhang", "tie", "zhang" }));
+        set_name(WHT "ç²¾é“æ–" NOR,  ({ "tie zhang", "tie", "zhang" }));
         set_weight(20000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", "Ò»±úÓÃïÙÌú´òÔìµÄÕÈ¡£\n");
+                set("unit", "æŸ„");
+                set("long", "ä¸€æŸ„ç”¨é•”é“æ‰“é€ çš„æ–ã€‚\n");
                 set("value", 2000);
                 set("material", "gold");
         }

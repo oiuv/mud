@@ -1,19 +1,19 @@
-// shizhongyu.c ʯ����
+// shizhongyu.c 石中玉
 
 inherit NPC;
 
 void create()
 {
-        set_name("ʯ����", ({ "shi zhongyu", "shi", "zhongyu" }));
-        set("gender", "����");
+        set_name("石中玉", ({ "shi zhongyu", "shi", "zhongyu" }));
+        set("gender", "男性");
         set("age", 20);
         set("str", 15);
         set("int", 45);
         set("con", 18);
         set("dex", 20);
         set("per", 30);
-        set("long", "����һ�����ṫ�ӣ���Լ��ʮ�����꣬��������֮�£�ɫ�紺��
-֮�����������ã�ü��ī�������������������ﲨ����ŭ��ʱЦ�����Ӷ����顣\n");
+        set("long", "这是一个年轻公子，大约二十左右岁，面若中秋之月，色如春晓
+之花，鬓若刀裁，眉如墨画，鼻如悬胆，情若秋波，虽怒而时笑，即视而有情。\n");
         set("combat_exp", 100000);
         set("shen_type", 1);
         set("attitude", "peaceful");
@@ -36,16 +36,16 @@ void create()
         set("max_neili", 200);
         set("jiali", 20);
         set("inquiry", ([
-                "���͵�" : "��Ȫ�ݸ�����һ��С����\n",
-                "ʯ����" : "��...\n",
-                "����"   : "�Һþ�û�������ˣ���֪����������ô���ˡ�\n",
+                "侠客岛" : "在泉州附近的一个小岛。\n",
+                "石破天" : "他...\n",
+                "叮当"   : "我好久没见到她了，不知道她现在怎么样了。\n",
         ]) );
         set("chat_chance", 8);
         set("chat_msg", ({
-                "\nʯ����˵��: ������������ѽ���Һ�����ѽ��\n",
-                "\nʯ����̾��: Ҳ��֪���ҵĶ�����ô���ˡ�\n",
-                "\nʯ����˵��: ��������Ǻö���...\n",
-                "\nʯ����˵��: ����˭�ܰ���ɱ���������ͷ���ֵ���лл���ˣ�\n",
+                "\n石中玉说道: 叮当，你在哪呀，我好想你呀。\n",
+                "\n石中玉叹道: 也不知道我的叮当怎么样了。\n",
+                "\n石中玉说道: 腊八粥可是好东西...\n",
+                "\n石中玉说道: 唉，谁能帮我杀了外面的老头，兄弟我谢谢你了！\n",
 
         }));
         setup();
@@ -56,8 +56,8 @@ void create()
 
 void die()
 {
-        say("\nʯ����˵�����һ��и���Ըû�ˣ�ϣ�����ܰ����չ˶�����\n");
+        say("\n石中玉说道：我还有个心愿没了，希望你能帮我照顾叮当！\n");
 
-        message_vision("ʯ�����Ŷ��������֣����ˣ�\n", this_object());
+        message_vision("石中玉喊着叮当的名字，死了！\n", this_object());
         ::die();
 }

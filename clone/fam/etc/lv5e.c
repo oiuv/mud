@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIG "Í¨Ìì²İ" NOR, ({"tongtian cao", "tongtian", "cao"}));
+        set_name(HIG "é€šå¤©è‰" NOR, ({"tongtian cao", "tongtian", "cao"}));
         set_weight(1000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIG "Ò»ÖêÉú³¤ÓÚ¼«¸ßÉ½ÑÂÉÏµÄÍ¨ÌåÓ¨ÂÌµÄĞ¡²İ¡£\n" NOR);
-                set("unit", "Öê");
+                set("long", HIG "ä¸€æ ªç”Ÿé•¿äºæé«˜å±±å´–ä¸Šçš„é€šä½“è¹ç»¿çš„å°è‰ã€‚\n" NOR);
+                set("unit", "æ ª");
                 set("value", 15000);
         }
         setup();

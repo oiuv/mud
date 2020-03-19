@@ -8,20 +8,20 @@ string do_unwield();
 
 void create()
 {
-        set_name(GRN "ÂÌ²¨ÏãÂ¶µ¶" NOR, ({ "xianglu dao", "lvbo", "xianglu", "dao" }));
+        set_name(GRN "ç»¿æ³¢é¦™éœ²åˆ€" NOR, ({ "xianglu dao", "lvbo", "xianglu", "dao" }));
         set_weight(2500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", GRN "Ò»±ú±ÌÂÌÉ«µÄ¹íÍ·µ¶£¬µ¶ÉíÉ¢·¢³öÒ»ÕóĞÈ³ô£¬ÈÃ"
-                            "ÈËÎÅÁË¼¸Óû×÷Å»¡£\n" NOR);
-                set("unit", "°Ñ");
+                set("long", GRN "ä¸€æŸ„ç¢§ç»¿è‰²çš„é¬¼å¤´åˆ€ï¼Œåˆ€èº«æ•£å‘å‡ºä¸€é˜µè…¥è‡­ï¼Œè®©"
+                            "äººé—»äº†å‡ æ¬²ä½œå‘•ã€‚\n" NOR);
+                set("unit", "æŠŠ");
                 set("value", 800000);
-                set("no_sell", "Ê²Ã´¶«Î÷£¿ºÃ³ô£¬ºÃ³ô£¬¿ìÄÃ×ß£¡");
+                set("no_sell", "ä»€ä¹ˆä¸œè¥¿ï¼Ÿå¥½è‡­ï¼Œå¥½è‡­ï¼Œå¿«æ‹¿èµ°ï¼");
                 set("material", "steel");
                 set("wield_msg", (: do_wield :));
-                set("unwield_msg", GRN "$N" GRN "Ä¨ÁËÄ¨º¹£¬½«ÊÖÖĞËùÎÕµÄÂÌ²¨"
-                            "ÏãÂ¶µ¶ÊÕ»Ø¡£\n" NOR);
+                set("unwield_msg", GRN "$N" GRN "æŠ¹äº†æŠ¹æ±—ï¼Œå°†æ‰‹ä¸­æ‰€æ¡çš„ç»¿æ³¢"
+                            "é¦™éœ²åˆ€æ”¶å›ã€‚\n" NOR);
                 set("stable", 100);
         }
         init_blade(80);
@@ -32,7 +32,7 @@ string do_wield()
 {
         object me = this_player();
 
-        // µÃÊÚÎÚÀÏ´óµÄ±ÌÑÌµ¶·¨(biyan-dao)Õß²»ÊÜµ¶Éí¶¾º¦¡£
+        // å¾—æˆä¹Œè€å¤§çš„ç¢§çƒŸåˆ€æ³•(biyan-dao)è€…ä¸å—åˆ€èº«æ¯’å®³ã€‚
         if (me->query_skill("biyan-dao") < 1 && me->query_skill("poison") < 120)
         {
                 me->affect_by("lb_poison", ([
@@ -42,14 +42,14 @@ string do_wield()
                 ]));
         	remove_call_out("poison");
         	call_out("poison", 6, me);
-                return HIB "$N" HIB "³é³ö±ú¹íÍ·µ¶£¬ÄÄÖª¸ÕÎÕÔÚÊÖÖĞ£¬È´·¢ÏÖÊÖÕÆÒÑ"
-                       "È»¸¡Ö×£¬Á×¹âÉÁÉÁ¡£\n\n" NOR;
+                return HIB "$N" HIB "æŠ½å‡ºæŸ„é¬¼å¤´åˆ€ï¼Œå“ªçŸ¥åˆšæ¡åœ¨æ‰‹ä¸­ï¼Œå´å‘ç°æ‰‹æŒå·²"
+                       "ç„¶æµ®è‚¿ï¼Œç£·å…‰é—ªé—ªã€‚\n\n" NOR;
         } else
         if (me->query_skill("biyan-dao") < 1 && me->query_skill("poison") > 180)
         {
-                return GRN "$N" GRN "³é³ö±ú¹íÍ·µ¶£¬ÄÄÖª¸ÕÎÕÔÚÊÖÖĞ£¬È´·¢ÏÖÊÖÕÆÒÑ"
-                       "È»¸¡Ö×£¬Á×¹âÉÁÉÁ¡£\n" HIY "ĞÒºÃ$N" HIY "¾«Í¨¶¾Àí£¬Ë²¼äÒÑ"
-                       "½«ÕÆÖĞËù´¥ÂÌ²¨¾ç¶¾ÇıÖ®ÓÚÎŞĞÎ¡£\n\n" NOR;
+                return GRN "$N" GRN "æŠ½å‡ºæŸ„é¬¼å¤´åˆ€ï¼Œå“ªçŸ¥åˆšæ¡åœ¨æ‰‹ä¸­ï¼Œå´å‘ç°æ‰‹æŒå·²"
+                       "ç„¶æµ®è‚¿ï¼Œç£·å…‰é—ªé—ªã€‚\n" HIY "å¹¸å¥½$N" HIY "ç²¾é€šæ¯’ç†ï¼Œç¬é—´å·²"
+                       "å°†æŒä¸­æ‰€è§¦ç»¿æ³¢å‰§æ¯’é©±ä¹‹äºæ— å½¢ã€‚\n\n" NOR;
         } else
         if (me->query_skill("biyan-dao") < 1 && me->query_skill("poison") > 120)
         {
@@ -60,12 +60,12 @@ string do_wield()
                 ]));
         	remove_call_out("poison");
         	call_out("poison", 18, me);
-                return HIB "$N" HIB "³é³ö±ú¹íÍ·µ¶£¬ÄÄÖª¸ÕÎÕÔÚÊÖÖĞ£¬È´·¢ÏÖÊÖÕÆÒÑ"
-                       "È»¸¡Ö×£¬Á×¹âÉÁÉÁ¡£\n" HIC "ĞÒºÃ$N" HIC "ÖªÏş¶¾¼¼£¬Ã¦ºôÁË"
-                       "°ëÌì£¬ºÃÈİÒ×²Å»¯½âÁË²¿·Ö¶¾ĞÔ¡£\n\n" NOR;
+                return HIB "$N" HIB "æŠ½å‡ºæŸ„é¬¼å¤´åˆ€ï¼Œå“ªçŸ¥åˆšæ¡åœ¨æ‰‹ä¸­ï¼Œå´å‘ç°æ‰‹æŒå·²"
+                       "ç„¶æµ®è‚¿ï¼Œç£·å…‰é—ªé—ªã€‚\n" HIC "å¹¸å¥½$N" HIC "çŸ¥æ™“æ¯’æŠ€ï¼Œå¿™å‘¼äº†"
+                       "åŠå¤©ï¼Œå¥½å®¹æ˜“æ‰åŒ–è§£äº†éƒ¨åˆ†æ¯’æ€§ã€‚\n\n" NOR;
         } else
         {
-                return GRN "$N" GRN "µ¥ÊÖÒ»¶¶£¬ÕÆÖĞÒÑÈ»¶àÁË±úÂÌ¹âÉÁÉÁµÄ¹íÍ·µ¶¡£\n" NOR;
+                return GRN "$N" GRN "å•æ‰‹ä¸€æŠ–ï¼ŒæŒä¸­å·²ç„¶å¤šäº†æŸ„ç»¿å…‰é—ªé—ªçš„é¬¼å¤´åˆ€ã€‚\n" NOR;
         }
 }
 
@@ -77,8 +77,8 @@ void poison(object me)
            && weapon->query("id") == "xianglu dao"
            && me->query_skill("poison") < 180)
 	{
-	        message_vision(HIB "\n$N" HIB "ÓÒÊÖ²»ÓÉµÃÒ»²ü£¬Ô­À´ÂÌ²¨ÏãÂ¶µ¶µ¶"
-                               "Éí¾ç¶¾ÒÑÇßÈë¼¡·ô¡£\n" NOR, me);
+	        message_vision(HIB "\n$N" HIB "å³æ‰‹ä¸ç”±å¾—ä¸€é¢¤ï¼ŒåŸæ¥ç»¿æ³¢é¦™éœ²åˆ€åˆ€"
+                               "èº«å‰§æ¯’å·²æ²å…¥è‚Œè‚¤ã€‚\n" NOR, me);
                 me->affect_by("lb_poison", ([
                         "level" : 300,
                         "id"    : "wu laoda",
@@ -102,9 +102,9 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         case 0:
                 if (! victim->is_busy())
                 victim->start_busy(me->query_skill("blade") / 10 + 2);
-                return GRN "$N" GRN "ÂÌ²¨ÏãÂ¶µ¶Á¬Á¬»ÓÕ¶£¬»¯×÷Ò»µÀµÀÂÌÃ¢£¬$n"
-                       GRN "Ö»¾õÒ»¹ÉÏãÆøÆË±Ç¶øÀ´£¬²»¸Ò´óÒâ£¬µ±\n¼´ÄıÉñ±ÕÆø£¬"
-                       "ÕĞ¼Ü¶ÙÊ±É¢ÂÒ¡£\n" NOR;
+                return GRN "$N" GRN "ç»¿æ³¢é¦™éœ²åˆ€è¿è¿æŒ¥æ–©ï¼ŒåŒ–ä½œä¸€é“é“ç»¿èŠ’ï¼Œ$n"
+                       GRN "åªè§‰ä¸€è‚¡é¦™æ°”æ‰‘é¼»è€Œæ¥ï¼Œä¸æ•¢å¤§æ„ï¼Œå½“\nå³å‡ç¥é—­æ°”ï¼Œ"
+                       "æ‹›æ¶é¡¿æ—¶æ•£ä¹±ã€‚\n" NOR;
         case 1:
                 n = me->query_skill("blade");
                 victim->affect_by("lb_poison", ([
@@ -112,9 +112,9 @@ mixed hit_ob(object me, object victim, int damage_bonus)
                         "id"    : me->query("id"),
                         "duration" : n / 70 + random(n / 30)
                 ]));
-                return GRN "$N" GRN "ÂÌ²¨ÏãÂ¶µ¶Á¬Á¬»ÓÕ¶£¬»¯×÷Ò»µÀµÀÂÌÃ¢£¬$n"
-                       GRN "Ö»¾õÒ»¹ÉÏãÆøÆË±Ç¶øÀ´£¬Î¢Ò»²ïÒì£¬¶Ù\nÊ±ÒÑÎüÈëÊı¿Ú"
-                       "¶¾Æø¡£\n" NOR;
+                return GRN "$N" GRN "ç»¿æ³¢é¦™éœ²åˆ€è¿è¿æŒ¥æ–©ï¼ŒåŒ–ä½œä¸€é“é“ç»¿èŠ’ï¼Œ$n"
+                       GRN "åªè§‰ä¸€è‚¡é¦™æ°”æ‰‘é¼»è€Œæ¥ï¼Œå¾®ä¸€è¯§å¼‚ï¼Œé¡¿\næ—¶å·²å¸å…¥æ•°å£"
+                       "æ¯’æ°”ã€‚\n" NOR;
         }
         return damage_bonus;
 }

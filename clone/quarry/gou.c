@@ -3,8 +3,8 @@ inherit QUARRY;
 
 void create()
 {
-	set_name(NOR + YEL "野狗" NOR, ({ "ye gou", "ye", "gou" }));
-	set("long", YEL "这是一只饥饿凶猛，吐着长舌头的野狗。\n" NOR);
+	set_name(NOR + YEL "閲庣嫍" NOR, ({ "ye gou", "ye", "gou" }));
+	set("long", YEL "杩欐槸涓�鍙ゥ楗垮嚩鐚涳紝鍚愮潃闀胯垖澶寸殑閲庣嫍銆俓n" NOR);
 
 	set("age", 1);
 	set("str", 18);

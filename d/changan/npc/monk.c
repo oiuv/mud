@@ -4,8 +4,8 @@ inherit NPC;
 
 void create()
 {
-        set_name("Öª¿ÍºÍÉÐ", ({"monk"}));
-        set("gender", "ÄÐÐÔ");
+        set_name("çŸ¥å®¢å’Œå°š", ({"monk"}));
+        set("gender", "ç”·æ€§");
         set("attitude", "peaceful");
         set("class", "bonze");
         set("age", 20+random(10));

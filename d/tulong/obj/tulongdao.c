@@ -5,19 +5,19 @@ inherit F_UNIQUE;
 inherit F_NOCLONE;
 void create()
 {
-        set_name(CYN "ÍÀÁúµ¶" NOR, ({ "tulong blade" , "blade" ,"dao", "tulong" }) );
+        set_name(CYN "å± é¾™åˆ€" NOR, ({ "tulong blade" , "blade" ,"dao", "tulong" }) );
         set_weight(30000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", HIY "Õâ±ãÊÇºÅ³ÆÎäÁÖÖÁ×ğµÄÍÀÁú±¦µ¶£¬ËÄ³ßÀ´³¤µÄµ¥µ¶£¬¾¹´ïÒ»°Ù¶à½ïÖ®ÖØ¡£\nÏà´«ÆäÖĞ²ØÓĞ¿õÊÀµÄ´óÃØÃÜ¡£\n" NOR);
+                set("unit", "æŸ„");
+                set("long", HIY "è¿™ä¾¿æ˜¯å·ç§°æ­¦æ—è‡³å°Šçš„å± é¾™å®åˆ€ï¼Œå››å°ºæ¥é•¿çš„å•åˆ€ï¼Œç«Ÿè¾¾ä¸€ç™¾å¤šæ–¤ä¹‹é‡ã€‚\nç›¸ä¼ å…¶ä¸­è—æœ‰æ—·ä¸–çš„å¤§ç§˜å¯†ã€‚\n" NOR);
                 set("value", 100000);
-                set("no_sell", "ÕâÑù¶«Î÷²»ÄÜÂô¡£\n");
+                set("no_sell", "è¿™æ ·ä¸œè¥¿ä¸èƒ½å–ã€‚\n");
                 set("rigidity",8000);   
                 set("material", "steel");
-                set("wield_msg", HIY "$NÒ»Éù¿ñĞ¦£¬´Ó±³ºó³é³öÄÇ±úºÅ³Æ¡°"NOR+HIR"ÎäÁÖÖÁ×ğ"NOR+HIY"¡±µÄÍÀÁú±¦µ¶¸ß¸ß¾ÙÆğ¡£\n" NOR);
-                set("unwield_msg", HIY "$N¹ş¹şÒ»Ğ¦£¬½«ÍÀÁú±¦µ¶²å»Ø±³ºó¡£\n"NOR);
+                set("wield_msg", HIY "$Nä¸€å£°ç‹‚ç¬‘ï¼Œä»èƒŒåæŠ½å‡ºé‚£æŸ„å·ç§°â€œ"NOR+HIR"æ­¦æ—è‡³å°Š"NOR+HIY"â€çš„å± é¾™å®åˆ€é«˜é«˜ä¸¾èµ·ã€‚\n" NOR);
+                set("unwield_msg", HIY "$Nå“ˆå“ˆä¸€ç¬‘ï¼Œå°†å± é¾™å®åˆ€æ’å›èƒŒåã€‚\n"NOR);
         }
         init_blade(500);
         setup();
@@ -29,7 +29,7 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         int dam;
         dam = (int) me->query("str");
         victim->receive_damage("jing",dam * 2);
-        return HIM "ÍÀÁúµ¶¼Ğ´ø×Å´Ì¶úµÄÆÆ¿ÕÉù»®³öÒ»µÀµÀ³¤ºç£¬$nÖ»¸Ğµ½ĞÄÉñÒâÂÒ£¬ÃãÇ¿×÷³öµÖµ²¡£\n" NOR;
+        return HIM "å± é¾™åˆ€å¤¹å¸¦ç€åˆºè€³çš„ç ´ç©ºå£°åˆ’å‡ºä¸€é“é“é•¿è™¹ï¼Œ$nåªæ„Ÿåˆ°å¿ƒç¥æ„ä¹±ï¼Œå‹‰å¼ºä½œå‡ºæŠµæŒ¡ã€‚\n" NOR;
 }
 
 void init()
@@ -42,10 +42,10 @@ int do_open(string arg, object me)
         object pai,ob;
         if(arg != "yitian sword" || !ob = present("yitian sword", environment(this_object()))) 
         {
-                return notify_fail("ÄãÒª¿³Ê²Ã´£¿\n");
+                return notify_fail("ä½ è¦ç ä»€ä¹ˆï¼Ÿ\n");
         }
    else if (this_player()->query("jiali") <= 160)
-        return notify_fail(WHT "\nÄãÌáÆğÍÀÁúµ¶¶Ô×¼ÒĞÌì½£ÓÃÁ¦µÄ¿³ÁËÏÂÈ¥£¡"NOR+HIR"\n\nÖ»Ìı¡°ïê¡±µÄÒ»Éù´àÏì£¬·É½¦³ö¼¸µã»ğĞÇ¡£\n" NOR);
+        return notify_fail(WHT "\nä½ æèµ·å± é¾™åˆ€å¯¹å‡†å€šå¤©å‰‘ç”¨åŠ›çš„ç äº†ä¸‹å»ï¼"NOR+HIR"\n\nåªå¬â€œé•ªâ€çš„ä¸€å£°è„†å“ï¼Œé£æº…å‡ºå‡ ç‚¹ç«æ˜Ÿã€‚\n" NOR);
         {
                 pai = new("/d/tulong/obj/duan1");
                 pai->move(this_player());
@@ -57,7 +57,7 @@ int do_open(string arg, object me)
                 pai->move(this_player());
                 pai = new("/d/tulong/obj/yishu");
                 pai->move(this_player());
-                message_vision(WHT "\n$NÌáÆğÍÀÁúµ¶¶Ô×¼ÒĞÌì½£ÓÃÁ¦µÄ¿³ÁËÏÂÈ¥£¡\n\n"NOR+HIW"Ö»ÌıÒ»ÉùÃÆÏì£¬$NÊÖ±ÛÒ»Õğ£¬ÍÀÁúµ¶ºÍÒĞÌì½£ÒÑ¾­¶ÏÁË¡£Äã·¢ÏÖµ¶½£ÖĞ¾¹È»¼Ğ²Ø×Å¼¸¾í²¯¾î¡£\n"NOR,this_player());
+                message_vision(WHT "\n$Næèµ·å± é¾™åˆ€å¯¹å‡†å€šå¤©å‰‘ç”¨åŠ›çš„ç äº†ä¸‹å»ï¼\n\n"NOR+HIW"åªå¬ä¸€å£°é—·å“ï¼Œ$Næ‰‹è‡‚ä¸€éœ‡ï¼Œå± é¾™åˆ€å’Œå€šå¤©å‰‘å·²ç»æ–­äº†ã€‚ä½ å‘ç°åˆ€å‰‘ä¸­ç«Ÿç„¶å¤¹è—ç€å‡ å·å¸›ç»¢ã€‚\n"NOR,this_player());
                 destruct (ob);
                 destruct(this_object());
                 return 1;

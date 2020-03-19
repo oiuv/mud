@@ -6,18 +6,18 @@ inherit SWORD;
 
 void create()
 {
-	set_name(HIC"¶Ì½£"NOR, ({ "short sword", "sword", "jian" }));
+	set_name(HIC"çŸ­å‰‘"NOR, ({ "short sword", "sword", "jian" }));
 	set_weight(5000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±ú");
-		set("long", "ÕâÊÇÒ»±úµÄ¶Ì½££¬¾İËµ½£Àï²Ø×ÅÒ»¸ö¼«´óÃØÃÜ£¬¼¸
-°ÙÄêÀ´Õ·×ªÏà´«£¬Ê¼ÖÕÎŞÈË²ÎÏêµÃ³ö¡£\n");
+		set("unit", "æŸ„");
+		set("long", "è¿™æ˜¯ä¸€æŸ„çš„çŸ­å‰‘ï¼Œæ®è¯´å‰‘é‡Œè—ç€ä¸€ä¸ªæå¤§ç§˜å¯†ï¼Œå‡ 
+ç™¾å¹´æ¥è¾—è½¬ç›¸ä¼ ï¼Œå§‹ç»ˆæ— äººå‚è¯¦å¾—å‡ºã€‚\n");
 		set("value", 100);
 		set("material", "steel");
-		set("wield_msg", "$N¡¸à§¡¹µÄÒ»Éù³é³öÒ»±ú$nÎÕÔÚÊÖÖĞ¡£\n");
-		set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»Ø½£ÇÊ¡£\n");
+		set("wield_msg", "$Nã€Œå”°ã€çš„ä¸€å£°æŠ½å‡ºä¸€æŸ„$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+		set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›å‰‘é˜ã€‚\n");
 	}
 	init_sword(25);
 	setup();

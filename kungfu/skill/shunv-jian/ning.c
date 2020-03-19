@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define NING "¡¸" HIM "ÄşÊÏÒ»½£" NOR "¡¹"
+#define NING "ã€Œ" HIM "å®æ°ä¸€å‰‘" NOR "ã€"
 
 inherit F_SSERVER;
  
@@ -15,35 +15,35 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (userp(me) && ! me->query("can_perform/shunv-jian/ning"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(NING "Ö»ÄÜÔÚÕ½¶·ÖĞ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(NING "åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
               (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" NING "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" NING "ã€‚\n");
 
         if (me->query_skill("dodge", 1) < 100)
-                return notify_fail("ÄãµÄ»ù±¾Çá¹¦µÄĞŞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" NING "¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬è½»åŠŸçš„ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" NING "ã€‚\n");
 
         if (me->query_skill("force", 1) < 100)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦µÄĞŞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" NING "¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸçš„ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" NING "ã€‚\n");
 
         if (me->query_skill("shunv-jian", 1) < 100)
-                return notify_fail("ÄãµÄÊçÅ®½£·¨ĞŞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" NING "¡£\n");
+                return notify_fail("ä½ çš„æ·‘å¥³å‰‘æ³•ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" NING "ã€‚\n");
 
         if (me->query_skill_mapped("sword") != "shunv-jian")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢ÊçÅ®½£·¨£¬ÄÑÒÔÊ©Õ¹" NING "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘æ·‘å¥³å‰‘æ³•ï¼Œéš¾ä»¥æ–½å±•" NING "ã€‚\n");
 
         if (me->query("neili") < 250)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" NING "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" NING "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "\n$N" HIW "½¿ºÈÒ»Éù£¬·ÉÉí¶øÆğ£¬Ê¹³ö¾øÕĞ¡¸" HIM "ÄşÊÏÒ»½£" HIW "¡¹½«±ÏÉú¹¦Á¦ÔËÓÚ"
-              + weapon->name() + HIW "ÉÏ£¬¶ÙÊ±½£¹âËÄÉä£¬½£ÊÆÈçºç£¬½«$n" HIW "ÁıÕÖ" HIW "¡£\n" NOR;
+        msg = HIW "\n$N" HIW "å¨‡å–ä¸€å£°ï¼Œé£èº«è€Œèµ·ï¼Œä½¿å‡ºç»æ‹›ã€Œ" HIM "å®æ°ä¸€å‰‘" HIW "ã€å°†æ¯•ç”ŸåŠŸåŠ›è¿äº"
+              + weapon->name() + HIW "ä¸Šï¼Œé¡¿æ—¶å‰‘å…‰å››å°„ï¼Œå‰‘åŠ¿å¦‚è™¹ï¼Œå°†$n" HIW "ç¬¼ç½©" HIW "ã€‚\n" NOR;
 
         ap = me->query_skill("sword") + me->query_skill("force");
         dp = target->query_skill("parry") + target->query_skill("dodge");
@@ -54,12 +54,12 @@ int perform(object me, object target)
                 me->add("neili", - 220);
                 me->start_busy(1 + random(3));
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 65,
-                                           HIR "$n" HIR "¿ªÁÏ²»¼°£¬ÕıÓû¶ãÉÁ£¬È´ÒÑ¾­ÖĞ½£¡£\n" NOR);
+                                           HIR "$n" HIR "å¼€æ–™ä¸åŠï¼Œæ­£æ¬²èº²é—ªï¼Œå´å·²ç»ä¸­å‰‘ã€‚\n" NOR);
         } else
         {
                 me->add("neili", -120);
                 me->start_busy(2);
-                msg += CYN "¿ÉÊÇ$n" CYN "ËæÊÖÕĞ¼Ü£¬¾¹½«ÕâÕĞ»¯½â¡£\n"NOR;
+                msg += CYN "å¯æ˜¯$n" CYN "éšæ‰‹æ‹›æ¶ï¼Œç«Ÿå°†è¿™æ‹›åŒ–è§£ã€‚\n"NOR;
         }
 
         message_sort(msg, me, target);

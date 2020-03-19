@@ -2,10 +2,10 @@ inherit BULLETIN_BOARD;
 
 void create()
 {
-        set_name("Ãç¼ÒµÜ×ÓÁôÑÔ°å", ({ "board" }) );
+        set_name("è‹—å®¶å¼Ÿå­ç•™è¨€æ¿", ({ "board" }) );
         set("location", "/d/zhongzhou/miaojia_houting");
         set("board_id", "miao_b");
-        set("long", "ÕâÊÇÒ»¸ö¹©Ãç¼ÒµÜ×Ó½»Á÷µÄÁôÑÔ°å¡£\n" );
+        set("long", "è¿™æ˜¯ä¸€ä¸ªä¾›è‹—å®¶å¼Ÿå­äº¤æµçš„ç•™è¨€æ¿ã€‚\n" );
         setup();
         set("capacity", 100);
         replace_program(BULLETIN_BOARD);

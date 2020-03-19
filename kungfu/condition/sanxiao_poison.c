@@ -7,26 +7,26 @@ inherit POISON;
 
 string name() { return "sanxiao_poison"; }
 
-string chinese_name() { return "åĞÒ£ÈıĞ¦É¢Ö®¶¾"; }
+string chinese_name() { return "é€é¥ä¸‰ç¬‘æ•£ä¹‹æ¯’"; }
 
 string update_msg_others()
 {
-       return HIG "$N" HIG "Á³ÉÏºöÈ»Â¶³ö¹îÒìµÄÒ»Ğ¦£¡\n" NOR;
+       return HIG "$N" HIG "è„¸ä¸Šå¿½ç„¶éœ²å‡ºè¯¡å¼‚çš„ä¸€ç¬‘ï¼\n" NOR;
 }
 
 string update_msg_self()
 {
-        return HIG "²»ÖªÔõÃ´µÄ£¬ÄãºöÈ»·¢ÏÖ×Ô¼º¿ØÖÆ²»ÁËÁ³²¿¼¡Èâ£¬²»ÓÉ×ÔÖ÷µÄĞ¦ÁËÒ»ÏÂ£¡\n" NOR;
+        return HIG "ä¸çŸ¥æ€ä¹ˆçš„ï¼Œä½ å¿½ç„¶å‘ç°è‡ªå·±æ§åˆ¶ä¸äº†è„¸éƒ¨è‚Œè‚‰ï¼Œä¸ç”±è‡ªä¸»çš„ç¬‘äº†ä¸€ä¸‹ï¼\n" NOR;
 }
 
 string die_msg_others()
 {
-        return RED "$N" RED "Á³ÉÏÂ¶³ö¹îÒìµÄĞ¦Èİ£¬ËÆºõºÜĞÒ¸£¡£\n" NOR;
+        return RED "$N" RED "è„¸ä¸Šéœ²å‡ºè¯¡å¼‚çš„ç¬‘å®¹ï¼Œä¼¼ä¹å¾ˆå¹¸ç¦ã€‚\n" NOR;
 }
 
 string die_reason(string name)
 {
-        return "ÖĞÁË" + chinese_name() + "£¬ĞÒ¸£µÄÑÊÏÂÁË×îºóÒ»¿ÚÆø";
+        return "ä¸­äº†" + chinese_name() + "ï¼Œå¹¸ç¦çš„å’½ä¸‹äº†æœ€åä¸€å£æ°”";
 }
 
 int jing_damage(object me, mapping cnd)

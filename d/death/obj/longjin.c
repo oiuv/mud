@@ -4,18 +4,18 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIW "Áú½î" NOR, ({ "long jin", "jin"}));
+	set_name(HIW "é¾™ç­‹" NOR, ({ "long jin", "jin"}));
 	set_weight(700);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", HIW "Ò»¸ù´ÓÉñÊŞÇàÁúÉíÉÏÈ¡³öµÄ½î£¬Ïàµ±µÄ¼áÈÍ¡£¾§Ó¨ÌŞÍ¸£¬ÒşÈ»·º³ö°×¹â¡£\n" NOR);
-		set("unit", "¸ù");
+		set("long", HIW "ä¸€æ ¹ä»ç¥å…½é’é¾™èº«ä¸Šå–å‡ºçš„ç­‹ï¼Œç›¸å½“çš„åšéŸ§ã€‚æ™¶è¹å‰”é€ï¼Œéšç„¶æ³›å‡ºç™½å…‰ã€‚\n" NOR);
+		set("unit", "æ ¹");
 		set("value", 200000);
               set("item_origin", 1);
               set("material_attrib", "silk");
-              set("material_name", HIW "Áú½î" NOR);
-              set("can_make", ({ "±Ş" }));
+              set("material_name", HIW "é¾™ç­‹" NOR);
+              set("can_make", ({ "é­" }));
               //set("power_point", 120);
 			  set("power_point", 100);
 	}

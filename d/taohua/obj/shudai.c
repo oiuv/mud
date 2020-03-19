@@ -3,18 +3,18 @@ inherit HEAD;
 
 void create()
 {
-        set_name( "Êø·¢½ğ´ø" , ({ "jindai" }) );
+        set_name( "æŸå‘é‡‘å¸¦" , ({ "jindai" }) );
         set_weight(50);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ìõ");
-                set("long","ÕâÊÇÒ»ÌõÓÃ½ğË¿Ö¯³ÉµÄÊø·¢´ø×Ó\n");
+                set("unit", "æ¡");
+                set("long","è¿™æ˜¯ä¸€æ¡ç”¨é‡‘ä¸ç»‡æˆçš„æŸå‘å¸¦å­\n");
                 set("value", 1500);
                 set("material", "silk");
                 set("armor_prop/armor", 1);
 		set("female_only", 1);
-        set("wear_msg", "$N½«$nÄÃ³öÊøÔÚÍ··¢ÉÏ¡£\n");
+        set("wear_msg", "$Nå°†$næ‹¿å‡ºæŸåœ¨å¤´å‘ä¸Šã€‚\n");
         }
         setup();
 }

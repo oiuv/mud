@@ -8,18 +8,18 @@ string extra_long()
 {
         string str;
         
-        str =  "\nÎïÆ·ÀàĞÍ : ÃØ¼®\n";
-        str += sprintf("¼ÇÔØÄÚÈİ : %s\n", to_chinese(query("skill/name")));
-        str += sprintf("¾­ÑéÒªÇó : %d\n", query("skill/exp_required"));
-        str += sprintf("ÑĞÏ°ÄÑ¶È : %d\n", query("skill/difficulty"));
-        str += sprintf("ÑĞÏ°ÒªÇó : %s %d ¼¶\n", to_chinese(query("skill/name")), query("skill/min_skill"));
-        str += sprintf("ÑĞÏ°ÏŞÖÆ : %d ¼¶\n", query("skill/max_skill"));
-        str += sprintf("¾«Á¦ÏûºÄ : %d µã/´Î\n", query("skill/jing_cost"));
-        // str += sprintf("ÑĞÏ°·½·¨ : ÊäÈëÖ¸Áî du %s ÑĞ¶Á¡£\n", query("id"));
+        str =  "\nç‰©å“ç±»å‹ : ç§˜ç±\n";
+        str += sprintf("è®°è½½å†…å®¹ : %s\n", to_chinese(query("skill/name")));
+        str += sprintf("ç»éªŒè¦æ±‚ : %d\n", query("skill/exp_required"));
+        str += sprintf("ç ”ä¹ éš¾åº¦ : %d\n", query("skill/difficulty"));
+        str += sprintf("ç ”ä¹ è¦æ±‚ : %s %d çº§\n", to_chinese(query("skill/name")), query("skill/min_skill"));
+        str += sprintf("ç ”ä¹ é™åˆ¶ : %d çº§\n", query("skill/max_skill"));
+        str += sprintf("ç²¾åŠ›æ¶ˆè€— : %d ç‚¹/æ¬¡\n", query("skill/jing_cost"));
+        // str += sprintf("ç ”ä¹ æ–¹æ³• : è¾“å…¥æŒ‡ä»¤ du %s ç ”è¯»ã€‚\n", query("id"));
         
         if (this_object()->query_autoload())
-                str += "ÏÂÏß¶ªÊ§ : ·ñ\n";
+                str += "ä¸‹çº¿ä¸¢å¤± : å¦\n";
         else
-                str += "ÏÂÏß¶ªÊ§ : ÊÇ\n";
+                str += "ä¸‹çº¿ä¸¢å¤± : æ˜¯\n";
         return str;
 }

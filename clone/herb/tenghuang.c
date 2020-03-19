@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(HIY "ÌÙ»Æ" NOR, ({ "teng huang", "teng", "huang", "herb_tenghuang" }));
+        set_name(HIY "è—¤é»„" NOR, ({ "teng huang", "teng", "huang", "herb_tenghuang" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIY "ÌÙ»ÆÊÇ³£¼ûµÄÖĞÒ©Ò©²Ä¡£\n" NOR);
-                set("base_unit", "°ü");
+                set("long", HIY "è—¤é»„æ˜¯å¸¸è§çš„ä¸­è¯è¯æã€‚\n" NOR);
+                set("base_unit", "åŒ…");
                 set("base_value", 5000);
                 set("base_weight", 50);
         }

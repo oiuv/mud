@@ -2,10 +2,10 @@
 inherit ROOM;
 void create()
 {
-        set("short", "ɽ��");
+        set("short", "山涧");
         set("long", @LONG
-˳ɽ��Ư�����£���Ϫ�鲼��ϡ��ľ��Ȫʯ����ľ������
-�����;������ˡ����������۵���й���£�����ɽ�ȡ�
+顺山涧漂流而下，沿溪遍布珍稀树木，泉石，林木，花草
+及峰峦均极宜人。涧流至崖折叠飞泄而下，声震山谷。
 LONG);
         set("exits", ([
                "down"     : __DIR__"heishatan",

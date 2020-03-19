@@ -6,11 +6,11 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ÎâÁì¾ü", ({ "wu lingjun", "wu", "lingjun" }));
-        set("long", "ËûÊÇËÕÐÇºÓµÄËÄµÜ×Ó£¬µ¤ÇàÃî¼¼ÒÑ¾¡µÃÆäÕæ´«¡£\n");
-        set("gender", "ÄÐÐÔ");
-        set("title", "åÐÒ£ÅÉº¯¹È°ËÓÑ");
-        set("nickname", HIC "µ¤ÇàÃûÊÖ" NOR);
+        set_name("å´é¢†å†›", ({ "wu lingjun", "wu", "lingjun" }));
+        set("long", "ä»–æ˜¯è‹æ˜Ÿæ²³çš„å››å¼Ÿå­ï¼Œä¸¹é’å¦™æŠ€å·²å°½å¾—å…¶çœŸä¼ ã€‚\n");
+        set("gender", "ç”·æ€§");
+        set("title", "é€é¥æ´¾å‡½è°·å…«å‹");
+        set("nickname", HIC "ä¸¹é’åæ‰‹" NOR);
         set("age", 47);
         set("class", "shaman");
         set("attitude", "peaceful");
@@ -51,7 +51,7 @@ void create()
         prepare_skill("hand", "qingyun-shou");
         prepare_skill("strike", "panyang-zhang");
 
-        create_family("åÐÒ£ÅÉ", 3, "µÜ×Ó");
+        create_family("é€é¥æ´¾", 3, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -71,16 +71,16 @@ void attempt_apprentice(object ob)
 
         if (ob->query_int() < 26)
         {
-                command("say ÄãÎòÐÔÌ«²î£¬ÔõÃ´Ñ§Ï°µ¤ÇàÃî¼¼£¿");
+                command("say ä½ æ‚Ÿæ€§å¤ªå·®ï¼Œæ€Žä¹ˆå­¦ä¹ ä¸¹é’å¦™æŠ€ï¼Ÿ");
                 return;
         }
 
         if (ob->query_skill("xiaoyao-xinfa", 1) < 20)
         {
-                command("say Äã»¹ÊÇÏÈ½«±¾ÃÅÈëÃÅÐÄ·¨Ñ§ºÃ°É¡£");
+                command("say ä½ è¿˜æ˜¯å…ˆå°†æœ¬é—¨å…¥é—¨å¿ƒæ³•å­¦å¥½å§ã€‚");
                 return;
         }
 
-        command("say ºÃ°É£¬¼ÈÈ»Èç´Ë£¬ÎÒ¾ÍÊÕÏÂÄãÁË¡£");
+        command("say å¥½å§ï¼Œæ—¢ç„¶å¦‚æ­¤ï¼Œæˆ‘å°±æ”¶ä¸‹ä½ äº†ã€‚");
         command("recruit " + ob->query("id"));
 }

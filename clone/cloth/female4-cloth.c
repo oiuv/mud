@@ -9,13 +9,13 @@ inherit CLOTH;
 
 void create()
 {
-        set_name(HIY"¶ì»Æ¼Ð°À"NOR, ({ "yellow ao", "cloth" }) );
+        set_name(HIY"é¹…é»„å¤¹è¢„"NOR, ({ "yellow ao", "cloth" }) );
         set_weight(3000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼þ");
-		set("long", "Ò»¼þÅ®º¢Ï²»¶µÄ¶ì»Æ¼Ð°À¡£\n");
+                set("unit", "ä»¶");
+		set("long", "ä¸€ä»¶å¥³å­©å–œæ¬¢çš„é¹…é»„å¤¹è¢„ã€‚\n");
                 set("material", "cloth");
                 set("value", 0);
                 set("armor_prop/armor", 3);

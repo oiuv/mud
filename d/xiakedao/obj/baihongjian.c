@@ -1,4 +1,4 @@
-// baihongjian.c °×ºç½£
+// baihongjian.c ç™½è™¹å‰‘
 
 #include <weapon.h>
 
@@ -6,18 +6,18 @@ inherit SWORD;
 
 void create()
 {
-        set_name("°×ºç½£", ({ "baihongjian", "sword", "jian" }));
+        set_name("ç™½è™¹å‰‘", ({ "baihongjian", "sword", "jian" }));
         set_weight(8000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", "ÕâÊÇÒ»¿ÚÏ÷ÌúÈçÄàµÄ±¦½£¡£\n");
+                set("unit", "æŸ„");
+                set("long", "è¿™æ˜¯ä¸€å£å‰Šé“å¦‚æ³¥çš„å®å‰‘ã€‚\n");
                 set("value", 10000);
                 set("material", "steel");
                 set("weapon_prop/personality", 8);
-                set("wield_msg", "$N¡¸à§¡¹µÄÒ»Éù³é³öÒ»±úº®¹âÉÁÉÁµÄ$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»Ø½£ÇÊ¡£\n");
+                set("wield_msg", "$Nã€Œå”°ã€çš„ä¸€å£°æŠ½å‡ºä¸€æŸ„å¯’å…‰é—ªé—ªçš„$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›å‰‘é˜ã€‚\n");
         }
         init_sword(90);
         setup();

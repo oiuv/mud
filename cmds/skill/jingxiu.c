@@ -11,51 +11,51 @@ int main(object me, string arg)
 
         seteuid(getuid());
 
-        if (me->query("family/family_name") != "ÉÙÁÖÅÉ")
+        if (me->query("family/family_name") != "å°‘æ—æ´¾")
                 return 0;
 
         if (where->query("no_fight") && me->query("doing") != "scheme")
-                return notify_fail("ÕâÀïÌ«·×ÔÓ£¬ÄãÃ»·¨°²ĞÄ¾²ĞŞ¡£\n");
+                return notify_fail("è¿™é‡Œå¤ªçº·æ‚ï¼Œä½ æ²¡æ³•å®‰å¿ƒé™ä¿®ã€‚\n");
 
         if (me->query("jing") < 50)
-                return notify_fail("Äã¾«Éñ²»¼Ã£¬ÎŞ·¨¶¨ĞÄ¾²ĞŞ¡£\n");
+                return notify_fail("ä½ ç²¾ç¥ä¸æµï¼Œæ— æ³•å®šå¿ƒé™ä¿®ã€‚\n");
 
         if (me->is_busy())
-                return notify_fail("ÄãÕıÃ¦×ÅÄØ£¡\n");
+                return notify_fail("ä½ æ­£å¿™ç€å‘¢ï¼\n");
 
         if (me->is_fighting())
-                return notify_fail("Õ½¶·ÖĞÔõÃ´¾²ĞŞ£¿\n");
+                return notify_fail("æˆ˜æ–—ä¸­æ€ä¹ˆé™ä¿®ï¼Ÿ\n");
 
         if (me->query_skill("buddhism", 1) < 200)
-                return notify_fail("ÄãµÄ·ğÑ§»¹²»¹»Éîºñ£¬ÄÑÒÔÍ¨¹ı¾²ĞŞ²ÎÎòìøÀí¡£\n");
+                return notify_fail("ä½ çš„ä½›å­¦è¿˜ä¸å¤Ÿæ·±åšï¼Œéš¾ä»¥é€šè¿‡é™ä¿®å‚æ‚Ÿç¦…ç†ã€‚\n");
 
         switch (random(3))
         {
         case 0:
-                message_vision("$NÅÌÏ¥×øÏÂ£¬Ú¤Ë¼Èë¶¨¡£\n", me);
+                message_vision("$Nç›˜è†åä¸‹ï¼Œå†¥æ€å…¥å®šã€‚\n", me);
                 break;
 
         case 1:
-                message_vision("$N»º»º×øÏÂ£¬»êÓÎÌìÍâ¡£\n", me);
+                message_vision("$Nç¼“ç¼“åä¸‹ï¼Œé­‚æ¸¸å¤©å¤–ã€‚\n", me);
                 break;
 
         default:
-                message_vision("$N°²×ø²»¶¯£¬Õû¸öÈËËÆÃÎËÆĞÑ¡£\n", me);
+                message_vision("$Nå®‰åä¸åŠ¨ï¼Œæ•´ä¸ªäººä¼¼æ¢¦ä¼¼é†’ã€‚\n", me);
         }
 
         me->receive_damage("jing", 40 + random(10));
         me->improve_skill("buddhism", 5 + random(me->query_int()));
         me->start_busy(1 + random(3));
-        write(HIC "Äã¶Ôìø×ÚĞÄ·¨ÓĞËùĞÄµÃ¡£\n" NOR);
+        write(HIC "ä½ å¯¹ç¦…å®—å¿ƒæ³•æœ‰æ‰€å¿ƒå¾—ã€‚\n" NOR);
         return 1;
 }
 
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : jingxiu
+æŒ‡ä»¤æ ¼å¼ : jingxiu
 
-Õâ¸öÖ¸ÁîÊÇÉÙÁÖÅÉµÜ×ÓÓÃÒÔ¾²ĞŞ²ÎìøµÄÃüÁî.
+è¿™ä¸ªæŒ‡ä»¤æ˜¯å°‘æ—æ´¾å¼Ÿå­ç”¨ä»¥é™ä¿®å‚ç¦…çš„å‘½ä»¤.
 
 HELP );
         return 1;

@@ -2,9 +2,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("µÀÃ÷Ğ¡Ê¦¸¸", ({ "daoming","xiaoshifu",}));
-        set("long", "ËûÊÇ¶ëáÒ±¨¹úËÂÂ¥µÄĞ¡ºÍÉĞ¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("é“æ˜å°å¸ˆçˆ¶", ({ "daoming","xiaoshifu",}));
+        set("long", "ä»–æ˜¯å³¨åµ‹æŠ¥å›½å¯ºæ¥¼çš„å°å’Œå°šã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 16);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -30,7 +30,7 @@ void create()
         set_temp("apply/defense", 15);
         set_temp("apply/damage", 5);
 
-        create_family("¶ëáÒÅÉ", 5, "µÜ×Ó");
+        create_family("å³¨åµ‹æ´¾", 5, "å¼Ÿå­");
 
         setup();
         carry_object("/clone/cloth/dao-cloth")->wear();

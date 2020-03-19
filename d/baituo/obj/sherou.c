@@ -1,17 +1,17 @@
-// sherou.c ÉßÈâ
+// sherou.c è›‡è‚‰
 
 inherit F_FOOD;
 inherit ITEM;
 
 void create()
 {
-	set_name("ÉßÈâ", ({ "she rou", "rou" }) );
+	set_name("è›‡è‚‰", ({ "she rou", "rou" }) );
         set_weight(350);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-		set("long", "Ò»ÌõÉÕ¿¾µÃÏãÅçÅçµÄÉßÈâ¡£\n");
-		set("unit", "Ìõ");
+		set("long", "ä¸€æ¡çƒ§çƒ¤å¾—é¦™å–·å–·çš„è›‡è‚‰ã€‚\n");
+		set("unit", "æ¡");
 		set("value", 50);
 		set("food_remaining", 3);
 		set("food_supply", 20);

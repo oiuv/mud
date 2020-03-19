@@ -5,21 +5,21 @@ string long();
 
 void create()
 {
-        set_name(NOR + WHT "½£µä²ÐÆª" NOR, ({ "jiandian canpian", "jiandian", "canpian" }));
+        set_name(NOR + WHT "å‰‘å…¸æ®‹ç¯‡" NOR, ({ "jiandian canpian", "jiandian", "canpian" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "ÕÅ");
-                set("long", "ÕâÊÇÒ»ÕÅ²ÐÈ±²»È«µÄÊéÒ³¡£\n" NOR);
+                set("unit", "å¼ ");
+                set("long", "è¿™æ˜¯ä¸€å¼ æ®‹ç¼ºä¸å…¨çš„ä¹¦é¡µã€‚\n" NOR);
                 set("value", 30);
-                set("no_sell", "Ê²Ã´ÊÀµÀ£¬¾ÍÒ»ÕÅÆÆÖ½Í·Ò²ÄÃÀ´ÂôÇ®£¿");
+                set("no_sell", "ä»€ä¹ˆä¸–é“ï¼Œå°±ä¸€å¼ ç ´çº¸å¤´ä¹Ÿæ‹¿æ¥å–é’±ï¼Ÿ");
                 set("material", "paper");
-                set("skill_name", "»ù±¾½£·¨");      // ÑÐ¾¿¼¼ÄÜµÄÃû³Æ
-                set("skill_type", "sword");         // ÑÐ¾¿¼¼ÄÜµÄÖÖÀà
-                set("power_point", 30000);          // Ôö¼Ó¼¼ÄÜµÄµãÊý
-                set("need_exp", 100000);            // ÑÐ¾¿ËùÐèµÄ×îµÍ¾­Ñé
-                set("min_lvl", 100);                // ÑÐ¾¿ËùÐèµÄ×îµÍµÈ¼¶
-                set("max_lvl", 300);                // ÄÜ¹»ÑÐ¾¿µÄ×î¸ßµÈ¼¶
+                set("skill_name", "åŸºæœ¬å‰‘æ³•");      // ç ”ç©¶æŠ€èƒ½çš„åç§°
+                set("skill_type", "sword");         // ç ”ç©¶æŠ€èƒ½çš„ç§ç±»
+                set("power_point", 30000);          // å¢žåŠ æŠ€èƒ½çš„ç‚¹æ•°
+                set("need_exp", 100000);            // ç ”ç©¶æ‰€éœ€çš„æœ€ä½Žç»éªŒ
+                set("min_lvl", 100);                // ç ”ç©¶æ‰€éœ€çš„æœ€ä½Žç­‰çº§
+                set("max_lvl", 300);                // èƒ½å¤Ÿç ”ç©¶çš„æœ€é«˜ç­‰çº§
         }
         setup();
 }
@@ -35,13 +35,13 @@ string long()
 
         if (query("power_point"))
         {
-                msg = WHT "ÕâÊÇÒ»ÕÅ" + name() + NOR + WHT "£¬¿´Ñù×Ó"
-                      "ÒÑ¾­ÆÄÓÐÄêÊ±ÁË¡£Ò³Æ¬ÉÏÓÃÁ¥ÌåÃÜÃÜÂéÂéÐ´ÂúÁËÓ¬"
-                      "Í·Ð¡×Ö£¬ËÆºõ¶¼ºÍ" + query("skill_name") +
-                      "ÓÐ¹Ø£¬Äã¿ÉÒÔÊÔ×Å¶Á¶Á(read)¿´£¬Ò²Ðí¶ÔÎäÑ§ÄÜ¹»"
-                      "ÓÐËù°ïÖú¡£";
+                msg = WHT "è¿™æ˜¯ä¸€å¼ " + name() + NOR + WHT "ï¼Œçœ‹æ ·å­"
+                      "å·²ç»é¢‡æœ‰å¹´æ—¶äº†ã€‚é¡µç‰‡ä¸Šç”¨éš¶ä½“å¯†å¯†éº»éº»å†™æ»¡äº†è‡"
+                      "å¤´å°å­—ï¼Œä¼¼ä¹Žéƒ½å’Œ" + query("skill_name") +
+                      "æœ‰å…³ï¼Œä½ å¯ä»¥è¯•ç€è¯»è¯»(read)çœ‹ï¼Œä¹Ÿè®¸å¯¹æ­¦å­¦èƒ½å¤Ÿ"
+                      "æœ‰æ‰€å¸®åŠ©ã€‚";
         } else
-                msg = "ÕâÊÇÒ»ÕÅ²ÐÈ±²»È«µÄÊéÒ³£¬¿É×Ö¼£ÒÑÎÞ·¨±æÇåÁË¡£";
+                msg = "è¿™æ˜¯ä¸€å¼ æ®‹ç¼ºä¸å…¨çš„ä¹¦é¡µï¼Œå¯å­—è¿¹å·²æ— æ³•è¾¨æ¸…äº†ã€‚";
 
         return sort_string(msg, 54);
 }
@@ -55,37 +55,37 @@ int do_read(string arg)
         string booksk = this_object()->query("skill_type");
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕýÔÚÃ¦¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ­£åœ¨å¿™ã€‚\n");
 
         if (me->is_fighting())
-                return notify_fail("Õ½¶·ÖÐÎÞ·¨ÑÐ¶ÁÐÂÖª¡£\n");
+                return notify_fail("æˆ˜æ–—ä¸­æ— æ³•ç ”è¯»æ–°çŸ¥ã€‚\n");
 
         if (arg && id(arg))
         {
                 if (me->query("combat_exp") < query("need_exp"))
-                        return notify_fail("Äã¾õµÃ²ÐÒ³ÉÏ¼ÇÔØµÄ¶«Î÷Ì«¹ýÉî°Â£¬Æ¾×Ô"
-                                           "¼ºµÄÎäÑ§ËÆºõÄÑÒÔ²ÎÏê¡£\n");
+                        return notify_fail("ä½ è§‰å¾—æ®‹é¡µä¸Šè®°è½½çš„ä¸œè¥¿å¤ªè¿‡æ·±å¥¥ï¼Œå‡­è‡ª"
+                                           "å·±çš„æ­¦å­¦ä¼¼ä¹Žéš¾ä»¥å‚è¯¦ã€‚\n");
 
                 if (me->query_skill(booksk, 1) < query("min_lvl"))
-                        return notify_fail("Äã¾õµÃ×Ô¼º¶ÔÕâÏî¼¼ÄÜµÄÁË½âÉÐ¹ýÇ³±¡£¬"
-                                           "Ò»Ê±ÎÞ·¨²ÎÏêÍ¸³¹¡£\n");
+                        return notify_fail("ä½ è§‰å¾—è‡ªå·±å¯¹è¿™é¡¹æŠ€èƒ½çš„äº†è§£å°šè¿‡æµ…è–„ï¼Œ"
+                                           "ä¸€æ—¶æ— æ³•å‚è¯¦é€å½»ã€‚\n");
 
                 if (me->query_skill(booksk, 1) >= query("max_lvl"))
-                        return notify_fail("Äã¾õµÃ²ÐÒ³ÉÏ¼ÇÔØµÄ¶«Î÷Ì«¹ýÇ³ÏÔ£¬ÎÞ·¨"
-                                           "´ÓÖÐ»ñµÃÈÎºÎ°ïÖú¡£\n");
+                        return notify_fail("ä½ è§‰å¾—æ®‹é¡µä¸Šè®°è½½çš„ä¸œè¥¿å¤ªè¿‡æµ…æ˜¾ï¼Œæ— æ³•"
+                                           "ä»Žä¸­èŽ·å¾—ä»»ä½•å¸®åŠ©ã€‚\n");
 
                 if (! me->can_improve_skill(booksk))
-                        return notify_fail("Äã²ÎÏêÁË°ëÌì£¬·¢¾õËÆºõÊÇÓÉÓÚ×ÔÉí¾­Ñé"
-                                           "²»×ãµÄÔµ¹Ê£¬ºÜ¶à¶«Î÷ÎÞ·¨Àí½â¡£\n");
+                        return notify_fail("ä½ å‚è¯¦äº†åŠå¤©ï¼Œå‘è§‰ä¼¼ä¹Žæ˜¯ç”±äºŽè‡ªèº«ç»éªŒ"
+                                           "ä¸è¶³çš„ç¼˜æ•…ï¼Œå¾ˆå¤šä¸œè¥¿æ— æ³•ç†è§£ã€‚\n");
 
-                message_vision(HIW "$N" HIW "¾Û¾«»áÉñµØÔÄ¶Á¡¸" NOR + na + HIW
-                               "¡¹ÉÏËù¼ÇÔØµÄ¶«Î÷£¬ËÆºõÓÐËùÊÕ»ñ¡£\n" NOR, me);
+                message_vision(HIW "$N" HIW "èšç²¾ä¼šç¥žåœ°é˜…è¯»ã€Œ" NOR + na + HIW
+                               "ã€ä¸Šæ‰€è®°è½½çš„ä¸œè¥¿ï¼Œä¼¼ä¹Žæœ‰æ‰€æ”¶èŽ·ã€‚\n" NOR, me);
 
                 if (me->can_improve_skill(booksk))
                         me->improve_skill(booksk, query("power_point"));
 
-                tell_object(me, HIY "ÄãÖ»¾õÒÔÇ°´æÔÚµÄÖî¶àÒÉÎÊ»íÈ»¿ªÀÊ£¬¶Ô¡¸" +
-                                query("skill_name") + "¡¹ÓÐÁËÐÂµÄ¸ÐÎò¡£\n" NOR);
+                tell_object(me, HIY "ä½ åªè§‰ä»¥å‰å­˜åœ¨çš„è¯¸å¤šç–‘é—®è±ç„¶å¼€æœ—ï¼Œå¯¹ã€Œ" +
+                                query("skill_name") + "ã€æœ‰äº†æ–°çš„æ„Ÿæ‚Ÿã€‚\n" NOR);
 
                 me->start_busy(random(20) + 20);
                 destruct(this_object());

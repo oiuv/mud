@@ -1,4 +1,4 @@
-// xiangliao.c ÏãÁÏ
+// xiangliao.c é¦™æ–™
 
 #include <ansi.h>
 
@@ -6,17 +6,17 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-    set_name("ÌØÖÆÏãÁÏ", ({"xiang liao", "xiangliao", "liao"}));
+    set_name("ç‰¹åˆ¶é¦™æ–™", ({"xiang liao", "xiangliao", "liao"}));
     if (clonep())
         set_default_object(__FILE__);
     else
     {
-        set("long", "ÕâÊÇÒ»¿éÌØÖÆµÄÏãÁÏ£¬µãÈ¼ºó¿ÉÒÔ·¢³öÅ¨ÓôµÄÏãÆø¡£\n");
-        set("base_unit", "¿é");
+        set("long", "è¿™æ˜¯ä¸€å—ç‰¹åˆ¶çš„é¦™æ–™ï¼Œç‚¹ç‡ƒåå¯ä»¥å‘å‡ºæµ“éƒçš„é¦™æ°”ã€‚\n");
+        set("base_unit", "å—");
         set("base_weight", 5);
         set("base_value", 1);
         set("no_sell", 1);
-        set("unit", "Ğ©");
+        set("unit", "äº›");
     }
 
     set_amount(1);

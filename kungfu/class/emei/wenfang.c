@@ -2,9 +2,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÎÄ·½Ð¡Ê¦Ì«", ({ "wen fang", "wen", "fang"}));
-        set("long", "ËýÊÇ¶ëáÒÅÉµÄµÚÎå´úµÜ×Ó¡£\n");
-        set("gender", "Å®ÐÔ");
+        set_name("æ–‡æ–¹å°å¸ˆå¤ª", ({ "wen fang", "wen", "fang"}));
+        set("long", "å¥¹æ˜¯å³¨åµ‹æ´¾çš„ç¬¬äº”ä»£å¼Ÿå­ã€‚\n");
+        set("gender", "å¥³æ€§");
         set("age", 15);
         set("attitude", "peaceful");
         set("class", "bonze");
@@ -31,7 +31,7 @@ void create()
         set_temp("apply/defense", 15);
         set_temp("apply/damage", 5);
 
-        create_family("¶ëáÒÅÉ", 5, "µÜ×Ó");
+        create_family("å³¨åµ‹æ´¾", 5, "å¼Ÿå­");
 
         setup();
         carry_object("/clone/weapon/changjian")->wield();

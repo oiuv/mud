@@ -1,4 +1,4 @@
-// daogu-cloth.c »¨¸ñµÀÅÛ
+// daogu-cloth.c èŠ±æ ¼é“è¢
 
 #include <armor.h>
 #include <ansi.h>
@@ -7,14 +7,14 @@ inherit CLOTH;
 
 void create()
 {
-	set_name(HIM"»¨¸ñµÀÅÛ"NOR, ({"pao", "cloth", "dao pao"}) );
+	set_name(HIM"èŠ±æ ¼é“è¢"NOR, ({"pao", "cloth", "dao pao"}) );
 	set_weight(3000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¼ş");
+		set("unit", "ä»¶");
 		set("value", 0);
-		set("long", "Ò»¼şÆÕÆÕÍ¨Í¨µÄ»¨¸ñµÀÅÛ¡£\n");
+		set("long", "ä¸€ä»¶æ™®æ™®é€šé€šçš„èŠ±æ ¼é“è¢ã€‚\n");
 		set("material", "cloth");
 		set("armor_prop/armor", 2);
 		set("female_only", 1);

@@ -4,10 +4,10 @@ inherit NPC;
 
 void create()
 {
-	set_name("¹¬Å®",({ "gong nu", "girl" }) );
-        set("gender", "Å®ĞÔ" );
+	set_name("å®«å¥³",({ "gong nu", "girl" }) );
+        set("gender", "å¥³æ€§" );
         set("age", 17);
-        set("long", "Ò»Î»´óÀí»Ê¹¬ÎÚÒÄ×å¹¬Å®£¬ÒÔËÖÔó·¢£¬ÅÌ³ÉÁ½»·£¬Ò»Éí¹¬×°£¬Ä¿ÎŞ±íÇé¡£\n");
+        set("long", "ä¸€ä½å¤§ç†çš‡å®«ä¹Œå¤·æ—å®«å¥³ï¼Œä»¥é…¥æ³½å‘ï¼Œç›˜æˆä¸¤ç¯ï¼Œä¸€èº«å®«è£…ï¼Œç›®æ— è¡¨æƒ…ã€‚\n");
  	set_temp("apply/defense", 5);
 	set("combat_exp", 7000);
 	set("shen_type", 1);

@@ -1,4 +1,4 @@
-// cynrobe.c ÇàÉ«µÀÅÛ
+// cynrobe.c é’è‰²é“è¢
 
 #include <armor.h>
 
@@ -6,13 +6,13 @@ inherit CLOTH;
 
 void create()
 {
-	set_name("ÇàÉ«µÀÅÛ", ({"pao", "cloth", "dao pao"}) );
+	set_name("é’è‰²é“è¢", ({"pao", "cloth", "dao pao"}) );
 	set_weight(3000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¼ş");
-		set("long", "Ò»¼şÆÕÆÕÍ¨Í¨µÄÇà²¼µÀÅÛ¡£\n");
+		set("unit", "ä»¶");
+		set("long", "ä¸€ä»¶æ™®æ™®é€šé€šçš„é’å¸ƒé“è¢ã€‚\n");
 		set("material", "cloth");
 		set("armor_prop/armor", 2);
 	}

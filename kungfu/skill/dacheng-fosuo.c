@@ -4,29 +4,29 @@
 inherit SHAOLIN_SKILL; 
  
 mapping *action = ({ 
-([     "action": HIG"$N½«$w"HIG"¶¶¶¯³ÉÔ²£¬Ò»Ê½¡¸Ô²×ªÈçÒâ¡¹£¬$w"HIG"ÒÑ½«$n$l²ø×¡"NOR, 
+([     "action": HIG"$Nå°†$w"HIG"æŠ–åŠ¨æˆåœ†ï¼Œä¸€å¼ã€Œåœ†è½¬å¦‚æ„ã€ï¼Œ$w"HIG"å·²å°†$n$lç¼ ä½"NOR, 
        "dodge": 50, 
        "damage": 100, 
        "force":  300, 
        "lvl" : 30, 
-       "skill_name" : "Ô²×ªÈçÒâ", 
-       "damage_type":  "À­ÉË" 
+       "skill_name" : "åœ†è½¬å¦‚æ„", 
+       "damage_type":  "æ‹‰ä¼¤" 
 ]), 
-([     "action": HIW"$NµÄ$w"HIW"ÔÚ$nÉíÅÔÁ¬Á¬½ø»÷£¬ºöÈ»Ò»ÕÐ¡¸·ð×ÔÎ÷À´¡¹´Ó$n$l´¦µ¹¾íÉÏÀ´"NOR, 
+([     "action": HIW"$Nçš„$w"HIW"åœ¨$nèº«æ—è¿žè¿žè¿›å‡»ï¼Œå¿½ç„¶ä¸€æ‹›ã€Œä½›è‡ªè¥¿æ¥ã€ä»Ž$n$lå¤„å€’å·ä¸Šæ¥"NOR, 
        "dodge": 50, 
        "damage": 150, 
        "force": 400, 
        "lvl" : 60, 
-       "skill_name" : "·ð×ÔÎ÷À´", 
-       "damage_type":  "À­ÉË" 
+       "skill_name" : "ä½›è‡ªè¥¿æ¥", 
+       "damage_type":  "æ‹‰ä¼¤" 
 ]), 
-([     "action": HIM"$NÔËÆðÉÙÁÖÕæÆø£¬$w"HIM"¶¸È»±ä³É±ÊÖ±£¬Ò»Ê½¡¸·ð×øÁ«»¨¡¹£¬Ïò$nÖ±´Ì¹ýÈ¥"NOR, 
+([     "action": HIM"$Nè¿èµ·å°‘æž—çœŸæ°”ï¼Œ$w"HIM"é™¡ç„¶å˜æˆç¬”ç›´ï¼Œä¸€å¼ã€Œä½›åèŽ²èŠ±ã€ï¼Œå‘$nç›´åˆºè¿‡åŽ»"NOR, 
        "dodge": 50, 
        "damage": 180, 
        "force": 450, 
        "lvl" : 90, 
-       "skill_name" : "·ð×øÁ«»¨", 
-       "damage_type":  "´ÌÉË" 
+       "skill_name" : "ä½›åèŽ²èŠ±", 
+       "damage_type":  "åˆºä¼¤" 
 ]), 
 }); 
  
@@ -36,14 +36,14 @@ int valid_learn(object me)
 { 
        object weapon; 
        if( (int)me->query("max_neili") < 1000 ) 
-               return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎª²»×ã£¬Ã»ÓÐ°ì·¨Á·´ó³Ë·ðË÷¡£\n"); 
+               return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œæ²¡æœ‰åŠžæ³•ç»ƒå¤§ä¹˜ä½›ç´¢ã€‚\n"); 
                         
        if ((int)me->query_skill("shaolin-xinfa", 1) < 80) 
-               return notify_fail("ÄãµÄÉÙÁÖÐÄ·¨»ðºòÌ«Ç³¡£\n"); 
+               return notify_fail("ä½ çš„å°‘æž—å¿ƒæ³•ç«å€™å¤ªæµ…ã€‚\n"); 
                         
        if ( !objectp(weapon = me->query_temp("weapon")) 
                || ( string)weapon->query("skill_type") != "whip" ) 
-               return notify_fail("Äã±ØÐëÏÈÕÒÒ»Ìõ±Þ×Ó²ÅÄÜÁ·±Þ·¨¡£\n"); 
+               return notify_fail("ä½ å¿…é¡»å…ˆæ‰¾ä¸€æ¡éž­å­æ‰èƒ½ç»ƒéž­æ³•ã€‚\n"); 
        return 1; 
 } 
  
@@ -67,9 +67,9 @@ mapping query_action(object me)
 int practice_skill(object me) 
 { 
        if ((int)me->query("qi") < 100) 
-                return notify_fail("ÄãµÄÌåÁ¦²»¹»Á·´ó³Ë·ðË÷¡£\n"); 
+                return notify_fail("ä½ çš„ä½“åŠ›ä¸å¤Ÿç»ƒå¤§ä¹˜ä½›ç´¢ã€‚\n"); 
        if ((int)me->query("neili") < 100 ) 
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»Á·´ó³Ë·ðË÷¡£\n"); 
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿç»ƒå¤§ä¹˜ä½›ç´¢ã€‚\n"); 
        //me->add("jingli", -20); 
        me->receive_damage("qi", 90);
        me->add("neili",-90); 

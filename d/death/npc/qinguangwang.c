@@ -4,14 +4,14 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÇØ¹ãÍõ", ({ "qin guangwang", "qin", "guangwang" }));
-        set("title", HIR "Ú¤¸®µØ²ØÍõµîÇ°" NOR);
-        set("nickname", WHT "»êÍõ" NOR);
+        set_name("ç§¦å¹¿ç‹", ({ "qin guangwang", "qin", "guangwang" }));
+        set("title", HIR "å†¥åºœåœ°è—ç‹æ®¿å‰" NOR);
+        set("nickname", WHT "é­‚ç‹" NOR);
         set("shen_type", 1);
 
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 475);
-        set("long", "ÇØ¹ãÍõÄËÊÇÒõ¼äÊ®ÍõÖ®Ò»¡£\n");
+        set("long", "ç§¦å¹¿ç‹ä¹ƒæ˜¯é˜´é—´åç‹ä¹‹ä¸€ã€‚\n");
 
         set("str", 50);
         set("int", 50);
@@ -54,7 +54,7 @@ void create()
         prepare_skill("claw", "jiuyin-shengong");
         prepare_skill("cuff", "jiuyin-shengong");
         
-        //applyÓÉ2000½µµÍÎª200 by Ğ½ÓĞËùÊô
+        //applyç”±2000é™ä½ä¸º200 by è–ªæœ‰æ‰€å±
         set_temp("apply/damage", 200);
         set_temp("apply/parry", 200);
         set_temp("apply/dodge", 200);
@@ -72,7 +72,7 @@ void create()
                 (: exert_function, "shield" :),
         }) );
         
-        create_family("ÒõË¾", 0, "×Ü¹Ü");
+        create_family("é˜´å¸", 0, "æ€»ç®¡");
 
         setup();
         carry_object(__DIR__"obj/cloth4")->wear();

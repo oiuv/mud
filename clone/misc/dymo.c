@@ -1,4 +1,4 @@
-// dymo.c µ¤ÓñÄ¥
+// dymo.c ä¸¹ç‰ç£¨
 
 #include <ansi.h>
 
@@ -6,15 +6,15 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIG "µ¤ÓñÄ¥" NOR, ({ "danyu mo", "mo" }));
+	set_name(HIG "ä¸¹ç‰ç£¨" NOR, ({ "danyu mo", "mo" }));
 	set_weight(1200);
 	set_max_encumbrance(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ö»");
-		set("long", "Ò»Ö»ÓÃÓñÄ¥³ÉµÄĞ¡Íë£¬ÆÄÎª³ÁÖØ£¬ÓÉÓÚÓñµÄÌØÊâÖÊµØ£¬ËùÒÔÓÃ
-À´Á¶Ò©¿ÉÒÔ»ñµÃ¸üºÃµÄĞ§¹û¡£\n");
+		set("unit", "åª");
+		set("long", "ä¸€åªç”¨ç‰ç£¨æˆçš„å°ç¢—ï¼Œé¢‡ä¸ºæ²‰é‡ï¼Œç”±äºç‰çš„ç‰¹æ®Šè´¨åœ°ï¼Œæ‰€ä»¥ç”¨
+æ¥ç‚¼è¯å¯ä»¥è·å¾—æ›´å¥½çš„æ•ˆæœã€‚\n");
 		set("value", 20000);
                 set("item_prop/medical", 100);
 	}

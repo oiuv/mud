@@ -4,13 +4,13 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÁºĞËÂ»", ({ "liang xinglu", "liang" }));
-	set("title", "³¤°²Öª¸®");
-	set("gender", "ÄĞĞÔ");
+	set_name("æ¢å…´ç¦„", ({ "liang xinglu", "liang" }));
+	set("title", "é•¿å®‰çŸ¥åºœ");
+	set("gender", "ç”·æ€§");
 	set("age", 43);
 	set("str", 20);
 	set("dex", 20);
-	set("long", "³¤°²³ÇÏÖÈÎÖª¸®¡£\n");
+	set("long", "é•¿å®‰åŸç°ä»»çŸ¥åºœã€‚\n");
 	set("combat_exp", 50000);
 	set("shen_type", 0);
 	set("attitude", "heroism");

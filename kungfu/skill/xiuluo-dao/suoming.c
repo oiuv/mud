@@ -1,4 +1,4 @@
-// suoming.c ĞŞÂŞË÷Ãü
+// suoming.c ä¿®ç½—ç´¢å‘½
 
 #include <ansi.h>
 #include <combat.h>
@@ -15,29 +15,29 @@ int perform(object me, object target)
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-	        return notify_fail("¡¸ĞŞÂŞË÷Ãü¡¹Ö»ÄÜÔÚÕ½¶·ÖĞ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+	        return notify_fail("ã€Œä¿®ç½—ç´¢å‘½ã€åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
               (string)weapon->query("skill_type") != "blade")
-		return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô¡£\n");
+		return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ã€‚\n");
 
 	if (me->query_skill("force") < 200)
-		return notify_fail("ÄãµÄÄÚ¹¦µÄĞŞÎª²»¹»£¬²»ÄÜÊ¹ÓÃÕâÒ»¾ø¼¼£¡\n");
+		return notify_fail("ä½ çš„å†…åŠŸçš„ä¿®ä¸ºä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨è¿™ä¸€ç»æŠ€ï¼\n");
 
 	if (me->query_skill("xiuluo-dao", 1) < 135)
-		return notify_fail("ÄãµÄĞŞÂŞµ¶·¨ĞŞÎª²»¹»£¬Ä¿Ç°²»ÄÜÊ¹ÓÃĞŞÂŞË÷Ãü£¡\n");
+		return notify_fail("ä½ çš„ä¿®ç½—åˆ€æ³•ä¿®ä¸ºä¸å¤Ÿï¼Œç›®å‰ä¸èƒ½ä½¿ç”¨ä¿®ç½—ç´¢å‘½ï¼\n");
 
 	if (me->query("neili") < 250)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¬²»ÄÜÊ¹ÓÃĞŞÂŞË÷Ãü£¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨ä¿®ç½—ç´¢å‘½ï¼\n");
 
         if (me->query_skill_mapped("blade") != "xiuluo-dao")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢ĞŞÂŞµ¶·¨£¬²»ÄÜÊ¹ÓÃĞŞÂŞË÷Ãü£¡\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ä¿®ç½—åˆ€æ³•ï¼Œä¸èƒ½ä½¿ç”¨ä¿®ç½—ç´¢å‘½ï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIC "$N" HIC "Á³ÉÏÉ±Æø´óÊ¢£¬Ò»ÕñÊÖÖĞµÄ" + weapon->name() +
-              HIC "£¬à§à§Êıµ¶½«$n" + HIC "ÍÅÍÅ¹ü×¡£¡\n" NOR;
+	msg = HIC "$N" HIC "è„¸ä¸Šæ€æ°”å¤§ç››ï¼Œä¸€æŒ¯æ‰‹ä¸­çš„" + weapon->name() +
+              HIC "ï¼Œå”°å”°æ•°åˆ€å°†$n" + HIC "å›¢å›¢è£¹ä½ï¼\n" NOR;
 
         ap = me->query_skill("blade");
         dp = target->query_skill("parry");
@@ -47,15 +47,15 @@ int perform(object me, object target)
                 damage = ap / 2 + random(ap / 2);
                 me->add("neili", -180);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 60,
-                                           HIR "¾ÍÌı¼û$p" HIR "²Ò½ĞÁ¬Á¬£¬Ò»ÕóÕóÑªÓê×Ô" HIR
-                                           "ÁÁ°×µÄµ¶¹âÖĞ½¦³ö£¡\n" NOR);
+                                           HIR "å°±å¬è§$p" HIR "æƒ¨å«è¿è¿ï¼Œä¸€é˜µé˜µè¡€é›¨è‡ª" HIR
+                                           "äº®ç™½çš„åˆ€å…‰ä¸­æº…å‡ºï¼\n" NOR);
                 me->start_busy(2);
         } else
         {
                 me->add("neili", -60);
                 me->start_busy(3);
-                msg += CYN "¿ÉÊÇ$p" CYN "ÑÛÃ÷ÊÖ¿ì£¬Ö»Ìı¶£¶£µ±µ±ÏìÆğÁËÒ»´®"
-                       CYN "µ¶Ãù£¬$p" CYN "½«$P" CYN "µÄÕĞÊ½È«²¿µ²¿ª£¡\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çœ¼æ˜æ‰‹å¿«ï¼Œåªå¬å®å®å½“å½“å“èµ·äº†ä¸€ä¸²"
+                       CYN "åˆ€é¸£ï¼Œ$p" CYN "å°†$P" CYN "çš„æ‹›å¼å…¨éƒ¨æŒ¡å¼€ï¼\n" NOR;
         }
 	message_combatd(msg, me, target);
 

@@ -6,9 +6,9 @@ inherit NPC;
 void create()                                                                   
 {
         NPC_D->generate_cn_name(this_object());
-        set("gender", "ÄĞĞÔ");
-        set("long", "ÕâÊÇÎ»Ø¤°ïÒ»´üµÜ×Ó£¬Éí×ÅÆÆÆÆÀÃÀÃ£¬ÂúÉíÓÍÄå¡£\n");
-        set("title", "Ø¤°ïÒ»´üµÜ×Ó");
+        set("gender", "ç”·æ€§");
+        set("long", "è¿™æ˜¯ä½ä¸å¸®ä¸€è¢‹å¼Ÿå­ï¼Œèº«ç€ç ´ç ´çƒ‚çƒ‚ï¼Œæ»¡èº«æ²¹è…»ã€‚\n");
+        set("title", "ä¸å¸®ä¸€è¢‹å¼Ÿå­");
         set("age", 18);
         set("attitude", "peaceful");
         set("class", "beggar");
@@ -44,7 +44,7 @@ void create()
         map_skill("unarmed", "changquan");
         map_skill("parry", "changquan");
 
-        create_family("Ø¤°ï", 20, "µÜ×Ó");
+        create_family("ä¸å¸®", 20, "å¼Ÿå­");
 
         set_temp("apply/damage", 10);
         set_temp("apply/unarmed_damage", 10);

@@ -2,9 +2,9 @@ inherit ROOM;
 
 void create()
 {
-      set("short", "¶şÌìÃÅ");
+      set("short", "äºŒå¤©é—¨");
       set("long", @LONG
-ÕâÀïÊÇ¡¸¶şÌìÃÅ¡¹£¬½ğ¹â²Ó²ÓµÄ½ğ¶¥¾ÍÔÚÑÛÇ°ÁË¡£
+è¿™é‡Œæ˜¯ã€ŒäºŒå¤©é—¨ã€ï¼Œé‡‘å…‰ç¿ç¿çš„é‡‘é¡¶å°±åœ¨çœ¼å‰äº†ã€‚
 LONG);
       set("exits", ([
           "northdown": __DIR__"toutiangate",

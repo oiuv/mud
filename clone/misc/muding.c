@@ -1,4 +1,4 @@
-// muding.c Ä¾¶¦
+// muding.c æœ¨é¼
 
 #include <ansi.h>
 
@@ -23,12 +23,12 @@ mapping insects = ([
 
 void create()
 {
-    set_name("Ä¾¶¦", ({"mu ding", "muding", "ding"}));
+    set_name("æœ¨é¼", ({"mu ding", "muding", "ding"}));
     set_weight(1000);
     set("long", @LONG
-Ò»Ö»Ä¾ÖÆµÄ¶¦£¬ÀïÃæÉ¢·¢³öÏãÁÏµÄÆøÎ¶£¬µ«ÊÇÏ¸Ï¸¸Ğ¾õÏÂÈ´ÓĞÒ»¹ÉĞÈÎ¶¡£
+ä¸€åªæœ¨åˆ¶çš„é¼ï¼Œé‡Œé¢æ•£å‘å‡ºé¦™æ–™çš„æ°”å‘³ï¼Œä½†æ˜¯ç»†ç»†æ„Ÿè§‰ä¸‹å´æœ‰ä¸€è‚¡è…¥å‘³ã€‚
 LONG);
-    set("unit", "Ö»");
+    set("unit", "åª");
     set("value", 2500);
     set("no_sell", 1);
     set_max_encumbrance(600);
@@ -53,23 +53,23 @@ int do_clear(string arg)
     int k;
 
     if (!id(arg))
-        return notify_fail("ÄãÒªÇå¿ÕÊ²Ã´£¿\n");
+        return notify_fail("ä½ è¦æ¸…ç©ºä»€ä¹ˆï¼Ÿ\n");
 
     me = this_player();
     ob = all_inventory(this_object());
     if (!ob)
-        return notify_fail("ÏÖÔÚ" + name() + "ÀïÃæÃ»ÓĞÈÎºÎ¶«Î÷¡£\n");
+        return notify_fail("ç°åœ¨" + name() + "é‡Œé¢æ²¡æœ‰ä»»ä½•ä¸œè¥¿ã€‚\n");
 
     if (query_temp("id") != me->query("id") &&
         query_temp("id") && environment() != me)
-        return notify_fail("ÈË¼ÒÕıÓÃµÄ" + name() + "£¬ÄãÏ¹¸ãÊ²Ã´£¿\n");
+        return notify_fail("äººå®¶æ­£ç”¨çš„" + name() + "ï¼Œä½ çæä»€ä¹ˆï¼Ÿ\n");
 
     if (query_temp("lighting"))
     {
         delete_temp("lighting");
         delete_temp("id");
         remove_call_out("catch_insect");
-        message_vision("$N°Ñ" + name() + "ÖĞµÄ»ğÏ¨µôÁË¡£\n", me);
+        message_vision("$NæŠŠ" + name() + "ä¸­çš„ç«ç†„æ‰äº†ã€‚\n", me);
     }
 
     k = 0;
@@ -78,13 +78,13 @@ int do_clear(string arg)
         if (!ob[i]->is_insect())
             continue;
 
-        message_vision("$N°Ñ" + name() + "ÀïÃæµÄ$nµ¹ÁË³öÀ´£¬ÈÓµôÁË¡£\n", me, ob[i]);
+        message_vision("$NæŠŠ" + name() + "é‡Œé¢çš„$nå€’äº†å‡ºæ¥ï¼Œæ‰”æ‰äº†ã€‚\n", me, ob[i]);
         k++;
         destruct(ob[i]);
     }
 
     if (!k)
-        message_vision("$N»ÎÁË»Î" + name() + "£¬Ã»É¶¶¾³æ¡£\n", me);
+        message_vision("$Næ™ƒäº†æ™ƒ" + name() + "ï¼Œæ²¡å•¥æ¯’è™«ã€‚\n", me);
 
     back_owner(me);
     return 1;
@@ -98,26 +98,26 @@ int do_light(string arg)
     me = this_player();
     if (query_temp("id") != me->query("id") &&
         query_temp("id") && environment() != me)
-        return notify_fail("ÈË¼ÒÕıÓÃµÄ" + name() + "£¬ÄãÏ¹¸ãÊ²Ã´£¿\n");
+        return notify_fail("äººå®¶æ­£ç”¨çš„" + name() + "ï¼Œä½ çæä»€ä¹ˆï¼Ÿ\n");
 
     if (environment(me)->query("no_fight"))
-        return notify_fail("ÕâÀïÄãÒ²ÏëÁ·¶¾£¬²»Ì«ºÃ°É¡£\n");
+        return notify_fail("è¿™é‡Œä½ ä¹Ÿæƒ³ç»ƒæ¯’ï¼Œä¸å¤ªå¥½å§ã€‚\n");
 
     if (query_temp("lighting"))
-        return notify_fail("ÏÖÔÚ" + name() + "ÖĞÕıÔÚÈ¼ÉÕÏãÁÏ¡£\n");
+        return notify_fail("ç°åœ¨" + name() + "ä¸­æ­£åœ¨ç‡ƒçƒ§é¦™æ–™ã€‚\n");
 
     if (me->is_busy())
-        return notify_fail("ÄãÏÖÔÚÕıÃ¦×ÅÄØ£¬µÈÒ»»á¶ù°É¡£\n");
+        return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ï¼Œç­‰ä¸€ä¼šå„¿å§ã€‚\n");
 
     if (me->is_fighting())
-        return notify_fail("´ò¼ÜµÄÊ±ºòÄã»¹ÓĞĞÄË¼ÅªÕâ¸ö£¿\n");
+        return notify_fail("æ‰“æ¶çš„æ—¶å€™ä½ è¿˜æœ‰å¿ƒæ€å¼„è¿™ä¸ªï¼Ÿ\n");
 
     if (!objectp(ob = present("xiang liao", me)) ||
         !ob->query_amount())
-        return notify_fail("ÏÖÔÚÄãÉíÉÏÃ»ÓĞÏãÁÏ£¬ÎŞ·¨Ê¹ÓÃ" + name() + "¡£\n");
+        return notify_fail("ç°åœ¨ä½ èº«ä¸Šæ²¡æœ‰é¦™æ–™ï¼Œæ— æ³•ä½¿ç”¨" + name() + "ã€‚\n");
 
     ob->add_amount(-1);
-    message_vision(HIM "\n$N" HIM "°Ñ" + name() + HIM "°ÚÔÚµØÉÏ£¬·ÅÈëÏãÁÏ£¬µãÈ¼ºó·¢³öÂÆÂÆÏãÆø¡£\n\n" NOR, me);
+    message_vision(HIM "\n$N" HIM "æŠŠ" + name() + HIM "æ‘†åœ¨åœ°ä¸Šï¼Œæ”¾å…¥é¦™æ–™ï¼Œç‚¹ç‡ƒåå‘å‡ºç¼•ç¼•é¦™æ°”ã€‚\n\n" NOR, me);
     set_temp("lighting", 1);
     set_temp("id", me->query("id"));
 
@@ -125,7 +125,7 @@ int do_light(string arg)
     {
         this_object()->move(environment(me));
         set_temp("owerid", me->query("id"));
-        set("no_get", name() + "ÀïÃæÕıÉÕ×ÅÏãÁÏÄØ£¬±ğÂÒ¶¯£¡\n");
+        set("no_get", name() + "é‡Œé¢æ­£çƒ§ç€é¦™æ–™å‘¢ï¼Œåˆ«ä¹±åŠ¨ï¼\n");
     }
 
     remove_call_out("catch_insect");
@@ -161,14 +161,14 @@ void catch_insect(object me)
     env = environment(this_object());
     if (!objectp(me) || environment(me) != env || !living(me))
     {
-        message_vision("ÏãÆø½¥½¥µÄÉ¢È¥ÁË¡£\n", this_object());
+        message_vision("é¦™æ°”æ¸æ¸çš„æ•£å»äº†ã€‚\n", this_object());
         return;
     }
 
     if (!env->query("outdoors") || env->query("no_insect"))
     {
-        message_vision("ÏãÆø½¥½¥É¢È¥ÁË£¬É¶Ò²Ã»×¥µ½£¬¿´À´$NÊÇ°×Ã¦»îÁË¡£\n"
-                       "$NÌ¾¿ÚÆø£¬ÊÕ»ØÁË" + name() + "¡£\n", me);
+        message_vision("é¦™æ°”æ¸æ¸æ•£å»äº†ï¼Œå•¥ä¹Ÿæ²¡æŠ“åˆ°ï¼Œçœ‹æ¥$Næ˜¯ç™½å¿™æ´»äº†ã€‚\n"
+                       "$Nå¹å£æ°”ï¼Œæ”¶å›äº†" + name() + "ã€‚\n", me);
         back_owner(me);
         return;
     }
@@ -183,7 +183,7 @@ void catch_insect(object me)
     {
         if (!intp(rs[st[i]]))
             rs[st[i]] = 0;
-        //ÓµÓĞÉñÄ¾Íõ¶¦
+        //æ‹¥æœ‰ç¥æœ¨ç‹é¼
         if (st[i] == "bingcan")
         {
             if (query_temp("owerid") == me->query("id"))
@@ -209,46 +209,46 @@ void catch_insect(object me)
             here = environment(me);
             if (st[i] == "bingcan")
             {
-                //±ØĞëÔÚÀ¥ÂØÓÄ¾³²ÅÄÜ»ñµÃ±ù²Ï
+                //å¿…é¡»åœ¨æ˜†ä»‘å¹½å¢ƒæ‰èƒ½è·å¾—å†°èš•
                 if (!here || (string)file_name(here) != "/d/mingjiao/youjing")
                 {
                     continue;
                 }
-                //ÓĞluckyµÄÌì¸³»ñµÃÂÊÌá¸ß
+                //æœ‰luckyçš„å¤©èµ‹è·å¾—ç‡æé«˜
                 //if (me->query("special_skill/lucky") != 1 && random(10) != 0)
                 if (me->query("special_skill/lucky") != 1 && random(10) < 5)
                 {
                     continue;
                 }
             }
-            message_vision(HIG "ÏãÆøÔ½À´Ô½Ï¡±¡£¬Í»È»Ò»" + insect->query("unit") + insect->name() +
-                           HIG "ÅÀ½øÁË" + name() + HIG "¡£\n" NOR, me);
+            message_vision(HIG "é¦™æ°”è¶Šæ¥è¶Šç¨€è–„ï¼Œçªç„¶ä¸€" + insect->query("unit") + insect->name() +
+                           HIG "çˆ¬è¿›äº†" + name() + HIG "ã€‚\n" NOR, me);
             if (!insect->move(this_object()))
             {
-                message_vision("¿ÉÏ§" + name() + "Ê£ÏÂµÄ¿Õ¼äÌ«Ğ¡ÁË£¬" + insect->name() +
-                               "Ã»ÄÜ×ê½øÈ¥£¬×ßµôÁË¡£\n", me);
+                message_vision("å¯æƒœ" + name() + "å‰©ä¸‹çš„ç©ºé—´å¤ªå°äº†ï¼Œ" + insect->name() +
+                               "æ²¡èƒ½é’»è¿›å»ï¼Œèµ°æ‰äº†ã€‚\n", me);
                 destruct(insect);
-                message_vision("$NÌ¾¿ÚÆø£¬ÊÕ»ØÁË" + name() + "¡£\n", me);
+                message_vision("$Nå¹å£æ°”ï¼Œæ”¶å›äº†" + name() + "ã€‚\n", me);
                 back_owner(me);
                 return;
             }
             else if (me->is_fighting() || me->is_busy())
             {
-                message_vision("¿ÉÊÇ$NÕıÃ¦×Å£¬Ö»ºÃÑÛÕöÕöµÄ¿´×Å" + insect->name() + "ÓÖ×ßµôÁË¡£\n", me);
+                message_vision("å¯æ˜¯$Næ­£å¿™ç€ï¼Œåªå¥½çœ¼çççš„çœ‹ç€" + insect->name() + "åˆèµ°æ‰äº†ã€‚\n", me);
                 destruct(insect);
                 return;
             }
             insect->unconcious();
             back_owner(me);
-            message_vision("$N´óÏ²£¬Á¬Ã¦ÊÕÆğ" + name() + "¡£\n", me);
+            message_vision("$Nå¤§å–œï¼Œè¿å¿™æ”¶èµ·" + name() + "ã€‚\n", me);
             me->start_busy(1);
             return;
         }
         sum -= rs[st[i]];
     }
 
-    message_vision("ÏãÆø½¥½¥É¢È¥ÁË£¬É¶Ò²Ã»×¥µ½£¬¿´À´ÊÇ°×Ã¦»îÁË¡£\n"
-                   "$NÌ¾¿ÚÆø£¬ÊÕ»ØÁË" + name() + "¡£\n", me);
+    message_vision("é¦™æ°”æ¸æ¸æ•£å»äº†ï¼Œå•¥ä¹Ÿæ²¡æŠ“åˆ°ï¼Œçœ‹æ¥æ˜¯ç™½å¿™æ´»äº†ã€‚\n"
+                   "$Nå¹å£æ°”ï¼Œæ”¶å›äº†" + name() + "ã€‚\n", me);
     back_owner(me);
 }
 
@@ -263,18 +263,18 @@ int do_liandu(string arg)
     me = this_player();
 
     if (me->query_skill("poison", 1) < 50)
-        return notify_fail("ÄãµÄ»ù±¾¶¾¼¼»ğºò²»¹»£¬²»ÄÜÁ·¶¾¡£\n");
+        return notify_fail("ä½ çš„åŸºæœ¬æ¯’æŠ€ç«å€™ä¸å¤Ÿï¼Œä¸èƒ½ç»ƒæ¯’ã€‚\n");
 
     ob = all_inventory(this_object());
     if (!ob)
-        return notify_fail("ÏÖÔÚ" + name() + "ÀïÃæÃ»ÓĞÈÎºÎ¶«Î÷¡£\n");
+        return notify_fail("ç°åœ¨" + name() + "é‡Œé¢æ²¡æœ‰ä»»ä½•ä¸œè¥¿ã€‚\n");
 
     if (query_temp("id") != me->query("id") &&
         query_temp("id") && environment() != me)
-        return notify_fail("ÈË¼ÒÕıÓÃµÄ" + name() + "£¬ÄãÏ¹¸ãÊ²Ã´£¿\n");
+        return notify_fail("äººå®¶æ­£ç”¨çš„" + name() + "ï¼Œä½ çæä»€ä¹ˆï¼Ÿ\n");
 
     if (query_temp("lighting"))
-        return notify_fail("ÏÖÔÚ" + name() + "ÀïÃæÕıÈ¼×ÅÏãÁÏÄØ¡£\n");
+        return notify_fail("ç°åœ¨" + name() + "é‡Œé¢æ­£ç‡ƒç€é¦™æ–™å‘¢ã€‚\n");
 
     for (amount = 0, i = 0; i < sizeof(ob); i++)
     {
@@ -284,9 +284,9 @@ int do_liandu(string arg)
     }
 
     if (!amount)
-        return notify_fail(name() + "ÓÖÃ»É¶¶¾³æ£¬ÄãÁ·Ê²Ã´¶¾£¿\n");
+        return notify_fail(name() + "åˆæ²¡å•¥æ¯’è™«ï¼Œä½ ç»ƒä»€ä¹ˆæ¯’ï¼Ÿ\n");
 
-    message_vision(HIG "$N" HIG "ÅÌÍÈ×øÏÂ£¬½«ÊÖÉìÈë" + name() + HIG "£¬Ú¤ÉñÁ·¹¦¡£\n\n" NOR, me);
+    message_vision(HIG "$N" HIG "ç›˜è…¿åä¸‹ï¼Œå°†æ‰‹ä¼¸å…¥" + name() + HIG "ï¼Œå†¥ç¥ç»ƒåŠŸã€‚\n\n" NOR, me);
 
     amount = 0;
     for (i = 0; i < sizeof(ob); i++)
@@ -302,7 +302,7 @@ int do_liandu(string arg)
             return 1;
 
         default:
-            message_vision(HIM "$n" HIM "ÂıÂı»¯×÷½¬Ë®£¬ÉøÈëµ½$N" HIM "ÊÖĞÄ¡£\n" NOR, me, ob[i]);
+            message_vision(HIM "$n" HIM "æ…¢æ…¢åŒ–ä½œæµ†æ°´ï¼Œæ¸—å…¥åˆ°$N" HIM "æ‰‹å¿ƒã€‚\n" NOR, me, ob[i]);
             break;
         }
 
@@ -314,11 +314,11 @@ int do_liandu(string arg)
     if (!me->is_busy())
         me->start_busy(random(3));
 
-    message_vision("\n$NÁ·¹¦Íê±Ï£¬Õö¿ªÑÛ¾¦£¬Õ¾ÁËÆğÀ´¡£\n", me);
+    message_vision("\n$Nç»ƒåŠŸå®Œæ¯•ï¼Œçå¼€çœ¼ç›ï¼Œç«™äº†èµ·æ¥ã€‚\n", me);
     amount /= 4;
     if (amount < 5)
     {
-        tell_object(me, "Äã¾õµÃÃ»ÓĞÈÎºÎĞ§¹û¡£\n");
+        tell_object(me, "ä½ è§‰å¾—æ²¡æœ‰ä»»ä½•æ•ˆæœã€‚\n");
         return 1;
     }
 
@@ -327,19 +327,19 @@ int do_liandu(string arg)
     else
         add = 0;
 
-    if (me->query("family/family_name") == "ĞÇËŞÅÉ")
+    if (me->query("family/family_name") == "æ˜Ÿå®¿æ´¾")
     {
         if (me->can_improve_skill("poison"))
             me->improve_skill("poison", 1 + random(amount / 3) + add);
         if (me->can_improve_skill("huagong-dafa"))
             me->improve_skill("huagong-dafa", 1 + random(amount / 2) + add);
-        tell_object(me, HIG "Äã¾õµÃÄãµÄ¡¸»¯¹¦´ó·¨¡¹ºÍ¡¸»ù±¾¶¾¼¼¡¹ÓÖÓĞÁËĞÂµÄ½ø²½¡£\n" NOR);
+        tell_object(me, HIG "ä½ è§‰å¾—ä½ çš„ã€ŒåŒ–åŠŸå¤§æ³•ã€å’Œã€ŒåŸºæœ¬æ¯’æŠ€ã€åˆæœ‰äº†æ–°çš„è¿›æ­¥ã€‚\n" NOR);
     }
     else
     {
         if (me->can_improve_skill("poison"))
             me->improve_skill("poison", 1 + random(amount / 4) + add);
-        tell_object(me, HIG "Äã¶Ô»ù±¾¶¾¼¼µÄÀí½âÓÖÓĞÁËĞÂµÄ½ø²½¡£\n" NOR);
+        tell_object(me, HIG "ä½ å¯¹åŸºæœ¬æ¯’æŠ€çš„ç†è§£åˆæœ‰äº†æ–°çš„è¿›æ­¥ã€‚\n" NOR);
     }
 
     return 1;
@@ -356,32 +356,32 @@ int do_make(string arg)
     int amount;
 
     if (!arg)
-        return notify_fail("ÄãÏëÀûÓÃ" + name() + "ÖÆ×÷Ê²Ã´£¿¼ĞĞÄ±ı¸É£¿\n");
+        return notify_fail("ä½ æƒ³åˆ©ç”¨" + name() + "åˆ¶ä½œä»€ä¹ˆï¼Ÿå¤¹å¿ƒé¥¼å¹²ï¼Ÿ\n");
 
     if (arg != "poison" && arg != "du")
-        return notify_fail("Ê¹ÓÃ" + name() + "ÎŞ·¨ÖÆ×÷ÕâÖÖ¶«Î÷¡£\n");
+        return notify_fail("ä½¿ç”¨" + name() + "æ— æ³•åˆ¶ä½œè¿™ç§ä¸œè¥¿ã€‚\n");
 
     me = this_player();
 
     if (me->is_busy())
-        return notify_fail("ÄãÏÖÔÚÃ¦×ÅÄØ¡£\n");
+        return notify_fail("ä½ ç°åœ¨å¿™ç€å‘¢ã€‚\n");
 
     if (me->query_skill("poison", 1) < 50)
-        return notify_fail("ÄãµÄ»ù±¾¶¾¼¼»ğºò²»¹»£¬²»ÄÜÖÆ¶¾¡£\n");
+        return notify_fail("ä½ çš„åŸºæœ¬æ¯’æŠ€ç«å€™ä¸å¤Ÿï¼Œä¸èƒ½åˆ¶æ¯’ã€‚\n");
 
     if (me->query_skill("huagong-dafa", 1) < 80)
-        return notify_fail("ÄãµÄ»¯¹¦´ó·¨»ğºò²»¹»£¬²»ÄÜÖÆ¶¾¡£\n");
+        return notify_fail("ä½ çš„åŒ–åŠŸå¤§æ³•ç«å€™ä¸å¤Ÿï¼Œä¸èƒ½åˆ¶æ¯’ã€‚\n");
 
     ob = all_inventory(this_object());
     if (!ob)
-        return notify_fail("ÏÖÔÚ" + name() + "ÀïÃæÃ»ÓĞÈÎºÎ¶«Î÷¡£\n");
+        return notify_fail("ç°åœ¨" + name() + "é‡Œé¢æ²¡æœ‰ä»»ä½•ä¸œè¥¿ã€‚\n");
 
     if (query_temp("id") != me->query("id") &&
         query_temp("id") && environment() != me)
-        return notify_fail("ÈË¼ÒÕıÓÃµÄ" + name() + "£¬ÄãÏ¹¸ãÊ²Ã´£¿\n");
+        return notify_fail("äººå®¶æ­£ç”¨çš„" + name() + "ï¼Œä½ çæä»€ä¹ˆï¼Ÿ\n");
 
     if (query_temp("lighting"))
-        return notify_fail("ÏÖÔÚ" + name() + "ÀïÃæÕıÈ¼×ÅÏãÁÏÄØ¡£\n");
+        return notify_fail("ç°åœ¨" + name() + "é‡Œé¢æ­£ç‡ƒç€é¦™æ–™å‘¢ã€‚\n");
 
     for (amount = 0, i = 0; i < sizeof(ob); i++)
     {
@@ -391,23 +391,23 @@ int do_make(string arg)
     }
 
     if (!amount)
-        return notify_fail(name() + "ÓÖÃ»É¶¶¾³æ£¬ÄãÔõÃ´ÖÆ¶¾£¿\n");
+        return notify_fail(name() + "åˆæ²¡å•¥æ¯’è™«ï¼Œä½ æ€ä¹ˆåˆ¶æ¯’ï¼Ÿ\n");
 
-    message_vision(HIG "$N" HIG "Ë«ÊÖÎ§×¡" + name() + HIG "£¬ÔËÆğÄÚ¹¦¿ªÊ¼ÖÆ¶¾¡£\n\n" NOR, me);
+    message_vision(HIG "$N" HIG "åŒæ‰‹å›´ä½" + name() + HIG "ï¼Œè¿èµ·å†…åŠŸå¼€å§‹åˆ¶æ¯’ã€‚\n\n" NOR, me);
 
     amount = 0;
     for (i = 0; i < sizeof(ob); i++)
     {
         if (!ob[i]->is_insect())
             continue;
-        message_vision(HIM "$n" HIM "ÂıÂı»¯×÷½¬Ë®...\n" NOR, me, ob[i]);
+        message_vision(HIM "$n" HIM "æ…¢æ…¢åŒ–ä½œæµ†æ°´...\n" NOR, me, ob[i]);
         amount += (int)ob[i]->query("insect_poison/level") *
                   (int)ob[i]->query("insect_poison/maximum");
         destruct(ob[i]);
     }
 
     me->start_busy(random(3));
-    message_vision("\n$NÔË¹¦Íê±Ï£¬ËÉ¿ªÁËÊÖ\n", me);
+    message_vision("\n$Nè¿åŠŸå®Œæ¯•ï¼Œæ¾å¼€äº†æ‰‹\n", me);
 
     // calculate poison level & duratiin
     du = new ("/clone/misc/duwan");
@@ -418,20 +418,20 @@ int do_make(string arg)
     amount = (amount + plvl / 2) / plvl;
     if (amount < 5)
     {
-        tell_object(me, "Äã·¢ÏÖÊ²Ã´¶¼Ã»ÓĞÅª³öÀ´£¬¿´À´Õâ´ÎÊÇÊ§°ÜÁË¡£\n");
+        tell_object(me, "ä½ å‘ç°ä»€ä¹ˆéƒ½æ²¡æœ‰å¼„å‡ºæ¥ï¼Œçœ‹æ¥è¿™æ¬¡æ˜¯å¤±è´¥äº†ã€‚\n");
         return 1;
     }
 
     if (plvl > flvl * 13 / 10)
         plvl = flvl * 13 / 10;
 
-    du->set("poison/name", "¾ç¶¾");
+    du->set("poison/name", "å‰§æ¯’");
     du->set("poison/level", plvl);
     du->set("poison/id", me->query("id"));
     du->set("poison/duration", amount);
     du->move(this_object());
 
-    tell_object(me, "Äã½Ò¿ª" + name() + "£¬Ò»Á£°µºìÉ«µÄ¶¾ÍèºÕÈ»ÆäÖĞ£¬Äã¸ÏÃ¦½«ÆäÈ¡³ö¡£\n");
+    tell_object(me, "ä½ æ­å¼€" + name() + "ï¼Œä¸€ç²’æš—çº¢è‰²çš„æ¯’ä¸¸èµ«ç„¶å…¶ä¸­ï¼Œä½ èµ¶å¿™å°†å…¶å–å‡ºã€‚\n");
 
     return 1;
 }

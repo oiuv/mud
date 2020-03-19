@@ -4,16 +4,16 @@ inherit ITEM;
 
 void create()
 {
-        set_name("Ê¯¾Ê", ({ "mortar" }) );
+        set_name("çŸ³è‡¼", ({ "mortar" }) );
         set_weight(500);
         set_max_encumbrance(8000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ö»");
+                set("unit", "åª");
                 set("no_shown",1);
                 set("no_get",1);
-                set("long", "ÕâÊÇÒ»ÓÃÀ´Á¶Ò©ÓÃµÄÊ¯¾Ê¡£\n");
+                set("long", "è¿™æ˜¯ä¸€ç”¨æ¥ç‚¼è¯ç”¨çš„çŸ³è‡¼ã€‚\n");
                 set("value", 1);
         }
 }

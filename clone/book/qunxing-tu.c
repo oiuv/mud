@@ -3,14 +3,14 @@ inherit BOOK;
 
 void create()
 {
-        set_name("ÈºĞÇè­è²Í¼", ({ "qunxing tu" ,"tu" ,"book"}));
+        set_name("ç¾¤æ˜Ÿç’€ç’¨å›¾", ({ "qunxing tu" ,"tu" ,"book"}));
         set_weight(600);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±¾");
-                set("long", "ÕâÊÇÒ»±¾ÃèĞ´×ÅÌìÉÏÈºĞÇÔË¶¯µÄÊé¡£\n"
-                        "µ«ËÆºõ²¢Ã»ÓĞÄÇÃ´¼òµ¥¡£\n");
+                set("unit", "æœ¬");
+                set("long", "è¿™æ˜¯ä¸€æœ¬æå†™ç€å¤©ä¸Šç¾¤æ˜Ÿè¿åŠ¨çš„ä¹¦ã€‚\n"
+                        "ä½†ä¼¼ä¹å¹¶æ²¡æœ‰é‚£ä¹ˆç®€å•ã€‚\n");
                 set("value", 1000);
                 set("material", "paper");
                 set("skill", ([

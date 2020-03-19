@@ -1,4 +1,4 @@
-// lamaism.c 密宗心法
+// lamaism.c 瀵嗗畻蹇冩硶
 
 inherit SKILL;
 
@@ -13,6 +13,6 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-    return notify_fail("密宗心法只能靠学(learn)来提高。\n");
+    return notify_fail("瀵嗗畻蹇冩硶鍙兘闈犲(learn)鏉ユ彁楂樸�俓n");
 }
 

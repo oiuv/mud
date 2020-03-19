@@ -6,22 +6,22 @@ inherit THROWING;
 
 void create()
 {
-        set_name(HIG"±ÌÁ×Õë"NOR, ({ "bilin zhen", "zhen" }) );
+        set_name(HIG"ç¢§ç£·é’ˆ"NOR, ({ "bilin zhen", "zhen" }) );
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ğ©");
+                set("unit", "äº›");
                 set("value", 0);
-                set("base_unit", "Ã¶");
+                set("base_unit", "æš");
                 set("base_weight", 300);
                 set("base_value", 0);
                 set("material", "iron");
-                set("long", HIG "±ÌÁ×ÕëÊÇĞÇËŞÅÉÊ¹ÓÃµÄ£¬°µÆ÷£¬³£³£"
-			    "´ã¶¾¡£Õë³¤´çĞí£¬·¢³ö¹îÒìµÄ¹â¡£\n" NOR);
-                set("wield_msg", HIC "$NÑ¸ËÙµØ´ÓÉíÉÏÃş³öÒ»Ğ©±ÌÁ×Õë£¬Äó"
-		                 "ÔÚÊÖÖĞ¾Í´ı·¢³ö£¡\n" NOR);
-                set("unwield_msg", HIC "$N½«ÊÖÀïÊ£ÏÂµÄ±ÌÁ×ÕëÒ»¶¶¾Í²»¼ûÁË"
-                                   "¡£\n"NOR);
+                set("long", HIG "ç¢§ç£·é’ˆæ˜¯æ˜Ÿå®¿æ´¾ä½¿ç”¨çš„ï¼Œæš—å™¨ï¼Œå¸¸å¸¸"
+			    "æ·¬æ¯’ã€‚é’ˆé•¿å¯¸è®¸ï¼Œå‘å‡ºè¯¡å¼‚çš„å…‰ã€‚\n" NOR);
+                set("wield_msg", HIC "$Nè¿…é€Ÿåœ°ä»èº«ä¸Šæ‘¸å‡ºä¸€äº›ç¢§ç£·é’ˆï¼Œæ"
+		                 "åœ¨æ‰‹ä¸­å°±å¾…å‘å‡ºï¼\n" NOR);
+                set("unwield_msg", HIC "$Nå°†æ‰‹é‡Œå‰©ä¸‹çš„ç¢§ç£·é’ˆä¸€æŠ–å°±ä¸è§äº†"
+                                   "ã€‚\n"NOR);
         }
         set_amount(50);
         init_throwing(50);

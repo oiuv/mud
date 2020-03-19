@@ -14,7 +14,7 @@ int main(object me, string arg)
                 return "/cmds/usr/summon"->main(me, arg);;
 
 	if (! arg)
-                return notify_fail("Ö¸Áî¸ñÊ½: Summon <player id> | <object>\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼: Summon <player id> | <object>\n");
 
 	str = arg;
 	ob = find_player(str);
@@ -32,13 +32,13 @@ int main(object me, string arg)
 		return "/cmds/usr/summon"->main(me, arg);
 
         if (wiz_level(ob) > wiz_level(me))
-                return notify_fail("ÕÒÌß°¡¡£\n");
+                return notify_fail("æ‰¾è¸¢å•Šã€‚\n");
 
         if (environment(ob) == environment(me))
-                return notify_fail("ß×... ²»¾ÍÔÚÄãÃæÇ°Âğ£¿\n");
+                return notify_fail("å’¦... ä¸å°±åœ¨ä½ é¢å‰å—ï¼Ÿ\n");
 
         if (environment(ob) == me)
-                return notify_fail("ß×... ²»¾ÍÔÚÄãÉíÉÏÂğ£¿\n");
+                return notify_fail("å’¦... ä¸å°±åœ¨ä½ èº«ä¸Šå—ï¼Ÿ\n");
 
         if (! me->is_admin())
         {
@@ -49,28 +49,28 @@ int main(object me, string arg)
 
                 case "noneuser":
                         if (playerp(ob))
-                                return notify_fail("Äã²»ÄÜ¶ÔÍæ¼ÒÊ©Õ¹·¨Á¦¡£\n");
+                                return notify_fail("ä½ ä¸èƒ½å¯¹ç©å®¶æ–½å±•æ³•åŠ›ã€‚\n");
                         break;
 
                 case "user":
                         if (! playerp(ob))
-                                return notify_fail("ÄãÖ»ÄÜ¶ÔÍæ¼ÒÊ©Õ¹·¨Á¦¡£\n");
+                                return notify_fail("ä½ åªèƒ½å¯¹ç©å®¶æ–½å±•æ³•åŠ›ã€‚\n");
                         break;
 
                 default:
-                        return notify_fail("Äã²»ÄÜÊ¹ÓÃ¸ÃÃüÁî¡£\n");
+                        return notify_fail("ä½ ä¸èƒ½ä½¿ç”¨è¯¥å‘½ä»¤ã€‚\n");
                 }
         }
 
 	// moving
-	tell_room(environment(ob), HIM "Ìì¿ÕÖĞÉì³öÒ»Ö»´óÊÖ°Ñ"+
-	          (string)ob->query("name") + HIM "×¥ÁËÆğÀ´, È»áá²»¼ûÁË¡£\n" NOR, ob);
-	tell_object(ob,"Ò»Ö»ÊÖ°ÑÄã×¥ÁËÆğÀ´, ÄãÑÛÇ°Ò»ÕóºÚ....\n");
-        tell_object(me, HIM "Äã°Ñ" + ob->name() + HIM "×¥µ½ÄãµÄÃæÇ°¡£\n" NOR);
-	tell_object(ob, HIM ".... ĞÑÀ´Ê±·¢ÏÖÊÇ" + me->name() + HIM
-	            "°ÑÄãÅª¹ıÀ´µÄ¡£\n" NOR);
-	tell_room(environment(me), HIM + ob->name() + HIM "Í»È»³öÏÖ" +
-	          "ÔÚÄãÑÛÇ°¡£\n" NOR, ({ me, ob }));
+	tell_room(environment(ob), HIM "å¤©ç©ºä¸­ä¼¸å‡ºä¸€åªå¤§æ‰‹æŠŠ"+
+	          (string)ob->query("name") + HIM "æŠ“äº†èµ·æ¥, ç„¶å¾Œä¸è§äº†ã€‚\n" NOR, ob);
+	tell_object(ob,"ä¸€åªæ‰‹æŠŠä½ æŠ“äº†èµ·æ¥, ä½ çœ¼å‰ä¸€é˜µé»‘....\n");
+        tell_object(me, HIM "ä½ æŠŠ" + ob->name() + HIM "æŠ“åˆ°ä½ çš„é¢å‰ã€‚\n" NOR);
+	tell_object(ob, HIM ".... é†’æ¥æ—¶å‘ç°æ˜¯" + me->name() + HIM
+	            "æŠŠä½ å¼„è¿‡æ¥çš„ã€‚\n" NOR);
+	tell_room(environment(me), HIM + ob->name() + HIM "çªç„¶å‡ºç°" +
+	          "åœ¨ä½ çœ¼å‰ã€‚\n" NOR, ({ me, ob }));
 
 	ob->move(environment(me));
 
@@ -81,11 +81,11 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : summon <Ä³ÈË> | <ÎïÆ·>
+æŒ‡ä»¤æ ¼å¼ : summon <æŸäºº> | <ç‰©å“>
 
-´ËÖ¸Áî¿ÉÈÃÄã(Äã)½«Ä³ÈË»òÎïÆ·×¥µ½ÄãÃæÇ°¡£
+æ­¤æŒ‡ä»¤å¯è®©ä½ (ä½ )å°†æŸäººæˆ–ç‰©å“æŠ“åˆ°ä½ é¢å‰ã€‚
 
-¸ÃÃüÁîÔÚ¿ÉÒÔ±»ÊÚÈ¨Ê¹ÓÃµÄĞÅÏ¢°üÀ¨£ºnoneuser, user¡¢all¡£
+è¯¥å‘½ä»¤åœ¨å¯ä»¥è¢«æˆæƒä½¿ç”¨çš„ä¿¡æ¯åŒ…æ‹¬ï¼šnoneuser, userã€allã€‚
 HELP );
         return 1;
 }

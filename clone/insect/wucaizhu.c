@@ -1,4 +1,4 @@
-// wucaizhu.c Îå²ÊÖë
+// wucaizhu.c äº”å½©è››
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit POISON_INSECT;
 
 void create()
 {
-	set_name(HIR "Îå" HIG "²Ê" HIW "Öë", ({ "wucai zhu" }) );
+	set_name(HIR "äº”" HIG "å½©" HIW "è››", ({ "wucai zhu" }) );
         set_weight(90);
-	set("race", "Ò°ÊŞ");
+	set("race", "é‡å…½");
 	set("age", 5);
-	set("long", "Ò»Ö»¾Ş´óµÄ£¬ÎåÑÕÁùÉ«µÄ´óÖ©Öë¡£\n");
+	set("long", "ä¸€åªå·¨å¤§çš„ï¼Œäº”é¢œå…­è‰²çš„å¤§èœ˜è››ã€‚\n");
 	set("attitude", "peaceful");
 	set("str", 18);
 	set("con", 25);
-        set("unit", "Ö»");
-	set("limbs", ({ "Í·²¿", "ÉíÌå", "½Å" }) );
+        set("unit", "åª");
+	set("limbs", ({ "å¤´éƒ¨", "èº«ä½“", "è„š" }) );
 	set("verbs", ({ "bite" }) );
 
         set("insect_poison", ([

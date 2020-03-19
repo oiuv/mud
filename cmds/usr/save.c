@@ -10,23 +10,23 @@ int main(object me, string arg)
 	seteuid(getuid());
 
 	if( !objectp(link_ob = me->query_temp("link_ob")) )
-		return notify_fail("Äã²»ÊÇ¾­ÓÉÕı³£Á¬Ïß½øÈë£¬²»ÄÜ´¢´æ¡£\n");
+		return notify_fail("ä½ ä¸æ˜¯ç»ç”±æ­£å¸¸è¿çº¿è¿›å…¥ï¼Œä¸èƒ½å‚¨å­˜ã€‚\n");
 
         lasttime = time() - (int)me->query("last_save");
         if( lasttime >= 0 && lasttime < 30)
-                return notify_fail("ÎªÁË½µµÍÏµÍ³¸ºÔØ£¬Çë²»ÒªÆµ·±´¢´æ½ø¶È¡£\n");
+                return notify_fail("ä¸ºäº†é™ä½ç³»ç»Ÿè´Ÿè½½ï¼Œè¯·ä¸è¦é¢‘ç¹å‚¨å­˜è¿›åº¦ã€‚\n");
 
 	if( environment(me)->query("valid_startroom") ) {
 		me->set("startroom", base_name(environment(me)));
-		write("µ±ÄãÏÂ´ÎÁ¬Ïß½øÀ´Ê±£¬»á´ÓÕâÀï¿ªÊ¼¡£\n");
+		write("å½“ä½ ä¸‹æ¬¡è¿çº¿è¿›æ¥æ—¶ï¼Œä¼šä»è¿™é‡Œå¼€å§‹ã€‚\n");
 	}
 
 	if( (int)link_ob->save() && (int)me->save() ) {
-                write("µµ°¸´¢´æÍê±Ï¡£\n");
+                write("æ¡£æ¡ˆå‚¨å­˜å®Œæ¯•ã€‚\n");
                 me->set("last_save", time());
 		return 1;
 	} else {
-		write("´¢´æÊ§°Ü¡£\n");
+		write("å‚¨å­˜å¤±è´¥ã€‚\n");
 		return 0;
 	}
 }
@@ -34,9 +34,9 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½£ºsave
+æŒ‡ä»¤æ ¼å¼ï¼šsave
 
-°ÑÄãĞÁ¿à·Ü¶·µÄ½á¹û´æÆğÀ´¡£
+æŠŠä½ è¾›è‹¦å¥‹æ–—çš„ç»“æœå­˜èµ·æ¥ã€‚
 HELP
 	);
 	return 1;

@@ -5,11 +5,11 @@ inherit F_VENDOR;
 
 void create()
 {
-	set_name("Ñ¦ÀÏ°å", ({ "xue laoban", "xue" }) );
-	set("gender", "ÄĞĞÔ" );
+	set_name("è–›è€æ¿", ({ "xue laoban", "xue" }) );
+	set("gender", "ç”·æ€§" );
 	set("age", 32);
 	set("long",
-		"ÕâÊÇÒ»¸ö¾­ÑéÀÏµ½µÄÉúÒâÈË£¬Ò»Ë«¾«Ã÷µÄÑÛ¾¦²»Í£µÄ´òÁ¿×ÅÄã¡£\n");
+		"è¿™æ˜¯ä¸€ä¸ªç»éªŒè€åˆ°çš„ç”Ÿæ„äººï¼Œä¸€åŒç²¾æ˜çš„çœ¼ç›ä¸åœçš„æ‰“é‡ç€ä½ ã€‚\n");
 	set("combat_exp", 300);
         set("str", 17);
         set("dex", 20);

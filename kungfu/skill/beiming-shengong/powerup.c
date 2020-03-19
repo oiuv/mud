@@ -11,21 +11,21 @@ int exert(object me, object target)
 	int skill;
 
 	if (target != me)
-		return notify_fail("你只能用北冥神功提升自己的战斗力。\n");
+		return notify_fail("浣犲彧鑳界敤鍖楀啣绁炲姛鎻愬崌鑷繁鐨勬垬鏂楀姏銆俓n");
 
 	if ((int)me->query("neili") < 500)
-		return notify_fail("你的内力不够!");
+		return notify_fail("浣犵殑鍐呭姏涓嶅!");
 
 	if ((int)me->query_temp("powerup"))
-		return notify_fail("你已经在运功中了。\n");
+		return notify_fail("浣犲凡缁忓湪杩愬姛涓簡銆俓n");
 
 	skill = me->query_skill("beiming-shengong", 1);
 
 	me->add("neili", -100);
 	me->receive_damage("qi", 0);
 
-	message_combatd(HIG "$N" HIG "将内力运遍浑身诸大要穴，"
-                        "然后收气丹田，双目一睁，登时精光四射！\n" NOR, me);
+	message_combatd(HIG "$N" HIG "灏嗗唴鍔涜繍閬嶆祽韬澶ц绌达紝"
+                        "鐒跺悗鏀舵皵涓圭敯锛屽弻鐩竴鐫侊紝鐧绘椂绮惧厜鍥涘皠锛乗n" NOR, me);
 
 	me->add_temp("apply/attack", skill / 3);
 	me->add_temp("apply/defense", skill / 3);
@@ -45,7 +45,7 @@ void remove_effect(object me, int amount)
 	        me->add_temp("apply/attack", -amount);
 	        me->add_temp("apply/defense", -amount);
 	        me->delete_temp("powerup");
-                tell_object(me, "你的北冥神功运行完毕，将内力收回丹田。\n");
+                tell_object(me, "浣犵殑鍖楀啣绁炲姛杩愯瀹屾瘯锛屽皢鍐呭姏鏀跺洖涓圭敯銆俓n");
         }
 }
 

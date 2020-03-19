@@ -7,25 +7,25 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ÖÜÜÆÈô", ({ "zhou zhiruo","zhiruo","zhou"}));
-        set("long", "ËýÊÇ¶ëáÒÅÉµÄµÚËÄ´úÕÆÃÅµÜ×Ó¡£Ö»¼ûËýÒ»ÕÅ\n"
-                    "Á³ÐãÀö¾øË×¡£Éí×ÅÒ»Éíµ­»ÆÒÂÉÑ¡£ÂÔÏÔÇå¼õ\n"
-                    "µÄÇÉÐ¦ÖÐ´øÁËÐ©ÐíÎÞÄÎ¡£\n");
-        set("gender", "Å®ÐÔ");
+        set_name("å‘¨èŠ·è‹¥", ({ "zhou zhiruo","zhiruo","zhou"}));
+        set("long", "å¥¹æ˜¯å³¨åµ‹æ´¾çš„ç¬¬å››ä»£æŽŒé—¨å¼Ÿå­ã€‚åªè§å¥¹ä¸€å¼ \n"
+                    "è„¸ç§€ä¸½ç»ä¿—ã€‚èº«ç€ä¸€èº«æ·¡é»„è¡£è£³ã€‚ç•¥æ˜¾æ¸…å‡\n"
+                    "çš„å·§ç¬‘ä¸­å¸¦äº†äº›è®¸æ— å¥ˆã€‚\n");
+        set("gender", "å¥³æ€§");
         set("age", 20);
         set("attitude", "peaceful");
         set("shen_type", 1);
 
         set("inquiry",([
-                "Ìê¶È"     : "ÕÒÎÒÌê¶È£¿²»¶Ô°É¡£",
-                "³ö¼Ò"     : "Òª³ö¼ÒÕÒÎÒµÄÊ¦½ãÃÇÈ¥¡£",
-                "»¹Ë×"     : "ÎÞÁÄ¡£»¹Ë×Ò²ÕÒÎÒ£¡",
-                "ÕÅÎÞ¼É"   : "Õâ¸öºÝÐÄ¶ÌÃüµÄ¼Ò»ï£¬ÎÒÔÙÒ²²»Òª¼ûËý£¡",
-                "ÕÔÃô"     : "²»ÒªÎÊÕâ¸ö¼úæ¾×Ó£¡",
-                "ÒÐÌì½£"   : "ÒÐÌì²»³ö£¬Ë­ÓëÕù·æ£¿°¦£¡",
-                "ÍÀÁúµ¶"   : "ÄãÏëÎäÁÖ³ÆÐÛ£¿±ð×öÃÎÁË¡£",
-                "Ãð¾øÊ¦Ì«" : "Ê¦¸¸´ýÎÒ¶÷ÖØÈçÉ½£¬ÎÒ½ñÉúÄÑÒÔ»Ø±¨¡£",
-                "¾ÅÒõÕæ¾­" : "ÄÇÊÇÊ²Ã´¶«Î÷£¿ÎÒÕâ¿ÉÊÇµÚÒ»´ÎÌýËµ¡£",
+                "å‰ƒåº¦"     : "æ‰¾æˆ‘å‰ƒåº¦ï¼Ÿä¸å¯¹å§ã€‚",
+                "å‡ºå®¶"     : "è¦å‡ºå®¶æ‰¾æˆ‘çš„å¸ˆå§ä»¬åŽ»ã€‚",
+                "è¿˜ä¿—"     : "æ— èŠã€‚è¿˜ä¿—ä¹Ÿæ‰¾æˆ‘ï¼",
+                "å¼ æ— å¿Œ"   : "è¿™ä¸ªç‹ å¿ƒçŸ­å‘½çš„å®¶ä¼™ï¼Œæˆ‘å†ä¹Ÿä¸è¦è§å¥¹ï¼",
+                "èµµæ•"     : "ä¸è¦é—®è¿™ä¸ªè´±å©¢å­ï¼",
+                "å€šå¤©å‰‘"   : "å€šå¤©ä¸å‡ºï¼Œè°ä¸Žäº‰é”‹ï¼Ÿå”‰ï¼",
+                "å± é¾™åˆ€"   : "ä½ æƒ³æ­¦æž—ç§°é›„ï¼Ÿåˆ«åšæ¢¦äº†ã€‚",
+                "ç­ç»å¸ˆå¤ª" : "å¸ˆçˆ¶å¾…æˆ‘æ©é‡å¦‚å±±ï¼Œæˆ‘ä»Šç”Ÿéš¾ä»¥å›žæŠ¥ã€‚",
+                "ä¹é˜´çœŸç»" : "é‚£æ˜¯ä»€ä¹ˆä¸œè¥¿ï¼Ÿæˆ‘è¿™å¯æ˜¯ç¬¬ä¸€æ¬¡å¬è¯´ã€‚",
         ]));
 
         set("str", 22);
@@ -44,10 +44,10 @@ void create()
 
         set_skill("force", 260);
         set_skill("emei-xinfa", 180);
-        set_skill("yijin-duangu", 260);      // Ò×½î¶Í¹Ç
+        set_skill("yijin-duangu", 260);      // æ˜“ç­‹é”»éª¨
         set_skill("linji-zhuang", 200);
         set_skill("dodge", 260);
-        set_skill("shexing-lifan", 260);     // ÉßÐÐÀê·­
+        set_skill("shexing-lifan", 260);     // è›‡è¡Œç‹¸ç¿»
         set_skill("zhutian-bu", 180);
         set_skill("finger", 180);
         set_skill("tiangang-zhi", 180);
@@ -56,11 +56,11 @@ void create()
         set_skill("strike", 260);
         set_skill("jinding-zhang", 180);
         set_skill("sixiang-zhang", 180);
-        set_skill("cuixin-zhang", 260);      // ´ßÐÄÕÆ
+        set_skill("cuixin-zhang", 260);      // å‚¬å¿ƒæŽŒ
         set_skill("claw", 260);
-        set_skill("jiuyin-baiguzhao", 260);  // ¾ÅÒõ°×¹Ç×¦
+        set_skill("jiuyin-baiguzhao", 260);  // ä¹é˜´ç™½éª¨çˆª
         set_skill("whip", 260);
-        set_skill("yinlong-bian", 260);      // ÒøÁú±Þ·¨
+        set_skill("yinlong-bian", 260);      // é“¶é¾™éž­æ³•
         set_skill("sword", 180);
         set_skill("emei-jian", 180);
         set_skill("yitian-jian", 180);
@@ -86,24 +86,24 @@ void create()
         prepare_skill("strike", "cuixin-zhang");
         prepare_skill("claw", "jiuyin-baiguzhao");
 
-        create_family("¶ëáÒÅÉ", 4, "ÕÆÃÅµÜ×Ó");
+        create_family("å³¨åµ‹æ´¾", 4, "æŽŒé—¨å¼Ÿå­");
 
         set("no_teach", ([
-                "linji-zhuang"     : "ÏëÑ§ÁÙ¼ÃÊ®¶þ×¯ÕÒÎÒÊ¦¸¸È¥¡£",
-                "shexing-lifan"    : "ÉßÐÐÀê·­£¿ÕâÒ²ÊÇÖÖÎä¹¦Âð£¿ÌýÃû×Öµ¹ÊÇÂùÓÐÒâË¼µÄ¡£",
-                "yijin-duangu"     : "ÄãËµµÄÄÇÊÇÊ²Ã´°¡£¿ÎÒÕâ¿ÉÊÇÍ·Ò»´ÎÌýËµ¡£",
-                "cuixin-zhang"     : "´ßÐÄÕÆ£¿ÌýÃû×Ö¹ÖÏÅÈËµÄ£¬ÕâÑùµÄÎä¹¦ÎÒ¿É²»»á¡£",
-                "jiuyin-baiguzhao" : "¾ÅÒõ°×¹Ç×¦£¿ÕâÊÇÊ²Ã´Îä¹¦°¡£¿¹âÌýÃû×ÖÎÒ¾ÍÃ«¹Çã¤È»¡£",
-                "yinlong-bian"     : "ÎÒÖ»»á½£·¨ºÍµ¶·¨£¬±Þ·¨Ê¦¸¸´ÓÀ´Ã»½Ì¹ýÎÒ¡£",
+                "linji-zhuang"     : "æƒ³å­¦ä¸´æµŽåäºŒåº„æ‰¾æˆ‘å¸ˆçˆ¶åŽ»ã€‚",
+                "shexing-lifan"    : "è›‡è¡Œç‹¸ç¿»ï¼Ÿè¿™ä¹Ÿæ˜¯ç§æ­¦åŠŸå—ï¼Ÿå¬åå­—å€’æ˜¯è›®æœ‰æ„æ€çš„ã€‚",
+                "yijin-duangu"     : "ä½ è¯´çš„é‚£æ˜¯ä»€ä¹ˆå•Šï¼Ÿæˆ‘è¿™å¯æ˜¯å¤´ä¸€æ¬¡å¬è¯´ã€‚",
+                "cuixin-zhang"     : "å‚¬å¿ƒæŽŒï¼Ÿå¬åå­—æ€ªå“äººçš„ï¼Œè¿™æ ·çš„æ­¦åŠŸæˆ‘å¯ä¸ä¼šã€‚",
+                "jiuyin-baiguzhao" : "ä¹é˜´ç™½éª¨çˆªï¼Ÿè¿™æ˜¯ä»€ä¹ˆæ­¦åŠŸå•Šï¼Ÿå…‰å¬åå­—æˆ‘å°±æ¯›éª¨æ‚šç„¶ã€‚",
+                "yinlong-bian"     : "æˆ‘åªä¼šå‰‘æ³•å’Œåˆ€æ³•ï¼Œéž­æ³•å¸ˆçˆ¶ä»Žæ¥æ²¡æ•™è¿‡æˆ‘ã€‚",
         ]));
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
-                (: perform_action, "claw.duo" :),       // ¶áÃüÁ¬»·
-                (: perform_action, "claw.jie" :),       // ¾ÅÒõÉ²Éñ×¥
-                (: perform_action, "strike.cuixin" :),  // ´ßÐÄÆÆÔª¾÷
-                (: perform_action, "whip.jiao" :),      // ÌìÖïÁúòÔ¾÷
-                (: perform_action, "dodge.guiyuan" :),  // ¾ÅÒõ¹éÔª¾¢
+                (: perform_action, "claw.duo" :),       // å¤ºå‘½è¿žçŽ¯
+                (: perform_action, "claw.jie" :),       // ä¹é˜´åˆ¹ç¥žæŠ“
+                (: perform_action, "strike.cuixin" :),  // å‚¬å¿ƒç ´å…ƒè¯€
+                (: perform_action, "whip.jiao" :),      // å¤©è¯›é¾™è›Ÿè¯€
+                (: perform_action, "dodge.guiyuan" :),  // ä¹é˜´å½’å…ƒåŠ²
                 (: exert_function, "recover" :),
                 (: exert_function, "powerup" :),
                 (: exert_function, "shield" :),
@@ -121,11 +121,11 @@ void attempt_apprentice(object ob)
 
         if ((int)ob->query_int() < 45)
         {
-                command("say ÕâÎ»" + RANK_D->query_respect(ob) + "¿ÖÅÂ×ÊÖÊ²îÁËÒ»µã¡£");
-                command("say ²»¹ýÉÐ´óÓÐÇ±Á¦£¬»¹ÊÇÏÈ»ØÈ¥Ä¥Á·Ä¥Á·¡£");
+                command("say è¿™ä½" + RANK_D->query_respect(ob) + "ææ€•èµ„è´¨å·®äº†ä¸€ç‚¹ã€‚");
+                command("say ä¸è¿‡å°šå¤§æœ‰æ½œåŠ›ï¼Œè¿˜æ˜¯å…ˆå›žåŽ»ç£¨ç»ƒç£¨ç»ƒã€‚");
                 return;
         }
 
-        command("say " + ob->query("name") + "¿´ÄãÕâÃ´¿ÉÁ¯£¬ÃãÎªÆäÄÑÊÕÏÂÄã°É¡£\n");
+        command("say " + ob->query("name") + "çœ‹ä½ è¿™ä¹ˆå¯æ€œï¼Œå‹‰ä¸ºå…¶éš¾æ”¶ä¸‹ä½ å§ã€‚\n");
         command("recruit " + ob->query("id"));
 }

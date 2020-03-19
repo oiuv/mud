@@ -1,4 +1,4 @@
-// qingxin.c ¡¸ÇåĞÄ½£¡¹
+// qingxin.c ã€Œæ¸…å¿ƒå‰‘ã€
 
 #include <ansi.h>
 
@@ -12,34 +12,34 @@ int perform(object me, object target)
         int ainc, dinc;
 
         if (userp(me) && ! me->query("can_perform/damo-jian/qingxin"))
-                return notify_fail("Äã²»»áÊ¹ÓÃ¡¸ÇåĞÄ½£¡¹¡£\n");
+                return notify_fail("ä½ ä¸ä¼šä½¿ç”¨ã€Œæ¸…å¿ƒå‰‘ã€ã€‚\n");
 
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("¡¸ÇåĞÄ½£¡¹Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ã€Œæ¸…å¿ƒå‰‘ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-		return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô¡£\n");
+		return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ã€‚\n");
 
 	if ((int)me->query_skill("damo-jian", 1) < 200)
-		return notify_fail("ÄãµÄ´ïÄ¦½£·¨²»¹»æµÊì£¬²»»áÊ¹ÓÃ¡¸ÇåĞÄ½£¡¹¡£\n");
+		return notify_fail("ä½ çš„è¾¾æ‘©å‰‘æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ã€Œæ¸…å¿ƒå‰‘ã€ã€‚\n");
 
         if (me->query("neili") < 300)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÎŞ·¨Ê¹ÓÃ¡¸ÇåĞÄ½£¡¹¡£\n");
+                return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•ä½¿ç”¨ã€Œæ¸…å¿ƒå‰‘ã€ã€‚\n");
 
         if (me->query_skill_mapped("sword") != "damo-jian")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢´ïÄ¦½£·¨£¬ÎŞ·¨Ê¹ÓÃ¡¸ÇåĞÄ½£¡¹¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘è¾¾æ‘©å‰‘æ³•ï¼Œæ— æ³•ä½¿ç”¨ã€Œæ¸…å¿ƒå‰‘ã€ã€‚\n");
 
         if (target->query_temp("damo_qingxin"))
-                return notify_fail("¶Ô·½¸Õ¸Õ²ÅÖĞ¹ı´ïÄ¦ÇåĞÄ½££¬Äã²»±ØÔÙÓÃÒ»´ÎÁË¡£\n");
+                return notify_fail("å¯¹æ–¹åˆšåˆšæ‰ä¸­è¿‡è¾¾æ‘©æ¸…å¿ƒå‰‘ï¼Œä½ ä¸å¿…å†ç”¨ä¸€æ¬¡äº†ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIM "$N" HIM "½«" + weapon->name() + HIM "ÇáÇáÒ»¶¶£¬Ò»¹É"
-              "½£ÆøÇÄÈ»¶ø³ö£¬·Ö×÷ÊıÂ·¹¥Ïò$n" HIM "£¡\n" NOR;
+	msg = HIM "$N" HIM "å°†" + weapon->name() + HIM "è½»è½»ä¸€æŠ–ï¼Œä¸€è‚¡"
+              "å‰‘æ°”æ‚„ç„¶è€Œå‡ºï¼Œåˆ†ä½œæ•°è·¯æ”»å‘$n" HIM "ï¼\n" NOR;
 
         me->add("neili", -200);
         ap = me->query_skill("sword") + me->query_skill("force");
@@ -48,13 +48,13 @@ int perform(object me, object target)
 	me->start_busy(1);
         if (! target->query_temp("powerup"))
         {
- 		msg += CYN "¿ÉÊÇ$p" CYN "¿´À´ËÆºõ²¢Ã»ÓĞÔËÓÃÕæÆøÌáÉı" CYN
-                       "Õ½Á¦£¬$P" CYN "ÕâÒ»ÕĞÃ»ÓĞÆğµ½ÈÎºÎ×÷ÓÃ¡£\n" NOR;
+ 		msg += CYN "å¯æ˜¯$p" CYN "çœ‹æ¥ä¼¼ä¹å¹¶æ²¡æœ‰è¿ç”¨çœŸæ°”æå‡" CYN
+                       "æˆ˜åŠ›ï¼Œ$P" CYN "è¿™ä¸€æ‹›æ²¡æœ‰èµ·åˆ°ä»»ä½•ä½œç”¨ã€‚\n" NOR;
         } else
 	if (ap / 2 + random(ap) > dp)
         {
-		msg += HIR "½á¹û$p" HIR "¾õµÃ»ëÉíÒ»Âé£¬ÊÖ×ãÈí"
-                       "ÈíµÄ¾¹È»Ê¹²»³öÒ»µãÁ¦µÀ£¡\n" NOR;
+		msg += HIR "ç»“æœ$p" HIR "è§‰å¾—æµ‘èº«ä¸€éº»ï¼Œæ‰‹è¶³è½¯"
+                       "è½¯çš„ç«Ÿç„¶ä½¿ä¸å‡ºä¸€ç‚¹åŠ›é“ï¼\n" NOR;
                 ainc = target->query_temp("apply/attack");
                 dinc = target->query_temp("apply/defense");
 		target->add_temp("apply/attack", -ainc);
@@ -63,8 +63,8 @@ int perform(object me, object target)
         	target->start_call_out((: call_other, __FILE__, "remove_effect", target, ainc, dinc :), ap / 20);
 	} else
         {
-		msg += CYN "¿ÉÊÇ$p" CYN "ÄÚÁ¦Éîºñ£¬Ê¹µÃ$P" CYN
-                       "ÕâÒ»ÕĞÃ»ÓĞÆğµ½ÈÎºÎ×÷ÓÃ¡£\n" NOR;
+		msg += CYN "å¯æ˜¯$p" CYN "å†…åŠ›æ·±åšï¼Œä½¿å¾—$P" CYN
+                       "è¿™ä¸€æ‹›æ²¡æœ‰èµ·åˆ°ä»»ä½•ä½œç”¨ã€‚\n" NOR;
 	}
 	message_combatd(msg, me, target);
 
@@ -78,6 +78,6 @@ void remove_effect(object me, int ainc, int dinc)
                 me->delete_temp("damo_qingxin");
         	me->add_temp("apply/attack", ainc);
         	me->add_temp("apply/defense", dinc);
-        	tell_object(me, "Äã¾õµÃÁ¦Æø»Ö¸´ÁËÒ»Ğ©¡£\n");
+        	tell_object(me, "ä½ è§‰å¾—åŠ›æ°”æ¢å¤äº†ä¸€äº›ã€‚\n");
         }
 }

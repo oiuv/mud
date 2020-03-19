@@ -1,4 +1,4 @@
-// guimai.c ÁùÒõ¹íÂö
+// guimai.c å…­é˜´é¬¼è„‰
 // Created by rcwiz for yhonline
 
 #include <ansi.h>
@@ -7,16 +7,16 @@ inherit F_CLEAN_UP;
 
 int is_scborn() { return 1; }
 
-string name() { return HIR "ÁùÒõ¹íÂö" NOR; }
+string name() { return HIR "å…­é˜´é¬¼è„‰" NOR; }
 
 int perform(object me, string skill)
 {
-        return notify_fail("ÄËÊÀ¼äÇ§ÄêÒ»ÓöµÄÌØÊâ¾­Âö£¬´ËÂöÖÁÒõÖÁ\n"
-                           "º®£¬Éí¾ã´Ë¾­ÂöµÄÓ¤¶ù³£±»ÎóÕïÎªº®¶¾²ø\n"
-                           "Éí£¬Ò½¶ø²»µÃÆä·¨£¬µ¼ÖÂÓ×ÄêØ²ÕÛ¡£ÎÞÂÛ\n"
-						               "ÄÐÅ®£¬¾ù¿ÉÖ±½ÓÐÞÁ¶±ÙÐ°½£·¨»òÊÇ¿û»¨Ä§\n"
-						               "¹¦£¬ÎÞÐèÔÙ×÷×Ô¹¬¡£¹íÂöÕßÉúÃüÖµÉÏÏÞ±È\n"
-						               "Ò»°ãÈËÒªµÍ£¬µ«ÄÚÁ¦ÉÏÏÞ±ÈÒ»°ãÈË¸ß£¬ÇÒ\n"
-						               "ÑÐ¶Á¿û»¨±¦µäÊ±¼«´ó½µµÍ×ß»ðÈëÄ§¼¸ÂÊ¡¢\n"
-						               "ÑÐ¾¿¿û»¨Ä§¹¦ºÍ±ÙÐ°½£·¨Ê±´ó·ù½µµÍÄÑ¶È¡£\n");
+        return notify_fail("ä¹ƒä¸–é—´åƒå¹´ä¸€é‡çš„ç‰¹æ®Šç»è„‰ï¼Œæ­¤è„‰è‡³é˜´è‡³\n"
+                           "å¯’ï¼Œèº«ä¿±æ­¤ç»è„‰çš„å©´å„¿å¸¸è¢«è¯¯è¯Šä¸ºå¯’æ¯’ç¼ \n"
+                           "èº«ï¼ŒåŒ»è€Œä¸å¾—å…¶æ³•ï¼Œå¯¼è‡´å¹¼å¹´å¤­æŠ˜ã€‚æ— è®º\n"
+						               "ç”·å¥³ï¼Œå‡å¯ç›´æŽ¥ä¿®ç‚¼è¾Ÿé‚ªå‰‘æ³•æˆ–æ˜¯è‘µèŠ±é­”\n"
+						               "åŠŸï¼Œæ— éœ€å†ä½œè‡ªå®«ã€‚é¬¼è„‰è€…ç”Ÿå‘½å€¼ä¸Šé™æ¯”\n"
+						               "ä¸€èˆ¬äººè¦ä½Žï¼Œä½†å†…åŠ›ä¸Šé™æ¯”ä¸€èˆ¬äººé«˜ï¼Œä¸”\n"
+						               "ç ”è¯»è‘µèŠ±å®å…¸æ—¶æžå¤§é™ä½Žèµ°ç«å…¥é­”å‡ çŽ‡ã€\n"
+						               "ç ”ç©¶è‘µèŠ±é­”åŠŸå’Œè¾Ÿé‚ªå‰‘æ³•æ—¶å¤§å¹…é™ä½Žéš¾åº¦ã€‚\n");
 }

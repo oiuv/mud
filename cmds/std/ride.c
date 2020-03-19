@@ -12,28 +12,28 @@ int main(object me, string arg)
 {
 	object obj, env;
 
-	if (! arg) return notify_fail("ÄãÒªÆïÊ²Ã´¶«Î÷£¿\n");
+	if (! arg) return notify_fail("ä½ è¦éª‘ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
 	if (me->query_temp("is_riding"))
-		return notify_fail("ÄãÒÑ¾­ÓĞ×ùÆïÁË£¡\n");
+		return notify_fail("ä½ å·²ç»æœ‰åº§éª‘äº†ï¼\n");
 
 	if (me->is_busy())
-		return notify_fail("ÄãÉÏÒ»¸ö¶¯×÷»¹Ã»ÓĞÍê³É£¡\n");
+		return notify_fail("ä½ ä¸Šä¸€ä¸ªåŠ¨ä½œè¿˜æ²¡æœ‰å®Œæˆï¼\n");
 
 	if (me->is_fighting())
-                return notify_fail("Äã»¹ÔÚÕ½¶·ÖĞ£¡Ã»¿ÕÆïÉÏÈ¥¡£\n");
+                return notify_fail("ä½ è¿˜åœ¨æˆ˜æ–—ä¸­ï¼æ²¡ç©ºéª‘ä¸Šå»ã€‚\n");
 
 	// Check if a container is specified.
 	env = environment(me);
 
 	if (! objectp(obj = present(arg, env)) || !living(obj))
-                return notify_fail("ÕâÀïÃ»ÓĞÕâÑù¶«Î÷¿ÉÆï¡£\n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™æ ·ä¸œè¥¿å¯éª‘ã€‚\n");
 
 	if (! obj->query("ridable"))
-		return notify_fail("Õâ¸ö¶«Î÷ÄãÒ²ÒªÆï£¿µ±ĞÄÄãµÄÆ¨¹É£¡\n");
+		return notify_fail("è¿™ä¸ªä¸œè¥¿ä½ ä¹Ÿè¦éª‘ï¼Ÿå½“å¿ƒä½ çš„å±è‚¡ï¼\n");
 
 	return do_ride(me, obj);
-	write("ÆïÉÏÈ¥ÁË¡£\n");
+	write("éª‘ä¸Šå»äº†ã€‚\n");
 }
 	
 int do_ride(object me, object obj)
@@ -46,19 +46,19 @@ int do_ride(object me, object obj)
 		guard = filter_array(guard, (: objectp($1) && present($1, environment($2)) && living($1) && ($1!=$2) :), me);
 		if( sizeof(guard) )
 			return notify_fail( guard[0]->name() 
-				+ "ÕıÊØÔÚ" + obj->name() + "Ò»ÅÔ£¬·ÀÖ¹ÈÎºÎÈËÆï×ß¡£\n");
+				+ "æ­£å®ˆåœ¨" + obj->name() + "ä¸€æ—ï¼Œé˜²æ­¢ä»»ä½•äººéª‘èµ°ã€‚\n");
 	}
 
 	obj->set_weight(1);
 	if( obj->move(me) )
 	{
-		message_vision( "$N·ÉÉíÔ¾ÉÏ$n£¬ÉíÊÖºÜÊÇ½Ã½İ¡£\n", me, obj );
+		message_vision( "$Né£èº«è·ƒä¸Š$nï¼Œèº«æ‰‹å¾ˆæ˜¯çŸ«æ·ã€‚\n", me, obj );
 		obj->set_temp("is_rided_by", me);
 		me->set_temp("is_riding", obj);
 	}
 	else
 	{
-		message_vision( "$NÉíÉÏ´øµÄ¶«Î÷Ì«ÖØÁË£¬ÎŞ·¨Æïµ½$nÉíÉÏÈ¥¡£\n", me, obj );
+		message_vision( "$Nèº«ä¸Šå¸¦çš„ä¸œè¥¿å¤ªé‡äº†ï¼Œæ— æ³•éª‘åˆ°$nèº«ä¸Šå»ã€‚\n", me, obj );
 	}
 	return 1;
 }
@@ -66,9 +66,9 @@ int do_ride(object me, object obj)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : ride | qi <ÉúÎïÃû>
+æŒ‡ä»¤æ ¼å¼ : ride | qi <ç”Ÿç‰©å>
  
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄãÆïÉÏ´ú²½µÄÒÑÑ±ÑøµÄ¶¯Îï¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ éª‘ä¸Šä»£æ­¥çš„å·²é©¯å…»çš„åŠ¨ç‰©ã€‚
  
 HELP
     );

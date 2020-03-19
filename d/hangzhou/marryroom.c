@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����ׯ");
+        set("short", "红娘庄");
         set("long", @LONG
-��������վ�ڷ�����������Ӻ��ϵĺ���ׯ���ˮƾ��������
-���̵ĺ��棬���Ƕ����ˡ�
+你现在正站在风光秀丽的西子湖畔的红娘庄里，临水凭窗，隔着
+碧绿的湖面，就是断桥了。
 LONG);
         set("exits", ([
             "west" : __DIR__"road9",

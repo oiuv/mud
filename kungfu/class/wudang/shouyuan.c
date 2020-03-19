@@ -2,10 +2,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÊØÔ°µÀ³¤", ({ "shouyuan daozhang", "shouyuan" }));
+        set_name("å®ˆå›­é“é•¿", ({ "shouyuan daozhang", "shouyuan" }));
         set("long", 
-                "ËûÊÇÎäµ±É½µÄÊØÔ°µÀ³¤¡£\n");
-        set("gender", "ÄÐÐÔ");
+                "ä»–æ˜¯æ­¦å½“å±±çš„å®ˆå›­é“é•¿ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 30);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -41,7 +41,7 @@ void create()
 
         prepare_skill("strike", "wudang-zhang");
 
-        create_family("Îäµ±ÅÉ", 4, "µÜ×Ó");
+        create_family("æ­¦å½“æ´¾", 4, "å¼Ÿå­");
 
         setup();
         carry_object("/clone/weapon/gangdao")->wield();

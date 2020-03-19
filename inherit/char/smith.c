@@ -28,9 +28,9 @@ void init()
 void setup()
 {
         set("inquiry/job",    (: ask_me :));
-        set("inquiry/¹¤×÷",   (: ask_me :));
-        set("inquiry/repair", "ÄãÏëÒªÐÞ(" HIY "repair" NOR + CYN ")µãÊ²Ã´£¿" NOR);
-        set("inquiry/ÐÞÀí",   "ÄãÏëÒªÐÞ(" HIY "repair" NOR + CYN ")µãÊ²Ã´£¿" NOR);
+        set("inquiry/å·¥ä½œ",   (: ask_me :));
+        set("inquiry/repair", "ä½ æƒ³è¦ä¿®(" HIY "repair" NOR + CYN ")ç‚¹ä»€ä¹ˆï¼Ÿ" NOR);
+        set("inquiry/ä¿®ç†",   "ä½ æƒ³è¦ä¿®(" HIY "repair" NOR + CYN ")ç‚¹ä»€ä¹ˆï¼Ÿ" NOR);
 
         ::setup();
 }
@@ -40,39 +40,39 @@ string ask_me()
         object me = this_player();
 
         if (me->query("combat_exp") > 10000)
-                return "ÈÃÄúÀÏ¸ÉÕâ¸öÎ´ÃâÇü×ðÁË°É£¿";
+                return "è®©æ‚¨è€å¹²è¿™ä¸ªæœªå…å±ˆå°Šäº†å§ï¼Ÿ";
 
         if (me->query("qi") < 50)
-                return "Äã»¹ÊÇÐª»á¶ù°É£¡ÒªÊÇ³öÁËÈËÃüÎÒ¿É³Ðµ£²»Æð¡£";
+                return "ä½ è¿˜æ˜¯æ­‡ä¼šå„¿å§ï¼è¦æ˜¯å‡ºäº†äººå‘½æˆ‘å¯æ‰¿æ‹…ä¸èµ·ã€‚";
 
         if (me->query_temp("smith/gu"))
-                return "ÈÃÄãÈ¥¹Ä(" HIY "gu" NOR + CYN ")·çÏä£¬Äã"
-                       "ÔõÃ´»¹Ä¥²ä£¿";
+                return "è®©ä½ åŽ»é¼“(" HIY "gu" NOR + CYN ")é£Žç®±ï¼Œä½ "
+                       "æ€Žä¹ˆè¿˜ç£¨è¹­ï¼Ÿ";
 
         if (me->query_temp("smith/dapi"))
-                return "½ÐÄã´òµÄÅ÷(" HIY "dapi" NOR + CYN ")Äã´ò"
-                       "ÁËÃ»ÓÐ£¿";
+                return "å«ä½ æ‰“çš„å¯(" HIY "dapi" NOR + CYN ")ä½ æ‰“"
+                       "äº†æ²¡æœ‰ï¼Ÿ";
 
         if (me->query_temp("smith/cuihuo"))
-                return "¸É»îÔõÃ´¾¡ÍµÀÁ£¿¿ì¸øÎÒ´ã»ð(" HIY "cuihuo"
-                       NOR + CYN ")È¥£¡";
+                return "å¹²æ´»æ€Žä¹ˆå°½å·æ‡’ï¼Ÿå¿«ç»™æˆ‘æ·¬ç«(" HIY "cuihuo"
+                       NOR + CYN ")åŽ»ï¼";
 
         switch(random(3))
         {
         case 0:
                 me->set_temp("smith/gu", 1);
-                return "ºÃ£¡Äã°ïÎÒ¹Ä(" HIY "gu" NOR + CYN ")Ò»»á"
-                       "¶ù·çÏä¡£";
+                return "å¥½ï¼ä½ å¸®æˆ‘é¼“(" HIY "gu" NOR + CYN ")ä¸€ä¼š"
+                       "å„¿é£Žç®±ã€‚";
 
         case 1:
                 me->set_temp("smith/dapi", 1);
-                return "ÕâÑù°É£¬Äã°ïÎÒ´ò(" HIY "dapi" NOR + CYN
-                       ")Ò»ÏÂÅ÷°É£¡";
+                return "è¿™æ ·å§ï¼Œä½ å¸®æˆ‘æ‰“(" HIY "dapi" NOR + CYN
+                       ")ä¸€ä¸‹å¯å§ï¼";
 
         case 2:
                 me->set_temp("smith/cuihuo", 1);
-                return "È¥°ïÎÒ°ÑÕâÐ©¸Õ³öÂ¯µÄ´ã(" HIY "cuihuo" NOR
-                       + CYN ")Ò»ÏÂ»ð¡£";
+                return "åŽ»å¸®æˆ‘æŠŠè¿™äº›åˆšå‡ºç‚‰çš„æ·¬(" HIY "cuihuo" NOR
+                       + CYN ")ä¸€ä¸‹ç«ã€‚";
         }
 }
 
@@ -81,19 +81,19 @@ int do_gu(string arg)
         object me = this_player();
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕýÃ¦¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ­£å¿™ã€‚\n");
 
         if (! me->query_temp("smith/gu"))
         {
-                message_vision(HIR "\n$n" HIR "¸ÕÍµÍµµÄÀ­Æð¹Ä·ç»ú£¬¹Ä"
-                               "ÁË¼¸Õó·ç¡£\n¾ÍÌý¼û$N" HIR "¶Ô$n" HIR
-                               "´óºÈµÀ£º¹ö¿ª£¬ÂÒ¸ãÊ²Ã´¡£\n" NOR,
+                message_vision(HIR "\n$n" HIR "åˆšå·å·çš„æ‹‰èµ·é¼“é£Žæœºï¼Œé¼“"
+                               "äº†å‡ é˜µé£Žã€‚\nå°±å¬è§$N" HIR "å¯¹$n" HIR
+                               "å¤§å–é“ï¼šæ»šå¼€ï¼Œä¹±æžä»€ä¹ˆã€‚\n" NOR,
                                this_object(), me);
                 return 1;
         }
 
-        message_vision(HIY "$n" HIY "À­Æð¹Ä·ç»úÆ´Ãü¹ÄÁËÆðÀ´£¬$N" HIY
-                       "¿´ÁËµãÁËµãÍ·¡£\n" NOR,
+        message_vision(HIY "$n" HIY "æ‹‰èµ·é¼“é£Žæœºæ‹¼å‘½é¼“äº†èµ·æ¥ï¼Œ$N" HIY
+                       "çœ‹äº†ç‚¹äº†ç‚¹å¤´ã€‚\n" NOR,
                        this_object(), me);
         reward(me);
         return 1;
@@ -104,20 +104,20 @@ int do_dapi(string arg)
         object me = this_player();
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕýÃ¦¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ­£å¿™ã€‚\n");
 
         if (! me->query_temp("smith/dapi"))
         {
-                message_vision(HIR "\n$n" HIR "ÄÃÆð¼¸¿éÉúÌú£¬ÔÚÊÖÀï"
-                               "µàÁËµà¡£\n¾ÍÌý¼û$N" HIR "¶Ô$n" HIR
-                               "´óºÈµÀ£º·ÅÏÂ£¬ÂÒ¸ãÊ²Ã´¡£\n" NOR,
+                message_vision(HIR "\n$n" HIR "æ‹¿èµ·å‡ å—ç”Ÿé“ï¼Œåœ¨æ‰‹é‡Œ"
+                               "æŽ‚äº†æŽ‚ã€‚\nå°±å¬è§$N" HIR "å¯¹$n" HIR
+                               "å¤§å–é“ï¼šæ”¾ä¸‹ï¼Œä¹±æžä»€ä¹ˆã€‚\n" NOR,
                                this_object(), me);
                 return 1;
         }
 
-        message_vision(HIY "$n" HIY "ÄÃ×Å´¸×Ó¶Ô¸Õ³öÂ¯µÄ»ðÈÈµÄÉúÌúÓÃ"
-                       "Á¦ÇÃ´ò×Å£¬$N" HIY "¡°àÅ¡±ÁËÒ»Éù£¬¿´ÉÏÈ¥ÓÐÐ©"
-                       "ÂúÒâ¡£\n" NOR,
+        message_vision(HIY "$n" HIY "æ‹¿ç€é”¤å­å¯¹åˆšå‡ºç‚‰çš„ç«çƒ­çš„ç”Ÿé“ç”¨"
+                       "åŠ›æ•²æ‰“ç€ï¼Œ$N" HIY "â€œå—¯â€äº†ä¸€å£°ï¼Œçœ‹ä¸ŠåŽ»æœ‰äº›"
+                       "æ»¡æ„ã€‚\n" NOR,
                        this_object(), me);
         reward(me);
         return 1;
@@ -128,19 +128,19 @@ int do_cuihuo(string arg)
         object me = this_player();
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕýÃ¦¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ­£å¿™ã€‚\n");
 
         if (! me->query_temp("smith/cuihuo"))
         {
-                message_vision(HIR "\n$n" HIR "¸Õ³­ÆðÒ»¸ö´òÔìºÃµÄÅ÷×Ó"
-                               "£¬°ÚÅªÁË¼¸ÏÂ¡£\n¾ÍÌý¼û$N" HIR "¶Ô$n"
-                               HIR "´óºÈµÀ£º·ÅÏÂ£¬±ð¸øÎÒ¸ã»µÁË¡£\n" NOR,
+                message_vision(HIR "\n$n" HIR "åˆšæŠ„èµ·ä¸€ä¸ªæ‰“é€ å¥½çš„å¯å­"
+                               "ï¼Œæ‘†å¼„äº†å‡ ä¸‹ã€‚\nå°±å¬è§$N" HIR "å¯¹$n"
+                               HIR "å¤§å–é“ï¼šæ”¾ä¸‹ï¼Œåˆ«ç»™æˆ‘æžåäº†ã€‚\n" NOR,
                                this_object(), me);
                 return 1;
         }
 
-        message_vision(HIY "$N" HIY "ÓÃÌúÇ¯³­ÆðÒ»¿é»ðºìµÄÅ÷×Ó£¬Éì½ø"
-                       "ÁËË®³Ø£¬¡°ßê¡±µÄÒ»ÉùÇáÑÌËÄÃ°¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "ç”¨é“é’³æŠ„èµ·ä¸€å—ç«çº¢çš„å¯å­ï¼Œä¼¸è¿›"
+                       "äº†æ°´æ± ï¼Œâ€œå“§â€çš„ä¸€å£°è½»çƒŸå››å†’ã€‚\n" NOR, me);
         reward(me);
         return 1;
 }
@@ -155,14 +155,14 @@ void reward(object me)
         me->delete_temp("smith/cuihuo");
 
         coin = new("/clone/money/coin");
-		// ½±ÀøÔö¼Ó5±¶£¨2013-12-01 20:18:55£©
+		// å¥–åŠ±å¢žåŠ 5å€ï¼ˆ2013-12-01 20:18:55ï¼‰
         coin->set_amount(50 + random(50));
         coin->move(this_object());
-        message_vision(CYN "$N" CYN "¶Ô$n" CYN "µÀ£º¸ÉµÃ²»»µ£¬ÕâÊÇ¸ø"
-                       "ÄãµÄ¹¤Ç®¡£\n" NOR, this_object(), me);
+        message_vision(CYN "$N" CYN "å¯¹$n" CYN "é“ï¼šå¹²å¾—ä¸åï¼Œè¿™æ˜¯ç»™"
+                       "ä½ çš„å·¥é’±ã€‚\n" NOR, this_object(), me);
 
         command("give coin to " + me->query("id"));
-		// ½±ÀøÔö¼Ó5+5±¶£¨2013-12-01 20:18:55£©
+		// å¥–åŠ±å¢žåŠ 5+5å€ï¼ˆ2013-12-01 20:18:55ï¼‰
         exp = 20 + random(10);
         pot = 10 + random(10);
 
@@ -172,8 +172,8 @@ void reward(object me)
         if (me->query("potential") > me->query_potential_limit())
         	pot = 1;
 
-        tell_object(me, HIC "Äã»ñµÃÁË" + chinese_number(exp) +
-                        "µã¾­ÑéºÍ" + chinese_number(pot) + "µãÇ±ÄÜ¡£"
+        tell_object(me, HIC "ä½ èŽ·å¾—äº†" + chinese_number(exp) +
+                        "ç‚¹ç»éªŒå’Œ" + chinese_number(pot) + "ç‚¹æ½œèƒ½ã€‚"
                         "\n" NOR );
 
         me->receive_damage("qi", 30 + random(20));
@@ -190,26 +190,26 @@ int do_repair(string arg)
         mapping repair;
 
         if (! arg)
-                return notify_fail("Äã´òËãÐÞÀíÊ²Ã´Îï¼þ£¿\n");
+                return notify_fail("ä½ æ‰“ç®—ä¿®ç†ä»€ä¹ˆç‰©ä»¶ï¼Ÿ\n");
 
         me = this_player();
 
         if (! objectp(ob = present(arg, me)))
-                return notify_fail("ÄãÉíÉÏºÃÏñÃ»ÓÐÕâÑù¶«Î÷¡£\n");
+                return notify_fail("ä½ èº«ä¸Šå¥½åƒæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
         if (undefinedp(consistence = ob->query("consistence")))
-                return notify_fail(ob->name() + "ËÆºõ²»ÐèÒªÔÚÕâÀïÐÞÀí°É£¿\n");
+                return notify_fail(ob->name() + "ä¼¼ä¹Žä¸éœ€è¦åœ¨è¿™é‡Œä¿®ç†å§ï¼Ÿ\n");
 
         if (consistence >= 100)
-                return notify_fail(ob->name() + "ÏÖÔÚÍêºÃÎÞËð£¬ÐÞÀí×öÊ²Ã´£¿\n");
+                return notify_fail(ob->name() + "çŽ°åœ¨å®Œå¥½æ— æŸï¼Œä¿®ç†åšä»€ä¹ˆï¼Ÿ\n");
 
         if (! undefinedp(msg = ob->query("no_repair")))
         {
                 if (! stringp(msg))
-                        write(CYN + name() + CYN "ÖåÃ¼µÀ£ºÕâ¶«Î÷ÎÒ¿ÉÐÞ"
-                              "Àí²»ÁË¡£\n" NOR);
+                        write(CYN + name() + CYN "çš±çœ‰é“ï¼šè¿™ä¸œè¥¿æˆ‘å¯ä¿®"
+                              "ç†ä¸äº†ã€‚\n" NOR);
                 else
-                        write(CYN + name() + CYN "ÖåÃ¼µÀ£º" + msg + NOR
+                        write(CYN + name() + CYN "çš±çœ‰é“ï¼š" + msg + NOR
                               + CYN);
                 return 1;
         }
@@ -218,20 +218,20 @@ int do_repair(string arg)
             repair["item"] == ob)
         {
                 if (me->is_busy())
-                        return notify_fail("ÄãÏÖÔÚÕýÃ¦×ÅÄØ£¡\n");
+                        return notify_fail("ä½ çŽ°åœ¨æ­£å¿™ç€å‘¢ï¼\n");
 
                 if (MONEY_D->player_pay(me, repair["cost"]) != 1)
-                        return notify_fail("ÄãÉíÉÏµÄÇ®²»¹»Ñ½£¡\n");
+                        return notify_fail("ä½ èº«ä¸Šçš„é’±ä¸å¤Ÿå‘€ï¼\n");
 
-                message_vision(HIW "$n" HIW "°Ñ" + ob->name() + HIW "µÝ"
-                               "¸øÁË$N" HIW "¡£\nÖ»¼û$N" HIW "ÄÃÆð¹¤¾ß£¬"
-                               "¶«ÇÃÎ÷²¹£¬½«" + ob->name() + HIW "ºÃºÃÐÞ"
-                               "ÁËÐÞ¡£\n" NOR, this_object(), me);
+                message_vision(HIW "$n" HIW "æŠŠ" + ob->name() + HIW "é€’"
+                               "ç»™äº†$N" HIW "ã€‚\nåªè§$N" HIW "æ‹¿èµ·å·¥å…·ï¼Œ"
+                               "ä¸œæ•²è¥¿è¡¥ï¼Œå°†" + ob->name() + HIW "å¥½å¥½ä¿®"
+                               "äº†ä¿®ã€‚\n" NOR, this_object(), me);
 
                 ob->set("consistence", 100);
-                message_vision(HIC "$N" HIC "µÀ£º¡°ºÃÁË¡£¡±ËæÊÖ°Ñ" + ob->name()
-                               + HIC "»¹¸øÁË$n" HIC "£¬$n" HIC "¿´ÁË¿´£¬"
-                               "ÂúÒâµÄÌÍ³öÁËÒ»Ð©Ç®¸¶ÁËÕÊ¡£\n" NOR,
+                message_vision(HIC "$N" HIC "é“ï¼šâ€œå¥½äº†ã€‚â€éšæ‰‹æŠŠ" + ob->name()
+                               + HIC "è¿˜ç»™äº†$n" HIC "ï¼Œ$n" HIC "çœ‹äº†çœ‹ï¼Œ"
+                               "æ»¡æ„çš„æŽå‡ºäº†ä¸€äº›é’±ä»˜äº†å¸ã€‚\n" NOR,
                                this_object(), me);
 
                 me->start_busy(1 + random(100 - consistence) / 10);
@@ -245,12 +245,12 @@ int do_repair(string arg)
         if (cost >= 1000)   cost = cost / 100 * 100; else
         if (cost >= 100)    cost = cost / 10 * 10;
 
-        message_vision(CYN "\n$n" CYN "ÄÃ³öÒ»" + ob->query("unit") +
-                       ob->name() + NOR + CYN "£¬$N" CYN "Æ³ÁËÒ»ÑÛ"
-                       "£¬µÀ£ºÒªÐÞºÃËüµÃÒª" + MONEY_D->price_str(cost) +
-                       NOR + CYN "²ÅÐÐ¡£\n" NOR, this_object(), me);
+        message_vision(CYN "\n$n" CYN "æ‹¿å‡ºä¸€" + ob->query("unit") +
+                       ob->name() + NOR + CYN "ï¼Œ$N" CYN "çž¥äº†ä¸€çœ¼"
+                       "ï¼Œé“ï¼šè¦ä¿®å¥½å®ƒå¾—è¦" + MONEY_D->price_str(cost) +
+                       NOR + CYN "æ‰è¡Œã€‚\n" NOR, this_object(), me);
 
-        tell_object(me, YEL "Èç¹ûÄãµÄÈ·ÏëÐÞÀíÕâ¼þÎïÆ·£¬ÇëÔÙÊäÈëÒ»´ÎÕâÌõÃüÁî¡£\n" NOR);
+        tell_object(me, YEL "å¦‚æžœä½ çš„ç¡®æƒ³ä¿®ç†è¿™ä»¶ç‰©å“ï¼Œè¯·å†è¾“å…¥ä¸€æ¬¡è¿™æ¡å‘½ä»¤ã€‚\n" NOR);
         me->set_temp("pending/repair/item", ob);
         me->set_temp("pending/repair/cost", cost);
         return 1;

@@ -9,22 +9,22 @@ void init()
 
 void create()
 {
-        set_name(HIC "ÌìÏã¶ÏĞø¸à" NOR, ({"tianxiang gao", "gao"}));
-        set("unit", "ºĞ");
-        set("long", "ÕâÊÇÒ»ºĞºÚÉ«µÄÁÆÉË¸àÒ©£¬¿ÉÒÔ²ÁÍ¿£¨smear£©¡£\n");
+        set_name(HIC "å¤©é¦™æ–­ç»­è†" NOR, ({"tianxiang gao", "gao"}));
+        set("unit", "ç›’");
+        set("long", "è¿™æ˜¯ä¸€ç›’é»‘è‰²çš„ç–—ä¼¤è†è¯ï¼Œå¯ä»¥æ“¦æ¶‚ï¼ˆsmearï¼‰ã€‚\n");
         setup();
 }
 
 int do_smear(string arg)
 {
-        if (!id(arg))  return notify_fail("Äã²ÁÍ¿Ê²Ã´£¿\n");
+        if (!id(arg))  return notify_fail("ä½ æ“¦æ¶‚ä»€ä¹ˆï¼Ÿ\n");
 
         if ( this_player()->qeury("eff_qi") >= this_player()->qeury("max_qi") )
-                return notify_fail("¸ãÊ²Ã´¹í£¡£¿ÄãÓÖÃ»ÊÜÉË£¬ÓÃ²»×ÅÍ¿Ëü£¡\n");
+                return notify_fail("æä»€ä¹ˆé¬¼ï¼ï¼Ÿä½ åˆæ²¡å—ä¼¤ï¼Œç”¨ä¸ç€æ¶‚å®ƒï¼\n");
 
         this_player()->receive_curing("qi", 250);
-        tell_object(this_player(), HIG "Äã°ÑºÚÉ«µÄ¸àÒ©Í¿ÔÚÁËÉË¿ÚÉÏ£¬¶ÙÊ±¾õµÄÒ»¹ÉÇåÁ¹Ö®Òâ
-Á÷±éÈ«Éí£¡\n" NOR );
+        tell_object(this_player(), HIG "ä½ æŠŠé»‘è‰²çš„è†è¯æ¶‚åœ¨äº†ä¼¤å£ä¸Šï¼Œé¡¿æ—¶è§‰çš„ä¸€è‚¡æ¸…å‡‰ä¹‹æ„
+æµéå…¨èº«ï¼\n" NOR );
         destruct(this_object());
         return 1;
 }

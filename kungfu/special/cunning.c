@@ -1,14 +1,14 @@
-// cunning.c 八面玲珑
+// cunning.c 鍏潰鐜茬彂
 // Created by Vin 26/3/2002
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return HIC "八面玲珑" NOR; }
+string name() { return HIC "鍏潰鐜茬彂" NOR; }
 
 int perform(object me, string skill)
 {
-        return notify_fail("这项技能能够使你获得更多的门派贡献值，不需要运用。\n");
+        return notify_fail("杩欓」鎶�鑳借兘澶熶娇浣犺幏寰楁洿澶氱殑闂ㄦ淳璐＄尞鍊硷紝涓嶉渶瑕佽繍鐢ㄣ�俓n");
 }
 

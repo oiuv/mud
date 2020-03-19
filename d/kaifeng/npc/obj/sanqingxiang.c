@@ -3,14 +3,14 @@ inherit ITEM;
 
 void create()
 {
-        set_name(YEL "ÈıÇåÉñÏñ" NOR, ({ "xiang" }) );
+        set_name(YEL "ä¸‰æ¸…ç¥åƒ" NOR, ({ "xiang" }) );
         set_weight(500000);
         set_max_encumbrance(800);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "×ù");
-                set("long", "µÀ¼ÒµÄÈıÇåÉñÏñ£¬¾İËµÀÏ×ÓÒ»Æø»¯ÈıÇå¡£\n");
+                set("unit", "åº§");
+                set("long", "é“å®¶çš„ä¸‰æ¸…ç¥åƒï¼Œæ®è¯´è€å­ä¸€æ°”åŒ–ä¸‰æ¸…ã€‚\n");
                 set("value", 50);
         }
 }

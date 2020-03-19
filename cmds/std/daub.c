@@ -18,13 +18,13 @@ int main(object me, string arg)
 	object obj, dest;
 
 	if (!arg)
-                return notify_fail("ÄãÒªÍùÄÄ¶ùÍ¿Ä¨¶¾Ò©£¿\n");
+                return notify_fail("ä½ è¦å¾€å“ªå„¿æ¶‚æŠ¹æ¯’è¯ï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("ÏÈÃ¦ÍêÁËÄãµÄÊÂÇéÔÙÏëÔõÃ´º¦ÈË°É£¡\n");
+                return notify_fail("å…ˆå¿™å®Œäº†ä½ çš„äº‹æƒ…å†æƒ³æ€ä¹ˆå®³äººå§ï¼\n");
 
         if (me->is_fighting())
-                return notify_fail("ÄãÏÖÔÚÕıÔÚ´ò¼Ü£¬Ã»Ê±¼ä×öÕâĞ©ÊÂÇé¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£åœ¨æ‰“æ¶ï¼Œæ²¡æ—¶é—´åšè¿™äº›äº‹æƒ…ã€‚\n");
 
         if (sscanf(arg, "with %s", item) == 1)
                 target = "hand";
@@ -35,7 +35,7 @@ int main(object me, string arg)
 	if (sscanf(arg, "%s on %s", item, target) == 2)
                 ;
         else
-                return notify_fail("ÄãÒªÍùÄÄ¶ùÍ¿Ä¨¶¾Ò©£¿\n");
+                return notify_fail("ä½ è¦å¾€å“ªå„¿æ¶‚æŠ¹æ¯’è¯ï¼Ÿ\n");
 
         if (target == "hand" || target == "me")
         {
@@ -46,33 +46,33 @@ int main(object me, string arg)
 	        dest = present(target, me);
                 if (! dest) dest = present(target, environment(me));
 	        if (! dest)
-                        return notify_fail("ÕâÀïÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+                        return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
                 if (dest->is_character())
                 {
                         if (dest != me && ! dest->is_corpse())
                         {
-                                return notify_fail("ÄãÍù" + dest->name() +
-                                                   "ÉÏÃæÍ¿Ê²Ã´£¬ÕÒ±â°¡£¿\n");
+                                return notify_fail("ä½ å¾€" + dest->name() +
+                                                   "ä¸Šé¢æ¶‚ä»€ä¹ˆï¼Œæ‰¾æ‰å•Šï¼Ÿ\n");
                         }
                         // daub on me
                 } else
         	if (! mapp(dest->query("armor_prop")) &&
                     ! mapp(dest->query("weapon_prop")))
                 {
-                        return notify_fail("ÄÇ¼È²»ÊÇÎäÆ÷£¬Ò²²»ÊÇ·À¾ß£¬"
-                                           "ÄãÔõÃ´Í¿Ä¨¶¾Ò©ÄØ£¿\n");
+                        return notify_fail("é‚£æ—¢ä¸æ˜¯æ­¦å™¨ï¼Œä¹Ÿä¸æ˜¯é˜²å…·ï¼Œ"
+                                           "ä½ æ€ä¹ˆæ¶‚æŠ¹æ¯’è¯å‘¢ï¼Ÿ\n");
                 }
         }
 
 	if (!objectp(obj = present(item, me)))
-		return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
 	if (!stringp(obj->query("poison_type")))
-                return notify_fail(obj->name() + "²»ÊÇ¶¾Ò©°¡¡£\n");
+                return notify_fail(obj->name() + "ä¸æ˜¯æ¯’è¯å•Šã€‚\n");
 
         if (! obj->query("can_daub"))
-                return notify_fail("ÕâÖÖ¶¾Ò©²»ÄÜÓÃÀ´Í¿Ä¨¡£\n");
+                return notify_fail("è¿™ç§æ¯’è¯ä¸èƒ½ç”¨æ¥æ¶‚æŠ¹ã€‚\n");
 
         dest->set_temp("daub/who_id", me->query("id"));
         dest->set_temp("daub/who_name", me->query("name"));
@@ -82,10 +82,10 @@ int main(object me, string arg)
                                       obj->query("poison")));
         if (dest == me)
         {
-                message("vision", sprintf("%sÄÃ³öÒ»Ğ©¶«Î÷ÔÚ×Ô¼ºÉíÉÏÍ¿À´"
-                                          "Ä¨È¥µÄ£¬²»ÖªµÀÔÚ¸ÉÊ²Ã´¡£\n",
+                message("vision", sprintf("%sæ‹¿å‡ºä¸€äº›ä¸œè¥¿åœ¨è‡ªå·±èº«ä¸Šæ¶‚æ¥"
+                                          "æŠ¹å»çš„ï¼Œä¸çŸ¥é“åœ¨å¹²ä»€ä¹ˆã€‚\n",
                                           me->name()), environment(me), ({ me }));
-                tell_object(me, HIG "Äã°Ñ" + obj->name() + HIG "Í¿Ä¨µ½×Ô¼ºÊÖÉÏ¡£\n" NOR);
+                tell_object(me, HIG "ä½ æŠŠ" + obj->name() + HIG "æ¶‚æŠ¹åˆ°è‡ªå·±æ‰‹ä¸Šã€‚\n" NOR);
                 check_poison(me, dest, I_KNOW);
 
                 if (obj->query_amount() > 1)
@@ -96,11 +96,11 @@ int main(object me, string arg)
                 return 1;
         }
 
-        message("vision", sprintf("%sÄÃ³öÒ»Ğ©¶«Î÷Í¿Ä¨ÔÚ%sÉÏÃæ¡£\n",
+        message("vision", sprintf("%sæ‹¿å‡ºä¸€äº›ä¸œè¥¿æ¶‚æŠ¹åœ¨%sä¸Šé¢ã€‚\n",
                                   me->name(), dest->name()),
                                   environment(me), ({ me }));
-        tell_object(me, HIG "Äã°Ñ" + obj->name() + HIG "Í¿Ä¨µ½" + dest->name() +
-                        HIG "ÉÏ¡£\n" NOR);
+        tell_object(me, HIG "ä½ æŠŠ" + obj->name() + HIG "æ¶‚æŠ¹åˆ°" + dest->name() +
+                        HIG "ä¸Šã€‚\n" NOR);
         if (dest->query("equipped") == "worn" &&
             dest->query("armor_type") != "hands" &&
             environment(dest) == me)
@@ -137,45 +137,45 @@ void check_poison(object me, object dest, int iknow)
         lvl = me->query_skill("force") + me->query("poison", 1) / 2;
         if (lvl < 100 || lvl < (int)p["level"])
         {
-                message("vision", HIC "ºöÈ»" + me->name() + HIC "Ã¼Í·"
-                                  "½ôËõ£¬ÉñÇéÍ´¿à£¬¿´À´ÊÇÓöµ½Âé·³ÁË¡£\n" NOR,
+                message("vision", HIC "å¿½ç„¶" + me->name() + HIC "çœ‰å¤´"
+                                  "ç´§ç¼©ï¼Œç¥æƒ…ç—›è‹¦ï¼Œçœ‹æ¥æ˜¯é‡åˆ°éº»çƒ¦äº†ã€‚\n" NOR,
                                   environment(me), ({ me }));
-                tell_object(me, HIC "ºöÈ»Äã¾õµÃÓĞµã²»¶Ô¾¢£¬²»ºÃ£¬¿ÉÄÜÊÇÖĞ¶¾ÁË¡£\n" NOR);
+                tell_object(me, HIC "å¿½ç„¶ä½ è§‰å¾—æœ‰ç‚¹ä¸å¯¹åŠ²ï¼Œä¸å¥½ï¼Œå¯èƒ½æ˜¯ä¸­æ¯’äº†ã€‚\n" NOR);
                 me->affect_by(type, p);
                 dest->delete_temp("daub");
                 return;
         }
 
-        message("vision", HIC + me->name() + HIC "Ã¼Í·"
-                          "Î¢Î¢Ò»Öå£¬Ëæ¼´ÊæÕ¹¿ªÀ´¡£\n" NOR,
+        message("vision", HIC + me->name() + HIC "çœ‰å¤´"
+                          "å¾®å¾®ä¸€çš±ï¼Œéšå³èˆ’å±•å¼€æ¥ã€‚\n" NOR,
                           environment(me), ({ me }));
 
         if (p["level"] > 120)
         {
                 if (iknow)
-                        tell_object(me, HIC "Äã·¢ÏÖÕâ" + name + HIC "¶¾ĞÔÉõ"
-                                        "ÊÇÃÍÁÒ£¬ĞÒºÃÄÚ¹¦¸ßÉî£¬µÖµ²µÃ×¡¡£\n" NOR);
+                        tell_object(me, HIC "ä½ å‘ç°è¿™" + name + HIC "æ¯’æ€§ç”š"
+                                        "æ˜¯çŒ›çƒˆï¼Œå¹¸å¥½å†…åŠŸé«˜æ·±ï¼ŒæŠµæŒ¡å¾—ä½ã€‚\n" NOR);
                 else
-                        tell_object(me, HIC "Äã·¢ÏÖÕâ" + dest->name() + HIC "ÉÏµÄ" +
-                                        name + HIC "¶¾ĞÔÉõ"
-                                        "ÊÇÃÍÁÒ£¬¿÷µÃÄãÄÚ¹¦¸ßÉî£¬²ÅĞÒÃâÎŞÊÂ¡£\n" NOR);
+                        tell_object(me, HIC "ä½ å‘ç°è¿™" + dest->name() + HIC "ä¸Šçš„" +
+                                        name + HIC "æ¯’æ€§ç”š"
+                                        "æ˜¯çŒ›çƒˆï¼Œäºå¾—ä½ å†…åŠŸé«˜æ·±ï¼Œæ‰å¹¸å…æ— äº‹ã€‚\n" NOR);
         } else
         if (! iknow && dest->query_temp("who_id") != me->query("id"))
         {
-                tell_object(me, HIC "Äã·¢ÏÖÕâ" + name + HIC "ÉÏÃæ´ø¶¾¡£\n" NOR);
+                tell_object(me, HIC "ä½ å‘ç°è¿™" + name + HIC "ä¸Šé¢å¸¦æ¯’ã€‚\n" NOR);
         }
 }
 
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½£ºdaub <¶¾Æ·Ãû³Æ> on <ÎäÆ÷> | <·À¾ß> | hand
-          daub <ÎäÆ÷> | <·À¾ß> | [hand] with <¶¾Æ·Ãû³Æ>
+æŒ‡ä»¤æ ¼å¼ï¼šdaub <æ¯’å“åç§°> on <æ­¦å™¨> | <é˜²å…·> | hand
+          daub <æ­¦å™¨> | <é˜²å…·> | [hand] with <æ¯’å“åç§°>
 
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã½«Ä³Ñù¶¾Æ·Í¿Ä¨µ½ÎäÆ÷ÉÏ£¬·À¾ß»òÊÇÊÖÉÏ£¬µ±È»Í¿
-Ä¨µ½·À¾ß»òÊÇÊÖÉÏµÄµÄ¶¾×îºÃ²»ÒªÊ¹×Ô¼ºÖĞ¶¾¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ å°†æŸæ ·æ¯’å“æ¶‚æŠ¹åˆ°æ­¦å™¨ä¸Šï¼Œé˜²å…·æˆ–æ˜¯æ‰‹ä¸Šï¼Œå½“ç„¶æ¶‚
+æŠ¹åˆ°é˜²å…·æˆ–æ˜¯æ‰‹ä¸Šçš„çš„æ¯’æœ€å¥½ä¸è¦ä½¿è‡ªå·±ä¸­æ¯’ã€‚
 
-Ïà¹ØÖ¸Áî£ºpour¡¢drug¡¢wash
+ç›¸å…³æŒ‡ä»¤ï¼špourã€drugã€wash
 HELP);
 
         return 1;

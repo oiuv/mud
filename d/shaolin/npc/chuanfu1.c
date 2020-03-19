@@ -6,18 +6,18 @@ inherit NPC;
 
 void create()
 {
-	set_name("´¬·ò", ({ "chuan fu", }));
-	set("long", "ÕâÊÇ³£ÄêÔÚººË®×¨ÃÅ¹Ü»õÔËµÄÒ»Î»´¬·ò¡£\n");
+	set_name("èˆ¹å¤«", ({ "chuan fu", }));
+	set("long", "è¿™æ˜¯å¸¸å¹´åœ¨æ±‰æ°´ä¸“é—¨ç®¡è´§è¿çš„ä¸€ä½èˆ¹å¤«ã€‚\n");
 
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set("attitude", "peaceful");
 	set("class", "bonze");
 
         set("age", 42);
 
         set("inquiry", ([
-                "°Ú¶É" : "²»ÂÛ»õ¶à»õÉÙ£¬Ò»´¬Ê®Á½ÎÆÒø£¬²»¶ş¼Û¡£",
-                "¹ıºÓ" : "²»ÂÛ»õ¶à»õÉÙ£¬Ò»´¬Ê®Á½ÎÆÒø£¬²»¶ş¼Û¡£",
+                "æ‘†æ¸¡" : "ä¸è®ºè´§å¤šè´§å°‘ï¼Œä¸€èˆ¹åä¸¤çº¹é“¶ï¼Œä¸äºŒä»·ã€‚",
+                "è¿‡æ²³" : "ä¸è®ºè´§å¤šè´§å°‘ï¼Œä¸€èˆ¹åä¸¤çº¹é“¶ï¼Œä¸äºŒä»·ã€‚",
         ]));
 
 	setup();
@@ -32,23 +32,23 @@ int accept_object(object who, object ob)
 
         if (sizeof(filter_array(obs, (: ! $1->is_character() :))) < 1)
         {
-                message_vision("´¬·òºßÁËÒ»Éù¶Ô$NµÀ£º¡°¿´Çå³şÁË£¬ÎÒÕâ¶ù"
-                               "Ö»¹Ü»õÔË£¬Ã»ÓĞ»õÄãÌíÊ²Ã´ÂÒ£¿¡±\n", who);
+                message_vision("èˆ¹å¤«å“¼äº†ä¸€å£°å¯¹$Né“ï¼šâ€œçœ‹æ¸…æ¥šäº†ï¼Œæˆ‘è¿™å„¿"
+                               "åªç®¡è´§è¿ï¼Œæ²¡æœ‰è´§ä½ æ·»ä»€ä¹ˆä¹±ï¼Ÿâ€\n", who);
                 return 0;
         }
 
     	if (ob->query("money_id") && ob->value() >= 1000)
 	{
-        	message_vision("´¬·òµàÁËµà" + ob->name() + "£¬¶Ô$NËµ£ººÃ£¡Õâ¾ÍÉÏ´¬°É£¡\n" , who);
-        	message_vision("´¬·ò½ĞÀ´¼¸¸öÄêÇá´¬·ò£¬°ï$N½«»õÍÏÉÏ´¬£¬Ò»Éù¡¸ÆğÃª¡¹´¬¾Í¿ª×ßÁË¡£\n", who);
+        	message_vision("èˆ¹å¤«æ‚äº†æ‚" + ob->name() + "ï¼Œå¯¹$Nè¯´ï¼šå¥½ï¼è¿™å°±ä¸Šèˆ¹å§ï¼\n" , who);
+        	message_vision("èˆ¹å¤«å«æ¥å‡ ä¸ªå¹´è½»èˆ¹å¤«ï¼Œå¸®$Nå°†è´§æ‹–ä¸Šèˆ¹ï¼Œä¸€å£°ã€Œèµ·é”šã€èˆ¹å°±å¼€èµ°äº†ã€‚\n", who);
         	who->move("/d/shaolin/hanshuim");
                 if (sizeof(obs)) obs->move("/d/shaolin/hanshuim");
-        	tell_object(who, HIG "ÄãÓÆÏĞµÄÕ¾ÔÚ´¬Í·£¬»Î»ÎÓÆÓÆµÄ¹ıÁËººË®......\n" NOR);
+        	tell_object(who, HIG "ä½ æ‚ é—²çš„ç«™åœ¨èˆ¹å¤´ï¼Œæ™ƒæ™ƒæ‚ æ‚ çš„è¿‡äº†æ±‰æ°´......\n" NOR);
 		who->start_call_out((: call_other, __FILE__, "goto_peer", who, obs :), 10);
                 destruct(ob);
 		return -1;
 	} else  
-		message_vision("´¬·ò°×ÁË$NÒ»ÑÛËµ£º¡°ÕâµãÇ®£¿ËãÁË°É£¡¡±\n", who);
+		message_vision("èˆ¹å¤«ç™½äº†$Nä¸€çœ¼è¯´ï¼šâ€œè¿™ç‚¹é’±ï¼Ÿç®—äº†å§ï¼â€\n", who);
 
 	return 0;
 }
@@ -65,7 +65,7 @@ void goto_peer(object ob, object *obs)
 	if (! objectp(ob) || environment(ob) != find_object("/d/shaolin/hanshuim"))
 		return;
 
-   	tell_object(ob, "´¬ÖÕÓÚµ½ÁË¶Ô°¶¡£Äã×ßÏÂ´¬À´£¬´¬ÉÏµÄ»î¼Æ½«ÄãµÄ»õ¶¼À­ÁËÏÂÀ´¡£\n");
+   	tell_object(ob, "èˆ¹ç»ˆäºåˆ°äº†å¯¹å²¸ã€‚ä½ èµ°ä¸‹èˆ¹æ¥ï¼Œèˆ¹ä¸Šçš„æ´»è®¡å°†ä½ çš„è´§éƒ½æ‹‰äº†ä¸‹æ¥ã€‚\n");
    	ob->move("/d/shaolin/hanshui2");
 }
 

@@ -6,11 +6,11 @@ inherit ROOM;
 
 void create()
 {
-    set("short", "��������");
+    set("short", "天门男舍");
     set("long", @LONG
-�߽�������ᣬһ�󺹳���Ѭ���棬�����Ӹϲ�ȥ���������
-���ֺ��ӹ���������񣬺����쳣�غ�����ϯ�����Ͼ�ˮ���죬��
-���Ǽ�����Ȼ���ȵò���ˡ�
+走进这间男舍，一阵汗臭酒熏扑面，根本挥赶不去。几个五大
+三粗汉子光脚神气赳赳，豪迈异常地喊你入席。桌上酒水淋漓，杯
+盘狼籍，显然都喝得差不多了。
 LONG );
     set("exits", ([
         "out" : __DIR__"mjtianmen1",

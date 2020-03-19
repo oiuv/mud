@@ -1,4 +1,4 @@
-// hongniang.c ºìÄï
+// hongniang.c çº¢å¨˜
 
 #include <ansi.h>
 
@@ -9,17 +9,17 @@ inherit NPC;
 
 void create()
 {
-	set_name("ºìÄï", ({ "hong niang", "hongniang", "marriage witness" }));
+	set_name("çº¢å¨˜", ({ "hong niang", "hongniang", "marriage witness" }));
 	set("long", 
-		"ËıÊÇÒ»¸ö³¤µÃºÜºÃ¿´µÄĞ¡¹ÃÄï£¬ºöÉÁºö"
-                "ÉÁµÄ´óÑÛ¾¦Í¸×ÅÒ»Ë¿½Æ÷ï¡£\n");
-	set("gender", "Å®ĞÔ");
+		"å¥¹æ˜¯ä¸€ä¸ªé•¿å¾—å¾ˆå¥½çœ‹çš„å°å§‘å¨˜ï¼Œå¿½é—ªå¿½"
+                "é—ªçš„å¤§çœ¼ç›é€ç€ä¸€ä¸ç‹¡é» ã€‚\n");
+	set("gender", "å¥³æ€§");
 	set("age", 18);
 	set("combat_exp", 1000);
 
         set("inquiry", ([
-                "½á»é": "Òª½á»é£¿ÎÒ¿ÉÒÔÎªÄãÃÇ×öÃ½°¡£¬ÄãÃÇÈË¶¼À´ÆëÁËÃ´£¿",
-                "Àë»é": "½á»éÕÒÎÒ£¬Àë»éÎÒÒ²°ïÃ¦£¬²»¹ı¿ÉÒÔÉ÷ÖØÅ¶¡£Ò»ÈÕ·òÆŞ°ÙÈÕ¶÷Âï£¡",
+                "ç»“å©š": "è¦ç»“å©šï¼Ÿæˆ‘å¯ä»¥ä¸ºä½ ä»¬åšåª’å•Šï¼Œä½ ä»¬äººéƒ½æ¥é½äº†ä¹ˆï¼Ÿ",
+                "ç¦»å©š": "ç»“å©šæ‰¾æˆ‘ï¼Œç¦»å©šæˆ‘ä¹Ÿå¸®å¿™ï¼Œä¸è¿‡å¯ä»¥æ…é‡å“¦ã€‚ä¸€æ—¥å¤«å¦»ç™¾æ—¥æ©å˜›ï¼",
         ]));
 
 	setup();
@@ -28,31 +28,31 @@ void create()
 
 int do_witness(object me, object ob)
 {
-        message_vision("$Nº¬ÇéÂöÂöµÄÍû×Å$n£¬ÕæÊÇÈáÇéËÆË®£¬¹ıÁËÁ¼¾Ã²Å¶Ô" +
-                       name() + "µÀ£ºÕâÎ»Ğ¡¹ÃÄïÄÜ·ñÎªÎÒÃÇÖ¤»é£¿\n\n",
+        message_vision("$Nå«æƒ…è„‰è„‰çš„æœ›ç€$nï¼ŒçœŸæ˜¯æŸ”æƒ…ä¼¼æ°´ï¼Œè¿‡äº†è‰¯ä¹…æ‰å¯¹" +
+                       name() + "é“ï¼šè¿™ä½å°å§‘å¨˜èƒ½å¦ä¸ºæˆ‘ä»¬è¯å©šï¼Ÿ\n\n",
                        me, ob);
 
         if (! living(ob))
         {
-                message_vision(name() + "³Ô³ÔµÄÑÚ×ì¶øĞ¦£¬¶Ô$NµÀ£ºÎÒ"
-                               "¿´Äã»¹ÊÇÏÈ°ÑÕâÎ»ÅªĞÑÔÙËµ°É¡£\n", me);
+                message_vision(name() + "åƒåƒçš„æ©å˜´è€Œç¬‘ï¼Œå¯¹$Né“ï¼šæˆ‘"
+                               "çœ‹ä½ è¿˜æ˜¯å…ˆæŠŠè¿™ä½å¼„é†’å†è¯´å§ã€‚\n", me);
                 return 1;
         }
 
         if (! userp(ob))
         {
-                message_vision(name() + "ÂúÁ³¶¼ÊÇ¿àĞ¦£¬Ğ¦É¶"
-                               "ÄØ£¿ÄãÒ²ºÇºÇµÄ¸ú×ÅÉµĞ¦¡£\n", me);
+                message_vision(name() + "æ»¡è„¸éƒ½æ˜¯è‹¦ç¬‘ï¼Œç¬‘å•¥"
+                               "å‘¢ï¼Ÿä½ ä¹Ÿå‘µå‘µçš„è·Ÿç€å‚»ç¬‘ã€‚\n", me);
                 return 1;
         }
 
-        message_vision(name() + "´óÉùº°µÀ£º¡°ºÜºÃ°¡£¬ºÃµÃºÜ£¡Ë×"
-                       "»°Ëµ£º¡°ÔÚÌìÔ¸Îª±ÈÒíÄñ£¬ÔÚµØÔ¸³ÉÁ¬ÀíÖ¦¡£¡±\n" +
-                       "´Ù³ÉÁ¼ÔµÊÇÌì´óµÄÃÀÊÂ£¡ÎÒ" + name() + "×îÔ¸ÒâÁË£¬ÎÊÌâÊÇÕâÎ»" +
-                       RANK_D->query_respect(ob) + "Ò²Ô¸ÒâÂğ£¿¡±\n\n", me);
+        message_vision(name() + "å¤§å£°å–Šé“ï¼šâ€œå¾ˆå¥½å•Šï¼Œå¥½å¾—å¾ˆï¼ä¿—"
+                       "è¯è¯´ï¼šâ€œåœ¨å¤©æ„¿ä¸ºæ¯”ç¿¼é¸Ÿï¼Œåœ¨åœ°æ„¿æˆè¿ç†æã€‚â€\n" +
+                       "ä¿ƒæˆè‰¯ç¼˜æ˜¯å¤©å¤§çš„ç¾äº‹ï¼æˆ‘" + name() + "æœ€æ„¿æ„äº†ï¼Œé—®é¢˜æ˜¯è¿™ä½" +
+                       RANK_D->query_respect(ob) + "ä¹Ÿæ„¿æ„å—ï¼Ÿâ€\n\n", me);
 
-	tell_object(ob, YEL + name() + "ÇÄÉùÎÊÄã£º" + me->name(1) +
-                        "ÔÚÏòÄãÇó»éÄØ£¬Äã´ğÓ¦(right)»¹ÊÇ²»´ğÓ¦(refuse)£¿\n" NOR);
+	tell_object(ob, YEL + name() + "æ‚„å£°é—®ä½ ï¼š" + me->name(1) +
+                        "åœ¨å‘ä½ æ±‚å©šå‘¢ï¼Œä½ ç­”åº”(right)è¿˜æ˜¯ä¸ç­”åº”(refuse)ï¼Ÿ\n" NOR);
 	ob->set_temp("pending/answer/" + me->query("id") + "/right",
                      bind((: call_other, __FILE__, "do_right", ob, me :), ob));
 	ob->set_temp("pending/answer/" + me->query("id") + "/refuse",
@@ -67,19 +67,19 @@ int do_right(object me, object ob)
         string fc;
         object ring;
 
-        message_vision("$NÍµÍµ¿´ÁË¿´$n£¬Ê¹¾¢µÄµãÍ·µÀ£ºÎÒÔ¸Òâ£¬Ô¸Òâ¼«ÁË£¡\n" + name() +
-                       "ÌıÁË£¬Ğ¦ÎûÎûµÀ£º¡°Á½ÏáÇéÔ¸£¬ÓÖÓĞÎÒÕâÃ½ÈË£¬ÄÇ»¹²»ºÃ°ìÂğ£¿¡±\n\n",
+        message_vision("$Nå·å·çœ‹äº†çœ‹$nï¼Œä½¿åŠ²çš„ç‚¹å¤´é“ï¼šæˆ‘æ„¿æ„ï¼Œæ„¿æ„æäº†ï¼\n" + name() +
+                       "å¬äº†ï¼Œç¬‘å˜»å˜»é“ï¼šâ€œä¸¤å¢æƒ…æ„¿ï¼Œåˆæœ‰æˆ‘è¿™åª’äººï¼Œé‚£è¿˜ä¸å¥½åŠå—ï¼Ÿâ€\n\n",
                        me, ob);
-        command("chat ¹§Ï²" + me->name(1) + "ºÍ" + ob->name(1) +
-                "³ÉÎª°ÙÄêÖ®ºÃ£¡");
-        message("visoin", name() + "Ğ¦×Å¶Ô¶şÈËËµ£º¡°½ñ¸ö¶ùÊÇÄãÃÇ"
-                "´óÏ²µÄÈÕ×Ó£¬ÎÒÃ»ÓĞÊ²Ã´ÀñÎï£¬Ö»ºÃËÍ¸øÄã"
-                "ÃÇÕâ¶ÔĞÂÈËÒ»¶Ô½á»é½äÖ¸°É£¡¡±\n\n", environment(me));
+        command("chat æ­å–œ" + me->name(1) + "å’Œ" + ob->name(1) +
+                "æˆä¸ºç™¾å¹´ä¹‹å¥½ï¼");
+        message("visoin", name() + "ç¬‘ç€å¯¹äºŒäººè¯´ï¼šâ€œä»Šä¸ªå„¿æ˜¯ä½ ä»¬"
+                "å¤§å–œçš„æ—¥å­ï¼Œæˆ‘æ²¡æœ‰ä»€ä¹ˆç¤¼ç‰©ï¼Œåªå¥½é€ç»™ä½ "
+                "ä»¬è¿™å¯¹æ–°äººä¸€å¯¹ç»“å©šæˆ’æŒ‡å§ï¼â€\n\n", environment(me));
 
         fc = read_file(MARRY_RING);
         fc = replace_string(fc, "LONG_DESCRIPTION",
-                            "ÕâÊÇ" + me->name(1) + "ºÍ" +
-                            ob->name(1) + "µÄ½á»é½äÖ¸£¬ÊÇÁ½ÈËµÄ¶¨ÇéÖ®Îï¡£\n");
+                            "è¿™æ˜¯" + me->name(1) + "å’Œ" +
+                            ob->name(1) + "çš„ç»“å©šæˆ’æŒ‡ï¼Œæ˜¯ä¸¤äººçš„å®šæƒ…ä¹‹ç‰©ã€‚\n");
 
         // give ring to me
         fn = RING_DIR + me->query("id");
@@ -93,7 +93,7 @@ int do_right(object me, object ob)
         VERSION_D->append_sn(fn + ".c");
         ring = load_object(fn);
         ring->move(me, 1);
-        tell_object(me, HIY "Äã»ñµÃÁËÒ»¸ö½á»é½äÖ¸¡£\n" NOR);
+        tell_object(me, HIY "ä½ è·å¾—äº†ä¸€ä¸ªç»“å©šæˆ’æŒ‡ã€‚\n" NOR);
         me->set("can_summon/" + "wedding ring", fn);
 
         // give ring to ob
@@ -108,7 +108,7 @@ int do_right(object me, object ob)
         VERSION_D->append_sn(fn + ".c");
         ring = load_object(fn);
         ring->move(ob, 1);
-        tell_object(ob, HIY "Äã»ñµÃÁËÒ»¸ö½á»é½äÖ¸¡£\n" NOR);
+        tell_object(ob, HIY "ä½ è·å¾—äº†ä¸€ä¸ªç»“å©šæˆ’æŒ‡ã€‚\n" NOR);
         ob->set("can_summon/" + "wedding ring", fn);
         
         // record
@@ -125,10 +125,10 @@ int do_right(object me, object ob)
 
 int do_refuse(object me, object ob)
 {
-        message_vision("$NÆ³ÁË$nÒ»ÑÛ£¬×ª¹ıÍ·È¥²»ÔÙ¿´£¬Á¬ÍÂÁË"
-                       "¼¸¿Ú£¬¡°ÅŞ¡¢ÅŞ¡¢ÎÒÅŞÅŞÅŞ£¡¡±\n" +
-                       name() + "ÎŞÄÎµÄ¶Ô$nµÀ£º¡°ÄãÒ²¿´µ½ÁË£¬"
-                       "Ë×»°ËµÇ¿Å¤µÄ¹Ï²»Ìğ°¡...¡±\n", me, ob);
+        message_vision("$Nç¥äº†$nä¸€çœ¼ï¼Œè½¬è¿‡å¤´å»ä¸å†çœ‹ï¼Œè¿åäº†"
+                       "å‡ å£ï¼Œâ€œå‘¸ã€å‘¸ã€æˆ‘å‘¸å‘¸å‘¸ï¼â€\n" +
+                       name() + "æ— å¥ˆçš„å¯¹$né“ï¼šâ€œä½ ä¹Ÿçœ‹åˆ°äº†ï¼Œ"
+                       "ä¿—è¯è¯´å¼ºæ‰­çš„ç“œä¸ç”œå•Š...â€\n", me, ob);
         return 1;
 }
 
@@ -138,51 +138,51 @@ int do_divorce(object me)
 
         if (me->query("couple/witness") != name())
         {
-                message_vision(name() + "Ò¡Ò¡Í·£¬¶Ô$NµÀ£º¡°ÎÒ¿É"
-                               "²»ÊÇÄãÃÇµÄÃ½ÈË£¬ÄãÃÇÒªÀë¾ÍÀë£¬±ğÀ´·³ÎÒ£¡¡±\n", me);
+                message_vision(name() + "æ‘‡æ‘‡å¤´ï¼Œå¯¹$Né“ï¼šâ€œæˆ‘å¯"
+                               "ä¸æ˜¯ä½ ä»¬çš„åª’äººï¼Œä½ ä»¬è¦ç¦»å°±ç¦»ï¼Œåˆ«æ¥çƒ¦æˆ‘ï¼â€\n", me);
                 return 1;
         }
 
         ob = find_player(me->query("couple/id"));
         if (! ob || environment(ob) != environment(me))
         {
-                message_vision(name() + "³Ô¾ªµÄ¿´×Å$NµÀ£º¡°ÔõÃ´£¬³³"
-                               "¼ÜÁË£¿°¦£¬»¨ÎŞ°ÙÈÕºÃ°¡£¡²»¹ıÒªÀëÄãÔõ"
-                               "Ã´Ò²µÃ°ÑÈË¼ÒÕÒÀ´Ò»ÆğÌ¸Ì¸°¡£¡¡±\n", me);
+                message_vision(name() + "åƒæƒŠçš„çœ‹ç€$Né“ï¼šâ€œæ€ä¹ˆï¼Œåµ"
+                               "æ¶äº†ï¼Ÿå”‰ï¼ŒèŠ±æ— ç™¾æ—¥å¥½å•Šï¼ä¸è¿‡è¦ç¦»ä½ æ€"
+                               "ä¹ˆä¹Ÿå¾—æŠŠäººå®¶æ‰¾æ¥ä¸€èµ·è°ˆè°ˆå•Šï¼â€\n", me);
                 return 1;
         }
 
         if (! living(ob))
         {
-                message_vision(name() + "Ò¡Ò¡Í·£¬¶Ô$NµÀ£º¡°ÎÒËµÕâÎ»" +
+                message_vision(name() + "æ‘‡æ‘‡å¤´ï¼Œå¯¹$Né“ï¼šâ€œæˆ‘è¯´è¿™ä½" +
                                RANK_D->query_respect(me) +
-                               "£¬ÔõÃ´Ò²µÃµÈÈË¼ÒĞÑ¹ıÀ´ÔÙËµ°É£¡¡±\n", me);
+                               "ï¼Œæ€ä¹ˆä¹Ÿå¾—ç­‰äººå®¶é†’è¿‡æ¥å†è¯´å§ï¼â€\n", me);
                 return 1;
         }
 
         if (me->query_temp("pending/submit_divorce"))
         {
-                message_vision(name() + "Ò¡Ò¡Í·£¬¶Ô$NµÀ£º¡°Äã×Å"
-                               "Ê²Ã´¼±£¬Ò²²»¿´¿´ÈË¼ÒµÄÒâË¼£¿¡±\n",
+                message_vision(name() + "æ‘‡æ‘‡å¤´ï¼Œå¯¹$Né“ï¼šâ€œä½ ç€"
+                               "ä»€ä¹ˆæ€¥ï¼Œä¹Ÿä¸çœ‹çœ‹äººå®¶çš„æ„æ€ï¼Ÿâ€\n",
                                me);
                 return 1;
         }
 
         if (! ob->query_temp("pending/submit_divorce"))
         {
-                message_vision(name() + "ÇáÇáÌ¾ÁË¿ÚÆø£¬Ò»ÕÅÓ×ÖÉµÄÁ³ÉÏÒ²"
-                               "²»½ûÓĞĞ©²×É££¬»ØÍ·¿´ÁË¿´$n£¬ÎÊµÀ£º¡°Äã"
-                               "Ò²ÊÇÌúÁËĞÄ²»ºÍ" + ob->name() + "¹ıÁË£¿¡±\n\n", me, ob);
-                tell_object(ob, YEL + name() + "ÇÄÇÄµÄ¸æËßÄã£ºÒªÊÇÄÇÑù£¬Äã¾ÍÊäÈë("
-                                "divorce " + me->query("id") + ")±íÊ¾¾öĞÄÒÑ¶¨¡£\n");
+                message_vision(name() + "è½»è½»å¹äº†å£æ°”ï¼Œä¸€å¼ å¹¼ç¨šçš„è„¸ä¸Šä¹Ÿ"
+                               "ä¸ç¦æœ‰äº›æ²§æ¡‘ï¼Œå›å¤´çœ‹äº†çœ‹$nï¼Œé—®é“ï¼šâ€œä½ "
+                               "ä¹Ÿæ˜¯é“äº†å¿ƒä¸å’Œ" + ob->name() + "è¿‡äº†ï¼Ÿâ€\n\n", me, ob);
+                tell_object(ob, YEL + name() + "æ‚„æ‚„çš„å‘Šè¯‰ä½ ï¼šè¦æ˜¯é‚£æ ·ï¼Œä½ å°±è¾“å…¥("
+                                "divorce " + me->query("id") + ")è¡¨ç¤ºå†³å¿ƒå·²å®šã€‚\n");
                 me->set_temp("pending/submit_divorce", 1);
                 return 1;
         }
 
-        message_vision(name() + "Í´ĞÄµÄ¶Ô$NºÍ$nµÀ£º¡°µ±³õÎÒÎªÄãÃÇ"
-                       "Á½¸ö×öÃ½µÄÊ±ºò£¬¿ÉÕæÃ»Ïëµ½»áÓĞÕâÃ´Ò»Ìì£¡¡±\n\n", me, ob);
-        command("chat ´Ó½ñÌìÆğ" + me->name(1) + "ºÍ" + ob->name(1) +
-                "·ÖÊÖÁË£¬ÒÔºó¿É¾Í¸÷×ß¸÷µÄÂ·À²£¡");
+        message_vision(name() + "ç—›å¿ƒçš„å¯¹$Nå’Œ$né“ï¼šâ€œå½“åˆæˆ‘ä¸ºä½ ä»¬"
+                       "ä¸¤ä¸ªåšåª’çš„æ—¶å€™ï¼Œå¯çœŸæ²¡æƒ³åˆ°ä¼šæœ‰è¿™ä¹ˆä¸€å¤©ï¼â€\n\n", me, ob);
+        command("chat ä»ä»Šå¤©èµ·" + me->name(1) + "å’Œ" + ob->name(1) +
+                "åˆ†æ‰‹äº†ï¼Œä»¥åå¯å°±å„èµ°å„çš„è·¯å•¦ï¼");
         UPDATE_D->clear_user_data(me->query("id"), "couple");
         return 1;
 }
@@ -190,19 +190,19 @@ int do_divorce(object me)
 int accept_fight(object who)
 {
         command("fear");
-        command("say ±ğÀ´£¬ÎÒºÃÅÂÅÂµÄ¡£");
-        return notify_fail("Äã»¹ÊÇËãÁË°É£¡\n");
+        command("say åˆ«æ¥ï¼Œæˆ‘å¥½æ€•æ€•çš„ã€‚");
+        return notify_fail("ä½ è¿˜æ˜¯ç®—äº†å§ï¼\n");
 }
 
 int accept_hit(object who)
 {
-        command("say ²»Òª°¡£¡²»ÒªÂÒ¶¯ÊÖ£¡");
-        return notify_fail("Äã»¹ÊÇËãÁË°É£¡\n");
+        command("say ä¸è¦å•Šï¼ä¸è¦ä¹±åŠ¨æ‰‹ï¼");
+        return notify_fail("ä½ è¿˜æ˜¯ç®—äº†å§ï¼\n");
 }
 
 int accept_kill(object who)
 {
-        command("say Ñ½£¡ÄãÏë¸ÉÊ²Ã´£¿");
+        command("say å‘€ï¼ä½ æƒ³å¹²ä»€ä¹ˆï¼Ÿ");
         return 1;
 }
 
@@ -213,7 +213,7 @@ void unconcious()
 
 void die()
 {
-        command("chat ²»ºÃÁË£¡³öÈËÃüÁË£¡");
-        message_vision("$N·ÉÒ²ËÆµÄÌÓ×ßÁË¡£\n", this_object());
+        command("chat ä¸å¥½äº†ï¼å‡ºäººå‘½äº†ï¼");
+        message_vision("$Né£ä¹Ÿä¼¼çš„é€ƒèµ°äº†ã€‚\n", this_object());
         destruct(this_object());
 }

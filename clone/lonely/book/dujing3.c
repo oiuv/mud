@@ -3,16 +3,16 @@ inherit BOOK;
 
 void create()
 {
-        set_name(NOR + WHT "¡¸¶¾¾­ÏÂÆª¡¹" NOR, ({ "du jing3", "jing3", "book3" }));
+        set_name(NOR + WHT "ã€Œæ¯’ç»ä¸‹ç¯‡ã€" NOR, ({ "du jing3", "jing3", "book3" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
-                set("long", WHT "ÕâÊÇÒ»±¾±¡±¡µÄĞ¡²á£¬ÉÏÃæ¼ÇÂúÁËÎå¶¾½ÌÌØ"
-                            "ÓĞµÄÓÃ¶¾µÄ·¨ÃÅ¡£\n" NOR);
+                set("unit", "æœ¬");
+                set("long", WHT "è¿™æ˜¯ä¸€æœ¬è–„è–„çš„å°å†Œï¼Œä¸Šé¢è®°æ»¡äº†äº”æ¯’æ•™ç‰¹"
+                            "æœ‰çš„ç”¨æ¯’çš„æ³•é—¨ã€‚\n" NOR);
                 set("value", 100);
-                set("no_sell", "ÎÒ¡­ÎÒµÄÌì¡­Á¬Îå¶¾½ÌµÄ¶«Î÷Äã¶¼¸ÒÄÃÀ´Âô£¿");
+                set("no_sell", "æˆ‘â€¦æˆ‘çš„å¤©â€¦è¿äº”æ¯’æ•™çš„ä¸œè¥¿ä½ éƒ½æ•¢æ‹¿æ¥å–ï¼Ÿ");
                 set("material", "silk");
                 set("skill", ([
                         "name"         : "wudu-qishu",

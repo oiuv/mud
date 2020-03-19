@@ -8,7 +8,7 @@ int dispel() { return 0; }
 int update_condition(object me, int duration)
 {
 	if (duration < 1) {
-		tell_object(me, HIY "观察期已满，你又可以投票了！\n" NOR);
+		tell_object(me, HIY "瑙傚療鏈熷凡婊★紝浣犲張鍙互鎶曠エ浜嗭紒\n" NOR);
 		me->delete("vote/deprived");
 		return 0;
 	}

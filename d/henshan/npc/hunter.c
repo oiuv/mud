@@ -5,8 +5,8 @@ mixed teach_hunting();
 
 void create()
 {
-	set_name( "ÁÔÈË", ({ "hunter" }) );
-	set( "gender", "ÄĞĞÔ" );
+	set_name( "çŒäºº", ({ "hunter" }) );
+	set( "gender", "ç”·æ€§" );
 	set( "class", "swordman" );
 	set( "age", 45 );
 	set( "str", 200 );
@@ -29,7 +29,7 @@ void create()
 
 	set( "inquiry", ([
 				 "hunting" : (: teach_hunting:),
-				 "²¶ÁÔ"    : (: teach_hunting:),
+				 "æ•çŒ"    : (: teach_hunting:),
 			 ]) );
 
 	setup();
@@ -43,17 +43,17 @@ int accept_object( object me, object ob )
 	if ( !objectp( ob ) )
 		return(0);
 	if ( !present( ob, me ) )
-		return(notify_fail( "ÄãÃ»ÓĞÕâ¼ş¶«Î÷¡£" ) );
+		return(notify_fail( "ä½ æ²¡æœ‰è¿™ä»¶ä¸œè¥¿ã€‚" ) );
 	if ( (string) ob->query( "id" ) == "bushou jia" )
 	{
 		command( "nod" );
-		command( "say Õâ¸öÎÒÕıÓÃµÃ×Å£¬ÔÚÏÂÎŞÒÔÎª±¨£¬Èç¹ûÄãÔ¸Òâ£¬ÎÒ\n¿ÉÒÔ"
-			 "½ÌÄãÒ»Ğ©²¶ÁÔµÄ¼¼ÇÉ¡£" );
+		command( "say è¿™ä¸ªæˆ‘æ­£ç”¨å¾—ç€ï¼Œåœ¨ä¸‹æ— ä»¥ä¸ºæŠ¥ï¼Œå¦‚æœä½ æ„¿æ„ï¼Œæˆ‘\nå¯ä»¥"
+			 "æ•™ä½ ä¸€äº›æ•çŒçš„æŠ€å·§ã€‚" );
 		me->set_temp( "marks/hunter", 1 );
 		return(1);
 	}else {
 		command( "shake" );
-		command( "say ÕâÊÇÊ²Ã´¶«Î÷£¬ÎÒ²»ĞèÒª£¡" );
+		command( "say è¿™æ˜¯ä»€ä¹ˆä¸œè¥¿ï¼Œæˆ‘ä¸éœ€è¦ï¼" );
 	}
 
 	return(1);
@@ -68,27 +68,27 @@ mixed teach_hunting()
 	add	= me->query_int() + random( me->query_int() / 2 );
 
 	if ( !me->query_temp( "marks/hunter" ) )
-		return("ÄãÎÒËØÎŞÍùÀ´£¬ºÎ³ö´ËÑÔ£¿\n");
+		return("ä½ æˆ‘ç´ æ— å¾€æ¥ï¼Œä½•å‡ºæ­¤è¨€ï¼Ÿ\n");
 
 	if ( me->is_busy() || me->is_fighting() )
 	{
-		write( "ÄãÏÖÔÚÕıÃ¦×Å¡£\n" );
+		write( "ä½ ç°åœ¨æ­£å¿™ç€ã€‚\n" );
 		return(1);
 	}
 
 	if ( jing < 20 )
 	{
-		write( "ÄãµÄ¾«ÉñÎŞ·¨¼¯ÖĞ¡£\n" );
+		write( "ä½ çš„ç²¾ç¥æ— æ³•é›†ä¸­ã€‚\n" );
 		return(1);
 	}
 
 	if ( (me->query( "potential" ) - me->query( "learned_points" ) ) < 1 )
 	{
-		write( "ÄãµÄÇ±ÄÜ²»¹»£¬ÎŞ·¨¼ÌĞøÑ§Ï°¡£\n" );
+		write( "ä½ çš„æ½œèƒ½ä¸å¤Ÿï¼Œæ— æ³•ç»§ç»­å­¦ä¹ ã€‚\n" );
 		return(1);
 	}
-	write( HIW "ÁÔÈË¸øÄã½²½âÁËÓĞ¹Ø²¶ÁÔµÄÒ»Ğ©¼¼ÇÉ¡£\n" NOR );
-	write( HIY "ÄãÌıÁËÁÔÈËµÄÖ¸µ¼£¬ËÆºõÓĞËùĞÄµÃ¡£\n" NOR );
+	write( HIW "çŒäººç»™ä½ è®²è§£äº†æœ‰å…³æ•çŒçš„ä¸€äº›æŠ€å·§ã€‚\n" NOR );
+	write( HIY "ä½ å¬äº†çŒäººçš„æŒ‡å¯¼ï¼Œä¼¼ä¹æœ‰æ‰€å¿ƒå¾—ã€‚\n" NOR );
 
 	me->add( "learned_points", 1 );
 	me->improve_skill( "hunting", add );
@@ -104,7 +104,7 @@ int recognize_apprentice( object me, string skill )
 
 	if ( skill != "training" && skill != "hunting" )
 	{
-		command( "say ÎÒÖ»´«ÊÚÑµÊŞÊõ(training)ºÍá÷ÁÔ¼¼ÇÉ(hunting)¡£" );
+		command( "say æˆ‘åªä¼ æˆè®­å…½æœ¯(training)å’Œç‹©çŒæŠ€å·§(hunting)ã€‚" );
 		return(-1);
 	}
 

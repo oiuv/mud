@@ -3,12 +3,12 @@ inherit RIVER;
 
 void create()
 {
-	set("short", "�ų���");
+	set("short", "古长城");
 	set("long", @LONG
-������һ�ιų��ǡ��ഫ�ǵ�����ʼ���������ĸ�������
-������ʮ�������ޡ����±�Ǩ���׺�ɣ������������Ƭ
-���棬Ψһ��ϡ�ɼ����Ǻ����Ƴɵķ��̨���С����һ����
-��������ƺӴ�������ȥ������(river)��һҶС�ۡ�
+这里是一段古长城。相传是当年秦始皇派他的心腹爱将蒙
+恬率三十万大军所修。世事变迁、沧海桑田，如今这里已是片
+废墟，唯一依稀可见的是夯土制成的烽火台象个小土包一样矗
+立在那里。黄河从西向东流去，河上(river)有一叶小舟。
 LONG);
         set("arrive_room", "/d/lingzhou/xuanhebao");
 	set("exits", ([

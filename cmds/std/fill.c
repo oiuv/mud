@@ -11,30 +11,30 @@ int main(object me, string arg)
     // function f;
 
     if (!arg)
-        return notify_fail("ÄãÒªÍùÊ²Ã´¶«Î÷ÀïÃæ¹à£¿\n");
+        return notify_fail("ä½ è¦å¾€ä»€ä¹ˆä¸œè¥¿é‡Œé¢çŒï¼Ÿ\n");
 
     if (!environment(me)->query("resource/water"))
-        return notify_fail("ÕâÀïÃ»ÓĞµØ·½¿ÉÒÔ×°Ë®¡£\n");
+        return notify_fail("è¿™é‡Œæ²¡æœ‰åœ°æ–¹å¯ä»¥è£…æ°´ã€‚\n");
 
     if (me->is_busy())
-        return notify_fail("ÄãÉÏÒ»¸ö¶¯×÷»¹Ã»ÓĞÍê³É¡£\n");
+        return notify_fail("ä½ ä¸Šä¸€ä¸ªåŠ¨ä½œè¿˜æ²¡æœ‰å®Œæˆã€‚\n");
 
     if (me->is_fighting())
-        return notify_fail("ÄãÕıÃ¦×Å´ò¼Ü£¬Ã»¹¤·ò×°Ë®£¡\n");
+        return notify_fail("ä½ æ­£å¿™ç€æ‰“æ¶ï¼Œæ²¡å·¥å¤«è£…æ°´ï¼\n");
 
     if (!objectp(ob = present(arg, me)))
-        return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+        return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
     if (!mapp(my = ob->query("liquid")))
-        return notify_fail("Õâ¸öÈİÆ÷×°²»ÁËË®¡£\n");
+        return notify_fail("è¿™ä¸ªå®¹å™¨è£…ä¸äº†æ°´ã€‚\n");
 
-    if (my["remaining"] && my["name"] != "ÇåË®")
-        message_vision("$N½«" + ob->name() + "ÀïÊ£ÏÂµÄ" + my["name"] + "µ¹µô¡£\n", me);
+    if (my["remaining"] && my["name"] != "æ¸…æ°´")
+        message_vision("$Nå°†" + ob->name() + "é‡Œå‰©ä¸‹çš„" + my["name"] + "å€’æ‰ã€‚\n", me);
 
-    message_vision("$N½«" + ob->name() + "×°ÂúÇåË®¡£\n", me);
+    message_vision("$Nå°†" + ob->name() + "è£…æ»¡æ¸…æ°´ã€‚\n", me);
 
     my["type"] = "water";
-    my["name"] = "ÇåË®";
+    my["name"] = "æ¸…æ°´";
     my["remaining"] = ob->query("max_liquid");
     my["drink_func"] = 0;
 
@@ -44,9 +44,9 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : fill <ÈİÆ÷>
+æŒ‡ä»¤æ ¼å¼ : fill <å®¹å™¨>
 
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÓĞË®µÄµØ·½°ÑÈİÆ÷¹àÂúÇåË®¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©æœ‰æ°´çš„åœ°æ–¹æŠŠå®¹å™¨çŒæ»¡æ¸…æ°´ã€‚
 
 HELP
     );

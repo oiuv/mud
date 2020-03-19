@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "´óµî");
+        set("short", "å¤§æ®¿");
         set("long", @LONG
-ÕâÀïÊÇÍò°²ËÂµÄ´óµî£¬·Ç³£µÄ¿í³¨Ã÷ÁÁ£¬ÕâÀï±¾ÊÇÍò°²ËÂÖÚÉ®ÔçÍí¿ÎÖ®´¦£¬
-·ğÏñÇ°°Ú×ÅÒ»¸ö¹©×À£¬×ÀÉÏµÄÏãÂ¯ÖĞ²å×Å¼¸ÖùÏã¡£µØÉÏ°Ú×ÅÒ»Ğ©ÆÑÍÅ¡£¼¸¸öºÍÉĞ
-ÅÌÏ¥×öÔÚÉÏÃæ¡£×óÓÒÁ½ÅÔÊÇÁ½¸öÆ«µî¡£
+è¿™é‡Œæ˜¯ä¸‡å®‰å¯ºçš„å¤§æ®¿ï¼Œéå¸¸çš„å®½æ•æ˜äº®ï¼Œè¿™é‡Œæœ¬æ˜¯ä¸‡å®‰å¯ºä¼—åƒ§æ—©æ™šè¯¾ä¹‹å¤„ï¼Œ
+ä½›åƒå‰æ‘†ç€ä¸€ä¸ªä¾›æ¡Œï¼Œæ¡Œä¸Šçš„é¦™ç‚‰ä¸­æ’ç€å‡ æŸ±é¦™ã€‚åœ°ä¸Šæ‘†ç€ä¸€äº›è’²å›¢ã€‚å‡ ä¸ªå’Œå°š
+ç›˜è†åšåœ¨ä¸Šé¢ã€‚å·¦å³ä¸¤æ—æ˜¯ä¸¤ä¸ªåæ®¿ã€‚
 LONG );
         set("exits", ([
                 "north" : "/d/tulong/yitian/was_zoulang3",
@@ -27,16 +27,16 @@ LONG );
 int valid_leave(object me, string dir)
 {
         if (dir == "north" && objectp(present("bo seng", environment(me))))
-           return notify_fail(CYN "îàÉ®ÆëÉùºÈµÀ£ºÄÄÀï×ß£¿¹öÏÂÀ´£¡\n" NOR);
+           return notify_fail(CYN "é’¹åƒ§é½å£°å–é“ï¼šå“ªé‡Œèµ°ï¼Ÿæ»šä¸‹æ¥ï¼\n" NOR);
 
         if (dir == "south" && objectp(present("bo seng", environment(me))))
-           return notify_fail(CYN "îàÉ®ÆëÉùºÈµÀ£ºÄÄÀïÌÓ£¿ÄÉÃüÀ´£¡\n" NOR);
+           return notify_fail(CYN "é’¹åƒ§é½å£°å–é“ï¼šå“ªé‡Œé€ƒï¼Ÿçº³å‘½æ¥ï¼\n" NOR);
 
         if (dir == "west" && objectp(present("bo seng", environment(me))))
-           return notify_fail(CYN "îàÉ®ÆëÉùºÈµÀ£ºÄÄÀïÌÓ£¿ÄÉÃüÀ´£¡\n" NOR);
+           return notify_fail(CYN "é’¹åƒ§é½å£°å–é“ï¼šå“ªé‡Œé€ƒï¼Ÿçº³å‘½æ¥ï¼\n" NOR);
 
         if (dir == "east" && objectp(present("bo seng", environment(me))))
-           return notify_fail(CYN "îàÉ®ÆëÉùºÈµÀ£ºÄÄÀïÌÓ£¿ÄÉÃüÀ´£¡\n" NOR);
+           return notify_fail(CYN "é’¹åƒ§é½å£°å–é“ï¼šå“ªé‡Œé€ƒï¼Ÿçº³å‘½æ¥ï¼\n" NOR);
 
         return ::valid_leave(me, dir);
 }

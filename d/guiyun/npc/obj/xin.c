@@ -4,14 +4,14 @@ inherit ITEM;
 
 void create()
 {
-        set_name("ÊéĞÅ", ({"guiyun shuxin", "shu xin", "xin"}));
+        set_name("ä¹¦ä¿¡", ({"guiyun shuxin", "shu xin", "xin"}));
         set_weight(100);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "·â");
-                set("long","ÕâÊÇÒ»·âÂ½¹ÚÓ¢Ğ´µÄÑûÇë½øÈë¹éÔÆ×¯µÄÊéĞÅ¡£\n");
-//		set("no_drop", "ÕâÑù¶«Î÷²»ÄÜÀë¿ªÄã¡£\n");
+                set("unit", "å°");
+                set("long","è¿™æ˜¯ä¸€å°é™†å† è‹±å†™çš„é‚€è¯·è¿›å…¥å½’äº‘åº„çš„ä¹¦ä¿¡ã€‚\n");
+//		set("no_drop", "è¿™æ ·ä¸œè¥¿ä¸èƒ½ç¦»å¼€ä½ ã€‚\n");
                 set("material", "paper");
         }
 }

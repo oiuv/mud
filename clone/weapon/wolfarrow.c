@@ -8,13 +8,13 @@ int is_arrow() { return 1; }
  
 void create()
 {
-	set_name("ÀÇÑÀ¼ı", ({ "wolf arrow", "arrow", "jian" }));
+	set_name("ç‹¼ç‰™ç®­", ({ "wolf arrow", "arrow", "jian" }));
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»¸ùÏ¸³¤µÄ¼ı£¬´ØÊ§ÂÔÍä£¬ÈçÍ¬ÀÇÑÀÒ»°ãÒõÉ­É­µÄ¡£\n");
-		set("unit", "°Ñ");
-		set("base_unit", "¸ù");
+		set("long", "ä¸€æ ¹ç»†é•¿çš„ç®­ï¼Œç°‡å¤±ç•¥å¼¯ï¼Œå¦‚åŒç‹¼ç‰™ä¸€èˆ¬é˜´æ£®æ£®çš„ã€‚\n");
+		set("unit", "æŠŠ");
+		set("base_unit", "æ ¹");
 		set("base_weight", 150);
 		set("base_value", 500);
 		set("wound_percent", 90);
@@ -24,5 +24,5 @@ void create()
 	init_throwing(300);
 	setup();
 
-        set("no_wield", "Õâ²»ÊÇÓÃÀ´×°±¸µÄ¡£\n");
+        set("no_wield", "è¿™ä¸æ˜¯ç”¨æ¥è£…å¤‡çš„ã€‚\n");
 }

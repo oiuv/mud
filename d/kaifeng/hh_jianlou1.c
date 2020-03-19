@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "²Ø½£Â¥Ò»²ã");
+        set("short", "è—å‰‘æ¥¼ä¸€å±‚");
         set("long", @LONG
-ÕâÀïÊÇºì»¨»á¶şµ±¼ÒÎŞ³¾µÀ³¤µÄ¾²ĞŞÖ®´¦£¬ÎŞ³¾µÀ³¤ºÅ³Æ
-×·»ê¶áÃü½££¬Òò´Ë½«´ËµØÃüÎª¡¸²Ø½£Â¥¡¹¡£Â¥·ÖÈı²ã£¬Ò»Â¥°Ú
-ÉèºÜ¼òµ¥£¬Î©ÓĞÒ»×ÀÒ»ÒÎ¡£
+è¿™é‡Œæ˜¯çº¢èŠ±ä¼šäºŒå½“å®¶æ— å°˜é“é•¿çš„é™ä¿®ä¹‹å¤„ï¼Œæ— å°˜é“é•¿å·ç§°
+è¿½é­‚å¤ºå‘½å‰‘ï¼Œå› æ­¤å°†æ­¤åœ°å‘½ä¸ºã€Œè—å‰‘æ¥¼ã€ã€‚æ¥¼åˆ†ä¸‰å±‚ï¼Œä¸€æ¥¼æ‘†
+è®¾å¾ˆç®€å•ï¼ŒæƒŸæœ‰ä¸€æ¡Œä¸€æ¤…ã€‚
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
@@ -29,10 +29,10 @@ int valid_leave(object me, string dir)
 
         if (dir == "up")
         {
-                if ((string)me->query("family/family_name") != "ºì»¨»á"
+                if ((string)me->query("family/family_name") != "çº¢èŠ±ä¼š"
                 & objectp(present("wuchen daozhang", environment(me))))
-                        return notify_fail(CYN "ÎŞ³¾µÀ³¤¶ÔÄãºÈµÀ£ººÎ·½ÑıÄõ£¬¾¹¸Ò"
-                                           "´³ÈëÎÒË½ÈËÁ·¹¦Ö®µØ¡£\n" NOR);
+                        return notify_fail(CYN "æ— å°˜é“é•¿å¯¹ä½ å–é“ï¼šä½•æ–¹å¦–å­½ï¼Œç«Ÿæ•¢"
+                                           "é—¯å…¥æˆ‘ç§äººç»ƒåŠŸä¹‹åœ°ã€‚\n" NOR);
         }
         return ::valid_leave(me, dir);
 }

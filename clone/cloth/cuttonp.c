@@ -9,12 +9,12 @@ string do_wear();
 
 void create()
 {
-        set_name(HIY "ÃÞÒÂ" NOR, ({ "cutton padded", "cutton" }) );
+        set_name(HIY "æ£‰è¡£" NOR, ({ "cutton padded", "cutton" }) );
         set_weight(8000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼þ");
+                set("unit", "ä»¶");
                 set("material", "cloth");
                 set("armor_prop/armor", 5);
                 set("armor_prop/warm", 20);
@@ -32,24 +32,24 @@ string do_wear()
 
         me = this_player();
         per = me->query("per");
-        if (me->query("gender") == "Å®ÐÔ")
+        if (me->query("gender") == "å¥³æ€§")
         {
                 if (per >= 30)
-                        msg = HIC "$N" HIC "ÇáÇá½«Ò»¼þ$n" HIC "ÅûÔÚÉíÉÏ£¬ÉñÌ¬ÂüÃîÖ®¼«¡£\n";
+                        msg = HIC "$N" HIC "è½»è½»å°†ä¸€ä»¶$n" HIC "æŠ«åœ¨èº«ä¸Šï¼Œç¥žæ€æ›¼å¦™ä¹‹æžã€‚\n";
                 else if (per >= 25)
-                        msg = HIG "$N" HIG "°Ñ$n" HIG "Õ¹¿ª£¬ÅûÔÚÉíÉÏ¡£\n";
+                        msg = HIG "$N" HIG "æŠŠ$n" HIG "å±•å¼€ï¼ŒæŠ«åœ¨èº«ä¸Šã€‚\n";
                 else if (per >= 20)
-                        msg = YEL "$N" YEL "°Ñ$n" YEL "ÅûÔÚÉíÉÏ£¬ËõÁËËõ²±×Ó¡£\n";
-                else    msg = YEL "$N" YEL "Ã«ÊÖÃ«½ÅµÄ°Ñ$n" YEL "ÅûÔÚÉíÉÏ¡£\n";
+                        msg = YEL "$N" YEL "æŠŠ$n" YEL "æŠ«åœ¨èº«ä¸Šï¼Œç¼©äº†ç¼©è„–å­ã€‚\n";
+                else    msg = YEL "$N" YEL "æ¯›æ‰‹æ¯›è„šçš„æŠŠ$n" YEL "æŠ«åœ¨èº«ä¸Šã€‚\n";
         } else
         {
                 if (per >= 30)
-                        msg = HIC "$N" HIC "ËæÊÖÒ»»Ó£¬½«$n" HIC "ÅûÔÚÉíÉÏ£¬×ËÊÆäìÈ÷Ö®¼«¡£\n";
+                        msg = HIC "$N" HIC "éšæ‰‹ä¸€æŒ¥ï¼Œå°†$n" HIC "æŠ«åœ¨èº«ä¸Šï¼Œå§¿åŠ¿æ½‡æ´’ä¹‹æžã€‚\n";
                 else if (per >= 25)
-                        msg = HIG "$N" HIG "°Ñ$n" HIG "Õ¹¿ª£¬ÅûÔÚÉíÉÏ¡£\n";
+                        msg = HIG "$N" HIG "æŠŠ$n" HIG "å±•å¼€ï¼ŒæŠ«åœ¨èº«ä¸Šã€‚\n";
                 else if (per >= 20)
-                        msg = YEL "$N" YEL "°Ñ$n" YEL "ÅûÔÚÉíÉÏ£¬³¶ÁË³¶ÒÂ½Ç£¬ËõÁËËõ²±×Ó¡£\n";
-                else    msg = YEL "$N" YEL "Ã«ÊÖÃ«½ÅµÄ°Ñ$n" YEL "ÅûÔÚÉíÉÏ£¬ÉõÊÇâ«Ëö¡£\n";
+                        msg = YEL "$N" YEL "æŠŠ$n" YEL "æŠ«åœ¨èº«ä¸Šï¼Œæ‰¯äº†æ‰¯è¡£è§’ï¼Œç¼©äº†ç¼©è„–å­ã€‚\n";
+                else    msg = YEL "$N" YEL "æ¯›æ‰‹æ¯›è„šçš„æŠŠ$n" YEL "æŠ«åœ¨èº«ä¸Šï¼Œç”šæ˜¯çŒ¥çã€‚\n";
         }
         return msg;
 }

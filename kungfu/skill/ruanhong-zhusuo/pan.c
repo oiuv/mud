@@ -1,9 +1,9 @@
-// panying.c ÅÌÓ¥¾÷
+// panying.c ç›˜é¹°è¯€
 
 #include <ansi.h>
 #include <combat.h>
 
-#define PANYING "¡¸" YEL "ÅÌÓ¥¾÷" NOR "¡¹"
+#define PANYING "ã€Œ" YEL "ç›˜é¹°è¯€" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -17,44 +17,44 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (userp(me) && ! me->query("can_perform/ruanhong-zhusuo/panying"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(PANYING "Ö»ÄÜÔÚÕ½¶·ÖĞ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(PANYING "åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
               (string)weapon->query("skill_type") != "whip")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÎŞ·¨Ê©Õ¹" PANYING "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œæ— æ³•æ–½å±•" PANYING "ã€‚\n");
 
         if ((int)me->query_skill("ruanhong-zhusuo", 1) < 80)
-                return notify_fail("ÄãµÄÈíºìÖëË÷²»¹»æµÊì£¬ÎŞ·¨Ê©Õ¹" PANYING "¡£\n");
+                return notify_fail("ä½ çš„è½¯çº¢è››ç´¢ä¸å¤Ÿå¨´ç†Ÿï¼Œæ— æ³•æ–½å±•" PANYING "ã€‚\n");
 
         if (target->is_busy())
-                return notify_fail(target->name() + "Ä¿Ç°Õı×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É£¡\n");
+                return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ï¼\n");
 
         if (me->query("neili") < 100)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎŞ·¨Ê©Õ¹" PANYING "¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" PANYING "ã€‚\n");
 
         if (me->query_skill_mapped("whip") != "ruanhong-zhusuo")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢ÈíºìÖëË÷£¬ÎŞ·¨Ê©Õ¹" PANYING "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘è½¯çº¢è››ç´¢ï¼Œæ— æ³•æ–½å±•" PANYING "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = YEL "$N" YEL "Ê¹³öÈíºìÖëË÷¡¸ÅÌÓ¥¡¹¾÷£¬ÊÖÍóÇáÇáÒ»¶¶£¬¶ÙÊ±±Ş"
-              "Ó°ÖØÖØ£¬ÍêÈ«ÁıÕÖ$n" YEL "ËÄÖÜ£¡\n";
+        msg = YEL "$N" YEL "ä½¿å‡ºè½¯çº¢è››ç´¢ã€Œç›˜é¹°ã€è¯€ï¼Œæ‰‹è…•è½»è½»ä¸€æŠ–ï¼Œé¡¿æ—¶é­"
+              "å½±é‡é‡ï¼Œå®Œå…¨ç¬¼ç½©$n" YEL "å››å‘¨ï¼\n";
 
         me->start_busy(1);
 
         if (random(me->query("combat_exp")) > (int)target->query("combat_exp") / 2)
         {
-                msg += HIR "$n" HIR "Î¢×÷²ïÒì£¬Ò»Ê±¿±ÆÆ²»Í¸$N" HIR "ÕĞÖĞ"
-                       "°ÂÃî£¬¶Ù±»¹¥ÁË¸ö´ëÊÖ²»¼°£¡\n" NOR;
+                msg += HIR "$n" HIR "å¾®ä½œè¯§å¼‚ï¼Œä¸€æ—¶å‹˜ç ´ä¸é€$N" HIR "æ‹›ä¸­"
+                       "å¥¥å¦™ï¼Œé¡¿è¢«æ”»äº†ä¸ªæªæ‰‹ä¸åŠï¼\n" NOR;
                 target->start_busy((int)me->query_skill("ruanhong-zhusuo") / 20 + 2);
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P"
-                       CYN "µÄÆóÍ¼£¬Ğ¡ĞÄÓ¦¶Ô£¬²¢Ã»ÓĞÉÏµ±¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P"
+                       CYN "çš„ä¼å›¾ï¼Œå°å¿ƒåº”å¯¹ï¼Œå¹¶æ²¡æœ‰ä¸Šå½“ã€‚\n" NOR;
         }
         message_combatd(msg, me, target);
 

@@ -6,13 +6,13 @@ inherit ITEM;
 
 void create()
 {
-	set_name("¼¦ÑªÊ¯", ({ "jixue shi", "shi" }));
+	set_name("é¸¡è¡€çŸ³", ({ "jixue shi", "shi" }));
 	set_weight(500);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¿é");
-		set("long", "ÕâÊÇÒ»¿é°µºìÉ«µÄ¼¦ÑªÊ¯¡£\n");
+		set("unit", "å—");
+		set("long", "è¿™æ˜¯ä¸€å—æš—çº¢è‰²çš„é¸¡è¡€çŸ³ã€‚\n");
 		set("value", 1500);
 		set("material", "stone");
 	}

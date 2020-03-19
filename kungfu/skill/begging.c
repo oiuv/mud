@@ -1,4 +1,4 @@
-// begging.c Ø¤°ï¾ø¼¼
+// begging.c ä¸å¸®ç»æŠ€
 // Modified by Venus Oct.1997
 
 inherit SKILL;

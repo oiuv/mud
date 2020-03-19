@@ -14,21 +14,21 @@ int exert(object me, object target)
         if (layer > 13) layer = 13;
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÌáÉý×Ô¼ºµÄÕ½¶·Á¦¡£\n");
+                return notify_fail("ä½ åªèƒ½æå‡è‡ªå·±çš„æˆ˜æ–—åŠ›ã€‚\n");
 
         if (layer < 3)
-                return notify_fail("ÄãÁúÏó°ãÈô¹¦ÐÞÎª²»¹»£¬ÄÑÒÔÔË¹¦¡£\n");
+                return notify_fail("ä½ é¾™è±¡èˆ¬è‹¥åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥è¿åŠŸã€‚\n");
 
         if ((int)me->query("neili") < 500)
-                return notify_fail("ÄãÄ¿Ç°µÄÕæÆø²»¹»¡£\n");
+                return notify_fail("ä½ ç›®å‰çš„çœŸæ°”ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_temp("powerup"))
-                return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖÐÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
         skill = me->query_skill("force");
 
-        message_vision(HIY "$N" HIY "ÔË×ãÁúÏó°ãÈô¹¦µÚ" + chinese_number(layer) +
-                       "²ã¹¦Á¦£¬È«Éí¹Ç÷À½Ú½Ú±©Ïì£¬î¸ÆøÏòËÄÖÜÀ©É¢¿ªÀ´£¡\n" NOR, me);
+        message_vision(HIY "$N" HIY "è¿è¶³é¾™è±¡èˆ¬è‹¥åŠŸç¬¬" + chinese_number(layer) +
+                       "å±‚åŠŸåŠ›ï¼Œå…¨èº«éª¨éª¼èŠ‚èŠ‚æš´å“ï¼Œç½¡æ°”å‘å››å‘¨æ‰©æ•£å¼€æ¥ï¼\n" NOR, me);
 
         me->add_temp("apply/attack", (skill / 3) + (layer * 15));
         me->add_temp("apply/parry", skill / 3);
@@ -52,6 +52,6 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/parry", -amount);
                 me->add_temp("apply/dodge", -amount);
                 me->delete_temp("powerup");
-                tell_object(me, "ÄãµÄÁúÏó°ãÈô¹¦ÔËÐÐÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„é¾™è±¡èˆ¬è‹¥åŠŸè¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›žä¸¹ç”°ã€‚\n");
         }
 }*/

@@ -25,7 +25,7 @@ int main(object me, string arg)
 	 seteuid(geteuid(me));
 
         if (! wizardp(me))
-                return notify_fail("��û��Ȩ��ʹ�� cp ���\n");
+                return notify_fail("你没有权限使用 cp 命令。\n");
 
         if (! arg)
         {
@@ -37,7 +37,7 @@ int main(object me, string arg)
         {
                 if (me && ! is_root(me))
                 {
-                        write("ֻ�й���Ա����ʹ�� -R ������\n");
+                        write("只有管理员才能使用 -R 参数。\n");
                         return 1;
                 }
 
@@ -48,7 +48,7 @@ int main(object me, string arg)
                 copy_dir = 0;
         } else
         {
-                write("��ʽ����\n");
+                write("格式错误！\n");
                 help(me);
                 return 1;
         }
@@ -59,12 +59,12 @@ int main(object me, string arg)
         switch (file_size(src))
         {
         case -1:
-                write("û�����(" + src + ")�ļ���Ŀ¼���޷����ơ�\n");
+                write("没有这个(" + src + ")文件或目录，无法复制。\n");
                 return 1;
 
         case -2:
                 if (copy_dir) break;
-                write("û��ָ�� -R ���������ܸ���Ŀ¼(" + src + ")��\n");
+                write("没有指定 -R 参数，不能复制目录(" + src + ")。\n");
                 return 1;
         default:
                 // copy file, not directory.
@@ -85,13 +85,13 @@ int main(object me, string arg)
                 if (cp(src, dst))
                         write("Ok.\n");
                 else
-        		write("��û���㹻�Ķ�дȨ����\n");
+        		write("你没有足够的读写权利。\n");
                 return 1;
         }
 
         if (strlen(dst) >= strlen(src) && dst[0..strlen(src) - 1] == src)
         {
-                write("�㲻�ܽ�һ��·�����Ƶ�������������·���С�\n");
+                write("你不能将一个路径复制到自身或者是子路径中。\n");
                 return 1;
         }
 
@@ -109,15 +109,15 @@ int main(object me, string arg)
 
         default:
                 // destition is a file, error
-                write("Ŀ¼���ܸ��Ƶ��ļ��ڣ����������Ŀ��·����\n");
+                write("目录不能复制到文件内，请修正你的目的路径。\n");
                 return 1;
         }
 
-	message_system(HIC "����Ŀ¼�У����Ժ�..." NOR);
+	message_system(HIC "复制目录中，请稍候..." NOR);
 
         count = copy_dir(src, dst, DIR_MAY_NOT_EXISTED);
         if (count)
-                write(HIY "�ܹ���" + count + "���ļ����ɹ����ơ�\n" NOR);
+                write(HIY "总共有" + count + "个文件被成功复制。\n" NOR);
         return 1;
 }
 
@@ -141,7 +141,7 @@ int copy_dir(string src, string dst, int dir_existed)
 	if (! sizeof(file))
                 return count;
 
-        write (HIC "����Ŀ¼(" + src + ") -- > (" + dst + ")��\n" NOR);
+        write (HIC "复制目录(" + src + ") -- > (" + dst + ")。\n" NOR);
 	i = sizeof(file);
 	while (i--)
         {
@@ -169,10 +169,10 @@ int copy_dir(string src, string dst, int dir_existed)
 int help(object me)
 {
         write(@HELP
-ָ���ʽ : cp [-R] <�ļ�|·����> <Ŀ���ļ�|Ŀ��·����>
+指令格式 : cp [-R] <文件|路径名> <目的文件|目的路径名>
  
-���ָ����Ը���Դ�ļ���Ŀ���ļ����Ƶ�Ŀ��·�������ʹ���˲���-R��
-���Ը���һ��Ŀ¼��û������������ܸ���·����
+这个指令可以复制源文件成目的文件或复制到目的路径。如果使用了参数-R则
+可以复制一个目录，没有这个参数则不能复制路径。
 
 see also: rm, mv
 HELP );

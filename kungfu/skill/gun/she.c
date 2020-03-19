@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define SHE "¡¸" HIR "°ÎÇ¹ÀÇÑÀÉä»÷" NOR "¡¹"
+#define SHE "ã€Œ" HIR "æ‹”æªç‹¼ç‰™å°„å‡»" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,28 +12,28 @@ int perform(object me, object target)
 	int i;
 
         if (userp(me) && ! me->query("can_perform/gun/she"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-                return notify_fail(SHE "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(SHE "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "hammer")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" SHE "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" SHE "ã€‚\n");
 
         if ((int)me->query_skill("gun", 1) < 80)
-                return notify_fail("ÄãµÄÇ¹Ğµ¼¼Êõ²»¹»ÊìÁ·£¬ÄÑÒÔÊ©Õ¹" SHE "¡£\n");
+                return notify_fail("ä½ çš„æªæ¢°æŠ€æœ¯ä¸å¤Ÿç†Ÿç»ƒï¼Œéš¾ä»¥æ–½å±•" SHE "ã€‚\n");
 
         if (me->query_skill_mapped("hammer") != "gun")
-                return notify_fail("Äã²¢Ã»ÓĞÔËÓÃÇ¹Ğµ¼¼Êõ£¬ÄÑÒÔÊ©Õ¹" SHE "¡£\n");
+                return notify_fail("ä½ å¹¶æ²¡æœ‰è¿ç”¨æªæ¢°æŠ€æœ¯ï¼Œéš¾ä»¥æ–½å±•" SHE "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIR "$N" HIR "Ê©³öÃØ°ÂÒå¡¸°ÎÇ¹ÀÇÑÀÉä»÷¡¹£¬ÊÖÖĞ" + weapon->name() +
-              HIR "Á¬ĞøÊıÇ¹£¬Í¬Ê±Åç³öÊıÊ®Ìõ»ğÁúÕÖÏò$n" HIR "ËÄÖÜ£¡\n\n" NOR;
+        msg = HIR "$N" HIR "æ–½å‡ºç§˜å¥¥ä¹‰ã€Œæ‹”æªç‹¼ç‰™å°„å‡»ã€ï¼Œæ‰‹ä¸­" + weapon->name() +
+              HIR "è¿ç»­æ•°æªï¼ŒåŒæ—¶å–·å‡ºæ•°åæ¡ç«é¾™ç½©å‘$n" HIR "å››å‘¨ï¼\n\n" NOR;
         message_combatd(msg, me, target);
 
         for (i = 0; i < 18; i++)

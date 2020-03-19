@@ -11,14 +11,14 @@ int main(object me, string str)
                 return 0;
 
         if (! str) str = me->query("cwf");
-        if (! str) return notify_fail("ÄãÒª²é¿´ÄÄ¸öÎÄ¼þ£¿\n");
+        if (! str) return notify_fail("ä½ è¦æŸ¥çœ‹å“ªä¸ªæ–‡ä»¶ï¼Ÿ\n");
   
         str = resolve_path(me->query("cwd"), str);
         if (sscanf(str, "%*s.c") != 1) str += ".c";
                 me->set("cwf", str);
       
         if (file_size(str) < 0)
-               	return  notify_fail("Ã»ÓÐÕâ¸öÎÄ¼þ£º"  +  str  +  ")\n");
+               	return  notify_fail("æ²¡æœ‰è¿™ä¸ªæ–‡ä»¶ï¼š"  +  str  +  ")\n");
 
         list = children(str);
         number = sizeof(list);
@@ -46,7 +46,7 @@ int main(object me, string str)
                   	}
               	}
         } else
-                write("Ã»ÓÐÕÒµ½ÈÎºÎÅÉÉúÎï¼þ¡£\n");
+                write("æ²¡æœ‰æ‰¾åˆ°ä»»ä½•æ´¾ç”Ÿç‰©ä»¶ã€‚\n");
 
         return  1;
 }
@@ -54,9 +54,9 @@ int main(object me, string str)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½: child filename
+æŒ‡ä»¤æ ¼å¼: child filename
 
-ÁÐ³öÒ»¸öÎÄµµÎï¼þºÍËùÓÐ¸±±¾¡£
+åˆ—å‡ºä¸€ä¸ªæ–‡æ¡£ç‰©ä»¶å’Œæ‰€æœ‰å‰¯æœ¬ã€‚
 
 HELP );
         return 1;

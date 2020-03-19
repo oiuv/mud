@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define GUAN "¡¸" HIW "ÌìºéµØÂ¯¹Û" HIR "ÈÕ" HIW "Éñ¾÷" NOR "¡¹"
+#define GUAN "ã€Œ" HIW "å¤©æ´ªåœ°ç‚‰è§‚" HIR "æ—¥" HIW "ç¥è¯€" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -15,37 +15,37 @@ int perform(object me, object target)
         int i, count;
 
         if (userp(me) && ! me->query("can_perform/guanri-jian/guan"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(GUAN "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(GUAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" GUAN "¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" GUAN "ã€‚\n");
 
         if ((int)me->query_skill("guanri-jian", 1) < 280)
-                return notify_fail("Äã¹ÛÈÕ½£·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" GUAN "¡£\n");
+                return notify_fail("ä½ è§‚æ—¥å‰‘æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" GUAN "ã€‚\n");
 
         if (me->query_skill_mapped("sword") != "guanri-jian")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢¹ÛÈÕ½£·¨£¬ÄÑÒÔÊ©Õ¹" GUAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘è§‚æ—¥å‰‘æ³•ï¼Œéš¾ä»¥æ–½å±•" GUAN "ã€‚\n");
 
         if ((int)me->query("max_neili") < 5000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" GUAN "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" GUAN "ã€‚\n");
 
         if ((int)me->query("neili") < 800)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" GUAN "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" GUAN "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = WHT "$N" WHT "Ê©³ö¹ÛÈÕ½£·¨Ö®¡¸" HIW "ÌìºéµØÂ¯¹Û"
-              HIR "ÈÕ" HIW "Éñ¾÷" NOR + WHT "¡¹£¬½«ÄÚÁ¦¾¡Êı×¢"
-              "Èë" + weapon->name() + WHT "½£ÉíÖ±±¼\n$n" WHT
-              "¶øÈ¥¡£ö®Ê±¼ä³ãÑ×±©ÕÇ£¬ÈÈÀËÆËÃæ¾íÀ´£¬ËÄÖÜ¿ÕÆø±ã"
-              "ËÆ·ĞÌÚÒ»°ã¡£\n" NOR;
+        msg = WHT "$N" WHT "æ–½å‡ºè§‚æ—¥å‰‘æ³•ä¹‹ã€Œ" HIW "å¤©æ´ªåœ°ç‚‰è§‚"
+              HIR "æ—¥" HIW "ç¥è¯€" NOR + WHT "ã€ï¼Œå°†å†…åŠ›å°½æ•°æ³¨"
+              "å…¥" + weapon->name() + WHT "å‰‘èº«ç›´å¥”\n$n" WHT
+              "è€Œå»ã€‚éœæ—¶é—´ç‚½ç‚æš´æ¶¨ï¼Œçƒ­æµªæ‰‘é¢å·æ¥ï¼Œå››å‘¨ç©ºæ°”ä¾¿"
+              "ä¼¼æ²¸è…¾ä¸€èˆ¬ã€‚\n" NOR;
 
         ap = me->query_skill("sword");
         dp = target->query_skill("force");
@@ -61,7 +61,7 @@ int perform(object me, object target)
         } else
         {
                 me->start_busy(2);
-                msg += CYN "¿ÉÊÇ$n" CYN "¿´ÆÆÁË$N" CYN "µÄÆóÍ¼£¬Ğ±Ô¾±Ü¿ª¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$n" CYN "çœ‹ç ´äº†$N" CYN "çš„ä¼å›¾ï¼Œæ–œè·ƒé¿å¼€ã€‚\n" NOR;
         }
         message_combatd(msg, me, target);
 
@@ -69,9 +69,9 @@ int perform(object me, object target)
         me->add_temp("apply/attack", count);
         me->add_temp("apply/damage", count);
 
-        message_combatd(WHT "½ô¸ú×Å$N" WHT "Ò»ÉùÀäĞ¦£¬ÉíĞÎİëµØÇ°Ô¾ÕÉ"
-                        "Ğí£¬ÊÖÖĞ" + weapon->name() + WHT "¡¸à§à§à§¡¹"
-                        "Á¬³ö¾Å½£¡£\n" NOR, me, target);
+        message_combatd(WHT "ç´§è·Ÿç€$N" WHT "ä¸€å£°å†·ç¬‘ï¼Œèº«å½¢è“¦åœ°å‰è·ƒä¸ˆ"
+                        "è®¸ï¼Œæ‰‹ä¸­" + weapon->name() + WHT "ã€Œå”°å”°å”°ã€"
+                        "è¿å‡ºä¹å‰‘ã€‚\n" NOR, me, target);
 
         for (i = 0; i < 9; i++)
       	{
@@ -95,6 +95,6 @@ string final(object me, object target, int damage)
                    "id"       : me->query("id"),
                    "duration" : lvl / 50 + random(lvl / 20) ]));
 
-        return  HIR "Ö»Ìı$p" HIR "Ò»Éù²Òº¿£¬¼¸ÖùÏÊÑªÉä³ö£¬½£ÉË"
-                "´¦¾¹ÌÚÆğÒ»µÀÁÒ»ğ£¬ÉÕµÃàÍàÍ×÷Ïì¡£\n" NOR;
+        return  HIR "åªå¬$p" HIR "ä¸€å£°æƒ¨åšï¼Œå‡ æŸ±é²œè¡€å°„å‡ºï¼Œå‰‘ä¼¤"
+                "å¤„ç«Ÿè…¾èµ·ä¸€é“çƒˆç«ï¼Œçƒ§å¾—å—¤å—¤ä½œå“ã€‚\n" NOR;
 }

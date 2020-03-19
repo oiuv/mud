@@ -5,15 +5,15 @@ string look_duilian();
 
 void create()
 {
-        set("short", "ÁèÏöµî");
+        set("short", "å‡Œéœ„æ®¿");
         set("long",
-"ÕâÀï¾ÍÊÇÁèÏö³ÇµÄ¸ù±¾Ö®µØ--ÁèÏöµî¡£ÏòÀ´£¬²»¹ÜÁèÏö³ÇÓÐ
-ºÎ´óÊÂ£¬ÕÆÃÅ¶¼»áÔÚ´ËÕÙ¼¯ÃÅÈË£¬·¢ºÅÊ©Áî¡£´óÌü±±Ç½ÉÏ£¬¹Ò×Å
-Ò»¸öÀÏÈËµÄÐ¤Ïñ£¬ÊÇµ±ÄêÁèÏö³Ç´´ÅÉ×æÊ¦µÄÒÅÏñ¡£Á½±ßÖù×ÓÉÏ¿Ì
-×ÅÒ»·ù¶ÔÁª(duilian)¡£ÅÔ±ßµÄ±øÆ÷¼ÜÉÏ·ÅÂúÁËº®¹âÉÁÉÁµÄ³¤½£¡£
-ÌÃ¶î¹Ò×ÅÒ»ÕÅØÒ£¬ÉÏÊéËÄ¸ö´ó×Ö¡£" HIW "
+"è¿™é‡Œå°±æ˜¯å‡Œéœ„åŸŽçš„æ ¹æœ¬ä¹‹åœ°--å‡Œéœ„æ®¿ã€‚å‘æ¥ï¼Œä¸ç®¡å‡Œéœ„åŸŽæœ‰
+ä½•å¤§äº‹ï¼ŒæŽŒé—¨éƒ½ä¼šåœ¨æ­¤å¬é›†é—¨äººï¼Œå‘å·æ–½ä»¤ã€‚å¤§åŽ…åŒ—å¢™ä¸Šï¼ŒæŒ‚ç€
+ä¸€ä¸ªè€äººçš„è‚–åƒï¼Œæ˜¯å½“å¹´å‡Œéœ„åŸŽåˆ›æ´¾ç¥–å¸ˆçš„é—åƒã€‚ä¸¤è¾¹æŸ±å­ä¸Šåˆ»
+ç€ä¸€å¹…å¯¹è”(duilian)ã€‚æ—è¾¹çš„å…µå™¨æž¶ä¸Šæ”¾æ»¡äº†å¯’å…‰é—ªé—ªçš„é•¿å‰‘ã€‚
+å ‚é¢æŒ‚ç€ä¸€å¼ åŒ¾ï¼Œä¸Šä¹¦å››ä¸ªå¤§å­—ã€‚" HIW "
 
-                  Ã·    Ñ©    Áè    Ïö
+                  æ¢…    é›ª    å‡Œ    éœ„
 \n" NOR );
         set("item_desc",([
                 "duilian"         :       (: look_duilian :),
@@ -38,25 +38,25 @@ string look_duilian()
 {
         return
         HIR "\n"
-        "             ¡ù¡ù¡ù¡ù¡ù¡ù¡ù            ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-        "             ¡ù¡ù¡ù¡ù¡ù¡ù¡ù            ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-        "             ¡ù¡ù      ¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "             ¡ù¡ù" NOR + HIW "¡¡±¦¡¡" NOR + HIR "¡ù¡ù            ¡ù¡ù" NOR + HIW "  Ã·  " NOR + HIR "¡ù¡ù\n"
-        "             ¡ù¡ù¡¡ ¡¡ ¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "             ¡ù¡ù" NOR + HIW "  ½£  " NOR + HIR "¡ù¡ù            ¡ù¡ù" NOR + HIW "  »¨  " NOR + HIR "¡ù¡ù\n"
-        "             ¡ù¡ù      ¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "             ¡ù¡ù" NOR + HIW "  ·æ  " NOR + HIR "¡ù¡ù            ¡ù¡ù" NOR + HIW "  Ïã  " NOR + HIR "¡ù¡ù\n"
-        "             ¡ù¡ù      ¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "             ¡ù¡ù" NOR + HIW "  ×Ô  " NOR + HIR "¡ù¡ù            ¡ù¡ù" NOR + HIW "  ×Ô  " NOR + HIR "¡ù¡ù\n"
-        "             ¡ù¡ù      ¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "             ¡ù¡ù" NOR + HIW "  Ä¥  " NOR + HIR "¡ù¡ù            ¡ù¡ù" NOR + HIW "  ¿à  " NOR + HIR "¡ù¡ù\n"
-        "             ¡ù¡ù    ¡¡¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "             ¡ù¡ù" NOR + HIW "  íÂ  " NOR + HIR "¡ù¡ù            ¡ù¡ù" NOR + HIW "  º®  " NOR + HIR "¡ù¡ù\n"
-        "             ¡ù¡ù    ¡¡¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "             ¡ù¡ù" NOR + HIW "  ³ö  " NOR + HIR "¡ù¡ù            ¡ù¡ù" NOR + HIW "  À´  " NOR + HIR "¡ù¡ù\n"
-        "             ¡ù¡ù    ¡¡¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "             ¡ù¡ù¡ù¡ù¡ù¡ù¡ù            ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-        "             ¡ù¡ù¡ù¡ù¡ù¡ù¡ù            ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n\n" NOR;
+        "             â€»â€»â€»â€»â€»â€»â€»            â€»â€»â€»â€»â€»â€»â€»\n"
+        "             â€»â€»â€»â€»â€»â€»â€»            â€»â€»â€»â€»â€»â€»â€»\n"
+        "             â€»â€»      â€»â€»            â€»â€»      â€»â€»\n"
+        "             â€»â€»" NOR + HIW "ã€€å®ã€€" NOR + HIR "â€»â€»            â€»â€»" NOR + HIW "  æ¢…  " NOR + HIR "â€»â€»\n"
+        "             â€»â€»ã€€ ã€€ â€»â€»            â€»â€»      â€»â€»\n"
+        "             â€»â€»" NOR + HIW "  å‰‘  " NOR + HIR "â€»â€»            â€»â€»" NOR + HIW "  èŠ±  " NOR + HIR "â€»â€»\n"
+        "             â€»â€»      â€»â€»            â€»â€»      â€»â€»\n"
+        "             â€»â€»" NOR + HIW "  é”‹  " NOR + HIR "â€»â€»            â€»â€»" NOR + HIW "  é¦™  " NOR + HIR "â€»â€»\n"
+        "             â€»â€»      â€»â€»            â€»â€»      â€»â€»\n"
+        "             â€»â€»" NOR + HIW "  è‡ª  " NOR + HIR "â€»â€»            â€»â€»" NOR + HIW "  è‡ª  " NOR + HIR "â€»â€»\n"
+        "             â€»â€»      â€»â€»            â€»â€»      â€»â€»\n"
+        "             â€»â€»" NOR + HIW "  ç£¨  " NOR + HIR "â€»â€»            â€»â€»" NOR + HIW "  è‹¦  " NOR + HIR "â€»â€»\n"
+        "             â€»â€»    ã€€â€»â€»            â€»â€»      â€»â€»\n"
+        "             â€»â€»" NOR + HIW "  ç º  " NOR + HIR "â€»â€»            â€»â€»" NOR + HIW "  å¯’  " NOR + HIR "â€»â€»\n"
+        "             â€»â€»    ã€€â€»â€»            â€»â€»      â€»â€»\n"
+        "             â€»â€»" NOR + HIW "  å‡º  " NOR + HIR "â€»â€»            â€»â€»" NOR + HIW "  æ¥  " NOR + HIR "â€»â€»\n"
+        "             â€»â€»    ã€€â€»â€»            â€»â€»      â€»â€»\n"
+        "             â€»â€»â€»â€»â€»â€»â€»            â€»â€»â€»â€»â€»â€»â€»\n"
+        "             â€»â€»â€»â€»â€»â€»â€»            â€»â€»â€»â€»â€»â€»â€»\n\n" NOR;
 }
 
 int valid_leave(object me, string dir)

@@ -1,8 +1,8 @@
-// bajiao.h ÈºÓñ°Ë½¿
+// bajiao.h ç¾¤ç‰å…«å¨‡
 
 int accept_fight(object me)
 {
-	command("say Ğ¡Å®×ÓÄÄÀïÊÇÄúµÄ¶ÔÊÖ£¿");
+	command("say å°å¥³å­å“ªé‡Œæ˜¯æ‚¨çš„å¯¹æ‰‹ï¼Ÿ");
 	return 0;
 }
 
@@ -16,11 +16,11 @@ void init()
 void says(object me)
 {
   	string *msgs = ({
-    		"$N³Ô³ÔÒ»Ğ¦£¬Ãò×ì¿´×ÅÄã¡£\n",
-    		"$Nº¬ÇéÂöÂöµØ¶ÔÄãËµ¡°¡­¡­Äã¡­¡­Äã»¹²»Ã÷°×æªÉíµÄĞÄÒâÂğ£¿\n",
-    		"¿´À´$NºÜÏë¸úÄãÀ´(makelove)Ò»´Î\n",
-    		"$NºÜÏë¸úÄã¡­¡­\n",
-    		"$N¶ÔÄãÍñ¶ûÒ»Ğ¦¡£\n",
+    		"$Nåƒåƒä¸€ç¬‘ï¼ŒæŠ¿å˜´çœ‹ç€ä½ ã€‚\n",
+    		"$Nå«æƒ…è„‰è„‰åœ°å¯¹ä½ è¯´â€œâ€¦â€¦ä½ â€¦â€¦ä½ è¿˜ä¸æ˜ç™½å¦¾èº«çš„å¿ƒæ„å—ï¼Ÿ\n",
+    		"çœ‹æ¥$Nå¾ˆæƒ³è·Ÿä½ æ¥(makelove)ä¸€æ¬¡\n",
+    		"$Nå¾ˆæƒ³è·Ÿä½ â€¦â€¦\n",
+    		"$Nå¯¹ä½ å©‰å°”ä¸€ç¬‘ã€‚\n",
         });
 
         string msg;
@@ -29,8 +29,8 @@ void says(object me)
             ! living(this_object()))
                 return;
 
-        if (me->query("gender") != "ÄĞĞÔ")
-                msg = "$N´òÁËºÍ¹şÇ·£¬¿´ÉÏÈ¥À§¼«ÁË¡£\n";
+        if (me->query("gender") != "ç”·æ€§")
+                msg = "$Næ‰“äº†å’Œå“ˆæ¬ ï¼Œçœ‹ä¸Šå»å›°æäº†ã€‚\n";
         else
                 msg = msgs[random(sizeof(msgs))];
 
@@ -44,29 +44,29 @@ int do_makelove()
 
         switch (who->query("gender"))
         {
-        case "ÄĞĞÔ":
+        case "ç”·æ€§":
                 break;
-        case "Å®ĞÔ":
-                return notify_fail("Äã»¹ÓĞÕâ°®ºÃ£¿Ã»¿´³öÀ´¡£\n");
+        case "å¥³æ€§":
+                return notify_fail("ä½ è¿˜æœ‰è¿™çˆ±å¥½ï¼Ÿæ²¡çœ‹å‡ºæ¥ã€‚\n");
         default:
-                return notify_fail("ÄãËÆºõÃ»ÓĞÕâÄÜÁ¦°É£¿\n");
+                return notify_fail("ä½ ä¼¼ä¹æ²¡æœ‰è¿™èƒ½åŠ›å§ï¼Ÿ\n");
         }
 
         if (is_busy() || is_fighting())
-                return notify_fail("ÄãÃ»¿´¼ûÈË¼ÒÕıÃ¦×ÅÄØÂğ£¿\n");
+                return notify_fail("ä½ æ²¡çœ‹è§äººå®¶æ­£å¿™ç€å‘¢å—ï¼Ÿ\n");
 
         if (query_temp("makelove_with") == who)
         {
-                write("ÄãºÃºÃ×öÄãµÄ£¬±ğÈıĞÄ¶şÒâµÄ¡£\n");
+                write("ä½ å¥½å¥½åšä½ çš„ï¼Œåˆ«ä¸‰å¿ƒäºŒæ„çš„ã€‚\n");
                 return 1;
         }
 
         if (query_temp("makelove_with"))
-                return notify_fail("Á½¸öÒ»ÆğÉÏ£¿Äã»¹ÊÇÈÄÁËÈË¼Ò°É£¡\n");
+                return notify_fail("ä¸¤ä¸ªä¸€èµ·ä¸Šï¼Ÿä½ è¿˜æ˜¯é¥¶äº†äººå®¶å§ï¼\n");
 
-  	message_vision(HIM "$N" HIM "ÇáÇáÂ§×Å$n" HIM "ÈáÈíµÄ"
-                       "ÉíÌå£¬²»ÓÉµÃÒ»ÕóÕó·¢ÂéµÄ¿ì¸Ğ´«±éÈ«Éí£¬"
-                       "²»Öª²»¾õµÄ¿ªÊ¼Å¤¶¯×Å¡­¡­\n\n"NOR, who, me);
+  	message_vision(HIM "$N" HIM "è½»è½»æ‚ç€$n" HIM "æŸ”è½¯çš„"
+                       "èº«ä½“ï¼Œä¸ç”±å¾—ä¸€é˜µé˜µå‘éº»çš„å¿«æ„Ÿä¼ éå…¨èº«ï¼Œ"
+                       "ä¸çŸ¥ä¸è§‰çš„å¼€å§‹æ‰­åŠ¨ç€â€¦â€¦\n\n"NOR, who, me);
   	who->command_function("remove all");
   	who->start_busy(999);
 
@@ -95,7 +95,7 @@ void get_fainted(object who, object me)
         if (! who || environment(who) != environment())
                 return;
 
-        message_vision("$N¶Ô$nÉñÃØµØÒ»Ğ¦¡£\n", me, who);
+        message_vision("$Nå¯¹$nç¥ç§˜åœ°ä¸€ç¬‘ã€‚\n", me, who);
         who->unconcious();
         while (i--)
         {
@@ -104,16 +104,16 @@ void get_fainted(object who, object me)
                         continue;
                 if (! obj->query("money_id"))
                         continue;
-            	message_vision("$N´Ó$nÉíÉÏÄÃ³ö" +
+            	message_vision("$Nä»$nèº«ä¸Šæ‹¿å‡º" +
                                obj->query("name") +
-                               "¡£\n", me, who);
+                               "ã€‚\n", me, who);
             	destruct(obj);
                 break;
         }
 
         if (i < 0)
                 // Get nothing
-                command("chat ÆøËÀÀÏÄïÁË£¬Ô­À´ÊÇÒ»¸öÇî¹í£¡");
+                command("chat æ°”æ­»è€å¨˜äº†ï¼ŒåŸæ¥æ˜¯ä¸€ä¸ªç©·é¬¼ï¼");
 }
 
 int accept_kill(object me)
@@ -121,7 +121,7 @@ int accept_kill(object me)
         object ob;
         if (is_fighting()) return 1;
 	if (query("called")) return 1;
-        command("say ÒªÉ±ÈËÁË£¬¿ìÀ´ÈË¾ÈÃü°¡£¡");
+        command("say è¦æ€äººäº†ï¼Œå¿«æ¥äººæ•‘å‘½å•Šï¼");
         ob = present("bao biao");
         if (! ob)
 	{
@@ -129,15 +129,15 @@ int accept_kill(object me)
                 ob=new(__DIR__"baobiao");
                 ob->move(environment());
 	}
-	message_vision(HIC "\nºöÈ»´ÓÃÅÍâ³å½øÀ´¼¸¸ö±£ïÚ£¬¶Ô"
-                       "$N" HIC "´óº°Ò»Éù¡°¸ÉÊ²Ã´£¿ÔÚÕâ¶ùÄÖ"
-                       "ÊÂ£¬ÏëÕÒËÀÂğ£¿\n\n"NOR, me);
+	message_vision(HIC "\nå¿½ç„¶ä»é—¨å¤–å†²è¿›æ¥å‡ ä¸ªä¿é•–ï¼Œå¯¹"
+                       "$N" HIC "å¤§å–Šä¸€å£°â€œå¹²ä»€ä¹ˆï¼Ÿåœ¨è¿™å„¿é—¹"
+                       "äº‹ï¼Œæƒ³æ‰¾æ­»å—ï¼Ÿ\n\n"NOR, me);
         ob->kill_ob(me);
 	ob->set_leader(me);
         me->kill_ob(ob);
         set("called", 1);
         call_out("regenerate", 200);
-        return notify_fail("»µÊÂÁË£¡");
+        return notify_fail("åäº‹äº†ï¼");
 }
 
 int regenerate()

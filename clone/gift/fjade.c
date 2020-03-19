@@ -1,4 +1,4 @@
-// fjade.c Ï¡ÊÀôä´ä
+// fjade.c ç¨€ä¸–ç¿¡ç¿ 
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,19 +7,19 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIG "Ï¡ÊÀôä´ä" NOR, ({ "flawless jade" }) );
+	set_name(HIG "ç¨€ä¸–ç¿¡ç¿ " NOR, ({ "flawless jade" }) );
 	set_weight(40);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-                set("long", HIG "Ò»¿éÃÀµÃÎŞÓëÂ×±ÈµÄ´óôä´ä¡£\n" NOR);
+                set("long", HIG "ä¸€å—ç¾å¾—æ— ä¸ä¼¦æ¯”çš„å¤§ç¿¡ç¿ ã€‚\n" NOR);
                 set("value", 100000);
-		set("unit", "¿é");
+		set("unit", "å—");
                 set("armor_prop/per", 7);
-                set("wear_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´÷ÔÚÍ·ÉÏ¡£\n" NOR);
-                set("remove_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n" NOR);
+                set("wear_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "æˆ´åœ¨å¤´ä¸Šã€‚\n" NOR);
+                set("remove_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "ä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n" NOR);
 	}
         setup();
 }

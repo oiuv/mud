@@ -5,13 +5,13 @@ inherit THROWING;
 
 void create()
 {
-        set_name(HIW "±ùÆÇÒøÕë" NOR, ({ "bingpo zhen", "bingpo", "zhen" }));
+        set_name(HIW "å†°é­„é“¶é’ˆ" NOR, ({ "bingpo zhen", "bingpo", "zhen" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIW "ÕâÊÇÒ»¸ùÏ¸³¤µÄÒøÕë£¬Õë¼âÍ¸³öÕóÕóº®Æø¡£\n" NOR);
-                set("unit", "Ğ©");
-                set("base_unit", "¸ù");
+                set("long", HIW "è¿™æ˜¯ä¸€æ ¹ç»†é•¿çš„é“¶é’ˆï¼Œé’ˆå°–é€å‡ºé˜µé˜µå¯’æ°”ã€‚\n" NOR);
+                set("unit", "äº›");
+                set("base_unit", "æ ¹");
                 set("base_weight", 500);
                 set("base_value", 0);
                 set("material", "iron");
@@ -21,10 +21,10 @@ void create()
                 "id"     : "xiao longnv",
                 "remain" : 1200,
                 "level"  : 100,
-                "name"   : "º®±ù¶¾",
+                "name"   : "å¯’å†°æ¯’",
         ]));
         set_temp("daub/poison_type", "hanbingdu");
-        set_temp("daub/who_name", "ÀîÄª³î");
+        set_temp("daub/who_name", "æè«æ„");
         set_temp("daub/who_id", "li mochou");
 
         set_amount(50);

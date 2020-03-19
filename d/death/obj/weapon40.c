@@ -5,12 +5,12 @@ inherit BLADE;
 
 void create()
 {
-        set_name(HIC "È±ÔÂÈÐ" NOR, ({ "queyue ren", "queyue", "ren", "blade", "dao" }) );
+        set_name(HIC "ç¼ºæœˆåˆƒ" NOR, ({ "queyue ren", "queyue", "ren", "blade", "dao" }) );
         set_weight(4000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
+                set("unit", "æ ¹");
                 set("value", 240000);
                 set("material", "steel");
         }

@@ -6,13 +6,13 @@ inherit NPC;
 
 void create()
 {
-        set_name("°×Õñ", ({ "bai zhen", "bai", "zhen"}) );
-        set("title", "ÓùÇ°ÊÌÎÀ");
-        set("nickname", HIY"½ğ×¦"HIB"Ìú¹³"NOR);
-        set("gender", "ÄĞĞÔ");
+        set_name("ç™½æŒ¯", ({ "bai zhen", "bai", "zhen"}) );
+        set("title", "å¾¡å‰ä¾å«");
+        set("nickname", HIY"é‡‘çˆª"HIB"é“é’©"NOR);
+        set("gender", "ç”·æ€§");
         set("age", 64);
         set("long",
-                "°×ÕñÊÇáÔÑôÅÉ¸ßÊÖ£¬ÈıÊ®ÄêÇ°¾Í³ÛÃûÎäÁÖÁË¡£\n");
+                "ç™½æŒ¯æ˜¯åµ©é˜³æ´¾é«˜æ‰‹ï¼Œä¸‰åå¹´å‰å°±é©°åæ­¦æ—äº†ã€‚\n");
         set("combat_exp", 450000);
         set("shen_type", -1);
         set("attitude", "heroism");

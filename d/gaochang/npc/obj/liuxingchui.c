@@ -4,13 +4,13 @@ inherit WHIP;
 
 void create()
 {
-        set_name(HIY "Á÷ĞÇ´¸" NOR, ({ "liuxing chui", "liuxing", "chui" }));
+        set_name(HIY "æµæ˜Ÿé”¤" NOR, ({ "liuxing chui", "liuxing", "chui" }));
         set_weight(4500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", HIY "Ò»±ú½ğ¹âÉÁÉÁµÄÁ÷ĞÇ´¸¡£\n" NOR);
+                set("unit", "æŸ„");
+                set("long", HIY "ä¸€æŸ„é‡‘å…‰é—ªé—ªçš„æµæ˜Ÿé”¤ã€‚\n" NOR);
                 set("value", 2000);
                 set("material", "leather");
         }

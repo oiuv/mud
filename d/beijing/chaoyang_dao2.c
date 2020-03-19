@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "³¯ÑôµÀ");
+	set("short", "æœé˜³é“");
 	set("long", @LONG
-Äã×ßÔÚ³¾ÍÁ·ÉÑïµÄ³¯ÑôµÀÉÏ£¬µÀÂ·Á½ÅÔÊÇÕûÕûÆëÆëµÄÑîÊ÷ÁÖ£¬²»Ê±ÓÐÁ½Èý
-Æï¿ìÂí´ÓÉí±ß·É³Û¶ø¹ý£¬ÑïÆðÒ»Â·³¾°£¡£¶«±ß¾ÍÊÇ³¯ÑôÃÅÁË£¬Î÷±ß²»Ô¶´¦ÊÇ·±
-»ªµÄÍõ¸®¾®´ó½Ö£¬ÈËÉù¶¦·Ð£¬Ê®·ÖÈÈÄÖ¡£
+ä½ èµ°åœ¨å°˜åœŸé£žæ‰¬çš„æœé˜³é“ä¸Šï¼Œé“è·¯ä¸¤æ—æ˜¯æ•´æ•´é½é½çš„æ¨æ ‘æž—ï¼Œä¸æ—¶æœ‰ä¸¤ä¸‰
+éª‘å¿«é©¬ä»Žèº«è¾¹é£žé©°è€Œè¿‡ï¼Œæ‰¬èµ·ä¸€è·¯å°˜åŸƒã€‚ä¸œè¾¹å°±æ˜¯æœé˜³é—¨äº†ï¼Œè¥¿è¾¹ä¸è¿œå¤„æ˜¯ç¹
+åŽçš„çŽ‹åºœäº•å¤§è¡—ï¼Œäººå£°é¼Žæ²¸ï¼Œååˆ†çƒ­é—¹ã€‚
 LONG );
        set("exits", ([
 		"west" : __DIR__"chaoyang_dao1",

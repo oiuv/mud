@@ -13,30 +13,30 @@ int perform(object me, object target)
 	object weapon;
 
 	if (me->query_temp("jinshe/tuwu"))
-		return notify_fail("Äã²ÅÓÃµÄ½ğÉßÍÂÎí£¬Ã»·¨½Ó×Å¾Í³öÕĞ¡£\n");
+		return notify_fail("ä½ æ‰ç”¨çš„é‡‘è›‡åé›¾ï¼Œæ²¡æ³•æ¥ç€å°±å‡ºæ‹›ã€‚\n");
 
 	if (! target) target = offensive_target(me);
 	if (! target ||	! me->is_fighting(target))
-		return notify_fail("½ğÉßÍÂÎíÖ»ÄÜÔÚÕ½¶·ÖĞÊ¹ÓÃ¡£\n");
+		return notify_fail("é‡‘è›‡åé›¾åªèƒ½åœ¨æˆ˜æ–—ä¸­ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("handing")) ||
             (string)weapon->query("id") != "jinshe zhui" ||
             weapon->query_amount() < 1)
-           	return notify_fail("ÄãÊÖÀïÃ»ÄÃ½ğÉß×¶£¬²»ÄÜÊ¹ÓÃ¾øÕĞ£¡\n");
+           	return notify_fail("ä½ æ‰‹é‡Œæ²¡æ‹¿é‡‘è›‡é”¥ï¼Œä¸èƒ½ä½¿ç”¨ç»æ‹›ï¼\n");
 
 	if ((skill = me->query_skill("jinshe-zhui", 1)) < 100)
-		return notify_fail("ÄãµÄ½ğÉß×¶·¨²»¹»æµÊì£¬²»»áÊ¹ÓÃ½ğÉßÍÂÎí¡£\n");
+		return notify_fail("ä½ çš„é‡‘è›‡é”¥æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨é‡‘è›‡åé›¾ã€‚\n");
 
 	if ((int)me->query("neili") < 300)
-		return notify_fail("ÄãÄÚÁ¦²»¹»ÁË¡£\n");
+		return notify_fail("ä½ å†…åŠ›ä¸å¤Ÿäº†ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         weapon->add_amount(-1);
 
-        msg = HIY "$N" HIY "Ò»ÉùÇáĞ¥£¬ÉíĞÎÎ¢¶¯£¬ÊÖÖĞ½ğÉß×¶¾¹È»ÏòÉÏ·É"
-              "ÆğÈÆÁË¸öÈ¦£¬Ëæ¶øÑ¸ËÙÏ®Ïò$n" HIY "µÄÃæÇ°¡£\n" NOR;
+        msg = HIY "$N" HIY "ä¸€å£°è½»å•¸ï¼Œèº«å½¢å¾®åŠ¨ï¼Œæ‰‹ä¸­é‡‘è›‡é”¥ç«Ÿç„¶å‘ä¸Šé£"
+              "èµ·ç»•äº†ä¸ªåœˆï¼Œéšè€Œè¿…é€Ÿè¢­å‘$n" HIY "çš„é¢å‰ã€‚\n" NOR;
 
         if (skill / 2 + random(skill) > target->query_skill("dodge", 1))
         {
@@ -44,10 +44,10 @@ int perform(object me, object target)
         	target->receive_damage("qi", (int)skill / 3, me);
         	target->receive_wound("qi", (int)skill / 3, me);
         
-        	msg += HIM "Ö»ÌıÒ»Õó¿ñ·çÉ¨Ò¶°ãµÄÉùÏìÖĞ£¬$N" HIM "ÊÖÖĞµÄ"
-                       "½ğÉß×¶ÉÁ³ö¶áÄ¿µÄ¹âÃ¢£¬ÉÁÒ«µÃ$n" HIM "ÑÛÃ°½ğ»¨£¬"
-        	       "\n³ıÁËÑÛÇ°Ò»ÖØÖØµÄÎíÆøÍâ£¬$n" HIM
-        	       "É¶Ò²¿´²»¼ûÁË£¡\n" NOR;
+        	msg += HIM "åªå¬ä¸€é˜µç‹‚é£æ‰«å¶èˆ¬çš„å£°å“ä¸­ï¼Œ$N" HIM "æ‰‹ä¸­çš„"
+                       "é‡‘è›‡é”¥é—ªå‡ºå¤ºç›®çš„å…‰èŠ’ï¼Œé—ªè€€å¾—$n" HIM "çœ¼å†’é‡‘èŠ±ï¼Œ"
+        	       "\né™¤äº†çœ¼å‰ä¸€é‡é‡çš„é›¾æ°”å¤–ï¼Œ$n" HIM
+        	       "å•¥ä¹Ÿçœ‹ä¸è§äº†ï¼\n" NOR;
                 message_combatd(msg, me, target);
         	me->set_temp("jinshe/tuwu", 1);
         	target->set_temp("block_msg/all", 1);
@@ -57,8 +57,8 @@ int perform(object me, object target)
         			   skill / 30);
         } else
         {
-                msg += CYN "$n" CYN "ĞÄÖĞ°µ°µÒ»¾ª£¬¼±Ã¦ºó"
-                       "ÍË£¬ÉÁ¿ªÁËÕâÃ¶½ğÉß×¶¡£\n" NOR;
+                msg += CYN "$n" CYN "å¿ƒä¸­æš—æš—ä¸€æƒŠï¼Œæ€¥å¿™å"
+                       "é€€ï¼Œé—ªå¼€äº†è¿™æšé‡‘è›‡é”¥ã€‚\n" NOR;
                 message_combatd(msg, me, target);
         }
 
@@ -75,9 +75,9 @@ void tuwu_target_end(object target)
 {
         if (living(target))
         {
-	        message_combatd("$NÄ¨ÁËÄ¨ÂúÁ³µÄ" HIR "ÏÊÑª" NOR "£¬ÖÕÓÚÕö¿ªÁËÑÛ¡£\n",
+	        message_combatd("$NæŠ¹äº†æŠ¹æ»¡è„¸çš„" HIR "é²œè¡€" NOR "ï¼Œç»ˆäºçå¼€äº†çœ¼ã€‚\n",
 			        target);
 	        target->set_temp("block_msg/all", 0);
-	        tell_object(target, HIR "ÄãÖÕÓÚÄ¨µôÁËÂúÁ³µÄÏÊÑª£¬¿´µ½ÁËÖÜÎ§µÄÇé¾°¡£\n" NOR);
+	        tell_object(target, HIR "ä½ ç»ˆäºæŠ¹æ‰äº†æ»¡è„¸çš„é²œè¡€ï¼Œçœ‹åˆ°äº†å‘¨å›´çš„æƒ…æ™¯ã€‚\n" NOR);
         }
 }

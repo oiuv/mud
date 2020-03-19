@@ -2,7 +2,7 @@
 
 void startup();
 
-// ÈÎÎñ¶ÔÏó´´½¨
+// ä»»åŠ¡å¯¹è±¡åˆ›å»º
 void create()
 {
     seteuid(getuid());
@@ -14,14 +14,14 @@ void start_quest()
 {
     object qob;
 
-    // ÏµÍ³ÖĞ×î¶à15¸ö×·É±µÄÈÎÎñ
+    // ç³»ç»Ÿä¸­æœ€å¤š15ä¸ªè¿½æ€çš„ä»»åŠ¡
     if (sizeof(children("/clone/quest/capture")) > 15)
         return;
 
     qob = new ("/clone/quest/capture");
     qob->init_quest();
     CHANNEL_D->do_channel(find_object(QUEST_D),
-                          "sys", "½ø³Ì(CAPTURE)" HIR "´´½¨ÁËÒ»¸öÈÎÎñ¡£");
+                          "sys", "è¿›ç¨‹(CAPTURE)" HIR "åˆ›å»ºäº†ä¸€ä¸ªä»»åŠ¡ã€‚");
 }
 
 private
@@ -30,27 +30,27 @@ void heart_beat()
     if (!find_object(QUEST_D))
         return;
 
-    // Èç¹û¿ÉÒÔ£¬Ã¿´ÎĞÄÌø²úÉú3¸öQUEST
+    // å¦‚æœå¯ä»¥ï¼Œæ¯æ¬¡å¿ƒè·³äº§ç”Ÿ3ä¸ªQUEST
     start_quest();
     start_quest();
     start_quest();
 }
 
-// ÈÎÎñÊØ»¤½ø³Ì»½ĞÑÕâ¸ö½ø³Ì
+// ä»»åŠ¡å®ˆæŠ¤è¿›ç¨‹å”¤é†’è¿™ä¸ªè¿›ç¨‹
 void startup()
 {
-    // Æô¶¯
+    // å¯åŠ¨
     if (!find_object(QUEST_D))
         return;
 
     if (!query_heart_beat())
-        CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "½ø³Ì(CAPTURE)Æô¶¯ÁË¡£");
+        CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "è¿›ç¨‹(CAPTURE)å¯åŠ¨äº†ã€‚");
 
-    // Æ½¾ùÃ¿ËÄ·ÖÖÓ²úÉúÒ»¸öÈÎÎñ
+    // å¹³å‡æ¯å››åˆ†é’Ÿäº§ç”Ÿä¸€ä¸ªä»»åŠ¡
     set_heart_beat(110 + random(20));
 }
 
-// Í£Ö¹Õâ¸öÈÎÎñ½ø³Ì
+// åœæ­¢è¿™ä¸ªä»»åŠ¡è¿›ç¨‹
 void stop()
 {
     set_heart_beat(0);

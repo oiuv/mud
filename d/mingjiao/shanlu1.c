@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "��ʯ��");
+	set("short", "青石阶");
 	set("long", @LONG
-�������ǰ�ɽ���ˡ���Զ��ǰ����һ����ͤ����λ������
-����ЪϢ��ɽ·��������Ӷ��ͣ�������ȥ�����͵��֣���Ŀ
-�δ�Զɽ����װ���ƺ�����ۡ�
+这里已是半山腰了。不远的前面有一座竹亭，几位剑客在
+这里歇息。山路到这里更加陡峭，四下望去，层峦迭嶂，满目
+滴翠远山披银装，云海现奇观。
 LONG );
 	set("exits", ([
 		"eastdown" : __DIR__"shanmen",

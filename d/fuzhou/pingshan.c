@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "������ɽ");
+	set("short", "福州屏山");
 	set("long", @LONG
-��ɽ�ų�Խ��ɽ����ب���ݳǱ���ɽ�»����£�������
-������ɽ�ϸ���ųǣ������续��
+屏山古称越王山，横亘福州城北，山下华林寺，构法考
+究。屏山上俯瞰榕城，历历如画。
 LONG );
 	set("exits", ([
                 "southdown" : __DIR__"beidajie",

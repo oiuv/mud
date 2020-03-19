@@ -4,10 +4,10 @@ inherit ITEM;
 
 void create()
 {
-	set_name("ÀÎ·¿Ô¿³×", ({"laofang key", "key"}));
+	set_name("ç‰¢æˆ¿é’¥åŒ™", ({"laofang key", "key"}));
 	set("long",
-		"ÕâÊÇÒ»°ÑºÜÆÕÍ¨µÄÔ¿³×¡£\n");
-	set("unit", "°Ñ");
+		"è¿™æ˜¯ä¸€æŠŠå¾ˆæ™®é€šçš„é’¥åŒ™ã€‚\n");
+	set("unit", "æŠŠ");
 	set("weight", 10);
 }
 

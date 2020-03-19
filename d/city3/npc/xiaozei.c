@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ğ¡Ôô", ({ "xiao zei","xiao","zei" }) );
-        set("gender", "ÄĞĞÔ" );
+        set_name("å°è´¼", ({ "xiao zei","xiao","zei" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 15);
-        set("long", "Ò»¸öĞ¦ÎûÎû¿´×ÅÄãµÄĞ¡º¢¡£\n");
+        set("long", "ä¸€ä¸ªç¬‘å˜»å˜»çœ‹ç€ä½ çš„å°å­©ã€‚\n");
 
         set("str", 25);
         set("con", 25);
@@ -41,9 +41,9 @@ void create()
         setup();
         set("chat_chance", 15);
         set("chat_msg", ({
-                CYN "Ğ¡ÔôËµµÀ£ººÃĞÄµÄ´óÒ¯£¬ÄÄÉÍÎÒÒª·¹µÄ¼¸¸öÍ­°å°É¡£\n" NOR,
-                CYN "Ğ¡ÔôÀÁÑóÑóµØ´òÁË¸ö¹şÇ·¡£\n" NOR,
-                CYN "Ğ¡ÔôÉìÊÖ×½×¡ÁËÉíÉÏµÄÊ­×Ó£¬ÂîµÀ£ºĞ¡Ò¯ÉíÉÏÃ»¼¸Á½Èâ£¬½ĞÄãÃÇ»¹Ò§¡£\n" NOR,
+                CYN "å°è´¼è¯´é“ï¼šå¥½å¿ƒçš„å¤§çˆ·ï¼Œå“ªèµæˆ‘è¦é¥­çš„å‡ ä¸ªé“œæ¿å§ã€‚\n" NOR,
+                CYN "å°è´¼æ‡’æ´‹æ´‹åœ°æ‰“äº†ä¸ªå“ˆæ¬ ã€‚\n" NOR,
+                CYN "å°è´¼ä¼¸æ‰‹æ‰ä½äº†èº«ä¸Šçš„è™±å­ï¼Œéª‚é“ï¼šå°çˆ·èº«ä¸Šæ²¡å‡ ä¸¤è‚‰ï¼Œå«ä½ ä»¬è¿˜å’¬ã€‚\n" NOR,
                 (: random_move :)
         }) );
         carry_object("/clone/food/jitui");
@@ -110,12 +110,12 @@ int accept_object(object me, object obj)
         if (obj->query("money_id") && obj->value() >= 1)
         {
                 command("smile");
-                command("say ÆäÊµÎÒ»¹ÊÇÓĞµãÇ®µÄ£¬Õâ´ÎÖ»²»¹ıÊÔÊÔÄã°ÕÁË¡£");
+                command("say å…¶å®æˆ‘è¿˜æ˜¯æœ‰ç‚¹é’±çš„ï¼Œè¿™æ¬¡åªä¸è¿‡è¯•è¯•ä½ ç½¢äº†ã€‚");
                 command("give 10 silver to " + me->query("id"));
         } else
         {
                 command("shake");
-                command("say ÕâÖÖ¶«Î÷¹í²ÅÒª£¬¸øÎÒ¹öÒ»±ßÈ¥£¡");
+                command("say è¿™ç§ä¸œè¥¿é¬¼æ‰è¦ï¼Œç»™æˆ‘æ»šä¸€è¾¹å»ï¼");
                 command("give " + obj->query("id") + " to " + me->query("id"));
         }
         return 1;

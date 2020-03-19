@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define ZHUAN "¡¸" HIW "½£×ªÆßÐÇ" NOR "¡¹"
+#define ZHUAN "ã€Œ" HIW "å‰‘è½¬ä¸ƒæ˜Ÿ" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,34 +12,34 @@ int perform(object me, object target)
 	int i;
 
         if (userp(me) && ! me->query("can_perform/murong-jian/xing"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-                return notify_fail(ZHUAN "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(ZHUAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon"))
            || (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" ZHUAN "¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" ZHUAN "ã€‚\n");
 
 	if ((int)me->query_skill("murong-jian", 1) < 80)
-		return notify_fail("ÄãµÄÄ½ÈÝ½£·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" ZHUAN "¡£\n");
+		return notify_fail("ä½ çš„æ…•å®¹å‰‘æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" ZHUAN "ã€‚\n");
 
         if (me->query_skill_mapped("sword") != "murong-jian")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢Ä½ÈÝ½£·¨£¬ÄÑÒÔÊ©Õ¹" ZHUAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘æ…•å®¹å‰‘æ³•ï¼Œéš¾ä»¥æ–½å±•" ZHUAN "ã€‚\n");
 
 	if ((int)me->query_skill("dodge") < 120)
-		return notify_fail("ÄãµÄÇá¹¦ÐÞÎª²»¹»£¬ÎÞ·¨Ê©Õ¹" ZHUAN "£¡\n");
+		return notify_fail("ä½ çš„è½»åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" ZHUAN "ï¼\n");
 
 	if (me->query("neili") < 200)
-		return notify_fail("ÄãÄ¿Ç°µÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" ZHUAN "¡£\n");
+		return notify_fail("ä½ ç›®å‰çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" ZHUAN "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIM "$N" HIM "Ê¹³öÄ½ÈÝ¼Ò¾ø¼¼¡¸" HIW "½£×ªÆßÐÇ" HIM "¡¹£¬ÊÖÖÐ"
-              + weapon->name() + HIM "°µºÏ±±¶·ÆßÐÇ·½Î»£¬ºöÉìºöËõ£¬±ä»¯Äª²â£¡\n" NOR;
+	msg = HIM "$N" HIM "ä½¿å‡ºæ…•å®¹å®¶ç»æŠ€ã€Œ" HIW "å‰‘è½¬ä¸ƒæ˜Ÿ" HIM "ã€ï¼Œæ‰‹ä¸­"
+              + weapon->name() + HIM "æš—åˆåŒ—æ–—ä¸ƒæ˜Ÿæ–¹ä½ï¼Œå¿½ä¼¸å¿½ç¼©ï¼Œå˜åŒ–èŽ«æµ‹ï¼\n" NOR;
 
 	me->add("neili", -210);
 

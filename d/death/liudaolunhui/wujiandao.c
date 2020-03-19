@@ -8,21 +8,21 @@ inherit ROOM;
 void recreate();
 
 string *enter_msg = ({
-        HIB+"\nÄãÖ»¾õµÃÑÛÇ°Ò»»¨£¬Í»È»Ê²Ã´Ò²Ìı²»¼û£¬Ê²Ã´Ò²¿´²»¼û......\n\n"+NOR,
-        HIB+"Ö»¾õµÃÉíÌå²»¶ÏµÄÏÂ×¹......\n\n"+NOR,
-        HIB+"×¹ÏòÎŞ¾¡µÄºÚ°µ......\n\n"+NOR,
-        HIB+"ºöÈ»·Â·ğÒ»Ö»´óÊÖÍĞÁËÄãÒ»ÏÂ......\n\n"+NOR,
-        HIB+"Ú¤Ú¤ÖĞÒşÔ¼´«À´ÕóÕó¶£¶£µ±µ±Åö×²Éù......\n\n"+NOR,
-        HIB+"ÄãÕöÑÛÒ»¿´£¬·¢ÏÖ×Ô¼ºÒÑÖÃÉíÓÚÒ»¸öĞúÏù¶øËÆºõ²¢²»Ä°ÉúµÄÊÀ½ç......\n\n"+NOR,
+        HIB+"\nä½ åªè§‰å¾—çœ¼å‰ä¸€èŠ±ï¼Œçªç„¶ä»€ä¹ˆä¹Ÿå¬ä¸è§ï¼Œä»€ä¹ˆä¹Ÿçœ‹ä¸è§......\n\n"+NOR,
+        HIB+"åªè§‰å¾—èº«ä½“ä¸æ–­çš„ä¸‹å ......\n\n"+NOR,
+        HIB+"å å‘æ— å°½çš„é»‘æš—......\n\n"+NOR,
+        HIB+"å¿½ç„¶ä»¿ä½›ä¸€åªå¤§æ‰‹æ‰˜äº†ä½ ä¸€ä¸‹......\n\n"+NOR,
+        HIB+"å†¥å†¥ä¸­éšçº¦ä¼ æ¥é˜µé˜µå®å®å½“å½“ç¢°æ’å£°......\n\n"+NOR,
+        HIB+"ä½ ççœ¼ä¸€çœ‹ï¼Œå‘ç°è‡ªå·±å·²ç½®èº«äºä¸€ä¸ªå–§åš£è€Œä¼¼ä¹å¹¶ä¸é™Œç”Ÿçš„ä¸–ç•Œ......\n\n"+NOR,
 });
 
 void entering_world(object me, int n);
 
 void create()
 {
-        set("short", HIW "\n\n                ÎŞ        ¼ä        µÀ" NOR);
+        set("short", HIW "\n\n                æ—         é—´        é“" NOR);
         set("long", HIW "\n"
-"ÕâÀïÊÇÌìµØÈËÈı½ç²»¹ÜµÄÖÕ¼«ÎŞ¼ä£¬ÕâÀïÃ»ÓĞÈÎºÎ³öÂ·£¬Ö»ÓĞºÚ°µ¡£\n\n" NOR);
+"è¿™é‡Œæ˜¯å¤©åœ°äººä¸‰ç•Œä¸ç®¡çš„ç»ˆææ— é—´ï¼Œè¿™é‡Œæ²¡æœ‰ä»»ä½•å‡ºè·¯ï¼Œåªæœ‰é»‘æš—ã€‚\n\n" NOR);
 
         setup();
 }
@@ -42,41 +42,41 @@ int do_say(string arg)
 
         if( ! arg || arg == "" ) return 0;
 
-        if( arg == "Ç±ÄÜÎŞÏŞ£¬¾«ÒâÉñÍ¨£¬Éí¾Ó»ö¸££¬×ÔÎÒÖ÷Ô×£¡" 
+        if( arg == "æ½œèƒ½æ— é™ï¼Œç²¾æ„ç¥é€šï¼Œèº«å±…ç¥¸ç¦ï¼Œè‡ªæˆ‘ä¸»å®°ï¼" 
         &&  (int)query("poem_said") != 1 )
         {
-                message_vision(HIW "\nÖ»Ìı$N" HIW "ÃÍÈ»¸ßÉùºÈµÀ£º¡°Ç±ÄÜÎŞ"
-                               "ÏŞ£¬¾«ÒâÉñÍ¨£¬Éí¾Ó»ö¸££¬×ÔÎÒÖ÷Ô×£¡¡±\n" NOR + 
-                               HIR "\n$N" HIR "»°Òô¸Õ"
-                               "Âä£¬µØÃæÍ»È»¡¸ºäÂ¡Â¡¡¹»Î¶¯ÁË¼¸ÏÂ¡£ÑÛÇ°³ö"
-                               "ÏÖÁËÒ»¸ö¾µ×Ó¡£\n\n"
+                message_vision(HIW "\nåªå¬$N" HIW "çŒ›ç„¶é«˜å£°å–é“ï¼šâ€œæ½œèƒ½æ— "
+                               "é™ï¼Œç²¾æ„ç¥é€šï¼Œèº«å±…ç¥¸ç¦ï¼Œè‡ªæˆ‘ä¸»å®°ï¼â€\n" NOR + 
+                               HIR "\n$N" HIR "è¯éŸ³åˆš"
+                               "è½ï¼Œåœ°é¢çªç„¶ã€Œè½°éš†éš†ã€æ™ƒåŠ¨äº†å‡ ä¸‹ã€‚çœ¼å‰å‡º"
+                               "ç°äº†ä¸€ä¸ªé•œå­ã€‚\n\n"
                                NOR, this_player());
                 ob = new("/d/death/obj/wujian");
                 ob->move(this_player(), 1); 
-                message_vision(HIW "Í»È»¼äµçÉÁÀ×Ãù£¬ÓîÖæÎŞµĞÖ®½£ÎŞ¼äÉÁµç°éËæ×ÅµÀµÀÉÁµç´©½ø$NµÄ»³ÖĞ£¡\n", this_player());     
+                message_vision(HIW "çªç„¶é—´ç”µé—ªé›·é¸£ï¼Œå®‡å®™æ— æ•Œä¹‹å‰‘æ— é—´é—ªç”µä¼´éšç€é“é“é—ªç”µç©¿è¿›$Nçš„æ€€ä¸­ï¼\n", this_player());     
                 this_object()->recreate();
                 set("poem_said", 1);
                 return 1;
         }
 
-        if( arg == "Ç±ÄÜÎŞÏŞ£¬¾«ÒâÉñÍ¨£¬Éí¾Ó»ö¸££¬×ÔÎÒÖ÷Ô×£¡" && (int)query("poem_said") == 1 )
+        if( arg == "æ½œèƒ½æ— é™ï¼Œç²¾æ„ç¥é€šï¼Œèº«å±…ç¥¸ç¦ï¼Œè‡ªæˆ‘ä¸»å®°ï¼" && (int)query("poem_said") == 1 )
         {
-                write(HIC "\nÄã¶Ô×ÅºÚ°µÒ»ÉùÃÍºÈ£¬ÉùÒôÔÚË¾ÄÚ»Øµ´ÁËºÃÒ»Õó²ÅÏûÊÅ¡£\n" NOR);
+                write(HIC "\nä½ å¯¹ç€é»‘æš—ä¸€å£°çŒ›å–ï¼Œå£°éŸ³åœ¨å¸å†…å›è¡äº†å¥½ä¸€é˜µæ‰æ¶ˆé€ã€‚\n" NOR);
                 return 1;
         }
 }
 
 void recreate()
 {
-        set("short", HIW "\n\n                ÎŞ        ¼ä        µÀ" NOR);
+        set("short", HIW "\n\n                æ—         é—´        é“" NOR);
         set("long", HIW "\n"
-"ÕâÀïÊÇÌìµØÈËÈı½ç²»¹ÜµÄÖÕ¼«ÎŞ¼ä£¬ÕâÀïÃ»ÓĞÈÎºÎ³öÂ·£¬Ö»ÓĞºÚ°µ¡£\n"
-"Ç°·½ÊÇÒ»Ãæ×ãÓĞÒ»ÈË¸ßµÄ´óÍ­¾µ(mirror)¡£\n\n" NOR);
+"è¿™é‡Œæ˜¯å¤©åœ°äººä¸‰ç•Œä¸ç®¡çš„ç»ˆææ— é—´ï¼Œè¿™é‡Œæ²¡æœ‰ä»»ä½•å‡ºè·¯ï¼Œåªæœ‰é»‘æš—ã€‚\n"
+"å‰æ–¹æ˜¯ä¸€é¢è¶³æœ‰ä¸€äººé«˜çš„å¤§é“œé•œ(mirror)ã€‚\n\n" NOR);
 
         set("item_desc", ([
-                "´óÍ­¾µ": "Ò»Ãæ×ãÓĞÒ»ÈË¸ßµÄ´óÍ­¾µ£¬Ææ¹ÖµÄÊÇ¾µ×ÓÀïÒ»Æ¬»ìãç£¬ÕÕ²»³öÈÎºÎÈËÓ°¡£\n",
-                "Í­¾µ"  : "Ò»Ãæ×ãÓĞÒ»ÈË¸ßµÄ´óÍ­¾µ£¬Ææ¹ÖµÄÊÇ¾µ×ÓÀïÒ»Æ¬»ìãç£¬ÕÕ²»³öÈÎºÎÈËÓ°¡£\n",
-                "mirror": "Ò»Ãæ×ãÓĞÒ»ÈË¸ßµÄ´óÍ­¾µ£¬Ææ¹ÖµÄÊÇ¾µ×ÓÀïÒ»Æ¬»ìãç£¬ÕÕ²»³öÈÎºÎÈËÓ°¡£\n",
+                "å¤§é“œé•œ": "ä¸€é¢è¶³æœ‰ä¸€äººé«˜çš„å¤§é“œé•œï¼Œå¥‡æ€ªçš„æ˜¯é•œå­é‡Œä¸€ç‰‡æ··æ²Œï¼Œç…§ä¸å‡ºä»»ä½•äººå½±ã€‚\n",
+                "é“œé•œ"  : "ä¸€é¢è¶³æœ‰ä¸€äººé«˜çš„å¤§é“œé•œï¼Œå¥‡æ€ªçš„æ˜¯é•œå­é‡Œä¸€ç‰‡æ··æ²Œï¼Œç…§ä¸å‡ºä»»ä½•äººå½±ã€‚\n",
+                "mirror": "ä¸€é¢è¶³æœ‰ä¸€äººé«˜çš„å¤§é“œé•œï¼Œå¥‡æ€ªçš„æ˜¯é•œå­é‡Œä¸€ç‰‡æ··æ²Œï¼Œç…§ä¸å‡ºä»»ä½•äººå½±ã€‚\n",
         ]));
         set("objects", ([
                 "/d/death/npc/ghost" : 21,
@@ -92,20 +92,20 @@ int do_enter(string arg)
         
         if (! query("poem_said")) return 0;
        
-       //ĞÂÔö·ÀÖ¹±³ÈË×ªÊÀ 2018-10-21
+       //æ–°å¢é˜²æ­¢èƒŒäººè½¬ä¸– 2018-10-21
         if (! me->query("HellZhenPass"))
-             	return notify_fail("Ê©Ö÷ÔõÃ´À´£¬»¹ÇëÔõÃ´»ØÈ¥°É £¡\n");
-       //ĞÂÔö·ÀÖ¹×ªÇ°ÁÙÊ±×ª»»ÃÅÅÉ 2017-02-21
+             	return notify_fail("æ–½ä¸»æ€ä¹ˆæ¥ï¼Œè¿˜è¯·æ€ä¹ˆå›å»å§ ï¼\n");
+       //æ–°å¢é˜²æ­¢è½¬å‰ä¸´æ—¶è½¬æ¢é—¨æ´¾ 2017-02-21
                 if (me->query_skill("martial-cognize", 1) < 600
 					&& me->query_skill("force") < 800)
-                	return notify_fail("ÄãµÄÎä¹¦ĞŞÎªÌ«²î£¬È¥Á·Á·ÔÙÀ´°É£¡\n");
-      //ĞÂÔö·ÀÖ¹×ªÇ°ÁÙÊ±ÍÑÀë×ª»»ÃÅÅÉ½áÊø
+                	return notify_fail("ä½ çš„æ­¦åŠŸä¿®ä¸ºå¤ªå·®ï¼Œå»ç»ƒç»ƒå†æ¥å§ï¼\n");
+      //æ–°å¢é˜²æ­¢è½¬å‰ä¸´æ—¶è„±ç¦»è½¬æ¢é—¨æ´¾ç»“æŸ
       
         if (objectp(present("ghost", environment(me)))) 
-                return notify_fail("Äã»¹ÊÇÏÈ½â¾öµôÕâĞ©Íö»ê°É£¡\n");
+                return notify_fail("ä½ è¿˜æ˜¯å…ˆè§£å†³æ‰è¿™äº›äº¡é­‚å§ï¼\n");
               
         me->set_temp("entering_world", 1);
-        message_vision("$NÏò×ÅÍ­¾µµÄ·½Ïò×ßÈ¥¡£\n",me);
+        message_vision("$Nå‘ç€é“œé•œçš„æ–¹å‘èµ°å»ã€‚\n",me);
         call_out("entering_world", 1, me, 0);
         return 1;
 }
@@ -121,26 +121,26 @@ void entering_world(object me, int n)
         if (n == sizeof(enter_msg) - 1)
         {
                 me->delete_temp("entering_world");
-                tell_room(environment(me), sprintf(HIY"Í­¾µÖĞ·Å³öÒ»µÀ½ğ¹âÕÖÏò%s£¬Ëæºó%s²»¼ûÁË¡£\n"NOR,
+                tell_room(environment(me), sprintf(HIY"é“œé•œä¸­æ”¾å‡ºä¸€é“é‡‘å…‰ç½©å‘%sï¼Œéšå%sä¸è§äº†ã€‚\n"NOR,
                           me->name(), me->name()), ({ me }));
                           
                 me->clear_condition();
  
                 foreach (item in all_inventory(me))
                 {
-                        message_vision("$N¶ªÏÂÁË$n¡£\n", me, item);
+                        message_vision("$Nä¸¢ä¸‹äº†$nã€‚\n", me, item);
                         if (item->is_character())
                                 item->move(environment(me));
                         else
                                 destruct(item);
                 }
 
-                // Ñ¡ÔñÌØÊâ¼¼ÄÜ
+                // é€‰æ‹©ç‰¹æ®ŠæŠ€èƒ½
                 UPDATE_D->zhuan_player(me);
 
                 me->move("/d/city/wumiao");
                 me->set("startroom", "/d/city/wumiao");
-                tell_room(environment(me),me->name()+"Í»È»³öÏÖÔÚÑÛÇ°¡£\n",({me}));                                
+                tell_room(environment(me),me->name()+"çªç„¶å‡ºç°åœ¨çœ¼å‰ã€‚\n",({me}));                                
                 me->save();
                 return;                
         }
@@ -158,20 +158,20 @@ int do_smash(string arg)
 
         if (! objectp(weapon = me->query_temp("weapon")) || 
             weapon->query("id") != "wujian shandian")
-                return notify_fail("ÄãÃ»ÓĞ×°±¸ÎŞ¼äÉÁµç£¬ÎŞ·¨Ê¹ÓÃÆä smash ÉñÁ¦£¡\n");
+                return notify_fail("ä½ æ²¡æœ‰è£…å¤‡æ— é—´é—ªç”µï¼Œæ— æ³•ä½¿ç”¨å…¶ smash ç¥åŠ›ï¼\n");
 
         if (! arg)
-                return notify_fail("Ö¸Áî¸ñÊ½: smash <living>\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼: smash <living>\n");
         
         ob = present(arg, environment(me));
         if (! ob )        
-                return notify_fail("ÕÒ²»µ½Õâ¸öÉúÎï¡£\n");
+                return notify_fail("æ‰¾ä¸åˆ°è¿™ä¸ªç”Ÿç‰©ã€‚\n");
 
-        message_vision(HIM "ÎŞ¼äÉÁµç»¯×÷ÎŞÊıÉÁµç»÷Ïò" + ob->query("name") + "...\n\n"
+        message_vision(HIM "æ— é—´é—ªç”µåŒ–ä½œæ— æ•°é—ªç”µå‡»å‘" + ob->query("name") + "...\n\n"
                        NOR, me);        
         if (! ob->is_character())
         {
-                message_vision(HIM + ob->name() + HIM "´ÓÕâ¸öÊÀ½çÉÏÏûÊ§ÁË...\n\n"
+                message_vision(HIM + ob->name() + HIM "ä»è¿™ä¸ªä¸–ç•Œä¸Šæ¶ˆå¤±äº†...\n\n"
                                NOR, me);
                 destruct(ob);
                 return 1;

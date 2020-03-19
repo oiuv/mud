@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����С·");
+        set("short", "江边小路");
         set("long", @LONG
-�������׽��ߵ�һ��С·����ˮ���ϣ������汼�ڶ���������
-�ϲ�ʱ���������ĺ��������뽭��ĺ�Х���γ�һ�����˵Ľ����֡�
+这是澜沧江边的一条小路，江水滔滔，从下面奔腾而过，江面
+上不时传来艄公的号子声，与江风的呼啸声形成一曲动人的交响乐。
 LONG
         );
         set("outdoors", "wanjiegu");

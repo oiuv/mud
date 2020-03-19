@@ -49,18 +49,18 @@ int main(object me, string arg)
                   si = 0;
                   printf ("result = %O\n", sizeof(objects((: stat_fun, st :))));
   
-                  // Ñ¡³ö¸´ÖÆ³¬¹ı 50 ¸öµÄÎïÆ·
+                  // é€‰å‡ºå¤åˆ¶è¶…è¿‡ 50 ä¸ªçš„ç‰©å“
                   reset_eval_cost();
                   ks = keys(st);
                   ks = filter_array(ks, (: $(st)[$1] >= 50 :));
   
-                  // ÅÅĞò
+                  // æ’åº
                   reset_eval_cost();
                   ks = sort_array(ks, (: $(st)[$2] - $(st)[$1] :));
   
-                  // Ñ¡ÔñÇ°100¸ö
-                  msg += "Ä¿Ç°ÏµÍ³ÖĞÓĞ " + si +
-                         " ¸öÎïÆ·£¬ÆäÖĞ¸´ÖÆ¶ÔÏó³¬¹ı 50 ¸öµÄÎïÆ·ÈçÏÂ£º\n";
+                  // é€‰æ‹©å‰100ä¸ª
+                  msg += "ç›®å‰ç³»ç»Ÿä¸­æœ‰ " + si +
+                         " ä¸ªç‰©å“ï¼Œå…¶ä¸­å¤åˆ¶å¯¹è±¡è¶…è¿‡ 50 ä¸ªçš„ç‰©å“å¦‚ä¸‹ï¼š\n";
                   for (i = 0; i < sizeof(ks) && i < 100; i++)
                           msg += sprintf("%3d. %-40s %d\n",
                                          i + 1, ks[i], st[ks[i]]);
@@ -87,9 +87,9 @@ int filter_for_heart_beat(object ob)
 int help(object me)
 {
           write(@HELP
-  Ö¸Áî¸ñÊ½ : status [detail | object]
+  æŒ‡ä»¤æ ¼å¼ : status [detail | object]
   
-  ÀûÓÃ´ËÖ¸Áî¿ÉµÃÖªÓĞ¹ØÏµÍ³µÄĞÅÏ¢¡£
+  åˆ©ç”¨æ­¤æŒ‡ä»¤å¯å¾—çŸ¥æœ‰å…³ç³»ç»Ÿçš„ä¿¡æ¯ã€‚
 HELP );
           return 1;
 }

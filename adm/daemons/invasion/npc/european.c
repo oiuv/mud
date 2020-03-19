@@ -1,4 +1,4 @@
-// european.c Å·ÖŞÈëÇÖÕß
+// european.c æ¬§æ´²å…¥ä¾µè€…
 
 #include <ansi.h>
 
@@ -6,9 +6,9 @@ inherit __DIR__"invader";
 
 void create()
 {
-        set_name("Î÷ÑóÈË", ({ "european" }));
-        set("long", "Ò»¸öÎ÷ÑóÈË¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("è¥¿æ´‹äºº", ({ "european" }));
+        set("long", "ä¸€ä¸ªè¥¿æ´‹äººã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 20);
         set("str", 20);
         set("int", 20);
@@ -39,7 +39,7 @@ void create()
         map_skill("dodge", "xiyang-boji");
         map_skill("parry", "xiyang-jian");
 
-        set("rank_info/rude", "ºìÃ«¹í");
+        set("rank_info/rude", "çº¢æ¯›é¬¼");
         set("chat_chance", 10);
         set("chat_msg", ({ (: do_leave :) }));
 

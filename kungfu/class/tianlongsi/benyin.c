@@ -5,10 +5,10 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("±¾Òò", ({ "ben yin","yin"}) );
-	set("gender", "ÄĞĞÔ" );
-	set("title", "ÌìÁúËÂµÚÊ®Æß´ú×¡³Ö");
-	set("long", "Ò»¸öÉñÇéäìÈ÷µÄÉ®ÈË£¬ËûÊÇÌìÁúËÂ×¡³Ö·½ÕÉ¡£\n");
+	set_name("æœ¬å› ", ({ "ben yin","yin"}) );
+	set("gender", "ç”·æ€§" );
+	set("title", "å¤©é¾™å¯ºç¬¬åä¸ƒä»£ä½æŒ");
+	set("long", "ä¸€ä¸ªç¥æƒ…æ½‡æ´’çš„åƒ§äººï¼Œä»–æ˜¯å¤©é¾™å¯ºä½æŒæ–¹ä¸ˆã€‚\n");
 	set("class", "bonze");
 	set("age", 43);
 	set("shen_type", 1);
@@ -45,11 +45,11 @@ void create()
 	map_skill("sword", "duanjia-sword");
 	prepare_skill("finger","sun-finger");
 	set("inquiry" ,([
-	        "ÁùÂöÉñ½£Æ×" : "ºß£¡\n",
-	        "ÁùÂöÉñ½£" :  "ºß£¡\n",
+	        "å…­è„‰ç¥å‰‘è°±" : "å“¼ï¼\n",
+	        "å…­è„‰ç¥å‰‘" :  "å“¼ï¼\n",
 	]));
 
-	create_family("´óÀí¶Î¼Ò", 15, "¸ßÉ®");
+	create_family("å¤§ç†æ®µå®¶", 15, "é«˜åƒ§");
 	setup();
 	carry_object("/d/xueshan/obj/b-jiasha")->wear();
 }

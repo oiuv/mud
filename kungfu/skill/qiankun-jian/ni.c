@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define NI "¡¸" HIW "Äæ×ªÇ¬À¤" NOR "¡¹"
+#define NI "ã€Œ" HIW "é€†è½¬ä¹¾å¤" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -19,42 +19,42 @@ int perform(object me, object target)
 		martial = "sword";
 
         if (userp(me) && ! me->query("can_perform/qiankun-jian/ni"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(NI "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(NI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
               (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" NI "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" NI "ã€‚\n");
 
         if (me->query_skill("force") < 300)
-                return notify_fail("ÄãµÄÄÚ¹¦µÄĞŞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" NI "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸçš„ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" NI "ã€‚\n");
 
         if (me->query_skill("qiankun-jian", 1) < 180)
-                return notify_fail("ÄãµÄÇ¬À¤Éñ½£ĞŞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" NI "¡£\n");
+                return notify_fail("ä½ çš„ä¹¾å¤ç¥å‰‘ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" NI "ã€‚\n");
 
         if (me->query("neili") < 400)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" NI "¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" NI "ã€‚\n");
 
         if (me->query_skill_mapped("sword") != "qiankun-jian")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢Ç¬À¤Éñ½££¬ÄÑÒÔÊ©Õ¹" NI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ä¹¾å¤ç¥å‰‘ï¼Œéš¾ä»¥æ–½å±•" NI "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "Ò»ÉùÇåĞ¥£¬ÊÖÖĞ" + weapon->name() +
-              HIW "Ò»Õñ£¬½«Ç¬À¤½£·¨ÄæĞĞÊ©Õ¹£¬¶ÙÊ±½£Ó°ÖØÖØ£¬Íò"
-              "µÀ¹â»ªÖ±×·$n" + HIW "¶øÈ¥£¡\n" NOR;
+        msg = HIW "$N" HIW "ä¸€å£°æ¸…å•¸ï¼Œæ‰‹ä¸­" + weapon->name() +
+              HIW "ä¸€æŒ¯ï¼Œå°†ä¹¾å¤å‰‘æ³•é€†è¡Œæ–½å±•ï¼Œé¡¿æ—¶å‰‘å½±é‡é‡ï¼Œä¸‡"
+              "é“å…‰åç›´è¿½$n" + HIW "è€Œå»ï¼\n" NOR;
 			  
 		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
 		lvl = lvl * 4 / 5;
 		ks = keys(me->query_skills(martial));
 		improve = 0;
 		n = 0;
-		//×î¶à¸øÓè5¸ö¼¼ÄÜµÄ¼Ó³É
+		//æœ€å¤šç»™äºˆ5ä¸ªæŠ€èƒ½çš„åŠ æˆ
 		for (i = 0; i < sizeof(ks); i++)
 		{
 			if (SKILL_D(ks[i])->valid_enable(martial))
@@ -79,16 +79,16 @@ int perform(object me, object target)
                 me->add("neili", -200);
                 me->start_busy(2);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 120,
-                                           HIR "$n" HIR "ÍêÈ«ÎŞ·¨¿´ÇåÕĞÖĞĞéÊµ£¬Î¢"
-                                           "Î¢Ò»Àã¼ä£¬·¢ÏÖ" + weapon->name() + HIR
-                                           "¾¹ÒÑÃ»Èë×Ô¼ºĞØ¿ÚÊı´ç¡£\n" NOR);
+                                           HIR "$n" HIR "å®Œå…¨æ— æ³•çœ‹æ¸…æ‹›ä¸­è™šå®ï¼Œå¾®"
+                                           "å¾®ä¸€æ¥é—´ï¼Œå‘ç°" + weapon->name() + HIR
+                                           "ç«Ÿå·²æ²¡å…¥è‡ªå·±èƒ¸å£æ•°å¯¸ã€‚\n" NOR);
         } else
         {
                 me->add("neili", -80);
                 me->start_busy(4);
-                msg += CYN "¿ÉÊÇ$n" CYN "¿´ÆÆ" CYN "$N" CYN
-                       "µÄÕĞÊı£¬·ÉÉíÒ»Ô¾£¬ÉÁ¿ªÁËÕâÉñ¹íÄª²â"
-                       "µÄÒ»»÷¡£\n"NOR;
+                msg += CYN "å¯æ˜¯$n" CYN "çœ‹ç ´" CYN "$N" CYN
+                       "çš„æ‹›æ•°ï¼Œé£èº«ä¸€è·ƒï¼Œé—ªå¼€äº†è¿™ç¥é¬¼è«æµ‹"
+                       "çš„ä¸€å‡»ã€‚\n"NOR;
         }
         message_combatd(msg, me, target);
 

@@ -11,7 +11,7 @@ int main(object me, mapping info)
         string fun;
 
         if (! stringp(info[ARG]))
-                return MESSAGE_D->error_msg("请输入你要查询的用户代号。\n");
+                return MESSAGE_D->error_msg("璇疯緭鍏ヤ綘瑕佹煡璇㈢殑鐢ㄦ埛浠ｅ彿銆俓n");
 
 	msg = FINGER_D->finger_user(info[ARG], me);
         if (sscanf(info[ARG], "%*s@%*s") == 2)
@@ -22,7 +22,7 @@ int main(object me, mapping info)
         } else
         {
                 fun = FUN_NOTICE;
-                msg = HIW "关于用户(" + info[ARG] + ")的查询信息：\n"
+                msg = HIW "鍏充簬鐢ㄦ埛(" + info[ARG] + ")鐨勬煡璇俊鎭細\n"
                       NOR + msg;
         }
 

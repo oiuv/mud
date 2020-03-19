@@ -9,15 +9,15 @@ string type() { return "knowledge"; }
 int valid_learn(object me)
 {
         if ((int)me->query_skill("mathematics", 1) < 200)
-                return notify_fail("ÄãµÄËãÊõÖªÊ¶Ì«²î£¬ÎŞ·¨Àí½âÆæÃÅÎåĞĞµÄ°ÂÃî¡£\n");
+                return notify_fail("ä½ çš„ç®—æœ¯çŸ¥è¯†å¤ªå·®ï¼Œæ— æ³•ç†è§£å¥‡é—¨äº”è¡Œçš„å¥¥å¦™ã€‚\n");
 
         if ((int)me->query_skill("mathematics", 1) < (int)me->query_skill("qimen-wuxing", 1))
-                return notify_fail("ÄãµÄËãÊõÖªÊ¶ÓĞÏŞ£¬ÎŞ·¨Àí½â¸üÉî°ÂµÄÆæÃÅÎåĞĞ¡£\n");
+                return notify_fail("ä½ çš„ç®—æœ¯çŸ¥è¯†æœ‰é™ï¼Œæ— æ³•ç†è§£æ›´æ·±å¥¥çš„å¥‡é—¨äº”è¡Œã€‚\n");
 
         return 1;
 }
 
 int practice_skill(object me)
 {
-	return notify_fail("ÆæÃÅÎåĞĞÄÜ¿¿Ñ§(learn)À´Ìá¸ß¡£\n");
+	return notify_fail("å¥‡é—¨äº”è¡Œèƒ½é å­¦(learn)æ¥æé«˜ã€‚\n");
 }

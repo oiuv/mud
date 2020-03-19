@@ -1,4 +1,4 @@
-// bo.c ±Ìº£Çå²¨
+// bo.c ç¢§æµ·æ¸…æ³¢
 
 #include <ansi.h>
 
@@ -12,19 +12,19 @@ int perform(object me, object target)
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("±Ìº£Çå²¨Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ç¢§æµ·æ¸…æ³¢åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (target->is_busy())
-		return notify_fail(target->name() + "Ä¿Ç°Õý×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É£¡\n");
+		return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ï¼\n");
 		
 	if ((int)me->query_skill("bluesea-force", 1) < 100)
-		return notify_fail("ÄãµÄÄÏº£Ðþ¹¦²»¹»Éîºñ£¬²»»áÊ¹ÓÃ±Ìº£Çå²¨¡£\n");
+		return notify_fail("ä½ çš„å—æµ·çŽ„åŠŸä¸å¤Ÿæ·±åŽšï¼Œä¸ä¼šä½¿ç”¨ç¢§æµ·æ¸…æ³¢ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIC "$N" HIC "ÕÆÁ¦ºö×óºöÓÒ£¬ÐÎ³ÉÒ»¸ö¸öÆøÐý£¬Èç²¨ÀËÒ»°ã½ÓÁ¬Ïò$n"
-              HIC "±ÆÈ¥£¡\n" NOR;
+	msg = HIC "$N" HIC "æŽŒåŠ›å¿½å·¦å¿½å³ï¼Œå½¢æˆä¸€ä¸ªä¸ªæ°”æ—‹ï¼Œå¦‚æ³¢æµªä¸€èˆ¬æŽ¥è¿žå‘$n"
+              HIC "é€¼åŽ»ï¼\n" NOR;
 
         ap = me->query_skill("bluesea-force", 1) * 3 / 2 +
              me->query_skill("martial-cognize", 1);
@@ -33,12 +33,12 @@ int perform(object me, object target)
 
 	if (ap / 2 + random(ap) > dp)
         {
-		msg += HIR "½á¹û$p" HIR "±»$P" HIR "±ÆµÃÊ©Õ¹²»¿ª°ëµãÕÐÊ½£¡\n" NOR;
+		msg += HIR "ç»“æžœ$p" HIR "è¢«$P" HIR "é€¼å¾—æ–½å±•ä¸å¼€åŠç‚¹æ‹›å¼ï¼\n" NOR;
 		target->start_busy(ap / 45 + 2);
 	} else
         {
-		msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P" CYN "µÄÕÆÊÆÀ´Â·£¬"
-                       "Õò¶¨×ÔÈô£¬Ó¦¶Ô×ÔÈç¡£\n" NOR;
+		msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P" CYN "çš„æŽŒåŠ¿æ¥è·¯ï¼Œ"
+                       "é•‡å®šè‡ªè‹¥ï¼Œåº”å¯¹è‡ªå¦‚ã€‚\n" NOR;
 		me->start_busy(1);
 	}
 	message_combatd(msg, me, target);

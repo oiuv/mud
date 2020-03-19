@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "����");
+	set("short", "酒肆");
 	set("long", @LONG
-�Ƶ��ſ�һ�������Ӱ����ӹ��ţ��������ϲ�ȴ�����ˡ���
-��é�ݵ�С���Ե�ʮ�ֿ��䣬ֻ��һ���������ẩ�ӿ��ھ�¯��
-����������㡣
+酒店门口一个酒招子半拉子挂着，店主人老蔡却不见了。两
+间茅屋的小店显得十分空落，只有一个青袍年轻憨子靠在酒炉上
+冷冷地瞧着你。
 LONG );
 	set("exits", ([
 		"south"     : __DIR__"fzroad9",

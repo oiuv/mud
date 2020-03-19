@@ -3,13 +3,13 @@
 inherit SWORD;
 void create()
 {
-        set_name( "¶«³§Öı½£",  ({ "dongchang jian", "dongchang", "jian" }));
+        set_name( "ä¸œå‚é“¸å‰‘",  ({ "dongchang jian", "dongchang", "jian" }));
         set_weight(10000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", "Ò»±ú¹Ù¸®ÎÀ±øÌØÓÃµÄ³¤½££¬½£¼¹ÉÏÖıÓĞ¡°¶«³§¡±¶ş×Ö¡£\n");
+                set("unit", "æŸ„");
+                set("long", "ä¸€æŸ„å®˜åºœå«å…µç‰¹ç”¨çš„é•¿å‰‘ï¼Œå‰‘è„Šä¸Šé“¸æœ‰â€œä¸œå‚â€äºŒå­—ã€‚\n");
                 set("value", 2000);
                 set("material", "gold");
         }

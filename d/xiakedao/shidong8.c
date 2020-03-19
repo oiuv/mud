@@ -6,10 +6,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ʯ��");
+        set("short", "石洞");
         set("long", @LONG
-����һ��ʯ���������ǹ⻬��ʯ�ڣ�ʯ���ڸɸɾ�����һ����Ⱦ��
-���Ե��Ż�ѣ��ǳ�������������һ�����ڵ�ʯ�š�
+这是一个石洞，四周是光滑的石壁，石洞内干干净净，一尘不染。
+两旁点着火把，非常明亮。南面有一扇虚掩的石门。
 LONG );
         set("exits", ([
                 "east" : __DIR__"shidong7",
@@ -17,7 +17,7 @@ LONG );
         ]));
 
         set("item_desc", ([
-                "door" : "����һ�ȼ����ʯ�š�\n"
+                "door" : "这是一扇极厚的石门。\n"
         ]));
 
         set("objects", ([

@@ -1,4 +1,4 @@
-// linji-zhuang.c ÁÙ¼ÃÊ®¶ş×¯
+// linji-zhuang.c ä¸´æµåäºŒåº„
 
 #include <ansi.h>
 
@@ -31,21 +31,21 @@ int valid_learn(object me)
 	nh = (int)me->query_skill("linji-zhuang", 1);
 	np = (int)me->query_skill("mahayana", 1);
 
-        if (me->query("gender") != "Å®ĞÔ")
-                return notify_fail("Äã·ÇÅ®×Ó£¬²»ÄÜÁ·Ï°ÁÙ¼ÃÊ®¶ş×¯¡£\n");
+        if (me->query("gender") != "å¥³æ€§")
+                return notify_fail("ä½ éå¥³å­ï¼Œä¸èƒ½ç»ƒä¹ ä¸´æµåäºŒåº„ã€‚\n");
 
         if (np <= nh && np < 200)
-                return notify_fail("ÄãµÄ´ó³ËÄùÅÍ¹¦ĞŞÎª²»¹»£¬ÎŞ·¨Áì»á¸ü¸ßÉîµÄÁÙ¼ÃÊ®¶ş×¯¡£\n");
+                return notify_fail("ä½ çš„å¤§ä¹˜æ¶…ç£åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œæ— æ³•é¢†ä¼šæ›´é«˜æ·±çš„ä¸´æµåäºŒåº„ã€‚\n");
 
         if (nf < 40)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ğºò»¹²»¹»£¬ÎŞ·¨Áì»áÁÙ¼ÃÊ®¶ş×¯¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™è¿˜ä¸å¤Ÿï¼Œæ— æ³•é¢†ä¼šä¸´æµåäºŒåº„ã€‚\n");
 
         return 1;
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("ÁÙ¼ÃÊ®¶ş×¯Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("ä¸´æµåäºŒåº„åªèƒ½ç”¨å­¦(learn)çš„æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 void skill_improved(object me)
@@ -53,22 +53,22 @@ void skill_improved(object me)
         switch (me->query_skill("linji-zhuang",1))
         {
         case 30:
-                tell_object(me, HIG "ÄãÒÑ¾­°ÑÌìµØ×¯Á·³ÉÁË£¡\n" NOR );
+                tell_object(me, HIG "ä½ å·²ç»æŠŠå¤©åœ°åº„ç»ƒæˆäº†ï¼\n" NOR );
                 break;
         case 60:
-                tell_object(me, HIG "ÄãÒÑ¾­°ÑÖ®ĞÄ×¯Á·³ÉÁË£¡\n" NOR );
+                tell_object(me, HIG "ä½ å·²ç»æŠŠä¹‹å¿ƒåº„ç»ƒæˆäº†ï¼\n" NOR );
                 break;
         case 90:
-                tell_object(me, HIG "ÄãÒÑ¾­°ÑÁúÅô×¯Á·³ÉÁË£¡\n" NOR );
+                tell_object(me, HIG "ä½ å·²ç»æŠŠé¾™é¹åº„ç»ƒæˆäº†ï¼\n" NOR );
                 break;
         case 120:
-                tell_object(me, HIG "ÄãÒÑ¾­°Ñ·çÔÆ×¯Á·³ÉÁË£¡\n" NOR );
+                tell_object(me, HIG "ä½ å·²ç»æŠŠé£äº‘åº„ç»ƒæˆäº†ï¼\n" NOR );
                 break;
         case 150:
-                tell_object(me, HIG "ÄãÒÑ¾­°Ñ´óĞ¡×¯Á·³ÉÁË£¡\n" NOR );
+                tell_object(me, HIG "ä½ å·²ç»æŠŠå¤§å°åº„ç»ƒæˆäº†ï¼\n" NOR );
                 break;
         case 180:
-                tell_object(me, HIG "ÄãÒÑ¾­°ÑÓÄÚ¤×¯Á·³ÉÁË£¡\n" NOR );
+                tell_object(me, HIG "ä½ å·²ç»æŠŠå¹½å†¥åº„ç»ƒæˆäº†ï¼\n" NOR );
                 break;
         }
         return;

@@ -3,14 +3,14 @@ inherit NPC;
 
 void create()
 {
-        set_name("É³³æ", ({ "sha chong", "chong", "bug" }) );
-        set("race", "Ò°ÊÞ");
+        set_name("æ²™è™«", ({ "sha chong", "chong", "bug" }) );
+        set("race", "é‡Žå…½");
         set("age", 3);
-        set("long", "Ò»Ö»»ÆºÖÉ«µÄÐ¡¼×³æ£¬Î²°ÍÉÏÓÐ»ÆÀ¶Ïà\n"
-                    "¼äµÄ»·ÎÆ¡£ÄãµÄÖ±¾õ¸æËßÄãËüÒ»¶¨ÓÐ¶¾¡£\n");
+        set("long", "ä¸€åªé»„è¤è‰²çš„å°ç”²è™«ï¼Œå°¾å·´ä¸Šæœ‰é»„è“ç›¸\n"
+                    "é—´çš„çŽ¯çº¹ã€‚ä½ çš„ç›´è§‰å‘Šè¯‰ä½ å®ƒä¸€å®šæœ‰æ¯’ã€‚\n");
         set("attitude", "peaceful");
 
-        set("limbs", ({ "Í·²¿", "ÉíÌå", "´¥½Ç", "Ç°òü", "Î²°Í" }) );
+        set("limbs", ({ "å¤´éƒ¨", "èº«ä½“", "è§¦è§’", "å‰èž¯", "å°¾å·´" }) );
         set("verbs", ({ "bite", "claw" }) );
 
         set("combat_exp", 300);
@@ -23,7 +23,7 @@ void create()
 void die()
 {
         object ob;
-        message_vision(HIG "$N" HIG "Ã°³öÒ»¹ÉÂÌË®£¬ËÀÁË¡£\n" NOR, this_object());
+        message_vision(HIG "$N" HIG "å†’å‡ºä¸€è‚¡ç»¿æ°´ï¼Œæ­»äº†ã€‚\n" NOR, this_object());
         ob = new(__DIR__"shachongke");
         ob->move(environment(this_object()));
         destruct(this_object());

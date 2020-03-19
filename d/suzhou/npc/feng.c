@@ -4,13 +4,13 @@ inherit NPC;
 
 void create()
 {
-	set_name("·ëÕı¶«", ({ "feng zhengdong", "feng" }));
-	set("title", "ËÕÖİÖª¸®");
-	set("gender", "ÄĞĞÔ");
+	set_name("å†¯æ­£ä¸œ", ({ "feng zhengdong", "feng" }));
+	set("title", "è‹å·çŸ¥åºœ");
+	set("gender", "ç”·æ€§");
 	set("age", 43);
 	set("str", 20);
 	set("dex", 20);
-	set("long", "Ëû¾ÍÊÇ·ëÕı¶«£¬ËÕÖİÏÖÈÎÖª¸®¡£\n");
+	set("long", "ä»–å°±æ˜¯å†¯æ­£ä¸œï¼Œè‹å·ç°ä»»çŸ¥åºœã€‚\n");
 	set("combat_exp", 30000);
 	set("shen_type", 0);
 	set("attitude", "heroism");

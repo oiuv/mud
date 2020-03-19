@@ -10,10 +10,10 @@ string give_gift();
 
 void create()
 {
-	set_name(HIR "Ê¥µ®" HIW "ÀÏÈË" NOR, ({ "christmas man", "man", "lao ren" }) );
-	set("gender", "ÄĞĞÔ" );
+	set_name(HIR "åœ£è¯" HIW "è€äºº" NOR, ({ "christmas man", "man", "lao ren" }) );
+	set("gender", "ç”·æ€§" );
 	set("age", 65);
-	set("long", HIM "Ê¥µ®ÀÏÈË±³×ÅÒ»¸ö´ó¿Ú´ü£¬Ğ¦ÎûÎûµØ¿´×ÅÄã£¡\n" NOR);
+	set("long", HIM "åœ£è¯è€äººèƒŒç€ä¸€ä¸ªå¤§å£è¢‹ï¼Œç¬‘å˜»å˜»åœ°çœ‹ç€ä½ ï¼\n" NOR);
 	set("shen_type", -1);
 	set("combat_exp", 10000);
 	set("str", 80);
@@ -45,7 +45,7 @@ void create()
         prepare_skill("unarmed", "kuihua-mogong");
 
         set("inquiry", ([
-                "Ê¥µ®¿ìÀÖ" : (: give_gift :),
+                "åœ£è¯å¿«ä¹" : (: give_gift :),
         ]));
 
         set("chat_chance_combat", 120);
@@ -69,7 +69,7 @@ void create()
 
 void init()
 {
-        command("say Ê¥µ®¿ìÀÖ£¡Merry Christmas£¡");
+        command("say åœ£è¯å¿«ä¹ï¼Merry Christmasï¼");
 }
 
 string give_gift()
@@ -78,23 +78,23 @@ string give_gift()
         object gift;
         me = this_player();
     
-        // ÒÑ¾­ÁìÈ¡¹ıÀñÎï
+        // å·²ç»é¢†å–è¿‡ç¤¼ç‰©
         if (me->query("get_christmas_gift/y2002"))
-                 return HIR "Ê¥µ®" HIW "ÀÏÈË" HIR " Ğ¦ÎûÎûµØ¶ÔÄãËµµÀ£º¡°Merry Christmas£¡¡±\n" NOR;
+                 return HIR "åœ£è¯" HIW "è€äºº" HIR " ç¬‘å˜»å˜»åœ°å¯¹ä½ è¯´é“ï¼šâ€œMerry Christmasï¼â€\n" NOR;
         
-        // ÒÑ¾­³Ô¹ıÀñÎï
+        // å·²ç»åƒè¿‡ç¤¼ç‰©
         if (me->query("eat_christmas_gift/y2002"))
-                 return HIR "Ê¥µ®" HIW "ÀÏÈË" HIR "Ğ¦ÎûÎûµØ¶ÔÄãËµµÀ£º¡°Merry Christmas£¡¡±\n" NOR;
+                 return HIR "åœ£è¯" HIW "è€äºº" HIR "ç¬‘å˜»å˜»åœ°å¯¹ä½ è¯´é“ï¼šâ€œMerry Christmasï¼â€\n" NOR;
 
-        // ¸øÓèÀñÎï
-        message_vision(HIY "Ê¥µ®ÀÏÈËĞ¦ÎûÎûµØ¶Ô$NËµµÀ£º¡°Merry Christmas£¡¡±\n" NOR, me);
+        // ç»™äºˆç¤¼ç‰©
+        message_vision(HIY "åœ£è¯è€äººç¬‘å˜»å˜»åœ°å¯¹$Nè¯´é“ï¼šâ€œMerry Christmasï¼â€\n" NOR, me);
         command("smile");
-        command("say ¶÷£¬ÎÒ¸øÄãÕÒÕÒÀñÎï£¡ÄãµÈµÈ£¡");
-        message_vision(HIY "Ê¥µ®ÀÏÈË½«±³ÉÏµÄ´ó¿Ú´ü·ÅÔÚµØ·½£¬·­À´·­È¥¡­¡­\n", me);
+        command("say æ©ï¼Œæˆ‘ç»™ä½ æ‰¾æ‰¾ç¤¼ç‰©ï¼ä½ ç­‰ç­‰ï¼");
+        message_vision(HIY "åœ£è¯è€äººå°†èƒŒä¸Šçš„å¤§å£è¢‹æ”¾åœ¨åœ°æ–¹ï¼Œç¿»æ¥ç¿»å»â€¦â€¦\n", me);
         command("haha");
-        command("say ºÃÁË£¬ÄãµÄÀñÎï£¬¸øÄã°É£¡");
-        message_vision(HIY "Ê¥µ®ÀÏÈË½«ÀñÎï¸ø$N" HIY "\n", me);        
-        tell_object(me, HIG "ÄãµÃµ½ÁËÒ»¸öÀñÎï£¬¿ì¿´¿´°É£¡\n");
+        command("say å¥½äº†ï¼Œä½ çš„ç¤¼ç‰©ï¼Œç»™ä½ å§ï¼");
+        message_vision(HIY "åœ£è¯è€äººå°†ç¤¼ç‰©ç»™$N" HIY "\n", me);        
+        tell_object(me, HIG "ä½ å¾—åˆ°äº†ä¸€ä¸ªç¤¼ç‰©ï¼Œå¿«çœ‹çœ‹å§ï¼\n");
         
         switch(random(5))
         {
@@ -116,7 +116,7 @@ string give_gift()
 
         }        
         me->set("get_christmas_gift/y2002", 1);
-        return "Bye£¡\n";
+        return "Byeï¼\n";
           
 }
 

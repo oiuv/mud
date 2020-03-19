@@ -1,43 +1,43 @@
-// hatred.c É±Æø³åÏö
+// hatred.c æ€æ°”å†²éœ„
 // Created by Doing Lu 10/7/2K
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return HIR "É±Æø³åÏö" NOR; }
+string name() { return HIR "æ€æ°”å†²éœ„" NOR; }
 
 int perform(object me, string skill)
 {
         int count;
 
         if (me->query("qi") < 80)
-                return notify_fail("ÄãµÄÌåÁ¦²»Ö§£¬ÎŞ·¨ĞîÊÆÌáÉı×Ô¼ºµÄÉËº¦Á¦¡£\n");
+                return notify_fail("ä½ çš„ä½“åŠ›ä¸æ”¯ï¼Œæ— æ³•è“„åŠ¿æå‡è‡ªå·±çš„ä¼¤å®³åŠ›ã€‚\n");
 
         if (me->query_temp("special_skill/hatred", 1))
-                return notify_fail("ÄãÏÖÔÚÒÑ¾­ÊÇÉ±ÆøÌÚÌÚÁË¡£\n");
+                return notify_fail("ä½ ç°åœ¨å·²ç»æ˜¯æ€æ°”è…¾è…¾äº†ã€‚\n");
 
-        message_vision(HIR "$N" HIR "ÑÛÖĞ¾«¹âÉÁ¹ı£¬ÀäÀäµÄÉ¨¹ı"
-                       "ËÄÖÜ£¬Ò»¹Éº®ÒâÁİÈ»¶øÆğ¡£\n" NOR, me);
+        message_vision(HIR "$N" HIR "çœ¼ä¸­ç²¾å…‰é—ªè¿‡ï¼Œå†·å†·çš„æ‰«è¿‡"
+                       "å››å‘¨ï¼Œä¸€è‚¡å¯’æ„å‡›ç„¶è€Œèµ·ã€‚\n" NOR, me);
         switch (me->query("character"))
         {
-        case "¹âÃ÷ÀÚÂä":
+        case "å…‰æ˜ç£Šè½":
                 count = 30;
                 break;
 
-        case "ĞÄºİÊÖÀ±":
+        case "å¿ƒç‹ æ‰‹è¾£":
                 count = 42;
                 break;
 
-        case "½Æ÷ï¶à±ä":
+        case "ç‹¡é» å¤šå˜":
                 count = 38;
                 break;
 
-        case "ÒõÏÕ¼éÕ©":
+        case "é˜´é™©å¥¸è¯ˆ":
                 count = 48;
                 break;
-        //ĞÂÔö¹úÊ¿ÎŞË« by Ğ½ÓĞËùÊô
-        case "¹úÊ¿ÎŞË«":
+        //æ–°å¢å›½å£«æ— åŒ by è–ªæœ‰æ‰€å±
+        case "å›½å£«æ— åŒ":
                 count = 60;
                 break;
         }
@@ -57,5 +57,5 @@ void remove_effect(object me, int count)
         me->delete_temp("special_skill/hatred");
         me->add_temp("apply/damage", -count);
         me->add_temp("apply/unarmed_damage", -count);
-        tell_object(me, "Äã¾«ÉñÒ»ËÉĞ¸£¬É±Æøµ´È»ÎŞ´æ¡£\n");
+        tell_object(me, "ä½ ç²¾ç¥ä¸€æ¾æ‡ˆï¼Œæ€æ°”è¡ç„¶æ— å­˜ã€‚\n");
 }

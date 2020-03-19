@@ -5,12 +5,12 @@ inherit NPC;
 
 void create()
 {
-        set_name("½¹ÎÄÆÚ", ({ "jiao wenqi", "jiao" }));
+        set_name("ç„¦æ–‡æœŸ", ({ "jiao wenqi", "jiao" }));
         set("long",@LONG
-ËûÊÇ¹ØÍâÁùÄ§ÖĞµÄÈıÄ§½¹ÎÄÆÚ¡£±³ÉÏÒ»°ÑÌúÅıÅÃ£¬ÊÇÎäÁÖÖĞÉÙ¼ûµÄÆæÃÅ±øÆ÷¡£
+ä»–æ˜¯å…³å¤–å…­é­”ä¸­çš„ä¸‰é­”ç„¦æ–‡æœŸã€‚èƒŒä¸Šä¸€æŠŠé“çµç¶ï¼Œæ˜¯æ­¦æ—ä¸­å°‘è§çš„å¥‡é—¨å…µå™¨ã€‚
 LONG );
-        set("nickname", HIC "¹ØÍâÈıÄ§" NOR);
-        set("gender", "ÄĞĞÔ");
+        set("nickname", HIC "å…³å¤–ä¸‰é­”" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 36);
         set("attitude", "peaceful");
         set("shen_type", -1);

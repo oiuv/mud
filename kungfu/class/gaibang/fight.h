@@ -1,5 +1,5 @@
 // fight.h
-// Ø¤°ïÉı´ü
+// ä¸å¸®å‡è¢‹
 
 int accept_object(object ob, object obj)
 {
@@ -10,25 +10,25 @@ int accept_object(object ob, object obj)
 
         if (obj->query("id") != "qingzhu ling")
         {
-                command("say É¶ÍæÒÕ£¿»¹ÊÇ×Ô¸öÁô×Å°É¡£");
+                command("say å•¥ç©è‰ºï¼Ÿè¿˜æ˜¯è‡ªä¸ªç•™ç€å§ã€‚");
                 return 0;
         }
 
-        if (! ob_fam || ob_fam["family_name"] != "Ø¤°ï")
+        if (! ob_fam || ob_fam["family_name"] != "ä¸å¸®")
         {
-                command("say ÄãÊÇ´ÓÄÄÀï¸ãÀ´µÄÇàÖñÁî£¿");
+                command("say ä½ æ˜¯ä»å“ªé‡Œææ¥çš„é’ç«¹ä»¤ï¼Ÿ");
                 return 0;
         }
 
         if (ob->query("combat_exp") < 10000)
         {
-                command("say ÄãÕâÖÖË®Æ½¼ò³¤ÀÏÔõÃ´»á¸øÄãÇàÖñÁî£¿");
+                command("say ä½ è¿™ç§æ°´å¹³ç®€é•¿è€æ€ä¹ˆä¼šç»™ä½ é’ç«¹ä»¤ï¼Ÿ");
                 return 0;
         }
 
         if (ob->query_temp("have_cloth") && present("po bu", ob))
         {
-                command("say Äã²»ÊÇÒÑ¾­ÓĞÆÆ²¼Ã´£¿»ØÈ¥ÕÒ¼ò³¤ÀÏ°É¡£");
+                command("say ä½ ä¸æ˜¯å·²ç»æœ‰ç ´å¸ƒä¹ˆï¼Ÿå›å»æ‰¾ç®€é•¿è€å§ã€‚");
                 return 0;
         }
 
@@ -49,37 +49,37 @@ int accept_object(object ob, object obj)
            || (ob->query("family/beggarlvl") >= 7
            && ob->query("combat_exp") <= 800000))
         {
-             command("say ¾ÍÄãÄÇµãÅ§Ë®£¿ÎÒ¿´¾ÍËãÁË°É¡£");
+             command("say å°±ä½ é‚£ç‚¹è„“æ°´ï¼Ÿæˆ‘çœ‹å°±ç®—äº†å§ã€‚");
              return 0;
         }
 
         if ((ob->query("family/beggarlvl") == 0
-           && me->query("title") == "Ø¤°ïÒ»´üµÜ×Ó")
+           && me->query("title") == "ä¸å¸®ä¸€è¢‹å¼Ÿå­")
            || (ob->query("family/beggarlvl") == 1
-           && me->query("title") == "Ø¤°ï¶ş´üµÜ×Ó")
+           && me->query("title") == "ä¸å¸®äºŒè¢‹å¼Ÿå­")
            || (ob->query("family/beggarlvl") == 2
-           && me->query("title") == "Ø¤°ïÈı´üµÜ×Ó")
+           && me->query("title") == "ä¸å¸®ä¸‰è¢‹å¼Ÿå­")
            || (ob->query("family/beggarlvl") == 3
-           && me->query("title") == "Ø¤°ïËÄ´üµÜ×Ó")
+           && me->query("title") == "ä¸å¸®å››è¢‹å¼Ÿå­")
            || (ob->query("family/beggarlvl") == 4
-           && me->query("title") == "Ø¤°ïÎå´üµÜ×Ó")
+           && me->query("title") == "ä¸å¸®äº”è¢‹å¼Ÿå­")
            || (ob->query("family/beggarlvl") == 5
-           && me->query("title") == "Ø¤°ïÁù´üµÜ×Ó")
+           && me->query("title") == "ä¸å¸®å…­è¢‹å¼Ÿå­")
            || (ob->query("family/beggarlvl") == 6
-           && me->query("title") == "Ø¤°ïÆß´üµÜ×Ó")
+           && me->query("title") == "ä¸å¸®ä¸ƒè¢‹å¼Ÿå­")
            || (ob->query("family/beggarlvl") == 7
-           && me->query("title") == "Ø¤°ï°Ë´üµÜ×Ó")
+           && me->query("title") == "ä¸å¸®å…«è¢‹å¼Ÿå­")
            || (ob->query("family/beggarlvl") == 8
-           && me->query("title") == "Ø¤°ï¾Å´ü³¤ÀÏ"))
+           && me->query("title") == "ä¸å¸®ä¹è¢‹é•¿è€"))
         {
                 ob->set_temp("fight_ok", me->query("id"));
-                command("say ºÃ°É¡£¼ÈÈ»ÒÑÓĞÇàÖñÁî£¬ÄÇ¾Í¿´ÄãµÄÔËÆøÁË¡£");
+                command("say å¥½å§ã€‚æ—¢ç„¶å·²æœ‰é’ç«¹ä»¤ï¼Œé‚£å°±çœ‹ä½ çš„è¿æ°”äº†ã€‚");
                 destruct(obj);
                 return 1;
         }
 
         command("hmm");
-        command("say Äãµ½µ×¶®²»¶®ÎÒÃÇØ¤°ïÉı´üµÄ¹æ¾Ø£¿");
+        command("say ä½ åˆ°åº•æ‡‚ä¸æ‡‚æˆ‘ä»¬ä¸å¸®å‡è¢‹çš„è§„çŸ©ï¼Ÿ");
         return 0;
 }
 
@@ -90,7 +90,7 @@ int accept_fight(object ob)
 
         if (is_fighting())
         {
-                command("say ÄãµÈ»á£¬ÈÃÎÒ°ÑÃæÇ°µÄÕâ¸ö¼Ò»ï·Åµ¹ÔÙËµ¡£");
+                command("say ä½ ç­‰ä¼šï¼Œè®©æˆ‘æŠŠé¢å‰çš„è¿™ä¸ªå®¶ä¼™æ”¾å€’å†è¯´ã€‚");
                 return 0;
         }
 
@@ -98,26 +98,26 @@ int accept_fight(object ob)
            || query("jing") < query("eff_jing") * 2 / 3
            || query("neili") < query("max_neili") * 2 / 3)
         {
-                command("say ÎÒÏÖÔÚÓĞµãÆ£¾ë£¬´ıÎÒĞª»á¶ùÔÙËµ¡£");
+                command("say æˆ‘ç°åœ¨æœ‰ç‚¹ç–²å€¦ï¼Œå¾…æˆ‘æ­‡ä¼šå„¿å†è¯´ã€‚");
                 return 0;
         }
 
         if (ob->query("family/family_name") != query("family/family_name"))
         {
-                command("say ÃâÁË£¬ÎÒ¿ÉÃ»ĞËÈ¤ºÍÄã¶¯ÊÖ¡£");
+                command("say å…äº†ï¼Œæˆ‘å¯æ²¡å…´è¶£å’Œä½ åŠ¨æ‰‹ã€‚");
                 return 0;
         }
 
         if (ob->query_temp("fight_ok") != query("id"))
         {
-                command("say ÄãÈ¥Ïò¼ò³¤ÀÏÒªÁËÇàÖñÁîÔÙÀ´ÕÒÎÒ¡£");
+                command("say ä½ å»å‘ç®€é•¿è€è¦äº†é’ç«¹ä»¤å†æ¥æ‰¾æˆ‘ã€‚");
                 return 0;
         }
 
         ob->delete_temp("fight_ok");
 
         command("nod");
-        command("say ¾ÍÈÃÎÒÊÔÒ»ÊÔÄãµÄÉíÊÖ£¬¿´¿´Äã¾¿¾¹ÓĞÉ¶Ë®Æ½£¿");
+        command("say å°±è®©æˆ‘è¯•ä¸€è¯•ä½ çš„èº«æ‰‹ï¼Œçœ‹çœ‹ä½ ç©¶ç«Ÿæœ‰å•¥æ°´å¹³ï¼Ÿ");
         competition_with(ob);
         return 1;
 }
@@ -135,7 +135,7 @@ void lost()
         ob->set("from", this_object()->name(1));
         ob->move(this_object());
 
-        command("say À÷º¦£¬À÷º¦¡£¼ÈÈ»ÄãÊ¤¹ıÁËÎÒ£¬Õâ¿éÆÆ²¼¾ÍÄÃÈ¥°É¡£");
+        command("say å‰å®³ï¼Œå‰å®³ã€‚æ—¢ç„¶ä½ èƒœè¿‡äº†æˆ‘ï¼Œè¿™å—ç ´å¸ƒå°±æ‹¿å»å§ã€‚");
         command("give po bu to " + me->query("id"));
         ::lost();
 }
@@ -149,6 +149,6 @@ void win()
                 command("heihei");
                 return;
         }
-        command("say ¾ÍÄãÕâµãË®Æ½Ò²ÏëÉı´ü£¿ÏÂÈ¥Á·Á·ÔÙÀ´°É¡£");
+        command("say å°±ä½ è¿™ç‚¹æ°´å¹³ä¹Ÿæƒ³å‡è¢‹ï¼Ÿä¸‹å»ç»ƒç»ƒå†æ¥å§ã€‚");
         ::win();
 }

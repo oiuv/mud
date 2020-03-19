@@ -5,8 +5,8 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("ÂÌÉÀÉÙÅ®", ({ "lvshan shaonv", "lvshan", "shaonv" }) );
-        set("gender", "Å®ÐÔ");
+        set_name("ç»¿è¡«å°‘å¥³", ({ "lvshan shaonv", "lvshan", "shaonv" }) );
+        set("gender", "å¥³æ€§");
         set("age", 17);
         set("attitude", "peaceful");
         set("per", 24);
@@ -37,7 +37,7 @@ void create()
         map_skill("dodge", "jueqing-shenfa");
         map_skill("force", "jueqing-xinfa");
 
-        create_family("¾øÇé¹È", 5, "Å®µÜ×Ó");
+        create_family("ç»æƒ…è°·", 5, "å¥³å¼Ÿå­");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();

@@ -6,12 +6,12 @@ inherit ITEM;
 void create()
 {
         object ob;
-        set_name(NOR + YEL "Í­¶¦" NOR, ({ "ding" }));
-        set("long", HIR "\nÖ»¼ûÍ­¶¦ÖĞÉÕ×ÅĞÜĞÜÁÒ»ğ£¬»ğÑæ³åÆğÒ»ÕÉÀ´¸ß¡£\n" NOR);
+        set_name(NOR + YEL "é“œé¼" NOR, ({ "ding" }));
+        set("long", HIR "\nåªè§é“œé¼ä¸­çƒ§ç€ç†Šç†Šçƒˆç«ï¼Œç«ç„°å†²èµ·ä¸€ä¸ˆæ¥é«˜ã€‚\n" NOR);
         set_weight(5000000);
         set_max_encumbrance(800000);
 
-        set("unit", "×ù");
+        set("unit", "åº§");
         set("no_get", 1);
         if (clonep())
         {

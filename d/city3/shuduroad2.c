@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�񶼵�");
+	set("short", "蜀都道");
 	set("long", @LONG
-�������񶼴����������������ٳǡ��򶫾Ϳ��Ե��ᶽ
-���ˡ�ƽͷ�������ˣ�·�ϴ������ͷ������ү�ǡ������ٱ�
-������״����Ź������ˡ�
+这里是蜀都大道，它横贯整个锦官城。向东就可以到提督
+府了。平头百姓少了，路上大多是有头有脸的爷们。几个官兵
+顶盔贯甲打量着过往行人。
 LONG);
         set("outdoors", "chengdu");
 	set("exits", ([

@@ -6,19 +6,19 @@ inherit EQUIP;
 
 void create()
 {
-        set_name( HIY "Ó§×ÓÃ±" NOR, ({ "hat" }) );
+        set_name( HIY "ç¼¨å­å¸½" NOR, ({ "hat" }) );
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¶¥");
+                set("unit", "é¡¶");
                 set("value", 300);
                 set("material", "cloth");
                 set("armor_type", "head");
                 set("armor_prop/personality", 1);
                 set("armor_prop/armor", 4);
                 set("armor_prop/dodge", -1);
-                set("wear_msg","$N´÷ÉÏÒ»¶¥$n¡£\n");
-                set("remove_msg","$N½«$nÍÑÁËÏÂÀ´¡£\n");
+                set("wear_msg","$Næˆ´ä¸Šä¸€é¡¶$nã€‚\n");
+                set("remove_msg","$Nå°†$nè„±äº†ä¸‹æ¥ã€‚\n");
         }
 }

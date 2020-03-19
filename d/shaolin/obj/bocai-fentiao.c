@@ -1,17 +1,17 @@
-// bocai-fentiao.c ²¤²Ë·ÛÌõ
+// bocai-fentiao.c è èœç²‰æ¡
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-	set_name("²¤²Ë·ÛÌõ", ({"bocai fentiao", "fentiao"}));
+	set_name("è èœç²‰æ¡", ({"bocai fentiao", "fentiao"}));
 	set_weight(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»Åè°×ÂÌÏà¼ä£¬ÇåÏã¿É¿ÚµÄ²¤²Ë·ÛÌõ¡£\n");
-		set("unit", "Åè");
+		set("long", "ä¸€ç›†ç™½ç»¿ç›¸é—´ï¼Œæ¸…é¦™å¯å£çš„è èœç²‰æ¡ã€‚\n");
+		set("unit", "ç›†");
 		set("value", 150);
 		set("food_remaining", 4);
 		set("food_supply", 40);

@@ -4,14 +4,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name("×ÏÖñ±Ê", ({ "zizhu bi", "bi" }));
+	set_name("ç´«ç«¹ç¬”", ({ "zizhu bi", "bi" }));
 	set_weight(600);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ö§");
-                set("no_sell", "Õâ...ÕâÊÇÊ²Ã´¶«Î÷£¿ÎÒ¿É²»¸ÒÒª¡£\n");
-		set("long", "Ò»Ö§ÓÃ×ÏÖñ×öµÄ±Ê£¬ÊÀÉÏº±¼û¡£\n");
+		set("unit", "æ”¯");
+                set("no_sell", "è¿™...è¿™æ˜¯ä»€ä¹ˆä¸œè¥¿ï¼Ÿæˆ‘å¯ä¸æ•¢è¦ã€‚\n");
+		set("long", "ä¸€æ”¯ç”¨ç´«ç«¹åšçš„ç¬”ï¼Œä¸–ä¸Šç½•è§ã€‚\n");
 		set("value", 1);
 		set("material", "bamboo");
 	}

@@ -28,7 +28,7 @@ int main(object me, string arg)
 	{
 		if (GTELL->send_gtell(mud, target, me, msg))
 		{
-			write("ÍøÂ·Ñ¶Ï¢ÒÑËÍ³ö£¬¿ÉÄÜÒªÉÔºò²ÅÄÜµÃµ½»ØÓ¦¡£\n");
+			write("ç½‘è·¯è®¯æ¯å·²é€å‡ºï¼Œå¯èƒ½è¦ç¨å€™æ‰èƒ½å¾—åˆ°å›åº”ã€‚\n");
 			return 1;
 		}
 	}
@@ -38,7 +38,7 @@ int main(object me, string arg)
 	{
 		if (MESSAGE_D->send_msg_to(me, target, msg))
 			return 1;
-		return notify_fail("Õâ¸öÓÃ»§Ã»ÓĞµÇÂ¼£¬ÄãÎŞ·¨ºÍËû½»Ì¸¡£\n");
+		return notify_fail("è¿™ä¸ªç”¨æˆ·æ²¡æœ‰ç™»å½•ï¼Œä½ æ— æ³•å’Œä»–äº¤è°ˆã€‚\n");
 	}
 
         my_id = me->query("id");
@@ -48,38 +48,38 @@ int main(object me, string arg)
         {
                 can_tell = obj->query("env/can_tell");
                 if (! is_sub(my_id, can_tell))
-		        return notify_fail("Õâ¸öÈË²»ÏëÌıÄãÂŞàÂÀ²¡£\n");
+		        return notify_fail("è¿™ä¸ªäººä¸æƒ³å¬ä½ ç½—å—¦å•¦ã€‚\n");
         }
 
 	if (! interactive(obj) || obj->is_net_dead())
-		return notify_fail("´ËÈËÏÖÔÚ²»ÔÚÏßÉÏ£¬Ìı²»µ½ÄãµÄ»°¡£\n");
+		return notify_fail("æ­¤äººç°åœ¨ä¸åœ¨çº¿ä¸Šï¼Œå¬ä¸åˆ°ä½ çš„è¯ã€‚\n");
 
 	if (! living(obj))
-		return notify_fail("ÕâÈËÏÖÔÚ¿ÖÅÂÌı²»µ½ÄãËµµÄ»°ÁË...\n");
+		return notify_fail("è¿™äººç°åœ¨ææ€•å¬ä¸åˆ°ä½ è¯´çš„è¯äº†...\n");
 
         if (me->ban_say(1))
                 return 0;
 
         if (obj == me)
         {
-                message_vision("$Nà«à«×ÔÓï¡£\n", me);
+                message_vision("$Nå–ƒå–ƒè‡ªè¯­ã€‚\n", me);
                 return 1;
         }
 
-        tell_out = sprintf(HIG "%s¸æËßÄã£º%s\n" NOR,
+        tell_out = sprintf(HIG "%så‘Šè¯‰ä½ ï¼š%s\n" NOR,
 		           me->name(1) + HIG + "(" +
                            capitalize(my_id) + ")", msg);
         if (! notice_user(me->name(1), my_id, obj, tell_out))
                 return 1;
 
-	write(sprintf(HIG "Äã¸æËß%s(%s)£º%s\n" NOR,
+	write(sprintf(HIG "ä½ å‘Šè¯‰%s(%s)ï¼š%s\n" NOR,
                       obj->name(1) + HIG,
                       capitalize(obj->query("id")), msg));
 
         if (query_idle(obj) >= 120)
-                write(YEL "¿ÉÊÇ" + obj->name(1) +
-                      YEL "ÒÑ¾­ÔÚÖíÈ¦ÖĞ·¢´ôÓĞ" + chinese_number(query_idle(obj) / 60) +
-                      "·ÖÖÓÁË£¬¿ÖÅÂÃ»·¨Á¢¿Ì»Ø´ğÄã¡£\n");
+                write(YEL "å¯æ˜¯" + obj->name(1) +
+                      YEL "å·²ç»åœ¨çŒªåœˆä¸­å‘å‘†æœ‰" + chinese_number(query_idle(obj) / 60) +
+                      "åˆ†é’Ÿäº†ï¼Œææ€•æ²¡æ³•ç«‹åˆ»å›ç­”ä½ ã€‚\n");
 
 	return 1;
 }
@@ -97,7 +97,7 @@ string remote_tell(string cname, string from, string mud, string to, string msg,
 	if (ob = MESSAGE_D->find_user(to))
         {
 		if (ob->query("env/invisible"))
-			return "Õâ¸öÈËÏÖÔÚ²»ÔÚÏßÉÏ¡£";
+			return "è¿™ä¸ªäººç°åœ¨ä¸åœ¨çº¿ä¸Šã€‚";
 
 		fromid = lower_case(from + "@" + mud);
 		no_tell = ob->query("env/no_tell");
@@ -107,35 +107,35 @@ string remote_tell(string cname, string from, string mud, string to, string msg,
         	{
                 	can_tell = ob->query("env/can_tell");
                 	if (! is_sub(fromid, can_tell))
-		        	return "Õâ¸öÈË²»ÏëÌıÄãÂŞàÂÀ²¡£";
+		        	return "è¿™ä¸ªäººä¸æƒ³å¬ä½ ç½—å—¦å•¦ã€‚";
         	}
 
 		fromid = capitalize(from) + "@" + upper_case(mud);
 		msg = replace_string(msg, "\n", "");
 		if (cname)
-                        tell_out = sprintf(HIG "%s(%s)¸æËßÄã£º%s\n" NOR,
+                        tell_out = sprintf(HIG "%s(%s)å‘Šè¯‰ä½ ï¼š%s\n" NOR,
                                            cname, fromid, msg);
 		else
                 {
-                        cname = "Î´Öª";
-			tell_out = sprintf(HIG "%s ¸æËßÄã£º%s\n" NOR,
+                        cname = "æœªçŸ¥";
+			tell_out = sprintf(HIG "%s å‘Šè¯‰ä½ ï¼š%s\n" NOR,
 				           fromid, msg);
                 }
 
                 to = capitalize(to);
                 if (! notice_user(cname, fromid, ob, tell_out))
-                        msg = sprintf(HIG "ÄãµÄ»°Ã»ÓĞËÍµ½%s(%s@%s)µÄ¶ú±ß¡£\n" NOR,
+                        msg = sprintf(HIG "ä½ çš„è¯æ²¡æœ‰é€åˆ°%s(%s@%s)çš„è€³è¾¹ã€‚\n" NOR,
                                       ob->name(1), to, upper_case(INTERMUD_MUD_NAME));
                 else
-		        msg = sprintf(HIG "Äã¸æËß%s(%s@%s)£º%s" NOR, ob->name(1), to,
+		        msg = sprintf(HIG "ä½ å‘Šè¯‰%s(%s@%s)ï¼š%s" NOR, ob->name(1), to,
 			              upper_case(INTERMUD_MUD_NAME), msg);
                 return msg;
 
 	} else
-		return "Õâ¸öÈËÏÖÔÚ²»ÔÚÏßÉÏ¡£";
+		return "è¿™ä¸ªäººç°åœ¨ä¸åœ¨çº¿ä¸Šã€‚";
 }
 
-// ½«ÏûÏ¢ËÍ¸ø¶Ô·½
+// å°†æ¶ˆæ¯é€ç»™å¯¹æ–¹
 int notice_user(string my_name, string my_id, object obj, string tell_out)
 {
         int i;
@@ -145,12 +145,12 @@ int notice_user(string my_name, string my_id, object obj, string tell_out)
 
         if (obj->query("env/jam_talk"))
         {
-                // ×èÈûÊ½½»Ì¸
+                // é˜»å¡å¼äº¤è°ˆ
                 info = ({ my_name, my_id, tell_out });
                 list = obj->query_temp("tell_list");
                 if (! arrayp(list) || sizeof(list) < 1)
                 {
-                        // ¶Ô·½Ã»ÓĞ×èÈûÏûÏ¢£¬Ö±½ÓÍ¨Öª¶Ô·½
+                        // å¯¹æ–¹æ²¡æœ‰é˜»å¡æ¶ˆæ¯ï¼Œç›´æ¥é€šçŸ¥å¯¹æ–¹
                         tell_object(obj, tell_out);
                         obj->set_temp("reply", my_id);
                         list = ({ info });
@@ -158,52 +158,52 @@ int notice_user(string my_name, string my_id, object obj, string tell_out)
                 if (arrayp(list[0]) && sizeof(list[0]) >= 3 &&
                     list[0][1] == my_id)
                 {
-                        // ¶Ô·½×èÈûµÄÕıÊÇºÍÎÒ½»Ì¸µÄĞÅÏ¢£¬ËùÒÔ
-                        // ÕâÌõĞÅÏ¢¾ÍÃ»ÓĞ±ØÒªÑÓ³Ù·¢ËÍÁË
+                        // å¯¹æ–¹é˜»å¡çš„æ­£æ˜¯å’Œæˆ‘äº¤è°ˆçš„ä¿¡æ¯ï¼Œæ‰€ä»¥
+                        // è¿™æ¡ä¿¡æ¯å°±æ²¡æœ‰å¿…è¦å»¶è¿Ÿå‘é€äº†
                         tell_object(obj, tell_out);
                 } else
                 {
-                        // ±éÀúËùÓĞµÄÀúÊ·ĞÅÏ¢£¬²é¿´ÊÇ·ñÒÑ¾­ÓĞ
-                        // ½»Ì¸µÄ¼ÇÂ¼ÁË
+                        // éå†æ‰€æœ‰çš„å†å²ä¿¡æ¯ï¼ŒæŸ¥çœ‹æ˜¯å¦å·²ç»æœ‰
+                        // äº¤è°ˆçš„è®°å½•äº†
                         for (i = 1; i < sizeof(list); i++)
                         {
                                 piece = list[i];
                                 if (! arrayp(piece) || sizeof(piece) < 3 ||
                                     ! stringp(piece[2]))
                                 {
-                                        // ÕâÌõÀúÊ·¼ÇÂ¼²»ºÏ·¨
+                                        // è¿™æ¡å†å²è®°å½•ä¸åˆæ³•
                                         list[i] = 0;
                                         continue;
                                 }
 
                                 if (piece[1] == my_id)
                                 {
-                                        // ÕÒµ½ÁËºÍ¶Ô·½ÒÔÇ°½»Ì¸µÄĞÅÏ¢
+                                        // æ‰¾åˆ°äº†å’Œå¯¹æ–¹ä»¥å‰äº¤è°ˆçš„ä¿¡æ¯
                                         if (strlen(piece[2]) > 32768)
                                         {
-                                                // ÀúÊ·ĞÅÏ¢ÒÑ¾­¹ıÁË32KÁË
-                                                write("ÄãÒÑ¾­ËµÁËºÃ¶à»°ÁË£¬ÏÈµÈ±ğÈËÌıÍê°É¡£\n");        
+                                                // å†å²ä¿¡æ¯å·²ç»è¿‡äº†32Käº†
+                                                write("ä½ å·²ç»è¯´äº†å¥½å¤šè¯äº†ï¼Œå…ˆç­‰åˆ«äººå¬å®Œå§ã€‚\n");        
                                                 return 0;
                                         }
 
-                                        // ¼ÇÂ¼Õâ´Î½»Ì¸µÄĞÅÏ¢
+                                        // è®°å½•è¿™æ¬¡äº¤è°ˆçš„ä¿¡æ¯
                                         piece[2] += tell_out;
                                         info = 0;
                                 }
                         }
                         list -= ({ 0 });
 
-                        // Õâ¸öÈË»¹ÓĞÃ»ÓĞÌıÍêµÄ»°ÄØ
+                        // è¿™ä¸ªäººè¿˜æœ‰æ²¡æœ‰å¬å®Œçš„è¯å‘¢
                         if (arrayp(info))
                         {
                                 if (sizeof(list) > 12)
                                 {
-                                        write(obj->name(1) + "¶ú±ßÒÑ¾­ÓĞÌ«¶à"
-                                              "µÄ»°ÁË£¬Äã»¹ÊÇµÈ»á¶ùÔÙËµ°É¡£\n");
+                                        write(obj->name(1) + "è€³è¾¹å·²ç»æœ‰å¤ªå¤š"
+                                              "çš„è¯äº†ï¼Œä½ è¿˜æ˜¯ç­‰ä¼šå„¿å†è¯´å§ã€‚\n");
                                         return 0;
                                 }
 
-                                // ¼ÇÂ¼Õâ¾ä»°
+                                // è®°å½•è¿™å¥è¯
                                 list += ({ info });
                                 if (! in_input(obj))
                                         obj->write_prompt();
@@ -212,7 +212,7 @@ int notice_user(string my_name, string my_id, object obj, string tell_out)
                 obj->set_temp("tell_list", list);
         } else
         {
-                // Õı³£ÁÄÌì
+                // æ­£å¸¸èŠå¤©
                 obj->set_temp("reply", my_id);
                 tell_object(obj, tell_out);
         }
@@ -223,12 +223,12 @@ int notice_user(string my_name, string my_id, object obj, string tell_out)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½£ºtell <Ä³ÈË> <Ñ¶Ï¢>
+æŒ‡ä»¤æ ¼å¼ï¼štell <æŸäºº> <è®¯æ¯>
 
-Äã¿ÉÒÔÓÃÕâ¸öÖ¸ÁîºÍÆäËûµØ·½µÄÊ¹ÓÃÕßËµ»°¡£Èç¹û¶Ô·½Ñ¡Ôñ×èÈûÊ½½»
-Ì¸£¬ÄÇÃ´Ëû¿ÉÄÜ²»»áÁ¢¿ÌÌıµ½ÄãËµµÄ»°¡£
+ä½ å¯ä»¥ç”¨è¿™ä¸ªæŒ‡ä»¤å’Œå…¶ä»–åœ°æ–¹çš„ä½¿ç”¨è€…è¯´è¯ã€‚å¦‚æœå¯¹æ–¹é€‰æ‹©é˜»å¡å¼äº¤
+è°ˆï¼Œé‚£ä¹ˆä»–å¯èƒ½ä¸ä¼šç«‹åˆ»å¬åˆ°ä½ è¯´çš„è¯ã€‚
 
-ÆäËûÏà¹ØÖ¸Áî£ºreply¡¢skip
+å…¶ä»–ç›¸å…³æŒ‡ä»¤ï¼šreplyã€skip
 HELP );
 	return 1;
 }

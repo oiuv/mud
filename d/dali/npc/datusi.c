@@ -4,13 +4,13 @@ inherit NPC;
 
 void create()
 {
-	set_name("����˾", ({ "da tusi", "tusi" }));
+	set_name("大土司", ({ "da tusi", "tusi" }));
 	set("age", 42);
-	set("gender", "����");
-	set("long", "����˾�ǰ��������ϣ��ǲ�ɽ����ϵ�ġ������ǳ��ķ�ͷ����ģ�
-ÿ˵һ�仰��ÿ��һ����飬���������Ʊ����Ƕ�����Ĳ���һ����
-�����Ųʳ�ͷ�����𣬽Ų���Ь���������Ų�ͬɫ�ʵı��ǡ�ֻ��
-��������Ȼ�ظ߾��������������˿������\n");
+	set("gender", "男性");
+	set("long", "大土司是摆夷族人氏，是苍山纳苏系的。他倒是长的肥头大耳的，
+每说一句话，每有一点表情，满脸的肉纹便象是洱海里的波浪一样。
+他身着彩绸，头带凤羽，脚踩藤鞋，满身挂着不同色彩的贝壳。只见
+他傲气凛然地高居上座，不把来人看在眼里。\n");
 	set("attitude", "peaceful");
 
 	set("str", 30);

@@ -21,20 +21,20 @@ int main(object me,string arg)
         {
 		if (! ob) ob = find_player(arg);
 		if (! ob) ob = find_living(arg);
-                if (! ob) return notify_fail("ÄãÒª¼ì²éÄÇÒ»Î»Ê¹ÓÃÕß£¿\n");
+                if (! ob) return notify_fail("ä½ è¦æ£€æŸ¥é‚£ä¸€ä½ä½¿ç”¨è€…ï¼Ÿ\n");
 	}
 
         period = time() - (int) ob->query("last_save");
         min = period / 60;
         sec = period - min * 60;
         if (period == 0)
-                write ("¸ÃÊ¹ÓÃÕß¸Õ¸Õ±£´æ¹ı½ø¶È¡£\n");
+                write ("è¯¥ä½¿ç”¨è€…åˆšåˆšä¿å­˜è¿‡è¿›åº¦ã€‚\n");
         else
         {
-                write("¸ÃÊ¹ÓÃÕß¾àÉÏ´Î´æÅÌÊ±¼äÊÇ");
-                if (min) write (chinese_number(min) + "·ÖÖÓ");
-                if (sec) write (chinese_number(sec) + "Ãë");
-                write ("¡£\n");
+                write("è¯¥ä½¿ç”¨è€…è·ä¸Šæ¬¡å­˜ç›˜æ—¶é—´æ˜¯");
+                if (min) write (chinese_number(min) + "åˆ†é’Ÿ");
+                if (sec) write (chinese_number(sec) + "ç§’");
+                write ("ã€‚\n");
         }
 
 	return 1;
@@ -43,9 +43,9 @@ int main(object me,string arg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : checkuser <user>
+æŒ‡ä»¤æ ¼å¼ : checkuser <user>
 
-Õâ¸öÃüÁîÓÃÀ´²éÑ¯Ê¹ÓÃÕßµÄÄ³Ğ©×´Ì¬¡£ 
+è¿™ä¸ªå‘½ä»¤ç”¨æ¥æŸ¥è¯¢ä½¿ç”¨è€…çš„æŸäº›çŠ¶æ€ã€‚ 
 
 HELP
     );

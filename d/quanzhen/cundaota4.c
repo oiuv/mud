@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "´æµÀËþ¶¥");
+        set("short", "å­˜é“å¡”é¡¶");
         set("long", @LONG
-ÕâÀïÊÇ´æµÀËþµÄËþ¶¥£¬ËþÌÝµ½ÕâÀï¾Íµ½ÁË¾¡Í·¡£Ç½±ÚÉÏ¿ª
-×Å¼¸¸ö´°»§(window)£¬¼¸¸öÖÐÄêµÀÈËÕýÅõ×ÅÊé¿à¿àÑÐ¶Á¡£
+è¿™é‡Œæ˜¯å­˜é“å¡”çš„å¡”é¡¶ï¼Œå¡”æ¢¯åˆ°è¿™é‡Œå°±åˆ°äº†å°½å¤´ã€‚å¢™å£ä¸Šå¼€
+ç€å‡ ä¸ªçª—æˆ·(window)ï¼Œå‡ ä¸ªä¸­å¹´é“äººæ­£æ§ç€ä¹¦è‹¦è‹¦ç ”è¯»ã€‚
 LONG);
         set("exits", ([
                 "eastdown" : __DIR__"cundaota3",
@@ -16,7 +16,7 @@ LONG);
         ]));
 
         set("item_desc", ([
-                "window": HIW "\n´°Íâ°×ÔÆÆ®¹ý£¬ËÆºõÄãÒ»ÉìÊÖ¾Í¿ÉÒÔ×¥×¡Ò»Æ¬¡£\n" NOR,
+                "window": HIW "\nçª—å¤–ç™½äº‘é£˜è¿‡ï¼Œä¼¼ä¹Žä½ ä¸€ä¼¸æ‰‹å°±å¯ä»¥æŠ“ä½ä¸€ç‰‡ã€‚\n" NOR,
         ]));
 
         set("count",1);

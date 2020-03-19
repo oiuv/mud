@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÑÒ¶´");
+        set("short", "å²©æ´");
         set("long", @LONG
-ÕâÀïÊÇÒ»¸ö´óÑÒ¶´£¬ÔÚ°×ÍÕÉ½ÌØÊâµÄµØÖÊÌõ¼şÏÂ¾­¹ıÂş³¤
-µÄÄê´úĞÎ³ÉµÄ¡£¶´ÄÚòêÑÑÇúÕÛ£¬Ò²²»ÖªÑÓÉìµ½ÁËºÎ´¦¡£
+è¿™é‡Œæ˜¯ä¸€ä¸ªå¤§å²©æ´ï¼Œåœ¨ç™½é©¼å±±ç‰¹æ®Šçš„åœ°è´¨æ¡ä»¶ä¸‹ç»è¿‡æ¼«é•¿
+çš„å¹´ä»£å½¢æˆçš„ã€‚æ´å†…èœ¿èœ’æ›²æŠ˜ï¼Œä¹Ÿä¸çŸ¥å»¶ä¼¸åˆ°äº†ä½•å¤„ã€‚
 LONG);
         set("exits", ([
                 "enter"     : __DIR__"cave1",
@@ -22,7 +22,7 @@ int valid_leave(object me, string dir)
 {
         if (dir == "enter"
            && objectp(present("mang she", environment(me))))
-                        return notify_fail("òşÉßÅÌÔÚÑÒ¶´¿Ú£¬½«Â··âÁË¸öÑÏÊµ¡£\n");
+                        return notify_fail("èŸ’è›‡ç›˜åœ¨å²©æ´å£ï¼Œå°†è·¯å°äº†ä¸ªä¸¥å®ã€‚\n");
 
         return ::valid_leave(me, dir);
 }

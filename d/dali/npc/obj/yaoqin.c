@@ -9,17 +9,17 @@ inherit MI_QIN;
 
 void create()
 {
-        set_name("ÑşÇÙ", ({ "yao qin" }) );
+        set_name("ç‘¶ç´", ({ "yao qin" }) );
         set_weight(5000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "°Ñ");
-                set("long", "ÕâÊÇÒ»°Ñ¸èÅ®ÓÃµÄÑşÇÙ£¬ÖÆ×öµÃÏàµ±¾«ÇÉÏ¸Äå¡£\n");
+                set("unit", "æŠŠ");
+                set("long", "è¿™æ˜¯ä¸€æŠŠæ­Œå¥³ç”¨çš„ç‘¶ç´ï¼Œåˆ¶åšå¾—ç›¸å½“ç²¾å·§ç»†è…»ã€‚\n");
                 set("value", 300);
                 set("material", "iron");
-                set("wield_msg", "$N´Ó±³ÉÏ½âÏÂÒ»°Ñ$n£¬È»ááºáÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N·ÅÏÂÊÖÖĞµÄ$n¡£\n");
+                set("wield_msg", "$Nä»èƒŒä¸Šè§£ä¸‹ä¸€æŠŠ$nï¼Œç„¶å¾Œæ¨ªåœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Næ”¾ä¸‹æ‰‹ä¸­çš„$nã€‚\n");
         }
         init_hammer(5);
         setup();

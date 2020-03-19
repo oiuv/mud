@@ -18,10 +18,10 @@ string give_mashao();
 
 void create()
 {
-        set_name("ÂíÍ¯", ({ "ma tong", "matong", "ma", "tong" }));
-        set("gender", "ÄĞĞÔ");
+        set_name("é©¬ç«¥", ({ "ma tong", "matong", "ma", "tong" }));
+        set("gender", "ç”·æ€§");
         set("age", 12);
-        set("long", "ÕòÔ¶ïÚ¾ÖµÄĞ¡Í¯¶¼ÊÇ×ÔĞ¡¾Í´òºÃÁËÎä¹¦¸ùµ×£¬¸ö¸öÊÖÏÂ¶¼ÓĞµã¹¦·ò¡£\n");
+        set("long", "é•‡è¿œé•–å±€çš„å°ç«¥éƒ½æ˜¯è‡ªå°å°±æ‰“å¥½äº†æ­¦åŠŸæ ¹åº•ï¼Œä¸ªä¸ªæ‰‹ä¸‹éƒ½æœ‰ç‚¹åŠŸå¤«ã€‚\n");
         set("str", 24);
         set("dex", 16);
         set("combat_exp", 50000);
@@ -36,9 +36,9 @@ void create()
         set_temp("apply/armor", 30);
         set("chat_chance",2);
 
-        //todo ·ÀÖ¹ÂíÆ¥¹ı¶à£¬¿ÉÒÔ¿¼ÂÇÁìÂíÉÚ¼ÓÒ»¸öcdÏŞÖÆ¡£
+        //todo é˜²æ­¢é©¬åŒ¹è¿‡å¤šï¼Œå¯ä»¥è€ƒè™‘é¢†é©¬å“¨åŠ ä¸€ä¸ªcdé™åˆ¶ã€‚
         set("inquiry", ([
-                "ÂíÉÚ" : (: give_mashao :),
+                "é©¬å“¨" : (: give_mashao :),
         ]));
 
         setup();
@@ -70,7 +70,7 @@ void init()
 void greeting(object ob)
 {
         if (! ob || environment(ob) != environment() ) return;
-        say (CYN "ÂíÍ¯Ğ¦ÎûÎûµØ¶ÔÄãËµµÀ£º¡°ÔõÃ´£¬ÓÖÒªÆïÂí³öÈ¥°ìÊÂÂğ£¿¡±\n" NOR);
+        say (CYN "é©¬ç«¥ç¬‘å˜»å˜»åœ°å¯¹ä½ è¯´é“ï¼šâ€œæ€ä¹ˆï¼Œåˆè¦éª‘é©¬å‡ºå»åŠäº‹å—ï¼Ÿâ€\n" NOR);
 }
 
 int accept_object(object who, object ob)
@@ -78,14 +78,14 @@ int accept_object(object who, object ob)
         //object myenv ;
         if (ob->query("money_id"))
         {
-                message_vision(CYN "ÂíÍ¯Ò¡Í·µÀ£º¡°¸®ÉÏÓĞ¹æ¶¨£¬·²ÊÇïÚ¾ÖÄÚµÄÆï"
-                               "Âí¶¼²»¸øÇ®£¬²»ÊÇïÚ¾ÖµÄ¸øÇ®Ò²²»ĞĞ¡±¡£\n" NOR,
+                message_vision(CYN "é©¬ç«¥æ‘‡å¤´é“ï¼šâ€œåºœä¸Šæœ‰è§„å®šï¼Œå‡¡æ˜¯é•–å±€å†…çš„éª‘"
+                               "é©¬éƒ½ä¸ç»™é’±ï¼Œä¸æ˜¯é•–å±€çš„ç»™é’±ä¹Ÿä¸è¡Œâ€ã€‚\n" NOR,
                                who);
                 return 0;
         }
         else
-                message_vision(CYN "ÂíÍ¯ÖåÃ¼µÀ£º¡°Õâ¶«Î÷»¹ÊÇÄã×Ô¸ö¶ùÁô×Å°É¡£"
-                               "¡±\n" NOR, who);
+                message_vision(CYN "é©¬ç«¥çš±çœ‰é“ï¼šâ€œè¿™ä¸œè¥¿è¿˜æ˜¯ä½ è‡ªä¸ªå„¿ç•™ç€å§ã€‚"
+                               "â€\n" NOR, who);
         return 1;
 }
 
@@ -104,12 +104,12 @@ string give_mashao()
 	object	ob	= this_object();
 	object	me	= this_player();
 	object	obj;
-	if ( me->query( "family/family_name" ) != "°ËØÔÃÅ" )
-		return("ºß£¬ÄãÓÖ²»ÊÇÎÒÃÇÕòÔ¶ïÚ¾ÖµÄÈË¡£");
+	if ( me->query( "family/family_name" ) != "å…«å¦é—¨" )
+		return("å“¼ï¼Œä½ åˆä¸æ˜¯æˆ‘ä»¬é•‡è¿œé•–å±€çš„äººã€‚");
 	if ( present( "ma shao", me ) )
-		return("ÄãÒÑ¾­ÓĞÂíÉÚÁË£¬ÒªÄÇÃ´¶à¸ÉÊ²Ã´£¿");
+		return("ä½ å·²ç»æœ‰é©¬å“¨äº†ï¼Œè¦é‚£ä¹ˆå¤šå¹²ä»€ä¹ˆï¼Ÿ");
 	obj = new( "/clone/misc/mashao" );
 	obj->move( me );
-	message_vision( HIY "$N" HIY "ÄÃ³öÒ»¸öÂíÉÚ¸ø$n¡£\n" NOR, ob, me );
-	return("ĞèÒªÂíÊ±´µ(whistle)Ò»ÏÂ¾ÍĞĞÁË¡£");
+	message_vision( HIY "$N" HIY "æ‹¿å‡ºä¸€ä¸ªé©¬å“¨ç»™$nã€‚\n" NOR, ob, me );
+	return("éœ€è¦é©¬æ—¶å¹(whistle)ä¸€ä¸‹å°±è¡Œäº†ã€‚");
 }

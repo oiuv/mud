@@ -1,4 +1,4 @@
-// wuchang.c �޳��廯
+// wuchang.c 无常五化
 
 #include <ansi.h>
 
@@ -17,29 +17,29 @@ int perform(object me, object target)
         }
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("���޳��廯��ֻ�ܶ�ս���еĶ���ʹ�á�\n");
+		return notify_fail("「无常五化」只能对战斗中的对手使用。\n");
  
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "staff")
-		return notify_fail("ʩչ���޳��廯��ʱ��������һ���ȣ�\n");
+		return notify_fail("施展「无常五化」时必须拿着一把杖！\n");
 
 	if ((int)me->query("neili") < 100)
-		return notify_fail("��������������޷�ʩչ���޳��廯����\n");
+		return notify_fail("你的真气不够，无法施展「无常五化」！\n");
 
 	if ((int)me->query_skill("force") < 200)
-		return notify_fail("����ڹ���򲻹�������ʩչ���޳��廯����\n");
+		return notify_fail("你的内功火候不够，难以施展「无常五化」！\n");
 
 	if ((int)me->query_skill("wuchang-zhang", 1) < 150)
-		return notify_fail("����޳��ȷ��������ң��޷�ʹ�á��޳��廯����\n");
+		return notify_fail("你的无常杖法还不到家，无法使用「无常五化」！\n");
 
         if (me->query_skill_mapped("staff") != "wuchang-zhang")
-                return notify_fail("��û�м����޳��ȷ�������ʹ�á��޳��廯����\n");
+                return notify_fail("你没有激发无常杖法，不能使用「无常五化」！\n");
 
        if (! living(target))
-              return notify_fail("�Է����Ѿ������ˣ��ò�����ô�����ɣ�\n");
+              return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIY "$N" HIY "�����е�" + weapon->name() +
-             HIY "һ��������������Ӱɨ��$n" HIY "��\n" NOR;
+	msg = HIY "$N" HIY "将手中的" + weapon->name() +
+             HIY "一荡，化作无数杖影扫向$n" HIY "！\n" NOR;
 	message_combatd(msg, me, target);
 
 	me->add("neili", -100);

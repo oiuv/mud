@@ -6,18 +6,18 @@ inherit POISON;
 
 string name() { return "shenzhao"; }
 
-string chinese_name() { return "ÉñÕÕ¾­ÄÚ¾¢"; }
+string chinese_name() { return "ç¥ç…§ç»å†…åŠ²"; }
 
 string update_msg_others()
 {
-       return HIR "Ö»¼û$N" HIR "ÇºÇºÍËÁËÊı²½£¬Éí×ÓÒ¡»Î£¬Ë«"
-              "ÍÈ½¥½¥ÍäÇú£¬ËÆºõºÈ×íÁËÒ»°ã¡£\n" NOR;
+       return HIR "åªè§$N" HIR "å‘›å‘›é€€äº†æ•°æ­¥ï¼Œèº«å­æ‘‡æ™ƒï¼ŒåŒ"
+              "è…¿æ¸æ¸å¼¯æ›²ï¼Œä¼¼ä¹å–é†‰äº†ä¸€èˆ¬ã€‚\n" NOR;
 }
 
 string update_msg_self()
 {
-        return HIW "ÄãÖ»¸ĞÄÚÏ¢¶ÙÖÍ£¬ÕæÆø²»³©£¬Ò»ÕÅÁ³ÕÇµÃÍ¨"
-               "ºì£¬±ãÒªµøµ¹¡£\n" NOR;
+        return HIW "ä½ åªæ„Ÿå†…æ¯é¡¿æ»ï¼ŒçœŸæ°”ä¸ç•…ï¼Œä¸€å¼ è„¸æ¶¨å¾—é€š"
+               "çº¢ï¼Œä¾¿è¦è·Œå€’ã€‚\n" NOR;
 }
 
 int jing_damage(object me, mapping cnd)

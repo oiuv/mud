@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-      set("short","С����");
+      set("short","小树林");
       set("long",@LONG
-���Ƕ���ɽ�𶥻��������һƬС���֡�����û��·����
-������ϡ��Щ�㼣���ƺ��������߹���
+这是峨嵋山金顶华藏庵外的一片小树林。林中没有路，但
+地上依稀有些足迹，似乎刚有人走过。
 LONG);
       set("outdoors", "emei");
       set("exits", ([

@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ğ¡É³ÃÖ", ({"xiao shami","shami",}));
+        set_name("å°æ²™å¼¥", ({"xiao shami","shami",}));
         set("long",
-                "ËûÊÇ±¾ËÂĞ¡É³ÃÖ¡£\n");
-        set("gender", "ÄĞĞÔ");
+                "ä»–æ˜¯æœ¬å¯ºå°æ²™å¼¥ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 12);
         set("attitude", "peaceful");
         set("shen_type", 1);

@@ -19,28 +19,28 @@ int main(object me, string arg)
 
         seteuid(getuid());
 
-        if ((! (fam = me->query("family")) || fam["family_name"] != "Ø¤°ï") &&
+        if ((! (fam = me->query("family")) || fam["family_name"] != "ä¸å¸®") &&
            ! (where->query("sleep_room")) && (!objectp(bag = present("sleepbag", me)) || bag->is_item_make())
            || (where->query("no_sleep_room")))
-            return notify_fail("ÕâÀï²»ÊÇÄãÄÜË¯µÄµØ·½£¡\n");
+            return notify_fail("è¿™é‡Œä¸æ˜¯ä½ èƒ½ç¡çš„åœ°æ–¹ï¼\n");
 
         if (me->is_busy())
-                return notify_fail("ÄãÕıÃ¦×ÅÄØ£¡\n");
+                return notify_fail("ä½ æ­£å¿™ç€å‘¢ï¼\n");
 
         if( me->is_fighting() )
-                return notify_fail("Õ½¶·ÖĞ²»ÄÜË¯¾õ£¡\n");
+                return notify_fail("æˆ˜æ–—ä¸­ä¸èƒ½ç¡è§‰ï¼\n");
 
         if (where->query("hotel") && !(me->query_temp("rent_paid")))
         {
-                message_vision(CYN "µêĞ¡¶ş´ÓÃÅÍâ¶Ô$N" CYN "´ó½Ğ£º°ÑÕâÀïµ±"
-                               "±ÜÄÑËù°¡£¿ÏÈµ½Ò»Â¥¸¶Ç®ºóÔÙÀ´Ë¯£¡\n" NOR, me);
+                message_vision(CYN "åº—å°äºŒä»é—¨å¤–å¯¹$N" CYN "å¤§å«ï¼šæŠŠè¿™é‡Œå½“"
+                               "é¿éš¾æ‰€å•Šï¼Ÿå…ˆåˆ°ä¸€æ¥¼ä»˜é’±åå†æ¥ç¡ï¼\n" NOR, me);
                 return 1;
         }
 
     jing = (int) me->query("jing");
     qi   = (int) me->query("qi");
     if (jing < 0 || qi < 0)
-        return notify_fail("ÄãÏÖÔÚ½Ó½ü»èÃÔ£¬Ë¯²»×Å¾õ¡£\n");
+        return notify_fail("ä½ ç°åœ¨æ¥è¿‘æ˜è¿·ï¼Œç¡ä¸ç€è§‰ã€‚\n");
     cnd = me->query_condition();
     if (cnd && sizeof(cnd))
     {
@@ -50,12 +50,12 @@ int main(object me, string arg)
             if (CONDITION_D(kc[i])->min_qi_needed(me) > qi ||
                 CONDITION_D(kc[i])->min_jing_needed(me) > jing)
             {
-                message("vision", me->name() + "¿´Ñù×ÓÊÇÏëË¯¾õ£¬"
-                    "¿ÉÊÇÕ·×ª·´²à£¬¾ÍÊÇË¯²»×Å¡£\n",
+                message("vision", me->name() + "çœ‹æ ·å­æ˜¯æƒ³ç¡è§‰ï¼Œ"
+                    "å¯æ˜¯è¾—è½¬åä¾§ï¼Œå°±æ˜¯ç¡ä¸ç€ã€‚\n",
                     environment(me), me);
-                tell_object(me, "ÄãÏëºÏÉÏÑÛ¾¦ºÃºÃË¯ÉÏÒ»¾õ£¬¿ÉÊÇ" +
-                        to_chinese(kc[i]) + "²»¶ÏÕÛÄ¥×ÅÄã£¬"
-                        "ÈÃÄãÕ·×ªÄÑÃß¡£\n");
+                tell_object(me, "ä½ æƒ³åˆä¸Šçœ¼ç›å¥½å¥½ç¡ä¸Šä¸€è§‰ï¼Œå¯æ˜¯" +
+                        to_chinese(kc[i]) + "ä¸æ–­æŠ˜ç£¨ç€ä½ ï¼Œ"
+                        "è®©ä½ è¾—è½¬éš¾çœ ã€‚\n");
                 return 1;
             }
         }
@@ -63,25 +63,25 @@ int main(object me, string arg)
 
         if (where->query("sleep_room"))
         {
-            write("ÄãÍù´²ÉÏÒ»ÌÉ£¬¿ªÊ¼Ë¯¾õ¡£\n");
-            write("²»Ò»»á¶ù£¬Äã¾Í½øÈëÁËÃÎÏç¡£\n");
+            write("ä½ å¾€åºŠä¸Šä¸€èººï¼Œå¼€å§‹ç¡è§‰ã€‚\n");
+            write("ä¸ä¸€ä¼šå„¿ï¼Œä½ å°±è¿›å…¥äº†æ¢¦ä¹¡ã€‚\n");
             me->set_temp("block_msg/all", 1);
-            message_vision("$NÒ»ÍáÉí£¬µ¹ÔÚ´²ÉÏ£¬²»Ò»»á"
-           "±ã÷ıÉù´ó×÷£¬½øÈëÁËÃÎÏç¡£\n",me);
+            message_vision("$Nä¸€æ­ªèº«ï¼Œå€’åœ¨åºŠä¸Šï¼Œä¸ä¸€ä¼š"
+           "ä¾¿é¼¾å£°å¤§ä½œï¼Œè¿›å…¥äº†æ¢¦ä¹¡ã€‚\n",me);
         } else 
         if (objectp(bag = present("sleepbag", me)))
         {
-            write("ÄãÕ¹¿ªÒ»¸öË¯´ü£¬×êÁË½øÈ¥£¬¿ªÊ¼Ë¯¾õ¡£\n");
-            write("²»Ò»»á¶ù£¬Äã¾Í½øÈëÁËÃÎÏç¡£\n");
+            write("ä½ å±•å¼€ä¸€ä¸ªç¡è¢‹ï¼Œé’»äº†è¿›å»ï¼Œå¼€å§‹ç¡è§‰ã€‚\n");
+            write("ä¸ä¸€ä¼šå„¿ï¼Œä½ å°±è¿›å…¥äº†æ¢¦ä¹¡ã€‚\n");
             me->set_temp("block_msg/all",1);
-            message_vision("$NÕ¹¿ªÒ»¸öË¯´ü£¬×êÁË½øÈ¥£¬²»Ò»»á¾Í½øÈëÁËÃÎÏç£¡\n",me); 
+            message_vision("$Nå±•å¼€ä¸€ä¸ªç¡è¢‹ï¼Œé’»äº†è¿›å»ï¼Œä¸ä¸€ä¼šå°±è¿›å…¥äº†æ¢¦ä¹¡ï¼\n",me); 
         } else 
         {
-            write("ÄãÍùµØÏÂ½ÇÂäÒ»ÌÉ£¬¿ªÊ¼Ë¯¾õ¡£\n");
-            write("²»Ò»»á¶ù£¬Äã¾Í½øÈëÁËÃÎÏç¡£\n");
+            write("ä½ å¾€åœ°ä¸‹è§’è½ä¸€èººï¼Œå¼€å§‹ç¡è§‰ã€‚\n");
+            write("ä¸ä¸€ä¼šå„¿ï¼Œä½ å°±è¿›å…¥äº†æ¢¦ä¹¡ã€‚\n");
             me->set_temp("block_msg/all", 1);
-            message_vision("$NÍùµØÏÂ½ÇÂäÇüÉíÒ»ÌÉ£¬²»Ò»"
-           "»á±ã÷ıÉù´ó×÷£¬×öÆğÃÎÀ´¡£\n",me);
+            message_vision("$Nå¾€åœ°ä¸‹è§’è½å±ˆèº«ä¸€èººï¼Œä¸ä¸€"
+           "ä¼šä¾¿é¼¾å£°å¤§ä½œï¼Œåšèµ·æ¢¦æ¥ã€‚\n",me);
         }
 
         me->set("no_get", 1);
@@ -91,7 +91,7 @@ int main(object me, string arg)
         if (where->query("hotel"))
             me->delete_temp("rent_paid");
 
-        me->disable_player(" <Ë¯ÃÎÖĞ>");
+        me->disable_player(" <ç¡æ¢¦ä¸­>");
         me->start_call_out(bind((: call_other, __FILE__, "wakeup", me :), me),
                            10 + random(5));
 
@@ -116,23 +116,23 @@ void wakeup(object me)
     me->delete_temp("sleeped");
 
     if (time() - me->query("last_sleep") >= 60 || 
-    	  (time() - me->query("last_sleep") >= 30 && me->query("family/family_name") == "Ø¤°ï"))
+    	  (time() - me->query("last_sleep") >= 30 && me->query("family/family_name") == "ä¸å¸®"))
         {
             me->set("qi",    me->query("eff_qi"));
             me->set("jing",  me->query("eff_jing"));
             me->add("neili", me->query("max_neili") * 4 / 5 -
                  me->query("neili") * 4 / 5 );
-            message("vision", me->name() + "Ò»¾õĞÑÀ´£¬¾«Á¦³äÅæ"
-                  "µØ»î¶¯ÁËÒ»ÏÂ½î¹Ç¡£\n",
+            message("vision", me->name() + "ä¸€è§‰é†’æ¥ï¼Œç²¾åŠ›å……æ²›"
+                  "åœ°æ´»åŠ¨äº†ä¸€ä¸‹ç­‹éª¨ã€‚\n",
                   environment(me), ({ me }));
-            write("ÄãÒ»¾õĞÑÀ´£¬Ö»¾õ¾«Á¦³äÅæ¡£¸Ã»î¶¯Ò»ÏÂÁË¡£\n");
+            write("ä½ ä¸€è§‰é†’æ¥ï¼Œåªè§‰ç²¾åŠ›å……æ²›ã€‚è¯¥æ´»åŠ¨ä¸€ä¸‹äº†ã€‚\n");
         me->set("last_sleep", time());
     } else
     {
-        message("vision", me->name() + "ÃÔÃÔºıºıµÄÕö¿ªÑÛ¾¦£¬"
-                  "ÀÁÉ¢ÎŞÉñµÄÅÀÁËÆğÀ´¡£\n",
+        message("vision", me->name() + "è¿·è¿·ç³Šç³Šçš„çå¼€çœ¼ç›ï¼Œ"
+                  "æ‡’æ•£æ— ç¥çš„çˆ¬äº†èµ·æ¥ã€‚\n",
             environment(me), ({ me }));
-        write("ÄãÃÔÃÔºıºıµÄÕö¿ªË«ÑÛ£¬ÅÀÁËÆğÀ´¡£\n");
+        write("ä½ è¿·è¿·ç³Šç³Šçš„çå¼€åŒçœ¼ï¼Œçˆ¬äº†èµ·æ¥ã€‚\n");
     }
         me->write_prompt();
 }
@@ -140,9 +140,9 @@ void wakeup(object me)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : sleep
+æŒ‡ä»¤æ ¼å¼ : sleep
  
-¹ËÃûË¼Òå£¬Õâ¸öÖ¸ÁîÊÇÓÃÀ´Ë¯¾õµÄ¡£
+é¡¾åæ€ä¹‰ï¼Œè¿™ä¸ªæŒ‡ä»¤æ˜¯ç”¨æ¥ç¡è§‰çš„ã€‚
 HELP );
         return 1;
 }

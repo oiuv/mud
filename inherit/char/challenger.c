@@ -29,10 +29,10 @@ int accept_fight(object ob)
                 return 1;
 
         if (ob->is_fightint())
-                return notify_fail("ÈË¼ÒÕıÔÚ±ÈÎäÄØ£¬ÄãÕâÃ´³öÊÖ²»Ì«Í×µ±°É£¡\n");
+                return notify_fail("äººå®¶æ­£åœ¨æ¯”æ­¦å‘¢ï¼Œä½ è¿™ä¹ˆå‡ºæ‰‹ä¸å¤ªå¦¥å½“å§ï¼\n");
 
         if (query("finished"))
-                return notify_fail("ÈË¼Ò¸Õ±ÈÍêÎä£¬ÄãÉÏÈ¥´òËã¸ÉÊ²Ã´£¿\n");
+                return notify_fail("äººå®¶åˆšæ¯”å®Œæ­¦ï¼Œä½ ä¸Šå»æ‰“ç®—å¹²ä»€ä¹ˆï¼Ÿ\n");
 
         return ACCEPT_CMD->main(ob);
 }
@@ -50,15 +50,15 @@ int accept_kill(object ob)
         if (is_killing(ob->query("id")))
                 return 1;
 
-        return notify_fail("ÎÒ¿´ÕâÖÖ¶ªÖĞÔ­ÎäÁÖÁ³µÄÊÂÇéÄã»¹ÊÇ±ğ×÷ÁË¡£\n");
+        return notify_fail("æˆ‘çœ‹è¿™ç§ä¸¢ä¸­åŸæ­¦æ—è„¸çš„äº‹æƒ…ä½ è¿˜æ˜¯åˆ«ä½œäº†ã€‚\n");
 }
 
 int accept_touxi(object ob)
 {
         if (is_killing(ob->query("id")))
-                return notify_fail("ÄãÃÇÕıÔÚ½»ÊÖÄØ£¬ÍµÏ®Ê²Ã´£¿");
+                return notify_fail("ä½ ä»¬æ­£åœ¨äº¤æ‰‹å‘¢ï¼Œå·è¢­ä»€ä¹ˆï¼Ÿ");
 
-        return notify_fail("ÎÒ¿´ÕâÖÖ¶ªÖĞÔ­ÎäÁÖÁ³µÄÊÂÇéÄã»¹ÊÇ±ğ×÷ÁË¡£\n");
+        return notify_fail("æˆ‘çœ‹è¿™ç§ä¸¢ä¸­åŸæ­¦æ—è„¸çš„äº‹æƒ…ä½ è¿˜æ˜¯åˆ«ä½œäº†ã€‚\n");
 }
 
 void lost()
@@ -76,10 +76,10 @@ void lost()
 
         story->stop_story();
         msg = query("chat_lost");
-        if (! msg) msg = "ÆñÓĞ´ËÀí£¡ÔõÃ´¡­ÔõÃ´¿ÉÄÜ»áÕâÑù£¿";
+        if (! msg) msg = "å²‚æœ‰æ­¤ç†ï¼æ€ä¹ˆâ€¦æ€ä¹ˆå¯èƒ½ä¼šè¿™æ ·ï¼Ÿ";
         command("chat " + msg);
         CHANNEL_D->do_channel(this_object(), "rumor",
-                "ÌıËµ" + ob->name() + "´ò°ÜÁË" + name() + "£¬º´ÎÀÁËÖĞÔ­ÎäÁÖµÄ×ğÑÏ¡£");
+                "å¬è¯´" + ob->name() + "æ‰“è´¥äº†" + name() + "ï¼Œæå«äº†ä¸­åŸæ­¦æ—çš„å°Šä¸¥ã€‚");
         scorei = random(query("combat_exp") / 500) + 50;
         weiwangi = random(query("combat_exp") / 200) + 10;
         expi = random(NPC_D->check_level(this_object()) * 1000) + 10;
@@ -88,8 +88,8 @@ void lost()
         ob->add("weiwang", weiwangi);
         ob->add("combat_exp", expi);
         ob->add("potential", poti);
-        tell_object(ob, sprintf(HIC "Äã»ñµÃÁË%sµã¾­Ñé¡¢%sµãÇ±ÄÜ£¬²¢Ôö"
-                                "¼ÓÁË%sµãÍşÍû¡¢%sµã½­ºşÔÄÀú¡£\n" NOR,
+        tell_object(ob, sprintf(HIC "ä½ è·å¾—äº†%sç‚¹ç»éªŒã€%sç‚¹æ½œèƒ½ï¼Œå¹¶å¢"
+                                "åŠ äº†%sç‚¹å¨æœ›ã€%sç‚¹æ±Ÿæ¹–é˜…å†ã€‚\n" NOR,
                         chinese_number(expi),
                         chinese_number(poti),
                         chinese_number(weiwangi),
@@ -115,10 +115,10 @@ void win()
         ob->add("weiwang", -ob->query("weiwang") / 25);
         command("chat* haha");
         msg = query("chat_win");
-        if (! msg) msg = "ÖĞÔ­ÎäÁÖ£¬²»¿°Ò»»÷£¡";
+        if (! msg) msg = "ä¸­åŸæ­¦æ—ï¼Œä¸å ªä¸€å‡»ï¼";
         command("chat " + msg);
         CHANNEL_D->do_channel(this_object(), "rumor",
-                "ÌıËµ" + ob->name() + "Êä¸øÁË" + name() + "£¬¶ª¾¡ÁËÖĞÔ­ÎäÁÖµÄÁ³Ãæ¡£");
+                "å¬è¯´" + ob->name() + "è¾“ç»™äº†" + name() + "ï¼Œä¸¢å°½äº†ä¸­åŸæ­¦æ—çš„è„¸é¢ã€‚");
         set("finished", 1);
         call_out("destruct", 0, this_object());
         ::win();

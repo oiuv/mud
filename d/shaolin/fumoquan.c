@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "½ğ¸Õ·üÄ§È¦");
+	set("short", "é‡‘åˆšä¼é­”åœˆ");
 	set("long", @LONG
-Èı¿Ã´óËÉÊ÷µÄÊ÷¸ÉÉÏ¸÷ÍÚÁË¸ö¿ÉÈİÉíÒ»ÈËµÄ´ó¶´£¬ÓĞ¸ö¶´
-¿ÚÂ¶³öºÚÉ«É®ÅÛÒ»½Ç£¬ËÆºõ×¡µÃÓĞÈË¡£ÖĞÑëÊÇÒ»Æ¬´ó²İÆº£¬ÖĞ
-ĞÄ´¦¹âÍºÍºµÄ£¬ËÆºõ¾­³£ÊÜ´óÁ¦»÷´ò£¬ÒÔÖÂ´ç²İ²»Éú¡£
+ä¸‰æ£µå¤§æ¾æ ‘çš„æ ‘å¹²ä¸Šå„æŒ–äº†ä¸ªå¯å®¹èº«ä¸€äººçš„å¤§æ´ï¼Œæœ‰ä¸ªæ´
+å£éœ²å‡ºé»‘è‰²åƒ§è¢ä¸€è§’ï¼Œä¼¼ä¹ä½å¾—æœ‰äººã€‚ä¸­å¤®æ˜¯ä¸€ç‰‡å¤§è‰åªï¼Œä¸­
+å¿ƒå¤„å…‰ç§ƒç§ƒçš„ï¼Œä¼¼ä¹ç»å¸¸å—å¤§åŠ›å‡»æ‰“ï¼Œä»¥è‡´å¯¸è‰ä¸ç”Ÿã€‚
 LONG );
 	set("exits", ([
 		"out" : __DIR__"qyping",
@@ -34,7 +34,7 @@ void init()
 		return;
 
         if (mapp(mine) &&
-	    mine["family_name"] == "ÉÙÁÖÅÉ" &&
+	    mine["family_name"] == "å°‘æ—æ´¾" &&
             mine["generation"] <= 36)
         {
                 me->set_temp("valid_in_fumoquan", 1);
@@ -55,46 +55,46 @@ void init()
 
         if (ultrap(me))
         {
-                message_sort(WHT "\nµ«¼ûÈıÎ»ÀÏÉ®ÎÆË¿²»¶¯£¬Õò¶¨²»Èô£¬»Ğ"
-                             "Èô²»ÖªµÀ$NµÄµ½À´¡£\n\n" NOR, me);
-                CHANNEL_D->do_channel(this_object(), "rumor", "´ó×ÚÊ¦" +
-                                      me->name(1) + "½øÈë½ğ¸Õ·üÄ§È¦¡£");
+                message_sort(WHT "\nä½†è§ä¸‰ä½è€åƒ§çº¹ä¸ä¸åŠ¨ï¼Œé•‡å®šä¸è‹¥ï¼Œæ"
+                             "è‹¥ä¸çŸ¥é“$Nçš„åˆ°æ¥ã€‚\n\n" NOR, me);
+                CHANNEL_D->do_channel(this_object(), "rumor", "å¤§å®—å¸ˆ" +
+                                      me->name(1) + "è¿›å…¥é‡‘åˆšä¼é­”åœˆã€‚");
                 me->set_temp("valid_in_fumoquan", 1);
                 return;
         }
 
-        message_sort(HIR "\nÍ»È»¼ä¾¢Æø×İºá£¬Èı¸ùºÚË÷ÈçÈıÌõºÚòş°ã¾ÍµØ¹ö"
-                     "À´£¬Ë²¼ä½üÉí£¬»¯³ÉÒ»Ìõ±Ê×ÔµÄ±øÈĞ£¬Èç³¤Ã¬£¬Èç¸Ë°ô"
-                     "£¬ÈçÀû½££¬·Ö±ğÏò$NµÄÍ·£¬ĞØ£¬¸¹Èı´¦Òªº¦¼²´Ì¶øÖÁ¡£"
-                     "$NÒ»Æ³¼ä£¬¿´µ½Èı¸öÀÏÉ®·Ö¾ÓÈı¸öÊ÷¶´Ö®ÖĞ£¬ÕıÈ«Á¦³Ö"
-                     "±ŞÏò$N¹¥À´£¡$NÒÑÏİÉíÓÚÉÙÁÖËÂÖ®ÔÌº¬ÎŞÉÏ½µÄ§´ó·¨µÄ"
-                     "½ğ¸Õ·üÄ§È¦£¡\n" NOR, me);
+        message_sort(HIR "\nçªç„¶é—´åŠ²æ°”çºµæ¨ªï¼Œä¸‰æ ¹é»‘ç´¢å¦‚ä¸‰æ¡é»‘èŸ’èˆ¬å°±åœ°æ»š"
+                     "æ¥ï¼Œç¬é—´è¿‘èº«ï¼ŒåŒ–æˆä¸€æ¡ç¬”è‡ªçš„å…µåˆƒï¼Œå¦‚é•¿çŸ›ï¼Œå¦‚æ†æ£’"
+                     "ï¼Œå¦‚åˆ©å‰‘ï¼Œåˆ†åˆ«å‘$Nçš„å¤´ï¼Œèƒ¸ï¼Œè…¹ä¸‰å¤„è¦å®³ç–¾åˆºè€Œè‡³ã€‚"
+                     "$Nä¸€ç¥é—´ï¼Œçœ‹åˆ°ä¸‰ä¸ªè€åƒ§åˆ†å±…ä¸‰ä¸ªæ ‘æ´ä¹‹ä¸­ï¼Œæ­£å…¨åŠ›æŒ"
+                     "é­å‘$Næ”»æ¥ï¼$Nå·²é™·èº«äºå°‘æ—å¯ºä¹‹è•´å«æ— ä¸Šé™é­”å¤§æ³•çš„"
+                     "é‡‘åˆšä¼é­”åœˆï¼\n" NOR, me);
 
 	if (mapp(mine) &&
-            mine["family_name"] == "ÉÙÁÖÅÉ" &&
+            mine["family_name"] == "å°‘æ—æ´¾" &&
             this_player()->query("combat_exp") < 100000 )
         {
-	        message_vision(HIR "\nÍ»È»$N" HIR "±»Ò»µÀÅÅÉ½µ¹º£°ãµÄ¾¢"
-                               "Æø»÷ÖĞ£¬¶ÙÊ±·ÉÁË³öÈ¥¡£\n\n" NOR, me);
+	        message_vision(HIR "\nçªç„¶$N" HIR "è¢«ä¸€é“æ’å±±å€’æµ·èˆ¬çš„åŠ²"
+                               "æ°”å‡»ä¸­ï¼Œé¡¿æ—¶é£äº†å‡ºå»ã€‚\n\n" NOR, me);
                 me->move("/d/shaolin/qyping");
         }
 
-        message_vision(WHT "\nºöÈ»¼ä¡¸ì¬¡¹µÄÒ»Éù£¬Ò»¹Éî¸·ç´Ó$N"
-                       WHT "×óÊ×´¦ÇÄÈ»Ó¿ÖÁ¡£\n" NOR, me);
+        message_vision(WHT "\nå¿½ç„¶é—´ã€Œé£•ã€çš„ä¸€å£°ï¼Œä¸€è‚¡ç½¡é£ä»$N"
+                       WHT "å·¦é¦–å¤„æ‚„ç„¶æ¶Œè‡³ã€‚\n" NOR, me);
 
         COMBAT_D->do_attack(ob1, me, query_temp("weapon"));
         COMBAT_D->do_attack(ob1, me, query_temp("weapon"));
         COMBAT_D->do_attack(ob1, me, query_temp("weapon"));
 
-        message_vision(WHT "\n½ô¸ú×ÅÆÆ¿ÕÉù´óÆğ£¬ÓÖÊÇÒ»¹Éî¸·ç´Ó$N"
-                       WHT "µÄÓÒÊ×´¦Ï®À´¡£\n" NOR, me);
+        message_vision(WHT "\nç´§è·Ÿç€ç ´ç©ºå£°å¤§èµ·ï¼Œåˆæ˜¯ä¸€è‚¡ç½¡é£ä»$N"
+                       WHT "çš„å³é¦–å¤„è¢­æ¥ã€‚\n" NOR, me);
 
         COMBAT_D->do_attack(ob2, me, query_temp("weapon"));
         COMBAT_D->do_attack(ob2, me, query_temp("weapon"));
         COMBAT_D->do_attack(ob2, me, query_temp("weapon"));
 
-        message_vision(WHT "\n×îºóÖ»ÌıÒ»Éù¡¸" HIW "ÎÒ·ğ´È±¯" NOR +
-                       WHT "¡¹¡£Êı¹Éî¸·çÒÑÁıÕÖ$N" WHT "ÖÜÉí£¡\n" NOR, me);
+        message_vision(WHT "\næœ€ååªå¬ä¸€å£°ã€Œ" HIW "æˆ‘ä½›æ…ˆæ‚²" NOR +
+                       WHT "ã€ã€‚æ•°è‚¡ç½¡é£å·²ç¬¼ç½©$N" WHT "å‘¨èº«ï¼\n" NOR, me);
 
         COMBAT_D->do_attack(ob3, me, query_temp("weapon"));
         COMBAT_D->do_attack(ob3, me, query_temp("weapon"));
@@ -103,23 +103,23 @@ void init()
         if (me->query("qi") < 0)
         {
 
-                if (mapp(mine) && mine["family_name"] == "ÉÙÁÖÅÉ")
+                if (mapp(mine) && mine["family_name"] == "å°‘æ—æ´¾")
                 {
                         me->unconcious();
                         me->set_temp("valid_in_fumoquan", 2);
                 } else
                 {
-                        me->set_temp("die_reason", "Ç¿´³½ğ¸Õ·üÄ§È¦£¬Í½È»ËÍÁËĞÔÃü");
+                        me->set_temp("die_reason", "å¼ºé—¯é‡‘åˆšä¼é­”åœˆï¼Œå¾’ç„¶é€äº†æ€§å‘½");
                         me->die();
                 }
                 return;
         }
 
         me->set_temp("valid_in_fumoquan", 1);
-        message_vision(WHT "\n´ËÊ±ÈıÎ»ÀÏÉ®ÊÕ»Ø±Ş×Ó£¬ºßÁËÒ»Éù¡£\n\n" NOR, me);
+        message_vision(WHT "\næ­¤æ—¶ä¸‰ä½è€åƒ§æ”¶å›é­å­ï¼Œå“¼äº†ä¸€å£°ã€‚\n\n" NOR, me);
         CHANNEL_D->do_channel(this_object(), "rumor",
                               (mapp(mine) ? mine["family_name"] : "") +
-                              me->name(1) + "´³Èë½ğ¸Õ·üÄ§È¦¡£");
+                              me->name(1) + "é—¯å…¥é‡‘åˆšä¼é­”åœˆã€‚");
 }
 
 int valid_leave(object me, string dir)

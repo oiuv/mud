@@ -4,19 +4,19 @@ inherit NPC;
 
 #include <ansi.h>
 
-// ½ÓÊÕµÄ»õÎï
+// æŽ¥æ”¶çš„è´§ç‰©
 #define CHECK_GOODS     "stone"
 
 void create()
 {
-	set_name("ÍõÊ¯½³", ({ "wang shijiang", "wang" }) );
-	set("title", HIY "Ìì¹ú´ó½³" NOR);
-	set("gender", "ÄÐÐÔ" );
+	set_name("çŽ‹çŸ³åŒ ", ({ "wang shijiang", "wang" }) );
+	set("title", HIY "å¤©å›½å¤§åŒ " NOR);
+	set("gender", "ç”·æ€§" );
 	set("age", 48);
 	set("str", 35);
 	set("long", @LONG
-Ò»¸öÂúÁ³²×É£µÄÀÏ½³ÈË£¬¿´ÉÏÈ¥ÒÀÈ»Ç¿×³ÓÐÁ¦¡£ÑÛÉñÖÐÍ¸Â¶³ö×ÔÐÅ
-ÓëÍþÑÏ¡£
+ä¸€ä¸ªæ»¡è„¸æ²§æ¡‘çš„è€åŒ äººï¼Œçœ‹ä¸ŠåŽ»ä¾ç„¶å¼ºå£®æœ‰åŠ›ã€‚çœ¼ç¥žä¸­é€éœ²å‡ºè‡ªä¿¡
+ä¸Žå¨ä¸¥ã€‚
 LONG);
 	set("attitude", "friendly");
 
@@ -39,19 +39,19 @@ int filter_ob(object ob)
 
         owner = ob->query_owner();
         if (! objectp(owner))
-                // ¸Ã³µÎÞÖ÷
+                // è¯¥è½¦æ— ä¸»
                 return 0;
 
         if (environment(owner) != environment())
-                // Ö÷ÈË²»ÔÚ
+                // ä¸»äººä¸åœ¨
                 return 0;
 
         if (ob->query_temp("goods/id") != CHECK_GOODS)
-                // Ã»ÓÐ×°ÔØÊ¯ÁÏ
+                // æ²¡æœ‰è£…è½½çŸ³æ–™
                 return 0;
 
         if (ob->query_temp("goods/amount") < 1)
-                // Ã»ÓÐ»õ
+                // æ²¡æœ‰è´§
                 return 0;
 
         return 1;
@@ -74,52 +74,52 @@ void heart_beat()
 
         if (! stringp(startroom = query("startroom")) ||
             find_object(startroom) != environment())
-                // ²»ÔÚ³öÉúµØµã
+                // ä¸åœ¨å‡ºç”Ÿåœ°ç‚¹
                 return;
 
         obs = all_inventory(environment());
         obs = filter_array(obs, (: filter_ob :));
         if (sizeof(obs) < 1)
         {
-                // Ã»ÓÐµ½´ïºÏÊÊµÄ³µÁ¾£¬Í£Ö¹ÐÄÌø
+                // æ²¡æœ‰åˆ°è¾¾åˆé€‚çš„è½¦è¾†ï¼Œåœæ­¢å¿ƒè·³
                 set_heart_beat(0);
                 return;
         }
 
-        // µ½´ïÁËºÏÊÊµÄ³µÁ¾
+        // åˆ°è¾¾äº†åˆé€‚çš„è½¦è¾†
         ob = obs[0];
         owner = ob->query_owner();
-        message_vision("$N¿´µ½$nÑº»õ¶øÀ´£¬Á¬Á¬µãÍ·µÀ£º¡°ºÜ"
-                       "ºÃ£¡ºÜºÃ£¡¾ÍÐ¶µ½ÕâÀï°É£¡¡±\n",
+        message_vision("$Nçœ‹åˆ°$næŠ¼è´§è€Œæ¥ï¼Œè¿žè¿žç‚¹å¤´é“ï¼šâ€œå¾ˆ"
+                       "å¥½ï¼å¾ˆå¥½ï¼å°±å¸åˆ°è¿™é‡Œå§ï¼â€\n",
                        this_object(), owner);
-        tell_object(owner, "ÄãÐ¶ÏÂ" + ob->query_temp("goods/name") +
-                    "£¬½«" + ob->name() + "½»¸øÑ§Í½À­×ß¡£\n");
+        tell_object(owner, "ä½ å¸ä¸‹" + ob->query_temp("goods/name") +
+                    "ï¼Œå°†" + ob->name() + "äº¤ç»™å­¦å¾’æ‹‰èµ°ã€‚\n");
 
-        // Ð¶ÏÂÊ¯ÁÏ
+        // å¸ä¸‹çŸ³æ–™
         goods = ob->query_temp("goods");
         amount = goods["amount"];
         environment()->improve_product_amount(goods["id"], amount);
 
-        // ¸øÓë½±Àø
+        // ç»™ä¸Žå¥–åŠ±
         MONEY_D->pay_player(owner, amount / 100 * 300);
-        tell_object(owner, "ÄãÁìµ½ÁËÒ»Ð©¹¤Ç®¡£\n");
+        tell_object(owner, "ä½ é¢†åˆ°äº†ä¸€äº›å·¥é’±ã€‚\n");
         if (ob->query_temp("job/owner") == owner)
         {
-                // Õâ¸öÊÇ±¾ÈËÁìµÄ¹¤×÷£¬»ñµÃ½±Àø
-				//»ù´¡½±ÀøÔö¼Ó10±¶£¨2015Äê4ÔÂ25ÈÕ£©
+                // è¿™ä¸ªæ˜¯æœ¬äººé¢†çš„å·¥ä½œï¼ŒèŽ·å¾—å¥–åŠ±
+				//åŸºç¡€å¥–åŠ±å¢žåŠ 10å€ï¼ˆ2015å¹´4æœˆ25æ—¥ï¼‰
                 GIFT_D->bonus(owner, ([ "exp" : 150 + random(50),
                                         "pot" : 150 + random(50),
                                         "score" : 30 + random(10),
-                                        "prompt" : "Í¨¹ýÕâ´ÎÑºËÍ" + goods["name"] + HIG ]));
+                                        "prompt" : "é€šè¿‡è¿™æ¬¡æŠ¼é€" + goods["name"] + HIG ]));
 
-                // È¥µôÎÒ×öÕâ¸ö¹¤×÷µÄÐÅÏ¢
+                // åŽ»æŽ‰æˆ‘åšè¿™ä¸ªå·¥ä½œçš„ä¿¡æ¯
                 owner->delete("job/" + ob->query_temp("job/info"));
         }
         destruct(ob);
 
         if (sizeof(obs) < 2)
         {
-                // ÒÑ¾­´¦ÀíÍê±Ï£¬Ã»ÓÐÐÂµÄ³µÁ¾µ½´ï£¬Í£Ö¹ÐÄÌø
+                // å·²ç»å¤„ç†å®Œæ¯•ï¼Œæ²¡æœ‰æ–°çš„è½¦è¾†åˆ°è¾¾ï¼Œåœæ­¢å¿ƒè·³
                 set_heart_beat(0);
         }
 }

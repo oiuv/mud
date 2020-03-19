@@ -1,4 +1,4 @@
-// guigu.c ¹í¹ÈÉñËã
+// guigu.c é¬¼è°·ç¥ç®—
 
 #include <ansi.h>
 
@@ -6,17 +6,17 @@ inherit BOOK;
 
 void create()
 {
-        set_name(WHT "¹í¹ÈÉñËã" NOR, ({ "guigu book", "book", "shu" }));
+        set_name(WHT "é¬¼è°·ç¥ç®—" NOR, ({ "guigu book", "book", "shu" }));
         set_weight(300);
 
         if (clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("unit", "±¾");
-                set("long", "´«ËµÊÇµ±Äê¹í¹È×ÓËùÖøµÄÆæÊé¡£\n");
+                set("unit", "æœ¬");
+                set("long", "ä¼ è¯´æ˜¯å½“å¹´é¬¼è°·å­æ‰€è‘—çš„å¥‡ä¹¦ã€‚\n");
                 set("value", 100);
-                set("no_sell", "Õâ...ÕâÖµÊ²Ã´Ç®£¿\n");
+                set("no_sell", "è¿™...è¿™å€¼ä»€ä¹ˆé’±ï¼Ÿ\n");
                 set("material", "silk");
                 set("skill", ([
                         "name": "mathematics", // name of the skill

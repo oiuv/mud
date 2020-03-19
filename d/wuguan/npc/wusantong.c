@@ -3,13 +3,13 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÎäÈıÍ¨", ({"wu santong", "wu", "santong"}));
-        set("gender", "ÄĞĞÔ");
+        set_name("æ­¦ä¸‰é€š", ({"wu santong", "wu", "santong"}));
+        set("gender", "ç”·æ€§");
         set("age", 55);
-        set("title", HIY "ÄÏµÛËÄ´óµÜ×Ó" NOR);
+        set("title", HIY "å—å¸å››å¤§å¼Ÿå­" NOR);
         set("long", @LONG
-Öì×ÓÁøÄËÊÇÒ»µÆ´óÊ¦µÄËÄ´óµÜ×ÓÖ®Ò»£¬ÏÖÔÚÕıĞ­Öú
-¹ù¾¸¡¢»ÆÈØÕòÊØÏåÑô³Ç¡£
+æœ±å­æŸ³ä¹ƒæ˜¯ä¸€ç¯å¤§å¸ˆçš„å››å¤§å¼Ÿå­ä¹‹ä¸€ï¼Œç°åœ¨æ­£ååŠ©
+éƒ­é–ã€é»„è“‰é•‡å®ˆè¥„é˜³åŸã€‚
 LONG );
         set("attitude", "peaceful");
         set("per", 17);
@@ -50,7 +50,7 @@ LONG );
         prepare_skill("cuff", "jinyu-quan");
         prepare_skill("strike", "wuluo-zhang");
 
-        create_family("¶ÎÊÏ»Ê×å", 6, "¼Ò³¼");
+        create_family("æ®µæ°çš‡æ—", 6, "å®¶è‡£");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -80,7 +80,7 @@ int recognize_apprentice(object ob, string skill)
 {
         if (ob->query("combat_exp") > 40000)
         {
-                command("say ÄãÏÖÔÚÓ¦¸Ã¶à³öÈ¥¶ÍÁ¶¶ÍÁ¶£¬´ôÔÚÕâÀï¿É²»ÊÇ°ì·¨¡£");
+                command("say ä½ ç°åœ¨åº”è¯¥å¤šå‡ºå»é”»ç‚¼é”»ç‚¼ï¼Œå‘†åœ¨è¿™é‡Œå¯ä¸æ˜¯åŠæ³•ã€‚");
                 return -1;
         }
 
@@ -89,38 +89,38 @@ int recognize_apprentice(object ob, string skill)
            && skill != "parry")
         {
                 command("hmm");
-                command("say ÎÒ×î¶à´«ÊÚÄãÒ»Ğ©" HIY "ÄÚ¹¦" NOR + CYN "¡¢" HIY
-                        "Çá¹¦" NOR + CYN "ºÍ" HIY "ÕĞ¼Ü" NOR + CYN "µÄ»ù±¾³£Ê¶¡£" NOR);
-                command("say ÆäËüµÄ»¹ÊÇµÈÄã½«À´°İÊ¦ºóÕÒÊ¦¸¸Ñ§°É¡£");
+                command("say æˆ‘æœ€å¤šä¼ æˆä½ ä¸€äº›" HIY "å†…åŠŸ" NOR + CYN "ã€" HIY
+                        "è½»åŠŸ" NOR + CYN "å’Œ" HIY "æ‹›æ¶" NOR + CYN "çš„åŸºæœ¬å¸¸è¯†ã€‚" NOR);
+                command("say å…¶å®ƒçš„è¿˜æ˜¯ç­‰ä½ å°†æ¥æ‹œå¸ˆåæ‰¾å¸ˆçˆ¶å­¦å§ã€‚");
                 return -1;
         }
 
         if (skill == "force" && ob->query_skill("force", 1) > 99)
         {
                 command("hehe");
-                command("say ÄãÄÚ¹¦·½ÃæµÄÔìÒèÒÑ¾­Ïàµ±²»´íÁË£¬¾Íµ½´ËÎªÖ¹°É¡£");
+                command("say ä½ å†…åŠŸæ–¹é¢çš„é€ è¯£å·²ç»ç›¸å½“ä¸é”™äº†ï¼Œå°±åˆ°æ­¤ä¸ºæ­¢å§ã€‚");
                 return -1;
         }
 
         if (skill == "parry" && ob->query_skill("parry", 1) > 99)
         {
                 command("hehe");
-                command("say ÄãÕĞ¼Ü·½ÃæµÄÔìÒèÒÑ¾­Ïàµ±²»´íÁË£¬¾Íµ½´ËÎªÖ¹°É¡£");
+                command("say ä½ æ‹›æ¶æ–¹é¢çš„é€ è¯£å·²ç»ç›¸å½“ä¸é”™äº†ï¼Œå°±åˆ°æ­¤ä¸ºæ­¢å§ã€‚");
                 return -1;
         }
 
         if (skill == "dodge" && ob->query_skill("dodge", 1) > 99)
         {
                 command("hehe");
-                command("say ÄãÇá¹¦·½ÃæµÄÔìÒèÒÑ¾­Ïàµ±²»´íÁË£¬¾Íµ½´ËÎªÖ¹°É¡£");
+                command("say ä½ è½»åŠŸæ–¹é¢çš„é€ è¯£å·²ç»ç›¸å½“ä¸é”™äº†ï¼Œå°±åˆ°æ­¤ä¸ºæ­¢å§ã€‚");
                 return -1;
         }
 
         if (! ob->query_temp("can_learn/wusantong"))
         {
                 command("smile");
-                command("say ²»´í£¬²»´í¡£³ÃÏÖÔÚ¶àÑ§µã¶«Î÷ÊÇºÃÊÂ¡£");
-                command("say ÎÒ¾Í½ÌÄãĞ©ÄÚ¹¦¡¢Çá¹¦ºÍÕĞ¼ÜµÄ»ù±¾³£Ê¶°É¡£");
+                command("say ä¸é”™ï¼Œä¸é”™ã€‚è¶ç°åœ¨å¤šå­¦ç‚¹ä¸œè¥¿æ˜¯å¥½äº‹ã€‚");
+                command("say æˆ‘å°±æ•™ä½ äº›å†…åŠŸã€è½»åŠŸå’Œæ‹›æ¶çš„åŸºæœ¬å¸¸è¯†å§ã€‚");
                 ob->set_temp("can_learn/wusantong", 1);
         }
         return 1;
@@ -136,7 +136,7 @@ void greeting(object ob)
 		return;
 
         command("nod " + ob->query("id"));
-        command("say " + RANK_D->query_respect(ob) + "£¬ÎÒÕıÔÚ´«ÊÚ»ù±¾Îä¹¦¡£");
-        command("say ÓĞ¿Õ¾Í¹ıÀ´Ñ§Ñ§(" HIY "xue wu santong skills" NOR + CYN ")°É¡£" NOR);
+        command("say " + RANK_D->query_respect(ob) + "ï¼Œæˆ‘æ­£åœ¨ä¼ æˆåŸºæœ¬æ­¦åŠŸã€‚");
+        command("say æœ‰ç©ºå°±è¿‡æ¥å­¦å­¦(" HIY "xue wu santong skills" NOR + CYN ")å§ã€‚" NOR);
 
 }

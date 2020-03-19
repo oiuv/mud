@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "É½ÑÂ");
+        set("short", "å±±å´–");
         set("long", @LONG
-ÕâÀïÊÇÓñÅ®ìôÉ½ÏÂµÄ¶¸ÇÍÉ½ÑÂ£¬ÀëÇ°±ßµÄÉ½ÑÂ±È½ÏÔ¶£¬¿´À´ÏëÒªÅÀ¹ý
-È¥²¢²»ÈÝÒ×¡£
+è¿™é‡Œæ˜¯çŽ‰å¥³ç¥ å±±ä¸‹çš„é™¡å³­å±±å´–ï¼Œç¦»å‰è¾¹çš„å±±å´–æ¯”è¾ƒè¿œï¼Œçœ‹æ¥æƒ³è¦çˆ¬è¿‡
+åŽ»å¹¶ä¸å®¹æ˜“ã€‚
 LONG );
         set("outdoors", "huashan");
         setup();
@@ -22,22 +22,22 @@ int do_climb()
         object me = this_player();
         int n = me->query_skill("dodge", 1);
 
-        message_vision( HIY "$N" HIY "ÉîÎüÁËÒ»¿ÚÆø£¬ÂýÂýÑØ×ÅÉ½±ÚÏòÉÏ"
-                        "ÅÀ¡£\n" NOR, this_player());
+        message_vision( HIY "$N" HIY "æ·±å¸äº†ä¸€å£æ°”ï¼Œæ…¢æ…¢æ²¿ç€å±±å£å‘ä¸Š"
+                        "çˆ¬ã€‚\n" NOR, this_player());
         if (n > 100)
         {
-                message_vision(HIC "$N" HIC "ÅÀÁË°ëÌì£¬ÊÖÖâÏ¥¸Ç¶¼ÒÑ"
-                               "±»¼áÊ¯¸îµÃÏÊÑªÁÜÀì£¬ÖÕÓÚÅÀÉÏÁËÉÏÃæµÄ"
-                               "É½ÑÂ¡£\n" NOR, this_player());
+                message_vision(HIC "$N" HIC "çˆ¬äº†åŠå¤©ï¼Œæ‰‹è‚˜è†ç›–éƒ½å·²"
+                               "è¢«åšçŸ³å‰²å¾—é²œè¡€æ·‹æ¼“ï¼Œç»ˆäºŽçˆ¬ä¸Šäº†ä¸Šé¢çš„"
+                               "å±±å´–ã€‚\n" NOR, this_player());
 
                 me->move(__DIR__"kuihua_1");
 
-                message_vision(HIC "$N" HIC "´ÓÏÂÃæµÄÉ½ÑÂÅÀÁËÉÏÀ´"
-                        "¡£\n" NOR, this_player());
+                message_vision(HIC "$N" HIC "ä»Žä¸‹é¢çš„å±±å´–çˆ¬äº†ä¸Šæ¥"
+                        "ã€‚\n" NOR, this_player());
         } else
         {
-                message_vision(HIR "$N" HIR "ÅÀÁËÒ»»á£¬Ò»¸ö²»ÁôÉñ£¬"
-                               "µøÁËÏÂÈ¥¡£\n" NOR, this_player());
+                message_vision(HIR "$N" HIR "çˆ¬äº†ä¸€ä¼šï¼Œä¸€ä¸ªä¸ç•™ç¥žï¼Œ"
+                               "è·Œäº†ä¸‹åŽ»ã€‚\n" NOR, this_player());
                 me->unconcious();
         }
         return 1;

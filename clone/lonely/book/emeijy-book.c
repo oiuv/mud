@@ -4,15 +4,15 @@ inherit BOOK;
 
 void create()
 {
-        set_name(HIY "¡¸¶ëáÒ¾ÅÑô¹¦¡¹" NOR, ({ "emei jiuyang", "emei", "jiuyang", "book" }));
+        set_name(HIY "ã€Œå³¨åµ‹ä¹é˜³åŠŸã€" NOR, ({ "emei jiuyang", "emei", "jiuyang", "book" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
-                set("long", HIG "ÕâÊÇÒ»±¾±¡±¡µÄ²á×Ó£¬ÊéÃæÒÑ¾­ÓĞµã¿ªÊ¼¸¯ÀÃ¡£\n" NOR);
+                set("unit", "æœ¬");
+                set("long", HIG "è¿™æ˜¯ä¸€æœ¬è–„è–„çš„å†Œå­ï¼Œä¹¦é¢å·²ç»æœ‰ç‚¹å¼€å§‹è…çƒ‚ã€‚\n" NOR);
                 set("value", 1);
-                set("no_sell", "Õâ±¾ÆÆÊéÄã×Ô¼ºÁô×Å°É¡£");
+                set("no_sell", "è¿™æœ¬ç ´ä¹¦ä½ è‡ªå·±ç•™ç€å§ã€‚");
                 set("material", "paper");
                 set("skill", ([
                         "name"       : "emei-jiuyang",

@@ -5,18 +5,18 @@ inherit STAFF;
 
 void create()
 {
-	set_name(YEL "Ë®ÑÌÍ²" NOR, ({"yan tong", "yan", "tong"}));
+	set_name(YEL "æ°´çƒŸç­’" NOR, ({"yan tong", "yan", "tong"}));
 	set_weight(50);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", YEL "ÕâÊÇÒ»Ö§ÔÆÄÏÈËÏ²°®µÄË®ÑÌÍ²¡£Äã¿É"
-                            "ÒÔÓÃ(fire)À´ÎüÑÌ¡£\n" NOR);
-		set("unit", "¸ö");
+		set("long", YEL "è¿™æ˜¯ä¸€æ”¯äº‘å—äººå–œçˆ±çš„æ°´çƒŸç­’ã€‚ä½ å¯"
+                            "ä»¥ç”¨(fire)æ¥å¸çƒŸã€‚\n" NOR);
+		set("unit", "ä¸ª");
 		set("value", 100);
 		set("material", "steel");
-                set("wield_msg", "$N´ÓÉíºó³é³ö$nÎÕÔÚÊÖÖÐµ±×öÎäÆ÷¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖÐµÄ$n·ÅÁË»ØÈ¥¡£\n");
+                set("wield_msg", "$Nä»Žèº«åŽæŠ½å‡º$næ¡åœ¨æ‰‹ä¸­å½“åšæ­¦å™¨ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ”¾äº†å›žåŽ»ã€‚\n");
 	}
 	init_staff(10);
         setup();
@@ -33,16 +33,16 @@ int do_fire(string arg)
 	object ob = present("shui yan", me);
 
 	if (arg != "yan" || ! arg)
-		return notify_fail("ÄãÒª¸ÉÊ²Ã´£¿\n");
+		return notify_fail("ä½ è¦å¹²ä»€ä¹ˆï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("ÂýÂýÎü£¬Ð¡ÐÄ±ðÇº×ÅÁË¡£\n");
+                return notify_fail("æ…¢æ…¢å¸ï¼Œå°å¿ƒåˆ«å‘›ç€äº†ã€‚\n");
 
         if (! objectp(ob))
-                return notify_fail("ÄãÒÑ¾­Ã»ÓÐÑÌÁË¡£\n");
+                return notify_fail("ä½ å·²ç»æ²¡æœ‰çƒŸäº†ã€‚\n");
 
-	message_vision(HIW "$N" HIW "ÄÃÆðË®ÑÌÍ²¹¾¹¾µÄÎüÁË¼¸¿Ú£¬»º»º"
-                       "µÄÍÂ³öÑÌÎí£¬Ö»¾õµÄ¾«ÉñºÃ¶àÁË¡£\n" NOR, me);
+	message_vision(HIW "$N" HIW "æ‹¿èµ·æ°´çƒŸç­’å’•å’•çš„å¸äº†å‡ å£ï¼Œç¼“ç¼“"
+                       "çš„åå‡ºçƒŸé›¾ï¼Œåªè§‰çš„ç²¾ç¥žå¥½å¤šäº†ã€‚\n" NOR, me);
 	me->add("jing", 50);
 	if ((int)me->query("jing") > (int)me->query("max_jing") * 2)
 	me->set("jing", (int)me->query("max_jing") * 2);

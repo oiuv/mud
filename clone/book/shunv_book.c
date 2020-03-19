@@ -1,17 +1,17 @@
-//shunv-jian ÊçÅ®½£·¨
+//shunv-jian æ·‘å¥³å‰‘æ³•
 
 inherit BOOK;
 
 void create()
 {
-	set_name("ÊçÅ®½£Æ×", ({ "shunv book", "book" }));
+	set_name("æ·‘å¥³å‰‘è°±", ({ "shunv book", "book" }));
 	set_weight(600);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±¾");
+		set("unit", "æœ¬");
 		set("long",
-"·âÃæÉÏĞ´Öø¡¸ÊçÅ®½£·¨¡¹\n");
+"å°é¢ä¸Šå†™è‘—ã€Œæ·‘å¥³å‰‘æ³•ã€\n");
 		set("value", 100);
 		set("material", "paper");
 		set("skill", ([

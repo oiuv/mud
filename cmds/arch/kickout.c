@@ -15,22 +15,22 @@ int main(object me, string arg)
                 return 0;
 
         if (! arg)
-                return notify_fail("ÄãÒªÌßË­£¿\n");
+                return notify_fail("ä½ è¦è¸¢è°ï¼Ÿ\n");
 
         ob = LOGIN_D->find_body(arg);
 	ob = MESSAGE_D->find_user(arg);
         if (! ob || ! me->visible(ob))
-                return notify_fail("ß×... ÓĞÕâ¸öÈËÂğ?\n");
+                return notify_fail("å’¦... æœ‰è¿™ä¸ªäººå—?\n");
 
         if (! userp(ob) && base_name(ob) != USER_OB &&
 	    ! ob->is_chatter())
-                return notify_fail("ÄãÖ»ÄÜ°ÑÍæ¼ÒÌß³öÈ¥¡£\n");
+                return notify_fail("ä½ åªèƒ½æŠŠç©å®¶è¸¢å‡ºå»ã€‚\n");
 
         if (ob == me)
-                return notify_fail("ÄãµÄ´óÄÔÊÇ²»ÊÇ½øÁËË®£¿\n");
+                return notify_fail("ä½ çš„å¤§è„‘æ˜¯ä¸æ˜¯è¿›äº†æ°´ï¼Ÿ\n");
 
         if (wiz_level(me) < wiz_level(ob))
-                return notify_fail("¡°µ±à¥¡±µÄÒ»Éù£¬ÄãÌßµ½Ìú°å¡£\n");
+                return notify_fail("â€œå½“å•·â€çš„ä¸€å£°ï¼Œä½ è¸¢åˆ°é“æ¿ã€‚\n");
 
 	this_object()->kickout_player(me, ob);
         return 1;
@@ -48,15 +48,15 @@ void kickout_player(object me, object ob)
         log_file("static/kickout_player", sprintf("%s %-9s kickout %s\n",
                         log_time(), geteuid(me), geteuid(ob)));
 
-        tell_object(me, "Äã°Ñ" + ob->query("name") + "ÌßÁË³öÈ¥£¡\n");
+        tell_object(me, "ä½ æŠŠ" + ob->query("name") + "è¸¢äº†å‡ºå»ï¼\n");
         CHANNEL_D->do_channel(this_object(), "rumor",
-                	      sprintf("%s±»%sÌß³öÁËÄàÌ¶¡£",
+                	      sprintf("%sè¢«%sè¸¢å‡ºäº†æ³¥æ½­ã€‚",
 			      ob->name(), me->name()));
         seteuid(ROOT_UID);
 	if (ob->is_chatter())
 	{
-		MESSAGE_D->user_logout(ob, "Äã±»" + me->name(1) +
-					   "ÌßÁË³öÈ¥¡£\n");
+		MESSAGE_D->user_logout(ob, "ä½ è¢«" + me->name(1) +
+					   "è¸¢äº†å‡ºå»ã€‚\n");
 		return;
 	}
 
@@ -73,7 +73,7 @@ void kickout_player(object me, object ob)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : kickout <Ä³ÈË>
+æŒ‡ä»¤æ ¼å¼ : kickout <æŸäºº>
 
 HELP );
     	return 1;

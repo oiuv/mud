@@ -14,31 +14,31 @@ int perform(object me, object target)
         weapon = me->query_temp("weapon");
 
         if (! target)
-                return notify_fail("ÄãÒª´òÄÄÌõÉß£¿\n");
+                return notify_fail("ä½ è¦æ‰“å“ªæ¡è›‡ï¼Ÿ\n");
 
         if (! target->is_snake())
-                return notify_fail("¿´Çå³þÐ©£¬ÄÇ²»ÊÇÉß£¬ÄãÏ¹´òÊ²Ã´£¿\n");
+                return notify_fail("çœ‹æ¸…æ¥šäº›ï¼Œé‚£ä¸æ˜¯è›‡ï¼Œä½ çžŽæ‰“ä»€ä¹ˆï¼Ÿ\n");
 
         if (! living(target))
-                return notify_fail("ÄÇÌõÉßÔÝÊ±²»»á¶¯µ¯ÁË£¬Äã²»±ØÔÙ´òÁË¡£\n");
+                return notify_fail("é‚£æ¡è›‡æš‚æ—¶ä¸ä¼šåŠ¨å¼¹äº†ï¼Œä½ ä¸å¿…å†æ‰“äº†ã€‚\n");
 
         if ((int)me->query_skill("shedu-qiqiao", 1) < 20)
-                return notify_fail("ÄãµÄÉß¶¾ÆæÇÉ»¹²»¹»æµÊì£¬²»ÄÜ´òÉß¡£\n");
+                return notify_fail("ä½ çš„è›‡æ¯’å¥‡å·§è¿˜ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸èƒ½æ‰“è›‡ã€‚\n");
 
         if ((int)me->query_skill("force") < 30)
-                return notify_fail("ÄãµÄÄÚ¹¦µÄÐÞÎª²»¹»£¬²»ÄÜ´òÉß¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸçš„ä¿®ä¸ºä¸å¤Ÿï¼Œä¸èƒ½æ‰“è›‡ã€‚\n");
 
         if ((int)me->query("neili") < 100)
-                return notify_fail("ÄãÏÖÔÚµÄÄÚÁ¦²»¹»ÁË¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„å†…åŠ›ä¸å¤Ÿäº†ã€‚\n");
 
         if (weapon)
-                msg = HIC "\n$N" HIC "Îè¶¯ÊÖÖÐµÄ" + weapon->name() +
-                      HIC "£¬³¯×Å" + target->name() + HIC "µÄÆß´ç´ò"
-                      "ÁË¹ýÈ¥¡£\n" NOR;
+                msg = HIC "\n$N" HIC "èˆžåŠ¨æ‰‹ä¸­çš„" + weapon->name() +
+                      HIC "ï¼Œæœç€" + target->name() + HIC "çš„ä¸ƒå¯¸æ‰“"
+                      "äº†è¿‡åŽ»ã€‚\n" NOR;
         else
-                msg = HIC "\n$N" HIC "Éì³öË«Ö¸£¬³öÖ¸Èç·ç£¬Ñ¸¼²ÎÞ±ÈµÄ"
-                      "³¯×Å" + target->name() + HIC "µÄÆß´çµãÁË¹ýÈ¥"
-                      "¡£\n" NOR;
+                msg = HIC "\n$N" HIC "ä¼¸å‡ºåŒæŒ‡ï¼Œå‡ºæŒ‡å¦‚é£Žï¼Œè¿…ç–¾æ— æ¯”çš„"
+                      "æœç€" + target->name() + HIC "çš„ä¸ƒå¯¸ç‚¹äº†è¿‡åŽ»"
+                      "ã€‚\n" NOR;
 
         lvl = (int) me->query_skill("shedu-qiqiao", 1) +
               (int) me->query_skill("dodge");
@@ -46,28 +46,28 @@ int perform(object me, object target)
 
         if( lvl / 2 + random(lvl) > (int) target->query("combat_exp") )
         {
-                msg += HIY "½á¹ûÖ»Ìý¡°Å¾¡±µÄÒ»Éù£¬Õý´òÔÚ" + target->name() +
-                       HIY "µÄÆß´çÉÏ¡£\n" NOR;
+                msg += HIY "ç»“æžœåªå¬â€œå•ªâ€çš„ä¸€å£°ï¼Œæ­£æ‰“åœ¨" + target->name() +
+                       HIY "çš„ä¸ƒå¯¸ä¸Šã€‚\n" NOR;
                 lvl = (int) me->query_skill("force");
                 lvl = lvl * 13 / 10;
                 lvl = lvl * lvl / 10 * lvl;
                 if ( lvl / 2 + random(lvl) > (int) target->query("combat_exp") )
                 {
-                        msg += HIM "Ö»¼û" + target->name() + HIM
-                               "Éí×ÓÇáÇá»Î¶¯¼¸ÏÂ£¬¾Í²»ÔÙ¶¯µ¯ÁË¡£\n" NOR;
+                        msg += HIM "åªè§" + target->name() + HIM
+                               "èº«å­è½»è½»æ™ƒåŠ¨å‡ ä¸‹ï¼Œå°±ä¸å†åŠ¨å¼¹äº†ã€‚\n" NOR;
                         message_vision(msg, me);
                         target->unconcious();
                 } else
                 {
-                        msg += HIR + "ÄÄÀïÏëµ½" + target->name() +
-                               HIR "°¤ÁËÕâÒ»»÷£¬¾¹È»ÈôÎÞÆäÊÂ£¬¶ÙÊ±Ò»¸ö·­"
-                               "Éí£¬Ö±ÆËÏò$N" HIR "£¡\n\n" NOR;
+                        msg += HIR + "å“ªé‡Œæƒ³åˆ°" + target->name() +
+                               HIR "æŒ¨äº†è¿™ä¸€å‡»ï¼Œç«Ÿç„¶è‹¥æ— å…¶äº‹ï¼Œé¡¿æ—¶ä¸€ä¸ªç¿»"
+                               "èº«ï¼Œç›´æ‰‘å‘$N" HIR "ï¼\n\n" NOR;
                         message_vision(msg, me);
                         target->kill_ob(me);
                 }
         } else
         {
-                msg += WHT "È»¶ø" + target->name() + WHT "Éí×ÓÒ»ÉÁ£¬¶ãÁË¹ýÈ¥¡£\n\n" NOR;
+                msg += WHT "ç„¶è€Œ" + target->name() + WHT "èº«å­ä¸€é—ªï¼Œèº²äº†è¿‡åŽ»ã€‚\n\n" NOR;
                 message_vision(msg, me);
                 target->kill_ob(me);
         }

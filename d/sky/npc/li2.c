@@ -6,13 +6,13 @@ inherit F_COAGENT;
 
 void create()
 {
-        set_name("ÀîåĞÒ£", ({ "li xiaoyao", "li", "xiaoyao"}));
-        set("long", "ÏÉ½£ÆæÏÀ´«ÖĞµÄ´«ÆæÈËÎï£¬ÉÙÄêµÃÊñÉ½½£ÅÉ\n" 
-                    "¸ßÈËÊÚÒÕ£¬¼æÏ°¼Ò´«¾øÑ§·ÉÁúÌ½ÔÆÊÖÒÔ¼°±ù\n"
-                    "ĞÄ¾ö£¬ÄËÒ»´ú²»ÊÀµÄ½£ÏÀ¡£\n"); 
-        set("nickname", HIW "ÊñÉ½½£Éñ" NOR);
-        set("title", HIY "´ó×ÚÊ¦" NOR);
-        set("gender", "ÄĞĞÔ");
+        set_name("æé€é¥", ({ "li xiaoyao", "li", "xiaoyao"}));
+        set("long", "ä»™å‰‘å¥‡ä¾ ä¼ ä¸­çš„ä¼ å¥‡äººç‰©ï¼Œå°‘å¹´å¾—èœ€å±±å‰‘æ´¾\n" 
+                    "é«˜äººæˆè‰ºï¼Œå…¼ä¹ å®¶ä¼ ç»å­¦é£é¾™æ¢äº‘æ‰‹ä»¥åŠå†°\n"
+                    "å¿ƒå†³ï¼Œä¹ƒä¸€ä»£ä¸ä¸–çš„å‰‘ä¾ ã€‚\n"); 
+        set("nickname", HIW "èœ€å±±å‰‘ç¥" NOR);
+        set("title", HIY "å¤§å®—å¸ˆ" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 24);
         set("attitude", "friendly");
         set("shen_type", 1);

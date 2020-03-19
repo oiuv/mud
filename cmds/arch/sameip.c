@@ -21,14 +21,14 @@ int main(object me, string arg)
                 return 0;
 
         if (! arg)
-	        return notify_fail("Ö¸Áî¸ñÊ½£ºsameip <Ê¹ÓÃÕßĞÕÃû> | <IP µØÖ·>\n");
+	        return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šsameip <ä½¿ç”¨è€…å§“å> | <IP åœ°å€>\n");
 
         if (find_call_out("search_dir") != -1)
         {
                 if (run_user && run_user != me)
-                        return notify_fail("µ±Ç°" + run_user->query("name") +
+                        return notify_fail("å½“å‰" + run_user->query("name") +
                                            "(" + run_user->query("id") + ")" +
-                                           "ÕıÔÚÊ¹ÓÃ¸ÃÖ¸Áî½øĞĞ²éÕÒ£¬ÇëÉÔºòÔÙÊ¹ÓÃ¡£\n");
+                                           "æ­£åœ¨ä½¿ç”¨è¯¥æŒ‡ä»¤è¿›è¡ŒæŸ¥æ‰¾ï¼Œè¯·ç¨å€™å†ä½¿ç”¨ã€‚\n");
                 remove_call_out("search_dir");
         }
 
@@ -40,28 +40,28 @@ int main(object me, string arg)
         {
                 name = arg;
                 if (file_size(DATA_DIR + "login/" + name[0..0] + "/"  + name + __SAVE_EXTENSION__) < 0)
-                        return notify_fail("Ã»ÓĞÕâÎ»Ê¹ÓÃÕß¡£\n");
+                        return notify_fail("æ²¡æœ‰è¿™ä½ä½¿ç”¨è€…ã€‚\n");
 
                 who = new(LOGIN_OB);
                 who->set("id", name);
                 if (! who->restore())
-                        return notify_fail("Ã»ÓĞÕâÎ»Ê¹ÓÃÕß¡£\n");
+                        return notify_fail("æ²¡æœ‰è¿™ä½ä½¿ç”¨è€…ã€‚\n");
 
-                write(fname(who) + "ÉÏ´Î´Ó " + who->query("last_from")+" ÉÏÏß¡£\n");
+                write(fname(who) + "ä¸Šæ¬¡ä» " + who->query("last_from")+" ä¸Šçº¿ã€‚\n");
                 if (! who->query("last_from"))
-                        return notify_fail("ÎŞ·¨²éÖª¸ÃÍæ¼ÒÉÏ´ÎÉÏÏßµØµã¡£\n");
+                        return notify_fail("æ— æ³•æŸ¥çŸ¥è¯¥ç©å®¶ä¸Šæ¬¡ä¸Šçº¿åœ°ç‚¹ã€‚\n");
                 address = who->query("last_from");
                 destruct(who);
         }
 
-        write("Ñ°ÕÒ´Ó " + address + " ÉÏÏßµÄÊ¹ÓÃÕß£º\n");
+        write("å¯»æ‰¾ä» " + address + " ä¸Šçº¿çš„ä½¿ç”¨è€…ï¼š\n");
         count = 0;
         dir = get_dir(DATA_DIR + "login/");
         i = 0;
         result = ({ });
         call_out("search_dir", 0, count, dir, i, address, me, result);
-        write(HIG "ÏÖÔÚÏµÍ³½«Í³¼ÆÊı¾İ£¬ÉÔºó»ã±¨¡£\n"
-              HIG "½ø¶È£º" + process_bar(0) + "\n");
+        write(HIG "ç°åœ¨ç³»ç»Ÿå°†ç»Ÿè®¡æ•°æ®ï¼Œç¨åæ±‡æŠ¥ã€‚\n"
+              HIG "è¿›åº¦ï¼š" + process_bar(0) + "\n");
         me->attach_system();
         run_user = me;
         return 1;
@@ -90,7 +90,7 @@ void search_dir(int count, string *dir, int i, string address, object me, string
         if (i == sizeof(dir))
         {
                 info = ESC + "[256D" + ESC + "[K"
-                       HIC "\n²éÕÒËùÓĞÍæ¼ÒµÄ½á¹ûÈçÏÂ£º\n" NOR WHT;
+                       HIC "\næŸ¥æ‰¾æ‰€æœ‰ç©å®¶çš„ç»“æœå¦‚ä¸‹ï¼š\n" NOR WHT;
                 for (i = 0; i < sizeof(result); i++)
                 {
                         info += result[i];
@@ -100,7 +100,7 @@ void search_dir(int count, string *dir, int i, string address, object me, string
                                 info = "";
                         }
                 }
-                info += HIG "¹²ÓĞ " + to_chinese(count) + " Î»Ê¹ÓÃÕß´ÓÕâ¸öµØÖ·ÉÏÏß¡£\n\n" NOR;
+                info += HIG "å…±æœ‰ " + to_chinese(count) + " ä½ä½¿ç”¨è€…ä»è¿™ä¸ªåœ°å€ä¸Šçº¿ã€‚\n\n" NOR;
                 message("system", info, me);
                 run_user = 0;
                 me->detach_system();
@@ -138,8 +138,8 @@ void search_dir(int count, string *dir, int i, string address, object me, string
                 }
                 i++;
         	message("system", ESC + "[1A" + ESC + "[256D"
-                                  HIG "½ø¶È£º" + process_bar(i * 100 / sizeof(dir)) +
-                                  "\n" HIR "Ö´ĞĞÖĞ" NOR "> ", me);
+                                  HIG "è¿›åº¦ï¼š" + process_bar(i * 100 / sizeof(dir)) +
+                                  "\n" HIR "æ‰§è¡Œä¸­" NOR "> ", me);
                 call_out("search_dir", 0, count, dir, i, address, me, result);
     }
 }
@@ -152,16 +152,16 @@ string fname(object ob)
         s2 = ob->query("purename");
         if (! s1) s1= "";
         if (s2) s1 += s2;
-        if (s1 == "") s1 = "ÎŞÃû";
+        if (s1 == "") s1 = "æ— å";
         return s1;
 }
 
 int  help(object  me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½£ºsameip <Ê¹ÓÃÕßĞÕÃû> | <IP µØÖ·>
+æŒ‡ä»¤æ ¼å¼ï¼šsameip <ä½¿ç”¨è€…å§“å> | <IP åœ°å€>
 
-²éÕÒËùÓĞÓëÊ¹ÓÃÕßÓÃÍ¬Ò»µØÖ·ÉÏÏßµÄÊ¹ÓÃÕß¡£
+æŸ¥æ‰¾æ‰€æœ‰ä¸ä½¿ç”¨è€…ç”¨åŒä¸€åœ°å€ä¸Šçº¿çš„ä½¿ç”¨è€…ã€‚
 HELP
     );
         return  1;

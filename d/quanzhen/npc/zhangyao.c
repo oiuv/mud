@@ -3,13 +3,13 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÕÆÒ©µÀ³¤", ({ "zhangyao daozhang", "zhangyao", "daozhang" }));
-        set("gender", "ÄĞĞÔ");
+        set_name("æŒè¯é“é•¿", ({ "zhangyao daozhang", "zhangyao", "daozhang" }));
+        set("gender", "ç”·æ€§");
         set("age", 28);
         set("class", "taoist");
         set("long", @LONG
-ÕâÊÇÈ«Õæ½ÌÖĞµÄÕÆ¹ÜËùÓĞÒ©ÎïµÄµÀÈË¡£ËûÄê¼Í
-²»´ó£¬µ«¿´ÆğÀ´ÏÔµÃÉÙÄêÀÏ³É¡£
+è¿™æ˜¯å…¨çœŸæ•™ä¸­çš„æŒç®¡æ‰€æœ‰è¯ç‰©çš„é“äººã€‚ä»–å¹´çºª
+ä¸å¤§ï¼Œä½†çœ‹èµ·æ¥æ˜¾å¾—å°‘å¹´è€æˆã€‚
 LONG);
         set("attitude", "friendly");
         set("shen_type",1);
@@ -49,10 +49,10 @@ LONG);
         map_skill("strike", "haotian-zhang");
         prepare_skill("strike", "haotian-zhang");
 
-        create_family("È«Õæ½Ì", 4, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 4, "å¼Ÿå­");
 
         set("inquiry", ([
-                "È«Õæ½Ì" :  "ÎÒÈ«Õæ½ÌÊÇÌìÏÂµÀ¼ÒĞşÃÅÕı×Ú¡£\n",
+                "å…¨çœŸæ•™" :  "æˆ‘å…¨çœŸæ•™æ˜¯å¤©ä¸‹é“å®¶ç„é—¨æ­£å®—ã€‚\n",
         ]) );
 
         setup();
@@ -74,11 +74,11 @@ int accept_object(object who, object ob)
 		return 0;
 
         if (! present(ob, who))
-                return notify_fail("ÄãÃ»ÓĞÕâ¼ş¶«Î÷¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰è¿™ä»¶ä¸œè¥¿ã€‚\n");
 
         if ((string)ob->query("id") != "gui jia"
            && ob->query("id") != "fu ling")
-                return notify_fail(CYN "ÕÆÒ©µÀ³¤Ò¡Í·µÀ£ºÕâ²»ÊÇÅäÒ©µÄ²ÄÁÏ¡£\n" NOR);
+                return notify_fail(CYN "æŒè¯é“é•¿æ‘‡å¤´é“ï¼šè¿™ä¸æ˜¯é…è¯çš„ææ–™ã€‚\n" NOR);
 
         if ((string)ob->query("id") == "gui jia")
         {
@@ -87,8 +87,8 @@ int accept_object(object who, object ob)
                         obj = new(__DIR__"obj/gao");
                         obj->move(this_object());
 
-                        write(CYN "ÕÆÒ©µÀ³¤½Ó¹ı¹ê¼×£¬ËµµÀ£º¹ê¼×ºÍÜòÜß¶¼ÓĞÁË£¬Õâ"
-                              "¸±¹êÜß¸à¿ÉÁ¶³ÉÁË¡£\n" NOR);
+                        write(CYN "æŒè¯é“é•¿æ¥è¿‡é¾Ÿç”²ï¼Œè¯´é“ï¼šé¾Ÿç”²å’ŒèŒ¯è‹“éƒ½æœ‰äº†ï¼Œè¿™"
+                              "å‰¯é¾Ÿè‹“è†å¯ç‚¼æˆäº†ã€‚\n" NOR);
                         command("give guiling gao to " + who->query("id"));
 
                         delete_temp("guijia");
@@ -99,14 +99,14 @@ int accept_object(object who, object ob)
                 {
                         if(query_temp("guijia"))
                         {
-                                write(CYN "ÕÆÒ©µÀ³¤Ò¡ÁËÒ¡Í·£¬ËµµÀ£ºÕâ¹ê¼×ÎÒÒÑ¾­"
-                                      "ÓĞÁË¡£\n" NOR);
+                                write(CYN "æŒè¯é“é•¿æ‘‡äº†æ‘‡å¤´ï¼Œè¯´é“ï¼šè¿™é¾Ÿç”²æˆ‘å·²ç»"
+                                      "æœ‰äº†ã€‚\n" NOR);
                                 return 0;
                         } else
                         {
                                 set_temp("guijia", 1);
-                                write(CYN "ÕÆÒ©µÀ³¤½Ó¹ı¹ê¼×£¬Ğ¦µÀ£º¹ê¼×ÓĞÁË£¬¾Í"
-                                      "È±ÜòÜßÁË¡£\n" NOR);
+                                write(CYN "æŒè¯é“é•¿æ¥è¿‡é¾Ÿç”²ï¼Œç¬‘é“ï¼šé¾Ÿç”²æœ‰äº†ï¼Œå°±"
+                                      "ç¼ºèŒ¯è‹“äº†ã€‚\n" NOR);
                                 destruct(ob);
                                 return 1;
                         }
@@ -119,8 +119,8 @@ int accept_object(object who, object ob)
                         obj = new(__DIR__"obj/gao");
                         obj->move(this_object());
 
-                        write(CYN "ÕÆÒ©µÀ³¤½Ó¹ı¹ê¼×£¬ËµµÀ£º¹ê¼×ºÍÜòÜß¶¼ÓĞÁË£¬Õâ"
-                              "¸±¹êÜß¸à¿ÉÁ¶³ÉÁË¡£\n" NOR);
+                        write(CYN "æŒè¯é“é•¿æ¥è¿‡é¾Ÿç”²ï¼Œè¯´é“ï¼šé¾Ÿç”²å’ŒèŒ¯è‹“éƒ½æœ‰äº†ï¼Œè¿™"
+                              "å‰¯é¾Ÿè‹“è†å¯ç‚¼æˆäº†ã€‚\n" NOR);
                         command("give guiling gao to " + who->query("id"));
 
                         delete_temp("guijia");
@@ -131,14 +131,14 @@ int accept_object(object who, object ob)
                 {
                         if(query_temp("fuling"))
                         {
-                                write(CYN "ÕÆÒ©µÀ³¤Ò¡ÁËÒ¡Í·£¬ËµµÀ£ºÕâÜòÜßÎÒÒÑ¾­"
-                                      "ÓĞÁË¡£\n" NOR);
+                                write(CYN "æŒè¯é“é•¿æ‘‡äº†æ‘‡å¤´ï¼Œè¯´é“ï¼šè¿™èŒ¯è‹“æˆ‘å·²ç»"
+                                      "æœ‰äº†ã€‚\n" NOR);
                                 return 0;
                         } else
                         {
                                 set_temp("fuling", 1);
-                                write(CYN "ÕÆÒ©µÀ³¤½Ó¹ıÜòÜß£¬Ğ¦µÀ£ºÜòÜßÓĞÁË£¬¾Í"
-                                      "È±¹ê¼×ÁË¡£\n" NOR);
+                                write(CYN "æŒè¯é“é•¿æ¥è¿‡èŒ¯è‹“ï¼Œç¬‘é“ï¼šèŒ¯è‹“æœ‰äº†ï¼Œå°±"
+                                      "ç¼ºé¾Ÿç”²äº†ã€‚\n" NOR);
                                 destruct(ob);
                                 return 1;
                         }

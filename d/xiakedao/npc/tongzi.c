@@ -1,13 +1,13 @@
-// tongzi.c Í¯×Ó
+// tongzi.c ç«¥å­
 
 inherit NPC;
 inherit F_MASTER;
 
 void create()
 {
-        set_name("Í¯×Ó", ({ "tong zi",  }));
-        set("long", "ÕâÊÇÒ»¸öÊ®ÎåÁùËêµÄÉÙÄê£¬Ã¼ÇåÄ¿Ğã£¬´ÏÃ÷ÁæÀş£¬ÉîµÃµºÖ÷Ï²°®¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("ç«¥å­", ({ "tong zi",  }));
+        set("long", "è¿™æ˜¯ä¸€ä¸ªåäº”å…­å²çš„å°‘å¹´ï¼Œçœ‰æ¸…ç›®ç§€ï¼Œèªæ˜ä¼¶ä¿ï¼Œæ·±å¾—å²›ä¸»å–œçˆ±ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 15);
         set("shen_type",100);
         set("attitude", "peaceful");
@@ -34,6 +34,6 @@ void create()
         set_skill("hand", 40);
         set_skill("staff", 40);
 
-        create_family("ÏÀ¿Íµº", 0, "µÜ×Ó");
+        create_family("ä¾ å®¢å²›", 0, "å¼Ÿå­");
         setup();
 }

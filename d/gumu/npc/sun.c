@@ -5,11 +5,11 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("ËïÆÅÆÅ", ({ "sun popo", "sun", "popo" }));
-        set("gender", "Å®ĞÔ");
+        set_name("å­™å©†å©†", ({ "sun popo", "sun", "popo" }));
+        set("gender", "å¥³æ€§");
         set("age", 55);
 
-        set("long", "ÕâÊÇÒ»Î»´ÈÏéµÄÀÏÆÅÆÅ£¬Õı¿´×ÅÄãÎ¢Î¢Ò»Ğ¦¡£\n");
+        set("long", "è¿™æ˜¯ä¸€ä½æ…ˆç¥¥çš„è€å©†å©†ï¼Œæ­£çœ‹ç€ä½ å¾®å¾®ä¸€ç¬‘ã€‚\n");
 
         set("attitude", "friendly");
 
@@ -43,7 +43,7 @@ void create()
 
         prepare_skill("unarmed", "meinv-quan");
 
-        create_family("¹ÅÄ¹ÅÉ", 2, "µÜ×Ó");
+        create_family("å¤å¢“æ´¾", 2, "å¼Ÿå­");
 
         set_temp("apply/attack", 50);
         set_temp("apply/defense", 50);

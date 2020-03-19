@@ -3,13 +3,13 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÕÆÔ°µÀ³¤", ({ "zhangyuan daozhang", "zhangyuan", "daozhang" }));
+        set_name("æŒå›­é“é•¿", ({ "zhangyuan daozhang", "zhangyuan", "daozhang" }));
         set("long", @LONG
-Ëû±¾ÊÇ·şÊÌÖØÑô×æÊ¦µÄµÀÍ½£¬ÏÖÔÚËûÄê¼Í´óÁË¡£
-ÖØÑô×æÊ¦¼ûËûÖÒĞÄ¹¢¹¢£¬¾Í·ÖÅäËûÒ»¸öÏĞ²îµ½
-Ğ¡»¨Ô°À´´òÀí»¨Ä¾¡£
+ä»–æœ¬æ˜¯æœä¾é‡é˜³ç¥–å¸ˆçš„é“å¾’ï¼Œç°åœ¨ä»–å¹´çºªå¤§äº†ã€‚
+é‡é˜³ç¥–å¸ˆè§ä»–å¿ å¿ƒè€¿è€¿ï¼Œå°±åˆ†é…ä»–ä¸€ä¸ªé—²å·®åˆ°
+å°èŠ±å›­æ¥æ‰“ç†èŠ±æœ¨ã€‚
 LONG);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 52);
         set("class", "taoist");
         set("attitude", "friendly");
@@ -50,11 +50,11 @@ LONG);
         map_skill("strike", "haotian-zhang");
         prepare_skill("strike", "haotian-zhang");
 
-        create_family("È«Õæ½Ì", 4, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 4, "å¼Ÿå­");
 
         set("book_count",1);
         set("inquiry", ([
-                "È«Õæ½Ì" : "ÎÒÈ«Õæ½ÌÊÇÌìÏÂµÀ¼ÒĞşÃÅÕı×Ú¡£\n",
+                "å…¨çœŸæ•™" : "æˆ‘å…¨çœŸæ•™æ˜¯å¤©ä¸‹é“å®¶ç„é—¨æ­£å®—ã€‚\n",
         ]) );
 
         setup();

@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "����Ϫ");
+	set("short", "九曲溪");
 	set("long", @LONG
-����Ϫ��ɽ�������������ۣ�������֮�У�ˮɫ��͸����
-�ֿ�����������ɽ��ת�����ˮ��������ɽ��ˮɫ����Ϊһ�塣
-�ذ�������Ρ�룬��Ů���������������¡�
+九曲溪依山而流，九曲九折，穿梭丹岩之中，水色碧透，掬
+手可饮，“曲曲山回转，峰峰水抱流”，山光水色，融为一体。
+沿岸大王峰巍峨，玉女峰俏立，备极景致。
 LONG );
 	set("exits", ([
 		"east"      : __DIR__"wuyishan1",

@@ -16,7 +16,7 @@ void create()
         name += last_words[random(sizeof(last_words))];
         
         set_name(name, ({ "ghost"}) );
-        set("gender", "ÄĞĞÔ" );        
+        set("gender", "ç”·æ€§" );        
         set("age",40);
         set("str", 30);
         set("int", 20);
@@ -75,83 +75,83 @@ void invocation(object target)
         int ap, dp;
 
 
-        // µÚÒ»ÕÆ
+        // ç¬¬ä¸€æŒ
         ap = me->query_skill("strike") * 3 / 2 + me->query_skill("martial-cognize", 1);
         dp = target->query_skill("dodge") + target->query_skill("martial-cognize", 1);
 
-        message_sort(HIW "\nºöÈ»¼ä$N" HIW "ÉíĞÎ¼¤½ø£¬×óÊÖÒ»»®£¬ÓÒÊÖºôµÄÒ»ÕÆ£¬±ã"
-                     "Ïò$n" HIW "»÷È¥£¬ÕıÊÇ½µÁúÊ®°ËÕÆ¡¸" NOR + HIY "¿ºÁúÓĞ»Ú" NOR
-                     + HIW "¡¹Ò»ÕĞ£¬Á¦×ÔÕÆÉúÖ®¼ÊËµµ½±ãµ½£¬ÒÔÅÅÉ½µ¹º£Ö®ÊÆÏò$n" HIW
-                     "¿ñÓ¿¶øÈ¥£¬µ±ÕæÊ¯ÆÆÌì¾ª£¬ÍşÁ¦ÎŞ±È¡£\n" NOR, me, target);
+        message_sort(HIW "\nå¿½ç„¶é—´$N" HIW "èº«å½¢æ¿€è¿›ï¼Œå·¦æ‰‹ä¸€åˆ’ï¼Œå³æ‰‹å‘¼çš„ä¸€æŒï¼Œä¾¿"
+                     "å‘$n" HIW "å‡»å»ï¼Œæ­£æ˜¯é™é¾™åå…«æŒã€Œ" NOR + HIY "äº¢é¾™æœ‰æ‚”" NOR
+                     + HIW "ã€ä¸€æ‹›ï¼ŒåŠ›è‡ªæŒç”Ÿä¹‹é™…è¯´åˆ°ä¾¿åˆ°ï¼Œä»¥æ’å±±å€’æµ·ä¹‹åŠ¿å‘$n" HIW
+                     "ç‹‚æ¶Œè€Œå»ï¼Œå½“çœŸçŸ³ç ´å¤©æƒŠï¼Œå¨åŠ›æ— æ¯”ã€‚\n" NOR, me, target);
         if (ap / 2 + random(ap) > dp)
         {
                 damage = ap / 2 + random(ap);
                 msg = COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 40,
-                                          HIR "$p" HIR "Ò»Àã£¬Ö»¼û$P" HIR "ÉíĞÎ"
-                                          "Ò»ÉÁ£¬ÒÑ»ÎÖÁ×Ô¼º¸úÇ°£¬¶ãÉÁ²»¼°£¬±»»÷"
-                                          "¸öÕıÖĞ¡£\n:ÄÚÉË@?");
+                                          HIR "$p" HIR "ä¸€æ¥ï¼Œåªè§$P" HIR "èº«å½¢"
+                                          "ä¸€é—ªï¼Œå·²æ™ƒè‡³è‡ªå·±è·Ÿå‰ï¼Œèº²é—ªä¸åŠï¼Œè¢«å‡»"
+                                          "ä¸ªæ­£ä¸­ã€‚\n:å†…ä¼¤@?");
 
                 message_vision(msg, me, target);
 
         } else
         {
-                msg = HIC "$p" HIC "Æø¹áË«±Û£¬ÄıÉñÓ¦¶Ô£¬ÓÎÈĞÓĞÓà£¬$P"
-                      HIC "ÕÆÁ¦ÈçÄàÅ£Èëº££¬¾¡ÊıĞ¶È¥¡£\n" NOR;
+                msg = HIC "$p" HIC "æ°”è´¯åŒè‡‚ï¼Œå‡ç¥åº”å¯¹ï¼Œæ¸¸åˆƒæœ‰ä½™ï¼Œ$P"
+                      HIC "æŒåŠ›å¦‚æ³¥ç‰›å…¥æµ·ï¼Œå°½æ•°å¸å»ã€‚\n" NOR;
                 message_vision(msg, me, target);
         }
 
-        // µÚ¶şÕÆ
+        // ç¬¬äºŒæŒ
         ap = me->query_skill("strike") * 3 / 2 + me->query("str") * 5 +
              me->query("level") * 20;
         dp = target->query_skill("parry") + target->query("dex") * 5 +
              target->query("level") * 20;
 
-        message_sort(HIW "\n$N" HIW "Ò»ÕÆ¼È³ö£¬Éí×ÓÒÑÈ»ÇÀµ½Àë$n" HIW "ÈıËÄÕÉÖ®Íâ"
-                     "£¬ºóÕÆÍÆÇ°ÕÆ£¬Á½¹ÉÕÆÁ¦µÀºÏ²¢£¬ÓÖÊÇÒ»ÕĞ¡¸" NOR + HIY "¿ºÁúÓĞ"
-                     "»Ú" NOR + HIW "¡¹¹¥³ö£¬ÕÆÁ¦ÓÌÈçÅ­³±¿ñÓ¿£¬ÊÆ²»¿Éµ±¡£ö®Ê±$n"
-                     HIW "±ã¾õÆøÏ¢ÖÏÖÍ£¬Á¢×ã²»ÎÈ¡£\n" NOR, me, target);
+        message_sort(HIW "\n$N" HIW "ä¸€æŒæ—¢å‡ºï¼Œèº«å­å·²ç„¶æŠ¢åˆ°ç¦»$n" HIW "ä¸‰å››ä¸ˆä¹‹å¤–"
+                     "ï¼ŒåæŒæ¨å‰æŒï¼Œä¸¤è‚¡æŒåŠ›é“åˆå¹¶ï¼Œåˆæ˜¯ä¸€æ‹›ã€Œ" NOR + HIY "äº¢é¾™æœ‰"
+                     "æ‚”" NOR + HIW "ã€æ”»å‡ºï¼ŒæŒåŠ›çŠ¹å¦‚æ€’æ½®ç‹‚æ¶Œï¼ŒåŠ¿ä¸å¯å½“ã€‚éœæ—¶$n"
+                     HIW "ä¾¿è§‰æ°”æ¯çª’æ»ï¼Œç«‹è¶³ä¸ç¨³ã€‚\n" NOR, me, target);
         if (ap / 2 + random(ap) > dp)
         {
                 damage = ap * 2 / 3 + random(ap);
                 msg = COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 50,
-                                           HIR "Ö»Ìı$p" HIR "Ò»Éù²Òº¿£¬±»$P" HIR
-                                           "Ò»ÕÆ»÷ÖĞĞØÇ°£¬¡°¿¦àê¿¦àê¡±¶ÏÁË¼¸¸ùÀß"
-                                           "¹Ç¡£\n:ÄÚÉË@?");
+                                           HIR "åªå¬$p" HIR "ä¸€å£°æƒ¨åšï¼Œè¢«$P" HIR
+                                           "ä¸€æŒå‡»ä¸­èƒ¸å‰ï¼Œâ€œå–€åš“å–€åš“â€æ–­äº†å‡ æ ¹è‚‹"
+                                           "éª¨ã€‚\n:å†…ä¼¤@?");
 
                 message_vision(msg, me, target);
         } else
         {
-                msg = HIC "$p" HIC "Æø¹áË«±Û£¬ÄıÉñÓ¦¶Ô£¬ÓÎÈĞÓĞÓà£¬$P"
-                      HIC "ÕÆÁ¦ÈçÄàÅ£Èëº££¬¾¡ÊıĞ¶È¥¡£\n" NOR;
+                msg = HIC "$p" HIC "æ°”è´¯åŒè‡‚ï¼Œå‡ç¥åº”å¯¹ï¼Œæ¸¸åˆƒæœ‰ä½™ï¼Œ$P"
+                      HIC "æŒåŠ›å¦‚æ³¥ç‰›å…¥æµ·ï¼Œå°½æ•°å¸å»ã€‚\n" NOR;
                 message_vision(msg, me, target);
         }
 
-        // µÚÈıÕÆ
+        // ç¬¬ä¸‰æŒ
         ap = me->query_skill("strike") * 3 + me->query("str") * 5 +
              me->query_skill("martial-cognize", 1);
         dp = target->query_skill("force") + target->query("con") * 5 +
              target->query_skill("martial-cognize", 1);
 
-        message_sort(HIW "\n½ô¸ú×Å$N" HIW "Ò»Éù±©ºÈ£¬ÓÒÕÆĞ±Ğ±»Ó³ö£¬Ç°ÕĞÕÆÁ¦Î´Ïû"
-                     "£¬´ËÕĞÕÆÁ¦ÓÖµ½£¬¾¹È»ÓÖ¹¥³öÒ»ÕĞ¡¸" NOR + HIY "¿ºÁúÓĞ»Ú" NOR
-                     + HIW "¡¹£¬ÕÆ¼Ğ·çÊÆ£¬ÊÆÈçÆÆÖñ£¬±ãÈçÒ»¶ÂÎŞĞÎÆøÇ½£¬ÏòÇ°¼²³å¶ø"
-                     "È¥¡£$n" HIW "Ö»¾õÆøÑª·­Ó¿£¬ÆøÏ¢³Á×Ç¡£\n" NOR, me, target);
+        message_sort(HIW "\nç´§è·Ÿç€$N" HIW "ä¸€å£°æš´å–ï¼Œå³æŒæ–œæ–œæŒ¥å‡ºï¼Œå‰æ‹›æŒåŠ›æœªæ¶ˆ"
+                     "ï¼Œæ­¤æ‹›æŒåŠ›åˆåˆ°ï¼Œç«Ÿç„¶åˆæ”»å‡ºä¸€æ‹›ã€Œ" NOR + HIY "äº¢é¾™æœ‰æ‚”" NOR
+                     + HIW "ã€ï¼ŒæŒå¤¹é£åŠ¿ï¼ŒåŠ¿å¦‚ç ´ç«¹ï¼Œä¾¿å¦‚ä¸€å µæ— å½¢æ°”å¢™ï¼Œå‘å‰ç–¾å†²è€Œ"
+                     "å»ã€‚$n" HIW "åªè§‰æ°”è¡€ç¿»æ¶Œï¼Œæ°”æ¯æ²‰æµŠã€‚\n" NOR, me, target);
 
         if (ap / 2 + random(ap) > dp)
         {
                 damage = ap + random(ap);
                 msg = COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 60,
-                                           HIR "½á¹û$p" HIR "¶ãÉÁ²»¼°£¬$P" HIR
-                                           "µÄÕÆ¾¢¶ÙÊ±´©ĞØ¶ø¹ı£¬¡°ÍÛ¡±µÄÅç³öÒ»´ó"
-                                           "¿ÚÏÊÑª¡£\n:ÄÚÉË@?");
+                                           HIR "ç»“æœ$p" HIR "èº²é—ªä¸åŠï¼Œ$P" HIR
+                                           "çš„æŒåŠ²é¡¿æ—¶ç©¿èƒ¸è€Œè¿‡ï¼Œâ€œå“‡â€çš„å–·å‡ºä¸€å¤§"
+                                           "å£é²œè¡€ã€‚\n:å†…ä¼¤@?");
 
                 message_vision(msg, me, target);
                 me->start_busy(3 + random(4));
                 me->add("neili", -400 - random(600));
         } else
         {
-                msg = HIC "$p" HIC "¼ûÕâÕĞÀ´ÊÆĞ×ÃÍ£¬ÉíĞÎ¼²ÍË£¬Ë²¼äÆ®³öÈı"
-                      "ÕÉ£¬ÍÑ³ö$P" HIC "ÕÆÁ¦Ö®Íâ¡£\n" NOR;
+                msg = HIC "$p" HIC "è§è¿™æ‹›æ¥åŠ¿å‡¶çŒ›ï¼Œèº«å½¢ç–¾é€€ï¼Œç¬é—´é£˜å‡ºä¸‰"
+                      "ä¸ˆï¼Œè„±å‡º$P" HIC "æŒåŠ›ä¹‹å¤–ã€‚\n" NOR;
                 message_vision(msg, me, target);
                 me->start_busy(3 + random(4));
                 me->add("neili", -400 - random(600));

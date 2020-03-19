@@ -2,13 +2,13 @@ inherit ITEM;
 
 void create()
 {
-	set_name( "ÉÙÁÖÓ¢ĞÛÁî", ({ "yingxiong ling", "ling", "iron" }) );
+	set_name( "å°‘æ—è‹±é›„ä»¤", ({ "yingxiong ling", "ling", "iron" }) );
 	set_weight(100);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¿é");
-                set("long", "ÕâÊÇÒ»¿éÓÃÓÚÍ¨ĞĞÉÙÁÖËÂµÄÌúÖıÁîÅÆ¡£ ÓÉ·½ÕÉÇ©·¢£¬Ñû¸÷Â·Ó¢ĞÛÈëËÂ¹ÛÀñ¡£\n");
+		set("unit", "å—");
+                set("long", "è¿™æ˜¯ä¸€å—ç”¨äºé€šè¡Œå°‘æ—å¯ºçš„é“é“¸ä»¤ç‰Œã€‚ ç”±æ–¹ä¸ˆç­¾å‘ï¼Œé‚€å„è·¯è‹±é›„å…¥å¯ºè§‚ç¤¼ã€‚\n");
 		set("value", 100);
 		set("material", "iron");
 	}

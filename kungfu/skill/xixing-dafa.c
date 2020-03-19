@@ -24,22 +24,22 @@ int valid_learn(object me)
 {
         int lvl = (int)me->query_skill("xixing-dafa", 1);
 
-        if (me->query("character") == "¹âÃ÷ÀÚÂä")
-                return notify_fail("ÄãĞÄÖĞ°µµÀ£ºÕâÖÖº¦ÈËµÄÎä¹¦£¬ÎÒÑ§Ëü×÷Éõ£¿\n");
+        if (me->query("character") == "å…‰æ˜ç£Šè½")
+                return notify_fail("ä½ å¿ƒä¸­æš—é“ï¼šè¿™ç§å®³äººçš„æ­¦åŠŸï¼Œæˆ‘å­¦å®ƒä½œç”šï¼Ÿ\n");
 
         if (me->query("con") < 30)
-                return notify_fail("ÄãÊÔ×Å°´ÕÕ·¨ÃÅÔË×ªÁËÒ»ÏÂÄÚÏ¢£¬ºöÈ»¾õµÃĞÄ»ğÈç"
-                                   "·Ù£¬µ¤ÌïÈ´ÊÇÒ»Õó±ùÁ¹£¡\n");
+                return notify_fail("ä½ è¯•ç€æŒ‰ç…§æ³•é—¨è¿è½¬äº†ä¸€ä¸‹å†…æ¯ï¼Œå¿½ç„¶è§‰å¾—å¿ƒç«å¦‚"
+                                   "ç„šï¼Œä¸¹ç”°å´æ˜¯ä¸€é˜µå†°å‡‰ï¼\n");
 
         if ((int)me->query_skill("force", 1) < 100)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦ĞŞÎª²»×ã£¬ÄÑÒÔĞŞÁ¶ÎüĞÇ´ó·¨¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸä¿®ä¸ºä¸è¶³ï¼Œéš¾ä»¥ä¿®ç‚¼å¸æ˜Ÿå¤§æ³•ã€‚\n");
 
         if (! me->query("can_learn/xixing-dafa/ren")
            && me->query("max_neili")
            && lvl < 200
            && lvl >= 10)
-                return notify_fail("ÄãÃ»ÓĞ°´ÕÕÎüĞÇ´ó·¨µÄ¾÷ÇÏ½«ÄÚÁ¦É¢È¥£¬ÏÖÔÚ»¹²»"
-                                   "¸ÒÍı×Ô¼ÌĞøĞŞĞĞ´ó·¨¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æŒ‰ç…§å¸æ˜Ÿå¤§æ³•çš„è¯€çªå°†å†…åŠ›æ•£å»ï¼Œç°åœ¨è¿˜ä¸"
+                                   "æ•¢å¦„è‡ªç»§ç»­ä¿®è¡Œå¤§æ³•ã€‚\n");
 
         return ::valid_learn(me);
 }
@@ -70,20 +70,20 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
                 switch (random(4))
                 {
                 case 0:
-                        result += ([ "msg" : HIM "$N" HIM "Ö»¾õµÃÄÚÁ¦Ô´Ô´¶øĞº"
-                                             "£¬²»ÓÉµÃ´ó³ÔÒ»¾ª¡£\n" NOR ]);
+                        result += ([ "msg" : HIM "$N" HIM "åªè§‰å¾—å†…åŠ›æºæºè€Œæ³»"
+                                             "ï¼Œä¸ç”±å¾—å¤§åƒä¸€æƒŠã€‚\n" NOR ]);
                         break;
                 case 1:
-                        result += ([ "msg" : HIM "$N" HIM "Ö»¾õµÃ·¢³öµÄÄÚÁ¦ÓÌ"
-                                             "ÈçÊ¯³Á´óº££¬²»ÖªËù×Ù¡£\n" NOR ]);
+                        result += ([ "msg" : HIM "$N" HIM "åªè§‰å¾—å‘å‡ºçš„å†…åŠ›çŠ¹"
+                                             "å¦‚çŸ³æ²‰å¤§æµ·ï¼Œä¸çŸ¥æ‰€è¸ªã€‚\n" NOR ]);
                         break;
                 case 2:
-                        result += ([ "msg" : HIM "$N" HIM "Ö»¾õµÃ·¢³öµÄÄÚÁ¦ÓÌ"
-                                             "ÎŞÓ°ÎŞ×Ù£¬»ëÈ»²»Öª×ÅÂä¡£\n" NOR ]);
+                        result += ([ "msg" : HIM "$N" HIM "åªè§‰å¾—å‘å‡ºçš„å†…åŠ›çŠ¹"
+                                             "æ— å½±æ— è¸ªï¼Œæµ‘ç„¶ä¸çŸ¥ç€è½ã€‚\n" NOR ]);
                         break;
                 default:
-                        result += ([ "msg" : HIM "$N" HIM "²»×¡´ß¶¯ÄÚÁ¦£¬µ«ÊÇ"
-                                             "Ö»¾õµÃ$n¾¹ËÆºÁ²»·ÑÁ¦¡£\n" NOR ]);
+                        result += ([ "msg" : HIM "$N" HIM "ä¸ä½å‚¬åŠ¨å†…åŠ›ï¼Œä½†æ˜¯"
+                                             "åªè§‰å¾—$nç«Ÿä¼¼æ¯«ä¸è´¹åŠ›ã€‚\n" NOR ]);
                         break;
                 }
                 return result;
@@ -92,7 +92,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
 
 int practice_skill(object me)
 {
-        return notify_fail("ÎüĞÇ´ó·¨Ö»ÄÜÓÃÑ§µÄ£¬»òÊÇ´ÓÔËÓÃ(exert)ÖĞÔö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("å¸æ˜Ÿå¤§æ³•åªèƒ½ç”¨å­¦çš„ï¼Œæˆ–æ˜¯ä»è¿ç”¨(exert)ä¸­å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 void check_count(object me)

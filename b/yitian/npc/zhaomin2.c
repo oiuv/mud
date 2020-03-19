@@ -3,14 +3,14 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÕÔÃô", ({ "zhao min", "min", "zhao" }));
-        set("title", HIY "´óÔªÉÜÃô¿¤Ö÷" NOR);
+        set_name("èµµæ•", ({ "zhao min", "min", "zhao" }));
+        set("title", HIY "å¤§å…ƒç»æ•éƒ¡ä¸»" NOR);
         set("long", @LONG
-ËýÁ³·ººìÏ¼£¬ÈÝÉ«Àö¶¼¡£Ê®·ÖÃÀÀöÖ®ÖÐ£¬¸ü´ø
-×ÅÈý·ÖÓ¢Æø£¬Èý·ÖºÀÌ¬£¬Í¬Ê±ÓºÈÝ»ª¹ó£¬×ÔÓÐ
-Ò»¸±¶ËÑÏÖ®ÖÂ£¬ÁîÈËËàÈ»Æð¾´£¬²»¸Ò±ÆÊÓ¡£
+å¥¹è„¸æ³›çº¢éœžï¼Œå®¹è‰²ä¸½éƒ½ã€‚ååˆ†ç¾Žä¸½ä¹‹ä¸­ï¼Œæ›´å¸¦
+ç€ä¸‰åˆ†è‹±æ°”ï¼Œä¸‰åˆ†è±ªæ€ï¼ŒåŒæ—¶é›å®¹åŽè´µï¼Œè‡ªæœ‰
+ä¸€å‰¯ç«¯ä¸¥ä¹‹è‡´ï¼Œä»¤äººè‚ƒç„¶èµ·æ•¬ï¼Œä¸æ•¢é€¼è§†ã€‚
 LONG);
-        set("gender", "Å®ÐÔ");
+        set("gender", "å¥³æ€§");
         set("age", 19);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -43,8 +43,8 @@ LONG);
         map_skill("unarmed", "changquan");
 
         set("inquiry", ([
-                "ÕÅÎÞ¼É" : "ÕÅ¹«×ÓÔ¶ÔÚÀ¥ÂØ£¬²»ÖªËû½üÀ´¿ÉºÃ£¿ÇïÀä´ºº®£¬¿ÉÓÐº®ÒÂ£¿",
-                "ÒÐÌì½£" : "ÒÐÌìÎªÌìÏÂÉñ±ø£¬ÔõÃ´£¬ÄãÏëÒª£¿",
+                "å¼ æ— å¿Œ" : "å¼ å…¬å­è¿œåœ¨æ˜†ä»‘ï¼Œä¸çŸ¥ä»–è¿‘æ¥å¯å¥½ï¼Ÿç§‹å†·æ˜¥å¯’ï¼Œå¯æœ‰å¯’è¡£ï¼Ÿ",
+                "å€šå¤©å‰‘" : "å€šå¤©ä¸ºå¤©ä¸‹ç¥žå…µï¼Œæ€Žä¹ˆï¼Œä½ æƒ³è¦ï¼Ÿ",
         ]));
 
         setup();
@@ -66,22 +66,22 @@ void fight_ob(object ob)
 
         if (guard1 && ! guard1->is_fighting())
         {
-                message_vision(CYN "$N" CYN "ÀäºßµÀ£ºÕÒËÀ£¡\n" NOR,
+                message_vision(CYN "$N" CYN "å†·å“¼é“ï¼šæ‰¾æ­»ï¼\n" NOR,
                                guard1);
                 guard1->kill_ob(ob);
         }
 
         if (guard2 && ! guard2->is_fighting())
         {
-                message_vision(CYN "$N" CYN "´óÅ­£¬ºÈµÀ£ºÄÄÀïÀ´µÄ"
-                               "¼úÖÖ£¬¾ÓÈ»ÅÜµ½ÕâÀïÀ´ÈöÒ°£¡\n" NOR,
+                message_vision(CYN "$N" CYN "å¤§æ€’ï¼Œå–é“ï¼šå“ªé‡Œæ¥çš„"
+                               "è´±ç§ï¼Œå±…ç„¶è·‘åˆ°è¿™é‡Œæ¥æ’’é‡Žï¼\n" NOR,
                                guard2);
                 guard2->kill_ob(ob);
         }
 
         if (guard3 && ! guard3->is_fighting())
         {
-                message_vision(CYN "$N" CYN "ºÈµÀ£ºÔô×Ó²»µÃÎÞÀñ£¡"
+                message_vision(CYN "$N" CYN "å–é“ï¼šè´¼å­ä¸å¾—æ— ç¤¼ï¼"
                                "\n" NOR, guard3);
                 guard3->kill_ob(ob);
         }
@@ -90,7 +90,7 @@ void fight_ob(object ob)
 
 int accept_fight(object ob)
 {
-        command("say Ã»ÐËÈ¤¡£");
+        command("say æ²¡å…´è¶£ã€‚");
         return 0;
 }
 
@@ -116,9 +116,9 @@ void unconcious()
 
 void die()
 {
-        message_vision(HIW "\nÕÔÃôÎ¢Î¢Ò»Ð¦£¬Ò¡ÁËÒ¡Í·¡£Í»È»¼äÌýµÃÁ½ÉùÀ÷"
-                       "Ð¥´«À´£¬´ÓÕÔÃô\nÉíºóÉÁ¹ýÁ½µÀÈËÓ°¡£ÄãÎ¢¾õÑÛ»¨£¬"
-                       "»ÅÃ¦ÖÐÕý´ý³öÕÐÏàÓ¦£¬È´Ö»\n¼ûÈËÓ°¼²»Î£¬»Ø¹ýÉñÖ®"
-                       "ºó£¬ÄÄÀï»¹ÓÐÕÔÃôµÄ×ÙÓ°¡£\n\n" NOR, this_object());
+        message_vision(HIW "\nèµµæ•å¾®å¾®ä¸€ç¬‘ï¼Œæ‘‡äº†æ‘‡å¤´ã€‚çªç„¶é—´å¬å¾—ä¸¤å£°åŽ‰"
+                       "å•¸ä¼ æ¥ï¼Œä»Žèµµæ•\nèº«åŽé—ªè¿‡ä¸¤é“äººå½±ã€‚ä½ å¾®è§‰çœ¼èŠ±ï¼Œ"
+                       "æ…Œå¿™ä¸­æ­£å¾…å‡ºæ‹›ç›¸åº”ï¼Œå´åª\nè§äººå½±ç–¾æ™ƒï¼Œå›žè¿‡ç¥žä¹‹"
+                       "åŽï¼Œå“ªé‡Œè¿˜æœ‰èµµæ•çš„è¸ªå½±ã€‚\n\n" NOR, this_object());
         destruct(this_object());
 }

@@ -3,15 +3,15 @@
 inherit SKILL;
 
 string *parry_msg = ({
-    "Ö»Ìý¼û¡¸ïÏ¡¹Ò»Éù£¬±»$p¸ñ¿ªÁË¡£\n",
-    "½á¹û¡¸µ±¡¹µØÒ»Éù±»$pµ²¿ªÁË¡£\n",
-    "µ«ÊÇ±»$nÓÃÊÖÖÐ±øÈÐ¼Ü¿ª¡£\n",
-    "µ«ÊÇ$nÉí×ÓÒ»²à£¬ÓÃÊÖÖÐ±øÈÐ¸ñ¿ª¡£\n",
+    "åªå¬è§ã€Œé”µã€ä¸€å£°ï¼Œè¢«$pæ ¼å¼€äº†ã€‚\n",
+    "ç»“æžœã€Œå½“ã€åœ°ä¸€å£°è¢«$pæŒ¡å¼€äº†ã€‚\n",
+    "ä½†æ˜¯è¢«$nç”¨æ‰‹ä¸­å…µåˆƒæž¶å¼€ã€‚\n",
+    "ä½†æ˜¯$nèº«å­ä¸€ä¾§ï¼Œç”¨æ‰‹ä¸­å…µåˆƒæ ¼å¼€ã€‚\n",
 });
 
 string *unarmed_parry_msg = ({
-    "µ«ÊÇ±»$p¸ñ¿ªÁË¡£\n",
-    "½á¹û±»$pµ²¿ªÁË¡£\n",
+    "ä½†æ˜¯è¢«$pæ ¼å¼€äº†ã€‚\n",
+    "ç»“æžœè¢«$pæŒ¡å¼€äº†ã€‚\n",
 });
 
 string query_parry_msg(object weapon)

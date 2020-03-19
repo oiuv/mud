@@ -9,15 +9,15 @@ inherit F_COAGENT;
 
 void create()
 {
-	set_name("ÅíÓ¨Óñ", ({ "peng yingyu", "peng", "yingyu", }));
+	set_name("å½­è¹ç‰", ({ "peng yingyu", "peng", "yingyu", }));
 	set("long",
-        "ËûÊÇÒ»Î»¸ß¸ßÊİÊİµÄÉ®ÈË£¬Éí´©Ò»¼ş°×²¼³¤ÅÛ¡£\n"
+        "ä»–æ˜¯ä¸€ä½é«˜é«˜ç˜¦ç˜¦çš„åƒ§äººï¼Œèº«ç©¿ä¸€ä»¶ç™½å¸ƒé•¿è¢ã€‚\n"
         "\n"
 	);
 
-        set("title", HIG "Ã÷½Ì" NOR "ÎåÉ¢ÈË");
-        set("nickname", "ÅíºÍÉĞ");
-	set("gender", "ÄĞĞÔ");
+        set("title", HIG "æ˜æ•™" NOR "äº”æ•£äºº");
+        set("nickname", "å½­å’Œå°š");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
         set("class", "bonze");
 
@@ -51,7 +51,7 @@ void create()
 	map_skill("parry", "jingang-quan");
 
 	prepare_skill("cuff", "jingang-quan");
-        create_family("Ã÷½Ì", 3, "ÎåÉ¢ÈË");
+        create_family("æ˜æ•™", 3, "äº”æ•£äºº");
 
 	set("coagents", ({
                 ([ "startroom" : "/d/mingjiao/dadian",

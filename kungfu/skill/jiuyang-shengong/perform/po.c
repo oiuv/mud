@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define PO "¡¸" HIY "½ğÑôÆÆÁë" NOR "¡¹"
+#define PO "ã€Œ" HIY "é‡‘é˜³ç ´å²­" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -15,43 +15,43 @@ int perform(object me, object target)
         int damage;
 
         if (userp(me) && ! me->query("can_perform/jiuyang-shengong/po"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (userp(me) && ! me->query("can_learn/jiuyang-shengong/enable_weapon"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");    
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");    
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(PO "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(PO "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if ((int)me->query_skill("jiuyang-shengong", 1) < 220)
-                return notify_fail("ÄãµÄ¾ÅÑôÉñ¹¦²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ çš„ä¹é˜³ç¥åŠŸä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if ((int)me->query_skill("force", 1) < 240)
-                return notify_fail("ÄãµÄÄÚ¹¦¸ù»ù²»¹»£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸæ ¹åŸºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if ((int)me->query_skill("sword", 1) < 240)
-                return notify_fail("ÄãµÄ»ù±¾½£·¨»ğºò²»¹»£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å‰‘æ³•ç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if ((int)me->query("max_neili") < 5500)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»×ã£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if (me->query("neili") < 400)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if (me->query_skill_mapped("sword") != "jiuyang-shengong") 
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢¾ÅÑôÉñ¹¦Îª½£·¨£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ä¹é˜³ç¥åŠŸä¸ºå‰‘æ³•ï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIY "\n$N" HIY "Ò»Éù³¤Ò÷£¬ÄÚÁ¦ÆÙÕÇ£¬È«ÉíÕæÆø¹áÓë½£±ú¡£ÊÖÖĞ" + weapon->name() + HIY 
-              "¹âÃ¢ËÄÉä£¬É²ÄÇ¼äÒ»¹ÉÇ¿¾¢µÄ½£ÆøÒÑÓ¿Ïò$n" HIY "£¡\n" NOR;
+        msg = HIY "\n$N" HIY "ä¸€å£°é•¿åŸï¼Œå†…åŠ›ç€‘æ¶¨ï¼Œå…¨èº«çœŸæ°”è´¯ä¸å‰‘æŸ„ã€‚æ‰‹ä¸­" + weapon->name() + HIY 
+              "å…‰èŠ’å››å°„ï¼Œåˆ¹é‚£é—´ä¸€è‚¡å¼ºåŠ²çš„å‰‘æ°”å·²æ¶Œå‘$n" HIY "ï¼\n" NOR;
 
         me->add("neili", -150);
         ap = me->query_skill("sword") + me->query_skill("force", 1);
@@ -66,8 +66,8 @@ int perform(object me, object target)
                                            (: final, me, target, damage :));
         } else
         {
-                msg += HIC "¿ÉÊÇ$n" HIC "¿´Í¸$P" HIC "´ËÕĞÖ®ÖĞµÄÆÆÕÀ£¬Õò"
-                       "¶¨Óâºã£¬È«ÉñÓ¦¶Ô×ÔÈç¡£\n" NOR;
+                msg += HIC "å¯æ˜¯$n" HIC "çœ‹é€$P" HIC "æ­¤æ‹›ä¹‹ä¸­çš„ç ´ç»½ï¼Œé•‡"
+                       "å®šé€¾æ’ï¼Œå…¨ç¥åº”å¯¹è‡ªå¦‚ã€‚\n" NOR;
         }
         message_sort(msg, me, target);
 
@@ -78,8 +78,8 @@ string final(object me, object target, int damage)
 {
         target->add("neili", -(damage / 4));
         target->add("neili", -(damage / 8));
-        return  HIY "$n" HIY "¼û´ËÕĞ¿ìËÙÎŞ±È£¬ÒÑÎŞ´Ó¶ãÉÁ£¬Ö»µÃ·ÜÁ¦ÕĞ¼Ü£¬µ«ÊÇÎŞÄÎ$N" HIY 
-                "ÄÚÁ¦¾ªÈË£¬Ò»¹É½£ÆøÒÑ¾­´©Í¸$n" HIY "ĞØ¿Ú£¬ÏÊÑª¿ñĞº¶ø³ö¡£$n" HIY "¶Ù¾õ"
-                "ÄÚÏ¢É¢ÂÒ¡£\n" NOR;
+        return  HIY "$n" HIY "è§æ­¤æ‹›å¿«é€Ÿæ— æ¯”ï¼Œå·²æ— ä»èº²é—ªï¼Œåªå¾—å¥‹åŠ›æ‹›æ¶ï¼Œä½†æ˜¯æ— å¥ˆ$N" HIY 
+                "å†…åŠ›æƒŠäººï¼Œä¸€è‚¡å‰‘æ°”å·²ç»ç©¿é€$n" HIY "èƒ¸å£ï¼Œé²œè¡€ç‹‚æ³»è€Œå‡ºã€‚$n" HIY "é¡¿è§‰"
+                "å†…æ¯æ•£ä¹±ã€‚\n" NOR;
 }
 

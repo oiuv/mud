@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "°ãÈôÌ¨");
+        set("short", "èˆ¬è‹¥å°");
         set("long",@LONG
-ÕâÊÇ¸öÆÕÍ¨µÄÊ¯Ì¨£¬Ïà´«µ±Äê·ð×æÔø½µÁÙ´ËÌ¨´«·¨¡£ÔÙÍùÄÏÈ¥¾ÍÊÇ±¾
-ËÂÖØµØ¡ª¡ªÄ²ÄáÌÃ¡£½­ºþÖÐ´«ÑÔÌìÁúËÂµÄÕòËÂÖ®±¦¡ª¡ªÁùÂöÉñ½£Æ×¾Í²ØÓÚ
-´ËÖÐ¡£
+è¿™æ˜¯ä¸ªæ™®é€šçš„çŸ³å°ï¼Œç›¸ä¼ å½“å¹´ä½›ç¥–æ›¾é™ä¸´æ­¤å°ä¼ æ³•ã€‚å†å¾€å—åŽ»å°±æ˜¯æœ¬
+å¯ºé‡åœ°â€”â€”ç‰Ÿå°¼å ‚ã€‚æ±Ÿæ¹–ä¸­ä¼ è¨€å¤©é¾™å¯ºçš„é•‡å¯ºä¹‹å®â€”â€”å…­è„‰ç¥žå‰‘è°±å°±è—äºŽ
+æ­¤ä¸­ã€‚
 LONG );
 	set("exits", ([
 		"south" : __DIR__"munitang",
@@ -18,8 +18,8 @@ LONG );
 string long()
 {
         if (! stringp(query("exits/south")))
-                return query("long") + "    Ææ¹ÖµÄÊÇ´óÃÅ½ô"
-                       "±Õ£¬²»ÖªµÀÀïÃæÔõÃ´»ØÊÂ¡£\n";
+                return query("long") + "    å¥‡æ€ªçš„æ˜¯å¤§é—¨ç´§"
+                       "é—­ï¼Œä¸çŸ¥é“é‡Œé¢æ€Žä¹ˆå›žäº‹ã€‚\n";
 
         return query("long");
 }

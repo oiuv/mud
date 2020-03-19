@@ -7,14 +7,14 @@ inherit F_UNIQUE;
 
 void create()
 {
-        set_name("ÌÆÑó", ({ "tang yang", "tang", "yang", }));
+        set_name("å”æ´‹", ({ "tang yang", "tang", "yang", }));
 	set("long",
-        "ËûÊÇÒ»Î»¸ß´ó¿ıÎ°µÄÖĞÄêÄĞ×Ó£¬Éí´©Ò»¼ş°×²¼³¤ÅÛ¡£\n"
-        "ËûÌìÉúÉñÁ¦£¬ÊÖÖĞµÄÁ½Í·ÀÇÑÀ°ôÓĞÍò·ò²»µ±Ö®ÓÂ£¬ÕæÊÇÒ»ÌõÍş·çÁİÁİµÄºº×Ó¡£\n"
+        "ä»–æ˜¯ä¸€ä½é«˜å¤§é­ä¼Ÿçš„ä¸­å¹´ç”·å­ï¼Œèº«ç©¿ä¸€ä»¶ç™½å¸ƒé•¿è¢ã€‚\n"
+        "ä»–å¤©ç”Ÿç¥åŠ›ï¼Œæ‰‹ä¸­çš„ä¸¤å¤´ç‹¼ç‰™æ£’æœ‰ä¸‡å¤«ä¸å½“ä¹‹å‹‡ï¼ŒçœŸæ˜¯ä¸€æ¡å¨é£å‡›å‡›çš„æ±‰å­ã€‚\n"
 	);
 
-        set("title", HIR "Ã÷½Ì" BLK "ºéË®Æì" NOR "ÕÆÆìÊ¹");
-	set("gender", "ÄĞĞÔ");
+        set("title", HIR "æ˜æ•™" BLK "æ´ªæ°´æ——" NOR "æŒæ——ä½¿");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
         set("class", "fighter");
 
@@ -48,7 +48,7 @@ void create()
 	map_skill("parry", "jingang-quan");
 
 	prepare_skill("cuff", "jingang-quan");
-        create_family("Ã÷½Ì", 3, "ºéË®ÆìÕÆÆìÊ¹");
+        create_family("æ˜æ•™", 3, "æ´ªæ°´æ——æŒæ——ä½¿");
 	setup();
 
 	carry_object("/d/mingjiao/obj/baipao")->wear();

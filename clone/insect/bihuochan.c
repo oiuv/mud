@@ -1,4 +1,4 @@
-// bihuochan.c ±Ì»ğó¸òÜ
+// bihuochan.c ç¢§ç«èŸ¾èœ
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit POISON_INSECT;
 
 void create()
 {
-	set_name(HIG "±Ì»ğó¸òÜ" NOR, ({ "bihuo chanchu" }) );
+	set_name(HIG "ç¢§ç«èŸ¾èœ" NOR, ({ "bihuo chanchu" }) );
         set_weight(320);
-	set("race", "Ò°ÊŞ");
+	set("race", "é‡å…½");
 	set("age", 3);
-	set("long", "Ò»Ö»ñ®¸òó¡£¬±³ÉÏÓĞÒ»ÌõÌõµÄÂÌÉ«ÌõÎÆ¡£\n");
+	set("long", "ä¸€åªç™è›¤èŸ†ï¼ŒèƒŒä¸Šæœ‰ä¸€æ¡æ¡çš„ç»¿è‰²æ¡çº¹ã€‚\n");
 	set("attitude", "peaceful");
 	set("str", 25);
 	set("con", 25);
-        set("unit", "Ö»");
-	set("limbs", ({ "Í·²¿", "ÉíÌå", "ÍÜÍÈ" }) );
+        set("unit", "åª");
+	set("limbs", ({ "å¤´éƒ¨", "èº«ä½“", "è›™è…¿" }) );
 	set("verbs", ({ "bite" }) );
 
         set("insect_poison", ([

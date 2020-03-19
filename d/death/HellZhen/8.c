@@ -16,7 +16,7 @@ void create()
         name += last_words[random(sizeof(last_words))];
         
         set_name(name, ({ "ghost"}) );
-        set("gender", "ÄĞĞÔ" );        
+        set("gender", "ç”·æ€§" );        
         set("age",40);
         set("str", 30);
         set("int", 20);
@@ -73,9 +73,9 @@ void invocation(object target)
         object me = this_object();
 
 
-        msg = HIW "Ö»¼û$N" HIW "Ë«Ä¿¾«¹âËÄÉä£¬Ë«ÕÆ¶¸È»Ò»Õñ£¬½«ÌåÄÚ»ıĞîµÄ"
-              "ÏÈÌìÕæÆøÔÆ¹áÍÆ³ö£¬¶ÙÊ±ºôĞ¥\nÉù´ó×÷£¬ÏÈÌì¾¢µÀ²ã²ãµşµş£¬ÍğÈç"
-              "ÌÎÀË°ãÓ¿Ïò$n" HIW "¡£\n" NOR;
+        msg = HIW "åªè§$N" HIW "åŒç›®ç²¾å…‰å››å°„ï¼ŒåŒæŒé™¡ç„¶ä¸€æŒ¯ï¼Œå°†ä½“å†…ç§¯è“„çš„"
+              "å…ˆå¤©çœŸæ°”äº‘è´¯æ¨å‡ºï¼Œé¡¿æ—¶å‘¼å•¸\nå£°å¤§ä½œï¼Œå…ˆå¤©åŠ²é“å±‚å±‚å å ï¼Œå®›å¦‚"
+              "æ¶›æµªèˆ¬æ¶Œå‘$n" HIW "ã€‚\n" NOR;
 
         ap = me->query_skill("unarmed") * 3 / 2 + me->query_skill("martial-cognize", 1);
         dp = target->query_skill("force") + target->query_skill("martial-cognize", 1);
@@ -87,19 +87,19 @@ void invocation(object target)
                         damage = ap + random(ap / 2);
                         me->add("neili", -400);
                         msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK,
-                                                   damage, 90, HIR "$N" HIR "µÄ"
-                                                   "î¸¾¢µÇÊ±Íß½âÁË$n" HIR "µÄ»¤"
-                                                   "ÌåÕæÆø£¬$p" HIR "ÕæÔªÊÜËğ£¬"
-                                                   "½ÓÁ¬Åç³öÊı¿ÚÏÊÑª¡£\n" NOR);
+                                                   damage, 90, HIR "$N" HIR "çš„"
+                                                   "ç½¡åŠ²ç™»æ—¶ç“¦è§£äº†$n" HIR "çš„æŠ¤"
+                                                   "ä½“çœŸæ°”ï¼Œ$p" HIR "çœŸå…ƒå—æŸï¼Œ"
+                                                   "æ¥è¿å–·å‡ºæ•°å£é²œè¡€ã€‚\n" NOR);
 
                         if (objectp(weapon = target->query_temp("weapon"))
                            && weapon->query("stable", 1) < 100
                            && ap / 3 + random(ap) > dp)
                         {
                                 wp = weapon->name();
-                                msg += HIW "Ö»Ìı¡°ïÏ¡±µÄÒ»Éù´àÏì£¬$n" HIW "ÊÖ"
-                                       "ÖĞµÄ" + wp + HIW "ÔÚ$N" HIW "ÄÚÁ¦¼¤µ´"
-                                       "ÏÂÓ¦Éù¶øËé£¬ÍÑÊÖµøÂäÔÚµØÉÏ¡£\n" NOR;
+                                msg += HIW "åªå¬â€œé”µâ€çš„ä¸€å£°è„†å“ï¼Œ$n" HIW "æ‰‹"
+                                       "ä¸­çš„" + wp + HIW "åœ¨$N" HIW "å†…åŠ›æ¿€è¡"
+                                       "ä¸‹åº”å£°è€Œç¢ï¼Œè„±æ‰‹è·Œè½åœ¨åœ°ä¸Šã€‚\n" NOR;
                                 me->add("neili", -150);
                                 weapon->set("consistence", 0);
                                 weapon->move(environment(target));
@@ -110,9 +110,9 @@ void invocation(object target)
                            && ap / 3 + random(ap) > dp)
                         {
                                 cl = cloth->name();
-                                msg += HIW "Ö»Ìı¡°ºä¡±µÄÒ»ÉùÃÆÏì£¬$n" HIW "Éí"
-                                       "×ÅµÄ" + cl + HIW "ÔÚ$N" HIW "ÄÚÁ¦¼¤µ´"
-                                       "ÏÂÓ¦Éù¶øÁÑ£¬»¯³ÉÒ»¿é¿éËéÆ¬¡£\n" NOR;
+                                msg += HIW "åªå¬â€œè½°â€çš„ä¸€å£°é—·å“ï¼Œ$n" HIW "èº«"
+                                       "ç€çš„" + cl + HIW "åœ¨$N" HIW "å†…åŠ›æ¿€è¡"
+                                       "ä¸‹åº”å£°è€Œè£‚ï¼ŒåŒ–æˆä¸€å—å—ç¢ç‰‡ã€‚\n" NOR;
                                 me->add("neili", -150);
                                 cloth->set("consistence", 0);
                                 cloth->move(environment(target));
@@ -123,9 +123,9 @@ void invocation(object target)
                            && ap / 3 + random(ap) > dp)
                         {
                                 cl = cloth->name();
-                                msg += HIW "Ö»Ìı¡°ºä¡±µÄÒ»ÉùÃÆÏì£¬$n" HIW "Éí"
-                                       "×ÅµÄ" + cl + HIW "ÔÚ$N" HIW "ÄÚÁ¦¼¤µ´"
-                                       "ÏÂÓ¦Éù¶øËé£¬»¯³ÉÒ»¿é¿éËéÆ¬¡£\n" NOR;
+                                msg += HIW "åªå¬â€œè½°â€çš„ä¸€å£°é—·å“ï¼Œ$n" HIW "èº«"
+                                       "ç€çš„" + cl + HIW "åœ¨$N" HIW "å†…åŠ›æ¿€è¡"
+                                       "ä¸‹åº”å£°è€Œç¢ï¼ŒåŒ–æˆä¸€å—å—ç¢ç‰‡ã€‚\n" NOR;
                                 me->add("neili", -150);
                                 cloth->set("consistence", 0);
                                 cloth->move(environment(target));
@@ -134,8 +134,8 @@ void invocation(object target)
         {
                 me->start_busy(4);
                 me->add("neili", -120);
-                msg += CYN "¿ÉÊÇ$p" CYN "ÖªµÀ$P" CYN "ÕâÕĞµÄÀ÷"
-                       "º¦£¬²»¸ÒÓ²½Ó£¬µ±¼´Ğ±Ô¾¶ã±Ü¿ªÀ´¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çŸ¥é“$P" CYN "è¿™æ‹›çš„å‰"
+                       "å®³ï¼Œä¸æ•¢ç¡¬æ¥ï¼Œå½“å³æ–œè·ƒèº²é¿å¼€æ¥ã€‚\n" NOR;
         }
         message_combatd(msg, me, target);
 

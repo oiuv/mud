@@ -4,16 +4,16 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name("Å©¾ß", ({ "farm tool", "nong ju", "tool" }));
+        set_name("å†œå…·", ({ "farm tool", "nong ju", "tool" }));
         if(clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("long", "ÕâÊÇÒ»¸±Ä¾ÖÆµÄÅ©¾ß¡£\n");
-                set("base_unit", "¸±");
+                set("long", "è¿™æ˜¯ä¸€å‰¯æœ¨åˆ¶çš„å†œå…·ã€‚\n");
+                set("base_unit", "å‰¯");
                 set("base_weight", 8000);
                 set("no_sell", 1);
-                set("unit", "¶Ñ");
+                set("unit", "å †");
         }
 
         set_amount(1);

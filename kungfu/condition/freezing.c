@@ -8,21 +8,21 @@ inherit POISON;
 
 string name() { return "freezing"; }
 
-string chinese_name() { return "º®±ùÕæÆø"; }
+string chinese_name() { return "å¯’å†°çœŸæ°”"; }
 
 string update_msg_others()
 {
-    return HIW "$N" HIW "Á³É«ÌúÇà£¬ËÄÖ«½©Ó²£¬È«ÉíÉÏÏÂ¾¹ÁýÕÖÁËÒ»²ãº®Ëª¡£\n" NOR;
+    return HIW "$N" HIW "è„¸è‰²é“é’ï¼Œå››è‚¢åƒµç¡¬ï¼Œå…¨èº«ä¸Šä¸‹ç«Ÿç¬¼ç½©äº†ä¸€å±‚å¯’éœœã€‚\n" NOR;
 }
 
 string update_msg_self()
 {
-    return HIW "ÄãÖ»¾õÈ«Éí±ùÀäÎÞ±È£¬ËÄÖ«°Ùº¡ÄÑÊÜÖ®¼«£¬Èç¶é±ùÓü¡£\n" NOR;
+    return HIW "ä½ åªè§‰å…¨èº«å†°å†·æ— æ¯”ï¼Œå››è‚¢ç™¾éª¸éš¾å—ä¹‹æžï¼Œå¦‚å •å†°ç‹±ã€‚\n" NOR;
 }
 
 string die_msg_others()
 {
-    return HIW "$N" HIW "½©Ó²µÄÉí×ÓÔÚµØÉÏÆËÌÚÁË¼¸ÏÂ£¬¾ÍÔÙÃ»°ëµã¶¯¾²ÁË¡£\n" NOR;
+    return HIW "$N" HIW "åƒµç¡¬çš„èº«å­åœ¨åœ°ä¸Šæ‰‘è…¾äº†å‡ ä¸‹ï¼Œå°±å†æ²¡åŠç‚¹åŠ¨é™äº†ã€‚\n" NOR;
 }
 
 int jing_damage(object me, mapping cnd)
@@ -37,7 +37,7 @@ int qi_damage(object me, mapping cnd)
 
 string die_reason(string reason)
 {
-    return "±»º®±ùÕæÆø»î»î¶³ËÀÁË";
+    return "è¢«å¯’å†°çœŸæ°”æ´»æ´»å†»æ­»äº†";
 }
 
 int dispel(object me, object ob, mapping cnd)

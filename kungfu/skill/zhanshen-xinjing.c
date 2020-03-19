@@ -16,7 +16,7 @@ int query_neili_improve(object me)
     int lvl;
 
     lvl = (int)me->query_skill("zhanshen-xinjing", 1);
-    if (me->query("family/family_name") == "ºì»¨»á")
+    if (me->query("family/family_name") == "çº¢èŠ±ä¼š")
         return lvl * lvl * 15 * 20 / 100 / 200;
     else
         return lvl * lvl * 15 * 15 / 100 / 200;
@@ -25,21 +25,21 @@ int query_neili_improve(object me)
 int valid_learn(object me)
 {
         if ((int)me->query_skill("force", 1) < 100)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ðºò»¹²»¹»¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™è¿˜ä¸å¤Ÿã€‚\n");
 
-        if (me->query("gender") == "ÎÞÐÔ" && (int)me->query_skill("zhanshen-xinjing", 1) > 19)
-                return notify_fail("ÄãÎÞ¸ùÎÞÐÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄÕ½ÉñÐÄ¾­¡£\n");
+        if (me->query("gender") == "æ— æ€§" && (int)me->query_skill("zhanshen-xinjing", 1) > 19)
+                return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„æˆ˜ç¥žå¿ƒç»ã€‚\n");
 
         //if (me->query("con") < 30)
         if (me->query("con") < 25)
-                return notify_fail("ÄãÏÈÌì¸ù¹ÇåîÈõ£¬ÎÞ·¨Ñ§Ï°Õ½ÉñÐÄ¾­¡£\n");
+                return notify_fail("ä½ å…ˆå¤©æ ¹éª¨å­±å¼±ï¼Œæ— æ³•å­¦ä¹ æˆ˜ç¥žå¿ƒç»ã€‚\n");
 
         return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("Õ½ÉñÐÄ¾­Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("æˆ˜ç¥žå¿ƒç»åªèƒ½ç”¨å­¦(learn)çš„æ¥å¢žåŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)

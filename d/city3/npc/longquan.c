@@ -7,10 +7,10 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("Áúîı", ({ "long quan", "long" }));
-        set("title","½ğÅ£Îä¹İ½ÌÏ°");
-        set("long", "ÁúÀÏÒ¯×ÓÔÚÎä¹İÒ²¸ÉÁËºÃ¶àÄêÍ·ÁË£¬ÈÔÀÏµ±Òæ×³¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("é¾™é“¨", ({ "long quan", "long" }));
+        set("title","é‡‘ç‰›æ­¦é¦†æ•™ä¹ ");
+        set("long", "é¾™è€çˆ·å­åœ¨æ­¦é¦†ä¹Ÿå¹²äº†å¥½å¤šå¹´å¤´äº†ï¼Œä»è€å½“ç›Šå£®ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 60);
 
         set_skill("dodge", 180);

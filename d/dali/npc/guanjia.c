@@ -1,4 +1,4 @@
-// guanjia.c ¹Ü¼Ò
+// guanjia.c ç®¡å®¶
 
 #include <ansi.h>
 inherit NPC;
@@ -6,10 +6,10 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("¹Ü¼Ò", ({ "guan jia", "guan" }));
-	set("title",  "ÕòÄÏ¸®¹Ü¼Ò" );
-	set("long", "ËûÊÇ´óÀí¹úÕòÄÏÍõ¸®¹Ü¼Ò¡£\n");
-	set("gender", "ÄĞĞÔ");
+	set_name("ç®¡å®¶", ({ "guan jia", "guan" }));
+	set("title",  "é•‡å—åºœç®¡å®¶" );
+	set("long", "ä»–æ˜¯å¤§ç†å›½é•‡å—ç‹åºœç®¡å®¶ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 40);
 	set("attitude", "friendly");
 	set("shen_type", 1);
@@ -74,16 +74,16 @@ int checking(object me, object ob)
 
 	if (( (int)me->query("qi")*100 / my_max_qi) <= 50 ) 
 	{
-		command("say Çà³öì¶À¶Ê¤ì¶À¶£¬²»À¢ÊÇ´óÀí¶Î¼ÒµÄºÃµÜ×Ó ! ¹§Ï²ÄãÁË !\n");
-		command("say ÄãµÄÎä¹¦¿ÉÒÔ½øÒ»²½ÉîÔìÁË !\n");
+		command("say é’å‡ºæ–¼è“èƒœæ–¼è“ï¼Œä¸æ„§æ˜¯å¤§ç†æ®µå®¶çš„å¥½å¼Ÿå­ ! æ­å–œä½ äº† !\n");
+		command("say ä½ çš„æ­¦åŠŸå¯ä»¥è¿›ä¸€æ­¥æ·±é€ äº† !\n");
 		ob->set_temp("have_fight1",1);
 		return 1;
 	}
 
 	if (( (int)ob->query("qi")*100 / his_max_qi) < 50 ) 
 	{
-		command("say ¿´À´" + RANK_D->query_respect(ob) + 
-			"»¹µÃ¶à¼ÓÁ·Ï°£¬·½ÄÜÔÚ´óÀí¶Î¼ÒÖî¶àµÜ×ÓÖĞ³öÈËÍ·µØ !\n");
+		command("say çœ‹æ¥" + RANK_D->query_respect(ob) + 
+			"è¿˜å¾—å¤šåŠ ç»ƒä¹ ï¼Œæ–¹èƒ½åœ¨å¤§ç†æ®µå®¶è¯¸å¤šå¼Ÿå­ä¸­å‡ºäººå¤´åœ° !\n");
 		return 1;
 	}
 

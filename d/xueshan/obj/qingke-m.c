@@ -1,17 +1,17 @@
-// qingke-m.c ÇàïıÃæ
+// qingke-m.c é’ç¨é¢
 
 inherit ITEM; 
 inherit F_FOOD; 
  
 void create() 
 { 
-        set_name("ÇàïıÃæ", ({"qingke mian", "mian"})); 
+        set_name("é’ç¨é¢", ({"qingke mian", "mian"})); 
         set_weight(200); 
         if (clonep()) 
                 set_default_object(__FILE__); 
         else { 
-                set("long", "Ò»Åè±ğÓĞ·çÎ¶µÄÇàïıÃæ¡£\n"); 
-                set("unit", "Åè"); 
+                set("long", "ä¸€ç›†åˆ«æœ‰é£å‘³çš„é’ç¨é¢ã€‚\n"); 
+                set("unit", "ç›†"); 
                 set("value", 200); 
                 set("food_remaining", 4); 
                 set("food_supply", 60); 

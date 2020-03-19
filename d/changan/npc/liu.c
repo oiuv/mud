@@ -5,10 +5,10 @@ inherit F_DEALER;
 
 void create()
 {
-	set_name("ÁõÀÏÊµ", ({ "liu laoshi", "liu" }));
-	set("title", "ÔÓ»õÆÌÀÏ°å");
+	set_name("åˆ˜è€å®", ({ "liu laoshi", "liu" }));
+	set("title", "æ‚è´§é“ºè€æ¿");
 	set("shen_type", 1);
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set("age", 55);
 	set_skill("unarmed", 40);
 	set_skill("dodge", 40);

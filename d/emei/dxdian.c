@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "���۵�");
+        set("short", "大雄殿");
         set("long", @LONG
-�����Ǳ����´��۵�������Ƕ���ɽ�����Ժ֮һ����
-�۵��ڹ��Ž��Ӳӵķ�������������
+这里是报国寺大雄殿。报国寺是峨嵋山最大寺院之一。大
+雄殿内供着金光灿灿的佛像，气宇轩昂。
 LONG);
         set("objects", ([
                 __DIR__"npc/guest" : 2,

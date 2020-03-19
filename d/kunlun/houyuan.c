@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ºóÔº");
+	set("short", "åŽé™¢");
         set("long", @long
-ÓÉÓÚÕâÀïÒ»ÏòÉÙÓÐÈËÀ´£¬½¥½¥±»ÈËÍü¼Ç£¬Ò²¾ÍºÜ¾ÃÃ»ÓÐ±»
-´òÉ¨¹ýÁË¡£ÂäÒ¶ÂúµØ£¬²ÈÉÏÈ¥ÈíÃàÃàµÄ¡£Ç½±ÚÒÑÓÐÐ©²ÐÆÆ£¬éÜ
-ÏÂ½áÂúÁËÖ©ÖëÍø£¬½ÇÂäÀïµÄÒ»ÉÈÐ¡ÃÅÒòÎªÈÕÉ¹ÓêÁÜ£¬¿ªÊ¼ÐàÀÃ¡£
+ç”±äºŽè¿™é‡Œä¸€å‘å°‘æœ‰äººæ¥ï¼Œæ¸æ¸è¢«äººå¿˜è®°ï¼Œä¹Ÿå°±å¾ˆä¹…æ²¡æœ‰è¢«
+æ‰“æ‰«è¿‡äº†ã€‚è½å¶æ»¡åœ°ï¼Œè¸©ä¸ŠåŽ»è½¯ç»µç»µçš„ã€‚å¢™å£å·²æœ‰äº›æ®‹ç ´ï¼Œæª
+ä¸‹ç»“æ»¡äº†èœ˜è››ç½‘ï¼Œè§’è½é‡Œçš„ä¸€æ‰‡å°é—¨å› ä¸ºæ—¥æ™’é›¨æ·‹ï¼Œå¼€å§‹æœ½çƒ‚ã€‚
 long);
         set("exits",([
                 "out" : __DIR__"fufengshan",
@@ -17,7 +17,7 @@ long);
 	]));
 
 	set("no_clean_up", 0);
-	create_door("out", "Ð¡ÃÅ", "enter", DOOR_CLOSED);
+	create_door("out", "å°é—¨", "enter", DOOR_CLOSED);
 	set("outdoors", "kunlun");
 
 	setup();

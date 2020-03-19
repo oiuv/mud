@@ -7,20 +7,20 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIB "À¶Ìì¶ì" NOR, ({ "lan tiane", "tiane" }));
+	set_name(HIB "è“å¤©é¹…" NOR, ({ "lan tiane", "tiane" }));
 	set_weight(10);
 	if (clonep())
 		set_default_object(__FILE__);
 	else 
 	{
-		set("long", "×¯ÖØÆÓÊµµÄÀ¶Ìì¶ì¡£\n");
-		set("unit", "¶ä");
+		set("long", "åº„é‡æœ´å®çš„è“å¤©é¹…ã€‚\n");
+		set("unit", "æœµ");
 		set("value", 6);
 		set("material", "plant");
 		set("armor_prop/armor", 0);
 		set("armor_prop/personality", 3);
-		set("wear_msg", "$NÇáÇáµØ°ÑÒ»¶ä$n´÷ÔÚÍ·ÉÏ¡£\n");
-		set("unwield_msg", "$NÇáÇáµØ°Ñ$n´ÓÍ·ÉÏ³ıÁËÏÂÀ´¡£\n");
+		set("wear_msg", "$Nè½»è½»åœ°æŠŠä¸€æœµ$næˆ´åœ¨å¤´ä¸Šã€‚\n");
+		set("unwield_msg", "$Nè½»è½»åœ°æŠŠ$nä»å¤´ä¸Šé™¤äº†ä¸‹æ¥ã€‚\n");
 		set("female_only", 1);
 
 	}

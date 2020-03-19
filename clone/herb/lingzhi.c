@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(HIG "ÁéÖ¥" NOR, ({ "ling zhi", "ling", "zhi", "herb_lingzhi" }));
+        set_name(HIG "çµèŠ" NOR, ({ "ling zhi", "ling", "zhi", "herb_lingzhi" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIG "ÁéÖ¥ÊÇÆÄÎªÃû¹óµÄÖĞÒ©Ò©²Ä¡£\n" NOR);
-                set("base_unit", "¿é");
+                set("long", HIG "çµèŠæ˜¯é¢‡ä¸ºåè´µçš„ä¸­è¯è¯æã€‚\n" NOR);
+                set("base_unit", "å—");
                 set("base_value", 20000);
                 set("base_weight", 70);
         }

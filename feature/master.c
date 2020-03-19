@@ -12,8 +12,8 @@ int prevent_learn(object me, string skill)
         mapp(fam = me->query("family")) &&
             fam["family_name"] == query("family/family_name"))
     {
-        command("say ËäÈ»ÄãÎªÎÒÃÅÏÂµÜ×Ó£¬¿ÉÈ´·ÇÎÒµÕ´«"
-                        "£¬»¹ÊÇÈ¥ÕÒÄãÊ¦¸¸Ñ§°É¡£");
+        command("say è™½ç„¶ä½ ä¸ºæˆ‘é—¨ä¸‹å¼Ÿå­ï¼Œå¯å´éžæˆ‘å«¡ä¼ "
+                        "ï¼Œè¿˜æ˜¯åŽ»æ‰¾ä½ å¸ˆçˆ¶å­¦å§ã€‚");
                 return 1;
     }
 
@@ -24,32 +24,32 @@ void attempt_detach(object me)
 {
         if (! me->is_apprentice_of(this_object()))
         {
-                command("say ×ß¿ª£¬ÎÒÓÖ²»ÊÇÄãÊ¦¸µ£¬±ðÀ´·³ÎÒ¡£");
+                command("say èµ°å¼€ï¼Œæˆ‘åˆä¸æ˜¯ä½ å¸ˆå‚…ï¼Œåˆ«æ¥çƒ¦æˆ‘ã€‚");
                 return;
         }
 
         command("sigh");
-        //×ªÊÀºó¿ÉÒÔ²»ËðÊ§Îä¹¦ÍÑÀëÇ°ÊÀÃÅÅÉÒ»´Î by Ð½ÓÐËùÊô
+        //è½¬ä¸–åŽå¯ä»¥ä¸æŸå¤±æ­¦åŠŸè„±ç¦»å‰ä¸–é—¨æ´¾ä¸€æ¬¡ by è–ªæœ‰æ‰€å±ž
         if (! me->query("old_family_name") || (me->query("old_family_name") != me->query("family/family_name")))
         {
-        command("say ¼ÈÈ»Èç´Ë£¬ÎÒÒ²²»±ãÇ¿Áô£¬Äã×ß°É£¡");
-        command("say ²»¹ý×ßÖ®Ç°ÄãµÃÏÈ°ÑÄãÑ§µ½µÄÎä¹¦ÁôÏÂ£¡");
+        command("say æ—¢ç„¶å¦‚æ­¤ï¼Œæˆ‘ä¹Ÿä¸ä¾¿å¼ºç•™ï¼Œä½ èµ°å§ï¼");
+        command("say ä¸è¿‡èµ°ä¹‹å‰ä½ å¾—å…ˆæŠŠä½ å­¦åˆ°çš„æ­¦åŠŸç•™ä¸‹ï¼");
 
-        message_vision(HIY "\n$N" HIY "Ò»Éù´óºÈ£¬¶¸È»Ò»Ö¸Õýµã"
-                       "ÔÚ$n" HIY "µÄÌ´ÖÐ´óÑ¨ÉÏ¡£\n\n" NOR +
-                       CYN "$N" CYN "ËµµÀ£ºÄãµÄÎä¹¦ÎÒÒÑ¸øÄã·Ï"
-                       "µô£¬½ñºóÄãÎÒÔÙÎÞÊ¦Í½Ö®·Ý¡£\n"
+        message_vision(HIY "\n$N" HIY "ä¸€å£°å¤§å–ï¼Œé™¡ç„¶ä¸€æŒ‡æ­£ç‚¹"
+                       "åœ¨$n" HIY "çš„æª€ä¸­å¤§ç©´ä¸Šã€‚\n\n" NOR +
+                       CYN "$N" CYN "è¯´é“ï¼šä½ çš„æ­¦åŠŸæˆ‘å·²ç»™ä½ åºŸ"
+                       "æŽ‰ï¼Œä»ŠåŽä½ æˆ‘å†æ— å¸ˆå¾’ä¹‹ä»½ã€‚\n"
                        NOR, this_object(), me);
 
         me->skill_expell_penalty();
         me->unconcious();
       }
-        command("say ×ß°É×ß°É£¡×ßÁË¾Í²»ÒªÔÙ»ØÀ´£¡");
+        command("say èµ°å§èµ°å§ï¼èµ°äº†å°±ä¸è¦å†å›žæ¥ï¼");
         me->add("detach/" + me->query("family/family_name"), 1);
         me->delete("family");
         me->set("gongxian", 0);
         me->delete("quest");
         me->delete_temp("quest");
-        me->set("title", "ÆÕÍ¨°ÙÐÕ");
+        me->set("title", "æ™®é€šç™¾å§“");
 }
 

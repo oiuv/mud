@@ -21,16 +21,16 @@ string sort_msg(string input)
                 {
                         switch (input[i..i+1])
                         {
-                        case "£∫":
-                        case "°±":
-                        case "°£":
-                        case "£¨":
-                        case "°¢":
-                        case "£ª":
-                        case "£©":
+                        case "Ôºö":
+                        case "‚Äù":
+                        case "„ÄÇ":
+                        case "Ôºå":
+                        case "„ÄÅ":
+                        case "Ôºõ":
+                        case "Ôºâ":
                         case " )":
-                        case "£°":
-                        case "£ø":
+                        case "ÔºÅ":
+                        case "Ôºü":
                                 break;
                         default:
                                 len = 0;
@@ -338,7 +338,7 @@ void message(mixed arg, string message, mixed target, mixed exclude)
 
 void message_system(string message)
 {
-	message("system", HIW "\n°æœµÕ≥Ã· æ°ø" + message + "\n" NOR,
+	message("system", HIW "\n„ÄêÁ≥ªÁªüÊèêÁ§∫„Äë" + message + "\n" NOR,
                 all_interactive(), 0);
 }
 

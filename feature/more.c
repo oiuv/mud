@@ -32,7 +32,7 @@ void more(string cmd, string *text, int line)
                 if (line <= 0)
                 {
                         line = 0;
-                        show += WHT "-------- Œƒº˛µƒ∂•≤ø --------\n" NOR;
+                        show += WHT "-------- Êñá‰ª∂ÁöÑÈ°∂ÈÉ® --------\n" NOR;
                 }
 
                 i = line + LINES_PER_PAGE;
@@ -45,8 +45,8 @@ void more(string cmd, string *text, int line)
                 write(show);
 		return;
 	}
-	show += sprintf(NOR WHT "== Œ¥ÕÍºÃ–¯ " HIY "%d%%" NOR
-                        WHT " == (ENTER ºÃ–¯œ¬“ª“≥£¨q ¿Îø™£¨b «∞“ª“≥)\n" NOR,
+	show += sprintf(NOR WHT "== Êú™ÂÆåÁªßÁª≠ " HIY "%d%%" NOR
+                        WHT " == (ENTER ÁªßÁª≠‰∏ã‰∏ÄÈ°µÔºåq Á¶ªÂºÄÔºåb Ââç‰∏ÄÈ°µ)\n" NOR,
 	                line * 100 / sizeof(text));
         write(show);
 	input_to("more", text, line);
@@ -81,7 +81,7 @@ void start_more(string msg)
         int len;
 
         if (! stringp(msg) || (len = strlen(msg)) < 1)
-                // √ª”–ƒ⁄»›
+                // Ê≤°ÊúâÂÜÖÂÆπ
                 return;
 
         if (query("env/no_more"))
@@ -151,7 +151,7 @@ void more_file(string cmd, string file, int line, int total)
 
         if (page > 301)
         {
-                show += "¡¨–¯œ‘ æµƒ–– ˝±ÿ–Î–°”⁄µ»”⁄300°£\n";
+                show += "ËøûÁª≠ÊòæÁ§∫ÁöÑË°åÊï∞ÂøÖÈ°ªÂ∞è‰∫éÁ≠â‰∫é300„ÄÇ\n";
                 not_show = 1;
         } else
         {
@@ -186,10 +186,10 @@ void more_file(string cmd, string file, int line, int total)
         if (! not_show)
         {
                 if (line == 1)
-                        show += WHT "-------- Œƒº˛µƒ∂•≤ø --------\n" NOR;
+                        show += WHT "-------- Êñá‰ª∂ÁöÑÈ°∂ÈÉ® --------\n" NOR;
                 else
                 if (cmd != "")
-                        show += sprintf(HIW "-------- ¥”µ⁄ %d ––ø™ º %d –– --------\n" NOR,
+                        show += sprintf(HIW "-------- ‰ªéÁ¨¨ %d Ë°åÂºÄÂßã %d Ë°å --------\n" NOR,
                                         goto_line, page);
         
                 content = read_file(file, line, page);
@@ -211,19 +211,19 @@ void more_file(string cmd, string file, int line, int total)
 
         if (not_show || i > 1)
         {
-	        show += NOR WHT "- Œ¥ÕÍ(" HIY + total +
-                        NOR WHT ") - (ªÿ≥µºÃ–¯£¨"
-                        HIY "q" NOR WHT " ¿Îø™£¨"
-                        HIY "b" NOR WHT " «∞“ª“≥£¨"
-                        HIC "<num>" NOR WHT " µΩµ⁄ "
-                        HIC "n" NOR WHT " ––£¨"
+	        show += NOR WHT "- Êú™ÂÆå(" HIY + total +
+                        NOR WHT ") - (ÂõûËΩ¶ÁªßÁª≠Ôºå"
+                        HIY "q" NOR WHT " Á¶ªÂºÄÔºå"
+                        HIY "b" NOR WHT " Ââç‰∏ÄÈ°µÔºå"
+                        HIC "<num>" NOR WHT " Âà∞Á¨¨ "
+                        HIC "n" NOR WHT " Ë°åÔºå"
                         HIY "n" HIC "<num>" NOR WHT
-                        "œ‘ æΩ”œ¬ " HIC "n" NOR WHT " ––)" NOR;
+                        "ÊòæÁ§∫Êé•‰∏ã " HIC "n" NOR WHT " Ë°å)" NOR;
                 s_write(show);
 	        input_to("more_file", file, line + page, total);
         } else
         {
-                show += WHT "‘ƒ∂¡ÕÍ±œ°£\n" NOR;
+                show += WHT "ÈòÖËØªÂÆåÊØï„ÄÇ\n" NOR;
                 s_write(show);
         }
 }
@@ -232,7 +232,7 @@ void start_more_file(string fn)
 {
         if (file_size(fn) < 0)
         {
-                write("√ª”– " + fn + " ’‚∏ˆŒƒº˛ø…π©‘ƒ∂¡°£\n");
+                write("Ê≤°Êúâ " + fn + " Ëøô‰∏™Êñá‰ª∂ÂèØ‰æõÈòÖËØª„ÄÇ\n");
                 return;
         }
         write("\n");

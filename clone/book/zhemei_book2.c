@@ -1,16 +1,16 @@
-// ÌìÉ½ÕÛÃ·ÊÖ·¨Í¼
+// å¤©å±±æŠ˜æ¢…æ‰‹æ³•å›¾
 
 inherit BOOK;
 
 void create()
 {
-	set_name( "ÌìÉ½ÕÛÃ·ÊÖ·¨Í¼ÏÂ¾í", ({ "shoufa tu2", "tu2" }));
+	set_name( "å¤©å±±æŠ˜æ¢…æ‰‹æ³•å›¾ä¸‹å·", ({ "shoufa tu2", "tu2" }));
 	set_weight(200);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "·ù");
-		set("long", "ÕâÊÇÒ»·ùÌìÉ½ÕÛÃ·ÊÖ·¨Í¼£¬ÉÏÃæ»­×ÅÒ»Ğ©·×·±¸´ÔÓµÄÕĞÊ½¡£\n");
+		set("unit", "å¹…");
+		set("long", "è¿™æ˜¯ä¸€å¹…å¤©å±±æŠ˜æ¢…æ‰‹æ³•å›¾ï¼Œä¸Šé¢ç”»ç€ä¸€äº›çº·ç¹å¤æ‚çš„æ‹›å¼ã€‚\n");
 		set("value", 500);
 		set("no_put", 1);
 		set("material", "paper");

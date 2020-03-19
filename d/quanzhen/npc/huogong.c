@@ -2,11 +2,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("»ğ¹¤µÀÈË", ({ "huogong daoren", "huogong", "daoren" }));
-        set("gender", "ÄĞĞÔ");
+        set_name("ç«å·¥é“äºº", ({ "huogong daoren", "huogong", "daoren" }));
+        set("gender", "ç”·æ€§");
         set("age", 35);
         set("class", "taoist");
-        set("long", "ÕâÀïÈ«Õæ½ÌÕÆ¹Ü³ø·¿µÄ»ğ¹¤µÀÈË¡£\n");
+        set("long", "è¿™é‡Œå…¨çœŸæ•™æŒç®¡å¨æˆ¿çš„ç«å·¥é“äººã€‚\n");
         set("attitude", "friendly");
 
         set("str", 20);

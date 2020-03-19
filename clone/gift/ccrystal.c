@@ -1,4 +1,4 @@
-// ccrystal.c Ë®¾§²ĞÆ¬
+// ccrystal.c æ°´æ™¶æ®‹ç‰‡
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,19 +7,19 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIM "Ë®¾§²ĞÆ¬" NOR, ({ "chipped crystal" }) );
+	set_name(HIM "æ°´æ™¶æ®‹ç‰‡" NOR, ({ "chipped crystal" }) );
 	set_weight(25);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-                set("long", HIM "Ò»Æ¬·ÛÉ«µÄË®¾§ËéÆ¬¡£\n" NOR);
+                set("long", HIM "ä¸€ç‰‡ç²‰è‰²çš„æ°´æ™¶ç¢ç‰‡ã€‚\n" NOR);
                 set("value", 20000);
-		set("unit", "Æ¬");
+		set("unit", "ç‰‡");
                 set("armor_prop/per", 3);
-                set("wear_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´÷ÔÚÍ·ÉÏ¡£\n" NOR);
-                set("remove_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n" NOR);
+                set("wear_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "æˆ´åœ¨å¤´ä¸Šã€‚\n" NOR);
+                set("remove_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "ä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n" NOR);
 	}
         setup();
 }

@@ -6,18 +6,18 @@ inherit F_DEALER;
 
 void create()
 {
-	set_name("·ïÆß", ({ "feng qi", "feng", "qi" }) );
-	set("gender", "ÄÐÐÔ" );
-	set("title", "¾ÆÂ¥ÀÏ°å" );
-	set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
+	set_name("å‡¤ä¸ƒ", ({ "feng qi", "feng", "qi" }) );
+	set("gender", "ç”·æ€§" );
+	set("title", "é…’æ¥¼è€æ¿" );
+	set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
 	set("age", 42);
 	set("long", @LONG
-·ïÆßÊÇ·ïÌìÄÏµÄÔ¶·¿×æµÜ£¬ÔÚÕâÓ¢ÐÛÂ¥µ±ÕÆ¹ñ¡£Îä¹¦Ã»ÓÐÊ²Ã´£¬ÎªÈË
-È´¼«ÊÇ»úÁé£¬½­ºþÉÏ´ó´óÐ¡Ð¡µÄÊÂÇé¶¼ÖªµÀÒ»Ð©
+å‡¤ä¸ƒæ˜¯å‡¤å¤©å—çš„è¿œæˆ¿ç¥–å¼Ÿï¼Œåœ¨è¿™è‹±é›„æ¥¼å½“æŽŒæŸœã€‚æ­¦åŠŸæ²¡æœ‰ä»€ä¹ˆï¼Œä¸ºäºº
+å´æžæ˜¯æœºçµï¼Œæ±Ÿæ¹–ä¸Šå¤§å¤§å°å°çš„äº‹æƒ…éƒ½çŸ¥é“ä¸€äº›
 LONG );
 	set("combat_exp", 10000);
 	set("attitude", "friendly");
-	set("rank_info/respect", "Æß¸ç");
+	set("rank_info/respect", "ä¸ƒå“¥");
 	set("vendor_goods", ({
 		"/clone/food/jitui",
 		"/clone/food/jiudai",
@@ -51,12 +51,12 @@ void greeting(object ob)
 	switch (random(2))
         {
 		case 0:
-			say( "·ïÆßÐ¦ßäßäµØËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob)
-				+ "£¬½øÀ´ºÈ±­²è£¬ÐªÐªÍÈ°É¡£\n");
+			say( "å‡¤ä¸ƒç¬‘å’ªå’ªåœ°è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob)
+				+ "ï¼Œè¿›æ¥å–æ¯èŒ¶ï¼Œæ­‡æ­‡è…¿å§ã€‚\n");
 			break;
 		case 1:
-			say( "·ïÆßÐ¦ßäßäµØËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob)
-				+ "£¬¿ìÇë½ø¡£\n");
+			say( "å‡¤ä¸ƒç¬‘å’ªå’ªåœ°è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob)
+				+ "ï¼Œå¿«è¯·è¿›ã€‚\n");
 			break;
 	}
 }

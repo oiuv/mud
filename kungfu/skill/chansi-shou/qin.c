@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define QIN "¡¸" HIW "²øË¿ÇÜÄÃ" NOR "¡¹"
+#define QIN "ã€Œ" HIW "ç¼ ä¸æ“’æ‹¿" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -14,7 +14,7 @@ int perform(object me)
         int skill, ap, dp, damage;
 
         if (userp(me) && ! me->query("can_perform/chansi-shou/qin"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -23,30 +23,30 @@ int perform(object me)
         }
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(QIN "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(QIN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(QIN "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(QIN "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         skill = me->query_skill("chansi-shou", 1);
 
         if (skill < 120)
-                return notify_fail("Äã²øË¿ÇÜÄÃÊÖµÈ¼¶²»¹»£¬ÄÑÒÔÊ©Õ¹" QIN "¡£\n");
+                return notify_fail("ä½ ç¼ ä¸æ“’æ‹¿æ‰‹ç­‰çº§ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" QIN "ã€‚\n");
 
         if (me->query_skill_mapped("hand") != "chansi-shou")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢²øË¿ÇÜÄÃÊÖ£¬ÄÑÒÔÊ©Õ¹" QIN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ç¼ ä¸æ“’æ‹¿æ‰‹ï¼Œéš¾ä»¥æ–½å±•" QIN "ã€‚\n");
 
         if (me->query_skill_prepared("hand") != "chansi-shou")
-                return notify_fail("ÄãÃ»ÓĞ×¼±¸²øË¿ÇÜÄÃÊÖ£¬ÄÑÒÔÊ©Õ¹" QIN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ç¼ ä¸æ“’æ‹¿æ‰‹ï¼Œéš¾ä»¥æ–½å±•" QIN "ã€‚\n");
 
         if (me->query("neili") < 100)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" QIN "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" QIN "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "ÇÄÈ»Ìù½ü$n" HIW "£¬Ê©³ö²øË¿ÇÜÄÃ£¬Ë«ÊÖºö"
-              "ÕÛºöÅ¤£¬»ò×¥»òË¦£¬Ö±Ëö$p" HIW "¸÷´¦ÒªÂö¡£\n" NOR;
+        msg = HIW "$N" HIW "æ‚„ç„¶è´´è¿‘$n" HIW "ï¼Œæ–½å‡ºç¼ ä¸æ“’æ‹¿ï¼ŒåŒæ‰‹å¿½"
+              "æŠ˜å¿½æ‰­ï¼Œæˆ–æŠ“æˆ–ç”©ï¼Œç›´ç$p" HIW "å„å¤„è¦è„‰ã€‚\n" NOR;
 
         ap = me->query_skill("hand");
         dp = target->query_skill("parry");
@@ -60,8 +60,8 @@ int perform(object me)
                 me->start_busy(2);
         } else
         {
-                msg += CYN "¿ÉÊÇ$n" CYN "µÄ¿´ÆÆÁË$N"
-                       CYN "µÄÕĞÊ½£¬ÇÉÃîµÄÕĞ¼Ü²ğ½â£¬Ã»Â¶°ëµãÆÆÕÀ¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$n" CYN "çš„çœ‹ç ´äº†$N"
+                       CYN "çš„æ‹›å¼ï¼Œå·§å¦™çš„æ‹›æ¶æ‹†è§£ï¼Œæ²¡éœ²åŠç‚¹ç ´ç»½ã€‚\n" NOR;
                 me->add("neili", -20);
                 me->start_busy(3);
         }
@@ -74,15 +74,15 @@ string final(object me, object target, int damage)
 {
         string msg;
 
-        msg = HIR "È´¼û$n" HIR "·ÜÁ¦µÖ¿¹£¬¿ÉÖÕ¾¿ÎŞ·¨"
-              "°ÚÍÑ$N" HIR "µÄ¹¥ÊÆ£¬Á¬ÖĞÊıÕÆ£¬";
+        msg = HIR "å´è§$n" HIR "å¥‹åŠ›æŠµæŠ—ï¼Œå¯ç»ˆç©¶æ— æ³•"
+              "æ‘†è„±$N" HIR "çš„æ”»åŠ¿ï¼Œè¿ä¸­æ•°æŒï¼Œ";
 
         if (random(3) >= 1 && ! target->is_busy())
         {
                 target->start_busy(damage / 15);
-                msg += "ÄÑÒÔ·´»÷¡£\n" NOR;
+                msg += "éš¾ä»¥åå‡»ã€‚\n" NOR;
         } else
-                msg += "ÏÊÑª¿ñÅç¡£\n" NOR;
+                msg += "é²œè¡€ç‹‚å–·ã€‚\n" NOR;
 
         return  msg;
 }

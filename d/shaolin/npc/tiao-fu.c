@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-	set_name("Ìô·ò", ({ "tiao fu", "porter" }) );
-	set("gender", "ÄĞĞÔ" );
+	set_name("æŒ‘å¤«", ({ "tiao fu", "porter" }) );
+	set("gender", "ç”·æ€§" );
 	set("age", 28);
 	set("long",
-		"ÕâÊÇ¸öÀÏÊµ°Í½»µÄÇîÌô·ò£¬³¤µÃ°òÀ«ÑüÔ²£¬Ò»Éí¼¡Èâ¡£\n");
+		"è¿™æ˜¯ä¸ªè€å®å·´äº¤çš„ç©·æŒ‘å¤«ï¼Œé•¿å¾—è†€é˜”è…°åœ†ï¼Œä¸€èº«è‚Œè‚‰ã€‚\n");
 //	set("shen_type", 1);
 	set("combat_exp", 1000);
         set("str", 25);

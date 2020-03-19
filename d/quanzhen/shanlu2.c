@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ɽ·");
+        set("short", "山路");
         set("long", @LONG
-һ��ɽ·����������ͨ��ɽ�ϡ������ɽ�Ϻ�����һƬ��
-���֣�����������¶��ͤ�ӵ�һ�ǣ����������ɽ��·��
+一条山路弯弯曲曲地通向山上。北面的山上好象有一片柏
+树林，树林中隐隐露出亭子的一角，南面就是上山的路。
 LONG);
         set("outdoors", "quanzhen");
         set("exits", ([

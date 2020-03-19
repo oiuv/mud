@@ -1,4 +1,4 @@
-// feimao.c ·ÉÃ«ÍÈµ¼µ¯
+// feimao.c é£æ¯›è…¿å¯¼å¼¹
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit ITEM;
 
 void create()
 {
-	set_name(WHT "·ÉÃ«ÍÈµ¼µ¯" NOR, ({ "missile" }));
+	set_name(WHT "é£æ¯›è…¿å¯¼å¼¹" NOR, ({ "missile" }));
 	set_weight(20000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-                set("long", "ÕâÊÇÒ»Ã¶ÖĞ³Ì·Éµ¯£¬¼Û¸ñ±ãÒË£¬"
-                            "ÊÊÓÃÓÚ·¢Õ¹ÖĞÈËÊ¿¹ºÂò¡£\n");
+                set("long", "è¿™æ˜¯ä¸€æšä¸­ç¨‹é£å¼¹ï¼Œä»·æ ¼ä¾¿å®œï¼Œ"
+                            "é€‚ç”¨äºå‘å±•ä¸­äººå£«è´­ä¹°ã€‚\n");
                 set("value", 10000);
                 set("no_sell", 1);
-                set("unit", "Ã¶");
+                set("unit", "æš");
 	}
 }
 
@@ -34,39 +34,39 @@ int do_launch(string arg)
         me = this_player();
 
         if (me->is_busy())
-                return notify_fail("Ê²Ã´ÊÂÇé¶¼µÈÄãÃ¦ÍêÁËÔÙËµ¡£\n");
+                return notify_fail("ä»€ä¹ˆäº‹æƒ…éƒ½ç­‰ä½ å¿™å®Œäº†å†è¯´ã€‚\n");
 
         if (me->is_fighting())
-                return notify_fail("´òÍê¼ÜÔÙ¿¼ÂÇÕâĞ©ÊÂÇé°É£¡\n");
+                return notify_fail("æ‰“å®Œæ¶å†è€ƒè™‘è¿™äº›äº‹æƒ…å§ï¼\n");
 
         if (! arg || ! id(arg))
-                return notify_fail("ÄãÒª·¢ÉäÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦å‘å°„ä»€ä¹ˆï¼Ÿ\n");
 
         if (! stringp(user = query_temp("aim")))
-                return notify_fail("ÄãÏÈÃé×¼(aim)ºÃÔÙ·¢Éä£¡\n");
+                return notify_fail("ä½ å…ˆç„å‡†(aim)å¥½å†å‘å°„ï¼\n");
 
         if (! objectp(ob = find_player(user)) ||
 	    ! me->visible(ob))
-                return notify_fail("ÄãÒªÕ¨µÄÍæ¼ÒÏÖÔÚºÃÏñ²»ÔÚÏßÉÏ¡£\n");
+                return notify_fail("ä½ è¦ç‚¸çš„ç©å®¶ç°åœ¨å¥½åƒä¸åœ¨çº¿ä¸Šã€‚\n");
 
-        message_vision(HIM "$NÌÍ³öÒ»¸ö" + name() + HIM "£¬ºÈµÀ£º"
-                       "¡°·ÉÃ«ÍÈ×¼±¸·¢Éä£¡¡±Ëµ°ÕÒ»°´¿ª¹Ø£¡\n"
-                       "¾ÍÌı¡°ºä¡±µÄÒ»Éù£¬" + name() + HIM "ÅÄÅÄÆ¨¹É²»¼ûÁË£¡\n" NOR, me);
+        message_vision(HIM "$Næå‡ºä¸€ä¸ª" + name() + HIM "ï¼Œå–é“ï¼š"
+                       "â€œé£æ¯›è…¿å‡†å¤‡å‘å°„ï¼â€è¯´ç½¢ä¸€æŒ‰å¼€å…³ï¼\n"
+                       "å°±å¬â€œè½°â€çš„ä¸€å£°ï¼Œ" + name() + HIM "æ‹æ‹å±è‚¡ä¸è§äº†ï¼\n" NOR, me);
 
-        message_vision(HIC "Í»È»Ìì¿Õ´«À´Ò»ÕóºôĞ¥µÄÉùÒô...\n" +
-                       "¡°ºä¡±µÄÒ»Éù£¬$N" HIC "±»Õ¨µÃ·ÉÆğÊıÃ×£¬µøµ¹ÔÚµØ£¬"
-                       "Ò»¾ä»°¶¼Ëµ²»³öÀ´...\n" NOR, ob);
+        message_vision(HIC "çªç„¶å¤©ç©ºä¼ æ¥ä¸€é˜µå‘¼å•¸çš„å£°éŸ³...\n" +
+                       "â€œè½°â€çš„ä¸€å£°ï¼Œ$N" HIC "è¢«ç‚¸å¾—é£èµ·æ•°ç±³ï¼Œè·Œå€’åœ¨åœ°ï¼Œ"
+                       "ä¸€å¥è¯éƒ½è¯´ä¸å‡ºæ¥...\n" NOR, ob);
 
         if (wizardp(ob))
-                message_vision(HIM "$N" HIM "Á¬Ã¦µãÈ¼Ò»ÕÅ·ûÖ½£¬¿ÚÖĞ"
-                       "Ö±Äîß¶£º¡°Ì«ÉÏÀÏ¾ı¾ÈÃü°¡...¡±\n" NOR, ob);
+                message_vision(HIM "$N" HIM "è¿å¿™ç‚¹ç‡ƒä¸€å¼ ç¬¦çº¸ï¼Œå£ä¸­"
+                       "ç›´å¿µå¨ï¼šâ€œå¤ªä¸Šè€å›æ•‘å‘½å•Š...â€\n" NOR, ob);
         else
         {
-                message_vision(HIG "$N" HIG "Ò»Á³ÎŞ¹¼µÄ±íÇé£¬ÕæÔ©Í÷°¡£¡\n" NOR, ob);
-                ob->ban_say_until(60, "ÄãÏÖÔÚ±»Õ¨µÃÍ·ÔÎÑÛ»¨£¬Ëµ²»³ö»°");
+                message_vision(HIG "$N" HIG "ä¸€è„¸æ— è¾œçš„è¡¨æƒ…ï¼ŒçœŸå†¤æ‰å•Šï¼\n" NOR, ob);
+                ob->ban_say_until(60, "ä½ ç°åœ¨è¢«ç‚¸å¾—å¤´æ™•çœ¼èŠ±ï¼Œè¯´ä¸å‡ºè¯");
                 CHANNEL_D->do_channel(this_object(), "rumor",
-                                      "ÌıËµ" + ob->name(1) +
-                                      "²»ĞÒÔâÓö·ÉÃ«ÍÈµ¼µ¯Ï®»÷£¬ÏÖÔÚ¾«ÉñÊ§³£¡£");
+                                      "å¬è¯´" + ob->name(1) +
+                                      "ä¸å¹¸é­é‡é£æ¯›è…¿å¯¼å¼¹è¢­å‡»ï¼Œç°åœ¨ç²¾ç¥å¤±å¸¸ã€‚");
         }
 
         destruct(this_object());
@@ -80,12 +80,12 @@ int do_aim(string arg)
         string my_id;
 
         if (arg && sscanf(arg, "%s with %s", arg, my_id) == 2 && ! id(my_id))
-                return notify_fail("ÕâÀïÃ»ÓĞ(" + my_id + ")ÕâÑù¶«Î÷¡£\n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰(" + my_id + ")è¿™æ ·ä¸œè¥¿ã€‚\n");
 
         if ((arg == "none" || arg == "cancel") && query_temp("aim"))
         {
                 delete_temp("aim");
-                write("Á¢¼´È¡Ïû·Éµ¯Ãé×¼£¡\n");
+                write("ç«‹å³å–æ¶ˆé£å¼¹ç„å‡†ï¼\n");
                 return 1;
         }
 
@@ -93,21 +93,21 @@ int do_aim(string arg)
 
         if (! arg || ! objectp(ob = find_player(arg)) ||
 	    ! me->visible(ob))
-                return notify_fail("ÄãÒªÃé×¼ÄÄ¸öÍæ¼Ò£¿\n");
+                return notify_fail("ä½ è¦ç„å‡†å“ªä¸ªç©å®¶ï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("Ê²Ã´ÊÂÇé¶¼µÈÄãÃ¦ÍêÁËÔÙËµ¡£\n");
+                return notify_fail("ä»€ä¹ˆäº‹æƒ…éƒ½ç­‰ä½ å¿™å®Œäº†å†è¯´ã€‚\n");
 
         if (me->is_fighting())
-                return notify_fail("´òÍê¼ÜÔÙ¿¼ÂÇÕâĞ©ÊÂÇé°É£¡\n");
+                return notify_fail("æ‰“å®Œæ¶å†è€ƒè™‘è¿™äº›äº‹æƒ…å§ï¼\n");
 
         if (me->ban_say())
-                return notify_fail("ÄãÏÖÔÚËµ²»³ö»°À´...µ¼µ¯Ò²Ã»·¨·¢Éä¡£\n");
+                return notify_fail("ä½ ç°åœ¨è¯´ä¸å‡ºè¯æ¥...å¯¼å¼¹ä¹Ÿæ²¡æ³•å‘å°„ã€‚\n");
 
-        tell_object(me, HIY "ÄãÌÍ³öÒ»¸ö" + name() + HIY "£¬¶«ÃéÃé£¬Î÷ÃéÃé¡£\n" NOR, me);
-        message("vision", HIR "¡¾¹Û²ìÎÀĞÇ¡¿½ô¼±±¨¸æ£¬" + ob->name(1) +
-                          HIR "ÒÑ¾­±»ÈËÓÃ" + name() +
-                          HIR "Ãé×¼ÁË¡£\n" NOR, ob);
+        tell_object(me, HIY "ä½ æå‡ºä¸€ä¸ª" + name() + HIY "ï¼Œä¸œç„ç„ï¼Œè¥¿ç„ç„ã€‚\n" NOR, me);
+        message("vision", HIR "ã€è§‚å¯Ÿå«æ˜Ÿã€‘ç´§æ€¥æŠ¥å‘Šï¼Œ" + ob->name(1) +
+                          HIR "å·²ç»è¢«äººç”¨" + name() +
+                          HIR "ç„å‡†äº†ã€‚\n" NOR, ob);
 
         set_temp("aim", ob->query("id"));
         me->start_busy(2);
@@ -124,10 +124,10 @@ string long()
         if (query_temp("aim") &&
             objectp(ob = find_player(query_temp("aim"))))
         {
-                msg += "ÏÖÔÚÕâÃ¶·Éµ¯ÕıÃé×¼×Å" + ob->name(1) +
-                       "£¬´ıÃü·¢Éä(launch)¡£\n";
+                msg += "ç°åœ¨è¿™æšé£å¼¹æ­£ç„å‡†ç€" + ob->name(1) +
+                       "ï¼Œå¾…å‘½å‘å°„(launch)ã€‚\n";
         } else
-                msg += "ÏÖÔÚÕâÃ¶·Éµ¯Õı´¦ÓÚ×¼±¸×´Ì¬£¬"
-                       "¿ÉÒÔËæÊ±Ãé×¼(aim)¡£\n";
+                msg += "ç°åœ¨è¿™æšé£å¼¹æ­£å¤„äºå‡†å¤‡çŠ¶æ€ï¼Œ"
+                       "å¯ä»¥éšæ—¶ç„å‡†(aim)ã€‚\n";
         return msg;
 }

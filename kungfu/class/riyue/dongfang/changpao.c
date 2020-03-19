@@ -7,14 +7,14 @@ inherit CLOTH;
 
 void create()
 {
-    set_name(HIR "ºìÉ«³¤ÅÛ" NOR, ({"pao", "cloth", "chang pao"}) );
+    set_name(HIR "çº¢è‰²é•¿è¢" NOR, ({"pao", "cloth", "chang pao"}) );
     set_weight(1500);
     if( clonep() )
             set_default_object(__FILE__);
     else {
 	set("female_only", 1);
-        set("unit", "¼ş");
-		set("long", "ÕâÊÇ¼şÖÊµØÇáÈíµÄºìÉ«³¤ÅÛ£¬±ßÉÏ»¹ïÎ×Å»¨ÄØ¡£\n");
+        set("unit", "ä»¶");
+		set("long", "è¿™æ˜¯ä»¶è´¨åœ°è½»è½¯çš„çº¢è‰²é•¿è¢ï¼Œè¾¹ä¸Šè¿˜é•‚ç€èŠ±å‘¢ã€‚\n");
         set("material", "cloth");
         set("armor_prop/armor", 1);
     }

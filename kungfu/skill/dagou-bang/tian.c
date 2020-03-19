@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define TIAN "¡¸" HIW "ÌìÏÂÎÞ¹·" NOR "¡¹"
+#define TIAN "ã€Œ" HIW "å¤©ä¸‹æ— ç‹—" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -13,35 +13,35 @@ int perform(object me, object target)
     int i, attack_time;
 
     if (userp(me) && ! me->query("can_perform/dagou-bang/tian"))
-            return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+            return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
     if (! target) target = offensive_target(me);
 
     if (! target || ! me->is_fighting(target))
-            return notify_fail(TIAN "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+            return notify_fail(TIAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon"))
         || (string)weapon->query("skill_type") != "staff")
-            return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" TIAN "¡£\n");
+            return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" TIAN "ã€‚\n");
 
     if (me->query_skill("dagou-bang", 1) < 220)
-			return notify_fail("Äã´ò¹·°ô·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" TIAN "¡£\n");
+			return notify_fail("ä½ æ‰“ç‹—æ£’æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" TIAN "ã€‚\n");
 
     if (me->query_skill_mapped("staff") != "dagou-bang")
-            return notify_fail("ÄãÃ»ÓÐ¼¤·¢´ò¹·°ô·¨£¬ÄÑÒÔÊ©Õ¹" TIAN "¡£\n");
+            return notify_fail("ä½ æ²¡æœ‰æ¿€å‘æ‰“ç‹—æ£’æ³•ï¼Œéš¾ä»¥æ–½å±•" TIAN "ã€‚\n");
 
 	if ((int)me->query_skill("force") < 300)
-			return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»×ã£¬ÄÑÒÔÊ©Õ¹" TIAN "¡£\n");
+			return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" TIAN "ã€‚\n");
 
     if (me->query("neili") < 500)
-            return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" TIAN "¡£\n");
+            return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" TIAN "ã€‚\n");
 
     if (! living(target))
-            return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+            return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIW "$N" HIW "ÊÖÖÐ" + weapon->name() + HIW "Ò»¾í£¬´ø"
-              "ÆðÕóÕó·çÉù£¬ÓÌÈôÇ§°Ù¸ùÏàËÆ£¬²ã²ãµþµþ½«$n" HIW "ÁýÕÖ"
-              "ÆäÖÐ¡£\n" NOR;
+	msg = HIW "$N" HIW "æ‰‹ä¸­" + weapon->name() + HIW "ä¸€å·ï¼Œå¸¦"
+              "èµ·é˜µé˜µé£Žå£°ï¼ŒçŠ¹è‹¥åƒç™¾æ ¹ç›¸ä¼¼ï¼Œå±‚å±‚å å å°†$n" HIW "ç¬¼ç½©"
+              "å…¶ä¸­ã€‚\n" NOR;
 
         ap = me->query_skill("staff") +
 			 me->query_skill("begging", 1) +
@@ -55,15 +55,15 @@ int perform(object me, object target)
 
         if (ap / 2 + random(ap) > dp)
         {
-                msg += HIR "$n" HIR "Ö»¾õÑÛ»¨çÔÂÒ£¬·¢ÏÖËÄÃæ°Ë·½½ÔÊÇÕÈ"
-                       "Ó°£¬ÐÄµ×º®Òâ¶ÙÉú£¬ÕÐ¼ÜÉ¢ÂÒ¡£\n" NOR;
+                msg += HIR "$n" HIR "åªè§‰çœ¼èŠ±ç¼­ä¹±ï¼Œå‘çŽ°å››é¢å…«æ–¹çš†æ˜¯æ–"
+                       "å½±ï¼Œå¿ƒåº•å¯’æ„é¡¿ç”Ÿï¼Œæ‹›æž¶æ•£ä¹±ã€‚\n" NOR;
                 count = ap / 6;
                 
                 attack_time += random(ap / 45);
         } else
         {
-                msg += HIY "$n" HIY "Ö»¾õÑÛÇ°Ò»»¨£¬·¢ÏÖËÄÃæ°Ë·½½ÔÊÇÕÈ"
-                       "Ó°£¬¼±Ã¦ÊÕÁ²ÐÄÉñ£¬×ÐÏ¸ÕÐ¼Ü¡£\n" NOR;
+                msg += HIY "$n" HIY "åªè§‰çœ¼å‰ä¸€èŠ±ï¼Œå‘çŽ°å››é¢å…«æ–¹çš†æ˜¯æ–"
+                       "å½±ï¼Œæ€¥å¿™æ”¶æ•›å¿ƒç¥žï¼Œä»”ç»†æ‹›æž¶ã€‚\n" NOR;
                 count = ap / 12;
         }
 		count += me->query("family/beggarlvl") * 10;

@@ -32,16 +32,16 @@ int main(object me, string arg)
                         write(str);
                         return 1;
                 }
-                return notify_fail("Ä¿Ç°Ã»ÓĞÈÎºÎ¶«Î÷ÕıÔÚÅÄÂô¡£\n");
+                return notify_fail("ç›®å‰æ²¡æœ‰ä»»ä½•ä¸œè¥¿æ­£åœ¨æ‹å–ã€‚\n");
         }
 
         if (sscanf(arg, "%s for %s", name, str) == 2)
         {
                 if (! objectp(ob = present(name, me)))
-                        return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâ¸ö¶«Î÷¡£\n");
+                        return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™ä¸ªä¸œè¥¿ã€‚\n");
 
                 if (! intp(money = to_money(str)) || ! money)
-                        return notify_fail("ÊäÈë¼Û¸ñ´íÎó¡£\n");
+                        return notify_fail("è¾“å…¥ä»·æ ¼é”™è¯¯ã€‚\n");
 
                 AUCTION_D->add_auction(me, ob, money);
                 return 1;
@@ -50,10 +50,10 @@ int main(object me, string arg)
         if (sscanf(arg, "%s to %s", str, name) == 2)
         {
                 if (! intp(money = to_money(str)) || ! money)
-                        return notify_fail("ÊäÈë¼Û¸ñ´íÎó¡£\n");
+                        return notify_fail("è¾“å…¥ä»·æ ¼é”™è¯¯ã€‚\n");
 
                 if (! me->can_afford(money))
-                        return notify_fail("ÄãÉíÉÏÃ»ÓĞÄÇÃ´¶àÇ®¡£\n");
+                        return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰é‚£ä¹ˆå¤šé’±ã€‚\n");
 
                 AUCTION_D->join_auction(me, name, money);
                 return 1;
@@ -105,17 +105,17 @@ int to_money(string str)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : auction <ÎïÆ·> for <ÊıÁ¿> <Ç®µÄÖÖÀà>
-           ÅÄÂô³öÒ»¼şÎïÆ·¡£
+æŒ‡ä»¤æ ¼å¼ : auction <ç‰©å“> for <æ•°é‡> <é’±çš„ç§ç±»>
+           æ‹å–å‡ºä¸€ä»¶ç‰©å“ã€‚
 
-           auction <ÊıÁ¿> <Ç®µÄÖÖÀà> to <Íæ¼Ò>
-           ²ÎÓë½Ğ¼Û¡£
+           auction <æ•°é‡> <é’±çš„ç§ç±»> to <ç©å®¶>
+           å‚ä¸å«ä»·ã€‚
            
            auction check
-           ²ì¿´Ä¿Ç°ËùÓĞÕıÔÚÅÄÂôµÄÎïÆ·¡£
+           å¯Ÿçœ‹ç›®å‰æ‰€æœ‰æ­£åœ¨æ‹å–çš„ç‰©å“ã€‚
 
            auction cancel
-           È¡Ïû×Ô¼ºÎïÆ·µÄÅÄÂô¡£
+           å–æ¶ˆè‡ªå·±ç‰©å“çš„æ‹å–ã€‚
 HELP
     );
         return 1;

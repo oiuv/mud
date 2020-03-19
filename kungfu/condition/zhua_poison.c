@@ -8,15 +8,15 @@ inherit POISON;
 
 string name() { return "zhua_poison"; }
 
-string chinese_name() { return "ÄıÑªÖ®¶¾"; }
+string chinese_name() { return "å‡è¡€ä¹‹æ¯’"; }
 
 string update_msg_others()
 {
-       return HIR "$NºöÈ»´òÁËÒ»¸ö¶ßàÂ,Á³ÉÏÂ¶³öÍ´¿à¶ø¹îÒìµÄĞ¦Èİ¡£\n" NOR;
+       return HIR "$Nå¿½ç„¶æ‰“äº†ä¸€ä¸ªå“†å—¦,è„¸ä¸Šéœ²å‡ºç—›è‹¦è€Œè¯¡å¼‚çš„ç¬‘å®¹ã€‚\n" NOR;
 }
 
 string update_msg_self()
 {
-        return HIB "ºöÈ»Ò»Ë¿ÈÈÁ÷×ÔÌåÄÚÉıÆğ, »º»ºµÄ½şÈëÄãËÄÖ«°Ù"
-                   "º¡¡£ÄãÖĞµÄÄıÑªÉñ×¥¶¾ĞÔ·¢×÷ÁË£¡\n" NOR;
+        return HIB "å¿½ç„¶ä¸€ä¸çƒ­æµè‡ªä½“å†…å‡èµ·, ç¼“ç¼“çš„æµ¸å…¥ä½ å››è‚¢ç™¾"
+                   "éª¸ã€‚ä½ ä¸­çš„å‡è¡€ç¥æŠ“æ¯’æ€§å‘ä½œäº†ï¼\n" NOR;
 }

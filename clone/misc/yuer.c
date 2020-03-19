@@ -1,4 +1,4 @@
-// yuer.c Óã¶ü
+// yuer.c é±¼é¥µ
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name("Óã¶ü", ({ "yu er", "er" }) );
+        set_name("é±¼é¥µ", ({ "yu er", "er" }) );
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", "ÕâÊÇµöÓãÕß³£ÓÃµÄÓãÊ³¡£\n");
-                set("base_unit", "¿é");
+                set("long", "è¿™æ˜¯é’“é±¼è€…å¸¸ç”¨çš„é±¼é£Ÿã€‚\n");
+                set("base_unit", "å—");
                 set("base_weight", 30);
                 set("base_value", 7);
-                set("no_sell", "ÕâÓã³ÔµÄ¶«Î÷ÄãÒ²¸øÎÒ£¿");
-                set("unit", "Ğ©");
+                set("no_sell", "è¿™é±¼åƒçš„ä¸œè¥¿ä½ ä¹Ÿç»™æˆ‘ï¼Ÿ");
+                set("unit", "äº›");
         }
 
         set_amount(1);

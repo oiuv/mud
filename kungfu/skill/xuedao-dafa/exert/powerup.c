@@ -10,28 +10,28 @@ int exert(object me, object target)
         int skill;
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÓÃÑªµ¶´ó·¨À´ÌáÉý×Ô¼ºµÄÕ½¶·Á¦¡£\n");
+                return notify_fail("ä½ åªèƒ½ç”¨è¡€åˆ€å¤§æ³•æ¥æå‡è‡ªå·±çš„æˆ˜æ–—åŠ›ã€‚\n");
 
         if ((int)me->query("neili") < 150)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_temp("powerup"))
-                return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖÐÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
         skill = me->query_skill("xuedao-dafa", 1);
 
         me->add("neili", -100);
         me->receive_damage("qi", 0);
 
-        message_combatd(HIR "$N" HIR "ÑöÌìÒ»Éù¿ñÏø£¬È«Éí¹Ç÷À±¬Ïì£¬ÕæÆøµ´Ñú£¬É±"
-                        "ÆøÃÖÂþ£¬ÆøÊÆÆÈÈË¡£\n" NOR, me);
+        message_combatd(HIR "$N" HIR "ä»°å¤©ä¸€å£°ç‹‚å“®ï¼Œå…¨èº«éª¨éª¼çˆ†å“ï¼ŒçœŸæ°”è¡æ¼¾ï¼Œæ€"
+                        "æ°”å¼¥æ¼«ï¼Œæ°”åŠ¿è¿«äººã€‚\n" NOR, me);
 
         if (objectp(weapon = me->query_temp("weapon")) &&
            (string)weapon->query("skill_type") == "blade" &&
            me->query_skill_mapped("blade") == "xuedao-dafa")
         {
-        	message_combatd(HIR "$N" HIR "àÁÄ¿ÄüÐ¦£¬ÊÖÖÐ" + weapon->name() +
-                                HIR "¶ÙÊ±ÑúÆðÒ»µÀÑª¹â£¬ÂþÆðÎÞ±ßÉ±Òâ¡£\n" NOR, me);
+        	message_combatd(HIR "$N" HIR "å—”ç›®ç‹žç¬‘ï¼Œæ‰‹ä¸­" + weapon->name() +
+                                HIR "é¡¿æ—¶æ¼¾èµ·ä¸€é“è¡€å…‰ï¼Œæ¼«èµ·æ— è¾¹æ€æ„ã€‚\n" NOR, me);
         }
 
         me->add_temp("apply/attack", skill / 3);
@@ -55,6 +55,6 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/defense", -amount);
                 me->add_temp("apply/damage", -amount);
                 me->delete_temp("powerup");
-                tell_object(me, "ÄãµÄÑªµ¶´ó·¨ÔËÐÐÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„è¡€åˆ€å¤§æ³•è¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›žä¸¹ç”°ã€‚\n");
         }
 }

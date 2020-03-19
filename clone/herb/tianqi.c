@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(NOR + WHT "ÌïÆß" NOR, ({ "tian qi", "tian", "qi", "herb_tianqi" }));
+        set_name(NOR + WHT "ç”°ä¸ƒ" NOR, ({ "tian qi", "tian", "qi", "herb_tianqi" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + WHT "ÌïÆßÊÇ³£¼ûµÄÖĞÒ©Ò©²Ä¡£\n" NOR);
-                set("base_unit", "¸ù");
+                set("long", NOR + WHT "ç”°ä¸ƒæ˜¯å¸¸è§çš„ä¸­è¯è¯æã€‚\n" NOR);
+                set("base_unit", "æ ¹");
                 set("base_value", 400);
                 set("base_weight", 55);
         }

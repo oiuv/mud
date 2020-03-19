@@ -1,4 +1,4 @@
-// bone.c ÈË¹Ç
+// bone.c äººéª¨
 
 #include <ansi.h>
 #include <weapon.h>
@@ -7,17 +7,17 @@ inherit STAFF;
 
 void create()
 {
-	set_name(WHT "ÈË¹Ç" NOR, ({ "bone", "gu" }) );
+	set_name(WHT "äººéª¨" NOR, ({ "bone", "gu" }) );
 	set_weight(1000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¸ù");
+		set("unit", "æ ¹");
 		set("value", 0);
 		set("material", "bone");
-		set("long", "ÕâÊÇÒ»¸ù°×É­É­µÄÈË¹ÇÍ·¡£\n");
-		set("wield_msg", "$N³é³öÒ»°Ñ$nÎÕÔÚÊÖÖĞ¡£\n");
-		set("unequip_msg", "$N½«ÊÖÖĞµÄ$n²å»ØÑü¼ä¡£\n");
+		set("long", "è¿™æ˜¯ä¸€æ ¹ç™½æ£®æ£®çš„äººéª¨å¤´ã€‚\n");
+		set("wield_msg", "$NæŠ½å‡ºä¸€æŠŠ$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+		set("unequip_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›è…°é—´ã€‚\n");
 	}
 	init_staff(1);
 	setup();

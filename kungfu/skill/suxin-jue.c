@@ -20,7 +20,7 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-        return notify_fail("ËØĞÄ¾øÖ»ÄÜÓÃÑ§(learn)À´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("ç´ å¿ƒç»åªèƒ½ç”¨å­¦(learn)æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)

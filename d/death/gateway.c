@@ -3,15 +3,15 @@ inherit ROOM;
 
 void create()
 {
-	set("short", HIR "��ۺ�����š�" NOR);
+	set("short", HIR "【酆都城门】" NOR);
        set("long", HIR @LONG
 
-                    ۺ     ��     ��     ��
+                    酆     都     城     门
 
-    ����������һ����ɫ�ĳ�¥֮ǰ����¥�ϵ������ۺ���ǡ�������
-�֡����ϲ�Զ����һ��ʯ�ţ����Ϲ�Ӱ����������ȴ���������������
-�����߽���¥ֻ��һƬ������ģ�ֻ����������ɫ�Ļ���������ֵ���
-˸����
+    你现在来到一座黑色的城楼之前，城楼上雕刻著「酆都城」三个大
+字。往南不远处有一座石桥，桥上鬼影幢幢，但是却听不到半点声音，
+往北走进城楼只见一片黑漆漆的，只有少许暗红色的火光若隐若现地闪
+烁著。
 
 
 LONG NOR );
@@ -34,7 +34,7 @@ int valid_leave(object me, string dir)
 	if( wizardp(me) || !userp(me) ) return 1;
 
 	if (dir == "south") {
-		return notify_fail(HIW "\nһ���ն�����������������𡭡�û�л�ͷ·�ˡ���\n" NOR);
+		return notify_fail(HIW "\n一个空洞的声音在你耳边响起……没有回头路了……\n" NOR);
 	}
 	else return 1;
 }

@@ -9,12 +9,12 @@ int main(object me, string arg)
 	object ob;
 	
 	if( !me->is_fighting() )
-		return notify_fail("Í¶½µ£¿ÏÖÔÚÃ»ÓĞÈËÔÚ´òÄã°¡....£¿\n");
+		return notify_fail("æŠ•é™ï¼Ÿç°åœ¨æ²¡æœ‰äººåœ¨æ‰“ä½ å•Š....ï¼Ÿ\n");
 
 	ob = me->query_temp("last_opponent");
 	if( objectp(ob) && living(ob) && ob->is_killing(me) ) {
-		message_vision("$NÏò$nÇóÈÄ£¬µ«ÊÇ$N´óÉùËµµÀ£º"
-			+ RANK_D->query_rude(me) + "·Ï»°ÉÙËµ£¬ÄÉÃüÀ´£¡\n", ob, me);
+		message_vision("$Nå‘$næ±‚é¥¶ï¼Œä½†æ˜¯$Nå¤§å£°è¯´é“ï¼š"
+			+ RANK_D->query_rude(me) + "åºŸè¯å°‘è¯´ï¼Œçº³å‘½æ¥ï¼\n", ob, me);
 		return 1;
 	}
 
@@ -24,15 +24,15 @@ int main(object me, string arg)
 	else
 		me->set("score", 0);
 
-	message_vision( HIW "\n$NËµµÀ£º¡¸²»´òÁË£¬²»´òÁË£¬ÎÒÍ¶½µ....¡£¡¹\n\n" NOR, me);
+	message_vision( HIW "\n$Nè¯´é“ï¼šã€Œä¸æ‰“äº†ï¼Œä¸æ‰“äº†ï¼Œæˆ‘æŠ•é™....ã€‚ã€\n\n" NOR, me);
 	return 1;
 }
 int help(object me)
 {
   write(@HELP
-Ö¸Áî¸ñÊ½ : surrender
+æŒ‡ä»¤æ ¼å¼ : surrender
  
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄãÏòµĞÈËÍ¶½µ¶øÖÕÖ¹Õ½¶·¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ å‘æ•ŒäººæŠ•é™è€Œç»ˆæ­¢æˆ˜æ–—ã€‚
  
 HELP
     );

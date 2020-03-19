@@ -1,4 +1,4 @@
-// shufang.c ÓùÊé·¿
+// shufang.c å¾¡ä¹¦æˆ¿
 
 #include <room.h>
 inherit ROOM;
@@ -8,18 +8,18 @@ int do_press(string arg);
 
 void create()
 {
-        set("short", "ÓùÊé·¿");
+        set("short", "å¾¡ä¹¦æˆ¿");
         set("long", @LONG
-»ÊÉÏÓÃ¹¦¶ÁÊéµÄÓùÊé·¿.ËÄÏÂÆëÕûµØÅÅ×Å¼¸ÅÅÊé¼Ü,¿´À´¶¼ÊÇĞ©Ãûµä
-¾ŞÖø,Äã°µ×ÔµÀ,Ô­À´»ÊÉÏÒ²¶ÁÕâÃ´¶àÊé°¡.Êé·¿ÕıÖĞÓĞÕÅ¾«µñµÄÌ´ÏãÄ¾
-×À(desk),×ÀÉÏ°Ú×Å¼¸±¾·âÃæ¾«ÃÀµÄ²¯Êé.
+çš‡ä¸Šç”¨åŠŸè¯»ä¹¦çš„å¾¡ä¹¦æˆ¿.å››ä¸‹é½æ•´åœ°æ’ç€å‡ æ’ä¹¦æ¶,çœ‹æ¥éƒ½æ˜¯äº›åå…¸
+å·¨è‘—,ä½ æš—è‡ªé“,åŸæ¥çš‡ä¸Šä¹Ÿè¯»è¿™ä¹ˆå¤šä¹¦å•Š.ä¹¦æˆ¿æ­£ä¸­æœ‰å¼ ç²¾é›•çš„æª€é¦™æœ¨
+æ¡Œ(desk),æ¡Œä¸Šæ‘†ç€å‡ æœ¬å°é¢ç²¾ç¾çš„å¸›ä¹¦.
 LONG
         );
         set("exits", ([
                 "south" : __DIR__"tinglang1",
 		]));
         set("item_desc", ([
-				"desk" : "Ò»ÕÅÖÆ×÷¾«Á¼µÄÌ´ÏãÄ¾Êé×À.\n",
+				"desk" : "ä¸€å¼ åˆ¶ä½œç²¾è‰¯çš„æª€é¦™æœ¨ä¹¦æ¡Œ.\n",
         ]));
         set("objects", ([
 //        __DIR__"npc/kangxi" : 1,
@@ -37,7 +37,7 @@ int do_press(string arg)
         if( !arg || arg=="") return 0;
         if( arg=="desk")
         {
-                message_vision("ÄãÇáÇáÒ»°´×À½Ç,Í»È»Ç½ÉÏÊé¼ÜÁĞ¿ªÒ»µÀ°µÃÅ.\n", this_player());
+                message_vision("ä½ è½»è½»ä¸€æŒ‰æ¡Œè§’,çªç„¶å¢™ä¸Šä¹¦æ¶åˆ—å¼€ä¸€é“æš—é—¨.\n", this_player());
                 set("exits/enter", __DIR__"mishi");
 				remove_call_out("close");
                 call_out("close", 1, this_object());
@@ -47,6 +47,6 @@ int do_press(string arg)
 
 void close(object room)
 {
-        message_vision("Ö¨Ñ½Ò»Éù,°µÃÅÓÖºÏÉÏÁË.\n", room);
+        message_vision("å±å‘€ä¸€å£°,æš—é—¨åˆåˆä¸Šäº†.\n", room);
         room->delete("exits/enter");
 }

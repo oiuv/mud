@@ -1,4 +1,4 @@
-// yirong.c Ò×ÈİÊõ
+// yirong.c æ˜“å®¹æœ¯
 
 inherit SKILL;
 
@@ -13,7 +13,7 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-        return notify_fail("Ò×ÈİÊõÖ»ÄÜ¿¿Ñ§(learn)À´Ìá¸ß¡£\n");
+        return notify_fail("æ˜“å®¹æœ¯åªèƒ½é å­¦(learn)æ¥æé«˜ã€‚\n");
 }
 
 

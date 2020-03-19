@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��ɽɽ·");
+        set("short", "天山山路");
         set("long", @LONG
-��������ɽ��´��ɽ���ɽ�ϴ����������ɪɪ������·
-����һƬ��ԭ����ԭ��һλ�����˸���һȺ�������򶫿���
-��ɽ�����ߴ����������޵�Х����
+这里是天山东麓，山风从山上吹来，你冷得瑟瑟发抖。路
+边是一片草原。草原上一位牧羊人赶着一群羊。这里向东可以
+下山。北边传来阵阵猛兽的啸声。
 LONG);
         set("exits", ([
             	"eastdown" : __DIR__"shanjiao",

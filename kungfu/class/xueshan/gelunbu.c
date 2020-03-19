@@ -8,13 +8,13 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("¸ðÂ×²¼", ({ "ge lunbu", "ge", "lunbu" }));
+        set_name("è‘›ä¼¦å¸ƒ", ({ "ge lunbu", "ge", "lunbu" }));
         set("long", @LONG
-¸ðÂ×²¼ÊÇ´óÂÖËÂ»¤ËÂÉ®±øµÄÍ·Áì¡£Í¬Ê±Ïò±¾ËÂ
-µÚ×Ó´«ÊÚÎä¹¦¡£Éí´©Ò»¼þºÚÉ«ôÂôÄ£¬Í·´øÉ®Ã±¡£
+è‘›ä¼¦å¸ƒæ˜¯å¤§è½®å¯ºæŠ¤å¯ºåƒ§å…µçš„å¤´é¢†ã€‚åŒæ—¶å‘æœ¬å¯º
+ç¬¬å­ä¼ æŽˆæ­¦åŠŸã€‚èº«ç©¿ä¸€ä»¶é»‘è‰²è¢ˆè£Ÿï¼Œå¤´å¸¦åƒ§å¸½ã€‚
 LONG);
-        set("title", "´óÂÖËÂÉ®±øÍ·Áì");
-        set("gender", "ÄÐÐÔ");
+        set("title", "å¤§è½®å¯ºåƒ§å…µå¤´é¢†");
+        set("gender", "ç”·æ€§");
         set("class", "bonze");
         set("age", 30);
         set("attitude", "heroism");
@@ -66,11 +66,11 @@ LONG);
                 (: exert_function, "recover" :),
         }));
 
-        create_family("´óÂÖËÂ", 3, "À®Âï");
+        create_family("å¤§è½®å¯º", 3, "å–‡å˜›");
 
         set("inquiry",([
-                "Ìê¶È" : (: ask_for_join :),
-                "³ö¼Ò" : (: ask_for_join :),
+                "å‰ƒåº¦" : (: ask_for_join :),
+                "å‡ºå®¶" : (: ask_for_join :),
         ]));
 
         set("coagents", ({
@@ -79,12 +79,12 @@ LONG);
         }));
 
         set("guarder", ([
-                "refuse_other": CYN "$N" CYN "¶Ô$n" CYN "ÀäºÈµÀ£º"
-                                "Äã¸øÎÒÕ¾×¡£¡ÎÒÃÇ´óÂÖËÂÆñÊÇÓÉµÃÍâ"
-                                "ÈËËæ±ã×ß¶¯µØ·½£¿" NOR,
-                "refuse_carry": CYN "$N" CYN "¶Ô$n" CYN "ºÈµÀ£ºÄã"
-                                "±³ÉÏ±³µÄÊÇÊ²Ã´ÈË£¿»¹²»¿ì¸øÎÒ·ÅÏÂ"
-                                "À´£¡" NOR,
+                "refuse_other": CYN "$N" CYN "å¯¹$n" CYN "å†·å–é“ï¼š"
+                                "ä½ ç»™æˆ‘ç«™ä½ï¼æˆ‘ä»¬å¤§è½®å¯ºå²‚æ˜¯ç”±å¾—å¤–"
+                                "äººéšä¾¿èµ°åŠ¨åœ°æ–¹ï¼Ÿ" NOR,
+                "refuse_carry": CYN "$N" CYN "å¯¹$n" CYN "å–é“ï¼šä½ "
+                                "èƒŒä¸ŠèƒŒçš„æ˜¯ä»€ä¹ˆäººï¼Ÿè¿˜ä¸å¿«ç»™æˆ‘æ”¾ä¸‹"
+                                "æ¥ï¼" NOR,
         ]));
 
         setup();
@@ -100,20 +100,20 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
  
-        if ((string)ob->query("gender") != "ÄÐÐÔ")
+        if ((string)ob->query("gender") != "ç”·æ€§")
         {
-                command("say ÐÞÏ°ÃÜ×ÚÄÚ¹¦ÐèÒª´¿ÑôÖ®Ìå¡£");
-                command("say ÕâÎ»" + RANK_D->query_respect(ob) + "»¹ÊÇÇë"
-                        "»Ø°É£¡");
+                command("say ä¿®ä¹ å¯†å®—å†…åŠŸéœ€è¦çº¯é˜³ä¹‹ä½“ã€‚");
+                command("say è¿™ä½" + RANK_D->query_respect(ob) + "è¿˜æ˜¯è¯·"
+                        "å›žå§ï¼");
                 return;
         }
 
-        command("say ¼ÈÈ»ÄãÓÐÐÄÏ°Îä£¬ÎÒ¾Í´«ÄãÒ»Ð©Îä¹¦°É£¡");
+        command("say æ—¢ç„¶ä½ æœ‰å¿ƒä¹ æ­¦ï¼Œæˆ‘å°±ä¼ ä½ ä¸€äº›æ­¦åŠŸå§ï¼");
         if ((string)ob->query("class") != "bonze")
 	{
-                command("say ÈôÄã´òËãÈëËÂÐÞÐÐÉÏ²ãÎä¹¦£¬È´·ÇµÃÏÈ" HIY "Ìê"
-                        "¶È" NOR + CYN "²»¿É¡£" NOR);
-                ob->set("title", "Ñ©É½ÅÉË×¼ÒµÜ×Ó");
+                command("say è‹¥ä½ æ‰“ç®—å…¥å¯ºä¿®è¡Œä¸Šå±‚æ­¦åŠŸï¼Œå´éžå¾—å…ˆ" HIY "å‰ƒ"
+                        "åº¦" NOR + CYN "ä¸å¯ã€‚" NOR);
+                ob->set("title", "é›ªå±±æ´¾ä¿—å®¶å¼Ÿå­");
 	}
         command("recruit " + ob->query("id"));
 }

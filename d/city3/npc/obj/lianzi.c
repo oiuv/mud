@@ -6,19 +6,19 @@ inherit THROWING;
 
 void create()
 {
-        set_name(HIC"ÌúÁ«×Ó"NOR, ({ "tie lianzi", "lianzi","tie" }) );
+        set_name(HIC"é“è²å­"NOR, ({ "tie lianzi", "lianzi","tie" }) );
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ğ©");
+                set("unit", "äº›");
                 set("value", 0);
-                set("base_unit", "¿Å");
+                set("base_unit", "é¢—");
                 set("base_weight", 300);
                 set("base_value", 0);
                 set("material", "iron");
-                set("long", HIW"ÌúÁ«×ÓÊÇÒ»ÖÖÒÔÁ¿È¡Ê¤µÄ°µÆ÷£¬³ÁµßµßµÄ¡£\n"NOR);
-                set("wield_msg", HIC"$NÑ¸ËÙµØ´Ó°µÆ÷´üÖĞÌÍ³öÒ»Ğ©ÌúÁ«×Ó£¬ÄóÔÚÊÖÖĞ¾Í´ı·¢³ö£¡\n"NOR);
-                set("unwield_msg",HIC"$N½«ÊÖÀïÊ£ÏÂµÄÌúÁ«×Ó¾¡Êı·Å»Ø°µÆ÷´üÖĞ¡£\n"NOR);
+                set("long", HIW"é“è²å­æ˜¯ä¸€ç§ä»¥é‡å–èƒœçš„æš—å™¨ï¼Œæ²‰é¢ é¢ çš„ã€‚\n"NOR);
+                set("wield_msg", HIC"$Nè¿…é€Ÿåœ°ä»æš—å™¨è¢‹ä¸­æå‡ºä¸€äº›é“è²å­ï¼Œæåœ¨æ‰‹ä¸­å°±å¾…å‘å‡ºï¼\n"NOR);
+                set("unwield_msg",HIC"$Nå°†æ‰‹é‡Œå‰©ä¸‹çš„é“è²å­å°½æ•°æ”¾å›æš—å™¨è¢‹ä¸­ã€‚\n"NOR);
              }
         set_amount(50);
         init_throwing(25);

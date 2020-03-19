@@ -18,38 +18,38 @@ int perform(object me, object target)
 	if (! target) target = offensive_target(me);
 
         if (userp(me) && ! me->query("can_perform/qianzhu-wandushou/zhugu"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (environment(me)->query("no_fight"))
-		return notify_fail("ÕâÀï²»ÄÜ¹¥»÷±ğÈË£¡\n");
+		return notify_fail("è¿™é‡Œä¸èƒ½æ”»å‡»åˆ«äººï¼\n");
 
 	if (! target || ! target->is_character())
-		return notify_fail("ÄãÒª¶ÔË­Ê©Õ¹Öë¹Æ¾ö£¿\n");
+		return notify_fail("ä½ è¦å¯¹è°æ–½å±•è››è›Šå†³ï¼Ÿ\n");
 
 	if (target->query("not_living"))
-		return notify_fail("¿´Çå³ş£¬ÄÇ²»ÊÇ»îÈË¡£\n");
+		return notify_fail("çœ‹æ¸…æ¥šï¼Œé‚£ä¸æ˜¯æ´»äººã€‚\n");
 
         if ((int)me->query_skill("force") < 200)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»×ãÒÔÊ©Õ¹Öë¹Æ¾ö¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸è¶³ä»¥æ–½å±•è››è›Šå†³ã€‚\n");
 
         if ((int)me->query_skill("qianzhu-wandushou", 1) < 130)
-                return notify_fail("ÄãµÄÇ§ÖëÍò¶¾ÊÖĞŞÎª²»¹»£¬ÏÖÔÚ»¹ÎŞ·¨Ê©Õ¹Öë¹Æ¾ö¡£\n");
+                return notify_fail("ä½ çš„åƒè››ä¸‡æ¯’æ‰‹ä¿®ä¸ºä¸å¤Ÿï¼Œç°åœ¨è¿˜æ— æ³•æ–½å±•è››è›Šå†³ã€‚\n");
 
         if (me->query_skill_mapped("hand") != "qianzhu-wandushou")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢Ç§ÖëÍò¶¾ÊÖ£¬ÎŞ·¨Ê©Õ¹Öë¹Æ¾ö¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘åƒè››ä¸‡æ¯’æ‰‹ï¼Œæ— æ³•æ–½å±•è››è›Šå†³ã€‚\n");
 
         if (me->query("neili") < 400)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÏÖÔÚÎŞ·¨Ê©Õ¹Öë¹Æ¾ö¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œç°åœ¨æ— æ³•æ–½å±•è››è›Šå†³ã€‚\n");
 
-        msg = HIB "$N" HIB "Ê©³öÖë¹Æ¾ö£¬Ö»¼ûÒ»ÂÆºÚÆø´Ó"
-              "Ö¸¼âÍ¸³ö£¬Ö»Ò»ÉÁ¾ÍÃ»ÈëÁË$n" HIB "µÄÃ¼ĞÄ£¡\n" NOR;
+        msg = HIB "$N" HIB "æ–½å‡ºè››è›Šå†³ï¼Œåªè§ä¸€ç¼•é»‘æ°”ä»"
+              "æŒ‡å°–é€å‡ºï¼Œåªä¸€é—ªå°±æ²¡å…¥äº†$n" HIB "çš„çœ‰å¿ƒï¼\n" NOR;
 		
 		lvls = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
 		lvls = lvls * 4 / 5;
 		ks = keys(me->query_skills(martial));
 		improve = 0;
 		n = 0;
-		//×î¶à¸øÓè5¸ö¼¼ÄÜµÄ¼Ó³É
+		//æœ€å¤šç»™äºˆ5ä¸ªæŠ€èƒ½çš„åŠ æˆ
 		for (m = 0; m < sizeof(ks); m++)
 		{
 			if (SKILL_D(ks[m])->valid_enable(martial))
@@ -63,7 +63,7 @@ int perform(object me, object target)
 		
 		improve = improve * 5 / 100 / lvls;
 		
-		if (me->query("family/family_name") == "Îå¶¾½Ì")
+		if (me->query("family/family_name") == "äº”æ¯’æ•™")
 			improve += 0.1;
 
         lvl = me->query_skill("hand");
@@ -76,9 +76,9 @@ int perform(object me, object target)
         {
                 damage = lvl + random(lvl / 2);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 50 + poison,
-                                           HIR "$p" HIR "Ö»¾õµÃÒ»¹ÉÈçÉ½µÄ¾¢Á¦Ë³Ö¸¼âÃÍ"
-                                           "¹¥¹ıÀ´£¬Ö»¾õµÃÈ«Éí¶¾Æø¿ñ´Ü£¬¡°ÍÛ¡±µÄÒ»Éù"
-                                           "ÍÂ³öÒ»¿ÚºÚÑª£¡\n" NOR);
+                                           HIR "$p" HIR "åªè§‰å¾—ä¸€è‚¡å¦‚å±±çš„åŠ²åŠ›é¡ºæŒ‡å°–çŒ›"
+                                           "æ”»è¿‡æ¥ï¼Œåªè§‰å¾—å…¨èº«æ¯’æ°”ç‹‚çªœï¼Œâ€œå“‡â€çš„ä¸€å£°"
+                                           "åå‡ºä¸€å£é»‘è¡€ï¼\n" NOR);
                 target->affect_by("qianzhu_wandushou",
                                   ([ "level" : lvl * 2 / 3 + random(poison),
                                      "id"    : me->query("id"),
@@ -87,8 +87,8 @@ int perform(object me, object target)
                 me->start_busy(2);
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "ÔË×ãÄÚÁ¦£¬ÒÔÉîºñµÄÄÚ¹¦"
-                       "»¯½âÁËÕâÒ»Ö¸µÄ¶¾¾¢¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "è¿è¶³å†…åŠ›ï¼Œä»¥æ·±åšçš„å†…åŠŸ"
+                       "åŒ–è§£äº†è¿™ä¸€æŒ‡çš„æ¯’åŠ²ã€‚\n" NOR;
                 me->start_busy(4);
                 me->add("neili", -80);
         }

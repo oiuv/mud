@@ -6,14 +6,14 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("¸ßÉıÌ©", ({ "gao shengtai", "gao" }));
-        set("title", "´óÀí¹úÔ×Ïà");
-        set("nickname", HIR "ÉÆ²ûºî" NOR);
+        set_name("é«˜å‡æ³°", ({ "gao shengtai", "gao" }));
+        set("title", "å¤§ç†å›½å®°ç›¸");
+        set("nickname", HIR "å–„é˜ä¾¯" NOR);
         set("long", @LONG
-´óÀí¹úºîÒ¯£¬ÕâÊÇÎ»¿íÅÛ´óĞäµÄÖĞÄêÄĞ×Ó£¬ÈıÂÆ³¤
-÷×£¬ĞÎÃ²¸ßÑÅ¡£
+å¤§ç†å›½ä¾¯çˆ·ï¼Œè¿™æ˜¯ä½å®½è¢å¤§è¢–çš„ä¸­å¹´ç”·å­ï¼Œä¸‰ç¼•é•¿
+é«¯ï¼Œå½¢è²Œé«˜é›…ã€‚
 LONG);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 46);
         set("class", "officer");
         set("attitude", "friendly");
@@ -54,7 +54,7 @@ LONG);
         prepare_skill("cuff", "jinyu-quan");
         prepare_skill("strike", "wuluo-zhang");
 
-        create_family("¶ÎÊÏ»Ê×å", 15, "ÉÆ²ûºî");
+        create_family("æ®µæ°çš‡æ—", 15, "å–„é˜ä¾¯");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -79,6 +79,6 @@ void attempt_apprentice(object ob)
                 return;
 
         command("haha");
-        command("say ÊÀ×ÓµîÏÂºÎĞèÈç´Ë£¬ÓĞÊÂ·Ô¸ÀÔÚÏÂÒ»Éù±ãÊÇ¡£");
+        command("say ä¸–å­æ®¿ä¸‹ä½•éœ€å¦‚æ­¤ï¼Œæœ‰äº‹å©å’åœ¨ä¸‹ä¸€å£°ä¾¿æ˜¯ã€‚");
         return;
 }

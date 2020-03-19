@@ -52,7 +52,7 @@ mixed compile_object(string file)
     {
         if ((elements = sscanf(path[n], "%d,%d", x, y)) != 2)
         {
-            // VRM_SERVER ·½Ê½Éú³ÉÃÔ¹¬
+            // VRM_SERVER æ–¹å¼ç”Ÿæˆè¿·å®«
             string pname = file;
             while (1)
             {
@@ -75,11 +75,11 @@ mixed compile_object(string file)
     }
 
     if (file_size(cfile + ".c") < 1)
-        return 0; // "¶ÔÏó²»´æÔÚ£¡"
+        return 0; // "å¯¹è±¡ä¸å­˜åœ¨ï¼"
     if (elements == 2 && !(ob = new (cfile, x, y)))
-        return 0; // "±àÒëÊ§°Ü£¡"
+        return 0; // "ç¼–è¯‘å¤±è´¥ï¼"
     else if (elements == 3 && !(ob = new (cfile, x, y, z)))
-        return 0; // "±àÒëÊ§°Ü£¡"
+        return 0; // "ç¼–è¯‘å¤±è´¥ï¼"
 
     return ob;
 }

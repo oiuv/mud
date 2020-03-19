@@ -1,4 +1,4 @@
-// hantie.c Ğş±ùº®Ìú
+// hantie.c ç„å†°å¯’é“
 
 #include <ansi.h>
 
@@ -6,19 +6,19 @@ inherit ITEM;
 
 void create()
 {
-	set_name(WHT "Ğş±ùº®Ìú" NOR, ({"ice steel", "han tie", "tie"}));
+	set_name(WHT "ç„å†°å¯’é“" NOR, ({"ice steel", "han tie", "tie"}));
 	set_weight(5000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»¿éÁÁ¾§¾§µÄ½ğÊô£¬¾İËµÊÇÔÚÉÏ¹ÅĞş±ùÖĞÔĞÓı³öµÄº®Ìú¡£\n");
-		set("unit", "¿é");
+		set("long", "ä¸€å—äº®æ™¶æ™¶çš„é‡‘å±ï¼Œæ®è¯´æ˜¯åœ¨ä¸Šå¤ç„å†°ä¸­å­•è‚²å‡ºçš„å¯’é“ã€‚\n");
+		set("unit", "å—");
 		set("value", 10000);
                 set("item_origin", 1);
                 set("material_attrib", "steel");
-                set("material_name", WHT "ÉÏ¹Åº®Ìú" NOR);
+                set("material_name", WHT "ä¸Šå¤å¯’é“" NOR);
                 set("can_make", "all");
-                set("not_make", ({ "±Ş", "Õ½ÒÂ", "Ñü´ø" }));
+                set("not_make", ({ "é­", "æˆ˜è¡£", "è…°å¸¦" }));
                 set("power_point", 70);
 	}
 }

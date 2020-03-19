@@ -1,13 +1,13 @@
-// yahuan.c Ñ¾÷ß
+// yahuan.c ä¸«é¬Ÿ
 
 inherit NPC;
 
 void create()
 {
-	set_name("Ñ¾÷ß", ({ "ya huan", "ya" }));
+	set_name("ä¸«é¬Ÿ", ({ "ya huan", "ya" }));
 	set("long", 
-		"ËıÊÇÒ»¸ö³¤µÃºÜºÃ¿´µÄĞ¡¹ÃÄï¡£\n");
-	set("gender", "Å®ĞÔ");
+		"å¥¹æ˜¯ä¸€ä¸ªé•¿å¾—å¾ˆå¥½çœ‹çš„å°å§‘å¨˜ã€‚\n");
+	set("gender", "å¥³æ€§");
 	set("age", 16);
 
 	set_skill("unarmed", 20);

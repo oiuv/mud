@@ -12,52 +12,52 @@ int do_join(string arg)
 	ob = this_player();
 
 	if (! arg || arg != "shenlongjiao")
-		return notify_fail("ÄãÒª¼ÓÈëÊ²Ã´×éÖ¯£¿\n"); 
+		return notify_fail("ä½ è¦åŠ å…¥ä»€ä¹ˆç»„ç»‡ï¼Ÿ\n"); 
 
 	if ((int)ob->query("shen") > 0)
 	{
-	        message_vision("$N¶Ô$n´óÅ­µÀ£º»¹ÏëÈë½Ì£¿Ò»¿´Äã¾Í²»ÊÇºÃÈË! \n",
+	        message_vision("$Nå¯¹$nå¤§æ€’é“ï¼šè¿˜æƒ³å…¥æ•™ï¼Ÿä¸€çœ‹ä½ å°±ä¸æ˜¯å¥½äºº! \n",
 			       me, ob);
 		me->kill_ob(ob); 
 		return 1;
 	}
 
-	if (ob->query("party") && ob->query("party/party_name") != "ÉñÁú½Ì")
+	if (ob->query("party") && ob->query("party/party_name") != "ç¥é¾™æ•™")
 	{
-		message_vision("$NÒ¡Ò¡Í·£¬¶Ô$nËµµÀ£ºÄãÒÑ¾­¼ÓÈë"
-			       "ÆäËû°ï»áÁË£¬²»ÄÜÔÙÈëÎÒÉñÁú½Ì¡£\n",
+		message_vision("$Næ‘‡æ‘‡å¤´ï¼Œå¯¹$nè¯´é“ï¼šä½ å·²ç»åŠ å…¥"
+			       "å…¶ä»–å¸®ä¼šäº†ï¼Œä¸èƒ½å†å…¥æˆ‘ç¥é¾™æ•™ã€‚\n",
 			       me, ob);
 		return 1;
 	}
 
-	if(ob->query("party/party_name") == "ÉñÁú½Ì")
+	if(ob->query("party/party_name") == "ç¥é¾™æ•™")
 	{
-		message_vision("$NÒ¡Ò¡Í·£¬¶Ô$nËµµÀ£ºÄãÒÑ¾­"
-			       "ÊÇÎÒÉñÁú½ÌµÄÈËÁË¡£\n",
+		message_vision("$Næ‘‡æ‘‡å¤´ï¼Œå¯¹$nè¯´é“ï¼šä½ å·²ç»"
+			       "æ˜¯æˆ‘ç¥é¾™æ•™çš„äººäº†ã€‚\n",
 			       me, ob);
 		return 1;
 	}
-	if ((string)ob->query("gender") == "Å®ĞÔ" ) men = HIR "³à";
+	if ((string)ob->query("gender") == "å¥³æ€§" ) men = HIR "èµ¤";
 	else
 	{
 		switch (random(4))
 		{
-		case 0 : men = HIG "Çà"; break;
-		case 1 : men = HIW "°×"; break;
-		case 2 : men = BLU "ºÚ"; break;
-		default: men = YEL "»Æ"; break;
+		case 0 : men = HIG "é’"; break;
+		case 1 : men = HIW "ç™½"; break;
+		case 2 : men = BLU "é»‘"; break;
+		default: men = YEL "é»„"; break;
 		}
 	}
 	party = allocate_mapping(5);
-	party["party_name"] = "ÉñÁú½Ì";
-	party["rank"] = men + "ÁúÊ¹" NOR "×ùÏÂ½ÌÖÚ";
+	party["party_name"] = "ç¥é¾™æ•™";
+	party["rank"] = men + "é¾™ä½¿" NOR "åº§ä¸‹æ•™ä¼—";
 	party["level"] = 1;
 	party["tasks"] = 0;
 	party["enter_time"] = time();
 	ob->set("party", party);
 
 	command("smile");
-	message_vision("$N¶Ô$nËµµÀ£ºÄã¾ÍÔİÊ±ÔÚ" + men +
-		       "ÁúÊ¹" NOR + "×ùÏÂĞ§Á¦°É£¡\n", me, ob);
+	message_vision("$Nå¯¹$nè¯´é“ï¼šä½ å°±æš‚æ—¶åœ¨" + men +
+		       "é¾™ä½¿" NOR + "åº§ä¸‹æ•ˆåŠ›å§ï¼\n", me, ob);
 	return 1;
 }

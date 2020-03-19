@@ -4,10 +4,10 @@ inherit NPC;
 
 void create()
 {
-    set_name("ÈÕÔÂµÜ×Ó", ({ "riyue dizi", "riyue", "dizi" }));
-    set("title", HIY "³ÉµÂµî" NOR);
-    set("long", "ÕâÊÇ³ÉµÂµîµîÏÂµÜ×Ó£¬Ëû¾¯ÌèµØÑ²ÊÓ×ÅËÄÖÜµÄÇéĞÎ¡£\n");
-    set("gender", "ÄĞĞÔ");
+    set_name("æ—¥æœˆå¼Ÿå­", ({ "riyue dizi", "riyue", "dizi" }));
+    set("title", HIY "æˆå¾·æ®¿" NOR);
+    set("long", "è¿™æ˜¯æˆå¾·æ®¿æ®¿ä¸‹å¼Ÿå­ï¼Œä»–è­¦æƒ•åœ°å·¡è§†ç€å››å‘¨çš„æƒ…å½¢ã€‚\n");
+    set("gender", "ç”·æ€§");
     set("attitude", "peaceful");
 
     set("str", 30);
@@ -55,5 +55,5 @@ void greeting(object ob)
 {
     if (! ob || environment(ob) != environment()) return;
 
-    say(CYN "ÈÕÔÂµÜ×Ó¸ßÉùºôº°µÀ£ºÈÕÔÂÉñ½Ì£¬ÎÄ³ÉÎäµÂ¡£Ç§ÇïÍòÔØ£¬Ò»Í³½­ºş¡£\n" NOR);
+    say(CYN "æ—¥æœˆå¼Ÿå­é«˜å£°å‘¼å–Šé“ï¼šæ—¥æœˆç¥æ•™ï¼Œæ–‡æˆæ­¦å¾·ã€‚åƒç§‹ä¸‡è½½ï¼Œä¸€ç»Ÿæ±Ÿæ¹–ã€‚\n" NOR);
 }

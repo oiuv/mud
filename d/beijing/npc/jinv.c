@@ -2,11 +2,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("¼ËÅ®", ({ "ji nv", "ji", "nv" }) );
-        set("gender", "Å®ĞÔ" );
+        set_name("å¦“å¥³", ({ "ji nv", "ji", "nv" }) );
+        set("gender", "å¥³æ€§" );
         set("age", 32);
         set("long",
-              "Ò»¸öÇ§×Ë°ÙÃÄµÄ¼ËÅ®¡£\n");
+              "ä¸€ä¸ªåƒå§¿ç™¾åªšçš„å¦“å¥³ã€‚\n");
         set("shen_type", 1);
         set("combat_exp", 10000);
         set("str", 17);
@@ -18,7 +18,7 @@ void create()
         set_skill("unarmed",20);
         set("chat_chance", 1);
         set("chat_msg", ({
-                "¼ËÅ®³¯×ÅÄãÅ×ÁË¸öÃÄÑÛ¡£\n",
+                "å¦“å¥³æœç€ä½ æŠ›äº†ä¸ªåªšçœ¼ã€‚\n",
         }) );       
 
         setup();

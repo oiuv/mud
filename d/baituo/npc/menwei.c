@@ -5,14 +5,14 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("ÃÅÎÀ", ({ "men wei", "men", "wei" }));
+        set_name("é—¨å«", ({ "men wei", "men", "wei" }));
         set("long", @LONG
-ÕâÊÇ¸öÄê¸»Á¦Ç¿µÄÎÀ±ø£¬Ñù×ÓÊ®·ÖÍşÑÏ¡£ËäÈ»
-ËûÃÇÎäÒÕ²»¸ß£¬µ«ÊÇ¾­¹ıÅ·Ñô·æµÄÑµÁ·£¬¾ö·Ç
-³£ÈË¿ÉµĞ¡£
+è¿™æ˜¯ä¸ªå¹´å¯ŒåŠ›å¼ºçš„å«å…µï¼Œæ ·å­ååˆ†å¨ä¸¥ã€‚è™½ç„¶
+ä»–ä»¬æ­¦è‰ºä¸é«˜ï¼Œä½†æ˜¯ç»è¿‡æ¬§é˜³é”‹çš„è®­ç»ƒï¼Œå†³é
+å¸¸äººå¯æ•Œã€‚
 LONG);
-        set("nickname", WHT "ÌúÊ¨×Ó" NOR);
-        set("gender", "ÄĞĞÔ" );
+        set("nickname", WHT "é“ç‹®å­" NOR);
+        set("gender", "ç”·æ€§" );
         set("age", 22);
         set("attitude", "friendly");
         set("shen_type", -1);
@@ -44,7 +44,7 @@ LONG);
                    "id"        : "ouyang feng" ]),
         }));
 
-        create_family("Å·ÑôÊÀ¼Ò", 0, "ÊÌÎÀ");
+        create_family("æ¬§é˜³ä¸–å®¶", 0, "ä¾å«");
 
         setup();
         add_money("silver", 2);
@@ -69,17 +69,17 @@ void greeting(object ob)
         if (! ob || environment(ob) != environment())
                 return;
 
-        if (check_family(ob, "Å·ÑôÊÀ¼Ò"))
+        if (check_family(ob, "æ¬§é˜³ä¸–å®¶"))
         {
-                say(CYN "ÃÅÎÀĞ¦Ò÷Ò÷µØµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-                    CYN "ÄúĞÁ¿àÁË£¬¿ìÇë½ø°É¡£\n" NOR);
+                say(CYN "é—¨å«ç¬‘åŸåŸåœ°é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+                    CYN "æ‚¨è¾›è‹¦äº†ï¼Œå¿«è¯·è¿›å§ã€‚\n" NOR);
                 return;
         }
 
         if ((int)ob->query("shen") > 200)
         {
-                say(CYN "ÃÅÎÀÁ½ÑÛÒ»µÉµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-                    CYN "ÄãÊÇÀ´ÕÒÂé·³µÄ°É£¿\n");
+                say(CYN "é—¨å«ä¸¤çœ¼ä¸€çªé“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+                    CYN "ä½ æ˜¯æ¥æ‰¾éº»çƒ¦çš„å§ï¼Ÿ\n");
                 return;
         }
 }

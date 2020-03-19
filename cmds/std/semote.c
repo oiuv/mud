@@ -18,24 +18,24 @@ int main(object me, string arg)
 	e = EMOTE_D->query_all_emote();
 	if (arg == "-r" || arg && sscanf(arg, "-r %d", d))
 	{
-		str = HIM "°´ÕÕÊ±¼äË³ÐòÏÔÊ¾" + LOCAL_MUD_NAME();
+		str = HIM "æŒ‰ç…§æ—¶é—´é¡ºåºæ˜¾ç¤º" + LOCAL_MUD_NAME();
 		if (d)
 		{
-			str += "×î½ü" + chinese_number(d) + "ÌìÔö¼ÓµÄ±íÇé¶¯´Ê";
+			str += "æœ€è¿‘" + chinese_number(d) + "å¤©å¢žåŠ çš„è¡¨æƒ…åŠ¨è¯";
 			d *= 86400;
 			e = filter_array(e, (: filter_emote :), d);
 		} else
 		{
-			str += "ËùÓÐµÄ±íÇé¶¯´Ê";
+			str += "æ‰€æœ‰çš„è¡¨æƒ…åŠ¨è¯";
 			e = sort_array(e, (: sort_emote :));
 		}
 		str += "\n" NOR;
 	} else
 	{
-		str = HIW + LOCAL_MUD_NAME() + "±íÇé¶¯×÷×Ü»ã\n" NOR;
+		str = HIW + LOCAL_MUD_NAME() + "è¡¨æƒ…åŠ¨ä½œæ€»æ±‡\n" NOR;
 		e = sort_array(EMOTE_D->query_all_emote(), 1);
 	}
-	str += "¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\n";
+	str += "â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n";
 	for(i=0; i<sizeof(e); i++)
 		str += sprintf("%-15s%s", e[i], (i%5==4)?"\n": "");
 	me->start_more(str);
@@ -68,13 +68,13 @@ int sort_emote(string e1, string e2)
 int help(object me)
 {
   write(@HELP
-Ö¸Áî¸ñÊ½ : semote [-r [n]]
+æŒ‡ä»¤æ ¼å¼ : semote [-r [n]]
 
-Õâ¸öÖ¸Áî¿ÉÒÔÁÐ³öÄ¿Ç°ËùÄÜÊ¹ÓÃµÄemote¡£Èç¹ûÍæ¼ÒÊ¹ÓÃÁË
-Ñ¡Ïî -r Ôò¿ÉÒÔ°´ÕÕÊ±¼äË³ÐòÏÔÊ¾ËùÓÐµÄemote£¬Èç¹ûÑ¡Ïî
-ºóÃæÌí¼ÓÁË²ÎÊý£¬Ôò½«Ö»ÏÔÊ¾×î½ü¼¸Ìì±àÐ´µÄemote¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥åˆ—å‡ºç›®å‰æ‰€èƒ½ä½¿ç”¨çš„emoteã€‚å¦‚æžœçŽ©å®¶ä½¿ç”¨äº†
+é€‰é¡¹ -r åˆ™å¯ä»¥æŒ‰ç…§æ—¶é—´é¡ºåºæ˜¾ç¤ºæ‰€æœ‰çš„emoteï¼Œå¦‚æžœé€‰é¡¹
+åŽé¢æ·»åŠ äº†å‚æ•°ï¼Œåˆ™å°†åªæ˜¾ç¤ºæœ€è¿‘å‡ å¤©ç¼–å†™çš„emoteã€‚
 
-±ÈÈçsemote -r 1½«ÏÔÊ¾×î½üÒ»ÌìÐÂ±àÐ´»òÐÞ¸ÄµÄemote¡£
+æ¯”å¦‚semote -r 1å°†æ˜¾ç¤ºæœ€è¿‘ä¸€å¤©æ–°ç¼–å†™æˆ–ä¿®æ”¹çš„emoteã€‚
 HELP
     );
     return 1;

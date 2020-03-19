@@ -11,9 +11,9 @@ int main(object me, string arg)
         if (! arg) arg = "...";
 
 	if (! pointerp(t = me->query_team()))
-		return notify_fail("ÄãÏÖÔÚ²¢Ã»ÓÐºÍ±ðÈË×é³É¶ÓÎé¡£\n");
+		return notify_fail("ä½ çŽ°åœ¨å¹¶æ²¡æœ‰å’Œåˆ«äººç»„æˆé˜Ÿä¼ã€‚\n");
 
-	message("team", HIY "¡¾¶ÓÎé»á»°¡¿" + me->name(1) +
-                "£º" + arg + "\n" NOR, t);
+	message("team", HIY "ã€é˜Ÿä¼ä¼šè¯ã€‘" + me->name(1) +
+                "ï¼š" + arg + "\n" NOR, t);
 	return 1;
 }

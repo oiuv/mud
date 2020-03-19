@@ -16,7 +16,7 @@ void create()
         name += last_words[random(sizeof(last_words))];
         
         set_name(name, ({ "ghost"}) );
-        set("gender", "ÄĞĞÔ" );        
+        set("gender", "ç”·æ€§" );        
         set("age",40);
         set("str", 30);
         set("int", 20);
@@ -77,9 +77,9 @@ void invocation(object target)
         int ap, dp, fp, damage;
         string msg;
 
-        msg = HIW "$N" HIW "Ò»Éù±©ºÈ£¬ÊÖÖĞ¸ÕÕÈ"
-              HIW "ºáÉ¨µ´³ö£¬Ò»Ê±¼ä³¾ÍÁ·ÉÑï£¬$n"
-              HIW "µÇÊ±¾õµÃºôÎü²»³©¡£\n" NOR;
+        msg = HIW "$N" HIW "ä¸€å£°æš´å–ï¼Œæ‰‹ä¸­åˆšæ–"
+              HIW "æ¨ªæ‰«è¡å‡ºï¼Œä¸€æ—¶é—´å°˜åœŸé£æ‰¬ï¼Œ$n"
+              HIW "ç™»æ—¶è§‰å¾—å‘¼å¸ä¸ç•…ã€‚\n" NOR;
                                       
         ap = me->query_skill("staff") * 3 / 2 + me->query_skill("martial-cognize", 1);
         fp = target->query_skill("force") + target->query_skill("martial-cognize", 1);
@@ -87,15 +87,15 @@ void invocation(object target)
         if (ap / 2 + random(ap) < fp)
         {
                 me->add("neili", -200);
-                msg += CYN "¿ÉÊÇ$n" CYN "ÄÚ¹¦Éîºñ£¬·ÜÁ¦½ÓÏÂ$N"
-                       CYN "ÕâÒ»ÕĞ£¬Ë¿ºÁÎŞËğ¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$n" CYN "å†…åŠŸæ·±åšï¼Œå¥‹åŠ›æ¥ä¸‹$N"
+                       CYN "è¿™ä¸€æ‹›ï¼Œä¸æ¯«æ— æŸã€‚\n" NOR;
                 me->start_busy(2);
         } else
         if (ap / 2 + random(ap) < dp)
         {
                 me->add("neili", -50);
-                msg += CYN "$n" CYN "¹ş¹şÒ»Ğ¦£¬Æ®ÉíÔ¾¿ª£¬ÈÃ$N"
-                       CYN "ÕâÒ»ÕĞÈ«È»Âä¿Õ¡£\n" NOR;
+                msg += CYN "$n" CYN "å“ˆå“ˆä¸€ç¬‘ï¼Œé£˜èº«è·ƒå¼€ï¼Œè®©$N"
+                       CYN "è¿™ä¸€æ‹›å…¨ç„¶è½ç©ºã€‚\n" NOR;
                 me->start_busy(3);
         } else
         {
@@ -103,8 +103,8 @@ void invocation(object target)
                 me->start_busy(2);
                 damage = ap + random(ap);
                 msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 60,
-                                           HIR "$n" HIR "Ö»¾õµÃ$N" HIR "ÄÚÁ¦ÓÌÈç"
-                                           "ÅÅÉ½µ¹º£Ò»°ã£¬ÔõÄÜµÖµ²£¿¡°ÍÛ¡±µÄÒ»ÏÂÍÂ³öÒ»´ó¿ÚÏÊÑª¡£\n" NOR);
+                                           HIR "$n" HIR "åªè§‰å¾—$N" HIR "å†…åŠ›çŠ¹å¦‚"
+                                           "æ’å±±å€’æµ·ä¸€èˆ¬ï¼Œæ€èƒ½æŠµæŒ¡ï¼Ÿâ€œå“‡â€çš„ä¸€ä¸‹åå‡ºä¸€å¤§å£é²œè¡€ã€‚\n" NOR);
         }
         message_combatd(msg, me, target);
         destruct(me);

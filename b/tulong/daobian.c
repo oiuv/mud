@@ -3,12 +3,12 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÍõÅÌÉ½µº±ß");
+        set("short", "ç‹ç›˜å±±å²›è¾¹");
         set("long", @LONG
-ÍõÅÌÉ½ÔÚÇ®ÌÁ½­¿ÚµÄ¶«º£Ö®ÖĞ£¬ÊÇ¸ö»ÄÁ¹Ğ¡µº£¬É½Ê¯á×á¾
-ÏòÎŞÈË¾Ó¡£°¶±ßÁ½ÈË¸÷¾Ù´óÆì£¬»ÓÎèÊ¾Òâ£¬Ö»¼ûÁ½Ãæ´óÆìÉÏ¾ù
-Ğå×ÅÒ»Í·´óÓ¥£¬Ë«³áÉìÕ¹£¬ÉõÊÇÍşÎä¡£Á½Ãæ´óÆìÖ®¼äÕ¾×ÅÒ»¸ö
-ÀÏÕß¡£ÍõÅÌÉ½ÊÇ¸öĞ¡µº£¬É½Ê¯Ê÷Ä¾ÎŞ¿É¹ÛÖ®´¦¡£
+ç‹ç›˜å±±åœ¨é’±å¡˜æ±Ÿå£çš„ä¸œæµ·ä¹‹ä¸­ï¼Œæ˜¯ä¸ªè’å‡‰å°å²›ï¼Œå±±çŸ³å¶™å³‹
+å‘æ— äººå±…ã€‚å²¸è¾¹ä¸¤äººå„ä¸¾å¤§æ——ï¼ŒæŒ¥èˆç¤ºæ„ï¼Œåªè§ä¸¤é¢å¤§æ——ä¸Šå‡
+ç»£ç€ä¸€å¤´å¤§é¹°ï¼ŒåŒç¿…ä¼¸å±•ï¼Œç”šæ˜¯å¨æ­¦ã€‚ä¸¤é¢å¤§æ——ä¹‹é—´ç«™ç€ä¸€ä¸ª
+è€è€…ã€‚ç‹ç›˜å±±æ˜¯ä¸ªå°å²›ï¼Œå±±çŸ³æ ‘æœ¨æ— å¯è§‚ä¹‹å¤„ã€‚
 LONG);
         set("exits",([
                 "southdown":__DIR__"boat2",
@@ -29,9 +29,9 @@ int valid_leave(object me, string dir)
         object ob = present("bai guishou");
 
         if (! me->query_temp("dao") && dir == "east")
-                return notify_fail(HIR "\nÄãÍ»È»Ïëµ½£º´Ë°ãÒ»½ø»á³¡¾ÍÊÇÉúËÀÖ®"
-                                   "¶·£¬Ç°Í¾Î´¹û¡£»¹ÊÇÏÈ\nÏÂÈ¥ÔÒÁËËûÃÇµÄ´¬("
-                                   HIY "break boat" HIR ")ÒÔ·À²»²â¡£\n" NOR);
+                return notify_fail(HIR "\nä½ çªç„¶æƒ³åˆ°ï¼šæ­¤èˆ¬ä¸€è¿›ä¼šåœºå°±æ˜¯ç”Ÿæ­»ä¹‹"
+                                   "æ–—ï¼Œå‰é€”æœªæœã€‚è¿˜æ˜¯å…ˆ\nä¸‹å»ç ¸äº†ä»–ä»¬çš„èˆ¹("
+                                   HIY "break boat" HIR ")ä»¥é˜²ä¸æµ‹ã€‚\n" NOR);
 
         if (me->query_temp("dao")
            && dir == "east"
@@ -40,8 +40,8 @@ int valid_leave(object me, string dir)
         {
                 ob->ccommand("tnnd" + me->query("id"));
                 ob->ccommand("slap3" + me->query("id"));
-                message_vision(CYN "$N" CYN "ºÈµÀ£º¾¹¸ÒÔÒ»µÎÒÃÇµÄ´¬Ö»£¬"
-                               "¸øÎÒÈ¥ËÀ°É£¡\n" NOR, ob, me);
+                message_vision(CYN "$N" CYN "å–é“ï¼šç«Ÿæ•¢ç ¸åæˆ‘ä»¬çš„èˆ¹åªï¼Œ"
+                               "ç»™æˆ‘å»æ­»å§ï¼\n" NOR, ob, me);
                 ob->kill_ob(me);
 
                 ob = present("jiao zhong");
@@ -55,7 +55,7 @@ int valid_leave(object me, string dir)
 
                 ob = present("jiao zhong 4");
                 if (objectp(ob)) ob->kill_ob(me);
-                        return notify_fail(HIY "Ïò¶«µÄÂ·±»°×¹êÊÙÀ¹×¡ÁË¡£\n" NOR);
+                        return notify_fail(HIY "å‘ä¸œçš„è·¯è¢«ç™½é¾Ÿå¯¿æ‹¦ä½äº†ã€‚\n" NOR);
         }
         return 1;
 }

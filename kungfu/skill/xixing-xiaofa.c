@@ -20,13 +20,13 @@ int query_neili_improve(object me)
 int valid_learn(object me)
 {
         if ((int)me->query_skill("force", 1) < 80)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ğºò²»×ã£¬²»ÄÜÑ§Îü¹¦ÈëµØĞ¡·¨¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™ä¸è¶³ï¼Œä¸èƒ½å­¦å¸åŠŸå…¥åœ°å°æ³•ã€‚\n");
 
-        if (me->query("gender") == "ÎŞĞÔ" && (int)me->query_skill("xixing-xiaofa", 1) > 99)
-                return notify_fail("ÄãÎŞ¸ùÎŞĞÔÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄÎü¹¦ÈëµØĞ¡·¨¡£\n");
+        if (me->query("gender") == "æ— æ€§" && (int)me->query_skill("xixing-xiaofa", 1) > 99)
+                return notify_fail("ä½ æ— æ ¹æ— æ€§é˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„å¸åŠŸå…¥åœ°å°æ³•ã€‚\n");
 
         if ((int)me->query_skill("force", 1) < (int)me->query_skill("xixing-xiaofa", 1))
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦Ë®Æ½ÓĞÏŞ£¬²»ÄÜÁì»á¸ü¸ßÉîµÄÎü¹¦ÈëµØĞ¡·¨¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸæ°´å¹³æœ‰é™ï¼Œä¸èƒ½é¢†ä¼šæ›´é«˜æ·±çš„å¸åŠŸå…¥åœ°å°æ³•ã€‚\n");
 
         return ::valid_learn(me);
 }
@@ -53,17 +53,17 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
                 switch (random(3))
                 {
                 case 0:
-                        result += ([ "msg" : HIM "$N" HIM "Ö»¾õµÃÄÚÁ¦Ô´Ô´¶øĞº"
-                                             "£¬×ªÈçµØÏÂ£¬²»ÓÉµÃ´ó³ÔÒ»¾ª¡£\n" NOR ]);
+                        result += ([ "msg" : HIM "$N" HIM "åªè§‰å¾—å†…åŠ›æºæºè€Œæ³»"
+                                             "ï¼Œè½¬å¦‚åœ°ä¸‹ï¼Œä¸ç”±å¾—å¤§åƒä¸€æƒŠã€‚\n" NOR ]);
                         break;
                 case 1:
-                        result += ([ "msg" : HIM "$N" HIM "Ö»¾õµÃ·¢³öµÄÄÚÁ¦ÓÌ"
-                                             "ÈçÊ¯³Á´óº££¬±»$n¾¡Êı×ªÈçµØÏÂ¡£\n" NOR ]);
+                        result += ([ "msg" : HIM "$N" HIM "åªè§‰å¾—å‘å‡ºçš„å†…åŠ›çŠ¹"
+                                             "å¦‚çŸ³æ²‰å¤§æµ·ï¼Œè¢«$nå°½æ•°è½¬å¦‚åœ°ä¸‹ã€‚\n" NOR ]);
                         break;
 
                 default:
-                        result += ([ "msg" : HIM "$N" HIM "²»×¡´ß¶¯ÄÚÁ¦£¬µ«ÊÇ"
-                                             "Ö»¾õµÃ$n¾¹ËÆºÁ²»·ÑÁ¦¡£\n" NOR ]);
+                        result += ([ "msg" : HIM "$N" HIM "ä¸ä½å‚¬åŠ¨å†…åŠ›ï¼Œä½†æ˜¯"
+                                             "åªè§‰å¾—$nç«Ÿä¼¼æ¯«ä¸è´¹åŠ›ã€‚\n" NOR ]);
                         break;
                 }
                 return result;
@@ -72,11 +72,11 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
 
 int practice_skill(object me)
 {
-        return notify_fail("Îü¹¦ÈëµØĞ¡·¨Ö»ÄÜÓÃÑ§(learn)»òÁ·¶¾µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("å¸åŠŸå…¥åœ°å°æ³•åªèƒ½ç”¨å­¦(learn)æˆ–ç»ƒæ¯’çš„æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)
 {
-        // ÎªÁËNPCÏòÎÊÌìÄÜ¹»Ê©Õ¹Ììå¾Éñ¾÷µÄPOWERUP£¬¹ÊÒâÉè¶¨ÎªÕâÑù¡£
+        // ä¸ºäº†NPCå‘é—®å¤©èƒ½å¤Ÿæ–½å±•å¤©å¯°ç¥è¯€çš„POWERUPï¼Œæ•…æ„è®¾å®šä¸ºè¿™æ ·ã€‚
         return __DIR__"tianhuan-shenjue/" + func;
 }

@@ -5,7 +5,7 @@ int main(object me, string arg)
 {
 	int max, pts;
 
-        // ¿ñ±©ÌúÈ­Ôö¼Ó¼ÓÁ¦ÉÏÏŞ
+        // ç‹‚æš´é“æ‹³å¢åŠ åŠ åŠ›ä¸Šé™
         if (me->query("special_skill/might"))
                 max = (int)me->query_skill("force") * 2 / 3;
         else
@@ -13,12 +13,12 @@ int main(object me, string arg)
 
 	if (! arg || (arg != "none" && arg != "max"
            && arg != "half" && ! sscanf(arg, "%d", pts)))
-		return notify_fail("\nÖ¸Áî¸ñÊ½£ºenforce|jiali <Ê¹³ö¼¸µãÄÚÁ¦ÉËµĞ>"
-                                   "|max|half|none \nÄãÏÖÔÚ×î¶àÄÜÓÃ" HIY +
-                                   chinese_number(max) + NOR "µãÄÚÁ¦ÉËµĞ¡£\n");
+		return notify_fail("\næŒ‡ä»¤æ ¼å¼ï¼šenforce|jiali <ä½¿å‡ºå‡ ç‚¹å†…åŠ›ä¼¤æ•Œ>"
+                                   "|max|half|none \nä½ ç°åœ¨æœ€å¤šèƒ½ç”¨" HIY +
+                                   chinese_number(max) + NOR "ç‚¹å†…åŠ›ä¼¤æ•Œã€‚\n");
 
 	if (! me->query_skill_mapped("force"))
-		return notify_fail("Äã±ØĞëÏÈ enable Ò»ÖÖÄÚ¹¦¡£\n");
+		return notify_fail("ä½ å¿…é¡»å…ˆ enable ä¸€ç§å†…åŠŸã€‚\n");
 
 	if (arg == "none")
 		me->delete("jiali");
@@ -31,30 +31,30 @@ int main(object me, string arg)
 			pts = max / 2;
 
 		if (pts < 0)
-			return notify_fail("ÄãÖ»ÄÜÓÃ none ±íÊ¾²»ÔËÄÚÁ¦£¬»òÊı×Ö"
-                                           "±íÊ¾Ã¿Ò»»÷ÓÃ¼¸µãÄÚÁ¦¡£\n");
+			return notify_fail("ä½ åªèƒ½ç”¨ none è¡¨ç¤ºä¸è¿å†…åŠ›ï¼Œæˆ–æ•°å­—"
+                                           "è¡¨ç¤ºæ¯ä¸€å‡»ç”¨å‡ ç‚¹å†…åŠ›ã€‚\n");
 
 		if (pts > max)
-			return notify_fail("Äã×î¶àÖ»ÄÜÓÃ" HIY + chinese_number(max)
-                                           + NOR "µãÄÚÁ¦ÉËµĞ¡£\n");
+			return notify_fail("ä½ æœ€å¤šåªèƒ½ç”¨" HIY + chinese_number(max)
+                                           + NOR "ç‚¹å†…åŠ›ä¼¤æ•Œã€‚\n");
 
 		me->set("jiali", pts);
 	}
 	if (! me->query("jiali"))
-		write(HIC "Äã¾ö¶¨·ÅÆúÊ¹ÓÃÄÚÁ¦¼ÓÁ¦¡£\n" NOR);
+		write(HIC "ä½ å†³å®šæ”¾å¼ƒä½¿ç”¨å†…åŠ›åŠ åŠ›ã€‚\n" NOR);
 	else
-		write(HIC "Äã¾ö¶¨ÓÃ" HIY + chinese_number(pts) + HIC "µãÄÚÁ¦ÉËµĞ¡£\n" NOR);
+		write(HIC "ä½ å†³å®šç”¨" HIY + chinese_number(pts) + HIC "ç‚¹å†…åŠ›ä¼¤æ•Œã€‚\n" NOR);
 	return 1;
 }
 
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: enforce|jiali <Ê¹³ö¼¸µãÄÚÁ¦ÉËµĞ>|max|half|none
+æŒ‡ä»¤æ ¼å¼: enforce|jiali <ä½¿å‡ºå‡ ç‚¹å†…åŠ›ä¼¤æ•Œ>|max|half|none
 
-Õâ¸öÖ¸ÁîÈÃÄãÖ¸¶¨Ã¿´Î»÷ÖĞµĞÈËÊ±£¬Òª·¢³ö¼¸µãÄÚÁ¦ÉËµĞ¡£ÆäÖĞ max
-±íÊ¾Äã½«Ê¹ÓÃ×î´óÏŞ¶îµÄ¼ÓÁ¦µãÊıÉËµĞ¡£half±íÊ¾Ê¹ÓÃ×î´óÏŞ¶îÒ»°ë
-µÄ¼ÓÁ¦µãÊıÉËµĞ¡£¶ønoneÔò±íÊ¾Äã²»ÔÙÊ¹ÓÃÄÚÁ¦¼ÓÁ¦¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ æŒ‡å®šæ¯æ¬¡å‡»ä¸­æ•Œäººæ—¶ï¼Œè¦å‘å‡ºå‡ ç‚¹å†…åŠ›ä¼¤æ•Œã€‚å…¶ä¸­ max
+è¡¨ç¤ºä½ å°†ä½¿ç”¨æœ€å¤§é™é¢çš„åŠ åŠ›ç‚¹æ•°ä¼¤æ•Œã€‚halfè¡¨ç¤ºä½¿ç”¨æœ€å¤§é™é¢ä¸€åŠ
+çš„åŠ åŠ›ç‚¹æ•°ä¼¤æ•Œã€‚è€Œnoneåˆ™è¡¨ç¤ºä½ ä¸å†ä½¿ç”¨å†…åŠ›åŠ åŠ›ã€‚
 
 HELP);
         return 1;

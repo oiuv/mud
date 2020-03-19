@@ -10,11 +10,11 @@ inherit F_COAGENT;
 void create()
 {
         object ob;
-	set_name("ÇúÑó", ({ "qu yang", "qu", "yang"}));
-        set("title", "ÈÕÔÂÉñ½ÌÇ°±²³¤ÀÏ");
-	set("gender", "ÄĞĞÔ" );
+	set_name("æ›²æ´‹", ({ "qu yang", "qu", "yang"}));
+        set("title", "æ—¥æœˆç¥æ•™å‰è¾ˆé•¿è€");
+	set("gender", "ç”·æ€§" );
 	set("age", 45);
-	set("long", "Ëû¾ÍÊÇÈÕÔÂÉñ½ÌÊ®´ó³¤ÀÏÖ®Ò»£¬ÇÙ¼¼ÌìÏÂÎŞË«¡£\n" );
+	set("long", "ä»–å°±æ˜¯æ—¥æœˆç¥æ•™åå¤§é•¿è€ä¹‹ä¸€ï¼Œç´æŠ€å¤©ä¸‹æ— åŒã€‚\n" );
 	set("attitude", "friendly");
 
         set("max_qi", 5400);
@@ -56,7 +56,7 @@ void create()
         prepare_skill("claw", "poyue-zhao");
         prepare_skill("cuff", "zhenyu-quan");
 
-	create_family("ÈÕÔÂÉñ½Ì", 12, "³¤ÀÏ");
+	create_family("æ—¥æœˆç¥æ•™", 12, "é•¿è€");
 
         set("coagents", ({
                 ([ "startroom" : "/d/henshan/furongfeng",
@@ -103,7 +103,7 @@ void init()
                         command("play xiaoao-jianghu");
                 else
                         say(CYN + this_object()->name() +
-                            CYN "ÉîÉîµØÌ¾ÁË¿ÚÆø¡£\n" NOR);
+                            CYN "æ·±æ·±åœ°å¹äº†å£æ°”ã€‚\n" NOR);
         }
         return;
 }
@@ -113,5 +113,5 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-        command("say ÀÏ·òÄêËêÒÑ´ó£¬²»ÔÙÊÕÍ½£¬ÄãÈ¥ÕÒÆäËû³¤ÀÏºÃÁË¡£");
+        command("say è€å¤«å¹´å²å·²å¤§ï¼Œä¸å†æ”¶å¾’ï¼Œä½ å»æ‰¾å…¶ä»–é•¿è€å¥½äº†ã€‚");
 }

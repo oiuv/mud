@@ -2,6 +2,6 @@ int permit_recruit(object ob)
 {
 //	object me = this_object();
 
-        command("say ÎÒÉÌ¼Ò±¤Îä¹¦ÍÑÌ¥ÓÚ°ËØÔÃÅ£¬²»¶ÔÍâÊÕÍ½¡£");
+        command("say æˆ‘å•†å®¶å ¡æ­¦åŠŸè„±èƒäºå…«å¦é—¨ï¼Œä¸å¯¹å¤–æ”¶å¾’ã€‚");
         return 0;
 }

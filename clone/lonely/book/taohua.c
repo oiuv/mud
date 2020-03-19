@@ -5,16 +5,16 @@ inherit MEDICAL_BOOK;
 
 void create()
 {
-        set_name(HIM "¡¸ÌÒ»¨Ò©Àí¡¹" NOR, ({ "taohua yaoli", "yaoli", "book", "shu" }));
+        set_name(HIM "ã€Œæ¡ƒèŠ±è¯ç†ã€" NOR, ({ "taohua yaoli", "yaoli", "book", "shu" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
-                set("long", HIM "Ò»±¾³Â¾ÉµÄÊé²á£¬·âÃæÓÃ×­ÊéĞ´ÓĞ¡¸ÌÒ»¨Ò©Àí¡¹ËÄ×Ö¡£\n\n" NOR);
+                set("unit", "æœ¬");
+                set("long", HIM "ä¸€æœ¬é™ˆæ—§çš„ä¹¦å†Œï¼Œå°é¢ç”¨ç¯†ä¹¦å†™æœ‰ã€Œæ¡ƒèŠ±è¯ç†ã€å››å­—ã€‚\n\n" NOR);
                 set("material", "paper");
                 set("value", 1);
-                set("no_sell", "ºÙ£¬Õâ±¾ÆÆÊéÒ²ÄÜÂôÇ®£¿");
+                set("no_sell", "å˜¿ï¼Œè¿™æœ¬ç ´ä¹¦ä¹Ÿèƒ½å–é’±ï¼Ÿ");
                 set("skill", ([
                         "name" : "taohua-yaoli",
                         "jing_cost" : 60,
@@ -24,16 +24,16 @@ void create()
                 ]));
 
                 set("can_make", ([
-                        "liuhe"    : 80,        // ÁùºÏ·µ¾«É¢
-                        "qingxin"  : 100,       // ÇåĞÄ¶¨ÉñÉ¢
-                        "zhending" : 150,       // ¹ÌÔªÕò¶¨É¢
-                        "dieda"    : 80,        // µø´òÉËÓú¸à
-                        "huojin"   : 100,       // »î½îÊæÑªÍè
-                        "tongmai"  : 150,       // ¹áÆøÍ¨Âöµ¤
-                        "jiedu"    : 100,       // Å£»Æ½â¶¾Íè
-                        "shadan"   : 160,       // ÌïÆßöèµ¨Íè
-                        "jiuhua"   : 200,       // ¾Å»¨ÓñÂ¶Íè
-                        "wuchang"  : 250,       // ÎŞ³£µ¤
+                        "liuhe"    : 80,        // å…­åˆè¿”ç²¾æ•£
+                        "qingxin"  : 100,       // æ¸…å¿ƒå®šç¥æ•£
+                        "zhending" : 150,       // å›ºå…ƒé•‡å®šæ•£
+                        "dieda"    : 80,        // è·Œæ‰“ä¼¤æ„ˆè†
+                        "huojin"   : 100,       // æ´»ç­‹èˆ’è¡€ä¸¸
+                        "tongmai"  : 150,       // è´¯æ°”é€šè„‰ä¸¹
+                        "jiedu"    : 100,       // ç‰›é»„è§£æ¯’ä¸¸
+                        "shadan"   : 160,       // ç”°ä¸ƒé²¨èƒ†ä¸¸
+                        "jiuhua"   : 200,       // ä¹èŠ±ç‰éœ²ä¸¸
+                        "wuchang"  : 250,       // æ— å¸¸ä¸¹
                 ]));
         }
         setup();

@@ -4,16 +4,16 @@ inherit BOOK;
 
 void create()
 {
-        set_name(WHT "¡¸Ñ¸À×½£¾­¡¹" NOR, ({ "xunlei jianjing", "jianjing", "xunlei", "jing", "book" }));
+        set_name(WHT "ã€Œè¿…é›·å‰‘ç»ã€" NOR, ({ "xunlei jianjing", "jianjing", "xunlei", "jing", "book" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
-                set("long", WHT "ÕâÊÇÒ»±¾±¡±¡µÄÊé²á£¬ÊéÆ¤ÒÑÈ»·¢"
-                            "»Æ£¬¿´Ñù×ÓÒÑ¾­ÓĞÒ»¶ÎÀúÊ·ÁË¡£\n" NOR);
+                set("unit", "æœ¬");
+                set("long", WHT "è¿™æ˜¯ä¸€æœ¬è–„è–„çš„ä¹¦å†Œï¼Œä¹¦çš®å·²ç„¶å‘"
+                            "é»„ï¼Œçœ‹æ ·å­å·²ç»æœ‰ä¸€æ®µå†å²äº†ã€‚\n" NOR);
                 set("value", 1);
-                set("no_sell", "Õâ±¾ÆÆÊéÄã×Ô¼ºÁô×Å°É¡£");
+                set("no_sell", "è¿™æœ¬ç ´ä¹¦ä½ è‡ªå·±ç•™ç€å§ã€‚");
                 set("material", "paper");
                 set("skill", ([
                         "name":       "xunlei-jian",

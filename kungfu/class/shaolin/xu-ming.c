@@ -7,18 +7,18 @@ inherit NPC;
 void create()
 {
 
-	set_name("ĞéÃ÷", ({
+	set_name("è™šæ˜", ({
 		"xu ming",
 		"xu",
 		"ming",
 	}));
 	set("long",
-		"ËûÊÇÒ»Î»Éí´©»Æ²¼ôÂôÄµÄÇàÄêÉ®ÈË¡£Á³ÉÏÖÉÆøÎ´ÍÑ£¬ÉíÊÖÈ´ÒÑÏà\n"
-		"µ±½Ã½İ£¬¿´À´ËÆºõÑ§¹ıÒ»µãÎä¹¦¡£\n"
+		"ä»–æ˜¯ä¸€ä½èº«ç©¿é»„å¸ƒè¢ˆè£Ÿçš„é’å¹´åƒ§äººã€‚è„¸ä¸Šç¨šæ°”æœªè„±ï¼Œèº«æ‰‹å´å·²ç›¸\n"
+		"å½“çŸ«æ·ï¼Œçœ‹æ¥ä¼¼ä¹å­¦è¿‡ä¸€ç‚¹æ­¦åŠŸã€‚\n"
 	);
 
-	set("nickname", "Öª¿ÍÉ®");
-	set("gender", "ÄĞĞÔ");
+	set("nickname", "çŸ¥å®¢åƒ§");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
 	set("class", "bonze");
 
@@ -53,7 +53,7 @@ void create()
 
 	prepare_skill("strike", "banruo-zhang");
 
-	create_family("ÉÙÁÖÅÉ", 41, "µÜ×Ó");
+	create_family("å°‘æ—æ´¾", 41, "å¼Ÿå­");
 
 	setup();
 

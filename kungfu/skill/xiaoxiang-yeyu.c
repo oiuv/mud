@@ -9,10 +9,10 @@ int valid_enable(string usage) { return usage == "tanqin-jifa"; }
 int valid_learn(object me)
 {
         if (me->query_skill("tanqin-jifa", 1) < 50)
-                return notify_fail("Äãµ¯ÇÙ¼¼·¨Ë®Æ½Ì«²î£¬ÎŞ·¨Áì»áäìÏæÒ¹Óê¡£\n");
+                return notify_fail("ä½ å¼¹ç´æŠ€æ³•æ°´å¹³å¤ªå·®ï¼Œæ— æ³•é¢†ä¼šæ½‡æ¹˜å¤œé›¨ã€‚\n");
 
         if (me->query_skill("tanqin-jifa", 1) < me->query_skill("xiaoxiang-yeyu", 1))
-                return notify_fail("Äãµ¯ÇÙ¼¼·¨Ë®Æ½ÓĞÏŞ£¬ÎŞ·¨Áì»á¸ü¾«ÃîµÄäìÏæÒ¹Óê¡£\n");
+                return notify_fail("ä½ å¼¹ç´æŠ€æ³•æ°´å¹³æœ‰é™ï¼Œæ— æ³•é¢†ä¼šæ›´ç²¾å¦™çš„æ½‡æ¹˜å¤œé›¨ã€‚\n");
 
         return 1;
 }
@@ -23,13 +23,13 @@ int practice_skill(object me)
 
         if (! objectp(ob = me->query_temp("handing")) ||
             ! ob->valid_as_qin())
-                return notify_fail("Äã²»ÄÃÇÙÔÚÊÖÉÏ£¬ÔõÃ´Á·Ï°£¿\n");
+                return notify_fail("ä½ ä¸æ‹¿ç´åœ¨æ‰‹ä¸Šï¼Œæ€ä¹ˆç»ƒä¹ ï¼Ÿ\n");
 
         if ((int)me->query("jing") < 80)
-                return notify_fail("ÄãµÄ¾«Éñ²»¹»ºÃ£¬Ã»·¨Á·Ï°ÁË¡£\n");
+                return notify_fail("ä½ çš„ç²¾ç¥ä¸å¤Ÿå¥½ï¼Œæ²¡æ³•ç»ƒä¹ äº†ã€‚\n");
 
         if ((int)me->query("qi") < 30)
-                return notify_fail("ÄãÏÖÔÚ¿Ú¸ÉÉàÔï£¬ÊµÔÚÊÇÌ«ÀÛÁË¡£\n");
+                return notify_fail("ä½ ç°åœ¨å£å¹²èˆŒç‡¥ï¼Œå®åœ¨æ˜¯å¤ªç´¯äº†ã€‚\n");
 
         me->receive_damage("jing", 25);
         me->receive_damage("qi", 10);
@@ -51,6 +51,6 @@ void do_effect(object me)
         // special effort
         obs = all_inventory(environment(me)) - ({ me });
         obs->receive_heal("qi", random(lvl) + 20);
-        message("vision", HIG "ÄãÌıÁË" + me->name() + HIG "Ò»ÇúäìÏæÒ¹Óê£¬¶Ù"
-                          "¾õÉñÇåÆøË¬£¬ÄÚÏ¢½¥½¥»ººÍÁËÏÂÀ´¡£\n" NOR, obs);
+        message("vision", HIG "ä½ å¬äº†" + me->name() + HIG "ä¸€æ›²æ½‡æ¹˜å¤œé›¨ï¼Œé¡¿"
+                          "è§‰ç¥æ¸…æ°”çˆ½ï¼Œå†…æ¯æ¸æ¸ç¼“å’Œäº†ä¸‹æ¥ã€‚\n" NOR, obs);
 }

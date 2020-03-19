@@ -1,4 +1,4 @@
-// shanghan.c ÉËº®³î
+// shanghan.c ä¼¤å¯’æ„
 
 inherit ITEM;
 
@@ -6,12 +6,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIY"ÉËº®³î"NOR, ({"shanghan chou", "shanghanchou"}));
+	set_name(HIY"ä¼¤å¯’æ„"NOR, ({"shanghan chou", "shanghanchou"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "°ü");
-		set("long", "ÕâÊÇÒ»°ü×¨ÖÎÉËº®µÄÒ©£¬ÁéÑéÎŞ±È¡£\n");
+		set("unit", "åŒ…");
+		set("long", "è¿™æ˜¯ä¸€åŒ…ä¸“æ²»ä¼¤å¯’çš„è¯ï¼ŒçµéªŒæ— æ¯”ã€‚\n");
 		set("value", 1000);
 		set("only_do_effect", 1);
 	}
@@ -22,11 +22,11 @@ int do_effect(object me)
 {
 	if (!me->query_condition("ill_shanghan"))
 	{
-		write("ÄãÏÖÔÚÓÖÃ»ÓĞµÃÉËº®£¬±ğÂÒ³ÔÒ©¡£\n");
+		write("ä½ ç°åœ¨åˆæ²¡æœ‰å¾—ä¼¤å¯’ï¼Œåˆ«ä¹±åƒè¯ã€‚\n");
 		return 1;
 	} else {
 		me->clear_condition("ill_shanghan");
-		message_vision("$N³ÔÏÂÒ»°üÉËº®³î£¬ÆøÉ«¿´ÆğÀ´ºÃ¶àÁË¡£\n", me);
+		message_vision("$Nåƒä¸‹ä¸€åŒ…ä¼¤å¯’æ„ï¼Œæ°”è‰²çœ‹èµ·æ¥å¥½å¤šäº†ã€‚\n", me);
 		me->start_busy(2);
 		destruct(this_object());
 		return 1;

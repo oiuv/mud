@@ -3,7 +3,7 @@
 
 inherit F_SSERVER;
 
-#define XUAN "¡¸" HIW "Ì«Ðþ¼¤¾¢" NOR "¡¹"
+#define XUAN "ã€Œ" HIW "å¤ªçŽ„æ¿€åŠ²" NOR "ã€"
  
 int perform(object me, object target)
 {
@@ -16,65 +16,65 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (userp(me) && ! me->query("can_perform/taixuan-gong/xuan"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(XUAN "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(XUAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
         
 	if ((int)me->query("neili") < 800)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎÞ·¨Ê©Õ¹" XUAN "£¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" XUAN "ï¼\n");
 
         if (me->query("max_neili") < 5000)
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎª»¹²»×ãÒÔÊ¹³ö" XUAN "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºè¿˜ä¸è¶³ä»¥ä½¿å‡º" XUAN "ã€‚\n");
 
 	if ((int)me->query_skill("force") < 300)
-		return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹" XUAN "£¡\n");
+		return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" XUAN "ï¼\n");
 
 	if ((lvl = (int)me->query_skill("taixuan-gong", 1)) < 240)
-		return notify_fail("ÄãµÄÌ«Ðþ¹¦»¹²»¹»ÊìÁ·£¬ÎÞ·¨Ê¹ÓÃ" XUAN "£¡\n");
+		return notify_fail("ä½ çš„å¤ªçŽ„åŠŸè¿˜ä¸å¤Ÿç†Ÿç»ƒï¼Œæ— æ³•ä½¿ç”¨" XUAN "ï¼\n");
 
-        // Î´Ñ§»áÈçºÎ¼ÝÓù±øÆ÷Ö»ÄÜ¼¤·¢ÎªÈ­½ÅÊ©Õ¹ Ì«Ðþ¼¤¾¢
+        // æœªå­¦ä¼šå¦‚ä½•é©¾å¾¡å…µå™¨åªèƒ½æ¿€å‘ä¸ºæ‹³è„šæ–½å±• å¤ªçŽ„æ¿€åŠ²
         if (! me->query("can_learned/taixuan-gong/enable_weapon"))
         {
              weapon = me->query_temp("weapon");
              if (objectp(weapon))
-                     return notify_fail("Äã»¹Ã»ÓÐÑ§»áÈçºÎÀûÓÃÌ«Ðþ¹¦¼ÝÓù±øÆ÷£¬ÕâÕÐÖ»ÄÜ¿ÕÊÖÊ©Õ¹£¡\n");
+                     return notify_fail("ä½ è¿˜æ²¡æœ‰å­¦ä¼šå¦‚ä½•åˆ©ç”¨å¤ªçŽ„åŠŸé©¾å¾¡å…µå™¨ï¼Œè¿™æ‹›åªèƒ½ç©ºæ‰‹æ–½å±•ï¼\n");
 
              if (me->query_skill_mapped("unarmed") != "taixuan-gong"
                  || me->query_skill_prepared("unarmed" != "taixuan-gong"))
-                       return notify_fail("ÄãÃ»ÓÐ×¼±¸Ì«Ðþ¹¦£¬ÎÞ·¨Ê¹ÓÃ" XUAN "¡£\n");
+                       return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡å¤ªçŽ„åŠŸï¼Œæ— æ³•ä½¿ç”¨" XUAN "ã€‚\n");
 
         }
-        else // ÒÑ¾­Ñ§»áÀûÓÃÌ«Ðþ¹¦¼ÝÓù±øÆ÷
+        else // å·²ç»å­¦ä¼šåˆ©ç”¨å¤ªçŽ„åŠŸé©¾å¾¡å…µå™¨
         {
              weapon = me->query_temp("weapon");
-             // µ±Ã»ÓÐ³ÖÎäÆ÷Ê±ÅÐ¶ÏÊ©Õ¹¸ÃÕÐÐèÒª×¼±¸ÎªÈ­½Å
+             // å½“æ²¡æœ‰æŒæ­¦å™¨æ—¶åˆ¤æ–­æ–½å±•è¯¥æ‹›éœ€è¦å‡†å¤‡ä¸ºæ‹³è„š
              if (! objectp(weapon))
              {
                     if (me->query_skill_mapped("unarmed") != "taixuan-gong"
                         || me->query_skill_prepared("unarmed" != "taixuan-gong"))
-                              return notify_fail("ÄãÃ»ÓÐ×¼±¸Ì«Ðþ¹¦£¬ÎÞ·¨Ê¹ÓÃ" XUAN "¡£\n");
+                              return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡å¤ªçŽ„åŠŸï¼Œæ— æ³•ä½¿ç”¨" XUAN "ã€‚\n");
              }          
-             // ÊÖ³ÖÓÐÎäÆ÷±ØÐëÎªµ¶»òÕß½£
+             // æ‰‹æŒæœ‰æ­¦å™¨å¿…é¡»ä¸ºåˆ€æˆ–è€…å‰‘
              else if (objectp(weapon) && (string)weapon->query("skill_type") != "sword"
                       && (string)weapon->query("skill_type") != "blade")
-                              return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÎÞ·¨Ê©Õ¹" XUAN "¡£\n");
+                              return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œæ— æ³•æ–½å±•" XUAN "ã€‚\n");
 
              if (objectp(weapon) && me->query_skill_mapped("sword") != "taixuan-gong"
                  && (string)weapon->query("skill_type") == "sword")
-                              return notify_fail("Äã»¹Ã»ÓÐ¼¤·¢Ì«Ðþ¹¦£¬ÎÞ·¨Ê©Õ¹" XUAN "¡£\n");
+                              return notify_fail("ä½ è¿˜æ²¡æœ‰æ¿€å‘å¤ªçŽ„åŠŸï¼Œæ— æ³•æ–½å±•" XUAN "ã€‚\n");
              
              else if (objectp(weapon) && (string)weapon->query("skill_type") == "blade"
                       && me->query_skill_mapped("blade") != "taixuan-gong")
-                              return notify_fail("Äã»¹Ã»ÓÐ¼¤·¢Ì«Ðþ¹¦£¬ÎÞ·¨Ê©Õ¹" XUAN "¡£\n");                              
+                              return notify_fail("ä½ è¿˜æ²¡æœ‰æ¿€å‘å¤ªçŽ„åŠŸï¼Œæ— æ³•æ–½å±•" XUAN "ã€‚\n");                              
                          
         }
         if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIW "\nö®Ê±¼ä$N" HIW "Ö»¾õË¼Ð÷¿ñÓ¿£¬µ±¼´±ÕÉÏË«ÑÛ£¬ÔÙ²»Àí²Ç$n"
-              HIW "ÈçºÎÕÐ¼Ü£¬Ö»¹ÜÊ©ÕÐ¹¥³ö£¡´ËÊ±ÏÀ¿ÍµºÊ¯±ÚÉÏµÄÇ§°ÙÖÖÕÐ"
-              "Ê½£¬×ªÑÛÒÑ´Ó$N" HIW "ÐÄµ×´«ÏòÊÖ×ã£¬¾¡ÊýÏò$n" HIW "Ï®È¥£¡\n" NOR;
+	msg = HIW "\néœŽæ—¶é—´$N" HIW "åªè§‰æ€ç»ªç‹‚æ¶Œï¼Œå½“å³é—­ä¸ŠåŒçœ¼ï¼Œå†ä¸ç†ç¬$n"
+              HIW "å¦‚ä½•æ‹›æž¶ï¼Œåªç®¡æ–½æ‹›æ”»å‡ºï¼æ­¤æ—¶ä¾ å®¢å²›çŸ³å£ä¸Šçš„åƒç™¾ç§æ‹›"
+              "å¼ï¼Œè½¬çœ¼å·²ä»Ž$N" HIW "å¿ƒåº•ä¼ å‘æ‰‹è¶³ï¼Œå°½æ•°å‘$n" HIW "è¢­åŽ»ï¼\n" NOR;
 
 	message_sort(msg, me, target);
 	me->add("neili", -600);

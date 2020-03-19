@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��ţ��ݵ�����");
+        set("short", "金牛武馆地下室");
         set("long", @LONG
-�����ǽ�ţ��ݵĵ����ң���Ȼ���ݣ���Ҳ���ֻ����
-Щ�谵����ǽ�м����̵ĺúõĴ�����Щ��������Ϣ��
+这里是金牛武馆的地下室，虽然低洼，倒也干燥。只是有
+些昏暗，靠墙有几张铺的好好的床，有些人正在休息。
 LONG );
         set("no_fight", 1);
         set("sleep_room", 1);

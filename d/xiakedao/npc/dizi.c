@@ -1,4 +1,4 @@
-// dizi.c µÜ×Ó
+// dizi.c å¼Ÿå­
 
 #include <ansi.h>
 
@@ -7,10 +7,10 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("µÜ×Ó", ({ "di zi", "di", "zi" }));
-        set("long", "ÕâÊÇÈıÊ®¶àËêµÄ×³ºº£¬°ò´óÑüÔ²£¬ÊÇµºÖ÷´ÓÖĞÔ­ÕĞÄ¼À´µÄ¡£\n");
+        set_name("å¼Ÿå­", ({ "di zi", "di", "zi" }));
+        set("long", "è¿™æ˜¯ä¸‰åå¤šå²çš„å£®æ±‰ï¼Œè†€å¤§è…°åœ†ï¼Œæ˜¯å²›ä¸»ä»ä¸­åŸæ‹›å‹Ÿæ¥çš„ã€‚\n");
 
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 30);
         set("shen_type",1);
         set("attitude", "peaceful");
@@ -36,7 +36,7 @@ void create()
         set_skill("parry", 70);
         set_skill("hand", 70);
         set_skill("staff", 50);
-        create_family("ÏÀ¿Íµº", 2, "µÜ×Ó");
+        create_family("ä¾ å®¢å²›", 2, "å¼Ÿå­");
         setup();
         carry_object("/clone/misc/cloth")->wear();
 }

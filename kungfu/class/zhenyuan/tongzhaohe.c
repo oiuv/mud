@@ -1,4 +1,4 @@
-// tongzhaohe Í¯Õ×ºÍ
+// tongzhaohe ç«¥å…†å’Œ
 
 #include <ansi.h>
 #include "zhenyuan.h"
@@ -9,11 +9,11 @@ inherit F_GUARDER;
 
 void create()
 {
-	set_name("Í¯Õ×ºÍ", ({ "tong zhaohe", "tong", "zhaohe"}));
-  	set("long", "´ËÈËÏàÃ²â«Ëö£¬Éí²ÄÊÝÏ÷£¬Ò»¸±ÓÐÆøÃ»Á¦µÄÑù×Ó¡£"
-                    "ÊÇÕòÔ¶ïÚ¾ÖÀïºÕºÕÓÐÃûµÄ»ì»ì¡£\n");
-	set("title", "ÕòÔ¶ïÚ¾ÖïÚÊ¦");
-  	set("gender", "ÄÐÐÔ");
+	set_name("ç«¥å…†å’Œ", ({ "tong zhaohe", "tong", "zhaohe"}));
+  	set("long", "æ­¤äººç›¸è²ŒçŒ¥çï¼Œèº«æç˜¦å‰Šï¼Œä¸€å‰¯æœ‰æ°”æ²¡åŠ›çš„æ ·å­ã€‚"
+                    "æ˜¯é•‡è¿œé•–å±€é‡Œèµ«èµ«æœ‰åçš„æ··æ··ã€‚\n");
+	set("title", "é•‡è¿œé•–å±€é•–å¸ˆ");
+  	set("gender", "ç”·æ€§");
   	set("age", 35);
 	set("class", "fighter");
         set("attitude", "peaceful");
@@ -59,14 +59,14 @@ void create()
         }));
 
         set("guarder", ([
-                "refuse_other": CYN "$N" CYN "¶Ô$n" CYN "ÖåÃ¼µÀ£º"
-                                "Î¹£¡ÄãÕâµ¹ÊÇÍùÄÄÀï×ß°¡£¿" NOR,
-                "refuse_carry": CYN "$N" CYN "¶Ô$n" CYN "æÒÆ¤Ð¦Á³"
-                                "µØµÀ£ºÄã±³ÉÏ±³µÄÊÇ¸öÉ¶£¿ÈÓÏÂÀ´¸ø"
-                                "ÔÛÇÆÇÆ¡£" NOR,
+                "refuse_other": CYN "$N" CYN "å¯¹$n" CYN "çš±çœ‰é“ï¼š"
+                                "å–‚ï¼ä½ è¿™å€’æ˜¯å¾€å“ªé‡Œèµ°å•Šï¼Ÿ" NOR,
+                "refuse_carry": CYN "$N" CYN "å¯¹$n" CYN "å¬‰çš®ç¬‘è„¸"
+                                "åœ°é“ï¼šä½ èƒŒä¸ŠèƒŒçš„æ˜¯ä¸ªå•¥ï¼Ÿæ‰”ä¸‹æ¥ç»™"
+                                "å’±çž§çž§ã€‚" NOR,
         ]));
 
-  	create_family("°ËØÔÃÅ", 3, "µÜ×Ó");
+  	create_family("å…«å¦é—¨", 3, "å¼Ÿå­");
   	setup();
 
         carry_object("/clone/weapon/gangdao")->wield();
@@ -79,7 +79,7 @@ void attempt_apprentice(object me)
                 return;
 
         command("@@");
-        command("say ¾ÓÈ»ÓÐÈË°ÝÎÒÎªÊ¦£¿ÄîÔÚÄãÓÐÐÄ£¬ÎÒ¾ÍÊÕÏÂÄãºÃÁË¡£");
+        command("say å±…ç„¶æœ‰äººæ‹œæˆ‘ä¸ºå¸ˆï¼Ÿå¿µåœ¨ä½ æœ‰å¿ƒï¼Œæˆ‘å°±æ”¶ä¸‹ä½ å¥½äº†ã€‚");
         command("recruit " + me->query("id"));
         if ((string)me->query("class") != "fighter")
                 me->set("class", "fighter");

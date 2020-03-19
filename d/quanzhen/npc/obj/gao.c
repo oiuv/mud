@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(NOR + HIC "¹êÜß¸à" NOR, ({ "guiling gao", "guiling", "gao" }));
+        set_name(NOR + HIC "é¾Ÿè‹“è†" NOR, ({ "guiling gao", "guiling", "gao" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¿é");
-                set("long", HIC "ÕâÊÇÒ»¿éÓÃÎÚ¹ê¼×ºÍÜòÜßÅäÖÃ³ÉµÄ¹êÜß"
-                            "¸à£¬¹¦ÄÜÑÓÄêÒæÊÙ¡£\n" NOR);
+                set("unit", "å—");
+                set("long", HIC "è¿™æ˜¯ä¸€å—ç”¨ä¹Œé¾Ÿç”²å’ŒèŒ¯è‹“é…ç½®æˆçš„é¾Ÿè‹“"
+                            "è†ï¼ŒåŠŸèƒ½å»¶å¹´ç›Šå¯¿ã€‚\n" NOR);
                 set("value", 3000);
                 set("only_do_effect", 1);
         }
@@ -26,22 +26,22 @@ int do_effect(object me)
 
         if ((int)me->query_condition("pill_drug") > 0)
         {
-                write("Äã¾õµÃÏÖÔÚÄÚÏ¢Î´¶¨£¬¾­ÂöÒþÒþ»¹ÄÜ¸Ðµ½ÕæÆø³åµ´£¬²»"
-                      "¸ÒÃ³È»·þÊ³¡£\n");
+                write("ä½ è§‰å¾—çŽ°åœ¨å†…æ¯æœªå®šï¼Œç»è„‰éšéšè¿˜èƒ½æ„Ÿåˆ°çœŸæ°”å†²è¡ï¼Œä¸"
+                      "æ•¢è´¸ç„¶æœé£Ÿã€‚\n");
                 return 1;
         }
 
         me->apply_condition("pill_drug", 2000);
 
-        message_vision(HIC "$N" HIC "·þÏÂÒ»" + un + na + HIC "£¬¼±Ã¦¿ªÊ¼ÔË¹¦Îü"
-                       "ÊÕÒ©Á¦¡£\n" NOR, me);
+        message_vision(HIC "$N" HIC "æœä¸‹ä¸€" + un + na + HIC "ï¼Œæ€¥å¿™å¼€å§‹è¿åŠŸå¸"
+                       "æ”¶è¯åŠ›ã€‚\n" NOR, me);
 
         if (me->query("max_jingli") < 1000)
 	{
-                tell_object(me, HIC "ÄãÖ»¾õµÃ¾«Éñ½¡ÍúÖ®¼«£¬¾«Á¦Ö±Óû±¼ÌÚ¶ø³ö¡£\n" NOR);
+                tell_object(me, HIC "ä½ åªè§‰å¾—ç²¾ç¥žå¥æ—ºä¹‹æžï¼Œç²¾åŠ›ç›´æ¬²å¥”è…¾è€Œå‡ºã€‚\n" NOR);
                 me->improve_jingli(5 + random(5));
 	} else
-                tell_object(me, HIC "ÄãÖ»¾õ¾«Éñ±¥ÂúÖ®¼«£¬È«ÉíµÄÆ£±¹Ò»É¨¶ø¿Õ¡£\n" NOR);
+                tell_object(me, HIC "ä½ åªè§‰ç²¾ç¥žé¥±æ»¡ä¹‹æžï¼Œå…¨èº«çš„ç–²æƒ«ä¸€æ‰«è€Œç©ºã€‚\n" NOR);
 
         if (me->query("jingli") < me->query("max_jingli"))
                 my["jingli"]  = my["max_jingli"];

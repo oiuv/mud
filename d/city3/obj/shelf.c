@@ -6,7 +6,7 @@ inherit ITEM;
 void create()
 {
         object ob;
-        set_name(WHT "ÆÆÀÃµÄÊé¼Ü" NOR, ({ "shelf"}) );
+        set_name(WHT "ç ´çƒ‚çš„ä¹¦æ¶" NOR, ({ "shelf"}) );
         set_weight(5000000);
         set_max_encumbrance(800000);
         if (clonep())
@@ -19,8 +19,8 @@ void create()
         } else
         {
                 set("prep", "in");
-                set("unit", "Ö»");
-                set("long", WHT "Ò»Ö»ÆÆÀÃµÄÊé¼Ü£¬¸¯Ğà²»¿°£¬Ò²²»Öª¸éÔÚÕâÀï¶à¾ÃÁË¡£\n" NOR);
+                set("unit", "åª");
+                set("long", WHT "ä¸€åªç ´çƒ‚çš„ä¹¦æ¶ï¼Œè…æœ½ä¸å ªï¼Œä¹Ÿä¸çŸ¥æåœ¨è¿™é‡Œå¤šä¹…äº†ã€‚\n" NOR);
                 set("value", 1);
         }
 }

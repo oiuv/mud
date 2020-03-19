@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "Ìá¶½¸®ÃÅ");
+	set("short", "æç£åºœé—¨");
 	set("long", @LONG
-Õâ±ãÊÇÌá¶½¸®ÃÅ¡£Î¡¶ëĞÛÎ°µÄ³ÇÇ½ÉÏ£¬³É¶¼Ìá¶½¸®Îå¸ö´ó
-×ÖÊ®·ÖÏÔÑÛ£¬ÆøÊÆ»Ô»Í¡£¼¸ÃûÇ×±øÁ¢ÔÚÁ½ÅÔ¡£
+è¿™ä¾¿æ˜¯æç£åºœé—¨ã€‚å·å³¨é›„ä¼Ÿçš„åŸå¢™ä¸Šï¼Œæˆéƒ½æç£åºœäº”ä¸ªå¤§
+å­—ååˆ†æ˜¾çœ¼ï¼Œæ°”åŠ¿è¾‰ç…Œã€‚å‡ åäº²å…µç«‹åœ¨ä¸¤æ—ã€‚
 LONG);
         set("outdoors", "chengdu");
 	set("exits", ([
@@ -30,19 +30,19 @@ int valid_leave(object me, string dir)
 
         if (me->query("weiwang") >= 10000)
         {
-                message_vision(CYN "$N" CYN "Ğ¦µÀ£º" + RANK_D->query_respect(me) +
-                               "Çë½ø£¬Çë½ø£¡Õâ¾ÍÈ¥ÈÃÈËÍ¨±¨¡£\n" NOR, bing, me);
+                message_vision(CYN "$N" CYN "ç¬‘é“ï¼š" + RANK_D->query_respect(me) +
+                               "è¯·è¿›ï¼Œè¯·è¿›ï¼è¿™å°±å»è®©äººé€šæŠ¥ã€‚\n" NOR, bing, me);
                 return ::valid_leave(me, dir);
         }
 
         if (me->query("special_skill/trick"))
         {
-                message_vision(CYN "$N" CYN "¿´¼û$n" CYN "×ßÁË¹ıÀ´£¬¸ÕÏëÀ¹×¡£¬È´"
-                               "Ìı$n" CYN "Ò»Éù¶ÏºÈ£º¸øÎÒÉ¢¿ª£¡\n$N" CYN "²»ÓÉµÃ"
-                               "ÏÅÁËÒ»Ìø£¬Ú¨Ú¨µÄ²»¸ÒËµ»°¡£\n" NOR, bing, me);
+                message_vision(CYN "$N" CYN "çœ‹è§$n" CYN "èµ°äº†è¿‡æ¥ï¼Œåˆšæƒ³æ‹¦ä½ï¼Œå´"
+                               "å¬$n" CYN "ä¸€å£°æ–­å–ï¼šç»™æˆ‘æ•£å¼€ï¼\n$N" CYN "ä¸ç”±å¾—"
+                               "å“äº†ä¸€è·³ï¼Œè®ªè®ªçš„ä¸æ•¢è¯´è¯ã€‚\n" NOR, bing, me);
                 return ::valid_leave(me, dir);
         }
 
-	return notify_fail(CYN "Ç×±øÉÏÇ°µ²×¡Äã£¬ÀÊÉùËµµÀ£ºÕâÎ»" +
-                           RANK_D->query_respect(me) + "Çë»Ø°É¡£ÀÏÒ¯²»¼û¿Í¡£\n" NOR);
+	return notify_fail(CYN "äº²å…µä¸Šå‰æŒ¡ä½ä½ ï¼Œæœ—å£°è¯´é“ï¼šè¿™ä½" +
+                           RANK_D->query_respect(me) + "è¯·å›å§ã€‚è€çˆ·ä¸è§å®¢ã€‚\n" NOR);
 }

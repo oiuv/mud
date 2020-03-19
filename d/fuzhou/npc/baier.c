@@ -4,12 +4,12 @@ inherit NPC;
 
 void create()
 {
-	set_name("°×¶ş", ({ "bai er","bai" }) );
-	set("gender", "ÄĞĞÔ");
-	set("title", "ÌË×ÓÊÖ");
+	set_name("ç™½äºŒ", ({ "bai er","bai" }) );
+	set("gender", "ç”·æ€§");
+	set("title", "è¶Ÿå­æ‰‹");
 	set("age", 30);
 	set("long",
-		"ÕâÊÇ¸öïÚ¾ÖÌË×ÓÊÖ£¬³¤µÃ»¢±³ĞÜÑü£¬Ò»ÉíºáÁ·¹¦·ò¡£\n");
+		"è¿™æ˜¯ä¸ªé•–å±€è¶Ÿå­æ‰‹ï¼Œé•¿å¾—è™èƒŒç†Šè…°ï¼Œä¸€èº«æ¨ªç»ƒåŠŸå¤«ã€‚\n");
 	set("combat_exp", 10000);
         set("shen_type", -1);
 	set("attitude", "peaceful");

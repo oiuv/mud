@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create ()
 {
-  	set ("short","����");
+  	set ("short","郊外");
   	set ("long", @LONG
-�˴��ǿ��ⱱ���������뿪��ܽ����ΰ�����ȶ����ɴ�
-ȥ��ɽ����Ŀ������ﲻ����һ��̫ƽ����
+此处是开封北郊，由于离开封很近，治安相对稳定，由此
+去嵩山进香的客人络绎不绝，一幅太平景象。
 LONG);
   	set("outdoors", "kaifeng");
   	set("exits", ([

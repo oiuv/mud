@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÌìÉ½É½Â·");
+        set("short", "å¤©å±±å±±è·¯");
         set("long", @LONG
-ÕâÀïÊÇÌìÉ½¶«Â´£¬É½·ç´ÓÉ½ÉÏ´µÀ´£¬ÄãÀäµÃÉªÉª·¢¶¶¡£Â·
-±ßÊÇÒ»Æ¬ÕëÒ¶ÁÖ¡£Ê¯±ÚÉÏÊ¢¿ª×ÅÒ»¶ä½à°×µÄÌìÉ½Ñ©Á«£¬Ò»¸ö²É
-Ò©ÈËÕıÔÚ²ÉÒ©¡£¶«ÃæÒ»ÌõÉî½§(valley)µ²×¡ÁËÏÂÉ½µÄÂ·¡£
+è¿™é‡Œæ˜¯å¤©å±±ä¸œéº“ï¼Œå±±é£ä»å±±ä¸Šå¹æ¥ï¼Œä½ å†·å¾—ç‘Ÿç‘Ÿå‘æŠ–ã€‚è·¯
+è¾¹æ˜¯ä¸€ç‰‡é’ˆå¶æ—ã€‚çŸ³å£ä¸Šç››å¼€ç€ä¸€æœµæ´ç™½çš„å¤©å±±é›ªè²ï¼Œä¸€ä¸ªé‡‡
+è¯äººæ­£åœ¨é‡‡è¯ã€‚ä¸œé¢ä¸€æ¡æ·±æ¶§(valley)æŒ¡ä½äº†ä¸‹å±±çš„è·¯ã€‚
 LONG);
         set("exits", ([
             "westup" : __DIR__"tianroad5"
@@ -19,7 +19,7 @@ LONG);
                 ]));
 
         set("item_desc", ([
-                "valley" : WHT "\nÉî½§×ãÓĞÈıÕÉ¶à¿í£¬²»ÖªµÀÄÜ²»ÄÜÌø¹ıÈ¥¡£\n" NOR,
+                "valley" : WHT "\næ·±æ¶§è¶³æœ‰ä¸‰ä¸ˆå¤šå®½ï¼Œä¸çŸ¥é“èƒ½ä¸èƒ½è·³è¿‡å»ã€‚\n" NOR,
         ]));
         set("outdoors", "xingxiu");
 
@@ -38,24 +38,24 @@ int do_jump(string arg)
         me = this_player();
 
         if (! arg || arg != "valley")
-                return notify_fail("ÄãÒªÍùÄÄÌø£¿\n");
+                return notify_fail("ä½ è¦å¾€å“ªè·³ï¼Ÿ\n");
 
-        message_vision(HIY "\n$N" HIY "Ô¥ÁËÒ»ÏÂ£¬¹ÄÆøÓÂÆø£¬³¯×Å¶ÔÃæµÄÉ½ÑÂÌøÁË¹ı"
-                       "È¥¡£\n\n" NOR, me);
+        message_vision(HIY "\n$N" HIY "è±«äº†ä¸€ä¸‹ï¼Œé¼“æ°”å‹‡æ°”ï¼Œæœç€å¯¹é¢çš„å±±å´–è·³äº†è¿‡"
+                       "å»ã€‚\n\n" NOR, me);
 
         if ((int)me->query_skill("dodge", 1) < 150 )
         {
                 me->move(__DIR__"shanjiao");
                 me->receive_wound("qi", 300);
                 me->unconcious();
-                message("vision", HIR "\nÍ»È»ÌıµÃ¡¸Åé¡¹µÄÒ»Éù£¬Ö»¼ûÒ»¸öÈË´ÓÉÏÃæ"
-                                  "µÄÉ½·åÉÏ×¹ÁËÏÂÀ´£¬ÕæÊÇ×³¹Û¡£\n" NOR,
+                message("vision", HIR "\nçªç„¶å¬å¾—ã€Œç °ã€çš„ä¸€å£°ï¼Œåªè§ä¸€ä¸ªäººä»ä¸Šé¢"
+                                  "çš„å±±å³°ä¸Šå äº†ä¸‹æ¥ï¼ŒçœŸæ˜¯å£®è§‚ã€‚\n" NOR,
                                   environment(me), ({me}));
         } else
         {
                 me->move(__DIR__"tianroad3");
-                message("vision", HIY "\nÖ»¼û" + me->name() + HIY "´Ó¶ÔÃæµÄÉ½ÑÂ"
-                                  "ÉÏÌøÁË¹ıÀ´¡£\n" NOR, environment(me), ({me}));
+                message("vision", HIY "\nåªè§" + me->name() + HIY "ä»å¯¹é¢çš„å±±å´–"
+                                  "ä¸Šè·³äº†è¿‡æ¥ã€‚\n" NOR, environment(me), ({me}));
         }
         return 1;
 }

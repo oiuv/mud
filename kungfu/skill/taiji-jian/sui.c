@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define SUI "¡¸" HIC "Ëæ×Ö¾÷" NOR "¡¹"
+#define SUI "ã€Œ" HIC "éšå­—è¯€" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -16,27 +16,27 @@ int perform(object me)
 //	string msg;
 
         if (userp(me) && ! me->query("can_perform/taiji-jian/sui"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if ((int)me->query_temp("tjj_sui"))
-                return notify_fail("ÄãÏÖÔÚÕıÔÚÊ©Õ¹" SUI "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£åœ¨æ–½å±•" SUI "ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" SUI "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" SUI "ã€‚\n");
 
 	if ((int)me->query_skill("taiji-jian", 1) < 60)
-		return notify_fail("ÄãµÄÌ«¼«½£·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" SUI "¡£\n");
+		return notify_fail("ä½ çš„å¤ªæå‰‘æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" SUI "ã€‚\n");
 
 	if (me->query_skill_mapped("sword") != "taiji-jian") 
-		return notify_fail("ÄãÃ»ÓĞ¼¤·¢Ì«¼«½£·¨£¬£¬ÄÑÒÔÊ©Õ¹" SUI "¡£\n");
+		return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å¤ªæå‰‘æ³•ï¼Œï¼Œéš¾ä»¥æ–½å±•" SUI "ã€‚\n");
 
 	if ((int)me->query("neili") < 300)
-		return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" SUI "¡£\n");
+		return notify_fail("ä½ ç°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" SUI "ã€‚\n");
 
-	message_combatd(HIC "$N" HIC "Ê¹³öÌ«¼«½£·¨¡¸" NOR + CYN "Ëæ"
-                        HIC "¡¹×Ö¾÷£¬ÊÖÖĞ" + weapon->name() + HIC
-                        "Ô²×ª²»¶¨£¬½£È¦Öğ½¥ËõĞ¡½«ÖÜÉí»¤×¡¡£\n" NOR, me);
+	message_combatd(HIC "$N" HIC "ä½¿å‡ºå¤ªæå‰‘æ³•ã€Œ" NOR + CYN "éš"
+                        HIC "ã€å­—è¯€ï¼Œæ‰‹ä¸­" + weapon->name() + HIC
+                        "åœ†è½¬ä¸å®šï¼Œå‰‘åœˆé€æ¸ç¼©å°å°†å‘¨èº«æŠ¤ä½ã€‚\n" NOR, me);
 
 	skill = me->query_skill("taiji-jian", 1);
 
@@ -62,6 +62,6 @@ void remove_effect(object me, int amount)
         	me->add_temp("apply/defense", -amount);
         	me->add_temp("apply/attack", amount / 2);
         	me->delete_temp("tjj_sui");
-        	tell_object(me, "ÄãµÄ" SUI "ÔËĞĞÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+        	tell_object(me, "ä½ çš„" SUI "è¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›ä¸¹ç”°ã€‚\n");
         }
 }

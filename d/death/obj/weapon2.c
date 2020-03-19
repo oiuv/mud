@@ -6,16 +6,16 @@ inherit CLUB;
 
 void create()
 {
-        set_name(HIR"·½Ìì»­êª" NOR, ({ "fangtian huaji","huaji","ji" }));
+        set_name(HIR"æ–¹å¤©ç”»æˆŸ" NOR, ({ "fangtian huaji","huaji","ji" }));
         set_weight(15000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸Ë");
+                set("unit", "æ†");
                 set("value", 500000);
                 set("material", "steel");
-                set("long", "Ò»¸ËĞşÌú´òÖÆµÄ·½Ìì»­êª£¬´«ËµÊÇÈı¹úÃû½«ÂÀ²¼ËùÓÃ¹ıµÄÎäÆ÷¡£\n");
-                set("wield_msg", "$NÌáÆğ$nÎÕÔÚÊÖÖĞ£¬Íş·çÁİÁİ¡£\n");
+                set("long", "ä¸€æ†ç„é“æ‰“åˆ¶çš„æ–¹å¤©ç”»æˆŸï¼Œä¼ è¯´æ˜¯ä¸‰å›½åå°†å•å¸ƒæ‰€ç”¨è¿‡çš„æ­¦å™¨ã€‚\n");
+                set("wield_msg", "$Næèµ·$næ¡åœ¨æ‰‹ä¸­ï¼Œå¨é£å‡›å‡›ã€‚\n");
         }
         init_club(75);
         setup();

@@ -1,4 +1,4 @@
-// dizi1.c µÜ×Ó
+// dizi1.c å¼Ÿå­
 
 #include <ansi.h>
 
@@ -7,10 +7,10 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ÏÀ¿ÍµºµÜ×Ó", ({ "di zi", "di", "zi" }));
-        set("long", "ÕâÊÇÈıÊ®¶àËêµÄ×³ºº£¬°ò´óÑüÔ²£¬ÊÇµºÖ÷´ÓÖĞÔ­ÕĞÄ¼À´µÄ¡£\n");
+        set_name("ä¾ å®¢å²›å¼Ÿå­", ({ "di zi", "di", "zi" }));
+        set("long", "è¿™æ˜¯ä¸‰åå¤šå²çš„å£®æ±‰ï¼Œè†€å¤§è…°åœ†ï¼Œæ˜¯å²›ä¸»ä»ä¸­åŸæ‹›å‹Ÿæ¥çš„ã€‚\n");
 
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 30);
         set("shen_type",1);
         set("attitude", "peaceful");
@@ -37,7 +37,7 @@ void create()
         set_skill("hand", 70);
         set_skill("staff", 50);
 
-        create_family("ÏÀ¿Íµº", 0, "µÜ×Ó");
+        create_family("ä¾ å®¢å²›", 0, "å¼Ÿå­");
         setup();
         carry_object("/clone/misc/cloth")->wear();
 }
@@ -70,12 +70,12 @@ void greeting(object ob)
         switch (random(2))
         {
         case 0:
-                say("ÏÀ¿ÍµºµÜ×ÓËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-                    "£¬¿ìÇëµ½Ó­±ö¹İÖĞĞªĞª½Å°É¡£\n");
+                say("ä¾ å®¢å²›å¼Ÿå­è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+                    "ï¼Œå¿«è¯·åˆ°è¿å®¾é¦†ä¸­æ­‡æ­‡è„šå§ã€‚\n");
                 break;
         case 1:
-                say("ÏÀ¿ÍµºµÜ×Ó¹§ÊÖËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-                    "£¬µºÖ÷ÕıÔÚµÈÄãÄØ¡£\n");
+                say("ä¾ å®¢å²›å¼Ÿå­æ­æ‰‹è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+                    "ï¼Œå²›ä¸»æ­£åœ¨ç­‰ä½ å‘¢ã€‚\n");
                 break;
         }
 }

@@ -13,13 +13,13 @@ void create()
 {
         object ob;
 
-        set_name("Ğ¡ÁúÅ®", ({ "xiao longnv", "xiao", "longnv" }));
-        set("gender", "Å®ĞÔ");
+        set_name("å°é¾™å¥³", ({ "xiao longnv", "xiao", "longnv" }));
+        set("gender", "å¥³æ€§");
         set("age", 22);
         set("long", @LONG
-ËıÒ»Éú°®´©°×ÒÂ£¬µ±ÕæÈç·ç·÷ÓñÊ÷£¬Ñ©¹üÇí°ú£¬
-¼æÖ®ÉúĞÔÇåÀä£¬Êµµ±µÃÆğ¡°Àä½şÈÜÈÜÔÂ¡±µÄĞÎ
-Èİ¡£
+å¥¹ä¸€ç”Ÿçˆ±ç©¿ç™½è¡£ï¼Œå½“çœŸå¦‚é£æ‹‚ç‰æ ‘ï¼Œé›ªè£¹ç¼è‹ï¼Œ
+å…¼ä¹‹ç”Ÿæ€§æ¸…å†·ï¼Œå®å½“å¾—èµ·â€œå†·æµ¸æº¶æº¶æœˆâ€çš„å½¢
+å®¹ã€‚
 LONG);
         set("attitude", "friendly");
         set("str", 21);
@@ -73,12 +73,12 @@ LONG);
         prepare_skill("strike", "tianluo-diwang");
         prepare_skill("unarmed", "meinv-quan");
 
-        create_family("¹ÅÄ¹ÅÉ", 3, "µÜ×Ó");
+        create_family("å¤å¢“æ´¾", 3, "å¼Ÿå­");
 
         set("yfzhen_count", 3);
 
         set("inquiry", ([
-                "Óñ·äÕë"   : (: ask_zhen :),
+                "ç‰èœ‚é’ˆ"   : (: ask_zhen :),
         ]));
 
         set_temp("apply/attack", 150);
@@ -122,11 +122,11 @@ void attempt_apprentice(object ob)
 
         if (ob->query("per") < 26)
         {
-                command("say ×ğÈİÊµÔÚ²»¸Ò¹§Î¬£¬ÎÒ¿´Äã»¹ÊÇËãÁË°É¡£\n");
+                command("say å°Šå®¹å®åœ¨ä¸æ•¢æ­ç»´ï¼Œæˆ‘çœ‹ä½ è¿˜æ˜¯ç®—äº†å§ã€‚\n");
                 return;
         }
 
-        command("say ºÃ°É£¬ÎÒ¾ÍÊÕÏÂÄãÕâ¸öÍ½¶ùÁË¡£\n");
+        command("say å¥½å§ï¼Œæˆ‘å°±æ”¶ä¸‹ä½ è¿™ä¸ªå¾’å„¿äº†ã€‚\n");
         command("recruit " + ob->query("id"));
 }
 
@@ -138,32 +138,32 @@ string ask_zhen()
 
         me = this_player();
 
-        if (! (fam = me->query("family")) || fam["family_name"] != "¹ÅÄ¹ÅÉ")
-                return RANK_D->query_respect(me) + "Óë±¾ÅÉºÁÎŞ¹Ï¸ğ£¬ºÎÒÔÎÊ"
-                "Æğ±¾ÅÉ°µÆ÷£¿\n";
+        if (! (fam = me->query("family")) || fam["family_name"] != "å¤å¢“æ´¾")
+                return RANK_D->query_respect(me) + "ä¸æœ¬æ´¾æ¯«æ— ç“œè‘›ï¼Œä½•ä»¥é—®"
+                "èµ·æœ¬æ´¾æš—å™¨ï¼Ÿ\n";
 
         if (me->query_skill("yufeng-zhen", 1) < 100)
-                return RANK_D->query_respect(me) + "µÄÓñ·äÕëÊÖ·¨»ğºò»¹²»µ½¼Ò"
-                "£¬ÄÃÁËÓñ·äÕëÒ²Ã»ÓĞÊ²Ã´ÓÃ¡£\n";
+                return RANK_D->query_respect(me) + "çš„ç‰èœ‚é’ˆæ‰‹æ³•ç«å€™è¿˜ä¸åˆ°å®¶"
+                "ï¼Œæ‹¿äº†ç‰èœ‚é’ˆä¹Ÿæ²¡æœ‰ä»€ä¹ˆç”¨ã€‚\n";
 
         if (query("yfzhen_count") < 1)
-                return "ÄãÀ´ÍíÁË£¬ÎÒÊÖÍ·µÄÓñ·äÕëÒÑ¾­·¢ÍêÁË¡£\n";
+                return "ä½ æ¥æ™šäº†ï¼Œæˆ‘æ‰‹å¤´çš„ç‰èœ‚é’ˆå·²ç»å‘å®Œäº†ã€‚\n";
 
         add("yfzhen_count", -1);
         
-        message_vision(HIY "$NÄÃ³öÒ»¸ùÓñ·äÕëµİ¸ø$n¡£\n" NOR, this_object(), me);
+        message_vision(HIY "$Næ‹¿å‡ºä¸€æ ¹ç‰èœ‚é’ˆé€’ç»™$nã€‚\n" NOR, this_object(), me);
 
         ob = new("/d/gumu/obj/yufeng-zhen");
         ob->move(me, 1);
 
-        return "ºÃ°É£¬Õâ¸ùÓñ·äÕëÄãÏÈÄÃÈ¥ÓÃ°É¡£\n";
+        return "å¥½å§ï¼Œè¿™æ ¹ç‰èœ‚é’ˆä½ å…ˆæ‹¿å»ç”¨å§ã€‚\n";
 }
 
 int accept_ask(object me, string topic)
 {
         switch (topic)
         {
-        case "ÒøË÷½ğÁå" :
+        case "é“¶ç´¢é‡‘é“ƒ" :
                 return MASTER_D->give_item(me, this_object(),
                         ([ "item"    : YINSUO,
                            "master"  : 1,
@@ -171,60 +171,60 @@ int accept_ask(object me, string topic)
                            "lv1"     : 150, ]));
                 break;
 
-        case "Ç§×Ë°ÙÃÄ" :
+        case "åƒå§¿ç™¾åªš" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/yunv-jian/mei",
-                           "name"    : "Ç§×Ë°ÙÃÄ",
+                           "name"    : "åƒå§¿ç™¾åªš",
                            "sk1"     : "yunv-jian",
                            "lv1"     : 35,
                            "dodge"   : 30,
                            "gongxian": 50, ]));
                 break;
 
-        case "ÌìÂŞµØÍøÊÆ" :
+        case "å¤©ç½—åœ°ç½‘åŠ¿" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/tianluo-diwang/wang",
-                           "name"    : "ÌìÂŞµØÍøÊÆ",
+                           "name"    : "å¤©ç½—åœ°ç½‘åŠ¿",
                            "sk1"     : "tianluo-diwang",
                            "lv1"     : 60,
                            "dodge"   : 30,
                            "gongxian": 60, ]));
 
 
-        case "¹ÅÄ¹ÓÄ¾Ó" :
+        case "å¤å¢“å¹½å±…" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/meinv-quan/you",
-                           "name"    : "¹ÅÄ¹ÓÄ¾Ó",
+                           "name"    : "å¤å¢“å¹½å±…",
                            "sk1"     : "meinv-quan",
                            "lv1"     : 70,
                            "force"   : 70,
                            "gongxian": 160, ]));
                 break;
 
-        case "¸ô¿ÕµãÑ¨" :
+        case "éš”ç©ºç‚¹ç©´" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/yinsuo-jinling/dian",
-                           "name"    : "¸ô¿ÕµãÑ¨",
+                           "name"    : "éš”ç©ºç‚¹ç©´",
                            "sk1"     : "yinsuo-jinling",
                            "lv1"     : 70,
                            "force"   : 90,
                            "gongxian": 260, ]));
                 break;
 
-        case "ÎŞÓ°Õë" :
+        case "æ— å½±é’ˆ" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/yufeng-zhen/ying",
-                           "name"    : "ÎŞÓ°Õë",
+                           "name"    : "æ— å½±é’ˆ",
                            "sk1"     : "yufeng-zhen",
                            "lv1"     : 90,
                            "force"   : 100,
                            "gongxian": 300, ]));
                 break;
 
-        case "Ë«½£ºÏ±Ú" :
+        case "åŒå‰‘åˆå£" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/suxin-jian/he",
-                           "name"    : "Ë«½£ºÏ±Ú",
+                           "name"    : "åŒå‰‘åˆå£",
                            "sk1"     : "suxin-jian",
                            "lv1"     : 130,
                            "force"   : 120,

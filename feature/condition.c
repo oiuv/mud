@@ -252,7 +252,7 @@ nomask int affect_by(string cnd, mixed para)
                 return 0;
 	}
 	
-//转世特技诸邪辟易
+//杞笘鐗规妧璇搁偑杈熸槗
  if (this_object()->query("special_skill/piyi"))
         {
               return 0;

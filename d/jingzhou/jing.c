@@ -1,16 +1,16 @@
-// jing.c ÁèË¼ÍË
+// jing.c å‡Œæ€é€€
 
 inherit NPC;
 
 void create()
 {
-	set_name("ÁèË¼ÍË", ({ "ling situi", "ling" }));
-	set("title", "¾£ÖİÖª¸®");
-	set("gender", "ÄĞĞÔ");
+	set_name("å‡Œæ€é€€", ({ "ling situi", "ling" }));
+	set("title", "è†å·çŸ¥åºœ");
+	set("gender", "ç”·æ€§");
 	set("age", 35);
 	set("str", 20);
 	set("dex", 20);
-	set("long", "Ëû¾ÍÊÇÁèË¼ÍË£¬¾£ÖİÏÖÈÎÖª¸®¡£\n");
+	set("long", "ä»–å°±æ˜¯å‡Œæ€é€€ï¼Œè†å·ç°ä»»çŸ¥åºœã€‚\n");
 	set("combat_exp", 30000);
 	set("shen_type", 0);
 	set("attitude", "heroism");

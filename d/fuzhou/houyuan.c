@@ -4,17 +4,17 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÀÏÕ¬ºóÔº");
+        set("short", "è€å®…åé™¢");
         set("long", @LONG
-ÕâÀïÊÇÏòÑôÀÏÕ¬µÄºóÔº¡£ÂúµØÊÇ·¢³öĞàÀÃÃ¹ÆøµÄÂäÒ¶¡£Ôº
-×ÓµÄÖĞÑëÓĞÒ»¿Ú¾®£¬¾®Ì¨ÉÏ¿Ì×ÅĞ©×Ö¡£Ôº×ÓÄÏÃæÓĞÒ»ÉÈÃÅ£¬µ«
-ÒÑ±»Ì®ËúµÄ×©Íßµ²×¡ÁË¡£
+è¿™é‡Œæ˜¯å‘é˜³è€å®…çš„åé™¢ã€‚æ»¡åœ°æ˜¯å‘å‡ºæœ½çƒ‚éœ‰æ°”çš„è½å¶ã€‚é™¢
+å­çš„ä¸­å¤®æœ‰ä¸€å£äº•ï¼Œäº•å°ä¸Šåˆ»ç€äº›å­—ã€‚é™¢å­å—é¢æœ‰ä¸€æ‰‡é—¨ï¼Œä½†
+å·²è¢«åå¡Œçš„ç –ç“¦æŒ¡ä½äº†ã€‚
 LONG );
         set("exits", ([
             	"west" : __DIR__"mishi",
         ]));
         set("item_desc", ([
-                "men" : "ÕâÉÈÃÅÒÑ±»µ²×¡ÎŞ·¨Í¨ĞĞ£¬³ı·ÇÄã´òÆÆ(break)Ëü¡£\n",
+                "men" : "è¿™æ‰‡é—¨å·²è¢«æŒ¡ä½æ— æ³•é€šè¡Œï¼Œé™¤éä½ æ‰“ç ´(break)å®ƒã€‚\n",
         ]) );
         setup();
 }
@@ -29,21 +29,21 @@ int do_break(string arg)
         int n = this_player()->query("neili");
 
         if (query("break"))
-                return notify_fail("´óÃÅÒÑ¾­±»Õğ¿ª£¬ÓÃ²»×ÅÔÙ·ÑÁ¦ÁË¡£\n");
+                return notify_fail("å¤§é—¨å·²ç»è¢«éœ‡å¼€ï¼Œç”¨ä¸ç€å†è´¹åŠ›äº†ã€‚\n");
 
         if (! arg || arg != "men")
         {
-                write("Ê²Ã´£¿\n");
+                write("ä»€ä¹ˆï¼Ÿ\n");
                 return 1;
         }
 
-        message_vision(HIY "$N" HIY "×ßµ½ºóÃÅÇ°£¬°İ³öÆïÂí¶×ñÉÊ½£¬ÉîÎüÒ»"
-                       "¿ÚÆø£¬Ë«ÕÆÍ¬Ê±ÅÄ³ö¡£\n" NOR, this_player());
+        message_vision(HIY "$N" HIY "èµ°åˆ°åé—¨å‰ï¼Œæ‹œå‡ºéª‘é©¬è¹²è£†å¼ï¼Œæ·±å¸ä¸€"
+                       "å£æ°”ï¼ŒåŒæŒåŒæ—¶æ‹å‡ºã€‚\n" NOR, this_player());
         
         if (n >= 200)
         {
-                message_vision(WHT "Ö»ÌıºäÈ»Ò»Éù¾ŞÏì£¬$N" WHT "°ÑÃÅ¸øÕğ"
-                               "¿ªÁË¡£\n" NOR, this_player());
+                message_vision(WHT "åªå¬è½°ç„¶ä¸€å£°å·¨å“ï¼Œ$N" WHT "æŠŠé—¨ç»™éœ‡"
+                               "å¼€äº†ã€‚\n" NOR, this_player());
                 set("exits/south", __DIR__"laozhai");
                 set("break", 1);
                 this_player()->set("neili", n-200);
@@ -51,9 +51,9 @@ int do_break(string arg)
                 call_out("close", 5);
         } else
         {
-                message_vision(HIY "$N" HIY "´óºğÒ»Éù¡°¿ª£¡¡±£¬Ë«ÕÆÍ¬Ê±"
-                               "ÏòÃÅÅÄÈ¥¡£\n" HIR "½á¹û´óÃÅ±»ÕğµÃÅéµÄÒ»"
-                               "Éù£¬»Ò³¾ËÄ´¦·ÉÑï¡£\n" NOR, this_player());
+                message_vision(HIY "$N" HIY "å¤§å¼ä¸€å£°â€œå¼€ï¼â€ï¼ŒåŒæŒåŒæ—¶"
+                               "å‘é—¨æ‹å»ã€‚\n" HIR "ç»“æœå¤§é—¨è¢«éœ‡å¾—ç °çš„ä¸€"
+                               "å£°ï¼Œç°å°˜å››å¤„é£æ‰¬ã€‚\n" NOR, this_player());
                 this_player()->set("neili", 0);
         }
         return 1;
@@ -61,8 +61,8 @@ int do_break(string arg)
 
 void close()
 {
-        message("vision", WHT "ÃÅÉÏµÄ×©Í·Íß¿éÏ¡Àï»¨À­Ì®ËúÏÂÀ´£¬ÓÖµ²×¡ÁË"
-                          "Ğ¡ÃÅ¡£\n" NOR, this_object());
+        message("vision", WHT "é—¨ä¸Šçš„ç –å¤´ç“¦å—ç¨€é‡ŒèŠ±æ‹‰åå¡Œä¸‹æ¥ï¼ŒåˆæŒ¡ä½äº†"
+                          "å°é—¨ã€‚\n" NOR, this_object());
         delete("exits/south");
         delete("break");
 }

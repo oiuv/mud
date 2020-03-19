@@ -1,6 +1,6 @@
 #include <ansi.h>
 
-#define SIX "¡¸" HIW "ÁùÂö½£Æø" NOR "¡¹"
+#define SIX "ã€Œ" HIW "å…­è„‰å‰‘æ°”" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -17,43 +17,43 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (userp(me) && ! me->query("can_perform/liumai-shenjian/six"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(SIX "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(SIX "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_skill_prepared("finger") != "liumai-shenjian")
-                return notify_fail("ÄãÃ»ÓĞ×¼±¸Ê¹ÓÃÁùÂöÉñ½££¬ÎŞ·¨Ê©Õ¹" SIX "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨å…­è„‰ç¥å‰‘ï¼Œæ— æ³•æ–½å±•" SIX "ã€‚\n");
 
         skill = me->query_skill("liumai-shenjian", 1);
 
         if (skill < 220)
-                return notify_fail("ÄãµÄÁùÂöÉñ½£ĞŞÎªÓĞÏŞ£¬ÎŞ·¨Ê¹ÓÃ" SIX "£¡\n");
+                return notify_fail("ä½ çš„å…­è„‰ç¥å‰‘ä¿®ä¸ºæœ‰é™ï¼Œæ— æ³•ä½¿ç”¨" SIX "ï¼\n");
 
         if (me->query_skill("force") < 400)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¬ÄÑÒÔÊ©Õ¹" SIX "£¡\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" SIX "ï¼\n");
 
         if (me->query("max_neili") < 7000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎªÃ»ÓĞ´ïµ½ÄÇ¸ö¾³½ç£¬ÎŞ·¨ÔË×ªÄÚ"
-                                   "Á¦ĞÎ³É" SIX "£¡\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºæ²¡æœ‰è¾¾åˆ°é‚£ä¸ªå¢ƒç•Œï¼Œæ— æ³•è¿è½¬å†…"
+                                   "åŠ›å½¢æˆ" SIX "ï¼\n");
 
         if (me->query("neili") < 500)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÏÖÔÚÎŞ·¨Ê©Õ¹" SIX "£¡\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œç°åœ¨æ— æ³•æ–½å±•" SIX "ï¼\n");
 
         if (me->query_temp("weapon"))
-                return notify_fail("Äã±ØĞëÊÇ¿ÕÊÖ²ÅÄÜÊ©Õ¹" SIX "£¡\n");
+                return notify_fail("ä½ å¿…é¡»æ˜¯ç©ºæ‰‹æ‰èƒ½æ–½å±•" SIX "ï¼\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "Ì¯¿ªË«ÊÖ£¬ÊÖÖ¸Á¬µ¯£¬ö®Ê±¼ä¿ÕÆøÖËÈÈ£¬¼¸"
-              "Óû·ĞÌÚ£¬ÁùµÀ½£Æø·Ö×ÔÁùÑ¨£¬Ò»Æğ³åÏò$n" HIW "£¡\n" NOR;
+        msg = HIW "$N" HIW "æ‘Šå¼€åŒæ‰‹ï¼Œæ‰‹æŒ‡è¿å¼¹ï¼Œéœæ—¶é—´ç©ºæ°”ç‚™çƒ­ï¼Œå‡ "
+              "æ¬²æ²¸è…¾ï¼Œå…­é“å‰‘æ°”åˆ†è‡ªå…­ç©´ï¼Œä¸€èµ·å†²å‘$n" HIW "ï¼\n" NOR;
 
         ap = me->query_skill("finger");
         dp = target->query_skill("force");
         if (ap / 2 + random(ap) > dp)
         {
-                msg += HIR "$n" HIR "¼û´Ë½£Æø×İºá£¬Î¢Ò»ã¶Éñ£¬²»½ûĞÄÃÈÍËÒâ¡£\n" NOR;
+                msg += HIR "$n" HIR "è§æ­¤å‰‘æ°”çºµæ¨ªï¼Œå¾®ä¸€æ„£ç¥ï¼Œä¸ç¦å¿ƒèŒé€€æ„ã€‚\n" NOR;
                 delta = -skill / 5;
         } else
                 delta = 0;

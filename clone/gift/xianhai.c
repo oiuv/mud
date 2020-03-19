@@ -1,4 +1,4 @@
-// xianhai.c Ïİº¦¿¨
+// xianhai.c é™·å®³å¡
 
 #include <ansi.h>
 
@@ -6,15 +6,15 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIR "Ïİº¦¿¨" NOR, ({ "card", "throw card"}) );
+	set_name(HIR "é™·å®³å¡" NOR, ({ "card", "throw card"}) );
 	set_weight(100);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-                set("long", "Ò»ÕÅ¹îÃØµÄ¿¨Æ¬£¬¾İËµÓÃËü¿ÉÒÔÏİº¦±ğÈË¡£\n");
+                set("long", "ä¸€å¼ è¯¡ç§˜çš„å¡ç‰‡ï¼Œæ®è¯´ç”¨å®ƒå¯ä»¥é™·å®³åˆ«äººã€‚\n");
                 set("value", 1);
                 set("no_sell", 1);
-		set("unit", "ÕÅ");
+		set("unit", "å¼ ");
                 set("time_to_leave", 20);
 	}
 }

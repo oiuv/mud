@@ -10,26 +10,26 @@ int main(object me, string arg)
         string r;
 
 	if (environment(me)->query("pigging"))
-		return notify_fail("Äã»¹ÊÇ°²ĞÄµÄ¹°Öí°É£¡\n");
+		return notify_fail("ä½ è¿˜æ˜¯å®‰å¿ƒçš„æ‹±çŒªå§ï¼\n");
 
         if (! objectp(ob = STORY_D->query_running_story())
             || base_name(ob) != STORY_DIR + "challenge")
-                return notify_fail("ÏÖÔÚÃ»ÓĞÈËÀ´ÌôÕ½£¬ÄãÏ¹¶¯Ê²Ã´£¿\n");
+                return notify_fail("ç°åœ¨æ²¡æœ‰äººæ¥æŒ‘æˆ˜ï¼Œä½ çåŠ¨ä»€ä¹ˆï¼Ÿ\n");
 
 	if (me->is_in_prison())
-		return notify_fail("ºÃºÃµÄ×öÄãµÄÀÎ°É¡£\n");
+		return notify_fail("å¥½å¥½çš„åšä½ çš„ç‰¢å§ã€‚\n");
 
 	if (me->is_ghost())
-		return notify_fail("Äã»¹ÊÇµÈ»¹ÁËÑôÔÙËµ°É¡£\n");
+		return notify_fail("ä½ è¿˜æ˜¯ç­‰è¿˜äº†é˜³å†è¯´å§ã€‚\n");
 
         if (wizardp(me))
-                return notify_fail("ÄãÒ»¸öÎ×Ê¦µ·Ê²Ã´ÂÒ£¿\n");
+                return notify_fail("ä½ ä¸€ä¸ªå·«å¸ˆæ£ä»€ä¹ˆä¹±ï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕıÃ¦£¬µÈÓĞ¿ÕÁËÔÙËµ°É£¡\n");
+                return notify_fail("ä½ ç°åœ¨æ­£å¿™ï¼Œç­‰æœ‰ç©ºäº†å†è¯´å§ï¼\n");
 
         if (me->is_fighting())
-                return notify_fail("Äã»¹ÊÇ°ÑÑÛÇ°µÄµĞÈË·Åµ¹ÔÙËµ°É£¡\n");
+                return notify_fail("ä½ è¿˜æ˜¯æŠŠçœ¼å‰çš„æ•Œäººæ”¾å€’å†è¯´å§ï¼\n");
 
         if (r = ob->cannot_accept(me))
                 return notify_fail(r);
@@ -41,11 +41,11 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : accept
+æŒ‡ä»¤æ ¼å¼ : accept
 
-½ÓÊÕÀ´×ÔÌôÕ½ÕßµÄÌôÕ½¡£µ±È»µÄÓĞÈËÏòÄãÌôÕ½²Å¿ÉÒÔ¡£
+æ¥æ”¶æ¥è‡ªæŒ‘æˆ˜è€…çš„æŒ‘æˆ˜ã€‚å½“ç„¶çš„æœ‰äººå‘ä½ æŒ‘æˆ˜æ‰å¯ä»¥ã€‚
 
-ÆäËûÏà¹ØÖ¸Áî: fight, hit
+å…¶ä»–ç›¸å…³æŒ‡ä»¤: fight, hit
 
 HELP );
         return 1;

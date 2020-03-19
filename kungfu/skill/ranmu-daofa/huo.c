@@ -13,37 +13,37 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail("¡¸»ð÷èÊ´ÔÂ¡¹Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("ã€Œç«éº’èš€æœˆã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "blade")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ã€‚\n");
         if (target->is_busy())
-                return notify_fail(target->name() + "Ä¿Ç°Õý×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É¡£\n");
+                return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ã€‚\n");
 
         if ((me->query_skill_mapped("force") != "hunyuan-yiqi") && (me->query_skill_mapped("force") != "yijinjing") && (me->query_skill_mapped("force") != "luohan-fumogong"))
-                return notify_fail("ÄãÏÖÔÚÃ»ÓÐ¼¤·¢ÉÙÁÖÄÚ¹¦ÎªÄÚ¹¦£¬ÄÑÒÔÊ©Õ¹¡¸»ð÷èÊ´ÔÂ¡¹¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ²¡æœ‰æ¿€å‘å°‘æž—å†…åŠŸä¸ºå†…åŠŸï¼Œéš¾ä»¥æ–½å±•ã€Œç«éº’èš€æœˆã€ã€‚\n");
 
         if ((int)me->query_skill("ranmu-daofa", 1) < 180)
-                return notify_fail("ÄãµÄÈ¼Ä¾µ¶·¨²»¹»æµÊì£¬²»ÄÜÊ¹ÓÃ»ð÷èÊ´ÔÂ¡£\n");
+                return notify_fail("ä½ çš„ç‡ƒæœ¨åˆ€æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸èƒ½ä½¿ç”¨ç«éº’èš€æœˆã€‚\n");
 
         if ((int)me->query_skill("force") < 250)
-                return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»¹»£¬²»ÄÜÊ¹ÓÃ»ð÷èÊ´ÔÂ¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨ç«éº’èš€æœˆã€‚\n");
 
         if ((int)me->query("max_neili") < 3000 )
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎªÌ«Èõ£¬²»ÄÜÊ¹ÓÃ»ð÷èÊ´ÔÂ¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºå¤ªå¼±ï¼Œä¸èƒ½ä½¿ç”¨ç«éº’èš€æœˆã€‚\n");
 
         if ((int)me->query("neili") < 600 )
-                return notify_fail("ÄãÏÖÔÚÄÚÁ¦Ì«Èõ£¬²»ÄÜÊ¹ÓÃ»ð÷èÊ´ÔÂ¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨å†…åŠ›å¤ªå¼±ï¼Œä¸èƒ½ä½¿ç”¨ç«éº’èš€æœˆã€‚\n");
 
         if (me->query_skill_mapped("blade") != "ranmu-daofa")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢È¼Ä¾µ¶·¨£¬²»ÄÜÊ©Õ¹»ð÷èÊ´ÔÂ¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ç‡ƒæœ¨åˆ€æ³•ï¼Œä¸èƒ½æ–½å±•ç«éº’èš€æœˆã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIR "Ö»¼û$N" HIR "ÊÖÖÐ" + weapon->name() + HIR "Ò»¶¶£¬µ¶ÉíµÇÊ±ÌÚÆð"
-                        "ÌÏÌìÁÒÑæ£¬ÈçÔ¡»ð÷è÷ëÒ»°ãÏ¯¾í$n" HIR "È«Éí£¡\n"NOR;
+        msg = HIR "åªè§$N" HIR "æ‰‹ä¸­" + weapon->name() + HIR "ä¸€æŠ–ï¼Œåˆ€èº«ç™»æ—¶è…¾èµ·"
+                        "æ»”å¤©çƒˆç„°ï¼Œå¦‚æµ´ç«éº’éºŸä¸€èˆ¬å¸­å·$n" HIR "å…¨èº«ï¼\n"NOR;
 
         me->start_busy(2 + random(2));
         ap = me->query_skill("ranmu-daofa", 1) + me->query_skill("force");
@@ -55,12 +55,12 @@ int perform(object me, object target)
                 damage = ap + random(ap);
                 me->add("neili", -400);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 130,
-                                           RED "Ö»ÎÅÒ»¹É½¹³ô´Ó$n" RED "´¦´«À´£¬$n" RED "ÒÑ±»"
-                                           "$P" RED "Õâ¾«Éî°ÂÃîµÄÒ»"
-                                           "µ¶»÷ÖÐ£¬ÏÊÑª·É½¦¶ø³ö£¡\n" NOR);
+                                           RED "åªé—»ä¸€è‚¡ç„¦è‡­ä»Ž$n" RED "å¤„ä¼ æ¥ï¼Œ$n" RED "å·²è¢«"
+                                           "$P" RED "è¿™ç²¾æ·±å¥¥å¦™çš„ä¸€"
+                                           "åˆ€å‡»ä¸­ï¼Œé²œè¡€é£žæº…è€Œå‡ºï¼\n" NOR);
         } else
         {
-                msg += CYN "$p" CYN "¼û$P" CYN "À´ÊÆÐÚÐÚ£¬²»¸ÒµÖµ²£¬¼±Ã¦Ð±Ô¾±Ü¿ª¡£\n"NOR;
+                msg += CYN "$p" CYN "è§$P" CYN "æ¥åŠ¿æ±¹æ±¹ï¼Œä¸æ•¢æŠµæŒ¡ï¼Œæ€¥å¿™æ–œè·ƒé¿å¼€ã€‚\n"NOR;
                 me->add("neili", -200);
         }
         message_combatd(msg, me, target);

@@ -4,19 +4,19 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("ÂòÂôÌá", ({ "maimaiti", "seller" }) );
-        set("title", "ÔÓ»õÆÌÀÏ°å");
+        set_name("ä¹°å–æ", ({ "maimaiti", "seller" }) );
+        set("title", "æ‚è´§é“ºè€æ¿");
         set("shen_type", 1);
-        set("gender", "ÄĞĞÔ" );
+        set("gender", "ç”·æ€§" );
         set("age", 43);
-        set("long", "ÂòÂôÌáÊÇ¸öÖĞÄêÎ¬Îá¶û×åÉÌÈË£¬È¥¹ı¼¸\n"
-                    "´ÎÖĞÔ­£¬ÄÜ½²Ò»µã¶ùºº»°¡£\n");
+        set("long", "ä¹°å–ææ˜¯ä¸ªä¸­å¹´ç»´å¾å°”æ—å•†äººï¼Œå»è¿‡å‡ \n"
+                    "æ¬¡ä¸­åŸï¼Œèƒ½è®²ä¸€ç‚¹å„¿æ±‰è¯ã€‚\n");
         set_skill("unarmed", 50);
         set_skill("dodge", 50);
         set_temp("apply/damage", 15);
         set("combat_exp", 50000);
         set("attitude", "friendly");
-        set("rank_info/respect", "´óÊå");
+        set("rank_info/respect", "å¤§å”");
         set("vendor_goods", ({
                 "/d/xingxiu/obj/hu",
                 "/d/xingxiu/obj/nang",
@@ -48,10 +48,10 @@ void greeting(object ob)
         if( !ob || environment(ob) != environment() ) return;
         switch( random(2) ) {
                 case 0:
-                        say(CYN "ÂòÂôÌáĞ¦ÎûÎûµØËµµÀ£ºÉ«À¼Ä·°¢Àï¿Õ¡£\n" NOR);
+                        say(CYN "ä¹°å–æç¬‘å˜»å˜»åœ°è¯´é“ï¼šè‰²å…°å§†é˜¿é‡Œç©ºã€‚\n" NOR);
                         break;
                 case 1:
-                        say(CYN "ÂòÂôÌáÓÒÊÖ·ÅÔÚĞØÇ°£¬Ç³¾ÏÒ»¹ªËµµÀ£º°¢Àï¿ÕÉ«À¼Ä·¡£\n" NOR);
+                        say(CYN "ä¹°å–æå³æ‰‹æ”¾åœ¨èƒ¸å‰ï¼Œæµ…é ä¸€èº¬è¯´é“ï¼šé˜¿é‡Œç©ºè‰²å…°å§†ã€‚\n" NOR);
                         break;
         }
 }

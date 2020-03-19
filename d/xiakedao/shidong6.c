@@ -1,14 +1,14 @@
-// /d/xiakedao/shidong6.c ÏÀ¿Íµº Ê¯¶´
+// /d/xiakedao/shidong6.c ä¾ å®¢å²› çŸ³æ´ž
 
 inherit ROOM;
 
 void create()
 {
-        set("short", "Ê¯¶´");
+        set("short", "çŸ³æ´ž");
         set("long", @LONG
-ÕâÊÇÒ»¸öÊ¯¶´£¬ÂÔÏÔÏÁÕ­£¬½öÈÝÁ½ÈË²¢¼ç¶ø¹ý¡£¶¥±ÚÒ²ÉõÊÇµÍ°«£¬
-ÉìÊÖ±ã¿É´¥¼°¡£ÓÍµÆ»Î¶¯£¬ÔÚÉíºóÀ­³ö³¤³¤µÄÒõÓ°¡£½Å²½ÌßàªÊ¯¶´±Ë
-¶ËÏìÆðÕóÕó»ØÉù£¬¸Ð¾õÓÐÐ©ÒìÑù¡£
+è¿™æ˜¯ä¸€ä¸ªçŸ³æ´žï¼Œç•¥æ˜¾ç‹­çª„ï¼Œä»…å®¹ä¸¤äººå¹¶è‚©è€Œè¿‡ã€‚é¡¶å£ä¹Ÿç”šæ˜¯ä½ŽçŸ®ï¼Œ
+ä¼¸æ‰‹ä¾¿å¯è§¦åŠã€‚æ²¹ç¯æ™ƒåŠ¨ï¼Œåœ¨èº«åŽæ‹‰å‡ºé•¿é•¿çš„é˜´å½±ã€‚è„šæ­¥è¸¢å—’çŸ³æ´žå½¼
+ç«¯å“èµ·é˜µé˜µå›žå£°ï¼Œæ„Ÿè§‰æœ‰äº›å¼‚æ ·ã€‚
 LONG );
         set("exits", ([
                 "south" : __DIR__"shidong7",

@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("教众", ({ "jiao zhong", "jiao", "zhong" }));
-        set("long", "这是一个天鹰教的教众，身材魁梧。\n");
+        set_name("鏁欎紬", ({ "jiao zhong", "jiao", "zhong" }));
+        set("long", "杩欐槸涓�涓ぉ楣版暀鐨勬暀浼楋紝韬潗榄佹ⅶ銆俓n");
         set("attitude", "heroism");
-        set("title", "天鹰教玄武坛");
+        set("title", "澶╅拱鏁欑巹姝﹀潧");
         set("max_qi", 800);
         set("max_jing", 800);
         set("neili", 500);

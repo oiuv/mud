@@ -18,7 +18,7 @@ object connect()
 
     if (err)
     {
-        write("ÏÖÔÚÓĞÈËÕıÔÚĞŞ¸ÄÊ¹ÓÃÕßÁ¬Ïß²¿·İµÄ³ÌÊ½£¬Çë´ı»áÔÙÀ´¡£\n");
+        write("ç°åœ¨æœ‰äººæ­£åœ¨ä¿®æ”¹ä½¿ç”¨è€…è¿çº¿éƒ¨ä»½çš„ç¨‹å¼ï¼Œè¯·å¾…ä¼šå†æ¥ã€‚\n");
         //write(err);
         destruct(this_object());
     }
@@ -54,8 +54,8 @@ void crash(string error, object command_giver, object current_object)
     mixed cmds;
     int i;
 
-    efun::shout("ÏµÍ³ºËĞÄ·¢³öÒ»Éù²Ò½Ğ£ºÍÛ¡ªÁ¨¡ªßÖ¡ª\n");
-    efun::shout("ÏµÍ³ºËĞÄ¸æËßÄã£ºÒªµ±»úÁË£¬×Ô¼º±£ÖØ°É£¡\n");
+    efun::shout("ç³»ç»Ÿæ ¸å¿ƒå‘å‡ºä¸€å£°æƒ¨å«ï¼šå“‡â€”å“©â€”å’§â€”\n");
+    efun::shout("ç³»ç»Ÿæ ¸å¿ƒå‘Šè¯‰ä½ ï¼šè¦å½“æœºäº†ï¼Œè‡ªå·±ä¿é‡å§ï¼\n");
     log_file("static/CRASHES", MUD_NAME + " crashed on: " + ctime(time()) +
              ", error: " + error + "\n");
     if (command_giver)
@@ -71,10 +71,10 @@ void crash(string error, object command_giver, object current_object)
         }
         if (environment(command_giver))
             log_file("static/CRASHES",
-                     sprintf("in where: %s(%s)¡£\n", environment(command_giver)->query("short"),
+                     sprintf("in where: %s(%s)ã€‚\n", environment(command_giver)->query("short"),
                              base_name(environment(command_giver))));
         log_file("static/CRASHES",
-                 sprintf( "this_player: %O ¡£ end command (%s)\n", command_giver, command_giver->query_last_input()));
+                 sprintf( "this_player: %O ã€‚ end command (%s)\n", command_giver, command_giver->query_last_input()));
     }
     if (current_object)
         log_file("static/CRASHES",
@@ -160,8 +160,8 @@ void preload(string file)
 // 'file', giving the error message 'message'.
 void log_error(string file, string message)
 {
-    //if (this_player(1)) efun::write("\n±àÒëÊ±¶Î´íÎó£º" + message); else
-    //if (this_player()) tell_object(this_player(), "\n±àÒëÊ±¶Î´íÎó£º" + message);
+    //if (this_player(1)) efun::write("\nç¼–è¯‘æ—¶æ®µé”™è¯¯ï¼š" + message); else
+    //if (this_player()) tell_object(this_player(), "\nç¼–è¯‘æ—¶æ®µé”™è¯¯ï¼š" + message);
 
     efun::write_file(LOG_DIR + "log", message);
 }
@@ -201,7 +201,7 @@ int retrieve_ed_setup(object who)
 void destruct_env_of(object ob)
 {
     if (! userp(ob)) return;
-    tell_object(ob, "ÄãËù´æÔÚµÄ¿Õ¼ä±»»ÙÃğÁË¡£\n");
+    tell_object(ob, "ä½ æ‰€å­˜åœ¨çš„ç©ºé—´è¢«æ¯ç­äº†ã€‚\n");
     ob->move(VOID_OB);
 }
 
@@ -255,23 +255,23 @@ string standard_trace(mapping error, int caught)
 
     /* keep track of number of errors per object...if you're into that */
 
-    res = (caught) ? "´íÎóÑ¶Ï¢±»À¹½Ø£º" : "";
-    res = sprintf("%s\nÖ´ĞĞÊ±¶Î´íÎó£º%s\n³ÌÊ½£º%s µÚ %i ĞĞ\nÎï¼ş£º%s\n",
+    res = (caught) ? "é”™è¯¯è®¯æ¯è¢«æ‹¦æˆªï¼š" : "";
+    res = sprintf("%s\næ‰§è¡Œæ—¶æ®µé”™è¯¯ï¼š%s\nç¨‹å¼ï¼š%s ç¬¬ %i è¡Œ\nç‰©ä»¶ï¼š%s\n",
                   res, error["error"],
                   error["program"], error["line"],
                   error["object"] ? file_name(error["object"]) : "0");
 
     if (! error["object"] && (me = this_player()))
     {
-        res += sprintf("µ±Ç°Íæ¼Ò£º%s(%s) - %O  ËùÔÚ»·¾³£º%O\n",
+        res += sprintf("å½“å‰ç©å®¶ï¼š%s(%s) - %O  æ‰€åœ¨ç¯å¢ƒï¼š%O\n",
                        me->name(1), me->query("id"), me, environment(me));
         cmds = me->query_commands();
-        res += me->name(1) + "ÉíÉÏ¼°ËÄÖÜµÄÎïÆ·ÓëËùÔÚµÄ»·¾³Ìá¹©ÒÔÏÂÖ¸Áî£º\n";
+        res += me->name(1) + "èº«ä¸ŠåŠå››å‘¨çš„ç‰©å“ä¸æ‰€åœ¨çš„ç¯å¢ƒæä¾›ä»¥ä¸‹æŒ‡ä»¤ï¼š\n";
         for(i = 0; i<sizeof(cmds); i++)
             res += sprintf("%-15s  %2d %O\n",
                            cmds[i][0], cmds[i][1], cmds[i][2]);
 
-        res += sprintf("µ±Ç°µÄÃüÁî£º%O\n", me->query_last_input());
+        res += sprintf("å½“å‰çš„å‘½ä»¤ï¼š%O\n", me->query_last_input());
     }
 
     i = 0;
@@ -293,7 +293,7 @@ string standard_trace(mapping error, int caught)
 
     for (; i < s; i++)
     {
-        res = sprintf("%sºô½ĞÀ´×Ô£º%s µÄ %s() µÚ %i ĞĞ£¬Îï¼ş£º %O\n",
+        res = sprintf("%så‘¼å«æ¥è‡ªï¼š%s çš„ %s() ç¬¬ %i è¡Œï¼Œç‰©ä»¶ï¼š %O\n",
                   res,
                       error["trace"][i]["program"],
                       error["trace"][i]["function"],
@@ -340,33 +340,33 @@ void check_daemons()
         if (stringp(sp[i])) preload(sp[i]);
 }
 
-// ÊÇ·ñÖ±½ÓÔËĞĞBINARY£¬²»µ÷ÓÃÎÄ¼ş¡£
+// æ˜¯å¦ç›´æ¥è¿è¡ŒBINARYï¼Œä¸è°ƒç”¨æ–‡ä»¶ã€‚
 int direct_run_binary(string file)
 {
     object ob;
     object vob;
 
     if (sscanf(file, DATA_DIR "%*s"))
-        // Èç¹ûÊÇDATAÏÂÃæµÄÎÄ¼ş£¬²»ÄÜÖ±½ÓÔËĞĞBIN´úÂë£¬
-        // ĞèÒª½øĞĞ³£¹æµÄ°æ±¾ÓĞĞ§¼ì²é¡£
+        // å¦‚æœæ˜¯DATAä¸‹é¢çš„æ–‡ä»¶ï¼Œä¸èƒ½ç›´æ¥è¿è¡ŒBINä»£ç ï¼Œ
+        // éœ€è¦è¿›è¡Œå¸¸è§„çš„ç‰ˆæœ¬æœ‰æ•ˆæ£€æŸ¥ã€‚
         return 0;
 
     if (objectp(ob = find_object(CONFIG_D)) &&
         objectp(vob = find_object(VERSION_D)))
     {
-        // ÕÒµ½ÁËCONFIG_D£¬²é¿´±¾µØÊÇ·ñÊÇ°æ±¾·¢²¼Õ¾
-        // µã£¬Èç¹ûÊÇ£¬Ôò²é¿´ÊÇ·ñÊÇ·¢²¼µÄÔ´³ÌĞò£¬ÊÇ
-        // Ôò·µ»Ø·ñ£¬±íÊ¾ĞèÒª¼ì²éBIN¡£
+        // æ‰¾åˆ°äº†CONFIG_Dï¼ŒæŸ¥çœ‹æœ¬åœ°æ˜¯å¦æ˜¯ç‰ˆæœ¬å‘å¸ƒç«™
+        // ç‚¹ï¼Œå¦‚æœæ˜¯ï¼Œåˆ™æŸ¥çœ‹æ˜¯å¦æ˜¯å‘å¸ƒçš„æºç¨‹åºï¼Œæ˜¯
+        // åˆ™è¿”å›å¦ï¼Œè¡¨ç¤ºéœ€è¦æ£€æŸ¥BINã€‚
         return ob->query("release server") != "local" &&
                ! VERSION_D->is_need_release_source(file);
     }
 
-    // Ã»ÓĞÕÒµ½CONFIG_D && VERSION_D£¬²»±àÒë£¬Ö±½ÓÔËĞĞ
-    // BIN´úÂë¡£
+    // æ²¡æœ‰æ‰¾åˆ°CONFIG_D && VERSION_Dï¼Œä¸ç¼–è¯‘ï¼Œç›´æ¥è¿è¡Œ
+    // BINä»£ç ã€‚
     return 1;
 }
 
-// driver Æô¶¯²âÊÔ: -fdebug
+// driver å¯åŠ¨æµ‹è¯•: -fdebug
 void flag(string str) {
     switch (str) {
         case "debug":

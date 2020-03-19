@@ -3,14 +3,14 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "´¢²ØÊÒ");
+        set("short", "å‚¨è—å®¤");
         set("long", @LONG
-ÕâÀïÊÇ¸ö´¢²ØÊÒ£¬ËÄÖÜÃÜ²»Í¸·ç£¬Ö»ÓĞÒ»ÉÈ¹Ø±Õ×ÅµÄ´óÃÅ¡£
+è¿™é‡Œæ˜¯ä¸ªå‚¨è—å®¤ï¼Œå››å‘¨å¯†ä¸é€é£ï¼Œåªæœ‰ä¸€æ‰‡å…³é—­ç€çš„å¤§é—¨ã€‚
 LONG);
         set("exits", ([
                 "west" : __DIR__"yuanzi",
         ]));
-        create_door("west", "Ä¾ÃÅ", "east", DOOR_CLOSED);
+        create_door("west", "æœ¨é—¨", "east", DOOR_CLOSED);
         setup();
         replace_program(ROOM);
 }

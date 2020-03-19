@@ -3,16 +3,16 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "×ßÀÈ");
+        set("short", "èµ°å»Š");
         set("long", @LONG
-Äã×ßÔÚÒ»Ìõ×ßÀÈÉÏ¡£±±ÃæËÆºõÓĞ¸öºÚ°µµÄĞ¡Îİ£¬»¹ÒşÒş´«À´Ò»Ğ©º¨Éù¡£
+ä½ èµ°åœ¨ä¸€æ¡èµ°å»Šä¸Šã€‚åŒ—é¢ä¼¼ä¹æœ‰ä¸ªé»‘æš—çš„å°å±‹ï¼Œè¿˜éšéšä¼ æ¥ä¸€äº›é…£å£°ã€‚
 LONG    );
         set("exits", ([ 
                 "west" : __DIR__"zoulang-1",
                 "north" : __DIR__"xxs",
         ]));
 
-        create_door("north", "Ä¾ÃÅ", "south", DOOR_CLOSED);
+        create_door("north", "æœ¨é—¨", "south", DOOR_CLOSED);
 
         set("no_clean_up", 0);
 

@@ -1,4 +1,4 @@
-// ½âÃÔ¿ªËø·¿¼ä¶¼¼Ì³Ð¸ÃÎÄ¼þ
+// è§£è¿·å¼€é”æˆ¿é—´éƒ½ç»§æ‰¿è¯¥æ–‡ä»¶
 // by Rcwiz for yhonline
 
 #include <ansi.h>
@@ -11,17 +11,17 @@ void init()
        
        if (! objectp(ob = find_object(TSROB)))
        {
-             write(HIR "TSR Îï¼þÔØÈë³ö´í£¬ÇëÓë±¾Õ¾ (admin) ÁªÏµ¡£\n" NOR);
+             write(HIR "TSR ç‰©ä»¶è½½å…¥å‡ºé”™ï¼Œè¯·ä¸Žæœ¬ç«™ (admin) è”ç³»ã€‚\n" NOR);
              return;
        }
 
        if (wizardp(me))
        {
                 
-                write(HIG "\n·¿¼äID£º" + this_object()->query("room_id") + "\n");
-                write(HIG "¹ÜÀíÎï¼þ·ÖÅä¸Ã·¿¼äµÄÐòÁÐºÅ£º" + ob->query(this_object()->query("room_id")) +
+                write(HIG "\næˆ¿é—´IDï¼š" + this_object()->query("room_id") + "\n");
+                write(HIG "ç®¡ç†ç‰©ä»¶åˆ†é…è¯¥æˆ¿é—´çš„åºåˆ—å·ï¼š" + ob->query(this_object()->query("room_id")) +
                           "\n"NOR);
-                write(HIG "ÕýÈ·¿ªËøË³Ðò£ºF¡¢A¡¢B¡¢C¡¢D¡¢E\n" NOR);
+                write(HIG "æ­£ç¡®å¼€é”é¡ºåºï¼šFã€Aã€Bã€Cã€Dã€E\n" NOR);
                 
        }
        
@@ -35,29 +35,29 @@ int do_move(string arg)
        string room_id;
        
        if (! arg || arg != "desk")
-             return notify_fail("ÄãÏëÒÆ¶¯Ê²Ã´£¿\n");
+             return notify_fail("ä½ æƒ³ç§»åŠ¨ä»€ä¹ˆï¼Ÿ\n");
 
        if (me->is_busy() || me->is_fighting())
-             return notify_fail("µÈÄãÃ¦ÍêÁËÔÙËµ°É£¡\n");
+             return notify_fail("ç­‰ä½ å¿™å®Œäº†å†è¯´å§ï¼\n");
 
        ob = find_object(TSROB);
        
        if ( ! objectp(ob))
-             return notify_fail("TSR Îï¼þÔØÈë³ö´í£¬ÇëÓëÎ×Ê¦ÁªÏµ£¡\n");
+             return notify_fail("TSR ç‰©ä»¶è½½å…¥å‡ºé”™ï¼Œè¯·ä¸Žå·«å¸ˆè”ç³»ï¼\n");
 
        if (ob->query("lock/unlocked"))
-             return notify_fail("»ú¹ØÒÑ¾­±»´ò¿ªÁË£¬ÕâÑùÊÇ¶à´ËÒ»¾Ù¡£\n");
+             return notify_fail("æœºå…³å·²ç»è¢«æ‰“å¼€äº†ï¼Œè¿™æ ·æ˜¯å¤šæ­¤ä¸€ä¸¾ã€‚\n");
 
        room_id = this_object()->query("room_id");
        room_id = ob->query(room_id);
 
        if (! stringp(ob->openlock(room_id)))
-             return notify_fail("TSR Êý¾Ý³ö´í£¬ÇëÓëÎ×Ê¦ÁªÏµ£¡\n");
+             return notify_fail("TSR æ•°æ®å‡ºé”™ï¼Œè¯·ä¸Žå·«å¸ˆè”ç³»ï¼\n");
 
        me->start_busy(1 + random(2));
 
-       message_vision(HIC "$N" HIC "½«Ê¯×ÀÓÃÁ¦µÄÐý×ª£¬Ö»ÌýµÃ²»Ô¶´¦´«À´"
-                      "Ò»ÕóºäÂ¡Â¡µÄÏñÊÇ´¥¶¯»ú¹ØµÄÉùÒô¡£\n" NOR, me);
+       message_vision(HIC "$N" HIC "å°†çŸ³æ¡Œç”¨åŠ›çš„æ—‹è½¬ï¼Œåªå¬å¾—ä¸è¿œå¤„ä¼ æ¥"
+                      "ä¸€é˜µè½°éš†éš†çš„åƒæ˜¯è§¦åŠ¨æœºå…³çš„å£°éŸ³ã€‚\n" NOR, me);
 
        return 1;
 }

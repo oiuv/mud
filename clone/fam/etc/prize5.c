@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIR "ÉñÂ}ÑªÇå" NOR, ({ "god blood", "god", "blood" }));
+        set_name(HIR "ç¥è–è¡€æ¸…" NOR, ({ "god blood", "god", "blood" }));
         set_weight(1000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIR "ß@ÊÇÒ»Æ¿ÉñÂ}ÑªÇå£¬ËÆºõ¿ÉÒÔï‹ÓÃ¡£\n" NOR);
-                set("unit", "Æ¿");
+                set("long", HIR "é€™æ˜¯ä¸€ç“¶ç¥è–è¡€æ¸…ï¼Œä¼¼ä¹å¯ä»¥é£²ç”¨ã€‚\n" NOR);
+                set("unit", "ç“¶");
                 set("value", 300000);
         }
         setup();
@@ -32,15 +32,15 @@ int do_drink(string arg)
         un = query("unit");
 
         if (! arg || ! id(arg))
-                return notify_fail("ÄãÒªºÈÊ²Ã´¶«Î÷£¿\n");
+                return notify_fail("ä½ è¦å–ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("¼±Ê²Ã´£¬Ğ¡ĞÄ±ğÒ­×ÅÁË¡£\n");
+                return notify_fail("æ€¥ä»€ä¹ˆï¼Œå°å¿ƒåˆ«å™ç€äº†ã€‚\n");
 
         my = me->query_entire_dbase();
 
-        message_vision(HIY "$N" HIY "Ò»Ñö²±£¬½«Ò»Õû" + un + na +
-                       HIY "ÒûÏÂ£¬ÔÙÒ²¸Ğ¾õ²»µ½ÈÎºÎÆ£±¹¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "ä¸€ä»°è„–ï¼Œå°†ä¸€æ•´" + un + na +
+                       HIY "é¥®ä¸‹ï¼Œå†ä¹Ÿæ„Ÿè§‰ä¸åˆ°ä»»ä½•ç–²æƒ«ã€‚\n" NOR, me);
 
         my["jing"]     = my["max_jing"];
         my["qi"]       = my["max_qi"];

@@ -6,13 +6,13 @@ inherit NPC;
 
 void create()
 {
-	set_name("·½âù", ({"fang yi", "fang","yi"}));
-	set("title",HIY"ÉñÁú½Ì"HIR"³àÁúÊ¹"NOR"×ùÏÂµÜ×Ó");
+	set_name("æ–¹æ€¡", ({"fang yi", "fang","yi"}));
+	set("title",HIY"ç¥é¾™æ•™"HIR"èµ¤é¾™ä½¿"NOR"åº§ä¸‹å¼Ÿå­");
 	set("long",
-	        "ËıÔ­À´ÊÇãåÍõ¸®¼Ò½«£¬ÏÖÔÚÊÇÉñÁú½Ì³àÁúÃÅÅ®µÜ×Ó£¬³¤µÃ»îÆÃ¿É°®¡£\n"
+	        "å¥¹åŸæ¥æ˜¯æ²ç‹åºœå®¶å°†ï¼Œç°åœ¨æ˜¯ç¥é¾™æ•™èµ¤é¾™é—¨å¥³å¼Ÿå­ï¼Œé•¿å¾—æ´»æ³¼å¯çˆ±ã€‚\n"
 	);
 
-	set("gender", "Å®ĞÔ");
+	set("gender", "å¥³æ€§");
 	set("attitude", "peaceful");
 
 	set("age", 10 + random(10));

@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-    	set_name(HIY "¡¸×Ï¸Ç½£Æ×¡¹" NOR, ({ "zigai jianpu", "jianpu", "zigai", "pu"}));
+    	set_name(HIY "ã€Œç´«ç›–å‰‘è°±ã€" NOR, ({ "zigai jianpu", "jianpu", "zigai", "pu"}));
         set_weight(600);
         if (clonep())
         	destruct(this_object());
         else{
-        	set("unit", "±¾");
-        	set("long", HIY "·âÃæÉÏĞ´Öø¡¸×Ï¸Ç½£Æ×¡¹¡£\n" NOR);
+        	set("unit", "æœ¬");
+        	set("long", HIY "å°é¢ä¸Šå†™è‘—ã€Œç´«ç›–å‰‘è°±ã€ã€‚\n" NOR);
         	set("value", 1);
 		set("no_sell", 1);
         	set("material", "paper");

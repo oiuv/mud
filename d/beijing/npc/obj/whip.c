@@ -1,4 +1,4 @@
-// Éñ»°ÊÀ½ç¡¤Î÷ÓÎ¼Ç¡¤°æ±¾£´£®£µ£°
+// ç¥è¯ä¸–ç•ŒÂ·è¥¿æ¸¸è®°Â·ç‰ˆæœ¬ï¼”ï¼ï¼•ï¼
 /* <SecCrypt CPL V3R05> */
  
 // blade.c
@@ -9,13 +9,13 @@ inherit WHIP;
 
 void create()
 {
-        set_name("Æ¤±Ş", ({"pi bian", "pibian", "bian", "whip"}));
+        set_name("çš®é­", ({"pi bian", "pibian", "bian", "whip"}));
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long","Ò»Ìõ³¤³¤µÄÆ¤±Ş£®\n");
-                set("unit", "Ìõ");
+                set("long","ä¸€æ¡é•¿é•¿çš„çš®é­ï¼\n");
+                set("unit", "æ¡");
                 set("value", 500);
         }
         init_whip(15);

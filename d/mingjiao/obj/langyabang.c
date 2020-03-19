@@ -3,17 +3,17 @@ inherit STAFF;
 
 void create()
 {
-        set_name("ÀÇÑÀ°ô", ({ "langya bang", "bang" }));
+        set_name("ç‹¼ç‰™æ£’", ({ "langya bang", "bang" }));
         set_weight(30000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", "ÕâÊÇÒ»¸ùÁ½Í·ÀÇÑÀ°ô£¬Ô¼Á½°ÙÀ´½ï£¬ÊÇ¼ş³ÆÊÖµÄÖØ±øÆ÷¡£\n");
+                set("unit", "æ ¹");
+                set("long", "è¿™æ˜¯ä¸€æ ¹ä¸¤å¤´ç‹¼ç‰™æ£’ï¼Œçº¦ä¸¤ç™¾æ¥æ–¤ï¼Œæ˜¯ä»¶ç§°æ‰‹çš„é‡å…µå™¨ã€‚\n");
                 set("value", 2000);
                 set("material", "steel");
-                set("wield_msg", "$N³é³öÒ»¸ù$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»ØÑü¼ä¡£\n");
+                set("wield_msg", "$NæŠ½å‡ºä¸€æ ¹$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›è…°é—´ã€‚\n");
 		set("shaolin",1);
         }
         init_staff(50);

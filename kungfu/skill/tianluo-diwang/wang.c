@@ -1,6 +1,6 @@
 #include <ansi.h>
 
-#define WANG "¡¸" HIW "ÌìÂÞµØÍø" NOR "¡¹"
+#define WANG "ã€Œ" HIW "å¤©ç½—åœ°ç½‘" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -13,47 +13,47 @@ int perform(object me, object target)
 	if (! target) target = offensive_target(me);
 
         if (userp(me) && ! me->query("can_perform/tianluo-diwang/wang"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail(WANG "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail(WANG "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (me->query_temp("weapon"))
-		return notify_fail("Äã±ØÐë¿ÕÊÖ²ÅÄÜÊ©Õ¹" WANG "¡£\n");
+		return notify_fail("ä½ å¿…é¡»ç©ºæ‰‹æ‰èƒ½æ–½å±•" WANG "ã€‚\n");
 
 	if (target->is_busy())
-		return notify_fail(target->name() + "Ä¿Ç°Õý×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É£¡\n");
+		return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ï¼\n");
 		
 	if ((level = me->query_skill("tianluo-diwang", 1)) < 60)
-		return notify_fail("ÄãµÄÌìÂÞµØÍøÕÆ»¹²»¹»æµÊì£¬ÎÞ·¨Ê©Õ¹" WANG "¡£\n");
+		return notify_fail("ä½ çš„å¤©ç½—åœ°ç½‘æŽŒè¿˜ä¸å¤Ÿå¨´ç†Ÿï¼Œæ— æ³•æ–½å±•" WANG "ã€‚\n");
 
 	if (me->query_skill("dodge") < 40)
-		return notify_fail("ÄãµÄÇá¹¦ÐÞÎª²»¹»£¬ÎÞ·¨Ê©Õ¹" WANG "¡£\n");
+		return notify_fail("ä½ çš„è½»åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" WANG "ã€‚\n");
 
         if (me->query_skill_prepared("strike") != "tianluo-diwang")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸ÌìÂÞµØÍøÕÆ£¬ÄÑÒÔÊ©Õ¹" WANG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡å¤©ç½—åœ°ç½‘æŽŒï¼Œéš¾ä»¥æ–½å±•" WANG "ã€‚\n");
 
         if (me->query("neili") < 70)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÎÞ·¨Ê¹ÓÃ" WANG "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•ä½¿ç”¨" WANG "ã€‚\n");
 
         if (! living(target))
-               return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+               return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIG "\n$N" HIG "Ë«ÕÆÆë³ö£¬»Ã»¯³öÎÞÊýÕÆÓ°£¬½«$n" HIG "ÍÅÍÅÁýÕÖ¡£" NOR;
+	msg = HIG "\n$N" HIG "åŒæŽŒé½å‡ºï¼Œå¹»åŒ–å‡ºæ— æ•°æŽŒå½±ï¼Œå°†$n" HIG "å›¢å›¢ç¬¼ç½©ã€‚" NOR;
         message_sort(msg, me, target);
 
         me->add("neili", -60);
         if (random(level) > (int)target->query_skill("dodge", 1) / 2)
         {
-		msg = HIR "½á¹û$p" HIR "±»$P" HIR "Ñ¹ÖÆµÄÄÑÒÔ·´»÷£¬"
-                      "Ö»ÄÜ½ßÁ¦µÖµ²£¡\n" NOR;
+		msg = HIR "ç»“æžœ$p" HIR "è¢«$P" HIR "åŽ‹åˆ¶çš„éš¾ä»¥åå‡»ï¼Œ"
+                      "åªèƒ½ç«­åŠ›æŠµæŒ¡ï¼\n" NOR;
 
 		target->start_busy(level / 16 + 2);
                 me->start_busy(2 + random(2));
 	} else
         {
-		msg = CYN "¿ÉÊÇ$p" CYN "ÉíÐÎÒ»ÉÁ£¬Ô¾³ö$P" CYN "µÄÕÆÁ¦"
-                      "Ëù¼°µÄ·¶Î§¡£\n" NOR;
+		msg = CYN "å¯æ˜¯$p" CYN "èº«å½¢ä¸€é—ªï¼Œè·ƒå‡º$P" CYN "çš„æŽŒåŠ›"
+                      "æ‰€åŠçš„èŒƒå›´ã€‚\n" NOR;
 
 		me->start_busy(1);
 	}

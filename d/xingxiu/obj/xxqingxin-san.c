@@ -4,12 +4,12 @@ inherit ITEM;
 
 void create()
 {
-   	set_name("ÇåÐÄÉ¢", ({"qingxin san", "san"}));
+   	set_name("æ¸…å¿ƒæ•£", ({"qingxin san", "san"}));
 	set_weight(120);
    	if (clonep())
       		set_default_object(__FILE__);
    	else {
-      		set("unit", "°ü");
+      		set("unit", "åŒ…");
       		set("value", 1000);
 		set("only_do_effect", 1);
    	}
@@ -18,7 +18,7 @@ void create()
 
 int do_effect(object me)
 {
-   	message_vision("$N³ÔÏÂÒ»°ü" + name() + "¡£\n", me);
+   	message_vision("$Nåƒä¸‹ä¸€åŒ…" + name() + "ã€‚\n", me);
    	if ((int)me->query_condition("xx_poison") > 0)
       		me->clear("xx_poison");
 

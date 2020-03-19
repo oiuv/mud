@@ -4,13 +4,13 @@ inherit ITEM;
 
 void create()
 {
-	set_name("×ÏÔÆÉ´", ({ "ziyun sha", "sha", "silk" }));
+	set_name("ç´«äº‘çº±", ({ "ziyun sha", "sha", "silk" }));
 	set_weight(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Æ¥");
-		set("long", "ÕâÊÇÒ»Æ¥µ­×ÏÉ«µÄ»ªÀöË¿³ñ£¬±¡µÃ¼¸ºõÍ¸Ã÷¡£\n");
+		set("unit", "åŒ¹");
+		set("long", "è¿™æ˜¯ä¸€åŒ¹æ·¡ç´«è‰²çš„åä¸½ä¸ç»¸ï¼Œè–„å¾—å‡ ä¹é€æ˜ã€‚\n");
 		set("value", 5000);
 		set("material", "silk");
 	}

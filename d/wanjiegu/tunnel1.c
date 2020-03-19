@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�ص�");
+        set("short", "地道");
         set("long", @LONG
-�ص�����ߺڰ����������ǣ�һ��ùζ�˱Ƕ������ص���ʯ̨
-���쳣�ֲڣ�������ǽ�ϲ�ʱ����ˮ�ε������ϡ�
+地道里光线黑暗，空气浑浊，一股霉味扑鼻而来。地道里石台
+阶异常粗糙，两边土墙上不时渗出水滴掉到地上。
 LONG
         );
         set("exits", ([ /* sizeof() == 2 */

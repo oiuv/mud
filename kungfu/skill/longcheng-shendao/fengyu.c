@@ -1,4 +1,4 @@
-// fengyu.c ·çÓê½»¼Ó
+// fengyu.c é£é›¨äº¤åŠ 
 
 #include <ansi.h>
 
@@ -13,7 +13,7 @@ int perform(object me, object target)
         int i;
  
         if (userp(me) && ! me->query("can_perform/longcheng-shendao/fengyu"))
-                return notify_fail("Äã²»»áÊ¹ÓÃ¡¸·çÓê½»¼Ó¡¹¡£\n");
+                return notify_fail("ä½ ä¸ä¼šä½¿ç”¨ã€Œé£é›¨äº¤åŠ ã€ã€‚\n");
 
         if (! target)
         {
@@ -22,35 +22,35 @@ int perform(object me, object target)
         }
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("¡¸·çÓê½»¼Ó¡¹Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ã€Œé£é›¨äº¤åŠ ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
 	if (!objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "blade")
-		return notify_fail("Ê©Õ¹¡¸·çÓê½»¼Ó¡¹ÊÖÖĞ±ØĞëÄÃ×ÅÒ»°Ñµ¶£¡\n");
+		return notify_fail("æ–½å±•ã€Œé£é›¨äº¤åŠ ã€æ‰‹ä¸­å¿…é¡»æ‹¿ç€ä¸€æŠŠåˆ€ï¼\n");
 
 	if ((int)me->query("neili") < 270)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎŞ·¨Ê©Õ¹¡¸·çÓê½»¼Ó¡¹£¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•ã€Œé£é›¨äº¤åŠ ã€ï¼\n");
 
 	if ((int)me->query_skill("force") < 150)
-		return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¬ÎŞ·¨Ê©Õ¹¡¸·çÓê½»¼Ó¡¹£¡\n");
+		return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•ã€Œé£é›¨äº¤åŠ ã€ï¼\n");
 
 	if ((lvl = (int)me->query_skill("longcheng-shendao", 1)) < 120)
-		return notify_fail("ÄãµÄÁú³ÇÉñµ¶»¹²»µ½¼Ò£¬ÎŞ·¨Ê¹ÓÃ¾ø¼¼¡¸·çÓê½»¼Ó¡¹£¡\n");
+		return notify_fail("ä½ çš„é¾™åŸç¥åˆ€è¿˜ä¸åˆ°å®¶ï¼Œæ— æ³•ä½¿ç”¨ç»æŠ€ã€Œé£é›¨äº¤åŠ ã€ï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIC "$N" HIC "´óºÈÒ»Éù£¬ÊÖÖĞµÄ" + weapon->name() + HIC
-              "ÈçÓêµãÒ»°ãÏò$n" HIC "´òÈ¥£¬$n" HIC "ÈçÍ¬Ğ¡ÖÛÒ»°ãÔÚµ¶ÓêÖĞÆ¯²´²»¶¨¡£\n" NOR;
+	msg = HIC "$N" HIC "å¤§å–ä¸€å£°ï¼Œæ‰‹ä¸­çš„" + weapon->name() + HIC
+              "å¦‚é›¨ç‚¹ä¸€èˆ¬å‘$n" HIC "æ‰“å»ï¼Œ$n" HIC "å¦‚åŒå°èˆŸä¸€èˆ¬åœ¨åˆ€é›¨ä¸­æ¼‚æ³Šä¸å®šã€‚\n" NOR;
 
         if (lvl / 2 + random(lvl) > target->query_skill("parry") * 2 / 3)
         {
-                msg += HIY "ÕâÕóµ¶ÊÆ±ä»¯Äª²â£¬$n" HIY "¶ÙÊ±¾õµÃÑÛ»¨çÔÂÒ£¬ÎŞ·¨µÖµ²¡£\n" NOR;
+                msg += HIY "è¿™é˜µåˆ€åŠ¿å˜åŒ–è«æµ‹ï¼Œ$n" HIY "é¡¿æ—¶è§‰å¾—çœ¼èŠ±ç¼­ä¹±ï¼Œæ— æ³•æŠµæŒ¡ã€‚\n" NOR;
                 count = lvl / 5;
                 me->add_temp("apply/attack", count);
         } else
         {
-                msg += HIC "$n" HIC "²»½ûĞÄÖĞÁİÈ»£¬²»¸ÒÓĞ°ëµãĞ¡êï£¬Ê¹³ö»ëÉí½âÊıµÖµ²¡£\n" NOR;
+                msg += HIC "$n" HIC "ä¸ç¦å¿ƒä¸­å‡›ç„¶ï¼Œä¸æ•¢æœ‰åŠç‚¹å°è§‘ï¼Œä½¿å‡ºæµ‘èº«è§£æ•°æŠµæŒ¡ã€‚\n" NOR;
                 count = 0;
         }
 

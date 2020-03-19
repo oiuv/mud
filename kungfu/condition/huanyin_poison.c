@@ -8,18 +8,18 @@ inherit POISON;
 
 string name() { return "huanyin_poison"; }
 
-string chinese_name() { return "»ÃÒõº®¶¾"; }
+string chinese_name() { return "å¹»é˜´å¯’æ¯’"; }
 
 string update_msg_others()
 {
-       return HIG "$N" HIG "Í´¿àµÄÉëÒ÷ÁËÒ»Éù£¬Á³ÉÏÁı"
-              "ÕÖÁËÒ»¹Éµ­µ­µÄÂÌÆø¡£\n" NOR;
+       return HIG "$N" HIG "ç—›è‹¦çš„å‘»åŸäº†ä¸€å£°ï¼Œè„¸ä¸Šç¬¼"
+              "ç½©äº†ä¸€è‚¡æ·¡æ·¡çš„ç»¿æ°”ã€‚\n" NOR;
 }
 
 string update_msg_self()
 {
-        return HIB "ºöÈ»Ò»Õóº®Æø×Ôµ¤Ìï¶øÆğ£¬Öğ²½ÉøÍ¸µ½ËÄ"
-               "Ö«°Ùº¡£¬Í¸³öÕóÕóº®Òâ¡£\n" NOR;
+        return HIB "å¿½ç„¶ä¸€é˜µå¯’æ°”è‡ªä¸¹ç”°è€Œèµ·ï¼Œé€æ­¥æ¸—é€åˆ°å››"
+               "è‚¢ç™¾éª¸ï¼Œé€å‡ºé˜µé˜µå¯’æ„ã€‚\n" NOR;
 }
 
 int jing_damage(object me, mapping cnd)

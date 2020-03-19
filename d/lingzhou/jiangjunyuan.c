@@ -6,11 +6,11 @@
 inherit ROOM;
 void create()
 {
-	set("short", "��������Ժ");
+	set("short", "将军府大院");
 	set("long", @LONG
-�����ǽ������Ĵ�Ժ������һ�¿����İ����ձڣ����顰���ı�����
-�ĸ����֣�����ǵ������Ļʵ���Ԫ껡�һɫ����ש�̵أ��м�������
-����Ժ����ɨ����������լ�������Ǹ�СԺ��
+这里是将军府的大院，当面一堵宽阔的白玉照壁，上书“忠心报国”
+四个大字，落款是当今西夏皇帝李元昊。一色的青砖铺地，有几个仆役
+正在院中洒扫，南面是内宅，东面是个小院。
 LONG );
 	set("exits", ([
 		"east"  : __DIR__"xiaoyuan",
@@ -22,5 +22,5 @@ LONG );
 		"/d/city/npc/jiading" : 2,
 	]));
 	setup();
-	create_door("north" , "��ľ����", "south" , DOOR_CLOSED);
+	create_door("north" , "油木大门", "south" , DOOR_CLOSED);
 }

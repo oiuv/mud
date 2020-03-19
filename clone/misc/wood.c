@@ -6,7 +6,7 @@ inherit ITEM;
 
 void create()
 {
-	set_name(WHT "Ä¾²Ä" NOR, ({ "wood", "mu cai", "mu", "cai" }) );
+	set_name(WHT "æœ¨æ" NOR, ({ "wood", "mu cai", "mu", "cai" }) );
 	set_weight(5000);
 	if (clonep())
         {
@@ -14,8 +14,8 @@ void create()
 	} else
         {
                 set("value", 10);
-		set("unit", "À¦");
-		set("long", "ÕâÊÇÒ»Ð¡À¦Ä¾²Ä¡£\n");
+		set("unit", "æ†");
+		set("long", "è¿™æ˜¯ä¸€å°æ†æœ¨æã€‚\n");
 	}
 	setup();
 }
@@ -25,10 +25,10 @@ int fire(object me, object ob)
         object fire;
 
         if (environment()->query_temp("warm") >= 40)
-                return notify_fail("ÕâÀïÒÑ¾­¹»ÈÈµÄÁË£¬Äã»¹ÊÇ»»¸öµØ·½µã»ð°É¡£\n");
+                return notify_fail("è¿™é‡Œå·²ç»å¤Ÿçƒ­çš„äº†ï¼Œä½ è¿˜æ˜¯æ¢ä¸ªåœ°æ–¹ç‚¹ç«å§ã€‚\n");
 
-        message_vision("$NÓÃ" + ob->name() + "µãÈ¼ÁË" + name() +
-                       "£¬Ò»Æ¬ºìºìµÄ»ð¹âÓ³ºìÁËËÄÖÜ¡£\n", me);
+        message_vision("$Nç”¨" + ob->name() + "ç‚¹ç‡ƒäº†" + name() +
+                       "ï¼Œä¸€ç‰‡çº¢çº¢çš„ç«å…‰æ˜ çº¢äº†å››å‘¨ã€‚\n", me);
 
         fire = new("/clone/misc/needfire");
         fire->move(environment(me));

@@ -4,11 +4,11 @@
 inherit ROOM;
 void create()
 {
-	set("short", "åúÀöºþÄÏ°¶");
+	set("short", "å¦ƒä¸½æ¹–å—å²¸");
 	set("long", @LONG
-ÕâÀïÊÇÐÝÁÔ²¿µÄÓæ´¬ÂëÍ·¡£°¶±ßÓÐÌ¨ÒÄ´åÃñÕýÔÚÔúÖÆÖñ·¤£¬Ò»Ð©
-ÓæÃñ»®×ÅÖñ·¤ÏÂºþ²¶Óã£¬ÐÂÏÊµÄÓã±î¿ÉÒÔÔÚ¸½½üµÄÏ²ÖÝ¡¢Áú¿ÚµÈ³ÇÕò
-Âô³öºÃ¼ÛÇ®¡£
+è¿™é‡Œæ˜¯ä¼‘çŒŽéƒ¨çš„æ¸”èˆ¹ç å¤´ã€‚å²¸è¾¹æœ‰å°å¤·æ‘æ°‘æ­£åœ¨æ‰Žåˆ¶ç«¹ç­ï¼Œä¸€äº›
+æ¸”æ°‘åˆ’ç€ç«¹ç­ä¸‹æ¹–æ•é±¼ï¼Œæ–°é²œçš„é±¼é³–å¯ä»¥åœ¨é™„è¿‘çš„å–œå·žã€é¾™å£ç­‰åŸŽé•‡
+å–å‡ºå¥½ä»·é’±ã€‚
 LONG);
 	set("objects", ([
 	        __DIR__"npc/yufu": 1,

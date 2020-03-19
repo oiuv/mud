@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÌìÉñ", ({ "tian shen", "tian", "shen" }) );
-        set("gender", "ÄÐÐÔ" );
+        set_name("å¤©ç¥ž", ({ "tian shen", "tian", "shen" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 2100);
-        set("long", HIC "Ëû¾ÍÊÇ¸úËæÄàÌ¶ÊÀ½ç´óboss¡ª¡ª¸ß´¦²»Ê¤º®µÄÆÍÈË£¬Èç½ñ³ÉÁËÌìÉñ¡£\n" NOR);
+        set("long", HIC "ä»–å°±æ˜¯è·Ÿéšæ³¥æ½­ä¸–ç•Œå¤§bossâ€”â€”é«˜å¤„ä¸èƒœå¯’çš„ä»†äººï¼Œå¦‚ä»Šæˆäº†å¤©ç¥žã€‚\n" NOR);
         set("attitude", "friendly");
         set("max_jing", 25000);
         set("max_qi", 25000);
@@ -67,7 +67,7 @@ void create()
         carry_object("/clone/cloth/cloth")->wear();
         carry_object("/clone/weapon/changjian")->wield();
         
-        create_family("ÈËÉñÄ§Èý½ç", 2, "Ìì½ç×Ü¹Ü");
-        set("title", HIW "Ìì½ç×Ü¹Ü" NOR);        
+        create_family("äººç¥žé­”ä¸‰ç•Œ", 2, "å¤©ç•Œæ€»ç®¡");
+        set("title", HIW "å¤©ç•Œæ€»ç®¡" NOR);        
 }
 

@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�Ķ��Ͻ�");
+	set("short", "文定南街");
 	set("long", @LONG
-���������Ķ��Ͻ֣������Ľֵ������˲�������һ������
-���������һ�Ҳ�¥���ɽ��������㿴���ܾ����е㲻�Ծ���
+这是中州文定南街，宽敞的街道看的人不竟心情一畅。街
+对面好象有一家茶楼。可进出的人你看着总觉得有点不对劲。
 LONG);
 	set("no_clean_up", 0);
 	set("objects", ([

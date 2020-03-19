@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��ɽ");
+        set("short", "青山");
         set("long", @LONG
-ɽ����ľï�ܣ�������䣬���ϸ������������ɽϪ��ˮ
-���������紵��ҳ����������ͬһ�״���Ȼ���������������
+山中树木茂密，花开万朵，倾耳细听，可以听见山溪流水
+的声音，风吹树页的声音，如同一首大自然的乐曲，美妙动听。
 LONG);
         set("exits", ([
   		"northeast" : __DIR__"qingshan1",

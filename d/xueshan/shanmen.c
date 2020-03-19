@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "������");
+        set("short", "大轮寺");
         set("long", @LONG
-�����Ǵ����µ�ɽ�ţ���ǰ�����ﲻ���Ľ��㳯ʥ����ͽ
-���е�����������˿�����ϵĲ�˿��ɽ��ǰվ�˸��ֳַ�����
-���ײ���ά�����򣬶�����һ����ʯ���̳ɵ�ɽ·��
+这里是大轮寺的山门，门前是络绎不绝的进香朝圣的信徒
+而有的甚至来自乌丝藏西南的波丝。山门前站了个手持法器的
+葛伦布在维持秩序，东方是一条青石板铺成的山路。
 LONG);
         set("outdoors", "xueshan");
         set("exits", ([

@@ -16,29 +16,29 @@ int main(object me, string str)
                 return 0;
   
         if (! str)
-                return notify_fail("ÄãÒªÍ³¼ÆÊ²Ã´¼¼ÄÜ£¿\n");
+                return notify_fail("ä½ è¦ç»Ÿè®¡ä»€ä¹ˆæŠ€èƒ½ï¼Ÿ\n");
 
         if (file_size("/kungfu/skill/" + str + ".c") == -1)
-                return notify_fail("Ã»ÓÐÕâ¸ö¼¼ÄÜ´æÔÚ£¡\n");                
+                return notify_fail("æ²¡æœ‰è¿™ä¸ªæŠ€èƒ½å­˜åœ¨ï¼\n");                
 
         count = sizeof(users);
 
         j = 0;
-        write(HIW "\nÒÔÏÂÎª±¾MUDÖÐÕÆÎÕ " + HIM + CHINESE_D->chinese(str) + HIW + " µÄÔÚÏßÍæ¼Ò¡£\n" NOR);
+        write(HIW "\nä»¥ä¸‹ä¸ºæœ¬MUDä¸­æŽŒæ¡ " + HIM + CHINESE_D->chinese(str) + HIW + " çš„åœ¨çº¿çŽ©å®¶ã€‚\n" NOR);
         write(HIY "-------------------------------------------------------------------------\n" NOR);
         for (i = 0; i < count; i ++)
         {
              if (users[i]->query_skill(str, 1))
              {
                   write(HIC + users[i]->name() + "(" + users[i]->query("id") + ") \t\t" NOR);
-                  write(HIC "ÄêÁä£º" + users[i]->query("age") + "\t" NOR);
-                  write(HIC "ËùÊôÃÅÅÉ£º" + users[i]->query("family/family_name") + "\t" NOR);
-                  write(HIC "µÈ¼¶£º" + users[i]->query_skill(str, 1) + "\n" NOR);
+                  write(HIC "å¹´é¾„ï¼š" + users[i]->query("age") + "\t" NOR);
+                  write(HIC "æ‰€å±žé—¨æ´¾ï¼š" + users[i]->query("family/family_name") + "\t" NOR);
+                  write(HIC "ç­‰çº§ï¼š" + users[i]->query_skill(str, 1) + "\n" NOR);
                   j ++;
              }
          
         }
-        write(HIW "\n×Ü¹² " HIR + j + HIW " Î»Íæ¼ÒÕÆÎÕ" + HIM + CHINESE_D->chinese(str) + "\n" NOR);
+        write(HIW "\næ€»å…± " HIR + j + HIW " ä½çŽ©å®¶æŽŒæ¡" + HIM + CHINESE_D->chinese(str) + "\n" NOR);
         write(HIY "-------------------------------------------------------------------------\n" NOR);
 
         return 1;

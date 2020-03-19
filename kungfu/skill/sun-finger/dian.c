@@ -1,4 +1,4 @@
-// dian.c ÉñÖ¸µãÑ¨
+// dian.c ç¥æŒ‡ç‚¹ç©´
 
 #include <ansi.h>
 
@@ -13,34 +13,34 @@ int perform(object me, object target)
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("¡¸ÉñÖ¸µãÑ¨¡¹Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ã€Œç¥æŒ‡ç‚¹ç©´ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (target->is_busy())
-		return notify_fail(target->name() + "Ä¿Ç°Õı×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É£¡\n");
+		return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ï¼\n");
 
 	if ((int)me->query_skill("sun-finger", 1) < 80)
-		return notify_fail("ÄãµÄÒ»ÑôÖ¸·¨²»¹»æµÊì£¬²»»áÊ¹ÓÃ¡¸ÉñÖ¸µãÑ¨¡¹¡£\n");
+		return notify_fail("ä½ çš„ä¸€é˜³æŒ‡æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ã€Œç¥æŒ‡ç‚¹ç©´ã€ã€‚\n");
 
         if (me->query_skill_mapped("finger") != "sun-finger")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢Ò»ÑôÖ¸·¨£¬²»ÄÜÊ¹ÓÃ¡¸ÉñÖ¸µãÑ¨¡¹¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ä¸€é˜³æŒ‡æ³•ï¼Œä¸èƒ½ä½¿ç”¨ã€Œç¥æŒ‡ç‚¹ç©´ã€ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIY "$N" HIY "ÄıÉñ¹¥³öÒ»Ö¸£¬±ä»¯¶à¶Ë£¬ÇÉÃîµÄÍşĞ²$n"
-              HIY "Öî´¦´óÑ¨£¡\n" NOR;
+	msg = HIY "$N" HIY "å‡ç¥æ”»å‡ºä¸€æŒ‡ï¼Œå˜åŒ–å¤šç«¯ï¼Œå·§å¦™çš„å¨èƒ$n"
+              HIY "è¯¸å¤„å¤§ç©´ï¼\n" NOR;
 
         ap = me->query_skill("finger");
         dp = target->query_skill("parry");
 	if (ap / 2 + random(ap) > dp)
         {
-		msg += HIR "½á¹û$p" HIR "±»$P" HIR "±ÆµÃÕĞ"
-                       "¼Ü²»µü£¬Ò»Ê±ÎŞ·¨·´»÷£¡\n" NOR;
+		msg += HIR "ç»“æœ$p" HIR "è¢«$P" HIR "é€¼å¾—æ‹›"
+                       "æ¶ä¸è¿­ï¼Œä¸€æ—¶æ— æ³•åå‡»ï¼\n" NOR;
 		target->start_busy((int)me->query_skill("finger") / 20 + 2);
 	} else
         {
-		msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P" CYN "µÄ±ä»¯£¬"
-                       "Ğ¡ĞÄÕĞ¼Ü£¬µ²×¡ÁË$P" CYN "µÄ½ø»÷¡£\n" NOR;
+		msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P" CYN "çš„å˜åŒ–ï¼Œ"
+                       "å°å¿ƒæ‹›æ¶ï¼ŒæŒ¡ä½äº†$P" CYN "çš„è¿›å‡»ã€‚\n" NOR;
 		me->start_busy(1);
 	}
 	message_combatd(msg, me, target);

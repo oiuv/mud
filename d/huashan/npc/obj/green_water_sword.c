@@ -6,17 +6,17 @@ inherit SWORD;
 
 void create()
 {
-        set_name(HIG"±ÌË®½£"NOR, ({ "green sword", "jian" }) );
+        set_name(HIG"ç¢§æ°´å‰‘"NOR, ({ "green sword", "jian" }) );
         set_weight(7000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "°Ñ");
-                set("long", "ÕâÊÇÒ»°ÑÍ¨Ìå¾§Ó¨ÌŞÍ¸µÄ½££¬ÃÀÀöÖ®¼«£¬\n");
+                set("unit", "æŠŠ");
+                set("long", "è¿™æ˜¯ä¸€æŠŠé€šä½“æ™¶è¹å‰”é€çš„å‰‘ï¼Œç¾ä¸½ä¹‹æï¼Œ\n");
                 set("value", 400);
                 set("material", "crimsonsteel");
-                set("wield_msg", "$N¡¸à§¡¹µØÒ»Éù³é³öÒ»°Ñ$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²åÈëÑü¼äµÄ½£ÇÊ¡£\n");
+                set("wield_msg", "$Nã€Œå”°ã€åœ°ä¸€å£°æŠ½å‡ºä¸€æŠŠ$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å…¥è…°é—´çš„å‰‘é˜ã€‚\n");
         }
         init_sword(20);
         setup();

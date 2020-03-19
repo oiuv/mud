@@ -48,15 +48,15 @@ string extra_long()
     {
         max = query("max_liquid");
         if (amount == max)
-            str = "ÀïÃæ×°ÂúÁË" + query("liquid/name") + "¡£\n";
+            str = "é‡Œé¢è£…æ»¡äº†" + query("liquid/name") + "ã€‚\n";
         else if (amount >= max * 4 / 5)
-            str = "ÀïÃæµÄ" + query("liquid/name") + "±»ºÈ¹ıÉÙĞí£¬²»¹ıÒÀÈ»ºÜÂú¡£\n";
+            str = "é‡Œé¢çš„" + query("liquid/name") + "è¢«å–è¿‡å°‘è®¸ï¼Œä¸è¿‡ä¾ç„¶å¾ˆæ»¡ã€‚\n";
         else if (amount >= max * 2 / 3)
-            str = "ÀïÃæ×°ÁËÆß¡¢°Ë·ÖÂúµÄ" + query("liquid/name") + "¡£\n";
+            str = "é‡Œé¢è£…äº†ä¸ƒã€å…«åˆ†æ»¡çš„" + query("liquid/name") + "ã€‚\n";
         else if (amount >= max * 2 / 5)
-            str = "ÀïÃæ×°ÁËÎå¡¢Áù·ÖÂúµÄ" + query("liquid/name") + "¡£\n";
+            str = "é‡Œé¢è£…äº†äº”ã€å…­åˆ†æ»¡çš„" + query("liquid/name") + "ã€‚\n";
         else if (amount >= 1)
-            str = "ÀïÃæ×°ÁËÉÙĞíµÄ" + query("liquid/name") + "¡£\n";
+            str = "é‡Œé¢è£…äº†å°‘è®¸çš„" + query("liquid/name") + "ã€‚\n";
         return str;
     }
     else

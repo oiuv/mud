@@ -7,11 +7,11 @@ inherit NPC;
 void create()
 {
         object ob;
-        set_name("´ó±¯×ğÕß", ({ "dabei zunzhe", "dabei", "zunzhe" }));
-        set("gender", "ÄĞĞÔ");
-        set("nickname", HIY "ÁéÒşËÂ×¡³Ö" NOR);
+        set_name("å¤§æ‚²å°Šè€…", ({ "dabei zunzhe", "dabei", "zunzhe" }));
+        set("gender", "ç”·æ€§");
+        set("nickname", HIY "çµéšå¯ºä½æŒ" NOR);
         set("long", @LONG
-Ëû¿´ÉÏÈ¥ĞëÃ¼½Ô°×£¬ÑÛÉñÈ´Òì³£ÓĞÉñ¡£
+ä»–çœ‹ä¸Šå»é¡»çœ‰çš†ç™½ï¼Œçœ¼ç¥å´å¼‚å¸¸æœ‰ç¥ã€‚
 LONG);
         set("age", 72);
         set("attitude", "peaceful");
@@ -50,7 +50,7 @@ LONG);
         prepare_skill("finger", "lianhua-zhi");
 
         set("inquiry", ([
-               "Á«»¨Ö¸" : "ÕâÕıÊÇÆ¶É®µÄ¾øÑ§£¬¸óÏÂÎªºÎÖªÏş£¿\n",
+               "è²èŠ±æŒ‡" : "è¿™æ­£æ˜¯è´«åƒ§çš„ç»å­¦ï¼Œé˜ä¸‹ä¸ºä½•çŸ¥æ™“ï¼Ÿ\n",
         ]));
 
         set("chat_chance_combat", 120);

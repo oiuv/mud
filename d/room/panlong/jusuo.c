@@ -1,4 +1,4 @@
-// jusuo.c ÅÌÁú¾Ó¾ÓËù
+// jusuo.c ç›˜é¾™å±…å±…æ‰€
 
 #include <room.h>
 
@@ -7,14 +7,14 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "¾ÓËù");
+	set("short", "å±…æ‰€");
 	set("long", @LONG
-Õâ¾ÍÊÇÅÌÁú¾ÓÖ÷ÈËÐÝÏ¢£¬¶ÁÊéµÄµØ·½¡£Â¥ÉÏ¾ÍÊÇÖ÷ÈËµÄÎÔÊÒ£¬Î÷ÃæÔò
-ÊÇÊé·¿¡£
+è¿™å°±æ˜¯ç›˜é¾™å±…ä¸»äººä¼‘æ¯ï¼Œè¯»ä¹¦çš„åœ°æ–¹ã€‚æ¥¼ä¸Šå°±æ˜¯ä¸»äººçš„å§å®¤ï¼Œè¥¿é¢åˆ™
+æ˜¯ä¹¦æˆ¿ã€‚
 LONG );
 
-	set("default_long", "Õâ¾ÍÊÇROOM_NAMEÖ÷ÈËROOM_OWNERÐÝÏ¢¡¢¶ÁÊéµÄ" /* EXAMPLE */
-                            "µØ·½¡£Â¥ÉÏ¾ÍÊÇÖ÷ÈËµÄÎÔÊÒ£¬Î÷ÃæÔòÊÇÊé·¿¡£");/* EXAMPLE */
+	set("default_long", "è¿™å°±æ˜¯ROOM_NAMEä¸»äººROOM_OWNERä¼‘æ¯ã€è¯»ä¹¦çš„" /* EXAMPLE */
+                            "åœ°æ–¹ã€‚æ¥¼ä¸Šå°±æ˜¯ä¸»äººçš„å§å®¤ï¼Œè¥¿é¢åˆ™æ˜¯ä¹¦æˆ¿ã€‚");/* EXAMPLE */
                                                                         /* EXAMPLE */
 
 	set("exits", ([

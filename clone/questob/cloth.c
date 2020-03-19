@@ -4,16 +4,16 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name("²¼ÁÏ", ({ "cloth", "bu liao", "bu" }));
+        set_name("å¸ƒæ–™", ({ "cloth", "bu liao", "bu" }));
         if(clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("long", "ÕâÊÇÒ»Æ¥Ë¿Ö¯µÄ²¼ÁÏ¡£\n");
-                set("base_unit", "Æ¥");
+                set("long", "è¿™æ˜¯ä¸€åŒ¹ä¸ç»‡çš„å¸ƒæ–™ã€‚\n");
+                set("base_unit", "åŒ¹");
                 set("base_weight", 5000);
                 set("no_sell", 1);
-                set("unit", "¶Ñ");
+                set("unit", "å †");
         }
 
         set_amount(1);

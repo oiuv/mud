@@ -4,7 +4,7 @@
 
 inherit F_DBASE;
 
-// Ã¿ 20 ÌìË¢ÐÂ¹ÊÊÂ
+// æ¯ 20 å¤©åˆ·æ–°æ•…äº‹
 #define REFRESH_TIME 20 * 86400
 
 STATIC_VAR_TAG string *story_name;
@@ -21,8 +21,8 @@ private void go_on_process(object ob);
 void create()
 {
     seteuid(ROOT_UID);
-    set("channel_id", "¹ÊÊÂ¾«Áé");
-    CHANNEL_D->do_channel(this_object(), "sys", "¹ÊÊÂÏµÍ³ÒÑ¾­Æô¶¯¡£");
+    set("channel_id", "æ•…äº‹ç²¾çµ");
+    CHANNEL_D->do_channel(this_object(), "sys", "æ•…äº‹ç³»ç»Ÿå·²ç»å¯åŠ¨ã€‚");
 
     init_story();
 
@@ -32,7 +32,7 @@ void create()
 
 private void init_story()
 {
-    CHANNEL_D->do_channel(this_object(), "sys", "¹ÊÊÂÏµÍ³¸üÐÂËùÓÐ¹ÊÊÂ¡£");
+    CHANNEL_D->do_channel(this_object(), "sys", "æ•…äº‹ç³»ç»Ÿæ›´æ–°æ‰€æœ‰æ•…äº‹ã€‚");
     story_name = get_dir(STORY_DIR + "*.c");
     story_name = map_array(story_name, (: $1[0.. < 3] :));
     set_temp("last_update", time());
@@ -46,7 +46,7 @@ private void ready_to_start()
     remove_call_out("start_story");
     remove_call_out("process_story");
     call_out("start_story", 1800 + random(300));
-    // call_out("start_story", 180 + random(30));//²âÊÔÓÃ
+    // call_out("start_story", 180 + random(30));//æµ‹è¯•ç”¨
 }
 
 private void go_on_process(object ob)
@@ -75,10 +75,10 @@ varargs void start_story(string sname)
     ready_to_start();
 
     if (VERSION_D->is_boot_synchronizing())
-        // ÕýÔÚÆô¶¯ÖÐÍ¬²½°æ±¾£¿ÄÇÃ´²»Æô¶¯ÈÎºÎ¹ÊÊÂ
+        // æ­£åœ¨å¯åŠ¨ä¸­åŒæ­¥ç‰ˆæœ¬ï¼Ÿé‚£ä¹ˆä¸å¯åŠ¨ä»»ä½•æ•…äº‹
         return;
 
-    CHANNEL_D->do_channel(this_object(), "sys", "¹ÊÊÂÏµÍ³¿ªÊ¼Ñ¡Ôñ¹ÊÊÂ¡£");
+    CHANNEL_D->do_channel(this_object(), "sys", "æ•…äº‹ç³»ç»Ÿå¼€å§‹é€‰æ‹©æ•…äº‹ã€‚");
 
     if (sname)
         all_story = explode(sname, ",");
@@ -92,7 +92,7 @@ varargs void start_story(string sname)
         else
             history[name] = (int)time();
 
-        CHANNEL_D->do_channel(this_object(), "sys", "¹ÊÊÂÏµÍ³Ñ¡ÔñÁË¹ÊÊÂ(" + name + ")¡£");
+        CHANNEL_D->do_channel(this_object(), "sys", "æ•…äº‹ç³»ç»Ÿé€‰æ‹©äº†æ•…äº‹(" + name + ")ã€‚");
 
         all_story -= ({name});
         name = STORY_DIR + name;
@@ -140,7 +140,7 @@ void process_story(object ob)
 
     prompt = ob->prompt();
     if (!prompt)
-        prompt = HIG "¡¾¹ÊÊÂ´«ÎÅ¡¿" NOR;
+        prompt = HIG "ã€æ•…äº‹ä¼ é—»ã€‘" NOR;
     if (functionp(line))
         catch (line = evaluate(line));
     if (stringp(line))
@@ -188,13 +188,13 @@ void give_gift(string gift, int amount, string msg)
 
     if (sizeof(ips) >= 1)
     {
-        // ÐèÒªÈý¸öÒÔÉÏµÄIPµÇÂ¼²Å¸øÓë½±Æ·
+        // éœ€è¦ä¸‰ä¸ªä»¥ä¸Šçš„IPç™»å½•æ‰ç»™ä¸Žå¥–å“
 
-        // Ëæ¼´³éÒ»¸öIP
+        // éšå³æŠ½ä¸€ä¸ªIP
         ks = keys(ips);
         ip = ks[random(sizeof(ks))];
 
-        // ÔÚ¸ÃIPµØÖ·ÉÏËæ¼´³éÈ¡Ò»¸öÍæ¼Ò
+        // åœ¨è¯¥IPåœ°å€ä¸Šéšå³æŠ½å–ä¸€ä¸ªçŽ©å®¶
         pob = ips[ip][random(sizeof(ips[ip]))];
 
         env = environment(pob);
@@ -210,6 +210,6 @@ void give_gift(string gift, int amount, string msg)
             ob = new (gift);
             ob->move(env);
         }
-        CHANNEL_D->do_channel(this_object(), "sys", sprintf(NOR WHT "ÔùÆ·%s" NOR WHT "µôµ½ÁË" HIC "%s" NOR WHT "(%O" NOR WHT ")¡£" NOR, ob->name(), env->short(), env));
+        CHANNEL_D->do_channel(this_object(), "sys", sprintf(NOR WHT "èµ å“%s" NOR WHT "æŽ‰åˆ°äº†" HIC "%s" NOR WHT "(%O" NOR WHT ")ã€‚" NOR, ob->name(), env->short(), env));
     }
 }

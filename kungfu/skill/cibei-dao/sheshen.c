@@ -1,4 +1,4 @@
-// sheshen.c ¡¸ÉáÉíÎ¹Ó¥¡¹
+// sheshen.c ã€Œèˆèº«å–‚é¹°ã€
 
 #include <ansi.h>
 
@@ -13,21 +13,21 @@ int perform(object me)
 	string msg;
 
 	if ((int)me->query_skill("cibei-dao", 1) < 60)
-		return notify_fail("ÄãµÄ´È±¯µ¶·¨²»¹»æµÊì£¬²»»áÊ¹ÓÃ¡¸ÉáÉíÎ¹Ó¥¡¹¡£\n");
+		return notify_fail("ä½ çš„æ…ˆæ‚²åˆ€æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ã€Œèˆèº«å–‚é¹°ã€ã€‚\n");
 
 	if ((int)me->query("neili") < 200 )
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎŞ·¨Ê¹ÓÃ¡¸ÉáÉíÎ¹Ó¥¡¹¡£\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•ä½¿ç”¨ã€Œèˆèº«å–‚é¹°ã€ã€‚\n");
 
 	if ((int)me->query_temp("cbd_sheshen"))
-		return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖĞÁË¡£\n");
+		return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
               (string)weapon->query("skill_type") != "blade")
-		return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô¡£\n");
+		return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ã€‚\n");
 
 	skill = me->query_skill("cibei-dao", 1);
-	msg = HIR "$N" HIR "Ê¹³ö´È±¯µ¶·¨¡¸ÉáÉíÎ¹Ó¥¡¹£¬½«»ëÉíµÄ¹¦Á¦¶¼ÔËµ½" +
-              weapon->name() + HIR "ÉÏ£¡\n" NOR;
+	msg = HIR "$N" HIR "ä½¿å‡ºæ…ˆæ‚²åˆ€æ³•ã€Œèˆèº«å–‚é¹°ã€ï¼Œå°†æµ‘èº«çš„åŠŸåŠ›éƒ½è¿åˆ°" +
+              weapon->name() + HIR "ä¸Šï¼\n" NOR;
 	message_combatd(msg, me);
 
 	me->add_temp("apply/attack", skill / 3);
@@ -50,6 +50,6 @@ void remove_effect(object me, int a_amount, int d_amount)
 	        me->add_temp("apply/attack", -a_amount);
 	        me->add_temp("apply/dodge", d_amount);
 	        me->delete_temp("cbd_sheshen");
-	        tell_object(me, "ÄãµÄ¡¸ÉáÉíÎ¹Ó¥¡¹ÔËĞĞÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+	        tell_object(me, "ä½ çš„ã€Œèˆèº«å–‚é¹°ã€è¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›ä¸¹ç”°ã€‚\n");
         }
 }

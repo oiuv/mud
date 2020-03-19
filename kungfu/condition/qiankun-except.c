@@ -10,25 +10,25 @@ int dispel(object me, object ob, int duration)
 
         if (me != ob)
         {
-                tell_object(ob, "Äã·¢¾õ" + me->name() + "µÄÄÚÁ¦×ÔÆæ¾­°ËÂöÓ¿Èë£¬Ò»Ê±"
-                            "¼äµ¤ÌïÖ®ÖĞÄÚÏ¢½»Õ½£¬ÑÛÇ°µÇÊ±Ò»ºÚ¡£\n");
-                tell_object(me, "ÄãÊÔÍ¼°ïÖú" + ob->name() + "»¯½âÒìÖÖÕæÆø£¬"
-                            "È´¼û" + ob->name() + "Á³É«²Ò°×£¬²»ÓÉ´ó¾ª£¬Á¬Ã¦×¡ÊÖ¡£\n");
+                tell_object(ob, "ä½ å‘è§‰" + me->name() + "çš„å†…åŠ›è‡ªå¥‡ç»å…«è„‰æ¶Œå…¥ï¼Œä¸€æ—¶"
+                            "é—´ä¸¹ç”°ä¹‹ä¸­å†…æ¯äº¤æˆ˜ï¼Œçœ¼å‰ç™»æ—¶ä¸€é»‘ã€‚\n");
+                tell_object(me, "ä½ è¯•å›¾å¸®åŠ©" + ob->name() + "åŒ–è§£å¼‚ç§çœŸæ°”ï¼Œ"
+                            "å´è§" + ob->name() + "è„¸è‰²æƒ¨ç™½ï¼Œä¸ç”±å¤§æƒŠï¼Œè¿å¿™ä½æ‰‹ã€‚\n");
                 if (living(ob)) ob->unconcious();
                 return -1;
         }
 
         if (me->query_skill_mapped("force") != "jiuyang-shengong")
         {
-                tell_object(me, HIW "ÄãÖ»¾õµÃµ¤ÌïÓÌÈçº®±ù£¬Ò»ÔËÄÚÁ¦"
-                            "¾Í¾õµÃÈçÍ¬Ç§°Ù¸ù¸ÖÕëÒ»ÆëÔÜ´Ì¡£\n" NOR);
+                tell_object(me, HIW "ä½ åªè§‰å¾—ä¸¹ç”°çŠ¹å¦‚å¯’å†°ï¼Œä¸€è¿å†…åŠ›"
+                            "å°±è§‰å¾—å¦‚åŒåƒç™¾æ ¹é’¢é’ˆä¸€é½æ”’åˆºã€‚\n" NOR);
                 return -1;
         }
 
         if (me->query_skill("jiuyang-shengong", 1) + 30 < duration)
         {
-                tell_object(me, "ÄãÊÔÍ¼ÔËÓÃ¾ÅÑôÉñ¹¦»¯½âÕâ¹É"
-                            "Òõº®Ö®Æø£¬µ«ÊÇ×ÜÊÇ¹¦¿÷Ò»óñ¡£\n");
+                tell_object(me, "ä½ è¯•å›¾è¿ç”¨ä¹é˜³ç¥åŠŸåŒ–è§£è¿™è‚¡"
+                            "é˜´å¯’ä¹‹æ°”ï¼Œä½†æ˜¯æ€»æ˜¯åŠŸäºä¸€ç¯‘ã€‚\n");
                 return -1;
         }
 
@@ -39,7 +39,7 @@ int dispel(object me, object ob, int duration)
         else
                 me->apply_condition("qiankun-except", n);
 
-        tell_object(me, "ÄãÄ¬Ä¬µÄÔËÓÃ¾ÅÑôÉñ¹¦»¯½âÌåÄÚµÄÒìÖÖÕæÆø¡£\n");
+        tell_object(me, "ä½ é»˜é»˜çš„è¿ç”¨ä¹é˜³ç¥åŠŸåŒ–è§£ä½“å†…çš„å¼‚ç§çœŸæ°”ã€‚\n");
 
         return 1;
 }
@@ -50,15 +50,15 @@ int update_condition(object me, int duration)
 
 	if (! living(me) && (me->query("eff_qi") < 100 || me->query("eff_jing") < 50))
   {
-          me->set_temp("die_reason", "ÒòÎªÇ¿×ÔĞŞÁ¶Ç¬À¤´óÅ²ÒÆÉñ¹¦£¬×ß»ğÈëÄ§¶øËÀ");
+          me->set_temp("die_reason", "å› ä¸ºå¼ºè‡ªä¿®ç‚¼ä¹¾å¤å¤§æŒªç§»ç¥åŠŸï¼Œèµ°ç«å…¥é­”è€Œæ­»");
       		me->die();
       		return 0;
 	} else {
           me->receive_wound("qi", 100);
           me->receive_wound("jing", 50);
-		      tell_object(me, HIR "Äã¾õµÃµ¤ÌïÕóÕóº®Àä£¬¿ÉÊÇÁ³ÉÏÈ´"
-                            "ºÃÏñ·¢ÉÕÒ»Ñù»ğÈÈÖ®¼«¡£\n" NOR);
-		      message("vision", me->name() + "Á³É«ºöÇàºöºì£¬Ç¿ÈÌ×ÅÔË¹¦¿¹Õù¡£\n",
+		      tell_object(me, HIR "ä½ è§‰å¾—ä¸¹ç”°é˜µé˜µå¯’å†·ï¼Œå¯æ˜¯è„¸ä¸Šå´"
+                            "å¥½åƒå‘çƒ§ä¸€æ ·ç«çƒ­ä¹‹æã€‚\n" NOR);
+		      message("vision", me->name() + "è„¸è‰²å¿½é’å¿½çº¢ï¼Œå¼ºå¿ç€è¿åŠŸæŠ—äº‰ã€‚\n",
 			           environment(me), me);
 	}
 

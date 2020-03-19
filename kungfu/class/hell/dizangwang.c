@@ -8,21 +8,21 @@ void greeting(object me);
 
 void create()
 {
-        set_name("µØ²ØÍõ", ({ "dizang wang", "dizang" }));
-        set("long", "ËûÈİÃ²ÍşÑÏ£¬²»¿ÉÒ»ÊÀ¡£ÍÛ£¡Ëû¿ÉÊÇÕÆ¹ÜÈË¼äÉúËÀµÄÉñÏÉ¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("åœ°è—ç‹", ({ "dizang wang", "dizang" }));
+        set("long", "ä»–å®¹è²Œå¨ä¸¥ï¼Œä¸å¯ä¸€ä¸–ã€‚å“‡ï¼ä»–å¯æ˜¯æŒç®¡äººé—´ç”Ÿæ­»çš„ç¥ä»™ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 99);
         set("attitude", "peaceful");
         set("shen_type", 0);
         set("per", 18);
 
         set("class", "hell");
-        set("title", HIR "ÓÄÚ¤Ö®Ö÷" NOR);
-        set("inherit_title", HIR "Ú¤¸®µØ²ØÍõµîÇ°" NOR);
+        set("title", HIR "å¹½å†¥ä¹‹ä¸»" NOR);
+        set("inherit_title", HIR "å†¥åºœåœ°è—ç‹æ®¿å‰" NOR);
 
         setup();
         carry_object("/clone/cloth/cloth.c")->wear();
-        create_family("Ú¤¸®µØ²ØÍõµîÇ°", 1, "ÓÄÚ¤Ö®Ö÷");
+        create_family("å†¥åºœåœ°è—ç‹æ®¿å‰", 1, "å¹½å†¥ä¹‹ä¸»");
 }
 
 void init()
@@ -49,7 +49,7 @@ void greeting(object me)
 
         if (undefinedp(me->query("born")))
         {
-                command("say " + me->query("name") + "£¬Äã¿ì¿ìÔÚÎŞÓÇ³ØÖĞÏ´ÍÑ½î¹Ç(wash)£¬È»ºóÍ¶Ì¥È¥°É£¡");
+                command("say " + me->query("name") + "ï¼Œä½ å¿«å¿«åœ¨æ— å¿§æ± ä¸­æ´—è„±ç­‹éª¨(wash)ï¼Œç„¶åæŠ•èƒå»å§ï¼");
         } else
         {
                 if (wizardp(me))
@@ -57,18 +57,18 @@ void greeting(object me)
                 else
                 {
                         command("kick " + me->query("id"));
-                        command("say ·²ÈËÅÜµ½ÕâÀïÀ´¸ÉÊ²Ã´£¿");
-                        message_vision("$NÒ»½Å°Ñ$nÌßµÃÎŞÓ°ÎŞ×Ù¡£\n\n",
+                        command("say å‡¡äººè·‘åˆ°è¿™é‡Œæ¥å¹²ä»€ä¹ˆï¼Ÿ");
+                        message_vision("$Nä¸€è„šæŠŠ$nè¸¢å¾—æ— å½±æ— è¸ªã€‚\n\n",
                                        this_object(), me);
                         me->move(VOID_OB);
-                        message_vision("\n$NµøÂäµØÉÏ£¬Îæ×ÅÆ¨¹ÉÍÛÍÛ½ĞÁË¼¸Éù¡£\n",
+                        message_vision("\n$Nè·Œè½åœ°ä¸Šï¼Œæ‚ç€å±è‚¡å“‡å“‡å«äº†å‡ å£°ã€‚\n",
                                        me);
                 }
         }
 
         if (undefinedp(me->query("born")) && ! objectp(present("book", me)))
         {
-                command("say ¿´Äã³õÀ´Õ§µ½£¬Î´±Ø¶®µÃ¹æ¾Ø¡£¸øÄãÒ»±¾Êé£¬Äã¿ÉÒÔ¿´¿´£¡(read book)");
+                command("say çœ‹ä½ åˆæ¥ä¹åˆ°ï¼Œæœªå¿…æ‡‚å¾—è§„çŸ©ã€‚ç»™ä½ ä¸€æœ¬ä¹¦ï¼Œä½ å¯ä»¥çœ‹çœ‹ï¼(read book)");
                 ob = new ("/clone/misc/newbie");
                 ob->move(this_object());
                 command("give book to " + me->query("id"));
@@ -79,9 +79,9 @@ int attempt_apprentice(object ob)
 {
         if (! ob->query("born"))
         {
-                command("say Äã¿ìÍ¶Ì¥È¥£¬ÔÚÕâÀïÏ¹½ÁºÍÊ²Ã´£¿");
+                command("say ä½ å¿«æŠ•èƒå»ï¼Œåœ¨è¿™é‡Œçæ…å’Œä»€ä¹ˆï¼Ÿ");
                 return 0;
         }
 
-        command("say ¹ö£¡¸øÎÒÒ»±ß¶ùÈ¥£¡");
+        command("say æ»šï¼ç»™æˆ‘ä¸€è¾¹å„¿å»ï¼");
 }

@@ -13,26 +13,26 @@ inherit EQUIP;
 
 private int shoot_result(object me, object victim, object ob);
 mapping default_dirs = ([
-        "north":        "±±",
-        "south":        "ÄÏ",
-        "east":         "¶«",
-        "west":         "Î÷",
-        "northup":      "±±",
-        "southup":      "ÄÏ",
-        "eastup":       "¶«",
-        "westup":       "Î÷",
-        "northdown":    "±±",
-        "southdown":    "ÄÏ",
-        "eastdown":     "¶«",
-        "westdown":     "Î÷",
-        "northeast":    "¶«±±",
-        "northwest":    "Î÷±±",
-        "southeast":    "¶«ÄÏ",
-        "southwest":    "Î÷ÄÏ",
-        "up":           "ÉÏ",
-        "down":         "ÏÂ",
-        "out":          "Íâ",
-        "enter":        "Àï",
+        "north":        "åŒ—",
+        "south":        "å—",
+        "east":         "ä¸œ",
+        "west":         "è¥¿",
+        "northup":      "åŒ—",
+        "southup":      "å—",
+        "eastup":       "ä¸œ",
+        "westup":       "è¥¿",
+        "northdown":    "åŒ—",
+        "southdown":    "å—",
+        "eastdown":     "ä¸œ",
+        "westdown":     "è¥¿",
+        "northeast":    "ä¸œåŒ—",
+        "northwest":    "è¥¿åŒ—",
+        "southeast":    "ä¸œå—",
+        "southwest":    "è¥¿å—",
+        "up":           "ä¸Š",
+        "down":         "ä¸‹",
+        "out":          "å¤–",
+        "enter":        "é‡Œ",
 ]);
 
 void init()
@@ -64,13 +64,13 @@ int do_reload(string arg)
 	ob = this_object();
 
 	if (!arg || !objectp(arrow = present(arg, me)) ) 
-		return notify_fail("ÄãÒª°ÑÊ²Ã´´îÔÚ¹­ÉÏ£¿\n");
+		return notify_fail("ä½ è¦æŠŠä»€ä¹ˆæ­åœ¨å¼“ä¸Šï¼Ÿ\n");
 	
 	if ( arrow->query("weapon_type") != "arrow" )
-		return notify_fail("²¢²»ÊÇÃ¿ÑùÎïÆ·¶¼¿ÉÒÔµ±¼ıÉäµÄ¡£\n");
+		return notify_fail("å¹¶ä¸æ˜¯æ¯æ ·ç‰©å“éƒ½å¯ä»¥å½“ç®­å°„çš„ã€‚\n");
 	
 	if ( ob->query_temp("arrow_loaded") )
-		return notify_fail("ÄãÒÑ¾­´îÉÏ¼ıÁË¡£\n");
+		return notify_fail("ä½ å·²ç»æ­ä¸Šç®­äº†ã€‚\n");
 
 	load_arrow = new(base_name(arrow));
 	load_arrow->set_amount(1);
@@ -83,11 +83,11 @@ int do_reload(string arg)
         if( ob->query("pull_msg") )
                 message_vision(ob->query("reload_msg"), me,arrow);
         else
-                message_vision("$NÇáÕ¹Ë«±Û£¬½«$n»º»º´îÔÚ¹­ÉÏ¡£\n",me, load_arrow);
+                message_vision("$Nè½»å±•åŒè‡‚ï¼Œå°†$nç¼“ç¼“æ­åœ¨å¼“ä¸Šã€‚\n",me, load_arrow);
 
 	
 	ob->set("org_long", ob->query("long"));
-	str = ob->query("long")+"ÉÏÃæÒÑ¾­´îÁËÒ»Ö§"+load_arrow->name()+"¡£\n";
+	str = ob->query("long")+"ä¸Šé¢å·²ç»æ­äº†ä¸€æ”¯"+load_arrow->name()+"ã€‚\n";
 	ob->set("long", str);
 
 	ob->set_temp("arrow_loaded", load_arrow);
@@ -109,23 +109,23 @@ int do_pull(string arg)
                 return command(query_verb()+" "+arg);
 
         if( (string)ob->query("equipped")!="wielded" )
-                return notify_fail("ÄãÏëÍù×Ô¼ºÉíÉÏÕĞºô£¿\n");
+                return notify_fail("ä½ æƒ³å¾€è‡ªå·±èº«ä¸Šæ‹›å‘¼ï¼Ÿ\n");
 
 	if( ob->query("broken"))
-		return notify_fail("ÕâÕÅ¹­µÄÏÒÒÑ¾­¶ÏÁË¡£\n");
+		return notify_fail("è¿™å¼ å¼“çš„å¼¦å·²ç»æ–­äº†ã€‚\n");
 
         if( ob->query("str_requirement") )
                 if( me->query_str() < ob->query("str_requirement") )
-                        return notify_fail("ÄãÊÔÁËÊÔ£¬·¢ÏÖÀ­²»¿ªÕâÕÅ¹­¡£\n");
+                        return notify_fail("ä½ è¯•äº†è¯•ï¼Œå‘ç°æ‹‰ä¸å¼€è¿™å¼ å¼“ã€‚\n");
 
         if( ob->query_temp("pulled") )
-                return notify_fail("ÄãÒÑ¾­°Ñ¹­À­¿ªÁË¡£\n");
+                return notify_fail("ä½ å·²ç»æŠŠå¼“æ‹‰å¼€äº†ã€‚\n");
 
 	ob->add("wear_out", 1);
 
 	if( ob->query("wear_out") > ob->query("bow_power")+random(10)){
-		message_vision("$NÁ¦¹àË«±Û£¬ÍÂÆø¿ªÉù£¬Ö»ÌıÅ¾µÄÒ»Éù£¬$nµÄ¹­ÏÒ±»À­¶ÏÁË¡£\n", me, ob);
-		ob->set("name", "¶ÏµôµÄ"+ob->query("name"));
+		message_vision("$NåŠ›çŒåŒè‡‚ï¼Œåæ°”å¼€å£°ï¼Œåªå¬å•ªçš„ä¸€å£°ï¼Œ$nçš„å¼“å¼¦è¢«æ‹‰æ–­äº†ã€‚\n", me, ob);
+		ob->set("name", "æ–­æ‰çš„"+ob->query("name"));
 		ob->set("value", 0);
 		ob->set("broken", 1);
 		return 1;
@@ -134,7 +134,7 @@ int do_pull(string arg)
 
                 message_vision(ob->query("pull_msg"), me,ob);
         else
-             	message_vision("$NÁ¦¹àË«±Û£¬ÍÂÆø¿ªÉù£¬¶ÙÊ±°ÑÒ»ÕÅ$nÀ­µÃÈçÍ¬ÂúÔÂ¡£\n",me, ob);
+             	message_vision("$NåŠ›çŒåŒè‡‚ï¼Œåæ°”å¼€å£°ï¼Œé¡¿æ—¶æŠŠä¸€å¼ $næ‹‰å¾—å¦‚åŒæ»¡æœˆã€‚\n",me, ob);
 
         ob->set_temp("pulled", 1);
 
@@ -152,30 +152,30 @@ int do_shoot(string arg)
 
         env = environment(me);
 
-        if(!env) return notify_fail("ÄãÄÄÀïÒ²Éä²»ÁË¡£\n");
+        if(!env) return notify_fail("ä½ å“ªé‡Œä¹Ÿå°„ä¸äº†ã€‚\n");
 
-        if (env->query("pigging") || (env->query("short") == RED"ÎäÃí"NOR)
+        if (env->query("pigging") || (env->query("short") == RED"æ­¦åº™"NOR)
         || env->query("sleep_room") )
-                return notify_fail("ÕâÀï²»×¼Õ½¶·¡£\n");
+                return notify_fail("è¿™é‡Œä¸å‡†æˆ˜æ–—ã€‚\n");
 
         if( !arg || sscanf(arg, "%s at %s", enemy, dir) != 2 )
-                return notify_fail("ÃüÁî¸ñÊ½: shoot <Ä³ÈË> at <·½Ïò>¡£\n");
+                return notify_fail("å‘½ä»¤æ ¼å¼: shoot <æŸäºº> at <æ–¹å‘>ã€‚\n");
 
         if( (string)ob->query("equipped")!="wielded" )
-                return notify_fail("¹­»¹¹ÒÔÚÄã±³ºóÄØ¡£\n");
+                return notify_fail("å¼“è¿˜æŒ‚åœ¨ä½ èƒŒåå‘¢ã€‚\n");
 
 		  if( me->is_busy() )
-                return notify_fail("ÄãµÄ¶¯×÷»¹Ã»ÓĞÍê³É£¬²»ÄÜÉä¡£\n");
+                return notify_fail("ä½ çš„åŠ¨ä½œè¿˜æ²¡æœ‰å®Œæˆï¼Œä¸èƒ½å°„ã€‚\n");
 
         if( !objectp(arrow = ob->query_temp("arrow_loaded") ) )
-                return notify_fail("ÄãÃ»´î¼ıÔõÃ´Éä£¿\n");
+                return notify_fail("ä½ æ²¡æ­ç®­æ€ä¹ˆå°„ï¼Ÿ\n");
 
         if( !ob->query_temp("pulled") )
-                return notify_fail("Äã¹­»¹Ã»À­¿ª£¬ÔõÃ´Éä£¿\n");
+                return notify_fail("ä½ å¼“è¿˜æ²¡æ‹‰å¼€ï¼Œæ€ä¹ˆå°„ï¼Ÿ\n");
 
         if( !mapp(exit = env->query("exits")) || undefinedp(exit[dir]) ) {
                 if( query_verb()=="shoot")
-                        return notify_fail("Õâ¸ö·½ÏòÉä²»¹ıÈ¥¡£\n");
+                        return notify_fail("è¿™ä¸ªæ–¹å‘å°„ä¸è¿‡å»ã€‚\n");
                 else
                         return 0;
         }
@@ -185,30 +185,30 @@ int do_shoot(string arg)
         if( !(obj = find_object(dest)) )
                 call_other(dest, "???");
         if( !(obj = find_object(dest)) )
-                return notify_fail("ÎŞ·¨Éä¡£\n");
+                return notify_fail("æ— æ³•å°„ã€‚\n");
 
         if( !undefinedp(default_dirs[dir]) )
 					 target = default_dirs[dir];
 		  else
 					 target = obj->query("short");
 
-		  if (obj->query("pigging") || (obj->query("short") == RED"ÎäÃí"NOR)
+		  if (obj->query("pigging") || (obj->query("short") == RED"æ­¦åº™"NOR)
 		  || obj->query("sleep_room") )
-                return notify_fail("ÄãÃé×¼Ö®´¦²»×¼Õ½¶·¡£\n");
+                return notify_fail("ä½ ç„å‡†ä¹‹å¤„ä¸å‡†æˆ˜æ–—ã€‚\n");
 
         if( !objectp(victim = present(enemy, obj)) )
-                return notify_fail("ÄãÃé×¼Ö®´¦Ã»ÓĞÄãµÄÄ¿±ê¡£\n");
+                return notify_fail("ä½ ç„å‡†ä¹‹å¤„æ²¡æœ‰ä½ çš„ç›®æ ‡ã€‚\n");
 
 		  if (!living(victim))
-					 return notify_fail("ÄãµÄÄ¿±ê²»ÊÇ»îÎï£¡\n");
+					 return notify_fail("ä½ çš„ç›®æ ‡ä¸æ˜¯æ´»ç‰©ï¼\n");
 
 		  if ( victim->query("age")<20 )
-					 return notify_fail("ÄÃĞ¡º¢×ÓÊÔÕĞ£¿Ì«ºİÁË°É£¡\n");
+					 return notify_fail("æ‹¿å°å­©å­è¯•æ‹›ï¼Ÿå¤ªç‹ äº†å§ï¼\n");
 
 		  if( ob->query("shoot_msg") )
 					 message_vision(ob->query("shoot_msg"), me, victim);
 		  else
-					 message_vision(HIY"\n$NÈıÖ¸Ò»ËÉ£¬¡¸à²¡¹µÄÒ»ÉùÏò" +target + "ÃæµÄ$nÉäÁË¹ıÈ¥£¡£¡£¡\n" NOR, me, victim);
+					 message_vision(HIY"\n$Nä¸‰æŒ‡ä¸€æ¾ï¼Œã€Œå—–ã€çš„ä¸€å£°å‘" +target + "é¢çš„$nå°„äº†è¿‡å»ï¼ï¼ï¼\n" NOR, me, victim);
 
 		  ob->delete_temp("pulled");
 	ob->delete_temp("arrow_loaded");
@@ -218,7 +218,7 @@ int do_shoot(string arg)
 		  if( arrow->query("shoot_msg") )
 					 message_vision(arrow->query("shoot_msg"),arrow, victim);
 		  else
-                message_vision(HIR "\nÖ»¼ûÒ»Ö§¾¢¼ıÏò×Å$NÆÆ¿Õ¼¤Éä¶øÖÁ£¡£¡£¡\n" NOR,victim);
+                message_vision(HIR "\nåªè§ä¸€æ”¯åŠ²ç®­å‘ç€$Nç ´ç©ºæ¿€å°„è€Œè‡³ï¼ï¼ï¼\n" NOR,victim);
 
 		  shoot_result(me,victim,arrow);
 		  return 1;
@@ -265,19 +265,19 @@ private int shoot_result(object me, object victim, object ob)
 											ob2->do_embed();
 											victim->receive_wound("qi",
 				 power*ob->query("damage")+jiali*2, me);
-					message_vision(CYN"½á¹û$NÒ»Éù²Ò½Ğ£¬$n"+CYN+"ÒÑÈ»²åÔÚ$NµÄ"+limbs[random(sizeof(limbs))]
-					+"ÉÏ¡£\n"NOR, victim, ob);
+					message_vision(CYN"ç»“æœ$Nä¸€å£°æƒ¨å«ï¼Œ$n"+CYN+"å·²ç„¶æ’åœ¨$Nçš„"+limbs[random(sizeof(limbs))]
+					+"ä¸Šã€‚\n"NOR, victim, ob);
 	} else {
 	//	ob2 = present("arrow", victim);
 		ob2 = victim->query_temp("armor/embed");
 
 		if ( ob2->query("weapon_type") == "arrow" ) {
 			ob2->set_amount(ob2->query_amount()+1);
-				message_vision(CYN"½á¹û$NÒ»Éù²Ò½Ğ£¬$n"+CYN+"ÒÑÈ»²åÔÚ$NµÄ"+limbs[random(sizeof(limbs))]
-				+"ÉÏ¡£\n"NOR, victim, ob);
+				message_vision(CYN"ç»“æœ$Nä¸€å£°æƒ¨å«ï¼Œ$n"+CYN+"å·²ç„¶æ’åœ¨$Nçš„"+limbs[random(sizeof(limbs))]
+				+"ä¸Šã€‚\n"NOR, victim, ob);
 		} else {
-			message_vision(CYN"$NÃÆºßÒ»Éù£¬$n"+CYN+"´Ó$NµÄ"+limbs[random(sizeof(limbs))]
-			+"²Á¹ı£¬¹ÎÏÂÒ»´óÆ¬Æ¤Èâ£¬ÏÊÑªÁÜÀì£¡\n"NOR, victim,ob);
+			message_vision(CYN"$Né—·å“¼ä¸€å£°ï¼Œ$n"+CYN+"ä»$Nçš„"+limbs[random(sizeof(limbs))]
+			+"æ“¦è¿‡ï¼Œåˆ®ä¸‹ä¸€å¤§ç‰‡çš®è‚‰ï¼Œé²œè¡€æ·‹æ¼“ï¼\n"NOR, victim,ob);
 			ob2 = new(base_name(ob));
 			ob2->set_amount(1);
 			ob2->move(environment(victim));
@@ -301,7 +301,7 @@ private int shoot_result(object me, object victim, object ob)
 					 1+this_object()->query("poison_applied"));
 					 this_object()->delete("poison_applied");
 		this_object()->delete("poison_type");
-		message_vision(RED"$NËÆºõ¾õµÃÉË¿ÚÓĞµã·¢Ñ÷£¡\n"NOR, victim);
+		message_vision(RED"$Nä¼¼ä¹è§‰å¾—ä¼¤å£æœ‰ç‚¹å‘ç—’ï¼\n"NOR, victim);
 		  }
 
 	if( victim->query("combat_exp") >= me->query("combat_exp") * 2/3 )
@@ -310,8 +310,8 @@ private int shoot_result(object me, object victim, object ob)
 	}
 
 		  else if ( ap < dp/7 && ob->query_weight() < 7000
-					 && victim->query("race") == "ÈËÀà"){
-					 message_vision(CYN"²»ÁÏ$NÑÛÃ÷ÊÖ¿ì£¬Éí×ÓÒ»²à£¬°Ñ$n"+CYN+"ÇáÇáµØ½ÓÔÚÊÖÀï¡£\n\n"NOR, victim, ob);
+					 && victim->query("race") == "äººç±»"){
+					 message_vision(CYN"ä¸æ–™$Nçœ¼æ˜æ‰‹å¿«ï¼Œèº«å­ä¸€ä¾§ï¼ŒæŠŠ$n"+CYN+"è½»è½»åœ°æ¥åœ¨æ‰‹é‡Œã€‚\n\n"NOR, victim, ob);
 					 me->start_busy(random(3));
 					 if (ob->query_amount() > 0){
 											ob->add_amount(-1);

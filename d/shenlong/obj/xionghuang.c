@@ -4,12 +4,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name(YEL "ĞÛ»Æ" NOR, ({"xionghuang" }));
+	set_name(YEL "é›„é»„" NOR, ({"xionghuang" }));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "°ü");
-		set("long", "ÕâÊÇÒ»°üĞÛ»Æ£¬¾İËµ¿ÉÇı°Ù¶¾¡£\n");
+		set("unit", "åŒ…");
+		set("long", "è¿™æ˜¯ä¸€åŒ…é›„é»„ï¼Œæ®è¯´å¯é©±ç™¾æ¯’ã€‚\n");
 		set("value", 1000);
 		set("only_do_effect", 1);
 	}
@@ -18,6 +18,6 @@ void create()
 
 int do_effect(object me)
 {
-	write("ÏëËÀ°¡£¿ĞÛ»Æ²»ÄÜ³Ô¡£\n");
+	write("æƒ³æ­»å•Šï¼Ÿé›„é»„ä¸èƒ½åƒã€‚\n");
         return 1;
 }

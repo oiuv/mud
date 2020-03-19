@@ -29,8 +29,8 @@ int main(object me, string str)
         ob_list = wiz_ob + ob_list;
 
         i = 0;
-        str = HIG" Íæ¼Ò    ÄêÁä ´æ¿î       µØÖ·               ËùÔÚ       ³ÌĞò       \n" NOR
-              WHT "¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\n" NOR;
+        str = HIG" ç©å®¶    å¹´é¾„ å­˜æ¬¾       åœ°å€               æ‰€åœ¨       ç¨‹åº       \n" NOR
+              WHT "â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n" NOR;
         foreach (ob in ob_list)
         {
                 dbase = ob->query_entire_dbase();
@@ -49,8 +49,8 @@ int main(object me, string str)
                 if (i++ >= 200)
                         break;
         }
-        str += NOR WHT "¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\n";
-        str = sprintf("%s¹²ÓĞ %d Î»Ê¹ÓÃÕßÁ¬ÏßÖĞ¡£\n" NOR, str, sizeof(ob_list));
+        str += NOR WHT "â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n";
+        str = sprintf("%så…±æœ‰ %d ä½ä½¿ç”¨è€…è¿çº¿ä¸­ã€‚\n" NOR, str, sizeof(ob_list));
 
         me->start_more(str);
         return 1;
@@ -70,9 +70,9 @@ int sort_wizard(object ob1, object ob2)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½£ºwho2
+æŒ‡ä»¤æ ¼å¼ï¼šwho2
 
-Íæ¼ÒĞÅÏ¢²éÑ¯ÁĞ±í2¡£
+ç©å®¶ä¿¡æ¯æŸ¥è¯¢åˆ—è¡¨2ã€‚
 HELP );
         return 1;
 }

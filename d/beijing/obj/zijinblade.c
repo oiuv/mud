@@ -7,17 +7,17 @@ inherit BLADE;
 
 void create()
 {
-	set_name( MAG "×Ï½ğ°ËØÔµ¶" NOR , ({ "zijin bagua blade", "zijin blade", "bagua blade", "blade" }));
+	set_name( MAG "ç´«é‡‘å…«å¦åˆ€" NOR , ({ "zijin bagua blade", "zijin blade", "bagua blade", "blade" }));
 	set_weight(2000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "°Ñ");
-		set("long", HIY "ÕâÊÇÒ»°Ñ½ğ¹âÉÁÉÁ£¬ÍşÃÍ¸Õ¾¢µÄ±¦µ¶£¬µ¶·æÖĞÒşÒş´ø×Å×Ï¹â¡£\n" NOR );
+		set("unit", "æŠŠ");
+		set("long", HIY "è¿™æ˜¯ä¸€æŠŠé‡‘å…‰é—ªé—ªï¼Œå¨çŒ›åˆšåŠ²çš„å®åˆ€ï¼Œåˆ€é”‹ä¸­éšéšå¸¦ç€ç´«å…‰ã€‚\n" NOR );
 		set("value", 2000);
 		set("material", "steel");
-		set("wield_msg", "$N¡¸à§¡¹µÄÒ»Éù³é³öÒ»±ú$nÎÕÔÚÊÖÖĞ¡£\n");
-		set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»Øµ¶ÇÊ¡£\n");
+		set("wield_msg", "$Nã€Œå”°ã€çš„ä¸€å£°æŠ½å‡ºä¸€æŸ„$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+		set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›åˆ€é˜ã€‚\n");
 	}
 	init_blade(80,110);
 	setup();

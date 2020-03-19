@@ -4,13 +4,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(MAG "Ò°¾Õ»¨" NOR, ({ "ye juhua", "juhua" }));
+        set_name(MAG "é‡èŠèŠ±" NOR, ({ "ye juhua", "juhua" }));
         set("weight", 10);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long","Ò»¶äÆ½Æ½³£³£µÄÒ°¾Õ»¨£¬ÏãÎ¶µ­µ­µÄ¡£\n");
-                set("unit", "¶ä");
+                set("long","ä¸€æœµå¹³å¹³å¸¸å¸¸çš„é‡èŠèŠ±ï¼Œé¦™å‘³æ·¡æ·¡çš„ã€‚\n");
+                set("unit", "æœµ");
                 set("material", "wood");
         }
         setup();

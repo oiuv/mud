@@ -1,4 +1,4 @@
-// zhongting.c ÅÌÁú¾ÓÖĞÍ¥
+// zhongting.c ç›˜é¾™å±…ä¸­åº­
 
 #include <room.h>
 
@@ -9,16 +9,16 @@ void create()
 {
 //**    object ob;
 
-	set("short", "ÖĞÍ¥");             /* EXAMPLE */
-//**    set("short", "ROOM_NAMEÖĞÍ¥");
+	set("short", "ä¸­åº­");             /* EXAMPLE */
+//**    set("short", "ROOM_NAMEä¸­åº­");
 	set("long", @LONG
-ÕâÊÇÅÌÁú¾ÓÖ®Ñü£ºÖĞÍ¥£¬Á½ÅÔ±ãÊÇ¿ÍÈË¾Ó×¡µÄÏá·¿£¬ºóÃæÍ¨Íùºó
-»¨Ô°ºÍÖ÷ÈË¾ÓËù£¬Ç°ÃæÔòÊÇÒéÊÂÌü£¬Ò»Ö±Í¨Íù´óÔº¡£
+è¿™æ˜¯ç›˜é¾™å±…ä¹‹è…°ï¼šä¸­åº­ï¼Œä¸¤æ—ä¾¿æ˜¯å®¢äººå±…ä½çš„å¢æˆ¿ï¼Œåé¢é€šå¾€å
+èŠ±å›­å’Œä¸»äººå±…æ‰€ï¼Œå‰é¢åˆ™æ˜¯è®®äº‹å…ï¼Œä¸€ç›´é€šå¾€å¤§é™¢ã€‚
 LONG );
 
-	set("default_long", "ÕâÊÇROOM_NAMEÖ®Ñü£ºÖĞÍ¥£¬Á½ÅÔ±ãÊÇ¿ÍÈË¾Ó"  /* EXAMPLE */
-                            "×¡µÄÏá·¿£¬ºóÃæÍ¨Íùºó»¨Ô°ºÍÖ÷ÈË¾ÓËù£¬Ç°Ãæ" /* EXAMPLE */
-                            "ÔòÊÇÒéÊÂÌü£¬Ò»Ö±Í¨Íù´óÔº¡£");             /* EXAMPLE */
+	set("default_long", "è¿™æ˜¯ROOM_NAMEä¹‹è…°ï¼šä¸­åº­ï¼Œä¸¤æ—ä¾¿æ˜¯å®¢äººå±…"  /* EXAMPLE */
+                            "ä½çš„å¢æˆ¿ï¼Œåé¢é€šå¾€åèŠ±å›­å’Œä¸»äººå±…æ‰€ï¼Œå‰é¢" /* EXAMPLE */
+                            "åˆ™æ˜¯è®®äº‹å…ï¼Œä¸€ç›´é€šå¾€å¤§é™¢ã€‚");             /* EXAMPLE */
                                                                        /* EXAMPLE */
 
 	set("exits", ([
@@ -34,8 +34,8 @@ LONG );
 //**            "/d/room/roomnpc/shouwei" : 1,
 //**    ]));
 
-        create_door("east", "Ä¾ÃÅ", "west", DOOR_CLOSED);
-        create_door("west", "Ä¾ÃÅ", "east", DOOR_CLOSED);
+        create_door("east", "æœ¨é—¨", "west", DOOR_CLOSED);
+        create_door("west", "æœ¨é—¨", "east", DOOR_CLOSED);
 
         set("no_sleep_room", 1);
         setup();
@@ -69,18 +69,18 @@ int valid_leave(object me, string dir)
 
         if (ob->is_owner(me))
         {
-                message_vision("$NÍäÑü¶Ô$nµÀ£º¡°Çë½ø£¡¡±\n", ob, me);
+                message_vision("$Nå¼¯è…°å¯¹$né“ï¼šâ€œè¯·è¿›ï¼â€\n", ob, me);
                 return ::valid_leave(me, dir);
         }
 
         if (present(query("room_owner_id") + " pass", me))
         {
-                message_vision("$N¶Ô$nµÀ£º¡°¼´È»ÓĞÖ÷ÈËµÄÊÖÚÍ£¬¾ÍÇë½ø°É¡£¡±\n",
+                message_vision("$Nå¯¹$né“ï¼šâ€œå³ç„¶æœ‰ä¸»äººçš„æ‰‹è°•ï¼Œå°±è¯·è¿›å§ã€‚â€\n",
                                ob, me);
                 return ::valid_leave(me, dir);
         }
 
-        message_vision("$NÉìÊÖÀ¹×¡$n£¬µÀ£º¡°¶Ô²»Æğ£¬Ã»ÓĞ" +
-                       query("room_owner") + "µÄÊÖÚÍ£¬²»¿ÉÉÃ×Ô´³Èë£¡¡±\n", ob, me);
+        message_vision("$Nä¼¸æ‰‹æ‹¦ä½$nï¼Œé“ï¼šâ€œå¯¹ä¸èµ·ï¼Œæ²¡æœ‰" +
+                       query("room_owner") + "çš„æ‰‹è°•ï¼Œä¸å¯æ“…è‡ªé—¯å…¥ï¼â€\n", ob, me);
         return 0;
 }

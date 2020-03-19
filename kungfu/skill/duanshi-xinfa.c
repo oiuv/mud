@@ -15,16 +15,16 @@ int valid_force(string force)
 
 int valid_learn(object me)
 {
-        if (me->query("gender") == "ÎŞĞÔ"
+        if (me->query("gender") == "æ— æ€§"
            && (int)me->query_skill("duanshi-xinfa") > 49)
-                    return notify_fail("ÄãÎŞ¸ùÎŞĞÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄ¶ÎÊÏĞÄ·¨¡£\n");
+                    return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„æ®µæ°å¿ƒæ³•ã€‚\n");
 
         return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("¶ÎÊÏĞÄ·¨Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("æ®µæ°å¿ƒæ³•åªèƒ½ç”¨å­¦(learn)çš„æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file( string func )

@@ -1,17 +1,17 @@
-// tuijianxin-3.c ÍÆ¼öĞÅ »Û-³Î
+// tuijianxin-3.c æ¨èä¿¡ æ…§-æ¾„
 
 inherit ITEM;
 
 void create()
 {
-        set_name("ÍÆ¼öĞÅ", ({"tuijian xin3", "xin3", "letter3"}));
+        set_name("æ¨èä¿¡", ({"tuijian xin3", "xin3", "letter3"}));
         set_weight(100);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "·â");
-                set("long","ÕâÊÇÒ»·â»Û×Ö±²Ê¦×ğÃÇÎªÄãĞ´µÄÍÆ¼öĞÅ£¬Æ¾´Ë¿ÉÖ±½ÓÏò³Î×Ö±²¸ßÉ®ÃÇÑ§Ï°ÎäÒÕ¡£\n");
-//		set("no_drop", "ÕâÑù¶«Î÷²»ÄÜÀë¿ªÄã¡£\n");
+                set("unit", "å°");
+                set("long","è¿™æ˜¯ä¸€å°æ…§å­—è¾ˆå¸ˆå°Šä»¬ä¸ºä½ å†™çš„æ¨èä¿¡ï¼Œå‡­æ­¤å¯ç›´æ¥å‘æ¾„å­—è¾ˆé«˜åƒ§ä»¬å­¦ä¹ æ­¦è‰ºã€‚\n");
+//		set("no_drop", "è¿™æ ·ä¸œè¥¿ä¸èƒ½ç¦»å¼€ä½ ã€‚\n");
                 set("material", "paper");
         }
 }

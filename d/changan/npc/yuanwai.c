@@ -4,9 +4,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÏôÔ±Íâ", ({"xiao yuanwai", "xiao","yuanwai" }));
-        set("gender", "ÄÐÐÔ");
-        set("rank_info/respect", "ÀÏÔ±Íâ");
+        set_name("è§å‘˜å¤–", ({"xiao yuanwai", "xiao","yuanwai" }));
+        set("gender", "ç”·æ€§");
+        set("rank_info/respect", "è€å‘˜å¤–");
         set("age", 50);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -42,7 +42,7 @@ int accept_object (object who, object ob)
 {
         object me = this_object();
         object room = environment(me);
-        if (room->query("short") != "Ïô¼Ò´óÌü")
+        if (room->query("short") != "è§å®¶å¤§åŽ…")
                 return 0;
 
         if (ob->query("id") == "xin")
@@ -59,16 +59,16 @@ void read_letter(object me, object who, object ob)
         destruct (ob);
         reset_eval_cost();
 
-        message_vision("$N¿´ÍêÐÅ£¬²»ÓÉµÃÌéÀá¾ãÏÂ¡£\n"
-                       "$NµÀ£ºÕâÐ©ÌìÎÒ²îÈËÑ°±é³¤°²³Ç£¬Ò²Ã»ÕÒ"
-                       "µ½ÎÒÄÇº¢¶ù£¬\nÔ­À´¾¹±»ÈË¹ÕÂôµ½ÁËÇàÂ¥Ö®ÖÐ¡£\n\n",
+        message_vision("$Nçœ‹å®Œä¿¡ï¼Œä¸ç”±å¾—æ¶•æ³ªä¿±ä¸‹ã€‚\n"
+                       "$Né“ï¼šè¿™äº›å¤©æˆ‘å·®äººå¯»éé•¿å®‰åŸŽï¼Œä¹Ÿæ²¡æ‰¾"
+                       "åˆ°æˆ‘é‚£å­©å„¿ï¼Œ\nåŽŸæ¥ç«Ÿè¢«äººæ‹å–åˆ°äº†é’æ¥¼ä¹‹ä¸­ã€‚\n\n",
                        me);
 
-        message_vision("$N¶Ô$nµÀ£ºÈô·ÇÕâÎ»" +
+        message_vision("$Nå¯¹$né“ï¼šè‹¥éžè¿™ä½" +
                        RANK_D->query_respect(who)+
-                       "Ç°À´Ïà¸æ£¬ÎÒ¿ÉÄÜ½ñÉú¾Í¼û²»µ½ÎÒµÄÅ®¶ùÁË£¬\n" +
+                       "å‰æ¥ç›¸å‘Šï¼Œæˆ‘å¯èƒ½ä»Šç”Ÿå°±è§ä¸åˆ°æˆ‘çš„å¥³å„¿äº†ï¼Œ\n" +
                        RANK_D->query_respect(who) +
-                       "Õâ·Ý¶÷µÂ½ÐÀÏ·òÈçºÎ±¨´ð°¡£¡\n", me, who);
+                       "è¿™ä»½æ©å¾·å«è€å¤«å¦‚ä½•æŠ¥ç­”å•Šï¼\n", me, who);
 
         remove_call_out("send_to_fight");
         call_out("send_to_fight",3,me,who);
@@ -78,15 +78,15 @@ void send_to_fight (object me, object who)
 {
         object yupei = new(__DIR__"obj/yupei");
         yupei->move(who);
-        message_vision("$N¶Ô$nËµµÀ£º»¹ÇëÕâÎ»" +
+        message_vision("$Nå¯¹$nè¯´é“ï¼šè¿˜è¯·è¿™ä½" +
                        RANK_D->query_respect(who) +
-                       "ÔÙ°ï°ïÃ¦£¬½«ÎÒÅ®¶ù´î¾È³öÀ´£¡\n\n",
+                       "å†å¸®å¸®å¿™ï¼Œå°†æˆ‘å¥³å„¿æ­æ•‘å‡ºæ¥ï¼\n\n",
                        me, who);
 
-        message_vision("$N´ÓÒÂ´üÄÚÈ¡³öÒ»¿éÓñÅå½»¸ø$n£¬µÀ"
-                       "¡°ÕâÊÇÎÒ¼Ò´«ÓñÅå£¬ÏæÏæ¼ûµ½»áÈÏµÃµÄ£¡\n",
+        message_vision("$Nä»Žè¡£è¢‹å†…å–å‡ºä¸€å—çŽ‰ä½©äº¤ç»™$nï¼Œé“"
+                       "â€œè¿™æ˜¯æˆ‘å®¶ä¼ çŽ‰ä½©ï¼Œæ¹˜æ¹˜è§åˆ°ä¼šè®¤å¾—çš„ï¼\n",
                        me, who);
-        message_vision("$N¸ø$nÒ»¿éÓñÅå¡£\n", me, who);
+        message_vision("$Nç»™$nä¸€å—çŽ‰ä½©ã€‚\n", me, who);
         who->save();
 }
 
@@ -97,7 +97,7 @@ void check_daughter(object me)
   	object who;
   	object yupei;
   	reset_eval_cost();
-  	if (room->query("short") != "Ïô¼Ò´óÌü")
+  	if (room->query("short") != "è§å®¶å¤§åŽ…")
     	        return;
 
   	if (! xiangxiang || ! xiangxiang->query("leader"))
@@ -117,7 +117,7 @@ void check_daughter(object me)
 void cry_daughter(object me, object xiangxiang, object who, object yupei)
 {
 //      object book;
-        message_vision("$N¼ûÁË$nÒ»ã¶£¬È»ºóÀÏÀá×ÝºáµØ½«$nÀ­¹ýÈ¥¡£\n",
+        message_vision("$Nè§äº†$nä¸€æ„£ï¼Œç„¶åŽè€æ³ªçºµæ¨ªåœ°å°†$næ‹‰è¿‡åŽ»ã€‚\n",
                        me, xiangxiang); 
         destruct(xiangxiang);
       
@@ -125,10 +125,10 @@ void cry_daughter(object me, object xiangxiang, object who, object yupei)
         yupei->move(me);
         destruct(yupei);
         command("thank " + who->query("id"));
-        command("say ÕâÎ»" + RANK_D->query_respect(who) +
-                "¾ÈÎÒ¶ùÏæÏæÌÓ³öÄ§ÕÆ£¡ÀÏ·òÕâÀïÓÐÒ»±¾Êé£¬\nÊÇ"
-                "×æÉÏ´«ÏÂÀ´µÄ£¬¾ÍËÍ¸ø" + RANK_D->query_respect(who) +
-                "°É£¡\n");
+        command("say è¿™ä½" + RANK_D->query_respect(who) +
+                "æ•‘æˆ‘å„¿æ¹˜æ¹˜é€ƒå‡ºé­”æŽŒï¼è€å¤«è¿™é‡Œæœ‰ä¸€æœ¬ä¹¦ï¼Œ\næ˜¯"
+                "ç¥–ä¸Šä¼ ä¸‹æ¥çš„ï¼Œå°±é€ç»™" + RANK_D->query_respect(who) +
+                "å§ï¼\n");
         carry_object(__DIR__"obj/book");
         command("give book to " + who->query("id"));
 }

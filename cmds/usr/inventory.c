@@ -28,12 +28,12 @@ int main(object me, string arg)
         inv = all_inventory(ob);
         if (! sizeof(inv))
 	{
-                write((ob == me) ? "Ä¿Ç°ÄãÉíÉÏÃ»ÓĞÈÎºÎ¶«Î÷¡£\n"
-                                 : ob->name() + "ÉíÉÏÃ»ÓĞĞ¯´øÈÎºÎ¶«Î÷¡£\n");
+                write((ob == me) ? "ç›®å‰ä½ èº«ä¸Šæ²¡æœ‰ä»»ä½•ä¸œè¥¿ã€‚\n"
+                                 : ob->name() + "èº«ä¸Šæ²¡æœ‰æºå¸¦ä»»ä½•ä¸œè¥¿ã€‚\n");
                 return 1;
         }
-        str = sprintf("%sÉíÉÏ´øÖøÏÂÁĞÕâĞ©¶«Î÷(¸ºÖØ %d%%)£º\n",
-                      (ob == me)? "Äã" : ob->name(),
+        str = sprintf("%sèº«ä¸Šå¸¦è‘—ä¸‹åˆ—è¿™äº›ä¸œè¥¿(è´Ÿé‡ %d%%)ï¼š\n",
+                      (ob == me)? "ä½ " : ob->name(),
                       (int)ob->query_encumbrance() * 100 / (int)ob->query_max_encumbrance());
 
         count   = ([]);
@@ -66,10 +66,10 @@ int main(object me, string arg)
         {
             if (dk[i] == short_name)
                 // handing now
-                str += HIM "¡õ" NOR;
+                str += HIM "â–¡" NOR;
             else
             if (equiped[dk[i]])
-                str += HIC "¡õ" NOR;
+                str += HIC "â–¡" NOR;
             else
                 str += "  ";
 
@@ -85,11 +85,11 @@ int main(object me, string arg)
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: inventory
+æŒ‡ä»¤æ ¼å¼: inventory
  
-¿ÉÁĞ³öÄã(Äã)Ä¿Ç°ÉíÉÏËùĞ¯´øµÄËùÓĞÎïÆ·¡£
+å¯åˆ—å‡ºä½ (ä½ )ç›®å‰èº«ä¸Šæ‰€æºå¸¦çš„æ‰€æœ‰ç‰©å“ã€‚
  
-×¢ : ´ËÖ¸Áî¿ÉÒÔ " i " ´úÌæ¡£
+æ³¨ : æ­¤æŒ‡ä»¤å¯ä»¥ " i " ä»£æ›¿ã€‚
  
 HELP
 );

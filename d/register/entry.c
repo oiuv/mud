@@ -3,22 +3,22 @@ inherit ROOM;
 
 void create()
 {
-        set("short", HIW "ÊÀÍâÌÒÔ´" NOR);
+        set("short", HIW "ä¸–å¤–æ¡ƒæº" NOR);
        set("long", HIW @LONG
 
-                    ÊÀ     Íâ     Íâ     Ô´
+                    ä¸–     å¤–     å¤–     æº
 
-    Ö»¼ûÕâÀïÌÒ»¨Èç»­£¬´ºÒâ°»È»¡£Ğ¡ÇÅÁ÷Ë®£¬ÂäÓ¢çÍ·×£¬ºÃÒ»·¬Ê«Çé
-ÑÅÒâ¡£ºÓ±ßËÊÁ¢×ÅÒ»¿é´óÊ¯£¬Ò»Î»Å®×ÓÇá×±ËØ¹ü£¬ÒĞÊ¯ÄıÃ¼£¬ËÆºõÓĞ×Å
-Ëµ²»¾¡µÄ°§Ë¼¡£ÅÔ±ßÒ»Î»ÄĞ×ÓÓ¢ÎäÍ¦°Î£¬°ÁÈ»¶øÁ¢¡£´óÊ¯µÄÅÔ±ßÓĞÒ»¿é
-ÅÆ×Ó(paizi)£¬ÄãÒ²ĞíÓ¦¸Ã×ĞÏ¸¿´¿´¡£
+    åªè§è¿™é‡Œæ¡ƒèŠ±å¦‚ç”»ï¼Œæ˜¥æ„ç›ç„¶ã€‚å°æ¡¥æµæ°´ï¼Œè½è‹±ç¼¤çº·ï¼Œå¥½ä¸€ç•ªè¯—æƒ…
+é›…æ„ã€‚æ²³è¾¹è€¸ç«‹ç€ä¸€å—å¤§çŸ³ï¼Œä¸€ä½å¥³å­è½»å¦†ç´ è£¹ï¼Œå€šçŸ³å‡çœ‰ï¼Œä¼¼ä¹æœ‰ç€
+è¯´ä¸å°½çš„å“€æ€ã€‚æ—è¾¹ä¸€ä½ç”·å­è‹±æ­¦æŒºæ‹”ï¼Œå‚²ç„¶è€Œç«‹ã€‚å¤§çŸ³çš„æ—è¾¹æœ‰ä¸€å—
+ç‰Œå­(paizi)ï¼Œä½ ä¹Ÿè®¸åº”è¯¥ä»”ç»†çœ‹çœ‹ã€‚
 
 
 LONG NOR );
         set("no_fight", 1);
         set("item_desc", ([
-                "paizi" : WHT "ÇëÏÈ×¢²á(" NOR + HIY "register email" NOR +
-                          WHT ")ÓÊ¼ş£¬È»ºóÄã¿ÉÒÔ·Ö±ğÈ¥²»Í¬µÄ³ö¿ÚÑ¡ÔñÄãµÄÄÚÔÚÆ·ÖÊ¡£\n" NOR,
+                "paizi" : WHT "è¯·å…ˆæ³¨å†Œ(" NOR + HIY "register email" NOR +
+                          WHT ")é‚®ä»¶ï¼Œç„¶åä½ å¯ä»¥åˆ†åˆ«å»ä¸åŒçš„å‡ºå£é€‰æ‹©ä½ çš„å†…åœ¨å“è´¨ã€‚\n" NOR,
         ]));
         set("objects", ([
                 __DIR__"npc/shuisheng" : 1,
@@ -45,14 +45,14 @@ int valid_leave(object me, string dir)
 
         if (! me->query("registered"))
         {
-                message_vision(CYN "Ë®óÏÇáÉù¶Ô$N" CYN "Ëµ£ºÄú»¹Ã»ÓĞ×¢²áÄØ£¬ÇëÏÈ×¢²á(" NOR +
-                               HIY "register" NOR + CYN ")ÔÙÀëÈ¥ºÃÂğ£¿\n" NOR, me);
+                message_vision(CYN "æ°´ç¬™è½»å£°å¯¹$N" CYN "è¯´ï¼šæ‚¨è¿˜æ²¡æœ‰æ³¨å†Œå‘¢ï¼Œè¯·å…ˆæ³¨å†Œ(" NOR +
+                               HIY "register" NOR + CYN ")å†ç¦»å»å¥½å—ï¼Ÿ\n" NOR, me);
 
                 if (me->query_temp("email"))
-                        return notify_fail(HIR "Èç¹ûÄãÈ·ÈÏÊäÈëµÄµØÖ·£¬¾Í¾ö¶¨(" NOR + HIY
-                                           "decide" NOR + HIR ")°É¡£\n" NOR);
+                        return notify_fail(HIR "å¦‚æœä½ ç¡®è®¤è¾“å…¥çš„åœ°å€ï¼Œå°±å†³å®š(" NOR + HIY
+                                           "decide" NOR + HIR ")å§ã€‚\n" NOR);
 
-                return notify_fail(HIY "Äã»¹²»¿ì×¢²á£¿\n" NOR);
+                return notify_fail(HIY "ä½ è¿˜ä¸å¿«æ³¨å†Œï¼Ÿ\n" NOR);
         }
 
         if (! objectp(ob = present("di yun", this_object())))
@@ -60,7 +60,7 @@ int valid_leave(object me, string dir)
                 ob = new(__DIR__"npc/diyun");
                 ob->move(this_object());
         }
-        message_vision(CYN "µÒÔÆ¶Ô$N" CYN "Ò»±§È­£¬µÀ£ºÈËÉúÂ·È«¿¿×Ô¼º×ß£¬ÅóÓÑ×ßºÃ£¡\n" NOR, me);
+        message_vision(CYN "ç‹„äº‘å¯¹$N" CYN "ä¸€æŠ±æ‹³ï¼Œé“ï¼šäººç”Ÿè·¯å…¨é è‡ªå·±èµ°ï¼Œæœ‹å‹èµ°å¥½ï¼\n" NOR, me);
 
         return 1;
 }

@@ -3,17 +3,17 @@ inherit NPC;
 
 void create()
 {
-        set_name("°¢´ó", ({ "a da", "a", "da" }));
+        set_name("é˜¿å¤§", ({ "a da", "a", "da" }));
         set("long", @LONG
-°Ë±ÛÉñ½£·½¶«°×±¾ÊÇØ¤°ïËÄ´ó³¤ÀÏÖ®Ê×£¬½£Êõ
-Ö®¾«£¬Ãû¶¯½­ºþ£¬Ö»ÒòËû³ö½£Ææ¿ì£¬ÓÐÈçÉúÁË
-Æß°ËÌõÊÖ±ÛÒ»°ã£¬Òò´ËÉÏµÃÁËÕâ¸öÍâºÅ¡£Ê®¶à
-ÄêÇ°ÌýËµËûÉíÈ¾ÖØ²¡ÉíÍö£¬µ±Ê±ÈËÈË¶¼¸ÐÍïÏ§£¬
-²»¾õËû¾¹ÉÐÔÚÈËÊÀ¡£
+å…«è‡‚ç¥žå‰‘æ–¹ä¸œç™½æœ¬æ˜¯ä¸å¸®å››å¤§é•¿è€ä¹‹é¦–ï¼Œå‰‘æœ¯
+ä¹‹ç²¾ï¼ŒååŠ¨æ±Ÿæ¹–ï¼Œåªå› ä»–å‡ºå‰‘å¥‡å¿«ï¼Œæœ‰å¦‚ç”Ÿäº†
+ä¸ƒå…«æ¡æ‰‹è‡‚ä¸€èˆ¬ï¼Œå› æ­¤ä¸Šå¾—äº†è¿™ä¸ªå¤–å·ã€‚åå¤š
+å¹´å‰å¬è¯´ä»–èº«æŸ“é‡ç—…èº«äº¡ï¼Œå½“æ—¶äººäººéƒ½æ„Ÿæƒ‹æƒœï¼Œ
+ä¸è§‰ä»–ç«Ÿå°šåœ¨äººä¸–ã€‚
 LONG);
-        set("title", "Ø¤°ïËÄ´ó³¤ÀÏÖ®Ê×");
-        set("nickname", WHT "°Ë±ÛÉñ½£" NOR);
-        set("gender", "ÄÐÐÔ");
+        set("title", "ä¸å¸®å››å¤§é•¿è€ä¹‹é¦–");
+        set("nickname", WHT "å…«è‡‚ç¥žå‰‘" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 68);
         set("attitude", "peaceful");
         set("shen_type", -1);

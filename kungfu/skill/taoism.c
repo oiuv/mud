@@ -1,4 +1,4 @@
-// taoism.c µÀÑ§ĞÄ·¨
+// taoism.c é“å­¦å¿ƒæ³•
 // modified by Venus Oct.1997
 
 inherit SKILL;
@@ -13,14 +13,14 @@ int valid_learn(object me)
 
     lvl = (int)me->query_skill("taoism", 1);
 
-    if(me->query("gender") == "ÎŞĞÔ" && lvl > 19)
-        return notify_fail("Äã¸ÕÌıÒ»»á¶ù£¬±ã¾õĞÄÖÇÃÔºı£¬Ô­À´ÄãÃ»ÓĞÑô¸ÕÖ®\n"
-                           "Æø£¬ÎŞ·¨Áì»áÀïÃæµÄÒõÑô±ä»¯Ö®µÀ¡£\n");
+    if(me->query("gender") == "æ— æ€§" && lvl > 19)
+        return notify_fail("ä½ åˆšå¬ä¸€ä¼šå„¿ï¼Œä¾¿è§‰å¿ƒæ™ºè¿·ç³Šï¼ŒåŸæ¥ä½ æ²¡æœ‰é˜³åˆšä¹‹\n"
+                           "æ°”ï¼Œæ— æ³•é¢†ä¼šé‡Œé¢çš„é˜´é˜³å˜åŒ–ä¹‹é“ã€‚\n");
 
     return 1;
 }
 
 int practice_skill(object me)
 {
-    return notify_fail("ÌìÊ¦ÕıµÀÖ»ÄÜ¿¿Ñ§Ï°À´Ìá¸ß¡£\n");
+    return notify_fail("å¤©å¸ˆæ­£é“åªèƒ½é å­¦ä¹ æ¥æé«˜ã€‚\n");
 }

@@ -5,16 +5,16 @@ inherit BLADE;
 
 void create()
 {
-        set_name(YEL "Ğş½ğÕ¶¡¤Ğé¿Õ" NOR, ({ "xu kong", "xuanjinzhan", "blade", "dao" }) );
+        set_name(YEL "ç„é‡‘æ–©Â·è™šç©º" NOR, ({ "xu kong", "xuanjinzhan", "blade", "dao" }) );
         set_weight(4000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
+                set("unit", "æŸ„");
                 set("value", 3300000);
                 set("material", "steel");
-                set("long", HIW "\nĞş½ğÕ¶¡¤Ğé¿ÕÄË¾Åñ·ÆßÓüÉñ±øÖ®Ò»¡£\n" NOR);
-                set("wield_msg", HIR "$NÇáÇá¶¶³ö$n" HIR "£¬É²Ê±À×ÉùºäÃù£¬Ò»¹ÉÉ±ÆøÖ±Äô¾ÅÏö¡£\n" );
+                set("long", HIW "\nç„é‡‘æ–©Â·è™šç©ºä¹ƒä¹ç©¹ä¸ƒç‹±ç¥å…µä¹‹ä¸€ã€‚\n" NOR);
+                set("wield_msg", HIR "$Nè½»è½»æŠ–å‡º$n" HIR "ï¼Œåˆ¹æ—¶é›·å£°è½°é¸£ï¼Œä¸€è‚¡æ€æ°”ç›´è‚ä¹éœ„ã€‚\n" );
         }
         init_blade(195);
         setup();

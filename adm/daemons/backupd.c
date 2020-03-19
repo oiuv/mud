@@ -6,7 +6,7 @@
 
 inherit F_DBASE;
 
-#define BACKUP_DATE     15               // the oldest's backup (days) ±£Áô°ë¸öÔÂÄÚµÄ±¸·İ
+#define BACKUP_DATE     15               // the oldest's backup (days) ä¿ç•™åŠä¸ªæœˆå†…çš„å¤‡ä»½
 
 STATIC_VAR_TAG int state;
 
@@ -21,15 +21,15 @@ STATIC_VAR_TAG int state;
 STATIC_VAR_TAG int *tlist = ({ 0, 550, 559, 600 });
 STATIC_VAR_TAG int *hlist = ({ 45, 1, 1, 1 });
 
-// Í¨ÖªÒ»´Î×¼±¸µÄÊ±¼ä£ºÁè³¿5:50·Ö
-// Í¨ÖªÔÙ´Î×¼±¸µÄÊ±¼ä£ºÁè³¿5:59·Ö
-// ¿ªÊ¼½øĞĞ±¸·İµÄÊ±¼ä£ºÁè³¿6:00·Ö
-// Áè³¿ÁùµãÒÔºóµ½µÚ¶şÌìÁè³¿5:50·ÖÖ®Ç°ÊôÓÚĞİÃß×´Ì¬
+// é€šçŸ¥ä¸€æ¬¡å‡†å¤‡çš„æ—¶é—´ï¼šå‡Œæ™¨5:50åˆ†
+// é€šçŸ¥å†æ¬¡å‡†å¤‡çš„æ—¶é—´ï¼šå‡Œæ™¨5:59åˆ†
+// å¼€å§‹è¿›è¡Œå¤‡ä»½çš„æ—¶é—´ï¼šå‡Œæ™¨6:00åˆ†
+// å‡Œæ™¨å…­ç‚¹ä»¥ååˆ°ç¬¬äºŒå¤©å‡Œæ™¨5:50åˆ†ä¹‹å‰å±äºä¼‘çœ çŠ¶æ€
 
-// Ìá¹©¸øÍâÃæµÄ½Ó¿Úº¯Êı
+// æä¾›ç»™å¤–é¢çš„æ¥å£å‡½æ•°
 void backup_data();
 
-// ÄÚ²¿Ê¹ÓÃµÄº¯Êı
+// å†…éƒ¨ä½¿ç”¨çš„å‡½æ•°
 private void remove_backup(mixed lt);
 private void check_all_player();
 private void change_state(int new_state);
@@ -46,8 +46,8 @@ int query_backup_time()         { return tlist[BACKUPING]; }
 void create()
 {
         seteuid(ROOT_UID);
-        set("channel_id", "±¸·İ¾«Áé");
-        sys_info("±¸·İÏµÍ³ÒÑ¾­Æô¶¯¡£");
+        set("channel_id", "å¤‡ä»½ç²¾çµ");
+        sys_info("å¤‡ä»½ç³»ç»Ÿå·²ç»å¯åŠ¨ã€‚");
         state = SLEEPING;
         set_heart_beat(hlist[state]);
 }
@@ -115,8 +115,8 @@ private void change_state(int new_state)
         case GET_READY_2:
                 if (lt[LT_HOUR] * 100 + lt[LT_MIN] != tlist[BACKUPING])
                 {
-                        message_system(sprintf("ÏÖÔÚÊÇ %d µã %d ·Ö£¬ÏµÍ³½«ÔÚ %d µã %d ·Ö"
-                                       "×Ô¶¯±¸·İËùÓĞÍæ¼ÒµÄÊı¾İ£¬ÆÚ¼äÓÎÏ·»áÓĞÍ£ÖÍ¡£",
+                        message_system(sprintf("ç°åœ¨æ˜¯ %d ç‚¹ %d åˆ†ï¼Œç³»ç»Ÿå°†åœ¨ %d ç‚¹ %d åˆ†"
+                                       "è‡ªåŠ¨å¤‡ä»½æ‰€æœ‰ç©å®¶çš„æ•°æ®ï¼ŒæœŸé—´æ¸¸æˆä¼šæœ‰åœæ»ã€‚",
                                        lt[LT_HOUR], lt[LT_MIN],
                                        (tlist[BACKUPING] / 100) % 100,
                                        tlist[BACKUPING] % 100));
@@ -126,13 +126,13 @@ private void change_state(int new_state)
 
         case BACKUPING:
                 state = new_state;
-                message_system(sprintf(HIY "ÏÖÔÚÊÇ %d µã %d ·Ö£¬ÏµÍ³¿ªÊ¼"
-                                       "×Ô¶¯±¸·İËùÓĞÍæ¼ÒÊı¾İ£¬ÇëÉÔºò..." NOR,
+                message_system(sprintf(HIY "ç°åœ¨æ˜¯ %d ç‚¹ %d åˆ†ï¼Œç³»ç»Ÿå¼€å§‹"
+                                       "è‡ªåŠ¨å¤‡ä»½æ‰€æœ‰ç©å®¶æ•°æ®ï¼Œè¯·ç¨å€™..." NOR,
                                        lt[LT_HOUR], lt[LT_MIN]));
 
                 backup_data();
 
-                message_system(sprintf(HIC "ÏµÍ³ÒÑ¾­´¦ÀíÍê±¸·İ¹¤×÷¡£" NOR,
+                message_system(sprintf(HIC "ç³»ç»Ÿå·²ç»å¤„ç†å®Œå¤‡ä»½å·¥ä½œã€‚" NOR,
                                        lt[LT_HOUR], lt[LT_MIN]));
 
                 // after backup, change state to SLEEPING
@@ -168,7 +168,7 @@ void backup_data()
 
         seteuid(getuid());
 
-        sys_info("±¸·İ¹¤×÷¿ªÊ¼¡£");
+        sys_info("å¤‡ä»½å·¥ä½œå¼€å§‹ã€‚");
         lt = localtime(time());
 
         // because LT_MON is from 0..11, so I must add 1
@@ -177,19 +177,19 @@ void backup_data()
                         lt[LT_YEAR], lt[LT_MON], lt[LT_MDAY]);
         if (! assure_not_exist(bkdir))
         {
-                sys_info(sprintf("±¸·İÊ§°Ü£ºÎŞ·¨É¾³ı(%s)¡£", bkdir));
+                sys_info(sprintf("å¤‡ä»½å¤±è´¥ï¼šæ— æ³•åˆ é™¤(%s)ã€‚", bkdir));
                 return;
         }
 
         // backup data
         count = CMD_CP->copy_dir(DATA_DIR, bkdir);
         if (count)
-                sys_info(sprintf("×Ü¹²ÓĞ%d¸öÎÄ¼ş±»±£´æµ½(%s)ÖĞ¡£", count, bkdir));
+                sys_info(sprintf("æ€»å…±æœ‰%dä¸ªæ–‡ä»¶è¢«ä¿å­˜åˆ°(%s)ä¸­ã€‚", count, bkdir));
 
         call_out("remove_backup", 1, lt);
 }
 
-// É¾³ıÒÔÇ°µÄ±¸·İ
+// åˆ é™¤ä»¥å‰çš„å¤‡ä»½
 void remove_backup(mixed lt)
 {
         object *obs;
@@ -216,7 +216,7 @@ void remove_backup(mixed lt)
                         continue;
 
                 CMD_RM->rm_dir(BACKUP_DIR + file[i][0]);
-                sys_info(sprintf("±¸·İ(%s)ÒÑ¾­±»×Ô¶¯É¾³ı¡£", file[i][0]));
+                sys_info(sprintf("å¤‡ä»½(%s)å·²ç»è¢«è‡ªåŠ¨åˆ é™¤ã€‚", file[i][0]));
         }
 
         // update all loging object
@@ -228,23 +228,23 @@ void remove_backup(mixed lt)
                         obs[i]->start_log();
                 }
 
-        // ÎªÁËÏÔÊ¾ÕıÈ·µÄÊ±¼ä£¬ËùÒÔÊ¹ÓÃ call_out ºô½Ğ¡£
-        call_out("sys_info", 0, "±¸·İ¹¤×÷Íê±Ï¡£");
+        // ä¸ºäº†æ˜¾ç¤ºæ­£ç¡®çš„æ—¶é—´ï¼Œæ‰€ä»¥ä½¿ç”¨ call_out å‘¼å«ã€‚
+        call_out("sys_info", 0, "å¤‡ä»½å·¥ä½œå®Œæ¯•ã€‚");
 
-        // 10sÒÔºó¼ì²éËùÓĞµÄÍæ¼Ò
+        // 10sä»¥åæ£€æŸ¥æ‰€æœ‰çš„ç©å®¶
         call_out("check_all_player", 1);
 }
 
-// ¼ì²éËùÓĞÍæ¼Ò
+// æ£€æŸ¥æ‰€æœ‰ç©å®¶
 private void check_all_player()
 {
-        message_system("ÏµÍ³¿ªÊ¼ºË²éËùÓĞÍæ¼Ò£¬²¢Çå³ı³¤Ê±¼ä²»ÉÏÏßµÄÊ¹ÓÃÕß...");
-        sys_info("ÏµÍ³¿ªÊ¼¼ì²éËùÓĞÍæ¼Ò¡£");
+        message_system("ç³»ç»Ÿå¼€å§‹æ ¸æŸ¥æ‰€æœ‰ç©å®¶ï¼Œå¹¶æ¸…é™¤é•¿æ—¶é—´ä¸ä¸Šçº¿çš„ä½¿ç”¨è€…...");
+        sys_info("ç³»ç»Ÿå¼€å§‹æ£€æŸ¥æ‰€æœ‰ç©å®¶ã€‚");
 
         EXAMINE_CMD->search_dir(0, 1);
 
-        // ÎªÁËÏÔÊ¾ÕıÈ·µÄÊ±¼ä£¬ËùÒÔÊ¹ÓÃ call_out ºô½Ğ¡£
-        call_out("sys_info", 0, "ÏµÍ³¼ì²éËùÓĞÍæ¼ÒÍê±Ï¡£");
+        // ä¸ºäº†æ˜¾ç¤ºæ­£ç¡®çš„æ—¶é—´ï¼Œæ‰€ä»¥ä½¿ç”¨ call_out å‘¼å«ã€‚
+        call_out("sys_info", 0, "ç³»ç»Ÿæ£€æŸ¥æ‰€æœ‰ç©å®¶å®Œæ¯•ã€‚");
 }
 
 // check that y/m/d wether or not close cy/cm/cd(current time)

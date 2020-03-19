@@ -5,9 +5,9 @@ inherit F_DEALER;
 
 void create()
 {
-	set_name("ÀÏÕÅ", ({"lao zhang", "zhang", "boss"}));
-	set("title", "Ãæ¹İÀÏ°å");
-	set("gender", "ÄĞĞÔ");
+	set_name("è€å¼ ", ({"lao zhang", "zhang", "boss"}));
+	set("title", "é¢é¦†è€æ¿");
+	set("gender", "ç”·æ€§");
 	set("age", 35);
 	set("qi", 350); 
 	set("max_qi", 350);
@@ -48,6 +48,6 @@ void init()
 void greeting(object ob)
 {
         if (! ob || environment(ob) != environment()) return;
-        say("ÀÏÕÅÈÈÇéµØËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-            "£¬½øÀ´³ÔÍëÈÈºõµÄÃæÌõ°É!¡£\n");
+        say("è€å¼ çƒ­æƒ…åœ°è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+            "ï¼Œè¿›æ¥åƒç¢—çƒ­ä¹çš„é¢æ¡å§!ã€‚\n");
 }

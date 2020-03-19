@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "������");
+        set("short", "棂星门");
         set("long", @LONG
-���������������ĵ�һ���ţ��ɺ����񣬻���ʯ��͵�ʯ
-�Ʒ���������ɽ��ף����Ϣ֮�أ����̷�Ϊ����С���졣�ڴ�
-Զ����ɽ��ɽ����ɣ�����������յĴ���
+这里是南岳大庙的第一道门，由汉白玉，花岗石打就的石
+牌坊。南岳衡山是祝融游息之地，道教奉为第三小洞天。在此
+远望衡山，山势如飞，如云雾中凌空的大鸟。
 LONG);
         set("exits", ([
                 "north"  : __DIR__"kuixingge",

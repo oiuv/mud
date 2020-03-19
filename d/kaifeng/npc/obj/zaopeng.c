@@ -3,19 +3,19 @@ inherit F_LIQUID;
 
 void create()
 {
-        set_name("Ä¾ÔèÅè", ({"zaopen"}));
+        set_name("æœ¨æ¾¡ç›†", ({"zaopen"}));
         set_weight(500000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ä¾Í·µÄÔèÅè,ÒÑ¾­ºÜ³Â¾É¡£\n");
-                set("unit", "Ö»");
+                set("long", "æœ¨å¤´çš„æ¾¡ç›†,å·²ç»å¾ˆé™ˆæ—§ã€‚\n");
+                set("unit", "åª");
                 set("value", 100);
                 set("max_liquid", 15);
         }
         set("liquid", ([
                 "type": "alcohol",
-                "name": "Ï´ÔèË®",
+                "name": "æ´—æ¾¡æ°´",
                 "remaining": 15,
                 "drunk_apply": 3,
         ]));

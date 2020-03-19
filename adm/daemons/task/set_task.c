@@ -2,15 +2,15 @@ inherit F_DBASE;
 
 #include <ansi.h>
 
-#define ZIXU "/adm/daemons/task/npc/zixu"                 //task·¢²¼Ðû²¼Õß
-#define TASK_CARRIER "/adm/daemons/task/npc/task_carrier" //task Ð¯´øÕß
-#define TASK_OBJECT "/adm/daemons/task/obj/"              //taskÎï¼þÄ¿Â¼
-#define MIRROR "/adm/daemons/task/mirror.c"               //±¦¾µ·ÅÖÃµÄÂ·¾¶
+#define ZIXU "/adm/daemons/task/npc/zixu"                 //taskå‘å¸ƒå®£å¸ƒè€…
+#define TASK_CARRIER "/adm/daemons/task/npc/task_carrier" //task æºå¸¦è€…
+#define TASK_OBJECT "/adm/daemons/task/obj/"              //taskç‰©ä»¶ç›®å½•
+#define MIRROR "/adm/daemons/task/mirror.c"               //å®é•œæ”¾ç½®çš„è·¯å¾„
 
 void create()
 {
     seteuid(getuid());
-    set("name", HIG "±¦¾µÈÎÎñ¾«Áé" NOR);
+    set("name", HIG "å®é•œä»»åŠ¡ç²¾çµ" NOR);
     set("id", "mirror daemon");
     call_out("task_reminder", 20);
 }
@@ -21,7 +21,7 @@ void task_reminder()
     if (!zixu)
         zixu = load_object(ZIXU);
 
-    CHANNEL_D->do_channel(zixu, "chat", HIR "Çë×¢Òâ£¬±¦¾µÈÎÎñ½«ÓÚÈý·ÖÖÓºóÖØÐÂ·Ö²¼¡£" NOR);
+    CHANNEL_D->do_channel(zixu, "chat", HIR "è¯·æ³¨æ„ï¼Œå®é•œä»»åŠ¡å°†äºŽä¸‰åˆ†é’ŸåŽé‡æ–°åˆ†å¸ƒã€‚" NOR);
 
     remove_call_out("set_task");
     call_out("set_task", 180);
@@ -38,7 +38,7 @@ void set_task()
         zixu = load_object(ZIXU);
     level = random(15) + 1;
 
-    CHANNEL_D->do_channel(zixu, "chat", HIY "±¦¾µÈÎÎñÖØÐÂ·Ö²¼Íê±Ï¡£" NOR);
+    CHANNEL_D->do_channel(zixu, "chat", HIY "å®é•œä»»åŠ¡é‡æ–°åˆ†å¸ƒå®Œæ¯•ã€‚" NOR);
 
     remove_call_out("task_reminder");
     call_out("task_reminder", 1020);
@@ -64,8 +64,8 @@ void set_task()
             task->set("task_time", time() / 100);
 
             NPC_D->place_npc(npc, 0);
-            if (strsrch(npc->query("long"), "Ò»¸öÊ°»ÄÕß") > -1)
-            { //Ôö¼ÓnpcµÄÎ±×°
+            if (strsrch(npc->query("long"), "ä¸€ä¸ªæ‹¾è’è€…") > -1)
+            { //å¢žåŠ npcçš„ä¼ªè£…
                 npc_inv = all_inventory(npc);
                 for (y = 0; y < sizeof(npc_inv); y++)
                 {
@@ -98,21 +98,21 @@ void set_task()
     mirror = children(MIRROR);
 
     if (sizeof(mirror) == 1)
-        return; //Ö»ÓÐÖ÷Îï¼þÃ»ÓÐÈÎºÎclone³öÀ´µÄ
+        return; //åªæœ‰ä¸»ç‰©ä»¶æ²¡æœ‰ä»»ä½•cloneå‡ºæ¥çš„
 
     for (i = 0; i < sizeof(mirror); i++)
     {
 
         if (!clonep(mirror[i]))
-            continue; //ÈôÊÇÖ÷Îï¼þ²»×¢Èë
+            continue; //è‹¥æ˜¯ä¸»ç‰©ä»¶ä¸æ³¨å…¥
 
         mirror_owner = environment(mirror[i]);
 
         if (query_ip_number(mirror_owner) == 0)
         {
             destruct(mirror[i]);
-            tell_object(mirror_owner, "ÄãÄ¿Ç°Ã»ÓÐipµØÖ·£¬Òò´Ë"
-                                      "Õâ¿é±¦¾µÌìÉñÓèÒÔÃ»ÊÕ¡£\n");
+            tell_object(mirror_owner, "ä½ ç›®å‰æ²¡æœ‰ipåœ°å€ï¼Œå› æ­¤"
+                                      "è¿™å—å®é•œå¤©ç¥žäºˆä»¥æ²¡æ”¶ã€‚\n");
             continue;
         }
 
@@ -121,8 +121,8 @@ void set_task()
             ip = ({query_ip_number(mirror_owner)});
 
             mirror[i]->set("power", 100);
-            tell_object(mirror_owner, HIR "Ö»¼ûÒ»µÀºì¹â×¢ÈëÄãµÄÇ¬À¤±¦"
-                                          "¾µÀïÃæ£¬Ê¹Ëü¶ÙÊ±ÓÐÁËÁéÆø¡£\n" NOR);
+            tell_object(mirror_owner, HIR "åªè§ä¸€é“çº¢å…‰æ³¨å…¥ä½ çš„ä¹¾å¤å®"
+                                          "é•œé‡Œé¢ï¼Œä½¿å®ƒé¡¿æ—¶æœ‰äº†çµæ°”ã€‚\n" NOR);
             continue;
         }
         else
@@ -136,15 +136,15 @@ void set_task()
             if (same == 1)
             {
                 destruct(mirror[i]);
-                tell_object(mirror_owner, "ÄãËùÔÚip»¹ÓÐÁíÍâµÄ±¦¾µ£¬"
-                                          "Õâ¿é±¦¾µÌìÉñÓèÒÔÃ»ÊÕ¡£\n");
+                tell_object(mirror_owner, "ä½ æ‰€åœ¨ipè¿˜æœ‰å¦å¤–çš„å®é•œï¼Œ"
+                                          "è¿™å—å®é•œå¤©ç¥žäºˆä»¥æ²¡æ”¶ã€‚\n");
             }
             else
             {
                 ip += ({query_ip_number(mirror_owner)});
                 mirror[i]->set("power", 100);
-                tell_object(mirror_owner, HIR "Ö»¼ûÒ»µÀºì¹â×¢ÈëÄãµÄÇ¬À¤±¦"
-                                              "¾µÀïÃæ£¬Ê¹Ëü¶ÙÊ±ÓÐÁËÁéÆø¡£\n" NOR);
+                tell_object(mirror_owner, HIR "åªè§ä¸€é“çº¢å…‰æ³¨å…¥ä½ çš„ä¹¾å¤å®"
+                                              "é•œé‡Œé¢ï¼Œä½¿å®ƒé¡¿æ—¶æœ‰äº†çµæ°”ã€‚\n" NOR);
             }
         }
     }
@@ -155,12 +155,12 @@ int do_return(object ob, object me, string arg)
     string target, item;
     object who, pay;
     int count, exp, pot /*, tihui*/, gx;
-    //Ôö¼ÓÔÄÀú½±Àø 2016-12-21
+    //å¢žåŠ é˜…åŽ†å¥–åŠ± 2016-12-21
     int score;
     int kar;
 
     if (!arg)
-        return notify_fail("ÄãÒª¸øË­Ê²Ã´¶«Î÷£¿\n");
+        return notify_fail("ä½ è¦ç»™è°ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
     if (sscanf(arg, "%s to %s", item, target) != 2 &&
         sscanf(arg, "%s %s", target, item) != 2)
@@ -172,13 +172,13 @@ int do_return(object ob, object me, string arg)
     who = present(target, environment(me));
 
     if (!objectp(who))
-        return notify_fail("ÕâÀïÃ»ÓÐÕâ¸öÈË¡£\n");
+        return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™ä¸ªäººã€‚\n");
 
     if (who->query("id") != ob->query("owner_id"))
         return 0;
 
     if (!living(who))
-        return notify_fail("Äã»¹ÊÇµÃµÈÈË¼ÒÐÑÁËÔÙËµ°É¡£\n");
+        return notify_fail("ä½ è¿˜æ˜¯å¾—ç­‰äººå®¶é†’äº†å†è¯´å§ã€‚\n");
 
     if (me->query("mirror_task/task_time") != ob->query("task_time"))
     {
@@ -203,10 +203,10 @@ int do_return(object ob, object me, string arg)
     if ( count == 20 ) pot += 1000;
     if ( count == 30 ) pot += 1500;
     */
-    //µ÷ÕûtaskÈÎÎñpot½±Àø 2017-02-02
+    //è°ƒæ•´taskä»»åŠ¡potå¥–åŠ± 2017-02-02
     exp = 1000 + random(1000);
-    //±¦¾µ¶¨Î»Ô½ÓÃÁéÁ¦Ô½µÍ¶¨Î»Ô½Ä£ºý£¬Ò²¾ÍÊÇËµÃ¿´Î¸üÐÂÒ»ÂÖµÄ30¸öÈÎÎñÄÚÔ½ºóÀ´Ñ°ÕÒÄÑ¶ÈÔ½´ó£¬¹ÊÔ½ºóÀ´pot½±ÀøÔ½´ó 2017-02-02
-    //½øÒ»²½Ìá¸ßtaskÈÎÎñ½±Àø¡£ÆäÊµ×÷ÎªÊÖ¶¯ÈÎÎñ£¬Èç¹û²»ÊÇÒòÎªµ£ÐÄ³öÏÖÈ«×Ô¶¯task»úÆ÷ÈËÑÏÖØÓ°ÏìÆ½ºâ£¬taskÈÎÎñµÄ½±Àø»¹Ó¦¸Ã´óµÃ¶à¡£ 2017-02-24
+    //å®é•œå®šä½è¶Šç”¨çµåŠ›è¶Šä½Žå®šä½è¶Šæ¨¡ç³Šï¼Œä¹Ÿå°±æ˜¯è¯´æ¯æ¬¡æ›´æ–°ä¸€è½®çš„30ä¸ªä»»åŠ¡å†…è¶ŠåŽæ¥å¯»æ‰¾éš¾åº¦è¶Šå¤§ï¼Œæ•…è¶ŠåŽæ¥potå¥–åŠ±è¶Šå¤§ 2017-02-02
+    //è¿›ä¸€æ­¥æé«˜taskä»»åŠ¡å¥–åŠ±ã€‚å…¶å®žä½œä¸ºæ‰‹åŠ¨ä»»åŠ¡ï¼Œå¦‚æžœä¸æ˜¯å› ä¸ºæ‹…å¿ƒå‡ºçŽ°å…¨è‡ªåŠ¨taskæœºå™¨äººä¸¥é‡å½±å“å¹³è¡¡ï¼Œtaskä»»åŠ¡çš„å¥–åŠ±è¿˜åº”è¯¥å¤§å¾—å¤šã€‚ 2017-02-24
     if (count > 20)
         pot = 5000 + random(2500);
     else if (count > 10)
@@ -221,49 +221,49 @@ int do_return(object ob, object me, string arg)
     if (count == 20)
         pot += 3000;
     if (count == 30)
-        pot += 10000; //Ã¿´Î¸üÐÂ30¸ötaskÎïÆ·£¬¹Ê30¸öÈ«²¿Íê³ÉÀíÓ¦¼Ó´ó½±Àø·ù¶È£¨ÎÒÔõÃ´¸Ð¾õ30¸öÈ«Íê³ÉÊÇ²»¿ÉÄÜµÄÊÂÇé¡£¡£¡££© 2017-02-02
+        pot += 10000; //æ¯æ¬¡æ›´æ–°30ä¸ªtaskç‰©å“ï¼Œæ•…30ä¸ªå…¨éƒ¨å®Œæˆç†åº”åŠ å¤§å¥–åŠ±å¹…åº¦ï¼ˆæˆ‘æ€Žä¹ˆæ„Ÿè§‰30ä¸ªå…¨å®Œæˆæ˜¯ä¸å¯èƒ½çš„äº‹æƒ…ã€‚ã€‚ã€‚ï¼‰ 2017-02-02
 
     //gx = 1 + random(2);
     gx = 2 + random(2);
-    //Ôö¼ÓÔÄÀú½±Àø 2016-12-21
-    kar = me->query("kar"); //ÐÞ¸ÄÔÄÀúÔö¼ÓºÍ¸£Ôµ¹Ò¹³ 2016-12-21
+    //å¢žåŠ é˜…åŽ†å¥–åŠ± 2016-12-21
+    kar = me->query("kar"); //ä¿®æ”¹é˜…åŽ†å¢žåŠ å’Œç¦ç¼˜æŒ‚é’© 2016-12-21
     score = 20 + random(kar);
     me->add("combat_exp", exp);
     me->add("potential", pot);
     //  me->add("experience", tihui);
     me->add("gongxian", gx);
-    //Ôö¼ÓÔÄÀú½±Àø 2016-12-21
+    //å¢žåŠ é˜…åŽ†å¥–åŠ± 2016-12-21
     me->add("score", score);
     me->delete ("xquest/mirror");
 
-    tell_object(me, "ÄãÄÃ³ö" + ob->name() + "(" + ob->query("id") + ")¸ø" +
-                        who->name() + "¡£\n" + WHT + who->name() + "ËµµÀ£º¡°°¡£¬ÕæÊÇ¶àÐ»ÕâÎ»" +
-                        RANK_D->query_respect(me) + "ÁË¡£¡±\n" NOR);
+    tell_object(me, "ä½ æ‹¿å‡º" + ob->name() + "(" + ob->query("id") + ")ç»™" +
+                        who->name() + "ã€‚\n" + WHT + who->name() + "è¯´é“ï¼šâ€œå•Šï¼ŒçœŸæ˜¯å¤šè°¢è¿™ä½" +
+                        RANK_D->query_respect(me) + "äº†ã€‚â€\n" NOR);
 
-    tell_object(me, HIY "ÕâÊÇÄãÕâÒ»ÂÖÍê³ÉµÄµÚ" + HIR +
-                        chinese_number(me->query("mirror_task/count")) + NOR + HIY "¸ö±¦¾µÈÎÎñ¡£\n" NOR +
-                        HIG "Í¨¹ýÕâ´Î¶ÍÁ¶£¬Äã»ñµÃÁË" NOR HIR + chinese_number(exp) +
-                        HIG "µã¾­Ñé£¬" NOR HIW + chinese_number(pot) + NOR HIG "µãÇ±ÄÜ¡£\n" NOR HIW "Íâ¼Ó½±ÀøÈýÊ®Á½°×Òø£¬ÒÔ¼°" + chinese_number(gx) +
-                        "µãÃÅÅÉ¹±Ï×¡£\n" NOR);
+    tell_object(me, HIY "è¿™æ˜¯ä½ è¿™ä¸€è½®å®Œæˆçš„ç¬¬" + HIR +
+                        chinese_number(me->query("mirror_task/count")) + NOR + HIY "ä¸ªå®é•œä»»åŠ¡ã€‚\n" NOR +
+                        HIG "é€šè¿‡è¿™æ¬¡é”»ç‚¼ï¼Œä½ èŽ·å¾—äº†" NOR HIR + chinese_number(exp) +
+                        HIG "ç‚¹ç»éªŒï¼Œ" NOR HIW + chinese_number(pot) + NOR HIG "ç‚¹æ½œèƒ½ã€‚\n" NOR HIW "å¤–åŠ å¥–åŠ±ä¸‰åä¸¤ç™½é“¶ï¼Œä»¥åŠ" + chinese_number(gx) +
+                        "ç‚¹é—¨æ´¾è´¡çŒ®ã€‚\n" NOR);
     if (me->query("mirror_count"))
     {
-        tell_object(me, HIY "ÄãÀÛ¼ÆÒÑÍê³É" + HIR +
-                            chinese_number(me->query("mirror_count")) + NOR + HIY "¸ö±¦¾µÈÎÎñ¡£\n" NOR);
+        tell_object(me, HIY "ä½ ç´¯è®¡å·²å®Œæˆ" + HIR +
+                            chinese_number(me->query("mirror_count")) + NOR + HIY "ä¸ªå®é•œä»»åŠ¡ã€‚\n" NOR);
     }
-    message("vision", me->name() + "ÄÃ³ö" + ob->name() + "(" + ob->query("id") + ")¸ø" + who->name() + "¡£\n" + WHT + who->name() + "ËµµÀ£º"
-                                                                                                                                    "¡°°¡£¬ÕæÊÇ¶àÐ»ÕâÎ»" +
-                          RANK_D->query_respect(me) + "ÁË¡£¡±\n" NOR,
+    message("vision", me->name() + "æ‹¿å‡º" + ob->name() + "(" + ob->query("id") + ")ç»™" + who->name() + "ã€‚\n" + WHT + who->name() + "è¯´é“ï¼š"
+                                                                                                                                    "â€œå•Šï¼ŒçœŸæ˜¯å¤šè°¢è¿™ä½" +
+                          RANK_D->query_respect(me) + "äº†ã€‚â€\n" NOR,
             environment(me), ({me}));
 
     pay = new ("/clone/money/silver");
     pay->set_amount(30);
     pay->move(me, 1);
 
-    /*  log_file("static/mirror", sprintf("%s(%s) ½»ÎïÆ· at %s.\n",
+    /*  log_file("static/mirror", sprintf("%s(%s) äº¤ç‰©å“ at %s.\n",
              me->name(1), me->query("id"), ctime(time())));  */
 
     destruct(ob);
-    //taskÔö¼Ó100¡¢200¡¢400ÈÎÎñ½±Æ· by Ð½ÓÐËùÊô
+    //taskå¢žåŠ 100ã€200ã€400ä»»åŠ¡å¥–å“ by è–ªæœ‰æ‰€å±ž
     if (me->query("mirror_count") == 100 || me->query("mirror_count") == 200 || me->query("mirror_count") == 300 ||
         me->query("mirror_count") == 400 || me->query("mirror_count") == 500)
         call_other(__FILE__, "set_item", me);
@@ -272,16 +272,16 @@ int do_return(object ob, object me, string arg)
 
 string set_item(object me)
 {
-    //taskÔö¼Ó100¡¢200¡¢400ÈÎÎñ½±Æ· by Ð½ÓÐËùÊô
-    // Íê³É100¸ötask£ºÃÀÈÝÍè¡¢¸£Ô´µ¤
+    //taskå¢žåŠ 100ã€200ã€400ä»»åŠ¡å¥–å“ by è–ªæœ‰æ‰€å±ž
+    // å®Œæˆ100ä¸ªtaskï¼šç¾Žå®¹ä¸¸ã€ç¦æºä¸¹
     string *ob1_list = ({
         "/clone/fam/gift/perwan",
         "/clone/fam/gift/kardan",
-        "/clone/fam/etc/prize4", //Ê¥±­
-        "/clone/fam/etc/prize5", //ÉñÊ¥ÑªÇå
+        "/clone/fam/etc/prize4", //åœ£æ¯
+        "/clone/fam/etc/prize5", //ç¥žåœ£è¡€æ¸…
     });
 
-    // Íê³É200¸ötask£º7³Éµ¤
+    // å®Œæˆ200ä¸ªtaskï¼š7æˆä¸¹
     string *ob2_list = ({
         "/clone/fam/gift/str2",
         "/clone/fam/gift/int2",
@@ -289,7 +289,7 @@ string set_item(object me)
         "/clone/fam/gift/dex2",
     });
 
-    // Íê³É300¸ötask£º85³Éµ¤
+    // å®Œæˆ300ä¸ªtaskï¼š85æˆä¸¹
     string *ob3_list = ({
         "/clone/fam/gift/str3",
         "/clone/fam/gift/int3",
@@ -297,16 +297,16 @@ string set_item(object me)
         "/clone/fam/gift/dex3",
     });
 
-    // Íê³É400¸ötask£ºÏ¡ÓÐÌØÊâºÏ³É²ÄÁÏ
+    // å®Œæˆ400ä¸ªtaskï¼šç¨€æœ‰ç‰¹æ®Šåˆæˆææ–™
     string *ob4_list = ({
-        "/clone/fam/item/xuantie", //ÌìÉ½ÐþÌú£¨100point£¬´òÔìµ¶¡¢½££©
+        "/clone/fam/item/xuantie", //å¤©å±±çŽ„é“ï¼ˆ100pointï¼Œæ‰“é€ åˆ€ã€å‰‘ï¼‰
         "/clone/fam/etc/bipo",
         "/clone/fam/etc/huanshi",
         "/clone/fam/etc/binghuozhu",
         "/clone/fam/etc/leishenzhu",
     });
 
-    // Íê³É500¸ötask£ºÎÞ»¨¹û
+    // å®Œæˆ500ä¸ªtaskï¼šæ— èŠ±æžœ
     string *ob5_list = ({
         "/clone/fam/obj/guo",
         "/clone/fam/max/xuanhuang",
@@ -318,32 +318,32 @@ string set_item(object me)
     if (me->query("mirror_count") == 100)
     {
         gift = ob1_list[random(sizeof(ob1_list))];
-        //log_file("static/mirror", sprintf("%s(%s) »ñµÃÏÉµ¤ at %s.\n",
+        //log_file("static/mirror", sprintf("%s(%s) èŽ·å¾—ä»™ä¸¹ at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
     }
     else if (me->query("mirror_count") == 200)
     {
         gift = ob2_list[random(sizeof(ob2_list))];
-        //log_file("static/mirror", sprintf("%s(%s) »ñµÃÏÉµ¤ at %s.\n",
+        //log_file("static/mirror", sprintf("%s(%s) èŽ·å¾—ä»™ä¸¹ at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
     }
     else if (me->query("mirror_count") == 300)
     {
         gift = ob3_list[random(sizeof(ob3_list))];
-        //log_file("static/mirror", sprintf("%s(%s) »ñµÃÏÉµ¤ at %s.\n",
+        //log_file("static/mirror", sprintf("%s(%s) èŽ·å¾—ä»™ä¸¹ at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
     }
     else if (me->query("mirror_count") == 400)
     {
         gift = ob4_list[random(sizeof(ob4_list))];
-        //log_file("static/mirror", sprintf("%s(%s) »ñµÃÏÉµ¤ at %s.\n",
+        //log_file("static/mirror", sprintf("%s(%s) èŽ·å¾—ä»™ä¸¹ at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
     }
     else if (me->query("mirror_count") == 500)
     {
         me->delete ("mirror_count");
         gift = ob5_list[random(sizeof(ob5_list))];
-        //log_file("static/mirror", sprintf("%s(%s) »ñµÃÎÞ»¨¹û at %s.\n",
+        //log_file("static/mirror", sprintf("%s(%s) èŽ·å¾—æ— èŠ±æžœ at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
     }
 
@@ -352,12 +352,12 @@ string set_item(object me)
 
     if (item->query("base_unit"))
     {
-        tell_object(me, HIG "Äã»ñµÃÁËÒ»" + item->query("base_unit") + NOR +
+        tell_object(me, HIG "ä½ èŽ·å¾—äº†ä¸€" + item->query("base_unit") + NOR +
                             item->name() + "\n");
     }
     else
     {
-        tell_object(me, HIG "Äã»ñµÃÁËÒ»" + item->query("unit") + NOR +
+        tell_object(me, HIG "ä½ èŽ·å¾—äº†ä¸€" + item->query("unit") + NOR +
                             item->name() + "\n");
     }
 }

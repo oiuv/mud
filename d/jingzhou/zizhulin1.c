@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "×ÏÖñÁÖ");
+	set("short", "ç´«ç«¹æž—");
 	set("long", @LONG
-ÄãÑÛÇ°Í»È»Ò»±é¹âÃ÷£¬ÄãÀ´µ½ÁËÒ»×ùÓÐÐí¶à×ÏÖñ´î³ÉµÄ»¨
-Ô°(yuan)ÃæÇ°£¬ÀïÃæÆ®³öÕóÕó»¨Ïã£¬ËÄÖÜ×ÏÖñ»·±§£¬Ëµ²»³öµÄ
-Ê«Çé»­Òâ¡£ÒþÔ¼¿´µ½ÀïÃæÖÖÓÐÐ©»¨»Ü¡£
+ä½ çœ¼å‰çªç„¶ä¸€éå…‰æ˜Žï¼Œä½ æ¥åˆ°äº†ä¸€åº§æœ‰è®¸å¤šç´«ç«¹æ­æˆçš„èŠ±
+å›­(yuan)é¢å‰ï¼Œé‡Œé¢é£˜å‡ºé˜µé˜µèŠ±é¦™ï¼Œå››å‘¨ç´«ç«¹çŽ¯æŠ±ï¼Œè¯´ä¸å‡ºçš„
+è¯—æƒ…ç”»æ„ã€‚éšçº¦çœ‹åˆ°é‡Œé¢ç§æœ‰äº›èŠ±å‰ã€‚
 LONG);
         set("outdoors", "jingzhou");
 
@@ -16,8 +16,8 @@ LONG);
 		"enter" : __DIR__"xiaoyuan",
 	]));
         set("item_desc", ([
-                "yuan": HIM "\nÕâÀï¿´À´ÊÇÒ»´¦ÖÖ»¨µÄºÃµØ·½£¬¿ÉÒþÔ¼¿´µ½ÀïÃæ"
-                        "ÖÖÓÐÐíÐí¶à¶à\nµÄ»¨»Ü£¬ÓÉÐí¶àµÄ×ÏÖñ´î½¨¶ø³É¡£\n" NOR
+                "yuan": HIM "\nè¿™é‡Œçœ‹æ¥æ˜¯ä¸€å¤„ç§èŠ±çš„å¥½åœ°æ–¹ï¼Œå¯éšçº¦çœ‹åˆ°é‡Œé¢"
+                        "ç§æœ‰è®¸è®¸å¤šå¤š\nçš„èŠ±å‰ï¼Œç”±è®¸å¤šçš„ç´«ç«¹æ­å»ºè€Œæˆã€‚\n" NOR
         ]) );
 	setup();
 	replace_program(ROOM);

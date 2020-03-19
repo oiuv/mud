@@ -4,12 +4,12 @@ inherit EQUIP;
 
 void create()
 {
-    set_name("°×Ë¿ÒÂ", ({ "bai siyi","siyi", }) );
+    set_name("ç™½ä¸è¡£", ({ "bai siyi","siyi", }) );
 	set_weight(1000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¼ş");
+		set("unit", "ä»¶");
 		set("armor_type", "cloth");
 		set("value", 2500);
         set("armor_prop/dodge", 10);

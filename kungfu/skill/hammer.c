@@ -1,4 +1,4 @@
-// hammer.c »ù±¾´¸·¨
+// hammer.c åŸºæœ¬é”¤æ³•
 // Modified by Venus Oct.1997
 
 inherit SKILL;

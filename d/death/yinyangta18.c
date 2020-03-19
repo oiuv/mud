@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", HIB "ÒõÑôËş" NOR);
+        set("short", HIB "é˜´é˜³å¡”" NOR);
         set("long", HIB @LONG
-ÕâÊÇµØÓüÖĞ×î¸ßµÄÒ»×ùËş£¬¸ßÔ¼Èı°ÙÓà³ß£¬¹²ÓĞÊ®°Ë¼¶¡£ÕâÀï¾ÍÊÇ
-Ëş¶¥£¬Ëş¶¥ÓĞ¸ö¹©·îÌ¨(stone)£¬´«ËµÓĞÉñÊŞÖìÈ¸Â·¹ı¡£
+è¿™æ˜¯åœ°ç‹±ä¸­æœ€é«˜çš„ä¸€åº§å¡”ï¼Œé«˜çº¦ä¸‰ç™¾ä½™å°ºï¼Œå…±æœ‰åå…«çº§ã€‚è¿™é‡Œå°±æ˜¯
+å¡”é¡¶ï¼Œå¡”é¡¶æœ‰ä¸ªä¾›å¥‰å°(stone)ï¼Œä¼ è¯´æœ‰ç¥å…½æœ±é›€è·¯è¿‡ã€‚
 LONG NOR
         );
 
@@ -15,7 +15,7 @@ LONG NOR
         ]));
 
         set("item_desc", ([
-                "stone" : HIW "\nÉÏÃæºÃÏó¿ÉÒÔ·Å(put)ÎïÆ·¡£\n" NOR,
+                "stone" : HIW "\nä¸Šé¢å¥½è±¡å¯ä»¥æ”¾(put)ç‰©å“ã€‚\n" NOR,
         ]));
                 
         set("objects",([
@@ -43,26 +43,26 @@ int do_fang(string arg)
 
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕıÃ¦×ÅÄØ¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
                 
         if (objectp(present("zhu que", environment(me))))
-                return notify_fail("ÖìÈ¸ÒÑ¾­ÏÖÉíÁË£¬»¹Ñ°Ê²Ã´Ñ½£¬¸Ï¿ìÕ½¶·°É£¡\n");
+                return notify_fail("æœ±é›€å·²ç»ç°èº«äº†ï¼Œè¿˜å¯»ä»€ä¹ˆå‘€ï¼Œèµ¶å¿«æˆ˜æ–—å§ï¼\n");
 
         if (query("zhuque") < 1)
-                return notify_fail("ÖìÈ¸ÒÑ¾­±»Ô×ÁË£¬ÄãÔÙÔõÃ´Ñ°Ò²ÊÇÑ°²»µ½µÄ£¡\n");
+                return notify_fail("æœ±é›€å·²ç»è¢«å®°äº†ï¼Œä½ å†æ€ä¹ˆå¯»ä¹Ÿæ˜¯å¯»ä¸åˆ°çš„ï¼\n");
 
         if (arg != "qise yingluo")
-                return notify_fail("Äã±ØĞë·ÅÉÏÖÁ±¦ÆßÉ«è¬çó£¬²ÅÄÜÕĞÒıÉñÊŞÖìÈ¸£¡\n");
+                return notify_fail("ä½ å¿…é¡»æ”¾ä¸Šè‡³å®ä¸ƒè‰²ç’çï¼Œæ‰èƒ½æ‹›å¼•ç¥å…½æœ±é›€ï¼\n");
                                 
         if (! objectp(ob = present("qise yingluo", me)))
-                return notify_fail("ÄãÉíÉÏÃ»ÓĞÖÁ±¦ÆßÉ«è¬çó£¡\n");               
+                return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è‡³å®ä¸ƒè‰²ç’çï¼\n");               
         
         destruct(ob);
-        message_vision(HIC "\n$N" HIC "ÄãĞ¡ĞÄÒíÒíµÄ½«ÖÁ±¦ÆßÉ«è¬çó·Åµ½¹©·îÌ¨£¬¿ªÊ¼Ä¿²»×ª¾¦µÄÑ°ÕÒÖìÈ¸¡£\n" NOR, me); 
+        message_vision(HIC "\n$N" HIC "ä½ å°å¿ƒç¿¼ç¿¼çš„å°†è‡³å®ä¸ƒè‰²ç’çæ”¾åˆ°ä¾›å¥‰å°ï¼Œå¼€å§‹ç›®ä¸è½¬ç›çš„å¯»æ‰¾æœ±é›€ã€‚\n" NOR, me); 
         
         ob1 = new("/d/death/npc/zhuque");
         ob1->move(environment(me));
-        message_vision(HIC "\nÉñÊŞÖìÈ¸ÊÜµ½ÖÁ±¦ÆßÉ«è¬çóµÄÕĞÒı£¬Í»È»³öÏÖÔÚ¹©·îÌ¨£¬Äã¶ÙÊ±´óÏ²£¡\n" NOR, me);         
+        message_vision(HIC "\nç¥å…½æœ±é›€å—åˆ°è‡³å®ä¸ƒè‰²ç’ççš„æ‹›å¼•ï¼Œçªç„¶å‡ºç°åœ¨ä¾›å¥‰å°ï¼Œä½ é¡¿æ—¶å¤§å–œï¼\n" NOR, me);         
         
         return 1;
 }

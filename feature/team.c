@@ -36,17 +36,17 @@ int follow_me(object ob, string dir)
 
     if (ob == leader)
     {
-        // ¸ú×Å±ğÈË×ß
+        // è·Ÿç€åˆ«äººèµ°
         if (ob->query("env/no_follow") &&
             me->query_dex() / 2 + random(me->query_dex()) < ob->query_dex())
         {
-            tell_object(me, ob->name() + "×ßµÃºÃ¿ì£¬ÄãÒ»ÊèÉñ¾Í¸ú²»ÉÏÁË¡£\n");
+            tell_object(me, ob->name() + "èµ°å¾—å¥½å¿«ï¼Œä½ ä¸€ç–ç¥å°±è·Ÿä¸ä¸Šäº†ã€‚\n");
             return 0;
         }
         return follow_path(dir);
     }
     else if (arrayp(team) && team[0] == ob)
-        // ¸ú×Å¶ÓÎéµÄÁìĞäĞĞ×ß
+        // è·Ÿç€é˜Ÿä¼çš„é¢†è¢–è¡Œèµ°
         return follow_path(dir);
 }
 

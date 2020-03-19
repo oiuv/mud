@@ -6,8 +6,8 @@ int update_condition(object me, int duration)
 {
 	if (duration < 1)
         {
-		tell_object(me, BEEP + HIW "ÄãµÄËÀÍö±£»¤ÆÚÏÞÒÑÂú£¬ÒÔºó"
-                                "Çë×Ô¼ºÐ¡ÐÄÁË¡£\n" NOR);
+		tell_object(me, BEEP + HIW "ä½ çš„æ­»äº¡ä¿æŠ¤æœŸé™å·²æ»¡ï¼Œä»¥åŽ"
+                                "è¯·è‡ªå·±å°å¿ƒäº†ã€‚\n" NOR);
 		return 0;
 	}
 	me->apply_condition("die_guard", duration - 1);

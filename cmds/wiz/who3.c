@@ -27,8 +27,8 @@ int main(object me, string str)
         ob_list = sort_array(ob_list, "sort_user");
         ob_list = wiz_ob + ob_list;
 
-        str = HIG" Íæ¼Ò      ÎòĞÔ-ºóÌì ¸ù¹Ç-ºóÌì Éí·¨-ºóÌì ëöÁ¦-ºóÌì Òì³£ ÈİÃ²\n"NOR
-              WHT"¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\n"NOR;
+        str = HIG" ç©å®¶      æ‚Ÿæ€§-åå¤© æ ¹éª¨-åå¤© èº«æ³•-åå¤© è†‚åŠ›-åå¤© å¼‚å¸¸ å®¹è²Œ\n"NOR
+              WHT"â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n"NOR;
         i = 0;
         foreach (ob in ob_list)
         {
@@ -62,8 +62,8 @@ int main(object me, string str)
 
                 if (i++ >= 200) break;
         }
-        str += WHT"¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\n"NOR +
-               sprintf("%s¹²ÓĞ %d Î»Ê¹ÓÃÕßÁ¬ÏßÖĞ¡£\n", LOCAL_MUD_NAME(), sizeof(ob_list));
+        str += WHT"â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n"NOR +
+               sprintf("%så…±æœ‰ %d ä½ä½¿ç”¨è€…è¿çº¿ä¸­ã€‚\n", LOCAL_MUD_NAME(), sizeof(ob_list));
         me->start_more(str);
         return 1;
 }
@@ -82,9 +82,9 @@ int sort_user(object ob1, object ob2)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½£ºwho3
+æŒ‡ä»¤æ ¼å¼ï¼šwho3
 
-Íæ¼ÒĞÅÏ¢²éÑ¯ÁĞ±í3¡£
+ç©å®¶ä¿¡æ¯æŸ¥è¯¢åˆ—è¡¨3ã€‚
 HELP );
         return 1;
 }            

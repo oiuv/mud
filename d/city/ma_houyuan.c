@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��ׯ��Ժ");
+        set("short", "马庄后院");
         set("long", @LONG
-��������ׯ�ĺ�Ժ�������ʹ�Ժ��ࡣ������Ȼ�ۼ���
-������ؤ����Ժ��ȴ�Ǵ����úܸɾ�������һ�����˼ҵ�ͥ
-԰һ�㡣ͨ����������ǰ�����ż�����ؤ��
+这里是马庄的后院，布景和大院差不多。四周虽然聚集着
+许多乞丐，但院内却是打整得很干净，便似一个大户人家的庭
+园一般。通往大厅的门前守卫着几个乞丐。
 LONG);
         set("outdoors", "city");
         set("exits", ([

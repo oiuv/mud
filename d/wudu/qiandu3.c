@@ -13,11 +13,11 @@ string* npcs = ({
 
 void create()
 {
-        set("short", HIR "Ç§¶¾¿ß" NOR);
+        set("short", HIR "åƒæ¯’çªŸ" NOR);
         set("long", @LONG
-ÕâÀïÊÇÒ»¸öÌìÈ»ÐÎ³ÉµÄÊ¯¶´£¬ÀïÃæÉîåä¹ã´ó¡£¶´¶¥Ðü¹Ò×ÅÐí¶àÖÓ
-ÈéÊ¯£¬²»Ê±´«À´¼¸ÉùµÎ´ðµÄË®Éù¡£×ßÔÚ¶´ÖÐ£¬¶´ÄÚÒõ°µ³±Êª£¬ÉíÅÔºö
-È»´«À´Ò»Õó¡°ßÐßÐ¡±µÄÉùÒô¡£
+è¿™é‡Œæ˜¯ä¸€ä¸ªå¤©ç„¶å½¢æˆçš„çŸ³æ´žï¼Œé‡Œé¢æ·±é‚ƒå¹¿å¤§ã€‚æ´žé¡¶æ‚¬æŒ‚ç€è®¸å¤šé’Ÿ
+ä¹³çŸ³ï¼Œä¸æ—¶ä¼ æ¥å‡ å£°æ»´ç­”çš„æ°´å£°ã€‚èµ°åœ¨æ´žä¸­ï¼Œæ´žå†…é˜´æš—æ½®æ¹¿ï¼Œèº«æ—å¿½
+ç„¶ä¼ æ¥ä¸€é˜µâ€œå’å’â€çš„å£°éŸ³ã€‚
 LONG);
 
         set("exits", ([

@@ -7,17 +7,17 @@ inherit HAMMER;
 
 void create()
 {
-        set_name(HIY"´óÊ¯Í·"NOR,({ "da shitou", "shitou" }) );
+        set_name(HIY"å¤§çŸ³å¤´"NOR,({ "da shitou", "shitou" }) );
          set_weight(2000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ö");
+                set("unit", "ä¸ª");
                 set("value", 0);
                 set("material", "bamboo");
-                set("long", "ÕâÊÇÒ»¸ö´óÊ¯Í·¡£\n");
-                set("wield_msg", "$NÄÃ³öÒ»¸ö$n£¬ÊÔÁËÊÔÖØÁ¿ºóÎÕÔÚÊÖÖĞ¡£\n");
-                set("unequip_msg", "$N·ÅÏÂÊÖÖĞµÄ$n¡£\n");
+                set("long", "è¿™æ˜¯ä¸€ä¸ªå¤§çŸ³å¤´ã€‚\n");
+                set("wield_msg", "$Næ‹¿å‡ºä¸€ä¸ª$nï¼Œè¯•äº†è¯•é‡é‡åæ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unequip_msg", "$Næ”¾ä¸‹æ‰‹ä¸­çš„$nã€‚\n");
         }
         init_hammer(8);
         setup();

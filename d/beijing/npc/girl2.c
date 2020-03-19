@@ -2,8 +2,8 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÉÙ¸¾", ({ "shao fu", "fu" }) );
-        set("gender", "Å®ÐÔ" );
+        set_name("å°‘å¦‡", ({ "shao fu", "fu" }) );
+        set("gender", "å¥³æ€§" );
         set("age", 23);
 
         set("shen_type", 1);

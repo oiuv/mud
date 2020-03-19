@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "��ʯС��");
+	set("short", "青石小巷");
 	set("long", @LONG
-����һ����ʯС·��·������ʯ���̳ɣ��ո��¹��꣬·����Ǹɾ���
-С���ھ����ĵģ�ֻ�������Լ��ĽŲ�����ż���紵����֦����ɳɳ����
-����
+这里一条青石小路，路面用青石板铺成，刚刚下过雨，路面很是干净，
+小巷内静悄悄的，只能听见自己的脚步声，偶尔风吹动树枝发出沙沙的响
+声。
 LONG);
         set("outdoors", "luoyang");
         set("no_clean_up", 0);

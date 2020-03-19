@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÍÁ·Ë", ({ "tufei","bandit","fei" }) );
-	set("gender", "ÄĞĞÔ");
+	set_name("åœŸåŒª", ({ "tufei","bandit","fei" }) );
+	set("gender", "ç”·æ€§");
 	set("age", 20);
 	set("long",
-		"Õâ¼Ò»ïÂúÁ³ºáÈâª¬Ò»¸¶Ğ×Éñ¶ñÉ·µÄÄ£Ñù£¬ÁîÈËÍû¶øÉúÎ·¡£\n");
+		"è¿™å®¶ä¼™æ»¡è„¸æ¨ªè‚‰ï¿½ä¸€ä»˜å‡¶ç¥æ¶ç…çš„æ¨¡æ ·ï¼Œä»¤äººæœ›è€Œç”Ÿç•ã€‚\n");
 	set("combat_exp", 5000);
         set("shen_type", -1);
 	set("attitude", "aggressive");

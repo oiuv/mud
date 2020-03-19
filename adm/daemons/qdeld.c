@@ -12,9 +12,9 @@ public int qdel();
 void create()
 {
         seteuid(ROOT_UID);
-        set("name", HIR "ÈÎÎñ¼ì²é¾«Áé" NOR);
-        set("channel_id", "ÈÎÎñ¼ì²é¾«Áé");
-        CHANNEL_D->do_channel( this_object(), "sys", "ÈÎÎñ¼ì²é¾«ÁéÒÑ¾­Æô¶¯¡£");
+        set("name", HIR "ä»»åŠ¡æ£€æŸ¥ç²¾çµ" NOR);
+        set("channel_id", "ä»»åŠ¡æ£€æŸ¥ç²¾çµ");
+        CHANNEL_D->do_channel( this_object(), "sys", "ä»»åŠ¡æ£€æŸ¥ç²¾çµå·²ç»å¯åŠ¨ã€‚");
         call_out("qdel", 1);
 }
 
@@ -50,7 +50,7 @@ public int qdel()
                
         }
 
-        CHANNEL_D->do_channel(this_object(), "sys", "ÏµÍ³×Ô¶¯Çå³ý " + i + " ¸ö³¬¹ý30·ÖÖÓµÄÈÎÎñ¡£");
+        CHANNEL_D->do_channel(this_object(), "sys", "ç³»ç»Ÿè‡ªåŠ¨æ¸…é™¤ " + i + " ä¸ªè¶…è¿‡30åˆ†é’Ÿçš„ä»»åŠ¡ã€‚");
 
 	return 1;
 }

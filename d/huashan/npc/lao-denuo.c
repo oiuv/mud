@@ -7,11 +7,11 @@ int permit_pass(object me, string dir);
 
 void create()
 {
-        set_name("ÀÍµÂÅµ", ({ "lao denuo","lao","denuo" }) );
-        set("nickname", "ÀÏºÃÈË");
-        set("gender", "ÄĞĞÔ");
+        set_name("åŠ³å¾·è¯º", ({ "lao denuo","lao","denuo" }) );
+        set("nickname", "è€å¥½äºº");
+        set("gender", "ç”·æ€§");
         set("age", 61);
-        set("long", "ÀÍµÂÅµÊÇÔÀ²»ÈºµÄ¶şµÜ×Ó¡£\n");
+        set("long", "åŠ³å¾·è¯ºæ˜¯å²³ä¸ç¾¤çš„äºŒå¼Ÿå­ã€‚\n");
         set("attitude", "peaceful");
 
         set("str", 26);
@@ -62,7 +62,7 @@ void create()
                    "id"        : "yue buqun" ]),
         }));
 
-        create_family("»ªÉ½ÅÉ", 14, "µÜ×Ó");
+        create_family("åå±±æ´¾", 14, "å¼Ÿå­");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();
@@ -77,44 +77,44 @@ int permit_pass(object me, string dir)
         if (! living(this_object()))
                 return 1;
 
-        if (me->query("family/family_name") == "»ªÉ½½£×Ú" &&
+        if (me->query("family/family_name") == "åå±±å‰‘å®—" &&
             dir == "southup")
         {
                 if (me->query_temp("beg_huashan"))
                 {
-                        command("say »ØÍ·ÊÇ°¶£¬»ØÍ·ÊÇ°¶°¡£¡");
+                        command("say å›å¤´æ˜¯å²¸ï¼Œå›å¤´æ˜¯å²¸å•Šï¼");
                         return 1;
                 }
 
-                message_vision("$NÈ°µÀ£º¼ÒÊ¦ÓĞ½»´ú£¬½£×ÚØ¥ÎåÄê"
-                               "Ç°¾ÍÀë¿ª»ªÉ½ÁË£¬×ÔÈÏ²»ÊÇ»ªÉ½µÜ×ÓÁË¡£\n"
-                               "ÎÒËäÊÇÀÏºÃÈË£¬ÕâÎ»" + RANK_D->query_respect(me) +
-                               "»¹ÊÇÇë»Ø°É¡£\n", this_object());
+                message_vision("$NåŠé“ï¼šå®¶å¸ˆæœ‰äº¤ä»£ï¼Œå‰‘å®—å»¿äº”å¹´"
+                               "å‰å°±ç¦»å¼€åå±±äº†ï¼Œè‡ªè®¤ä¸æ˜¯åå±±å¼Ÿå­äº†ã€‚\n"
+                               "æˆ‘è™½æ˜¯è€å¥½äººï¼Œè¿™ä½" + RANK_D->query_respect(me) +
+                               "è¿˜æ˜¯è¯·å›å§ã€‚\n", this_object());
                 return -1;
         }
 
 
-        notify_fail("¿´À´" + name() + "²»´òËãÈÃÄã¹ıÈ¥¡£\n");
+        notify_fail("çœ‹æ¥" + name() + "ä¸æ‰“ç®—è®©ä½ è¿‡å»ã€‚\n");
 
         inv = deep_inventory(me);
         for (i = 0; i < sizeof(inv); i++)
         {
                 if (! playerp(inv[i])) continue;
-                if ((string) inv[i]->query("family/family_name") != "»ªÉ½ÅÉ")
+                if ((string) inv[i]->query("family/family_name") != "åå±±æ´¾")
                 {
-                        message_vision("$N¶Ô$nºÈµÀ£ºÄã±³µÄÊÇË­£¿»¹²»¿ì¿ì·ÅÏÂ£¡\n",
+                        message_vision("$Nå¯¹$nå–é“ï¼šä½ èƒŒçš„æ˜¯è°ï¼Ÿè¿˜ä¸å¿«å¿«æ”¾ä¸‹ï¼\n",
                                        this_object(), me);
                         return 0;
                 }
         }
 
         if (me->query("family/family_name") &&
-            me->query("family/family_name") != "»ªÉ½ÅÉ" ||
+            me->query("family/family_name") != "åå±±æ´¾" ||
             ! me->query("family/family_name") &&
             me->query("combat_exp") > 20000)
         {
-                message_vision("$N¶Ô$nµÀ£º¶Ô²»Æğ£¬²»ÊÇÎÒÃÇ»ªÉ½ÅÉµÄÈË"
-                               "ÇëÎğÈë±¾ÅÉÖØµØ¡£\n", this_object(), me);
+                message_vision("$Nå¯¹$né“ï¼šå¯¹ä¸èµ·ï¼Œä¸æ˜¯æˆ‘ä»¬åå±±æ´¾çš„äºº"
+                               "è¯·å‹¿å…¥æœ¬æ´¾é‡åœ°ã€‚\n", this_object(), me);
                 return 0;
         }
 
@@ -150,14 +150,14 @@ void relay_emote(object me, string verb)
                 return;
         }
 
-        if (me->query("family/family_name") != "»ªÉ½½£×Ú")
+        if (me->query("family/family_name") != "åå±±å‰‘å®—")
         {
                 command("poor " + me->query("id"));
                 return;
         }
 
         command("sigh");
-        command("say ÕâÎ»" + RANK_D->query_respect(me) +
-                "£¡ÈëÁË½£×Ú£¬ºó»ÚÁË°É£¿²»Òª½ô£¬»ØÍ·ÊÇ°¶Âï£¡");
+        command("say è¿™ä½" + RANK_D->query_respect(me) +
+                "ï¼å…¥äº†å‰‘å®—ï¼Œåæ‚”äº†å§ï¼Ÿä¸è¦ç´§ï¼Œå›å¤´æ˜¯å²¸å˜›ï¼");
         me->set_temp("beg_huashan", 1);
 }

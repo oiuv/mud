@@ -43,7 +43,7 @@ mapping places = ([
         "shaolin"  : "/d/shaolin/shanmen",
         "suzhou"   : "/d/suzhou/canlangting",
         "taishan"  : "/d/taishan/taishanjiao",
-        //ĞÂÔöÌÒ»¨µº 2018-06-02 
+        //æ–°å¢æ¡ƒèŠ±å²› 2018-06-02 
         "taohua"   : "/d/taohua/haitan",
         "wudang"   : "/d/wudang/jiejianyan",
         "wugong"   : "/d/quanzhen/zhongxin",
@@ -57,9 +57,9 @@ mapping places = ([
         "yongdeng" : "/d/huanghe/yongdeng",
         "zhongnan" : "/d/quanzhen/shanjiao",
         "zhongzhou": "/d/zhongzhou/shizhongxin",
-        //ĞÂÔöºâÉ½ 2017-02-11
+        //æ–°å¢è¡¡å±± 2017-02-11
         "hengshan" : "/d/henshan/nantian",
-        //ĞÂÔö¾øÇé¹È¡¢ÌúÕÆÉ½ 2017-02-18
+        //æ–°å¢ç»æƒ…è°·ã€é“æŒå±± 2017-02-18
         "jueqing"  : "/d/jueqing/shanjiao",
         "tiezhang" : "/d/tiezhang/shanjiao",
         	
@@ -76,139 +76,139 @@ int main(object me, string arg)
         if (! arg) return help(me);
 
         if (me->over_encumbranced()) 
-                return notify_fail("ÄãµÄ¸ººÉ¹ıÖØ£¬¶¯µ¯²»µÃ¡£\n"); 
+                return notify_fail("ä½ çš„è´Ÿè·è¿‡é‡ï¼ŒåŠ¨å¼¹ä¸å¾—ã€‚\n"); 
         
         if (me->query_encumbrance() < 0) 
-                return notify_fail("ÄãµÄ¸ººÉ³öÏÖ¹ÊÕÏ£¬¶¯µ¯²»µÃ¡£\n"); 
+                return notify_fail("ä½ çš„è´Ÿè·å‡ºç°æ•…éšœï¼ŒåŠ¨å¼¹ä¸å¾—ã€‚\n"); 
 
         if (me->query_temp("sleeped")) 
-                return notify_fail("ÄãÏÖÔÚÕıÌÉ×ÅÄØ¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£èººç€å‘¢ã€‚\n");
 
         if (me->is_in_prison())   
-                return notify_fail("ÄãÕıÔÚ×øÀÎÄØ£¬ÄãÏë¸ÉÊ²Ã´£¿£¡\n");
+                return notify_fail("ä½ æ­£åœ¨åç‰¢å‘¢ï¼Œä½ æƒ³å¹²ä»€ä¹ˆï¼Ÿï¼\n");
                                 
         if (me->is_fighting()) 
-                return notify_fail("ÄãÏÖÔÚÕıÔÚÕ½¶·£¡\n");
+                return notify_fail("ä½ ç°åœ¨æ­£åœ¨æˆ˜æ–—ï¼\n");
 
         if (me->is_busy() || me->query("doing")) 
-                return notify_fail("ÄãµÄ¶¯×÷»¹Ã»ÓĞÍê³É£¬²»ÄÜÒÆ¶¯¡£\n");
+                return notify_fail("ä½ çš„åŠ¨ä½œè¿˜æ²¡æœ‰å®Œæˆï¼Œä¸èƒ½ç§»åŠ¨ã€‚\n");
                 
         if (! objectp(riding = me->query_temp("is_riding")))
-                return notify_fail("Äã»¹Ã»ÓĞ×øÆï£¡\n"); 
+                return notify_fail("ä½ è¿˜æ²¡æœ‰åéª‘ï¼\n"); 
         
         if (! present(riding->query("id"), me))
-                return notify_fail("ÄãµÄ×øÆï²»ÔÚÄãÉí±ß£¡\n");
+                return notify_fail("ä½ çš„åéª‘ä¸åœ¨ä½ èº«è¾¹ï¼\n");
 
         /*
         if (present("letter", me)) 
-                return notify_fail("ÄãÉíÉÏ´ø×ÅÃÜº¯£¡\n");
+                return notify_fail("ä½ èº«ä¸Šå¸¦ç€å¯†å‡½ï¼\n");
 
         if (! environment(me)->query("outdoors")) 
-                return notify_fail("ÔÚ·¿¼äÀï²»ÄÜÂÒÅÜ£¡\n");
+                return notify_fail("åœ¨æˆ¿é—´é‡Œä¸èƒ½ä¹±è·‘ï¼\n");
         */
 
         if (environment(me)->query("outdoors") == "gaochang") 
-                return notify_fail("Äã·¢ÏÖÔÚÕâÀï×øÆïºÃÏó²»ÌıÄãµÄÖ¸»Ó£¡\n");
+                return notify_fail("ä½ å‘ç°åœ¨è¿™é‡Œåéª‘å¥½è±¡ä¸å¬ä½ çš„æŒ‡æŒ¥ï¼\n");
 
         if (environment(me)->query("no_ride") ||
             environment(me)->query("maze"))
-                return notify_fail("Äã·¢ÏÖÕâÀïÓĞµã¹Å¹Ö£¬ÄãµÄ×øÆïºÃÏó²»ÌıÄãµÄÖ¸»Ó£¡\n");                
+                return notify_fail("ä½ å‘ç°è¿™é‡Œæœ‰ç‚¹å¤æ€ªï¼Œä½ çš„åéª‘å¥½è±¡ä¸å¬ä½ çš„æŒ‡æŒ¥ï¼\n");                
 
         if (me->query_condition("killer"))
-                return notify_fail("ÄãÓĞÃü°¸ÔÚÉíÄØ£¬ÄãÏëËÁÎŞ¼Éµ¬µÄÔÚ¹ÙµÀÉÏÁï´ï£¿£¡\n");
+                return notify_fail("ä½ æœ‰å‘½æ¡ˆåœ¨èº«å‘¢ï¼Œä½ æƒ³è‚†æ— å¿Œæƒ®çš„åœ¨å®˜é“ä¸Šæºœè¾¾ï¼Ÿï¼\n");
 
         //if (member_array(arg, keys(places)) == -1 && arg != "home") 
-        //ĞÂÔöfamily²ÎÊı
+        //æ–°å¢familyå‚æ•°
         if (member_array(arg, keys(places)) == -1 && arg != "home" && arg != "family")
-                return notify_fail("Õâ¸öµØ·½ÎŞ·¨³Ë×øÆïÈ¥¡£\n");
+                return notify_fail("è¿™ä¸ªåœ°æ–¹æ— æ³•ä¹˜åéª‘å»ã€‚\n");
                 
         if (arg == "home" && ! me->query("private_room/position")) 
-                return notify_fail("Äã»¹Ã»ÓĞ×¡·¿ÄØ£¡\n");
+                return notify_fail("ä½ è¿˜æ²¡æœ‰ä½æˆ¿å‘¢ï¼\n");
 
         if (arg == "home" && stringp(me->query("private_room/position")) &&
            file_size(me->query("private_room/position") + ".c") > 0)
                 room = get_object(me->query("private_room/position"));else
                 
-		//ĞÂ¼Ófamily by Ğ½ÓĞËùÊô
-        // ÌØÊâ£º¹ÅÄ¹2¸ö£¬¾øÇé¹È2¸ö¡£°İôÃÇ§³ßºó×Ô¶¯×ª³ÉÌúÕÆ°ï£¬Êµ¼ÊÊÇÌúÕÆ°ïÓĞÁ½¸ö£¿
-		//ÁéğÕÏÂÊôĞ¡ÃÅÅÉ²»¹Ü£¬ÒÑ±»¹Ø±ÕµÄÃÅÅÉ²»¹Ü¡£
+		//æ–°åŠ family by è–ªæœ‰æ‰€å±
+        // ç‰¹æ®Šï¼šå¤å¢“2ä¸ªï¼Œç»æƒ…è°·2ä¸ªã€‚æ‹œè£˜åƒå°ºåè‡ªåŠ¨è½¬æˆé“æŒå¸®ï¼Œå®é™…æ˜¯é“æŒå¸®æœ‰ä¸¤ä¸ªï¼Ÿ
+		//çµé¹«ä¸‹å±å°é—¨æ´¾ä¸ç®¡ï¼Œå·²è¢«å…³é—­çš„é—¨æ´¾ä¸ç®¡ã€‚
 
          if (arg == "family") 
          	{
          		if (! me->query("family/family_name")) 
-         			return notify_fail("Äã»¹Ã»ÓĞÃÅÅÉ£¬²»ÄÜÊ¹ÓÃ rideto family Ö¸Áî£¡\n");else
-         			//if (me->query("combat_exp") < 1000000) return notify_fail("ÒÔÄãÏÖÔÚµÄ¾­Ñé»¹²»¹»Ê¹ÓÃ rideto family Ö¸Áî¡£\n");
-         			//×ªÊÀºóÈ¡Ïû100ÍòexpÏŞÖÆ
+         			return notify_fail("ä½ è¿˜æ²¡æœ‰é—¨æ´¾ï¼Œä¸èƒ½ä½¿ç”¨ rideto family æŒ‡ä»¤ï¼\n");else
+         			//if (me->query("combat_exp") < 1000000) return notify_fail("ä»¥ä½ ç°åœ¨çš„ç»éªŒè¿˜ä¸å¤Ÿä½¿ç”¨ rideto family æŒ‡ä»¤ã€‚\n");
+         			//è½¬ä¸–åå–æ¶ˆ100ä¸‡expé™åˆ¶
          			if (me->query("combat_exp") < 800000 && !me->query("reborn")) 
-         				return notify_fail("ÒÔÄãÏÖÔÚµÄ¾­Ñé»¹²»¹»Ê¹ÓÃ rideto family Ö¸Áî¡£\n");
+         				return notify_fail("ä»¥ä½ ç°åœ¨çš„ç»éªŒè¿˜ä¸å¤Ÿä½¿ç”¨ rideto family æŒ‡ä»¤ã€‚\n");
          				else 
-         					{ if (me->query("family/family_name")=="ÉÙÁÖÅÉ") room = get_object("/d/shaolin/fzlou2");else
-         						if (me->query("family/family_name")=="Ä½ÈİÊÀ¼Ò") room = get_object("/d/yanziwu/canheju");else
-         						if (me->query("family/family_name")=="Å·ÑôÊÀ¼Ò") room = get_object("/d/baituo/dating");else
-         						if (me->query("family/family_name")=="ĞşÚ¤¹È") room = get_object("/d/xuanminggu/xuanmingfeng");else
-         						if (me->query("family/family_name")=="À¥ÂØÅÉ") room = get_object("/d/kunlun/tieqinju");else
-         						if (me->query("family/family_name")=="åĞÒ£ÅÉ") room = get_object("/d/xiaoyao/qingcaop");else
-         						if (me->query("family/family_name")=="°ËØÔÃÅ") room = get_object("/d/beijing/zhengting");else
-         						if (me->query("family/family_name")=="ĞÇËŞÅÉ") room = get_object("/d/xingxiu/riyuedong");else
-         					  if (me->query("family/family_name")=="´óÂÖËÂ") room = get_object("/d/xueshan/neidian");else
-         						if (me->query("family/family_name")=="Îå¶¾½Ì") room = get_object("/d/wudu/huating1");else
-         						if (me->query("family/family_name")=="ÌÒ»¨µº") room = get_object("/d/taohua/dating");else
-         						if (me->query("family/family_name")=="Ñªµ¶ÃÅ") room = get_object("/d/xuedao/shandong3");else
-         					  if (me->query("family/family_name")=="ÌúÕÆ°ï") room = get_object("/d/tiezhang/wztang");else
-         					  //if (me->query("family/family_name")=="¾øÇé¹È") room = get_object("/d/jueqing/zizhuxuan");else
-         						if (me->query("family/family_name")=="Îäµ±ÅÉ") room = get_object("/d/wudang/xiaoyuan");else
-         						if (me->query("family/family_name")=="Ã·×¯") room = get_object("/d/meizhuang/houting");else
-         						if (me->query("family/family_name")=="¹ØÍâºú¼Ò") room = get_object("/d/guanwai/xiaowu");else
-         						if (me->query("family/family_name")=="È«Õæ½Ì") room = get_object("/d/quanzhen/shiweishi");else
-         						if (me->query("family/family_name")=="ÖĞÔ­Ãç¼Ò") room = get_object("/d/zhongzhou/miaojia_houting");else
-         						if (me->query("family/family_name")=="ºì»¨»á") room = get_object("/d/kaifeng/hh_zhengting");else
-         						if (me->query("family/family_name")=="ÁéğÕ¹¬") room = get_object("/d/lingjiu/dating");else
-         						if (me->query("family/family_name")=="»ªÉ½ÅÉ") room = get_object("/d/huashan/qunxianguan");else
-         					  if (me->query("family/family_name")=="¶ÎÊÏ»Ê×å") room = get_object("/d/dali/neitang");else
-         						if (me->query("family/family_name")=="Ø¤°ï") room = get_object("/d/gaibang/undertre");else
-         						if (me->query("family/family_name")=="ºâÉ½ÅÉ") room = get_object("/d/henshan/zhurongfeng");else
-         				    if (me->query("family/family_name")=="ÈÕÔÂÉñ½Ì") room = get_object("/d/quanzhou/chating");else
-         				    //²¹³äÒÅÂ©µÄÃ÷½ÌºÍ¶ëáÒ 2017-02-05
-         				    if (me->query("family/family_name")=="Ã÷½Ì") room = get_object("/d/mingjiao/dadian");else
-         				    if (me->query("family/family_name")=="¶ëáÒÅÉ") room = get_object("/d/emei/hcahoudian");else
-         				    //²¹³äÖØĞÂ¿ª·ÅµÄáÔÉ½ 2017-02-07
-         				    if (me->query("family/family_name")=="áÔÉ½ÅÉ") room = get_object("/d/songshan/fengchantai");else
-         							//¹ÅÄ¹·ÖÖ§
+         					{ if (me->query("family/family_name")=="å°‘æ—æ´¾") room = get_object("/d/shaolin/fzlou2");else
+         						if (me->query("family/family_name")=="æ…•å®¹ä¸–å®¶") room = get_object("/d/yanziwu/canheju");else
+         						if (me->query("family/family_name")=="æ¬§é˜³ä¸–å®¶") room = get_object("/d/baituo/dating");else
+         						if (me->query("family/family_name")=="ç„å†¥è°·") room = get_object("/d/xuanminggu/xuanmingfeng");else
+         						if (me->query("family/family_name")=="æ˜†ä»‘æ´¾") room = get_object("/d/kunlun/tieqinju");else
+         						if (me->query("family/family_name")=="é€é¥æ´¾") room = get_object("/d/xiaoyao/qingcaop");else
+         						if (me->query("family/family_name")=="å…«å¦é—¨") room = get_object("/d/beijing/zhengting");else
+         						if (me->query("family/family_name")=="æ˜Ÿå®¿æ´¾") room = get_object("/d/xingxiu/riyuedong");else
+         					  if (me->query("family/family_name")=="å¤§è½®å¯º") room = get_object("/d/xueshan/neidian");else
+         						if (me->query("family/family_name")=="äº”æ¯’æ•™") room = get_object("/d/wudu/huating1");else
+         						if (me->query("family/family_name")=="æ¡ƒèŠ±å²›") room = get_object("/d/taohua/dating");else
+         						if (me->query("family/family_name")=="è¡€åˆ€é—¨") room = get_object("/d/xuedao/shandong3");else
+         					  if (me->query("family/family_name")=="é“æŒå¸®") room = get_object("/d/tiezhang/wztang");else
+         					  //if (me->query("family/family_name")=="ç»æƒ…è°·") room = get_object("/d/jueqing/zizhuxuan");else
+         						if (me->query("family/family_name")=="æ­¦å½“æ´¾") room = get_object("/d/wudang/xiaoyuan");else
+         						if (me->query("family/family_name")=="æ¢…åº„") room = get_object("/d/meizhuang/houting");else
+         						if (me->query("family/family_name")=="å…³å¤–èƒ¡å®¶") room = get_object("/d/guanwai/xiaowu");else
+         						if (me->query("family/family_name")=="å…¨çœŸæ•™") room = get_object("/d/quanzhen/shiweishi");else
+         						if (me->query("family/family_name")=="ä¸­åŸè‹—å®¶") room = get_object("/d/zhongzhou/miaojia_houting");else
+         						if (me->query("family/family_name")=="çº¢èŠ±ä¼š") room = get_object("/d/kaifeng/hh_zhengting");else
+         						if (me->query("family/family_name")=="çµé¹«å®«") room = get_object("/d/lingjiu/dating");else
+         						if (me->query("family/family_name")=="åå±±æ´¾") room = get_object("/d/huashan/qunxianguan");else
+         					  if (me->query("family/family_name")=="æ®µæ°çš‡æ—") room = get_object("/d/dali/neitang");else
+         						if (me->query("family/family_name")=="ä¸å¸®") room = get_object("/d/gaibang/undertre");else
+         						if (me->query("family/family_name")=="è¡¡å±±æ´¾") room = get_object("/d/henshan/zhurongfeng");else
+         				    if (me->query("family/family_name")=="æ—¥æœˆç¥æ•™") room = get_object("/d/quanzhou/chating");else
+         				    //è¡¥å……é—æ¼çš„æ˜æ•™å’Œå³¨åµ‹ 2017-02-05
+         				    if (me->query("family/family_name")=="æ˜æ•™") room = get_object("/d/mingjiao/dadian");else
+         				    if (me->query("family/family_name")=="å³¨åµ‹æ´¾") room = get_object("/d/emei/hcahoudian");else
+         				    //è¡¥å……é‡æ–°å¼€æ”¾çš„åµ©å±± 2017-02-07
+         				    if (me->query("family/family_name")=="åµ©å±±æ´¾") room = get_object("/d/songshan/fengchantai");else
+         							//å¤å¢“åˆ†æ”¯
          						
-         						if (me->query("family/family_name")=="¹ÅÄ¹ÅÉ") 
-         											{if (me->query("family/master_name") == "ÀîÄª³î") 
+         						if (me->query("family/family_name")=="å¤å¢“æ´¾") 
+         											{if (me->query("family/master_name") == "æè«æ„") 
          												room = get_object("/d/gumu/liangong3");
          												else room = get_object("/d/gumu/mishi8");
          												}
          				    else
-         				    	//¾øÇé·ÖÖ§					
-         						if (me->query("family/family_name")=="¾øÇé¹È") 
-         											{if (me->query("family/master_name") == "ôÃÇ§³ß") 
+         				    	//ç»æƒ…åˆ†æ”¯					
+         						if (me->query("family/family_name")=="ç»æƒ…è°·") 
+         											{if (me->query("family/master_name") == "è£˜åƒå°º") 
          												room = get_object("/d/jueqing/undertan");
          												else room = get_object("/d/jueqing/zizhuxuan");
          												}
          					
-         						//ÁéğÕÏÂÊôĞ¡ÃÅÅÉÒÔ¼°ÒÑ±»¹Ø±ÕµÄÃÅÅÉ¡£
-         					 else	return notify_fail("ÄãËùÔÚµÄÃÅÅÉÎŞ·¨Ê¹ÓÃ rideto family Ö±´ïÈÎÎñÊ¹¹¦ÄÜ¡£\n");
-         					  //return notify_fail("ÄãËùÔÚµÄÃÅÅÉÎŞ·¨Ê¹ÓÃ rideto family Ö±´ïÈÎÎñÊ¹¹¦ÄÜ¡£\n");																
+         						//çµé¹«ä¸‹å±å°é—¨æ´¾ä»¥åŠå·²è¢«å…³é—­çš„é—¨æ´¾ã€‚
+         					 else	return notify_fail("ä½ æ‰€åœ¨çš„é—¨æ´¾æ— æ³•ä½¿ç”¨ rideto family ç›´è¾¾ä»»åŠ¡ä½¿åŠŸèƒ½ã€‚\n");
+         					  //return notify_fail("ä½ æ‰€åœ¨çš„é—¨æ´¾æ— æ³•ä½¿ç”¨ rideto family ç›´è¾¾ä»»åŠ¡ä½¿åŠŸèƒ½ã€‚\n");																
          																					
          						}
          		}
-         //ĞÂ¼Ófamily½áÊø
+         //æ–°åŠ familyç»“æŸ
      
         else
         room = get_object(places[arg]);
-        if (! room) return notify_fail("Äã¸Ğ¾õµ½ËÆºõÄÇ¸öµØ·½ÓĞµã²»¶Ô¾¢¡£\n");
+        if (! room) return notify_fail("ä½ æ„Ÿè§‰åˆ°ä¼¼ä¹é‚£ä¸ªåœ°æ–¹æœ‰ç‚¹ä¸å¯¹åŠ²ã€‚\n");
         
-        message("vision", me->name() + "Æï×Å¡¸" + riding->name() + NOR "¡¹´Ò´ÒÃ¦Ã¦µØÀë¿ªÁË¡£\n",
+        message("vision", me->name() + "éª‘ç€ã€Œ" + riding->name() + NOR "ã€åŒ†åŒ†å¿™å¿™åœ°ç¦»å¼€äº†ã€‚\n",
                 environment(me), ({me}));
         
         where = room->query("short");
         
-        tell_object(me, "ÄãÒ»Â·Âí²»Í£Ìã£¬·ç³¾ÆÍÆÍµÄ¸Ïµ½ÁË" + where + "¡£\n");
+        tell_object(me, "ä½ ä¸€è·¯é©¬ä¸åœè¹„ï¼Œé£å°˜ä»†ä»†çš„èµ¶åˆ°äº†" + where + "ã€‚\n");
         me->move(room);
 
-        message("vision", me->name() + "Æï×Å¡¸" + riding->name() + NOR "¡¹Ò»Â·¼²³Û¶øÀ´¡£\n",
+        message("vision", me->name() + "éª‘ç€ã€Œ" + riding->name() + NOR "ã€ä¸€è·¯ç–¾é©°è€Œæ¥ã€‚\n",
                 environment(me), ({me}));
 
         // me->receive_damage("qi", 10);
@@ -219,28 +219,28 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : rideto <µØµã>
+æŒ‡ä»¤æ ¼å¼ : rideto <åœ°ç‚¹>
 
-ÀûÓÃ×øÆïµ½´ïÄ³¸öµØµã¡£Ä¿Ç°¿ÉÒÔÀûÓÃ×øÆïÈ¥µÄµØ·½ÓĞ£º
-baituo   : °×ÍÕÉ½        beijing  : ±±  ¾©        changan  : ³¤  °²
-chengdu  : ³É  ¶¼        dali     : ´ó  Àí        emei     : ¶ëÃ¼É½
-foshan   : ·ğ  É½        fuzhou   : ¸£  Öİ        guanwai  : ¹Ø  Íâ
-guiyun   : ¹éÔÆ×¯        gumu     : ¹Å  Ä¹        hangzhou : º¼  Öİ
-heimuya  : ºÚÄ¾ÑÂ        hengyang : ºâ  Ñô        huashan  : »ª  É½
-jiaxing  : ¼Î  ĞË        jingzhou : ¾£  Öİ        kaifeng  : ¿ª  ·â
-kunlun   : À¥ÂØÉ½        kunming  : À¥  Ã÷        lanzhou  : À¼  Öİ
-lingjiu  : ÁéğÕ¹¬        lingzhou : Áé  Öİ        luoyang  : Âå  Ñô
-mingjiao : ¹âÃ÷¶¥        murong   : Ä½  Èİ        nanhai   : ÄÏ  º£
-nanyang  : ÄÏ  Ñô        quanzhen : È«Õæ½Ì        quanzhou : Èª  Öİ
-suzhou   : ËÕ  Öİ        taishan  : Ì©  É½        wudang   : Îäµ±É½
-wugong   : Îä¹¦Õò        xiangyang: Ïå  Ñô        xiaoyao  : åĞÒ£ÁÖ
-xingxiu  : ĞÇËŞº£        xuedao   : Ñªµ¶ÃÅ        xueshan  : Ñ©  É½
-yangzhou : Ñï  Öİ        yanziwu  : Ñà×ÓÎë        yongdeng : ÓÀ  µÇ
-zhongnan : ÖÕÄÏÉ½        zhongzhou: ÖĞ  Öİ        hengshan : ºâ  É½
-jueqing  : ¾øÇé¹È        tiezhang : ÌúÕÆÉ½        taohua   : ÌÒ»¨µº 
-home     : ×¡  ·¿        family   : ÈÎÎñÊ¹
+åˆ©ç”¨åéª‘åˆ°è¾¾æŸä¸ªåœ°ç‚¹ã€‚ç›®å‰å¯ä»¥åˆ©ç”¨åéª‘å»çš„åœ°æ–¹æœ‰ï¼š
+baituo   : ç™½é©¼å±±        beijing  : åŒ—  äº¬        changan  : é•¿  å®‰
+chengdu  : æˆ  éƒ½        dali     : å¤§  ç†        emei     : å³¨çœ‰å±±
+foshan   : ä½›  å±±        fuzhou   : ç¦  å·        guanwai  : å…³  å¤–
+guiyun   : å½’äº‘åº„        gumu     : å¤  å¢“        hangzhou : æ­  å·
+heimuya  : é»‘æœ¨å´–        hengyang : è¡¡  é˜³        huashan  : å  å±±
+jiaxing  : å˜‰  å…´        jingzhou : è†  å·        kaifeng  : å¼€  å°
+kunlun   : æ˜†ä»‘å±±        kunming  : æ˜†  æ˜        lanzhou  : å…°  å·
+lingjiu  : çµé¹«å®«        lingzhou : çµ  å·        luoyang  : æ´›  é˜³
+mingjiao : å…‰æ˜é¡¶        murong   : æ…•  å®¹        nanhai   : å—  æµ·
+nanyang  : å—  é˜³        quanzhen : å…¨çœŸæ•™        quanzhou : æ³‰  å·
+suzhou   : è‹  å·        taishan  : æ³°  å±±        wudang   : æ­¦å½“å±±
+wugong   : æ­¦åŠŸé•‡        xiangyang: è¥„  é˜³        xiaoyao  : é€é¥æ—
+xingxiu  : æ˜Ÿå®¿æµ·        xuedao   : è¡€åˆ€é—¨        xueshan  : é›ª  å±±
+yangzhou : æ‰¬  å·        yanziwu  : ç‡•å­å        yongdeng : æ°¸  ç™»
+zhongnan : ç»ˆå—å±±        zhongzhou: ä¸­  å·        hengshan : è¡¡  å±±
+jueqing  : ç»æƒ…è°·        tiezhang : é“æŒå±±        taohua   : æ¡ƒèŠ±å²› 
+home     : ä½  æˆ¿        family   : ä»»åŠ¡ä½¿
 
-×¢£ºrideto family ¿ÉÖ±´ïÃÅÅÉÈÎÎñÊ¹¡£Ö»ÏŞÓĞÃÅÅÉµÄÈËÊ¹ÓÃ£¬ÇÒexpĞè´ïµ½80Íò¡£
+æ³¨ï¼šrideto family å¯ç›´è¾¾é—¨æ´¾ä»»åŠ¡ä½¿ã€‚åªé™æœ‰é—¨æ´¾çš„äººä½¿ç”¨ï¼Œä¸”expéœ€è¾¾åˆ°80ä¸‡ã€‚
 
 HELP
         );

@@ -3,18 +3,18 @@ inherit STAFF;
 
 void create()
 {
-        set_name("ÕĞ»êá¦", ({ "zhaohun fan", "zhaohun", "fan" }));
+        set_name("æ‹›é­‚å¹¡", ({ "zhaohun fan", "zhaohun", "fan" }));
         set_weight(2000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ãæ");
-                set("long", "ÕâÊÇÒ»Ãæ¾«Ìú´òÖıµÄÕĞ»êá¦¡£\n");
+                set("unit", "é¢");
+                set("long", "è¿™æ˜¯ä¸€é¢ç²¾é“æ‰“é“¸çš„æ‹›é­‚å¹¡ã€‚\n");
                 set("value", 800);
                 set("rigidity", 100);
                 set("material", "steel");
-                set("wield_msg", "$N³é³öÒ»Ãæ$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»ØÑü¼ä¡£\n");
+                set("wield_msg", "$NæŠ½å‡ºä¸€é¢$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›è…°é—´ã€‚\n");
         }
         init_staff(35);
         setup();

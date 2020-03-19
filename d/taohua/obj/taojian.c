@@ -6,17 +6,17 @@ inherit SWORD;
 
 void create()
 {
-        set_name("ÌÒÄ¾½£", ({ "taomu jian", "jian" }) );
+        set_name("æ¡ƒæœ¨å‰‘", ({ "taomu jian", "jian" }) );
 	set_weight(1000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "°Ñ");
+		set("unit", "æŠŠ");
 		set("value", 100);
 		set("material", "bamboo");
-        set("long", "ÕâÊÇÒ»°ÑÁ·Ï°½£·¨ÓÃµÄÌÒÄ¾½£¡£\n");
-		set("wield_msg", "$NÄÃ³öÒ»°ÑÁ·½£ÓÃµÄ$n£¬ÎÕÔÚÊÖÖĞ¡£\n");
-		set("unequip_msg", "$N·ÅÏÂÊÖÖĞµÄ$n¡£\n");
+        set("long", "è¿™æ˜¯ä¸€æŠŠç»ƒä¹ å‰‘æ³•ç”¨çš„æ¡ƒæœ¨å‰‘ã€‚\n");
+		set("wield_msg", "$Næ‹¿å‡ºä¸€æŠŠç»ƒå‰‘ç”¨çš„$nï¼Œæ¡åœ¨æ‰‹ä¸­ã€‚\n");
+		set("unequip_msg", "$Næ”¾ä¸‹æ‰‹ä¸­çš„$nã€‚\n");
 	}
 	init_sword(10);
 	setup();

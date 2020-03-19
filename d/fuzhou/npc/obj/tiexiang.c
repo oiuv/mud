@@ -11,13 +11,13 @@ void init()
 
 void create()
 {
-        set_name("ÌúÏä", ({"tie xiang", "xiang", "box"}));
+        set_name("é“ç®±", ({"tie xiang", "xiang", "box"}));
         set_weight(200000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»Ö»ÓĞ´óÓÖ±¿µÄÌúÏä×Ó£¬ÓĞĞ©ÉúĞâÁË¡£\n");
-                set("unit", "Ö»");
+                set("long", "ä¸€åªæœ‰å¤§åˆç¬¨çš„é“ç®±å­ï¼Œæœ‰äº›ç”Ÿé”ˆäº†ã€‚\n");
+                set("unit", "åª");
                 set("material", "steal");
         }
         setup();
@@ -27,16 +27,16 @@ int do_climb(string arg)
 {
         object me = this_player();
         if (!id(arg))
-                return notify_fail("ÄãÒªÍùÄÄ¶ùÅÀ£¿\n");
-        if (this_player()->query_temp("marks/Ìø1") ) {
-                       write("ÄãÔõÃ´ÅÀ¸öÃ»ÍêÃ»ÁË£¿\n");
+                return notify_fail("ä½ è¦å¾€å“ªå„¿çˆ¬ï¼Ÿ\n");
+        if (this_player()->query_temp("marks/è·³1") ) {
+                       write("ä½ æ€ä¹ˆçˆ¬ä¸ªæ²¡å®Œæ²¡äº†ï¼Ÿ\n");
                         return 1;
         }
         else {
-               message("vision",this_player()->name() + "ÅÀÉÏÏä×Ó¡£\n",
+               message("vision",this_player()->name() + "çˆ¬ä¸Šç®±å­ã€‚\n",
                         environment(me), ({me}) );
-               write("ÄãÅÀÉÏÏä×Ó¡£\n");
-                this_player()->set_temp("marks/Ìø1", 1);
+               write("ä½ çˆ¬ä¸Šç®±å­ã€‚\n");
+                this_player()->set_temp("marks/è·³1", 1);
         return 1;
         }
 }

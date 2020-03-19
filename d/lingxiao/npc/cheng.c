@@ -4,9 +4,9 @@ inherit NPC;
 string ask_pai();
 void create()
 {
-        set_name("³É×ÔÑ§",({"cheng zixue", "cheng"}));
-        set("long", "³É×ÔÑ§ÊÇÑ©É½ÅÉÕÆÃÅÈËÍşµÂÏÈÉú°××ÔÔÚµÄÊ¦µÜ¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("æˆè‡ªå­¦",({"cheng zixue", "cheng"}));
+        set("long", "æˆè‡ªå­¦æ˜¯é›ªå±±æ´¾æŒé—¨äººå¨å¾·å…ˆç”Ÿç™½è‡ªåœ¨çš„å¸ˆå¼Ÿã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 65);
         set("attitude", "friendly");
         set("shen_type", 0);
@@ -22,8 +22,8 @@ void create()
         set("combat_exp", 1000000);
 
         set("inquiry", ([
-             	"ÓñÅÆ"   : (:ask_pai:),
-                "º®ÓñÅÆ" : (:ask_pai:),
+             	"ç‰ç‰Œ"   : (:ask_pai:),
+                "å¯’ç‰ç‰Œ" : (:ask_pai:),
         ]) );
 
         set_skill("force", 220);
@@ -52,7 +52,7 @@ void create()
         prepare_skill("strike", "piaoxu-zhang");
         prepare_skill("cuff", "lingxiao-quan");
 
-        create_family("ÁèÏö³Ç", 5, "Ç°±²");
+        create_family("å‡Œéœ„åŸ", 5, "å‰è¾ˆ");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -73,7 +73,7 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        command("say ÀÏ·ò²»ÊÕÍ½£¬ÄãÈ¥ÕÒÎÒÄÇĞ©Í½¶ù°É¡£");
+        command("say è€å¤«ä¸æ”¶å¾’ï¼Œä½ å»æ‰¾æˆ‘é‚£äº›å¾’å„¿å§ã€‚");
 }
 
 string ask_pai()
@@ -84,26 +84,26 @@ string ask_pai()
 
         if (me->query("family/master_id") == "bai zizai")
         {
-                command("say ¼ÈÈ»ÊÇ³ÇÖ÷µÄµÜ×Ó£¬ÀÏ·òÕâ¾Í½«ÓñÅÆ¸øÄã¡£\n");
-                message_vision(HIC "³É×ÔÑ§ÄÃ³öÒ»¿éÓñÅÆ£¬½»¸ø$N"
-                               HIC "¡£\n\n" NOR, me);
+                command("say æ—¢ç„¶æ˜¯åŸä¸»çš„å¼Ÿå­ï¼Œè€å¤«è¿™å°±å°†ç‰ç‰Œç»™ä½ ã€‚\n");
+                message_vision(HIC "æˆè‡ªå­¦æ‹¿å‡ºä¸€å—ç‰ç‰Œï¼Œäº¤ç»™$N"
+                               HIC "ã€‚\n\n" NOR, me);
                 ob = new("/d/lingxiao/obj/yupai");
                 ob->move(me);
-                return "³ÇÖ÷Âı×ß¡£\n";
+                return "åŸä¸»æ…¢èµ°ã€‚\n";
         }
         if (me->query("family/master_id") == "bai wanjian")
         {
-                command("say Äã¼ÈÈ»ÊÇ°×Íò½£µÄµÜ×Ó£¬ÄÃÈ¥Ò²ÎŞ·Á¡£");
-                message_vision(HIC "³É×ÔÑ§ÄÃ³öÒ»¿éÓñÅÆ£¬½»¸ø$N"
-                               HIC "¡£\n\n" NOR, me);
+                command("say ä½ æ—¢ç„¶æ˜¯ç™½ä¸‡å‰‘çš„å¼Ÿå­ï¼Œæ‹¿å»ä¹Ÿæ— å¦¨ã€‚");
+                message_vision(HIC "æˆè‡ªå­¦æ‹¿å‡ºä¸€å—ç‰ç‰Œï¼Œäº¤ç»™$N"
+                               HIC "ã€‚\n\n" NOR, me);
                 ob=new("/d/lingxiao/obj/yupai");
                 ob->move(me);
-                return "´ËÅÆÄË±¾ÅÉÖØ±¦£¬²»¿ÉÓĞÊ§¡£\n";
+                return "æ­¤ç‰Œä¹ƒæœ¬æ´¾é‡å®ï¼Œä¸å¯æœ‰å¤±ã€‚\n";
         }
-        command("say ÄãÊÇÊ²Ã´Éí·İ£¬Ò²ÏëÈ¥¼ûÀÏÒ¯×Ó£¿");
-        message_vision(HIY "³É×ÔÑ§×ª¹ıÁ³È¥£¬Àí¶¼²»Àí$N"
-                       HIY "¡£\n\n" NOR, me);
+        command("say ä½ æ˜¯ä»€ä¹ˆèº«ä»½ï¼Œä¹Ÿæƒ³å»è§è€çˆ·å­ï¼Ÿ");
+        message_vision(HIY "æˆè‡ªå­¦è½¬è¿‡è„¸å»ï¼Œç†éƒ½ä¸ç†$N"
+                       HIY "ã€‚\n\n" NOR, me);
 
-        return "Äã»¹ÊÇÏÈÈ¥Å¬Á¦Á·Á·°É¡£\n";
+        return "ä½ è¿˜æ˜¯å…ˆå»åŠªåŠ›ç»ƒç»ƒå§ã€‚\n";
 }
 

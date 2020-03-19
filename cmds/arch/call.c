@@ -21,16 +21,16 @@ int main(object me, string arg)
 		if (sscanf(arg, "-%s %s", euid, arg) == 2)
 		{
 			if ((string)SECURITY_D->get_status(me) != "(admin)")
-				return notify_fail("Äã²»ÄÜÉè¶¨×Ô¼ºµÄ euid¡£\n");
+				return notify_fail("ä½ ä¸èƒ½è®¾å®šè‡ªå·±çš„ euidã€‚\n");
 			seteuid(euid);
 		}
 		else
 			seteuid(geteuid(this_player()));
 
 		if (sscanf(arg, "%s->%s(%s)", objname, func, param) != 3)
-			return notify_fail("Ö¸Áî¸ñÊ½£ºcall <Îï¼ş>-><º¯Êı>( <²ÎÊı>, ... )\n");
+			return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šcall <ç‰©ä»¶>-><å‡½æ•°>( <å‚æ•°>, ... )\n");
 	} else
-		return notify_fail("Ö¸Áî¸ñÊ½£ºcall <Îï¼ş>-><º¯Êı>( <²ÎÊı>, ... )\n");
+		return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šcall <ç‰©ä»¶>-><å‡½æ•°>( <å‚æ•°>, ... )\n");
 
 	obj = present(objname, environment(me));
 	if (! obj) obj = present(objname, me);
@@ -38,7 +38,7 @@ int main(object me, string arg)
 	if (! obj || ! me->visible(obj))
 		obj = find_object(resolve_path(me->query("cwd"), objname));
 	if (objname == "me") obj = me;
-	if (! obj) return notify_fail("ÕÒ²»µ½Ö¸¶¨µÄÎï¼ş¡£\n");
+	if (! obj) return notify_fail("æ‰¾ä¸åˆ°æŒ‡å®šçš„ç‰©ä»¶ã€‚\n");
 
 	if (userp(obj) && wiz_level(me) >= wiz_level(obj))
 	{
@@ -49,7 +49,7 @@ int main(object me, string arg)
                                  geteuid(obj), func, param));
 	} else
 	if (! master()->valid_write( base_name(obj), me, "set" ))
-		return notify_fail("ÄãÃ»ÓĞÖ±½Óºô½ĞÕâ¸öÎï¼şµÄº¯ÊıµÄÈ¨Á¦¡£\n");
+		return notify_fail("ä½ æ²¡æœ‰ç›´æ¥å‘¼å«è¿™ä¸ªç‰©ä»¶çš„å‡½æ•°çš„æƒåŠ›ã€‚\n");
 
 	args = explode(param, ",");
 	for (i = 0; i < sizeof(args); i++)
@@ -63,7 +63,7 @@ int main(object me, string arg)
         if (func == "set" && playerp(obj) &&
             sizeof(args) && args[0] == "name")
         {
-                write("Çë²»ÒªÓÃ call ÃüÁîĞŞ¸ÄÍæ¼ÒµÄÃû×Ö£¬²Î¼û changename ÃüÁî¡£\n");
+                write("è¯·ä¸è¦ç”¨ call å‘½ä»¤ä¿®æ”¹ç©å®¶çš„åå­—ï¼Œå‚è§ changename å‘½ä»¤ã€‚\n");
                 return 1;
         }
 
@@ -71,7 +71,7 @@ int main(object me, string arg)
             sizeof(args) && args[0] == "name" &&
             (string)me->query("id") != "ivy")
         {
-                write("ÄãÎŞ·¨ĞŞ¸ÄÕâÏî²ÎÊı¡£\n");
+                write("ä½ æ— æ³•ä¿®æ”¹è¿™é¡¹å‚æ•°ã€‚\n");
                 return 1;
         }
 
@@ -90,11 +90,11 @@ int main(object me, string arg)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : call <Îï¼ş>-><º¯Êı>(<²ÎÊı>, ...... )
+æŒ‡ä»¤æ ¼å¼ : call <ç‰©ä»¶>-><å‡½æ•°>(<å‚æ•°>, ...... )
  
-ºô½Ğ<Îï¼ş>ÀïµÄ<º¯Êı>²¢´«ÈëÏà¹Ø<²ÎÊı>.
+å‘¼å«<ç‰©ä»¶>é‡Œçš„<å‡½æ•°>å¹¶ä¼ å…¥ç›¸å…³<å‚æ•°>.
 
-Ïà¹ØÃüÁî£ºfindusr
+ç›¸å…³å‘½ä»¤ï¼šfindusr
  
 HELP );
     return 1;

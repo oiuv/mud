@@ -5,12 +5,12 @@ inherit SWORD;
 
 void create()
 {
-        set_name(MAG "¹ÅËÉ²Ğïã" NOR, ({ "gusong jian", "gusong", "jian", "sword" }) );
+        set_name(MAG "å¤æ¾æ®‹é•¢" NOR, ({ "gusong jian", "gusong", "jian", "sword" }) );
         set_weight(4000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
+                set("unit", "æŸ„");
                 set("value", 1000000);
                 set("material", "steel");
         }

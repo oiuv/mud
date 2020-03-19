@@ -13,37 +13,37 @@ int main(object me, string arg)
 	seteuid(getuid());
 	
 	if ((int)me->query("age") < 24)
-		return notify_fail("ÄãÏÖÔÚ»¹ÄêÇá£¬ÒÔºóÔÙÁ·°É£¡\n");
+		return notify_fail("ä½ ç°åœ¨è¿˜å¹´è½»ï¼Œä»¥åå†ç»ƒå§ï¼\n");
 
 	if (environment(me)->query("pigging"))
-		return notify_fail("Äã»¹ÊÇ×¨ĞÄ¹°Öí°É£¡\n");
+		return notify_fail("ä½ è¿˜æ˜¯ä¸“å¿ƒæ‹±çŒªå§ï¼\n");
 
 	if (me->is_busy())
-		return notify_fail("ÄãÏÖÔÚÕıÃ¦×ÅÄØ£¡\n");
+		return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ï¼\n");
 
 	if (me->is_fighting())
-		return notify_fail("Õ½¶·ÖĞÍÂÄÉ£¬ºÃÏóÖ»ÓĞÉñÏÉ²ÅÄÜ×öµ½¡£\n");
+		return notify_fail("æˆ˜æ–—ä¸­åçº³ï¼Œå¥½è±¡åªæœ‰ç¥ä»™æ‰èƒ½åšåˆ°ã€‚\n");
 
 	if (! arg || ! sscanf(arg, "%d", respirate_cost))
-		return notify_fail("ÄãÒª»¨¶àÉÙ¾«ĞŞĞĞ£¿\n");
+		return notify_fail("ä½ è¦èŠ±å¤šå°‘ç²¾ä¿®è¡Œï¼Ÿ\n");
 
 	if (respirate_cost <= 0)
-		return notify_fail("Äã²»ÊÇÉñÏÉ£¡\n");
+		return notify_fail("ä½ ä¸æ˜¯ç¥ä»™ï¼\n");
 
 	if ((int)me->query("jing") < respirate_cost)
-		return notify_fail("ÄãÏÖÔÚ¾«²»×ã£¬ÎŞ·¨ĞŞĞĞ¾«Á¦£¡\n");
+		return notify_fail("ä½ ç°åœ¨ç²¾ä¸è¶³ï¼Œæ— æ³•ä¿®è¡Œç²¾åŠ›ï¼\n");
 
 	if ((int)me->query("qi") * 100 / (int)me->query("max_qi") < 70)
-		return notify_fail("ÄãÏÖÔÚÉíÌå×´¿öÌ«²îÁË£¬ÎŞ·¨¼¯ÖĞ¾«Éñ£¡\n");
+		return notify_fail("ä½ ç°åœ¨èº«ä½“çŠ¶å†µå¤ªå·®äº†ï¼Œæ— æ³•é›†ä¸­ç²¾ç¥ï¼\n");
 
         if (environment(me)->query("no_fight") && me->query("doing") != "scheme")
-                return notify_fail("ÄãÎŞ·¨ÔÚÕâ¸öµØ·½°²ĞÄÍÂÄÉ¡£\n");
+                return notify_fail("ä½ æ— æ³•åœ¨è¿™ä¸ªåœ°æ–¹å®‰å¿ƒåçº³ã€‚\n");
 
-	write("Äã±ÕÉÏÑÛ¾¦¿ªÊ¼´ò×ø¡£\n");
+	write("ä½ é—­ä¸Šçœ¼ç›å¼€å§‹æ‰“åã€‚\n");
 	me->set_temp("pending/respirate", 1);
 	me->set_temp("respirate_cost", respirate_cost);
-        me->set_short_desc("Õı×øÔÚµØÏÂÍÂÄÉÁ¶¾«¡£");
-	message_vision("$NÅÌÏ¥×øÏÂ£¬¿ªÊ¼ÍÂÄÉÁ¶¾«¡£\n", me);
+        me->set_short_desc("æ­£ååœ¨åœ°ä¸‹åçº³ç‚¼ç²¾ã€‚");
+	message_vision("$Nç›˜è†åä¸‹ï¼Œå¼€å§‹åçº³ç‚¼ç²¾ã€‚\n", me);
 	me->start_busy(bind((:call_other, __FILE__, "respirating" :), me),
                        bind((:call_other, __FILE__, "halt_respirate" :), me));
 	return 1;
@@ -82,14 +82,14 @@ int respirating(object me)
 	me->set_temp("pending/respirate", 0);
         me->set_short_desc(0);
 	respirate_cost = 0;
-	message_vision("$NÍÂÄÉÍê±Ï£¬Õö¿ªË«ÑÛ£¬Õ¾ÁËÆğÀ´¡£\n", me);
+	message_vision("$Nåçº³å®Œæ¯•ï¼Œçå¼€åŒçœ¼ï¼Œç«™äº†èµ·æ¥ã€‚\n", me);
 	if((int)me->query("jingli") < (int)me->query("max_jingli") * 2)
 		return 0;
 	else
         {
 		if ((int)me->query("max_jingli") > (int)me->query_current_jingli_limit())
 		{
-			write("ÄãµÄ¾«Á¦ĞŞÎªËÆºõÒÑ¾­´ïµ½ÁËÆ¿¾±¡£\n");
+			write("ä½ çš„ç²¾åŠ›ä¿®ä¸ºä¼¼ä¹å·²ç»è¾¾åˆ°äº†ç“¶é¢ˆã€‚\n");
 			me->set("jingli", (int)me->query("max_jingli"));
 			return 0;
 		}
@@ -97,7 +97,7 @@ int respirating(object me)
 		{
 			me->add("max_jingli", 1);
 			me->set("jingli", (int)me->query("max_jingli"));
-			write("ÄãµÄ¾«Á¦Ôö¼ÓÁË£¡£¡\n");
+			write("ä½ çš„ç²¾åŠ›å¢åŠ äº†ï¼ï¼\n");
 			return 0;
 		}
 	}
@@ -105,8 +105,8 @@ int respirating(object me)
 
 int halt_respirate(object me)
 {
-        tell_object(me, "Äã½«ÕæÆø·ÖÑ¹»Øµ¤Ìï£¬Õ¾ÁËÆğÀ´¡£\n");
-        tell_room(environment(me), me->name() + "ÉîÎüÒ»¿ÚÆø£¬Õ¾ÁËÆğÀ´¡£\n", me);
+        tell_object(me, "ä½ å°†çœŸæ°”åˆ†å‹å›ä¸¹ç”°ï¼Œç«™äº†èµ·æ¥ã€‚\n");
+        tell_room(environment(me), me->name() + "æ·±å¸ä¸€å£æ°”ï¼Œç«™äº†èµ·æ¥ã€‚\n", me);
 	respirate_cost = 0;
 	if ((int)me->query("jingli") > (int)me->query("max_jingli") * 2)
 		me->set("jingli", (int)me->query("max_jingli") * 2);
@@ -119,11 +119,11 @@ int halt_respirate(object me)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : respirate|tuna [<ºÄ·Ñ¡¸¾«¡¹µÄÁ¿>]
+æŒ‡ä»¤æ ¼å¼ : respirate|tuna [<è€—è´¹ã€Œç²¾ã€çš„é‡>]
  
-µ±ÄãµÄÄêÁä´óÓÚ24ËêÒÔºó£¬¿ÉÒÔÍ¨¹ı´ò×øĞŞĞĞ£¬ÀûÓÃ¡¸Á¶¾«»¯Æø£¬Á¶
-Æø»¯Éñ£¬Á¶Éñ»¹Ğé¡¹µÄ·½·¨½«ÄãµÄ¾«×ª±ä³É¾«Á¦¡£×¢Òâ£ºÄã²»ÄÜÔÚ²»
-ÄÜÕ½¶·µÄµØ·½ÍÂÄÉ¡£
+å½“ä½ çš„å¹´é¾„å¤§äº24å²ä»¥åï¼Œå¯ä»¥é€šè¿‡æ‰“åä¿®è¡Œï¼Œåˆ©ç”¨ã€Œç‚¼ç²¾åŒ–æ°”ï¼Œç‚¼
+æ°”åŒ–ç¥ï¼Œç‚¼ç¥è¿˜è™šã€çš„æ–¹æ³•å°†ä½ çš„ç²¾è½¬å˜æˆç²¾åŠ›ã€‚æ³¨æ„ï¼šä½ ä¸èƒ½åœ¨ä¸
+èƒ½æˆ˜æ–—çš„åœ°æ–¹åçº³ã€‚
 
 See also: exercise
 HELP

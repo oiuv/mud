@@ -33,10 +33,10 @@ int do_cut(object me, string arg)
         object ob;
 
         if (! arg)
-                return notify_fail("ÄãÒª¸îÏÂÊ²Ã´²¿Î»£¿\n");
+                return notify_fail("ä½ è¦å‰²ä¸‹ä»€ä¹ˆéƒ¨ä½ï¼Ÿ\n");
 
         if (! mapp(parts = query("parts")))
-                return notify_fail("¿´À´ÄãÊÇ¸î²»ÏÂÀ´Ê²Ã´¶«Î÷ÁË¡£\n");
+                return notify_fail("çœ‹æ¥ä½ æ˜¯å‰²ä¸ä¸‹æ¥ä»€ä¹ˆä¸œè¥¿äº†ã€‚\n");
 
         exist = keys(parts);
         exist -= query_exclude_part();
@@ -48,7 +48,7 @@ int do_cut(object me, string arg)
                 int i;
                 int count;
                 count = 0;
-                msg = this_object()->name() + "ÓĞÒÔÏÂ²¿Î»¿ÉÒÔ¸îÏÂÀ´¡£\n";
+                msg = this_object()->name() + "æœ‰ä»¥ä¸‹éƒ¨ä½å¯ä»¥å‰²ä¸‹æ¥ã€‚\n";
                 for (i = 0; i < sizeof(exist); i++)
                 {
                         if (member_array(exist[i], cut) != -1 ||
@@ -59,20 +59,20 @@ int do_cut(object me, string arg)
                                        parts[exist[i]][NAME], exist[i]);
                 }
                 if (! count)
-                        msg = this_object()->name() + "ÒÑ¾­Ã»Ê²Ã´¿ÉÒÔÏÂµ¶µÄµØ·½ÁË¡£\n";
+                        msg = this_object()->name() + "å·²ç»æ²¡ä»€ä¹ˆå¯ä»¥ä¸‹åˆ€çš„åœ°æ–¹äº†ã€‚\n";
                 write(msg);
                 return 1;
         }
 
         part = parts[arg];
         if (! arrayp(part))
-                return notify_fail("ÄãÔõÃ´Ò²ÕÒ²»µ½ÄãÏë¸îµÄ²¿Î»¡£\n");
+                return notify_fail("ä½ æ€ä¹ˆä¹Ÿæ‰¾ä¸åˆ°ä½ æƒ³å‰²çš„éƒ¨ä½ã€‚\n");
 
         if (member_array(arg, cut) != -1)
-                return notify_fail(part[NAME] + "ÒÑ¾­±»¸î×ßÁË¡£\n");
+                return notify_fail(part[NAME] + "å·²ç»è¢«å‰²èµ°äº†ã€‚\n");
 
         if (msg = query("no_cut/" + arg))
-                return notify_fail(msg ? msg : "ÕâÑù¶«Î÷Äã¸î²»ÏÂÀ´¡£\n");
+                return notify_fail(msg ? msg : "è¿™æ ·ä¸œè¥¿ä½ å‰²ä¸ä¸‹æ¥ã€‚\n");
 
         default_clone = query("default_clone");
         if (weapon = me->query_temp("weapon"))
@@ -80,69 +80,69 @@ int do_cut(object me, string arg)
                 if (weapon->query("skill_type") == "pin")
                 {
                         if (me->query_skill("sword") < 100)
-                                return notify_fail("ÄãÏÖÔÚµÄĞŞÎªÉĞÇÒÎŞ·¨ÓÃÕë½øĞĞÇĞ¸î¡£\n");
+                                return notify_fail("ä½ ç°åœ¨çš„ä¿®ä¸ºå°šä¸”æ— æ³•ç”¨é’ˆè¿›è¡Œåˆ‡å‰²ã€‚\n");
                         else
-                                msg = WHT "$N" WHT "Çáµ¯³öÊÖÖĞ" + weapon->name() +
-                                      WHT "£¬¹´ÀÕ³öÒ»µÀÑ¤ÀöµÄ»¡Ã¢£¬½«$n" WHT "µÄ" +
-                                      part[NAME] + WHT "¸îÁËÏÂÀ´¡£\n" NOR;
+                                msg = WHT "$N" WHT "è½»å¼¹å‡ºæ‰‹ä¸­" + weapon->name() +
+                                      WHT "ï¼Œå‹¾å‹’å‡ºä¸€é“ç»šä¸½çš„å¼§èŠ’ï¼Œå°†$n" WHT "çš„" +
+                                      part[NAME] + WHT "å‰²äº†ä¸‹æ¥ã€‚\n" NOR;
                 } else
                 if (weapon->query("skill_type") == "hammer")
                 {
                         if (me->query_skill("hammer") < 100)
-                                return notify_fail("ÄãÏÖÔÚµÄ´¸·¨ĞŞÎªÉĞÇÒÎŞ·¨½øĞĞÇĞ¸î¡£\n");
+                                return notify_fail("ä½ ç°åœ¨çš„é”¤æ³•ä¿®ä¸ºå°šä¸”æ— æ³•è¿›è¡Œåˆ‡å‰²ã€‚\n");
                         else
-                                msg = WHT "$N" WHT "İëµØ»Ó¶¯" + weapon->name() +
-                                      WHT "£¬ÌıµÃ¡¸ßÑßË¡¹Ò»ÉùÃÆÏì£¬ÒÑ½«$n" WHT "µÄ"
-                                      + part[NAME] + WHT "ÔÒÁËÏÂÀ´¡£\n" NOR;
+                                msg = WHT "$N" WHT "è“¦åœ°æŒ¥åŠ¨" + weapon->name() +
+                                      WHT "ï¼Œå¬å¾—ã€Œå“å’šã€ä¸€å£°é—·å“ï¼Œå·²å°†$n" WHT "çš„"
+                                      + part[NAME] + WHT "ç ¸äº†ä¸‹æ¥ã€‚\n" NOR;
                 } else
                 if (weapon->query("skill_type") == "staff")
                 {
                         if (me->query_skill("staff") < 100)
-                                return notify_fail("ÄãÏÖÔÚµÄÕÈ·¨ĞŞÎªÉĞÇÒÎŞ·¨½øĞĞÇĞ¸î¡£\n");
+                                return notify_fail("ä½ ç°åœ¨çš„æ–æ³•ä¿®ä¸ºå°šä¸”æ— æ³•è¿›è¡Œåˆ‡å‰²ã€‚\n");
                         else
-                                msg = WHT "$N" WHT "·´×ª¹ıÊÖÖĞ" + weapon->name() +
-                                      WHT "£¬Ö»Ìı¡¸àÍÀ²¡¹Ò»Éù£¬ÒÑ½«" + part[NAME] +
-                                      WHT "´Ó$n" WHT "ÉÏ¸îÁËÏÂÀ´¡£\n" NOR;
+                                msg = WHT "$N" WHT "åè½¬è¿‡æ‰‹ä¸­" + weapon->name() +
+                                      WHT "ï¼Œåªå¬ã€Œå—¤å•¦ã€ä¸€å£°ï¼Œå·²å°†" + part[NAME] +
+                                      WHT "ä»$n" WHT "ä¸Šå‰²äº†ä¸‹æ¥ã€‚\n" NOR;
                 } else
                 if (weapon->query("skill_type") == "club")
                 {
                         if (me->query_skill("club") < 100)
-                                return notify_fail("ÄãÏÖÔÚµÄ¹÷·¨ĞŞÎªÉĞÇÒÎŞ·¨½øĞĞÇĞ¸î¡£\n");
+                                return notify_fail("ä½ ç°åœ¨çš„æ£æ³•ä¿®ä¸ºå°šä¸”æ— æ³•è¿›è¡Œåˆ‡å‰²ã€‚\n");
                         else
-                                msg = WHT "$N" WHT "¸ß¾Ù¹ıÊÖÖĞ" + weapon->name() +
-                                      WHT "Áè¿ÕÅüÏÂ£¬Ëæ×Å¡¸àÛàÍ¡¹Ò»Éù£¬ÒÑ½«" +
-                                      part[NAME] + WHT "´Ó$n" WHT "ÉÏÅüÁËÏÂÀ´¡£\n" NOR;
+                                msg = WHT "$N" WHT "é«˜ä¸¾è¿‡æ‰‹ä¸­" + weapon->name() +
+                                      WHT "å‡Œç©ºåŠˆä¸‹ï¼Œéšç€ã€Œå™—å—¤ã€ä¸€å£°ï¼Œå·²å°†" +
+                                      part[NAME] + WHT "ä»$n" WHT "ä¸ŠåŠˆäº†ä¸‹æ¥ã€‚\n" NOR;
                 } else
                 if (weapon->query("skill_type") == "whip")
                 {
                         if (me->query_skill("whip") < 100)
-                                return notify_fail("ÄãÏÖÔÚµÄ±Ş·¨ĞŞÎªÉĞÇÒÎŞ·¨½øĞĞÇĞ¸î¡£\n");
+                                return notify_fail("ä½ ç°åœ¨çš„é­æ³•ä¿®ä¸ºå°šä¸”æ— æ³•è¿›è¡Œåˆ‡å‰²ã€‚\n");
                         else
-                                msg = WHT "$N" WHT "Ò»ÕñÊÖÖĞ" + weapon->name() +
-                                      WHT "£¬¶ÙÊ±Ö»Ìı¡¸àè¡¹µÄÒ»Éù´àÏì£¬ÒÑ½«$n" WHT
-                                      "µÄ" + part[NAME] + WHT "¾íÁËÏÂÀ´¡£\n" NOR;
+                                msg = WHT "$N" WHT "ä¸€æŒ¯æ‰‹ä¸­" + weapon->name() +
+                                      WHT "ï¼Œé¡¿æ—¶åªå¬ã€Œå™¼ã€çš„ä¸€å£°è„†å“ï¼Œå·²å°†$n" WHT
+                                      "çš„" + part[NAME] + WHT "å·äº†ä¸‹æ¥ã€‚\n" NOR;
                 } else
-                msg = WHT "$N" WHT "ÌáÆğÊÖÖĞ" + weapon->name() +
-                      WHT "¡¸àÍ¡¹µÄÒ»Éù±ã½«$n" WHT "µÄ" + part[NAME] +
-                      (stringp(part[VERB]) ? part[VERB] : WHT "¸îÁËÏÂ") +
-                      WHT "À´¡£\n" NOR;
+                msg = WHT "$N" WHT "æèµ·æ‰‹ä¸­" + weapon->name() +
+                      WHT "ã€Œå—¤ã€çš„ä¸€å£°ä¾¿å°†$n" WHT "çš„" + part[NAME] +
+                      (stringp(part[VERB]) ? part[VERB] : WHT "å‰²äº†ä¸‹") +
+                      WHT "æ¥ã€‚\n" NOR;
         } else
         if (me->query_skill("force") < 90)
         {
-                message_vision(WHT "$N" WHT "¾ÙÆğÊÖÀ´£¬¶Ô×Å$n" WHT "µÄ" +
-                               part[NAME] + WHT "Ò»ÕÆ¿³ÁËÏÂÈ¥£¬½á¹û±»Õğ"
-                               "µÄ¡¸ÍÛÍÛ¡¹¹Ö½ĞÁËÁ½Éù¡£\n" NOR, me, this_object());
+                message_vision(WHT "$N" WHT "ä¸¾èµ·æ‰‹æ¥ï¼Œå¯¹ç€$n" WHT "çš„" +
+                               part[NAME] + WHT "ä¸€æŒç äº†ä¸‹å»ï¼Œç»“æœè¢«éœ‡"
+                               "çš„ã€Œå“‡å“‡ã€æ€ªå«äº†ä¸¤å£°ã€‚\n" NOR, me, this_object());
 
-                write(HIY "ºÃºÃÁ·Á·ÄÚ¹¦ÔÙÀ´°É¡£\n" NOR);
+                write(HIY "å¥½å¥½ç»ƒç»ƒå†…åŠŸå†æ¥å§ã€‚\n" NOR);
                 return 1;
         } else
-                msg = WHT "$N" WHT "¾ÙÆğÊÖÀ´£¬Ò»ÏÂ×Ó¾Í°Ñ$n" WHT "µÄ" + part[NAME] +
-                      WHT "¸ø" + (stringp(part[VERB]) ? part[VERB] : "ÇĞÁËÏÂ") +
-                      WHT "À´¡£\n" NOR;
+                msg = WHT "$N" WHT "ä¸¾èµ·æ‰‹æ¥ï¼Œä¸€ä¸‹å­å°±æŠŠ$n" WHT "çš„" + part[NAME] +
+                      WHT "ç»™" + (stringp(part[VERB]) ? part[VERB] : "åˆ‡äº†ä¸‹") +
+                      WHT "æ¥ã€‚\n" NOR;
 
         message_vision(msg, me, this_object());
 
-        // ¸îÁËÍ·µÄÊ¬ÌåÈ¡Ïûµô»§Ö÷
+        // å‰²äº†å¤´çš„å°¸ä½“å–æ¶ˆæ‰æˆ·ä¸»
         if (arg == "head")
                 this_object()->delete("defeated_by");
 
@@ -150,7 +150,7 @@ int do_cut(object me, string arg)
         ob->set_name(stringp(part[NAME_LEFT]) ? part[NAME_LEFT] : part[NAME],
                      ({ stringp(part[ID_LEFT]) ? part[ID_LEFT] : arg }));
         ob->set("unit", part[UNIT]);
-        ob->set("long", "ÕâÊÇÒ»" + part[UNIT] + "±»ÈË¸îÏÂÀ´µÄ" + ob->name() + "¡£\n");
+        ob->set("long", "è¿™æ˜¯ä¸€" + part[UNIT] + "è¢«äººå‰²ä¸‹æ¥çš„" + ob->name() + "ã€‚\n");
         ob->set("default_clone", default_clone);
         ob->set("main_part_level", part[LEVEL] + 1);
 
@@ -161,8 +161,8 @@ int do_cut(object me, string arg)
 
         if (me->query("env/auto_get"))
         {
-                message_vision("$N¼ğÆğÒ»" + ob->query("unit") +
-                               ob->name() + "¡£\n", me);
+                message_vision("$Næ‹£èµ·ä¸€" + ob->query("unit") +
+                               ob->name() + "ã€‚\n", me);
                 ob->move(me, 1);
         } else
                 ob->move(environment());
@@ -195,12 +195,12 @@ string extra_desc()
                         continue;
                 if (! flag)
                 {
-                        msg += "²»¹ıËüµÄ" + part[NAME];
+                        msg += "ä¸è¿‡å®ƒçš„" + part[NAME];
                         flag++;
                 } else
-                        msg += "¡¢" + part[NAME];
+                        msg += "ã€" + part[NAME];
         }
-        if (flag) msg += "ÒÑ¾­²»¼ûÁË¡£\n";
+        if (flag) msg += "å·²ç»ä¸è§äº†ã€‚\n";
         return msg;
 }
 

@@ -1,4 +1,4 @@
-// zong.c¡¸ÈáÔÆ×İ¡¹
+// zong.cã€ŒæŸ”äº‘çºµã€
 
 #include <ansi.h>
 
@@ -9,11 +9,11 @@ int perform(object me, object target)
         string msg;
 
         if ((int)me->query_skill("rouyun-steps", 1) < 50)
-                return notify_fail("ÄãµÄÈáÔÆ²½·¨²»¹»ÊìÁ·£¡\n");
+                return notify_fail("ä½ çš„æŸ”äº‘æ­¥æ³•ä¸å¤Ÿç†Ÿç»ƒï¼\n");
 
-        msg = HIW "$N" HIW "ÉíĞÎ¶¸È»×İÆğ£¬Ê®·ÖÓÅÑÅ£¬Ìì¿ÕÖĞÈ´"
-              "Æ®ÏÂÒ»¶äÔÆ£¬·Ç³£Ææ¹Ö£¡\n" NOR;
-        msg += HIC "Ô­À´$N" HIC "ÒÑÊ¹³ö¡¸ÈáÔÆ×İ¡¹£¬³ËÔÆ¶øÈ¥ÁË£¡\n" NOR;
+        msg = HIW "$N" HIW "èº«å½¢é™¡ç„¶çºµèµ·ï¼Œååˆ†ä¼˜é›…ï¼Œå¤©ç©ºä¸­å´"
+              "é£˜ä¸‹ä¸€æœµäº‘ï¼Œéå¸¸å¥‡æ€ªï¼\n" NOR;
+        msg += HIC "åŸæ¥$N" HIC "å·²ä½¿å‡ºã€ŒæŸ”äº‘çºµã€ï¼Œä¹˜äº‘è€Œå»äº†ï¼\n" NOR;
         message_combatd(msg, me, target);
         switch (random(3))
         {

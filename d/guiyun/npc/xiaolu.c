@@ -7,13 +7,13 @@ string ask_me();
 
 void create()
 {
-	set_name("Â½¹ÚÓ¢", ({ "lu guanying", "lu" }));
-	set("title", "¹éÔÆ×¯ÉÙ×¯Ö÷");
+	set_name("é™†å† è‹±", ({ "lu guanying", "lu" }));
+	set("title", "å½’äº‘åº„å°‘åº„ä¸»");
 	set("long", "
-ËûÊÇ¹éÔÆ×¯ÉÙ×¯Ö÷Â½¹ÚÓ¢¡£Ëû¼ç¿í±³À«£¬ÇûÌåÉõÊÇ×³½¡£¬
-µ«ĞĞ¶¯Ö®¼äÎÂÎÄ¶ûÑÅ£¬Ç«¹§ÓĞÀñ£¬Ò»ÅÉÊÀ¼Ò×ÓµÜ·ç·¶¡£
-´«ÎÅËû¾ÍÊÇÌ«ºşÈºµÁµÄÊ×Áì£¬²»ÖªÊÇÕæÊÇ¼Ù¡£\n");
-	set("gender", "ÄĞĞÔ");
+ä»–æ˜¯å½’äº‘åº„å°‘åº„ä¸»é™†å† è‹±ã€‚ä»–è‚©å®½èƒŒé˜”ï¼Œèº¯ä½“ç”šæ˜¯å£®å¥ï¼Œ
+ä½†è¡ŒåŠ¨ä¹‹é—´æ¸©æ–‡å°”é›…ï¼Œè°¦æ­æœ‰ç¤¼ï¼Œä¸€æ´¾ä¸–å®¶å­å¼Ÿé£èŒƒã€‚
+ä¼ é—»ä»–å°±æ˜¯å¤ªæ¹–ç¾¤ç›—çš„é¦–é¢†ï¼Œä¸çŸ¥æ˜¯çœŸæ˜¯å‡ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 21);
 	set("attitude", "peaceful");
 	set("class", "fighter");
@@ -49,7 +49,7 @@ void create()
 	map_skill("blade", "cibei-dao");
 
 	set("inquiry", ([
-		"¹éÔÆ×¯" : (: ask_me :),
+		"å½’äº‘åº„" : (: ask_me :),
 	]));
 
 	set("book_count", 1);
@@ -68,7 +68,7 @@ string ask_me()
 {
 	object me = this_player();
 	me->set_temp("guiyun/decide",1);
-	return "¹éÔÆ×¯¾ÍÊÇÔÚÏÂ¾Ó´¦£¬Èç¹û"+RANK_D->query_respect(me)+"ÓĞÒâ(decide)£¬ÎÒ¿ÉĞŞÊéÒ»·â´úÎªÒı¼ö¡£\n";
+	return "å½’äº‘åº„å°±æ˜¯åœ¨ä¸‹å±…å¤„ï¼Œå¦‚æœ"+RANK_D->query_respect(me)+"æœ‰æ„(decide)ï¼Œæˆ‘å¯ä¿®ä¹¦ä¸€å°ä»£ä¸ºå¼•èã€‚\n";
 }
 
 int do_decide()
@@ -77,15 +77,15 @@ int do_decide()
 	me = this_player();
 	if (!me->query_temp("guiyun/decide"))
 	{
-		message_vision("$N¶Ô$nÆæ¹ÖµØËµµÀ£ºÄãÒª¾ö¶¨¸ÉÂï£¿\n", this_object(), me);
+		message_vision("$Nå¯¹$nå¥‡æ€ªåœ°è¯´é“ï¼šä½ è¦å†³å®šå¹²å˜›ï¼Ÿ\n", this_object(), me);
 		return 1;
 	}
 	me->delete_temp("guiyun/decide");
 	ob = new(__DIR__"obj/xin");
 	ob->move(me);
-	message_vision("$NË«ÊÖ±§È­£¬µÀ£ºÓĞÀÍÉÙ×¯Ö÷·ÑĞÄÁË¡£\n", me);
-	message_vision("$NËµµÀ£ººÃ£¡\n", this_object());
-	message_vision("$N¸ø$nÒ»·âÊéĞÅ¡£\n", this_object(), me);
-	message_vision("$NËµµÀ£ºÕâÎ»"+RANK_D->query_respect(me) + "ÇëÏÈµ½±Ö×¯ÅÌºãÊıÈÕ£¬ÒÔºóÔÙÍ¼ÏàĞğ¡£\n", this_object());
+	message_vision("$NåŒæ‰‹æŠ±æ‹³ï¼Œé“ï¼šæœ‰åŠ³å°‘åº„ä¸»è´¹å¿ƒäº†ã€‚\n", me);
+	message_vision("$Nè¯´é“ï¼šå¥½ï¼\n", this_object());
+	message_vision("$Nç»™$nä¸€å°ä¹¦ä¿¡ã€‚\n", this_object(), me);
+	message_vision("$Nè¯´é“ï¼šè¿™ä½"+RANK_D->query_respect(me) + "è¯·å…ˆåˆ°æ•åº„ç›˜æ’æ•°æ—¥ï¼Œä»¥åå†å›¾ç›¸å™ã€‚\n", this_object());
 	return 1;
 }

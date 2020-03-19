@@ -22,40 +22,40 @@ int main(object me, string arg)
                 inv = all_inventory(env);
 
                 if (! inv)
-                        return notify_fail("ÕâÀï²¢Ã»ÓĞÈÎºÎÔÚ°ÚÌ¯µÄÉÌÈË¡£\n");
+                        return notify_fail("è¿™é‡Œå¹¶æ²¡æœ‰ä»»ä½•åœ¨æ‘†æ‘Šçš„å•†äººã€‚\n");
 
-                msg = HIC "ÏÖÔÚÕâÀïµÄĞ¡Ì¯×ÓÓĞ£º"
-                      HIY "\n©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR;
+                msg = HIC "ç°åœ¨è¿™é‡Œçš„å°æ‘Šå­æœ‰ï¼š"
+                      HIY "\nâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR;
                 for (i = 0; i < sizeof(inv); i++)
                 {
                         if (userp(inv[i]) && inv[i]->query_temp("on_baitan"))
                         {
                                 have_vendor = 1;
-                                msg += WHT + inv[i]->name(1) + "µÄÔÓ»õÌ¯(" +
+                                msg += WHT + inv[i]->name(1) + "çš„æ‚è´§æ‘Š(" +
                                        inv[i]->query("id") + ")\n";
                         }
                 }
                 if (! have_vendor) 
-                        msg = WHT "Ä¿Ç°ÕâÀï²¢Ã»ÓĞÈÎºÎ°ÚÌ¯µÄÉÌÈË¡£\n" NOR;
+                        msg = WHT "ç›®å‰è¿™é‡Œå¹¶æ²¡æœ‰ä»»ä½•æ‘†æ‘Šçš„å•†äººã€‚\n" NOR;
                 else
-                        msg += HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR;
+                        msg += HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR;
                 write(msg);
                 return 1;
         }
 
         if (! (obj = present(arg, env)) || ! userp(obj))
-                return notify_fail("ÕâÀï²¢Ã»ÓĞÕâ¸öÉÌÈË¡£\n");
+                return notify_fail("è¿™é‡Œå¹¶æ²¡æœ‰è¿™ä¸ªå•†äººã€‚\n");
 
         if (! obj->query("is_vendor"))
-                return notify_fail(obj->name(1) + "²¢²»ÊÇÉÌÈË¡£\n");
+                return notify_fail(obj->name(1) + "å¹¶ä¸æ˜¯å•†äººã€‚\n");
 
         if (! obj->query_temp("on_baitan"))
-                return notify_fail(obj->name(1) + "Ä¿Ç°²¢Ã»ÓĞÔÚ°ÚÌ¯¡£\n");
+                return notify_fail(obj->name(1) + "ç›®å‰å¹¶æ²¡æœ‰åœ¨æ‘†æ‘Šã€‚\n");
 
         goods = obj->query("vendor_goods");
 
         if (! goods)
-                return notify_fail(obj->name(1) + "Ä¿Ç°²¢Ã»ÓĞ¶µÊÛÈÎºÎ»õÎï¡£\n");
+                return notify_fail(obj->name(1) + "ç›®å‰å¹¶æ²¡æœ‰å…œå”®ä»»ä½•è´§ç‰©ã€‚\n");
 
         gks = keys(goods);
 
@@ -97,8 +97,8 @@ int main(object me, string arg)
                 price += ([ short_name : goods[gks[i]] ]);
         }
 
-        msg = HIC + obj->name(1) + "Ä¿Ç°³öÊÛÒÔÏÂÎïÆ·£º"
-              HIY "\n©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR;
+        msg = HIC + obj->name(1) + "ç›®å‰å‡ºå”®ä»¥ä¸‹ç‰©å“ï¼š"
+              HIY "\nâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR;
         dk = sort_array(keys(unit), 1);
 
         for (i = 0; i < sizeof(dk); i++)
@@ -108,10 +108,10 @@ int main(object me, string arg)
 
                 //msg += sprintf("%" + sprintf("%d", (30 + color_len(dk[i]))) +
                 msg += sprintf("%" + sprintf("%d", (30)) +
-                               "-s£ºÃ¿%s%s" CYN "\n" NOR, 
+                               "-sï¼šæ¯%s%s" CYN "\n" NOR, 
                                dk[i], unit[dk[i]], MONEY_D->price_str(p));
         }
-        msg += HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR;
+        msg += HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR;
         write(msg);
         return 1;
 }       
@@ -119,9 +119,9 @@ int main(object me, string arg)
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: list <ID>
+æŒ‡ä»¤æ ¼å¼: list <ID>
  
-ÁĞ³öÒ»¸öÍæ¼ÒÉÌÈËÕıÔÚ³öÊÛµÄÉÌÆ·¡£
+åˆ—å‡ºä¸€ä¸ªç©å®¶å•†äººæ­£åœ¨å‡ºå”®çš„å•†å“ã€‚
  
 HELP);
         return 1;

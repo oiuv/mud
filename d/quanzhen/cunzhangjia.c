@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�峤��");
+        set("short", "村长家");
         set("long", @LONG
-�����Ǵ峤�ļң�������ѷ���һЩ��ͷ������֮���ũ
-���þߣ���һЩ�Ǵ��д�����ﻵ�ˣ�������峤���޵ġ���
-��ǰ������ʮ���ʺ������������һЩ��ɵ�Ұζ��
+这里是村长的家，堂屋里堆放着一些锄头、镰刀之类的农
+耕用具，有一些是村中村民家里坏了，来央求村长给修的。屋
+檐前吊着数十串鲜红的辣椒，还有一些风干的野味。
 LONG);
         set("exits", ([
                 "south" : __DIR__"guchang",

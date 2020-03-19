@@ -18,17 +18,17 @@ int valid_force(string force)
 int valid_learn(object me)
 {
         if (me->query("con") < 32)
-                return notify_fail("你先天根骨不足，无法修炼玄冥神功。\n");
+                return notify_fail("浣犲厛澶╂牴楠ㄤ笉瓒筹紝鏃犳硶淇偧鐜勫啣绁炲姛銆俓n");
 
         if ((int)me->query_skill("force", 1) < 100)
-                return notify_fail("你的基本内功火候还不够，还不能学习玄冥神功。\n");
+                return notify_fail("浣犵殑鍩烘湰鍐呭姛鐏�欒繕涓嶅锛岃繕涓嶈兘瀛︿範鐜勫啣绁炲姛銆俓n");
 
         return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("玄冥神功只能用学(learn)的来增加熟练度。\n");
+        return notify_fail("鐜勫啣绁炲姛鍙兘鐢ㄥ(learn)鐨勬潵澧炲姞鐔熺粌搴︺�俓n");
 }
 
 string exert_function_file(string func)

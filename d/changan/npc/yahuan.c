@@ -4,9 +4,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ñ¾»·", ({"yahuan"}));
-        set("long","Ò»¸öĞ¡Ñ¾»·£¬ÕıÔÚ´òÉ¨·¿¼ä£®\n");
-        set("gender", "Å®ĞÔ");
+        set_name("ä¸«ç¯", ({"yahuan"}));
+        set("long","ä¸€ä¸ªå°ä¸«ç¯ï¼Œæ­£åœ¨æ‰“æ‰«æˆ¿é—´ï¼\n");
+        set("gender", "å¥³æ€§");
         set("age", 16);
         set("attitude", "friendly");
         set("shen_type", 1);

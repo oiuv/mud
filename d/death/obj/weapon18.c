@@ -5,16 +5,16 @@ inherit STAFF;
 
 void create()
 {
-        set_name(MAG "ÆßĞÇÕÈ¡¤ÖïÌì" NOR, ({ "zhu tian", "qixingzhang", "zhang", "staff" }) );
+        set_name(MAG "ä¸ƒæ˜Ÿæ–Â·è¯›å¤©" NOR, ({ "zhu tian", "qixingzhang", "zhang", "staff" }) );
         set_weight(18000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
+                set("unit", "æ ¹");
                 set("value", 1800000);
                 set("material", "steel");
-                set("long", HIW "\nÆßĞÇÕÈ¡¤ÖïÌìÄË¾Åñ·ÆßÓüÉñ±øÖ®Ò»¡£\n" NOR);
-                set("wield_msg", HIR "$NÇáÇá¶¶³ö$n" HIR "£¬É²Ê±À×ÉùºäÃù£¬Ò»¹ÉÉ±ÆøÖ±Äô¾ÅÏö¡£\n" NOR);
+                set("long", HIW "\nä¸ƒæ˜Ÿæ–Â·è¯›å¤©ä¹ƒä¹ç©¹ä¸ƒç‹±ç¥å…µä¹‹ä¸€ã€‚\n" NOR);
+                set("wield_msg", HIR "$Nè½»è½»æŠ–å‡º$n" HIR "ï¼Œåˆ¹æ—¶é›·å£°è½°é¸£ï¼Œä¸€è‚¡æ€æ°”ç›´è‚ä¹éœ„ã€‚\n" NOR);
         }
         init_staff(150);
         setup();

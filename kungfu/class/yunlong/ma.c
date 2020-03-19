@@ -1,4 +1,4 @@
-// ma.c Âí³¬ĞË
+// ma.c é©¬è¶…å…´
 
 #include <ansi.h>
 
@@ -7,10 +7,10 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("Âí³¬ĞË", ({ "ma chaoxing", "ma"}));
-	set("title", HIR "ÌìµØ»á"HIW"¼ÒºóÌÃÏãÖ÷"NOR);
-	set("gender", "ÄĞĞÔ");
-	set("long", "\nËû¾ÍÊÇÌìµØ»á¼ÒºóÌÃÏãÖ÷£¬°«°«ÅÖÅÖµÄ¸ö£¬ÉÆÊ¹Ò»±ú´óµ¶¡£\n");
+	set_name("é©¬è¶…å…´", ({ "ma chaoxing", "ma"}));
+	set("title", HIR "å¤©åœ°ä¼š"HIW"å®¶åå ‚é¦™ä¸»"NOR);
+	set("gender", "ç”·æ€§");
+	set("long", "\nä»–å°±æ˜¯å¤©åœ°ä¼šå®¶åå ‚é¦™ä¸»ï¼ŒçŸ®çŸ®èƒ–èƒ–çš„ä¸ªï¼Œå–„ä½¿ä¸€æŸ„å¤§åˆ€ã€‚\n");
 	set("class", "fighter");
 	set("age", 45);
 
@@ -49,19 +49,19 @@ void create()
 	map_skill("whip", "yunlong-bian");
         map_skill("unarmed","houquan");
 
-	create_family("ÔÆÁúÃÅ", 2, "µÜ×Ó");
+	create_family("äº‘é¾™é—¨", 2, "å¼Ÿå­");
 	set("book_count", 1);
         set("inquiry", ([
-		"³Â½üÄÏ" :  "ÕâÊÇÎÒÃÇµÄ×Ü¶æÖ÷£¡",
-		"ÌìµØ»á" :  "Ö»ÒªÊÇÓ¢ĞÛºÃºº£¬¶¼¿ÉÒÔÈëÎÒÌìµØ»á(join tiandihui)¡£",
-		"Èë»á" :  "¼ÓÈëÌìµØ»á£¬Ò»Í¬·´Çå¸´Ã÷£¡",
-                "·´Çå¸´Ã÷" : "È¥Ò©ÆÌºÍ¹×²Äµê×ĞÏ¸ÇÆÇÆ°É£¡",
+		"é™ˆè¿‘å—" :  "è¿™æ˜¯æˆ‘ä»¬çš„æ€»èˆµä¸»ï¼",
+		"å¤©åœ°ä¼š" :  "åªè¦æ˜¯è‹±é›„å¥½æ±‰ï¼Œéƒ½å¯ä»¥å…¥æˆ‘å¤©åœ°ä¼š(join tiandihui)ã€‚",
+		"å…¥ä¼š" :  "åŠ å…¥å¤©åœ°ä¼šï¼Œä¸€åŒåæ¸…å¤æ˜ï¼",
+                "åæ¸…å¤æ˜" : "å»è¯é“ºå’Œæ£ºæåº—ä»”ç»†ç§ç§å§ï¼",
 	]));
 
 	set("chat_chance_combat", 50);
 	set("chat_msg_combat", ({
-		(: command("chat ÕâÎ»" + RANK_D->query_respect(this_player()) +
-		           "£¬ÄãÎÒÎŞÔ©ÎŞ³ğ£¬ºÎ±ØÈç´Ë£¿") :),
+		(: command("chat è¿™ä½" + RANK_D->query_respect(this_player()) +
+		           "ï¼Œä½ æˆ‘æ— å†¤æ— ä»‡ï¼Œä½•å¿…å¦‚æ­¤ï¼Ÿ") :),
 		(: command("unwield changjian") :),
 		(: command("wield changjian") :),
 		(: command("wield bian") :),
@@ -97,8 +97,8 @@ void greeting(object ob)
 		return;
 
 	if (random(5) < 2)
-                say("Âí³¬ĞËĞ¦µÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-		    "£¬¿ÉÓĞÊ²Ã´²»Æ½Ö®ÊÂÃ´£¿\n");
+                say("é©¬è¶…å…´ç¬‘é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+		    "ï¼Œå¯æœ‰ä»€ä¹ˆä¸å¹³ä¹‹äº‹ä¹ˆï¼Ÿ\n");
 }
 
 

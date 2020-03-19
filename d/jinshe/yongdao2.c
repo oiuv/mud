@@ -4,17 +4,17 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ð®µÀ");
+        set("short", "ç”¬é“");
         set("long", @LONG
-ð®µÀºöÈ»×ªÍä£¬×ßÁËÁ½ÈýÕÉÔ¶£¬Ç°Ãæ»íÈ»¿ÕÀ«£¬³öÏÖÒ»¸ö¶´Ñ¨£¬
-±ãÈçÊÇ×ùÊ¯ÊÒ¡£¿ÉÏ§ÏÖÔÚ±»´óÊ¯Í·(stone)¶Â×¡ÁËÇ°·½¡£
+ç”¬é“å¿½ç„¶è½¬å¼¯ï¼Œèµ°äº†ä¸¤ä¸‰ä¸ˆè¿œï¼Œå‰é¢è±ç„¶ç©ºé˜”ï¼Œå‡ºçŽ°ä¸€ä¸ªæ´žç©´ï¼Œ
+ä¾¿å¦‚æ˜¯åº§çŸ³å®¤ã€‚å¯æƒœçŽ°åœ¨è¢«å¤§çŸ³å¤´(stone)å µä½äº†å‰æ–¹ã€‚
 LONG );
         set("exits", ([ /* sizeof() == 2 */
             //"north" : __DIR__"shandong",
             "west"  : __DIR__"yongdao1",
         ]));
         set("item_desc", ([
-            "stone" : "Ò»¿é¾ÞÊ¯£¬ÒªÏëÇ°½øÖ»ÓÐÏë°ì·¨°ÑËüÒÆ¿ª£¨move£©¡£\n"
+            "stone" : "ä¸€å—å·¨çŸ³ï¼Œè¦æƒ³å‰è¿›åªæœ‰æƒ³åŠžæ³•æŠŠå®ƒç§»å¼€ï¼ˆmoveï¼‰ã€‚\n"
         ]) );
         set("no_clean_up", 0);
         setup();
@@ -31,17 +31,17 @@ int do_move(string arg)
         object me=this_player();
 
         if( !arg || arg != "stone" ) {
-                return notify_fail("ÄãÒªÒÆ¶¯Ê²Ã´£¿\n");
+                return notify_fail("ä½ è¦ç§»åŠ¨ä»€ä¹ˆï¼Ÿ\n");
         }
         if (me->query("neili") < 1500 ||
             me->query_str() < 35)
         {
-                message_vision("$NÊ¹³ö³ÔÄÌµÄ¾¢Ò²Ã»ÄÜÒÆ¶¯¾ÞÊ¯¡£\n", me);
+                message_vision("$Nä½¿å‡ºåƒå¥¶çš„åŠ²ä¹Ÿæ²¡èƒ½ç§»åŠ¨å·¨çŸ³ã€‚\n", me);
                 me->set("neili", 0);
                 return 1;
         }
-        message_vision(HIC "$N" HIC "Õ¾ÔÚÊ¯Ç°£¬Ë«ÕÆ·¢Á¦ÍÆ¶¯¾ÞÊ¯£¬Ö»ÌýµÃ¾ÞÊ¯"
-                       "Ö¨Ö¨Á¬Éù£¬»º»º\nÏòºóÒÆÈ¥£¬ÏÖ³öÒ»¸öÉ½¶´À´¡£\n" NOR, 
+        message_vision(HIC "$N" HIC "ç«™åœ¨çŸ³å‰ï¼ŒåŒæŽŒå‘åŠ›æŽ¨åŠ¨å·¨çŸ³ï¼Œåªå¬å¾—å·¨çŸ³"
+                       "å±å±è¿žå£°ï¼Œç¼“ç¼“\nå‘åŽç§»åŽ»ï¼ŒçŽ°å‡ºä¸€ä¸ªå±±æ´žæ¥ã€‚\n" NOR, 
                        this_player());
         set("exits/north", __DIR__"shandong");
         remove_call_out("close");
@@ -52,6 +52,6 @@ int do_move(string arg)
 
 void close(object room)
 {
-        message("vision", HIW "\nÖ»¼û¾ÞÊ¯ÓÖÖ¨Ö¨µØ»Øµ½Ô­µØ¡£\n" NOR, room);
+        message("vision", HIW "\nåªè§å·¨çŸ³åˆå±å±åœ°å›žåˆ°åŽŸåœ°ã€‚\n" NOR, room);
         room->delete("exits/north");
 }

@@ -7,13 +7,13 @@ inherit F_GUARDER;
 
 void create()
 {
-	set_name("¿Õ¼û", ({ "kong jian", "kongjian" }));
+	set_name("ç©ºè§", ({ "kong jian", "kongjian" }));
 	set("long",
-		"ËûÊÇÒ»Î»Ðë·¢»¨°×µÄÀÏÉ®£¬ÉíÐÎÊÝÏ÷£¬ÈÝÃ²´ÈºÍ¡£\n"
+		"ä»–æ˜¯ä¸€ä½é¡»å‘èŠ±ç™½çš„è€åƒ§ï¼Œèº«å½¢ç˜¦å‰Šï¼Œå®¹è²Œæ…ˆå’Œã€‚\n"
 	);
 
-	set("nickname", HIR "ÉñÉ®" NOR);
-	set("gender", "ÄÐÐÔ");
+	set("nickname", HIR "ç¥žåƒ§" NOR);
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
 	set("class", "bonze");
 
@@ -59,12 +59,12 @@ void create()
         }));
 
 	set("guarder", ([
-		"refuse_other": "$N¶Ô$nµÀ£ºÉÆÔÕ£¬ºóµîÖ»ÓÐÉÙÁÖµÜ×Ó²ÅÄÜÈëÄÚ£¬Ê©Ö÷»¹ÊÇÇë»Ø°É£¡",
-                "refuse_carry": "$N¶Ô$nµÀ£ºÄã±³ÉÏ±³µÄÊÇË­£¿»¹²»¿ì¿ì·ÅÏÂÀ´£¿",
+		"refuse_other": "$Nå¯¹$né“ï¼šå–„å“‰ï¼ŒåŽæ®¿åªæœ‰å°‘æž—å¼Ÿå­æ‰èƒ½å…¥å†…ï¼Œæ–½ä¸»è¿˜æ˜¯è¯·å›žå§ï¼",
+                "refuse_carry": "$Nå¯¹$né“ï¼šä½ èƒŒä¸ŠèƒŒçš„æ˜¯è°ï¼Ÿè¿˜ä¸å¿«å¿«æ”¾ä¸‹æ¥ï¼Ÿ",
 	]));
 
         set("inquiry", ([
-                "½ð¸Õ²»»µÌå" : "ÎÒÃÇÉÙÁÖµÜ×Ó²»¿ÉÇáÒ×É±Éú£¬ÕâÃÅÎä¹¦µ¹ÊÇºÏÊÊ¡£",
+                "é‡‘åˆšä¸åä½“" : "æˆ‘ä»¬å°‘æž—å¼Ÿå­ä¸å¯è½»æ˜“æ€ç”Ÿï¼Œè¿™é—¨æ­¦åŠŸå€’æ˜¯åˆé€‚ã€‚",
         ]));
 
 	set("chat_chance_combat", 120);
@@ -75,7 +75,7 @@ void create()
 		(: exert_function, "powerup" :),
 	}));
 
-	create_family("ÉÙÁÖÅÉ", 36, "µÜ×Ó");
+	create_family("å°‘æž—æ´¾", 36, "å¼Ÿå­");
 
 	setup();
 
@@ -84,7 +84,7 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        message_vision("$NË«ÊÖºÏÊ®¶Ô$nµÀ£ºÉÆÔÕÉÆÔÕ£¬ÀÏñÄÔçÒÑ²»ÊÕÍ½ÁË¡£\n",
+        message_vision("$NåŒæ‰‹åˆåå¯¹$né“ï¼šå–„å“‰å–„å“‰ï¼Œè€è¡²æ—©å·²ä¸æ”¶å¾’äº†ã€‚\n",
                        this_object(), ob);
 }
 
@@ -98,14 +98,14 @@ int recognize_apprentice(object me, string skill)
 
         if (me->query_skill("buddhism", 1) < 250)
         {
-                command("say °¦£¡Äã»¹ÊÇºÃºÃÐÞÏ°·ð·¨°É£¬²»Òªµ¢ÓÚÎäÑ§¡£");
+                command("say å”‰ï¼ä½ è¿˜æ˜¯å¥½å¥½ä¿®ä¹ ä½›æ³•å§ï¼Œä¸è¦è€½äºŽæ­¦å­¦ã€‚");
                 return -1;
         }
 
         if (me->query_temp("can_learn/kongjian/jingang-buhuaiti", 1))
                 return 1;
 
-        command("say ºÃ°É£¬ÎÒ¾Í´«ÄãÎÒÉÙÁÖÅÉµÄ»¤ÌåÉñ¹¦£¬ÈÕºóÆÕ¶ÉÖÚÉú£¬È´ÉÙ²»ÁËËü¡£");
+        command("say å¥½å§ï¼Œæˆ‘å°±ä¼ ä½ æˆ‘å°‘æž—æ´¾çš„æŠ¤ä½“ç¥žåŠŸï¼Œæ—¥åŽæ™®æ¸¡ä¼—ç”Ÿï¼Œå´å°‘ä¸äº†å®ƒã€‚");
         me->set_temp("can_learn/kongjian/jingang-buhuaiti", 1);
         return 1;
 }

@@ -1,4 +1,4 @@
-// taogu.c ÌÒ¹ÈÀÏÏÉ
+// taogu.c æ¡ƒè°·è€ä»™
 
 #include <ansi.h>
 
@@ -6,9 +6,9 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("ÌÒ¹ÈÀÏÏÉ", ({ "taogu laoxian", "laoxian" }));
-	set("long",  "Ëû¾İËµÊÇÌÒ¹ÈÁùÏÉµÄ³¤±²£¬³öÉíÓÚ¶«º£ÌÒ»¨µº¡£\n");
-	set("gender", "ÄĞĞÔ");
+	set_name("æ¡ƒè°·è€ä»™", ({ "taogu laoxian", "laoxian" }));
+	set("long",  "ä»–æ®è¯´æ˜¯æ¡ƒè°·å…­ä»™çš„é•¿è¾ˆï¼Œå‡ºèº«äºä¸œæµ·æ¡ƒèŠ±å²›ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 58);
 	set("attitude", "peaceful");
 	set("shen_type", 1);
@@ -49,7 +49,7 @@ void create()
 	prepare_skill("finger", "tanzhi-shentong");
 	prepare_skill("hand", "lanhua-shou");
 
-	create_family("ÌÒ»¨µº", 0, "Ç°±²");
+	create_family("æ¡ƒèŠ±å²›", 0, "å‰è¾ˆ");
 
 	set("chat_chance_combat", 120);
 	set("chat_msg_combat", ({

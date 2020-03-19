@@ -5,17 +5,17 @@ inherit THROWING;
  
 void create()
 {
-        set_name(HIC "»ØÁúèµ" NOR, ({ "huilong bi", "huilong", "bi" }));
+        set_name(HIC "å›é¾™ç’§" NOR, ({ "huilong bi", "huilong", "bi" }));
         set_weight(100);
         if (clonep()) 
                 set_default_object(__FILE__); 
         else {
-                set("long", HIC "Ò»Ö§ÎÂÓ¨ÌŞÍ¸µÄÓñ±Ú£¬ÉÏÃæµñÎÆ×ÅÒ»ÌõòÔÁú¡£\n" NOR);
-                set("unit", "Ö§");
+                set("long", HIC "ä¸€æ”¯æ¸©è¹å‰”é€çš„ç‰å£ï¼Œä¸Šé¢é›•çº¹ç€ä¸€æ¡è›Ÿé¾™ã€‚\n" NOR);
+                set("unit", "æ”¯");
                 set("value", 80000);
                 set("no_sell", 1);
                 set("material", "stone");
-                set("base_unit", "Ö§");
+                set("base_unit", "æ”¯");
                 set("base_weight", 100);
                 set("base_value", 1000);
         }

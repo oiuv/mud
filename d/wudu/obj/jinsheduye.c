@@ -3,9 +3,9 @@ inherit ITEM;
 
 void create()
 {
-        set_name(YEL "½ğÉß¶¾Òº" NOR, ({"jinshe duye", "jinshe", "duye"}));
-        set("unit", "Æ¿");
-        set("long", YEL "ÕâÊÇÒ»Æ¿¾ç¶¾µÄ½ğÉß¶¾Òº¡£\n" NOR);
+        set_name(YEL "é‡‘è›‡æ¯’æ¶²" NOR, ({"jinshe duye", "jinshe", "duye"}));
+        set("unit", "ç“¶");
+        set("long", YEL "è¿™æ˜¯ä¸€ç“¶å‰§æ¯’çš„é‡‘è›‡æ¯’æ¶²ã€‚\n" NOR);
         set("value", 100);
         set_weight(100);
         set("only_do_effect", 1);
@@ -14,8 +14,8 @@ void create()
 
 int do_effect(object me)
 {
-        message_vision("$NÒ»Ñö²±£¬°Ñ½ğÉß¶¾Òºµ¹ÈëÁË×ìÖĞ¡£\n", me);
-        me->set_temp("die_reason", "ºÈÁË½ğÉß¶¾ÒºÈ¥¼ûºÚ°×ÎŞ³£ÁË");
+        message_vision("$Nä¸€ä»°è„–ï¼ŒæŠŠé‡‘è›‡æ¯’æ¶²å€’å…¥äº†å˜´ä¸­ã€‚\n", me);
+        me->set_temp("die_reason", "å–äº†é‡‘è›‡æ¯’æ¶²å»è§é»‘ç™½æ— å¸¸äº†");
         me->die();
         destruct(this_object());
         return 1;

@@ -19,8 +19,8 @@ string status;
  status = wizhood(me);
  if( me!=this_player(1)
  || wiz_level(me) < wiz_level(status) )
- return notify_fail("ÄãÃ»ÓÐÈ¨Á¦Ê¹ÓÃÕâ¸öÖ¸Áî¡£\n");
- if(!arg) return notify_fail("Ö¸Áî¸ñÊ½£ºgetid (player's ip)\n");
+ return notify_fail("ä½ æ²¡æœ‰æƒåŠ›ä½¿ç”¨è¿™ä¸ªæŒ‡ä»¤ã€‚\n");
+ if(!arg) return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šgetid (player's ip)\n");
         return get_sameaddress_players(arg);
 }
 
@@ -59,16 +59,16 @@ continue;
    }
 }
     if(count)
-        write( count + "Î»Ê¹ÓÃÕß¡£\n");
+        write( count + "ä½ä½¿ç”¨è€…ã€‚\n");
     else
-        write("²»´æÔÚÕâ¸öÊ¹ÓÃÕß.\n");
+        write("ä¸å­˜åœ¨è¿™ä¸ªä½¿ç”¨è€….\n");
 return 1;
 }
 
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½£ºgetid adress
+æŒ‡ä»¤æ ¼å¼ï¼šgetid adress
 
 find the id of an adres
 HELP

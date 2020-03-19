@@ -2,10 +2,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ğ¡´ä", ({"xiao cui", "xiao", "cui"}) );
-        set("gender", "Å®ĞÔ" );
+        set_name("å°ç¿ ", ({"xiao cui", "xiao", "cui"}) );
+        set("gender", "å¥³æ€§" );
         set("age", 12+random(6));
-        set("long", "ÕâÊÇ¸öÄêÁä²»´óµÄĞ¡¹ÃÄï£¬±ã¹ıÈ¥¼Ó²èµ¹Ë®¡£\n");
+        set("long", "è¿™æ˜¯ä¸ªå¹´é¾„ä¸å¤§çš„å°å§‘å¨˜ï¼Œä¾¿è¿‡å»åŠ èŒ¶å€’æ°´ã€‚\n");
         set("attitude", "friendly");
         set("shen_type", 1);
         set("class", "taoist");
@@ -32,7 +32,7 @@ void create()
         set_temp("apply/defense", 15);
         set_temp("apply/damage", 3);
 
-        create_family("Îäµ±ÅÉ", 5, "²èÍ¯");
+        create_family("æ­¦å½“æ´¾", 5, "èŒ¶ç«¥");
 
         setup();
         carry_object("/d/wudang/obj/greenrobe")->wear();

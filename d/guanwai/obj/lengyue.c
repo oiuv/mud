@@ -1,4 +1,4 @@
-// lengyue.c ÀäÔÂ±¦µ¶
+// lengyue.c å†·æœˆå®åˆ€
 #include <weapon.h>
 
 inherit BLADE;
@@ -7,21 +7,21 @@ inherit BLADE;
 
 void create()
 {
-	set_name(HIG "ÀäÔÂ±¦µ¶" NOR, ({ "moon blade", "blade" }));
+	set_name(HIG "å†·æœˆå®åˆ€" NOR, ({ "moon blade", "blade" }));
 	set_weight(7000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-        	set("unit", "±ú");
+        	set("unit", "æŸ„");
         	set("value", 1000000);
-                set("no_sell", "Õâ...ÕâÍæÒÕ¹ÖÏÅÈËµÄ...\n");
+                set("no_sell", "è¿™...è¿™ç©è‰ºæ€ªå“äººçš„...\n");
         	set("material", "steel");
-        	set("long", "ÕâÊÇºú¼Ò×æ´«µÄ±¦µ¶£¬ÀäÆøÉ­É­£¬ÈñÀûÎŞ±È¡£\n" );
-        	set("wield_msg", HIG "$N" HIG "×¥Æğµ¶±ú£¬ÖÚÈËÖ»¾õÑÛÇ°Çà¹âÒ»"
-			         "ÉÁ£¬º®Æø±ÆÈË£¬$N" HIG "ÊÖÖĞÒÑ¾­¶àÁËÒ»±ú$n"
-			         HIG "£¬µ¶¹âÈçË®£¬Á÷×ª²»¶¨¡£\n" NOR);
-        	set("unwield_msg", HIW "$N" HIW "µ¯µ¶ÇåĞ¥£¬ĞÄÖĞ¸Ğ¿®£¬½«$n"
-				   HIW "²å»Øµ¶ÇÊ¡£\n");
+        	set("long", "è¿™æ˜¯èƒ¡å®¶ç¥–ä¼ çš„å®åˆ€ï¼Œå†·æ°”æ£®æ£®ï¼Œé”åˆ©æ— æ¯”ã€‚\n" );
+        	set("wield_msg", HIG "$N" HIG "æŠ“èµ·åˆ€æŸ„ï¼Œä¼—äººåªè§‰çœ¼å‰é’å…‰ä¸€"
+			         "é—ªï¼Œå¯’æ°”é€¼äººï¼Œ$N" HIG "æ‰‹ä¸­å·²ç»å¤šäº†ä¸€æŸ„$n"
+			         HIG "ï¼Œåˆ€å…‰å¦‚æ°´ï¼Œæµè½¬ä¸å®šã€‚\n" NOR);
+        	set("unwield_msg", HIW "$N" HIW "å¼¹åˆ€æ¸…å•¸ï¼Œå¿ƒä¸­æ„Ÿæ…¨ï¼Œå°†$n"
+				   HIW "æ’å›åˆ€é˜ã€‚\n");
 	}
 	init_blade(180);
 	setup();

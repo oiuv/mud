@@ -4,8 +4,8 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÖÓÁé", ({ "zhong ling","zhong" }) );
-        set("gender", "Å®ÐÔ" );
+        set_name("é’Ÿçµ", ({ "zhong ling","zhong" }) );
+        set("gender", "å¥³æ€§" );
         set("age", 15);
         set("str", 16);
         set("con", 24);
@@ -15,16 +15,16 @@ void create()
 
         set("chat_chance", 1);
         set("chat_msg", ({
-                "ÖÓÁé×ÔÑÔ×ÔÓïµÀ£º¡°ÒªÊÇÎÒµÄÉÁµçõõÔÚÕâ¶ù¾ÍºÃÁË¡£¡±\n",
+                "é’Ÿçµè‡ªè¨€è‡ªè¯­é“ï¼šâ€œè¦æ˜¯æˆ‘çš„é—ªç”µè²‚åœ¨è¿™å„¿å°±å¥½äº†ã€‚â€\n",
         }) );
 
         set("inquiry", ([
-                "¶ÎÓþ" : "¶Î¸ç¸çÄØ£¿ËûÔÚÄÄ¶ù£¿",
-                "ÖÓÁé" : "ÎÒ¾ÍÊÇÖÓÁé°¡¡£",
-                "¸Ê±¦±¦" : "¸Ê±¦±¦ÊÇÎÒÂè¡£",
-                "ÖÓÍò³ð" : "ÖÓÍò³ðÊÇÎÒµù¡£",
-                "here" : "ÕâÀïÊÇÍò½Ù¹È¡£",
-                "Ä¾ÍñÇå" : "Ä¾ÍñÇå±»¹ØÔÚºóÃæµÄÊ¯ÎÝÀï£¬¿ìÈ¥¾ÈËý£¡",
+                "æ®µèª‰" : "æ®µå“¥å“¥å‘¢ï¼Ÿä»–åœ¨å“ªå„¿ï¼Ÿ",
+                "é’Ÿçµ" : "æˆ‘å°±æ˜¯é’Ÿçµå•Šã€‚",
+                "ç”˜å®å®" : "ç”˜å®å®æ˜¯æˆ‘å¦ˆã€‚",
+                "é’Ÿä¸‡ä»‡" : "é’Ÿä¸‡ä»‡æ˜¯æˆ‘çˆ¹ã€‚",
+                "here" : "è¿™é‡Œæ˜¯ä¸‡åŠ«è°·ã€‚",
+                "æœ¨å©‰æ¸…" : "æœ¨å©‰æ¸…è¢«å…³åœ¨åŽé¢çš„çŸ³å±‹é‡Œï¼Œå¿«åŽ»æ•‘å¥¹ï¼",
         ]));
 
         set("attitude", "friendly");
@@ -57,7 +57,7 @@ void init()
         object ob;
         ::init();
         if( interactive(ob = this_player()) ) {
-        message_vision("ÖÓÁé¶Ô$NËµµÀ£º¿ìÈ¥¾ÈÄ¾½ã½ã£¬Ä¾½ã½ã±»¹ØÔÚºóÃæµÄÊ¯ÎÝÀï£¡\n",ob);
+        message_vision("é’Ÿçµå¯¹$Nè¯´é“ï¼šå¿«åŽ»æ•‘æœ¨å§å§ï¼Œæœ¨å§å§è¢«å…³åœ¨åŽé¢çš„çŸ³å±‹é‡Œï¼\n",ob);
         }
 }
 
@@ -68,16 +68,16 @@ int accept_object(object who, object ob)
 
         inv = all_inventory(this_object());
 
-        if (ob->name() == "ÉÁµçõõ") {
-            tell_object(who,"ÖÓÁéËµµÀ£ºÐ»Ð»Äã°ïÎÒÕÒ»ØÁËÉÁµçõõ£¡\n");
-            tell_object(who,"ÖÓÁéËµµÀ£ºÏÂ´ÎÄã¼ûµ½¶ÎÓþÊ±£¬¸æËßËûÎÒÒÑ¾­»Ø¼ÒÁË¡£\n");
+        if (ob->name() == "é—ªç”µè²‚") {
+            tell_object(who,"é’Ÿçµè¯´é“ï¼šè°¢è°¢ä½ å¸®æˆ‘æ‰¾å›žäº†é—ªç”µè²‚ï¼\n");
+            tell_object(who,"é’Ÿçµè¯´é“ï¼šä¸‹æ¬¡ä½ è§åˆ°æ®µèª‰æ—¶ï¼Œå‘Šè¯‰ä»–æˆ‘å·²ç»å›žå®¶äº†ã€‚\n");
             if(!sizeof(inv) )
                 for ( i=0; i< sizeof(inv); i++ )
-                    if ( inv[i]->name() == "Ðå»¨Ð¬" ) {
+                    if ( inv[i]->name() == "ç»£èŠ±éž‹" ) {
                         destruct(inv[i]);
-                        tell_object("who, ÖÓÁéÍÑÏÂÒ»Ë«Ðå»¨Ð¬¡£\n");
+                        tell_object("who, é’Ÿçµè„±ä¸‹ä¸€åŒç»£èŠ±éž‹ã€‚\n");
                         sh = new("/t/wanjiegu/npc/obj/shoes2");
-                        tell_object(who, "ÖÓÁéËµµÀ£ºÕâÊÇÎÒµÄÒ»Ë«Ðå»¨Ð¬£¬ÇëÄã´ø¸ø¶ÎÓþ¡£\n");
+                        tell_object(who, "é’Ÿçµè¯´é“ï¼šè¿™æ˜¯æˆ‘çš„ä¸€åŒç»£èŠ±éž‹ï¼Œè¯·ä½ å¸¦ç»™æ®µèª‰ã€‚\n");
                         sh->move(who);
                         return 1;
                     }

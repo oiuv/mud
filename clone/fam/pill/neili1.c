@@ -3,12 +3,12 @@
 
 void create()
 {
-        set_name(HIR "Öì¹û" NOR, ({ "zhu guo", "zhu", "guo", "zhuguo" }));
+        set_name(HIR "æœ±æœ" NOR, ({ "zhu guo", "zhu", "guo", "zhuguo" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIR "ÕâÊÇÒ»Ã¶»ğºìÉ«µÄÖì¹û£¬ÄÜÆğµ½µ÷Ï¢ÄÚÁ¦µÄ×÷ÓÃ¡£\n" NOR);
-                set("base_unit", "Ã¶");
+                set("long", HIR "è¿™æ˜¯ä¸€æšç«çº¢è‰²çš„æœ±æœï¼Œèƒ½èµ·åˆ°è°ƒæ¯å†…åŠ›çš„ä½œç”¨ã€‚\n" NOR);
+                set("base_unit", "æš");
                 set("base_value", 3000);
                 set("base_weight", 80);
                 set("only_do_effect", 1);
@@ -26,13 +26,13 @@ int do_effect(object me)
 
         if (time() - me->query_temp("last_eat/dan(D)") < 240)
         {
-                write("Äã¸Õ·şÓÃ¹ıÒ©£¬ĞèÒ©ĞÔ·¢»ÓÍêĞ§ÓÃÒÔºó²ÅÄÜ¼ÌĞø·şÓÃ¡£\n");
+                write("ä½ åˆšæœç”¨è¿‡è¯ï¼Œéœ€è¯æ€§å‘æŒ¥å®Œæ•ˆç”¨ä»¥åæ‰èƒ½ç»§ç»­æœç”¨ã€‚\n");
                 return 1;
         }
 
         if (me->query("neili") >= me->query("max_neili"))
         {
-                write("ÄãÏÖÔÚÄÚÁ¦ĞŞÎªÎŞĞè·şÓÃ" + name() + "¡£\n");
+                write("ä½ ç°åœ¨å†…åŠ›ä¿®ä¸ºæ— éœ€æœç”¨" + name() + "ã€‚\n");
                 return 1;
         }
 
@@ -40,8 +40,8 @@ int do_effect(object me)
 
         me->set_temp("last_eat/dan(D)", time());
 
-        message_vision(HIY "$N" HIY "ÍÌÏÂÒ»" + un + na + HIY "£¬ÄÚÏ¢µÃµ½ÁË"
-                       "ÍêÈ«µÄ²¹³ä¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "åä¸‹ä¸€" + un + na + HIY "ï¼Œå†…æ¯å¾—åˆ°äº†"
+                       "å®Œå…¨çš„è¡¥å……ã€‚\n" NOR, me);
 
         my["neili"] = my["max_neili"];
 

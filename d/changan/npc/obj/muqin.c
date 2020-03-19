@@ -8,14 +8,14 @@ inherit MI_QIN;
 
 void create()
 {
-        set_name("Ä¾ÇÙ", ({ "muqin" }));
+        set_name("æœ¨ç´", ({ "muqin" }));
         set_weight(600);
 
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-                set("unit", "Ì¨");
-                set("long", "Ò»¸öÆ½·²µÄÄ¾ÇÙ£¬Ã»ÓĞÊ²Ã´ÌØÊâÖ®´¦¡£\n");
+                set("unit", "å°");
+                set("long", "ä¸€ä¸ªå¹³å‡¡çš„æœ¨ç´ï¼Œæ²¡æœ‰ä»€ä¹ˆç‰¹æ®Šä¹‹å¤„ã€‚\n");
 		set("value", 50);
 		set("material", "wood");
 	}

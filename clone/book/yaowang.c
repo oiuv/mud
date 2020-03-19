@@ -7,14 +7,14 @@ inherit MEDICAL_BOOK;
 
 void create()
 {
-        set_name(HIM "Ò©ÍõÉñÆª" NOR, ({ "yaowang shenpian", "shu" }));
+        set_name(HIM "è¯ç‹ç¥ç¯‡" NOR, ({ "yaowang shenpian", "shu" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±¾");
-                set("long", "ÕâÊÇÒ»±¾±¡±¡µÄĞ¡²á×Ó£¬ÉÏÃæ¹¤¹¤ÕûÕû"
-                            "Ğ´×Å¡°Ò©ÍõÉñÆª¡±¼¸¸ö×Ö¡£\n",
+                set("unit", "æœ¬");
+                set("long", "è¿™æ˜¯ä¸€æœ¬è–„è–„çš„å°å†Œå­ï¼Œä¸Šé¢å·¥å·¥æ•´æ•´"
+                            "å†™ç€â€œè¯ç‹ç¥ç¯‡â€å‡ ä¸ªå­—ã€‚\n",
 
                 );
                 set("material", "paper");
@@ -27,15 +27,15 @@ void create()
                 ]));
 
                 set("can_make", ([
-                        "liuhe" : 80,           // ÁùºÏ·µ¾«É¢
-                        "qingxin" : 100,        // ÇåĞÄ¶¨ÉñÉ¢
-                        "zhending": 150,        // ¹ÌÔªÕò¶¨É¢
-                        "dieda" : 80,           // µø´òÉËÓú¸à
-                        "huojin" : 100,         // »î½îÊæÑªÍè
-                        "tongmai" : 150,        // ¹áÆøÍ¨Âöµ¤
-                        "jiedu" : 100,          // Å£»Æ½â¶¾Íè
-                        "tianxin" : 100,        // ÌìĞÄ½â¶¾µ¤
-                        "shengsheng" : 200,     // ÉúÉúÔì»¯µ¤
+                        "liuhe" : 80,           // å…­åˆè¿”ç²¾æ•£
+                        "qingxin" : 100,        // æ¸…å¿ƒå®šç¥æ•£
+                        "zhending": 150,        // å›ºå…ƒé•‡å®šæ•£
+                        "dieda" : 80,           // è·Œæ‰“ä¼¤æ„ˆè†
+                        "huojin" : 100,         // æ´»ç­‹èˆ’è¡€ä¸¸
+                        "tongmai" : 150,        // è´¯æ°”é€šè„‰ä¸¹
+                        "jiedu" : 100,          // ç‰›é»„è§£æ¯’ä¸¸
+                        "tianxin" : 100,        // å¤©å¿ƒè§£æ¯’ä¸¹
+                        "shengsheng" : 200,     // ç”Ÿç”Ÿé€ åŒ–ä¸¹
                 ]));
         }
         setup();

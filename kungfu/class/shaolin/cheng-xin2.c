@@ -7,19 +7,19 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("³ÎĞÅ", ({
+        set_name("æ¾„ä¿¡", ({
                 "chengxin luohan",
                 "chengxin",
                 "zhuangyan",
                 "luohan",
         }));
         set("long",
-                "ËûÊÇÒ»Î»Ğë·¢»¨°×µÄÀÏÉ®£¬Éí´©Ò»Ï®½ğ±ßºÚ²¼ôÂôÄ¡£ËûÉí²ÄÊİ¸ß£¬\n"
-                "Ì«ÑôÑ¨¸ß¸ß¹ÄÆğ£¬ËÆºõÉí»³¾øÊÀÎä¹¦¡£\n"
+                "ä»–æ˜¯ä¸€ä½é¡»å‘èŠ±ç™½çš„è€åƒ§ï¼Œèº«ç©¿ä¸€è¢­é‡‘è¾¹é»‘å¸ƒè¢ˆè£Ÿã€‚ä»–èº«æç˜¦é«˜ï¼Œ\n"
+                "å¤ªé˜³ç©´é«˜é«˜é¼“èµ·ï¼Œä¼¼ä¹èº«æ€€ç»ä¸–æ­¦åŠŸã€‚\n"
         );
 
-        set("title",YEL"ÉÙÁÖ°ãÈôÌÃ×ùÏÂ"+HIY" ×¯ÑÏÂŞºº"NOR);
-        set("gender", "ÄĞĞÔ");
+        set("title",YEL"å°‘æ—èˆ¬è‹¥å ‚åº§ä¸‹"+HIY" åº„ä¸¥ç½—æ±‰"NOR);
+        set("gender", "ç”·æ€§");
         set("attitude", "friendly");
         set("class", "bonze");
 
@@ -56,7 +56,7 @@ void create()
         map_skill("blade", "xiuluo-dao");
         map_skill("parry", "xiuluo-dao");
 
-        create_family("ÉÙÁÖÅÉ", 37, "µÜ×Ó");
+        create_family("å°‘æ—æ´¾", 37, "å¼Ÿå­");
 
         setup();
 

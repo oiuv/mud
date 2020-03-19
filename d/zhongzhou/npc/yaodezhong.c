@@ -3,8 +3,8 @@ inherit F_BANKER;
 
 void create()
 {
-        set_name("Ò¦µÂÖÒ",({"yao dezhong", "yao"}));
-        set("gender", "ÄÐÐÔ");
+        set_name("å§šå¾·å¿ ",({"yao dezhong", "yao"}));
+        set("gender", "ç”·æ€§");
         set("age", 34);
         set("str", 22);
         set("int", 24);

@@ -5,13 +5,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIG "ÌÆ»¨" NOR, ({"tang hua", "hua" }));
+        set_name(HIG "å”èŠ±" NOR, ({"tang hua", "hua" }));
         set_weight(50);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", HIR"ÕâÊÇÒ»¶äÌú»¨£¬µ«ÃÀÈôê¼»¨£¬¾«ÖÂÁáçç£¬ÈÃÈËÒ»¿´Ö®ÏÂ£¬¾Í¶¯ÈËĞÄÆÇ¡£\n"NOR);
-                set("unit", "Ã¶");
+                set("long", HIR"è¿™æ˜¯ä¸€æœµé“èŠ±ï¼Œä½†ç¾è‹¥æ˜™èŠ±ï¼Œç²¾è‡´ç²ç‘ï¼Œè®©äººä¸€çœ‹ä¹‹ä¸‹ï¼Œå°±åŠ¨äººå¿ƒé­„ã€‚\n"NOR);
+                set("unit", "æš");
                 set("value", 21);
         }
         setup();

@@ -1,4 +1,4 @@
-// roar.c ��س���
+// roar.c 天地长吟
 
 #include <ansi.h>
 
@@ -10,7 +10,7 @@ int exert(object me, object target)
 	int i, skill, damage;
 
 	if ((int)me->query("neili") < 100)
-		return notify_fail("�������������\n");
+		return notify_fail("你的内力不够。\n");
 
 	skill = me->query_skill("force");
 
@@ -18,11 +18,11 @@ int exert(object me, object target)
 	me->receive_damage("qi", 10);
 
 	if (environment(me)->query("no_fight"))
-		return notify_fail("���ﲻ�ܹ�������! \n");
+		return notify_fail("这里不能攻击别人! \n");
 
 	me->start_busy(5);
-	message_combatd(HIY "$N" HIY "��Ȼ����һ���������쳤�������������ޱȣ����ƻֺ룬�Ե�"
-                        "��ɽҡ֮������Χ��ɢ��ȥ��\n" NOR, me);
+	message_combatd(HIY "$N" HIY "猛然深吸一口气，仰天长吟，声音洪亮无比，气势恢弘，以地"
+                        "动山摇之势向周围扩散开去。\n" NOR, me);
 
 	ob = all_inventory(environment(me));
 	for (i = 0; i < sizeof(ob); i++)
@@ -44,7 +44,7 @@ int exert(object me, object target)
 			ob[i]->receive_damage("qi", damage * 3, me);
 			if ((int)ob[i]->query("neili") < skill * 2)
 				ob[i]->receive_wound("jing", damage * 2, me);
-		        tell_object(ob[i], "��ֻ�����ؿ�һ����ƣ���ʱ���˼�����һ����Ѫ�ӿ��������\n");
+		        tell_object(ob[i], "你只觉得胸口一阵苦闷，顿时倒退几步，一股鲜血从口中喷出。\n");
 		}
 	}
 	return 1;

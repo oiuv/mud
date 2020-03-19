@@ -1,17 +1,17 @@
-// shibing.c ÊÁ±ý
+// shibing.c æŸ¿é¥¼
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-        set_name("ÊÁ±ý", ({"shi bing", "bing"}));
+        set_name("æŸ¿é¥¼", ({"shi bing", "bing"}));
         set_weight(80);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»¸öºÃÌðµÄÊÁ±ý¡£\n");
-                set("unit", "¸ö");
+                set("long", "ä¸€ä¸ªå¥½ç”œçš„æŸ¿é¥¼ã€‚\n");
+                set("unit", "ä¸ª");
                 set("value", 20);
                 set("food_remaining", 3);
                 set("food_supply", 20);

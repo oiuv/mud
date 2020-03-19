@@ -1,4 +1,4 @@
-// buddhism.c 禅宗心法
+// buddhism.c 绂呭畻蹇冩硶
 // Modified by Venus Oct.1997
 
 inherit SKILL;
@@ -9,12 +9,12 @@ string type() { return "knowledge"; }
 int valid_learn(object me)
 {
         if( (int)me->query("guilty") > 0 )
-                return notify_fail("你屡犯僧家数戒，尘俗之心太重，无法修炼禅宗心法。\n");
+                return notify_fail("浣犲薄鐘儳瀹舵暟鎴掞紝灏樹織涔嬪績澶噸锛屾棤娉曚慨鐐肩瀹楀績娉曘�俓n");
 
         return 1;
 }
 
 int practice_skill(object me)
 {
-    return notify_fail("禅宗心法只能靠学(learn)来提高。\n");
+    return notify_fail("绂呭畻蹇冩硶鍙兘闈犲(learn)鏉ユ彁楂樸�俓n");
 }

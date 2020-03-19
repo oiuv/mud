@@ -1,4 +1,4 @@
-// yi.c ¶·×ªĞÇÒÆ
+// yi.c æ–—è½¬æ˜Ÿç§»
 
 #include <ansi.h>
 
@@ -15,34 +15,34 @@ int perform(object me, object target)
         int i;
 
         if (userp(me) && ! me->query("can_perform/douzhuan-xingyi/yi"))
-                return notify_fail("Äã»¹²»»áÊ¹ÓÃ¶·×ªĞÇÒÆ¡£\n");
+                return notify_fail("ä½ è¿˜ä¸ä¼šä½¿ç”¨æ–—è½¬æ˜Ÿç§»ã€‚\n");
 
         me->clean_up_enemy();
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("¡¸¶·×ªĞÇÒÆ¡¹Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ã€Œæ–—è½¬æ˜Ÿç§»ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if ((int)me->query_skill("douzhuan-xingyi", 1) < 100)
-		return notify_fail("ÄãµÄ¶·×ªĞÇÒÆ²»¹»æµÊì£¬²»»áÊ¹ÓÃ¾øÕĞ¡£\n");
+		return notify_fail("ä½ çš„æ–—è½¬æ˜Ÿç§»ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ç»æ‹›ã€‚\n");
 
         if ((int)me->query_skill("zihui-xinfa", 1) < 100)
-                return notify_fail("ÄãµÄ×Ï»ÕĞÄ·¨ĞŞÎª»¹²»µ½¼Ò£¬"
-                                   "ÄÑÒÔÔËÓÃ¡¸¶·×ªĞÇÒÆ¡¹¡£\n");
+                return notify_fail("ä½ çš„ç´«å¾½å¿ƒæ³•ä¿®ä¸ºè¿˜ä¸åˆ°å®¶ï¼Œ"
+                                   "éš¾ä»¥è¿ç”¨ã€Œæ–—è½¬æ˜Ÿç§»ã€ã€‚\n");
 
         if (me->query("neili") < 60)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÎŞ·¨Ê¹ÓÃ¡¸¶·×ªĞÇÒÆ¡¹¡£\n");
+                return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•ä½¿ç”¨ã€Œæ–—è½¬æ˜Ÿç§»ã€ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
 	weapon = target->query_temp("weapon");
         if (weapon && weapon->query("skill_type") == "pin")
-                return notify_fail("¶Ô·½ÊÖÀïÄÃµÄÊÇÒ»¸ùĞ¡Ğ¡µÄÕë£¬"
-                                   "ÄãÃ»ÓĞ°ì·¨Ê©Õ¹¡¸¶·×ªĞÇÒÆ¡¹¡£\n");
+                return notify_fail("å¯¹æ–¹æ‰‹é‡Œæ‹¿çš„æ˜¯ä¸€æ ¹å°å°çš„é’ˆï¼Œ"
+                                   "ä½ æ²¡æœ‰åŠæ³•æ–½å±•ã€Œæ–—è½¬æ˜Ÿç§»ã€ã€‚\n");
 
-	msg = HIM "$N" HIM "ÔËÆğ×Ï»ÕĞÄ·¨£¬ÄÚÁ¦×ÔÆøº£Ñ¨³ö£¬¾­ÓÉ"
-              "ÈÎ¶½¶şÂö±¼Á÷¶ø³ö£¬ÇÉÃîµÄÇ£Òı×Å$n" HIM "µÄÕĞÊ½£¡\n";
+	msg = HIM "$N" HIM "è¿èµ·ç´«å¾½å¿ƒæ³•ï¼Œå†…åŠ›è‡ªæ°”æµ·ç©´å‡ºï¼Œç»ç”±"
+              "ä»»ç£äºŒè„‰å¥”æµè€Œå‡ºï¼Œå·§å¦™çš„ç‰µå¼•ç€$n" HIM "çš„æ‹›å¼ï¼\n";
 
         ap = me->query_skill("douzhuan-xingyi", 1) +
              me->query_skill("zihui-xinfa", 1) / 2;
@@ -53,8 +53,8 @@ int perform(object me, object target)
         if (ap > dp * 13 / 10)
         {
                 // Success to make the target attack hiself
-                msg += HIR "½á¹û$p" HIR "Ò»ÕĞ»÷³ö£¬ÕıºÃ´òÔÚ×Ô¼ºµÄ"
-                       "Òªº¦ÉÏ£¬²»½ûÒ»Éù²Ò½Ğ£¬Ë¤µø¿ªÈ¥¡£\n" NOR;
+                msg += HIR "ç»“æœ$p" HIR "ä¸€æ‹›å‡»å‡ºï¼Œæ­£å¥½æ‰“åœ¨è‡ªå·±çš„"
+                       "è¦å®³ä¸Šï¼Œä¸ç¦ä¸€å£°æƒ¨å«ï¼Œæ‘”è·Œå¼€å»ã€‚\n" NOR;
                 damage = target->query("max_qi");
                 target->receive_damage("qi", damage / 2, me);
                 target->receive_wound("qi", damage / 2, me);
@@ -62,25 +62,25 @@ int perform(object me, object target)
         if (ap / 3 + random(ap) < dp)
         {
                 // The enemy has defense
-                msg += CYN "È»¶ø$p" CYN "ÄÚ¹¦Éîºñ£¬²¢Ã»ÓĞ±»$P"
-                       CYN "ÕâÇÉÃîµÄ¾¢Á¦Ëù´ø¶¯¡£\n" CYN;
+                msg += CYN "ç„¶è€Œ$p" CYN "å†…åŠŸæ·±åšï¼Œå¹¶æ²¡æœ‰è¢«$P"
+                       CYN "è¿™å·§å¦™çš„åŠ²åŠ›æ‰€å¸¦åŠ¨ã€‚\n" CYN;
         } else
         if (sizeof(obs = me->query_enemy() - ({ target })) == 0)
         {
                 // No other enemy
-                msg += HIC "½á¹û$p" HIC "µÄÕĞÊ½ÄªÃûÆäÃîµÄ±ä"
-                       "ÁË·½Ïò£¬¾¹È»¿ØÖÆ²»×¡£¡ĞÒºÃÉí±ßÃ»ÓĞ±ğ"
-                       "ÈË£¬Ã»ÓĞÄğ³É´ó»ö¡£\n" NOR;
+                msg += HIC "ç»“æœ$p" HIC "çš„æ‹›å¼è«åå…¶å¦™çš„å˜"
+                       "äº†æ–¹å‘ï¼Œç«Ÿç„¶æ§åˆ¶ä¸ä½ï¼å¹¸å¥½èº«è¾¹æ²¡æœ‰åˆ«"
+                       "äººï¼Œæ²¡æœ‰é…¿æˆå¤§ç¥¸ã€‚\n" NOR;
         } else
         {
                 string name;
                 // Sucess to make the target attack my enemy
                 der = obs[random(sizeof(obs))];
                 name = der->name();
-                if (name == target->name()) name = "ÁíÒ»¸ö" + name;
-                msg += HIG "½á¹û$p" HIG "·¢³öµÄÕĞÊ½²»ÓÉ×ÔÖ÷"
-                       "µÄ±äÁË·½Ïò£¬Í»È»¹¥Ïò" + name + HIG "£¬²»½ûÁî" + 
-                       name + HIG "´ó³ÔÒ»¾ª£¬ÕĞ¼Ü²»µü£¡" NOR;
+                if (name == target->name()) name = "å¦ä¸€ä¸ª" + name;
+                msg += HIG "ç»“æœ$p" HIG "å‘å‡ºçš„æ‹›å¼ä¸ç”±è‡ªä¸»"
+                       "çš„å˜äº†æ–¹å‘ï¼Œçªç„¶æ”»å‘" + name + HIG "ï¼Œä¸ç¦ä»¤" + 
+                       name + HIG "å¤§åƒä¸€æƒŠï¼Œæ‹›æ¶ä¸è¿­ï¼" NOR;
         }
 
 	message_combatd(msg, me, target);

@@ -1,4 +1,4 @@
-// ºÚË÷
+// é»‘ç´¢
 
 #include <ansi.h>
 #include <weapon.h>
@@ -7,19 +7,19 @@ inherit WHIP;
 
 void create()
 {
-	set_name("ºÚË÷", ({ "black whip", "hei suo", "suo", "whip" }));
+	set_name("é»‘ç´¢", ({ "black whip", "hei suo", "suo", "whip" }));
 	set_weight(800);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¸ù");
-		set("long", "ÕâÊÇÒ»¸ùÆáºÚµÄ³¤±Ş£¬ºÁ²»ÆğÑÛ£¬µ«ÊÇÈëÊÖ³ÁÖØ£¬ÇÒ\n"
-                            "²»Ê§ÈáÈÍ£¬ÊµÔÚÊÇÇ§´¸°ÙÁ¶Ö®Îï¡£\n");
-                set("no_sell", "ÕâÊÇÉ¶ÆÆÍæÒÕ£¬ÉÏµõÓÃµÄ£¿\n");
+		set("unit", "æ ¹");
+		set("long", "è¿™æ˜¯ä¸€æ ¹æ¼†é»‘çš„é•¿é­ï¼Œæ¯«ä¸èµ·çœ¼ï¼Œä½†æ˜¯å…¥æ‰‹æ²‰é‡ï¼Œä¸”\n"
+                            "ä¸å¤±æŸ”éŸ§ï¼Œå®åœ¨æ˜¯åƒé”¤ç™¾ç‚¼ä¹‹ç‰©ã€‚\n");
+                set("no_sell", "è¿™æ˜¯å•¥ç ´ç©è‰ºï¼Œä¸ŠåŠç”¨çš„ï¼Ÿ\n");
 		set("value", 50000);
 		set("material", "steel");
-		set("wield_msg", BLK "$N" BLK "Ò»ÉìÊÖ£¬ÇÄÎŞÉùÏ¢µÄ½«$nÎÕÔÚÊÖÖĞ¡£\n" NOR);
-		set("unwield_msg", WHT "$N" WHT "½«ÊÖÖĞµÄ$n¾íÆğÊÕºÃ¡£\n" NOR);
+		set("wield_msg", BLK "$N" BLK "ä¸€ä¼¸æ‰‹ï¼Œæ‚„æ— å£°æ¯çš„å°†$næ¡åœ¨æ‰‹ä¸­ã€‚\n" NOR);
+		set("unwield_msg", WHT "$N" WHT "å°†æ‰‹ä¸­çš„$nå·èµ·æ”¶å¥½ã€‚\n" NOR);
                 set("stable", 70);
 	}
 

@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("½ÌÖÚ", ({ "jiao zhong", "jiao", "zhong" }));
-        set("long", "ÕâÊÇÒ»¸öÌìÓ¥½ÌµÄ½ÌÖÚ£¬ÊÖÖĞ»ÓÎè×ÅÒ»Ãæ´óÆì¡£\n");
+        set_name("æ•™ä¼—", ({ "jiao zhong", "jiao", "zhong" }));
+        set("long", "è¿™æ˜¯ä¸€ä¸ªå¤©é¹°æ•™çš„æ•™ä¼—ï¼Œæ‰‹ä¸­æŒ¥èˆç€ä¸€é¢å¤§æ——ã€‚\n");
         set("attitude", "heroism");
-        set("title", "ÌìÓ¥½ÌÖìÈ¸Ì³");
+        set("title", "å¤©é¹°æ•™æœ±é›€å›");
         set("max_qi", 800);
         set("max_jing", 800);
         set("neili", 500);

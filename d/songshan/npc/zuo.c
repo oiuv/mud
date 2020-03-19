@@ -5,9 +5,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("×óÀäìø", ({ "zuo lengchan", "zuo" }) );
-        set("title", HIR"ÎåÔÀ½£ÅÉÃËÖ÷"HIY"áÔÉ½ÅÉµÚÊ®ÈýÕÆÃÅ"NOR);
-        set("gender", "ÄÐÐÔ");
+        set_name("å·¦å†·ç¦…", ({ "zuo lengchan", "zuo" }) );
+        set("title", HIR"äº”å²³å‰‘æ´¾ç›Ÿä¸»"HIY"åµ©å±±æ´¾ç¬¬åä¸‰æŽŒé—¨"NOR);
+        set("gender", "ç”·æ€§");
         set("class", "swordsman");
         set("age", 55);
         set("attitude", "peaceful");
@@ -42,7 +42,7 @@ void create()
 
         prepare_skill("strike", "hanbing-mianzhang");
 
-        create_family("áÔÉ½ÅÉ", 13, "ÕÆÃÅ");
+        create_family("åµ©å±±æ´¾", 13, "æŽŒé—¨");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();

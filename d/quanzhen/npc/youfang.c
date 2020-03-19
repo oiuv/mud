@@ -3,11 +3,11 @@ inherit NPC;
 
 void create()
 {
-    set_name("ÓÎ·½µÀÈË", ({ "youfang daoren", "youfang", "daoren" }));
-    set("long", "ËûÊÇÒ»Î»Î´Í¨ÊÀ¹ÊµÄÇàÄêµÀÈË£¬Á³ÉÏ¹Ò×Åº¢\n"
-                    "¶ù°ãµÄÎ¢Ğ¦¡£\n");
+    set_name("æ¸¸æ–¹é“äºº", ({ "youfang daoren", "youfang", "daoren" }));
+    set("long", "ä»–æ˜¯ä¸€ä½æœªé€šä¸–æ•…çš„é’å¹´é“äººï¼Œè„¸ä¸ŠæŒ‚ç€å­©\n"
+                    "å„¿èˆ¬çš„å¾®ç¬‘ã€‚\n");
 
-    set("gender", "ÄĞĞÔ");
+    set("gender", "ç”·æ€§");
     set("attitude", "heroism");
     set("class", "taoist");
 
@@ -27,8 +27,8 @@ void create()
 
     set("chat_chance", 10);
     set("chat_msg", ({
-        CYN "ÓÎ·½µÀÈËËµµÀ£ºÇëÊ©Ö÷»¯¼¸Á½Òø×Ó¸øÆ¶µÀ£¬ËæÏ²"
-                "ËæÏ²£¬Ôì¸£ÖÚÉú¡£\n" NOR,
+        CYN "æ¸¸æ–¹é“äººè¯´é“ï¼šè¯·æ–½ä¸»åŒ–å‡ ä¸¤é“¶å­ç»™è´«é“ï¼Œéšå–œ"
+                "éšå–œï¼Œé€ ç¦ä¼—ç”Ÿã€‚\n" NOR,
         (: random_move :)
     }) );
 
@@ -44,7 +44,7 @@ void create()
     map_skill("dodge", "jinyan-gong");
     map_skill("strike", "haotian-zhang");
     map_skill("parry", "haotian-zhang");
-        create_family("È«Õæ½Ì", 4, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 4, "å¼Ÿå­");
     setup();
     carry_object("/d/city/obj/cloth")->wear();
 

@@ -3,11 +3,11 @@
 inherit ROOM;
 void create()
 {
-	set("short", "����ɽ��");
+	set("short", "中条山脚");
 	set("long", @LONG
-����������ɽ�š�������գ�ɽ��ѹ������ߵĺ�ϼӳ͸������
-ɽ�֣���Х�Ĵ�ɽ��θ���ͣ���㲻����Щ���⡣����һ����ɽС
-·��
+你来到中条山脚。仰望天空，山势压顶，天边的红霞映透了整个
+山林，呼啸的穿山风刮个不停。你不禁有些惧意。向东有一条上山小
+路。
 LONG );
 	set("exits", ([
 		"west"   : __DIR__"jzroad2",

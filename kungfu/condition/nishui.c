@@ -30,10 +30,10 @@ int update_condition(object me, int duration)
         me->apply_condition("nishui", duration);
         
         if (duration < 1)
-                tell_object(me, HIW "你抹去糊在嘴上的泥巴，只感到空气"
-                                "是多么的清新。\n" NOR );
+                tell_object(me, HIW "浣犳姽鍘荤硦鍦ㄥ槾涓婄殑娉ュ反锛屽彧鎰熷埌绌烘皵"
+                                "鏄涔堢殑娓呮柊銆俓n" NOR );
         else
-                tell_object(me, HIW "你感到一阵气闷！\n" NOR );
+                tell_object(me, HIW "浣犳劅鍒颁竴闃垫皵闂凤紒\n" NOR );
 
         if (duration < 1)
                 return 0;

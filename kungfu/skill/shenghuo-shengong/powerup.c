@@ -9,18 +9,18 @@ int exert(object me, object target)
         int skill;
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÓÃÊ¥»ðÉñ¹¦À´ÌáÉý×Ô¼ºµÄÕ½¶·Á¦¡£\n");
+                return notify_fail("ä½ åªèƒ½ç”¨åœ£ç«ç¥žåŠŸæ¥æå‡è‡ªå·±çš„æˆ˜æ–—åŠ›ã€‚\n");
 
         if ((int)me->query("neili") < 150)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_temp("powerup"))
-                return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖÐÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
         skill = me->query_skill("shenghuo-shengong", 1);
         me->add("neili", -150);
-        message_combatd(HIM "$NÄ¬ÔËÊ¥»ðÉñ¹¦£¬Á³É«ÏÈÓÉ»Æ·­×Ï£¬½ô½Ó×ÅÓÉ×Ï·­À¶£¬ÔÙÓÉÀ¶·­ºì£¬×îºóÓÖ»Ö"
-                        "¸´Îª»ÆÉ«£¬ÉõÎª¹îÒì¡£\n" NOR,me);
+        message_combatd(HIM "$Né»˜è¿åœ£ç«ç¥žåŠŸï¼Œè„¸è‰²å…ˆç”±é»„ç¿»ç´«ï¼Œç´§æŽ¥ç€ç”±ç´«ç¿»è“ï¼Œå†ç”±è“ç¿»çº¢ï¼Œæœ€åŽåˆæ¢"
+                        "å¤ä¸ºé»„è‰²ï¼Œç”šä¸ºè¯¡å¼‚ã€‚\n" NOR,me);
         me->add_temp("apply/attack", skill * 1 / 3);
         me->add_temp("apply/dodge", skill * 1 / 3);
         me->add_temp("apply/parry", skill * 1 / 3);
@@ -39,7 +39,7 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/dodge", -amount);
                 me->add_temp("apply/parry", -amount);
                 me->delete_temp("powerup");
-                tell_object(me, "ÄãµÄÊ¥»ðÉñ¹¦ÔËÐÐÍê±Ï£¬³¤³¤µØÍÂÁË¿ÚÆø£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„åœ£ç«ç¥žåŠŸè¿è¡Œå®Œæ¯•ï¼Œé•¿é•¿åœ°åäº†å£æ°”ï¼Œå°†å†…åŠ›æ”¶å›žä¸¹ç”°ã€‚\n");
         }
 }
 

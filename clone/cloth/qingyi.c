@@ -4,13 +4,13 @@ inherit EQUIP;
 
 void create()
 {
-        set_name("Çà²¼ÅÛ", ({ "bupao","pao", }) );
-        set("long","ÕâÊÇÒ»¼şÖÊµØÉÏ¼ÑµÄÇàÒÂ¡£\n");
+        set_name("é’å¸ƒè¢", ({ "bupao","pao", }) );
+        set("long","è¿™æ˜¯ä¸€ä»¶è´¨åœ°ä¸Šä½³çš„é’è¡£ã€‚\n");
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼ş");
+                set("unit", "ä»¶");
                 set("armor_type", "cloth");
                 set("value", 2500);
                 set("armor_prop/dodge", 6);

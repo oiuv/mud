@@ -4,13 +4,13 @@ inherit ITEM;
 
 void create()
 {
-	set_name("°×½ğº×", ({ "baijin he", "he" }));
+	set_name("ç™½é‡‘é¹¤", ({ "baijin he", "he" }));
 	set_weight(1800);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ö»");
-		set("long", "ÕâÊÇÒ»ÁÁ¾§¾§µÄ½ğÊôº×ĞÎÊÎÎï£¬¿´ÆğÀ´±ÈÒø×ÓÒªÁÁÒ»Ğ©¡£\n");
+		set("unit", "åª");
+		set("long", "è¿™æ˜¯ä¸€äº®æ™¶æ™¶çš„é‡‘å±é¹¤å½¢é¥°ç‰©ï¼Œçœ‹èµ·æ¥æ¯”é“¶å­è¦äº®ä¸€äº›ã€‚\n");
 		set("value", 2000);
 		set("material", "platina");
 	}

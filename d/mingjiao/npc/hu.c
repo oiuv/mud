@@ -1,4 +1,4 @@
-// hu.c ºúÇàÅ£
+// hu.c èƒ¡é’ç‰›
 // shilling 97.2
 #include <ansi.h>
 inherit NPC;
@@ -9,13 +9,13 @@ int ask_me();
 
 void create()
 {
-    set_name("ºúÇàÅ£", ({ "hu qingniu", "hu" }));
+    set_name("èƒ¡é’ç‰›", ({ "hu qingniu", "hu" }));
     set("long",
-        "Ëû¾ÍÊÇÃ÷½ÌºÅ³Æ¼ûËÀ²»¾ÈµÄºúÇàÅ££¬¾İËµËû¾«Í¨Ò½Àí£¬¿ÉÒÔÆğËÀ»Ø\n"
-        "Éú¡£µ«Ëû´Ó²»Ò½½ÌÍâÈËÊ¿¡£\n");
-    set("gender", "ÄĞĞÔ");
-        set("title",HIG "Ã÷½Ì" NOR "½ÌÖÚ");
-    set("nickname","µû¹ÈÒ½ÏÉ");
+        "ä»–å°±æ˜¯æ˜æ•™å·ç§°è§æ­»ä¸æ•‘çš„èƒ¡é’ç‰›ï¼Œæ®è¯´ä»–ç²¾é€šåŒ»ç†ï¼Œå¯ä»¥èµ·æ­»å›\n"
+        "ç”Ÿã€‚ä½†ä»–ä»ä¸åŒ»æ•™å¤–äººå£«ã€‚\n");
+    set("gender", "ç”·æ€§");
+        set("title",HIG "æ˜æ•™" NOR "æ•™ä¼—");
+    set("nickname","è¶è°·åŒ»ä»™");
     set("age", 50);
     set("class", "shaman");
     set("attitude", "peaceful");
@@ -24,7 +24,7 @@ void create()
     set("con", 25);
     set("dex", 25);
     set("inquiry", ([
-        "ÁÆÉË" : (:ask_me:),
+        "ç–—ä¼¤" : (:ask_me:),
     ]) );
 
     set("max_qi", 1500);
@@ -40,7 +40,7 @@ void create()
     set_skill("unarmed",90);
     set_skill("parry", 90);
 
-    create_family("Ã÷½Ì", 35, "µÜ×Ó");
+    create_family("æ˜æ•™", 35, "å¼Ÿå­");
     setup();
     carry_object("/clone/misc/cloth")->wear();
 }
@@ -50,17 +50,17 @@ int ask_me()
     object ob;
     ob=this_player();
 
-    if (ob->query("family/family_name") != "Ã÷½Ì")
-        return notify_fail("Äã²»ÊÇÎÒÃ÷×ğ×ùÏÂµÜ×Ó£¬ÎÒ²»¿ÉÒÔÎªÄãÁÆÉË¡£\n");
+    if (ob->query("family/family_name") != "æ˜æ•™")
+        return notify_fail("ä½ ä¸æ˜¯æˆ‘æ˜å°Šåº§ä¸‹å¼Ÿå­ï¼Œæˆ‘ä¸å¯ä»¥ä¸ºä½ ç–—ä¼¤ã€‚\n");
     if ((int)ob->query("eff_qi") == (int)ob->query("max_qi"))
     {
         command("?"+ob->query("id"));
-        command("say ÄãÃ»ÓĞÊÜÈÎºÎÉË°¡£¿\n");
+        command("say ä½ æ²¡æœ‰å—ä»»ä½•ä¼¤å•Šï¼Ÿ\n");
         return 1;
     }
     else
     {
-        message_vision("ºúÇàÅ£Î¹$N·şÏÂÒ»¿ÅÒ©Íè,È»ºóÅÌÏ¥×øÏÂ£¬Ë«ÕÆÌù×Å$NµÄ±³ĞÄ¡£\n", ob);
+        message_vision("èƒ¡é’ç‰›å–‚$Næœä¸‹ä¸€é¢—è¯ä¸¸,ç„¶åç›˜è†åä¸‹ï¼ŒåŒæŒè´´ç€$Nçš„èƒŒå¿ƒã€‚\n", ob);
         remove_call_out("recover");
         call_out("recover",2,ob);
         return 1;
@@ -72,7 +72,7 @@ int recover(object ob)
 {
     ob->set("eff_qi", (int)ob->query("max_qi"));
     ob->set("eff_jing", (int)ob->query("max_jing"));
-    message_vision("´óÔ¼¹ıÁËÒ»ÖÑ²èµÄÊ±·İ£¬ºúÇàÅ£ÂıÂıµØÕ¾ÁËÆğÀ´¡£\n",ob);
-    command("say ÄãµÄÉËÊÆÒÑ¾­È«ºÃÁË,¿ÉÒÔ×ßÀ²¡£\n");
+    message_vision("å¤§çº¦è¿‡äº†ä¸€ç›…èŒ¶çš„æ—¶ä»½ï¼Œèƒ¡é’ç‰›æ…¢æ…¢åœ°ç«™äº†èµ·æ¥ã€‚\n",ob);
+    command("say ä½ çš„ä¼¤åŠ¿å·²ç»å…¨å¥½äº†,å¯ä»¥èµ°å•¦ã€‚\n");
     return 1;
 }

@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��ʯ��");
+        set("short", "乱石坡");
         set("long", @LONG
-����һ����ʯ�����Сɽ�ڣ��򶫱���ͨ��ƽ���ݵ�С·��
-��˵ǰ��������Ұ�޳�û�����ɾ�����
+这是一处乱石怪异的小山岗，向东北是通往平安州的小路。
+据说前方经常有野兽出没，不可久留。
 LONG );
         set("outdoors", "heimuya");
         set("exits", ([

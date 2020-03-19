@@ -5,13 +5,13 @@ string look_duilian();
 
 void create()
 {
-	set("short", "ÁåÒô¸ó");
+	set("short", "é“ƒéŸ³é˜");
         set("long", @LONG
-´Ë´¦ÊÇºâÑô³ÇÎ¨Ò»³öÊÛÀÖÆ÷µÄµØ·½£¬µêÆÌÃÅ¿Ú¹ÒÂúÁË·çÁå£¬
-Î¢·ç´µ¹ý£¬ÁáÒôÈë¶ú£¬¾«Éñ±ãÎªÖ®Ò»Ë¬¡£½øÈëµêÄÚ£¬Ö»¼û»õ¹ñ
-ÉÏ°ÚÂúÁË¸÷É«ÀÖÆ÷£¬ÁÕÀÅÂúÄ¿£¬¾ÝËµÕâÀïµÄÀÏ°åÄïÒÔÇ°ÊÇ¸ö¸è
-¼Ë£¬ËäÈ»ÏÖÔÚ×öÆðÀÖÆ÷ÉúÒâ£¬µ«Å¼¶ûÒ²»á·÷ÇÙ¸ß¸è£¬Ã¿´Î¶¼»á
-ÒýÀ´ºÜ¶àµÄÂ·ÈË×¤×ãÐÀÉÍ¡£ÃÅÇ°¹Ò×ÅÒ»·ù¶ÔÁª(duilian)¡£
+æ­¤å¤„æ˜¯è¡¡é˜³åŸŽå”¯ä¸€å‡ºå”®ä¹å™¨çš„åœ°æ–¹ï¼Œåº—é“ºé—¨å£æŒ‚æ»¡äº†é£Žé“ƒï¼Œ
+å¾®é£Žå¹è¿‡ï¼ŒçŽ²éŸ³å…¥è€³ï¼Œç²¾ç¥žä¾¿ä¸ºä¹‹ä¸€çˆ½ã€‚è¿›å…¥åº—å†…ï¼Œåªè§è´§æŸœ
+ä¸Šæ‘†æ»¡äº†å„è‰²ä¹å™¨ï¼Œç³ç…æ»¡ç›®ï¼Œæ®è¯´è¿™é‡Œçš„è€æ¿å¨˜ä»¥å‰æ˜¯ä¸ªæ­Œ
+å¦“ï¼Œè™½ç„¶çŽ°åœ¨åšèµ·ä¹å™¨ç”Ÿæ„ï¼Œä½†å¶å°”ä¹Ÿä¼šæ‹‚ç´é«˜æ­Œï¼Œæ¯æ¬¡éƒ½ä¼š
+å¼•æ¥å¾ˆå¤šçš„è·¯äººé©»è¶³æ¬£èµã€‚é—¨å‰æŒ‚ç€ä¸€å¹…å¯¹è”(duilian)ã€‚
 LONG);
 	set("objects", ([
 		__DIR__"npc/feiyan" : 1,
@@ -34,33 +34,33 @@ LONG);
 
 void init()
 {
-	tell_object(this_player(), HIW "\nÄãÒ»×ß½øÁáÒô¸ó£¬·çÁå±»Äã×ßÂ·Ëù´ø¶¯"
-                                   "µÄ·ç´µµÃ¡¸¶£¶£¡¹×÷Ïì¡£\n\n" NOR);	
+	tell_object(this_player(), HIW "\nä½ ä¸€èµ°è¿›çŽ²éŸ³é˜ï¼Œé£Žé“ƒè¢«ä½ èµ°è·¯æ‰€å¸¦åŠ¨"
+                                   "çš„é£Žå¹å¾—ã€Œå®å®ã€ä½œå“ã€‚\n\n" NOR);	
 }
 
 string look_duilian()
 {
         return
         HIC "\n"
-        "       ¡ù¡ù¡ù¡ù¡ù¡ù¡ù         ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-        "       ¡ù¡ù¡ù¡ù¡ù¡ù¡ù         ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-        "       ¡ù¡ù      ¡ù¡ù         ¡ù¡ù      ¡ù¡ù\n"
-        "       ¡ù¡ù" HIW "¡¡Á÷¡¡" HIC "¡ù¡ù         ¡ù¡ù" HIW "  ¿Õ  " HIC "¡ù¡ù\n"
-        "       ¡ù¡ù¡¡ ¡¡ ¡ù¡ù         ¡ù¡ù      ¡ù¡ù\n"
-        "       ¡ù¡ù" HIW "  Èª  " HIC "¡ù¡ù         ¡ù¡ù" HIW "  ¹È  " HIC "¡ù¡ù\n"
-        "       ¡ù¡ù      ¡ù¡ù         ¡ù¡ù      ¡ù¡ù\n"
-        "       ¡ù¡ù" HIW "  Ë®  " HIC "¡ù¡ù         ¡ù¡ù" HIW "  ¼Å  " HIC "¡ù¡ù\n"
-        "       ¡ù¡ù      ¡ù¡ù         ¡ù¡ù      ¡ù¡ù\n"
-        "       ¡ù¡ù" HIW "  ÔÆ  " HIC "¡ù¡ù         ¡ù¡ù" HIW "  Ä¯  " HIC "¡ù¡ù\n"
-        "       ¡ù¡ù      ¡ù¡ù         ¡ù¡ù      ¡ù¡ù\n"
-        "       ¡ù¡ù" HIW "  Çå  " HIC "¡ù¡ù         ¡ù¡ù" HIW "  Ìì  " HIC "¡ù¡ù\n"
-        "       ¡ù¡ù      ¡ù¡ù         ¡ù¡ù      ¡ù¡ù\n"
-        "       ¡ù¡ù" HIW "  Òô  " HIC "¡ù¡ù         ¡ù¡ù" HIW "  Àµ  " HIC "¡ù¡ù\n"
-        "       ¡ù¡ù      ¡ù¡ù         ¡ù¡ù      ¡ù¡ù\n"
-        "       ¡ù¡ù" HIW "  ÓÄ  " HIC "¡ù¡ù         ¡ù¡ù" HIW "  ¾ø  " HIC "¡ù¡ù\n"
-        "       ¡ù¡ù      ¡ù¡ù         ¡ù¡ù      ¡ù¡ù\n"
-        "       ¡ù¡ù" HIW "  À¼  " HIC "¡ù¡ù         ¡ù¡ù" HIW "  Òô  " HIC "¡ù¡ù\n"
-        "       ¡ù¡ù    ¡¡¡ù¡ù         ¡ù¡ù      ¡ù¡ù\n"
-        "       ¡ù¡ù¡ù¡ù¡ù¡ù¡ù         ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-        "       ¡ù¡ù¡ù¡ù¡ù¡ù¡ù         ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n\n" NOR;
+        "       â€»â€»â€»â€»â€»â€»â€»         â€»â€»â€»â€»â€»â€»â€»\n"
+        "       â€»â€»â€»â€»â€»â€»â€»         â€»â€»â€»â€»â€»â€»â€»\n"
+        "       â€»â€»      â€»â€»         â€»â€»      â€»â€»\n"
+        "       â€»â€»" HIW "ã€€æµã€€" HIC "â€»â€»         â€»â€»" HIW "  ç©º  " HIC "â€»â€»\n"
+        "       â€»â€»ã€€ ã€€ â€»â€»         â€»â€»      â€»â€»\n"
+        "       â€»â€»" HIW "  æ³‰  " HIC "â€»â€»         â€»â€»" HIW "  è°·  " HIC "â€»â€»\n"
+        "       â€»â€»      â€»â€»         â€»â€»      â€»â€»\n"
+        "       â€»â€»" HIW "  æ°´  " HIC "â€»â€»         â€»â€»" HIW "  å¯‚  " HIC "â€»â€»\n"
+        "       â€»â€»      â€»â€»         â€»â€»      â€»â€»\n"
+        "       â€»â€»" HIW "  äº‘  " HIC "â€»â€»         â€»â€»" HIW "  å¯ž  " HIC "â€»â€»\n"
+        "       â€»â€»      â€»â€»         â€»â€»      â€»â€»\n"
+        "       â€»â€»" HIW "  æ¸…  " HIC "â€»â€»         â€»â€»" HIW "  å¤©  " HIC "â€»â€»\n"
+        "       â€»â€»      â€»â€»         â€»â€»      â€»â€»\n"
+        "       â€»â€»" HIW "  éŸ³  " HIC "â€»â€»         â€»â€»" HIW "  èµ–  " HIC "â€»â€»\n"
+        "       â€»â€»      â€»â€»         â€»â€»      â€»â€»\n"
+        "       â€»â€»" HIW "  å¹½  " HIC "â€»â€»         â€»â€»" HIW "  ç»  " HIC "â€»â€»\n"
+        "       â€»â€»      â€»â€»         â€»â€»      â€»â€»\n"
+        "       â€»â€»" HIW "  å…°  " HIC "â€»â€»         â€»â€»" HIW "  éŸ³  " HIC "â€»â€»\n"
+        "       â€»â€»    ã€€â€»â€»         â€»â€»      â€»â€»\n"
+        "       â€»â€»â€»â€»â€»â€»â€»         â€»â€»â€»â€»â€»â€»â€»\n"
+        "       â€»â€»â€»â€»â€»â€»â€»         â€»â€»â€»â€»â€»â€»â€»\n\n" NOR;
 }

@@ -1,4 +1,4 @@
-// laonu.c ÀÏÅ«
+// laonu.c è€å¥´
 
 #include <ansi.h>
 
@@ -6,9 +6,9 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("ÀÏÅ«", ({ "lao nu", "laonu" }));
-	set("long",  "Ëû¿´ÉÏÈ¥°×·¢²Ô²Ô£¬Ò»¸±ÆÍÈË´ò°ç£¬Èõ²»¾­·çµÄÑù×Ó¡£\n");
-	set("gender", "ÄĞĞÔ");
+	set_name("è€å¥´", ({ "lao nu", "laonu" }));
+	set("long",  "ä»–çœ‹ä¸Šå»ç™½å‘è‹è‹ï¼Œä¸€å‰¯ä»†äººæ‰“æ‰®ï¼Œå¼±ä¸ç»é£çš„æ ·å­ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 72);
 	set("attitude", "peaceful");
 	set("shen_type", 1);
@@ -57,7 +57,7 @@ void create()
         prepare_skill("finger", "shedu-qiqiao");
         prepare_skill("cuff", "lingshe-quan");
 
-	create_family("Å·ÑôÊÀ¼Ò", 0, "ÀÏÅ«");
+	create_family("æ¬§é˜³ä¸–å®¶", 0, "è€å¥´");
 
 	set("chat_chance_combat", 120);
 	set("chat_msg_combat", ({

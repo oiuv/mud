@@ -4,11 +4,11 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name(HIC "ÒýÐÄµ¤" NOR, ({ "yinxin dan", "dan" }));
+        set_name(HIC "å¼•å¿ƒä¸¹" NOR, ({ "yinxin dan", "dan" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("base_unit", "Á£");
+                set("base_unit", "ç²’");
                 set("base_value", 80);
                 set("only_do_effect", 1);
         }
@@ -22,20 +22,20 @@ int do_effect(object me)
 
         if (time() - me->query_temp("last_eat/dan(A)") < 20)
         {
-                write("Äã¸Õ·þÓÃ¹ýÒ©£¬ÐèÒ©ÐÔ·¢»ÓÍêÐ§ÓÃÒÔºó²ÅÄÜ¼ÌÐø·þÓÃ¡£\n");
+                write("ä½ åˆšæœç”¨è¿‡è¯ï¼Œéœ€è¯æ€§å‘æŒ¥å®Œæ•ˆç”¨ä»¥åŽæ‰èƒ½ç»§ç»­æœç”¨ã€‚\n");
                 return 1;
         }
 
         my = me->query_entire_dbase();
         if (my["jing"] == my["max_jing"])
         {
-                write("ÄãÏÖÔÚ¾«Éñ×´Ì¬ºÜºÃ£¬ÎÞÐè·þÓÃ" + name() + "¡£\n");
+                write("ä½ çŽ°åœ¨ç²¾ç¥žçŠ¶æ€å¾ˆå¥½ï¼Œæ— éœ€æœç”¨" + name() + "ã€‚\n");
                 return 1;
         }
 
         me->set_temp("last_eat/dan(A)", time());
 
-        message_vision(HIC "$N³ÔÏÂÒ»Á£ÒýÐÄµ¤£¬¸Ðµ½ÁéÌ¨´¦ÎÞ±ÈµÄÇå¾»¡£\n" NOR, me);
+        message_vision(HIC "$Nåƒä¸‹ä¸€ç²’å¼•å¿ƒä¸¹ï¼Œæ„Ÿåˆ°çµå°å¤„æ— æ¯”çš„æ¸…å‡€ã€‚\n" NOR, me);
         me->receive_curing("jing", 350);
         me->receive_heal("jing", 350);
 

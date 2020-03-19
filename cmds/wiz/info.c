@@ -27,34 +27,34 @@ int main(object me, string arg)
 		if (! obj || ! me->visible(obj)) obj = find_player(arg);
 		if (! obj || ! me->visible(obj)) obj = find_living(arg);
 		if (! obj) obj = find_object(resolve_path(me->query("cwd"), arg));
-		if (! obj) return notify_fail("Ã»ÓĞÕâÑùÎï¼ş....¡£\n");
+		if (! obj) return notify_fail("æ²¡æœ‰è¿™æ ·ç‰©ä»¶....ã€‚\n");
 	}
 
-	write(sprintf("Îï¼ş [%O]\n-----------------------------------------------------\n", obj));
-	write("µµ°¸£º\t\t" + base_name(obj) + ".c\n");
-	write("ÁìÓò£º\t\t" + domain_file(base_name(obj)) + "\n");
-	write("×÷Õß£º\t\t" + author_file(base_name(obj)) + "\n");
-	write("È¨ÏŞ£º\t\tuid = " + getuid(obj) + ", euid = " + geteuid(obj) + "\n");
-	write("µÈ¼¶£º\t\t" + wizhood(obj) + "\n");
-	write("Ê¹ÓÃ¼ÇÒäÌå£º\t" + memory_info(obj) + "\n");
+	write(sprintf("ç‰©ä»¶ [%O]\n-----------------------------------------------------\n", obj));
+	write("æ¡£æ¡ˆï¼š\t\t" + base_name(obj) + ".c\n");
+	write("é¢†åŸŸï¼š\t\t" + domain_file(base_name(obj)) + "\n");
+	write("ä½œè€…ï¼š\t\t" + author_file(base_name(obj)) + "\n");
+	write("æƒé™ï¼š\t\tuid = " + getuid(obj) + ", euid = " + geteuid(obj) + "\n");
+	write("ç­‰çº§ï¼š\t\t" + wizhood(obj) + "\n");
+	write("ä½¿ç”¨è®°å¿†ä½“ï¼š\t" + memory_info(obj) + "\n");
 	str = "";
-	if (living(obj)) 	str += "ÉúÎï ";
-	if (userp(obj))		str += "Ê¹ÓÃÕß ";
-	if (interactive(obj))	str += "ÏßÉÏ ";
-	if (wizardp(obj))	str += "Î×Ê¦ ";
-	if (clonep(obj)) 	str += "¸´ÖÆ ";
-	if (virtualp(obj)) 	str += "ĞéÄâ ";
-        if (obj->query("env/invisible")) str += "ÒşÉí ";
-	if (query_heart_beat(obj)) str += "ĞÄÌø:" + query_heart_beat(obj) + " ";
-	write("ÊôĞÔ£º\t\t" + str + "\n");
+	if (living(obj)) 	str += "ç”Ÿç‰© ";
+	if (userp(obj))		str += "ä½¿ç”¨è€… ";
+	if (interactive(obj))	str += "çº¿ä¸Š ";
+	if (wizardp(obj))	str += "å·«å¸ˆ ";
+	if (clonep(obj)) 	str += "å¤åˆ¶ ";
+	if (virtualp(obj)) 	str += "è™šæ‹Ÿ ";
+        if (obj->query("env/invisible")) str += "éšèº« ";
+	if (query_heart_beat(obj)) str += "å¿ƒè·³:" + query_heart_beat(obj) + " ";
+	write("å±æ€§ï¼š\t\t" + str + "\n");
 
         if ((ttl = obj->query_time_to_leave()) > 0)
-                write("½û±Õ£º\t\t" + appromix_time(ttl) + "\n");
+                write("ç¦é—­ï¼š\t\t" + appromix_time(ttl) + "\n");
 
-	write("¸´ÖÆ¸öÊı£º\t" + sizeof(children(base_name(obj)+".c")) + "\n");
-	write("²Î¿¼Á¬½á£º\t" + refs(obj) + "\n");
+	write("å¤åˆ¶ä¸ªæ•°ï¼š\t" + sizeof(children(base_name(obj)+".c")) + "\n");
+	write("å‚è€ƒè¿ç»“ï¼š\t" + refs(obj) + "\n");
         if (obj->is_telneting())
-                write("Ô¶³ÌµÇÂ½£º\t" + obj->query_dest_addr() + "\n");
+                write("è¿œç¨‹ç™»é™†ï¼š\t" + obj->query_dest_addr() + "\n");
 
         if (stringp(ext = obj->query_info()))
                 write(ext);
@@ -65,9 +65,9 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : info <Îï¼şÖ®Ãû³Æ»òµµÃû>
+æŒ‡ä»¤æ ¼å¼ : info <ç‰©ä»¶ä¹‹åç§°æˆ–æ¡£å>
 
-ÀûÓÃ´ËÒ»Ö¸Áî¿ÉµÃÖªÒ»Ğ©ÓĞ¹Ø¸ÃÎï¼şµÄ×ÊÑ¶¡£
+åˆ©ç”¨æ­¤ä¸€æŒ‡ä»¤å¯å¾—çŸ¥ä¸€äº›æœ‰å…³è¯¥ç‰©ä»¶çš„èµ„è®¯ã€‚
 HELP );
         return 1;
 }

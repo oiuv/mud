@@ -4,13 +4,13 @@ inherit BOOK;
 
 void create()
 {
-	set_name( HIR"Ò»ÑôÖ¸¾÷"NOR,({ "sunfinger book","book"}));
+	set_name( HIR"ä¸€é˜³æŒ‡è¯€"NOR,({ "sunfinger book","book"}));
 	set_weight(200);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±¾");
-                set("long","ÕâÊÇÒ»±¾Ò»ÑôÖ¸ÃÜ¾÷¡£\n");
+		set("unit", "æœ¬");
+                set("long","è¿™æ˜¯ä¸€æœ¬ä¸€é˜³æŒ‡å¯†è¯€ã€‚\n");
 		set("value", 500);
 		set("material", "paper");
 		set("skill", ([

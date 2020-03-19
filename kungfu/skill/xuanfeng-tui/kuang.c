@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define KUANG "¡¸" HIY "¿ñ·ç¾ø¼¼" NOR "¡¹"
+#define KUANG "ã€Œ" HIY "ç‹‚é£Žç»æŠ€" NOR "ã€"
 
 inherit F_SSERVER;
  
@@ -13,7 +13,7 @@ int perform(object me, object target)
 	int lvl, count;
 	
         if (userp(me) && ! me->query("can_perform/xuanfeng-tui/kuang"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target)
 	{
@@ -22,37 +22,37 @@ int perform(object me, object target)
 	}
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(KUANG "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(KUANG "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(KUANG "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(KUANG "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if ((int)me->query_skill("xuanfeng-tui", 1) < 100)
-                return notify_fail("ÄãÐý·çÉ¨Ò¶ÍÈ²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" KUANG "¡£\n");
+                return notify_fail("ä½ æ—‹é£Žæ‰«å¶è…¿ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" KUANG "ã€‚\n");
 
         if ((int)me->query_skill("xuanfeng-tui", 1) < 100)
-                return notify_fail("ÄãµÄÐý·çÉ¨Ò¶ÍÈ²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" KUANG "¡£\n");
+                return notify_fail("ä½ çš„æ—‹é£Žæ‰«å¶è…¿ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" KUANG "ã€‚\n");
 
         if (me->query_skill_mapped("unarmed") != "xuanfeng-tui")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢Ðý·çÉ¨Ò¶ÍÈ£¬ÄÑÒÔÊ©Õ¹" KUANG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘æ—‹é£Žæ‰«å¶è…¿ï¼Œéš¾ä»¥æ–½å±•" KUANG "ã€‚\n");
 
         if (me->query_skill_prepared("unarmed") != "xuanfeng-tui")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸Ðý·çÉ¨Ò¶ÍÈ£¬ÄÑÒÔÊ©Õ¹" KUANG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡æ—‹é£Žæ‰«å¶è…¿ï¼Œéš¾ä»¥æ–½å±•" KUANG "ã€‚\n");
 
         if (me->query("neili") < 300)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" KUANG "¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" KUANG "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIY "$N" HIY "Ê¹³öÌÒ»¨µº¿ñ·ç¾ø¼¼£¬Éí·¨Æ®ºö²»¶¨£¬×ã´ø·ç³¾£¬ÕÆÐ¯"
-              "Íò¾û£¬ÓÐÈôÌìÏÉ£¡\n" NOR;
+	msg = HIY "$N" HIY "ä½¿å‡ºæ¡ƒèŠ±å²›ç‹‚é£Žç»æŠ€ï¼Œèº«æ³•é£˜å¿½ä¸å®šï¼Œè¶³å¸¦é£Žå°˜ï¼ŒæŽŒæº"
+              "ä¸‡é’§ï¼Œæœ‰è‹¥å¤©ä»™ï¼\n" NOR;
 	message_combatd(msg, me);
 	me->add("neili", -100);
 	lvl = me->query_skill("xuanfeng-tui", 1);
 	count = 0;
 	
-	if (me->query("family/family_name") == "ÌÒ»¨µº")
+	if (me->query("family/family_name") == "æ¡ƒèŠ±å²›")
 		count = lvl / 4;
 	
 	me->add_temp("apply/attack", count);

@@ -3,9 +3,9 @@ inherit NPC;
 
 void create()
 {
-	set_name("É®ÈË", ({"seng ren","seng"}));
-	set("long", "Ò»¸ö¾«×³É®ÈË¡£\n" );
-	set("gender", "ÄÐÐÔ");
+	set_name("åƒ§äºº", ({"seng ren","seng"}));
+	set("long", "ä¸€ä¸ªç²¾å£®åƒ§äººã€‚\n" );
+	set("gender", "ç”·æ€§");
 	set("attitude", "peace");
 	set("class", "bonze");
 

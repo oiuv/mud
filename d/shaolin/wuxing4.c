@@ -9,12 +9,12 @@ string* dirs = ({"east", "south", "west", "north"});
 
 void create()
 {
-	set("short", HIW "ÎåĞĞ¶´" NOR);
+	set("short", HIW "äº”è¡Œæ´" NOR);
 	set("long", HIW @LONG
-ÕâÊÇÎåĞĞ¶´¡£µØÃæÊÇÄàÍİµØ£¬²ÈÉÏÈ¥°¼Í¹²»Æ½¡£ËÄ±ÚÒ²¶¼ÊÇ
-ÍÁÇ½Öş³É£¬ÃşÉÏÈ¥Ïàµ±¸ÉÔï£¬Ê±¶ø»¹»áµôÏÂÒ»´ó¿é»ÒÍÁÀ´¡£´ÓÇ½
-½Ç»¹ÄÜ¿´µ½Ò»Ğ©ÀÏÊó¶´¡£µØÃæÓĞÊ±»áÂ¡ÆğÒ»³¤Ìõ£¬ËÆºõÓĞÊ²Ã´¶«
-Î÷´ÓÍÁÏÂ×êÁË¹ıÈ¥¡£
+è¿™æ˜¯äº”è¡Œæ´ã€‚åœ°é¢æ˜¯æ³¥æ´¼åœ°ï¼Œè¸©ä¸Šå»å‡¹å‡¸ä¸å¹³ã€‚å››å£ä¹Ÿéƒ½æ˜¯
+åœŸå¢™ç­‘æˆï¼Œæ‘¸ä¸Šå»ç›¸å½“å¹²ç‡¥ï¼Œæ—¶è€Œè¿˜ä¼šæ‰ä¸‹ä¸€å¤§å—ç°åœŸæ¥ã€‚ä»å¢™
+è§’è¿˜èƒ½çœ‹åˆ°ä¸€äº›è€é¼ æ´ã€‚åœ°é¢æœ‰æ—¶ä¼šéš†èµ·ä¸€é•¿æ¡ï¼Œä¼¼ä¹æœ‰ä»€ä¹ˆä¸œ
+è¥¿ä»åœŸä¸‹é’»äº†è¿‡å»ã€‚
 LONG
 NOR	);
 	set("exits", ([
@@ -31,11 +31,11 @@ int check_out(object me)
 {
 	int metal, wood, water, fire, earth;
 
-	metal = me->query_temp("wuxing/½ğ");
-	wood = me->query_temp("wuxing/Ä¾");
-	water = me->query_temp("wuxing/Ë®");
-	fire = me->query_temp("wuxing/»ğ");
-	earth = me->query_temp("wuxing/ÍÁ");
+	metal = me->query_temp("wuxing/é‡‘");
+	wood = me->query_temp("wuxing/æœ¨");
+	water = me->query_temp("wuxing/æ°´");
+	fire = me->query_temp("wuxing/ç«");
+	earth = me->query_temp("wuxing/åœŸ");
 
 	if ( metal > 0 &&
 		metal == wood && metal == water &&
@@ -56,19 +56,19 @@ int valid_leave(object me, string dir)
 	{
 		if (dir == "west")
 		{
-//			write("*ÍÁÉú½ğ*\n");
-			count =  me->query_temp("wuxing/½ğ");
+//			write("*åœŸç”Ÿé‡‘*\n");
+			count =  me->query_temp("wuxing/é‡‘");
 			count++;
-			me->set_temp("wuxing/½ğ", count);
+			me->set_temp("wuxing/é‡‘", count);
 			if (check_out(me))
-				return notify_fail("ÄãË³ÀûµØ×ß³öÁËÎåĞĞÃÔ¹¬¡£\n");
+				return notify_fail("ä½ é¡ºåˆ©åœ°èµ°å‡ºäº†äº”è¡Œè¿·å®«ã€‚\n");
 		}
 		else if (dir == "north")
 		{
-//			write("*ÍÁ¿ËË®*\n");
+//			write("*åœŸå…‹æ°´*\n");
 			me->delete_temp("wuxing");
 			me->move(__DIR__"jianyu1");
-			return notify_fail("Äãµô½ø»ú¹Ø£¬ÂäÈëÉ®¼à¡£\n");
+			return notify_fail("ä½ æ‰è¿›æœºå…³ï¼Œè½å…¥åƒ§ç›‘ã€‚\n");
 		}
 	}
 	return ::valid_leave(me, dir);

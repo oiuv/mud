@@ -10,7 +10,7 @@ int main(object me, string arg)
                 return 0;
 
 	if (! arg || arg == "")
-		return notify_fail("Ö¸Áî¸ñÊ½£ºwizlock <Î×Ê¦µÈ¼¶>\n");
+		return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šwizlock <å·«å¸ˆç­‰çº§>\n");
 
 	if (sscanf(arg, "%d", lvl) != 1) lvl = wiz_level(arg);
 	seteuid(getuid());
@@ -20,17 +20,17 @@ int main(object me, string arg)
 		write("Ok.\n");
 		return 1;
 	} else
-		return notify_fail("ÉÏÏßÈ¨ÏŞÉè¶¨Ê§°Ü¡£\n");
+		return notify_fail("ä¸Šçº¿æƒé™è®¾å®šå¤±è´¥ã€‚\n");
 }
 
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: wizlock <Î×Ê¦µÈ¼¶>
+æŒ‡ä»¤æ ¼å¼: wizlock <å·«å¸ˆç­‰çº§>
  
-ÏŞÖÆÄ³¸öµÈ¼¶ÒÔÏÂµÄÊ¹ÓÃÕß½øÈëÓÎÏ·¡£
-ÆäÖĞÎ×Ê¦µÈ¼¶·Ö±ğÎª (immortal) (wizard) (arch) (admin), ÈôÒªÈ¡
-ÏûÏŞÖÆ, ÔòÊäÈë (player).
+é™åˆ¶æŸä¸ªç­‰çº§ä»¥ä¸‹çš„ä½¿ç”¨è€…è¿›å…¥æ¸¸æˆã€‚
+å…¶ä¸­å·«å¸ˆç­‰çº§åˆ†åˆ«ä¸º (immortal) (wizard) (arch) (admin), è‹¥è¦å–
+æ¶ˆé™åˆ¶, åˆ™è¾“å…¥ (player).
  
 HELP );
         return 1;

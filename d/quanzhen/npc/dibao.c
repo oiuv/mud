@@ -2,14 +2,14 @@ inherit NPC;
 
 void create()
 {
-        set_name("µØ±£", ({ "di bao", "di", "bao" }));
-        set("gender", "ÄÐÐÔ" );
+        set_name("åœ°ä¿", ({ "di bao", "di", "bao" }));
+        set("gender", "ç”·æ€§" );
         set("age", 43);
-        set("long", "ËûÊÇÕâ¸ö´å×ÓÍÁÉúÍÁ³¤µÄÈË£¬ÄêÇáµÄÊ±ºòµ½\n"
-                    "ÍâÃæÈ¥´³µ´¹ýÒ»Õó¡£ÔÚïÚ¾Öµ±¹ýÌË×ÓÊÖ£¬ÔÜ\n"
-                    "ÁËµãÇ®£¬»ØÀ´ááÈ¢ÁË·¿ÀÏÆÅ£¬ÎïÅ©ÎªÉú¡£´å\n"
-                    "ÀïÈËÒòËûÔÚÍâ¼û¹ýÊÀÃæ£¬ÓÖ»áÐ©Îä¹¦£¬¾ÍÍÆ\n"
-                    "Ëû×öÁËµØ±£¡£\n");
+        set("long", "ä»–æ˜¯è¿™ä¸ªæ‘å­åœŸç”ŸåœŸé•¿çš„äººï¼Œå¹´è½»çš„æ—¶å€™åˆ°\n"
+                    "å¤–é¢åŽ»é—¯è¡è¿‡ä¸€é˜µã€‚åœ¨é•–å±€å½“è¿‡è¶Ÿå­æ‰‹ï¼Œæ”’\n"
+                    "äº†ç‚¹é’±ï¼Œå›žæ¥å¾Œå¨¶äº†æˆ¿è€å©†ï¼Œç‰©å†œä¸ºç”Ÿã€‚æ‘\n"
+                    "é‡Œäººå› ä»–åœ¨å¤–è§è¿‡ä¸–é¢ï¼Œåˆä¼šäº›æ­¦åŠŸï¼Œå°±æŽ¨\n"
+                    "ä»–åšäº†åœ°ä¿ã€‚\n");
         set("str", 25);
         set("dex", 20);
         set("con", 17);

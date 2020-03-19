@@ -5,13 +5,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(NOR + YEL "ºæ±ı" NOR, ({ "hong bing", "hong", "bing" }));
+        set_name(NOR + YEL "çƒ˜é¥¼" NOR, ({ "hong bing", "hong", "bing" }));
         set_weight(200);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", YEL "ÕâÊÇÒ»¿éÏãÅçÅçµÄ´óºæ±ı¡£\n" NOR);
-                set("unit", "¿é");
+                set("long", YEL "è¿™æ˜¯ä¸€å—é¦™å–·å–·çš„å¤§çƒ˜é¥¼ã€‚\n" NOR);
+                set("unit", "å—");
                 set("value", 200);
                 set("food_remaining", 4);
                 set("food_supply", 20);

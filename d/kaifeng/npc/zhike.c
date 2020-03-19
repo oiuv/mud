@@ -3,9 +3,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("Öª¿ÍÉ®", ({"zhike seng", "seng"}));
-        set("long", "Ò»¸ö¾«×³É®ÈË¡£\n" );
-        set("gender", "ÄĞĞÔ");
+        set_name("çŸ¥å®¢åƒ§", ({"zhike seng", "seng"}));
+        set("long", "ä¸€ä¸ªç²¾å£®åƒ§äººã€‚\n" );
+        set("gender", "ç”·æ€§");
         set("attitude", "peace");
 
         set("age", 34);
@@ -39,10 +39,10 @@ void greeting(object ob)
 		return;
   	if (ob->query("id") == "qi gai")
 	{
-        	message_vision(CYN "$N" CYN "¶Ô×Å$n" CYN "Á¬Á¬»ÓĞä£ºÈ¥£¬È¥"
-                               "È¥£¬Ò»±ßÈ¥£¡" NOR, this_object(), ob);
+        	message_vision(CYN "$N" CYN "å¯¹ç€$n" CYN "è¿è¿æŒ¥è¢–ï¼šå»ï¼Œå»"
+                               "å»ï¼Œä¸€è¾¹å»ï¼" NOR, this_object(), ob);
     		return;
   	}
-	command("say Ê©Ö÷Çëµ½´óµîÉÏÏã¡£");
+	command("say æ–½ä¸»è¯·åˆ°å¤§æ®¿ä¸Šé¦™ã€‚");
    	return;
 }

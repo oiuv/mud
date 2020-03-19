@@ -7,11 +7,11 @@ inherit NPC;
 void create()
 {
         object ob;
-        set_name("Ê·ËÉ", ({ "shi song", "shi", "song" }));
-        set("gender", "ÄĞĞÔ");
-        set("long", "ÕâÊÇÒ»¸ö¾«×³ºº×Ó£¬¾ü¹ÙÄ£Ñù£¬Ñü¼äÎ§Ò»Ìõ³¤±Ş¡£\n");
-        set("nickname", WHT "ºÚÁú±Ş" NOR);
-        set("title", "Ñ²²¶Ê×Áì");
+        set_name("å²æ¾", ({ "shi song", "shi", "song" }));
+        set("gender", "ç”·æ€§");
+        set("long", "è¿™æ˜¯ä¸€ä¸ªç²¾å£®æ±‰å­ï¼Œå†›å®˜æ¨¡æ ·ï¼Œè…°é—´å›´ä¸€æ¡é•¿é­ã€‚\n");
+        set("nickname", WHT "é»‘é¾™é­" NOR);
+        set("title", "å·¡æ•é¦–é¢†");
         set("age", 35);
         set("str", 25);
         set("dex", 20);
@@ -58,14 +58,14 @@ void create()
         }));
 
         set("inquiry", ([
-                "Ã©Ê®°Ë" : "Ë­°ïÎÒ¸ÉµôÕâ¶ñÔô£¬ÎÒÒ»¶¨±£ËûÇ°³ÌËÆ½õ¡£",
-                "²ø×Ö¾÷" : "ÎÒ×ÜµÃÁôÁ½ÊÖ°É£¿",
+                "èŒ…åå…«" : "è°å¸®æˆ‘å¹²æ‰è¿™æ¶è´¼ï¼Œæˆ‘ä¸€å®šä¿ä»–å‰ç¨‹ä¼¼é”¦ã€‚",
+                "ç¼ å­—è¯€" : "æˆ‘æ€»å¾—ç•™ä¸¤æ‰‹å§ï¼Ÿ",
         ]));
 
         set("chat_chance", 1);
         set("chat_msg", ({
-                CYN "Ê·ËÉËµµÀ£ºÔÚÏÂºÚÁú±ŞÊ·ËÉ£¬·î÷¡ÉÙ±£½«Áî£¬ÇÜÄÃÌìµØ»á·´Ôô¡£\n" NOR,
-                CYN "Ê·ËÉËµµÀ£º÷¡ÉÙ±£ÌìÉúÉñÓÂ£¬ÔøÔÚ±±¾©½ÖÉÏÒ»È­´òËÀÒ»Í··èÅ£¡£\n" NOR,
+                CYN "å²æ¾è¯´é“ï¼šåœ¨ä¸‹é»‘é¾™é­å²æ¾ï¼Œå¥‰é³Œå°‘ä¿å°†ä»¤ï¼Œæ“’æ‹¿å¤©åœ°ä¼šåè´¼ã€‚\n" NOR,
+                CYN "å²æ¾è¯´é“ï¼šé³Œå°‘ä¿å¤©ç”Ÿç¥å‹‡ï¼Œæ›¾åœ¨åŒ—äº¬è¡—ä¸Šä¸€æ‹³æ‰“æ­»ä¸€å¤´ç–¯ç‰›ã€‚\n" NOR,
         }));
 
         setup();
@@ -100,7 +100,7 @@ void init()
 
         if (ob->query("id") == "mao shiba")
         {
-                command("say Ã©Ê®°ËÄãÕâ¸ö·´Ôô£¬½ñÌìÖÕÓÚ´şµ½ÄãÁË£¡");
+                command("say èŒ…åå…«ä½ è¿™ä¸ªåè´¼ï¼Œä»Šå¤©ç»ˆäºé€®åˆ°ä½ äº†ï¼");
                 me->set_leader(ob);
                 remove_call_out("kill_ob");
                 call_out("kill_ob", 1, ob); 
@@ -109,9 +109,9 @@ void init()
         if (interactive(ob)
 	   && ! environment(ob)->query("no_fight")
            && (ob->query("combat_exp") > 150000)
-           && (ob->query("family/family_name") == "ÌìµØ»á"))
+           && (ob->query("family/family_name") == "å¤©åœ°ä¼š"))
         {
-                command("say ÄãÕâ¸öÌìµØ»á·´Ôô£¬ÄÉÃüÀ´°É£¡");
+                command("say ä½ è¿™ä¸ªå¤©åœ°ä¼šåè´¼ï¼Œçº³å‘½æ¥å§ï¼");
                 me->set_leader(ob);
                 remove_call_out("kill_ob");
                 call_out("kill_ob", 1, ob); 
@@ -124,11 +124,11 @@ int accept_object(object me, object ob)
 
         exp = 1000 + random(300);
         pot = 500 + random(250);
-        sc = 5 + random(25);	//½±ÀøÔö¼Ó
+        sc = 5 + random(25);	//å¥–åŠ±å¢åŠ 
 
         if (base_name(ob) != LING)
         {
-                command("say Äã¸øÎÒÕâÖÖ¶«Î÷¸ÉÊ²Ã´£¿");
+                command("say ä½ ç»™æˆ‘è¿™ç§ä¸œè¥¿å¹²ä»€ä¹ˆï¼Ÿ");
                 return 0;
         }
 
@@ -139,20 +139,20 @@ int accept_object(object me, object ob)
                         me->add("combat_exp", exp);
                         me->add("potential", pot);
                         me->add("score", sc);
-                        tell_object(me, HIW "\n\nÄã³É¹¦µÄ°ïÖúÊ·ËÉÅªµ½ÁËÍ¨¼©Áî£¡\n" NOR +
-                                        HIC "Í¨¹ıÕâ´ÎµÄÀúÁ·£¬Äã»ñµÃÁË" + chinese_number(exp) +
-                                        "µã¾­Ñé¡¢" + chinese_number(pot) + "µãÇ±ÄÜÒÔ¼°" +
-                                        chinese_number(sc) + "µã½­ºşÔÄÀú¡£\n\n" NOR);
+                        tell_object(me, HIW "\n\nä½ æˆåŠŸçš„å¸®åŠ©å²æ¾å¼„åˆ°äº†é€šç¼‰ä»¤ï¼\n" NOR +
+                                        HIC "é€šè¿‡è¿™æ¬¡çš„å†ç»ƒï¼Œä½ è·å¾—äº†" + chinese_number(exp) +
+                                        "ç‚¹ç»éªŒã€" + chinese_number(pot) + "ç‚¹æ½œèƒ½ä»¥åŠ" +
+                                        chinese_number(sc) + "ç‚¹æ±Ÿæ¹–é˜…å†ã€‚\n\n" NOR);
                         me->set("skybook/luding/shi", 1);
                         me->set("can_learn/yunlong-bian/shi", 1);
                 }
                 command("haha");
-                command("say Äã°ÑÄÇĞÕÃ©µÄ´óµÁ¸ÉµôÁË£¿Õâ¿ÉÕæÊÇĞ»Ğ»ÄãÁË¡£");
-                command("say ÎÒÕâÓĞÒ»Ì×ÔÆÁú±Ş·¨£¬Èç¹ûÄãÔ¸Òâ£¬ÎÒµ¹ÊÇ¿ÉÒÔ´«ÄãÁ½ÊÖ¡£\n");
+                command("say ä½ æŠŠé‚£å§“èŒ…çš„å¤§ç›—å¹²æ‰äº†ï¼Ÿè¿™å¯çœŸæ˜¯è°¢è°¢ä½ äº†ã€‚");
+                command("say æˆ‘è¿™æœ‰ä¸€å¥—äº‘é¾™é­æ³•ï¼Œå¦‚æœä½ æ„¿æ„ï¼Œæˆ‘å€’æ˜¯å¯ä»¥ä¼ ä½ ä¸¤æ‰‹ã€‚\n");
         } else
         {
                 command("nod " + me->query("id"));
-                command("say ²»´í£¬²»´í¡£¿ÉÏ§Äã½­ºş¾­ÑéÌ«Ç³£¬Òª²»»¹¿É½ÌÄãµã¶«Î÷¡£");
+                command("say ä¸é”™ï¼Œä¸é”™ã€‚å¯æƒœä½ æ±Ÿæ¹–ç»éªŒå¤ªæµ…ï¼Œè¦ä¸è¿˜å¯æ•™ä½ ç‚¹ä¸œè¥¿ã€‚");
         }
         destruct(ob);
         return 1;
@@ -162,13 +162,13 @@ int recognize_apprentice(object me, string skill)
 {
         if (! me->query("can_learn/yunlong-bian/shi"))
         {
-                command("say ÄÌÄÌµÄ£¬ÄãÕÒËÀÃ´£¿");
+                command("say å¥¶å¥¶çš„ï¼Œä½ æ‰¾æ­»ä¹ˆï¼Ÿ");
                 return -1;
         }
 
         if (skill != "yunlong-bian")
         {
-                command("say ÎÒÄÃÊÖµÄ¾ÍÖ»ÓĞÕâÌ×±Ş·¨£¬Äã²»Ñ§¾ÍËãÁË¡£");
+                command("say æˆ‘æ‹¿æ‰‹çš„å°±åªæœ‰è¿™å¥—é­æ³•ï¼Œä½ ä¸å­¦å°±ç®—äº†ã€‚");
                 return -1;
         }
         return 1;
@@ -176,13 +176,13 @@ int recognize_apprentice(object me, string skill)
 
 int accept_fight(object me)
 {
-        command("say Ã»ĞËÈ¤¡£");
+        command("say æ²¡å…´è¶£ã€‚");
         return 0;
 }
 
 int accept_hit(object me)
 {
-        command("say ËûÄÌÄÌµÄ£¬Á¬ÎÒÄã¶¼¸ÒÈÇ£¿");
+        command("say ä»–å¥¶å¥¶çš„ï¼Œè¿æˆ‘ä½ éƒ½æ•¢æƒ¹ï¼Ÿ");
         kill_ob(me);
         return 1;
 }

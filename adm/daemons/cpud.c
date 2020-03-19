@@ -9,8 +9,8 @@ inherit F_DBASE;
 
 int clean_up() { return 1; }
 
-#define CHECK_PERIOD    100     // 100s¼ì²éÒ»´Î
-#define EXPECTATION     50      // Ï£ÍûÐÄÌø50´Î
+#define CHECK_PERIOD    100     // 100sæ£€æŸ¥ä¸€æ¬¡
+#define EXPECTATION     50      // å¸Œæœ›å¿ƒè·³50æ¬¡
 
 #define check_period    my["check_period"]
 #define expectation     my["expectation"]
@@ -28,11 +28,11 @@ void create()
         mapping my;
 
         seteuid(getuid());
-        set("channel_id", "ÏµÍ³¾«Áé");
-        CHANNEL_D->do_channel(this_object(), "sys", "ÏµÍ³¾«ÁéÒÑ¾­Æô¶¯¡£");
+        set("channel_id", "ç³»ç»Ÿç²¾çµ");
+        CHANNEL_D->do_channel(this_object(), "sys", "ç³»ç»Ÿç²¾çµå·²ç»å¯åŠ¨ã€‚");
         set_heart_beat(1);
 
-        // ³õÊ¼»¯É¨ÃèÊ±¼ä
+        // åˆå§‹åŒ–æ‰«ææ—¶é—´
         my = query_entire_dbase();
         if (CONFIG_D->query_int("cpu_check_period") < 2)
         {

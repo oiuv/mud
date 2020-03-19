@@ -5,13 +5,13 @@ inherit CLUB;
 
 void create()
 {
-        set_name(HIW "Ê¥ÆïÊ¿êª" NOR, ({ "chivalry lance", "chivalry", "lance" }));
+        set_name(HIW "åœ£éª‘å£«æˆŸ" NOR, ({ "chivalry lance", "chivalry", "lance" }));
         set_weight(30000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", HIW "ÕâÊÇÒ»¸ùÒøÖÆµÄ³¤êª£¬³ÁÖØÎŞ±È£¬ÔÚÖĞÔ­ºÜÄÑ¼ûµ½¡£\n" NOR);
+                set("unit", "æ ¹");
+                set("long", HIW "è¿™æ˜¯ä¸€æ ¹é“¶åˆ¶çš„é•¿æˆŸï¼Œæ²‰é‡æ— æ¯”ï¼Œåœ¨ä¸­åŸå¾ˆéš¾è§åˆ°ã€‚\n" NOR);
                 set("value", 10000);
                 set("material", "silver");
         }

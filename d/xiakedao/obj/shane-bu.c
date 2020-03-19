@@ -1,4 +1,4 @@
-// shane-bu.c ÉÍÉÆ·£¶ñ²¾
+// shane-bu.c èµå–„ç½šæ¶ç°¿
 
 #include <armor.h>
 #include <ansi.h>
@@ -7,13 +7,13 @@ inherit NECK;
 
 void create()
 {
-        set_name("ÉÍÉÆ·£¶ñ²¾", ({ "shane bu", "bu" }));
-        set("long", "ÕâÊÇÒ»±¾ÉÍÉÆ·£¶ñ²¾£¬ÀïÍ·¼ÇÔØ×Å½­ºşÉÆ¶ñ¡£\n");
+        set_name("èµå–„ç½šæ¶ç°¿", ({ "shane bu", "bu" }));
+        set("long", "è¿™æ˜¯ä¸€æœ¬èµå–„ç½šæ¶ç°¿ï¼Œé‡Œå¤´è®°è½½ç€æ±Ÿæ¹–å–„æ¶ã€‚\n");
         set_weight(300);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±¾");
+                set("unit", "æœ¬");
                 set("material", "paper");
         }
         setup();

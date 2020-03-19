@@ -16,35 +16,35 @@ int perform(object me, object target)
         }
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail("¾®ÖĞ°Ë·¨Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("äº•ä¸­å…«æ³•åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "blade")
-                return notify_fail("ÊÖÖĞÃ»µ¶»¹Ê¹Ê²Ã´¾®ÖĞ°Ë·¨¡£\n");
+                return notify_fail("æ‰‹ä¸­æ²¡åˆ€è¿˜ä½¿ä»€ä¹ˆäº•ä¸­å…«æ³•ã€‚\n");
 
         if ((int)me->query("neili") < 500)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¡\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼\n");
 
         if ((int)me->query_skill("force") < 300)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¡\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼\n");
 
         if ((int)me->query_skill("jingzhong-bafa", 1) < 200)
-                return notify_fail("ÄãµÄ¾®ÖĞ°Ë·¨»¹²»µ½¼Ò£¬ÎŞ·¨Ê©Õ¹¾øÕĞ¡£\n");
+                return notify_fail("ä½ çš„äº•ä¸­å…«æ³•è¿˜ä¸åˆ°å®¶ï¼Œæ— æ³•æ–½å±•ç»æ‹›ã€‚\n");
 
         if (me->query_skill_mapped("blade") != "jingzhong-bafa")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢¾®ÖĞ°Ë·¨£¬ÎŞ·¨Ê©Õ¹¾øÕĞ¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘äº•ä¸­å…«æ³•ï¼Œæ— æ³•æ–½å±•ç»æ‹›ã€‚\n");
 
-        msg = HIY "$N" HIY "Ò»ÉùÇåĞ¥£¬ÊÖÖĞµÄ" + weapon->name() +
-              HIY "½«¡¸¾®ÖĞ°Ë·¨¡¹Ò»ÆëÊ©³ö£¬µ¶·¨±ä»¯Äª²â£¬ÁıÕÖÁË$n" HIY "ÖÜÉíÒªº¦£¡\n" NOR;
+        msg = HIY "$N" HIY "ä¸€å£°æ¸…å•¸ï¼Œæ‰‹ä¸­çš„" + weapon->name() +
+              HIY "å°†ã€Œäº•ä¸­å…«æ³•ã€ä¸€é½æ–½å‡ºï¼Œåˆ€æ³•å˜åŒ–è«æµ‹ï¼Œç¬¼ç½©äº†$n" HIY "å‘¨èº«è¦å®³ï¼\n" NOR;
 
         if (random(me->query_skill("blade")) > target->query_skill("parry") / 3)
         {
-                msg += HIR "$n" HIR "¼ûÀ´ÕĞÊµÔÚÊÇ±ä»ÃÄª²â£¬²»ÓÉµÃĞÄ"
-                       "Éú¾åÒâ£¬ÕĞÊ½µÇÊ±³öÁËÆÆÕÀ£¡\n" NOR;
+                msg += HIR "$n" HIR "è§æ¥æ‹›å®åœ¨æ˜¯å˜å¹»è«æµ‹ï¼Œä¸ç”±å¾—å¿ƒ"
+                       "ç”Ÿæƒ§æ„ï¼Œæ‹›å¼ç™»æ—¶å‡ºäº†ç ´ç»½ï¼\n" NOR;
                 count = me->query_skill("jingzhong-bafa)", 1) / 3;
         } else
         {
-                msg += HIC "$n" HIC "ĞÄµ×Î¢Î¢Ò»¾ª£¬´òÆğ¾«ÉñĞ¡ĞÄ½ÓÕĞ¡£\n" NOR;
+                msg += HIC "$n" HIC "å¿ƒåº•å¾®å¾®ä¸€æƒŠï¼Œæ‰“èµ·ç²¾ç¥å°å¿ƒæ¥æ‹›ã€‚\n" NOR;
                 count = 0;
         }
 

@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("ʱ����", ({"shi wannian", "shi", "wannian"}));
-        set("gender", "����");
-        set("long", "���������ǵ���������ʱ���꣬���Ǽ̰��򽣡���\n"
-                    "������书��ߡ�������ĵ��ӡ���ʱ���ڴ���\n"
-                    "��������\n");
+        set_name("时万年", ({"shi wannian", "shi", "wannian"}));
+        set("gender", "男性");
+        set("long", "他是凌霄城第六代弟子时万年，乃是继白万剑、封\n"
+                    "万里后武功最高、剑法最精的弟子。此时他在此守\n"
+                    "卫监狱。\n");
         set("age", 24);
         set("attitude", "peaceful");
 
@@ -26,8 +26,8 @@ void create()
 
         set("chat_chance", 8);
         set("chat_msg", ({
-        	CYN "ʱ����޺�˵�����Ϸ��Ӳ�֪������ô�ˣ����Լ���������Ū�����ϳ�����\n" NOR,
-       		CYN "ʱ����ѽ�һ������Ȼ�������������⣬˭��������Ϸ��ӷų�����\n" NOR,
+        	CYN "时万年恨恨说道：老疯子不知道又怎么了，把自己关在里面弄死不肯出来。\n" NOR,
+       		CYN "时万年把剑一弹，傲然道：有我守在这，谁都别想把老疯子放出来。\n" NOR,
         }) );
 
         set_skill("force", 160);
@@ -55,7 +55,7 @@ void create()
         prepare_skill("strike", "piaoxu-zhang");
         prepare_skill("cuff", "lingxiao-quan");
 
-        create_family("������", 6, "����");
+        create_family("凌霄城", 6, "弟子");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -72,7 +72,7 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        command("say �Ҳ���ͽ����ȥ��������ʦ�ֺ��ˡ�");
+        command("say 我不收徒，你去找我其它师兄好了。");
 }
 
 void init()
@@ -82,19 +82,19 @@ void init()
 
         ob = this_player();
 
-      	if (ob->query("family/family_name") != "������")
+      	if (ob->query("family/family_name") != "凌霄城")
         {
                 command("heng");
-                command("say ���Ȼ�Ҵ��뱾�ɽ��أ������ɣ�\n");
+                command("say 你居然敢闯入本派禁地，受死吧！\n");
                 remove_call_out("kill_ob");
                 call_out("kill_ob", 1, ob); 
         } else
-        if (ob->query("family/master_name") == "������")
+        if (ob->query("family/master_name") == "白自在")
         {
-                command("say ʦ�ֻ����ˣ���ȥ��ʦ��ɣ�����С�ĵ㡭��û׼���ַ����ˡ�");
+                command("say 师兄回来了，快去见师祖吧，不过小心点……没准他又犯病了。");
         } else
-        if (ob->query("family/master_name") == "����")
+        if (ob->query("family/master_name") == "白万剑")
         {
-                command("say ���ǰ�ʦ��ĵ��Ӱɣ���ү�Ӿ������棬���Ĳ�Խ��Խ����������");
+                command("say 你是白师哥的弟子吧，老爷子就在里面，他的病越来越不得了啦。");
         }
 }

@@ -2,10 +2,10 @@ inherit BULLETIN_BOARD;
 
 void create()
 {
-        set_name("Ã·×¯µÜ×ÓÁôÑÔ°å", ({ "board" }) );
+        set_name("æ¢…åº„å¼Ÿå­ç•™è¨€æ¿", ({ "board" }) );
         set("location", "/d/meizhuang/houting");
         set("board_id", "meizhuang_b");
-        set("long", "ÕâÊÇÒ»¸ö×¨¹©Ã·×¯µÜ×ÓÊ¹ÓÃµÄÁôÑÔ°å¡£\n" );
+        set("long", "è¿™æ˜¯ä¸€ä¸ªä¸“ä¾›æ¢…åº„å¼Ÿå­ä½¿ç”¨çš„ç•™è¨€æ¿ã€‚\n" );
         setup();
         set("capacity", 100);
         replace_program(BULLETIN_BOARD);

@@ -4,11 +4,11 @@
 inherit ROOM;
 void create()
 {
-	set("short","�سص̰�");
+	set("short","沿池堤岸");
 	set("long",@LONG
-�����غ��̰���ֲ��ɫ����ܰ�������ֳơ�����ӡ���������һ����֧��
-�̰����ֻ�ɫ��ӭ�������ʳơ�����ӡ������֭�ӡ�����ͬΪ��صĳ�ˮ
-�ڣ��ֳƺ��ڡ�
+这里沿湖堤岸遍植白色的素馨花，故又称“银棱河”；而它的一条分支，
+堤岸栽种黄色的迎春花，故称“金棱河”，或金汁河。两河同为滇池的出水
+口，又称海口。
 LONG);
 	set("outdoors", "dali");
 	set("exits",([ /* sizeof() == 1 */

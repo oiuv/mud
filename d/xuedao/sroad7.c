@@ -3,9 +3,9 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "´óÑ©É½¿Ú");
+        set("short", "å¤§é›ªå±±å£");
         set("long", @LONG
-ÈºÉ½»·ÈÆ£¬ËÄÖÜ»ýÑ©ÖÕÄê²»»¯¡£ÄÏ±ß²»Ô¶´¦ÓÐÒ»¸öÉ½¹È¡£
+ç¾¤å±±çŽ¯ç»•ï¼Œå››å‘¨ç§¯é›ªç»ˆå¹´ä¸åŒ–ã€‚å—è¾¹ä¸è¿œå¤„æœ‰ä¸€ä¸ªå±±è°·ã€‚
 LONG);
         set("exits", ([
                 "north"     : __DIR__"sroad6",
@@ -25,8 +25,8 @@ int valid_leave(object me, string dir)
 
         if (dir == "southup")
         {
-                message_vision(HIW "\nÍ»È»¼äÖ»ÌýµÃºäÂ¡Ò»Éù¾ÞÏì£¬$N" HIW
-                               "½ÅÏÂÌ¤ÁË¸ö¿Õ£¬¾¹È»ÊÇÑ©±ÀÁË£¡\n" NOR, me);
+                message_vision(HIW "\nçªç„¶é—´åªå¬å¾—è½°éš†ä¸€å£°å·¨å“ï¼Œ$N" HIW
+                               "è„šä¸‹è¸äº†ä¸ªç©ºï¼Œç«Ÿç„¶æ˜¯é›ªå´©äº†ï¼\n" NOR, me);
 
                 if (me->query_dex() / 2 + random(me->query_dex()) < 13)
                 {
@@ -34,9 +34,9 @@ int valid_leave(object me, string dir)
                         me->receive_wound("qi", 70);
                 }
 
-                tell_object(me, HIW "Ö»¼û´óÆ¬µÄ»ýÑ©´ÓÉ½·åÉÏ±¼ÌÚ¶øÏÂ£¬ÆÌ"
-                                "Ìì¸ÇµØÆËÀ´£¬ÑØÍ¾²¢¼Ð\n´øÁË²»ÉÙÑÒÊ¯¡£¸Ï"
-                                "½ôÌÓÃü°É£¡\n\n" NOR);
+                tell_object(me, HIW "åªè§å¤§ç‰‡çš„ç§¯é›ªä»Žå±±å³°ä¸Šå¥”è…¾è€Œä¸‹ï¼Œé“º"
+                                "å¤©ç›–åœ°æ‰‘æ¥ï¼Œæ²¿é€”å¹¶å¤¹\nå¸¦äº†ä¸å°‘å²©çŸ³ã€‚èµ¶"
+                                "ç´§é€ƒå‘½å§ï¼\n\n" NOR);
 
                 if (me->query_dex() / 2 + random(me->query_dex()) >= 15)
                 {

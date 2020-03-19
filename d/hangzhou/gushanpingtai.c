@@ -4,23 +4,23 @@
 inherit ROOM;
 void create()
 {
-        set("short", "��ɽƽ̨");
+        set("short", "孤山平台");
         set("long", @LONG
-ƽ̨�����С��������¾���ͤ��ͤ��������һ����(duilian)��
-���ﻹ������ˮ�أ��ٳ��е�ʯ��ɽ�����õøߵͲβ�������¡�
-��������ɽ��·��
+平台北面有“西湖天下景”亭阁，亭柱两旁有一对联(duilian)。
+这里还有曲桥水池，临池有叠石假山，布置得高低参差，疏密有致。
+北边是下山的路。
 LONG);
         set("exits", ([
             "northdown" : __DIR__"gushan",
         ]));
         set("item_desc", ([
             "duilian" :
-"ˮ              ��
-ɽ              ��
-��              ʱ
-��              ʱ
-��              ��
-��              ��\n"
+"水              晴
+山              雨
+处              时
+处              时
+明              好
+秀              奇\n"
         ]));
         set("outdoors", "hangzhou");
         set("no_clean_up", 0);

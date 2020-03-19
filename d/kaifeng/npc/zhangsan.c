@@ -1,11 +1,11 @@
 inherit NPC;
 void create()
 {
-        set_name("»ì»ìÕÅÈı",({"zhang san"}));
-        set("gender", "ÄĞĞÔ");
+        set_name("æ··æ··å¼ ä¸‰",({"zhang san"}));
+        set("gender", "ç”·æ€§");
    	set("combat_exp", 9000);
-   	set("title", "¹ı½ÖÀÏÊó");
-        set("long", "Ëû³¤µÃ¼é×ìºïÈùµÄ£¬Ò»¿´¾Í²»ÏñÊÇ¸öºÃÈË¡£\n");
+   	set("title", "è¿‡è¡—è€é¼ ");
+        set("long", "ä»–é•¿å¾—å¥¸å˜´çŒ´è…®çš„ï¼Œä¸€çœ‹å°±ä¸åƒæ˜¯ä¸ªå¥½äººã€‚\n");
         
         set("combat_exp", 7000);
         set("shen_type", -1);

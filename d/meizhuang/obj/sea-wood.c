@@ -5,17 +5,17 @@ inherit SWORD;
 
 void create()
 {
-        set_name("ÄÏº£ÉñÄ¾", ({ "sea wood", "wood", "sword" }));
+        set_name("å—æµ·ç¥æœ¨", ({ "sea wood", "wood", "sword" }));
         set_weight(2000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", "ÕâÊÇÒ»¸ù±éÌå·¢³öÇà¹âµÄ½£ĞÎÄ¾¹÷¡£\n");
+                set("unit", "æ ¹");
+                set("long", "è¿™æ˜¯ä¸€æ ¹éä½“å‘å‡ºé’å…‰çš„å‰‘å½¢æœ¨æ£ã€‚\n");
                 set("value", 2000);
                 set("material", "wood");
-                set("wield_msg", "$N´Ó±³ºó½«ÄÏº£ÉñÄ¾°Î³öÀ´£¬ÄÃÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$nÖØĞÂ²å»Ø±³ºó¡£\n");
+                set("wield_msg", "$Nä»èƒŒåå°†å—æµ·ç¥æœ¨æ‹”å‡ºæ¥ï¼Œæ‹¿åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$né‡æ–°æ’å›èƒŒåã€‚\n");
                 set("stable", 90);
         }
         init_sword(55);

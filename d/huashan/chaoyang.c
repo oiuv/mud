@@ -1,18 +1,18 @@
 // chaoyang.c
-// updated by Ivy at 2015Äê4ÔÂ16ÈÕ
+// updated by Ivy at 2015å¹´4æœˆ16æ—¥
 
 inherit ROOM;
 #include <ansi.h>
  
 void create()
 {
-        set("short", "³¯Ñô·å");
+        set("short", "æœé˜³å³°");
         set("long", @LONG
-ÕâÀï¾ÍÊÇ»ªÉ½µÄ¶«·å£¬Ò²³Æ³¯Ñô·å£¬ÊÇ»ªÉ½¿´ÈÕ³öµÄ¾ø¼Ñ´¦¡£ì¶´Ë¸©
-î«£¬»ÆºÓÒşÏÔ¶«åÆÈç´ø£¬ÄÏÍûĞ¡¹Â·å±³ÒĞÉ½ºÓ¡£Ğ¡¹Â·åÉÏÓĞÒ»Ğ¡Í¤£¬¸²ÒÔ
-ÌúÍß£¬Í¤ÖĞ°ÚÓĞÌúÆåÅÌÒ»¾Ö£¬ÄÇ¾ÍÊÇ»ªÉ½ÖøÃûµÄ¡°²©Ì¨¡±ÁË¡£Ô¶Íû¶«±ÚĞü
-ÑÂ£¨ya£©ÉÏ£¬¸üÓĞÒ»¸ö¾ŞĞÍÕÆÓ¡£¬Ïà´«Îª¡¸ºÓÉñ¾ŞÁé¡¹ÅüÉ½Ê±ËùÁôÏÂµÄ£¬
-Àî°×Ê«ÖĞ¡°¾ŞÁéÅØÏøÅüÁ½É½£¬ºé²¨ÅçÁ÷Éä¶«º£¡±¾ÍÊÇÖ¸Õâ¸öÉÏ¹Å´«Ëµ¡£
+è¿™é‡Œå°±æ˜¯åå±±çš„ä¸œå³°ï¼Œä¹Ÿç§°æœé˜³å³°ï¼Œæ˜¯åå±±çœ‹æ—¥å‡ºçš„ç»ä½³å¤„ã€‚æ–¼æ­¤ä¿¯
+ç°ï¼Œé»„æ²³éšæ˜¾ä¸œè¿¤å¦‚å¸¦ï¼Œå—æœ›å°å­¤å³°èƒŒå€šå±±æ²³ã€‚å°å­¤å³°ä¸Šæœ‰ä¸€å°äº­ï¼Œè¦†ä»¥
+é“ç“¦ï¼Œäº­ä¸­æ‘†æœ‰é“æ£‹ç›˜ä¸€å±€ï¼Œé‚£å°±æ˜¯åå±±è‘—åçš„â€œåšå°â€äº†ã€‚è¿œæœ›ä¸œå£æ‚¬
+å´–ï¼ˆyaï¼‰ä¸Šï¼Œæ›´æœ‰ä¸€ä¸ªå·¨å‹æŒå°ï¼Œç›¸ä¼ ä¸ºã€Œæ²³ç¥å·¨çµã€åŠˆå±±æ—¶æ‰€ç•™ä¸‹çš„ï¼Œ
+æç™½è¯—ä¸­â€œå·¨çµå’†å“®åŠˆä¸¤å±±ï¼Œæ´ªæ³¢å–·æµå°„ä¸œæµ·â€å°±æ˜¯æŒ‡è¿™ä¸ªä¸Šå¤ä¼ è¯´ã€‚
 LONG );
         set("exits", ([ /* sizeof() == 1 */
            "westdown" : __DIR__"chaopath2",
@@ -20,8 +20,8 @@ LONG );
 
 
         set("item_desc", ([
-           "ya"   : NOR + WHT "ĞüÑÂÏÂÇÍ±Ú¸ßËÊ£¬Ò»ÌõÇàÌÙ£¨teng£©Ö±´¹¶øÏÂ¡£\n" NOR,
-           "teng" : HIG "Ò»¸ùÇàÌÙ£¬Èç¹ûÄãÇá¹¦²»´í£¬¿ÉÒÔÊÔ×ÅÀ­£¨la£©×¡Ëü¿ÉÒÔÌø£¨jump£©ÏÂĞüÑÂ¡£\n" NOR,
+           "ya"   : NOR + WHT "æ‚¬å´–ä¸‹å³­å£é«˜è€¸ï¼Œä¸€æ¡é’è—¤ï¼ˆtengï¼‰ç›´å‚è€Œä¸‹ã€‚\n" NOR,
+           "teng" : HIG "ä¸€æ ¹é’è—¤ï¼Œå¦‚æœä½ è½»åŠŸä¸é”™ï¼Œå¯ä»¥è¯•ç€æ‹‰ï¼ˆlaï¼‰ä½å®ƒå¯ä»¥è·³ï¼ˆjumpï¼‰ä¸‹æ‚¬å´–ã€‚\n" NOR,
         ]));
 
         set("outdoors", "huashan" );
@@ -40,15 +40,15 @@ int do_la(string arg)
         object me = this_player();
 
         if (! arg || arg != "teng")
-               return notify_fail("ÄãÒªÀ­Ê²Ã´£¿\n");
+               return notify_fail("ä½ è¦æ‹‰ä»€ä¹ˆï¼Ÿ\n");
 
         if (me->is_busy() || me->is_fighting())
-               return notify_fail("µÈÄãÃ¦ÍêÁËÔÙËµ°É£¡\n");
+               return notify_fail("ç­‰ä½ å¿™å®Œäº†å†è¯´å§ï¼\n");
 
         if (me->query_temp("la_teng_huashan"))
-               return notify_fail("ÄãÒÑ¾­À­×¡ÇàÌÙÁË¡£\n");
+               return notify_fail("ä½ å·²ç»æ‹‰ä½é’è—¤äº†ã€‚\n");
 
-        message_vision(HIG "$N" HIG "½«ÇàÌÙÀÎÀÎµØ×¥×¡ÁË¡£\n", me);
+        message_vision(HIG "$N" HIG "å°†é’è—¤ç‰¢ç‰¢åœ°æŠ“ä½äº†ã€‚\n", me);
 
         me->set_temp("la_teng_huashan", 1);
 
@@ -62,29 +62,29 @@ int do_jump(string arg)
         object me = this_player();
 
         if (! arg || arg != "ya")
-               return notify_fail("ÄãÒªÍùÄÄ¶ùÌø£¿\n");
+               return notify_fail("ä½ è¦å¾€å“ªå„¿è·³ï¼Ÿ\n");
 
         if (me->is_busy() || me->is_fighting())
-               return notify_fail("µÈÄãÃ¦ÍêÁËÔÙËµ°É£¡\n");
+               return notify_fail("ç­‰ä½ å¿™å®Œäº†å†è¯´å§ï¼\n");
 
         if (! me->query_temp("la_teng_huashan") && me->query_dex()<30)
         {
 
-               message_vision(HIM "$N" HIM "×İÉíÌøÏÂĞüÑÂ ¡­¡­\n", me);
+               message_vision(HIM "$N" HIM "çºµèº«è·³ä¸‹æ‚¬å´– â€¦â€¦\n", me);
 /*
-               CHANNEL_D->do_channel(this_object(), "rumor", "ÌıËµ" + me->name() + HIM "Ìø"
-                                     "ÏÂ»ªÉ½ĞüÑÂ£¬×ÔÉ±ÉúÍö¡£\n" NOR); 
+               CHANNEL_D->do_channel(this_object(), "rumor", "å¬è¯´" + me->name() + HIM "è·³"
+                                     "ä¸‹åå±±æ‚¬å´–ï¼Œè‡ªæ€ç”Ÿäº¡ã€‚\n" NOR); 
 */
                me->move("/d/huashan/xuanya");
-               me->set_temp("die_reason", "ÌøÏÂ»ªÉ½ĞüÑÂ£¬×ÔÉ±ÉíÍö");
+               me->set_temp("die_reason", "è·³ä¸‹åå±±æ‚¬å´–ï¼Œè‡ªæ€èº«äº¡");
                me->die(); 
                return 1;   
 
         }
 
-        message_vision(HIG "$N" HIG "À­×ÅÇàÌÙÌøÏÂĞüÑÂ¡­¡­\n", me);
+        message_vision(HIG "$N" HIG "æ‹‰ç€é’è—¤è·³ä¸‹æ‚¬å´–â€¦â€¦\n", me);
                 
-        tell_object(me, HIG "ÃÍÈ»¼ä£¬Äã·¢ÏÖÏÂÃæÓĞÒ»¸öĞ¡¶´£¬ÄãÃÍÒ»ÍäÑü£¬½èÁ¦ÌøÁË½øÈ¥¡£\n" NOR);
+        tell_object(me, HIG "çŒ›ç„¶é—´ï¼Œä½ å‘ç°ä¸‹é¢æœ‰ä¸€ä¸ªå°æ´ï¼Œä½ çŒ›ä¸€å¼¯è…°ï¼Œå€ŸåŠ›è·³äº†è¿›å»ã€‚\n" NOR);
 
         me->move("/d/huashan/jinshedong");
         me->delete_temp("la_teng_huashan");

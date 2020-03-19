@@ -20,9 +20,9 @@ void init()
 
 void create()
 {
-    set_name("òşÉßµ¨", ({"shedan", "dan"}));
-    set("unit", "Ã¶");
-    set("long", "Ò»Ã¶Éî×ÏÉ«µÄòşÉßµ¨£¬ÉõÊÇĞÈ³ô¡£\n");
+    set_name("èŸ’è›‡èƒ†", ({"shedan", "dan"}));
+    set("unit", "æš");
+    set("long", "ä¸€æšæ·±ç´«è‰²çš„èŸ’è›‡èƒ†ï¼Œç”šæ˜¯è…¥è‡­ã€‚\n");
     set("value", 20000);
     set("no_sell", 1);
     set("medicine", 1);
@@ -37,13 +37,13 @@ int cure_ob(object me)
     if (used)
         return 0;
     if (me->is_busy())
-        return notify_fail("ÄãÉÏÒ»¸ö¶¯×÷»¹Ã»ÓĞÍê³É¡£\n");
+        return notify_fail("ä½ ä¸Šä¸€ä¸ªåŠ¨ä½œè¿˜æ²¡æœ‰å®Œæˆã€‚\n");
 
     if ((int)me->query_condition("bonze_drug") > 0 || (int)me->query_condition("mang_shedan") > 0)
     {
         me->add("eff_jingli", -1);
         me->add("max_jingli", -1);
-        message_vision(HIR "$N³ÔÏÂÒ»¿ÅÉßµ¨£¬Ö»¾õµÃÍ·ÖØ½ÅÇá£¬Ò¡Ò¡Óûµ¹£¬Ô­À´·şÊ³Ì«¼±Ì«¶à£¬Ò©Ğ§ÊÊµÃÆä·´£¡\n" NOR, me);
+        message_vision(HIR "$Nåƒä¸‹ä¸€é¢—è›‡èƒ†ï¼Œåªè§‰å¾—å¤´é‡è„šè½»ï¼Œæ‘‡æ‘‡æ¬²å€’ï¼ŒåŸæ¥æœé£Ÿå¤ªæ€¥å¤ªå¤šï¼Œè¯æ•ˆé€‚å¾—å…¶åï¼\n" NOR, me);
         destruct(this_object());
         return 1;
     }
@@ -58,9 +58,9 @@ int cure_ob(object me)
     me->apply_condition("bonze_drug", 30 + me->query_condition("bonze_drug"));
     me->apply_condition("mang_shedan", 30);
     me->set_temp("dan_effect", 1);
-    tell_object(me, MAG "ÄãÕÅ¿ÚÇáÇáÒ»Ò§£¬Éßµ¨ÍâÆ¤±ã¼´ÆÆÁÑ£¬µÇ¾õÂú¿Ú¿àÖ­£¬ĞÈ¼«¿à¼«£¬¼¸ºõÒªÅ»½«³öÀ´¡£\n" + "¿ÉÉÔ¹ıÆ¬¿Ì£¬ÄãÖ»¾õºôÎüË³³©£¬¶úÇåÄ¿Ã÷£¬¾«ÉñË¬Àû£¬Á¦Æø´óÔö¡£\n" NOR);
+    tell_object(me, MAG "ä½ å¼ å£è½»è½»ä¸€å’¬ï¼Œè›‡èƒ†å¤–çš®ä¾¿å³ç ´è£‚ï¼Œç™»è§‰æ»¡å£è‹¦æ±ï¼Œè…¥æè‹¦æï¼Œå‡ ä¹è¦å‘•å°†å‡ºæ¥ã€‚\n" + "å¯ç¨è¿‡ç‰‡åˆ»ï¼Œä½ åªè§‰å‘¼å¸é¡ºç•…ï¼Œè€³æ¸…ç›®æ˜ï¼Œç²¾ç¥çˆ½åˆ©ï¼ŒåŠ›æ°”å¤§å¢ã€‚\n" NOR);
 
-    message("vision", MAG + me->name() + "ÍÌÏÂÒ»¿ÅòşÉßµ¨£¬¾«Éñ´óÍú£¬ÓÈÊ¤Æ½Ê±¡£\n" NOR, environment(me), ({me}));
+    message("vision", MAG + me->name() + "åä¸‹ä¸€é¢—èŸ’è›‡èƒ†ï¼Œç²¾ç¥å¤§æ—ºï¼Œå°¤èƒœå¹³æ—¶ã€‚\n" NOR, environment(me), ({me}));
     //	me->start_call_out( (: call_other, __FILE__, "delete_benefit", me :), 800);
     used = 1;
     //	remove_call_out("decay");
@@ -73,9 +73,9 @@ void decay()
 {
     object where = environment(this_object());
     if (interactive(where))
-        message("vision", MAG "Éßµ¨Å¾µÄÒ»ÉùÆÆÁË£¬ÅªµÃÄãÒ»ÉíÉõÊÇĞÈ³ô¡£\n" NOR, where);
+        message("vision", MAG "è›‡èƒ†å•ªçš„ä¸€å£°ç ´äº†ï¼Œå¼„å¾—ä½ ä¸€èº«ç”šæ˜¯è…¥è‡­ã€‚\n" NOR, where);
     else
-        message("vision", MAG "Éßµ¨Å¾µÄÒ»ÉùÆÆÁË£¬Ö­Ë®Á÷ÁËÒ»µØ¡£\n" NOR, where);
+        message("vision", MAG "è›‡èƒ†å•ªçš„ä¸€å£°ç ´äº†ï¼Œæ±æ°´æµäº†ä¸€åœ°ã€‚\n" NOR, where);
     destruct(this_object());
 }
 

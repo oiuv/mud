@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ʮ����");
+        set("short", "十八盘");
         set("long", @LONG
-����һ���ܴ��б�£��׳�ʮ���̣���ʯ��һ��һ����ֱ
-���ϣ��ķѽ����������������񣬹չ�����������ʮ��֮��
-����������
+这是一个很大的斜坡，俗称十八盘，大石阶一级一级笔直
+而上，颇费脚力。这里坡坡有神，拐拐有祠，往上十里之后即
+是灵霄宫。
 LONG);
         set("exits", ([
                 "northdown" : __DIR__"shiliang",

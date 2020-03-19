@@ -20,44 +20,44 @@ int main(object me, string arg)
 	where = environment(me);
 
 	if (where->query("pigging"))
-		return notify_fail("Äã»¹ÊÇ×¨ĞÄ¹°Öí°É£¡\n");
+		return notify_fail("ä½ è¿˜æ˜¯ä¸“å¿ƒæ‹±çŒªå§ï¼\n");
 
 	if (me->is_busy() || me->query_temp("pending/exercising"))
-		return notify_fail("ÄãÏÖÔÚÕıÃ¦×ÅÄØ¡£\n");
+		return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
 
 	if (me->is_fighting())
-		return notify_fail("Õ½¶·ÖĞ²»ÄÜÁ·ÄÚ¹¦£¬»á×ß»ğÈëÄ§¡£\n");
+		return notify_fail("æˆ˜æ–—ä¸­ä¸èƒ½ç»ƒå†…åŠŸï¼Œä¼šèµ°ç«å…¥é­”ã€‚\n");
 
 	if (! stringp(force = me->query_skill_mapped("force")))
-		return notify_fail("Äã±ØĞëÏÈÓÃ enable Ñ¡ÔñÄãÒªÓÃµÄÄÚ¹¦ĞÄ·¨¡£\n");
+		return notify_fail("ä½ å¿…é¡»å…ˆç”¨ enable é€‰æ‹©ä½ è¦ç”¨çš„å†…åŠŸå¿ƒæ³•ã€‚\n");
 
 	if (! arg || ! sscanf(arg, "%d", exercise_cost))
-		return notify_fail("ÄãÒª»¨¶àÉÙÆøÁ·¹¦£¿\n");
+		return notify_fail("ä½ è¦èŠ±å¤šå°‘æ°”ç»ƒåŠŸï¼Ÿ\n");
 
 	if (exercise_cost < 10)
-		return notify_fail("ÄãµÄÄÚ¹¦»¹Ã»ÓĞ´ïµ½ÄÇ¸ö¾³½ç£¡\n");
+		return notify_fail("ä½ çš„å†…åŠŸè¿˜æ²¡æœ‰è¾¾åˆ°é‚£ä¸ªå¢ƒç•Œï¼\n");
 
 	if ((int)me->query("qi") < exercise_cost)
-		return notify_fail("ÄãÏÖÔÚµÄÆøÌ«ÉÙÁË£¬ÎŞ·¨²úÉúÄÚÏ¢ÔËĞĞÈ«Éí¾­Âö¡£\n");
+		return notify_fail("ä½ ç°åœ¨çš„æ°”å¤ªå°‘äº†ï¼Œæ— æ³•äº§ç”Ÿå†…æ¯è¿è¡Œå…¨èº«ç»è„‰ã€‚\n");
 
 	if ((int)me->query("jing") * 100 / (int)me->query("max_jing") < 70)
-		return notify_fail("ÄãÏÖÔÚ¾«²»¹»£¬ÎŞ·¨¿ØÖÆÄÚÏ¢µÄÁ÷¶¯£¡\n");
+		return notify_fail("ä½ ç°åœ¨ç²¾ä¸å¤Ÿï¼Œæ— æ³•æ§åˆ¶å†…æ¯çš„æµåŠ¨ï¼\n");
 
         if (environment(me)->query("no_fight")
            && ! environment(me)->query("can_dazuo")
            && me->query("doing") != "scheme")
-                return notify_fail("ÄãÎŞ·¨ÔÚÕâ¸öµØ·½°²ĞÄ´ò×ø¡£\n");
+                return notify_fail("ä½ æ— æ³•åœ¨è¿™ä¸ªåœ°æ–¹å®‰å¿ƒæ‰“åã€‚\n");
 
-        notify_fail("ÄãÎŞ·¨Ë³ÀûµÄÔË×ªÄÚÏ¢¡£\n");
+        notify_fail("ä½ æ— æ³•é¡ºåˆ©çš„è¿è½¬å†…æ¯ã€‚\n");
         if (SKILL_D(force)->do_effect(me))
                 return 0;
 
-	write("Äã×øÏÂÀ´ÔËÆøÓÃ¹¦£¬Ò»¹ÉÄÚÏ¢¿ªÊ¼ÔÚÌåÄÚÁ÷¶¯¡£\n");
+	write("ä½ åä¸‹æ¥è¿æ°”ç”¨åŠŸï¼Œä¸€è‚¡å†…æ¯å¼€å§‹åœ¨ä½“å†…æµåŠ¨ã€‚\n");
 
 	me->set_temp("pending/exercise", 1);
 	me->set_temp("exercise_cost", exercise_cost);
-        me->set_short_desc("Õı×øÔÚµØÏÂĞŞÁ¶ÄÚÁ¦¡£");
-	message_vision("$NÅÌÏ¥×øÏÂ£¬¿ªÊ¼ĞŞÁ¶ÄÚÁ¦¡£\n", me);
+        me->set_short_desc("æ­£ååœ¨åœ°ä¸‹ä¿®ç‚¼å†…åŠ›ã€‚");
+	message_vision("$Nç›˜è†åä¸‹ï¼Œå¼€å§‹ä¿®ç‚¼å†…åŠ›ã€‚\n", me);
 	me->start_busy(bind((:call_other, __FILE__, "exercising" :), me),
                        bind((:call_other, __FILE__, "halt_exercise" :), me));
 	return 1;
@@ -96,21 +96,21 @@ int exercising(object me)
 
 	me->set_temp("pending/exercise", 0);
         me->set_short_desc(0);
-	message_vision("$NÔË¹¦Íê±Ï£¬ÉîÉîÎüÁË¿ÚÆø£¬Õ¾ÁËÆğÀ´¡£\n", me);
+	message_vision("$Nè¿åŠŸå®Œæ¯•ï¼Œæ·±æ·±å¸äº†å£æ°”ï¼Œç«™äº†èµ·æ¥ã€‚\n", me);
 	if ((int)me->query("neili") < (int)me->query("max_neili") * 2)
 		return 0;
 	else
         {
 		if ((int)me->query("max_neili") >= (int)me->query_current_neili_limit())
                 {
-			write("ÄãµÄÄÚÁ¦ĞŞÎªËÆºõÒÑ¾­´ïµ½ÁËÆ¿¾±¡£\n");
+			write("ä½ çš„å†…åŠ›ä¿®ä¸ºä¼¼ä¹å·²ç»è¾¾åˆ°äº†ç“¶é¢ˆã€‚\n");
 			me->set("neili", (int)me->query("max_neili"));
 			return 0;
 		} else
                 {
 			me->add("max_neili", 1);
 			me->set("neili", (int)me->query("max_neili"));
-			write("ÄãµÄÄÚÁ¦Ôö¼ÓÁË£¡£¡\n");
+			write("ä½ çš„å†…åŠ›å¢åŠ äº†ï¼ï¼\n");
 			return 0;
 		}
 	}
@@ -118,8 +118,8 @@ int exercising(object me)
 
 int halt_exercise(object me)
 {
-        tell_object(me, "Äã½«ÕæÆøÑ¹»Øµ¤Ìï£¬Õ¾ÁËÆğÀ´¡£\n");
-        tell_room(environment(me), me->name() + "ÉîÎüÒ»¿ÚÆø£¬Õ¾ÁËÆğÀ´¡£\n", me);
+        tell_object(me, "ä½ å°†çœŸæ°”å‹å›ä¸¹ç”°ï¼Œç«™äº†èµ·æ¥ã€‚\n");
+        tell_room(environment(me), me->name() + "æ·±å¸ä¸€å£æ°”ï¼Œç«™äº†èµ·æ¥ã€‚\n", me);
 	if ((int)me->query("neili") > (int)me->query("max_neili") * 2)
 		me->set("neili", (int)me->query("max_neili") * 2);
 	me->set_temp("pending/exercise", 0);
@@ -130,11 +130,11 @@ int halt_exercise(object me)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : exercise|dazuo [<ºÄ·Ñ¡¸Æø¡¹µÄÁ¿> ±ØĞë¶àÓÚ 10]
+æŒ‡ä»¤æ ¼å¼ : exercise|dazuo [<è€—è´¹ã€Œæ°”ã€çš„é‡> å¿…é¡»å¤šäº 10]
 
-ÔËÆøÁ·¹¦£¬¿ØÖÆÌåÄÚµÄÆøÔÚ¸÷¾­Âö¼äÁ÷¶¯£¬½åÒÔÑµÁ·ÈËÌå¼¡Èâ¹Ç÷ÀµÄÄÍ
-Á¦¡¢±¬·¢Á¦£¬²¢ÇÒÓÃÄÚÁ¦µÄĞÎÊ½½«ÄÜÁ¿´¢±¸ÏÂÀ´¡£×¢Òâ£ºÄã²»ÄÜÔÚ²»ÄÜ
-Õ½¶·µÄµØ·½´ò×ø¡£
+è¿æ°”ç»ƒåŠŸï¼Œæ§åˆ¶ä½“å†…çš„æ°”åœ¨å„ç»è„‰é—´æµåŠ¨ï¼Œè—‰ä»¥è®­ç»ƒäººä½“è‚Œè‚‰éª¨éª¼çš„è€
+åŠ›ã€çˆ†å‘åŠ›ï¼Œå¹¶ä¸”ç”¨å†…åŠ›çš„å½¢å¼å°†èƒ½é‡å‚¨å¤‡ä¸‹æ¥ã€‚æ³¨æ„ï¼šä½ ä¸èƒ½åœ¨ä¸èƒ½
+æˆ˜æ–—çš„åœ°æ–¹æ‰“åã€‚
 
 HELP );
         return 1;

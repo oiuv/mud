@@ -4,10 +4,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ð¡Ê¦ÃÃ", ({ "xiao shimei"}));
+        set_name("å°å¸ˆå¦¹", ({ "xiao shimei"}));
         set("long",
-                "ËýÊÇ»ªÉ½ÅÉµÄÅ®µÜ×Ó¡£\n");
-        set("gender", "Å®ÐÔ");
+                "å¥¹æ˜¯åŽå±±æ´¾çš„å¥³å¼Ÿå­ã€‚\n");
+        set("gender", "å¥³æ€§");
         set("age", 15);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -33,7 +33,7 @@ void create()
         set_temp("apply/defense", 15);
         set_temp("apply/damage", 5);
 
-        create_family("»ªÉ½ÅÉ", 14, "µÜ×Ó");
+        create_family("åŽå±±æ´¾", 14, "å¼Ÿå­");
 
         setup();
         carry_object("/clone/weapon/changjian")->wield();

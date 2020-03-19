@@ -5,10 +5,10 @@ int accept_fight(object ob);
 void create()
 {
 	seteuid(getuid());
-	set_name("Ìï²®¹â", ({ "tian boguang", "tian","boguang" }));
-	set("long", "ËûÒ»ÉíÆ®ÒİµÄ°×É«³¤ÉÀ£¬·çÁ÷ÈåÑÅ¡£\n");
-	set("nickname", HIM "ÍòÀï¶ÀĞĞ" NOR);
-	set("gender", "ÄĞĞÔ");
+	set_name("ç”°ä¼¯å…‰", ({ "tian boguang", "tian","boguang" }));
+	set("long", "ä»–ä¸€èº«é£˜é€¸çš„ç™½è‰²é•¿è¡«ï¼Œé£æµå„’é›…ã€‚\n");
+	set("nickname", HIM "ä¸‡é‡Œç‹¬è¡Œ" NOR);
+	set("gender", "ç”·æ€§");
 	set("age", 37);
 	set("attitude", "friendly");
 	set("shen_type", -1);
@@ -47,7 +47,7 @@ void create()
         }) );
 	set("chat_chance", 10);
 	set("chat_msg", ({
-		CYN "Ìï²®¹âĞ¦µÀ£ºÄá¹ÃÒ²Ã»¹ØÏµÂï£¬ĞîÆğÍ··¢£¬Á½¸öÔÂ¾ÍÊÇĞ¡ÃÀÈËÁË¡£\n" NOR,
+		CYN "ç”°ä¼¯å…‰ç¬‘é“ï¼šå°¼å§‘ä¹Ÿæ²¡å…³ç³»å˜›ï¼Œè“„èµ·å¤´å‘ï¼Œä¸¤ä¸ªæœˆå°±æ˜¯å°ç¾äººäº†ã€‚\n" NOR,
 	}) );
 
 	setup();
@@ -71,24 +71,24 @@ void init()
 void greeting(object ob)
 {
 	if( !ob || environment(ob) != environment() ) return;
-	if ((string)ob->query("gender")=="Å®ĞÔ")
+	if ((string)ob->query("gender")=="å¥³æ€§")
 	{
 	if (ob->query("age")<26) 
-		say(CYN "Ìï²®¹âĞ¦µÀ£ºÃî¼«£¬Ãî¼«£¬ÓÖÀ´ÁËÒ»¸öĞ¡¹ÃÄï¡£\n" NOR);     
+		say(CYN "ç”°ä¼¯å…‰ç¬‘é“ï¼šå¦™æï¼Œå¦™æï¼Œåˆæ¥äº†ä¸€ä¸ªå°å§‘å¨˜ã€‚\n" NOR);     
 	else 
-		say(CYN "Ìï²®¹âĞ¦µÀ£ºÃî¼«£¬Ãî¼«£¬¿ÉÏ§Ì«ÀÏÁËµã£¬ÎÒ¿ÉÃ»Î¸¿Ú¡£\n" NOR);     
+		say(CYN "ç”°ä¼¯å…‰ç¬‘é“ï¼šå¦™æï¼Œå¦™æï¼Œå¯æƒœå¤ªè€äº†ç‚¹ï¼Œæˆ‘å¯æ²¡èƒƒå£ã€‚\n" NOR);     
 	}
 	else 
-		say(CYN "Ìï²®¹âĞ¦×ÅÕĞÕĞÊÖ£ºÕâÎ»"+RANK_D->query_respect(ob) + "À´ºÈ"
-                    "Á½±­£¬Õâ¸öĞ¡Äá¹ÃÂï£¬·´ÕıÒ²Ã»Ê²Ã´ÊÂ£¬¾ÍÈÃËı×ø×Å¾ÍÊÇ¡£\n" NOR);
+		say(CYN "ç”°ä¼¯å…‰ç¬‘ç€æ‹›æ‹›æ‰‹ï¼šè¿™ä½"+RANK_D->query_respect(ob) + "æ¥å–"
+                    "ä¸¤æ¯ï¼Œè¿™ä¸ªå°å°¼å§‘å˜›ï¼Œåæ­£ä¹Ÿæ²¡ä»€ä¹ˆäº‹ï¼Œå°±è®©å¥¹åç€å°±æ˜¯ã€‚\n" NOR);
 	return;
 }
 
 int accept_fight(object ob)
 {
-	if ((string)ob->query("gender") == "Å®ĞÔ")
+	if ((string)ob->query("gender") == "å¥³æ€§")
 	{
-		write(CYN "Ìï²®¹âĞ¦µÀ£º»¨¹ÃÄï£¿É±ÁËÌ«¿ÉÏ§ÁËµÄ¡£\n" NOR);
+		write(CYN "ç”°ä¼¯å…‰ç¬‘é“ï¼šèŠ±å§‘å¨˜ï¼Ÿæ€äº†å¤ªå¯æƒœäº†çš„ã€‚\n" NOR);
 		return 0;
         }
 	return 1;

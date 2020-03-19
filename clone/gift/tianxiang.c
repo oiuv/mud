@@ -1,4 +1,4 @@
-// tianxiang.c ÌìÏãÓñÂ¶
+// tianxiang.c å¤©é¦™ç‰éœ²
 
 #include <ansi.h>
 
@@ -10,14 +10,14 @@ void setup()
 
 void create()
 {
-	set_name(HIG "ÌìÏãÓñÂ¶" NOR, ({"magic water", "yvlu", "lu"}));
+	set_name(HIG "å¤©é¦™ç‰éœ²" NOR, ({"magic water", "yvlu", "lu"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "µÎ");
-		set("long", HIG "ÕâÊÇ¸½×ÅÔÚÁéÖ¥ÉÏµÄÒ»µÎ¾§Ó¨ÌŞÍ¸µÄÓñÂ¶£¬´«Ëµ²É×Ô\n"
-                                "ÁéÉ½£¬Ç§ÄêÀ´ÒÔÁéÖ¥ÎªÄ¸£¬²»¶ÏµÄÎüÈ¡×ÅÈÕ¾«ÔÂ»ª£¬\n"
-                                "¾ßÓĞ×ÅÎŞ±ÈÉñÆæµÄ¹¦Ğ§¡£\n");
+		set("unit", "æ»´");
+		set("long", HIG "è¿™æ˜¯é™„ç€åœ¨çµèŠä¸Šçš„ä¸€æ»´æ™¶è¹å‰”é€çš„ç‰éœ²ï¼Œä¼ è¯´é‡‡è‡ª\n"
+                                "çµå±±ï¼Œåƒå¹´æ¥ä»¥çµèŠä¸ºæ¯ï¼Œä¸æ–­çš„å¸å–ç€æ—¥ç²¾æœˆåï¼Œ\n"
+                                "å…·æœ‰ç€æ— æ¯”ç¥å¥‡çš„åŠŸæ•ˆã€‚\n");
 		set("value", 1000000);
 		set("only_do_effect", 1);
 	}
@@ -30,9 +30,9 @@ int do_effect(object me)
 	int neili_limit;
 
 	neili_limit = me->query_neili_limit();
-	message_vision(HIG "$N" HIG "Ğ¡ĞÄÒíÒíµÄ½«ÓñÂ¶º¬ÔÚ×ìÖĞ£¬µÇÊ±¾õµÃ"
-                       "ÁéÌ¨Ò»Õó¿ÕÃ÷£¬»ëÉíÉÏ\nÏÂÆ®Æ®ÓûÏÉ£¬Ò»Ê±¼ä¾¹ÓĞ²»ÔÚ"
-                       "³¾ÊÀµÄ¸Ğ¾õ¡£\n" NOR,
+	message_vision(HIG "$N" HIG "å°å¿ƒç¿¼ç¿¼çš„å°†ç‰éœ²å«åœ¨å˜´ä¸­ï¼Œç™»æ—¶è§‰å¾—"
+                       "çµå°ä¸€é˜µç©ºæ˜ï¼Œæµ‘èº«ä¸Š\nä¸‹é£˜é£˜æ¬²ä»™ï¼Œä¸€æ—¶é—´ç«Ÿæœ‰ä¸åœ¨"
+                       "å°˜ä¸–çš„æ„Ÿè§‰ã€‚\n" NOR,
 		       me);
 	if (me->query("max_neili") < neili_limit)
 	{

@@ -8,14 +8,14 @@ inherit MI_ZHENG;
 
 void create()
 {
-        set_name(NOR + WHT "Ìúóİ" NOR, ({ "tie zheng", "tie", "zheng" }));
+        set_name(NOR + WHT "é“ç­" NOR, ({ "tie zheng", "tie", "zheng" }));
         set_weight(300);
 
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-                set("unit", "Ì¨");
-                set("long", WHT "ÕâÊÇÒ»Ì¨ºÚ÷î÷îµÄÌúóİ¡£\n" NOR);
+                set("unit", "å°");
+                set("long", WHT "è¿™æ˜¯ä¸€å°é»‘é»é»çš„é“ç­ã€‚\n" NOR);
 		set("value", 5000);
 		set("material", "steel");
 	}

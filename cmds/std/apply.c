@@ -11,22 +11,22 @@ int main(object me, string arg)
 	object *guard;
 
 	if (! arg)
-                return notify_fail("ÄãÒªÊ¹ÓÃÊ²Ã´¶«Î÷£¿\n");
+                return notify_fail("ä½ è¦ä½¿ç”¨ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
 	if (! objectp(ob = present(arg, me)))
         {
                 ob = present(arg, environment(me));
 
                 if (! objectp(ob))
-                        return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÑù¶«Î÷£¬¸½½üÒ²Ã»ÓĞ¡£\n");
+                        return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ï¼Œé™„è¿‘ä¹Ÿæ²¡æœ‰ã€‚\n");
         }
 
         if (! undefinedp(count = ob->query_amount()) && count < 1)
-                return notify_fail(ob->name() + "ÒÑ¾­ÓÃÍêÁË¡£\n");
+                return notify_fail(ob->name() + "å·²ç»ç”¨å®Œäº†ã€‚\n");
 
 	if (me->is_busy())
 	{
-		write("ÄãÉÏÒ»¸ö¶¯×÷»¹Ã»ÓĞÍê³É¡£\n");
+		write("ä½ ä¸Šä¸€ä¸ªåŠ¨ä½œè¿˜æ²¡æœ‰å®Œæˆã€‚\n");
 		return 1;
 	}
 
@@ -37,14 +37,14 @@ int main(object me, string arg)
                         living($1) && ($1 != $(me)) :));
                 if (sizeof(guard))
                         return notify_fail(guard[0]->name()
-                                + "ÕıÊØÔÚ" + ob->name() + "Ò»ÅÔ£¬·ÀÖ¹ÈÎºÎÈËÄÃ×ß¡£\n");
+                                + "æ­£å®ˆåœ¨" + ob->name() + "ä¸€æ—ï¼Œé˜²æ­¢ä»»ä½•äººæ‹¿èµ°ã€‚\n");
         }
 
         if (ob->query("can_be_applied"))
         {
                 return ob->do_apply(me);
         } else
-                return notify_fail("ÔõÃ´ÓÃ" + ob->name() + "£¿\n");
+                return notify_fail("æ€ä¹ˆç”¨" + ob->name() + "ï¼Ÿ\n");
 
 	return 1;
 }
@@ -52,9 +52,9 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : apply <ÎïÆ·>
+æŒ‡ä»¤æ ¼å¼ : apply <ç‰©å“>
 
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄãÊÇÓÃÌØÊâÎïÆ·£¬·¢»ÓËüµÄ¹¦Ğ§¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ æ˜¯ç”¨ç‰¹æ®Šç‰©å“ï¼Œå‘æŒ¥å®ƒçš„åŠŸæ•ˆã€‚
  
 HELP );
         return 1;

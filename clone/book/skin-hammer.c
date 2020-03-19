@@ -1,17 +1,17 @@
 //
-//  ÑòÆ¤Êé
+//  ç¾Šçš®ä¹¦
 
 inherit BOOK;
 
 void create()
 {
-        set_name( "ÑòÆ¤¾íÖá", ({ "skin" }));
+        set_name( "ç¾Šçš®å·è½´", ({ "skin" }));
 	set_weight(200);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±¾");
-                set("long", "ÕâÊÇÒ»ÕÅÑòÆ¤ÖÊµØµÄ¾íÖá£¬ÉÏÃæ»­×ÅÒ»Ğ©¹Å¹ÖµÄ·ûºÅ¡£\n");
+		set("unit", "æœ¬");
+                set("long", "è¿™æ˜¯ä¸€å¼ ç¾Šçš®è´¨åœ°çš„å·è½´ï¼Œä¸Šé¢ç”»ç€ä¸€äº›å¤æ€ªçš„ç¬¦å·ã€‚\n");
 		set("material", "paper");
 		set("skill", ([
                         "name": "hammer",        // name of the skill

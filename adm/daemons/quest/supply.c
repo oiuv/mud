@@ -1,10 +1,10 @@
-// Íæ¼ÒÈÎÎñÊØ»¤½ø³Ì£ºsupply.c
+// ç©å®¶ä»»åŠ¡å®ˆæŠ¤è¿›ç¨‹ï¼šsupply.c
 
 #include <ansi.h>
 
-// ¹©Ó¦µÄÎïÆ·£ºÓÉÓÚ½ÓÊÜµÄÊ±ºòNPCÖ»¸ºÔğºË¶ÔÖĞÎÄÃû×Ö£¨ÕâÊÇÓÉÓÚ
-// MUDÖĞµÄ´úÂëÒ»ÖÂĞÔ²»ºÃµÄÔµ¹Ê£©£¬ËùÒÔÃ¿¼şÌá¹©µÄÎïÆ·Îñ±ØÒª¿¼
-// ÂÇÇå³ş£¬²»ÒªºÍMUDÖĞµÄÆäËûÎïÆ·ÖØÃû¡£
+// ä¾›åº”çš„ç‰©å“ï¼šç”±äºæ¥å—çš„æ—¶å€™NPCåªè´Ÿè´£æ ¸å¯¹ä¸­æ–‡åå­—ï¼ˆè¿™æ˜¯ç”±äº
+// MUDä¸­çš„ä»£ç ä¸€è‡´æ€§ä¸å¥½çš„ç¼˜æ•…ï¼‰ï¼Œæ‰€ä»¥æ¯ä»¶æä¾›çš„ç‰©å“åŠ¡å¿…è¦è€ƒ
+// è™‘æ¸…æ¥šï¼Œä¸è¦å’ŒMUDä¸­çš„å…¶ä»–ç‰©å“é‡åã€‚
 string *supply_objs = ({
     "/clone/weapon/changjian",
     "/clone/weapon/jili",
@@ -28,8 +28,8 @@ string *supply_objs = ({
     "/clone/cloth/tiejia",
 });
 
-// ½ÓÊÜ¹©Ó¦µÄNPC£ºÒªÇóÕâĞ©ÈË±ØĞëÔÚÖ¸¶¨µÄ³¡¾°£¬ËùÒÔÕâÀïÖ¸Ã÷µÄ
-// ÊÇ³¡¾°ºÍNPCµÄID¡£
+// æ¥å—ä¾›åº”çš„NPCï¼šè¦æ±‚è¿™äº›äººå¿…é¡»åœ¨æŒ‡å®šçš„åœºæ™¯ï¼Œæ‰€ä»¥è¿™é‡ŒæŒ‡æ˜çš„
+// æ˜¯åœºæ™¯å’ŒNPCçš„IDã€‚
 mapping rcv_npcs = ([
 
               "/d/city/duchang":"pang tongtuo",
@@ -166,7 +166,7 @@ mapping rcv_npcs = ([
 
 void startup();
 
-// ÈÎÎñ¶ÔÏó´´½¨
+// ä»»åŠ¡å¯¹è±¡åˆ›å»º
 void create()
 {
     seteuid(getuid());
@@ -176,44 +176,44 @@ void create()
 
 void start_quest()
 {
-    object env;       // ½ÓÊÕÎïÆ·µÄNPCËùÔÚµÄ»·¾³
-    object npc;       // ½ÓÊÕÎïÆ·µÄNPC¶ÔÏó
-    object *obs;      // Ä¿Ç°ËùÓĞµÄSUPPLYÈÎÎñ
-    string *env_room; // ĞÂÈÎÎñÄÜ¹»ÔÚµÄµØµã
-    string room;      // NPCËùÔÚµÄ»·¾³ÎÄ¼şÃû×Ö
-    string sob_file;  // ½ÓÊÕµÄÎïÆ·¶ÔÓ¦µÄÎÄ¼ş
+    object env;       // æ¥æ”¶ç‰©å“çš„NPCæ‰€åœ¨çš„ç¯å¢ƒ
+    object npc;       // æ¥æ”¶ç‰©å“çš„NPCå¯¹è±¡
+    object *obs;      // ç›®å‰æ‰€æœ‰çš„SUPPLYä»»åŠ¡
+    string *env_room; // æ–°ä»»åŠ¡èƒ½å¤Ÿåœ¨çš„åœ°ç‚¹
+    string room;      // NPCæ‰€åœ¨çš„ç¯å¢ƒæ–‡ä»¶åå­—
+    string sob_file;  // æ¥æ”¶çš„ç‰©å“å¯¹åº”çš„æ–‡ä»¶
 
-    object qob; // ÈÎÎñ¶ÔÏó
+    object qob; // ä»»åŠ¡å¯¹è±¡
 
-    // Ñ¡ÔñÒ»¸öĞÂµÄµØµã(Ä¿Ç°Ã»ÓĞSUPPLYÈÎÎñµÄ)
+    // é€‰æ‹©ä¸€ä¸ªæ–°çš„åœ°ç‚¹(ç›®å‰æ²¡æœ‰SUPPLYä»»åŠ¡çš„)
     env_room = keys(rcv_npcs);
     obs = children("/clone/quest/supply");
     if (arrayp(obs) && sizeof(obs) > 0)
         env_room -= obs->query("quest_position");
 
     if (sizeof(env_room) < 1)
-        // ÎŞ·¨ÕÒµ½ÕâÑùµÄµØµã
+        // æ— æ³•æ‰¾åˆ°è¿™æ ·çš„åœ°ç‚¹
         return;
 
     room = env_room[random(sizeof(env_room))];
     env = get_object(room);
 
-    // Ñ¡Ôñ¸ÄµØµãÖĞµÄÈË
+    // é€‰æ‹©æ”¹åœ°ç‚¹ä¸­çš„äºº
     if (!objectp(npc = present(rcv_npcs[room], env)) ||
         npc->query("startroom") != base_name(env))
-        // ÎŞ·¨ÕÒµ½¸ÃµØµãÖĞºÏÊÊµÄNPCÀ´½ÓÊÕ
+        // æ— æ³•æ‰¾åˆ°è¯¥åœ°ç‚¹ä¸­åˆé€‚çš„NPCæ¥æ¥æ”¶
         return;
 
-    // Ñ¡ÔñÒ»ÖÖ±øÆ÷
+    // é€‰æ‹©ä¸€ç§å…µå™¨
     sob_file = supply_objs[random(sizeof(supply_objs))];
 
-    // ³õÊ¼»¯ÈÎÎñµÄÒ»Ğ©ĞÅÏ¢£¨Æô¶¯µØµã£©
+    // åˆå§‹åŒ–ä»»åŠ¡çš„ä¸€äº›ä¿¡æ¯ï¼ˆå¯åŠ¨åœ°ç‚¹ï¼‰
     qob = new ("/clone/quest/supply");
     qob->set("quest_position", room);
 
-    CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "½ø³Ì(SUPPLY)ÔÚ" + env->short(1) + HIR "µØµãÀûÓÃ" + npc->name() + HIR "´´½¨ÁËÒ»¸öÈÎÎñ¡£");
+    CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "è¿›ç¨‹(SUPPLY)åœ¨" + env->short(1) + HIR "åœ°ç‚¹åˆ©ç”¨" + npc->name() + HIR "åˆ›å»ºäº†ä¸€ä¸ªä»»åŠ¡ã€‚");
 
-    // ½»ÓÉÈÎÎñ×Ô¼º½øĞĞ³õÊ¼»¯
+    // äº¤ç”±ä»»åŠ¡è‡ªå·±è¿›è¡Œåˆå§‹åŒ–
     qob->init_quest(npc, sob_file);
 }
 
@@ -222,27 +222,27 @@ private void heart_beat()
     if (!find_object(QUEST_D))
         return;
 
-    // Èç¹û¿ÉÒÔ£¬Ã¿´ÎĞÄÌø²úÉú3¸öQUEST
+    // å¦‚æœå¯ä»¥ï¼Œæ¯æ¬¡å¿ƒè·³äº§ç”Ÿ3ä¸ªQUEST
     start_quest();
     start_quest();
     start_quest();
 }
 
-// ÈÎÎñÊØ»¤½ø³Ì»½ĞÑÕâ¸ö½ø³Ì
+// ä»»åŠ¡å®ˆæŠ¤è¿›ç¨‹å”¤é†’è¿™ä¸ªè¿›ç¨‹
 void startup()
 {
-    // Æô¶¯
+    // å¯åŠ¨
     if (!find_object(QUEST_D))
         return;
 
     if (!query_heart_beat())
-        CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "½ø³Ì(SUPPLY)Æô¶¯ÁË¡£");
+        CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "è¿›ç¨‹(SUPPLY)å¯åŠ¨äº†ã€‚");
 
-    // Æ½¾ùÃ¿ËÄ·ÖÖÓ²úÉúÒ»¸öÈÎÎñ
+    // å¹³å‡æ¯å››åˆ†é’Ÿäº§ç”Ÿä¸€ä¸ªä»»åŠ¡
     set_heart_beat(110 + random(20));
 }
 
-// Í£Ö¹Õâ¸öÈÎÎñ½ø³Ì
+// åœæ­¢è¿™ä¸ªä»»åŠ¡è¿›ç¨‹
 void stop()
 {
     set_heart_beat(0);

@@ -8,15 +8,15 @@ inherit F_UNIQUE;
 
 void create()
 {
-        set_name("ÒóÒ°Íõ", ({ "yin yewang", "yin", "yewang", }));
+        set_name("æ®·é‡ç‹", ({ "yin yewang", "yin", "yewang", }));
 	set("long",
-        "ËûÊÇÒ»Î»ÊÖÒ¡ÕÛÉÈµÄÖĞÄêÄĞ×Ó£¬Éí´©Ò»¼ş°×²¼³¤ÅÛ¡£\n"
-        "ËûÊÇ°×Ã¼Ó¥ÍõÒóÌìÕıÖ®×Ó¡£Ò»Ë«ÑÛ¾¦ÓÌÈçÀäµç£¬¾«¹âËÄÉä£¬ÆøÊÆÉãÈË¡£\n"
+        "ä»–æ˜¯ä¸€ä½æ‰‹æ‘‡æŠ˜æ‰‡çš„ä¸­å¹´ç”·å­ï¼Œèº«ç©¿ä¸€ä»¶ç™½å¸ƒé•¿è¢ã€‚\n"
+        "ä»–æ˜¯ç™½çœ‰é¹°ç‹æ®·å¤©æ­£ä¹‹å­ã€‚ä¸€åŒçœ¼ç›çŠ¹å¦‚å†·ç”µï¼Œç²¾å…‰å››å°„ï¼Œæ°”åŠ¿æ‘„äººã€‚\n"
 	);
 
-        set("title", HIR "Ã÷½Ì" BLU "ÌìÎ¢ÌÃ" NOR "ÌÃÖ÷");
-        set("nickname", "Ò»·É³åÌì");
-	set("gender", "ÄĞĞÔ");
+        set("title", HIR "æ˜æ•™" BLU "å¤©å¾®å ‚" NOR "å ‚ä¸»");
+        set("nickname", "ä¸€é£å†²å¤©");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
         set("class", "fighert");
 
@@ -50,7 +50,7 @@ void create()
 	map_skill("parry", "jingang-quan");
 
 	prepare_skill("cuff", "jingang-quan");
-        create_family("Ã÷½Ì", 3, "ÌìÎ¢ÌÃÌÃÖ÷");
+        create_family("æ˜æ•™", 3, "å¤©å¾®å ‚å ‚ä¸»");
 	setup();
 
         carry_object("/d/mingjiao/obj/baipao")->wear();

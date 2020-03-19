@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����������");
+        set("short", "独尊厅大门");
         set("long", @LONG
-�����ͨ�����չ����������Ĵ��š��������Ҹ���һͷ
-ʯ������գ��ߴ��������࣬��๾�צ���񿥷Ƿ����ƺ���ʱ
-Ҫ�ڿն�ȥ��
+这就是通向「灵鹫宫」独尊厅的大门。大门左右各有一头
+石雕的猛鹫，高达三丈有余，尖喙巨爪，神骏非凡，似乎随时
+要腾空而去。
 LONG);
         set("outdoors", "lingjiu");
         set("exits", ([

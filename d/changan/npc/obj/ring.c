@@ -7,13 +7,13 @@ inherit HANDS;
 
 void create()
 {
-        set_name(MAG"×Ï½ð½äÖ¸"NOR, ({ "zijin jiezhi", "jiezhi", "ring" }));
+        set_name(MAG"ç´«é‡‘æˆ’æŒ‡"NOR, ({ "zijin jiezhi", "jiezhi", "ring" }));
         set("weight", 100);
         if (clonep())
         	set_default_object(__FILE__);
         else 
 	{
-        	set("unit", "¸ö");
+        	set("unit", "ä¸ª");
         	set("value", 1000);
         	set("material", "gold");
         	set("armor_prop/armor", 1);

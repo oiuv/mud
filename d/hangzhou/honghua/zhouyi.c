@@ -1,4 +1,4 @@
-// zhouyi.c ÖÜç²
+// zhouyi.c å‘¨ç»®
 #include <ansi.h>
 
 inherit NPC;
@@ -6,14 +6,14 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("ÖÜç²", ({ "zhou yi", "zhou","yi" }));
-	set("title", HIC "Ìúµ¨×¯"HIM"´óÐ¡½ã" NOR);
-	set("nickname", HIB "ÇÎÀîåÓ" NOR);
+	set_name("å‘¨ç»®", ({ "zhou yi", "zhou","yi" }));
+	set("title", HIC "é“èƒ†åº„"HIM"å¤§å°å§" NOR);
+	set("nickname", HIB "ä¿æŽé€µ" NOR);
 	set("long", 
-"ÕâÊÇÌúµ¨×¯µÄ´óÐ¡½ã£¬ÖÜÖÙÓ¢µÄ±¦±´Å®¶ù¡£ËýÐÔ¸ñºÀÂõ£¬ÆÄ
-ÓÐÄË¸¸Ö®·ç£¬°®¹ÜÏÐÊÂ£¬ºÃ´ò²»Æ½£¬Î÷±±ÎäÁÖÖÐÈËËÍÁËËý¸ö
-ÍâºÅ£¬½Ð×ö¡°ÇÎÀîåÓ¡±¡£\n");
-	set("gender", "Å®ÐÔ");
+"è¿™æ˜¯é“èƒ†åº„çš„å¤§å°å§ï¼Œå‘¨ä»²è‹±çš„å®è´å¥³å„¿ã€‚å¥¹æ€§æ ¼è±ªè¿ˆï¼Œé¢‡
+æœ‰ä¹ƒçˆ¶ä¹‹é£Žï¼Œçˆ±ç®¡é—²äº‹ï¼Œå¥½æ‰“ä¸å¹³ï¼Œè¥¿åŒ—æ­¦æž—ä¸­äººé€äº†å¥¹ä¸ª
+å¤–å·ï¼Œå«åšâ€œä¿æŽé€µâ€ã€‚\n");
+	set("gender", "å¥³æ€§");
 	set("class", "fighter");
 	set("age", 17);
 	set("attitude", "friendly");
@@ -48,7 +48,7 @@ void create()
 	map_skill("parry", "cibei-dao");
 
 	set("env/wimpy", 20);
-	create_family("ÉÙÁÖÅÉ", 51, "Ë×¼ÒµÜ×Ó");
+	create_family("å°‘æž—æ´¾", 51, "ä¿—å®¶å¼Ÿå­");
  	setup();
 	carry_object("/clone/cloth/jinduan")->wear();
 	carry_object("/clone/weapon/gangdao")->wield();

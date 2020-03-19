@@ -4,10 +4,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("ºéÈËĞÛ", ({ "hong renxiong", "xiong", "renxiong" }));
-        set("gender", "ÄĞĞÔ");
+        set_name("æ´ªäººé›„", ({ "hong renxiong", "xiong", "renxiong" }));
+        set("gender", "ç”·æ€§");
         set("age", 25);
-        set("long", "Ëû¾ÍÊÇ¡¸Ó¢ĞÛºÀ½Ü£¬Çà³ÇËÄĞã¡¹Ö®Ò»£¬Îä¹¦Ò²Ô¶¸ßÍ¬ÃÅ¡£\n");
+        set("long", "ä»–å°±æ˜¯ã€Œè‹±é›„è±ªæ°ï¼Œé’åŸå››ç§€ã€ä¹‹ä¸€ï¼Œæ­¦åŠŸä¹Ÿè¿œé«˜åŒé—¨ã€‚\n");
 
         set("combat_exp", 80000);
         set("shen_type", -1);
@@ -19,7 +19,7 @@ void create()
         set_skill("parry", 80);
         map_skill("parry", "pixie-sword");
         map_skill("sword", "pixie-sword");
-        create_family("Çà³ÇÅÉ", 6, "µÜ×Ó");
+        create_family("é’åŸæ´¾", 6, "å¼Ÿå­");
         setup();
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/d/wudang/obj/bluecloth")->wear();

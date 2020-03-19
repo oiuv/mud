@@ -6,13 +6,13 @@ inherit STAFF;
 
 void create()
 {
-        set_name("É±Íş°ô", ({"shawei bang", "bang"}));
+        set_name("æ€å¨æ£’", ({"shawei bang", "bang"}));
         set_weight(3000);
         if (clonep())
         	set_default_object(__FILE__);
         else 
 	{
-        	set("unit", "°Ñ");
+        	set("unit", "æŠŠ");
         	set("value", 200);
         	set("material", "wood");
 	}

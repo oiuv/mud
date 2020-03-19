@@ -5,33 +5,33 @@ int parse_inquiry(object me, object ob, string topic)
 	switch (topic)
         {
 	case "name":
-		message_vision(CYN "$N" CYN "Ïò$n" CYN "ÎÊµÀ£º¸ÒÎÊ" +
-                               RANK_D->query_respect(ob) + "×ğĞÕ´ó"
-                               "Ãû£¿\n" NOR, me, ob);
+		message_vision(CYN "$N" CYN "å‘$n" CYN "é—®é“ï¼šæ•¢é—®" +
+                               RANK_D->query_respect(ob) + "å°Šå§“å¤§"
+                               "åï¼Ÿ\n" NOR, me, ob);
 		return 1;
 
 	case "here":
-		message_vision(CYN "$N" CYN "Ïò$n" CYN "ÎÊµÀ£ºÕâÎ»" +
-                               RANK_D->query_respect(ob) + "£¬" +
-                               RANK_D->query_self(me) + "³õµ½¹ó±¦µØ"
-                               "£¬²»ÖªÕâÀïÓĞĞ©Ê²÷á·çÍÁÈËÇé£¿\n" NOR,
+		message_vision(CYN "$N" CYN "å‘$n" CYN "é—®é“ï¼šè¿™ä½" +
+                               RANK_D->query_respect(ob) + "ï¼Œ" +
+                               RANK_D->query_self(me) + "åˆåˆ°è´µå®åœ°"
+                               "ï¼Œä¸çŸ¥è¿™é‡Œæœ‰äº›ä»€éº½é£åœŸäººæƒ…ï¼Ÿ\n" NOR,
                                me, ob);
 		return 1;
 
 	case "clue":
-	case "ÏßË÷":
-		message_vision(CYN "$N" CYN "Ïò$n" CYN "´òÌıµÀ£º" +
-                               RANK_D->query_self(me) + "´ÓÅÔÈË´¦µÃ"
-                               "Öª" + RANK_D->query_respect(ob) +
-                               "ÓĞĞ©ÏßË÷£¬ÄÜ·ñ¸æÖªÔÚÏÂ£¿\n" NOR, me, ob);
+	case "çº¿ç´¢":
+		message_vision(CYN "$N" CYN "å‘$n" CYN "æ‰“å¬é“ï¼š" +
+                               RANK_D->query_self(me) + "ä»æ—äººå¤„å¾—"
+                               "çŸ¥" + RANK_D->query_respect(ob) +
+                               "æœ‰äº›çº¿ç´¢ï¼Œèƒ½å¦å‘ŠçŸ¥åœ¨ä¸‹ï¼Ÿ\n" NOR, me, ob);
 		return 1;
 
 	case "rumor":
 	case "rumors":
-        case "ÏûÏ¢":
-		message_vision(CYN "$N" CYN "Ïò$n" CYN "ÎÊµÀ£ºÕâÎ»" +
-			       RANK_D->query_respect(ob) + "£¬²»Öª"
-                               "×î½üÓĞÃ»ÓĞÌıËµÊ²Ã´ÏûÏ¢£¿\n" NOR, me,
+        case "æ¶ˆæ¯":
+		message_vision(CYN "$N" CYN "å‘$n" CYN "é—®é“ï¼šè¿™ä½" +
+			       RANK_D->query_respect(ob) + "ï¼Œä¸çŸ¥"
+                               "æœ€è¿‘æœ‰æ²¡æœ‰å¬è¯´ä»€ä¹ˆæ¶ˆæ¯ï¼Ÿ\n" NOR, me,
                                ob);
 		return 1;
 

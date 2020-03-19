@@ -21,24 +21,24 @@ STATIC_VAR_TAG int state;
 STATIC_VAR_TAG object *total = ({ });
 STATIC_VAR_TAG int ready_time = 0;
 
-// ËÄ´Î±ÈÈüÁĞ±í
+// å››æ¬¡æ¯”èµ›åˆ—è¡¨
 STATIC_VAR_TAG mapping *tlist = ({
-([      "name" : "ÍÀÈËÈÈÉíÈü",
+([      "name" : "å± äººçƒ­èº«èµ›",
         "time" : ({ 2200, 2210, }),
         "exp"  : ({ 1000, 500000 }),
         "last_day" : 0,
 ]),
-([      "name" : "ÍÀÈË×¼±¸Èü",
+([      "name" : "å± äººå‡†å¤‡èµ›",
         "time" : ({ 400, 410, }),
         "exp"  : ({ 1000, 1500000 }),
         "last_day" : 0,
 ]),
-([      "name" : "ÍÀÈËÑ¡°ÎÈü",
+([      "name" : "å± äººé€‰æ‹”èµ›",
         "time" : ({ 1000, 1010, }),
         "exp"  : ({ 1000, 5000000 }),
         "last_day" : 0,
 ]),
-([      "name" : "ÍÀÈË´óÈü",
+([      "name" : "å± äººå¤§èµ›",
         "time" : ({ 1600, 1610 }),
         "exp"  : ({ 1000, 2000000000 }),
         "last_day" : 0,
@@ -57,7 +57,7 @@ private void kickout_players();
 private void restore_status(object me);
 private void send_invite_message();
 
-// Íâ²¿¿Éµ÷ÓÃµÄº¯Êı
+// å¤–éƒ¨å¯è°ƒç”¨çš„å‡½æ•°
 int check_out(object me);
 
 // return the time of prompt
@@ -67,9 +67,9 @@ int is_ready()              { return state == GET_READY; }
 void create()
 {
         seteuid(ROOT_UID);
-        set("channel_id", "±ÈÈü¾«Áé");
-        //write("±ÈÈü¾«ÁéÒÑ¾­Æô¶¯¡£\n");
-        CHANNEL_D->do_channel( this_object(), "sys", "±ÈÈü¾«ÁéÒÑ¾­Æô¶¯¡£");
+        set("channel_id", "æ¯”èµ›ç²¾çµ");
+        //write("æ¯”èµ›ç²¾çµå·²ç»å¯åŠ¨ã€‚\n");
+        CHANNEL_D->do_channel( this_object(), "sys", "æ¯”èµ›ç²¾çµå·²ç»å¯åŠ¨ã€‚");
         state = SLEEPING;
         set_heart_beat(30);
 }
@@ -83,14 +83,14 @@ int clean_up()
 int join_competition(object ob)
 {
         if (state != SLEEPING)
-                return notify_fail("ÏÖÔÚÍÀÈË³¡ÕıÔÚ¾ÙĞĞ»î¶¯£¬Äã»¹ÊÇµÈµÈÔÙËµ°É¡£\n");
+                return notify_fail("ç°åœ¨å± äººåœºæ­£åœ¨ä¸¾è¡Œæ´»åŠ¨ï¼Œä½ è¿˜æ˜¯ç­‰ç­‰å†è¯´å§ã€‚\n");
 
         if (ob->query("combat_exp") < 800000
            && ! ob->query_temp("team_fight"))
-                return notify_fail("ÄãÕâµã±¾ÊÂ¾Í±ğ½øÈ¥À²¡£\n");
+                return notify_fail("ä½ è¿™ç‚¹æœ¬äº‹å°±åˆ«è¿›å»å•¦ã€‚\n");
 
         if (ob->query_condition())
-                return notify_fail("ÄãÏÖÔÚ×´Ì¬²»¼Ñ£¬»¹ÊÇ±ğ½øÈ¥ÁË¡£\n");
+                return notify_fail("ä½ ç°åœ¨çŠ¶æ€ä¸ä½³ï¼Œè¿˜æ˜¯åˆ«è¿›å»äº†ã€‚\n");
 
         if (! arrayp(total))
                 total = ({ ob });
@@ -98,8 +98,8 @@ int join_competition(object ob)
         if (member_array(ob, total) == -1)
                 total += ({ ob });
 
-        message_competition((ultrap(ob) ? "´ó×ÚÊ¦" : "") +
-                            ob->name(1) + "½øÈëÍÀÈË³¡¡£");
+        message_competition((ultrap(ob) ? "å¤§å®—å¸ˆ" : "") +
+                            ob->name(1) + "è¿›å…¥å± äººåœºã€‚");
 
         init_player(ob);
         set_heart_beat(1);
@@ -169,8 +169,8 @@ private void change_state(int new_state)
                 kickout_players();
 
                 ready_time = time();
-                message_competition("ÌıËµÒ»ÄêÒ»¶ÈµÄ" + tlist[selected]["name"] + "ÂíÉÏ¾ÍÒª"
-                                    "¾ÙĞĞÁË£¬²»ÖªµÀ½ñÄêµÄ¹Ú¾üÊÇË­£¿");
+                message_competition("å¬è¯´ä¸€å¹´ä¸€åº¦çš„" + tlist[selected]["name"] + "é©¬ä¸Šå°±è¦"
+                                    "ä¸¾è¡Œäº†ï¼Œä¸çŸ¥é“ä»Šå¹´çš„å† å†›æ˜¯è°ï¼Ÿ");
                 set_heart_beat(1);
                 send_invite_message();
                 break;
@@ -178,14 +178,14 @@ private void change_state(int new_state)
         case STARTING:
                 if (! (n = start_competition()))
                 {
-                        message_competition("ÌıËµ½ñÄêµÄ" + tlist[selected]["name"] + "Òò¹Ê"
-                                            "È¡ÏûÁË£¬ÕæÊÇÃ»¾¢¡£");
+                        message_competition("å¬è¯´ä»Šå¹´çš„" + tlist[selected]["name"] + "å› æ•…"
+                                            "å–æ¶ˆäº†ï¼ŒçœŸæ˜¯æ²¡åŠ²ã€‚");
                         new_state = SLEEPING;
                 } else
                 {
-                        message_competition("ÌıËµ½ñÄêµÄ" + tlist[selected]["name"] +
-                                            "ÎüÒıÁË" + chinese_number(n) +
-                                            "Ãû¸ßÊÖ£¡×ß...¿´¿´ÈÈÄÖÈ¥¡£");
+                        message_competition("å¬è¯´ä»Šå¹´çš„" + tlist[selected]["name"] +
+                                            "å¸å¼•äº†" + chinese_number(n) +
+                                            "åé«˜æ‰‹ï¼èµ°...çœ‹çœ‹çƒ­é—¹å»ã€‚");
                         set_heart_beat(1);
                 }
                 break;
@@ -205,7 +205,7 @@ private void change_state(int new_state)
 // set player's override functions
 private void init_player(object me)
 {
-        tell_object(me, HIY "ÄãÑÛÇ°ºöÈ»Ò»»¨¡­¡­\n" NOR);
+        tell_object(me, HIY "ä½ çœ¼å‰å¿½ç„¶ä¸€èŠ±â€¦â€¦\n" NOR);
         me->set_override("unconcious", (: call_other, __FILE__, "check_out" :));
         me->set_override("die", (: call_other, __FILE__, "check_out" :));
         me->set_override("quit", (: call_other, __FILE__, "check_quit" :));
@@ -213,8 +213,8 @@ private void init_player(object me)
         me->set_temp("backup/want", me->query_want());
 
         me->move(sprintf(PK_ROOM "%d", random(12) + 1));
-        tell_object(me, HIY "Äã¶¨ÉñÒ»¿´£¬Õâ²Å·¢ÏÖ×Ô¼ºÒÑ¾­µ½ÁË" +
-                            environment(me)->short() + HIY "¡£\n");
+        tell_object(me, HIY "ä½ å®šç¥ä¸€çœ‹ï¼Œè¿™æ‰å‘ç°è‡ªå·±å·²ç»åˆ°äº†" +
+                            environment(me)->short() + HIY "ã€‚\n");
         me->set("backup/condition", me->query_condition());
         me->clear_condition();
 }
@@ -245,11 +245,11 @@ private void kickout_players()
                 my["qi"] = 1;
                 my["jing"] = 1;
 
-                tell_object(ob, HIC "\nÎÚÀÏ´ó×ßÁË¹ıÀ´£¬ÈÂÈÂµÀ£º¡°Çå³¡ÁË£¡Çå³¡ÁË£¬¶¼¿ì×ß°É£¡¡±\n" NOR);
+                tell_object(ob, HIC "\nä¹Œè€å¤§èµ°äº†è¿‡æ¥ï¼Œåš·åš·é“ï¼šâ€œæ¸…åœºäº†ï¼æ¸…åœºäº†ï¼Œéƒ½å¿«èµ°å§ï¼â€\n" NOR);
 
                 restore_status(ob);
                 ob->move(ENTRY_ROOM);
-                message("vision", "Ö»¼û" + ob->name() + "ã¬ã¬µÄ×ßÁË³öÀ´¡£\n",
+                message("vision", "åªè§" + ob->name() + "æ‚»æ‚»çš„èµ°äº†å‡ºæ¥ã€‚\n",
                         environment(ob), ({ ob }));
                 if (! living(ob))
                         ob->revive();
@@ -277,14 +277,14 @@ private int start_competition()
         {
                 if (obs[0]->query("couple/id") == obs[1]->query("id"))
                 {
-                        message_vision("ÎÚÀÏ´óÔÚÍâÃæº°µÀ£º¡°¾ÍÄãÃÇ·òÆŞ"
-                                       "Á©¸ö²Î¼Ó£¿»¹ÊÇËãÁË°É¡£¡±\n", obs[0]);
+                        message_vision("ä¹Œè€å¤§åœ¨å¤–é¢å–Šé“ï¼šâ€œå°±ä½ ä»¬å¤«å¦»"
+                                       "ä¿©ä¸ªå‚åŠ ï¼Ÿè¿˜æ˜¯ç®—äº†å§ã€‚â€\n", obs[0]);
                         return 0;
                 }
         }
 
-        message("vision", "Ò»¸öºÚÓ°×ßÁË¹ıÀ´£¬´ò¿ª"
-                "ÁËÃÅ£¬ÀäÀäµÀ£º¡°¶¼½øÈ¥°É£¡¡±\n", env);
+        message("vision", "ä¸€ä¸ªé»‘å½±èµ°äº†è¿‡æ¥ï¼Œæ‰“å¼€"
+                "äº†é—¨ï¼Œå†·å†·é“ï¼šâ€œéƒ½è¿›å»å§ï¼â€\n", env);
 
         for (i = 0; i < sizeof(obs); i++)
         {
@@ -293,7 +293,7 @@ private int start_competition()
         }
 
         set_heart_beat(1);
-        message("vision", HIG "ÍÀÈË±ÈÈüÒÑ¾­¿ªÊ¼£¬¿ì¶¯ÊÖ°É£¡\n", obs);
+        message("vision", HIG "å± äººæ¯”èµ›å·²ç»å¼€å§‹ï¼Œå¿«åŠ¨æ‰‹å§ï¼\n", obs);
         return sizeof(total = obs);
 }
 
@@ -348,20 +348,20 @@ private void auto_check()
 
         if (sizeof(total) < 1)
         {
-                msg = "ÌıËµÍÀÈË´óÈü²ÎÈüÕßËÀµÄËÀ£¬ÌÓµÄÌÓ£¬ÏÖÔÚÒ»¸öÈË¶¼Ã»ÓĞÀ²£¡";
+                msg = "å¬è¯´å± äººå¤§èµ›å‚èµ›è€…æ­»çš„æ­»ï¼Œé€ƒçš„é€ƒï¼Œç°åœ¨ä¸€ä¸ªäººéƒ½æ²¡æœ‰å•¦ï¼";
         } else
         if (sizeof(total) == 1)
         {
                 // change the daemon's state
-                msg = "ÌıËµ±¾´ÎÍÀÈË´óÈüÔ²Âú½áÊø£¬" +
-                      total[0]->name(1) + "³ÉÎªÍÀÈË¹Ú¾ü£¡";
+                msg = "å¬è¯´æœ¬æ¬¡å± äººå¤§èµ›åœ†æ»¡ç»“æŸï¼Œ" +
+                      total[0]->name(1) + "æˆä¸ºå± äººå† å†›ï¼";
                 give_bouns(total[0]);
         } else
         if (sizeof(total) == 2 && total[0]->query("couple/id") == total[1]->query("id"))
         {
-                msg = "ÌıËµ±¾´ÎÍÀÈË´óÈüÔ²Âú½áÊø£¬" +
-                      total[0]->name(1) + "ºÍ" + total[1]->name(1) +
-                      "·òÆŞË«Ë«°Ñ¼Ò»¹¡£";
+                msg = "å¬è¯´æœ¬æ¬¡å± äººå¤§èµ›åœ†æ»¡ç»“æŸï¼Œ" +
+                      total[0]->name(1) + "å’Œ" + total[1]->name(1) +
+                      "å¤«å¦»åŒåŒæŠŠå®¶è¿˜ã€‚";
                 give_bouns(total[0]);
                 give_bouns(total[1]);
         } else
@@ -379,24 +379,24 @@ private void give_bouns(object me)
 
         // lead me out
         restore_status(me);
-        tell_object(me, "Õâ´ÎÕæÊÇË¬´ôÁË¡­¡­\n");
+        tell_object(me, "è¿™æ¬¡çœŸæ˜¯çˆ½å‘†äº†â€¦â€¦\n");
         me->move(ENTRY_ROOM);
-        message("vision", me->name() + "ÂıÂıµÄ×ßÁË¹ıÀ´£¬Ò»Á³¼éĞ¦¡£\n",
+        message("vision", me->name() + "æ…¢æ…¢çš„èµ°äº†è¿‡æ¥ï¼Œä¸€è„¸å¥¸ç¬‘ã€‚\n",
                 environment(me), ({ me }));
 
         // bouns
         pot = me->query_potential_limit();
         pot -= me->query("potential");
         exp = me->query("combat_exp") / 500 + 3000;
-        msg = HIG "Í¨¹ıÕâ´Î´óÈü£¬Äã»ñµÃÁË " + (string)exp + " µã¾­Ñé";
+        msg = HIG "é€šè¿‡è¿™æ¬¡å¤§èµ›ï¼Œä½ è·å¾—äº† " + (string)exp + " ç‚¹ç»éªŒ";
         if (pot > 0)
         {
                 pot = random(pot) * 10 + 1000;
-                msg += "ºÍ " + (string) pot + " µãÇ±ÄÜ¡£\n" NOR;
+                msg += "å’Œ " + (string) pot + " ç‚¹æ½œèƒ½ã€‚\n" NOR;
         } else
         {
                 pot = 0;
-                msg += "¡£\n" NOR;
+                msg += "ã€‚\n" NOR;
         }
         me->add("potential", pot);
         me->add("combat_exp", exp);
@@ -445,22 +445,22 @@ private void send_invite_message()
         if (! sizeof(obs))
                 return;
 
-        message("vision", HIR "ÄãÊÕµ½ÁËÎÚÀÏ´óÈöÏÂµÄÎäÁÖÃËÌû£¬ÑûÇëÄã²Î¼ÓÕâ´Î" +
-                          tlist[selected]["name"] + "£¬ÓĞÃ»ÓĞĞËÈ¤È¥ÏÔÏÔÉíÊÖ£¿\n" NOR,
+        message("vision", HIR "ä½ æ”¶åˆ°äº†ä¹Œè€å¤§æ’’ä¸‹çš„æ­¦æ—ç›Ÿå¸–ï¼Œé‚€è¯·ä½ å‚åŠ è¿™æ¬¡" +
+                          tlist[selected]["name"] + "ï¼Œæœ‰æ²¡æœ‰å…´è¶£å»æ˜¾æ˜¾èº«æ‰‹ï¼Ÿ\n" NOR,
                 obs);
 }
 
 int start_by_others(int n)
 {
         if (state == STARTING)
-                return notify_fail("ÏÖÔÚ±ÈÈüÕıÔÚ½øĞĞÖĞ¡£\n");
+                return notify_fail("ç°åœ¨æ¯”èµ›æ­£åœ¨è¿›è¡Œä¸­ã€‚\n");
 
         if (state == GET_READY)
-                return notify_fail("ÏÖÔÚ±ÈÈüÕıÔÚ±¨ÃûÖĞ¡£\n");
+                return notify_fail("ç°åœ¨æ¯”èµ›æ­£åœ¨æŠ¥åä¸­ã€‚\n");
 
         if (n < 0 || n >= sizeof(tlist))
-                return notify_fail("Ã»ÓĞÕâ¸öµÈ¼¶µÄ±ÈÈü(0-" +
-                                   (sizeof(tlist) - 1) + ")¡£\n");
+                return notify_fail("æ²¡æœ‰è¿™ä¸ªç­‰çº§çš„æ¯”èµ›(0-" +
+                                   (sizeof(tlist) - 1) + ")ã€‚\n");
         selected = n;
         change_state(GET_READY);
         return 1;
@@ -474,17 +474,17 @@ object *query_all_competitor()
 // overide function of quit
 int check_quit(object me)
 {
-        message_competition("ÌıËµ" + me->name(1) +
-                            "ÁÙÕóÍÑÌÓ£¬Áï×ßÁË¡£");
+        message_competition("å¬è¯´" + me->name(1) +
+                            "ä¸´é˜µè„±é€ƒï¼Œæºœèµ°äº†ã€‚");
         restore_status(me);
         if (arrayp(total))
                 total -= ({ me });
 
-        tell_object(me, "ÄãÌÓ³öÁËÍÀÈË³¡¡£\n");
+        tell_object(me, "ä½ é€ƒå‡ºäº†å± äººåœºã€‚\n");
 
         // continue run quit function
         me->move(ENTRY_ROOM);
-        message("vision", "Ö»¼û" + me->name() + "»ÅÀï»ÅÕÅµÄÅÜÁË³öÀ´¡£\n",
+        message("vision", "åªè§" + me->name() + "æ…Œé‡Œæ…Œå¼ çš„è·‘äº†å‡ºæ¥ã€‚\n",
                 environment(me), ({ me }));
         return 1;
 }
@@ -511,22 +511,22 @@ int check_out(object me)
         my["qi"] = 1;
         my["jing"] = 1;
 
-        tell_object(me, HIR "\nÄã¾õµÃÑÛÇ°Ò»ÕóÄ£ºı¡­¡­ÕâÏÂÍêÁË£¡\n" NOR);
+        tell_object(me, HIR "\nä½ è§‰å¾—çœ¼å‰ä¸€é˜µæ¨¡ç³Šâ€¦â€¦è¿™ä¸‹å®Œäº†ï¼\n" NOR);
         if (ob = me->query_last_damage_from())
         {
-                msg = "ÌıËµ" + me->name(1) + "²ÒÔâ" + ob->name(1) + "µÄ¶¾ÊÖ£¬±»ÎŞÇéÌÔÌ­¡£";
+                msg = "å¬è¯´" + me->name(1) + "æƒ¨é­" + ob->name(1) + "çš„æ¯’æ‰‹ï¼Œè¢«æ— æƒ…æ·˜æ±°ã€‚";
         } else
-                msg = "ÌıËµ" + me->name(1) + "ÔËÆø²»¼Ñ£¬±¾ÁìÓĞÏŞ¡¢ÒÑ¾­²ÒÔâÌÔÌ­¡£";
+                msg = "å¬è¯´" + me->name(1) + "è¿æ°”ä¸ä½³ï¼Œæœ¬é¢†æœ‰é™ã€å·²ç»æƒ¨é­æ·˜æ±°ã€‚";
         message_competition(msg);
 
         restore_status(me);
         total -= ({ me });
         me->move(ENTRY_ROOM);
-        message("vision", "Ò»¸öºÚÓ°Ù¿µÄ´ÜÁË³öÀ´£¬Ëæ¼´¾ÍÊÇ¡°Å¾¡±µÄ"
-                "Ò»Éù£¬¾Í¼û" + me->name() +"Ë¤µ¹ÁËµØÉÏ£¬Ò»¸±°ëËÀ²»"
-		"»îµÄÑù×Ó¡£\n", environment(me), ({ me }));
-	tell_object(me, "°ë»è°ëÃÔÖĞ£¬Äã¾õµÃ±»ÈËÁàÁËÆğÀ´£¬ÓÖ"
-		    "ÖØÖØµÄË¤µ¹ÁËµØÉÏ¡£\n");
+        message("vision", "ä¸€ä¸ªé»‘å½±å€çš„çªœäº†å‡ºæ¥ï¼Œéšå³å°±æ˜¯â€œå•ªâ€çš„"
+                "ä¸€å£°ï¼Œå°±è§" + me->name() +"æ‘”å€’äº†åœ°ä¸Šï¼Œä¸€å‰¯åŠæ­»ä¸"
+		"æ´»çš„æ ·å­ã€‚\n", environment(me), ({ me }));
+	tell_object(me, "åŠæ˜åŠè¿·ä¸­ï¼Œä½ è§‰å¾—è¢«äººæ‹äº†èµ·æ¥ï¼Œåˆ"
+		    "é‡é‡çš„æ‘”å€’äº†åœ°ä¸Šã€‚\n");
         if (! living(me))
                 me->revive();
         return 1;
@@ -538,18 +538,18 @@ string reject_join(object me)
         int exp;
 
         if (state == STARTING)
-                return "ÏÖÔÚ" + tlist[selected]["name"] + "ÕıÔÚ¾ÙĞĞ£¬"
-                       "Äã»¹ÊÇÏÂ´ÎÔÙÀ´°É¡£";
+                return "ç°åœ¨" + tlist[selected]["name"] + "æ­£åœ¨ä¸¾è¡Œï¼Œ"
+                       "ä½ è¿˜æ˜¯ä¸‹æ¬¡å†æ¥å§ã€‚";
 
         if (state != GET_READY)
-                return "ÏÖÔÚÃ»Òª¾ÙĞĞ±ÈÈü°¡£¿ÄãÅÜÀ´¸ÉÊ²Ã´£¿";
+                return "ç°åœ¨æ²¡è¦ä¸¾è¡Œæ¯”èµ›å•Šï¼Ÿä½ è·‘æ¥å¹²ä»€ä¹ˆï¼Ÿ";
 
         exp = me->query("combat_exp");
         if (exp < tlist[selected]["exp"][0])
-                return "Äã»¹ÊÇËãÁË°É£¬ÄãÕâµã¾­Ñé¾Í±ğ½øÈ¥ÏÖÑÛÁË¡£";
+                return "ä½ è¿˜æ˜¯ç®—äº†å§ï¼Œä½ è¿™ç‚¹ç»éªŒå°±åˆ«è¿›å»ç°çœ¼äº†ã€‚";
 
         if (exp > tlist[selected]["exp"][1])
-                return "Å¶¡­ÄúÎä¹¦Èç´Ë¸ßÇ¿£¬Õâ´Î»¹ÊÇ±ğºÍĞ¡±²ÃÇÕùÁË¡£";
+                return "å“¦â€¦æ‚¨æ­¦åŠŸå¦‚æ­¤é«˜å¼ºï¼Œè¿™æ¬¡è¿˜æ˜¯åˆ«å’Œå°è¾ˆä»¬äº‰äº†ã€‚";
 
         return 0;
 }

@@ -5,10 +5,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "������");
+	set("short", "白莲池");
 	set("long", @LONG
-������λ�ڶ���ͤ�ı��棬��������ǧҶ���������ϼܲ�
-�����ţ��ഫ�����������ʩ���ڴ˲����ͺɡ�
+白莲池位于二仙亭的北面，池中种有千叶莲花，池上架彩
+莲曲桥，相传吴王夫差与西施曾在此采莲赏荷。
 LONG );
 	set("outdoors", "suzhou");
 //	set("no_clean_up", 0);

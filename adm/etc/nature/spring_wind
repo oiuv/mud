@@ -24,49 +24,49 @@ hour:time_msg:desc_msg:event_fun:outcolor
 # in each record sequently.
 
 0
-$HIC$����ɫ��$HIB$�Ѿ�����ҹ�ˣ���ҹ���ǿ���һ�ַ�������飬����������Զ��ǰ�Ĺ��¡�
-$HIG$��ů����$HIB$ҹĻ�ʹ������췱��
+$HIC$【天色】$HIB$已经是午夜了，春夜的星空有一种分外的温情，让你想起悠远以前的故事。
+$HIG$【暖春】$HIB$夜幕低垂，满天繁星
 event_midnight
 $BLU$
 
 3
-$HIC$����ɫ��$HIC$����ʱ�����¿�������ˬˬ��
-$HIG$��ů����$HIC$̫���մӶ����ĵ�ƽ������
+$HIC$【天色】$HIC$黎明时的清新空气清清爽爽。
+$HIG$【暖春】$HIC$太阳刚从东方的地平线升起
 event_dawn
 $HIC$
 
 6
-$HIC$����ɫ��$HIG$΢�����һ�������ķ��㴵���������������ˡ�
-$HIG$��ů����$HIG$����ˣ��·�ѿ��֦Ҷ�ڷ������ŵ�ҡ߮��
+$HIC$【天色】$HIG$微风带着一缕泥土的芳香吹了起来，天光放亮了。
+$HIG$【暖春】$HIG$起风了，新发芽的枝叶在风中幽雅的摇弋着
 event_sunrise
 $HIG$
 
 9
-$HIC$����ɫ��$GRN$΢���������ޣ�Ʈ��������˿˿��������Ʈ����û���䴦��
-$HIG$��ů����$GRN$����������������Ʈ���ţ���ؽ�����������ɫ
+$HIC$【天色】$GRN$微风似有似无，飘忽不定。丝丝柳絮漫漫飘荡，没有落处。
+$HIG$【暖春】$GRN$风儿在树间草中轻快的飘动着，大地渐渐泛起了青色
 event_morning
 $GRN$
 
 12
-$HIC$����ɫ��$HIG$�Ѿ��������ˣ��罥����ס�ˣ����һƬ���̷��١�
-$HIG$��ů����$HIG$����������ʱ�֣�̫���߹������ͷ�����Ϸ�
+$HIC$【天色】$HIG$已经是正午了，风渐渐地住了，大地一片新绿繁荣。
+$HIG$【暖春】$HIG$现在是正午时分，太阳高挂在你的头顶正上方
 event_noon
 $HIG$
 
 15
-$HIC$����ɫ��$HIG$̫��������б�������ڲԴ��Ҷ���Ϸ������ܰ�����⡣
-$HIG$��ů����$HIG$̫�����߹��������������
+$HIC$【天色】$HIG$太阳渐渐西斜，阳光在苍翠的叶面上反射出温馨的绿意。
+$HIG$【暖春】$HIG$太阳正高挂在西方的天空中
 event_afternoon
 $HIG$
 
 18
-$HIC$����ɫ��$HIG$�����ˣ����ϸոշ�ѿ����Ҷ�ڷ���ҡ߮�š�
-$HIG$��ů����$HIG$һ�ֻ���Ϧ�����ǻ��������ĵ�ƽ����
+$HIC$【天色】$HIG$傍晚了，树上刚刚发芽的嫩叶在风中摇弋着。
+$HIG$【暖春】$HIG$一轮火红的夕阳正徘徊在西方的地平线上
 event_evening
 $HIG$
 
 21
-$HIC$����ɫ��$HIB$ҹ�������ˣ�ԶԶ������һ���ƻ�����.
-$HIG$��ů����$HIB$ҹĻ���������
+$HIC$【天色】$HIB$夜晚降临了，远远近近的一点点灯火亮起.
+$HIG$【暖春】$HIB$夜幕笼罩著大地
 event_night
 $HIB$

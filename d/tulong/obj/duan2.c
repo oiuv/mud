@@ -4,13 +4,13 @@ inherit BLADE;
 
 void create()
 {
-        set_name(CYN "¶ÏÁËµÄÍÀÁúµ¶" NOR, ({ "duan dao" , "blade" , "dao"}) );
+        set_name(CYN "æ–­äº†çš„å± é¾™åˆ€" NOR, ({ "duan dao" , "blade" , "dao"}) );
         set_weight(30000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", "Ò»±ú¶ÏÁËµÄµ¶¡£\n");
+                set("unit", "æŸ„");
+                set("long", "ä¸€æŸ„æ–­äº†çš„åˆ€ã€‚\n");
                 set("value", 0);
                 set("rigidity",8000);     
                 set("material", "steel");

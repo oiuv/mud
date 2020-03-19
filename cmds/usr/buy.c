@@ -16,17 +16,17 @@ int main(object me, string arg)
 	//int i;
         
         if(me->is_busy())
-                return notify_fail("Ê²Ã´ÊÂ¶¼µÃµÈÄãÃ¦ÍêÔÙËµ°É£¡\n");
+                return notify_fail("ä»€ä¹ˆäº‹éƒ½å¾—ç­‰ä½ å¿™å®Œå†è¯´å§ï¼\n");
 
         if (! arg)
-                return notify_fail("Ö¸Áî¸ñÊ½£ºbuy <ÎïÆ·> from <Íæ¼Ò>\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šbuy <ç‰©å“> from <ç©å®¶>\n");
 
 	if (! (sscanf(arg, "%s from %s", arg, my_id) == 2) )
-                return notify_fail("Ö¸Áî¸ñÊ½£ºbuy <ÎïÆ·> from <Íæ¼Ò>\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šbuy <ç‰©å“> from <ç©å®¶>\n");
 
         if (sizeof(all_inventory(me)) >= MAX_ITEM_CARRIED)
         {
-                write("ÄãÉíÉÏµÄ¶«Î÷Ì«¶àÁË£¬ÏÈ´¦ÀíÒ»ÏÂÔÙÂò¶«Î÷°É¡£\n");
+                write("ä½ èº«ä¸Šçš„ä¸œè¥¿å¤ªå¤šäº†ï¼Œå…ˆå¤„ç†ä¸€ä¸‹å†ä¹°ä¸œè¥¿å§ã€‚\n");
                 return 1;
         }
 
@@ -34,30 +34,30 @@ int main(object me, string arg)
         env = environment(me);
 
         if (! (obj = find_player(my_id)) || ! (present(obj->query("id"), env))) 
-                return notify_fail("ÕâÀïÃ»ÓĞÕâ¸öÉÌÈË¡£\n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™ä¸ªå•†äººã€‚\n");
 
         if (obj == me)
-                return notify_fail("ÎÊ×Ô¼ºÂò¶«Î÷£¿³Ô±¥ÁË³ÅµÄ£¿\n");
+                return notify_fail("é—®è‡ªå·±ä¹°ä¸œè¥¿ï¼Ÿåƒé¥±äº†æ’‘çš„ï¼Ÿ\n");
 
         if (! obj->query("is_vendor"))
-                return notify_fail(obj->name(1) + "²¢²»ÊÇÉÌÈË¡£\n");
+                return notify_fail(obj->name(1) + "å¹¶ä¸æ˜¯å•†äººã€‚\n");
 
         if (! obj->query_temp("on_baitan"))
-                return notify_fail(obj->name(1) + "²¢Ã»ÓĞ°ÚÌ¯¡£\n");
+                return notify_fail(obj->name(1) + "å¹¶æ²¡æœ‰æ‘†æ‘Šã€‚\n");
 
         if (! (goods = obj->query("vendor_goods")))
-                return notify_fail(obj->name(1) + "²¢Ã»ÓĞ¶µÊÛÈÎºÎ»õÎï¡£\n");
+                return notify_fail(obj->name(1) + "å¹¶æ²¡æœ‰å…œå”®ä»»ä½•è´§ç‰©ã€‚\n");
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕıÃ¦×ÅÄØ¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
 
         ob = present(arg, obj);
 
 	if (! ob || ! objectp(ob))
-                return notify_fail(obj->name(1) + "²¢Ã»ÓĞ¶µÊÛÕâÑù»õÎï¡£\n");
+                return notify_fail(obj->name(1) + "å¹¶æ²¡æœ‰å…œå”®è¿™æ ·è´§ç‰©ã€‚\n");
 
         if (! goods[base_name(ob)])
-                return notify_fail(obj->name(1) + "²¢Ã»ÓĞ¶µÊÛÕâÑù»õÎï¡£\n");
+                return notify_fail(obj->name(1) + "å¹¶æ²¡æœ‰å…œå”®è¿™æ ·è´§ç‰©ã€‚\n");
 
         value = goods[base_name(ob)];
 
@@ -72,22 +72,22 @@ int main(object me, string arg)
         switch (player_pay(me, obj, value))
         {
         case 0:
-                write(CYN + obj->name(1) + CYN "ÀäĞ¦Ò»Éù£¬ÂîµÀ£ºÇî"
-                      "¹âµ°£¬Ò»±ß´ô×ÅÈ¥¡£\n" NOR);
+                write(CYN + obj->name(1) + CYN "å†·ç¬‘ä¸€å£°ï¼Œéª‚é“ï¼šç©·"
+                      "å…‰è›‹ï¼Œä¸€è¾¹å‘†ç€å»ã€‚\n" NOR);
                 return 1;
         case 2:
-                write(CYN + obj->name(1) + CYN "ÖåÃ¼µÀ£ºÄú»¹ÓĞÃ»ÓĞ"
-                      "ÁãÇ®°¡£¿ÒøÆ±ÎÒ¿ÉÕÒ²»¿ª¡£\n" NOR);
+                write(CYN + obj->name(1) + CYN "çš±çœ‰é“ï¼šæ‚¨è¿˜æœ‰æ²¡æœ‰"
+                      "é›¶é’±å•Šï¼Ÿé“¶ç¥¨æˆ‘å¯æ‰¾ä¸å¼€ã€‚\n" NOR);
                 return 1;
         default:
                 if (ob->query_amount())
                 {
-                        message_vision("$N´Ó$nÄÇÀïÂòÏÂÁË" + ob->short() + "¡£\n",
+                        message_vision("$Nä»$né‚£é‡Œä¹°ä¸‹äº†" + ob->short() + "ã€‚\n",
                                         me, obj);
                 } else
                 {
-                        message_vision("$N´Ó$nÄÇÀïÂòÏÂÁËÒ»" + ob->query("unit") + 
-                	               ob->query("name") + "¡£\n",
+                        message_vision("$Nä»$né‚£é‡Œä¹°ä¸‹äº†ä¸€" + ob->query("unit") + 
+                	               ob->query("name") + "ã€‚\n",
 			               me, obj);
                 }
                 ob->move(me, 1);
@@ -215,11 +215,11 @@ void destruct_it(object ob)
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: buy <ÎïÆ·> from <Íæ¼Ò>
+æŒ‡ä»¤æ ¼å¼: buy <ç‰©å“> from <ç©å®¶>
 
-ÏòÒ»¸öÍæ¼ÒÉÌÈË¹ºÂòÉÌÆ·¡£
+å‘ä¸€ä¸ªç©å®¶å•†äººè´­ä¹°å•†å“ã€‚
 
-Ïà¹ØÖ¸Áî£ºlist
+ç›¸å…³æŒ‡ä»¤ï¼šlist
 
 HELP);
 	return 1;

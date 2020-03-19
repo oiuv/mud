@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "西郊");
 	set("long", @LONG
-������ԭ��һ�������ݸ����Ľ��⡣��������ݲ�Զ����
-��Ҳ��˵�ù�ȥ�������ǿ��⸮���򣬶���ͨ�����ݸ���
+这是中原第一府「中州府」的郊外。这儿离中州不远，治
+安也还说得过去。西面是开封府方向，东边通向中州府。
 LONG);
 	set("exits", ([
   		"west" : __DIR__"wroad1",

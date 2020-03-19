@@ -3,12 +3,12 @@ inherit ITEM;
 
 void create()
 {
-        set_name(NOR + GRN "Éßµ¨·Û" NOR, ({ "shedan fen", "shedan", "fen" }));
+        set_name(NOR + GRN "è›‡èƒ†ç²‰" NOR, ({ "shedan fen", "shedan", "fen" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "°ü");
-                set("long", GRN "ÕâÊÇÒ»°üÖÎÁÆÍâÉËµÄÉßµ¨·Û¡£\n" NOR);
+                set("unit", "åŒ…");
+                set("long", GRN "è¿™æ˜¯ä¸€åŒ…æ²»ç–—å¤–ä¼¤çš„è›‡èƒ†ç²‰ã€‚\n" NOR);
                 set("value", 2000);
                 set("only_do_effect", 1);
         }
@@ -18,19 +18,19 @@ void create()
 int do_effect(object me)
 {
         if (me->query("eff_qi") >=  me->query("max_qi") - 20)
-                return notify_fail("ÄãÏÖÔÚÆøÑª³äÓ¯£¬²»ĞèÒªÓÃÉßµ¨·Û¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ°”è¡€å……ç›ˆï¼Œä¸éœ€è¦ç”¨è›‡èƒ†ç²‰ã€‚\n");
 
         if (random(2) == 0)
         {
-                message_vision(WHT "$N" WHT "³ÔÏÂÒ»°üÉßµ¨·Û£¬¾õµÃ"
-                               "ÏóÊÇÍÁ¶¹·Û£¬Á¬ºôÉÏµ±¡£\n" NOR, me);
+                message_vision(WHT "$N" WHT "åƒä¸‹ä¸€åŒ…è›‡èƒ†ç²‰ï¼Œè§‰å¾—"
+                               "è±¡æ˜¯åœŸè±†ç²‰ï¼Œè¿å‘¼ä¸Šå½“ã€‚\n" NOR, me);
                 destruct(this_object());
                 return 1;
         }
         me->add("qi", 30);
         me->add("eff_qi", 20);
-        message_vision(HIY "$N" HIY "³ÔÏÂÒ»°üÉßµ¨·Û£¬¶Ù¾õÕæÆøÉÏÓ¿"
-                       "£¬¾«ÉñºÃÁËĞ©¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "åƒä¸‹ä¸€åŒ…è›‡èƒ†ç²‰ï¼Œé¡¿è§‰çœŸæ°”ä¸Šæ¶Œ"
+                       "ï¼Œç²¾ç¥å¥½äº†äº›ã€‚\n" NOR, me);
         destruct(this_object());
         return 1;
 }

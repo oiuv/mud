@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ѩɽɽ��");
+        set("short", "雪山山脚");
         set("long", @LONG
-������ɽ���µ�һƬƽ�أ�ɽ�ϲ�Զ����������ѩӳ����
-��һ��Ƭ��ǽ���ߴ�������Զ��������ѩɽ�¡�
+这里是山脚下的一片平地，山上不远处，皑皑白雪映照下
+的一大片红墙金瓦处，就是远近闻名的雪山寺。
 LONG);
         set("outdoors", "xuedao");
         set("exits", ([

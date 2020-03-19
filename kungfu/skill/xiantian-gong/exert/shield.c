@@ -1,4 +1,4 @@
-// shield.c ÏÈÌìÎŞ¼«¾¢
+// shield.c å…ˆå¤©æ— æåŠ²
 
 #include <ansi.h>
 
@@ -12,18 +12,18 @@ int exert(object me, object target)
         string msg;
 
         if ((int)me->query_skill("xiantian-gong", 1) < 50)
-                return notify_fail("ÄãµÄÏÈÌì¹¦»¹²»¹»Éîºñ¡£\n");
+                return notify_fail("ä½ çš„å…ˆå¤©åŠŸè¿˜ä¸å¤Ÿæ·±åšã€‚\n");
 
         if ((int)me->query("neili") < 200) 
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»¹»¡£\n");
+                return notify_fail("ä½ ç°åœ¨çš„çœŸæ°”ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_temp("shield"))
-                return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖĞÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
         skill = me->query_skill("xiantian-gong", 1);
 
-        msg = HIW "$N" HIW "ÉîÉîÎüÁËÒ»¿ÚÆø£¬Ë«±ÛÒ»Õñ£¬Ò»¹É»ëºñµÄÆø¾¢µÇ"
-              "Ê±ÅÌĞıÔÚÉí±ßËÄÖÜ¡£\n" NOR;
+        msg = HIW "$N" HIW "æ·±æ·±å¸äº†ä¸€å£æ°”ï¼ŒåŒè‡‚ä¸€æŒ¯ï¼Œä¸€è‚¡æµ‘åšçš„æ°”åŠ²ç™»"
+              "æ—¶ç›˜æ—‹åœ¨èº«è¾¹å››å‘¨ã€‚\n" NOR;
         message_combatd(msg, me);
 
         me->add_temp("apply/armor", skill / 2);
@@ -44,6 +44,6 @@ void remove_effect(object me, int amount)
         {
                 me->add_temp("apply/armor", -amount);
                 me->delete_temp("shield");
-                tell_object(me, "ÄãÏÈÌìÎŞ¼«¾¢ÔË×ªÍêÒ»¸öÖÜÌì£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ å…ˆå¤©æ— æåŠ²è¿è½¬å®Œä¸€ä¸ªå‘¨å¤©ï¼Œå°†å†…åŠ›æ”¶å›ä¸¹ç”°ã€‚\n");
         }
 }

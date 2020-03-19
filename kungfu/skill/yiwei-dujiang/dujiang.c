@@ -13,30 +13,30 @@ int perform(object me, object target)
         int count, skill;
 
         if ((int)me->query_temp("dujiang"))
-                return notify_fail("ÄãÒÑ¾­ÔËÆğ¡¸Ò»Î­¶É½­¡¹ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»è¿èµ·ã€Œä¸€è‹‡æ¸¡æ±Ÿã€äº†ã€‚\n");
 
         if ((int)me->query_skill("yiwei-dujiang", 1)< 150)
-                return notify_fail("ÄãµÄÒ»Î­¶É½­µÈ¼¶²»¹»£¬ÄÑÒÔÊ©Õ¹´ËÏî¾ø¼¼£¡\n");
+                return notify_fail("ä½ çš„ä¸€è‹‡æ¸¡æ±Ÿç­‰çº§ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•æ­¤é¡¹ç»æŠ€ï¼\n");
 
         if ((me->query_skill_mapped("force") != "hunyuan-yiqi") && (me->query_skill_mapped("force") != "yijinjing") && (me->query_skill_mapped("force") != "luohan-fumogong"))
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ¼¤·¢ÉÙÁÖÄÚ¹¦ÎªÄÚ¹¦£¬ÄÑÒÔÊ©Õ¹"  "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰æ¿€å‘å°‘æ—å†…åŠŸä¸ºå†…åŠŸï¼Œéš¾ä»¥æ–½å±•"  "ã€‚\n");
         if ((int)me->query_dex() < 30)
-                return notify_fail("ÄãµÄÉí·¨²»¹»Ê¹ÓÃ¡¸Ò»Î­¶É½­¡¹¾ø¼¼£¡\n");
+                return notify_fail("ä½ çš„èº«æ³•ä¸å¤Ÿä½¿ç”¨ã€Œä¸€è‹‡æ¸¡æ±Ÿã€ç»æŠ€ï¼\n");
 
         if ((int)me->query_skill("force", 1)< 150)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¬ÄÑÒÔÊ©Õ¹´ËÏî¾ø¼¼£¡\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•æ­¤é¡¹ç»æŠ€ï¼\n");
 
         if ((int)me->query_skill("dodge", 1)< 150)
-                return notify_fail("ÄãµÄÇá¹¦ĞŞÎª²»¹»£¬²»»áÊ¹ÓÃ´ËÏî¾ø¼¼£¡\n");
+                return notify_fail("ä½ çš„è½»åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œä¸ä¼šä½¿ç”¨æ­¤é¡¹ç»æŠ€ï¼\n");
 
         if ((int)me->query("max_neili") < 1000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»¹»Ê¹ÓÃ¡¸Ò»Î­¶É½­¡¹£¡\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸å¤Ÿä½¿ç”¨ã€Œä¸€è‹‡æ¸¡æ±Ÿã€ï¼\n");
 
         if ((int)me->query("neili") < 250)
-                return notify_fail("Äã´ËÊ±µÄÄÚÁ¦²»×ã£¡\n");
+                return notify_fail("ä½ æ­¤æ—¶çš„å†…åŠ›ä¸è¶³ï¼\n");
 
-        msg = HIB "$N" HIB "ÔËÆğÉÙÁÖ¸ßÉîÄÚ¹¦£¬Ê©Õ¹¡¸Ò»Î­¶É½­¡¹¾ø¼¼,"
-                  "ÉíĞÎÒ»Õ¹£¬Õû¸öÈË¶ÙÊ±Áè¿ÕÆ®Æğ£¬ÉíÌå±äµÃÔ½À´Ô½Çá¡£\n" NOR;
+        msg = HIB "$N" HIB "è¿èµ·å°‘æ—é«˜æ·±å†…åŠŸï¼Œæ–½å±•ã€Œä¸€è‹‡æ¸¡æ±Ÿã€ç»æŠ€,"
+                  "èº«å½¢ä¸€å±•ï¼Œæ•´ä¸ªäººé¡¿æ—¶å‡Œç©ºé£˜èµ·ï¼Œèº«ä½“å˜å¾—è¶Šæ¥è¶Šè½»ã€‚\n" NOR;
 
         message_combatd(msg, me, target);
         skill = me->query_skill("yiwei-dujiang", 1);
@@ -60,6 +60,6 @@ void remove_effect(object me, int amount, int amount1)
         {
                 me->add_temp("dex", -amount);
                 me->delete_temp("dujiang");
-                tell_object(me, "ÄãµÄ¡¸Ò»Î­¶É½­¡¹ÔË¹¦Íê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„ã€Œä¸€è‹‡æ¸¡æ±Ÿã€è¿åŠŸå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›ä¸¹ç”°ã€‚\n");
         }
 }

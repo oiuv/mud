@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define FEI "¡¸" HIC "Ó°Âä·É»¨" NOR "¡¹"
+#define FEI "ã€Œ" HIC "å½±è½é£èŠ±" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,47 +12,47 @@ int perform(object me, object target)
         int i, af, lvl, count;
 
         if (userp(me) && ! me->query("can_perform/lanhua-shou/fei"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(FEI "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(FEI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (objectp(me->query_temp("weapon")))
-                return notify_fail(FEI "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(FEI "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if ((lvl = (int)me->query_skill("lanhua-shou", 1)) < 140)
-                return notify_fail("ÄãÀ¼»¨·÷Ñ¨ÊÖ²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ å…°èŠ±æ‹‚ç©´æ‰‹ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if (me->query_skill_mapped("hand") != "lanhua-shou")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢À¼»¨·÷Ñ¨ÊÖ£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å…°èŠ±æ‹‚ç©´æ‰‹ï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if (! mapp(p = me->query_skill_prepare())
            || p["hand"] != "lanhua-shou")
-                return notify_fail("ÄãÃ»ÓĞ×¼±¸À¼»¨·÷Ñ¨ÊÖ£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡å…°èŠ±æ‹‚ç©´æ‰‹ï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if ((int)me->query("neili") < 300)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" FEI "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" FEI "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIC "$N" HIC "Î¢Ò»ÄıÉñ£¬Ë«ÊÖ×÷À¼»¨×´¼²·÷¶ø³ö£¬Ò»»·»·µÄ¾¢ÆøµÇÊ±Ö±±Æ$n"
-              HIC "È«Éí¸÷´óÒªÑ¨¡£\n" NOR;
+        msg = HIC "$N" HIC "å¾®ä¸€å‡ç¥ï¼ŒåŒæ‰‹ä½œå…°èŠ±çŠ¶ç–¾æ‹‚è€Œå‡ºï¼Œä¸€ç¯ç¯çš„åŠ²æ°”ç™»æ—¶ç›´é€¼$n"
+              HIC "å…¨èº«å„å¤§è¦ç©´ã€‚\n" NOR;
         me->add("neili", -150);
 
         if (random(me->query_skill("parry") + me->query_skill("hand")) >
             target->query_skill("parry"))
         {
-                msg += HIR "$n" HIR "¶ÙÊ±¾õµÃÑÛ»¨çÔÂÒ£¬È«È»·Ö±æ"
-                       "²»ÇåÕæÎ±£¬Ö»µÃÆ´ÃüÔË¶¯µÖµ²¡£\n" NOR;
+                msg += HIR "$n" HIR "é¡¿æ—¶è§‰å¾—çœ¼èŠ±ç¼­ä¹±ï¼Œå…¨ç„¶åˆ†è¾¨"
+                       "ä¸æ¸…çœŸä¼ªï¼Œåªå¾—æ‹¼å‘½è¿åŠ¨æŠµæŒ¡ã€‚\n" NOR;
                 count = lvl / 5;
                 me->add_temp("apply/attack", count);
         } else
         {
-                msg += HIY "¿ÉÊÇ$n" HIY "ÄıÉñ¶ÙÆø£¬·ÜÁ¦µÖµ²£¬Ë¿"
-                       "ºÁ²»ÊÜÊÖÓ°µÄ¸ÉÈÅ£¬¡£\n" NOR;
+                msg += HIY "å¯æ˜¯$n" HIY "å‡ç¥é¡¿æ°”ï¼Œå¥‹åŠ›æŠµæŒ¡ï¼Œä¸"
+                       "æ¯«ä¸å—æ‰‹å½±çš„å¹²æ‰°ï¼Œã€‚\n" NOR;
                 count = 0;
         }
         message_combatd(msg, me, target);

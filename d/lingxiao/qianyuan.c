@@ -3,12 +3,12 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ǰԺ");
+        set("short", "前院");
         set("long", @LONG 
-�����������ǵ�ǰԺ���������Ӵ󶼾�ס�ڴ˺�������
-��һ�����˺�Χ�ֵ�ī÷��������ڣ���ζ�ҷ�������Ĵ�Ժ
-���ɽ����͸��ī÷�Ļ������£���ѩ����ӳ��һ������ߡ�
-һֻѩ���������������裬�ڰ���ӳ��������Ȥ�� 
+这里是凌霄城的前院，凌霄弟子大都居住于此后。这里种
+了一棵三人合围粗的墨梅，花瓣漆黑，气味芬芳。深邃的大院
+里，高山阳光透过墨梅的花瓣射下，在雪地上映出一块块亮斑。
+一只雪鹤在树下翩翩起舞，黑白相映，互有情趣。 
 LONG);
         set("outdoors", "lingxiao");
         set("exits", ([
@@ -37,15 +37,15 @@ int do_pick(string arg)
         if (arg == "mei hua" || arg == "meihua")
         {
                 if (query("count") < -5)
-                        return notify_fail("�����÷���Ѿ���ժ���ˡ�\n");
+                        return notify_fail("这里的梅花已经被摘光了。\n");
 
                 ob = new(__DIR__"obj/mei");
                 ob->move(me, 1);
                 add("count", -1);
 
-                message_vision("$N��·�Ե�����ժ��һ��" +
-                               ob->query("name") + "��\n", me);
+                message_vision("$N从路旁的树上摘了一朵" +
+                               ob->query("name") + "。\n", me);
                 return 1;
         } else
-                return notify_fail("��Ҫժʲô��\n");
+                return notify_fail("你要摘什么？\n");
 }

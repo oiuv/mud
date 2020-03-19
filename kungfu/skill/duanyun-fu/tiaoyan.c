@@ -1,4 +1,4 @@
-// tiaoyan.c ¶áÃüÈı¸«Ö®¡¸ÌôÑÛÊ½¡¹
+// tiaoyan.c å¤ºå‘½ä¸‰æ–§ä¹‹ã€ŒæŒ‘çœ¼å¼ã€
 
 #include <ansi.h>
 #include <combat.h>
@@ -13,28 +13,28 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail("¡¸ÌôÑÛÊ½¡¹Ö»ÄÜÔÚÕ½¶·ÖĞ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("ã€ŒæŒ‘çœ¼å¼ã€åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if ((lvl = me->query_skill("duanyun-fu")) < 60)
-                return notify_fail("ÄãµÄ¶áÃüÈı¸«»¹²»µ½¼Ò£¬²»»áÊ©Õ¹¡¸ÌôÑÛÊ½¡¹¡£\n");
+                return notify_fail("ä½ çš„å¤ºå‘½ä¸‰æ–§è¿˜ä¸åˆ°å®¶ï¼Œä¸ä¼šæ–½å±•ã€ŒæŒ‘çœ¼å¼ã€ã€‚\n");
 
         if (me->query("neili") < 100)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎŞ·¨Ê©Õ¹¡¸ÌôÑÛÊ½¡¹¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•ã€ŒæŒ‘çœ¼å¼ã€ã€‚\n");
 
-        msg = HIG "$N" HIG "Ê¹³ö¶áÃüÈı¸«Ö®¡¸ÌôÑÛÊ½¡¹£¬¸«¼â¼²Ìô$n" HIG "Ë«ÑÛ¡£\n" NOR;
+        msg = HIG "$N" HIG "ä½¿å‡ºå¤ºå‘½ä¸‰æ–§ä¹‹ã€ŒæŒ‘çœ¼å¼ã€ï¼Œæ–§å°–ç–¾æŒ‘$n" HIG "åŒçœ¼ã€‚\n" NOR;
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         me->start_busy(2);
         if (random(me->query("combat_exp")) > (int)target->query("combat_exp") / 2)
         {
                 me->add("neili", -50);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, lvl, 45,
-                                           HIR "½á¹û$p" HIR "Ö»¾õµÃÑÛÇ°Ò»ºÚ£¬Ë«ÑÛÒ»"
-                                           "Õó¾çÍ´£¬ÑªÁ÷ÂúÃæ¡£\n" NOR);
+                                           HIR "ç»“æœ$p" HIR "åªè§‰å¾—çœ¼å‰ä¸€é»‘ï¼ŒåŒçœ¼ä¸€"
+                                           "é˜µå‰§ç—›ï¼Œè¡€æµæ»¡é¢ã€‚\n" NOR);
         } else
-                msg += HIG "¿ÉÊÇ$p" HIG "¿´ÆÆÁË$P" HIG "µÄÆóÍ¼£¬¼±Ã¦¶ã¿ªÁË¡£\n" NOR;
+                msg += HIG "å¯æ˜¯$p" HIG "çœ‹ç ´äº†$P" HIG "çš„ä¼å›¾ï¼Œæ€¥å¿™èº²å¼€äº†ã€‚\n" NOR;
 
         message_combatd(msg, me, target);
 

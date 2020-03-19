@@ -5,13 +5,13 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÂíÔô", ({ "ma zei", "zei" }));
-        set("gender", "ÄĞĞÔ");
+        set_name("é©¬è´¼", ({ "ma zei", "zei" }));
+        set("gender", "ç”·æ€§");
         set("age", random(10) + 30);
         set("str", 25);
         set("dex", 16);
         set("per", 16);
-        set("long", "Ò»¸ö±ëº·µÄÂíÔô¡£\n");
+        set("long", "ä¸€ä¸ªå½ªæ‚çš„é©¬è´¼ã€‚\n");
         set("combat_exp", 50000);
         set("shen_type", -1);
         set("attitude", "peaceful");
@@ -42,7 +42,7 @@ void init()
 
         if (interactive(ob = this_player()) && (int)ob->query_temp("mazei"))
         {
-                say( "ÂíÔô¶Ô×ÅÄã´óºğ£ºÄã¾¹¸Ò²»½»£¡ÀÏ×ÓÔ×ÁËÄã£¡\n");
+                say( "é©¬è´¼å¯¹ç€ä½ å¤§å¼ï¼šä½ ç«Ÿæ•¢ä¸äº¤ï¼è€å­å®°äº†ä½ ï¼\n");
                 remove_call_out("kill_ob");
                 call_out("kill_ob", 1, ob);
         }
@@ -56,9 +56,9 @@ void init()
 void greeting(object ob)
 {
         if( !ob || environment(ob) != environment() ) return;
-        say( "ÂíÔôºáµ¶µ±µÀ£¬Ò»Éù´óº°£º´ËÉ½ÊÇÎÒ¿ª£¬´ËÊ÷ÊÇÎÒÔÔ£¬ÈôÒª
-´Ó´Ë¹ı£¬ÁôÏÂÂòÂ·²Æ !\n");
-        say( "ÂíÔôËµµÀ£ºÊ¶Ïàµã¶ù£¬±¦±´¶ùÁôÏÂÀ´¾ÍÈÃÄãĞ¡×Ó×ß£¡\n");
+        say( "é©¬è´¼æ¨ªåˆ€å½“é“ï¼Œä¸€å£°å¤§å–Šï¼šæ­¤å±±æ˜¯æˆ‘å¼€ï¼Œæ­¤æ ‘æ˜¯æˆ‘æ ½ï¼Œè‹¥è¦
+ä»æ­¤è¿‡ï¼Œç•™ä¸‹ä¹°è·¯è´¢ !\n");
+        say( "é©¬è´¼è¯´é“ï¼šè¯†ç›¸ç‚¹å„¿ï¼Œå®è´å„¿ç•™ä¸‹æ¥å°±è®©ä½ å°å­èµ°ï¼\n");
         ob->set_temp("mazei",1);
 }
 
@@ -67,11 +67,11 @@ int accept_object(object who, object ob)
 	
 	if (ob->query("money_id") && ob->value() >= 5000) 
 	{
-             say( "ÂíÔô´óº°Ò»Éù£º¼ÈÈ»½»ÁËÇ®£¬¾ÍÇëÂíÇ°¹ı¡£\n");
+             say( "é©¬è´¼å¤§å–Šä¸€å£°ï¼šæ—¢ç„¶äº¤äº†é’±ï¼Œå°±è¯·é©¬å‰è¿‡ã€‚\n");
              ob->delete_temp("mazei");
 		return 1;
 	}
-       say( "ÂíÔô´óÅ­£º¾ÍÕâÃ´µãÇ®£¿\n");
+       say( "é©¬è´¼å¤§æ€’ï¼šå°±è¿™ä¹ˆç‚¹é’±ï¼Ÿ\n");
        return 0;
 }
 

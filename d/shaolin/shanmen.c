@@ -6,11 +6,11 @@ inherit ROOM;
 
 void create()
 {
-    set("short", "ÉÙÁÖËÂ");
+    set("short", "å°‘æ—å¯º");
     set("long", @LONG
-Ò»¸ö¾Ş´óµÄÅÆ·»ºá¼ÜÔÚÁ½Æ¬É½±ÚÖ®¼ä£¬ÅÆ·»ÕıÉÏ·½¿Ì×ÅÈı¸ö
-¶·´óµÄ×Ö£º¡ºÉÙÁÖËÂ¡»¡£×Ö¼£ÓĞĞ©°şÂä£¬¿´ÉÏÈ¥Äê´ú¾ÃÔ¶¡£Á½Î»
-ÈıÊ®À´ËêµÄÉ®ÈËÊÖ³Ö½äµ¶ÊØÔÚÉ½ÃÅÁ½²à¡£×ó²àÁ¢×ÅÒ»¿éÊ¯±®¡£
+ä¸€ä¸ªå·¨å¤§çš„ç‰ŒåŠæ¨ªæ¶åœ¨ä¸¤ç‰‡å±±å£ä¹‹é—´ï¼Œç‰ŒåŠæ­£ä¸Šæ–¹åˆ»ç€ä¸‰ä¸ª
+æ–—å¤§çš„å­—ï¼šã€å°‘æ—å¯ºã€ã€‚å­—è¿¹æœ‰äº›å‰¥è½ï¼Œçœ‹ä¸Šå»å¹´ä»£ä¹…è¿œã€‚ä¸¤ä½
+ä¸‰åæ¥å²çš„åƒ§äººæ‰‹æŒæˆ’åˆ€å®ˆåœ¨å±±é—¨ä¸¤ä¾§ã€‚å·¦ä¾§ç«‹ç€ä¸€å—çŸ³ç¢‘ã€‚
 LONG );
     set("exits", ([
         "eastup" : __DIR__"shijie8",
@@ -30,33 +30,33 @@ int valid_leave(object me, string dir)
     mapping myfam/*, mygen*/;
     int i;
 
-    if (me->query("gender") == "Å®ĞÔ" && dir == "eastup" ) {
+    if (me->query("gender") == "å¥³æ€§" && dir == "eastup" ) {
         if(objectp(present("xu tong", environment(me))))
-            return notify_fail("ĞéÍ¨ÉìÊÖÀ¹×¡Äã°×ÑÛÒ»·­ËµµÀ£ºÇ§ÄêÒÔÀ´£¬ÉÙÁÖÏò²»Ğí"
-                "Å®Á÷ÉÃÈë¡£" + RANK_D->query_respect(me) +"\nÇëÏÂÉ½È¥°É£¬ÃâµÃ"
-                "×ÔÌÖÃ»È¤¡£\n");
+            return notify_fail("è™šé€šä¼¸æ‰‹æ‹¦ä½ä½ ç™½çœ¼ä¸€ç¿»è¯´é“ï¼šåƒå¹´ä»¥æ¥ï¼Œå°‘æ—å‘ä¸è®¸"
+                "å¥³æµæ“…å…¥ã€‚" + RANK_D->query_respect(me) +"\nè¯·ä¸‹å±±å»å§ï¼Œå…å¾—"
+                "è‡ªè®¨æ²¡è¶£ã€‚\n");
         else if(objectp(present("xu ming", environment(me))))
-            return notify_fail("ĞéÃ÷Âõ²½µ²ÔÚÄãÉíÇ°£¬Ë«ÊÖºÏÊ²ËµµÀ£º°¢ÃÖÍÓ·ğ£¬"
-                "ÕâÎ»" + RANK_D->query_respect(me) + "ÇëÁô²½£¬\nË¡Ğ¡ËÂ²»½Ó´ıÅ®"
-                "¿Í¡£Å®Ê©Ö÷ÌÈÈôÒ»ĞÄÏò·ğ£¬ºÎ·ÁÈ¥¶ëÃ¼É½ËæÏ²£¿\n");
+            return notify_fail("è™šæ˜è¿ˆæ­¥æŒ¡åœ¨ä½ èº«å‰ï¼ŒåŒæ‰‹åˆä»€è¯´é“ï¼šé˜¿å¼¥é™€ä½›ï¼Œ"
+                "è¿™ä½" + RANK_D->query_respect(me) + "è¯·ç•™æ­¥ï¼Œ\næ•å°å¯ºä¸æ¥å¾…å¥³"
+                "å®¢ã€‚å¥³æ–½ä¸»å€˜è‹¥ä¸€å¿ƒå‘ä½›ï¼Œä½•å¦¨å»å³¨çœ‰å±±éšå–œï¼Ÿ\n");
     }
 
     myfam = (mapping)me->query("family");
 
-    if ((!myfam || myfam["family_name"] != "ÉÙÁÖÅÉ" ) && dir == "eastup") {
+    if ((!myfam || myfam["family_name"] != "å°‘æ—æ´¾" ) && dir == "eastup") {
         inv = all_inventory(me);
         for(i=sizeof(inv)-1; i>=0; i--)
             if(inv[i]->query("weapon_prop") && inv[i]->query("skill_type") &&
                inv[i]->query("equipped"))
                 if(objectp(present("xu tong", environment(me))))
-                    return notify_fail("ĞéÍ¨À¹×¡ÄãËµµÀ£ºÕâÎ»" +
-                        RANK_D->query_respect(me) + "Çë·ÅÏÂ±øÈĞ¡£ÉÙÁÖÇ§ÄêµÄ"
-                        "¹æ¾Ø£¬Íâ¿Í\n²»µÃ³Ö±øÈĞÉÏÉ½¡£\n");
+                    return notify_fail("è™šé€šæ‹¦ä½ä½ è¯´é“ï¼šè¿™ä½" +
+                        RANK_D->query_respect(me) + "è¯·æ”¾ä¸‹å…µåˆƒã€‚å°‘æ—åƒå¹´çš„"
+                        "è§„çŸ©ï¼Œå¤–å®¢\nä¸å¾—æŒå…µåˆƒä¸Šå±±ã€‚\n");
                 else if(objectp(present("xu ming", environment(me))))
-                    return notify_fail("ĞéÃ÷Âõ²½µ²ÔÚÄãÉíÇ°£¬Ë«ÊÖºÏÊ²ËµµÀ£º°¢"
-                        "ÃÖÍÓ·ğ£¬ÕâÎ»" + RANK_D->query_respect(me) + "ÇëÊÕÆğ"
-                        "\n±øÈĞ¡£·ğÃÅÇå¾²Ö®µØ£¬²»±ãËæÒâÎèµ¶Åª½£¡£»¹ÇëÊ©Ö÷¼ø"
-                        "ÁÂ¡£\n");
+                    return notify_fail("è™šæ˜è¿ˆæ­¥æŒ¡åœ¨ä½ èº«å‰ï¼ŒåŒæ‰‹åˆä»€è¯´é“ï¼šé˜¿"
+                        "å¼¥é™€ä½›ï¼Œè¿™ä½" + RANK_D->query_respect(me) + "è¯·æ”¶èµ·"
+                        "\nå…µåˆƒã€‚ä½›é—¨æ¸…é™ä¹‹åœ°ï¼Œä¸ä¾¿éšæ„èˆåˆ€å¼„å‰‘ã€‚è¿˜è¯·æ–½ä¸»é‰´"
+                        "è°…ã€‚\n");
     }
     return ::valid_leave(me, dir);
 }

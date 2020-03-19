@@ -5,21 +5,21 @@ inherit SWORD;
 
 void create()
 {
-        set_name(NOR + WHT "ºÚ½£" NOR, ({ "hei jian", "jian", "hei", "sword" }));
+        set_name(NOR + WHT "é»‘å‰‘" NOR, ({ "hei jian", "jian", "hei", "sword" }));
         set_weight(6200);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", HIY "ÕâÊÇÒ»±úºÚÉ«µÄ±¦½££¬½£Éí·¢³öÒõº®Ö®Æø£¬ÁîÈË"
-                            "Ã«¹Çã¤È»¡£\n" NOR);
-                set("unit", "±ú");
+                set("long", HIY "è¿™æ˜¯ä¸€æŸ„é»‘è‰²çš„å®å‰‘ï¼Œå‰‘èº«å‘å‡ºé˜´å¯’ä¹‹æ°”ï¼Œä»¤äºº"
+                            "æ¯›éª¨æ‚šç„¶ã€‚\n" NOR);
+                set("unit", "æŸ„");
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "steel");
-                set("wield_msg", HIY "$N" HIY "³é³öÒ»±úºÚÉ«µÄ±¦½££¬¶Ù¾õº®ÆøÃÖ"
-                               "ÂþÓÚËÄÖÜ¡£\n" NOR);
-                set("unwield_msg", HIC "$N" HIC "½£×ªÈýÖÜ£¬²å½£ÈëÇÊ£¬º®ÆøÒþÓÚ"
-                                   "½£ÇÊÖ®ÖÐ¡£\n" NOR);
+                set("wield_msg", HIY "$N" HIY "æŠ½å‡ºä¸€æŸ„é»‘è‰²çš„å®å‰‘ï¼Œé¡¿è§‰å¯’æ°”å¼¥"
+                               "æ¼«äºŽå››å‘¨ã€‚\n" NOR);
+                set("unwield_msg", HIC "$N" HIC "å‰‘è½¬ä¸‰å‘¨ï¼Œæ’å‰‘å…¥éž˜ï¼Œå¯’æ°”éšäºŽ"
+                                   "å‰‘éž˜ä¹‹ä¸­ã€‚\n" NOR);
                 set("stable", 100);
         }                                                                                                                    
         init_sword(100);
@@ -39,9 +39,9 @@ mixed hit_ob(object me, object victim, int damage_bonus)
                 n = me->query_skill("sword");
                 victim->receive_damage("qi", n, me);
                 victim->receive_wound("qi", n, me);
-                return HIG "\n$N" HIG "Ì¤Ç°Ò»²½£¬ÊÖÖÐ" HIB "ºÚ½£" HIG 
-                       "Ò»¶¶£¬Æ½Æ½´Ì³ö£¬$n" HIG "¶Ù¾õÒ»¹Éº®ÆøÆËÃæ¶ø"
-                       "À´¡£\n" NOR;
+                return HIG "\n$N" HIG "è¸å‰ä¸€æ­¥ï¼Œæ‰‹ä¸­" HIB "é»‘å‰‘" HIG 
+                       "ä¸€æŠ–ï¼Œå¹³å¹³åˆºå‡ºï¼Œ$n" HIG "é¡¿è§‰ä¸€è‚¡å¯’æ°”æ‰‘é¢è€Œ"
+                       "æ¥ã€‚\n" NOR;
         }
         return damage_bonus;
 }

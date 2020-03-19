@@ -1,4 +1,4 @@
-// xuantie.c ĞşÌúÊ¯
+// xuantie.c ç„é“çŸ³
 
 #include <ansi.h>
 
@@ -6,19 +6,19 @@ inherit ITEM;
 
 void create()
 {
-	set_name(CYN "ĞşÌúÊ¯" NOR, ({"xuan tie", "tie"}));
+	set_name(CYN "ç„é“çŸ³" NOR, ({"xuan tie", "tie"}));
 	set_weight(30000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»¿éºÚ÷î÷îÓĞĞ©·º¹âÊ¯Í·£¬µàÔÚÊÖÖĞ¸Ğµ½¼«Îª³ÁÖØ£¬Ô¶Ê¤Í­Ìú¡£\n");
-		set("unit", "¿é");
+		set("long", "ä¸€å—é»‘é»é»æœ‰äº›æ³›å…‰çŸ³å¤´ï¼Œæ‚åœ¨æ‰‹ä¸­æ„Ÿåˆ°æä¸ºæ²‰é‡ï¼Œè¿œèƒœé“œé“ã€‚\n");
+		set("unit", "å—");
 		set("value", 30000);
                 set("item_origin", 1);
                 set("material_attrib", "steel");
-                set("material_name", CYN "ĞşÌú" NOR);
+                set("material_name", CYN "ç„é“" NOR);
                 set("can_make", "all");
-                set("not_make", ({ "±Ş", "Õ½ÒÂ", "´¸", "Ñü´ø" }));
+                set("not_make", ({ "é­", "æˆ˜è¡£", "é”¤", "è…°å¸¦" }));
                 set("power_point", 70);
 	}
 }

@@ -6,10 +6,10 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-        set_name("¹ùÏå", ({ "guo xiang", "guo" }));
-        set("long", "ËıÊÇ¶ëáÒÅÉµÄ¿ªÉ½×æÊ¦¡£\n");
-        set("nickname", HIM "Ğ¡¶«Ğ°" NOR);
-        set("gender", "Å®ĞÔ");
+        set_name("éƒ­è¥„", ({ "guo xiang", "guo" }));
+        set("long", "å¥¹æ˜¯å³¨åµ‹æ´¾çš„å¼€å±±ç¥–å¸ˆã€‚\n");
+        set("nickname", HIM "å°ä¸œé‚ª" NOR);
+        set("gender", "å¥³æ€§");
         set("age", 24);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -59,7 +59,7 @@ void create()
         map_skill("sword","huifeng-jian");
         map_skill("parry","huifeng-jian");
 
-        create_family("¶ëáÒÅÉ", 1, "¿ªÉ½×æÊ¦");
+        create_family("å³¨åµ‹æ´¾", 1, "å¼€å±±ç¥–å¸ˆ");
 
         setup();
 

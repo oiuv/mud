@@ -1,4 +1,4 @@
-// laoseng.c Ñ©É½ÀÏÉ®
+// laoseng.c é›ªå±±è€åƒ§
 
 #include <ansi.h>
 
@@ -6,9 +6,9 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("Ñ©É½ÀÏÉ®", ({ "lao seng", "seng" }));
-	set("long",  "´ËÈËÒ»¸±Ñ©É½ÅÉµÄ´ò°ç£¬Éñ²ÉÆ®Òİ£¬Ò»¿´±ãÊÇµÃµÀ¸ßÉ®¡£\n");
-	set("gender", "ÄĞĞÔ");
+	set_name("é›ªå±±è€åƒ§", ({ "lao seng", "seng" }));
+	set("long",  "æ­¤äººä¸€å‰¯é›ªå±±æ´¾çš„æ‰“æ‰®ï¼Œç¥é‡‡é£˜é€¸ï¼Œä¸€çœ‹ä¾¿æ˜¯å¾—é“é«˜åƒ§ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 62);
 	set("attitude", "peaceful");
 	set("shen_type", 1);
@@ -52,7 +52,7 @@ void create()
         prepare_skill("strike", "huoyan-dao");
 	prepare_skill("hand", "dashou-yin");
 
-	create_family("´óÂÖËÂ", 0, "¸ßÉ®");
+	create_family("å¤§è½®å¯º", 0, "é«˜åƒ§");
         set("class", "bonze");
 
 	set("chat_chance_combat", 120);

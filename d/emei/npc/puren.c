@@ -5,11 +5,11 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("ÆÍÈË", ({ "pu ren", "pu", "ren" }));
-        set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
+        set_name("ä»†äºº", ({ "pu ren", "pu", "ren" }));
+        set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
         set("age", 18);
-        set("gender", "ÄĞĞÔ");
-        set("long", "ÕâÊÇÒ»¸ö³¤Í¾Åã°éÊÌºîÉÙ¸¾µÄÆÍÈË¡£\n");
+        set("gender", "ç”·æ€§");
+        set("long", "è¿™æ˜¯ä¸€ä¸ªé•¿é€”é™ªä¼´ä¾ä¾¯å°‘å¦‡çš„ä»†äººã€‚\n");
         set("attitude", "peaceful");
         set("str", 24);
         set("dex", 16);

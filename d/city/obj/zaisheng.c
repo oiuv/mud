@@ -1,15 +1,15 @@
-// lianzi.c °×Á«×Ó
+// lianzi.c ç™½è²å­
 
 inherit ITEM;
 
 void create()
 {
-	set_name("°×Á«×Ó", ({"bailian zi", "zi"}));
+	set_name("ç™½è²å­", ({"bailian zi", "zi"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¿Å");
-		set("long", "ÕâÊÇÒ»¿Å½à°×ÈçÓñµÄ°×Á«×Ó¡£\n");
+		set("unit", "é¢—");
+		set("long", "è¿™æ˜¯ä¸€é¢—æ´ç™½å¦‚ç‰çš„ç™½è²å­ã€‚\n");
 		set("value", 2000);
                 set("only_do_effect", 1);
 	}
@@ -19,10 +19,10 @@ void create()
 int do_effect(object me)
 {
 	if (me->query("potential") >= me->query_potential_limit())
-		return notify_fail("ÄãÏÖÔÚ²»ĞèÒªÓÃ°×Á«×Ó¡£\n");
+		return notify_fail("ä½ ç°åœ¨ä¸éœ€è¦ç”¨ç™½è²å­ã€‚\n");
 
         me->add("potential", 1);
-        message_vision("$N³ÔÏÂÒ»¿Å°×Á«×Ó£¬¾õµÃÒ»ÕóÉñÇåÒâË¬£¡\n", me);
+        message_vision("$Nåƒä¸‹ä¸€é¢—ç™½è²å­ï¼Œè§‰å¾—ä¸€é˜µç¥æ¸…æ„çˆ½ï¼\n", me);
         destruct(this_object());
         return 1;
 }

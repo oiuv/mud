@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-    set("short", "����");
+    set("short", "竹屋");
     set("long", @LONG
-���������������ľ���----�ɸ��ӣ��м�һ�Ŵ�����ǽ�Ϲ���һ
-��ˮī����û��ʲô�ر����֮����
+这里是神龙教主的居室----仙福居，中间一张大桌，墙上挂着一
+副水墨画，没有什么特别出奇之处。
 LONG );
     set("exits", ([
 	"east" : __DIR__"zhulin",

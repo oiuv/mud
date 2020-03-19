@@ -5,15 +5,15 @@ inherit ITEM;
 
 void create()
 {
-	set_name("¿İÇ¬µÄº¡¹Ç", ({ "Skeleton", "skeleton", "º¡¹Ç" }));
+	set_name("æ¯ä¹¾çš„éª¸éª¨", ({ "Skeleton", "skeleton", "éª¸éª¨" }));
         set_weight(500);
         if (clonep())
         	set_default_object(__FILE__);
     	else {
-        	set("unit", "¾ß");
-                set("long", "Õâ¸±º¡¹ÇÒÑ¾­ÌÉÔÚÕâÀïºÜ¾ÃÁË¡£\n");
+        	set("unit", "å…·");
+                set("long", "è¿™å‰¯éª¸éª¨å·²ç»èººåœ¨è¿™é‡Œå¾ˆä¹…äº†ã€‚\n");
         	set("value", 1);
-        	set("no_get", "Õâ¶«Î÷Ò»Åö¾ÍÉ¢£¬»¹ÊÇ±ğ¼ğ°É£¡\n");
+        	set("no_get", "è¿™ä¸œè¥¿ä¸€ç¢°å°±æ•£ï¼Œè¿˜æ˜¯åˆ«æ‹£å§ï¼\n");
     	}
 }
 
@@ -36,11 +36,11 @@ int do_move(string arg)
         if (! environment(ob))
         {
         	ob->move(environment(me));
-                message_vision(HIC "\n$N" HIC "Ğ¡ĞÄÒíÒíµØ½«º¡¹ÇÒÆ¿ª£¬·¢ÏÖÏÂ"
-                               "Ãæ»íÈ»²ØÓĞÒ»¾íÖñ¼ò¡£\n" NOR, me);
+                message_vision(HIC "\n$N" HIC "å°å¿ƒç¿¼ç¿¼åœ°å°†éª¸éª¨ç§»å¼€ï¼Œå‘ç°ä¸‹"
+                               "é¢è±ç„¶è—æœ‰ä¸€å·ç«¹ç®€ã€‚\n" NOR, me);
                 return 1;
         } else
-                message_vision(HIY "$N" HIY "Ğ¡ĞÄÒíÒíµØ½«º¡¹ÇÒÆ¿ª£¬¿ÉÊÇÊ²Ã´"
-                               "Ò²Ã»·¢ÏÖ¡£\n" NOR, me);
+                message_vision(HIY "$N" HIY "å°å¿ƒç¿¼ç¿¼åœ°å°†éª¸éª¨ç§»å¼€ï¼Œå¯æ˜¯ä»€ä¹ˆ"
+                               "ä¹Ÿæ²¡å‘ç°ã€‚\n" NOR, me);
         return 1;
 }

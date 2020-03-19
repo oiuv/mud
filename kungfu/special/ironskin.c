@@ -1,25 +1,25 @@
-// ironskin.c 铜皮铁骨
+// ironskin.c 閾滅毊閾侀
 // Created by Vin 1/9/2001
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return YEL "铜皮铁骨" NOR; }
+string name() { return YEL "閾滅毊閾侀" NOR; }
 
 int perform(object me, string skill)
 {
         int count;
 
         if (me->query("qi") < 40)
-                return notify_fail("你的体力不支，无法迅猛提升自己的防御力。\n");
+                return notify_fail("浣犵殑浣撳姏涓嶆敮锛屾棤娉曡繀鐚涙彁鍗囪嚜宸辩殑闃插尽鍔涖�俓n");
 
-        message_vision(YEL "$N" YEL "微一凝神，气沉丹田，双目陡然"
-                       "精光四射。\n" NOR, me);
+        message_vision(YEL "$N" YEL "寰竴鍑濈锛屾皵娌変腹鐢帮紝鍙岀洰闄＄劧"
+                       "绮惧厜鍥涘皠銆俓n" NOR, me);
         count = me->query_str() * 3 / 2;
 
         if (me->query_temp("special_skill/ironskin", 1))
-                return notify_fail("你已经尽力提升自己的防御力了。\n");
+                return notify_fail("浣犲凡缁忓敖鍔涙彁鍗囪嚜宸辩殑闃插尽鍔涗簡銆俓n");
 
         me->receive_damage("qi", 20 + random(20));
         me->set_temp("special_skill/ironskin", 1);
@@ -34,5 +34,5 @@ void remove_effect(object me, int count)
 {
         me->delete_temp("special_skill/ironskin", 1);
         me->add_temp("apply/armor", -count);
-        tell_object(me, "你施展完铜皮铁骨，放松了全身的劲道。\n");
+        tell_object(me, "浣犳柦灞曞畬閾滅毊閾侀锛屾斁鏉句簡鍏ㄨ韩鐨勫姴閬撱�俓n");
 }

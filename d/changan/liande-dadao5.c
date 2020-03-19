@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create ()
 {
-        set ("short", "Á¬µÂ´óµÀ");
+        set ("short", "è¿žå¾·å¤§é“");
         set ("long", @LONG
-³ÇÄÚ½ÖµÀ£¬ÒÔÄÏ±±ÈýÌõ²¢ÐÐµÄ´ó½Ö£¬ºÍ¶«Î÷µÄ¶þÌõÖ÷½Ö»¥Ïà½»´í¶ø
-³É¡£ÎåÌõ´ó½ÖÔÚÕâÇåÀÊµÄÒ¹³õ£¬È´¼ûÈËÀ´³µÍù£¬µÆ»ðÍ¨Ã÷£¬±ðÓÐÒ»·¬ÈÈ
-ÄÖ¡£ÆäËûÐ¡½ÖºáÏï£¬ÔòÒÀÕâÐ©Ö÷½Ö½»´í²¼ÖÃ£¬¾®È»ÓÐÐò¡£
+åŸŽå†…è¡—é“ï¼Œä»¥å—åŒ—ä¸‰æ¡å¹¶è¡Œçš„å¤§è¡—ï¼Œå’Œä¸œè¥¿çš„äºŒæ¡ä¸»è¡—äº’ç›¸äº¤é”™è€Œ
+æˆã€‚äº”æ¡å¤§è¡—åœ¨è¿™æ¸…æœ—çš„å¤œåˆï¼Œå´è§äººæ¥è½¦å¾€ï¼Œç¯ç«é€šæ˜Žï¼Œåˆ«æœ‰ä¸€ç•ªçƒ­
+é—¹ã€‚å…¶ä»–å°è¡—æ¨ªå··ï¼Œåˆ™ä¾è¿™äº›ä¸»è¡—äº¤é”™å¸ƒç½®ï¼Œäº•ç„¶æœ‰åºã€‚
 LONG);
         set("exits",([//sizeof() == 3
         	"south" : __DIR__"liande-nankou",

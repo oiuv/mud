@@ -3,9 +3,9 @@ inherit F_BANKER;
 
 void create()
 {
-        set_name("Ìú¹«¼¦", ({"tie gongji", "tie", "gongji"}));
-        set("title", "Ç®×¯ÀÏ°å");
-        set("gender", "ÄĞĞÔ");
+        set_name("é“å…¬é¸¡", ({"tie gongji", "tie", "gongji"}));
+        set("title", "é’±åº„è€æ¿");
+        set("gender", "ç”·æ€§");
         set("age", 34);
         set("str", 22);
         set("int", 24);
@@ -23,7 +23,7 @@ void create()
         set("env/wimpy", 50);
         set("chat_chance", 2);
         set("chat_msg", ({
-        "Ìú¹«¼¦°×ÑÛÒ»·­£¬ËµµÀ£º±¾Ç®×¯ÊÇ¾©³ÇÖĞ×î´óµÄÇ®×¯¡£\n",
+        "é“å…¬é¸¡ç™½çœ¼ä¸€ç¿»ï¼Œè¯´é“ï¼šæœ¬é’±åº„æ˜¯äº¬åŸä¸­æœ€å¤§çš„é’±åº„ã€‚\n",
         }));
         set_skill("unarmed", 50);
         set_skill("dodge", 50);

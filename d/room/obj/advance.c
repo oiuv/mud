@@ -1,6 +1,6 @@
-// afeecard.c ¸ß¼¶Ãâ·Ñ¿¨
+// afeecard.c é«˜çº§å…è´¹å¡
 //
-// Ê¹ÓÃÃâ·Ñ¿¨½¨·¿²»ĞèÒª»¨·ÑÈÎºÎÒøÁ½
+// ä½¿ç”¨å…è´¹å¡å»ºæˆ¿ä¸éœ€è¦èŠ±è´¹ä»»ä½•é“¶ä¸¤
 
 #include <ansi.h>
 
@@ -8,12 +8,12 @@ inherit ITEM;
 
 void create()
 {
-        set_name(YEL "Ãâ·Ñ¿¨" NOR, ({ "card", "fee free card" }));
+        set_name(YEL "å…è´¹å¡" NOR, ({ "card", "fee free card" }));
         set_weight(10);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "ÕÅ");
+                set("unit", "å¼ ");
                 set("material", "paper");
                 set("fee free", 10000000);
                 set("value", 1);
@@ -25,9 +25,9 @@ string long()
 {
         string msg;
 
-        msg = "ÕâÊÇÒ»ÕÅ¸ß¼¶×¡·¿Ãâ·Ñ¿¨£¬Æ¾ÕâÕÅ¿¨¿ÉÒÔÃâ·Ñ¹ºÂòÒ»Ì×¼Û¸ñ";
+        msg = "è¿™æ˜¯ä¸€å¼ é«˜çº§ä½æˆ¿å…è´¹å¡ï¼Œå‡­è¿™å¼ å¡å¯ä»¥å…è´¹è´­ä¹°ä¸€å¥—ä»·æ ¼";
         msg += MONEY_D->price_str(query("fee free"));
-        msg += "ÒÔÏÂµÄ×¡·¿Ò»Ì×¡£\n";
+        msg += "ä»¥ä¸‹çš„ä½æˆ¿ä¸€å¥—ã€‚\n";
         return msg;
 }
 

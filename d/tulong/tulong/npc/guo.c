@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("¹ıÈıÈ­", ({ "guo sanquan", "guo", "sanquan"}) );
+        set_name("è¿‡ä¸‰æ‹³", ({ "guo sanquan", "guo", "sanquan"}) );
         set("long",
-                  "ÕâÊÇÉñÈ­ÃÅÕÆÃÅÈË¹ıÈıÈ­¡£Éí²Ä¸ß´ó£¬Ë«\n±Û¼¡Èâ½áÊµ£¬Ò»¿´¾ÍÖªµÀÊÇÍâ¼ÒºÃÊÖ¡£\n");
+                  "è¿™æ˜¯ç¥æ‹³é—¨æŒé—¨äººè¿‡ä¸‰æ‹³ã€‚èº«æé«˜å¤§ï¼ŒåŒ\nè‡‚è‚Œè‚‰ç»“å®ï¼Œä¸€çœ‹å°±çŸ¥é“æ˜¯å¤–å®¶å¥½æ‰‹ã€‚\n");
         set("attitude", "heroism");
-        set("title", HIR "ÉñÈ­ÃÅÕÆÃÅÈË" NOR);
+        set("title", HIR "ç¥æ‹³é—¨æŒé—¨äºº" NOR);
         set("age", 56);
         set("combat_exp", 800000);
 
@@ -28,42 +28,42 @@ void create()
 
 int accept_fight(object who)
 {
-        command("say ÎÒ²»ºÍÄãÂù´ò£¬Ö»ºÍÄã±È(bi)Ò»Ğ©È­½ÅÉÏµÄ¹¦·ò¡£");
+        command("say æˆ‘ä¸å’Œä½ è›®æ‰“ï¼Œåªå’Œä½ æ¯”(bi)ä¸€äº›æ‹³è„šä¸Šçš„åŠŸå¤«ã€‚");
         return 0;
 }
 
 int accept_hit(object who)
 {
-        command("say ÎÒ²»ºÍÄãÂù´ò£¬Ö»ºÍÄã±È(bi)Ò»Ğ©È­½ÅÉÏµÄ¹¦·ò¡£");
+        command("say æˆ‘ä¸å’Œä½ è›®æ‰“ï¼Œåªå’Œä½ æ¯”(bi)ä¸€äº›æ‹³è„šä¸Šçš„åŠŸå¤«ã€‚");
         return 0;
 }
 
 int accept_kill(object who)
 {
-        command("say ÔõÃ´£¬ÏëµÃÍÀÁúµ¶¾Í·ÇµÃÒªĞĞĞ×²»³É£¿");
+        command("say æ€ä¹ˆï¼Œæƒ³å¾—å± é¾™åˆ€å°±éå¾—è¦è¡Œå‡¶ä¸æˆï¼Ÿ");
 	return 1;
 }
 
 int accept_ansuan(object who)
 {
-        return notify_fail("Äã¸ÕÏë°µËã£¬¿ÉÊÇÖ»¼û»á³¡ÀïºÚÑ¹Ñ¹µÄ¼·ÂúÁËÈË£¬¸ù±¾¿´²»Çå³ş¡£\n");
+        return notify_fail("ä½ åˆšæƒ³æš—ç®—ï¼Œå¯æ˜¯åªè§ä¼šåœºé‡Œé»‘å‹å‹çš„æŒ¤æ»¡äº†äººï¼Œæ ¹æœ¬çœ‹ä¸æ¸…æ¥šã€‚\n");
 }
 
 int begin(object me)
 {
         command("bow");
-        command("say ¸óÏÂ¶Ô²»×¡ÁË£¬½ñÈÕÎÒÈç²»³ÃÈËÖ®Î££¬¶¨»áËÀÓÚ¸óÏÂÖ®ÊÖ£¡");
-        command("say ÎÒÉñÈ­ÃÅ¾ø¼¼£¬ÄËÊÇÊ¹ÓÃÊÖÉÏ¹¦·ò£¬ÏÈ³ÔÎÒÈıÈ­ÔÙËµ¡£");
+        command("say é˜ä¸‹å¯¹ä¸ä½äº†ï¼Œä»Šæ—¥æˆ‘å¦‚ä¸è¶äººä¹‹å±ï¼Œå®šä¼šæ­»äºé˜ä¸‹ä¹‹æ‰‹ï¼");
+        command("say æˆ‘ç¥æ‹³é—¨ç»æŠ€ï¼Œä¹ƒæ˜¯ä½¿ç”¨æ‰‹ä¸ŠåŠŸå¤«ï¼Œå…ˆåƒæˆ‘ä¸‰æ‹³å†è¯´ã€‚");
 
-        message_vision(HIR "\n$NºÈµÀ£ºĞ¡ĞÄÁË£¡ÎÒÕâµÚÒ»È­ÄË¡°´ß½î¶Ï¹Ç¡±£¡\n" NOR,
+        message_vision(HIR "\n$Nå–é“ï¼šå°å¿ƒäº†ï¼æˆ‘è¿™ç¬¬ä¸€æ‹³ä¹ƒâ€œå‚¬ç­‹æ–­éª¨â€ï¼\n" NOR,
                            this_object());
         COMBAT_D->do_attack(this_object(), this_player(),query_temp("weapon"));
 
-        message_vision(HIR "\n$NºÈµÀ£ººÃ£¡¿´ÎÒµÚ¶şÈ­¡°±ÀÉ½ÁÑÊ¯¡±£¡\n" NOR,
+        message_vision(HIR "\n$Nå–é“ï¼šå¥½ï¼çœ‹æˆ‘ç¬¬äºŒæ‹³â€œå´©å±±è£‚çŸ³â€ï¼\n" NOR,
                            this_object());
         COMBAT_D->do_attack(this_object(), this_player(),query_temp("weapon"));
 
-        message_vision(HIR "\n$NºÈµÀ£ºµÚÈıÈ­À´ÁË£¡ÕâÊ½½Ğ×ö¡°ºáÉ¨Ç§¾ü£¬Ö±´İÍòÂí¡±£¡\n" NOR,
+        message_vision(HIR "\n$Nå–é“ï¼šç¬¬ä¸‰æ‹³æ¥äº†ï¼è¿™å¼å«åšâ€œæ¨ªæ‰«åƒå†›ï¼Œç›´æ‘§ä¸‡é©¬â€ï¼\n" NOR,
                            this_object());
         this_object()->set_temp("apply/attack",250);
         this_object()->set_temp("apply/damage",250);
@@ -78,12 +78,12 @@ void die()
 {
         if (objectp(query("anti")))
         {
-                message_vision(HIR "\n\n$NÒ»È­¶Ë¶ËÕıÕıµÄ»÷ÖĞÁË$n" HIR
-                                   "µÄĞ¡¸¹¡£\n" NOR,
+                message_vision(HIR "\n\n$Nä¸€æ‹³ç«¯ç«¯æ­£æ­£çš„å‡»ä¸­äº†$n" HIR
+                                   "çš„å°è…¹ã€‚\n" NOR,
                                    this_object(),query("anti"));
 
-                message_vision(HIR "ÈËÉíµÄĞ¡¸¹±¾À´¼«ÊÇÈáÈí£¬µ«$N" HIR
-                                   "×ÅÈ­Ê±ÈçÖĞÌúÊ¯£¬¸ÕÖª²»Ãî£¬ÒÑ¿ñÅçÏÊÑª¡£\n" NOR,
+                message_vision(HIR "äººèº«çš„å°è…¹æœ¬æ¥ææ˜¯æŸ”è½¯ï¼Œä½†$N" HIR
+                                   "ç€æ‹³æ—¶å¦‚ä¸­é“çŸ³ï¼ŒåˆšçŸ¥ä¸å¦™ï¼Œå·²ç‹‚å–·é²œè¡€ã€‚\n" NOR,
                                    this_object(),query("anti"));
 
                 query("anti")->set_temp("win_guo",1);
@@ -108,9 +108,9 @@ int do_get(string arg)
         obj=this_object();
         if(where == "ding")
         {
-                message_vision(CYN "$NºßÁËÒ»Éù¡£\n" NOR,
+                message_vision(CYN "$Nå“¼äº†ä¸€å£°ã€‚\n" NOR,
                                    obj);
-                message_vision(CYN "$NËµµÀ£ºÒªÏëµÃµ½±¦µ¶£¬ÏÈ¹ıÎÒÈıÈ­£¡\n" NOR,
+                message_vision(CYN "$Nè¯´é“ï¼šè¦æƒ³å¾—åˆ°å®åˆ€ï¼Œå…ˆè¿‡æˆ‘ä¸‰æ‹³ï¼\n" NOR,
                                    obj);
                 this_player()->delete_temp("bi");
                 return 1;

@@ -11,12 +11,12 @@ int halt_working(object me);
 
 void create()
 {
-        set_name("Æ½Ò»Ö¸", ({ "ping yizhi", "ping", "yizhi" }));
-        set("title", "ÈÕÔÂÉñ½ÌÇ°±²");
-        set("nickname", HIW "É±ÈËÉñÒ½" NOR);
-        set("gender", "ÄÐÐÔ");
-        set("long", "Ëû¾ÍÊÇÒ½Êõ¸ß³¬µÄ¡¸É±ÈËÉñÒ½¡¹Æ½Ò»Ö¸¡£¿ÉÊÇËûÐÔ¸ñ¹Å\n"
-                    "¹Ö£¬²»ÊÇÊ²Ã´ÈË¶¼Ò½µÄ¡£\n");
+        set_name("å¹³ä¸€æŒ‡", ({ "ping yizhi", "ping", "yizhi" }));
+        set("title", "æ—¥æœˆç¥žæ•™å‰è¾ˆ");
+        set("nickname", HIW "æ€äººç¥žåŒ»" NOR);
+        set("gender", "ç”·æ€§");
+        set("long", "ä»–å°±æ˜¯åŒ»æœ¯é«˜è¶…çš„ã€Œæ€äººç¥žåŒ»ã€å¹³ä¸€æŒ‡ã€‚å¯æ˜¯ä»–æ€§æ ¼å¤\n"
+                    "æ€ªï¼Œä¸æ˜¯ä»€ä¹ˆäººéƒ½åŒ»çš„ã€‚\n");
         set("age", 65);
 
         set("int", 38);
@@ -37,65 +37,65 @@ void create()
         set_temp("apply/defense", 70);
         set_temp("apply/damage", 50);
         set("inquiry", ([
-                "ÅäÒ©"   : (: ask_job :),
-                "¹¤×÷"   : (: ask_job :),
+                "é…è¯"   : (: ask_job :),
+                "å·¥ä½œ"   : (: ask_job :),
                 "job"    : (: ask_job :),
         ]));
 
         set("vendor_goods", ({
-                HERB("chaihu"),         // ²ñºú
-                HERB("chenpi"),         // ³ÂÆ¤
-                HERB("chongcao"),       // ³æ²Ý
-                HERB("chuanwu"),        // ´¨ÎÚ
-                HERB("dahuang"),        // ´ó»Æ
-                HERB("dangui"),         // µ±¹é
-                HERB("duhuo"),          // ¶À»î
-                HERB("fangfeng"),       // ·À·ç
-                HERB("fuzi"),           // ¸½×Ó
-                HERB("gsliu"),          // ¸ÉÊ¯Áñ
-                HERB("guiwei"),         // ¹éÎ²
-                HERB("hafen"),          // ¸ò·Û
-                HERB("heshouwu"),       // ºÎÊ×ÎÚ
-                HERB("honghua"),        // ºì»¨
-                HERB("huangqi"),        // »ÆÜÎ
-				HERB("hugu"),			// »¢¹Ç
-                HERB("juhua"),          // ¾Õ»¨
-                HERB("lanhua"),         // À¼»¨
-                HERB("lingxian"),       // ÁéÏÉ
-                HERB("lingzhi"),        // ÁéÖ¥
-				HERB("lurong"),		// Â¹È×
-                HERB("mahuang"),        // Âé»Æ
-                HERB("moyao"),          // Ã»Ò©
-                HERB("niuhuang"),       // Å£»Æ
-                HERB("niuxi"),          // Å£Ï¥
-                HERB("qianjinzi"),      // Ç§½ð×Ó
-                HERB("renshen"),        // ÈË²Î
-                HERB("ruxiang"),        // ÈéÏã
-                HERB("shadan"),         // öèµ¨
-                HERB("shancha"),        // É½²è»¨
-                HERB("shanjia"),        // É½¼×
-                HERB("shengdi"),        // ÉúµØ
-                HERB("shenglg"),        // ÉúÁú¹Ç
-                HERB("sumu"),           // ËÕÄ¾
-                HERB("taoxian"),        // ÌÒÏÉ
-                HERB("tenghuang"),      // ÌÙ»Æ
-                HERB("tianqi"),         // ÌïÆß
-                HERB("tugou"),          // ÍÁ¹·
-                HERB("wulingzhi"),      // ÎåÁéÖ¬
-                HERB("xiefen"),         // Ð«·Û
-                HERB("xijiao"),         // Ï¬½Ç
-				HERB("xiongdan"),		// ÐÜµ¨
-                HERB("xionghuang"),     // ÐÛ»Æ
-                HERB("xuejie"),         // Ñª½ß
-                HERB("xuelian"),        // Ñ©Á«
-                HERB("yanwo"),          // ÑàÎÑ
-                HERB("yjhua"),          // Ñó½ð»¨
-                HERB("yuanzhi"),        // Ô¶Ö¾
-                HERB("zihua"),          // ×Ï»¨
-                HERB("zzfen"),          // ÕäÖé·Û
+                HERB("chaihu"),         // æŸ´èƒ¡
+                HERB("chenpi"),         // é™ˆçš®
+                HERB("chongcao"),       // è™«è‰
+                HERB("chuanwu"),        // å·ä¹Œ
+                HERB("dahuang"),        // å¤§é»„
+                HERB("dangui"),         // å½“å½’
+                HERB("duhuo"),          // ç‹¬æ´»
+                HERB("fangfeng"),       // é˜²é£Ž
+                HERB("fuzi"),           // é™„å­
+                HERB("gsliu"),          // å¹²çŸ³æ¦´
+                HERB("guiwei"),         // å½’å°¾
+                HERB("hafen"),          // è›¤ç²‰
+                HERB("heshouwu"),       // ä½•é¦–ä¹Œ
+                HERB("honghua"),        // çº¢èŠ±
+                HERB("huangqi"),        // é»„èŠª
+				HERB("hugu"),			// è™Žéª¨
+                HERB("juhua"),          // èŠèŠ±
+                HERB("lanhua"),         // å…°èŠ±
+                HERB("lingxian"),       // çµä»™
+                HERB("lingzhi"),        // çµèŠ
+				HERB("lurong"),		// é¹¿èŒ¸
+                HERB("mahuang"),        // éº»é»„
+                HERB("moyao"),          // æ²¡è¯
+                HERB("niuhuang"),       // ç‰›é»„
+                HERB("niuxi"),          // ç‰›è†
+                HERB("qianjinzi"),      // åƒé‡‘å­
+                HERB("renshen"),        // äººå‚
+                HERB("ruxiang"),        // ä¹³é¦™
+                HERB("shadan"),         // é²¨èƒ†
+                HERB("shancha"),        // å±±èŒ¶èŠ±
+                HERB("shanjia"),        // å±±ç”²
+                HERB("shengdi"),        // ç”Ÿåœ°
+                HERB("shenglg"),        // ç”Ÿé¾™éª¨
+                HERB("sumu"),           // è‹æœ¨
+                HERB("taoxian"),        // æ¡ƒä»™
+                HERB("tenghuang"),      // è—¤é»„
+                HERB("tianqi"),         // ç”°ä¸ƒ
+                HERB("tugou"),          // åœŸç‹—
+                HERB("wulingzhi"),      // äº”çµè„‚
+                HERB("xiefen"),         // èŽç²‰
+                HERB("xijiao"),         // çŠ€è§’
+				HERB("xiongdan"),		// ç†Šèƒ†
+                HERB("xionghuang"),     // é›„é»„
+                HERB("xuejie"),         // è¡€ç«­
+                HERB("xuelian"),        // é›ªèŽ²
+                HERB("yanwo"),          // ç‡•çª
+                HERB("yjhua"),          // æ´‹é‡‘èŠ±
+                HERB("yuanzhi"),        // è¿œå¿—
+                HERB("zihua"),          // ç´«èŠ±
+                HERB("zzfen"),          // çç ç²‰
 
-                "/clone/misc/yanbo",    // ÑÐ²§
-                "/d/shenlong/obj/hua4", // ôä´äÀ¼
+                "/clone/misc/yanbo",    // ç ”é’µ
+                "/d/shenlong/obj/hua4", // ç¿¡ç¿ å…°
         }));
 
         setup();
@@ -117,31 +117,31 @@ string ask_job()
 
         me = this_player();
         if (me->query_temp("job/peiyao"))
-                return "ÈÃÄã¸ÉµÄ»îÄã¸ÉÍêÁËÃ´£¿";
+                return "è®©ä½ å¹²çš„æ´»ä½ å¹²å®Œäº†ä¹ˆï¼Ÿ";
 
         if (me->query("combat_exp") > 20000)
-                return "ÈÃÄã¸ÉÕâ»î£¬Ò²Ì«Çü¾ÍÄãÁË°É¡£";
+                return "è®©ä½ å¹²è¿™æ´»ï¼Œä¹Ÿå¤ªå±ˆå°±ä½ äº†å§ã€‚";
 
         if (me->query("combat_exp") < 5000)
-                return "¾ÍÆ¾Äã¾ÍÕâµãÄÜÁ¦£¬ÎÒ¿´ÄãÀ´Ò©¾Ê¶¼¶Ë²»ÆðÀ´£¡";
+                return "å°±å‡­ä½ å°±è¿™ç‚¹èƒ½åŠ›ï¼Œæˆ‘çœ‹ä½ æ¥è¯è‡¼éƒ½ç«¯ä¸èµ·æ¥ï¼";
 
         if (me->query("qi") < 5)
-                return "Äã»¹ÊÇÏÈÐªÐª°É£¬ÍòÒ»ÀÛ³öÈËÃüÀ´ÎÒ¿É¸ºµ£²»Æð¡£";
+                return "ä½ è¿˜æ˜¯å…ˆæ­‡æ­‡å§ï¼Œä¸‡ä¸€ç´¯å‡ºäººå‘½æ¥æˆ‘å¯è´Ÿæ‹…ä¸èµ·ã€‚";
 
         if (! interactive(me))
-                return "¡­¡­";
+                return "â€¦â€¦";
 /*
-//È¡ÏûÈËÊýÏÞÖÆ
+//å–æ¶ˆäººæ•°é™åˆ¶
         obs = filter_array(all_inventory(environment()),
                            (: interactive($1) &&
                               $1 != $(me) &&
                               $1->query_temp("job/peiyao") &&
                               query_ip_number($1) == query_ip_number($(me)) :));
         if (sizeof(obs) > 0)
-                return "ÎÒÕâÒÑ¾­ÓÐ" + obs[0]->name() + "ÔÚ¸É»îÁË£¬ÄãµÈµÈ°É¡£";
+                return "æˆ‘è¿™å·²ç»æœ‰" + obs[0]->name() + "åœ¨å¹²æ´»äº†ï¼Œä½ ç­‰ç­‰å§ã€‚";
 */
         me->set_temp("job/peiyao", 1);
-        return "ºÃ£¬Äã¾Í°ïÎÒÅäÒ©(peiyao)°É£¡ßö£¬¾ÍÕâ¼¸Î¶¡£";
+        return "å¥½ï¼Œä½ å°±å¸®æˆ‘é…è¯(peiyao)å§ï¼å–ï¼Œå°±è¿™å‡ å‘³ã€‚";
 }
 
 int do_peiyao(string arg)
@@ -150,12 +150,12 @@ int do_peiyao(string arg)
 
         me = this_player();
         if (me->is_busy())
-                return notify_fail("ÄãÕýÃ¦×ÅÄØ£¬±ð×Å¼±¡£\n");
+                return notify_fail("ä½ æ­£å¿™ç€å‘¢ï¼Œåˆ«ç€æ€¥ã€‚\n");
 
         if (! me->query_temp("job/peiyao"))
         {
-                message_vision(CYN "$N" CYN "¸ÕÏë×¥¼¸Î¶Ò©ÅäÖÆ£¬¾ÍÌý¼û$n"
-                               CYN "Å­ºÈµÀ£º¸øÎÒ·ÅÏÂ£¬±ðÂÒ¶¯¡£\n" NOR,
+                message_vision(CYN "$N" CYN "åˆšæƒ³æŠ“å‡ å‘³è¯é…åˆ¶ï¼Œå°±å¬è§$n"
+                               CYN "æ€’å–é“ï¼šç»™æˆ‘æ”¾ä¸‹ï¼Œåˆ«ä¹±åŠ¨ã€‚\n" NOR,
                                me, this_object());
                 return 1;
         }
@@ -163,7 +163,7 @@ int do_peiyao(string arg)
         me->set_temp("job/step", 1);
         me->start_busy(bind((: call_other, __FILE__, "working" :), me),
                        bind((: call_other, __FILE__, "halt_working" :), me));
-        tell_object(me, HIY "Äã¿ªÊ¼¹¤×÷¡£\n" NOR);
+        tell_object(me, HIY "ä½ å¼€å§‹å·¥ä½œã€‚\n" NOR);
         return 1;
 }
 
@@ -189,19 +189,19 @@ int working(object me)
         switch (me->query_temp("job/step"))
         {
         case 1:
-                msg = "$N¶«ÌôÎ÷¼ð£¬Ñ¡ºÃÁËÒ»Ð©Ò©²Ä¡£";
+                msg = "$Nä¸œæŒ‘è¥¿æ‹£ï¼Œé€‰å¥½äº†ä¸€äº›è¯æã€‚";
                 break;
         case 2:
-                msg = "$N°ÑÒ©²Ä·Å½øÒ©¾Ê£¬Ê¹¾¢µ·ÁËÆðÀ´¡£";
+                msg = "$NæŠŠè¯ææ”¾è¿›è¯è‡¼ï¼Œä½¿åŠ²æ£äº†èµ·æ¥ã€‚";
                 break;
         case 3:
-                msg = "Ò©²Ä½¥½¥»¯×÷·ÛÐ¼£¬»ìÔÚÒ»Æð¡£";
+                msg = "è¯ææ¸æ¸åŒ–ä½œç²‰å±‘ï¼Œæ··åœ¨ä¸€èµ·ã€‚";
                 break;
         case 4:
-                msg = "·ÛÐ¼ÔÚ$NµÄµ·ÅªÏÂÔ½À´Ô½Ï¸£¬Öð½¥±ä³ÉÁË·ÛÄ©¡£";
+                msg = "ç²‰å±‘åœ¨$Nçš„æ£å¼„ä¸‹è¶Šæ¥è¶Šç»†ï¼Œé€æ¸å˜æˆäº†ç²‰æœ«ã€‚";
                 break;
         default:
-                msg = "$N°ÑÒ©²Ä°üºÃ£¬µÝ¸ø$n¡£";
+                msg = "$NæŠŠè¯æåŒ…å¥½ï¼Œé€’ç»™$nã€‚";
                 finish = 1;
                 break;
         }
@@ -209,12 +209,12 @@ int working(object me)
 
         if (finish)
         {
-                msg += CYN "$n" CYN "¿´ÁË$N" CYN "ÅäµÄÒ©£¬µãÍ·µÀ£º²»´í£¬²»´í£¡"
-                       "ÕâÊÇ¸øÄãµÄ±¨³ê£¡\n" NOR;
+                msg += CYN "$n" CYN "çœ‹äº†$N" CYN "é…çš„è¯ï¼Œç‚¹å¤´é“ï¼šä¸é”™ï¼Œä¸é”™ï¼"
+                       "è¿™æ˜¯ç»™ä½ çš„æŠ¥é…¬ï¼\n" NOR;
 
                 me->delete_temp("job/peiyao");
                 me->delete_temp("job/step");
-				// ½±ÀøÔö¼Ó5+5±¶
+				// å¥–åŠ±å¢žåŠ 5+5å€
                 b = 30 + random(20);
                 me->add("combat_exp", b);
                 me->improve_potential(b);
@@ -224,7 +224,7 @@ int working(object me)
                 ob->move(me, 1);
         }
 
-        msg = replace_string(msg, "$N", "Äã");
+        msg = replace_string(msg, "$N", "ä½ ");
         msg = replace_string(msg, "$n", name());
         tell_object(me, msg);
 
@@ -232,21 +232,21 @@ int working(object me)
         {
                 if (b > 0)
                 {
-                        tell_object(me, HIC "\nÄã»ñµÃÁË" + chinese_number(b) +
-                                        "µã¾­ÑéºÍÇ±ÄÜ¡£\n\n" NOR);
+                        tell_object(me, HIC "\nä½ èŽ·å¾—äº†" + chinese_number(b) +
+                                        "ç‚¹ç»éªŒå’Œæ½œèƒ½ã€‚\n\n" NOR);
                 }
 
-                if (random(200) == 1)		//»úÂÊÔö¼Ó5±¶£¨2015Äê4ÔÂ5ÈÕ£©
+                if (random(200) == 1)		//æœºçŽ‡å¢žåŠ 5å€ï¼ˆ2015å¹´4æœˆ5æ—¥ï¼‰
                 {
-                        msg = HIW "\n$n" HIW "¶Ô$N" HIW "ºÙºÙÒ»Ð¦£¬µÀ£º¸ÉµÃ²»"
-                              "Àµ£¬ÓÐµãÒâË¼£¬Õâ¸öµ¤ÓñÄ¥¾ÍËãÊÇÎÒËÍ¸øÄãµÄÀñÎï°É"
-                              "¡£\n" NOR;
+                        msg = HIW "\n$n" HIW "å¯¹$N" HIW "å˜¿å˜¿ä¸€ç¬‘ï¼Œé“ï¼šå¹²å¾—ä¸"
+                              "èµ–ï¼Œæœ‰ç‚¹æ„æ€ï¼Œè¿™ä¸ªä¸¹çŽ‰ç£¨å°±ç®—æ˜¯æˆ‘é€ç»™ä½ çš„ç¤¼ç‰©å§"
+                              "ã€‚\n" NOR;
 
                         message_vision(msg, me, this_object());
                         ob = new("/clone/misc/dymo");
                         ob->move(me, 1);
-                        tell_object(me, HIC "\nÄã»ñµÃÁËÒ»¸ö" + ob->name() +
-                                        HIC "¡£\n" NOR);
+                        tell_object(me, HIC "\nä½ èŽ·å¾—äº†ä¸€ä¸ª" + ob->name() +
+                                        HIC "ã€‚\n" NOR);
                 }
 
                 return 0;
@@ -258,7 +258,7 @@ int working(object me)
 
 int halt_working(object me)
 {
-        message_vision(HIY "$N" HIY "°ÑÊÖÖÐµÄ»îÒ»Ë¦£¬ÈÂÈÂµÀ£º²»¸ÉÁË£¬²»¸ÉÁË£¡\n"
+        message_vision(HIY "$N" HIY "æŠŠæ‰‹ä¸­çš„æ´»ä¸€ç”©ï¼Œåš·åš·é“ï¼šä¸å¹²äº†ï¼Œä¸å¹²äº†ï¼\n"
                        NOR, me);
         me->delete_temp("job/peiyao");
         me->delete_temp("job/step");

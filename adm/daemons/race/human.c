@@ -6,20 +6,20 @@ inherit F_DBASE;
 inherit F_SKILL;
 
 mapping *combat_action = ({
-([      "action":               "$N»ÓÈ­¹¥»÷$nµÄ$l",
-        "damage_type":  "ðöÉË",
+([      "action":               "$NæŒ¥æ‹³æ”»å‡»$nçš„$l",
+        "damage_type":  "ç˜€ä¼¤",
 ]),
-([      "action":               "$NÍù$nµÄ$lÒ»×¥",
-        "damage_type":  "×¥ÉË",
+([      "action":               "$Nå¾€$nçš„$lä¸€æŠ“",
+        "damage_type":  "æŠ“ä¼¤",
 ]),
-([      "action":               "$NÍù$nµÄ$lºÝºÝµØÌßÁËÒ»½Å",
-        "damage_type":  "ðöÉË",
+([      "action":               "$Nå¾€$nçš„$lç‹ ç‹ åœ°è¸¢äº†ä¸€è„š",
+        "damage_type":  "ç˜€ä¼¤",
 ]),
-([      "action":               "$NÌáÆðÈ­Í·Íù$nµÄ$l´·È¥",
-        "damage_type":  "ðöÉË",
+([      "action":               "$Næèµ·æ‹³å¤´å¾€$nçš„$læ¶åŽ»",
+        "damage_type":  "ç˜€ä¼¤",
 ]),
-([      "action":               "$N¶Ô×¼$nµÄ$lÓÃÁ¦»Ó³öÒ»È­",
-        "damage_type":  "ðöÉË",
+([      "action":               "$Nå¯¹å‡†$nçš„$lç”¨åŠ›æŒ¥å‡ºä¸€æ‹³",
+        "damage_type":  "ç˜€ä¼¤",
 ]),
 });
 
@@ -38,14 +38,14 @@ void setup_human(object ob)
         f = (int)ob->query_skill("force", 1);
 
         ob->set_default_action(__FILE__, "query_action");
-        if (! stringp(my["unit"])) my["unit"] = "Î»";
-        if (! stringp(my["gender"])) my["gender"] = "ÄÐÐÔ";
+        if (! stringp(my["unit"])) my["unit"] = "ä½";
+        if (! stringp(my["gender"])) my["gender"] = "ç”·æ€§";
         if (undefinedp(my["can_speak"])) my["can_speak"] = 1;
         if (! stringp(my["attitude"])) my["attitude"] = "peaceful";
         if (! pointerp(my["limbs"])) my["limbs"] = ({
-                "Í·²¿", "¾±²¿", "ÐØ¿Ú", "ºóÐÄ", "×ó¼ç", "ÓÒ¼ç", "×ó±Û",
-                "ÓÒ±Û", "×óÊÖ", "ÓÒÊÖ", "Ñü¼ä", "Ð¡¸¹", "×óÍÈ", "ÓÒÍÈ",
-                "×ó½Å", "ÓÒ½Å"
+                "å¤´éƒ¨", "é¢ˆéƒ¨", "èƒ¸å£", "åŽå¿ƒ", "å·¦è‚©", "å³è‚©", "å·¦è‡‚",
+                "å³è‡‚", "å·¦æ‰‹", "å³æ‰‹", "è…°é—´", "å°è…¹", "å·¦è…¿", "å³è…¿",
+                "å·¦è„š", "å³è„š"
         });
 
         if (undefinedp(my["age"])) my["age"] = 14;
@@ -73,11 +73,11 @@ void setup_human(object ob)
                 if ((int)my["max_jingli"] > 0)
                         my["max_jing"] += (int)my["max_jingli"] / 4;
 
-                // ¾ÛÆÇ»¹ÐéÌáÉý×î´ó¾«Æø
+                // èšé­„è¿˜è™šæå‡æœ€å¤§ç²¾æ°”
                 if (ob->query("special_skill/energy"))
                         my["max_jing"] += 50 + f * 2;
                 
-                 //×ªÊÀ¾«ÆøÌáÉý by Ð½ÓÐËùÊô       
+                 //è½¬ä¸–ç²¾æ°”æå‡ by è–ªæœ‰æ‰€å±ž       
                 if (ob->query("reborn"))
                         my["max_jing"] += my["max_jing"] / 2; 
 
@@ -106,20 +106,20 @@ void setup_human(object ob)
                 if ((int)my["max_neili"] > 0)
                         my["max_qi"] += (int)my["max_neili"] / 4;
                         
-                 //×ªÊÀÌØ¼¼ÁùÒõ¹íÂö½µµÍ×î´óÆøÑª by Ð½ÓÐËùÊô
+                 //è½¬ä¸–ç‰¹æŠ€å…­é˜´é¬¼è„‰é™ä½Žæœ€å¤§æ°”è¡€ by è–ªæœ‰æ‰€å±ž
                 if (ob->query("special_skill/guimai"))
                         my["max_qi"] -= my["max_qi"]* 3 / 10;
 
-                // ÄÚÁ²Ç¬À¤ÌáÉý×î´óÆøÑª
+                // å†…æ•›ä¹¾å¤æå‡æœ€å¤§æ°”è¡€
                 if (ob->query("special_skill/health"))
                         my["max_qi"] += 80 + f * 3;
                         
-                //×ªÊÀÆøÑª¼Ó±¶ by Ð½ÓÐËùÊô       
+                //è½¬ä¸–æ°”è¡€åŠ å€ by è–ªæœ‰æ‰€å±ž       
                   if (ob->query("reborn"))
                         my["max_qi"] += my["max_qi"]; 
                         
               
-                // ¾ÅÒõÉñ¹¦ÅäºÏµÀÑ§ÐÄ·¨¼ÓÆø
+                // ä¹é˜´ç¥žåŠŸé…åˆé“å­¦å¿ƒæ³•åŠ æ°”
                 if ((x = (int)ob->query_skill("taoism", 1)) > 39 &&
                     (y = (int)ob->query_skill("jiuyin-shengong", 1)) > 39)
                 {
@@ -130,7 +130,7 @@ void setup_human(object ob)
 
                         my["max_qi"] += (x + 100 ) * (y + 100) / 100;
                 } else
-                // Ì«¼«Éñ¹¦ÅäºÏµÀÑ§ÐÄ·¨¼ÓÆø
+                // å¤ªæžç¥žåŠŸé…åˆé“å­¦å¿ƒæ³•åŠ æ°”
                 if ((x = (int)ob->query_skill("taoism", 1)) > 39 &&
                     (y = (int)ob->query_skill("taiji-shengong", 1)) > 39)
                 {
@@ -141,7 +141,7 @@ void setup_human(object ob)
 
                         my["max_qi"] += (x + 100 ) * (y + 100) / 100;
                 } else
-                // Ò×½î¶Í¹ÇÅäºÏµÀÑ§ÐÄ·¨¼ÓÆø
+                // æ˜“ç­‹é”»éª¨é…åˆé“å­¦å¿ƒæ³•åŠ æ°”
                 if ((x = (int)ob->query_skill("taoism", 1)) > 39 &&
                     (y = (int)ob->query_skill("yijin-duangu", 1)) > 39)
                 {
@@ -152,7 +152,7 @@ void setup_human(object ob)
 
                         my["max_qi"] += (x + 100 ) * (y + 100) / 100;
                 } else
-                // ÏÈÌì¹¦ÅäºÏµÀÑ§ÐÄ·¨¼ÓÆø
+                // å…ˆå¤©åŠŸé…åˆé“å­¦å¿ƒæ³•åŠ æ°”
                 if ((x = (int)ob->query_skill("taoism", 1)) > 39 &&
                     (y = (int)ob->query_skill("xiantian-gong", 1)) > 39)
                 {
@@ -163,7 +163,7 @@ void setup_human(object ob)
 
                         my["max_qi"] += (x + 100 ) * (y + 100) / 100;
                 } else
-                // ±Ì²¨Éñ¹¦ÅäºÏ±Ìº£³±ÉúÇú¼ÓÆø
+                // ç¢§æ³¢ç¥žåŠŸé…åˆç¢§æµ·æ½®ç”Ÿæ›²åŠ æ°”
                 if ((x = (int)ob->query_skill("bihai-chaosheng", 1)) > 39 &&
                     (y = (int)ob->query_skill("bibo-shengong", 1)) > 39)
                 {
@@ -179,7 +179,7 @@ void setup_human(object ob)
                         my["max_qi"] += my["max_qi"];
         }
 
-        // ÎªÊ²Ã´Òª³ËÒÔ0.7£¿ÕâÊÇÒòÎª±³ÈËÖ»ÐèÒª70%µÄ¸ºÖØ¡£
+        // ä¸ºä»€ä¹ˆè¦ä¹˜ä»¥0.7ï¼Ÿè¿™æ˜¯å› ä¸ºèƒŒäººåªéœ€è¦70%çš„è´Ÿé‡ã€‚
         if (! ob->query_weight())
                 ob->set_weight((BASE_WEIGHT + (my["str"] - 10) * 2000) * 7 / 10);
 }

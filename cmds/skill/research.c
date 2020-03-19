@@ -25,20 +25,20 @@ int main(object me, string arg)
         int t = time();
 
         if (where->query("pigging"))
-                return notify_fail("Äã»¹ÊÇ×¨ĞÄ¹°Öí°É£¡\n");
+                return notify_fail("ä½ è¿˜æ˜¯ä¸“å¿ƒæ‹±çŒªå§ï¼\n");
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕıÃ¦×ÅÄØ¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
 
         if (t == me->query_temp("time/research"))
-                return notify_fail("Äã¸Õ¸Õ²ÅÑĞ¾¿¹ı£¨Èç¹ûÄãÒªÁ¬ĞøÑĞ¾¿£¬¿ÉÒÔÖ¸Ã÷"
-                                   "ÑĞ¾¿µÄ´ÎÊı£©¡£\n");
+                return notify_fail("ä½ åˆšåˆšæ‰ç ”ç©¶è¿‡ï¼ˆå¦‚æœä½ è¦è¿ç»­ç ”ç©¶ï¼Œå¯ä»¥æŒ‡æ˜"
+                                   "ç ”ç©¶çš„æ¬¡æ•°ï¼‰ã€‚\n");
 
         if (where->query("no_fight") && me->query("doing") != "scheme")
-                return notify_fail("ÕâÀïÌ«·×ÔÓ£¬ÄãÃ»·¨×÷ÑĞ¾¿¡£\n");
+                return notify_fail("è¿™é‡Œå¤ªçº·æ‚ï¼Œä½ æ²¡æ³•ä½œç ”ç©¶ã€‚\n");
 
         if (! arg)
-                return notify_fail("research|yanjiu <¼¼ÄÜ> <´ÎÊı>\n");
+                return notify_fail("research|yanjiu <æŠ€èƒ½> <æ¬¡æ•°>\n");
 
         if (sscanf(arg, "%s %d", skill, times) != 2)
         {
@@ -47,39 +47,39 @@ int main(object me, string arg)
         }
 
         if (times < 1 || times > 100)
-                return notify_fail("ÑĞ¾¿´ÎÊı×îÉÙÒ»´Î£¬×î¶àÒ²²»ÄÜ³¬¹ıÒ»°Ù´Î¡£\n");
+                return notify_fail("ç ”ç©¶æ¬¡æ•°æœ€å°‘ä¸€æ¬¡ï¼Œæœ€å¤šä¹Ÿä¸èƒ½è¶…è¿‡ä¸€ç™¾æ¬¡ã€‚\n");
 
         if (me->is_fighting())
-                return notify_fail("ÁÙÕóÄ¥Ç¹£¿À´²»¼°À²¡£\n");
+                return notify_fail("ä¸´é˜µç£¨æªï¼Ÿæ¥ä¸åŠå•¦ã€‚\n");
 
         if (! (lvl = me->query_skill(skill, 1)))
-                return notify_fail("ÕâÏî¼¼ÄÜÄã»¹²»»á£¬ÑĞ¾¿Ê²Ã´£¿\n");
+                return notify_fail("è¿™é¡¹æŠ€èƒ½ä½ è¿˜ä¸ä¼šï¼Œç ”ç©¶ä»€ä¹ˆï¼Ÿ\n");
 
         if ((string) SKILL_D(skill)->type() == "knowledge")
-                return notify_fail(to_chinese(skill) + "Ö»ÄÜ¿¿ÄãÑ§Ï°²ÅÄÜÌá¸ßµÄ¡£\n");
+                return notify_fail(to_chinese(skill) + "åªèƒ½é ä½ å­¦ä¹ æ‰èƒ½æé«˜çš„ã€‚\n");
 
         if (lvl < 180)
-                return notify_fail("Äã¶Ô" + to_chinese(skill) + "µÄÕÆÎÕ³Ì¶È»¹"
-                                   "Î´µ½ÑĞ¾¿µÄ³Ì¶È¡£\n");
+                return notify_fail("ä½ å¯¹" + to_chinese(skill) + "çš„æŒæ¡ç¨‹åº¦è¿˜"
+                                   "æœªåˆ°ç ”ç©¶çš„ç¨‹åº¦ã€‚\n");
 
-        notify_fail("ÒÀÄãÄ¿Ç°µÄÄÜÁ¦£¬Ã»ÓĞ°ì·¨ÑĞ¾¿ÕâÖÖ¼¼ÄÜ¡£\n");
+        notify_fail("ä¾ä½ ç›®å‰çš„èƒ½åŠ›ï¼Œæ²¡æœ‰åŠæ³•ç ”ç©¶è¿™ç§æŠ€èƒ½ã€‚\n");
 
         if (! SKILL_D(skill)->valid_learn(me)
            || ! SKILL_D(skill)->valid_research(me))
-                // ²»ÄÜÑ§Ï°»òÊÇ²»ÄÜÑĞ¾¿
+                // ä¸èƒ½å­¦ä¹ æˆ–æ˜¯ä¸èƒ½ç ”ç©¶
                 return 0;
 
         if (! XUE_CMD->can_learn(me, skill))
                 return 0;
 
         if ((me->query("potential") - me->query("learned_points")) < times)
-                return notify_fail("ÄãµÄÇ±ÄÜ²»¹»ÑĞ¾¿ÕâÃ´¶à´ÎÁË¡£\n");
+                return notify_fail("ä½ çš„æ½œèƒ½ä¸å¤Ÿç ”ç©¶è¿™ä¹ˆå¤šæ¬¡äº†ã€‚\n");
 
         // Lookup skills for relation skills
 
-        write(HIG "Äã¿ªÊ¼ÑĞ¾¿" + chinese_number(times) + "´ÎÓĞ¹Ø¡¸" +
-              to_chinese(skill) + HIG "¡¹µÄ°ÂÃØ¡£\n" NOR);
-        message("vision", me->name() + "ÔÚÚ¤ÉñË¼Ë÷¡£\n", where, ({ me }));
+        write(HIG "ä½ å¼€å§‹ç ”ç©¶" + chinese_number(times) + "æ¬¡æœ‰å…³ã€Œ" +
+              to_chinese(skill) + HIG "ã€çš„å¥¥ç§˜ã€‚\n" NOR);
+        message("vision", me->name() + "åœ¨å†¥ç¥æ€ç´¢ã€‚\n", where, ({ me }));
 
         // calculate the basic effect
         is_force_skill = SKILL_D(skill)->valid_enable("force");
@@ -95,7 +95,7 @@ int main(object me, string arg)
 
                 if (ks[i] == skill)
                         continue;
-				//È¡Ïû×Ó¼¼ÄÜ²»ÄÜ¼Ó³ÉÑĞ¾¿µÄÏŞÖÆ
+				//å–æ¶ˆå­æŠ€èƒ½ä¸èƒ½åŠ æˆç ”ç©¶çš„é™åˆ¶
                 if (SKILL_D(ks[i])->main_skill()
 					&& SKILL_D(ks[i])->main_skill() != ks[i]
 					&& me->query_skill(SKILL_D(ks[i])->main_skill(), 1) > 0)
@@ -137,7 +137,7 @@ int main(object me, string arg)
                 else
                         improve += ls[i] * scale[i];
                         */
-                //Ïà¶ÔÔ­°æÔö¼Ó300¼¶ºÍ500¼¶ºóµÄÑĞ¾¿ËÙ¶È 2016-12-24
+                //ç›¸å¯¹åŸç‰ˆå¢åŠ 300çº§å’Œ500çº§åçš„ç ”ç©¶é€Ÿåº¦ 2016-12-24
                 if (lvl >= 500)
                         improve += ls[i] * scale[i] / 2;
                 else
@@ -154,18 +154,18 @@ int main(object me, string arg)
         else
                 improve += lvl / 50 + me->query("int") / 3;
 */    
-//Ïà¶ÔÔ­°æÔö¼Ó300¼¶ºÍ500¼¶ºóµÄÑĞ¾¿ËÙ¶È 2016-12-24
+//ç›¸å¯¹åŸç‰ˆå¢åŠ 300çº§å’Œ500çº§åçš„ç ”ç©¶é€Ÿåº¦ 2016-12-24
         if (lvl >= 500)
                 //improve += lvl / 75 + me->query("int") / 6;
-                //ÌáÉı500¼¶ºóµÄ¼¼ÄÜÑĞ¾¿ËÙ¶È¡£
+                //æå‡500çº§åçš„æŠ€èƒ½ç ”ç©¶é€Ÿåº¦ã€‚
                 improve += lvl / 50 + to_int(pow(me->query("int") / 6.0, 2));
         else
                 improve += lvl / 50 + to_int(pow(me->query("int") / 12.0, 2));            
-       // ×ªÊÀ¼¼ÄÜÁùÒõ¹íÂöÌáÉıÄÚ¹¦¼¼ÄÜµÄÑĞ¾¿ËÙ¶È
+       // è½¬ä¸–æŠ€èƒ½å…­é˜´é¬¼è„‰æå‡å†…åŠŸæŠ€èƒ½çš„ç ”ç©¶é€Ÿåº¦
         if (me->query("special_skill/guimai") && SKILL_D(skill)->valid_enable("force"))
                 improve += improve * 30 / 100; 
 
-       //×ªÊÀÌØ¼¼ÎäĞÇ×ªÊÀ by Ğ½ÓĞËùÊô
+       //è½¬ä¸–ç‰¹æŠ€æ­¦æ˜Ÿè½¬ä¸– by è–ªæœ‰æ‰€å±
         if (me->query("special_skill/wuxing"))
                 improve += improve * 20 / 100; 
                 
@@ -173,12 +173,12 @@ int main(object me, string arg)
         jing_cost = 1000 / (int)me->query("int");
 
         if ((int)me->query("eff_jing") < jing_cost)
-                return notify_fail("Äã¾õµÃÄã¾«Á¦²»¼Ã£¬ÊµÔÚÃ»ÓĞ°ì·¨½øĞĞÑĞ¾¿¡£\n");
+                return notify_fail("ä½ è§‰å¾—ä½ ç²¾åŠ›ä¸æµï¼Œå®åœ¨æ²¡æœ‰åŠæ³•è¿›è¡Œç ”ç©¶ã€‚\n");
 
         if (! me->can_improve_skill(skill))
         {
-                write("Ò²ĞíÊÇÈ±·¦ÊµÕ½¾­Ñé£¬Äã¸Ğµ½ÄÑÒÔ¼ÌĞøÑĞ¾¿" +
-                      to_chinese(skill) + "µÄÎÊÌâÁË¡£\n");
+                write("ä¹Ÿè®¸æ˜¯ç¼ºä¹å®æˆ˜ç»éªŒï¼Œä½ æ„Ÿåˆ°éš¾ä»¥ç»§ç»­ç ”ç©¶" +
+                      to_chinese(skill) + "çš„é—®é¢˜äº†ã€‚\n");
                 return 1;
         }
 
@@ -192,7 +192,7 @@ int main(object me, string arg)
                            && SKILL_D("force/regenerate")->exert(me, me))
                         {
                                 // try to regenerate & learn again
-                                write("Äã¾õµÃ¾«ÉñºÃÁËÒ»Ğ©£¬¼ÌĞø½øĞĞÑĞ¾¿¡£\n");
+                                write("ä½ è§‰å¾—ç²¾ç¥å¥½äº†ä¸€äº›ï¼Œç»§ç»­è¿›è¡Œç ”ç©¶ã€‚\n");
                                 i--;
                                 continue;
                         } else
@@ -207,12 +207,12 @@ int main(object me, string arg)
                 {
                         skill_name = SKILL_D(skill)->query_skill_name(lvl);
                         if (skill_name)
-                                write(sprintf(HIM "ÄãÑĞ¾¿ÁËÒ»»á£¬¶Ô¡¸%s¡¹ÕâÒ»"
-                                              "ÕĞËÆºõÏëÍ¨ÁËĞ©Ê²Ã´¡£\n" NOR,
+                                write(sprintf(HIM "ä½ ç ”ç©¶äº†ä¸€ä¼šï¼Œå¯¹ã€Œ%sã€è¿™ä¸€"
+                                              "æ‹›ä¼¼ä¹æƒ³é€šäº†äº›ä»€ä¹ˆã€‚\n" NOR,
                                                skill_name));
                         else
-                                write(sprintf(HIM "ÄãÑĞ¾¿ÁËÒ»»á£¬ËÆºõ¶Ô¡¸%s¡¹"
-                                              "ÓĞĞ©ĞÂµÄÁìÎò¡£\n" NOR,
+                                write(sprintf(HIM "ä½ ç ”ç©¶äº†ä¸€ä¼šï¼Œä¼¼ä¹å¯¹ã€Œ%sã€"
+                                              "æœ‰äº›æ–°çš„é¢†æ‚Ÿã€‚\n" NOR,
                                               to_chinese(skill)));
                 }
                 me->improve_skill(skill, random(improve));
@@ -220,11 +220,11 @@ int main(object me, string arg)
         }
 
         if (! i)
-                write("Äã½ñÌìÌ«ÀÛÁË£¬½á¹ûÊ²Ã´Ò²Ã»ÓĞÑĞ¾¿³É¡£\n");
+                write("ä½ ä»Šå¤©å¤ªç´¯äº†ï¼Œç»“æœä»€ä¹ˆä¹Ÿæ²¡æœ‰ç ”ç©¶æˆã€‚\n");
         else
         if (i > 0 && i < times)
-                write("Äã¾õµÃÌ«ÀÛÁË£¬ÑĞ¾¿ÁË" + chinese_number(i) +
-                      "´ÎºóÖ»ºÃÍ£ÏÂÀ´ĞİÏ¢¡£\n");
+                write("ä½ è§‰å¾—å¤ªç´¯äº†ï¼Œç ”ç©¶äº†" + chinese_number(i) +
+                      "æ¬¡ååªå¥½åœä¸‹æ¥ä¼‘æ¯ã€‚\n");
 
         return 1;
 }
@@ -253,15 +253,15 @@ int *query_scale(string skill)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½£ºresearch | yanjiu <¼¼ÄÜ> <´ÎÊı>
+æŒ‡ä»¤æ ¼å¼ï¼šresearch | yanjiu <æŠ€èƒ½> <æ¬¡æ•°>
  
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄãÑĞ¾¿Ò»ÖÖ¼¼ÄÜµÄÒÉÄÑÎÊÌâ£¬µ±ÄãÊ¦¸µÕâÏî¼¼ÄÜµÄ¼¶
-±ğ²»ÈçÄãµÄÊ±ºò£¬¿ÉÒÔÍ¨¹ıÑĞ¾¿×Ô¼ºÀ´Ìá¸ß£¬½ø¶ÈµÄËÙ¶ÈÒªºÍÄã¶ÔÕâ
-Ïî¼¼ÄÜµÄÕÆÎÕ³Ì¶ÈºÍÏà¹Ø¼¼ÄÜµÄÊìÏ¤Çé¿öÏà¹Ø£¬µ±È»ÎòĞÔÒ²»áÆğµÄÒ»
-¶¨µÄ×÷ÓÃ£¬µ«ÊÇ¹Ø¼ü»¹ÊÇ¿´¼¼ÄÜµÄË®Æ½¡£Ò»°ãÀ´ËµÏà¹ØµÄ¼¼ÄÜÔ½¶àÔ½
-ºÃ£¬ÑĞ¾¿ÆğÀ´¿ÉÄÜ»áÊÂ°ë¹¦±¶£¬Èç¹û»áµÃÌ«ÉÙ£¬¿ÉÄÜÇ¡Ç¡Ïà·´¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ ç ”ç©¶ä¸€ç§æŠ€èƒ½çš„ç–‘éš¾é—®é¢˜ï¼Œå½“ä½ å¸ˆå‚…è¿™é¡¹æŠ€èƒ½çš„çº§
+åˆ«ä¸å¦‚ä½ çš„æ—¶å€™ï¼Œå¯ä»¥é€šè¿‡ç ”ç©¶è‡ªå·±æ¥æé«˜ï¼Œè¿›åº¦çš„é€Ÿåº¦è¦å’Œä½ å¯¹è¿™
+é¡¹æŠ€èƒ½çš„æŒæ¡ç¨‹åº¦å’Œç›¸å…³æŠ€èƒ½çš„ç†Ÿæ‚‰æƒ…å†µç›¸å…³ï¼Œå½“ç„¶æ‚Ÿæ€§ä¹Ÿä¼šèµ·çš„ä¸€
+å®šçš„ä½œç”¨ï¼Œä½†æ˜¯å…³é”®è¿˜æ˜¯çœ‹æŠ€èƒ½çš„æ°´å¹³ã€‚ä¸€èˆ¬æ¥è¯´ç›¸å…³çš„æŠ€èƒ½è¶Šå¤šè¶Š
+å¥½ï¼Œç ”ç©¶èµ·æ¥å¯èƒ½ä¼šäº‹åŠåŠŸå€ï¼Œå¦‚æœä¼šå¾—å¤ªå°‘ï¼Œå¯èƒ½æ°æ°ç›¸åã€‚
 
-ÆäËûÏà¹ØÖ¸Áî£ºapprentice, practice, skills, study, learn
+å…¶ä»–ç›¸å…³æŒ‡ä»¤ï¼šapprentice, practice, skills, study, learn
 HELP);
         return 1;
 }

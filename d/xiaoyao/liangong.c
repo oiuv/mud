@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ʯ��");
+        set("short", "石屋");
         set("long", @LONG
-���������е�һ��ʯ�ݣ������Ե�ʲô�徻�ͼ��ӣ�����
-�в�û��ʲô�ر�İ�������������ܵ��κε�ɧ�ţ��Ǹ�
-�����ڹ��ĺõط���
+这是树林中的一间石屋，屋内显得什么清净和简朴，房间
+中并没有什么特别的摆设在这里，不会受到任何的骚扰，是个
+修炼内功的好地方。
 LONG);
         set("exits", ([
                 "south" : __DIR__"xiaodao4",

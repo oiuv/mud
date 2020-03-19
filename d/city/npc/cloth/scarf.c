@@ -6,19 +6,19 @@ inherit EQUIP;
 
 void create()
 {
-        set_name( HIB "Ò»×ÖåĞÒ£½í" NOR, ({ "xiaoyao jin", "xiaoyao", "jin" }) );
+        set_name( HIB "ä¸€å­—é€é¥å·¾" NOR, ({ "xiaoyao jin", "xiaoyao", "jin" }) );
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ìõ");
+                set("unit", "æ¡");
                 set("value", 300);
                 set("material", "cloth");
                 set("armor_type", "head");
                 set("armor_prop/armor", 4);
                 set("armor_prop/dodge", -1);
-                set("wear_msg","$N´÷ÉÏÒ»Ìõ$n¡£\n");
-                set("remove_msg","$N½«$n½âÁËÏÂÀ´¡£\n");
+                set("wear_msg","$Næˆ´ä¸Šä¸€æ¡$nã€‚\n");
+                set("remove_msg","$Nå°†$nè§£äº†ä¸‹æ¥ã€‚\n");
         }
 
         setup();

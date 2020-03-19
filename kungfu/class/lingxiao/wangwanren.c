@@ -6,11 +6,11 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ÍõÍòØð", ({"wang wanren", "wang", "wanren"}));
-        set("long", "ËûÊÇÁèÏö³ÇµÚÁù´úµÜ×ÓÍõÍòØð£¬×¨ÃÅ¸ºÔð½ÓËÍÐÂÈë\n"
-                    "ÃÅµÄµÜ×ÓÉÏÉ½¡£Ëû±¾ÊÇÁèÏö³ÇÖÐ½Ü³öµÜ×Ó£¬Ö»ÊÇºÃ\n"
-                    "¾ÆÌ°±­£¬²Å±»·£µ½´ËÊØÎÀ¡£\n");
-        set("gender", "ÄÐÐÔ");
+        set_name("çŽ‹ä¸‡ä»ž", ({"wang wanren", "wang", "wanren"}));
+        set("long", "ä»–æ˜¯å‡Œéœ„åŸŽç¬¬å…­ä»£å¼Ÿå­çŽ‹ä¸‡ä»žï¼Œä¸“é—¨è´Ÿè´£æŽ¥é€æ–°å…¥\n"
+                    "é—¨çš„å¼Ÿå­ä¸Šå±±ã€‚ä»–æœ¬æ˜¯å‡Œéœ„åŸŽä¸­æ°å‡ºå¼Ÿå­ï¼Œåªæ˜¯å¥½\n"
+                    "é…’è´ªæ¯ï¼Œæ‰è¢«ç½šåˆ°æ­¤å®ˆå«ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 34);
         set("attitude", "friendly");
         set("shen_type", 1);
@@ -27,7 +27,7 @@ void create()
 
         set("chat_chance", 1);
         set("chat_msg", ({
-		CYN "ÍõÍòØð´òÁË¸öÅçÌç£¬ÂîµÀ£ºÕâ¹íµØ·½¿ÉÕæ¹»ÀäµÄ£¬ÒªÊÇÓÐµã¾ÆºÈ¾ÍÅ¯ºÍ¶àÁË¡£\n" NOR,
+		CYN "çŽ‹ä¸‡ä»žæ‰“äº†ä¸ªå–·åšï¼Œéª‚é“ï¼šè¿™é¬¼åœ°æ–¹å¯çœŸå¤Ÿå†·çš„ï¼Œè¦æ˜¯æœ‰ç‚¹é…’å–å°±æš–å’Œå¤šäº†ã€‚\n" NOR,
         }) );
 
         set_skill("force", 100);
@@ -54,7 +54,7 @@ void create()
         prepare_skill("strike", "piaoxu-zhang");
         prepare_skill("cuff", "lingxiao-quan");
 
-        create_family("ÁèÏö³Ç", 6, "µÜ×Ó");
+        create_family("å‡Œéœ„åŸŽ", 6, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -76,6 +76,6 @@ void attempt_apprentice(object me)
         if (! permit_recruit(me))
                 return;
 
-        command("say àÅ£¿°ÝÎÒÎªÊ¦£¿ºÃËµ£¬ºÃËµ¡£");
+        command("say å—¯ï¼Ÿæ‹œæˆ‘ä¸ºå¸ˆï¼Ÿå¥½è¯´ï¼Œå¥½è¯´ã€‚");
         command("recruit " + me->query("id"));
 }

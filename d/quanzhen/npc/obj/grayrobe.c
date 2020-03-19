@@ -1,4 +1,4 @@
-// greyrobe.c »ÒÉ«µÀÅÛ
+// greyrobe.c ç°è‰²é“è¢
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,13 +7,13 @@ inherit CLOTH;
 
 void create()
 {
-        set_name(WHT"»ÒÉ«µÀÅÛ"NOR, ({"pao", "cloth", "dao pao"}) );
+        set_name(WHT"ç°è‰²é“è¢"NOR, ({"pao", "cloth", "dao pao"}) );
         set_weight(1200);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼ş");
-                set("long", "Ò»¼şÆÕÆÕÍ¨Í¨µÄ»Ò²¼µÀÅÛ¡£\n");
+                set("unit", "ä»¶");
+                set("long", "ä¸€ä»¶æ™®æ™®é€šé€šçš„ç°å¸ƒé“è¢ã€‚\n");
                 set("material", "cloth");
                 set("armor_prop/armor", 2);
         }

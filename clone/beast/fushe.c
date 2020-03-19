@@ -3,8 +3,8 @@ inherit SNAKE;
 
 void create()
 {
-        set_name(HIR "腹蛇" NOR, ({ "fu she", "fu", "she" }));
-        set("long", HIR "只见它全身血红，头呈三角，长蛇吞吐，嗤嗤做响。\n" NOR);
+        set_name(HIR "鑵硅泧" NOR, ({ "fu she", "fu", "she" }));
+        set("long", HIR "鍙瀹冨叏韬绾紝澶村憟涓夎锛岄暱铔囧悶鍚愶紝鍡ゅ棨鍋氬搷銆俓n" NOR);
 
         set("age", 3);
         set("str", 35);

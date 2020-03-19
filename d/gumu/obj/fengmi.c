@@ -4,14 +4,14 @@ inherit F_LIQUID;
 
 void create()
 {
-    set_name(HIY "Óñ·äÃÛ" NOR, ({"yufeng mi", "yufeng", "mi"}));
+    set_name(HIY "ç‰èœ‚èœœ" NOR, ({"yufeng mi", "yufeng", "mi"}));
     set_weight(750);
     if (clonep())
         set_default_object(__FILE__);
     else
     {
-        set("long", HIY "ÕâÊÇÒ»¹ŞÓñ·äÄğ³ÉµÄÃÛ£¬¿É½âÓñ·ä¶¾¡£\n" NOR);
-        set("unit", "¹Ş");
+        set("long", HIY "è¿™æ˜¯ä¸€ç½ç‰èœ‚é…¿æˆçš„èœœï¼Œå¯è§£ç‰èœ‚æ¯’ã€‚\n" NOR);
+        set("unit", "ç½");
         set("value", 500);
         set("no_sell", 1);
         set("mi_count", 5);
@@ -24,24 +24,24 @@ int do_effect(object me)
 {
     if (query("mi_count") < 1)
     {
-        write("¹Ş×ÓÀïµÄÓñ·äÃÛÒÑ¾­±»ºÈµÃÒ»µÎ²»Ê£ÁË¡£\n");
+        write("ç½å­é‡Œçš„ç‰èœ‚èœœå·²ç»è¢«å–å¾—ä¸€æ»´ä¸å‰©äº†ã€‚\n");
         return 1;
     }
 
     if (me->query("water") >= me->max_water_capacity() && me->query("food") >= me->max_food_capacity())
     {
-        write("ÄãÒÑ¾­³ÔÌ«±¥ÁË£¬ÔÙÒ²Èû²»ÏÂÈÎºÎ¶«Î÷ÁË¡£\n");
+        write("ä½ å·²ç»åƒå¤ªé¥±äº†ï¼Œå†ä¹Ÿå¡ä¸ä¸‹ä»»ä½•ä¸œè¥¿äº†ã€‚\n");
         return 1;
     }
 
-    message_vision("$NÄÃÆğ¹Ş×Ó£¬¹¾à½¹¾à½ÑÊÏÂ¼¸¿ÚÓñ·äÃÛ¡£\n" NOR, me);
+    message_vision("$Næ‹¿èµ·ç½å­ï¼Œå’•å˜Ÿå’•å˜Ÿå’½ä¸‹å‡ å£ç‰èœ‚èœœã€‚\n" NOR, me);
     me->add("food", 50);
     me->add("water", 50);
 
     if ((int)me->query_condition("yufengdu"))
     {
         me->clear_condition("yufengdu");
-        tell_object(me, HIC "ÄãÖ»¾õÌåÄÚ²Ğ´æµÄÓñ·ä¶¾ÂıÂıÏûÍË£¬ÆøÂöËæÖ®Ò»³©¡£\n" NOR);
+        tell_object(me, HIC "ä½ åªè§‰ä½“å†…æ®‹å­˜çš„ç‰èœ‚æ¯’æ…¢æ…¢æ¶ˆé€€ï¼Œæ°”è„‰éšä¹‹ä¸€ç•…ã€‚\n" NOR);
     }
     add("mi_count", -1);
     return 1;

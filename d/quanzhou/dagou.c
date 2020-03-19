@@ -5,10 +5,10 @@ inherit ROOM;
 
 void create()
 {
-    set("short", "�򹷸�");
+    set("short", "打狗港");
     set("long", @LONG
-�򹷸�λ��̨���ϲ��������С�������е���������
-�ھ�����Ͽ�壬��ǫ̈̄��һ���ۡ�
+打狗港位于台湾南部，港域口小腹大，外有岛链环抱，
+内具曲折峡湾，诚全台第一良港。
 LONG );
     set("exits", ([
                 "north" : __DIR__"chiqian",

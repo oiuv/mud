@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define CHAN "¡¸" HIR "¶¾ó¸ÕÆ" NOR "¡¹"
+#define CHAN "ã€Œ" HIR "æ¯’èŸ¾æŽŒ" NOR "ã€"
 
 inherit F_SSERVER;
  
@@ -13,7 +13,7 @@ int perform(object me)
         int damage, lvl, poison;
 
         if (userp(me) && ! me->query("can_perform/tianchan-zhang/chan"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -22,34 +22,34 @@ int perform(object me)
         }
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(CHAN "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(CHAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon"))
-                return notify_fail("Äã±ØÐëÊÇ¿ÕÊÖ²ÅÄÜÊ¹ÓÃ" CHAN "¡£\n");
+                return notify_fail("ä½ å¿…é¡»æ˜¯ç©ºæ‰‹æ‰èƒ½ä½¿ç”¨" CHAN "ã€‚\n");
 
         if (me->query_skill_mapped("strike") != "tianchan-zhang") 
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢Ììó¸ÕÆ·¨£¬ÄÑÒÔÊ©Õ¹" CHAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å¤©èŸ¾æŽŒæ³•ï¼Œéš¾ä»¥æ–½å±•" CHAN "ã€‚\n");
 
         if (me->query_skill_prepared("strike") != "tianchan-zhang") 
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸Ê¹ÓÃÌìó¸ÕÆ·¨£¬ÄÑÒÔÊ©Õ¹" CHAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨å¤©èŸ¾æŽŒæ³•ï¼Œéš¾ä»¥æ–½å±•" CHAN "ã€‚\n");
  
         lvl = me->query_skill("tianchan-zhang", 1);
 		poison = me->query_skill("poison");
 
         if (lvl < 120)
-                return notify_fail("ÄãÌìó¸ÕÆ·¨²»¹»´¿Êì£¬ÄÑÒÔÊ©Õ¹" CHAN "¡£\n");
+                return notify_fail("ä½ å¤©èŸ¾æŽŒæ³•ä¸å¤Ÿçº¯ç†Ÿï¼Œéš¾ä»¥æ–½å±•" CHAN "ã€‚\n");
 
         if (me->query_skill("force") < 150)
-                return notify_fail("ÄãµÄÄÚ¹¦»ðºòÌ«µÍ£¬£¬ÄÑÒÔÊ©Õ¹" CHAN "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™å¤ªä½Žï¼Œï¼Œéš¾ä»¥æ–½å±•" CHAN "ã€‚\n");
 
         if (me->query("neili") < 300)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬£¬ÄÑÒÔÊ©Õ¹" CHAN "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œï¼Œéš¾ä»¥æ–½å±•" CHAN "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIR "$N" HIR "Ò»ÉùÀäÐ¦£¬¾ÛÆøÓÚÕÆ£¬·ÉÉíÒ»Ô¾¶øÆð£¬Ò»ÕÐ"
-                  "Ð¯Âú¾ç¶¾µÄ¡¸¶¾ó¸ÕÆ¡¹¶Ô×Å$n" HIR "Áè¿ÕÅÄÏÂ£¡\n"NOR;
+        msg = HIR "$N" HIR "ä¸€å£°å†·ç¬‘ï¼Œèšæ°”äºŽæŽŒï¼Œé£žèº«ä¸€è·ƒè€Œèµ·ï¼Œä¸€æ‹›"
+                  "æºæ»¡å‰§æ¯’çš„ã€Œæ¯’èŸ¾æŽŒã€å¯¹ç€$n" HIR "å‡Œç©ºæ‹ä¸‹ï¼\n"NOR;
 
         ap = me->query_skill("strike") + random(poison);
         dp = target->query_skill("parry");
@@ -64,14 +64,14 @@ int perform(object me)
                         "duration" : lvl / 60 + random(lvl / 30)
                 ]));
                 msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 70, 
-                        HIR "Ö»Ìý$n" HIR "²Ò½ÐÒ»Éù£¬±»$N" HIR "ÕâÒ»ÕÆ"
-                        "ÅÄ¸öÕý×Å£¬¶ÙÊ±¶¾Æø¹¥ÐÄ£¬¡°ÍÛ¡±µØÅç³öÒ»´ó¿ÚÏÊÑª¡£\n" NOR);
+                        HIR "åªå¬$n" HIR "æƒ¨å«ä¸€å£°ï¼Œè¢«$N" HIR "è¿™ä¸€æŽŒ"
+                        "æ‹ä¸ªæ­£ç€ï¼Œé¡¿æ—¶æ¯’æ°”æ”»å¿ƒï¼Œâ€œå“‡â€åœ°å–·å‡ºä¸€å¤§å£é²œè¡€ã€‚\n" NOR);
 
                 me->start_busy(2);
         } else
         {
-                msg += HIY "$p" HIY "¼û$P" HIY "À´ÊÆÐÚÓ¿£¬¼±Ã¦×ÝÉíÒ»Ô¾¶øÆð£¬¶ã"
-                       "¿ªÁËÕâÒ»»÷£¡\n" NOR;
+                msg += HIY "$p" HIY "è§$P" HIY "æ¥åŠ¿æ±¹æ¶Œï¼Œæ€¥å¿™çºµèº«ä¸€è·ƒè€Œèµ·ï¼Œèº²"
+                       "å¼€äº†è¿™ä¸€å‡»ï¼\n" NOR;
                 me->add("neili", -100);
                 me->start_busy(3);
         }

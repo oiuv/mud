@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "��Ҵ�Ժ");
+	set("short", "苗家大院");
 	set("long", @LONG
-�������ׯ԰����ǰ���һ�������Ĵ�Ժ����Ժ����ֲ��
-���໨�ݣ���ɽˮ�أ���¥��̨���ǳ�������Ժ�ڴ�ɨ�÷ǳ�
-�ɾ���������һ��������ϱ�Ҳ��һ��С�ݡ�
+这是苗家庄园正厅前面的一个宽阔的大院，大院里种植着
+各类花草，假山水池，琼楼高台，非常豪华。院内打扫得非常
+干净，北边是一间厨房，南边也有一间小屋。
 LONG);
 	set("exits", ([
   		"west"  : __DIR__"miaojia_men",

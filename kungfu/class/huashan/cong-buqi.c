@@ -1,16 +1,16 @@
-// cong-buqi.c  ´Ô²»Æú
+// cong-buqi.c  ä¸›ä¸å¼ƒ
 inherit NPC;
 inherit F_MASTER;
 #include <ansi.h>
 
 void create()
 {
-        set_name("´Ô²»Æú", ({ "cong buqi", "cong" }) );
-        set("gender", "ÄĞĞÔ");
+        set_name("ä¸›ä¸å¼ƒ", ({ "cong buqi", "cong" }) );
+        set("gender", "ç”·æ€§");
         set("class", "swordsman");
-        set("title", "»ªÉ½½£×ÚµÚÊ®Èı´úµÜ×Ó");
+        set("title", "åå±±å‰‘å®—ç¬¬åä¸‰ä»£å¼Ÿå­");
         set("age", 52);
-        set("long", "´Ô²»ÆúÊÇ»ªÉ½½£×Ú¸ßÊÖ¡£\n");
+        set("long", "ä¸›ä¸å¼ƒæ˜¯åå±±å‰‘å®—é«˜æ‰‹ã€‚\n");
         set("attitude", "peaceful");
         set("str", 26);
         set("int", 28);
@@ -50,7 +50,7 @@ void create()
         map_skill("unarmed", "huashan-quanfa");
         map_skill("dodge", "huashan-shenfa");
 
-        create_family("»ªÉ½½£×Ú", 13, "µÜ×Ó");
+        create_family("åå±±å‰‘å®—", 13, "å¼Ÿå­");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();
@@ -59,5 +59,5 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        command("say ÀÏ·ò²»ÏëÊÕÍ½¡£");
+        command("say è€å¤«ä¸æƒ³æ”¶å¾’ã€‚");
 }

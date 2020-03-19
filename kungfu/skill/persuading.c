@@ -9,5 +9,5 @@ void skill_improved(object me)
 
 int valid_learn(object me)
 {
-        return notify_fail("渡世济人要在实践中提高。\n");
+        return notify_fail("娓′笘娴庝汉瑕佸湪瀹炶返涓彁楂樸�俓n");
 }

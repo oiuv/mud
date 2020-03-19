@@ -1,20 +1,20 @@
 // rice.c
-// 1000 µãÖØÁ¿ºÏ 1 ½ï
+// 1000 ç‚¹é‡é‡åˆ 1 æ–¤
 
 inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name("´óÃ×", ({ "rice", "da mi", "mi" }));
+        set_name("å¤§ç±³", ({ "rice", "da mi", "mi" }));
         if(clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("long", "ÕâÊÇÒ»´ü¾«ÖÆµÄ´óÃ×¡£\n");
-                set("base_unit", "´ü");
+                set("long", "è¿™æ˜¯ä¸€è¢‹ç²¾åˆ¶çš„å¤§ç±³ã€‚\n");
+                set("base_unit", "è¢‹");
                 set("base_weight", 10000);
                 set("no_sell", 1);
-                set("unit", "Ğ©");
+                set("unit", "äº›");
         }
 
         set_amount(1);

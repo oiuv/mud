@@ -1,4 +1,4 @@
-// hair.c Í··¢
+// hair.c å¤´å‘
 
 #include <ansi.h>
 
@@ -9,15 +9,15 @@ int is_hair() { return 1; }
 
 void create()
 {
-        set_name(RED "Í··¢" NOR, ({ "hair" }));
+        set_name(RED "å¤´å‘" NOR, ({ "hair" }));
         set_weight(50);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Êø");
+                set("unit", "æŸ");
                 set("value", 1);
-                set("no_sell", "ÎÒÕâ¶ù²»ÊÇ¼Ù·¢µê£¬ÄãÒ»±ß¶ùÈ¥¡£");
-                set("long", WHT "Ò»ÊøÍ··¢¡£\n" NOR);
+                set("no_sell", "æˆ‘è¿™å„¿ä¸æ˜¯å‡å‘åº—ï¼Œä½ ä¸€è¾¹å„¿å»ã€‚");
+                set("long", WHT "ä¸€æŸå¤´å‘ã€‚\n" NOR);
                 set("only_do_effect", 1);
         }
 }
@@ -25,17 +25,17 @@ void create()
 int set_from(object owner)
 {
         set("gender", owner->query("gender"));
-        if (query("gender") == "Å®ĞÔ")
+        if (query("gender") == "å¥³æ€§")
         {
-                set("name", "ÇàË¿");
-                set("long", CYN "Ò»ÊøÇàË¿¡£\n" NOR);
+                set("name", "é’ä¸");
+                set("long", CYN "ä¸€æŸé’ä¸ã€‚\n" NOR);
         }
         return 1;
 }
 
 int do_effect(object me)
 {
-        message_vision("$NÄÃÆğÍ··¢¾ÍÒ§£¬½á¹ûÅªµÄÂú×ì¶¼ÊÇÍ··¢Ë¿¡£\n",
+        message_vision("$Næ‹¿èµ·å¤´å‘å°±å’¬ï¼Œç»“æœå¼„çš„æ»¡å˜´éƒ½æ˜¯å¤´å‘ä¸ã€‚\n",
                        me, this_object());
         return 1;
 }

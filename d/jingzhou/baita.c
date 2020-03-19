@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "����");
+	set("short", "白塔");
 	set("long", @LONG
-������һ������ߵİ������ഫ��ǰ��һλ״Ԫ�ɿ�ȡ��
-����������ĸ���޽��ı�������
+这里是一座三层高的白塔，相传是前朝一位状元郎考取功
+名后，卫报答母恩修建的报恩塔。
 LONG);
 	set("exits", ([  
   		"up" : __DIR__"baita1",

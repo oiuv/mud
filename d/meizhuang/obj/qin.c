@@ -7,17 +7,17 @@ inherit MI_QIN;
 
 void create()
 {
-        set_name(YEL "Ì´Ä¾ÇÙ" NOR,({ "tanmu qin", "tanmu", "qin" }) );
+        set_name(YEL "æª€æœ¨ç´" NOR,({ "tanmu qin", "tanmu", "qin" }) );
         set_weight(9000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»¾ßÍ¨ÌåÓÃÉÏµÈÌ´Ä¾ËùÖÆµÄÇÙ¡£\n" NOR);
-                set("unit", "¾ß");
+                set("long", "ä¸€å…·é€šä½“ç”¨ä¸Šç­‰æª€æœ¨æ‰€åˆ¶çš„ç´ã€‚\n" NOR);
+                set("unit", "å…·");
                 set("value", 5000);
                 set("material", "wood");
-                set("wield_msg", YEL "$N" YEL "´Ó±³ºó»º»ºÈ¡³öÒ»¾ßÌ´Ä¾ÇÙºÏ±§ÔÚÊÖÖĞ¡£\n" NOR);
-                set("unwield_msg", YEL "$N" YEL "½«ÊÖÖĞµÄÌ´Ä¾ÇÙÊÕÁËÆğÀ´£¬·Åµ½±³ºó¡£\n" NOR);
+                set("wield_msg", YEL "$N" YEL "ä»èƒŒåç¼“ç¼“å–å‡ºä¸€å…·æª€æœ¨ç´åˆæŠ±åœ¨æ‰‹ä¸­ã€‚\n" NOR);
+                set("unwield_msg", YEL "$N" YEL "å°†æ‰‹ä¸­çš„æª€æœ¨ç´æ”¶äº†èµ·æ¥ï¼Œæ”¾åˆ°èƒŒåã€‚\n" NOR);
                 set("stable", 10);
         }
         init_sword(20);

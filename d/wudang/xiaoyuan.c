@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��ɽСԺ");
+        set("short", "后山小院");
         set("long", @LONG
-�������䵱��ɽ��һ��СԺ�����ü�򵥵���������һ��
-һ����һ�Ρ�һ���ţ���Ҳû�б��ʲ��Ƚ�����עĿ����
-ǽ�Ϲ���һ�ѽ�����������䵱��ɽ��ʦ��������������ڡ�
+这里是武当后山的一座小院，布置简简单单，仅除了一床
+一桌、一椅、一蒲团，再也没有别的什物。比较引人注目的是
+墙上挂着一把剑。这里就是武当开山祖师张三丰的练功所在。
 LONG );
         set("exits", ([
                 "north" : __DIR__"xiaolu2",
@@ -15,7 +15,7 @@ LONG );
         set("objects", ([
                 CLASS_D("wudang") + "/zhang" : 1 
         ]));
-        create_door("north", "����", "south", DOOR_CLOSED);
+        create_door("north", "竹门", "south", DOOR_CLOSED);
         setup();
         replace_program(ROOM);
 }

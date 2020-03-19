@@ -10,11 +10,11 @@ string* books = ({
 });
 void create()
 {
-        set("short", "�ؾ���");
+        set("short", "藏经室");
         set("long", @LONG
-�����Ǵ����µĲؾ��ң���ǽ��һ����ܣ������˸���ȭ
-�ס��鼮������ǵ����������Ħ�Ƿ���ķ𾭺ʹ�������ȡ
-������ѧ�伮��
+这里是大轮寺的藏经室，靠墙是一排书架，摆满了各种拳
+谱、书籍。大多是当年掌门人鸠摩智翻译的佛经和从少林寺取
+来的武学典籍。
 LONG);
         set("exits", ([
                 "north" : __DIR__"dating",

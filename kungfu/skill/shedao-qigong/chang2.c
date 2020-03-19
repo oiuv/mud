@@ -1,4 +1,4 @@
-// ³ªÏÉ·¨
+// å”±ä»™æ³•
 
 #include <ansi.h>
 
@@ -8,16 +8,16 @@ int perform(object me)
 //	string msg;
 
 	if (! me->is_fighting())
-		return notify_fail("³ªÏÉ·¨Ö»ÄÜÔÚÕ½¶·ÖÐÊ¹ÓÃ¡£\n");
+		return notify_fail("å”±ä»™æ³•åªèƒ½åœ¨æˆ˜æ–—ä¸­ä½¿ç”¨ã€‚\n");
 
 	if ((int)me->query_skill("shedao-qigong", 1) < 80)
-		return notify_fail("ÄãµÄÉßµºÆæ¹¦²»¹»æµÊì£¬²»»áÊ¹ÓÃ³ªÏÉ·¨¡£\n");
+		return notify_fail("ä½ çš„è›‡å²›å¥‡åŠŸä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨å”±ä»™æ³•ã€‚\n");
 
 	if ((int)me->query_temp("chang") <= -20)
-		return notify_fail("ÄãÒÑ¾­³ªµÃÌ«¾ÃÁË£¬²»ÄÜÔÙ³ªÁË¡£\n");
+		return notify_fail("ä½ å·²ç»å”±å¾—å¤ªä¹…äº†ï¼Œä¸èƒ½å†å”±äº†ã€‚\n");
 
-	message_combatd(HIR "Ö»Ìý$N" HIR "¿ÚÖÐÄîÄîÓÐ´Ê£¬Çê¿Ì"
-                        "Ö®¼äÄÚÁ¦´óÕÇ£¡\n" NOR, me);
+	message_combatd(HIR "åªå¬$N" HIR "å£ä¸­å¿µå¿µæœ‰è¯ï¼Œé¡·åˆ»"
+                        "ä¹‹é—´å†…åŠ›å¤§æ¶¨ï¼\n" NOR, me);
 	me->add_temp("apply/attack", -1);
 	me->add_temp("apply/dodge", -1);
 	me->add_temp("apply/defense", -1);

@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "���ݱ���");
+        set("short", "中州北门");
         set("long", @LONG
-�����Ѿ��������ݵı����ˣ��߸ߵĳ�ǽ��ש���ﳤ����
-�ݡ��߹����ţ��ٹ��˻��Ǻӣ����ǳ����ˡ�
+这里已经到了中州的北门了，高高的城墙的砖缝里长满了
+草。走过城门，再过了护城河，就是城外了。
 LONG);
         set("outdoors", "zhongzhou");
         set("exits", ([

@@ -5,73 +5,73 @@
 
 #include <ansi.h>
 
-// ±êÊ¶¶ÔÓ¦µÄµØÃû
+// æ ‡è¯†å¯¹åº”çš„åœ°å
 mapping map_short = ([
-        "xiyu"      : "Î÷Óò",
-        "gaochang"  : "¸ß²ı¸½½ü",
-        "xingxiu"   : "ĞÇËŞº£",
-        "guanwai"   : "¹ØÍâ",
-        "city"      : "ÑïÖİ",
-        "fuzhou"    : "¸£Öİ",
-        "xiangyang" : "ÏåÑô",
-        "suzhou"    : "ËÕÖİ",
-        "hangzhou"  : "º¼Öİ",
-        "quanzhou"  : "ÈªÖİ",
-        "lingzhou"  : "ÁéÖİ",
-        "chengdu"   : "³É¶¼",
-        "jingzhou"  : "¾£Öİ",
-        "jiaxing"   : "¼ÎĞË",
-        "nanyang"   : "ÄÏÑô",
-        "foshan"    : "·ğÉ½",
-        "dali"      : "´óÀí",
-        "changan"   : "³¤°²",
-        "wugong"    : "Îä¹¦",
-        "hengyang"  : "ºâÑô",
-        "beijing"   : "±±¾©",
-        "shaolin"   : "ÉÙÁÖ",
-        "wudang"    : "Îäµ±",
-        "emei"      : "¶ëáÒ",
-        "qingcheng" : "Çà³Ç",
-        "mingjiao"  : "À¥ÂØÉ½",
-        "quanzhen"  : "ÖÕÄÏÉ½",
-        "henshan"   : "ºâÉ½",
-        "taishan"   : "Ì©É½",
-        "huashan"   : "»ªÉ½",
-        "hengshan"  : "ºãÉ½",
-        "songshan"  : "áÔÉ½",
-        "huanghe"   : "»ÆºÓ",
-        "lingjiu"   : "ÌìÉ½",
-        "gumu"      : "¹ÅÄ¹",
-        "meizhuang" : "Ã·×¯",
-        "tianlongsi": "ÌìÁúËÂ",
-        "xueshan"   : "Ñ©É½",
-        "taohua"    : "ÌÒ»¨µº",
-        "baituo"    : "°×ÍÕÉ½",
-        "shenlong"  : "ÉñÁúµº",
-        "yanziwu"   : "Ñà×ÓÎë",
-        "village"   : "»ªÉ½´å",
-        "xiakedao"  : "ÏÀ¿Íµº",
-        "xiaoyao"   : "åĞÒ£ÁÖ",
-        "wanjiegu"  : "Íò½Ù¹È",
-        "xuedao"    : "´óÑ©É½",
-        "guiyun"    : "¹éÔÆ×¯",
-        "heimuya"   : "ºÚÄ¾ÑÂ",
-        "motianya"  : "Ä¦ÌìÑÂ",
-        "nanhai"    : "ÄÏº£Ö®±õ",
-        "tiezhang"  : "ÌúÕÆÉ½",
-        "kaifeng"   : "¿ª·â",
-        "ruzhou"    : "ÈêÖİ",
-        "zhongzhou" : "ÖĞÖİ",
-        "luoyang"   : "ÂåÑô",
-        "lingxiao"  : "ÁèÏö³Ç",
-        "lanzhou"   : "À¼Öİ",
-        "wudujiao"  : "Îå¶¾½Ì",
-        "honghua"   : "ºì»¨»á",
-        "kunming"   : "À¥Ã÷",
-        "jueqing"   : "¾øÇé¹È",
+        "xiyu"      : "è¥¿åŸŸ",
+        "gaochang"  : "é«˜æ˜Œé™„è¿‘",
+        "xingxiu"   : "æ˜Ÿå®¿æµ·",
+        "guanwai"   : "å…³å¤–",
+        "city"      : "æ‰¬å·",
+        "fuzhou"    : "ç¦å·",
+        "xiangyang" : "è¥„é˜³",
+        "suzhou"    : "è‹å·",
+        "hangzhou"  : "æ­å·",
+        "quanzhou"  : "æ³‰å·",
+        "lingzhou"  : "çµå·",
+        "chengdu"   : "æˆéƒ½",
+        "jingzhou"  : "è†å·",
+        "jiaxing"   : "å˜‰å…´",
+        "nanyang"   : "å—é˜³",
+        "foshan"    : "ä½›å±±",
+        "dali"      : "å¤§ç†",
+        "changan"   : "é•¿å®‰",
+        "wugong"    : "æ­¦åŠŸ",
+        "hengyang"  : "è¡¡é˜³",
+        "beijing"   : "åŒ—äº¬",
+        "shaolin"   : "å°‘æ—",
+        "wudang"    : "æ­¦å½“",
+        "emei"      : "å³¨åµ‹",
+        "qingcheng" : "é’åŸ",
+        "mingjiao"  : "æ˜†ä»‘å±±",
+        "quanzhen"  : "ç»ˆå—å±±",
+        "henshan"   : "è¡¡å±±",
+        "taishan"   : "æ³°å±±",
+        "huashan"   : "åå±±",
+        "hengshan"  : "æ’å±±",
+        "songshan"  : "åµ©å±±",
+        "huanghe"   : "é»„æ²³",
+        "lingjiu"   : "å¤©å±±",
+        "gumu"      : "å¤å¢“",
+        "meizhuang" : "æ¢…åº„",
+        "tianlongsi": "å¤©é¾™å¯º",
+        "xueshan"   : "é›ªå±±",
+        "taohua"    : "æ¡ƒèŠ±å²›",
+        "baituo"    : "ç™½é©¼å±±",
+        "shenlong"  : "ç¥é¾™å²›",
+        "yanziwu"   : "ç‡•å­å",
+        "village"   : "åå±±æ‘",
+        "xiakedao"  : "ä¾ å®¢å²›",
+        "xiaoyao"   : "é€é¥æ—",
+        "wanjiegu"  : "ä¸‡åŠ«è°·",
+        "xuedao"    : "å¤§é›ªå±±",
+        "guiyun"    : "å½’äº‘åº„",
+        "heimuya"   : "é»‘æœ¨å´–",
+        "motianya"  : "æ‘©å¤©å´–",
+        "nanhai"    : "å—æµ·ä¹‹æ»¨",
+        "tiezhang"  : "é“æŒå±±",
+        "kaifeng"   : "å¼€å°",
+        "ruzhou"    : "æ±å·",
+        "zhongzhou" : "ä¸­å·",
+        "luoyang"   : "æ´›é˜³",
+        "lingxiao"  : "å‡Œéœ„åŸ",
+        "lanzhou"   : "å…°å·",
+        "wudujiao"  : "äº”æ¯’æ•™",
+        "honghua"   : "çº¢èŠ±ä¼š",
+        "kunming"   : "æ˜†æ˜",
+        "jueqing"   : "ç»æƒ…è°·",
 ]);
 
-// ±êÊ¶¶ÔÓ¦µÄµØÍ¼°ïÖúÎÄ¼ş(È«²¿ÔÚHELP_DIRÖĞ)
+// æ ‡è¯†å¯¹åº”çš„åœ°å›¾å¸®åŠ©æ–‡ä»¶(å…¨éƒ¨åœ¨HELP_DIRä¸­)
 mapping map_to = ([
         "xiyu"      : "map_xy",
         "gaochang"  : "map_xy",
@@ -137,39 +137,39 @@ mapping map_to = ([
         "jueqing"   : "map_jqg",
 ]);
 
-// ¸÷µØ½»Í¨ÁªÂçµØ
+// å„åœ°äº¤é€šè”ç»œåœ°
 mapping map_trans = ([
-        "beijing"   : ([ "name" : "±±¾©",     "room" : "/d/beijing/majiu", ]),
-        "yangzhou"  : ([ "name" : "ÑïÖİ",     "room" : "/d/city/majiu", ]),
-        "dali"      : ([ "name" : "´óÀí",     "room" : "/d/dali/majiu", ]),
-        "foshan"    : ([ "name" : "·ğÉ½",     "room" : "/d/foshan/majiu", ]),
-        "fuzhou"    : ([ "name" : "¸£Öİ",     "room" : "/d/fuzhou/majiu", ]),
-        "guanwai"   : ([ "name" : "¹ØÍâ",     "room" : "/d/guanwai/majiu", ]),
-        "hangzhou"  : ([ "name" : "º¼Öİ",     "room" : "/d/hangzhou/majiu", ]),
-        "lanzhou"   : ([ "name" : "À¼Öİ",     "room" : "/d/lanzhou/majiu", ]),
-        "lingzhou"  : ([ "name" : "ÁéÖİ",     "room" : "/d/lingzhou/majiu", ]),
-        "luoyang"   : ([ "name" : "ÂåÑô",     "room" : "/d/luoyang/majiu", ]),
-        "yongdeng"  : ([ "name" : "ÓÀµÇ",     "room" : "/d/huanghe/majiu", ]),
-        "suzhou"    : ([ "name" : "ËÕÖİ",     "room" : "/d/suzhou/majiu", ]),
-        "xiangyang" : ([ "name" : "ÏåÑô",     "room" : "/d/xiangyang/majiu", ]),
-        "yili"      : ([ "name" : "ÒÁÀç",     "room" : "/d/xingxiu/majiu", ]),
-        "chengdu"   : ([ "name" : "³É¶¼",     "room" : "/d/city3/majiu", ]),
-        "emei"      : ([ "name" : "¶ëáÒÉ½",   "room" : "/d/emei/majiu1", ]),
-        "emei2"     : ([ "name" : "¶ëáÒ°ëÉ½", "room" : "/d/emei/majiu2", ]),
-        "quanzhou"  : ([ "name" : "ÈªÖİ",     "room" : "/d/quanzhou/majiu1", ]),
-        "jiaxing"   : ([ "name" : "¼ÎĞË",     "room" : "/d/quanzhou/majiu2", ]),
-        "jingzhou"  : ([ "name" : "¾£Öİ",     "room" : "/d/jingzhou/majiu", ]),
-        "nanyang"   : ([ "name" : "ÄÏÑô",     "room" : "/d/shaolin/majiu1", ]),
-        "changan"   : ([ "name" : "³¤°²",     "room" : "/d/changan/majiu", ]),
-        "wugong"    : ([ "name" : "Îä¹¦Õò",   "room" : "/d/quanzhen/majiu", ]),
-        "hengyang"  : ([ "name" : "ºâÑô",     "room" : "/d/henshan/majiu", ]),
-        "kaifeng"   : ([ "name" : "¿ª·â",     "room" : "/d/kaifeng/majiu", ]),
-        "kunming"   : ([ "name" : "À¥Ã÷",     "room" : "/d/kunming/majiu", ]),
-        "zhongzhou" : ([ "name" : "ÖĞÖİ",     "room" : "/d/zhongzhou/majiu", ]),
+        "beijing"   : ([ "name" : "åŒ—äº¬",     "room" : "/d/beijing/majiu", ]),
+        "yangzhou"  : ([ "name" : "æ‰¬å·",     "room" : "/d/city/majiu", ]),
+        "dali"      : ([ "name" : "å¤§ç†",     "room" : "/d/dali/majiu", ]),
+        "foshan"    : ([ "name" : "ä½›å±±",     "room" : "/d/foshan/majiu", ]),
+        "fuzhou"    : ([ "name" : "ç¦å·",     "room" : "/d/fuzhou/majiu", ]),
+        "guanwai"   : ([ "name" : "å…³å¤–",     "room" : "/d/guanwai/majiu", ]),
+        "hangzhou"  : ([ "name" : "æ­å·",     "room" : "/d/hangzhou/majiu", ]),
+        "lanzhou"   : ([ "name" : "å…°å·",     "room" : "/d/lanzhou/majiu", ]),
+        "lingzhou"  : ([ "name" : "çµå·",     "room" : "/d/lingzhou/majiu", ]),
+        "luoyang"   : ([ "name" : "æ´›é˜³",     "room" : "/d/luoyang/majiu", ]),
+        "yongdeng"  : ([ "name" : "æ°¸ç™»",     "room" : "/d/huanghe/majiu", ]),
+        "suzhou"    : ([ "name" : "è‹å·",     "room" : "/d/suzhou/majiu", ]),
+        "xiangyang" : ([ "name" : "è¥„é˜³",     "room" : "/d/xiangyang/majiu", ]),
+        "yili"      : ([ "name" : "ä¼ŠçŠ",     "room" : "/d/xingxiu/majiu", ]),
+        "chengdu"   : ([ "name" : "æˆéƒ½",     "room" : "/d/city3/majiu", ]),
+        "emei"      : ([ "name" : "å³¨åµ‹å±±",   "room" : "/d/emei/majiu1", ]),
+        "emei2"     : ([ "name" : "å³¨åµ‹åŠå±±", "room" : "/d/emei/majiu2", ]),
+        "quanzhou"  : ([ "name" : "æ³‰å·",     "room" : "/d/quanzhou/majiu1", ]),
+        "jiaxing"   : ([ "name" : "å˜‰å…´",     "room" : "/d/quanzhou/majiu2", ]),
+        "jingzhou"  : ([ "name" : "è†å·",     "room" : "/d/jingzhou/majiu", ]),
+        "nanyang"   : ([ "name" : "å—é˜³",     "room" : "/d/shaolin/majiu1", ]),
+        "changan"   : ([ "name" : "é•¿å®‰",     "room" : "/d/changan/majiu", ]),
+        "wugong"    : ([ "name" : "æ­¦åŠŸé•‡",   "room" : "/d/quanzhen/majiu", ]),
+        "hengyang"  : ([ "name" : "è¡¡é˜³",     "room" : "/d/henshan/majiu", ]),
+        "kaifeng"   : ([ "name" : "å¼€å°",     "room" : "/d/kaifeng/majiu", ]),
+        "kunming"   : ([ "name" : "æ˜†æ˜",     "room" : "/d/kunming/majiu", ]),
+        "zhongzhou" : ([ "name" : "ä¸­å·",     "room" : "/d/zhongzhou/majiu", ]),
 ]);
 
 
-// ½»Í¨Á¬½Ó
+// äº¤é€šè¿æ¥
 mixed connect_info = ({
         ({ "beijing", "guanwai",        300, }),
         ({ "beijing", "lingzhou",       300, }),
@@ -244,13 +244,13 @@ mixed connect_info = ({
         ({ "kaifeng", "zhongzhou",      100, }),
 });
 
-// ²é¿´Ä³¸öµØµãÊÇ·ñ±»MAPDËùÖªÏş
+// æŸ¥çœ‹æŸä¸ªåœ°ç‚¹æ˜¯å¦è¢«MAPDæ‰€çŸ¥æ™“
 public int been_known(string outdoors)
 {
         return stringp(map_short[outdoors]);
 }
 
-// »ñµÃÄ³¸ö»§ÍâµØµãµÄÖĞÎÄÃû×Ö
+// è·å¾—æŸä¸ªæˆ·å¤–åœ°ç‚¹çš„ä¸­æ–‡åå­—
 public string query_map_short(string outdoors)
 {
         string str;
@@ -258,16 +258,16 @@ public string query_map_short(string outdoors)
         if (stringp(str = map_short[outdoors]))
                 return str;
 
-        return "²»ÏêµØµã";
+        return "ä¸è¯¦åœ°ç‚¹";
 }
 
-// »ñµÃËùÓĞ»§ÍâµØµãµÄ¼¯ºÏ
+// è·å¾—æ‰€æœ‰æˆ·å¤–åœ°ç‚¹çš„é›†åˆ
 public string *query_all_map_zone()
 {
         return keys(map_short);
 }
 
-// »ñµÃÄ³¸ö»§ÍâµØµãµÄµØÍ¼
+// è·å¾—æŸä¸ªæˆ·å¤–åœ°ç‚¹çš„åœ°å›¾
 public string query_maps(string outdoors)
 {
         mixed maps;
@@ -275,14 +275,14 @@ public string query_maps(string outdoors)
         string map_result;
 
         if (undefinedp(maps = map_to[outdoors]))
-                return "Î´ÓĞÏêÏ¸µØÍ¼¡£\n";
+                return "æœªæœ‰è¯¦ç»†åœ°å›¾ã€‚\n";
 
         if (stringp(maps))
         {
                 file = HELP_DIR + maps;
                 map_result = read_file(file);
                 if (! stringp(map_result))
-                        map_result = "ÎŞ·¨¶ÁÈ¡µØÍ¼" + file + "¡£\n";
+                        map_result = "æ— æ³•è¯»å–åœ°å›¾" + file + "ã€‚\n";
                 map_result = color_filter(map_result);
                 return map_result;
         }
@@ -295,21 +295,21 @@ public string query_maps(string outdoors)
                         if (file_size(HELP_DIR + file) > 0)
                                 map_result += read_file(HELP_DIR + file);
                         else
-                                map_result += "ÎŞ·¨¶ÁÈ¡µØÍ¼" + file + "¡£\n";
+                                map_result += "æ— æ³•è¯»å–åœ°å›¾" + file + "ã€‚\n";
                 }
                 map_result = color_filter(map_result);
                 return map_result;
         }
 
-        error("Î´Öª´íÎó¡£\n");
+        error("æœªçŸ¥é”™è¯¯ã€‚\n");
 }
 
-// »ñµÃµØÍ¼ÖĞÄ³Ò»ĞĞµÄµÚx¿ªÊ¼µÄn¸ö×Ö·û£¬ÆäÖĞµØÍ¼ĞĞÖĞ@´òÍ·µÄ×Ö
-// ·û¼°ºóĞø×Ö·ûÒ»¸ÅÈÏÎª²»Õ¼µØ·½¡£±ÈÈç"@B123@E"£¬ÔòµÚ¶ş¸ö×Ö·û
-// ÊÇ'2'£¬¶ø²»ÊÇB¡£Èç¹ûnÎª-1£¬Ôò·µ»ØÒ»Ö±µ½Ä©Î²µÄËùÓĞ×Ö·û
+// è·å¾—åœ°å›¾ä¸­æŸä¸€è¡Œçš„ç¬¬xå¼€å§‹çš„nä¸ªå­—ç¬¦ï¼Œå…¶ä¸­åœ°å›¾è¡Œä¸­@æ‰“å¤´çš„å­—
+// ç¬¦åŠåç»­å­—ç¬¦ä¸€æ¦‚è®¤ä¸ºä¸å åœ°æ–¹ã€‚æ¯”å¦‚"@B123@E"ï¼Œåˆ™ç¬¬äºŒä¸ªå­—ç¬¦
+// æ˜¯'2'ï¼Œè€Œä¸æ˜¯Bã€‚å¦‚æœnä¸º-1ï¼Œåˆ™è¿”å›ä¸€ç›´åˆ°æœ«å°¾çš„æ‰€æœ‰å­—ç¬¦
 //
-// ÕâÑù´æÔÚÎÊÌâ£¬ÓĞ±ØÒªÒıÈëÒ»¸ö±äÁ¿£¬ ±êÊ¶ÊÇ·ñÈ¡»ØÑÕÉ«£¬²»¹ı
-// ÓÉÓÚ³ö´íµÄ¼¸ÂÊÏàµ±Ğ¡£¬ËùÒÔ¹ÃÇÒ²»¼Æ¡£
+// è¿™æ ·å­˜åœ¨é—®é¢˜ï¼Œæœ‰å¿…è¦å¼•å…¥ä¸€ä¸ªå˜é‡ï¼Œ æ ‡è¯†æ˜¯å¦å–å›é¢œè‰²ï¼Œä¸è¿‡
+// ç”±äºå‡ºé”™çš„å‡ ç‡ç›¸å½“å°ï¼Œæ‰€ä»¥å§‘ä¸”ä¸è®¡ã€‚
 string get_map_line(string line, int x, int n)
 {
         string rs;
@@ -318,37 +318,37 @@ string get_map_line(string line, int x, int n)
         if (n == 0)
                 return rs;
 
-        // ÕÒµ½ÏàÓ¦µÄÎ»ÖÃ
+        // æ‰¾åˆ°ç›¸åº”çš„ä½ç½®
         while (x)
         {
                 if (strlen(line) == 0)
-                        // ×Ö·û´®³¤¶È²»¹»
+                        // å­—ç¬¦ä¸²é•¿åº¦ä¸å¤Ÿ
                         return rs;
 
                 if (line[0] == '@')
                 {
                         if (strlen(line) >= 2)
-                                // È¥µô@ºÍºóĞøµÄ×Ö·û
+                                // å»æ‰@å’Œåç»­çš„å­—ç¬¦
                                 line = line[2..<1];
                         else
-                                // ³¤¶È²»¹»£¿·µ»Ø¿Õ×Ö·û´®
+                                // é•¿åº¦ä¸å¤Ÿï¼Ÿè¿”å›ç©ºå­—ç¬¦ä¸²
                                 return rs;
                 } else
                 {
-                        // ×Ö·û´®È¥µôµÚÒ»¸ö×Ö·û£¬Ïàµ±ÓÚÏòÓÒÒÆ¶¯
+                        // å­—ç¬¦ä¸²å»æ‰ç¬¬ä¸€ä¸ªå­—ç¬¦ï¼Œç›¸å½“äºå‘å³ç§»åŠ¨
                         x--;
                         line = line[1..<1];
                 }
         }
 
-        // ½ØÈ¡n¸ö×Ö·û
-        // ÎªÊ²Ã´ÕâÀïÓÃdo-while£¬¶ø²»Ö±½ÓÓÃwhile£¿ÕâÊÇÓĞÔ­Òò
-        // µÄ¡£
+        // æˆªå–nä¸ªå­—ç¬¦
+        // ä¸ºä»€ä¹ˆè¿™é‡Œç”¨do-whileï¼Œè€Œä¸ç›´æ¥ç”¨whileï¼Ÿè¿™æ˜¯æœ‰åŸå› 
+        // çš„ã€‚
         rs = "";
         for (;;)
         {
                 if (strlen(line) == 0)
-                        // ÒÑ¾­ÎŞ×Ö·û¿ÉÈ¡
+                        // å·²ç»æ— å­—ç¬¦å¯å–
                         return rs;
 
                 if (line[0] == '@')
@@ -364,7 +364,7 @@ string get_map_line(string line, int x, int n)
                         }
                 } else
                 {
-                        if (n == 0) break; // ½áÊø½ØÈ¡
+                        if (n == 0) break; // ç»“æŸæˆªå–
                         n--;
                         rs += line[0..0];
                         line = line[1..<1];
@@ -374,29 +374,29 @@ string get_map_line(string line, int x, int n)
         return rs;
 }
 
-// ÎªµØµã±ê¼ÇÑÕÉ«£ºÃû×Ö±ØĞëÎªÖĞÎÄ
-// ±ê¼ÇµÄÊ±ºòÒ»ĞĞĞĞÉ¨Ãè£¬É¨ÃèµÄÍ¬Ê±´ò±ê¼Ç£¬½«±ê¼ÇÉèÖÃÎª@BºÍ
-// @E£¬Èç¹ûÉ¨Ãè³É¹¦¾Í°Ñ@BºÍ@EÌæ»»³ÉÎª@RºÍ@N£¬·ñÔò¾ÍÈ¥µôÕâĞ©
-// ÁÙÊ±±ê¼Ç¡£
-// ×îºó½«½«ËùÓĞµÄ±ê¼ÇÌæ»»³ÉÑÕÉ«£º@R->WHT @N->NOR
+// ä¸ºåœ°ç‚¹æ ‡è®°é¢œè‰²ï¼šåå­—å¿…é¡»ä¸ºä¸­æ–‡
+// æ ‡è®°çš„æ—¶å€™ä¸€è¡Œè¡Œæ‰«æï¼Œæ‰«æçš„åŒæ—¶æ‰“æ ‡è®°ï¼Œå°†æ ‡è®°è®¾ç½®ä¸º@Bå’Œ
+// @Eï¼Œå¦‚æœæ‰«ææˆåŠŸå°±æŠŠ@Bå’Œ@Eæ›¿æ¢æˆä¸º@Rå’Œ@Nï¼Œå¦åˆ™å°±å»æ‰è¿™äº›
+// ä¸´æ—¶æ ‡è®°ã€‚
+// æœ€åå°†å°†æ‰€æœ‰çš„æ ‡è®°æ›¿æ¢æˆé¢œè‰²ï¼š@R->WHT @N->NOR
 public string mark_map(string map, string name)
 {
         string *lines;
         string temp;
         string rs;
         int i;
-        int x, y, xd;           // ±È½ÏµÄµØÍ¼Î»ÖÃ
+        int x, y, xd;           // æ¯”è¾ƒçš„åœ°å›¾ä½ç½®
         int n;
 
-        // È¥³ıµØÍ¼µÄÑÕÉ«£ºÕâÑù¿ÉÒÔ×¼È·µÄÅĞ¶Ï¾ø¶ÔµÄ×ø±ê
+        // å»é™¤åœ°å›¾çš„é¢œè‰²ï¼šè¿™æ ·å¯ä»¥å‡†ç¡®çš„åˆ¤æ–­ç»å¯¹çš„åæ ‡
         map = filter_color(map);
 
-        // ½«µØÍ¼·Ö³ÉĞĞ
+        // å°†åœ°å›¾åˆ†æˆè¡Œ
         lines = explode(map, "\n");
         for (i = 0; i < sizeof(lines); i++)
         {
                 if (strsrch(lines[i], name[0..1]) == -1)
-                        // ±¾ĞĞ²»´æÔÚÃû³ÆµÄµÚÒ»¸öºº×Ö£¬¼ÌĞø£¬¼ÌĞøÏÂÒ»ĞĞ
+                        // æœ¬è¡Œä¸å­˜åœ¨åç§°çš„ç¬¬ä¸€ä¸ªæ±‰å­—ï¼Œç»§ç»­ï¼Œç»§ç»­ä¸‹ä¸€è¡Œ
                         continue;
 
                 x = 0;
@@ -406,12 +406,12 @@ public string mark_map(string map, string name)
                 {
                         xd = strsrch(temp[x..<1], name[0..1]);
                         if (xd == -1)
-                                // ±¾ĞĞºóĞøÃ»ÓĞÃû³ÆµÄµÚÒ»¸öºº×Ö£¬¼ÌĞøÏÂÒ»ĞĞ
+                                // æœ¬è¡Œåç»­æ²¡æœ‰åç§°çš„ç¬¬ä¸€ä¸ªæ±‰å­—ï¼Œç»§ç»­ä¸‹ä¸€è¡Œ
                                 break;
 
-                        // ¸ÃĞĞÆ¥ÅäÉÏÁËµÚÒ»¸öºº×Ö£º±È½ÏºóĞøµÄºº×Ö£¬
-                        // Ê×ÏÈºáÏò±È½Ï£¬Òò´Ë²»¶ÏÒÆ¶¯xd£¬Èç¹ûºáÏòÉ¨
-                        // Ãè²»µ½£¬¾ÍÍù×İÏò±È½Ï£¬±ä»¯y¡£
+                        // è¯¥è¡ŒåŒ¹é…ä¸Šäº†ç¬¬ä¸€ä¸ªæ±‰å­—ï¼šæ¯”è¾ƒåç»­çš„æ±‰å­—ï¼Œ
+                        // é¦–å…ˆæ¨ªå‘æ¯”è¾ƒï¼Œå› æ­¤ä¸æ–­ç§»åŠ¨xdï¼Œå¦‚æœæ¨ªå‘æ‰«
+                        // æä¸åˆ°ï¼Œå°±å¾€çºµå‘æ¯”è¾ƒï¼Œå˜åŒ–yã€‚
                         x += xd;
                         y = i;
                         xd = 2;
@@ -420,16 +420,16 @@ public string mark_map(string map, string name)
                         rs += get_map_line(lines[y], x, 2);
                         for (n = 2; n < strlen(name); n += 2, xd += 2)
                         {
-                                // Ê×ÏÈºáÏò±È½Ï
+                                // é¦–å…ˆæ¨ªå‘æ¯”è¾ƒ
                                 if (x + xd + 2 <= strlen(lines[y]) &&
                                     get_map_line(lines[y], x + xd, 2) == name[n..n + 1])
                                 {
-                                        // ºáÏò±È½Ïµ½ÁË£¬¼ÌĞøºáÏò±È½Ï
+                                        // æ¨ªå‘æ¯”è¾ƒåˆ°äº†ï¼Œç»§ç»­æ¨ªå‘æ¯”è¾ƒ
                                         rs += name[n..n + 1];
                                         continue;
                                 }
 
-                                // ºáÏò±È½ÏÊ§°ÜÁË£¬ºáÏò»¹Ô­¶ÔÆë£¬×İÏò±È½Ï
+                                // æ¨ªå‘æ¯”è¾ƒå¤±è´¥äº†ï¼Œæ¨ªå‘è¿˜åŸå¯¹é½ï¼Œçºµå‘æ¯”è¾ƒ
                                 rs += "@E" + get_map_line(lines[y], x + xd, -1);
                                 xd = 0;
                                 y++;
@@ -437,7 +437,7 @@ public string mark_map(string map, string name)
                                     x + 2 <= strlen(lines[y]) &&
                                     get_map_line(lines[y], x, 2) == name[n..n + 1])
                                 {
-                                        // ×İÏò±È½Ïµ½ÁË£¬¼ÌĞøºáÏò±È½Ï
+                                        // çºµå‘æ¯”è¾ƒåˆ°äº†ï¼Œç»§ç»­æ¨ªå‘æ¯”è¾ƒ
                                         lines[y - 1] = rs;
                                         rs = get_map_line(lines[y], 0, x);
                                         rs += "@B";
@@ -445,11 +445,11 @@ public string mark_map(string map, string name)
                                         continue;
                                 }
 
-                                // ±È½ÏÊ§°Ü£¬²»ÔÚ(x, i)Õâ¸öÎ»ÖÃ
+                                // æ¯”è¾ƒå¤±è´¥ï¼Œä¸åœ¨(x, i)è¿™ä¸ªä½ç½®
                                 y--;
                                 while (y >= i)
                                 {
-                                        // »Ö¸´Ô­ÏÈµÄµØÍ¼£¬È¥µô±ê¼Ç
+                                        // æ¢å¤åŸå…ˆçš„åœ°å›¾ï¼Œå»æ‰æ ‡è®°
                                         lines[y] = replace_string(lines[y], "@B", "");
                                         lines[y] = replace_string(lines[y], "@E", "");
                                         y--;
@@ -459,29 +459,29 @@ public string mark_map(string map, string name)
 
                         if (n >= strlen(name))
                         {
-                                // Æ¥Åä³É¹¦
+                                // åŒ¹é…æˆåŠŸ
                                 rs += "@E" + get_map_line(lines[y], x + xd, -1);
                                 lines[y] = rs;
                                 while (y >= i)
                                 {
-                                        // ½«±ê¼ÇÉèÖÃÎªÕı³£±ê¼Ç
+                                        // å°†æ ‡è®°è®¾ç½®ä¸ºæ­£å¸¸æ ‡è®°
                                         lines[y] = replace_string(lines[y], "@B", "@R");
                                         lines[y] = replace_string(lines[y], "@E", "@N");
                                         y--;
                                 }
                         }
 
-                        // ÒÆ¶¯x£¬¼ÌĞøÆ¥Åä
+                        // ç§»åŠ¨xï¼Œç»§ç»­åŒ¹é…
                         x++;
                 }
-                // É¨ÃèÍê±ÏÒ»ĞĞ£¬¼ÌĞøÉ¨ÃèÏÂÒ»ĞĞ
+                // æ‰«æå®Œæ¯•ä¸€è¡Œï¼Œç»§ç»­æ‰«æä¸‹ä¸€è¡Œ
         }
-        // ´¦ÀíÍê±Ï
+        // å¤„ç†å®Œæ¯•
 
         return implode(lines, "\n") + "\n";
 }
 
-// »ñµÃËùÔÚÄ³¸öµØµãµÄµØÍ¼²¢±ê¼Çµ±Ç°ËùÔÚµÄÎ»ÖÃ
+// è·å¾—æ‰€åœ¨æŸä¸ªåœ°ç‚¹çš„åœ°å›¾å¹¶æ ‡è®°å½“å‰æ‰€åœ¨çš„ä½ç½®
 public string marked_map(object env)
 {
         mixed maps;
@@ -491,20 +491,20 @@ public string marked_map(object env)
         int result_ok;
 
         if (! objectp(env))
-                return "ÕâÀïÎŞ·¨»ñµÃµØÍ¼¡£\n";
+                return "è¿™é‡Œæ— æ³•è·å¾—åœ°å›¾ã€‚\n";
 
         if (! stringp(outdoors = env->query("outdoors")))
-                return "±ØĞëÔÚÊÒÍâ²ì¿´Ëù´¦µÄ¾ßÌåÎ»ÖÃ¡£\n";
+                return "å¿…é¡»åœ¨å®¤å¤–å¯Ÿçœ‹æ‰€å¤„çš„å…·ä½“ä½ç½®ã€‚\n";
 
         if (undefinedp(maps = map_to[outdoors]))
-                return "Î´ÓĞÏêÏ¸µØÍ¼¡£\n";
+                return "æœªæœ‰è¯¦ç»†åœ°å›¾ã€‚\n";
 
         if (stringp(maps))
         {
                 file = HELP_DIR + maps;
                 map_result = read_file(file);
                 if (! stringp(map_result))
-                        map_result = "ÎŞ·¨¶ÁÈ¡µØÍ¼" + file + "¡£\n";
+                        map_result = "æ— æ³•è¯»å–åœ°å›¾" + file + "ã€‚\n";
                 map_result = color_filter(map_result);
                 map_result = mark_map(map_result, env->short());
         } else
@@ -518,7 +518,7 @@ public string marked_map(object env)
                                 map_result = read_file(HELP_DIR + file);
                         else
                         {
-                                map_result = "ÎŞ·¨¶ÁÈ¡µØÍ¼" + file + "¡£\n";
+                                map_result = "æ— æ³•è¯»å–åœ°å›¾" + file + "ã€‚\n";
                                 result_ok = 1;
                                 break;
                         }
@@ -531,21 +531,21 @@ public string marked_map(object env)
                                 break;
                         }
                 }
-                // ËùÓĞµÄµØÍ¼¶¼Ã»ÓĞ±ä»¯£¿È¡µÚÒ»¸ö
+                // æ‰€æœ‰çš„åœ°å›¾éƒ½æ²¡æœ‰å˜åŒ–ï¼Ÿå–ç¬¬ä¸€ä¸ª
                 if (! result_ok)
                 {
                         map_result = read_file(HELP_DIR + maps[0]);
                         map_result = color_filter(map_result);
                 }
         } else
-                error("Î´Öª´íÎó¡£\n");
+                error("æœªçŸ¥é”™è¯¯ã€‚\n");
 
         map_result = replace_string(map_result, "@R", HIC);
         map_result = replace_string(map_result, "@N", NOR);
         return map_result;
 }
 
-// Íæ¼Ò¼ÍÂ¼´«ÎÅ
+// ç©å®¶çºªå½•ä¼ é—»
 public int record_rumor(mixed obs, string topic, mixed event_ob)
 {
         object ob;
@@ -566,15 +566,15 @@ public int record_rumor(mixed obs, string topic, mixed event_ob)
                 if (! playerp(ob) || ! ob->query("out_family")) continue;
                 if (ob->query("rumor/" + topic)) continue;
                 ob->set("rumor/" + topic, event_ob);
-                message("vision", "ÄãÌÍ³öµØÍ¼²á£¬·­µ½×îºóÃæ£¬Ğ´ÏÂÁËÓĞ¹Ø¡º" +
-                                  topic + "¡»µÄ¼ÇÂ¼¡£\n", ob);
+                message("vision", "ä½ æå‡ºåœ°å›¾å†Œï¼Œç¿»åˆ°æœ€åé¢ï¼Œå†™ä¸‹äº†æœ‰å…³ã€" +
+                                  topic + "ã€çš„è®°å½•ã€‚\n", ob);
                 n++;
         }
 
         return n;
 }
 
-// »ñµÃÄ³¸ö½»Í¨µØµãµÄĞÅÏ¢
+// è·å¾—æŸä¸ªäº¤é€šåœ°ç‚¹çš„ä¿¡æ¯
 public varargs mixed query_trans_info(string to)
 {
         if (! stringp(to))
@@ -583,7 +583,7 @@ public varargs mixed query_trans_info(string to)
         return map_trans[to];
 }
 
-// »ñµÃ½»Í¨Á¬½ÓĞÅÏ¢
+// è·å¾—äº¤é€šè¿æ¥ä¿¡æ¯
 public mapping query_connect_info()
 {
         return connect_info;

@@ -3,13 +3,13 @@
 inherit ITEM;
 void create()
 {
-        set_name( "Ğå»¨Ğ¬", ({ "shoe"}));
+        set_name( "ç»£èŠ±é‹", ({ "shoe"}));
         set_weight(300);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ö»");
-                set("long","ÕâÊÇÒ»Ö»Æ¯ÁÁµÄĞå»¨Ğ¬¡£\n");
+                set("unit", "åª");
+                set("long","è¿™æ˜¯ä¸€åªæ¼‚äº®çš„ç»£èŠ±é‹ã€‚\n");
                 set("value", 50);
                 set("material", "cloth");
                 set("female_only", 1);

@@ -1,4 +1,4 @@
-// ruzhu.c Æ¬Æ¤ÈéÖí
+// ruzhu.c ç‰‡çš®ä¹³çŒª
 
 #include <ansi.h>
 
@@ -7,14 +7,14 @@ inherit F_FOOD;
 
 void create()
 {
-	set_name(HIY "Æ¬Æ¤ÈéÖí" NOR, ({"ruzhu"}));
+	set_name(HIY "ç‰‡çš®ä¹³çŒª" NOR, ({"ruzhu"}));
 	set_weight(700);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "¼¦¶¹»¨É«°×Ï¸ÄÛ£¬ÌÀÇåÎ¶ÏÊ£¬Ô´ÓÚ¶¹»¨£¬¸ßÓÚ¶¹»¨£¬
-±»ÓşÃûÎª¡°¶¹»¨²»ÓÃ¶¹£¬³Ô¼¦²»¼û¼¦¡±µÄ¼ÑëÈÃÀâÍ¡£\n");
-		set("unit", "Ö»");
+		set("long", "é¸¡è±†èŠ±è‰²ç™½ç»†å«©ï¼Œæ±¤æ¸…å‘³é²œï¼Œæºäºè±†èŠ±ï¼Œé«˜äºè±†èŠ±ï¼Œ
+è¢«èª‰åä¸ºâ€œè±†èŠ±ä¸ç”¨è±†ï¼Œåƒé¸¡ä¸è§é¸¡â€çš„ä½³è‚´ç¾é¦”ã€‚\n");
+		set("unit", "åª");
 		set("value", 300);
 		set("food_remaining", 5);
 		set("food_supply", 100);

@@ -5,19 +5,19 @@ inherit DAGGER;
 
 void create()
 {
-    set_name(NOR + CYN "ĞşÌú" WHT "Ø°Ê×" NOR, ({"xuantie bishou", "xuantie", "bishou"}));
+    set_name(NOR + CYN "ç„é“" WHT "åŒ•é¦–" NOR, ({"xuantie bishou", "xuantie", "bishou"}));
     set_weight(12000);
     if (clonep())
         destruct(this_object());
     else
     {
-        set("long", NOR + CYN "Í¨ÌåÆáºÚµÄØ°Ê×£¬Ø°¼¹´¦Çß³öË¿Ë¿º®Òâ¡£\n" NOR);
-        set("unit", "±ú");
-        set("no_sell", "Õâ±úÆÆØ°Ê×Äã×Ô¸öÁô×Å°É¡£");
+        set("long", NOR + CYN "é€šä½“æ¼†é»‘çš„åŒ•é¦–ï¼ŒåŒ•è„Šå¤„æ²å‡ºä¸ä¸å¯’æ„ã€‚\n" NOR);
+        set("unit", "æŸ„");
+        set("no_sell", "è¿™æŸ„ç ´åŒ•é¦–ä½ è‡ªä¸ªç•™ç€å§ã€‚");
         set("value", 100000);
         set("material", "xuantie");
-        set("wield_msg", HIR "$N" HIR "³é³öÒ»±úºÚ÷î÷îµÄØ°Ê×ÄÃÔÚÊÖÖĞ£¬¶ÙÊ±Ò»Õóº®ÆøÆËÃæ¶øÀ´¡£\n" NOR);
-        set("unwield_msg", HIR "$N" HIR "½«ÊÖÖĞµÄØ°Ê×²å»ØÑ¥ÖĞ¡£\n" NOR);
+        set("wield_msg", HIR "$N" HIR "æŠ½å‡ºä¸€æŸ„é»‘é»é»çš„åŒ•é¦–æ‹¿åœ¨æ‰‹ä¸­ï¼Œé¡¿æ—¶ä¸€é˜µå¯’æ°”æ‰‘é¢è€Œæ¥ã€‚\n" NOR);
+        set("unwield_msg", HIR "$N" HIR "å°†æ‰‹ä¸­çš„åŒ•é¦–æ’å›é´ä¸­ã€‚\n" NOR);
         set("stable", 100);
     }
     init_dagger(150);

@@ -6,9 +6,9 @@ int execute_ask();
 
 void create()
 {
-        set_name("ÏæÏæ", ({ "xiangxiang", "xiang" }));
-        set("title","ÏôÔ±ÍâÖ®Å®");
-	set("gender", "Å®ĞÔ");
+        set_name("æ¹˜æ¹˜", ({ "xiangxiang", "xiang" }));
+        set("title","è§å‘˜å¤–ä¹‹å¥³");
+	set("gender", "å¥³æ€§");
   	set("age", 17);
   	set("attitude", "peaceful");
   	set("shen_type", 1);
@@ -30,14 +30,14 @@ void create()
   	set_skill("force", 60);
         set("chat_chance", 15);
         set("chat_msg", ({
-        	"ÏæÏæÏëµ½ÉËĞÄ´¦£¬ÈÌ²»×¡·ÅÉù´ó¿Ş¡£\n",
-        	"ÏæÏæÈôÓĞËùË¼µÄµÀ£ºË­ÄÜ¸øÎÒµùÉÓ¸öĞÅ½ĞËûÀ´¾ÈÎÒ¡£\n",
+        	"æ¹˜æ¹˜æƒ³åˆ°ä¼¤å¿ƒå¤„ï¼Œå¿ä¸ä½æ”¾å£°å¤§å“­ã€‚\n",
+        	"æ¹˜æ¹˜è‹¥æœ‰æ‰€æ€çš„é“ï¼šè°èƒ½ç»™æˆ‘çˆ¹æä¸ªä¿¡å«ä»–æ¥æ•‘æˆ‘ã€‚\n",
         }) );
         set("inquiry", ([
-        	"ĞÅ" : (: execute_ask() :),
-        	"¸¸Ç×" : (: execute_ask() :),
+        	"ä¿¡" : (: execute_ask() :),
+        	"çˆ¶äº²" : (: execute_ask() :),
         	"letter" : (: execute_ask() :),
-        	"¼Ò" : (: execute_ask() :),
+        	"å®¶" : (: execute_ask() :),
         ]));
 
         setup();
@@ -95,7 +95,7 @@ int execute_ask()
   	letter = new (__DIR__"obj/letter");
   	letter->move(me);
   	command("whisper " + who->query("id") +
-                " ½«Õâ·âĞÅ½»¸øÎÒµù£¡½ĞËû¿ìÀ´¾ÈÎÒ£¡");
+                " å°†è¿™å°ä¿¡äº¤ç»™æˆ‘çˆ¹ï¼å«ä»–å¿«æ¥æ•‘æˆ‘ï¼");
   	command("give " + who->query("id") + " " + letter->query("id"));
   	who->save();
   	return 1;
@@ -117,7 +117,7 @@ int check_rescure(object who)
   	if (me->query("leader"))
             	return 1;
   	me->set("leader", who->query("id"));
-  	message_vision("$N¶Ô$n¼±ÇĞµØËµµÀ£º¶÷ÈË£¡¿ìµã¶ù´øÎÒÈ¥¼ûÎÒµù£¡\n",me,who);
+  	message_vision("$Nå¯¹$næ€¥åˆ‡åœ°è¯´é“ï¼šæ©äººï¼å¿«ç‚¹å„¿å¸¦æˆ‘å»è§æˆ‘çˆ¹ï¼\n",me,who);
   	command("follow " + who->query("id"));
   	me->set_temp("no_return",1);
   	return 1;

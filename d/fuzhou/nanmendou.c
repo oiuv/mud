@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "���Ŷ�");
+        set("short", "南门兜");
         set("long", @LONG
-���Ŷ�����һ��޴���ţ�����Ҷï��Ũ���ڸ���Ķ����
-�����ֿ��ڱ���ʵ��©�չ⡣�������³�������Ϊ���ʡ�
+南门兜中央一株巨大古榕，根繁叶茂，浓荫遮盖树亩，将
+整个街口遮闭严实不漏日光。在树阴下乘凉，甚为舒适。
 LONG);
         set("exits", ([
                 "north"  : __DIR__"nandajie",

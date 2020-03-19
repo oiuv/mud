@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "´¬ÉÏ");
+        set("short", "èˆ¹ä¸Š");
         set("long", @LONG
-ÕâÊÇÒ»Ö»´ó½­´¬£¬±ÈÑ°³£µÄ´¬´óÁËĞí¶à£¬´ËÊ±´ó´¬ÒÑ¾­¿¿
-°¶£¬ÄãËæÊ±¿ÉÒÔ´Ó¼×°åÉÏÌøÏÂÈ¥¡£
+è¿™æ˜¯ä¸€åªå¤§æ±Ÿèˆ¹ï¼Œæ¯”å¯»å¸¸çš„èˆ¹å¤§äº†è®¸å¤šï¼Œæ­¤æ—¶å¤§èˆ¹å·²ç»é 
+å²¸ï¼Œä½ éšæ—¶å¯ä»¥ä»ç”²æ¿ä¸Šè·³ä¸‹å»ã€‚
 LONG);
         set("no_fight", 1);
         setup();
@@ -22,13 +22,13 @@ int do_jump(string arg)
         me = this_player();
 
         if (me->is_busy())
-                return notify_fail("ÄãµÄ¶¯×÷»¹Ã»ÓĞÍê³É£¬²»ÄÜÒÆ¶¯¡£\n");
+                return notify_fail("ä½ çš„åŠ¨ä½œè¿˜æ²¡æœ‰å®Œæˆï¼Œä¸èƒ½ç§»åŠ¨ã€‚\n");
 
-        message("vision", me->name() + "ÇáÇáÒ»Ô¾£¬´Ó´ó´¬µÄ¼×°åÉÏÌøÁË"
-                          "ÏÂÈ¥¡£\n", environment(me), ({me}));
+        message("vision", me->name() + "è½»è½»ä¸€è·ƒï¼Œä»å¤§èˆ¹çš„ç”²æ¿ä¸Šè·³äº†"
+                          "ä¸‹å»ã€‚\n", environment(me), ({me}));
 
         me->move(__DIR__"shatan");
-        message("vision", me->name() + "ÌøÏÂÁË´¬£¬´ÓÔ¶´¦µÄº£±ß×ßÁË¹ı"
-                          "À´¡£\n", environment(me), ({me}));
+        message("vision", me->name() + "è·³ä¸‹äº†èˆ¹ï¼Œä»è¿œå¤„çš„æµ·è¾¹èµ°äº†è¿‡"
+                          "æ¥ã€‚\n", environment(me), ({me}));
         return 1;
 }       

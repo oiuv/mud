@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "¸ßÀèÉ½ÃÜÁÖ");
+        set("short", "é«˜é»Žå±±å¯†æž—");
         set("long", @LONG
-¸ßÀèÉ½ÉÏµØÊÆÏÕ¶ñ¡¢Ê÷´óÁÖÉî£¬¸½½ü¼¸ºõºÁÎÞÈËÑÌ¡£µØ´¦
-¸ßÉ½ËÄ¼¾½Ôº®£¬ÐÜ»¢µÈÃÍÊÞÊ±³£³öÃ»£¬Ö»ÓÐÓÂ¸ÒµÄÁÔÈË²Å¸ÒÉÏ
-ÕâÀïÀ´¡£¶«ÃæÏÂÉ½¼´ÊÇãòË®¹ÈµØ¡£
+é«˜é»Žå±±ä¸Šåœ°åŠ¿é™©æ¶ã€æ ‘å¤§æž—æ·±ï¼Œé™„è¿‘å‡ ä¹Žæ¯«æ— äººçƒŸã€‚åœ°å¤„
+é«˜å±±å››å­£çš†å¯’ï¼Œç†Šè™Žç­‰çŒ›å…½æ—¶å¸¸å‡ºæ²¡ï¼Œåªæœ‰å‹‡æ•¢çš„çŒŽäººæ‰æ•¢ä¸Š
+è¿™é‡Œæ¥ã€‚ä¸œé¢ä¸‹å±±å³æ˜¯æ³¸æ°´è°·åœ°ã€‚
 LONG);
         set("objects", ([
                 "/clone/quarry/laohu" : 1,

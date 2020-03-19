@@ -3,13 +3,13 @@ inherit "/inherit/char/smith.c";
 
 void create()
 {
-        set_name("Ìú½³", ({ "tie jiang", "tie", "jiang", "smith" }));
-	set("title", "Ìú½³ÆÌÀÏ°å");
+        set_name("é“åŒ ", ({ "tie jiang", "tie", "jiang", "smith" }));
+	set("title", "é“åŒ é“ºè€æ¿");
 	set("shen_type", 1);
 
-        set("gender", "ÄĞĞÔ" );
+        set("gender", "ç”·æ€§" );
         set("age", 33);
-        set("long", "Ìú½³ÕıÓÃÌúÇ¯¼Ğ×¡Ò»¿éºìÈÈµÄÌú¿é·Å½øÂ¯ÖĞ¡£\n");
+        set("long", "é“åŒ æ­£ç”¨é“é’³å¤¹ä½ä¸€å—çº¢çƒ­çš„é“å—æ”¾è¿›ç‚‰ä¸­ã€‚\n");
 
         set("combat_exp", 400);
 	set("attitude", "friendly");
@@ -22,7 +22,7 @@ void create()
         }));
 
         set("inquiry", ([
-                "¹¤×÷" : (: ask_me :),
+                "å·¥ä½œ" : (: ask_me :),
                 "job"  : (: ask_me :),
         ]));
 

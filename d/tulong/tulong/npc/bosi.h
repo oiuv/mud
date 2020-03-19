@@ -8,14 +8,14 @@ void init()
            || ! living(this_object()))
                 return;
 
-        if (me->query("family/family_name") == "Ã÷½Ì")
+        if (me->query("family/family_name") == "æ˜æ•™")
             return;
 
         if (me->query_temp("have_yitianjian")
            || present("yitian jian", me))
         {
-                command("say ß×£¿ÒĞÌì½£ÔõÃ´»áÔÚÄãÊÖÀï£¬¿´À´"
-                        "Õâ´ÎÖĞÔ­Ö®ĞĞÃ»°×ÅÜÁË£¡");
+                command("say å’¦ï¼Ÿå€šå¤©å‰‘æ€ä¹ˆä¼šåœ¨ä½ æ‰‹é‡Œï¼Œçœ‹æ¥"
+                        "è¿™æ¬¡ä¸­åŸä¹‹è¡Œæ²¡ç™½è·‘äº†ï¼");
                 this_object()->kill_ob(me);
                 return;
         }
@@ -23,16 +23,16 @@ void init()
         if (me->query_temp("have_tulongdao")
            || present("tulong dao", me))
         {
-                command("say ºß£¬°ÑÍÀÁúµ¶½»³öÀ´£¬ÎÒÃÇÒÑ¾­ÊØ"
-                        "ºî¶àÊ±ÁË£¡");
+                command("say å“¼ï¼ŒæŠŠå± é¾™åˆ€äº¤å‡ºæ¥ï¼Œæˆ‘ä»¬å·²ç»å®ˆ"
+                        "ä¾¯å¤šæ—¶äº†ï¼");
                 this_object()->kill_ob(me);
                 return;
         }
 
         if (present("shenghuo ling", me))
         {
-                command("say ß×£¿ÄãÔõÃ´»áÄÃ×ÅÓĞÎÒ½ÌµÄÊ¥»ğÁî"
-                        "£¬¿ì»¹¸øÎÒ£¡");
+                command("say å’¦ï¼Ÿä½ æ€ä¹ˆä¼šæ‹¿ç€æœ‰æˆ‘æ•™çš„åœ£ç«ä»¤"
+                        "ï¼Œå¿«è¿˜ç»™æˆ‘ï¼");
                 this_object()->kill_ob(me);
                 return;
         }
@@ -42,15 +42,15 @@ int recognize_apprentice(object me, string skill)
 {
         if (me->query("shen") > 1000)
         {
-                command("say ß´Á¨¹ÅÀ­£¬»¨²»Â³Â³£¬ÄãÕâÈË¿´ÉÏ"
-                        "È¥²»ÏóÊÇºÃÈË£¬¿ª¹ö¡£");
+                command("say å½å“©å¤æ‹‰ï¼ŒèŠ±ä¸é²é²ï¼Œä½ è¿™äººçœ‹ä¸Š"
+                        "å»ä¸è±¡æ˜¯å¥½äººï¼Œå¼€æ»šã€‚");
                 return -1;
         }
 
         if (skill != "sanscrit")
         {
-                command("say ½ÌÄãµãÎÒÔÚÓ¡¶ÈÑ§µÄÒ»µã¶«Î÷£¬Äã"
-                        "»¹²»Öª×ã°¡£¿");
+                command("say æ•™ä½ ç‚¹æˆ‘åœ¨å°åº¦å­¦çš„ä¸€ç‚¹ä¸œè¥¿ï¼Œä½ "
+                        "è¿˜ä¸çŸ¥è¶³å•Šï¼Ÿ");
                 return -1;
         }
         return 1;

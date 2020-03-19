@@ -1,4 +1,4 @@
-// shield.c »¤ÌåÉñ¹¦
+// shield.c æŠ¤ä½“ç¥åŠŸ
 
 #include <ansi.h>
 
@@ -11,16 +11,16 @@ int exert(object me, object target)
         int skill;
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÓÃ»ìÌìÆø¹¦À´ÌáÉı×Ô¼ºµÄ·ÀÓùÁ¦¡£\n");
+                return notify_fail("ä½ åªèƒ½ç”¨æ··å¤©æ°”åŠŸæ¥æå‡è‡ªå·±çš„é˜²å¾¡åŠ›ã€‚\n");
 
         if ((int)me->query("neili") < 100)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_skill("huntian-qigong", 1) < 200)
-                return notify_fail("ÄãµÄ»ìÌìÆø¹¦ĞŞÎª²»¹»¡£\n");
+                return notify_fail("ä½ çš„æ··å¤©æ°”åŠŸä¿®ä¸ºä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_temp("shield"))
-                return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖĞÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
         skill = me->query_skill("huntian-qigong", 1) +
 				me->query_skill("checking", 1) +
@@ -28,8 +28,8 @@ int exert(object me, object target)
         me->add("neili", -100);
         me->receive_damage("qi", 0);
 
-        message_combatd(HIW "$N" HIW "Ê¹³ö»ìÌìÆø¹¦¾øÑ§¡¸»ìÔªÌìî¸¡¹£¬Ò»¹É°×Æø"
-                        "×Ô¶¥ĞÄÄàÍè·¢É¢¶øÏÂ£¬È«ÉíÃÖÂşÔÚ°×É«±¡ÎíÖĞ£¡\n" NOR, me);
+        message_combatd(HIW "$N" HIW "ä½¿å‡ºæ··å¤©æ°”åŠŸç»å­¦ã€Œæ··å…ƒå¤©ç½¡ã€ï¼Œä¸€è‚¡ç™½æ°”"
+                        "è‡ªé¡¶å¿ƒæ³¥ä¸¸å‘æ•£è€Œä¸‹ï¼Œå…¨èº«å¼¥æ¼«åœ¨ç™½è‰²è–„é›¾ä¸­ï¼\n" NOR, me);
 						
 
         me->add_temp("str", skill / 40);
@@ -50,6 +50,6 @@ void remove_effect(object me, int amount)
                 me->add_temp("str", -amount);
 				me->add_temp("dex", -amount);
                 me->delete_temp("shield");
-                tell_object(me, "ÄãµÄ»ìÌìÆø¹¦ÔËĞĞÍê±Ï£¬°×É«µÄ±¡Îí½¥½¥É¢È¥¡£\n");
+                tell_object(me, "ä½ çš„æ··å¤©æ°”åŠŸè¿è¡Œå®Œæ¯•ï¼Œç™½è‰²çš„è–„é›¾æ¸æ¸æ•£å»ã€‚\n");
 		}
 }

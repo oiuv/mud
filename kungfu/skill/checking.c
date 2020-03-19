@@ -1,4 +1,4 @@
-// checking.c µÀÌıÍ¾Ëµ
+// checking.c é“å¬é€”è¯´
 // Modified by Venus Oct.1997
 
 inherit SKILL;

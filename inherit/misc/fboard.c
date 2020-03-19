@@ -1,4 +1,4 @@
-// fboard.c µµ°¸°å
+// fboard.c æ¡£æ¡ˆæ¿
 
 #include <ansi.h>
 
@@ -40,7 +40,7 @@ string short()
 
 	notes = query("notes");
 	if( !pointerp(notes) || !sizeof(notes) )
-		return ::short() + " [ Ã»ÓĞÈÎºÎÁôÑÔ ]";
+		return ::short() + " [ æ²¡æœ‰ä»»ä½•ç•™è¨€ ]";
 
 	if( this_player() ) {
 		last_read_time = (int)this_player()->query("board_last_read/" + (string)query("board_id"));
@@ -48,9 +48,9 @@ string short()
 			if( notes[i]["time"] <= last_read_time ) break;
 	}
 	if( unread )
-		return sprintf("%s [ %d ÕÅÁôÑÔ£¬%d ÕÅÎ´¶Á ]", ::short(), sizeof(notes), unread);
+		return sprintf("%s [ %d å¼ ç•™è¨€ï¼Œ%d å¼ æœªè¯» ]", ::short(), sizeof(notes), unread);
 	else
-		return sprintf("%s [ %d ÕÅÁôÑÔ ]", ::short(), sizeof(notes));
+		return sprintf("%s [ %d å¼ ç•™è¨€ ]", ::short(), sizeof(notes));
 }
 
 string long()
@@ -61,7 +61,7 @@ string long()
 
 	notes = query("notes");
 	msg = query("long");
-	msg = msg + "ÁôÑÔ°æµÄÊ¹ÓÃ·½·¨Çë¼û help board¡£\n";
+	msg = msg + "ç•™è¨€ç‰ˆçš„ä½¿ç”¨æ–¹æ³•è¯·è§ help boardã€‚\n";
 	if( !pointerp(notes) || !sizeof(notes) ) return query("long");
 
 	last_time_read = this_player()->query("board_last_read/" + (string)query("board_id"));
@@ -90,7 +90,7 @@ void done_post(object me, mapping note, string text)
 		notes = notes[BOARD_CAPACITY / 2 .. BOARD_CAPACITY];
 
 	set("notes", notes);
-	tell_object(me, "ÁôÑÔÍê±Ï¡£\n");
+	tell_object(me, "ç•™è¨€å®Œæ¯•ã€‚\n");
 
 	save();
 	return;
@@ -99,7 +99,7 @@ void done_post(object me, mapping note, string text)
 int do_post(string arg)
 {
 	mapping note;
-	if(!arg) return notify_fail("ÁôÑÔÇëÖ¸¶¨Ò»¸ö±êÌâ¡£\n");
+	if(!arg) return notify_fail("ç•™è¨€è¯·æŒ‡å®šä¸€ä¸ªæ ‡é¢˜ã€‚\n");
 	
 	note = allocate_mapping(4);
 	note["title"] = arg;
@@ -120,9 +120,9 @@ int do_read(string arg)
 	notes = query("notes");
 
 	if( !pointerp(notes) || !sizeof(notes) )
-		return notify_fail("ÁôÑÔ°åÉÏÄ¿Ç°Ã»ÓĞÈÎºÎÁôÑÔ¡£\n");
+		return notify_fail("ç•™è¨€æ¿ä¸Šç›®å‰æ²¡æœ‰ä»»ä½•ç•™è¨€ã€‚\n");
 
-	if( !arg ) return notify_fail("Ö¸Áî¸ñÊ½£ºread <ÁôÑÔ±àºÅ>|new|next\n");
+	if( !arg ) return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šread <ç•™è¨€ç¼–å·>|new|next\n");
 	if( arg=="new" || arg=="next" ) {
 		if( !mapp(last_read_time) || undefinedp(last_read_time[myid]) )
 			num = 1;
@@ -131,10 +131,10 @@ int do_read(string arg)
 				if( notes[num-1]["time"] > last_read_time[myid] ) break;
 			
 	} else if( !sscanf(arg, "%d", num) )
-		return notify_fail("ÄãÒª¶ÁµÚ¼¸ÕÅÁôÑÔ£¿\n");
+		return notify_fail("ä½ è¦è¯»ç¬¬å‡ å¼ ç•™è¨€ï¼Ÿ\n");
 
 	if( num < 1 || num > sizeof(notes) )
-		return notify_fail("Ã»ÓĞÕâÕÅÁôÑÔ¡£\n");
+		return notify_fail("æ²¡æœ‰è¿™å¼ ç•™è¨€ã€‚\n");
 	num--;
 	this_player()->start_more( sprintf(
 "[%d] %-40s %s(%s)\n----------------------------------------------------------------------\n",
@@ -158,18 +158,18 @@ int do_discard(string arg)
 	int num;
 
 	if( !arg || sscanf(arg, "%d", num)!=1 )
-		return notify_fail("Ö¸Áî¸ñÊ½£ºdiscard <ÁôÑÔ±àºÅ>\n");
+		return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šdiscard <ç•™è¨€ç¼–å·>\n");
 	notes = query("notes");
 	if( !arrayp(notes) || num < 1 || num > sizeof(notes) )
-		return notify_fail("Ã»ÓĞÕâÕÅÁôÑÔ¡£\n");
+		return notify_fail("æ²¡æœ‰è¿™å¼ ç•™è¨€ã€‚\n");
 	num--;
 	if( notes[num]["author"] != (string) this_player(1)->query("name")
 	&&	(string)SECURITY_D->get_status(this_player(1)) != "(admin)" )
-		return notify_fail("Õâ¸öÁôÑÔ²»ÊÇÄãĞ´µÄ¡£\n");
+		return notify_fail("è¿™ä¸ªç•™è¨€ä¸æ˜¯ä½ å†™çš„ã€‚\n");
 
 	notes = notes[0..num-1] + notes[num+1..sizeof(notes)-1];
 	set("notes", notes);
 	save();
-	write("É¾³ıµÚ " + (num+1) + " ºÅÁôÑÔ....Ok¡£\n");
+	write("åˆ é™¤ç¬¬ " + (num+1) + " å·ç•™è¨€....Okã€‚\n");
 	return 1;
 }

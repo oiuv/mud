@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�㳡");
+        set("short", "广场");
         set("long", @LONG
-������Ǻ컨���ܶ�������ǰ��һ���㳡���㳡����ǰ
-����һ����ľ�����ȣ�ͨ���������ڡ��������߷ֱ�ͨ������
-���ͳ����������컨��Ļ��ڴ������С�
+这里便是红花会总舵内正厅前的一个广场，广场不大，前
+方是一条红木制走廊，通往大厅所在。左右两边分别通往兵器
+房和厨房，几个红花会的会众穿梭其中。
 LONG);
         set("no_clean_up", 0);
         set("exits", ([

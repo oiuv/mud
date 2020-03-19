@@ -1,4 +1,4 @@
-// zuowei.c ������
+// zuowei.c 左卫舍
 
 //** inherit PRIVATE_ROOM;
 inherit ROOM;                                   /* EXAMPLE */
@@ -7,15 +7,15 @@ void create()
 {
 //**    object ob;
 
-	set("short", "������");             /* EXAMPLE */
-//**    set("short", "ROOM_NAME������");
+	set("short", "左卫舍");             /* EXAMPLE */
+//**    set("short", "ROOM_NAME左卫舍");
 	set("long", @LONG
-�����������ᣬ�ǿ������ŵļҶ����ڵĵط�����Ȼ�����ǿտ�
-������û��һ���ˡ�
+这里是左卫舍，是看护大门的家丁放哨的地方。当然现在是空空
+荡荡，没有一个人。
 LONG );
 
-	set("default_long", "�����������ᣬ�ǿ���ROOM_NAME���ŵļҶ���" /* EXAMPLE */
-                            "�ڵĵط���");                              /* EXAMPLE */
+	set("default_long", "这里是左卫舍，是看护ROOM_NAME大门的家丁放" /* EXAMPLE */
+                            "哨的地方。");                              /* EXAMPLE */
                                                                         /* EXAMPLE */
 
 	set("exits", ([

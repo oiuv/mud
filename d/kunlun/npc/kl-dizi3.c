@@ -2,10 +2,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("À¥ÂØÅÉÅ®µÜ×Ó", ({ "dizi"}));
+        set_name("æ˜†ä»‘æ´¾å¥³å¼Ÿå­", ({ "dizi"}));
         set("long",
-                "Ëı¿´ÆğÀ´ÈİÃ²ÇÎÀö£¬ËÆºõÁ·¹ıÒ»µãÎä¹¦¡£\n");
-        set("gender", "Å®ĞÔ");
+                "å¥¹çœ‹èµ·æ¥å®¹è²Œä¿ä¸½ï¼Œä¼¼ä¹ç»ƒè¿‡ä¸€ç‚¹æ­¦åŠŸã€‚\n");
+        set("gender", "å¥³æ€§");
         set("age", 25);
         set("attitude", "heroism");
         set("shen_type", 1);
@@ -32,7 +32,7 @@ void create()
         map_skill("force", "kunlun-xinfa");
         map_skill("dodge", "chuanyun-bu");
 
-        create_family("À¥ÂØÅÉ", 6, "µÜ×Ó");
+        create_family("æ˜†ä»‘æ´¾", 6, "å¼Ÿå­");
         setup();
         carry_object("/d/kunlun/obj/sword")->wield();
         carry_object("/d/kunlun/obj/pao4")->wear();

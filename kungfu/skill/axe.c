@@ -1,4 +1,4 @@
-// axe.c »ù±¾¸«·¨
+// axe.c åŸºæœ¬æ–§æ³•
 // Modified by Venus Oct.1997
 inherit SKILL;
 string type() { return "knowledge"; }

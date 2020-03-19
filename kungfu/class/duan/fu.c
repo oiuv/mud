@@ -6,10 +6,10 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("¸µË¼¹é", ({ "fu sigui", "fu", "sigui" }));
-        set("title", "´óÀí¹ú»¤ÎÀ" );
-        set("long", "ËûÊÇ´óÀí¹úËÄ´ó»¤ÎÀÖ®Ò»¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("å‚…æ€å½’", ({ "fu sigui", "fu", "sigui" }));
+        set("title", "å¤§ç†å›½æŠ¤å«" );
+        set("long", "ä»–æ˜¯å¤§ç†å›½å››å¤§æŠ¤å«ä¹‹ä¸€ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 40);
         set("class", "officer");
         set("attitude", "friendly");
@@ -51,7 +51,7 @@ void create()
         prepare_skill("cuff", "jinyu-quan");
         prepare_skill("strike", "wuluo-zhang");
 
-        create_family("¶ÎÊÏ»Ê×å", 15, "¼Ò³¼");
+        create_family("æ®µæ°çš‡æ—", 15, "å®¶è‡£");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -73,6 +73,6 @@ void attempt_apprentice(object ob)
                 return;
 
         command("ah");
-        command("say ÊÀ×ÓµîÏÂºÎĞèÈç´Ë£¬Ö»ÒªÓĞÊÂ·Ô¸ÀÔÚÏÂÒ»Éù±ãÊÇ¡£");
+        command("say ä¸–å­æ®¿ä¸‹ä½•éœ€å¦‚æ­¤ï¼Œåªè¦æœ‰äº‹å©å’åœ¨ä¸‹ä¸€å£°ä¾¿æ˜¯ã€‚");
         return;
 }

@@ -1,4 +1,4 @@
-// xuanhuang.c Ðþ»Æ×ÏÇåµ¤
+// xuanhuang.c çŽ„é»„ç´«æ¸…ä¸¹
 
 #include <ansi.h>
 
@@ -6,15 +6,15 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIM "Ðþ»Æ×ÏÇåµ¤" NOR, ({ "xuanhuang dan", "dan" }) );
+	set_name(HIM "çŽ„é»„ç´«æ¸…ä¸¹" NOR, ({ "xuanhuang dan", "dan" }) );
 	set_weight(300);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-                set("long", "Ò»¿Å×ÏÖÐ·º»ÆµÄ¾«ÖÂÆæµ¤£¬¾ßÓÐÕâÉñ»°°ãµÄ¹¦Ð§£¬"
-                            "ÊÇÁ·ÎäÈËÃÎÃÂÒÔÇóµÄÃîÒ©¡£\n");
+                set("long", "ä¸€é¢—ç´«ä¸­æ³›é»„çš„ç²¾è‡´å¥‡ä¸¹ï¼Œå…·æœ‰è¿™ç¥žè¯èˆ¬çš„åŠŸæ•ˆï¼Œ"
+                            "æ˜¯ç»ƒæ­¦äººæ¢¦å¯ä»¥æ±‚çš„å¦™è¯ã€‚\n");
                 set("value", 2500000);
-		set("unit", "Á£");
+		set("unit", "ç²’");
 		set("only_do_effect", 1);
 	}
 }
@@ -24,13 +24,13 @@ int do_effect(object me)
         int effect;
         int neili;
 
-        log_file("static/using", sprintf("%s(%s) eat Ðþ»Æ×ÏÇåµ¤ at %s.\n",
+        log_file("static/using", sprintf("%s(%s) eat çŽ„é»„ç´«æ¸…ä¸¹ at %s.\n",
                  me->name(1), me->query("id"), ctime(time())));
 
         effect = 0;
-        message_vision(HIW "$N" HIW "Ò»Ñö²±£¬ÍÌÏÂÁËÒ»¿Å" +
-                       this_object()->name() + HIW "£¬Ö»¼û$N"
-                       HIW "»ëÉíÒ»²ü£¬ÆßÇÏ¶¼Ã°³ö°×ÑÌÀ´¡£\n" NOR, me);
+        message_vision(HIW "$N" HIW "ä¸€ä»°è„–ï¼Œåžä¸‹äº†ä¸€é¢—" +
+                       this_object()->name() + HIW "ï¼Œåªè§$N"
+                       HIW "æµ‘èº«ä¸€é¢¤ï¼Œä¸ƒçªéƒ½å†’å‡ºç™½çƒŸæ¥ã€‚\n" NOR, me);
 
         me->add("combat_exp", 100000 + random(50000));
         me->improve_skill("force", 250000);

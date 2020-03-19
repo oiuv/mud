@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�����");
+	set("short", "东大街");
 	set("long", @LONG
-����Ǻܴ��ʮ�ֽֿڣ������Ƕ��ڴ�֣�������һ����
-������˵��Ǯ��һ�㶼ס�����棬����ͨ�������ǵ������ţ�
-�����ɵ�������㳡��
+这儿是很大的十字街口，北边是东内大街，南面是一条街
+道，听说有钱人一般都住在里面，东面通向襄阳城的青龙门，
+向西可到达中央广场。
 LONG );
         set("outdoors", "xiangyang");
 	set("no_clean_up", 0);

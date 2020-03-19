@@ -7,11 +7,11 @@ void create()
 {
 //      object ob;
 
-        set_name("ÎÚÍú°¢ÆÕ", ({ "wuwang apu", "wuwang", "apu" }));
-        set("gender", "ÄĞĞÔ");
+        set_name("ä¹Œæ—ºé˜¿æ™®", ({ "wuwang apu", "wuwang", "apu" }));
+        set("gender", "ç”·æ€§");
         set("age", 21);
         set("long", @LONG
-ËûÊÇĞşÚ¤¹ÈÂ¹ÕÈ¿ÍµÄµÜ×Ó¡£
+ä»–æ˜¯ç„å†¥è°·é¹¿æ–å®¢çš„å¼Ÿå­ã€‚
 LONG);
         set("attitude", "friendly");
         set("str", 20);
@@ -52,7 +52,7 @@ LONG);
         prepare_skill("strike", "feihua-zhang");
         prepare_skill("cuff", "piaofeng-quan");
 
-        create_family("ĞşÚ¤¹È", 3, "µÜ×Ó");
+        create_family("ç„å†¥è°·", 3, "å¼Ÿå­");
 
 	set("coagents", ({
                 ([ "startroom" : "xxxxxxxxxxxxxxxxxxxxxxxx",
@@ -60,8 +60,8 @@ LONG);
         }));
 
         set("inquiry", ([
-                "Â¹ÕÈ¿Í"   : "ËûÊÇÎÒÊ¦¸¸£¬ÄãÕÒËû¸ÉÊ²Ã´£¿\n",
-                "ĞşÚ¤ÉñÕÆ" : "ÄÇÊÇÎÒÊ¦¸¸µÄ¾ø¼¼£¬ÌìÏÂÎŞµĞ¡£\n",
+                "é¹¿æ–å®¢"   : "ä»–æ˜¯æˆ‘å¸ˆçˆ¶ï¼Œä½ æ‰¾ä»–å¹²ä»€ä¹ˆï¼Ÿ\n",
+                "ç„å†¥ç¥æŒ" : "é‚£æ˜¯æˆ‘å¸ˆçˆ¶çš„ç»æŠ€ï¼Œå¤©ä¸‹æ— æ•Œã€‚\n",
         ]));
 
         set_temp("apply/attack", 50);
@@ -85,7 +85,7 @@ LONG);
 
 void attempt_apprentice(object ob)
 {
-        command("say ÒªÈëĞşÚ¤¹È£¬Äã»¹ÊÇÕÒÎÒÊ¦¸¸»òÕßÊ¦²®°É£¡\n");
+        command("say è¦å…¥ç„å†¥è°·ï¼Œä½ è¿˜æ˜¯æ‰¾æˆ‘å¸ˆçˆ¶æˆ–è€…å¸ˆä¼¯å§ï¼\n");
         return;
 }
 

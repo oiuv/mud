@@ -6,11 +6,11 @@ int do_walk();
 void create()
 {
         NPC_D->generate_cn_name(this_object());
-        set("gender", "ÄÐÐÔ");
+        set("gender", "ç”·æ€§");
         set("age", 53 + random(20));
         set("long", @LONG
-ÕâÊÇÒ»¸öÊ°»ÄÕß£¬¿´ÉÏÈ¥ÀÏÊµ°Í½»µÄ¡£²»¹ýÌý
-ËµËûºÍ¹Ù¸®ÓÐ½»Çé£¬×îºÃ±ðÈ¥ÕÐÈÇ¡£
+è¿™æ˜¯ä¸€ä¸ªæ‹¾è’è€…ï¼Œçœ‹ä¸ŠåŽ»è€å®žå·´äº¤çš„ã€‚ä¸è¿‡å¬
+è¯´ä»–å’Œå®˜åºœæœ‰äº¤æƒ…ï¼Œæœ€å¥½åˆ«åŽ»æ‹›æƒ¹ã€‚
 LONG);
         set("attitude", "heroism");
         set("str", 35);
@@ -48,7 +48,7 @@ int do_walk()
                     ! mapp(obmap = room->query_temp("objects")) ||
                     member_array(this_object(), values(obmap)) == -1)
                 {
-                        message_vision(CYN "$N" CYN "Ì¾ÁËÌ¾Æø£¬×ßÁË¡£\n"
+                        message_vision(CYN "$N" CYN "å¹äº†å¹æ°”ï¼Œèµ°äº†ã€‚\n"
                                        NOR, this_object());
                         destruct(this_object());
                         return 0;
@@ -69,12 +69,12 @@ int do_walk()
         }
 
         if (n == 1)
-                message_vision(HIC "$N" HIC "Ò»ÍäÑü£¬´ÓµØÉÏ¼ñÆðÒ»Ñù"
-                               "¶«Î÷¡£\n" NOR, this_object());
+                message_vision(HIC "$N" HIC "ä¸€å¼¯è…°ï¼Œä»Žåœ°ä¸Šæ¡èµ·ä¸€æ ·"
+                               "ä¸œè¥¿ã€‚\n" NOR, this_object());
         else
         if (n > 1)
-                message_vision(HIC "$N" HIC "ÍäÑüÔÚµØÉÏÃþÃþË÷Ë÷ÕÒÁË"
-                               "°ëÌì£¬¼ñÆðÒ»¶Ñ¶«Î÷¡£\n" NOR,
+                message_vision(HIC "$N" HIC "å¼¯è…°åœ¨åœ°ä¸Šæ‘¸æ‘¸ç´¢ç´¢æ‰¾äº†"
+                               "åŠå¤©ï¼Œæ¡èµ·ä¸€å †ä¸œè¥¿ã€‚\n" NOR,
                                this_object());
                         
         random_move();

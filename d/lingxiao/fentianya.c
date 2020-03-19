@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "������");
+        set("short", "分天崖");
         set("long", @LONG 
-������������ǵ����ա������¡�������ȥ��ֻ���������
-�ϣ�����һ����խ�ֻ��ı��ݣ�ѩ��Ʈ�䣬���ǻ����ǿ����
-��У�����һ��ҡҡ��׹�ĸо���
+这里就是凌霄城的天险—分天崖。往外望去，只见万丈深谷
+上，横着一座又窄又滑的冰梯，雪花飘落，更是滑溜，在强劲的
+罡风中，给人一种摇摇欲坠的感觉。
 LONG);
         set("outdoors", "lingxiao");
         set("exits", ([

@@ -6,14 +6,14 @@ inherit BOOTS;
  
 void create()
 {
-	set_name("Æ¤Ñ¥", ({ "pi xue", "xue" }) );
+	set_name("çš®é´", ({ "pi xue", "xue" }) );
 	set_weight(800);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
 		set("material", "leather");
-		set("unit", "Ë«");
-		set("long", "ÕâÊÇÒ»Ë«ÓÃÉÏºÃÅ£Æ¤×÷µÄÆ¤Ñ¥¡£\n");
+		set("unit", "åŒ");
+		set("long", "è¿™æ˜¯ä¸€åŒç”¨ä¸Šå¥½ç‰›çš®ä½œçš„çš®é´ã€‚\n");
 		set("value", 0);
 		set("armor_prop/dodge", 8);
 	}

@@ -1,4 +1,4 @@
-// roar.c ÷öÈ»Ò÷
+// roar.c é»¯ç„¶åŸ
 
 #include <ansi.h>
 
@@ -10,13 +10,13 @@ int exert(object me, object target)
 	int i, skill, damage;
 
         if (me->query_skill("surge-force", 1) < 100)
-                return notify_fail("Äã÷öÈ»Ò»Éù³¤Ì¾£¬½á¹ûÏÅÅÜÁË¼¸Ö»ÀÏÊó£¡\n");
+                return notify_fail("ä½ é»¯ç„¶ä¸€å£°é•¿å¹ï¼Œç»“æœå“è·‘äº†å‡ åªè€é¼ ï¼\n");
 
 	if ((int)me->query("neili") < 100)
-		return notify_fail("ÄãµÄÄÚÁ¦²»¹»¡£\n");
+		return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿã€‚\n");
 
 	if (environment(me)->query("no_fight"))
-		return notify_fail("ÕâÀï²»ÄÜ¹¥»÷±ğÈË! \n");
+		return notify_fail("è¿™é‡Œä¸èƒ½æ”»å‡»åˆ«äºº! \n");
 
 	skill = me->query_skill("force");
 
@@ -24,8 +24,8 @@ int exert(object me, object target)
 	me->receive_damage("qi", 10);
 
 	me->start_busy(5);
-	message_combatd(HIR "$N" HIR "ÑöÌì³¤Ğ¥£¬ÉùÀËÒ»²¨Ò»²¨µÄµ´¿ª"
-                        "È¥£¬ÁîÈË·¢¶úÓûñù£¬ÒâÂÒÇéÃÔ£¡\n" NOR, me);
+	message_combatd(HIR "$N" HIR "ä»°å¤©é•¿å•¸ï¼Œå£°æµªä¸€æ³¢ä¸€æ³¢çš„è¡å¼€"
+                        "å»ï¼Œä»¤äººå‘è€³æ¬²è©ï¼Œæ„ä¹±æƒ…è¿·ï¼\n" NOR, me);
 
 	ob = all_inventory(environment(me));
 	for (i = 0; i < sizeof(ob); i++)
@@ -49,7 +49,7 @@ int exert(object me, object target)
 			ob[i]->receive_damage("jing", damage * 2, me);
 			if ((int)ob[i]->query("neili") < skill * 2)
 				ob[i]->receive_wound("jing", damage, me);
-		        tell_object(ob[i], "ÄãÌıÁËÄÔ×ÓºäµÄÒ»ÏÂ......\n");
+		        tell_object(ob[i], "ä½ å¬äº†è„‘å­è½°çš„ä¸€ä¸‹......\n");
 		}
 	}
 	return 1;

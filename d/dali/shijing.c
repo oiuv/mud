@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ʯ��");
+        set("short", "石径");
         set("long", @LONG
-�����ڴ������������е�ʯ���ϡ�·�߳�ľ���죬΢��ϰ
-ϰ��ʮ����ˬ��·����һ������͸����С����ˮ�����㣬ӳӰ
-��䡣����ͨ���������������Ǹ���԰��
+你走在大理镇南王府中的石径上。路边长木遮天，微风习
+习，十分凉爽。路南是一个碧绿透亮的小湖，水禽游鱼，映影
+其间。西边通向大厅，东面好象是个花园。
 LONG);
         set("objects", ([
                 "/clone/quarry/he": 1,

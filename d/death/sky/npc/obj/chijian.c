@@ -4,18 +4,18 @@ inherit SWORD;
 
 void create()
 {
-        set_name(HIR "³à½£" NOR, ({ "chi jian" , "jian" , "sword", "chi", "chijian" }) );
+        set_name(HIR "èµ¤å‰‘" NOR, ({ "chi jian" , "jian" , "sword", "chi", "chijian" }) );
         set_weight(12000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", HIR "Ò»±úËÄ³ßÀ´³¤µÄ³¤½££¬Õû¸ö½£Éí³ÊºìÉ«¡£\n" NOR);
+                set("unit", "æŸ„");
+                set("long", HIR "ä¸€æŸ„å››å°ºæ¥é•¿çš„é•¿å‰‘ï¼Œæ•´ä¸ªå‰‘èº«å‘ˆçº¢è‰²ã€‚\n" NOR);
                 set("value", 200000);
                 set("rigidity", 8000);   
                 set("material", "steel");
-                set("wield_msg", HIR "$N" HIR "´Ó±³ºó³é³ö³à½££¬¶ÙÊ±ÌÚÆğÒ»¹ÉÁİÙıµÄÉ±Æø¡£\n" NOR);
-                set("unwield_msg", HIR "$N" HIR "Ì¾ÁË¿ÚÆø£¬½«³à½£²å»Ø±³ºó¡£\n" NOR);
+                set("wield_msg", HIR "$N" HIR "ä»èƒŒåæŠ½å‡ºèµ¤å‰‘ï¼Œé¡¿æ—¶è…¾èµ·ä¸€è‚¡å‡›å†½çš„æ€æ°”ã€‚\n" NOR);
+                set("unwield_msg", HIR "$N" HIR "å¹äº†å£æ°”ï¼Œå°†èµ¤å‰‘æ’å›èƒŒåã€‚\n" NOR);
         }
         init_sword(250);
         setup();

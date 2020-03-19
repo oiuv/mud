@@ -1,17 +1,17 @@
-// allow-letter.c ÊÖÚÍ
+// allow-letter.c æ‰‹è°•
 
 inherit ITEM;
 
 void create()
 {
-        set_name("ÊÖÚÍ", ({"shou yu", "yu", "letter"}));
+        set_name("æ‰‹è°•", ({"shou yu", "yu", "letter"}));
         set_weight(100);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "·â");
-                set("long","ÕâÊÇÒ»·âÓÉ·½ÕÉÇ©·¢µÄÊÖÚÍ£¬Æ¾´Ë¿É×ÔÓÉ½øÈë²Ø¾­¸ó¶şÂ¥ÑĞÏ°ÉÏ³ËÎä¹¦¡£\n");
-		set("no_drop", "ÕâÑù¶«Î÷²»ÄÜÀë¿ªÄã¡£\n");
+                set("unit", "å°");
+                set("long","è¿™æ˜¯ä¸€å°ç”±æ–¹ä¸ˆç­¾å‘çš„æ‰‹è°•ï¼Œå‡­æ­¤å¯è‡ªç”±è¿›å…¥è—ç»é˜äºŒæ¥¼ç ”ä¹ ä¸Šä¹˜æ­¦åŠŸã€‚\n");
+		set("no_drop", "è¿™æ ·ä¸œè¥¿ä¸èƒ½ç¦»å¼€ä½ ã€‚\n");
                 set("material", "paper");
         }
 }

@@ -3,8 +3,8 @@ inherit NPC;
 
 void create()
 {
-	set_name("»¤ËşÉ®", ({ "huta seng","seng"}) );
-	set("gender", "ÄĞĞÔ" );
+	set_name("æŠ¤å¡”åƒ§", ({ "huta seng","seng"}) );
+	set("gender", "ç”·æ€§" );
 	set("class", "bonze");
 	set("age", 33);
 	set("shen_type", 1);

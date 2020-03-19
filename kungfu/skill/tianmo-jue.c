@@ -10,13 +10,13 @@ string type() { return "knowledge"; }
 
 int practice_skill(object me)
 {
-    return notify_fail("ÌìÄ§¾÷Ö»ÄÜ¿¿Ñ§(study)À´Ìá¸ß¡£\n");
+    return notify_fail("å¤©é­”è¯€åªèƒ½é å­¦(study)æ¥æé«˜ã€‚\n");
 }
 
 void skill_improved(object me)
 {
     int sklv = me->query_skill("tianmo-jue", 1);
-    tell_object(me, HIR "Äã¸Ğ¾õ×Ô¼ºÄÚĞÄ³äÂúÁËÉ±Â¾µÄÓûÍû£¡\n" NOR );
+    tell_object(me, HIR "ä½ æ„Ÿè§‰è‡ªå·±å†…å¿ƒå……æ»¡äº†æ€æˆ®çš„æ¬²æœ›ï¼\n" NOR );
     me->add("shen", -(sklv * sklv));
 }
 

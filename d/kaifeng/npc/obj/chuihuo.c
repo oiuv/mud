@@ -3,16 +3,16 @@ inherit STAFF;
 
 void create()
 {
-        set_name("´µ»ğ¹Ü", ({"chui huoguan","guan"}));
+        set_name("å¹ç«ç®¡", ({"chui huoguan","guan"}));
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
+                set("unit", "æ ¹");
                 set("value", 10);
-                set("long","ÔÚÒ»¶Ë´µÆø,Ê¹Ôî»ğÍúÊ¢µÄÖñ¹Ü.\n");
+                set("long","åœ¨ä¸€ç«¯å¹æ°”,ä½¿ç¶ç«æ—ºç››çš„ç«¹ç®¡.\n");
                 set("material", "wood");
-                set("wield_msg", "$N¡¸ºô¡¹µØÒ»Éù³é³öÒ»°Ñ$nÎÕÔÚÊÖÖĞ¡£\n");
+                set("wield_msg", "$Nã€Œå‘¼ã€åœ°ä¸€å£°æŠ½å‡ºä¸€æŠŠ$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
         }
         init_staff(5);
         setup();

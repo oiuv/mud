@@ -2,7 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-// ÎªËùÓĞµÄ³ğºŞ¶ÔÏóÅÅĞò£º½µĞò
+// ä¸ºæ‰€æœ‰çš„ä»‡æ¨å¯¹è±¡æ’åºï¼šé™åº
 int sort_hatred(string id1, string id2, mapping hatred)
 {
         mixed *d1, *d2;
@@ -36,39 +36,39 @@ int main(object me, string arg)
         {
                 fam = FAMILY_D->query_family_name(arg);
                 if (strlen(fam) < 2 || fam[0] < 160)
-                        // Èç¹û²»ÊÇÖĞÎÄÃû×Ö£¬ÔòÒâÎ¶×ÅÃ»ÓĞ»¹È·¶¨ÃÅÅÉ
+                        // å¦‚æœä¸æ˜¯ä¸­æ–‡åå­—ï¼Œåˆ™æ„å‘³ç€æ²¡æœ‰è¿˜ç¡®å®šé—¨æ´¾
                         fam = 0;
 
                 if (! stringp(fam) && objectp(ob = find_player(arg)))
                 {
-                        // Ã»ÓĞ arg Õâ¸öÃÅÅÉ£¬²é¿´ÊÇ·ñÓĞ¸ÃÍæ¼Ò
+                        // æ²¡æœ‰ arg è¿™ä¸ªé—¨æ´¾ï¼ŒæŸ¥çœ‹æ˜¯å¦æœ‰è¯¥ç©å®¶
                         fam = ob->query("family/family_name");
                         if (! stringp(fam))
                                 return notify_fail(ob->name(1) +
-                                                   "ÏÖÔÚÃ»ÓĞ¼ÓÈëÈÎºÎÃÅÅÉ¡£\n");
+                                                   "ç°åœ¨æ²¡æœ‰åŠ å…¥ä»»ä½•é—¨æ´¾ã€‚\n");
                 }
 
                 if (! stringp(fam))
-                        return notify_fail("Ã»ÓĞÕâ¸öÍæ¼Ò£¬²»ÄÜ²éÔÄÏà¹ØµÄÃÅÅÉ¡£\n");
+                        return notify_fail("æ²¡æœ‰è¿™ä¸ªç©å®¶ï¼Œä¸èƒ½æŸ¥é˜…ç›¸å…³çš„é—¨æ´¾ã€‚\n");
         }
 
         if (! fam)
         {
                 // select my family
                 if (! stringp(fam = me->query("family/family_name")))
-                        return notify_fail("ÄãÏÖÔÚ»¹Ã»ÓĞ¼ÓÈëÒ»¸öÃÅÅÉÄØ¡£\n");
+                        return notify_fail("ä½ ç°åœ¨è¿˜æ²¡æœ‰åŠ å…¥ä¸€ä¸ªé—¨æ´¾å‘¢ã€‚\n");
         }
 
         hatred = FAMILY_D->query_family_hatred(fam);
         if (! mapp(hatred) || ! sizeof(hatred))
-                return notify_fail(fam + "ÏÖÔÚÃ»ÓĞÊ²Ã´³ğÈË¡£\n");
+                return notify_fail(fam + "ç°åœ¨æ²¡æœ‰ä»€ä¹ˆä»‡äººã€‚\n");
 
         ids = keys(hatred) - ({ 0 });
         ids = sort_array(ids, (: sort_hatred :), hatred);
 
         count = 0;
-        msg = WHT "Ä¿Ç°" + fam + "ÔÚ½­ºşÉÏµÄ³ğµĞ¶¼ÓĞ\n" NOR
-              HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR;
+        msg = WHT "ç›®å‰" + fam + "åœ¨æ±Ÿæ¹–ä¸Šçš„ä»‡æ•Œéƒ½æœ‰\n" NOR
+              HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR;
         for (i = 0; i < sizeof(ids) && count < 30; i++)
         {
                 data = hatred[ids[i]];
@@ -81,12 +81,12 @@ int main(object me, string arg)
                                ++count, st, HIR, data[1], NOR);
         }
 
-        msg += HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR;
+        msg += HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR;
         if (i < sizeof(ids))
-                msg += WHT "½­ºşÉÏµÄµĞÈËÌ«¶à£¬ÄÑÒÔ¾¡Êı¡£\n" NOR;
+                msg += WHT "æ±Ÿæ¹–ä¸Šçš„æ•Œäººå¤ªå¤šï¼Œéš¾ä»¥å°½æ•°ã€‚\n" NOR;
         else
-                msg += WHT "Ä¿Ç°Ò»¹²ÊÇ" + chinese_number(i) +
-                       "ÈË¡£\n" NOR;
+                msg += WHT "ç›®å‰ä¸€å…±æ˜¯" + chinese_number(i) +
+                       "äººã€‚\n" NOR;
         write(msg);
         return 1;
 }
@@ -94,10 +94,10 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: hatred
+æŒ‡ä»¤æ ¼å¼: hatred
 
-²é¿´Ä¿Ç°ÄãËù´¦µÄÃÅÅÉµÄÍ´ºŞ¶ÔÏó¡£Î×Ê¦¿ÉÒÔ²é¿´ÈÎºÎÃÅÅÉµÄÍ´ºŞ¶Ô
-Ïó£¬Ö»ĞèÔÚÖ¸ÁîÖĞÖ¸Ã÷Ïà¹ØµÄÃÅÅÉ»òÊÇÃÅÅÉÖĞµÄÍæ¼Ò¡£
+æŸ¥çœ‹ç›®å‰ä½ æ‰€å¤„çš„é—¨æ´¾çš„ç—›æ¨å¯¹è±¡ã€‚å·«å¸ˆå¯ä»¥æŸ¥çœ‹ä»»ä½•é—¨æ´¾çš„ç—›æ¨å¯¹
+è±¡ï¼Œåªéœ€åœ¨æŒ‡ä»¤ä¸­æŒ‡æ˜ç›¸å…³çš„é—¨æ´¾æˆ–æ˜¯é—¨æ´¾ä¸­çš„ç©å®¶ã€‚
 HELP );
         return 1;
 }

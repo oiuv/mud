@@ -6,14 +6,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIC "ÀÎ·¿Ô¿³×" NOR, ({"laofang key", "key"}));
+	set_name(HIC "ç‰¢æˆ¿é’¥åŒ™" NOR, ({"laofang key", "key"}));
 	set_weight(100);
 	if (clonep())
 		set_default_object(__FILE__);
 	else 
 	{
-		set("unit", "°Ñ");
-		set("long", "Ò»°ÑÀÎ·¿Ô¿³×¡£\n");
+		set("unit", "æŠŠ");
+		set("long", "ä¸€æŠŠç‰¢æˆ¿é’¥åŒ™ã€‚\n");
 	}
   
 	set("is_monitored", 1);

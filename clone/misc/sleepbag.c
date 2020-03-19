@@ -3,15 +3,15 @@ inherit ITEM;
 
 void create()
 {
-        set_name("Ë¯´ü",({"sleepbag"}));
+        set_name("ç¡è¢‹",({"sleepbag"}));
         set_weight(7000);
         set_max_encumbrance(8000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
             set("long",
-                "Ò»¸öË¯´ü£¬½­ºşÈËÊ¿ÓÃÀ´ÔÚÒ°ÍâË¯¾õÓÃµÄ¡£\n");
-            set("unit","¸ö");
+                "ä¸€ä¸ªç¡è¢‹ï¼Œæ±Ÿæ¹–äººå£«ç”¨æ¥åœ¨é‡å¤–ç¡è§‰ç”¨çš„ã€‚\n");
+            set("unit","ä¸ª");
             set("value", 1000);
         }
 }

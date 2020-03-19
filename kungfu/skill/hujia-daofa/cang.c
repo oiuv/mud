@@ -1,6 +1,6 @@
 #include <ansi.h>
 
-#define CANG "¡¸" HIW "°Ë·½²Øµ¶ÊÆ" NOR "¡¹"
+#define CANG "ã€Œ" HIW "å…«æ–¹è—åˆ€åŠ¿" NOR "ã€"
 
 inherit F_SSERVER;
  
@@ -12,7 +12,7 @@ int perform(object me, object target)
         int i;
 
         if (userp(me) && ! me->query("can_perform/hujia-daofa/cang"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -21,38 +21,38 @@ int perform(object me, object target)
         }
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail(CANG "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail(CANG "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "blade")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
 	if ((int)me->query_skill("force") < 250)
-		return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+		return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
 	if ((int)me->query_skill("hujia-daofa", 1) < 180)
-		return notify_fail("ÄãµÄºú¼Òµ¶·¨»¹²»µ½¼Ò£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+		return notify_fail("ä½ çš„èƒ¡å®¶åˆ€æ³•è¿˜ä¸åˆ°å®¶ï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
         if (me->query_skill_mapped("blade") != "hujia-daofa")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢ºú¼Òµ¶·¨£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘èƒ¡å®¶åˆ€æ³•ï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
 	if ((int)me->query("neili") < 200)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIW "$N" HIW "ÇáÊæÔ³±Û£¬Ê©³ö¡¸Õ½°Ë·½²Øµ¶Ê½¡¹£¬ÊÖÖĞµÄ" + weapon->name() +
-              HIW "ÍÌÍÌÍÂÍÂ£¬±ä»¯Äª²â£¬ÁıÕÖÁË$n" HIW "ÖÜÉíÒªº¦£¡\n" NOR;
+	msg = HIW "$N" HIW "è½»èˆ’çŒ¿è‡‚ï¼Œæ–½å‡ºã€Œæˆ˜å…«æ–¹è—åˆ€å¼ã€ï¼Œæ‰‹ä¸­çš„" + weapon->name() +
+              HIW "ååååï¼Œå˜åŒ–è«æµ‹ï¼Œç¬¼ç½©äº†$n" HIW "å‘¨èº«è¦å®³ï¼\n" NOR;
 
         if (random(me->query_skill("blade")) > target->query_skill("parry") / 2)
         {
-                msg += HIY "$n" HIY "¼ûÀ´ÕĞÊµÔÚÊÇ±ä»ÃÄª²â£¬²»ÓÉµÃĞÄ"
-                       "Éú¾åÒâ£¬ÕĞÊ½µÇÊ±³öÁËÆÆÕÀ£¡\n" NOR;
+                msg += HIY "$n" HIY "è§æ¥æ‹›å®åœ¨æ˜¯å˜å¹»è«æµ‹ï¼Œä¸ç”±å¾—å¿ƒ"
+                       "ç”Ÿæƒ§æ„ï¼Œæ‹›å¼ç™»æ—¶å‡ºäº†ç ´ç»½ï¼\n" NOR;
                 count = me->query_skill("hujia-daofa", 1) / 4;
         } else
         {
-                msg += HIC "$n" HIC "ĞÄµ×Î¢Î¢Ò»¾ª£¬´òÆğ¾«ÉñĞ¡ĞÄ½ÓÕĞ¡£\n" NOR;
+                msg += HIC "$n" HIC "å¿ƒåº•å¾®å¾®ä¸€æƒŠï¼Œæ‰“èµ·ç²¾ç¥å°å¿ƒæ¥æ‹›ã€‚\n" NOR;
                 count = 0;
         }
 

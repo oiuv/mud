@@ -1,5 +1,5 @@
 // killer.c
-// É±ÊÖ¡£±» ultra_quest µÄ±£»¤ÈÎÎñµ÷ÓÃ
+// æ€æ‰‹ã€‚è¢« ultra_quest çš„ä¿æŠ¤ä»»åŠ¡è°ƒç”¨
 
 #include <ansi.h>
 inherit CLASS_D("generate") + "/chinese";
@@ -8,9 +8,9 @@ void create()
 {
 
         ::create();
-        set("gender", "ÄĞĞÔ" );
+        set("gender", "ç”·æ€§" );
         set("age", 30 + random(30));
-        set("long", "ÕâÊÇÒ»¸öÃÉÃæÈË¡£");
+        set("long", "è¿™æ˜¯ä¸€ä¸ªè’™é¢äººã€‚");
         set("attitude", "friendly");
         set("scale", 150);
         set_temp("apply/armor", 30);
@@ -53,15 +53,15 @@ void set_from_me(object me)
 
 int accept_fight(object ob)
 {
-        command("say ÎÒ¿ÉÃ»ĞËÈ¤ÅãÄãÍæ£¬¿ì¸øÎÒ¹ö¿ª¡£");
+        command("say æˆ‘å¯æ²¡å…´è¶£é™ªä½ ç©ï¼Œå¿«ç»™æˆ‘æ»šå¼€ã€‚");
         return 0;
 }
 
 int accept_hit(object ob)
 {
-        message_vision(HIW "$N" HIW "Á³É«Ò»±ä£¬ÉÁ¹ıÒ»µÀÉ±Æø¡£Å­"
-                       "ºÈµÀ£ººÃÒ»¸ö" + RANK_D->query_rude(ob) +
-                       "£¬À´°É£¡\n" NOR, this_object());
+        message_vision(HIW "$N" HIW "è„¸è‰²ä¸€å˜ï¼Œé—ªè¿‡ä¸€é“æ€æ°”ã€‚æ€’"
+                       "å–é“ï¼šå¥½ä¸€ä¸ª" + RANK_D->query_rude(ob) +
+                       "ï¼Œæ¥å§ï¼\n" NOR, this_object());
         kill_ob(ob);
         return 1;
 }
@@ -76,12 +76,12 @@ int accept_kill(object ob)
 
 int accept_ansuan(object ob)
 {
-        return notify_fail("ÄÇÈË¾¯ÌèĞÔºÃ¸ß£¬ÄãÄÑÒÔÏÂÊÖ¡£\n");
+        return notify_fail("é‚£äººè­¦æƒ•æ€§å¥½é«˜ï¼Œä½ éš¾ä»¥ä¸‹æ‰‹ã€‚\n");
 }
 
 int accept_touxi(object ob)
 {
-        return notify_fail("ÄÇÈË¾¯ÌèĞÔºÃ¸ß£¬ÄãÄÑÒÔÏÂÊÖ¡£\n");
+        return notify_fail("é‚£äººè­¦æƒ•æ€§å¥½é«˜ï¼Œä½ éš¾ä»¥ä¸‹æ‰‹ã€‚\n");
 }
 
 void unconcious()

@@ -4,13 +4,13 @@ int valid_enable(string usage) { return usage == "force"; }
 
 int valid_learn(object me)
 {
-	//Ôö¼Ó¶Ô¹«¹«Ñ§Ï°µÄÏÞÖÆ
-if (me->query("gender") == "ÎÞÐÔ" &&
+	//å¢žåŠ å¯¹å…¬å…¬å­¦ä¹ çš„é™åˆ¶
+if (me->query("gender") == "æ— æ€§" &&
 			(int)me->query_skill("shenghuo-shengong", 1) > 100)
-			return notify_fail("ÄãÎÞ¸ùÎÞÐÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄÊ¥»ðÐÄ·¨¡£\n");
+			return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„åœ£ç«å¿ƒæ³•ã€‚\n");
 			
         if ((int)me->query_skill("force", 1) < 10)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ðºò»¹²»¹»£¬»¹²»ÄÜÑ§Ï°Ê¥»ðÐÄ·¨¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™è¿˜ä¸å¤Ÿï¼Œè¿˜ä¸èƒ½å­¦ä¹ åœ£ç«å¿ƒæ³•ã€‚\n");
 
         return ::valid_learn(me);
 }
@@ -22,7 +22,7 @@ int valid_force(string force)
 
 int practice_skill(object me)
 {
-        return notify_fail("Ê¥»ðÐÄ·¨Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("åœ£ç«å¿ƒæ³•åªèƒ½ç”¨å­¦(learn)çš„æ¥å¢žåŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 

@@ -1,4 +1,4 @@
-// feed.c ÑøÖí´ó·¨
+// feed.c å…»çŒªå¤§æ³•
 
 #include <ansi.h>
 
@@ -15,106 +15,106 @@ int main(object me, string arg)
                 return 0;
 
         if (! arg)
-                return notify_fail("ÄãÒªËÍÄÄ¸öÍæ¼Ò½øÖíÈ¦£¿\n");
+                return notify_fail("ä½ è¦é€å“ªä¸ªç©å®¶è¿›çŒªåœˆï¼Ÿ\n");
 
         if (! objectp(ob = find_player(arg)) || ! me->visible(ob))
-                return notify_fail("ÄãÒªËÍÄÄ¸öÍæ¼Ò½øÖíÈ¦£¿\n");
+                return notify_fail("ä½ è¦é€å“ªä¸ªç©å®¶è¿›çŒªåœˆï¼Ÿ\n");
 
         if (me == ob)
-                return notify_fail("Äã´óÄÔÓĞË®£¿\n");
+                return notify_fail("ä½ å¤§è„‘æœ‰æ°´ï¼Ÿ\n");
 
         if (wiz_level(me) < wiz_level(ob))
-                return notify_fail("ÄãµÄÑøÖíË®Æ½»¹Ã»ÓĞÄÇÃ´¸ß¡£\n");
+                return notify_fail("ä½ çš„å…»çŒªæ°´å¹³è¿˜æ²¡æœ‰é‚£ä¹ˆé«˜ã€‚\n");
 
         lvl = me->query_skill("feed-power", 1);
         if (! lvl)
-                return notify_fail("ÄãµÃÏÈÑ§ºÃÁËÑøÖí´ó·¨ÔÙËµ¡£\n");
+                return notify_fail("ä½ å¾—å…ˆå­¦å¥½äº†å…»çŒªå¤§æ³•å†è¯´ã€‚\n");
 
         if (lvl < 50)
-                return notify_fail("ÄãµÄÑøÖíË®Æ½Ì«²î£¬ÎŞ·¨Ê©Õ¹¾ø¼¼¡£\n");
+                return notify_fail("ä½ çš„å…»çŒªæ°´å¹³å¤ªå·®ï¼Œæ— æ³•æ–½å±•ç»æŠ€ã€‚\n");
 
         if (lvl < 300 && environment(ob) != environment(me))
-                return notify_fail("ÄãµÄÑøÖíË®Æ½ÓĞÏŞ£¬ÎŞ·¨Ê©Õ¹ÆæÊõÓÚÇ§ÀïÖ®Íâ£¡\n");
+                return notify_fail("ä½ çš„å…»çŒªæ°´å¹³æœ‰é™ï¼Œæ— æ³•æ–½å±•å¥‡æœ¯äºåƒé‡Œä¹‹å¤–ï¼\n");
 
         if (environment(ob) == find_object("/d/city/zhujuan"))
-                return notify_fail("´ËÈËÕıÔÚÖíÈ¦ÖĞÏí¸£ÄØ¡£\n");
+                return notify_fail("æ­¤äººæ­£åœ¨çŒªåœˆä¸­äº«ç¦å‘¢ã€‚\n");
 
         if (! environment(ob)->is_chat_room() && wiz_level(me) < 1)
-                return notify_fail("´ËÈËËùÔÚµÄµØµãÄÑÒÔÈÃÄãÊ©Õ¹ÆæÊõ¡£\n");
+                return notify_fail("æ­¤äººæ‰€åœ¨çš„åœ°ç‚¹éš¾ä»¥è®©ä½ æ–½å±•å¥‡æœ¯ã€‚\n");
 
         if (! interactive(ob))
-                return notify_fail("´ËÈË²»ÔÚÏßÉÏ£¬²»ÄÜÑøÖ®¡£\n");
+                return notify_fail("æ­¤äººä¸åœ¨çº¿ä¸Šï¼Œä¸èƒ½å…»ä¹‹ã€‚\n");
 
         if (query_idle(ob) < 120)
-                return notify_fail("ÕâÈËÏÖÔÚ¾«Éñ×ÅÄØ£¬²»ºÃÑø°É¡£\n");
+                return notify_fail("è¿™äººç°åœ¨ç²¾ç¥ç€å‘¢ï¼Œä¸å¥½å…»å§ã€‚\n");
 
         if (ob->query_temp("on_baitan"))
-                return notify_fail("ÕâÈËÕıÔÚ×öÉúÒâ£¬»¹ÊÇ±ğÈ¥´òÈÅ¡£\n");
+                return notify_fail("è¿™äººæ­£åœ¨åšç”Ÿæ„ï¼Œè¿˜æ˜¯åˆ«å»æ‰“æ‰°ã€‚\n");
 
         if (me->query("jing") < 50)
-                return notify_fail("ÄãµÄ¾«ÉñÌ«²î£¬²»ÄÜÊ©Õ¹ÕâÒ»¿õ¹ÅÉñ¹¦¡£\n");
+                return notify_fail("ä½ çš„ç²¾ç¥å¤ªå·®ï¼Œä¸èƒ½æ–½å±•è¿™ä¸€æ—·å¤ç¥åŠŸã€‚\n");
 
         if (me->query("learned_points") + 10 > me->query("potential"))
-                return notify_fail("ÄãµÄÇ±ÄÜ²»¹»£¬ÎŞ·¨Ê©Õ¹ÕâÒ»¿õ¹ÅÉñ¹¦¡£\n");
+                return notify_fail("ä½ çš„æ½œèƒ½ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•è¿™ä¸€æ—·å¤ç¥åŠŸã€‚\n");
 
         me->receive_damage("jing", 50);
         me->add("learned_points", 10);
 
-        message_vision(HIM "$N" HIM "¿ÚÖĞÄîÄîÓĞ´Ê£ºÌìÅîÔªË§¼±¼±ÌıÁî£¬ÏÖËÍÉÏ·ÊÖíÒ»Í·£¡\n", me);
+        message_vision(HIM "$N" HIM "å£ä¸­å¿µå¿µæœ‰è¯ï¼šå¤©è“¬å…ƒå¸…æ€¥æ€¥å¬ä»¤ï¼Œç°é€ä¸Šè‚¥çŒªä¸€å¤´ï¼\n", me);
         if (! wizardp(ob) && (random(lvl * lvl) + lvl * lvl < ob->query("combat_exp") ||
             ob->query("combat_exp") >= 50000))
         {
-                write("Ã»ÓĞÈÎºÎĞ§¹û£¬¿´À´ÄãÕâ´ÎÑøÖí²»³É£¡\n");
+                write("æ²¡æœ‰ä»»ä½•æ•ˆæœï¼Œçœ‹æ¥ä½ è¿™æ¬¡å…»çŒªä¸æˆï¼\n");
                 return 1;
         }
 
         switch(random(4))
         {
         case 0:
-                message_vision(HIM "Ìì¿ÕÏÖ³öÎå²ÊÏéÔÆ£¬ÌìÅîÔªË§»º»ºÂäÏÂ£¬Ò»°ÑÁàÆğ"
-                               HIM "$N" HIM "£¬ÀäĞ¦Á½Éù£¬¼ÜÔÆÈ¥ÁË¡£\n" NOR,
+                message_vision(HIM "å¤©ç©ºç°å‡ºäº”å½©ç¥¥äº‘ï¼Œå¤©è“¬å…ƒå¸…ç¼“ç¼“è½ä¸‹ï¼Œä¸€æŠŠæ‹èµ·"
+                               HIM "$N" HIM "ï¼Œå†·ç¬‘ä¸¤å£°ï¼Œæ¶äº‘å»äº†ã€‚\n" NOR,
                                ob);
                 break;
         case 1:
-                message_vision(HIM "ÌìÅîÔªË§³öÏÖÔÚÒ»¹ÉÑÌÎíÖĞ£¬Ò»°Ñ×¥×¡$N"
-                               HIM "£¬ºÈµÀ£º×ß£¬ÔÛÃÇ¼ÒÓĞÊÂÉÌÁ¿£¬¿ìºÍÎÒÈ¥£¡\n" NOR,
+                message_vision(HIM "å¤©è“¬å…ƒå¸…å‡ºç°åœ¨ä¸€è‚¡çƒŸé›¾ä¸­ï¼Œä¸€æŠŠæŠ“ä½$N"
+                               HIM "ï¼Œå–é“ï¼šèµ°ï¼Œå’±ä»¬å®¶æœ‰äº‹å•†é‡ï¼Œå¿«å’Œæˆ‘å»ï¼\n" NOR,
                                ob);
                 break;
         case 2:
-                message_vision(HIM "ÌìÅîÔªË§¼±¼±Ã¦Ã¦µÄÅÜÀ´£¬´óÉùº°µÀ£º" +
-                               ob->name() + HIM "£¡æÏ¶ğ½ã½ãÀ´ÁË£¡$N"
-                               HIM "Ò»Ìı£¬»ÅÃ¦¸úÔÚÀÏÖíÆ¨¹ÉºóÃæµßµßµÄÅÜÁË¡£\n" NOR,
+                message_vision(HIM "å¤©è“¬å…ƒå¸…æ€¥æ€¥å¿™å¿™çš„è·‘æ¥ï¼Œå¤§å£°å–Šé“ï¼š" +
+                               ob->name() + HIM "ï¼å«¦å¨¥å§å§æ¥äº†ï¼$N"
+                               HIM "ä¸€å¬ï¼Œæ…Œå¿™è·Ÿåœ¨è€çŒªå±è‚¡åé¢é¢ é¢ çš„è·‘äº†ã€‚\n" NOR,
                                ob);
                 break;
         default:
-                message_vision(HIM "ÆËÍ¨Ò»ÏÂ£¬Ö»¼ûÌìÅîÔªË§´ÓÌìÉÏË¤ÁËÏÂÀ´¡£$N" +
-                               HIM "ÈÌ²»×¡ÎûÎûÒ»Ğ¦£¬ÔªË§´óÅ­£º¡°ºÃ¼Ò»ï£¬¶ãÔÚÕâÀï£¿¡±\n"
-                               "Ò»ÍÅÑÌÎí¹ıºó£¬Ö»Ìı²Ò½ĞÁ¬Á¬£¬$N" HIM "ÉùÒô½¥½¥Ô¶È¥¡£\n" NOR,
+                message_vision(HIM "æ‰‘é€šä¸€ä¸‹ï¼Œåªè§å¤©è“¬å…ƒå¸…ä»å¤©ä¸Šæ‘”äº†ä¸‹æ¥ã€‚$N" +
+                               HIM "å¿ä¸ä½å˜»å˜»ä¸€ç¬‘ï¼Œå…ƒå¸…å¤§æ€’ï¼šâ€œå¥½å®¶ä¼™ï¼Œèº²åœ¨è¿™é‡Œï¼Ÿâ€\n"
+                               "ä¸€å›¢çƒŸé›¾è¿‡åï¼Œåªå¬æƒ¨å«è¿è¿ï¼Œ$N" HIM "å£°éŸ³æ¸æ¸è¿œå»ã€‚\n" NOR,
                                ob);
                 break;
         }
 
         ob->move("/d/city/zhujuan");
-        message("vision", "Ö»Ìı¡°ÆËÍ¨¡±Ò»Éù£¬" + ob->name() +
-                          "µô½øÁËÖíÈ¦£¬¼ÌĞø¸ßÉù´ò×Åºôàà¡£\n",
+        message("vision", "åªå¬â€œæ‰‘é€šâ€ä¸€å£°ï¼Œ" + ob->name() +
+                          "æ‰è¿›äº†çŒªåœˆï¼Œç»§ç»­é«˜å£°æ‰“ç€å‘¼å™œã€‚\n",
                 environment(ob), ob);
-        write(HIC "ÄãµÄÑøÖí´ó·¨³É¹¦ÁË£¬" + ob->name(1) +
-              HIC "ÏÖÔÚ½øÖíÈ¦Ïí¸£È¥ÁË\n" NOR);
+        write(HIC "ä½ çš„å…»çŒªå¤§æ³•æˆåŠŸäº†ï¼Œ" + ob->name(1) +
+              HIC "ç°åœ¨è¿›çŒªåœˆäº«ç¦å»äº†\n" NOR);
 
-        CHANNEL_D->do_channel(this_object(), "rumor", "ÌıËµ" +
-                              me->name(1) + HIM "Ê©Õ¹ÑøÖí´ó·¨£¬" +
-                              ob->name(1) + HIM "½øÖíÈ¦¼ÌĞø·¢´ô£¬³¤Ë¯²»ĞÑ¡£");
+        CHANNEL_D->do_channel(this_object(), "rumor", "å¬è¯´" +
+                              me->name(1) + HIM "æ–½å±•å…»çŒªå¤§æ³•ï¼Œ" +
+                              ob->name(1) + HIM "è¿›çŒªåœˆç»§ç»­å‘å‘†ï¼Œé•¿ç¡ä¸é†’ã€‚");
         return 1;
 }
 
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : feed <Íæ¼Ò>
+æŒ‡ä»¤æ ¼å¼ : feed <ç©å®¶>
 
-Èç¹ûÍæ¼ÒÕıÔÚ·¢´ô£¬ÄãÓĞÉÃ³¤ÑøÖíÉñ¹¦£¬ÄÇÃ´¿ÉÒÔÊ¹ÓÃÕâÌõÖ¸Áî
-½«¸ÃÍæ¼ÒËÍ½øÖíÈ¦ÊµÏ°¡£Ã¿Ê¹ÓÃÒ»´ÎÑøÖí´ó·¨¶¼»áºÄ·ÑÊ®µãÇ±ÄÜ
-ºÍÒ»Ğ©¾«¡£
+å¦‚æœç©å®¶æ­£åœ¨å‘å‘†ï¼Œä½ æœ‰æ“…é•¿å…»çŒªç¥åŠŸï¼Œé‚£ä¹ˆå¯ä»¥ä½¿ç”¨è¿™æ¡æŒ‡ä»¤
+å°†è¯¥ç©å®¶é€è¿›çŒªåœˆå®ä¹ ã€‚æ¯ä½¿ç”¨ä¸€æ¬¡å…»çŒªå¤§æ³•éƒ½ä¼šè€—è´¹åç‚¹æ½œèƒ½
+å’Œä¸€äº›ç²¾ã€‚
  
 HELP );
         return 1;

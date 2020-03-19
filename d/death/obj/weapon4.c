@@ -5,16 +5,16 @@ inherit CLUB;
 
 void create()
 {
-        set_name(WHT "ĞşÌì¹÷¡¤¹íÅ°" NOR, ({ "gui nue","club","gun", "xuantian gun" }));
+        set_name(WHT "ç„å¤©æ£Â·é¬¼è™" NOR, ({ "gui nue","club","gun", "xuantian gun" }));
         set_weight(20000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸Ë");
+                set("unit", "æ†");
                 set("value", 3000000);
                 set("material", "steel");
-                set("long", HIW "\nĞşÌì¹÷¡¤¹íÅ°ÄË¾Åñ·ÆßÓüÉñ±øÖ®Ò»¡£\n" NOR);
-                set("wield_msg", HIR "$NÇáÇá¶¶³ö$n" HIR "£¬É²Ê±À×ÉùºäÃù£¬Ò»¹ÉÉ±ÆøÖ±Äô¾ÅÏö¡£\n" NOR);
+                set("long", HIW "\nç„å¤©æ£Â·é¬¼è™ä¹ƒä¹ç©¹ä¸ƒç‹±ç¥å…µä¹‹ä¸€ã€‚\n" NOR);
+                set("wield_msg", HIR "$Nè½»è½»æŠ–å‡º$n" HIR "ï¼Œåˆ¹æ—¶é›·å£°è½°é¸£ï¼Œä¸€è‚¡æ€æ°”ç›´è‚ä¹éœ„ã€‚\n" NOR);
         }
         init_club(200);
         setup();

@@ -3,16 +3,16 @@ inherit ROOM;
 
 void create()
 {
-    set("short", "¿Íµê");
+    set("short", "å®¢åº—");
     set("long", @LONG
-ÕâÊÇÒ»¼Ò¼ÛÇ®µÍÁ®µÄ¿ÍÕ»£¬ÉúÒâºÜÊÇÇåµ­¡£ÍâµØÓÎ¿ÍÅ¼¶û
-Ñ¡ÔñÕâÀïÂä½Å£¬ÄãÔÚÕâÀï×¡¿ÉÒªĞ¡ĞÄ£¬ÌıËµ¾£ÖİÓĞºÚµê¡£
+è¿™æ˜¯ä¸€å®¶ä»·é’±ä½å»‰çš„å®¢æ ˆï¼Œç”Ÿæ„å¾ˆæ˜¯æ¸…æ·¡ã€‚å¤–åœ°æ¸¸å®¢å¶å°”
+é€‰æ‹©è¿™é‡Œè½è„šï¼Œä½ åœ¨è¿™é‡Œä½å¯è¦å°å¿ƒï¼Œå¬è¯´è†å·æœ‰é»‘åº—ã€‚
 LONG);
     set("no_fight", 1);
     set("valid_startroom", 1);
         set("no_sleep_room",1);
     set("item_desc", ([
-        "paizi" : "Â¥ÉÏÑÅ·¿£¬Ã¿Ò¹ÎåÊ®Á½°×Òø¡£\n",
+        "paizi" : "æ¥¼ä¸Šé›…æˆ¿ï¼Œæ¯å¤œäº”åä¸¤ç™½é“¶ã€‚\n",
     ]));
     set("objects", ([
         "/d/city/npc/xiaoer2" : 1,
@@ -29,8 +29,8 @@ int valid_leave(object me, string dir)
 {
 
     if (! me->query_temp("rent_paid") && dir == "up" )
-            return notify_fail(CYN "µêĞ¡¶şÒ»ÏÂµ²ÔÚÂ¥ÌİÇ°£¬°×ÑÛÒ»"
-                                   "·­£ºÔõ÷á×Å£¬Ïë°××¡°¡£¡\n" NOR);
+            return notify_fail(CYN "åº—å°äºŒä¸€ä¸‹æŒ¡åœ¨æ¥¼æ¢¯å‰ï¼Œç™½çœ¼ä¸€"
+                                   "ç¿»ï¼šæ€éº½ç€ï¼Œæƒ³ç™½ä½å•Šï¼\n" NOR);
 
     return ::valid_leave(me, dir);
 }

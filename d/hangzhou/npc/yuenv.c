@@ -1,4 +1,4 @@
-// yuenv.c Ô½Å®
+// yuenv.c è¶Šå¥³
 
 #include <ansi.h>
 
@@ -9,11 +9,11 @@ mixed teach_me();
 
 void create()
 {
-        set_name("Ô½Å®", ({ "yue nv", "yuenv" }));
+        set_name("è¶Šå¥³", ({ "yue nv", "yuenv" }));
         set("long", @LONG
-ËıÊÇÒ»Î»ÄêÇáµÄÄÁÑòÅ®£¬Á³ÉÏ¹Ò×ÅÒ»Ë¿ÓëÄêÁä²»Ïà³ÆµÄ°§Ë¼¡£
+å¥¹æ˜¯ä¸€ä½å¹´è½»çš„ç‰§ç¾Šå¥³ï¼Œè„¸ä¸ŠæŒ‚ç€ä¸€ä¸ä¸å¹´é¾„ä¸ç›¸ç§°çš„å“€æ€ã€‚
 LONG );
-        set("gender", "Å®ĞÔ");
+        set("gender", "å¥³æ€§");
         set("class", "swordsman");
         set("age", 18);
         set("attitude", "friendly");
@@ -43,7 +43,7 @@ LONG );
         map_skill("sword", "yuenv-jian");
 
         set("inquiry", ([
-                "Ô½Å®½£Êõ" : (: teach_me : ),
+                "è¶Šå¥³å‰‘æœ¯" : (: teach_me : ),
         ]));
 
         set("chat_chance_combat", 120);
@@ -63,38 +63,38 @@ mixed teach_me()
 
         me = this_player();
 
-        if (me->query("gender") != "Å®ĞÔ")
+        if (me->query("gender") != "å¥³æ€§")
         {
-                command("say Õâ½£·¨Ö»ÊÊºÏÅ®ĞÔĞŞÁ¶£¬Äã»¹ÊÇÃâÁË°É£¡");
+                command("say è¿™å‰‘æ³•åªé€‚åˆå¥³æ€§ä¿®ç‚¼ï¼Œä½ è¿˜æ˜¯å…äº†å§ï¼");
                 return 1;
         }
 
         if (me->query_skill("yuenv-jian", 1) >= 1)
         {
-                command("say Äã²»ÊÇÒÑ¾­»áÁËÂğ£¿»¹À´ÕÒÎÒ¸ÉÊ²Ã´£¡");
+                command("say ä½ ä¸æ˜¯å·²ç»ä¼šäº†å—ï¼Ÿè¿˜æ¥æ‰¾æˆ‘å¹²ä»€ä¹ˆï¼");
                 return 1;
         }
 
         if (me->query("dex") < 36)
         {
                 command("shake");
-                command("say ÄãÏÈÌìÉí·¨²»¹»£¬ÎŞ·¨ĞŞÁ¶Ô½Å®½£Êõ¡£");
+                command("say ä½ å…ˆå¤©èº«æ³•ä¸å¤Ÿï¼Œæ— æ³•ä¿®ç‚¼è¶Šå¥³å‰‘æœ¯ã€‚");
                 return 1;
         }
 
         if (me->query_skill("dodge") < 270)
         {
-                command("say ÄãÇá¹¦»ğºò²»×ã£¬ÎŞ·¨ĞŞÁ¶Ô½Å®½£Êõ¡£");
+                command("say ä½ è½»åŠŸç«å€™ä¸è¶³ï¼Œæ— æ³•ä¿®ç‚¼è¶Šå¥³å‰‘æœ¯ã€‚");
                 return 1;
         }
 
-        command("say ¶÷£¬ÄÇºÃ°É£¬ÎÒ¾Í½ÌÄãÔ½Å®½£Êõ¡£");
+        command("say æ©ï¼Œé‚£å¥½å§ï¼Œæˆ‘å°±æ•™ä½ è¶Šå¥³å‰‘æœ¯ã€‚");
 
         me->set_skill("yuenv-jian", 10);
 
-        tell_object(me, HIG "ÄãÑ§»áÁËÔ½Å®½£Êõ£¡\n" NOR);
+        tell_object(me, HIG "ä½ å­¦ä¼šäº†è¶Šå¥³å‰‘æœ¯ï¼\n" NOR);
 
-        command("say ÏÂÈ¥ºÃºÃÁ·Ï°°É¡£");
+        command("say ä¸‹å»å¥½å¥½ç»ƒä¹ å§ã€‚");
   
         return 1;    
     
@@ -104,11 +104,11 @@ int accept_ask(object me, string topic)
 {
      switch (topic)
      {
-        case "Î÷×ÓÅõĞÄ" :
+        case "è¥¿å­æ§å¿ƒ" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/yuenv-jian/xin",
                            "free"    : 1,
-                           "name"    : "Î÷×ÓÅõĞÄ",
+                           "name"    : "è¥¿å­æ§å¿ƒ",
                            "sk1"     : "yuenv-jian",
                            "lv1"     : 140,
                            "neili"   : 2800,

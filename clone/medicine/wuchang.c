@@ -5,14 +5,14 @@
 
 void create()
 {
-        set_name(HIR "ÎÞ³£µ¤" NOR, ({"wuchang dan", "dan"}));
+        set_name(HIR "æ— å¸¸ä¸¹" NOR, ({"wuchang dan", "dan"}));
         set_weight(50);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIR "ÕâÊÇÒ»¿Å¾§Ó¨»ðºìµÄÎÞ³£µ¤£¬ÊÇÌÒ»¨µº¾«ÐÄÁ·ÖÆµÄÆæ"
-                            "Ò©¡£\n" NOR);
-                set("base_unit", "¿Å");
+                set("long", HIR "è¿™æ˜¯ä¸€é¢—æ™¶èŽ¹ç«çº¢çš„æ— å¸¸ä¸¹ï¼Œæ˜¯æ¡ƒèŠ±å²›ç²¾å¿ƒç»ƒåˆ¶çš„å¥‡"
+                            "è¯ã€‚\n" NOR);
+                set("base_unit", "é¢—");
                 set("base_value", 8000);
                 set("base_weight", 70);
                 set("only_do_effect", 1);
@@ -43,16 +43,16 @@ int do_effect(object me)
 
         if (time() - me->query_temp("last_eat/wuchang") < 180)
         {
-                write("Äã¸Õ·þÓÃ¹ýÒ©£¬ÐèÒ©ÐÔ·¢»ÓÍêÐ§ÓÃÒÔºó²ÅÄÜ¼ÌÐø·þÓÃ¡£\n");
+                write("ä½ åˆšæœç”¨è¿‡è¯ï¼Œéœ€è¯æ€§å‘æŒ¥å®Œæ•ˆç”¨ä»¥åŽæ‰èƒ½ç»§ç»­æœç”¨ã€‚\n");
                 return 1;
         }
 
         me->set_temp("last_eat/wuchang", time());
 
-        message_vision(HIR "$N" HIR "ÍÌÏÂÎÞ³£µ¤£¬Á³É«·ºÒ»ÕóºìÔÎ¡£\n" NOR, me);
-        tell_object(me, HIY "ÄãÖ»¾õµÃÕæÆø³äÅæ£¬¼¸ºõ¾ÍÒªÅìÅÈ¶ø³ö¡£\n" NOR);
+        message_vision(HIR "$N" HIR "åžä¸‹æ— å¸¸ä¸¹ï¼Œè„¸è‰²æ³›ä¸€é˜µçº¢æ™•ã€‚\n" NOR, me);
+        tell_object(me, HIY "ä½ åªè§‰å¾—çœŸæ°”å……æ²›ï¼Œå‡ ä¹Žå°±è¦æ¾Žæ¹ƒè€Œå‡ºã€‚\n" NOR);
 
-        log_file("static/using", sprintf("%s(%s) eat ÎÞ³£µ¤ at %s.\n",
+        log_file("static/using", sprintf("%s(%s) eat æ— å¸¸ä¸¹ at %s.\n",
                  me->name(1), me->query("id"), ctime(time())));
 
         my = me->query_entire_dbase();

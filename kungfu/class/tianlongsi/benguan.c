@@ -5,10 +5,10 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("±¾¹Û", ({ "ben guan","guan"}) );
-	set("gender", "ÄĞĞÔ" );
-	set("long", "Ò»¸ö¿İ»Æ¾«ÊİµÄÉ®ÈË£¬ËûÊÇ±¾Òò·½ÕÉµÄÊ¦ĞÖ¡£\n");
-	set("title", "ÌìÁúËÂµÚÊ®Æß´úÉ®ÈË");
+	set_name("æœ¬è§‚", ({ "ben guan","guan"}) );
+	set("gender", "ç”·æ€§" );
+	set("long", "ä¸€ä¸ªæ¯é»„ç²¾ç˜¦çš„åƒ§äººï¼Œä»–æ˜¯æœ¬å› æ–¹ä¸ˆçš„å¸ˆå…„ã€‚\n");
+	set("title", "å¤©é¾™å¯ºç¬¬åä¸ƒä»£åƒ§äºº");
 	set("class", "bonze");
 	set("age", 47);
 	set("shen_type", 1);
@@ -39,8 +39,8 @@ void create()
 	set_skill("literate", 60);
 
 	set("inquiry" ,([
-	        "ÁùÂöÉñ½£Æ×" : "ºß£¡\n",
-	        "ÁùÂöÉñ½£" :  "ºß£¡\n",
+	        "å…­è„‰ç¥å‰‘è°±" : "å“¼ï¼\n",
+	        "å…­è„‰ç¥å‰‘" :  "å“¼ï¼\n",
 	]));
 
 	map_skill("force", "duanshi-xinfa");
@@ -49,7 +49,7 @@ void create()
 	map_skill("finger", "sun-finger");
 	map_skill("sword", "duanjia-sword");
 	prepare_skill("finger","sun-finger");
-	create_family("´óÀí¶Î¼Ò", 15, "¸ßÉ®");
+	create_family("å¤§ç†æ®µå®¶", 15, "é«˜åƒ§");
 	setup();
 	carry_object("/d/xueshan/obj/b-jiasha")->wear();
 }

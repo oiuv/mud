@@ -4,11 +4,11 @@ inherit KNOWER;
 
 void create()
 {
-    set_name("²¨Ë¹ÉÌÈË", ({ "bosi shangren", "shangren", "bosi" }));
-    set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
-    set("gender", "ÄÐÐÔ");
+    set_name("æ³¢æ–¯å•†äºº", ({ "bosi shangren", "shangren", "bosi" }));
+    set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
+    set("gender", "ç”·æ€§");
     set("age", 40 + random(10));
-    set("long", "Ò»¸ö¸ß±ÇÀ¶ÑÛµÄ²¨Ë¹ÉÌÈË¡£Ëû¿´×ÅÄãÁ³ÉÏÂ¶³ö½Æ»«µÄÐ¦ÈÝ¡£\n");
+    set("long", "ä¸€ä¸ªé«˜é¼»è“çœ¼çš„æ³¢æ–¯å•†äººã€‚ä»–çœ‹ç€ä½ è„¸ä¸Šéœ²å‡ºç‹¡çŒ¾çš„ç¬‘å®¹ã€‚\n");
 
     set("attitude", "friendly");
 
@@ -27,9 +27,9 @@ void create()
     setup();
     set("chat_chance", 15);
     set("chat_msg", ({
-	CYN "²¨Ë¹ÉÌÈË¶ÔÄã¼·ÁËÒ»ÏÂÑÛ¾¦¡£\n" NOR,
-	CYN "²¨Ë¹ÉÌÈË¶ÔÄãËµ£º°¢À­°¢¿É°Í£¬ÄÂº±Ä¬µÂÈðËØ°¢À­¡£\n" NOR,
-	CYN "²¨Ë¹ÉÌÈËºÇºÇÐ¦ÁËÐ¦£¬ÉñÃØÙâÙâµÄ¿´×ÅÄã£º¡£\n" NOR,
+	CYN "æ³¢æ–¯å•†äººå¯¹ä½ æŒ¤äº†ä¸€ä¸‹çœ¼ç›ã€‚\n" NOR,
+	CYN "æ³¢æ–¯å•†äººå¯¹ä½ è¯´ï¼šé˜¿æ‹‰é˜¿å¯å·´ï¼Œç©†ç½•é»˜å¾·ç‘žç´ é˜¿æ‹‰ã€‚\n" NOR,
+	CYN "æ³¢æ–¯å•†äººå‘µå‘µç¬‘äº†ç¬‘ï¼Œç¥žç§˜å…®å…®çš„çœ‹ç€ä½ ï¼šã€‚\n" NOR,
             (: random_move :)
     }) );
     carry_object("/clone/weapon/wandao")->wield();

@@ -1,5 +1,5 @@
-// seaf.c º£Õ½Æå
-// Make by Ã¨²¿Ã¨(Catyboy)
+// seaf.c æµ·æˆ˜æ£‹
+// Make by çŒ«éƒ¨çŒ«(Catyboy)
 
 #include <ansi.h>
 
@@ -10,23 +10,23 @@
 inherit ITEM;
 
 int has_start;
-int game_mode;				// ¿ªÊ¼¹¥»÷£¿0-²¼¾Ö 1-»ğÁ¦ 2-¿ª»ğ 3-½áÊø
-int who_win;				// Ê¤Àû·½ 0=Ã»ÓĞ½áÊø -1=ºÍÊÖ
-mixed table;				// Á½¸öÆåÅÌ table = cell[9][9]
+int game_mode;				// å¼€å§‹æ”»å‡»ï¼Ÿ0-å¸ƒå±€ 1-ç«åŠ› 2-å¼€ç« 3-ç»“æŸ
+int who_win;				// èƒœåˆ©æ–¹ 0=æ²¡æœ‰ç»“æŸ -1=å’Œæ‰‹
+mixed table;				// ä¸¤ä¸ªæ£‹ç›˜ table = cell[9][9]
 							// cell = ({ HasShip , HasFire })
-mapping player;				// Á½¸öÍæ¼Ò [id:tableNumber(1,2)]
-mixed player_action;		// Íæ¼ÒµÄ»î¶¯
-mapping visitor;			// Á½¸öÍæ¼Ò¹ÛÕ½µÄÈË [id:({id,...})]
-mixed ship;					// Á½¸öÍæ¼ÒµÄÕ½´¬ ({ mixed({hasDest,x,y,fireX,fireY,fireValue}) ,...})
-mixed numbers = ({"£°","£±","£²","£³","£´","£µ","£¶","£·","£¸","£¹"});
+mapping player;				// ä¸¤ä¸ªç©å®¶ [id:tableNumber(1,2)]
+mixed player_action;		// ç©å®¶çš„æ´»åŠ¨
+mapping visitor;			// ä¸¤ä¸ªç©å®¶è§‚æˆ˜çš„äºº [id:({id,...})]
+mixed ship;					// ä¸¤ä¸ªç©å®¶çš„æˆ˜èˆ¹ ({ mixed({hasDest,x,y,fireX,fireY,fireValue}) ,...})
+mixed numbers = ({"ï¼","ï¼‘","ï¼’","ï¼“","ï¼”","ï¼•","ï¼–","ï¼—","ï¼˜","ï¼™"});
 mixed cell_status = ({
-			// ×Ô¼ºµÄÆåÅÌ
-			({"¡«","£ª","¡«"}),
-			({"´¬","£À","´¬"}),
-			// µĞ·½µÄÆåÅÌ
-			({"¡«","£ª","££"}),
-			({"¡«","£Ø","££"})
-	});		// Æå¸ñµÄ×´Ì¬
+			// è‡ªå·±çš„æ£‹ç›˜
+			({"ï½","ï¼Š","ï½"}),
+			({"èˆ¹","ï¼ ","èˆ¹"}),
+			// æ•Œæ–¹çš„æ£‹ç›˜
+			({"ï½","ï¼Š","ï¼ƒ"}),
+			({"ï½","ï¼¸","ï¼ƒ"})
+	});		// æ£‹æ ¼çš„çŠ¶æ€
 mixed fire_x,fire_y;
 int reset_game(int all);
 
@@ -144,14 +144,14 @@ int remain_fire(string who)
 
 void create()
 {
-	set_name("º£Õ½Æå", ({ "sea board","board","seaf"}) );
+	set_name("æµ·æˆ˜æ£‹", ({ "sea board","board","seaf"}) );
 	set_weight(1);
     if( clonep() )
 		set_default_object(__FILE__);
 	else
 	{
-		set("unit", "¸±");
-        set("long", "ÕâÊÇÒ»¸±º£Õ½Æå£¬Ê¹ÓÃ·½·¨ÇëÊ¹ÓÃ(helpboard)ÃüÁî¡£\n");
+		set("unit", "å‰¯");
+        set("long", "è¿™æ˜¯ä¸€å‰¯æµ·æˆ˜æ£‹ï¼Œä½¿ç”¨æ–¹æ³•è¯·ä½¿ç”¨(helpboard)å‘½ä»¤ã€‚\n");
         set("value", 1);
         set("no_get", 1);
         set("material", "wood");
@@ -175,9 +175,9 @@ string player_status(string key)
 	for(i=0;i<SHIP_NUM;i++)
 	{
 		if(sh[i][0])
-			r+= HIR"£Ø"NOR" ";
+			r+= HIR"ï¼¸"NOR" ";
 		else
-			r+= HIB"´¬"NOR" ";
+			r+= HIB"èˆ¹"NOR" ";
 	}
 	return r;
 }
@@ -205,8 +205,8 @@ string build_board(string key)
 	et = table[eid];
 	
 	r = "\n";
-	r +=  "£ªÎÒ¾üµÄÇé¿ö£ª¡¡¡¡¡¡¡¡¡¡£ªµĞ¾üµÄÇé¿ö£ª\n";
-	r += "¡¡£±£²£³£´£µ£¶£·£¸£¹¡¡¡¡¡¡£±£²£³£´£µ£¶£·£¸£¹\n";
+	r +=  "ï¼Šæˆ‘å†›çš„æƒ…å†µï¼Šã€€ã€€ã€€ã€€ã€€ï¼Šæ•Œå†›çš„æƒ…å†µï¼Š\n";
+	r += "ã€€ï¼‘ï¼’ï¼“ï¼”ï¼•ï¼–ï¼—ï¼˜ï¼™ã€€ã€€ã€€ï¼‘ï¼’ï¼“ï¼”ï¼•ï¼–ï¼—ï¼˜ï¼™\n";
 	for(y=0;y<HEIGHT;y++)
 	{
 		r = r+numbers[y+1];
@@ -219,7 +219,7 @@ string build_board(string key)
 				r += cell_status[d[0]][d[1]];
 		}
 
-		r = r+"¡¡¡¡" + numbers[y+1];
+		r = r+"ã€€ã€€" + numbers[y+1];
 		for(x=0;x<WIDTH;x++)
 		{
 			d = et[x][y];
@@ -230,7 +230,7 @@ string build_board(string key)
 		}
 		r+="\n";
 	}
-	r += "´¬Ö»×´Ì¬£º" + player_status(key) + "\n";
+	r += "èˆ¹åªçŠ¶æ€ï¼š" + player_status(key) + "\n";
 	return r;
 }
 
@@ -295,24 +295,24 @@ void display(int who)
 				switch(game_mode)
 				{
 				case 0:
-					m = sprintf("²¼ÖÃ´¬Ö»£º%dÖ»\n",remain_place(ob->query("id")));
-					m += "Ê¹ÓÃ["HIY"place X×ø±ê Y×ø±ê"NOR"]²¼ÖÃ´¬Ö»\n";
-					m += "Ê¹ÓÃ["HIY"unplace X×ø±ê Y×ø±ê"NOR"]È¡Ïû²¼ÖÃ\n";
-					m += "Ê¹ÓÃ["HIY"rplace"NOR"]Ëæ»ú°Ú·Å´¬Ö»\n";
+					m = sprintf("å¸ƒç½®èˆ¹åªï¼š%dåª\n",remain_place(ob->query("id")));
+					m += "ä½¿ç”¨["HIY"place Xåæ ‡ Yåæ ‡"NOR"]å¸ƒç½®èˆ¹åª\n";
+					m += "ä½¿ç”¨["HIY"unplace Xåæ ‡ Yåæ ‡"NOR"]å–æ¶ˆå¸ƒç½®\n";
+					m += "ä½¿ç”¨["HIY"rplace"NOR"]éšæœºæ‘†æ”¾èˆ¹åª\n";
 					break;
 				case 1:
-					m = sprintf("²¼ÖÃ»ğÁ¦£º%d¸ö\n",remain_fire(ob->query("id")));
-					m += "Ê¹ÓÃ["HIY"fire X×ø±ê Y×ø±ê"NOR"]ÉèÖÃ¹¥»÷Î»ÖÃ\n";
-					m += "Ê¹ÓÃ["HIY"unfire X×ø±ê Y×ø±ê"NOR"]È¡ÏûÉèÖÃ\n";
+					m = sprintf("å¸ƒç½®ç«åŠ›ï¼š%dä¸ª\n",remain_fire(ob->query("id")));
+					m += "ä½¿ç”¨["HIY"fire Xåæ ‡ Yåæ ‡"NOR"]è®¾ç½®æ”»å‡»ä½ç½®\n";
+					m += "ä½¿ç”¨["HIY"unfire Xåæ ‡ Yåæ ‡"NOR"]å–æ¶ˆè®¾ç½®\n";
 					break;
 				case 3:
-					m = "Õ½¶·½áÊøÁË¡£\nÕ½¿ö£º";
+					m = "æˆ˜æ–—ç»“æŸäº†ã€‚\næˆ˜å†µï¼š";
 					if(who_win==-1)
-						m+="ºÍÊÖ";
+						m+="å’Œæ‰‹";
 					else if(who_win==i)
-						m+=HIY"Ê¤ÀûÁË"NOR;
+						m+=HIY"èƒœåˆ©äº†"NOR;
 					else
-						m+=HBWHT BLK"Ê§°ÜÁË"NOR;
+						m+=HBWHT BLK"å¤±è´¥äº†"NOR;
 					break;
 				}
 				if(m)
@@ -338,7 +338,7 @@ string extra_long()
 			key = idx[i];
 			who = get_player(key);
 			if(who)
-				r = r + key + "£º"+player_status(key)+"\n";
+				r = r + key + "ï¼š"+player_status(key)+"\n";
 		}
 		r += "******************************************\n";
 	}
@@ -378,7 +378,7 @@ void start_game()
 	game_mode = 0;
 	who_win = 0;
 
-	msg(0,0,"¿ªÊ¼ÓÎÏ·\n");
+	msg(0,0,"å¼€å§‹æ¸¸æˆ\n");
 	display(0);
 }
 
@@ -386,14 +386,14 @@ int before_fire()
 {
 	game_mode = 1;
 	player_action = ([]);
-	msg(0,0,"\n\n"HIC"£¡£¡£¡½øÈëÕ½±¸×´Ì¬£¡£¡£¡"NOR"\n\n");
+	msg(0,0,"\n\n"HIC"ï¼ï¼ï¼è¿›å…¥æˆ˜å¤‡çŠ¶æ€ï¼ï¼ï¼"NOR"\n\n");
 	display(0);
 }
 
 int start_fire()
 {
 	player_action = ([]);
-	msg(0,0,"\n\n"HIR"£¡£¡£¡¿ªÊ¼Õ½¶·×´Ì¬£¡£¡£¡"NOR"\n\n");
+	msg(0,0,"\n\n"HIR"ï¼ï¼ï¼å¼€å§‹æˆ˜æ–—çŠ¶æ€ï¼ï¼ï¼"NOR"\n\n");
 	game_mode = 2;
 	fire_x = ({0,0});
 	fire_y = ({0,0});
@@ -404,22 +404,22 @@ int start_fire()
 void init()
 {
 
-	add_action("do_help","helpboard");		// °ïÖú
+	add_action("do_help","helpboard");		// å¸®åŠ©
 
-	add_action("do_reset","reset");			// ÖØÖÃÓÎÏ·
-	add_action("do_start","start");			// ÖØĞÂ¿ªÊ¼
-    add_action("do_join","join");			// ¼ÓÈëÓÎÏ·
+	add_action("do_reset","reset");			// é‡ç½®æ¸¸æˆ
+	add_action("do_start","start");			// é‡æ–°å¼€å§‹
+    add_action("do_join","join");			// åŠ å…¥æ¸¸æˆ
 
-	add_action("do_view","view");			// ²é¿´Çé¿ö
-	add_action("do_visitor","visit");		// ²é¿´Çé¿ö
-	add_action("do_finish","finish");		// Íê³É
+	add_action("do_view","view");			// æŸ¥çœ‹æƒ…å†µ
+	add_action("do_visitor","visit");		// æŸ¥çœ‹æƒ…å†µ
+	add_action("do_finish","finish");		// å®Œæˆ
 
-	add_action("do_place","place");			// ²¼ÖÃ´¬Ö»
-	add_action("do_rplace","rplace");		// Ëæ»ú°Ú·Å´¬Ö»
-	add_action("do_unplace","unplace");		// È¡Ïû´¬Ö»
+	add_action("do_place","place");			// å¸ƒç½®èˆ¹åª
+	add_action("do_rplace","rplace");		// éšæœºæ‘†æ”¾èˆ¹åª
+	add_action("do_unplace","unplace");		// å–æ¶ˆèˆ¹åª
 
-	add_action("do_fire","fire");			// ²¼ÖÃ»ğÁ¦
-	add_action("do_unfire","unfire");		// È¡Ïû»ğÁ¦
+	add_action("do_fire","fire");			// å¸ƒç½®ç«åŠ›
+	add_action("do_unfire","unfire");		// å–æ¶ˆç«åŠ›
 
 
 }
@@ -435,11 +435,11 @@ int do_reset(string arg)
 	if(!is_playing(this_player()))
 	{
 		if(get_player2(1)||get_player2(2))
-			return notify_fail("Äã¶¼²»Íæ°¡£¡\n");
+			return notify_fail("ä½ éƒ½ä¸ç©å•Šï¼\n");
 	}
 		
 	if(reset_game(1))
-		msg(this_player(),0,"$NÖØÖÃÁËÓÎÏ·¡£\n");
+		msg(this_player(),0,"$Né‡ç½®äº†æ¸¸æˆã€‚\n");
 	return 1;
 }
 
@@ -449,7 +449,7 @@ int do_start(string arg)
 //	int i;
 
 	if(!is_playing(this_player()))
-		return notify_fail("Äã¶¼²»Íæ°¡£¡\n");
+		return notify_fail("ä½ éƒ½ä¸ç©å•Šï¼\n");
 
 	reset_game(0);
 	start_game();
@@ -464,14 +464,14 @@ int do_view(string arg)
 	if(!is_playing(this_player()))
 	{
 		if(!arg)
-			return notify_fail("Äã¶¼²»Íæ°¡£¡\n");
+			return notify_fail("ä½ éƒ½ä¸ç©å•Šï¼\n");
 		if(!is_visitor(this_player(),arg))
-			return notify_fail("Äã²»ÄÜ¹»¿´"+arg+"µÄÆå£¬¿ÉÒÔÊ¹ÓÃ[visit "+arg+"]ÃüÁî³ÉÎª"+arg+"µÄ¹ÛÖÚ¡£\n");
+			return notify_fail("ä½ ä¸èƒ½å¤Ÿçœ‹"+arg+"çš„æ£‹ï¼Œå¯ä»¥ä½¿ç”¨[visit "+arg+"]å‘½ä»¤æˆä¸º"+arg+"çš„è§‚ä¼—ã€‚\n");
 	}
 	if(!arg)
 		arg = this_player()->query("id");
 	if(!view_board(this_player(),arg))
-		return notify_fail("£¿£¿£¿\n");
+		return notify_fail("ï¼Ÿï¼Ÿï¼Ÿ\n");
 	return 1;
 }
 
@@ -481,12 +481,12 @@ int do_join(string arg)
 
 	me = this_player();
 	if(has_start)
-		return notify_fail("ÓÎÏ·ÒÑ¾­¿ªÊ¼£¬²»ÄÜ¼ÓÈëÁË£¬ÇëÊ¹ÓÃ(reset)ÃüÁîÖØÖÃ¡£\n");
+		return notify_fail("æ¸¸æˆå·²ç»å¼€å§‹ï¼Œä¸èƒ½åŠ å…¥äº†ï¼Œè¯·ä½¿ç”¨(reset)å‘½ä»¤é‡ç½®ã€‚\n");
 	if(is_playing(me))
-		return notify_fail("ÄãÒÑ¾­²Î¼ÓÁË¡£\n");
+		return notify_fail("ä½ å·²ç»å‚åŠ äº†ã€‚\n");
 
 	player[me->query("id")]=sizeof(player)+1;
-	msg(me,0,"$N¼ÓÈëÓÎÏ·ÁË¡£\n");
+	msg(me,0,"$NåŠ å…¥æ¸¸æˆäº†ã€‚\n");
 
 	if(sizeof(player)==2)
 		start_game();
@@ -501,18 +501,18 @@ int do_place(string arg)
 	string id;
 
 	if(!is_playing(this_player()))
-		return notify_fail("Äã¶¼²»Íæ°¡£¡\n");
+		return notify_fail("ä½ éƒ½ä¸ç©å•Šï¼\n");
 	
 	if(!has_start||game_mode!=0)
-		return notify_fail("ÏÖÔÚ²»ÊÇ²¼ÖÃ´¬Ö»µÄÊ±ºò¡£\n");
+		return notify_fail("ç°åœ¨ä¸æ˜¯å¸ƒç½®èˆ¹åªçš„æ—¶å€™ã€‚\n");
 
 	if( !arg || sscanf(arg, "%d %d", x, y)!=2 )
-		return notify_fail("place X×ø±ê Y×ø±ê\n");
+		return notify_fail("place Xåæ ‡ Yåæ ‡\n");
 
 	if(x<1||x>WIDTH)
-		return notify_fail("X×ø±ê´íÎó\n");
+		return notify_fail("Xåæ ‡é”™è¯¯\n");
 	if(y<1||y>HEIGHT)
-		return notify_fail("Y×ø±ê´íÎó\n");
+		return notify_fail("Yåæ ‡é”™è¯¯\n");
 
 	id = this_player()->query("id");
 	sh = get_ship(id);
@@ -521,7 +521,7 @@ int do_place(string arg)
 		return notify_fail("access date fail\n");
 
 	if(tb[x-1][y-1][0] == 1)
-		return notify_fail("¸Ã´¦ÒÑ¾­²¼ÖÃÁË´¬Ö»\n");
+		return notify_fail("è¯¥å¤„å·²ç»å¸ƒç½®äº†èˆ¹åª\n");
 
 	for(i=0;i<SHIP_NUM;i++)
 	{
@@ -535,12 +535,12 @@ int do_place(string arg)
 	}
 
 	if(i==SHIP_NUM)
-		return notify_fail("ÄãÒÑ¾­Ã»ÓĞ¿ÕÓàµÄ´¬Ö»¿ÉÒÔ²¼ÖÃÁË¡£\n");
+		return notify_fail("ä½ å·²ç»æ²¡æœ‰ç©ºä½™çš„èˆ¹åªå¯ä»¥å¸ƒç½®äº†ã€‚\n");
 	else
 	{
 		display(player_id(id));
 		if(!remain_place(id))
-			tell_object(this_player(),"\nÊ¹ÓÃ[Finish]½áÊø²¼ÖÃ´¬Ö»¡£\n");
+			tell_object(this_player(),"\nä½¿ç”¨[Finish]ç»“æŸå¸ƒç½®èˆ¹åªã€‚\n");
 	}
 	return 1;
 }
@@ -551,18 +551,18 @@ int do_unplace(string arg)
 	mixed *sh,*tb;
 
 	if(!is_playing(this_player()))
-		return notify_fail("Äã¶¼²»Íæ°¡£¡\n");
+		return notify_fail("ä½ éƒ½ä¸ç©å•Šï¼\n");
 	
 	if(game_mode!=0)
-		return notify_fail("ÏÖÔÚ²»ÊÇ²¼ÖÃ´¬Ö»µÄÊ±ºò¡£\n");
+		return notify_fail("ç°åœ¨ä¸æ˜¯å¸ƒç½®èˆ¹åªçš„æ—¶å€™ã€‚\n");
 
 	if( !arg || sscanf(arg, "%d %d", x, y)!=2 )
-		return notify_fail("unplace X×ø±ê Y×ø±ê\n");
+		return notify_fail("unplace Xåæ ‡ Yåæ ‡\n");
 
 	if(x<1||x>WIDTH)
-		return notify_fail("X×ø±ê´íÎó\n");
+		return notify_fail("Xåæ ‡é”™è¯¯\n");
 	if(y<1||y>HEIGHT)
-		return notify_fail("Y×ø±ê´íÎó\n");
+		return notify_fail("Yåæ ‡é”™è¯¯\n");
 
 	sh = get_ship(this_player()->query("id"));
 	tb = get_table(this_player()->query("id"));
@@ -582,7 +582,7 @@ int do_unplace(string arg)
 	}
 
 	if(i==SHIP_NUM)
-		return notify_fail("¸ÃÎ»ÖÃÃ»ÓĞ²¼ÖÃ´¬Ö»¡£\n");
+		return notify_fail("è¯¥ä½ç½®æ²¡æœ‰å¸ƒç½®èˆ¹åªã€‚\n");
 	return 1;
 }
 
@@ -593,10 +593,10 @@ int do_finish(string arg)
 	string id;
 
 	if(!is_playing(this_player()))
-		return notify_fail("Äã¶¼²»Íæ°¡£¡\n");
+		return notify_fail("ä½ éƒ½ä¸ç©å•Šï¼\n");
 	
 	if(!(game_mode==0||game_mode==1))
-		return notify_fail("£¿£¿£¿\n");
+		return notify_fail("ï¼Ÿï¼Ÿï¼Ÿ\n");
 
 	id = this_player()->query("id");
 	sh = get_ship(id);
@@ -606,18 +606,18 @@ int do_finish(string arg)
 	if(game_mode==0)
 	{
 		if(remain_place(id))
-			return notify_fail("»¹ÓĞ´¬Ö»Ã»ÓĞ²¼ÖÃ\n");
+			return notify_fail("è¿˜æœ‰èˆ¹åªæ²¡æœ‰å¸ƒç½®\n");
 	}
 	else if(game_mode==1)
 	{
 		if(remain_fire(id))
-			return notify_fail("»¹ÓĞ»ğÁ¦Ã»ÓĞ²¼ÖÃ\n");
+			return notify_fail("è¿˜æœ‰ç«åŠ›æ²¡æœ‰å¸ƒç½®\n");
 	}
 
 	if(game_mode==0)
-		msg(this_player(),0,"$NµÄ´¬Ö»²¼ÖÃÍê³É\n");
+		msg(this_player(),0,"$Nçš„èˆ¹åªå¸ƒç½®å®Œæˆ\n");
 	else if(game_mode==1)
-		msg(this_player(),0,"$NµÄ»ğÁ¦²¼ÖÃÍê³É\n");
+		msg(this_player(),0,"$Nçš„ç«åŠ›å¸ƒç½®å®Œæˆ\n");
 
 	player_action[this_player()->query("id")] = 1;
 	if(sizeof(player_action)==2)
@@ -638,18 +638,18 @@ int do_fire(string arg)
 	string id;
 
 	if(!is_playing(this_player()))
-		return notify_fail("Äã¶¼²»Íæ°¡£¡\n");
+		return notify_fail("ä½ éƒ½ä¸ç©å•Šï¼\n");
 	
 	if(game_mode!=1)
-		return notify_fail("ÏÖÔÚ²»ÊÇ²¼ÖÃ»ğÁ¦µÄÊ±ºò¡£\n");
+		return notify_fail("ç°åœ¨ä¸æ˜¯å¸ƒç½®ç«åŠ›çš„æ—¶å€™ã€‚\n");
 
 	if( !arg || sscanf(arg, "%d %d", x, y)!=2 )
-		return notify_fail("place X×ø±ê Y×ø±ê\n");
+		return notify_fail("place Xåæ ‡ Yåæ ‡\n");
 
 	if(x<1||x>WIDTH)
-		return notify_fail("X×ø±ê´íÎó\n");
+		return notify_fail("Xåæ ‡é”™è¯¯\n");
 	if(y<1||y>HEIGHT)
-		return notify_fail("Y×ø±ê´íÎó\n");
+		return notify_fail("Yåæ ‡é”™è¯¯\n");
 
 	id = this_player()->query("id");
 	sh = get_ship(id);
@@ -658,7 +658,7 @@ int do_fire(string arg)
 		return notify_fail("access date fail\n");
 
 	if(tb[x-1][y-1][1] != 0)
-		return notify_fail("¸Ã´¦ÒÑ¾­²¼ÖÃÁË»ğÁ¦\n");
+		return notify_fail("è¯¥å¤„å·²ç»å¸ƒç½®äº†ç«åŠ›\n");
 
 	for(i=0;i<SHIP_NUM;i++)
 	{
@@ -673,12 +673,12 @@ int do_fire(string arg)
 	}
 
 	if(i==SHIP_NUM)
-		return notify_fail("ÄãÒÑ¾­Ã»ÓĞ¿ÕÓàµÄ»ğÁ¦¿ÉÒÔ²¼ÖÃÁË¡£\n");
+		return notify_fail("ä½ å·²ç»æ²¡æœ‰ç©ºä½™çš„ç«åŠ›å¯ä»¥å¸ƒç½®äº†ã€‚\n");
 	else
 	{
 		display(player_id(id));
 		if(i+1==SHIP_NUM)
-			tell_object(this_player(),"\nÊ¹ÓÃ[Finish]½áÊø²¼ÖÃ»ğÁ¦¡£\n");
+			tell_object(this_player(),"\nä½¿ç”¨[Finish]ç»“æŸå¸ƒç½®ç«åŠ›ã€‚\n");
 	}
 	return 1;
 }
@@ -690,18 +690,18 @@ int do_unfire(string arg)
 	string id;
 
 	if(!is_playing(this_player()))
-		return notify_fail("Äã¶¼²»Íæ°¡£¡\n");
+		return notify_fail("ä½ éƒ½ä¸ç©å•Šï¼\n");
 	
 	if(game_mode!=1)
-		return notify_fail("ÏÖÔÚ²»ÊÇ²¼ÖÃ»ğÁ¦µÄÊ±ºò¡£\n");
+		return notify_fail("ç°åœ¨ä¸æ˜¯å¸ƒç½®ç«åŠ›çš„æ—¶å€™ã€‚\n");
 
 	if( !arg || sscanf(arg, "%d %d", x, y)!=2 )
-		return notify_fail("unplace X×ø±ê Y×ø±ê\n");
+		return notify_fail("unplace Xåæ ‡ Yåæ ‡\n");
 
 	if(x<1||x>WIDTH)
-		return notify_fail("X×ø±ê´íÎó\n");
+		return notify_fail("Xåæ ‡é”™è¯¯\n");
 	if(y<1||y>HEIGHT)
-		return notify_fail("Y×ø±ê´íÎó\n");
+		return notify_fail("Yåæ ‡é”™è¯¯\n");
 
 	id = this_player()->query("id");
 	sh = get_ship(id);
@@ -722,7 +722,7 @@ int do_unfire(string arg)
 	}
 
 	if(i==SHIP_NUM)
-		return notify_fail("¸ÃÎ»ÖÃÃ»ÓĞ²¼ÖÃ»ğÁ¦¡£\n");
+		return notify_fail("è¯¥ä½ç½®æ²¡æœ‰å¸ƒç½®ç«åŠ›ã€‚\n");
 	return 1;
 }
 
@@ -797,7 +797,7 @@ int fire_it()
 
 			if(j1>=0)
 			{
-				m = BLINK HIY + key1 + "µÄ´¬±»»÷³ÁÁË¡£\n" NOR;
+				m = BLINK HIY + key1 + "çš„èˆ¹è¢«å‡»æ²‰äº†ã€‚\n" NOR;
 				sh1[j1][0] = 1;	// be fired
 				if(sh1[j1][3])
 				{
@@ -811,7 +811,7 @@ int fire_it()
 			if(j2>=0)
 			{
 				if(!m)m="";
-				m = m + BLINK HIY + key2 + "µÄ´¬±»»÷³ÁÁË¡£\n" NOR;
+				m = m + BLINK HIY + key2 + "çš„èˆ¹è¢«å‡»æ²‰äº†ã€‚\n" NOR;
 				sh2[j2][0] = 1;	// be fired
 				if(sh2[j2][3])
 				{
@@ -829,7 +829,7 @@ int fire_it()
 
 	if(bFire)
 	{
-		msg(0,0,BLINK HIR"\n~~~~~ ¹¥»÷£¡£¡ ~~~~~\n"NOR);
+		msg(0,0,BLINK HIR"\n~~~~~ æ”»å‡»ï¼ï¼ ~~~~~\n"NOR);
 		if(m)msg(0,0,m);
 		display(0);
 		remove_call_out("fire_it");
@@ -860,11 +860,11 @@ int fire_it()
 				who_win = 2;
 
 			display(0);
-			msg(0,0,HIR"\n\n ËùÓĞÕ½¶·½áÊøÁË£¬Ê¹ÓÃ(start)ÖØĞÂ¿ªÊ¼¡£\n"NOR);
+			msg(0,0,HIR"\n\n æ‰€æœ‰æˆ˜æ–—ç»“æŸäº†ï¼Œä½¿ç”¨(start)é‡æ–°å¼€å§‹ã€‚\n"NOR);
 		}
 		else
 		{
-			msg(0,0,sprintf(HIC"\n¸Ã»ØºÏ¹¥»÷½áÊø...\n%s(%d) VS %s(%d)\n"NOR,key1,remain_ship(key1),key2,remain_ship(key2)));
+			msg(0,0,sprintf(HIC"\nè¯¥å›åˆæ”»å‡»ç»“æŸ...\n%s(%d) VS %s(%d)\n"NOR,key1,remain_ship(key1),key2,remain_ship(key2)));
 			before_fire();
 		}
 	}
@@ -877,7 +877,7 @@ int do_visitor(string arg)
 	int del;
 
 	if(!arg)
-		return notify_fail("visit [-]Íæ¼ÒID\n");
+		return notify_fail("visit [-]ç©å®¶ID\n");
 
 	if(sscanf(arg, "-d %s", key)==1 )
 		del = 1;
@@ -892,22 +892,22 @@ int do_visitor(string arg)
 	{
 		ob = present(key,environment(this_object()));
 		if(!ob)
-			return notify_fail("ÕâÀïÃ»ÓĞÕâ¸öÍæ¼Ò°¡£¿\n");
+			return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™ä¸ªç©å®¶å•Šï¼Ÿ\n");
 
 		if(del)
 		{
 			if(!is_visitor(ob,me->query("id")))
-				return notify_fail("²»ÊÇÄãµÄ¹ÛÕ½ÕßÁË¡£\n");
+				return notify_fail("ä¸æ˜¯ä½ çš„è§‚æˆ˜è€…äº†ã€‚\n");
 
-			msg(me,ob,"$N²»ÔÙÔÊĞí$n¹Û¿´$NµÄÕ½¿ö¡£\n");
+			msg(me,ob,"$Nä¸å†å…è®¸$nè§‚çœ‹$Nçš„æˆ˜å†µã€‚\n");
 			visitor[me->query("id")] = visitor[me->query("id")] - ({ob->query("id")});
 		}
 		else
 		{
 			if(is_visitor(ob,me->query("id")))
-				return notify_fail("ÒÑ¾­ÊÇÄãµÄ¹ÛÕ½ÕßÁË¡£\n");
+				return notify_fail("å·²ç»æ˜¯ä½ çš„è§‚æˆ˜è€…äº†ã€‚\n");
 
-			msg(me,ob,"$NÈÃ$n¹Û¿´$NµÄÕ½¿ö¡£\n");
+			msg(me,ob,"$Nè®©$nè§‚çœ‹$Nçš„æˆ˜å†µã€‚\n");
 			if(!visitor[me->query("id")])
 				visitor[me->query("id")] = ({ ob->query("id") });
 			else
@@ -917,13 +917,13 @@ int do_visitor(string arg)
 	else
 	{
 		if(del)
-			return notify_fail("£¿£¿£¿£¿\n");
+			return notify_fail("ï¼Ÿï¼Ÿï¼Ÿï¼Ÿ\n");
 
 		ob = get_player(key);
 		if(!ob)
-			return notify_fail("Ã»ÓĞÕâ¸öÍæ¼ÒÔÚÍæ°¡£¿\n");
-		msg(me,ob,"$NÏ£Íû³ÉÎª$nµÄ¹ÛÕ½Õß¡£\n");
-		tell_object(ob,"½ÓÊÜÊ¹ÓÃ[visit "+me->query("id")+"]¡£\n");
+			return notify_fail("æ²¡æœ‰è¿™ä¸ªç©å®¶åœ¨ç©å•Šï¼Ÿ\n");
+		msg(me,ob,"$Nå¸Œæœ›æˆä¸º$nçš„è§‚æˆ˜è€…ã€‚\n");
+		tell_object(ob,"æ¥å—ä½¿ç”¨[visit "+me->query("id")+"]ã€‚\n");
 	}
 	return 1;
 }
@@ -934,10 +934,10 @@ int do_rplace(string arg)
 	mixed *sh,*tb;
 
 	if(!is_playing(this_player()))
-		return notify_fail("Äã¶¼²»Íæ°¡£¡\n");
+		return notify_fail("ä½ éƒ½ä¸ç©å•Šï¼\n");
 	
 	if(!has_start||game_mode!=0)
-		return notify_fail("ÏÖÔÚ²»ÊÇ²¼ÖÃ´¬Ö»µÄÊ±ºò¡£\n");
+		return notify_fail("ç°åœ¨ä¸æ˜¯å¸ƒç½®èˆ¹åªçš„æ—¶å€™ã€‚\n");
 	
 	sh = get_ship(this_player()->query("id"));
 	tb = get_table(this_player()->query("id"));
@@ -967,51 +967,51 @@ int do_rplace(string arg)
 int do_help(string arg)
 {
 	this_player()->start_more( @HELP
-º£Õ½ÆåÊ¹ÓÃ·½·¨:
-¡ª¡ª[¿ªÊ¼ÓÎÏ·]¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
-°ïÖúÃüÁî£ºhelpboard
-¼ÓÈëÃüÁî£ºjoin¡¡¡¡¡¡¡¡¡¡¼ÓÈëÓÎÏ·
-¿ªÊ¼ÃüÁî£ºstart ¡¡¡¡¡¡¡¡¿ªÊ¼ÓÎÏ·
-ÖØÖÃÃüÁî£ºreset board ¡¡½áÊøÓÎÏ·
+æµ·æˆ˜æ£‹ä½¿ç”¨æ–¹æ³•:
+â€”â€”[å¼€å§‹æ¸¸æˆ]â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+å¸®åŠ©å‘½ä»¤ï¼šhelpboard
+åŠ å…¥å‘½ä»¤ï¼šjoinã€€ã€€ã€€ã€€ã€€åŠ å…¥æ¸¸æˆ
+å¼€å§‹å‘½ä»¤ï¼šstart ã€€ã€€ã€€ã€€å¼€å§‹æ¸¸æˆ
+é‡ç½®å‘½ä»¤ï¼šreset board ã€€ç»“æŸæ¸¸æˆ
 
-¡ª¡ª[´¬Ö»²¼ÖÃ]¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
-·ÅÖÃ´¬Ö»£ºplace X×ø±ê Y×ø±ê
-È¡Ïû·ÅÖÃ£ºunplace X×ø±ê Y×ø±ê
-Ëæ»ú·ÅÖÃ£ºrplace
-·ÅÖÃ½áÊø£ºfinish
+â€”â€”[èˆ¹åªå¸ƒç½®]â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+æ”¾ç½®èˆ¹åªï¼šplace Xåæ ‡ Yåæ ‡
+å–æ¶ˆæ”¾ç½®ï¼šunplace Xåæ ‡ Yåæ ‡
+éšæœºæ”¾ç½®ï¼šrplace
+æ”¾ç½®ç»“æŸï¼šfinish
 
-¡ª¡ª[»ğÁ¦²¼ÖÃ]¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
-·ÅÖÃ»ğÁ¦£ºfire X×ø±ê Y×ø±ê
-È¡Ïû·ÅÖÃ£ºunfire X×ø±ê Y×ø±ê
-·ÅÖÃ½áÊø£ºfinish
+â€”â€”[ç«åŠ›å¸ƒç½®]â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+æ”¾ç½®ç«åŠ›ï¼šfire Xåæ ‡ Yåæ ‡
+å–æ¶ˆæ”¾ç½®ï¼šunfire Xåæ ‡ Yåæ ‡
+æ”¾ç½®ç»“æŸï¼šfinish
 
-¡ª¡ª[¹ÛÕ½ÃüÁî]¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
-¹ÛÕ½ÃüÁî£ºvisit [-d] Íæ¼ÒID
-		ÑûÇëÆäËüÍæ¼Ò¹Û¿´ÄãµÄÓÎÏ·¡£
-		¼Ó²ÎÊı -d ±íÊ¾É¾³ı¸ÃÍæ¼ÒµÄ¹Û¿´×Ê¸ñ¡£
+â€”â€”[è§‚æˆ˜å‘½ä»¤]â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+è§‚æˆ˜å‘½ä»¤ï¼švisit [-d] ç©å®¶ID
+		é‚€è¯·å…¶å®ƒç©å®¶è§‚çœ‹ä½ çš„æ¸¸æˆã€‚
+		åŠ å‚æ•° -d è¡¨ç¤ºåˆ é™¤è¯¥ç©å®¶çš„è§‚çœ‹èµ„æ ¼ã€‚
 
-¡ª¡ª[ÓÎÏ·¹æÔò]¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
-¸ÃÓÎÏ·ÊÇÁ½ÈËÓÎÏ·¡£
-·ÖÎª×¼±¸ºÍÕ½¶·½×¶ÎÁ½¸ö½×¶Î¡£
+â€”â€”[æ¸¸æˆè§„åˆ™]â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+è¯¥æ¸¸æˆæ˜¯ä¸¤äººæ¸¸æˆã€‚
+åˆ†ä¸ºå‡†å¤‡å’Œæˆ˜æ–—é˜¶æ®µä¸¤ä¸ªé˜¶æ®µã€‚
 
-ÔÚ×¼±¸½×¶Î£¬¸÷ÈË°Ñ×Ô¼ºµÄ´¬·ÅÖÃÓÚ×Ô¼ºµÄ
-ÆåÅÌÉÏ¡£µ±¸÷ÈË¶¼×¼±¸ºÃÒÔºó£¬½øÈëÕ½¶·½×
-¶Î¡£
+åœ¨å‡†å¤‡é˜¶æ®µï¼Œå„äººæŠŠè‡ªå·±çš„èˆ¹æ”¾ç½®äºè‡ªå·±çš„
+æ£‹ç›˜ä¸Šã€‚å½“å„äººéƒ½å‡†å¤‡å¥½ä»¥åï¼Œè¿›å…¥æˆ˜æ–—é˜¶
+æ®µã€‚
 
-ÔÚÕ½¶·½×¶Î£¬¸÷ÈË¾ö¶¨¹¥»÷µÄÎ»ÖÃ¡£Ã¿Ò»ËÒ
-´¬ÓĞ 1´Î¹¥»÷»ú»á¡£ÔÚÍê³É¹¥»÷ÉèÖÃÒÔºó£¬
-½øÈëÕ½¶·×´Ì¬¡£ÏµÍ³¸ù¾İË«·½µÄ¹¥»÷ÉèÖÃ½ø
-ĞĞ¹¥»÷£¬µ±¹¥»÷Î»ÖÃÉÏÓĞµĞ·½´¬£¬Ôò¿ÉÒÔ°Ñ
-¶Ô·½¸Ã´¬»÷»Ù¡£±»»÷»ÙµÄ´¬É¥Ê§¹¥»÷ÄÜÁ¦¡£
+åœ¨æˆ˜æ–—é˜¶æ®µï¼Œå„äººå†³å®šæ”»å‡»çš„ä½ç½®ã€‚æ¯ä¸€è‰˜
+èˆ¹æœ‰ 1æ¬¡æ”»å‡»æœºä¼šã€‚åœ¨å®Œæˆæ”»å‡»è®¾ç½®ä»¥åï¼Œ
+è¿›å…¥æˆ˜æ–—çŠ¶æ€ã€‚ç³»ç»Ÿæ ¹æ®åŒæ–¹çš„æ”»å‡»è®¾ç½®è¿›
+è¡Œæ”»å‡»ï¼Œå½“æ”»å‡»ä½ç½®ä¸Šæœ‰æ•Œæ–¹èˆ¹ï¼Œåˆ™å¯ä»¥æŠŠ
+å¯¹æ–¹è¯¥èˆ¹å‡»æ¯ã€‚è¢«å‡»æ¯çš„èˆ¹ä¸§å¤±æ”»å‡»èƒ½åŠ›ã€‚
 
-ÔÚËùÓĞ¹¥»÷½áÊøÒÔºó£¬ÖØĞÂ½øÈë¹¥»÷ÉèÖÃ¡£
-Èç´ËÑ­»·£¬Ö±µ½Ò»·½µÄ´¬È«²¿±»»÷»Ù¡£
+åœ¨æ‰€æœ‰æ”»å‡»ç»“æŸä»¥åï¼Œé‡æ–°è¿›å…¥æ”»å‡»è®¾ç½®ã€‚
+å¦‚æ­¤å¾ªç¯ï¼Œç›´åˆ°ä¸€æ–¹çš„èˆ¹å…¨éƒ¨è¢«å‡»æ¯ã€‚
 
-ÓÎÏ·¿ªÊ¼Ê±ºò£¬Ã¿ÈËÓĞ10ËÒ´¬¡£
-×îºóË­µÄ´¬×îÏÈ±»È«²¿ÏûÃğµô£¬Ë­ÎªÊäÕß¡£
+æ¸¸æˆå¼€å§‹æ—¶å€™ï¼Œæ¯äººæœ‰10è‰˜èˆ¹ã€‚
+æœ€åè°çš„èˆ¹æœ€å…ˆè¢«å…¨éƒ¨æ¶ˆç­æ‰ï¼Œè°ä¸ºè¾“è€…ã€‚
 
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
-			make by Ã¨²¿Ã¨(Catyboy) v1.0
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+			make by çŒ«éƒ¨çŒ«(Catyboy) v1.0
 HELP
 	);
         return 1;

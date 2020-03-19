@@ -12,7 +12,7 @@ int main(object me, string arg)
 	int i;
 	int count;
 
-	if (! arg) return notify_fail("ÄãÒªÍÑµôÊ²Ã´£¿\n");
+	if (! arg) return notify_fail("ä½ è¦è„±æ‰ä»€ä¹ˆï¼Ÿ\n");
 
 	if (arg == "all")
         {
@@ -20,14 +20,14 @@ int main(object me, string arg)
 		for (count = 0, i = 0; i < sizeof(inv); i++)
 			count += do_remove(me, inv[i]);
                 if (count)
-                        write("ÄãÍÑÍêÁË¡£\n");
+                        write("ä½ è„±å®Œäº†ã€‚\n");
                 else
-		        write("ÄãÊ²Ã´¶¼Ã»ÓĞÍÑÏÂÀ´¡£\n");
+		        write("ä½ ä»€ä¹ˆéƒ½æ²¡æœ‰è„±ä¸‹æ¥ã€‚\n");
 		return 1;
 	}
 
 	if (! objectp(ob = present(arg, me)))
-		return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
 	if ((string)ob->query("equipped") != "worn" )
         {
@@ -45,7 +45,7 @@ int main(object me, string arg)
 		}
 
 		if (! count)
-			return notify_fail("Äã²¢Ã»ÓĞ×°±¸ÕâÑù¶«Î÷¡£\n");
+			return notify_fail("ä½ å¹¶æ²¡æœ‰è£…å¤‡è¿™æ ·ä¸œè¥¿ã€‚\n");
 	}
 
 	return do_remove(me, ob);
@@ -56,7 +56,7 @@ int do_remove(object me, object ob)
 	string str;
 
 	if ((string)ob->query("equipped")!="worn")
-		return notify_fail("Äã²¢Ã»ÓĞ×°±¸ÕâÑù¶«Î÷¡£\n");
+		return notify_fail("ä½ å¹¶æ²¡æœ‰è£…å¤‡è¿™æ ·ä¸œè¥¿ã€‚\n");
 
 	if (ob->unequip())
         {
@@ -66,16 +66,16 @@ int do_remove(object me, object ob)
 				case "armor":
 				case "surcoat":
 				case "boots":
-					str = YEL "$N½«$n" YEL "ÍÑÁËÏÂÀ´¡£\n" NOR;
+					str = YEL "$Nå°†$n" YEL "è„±äº†ä¸‹æ¥ã€‚\n" NOR;
 					break;
 				case "bandage":
-					str = YEL "$N½«$n" YEL "´ÓÉË¿Ú´¦²ğÁËÏÂÀ´¡£\n" NOR;
+					str = YEL "$Nå°†$n" YEL "ä»ä¼¤å£å¤„æ‹†äº†ä¸‹æ¥ã€‚\n" NOR;
 					break;
 				default:
-					str = YEL "$NĞ¶³ı$n" YEL "µÄ×°±¸¡£\n" NOR;
+					str = YEL "$Nå¸é™¤$n" YEL "çš„è£…å¤‡ã€‚\n" NOR;
 			}
                 if (ob->query_temp("no_wear"))
-                        str += "ÍÑÏÂ" + ob->name() + "ÒÔºóÄã¾õµÃÊæ·ş¶àÁË¡£\n";
+                        str += "è„±ä¸‹" + ob->name() + "ä»¥åä½ è§‰å¾—èˆ’æœå¤šäº†ã€‚\n";
 		message_vision(str, me, ob);
 		return 1;
 	} else
@@ -85,9 +85,9 @@ int do_remove(object me, object ob)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : remove all | <ÎïÆ·Ãû³Æ>
+æŒ‡ä»¤æ ¼å¼ : remove all | <ç‰©å“åç§°>
  
-Õâ¸öÖ¸ÁîÈÃÄãÍÑµôÉíÉÏÄ³¼ş·À¾ß.
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ è„±æ‰èº«ä¸ŠæŸä»¶é˜²å…·.
  
 HELP );
         return 1;

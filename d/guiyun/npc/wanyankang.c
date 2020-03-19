@@ -4,14 +4,14 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÍêÑÕ¿µ", ({"wanyan kang", "kang", "wanyan"}));
-        set("gender", "ÄĞĞÔ");
-        set("title", "´ó½ğ¹úĞ¡ÍõÒ¯");
+        set_name("å®Œé¢œåº·", ({"wanyan kang", "kang", "wanyan"}));
+        set("gender", "ç”·æ€§");
+        set("title", "å¤§é‡‘å›½å°ç‹çˆ·");
         set("age", 24);
         set("class", "fighter");
         set("long",
-                "Ëû±¾ÃûÑî¿µ¡£ËæÄ¸°üÏ§Èõ¼ŞÍêÑÕºéÁÒºó£¬³ÉÁËĞ¡Íõ×Ó£¬
-Ì°Í¼¸»¹ó£¬ÖÁËÀ²»¸Ä¡£\n");
+                "ä»–æœ¬åæ¨åº·ã€‚éšæ¯åŒ…æƒœå¼±å«å®Œé¢œæ´ªçƒˆåï¼Œæˆäº†å°ç‹å­ï¼Œ
+è´ªå›¾å¯Œè´µï¼Œè‡³æ­»ä¸æ”¹ã€‚\n");
         set("attitude", "friendly");
         set("shen_type",1);
         set("str", 26);
@@ -57,7 +57,7 @@ void create()
         map_skill("claw", "jiuyin-baiguzhao");
         prepare_skill("claw", "jiuyin-baiguzhao");
 
-        create_family("È«Õæ½Ì", 3, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 3, "å¼Ÿå­");
 
         setup();
 

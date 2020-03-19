@@ -1,14 +1,14 @@
-// lunyu.c ÂÛÓï
+// lunyu.c è®ºè¯­
 inherit ITEM;
 void create()
 {
-        set_name("ÂÛÓï", ({ "literateb4", "shu4", "book4"}));
+        set_name("è®ºè¯­", ({ "literateb4", "shu4", "book4"}));
         set_weight(300);
         if( clonep() )
             set_default_object(__FILE__);
         else {
-            set("unit", "±¾");
-            set("long","Ò»±¾¿×·ò×ÓµÄ¡¶ÂÛÓï¡·¡£\n");
+            set("unit", "æœ¬");
+            set("long","ä¸€æœ¬å­”å¤«å­çš„ã€Šè®ºè¯­ã€‹ã€‚\n");
             set("value", 400);
             set("material", "paper");
             set("skill", ([

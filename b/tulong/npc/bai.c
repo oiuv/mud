@@ -3,13 +3,13 @@ inherit NPC;
 
 void create()
 {
-        set_name("°×¹êÊÙ", ({ "bai guishou", "bai", "guishou"}));
+        set_name("ç™½é¾Ÿå¯¿", ({ "bai guishou", "bai", "guishou"}));
         set("long", @LONG
-Ëû¾ÍÊÇÌìÓ¥½ÌĞşÎäÌ³Ö÷°×¹êÊÙ£¬¿´ÆğÀ´Ô¼ÄªÎå
-Ê®À´Ëê£¬Íº×ÅÍ·¶¥£¬Ò»Éí½áÊµµÄ¼¡Èâ¡£
+ä»–å°±æ˜¯å¤©é¹°æ•™ç„æ­¦å›ä¸»ç™½é¾Ÿå¯¿ï¼Œçœ‹èµ·æ¥çº¦è«äº”
+åæ¥å²ï¼Œç§ƒç€å¤´é¡¶ï¼Œä¸€èº«ç»“å®çš„è‚Œè‚‰ã€‚
 LONG);
-        set("title", "ÌìÓ¥½Ì");
-        set("nickname", WHT "ĞşÎäÌ³Ö÷" NOR);
+        set("title", "å¤©é¹°æ•™");
+        set("nickname", WHT "ç„æ­¦å›ä¸»" NOR);
         set("attitude", "heroism");
         set("age", 50);
         set("str", 35);
@@ -49,16 +49,16 @@ LONG);
         prepare_skill("claw", "poyue-zhao");
         prepare_skill("cuff", "zhenyu-quan");
 
-        create_family("ÌìÓ¥½Ì", 2, "Ì³Ö÷");
+        create_family("å¤©é¹°æ•™", 2, "å›ä¸»");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
                 (: perform_action, "cuff.tong" :),
                 (: perform_action, "claw.duan" :),
                 (: exert_function, "recover" :),
-                CYN "°×¹êÊÙºÈµÀ£ºÎŞ³ÜĞ¡Ôô£¬¾¹¸Ò´òÍÀÁúµ¶µÄÖ÷Òâ£¿\n" NOR,
-                CYN "°×¹êÊÙÂîµÀ£ºÄÌÄÌµÄ£¬¾ÓÈ»Á¬ÎÒÃÇÌìÓ¥½Ì¶¼¸ÒÈÇ£¡\n" NOR,
-                CYN "°×¹êÊÙÂîµÀ£ºÌìÉ±µÄ£¬½ñÌì´óÒ¯¾ÍÈÃÄãÓĞÀ´ÎŞ»Ø£¡\n" NOR,
+                CYN "ç™½é¾Ÿå¯¿å–é“ï¼šæ— è€»å°è´¼ï¼Œç«Ÿæ•¢æ‰“å± é¾™åˆ€çš„ä¸»æ„ï¼Ÿ\n" NOR,
+                CYN "ç™½é¾Ÿå¯¿éª‚é“ï¼šå¥¶å¥¶çš„ï¼Œå±…ç„¶è¿æˆ‘ä»¬å¤©é¹°æ•™éƒ½æ•¢æƒ¹ï¼\n" NOR,
+                CYN "ç™½é¾Ÿå¯¿éª‚é“ï¼šå¤©æ€çš„ï¼Œä»Šå¤©å¤§çˆ·å°±è®©ä½ æœ‰æ¥æ— å›ï¼\n" NOR,
         }));
 
         set_temp("apply/damage", 100);

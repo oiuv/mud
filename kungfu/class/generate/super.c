@@ -1,4 +1,4 @@
-// chan_cler qmµÄ³¬¼¶npc
+// chan_cler qmçš„è¶…çº§npc
 
 inherit NPC;
 
@@ -21,8 +21,8 @@ function *init_family = ({ (: from_jiuyin :),   (: from_jiuyang :),   (: from_li
 void create()
 {
         NPC_D->generate_cn_name(this_object());
-        set("long", "Ò»¸öÈË¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set("long", "ä¸€ä¸ªäººã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 20);
         set("str", 20);
         set("int", 20);
@@ -47,7 +47,7 @@ private void from_jiuyin()
 {
         set("scale", 200);
         set("from", ({
-                "´ËÈË¿´ËÆÒ»¸ö½­ºşÀËÈË¡£",
+                "æ­¤äººçœ‹ä¼¼ä¸€ä¸ªæ±Ÿæ¹–æµªäººã€‚",
         }));
 
         set_skill("force", 1);
@@ -100,7 +100,7 @@ private void from_jiuyang()
 {
         set("scale", 150);
         set("from", ({
-                "¾İËµ´ËÈË³ö×ÔÉÙÁÖ¡£"
+                "æ®è¯´æ­¤äººå‡ºè‡ªå°‘æ—ã€‚"
         }));
 
         set_skill("force", 1);
@@ -143,7 +143,7 @@ private void from_liumai()
 {
         set("scale", 130);
         set("from", ({
-                "¾İËµ´ËÈË³ö×Ô´óÀí¶Î¼Ò¡£",
+                "æ®è¯´æ­¤äººå‡ºè‡ªå¤§ç†æ®µå®¶ã€‚",
         }));
 
         set_skill("force", 1);
@@ -216,7 +216,7 @@ private void from_jiujian()
 {
         set("scale", 120);
         set("from", ({
-                "¾İËµ´ËÈËÔ­ÊÇ»ªÉ½³¤ÀÏ¡£"
+                "æ®è¯´æ­¤äººåŸæ˜¯åå±±é•¿è€ã€‚"
         }));
 
         set_skill("force", 1);
@@ -258,7 +258,7 @@ private void from_kuihua()
 {
         set("scale", 135);
         set("from", ({
-                "¾İËµ´ËÈËÊÇÈÕÔÂÉñ½ÌµÄ³¤ÀÏ¡£",
+                "æ®è¯´æ­¤äººæ˜¯æ—¥æœˆç¥æ•™çš„é•¿è€ã€‚",
         }));
 
         set_skill("force", 1);
@@ -298,7 +298,7 @@ private void from_jiuyin1()
 {
         set("scale", 130);
         set("from", ({
-                "¾İËµ´ËÈËÊÇ¹ÅÄ¹µÄ³¤ÀÏ¡£",
+                "æ®è¯´æ­¤äººæ˜¯å¤å¢“çš„é•¿è€ã€‚",
         }));
 
         set_skill("force", 1);
@@ -347,7 +347,7 @@ private void from_xianglong()
 {
         set("scale", 130);
         set("from", ({
-                "¾İËµ´ËÈËÊÇØ¤°ïµÄ³¤ÀÏ¡£",
+                "æ®è¯´æ­¤äººæ˜¯ä¸å¸®çš„é•¿è€ã€‚",
         }));
 
         set_skill("force", 1);
@@ -382,9 +382,9 @@ private void from_xianglong()
 private void from_pixie()
 {
         set("scale", 135);
-		set("gender", "ÎŞĞÔ" );
+		set("gender", "æ— æ€§" );
 		set("from", ({
-                "¾İËµ´ËÈËÊÇáÔÉ½µÄ³¤ÀÏ¡£",
+                "æ®è¯´æ­¤äººæ˜¯åµ©å±±çš„é•¿è€ã€‚",
         }));
 		
         set_skill("force", 1);
@@ -425,7 +425,7 @@ private void from_lingbo()
 {
         set("scale", 135);
 		set("from", ({
-                "¾İËµ´ËÈËÊÇåĞÒ£µÄ³¤ÀÏ¡£",
+                "æ®è¯´æ­¤äººæ˜¯é€é¥çš„é•¿è€ã€‚",
         }));
 		
         set_skill("force", 1);
@@ -469,7 +469,7 @@ private void from_hubo()
 {
         set("scale", 135);
 		set("from", ({
-                "¾İËµ´ËÈËÊÇÈ«ÕæµÄ³¤ÀÏ¡£",
+                "æ®è¯´æ­¤äººæ˜¯å…¨çœŸçš„é•¿è€ã€‚",
         }));
 		
         set_skill("force", 1);

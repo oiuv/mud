@@ -1,4 +1,4 @@
-// ³ªÏÉ·¨ºğ×Ö¾ö
+// å”±ä»™æ³•å¼å­—å†³
 
 #include <ansi.h>
 
@@ -13,16 +13,16 @@ int perform(object me, object target)
 	if (! target ) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("³ªÏÉ·¨ºğ×Ö¾öÖ»ÄÜÔÚÕ½¶·ÖĞ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("å”±ä»™æ³•å¼å­—å†³åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if ((int)me->query_skill("shedao-qigong", 1) < 100)
-		return notify_fail("ÄãµÄÉßµºÆæ¹¦²»¹»æµÊì£¬²»»áÊ¹ÓÃ³ªÏÉ·¨ºğ×Ö¾ö¡£\n");
+		return notify_fail("ä½ çš„è›‡å²›å¥‡åŠŸä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨å”±ä»™æ³•å¼å­—å†³ã€‚\n");
 
 	if (environment(me)->query("no_fight"))
-		return notify_fail("ÔÚÕâÀï²»ÄÜ¹¥»÷ËûÈË¡£\n");
+		return notify_fail("åœ¨è¿™é‡Œä¸èƒ½æ”»å‡»ä»–äººã€‚\n");
 
 	if ((int)me->query("neili") < 500)
-		return notify_fail("ÄãÒÑ¾­¾«Æ£Á¦½ß£¬ÕæÆø²»¹»ÁË¡£\n");
+		return notify_fail("ä½ å·²ç»ç²¾ç–²åŠ›ç«­ï¼ŒçœŸæ°”ä¸å¤Ÿäº†ã€‚\n");
 
 	neili = me->query("max_neili");
 
@@ -31,11 +31,11 @@ int perform(object me, object target)
 
 	me->start_busy(1 + random(5));
 
-	message_combatd(HIY "$N" HIY "ÉîÉîµØÎüÒ»àíÆø£¬ºöÈ»ÑöÌì³¤Ğ¥£¬¸ß"
-                        "Éù¿ñ½Ğ£º²»ËÀÉñÁú£¬Î¨ÎÒ²»°Ü£¡\n" NOR, me);
+	message_combatd(HIY "$N" HIY "æ·±æ·±åœ°å¸ä¸€å›—æ°”ï¼Œå¿½ç„¶ä»°å¤©é•¿å•¸ï¼Œé«˜"
+                        "å£°ç‹‚å«ï¼šä¸æ­»ç¥é¾™ï¼Œå”¯æˆ‘ä¸è´¥ï¼\n" NOR, me);
 
         if (neili / 2 + random(neili / 2) < (int)target->query("max_neili"))
-		return notify_fail("µĞÈËµÄÄÚÁ¦²»Ñ·ÓÚÄã£¬ÉË²»ÁË£¡\n");
+		return notify_fail("æ•Œäººçš„å†…åŠ›ä¸é€Šäºä½ ï¼Œä¼¤ä¸äº†ï¼\n");
 		
 	damage = (neili - (int)target->query("max_neili")) / 10;
 	if (damage > 0)
@@ -44,8 +44,8 @@ int perform(object me, object target)
 		target->receive_damage("qi", damage, me);
 		target->receive_wound("jing", damage / 8, me);
 		target->receive_wound("qi", damage / 8, me);
-		message_combatd(HIR "$N" HIR "Ö»¾õÄÔÖĞÒ»Õó¾çÍ´£¬½ğĞÇÂÒ"
-                                "Ã°£¬ÓÌÈçÓĞÍòÌõ½ğÁúÔÚÑÛÇ°Îè¶¯¡£\n" NOR, target);
+		message_combatd(HIR "$N" HIR "åªè§‰è„‘ä¸­ä¸€é˜µå‰§ç—›ï¼Œé‡‘æ˜Ÿä¹±"
+                                "å†’ï¼ŒçŠ¹å¦‚æœ‰ä¸‡æ¡é‡‘é¾™åœ¨çœ¼å‰èˆåŠ¨ã€‚\n" NOR, target);
 	}
         me->want_kill(target);
         me->kill_ob(target);

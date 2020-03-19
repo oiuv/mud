@@ -5,15 +5,15 @@ inherit ITEM;
 
 void create()
 {
-        set_name("Ãæ¾ß", ({ "mian ju", "mask" }) );
+        set_name("é¢å…·", ({ "mian ju", "mask" }) );
         set_weight(3000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ö");
-		set("long", "ÕâËÆºõÊÇÒ»¸öÓÉÈËÆ¤ÖÆ³ÉµÄÃæ¾ß¡£\n");
-		set("no_drop", "ÕâÑù¶«Î÷²»ÄÜÀë¿ªÄã¡£\n");
-		set("no_get", "ÕâÑù¶«Î÷²»ÄÜÀë¿ªÄÇ¶ù¡£\n");
+                set("unit", "ä¸ª");
+		set("long", "è¿™ä¼¼ä¹Žæ˜¯ä¸€ä¸ªç”±äººçš®åˆ¶æˆçš„é¢å…·ã€‚\n");
+		set("no_drop", "è¿™æ ·ä¸œè¥¿ä¸èƒ½ç¦»å¼€ä½ ã€‚\n");
+		set("no_get", "è¿™æ ·ä¸œè¥¿ä¸èƒ½ç¦»å¼€é‚£å„¿ã€‚\n");
         }
         setup();
 }
@@ -27,20 +27,20 @@ int do_pretend(string arg)
 {
 	object who;
 	if (!arg)
-		return notify_fail("ÄãÏë¼Ù×°Ë­£¿\n");
+		return notify_fail("ä½ æƒ³å‡è£…è°ï¼Ÿ\n");
 	if (arg == "none" || arg == "cancel") {
 		this_player()->delete_temp("apply/name");
 //		this_player()->delete_temp("apply/id");
 		this_player()->delete_temp("apply/short");
 		this_player()->delete_temp("apply/long");
-		message_vision("$N´ÓÁ³ÉÏÈ¡ÏÂÁËÒ»¸öÈËÆ¤Ãæ¾ß¡£\n", this_player());
+		message_vision("$Nä»Žè„¸ä¸Šå–ä¸‹äº†ä¸€ä¸ªäººçš®é¢å…·ã€‚\n", this_player());
 		return 1;
 	}
 	if(!objectp(who = present(arg, environment(this_player()))) || 
 		!living(who))
-		return notify_fail("ÄãÏë¼Ù×°Ë­£¿\n");
-        write("Äã¿ªÊ¼¼Ù×°" + who->name() + "¡£\n");
-//	message_vision("$N´÷ÉÏÁËÒ»¸ö¾«¹¦ÖÆ³ÉµÄÈËÆ¤Ãæ¾ß¡£\n", this_player());
+		return notify_fail("ä½ æƒ³å‡è£…è°ï¼Ÿ\n");
+        write("ä½ å¼€å§‹å‡è£…" + who->name() + "ã€‚\n");
+//	message_vision("$Næˆ´ä¸Šäº†ä¸€ä¸ªç²¾åŠŸåˆ¶æˆçš„äººçš®é¢å…·ã€‚\n", this_player());
 	this_player()->set_temp("apply/name", ({who->name()}));
 //	this_player()->set_temp("apply/id", ({who->id()}));
 	this_player()->set_temp("apply/short", ({who->short()}));

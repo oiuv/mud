@@ -1,4 +1,4 @@
-// xu.c ĞìÌìºê
+// xu.c å¾å¤©å®
 
 #include <ansi.h>
 
@@ -7,13 +7,13 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("ĞìÌìºê", ({ "xu tianhong", "xu","tianhong" }));
-	set("title", HIR "ºì»¨»á"HIG"Æßµ±¼Ò" NOR);
-	set("nickname", HIC "ÎäÖî¸ğ" NOR);
+	set_name("å¾å¤©å®", ({ "xu tianhong", "xu","tianhong" }));
+	set("title", HIR "çº¢èŠ±ä¼š"HIG"ä¸ƒå½“å®¶" NOR);
+	set("nickname", HIC "æ­¦è¯¸è‘›" NOR);
 	set("long", 
-"ÆäÈËÉí²Ä°«Ğ¡£¬×ãÖÇ¶àÄ±£¬ÊÇºì»¨»áµÄÖÇÄÒ¾üÊ¦£¬Îä¹¦Ò²ÆÄ
-²»Èõ£¬Àä¾²³ÖÖØ¡£\n");
-	set("gender", "ÄĞĞÔ");
+"å…¶äººèº«æçŸ®å°ï¼Œè¶³æ™ºå¤šè°‹ï¼Œæ˜¯çº¢èŠ±ä¼šçš„æ™ºå›Šå†›å¸ˆï¼Œæ­¦åŠŸä¹Ÿé¢‡
+ä¸å¼±ï¼Œå†·é™æŒé‡ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("class", "scholar");
 	set("age", 27);
 	set("attitude", "friendly");

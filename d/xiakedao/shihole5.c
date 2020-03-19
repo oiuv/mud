@@ -1,14 +1,14 @@
-// /d/xiakedao/shihole5.c ���͵� ʯ��5
+// /d/xiakedao/shihole5.c 侠客岛 石洞5
 
 inherit ROOM;
 
 void create()
 {
-        set("short", "ʯ��");
+        set("short", "石洞");
         set("long", @LONG
-�������������Щ��ͬ��ԭ��������˰�ߺ�Ļ�������֪��ʲ
-�����á�����Ҳ�ǿ������ľ���ܸ٣����仨��������ȴ�Ǳ���Բ��
-�Ƴ�Ů��֮�֡���Χ��Ļ�ʹ���һɫ���ơ�
+进洞便觉脚下有些不同，原来特意垫了半尺厚的黄土，不知有什
+麽妙用。正面也是刻着这四句的总纲：「落花残阳」，却是笔致圆润，
+似出女子之手。周围帘幕低垂，一色淡黄。
 LONG );
         set("exits", ([
                 "out"   : __DIR__"shihole4",

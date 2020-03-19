@@ -5,9 +5,9 @@ void greeting(object me);
 
 void create()
 {
-        set_name("Î¤Ğ¡±¦", ({"wei xiaobao", "wei", "xiaobao"}));
-        set("long", "ËûÒ»Á³ÍçÆ¤Ïñ£¬ÑÛÉñÖĞÍ¸Â¶×Å½Æ÷ï£¬Ã»ÓĞ°ëµãÕı¾­¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("éŸ¦å°å®", ({"wei xiaobao", "wei", "xiaobao"}));
+        set("long", "ä»–ä¸€è„¸é¡½çš®åƒï¼Œçœ¼ç¥ä¸­é€éœ²ç€ç‹¡é» ï¼Œæ²¡æœ‰åŠç‚¹æ­£ç»ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 21);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -27,23 +27,23 @@ void init()
                 return;
 
         command("xixi " + me->query("id"));
-        command("say ÕâÎ»" + RANK_D->query_respect(me) + "£¬ºÙ£¬ÔÚÎäÁÖÖĞ"
-                "Á¢×ã£¬¹â½²ÈÊÒåÊÇÍòÍò²»ĞĞµÄ¡£");
-        command("say Ö»ÓĞÏñÎÒºÍÁîºü´óÏÀÄÇÑù" HIC "½Æ÷ï¶à±ä" NOR + CYN "²Å"
-                "»îµÃÏÂÈ¥£¡" NOR);
+        command("say è¿™ä½" + RANK_D->query_respect(me) + "ï¼Œå˜¿ï¼Œåœ¨æ­¦æ—ä¸­"
+                "ç«‹è¶³ï¼Œå…‰è®²ä»ä¹‰æ˜¯ä¸‡ä¸‡ä¸è¡Œçš„ã€‚");
+        command("say åªæœ‰åƒæˆ‘å’Œä»¤ç‹å¤§ä¾ é‚£æ ·" HIC "ç‹¡é» å¤šå˜" NOR + CYN "æ‰"
+                "æ´»å¾—ä¸‹å»ï¼" NOR);
 }
 
 void check_leave(object me, string dir)
 {
         if (dir == "out")
         {
-                message_vision(CYN "$N" CYN "¶Ô$n" CYN "Ğ¦µÀ£º×ß£¡¶àµ·µã"
-                               "ÂÒ£¬ÄÇ¶àÓĞÒâË¼£¿\n" NOR, this_object(), me);
-                me->set("character", "½Æ÷ï¶à±ä");
+                message_vision(CYN "$N" CYN "å¯¹$n" CYN "ç¬‘é“ï¼šèµ°ï¼å¤šæ£ç‚¹"
+                               "ä¹±ï¼Œé‚£å¤šæœ‰æ„æ€ï¼Ÿ\n" NOR, this_object(), me);
+                me->set("character", "ç‹¡é» å¤šå˜");
         } else
         if (dir == "north")
         {
                 command("shake");
-                command("say ²»ºÃÍæ¶ù¡£");
+                command("say ä¸å¥½ç©å„¿ã€‚");
         }
 }

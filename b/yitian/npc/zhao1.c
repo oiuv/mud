@@ -6,10 +6,10 @@ inherit F_UNIQUE;
 void create()
 {
         object ob; 
-        set_name("ÕÔÒ»ÉË", ({ "zhao yishang", "yishang", "zhao"}));
-        set("title", "ÉÜÃô¿¤Ö÷×ùÏÂ");
-        set("nickname", HIR "Éñ¼ı°ËĞÛ" NOR);
-        set("gender", "ÄĞĞÔ");
+        set_name("èµµä¸€ä¼¤", ({ "zhao yishang", "yishang", "zhao"}));
+        set("title", "ç»æ•éƒ¡ä¸»åº§ä¸‹");
+        set("nickname", HIR "ç¥ç®­å…«é›„" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 25);
         set("attitude", "peaceful");
         set("shen_type", -1);
@@ -24,7 +24,7 @@ void create()
         set("neili", 800);
         set("jiali", 50);
 
-        // Ôö¼ÓÌì¸³¾«×¼Éä»÷
+        // å¢åŠ å¤©èµ‹ç²¾å‡†å°„å‡»
         set("special_skill/accuracy", 1);
 
         set("combat_exp", 250000);

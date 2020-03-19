@@ -5,18 +5,18 @@ inherit CLUB;
 
 void create()
 {
-        set_name(HIG "ÄÏº£ÉñÄ¾" NOR, ({ "nanhai shenmu", "nanhai", "shenmu", "club" }) );
+        set_name(HIG "å—æµ·ç¥æœ¨" NOR, ({ "nanhai shenmu", "nanhai", "shenmu", "club" }) );
         set_weight(6000);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", HIG "°ë½ØÈØÂÌ°ë½Ø½¹¿İµÄÄ¾¹÷£¬¿´ËÆÆÕÍ¨£¬È´¾¹ÈçÌúÖıÒ»°ã£¬¼áÓ²ÎŞ±È¡£\n" NOR);
-                set("unit", "¸ù");
+                set("long", HIG "åŠæˆªè“‰ç»¿åŠæˆªç„¦æ¯çš„æœ¨æ£ï¼Œçœ‹ä¼¼æ™®é€šï¼Œå´ç«Ÿå¦‚é“é“¸ä¸€èˆ¬ï¼Œåšç¡¬æ— æ¯”ã€‚\n" NOR);
+                set("unit", "æ ¹");
                 set("value", 800000);
-                set("no_sell", "¿¿£¬Á¬É¹ÒÂ¸ÍÄãÒ²ÄÃÀ´ÂôÇ®£¿");
+                set("no_sell", "é ï¼Œè¿æ™’è¡£ç«¿ä½ ä¹Ÿæ‹¿æ¥å–é’±ï¼Ÿ");
                 set("material", "steel");
-                set("wield_msg", HIG "$N" HIG "ÄÃ³öÒ»¸ù°ë½ØÈØÂÌ°ë½Ø½¹¿İµÄÄ¾¹÷ÎÕÔÚÊÖÖĞ¡£\n" NOR);
-                set("unwield_msg", HIG "$N" HIG "½«ÊÖÖĞµÄÄÏº£ÉñÄ¾»ÓÎè¸öÈ¦×Ó£¬²å»Ø±³ÉÏ¡£\n" NOR);
+                set("wield_msg", HIG "$N" HIG "æ‹¿å‡ºä¸€æ ¹åŠæˆªè“‰ç»¿åŠæˆªç„¦æ¯çš„æœ¨æ£æ¡åœ¨æ‰‹ä¸­ã€‚\n" NOR);
+                set("unwield_msg", HIG "$N" HIG "å°†æ‰‹ä¸­çš„å—æµ·ç¥æœ¨æŒ¥èˆä¸ªåœˆå­ï¼Œæ’å›èƒŒä¸Šã€‚\n" NOR);
                 set("stable", 100);
         }
         init_club(160);
@@ -38,8 +38,8 @@ mixed hit_ob(object me, object victim, int damage_bonus)
                 n = me->query_skill("club");
                 victim->receive_damage("qi", n, me);
                 victim->receive_wound("qi", n, me);
-                return HIG "$N" HIG "¿ç²½ÉÏÇ°£¬ÊÖÖĞÄÏº£ÉñÄ¾×ª¶¯ÈçÂÖ£¬ÆøÊÆÈçºç£¬½Ó¶ş"
-                       "Á¬Èı³¯$n" HIG "É¨È¥£¡\n" NOR;
+                return HIG "$N" HIG "è·¨æ­¥ä¸Šå‰ï¼Œæ‰‹ä¸­å—æµ·ç¥æœ¨è½¬åŠ¨å¦‚è½®ï¼Œæ°”åŠ¿å¦‚è™¹ï¼Œæ¥äºŒ"
+                       "è¿ä¸‰æœ$n" HIG "æ‰«å»ï¼\n" NOR;
         }
         return damage_bonus;
 }

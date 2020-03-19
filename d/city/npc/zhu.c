@@ -1,4 +1,4 @@
-// zhu.c Öììä
+// zhu.c æœ±ç†¹
 
 #include <ansi.h>
 
@@ -13,11 +13,11 @@ int  halt_working(object me);
 
 void create()
 {
-        set_name("Öììä", ({ "zhu xi", "zhu", "xi" }));
-        set("long", "ÖìÏÈÉú±»³ÆÎªµ±ÊÀµÚÒ»´óÎÄÑ§¼Ò£¬¶Ç×Ó"
-                    "ÀïµÄÄ«Ë®±Èº£»¹ÒªÉî¡£\n");
-        set("title", HIR "ÎÄÑ§´ó×ÚÊ¦" NOR);
-        set("gender", "ÄĞĞÔ");
+        set_name("æœ±ç†¹", ({ "zhu xi", "zhu", "xi" }));
+        set("long", "æœ±å…ˆç”Ÿè¢«ç§°ä¸ºå½“ä¸–ç¬¬ä¸€å¤§æ–‡å­¦å®¶ï¼Œè‚šå­"
+                    "é‡Œçš„å¢¨æ°´æ¯”æµ·è¿˜è¦æ·±ã€‚\n");
+        set("title", HIR "æ–‡å­¦å¤§å®—å¸ˆ" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 65);
         set("no_get", 1);
         set_skill("literate", 600);
@@ -32,12 +32,12 @@ void create()
         set("combat_exp", 400000);
         set("shen_type", 1);
         set("inquiry", ([
-            "ÂòÊé" : (: ask_buy :),
-            "¹¤×÷" : (: ask_job :),
-            "³­Êé" : (: ask_job :),
+            "ä¹°ä¹¦" : (: ask_buy :),
+            "å·¥ä½œ" : (: ask_job :),
+            "æŠ„ä¹¦" : (: ask_job :),
             "job"  : (: ask_job :),
-            "Êé"   : "°¦£¡Êéµ½ÓÃÊ±·½ºŞÉÙ¡£",
-            "½èÊé" : "½è£¿Äã²»»¹ÎÒµ½ÄÄÀïÕÒÄã£¿ºß£¡",
+            "ä¹¦"   : "å”‰ï¼ä¹¦åˆ°ç”¨æ—¶æ–¹æ¨å°‘ã€‚",
+            "å€Ÿä¹¦" : "å€Ÿï¼Ÿä½ ä¸è¿˜æˆ‘åˆ°å“ªé‡Œæ‰¾ä½ ï¼Ÿå“¼ï¼",
         ]));
         set("vendor_goods", ({
                 "/clone/book/lbook0",
@@ -49,10 +49,10 @@ void create()
 
         set("chat_chance", 1);
         set("chat_msg", ({
-                CYN "ÖììäËµµÀ£ºÆÕÌìÖ®ÏÂ£¬Äª·ÇÍõÍÁ£»ÂÊÍÁÖ®±õ£¬Äª·ÇÍõ³¼¡£\n" NOR,
-                CYN "ÖììäËµµÀ£º³ö¼ÒÈË£¬Ğ¡¹ıËğÒæÑÉ£»ÎŞÍı´ó¹ı£¬Î´¼ÃÏÌÀ§Ö®¡£\n" NOR,
-                CYN "ÖììäËµµÀ£º´óÑ§Ö®µÀ£¬ÔÚÃ÷Ã÷µÂ¡£ÔÚÇ×Ãñ£¬ÔÚÖ¹ÓÚÖÁÉÆ¡£ \n" NOR,
-                CYN "ÖììäËµµÀ£º¸ñÎïÖÂÖª£¬³ÏÒâÕıĞÄ£¬ĞŞÉíÆë¼Ò£¬ÖÎ¹úÆ½ÌìÏÂ¡£\n" NOR,
+                CYN "æœ±ç†¹è¯´é“ï¼šæ™®å¤©ä¹‹ä¸‹ï¼Œè«éç‹åœŸï¼›ç‡åœŸä¹‹æ»¨ï¼Œè«éç‹è‡£ã€‚\n" NOR,
+                CYN "æœ±ç†¹è¯´é“ï¼šå‡ºå®¶äººï¼Œå°è¿‡æŸç›Šç„‰ï¼›æ— å¦„å¤§è¿‡ï¼Œæœªæµå’¸å›°ä¹‹ã€‚\n" NOR,
+                CYN "æœ±ç†¹è¯´é“ï¼šå¤§å­¦ä¹‹é“ï¼Œåœ¨æ˜æ˜å¾·ã€‚åœ¨äº²æ°‘ï¼Œåœ¨æ­¢äºè‡³å–„ã€‚ \n" NOR,
+                CYN "æœ±ç†¹è¯´é“ï¼šæ ¼ç‰©è‡´çŸ¥ï¼Œè¯šæ„æ­£å¿ƒï¼Œä¿®èº«é½å®¶ï¼Œæ²»å›½å¹³å¤©ä¸‹ã€‚\n" NOR,
         }) );
 }
 
@@ -65,14 +65,14 @@ void init()
 
 int recognize_apprentice(object ob, string skill)
 {
-        if (! (int)ob->query_temp("mark/Öì"))
+        if (! (int)ob->query_temp("mark/æœ±"))
                 return 0;
         if (skill != "literate")
         {
-                command("say ÎÒÖ»´«ÊÚ¶ÁÊéĞ´×Ö£¬Ñ§Îä¹¦È¥Îä¹İ°É¡£");
+                command("say æˆ‘åªä¼ æˆè¯»ä¹¦å†™å­—ï¼Œå­¦æ­¦åŠŸå»æ­¦é¦†å§ã€‚");
                 return -1;
         }
-        ob->add_temp("mark/Öì", -1);
+        ob->add_temp("mark/æœ±", -1);
         return 1;
 }
 
@@ -80,24 +80,24 @@ int accept_object(object who, object ob)
 {
         //object me = this_player();
 
-        if (!(int)who->query_temp("mark/Öì"))
-                who->set_temp("mark/Öì", 0);
+        if (!(int)who->query_temp("mark/æœ±"))
+                who->set_temp("mark/æœ±", 0);
 
         if (ob->query("money_id") && ob->value() >= 2000)
         {
-                message_vision("ÖììäÍ¬ÒâÖ¸µã$NÒ»Ğ©¶ÁÊéĞ´×ÖµÄÎÊÌâ¡£\n", who);
-                who->add_temp("mark/Öì", ob->value() / 50);
+                message_vision("æœ±ç†¹åŒæ„æŒ‡ç‚¹$Nä¸€äº›è¯»ä¹¦å†™å­—çš„é—®é¢˜ã€‚\n", who);
+                who->add_temp("mark/æœ±", ob->value() / 50);
                 destruct(ob);
                 return 1;
         }
 
-        command("say ¿´Çå³şÑ§¹æ£¬ÖÁÉÙÒª¶şÊ®Á½°×Òø£¡");
+        command("say çœ‹æ¸…æ¥šå­¦è§„ï¼Œè‡³å°‘è¦äºŒåä¸¤ç™½é“¶ï¼");
         return 0;
 }
 
 string ask_buy()
 {
-        return "ÎÒÕâ¿ÉÓĞ²»ÉÙ¶ÁÊéÈË±Ø¶ÁµÄÊéÓ´!\n";
+        return "æˆ‘è¿™å¯æœ‰ä¸å°‘è¯»ä¹¦äººå¿…è¯»çš„ä¹¦å“Ÿ!\n";
 }
 
 string ask_job()
@@ -107,38 +107,38 @@ string ask_job()
 
         me = this_player();
         if (me->query_temp("job/copy"))
-                return "ÈÃÄã³­µÄÊéÄã³­ÍêÁË£¿";
+                return "è®©ä½ æŠ„çš„ä¹¦ä½ æŠ„å®Œäº†ï¼Ÿ";
 
         if (me->query("combat_exp") < 15000)
-                return "ËäÈ»ÎÒÕâÀïÖ»ÊÇ³­³­Êé£¬¿ÉÊÇÄãÕ½¶·¾­ÑéÕâÃ´²î£¬Òª"
-                       "ÊÇÓĞĞ¡Á÷Ã¥µ·ÂÒÄãÔõÃ´°ì£¿";
+                return "è™½ç„¶æˆ‘è¿™é‡Œåªæ˜¯æŠ„æŠ„ä¹¦ï¼Œå¯æ˜¯ä½ æˆ˜æ–—ç»éªŒè¿™ä¹ˆå·®ï¼Œè¦"
+                       "æ˜¯æœ‰å°æµæ°“æ£ä¹±ä½ æ€ä¹ˆåŠï¼Ÿ";
 
         if (me->query("combat_exp") > 30000)
-                return "´óÏÀÄãÒ²À´³­Êé£¿ÕæÊÇÇü¾ÍÄúÁË£¬Âı×ß°¡£¡";
+                return "å¤§ä¾ ä½ ä¹Ÿæ¥æŠ„ä¹¦ï¼ŸçœŸæ˜¯å±ˆå°±æ‚¨äº†ï¼Œæ…¢èµ°å•Šï¼";
 
         if (me->query("qi") < 20)
-                return "ÎÒ¿´ÄãÁ³É«²»ĞĞ°¡£¬ÏÈĞª»á¶ù°É£¬ÎÒ¿É²»Ïë³­Êé³­³öÈËÃüÀ´¡£";
+                return "æˆ‘çœ‹ä½ è„¸è‰²ä¸è¡Œå•Šï¼Œå…ˆæ­‡ä¼šå„¿å§ï¼Œæˆ‘å¯ä¸æƒ³æŠ„ä¹¦æŠ„å‡ºäººå‘½æ¥ã€‚";
 
         if (me->query("jing") < 10)
-                return "ÎÒ¿´Äã¾«Éñ²»ĞĞ°¡£¬ÄÜ³­µÃÁËÊéÃ´£¿";
+                return "æˆ‘çœ‹ä½ ç²¾ç¥ä¸è¡Œå•Šï¼Œèƒ½æŠ„å¾—äº†ä¹¦ä¹ˆï¼Ÿ";
 
         if (me->query_int() < 25 && me->query_skill("literate", 1) < 20)
-                return "ÎÒËµÄãÄÔ×ÓÕâÃ´±¿£¡Ò²À´³­Êé£¿";
+                return "æˆ‘è¯´ä½ è„‘å­è¿™ä¹ˆç¬¨ï¼ä¹Ÿæ¥æŠ„ä¹¦ï¼Ÿ";
 
         if (! interactive(me))
                 return "...";
         /*
-        // È¡ÏûÈËÊıÏŞÖÆ
+        // å–æ¶ˆäººæ•°é™åˆ¶
         obs = filter_array(all_inventory(environment()),
                            (: interactive($1) &&
                               $1 != $(me) &&
                               $1->query_temp("job/copy") &&
                               query_ip_number($1) == query_ip_number($(me)) :));
         if (sizeof(obs) > 0)
-                return "ÎÒÕâÒÑ¾­ÓĞ" + obs[0]->name() + "ÔÚ¸É»îÁË£¬ÄãµÈµÈ°É¡£";
+                return "æˆ‘è¿™å·²ç»æœ‰" + obs[0]->name() + "åœ¨å¹²æ´»äº†ï¼Œä½ ç­‰ç­‰å§ã€‚";
         */
         me->set_temp("job/copy", 1);
-        return "ºÃ£¬Äã¾Í°ïÎÒ³­Êé(copy)°É£¡±ÊÄ«Ö½ÑâÔÚÕâ¶ù¡£";
+        return "å¥½ï¼Œä½ å°±å¸®æˆ‘æŠ„ä¹¦(copy)å§ï¼ç¬”å¢¨çº¸ç šåœ¨è¿™å„¿ã€‚";
 }
 
 int do_copy(string arg)
@@ -147,12 +147,12 @@ int do_copy(string arg)
 
         me = this_player();
         if (me->is_busy())
-                return notify_fail("ÄãÕıÃ¦×ÅÄØ£¬±ğ×Å¼±¡£\n");
+                return notify_fail("ä½ æ­£å¿™ç€å‘¢ï¼Œåˆ«ç€æ€¥ã€‚\n");
 
         if (! me->query_temp("job/copy"))
         {
-                message_vision("$NÃşÆğÃ«±Ê£¬¸ÕÏëÕºÄ«£¬¾ÍÌı¼û$n´óºÈµÀ£º"
-                               "¸øÎÒ·ÅÏÂ£¬±ğÂÒ¶¯ÎÄ·¿ËÄ±¦¡£\n",
+                message_vision("$Næ‘¸èµ·æ¯›ç¬”ï¼Œåˆšæƒ³è˜¸å¢¨ï¼Œå°±å¬è§$nå¤§å–é“ï¼š"
+                               "ç»™æˆ‘æ”¾ä¸‹ï¼Œåˆ«ä¹±åŠ¨æ–‡æˆ¿å››å®ã€‚\n",
                                me, this_object());
                 return 1;
         }
@@ -160,7 +160,7 @@ int do_copy(string arg)
         me->set_temp("job/step", 1);
         me->start_busy(bind((: call_other, __FILE__, "working" :), me),
                        bind((: call_other, __FILE__, "halt_working" :), me));
-        tell_object(me, "Äã¿ªÊ¼¹¤×÷¡£\n");
+        tell_object(me, "ä½ å¼€å§‹å·¥ä½œã€‚\n");
         return 1;
 }
 
@@ -186,25 +186,25 @@ int working(object me)
         switch (me->query_temp("job/step"))
         {
         case 1:
-                msg = "$NÄÃ¹ıÑâÌ¨£¬ÂıÂıµØÑĞÄ«¡£";
+                msg = "$Næ‹¿è¿‡ç šå°ï¼Œæ…¢æ…¢åœ°ç ”å¢¨ã€‚";
                 break;
         case 2:
-                msg = "$N¿´¿´Ä«Ä¥µÃ²î²»¶àÁË£¬ÃşÆğÃ«±Ê£¬ÇáÇá¹şÁËÁ½¿ÚÆø¡£";
+                msg = "$Nçœ‹çœ‹å¢¨ç£¨å¾—å·®ä¸å¤šäº†ï¼Œæ‘¸èµ·æ¯›ç¬”ï¼Œè½»è½»å“ˆäº†ä¸¤å£æ°”ã€‚";
                 break;
         case 3:
-                msg = "$N±¥ÕºÄ«Ö­£¬·­¿ªËÄÊé£¬Ì¯¿ªÖ½ÕÅ£¬¿ªÊ¼ÌÜĞ´¡£";
+                msg = "$Né¥±è˜¸å¢¨æ±ï¼Œç¿»å¼€å››ä¹¦ï¼Œæ‘Šå¼€çº¸å¼ ï¼Œå¼€å§‹èªŠå†™ã€‚";
                 break;
         case 4:
         case 6:
-                msg = "$N¾Û¾«»áÉñµÄ³­Ğ´Êé¼®¡£";
+                msg = "$Nèšç²¾ä¼šç¥çš„æŠ„å†™ä¹¦ç±ã€‚";
                 break;
         case 5:
-                msg = "$NÕºÁËÕºÄ«£¬¼ÌĞø×ĞÏ¸µØ³­Ğ´¡£";
+                msg = "$Nè˜¸äº†è˜¸å¢¨ï¼Œç»§ç»­ä»”ç»†åœ°æŠ„å†™ã€‚";
         case 7:
-                msg = "$N²»¶Ï·­¶¯×ÅÊé¼®£¬Ö½ÕÅÔ½À´Ô½ºñ¡£";
+                msg = "$Nä¸æ–­ç¿»åŠ¨ç€ä¹¦ç±ï¼Œçº¸å¼ è¶Šæ¥è¶Šåšã€‚";
                 break;
         default:
-                msg = "$N°ÑÊé¼®³­ºÃ£¬½«Ö½ÉÏÄ«´µ¸É£¬×°¶©³É²á£¬µİ¸ø$n¡£";
+                msg = "$NæŠŠä¹¦ç±æŠ„å¥½ï¼Œå°†çº¸ä¸Šå¢¨å¹å¹²ï¼Œè£…è®¢æˆå†Œï¼Œé€’ç»™$nã€‚";
                 finish = 1;
                 break;
         }
@@ -213,13 +213,13 @@ int working(object me)
         if (finish)
         {
                 object ob;
-                msg += "$n¿´ÁË$N³­Ğ´µÄÊé£¬ÂúÒâµÀ£º»¹ĞĞ£¬Èå×Ó¿É½Ì£¡"
-                       "ÕâÊÇ¸øÄãµÄ±¨³ê£¡Äã¿ÉÒÔÔÚÎÒÕâÀïÑ§µãÎÄ»¯¡£\n";
+                msg += "$nçœ‹äº†$NæŠ„å†™çš„ä¹¦ï¼Œæ»¡æ„é“ï¼šè¿˜è¡Œï¼Œå„’å­å¯æ•™ï¼"
+                       "è¿™æ˜¯ç»™ä½ çš„æŠ¥é…¬ï¼ä½ å¯ä»¥åœ¨æˆ‘è¿™é‡Œå­¦ç‚¹æ–‡åŒ–ã€‚\n";
                 me->delete_temp("job/copy");
                 me->delete_temp("job/step");
-                // ½±ÀøÔö¼Ó3+5±¶£¨2013-12-01 21:00:00£©
+                // å¥–åŠ±å¢åŠ 3+5å€ï¼ˆ2013-12-01 21:00:00ï¼‰
                 b = 40 + random(20);
-                me->add_temp("mark/Öì", 20);
+                me->add_temp("mark/æœ±", 20);
                 me->add("combat_exp", b);
                 me->improve_potential((b + 20) / 3);
 
@@ -231,7 +231,7 @@ int working(object me)
                 ob->move(me, 1);
         }
 
-        msg = replace_string(msg, "$N", "Äã");
+        msg = replace_string(msg, "$N", "ä½ ");
         msg = replace_string(msg, "$n", name());
         tell_object(me, msg);
 
@@ -239,11 +239,11 @@ int working(object me)
         {
                 if (b > 0)
                 {
-                        tell_object(me, HIC "\nÄã»ñµÃÁË" +
+                        tell_object(me, HIC "\nä½ è·å¾—äº†" +
                                     chinese_number(b) +
-                                    "µã¾­ÑéºÍ" +
+                                    "ç‚¹ç»éªŒå’Œ" +
                                     chinese_number((b + 20) / 3) +
-                                    "µãÇ±ÄÜ¡£\n\n" NOR);
+                                    "ç‚¹æ½œèƒ½ã€‚\n\n" NOR);
                 }
                 return 0;
         }
@@ -254,8 +254,8 @@ int working(object me)
 
 int halt_working(object me)
 {
-        message_vision("$N°ÑÊÖÖĞµÄ±ÊÄ«Ö½Ñâ¶ªµ½Ò»ÅÔ£¬ÀÎÉ§µÀ£º"
-                       "Ê²Ã´Ñ½£¬¸ù±¾¾Í²»ÊÇÈË¸ÉµÄ»î£¡\n", me);
+        message_vision("$NæŠŠæ‰‹ä¸­çš„ç¬”å¢¨çº¸ç šä¸¢åˆ°ä¸€æ—ï¼Œç‰¢éªšé“ï¼š"
+                       "ä»€ä¹ˆå‘€ï¼Œæ ¹æœ¬å°±ä¸æ˜¯äººå¹²çš„æ´»ï¼\n", me);
         me->delete_temp("job/copy");
         me->delete_temp("job/step");
         return 1;

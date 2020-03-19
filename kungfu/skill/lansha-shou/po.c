@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define PO "¡¸" HIB "ÆÆµåÉñÉ°" NOR "¡¹"
+#define PO "ã€Œ" HIB "ç ´é›ç¥ç ‚" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -17,34 +17,34 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (userp(me) && ! me->query("can_perform/lansha-shou/po"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(PO "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(PO "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (objectp(me->query_temp("weapon")))
-                return notify_fail(PO "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(PO "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if ((int)me->query_skill("lansha-shou", 1) < 100)
-                return notify_fail("ÄãÀ¶É°ÊÖ²»¹»ÊìÁ·£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ è“ç ‚æ‰‹ä¸å¤Ÿç†Ÿç»ƒï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if ((int)me->query_skill("force") < 150)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»×ã£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if (me->query_skill_mapped("hand") != "lansha-shou")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢À¶É°ÊÖ£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘è“ç ‚æ‰‹ï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if (me->query_skill_prepared("hand") != "lansha-shou")
-                return notify_fail("ÄãÃ»ÓĞ×¼±¸À¶É°ÊÖ£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡è“ç ‚æ‰‹ï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if ((int)me->query("neili") < 200)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" PO "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" PO "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIG "$N" HIG "ÉíĞÎ¼±×ª£¬ÍğÈô¹í÷È£¬ÇÄÈ»Ê©³öÀ¶É°ÊÖ¾ø¼¼¡¸" NOR +
-              HIB "ÆÆµåÉñÉ°" NOR + HIG "¡¹£¬³¯$n" HIG "ĞØÇ°´óÑ¨×¥Âä£¡\n" NOR;
+        msg = HIG "$N" HIG "èº«å½¢æ€¥è½¬ï¼Œå®›è‹¥é¬¼é­…ï¼Œæ‚„ç„¶æ–½å‡ºè“ç ‚æ‰‹ç»æŠ€ã€Œ" NOR +
+              HIB "ç ´é›ç¥ç ‚" NOR + HIG "ã€ï¼Œæœ$n" HIG "èƒ¸å‰å¤§ç©´æŠ“è½ï¼\n" NOR;
 
         lvl = me->query_skill("lansha-shou", 1);
 
@@ -61,8 +61,8 @@ int perform(object me, object target)
                                           (: final, me, target, damage :));
         } else
         {
-                msg += CYN "$n" CYN "¼û$N"
-                       CYN "À´ÊÆĞÚÓ¿£¬·ÜÁ¦¸ñµ²£¬ÖÕÓÚ»¯½â¿ªÀ´¡£\n" NOR;
+                msg += CYN "$n" CYN "è§$N"
+                       CYN "æ¥åŠ¿æ±¹æ¶Œï¼Œå¥‹åŠ›æ ¼æŒ¡ï¼Œç»ˆäºåŒ–è§£å¼€æ¥ã€‚\n" NOR;
         }
         message_combatd(msg, me, target);
 
@@ -78,8 +78,8 @@ string final(object me, object target, int damage)
                    "id"       : me->query("id"),
                    "duration" : lvl / 50 + random(lvl / 30) ]));
 
-        return HIR "$n" HIR "ÉÁ±Ü²»¼°£¬µÇ±»$N" HIR
-               "×¥³öÎåµÀÑªºÛ£¬ÉË¿Ú¾¹Éø³öºÚÑª£¬ÒşÒş"
-               "·¢×ÅÁ×¹â¡£\n" NOR;
+        return HIR "$n" HIR "é—ªé¿ä¸åŠï¼Œç™»è¢«$N" HIR
+               "æŠ“å‡ºäº”é“è¡€ç—•ï¼Œä¼¤å£ç«Ÿæ¸—å‡ºé»‘è¡€ï¼Œéšéš"
+               "å‘ç€ç£·å…‰ã€‚\n" NOR;
 }
 

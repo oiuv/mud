@@ -4,11 +4,11 @@ string ask_me();
 
 void create()
 {
-        set_name("ÇåĞéµÀ³¤", ({ "qingxu daozhang", "qingxu" }));
-        set("long", "Ëû¾ÍÊÇÓáÁ«ÖÛµÄµÜ×ÓÇåĞéµÀ³¤¡£Ëû½ñÄê¶ş\n"
-                    "Ê®¶àËê£¬Ö÷¹Ü¸´Õæ¹ÛµÄÔÓÊÂ¡£×¨ÃÅÔÚÕâÀï\n"
-                    "¿´ÊØ±¾ÅÉµÄ¸÷ÖÖµÀ¾­");
-        set("gender", "ÄĞĞÔ");
+        set_name("æ¸…è™šé“é•¿", ({ "qingxu daozhang", "qingxu" }));
+        set("long", "ä»–å°±æ˜¯ä¿è²èˆŸçš„å¼Ÿå­æ¸…è™šé“é•¿ã€‚ä»–ä»Šå¹´äºŒ\n"
+                    "åå¤šå²ï¼Œä¸»ç®¡å¤çœŸè§‚çš„æ‚äº‹ã€‚ä¸“é—¨åœ¨è¿™é‡Œ\n"
+                    "çœ‹å®ˆæœ¬æ´¾çš„å„ç§é“ç»");
+        set("gender", "ç”·æ€§");
         set("age", 40);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -48,11 +48,11 @@ void create()
 
         prepare_skill("strike", "wudang-zhang");
 
-        create_family("Îäµ±ÅÉ", 3, "µÜ×Ó");
+        create_family("æ­¦å½“æ´¾", 3, "å¼Ÿå­");
         set("class", "taoist");
 
         set("inquiry", ([
-        	"µÀµÂ¾­" : (: ask_me :),
+        	"é“å¾·ç»" : (: ask_me :),
         ]));
 
 	set("chat_chance_combat", 120);
@@ -74,19 +74,19 @@ string ask_me()
         object ob;
 
         if (!(fam = this_player()->query("family")) 
-            || fam["family_name"] != "Îäµ±ÅÉ")
+            || fam["family_name"] != "æ­¦å½“æ´¾")
         {
                 return RANK_D->query_respect(this_player()) + 
-                       "Óë±¾ÅÉËØÎŞÀ´Íù£¬²»Öª´Ë»°´ÓºÎÌ¸Æğ£¿";
+                       "ä¸æœ¬æ´¾ç´ æ— æ¥å¾€ï¼Œä¸çŸ¥æ­¤è¯ä»ä½•è°ˆèµ·ï¼Ÿ";
         }
 
         if (query("book_count") < 1)
-                return "ÄãÀ´ÍíÁË£¬±¾ÅÉµÄµÀµÂÕæ¾­²»ÔÚ´Ë´¦¡£";
+                return "ä½ æ¥æ™šäº†ï¼Œæœ¬æ´¾çš„é“å¾·çœŸç»ä¸åœ¨æ­¤å¤„ã€‚";
 
         add("book_count", -1);
         ob = new("/clone/book/daodejing-ii");
-        message_vision("$NÄÃ³öµÀµÂ¾­¡¸ÏÂ¾í¡¹(jing)¸ø$n¡£\n",
+        message_vision("$Næ‹¿å‡ºé“å¾·ç»ã€Œä¸‹å·ã€(jing)ç»™$nã€‚\n",
                        this_object(), this_player());
         ob->move(this_player(), 1);
-        return "ºÃ°É£¬Õâ±¾¡¸µÀµÂ¾­¡¹ÄãÄÃ»ØÈ¥ºÃºÃ×êÑĞ¡£";
+        return "å¥½å§ï¼Œè¿™æœ¬ã€Œé“å¾·ç»ã€ä½ æ‹¿å›å»å¥½å¥½é’»ç ”ã€‚";
 }

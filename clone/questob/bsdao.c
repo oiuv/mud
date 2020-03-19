@@ -4,14 +4,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name("±¦Ê¯µ¶", ({ "baoshi dao", "dao" }));
+	set_name("å®çŸ³åˆ€", ({ "baoshi dao", "dao" }));
 	set_weight(700);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¶Ô");
-                set("no_sell", "Õâ...ÕâÊÇÊ²Ã´¶«Î÷£¿ÎÒ¿É²»¸ÒÒª¡£\n");
-		set("long", "Ò»¶ÔÏâÂú±¦Ê¯µÄĞ¡µ¶£¬°º¹óµÄÊÎÆ·¡£\n");
+		set("unit", "å¯¹");
+                set("no_sell", "è¿™...è¿™æ˜¯ä»€ä¹ˆä¸œè¥¿ï¼Ÿæˆ‘å¯ä¸æ•¢è¦ã€‚\n");
+		set("long", "ä¸€å¯¹é•¶æ»¡å®çŸ³çš„å°åˆ€ï¼Œæ˜‚è´µçš„é¥°å“ã€‚\n");
 		set("value", 1);
 		set("material", "jade");
 	}

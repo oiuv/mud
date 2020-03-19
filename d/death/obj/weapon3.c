@@ -5,16 +5,16 @@ inherit CLUB;
 
 void create()
 {
-        set_name(HIR"ÌìÀ×Éñµ²" NOR, ({ "tianlei shendang","tianlei","shendang", "dang" }));
+        set_name(HIR"å¤©é›·ç¥æŒ¡" NOR, ({ "tianlei shendang","tianlei","shendang", "dang" }));
         set_weight(10000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸Ë");
+                set("unit", "æ†");
                 set("value", 1200000);
                 set("material", "steel");
-                set("long", "Ò»¸ËÉÏ¹ÅÉñÄ¾ËùÖıÔìµÄ¹÷×Ó£¬ÄË²»ÊÀÖ®Éñ±ø¡£\n");
-                set("wield_msg", "$NÌáÆğ$nÎÕÔÚÊÖÖĞ£¬Íş·çÁİÁİ¡£\n");
+                set("long", "ä¸€æ†ä¸Šå¤ç¥æœ¨æ‰€é“¸é€ çš„æ£å­ï¼Œä¹ƒä¸ä¸–ä¹‹ç¥å…µã€‚\n");
+                set("wield_msg", "$Næèµ·$næ¡åœ¨æ‰‹ä¸­ï¼Œå¨é£å‡›å‡›ã€‚\n");
         }
         init_club(120);
         setup();

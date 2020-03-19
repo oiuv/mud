@@ -1,4 +1,4 @@
-// ���̼̳�
+// 店铺继承
 // Create by smallfish.
 // Update by jjgod.
 
@@ -11,18 +11,18 @@ string long()
 {
         switch (query("shop_type"))
         {
-        // ���̹ر�ʱ������
+        // 店铺关闭时的描述
         case 0  : return query("long");
-        // ���̿���ʱ������
+        // 店铺开放时的描述
         default : 
-                // Ĭ������
+                // 默认描述
                 if (! stringp(query("open_long")))
                         return @LONG
-������һ��װ�ε÷ǳ������ĵ��̣������������������
-�ϰ����˸�ʽ������������Ŀ�Ļ����ʱһλ�����æ��æ
-����к��ſ��ˡ�
+这里是一间装饰得非常豪华的店铺，铺面宽敞明亮，柜子
+上摆满了各式各样、琳琅满目的货物。此时一位伙计正忙里忙
+外地招呼着客人。
 LONG;
-                // ��������
+                // 特殊描述
                 else return query("open_long");
         }
 }

@@ -6,44 +6,44 @@ int permit_recruit(object ob)
 
         me = this_object();
 
-        if ((string)ob->query("gender") != "Å®ÐÔ")
+        if ((string)ob->query("gender") != "å¥³æ€§")
         {
-                        command("say °¢ÃÖÍÓ·ð£¡ÎÒ¶ëáÒÅÉ²»ÊÕÄÐµÜ×Ó¡£");
-                        command("say Ê©Ö÷ÈôÏëÑ§ÒÕ£¬¿ÉÈ¥ÉÙÁÖ¡¢Îäµ±Í¶Ê¦¡£");
+                        command("say é˜¿å¼¥é™€ä½›ï¼æˆ‘å³¨åµ‹æ´¾ä¸æ”¶ç”·å¼Ÿå­ã€‚");
+                        command("say æ–½ä¸»è‹¥æƒ³å­¦è‰ºï¼Œå¯åŽ»å°‘æž—ã€æ­¦å½“æŠ•å¸ˆã€‚");
                         return 0;
         }
 
-        if (ob->query("detach/¶ëáÒÅÉ") ||
-            ob->query("betrayer/¶ëáÒÅÉ"))
+        if (ob->query("detach/å³¨åµ‹æ´¾") ||
+            ob->query("betrayer/å³¨åµ‹æ´¾"))
         {
-                command("say Äãµ±Äê¼ÈÈ»Àë¿ªÁË¶ëáÒÅÉ£¬½ñÌìÓÖºÎ±Ø»ØÀ´£¿");
+                command("say ä½ å½“å¹´æ—¢ç„¶ç¦»å¼€äº†å³¨åµ‹æ´¾ï¼Œä»Šå¤©åˆä½•å¿…å›žæ¥ï¼Ÿ");
                 return 0;
         }
 
         if (ob->query("betrayer/times"))
         {
-                command("say ÄãÆÛÊ¦ÃðÖ÷£¬±³ÅÑÊ¦ÃÅ£¬ÕâÖÖÈËÎÒÃÇ¶ëáÒÅÉ²»»áÊÕÁôµÄ¡£");
+                command("say ä½ æ¬ºå¸ˆç­ä¸»ï¼ŒèƒŒå›å¸ˆé—¨ï¼Œè¿™ç§äººæˆ‘ä»¬å³¨åµ‹æ´¾ä¸ä¼šæ”¶ç•™çš„ã€‚");
                 return 0;
         }
 
         if (ob->query("family/family_name") &&
-            ob->query("family/family_name") != "¶ëáÒÅÉ")
+            ob->query("family/family_name") != "å³¨åµ‹æ´¾")
         {
-                command("say ÄãÒÑÓÐÃûÊ¦Ö¸µã£¬ÎªºÎÓÖÀ´¶ëáÒÅÉ£¿Äª·ÇÄãÒªÅÐÊ¦²»³É£¿");
+                command("say ä½ å·²æœ‰åå¸ˆæŒ‡ç‚¹ï¼Œä¸ºä½•åˆæ¥å³¨åµ‹æ´¾ï¼ŸèŽ«éžä½ è¦åˆ¤å¸ˆä¸æˆï¼Ÿ");
                 return 0;
         }
 
         if ((string)me->query("class") == "bonze" &&
             (string)ob->query("class") != "bonze")
         {
-                command("say °¢ÃÖÍÓ·ð£¡Æ¶Äá²»ÊÕË×¼ÒµÜ×Ó¡£");
-                command("say ÄãÈôÏë¼ÌÐøÑ§¶ëáÒÅÉµÄ¹¦·ò£¬»¹ÊÇÈ¥ÕÒÎÒË×¼ÒÊ¦ÃÃ°É¡£");
+                command("say é˜¿å¼¥é™€ä½›ï¼è´«å°¼ä¸æ”¶ä¿—å®¶å¼Ÿå­ã€‚");
+                command("say ä½ è‹¥æƒ³ç»§ç»­å­¦å³¨åµ‹æ´¾çš„åŠŸå¤«ï¼Œè¿˜æ˜¯åŽ»æ‰¾æˆ‘ä¿—å®¶å¸ˆå¦¹å§ã€‚");
                 return 0;
         }
 
         if ((int)ob->query("shen") < 0)
         {
-                command("say °¦£¬ÄãÏÖÔÚÕýÈëÆçÍ¾£¬ÎÒÔõÄÜÊÕÄãÎªÍ½£¿");
+                command("say å”‰ï¼Œä½ çŽ°åœ¨æ­£å…¥æ­§é€”ï¼Œæˆ‘æ€Žèƒ½æ”¶ä½ ä¸ºå¾’ï¼Ÿ");
                 return 0;
         }
 

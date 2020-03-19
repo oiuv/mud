@@ -4,12 +4,12 @@ inherit DAGGER;
 
 void create()
 {
-        set_name(HIY "³à½ðØ°Ê×" NOR, ({ "chijin bishou", "chijin", "dagger", "bishou" }));
+        set_name(HIY "èµ¤é‡‘åŒ•é¦–" NOR, ({ "chijin bishou", "chijin", "dagger", "bishou" }));
         set_weight(3000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
+                set("unit", "æŸ„");
                 set("value", 150000);
                 set("material", "steel");
         }

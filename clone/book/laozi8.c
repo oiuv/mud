@@ -7,18 +7,18 @@ inherit BOOK;
 
 void create()
 {
-    set_name( "µÀµÂ¾­¡¸µÚ°ËÕÂ¡¹", ({ "jing", "daode jing" }));
+    set_name( "é“å¾·ç»ã€Œç¬¬å…«ç« ã€", ({ "jing", "daode jing" }));
     set_weight(200);
     if( clonep() )
         set_default_object(__FILE__);
     else {
-        set("unit", "±¾");
+        set("unit", "æœ¬");
         set("long",
             CYN "\n"
-            "\n\t\t\tµÚ°ËÕÂ\n\n"
-            "\tÉÏÉÆÈôË®¡£Ë®ÉÆÀûÍòÎï¶ø²»Õù£¬´¦ÖÚÈËÖ®Ëù¶ñ£¬¹Ê¼¸ÓÚµÀ¡£\n"
-            "\t¾ÓÉÆµØ£¬ÐÄÉÆÔ¨£¬ÓëÉÆÈÊ£¬ÑÔÉÆÐÅ£¬ÕþÉÆÖÎ£¬ÊÂÉÆÄÜ£¬¶¯ÉÆÊ±¡£\n"
-            "·òÎ¨²»Õù£¬¹ÊÎÞÓÈ¡£\n"
+            "\n\t\t\tç¬¬å…«ç« \n\n"
+            "\tä¸Šå–„è‹¥æ°´ã€‚æ°´å–„åˆ©ä¸‡ç‰©è€Œä¸äº‰ï¼Œå¤„ä¼—äººä¹‹æ‰€æ¶ï¼Œæ•…å‡ äºŽé“ã€‚\n"
+            "\tå±…å–„åœ°ï¼Œå¿ƒå–„æ¸Šï¼Œä¸Žå–„ä»ï¼Œè¨€å–„ä¿¡ï¼Œæ”¿å–„æ²»ï¼Œäº‹å–„èƒ½ï¼ŒåŠ¨å–„æ—¶ã€‚\n"
+            "å¤«å”¯ä¸äº‰ï¼Œæ•…æ— å°¤ã€‚\n"
             "\n"NOR
         );
         set("value", 500);

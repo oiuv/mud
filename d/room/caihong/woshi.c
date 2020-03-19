@@ -1,4 +1,4 @@
-// woshi.c ²Êºç¾ÓÎÔÊÒ
+// woshi.c å½©è™¹å±…å§å®¤
 
 #include <room.h>
 
@@ -7,18 +7,18 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "ÎÔÊÒ");             /* EXAMPLE */
-//**    set("short", "ROOM_NAMEÎÔÊÒ");
+	set("short", "å§å®¤");             /* EXAMPLE */
+//**    set("short", "ROOM_NAMEå§å®¤");
 	set("long", @LONG
-ÕâÊÇÖ÷ÈËµÄÎÔÊÒ£¬ÊÕÊ°µÃ¾®¾®ÓÐÌõ¡£ÄÏ´°ÏÂÊÇÒ»ÕÅ´ó´²£¬´²±ßÓÐÒ»¸ö
-¹ñ×Ó£¬»¹ÓÐÒ»¸öÊé¼Ü¡£Õû¼äÎÝ×ÓËäÈ»ÆÓËØ£¬µ«ÊÇ¿ÉÒÔËµÊÇÑùÑù¾ãÈ«£¬²¢²»
-È±ÉÙÊ²Ã´¶«Î÷¡£
+è¿™æ˜¯ä¸»äººçš„å§å®¤ï¼Œæ”¶æ‹¾å¾—äº•äº•æœ‰æ¡ã€‚å—çª—ä¸‹æ˜¯ä¸€å¼ å¤§åºŠï¼ŒåºŠè¾¹æœ‰ä¸€ä¸ª
+æŸœå­ï¼Œè¿˜æœ‰ä¸€ä¸ªä¹¦æž¶ã€‚æ•´é—´å±‹å­è™½ç„¶æœ´ç´ ï¼Œä½†æ˜¯å¯ä»¥è¯´æ˜¯æ ·æ ·ä¿±å…¨ï¼Œå¹¶ä¸
+ç¼ºå°‘ä»€ä¹ˆä¸œè¥¿ã€‚
 LONG );
 
-	set("default_long", "ÕâÊÇÖ÷ÈËµÄÎÔÊÒ£¬ÊÕÊ°µÃ¾®¾®ÓÐÌõ¡£ÄÏ´°ÏÂÊÇ"   /* EXAMPLE */
-                            "Ò»ÕÅ´ó´²£¬´²±ßÓÐÒ»¸ö¹ñ×Ó£¬»¹ÓÐÒ»¸öÊé¼Ü£¬"   /* EXAMPLE */
-                            "ÉÏÃæ·Å×ÅÒ»Ð©Êé¡£Õû¼äÎÝ×Ó²¼ÖÃµÃ·Ç³£ÆÓËØ£¬"   /* EXAMPLE */
-                            "²¢²»ÉÝ»ª¡£ÎÝÃÅÔÚÎ÷Ê×¡£");                   /* EXAMPLE */
+	set("default_long", "è¿™æ˜¯ä¸»äººçš„å§å®¤ï¼Œæ”¶æ‹¾å¾—äº•äº•æœ‰æ¡ã€‚å—çª—ä¸‹æ˜¯"   /* EXAMPLE */
+                            "ä¸€å¼ å¤§åºŠï¼ŒåºŠè¾¹æœ‰ä¸€ä¸ªæŸœå­ï¼Œè¿˜æœ‰ä¸€ä¸ªä¹¦æž¶ï¼Œ"   /* EXAMPLE */
+                            "ä¸Šé¢æ”¾ç€ä¸€äº›ä¹¦ã€‚æ•´é—´å±‹å­å¸ƒç½®å¾—éžå¸¸æœ´ç´ ï¼Œ"   /* EXAMPLE */
+                            "å¹¶ä¸å¥¢åŽã€‚å±‹é—¨åœ¨è¥¿é¦–ã€‚");                   /* EXAMPLE */
                                                                          /* EXAMPLE */
 	setup();
 
@@ -26,7 +26,7 @@ LONG );
                 "west" : __DIR__"dating",
         ]));
 
-        create_door("west", "Ä¾ÃÅ", "east", DOOR_CLOSED);
+        create_door("west", "æœ¨é—¨", "east", DOOR_CLOSED);
 //**
 //**    set("sleep_room", 1);
 //**    set("loving_room", 1);

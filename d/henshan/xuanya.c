@@ -3,16 +3,16 @@ inherit ROOM;
 
 void create()
 {
-	set("short","ÐüÑÂ±ß");
+	set("short","æ‚¬å´–è¾¹");
 	set("long",@LONG
-ÕâÀïÊÇ×Ï¸ÇÏÉ¶´ÍâµÄÐüÑÂ¾ø±Ú(xuanya)£¬Õ¾ÔÚ´Ë´¦ÏòÏÂÍû
-È¥£¬ÔÆÉîËøÎí£¬º®·ç´µÀ´£¬Äã²»ÓÉµØ´òÁË¸öº®Õ½¡£
+è¿™é‡Œæ˜¯ç´«ç›–ä»™æ´žå¤–çš„æ‚¬å´–ç»å£(xuanya)ï¼Œç«™åœ¨æ­¤å¤„å‘ä¸‹æœ›
+åŽ»ï¼Œäº‘æ·±é”é›¾ï¼Œå¯’é£Žå¹æ¥ï¼Œä½ ä¸ç”±åœ°æ‰“äº†ä¸ªå¯’æˆ˜ã€‚
 LONG);
 	set("item_desc", ([
-	       "xuanya"  : HIG "\nÖ»¼û´Ó¾ø±ÚÉÏ´¹ÏÂÒ»Ð©Ê÷ÌÙ(teng)£¬ ËÆºõ¿ÉÒÔË³×Å"
-                           "ÅÀ(climb)\nÉÏÈ¥¡£¶øÏÂÃæÈ´ÊÇÍòÕÉÉîÔ¨£¬Éî²»¼ûµ×¡£\n" NOR,
+	       "xuanya"  : HIG "\nåªè§ä»Žç»å£ä¸Šåž‚ä¸‹ä¸€äº›æ ‘è—¤(teng)ï¼Œ ä¼¼ä¹Žå¯ä»¥é¡ºç€"
+                           "çˆ¬(climb)\nä¸ŠåŽ»ã€‚è€Œä¸‹é¢å´æ˜¯ä¸‡ä¸ˆæ·±æ¸Šï¼Œæ·±ä¸è§åº•ã€‚\n" NOR,
 
-	       "teng"    : YEL"\nÕâÐ©Ê÷ÌÙ¿´ÆðÀ´ºÜ½áÊµ¡£\n" NOR,
+	       "teng"    : YEL"\nè¿™äº›æ ‘è—¤çœ‹èµ·æ¥å¾ˆç»“å®žã€‚\n" NOR,
 	]));
 
 	set("exits",([
@@ -40,22 +40,22 @@ int do_tiao(string arg)
               	room1 = load_object(__DIR__"xuanya");
 
  	if (! arg || (arg != "ya" && arg != "xuanya" && 
-                      arg != "ÐüÑÂ"))
+                      arg != "æ‚¬å´–"))
 		return 0;
 	
 	if (me->is_fighting() || me->is_busy())
 	{
-		write("ÄãÏÖÔÚÕýÃ¦×ÅÄØ¡£\n");
+		write("ä½ çŽ°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
 		return 1;
 	}	
 
 	if (! room2 = find_object(__DIR__"xuanyadi"))
               	room2 = load_object(__DIR__"xuanyadi");
 
-	msg = HIC"\nÄã¹ÄÆðÓÂÆøÍùÐüÑÂÏÂÒ»Ìø£¬¶ú±ßµÄ·ç¡°ºôºô¡±×÷Ïì£¬Äã¸Ð"
-              "¾õÔ½\nÂäÔ½¿ì£¬Ò»¿ÅÐÄ¶¼ÒªµôÁË³öÀ´£¬ÃÍÈ»¼äÄã¿´¼ûÏÂÃæÓÐÒ»¿Ã´óÊ÷£¬"
-              HIC"\nÄãÉìÊÖ×¥×¡Ê÷Ö¦£¬µ«ÊÇÊ÷Ö¦È´¡°Å¾¡±µÄÒ»Éù¶ÏÁË£¬ÄãÖØÖØµØË¤\n"
-	      HIC"ÔÚµØÉÏ£¬¶ÙÊ±»èÁË¹ýÈ¥¡£\n\n" NOR;
+	msg = HIC"\nä½ é¼“èµ·å‹‡æ°”å¾€æ‚¬å´–ä¸‹ä¸€è·³ï¼Œè€³è¾¹çš„é£Žâ€œå‘¼å‘¼â€ä½œå“ï¼Œä½ æ„Ÿ"
+              "è§‰è¶Š\nè½è¶Šå¿«ï¼Œä¸€é¢—å¿ƒéƒ½è¦æŽ‰äº†å‡ºæ¥ï¼ŒçŒ›ç„¶é—´ä½ çœ‹è§ä¸‹é¢æœ‰ä¸€æ£µå¤§æ ‘ï¼Œ"
+              HIC"\nä½ ä¼¸æ‰‹æŠ“ä½æ ‘æžï¼Œä½†æ˜¯æ ‘æžå´â€œå•ªâ€çš„ä¸€å£°æ–­äº†ï¼Œä½ é‡é‡åœ°æ‘”\n"
+	      HIC"åœ¨åœ°ä¸Šï¼Œé¡¿æ—¶æ˜äº†è¿‡åŽ»ã€‚\n\n" NOR;
 
 	write(msg);
         me->move(room2);
@@ -65,7 +65,7 @@ int do_tiao(string arg)
 
         if (random(99)<62)
 		CHANNEL_D->do_channel(this_object(), "rumor", 
-                   	   me->name() + "²»ÐÒ×¹ÏÂºâÉ½ÐüÑÂ£¬ÉúËÀ²»Ã÷£¡");
+                   	   me->name() + "ä¸å¹¸å ä¸‹è¡¡å±±æ‚¬å´–ï¼Œç”Ÿæ­»ä¸æ˜Žï¼");
 	
 	return 1;
 }
@@ -81,16 +81,16 @@ int do_climb(string arg)
 		room=load_object(__DIR__"zigai");
 	
 	if (! arg || arg != "teng")
-		return notify_fail("\nÄãÒªÍùÄÄ¶ùÅÀ¡£\n\n");
+		return notify_fail("\nä½ è¦å¾€å“ªå„¿çˆ¬ã€‚\n\n");
 
 	if (me->is_fighting() || me->is_busy())
-		return notify_fail("\nÄãÕýÃ¦×ÅÄØ¡£\n\n");
+		return notify_fail("\nä½ æ­£å¿™ç€å‘¢ã€‚\n\n");
 
-	msg = HIG "\n$NÀ­×ÅÊ÷ÌÙÍùÇÍ±ÚÉÏÅÀÈ¥¡£\n\n" NOR;
+	msg = HIG "\n$Næ‹‰ç€æ ‘è—¤å¾€å³­å£ä¸Šçˆ¬åŽ»ã€‚\n\n" NOR;
 
 	message_vision(msg, me);
-	write(HIW "\nÄãÖÕÓÚÅÀÁËÉÏÀ´¡£\n\n" NOR);
-	message("vision", HIG "\n" + me->name() + HIG "´ÓÇÍ±ÚÏÂÃæÅÀÁËÉÏÀ´¡£\n\n" NOR,
+	write(HIW "\nä½ ç»ˆäºŽçˆ¬äº†ä¸Šæ¥ã€‚\n\n" NOR);
+	message("vision", HIG "\n" + me->name() + HIG "ä»Žå³­å£ä¸‹é¢çˆ¬äº†ä¸Šæ¥ã€‚\n\n" NOR,
                           room, me);
 
 	me->move(room);

@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ɽ·");
+        set("short", "山路");
         set("long", @LONG
-СϪ���ɽ·����Ϫ��һ��Сʯ�š�Ϫ��ũ��С������Ϸ���֡�
-�����Ȥ���㲻����Ȼ��̾��һʱ������Զ�ܽ���֮�⡣���ϱ㵽��
-�����ã����¾��������á�
+小溪横过山路，跨溪有一座小石桥。溪边农家小孩在嬉戏玩乐。
+如此情趣让你不禁慨然生叹，一时间颇有远避江湖之意。南上便到了
+上天竺，北下就是中天竺。
 LONG);
         set("exits", ([
             "south"   : __DIR__"shanlu4",

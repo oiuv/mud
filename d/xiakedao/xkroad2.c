@@ -1,12 +1,12 @@
-// Room: /d/xiakedao/xkroad2.c ·ğÉ½
+// Room: /d/xiakedao/xkroad2.c ä½›å±±
 // Modified by Java on Feb.14.1998
 inherit ROOM;
 
 void create()
 {
-	set("short", "·ğÉ½");
+	set("short", "ä½›å±±");
 	set("long", @LONG
-·ğÉ½ÊÇÁëÄÏ·±»ª´óÕò£¬âÜÊĞ½Ö¾®£¬´¦´¦óÏ¸èÔÃ¶ú¡£
+ä½›å±±æ˜¯å²­å—ç¹åå¤§é•‡ï¼Œå»›å¸‚è¡—äº•ï¼Œå¤„å¤„ç¬™æ­Œæ‚¦è€³ã€‚
 LONG );
         set("outdoors", "xiakedao");
 	set("exits", ([

@@ -1,4 +1,4 @@
-// ivy 2015Äê¸üĞÂIPÊı¾İ¿â
+// ivy 2015å¹´æ›´æ–°IPæ•°æ®åº“
 #include <ansi.h>
 string seek_ip_address(string ip)
 {
@@ -221,7 +221,7 @@ string seek_ip_address(string ip)
 
     str = read_file(ip_config);
     if (!str)
-        return "Êı¾İ¶ÁÈ¡Ê§°Ü";
+        return "æ•°æ®è¯»å–å¤±è´¥";
     ip_address = explode(str, "\n");
     for (i = 0; i < sizeof(ip_address); i++)
     {
@@ -276,5 +276,5 @@ string seek_ip_address(string ip)
             n = 0;
         }
     }
-    return "Î´ÖªµØÖ·";
+    return "æœªçŸ¥åœ°å€";
 }

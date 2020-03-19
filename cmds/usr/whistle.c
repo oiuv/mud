@@ -17,45 +17,45 @@ int main(object me, string arg)
     {
             whistle = me->query("can_whistle");
             if (! mapp(whistle) || ! sizeof(whistle))
-                    return notify_fail("ÄãÒªÕÙ»½Ê²Ã´×øÆï£¿\n");
+                    return notify_fail("ä½ è¦å¬å”¤ä»€ä¹ˆåéª‘ï¼Ÿ\n");
 
             ks = keys(whistle);
-            msg = "ÄãÏÖÔÚ¿ÉÒÔÕÙ»½µÄ×øÆïÓĞ£º\n";
+            msg = "ä½ ç°åœ¨å¯ä»¥å¬å”¤çš„åéª‘æœ‰ï¼š\n";
 
             for( i=0; i<sizeof(ks); i++ )
             {
                     if( !get_object(whistle[ks[i]]) ) continue;
-                    msg += sprintf(HIW "×øÆïID£º" MAG "%-15s" NOR HIW"    ×øÆïÃû×Ö£º%-20s\n"NOR,ks[i],whistle[ks[i]]->name());
+                    msg += sprintf(HIW "åéª‘IDï¼š" MAG "%-15s" NOR HIW"    åéª‘åå­—ï¼š%-20s\n"NOR,ks[i],whistle[ks[i]]->name());
             }
             write(msg);
             return 1;
     }
                         
         if (me->is_busy() || me->query("doing"))  
-                return notify_fail("ÄãÏÖÔÚÕıÃ¦ÄØ£¬µÈÄãÓĞ¿ÕÁËÔÙËµ°É¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£å¿™å‘¢ï¼Œç­‰ä½ æœ‰ç©ºäº†å†è¯´å§ã€‚\n");
  
         if (me->is_in_prison())   
-                return notify_fail("ÄãÕıÔÚ×öÀÎÄØ£¬ÄãÏë¸ÉÊ²Ã´£¿£¡\n"); 
+                return notify_fail("ä½ æ­£åœ¨åšç‰¢å‘¢ï¼Œä½ æƒ³å¹²ä»€ä¹ˆï¼Ÿï¼\n"); 
                                
         if (me->is_ghost())
-                return notify_fail("µÈÄã»¹ÁËÑôÔÙÕÙ»½°É¡£\n");
+                return notify_fail("ç­‰ä½ è¿˜äº†é˜³å†å¬å”¤å§ã€‚\n");
 
         if (! stringp(file = me->query("can_whistle/" + arg)))
-                return notify_fail("Äã²»ÖªµÀÈçºÎÕÙ»½Õâ¸ö×øÆï¡£\n");
+                return notify_fail("ä½ ä¸çŸ¥é“å¦‚ä½•å¬å”¤è¿™ä¸ªåéª‘ã€‚\n");
 
         if (file_size(file + ".c") < 0)
-                return notify_fail("Äã²»ÖªµÀÈçºÎÕÙ»½Õâ¸ö×øÆï¡£\n");
+                return notify_fail("ä½ ä¸çŸ¥é“å¦‚ä½•å¬å”¤è¿™ä¸ªåéª‘ã€‚\n");
         
         if (environment(me)->query("no_magic") || environment(me)->query("no_fly")) 
-                return notify_fail("Äã·¢ÏÖÕâÀïÓĞµã¹Å¹Ö£¬ÄãµÄ×øÆïºÃÏó²»ÄÜ½øÀ´£¡\n");    
+                return notify_fail("ä½ å‘ç°è¿™é‡Œæœ‰ç‚¹å¤æ€ªï¼Œä½ çš„åéª‘å¥½è±¡ä¸èƒ½è¿›æ¥ï¼\n");    
          
         call_other(file, "???");
         ob = find_object(file);
 
         if (! ob || ! ob->receive_whistle(me))
         {
-                message_vision(HIM "$N" HIM "´µÁËÒ»Éù¿ÚÉÚ¡£\n"
-                               "È»¶øÊ²Ã´Ò²Ã»ÓĞ·¢Éú :)\n", me);
+                message_vision(HIM "$N" HIM "å¹äº†ä¸€å£°å£å“¨ã€‚\n"
+                               "ç„¶è€Œä»€ä¹ˆä¹Ÿæ²¡æœ‰å‘ç”Ÿ :)\n", me);
         }
         
         if (! ob) return 1;
@@ -71,9 +71,9 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : whistle <×øÆïID>
+æŒ‡ä»¤æ ¼å¼ : whistle <åéª‘ID>
 
-´ËÖ¸Áî¿ÉÈÃÄã°ÑÄãµÄ×øÆïºô»½¹ıÀ´£¬µ±È»ÄãµÃÓĞÒ»¶¨µÄ¾«Á¦Ê©Õ¹²ÅĞĞ¡£
+æ­¤æŒ‡ä»¤å¯è®©ä½ æŠŠä½ çš„åéª‘å‘¼å”¤è¿‡æ¥ï¼Œå½“ç„¶ä½ å¾—æœ‰ä¸€å®šçš„ç²¾åŠ›æ–½å±•æ‰è¡Œã€‚
 HELP );
         return 1;
 }

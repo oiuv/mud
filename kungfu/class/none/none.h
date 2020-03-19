@@ -3,13 +3,13 @@ int permit_recruit(object ob)
 {
     if (ob->query("detach") || ob->query("betrayer"))
     {
-        command("say 嘿嘿，朝秦暮楚之人！");
+        command("say 鍢垮樋锛屾湞绉︽毊妤氫箣浜猴紒");
         return 0;
     }
 
     if (ob->query("family/family_name"))
     {
-        command("say 你既然已经有了名师指点，还来我着干什么？");
+        command("say 浣犳棦鐒跺凡缁忔湁浜嗗悕甯堟寚鐐癸紝杩樻潵鎴戠潃骞蹭粈涔堬紵");
         return 0;
     }
     return 1;

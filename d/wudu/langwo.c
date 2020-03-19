@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "狼窝");
         set("long", @LONG
-�����������е�һ����������������ζ�˱ǣ��洦���ǳ�
-ʣ���޹ǲ�������ֻ�ݵ�Ƥ����ͷ�Ķ��������Ӿ����ƺ�Ҫ
-��ȥ��ʳ�ˡ�
+这里是密林中的一个大树洞，里面腥味扑鼻，随处都是吃
+剩的兽骨残渣。几只瘦得皮包骨头的饿狼正抖擞精神，似乎要
+出去觅食了。
 LONG);
 
         set("exits", ([

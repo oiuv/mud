@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "��Ĺ�ڲ�");
+	set("short", "坟墓内部");
 	set("long", @LONG
-��������Ĺ��һ�ƣ���Ȼ��ǰһ�ڣ�������һ����ӣ���
-��ں����ģ��ƺ��������κζ�����
+你用力往墓碑一推，忽然眼前一黑，掉进了一个大坑，这
+里黑乎乎的，似乎看不见任何东西。
 LONG);
 	set("exits", ([
 		"south" : __DIR__"sec1",

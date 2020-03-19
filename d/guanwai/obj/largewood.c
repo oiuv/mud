@@ -6,15 +6,15 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-	set_name(WHT "´óÄ¾²Ä" NOR, ({ "large wood", "wood" }));
+	set_name(WHT "å¤§æœ¨æ" NOR, ({ "large wood", "wood" }));
 	if (clonep())
 		set_default_object(__FILE__);
 	else
         {
-		set("unit", "Åú");
-		set("long", "ÕâÊÇ·¥×Ô³¤°×É½µÄÉÏºÃµÄ´óÄ¾ÁÏ¡£\n");
+		set("unit", "æ‰¹");
+		set("long", "è¿™æ˜¯ä¼è‡ªé•¿ç™½å±±çš„ä¸Šå¥½çš„å¤§æœ¨æ–™ã€‚\n");
 		set("base_value", 2000);
-		set("base_unit", "¸ù");
+		set("base_unit", "æ ¹");
 		set("base_weight", 50000);
 	}
         set_amount(1);
@@ -28,10 +28,10 @@ int fire(object me, object ob)
                 return 0;
 
         if (environment()->query_temp("warm") >= 40)
-                return notify_fail("ÕâÀïÒÑ¾­Ì«ÈÈÁË£¬Äã»¹ÊÇ»»¸öµØ·½µã»ð°É¡£\n");
+                return notify_fail("è¿™é‡Œå·²ç»å¤ªçƒ­äº†ï¼Œä½ è¿˜æ˜¯æ¢ä¸ªåœ°æ–¹ç‚¹ç«å§ã€‚\n");
 
-        message_vision("$N·ÑÁËºÃ´ó¾¢£¬×ÜËãÓÃ" + ob->name() + "°Ñ" + name() +
-                       "µã×ÅÁË£¬Ò»Æ¬ºìºìµÄ»ð¹âÓ³ºìÁËËÄÖÜ¡£\n", me);
+        message_vision("$Nè´¹äº†å¥½å¤§åŠ²ï¼Œæ€»ç®—ç”¨" + ob->name() + "æŠŠ" + name() +
+                       "ç‚¹ç€äº†ï¼Œä¸€ç‰‡çº¢çº¢çš„ç«å…‰æ˜ çº¢äº†å››å‘¨ã€‚\n", me);
 
         fire = new("/clone/misc/needfire");
         fire->move(environment(me));

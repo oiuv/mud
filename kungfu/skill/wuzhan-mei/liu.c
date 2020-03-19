@@ -1,6 +1,6 @@
 /*
  * This program is a part of NT MudLIB
- * liu.c Á÷»¨ÂÓÓ°
+ * liu.c æµèŠ±æ å½±
  */
 
 #include <ansi.h>
@@ -10,7 +10,7 @@ inherit F_SSERVER;
 
 string name()
 {
-	return(HIR "Á÷»¨ÂÓÓ°" NOR);
+	return(HIR "æµèŠ±æ å½±" NOR);
 }
 
 int perform( object me, object target )
@@ -24,25 +24,25 @@ int perform( object me, object target )
 	if ( !target
 	     || !target->is_character()
 	     || !me->is_fighting( target ) )
-		return(notify_fail( "¡ºÁ÷»¨ÂÓÓ°¡»Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n" ) );
+		return(notify_fail( "ã€æµèŠ±æ å½±ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n" ) );
 
 	if ( !objectp( weapon = me->query_temp( "weapon" ) ) ||
 	     (string) weapon->query( "skill_type" ) != "sword" )
-		return(notify_fail( "Äã±ØĞëÔÚÊ¹ÓÃ½£Ê±²ÅÄÜÊ¹³ö¡ºÁ÷»¨ÂÓÓ°¡»¡£\n" ) );
+		return(notify_fail( "ä½ å¿…é¡»åœ¨ä½¿ç”¨å‰‘æ—¶æ‰èƒ½ä½¿å‡ºã€æµèŠ±æ å½±ã€ã€‚\n" ) );
 
 	if ( me->query( "neili" ) < 400 )
-		return(notify_fail( "ÄãÄ¿Ç°µÄÄÚÁ¦²»×ã£¬ÎŞ·¨Ê©Õ¹¡ºÁ÷»¨ÂÓÓ°¡»¡£\n" ) );
+		return(notify_fail( "ä½ ç›®å‰çš„å†…åŠ›ä¸è¶³ï¼Œæ— æ³•æ–½å±•ã€æµèŠ±æ å½±ã€ã€‚\n" ) );
 
 	if ( (skill = me->query_skill( "wuzhan-mei", 1 ) ) < 100 )
-		return(notify_fail( "ÄãµÄÎåÕ¹Ã·½£·¨²»¹»´¿Êì£¬ÎŞ·¨Ê¹ÓÃ¡ºÁ÷»¨ÂÓÓ°¡»¡£\n" ) );
+		return(notify_fail( "ä½ çš„äº”å±•æ¢…å‰‘æ³•ä¸å¤Ÿçº¯ç†Ÿï¼Œæ— æ³•ä½¿ç”¨ã€æµèŠ±æ å½±ã€ã€‚\n" ) );
 
 	if ( me->query_skill_mapped( "sword" ) != "wuzhan-mei" )
-		return(notify_fail( "ÄãÃ»ÓĞ¼¤·¢ÎåÕ¹Ã·£¬ÄÑÒÔÊ©Õ¹¡ºÁ÷»¨ÂÓÓ°¡»¡£\n" ) );
+		return(notify_fail( "ä½ æ²¡æœ‰æ¿€å‘äº”å±•æ¢…ï¼Œéš¾ä»¥æ–½å±•ã€æµèŠ±æ å½±ã€ã€‚\n" ) );
 
 	me->add( "neili", -300 );
 
-	message_combatd( HIC "$NÊÖÖĞ" + weapon->name() + "ÂÒ¶¶£¬»Ã³öÒ»Æ¬Çà¹â£¬"
-	                 "Ê©Õ¹³öÌÆÃÅ¾øÑ§¡º" + name() + HIC "¡»¡£\n\n" NOR, me );
+	message_combatd( HIC "$Næ‰‹ä¸­" + weapon->name() + "ä¹±æŠ–ï¼Œå¹»å‡ºä¸€ç‰‡é’å…‰ï¼Œ"
+	                 "æ–½å±•å‡ºå”é—¨ç»å­¦ã€" + name() + HIC "ã€ã€‚\n\n" NOR, me );
 
 	me->add_temp( "apply/attack", skill / 2 );
 	for ( int i = 0; i < 5; i++ )

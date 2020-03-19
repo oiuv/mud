@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "������");
+        set("short", "容物堂");
         set("long", @LONG
-������ȫ������֮��̷���˵ľ��ң���䷿����ʰ�ĺ���
-ͨ�����ûʲô����ֻ��һ����Ⱦ��ǽ��б����һ�ѱ�����
+这里是全真七子之二谭处端的居室，这间房间收拾的和普
+通的民居没什么区别，只是一尘不染，墙上斜挂着一把宝剑。
 LONG);
         set("exits", ([
                 "north" : __DIR__"xianzhentang",

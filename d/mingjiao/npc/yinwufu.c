@@ -7,14 +7,14 @@ inherit F_UNIQUE;
 
 void create()
 {
-        set_name("ÒóÎŞ¸£", ({ "yin wufu", "yin", "wufu", }));
+        set_name("æ®·æ— ç¦", ({ "yin wufu", "yin", "wufu", }));
 	set("long",
-        "ËûÊÇÒ»Î»ÀÏÕß£¬Éí´©Ò»¼ş°×²¼³¤ÅÛ¡£\n"
-        "ËûÊÇ°×Ã¼Ó¥ÍõÒóÌìÕıµÄÆÍ´Ó¡£Ò»Ë«Èı½ÇÑÛÒõ¹âËÄÉä£¬ÈÃÈËµ¨º®¡£\n"
+        "ä»–æ˜¯ä¸€ä½è€è€…ï¼Œèº«ç©¿ä¸€ä»¶ç™½å¸ƒé•¿è¢ã€‚\n"
+        "ä»–æ˜¯ç™½çœ‰é¹°ç‹æ®·å¤©æ­£çš„ä»†ä»ã€‚ä¸€åŒä¸‰è§’çœ¼é˜´å…‰å››å°„ï¼Œè®©äººèƒ†å¯’ã€‚\n"
 	);
 
-        set("title", HIR "Ã÷½Ì" HIB "ÌìÎ¢ÌÃ" NOR "ÊôÏÂ");
-	set("gender", "ÄĞĞÔ");
+        set("title", HIR "æ˜æ•™" HIB "å¤©å¾®å ‚" NOR "å±ä¸‹");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
         set("class", "fighter");
 
@@ -49,7 +49,7 @@ void create()
 
 	prepare_skill("cuff", "jingang-quan");
 
-        create_family("Ã÷½Ì", 4, "ÌìÎ¢ÌÃÊôÏÂ");
+        create_family("æ˜æ•™", 4, "å¤©å¾®å ‚å±ä¸‹");
 
 	setup();
 

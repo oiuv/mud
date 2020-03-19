@@ -10,7 +10,7 @@ int main(object me, string arg)
 	string *dirs, dir;
 	int i;
 
-	if( !arg ) return notify_fail("ÄãÒª²åÈëÊ²Ã´£¿\n");
+	if( !arg ) return notify_fail("ä½ è¦æ’å…¥ä»€ä¹ˆï¼Ÿ\n");
 
 	cards = environment(me)->query_cards();
 	if( mapp(cards) ) {
@@ -21,10 +21,10 @@ int main(object me, string arg)
 				dir = dirs[i];
 				break;
 			}
-		if( !dir ) return notify_fail("ÄãÒª²åÈëÊ²Ã´£¿\n");
+		if( !dir ) return notify_fail("ä½ è¦æ’å…¥ä»€ä¹ˆï¼Ÿ\n");
 	
 		if( environment(me)->insert_card1(dir) ) {
-			message_vision("$N½«" + cards[dir]["name"] + "²åÈë¡£\n", me);
+			message_vision("$Nå°†" + cards[dir]["name"] + "æ’å…¥ã€‚\n", me);
 			return 1;
 		}
 	}
@@ -35,9 +35,9 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : open <door> »ò <·½Ïò>
+æŒ‡ä»¤æ ¼å¼ : open <door> æˆ– <æ–¹å‘>
  
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã´ò¿ªÃÅ.
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ æ‰“å¼€é—¨.
  
 HELP
     );

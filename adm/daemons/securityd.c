@@ -84,7 +84,7 @@ void create()
         restore();
 }
 
-// ÎªÁËÕ¾µã°²È«£¬ĞèÒªÉèÖÃ×Ô¼ºµÄ SEC_SEED
+// ä¸ºäº†ç«™ç‚¹å®‰å…¨ï¼Œéœ€è¦è®¾ç½®è‡ªå·±çš„ SEC_SEED
 #define SEC_SEED        "00000000000000000000000000000001"
 
 int restore()
@@ -439,8 +439,8 @@ int valid_write(string file, mixed user, string func)
                         // check the object's file with id in dbase
                         if (euid && euid != getuid(user))
                         {
-                                write(sprintf(HIR "¡¾±£»¤¡¿ÄãµÄÓÃ»§±êÊ¶(%s)ºÍÓĞĞ§ÓÃ"
-                                              "»§±êÊ¶(%s)²»Í¬£¬µµ°¸²»Õı³££¬²»ÄÜ±£´æ¡£\n" NOR,
+                                write(sprintf(HIR "ã€ä¿æŠ¤ã€‘ä½ çš„ç”¨æˆ·æ ‡è¯†(%s)å’Œæœ‰æ•ˆç”¨"
+                                              "æˆ·æ ‡è¯†(%s)ä¸åŒï¼Œæ¡£æ¡ˆä¸æ­£å¸¸ï¼Œä¸èƒ½ä¿å­˜ã€‚\n" NOR,
                                               getuid(user), geteuid(user)));
                                 return 0;
                         }
@@ -448,8 +448,8 @@ int valid_write(string file, mixed user, string func)
                         if ((base_name(user) == USER_OB) &&
                             getuid(user) != user->query("id"))
                         {
-                                write(sprintf(HIR "¡¾±£»¤¡¿ÄãµÄÓÃ»§±êÊ¶(%s)ºÍÊı¾İÖĞ"
-                                              "µÄ±êÊ¶(%s)²»Í¬£¬µµ°¸²»Õı³££¬²»ÄÜ±£´æ¡£\n" NOR,
+                                write(sprintf(HIR "ã€ä¿æŠ¤ã€‘ä½ çš„ç”¨æˆ·æ ‡è¯†(%s)å’Œæ•°æ®ä¸­"
+                                              "çš„æ ‡è¯†(%s)ä¸åŒï¼Œæ¡£æ¡ˆä¸æ­£å¸¸ï¼Œä¸èƒ½ä¿å­˜ã€‚\n" NOR,
                                               getuid(user), user->query("id")));
                                 return 0;
                         }
@@ -660,16 +660,16 @@ int valid_seteuid(object ob, string uid)
 // can ob bind function ?
 int valid_bind(object binder, object old_owner, object new_owner)
 {
-        // ROOT¿ÉÒÔ°ó¶¨ÈÎºÎº¯Êı
+        // ROOTå¯ä»¥ç»‘å®šä»»ä½•å‡½æ•°
         if (geteuid(binder) == ROOT_UID) return 1;
 
-        // Èç¹û°ó¶¨ÕßÃ»ÓĞ·¢Éú±ä»¯
+        // å¦‚æœç»‘å®šè€…æ²¡æœ‰å‘ç”Ÿå˜åŒ–
         if (binder == new_owner) return 1;
 
         if (! wiz_level(new_owner) && geteuid(new_owner) != ROOT_UID)
                 return 1;
 
-        // ²»Í¬Òâ°ó¶¨
+        // ä¸åŒæ„ç»‘å®š
         return 0;
 }
 
@@ -682,16 +682,16 @@ int valid_grant(object ob, string min_level)
         object call_ob;
 
         if (! objectp(ob) || ! objectp(this_player(1)))
-                return notify_fail("Ã»ÓĞ¶ÔÏóºô½ĞÕâ¸öÃüÁî¡£\n");
+                return notify_fail("æ²¡æœ‰å¯¹è±¡å‘¼å«è¿™ä¸ªå‘½ä»¤ã€‚\n");
 
         if (! objectp(cmd_ob = previous_object()))
-                return notify_fail("±ØĞëÊÇÃüÁîµ÷ÓÃÊÚÈ¨º¯Êı¡£\n");
+                return notify_fail("å¿…é¡»æ˜¯å‘½ä»¤è°ƒç”¨æˆæƒå‡½æ•°ã€‚\n");
 
         cmd = base_name(cmd_ob);
         if (sscanf(cmd, "/cmds/%*s/%s", cmd) != 2)
-                return notify_fail("±ØĞëÊÇÃüÁîµ÷ÓÃÊÚÈ¨º¯Êı¡£\n");
+                return notify_fail("å¿…é¡»æ˜¯å‘½ä»¤è°ƒç”¨æˆæƒå‡½æ•°ã€‚\n");
 
-        // Èç¹û²»ÊÇROOT¶ÔÏó»òÊÇÍæ¼Ò±¾ÈËºô½Ğ£¬Ôò²»ÄÜÊÚÈ¨¡£
+        // å¦‚æœä¸æ˜¯ROOTå¯¹è±¡æˆ–æ˜¯ç©å®¶æœ¬äººå‘¼å«ï¼Œåˆ™ä¸èƒ½æˆæƒã€‚
         call_ob = previous_object(1);
         if (! call_ob || call_ob != this_player(1) && geteuid(call_ob) != ROOT_UID)
         {
@@ -703,29 +703,29 @@ int valid_grant(object ob, string min_level)
                 return 0;
         }
 
-        // ÊÇROOT¶ÔÏóºô½ĞÃüÁîÃ´£¿Èç¹ûÊÇ£¬Ôò¿ÉÒÔÊÚÈ¨¡£
+        // æ˜¯ROOTå¯¹è±¡å‘¼å«å‘½ä»¤ä¹ˆï¼Ÿå¦‚æœæ˜¯ï¼Œåˆ™å¯ä»¥æˆæƒã€‚
         if (geteuid(ob) == ROOT_UID && call_ob == ob)
                 return 1;
 
         if (ob != this_player(1))
-                return notify_fail("²»ÊÇ±¾ÈËºô½ĞÕâ¸öÃüÁî¡£\n");
+                return notify_fail("ä¸æ˜¯æœ¬äººå‘¼å«è¿™ä¸ªå‘½ä»¤ã€‚\n");
 
-        // ÊÇ¹ÜÀíÔ±ºô½ĞÃüÁîÃ´£¿Èç¹ûÊÇ£¬Ôò¿ÉÒÔÊÚÈ¨¡£
+        // æ˜¯ç®¡ç†å‘˜å‘¼å«å‘½ä»¤ä¹ˆï¼Ÿå¦‚æœæ˜¯ï¼Œåˆ™å¯ä»¥æˆæƒã€‚
         if (is_root(ob))
                 return 1;
 
-        // È¨ÏŞÂú×ã×îµÍÒªÇóÃ´£¿
+        // æƒé™æ»¡è¶³æœ€ä½è¦æ±‚ä¹ˆï¼Ÿ
         if (wiz_level(ob) >= wiz_level(min_level))
                 return 1;
 
-        // ÊÇ·ñÓĞÏÔÊ½µÄÊÚÈ¨£¿Èç¹ûÓĞ£¬Ôò¿ÉÒÔÊÚÈ¨¡£
+        // æ˜¯å¦æœ‰æ˜¾å¼çš„æˆæƒï¼Ÿå¦‚æœæœ‰ï¼Œåˆ™å¯ä»¥æˆæƒã€‚
         if (arrayp(gr = grant[geteuid(ob)]) && member_array(cmd, gr) != -1)
                 return 1;
 
         return 0;
 }
 
-// ÊÚÈ¨º¯Êı
+// æˆæƒå‡½æ•°
 int grant(string user, string cmd)
 {
         string *gr;
@@ -745,7 +745,7 @@ int grant(string user, string cmd)
         return 1;
 }
 
-// ÊÕ»ØÊÚÈ¨
+// æ”¶å›æˆæƒ
 int remove_grant(string user, string cmd)
 {
         string *gr;
@@ -775,7 +775,7 @@ int remove_grant(string user, string cmd)
         return 1;
 }
 
-// ²éÑ¯ÊÚÈ¨
+// æŸ¥è¯¢æˆæƒ
 string *query_grant(string user)
 {
         if (! previous_object() || ! is_root(previous_object()))
@@ -784,7 +784,7 @@ string *query_grant(string user)
         return grant[user];
 }
 
-// ²éÑ¯ËùÓĞÊÚÈ¨µÄÈË
+// æŸ¥è¯¢æ‰€æœ‰æˆæƒçš„äºº
 string *query_grant_users()
 {
         if (! previous_object() || ! is_root(previous_object()))
@@ -793,7 +793,7 @@ string *query_grant_users()
         return keys(grant);
 }
 
-// Õ¾µãÌØÊâÈ¨ÏŞµÄĞÅÏ¢
+// ç«™ç‚¹ç‰¹æ®Šæƒé™çš„ä¿¡æ¯
 varargs int set_site_privilege(string item, string desc)
 {
         if (! previous_object() || ! is_root(previous_object()))
@@ -810,7 +810,7 @@ varargs int set_site_privilege(string item, string desc)
         return 1;
 }
 
-// ²éÑ¯È¨ÏŞĞÅÏ¢
+// æŸ¥è¯¢æƒé™ä¿¡æ¯
 varargs mixed query_site_privilege(string item)
 {
         if (! stringp(item))
@@ -824,7 +824,7 @@ varargs mixed query_site_privilege(string item)
         return site_privilege[item];
 }
 
-// ±¸·İÎÄ¼ş
+// å¤‡ä»½æ–‡ä»¶
 void backup_file(string file)
 {
         string euid;

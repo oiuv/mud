@@ -1,4 +1,4 @@
-// xuanzhen.c ĞşÕêµÀ³¤
+// xuanzhen.c ç„è´é“é•¿
 
 #include <ansi.h>
 
@@ -7,11 +7,11 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("ĞşÕêµÀ³¤", ({ "xuan zhen", "xuan", "zhen" }));
-	set("gender", "ÄĞĞÔ");
-	set("title", HIR "ÌìµØ»á"HIG"ÇàÄ¾ÌÃ"NOR"»áÖÚ");
-	set("long", "\nÕâÎ»³ÁÄ¬¹ÑÑÔµÄµÀÈË£¬±ãÊÇÌìµØ»áÇàÄ¾ÌÃ»¤·¨¡£\n"+
-		"ËûÊÇÇàÄ¾ÌÃÊıÒ»Êı¶şµÄºÃÊÖ£¬Ò»±ú³¤½£Ê¹µÃ³öÉñÈë»¯¡£\n");
+	set_name("ç„è´é“é•¿", ({ "xuan zhen", "xuan", "zhen" }));
+	set("gender", "ç”·æ€§");
+	set("title", HIR "å¤©åœ°ä¼š"HIG"é’æœ¨å ‚"NOR"ä¼šä¼—");
+	set("long", "\nè¿™ä½æ²‰é»˜å¯¡è¨€çš„é“äººï¼Œä¾¿æ˜¯å¤©åœ°ä¼šé’æœ¨å ‚æŠ¤æ³•ã€‚\n"+
+		"ä»–æ˜¯é’æœ¨å ‚æ•°ä¸€æ•°äºŒçš„å¥½æ‰‹ï¼Œä¸€æŸ„é•¿å‰‘ä½¿å¾—å‡ºç¥å…¥åŒ–ã€‚\n");
 	set("age", 55);
 	set("class", "taoist");
 	set("int", 30);
@@ -54,22 +54,22 @@ void create()
 
 	prepare_skill("hand", "yunlong-shou");
 	prepare_skill("claw", "yunlong-zhua");
-	create_family("ÔÆÁúÃÅ",2, "µÜ×Ó");
+	create_family("äº‘é¾™é—¨",2, "å¼Ÿå­");
 	set("book_count", 1);
 
         set("inquiry", ([
-		"³Â½üÄÏ" : "Ïë¼û×Ü¶æÖ÷¿É²»ÈİÒ×°¡¡£",
-		"ÌìµØ»á" : "Ö»ÒªÊÇÓ¢ĞÛºÃºº£¬¶¼¿ÉÒÔÈëÎÒÌìµØ»á¡£",
-                "·´Çå¸´Ã÷" : "È¥¹×²ÄµêºÍ»Ø´ºÌÃ×ĞÏ¸ÇÆÇÆ°É£¡",
-                "°µºÅ" : "ÇÃÈıÏÂ£¡",
-                "ÇĞ¿Ú" : "ÇÃÈıÏÂ£¡",
+		"é™ˆè¿‘å—" : "æƒ³è§æ€»èˆµä¸»å¯ä¸å®¹æ˜“å•Šã€‚",
+		"å¤©åœ°ä¼š" : "åªè¦æ˜¯è‹±é›„å¥½æ±‰ï¼Œéƒ½å¯ä»¥å…¥æˆ‘å¤©åœ°ä¼šã€‚",
+                "åæ¸…å¤æ˜" : "å»æ£ºæåº—å’Œå›æ˜¥å ‚ä»”ç»†ç§ç§å§ï¼",
+                "æš—å·" : "æ•²ä¸‰ä¸‹ï¼",
+                "åˆ‡å£" : "æ•²ä¸‰ä¸‹ï¼",
         ]));
 
 	set("chat_chance_combat", 50);  
 	set("chat_msg_combat", ({
 		(: command("smile") :),
 		(: command("haha") :),
-		(: command("chat ÕâÎ»" + RANK_D->query_respect(this_player())+",ÄãÎÒÎŞÔ©ÎŞ³ğ£¬ºÎ±ØÈç´Ë?\n") :),
+		(: command("chat è¿™ä½" + RANK_D->query_respect(this_player())+",ä½ æˆ‘æ— å†¤æ— ä»‡ï¼Œä½•å¿…å¦‚æ­¤?\n") :),
 		(: command("unwield changjian") :),
 		(: command("unwield changjian") :),
 		(: command("unwield changjian") :),

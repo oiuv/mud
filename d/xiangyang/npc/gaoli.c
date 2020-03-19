@@ -6,14 +6,14 @@ inherit F_DEALER;
 
 void create()
 {
-	set_name("¸ßÀöÉÌ", ({ "gaoli shang", "shang" }));
-	set("title", "ĞÂÂŞ·»ÀÏ°å");
+	set_name("é«˜ä¸½å•†", ({ "gaoli shang", "shang" }));
+	set("title", "æ–°ç½—åŠè€æ¿");
 	set("shen_type", 1);
 
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set("age", 45);
 	set("long",
-		"ÕâÊÇ¸ö¸ßÀöÉÌÈË£¬³¤µÃºÍÖĞ¹úÈËÃ»É¶Çø±ğ¡£Á¬ÂôµÄ¶«Î÷Ò²²î²»¶à¡£\n");
+		"è¿™æ˜¯ä¸ªé«˜ä¸½å•†äººï¼Œé•¿å¾—å’Œä¸­å›½äººæ²¡å•¥åŒºåˆ«ã€‚è¿å–çš„ä¸œè¥¿ä¹Ÿå·®ä¸å¤šã€‚\n");
 	set_skill("unarmed", 50);
 	set_skill("dodge", 50);
 	set_temp("apply/damage", 15);

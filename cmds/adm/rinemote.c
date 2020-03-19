@@ -17,7 +17,7 @@ int main(object me, string arg)
 
         count = 0;
         loop = keys(EMOTE_D->query_emote("kok")) - ({ "time", "updated" });
-        write(sprintf("Ìæ´úË÷Òı£º%O\n", loop));
+        write(sprintf("æ›¿ä»£ç´¢å¼•ï¼š%O\n", loop));
         foreach (e in EMOTE_D->query_all_emote())
         {
                 count++;
@@ -26,23 +26,23 @@ int main(object me, string arg)
                 {
                         result = emote[loop[j]];
                         if (! result) continue;
-                        result = replace_string(result, ", ", "£¬");
-                        result = replace_string(result, "! ", "£¡");
-                        result = replace_string(result, "; ", "£»");
-                        result = replace_string(result, "~ ", "¡«");
-                        result = replace_string(result, ": ", "£º");
+                        result = replace_string(result, ", ", "ï¼Œ");
+                        result = replace_string(result, "! ", "ï¼");
+                        result = replace_string(result, "; ", "ï¼›");
+                        result = replace_string(result, "~ ", "ï½");
+                        result = replace_string(result, ": ", "ï¼š");
                         result = replace_string(result, "\" ", "");
                         result = replace_string(result, " \"", "");
-                        result = replace_string(result, " ,", "£¬");
-                        result = replace_string(result, " !", "£¡");
-                        result = replace_string(result, " ;", "£»");
-                        result = replace_string(result, " ~", "¡«");
-                        result = replace_string(result, " :", "£º");
-                        result = replace_string(result, ",", "£¬");
-                        result = replace_string(result, "!", "£¡");
-                        result = replace_string(result, ";", "£»");
-                        result = replace_string(result, "~", "¡«");
-                        result = replace_string(result, ":", "£º");
+                        result = replace_string(result, " ,", "ï¼Œ");
+                        result = replace_string(result, " !", "ï¼");
+                        result = replace_string(result, " ;", "ï¼›");
+                        result = replace_string(result, " ~", "ï½");
+                        result = replace_string(result, " :", "ï¼š");
+                        result = replace_string(result, ",", "ï¼Œ");
+                        result = replace_string(result, "!", "ï¼");
+                        result = replace_string(result, ";", "ï¼›");
+                        result = replace_string(result, "~", "ï½");
+                        result = replace_string(result, ":", "ï¼š");
                         result = replace_string(result, "\"", "");
                         if (emote[loop[j]] != result)
                                 write("result = " + result + "\n");
@@ -50,16 +50,16 @@ int main(object me, string arg)
                 }
         }
 
-        write("Ò»¹²ËÑË÷ÁË" + chinese_number(count) + "¸ö±íÇé¶¯´Ê¡£\n");
+        write("ä¸€å…±æœç´¢äº†" + chinese_number(count) + "ä¸ªè¡¨æƒ…åŠ¨è¯ã€‚\n");
         return 1;
 }
 
 int help(object me)
 {
   write(@HELP
-Ö¸Áî¸ñÊ½ : replace in emote
+æŒ‡ä»¤æ ¼å¼ : replace in emote
 
-¹¦ÄÜ£ºÌæ»»emoteÖĞËùÓĞµÄÓ¢ÎÄ±êµã·ûºÅÎªÖĞÎÄ±êµã·ûºÅ¡£
+åŠŸèƒ½ï¼šæ›¿æ¢emoteä¸­æ‰€æœ‰çš„è‹±æ–‡æ ‡ç‚¹ç¬¦å·ä¸ºä¸­æ–‡æ ‡ç‚¹ç¬¦å·ã€‚
 HELP );
     return 1;
 }

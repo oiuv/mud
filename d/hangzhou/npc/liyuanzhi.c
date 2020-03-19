@@ -6,11 +6,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÀîãäÜÆ", ({ "li yuanzhi", "li", "yuanzhi"}) );
-        set("gender", "Å®ĞÔ");
+        set_name("ææ²…èŠ·", ({ "li yuanzhi", "li", "yuanzhi"}) );
+        set("gender", "å¥³æ€§");
         set("age", 16);
         set("long",
-                "ËıÊÇº¼ÖİÌá¶½Àî¿ÉĞãµÄÇ§½ğ£¬Îäµ±ÃûËŞÂ½·ÆÇàµÄÈëÊÒµÜ×Ó¡£\n");
+                "å¥¹æ˜¯æ­å·æç£æå¯ç§€çš„åƒé‡‘ï¼Œæ­¦å½“åå®¿é™†è²é’çš„å…¥å®¤å¼Ÿå­ã€‚\n");
         set("combat_exp", 200000);
         set("shen_type", 1);
         set("max_neili", 1000);
@@ -40,7 +40,7 @@ void create()
         map_skill("sword", "taiji-jian");
         map_skill("unarmed", "taiji-quan");
         map_skill("parry", "taiji-jian");
-        create_family("Îäµ±ÅÉ", 14, "µÜ×Ó");
+        create_family("æ­¦å½“æ´¾", 14, "å¼Ÿå­");
 
         setup();
 

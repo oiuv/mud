@@ -5,10 +5,10 @@ inherit ROOM;
  
 void create ()
 {
-  	set ("short", "����");
+  	set ("short", "厨房");
   	set ("long", @LONG
-�������ɨ�ĺܸɾ������ڴ����ð���������������˴������Ρ�����Ѿ
-��������ʰ�߲ˡ�һ��С�ܼ������ػص��ܣ�����ڴ����֡�
+厨房里打扫的很干净。几口大锅里冒出阵阵香气，令人垂涎欲滴。几个丫
+鬟正在收拾蔬菜。一个小管家来来回回地跑，大概在打下手。
 LONG);
 
   	set("exits", ([

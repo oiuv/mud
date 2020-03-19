@@ -27,7 +27,7 @@ int main(object  me,  string  arg)
 int  help(object  me)
 {
 write(@HELP
-指令格式  :  cmd  [threshold]
+鎸囦护鏍煎紡  :  cmd  [threshold]
 
 List the average number of commands a player typed per second recently.
 If a "threshold" is given, only number > threshold will be shown.

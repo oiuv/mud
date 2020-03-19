@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�嶼��̨");
+        set("short", "清都瑶台");
         set("long",@LONG
-���ǳ���ǰ���µıؾ�֮·��������ȥ���ɼ�������̨ͤ¥���ģ��
-�󣬹���������լ�����ƣ�������֮ʢ��ʤ����̨�����ӵ������ʤ��
-����ɽ���¡�
+这是出入前后寺的必经之路。往南望去，可见后寺中亭台楼阁规模宏
+大，构筑精丽，宅地连云，其气势之盛更胜于五台，普陀等诸处佛门胜地
+的名山大寺。
 LONG );
 	set("outdoors","tianlongsi");
         set("exits", ([

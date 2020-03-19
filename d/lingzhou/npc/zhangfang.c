@@ -6,10 +6,10 @@ int ask_for_gongzi();
 
 void create()
 {
-        set_name("ÕÊ·¿ÏÈÉú", ({"zhang fang", "zhang", "fang"}));
+        set_name("å¸æˆ¿å…ˆç”Ÿ", ({"zhang fang", "zhang", "fang"}));
         set("long",
-"ËûÒ»Éíåååİ£¬ÕûÌìÃÔÃÔºıºıµÄË¯²»ĞÑÄ£Ñù¡£\n");
-        set("gender", "ÄĞĞÔ");
+"ä»–ä¸€èº«é‚‹é¢ï¼Œæ•´å¤©è¿·è¿·ç³Šç³Šçš„ç¡ä¸é†’æ¨¡æ ·ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("attitude", "heroism");
 
         set("age", 61);

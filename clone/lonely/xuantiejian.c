@@ -5,18 +5,18 @@ inherit SWORD;
 
 void create()
 {
-        set_name(NOR + WHT "ÐþÌúÖØ½£" NOR, ({ "xuantie jian", "xuantie", "jian" }) );
+        set_name(NOR + WHT "çŽ„é“é‡å‰‘" NOR, ({ "xuantie jian", "xuantie", "jian" }) );
         set_weight(28000);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", NOR + WHT "Ò»±úÓÉÐþÌúÖý³ÉµÄÎÞ·æ³¤½££¬×ÅÊÖ³ÁÖØÎÞ±È£¬µ«ÊÇÈ´ÔÌ²Ø×Å¼«´óµÄÍþÁ¦¡£\n" NOR);
-                set("unit", "±ú");
+                set("long", NOR + WHT "ä¸€æŸ„ç”±çŽ„é“é“¸æˆçš„æ— é”‹é•¿å‰‘ï¼Œç€æ‰‹æ²‰é‡æ— æ¯”ï¼Œä½†æ˜¯å´è•´è—ç€æžå¤§çš„å¨åŠ›ã€‚\n" NOR);
+                set("unit", "æŸ„");
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "steel");
-                set("wield_msg", NOR + WHT "$N" NOR + WHT "³é³ö$n" NOR + WHT"£¬ÕÌ½£¶øÁ¢£¬Íþ·çÁÝÁÝ£¬ÁîÈËËàÈ»Æð¾´¡£\n" NOR);
-                set("unwield_msg", NOR + WHT "$N" NOR + WHT "ÑöÌì³¤Ì¾£¬Ç±ÔËÄÚÁ¦£¬½«$n" NOR + WHT "ÊÕ»Ø¡£\n" NOR);
+                set("wield_msg", NOR + WHT "$N" NOR + WHT "æŠ½å‡º$n" NOR + WHT"ï¼Œä»—å‰‘è€Œç«‹ï¼Œå¨é£Žå‡›å‡›ï¼Œä»¤äººè‚ƒç„¶èµ·æ•¬ã€‚\n" NOR);
+                set("unwield_msg", NOR + WHT "$N" NOR + WHT "ä»°å¤©é•¿å¹ï¼Œæ½œè¿å†…åŠ›ï¼Œå°†$n" NOR + WHT "æ”¶å›žã€‚\n" NOR);
                 set("stable", 100);
                 set("skill", ([
                         "name"         : "xuantie-jian",
@@ -55,34 +55,34 @@ mixed hit_ob(object me, object victim, int damage_bonus)
 
                 if (! objectp(weapon = victim->query_temp("weapon")) ||
                       weapon->query("skill_type") == "pin" || 
-                      (objectp(weapon = victim->query_temp("weapon")) && // å¾ÓîÌì¾§²»Ä¥Ëð
+                      (objectp(weapon = victim->query_temp("weapon")) && // å¯°å®‡å¤©æ™¶ä¸ç£¨æŸ
                        weapon->is_item_make() && weapon->query("material") == "tian jing"))
-                            return HIR "$N" HIR "´ß¶¯ÄÚÁ¦£¬ÊÖÖÐ" + this_object()->name() + HIR
-                                   "ÓÌÈçÉñÖúÒ»°ã£¬ÖØÖØµØ¿³ÔÚ$n" HIR "ÉíÉÏ£¡\n" NOR;
+                            return HIR "$N" HIR "å‚¬åŠ¨å†…åŠ›ï¼Œæ‰‹ä¸­" + this_object()->name() + HIR
+                                   "çŠ¹å¦‚ç¥žåŠ©ä¸€èˆ¬ï¼Œé‡é‡åœ°ç åœ¨$n" HIR "èº«ä¸Šï¼\n" NOR;
 
                 if (weapon->query("consistence") > 10 ||
                     weapon->is_item_make())
                 {
-                      msg = HIR "$N" HIR "´ß¶¯ÄÚÁ¦£¬ÊÖÖÐ"+ this_object()->name() + HIR "ÓÌÈçÉñÖúÒ»"
-                            "°ã£¬ÃÍÈ»»Ø×ª£¬ÖØÖØµØ¿³ÔÚ$n" HIR "µÄ" + weapon->name() + HIR
-                            "ÉÏ£¬\nÖ»ÌýµÃ¡°àØ~~¡±µÄÒ»Éù£¬" + weapon->name() + HIR "¶ÙÊ±»ð»¨"
-                            "ËÄÉä£¬$n" HIR "Ö»¾õµÃÐØ¿ÚÆøÑª·­ÌÚ²»Ï¢¡£\n" NOR;
+                      msg = HIR "$N" HIR "å‚¬åŠ¨å†…åŠ›ï¼Œæ‰‹ä¸­"+ this_object()->name() + HIR "çŠ¹å¦‚ç¥žåŠ©ä¸€"
+                            "èˆ¬ï¼ŒçŒ›ç„¶å›žè½¬ï¼Œé‡é‡åœ°ç åœ¨$n" HIR "çš„" + weapon->name() + HIR
+                            "ä¸Šï¼Œ\nåªå¬å¾—â€œå˜­~~â€çš„ä¸€å£°ï¼Œ" + weapon->name() + HIR "é¡¿æ—¶ç«èŠ±"
+                            "å››å°„ï¼Œ$n" HIR "åªè§‰å¾—èƒ¸å£æ°”è¡€ç¿»è…¾ä¸æ¯ã€‚\n" NOR;
                       
                       weapon->is_item_make() ? weapon->add("consistence", -1)
                                              : weapon->add("consistence", -10);
 
-                      tell_object(victim, HIG "ÄãµÄ" + weapon->name() + HIG "ÊÜµ½ÁËÑÏÖØµÄËðÉË£¡\n");
+                      tell_object(victim, HIG "ä½ çš„" + weapon->name() + HIG "å—åˆ°äº†ä¸¥é‡çš„æŸä¼¤ï¼\n");
                       
                       return msg;
                     
                 }
 
-                // ·Ç×ÔÖÆÎäÆ÷Ëð»µ
-                msg = HIR "$N" HIR "´ß¶¯ÄÚÁ¦£¬ÊÖÖÐ"+ this_object()->name() + HIR "ÓÌÈçÉñÖúÒ»"
-                "°ã£¬¿³ÔÚ$n" HIR "µÄ" + weapon->name() + HIR
-                "ÉÏ£¬\nÖ»ÌýµÃ¡°àØ~~¡±µÄÒ»Éù£¬" + weapon->name() + HIR "¶ÙÊ±¶ÏÎªÁ½½Ø¡£\n" NOR;
+                // éžè‡ªåˆ¶æ­¦å™¨æŸå
+                msg = HIR "$N" HIR "å‚¬åŠ¨å†…åŠ›ï¼Œæ‰‹ä¸­"+ this_object()->name() + HIR "çŠ¹å¦‚ç¥žåŠ©ä¸€"
+                "èˆ¬ï¼Œç åœ¨$n" HIR "çš„" + weapon->name() + HIR
+                "ä¸Šï¼Œ\nåªå¬å¾—â€œå˜­~~â€çš„ä¸€å£°ï¼Œ" + weapon->name() + HIR "é¡¿æ—¶æ–­ä¸ºä¸¤æˆªã€‚\n" NOR;
 
-                weapon->set_name("¶ÏµôµÄ" + weapon->name() + NOR);
+                weapon->set_name("æ–­æŽ‰çš„" + weapon->name() + NOR);
                 weapon->set("no_wield", 1);
                 weapon->move(environment(me));
 

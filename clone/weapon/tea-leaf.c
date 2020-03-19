@@ -6,14 +6,14 @@ inherit THROWING;
  
 void create()
 {
-        set_name("²èÒ¶", ({ "tea_leaf", "tea" }) );
+        set_name("èŒ¶å¶", ({ "tea_leaf", "tea" }) );
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", "²Å²ÉµÄĞÂ²è£¬·¢³öÒ»¹Éµ­µ­µÄÏãÆø¡£\n");
-                set("unit", "°Ñ");
+                set("long", "æ‰é‡‡çš„æ–°èŒ¶ï¼Œå‘å‡ºä¸€è‚¡æ·¡æ·¡çš„é¦™æ°”ã€‚\n");
+                set("unit", "æŠŠ");
                 set("value", 0);
-                set("base_unit", "Æ¬");
+                set("base_unit", "ç‰‡");
                 set("base_weight", 1);
                 set("base_value", 0);
 		set("damage", 1);	//Here the damage=int_throwing, added by King

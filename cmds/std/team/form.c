@@ -9,10 +9,10 @@ int main(object me, string arg)
         object *t;
 
 	if (! pointerp(t = me->query_team()) || ! me->is_team_leader())
-		return notify_fail("你必须是一个队伍的领袖才能组织阵形。\n");
+		return notify_fail("浣犲繀椤绘槸涓�涓槦浼嶇殑棰嗚鎵嶈兘缁勭粐闃靛舰銆俓n");
 
 	if (! me->query_skill(arg, 1))
-		return notify_fail("这种阵形你没学过。\n");
+		return notify_fail("杩欑闃靛舰浣犳病瀛﹁繃銆俓n");
 
 	return SKILL_D(arg)->form_array(me);
 }

@@ -4,15 +4,15 @@ inherit BOOK;
 
 void create()
 {
-        set_name(HIG "¡¸óïÆ×¡¹" NOR, ({ "xiao pu", "xiao", "pu", "shu", "book" }));
+        set_name(HIG "ã€Œç®«è°±ã€" NOR, ({ "xiao pu", "xiao", "pu", "shu", "book" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
-                set("long", HIG "ÕâÊÇÒ»±¾±¡±¡µÄóïÆ×£¬¼ÇÔØÁËÒ»Ğ©´µóïµÄ·½·¨¡£\n" NOR);
+                set("unit", "æœ¬");
+                set("long", HIG "è¿™æ˜¯ä¸€æœ¬è–„è–„çš„ç®«è°±ï¼Œè®°è½½äº†ä¸€äº›å¹ç®«çš„æ–¹æ³•ã€‚\n" NOR);
                 set("value", 1);
-                set("no_sell", "Õâ±¾ÆÆÊéÄã×Ô¼ºÁô×Å°É¡£");
+                set("no_sell", "è¿™æœ¬ç ´ä¹¦ä½ è‡ªå·±ç•™ç€å§ã€‚");
                 set("material", "paper");
                 set("skill", ([
                         "name"       : "chuixiao-jifa",

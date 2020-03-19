@@ -5,14 +5,14 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("Òõ³¤Éú", ({ "yin changsheng", "yin", "changsheng" }));
-        set("title", HIR "Ú¤¸®µØ²ØÍõµîÇ°" NOR);
-	set("nickname", HIB "ÒõÍõ" NOR);
+        set_name("é˜´é•¿ç”Ÿ", ({ "yin changsheng", "yin", "changsheng" }));
+        set("title", HIR "å†¥åºœåœ°è—ç‹æ®¿å‰" NOR);
+	set("nickname", HIB "é˜´ç‹" NOR);
         set("shen_type", 1);
 
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 475);
-        set("long","Òõ³¤Éú±¾ÊÇ¸öÂäµÜĞã²Å£¬ºóÔÚ·á¶¼É½ĞŞÁ·³ÉÏÉ£¬Óù·â¡¸ÒõÍõ¡¹¡£\n");
+        set("long","é˜´é•¿ç”Ÿæœ¬æ˜¯ä¸ªè½å¼Ÿç§€æ‰ï¼Œååœ¨ä¸°éƒ½å±±ä¿®ç»ƒæˆä»™ï¼Œå¾¡å°ã€Œé˜´ç‹ã€ã€‚\n");
 
         set_skill("unarmed", 500);
         set_skill("dodge", 500);

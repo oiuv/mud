@@ -6,15 +6,15 @@ inherit ROOM;
 int do_liandan(string arg);
 
 void create()
-{       set("short", HIY "Á¶µ¤·¿" NOR);
+{       set("short", HIY "ç‚¼ä¸¹æˆ¿" NOR);
         set("long", @LONG
-ÕâÊÇÒ¦´ºµÄÁ¶µ¤·¿£¬ËÄÖÜ¶Ñ·Å×ÅÁ¶µ¤µÄÒ©²Ä£¬Ò»¸öÆáºÚµÄÁ¶µ¤Â¯(lu)ËÊÁ¢
-ÔÚÖĞÑë£¬·¿ÖĞµÄÒ©Î¶¾­¾Ã²»É¢£¬²¢ÇÒ×ÜÓĞÒ»¹ÉÉ¢²»¾¡µÄµ­ÇàÉ«ÑÌÎí£¬³¤Ê±¼äµÄ
-µ¤Ò©Á¶ÖÆÒÑ¾­ÈÃÕâ¸ö·¿¼ä³äÂúÁËÉñÃØµÄÉ«²Ê¡£
+è¿™æ˜¯å§šæ˜¥çš„ç‚¼ä¸¹æˆ¿ï¼Œå››å‘¨å †æ”¾ç€ç‚¼ä¸¹çš„è¯æï¼Œä¸€ä¸ªæ¼†é»‘çš„ç‚¼ä¸¹ç‚‰(lu)è€¸ç«‹
+åœ¨ä¸­å¤®ï¼Œæˆ¿ä¸­çš„è¯å‘³ç»ä¹…ä¸æ•£ï¼Œå¹¶ä¸”æ€»æœ‰ä¸€è‚¡æ•£ä¸å°½çš„æ·¡é’è‰²çƒŸé›¾ï¼Œé•¿æ—¶é—´çš„
+ä¸¹è¯ç‚¼åˆ¶å·²ç»è®©è¿™ä¸ªæˆ¿é—´å……æ»¡äº†ç¥ç§˜çš„è‰²å½©ã€‚
 LONG );
         set("no_fight", 1);
         set("item_desc", ([
-                "lu" : YEL "Ò»¸öÉîºÚÉ«µÄ´óÌúµ¤Â¯£¬¶¥²¿²»Í£µØÉıÆğË¿Ë¿ÇàÑÌ¡£\n" NOR,
+                "lu" : YEL "ä¸€ä¸ªæ·±é»‘è‰²çš„å¤§é“ä¸¹ç‚‰ï¼Œé¡¶éƒ¨ä¸åœåœ°å‡èµ·ä¸ä¸é’çƒŸã€‚\n" NOR,
         ]));
 
         set("exits", ([
@@ -40,26 +40,26 @@ int do_liandan(string arg)
         
 
         if (me->is_busy())
-                return notify_fail("µÈÄãÓĞ¿ÕÁËÔÙËµ°É¡£\n");
+                return notify_fail("ç­‰ä½ æœ‰ç©ºäº†å†è¯´å§ã€‚\n");
 
         if ((int)me->query_temp("liandan") < 1)
-                return notify_fail("Á¶µ¤Ö®µØ£¬ÇĞÎğ×ÌÈÅ¡£\n");
+                return notify_fail("ç‚¼ä¸¹ä¹‹åœ°ï¼Œåˆ‡å‹¿æ»‹æ‰°ã€‚\n");
 
         if ((int)me->query_temp("liandan") < 2)
-                return notify_fail("Ô­ÁÏ¶¼Ã»ÓĞ£¬Á¶Ê²Ã´°¡£¿\n");
+                return notify_fail("åŸæ–™éƒ½æ²¡æœ‰ï¼Œç‚¼ä»€ä¹ˆå•Šï¼Ÿ\n");
 
         if ((int)me->query_temp("liandan") == 3)
-                return notify_fail("µ¤Ò©Á¶ÖÆÖĞ£¬ÇëÎğ·ÖĞÄ¡£\n");
+                return notify_fail("ä¸¹è¯ç‚¼åˆ¶ä¸­ï¼Œè¯·å‹¿åˆ†å¿ƒã€‚\n");
 
         if ((int)me->query_temp("liandan") == 4)
-                return notify_fail("Á¶ÖÆ³É¹¦£¬¿ìÈ¥¸´Ãü°É¡£\n");
+                return notify_fail("ç‚¼åˆ¶æˆåŠŸï¼Œå¿«å»å¤å‘½å§ã€‚\n");
 
         if ((int)me->query("jing") < 80 ||
             (int)me->query("qi") < 80)
-                return notify_fail("ÄãÏÖÔÚµÄ¾«Éñ×´¿öÎŞ·¨Á¶ÖÆµ¤Ò©¡£\n");
+                return notify_fail("ä½ ç°åœ¨çš„ç²¾ç¥çŠ¶å†µæ— æ³•ç‚¼åˆ¶ä¸¹è¯ã€‚\n");
 
-        message_vision(HIY "$N" HIY "½«Ô­ÁÏÒ©²ÄÒ»Ò»·Å½øÂ¯ÖĞ£¬ÅÌ"
-                       "ÍÈ×øÏÂ£¬±ÕÄ¿¾²´ı¡£\n" NOR, me); 
+        message_vision(HIY "$N" HIY "å°†åŸæ–™è¯æä¸€ä¸€æ”¾è¿›ç‚‰ä¸­ï¼Œç›˜"
+                       "è…¿åä¸‹ï¼Œé—­ç›®é™å¾…ã€‚\n" NOR, me); 
         me->set_temp("liandan", 3);
         me->start_call_out((: call_other, __FILE__, "liandan", me :), time2);
         //me->start_busy(time / 2 + 1);
@@ -67,12 +67,12 @@ int do_liandan(string arg)
         return 1;
 }
 
-// ÌØÊâµ¤ÁĞ±í
+// ç‰¹æ®Šä¸¹åˆ—è¡¨
 string *SM_LIST = ({ "danS_1", "danS_2", "danS_3", "danS_4", "danS_5",
                      "danM_5", "danM_9", "danA_5", "danB_6", "danC_5",
                      "danD_6", });
 
-// ÆÕÍ¨µ¤ÁĞ±í
+// æ™®é€šä¸¹åˆ—è¡¨
 string *NORMAL_LIST = ({ "danM_3", "danM_4", "danM_7", "danM_8", "danA_3",
                          "danA_4", "danB_3", "danB_4", "danB_5", "danC_4",
                          "danD_3", "danD_4", "danD_5", });
@@ -92,38 +92,38 @@ void liandan(object me)
         if (random(skill) < 100 && random(5) == 1) 
         {
                 me->set_temp("liandan", 1);
-                message_vision(HIR "Õıµ±$N" HIR "»è»èÈ»µÄÊ±ºò£¬Ò»Õó´Ì±Ç"
-                               "µÄÆøÎ¶´ÓÂ¯ÖĞ³å³ö£¬$N" HIR "¼±Ã¦¿ªÂ¯È¡Ò©£¬"
-                               "½á¹û±»ÅªµÃ¸ö»ÒÍ·ÍÁÁ³¡£\n"NOR,me);
+                message_vision(HIR "æ­£å½“$N" HIR "æ˜æ˜ç„¶çš„æ—¶å€™ï¼Œä¸€é˜µåˆºé¼»"
+                               "çš„æ°”å‘³ä»ç‚‰ä¸­å†²å‡ºï¼Œ$N" HIR "æ€¥å¿™å¼€ç‚‰å–è¯ï¼Œ"
+                               "ç»“æœè¢«å¼„å¾—ä¸ªç°å¤´åœŸè„¸ã€‚\n"NOR,me);
         } else
         if (random(skill) > 100 && random(10) == 1)
         {
-                message_vision(HIY "Â¯¶¥ÇàÑÌ½¥½¥×ªµ­£¬İëÈ»Ò»µÀ½ğ¹âÉÁ¹ı£¬$N"
-                               HIY "²»½û³ÔÁËÒ»¾ª£¬´ËÊ±µ¤Ò©ÆøÎ¶½¥Å¨£¬$N"
-                               HIY "¸Ï½ô°ÑÁ¶ÖÆ¶ø³ÉµÄµ¤ÍèÈ¡³ö¡£\n" NOR, me);
+                message_vision(HIY "ç‚‰é¡¶é’çƒŸæ¸æ¸è½¬æ·¡ï¼Œè“¦ç„¶ä¸€é“é‡‘å…‰é—ªè¿‡ï¼Œ$N"
+                               HIY "ä¸ç¦åƒäº†ä¸€æƒŠï¼Œæ­¤æ—¶ä¸¹è¯æ°”å‘³æ¸æµ“ï¼Œ$N"
+                               HIY "èµ¶ç´§æŠŠç‚¼åˆ¶è€Œæˆçš„ä¸¹ä¸¸å–å‡ºã€‚\n" NOR, me);
                 me->set_temp("liandan", 4);
                 ob = new(DAN_DIR + SM_LIST[random(sizeof(SM_LIST))]);
-                tell_object(me, HIC "ÄãÁ¶³ÉÁËÕäÆ·¡¸" + NOR + ob->name() + NOR + HIC "¡¹¡£\n" NOR);
+                tell_object(me, HIC "ä½ ç‚¼æˆäº†çå“ã€Œ" + NOR + ob->name() + NOR + HIC "ã€ã€‚\n" NOR);
                 ob->move(me, 1);
 
                 if (me->can_improve_skill("liandan-shu") && skill < 400)
                 {
                         me->improve_skill("liandan-shu", me->query("int") + 10);
-                        tell_object(me, HIC "ÔÚÁ¶µ¤¹ı³ÌÖĞÄãµÄ¡¸Á¶µ¤Êõ¡¹Ìá¸ßÁË£¡\n" NOR);
+                        tell_object(me, HIC "åœ¨ç‚¼ä¸¹è¿‡ç¨‹ä¸­ä½ çš„ã€Œç‚¼ä¸¹æœ¯ã€æé«˜äº†ï¼\n" NOR);
                 }
         } else
         {
-                message_vision(HIC "Â¯¶¥ÇàÑÌ½¥½¥×ªµ­£¬µ¤Ò©ÆøÎ¶½¥Å¨£¬$N"
-                               HIC "¸ßĞËµØ°ÑÁ¶ÖÆ¶ø³ÉµÄµ¤ÍèÈ¡³ö¡£\n" NOR, me);
+                message_vision(HIC "ç‚‰é¡¶é’çƒŸæ¸æ¸è½¬æ·¡ï¼Œä¸¹è¯æ°”å‘³æ¸æµ“ï¼Œ$N"
+                               HIC "é«˜å…´åœ°æŠŠç‚¼åˆ¶è€Œæˆçš„ä¸¹ä¸¸å–å‡ºã€‚\n" NOR, me);
                 me->set_temp("liandan", 4);
                 ob = new(DAN_DIR + NORMAL_LIST[random(sizeof(NORMAL_LIST))]);
-                tell_object(me, HIC "ÄãÁ¶³ÉÁË¡¸" + NOR + ob->name() + NOR + HIC "¡¹¡£\n" NOR);
+                tell_object(me, HIC "ä½ ç‚¼æˆäº†ã€Œ" + NOR + ob->name() + NOR + HIC "ã€ã€‚\n" NOR);
                 ob->move(me, 1);
 
                 if (me->can_improve_skill("liandan-shu") && skill < 400)
                 {
                         me->improve_skill("liandan-shu", me->query("int") / 4 + 1);
-                        tell_object(me, HIC "ÔÚÁ¶µ¤¹ı³ÌÖĞÄãµÄ¡¸Á¶µ¤Êõ¡¹Ìá¸ßÁË£¡\n" NOR);
+                        tell_object(me, HIC "åœ¨ç‚¼ä¸¹è¿‡ç¨‹ä¸­ä½ çš„ã€Œç‚¼ä¸¹æœ¯ã€æé«˜äº†ï¼\n" NOR);
                 }
         }
 }

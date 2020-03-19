@@ -9,13 +9,13 @@ string* dirs = ({"east", "south", "west", "north"});
 
 void create()
 {
-	set("short",HIY "ÎåĞĞ¶´" NOR);
+	set("short",HIY "äº”è¡Œæ´" NOR);
 	set("long", HIY @LONG
-ÕâÊÇÎåĞĞ¶´¡£ËÄÖÜÒ»Æ¬ÁÁ¾§¾§µÄ£¬¶¨¾¦Ï¸¿´£¬È´ÊÇÎŞÊı·æÀû
-µÄµ¶¼â´ÓÇ½ÉÏ£¬µØÉÏ£¬¶¥ÉÏ£¬ËÄÃæ°Ë·½ÏòÄãÉì¹ıÀ´£¬ÉÔ²»ÁôÉñ¾Í
-»á×Ô¼º×²µ½µ¶¼âÉÏÈ¥¡£µ¶¹âÑ£Ä¿£¬¸üÌí³¹¹Çº®Òâ¡£¼¸¾ßÑªÁÜÁÜµÄ
-¶ÏÖ«²Ğº¡¹ÒÔÚµ¶¼âÉÏ£¬¿´À´ÒÑ¾­ÓĞĞ©Ê±ÈÕÁË¡£Ç½±ÚºÚºõºõµÄ£¬ËÆ
-ÊÇ¸ÖÌúÖı³É¡£
+è¿™æ˜¯äº”è¡Œæ´ã€‚å››å‘¨ä¸€ç‰‡äº®æ™¶æ™¶çš„ï¼Œå®šç›ç»†çœ‹ï¼Œå´æ˜¯æ— æ•°é”‹åˆ©
+çš„åˆ€å°–ä»å¢™ä¸Šï¼Œåœ°ä¸Šï¼Œé¡¶ä¸Šï¼Œå››é¢å…«æ–¹å‘ä½ ä¼¸è¿‡æ¥ï¼Œç¨ä¸ç•™ç¥å°±
+ä¼šè‡ªå·±æ’åˆ°åˆ€å°–ä¸Šå»ã€‚åˆ€å…‰çœ©ç›®ï¼Œæ›´æ·»å½»éª¨å¯’æ„ã€‚å‡ å…·è¡€æ·‹æ·‹çš„
+æ–­è‚¢æ®‹éª¸æŒ‚åœ¨åˆ€å°–ä¸Šï¼Œçœ‹æ¥å·²ç»æœ‰äº›æ—¶æ—¥äº†ã€‚å¢™å£é»‘ä¹ä¹çš„ï¼Œä¼¼
+æ˜¯é’¢é“é“¸æˆã€‚
 LONG
 NOR	);
 	set("exits", ([
@@ -32,11 +32,11 @@ int check_out(object me)
 {
 	int metal, wood, water, fire, earth;
 
-	metal = me->query_temp("wuxing/½ğ");
-	wood = me->query_temp("wuxing/Ä¾");
-	water = me->query_temp("wuxing/Ë®");
-	fire = me->query_temp("wuxing/»ğ");
-	earth = me->query_temp("wuxing/ÍÁ");
+	metal = me->query_temp("wuxing/é‡‘");
+	wood = me->query_temp("wuxing/æœ¨");
+	water = me->query_temp("wuxing/æ°´");
+	fire = me->query_temp("wuxing/ç«");
+	earth = me->query_temp("wuxing/åœŸ");
 
 	if ( metal > 0 &&
 		metal == wood && metal == water &&
@@ -57,19 +57,19 @@ int valid_leave(object me, string dir)
 	{
 		if (dir == "north")
 		{
-//			write("*½ğÉúË®*\n");
-			count = me->query_temp("wuxing/Ë®");
+//			write("*é‡‘ç”Ÿæ°´*\n");
+			count = me->query_temp("wuxing/æ°´");
 			count++;
-			me->set_temp("wuxing/Ë®", count);
+			me->set_temp("wuxing/æ°´", count);
 			if (check_out(me))
-				return notify_fail("ÄãË³ÀûµØ×ß³öÁËÎåĞĞÃÔ¹¬¡£\n");
+				return notify_fail("ä½ é¡ºåˆ©åœ°èµ°å‡ºäº†äº”è¡Œè¿·å®«ã€‚\n");
 		}
 		else if (dir == "west")
 		{
-//			write("*½ğ¿ËÄ¾*\n");
+//			write("*é‡‘å…‹æœ¨*\n");
 			me->delete_temp("wuxing");
 			me->move(__DIR__"jianyu1");
-			return notify_fail("Äãµô½ø»ú¹Ø£¬ÂäÈëÉ®¼à¡£\n");
+			return notify_fail("ä½ æ‰è¿›æœºå…³ï¼Œè½å…¥åƒ§ç›‘ã€‚\n");
 		}
 	}
 	return ::valid_leave(me, dir);

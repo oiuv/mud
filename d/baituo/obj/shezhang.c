@@ -6,19 +6,19 @@ inherit STAFF;
 
 void create()
 {
-        set_name("ÉßÕÈ", ({ "shezhang", "staff", "zhang" }));
+        set_name("è›‡æ–", ({ "shezhang", "staff", "zhang" }));
         set_weight(4000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", "Ò»¸ù³¤Ô¼Æß³ßµÄºÚ¹âï£ÁÁµÄ¸ÖÕÈ£¬ÕÈ¶ËÓÐÒ»¸öÉßÍ·£¬"
-		"ÓÐ»ú¹Ø¿ÉÉä³ö¶¾ÕëÉËÈË¡£\n");
+                set("unit", "æ ¹");
+                set("long", "ä¸€æ ¹é•¿çº¦ä¸ƒå°ºçš„é»‘å…‰é“®äº®çš„é’¢æ–ï¼Œæ–ç«¯æœ‰ä¸€ä¸ªè›‡å¤´ï¼Œ"
+		"æœ‰æœºå…³å¯å°„å‡ºæ¯’é’ˆä¼¤äººã€‚\n");
                 set("value", 450);
-                set("snake_type","¶¾Éß");
+                set("snake_type","æ¯’è›‡");
                 set("material", "steel");
-                set("wield_msg", "$N³é³öÒ»¸ù$nÎÕÔÚÊÖÖÐ£¬ÕÈ¶ËµÄÉßÍ·ßÚßÚ×öÏì¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖÐµÄ$n·ÅÁËÏÂÀ´¡£\n");
+                set("wield_msg", "$NæŠ½å‡ºä¸€æ ¹$næ¡åœ¨æ‰‹ä¸­ï¼Œæ–ç«¯çš„è›‡å¤´å‘²å‘²åšå“ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ”¾äº†ä¸‹æ¥ã€‚\n");
         }
         init_staff(35);
         setup();
@@ -35,20 +35,20 @@ int convert(string arg)
         object ob;
 
         if (arg!="shezhang" && arg!="staff" && arg!="zhang") return 0;
-        if (me->query("family/family_name") != "Å·ÑôÊÀ¼Ò") 
-                return notify_fail("Äã²»ÄÜ»¯ÕÈÎªÉß¡£\n");
+        if (me->query("family/family_name") != "æ¬§é˜³ä¸–å®¶") 
+                return notify_fail("ä½ ä¸èƒ½åŒ–æ–ä¸ºè›‡ã€‚\n");
         if ((int)me->query("jing") < 100)
-                return notify_fail("ÄãµÄ¾«Á¦²»¹»¡£\n");
+                return notify_fail("ä½ çš„ç²¾åŠ›ä¸å¤Ÿã€‚\n");
 	if (!present("shezhang", me)) 
-		return notify_fail("ÄãÉíÉÏÃ»ÓÐÉßÕÈ¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è›‡æ–ã€‚\n");
 
         if (random(me->query_skill("training",1)) <20) {
-        message_vision("$NÊÖÎÕÉßÕÈÊÖÎè×ãµ¸£¬ºÃÏñ·¢·èÒ»°ã¡£\n"
+        message_vision("$Næ‰‹æ¡è›‡æ–æ‰‹èˆžè¶³è¹ˆï¼Œå¥½åƒå‘ç–¯ä¸€èˆ¬ã€‚\n"
                 ,me);
 		me->receive_damage("jing", 95);
                 return 1;
         }
-        message_vision("$NÊÖÎÕÉßÕÈÊÖÎè×ãµ¸£¬ÃÍµØÍùµØÉÏÒ»Ë¤£¬½«ÉßÕÈ»¯ÎªÒ»Ìõ¶¾Éß¡£\n",
+        message_vision("$Næ‰‹æ¡è›‡æ–æ‰‹èˆžè¶³è¹ˆï¼ŒçŒ›åœ°å¾€åœ°ä¸Šä¸€æ‘”ï¼Œå°†è›‡æ–åŒ–ä¸ºä¸€æ¡æ¯’è›‡ã€‚\n",
                 me,);
                 ob = new("/d/baituo/npc/snake");
         ob->move(environment(me));

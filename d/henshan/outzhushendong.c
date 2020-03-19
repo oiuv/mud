@@ -3,15 +3,15 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÖîÉñÏÉ¶´");
+        set("short", "è¯¸ç¥ä»™æ´");
         set("long", @LONG
-¾ÙÄ¿ËÄÍû£¬ÖÜÎ§¾¡ÊÇĞüÑÂÇÍ±Ú(bi)£¬ÃÍÒ»Ì§Í·¿´¼û¶´¿ÚÉÏ
-Ğ´×Å¡¸ÖîÉñÏÉ¶´¡¹ËÄ¸ö´ó×Ö¡£µ«ÊÇ×ÖÌå¾­¹ı·çÓêµÄ³åÊ´ÒÑ¾­Ä¥
-Ëğ£¬ÖÜÎ§Ò°²İÔÓÉú£¬ĞÄÖĞ±¯Á¹²»ÒÑ¡£
+ä¸¾ç›®å››æœ›ï¼Œå‘¨å›´å°½æ˜¯æ‚¬å´–å³­å£(bi)ï¼ŒçŒ›ä¸€æŠ¬å¤´çœ‹è§æ´å£ä¸Š
+å†™ç€ã€Œè¯¸ç¥ä»™æ´ã€å››ä¸ªå¤§å­—ã€‚ä½†æ˜¯å­—ä½“ç»è¿‡é£é›¨çš„å†²èš€å·²ç»ç£¨
+æŸï¼Œå‘¨å›´é‡è‰æ‚ç”Ÿï¼Œå¿ƒä¸­æ‚²å‡‰ä¸å·²ã€‚
 LONG);
 	set("item_desc",([
-	       "bi" :   "¹âÍ»Í»µÄÇÍ±ÚÉÏ´¹ÏÂÊı¸ù³¤ÌÚ(teng)¡£\n",  
-               "teng" : YEL "¿´À´ºÜ½áÊµ£¬¿É×öÅÊÅÀÖ®ÓÃ¡£\n" NOR,
+	       "bi" :   "å…‰çªçªçš„å³­å£ä¸Šå‚ä¸‹æ•°æ ¹é•¿è…¾(teng)ã€‚\n",  
+               "teng" : YEL "çœ‹æ¥å¾ˆç»“å®ï¼Œå¯åšæ”€çˆ¬ä¹‹ç”¨ã€‚\n" NOR,
 	]));
 
 	set("exits",([
@@ -37,24 +37,24 @@ int do_climb(string arg)
 	qi = me->query("qi");
 	
 	if (! arg || arg != "teng")
-		return notify_fail("ÄãÏëÍùÄÄ¶ùÅÀ£¿\n");
+		return notify_fail("ä½ æƒ³å¾€å“ªå„¿çˆ¬ï¼Ÿ\n");
 	
 	if ( !here = find_object(__DIR__"outzhushendong"))
 		here = load_object(__DIR__"outzhushendong");
 	if ( !shilin = find_object(__DIR__"shilinfeng"))
 		shilin =load_object(__DIR__"shilinfeng");
 
-       	msg = HIG "\n$N" HIG "À­×ÅÊ÷ÌÙÍùÇÍ±ÚÉÏÅÀÈ¥¡£\n"NOR;
+       	msg = HIG "\n$N" HIG "æ‹‰ç€æ ‘è—¤å¾€å³­å£ä¸Šçˆ¬å»ã€‚\n"NOR;
 	
        	if(qi < 100)
 	{
-		msg += HIM "\n$N" HIM "ÌåÁ¦²»Öª£¬´ÓÇÍ±ÚÉÏË¤ÁËÏÂÀ´¡£\n" NOR;
+		msg += HIM "\n$N" HIM "ä½“åŠ›ä¸çŸ¥ï¼Œä»å³­å£ä¸Šæ‘”äº†ä¸‹æ¥ã€‚\n" NOR;
 		message_vision(msg, me);
 		me->unconcious();
 		return 1;
 	}
 	message_vision(msg, me);
-	message("vision",HIG "\n"+me->name()+"´ÓÇÍ±ÚÏÂÃæÅÀÁËÉÏÀ´¡£\n", shilin, me);
+	message("vision",HIG "\n"+me->name()+"ä»å³­å£ä¸‹é¢çˆ¬äº†ä¸Šæ¥ã€‚\n", shilin, me);
 	me->move(shilin);
 
 	return 1;

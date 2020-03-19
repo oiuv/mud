@@ -3,8 +3,8 @@ inherit SNAKE;
 
 void create()
 {
-        set_name(HIG "毒蛇" NOR, ({ "du she", "du", "she" }));
-        set("long", HIG "一支昂首吐信的毒蛇正虎视眈眈地盯著你。\n" NOR);
+        set_name(HIG "姣掕泧" NOR, ({ "du she", "du", "she" }));
+        set("long", HIG "涓�鏀槀棣栧悙淇＄殑姣掕泧姝ｈ檸瑙嗙湀鐪堝湴鐩憲浣犮�俓n" NOR);
 
         set("age", 1);
         set("str", 15);

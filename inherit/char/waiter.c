@@ -1,4 +1,4 @@
-// µêÆÌ»ï¼Æ³ÌĞò
+// åº—é“ºä¼™è®¡ç¨‹åº
 // Create by smallfish.
 // Update by jjgod.
 
@@ -9,48 +9,48 @@ int is_waiter()
 	return 1;
 }
 
-// ĞŞ¸ÄÊôĞÔ
+// ä¿®æ”¹å±æ€§
 int do_modify(string arg)
 {
         write(SHOP_D->do_modify(this_object(), this_player(), arg));
         return 1;
 }
 
-// ±ê¼Û»õÎï
+// æ ‡ä»·è´§ç‰©
 int do_stock(string arg)
 {
         write(SHOP_D->do_stock(this_object(), this_player(), arg));
         return 1;
 }
 
-// È¡ÏÂ»õÎï
+// å–ä¸‹è´§ç‰©
 int do_unstock(string arg)
 {
        write(SHOP_D->do_unstock(this_object(), this_player(), arg));
        return 1;
 }
 
-// ²éÑ¯»õÎïÁĞ±í
+// æŸ¥è¯¢è´§ç‰©åˆ—è¡¨
 int do_list(string arg)
 {
         write(SHOP_D->do_list(this_object(), this_player(), arg));
         return 1;
 }
 
-// ¹ºÂò»õÎï
+// è´­ä¹°è´§ç‰©
 int do_buy(string arg)
 {
         return SHOP_D->do_buy(this_object(), this_player(), arg);
 }
 
-// µêÖ÷½áÕÊ
+// åº—ä¸»ç»“å¸
 int do_jiezhang()
 {
         write(SHOP_D->do_jiezhang(this_object(), this_player()));
         return 1;
 }
 
-// ÉèÖÃ¡¢²éÑ¯¹ó±ö
+// è®¾ç½®ã€æŸ¥è¯¢è´µå®¾
 int do_invite(string arg)
 {
         string msg;
@@ -64,7 +64,7 @@ int do_invite(string arg)
         return 1;
 }
 
-// ÉèÖÃ¡¢²éÑ¯¹ó±ö
+// è®¾ç½®ã€æŸ¥è¯¢è´µå®¾
 int do_ban(string arg)
 {
         string msg;

@@ -3,20 +3,20 @@ inherit __DIR__"gift";
 
 void create()
 {
-        set_name(HIY "ò¿ÓÈÖïÔªÏÉµ¤" NOR, ({ "zhuyuan xiandan", "zhuyuan",
+        set_name(HIY "èš©å°¤è¯›å…ƒä»™ä¸¹" NOR, ({ "zhuyuan xiandan", "zhuyuan",
                                             "xiandan", "dan" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIY "´«Ëµ´Ëµ¤ÄËÊÇÌì¹¬ÖĞµÄÉñÆ·£¬·²ÈË³ÔÁË¿ÉÒÔÆ½ÔöëöÁ¦¡£\n" NOR);
-                set("base_unit", "¿Å");
+                set("long", HIY "ä¼ è¯´æ­¤ä¸¹ä¹ƒæ˜¯å¤©å®«ä¸­çš„ç¥å“ï¼Œå‡¡äººåƒäº†å¯ä»¥å¹³å¢è†‚åŠ›ã€‚\n" NOR);
+                set("base_unit", "é¢—");
                 set("base_value", 100000);
                 set("base_weight", 50);
                 set("only_do_effect", 1);
                 set("gift_type", "str");
-                set("gift_name", "ÏÈÌìëöÁ¦");
+                set("gift_name", "å…ˆå¤©è†‚åŠ›");
                 set("gift_point", 85);
-                set("gift_msg", HIY "Í»È»¼äÄãÖ»¾õË«±Û¼¸ºõ±¬ÁÑ£¬³äÂúÁËÁ¦Á¿¡£\n" NOR);
+                set("gift_msg", HIY "çªç„¶é—´ä½ åªè§‰åŒè‡‚å‡ ä¹çˆ†è£‚ï¼Œå……æ»¡äº†åŠ›é‡ã€‚\n" NOR);
         }
         setup();
 }

@@ -6,13 +6,13 @@ inherit ITEM;
 
 void create()
 {
-	set_name("ËÄ¼ôÆ¿", ({ "sijian ping", "ping" }));
+	set_name("å››å‰ªç“¶", ({ "sijian ping", "ping" }));
 	set_weight(500);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¸ö");
-		set("long", "ÕâÊÇÒ»¸öºÚÊ¯Æ¿×Ó£¬¿´ÉÏÈ¥Ìı²»ÆğÑÛµÄ¡£\n");
+		set("unit", "ä¸ª");
+		set("long", "è¿™æ˜¯ä¸€ä¸ªé»‘çŸ³ç“¶å­ï¼Œçœ‹ä¸Šå»å¬ä¸èµ·çœ¼çš„ã€‚\n");
 		set("value", 1000);
 		set("material", "stone");
 	}

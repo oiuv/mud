@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define DUAN "¡¸" HIY "¶ÏÂöÆÆÔÀ" NOR "¡¹"
+#define DUAN "ã€Œ" HIY "æ–­è„‰ç ´å²³" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -11,37 +11,37 @@ int perform(object me, object target)
         int i;
 
         if (userp(me) && ! me->query("can_perform/poyue-zhao/duan"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(DUAN "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(DUAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (objectp(me->query_temp("weapon")))
-                return notify_fail(DUAN "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(DUAN "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if ((int)me->query_skill("poyue-zhao", 1) < 80)
-                return notify_fail("ÄãÆÆÔÀÉñ×¦²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" DUAN "¡£\n");
+                return notify_fail("ä½ ç ´å²³ç¥žçˆªä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" DUAN "ã€‚\n");
 
         if (me->query_skill_mapped("claw") != "poyue-zhao")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢ÆÆÔÀÉñ×¦£¬ÄÑÒÔÊ©Õ¹" DUAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ç ´å²³ç¥žçˆªï¼Œéš¾ä»¥æ–½å±•" DUAN "ã€‚\n");
 
         if (me->query_skill_prepared("claw") != "poyue-zhao")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸ÆÆÔÀÉñ×¦£¬ÄÑÒÔÊ©Õ¹" DUAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ç ´å²³ç¥žçˆªï¼Œéš¾ä»¥æ–½å±•" DUAN "ã€‚\n");
 
-        // ÖÁÓÚNPCÃ´¡­Õâ¸ö¡­»¹ÊÇÓÃ»¥±³µÄºÃ£¬»¥±³Ê±°ÑCLAWÌáÇ°¾ÍÐÐÁË¡£
+        // è‡³äºŽNPCä¹ˆâ€¦è¿™ä¸ªâ€¦è¿˜æ˜¯ç”¨äº’èƒŒçš„å¥½ï¼Œäº’èƒŒæ—¶æŠŠCLAWæå‰å°±è¡Œäº†ã€‚
         if (userp(me) && me->query_skill_prepared("cuff") == "zhenyu-quan")
-                return notify_fail("Ê©Õ¹" DUAN "Ê±ÆÆÔÀÉñ×¦²»ÒêºÍÕòÓüÈ­·¨»¥±³¡£\n");
+                return notify_fail("æ–½å±•" DUAN "æ—¶ç ´å²³ç¥žçˆªä¸è°Šå’Œé•‡ç‹±æ‹³æ³•äº’èƒŒã€‚\n");
 
         if ((int)me->query("neili") < 100)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" DUAN "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" DUAN "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIY "ö®Ê±¼äÖ»¼û$N" HIY "ÉíÐÎÒ»Õ¹£¬Ë«×¦¼²¹¥¶øÉÏ£¬×¦Ó°ÁýÕÖ$n"
-              HIY "È«Éí¸÷´¦ÒªÑ¨¡£\n" NOR;
+        msg = HIY "éœŽæ—¶é—´åªè§$N" HIY "èº«å½¢ä¸€å±•ï¼ŒåŒçˆªç–¾æ”»è€Œä¸Šï¼Œçˆªå½±ç¬¼ç½©$n"
+              HIY "å…¨èº«å„å¤„è¦ç©´ã€‚\n" NOR;
         message_combatd(msg, me, target);
         me->add("neili", -50);
 

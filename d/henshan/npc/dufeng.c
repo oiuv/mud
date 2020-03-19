@@ -4,10 +4,10 @@ inherit F_DEALER;
 
 void create()
 {
-	set_name("¶Å·ï¶õ", ({ "du fenge", "du", "fenge" }) );
-	set("gender", "ÄĞĞÔ" );
+	set_name("æœå‡¤é„‚", ({ "du fenge", "du", "fenge" }) );
+	set("gender", "ç”·æ€§" );
 	set("age", 22);
-	set("long", "¶Å·ï¶õÒ»Á³ã°âê£¬²»ÖªµÀËûĞÄÖĞËù·³ÎªºÎÊÂ¡£\n");
+	set("long", "æœå‡¤é„‚ä¸€è„¸æƒ†æ€…ï¼Œä¸çŸ¥é“ä»–å¿ƒä¸­æ‰€çƒ¦ä¸ºä½•äº‹ã€‚\n");
 	set("combat_exp", 400000);
 	set("attitude", "friendly");
 	set("no_get", "1");
@@ -16,8 +16,8 @@ void create()
         set_temp("apply/damage", 25);
 
 	set("inquiry", ([
-		"ºüÏÉ"  : "ÌıËµºüÄÜ»¯³ÉºüÏÉ£¬ÎÒµ¹ÊÇÓö¼û¹ıÒ»»Ø¡£\n",
-		"ç³ëÙ"  : "ç³ëÙ¹ÃÄïºÃ¾ÃÃ»ÓĞÀ´ÂòÎÒµÄ»­ÁË£¬²»ÖªµÀËıÏÖÔÚÔõÃ´ÑùÁË£¿\n",
+		"ç‹ä»™"  : "å¬è¯´ç‹èƒ½åŒ–æˆç‹ä»™ï¼Œæˆ‘å€’æ˜¯é‡è§è¿‡ä¸€å›ã€‚\n",
+		"ç»¯èƒ­"  : "ç»¯èƒ­å§‘å¨˜å¥½ä¹…æ²¡æœ‰æ¥ä¹°æˆ‘çš„ç”»äº†ï¼Œä¸çŸ¥é“å¥¹ç°åœ¨æ€ä¹ˆæ ·äº†ï¼Ÿ\n",
 	]));
         set("vendor_goods", ({
                 "/clone/tattoo/face1",
@@ -65,8 +65,8 @@ void greeting(object ob)
 {
 	if (! ob || environment(ob) != environment()) return;
 
-	say(CYN "¶Å·ï¶õÒ¡ÁËÒ¡Í·µÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-            "ÄãÏàĞÅºüÄÜ»¯³ÉºüÏÉÂğ£¿\n" NOR);
+	say(CYN "æœå‡¤é„‚æ‘‡äº†æ‘‡å¤´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+            "ä½ ç›¸ä¿¡ç‹èƒ½åŒ–æˆç‹ä»™å—ï¼Ÿ\n" NOR);
 
 	return;
 }

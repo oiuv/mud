@@ -4,15 +4,15 @@ inherit BOOK;
 
 void create()
 {
-	set_name("±¡¾î", ({ "silk", "shu", "book" }));
+	set_name("è–„ç»¢", ({ "silk", "shu", "book" }));
 	set_weight(50);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Êø");
+		set("unit", "æŸ");
 		set("long",
-			"ÕâÊÇĞ¡²áÒ×½î¾­ĞŞĞĞÆª\n"
-			"ÓÉÒ»Êø±¡¾î¶¤³É£¬ÀïÃæÃÜÃÜÂéÂéµÄ»­ÁË²»ÉÙ´ò×øÍÂÄÅµÄ×ËÊÆ¡£\n");
+			"è¿™æ˜¯å°å†Œæ˜“ç­‹ç»ä¿®è¡Œç¯‡\n"
+			"ç”±ä¸€æŸè–„ç»¢é’‰æˆï¼Œé‡Œé¢å¯†å¯†éº»éº»çš„ç”»äº†ä¸å°‘æ‰“ååå‘çš„å§¿åŠ¿ã€‚\n");
 		set("value", 500);
 		set("material", "silk");
 		set("skill", ([

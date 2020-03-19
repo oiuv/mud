@@ -4,16 +4,16 @@ inherit BOOK;
 
 void create()
 {
-        set_name(WHT "¡¸ºú¼Òµ¶Æ×¡¹" NOR, ({ "hujia daopu", "hujia", "daopu", "pu", "book" }));
+        set_name(WHT "ã€Œèƒ¡å®¶åˆ€è°±ã€" NOR, ({ "hujia daopu", "hujia", "daopu", "pu", "book" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
-                set("long", WHT "ÕâÊÇÒ»±¾±¡±¡µÄÊé²á£¬ÊéÆ¤ÒÑÈ»·¢»Æ£¬·â"
-                            "ÃæÉÏĞ´×Å¡¸ºú¼Òµ¶Æ×¡¹ËÄ¸ö×Ö¡£\n" NOR);
+                set("unit", "æœ¬");
+                set("long", WHT "è¿™æ˜¯ä¸€æœ¬è–„è–„çš„ä¹¦å†Œï¼Œä¹¦çš®å·²ç„¶å‘é»„ï¼Œå°"
+                            "é¢ä¸Šå†™ç€ã€Œèƒ¡å®¶åˆ€è°±ã€å››ä¸ªå­—ã€‚\n" NOR);
                 set("value", 1);
-                set("no_sell", "ÄÌÄÌµÄ£¬Õâ±¾ÆÆÊéÒ²ÄÜÂôÇ®£¿");
+                set("no_sell", "å¥¶å¥¶çš„ï¼Œè¿™æœ¬ç ´ä¹¦ä¹Ÿèƒ½å–é’±ï¼Ÿ");
                 set("material", "paper");
                 set("skill", ([
                         "name" : "blade",

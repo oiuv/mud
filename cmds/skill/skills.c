@@ -101,8 +101,8 @@ int main(object me, string arg)
                                 arg = 0;
                                 skill1 = 0;
                         } else
-                                return notify_fail("Ã»ÓÐ(" + skill1 +
-						   ")ÕâÖÖ¼¼ÄÜ¡£\n");
+                                return notify_fail("æ²¡æœ‰(" + skill1 +
+						   ")è¿™ç§æŠ€èƒ½ã€‚\n");
                 }
 
                 if (! ob || ! ob->is_character())
@@ -117,7 +117,7 @@ int main(object me, string arg)
                 }
 
 		if (! ob || ! ob->is_character())
-			return notify_fail("ÄãÒª²ì¿´Ë­µÄ¼¼ÄÜ£¿\n");
+			return notify_fail("ä½ è¦å¯Ÿçœ‹è°çš„æŠ€èƒ½ï¼Ÿ\n");
 	}
 
         if (ob != me)
@@ -145,21 +145,21 @@ int main(object me, string arg)
         }
 
         if (! valid_check)
-		return notify_fail("Ö»ÓÐÎ×Ê¦»òÓÐÊ¦Í½/·òÆÞ/½á°Ý/Í¬ÃË¹ØÏµµÄÈË"
-				   "²ÅÄÜ²ì¿´ËûÈËµÄ¼¼ÄÜ¡£\n");
+		return notify_fail("åªæœ‰å·«å¸ˆæˆ–æœ‰å¸ˆå¾’/å¤«å¦»/ç»“æ‹œ/åŒç›Ÿå…³ç³»çš„äºº"
+				   "æ‰èƒ½å¯Ÿçœ‹ä»–äººçš„æŠ€èƒ½ã€‚\n");
 
 	skl = ob->query_skills();
 	if (! sizeof(skl))
 	{
-		write((ob==me ? "Äã" : ob->name()) +
-		      "Ä¿Ç°²¢Ã»ÓÐÑ§»áÈÎºÎ¼¼ÄÜ¡£\n");
+		write((ob==me ? "ä½ " : ob->name()) +
+		      "ç›®å‰å¹¶æ²¡æœ‰å­¦ä¼šä»»ä½•æŠ€èƒ½ã€‚\n");
 		return 1;
 	}
 
         // calucate spos to sort
         sname = keys(skl);
 
-        str = (ob == me ? "Äã" : ob->name()) + "Ä¿Ç°ËùÑ§µ½µÄ";
+        str = (ob == me ? "ä½ " : ob->name()) + "ç›®å‰æ‰€å­¦åˆ°çš„";
         // filter array by skill1
         if (skill1)
         {
@@ -168,7 +168,7 @@ int main(object me, string arg)
                 {
                         // skill1 is a basic skill
                         sname = filter_array(sname, (: filter_for_enable :), skill1);
-                        str += to_chinese(skill1) + "¼°Ïà¹Ø¼¼ÄÜ";
+                        str += to_chinese(skill1) + "åŠç›¸å…³æŠ€èƒ½";
                 } else
                 if (SKILL_D(skill1)->main_skill() &&
                     member_array(SKILL_D(skill1)->main_skill(), sname) == -1)
@@ -176,18 +176,18 @@ int main(object me, string arg)
                         // skill1 is a sub skill
                         skill1 = SKILL_D(skill1)->main_skill();
                         sname = filter_array(sname, (: filter_for_main :), skill1);
-                        str += to_chinese(skill1) + "ÖÐµÄÕÐÊ½";
+                        str += to_chinese(skill1) + "ä¸­çš„æ‹›å¼";
                 } else
                 {
                         sname = filter_array(sname, (: filter_for_combine :), skill1);
-                        str += to_chinese(skill1) + "ºÍ¿ÉÒÔ¼¤·¢µÄ»ù´¡Îä¼¼ÓëÄÜ¹»»¥±¸µÄ¼¼ÄÜ";
+                        str += to_chinese(skill1) + "å’Œå¯ä»¥æ¿€å‘çš„åŸºç¡€æ­¦æŠ€ä¸Žèƒ½å¤Ÿäº’å¤‡çš„æŠ€èƒ½";
                 }
         } else
-                str += "ËùÓÐ¼¼ÄÜ";
+                str += "æ‰€æœ‰æŠ€èƒ½";
 
         if (! sizeof(sname))
         {
-                write("ÄãÄ¿Ç°»¹Ã»ÓÐÕÆÎÕ¸Ã¼¼ÄÜ¡£\n");
+                write("ä½ ç›®å‰è¿˜æ²¡æœ‰æŽŒæ¡è¯¥æŠ€èƒ½ã€‚\n");
                 return 1;
         }
 
@@ -263,7 +263,7 @@ int main(object me, string arg)
 	lrn = ob->query_learned();
 	if (! mapp(lrn)) lrn = ([]);
 	str += "\n\n";
-	str += HIC "¡Ô" HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
+	str += HIC "â‰¡" HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
  
        	for (i = 0; i < sizeof(sname); i++)
 	{
@@ -299,12 +299,12 @@ int main(object me, string arg)
 		str += sprintf("%s%s%s%-40s" NOR WHT " - %4d/%3d%%\n" NOR, 
                         skcolor,
 			(lrn[sname[i]] >= (skl[sname[i]]+1) * (skl[sname[i]]+1)) ? HIM : "",
-			(member_array(sname[i], mapped)==-1? "  ": "¡õ"),
+			(member_array(sname[i], mapped)==-1? "  ": "â–¡"),
 			skillname + " (" + sname[i] + ")",
 			lvl, percent);
 	}
 
-	str += HIC "¡Ô" HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
+	str += HIC "â‰¡" HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
 	me->start_more(str);
 	return 1;
 }
@@ -329,29 +329,29 @@ int filter_for_combine(string skill, string skill1)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : skills | cha [<¼¼ÄÜÃû> | <Ä³ÈË>]
+æŒ‡ä»¤æ ¼å¼ : skills | cha [<æŠ€èƒ½å> | <æŸäºº>]
 
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã²éÑ¯ËùÑ§¹ýµÄ¼¼ÄÜ¡£ÄãÒ²¿ÉÒÔÖ¸¶¨Ò»¸öºÍÄã
-ÓÐÊ¦Í½¹ØÏµµÄ¶ÔÏó£¬ÓÃ skills ¿ÉÒÔ²éÖª¶Ô·½µÄ¼¼ÄÜ×´¿ö¡£Ò²
-¿ÉÒÔ²éÑ¯Ä³ÈËÄ³Ïî¼¼ÄÜµÄÇé¿ö£¬±ÈÈç(skills taiji-shengong
-of song)»òÕßÊÇ (skills literate of me)¡£ÓÃÕâÖÖ·½·¨²éÑ¯
-Ê±·ÖÒÔÏÂ¼¸ÖÖÇé¿ö£º
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ æŸ¥è¯¢æ‰€å­¦è¿‡çš„æŠ€èƒ½ã€‚ä½ ä¹Ÿå¯ä»¥æŒ‡å®šä¸€ä¸ªå’Œä½ 
+æœ‰å¸ˆå¾’å…³ç³»çš„å¯¹è±¡ï¼Œç”¨ skills å¯ä»¥æŸ¥çŸ¥å¯¹æ–¹çš„æŠ€èƒ½çŠ¶å†µã€‚ä¹Ÿ
+å¯ä»¥æŸ¥è¯¢æŸäººæŸé¡¹æŠ€èƒ½çš„æƒ…å†µï¼Œæ¯”å¦‚(skills taiji-shengong
+of song)æˆ–è€…æ˜¯ (skills literate of me)ã€‚ç”¨è¿™ç§æ–¹æ³•æŸ¥è¯¢
+æ—¶åˆ†ä»¥ä¸‹å‡ ç§æƒ…å†µï¼š
 
-¢Ù¡¢Èç¹û²éÑ¯µÄ¼¼ÄÜÊÇÒ»ÖÖ»ù±¾Îä¼¼£¬½«Í¬Ê±·µ»ØËùÓÐÔÚÕâÖÖ
-    »ù±¾Îä¼¼µÄ»ù´¡ÉÏÄÜ  ¹»¼¤·¢µÄÎä¹¦¼¼ÄÜ¡£
+â‘ ã€å¦‚æžœæŸ¥è¯¢çš„æŠ€èƒ½æ˜¯ä¸€ç§åŸºæœ¬æ­¦æŠ€ï¼Œå°†åŒæ—¶è¿”å›žæ‰€æœ‰åœ¨è¿™ç§
+    åŸºæœ¬æ­¦æŠ€çš„åŸºç¡€ä¸Šèƒ½  å¤Ÿæ¿€å‘çš„æ­¦åŠŸæŠ€èƒ½ã€‚
 
-¢Ú¡¢Èç¹û²éÑ¯µÄ¼¼ÄÜÊÇÒ»ÖÖÎä¼¼ÖÐµÄÄ³Ð©ÕÐÊ½Â·Êý£¬±ÈÈç²éÑ¯
-    ½µÁúÊ®°ËÕÆ£¬»òÊÇ½µÁúÊ®°ËÕÆÖÐµÄÉñÁú°ÚÎ²µÈµÈ£¬ÔòÏÔÊ¾
-    Íæ¼ÒÑ§µ½ÓëÖ®Ïà¹ØµÄÕÐÊ½Â·Êý¡£Èç¹ûÍæ¼ÒÒÑ¾­½«ÕâÖÖÎä¼¼
-    ÈÚ»á¹áÍ¨Ôò°´ÕÕÆÕÍ¨¼¼ÄÜÀ´ÏÔÊ¾¡£
+â‘¡ã€å¦‚æžœæŸ¥è¯¢çš„æŠ€èƒ½æ˜¯ä¸€ç§æ­¦æŠ€ä¸­çš„æŸäº›æ‹›å¼è·¯æ•°ï¼Œæ¯”å¦‚æŸ¥è¯¢
+    é™é¾™åå…«æŽŒï¼Œæˆ–æ˜¯é™é¾™åå…«æŽŒä¸­çš„ç¥žé¾™æ‘†å°¾ç­‰ç­‰ï¼Œåˆ™æ˜¾ç¤º
+    çŽ©å®¶å­¦åˆ°ä¸Žä¹‹ç›¸å…³çš„æ‹›å¼è·¯æ•°ã€‚å¦‚æžœçŽ©å®¶å·²ç»å°†è¿™ç§æ­¦æŠ€
+    èžä¼šè´¯é€šåˆ™æŒ‰ç…§æ™®é€šæŠ€èƒ½æ¥æ˜¾ç¤ºã€‚
 
-¢Û¡¢Èç¹û²éÑ¯µÄ¼¼ÄÜÊÇÒ»ÖÖÆÕÍ¨µÄÎä¼¼£¬ÔòÏÔÊ¾¿ÉÒÔ¼¤·¢µÄ»ù
-    ±¾Îä¼¼»ù´¡ºÍ¿ÉÒÔÓëÖ®»¥±¸µÄÎä¹¦¡£
+â‘¢ã€å¦‚æžœæŸ¥è¯¢çš„æŠ€èƒ½æ˜¯ä¸€ç§æ™®é€šçš„æ­¦æŠ€ï¼Œåˆ™æ˜¾ç¤ºå¯ä»¥æ¿€å‘çš„åŸº
+    æœ¬æ­¦æŠ€åŸºç¡€å’Œå¯ä»¥ä¸Žä¹‹äº’å¤‡çš„æ­¦åŠŸã€‚
 
-Ê¹ÓÃ¸ÃÃüÁî¿ÉÒÔÁË½âÄãÑ§µ½µÄÎä¹¦¼¼ÄÜ¡£Íæ¼Ò²éÑ¯µÄÊ±ºò²»Ðè
-ÒªÖ¸Ã÷ÈËÎï¶ÔÏó²ÎÊý£¬¿ÉÒÔÖ±½ÓÊäÈë<¼¼ÄÜÃû>²ÎÊý¡£
+ä½¿ç”¨è¯¥å‘½ä»¤å¯ä»¥äº†è§£ä½ å­¦åˆ°çš„æ­¦åŠŸæŠ€èƒ½ã€‚çŽ©å®¶æŸ¥è¯¢çš„æ—¶å€™ä¸éœ€
+è¦æŒ‡æ˜Žäººç‰©å¯¹è±¡å‚æ•°ï¼Œå¯ä»¥ç›´æŽ¥è¾“å…¥<æŠ€èƒ½å>å‚æ•°ã€‚
 
-Ïà¹ØÖ¸Áî£ºskill
+ç›¸å…³æŒ‡ä»¤ï¼šskill
 
 HELP);
     return 1;

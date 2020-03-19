@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define JUE "¡¸" HIR "¾øÃüÒ»Ìß" NOR "¡¹"
+#define JUE "ã€Œ" HIR "ç»å‘½ä¸€è¸¢" NOR "ã€"
 
 inherit F_SSERVER;
  
@@ -12,7 +12,7 @@ int perform(object me, object target)
         int damage;
 
         if (userp(me) && ! me->query("can_perform/jueming-tui/jue"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -21,41 +21,41 @@ int perform(object me, object target)
         }
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(JUE "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(JUE "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(JUE "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(JUE "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
 	if (me->query_skill("jueming-tui", 1) < 80)
-                return notify_fail("Äã¾øÃüÍÈ·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" JUE "¡£\n");
+                return notify_fail("ä½ ç»å‘½è…¿æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" JUE "ã€‚\n");
 
         if (me->query_skill_mapped("unarmed") != "jueming-tui")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢¾øÃüÍÈ·¨£¬ÄÑÒÔÊ©Õ¹" JUE "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ç»å‘½è…¿æ³•ï¼Œéš¾ä»¥æ–½å±•" JUE "ã€‚\n");
  
         if (me->query_skill_prepared("unarmed") != "jueming-tui")
-                return notify_fail("ÄãÃ»ÓĞ×¼±¸¾øÃüÍÈ·¨£¬ÄÑÒÔÊ©Õ¹" JUE "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ç»å‘½è…¿æ³•ï¼Œéš¾ä»¥æ–½å±•" JUE "ã€‚\n");
 
         if (me->query("neili") < 200)
-                return notify_fail("ÄãÄ¿Ç°µÄÄÚÁ¦²»¹»£¬ÄÑÒÔÊ©Õ¹" JUE "¡£\n");
+                return notify_fail("ä½ ç›®å‰çš„å†…åŠ›ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" JUE "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         switch (random(3))
         {
         case 0:
-	        msg = HIR "Ö»Ìı$N" HIR "Ò»ÉùÀäºß£¬²àÉí·ÉÌß£¬ÓÒÍÈºá"
-                      "É¨Ïò$n" HIR "£¬µ±ÕæÊÇÁ¦²»¿Éµ²¡£\n" NOR;
+	        msg = HIR "åªå¬$N" HIR "ä¸€å£°å†·å“¼ï¼Œä¾§èº«é£è¸¢ï¼Œå³è…¿æ¨ª"
+                      "æ‰«å‘$n" HIR "ï¼Œå½“çœŸæ˜¯åŠ›ä¸å¯æŒ¡ã€‚\n" NOR;
                 break;
 
         case 1:
-                msg = HIR "$N" HIR "İëµØ´óºÈÒ»Éù£¬µ¥ÍÈÃÍÌß¶ø³ö£¬Ö±"
-                      "õß$n" HIR "Ñü¼Ê£¬ÕĞÊ½¼«ÎªÑ¸ÃÍ¡£\n" NOR;
+                msg = HIR "$N" HIR "è“¦åœ°å¤§å–ä¸€å£°ï¼Œå•è…¿çŒ›è¸¢è€Œå‡ºï¼Œç›´"
+                      "è¸¹$n" HIR "è…°é™…ï¼Œæ‹›å¼æä¸ºè¿…çŒ›ã€‚\n" NOR;
                 break;
 
         default:
-                msg = HIR "Í»È»Ö»¼û$N" HIR "Ë«ÍÈÁ¬»·Ìß³ö£¬Ğ®×Åàëàë"
-                      "·çÉù£¬ÒÔÇ§¾ûÖ®ÊÆÉ¨Ïò$n" HIR "¡£\n" NOR;
+                msg = HIR "çªç„¶åªè§$N" HIR "åŒè…¿è¿ç¯è¸¢å‡ºï¼ŒæŒŸç€åš¯åš¯"
+                      "é£å£°ï¼Œä»¥åƒé’§ä¹‹åŠ¿æ‰«å‘$n" HIR "ã€‚\n" NOR;
                 break;
         }
  
@@ -65,23 +65,23 @@ int perform(object me, object target)
 
         if (ap * 7 / 10 + random(ap) < pp)
         {
-                msg += HIC "¿ÉÊÇ$n" HIC "Éí×ÓÒ»»Î£¬Ó²ÉúÉú¼Ü×¡ÁË$N"
-                       HIC "ÕâÒ»ÍÈ¡£\n" NOR;
+                msg += HIC "å¯æ˜¯$n" HIC "èº«å­ä¸€æ™ƒï¼Œç¡¬ç”Ÿç”Ÿæ¶ä½äº†$N"
+                       HIC "è¿™ä¸€è…¿ã€‚\n" NOR;
                 me->start_busy(3);
                 me->add("neili", -30);
         } else
         if (ap * 7 / 10 + random(ap) < dp)
         {
-		msg += CYN "È´¼û$n" CYN "Õò¶¨µÄÏòºóÒ»×İ£¬ÉÁ¿ªÁË$N"
-                       CYN "ÕâÒ»ÍÈ¡£\n" NOR;
+		msg += CYN "å´è§$n" CYN "é•‡å®šçš„å‘åä¸€çºµï¼Œé—ªå¼€äº†$N"
+                       CYN "è¿™ä¸€è…¿ã€‚\n" NOR;
                 me->start_busy(3);
                 me->add("neili", -30);
         } else
 	{
                 damage = ap / 3 + random(ap / 3);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 60,
-                                           HIR "$n" HIR "Á¬Ã¦¸ñµ²£¬È´Ö»¾õµÃÁ¦µÀ´ó"
-                                           "µÃ³öÆæ£¬µÇÊ±±»Ò»½ÅÌßµÃ·ÉÆğ¡£\n" NOR);
+                                           HIR "$n" HIR "è¿å¿™æ ¼æŒ¡ï¼Œå´åªè§‰å¾—åŠ›é“å¤§"
+                                           "å¾—å‡ºå¥‡ï¼Œç™»æ—¶è¢«ä¸€è„šè¸¢å¾—é£èµ·ã€‚\n" NOR);
                 me->start_busy(2);
                 me->add("neili", -100);
 	}

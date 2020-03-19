@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�ٵ�");
+        set("short", "官道");
         set("long", @LONG
-���������ӿ��⸮�����ݸ��Ĺٵ�����������·�ΰ��Ϻ�
-����Ҳ���١�����ͨ�򿪷⣬����ͨ�����ݡ�
+这是条连接开封府与中州府的官道，由于这条路治安较好
+行人也不少。西面通向开封，东面通向中州。
 LONG
         );
         set("exits", ([

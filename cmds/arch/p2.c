@@ -17,9 +17,9 @@ int main(object me, string arg)
         if (! SECURITY_D->valid_grant(me, "(arch)"))
                 return 0;
 
-        //return notify_fail("ÕâÊÇÁÙÊ±ÃüÁî¡£\n");
+        //return notify_fail("è¿™æ˜¯ä¸´æ—¶å‘½ä»¤ã€‚\n");
         if (me->query("id") != "ivy")
-                return notify_fail("ÕâÊÇÁÙÊ±ÃüÁî¡£\n");
+                return notify_fail("è¿™æ˜¯ä¸´æ—¶å‘½ä»¤ã€‚\n");
 
         do_sort_players(0);
         return 1;
@@ -34,8 +34,8 @@ int do_sort_players(int day)
         object login_ob, user_ob;
 
 	seteuid(getuid());
-	message("system", "\n--- ÕûÀíÍæ¼Ò´¢´æµµÖĞ£¬ÇëÉÔºò ---\n", users());
-	write("´¦ÀíÖĞ£º");
+	message("system", "\n--- æ•´ç†ç©å®¶å‚¨å­˜æ¡£ä¸­ï¼Œè¯·ç¨å€™ ---\n", users());
+	write("å¤„ç†ä¸­ï¼š");
 	count = 0;
 	fail = 0;
         succ = 0;
@@ -89,7 +89,7 @@ int do_sort_players(int day)
 	}
         destruct(login_ob);
 
-	write("\n×Ü¹²ÓĞ " + count + " Î»Ê¹ÓÃÕß¡£\n");
-	write("Îª " + succ + " ¸öÍæ¼ÒÔö¼ÓÁË¼ø±ğ ID£¬ÁíÍâ " + fail + " ¸öÊ¹ÓÃÕßÎŞ·¨´¦Àí¡£\n");
+	write("\næ€»å…±æœ‰ " + count + " ä½ä½¿ç”¨è€…ã€‚\n");
+	write("ä¸º " + succ + " ä¸ªç©å®¶å¢åŠ äº†é‰´åˆ« IDï¼Œå¦å¤– " + fail + " ä¸ªä½¿ç”¨è€…æ— æ³•å¤„ç†ã€‚\n");
 	return 1;
 }

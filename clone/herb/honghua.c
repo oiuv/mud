@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(HIR "ºì»¨" NOR, ({ "hong hua", "hong", "hua", "herb_honghua" }));
+        set_name(HIR "çº¢èŠ±" NOR, ({ "hong hua", "hong", "hua", "herb_honghua" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIR "ºì»¨ÊÇ³£¼ûµÄÖĞÒ©Ò©²Ä¡£\n" NOR);
-                set("base_unit", "¶ä");
+                set("long", HIR "çº¢èŠ±æ˜¯å¸¸è§çš„ä¸­è¯è¯æã€‚\n" NOR);
+                set("base_unit", "æœµ");
                 set("base_value", 80);
                 set("base_weight", 20);
         }

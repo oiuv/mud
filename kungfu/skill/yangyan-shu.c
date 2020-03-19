@@ -1,4 +1,4 @@
-// ÑøÑÕÊõ
+// å…»é¢œæœ¯
 #include <ansi.h>
 inherit SKILL;
 
@@ -19,7 +19,7 @@ void skill_improved(object me)
         if ((lvl % 10) == 0)
         {
 				if (per < 30) me->add("per",1);
-                tell_object(me, HIG "Äã¸Ğ¾õ×Ô¼ºµÄÑÕÖµÒª±¬±íÁË¡£\n" NOR);
+                tell_object(me, HIG "ä½ æ„Ÿè§‰è‡ªå·±çš„é¢œå€¼è¦çˆ†è¡¨äº†ã€‚\n" NOR);
         } else
-                tell_object(me, HIM "ÄãÓÃĞÄÑ§Ï°ÑøÑÕÊõ£¬¸Ğ¾õ×Ô¼ºµÄÑÕÖµÓĞËùÌáÉı¡£\n" NOR);
+                tell_object(me, HIM "ä½ ç”¨å¿ƒå­¦ä¹ å…»é¢œæœ¯ï¼Œæ„Ÿè§‰è‡ªå·±çš„é¢œå€¼æœ‰æ‰€æå‡ã€‚\n" NOR);
 }

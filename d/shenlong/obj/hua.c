@@ -1,4 +1,4 @@
-//hua.c °ÙÏã»¨
+//hua.c ç™¾é¦™èŠ±
 
 inherit ITEM;
 
@@ -6,12 +6,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIG"°ÙÏã»¨"NOR, ({"baixiang hua", "baixiang"}));
+	set_name(HIG"ç™¾é¦™èŠ±"NOR, ({"baixiang hua", "baixiang"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¶ä");
-		set("long", "ÕâÊÇÒ»¶äÏÊÑŞµÄ»¨£¬»¨ÏãÅ¨ÓôÒì³£¡£\n");
+		set("unit", "æœµ");
+		set("long", "è¿™æ˜¯ä¸€æœµé²œè‰³çš„èŠ±ï¼ŒèŠ±é¦™æµ“éƒå¼‚å¸¸ã€‚\n");
 		set("only_do_effect", 1);
 	}
 	setup();
@@ -19,7 +19,7 @@ void create()
 
 int do_effect(object me)
 {
-        message_vision("$N°Ñ" + name() + "ÈÓ½ø×ìÀï£¬¼¸ÏÂ¾ÍÍÌÁËÏÂÈ¥¡£\n", me);
+        message_vision("$NæŠŠ" + name() + "æ‰”è¿›å˜´é‡Œï¼Œå‡ ä¸‹å°±åäº†ä¸‹å»ã€‚\n", me);
 	destruct(this_object());
 	return 1;
 }

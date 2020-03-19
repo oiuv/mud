@@ -6,10 +6,10 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("ÀÏ·ò×Ó", ({ "lao fuzi", "lao", "fuzi" }));
+        set_name("è€å¤«å­", ({ "lao fuzi", "lao", "fuzi" }));
         set("long",
-"Ò»¸öÎ¨ÀûÊÇÍ¼µÄËÕÖİÀÏ½ÌÏ°£¬¶Ç×ÓÀïÓĞÄ«Ë®£¬¿ÉÄã»¹ÒªÓĞÇ®¡£\n");
-        set("gender", "ÄĞĞÔ");
+"ä¸€ä¸ªå”¯åˆ©æ˜¯å›¾çš„è‹å·è€æ•™ä¹ ï¼Œè‚šå­é‡Œæœ‰å¢¨æ°´ï¼Œå¯ä½ è¿˜è¦æœ‰é’±ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 65);
         set_skill("literate", 200);
 
@@ -23,8 +23,8 @@ void create()
         set("combat_exp", 40000);
         set("shen_type", 1);
         set("inquiry", ([
-            "Êé"   : "°¦!Êéµ½ÓÃÊ±·½ºŞÉÙ¡£",
-            "½èÊé" : "½è£¿Äã²»»¹ÎÒµ½ÄÄÀïÕÒÄã£¿ºß!",
+            "ä¹¦"   : "å”‰!ä¹¦åˆ°ç”¨æ—¶æ–¹æ¨å°‘ã€‚",
+            "å€Ÿä¹¦" : "å€Ÿï¼Ÿä½ ä¸è¿˜æˆ‘åˆ°å“ªé‡Œæ‰¾ä½ ï¼Ÿå“¼!",
         ]));
         setup();
 
@@ -32,20 +32,20 @@ void create()
 
 int recognize_apprentice(object ob)
 {
-        if (!(int)ob->query_temp("mark/Öì2"))
+        if (!(int)ob->query_temp("mark/æœ±2"))
                 return 0;
-        ob->add_temp("mark/Öì2", -1);
+        ob->add_temp("mark/æœ±2", -1);
         return 1;
 }
 
 int accept_object(object who, object ob)
 {
 //      object me = this_player();
-        if (!(int)who->query_temp("mark/Öì2")) who->set_temp("mark/Öì2", 0);
+        if (!(int)who->query_temp("mark/æœ±2")) who->set_temp("mark/æœ±2", 0);
         if (ob->query("money_id") && ob->value() >= 500)
         {
-                message_vision("ÀÏ·ò×ÓÍ¬ÒâÖ¸µã$NÒ»Ğ©¶ÁÊéĞ´×ÖµÄÎÊÌâ¡£\n", who);
-                who->add_temp("mark/Öì2", ob->value() / 50);
+                message_vision("è€å¤«å­åŒæ„æŒ‡ç‚¹$Nä¸€äº›è¯»ä¹¦å†™å­—çš„é—®é¢˜ã€‚\n", who);
+                who->add_temp("mark/æœ±2", ob->value() / 50);
                 return 1;
         }
 }

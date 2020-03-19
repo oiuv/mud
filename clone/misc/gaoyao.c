@@ -13,12 +13,12 @@ void init()
 
 void create()
 {
-	set_name("¹·Æ¤¸àÒ©", ({"goupi gaoyao", "goupi", "gaoyao"}));
+	set_name("ç‹—çš®è†è¯", ({"goupi gaoyao", "goupi", "gaoyao"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ìû");
-		set("long", "ÕâÊÇÒ»ÌûÎäÁÖÈËÊ¿³£Ìù(tie)µÄ¹·Æ¤¸àÒ©¡£\n");
+		set("unit", "å¸–");
+		set("long", "è¿™æ˜¯ä¸€å¸–æ­¦æ—äººå£«å¸¸è´´(tie)çš„ç‹—çš®è†è¯ã€‚\n");
 		set("value", 5000);
 	}
 	setup();
@@ -28,14 +28,14 @@ int do_tie(string arg)
 {
 	object me = this_player();
 	if (!id(arg))
-		return notify_fail("ÄãÒªÌùÊ²Ã´Ò©£¿\n");
+		return notify_fail("ä½ è¦è´´ä»€ä¹ˆè¯ï¼Ÿ\n");
 	if (me->is_busy())
-		return notify_fail("ÏÖÔÚÄãÃ»¿ÕÌù¹·Æ¤¸àÒ©ÁË¡£\n");
+		return notify_fail("ç°åœ¨ä½ æ²¡ç©ºè´´ç‹—çš®è†è¯äº†ã€‚\n");
 	if ((int)me->query("eff_qi") == (int)me->query("max_qi"))
-		return notify_fail("ÄãÏÖÔÚ²»ĞèÒªÓÃ¹·Æ¤¸àÒ©¡£\n");
+		return notify_fail("ä½ ç°åœ¨ä¸éœ€è¦ç”¨ç‹—çš®è†è¯ã€‚\n");
 	else {
 		me->receive_curing("qi", 50);
-		message_vision("$NÅ¾µÄÒ»ÉùÔÚÉË¿ÚÉÏÌùÁËÒ»Ìû¹·Æ¤¸àÒ©£¬ÆøÉ«¿´ÆğÀ´ºÃ¶àÁË¡£\n", me);
+		message_vision("$Nå•ªçš„ä¸€å£°åœ¨ä¼¤å£ä¸Šè´´äº†ä¸€å¸–ç‹—çš®è†è¯ï¼Œæ°”è‰²çœ‹èµ·æ¥å¥½å¤šäº†ã€‚\n", me);
 		me->start_busy(2);
 		destruct(this_object());
 		return 1;

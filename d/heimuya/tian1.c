@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÌìÏãÌÃ");
+        set("short", "å¤©é¦™å ‚");
         set("long",@LONG
-ÕâÀïÊÇºÚÄ¾ÑÂµÄµÚËÄ´óÌÃÌìÏãÌÃ¡£´óÌüÀï¿í³©Ã÷ÁÁ£¬ÌüÖĞ
-ÉèÓĞÒ»×ù£¬Ò»ÖĞÄê¸¾ÈËºáÃ¼×ùÔÚµ±ÖĞ¡£´ÓÄÏ±ß³öÌüÊÇÒ»Æ¬²¨¹â
-ôÔôÔµÄ³ØÌÁ¡£
+è¿™é‡Œæ˜¯é»‘æœ¨å´–çš„ç¬¬å››å¤§å ‚å¤©é¦™å ‚ã€‚å¤§å…é‡Œå®½ç•…æ˜äº®ï¼Œå…ä¸­
+è®¾æœ‰ä¸€åº§ï¼Œä¸€ä¸­å¹´å¦‡äººæ¨ªçœ‰åº§åœ¨å½“ä¸­ã€‚ä»å—è¾¹å‡ºå…æ˜¯ä¸€ç‰‡æ³¢å…‰
+ç²¼ç²¼çš„æ± å¡˜ã€‚
 LONG);
         set("exits", ([
             	"north" : __DIR__"dating4",
@@ -27,20 +27,20 @@ int valid_leave(object me, string dir)
         if (objectp(present("sang sanniang", environment(me)))
            && dir == "south"
            && me->query("family/family_name")
-           && me->query("family/family_name") != "ÈÕÔÂÉñ½Ì")
-                return notify_fail(CYN "É£ÈıÄï½«ÄãÀ¹×¡£¬ËµµÀ£ººóÃæÊÇÊ¥¹Ã"
-                                   "µÄ×¡Ëù£¬ËûÈË²»µÃÈëÄÚ¡£\n" NOR);
+           && me->query("family/family_name") != "æ—¥æœˆç¥æ•™")
+                return notify_fail(CYN "æ¡‘ä¸‰å¨˜å°†ä½ æ‹¦ä½ï¼Œè¯´é“ï¼šåé¢æ˜¯åœ£å§‘"
+                                   "çš„ä½æ‰€ï¼Œä»–äººä¸å¾—å…¥å†…ã€‚\n" NOR);
 
 	if (objectp(present("sang sanniang", environment(me)))
-           && (string)me->query("gender") != "Å®ĞÔ"
+           && (string)me->query("gender") != "å¥³æ€§"
            && dir == "south")
-                return notify_fail(CYN "É£ÈıÄï½«ÄãÀ¹×¡£¬ËµµÀ£ººóÃæÊÇÊ¥¹Ã"
-                                   "µÄ×¡Ëù£¬ÄãÒ»¸öÄĞÈË½øÈ¥¸ÉÂï£¿\n" NOR);
+                return notify_fail(CYN "æ¡‘ä¸‰å¨˜å°†ä½ æ‹¦ä½ï¼Œè¯´é“ï¼šåé¢æ˜¯åœ£å§‘"
+                                   "çš„ä½æ‰€ï¼Œä½ ä¸€ä¸ªç”·äººè¿›å»å¹²å˜›ï¼Ÿ\n" NOR);
 
 	if (objectp(present("sang sanniang", environment(me)))
            && ! me->query("family/family_name"))
-                message_vision(CYN "É£ÈıÄï¿´ÁË$N" CYN "Ò»ÑÛ£¬ÖåÃ¼µÀ£ºÈ¥°İ"
-                               "Ê¦¿ÉµÃ¹æ¾Øµã£¬¿É±ğÈÇÄÕÁËÊ¥¹Ã¡£\n" NOR, me);
+                message_vision(CYN "æ¡‘ä¸‰å¨˜çœ‹äº†$N" CYN "ä¸€çœ¼ï¼Œçš±çœ‰é“ï¼šå»æ‹œ"
+                               "å¸ˆå¯å¾—è§„çŸ©ç‚¹ï¼Œå¯åˆ«æƒ¹æ¼äº†åœ£å§‘ã€‚\n" NOR, me);
 
         return ::valid_leave(me, dir);
 }

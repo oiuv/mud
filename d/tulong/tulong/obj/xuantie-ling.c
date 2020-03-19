@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(CYN "ĞşÌúÁî" NOR, ({ "xuantie ling", "xuantie", "ling"}) );
+        set_name(CYN "ç„é“ä»¤" NOR, ({ "xuantie ling", "xuantie", "ling"}) );
         set_weight(500);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ö»");
-                set("long", "Ò»¿éºÚ÷î÷îµÄÁîÅÆ£¬¾¹ÊÇĞşÌúËùÖı¡£\n" );
+                set("unit", "åª");
+                set("long", "ä¸€å—é»‘é»é»çš„ä»¤ç‰Œï¼Œç«Ÿæ˜¯ç„é“æ‰€é“¸ã€‚\n" );
                 set("value", 1);
         }
 }

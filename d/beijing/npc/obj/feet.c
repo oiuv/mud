@@ -3,13 +3,13 @@ inherit BOOTS;
 
 void create()
 {
-        set_name("Õ½Ñ¥", ({ "zhan xue","xue", "feet", "zhanxue", "boots" }) );
+        set_name("æˆ˜é´", ({ "zhan xue","xue", "feet", "zhanxue", "boots" }) );
         set_weight(300);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ë«");
-                set("long", "Ò»Ë«Æ¤Ñ¥£¬ÉÏµÈÅ£Æ¤ÖÆ³É¡£Ñ¥×ÓËäºÜ½áÊµ£¬µ«ÆÄÇáÕ½¶·Ê±´©·Ç³£·½±ãÊÊÓÃ¡£\n");
+                set("unit", "åŒ");
+                set("long", "ä¸€åŒçš®é´ï¼Œä¸Šç­‰ç‰›çš®åˆ¶æˆã€‚é´å­è™½å¾ˆç»“å®ï¼Œä½†é¢‡è½»æˆ˜æ–—æ—¶ç©¿éå¸¸æ–¹ä¾¿é€‚ç”¨ã€‚\n");
                 set("value", 0);
                 set("material", "leather");
                 set("armor_prop/armor", 5);

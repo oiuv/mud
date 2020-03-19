@@ -13,7 +13,7 @@ STATIC_VAR_TAG int amount;
 void setup()
 {
         if (! query("unit"))
-                set("unit", "Щ");
+                set("unit", "些");
 }
 
 int query_amount() { return amount; }

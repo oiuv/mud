@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "后堂");
         set("long", @LONG
-����Ⱥ��ðڷ��Ÿ�������ĹŶ����մɣ����п�ǽ����
-�����Ϲ���һ�������������������ƣ�����Ǿ���ȿ�ɽ��
-ʦ����λ��
+绝情谷后堂摆放着各种珍奇的古董和陶瓷，正中靠墙处的
+柜子上供着一尊泥像，泥像下轻烟缭绕，想必是绝情谷开山祖
+师的灵位。
 LONG);
         set("exits", ([
                "west"   : __DIR__"zhifang",

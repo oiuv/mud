@@ -4,17 +4,17 @@
 
 void create()
 {
-        set_name(HIC "Òõ" HIR "Ñô" HIY "¾Å×ªµ¤" NOR, ({"yinyang dan", "dan"}));
+        set_name(HIC "é˜´" HIR "é˜³" HIY "ä¹è½¬ä¸¹" NOR, ({"yinyang dan", "dan"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("base_unit", "Á£");
-              //set("no_drop", "ÕâÑù¶«Î÷²»ÄÜÀë¿ªÄã¡£\n");
-              //set("no_sell", "ÕâÑù¶«Î÷²»ÄÜÀë¿ªÄã¡£\n");
-              //set("no_put", "ÕâÑù¶«Î÷²»ÄÜ·ÅÔÚÄÇ¶ù¡£\n");
-              //set("no_get", "ÕâÑù¶«Î÷²»ÄÜÀë¿ªÄÇ¶ù¡£\n");
-              //set("no_steal", "ÕâÑù¶«Î÷²»ÄÜÀë¿ªÄÇ¶ù¡£\n");
-              //set("no_beg", "ÕâÑù¶«Î÷²»ÄÜÀë¿ªÄÇ¶ù¡£\n");
+                set("base_unit", "ç²’");
+              //set("no_drop", "è¿™æ ·ä¸œè¥¿ä¸èƒ½ç¦»å¼€ä½ ã€‚\n");
+              //set("no_sell", "è¿™æ ·ä¸œè¥¿ä¸èƒ½ç¦»å¼€ä½ ã€‚\n");
+              //set("no_put", "è¿™æ ·ä¸œè¥¿ä¸èƒ½æ”¾åœ¨é‚£å„¿ã€‚\n");
+              //set("no_get", "è¿™æ ·ä¸œè¥¿ä¸èƒ½ç¦»å¼€é‚£å„¿ã€‚\n");
+              //set("no_steal", "è¿™æ ·ä¸œè¥¿ä¸èƒ½ç¦»å¼€é‚£å„¿ã€‚\n");
+              //set("no_beg", "è¿™æ ·ä¸œè¥¿ä¸èƒ½ç¦»å¼€é‚£å„¿ã€‚\n");
                 set("base_value", 250);
                 set("only_do_effect", 1);
         }
@@ -28,7 +28,7 @@ int do_effect(object me)
 
         if (time() - me->query_temp("last_eat/dan(M)") < 40)
         {
-                write("Äã¸Õ·þÓÃ¹ýÒ©£¬ÐèÒ©ÐÔ·¢»ÓÍêÐ§ÓÃÒÔºó²ÅÄÜ¼ÌÐø·þÓÃ¡£\n");
+                write("ä½ åˆšæœç”¨è¿‡è¯ï¼Œéœ€è¯æ€§å‘æŒ¥å®Œæ•ˆç”¨ä»¥åŽæ‰èƒ½ç»§ç»­æœç”¨ã€‚\n");
                 return 1;
         }
 
@@ -36,8 +36,8 @@ int do_effect(object me)
 
         me->set_temp("last_eat/dan(M)", time());
 
-        message_vision(HIY "$N" HIY "³ÔÏÂÒ»Á£" + name() +
-                       HIY "£¬¸Ðµ½ÄÚÁ¦ÓÖÐÛºñ²»ÉÙ¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "åƒä¸‹ä¸€ç²’" + name() +
+                       HIY "ï¼Œæ„Ÿåˆ°å†…åŠ›åˆé›„åŽšä¸å°‘ã€‚\n" NOR, me);
         me->improve_neili(10);
 
         add_amount(-1);

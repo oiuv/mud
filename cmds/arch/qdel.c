@@ -17,17 +17,17 @@ int main(object me, string arg)
                 return 0;
 
         if (! arg)
-                return notify_fail("ÄãÒªÇå³ıÊ²Ã´ÈÎÎñ£¿\n");
+                return notify_fail("ä½ è¦æ¸…é™¤ä»€ä¹ˆä»»åŠ¡ï¼Ÿ\n");
 
         total = QUEST_D->query("information");
         if (! mapp(total))
-                return notify_fail("µ±Ç°ÏµÍ³Ã»ÓĞÈÎºÎÈÎÎñ¡£\n");
+                return notify_fail("å½“å‰ç³»ç»Ÿæ²¡æœ‰ä»»ä½•ä»»åŠ¡ã€‚\n");
 
         obs = keys(total);
         obs = filter_array(obs, (: objectp($1) :));
 
         if (! sizeof(obs))
-                return notify_fail("µ±Ç°ÏµÍ³Ã»ÓĞÈÎºÎÈÎÎñ¡£\n");
+                return notify_fail("å½“å‰ç³»ç»Ÿæ²¡æœ‰ä»»ä½•ä»»åŠ¡ã€‚\n");
 
         sscanf(arg, "%s %*s", arg);
         if (arg == "all" || arg == "ALL")
@@ -37,7 +37,7 @@ int main(object me, string arg)
                         reset_eval_cost();
                         destruct(qob);
                 }
-                write("ÄãÇå³ıÁËÏµÍ³ÖĞËùÓĞµÄÈÎÎñ¡£\n");
+                write("ä½ æ¸…é™¤äº†ç³»ç»Ÿä¸­æ‰€æœ‰çš„ä»»åŠ¡ã€‚\n");
                 return 1;
         }
 
@@ -47,14 +47,14 @@ int main(object me, string arg)
                 obs = filter_array(obs, (: $1->name() == $(arg) :));
                 if (! sizeof(obs))
                 {
-                        write("Ä¿Ç°ÏµÍ³ÖĞ²»´æÔÚ " + arg +
-                              " Õâ¸öÈÎÎñ¡£\n");
+                        write("ç›®å‰ç³»ç»Ÿä¸­ä¸å­˜åœ¨ " + arg +
+                              " è¿™ä¸ªä»»åŠ¡ã€‚\n");
                         return 1;
                 }
                 qob = obs[0];
         }
 
-        write("ÄãÇå³ıÁË¡º" + qob->name() + "¡»Õâ¸öÈÎÎñ¡£\n");
+        write("ä½ æ¸…é™¤äº†ã€" + qob->name() + "ã€è¿™ä¸ªä»»åŠ¡ã€‚\n");
         destruct(qob);
         return 1;
 }
@@ -62,9 +62,9 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : qdel all | <ÈÎÎñÃû³Æ>
+æŒ‡ä»¤æ ¼å¼ : qdel all | <ä»»åŠ¡åç§°>
 
-´ËÖ¸Áî¿ÉÇå³ıµ±Ç°ÏµÍ³Ä³Ò»¸öÈÎÎñ»òÊÇËùÓĞµÄÈÎÎñ¡£
+æ­¤æŒ‡ä»¤å¯æ¸…é™¤å½“å‰ç³»ç»ŸæŸä¸€ä¸ªä»»åŠ¡æˆ–æ˜¯æ‰€æœ‰çš„ä»»åŠ¡ã€‚
 HELP
 	);
 	return 1;

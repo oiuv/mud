@@ -5,14 +5,14 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("¹ùÏå", ({ "guo xiang", "guo", "xiang"}));
+        set_name("éƒ­è¥„", ({ "guo xiang", "guo", "xiang"}));
         set("long", @LONG
-Ëı¾ÍÊÇ¶ëáÒÅÉµÄ¿ªÉ½×æÊ¦¹ùÏå£¬ÄË¡¸±±ÏÀ¡¹¹ù
-¾¸µÄ¶şÅ®¶ù£¬ÈË³Æ¡¸Ğ¡¶«Ğ°¡¹¡£
+å¥¹å°±æ˜¯å³¨åµ‹æ´¾çš„å¼€å±±ç¥–å¸ˆéƒ­è¥„ï¼Œä¹ƒã€ŒåŒ—ä¾ ã€éƒ­
+é–çš„äºŒå¥³å„¿ï¼Œäººç§°ã€Œå°ä¸œé‚ªã€ã€‚
 LONG);
-        set("title", "¶ëáÒÅÉ¿ªÉ½×æÊ¦");
-        set("nickname", HIY "Ğ¡¶«Ğ°" NOR);
-        set("gender", "Å®ĞÔ");
+        set("title", "å³¨åµ‹æ´¾å¼€å±±ç¥–å¸ˆ");
+        set("nickname", HIY "å°ä¸œé‚ª" NOR);
+        set("gender", "å¥³æ€§");
         set("age", 21);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -65,7 +65,7 @@ LONG);
 
         prepare_skill("strike", "piaoxue-zhang");
 
-        create_family("¶ëáÒÅÉ", 0, "¿ªÉ½×æÊ¦");
+        create_family("å³¨åµ‹æ´¾", 0, "å¼€å±±ç¥–å¸ˆ");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -87,6 +87,6 @@ LONG);
 
 void attempt_apprentice(object ob)
 {
-        command("say ÎÒ²»ÊÕÍ½£¬Äã»¹ÊÇÕÒ±ğÈË°É¡£");
+        command("say æˆ‘ä¸æ”¶å¾’ï¼Œä½ è¿˜æ˜¯æ‰¾åˆ«äººå§ã€‚");
         return;
 }

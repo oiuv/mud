@@ -8,19 +8,19 @@ int exert(object me, object target)
         int skill;
 
         if (target != me)
-                return notify_fail("你只能用玄门内功来提升自己的战斗力。\n");
+                return notify_fail("浣犲彧鑳界敤鐜勯棬鍐呭姛鏉ユ彁鍗囪嚜宸辩殑鎴樻枟鍔涖�俓n");
 
         if ((int)me->query("neili") < 150)
-                return notify_fail("你的内力不够。\n");
+                return notify_fail("浣犵殑鍐呭姏涓嶅銆俓n");
 
         if ((int)me->query_temp("powerup"))
-                return notify_fail("你已经在运功中了。\n");
+                return notify_fail("浣犲凡缁忓湪杩愬姛涓簡銆俓n");
 
         skill = me->query_skill("xuanmen-neigong", 1);
         me->add("neili", -100);
 
-        message_combatd(WHT "$N" WHT "暗自凝神，运起玄门正宗内功，将全"
-                        "身潜力尽数提起。\n" NOR, me);
+        message_combatd(WHT "$N" WHT "鏆楄嚜鍑濈锛岃繍璧风巹闂ㄦ瀹楀唴鍔燂紝灏嗗叏"
+                        "韬綔鍔涘敖鏁版彁璧枫�俓n" NOR, me);
 
         me->add_temp("apply/attack", skill * 1 / 4);
         me->add_temp("apply/dodge", skill * 1 / 4);
@@ -41,6 +41,6 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/dodge", -amount);
                 me->add_temp("apply/parry", -amount);
                 me->delete_temp("powerup");
-                tell_object(me, "你的玄门内功运行完毕，将内力收回丹田。\n");
+                tell_object(me, "浣犵殑鐜勯棬鍐呭姛杩愯瀹屾瘯锛屽皢鍐呭姏鏀跺洖涓圭敯銆俓n");
         }
 }

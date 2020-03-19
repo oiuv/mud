@@ -5,23 +5,23 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("°¢ÇìÉ©", ({ "aqing sao", "sao", "a", "qing", "aqing" }));
-        set("title", "²è¹ÝÀÏ°åÄï");
-        set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
+        set_name("é˜¿åº†å«‚", ({ "aqing sao", "sao", "a", "qing", "aqing" }));
+        set("title", "èŒ¶é¦†è€æ¿å¨˜");
+        set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
         set("shen_type", 1);
 
         set("str", 30);
-        set("gender", "Å®ÐÔ");
+        set("gender", "å¥³æ€§");
         set("age", 25);
         set("long",
-                "°¢ÇìÉ©ÊÇÑïÖÝ³ÇÀïÓÐÃûµÄ´óÃÀÈË£¬ÒòÎªÒ¯¶ùÃÇ×ÜÏ²»¶ÍùËýÕâ¶ù¹ä£¬\n"
-                "ËùÒÔËý¶Ô³ÇÀïµÄÒ»¾ÙÒ»¶¯¶¼ÁËÈçÖ¸ÕÆ¡£\n");
+                "é˜¿åº†å«‚æ˜¯æ‰¬å·žåŸŽé‡Œæœ‰åçš„å¤§ç¾Žäººï¼Œå› ä¸ºçˆ·å„¿ä»¬æ€»å–œæ¬¢å¾€å¥¹è¿™å„¿é€›ï¼Œ\n"
+                "æ‰€ä»¥å¥¹å¯¹åŸŽé‡Œçš„ä¸€ä¸¾ä¸€åŠ¨éƒ½äº†å¦‚æŒ‡æŽŒã€‚\n");
         set("combat_exp", 500);
         set("attitude", "friendly");
 
         set("inquiry", ([
-                "°¢Çì" : "ÎÒÃÇ¼Ò°¢ÇìÈ¥±±±ß×öÉúÒâÈ¥ÁËÒ®¡£\n",
-                "ÉúÒâ" : "Õâ¸öÃ´¡­¡­\n",
+                "é˜¿åº†" : "æˆ‘ä»¬å®¶é˜¿åº†åŽ»åŒ—è¾¹åšç”Ÿæ„åŽ»äº†è€¶ã€‚\n",
+                "ç”Ÿæ„" : "è¿™ä¸ªä¹ˆâ€¦â€¦\n",
         ]));
 
         set("vendor_goods", ({
@@ -55,12 +55,12 @@ void greeting(object ob)
         switch(random(2))
         {
         case 0 :
-                say(CYN "°¢ÇìÉ©Ð¦ÃÐÃÐµØËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob)
-                    + CYN + "£¬¿ìÇë½øÀ´ºÈ±­ÈÈ²è¡£\n" NOR);
+                say(CYN "é˜¿åº†å«‚ç¬‘çœ¯çœ¯åœ°è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob)
+                    + CYN + "ï¼Œå¿«è¯·è¿›æ¥å–æ¯çƒ­èŒ¶ã€‚\n" NOR);
                 break;
         case 1 :
-                say(CYN "°¢ÇìÉ©ËµµÀ£ºÓ´£¡ÕâÎ»" + RANK_D->query_respect(ob)
-                    + CYN + "ÄúÀ´ÁË°¡£¡±¾µêÓÐ¸ÕÕ¨ºÃµÄÎåÏã»¨Éú³öÊÛ¡£\n" NOR);
+                say(CYN "é˜¿åº†å«‚è¯´é“ï¼šå“Ÿï¼è¿™ä½" + RANK_D->query_respect(ob)
+                    + CYN + "æ‚¨æ¥äº†å•Šï¼æœ¬åº—æœ‰åˆšç‚¸å¥½çš„äº”é¦™èŠ±ç”Ÿå‡ºå”®ã€‚\n" NOR);
                 break;
         }
 }

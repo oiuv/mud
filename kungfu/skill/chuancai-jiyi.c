@@ -13,18 +13,18 @@ int valid_learn(object me)
 
 mapping query_menu(object me)
 {
-        return ([ "ÏãËÖ»¨Éú"   : ({ "xiangshu huasheng" }),
-                  "ÂéÀ±ÊÖËº¼¦" : ({ "mala ji" }),
-                  "ÊÖËº¼¦"     : ({ "shousi ji" }),
-                  "Èý»Æ¼¦"     : ({ "sanhuang ji" }),
-                  "¸ÉìÔÓÈÓã"   : ({ "ganbian youyu" }),
-                  "ÓãÏãÈâË¿"   : ({ "yuxiang rousi" }),
-                  "¹¬±¦¼¦¶¡"   : ({ "gongbao jiding" }),
-                  "ºìÓÍ¶ÇÆ¬"   : ({ "hongyou dupian" }),
-                  "ÂéÆÅ¶¹¸¯"   : ({ "mapo doufu" }),
-                  "·òÆÞ·ÎÆ¬"   : ({ "fuqi feipian" }),
-                  "Ã«ÑªÍú"     : ({ "maoxue wang" }),
-                  "·ÛÕôÈâ"     : ({ "fenzheng rou" }) ]);
+        return ([ "é¦™é…¥èŠ±ç”Ÿ"   : ({ "xiangshu huasheng" }),
+                  "éº»è¾£æ‰‹æ’•é¸¡" : ({ "mala ji" }),
+                  "æ‰‹æ’•é¸¡"     : ({ "shousi ji" }),
+                  "ä¸‰é»„é¸¡"     : ({ "sanhuang ji" }),
+                  "å¹²ç…¸å°¤é±¼"   : ({ "ganbian youyu" }),
+                  "é±¼é¦™è‚‰ä¸"   : ({ "yuxiang rousi" }),
+                  "å®«å®é¸¡ä¸"   : ({ "gongbao jiding" }),
+                  "çº¢æ²¹è‚šç‰‡"   : ({ "hongyou dupian" }),
+                  "éº»å©†è±†è…"   : ({ "mapo doufu" }),
+                  "å¤«å¦»è‚ºç‰‡"   : ({ "fuqi feipian" }),
+                  "æ¯›è¡€æ—º"     : ({ "maoxue wang" }),
+                  "ç²‰è’¸è‚‰"     : ({ "fenzheng rou" }) ]);
 }
 
 int practice_skill(object me)
@@ -33,13 +33,13 @@ int practice_skill(object me)
 
         if (! objectp(cailiao = present("cai liao", me)) ||
 	    cailiao->query_amount() < 1)
-                return notify_fail("ÄãÉíÉÏÃ»ÓÐ²ËÁÏÁË¡£\n");
+                return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰èœæ–™äº†ã€‚\n");
 
         if ((int)me->query("qi") < 50)
-                return notify_fail("ÄãµÄÌåÁ¦²»¹»ÁË£¬ÎÞ·¨¶ÍÁ¶ÊÖÒÕ¡£\n");
+                return notify_fail("ä½ çš„ä½“åŠ›ä¸å¤Ÿäº†ï¼Œæ— æ³•é”»ç‚¼æ‰‹è‰ºã€‚\n");
 
         if ((int)me->query("jing") < 50)
-                return notify_fail("ÄãµÄ¾«Éñ²»¼Ã£¬ÎÞ·¨¶ÍÁ¶ÊÖÒÕ¡£\n");
+                return notify_fail("ä½ çš„ç²¾ç¥žä¸æµŽï¼Œæ— æ³•é”»ç‚¼æ‰‹è‰ºã€‚\n");
 
         me->receive_damage("qi", 40);
         me->receive_jing("jing", 40);

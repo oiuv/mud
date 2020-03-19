@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define DIAN "¡¸" HIM "ÄÚµãÇ¬À¤" NOR "¡¹"
+#define DIAN "ã€Œ" HIM "å†…ç‚¹ä¹¾å¤" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -13,37 +13,37 @@ int perform(object me, object target)
         int i, attack_time;
 
         if (userp(me) && ! me->query("can_perform/hexing-bifa/dian"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-                return notify_fail(DIAN "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(DIAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon"))
            || (string)weapon->query("skill_type") != "dagger")
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" DIAN "¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" DIAN "ã€‚\n");
 
 	if ((int)me->query_skill("hexing-bifa", 1) < 100)
-		return notify_fail("ÄãµÄº×ÐÎ±Ê·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" DIAN "¡£\n");
+		return notify_fail("ä½ çš„é¹¤å½¢ç¬”æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" DIAN "ã€‚\n");
 
         if (me->query_skill_mapped("dagger") != "hexing-bifa")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢º×ÐÎ±Ê·¨£¬ÄÑÒÔÊ©Õ¹" DIAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘é¹¤å½¢ç¬”æ³•ï¼Œéš¾ä»¥æ–½å±•" DIAN "ã€‚\n");
 
 	if (me->query("neili") < 300)
-		return notify_fail("ÄãÄ¿Ç°µÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" DIAN "¡£\n");
+		return notify_fail("ä½ ç›®å‰çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" DIAN "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIW "\n$N" HIW "Éí·¨¶¸¿ì£¬ÊÖÖÐ" + weapon->name() + HIW "Ò»Ñï£¬"
-              "Ê©³ö¾øÕÐ¡¸" HIM "ÄÚµãÇ¬À¤" HIW "¡¹£¬ÃÍÈ»¼ä£¬" + weapon->name() + HIW
-              "Á¬Á¬µãÏò$n" HIW "ÖÜÉíÒªÑ¨¡£\n" NOR;
+	msg = HIW "\n$N" HIW "èº«æ³•é™¡å¿«ï¼Œæ‰‹ä¸­" + weapon->name() + HIW "ä¸€æ‰¬ï¼Œ"
+              "æ–½å‡ºç»æ‹›ã€Œ" HIM "å†…ç‚¹ä¹¾å¤" HIW "ã€ï¼ŒçŒ›ç„¶é—´ï¼Œ" + weapon->name() + HIW
+              "è¿žè¿žç‚¹å‘$n" HIW "å‘¨èº«è¦ç©´ã€‚\n" NOR;
 
         message_sort(msg, me, target);
 
         attack_time = 4;
-	//2015Äê4ÔÂ15ÈÕ ÐÞÕýÁ¬»÷Ìõ¼þ
+	//2015å¹´4æœˆ15æ—¥ ä¿®æ­£è¿žå‡»æ¡ä»¶
 	ap = me->query_skill("dagger");
 	dp = target->query_skill("dodge");
 	if (ap / 2 + random(ap) > dp)

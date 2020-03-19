@@ -3,17 +3,17 @@ inherit CLUB;
 
 void create()
 {
-        set_name("µö¸Í", ({ "diao gan", "diao", "gan" }));
+        set_name("é’“ç«¿", ({ "diao gan", "diao", "gan" }));
         set_weight(3000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", "ÕâÊÇÒ»¸ùèëÄ¾ÖÆµÄµö¸Í£¬ÖÆ×÷µÃÆÄÎªÆæÌØ¡£\n");
+                set("unit", "æ ¹");
+                set("long", "è¿™æ˜¯ä¸€æ ¹æ¡¦æœ¨åˆ¶çš„é’“ç«¿ï¼Œåˆ¶ä½œå¾—é¢‡ä¸ºå¥‡ç‰¹ã€‚\n");
                 set("value", 50);
                 set("material", "steel");
-                set("wield_msg", "$N³é³öÒ»¸ù$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»ØÑü¼ä¡£\n");
+                set("wield_msg", "$NæŠ½å‡ºä¸€æ ¹$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›è…°é—´ã€‚\n");
                 set("shaolin",1);
         }
         init_club(35);

@@ -4,12 +4,12 @@ inherit CLOTH;
 
 void create()
 {
-    	set_name(HIB "«‡≤º≈€" NOR, ({ "qing bupao", "bupao", "pao"}));
+    	set_name(HIB "ÈùíÂ∏ÉË¢ç" NOR, ({ "qing bupao", "bupao", "pao"}));
         set_weight(1000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "º˛");
+                set("unit", "‰ª∂");
                 set("armor_type", "cloth");
 	        set("value", 100);
         	set("armor_prop/dodge", 1);

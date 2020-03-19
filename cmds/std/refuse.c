@@ -11,9 +11,9 @@ int main(object me, string arg)
 	seteuid(getuid());
 
 	if (! arg)
-		return notify_fail("ÄãÒª¾Ü¾øË­£¿\n");
+		return notify_fail("ä½ è¦æ‹’ç»è°ï¼Ÿ\n");
 
-        notify_fail("ÕâÈËÃ»ÓĞÏòÄãÌá³öÊ²Ã´ÒªÇó°¡£¿\n");
+        notify_fail("è¿™äººæ²¡æœ‰å‘ä½ æå‡ºä»€ä¹ˆè¦æ±‚å•Šï¼Ÿ\n");
         if (! functionp(f = me->query_temp("pending/answer/" + arg + "/refuse", 1)))
                 return 0;
 
@@ -24,9 +24,9 @@ int main(object me, string arg)
 int help(object me)
 {
    write( @HELP
-Ö¸Áî¸ñÊ½: refuse <someone>
+æŒ‡ä»¤æ ¼å¼: refuse <someone>
 
-¾Ü¾øÄ³ÈËÏòÄãÌá³öµÄÒªÇó¡£
+æ‹’ç»æŸäººå‘ä½ æå‡ºçš„è¦æ±‚ã€‚
 HELP );
    return 1;
 }

@@ -10,21 +10,21 @@ int do_insert(string arg);
 
 void create()
 {
-	set("short", "ĞüÑÂ");
+	set("short", "æ‚¬å´–");
 	set("long", @TEXT
-ÓÖÒ»×ù¶¸ÇÍµÄĞüÑÂÁ¢ÔÚÁËÄãµÄÃæÇ°¡£ĞüÑÂÉÏ·Â·ğÓĞ×ù°×É«µÄ
-½¨Öş£¬¿ÉÔÆÑÌçÔÈÆ£¬¿´²»ÇåÎú¡£ÑÂÉÏÓÖ´¹ÏÂÒ»ÌõÉşË÷(rope)£¬¿´
-ÉÏÈ¥ÏóÊÇĞüÑÂÉÏÏÂ»¥Í¨ÏûÏ¢µÄ¹¤¾ß¡£ÉşË÷µÄÉÏÃæËÆºõÒşÔ¼ÓĞÒ»¸ö
-µõÀº(basket)£¬ĞüÑÂµÄÇ½ÉÏËÆºõÓĞÒ»¸öÏ»×Ó(xiazi)¡£
+åˆä¸€åº§é™¡å³­çš„æ‚¬å´–ç«‹åœ¨äº†ä½ çš„é¢å‰ã€‚æ‚¬å´–ä¸Šä»¿ä½›æœ‰åº§ç™½è‰²çš„
+å»ºç­‘ï¼Œå¯äº‘çƒŸç¼­ç»•ï¼Œçœ‹ä¸æ¸…æ™°ã€‚å´–ä¸Šåˆå‚ä¸‹ä¸€æ¡ç»³ç´¢(rope)ï¼Œçœ‹
+ä¸Šå»è±¡æ˜¯æ‚¬å´–ä¸Šä¸‹äº’é€šæ¶ˆæ¯çš„å·¥å…·ã€‚ç»³ç´¢çš„ä¸Šé¢ä¼¼ä¹éšçº¦æœ‰ä¸€ä¸ª
+åŠç¯®(basket)ï¼Œæ‚¬å´–çš„å¢™ä¸Šä¼¼ä¹æœ‰ä¸€ä¸ªåŒ£å­(xiazi)ã€‚
 TEXT );
 
     set("exits", ([
         "westdown" : __DIR__"up1",
     ]));
     set("item_desc", ([
-        "basket": "ÄÇÊÇÒ»¸öµõÀº£¬¿´Ñù×ÓÓĞĞ©¹Å¹Ö¡£\n",
-        "rope"  : "Éş×Ó¾ÍÊÇÉş×Ó£¬¿ÉÄÜÊÇÏòÉÏµÄ¹¤¾ß¡£\n",
-        "xiazi" : "ÕâÊÇÒ»¸öÏ»×Ó£¬¿´Ñù×ÓÊÇÒ»¸ö¿ª¹Ø£¬Ï»×ÓµÄ²àÃæÓĞÒ»¸ö²å¿×¡£\n",
+        "basket": "é‚£æ˜¯ä¸€ä¸ªåŠç¯®ï¼Œçœ‹æ ·å­æœ‰äº›å¤æ€ªã€‚\n",
+        "rope"  : "ç»³å­å°±æ˜¯ç»³å­ï¼Œå¯èƒ½æ˜¯å‘ä¸Šçš„å·¥å…·ã€‚\n",
+        "xiazi" : "è¿™æ˜¯ä¸€ä¸ªåŒ£å­ï¼Œçœ‹æ ·å­æ˜¯ä¸€ä¸ªå¼€å…³ï¼ŒåŒ£å­çš„ä¾§é¢æœ‰ä¸€ä¸ªæ’å­”ã€‚\n",
     ]));
     set("no_clean_up", 0);
     setup();
@@ -47,17 +47,17 @@ void check_trigger()
                 room->set("insert_trigger", 1);
                 set("exits/enter", __DIR__"basket");
                 room->set("exits/out", __FILE__);
-                message("vision", "Ö»¼ûÒ»¸öµõÀº(basket)´ÓÌì¶ø½µ£¬Äã²»½ûÒ»Õú£¡\n"
+                message("vision", "åªè§ä¸€ä¸ªåŠç¯®(basket)ä»å¤©è€Œé™ï¼Œä½ ä¸ç¦ä¸€æ€”ï¼\n"
                     , this_object() );
                 set("item_desc", ([
-                    "basket" : "ÕâÊÇÒ»¸öµõÀº£¬ÊÇ´«ËµÖĞµÄ½»Í¨¹¤¾ß¡£\n",
+                    "basket" : "è¿™æ˜¯ä¸€ä¸ªåŠç¯®ï¼Œæ˜¯ä¼ è¯´ä¸­çš„äº¤é€šå·¥å…·ã€‚\n",
                 ]));
                 
                 remove_call_out("on_board");
                 call_out("on_board", 5);
             }
             else
-                message("vision", "¿´Ñù×ÓÄãµÃµÈÏÂ²¦¶ù¡£\n",this_object() );
+                message("vision", "çœ‹æ ·å­ä½ å¾—ç­‰ä¸‹æ‹¨å„¿ã€‚\n",this_object() );
         }
         else
             message("vision", "ERROR: basket not found\n", this_object() );
@@ -69,8 +69,8 @@ void on_board()
     object room;
 
     if( !query("exits/enter") ) return;
-    message("vision", "Ö»¼ûµõÀº»º»ºÏòÉÏ£¬ËÄÖÜÎŞÏŞÃÀºÃ£¬\n"
-             "ÄãËÆºõÖÃÉíÓÚÒ»´¦ÈË¼äÏÉ¾³¡£\n", this_object() );
+    message("vision", "åªè§åŠç¯®ç¼“ç¼“å‘ä¸Šï¼Œå››å‘¨æ— é™ç¾å¥½ï¼Œ\n"
+             "ä½ ä¼¼ä¹ç½®èº«äºä¸€å¤„äººé—´ä»™å¢ƒã€‚\n", this_object() );
 
     if( room = find_object(__DIR__"basket") )
     {
@@ -87,7 +87,7 @@ void arrive()
     if( room = find_object(__DIR__"basket") )
     {
         room->set("exits/out", __DIR__"up3");
-        message("vision", "àâµÄÒ»Éù£¬ÄãËÆºõÒ»ÏÂ´ÓÌìÉÏµ½ÁËµØÉÏ¡£\n",room );
+        message("vision", "å™”çš„ä¸€å£°ï¼Œä½ ä¼¼ä¹ä¸€ä¸‹ä»å¤©ä¸Šåˆ°äº†åœ°ä¸Šã€‚\n",room );
     }
     remove_call_out("close_passage");
     call_out("close_passage", 10);
@@ -111,11 +111,11 @@ int do_insert(string arg)
     me=this_player();
 
     if( !arg || arg=="" ) return 0;
-    if( arg=="¿¨" ) arg = "card2";   
+    if( arg=="å¡" ) arg = "card2";   
     if( arg=="card2")
     {
 	if( !objectp(ob = present(arg, me)) )
-		return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
         if( !me->query_temp("mark/cards") )
                 me->set_temp("mark/cards",1);
@@ -127,7 +127,7 @@ int do_insert(string arg)
         }
         else    {
                 me->add_temp("mark/cards",1);
-                message("vision", "àâµÄÒ»Éù£¬Äã¿´µ½µõÀºÏòÏÂÒ»½Ú¡£\n",me );
+                message("vision", "å™”çš„ä¸€å£°ï¼Œä½ çœ‹åˆ°åŠç¯®å‘ä¸‹ä¸€èŠ‚ã€‚\n",me );
         }
     }
     return 1;

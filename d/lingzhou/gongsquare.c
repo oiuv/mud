@@ -6,9 +6,9 @@
 inherit ROOM;
 void create()
 {
-	set("short", "»Ê¹¬¹ã³¡");
+	set("short", "çš‡å®«å¹¿åœº");
 	set("long", @LONG
-ÕâÀïÊÇ»Ê¹¬¹ã³¡¡£
+è¿™é‡Œæ˜¯çš‡å®«å¹¿åœºã€‚
 LONG );
 	set("exits", ([
 		"south"  : __DIR__"gonggate",
@@ -17,7 +17,7 @@ LONG );
 		__DIR__"npc/gongweishi" :2,
 	]));
 	setup();
-	create_door("south" , "ºìÆá¹¬ÃÅ", "north" , DOOR_CLOSED);
+	create_door("south" , "çº¢æ¼†å®«é—¨", "north" , DOOR_CLOSED);
 	//replace_program(ROOM);
 }
 

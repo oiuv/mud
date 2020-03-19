@@ -7,11 +7,11 @@ void setup()
 {}
 void create()
 {
-        set_name("Ã·»¨ÁîÅÆ", ({"ling pai", "ling"}));
+        set_name("æ¢…èŠ±ä»¤ç‰Œ", ({"ling pai", "ling"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¿é");
+                set("unit", "å—");
                 set("value", 0);
         }
         setup();

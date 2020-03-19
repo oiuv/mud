@@ -3,13 +3,13 @@ inherit NPC;
 
 void create()
 {
-	set_name("¾õÔ¶", ({ "jue yuan", "jue", "yuan" }));
-	set("long", "Ò»Î»ÒÂ×ÅÆÓËØ¡¢Ğë·¢»¨°×µÄÀÏÉ®¡£Ö»¼ûËûÕıÌô×ÅÒ»\n"
-                    "¶Ô´óÌúÍ°£¬±ÈÖ®Ñ°³£Ë®Í°´óÁËÁ½±¶ÓĞÓà£¬ÄÇÉ®ÈË¾±\n"
-                    "ÖĞ¡¢ÊÖÉÏ¡¢½ÅÉÏ£¬¸üÈÆÂúÁË´Ö´óµÄÌúÁ´£¬ĞĞ×ßÊ±Ìú\n"
-                    "Á´ÍÏµØ£¬²»Í£·¢³öÉùÏì¡£Õâ¶Ô´óÌúÍ°±¾ÉíÖ»ÅÂ±ãÓĞ\n"
-                    "¶ş°ÙÀ´½ï£¬Í°ÖĞ×°ÂúÁËË®£¬ÖØÁ¿¸üÊÇ¾ªÈË¡£\n" );
-	set("gender", "ÄĞĞÔ");
+	set_name("è§‰è¿œ", ({ "jue yuan", "jue", "yuan" }));
+	set("long", "ä¸€ä½è¡£ç€æœ´ç´ ã€é¡»å‘èŠ±ç™½çš„è€åƒ§ã€‚åªè§ä»–æ­£æŒ‘ç€ä¸€\n"
+                    "å¯¹å¤§é“æ¡¶ï¼Œæ¯”ä¹‹å¯»å¸¸æ°´æ¡¶å¤§äº†ä¸¤å€æœ‰ä½™ï¼Œé‚£åƒ§äººé¢ˆ\n"
+                    "ä¸­ã€æ‰‹ä¸Šã€è„šä¸Šï¼Œæ›´ç»•æ»¡äº†ç²—å¤§çš„é“é“¾ï¼Œè¡Œèµ°æ—¶é“\n"
+                    "é“¾æ‹–åœ°ï¼Œä¸åœå‘å‡ºå£°å“ã€‚è¿™å¯¹å¤§é“æ¡¶æœ¬èº«åªæ€•ä¾¿æœ‰\n"
+                    "äºŒç™¾æ¥æ–¤ï¼Œæ¡¶ä¸­è£…æ»¡äº†æ°´ï¼Œé‡é‡æ›´æ˜¯æƒŠäººã€‚\n" );
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
 	set("class", "bonze");
 
@@ -61,7 +61,7 @@ void create()
 		(: exert_function, "shield" :),
 	}));
 
-	create_family("ÉÙÁÖÅÉ", 0, "´òÔÓÉ®ÈË"); 
+	create_family("å°‘æ—æ´¾", 0, "æ‰“æ‚åƒ§äºº"); 
 
 	setup();
 
@@ -70,8 +70,8 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        message_vision(CYN "$N" CYN "Ò¡ÁËÒ¡Í·£¬¶Ô$n" CYN "ËµµÀ£º¡°Æ¶É®ÄË´ø"
-                       "×ïÖ®Éí£¬ÆñÄÜÊÕÍ½¡£¡±\n" NOR, this_object(), ob);
+        message_vision(CYN "$N" CYN "æ‘‡äº†æ‘‡å¤´ï¼Œå¯¹$n" CYN "è¯´é“ï¼šâ€œè´«åƒ§ä¹ƒå¸¦"
+                       "ç½ªä¹‹èº«ï¼Œå²‚èƒ½æ”¶å¾’ã€‚â€\n" NOR, this_object(), ob);
 }
 
 void init()
@@ -86,8 +86,8 @@ void init()
         if (living(this_object()) && present("lengjia jing", me))
         {
                 command("yi");
-                command("say ÕâÎ»Ê©Ö÷£¬±¾ÅÉÒÅÊ§µÄ¡¶ÀãÙ¤¾­¡·Ôõ»áÔÚÄãÉíÉÏ£¡");
-                command("say ÇëÕâÎ»Ê©Ö÷ĞĞ¸ö·½±ã£¬½«¾­Êé»¹¸øÆ¶É®¡£");
+                command("say è¿™ä½æ–½ä¸»ï¼Œæœ¬æ´¾é—å¤±çš„ã€Šæ¥ä¼½ç»ã€‹æ€ä¼šåœ¨ä½ èº«ä¸Šï¼");
+                command("say è¯·è¿™ä½æ–½ä¸»è¡Œä¸ªæ–¹ä¾¿ï¼Œå°†ç»ä¹¦è¿˜ç»™è´«åƒ§ã€‚");
                 return;
         }
 }
@@ -101,29 +101,29 @@ int accept_object(object who, object ob)
                 {
                         if (who->query("can_learn/jiuyang-shengong/shaolin"))
                         {
-                                command("say ¶àĞ»£¬¶àĞ»¡£");
+                                command("say å¤šè°¢ï¼Œå¤šè°¢ã€‚");
                                 return 1;
                         } else
                         {
-                                message_vision(CYN "$N" CYN "ÂúÁ³»¶Ï²µÄ¶Ô$n" CYN "µÀ"
-                                               "£ºÊ©Ö÷Õ¬ĞÄÈÊºñ£¬ÈÕºó±ØÓĞ´ó³É£¬Æ¶É®¶à"
-                                               "Ğ»ÁË¡£\n" NOR, this_object(), who);
+                                message_vision(CYN "$N" CYN "æ»¡è„¸æ¬¢å–œçš„å¯¹$n" CYN "é“"
+                                               "ï¼šæ–½ä¸»å®…å¿ƒä»åšï¼Œæ—¥åå¿…æœ‰å¤§æˆï¼Œè´«åƒ§å¤š"
+                                               "è°¢äº†ã€‚\n" NOR, this_object(), who);
                                 command("sigh");
-                                command("say ÎŞÊıºÃÊÂÖ®ÈËÌ°Í¼ÓÚ´Ë£¬ÄËÊÇÎªÁËÕâ±¾¾­ÊéÀï"
-                                        "Ëù¼ÇÔØµÄÒ»ÃÅÎä¹¦¡£");
-                                command("say Ê©Ö÷ÎªÈËÖÒºñÕıÖ±£¬ÌÈÈô²»ÏÓÆú£¬Æ¶É®µ¹ÊÇ¿É"
-                                        "ÒÔ½«ÕâÃÅÎä¹¦µÄÒ»²¿·Ö´«ÊÚÓÚÄã¡£");
+                                command("say æ— æ•°å¥½äº‹ä¹‹äººè´ªå›¾äºæ­¤ï¼Œä¹ƒæ˜¯ä¸ºäº†è¿™æœ¬ç»ä¹¦é‡Œ"
+                                        "æ‰€è®°è½½çš„ä¸€é—¨æ­¦åŠŸã€‚");
+                                command("say æ–½ä¸»ä¸ºäººå¿ åšæ­£ç›´ï¼Œå€˜è‹¥ä¸å«Œå¼ƒï¼Œè´«åƒ§å€’æ˜¯å¯"
+                                        "ä»¥å°†è¿™é—¨æ­¦åŠŸçš„ä¸€éƒ¨åˆ†ä¼ æˆäºä½ ã€‚");
 
                                 who->set("can_learn/jiuyang-shengong/shaolin", 1);
-                                tell_object(who, HIC "¾õÔ¶Í¬Òâ´«ÊÚÄã¡¸ÉÙÁÖ¾ÅÑô¹¦¡¹¡£\n" NOR);
+                                tell_object(who, HIC "è§‰è¿œåŒæ„ä¼ æˆä½ ã€Œå°‘æ—ä¹é˜³åŠŸã€ã€‚\n" NOR);
 
                                 if (who->can_improve_skill("martial-cognize"))
                                         who->improve_skill("martial-cognize", 1500000);
                                 return 1;
                         }
                 }
-                message_vision(CYN "$N" CYN "ÂúÁ³»¶Ï²µÄ¶Ô$n" CYN "µÀ£ºÊ©Ö÷Õ¬ĞÄÈÊºñ£¬"
-                               "ÈÕºó±ØÓĞ´ó³É£¬Æ¶É®¶àĞ»ÁË¡£\n" NOR, this_object(), who);
+                message_vision(CYN "$N" CYN "æ»¡è„¸æ¬¢å–œçš„å¯¹$n" CYN "é“ï¼šæ–½ä¸»å®…å¿ƒä»åšï¼Œ"
+                               "æ—¥åå¿…æœ‰å¤§æˆï¼Œè´«åƒ§å¤šè°¢äº†ã€‚\n" NOR, this_object(), who);
                 return 1;
         }
         return 0;
@@ -133,13 +133,13 @@ int recognize_apprentice(object who, string skill)
 {
         if (! who->query("can_learn/jiuyang-shengong/shaolin"))
         {
-                command("say Ê©Ö÷ÑÔÖØÁË£¬Æ¶É®±¾ÊÂµÍÎ¢£¬ºÎÌ¸¡°Ö¸µã¡±¶ş×Ö¡£");
+                command("say æ–½ä¸»è¨€é‡äº†ï¼Œè´«åƒ§æœ¬äº‹ä½å¾®ï¼Œä½•è°ˆâ€œæŒ‡ç‚¹â€äºŒå­—ã€‚");
                 return -1;
         }
 
         if (skill != "shaolin-jiuyang")
         {
-                command("say ÕıËùÎ½¡°Öª×ã¶øÀÖ£¬ÄÜÈÌÔò°²¡±£¬ÆäËüÎä¹¦ÇëË¡Æ¶É®²»ÄÜ½ÌÊÚ¡£");
+                command("say æ­£æ‰€è°“â€œçŸ¥è¶³è€Œä¹ï¼Œèƒ½å¿åˆ™å®‰â€ï¼Œå…¶å®ƒæ­¦åŠŸè¯·æ•è´«åƒ§ä¸èƒ½æ•™æˆã€‚");
                 return -1;
         }
         return 1;

@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define HAI "¡¸" HIC "º£Ô¨Ê½" NOR "¡¹"
+#define HAI "ã€Œ" HIC "æµ·æ¸Šå¼" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -13,7 +13,7 @@ int perform(object me, object target)
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/zhemei-shou/hai"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -22,31 +22,31 @@ int perform(object me, object target)
         }
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(HAI "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(HAI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
         if (objectp(weapon = me->query_temp("weapon")))
-                return notify_fail(HAI "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(HAI "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if (me->query_skill("force") < 200)
-                return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹" HAI "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HAI "ã€‚\n");
 
         if ((int)me->query_skill("zhemei-shou", 1) < 130)
-                return notify_fail("ÄãµÄåÐÒ£ÕÛÃ·ÊÖµÈ¼¶²»¹»£¬ÄÑÒÔÊ©Õ¹" HAI "¡£\n");
+                return notify_fail("ä½ çš„é€é¥æŠ˜æ¢…æ‰‹ç­‰çº§ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HAI "ã€‚\n");
  
         if (me->query_skill_mapped("hand") != "zhemei-shou")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢åÐÒ£ÕÛÃ·ÊÖ£¬ÄÑÒÔÊ©Õ¹" HAI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘é€é¥æŠ˜æ¢…æ‰‹ï¼Œéš¾ä»¥æ–½å±•" HAI "ã€‚\n");
 
         if (me->query_skill_prepared("hand") != "zhemei-shou")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸Ê¹ÓÃåÐÒ£ÕÛÃ·ÊÖ£¬ÄÑÒÔÊ©Õ¹" HAI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨é€é¥æŠ˜æ¢…æ‰‹ï¼Œéš¾ä»¥æ–½å±•" HAI "ã€‚\n");
 
         if (me->query("neili") < 300)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" HAI "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" HAI "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIB "$N" HIB "»ÓÊÖ¼²Îè£¬Ê©³öåÐÒ£ÕÛÃ·ÊÖ¡¸º£Ô¨Ê½¡¹£¬ÊÖ·¨"
-              "çÎç¿£¬ÐéÐéÊµÊµÕÖÏò$n" HIB "Òªº¦¡£\n" NOR;
+	msg = HIB "$N" HIB "æŒ¥æ‰‹ç–¾èˆžï¼Œæ–½å‡ºé€é¥æŠ˜æ¢…æ‰‹ã€Œæµ·æ¸Šå¼ã€ï¼Œæ‰‹æ³•"
+              "ç¼¥ç¼ˆï¼Œè™šè™šå®žå®žç½©å‘$n" HIB "è¦å®³ã€‚\n" NOR;
 
 	me->add("neili", -50);
         ap = me->query_skill("hand");
@@ -58,14 +58,14 @@ int perform(object me, object target)
 		me->add("neili", -100);
 
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 65,
-		                           HIR "ö®Ê±ÂþÌìÕÆÓ°»¯ÎªÒ»×¥£¬$p" HIR "ÉÁ"
-                                           "±Ü²»¼°£¬±»$N" HIR "ÎåÖ¸²åÈëÐØÌÅ£¬ÏÊÑª"
-                                           "ËÄ´¦·É½¦£¡\n" NOR);
+		                           HIR "éœŽæ—¶æ¼«å¤©æŽŒå½±åŒ–ä¸ºä¸€æŠ“ï¼Œ$p" HIR "é—ª"
+                                           "é¿ä¸åŠï¼Œè¢«$N" HIR "äº”æŒ‡æ’å…¥èƒ¸è†›ï¼Œé²œè¡€"
+                                           "å››å¤„é£žæº…ï¼\n" NOR);
 		me->start_busy(3);
 	} else 
 	{
-		msg += HIC "¿ÉÊÇ$p" HIC "ÉíÊÖÃô½Ý£¬ÉíÐÎ¼±×ª£¬ÇÉÃîµÄ¶ã¹ýÁË$P"
-                       HIC "µÄ¹¥»÷¡£\n"NOR;
+		msg += HIC "å¯æ˜¯$p" HIC "èº«æ‰‹æ•æ·ï¼Œèº«å½¢æ€¥è½¬ï¼Œå·§å¦™çš„èº²è¿‡äº†$P"
+                       HIC "çš„æ”»å‡»ã€‚\n"NOR;
 		me->start_busy(3);
 	}
 	message_combatd(msg, me, target);

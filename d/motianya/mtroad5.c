@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "树林");
         set("long", @LONG
-������ï�ܵ�ɭ�֡����ܶ���������ĳ��ݣ�һ����ɭ��
-�������ա�Զ����ʱ����Ұ�޵ĺ��У���ʵ�ڲ��������������
+这里是茂密的森林。四周都是数不清的长草，一股阴森恐
+怖的气氛。远处不时传来野兽的嚎叫，你实在不想在这里多留。
 LONG);
         set("outdoors", "motianya");
         set("exits", ([

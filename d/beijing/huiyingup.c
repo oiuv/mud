@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��Ӣ��¥");
+        set("short", "汇英酒楼");
         set("long", @LONG
-��Ӣ��¥�����νྻ�����п������κ��ݣ�ʮ�Ŷ��Ǹ���
-��֡�������Ը�������Ͻ��ǵ�ȫ����
+汇英酒楼里桌椅洁净，座中客人衣饰豪奢，十九都是富商
+大贾。这里可以俯瞰整个紫禁城的全景。
 LONG);
         set("exits", ([
                 "down" : __DIR__"huiying",
@@ -48,11 +48,11 @@ void check()
         if (! npc1 || ! npc2)
               return 0;
 
-        message_vision(CYN "$N" CYN "���˸���Ƿ��˵����ʱ�䲻"
-                       "���ˣ����ǻ�ȥ�ɡ�\n$n" CYN "���˵�ͷ"
-                       "�������ã���������߰ɡ�\n\n" HIY "˵"
-                       "�ձ������һ��վ�𣬻���$N" HIY "�뿪"
-                       "�˾�¥��\n\n" NOR, npc1, npc2);
+        message_vision(CYN "$N" CYN "打了个哈欠，说道：时间不"
+                       "早了，我们回去吧。\n$n" CYN "点了点头"
+                       "道：甚好，我们这就走吧。\n\n" HIY "说"
+                       "罢便见几人一齐站起，护着$N" HIY "离开"
+                       "了酒楼。\n\n" NOR, npc1, npc2);
 
         if (objectp(npc1))
                 destruct(npc1);

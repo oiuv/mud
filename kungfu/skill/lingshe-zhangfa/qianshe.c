@@ -14,37 +14,37 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
         	
         if (userp(me) && ! me->query("can_perform/lingshe-zhangfa/qianshe"))
-                return notify_fail("Äã»¹²»»áÊ¹ÓÃ¡¸Ç§Éß³ö¶´¡¹¡£\n");
+                return notify_fail("ä½ è¿˜ä¸ä¼šä½¿ç”¨ã€Œåƒè›‡å‡ºæ´žã€ã€‚\n");
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail("¡¸Ç§Éß³ö¶´¡¹Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("ã€Œåƒè›‡å‡ºæ´žã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "staff")
-                return notify_fail("Äã±ØÐëÊÖ³ÖÒ»°ÑÕÈ²ÅÄÜÊ©Õ¹¡¸Ç§Éß³ö¶´¡¹£¡\n");
+                return notify_fail("ä½ å¿…é¡»æ‰‹æŒä¸€æŠŠæ–æ‰èƒ½æ–½å±•ã€Œåƒè›‡å‡ºæ´žã€ï¼\n");
 
         if ((int)me->query_skill("force") < 150)
-                return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹¡¸Ç§Éß³ö¶´¡¹£¡\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•ã€Œåƒè›‡å‡ºæ´žã€ï¼\n");
 
         if ((int)me->query("neili") < 100)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎÞ·¨Ê©Õ¹¡¸Ç§Éß³ö¶´¡¹£¡\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•ã€Œåƒè›‡å‡ºæ´žã€ï¼\n");
 
         if ((lvl = (int)me->query_skill("lingshe-zhangfa", 1)) < 120)
-                return notify_fail("ÄãµÄÁéÉßÕÈ·¨»¹²»µ½¼Ò£¬ÎÞ·¨Ê¹ÓÃÇ§Éß³ö¶´£¡\n");
+                return notify_fail("ä½ çš„çµè›‡æ–æ³•è¿˜ä¸åˆ°å®¶ï¼Œæ— æ³•ä½¿ç”¨åƒè›‡å‡ºæ´žï¼\n");
 
         if (me->query_skill_mapped("staff") != "lingshe-zhangfa")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢ÁéÉßÕÈ·¨£¬ÎÞ·¨Ê¹ÓÃÇ§Éß³ö¶´£¡\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘çµè›‡æ–æ³•ï¼Œæ— æ³•ä½¿ç”¨åƒè›‡å‡ºæ´žï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "´óºÈÒ»Éù£¬ÆËÉíÉÏÇ°£¬ÊÖÖÐµÄ" + weapon->name() +
-              HIW "»¯×÷ÍòµÀ¹âÃ¢£¬Ò»ÆëÉäÏò$n" HIW "£¡\n" NOR;
+        msg = HIW "$N" HIW "å¤§å–ä¸€å£°ï¼Œæ‰‘èº«ä¸Šå‰ï¼Œæ‰‹ä¸­çš„" + weapon->name() +
+              HIW "åŒ–ä½œä¸‡é“å…‰èŠ’ï¼Œä¸€é½å°„å‘$n" HIW "ï¼\n" NOR;
 
         if (lvl / 2 + random(lvl) > target->query_skill("parry") * 2 / 3)
         {
-                msg += HIY "$n" HIY "¼û$N" HIY "°Ñ" + weapon->name() +
-                       HIY "Ê¹µÃ»îÁé»îÏÖ£¬ÓÌÈçÕæÎïÒ»°ã£¬ÊµÔÚÊÇÄÑÒÔµÖµ²£¬Ö»ÓÐºóÍË¡£\n" NOR;
+                msg += HIY "$n" HIY "è§$N" HIY "æŠŠ" + weapon->name() +
+                       HIY "ä½¿å¾—æ´»çµæ´»çŽ°ï¼ŒçŠ¹å¦‚çœŸç‰©ä¸€èˆ¬ï¼Œå®žåœ¨æ˜¯éš¾ä»¥æŠµæŒ¡ï¼Œåªæœ‰åŽé€€ã€‚\n" NOR;
                 count = lvl / 6;
                 me->add_temp("apply/attack", count);
         } else

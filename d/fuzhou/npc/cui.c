@@ -4,8 +4,8 @@ inherit NPC;
 
 void create()
 {
-	set_name("´ŞïÚÍ·", ({ "cui biaotou", "cui" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("å´”é•–å¤´", ({ "cui biaotou", "cui" }));
+	set("gender", "ç”·æ€§");
 	set("age", 35);
 
 	set("combat_exp", 5000);

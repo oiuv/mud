@@ -4,14 +4,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name("½ğ°ËØÔ", ({ "jin bagua", "bagua" }));
+	set_name("é‡‘å…«å¦", ({ "jin bagua", "bagua" }));
 	set_weight(1200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ãæ");
-                set("no_sell", "Õâ...ÕâÊÇÊ²Ã´¶«Î÷£¿ÎÒ¿É²»¸ÒÒª¡£\n");
-		set("long", "Ò»Ãæ´¿½ğ³Äµ×Ç¶ÓñµÄ°ËØÔ£¬·Ç³£»ª¹ó¡£\n");
+		set("unit", "é¢");
+                set("no_sell", "è¿™...è¿™æ˜¯ä»€ä¹ˆä¸œè¥¿ï¼Ÿæˆ‘å¯ä¸æ•¢è¦ã€‚\n");
+		set("long", "ä¸€é¢çº¯é‡‘è¡¬åº•åµŒç‰çš„å…«å¦ï¼Œéå¸¸åè´µã€‚\n");
 		set("value", 1);
 		set("material", "gold");
 	}

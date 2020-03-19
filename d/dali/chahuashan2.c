@@ -4,11 +4,11 @@
 inherit ROOM;
 void create()
 {
-	set("short","�軨ɽ");
+	set("short","茶花山");
 	set("long",@LONG
-�����ڲ軨ɽ�ϣ�������������ïʢ�Ĳ軨����Ȼ����
-���Ƿ�Ʒ����ż��Ҳ����һ�����Ʒ�������С�������Զ�Ǵ���
-�ǵ����ţ����߲�Զ�ǳ�ǽ��
+你走在茶花山上，这里遍地是生长茂盛的茶花。当然，大部
+分是凡品，但偶尔也会有一两株佳品藏匿其中。北望不远是大理
+城的西门，东边不远是城墙。
 LONG);
 	set("objects", ([
 	   __DIR__"obj/shanchahua": 1,

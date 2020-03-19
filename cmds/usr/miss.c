@@ -1,4 +1,4 @@
-// miss ×·Ñ°ÎïÆ·
+// miss è¿½å¯»ç‰©å“
 
 #include <ansi.h>
 #include <command.h>
@@ -10,22 +10,22 @@ int main(object me, string str)
 	object ob;
 
 	if (! str)
-                return notify_fail("ÄãÒª×·Ñ°Ê²Ã´ÎïÆ·£¿\n");
+                return notify_fail("ä½ è¦è¿½å¯»ä»€ä¹ˆç‰©å“ï¼Ÿ\n");
 
         if (! stringp(str = me->query("can_summon/" + str)))
-                return notify_fail("Äã²»ÖªµÀÈçºÎ×·Ñ°Õâ¸öÎïÆ·¡£\n");
+                return notify_fail("ä½ ä¸çŸ¥é“å¦‚ä½•è¿½å¯»è¿™ä¸ªç‰©å“ã€‚\n");
 
 	if (me->is_ghost())
-		return notify_fail("µÈÄã»¹ÁËÑôÔÙ×·Ñ°°É¡£\n");
+		return notify_fail("ç­‰ä½ è¿˜äº†é˜³å†è¿½å¯»å§ã€‚\n");
 
         if (me->is_busy() || me->is_fighting() || me->query("doing"))
-                return notify_fail("µÈÄãÃ¦ÍêÁËÔÙËµ°É£¡\n");
+                return notify_fail("ç­‰ä½ å¿™å®Œäº†å†è¯´å§ï¼\n");
 
         if (! objectp(ob = find_object(str)) || ! environment(ob))
-                return notify_fail("ÄãÇî¾¡¾«Á¦£¬Ò²ÎŞ·¨¸ĞÓ¦µ½Õâ¸öÎïÆ·¡£\n");
+                return notify_fail("ä½ ç©·å°½ç²¾åŠ›ï¼Œä¹Ÿæ— æ³•æ„Ÿåº”åˆ°è¿™ä¸ªç‰©å“ã€‚\n");
 
         if (ob->query("magic/blood") < 3)
-                return notify_fail("ÄãÓëÕâ¸öÎïÆ·µÄÈÚºÏ¶È²»¹»£¬ÎŞ·¨×·Ñ°µ½Õâ¸öÎïÆ·£¡\n");
+                return notify_fail("ä½ ä¸è¿™ä¸ªç‰©å“çš„èåˆåº¦ä¸å¤Ÿï¼Œæ— æ³•è¿½å¯»åˆ°è¿™ä¸ªç‰©å“ï¼\n");
 
         ob->receive_miss(me);
 	return 1;
@@ -34,9 +34,9 @@ int main(object me, string str)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : miss <Á¶ÖÆÎïÆ·µÄID>
+æŒ‡ä»¤æ ¼å¼ : miss <ç‚¼åˆ¶ç‰©å“çš„ID>
 
-´ËÖ¸Áî¿ÉÈÃÄã×·Ñ°ÄãÁ¶ÖÆµÄÎïÆ·£¬±ØĞëÓĞÒ»¶¨µÄ¾«Á¦²ÅÄÜ×öµ½¡£
+æ­¤æŒ‡ä»¤å¯è®©ä½ è¿½å¯»ä½ ç‚¼åˆ¶çš„ç‰©å“ï¼Œå¿…é¡»æœ‰ä¸€å®šçš„ç²¾åŠ›æ‰èƒ½åšåˆ°ã€‚
 HELP
     );
     return 1;

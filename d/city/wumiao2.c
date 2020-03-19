@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-    set("short", "ÎäÃí¶þÂ¥");
+    set("short", "æ­¦åº™äºŒæ¥¼");
     set("long", @LONG
-ÕâÀïÊÇÔÀÍõÃíµÄ¶þÂ¥£¬ÕâÀï¹©µÄÊÇÔÀ·ÉµÄ³¤×ÓÔÀÔÆºÍÒå×Ó
-ÕÅÏÜ£¬Á½×ðËÜÏñ½ð¿øÒøîø£¬Ó¢Æø²ª²ª¡£ÌýËµÔÚÑ×»Æ×ÓËïµÄ´«Í³
-½Ú¼ÙÈÕÀ´ÕâÀïÆíµ»(pray)»áµÃµ½×£¸£¡£
+è¿™é‡Œæ˜¯å²³çŽ‹åº™çš„äºŒæ¥¼ï¼Œè¿™é‡Œä¾›çš„æ˜¯å²³é£žçš„é•¿å­å²³äº‘å’Œä¹‰å­
+å¼ å®ªï¼Œä¸¤å°Šå¡‘åƒé‡‘ç›”é“¶é“ ï¼Œè‹±æ°”å‹ƒå‹ƒã€‚å¬è¯´åœ¨ç‚Žé»„å­å­™çš„ä¼ ç»Ÿ
+èŠ‚å‡æ—¥æ¥è¿™é‡Œç¥ˆç¥·(pray)ä¼šå¾—åˆ°ç¥ç¦ã€‚
 LONG);
     set("no_fight", 1);
     set("no_steal", 1);
@@ -44,24 +44,24 @@ int do_pray(string arg)
 
     if (me->is_busy())
     {
-        return notify_fail("ÄãÏÖÔÚÕýÃ¦×ÅÄØ£¬Ã»·¨¾²ÏÂÐÄÀ´Æíµ»¡£\n");
+        return notify_fail("ä½ çŽ°åœ¨æ­£å¿™ç€å‘¢ï¼Œæ²¡æ³•é™ä¸‹å¿ƒæ¥ç¥ˆç¥·ã€‚\n");
     }
 
-    message_vision(HIG "\n$N" HIG "¹òÔÚÉñÏñÇ°£¬¹§¹§¾´¾´µÄ¿ÄÁËÈý¸öÏìÍ·£¬È»ºóÄ¬Ä¬µÄÆíµ»×Å¡£\n" NOR, me);
+    message_vision(HIG "\n$N" HIG "è·ªåœ¨ç¥žåƒå‰ï¼Œæ­æ­æ•¬æ•¬çš„ç£•äº†ä¸‰ä¸ªå“å¤´ï¼Œç„¶åŽé»˜é»˜çš„ç¥ˆç¥·ç€ã€‚\n" NOR, me);
 
     if (month == FETEMONTH && day >= BEGIN_DAY && day <= END_DAY)
     {
         if (me->query(FESTIVAL) == day)
         {
             if (day == END_DAY)
-                tell_object(me, HIR "ÄãÒÑ¾­±»×£¸£¹ýÁË£¬ÇëÏÂ´Î½Ú¼ÙÈÕÔÙÀ´°É¡£\n" NOR);
+                tell_object(me, HIR "ä½ å·²ç»è¢«ç¥ç¦è¿‡äº†ï¼Œè¯·ä¸‹æ¬¡èŠ‚å‡æ—¥å†æ¥å§ã€‚\n" NOR);
             else
-                tell_object(me, HIR "Äã½ñÌìÒÑ¾­±»×£¸£¹ýÁË£¬ÇëÃ÷ÌìÔÙÀ´°É¡£\n" NOR);
+                tell_object(me, HIR "ä½ ä»Šå¤©å·²ç»è¢«ç¥ç¦è¿‡äº†ï¼Œè¯·æ˜Žå¤©å†æ¥å§ã€‚\n" NOR);
             return 1;
         }
         if (me->query("potential") > me->query_potential_limit())
         {
-            tell_object(me, HIB "Äã¸Ð¾õ×Ô¼ºµÄÆíµ»ÓÐÓÃ£¬¿É²»ÖªµÀÎªÊ²Ã´Ã»ÓÐÐ§¹û¡£\n" NOR);
+            tell_object(me, HIB "ä½ æ„Ÿè§‰è‡ªå·±çš„ç¥ˆç¥·æœ‰ç”¨ï¼Œå¯ä¸çŸ¥é“ä¸ºä»€ä¹ˆæ²¡æœ‰æ•ˆæžœã€‚\n" NOR);
             return 1;
         }
 
@@ -78,8 +78,8 @@ int do_pray(string arg)
         if (! me->query("skybook/guard/death"))
             me->add("skybook/guard/death", 1);
         me->set(FESTIVAL, day);
-        message_vision(HIW "Ú¤Ú¤Ö®ÖÐºÃÏñÓÐÒ»¸öÉùÒô´«À´£º" HIR "×£$N" HIR + FETEDAY "ÓÎÏ·¿ìÀÖ" HIW "¡£\n" NOR, me);
-        tell_object(me, HIY "Ö»¼ûÒ»µÀÁé¹âÉÁÏÖ£¬ÄãµÃµ½ÉñÁé×£¸££¬»ñµÃÁË" + chinese_number(pot) + "µãÇ±ÄÜ¡£\n" NOR);
+        message_vision(HIW "å†¥å†¥ä¹‹ä¸­å¥½åƒæœ‰ä¸€ä¸ªå£°éŸ³ä¼ æ¥ï¼š" HIR "ç¥$N" HIR + FETEDAY "æ¸¸æˆå¿«ä¹" HIW "ã€‚\n" NOR, me);
+        tell_object(me, HIY "åªè§ä¸€é“çµå…‰é—ªçŽ°ï¼Œä½ å¾—åˆ°ç¥žçµç¥ç¦ï¼ŒèŽ·å¾—äº†" + chinese_number(pot) + "ç‚¹æ½œèƒ½ã€‚\n" NOR);
         me->start_busy(5);
         return 1;
     }
@@ -89,8 +89,8 @@ int do_pray(string arg)
     {
         me->set("skybook/guard/death", 1);
         me->start_busy(10);
-        message_vision(HIW "\n$N" HIW "ÉíÉÏ·ºÆðÒ»²ãµ­µ­µÄ°×¹â£¬ÏÔµÃÉñÃØÄª²â¡£\n" NOR, me);
-        tell_object(me, HIY "ÄãµÄÆíµ»µÃµ½»ØÓ¦£¬ÊÜµ½ÉñÁéµÄ»¤ÓÓ¡£\n" NOR);
+        message_vision(HIW "\n$N" HIW "èº«ä¸Šæ³›èµ·ä¸€å±‚æ·¡æ·¡çš„ç™½å…‰ï¼Œæ˜¾å¾—ç¥žç§˜èŽ«æµ‹ã€‚\n" NOR, me);
+        tell_object(me, HIY "ä½ çš„ç¥ˆç¥·å¾—åˆ°å›žåº”ï¼Œå—åˆ°ç¥žçµçš„æŠ¤ä½‘ã€‚\n" NOR);
         return 1;
     }
 
@@ -98,12 +98,12 @@ int do_pray(string arg)
     {
         me->set("learned_experience", exp0);
         me->start_busy(10);
-        message_vision(HIC "\n$N" HIW "ÉíÉÏ·ºÆðÒ»²ãµ­µ­µÄ¹âÃ¢£¬ÏÔµÃÉñÃØÄª²â¡£\n" NOR, me);
-        tell_object(me, HIY "ÄãµÄÆíµ»µÃµ½»ØÓ¦£¬¸Ð¾õ°ô°ôßÕ¡£\n" NOR);
+        message_vision(HIC "\n$N" HIW "èº«ä¸Šæ³›èµ·ä¸€å±‚æ·¡æ·¡çš„å…‰èŠ’ï¼Œæ˜¾å¾—ç¥žç§˜èŽ«æµ‹ã€‚\n" NOR, me);
+        tell_object(me, HIY "ä½ çš„ç¥ˆç¥·å¾—åˆ°å›žåº”ï¼Œæ„Ÿè§‰æ£’æ£’å“’ã€‚\n" NOR);
         return 1;
     }
 
-    tell_object(me, HIB "Äã¸Ð¾õ×Ô¼ºµÄÆíµ»Ã»ÓÐÈÎºÎÐ§¹û¡£\n" NOR);
+    tell_object(me, HIB "ä½ æ„Ÿè§‰è‡ªå·±çš„ç¥ˆç¥·æ²¡æœ‰ä»»ä½•æ•ˆæžœã€‚\n" NOR);
     me->start_busy(1 + random(10));
     return 1;
 }

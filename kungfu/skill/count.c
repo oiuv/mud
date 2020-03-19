@@ -9,25 +9,25 @@ int valid_learn(object me)
         gift = 35;
         mat = 300;
 
-        if (me->query("family/family_name") == "ÌÒ»¨µº")
+        if (me->query("family/family_name") == "æ¡ƒèŠ±å²›")
         {
                 gift = 30;
                 mat = 200;
         }
 
         if ((int)me->query("int") < gift)
-                return notify_fail("ÄãµÄÏÈÌìÎòĞÔ²»×ã£¬ÄÑÒÔÁì»áÒõÑô°ËØÔµÄ°ÂÃî¡£\n");
+                return notify_fail("ä½ çš„å…ˆå¤©æ‚Ÿæ€§ä¸è¶³ï¼Œéš¾ä»¥é¢†ä¼šé˜´é˜³å…«å¦çš„å¥¥å¦™ã€‚\n");
 
         if ((int)me->query_skill("mathematics", 1) < mat)
-                return notify_fail("ÄãµÄËãÊõÖªÊ¶Ì«²î£¬ÎŞ·¨Àí½âÒõÑô°ËØÔµÄ°ÂÃî¡£\n");
+                return notify_fail("ä½ çš„ç®—æœ¯çŸ¥è¯†å¤ªå·®ï¼Œæ— æ³•ç†è§£é˜´é˜³å…«å¦çš„å¥¥å¦™ã€‚\n");
 
         if ((int)me->query_skill("mathematics", 1) < (int)me->query_skill("count", 1))
-                return notify_fail("ÄãµÄËãÊõÖªÊ¶ÓĞÏŞ£¬ÎŞ·¨Àí½â¸üÉî°ÂµÄÒõÑô°ËØÔ¡£\n");
+                return notify_fail("ä½ çš„ç®—æœ¯çŸ¥è¯†æœ‰é™ï¼Œæ— æ³•ç†è§£æ›´æ·±å¥¥çš„é˜´é˜³å…«å¦ã€‚\n");
 /*
-        //ÓÉÓÚÃ»¿ª·Å¸ßÎòĞÔ»¥²«£¬´ËĞ§¹ûÔİÎŞÊµ¼ÊĞ§¹û£¬¹ÊÈ¡Ïû¡£
-        //×ªÊÀÌØ¼¼Ñ­Ó°ÇÜ×Ù
+        //ç”±äºæ²¡å¼€æ”¾é«˜æ‚Ÿæ€§äº’æï¼Œæ­¤æ•ˆæœæš‚æ— å®é™…æ•ˆæœï¼Œæ•…å–æ¶ˆã€‚
+        //è½¬ä¸–ç‰¹æŠ€å¾ªå½±æ“’è¸ª
         if (me->query_skill("zuoyou-hubo", 1) && !me->query("special_skill/qinzong"))
-                return notify_fail("ÄãÊÜµ½×óÓÒ»¥²©·ÖĞÄÖ®ÊõÓ°Ïì£¬ÄÑÒÔÁì»áÒõÑô°ËØÔµÄ°ÂÃî¡£\n");
+                return notify_fail("ä½ å—åˆ°å·¦å³äº’åšåˆ†å¿ƒä¹‹æœ¯å½±å“ï¼Œéš¾ä»¥é¢†ä¼šé˜´é˜³å…«å¦çš„å¥¥å¦™ã€‚\n");
 */
         return 1;
 }

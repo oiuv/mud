@@ -4,9 +4,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÍêÑÕºéÁÒ", ({"wanyan honglie", "honglie", "wanyan"}));
-        set("gender", "ÄĞĞÔ");
-        set("title", "´ó½ğ¹úÕÔÍõÒ¯");
+        set_name("å®Œé¢œæ´ªçƒˆ", ({"wanyan honglie", "honglie", "wanyan"}));
+        set("gender", "ç”·æ€§");
+        set("title", "å¤§é‡‘å›½èµµç‹çˆ·");
         set("age", 48);
         set("class", "officer");
         set("attitude", "friendly");

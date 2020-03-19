@@ -6,10 +6,10 @@ inherit NPC;
 
 void create()
 {
-	set_name("·çÁ¼", ({ "feng liang", "feng"}));
-	set("title", HIG "ÇàÁúÃÅÕÆÃÅÈË" NOR);
-	set("long", "ËûÊÇ¸ö¸ß´óµÄÖĞÄêºº×Ó£¬ÑüÀï²ø¾Å½Ú±Ş¡£\n");
-	set("gender", "ÄĞĞÔ");
+	set_name("é£è‰¯", ({ "feng liang", "feng"}));
+	set("title", HIG "é’é¾™é—¨æŒé—¨äºº" NOR);
+	set("long", "ä»–æ˜¯ä¸ªé«˜å¤§çš„ä¸­å¹´æ±‰å­ï¼Œè…°é‡Œç¼ ä¹èŠ‚é­ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 41);
 	set("attitude", "peaceful");
 	set("shen_type", 1);

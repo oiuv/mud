@@ -36,28 +36,28 @@ int do_invite(string arg)
         object me;
 
         if (! arg || ! objectp(ob = present(arg, environment())))
-                return notify_fail("ÄãÒªÑûÇëË­£¿\n");
+                return notify_fail("ä½ è¦é‚€è¯·è°ï¼Ÿ\n");
 
         if (! ob->is_character())
-                return notify_fail("ÄãÏòÑûÇëËü£¬¿ÉÊÇËü²»»á×ßÂ·°¡£¡\n");
+                return notify_fail("ä½ å‘é‚€è¯·å®ƒï¼Œå¯æ˜¯å®ƒä¸ä¼šèµ°è·¯å•Šï¼\n");
 
         if (! ob->query("can_speak"))
-                return notify_fail("ÓÐÒâË¼£¬²»¹ýÄã×îºÃ»¹ÊÇÑûÇëÒ»¸ö¡°ÈË¡±¡£\n");
+                return notify_fail("æœ‰æ„æ€ï¼Œä¸è¿‡ä½ æœ€å¥½è¿˜æ˜¯é‚€è¯·ä¸€ä¸ªâ€œäººâ€ã€‚\n");
 
         if (ob == me)
-                return notify_fail("ÄãÒªÑûÇëÄã×Ô¼º£¿Ïë·¨²»´í£¬¿ÉÏ§Ã»ÓÐÓÃ¡£\n");
+                return notify_fail("ä½ è¦é‚€è¯·ä½ è‡ªå·±ï¼Ÿæƒ³æ³•ä¸é”™ï¼Œå¯æƒœæ²¡æœ‰ç”¨ã€‚\n");
 
         if (is_owner(ob))
-                return notify_fail("ÕâÈËÒ²ËãÊÇÕâ¶ùµÄÖ÷ÈË£¬ÓÐÊ²Ã´ºÃÑûÇëµÄ£¿\n");
+                return notify_fail("è¿™äººä¹Ÿç®—æ˜¯è¿™å„¿çš„ä¸»äººï¼Œæœ‰ä»€ä¹ˆå¥½é‚€è¯·çš„ï¼Ÿ\n");
 
         if (! userp(ob))
-                return notify_fail("ÕâÈËÄã»¹ÊÇ±ðÑûÇëÁË¡£\n");
+                return notify_fail("è¿™äººä½ è¿˜æ˜¯åˆ«é‚€è¯·äº†ã€‚\n");
 
         me = this_player();
-        message_vision("$NÖ¸×Å" + ob->name() + "¶Ô$nµÀ£º¡°ÕâÊÇÎÒÇëÀ´µÄ"
-                       "¿ÍÈË£¬Äã¿É²»Òªµ¡ÂýÁË£¡¡±\n$nÁ¬Ã¦µãÍ·¹þÑüµÀ£º¡°"
-                       "ÖªµÀÁË£¡ÖªµÀÁË£¡ÕâÎ»" + RANK_D->query_respect(ob) +
-                       "£¬Ð¡µÄÄÄÓÐ²»ÖÜ¾¡¹ÜÌá£¡¡±\n", me, this_object());
+        message_vision("$NæŒ‡ç€" + ob->name() + "å¯¹$né“ï¼šâ€œè¿™æ˜¯æˆ‘è¯·æ¥çš„"
+                       "å®¢äººï¼Œä½ å¯ä¸è¦æ€ æ…¢äº†ï¼â€\n$nè¿žå¿™ç‚¹å¤´å“ˆè…°é“ï¼šâ€œ"
+                       "çŸ¥é“äº†ï¼çŸ¥é“äº†ï¼è¿™ä½" + RANK_D->query_respect(ob) +
+                       "ï¼Œå°çš„å“ªæœ‰ä¸å‘¨å°½ç®¡æï¼â€\n", me, this_object());
         ob->set_temp("permit_enter/" + me->query("id"), 1);
         return 1;
 }
@@ -69,23 +69,23 @@ int do_show(string arg)
         string msg;
 
         if (! arg)
-                return notify_fail("ÄãÒªÁÁ³öÊ²Ã´¶«Î÷£¿\n");
+                return notify_fail("ä½ è¦äº®å‡ºä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
         me = this_player();
         if (! objectp(ob = present(arg, me)))
-                return notify_fail("ÄãÉíÉÏÃ»ÓÐÕâÖÖ¶«Î÷¡£\n");
+                return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™ç§ä¸œè¥¿ã€‚\n");
  
-        msg = "$NÁÁ³öÒ»" + ob->query("unit") + ob->name() + "\n";
+        msg = "$Näº®å‡ºä¸€" + ob->query("unit") + ob->name() + "\n";
         if (! ob->id(environment()->query("room_owner_id") + " pass"))
-                msg += "²»¹ý$nÀí¶¼Ã»ÓÐÀí$n¡£\n";
+                msg += "ä¸è¿‡$nç†éƒ½æ²¡æœ‰ç†$nã€‚\n";
         else
                 if (is_owner_permit(me))
-                        msg += "$nÂúÁ³¶ÑÐ¦£¬¶Ô$NµÀ£º¡°Ê§¾´£¡Ê§¾´£¡¡±\n";
+                        msg += "$næ»¡è„¸å †ç¬‘ï¼Œå¯¹$Né“ï¼šâ€œå¤±æ•¬ï¼å¤±æ•¬ï¼â€\n";
                 else
                 {
-                        msg += "$nÒ»¿´£¬ÂúÁ³¶ÑÐ¦£¬¶Ô$NµÀ£º¡°Ô­À´ÊÇ" +
+                        msg += "$nä¸€çœ‹ï¼Œæ»¡è„¸å †ç¬‘ï¼Œå¯¹$Né“ï¼šâ€œåŽŸæ¥æ˜¯" +
                                environment()->query("room_owner") +
-                               "µÄÅóÓÑ£¬Ê§¾´£¡Ê§¾´£¡¡±\n";
+                               "çš„æœ‹å‹ï¼Œå¤±æ•¬ï¼å¤±æ•¬ï¼â€\n";
                         me->set_temp("permit_enter/" +
                                      environment()->query("room_ownerid"), 1);
                 }

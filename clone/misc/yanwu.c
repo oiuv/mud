@@ -1,4 +1,4 @@
-// Yanwu.c ÑÌÎíµ¯
+// Yanwu.c çƒŸé›¾å¼¹
 
 #include <command.h>
 #include <ansi.h>
@@ -7,13 +7,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIM "ÑÌÎíµ¯" NOR, ({ "yanwu dan", "yanwu", "dan" }) );
+        set_name(HIM "çƒŸé›¾å¼¹" NOR, ({ "yanwu dan", "yanwu", "dan" }) );
         set_weight(100);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»¿ÅÌØÖÆµÄÑÌÎíµ¯¡£Ëü¿ÉÒÔÓÃ(apply)À´ÖÆÔì»ìÂÒ£¬³Ã»úÌÓ×ß¡£\n");
-                set("unit", "¸ö");
+                set("long", "ä¸€é¢—ç‰¹åˆ¶çš„çƒŸé›¾å¼¹ã€‚å®ƒå¯ä»¥ç”¨(apply)æ¥åˆ¶é€ æ··ä¹±ï¼Œè¶æœºé€ƒèµ°ã€‚\n");
+                set("unit", "ä¸ª");
                 set("value", 10000);
 		set("no_sell", 1);
                 set("can_apply_for_wimpy", 1);
@@ -33,7 +33,7 @@ int apply_for_wimpy(object me)
         int sc;
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕıÔÚÃ¦×ÅÄØ¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£åœ¨å¿™ç€å‘¢ã€‚\n");
 
         me->clean_up_enemy();
         if (me->is_fighting())
@@ -49,11 +49,11 @@ int apply_for_wimpy(object me)
                         if (sc > 300000) sc = 300000;
                         if (sc / 4 + random(sc) > 100000)
                         {
-                                message_vision("\n$NÌÍ³öÑÌÎíµ¯¾ÍÍùµØÉÏÈÓ£¬È»¶ø$n"
-                                               "´óºÈÒ»ÉùµÀ£º¡°Ò²²»¿´¿´" +
+                                message_vision("\n$Næå‡ºçƒŸé›¾å¼¹å°±å¾€åœ°ä¸Šæ‰”ï¼Œç„¶è€Œ$n"
+                                               "å¤§å–ä¸€å£°é“ï¼šâ€œä¹Ÿä¸çœ‹çœ‹" +
                                                RANK_D->query_self(obs[i]) +
-                                               "ĞĞ×ß½­ºşÓĞ¶àÉÙÄê£¬Äã¾ÓÈ»»¹¸ÒÍæÕâÖÖ°ÑÏ·£¿¡±\n"
-                                               "Ëµ°ÕÖ»¼û$nÒ»½Å½«$NÈÓÔÚµØÉÏµÄÑÌÎíµ¯Ìßµ½Ò»ÅÔ¡£\n",
+                                               "è¡Œèµ°æ±Ÿæ¹–æœ‰å¤šå°‘å¹´ï¼Œä½ å±…ç„¶è¿˜æ•¢ç©è¿™ç§æŠŠæˆï¼Ÿâ€\n"
+                                               "è¯´ç½¢åªè§$nä¸€è„šå°†$Næ‰”åœ¨åœ°ä¸Šçš„çƒŸé›¾å¼¹è¸¢åˆ°ä¸€æ—ã€‚\n",
                                                me, obs[i]);
                                 destruct(this_object());
                                 return 1;
@@ -62,11 +62,11 @@ int apply_for_wimpy(object me)
         }
 
         me->set_temp("no_follow",1);
-        tell_room(environment(me), HIM "\nµØÃæÍ»È»ÌÚ³öÒ»¹ÉÌÒºìÉ«µÄ"
-				   "ÑÌÎí£¬´ó¼ÒÊ²Ã´Ò²¿´²»¼û£¬ÏİÈë"
-				   "»ìÂÒÖ®ÖĞ¡£\n" NOR);
+        tell_room(environment(me), HIM "\nåœ°é¢çªç„¶è…¾å‡ºä¸€è‚¡æ¡ƒçº¢è‰²çš„"
+				   "çƒŸé›¾ï¼Œå¤§å®¶ä»€ä¹ˆä¹Ÿçœ‹ä¸è§ï¼Œé™·å…¥"
+				   "æ··ä¹±ä¹‹ä¸­ã€‚\n" NOR);
 
-	me->set_temp("success_flee", "Äã½è×Å»ìÂÒ³É¹¦µÄÌÓ×ßÁË¡£\n");
+	me->set_temp("success_flee", "ä½ å€Ÿç€æ··ä¹±æˆåŠŸçš„é€ƒèµ°äº†ã€‚\n");
         GO_CMD->do_flee(me);
         destruct(this_object());
         return 1;
@@ -75,7 +75,7 @@ int apply_for_wimpy(object me)
 int do_apply(string arg)
 {
         if (! arg || ! id(arg))
-                return notify_fail("ÄãÒªÓÃÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦ç”¨ä»€ä¹ˆï¼Ÿ\n");
 
         return apply_for_wimpy(this_player());
 }

@@ -1,4 +1,4 @@
-// cheng-buyou.c  ³É²»ÓÇ
+// cheng-buyou.c  æˆä¸å¿§
 inherit NPC;
 inherit F_MASTER;
 #include <ansi.h>
@@ -7,12 +7,12 @@ mixed learn_kuangfeng();
 
 void create()
 {
-        set_name("³É²»ÓÇ", ({ "cheng buyou", "cheng" }) );
-        set("gender", "ÄĞĞÔ");
+        set_name("æˆä¸å¿§", ({ "cheng buyou", "cheng" }) );
+        set("gender", "ç”·æ€§");
         set("class", "swordsman");
-        set("title", "»ªÉ½½£×ÚµÚÊ®Èı´úµÜ×Ó");
+        set("title", "åå±±å‰‘å®—ç¬¬åä¸‰ä»£å¼Ÿå­");
         set("age", 41);
-        set("long", "Ò»¸ö°×¾»ÃæÆ¤µÄ°«×Ó£¬ÑÛÉñÈ´Òì³£ÈñÀû¡£\n");
+        set("long", "ä¸€ä¸ªç™½å‡€é¢çš®çš„çŸ®å­ï¼Œçœ¼ç¥å´å¼‚å¸¸é”åˆ©ã€‚\n");
         set("attitude", "peaceful");
         set("str", 26);
         set("int", 24);
@@ -60,13 +60,13 @@ void create()
         prepare_skill("strike", "hunyuan-zhang");
         prepare_skill("cuff", "poyu-quan");
 
-        create_family("»ªÉ½ÅÉ", 13, "µÜ×Ó");
+        create_family("åå±±æ´¾", 13, "å¼Ÿå­");
 
         set("inquiry", ([
-                "ÔÀ²»Èº"         : "ºß£¬ÊÖÏÂ°Ü½«»¹¸Ò×Ô³ÆÊ²Ã´¾ı×Ó½££¡\n",  
-                "¶áÃüÁ¬»·ÈıÏÉ½£" : "Èç¹ûÄãÏëÑ§µÄ»°¿ÉÒÔÕÒÎÒ·âÊ¦¸ç¡£\n",
-                "½£×Ú"           : "ÎÒ¾ÍÊÇ»ªÉ½½£×Ú´«ÈË£¡\n",
-                "¿ñ·ç¿ì½£"       : (: learn_kuangfeng :),
+                "å²³ä¸ç¾¤"         : "å“¼ï¼Œæ‰‹ä¸‹è´¥å°†è¿˜æ•¢è‡ªç§°ä»€ä¹ˆå›å­å‰‘ï¼\n",  
+                "å¤ºå‘½è¿ç¯ä¸‰ä»™å‰‘" : "å¦‚æœä½ æƒ³å­¦çš„è¯å¯ä»¥æ‰¾æˆ‘å°å¸ˆå“¥ã€‚\n",
+                "å‰‘å®—"           : "æˆ‘å°±æ˜¯åå±±å‰‘å®—ä¼ äººï¼\n",
+                "ç‹‚é£å¿«å‰‘"       : (: learn_kuangfeng :),
         ]));
         setup();
 
@@ -76,41 +76,41 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        command("say ÀÏ·ò´Ó²»ÊÕÍ½¡£");
+        command("say è€å¤«ä»ä¸æ”¶å¾’ã€‚");
 }
 
 int accept_ask(object me, string topic)
 {
-        if (me->query("family/family_name") != "»ªÉ½ÅÉ")
+        if (me->query("family/family_name") != "åå±±æ´¾")
                 return 0;
 
         switch (topic)
         {
-        case "ÌìÍâ·ÉÁú" :
+        case "å¤©å¤–é£é¾™" :
                 if (me->query("max_neili") > 2000 || me->query_skill("force") > 205)
                 {
                       command("shake");
-                      command("say ÎÒ½£×ÚÒÔ½£ÊõÎªÖ÷£¬ÆøÎª´Î£¡ÄãµÄÄÚ¹¦ĞŞÎªÒÑÈëÁËÆø×ÚÆçÍ¾£¬ÔÙ²»ÄÜĞŞÁ¶½£×Ú½£Êõ¡£");
+                      command("say æˆ‘å‰‘å®—ä»¥å‰‘æœ¯ä¸ºä¸»ï¼Œæ°”ä¸ºæ¬¡ï¼ä½ çš„å†…åŠŸä¿®ä¸ºå·²å…¥äº†æ°”å®—æ­§é€”ï¼Œå†ä¸èƒ½ä¿®ç‚¼å‰‘å®—å‰‘æœ¯ã€‚");
                       return 1;
                 }
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/huashan-jian/long",
-                           "name"    : "ÌìÍâ·ÉÁú",
+                           "name"    : "å¤©å¤–é£é¾™",
                            "sk1"     : "huashan-jian",
                            "lv1"     : 150,
                            "force"   : 150, ]));
                 break;
 
-        case "·çÉ¨ÂäÒ¶" :
+        case "é£æ‰«è½å¶" :
                 if (me->query("max_neili") > 2000 || me->query_skill("force") > 205)
                 {
                       command("shake");
-                      command("say ÎÒ½£×ÚÒÔ½£ÊõÎªÖ÷£¬ÆøÎª´Î£¡ÄãµÄÄÚ¹¦ĞŞÎªÒÑÈëÁËÆø×ÚÆçÍ¾£¬ÔÙ²»ÄÜĞŞÁ¶½£×Ú½£Êõ¡£");
+                      command("say æˆ‘å‰‘å®—ä»¥å‰‘æœ¯ä¸ºä¸»ï¼Œæ°”ä¸ºæ¬¡ï¼ä½ çš„å†…åŠŸä¿®ä¸ºå·²å…¥äº†æ°”å®—æ­§é€”ï¼Œå†ä¸èƒ½ä¿®ç‚¼å‰‘å®—å‰‘æœ¯ã€‚");
                       return 1;
                 }
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/kuangfeng-jian/sao",
-                           "name"    : "·çÉ¨ÂäÒ¶",
+                           "name"    : "é£æ‰«è½å¶",
                            "sk1"     : "kuangfeng-jian",
                            "lv1"     : 100,
                            "sk2"     : "dodge",
@@ -127,34 +127,34 @@ mixed learn_kuangfeng()
         object me = this_player();
         int lv;
 
-        if (me->query("family/family_name") != "»ªÉ½ÅÉ")
-                return "ÄãÎÒºÁÎŞ¹Ï¸ğ£¬ºÎ³ö´ËÑÔ£¿\n";
+        if (me->query("family/family_name") != "åå±±æ´¾")
+                return "ä½ æˆ‘æ¯«æ— ç“œè‘›ï¼Œä½•å‡ºæ­¤è¨€ï¼Ÿ\n";
 
         if (me->query_skill("kuangfeng-jian", 1))
-              return "ÎÒ¸Ã½ÌµÄ¶¼ÒÑ¾­½ÌÄãÁË£¬Ê£ÏÂµÄ¾Í¿¿ÄãÇÚ¼ÓÁ·Ï°ÁË£¡\n";
+              return "æˆ‘è¯¥æ•™çš„éƒ½å·²ç»æ•™ä½ äº†ï¼Œå‰©ä¸‹çš„å°±é ä½ å‹¤åŠ ç»ƒä¹ äº†ï¼\n";
 
         if (me->query("max_neili") > 2000 || me->query_skill("force") > 205)
         {
               command("shake");
-              command("say ÎÒ½£×ÚÒÔ½£ÊõÎªÖ÷£¬ÆøÎª´Î£¡ÄãµÄÄÚ¹¦ĞŞÎªÒÑÈëÁËÆø×ÚÆçÍ¾£¬ÔÙ²»ÄÜĞŞÁ¶½£×Ú½£Êõ¡£");
-              command("say Äã»¹ÊÇÇë»Ø°É£¡");
+              command("say æˆ‘å‰‘å®—ä»¥å‰‘æœ¯ä¸ºä¸»ï¼Œæ°”ä¸ºæ¬¡ï¼ä½ çš„å†…åŠŸä¿®ä¸ºå·²å…¥äº†æ°”å®—æ­§é€”ï¼Œå†ä¸èƒ½ä¿®ç‚¼å‰‘å®—å‰‘æœ¯ã€‚");
+              command("say ä½ è¿˜æ˜¯è¯·å›å§ï¼");
               return 1;
         }
 
         if (me->query_skill("sword", 1) < 120)
-              return "Äã»ù±¾½£·¨ĞŞÎª²»×ã£¬ÎŞ·¨Ñ§Ï°¿ñ·ç¿ì½££¡\n";
+              return "ä½ åŸºæœ¬å‰‘æ³•ä¿®ä¸ºä¸è¶³ï¼Œæ— æ³•å­¦ä¹ ç‹‚é£å¿«å‰‘ï¼\n";
 
         if (me->query_skill("dodge") < 180)
-              return "ÄãÇá¹¦ĞŞÎª²»×ã£¬ÎŞ·¨Ñ§Ï°¿ñ·ç¿ì½££¡\n";
+              return "ä½ è½»åŠŸä¿®ä¸ºä¸è¶³ï¼Œæ— æ³•å­¦ä¹ ç‹‚é£å¿«å‰‘ï¼\n";
  
         command("nod");
-        command("say ¼ÈÈ»ÕâÑùÀÏ·ò¾Í½«¿ñ·ç¿ì½£´«ÓëÄã£¬Äã¿É¿´ºÃÁË£¡");
-        message_vision(HIC "$N" HIC "½«¡¸¿ñ·ç¿ì½£¡¹´ÓÍ·µ½Î²¸ø$n" HIC "ÑİÊ¾ÁËÒ»±é£¡\n" NOR,
+        command("say æ—¢ç„¶è¿™æ ·è€å¤«å°±å°†ç‹‚é£å¿«å‰‘ä¼ ä¸ä½ ï¼Œä½ å¯çœ‹å¥½äº†ï¼");
+        message_vision(HIC "$N" HIC "å°†ã€Œç‹‚é£å¿«å‰‘ã€ä»å¤´åˆ°å°¾ç»™$n" HIC "æ¼”ç¤ºäº†ä¸€éï¼\n" NOR,
                        this_object(), me);
         command("haha");
-        tell_object(me, HIG "ÄãÑ§»áÁË¡¸¿ñ·ç¿ì½£¡¹£¡\n" NOR);
+        tell_object(me, HIG "ä½ å­¦ä¼šäº†ã€Œç‹‚é£å¿«å‰‘ã€ï¼\n" NOR);
 
-        command("say Áì»áÁË¶àÉÙ¾Í¿´ÄãµÄÎòĞÔÁË£¬Ê£ÏÂµÄ¾Í¿¿Äã×Ô¼ºÏÂÈ¥Á·Ï°£¡");
+        command("say é¢†ä¼šäº†å¤šå°‘å°±çœ‹ä½ çš„æ‚Ÿæ€§äº†ï¼Œå‰©ä¸‹çš„å°±é ä½ è‡ªå·±ä¸‹å»ç»ƒä¹ ï¼");
 
         lv = me->query("int");
         if (lv <= 30)

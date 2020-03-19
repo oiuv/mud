@@ -16,7 +16,7 @@ void create()
         name += last_words[random(sizeof(last_words))];
         
         set_name(name, ({ "ghost"}) );
-        set("gender", "Å®ĞÔ" );        
+        set("gender", "å¥³æ€§" );        
         set("age",40);
         set("str", 30);
         set("int", 20);
@@ -79,8 +79,8 @@ void invocation(object target)
         int lv, cost_neili;
 
 
-        msg = HIM "$N" HIM "ÉîÉîÎü½øÒ»¿ÚÆø£¬µ¥ÊÖ»Ó³ö£¬ÕÆÔµ¶ÙÊ±Ï¼¹âÍòµÀ£¬Ñú³ö"
-              "ÆßÉ«ºç²ÊÏò$n" HIM "Ï¯¾í¶øÖÁ¡£\n" NOR;
+        msg = HIM "$N" HIM "æ·±æ·±å¸è¿›ä¸€å£æ°”ï¼Œå•æ‰‹æŒ¥å‡ºï¼ŒæŒç¼˜é¡¿æ—¶éœå…‰ä¸‡é“ï¼Œæ¼¾å‡º"
+              "ä¸ƒè‰²è™¹å½©å‘$n" HIM "å¸­å·è€Œè‡³ã€‚\n" NOR;
 
         ap = me->query_skill("hand") + me->query_skill("martial-cognize", 1);
         dp = target->query_skill("dodge") + target->query_skill("martial-cognize", 1);
@@ -103,10 +103,10 @@ void invocation(object target)
                 if (lv >= 400)cost_neili = -200; 
                 if (me->query("max_neili") > target->query("max_neili") * 2)
                 {
-                        msg += HIM "Ö»Ìı$n" HIM "Ò»Éù¼âĞ¥£¬$N" HIM "µÄÆßÉ«ÕÆ"
-                               "¾¢ÒÑ¾¡Êı×¢Èë$p" HIM "ÌåÄÚ£¬¶ÙÊ±½«$p" HIM "»¯"
-                               "ÎªÒ»Ì²ÑªË®¡£\n" NOR "( $n" RED "ÊÜÉË¹ıÖØ£¬ÒÑ"
-                               "¾­ÓĞÈç·çÖĞ²ĞÖò£¬ËæÊ±¶¼¿ÉÄÜ¶ÏÆø¡£" NOR ")\n";
+                        msg += HIM "åªå¬$n" HIM "ä¸€å£°å°–å•¸ï¼Œ$N" HIM "çš„ä¸ƒè‰²æŒ"
+                               "åŠ²å·²å°½æ•°æ³¨å…¥$p" HIM "ä½“å†…ï¼Œé¡¿æ—¶å°†$p" HIM "åŒ–"
+                               "ä¸ºä¸€æ»©è¡€æ°´ã€‚\n" NOR "( $n" RED "å—ä¼¤è¿‡é‡ï¼Œå·²"
+                               "ç»æœ‰å¦‚é£ä¸­æ®‹çƒ›ï¼Œéšæ—¶éƒ½å¯èƒ½æ–­æ°”ã€‚" NOR ")\n";
                         damage = ap * 2;
                         me->add("neili", cost_neili);
                         me->start_busy(1);
@@ -123,15 +123,15 @@ void invocation(object target)
                         target->receive_wound("jing", damage / 8, me);
                         p = (int)target->query("qi") * 100 / (int)target->query("max_qi");
 
-                        msg += HIM "$n" HIM "Ö»ÊÇÎ¢Î¢Ò»ã¶£¬$N" HIM "µÄÆßÉ«ÕÆ¾¢ÒÑÆÆÌå¶ø"
-                               "Èë£¬$p" HIM "±ãÓÌÈçÉíÖÃºéÂ¯Ò»°ã£¬Á¬Å»Êı¿ÚÏÊÑª¡£\n" NOR;
+                        msg += HIM "$n" HIM "åªæ˜¯å¾®å¾®ä¸€æ„£ï¼Œ$N" HIM "çš„ä¸ƒè‰²æŒåŠ²å·²ç ´ä½“è€Œ"
+                               "å…¥ï¼Œ$p" HIM "ä¾¿çŠ¹å¦‚èº«ç½®æ´ªç‚‰ä¸€èˆ¬ï¼Œè¿å‘•æ•°å£é²œè¡€ã€‚\n" NOR;
                         
                         me->add("neili", cost_neili);
                         me->start_busy(3);
         } else
         {
-                msg += CYN "$p" CYN "¼û×´´ó¾ªÊ§É«£¬ÍêÈ«¿±ÆÆ²»Í¸$P"
-                       CYN "ÕĞÖĞ°ÂÃØ£¬µ±¼´·ÉÉíÔ¾ÆğÕÉĞí£¬¶ãÉÁ¿ªÀ´¡£\n" NOR;
+                msg += CYN "$p" CYN "è§çŠ¶å¤§æƒŠå¤±è‰²ï¼Œå®Œå…¨å‹˜ç ´ä¸é€$P"
+                       CYN "æ‹›ä¸­å¥¥ç§˜ï¼Œå½“å³é£èº«è·ƒèµ·ä¸ˆè®¸ï¼Œèº²é—ªå¼€æ¥ã€‚\n" NOR;
                 me->add("neili", -200);
                 me->start_busy(4);
         }

@@ -10,34 +10,34 @@ int query_neili_improve(object me)
 }
 
 mapping *action = ({
-    (["action":"$Nµ¥ÕÆÒ»¶¶£¬ÔË¾ÛÁúÏó°ãÈô¹¦¹¦Á¦£¬ºôĞ¥×ÅÏò$nµÄ$l´¦ÅÄÈ¥",
+    (["action":"$Nå•æŒä¸€æŠ–ï¼Œè¿èšé¾™è±¡èˆ¬è‹¥åŠŸåŠŸåŠ›ï¼Œå‘¼å•¸ç€å‘$nçš„$lå¤„æ‹å»",
               "dodge":37,
               "force":430,
              "attack":173,
               "parry":41,
              "damage":133,
-        "damage_type":"ÄÚÉË"]),
-    (["action":"$NÓÒÈ­ºáÒÆ£¬×óÕÆÔËÆğÁúÏó°ãÈô¹¦µÄ¾¢Á¦£¬ÃÍµØÅÄÏò$nµÄ$l",
+        "damage_type":"å†…ä¼¤"]),
+    (["action":"$Nå³æ‹³æ¨ªç§»ï¼Œå·¦æŒè¿èµ·é¾™è±¡èˆ¬è‹¥åŠŸçš„åŠ²åŠ›ï¼ŒçŒ›åœ°æ‹å‘$nçš„$l",
               "dodge":35,
               "force":440,
              "attack":177,
               "parry":47,
              "damage":121,
-        "damage_type":"ÄÚÉË"]),
-    (["action":"$NÍÂÆøÑïÉù£¬Ë«È­Í¬Ê±ÔËÂúÁúÏó°ãÈô¹¦¹¦Á¦£¬³¯$n$l´¦¹áÈ¥",
+        "damage_type":"å†…ä¼¤"]),
+    (["action":"$Nåæ°”æ‰¬å£°ï¼ŒåŒæ‹³åŒæ—¶è¿æ»¡é¾™è±¡èˆ¬è‹¥åŠŸåŠŸåŠ›ï¼Œæœ$n$lå¤„è´¯å»",
               "dodge":37,
               "force":450,
              "attack":182,
               "parry":46,
              "damage":123,
-        "damage_type":"ÄÚÉË"]),
-    (["action":"$NÔË×ãÁúÏó°ãÈô¹¦£¬Ë«È­Æ½ÍÆ£¬¶ÙÊ±Ò»¹ÉÁèÀ÷µÄî¸¾¢Ö±Ï®$n",
+        "damage_type":"å†…ä¼¤"]),
+    (["action":"$Nè¿è¶³é¾™è±¡èˆ¬è‹¥åŠŸï¼ŒåŒæ‹³å¹³æ¨ï¼Œé¡¿æ—¶ä¸€è‚¡å‡Œå‰çš„ç½¡åŠ²ç›´è¢­$n",
               "dodge":27,
               "force":480,
              "attack":183,
               "parry":35,
              "damage":145,
-        "damage_type":"ÄÚÉË"]),
+        "damage_type":"å†…ä¼¤"]),
 });
 
 int valid_enable(string usage)
@@ -75,34 +75,34 @@ int valid_learn(object me)
         layer = 13;
 
     if ((int)me->query("str") < 36)
-        return notify_fail("ÄãµÄÏÈÌìëöÁ¦åîÈõ£¬ÎŞ·¨ĞŞÁ¶ÁúÏó°ãÈô¹¦¡£\n");
+        return notify_fail("ä½ çš„å…ˆå¤©è†‚åŠ›å­±å¼±ï¼Œæ— æ³•ä¿®ç‚¼é¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
     if ((int)me->query("con") < 30)
-        return notify_fail("ÄãµÄÏÈÌì¸ù¹ÇåîÈõ£¬ÎŞ·¨ĞŞÁ¶ÁúÏó°ãÈô¹¦¡£\n");
+        return notify_fail("ä½ çš„å…ˆå¤©æ ¹éª¨å­±å¼±ï¼Œæ— æ³•ä¿®ç‚¼é¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
-    if (me->query("gender") == "ÎŞĞÔ" && layer >= 1)
-        return notify_fail("ÄãÎŞ¸ùÎŞĞÔ£¬ÒõÑô²»µ÷£¬ÎŞ·¨ĞŞÁ¶ÁúÏó°ãÈô¹¦¡£\n");
+    if (me->query("gender") == "æ— æ€§" && layer >= 1)
+        return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œæ— æ³•ä¿®ç‚¼é¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
     if ((int)me->query_skill("lamaism", 1) < 100)
-        return notify_fail("Äã¶ÔÃÜ×ÚĞÄ·¨Àí½â²»¹»£¬ÄÑÒÔÁì»áÁúÏó°ãÈô¹¦¡£\n");
+        return notify_fail("ä½ å¯¹å¯†å®—å¿ƒæ³•ç†è§£ä¸å¤Ÿï¼Œéš¾ä»¥é¢†ä¼šé¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
     if ((int)me->query_skill("force", 1) < 100)
-        return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ğºò²»×ã£¬ÄÑÒÔÁì»áÁúÏó°ãÈô¹¦¡£\n");
+        return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™ä¸è¶³ï¼Œéš¾ä»¥é¢†ä¼šé¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
     if ((int)me->query("max_neili", 1) < 1000)
-        return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»×ã£¬ÄÑÒÔÁì»áÁúÏó°ãÈô¹¦¡£\n");
+        return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œéš¾ä»¥é¢†ä¼šé¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
     if (me->query_skill("force", 1) < lvl)
-        return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦Ë®Æ½²»¹»£¬ÄÑÒÔĞŞÁ¶¸üÉîºñµÄÁúÏó°ãÈô¹¦¡£\n");
+        return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸæ°´å¹³ä¸å¤Ÿï¼Œéš¾ä»¥ä¿®ç‚¼æ›´æ·±åšçš„é¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
     if ((int)me->query("max_neili", 1) < layer * 500)
-        return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»¹»£¬ÄÑÒÔĞŞÁ¶¸üÉîºñµÄÁúÏó°ãÈô¹¦¡£\n");
+        return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥ä¿®ç‚¼æ›´æ·±åšçš„é¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
     if ((int)me->query_skill("lamaism", 1) < 390 && me->query_skill("lamaism", 1) < layer * 25)
-        return notify_fail("Äã¶ÔÃÜ×ÚĞÄ·¨Àí½â²»¹»£¬ÄÑÒÔĞŞÁ¶¸üÉîºñµÄÁúÏó°ãÈô¹¦¡£\n");
+        return notify_fail("ä½ å¯¹å¯†å®—å¿ƒæ³•ç†è§£ä¸å¤Ÿï¼Œéš¾ä»¥ä¿®ç‚¼æ›´æ·±åšçš„é¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
     if (me->query_skill("unarmed", 1) < lvl && layer >= 5)
-        return notify_fail("ÄãµÄ»ù±¾È­½ÅË®Æ½²»¹»£¬ÄÑÒÔĞŞÁ¶¸üÉîºñµÄÁúÏó°ãÈô¹¦¡£\n");
+        return notify_fail("ä½ çš„åŸºæœ¬æ‹³è„šæ°´å¹³ä¸å¤Ÿï¼Œéš¾ä»¥ä¿®ç‚¼æ›´æ·±åšçš„é¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
     return ::valid_learn(me);
 }
@@ -129,20 +129,20 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
     {
         me->add("neili", -80);
         victim->receive_wound("qi", (damage_bonus - 50) / 3, me);
-        return HIY "$N" HIY "È­·æÖ®ÉÏ¾¹ÔÌ²Ø×Å¡º" HIR "Ê®ÁúÊ®Ïó" HIY "¡»Ö®Á¦£¬î¸¾¢ÆÆÌå£¬´İ»ÙÁË$n" HIY "µÄÕæÔª£¡\n" NOR;
+        return HIY "$N" HIY "æ‹³é”‹ä¹‹ä¸Šç«Ÿè•´è—ç€ã€" HIR "åé¾™åè±¡" HIY "ã€ä¹‹åŠ›ï¼Œç½¡åŠ²ç ´ä½“ï¼Œæ‘§æ¯äº†$n" HIY "çš„çœŸå…ƒï¼\n" NOR;
     }
     else
     {
         me->add("neili", -50);
         victim->receive_wound("qi", (damage_bonus - 100) / 3, me);
-        return HIY "$N" HIY "Ë«È­°µº¬ÁúÏó°ãÈô¹¦µÚ" + chinese_number(layer) +
-               "²ã¹¦Á¦£¬$n" HIY "ĞÄÂöÊÜÕğ£¬Åç³öÒ»¿ÚÏÊÑª£¡\n" NOR;
+        return HIY "$N" HIY "åŒæ‹³æš—å«é¾™è±¡èˆ¬è‹¥åŠŸç¬¬" + chinese_number(layer) +
+               "å±‚åŠŸåŠ›ï¼Œ$n" HIY "å¿ƒè„‰å—éœ‡ï¼Œå–·å‡ºä¸€å£é²œè¡€ï¼\n" NOR;
     }
 }
 
 int practice_skill(object me)
 {
-    return notify_fail("ÁúÏó°ãÈô¹¦Ö»ÄÜÓÃÑ§(learn)À´Ôö¼ÓÊìÁ·¶È¡£\n");
+    return notify_fail("é¾™è±¡èˆ¬è‹¥åŠŸåªèƒ½ç”¨å­¦(learn)æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 void skill_improved(object me)
@@ -152,21 +152,21 @@ void skill_improved(object me)
     lvl = me->query_skill("longxiang-gong", 1);
     layer = lvl / 30;
 
-    //Ôö¼ÓÕæ¡¤°ãÈô¼«ÁìÎò
+    //å¢åŠ çœŸÂ·èˆ¬è‹¥æé¢†æ‚Ÿ
     if (lvl > 400 && !me->query("can_perform/longxiang-gong/zhen"))
     {
-        tell_object(me, HIR "ÄãÍ»È»ÁéÏ¬Ò»¶¯£¬ÁìÎò³öÊı°ÙÄêÎŞÈËÁ·³ÉµÄÕæ¡¤°ãÈô¼«ÃØ¾÷£¡\n" NOR);
+        tell_object(me, HIR "ä½ çªç„¶çµçŠ€ä¸€åŠ¨ï¼Œé¢†æ‚Ÿå‡ºæ•°ç™¾å¹´æ— äººç»ƒæˆçš„çœŸÂ·èˆ¬è‹¥æç§˜è¯€ï¼\n" NOR);
         me->set("can_perform/longxiang-gong/zhen", 1);
     }
 
     if ((lvl % 30) == 0 && layer > 13)
     {
-        tell_object(me, HIY "ÄãµÄÁúÏó°ãÈô¹¦ÓÖ½øÁËÒ»²ã¡£\n" NOR);
+        tell_object(me, HIY "ä½ çš„é¾™è±¡èˆ¬è‹¥åŠŸåˆè¿›äº†ä¸€å±‚ã€‚\n" NOR);
     }
     else if ((lvl % 30) == 0)
     {
-        tell_object(me, HIY "ÄãÁ¶³ÉÁËµÚ" + chinese_number(layer) +
-                            "²ãµÄÁúÏó°ãÈô¹¦¡£\n" NOR);
+        tell_object(me, HIY "ä½ ç‚¼æˆäº†ç¬¬" + chinese_number(layer) +
+                            "å±‚çš„é¾™è±¡èˆ¬è‹¥åŠŸã€‚\n" NOR);
     }
 }
 

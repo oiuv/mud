@@ -1,7 +1,7 @@
 /*****************************************************************************
 Copyright: 2020, Mud.Ren
 File name: variables.c
-Description: ¹ÜÀíÔ±×¨ÓÃ£¬ÏÔÊ¾Ö¸¶¨¶ÔÏóËùÓĞÈ«¾Ö±äÁ¿µÄÖµ
+Description: ç®¡ç†å‘˜ä¸“ç”¨ï¼Œæ˜¾ç¤ºæŒ‡å®šå¯¹è±¡æ‰€æœ‰å…¨å±€å˜é‡çš„å€¼
 Author: xuefeng
 *****************************************************************************/
 inherit F_CLEAN_UP;
@@ -24,9 +24,9 @@ int main(object me, string arg)
         if (!ob1)
             ob1 = present(id, me);
         if (!ob1)
-            return notify_fail("±¾µØÎŞ´ËÉúÎï: " + id + "\n");
+            return notify_fail("æœ¬åœ°æ— æ­¤ç”Ÿç‰©: " + id + "\n");
         if (!ob = present(arg, ob1))
-            return notify_fail("¸ÃÉúÎïÉíÉÏÎŞ´Ë¶ÔÏó: " + arg + "\n");
+            return notify_fail("è¯¥ç”Ÿç‰©èº«ä¸Šæ— æ­¤å¯¹è±¡: " + arg + "\n");
     }
     else if (arg == "here")
         ob = environment(me);
@@ -42,7 +42,7 @@ int main(object me, string arg)
         if (!ob)
             ob = present(arg, me);
         if (!ob)
-            return notify_fail("Data: ÎŞ·¨ÕÒµ½´Ë¶ÔÏó: " + arg + "¡£\n");
+            return notify_fail("Data: æ— æ³•æ‰¾åˆ°æ­¤å¯¹è±¡: " + arg + "ã€‚\n");
     }
     if (sizeof(vars = variables(ob)))
     foreach(string var in vars)
@@ -57,9 +57,9 @@ int help(object me)
         return 0;
 
     write(@LONG
-Ö¸Áî¸ñÊ½: variables <Íæ¼Ò|¶ÔÏó|here> <in Íæ¼Ò»òÉúÎï>
-Ö¸ÁîËµÃ÷:
-    ´ËÃüÁîÈÃÄã¿ÉÒÔ¹Û¿´ËùÖ¸¶¨¶ÔÏóµÄ×ÊÁÏ£¬Ïà±È data Ö¸Áî¿ÉÒÔ²é¿´¸ü¶à²ÎÊıµÄÖµ¡£
+æŒ‡ä»¤æ ¼å¼: variables <ç©å®¶|å¯¹è±¡|here> <in ç©å®¶æˆ–ç”Ÿç‰©>
+æŒ‡ä»¤è¯´æ˜:
+    æ­¤å‘½ä»¤è®©ä½ å¯ä»¥è§‚çœ‹æ‰€æŒ‡å®šå¯¹è±¡çš„èµ„æ–™ï¼Œç›¸æ¯” data æŒ‡ä»¤å¯ä»¥æŸ¥çœ‹æ›´å¤šå‚æ•°çš„å€¼ã€‚
 LONG );
     return  1;
 }

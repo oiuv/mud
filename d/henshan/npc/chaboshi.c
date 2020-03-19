@@ -5,17 +5,17 @@ inherit F_DEALER;
 
 void create()
 {
-	set_name("�販ʿ", ({ "cha boshi", "boshi" }));
-	set("title", "����ϰ�");
-	set("nickname", HIC "��Ϣ��ͨ" NOR);
+	set_name("茶博士", ({ "cha boshi", "boshi" }));
+	set("title", "茶馆老板");
+	set("nickname", HIC "消息灵通" NOR);
 	set("shen_type", 1);
 
 	set("str", 30);
-	set("gender", "����");
+	set("gender", "男性");
 	set("age", 35);
 	set("long",
-		"����販ʿ���Ǻ���������Ϣ��ͨ��ʿ��ÿ��ӭ��������\n"
-		"���ԶԳ����һ��һ��������ָ�ơ�\n");
+		"这个茶博士可是衡阳城里消息灵通人士，每日迎来送往，\n"
+		"所以对城里的一举一动都了如指掌。\n");
 	set("combat_exp", 500);
 	set("attitude", "friendly");
 
@@ -50,12 +50,12 @@ void greeting(object ob)
 	switch(random(2))
 	{
 	case 0 :
-		say(CYN "�販ʿ���˿�����˵������λ" + RANK_D->query_respect(ob) +
-			"������ҿ�������ȱ��Ȳ衣\n" NOR);
+		say(CYN "茶博士揩了揩桌子说道：这位" + RANK_D->query_respect(ob) +
+			"，哈你家快请进来喝杯热茶。\n" NOR);
 		break;
 	case 1 :
-		say(CYN "�販ʿ˵��������ң���λ" + RANK_D->query_respect(ob) +
-			"�����С�����費���ƣ�����ң�\n" NOR);
+		say(CYN "茶博士说道：哈你家！这位" + RANK_D->query_respect(ob) +
+			"哈你家小店卖茶不卖酒，哈你家！\n" NOR);
 		break;
 	}
 }

@@ -2,9 +2,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("¿×´ó¹ÙÈË", ({"kong guanren", "kong"}));
-        set("long", "¿ª·â¸®ÖĞµÄ¸»»§¡£\n" );
-        set("gender", "ÄĞĞÔ");
+        set_name("å­”å¤§å®˜äºº", ({"kong guanren", "kong"}));
+        set("long", "å¼€å°åºœä¸­çš„å¯Œæˆ·ã€‚\n" );
+        set("gender", "ç”·æ€§");
         set("attitude", "peace");
         set("age", 42);
         set("str", 20);

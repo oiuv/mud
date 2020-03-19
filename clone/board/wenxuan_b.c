@@ -2,10 +2,10 @@ inherit BULLETIN_BOARD;
 
 void create()
 {
-	set_name("Ñ×»Æ ÎÄÑ¡ ·¢±í°æ", ({ "board" }) );
+	set_name("ç‚é»„ æ–‡é€‰ å‘è¡¨ç‰ˆ", ({ "board" }) );
 	set("location", "/d/wizard/wenxuan");
 	set("board_id", "wenxuan_b");
-	set("long", "ÇëÄú×¢ÒâÄúµÄÁôÑÔÖ÷ÌâºÍÄÚÈİ¡£\n" );
+	set("long", "è¯·æ‚¨æ³¨æ„æ‚¨çš„ç•™è¨€ä¸»é¢˜å’Œå†…å®¹ã€‚\n" );
 	setup();
 	set("capacity", 200);
 	replace_program(BULLETIN_BOARD);

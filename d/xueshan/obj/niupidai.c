@@ -1,24 +1,24 @@
-// niupidai.c Å£Æ¤´ü
+// niupidai.c ç‰›çš®è¢‹
 
 inherit ITEM;
 inherit F_LIQUID;
 
 void create()
 {
-        set_name("Å£Æ¤´ü", ({"niu pidai", "pidai","dai","skin" }));
+        set_name("ç‰›çš®è¢‹", ({"niu pidai", "pidai","dai","skin" }));
         set_weight(200);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "ÕâÊÇÓÃÀ´×°ËÖÓÍ²èµÄÅ£Æ¤´ü£¬É¢·¢³öµ­µ­µÄÈéÏã¡£\n");
-                set("unit", "¸ö");
+                set("long", "è¿™æ˜¯ç”¨æ¥è£…é…¥æ²¹èŒ¶çš„ç‰›çš®è¢‹ï¼Œæ•£å‘å‡ºæ·¡æ·¡çš„ä¹³é¦™ã€‚\n");
+                set("unit", "ä¸ª");
                 set("value", 150);
                 set("max_liquid", 10);
         } 
  
         set("liquid", ([ 
                 "type": "suyou cha", 
-                "name": "ËÖÓÍ²è", 
+                "name": "é…¥æ²¹èŒ¶", 
                 "remaining": 10, 
                 "drunk_supply": 20, 
         ])); 

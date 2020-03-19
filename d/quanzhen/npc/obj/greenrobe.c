@@ -1,4 +1,4 @@
-// greenrobe.c ÇàÉ«µÀÅÛ
+// greenrobe.c é’è‰²é“è¢
 
 #include <armor.h>
 #include <ansi.h>
@@ -7,14 +7,14 @@ inherit CLOTH;
 
 void create()
 {
-        set_name(HIG"ÇàÉ«µÀÅÛ"NOR, ({"pao", "cloth", "dao pao"}) );
+        set_name(HIG"é’è‰²é“è¢"NOR, ({"pao", "cloth", "dao pao"}) );
         set_weight(1500);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
                 set("female_only", 1);
-                set("unit", "¼ş");
-                set("long", "ÕâÊÇ¼şÖÊµØÈáÈíµÄÇàÉ«µÀÅÛ¡£\n");
+                set("unit", "ä»¶");
+                set("long", "è¿™æ˜¯ä»¶è´¨åœ°æŸ”è½¯çš„é’è‰²é“è¢ã€‚\n");
                 set("material", "silk");
                 set("armor_prop/armor", 3);
         }

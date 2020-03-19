@@ -8,13 +8,13 @@ inherit CLOTH;
 
 void create()
 {
-        set_name(HIY"╩фию"NOR, ({ "huang shan", "shan", "cloth" }) );
+        set_name(HIY"И╩└Х║╚"NOR, ({ "huang shan", "shan", "cloth" }) );
         set_weight(3000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "╪Ч");
-                set("long", "р╩╪Ч╤Л╩фи╚╣де╝всЁ╓ию║ё");
+                set("unit", "Д╩╤");
+                set("long", "Д╦─Д╩╤И╧┘И╩└Х┴╡Г └Е╔ЁЕ╜░И∙©Х║╚Ц─┌");
                 set("material", "cloth");
                 set("armor_prop/armor", 10);
         }

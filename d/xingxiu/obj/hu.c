@@ -6,19 +6,19 @@ inherit F_LIQUID;
 
 void create()
 {
-        set_name("ÂíÄÌ¾Æºø", ({"hu", "bottle"}));
+        set_name("é©¬å¥¶é…’å£¶", ({"hu", "bottle"}));
         set_weight(700);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»¸öÓÃÀ´×°ÂíÄÌ¾ÆµÄ´ó¾Æºø£¬´ó¸Å×°µÃ°Ë¡¢¾ÅÉıµÄ¾Æ¡£\n");
-                set("unit", "Ö»");
+                set("long", "ä¸€ä¸ªç”¨æ¥è£…é©¬å¥¶é…’çš„å¤§é…’å£¶ï¼Œå¤§æ¦‚è£…å¾—å…«ã€ä¹å‡çš„é…’ã€‚\n");
+                set("unit", "åª");
                 set("value", 100);
                 set("max_liquid", 15);
         }
         set("liquid", ([
                 "type": "alcohol",
-                "name": "ÂíÄÌ¾Æ",
+                "name": "é©¬å¥¶é…’",
                 "remaining": 15,
                 "drunk_supply": 6,
         ]));

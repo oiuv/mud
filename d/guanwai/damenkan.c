@@ -3,12 +3,12 @@ inherit RIVER;
 
 void create()
 {
-        set("short", "���ſ���");
+        set("short", "大门坎子");
         set("long", @LONG
-�������ؽ��򶫵Ĺŵ�����Ϊ��ɽ�ɲεĲο����ߣ����
-Ҳ�Ʋ�·��ǰ��һ��Сɽ�ض�ȥ·��Ϊ��ȥ�ɲεĵ�һ������
-�ʱ���Ϊ���ſ��ӡ������ǿ������ɻ��� (river)���ɻ�����
-����ʱ�������ͨ�У����ﻯ����ֻ���Ҵ��Ұ�æ�ˡ�
+这里是沿江向东的古道，多为进山采参的参客所走，因此
+也称参路。前面一座小山截断去路，为东去采参的第一道屏障
+故被称为大门坎子。西面是宽阔的松花江 (river)。松花江在
+冬春时结冰可以通行，夏秋化冻你只好找船家帮忙了。
 LONG);
         set("arrive_room", "/d/guanwai/chuanchang");
         set("exits", ([

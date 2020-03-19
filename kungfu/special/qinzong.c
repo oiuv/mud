@@ -6,7 +6,7 @@ inherit F_CLEAN_UP;
 
 int is_scborn() { return 1; }
 
-string name() { return HIM "循影擒踪" NOR; }
+string name() { return HIM "寰奖鎿掕釜" NOR; }
 
 int perform(object me, string skill)
 {
@@ -16,8 +16,8 @@ int perform(object me, string skill)
         if (me->query_skill("mathematics", 1) < 300)
                 me->set_skill("mathematics", 300);
 
-        return notify_fail("你在转生过程中纵观天象，察觉到了人世间的诸多\n"
-                           "奥秘，众生百态尽收眼底，此后不再受到拆招卸力\n"                          
-                           "之技的迷惑。使用后可得到阴阳八卦及算术三百级。\n"
+        return notify_fail("浣犲湪杞敓杩囩▼涓旱瑙傚ぉ璞★紝瀵熻鍒颁簡浜轰笘闂寸殑璇稿\n"
+                           "濂ョ锛屼紬鐢熺櫨鎬佸敖鏀剁溂搴曪紝姝ゅ悗涓嶅啀鍙楀埌鎷嗘嫑鍗稿姏\n"                          
+                           "涔嬫妧鐨勮糠鎯戙�備娇鐢ㄥ悗鍙緱鍒伴槾闃冲叓鍗﹀強绠楁湳涓夌櫨绾с�俓n"
                            );
 }

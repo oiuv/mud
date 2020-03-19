@@ -5,12 +5,12 @@ inherit HEAD;
 
 void create()
 {
-        set_name( "Ã±×Ó", ({ "hat" }) );
+        set_name( "å¸½å­", ({ "hat" }) );
         set_weight(3000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼ş");
+                set("unit", "ä»¶");
                 set("value", 500);
                 set("material", "hat");
                 set("armor_prop/armor", 2);

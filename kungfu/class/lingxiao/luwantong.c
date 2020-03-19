@@ -7,10 +7,10 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("Â½ÍòÍ¨", ({"lu wantong", "lu", "wantong"}));
-        set("long", "Â½ÍòÍ¨ÊÇÁèÏü³ÇÑ©É½½£ÅÉÖÐµÄÁù´úµÜ×Ó£¬Ö»¼ûËûÉí\n"
-                    "ÊÖ½Ã½¡£¬Ë«Ä¿Èçµç¡£\n");
-        set("gender", "ÄÐÐÔ");
+        set_name("é™†ä¸‡é€š", ({"lu wantong", "lu", "wantong"}));
+        set("long", "é™†ä¸‡é€šæ˜¯å‡Œå®µåŸŽé›ªå±±å‰‘æ´¾ä¸­çš„å…­ä»£å¼Ÿå­ï¼Œåªè§ä»–èº«\n"
+                    "æ‰‹çŸ«å¥ï¼ŒåŒç›®å¦‚ç”µã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 34);
         set("attitude", "friendly");
         set("shen_type", 1);
@@ -55,14 +55,14 @@ void create()
         }));
 
         set("guarder", ([
-                "refuse_other": CYN "$N" CYN "¶Ô$n" CYN "ÀäºÈµÀ£º"
-                                "Äã¸øÎÒÕ¾×¡£¡ÎÒÃÇÁèÏü¹¬ÆñÊÇÓÉµÃÍâ"
-                                "ÈËËæ±ã×ß¶¯µØ·½£¿" NOR,
-                "refuse_carry": CYN "$N" CYN "¶Ô$n" CYN "ºÈµÀ£ºÄã"
-                                "±³ÉÏ±³µÄÊÇÊ²Ã´ÈË£¿¸øÎÒ·ÅÏÂÀ´£¡" NOR,
+                "refuse_other": CYN "$N" CYN "å¯¹$n" CYN "å†·å–é“ï¼š"
+                                "ä½ ç»™æˆ‘ç«™ä½ï¼æˆ‘ä»¬å‡Œå®µå®«å²‚æ˜¯ç”±å¾—å¤–"
+                                "äººéšä¾¿èµ°åŠ¨åœ°æ–¹ï¼Ÿ" NOR,
+                "refuse_carry": CYN "$N" CYN "å¯¹$n" CYN "å–é“ï¼šä½ "
+                                "èƒŒä¸ŠèƒŒçš„æ˜¯ä»€ä¹ˆäººï¼Ÿç»™æˆ‘æ”¾ä¸‹æ¥ï¼" NOR,
         ]));
 
-        create_family("ÁèÏö³Ç", 6, "µÜ×Ó");
+        create_family("å‡Œéœ„åŸŽ", 6, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -84,6 +84,6 @@ void attempt_apprentice(object me)
         if (! permit_recruit(me))
                 return;
 
-        command("say ºÜºÃ£¬ÄãÒÔºó¾Í¸ú×ÅÎÒ°É¡£");
+        command("say å¾ˆå¥½ï¼Œä½ ä»¥åŽå°±è·Ÿç€æˆ‘å§ã€‚");
         command("recruit " + me->query("id"));
 }

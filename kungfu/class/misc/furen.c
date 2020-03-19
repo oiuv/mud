@@ -1,4 +1,4 @@
-// furen.c ÀÏ·òÈË
+// furen.c è€å¤«äºº
 
 #include <ansi.h>
 
@@ -6,9 +6,9 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("ÀÏ·òÈË", ({ "lao furen", "furen" }));
-	set("long",  "Ëı¿´ÉÏÈ¥Äê¼ÍÒÑ¾­²»Ğ¡ÁË£¬²»¹ı´ÓÃ¼½ÇÖĞÒÀÈ»¿É¿´³öµ±ÄêµÄ·ç×Ë¡£\n");
-	set("gender", "Å®ĞÔ");
+	set_name("è€å¤«äºº", ({ "lao furen", "furen" }));
+	set("long",  "å¥¹çœ‹ä¸Šå»å¹´çºªå·²ç»ä¸å°äº†ï¼Œä¸è¿‡ä»çœ‰è§’ä¸­ä¾ç„¶å¯çœ‹å‡ºå½“å¹´çš„é£å§¿ã€‚\n");
+	set("gender", "å¥³æ€§");
 	set("age", 69);
 	set("attitude", "peaceful");
 	set("shen_type", 1);
@@ -56,7 +56,7 @@ void create()
         prepare_skill("finger", "canhe-zhi");
         prepare_skill("cuff", "qixing-quan");
 
-	create_family("Ä½ÈİÊÀ¼Ò", 0, "×åÈË");
+	create_family("æ…•å®¹ä¸–å®¶", 0, "æ—äºº");
 
 	set("chat_chance_combat", 120);
 	set("chat_msg_combat", ({

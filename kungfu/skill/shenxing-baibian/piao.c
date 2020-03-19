@@ -3,7 +3,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define FEI "¡¸" HIG "ĞéÎŞçÎç¿" NOR "¡¹"
+#define FEI "ã€Œ" HIG "è™šæ— ç¼¥ç¼ˆ" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -17,19 +17,19 @@ int perform(object me, object target)
 
 
 		if (skill < 60)
-				return notify_fail("ÄãµÄÉñĞĞ°Ù±ä²»¹»æµÊì£¬²»»áÊ¹ÓÃ" FEI  "¡£\n");
+				return notify_fail("ä½ çš„ç¥è¡Œç™¾å˜ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨" FEI  "ã€‚\n");
 
         if (me->query_skill_mapped("dodge") != "shenxing-baibian")
-                return notify_fail("ÄãÃ»ÓĞÊ¹ÓÃÉñĞĞ°Ù±ä£¬ÎŞ·¨Ê©Õ¹" FEI  "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰ä½¿ç”¨ç¥è¡Œç™¾å˜ï¼Œæ— æ³•æ–½å±•" FEI  "ã€‚\n");
 
 		if (me->query_temp("shenxing"))
-                return notify_fail("ÄãÒÑ¾­ÔËÆğ¡¸ĞéÎŞçÎç¿¡¹ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»è¿èµ·ã€Œè™šæ— ç¼¥ç¼ˆã€äº†ã€‚\n");
 
         if (me->query("neili") < 60)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÎŞ·¨Ê©Õ¹" FEI  "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" FEI  "ã€‚\n");
 
-        msg = HIM "Ö»¼û$N" HIM "½«È«ÉíµÄÄÚÁ¦Ğı×ªÕğ¶¯£¬ÉíĞÎ¶«Ò»Áï£¬Î÷Ò»»Î£¬"
-              "ºöÓÖ×óÓÒÒ¡°Ú×÷ÊÆÓû·¢£¬ĞéĞéÊµÊµ£¬Æ®Ãì²»¶¨¡£\n" NOR;
+        msg = HIM "åªè§$N" HIM "å°†å…¨èº«çš„å†…åŠ›æ—‹è½¬éœ‡åŠ¨ï¼Œèº«å½¢ä¸œä¸€æºœï¼Œè¥¿ä¸€æ™ƒï¼Œ"
+              "å¿½åˆå·¦å³æ‘‡æ‘†ä½œåŠ¿æ¬²å‘ï¼Œè™šè™šå®å®ï¼Œé£˜æ¸ºä¸å®šã€‚\n" NOR;
 
 		message_sort(msg, me);
 
@@ -48,6 +48,6 @@ void remove_effect(object me, int amount)
         {
                 me->add_temp("apply/dodge", -amount);
                 me->delete_temp("shenxing");
-                tell_object(me, "ÄãµÄ¡¸ĞéÎŞçÎç¿¡¹ÔË¹¦Íê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„ã€Œè™šæ— ç¼¥ç¼ˆã€è¿åŠŸå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›ä¸¹ç”°ã€‚\n");
         }
 }

@@ -3,9 +3,9 @@ inherit ITEM;
 
 void create()
 {
-       set_name(HIW "Ç§ÈÕ×í" NOR, ({"qianri zui", "qianri", "zui"}));
-       set("unit", "¿Å");
-       set("long", HIW "ÕâÊÇÒ»¿ÅºËÌÒ´óĞ¡µÄ¹ûÊµ£¬É¢·¢×ÅÒ»¹ÉÅ¨ÓôµÄ¾ÆÏã¡£\n" NOR);
+       set_name(HIW "åƒæ—¥é†‰" NOR, ({"qianri zui", "qianri", "zui"}));
+       set("unit", "é¢—");
+       set("long", HIW "è¿™æ˜¯ä¸€é¢—æ ¸æ¡ƒå¤§å°çš„æœå®ï¼Œæ•£å‘ç€ä¸€è‚¡æµ“éƒçš„é…’é¦™ã€‚\n" NOR);
        set("value", 200);
        set_weight(50);
        setup();

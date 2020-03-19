@@ -2,8 +2,8 @@
 
 inherit F_CLEAN_UP;
 
-string *force_name = ({ NOR + HIB "µå²×º£", HIY "½ð³¿êØ",
-                        HIR "Ñªñ·²Ô", NOR + CYN "ÐþÓîÖæ", }); 
+string *force_name = ({ NOR + HIB "é›æ²§æµ·", HIY "é‡‘æ™¨æ›¦",
+                        HIR "è¡€ç©¹è‹", NOR + CYN "çŽ„å®‡å®™", }); 
 
 void remove_effect(object me, int amount);
 
@@ -14,20 +14,20 @@ int exert(object me, object target)
         name = force_name[random(sizeof(force_name))];
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÓÃ»ëÌì±¦¼øÀ´ÌáÉý×Ô¼ºµÄÕ½¶·Á¦¡£\n");
+                return notify_fail("ä½ åªèƒ½ç”¨æµ‘å¤©å®é‰´æ¥æå‡è‡ªå·±çš„æˆ˜æ–—åŠ›ã€‚\n");
 
         if ((int)me->query("neili") < 150)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_temp("powerup"))
-                return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖÐÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
         skill = me->query_skill("force");
         me->add("neili", -100);
         me->receive_damage("qi", 0);
 
-        message_combatd(HIW "$N" HIW "Î¢Ò»ÄýÉñ£¬ÔËÆð»ëÌì±¦¼øÖ®¡¸" + name +
-                        HIW "¡¹ÐÄ·¨£¬Ò»¹ÉÆøÁ÷¶Ù½«ÄãÕðÍËÊý²½¡£\n" NOR, me);
+        message_combatd(HIW "$N" HIW "å¾®ä¸€å‡ç¥žï¼Œè¿èµ·æµ‘å¤©å®é‰´ä¹‹ã€Œ" + name +
+                        HIW "ã€å¿ƒæ³•ï¼Œä¸€è‚¡æ°”æµé¡¿å°†ä½ éœ‡é€€æ•°æ­¥ã€‚\n" NOR, me);
 
         me->add_temp("apply/attack", skill / 2);
         me->add_temp("apply/defense", skill / 2);
@@ -49,6 +49,6 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/attack", -amount);
                 me->add_temp("apply/defense", -amount);
                 me->delete_temp("powerup");
-                tell_object(me, "ÄãµÄ»ëÌì±¦¼øÔËÐÐÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„æµ‘å¤©å®é‰´è¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›žä¸¹ç”°ã€‚\n");
         }
 }

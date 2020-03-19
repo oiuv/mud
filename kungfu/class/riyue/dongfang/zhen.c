@@ -6,17 +6,17 @@ inherit PIN;
 
 void create()
 {
-        set_name(HIY "³¤Õë" NOR, ({ "zhen" }) );
+        set_name(HIY "é•¿é’ˆ" NOR, ({ "zhen" }) );
         set_weight(20);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long",HIY "ÕâÊÇÒ»¸ùÏ¸³¤µÄÕë¡£\n" NOR);
+                set("unit", "æ ¹");
+                set("long",HIY "è¿™æ˜¯ä¸€æ ¹ç»†é•¿çš„é’ˆã€‚\n" NOR);
                 set("value", 300);
                 set("material", "iron");
-                set("wield_msg", "$NÄÃ³öÒ»¸ù$n£¬ÄóÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N·ÅÏÂÊÖÖĞµÄ$n¡£\n");
+                set("wield_msg", "$Næ‹¿å‡ºä¸€æ ¹$nï¼Œæåœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Næ”¾ä¸‹æ‰‹ä¸­çš„$nã€‚\n");
                 set("stable", 0);
         }
 

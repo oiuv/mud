@@ -7,7 +7,7 @@
 inherit F_DBASE;
 inherit F_CLEAN_UP;
 
-// ¶¨ÒåÌá¹©¸øÍâ²¿µ÷ÓÃµÄ½Ó¿Úº¯Êı
+// å®šä¹‰æä¾›ç»™å¤–éƒ¨è°ƒç”¨çš„æ¥å£å‡½æ•°
 varargs public void bonus(object who, mapping b, int flag);
 varargs public void freequest_bonus(object who);
 varargs public void gift_bonus(object who, mapping b);
@@ -20,16 +20,16 @@ public void delay_work_bonus(object who, mapping b);
 void create()
 {
         seteuid(getuid());
-        set("channel_id", "½±Àø¾«Áé");
+        set("channel_id", "å¥–åŠ±ç²¾çµ");
         set_heart_beat(900);
 }
 
-// ÑÓ³Ù½±Àø£ºÒòÎªÓĞÊ±¸ø³ö½±ÀøµÄÊ±ºòÓ¦¸ÃÊÇÔÚÄ³Ğ©ÊÂ¼ş·¢ÉúÒÔºó£¬
-// µ«ÊÇÔÚ¸ÃÊÂ¼ş·¢ÉúÊ±¸øÓë½±Àø¸üÒ×ÓÚÊéĞ´³ÌĞò£¬ËùÒÔ½±ÀøÉú³ÉµÄ
-// µØ·½ÔÚÊÂ¼şÕıÔÚ·¢ÉúµÄÊ±ºò£¬µ«ÊÇÒªÈÃÍæ¼Ò¿´ÆğÀ´ÊÇÔÚÊÂ¼ş·¢Éú
-// ÒÔºó¡£±ÈÈçÉ±ÈË£¬ÈËËÀÍöµÄÊ±ºò¸øÓë½±ÀøÊÇÈİÒ××öµÄ£¬µ«ÊÇÎÒÏ£
-// ÍûÍæ¼ÒÔÚ¿´µ½NPC µÄËÀÍöĞÅÏ¢ÒÔºó²Å¿´µ½½±ÀøµÄĞÅÏ¢£¬ÕâÊ±ºò¾Í
-// ÓÃdelay_bonusÁË¡£
+// å»¶è¿Ÿå¥–åŠ±ï¼šå› ä¸ºæœ‰æ—¶ç»™å‡ºå¥–åŠ±çš„æ—¶å€™åº”è¯¥æ˜¯åœ¨æŸäº›äº‹ä»¶å‘ç”Ÿä»¥åï¼Œ
+// ä½†æ˜¯åœ¨è¯¥äº‹ä»¶å‘ç”Ÿæ—¶ç»™ä¸å¥–åŠ±æ›´æ˜“äºä¹¦å†™ç¨‹åºï¼Œæ‰€ä»¥å¥–åŠ±ç”Ÿæˆçš„
+// åœ°æ–¹åœ¨äº‹ä»¶æ­£åœ¨å‘ç”Ÿçš„æ—¶å€™ï¼Œä½†æ˜¯è¦è®©ç©å®¶çœ‹èµ·æ¥æ˜¯åœ¨äº‹ä»¶å‘ç”Ÿ
+// ä»¥åã€‚æ¯”å¦‚æ€äººï¼Œäººæ­»äº¡çš„æ—¶å€™ç»™ä¸å¥–åŠ±æ˜¯å®¹æ˜“åšçš„ï¼Œä½†æ˜¯æˆ‘å¸Œ
+// æœ›ç©å®¶åœ¨çœ‹åˆ°NPC çš„æ­»äº¡ä¿¡æ¯ä»¥åæ‰çœ‹åˆ°å¥–åŠ±çš„ä¿¡æ¯ï¼Œè¿™æ—¶å€™å°±
+// ç”¨delay_bonusäº†ã€‚
 
 public void delay_bonus(object who, mapping b)
 {
@@ -55,26 +55,26 @@ public void delay_gift_bonus(object who, mapping b)
                                "gift_bonus", who, b :), 1);
 }
 
-// ×ÔÓÉÈÎÎñµÄ½±Àø
+// è‡ªç”±ä»»åŠ¡çš„å¥–åŠ±
 varargs public void bonus(object who, mapping b, int flag)
 {
-        int exp;                // ½±ÀøµÄ¾­Ñé
-        int pot;                // ½±ÀøµÄÇ±ÄÜ
-        int mar;                // ½±ÀøµÄÊµÕ½Ìå»á
-        int shen;               // ½±ÀøµÄÉñ
-        int score;              // ½±ÀøµÄ½­ºşÔÄÀú
-        int weiwang;            // ½±ÀøµÄ½­ºşÍşÍû
-        int gongxian;           // ½±ÀøµÄÃÅÅÉ¹±Ï×
-        int pot_limit;          // Ç±ÄÜµÄ½çÏŞ
-        int mar_limit;          // ÊµÕ½Ìå»áµÄ½çÏŞ
-        int percent;            // ½±ÀøµÄÓĞĞ§°Ù·Ö±È
-        string msg;             // ½±ÀøµÄÃèÊöĞÅÏ¢
+        int exp;                // å¥–åŠ±çš„ç»éªŒ
+        int pot;                // å¥–åŠ±çš„æ½œèƒ½
+        int mar;                // å¥–åŠ±çš„å®æˆ˜ä½“ä¼š
+        int shen;               // å¥–åŠ±çš„ç¥
+        int score;              // å¥–åŠ±çš„æ±Ÿæ¹–é˜…å†
+        int weiwang;            // å¥–åŠ±çš„æ±Ÿæ¹–å¨æœ›
+        int gongxian;           // å¥–åŠ±çš„é—¨æ´¾è´¡çŒ®
+        int pot_limit;          // æ½œèƒ½çš„ç•Œé™
+        int mar_limit;          // å®æˆ˜ä½“ä¼šçš„ç•Œé™
+        int percent;            // å¥–åŠ±çš„æœ‰æ•ˆç™¾åˆ†æ¯”
+        string msg;             // å¥–åŠ±çš„æè¿°ä¿¡æ¯
         string league_name;
         int weiwang2, league_weiwang;
 
 
         league_weiwang = who->query("league/set/weiwang");
-        // »ñµÃ½±ÀøµÄ°Ù·Ö±È
+        // è·å¾—å¥–åŠ±çš„ç™¾åˆ†æ¯”
         percent = b["percent"];
         if (percent < 1 || percent > 100)
                 percent = 100;
@@ -87,7 +87,7 @@ varargs public void bonus(object who, mapping b, int flag)
         weiwang = b["weiwang"] * percent / 100;
         gongxian = b["gongxian"] * percent / 100;
 
-        // Íæ¼Ò¾­ÑéÌ«¸ß£¬Ï÷Èõ½±Àø¡£
+        // ç©å®¶ç»éªŒå¤ªé«˜ï¼Œå‰Šå¼±å¥–åŠ±ã€‚
         if (who->query("combat_exp") >= 3000000)
         {
                 exp /= 8;
@@ -125,18 +125,18 @@ varargs public void bonus(object who, mapping b, int flag)
                         mar = 1;
         }
 
-        // Éú³ÉÌáÊ¾ĞÅÏ¢
+        // ç”Ÿæˆæç¤ºä¿¡æ¯
         if (stringp(msg = b["prompt"]))
-                msg = HIG + msg + HIG "£¬Äã»ñµÃÁË";
+                msg = HIG + msg + HIG "ï¼Œä½ è·å¾—äº†";
         else
-                msg = HIG "Í¨¹ıÕâ´Î¶ÍÁ¶£¬Äã»ñµÃÁË";
+                msg = HIG "é€šè¿‡è¿™æ¬¡é”»ç‚¼ï¼Œä½ è·å¾—äº†";
 
-        if (exp > 0) msg += chinese_number(exp) + "µã¾­Ñé¡¢";
-        if (pot > 0) msg += chinese_number(pot) + "µãÇ±ÄÜ¡¢";
-        if (mar > 0) msg += chinese_number(mar) + "µãÊµÕ½Ìå»á¡¢";
-        if (shen > 0) msg += chinese_number(shen) + "µãÕıÉñ¡¢";
-        if (shen < 0) msg += chinese_number(-shen) + "µã¸ºÉñ¡¢";
-        if (score > 0) msg += chinese_number(score) + "µã½­ºşÔÄÀú¡¢";
+        if (exp > 0) msg += chinese_number(exp) + "ç‚¹ç»éªŒã€";
+        if (pot > 0) msg += chinese_number(pot) + "ç‚¹æ½œèƒ½ã€";
+        if (mar > 0) msg += chinese_number(mar) + "ç‚¹å®æˆ˜ä½“ä¼šã€";
+        if (shen > 0) msg += chinese_number(shen) + "ç‚¹æ­£ç¥ã€";
+        if (shen < 0) msg += chinese_number(-shen) + "ç‚¹è´Ÿç¥ã€";
+        if (score > 0) msg += chinese_number(score) + "ç‚¹æ±Ÿæ¹–é˜…å†ã€";
 
         if (stringp(league_name = who->query("league/league_name"))
             && league_weiwang)
@@ -147,15 +147,15 @@ varargs public void bonus(object who, mapping b, int flag)
                          weiwang2 = weiwang * league_weiwang / 100;
                          weiwang = weiwang - weiwang2;
                          if (weiwang <= 0 )weiwang = 0;
-                         if (weiwang > 0)msg += chinese_number(weiwang) + "µã½­ºşÍşÍû¡¢";
-                         msg += "ÄãËùÔÚÍ¬ÃËµÄÍşÍûÌáÉıÁË" + chinese_number(weiwang2) + "µã¡¢";
+                         if (weiwang > 0)msg += chinese_number(weiwang) + "ç‚¹æ±Ÿæ¹–å¨æœ›ã€";
+                         msg += "ä½ æ‰€åœ¨åŒç›Ÿçš„å¨æœ›æå‡äº†" + chinese_number(weiwang2) + "ç‚¹ã€";
                                         
                 }
 
          }               
-         else  if (weiwang > 0) msg += chinese_number(weiwang) + "µã½­ºşÍşÍû¡¢";
+         else  if (weiwang > 0) msg += chinese_number(weiwang) + "ç‚¹æ±Ÿæ¹–å¨æœ›ã€";
 
-        msg += "ÄÜÁ¦µÃµ½ÁËÌáÉı¡£\n" NOR;
+        msg += "èƒ½åŠ›å¾—åˆ°äº†æå‡ã€‚\n" NOR;
         tell_object(who, sort_msg(msg));
 
         // bonus
@@ -169,26 +169,26 @@ varargs public void bonus(object who, mapping b, int flag)
         who->add("gongxian", gongxian);
 }
 
-// ÆÕÍ¨¹¤×÷ÈÎÎñµÄ½±Àø
+// æ™®é€šå·¥ä½œä»»åŠ¡çš„å¥–åŠ±
 varargs public void work_bonus(object who, mapping b, int flag)
 {
-        int exp;                // ½±ÀøµÄ¾­Ñé
-        int pot;                // ½±ÀøµÄÇ±ÄÜ
-        int mar;                // ½±ÀøµÄÊµÕ½Ìå»á
-        int shen;               // ½±ÀøµÄÉñ
-        int score;              // ½±ÀøµÄ½­ºşÔÄÀú
-        int weiwang;            // ½±ÀøµÄ½­ºşÍşÍû
-        int gongxian;           // ½±ÀøµÄÃÅÅÉ¹±Ï×
-        int pot_limit;          // Ç±ÄÜµÄ½çÏŞ
-        int mar_limit;          // ÊµÕ½Ìå»áµÄ½çÏŞ
-        int percent;            // ½±ÀøµÄÓĞĞ§°Ù·Ö±È
-        string msg;             // ½±ÀøµÄÃèÊöĞÅÏ¢
+        int exp;                // å¥–åŠ±çš„ç»éªŒ
+        int pot;                // å¥–åŠ±çš„æ½œèƒ½
+        int mar;                // å¥–åŠ±çš„å®æˆ˜ä½“ä¼š
+        int shen;               // å¥–åŠ±çš„ç¥
+        int score;              // å¥–åŠ±çš„æ±Ÿæ¹–é˜…å†
+        int weiwang;            // å¥–åŠ±çš„æ±Ÿæ¹–å¨æœ›
+        int gongxian;           // å¥–åŠ±çš„é—¨æ´¾è´¡çŒ®
+        int pot_limit;          // æ½œèƒ½çš„ç•Œé™
+        int mar_limit;          // å®æˆ˜ä½“ä¼šçš„ç•Œé™
+        int percent;            // å¥–åŠ±çš„æœ‰æ•ˆç™¾åˆ†æ¯”
+        string msg;             // å¥–åŠ±çš„æè¿°ä¿¡æ¯
         string league_name;
         int weiwang2, league_weiwang;
 
 
         league_weiwang = who->query("league/set/weiwang");
-        // »ñµÃ½±ÀøµÄ°Ù·Ö±È
+        // è·å¾—å¥–åŠ±çš„ç™¾åˆ†æ¯”
         percent = b["percent"];
         if (percent < 1 || percent > 100)
                 percent = 100;
@@ -219,18 +219,18 @@ varargs public void work_bonus(object who, mapping b, int flag)
                         mar = 1;
         }
 
-        // Éú³ÉÌáÊ¾ĞÅÏ¢
+        // ç”Ÿæˆæç¤ºä¿¡æ¯
         if (stringp(msg = b["prompt"]))
-                msg = HIC "\n" + msg + HIC "£¬Äã»ñµÃÁË";
+                msg = HIC "\n" + msg + HIC "ï¼Œä½ è·å¾—äº†";
         else
-                msg = HIC "\nÍ¨¹ıÕâ´Î¶ÍÁ¶£¬Äã»ñµÃÁË";
+                msg = HIC "\né€šè¿‡è¿™æ¬¡é”»ç‚¼ï¼Œä½ è·å¾—äº†";
 
-        if (exp > 0) msg += chinese_number(exp) + "µã¾­Ñé¡¢";
-        if (pot > 0) msg += chinese_number(pot) + "µãÇ±ÄÜ¡¢";
-        if (mar > 0) msg += chinese_number(mar) + "µãÊµÕ½Ìå»á¡¢";
-        if (shen > 0) msg += chinese_number(shen) + "µãÕıÉñ¡¢";
-        if (shen < 0) msg += chinese_number(-shen) + "µã¸ºÉñ¡¢";
-        if (score > 0) msg += chinese_number(score) + "µã½­ºşÔÄÀú¡¢";
+        if (exp > 0) msg += chinese_number(exp) + "ç‚¹ç»éªŒã€";
+        if (pot > 0) msg += chinese_number(pot) + "ç‚¹æ½œèƒ½ã€";
+        if (mar > 0) msg += chinese_number(mar) + "ç‚¹å®æˆ˜ä½“ä¼šã€";
+        if (shen > 0) msg += chinese_number(shen) + "ç‚¹æ­£ç¥ã€";
+        if (shen < 0) msg += chinese_number(-shen) + "ç‚¹è´Ÿç¥ã€";
+        if (score > 0) msg += chinese_number(score) + "ç‚¹æ±Ÿæ¹–é˜…å†ã€";
 
         if (stringp(league_name = who->query("league/league_name"))
             && league_weiwang)
@@ -241,16 +241,16 @@ varargs public void work_bonus(object who, mapping b, int flag)
                       weiwang2 = weiwang * league_weiwang / 100;
                       weiwang = weiwang - weiwang2;
                       if (weiwang <= 0 )weiwang = 0;
-                      if (weiwang > 0)msg += chinese_number(weiwang) + "µã½­ºşÍşÍû¡¢";
-                      msg += "ÄãËùÔÚÍ¬ÃËµÄÍşÍûÌáÉıÁË" + chinese_number(weiwang2) + "µã¡¢";
+                      if (weiwang > 0)msg += chinese_number(weiwang) + "ç‚¹æ±Ÿæ¹–å¨æœ›ã€";
+                      msg += "ä½ æ‰€åœ¨åŒç›Ÿçš„å¨æœ›æå‡äº†" + chinese_number(weiwang2) + "ç‚¹ã€";
                                         
                 }
 
         }             
-        else  if (weiwang > 0) msg += chinese_number(weiwang) + "µã½­ºşÍşÍû¡¢";
+        else  if (weiwang > 0) msg += chinese_number(weiwang) + "ç‚¹æ±Ÿæ¹–å¨æœ›ã€";
 
 
-        msg += "ÄÜÁ¦µÃµ½ÁËÌáÉı¡£\n\n" NOR;
+        msg += "èƒ½åŠ›å¾—åˆ°äº†æå‡ã€‚\n\n" NOR;
         tell_object(who, sort_msg(msg));
 
         // bonus
@@ -264,30 +264,30 @@ varargs public void work_bonus(object who, mapping b, int flag)
         who->add("gongxian", gongxian);
 }
 
-// ÖĞ¶ÏĞÔÖÊ×ÔÓÉÈÎÎñµÄ½±Àø
+// ä¸­æ–­æ€§è´¨è‡ªç”±ä»»åŠ¡çš„å¥–åŠ±
 varargs public void freequest_bonus(object who)
 {
         object gift;
-        int quest;              // µ±Ç°ÈÎÎñÊıÁ¿
-        int exp;                // ½±ÀøµÄ¾­Ñé
-        int pot;                // ½±ÀøµÄÇ±ÄÜ
-        int mar;                // ½±ÀøµÄÊµÕ½Ìå»á
-        string msg;             // ½±ÀøµÄÃèÊöĞÅÏ¢
+        int quest;              // å½“å‰ä»»åŠ¡æ•°é‡
+        int exp;                // å¥–åŠ±çš„ç»éªŒ
+        int pot;                // å¥–åŠ±çš„æ½œèƒ½
+        int mar;                // å¥–åŠ±çš„å®æˆ˜ä½“ä¼š
+        string msg;             // å¥–åŠ±çš„æè¿°ä¿¡æ¯
 
         quest = who->query("quest_count");
 
         exp = random(quest) + 500;
 
-        // ÒòÎª»ñµÃ½±Àø½Ï¶àÇÒÎŞ·¨ÀÛ¼°ÖĞ¶ÏÈÎÎñ£¬ËùÒÔÔİÊ±²»×ö
-        // ÉÏÏŞµÄÏŞÖÆ¡£
+        // å› ä¸ºè·å¾—å¥–åŠ±è¾ƒå¤šä¸”æ— æ³•ç´¯åŠä¸­æ–­ä»»åŠ¡ï¼Œæ‰€ä»¥æš‚æ—¶ä¸åš
+        // ä¸Šé™çš„é™åˆ¶ã€‚
         pot = random(quest / 2) + 250;
         mar = random(quest / 2) + 250;
 
-        msg = HIC "\nÄãÔÚÕâ´ÎµÄÀúÁ·¹ı³ÌÖĞ£¬¶ÔÎäÑ§ËÆºõÓÖ"
-              "ÓĞÁËĞÂµÄÍ»ÆÆ¡£Äã»ñµÃÁË" +
-              chinese_number(exp) + "µã¾­Ñé¡¢" +
-              chinese_number(pot) + "µãÇ±ÄÜ¼°" +
-              chinese_number(mar) + "µãÊµÕ½Ìå»á¡£\n" NOR;
+        msg = HIC "\nä½ åœ¨è¿™æ¬¡çš„å†ç»ƒè¿‡ç¨‹ä¸­ï¼Œå¯¹æ­¦å­¦ä¼¼ä¹åˆ"
+              "æœ‰äº†æ–°çš„çªç ´ã€‚ä½ è·å¾—äº†" +
+              chinese_number(exp) + "ç‚¹ç»éªŒã€" +
+              chinese_number(pot) + "ç‚¹æ½œèƒ½åŠ" +
+              chinese_number(mar) + "ç‚¹å®æˆ˜ä½“ä¼šã€‚\n" NOR;
 
         tell_object(who, sort_msg(msg));
 
@@ -300,49 +300,49 @@ varargs public void freequest_bonus(object who)
         if (who->query("quest/freequest") < 1)
         {
                 who->delete("quest");
-                message_sort(HIW "\nÕıÔÚÕâÊ±£¬Ö»¼ûÒ»Î»" +
+                message_sort(HIW "\næ­£åœ¨è¿™æ—¶ï¼Œåªè§ä¸€ä½" +
                              who->query("family/family_name") +
-                             "µÜ×Ó¼±¼±Ã¦Ã¦¸Ïµ½$N" HIW "Éí±ß£¬Ëµ"
-                             "µÀ£º¡°Ô­À´ÄãÔÚÕâÀï°¡£¬Ê¦¸µÕıµ½´¦ÅÉ"
-                             "ÈËÕÒÄãÄØ¡£ÌıËµÓĞÒª½ôÊÂ½»¸øÄã°ì£¬Äã"
-                             "¸Ï¿ì»ØÈ¥°É£¡Õâ¸ö°ü¹üÊÇÊ¦¸µÈÃÎÒ×ª½»"
-                             "¸øÄãµÄ¡£¡±\n" NOR, who);
+                             "å¼Ÿå­æ€¥æ€¥å¿™å¿™èµ¶åˆ°$N" HIW "èº«è¾¹ï¼Œè¯´"
+                             "é“ï¼šâ€œåŸæ¥ä½ åœ¨è¿™é‡Œå•Šï¼Œå¸ˆå‚…æ­£åˆ°å¤„æ´¾"
+                             "äººæ‰¾ä½ å‘¢ã€‚å¬è¯´æœ‰è¦ç´§äº‹äº¤ç»™ä½ åŠï¼Œä½ "
+                             "èµ¶å¿«å›å»å§ï¼è¿™ä¸ªåŒ…è£¹æ˜¯å¸ˆå‚…è®©æˆ‘è½¬äº¤"
+                             "ç»™ä½ çš„ã€‚â€\n" NOR, who);
 
                 message_sort("\n" + who->query("family/family_name") +
-                             "µÜ×ÓÄÃ³öÒ»¸ö°ü¹üµİ¸ø$N¡£\n\n" +
+                             "å¼Ÿå­æ‹¿å‡ºä¸€ä¸ªåŒ…è£¹é€’ç»™$Nã€‚\n\n" +
                              who->query("family/family_name") +
-                             "µÜ×Ó¼±¼±Ã¦Ã¦µØÀë¿ªÁË¡£\n" NOR, who);
+                             "å¼Ÿå­æ€¥æ€¥å¿™å¿™åœ°ç¦»å¼€äº†ã€‚\n" NOR, who);
 
                 gift = new("/clone/fam/bag");
                 gift->move(who, 1);
         }
 }
 
-// ÌØÊâÊÂ¼şµÄ½±Àø
+// ç‰¹æ®Šäº‹ä»¶çš„å¥–åŠ±
 varargs public void gift_bonus(object who, mapping b)
 {
-        int exp;                // ½±ÀøµÄ¾­Ñé
-        int pot;                // ½±ÀøµÄÇ±ÄÜ
-        int mar;                // ½±ÀøµÄÊµÕ½Ìå»á
-        int score;              // ½±ÀøµÄ½­ºşÔÄÀú
-        int weiwang;            // ½±ÀøµÄ½­ºşÍşÍû
-        int gongxian;           // ½±ÀøµÄÃÅÅÉ¹±Ï×
-        int percent;            // ½±ÀøµÄÓĞĞ§°Ù·Ö±È
-        string msg;             // ½±ÀøµÄÃèÊöĞÅÏ¢
-        string temp;            // ½ø³Ì¼ÇÂ¼ĞÅÏ¢
-        int league_weiwang;     // ·Ö¸øÍ¬ÃËµÄÍşÍû°Ù·Ö±È
-        int weiwang2;           // Í¬ÃËÒò¸ÃµÃµÄÍşÍûµã
+        int exp;                // å¥–åŠ±çš„ç»éªŒ
+        int pot;                // å¥–åŠ±çš„æ½œèƒ½
+        int mar;                // å¥–åŠ±çš„å®æˆ˜ä½“ä¼š
+        int score;              // å¥–åŠ±çš„æ±Ÿæ¹–é˜…å†
+        int weiwang;            // å¥–åŠ±çš„æ±Ÿæ¹–å¨æœ›
+        int gongxian;           // å¥–åŠ±çš„é—¨æ´¾è´¡çŒ®
+        int percent;            // å¥–åŠ±çš„æœ‰æ•ˆç™¾åˆ†æ¯”
+        string msg;             // å¥–åŠ±çš„æè¿°ä¿¡æ¯
+        string temp;            // è¿›ç¨‹è®°å½•ä¿¡æ¯
+        int league_weiwang;     // åˆ†ç»™åŒç›Ÿçš„å¨æœ›ç™¾åˆ†æ¯”
+        int weiwang2;           // åŒç›Ÿå› è¯¥å¾—çš„å¨æœ›ç‚¹
         string league_name;
 
         league_weiwang = who->query("league/set/weiwang");
 
-        // »ñµÃ½±ÀøµÄ°Ù·Ö±È
+        // è·å¾—å¥–åŠ±çš„ç™¾åˆ†æ¯”
         percent = b["percent"];
 
         if (percent < 1 || percent > 100)
                 percent = 100;
 
-        // ½ø³Ì¼ÇÂ¼£¬Õë¶ÔµÚÒ»´ÎÍê³ÉÓĞ½±ÀøµÄÇé½Ú
+        // è¿›ç¨‹è®°å½•ï¼Œé’ˆå¯¹ç¬¬ä¸€æ¬¡å®Œæˆæœ‰å¥–åŠ±çš„æƒ…èŠ‚
         temp = b["temp"];
 
         exp = b["exp"] * percent / 100;
@@ -352,31 +352,31 @@ varargs public void gift_bonus(object who, mapping b)
         weiwang = b["weiwang"] * percent / 100;
         gongxian = b["gongxian"] * percent / 100;
 
-        // Éú³ÉÒ¥ÑÔĞÅÏ¢
+        // ç”Ÿæˆè°£è¨€ä¿¡æ¯
         if (stringp(msg = b["rumor"]))
         {
-                shout(HIR "¡¾ÎäÁÖ´«ÎÅ¡¿" NOR + WHT "ÌıËµ" +
+                shout(HIR "ã€æ­¦æ—ä¼ é—»ã€‘" NOR + WHT "å¬è¯´" +
                       who->name() + WHT "[" + who->query("id") +
-                      WHT "]" + msg + WHT "¡£\n" NOR);
+                      WHT "]" + msg + WHT "ã€‚\n" NOR);
         }
 
         if (! stringp(temp) || ! who->query(temp))
         {
-                // Éú³ÉÌáÊ¾ĞÅÏ¢
+                // ç”Ÿæˆæç¤ºä¿¡æ¯
                 if (stringp(msg = b["prompt"]))
-                        msg = HIW "\n" + msg + HIW "£¬Äã»ñµÃÁË";
+                        msg = HIW "\n" + msg + HIW "ï¼Œä½ è·å¾—äº†";
                 else
-                        msg = HIW "\nÍ¨¹ı´Ë´Î¾­Àú£¬Äã»ñµÃÁË";
+                        msg = HIW "\né€šè¿‡æ­¤æ¬¡ç»å†ï¼Œä½ è·å¾—äº†";
 
-                // ¼ÇÂ¼ÏÂ½ø³Ì
+                // è®°å½•ä¸‹è¿›ç¨‹
                 if (stringp(temp))
                         who->add(temp, 1);
 
-                if (exp > 0) msg += chinese_number(exp) + "µã¾­Ñé¡¢";
-                if (pot > 0) msg += chinese_number(pot) + "µãÇ±ÄÜ¡¢";
-                if (mar > 0) msg += chinese_number(mar) + "µãÊµÕ½Ìå»á¡¢";
-                if (score > 0) msg += chinese_number(score) + "µã½­ºşÔÄÀú¡¢";
-                if (gongxian > 0) msg += chinese_number(gongxian) + "µãÃÅÅÉ¹±Ï×¡¢";
+                if (exp > 0) msg += chinese_number(exp) + "ç‚¹ç»éªŒã€";
+                if (pot > 0) msg += chinese_number(pot) + "ç‚¹æ½œèƒ½ã€";
+                if (mar > 0) msg += chinese_number(mar) + "ç‚¹å®æˆ˜ä½“ä¼šã€";
+                if (score > 0) msg += chinese_number(score) + "ç‚¹æ±Ÿæ¹–é˜…å†ã€";
+                if (gongxian > 0) msg += chinese_number(gongxian) + "ç‚¹é—¨æ´¾è´¡çŒ®ã€";
 
                 if (stringp(league_name = who->query("league/league_name"))
                     && league_weiwang)
@@ -387,15 +387,15 @@ varargs public void gift_bonus(object who, mapping b)
                                  weiwang2 = weiwang * league_weiwang / 100;
                                  weiwang = weiwang - weiwang2;
                                  if (weiwang <= 0 )weiwang = 0;
-                                 if (weiwang > 0)msg += chinese_number(weiwang) + "µã½­ºşÍşÍû¡¢";
-                                 msg += "ÄãËùÔÚÍ¬ÃËµÄÍşÍûÌáÉıÁË" + chinese_number(weiwang2) + "µã¡¢";
+                                 if (weiwang > 0)msg += chinese_number(weiwang) + "ç‚¹æ±Ÿæ¹–å¨æœ›ã€";
+                                 msg += "ä½ æ‰€åœ¨åŒç›Ÿçš„å¨æœ›æå‡äº†" + chinese_number(weiwang2) + "ç‚¹ã€";
                                         
                         }
 
                 }
                 
-                else  if (weiwang > 0) msg += chinese_number(weiwang) + "µã½­ºşÍşÍû¡¢";
-                msg += "ÄÜÁ¦µÃµ½ÁËÌáÉı¡£\n" NOR;
+                else  if (weiwang > 0) msg += chinese_number(weiwang) + "ç‚¹æ±Ÿæ¹–å¨æœ›ã€";
+                msg += "èƒ½åŠ›å¾—åˆ°äº†æå‡ã€‚\n" NOR;
                 tell_object(who, sort_msg(msg));
 
                 // bonus

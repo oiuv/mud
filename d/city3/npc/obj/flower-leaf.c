@@ -6,20 +6,20 @@
 inherit THROWING;
 void create()
 {
-	set_name(HIR"»¨°ê"NOR, ({ "flower leaf", "hua ban", "ban" }) );
+	set_name(HIR"èŠ±ç“£"NOR, ({ "flower leaf", "hua ban", "ban" }) );
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("long", "ĞÂÏÊµÄÃµ¹å»¨µÄ»¨°ê£¬ÉÏÃæ»¹¹ÒÕâ¾§Ó¨µÄÂ¶Öé¡£\n");
-		set("unit", "°Ñ");
+		set("long", "æ–°é²œçš„ç«ç‘°èŠ±çš„èŠ±ç“£ï¼Œä¸Šé¢è¿˜æŒ‚è¿™æ™¶è¹çš„éœ²ç ã€‚\n");
+		set("unit", "æŠŠ");
 		set("value", 0);
-		set("base_unit", "Æ¬");
+		set("base_unit", "ç‰‡");
 		set("base_weight", 1);
 		set("base_value", 0);
                 set("material", "wood");
 		set("damage", 2);	//Here the damage=int_throwing, added by King
-		set("wield_msg", HIC"$NÑ¸ËÙµØ´Ó°µÆ÷´üÖĞÌÍ³öÒ»Ğ©Ãµ¹å»¨°ê£¬ÄóÔÚÊÖÖĞ¾Í´ı·¢³ö£¡\n"NOR);
-		set("unwield_msg",HIC"$N½«ÊÖÀïÊ£ÏÂµÄÃµ¹å»¨°ê¾¡Êı·Å»Ø°µÆ÷´üÖĞ¡£\n"NOR);
+		set("wield_msg", HIC"$Nè¿…é€Ÿåœ°ä»æš—å™¨è¢‹ä¸­æå‡ºä¸€äº›ç«ç‘°èŠ±ç“£ï¼Œæåœ¨æ‰‹ä¸­å°±å¾…å‘å‡ºï¼\n"NOR);
+		set("unwield_msg",HIC"$Nå°†æ‰‹é‡Œå‰©ä¸‹çš„ç«ç‘°èŠ±ç“£å°½æ•°æ”¾å›æš—å™¨è¢‹ä¸­ã€‚\n"NOR);
 	}
 	set_amount(50);
 	init_throwing(2);

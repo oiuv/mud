@@ -4,14 +4,14 @@ inherit ITEM;
 
 void create()
 {
-        set_name(NOR + YEL "½ğ¿é" NOR, ({ "jin kuai", "jin", "kuai" }));
+        set_name(NOR + YEL "é‡‘å—" NOR, ({ "jin kuai", "jin", "kuai" }));
         set_weight(2000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + YEL "ÕâÊÇÒ»¶§»Æ³Î³ÎµÄ½ğ¿é£¬ÏàĞÅ"
-                            "¿ÉÒÔÂô¸öºÃ¼ÛÇ®¡£\n");
+                set("long", NOR + YEL "è¿™æ˜¯ä¸€é”­é»„æ¾„æ¾„çš„é‡‘å—ï¼Œç›¸ä¿¡"
+                            "å¯ä»¥å–ä¸ªå¥½ä»·é’±ã€‚\n");
                 set("value", 150000);
-                set("unit", "¶§");
+                set("unit", "é”­");
         }
 }

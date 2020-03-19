@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�䶨��");
+	set("short", "武定镇");
 	set("long", @LONG
-������̨�ķ�֧¬¹�����������θ����������������䶨���⻹
-ϽԪı��»�����򡣴��򲻴�����ɽ����������Եø������ġ�
-¬¹���˵���¥��ɢ�ֲ��������С�
+这里是台夷分支卢鹿族罗蝥部的治府，罗蝥部除了这武定州外还
+辖元谋、禄定两镇。此镇不大，正处山中竹林深处，显得格外清幽。
+卢鹿族人的竹楼四散分布在竹林中。
 LONG);
 	set("outdoors", "dali");
 	set("exits", ([

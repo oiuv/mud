@@ -5,12 +5,12 @@ int is_letter() { return 1; }
 
 void create()
 {
-        set_name(NOR + WHT "ĞÅ¼ş" NOR, ({ "letter" }));
+        set_name(NOR + WHT "ä¿¡ä»¶" NOR, ({ "letter" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "·â");
-                set("long", "ÕâÊÇÒ»·âĞÅ¼ş¡£\n");
+                set("unit", "å°");
+                set("long", "è¿™æ˜¯ä¸€å°ä¿¡ä»¶ã€‚\n");
                 set("value", 0);
         }
         setup();

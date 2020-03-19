@@ -1,11 +1,11 @@
-// jin.c ÉñÄ§½ğÉí
+// jin.c ç¥é­”é‡‘èº«
 // Created by rcwiz for yhonline
 
 #include <ansi.h>
 
 int is_scborn() { return 1; }
 
-string name() { return HIY "ÉñÄ§½ğÉí" NOR; }
+string name() { return HIY "ç¥é­”é‡‘èº«" NOR; }
 
 void remove_effect(object me, int amount);
 
@@ -14,16 +14,16 @@ int perform(object me, string skill)
         int i;
 
         if ((int)me->query_temp("special/jinshen"))
-                return notify_fail("ÄãÉñÄ§½ğÉíÖ®ÊõÒÑÔÚÊ©Õ¹ÖĞÁË¡£\n");
+                return notify_fail("ä½ ç¥é­”é‡‘èº«ä¹‹æœ¯å·²åœ¨æ–½å±•ä¸­äº†ã€‚\n");
                 
-        //ÒòÎªÔË¹¦¼Óforce£¬ËùÒÔĞŞ¸ÄÎªºÍ½ğ¸Õ²»»µÌå²»¼æÈİ by Ğ½ÓĞËùÊô     
+        //å› ä¸ºè¿åŠŸåŠ forceï¼Œæ‰€ä»¥ä¿®æ”¹ä¸ºå’Œé‡‘åˆšä¸åä½“ä¸å…¼å®¹ by è–ªæœ‰æ‰€å±     
         if ((int)me->query_temp("jingangbuhuai"))
-               return notify_fail("ÄãÒÑ¾­ÔËÆğ½ğ¸Õ²»»µ»¤ÌåÉñ¹¦ÁË¡£\n");
+               return notify_fail("ä½ å·²ç»è¿èµ·é‡‘åˆšä¸åæŠ¤ä½“ç¥åŠŸäº†ã€‚\n");
         
         if ((int)me->query_temp("jinzhongzhao"))
-                return notify_fail("ÄãÒÑ¾­ÔËÆğ[½ğÖÓÕÖ]×÷Îª»¤ÌåÉñ¹¦ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»è¿èµ·[é‡‘é’Ÿç½©]ä½œä¸ºæŠ¤ä½“ç¥åŠŸäº†ã€‚\n");
 
-        message_vision(HIY "$N" HIY "Ê©Õ¹³öÉñÄ§½ğÉíÖ®Êõ£¬É²ÄÇ¼äÈ«ÉíÕæÆø±Å·¢£¬ÓÌÈçò¿ÓÈÔÙÏÖ£¬ÍşÃÍÎŞ±È£¡\n" NOR, me);
+        message_vision(HIY "$N" HIY "æ–½å±•å‡ºç¥é­”é‡‘èº«ä¹‹æœ¯ï¼Œåˆ¹é‚£é—´å…¨èº«çœŸæ°”è¿¸å‘ï¼ŒçŠ¹å¦‚èš©å°¤å†ç°ï¼Œå¨çŒ›æ— æ¯”ï¼\n" NOR, me);
 
         i = me->query_skill("force");
 
@@ -32,7 +32,7 @@ int perform(object me, string skill)
         me->add_temp("apply/armor", i * 2);
         me->set_temp("special/jinshen", 1);
         me->add_temp("apply/parry", 200); 
-        //¼Óforce     
+        //åŠ force     
         me->add_temp("apply/force", i / 4);
         me->start_call_out((: call_other, __FILE__, "remove_effect", me, i * 2 :), i);
 
@@ -49,7 +49,7 @@ void remove_effect(object me, int amount)
                 me->delete_temp("special/jinshen");
                 me->add_temp("apply/parry", -200);
                 me->add_temp("apply/force", -(amount / 8));
-                tell_object(me, "ÄãÉñÄ§½ğÉíÖ®ÊõÒÑÊ©Õ¹Íê±Ï¡£\n");
+                tell_object(me, "ä½ ç¥é­”é‡‘èº«ä¹‹æœ¯å·²æ–½å±•å®Œæ¯•ã€‚\n");
         }
         
 }

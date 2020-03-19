@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short","С·");
+        set("short","小路");
         set("long", @LONG
-һ����᫵Ļ���С·��·���Ӳݴ��������߿��Կ�������
-�Ĺٵ�����ȥ���һ�������ݡ�
+一条崎岖的黄土小路，路旁杂草丛生，西边可以看见荆州
+的官道，向东去则可一到达扬州。
 LONG);
         set("exits", ([
   		"east" : __DIR__"road6",

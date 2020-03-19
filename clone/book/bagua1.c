@@ -6,14 +6,14 @@ inherit BOOK;
  
 void create()
 {
-        set_name(HIC "¡¸ÂåÊé¡¹" NOR, ({ "luoshu", "shu" }));
+        set_name(HIC "ã€Œæ´›ä¹¦ã€" NOR, ({ "luoshu", "shu" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±¾");
-                set("long", "ÕâÊÇÒ»±¾ÓÃ±¡¾îĞ´³ÉµÄÊé¡£ÉÏÊé¶ş×Ö¹Å×­£º¡°ÂåÊé¡±¡£\n"
-                            "ÊéÆ¤·º»Æ£¬¿´À´ÒÑ¾­±£´æºÜ¾ÃÁË¡£\n");
+                set("unit", "æœ¬");
+                set("long", "è¿™æ˜¯ä¸€æœ¬ç”¨è–„ç»¢å†™æˆçš„ä¹¦ã€‚ä¸Šä¹¦äºŒå­—å¤ç¯†ï¼šâ€œæ´›ä¹¦â€ã€‚\n"
+                            "ä¹¦çš®æ³›é»„ï¼Œçœ‹æ¥å·²ç»ä¿å­˜å¾ˆä¹…äº†ã€‚\n");
                 set("value", 0);
                 set("material", "silk");
                 set("skill", ([

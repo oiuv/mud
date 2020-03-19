@@ -1,4 +1,4 @@
-// jinchuang-yao.c ½ğ´´Ò©
+// jinchuang-yao.c é‡‘åˆ›è¯
 
 #include <ansi.h>
 
@@ -7,12 +7,12 @@ inherit ITEM;
 void create()
 {
 
-	set_name("½ğ´´Ò©", ({"jin chuangyao", "yao"}));
+	set_name("é‡‘åˆ›è¯", ({"jin chuangyao", "yao"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "°ü");
-		set("long", "ÕâÊÇÒ»°ü±ğ¾ßÁéĞ§µÄÉÙÁÖ½ğ´´Ò©£¬×¨ÖÎÄÚÍâÉËµÈ¡£\n");
+		set("unit", "åŒ…");
+		set("long", "è¿™æ˜¯ä¸€åŒ…åˆ«å…·çµæ•ˆçš„å°‘æ—é‡‘åˆ›è¯ï¼Œä¸“æ²»å†…å¤–ä¼¤ç­‰ã€‚\n");
 		set("value", 2000);
 		set("only_do_effect", 1);
 	}
@@ -24,12 +24,12 @@ void create()
 int do_effect(object me)
 {
 	if (me->query("eff_qi") == me->query("max_qi"))
-		return notify_fail("ÄãÏÖÔÚ²»ĞèÒªÓÃ½ğ´´Ò©¡£\n");
+		return notify_fail("ä½ ç°åœ¨ä¸éœ€è¦ç”¨é‡‘åˆ›è¯ã€‚\n");
 	
 	me->start_busy(1);
 	me->receive_curing("qi", 50);
-	message_vision(HIC "$N" HIC "³ÔÏÂÒ»°ü½ğ´´Ò©£¬Ö»¾õ¾«ÉñÕñ"
-		       "×÷£¬ÆøÉ«¿´ÆğÀ´ºÃ¶àÁË¡£\n" NOR, me);
+	message_vision(HIC "$N" HIC "åƒä¸‹ä¸€åŒ…é‡‘åˆ›è¯ï¼Œåªè§‰ç²¾ç¥æŒ¯"
+		       "ä½œï¼Œæ°”è‰²çœ‹èµ·æ¥å¥½å¤šäº†ã€‚\n" NOR, me);
 
 	destruct(this_object());
 	return 1;

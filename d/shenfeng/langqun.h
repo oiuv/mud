@@ -10,8 +10,8 @@ void init()
 
         if (userp(me) && ! present("e lang", this_object()))
         {
-                message("vision", HIR "\nÍ»È»¼ä£¬Ö»¼û¼¸ÌõºÚÓ°ÏòÄãÆË"
-                                  "ÁË¹ıÀ´¡£\n" NOR, this_object());
+                message("vision", HIR "\nçªç„¶é—´ï¼Œåªè§å‡ æ¡é»‘å½±å‘ä½ æ‰‘"
+                                  "äº†è¿‡æ¥ã€‚\n" NOR, this_object());
 
 	        for (i = 0; i < 5; i++)
         	{
@@ -27,8 +27,8 @@ int valid_leave(object me, string dir)
         object ob = present("e lang", environment(me));
 
         if (ob && living(ob))
-                return notify_fail(HIR "\nö®Ê±Ö»¼û¼¸Ìõ¶öÀÇ·ÉÉíÒ»ÉÁ£¬µ²"
-                                   "×¡ÁËÄãµÄÈ¥Â·¡£\n" NOR);
+                return notify_fail(HIR "\néœæ—¶åªè§å‡ æ¡é¥¿ç‹¼é£èº«ä¸€é—ªï¼ŒæŒ¡"
+                                   "ä½äº†ä½ çš„å»è·¯ã€‚\n" NOR);
 
         return 1;
 }

@@ -1,21 +1,21 @@
-// jiuzhuan.c ¾Å×ª½ğµ¤
-// IvyÎªÎäÁÖÈºÏÀ´«°ÑÔ­À´Ã¿ÖÖÏÈÌìÊôĞÔ+4ĞŞ¸ÄÎª+2
-//Ğ½ÓĞËùÊô¸ÄÎª+1
+// jiuzhuan.c ä¹è½¬é‡‘ä¸¹
+// Ivyä¸ºæ­¦æ—ç¾¤ä¾ ä¼ æŠŠåŸæ¥æ¯ç§å…ˆå¤©å±æ€§+4ä¿®æ”¹ä¸º+2
+//è–ªæœ‰æ‰€å±æ”¹ä¸º+1
 #include <ansi.h>
 
 inherit ITEM;
 
 void create()
 {
-	set_name(HIY "¾Å×ª½ğµ¤" NOR, ({ "jiuzhuan jindan", "jindan", "dan" }));
+	set_name(HIY "ä¹è½¬é‡‘ä¸¹" NOR, ({ "jiuzhuan jindan", "jindan", "dan" }));
 	set_weight(200);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("long", HIY "Ò»Á£½ğÉ«µÄÏÉµ¤£¬´«ËµÊÇÌ«ÉÏÀÏ¾ı"
-					"¾«ĞÄÁ¶ÖÆµÄÁéµ¤ÃîÒ©¡£\n" NOR);
+		set("long", HIY "ä¸€ç²’é‡‘è‰²çš„ä»™ä¸¹ï¼Œä¼ è¯´æ˜¯å¤ªä¸Šè€å›"
+					"ç²¾å¿ƒç‚¼åˆ¶çš„çµä¸¹å¦™è¯ã€‚\n" NOR);
 		set("value", 50000000);
-		set("unit", "Á£");
+		set("unit", "ç²’");
 		set("only_do_effect", 1);
 	}
 }
@@ -24,16 +24,16 @@ int do_effect(object me)
 {
         int effect;
 
-        log_file("static/using", sprintf("%s(%s) eat ¾Å×ª½ğµ¤ at %s.\n",
+        log_file("static/using", sprintf("%s(%s) eat ä¹è½¬é‡‘ä¸¹ at %s.\n",
                  me->name(1), me->query("id"), ctime(time())));
 
         effect = 0;
-        message_vision("$NÒ»Ñö²±£¬ÍÌÏÂÁËÒ»¿Å" + this_object()->name() +
-                       "¡£\n", me);
+        message_vision("$Nä¸€ä»°è„–ï¼Œåä¸‹äº†ä¸€é¢—" + this_object()->name() +
+                       "ã€‚\n", me);
         if (me->query("gift/jiuzhuan/int") < 1 && random(2))
         {
                 effect++;
-                write(HIM "Äã¾õµÃ×Ô¼ºµÄÍ·ÄÔ¸üÇåĞÑÁË¡£\n" NOR);
+                write(HIM "ä½ è§‰å¾—è‡ªå·±çš„å¤´è„‘æ›´æ¸…é†’äº†ã€‚\n" NOR);
                 me->add("gift/jiuzhuan/int", 1);
                 me->add("int", 1);
         }
@@ -41,16 +41,16 @@ int do_effect(object me)
         if (me->query("gift/jiuzhuan/dex") < 1 && random(2))
         {
                 effect++;
-                write(HIR "Äã¾õµÃ×Ô¼ºµÄÍÈ½Å¸üÁé»îÁË¡£\n" NOR);
+                write(HIR "ä½ è§‰å¾—è‡ªå·±çš„è…¿è„šæ›´çµæ´»äº†ã€‚\n" NOR);
                 me->add("gift/jiuzhuan/dex", 1);
                 me->add("dex", 1);
         }
 
         if (me->query("gift/jiuzhuan/con") < 1 && random(2) &&
-            me->query("gender") != "ÎŞĞÔ")
+            me->query("gender") != "æ— æ€§")
         {
                 effect++;
-                write(HIC "Äã¾õµÃ×Ô¼ºµÄÄÚÏ¢¸üÍ¨³©ÁË¡£\n" NOR);
+                write(HIC "ä½ è§‰å¾—è‡ªå·±çš„å†…æ¯æ›´é€šç•…äº†ã€‚\n" NOR);
                 me->add("gift/jiuzhuan/con", 1);
                 me->add("con", 1);
         }
@@ -58,13 +58,13 @@ int do_effect(object me)
         if (me->query("gift/jiuzhuan/str") < 1 && random(2))
         {
                 effect++;
-                write(HIG "Äã¾õµÃ×Ô¼ºµÄëöÁ¦¸üÇ¿½¡ÁË¡£\n" NOR);
+                write(HIG "ä½ è§‰å¾—è‡ªå·±çš„è†‚åŠ›æ›´å¼ºå¥äº†ã€‚\n" NOR);
                 me->add("gift/jiuzhuan/str", 1);
                 me->add("str", 1);
         }
 
         if (! effect)
-                tell_object(me, "²»¹ıÄã¾õµÃºÃÏñÃ»Ê²Ã´×÷ÓÃ¡£\n");
+                tell_object(me, "ä¸è¿‡ä½ è§‰å¾—å¥½åƒæ²¡ä»€ä¹ˆä½œç”¨ã€‚\n");
 
         destruct(this_object());
 	return 1;

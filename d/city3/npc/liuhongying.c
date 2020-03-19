@@ -6,10 +6,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("Áõºççø", ({ "liu hongying", "liu" }));
-        set("title","½ğÅ£Îä¹İ½ÌÏ°");
-        set("long", "Áõ½ÌÍ·ÊÇÎä¹İµÄĞÂÀ´½ÌÏ°£¬Äã¿É±ğĞ¡¿´ËıÅ¶¡£\n");
-        set("gender", "Å®ĞÔ");
+        set_name("åˆ˜è™¹ç‘›", ({ "liu hongying", "liu" }));
+        set("title","é‡‘ç‰›æ­¦é¦†æ•™ä¹ ");
+        set("long", "åˆ˜æ•™å¤´æ˜¯æ­¦é¦†çš„æ–°æ¥æ•™ä¹ ï¼Œä½ å¯åˆ«å°çœ‹å¥¹å“¦ã€‚\n");
+        set("gender", "å¥³æ€§");
         set("age", 32);
 
         set_skill("dodge", 180);

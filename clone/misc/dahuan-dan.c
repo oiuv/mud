@@ -1,4 +1,4 @@
-// dahuan-dan.c ´ó»¹µ¤
+// dahuan-dan.c å¤§è¿˜ä¸¹
 
 #include <ansi.h>
 
@@ -6,13 +6,13 @@ inherit ITEM;
 
 void create()
 {
-	set_name("´ó»¹µ¤", ({"dahuan dan", "dahuan", "dan"}));
+	set_name("å¤§è¿˜ä¸¹", ({"dahuan dan", "dahuan", "dan"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¿Å");
-		set("long", "ÕâÊÇÒ»¿Å×Ïºì¾§ÁÁµÄ´ó»¹µ¤¡£´Ëµ¤ÄËÉÙÁÖÕäÒ©£¬Ìá"
-			    "¸ß¹¦Á¦£¬ÁéĞ§ÎŞ±È¡£\n");
+		set("unit", "é¢—");
+		set("long", "è¿™æ˜¯ä¸€é¢—ç´«çº¢æ™¶äº®çš„å¤§è¿˜ä¸¹ã€‚æ­¤ä¸¹ä¹ƒå°‘æ—çè¯ï¼Œæ"
+			    "é«˜åŠŸåŠ›ï¼Œçµæ•ˆæ— æ¯”ã€‚\n");
 		set("value", 10000);
 		set("only_do_effect", 1);
 	}
@@ -31,16 +31,16 @@ int do_effect(object me)
 	if ((int)me->query_condition("bonze_drug" ) > 0)
 	{
 		me->add("max_neili", -1);
-		message_vision(HIR "$N" HIR "³ÔÏÂÒ»¿Å´ó»¹µ¤£¬Ö»¾õµÃÍ·"
-			       "ÖØ½ÅÇá£¬Ò¡Ò¡Óûµ¹£¬Ô­À´·şÊ³Ì«¼±Ì«¶à£¬Ò©"
-			       "Ğ§ÊÊµÃÆä·´£¡\n" NOR, me);
+		message_vision(HIR "$N" HIR "åƒä¸‹ä¸€é¢—å¤§è¿˜ä¸¹ï¼Œåªè§‰å¾—å¤´"
+			       "é‡è„šè½»ï¼Œæ‘‡æ‘‡æ¬²å€’ï¼ŒåŸæ¥æœé£Ÿå¤ªæ€¥å¤ªå¤šï¼Œè¯"
+			       "æ•ˆé€‚å¾—å…¶åï¼\n" NOR, me);
 	} else
 	if (neili_limit <= force_limit)
 	{
 		me->add("max_neili", 1);
-		message_vision(HIG "$N" HIG "³ÔÏÂÒ»¿Å´ó»¹µ¤£¬Ö»¾õµÃÌåÄÚ"
-			       "ÕæÁ¦Ô´Ô´×ÌÉú£¬¹ı×Ï¹¬£¬ÈëÄàÍèÍ¸Ê®¶şÖØÂ¥£¬"
-			       "±é²¼Ææ½î°ËÂö£¬È«Éí¹¦Á¦¶ÙÈ»Ìá¸ß£¡\n" NOR, me);
+		message_vision(HIG "$N" HIG "åƒä¸‹ä¸€é¢—å¤§è¿˜ä¸¹ï¼Œåªè§‰å¾—ä½“å†…"
+			       "çœŸåŠ›æºæºæ»‹ç”Ÿï¼Œè¿‡ç´«å®«ï¼Œå…¥æ³¥ä¸¸é€åäºŒé‡æ¥¼ï¼Œ"
+			       "éå¸ƒå¥‡ç­‹å…«è„‰ï¼Œå…¨èº«åŠŸåŠ›é¡¿ç„¶æé«˜ï¼\n" NOR, me);
 	}
 
 	me->apply_condition("bonze_drug", 60);

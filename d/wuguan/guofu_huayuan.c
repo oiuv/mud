@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "������԰");
+	set("short", "郭府花园");
 	set("long", @LONG
-�����ǹ����Ļ�԰��԰�ڼ�ɽ��������������Щ���񣬶�
-���Ǽ���֦Ҷïʢ��ľ�ʻ�������һ�߽��������ŵ�һ������
-�µġ������Ļ��㡣
+这里是郭府的花园，园内假山林立，西边种着些青竹，东
+边是几棵枝叶茂盛的木笔花树。你一走进来，就闻到一阵阵清
+新的、淡淡的花香。
 LONG);
         set("no_fight", 1);
 	set("exits", ([

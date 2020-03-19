@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "É½ÑÂ");
+        set("short", "å±±å´–");
         set("long", @LONG
-´Ë´¦ÈëÔÆ¸ßËÊ£¬ÒÑÊÇºÚÄ¾ÑÂÉÏ£¬Á½ÅÔÕ¾ÂúÁËÈÕÔÂÉñ½ÌµÄµÜ
-×Ó¡£ÑÂ±ß¾í×Å¼¸À¦Íë¿Ú´ÖµÄÉşË÷£¬ÉşË÷µÄÒ»¶ËÏµÓĞÒ»¸ö¹©ÈËÉÏ
-ÏÂµÄµõÀº(basket)¡£
+æ­¤å¤„å…¥äº‘é«˜è€¸ï¼Œå·²æ˜¯é»‘æœ¨å´–ä¸Šï¼Œä¸¤æ—ç«™æ»¡äº†æ—¥æœˆç¥æ•™çš„å¼Ÿ
+å­ã€‚å´–è¾¹å·ç€å‡ æ†ç¢—å£ç²—çš„ç»³ç´¢ï¼Œç»³ç´¢çš„ä¸€ç«¯ç³»æœ‰ä¸€ä¸ªä¾›äººä¸Š
+ä¸‹çš„åŠç¯®(basket)ã€‚
 LONG);
         set("outdoors", "heimuya");
         set("exits", ([
@@ -17,7 +17,7 @@ LONG);
                 __DIR__"npc/dizi2" : 4,
         ]));
         set("item_desc", ([
-                "basket" : "Ò»¸ö¾Ş´óµÄµõÀº£¬ÊÇ¹©¸øÈÕÔÂÉñ½ÌÖĞÈËÏÂÉ½Ö®ÓÃ¡£\n"
+                "basket" : "ä¸€ä¸ªå·¨å¤§çš„åŠç¯®ï¼Œæ˜¯ä¾›ç»™æ—¥æœˆç¥æ•™ä¸­äººä¸‹å±±ä¹‹ç”¨ã€‚\n"
         ]) );
         setup();
 }
@@ -35,15 +35,15 @@ int do_enter(string arg)
         me = this_player();
 
         if (! arg || arg != "basket" )
-                return notify_fail("Ê²Ã´£¿\n");
+                return notify_fail("ä»€ä¹ˆï¼Ÿ\n");
 
-        if (me->query("family/family_name") != "ÈÕÔÂÉñ½Ì")
-                return notify_fail(CYN "ÈÕÔÂµÜ×ÓĞ±î©ÁËÄãÒ»ÑÛ£¬ÀäĞ¦Ò»Éù£¬×ª¹ıÍ·"
-                                   "È¥£¬¶ÔÄãÀíÒ²²»Àí¡£\n" NOR);
+        if (me->query("family/family_name") != "æ—¥æœˆç¥æ•™")
+                return notify_fail(CYN "æ—¥æœˆå¼Ÿå­æ–œçŸäº†ä½ ä¸€çœ¼ï¼Œå†·ç¬‘ä¸€å£°ï¼Œè½¬è¿‡å¤´"
+                                   "å»ï¼Œå¯¹ä½ ç†ä¹Ÿä¸ç†ã€‚\n" NOR);
 
-        message_vision(HIY "\n$N" HIY "ÎÈÎÈµ±µ±¿ç½øµõÀº£¬ÏòÈÕÔÂµÜ×Ó´ò¸öÊÖÊÆ¡£ÄÇ"
-                       "µÜ×ÓµãÁËµãÍ·£¬½«\n¿ª¹ØÒ»°â£¬·Å¿ªÉşË÷£¬µõÀº¶ÙÊ±»º»ºÏòÏÂ»¬"
-                       "È¥¡£\n\n", me);
+        message_vision(HIY "\n$N" HIY "ç¨³ç¨³å½“å½“è·¨è¿›åŠç¯®ï¼Œå‘æ—¥æœˆå¼Ÿå­æ‰“ä¸ªæ‰‹åŠ¿ã€‚é‚£"
+                       "å¼Ÿå­ç‚¹äº†ç‚¹å¤´ï¼Œå°†\nå¼€å…³ä¸€æ‰³ï¼Œæ”¾å¼€ç»³ç´¢ï¼ŒåŠç¯®é¡¿æ—¶ç¼“ç¼“å‘ä¸‹æ»‘"
+                       "å»ã€‚\n\n", me);
         myenv = environment(me);
         me->move ("/d/heimuya/basket");
         me->start_call_out((: call_other, __FILE__, "down1", me :), 3);
@@ -52,15 +52,15 @@ int do_enter(string arg)
 
 void down1(object me)
 {
-        tell_object(me, HIW "\nÄã³Ë×ùµÄµõÀº¼±ËÙÏÂ½µ£¬ÀºÍâµÄ¶ä¶ä°×ÔÆÏòÉÏ³åÈ¥¡£\n\n" NOR);
+        tell_object(me, HIW "\nä½ ä¹˜åº§çš„åŠç¯®æ€¥é€Ÿä¸‹é™ï¼Œç¯®å¤–çš„æœµæœµç™½äº‘å‘ä¸Šå†²å»ã€‚\n\n" NOR);
         me->start_call_out((: call_other, __FILE__, "down2", me :), 3);
 }
 
 void down2(object me)
 {
-        tell_object(me, HIG "\nö®Ê±¼ä£¬Ò»Æ¬ÁÉÀ«µÄ²İÆº³öÏÖÔÚÄãÃæÇ°¡£\n\n" NOR);
+        tell_object(me, HIG "\néœæ—¶é—´ï¼Œä¸€ç‰‡è¾½é˜”çš„è‰åªå‡ºç°åœ¨ä½ é¢å‰ã€‚\n\n" NOR);
         me->move("/d/heimuya/up1");
-        message_vision(HIC "\n$N" HIC "³Ë×øµõÀº´ÓºÚÄ¾ÑÂÉÏ»¬ÁËÏÂÀ´¡£\n\n" NOR, me);
+        message_vision(HIC "\n$N" HIC "ä¹˜ååŠç¯®ä»é»‘æœ¨å´–ä¸Šæ»‘äº†ä¸‹æ¥ã€‚\n\n" NOR, me);
 }
 
 int do_float()
@@ -72,24 +72,24 @@ int do_float()
        // if (me->query_skill("juechen-shenfa", 1) < 180)
         if (me->query_skill("juechen-shenfa", 1) < 120 || me->query_skill("dodge", 1) < 120)
         {
-                message_vision("$N³¯É½ÑÂÏÂÍûÈ¥£¬³ÁË¼Á¼¾Ã£¬Ì¾ÁË¿ÚÆø¡£\n", me);
+                message_vision("$Næœå±±å´–ä¸‹æœ›å»ï¼Œæ²‰æ€è‰¯ä¹…ï¼Œå¹äº†å£æ°”ã€‚\n", me);
                 return 1;
         }
 
         if (me->query("neili") < 100)
         {
-                tell_object(me, "ÄãµÄÄÚÁ¦²»¹»£¬»¹ÊÇĞİÏ¢Ò»ÏÂÔÙËµ°É¡£\n");
+                tell_object(me, "ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œè¿˜æ˜¯ä¼‘æ¯ä¸€ä¸‹å†è¯´å§ã€‚\n");
                 return 1;
         }
 
         me->add("neili", -80);
 
-        message_sort(HIC "\n$N" HIC "ÉîÉîÄÉÈëÒ»¿ÚÆø£¬ÉíĞÎÆ®È»¶øÆğ£¬³¯É½"
-                     "ÑÂÏÂÂäÈ¥¡£\n\n" NOR, me);
+        message_sort(HIC "\n$N" HIC "æ·±æ·±çº³å…¥ä¸€å£æ°”ï¼Œèº«å½¢é£˜ç„¶è€Œèµ·ï¼Œæœå±±"
+                     "å´–ä¸‹è½å»ã€‚\n\n" NOR, me);
         me->move("/d/heimuya/up1");
-        tell_object(me, "ÄãÆ®È»ÂäÖÁºÚÄ¾ÑÂÉ½½ÅÖ®ÏÂ¡£\n");
-        message("vision", HIC "\nºöÌıÒ»ÉùÇåĞ¥ÓÉÔ¶¼°½ü£¬" + me->name() +
-                          HIC "´ÓÉÏÃæµÄÉ½ÑÂÆ®È»ÂäÏÂ¡£\n" NOR,
+        tell_object(me, "ä½ é£˜ç„¶è½è‡³é»‘æœ¨å´–å±±è„šä¹‹ä¸‹ã€‚\n");
+        message("vision", HIC "\nå¿½å¬ä¸€å£°æ¸…å•¸ç”±è¿œåŠè¿‘ï¼Œ" + me->name() +
+                          HIC "ä»ä¸Šé¢çš„å±±å´–é£˜ç„¶è½ä¸‹ã€‚\n" NOR,
                           environment(me), ({ me }));
         return 1;
 }

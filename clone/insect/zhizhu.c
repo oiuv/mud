@@ -1,4 +1,4 @@
-// zhizhu.c Ö©Öë
+// zhizhu.c èœ˜è››
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit POISON_INSECT;
 
 void create()
 {
-	set_name("Ö©Öë", ({ "zhi zhu" }) );
+	set_name("èœ˜è››", ({ "zhi zhu" }) );
         set_weight(30);
-	set("race", "Ò°ÊŞ");
+	set("race", "é‡å…½");
 	set("age", 2);
-	set("long", "Ò»Ö»ºÚ÷î÷îµÄÖ©Öë¡£\n");
+	set("long", "ä¸€åªé»‘é»é»çš„èœ˜è››ã€‚\n");
 	set("attitude", "peaceful");
 	set("str", 20);
 	set("con", 20);
-        set("unit", "Ö»");
-	set("limbs", ({ "Í·²¿", "ÉíÌå", "½Å" }) );
+        set("unit", "åª");
+	set("limbs", ({ "å¤´éƒ¨", "èº«ä½“", "è„š" }) );
 	set("verbs", ({ "bite" }) );
 
         set("insect_poison", ([

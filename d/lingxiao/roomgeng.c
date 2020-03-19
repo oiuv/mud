@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short","����");
+        set("short","居室");
         set("long",@LONG 
-����һ�䰲���ľ��ң��������ǵ��������ӹ����ӵķ��䡣
-���Ϸ���һ������ѩ�ķ�����ǽ�Ϲ���һ��������������Ӵ�
-�������룬����ǽ�ϣ�ӳ��һ�������ｭɽͼ��������ΰ��
+这是一间安静的居室，是凌霄城第六代弟子耿万钟的房间。
+桌上放着一卷《冰雪心法》，墙上挂着一柄剑。束束阳光从窗
+格中射入，照在墙上，映得一副《万里江山图》分外雄伟。
 LONG);
         set("exits", ([
             "south"  : __DIR__"zoulang1", 

@@ -4,16 +4,16 @@ inherit __DIR__"skpaper";
 
 void create()
 {
-        set_name(NOR + WHT "È­·¨²ĞÆª" NOR, ({ "quanfa canpian", "quanfa", "canpian" }));
+        set_name(NOR + WHT "æ‹³æ³•æ®‹ç¯‡" NOR, ({ "quanfa canpian", "quanfa", "canpian" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "ÕÅ");
-                set("long", "ÕâÊÇÒ»ÕÅ²ĞÈ±²»È«µÄÊéÒ³¡£\n" NOR);
+                set("unit", "å¼ ");
+                set("long", "è¿™æ˜¯ä¸€å¼ æ®‹ç¼ºä¸å…¨çš„ä¹¦é¡µã€‚\n" NOR);
                 set("value", 30);
-                set("no_sell", "Ê²Ã´ÊÀµÀ£¬¾ÍÒ»ÕÅÆÆÖ½Í·Ò²ÄÃÀ´ÂôÇ®£¿");
+                set("no_sell", "ä»€ä¹ˆä¸–é“ï¼Œå°±ä¸€å¼ ç ´çº¸å¤´ä¹Ÿæ‹¿æ¥å–é’±ï¼Ÿ");
                 set("material", "paper");
-                set("skill_name", "»ù±¾È­·¨");
+                set("skill_name", "åŸºæœ¬æ‹³æ³•");
                 set("skill_type", "cuff");
                 set("power_point", 30000);
                 set("need_exp", 100000);

@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ҽ��");
+        set("short", "医居");
         set("long", @LONG
-���߽����һ���Ĵ�Ժ����������Ǹ���������С�ݡ���
-�ܰ��˲���ҽѧ�伮�����кܶ�ɢ��ѷŵĸࡢ�衢ɢ�ȡ�һ
-����ͷ�ڴ˴��������ƺ����������¡�
+你走进了烈火旗的大院后进，这里是个很宁静的小屋。四
+周摆了不少医学典籍，还有很多散落堆放的膏、丸、散等。一
+个老头在此呆呆出神，似乎有无限心事。
 LONG );
         set("exits", ([
                 "out"     : __DIR__"lhqyuan",

@@ -1,4 +1,4 @@
-// jingxiu.c ¾²ÐÞÊÒ
+// jingxiu.c é™ä¿®å®¤
 
 inherit ROOM;
 
@@ -12,10 +12,10 @@ string look_men();
 
 void create()
 {
-        set("short", "¾²ÐÞÊÒ");
+        set("short", "é™ä¿®å®¤");
         set("long", @LONG
-ÕâÀïÊÇ¾²ÐÞÊÒ£¬ÎÝÖÐÓÐÒ»Ð©ºú¼ÒµÜ×ÓÔÚÕâÀï´ò×øÁ·¹¦¡£ÄÏÃæÓÐÒ»
-ÉÈÐ¡ÃÅ(men)£¬ÀïÃæÒþÒþ´«À´ÁË÷ýÉù¡£
+è¿™é‡Œæ˜¯é™ä¿®å®¤ï¼Œå±‹ä¸­æœ‰ä¸€äº›èƒ¡å®¶å¼Ÿå­åœ¨è¿™é‡Œæ‰“åç»ƒåŠŸã€‚å—é¢æœ‰ä¸€
+æ‰‡å°é—¨(men)ï¼Œé‡Œé¢éšéšä¼ æ¥äº†é¼¾å£°ã€‚
 LONG );
         set("exits", ([
                 "east" : __DIR__"houyuan",
@@ -49,9 +49,9 @@ int close_men()
         if (objectp(room))
         {
                 delete("exits/south");
-                message("vision", "ÃÅÖ¨Ö¨Ñ½Ñ½µØ×Ô¼ººÏÉÏÁË¡£\n", this_object());
+                message("vision", "é—¨å±å±å‘€å‘€åœ°è‡ªå·±åˆä¸Šäº†ã€‚\n", this_object());
                 room->delete("exits/north");
-                message("vision", "ÃÅÖ¨Ö¨Ñ½Ñ½µØ×Ô¼ººÏÉÏÁË¡£\n", room);
+                message("vision", "é—¨å±å±å‘€å‘€åœ°è‡ªå·±åˆä¸Šäº†ã€‚\n", room);
         } else message("vision", "ERROR: men not found(close).\n", room);
 
         return 1;
@@ -62,10 +62,10 @@ int do_knock(string arg)
         object room;
 
         if (!arg || (arg != "door" && arg != "men"))
-                return notify_fail("ÄãÒªÇÃÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦æ•²ä»€ä¹ˆï¼Ÿ\n");
 
         if (query("exits/south"))
-                return notify_fail("´óÃÅÒÑ¾­ÊÇ¿ª×ÅÁË¡£\n");
+                return notify_fail("å¤§é—¨å·²ç»æ˜¯å¼€ç€äº†ã€‚\n");
 
         if (!( room = find_object(__DIR__"xiuxishi")) )
                 room = load_object(__DIR__"xiuxishi");
@@ -74,8 +74,8 @@ int do_knock(string arg)
         {
                 if ((int)room->query_temp("sleeping_person") > 0)
                 {
-                        message_vision("$N¸ÕÇáÇáµØÇÃÁËÒ»ÏÂÃÅ£¬¾ÍÌý¼ûÀïÃæ´«³öÒ»ÕóÀ×Ãù°ãµÄ÷ýÉù£¬\n"
-                                       "ÏÔÈ»ÀïÃæµÄÈËË¯µÃ¸úËÀÖíËÆµÄ£¬ÔõÃ´ÇÃ¶¼Ã»ÓÃÁË\n",
+                        message_vision("$Nåˆšè½»è½»åœ°æ•²äº†ä¸€ä¸‹é—¨ï¼Œå°±å¬è§é‡Œé¢ä¼ å‡ºä¸€é˜µé›·é¸£èˆ¬çš„é¼¾å£°ï¼Œ\n"
+                                       "æ˜¾ç„¶é‡Œé¢çš„äººç¡å¾—è·Ÿæ­»çŒªä¼¼çš„ï¼Œæ€Žä¹ˆæ•²éƒ½æ²¡ç”¨äº†\n",
                                        this_player());
                 } else
                 if ((int)room->query_temp("person_inside") > 0)
@@ -83,28 +83,28 @@ int do_knock(string arg)
                         switch (random(2))
                         {
                         case 0:
-                                message_vision("$NÇáÇáµØÇÃÁËÇÃÃÅ£¬Ö»Ìý¼ûÀïÃæÓÐÈËºÜ²»ÄÍ·³µØºðµ½£º\n"
-                                               "¸ÕÌÉÏÂ¾ÍÀ´ÇÃÃÅ£¡ÎÒË¯×ÅÁË£¬Ìý²»¼û£¡£¡£¡\n",
+                                message_vision("$Nè½»è½»åœ°æ•²äº†æ•²é—¨ï¼Œåªå¬è§é‡Œé¢æœ‰äººå¾ˆä¸è€çƒ¦åœ°å¼åˆ°ï¼š\n"
+                                               "åˆšèººä¸‹å°±æ¥æ•²é—¨ï¼æˆ‘ç¡ç€äº†ï¼Œå¬ä¸è§ï¼ï¼ï¼\n",
                                                this_player());
                                 break;
                         case 1:
-                                message_vision("$NÇáÇáµØÇÃÁËÇÃÃÅ£¬Ö»Ìý¼ûÀïÃæÓÐÐ©Ïì¶¯£¬\n"
-                                               "ºÃÏóÓÐÈËÔÚõâÀ´õâÈ¥£¬ÄÃ²»¶¨Ö÷ÒâÊÇ·ñ¿ªÃÅ¡£\n",
+                                message_vision("$Nè½»è½»åœ°æ•²äº†æ•²é—¨ï¼Œåªå¬è§é‡Œé¢æœ‰äº›å“åŠ¨ï¼Œ\n"
+                                               "å¥½è±¡æœ‰äººåœ¨è¸±æ¥è¸±åŽ»ï¼Œæ‹¿ä¸å®šä¸»æ„æ˜¯å¦å¼€é—¨ã€‚\n",
                                                this_player());
                                 break;
                         }
                 } else
                 {
                         room->delete_temp("sleeping_person");
-                        message_vision("$NÇáÇáµØÇÃÁËÇÃÃÅ£ºßË¡¢ßË¡¢ßË£®£®£®ßË¡¢ßË¡¢ßË£®£®£®\n",
+                        message_vision("$Nè½»è½»åœ°æ•²äº†æ•²é—¨ï¼šå’šã€å’šã€å’šï¼Žï¼Žï¼Žå’šã€å’šã€å’šï¼Žï¼Žï¼Ž\n",
                                        this_player());
                 }
         }
 
         if (objectp(room))
-                message("vision",  "ÍâÃæ´«À´Ò»ÕóÇÃÃÅÉù£¬Äã´ÓÃÅ·ìÍùÍâÒ»ÇÆ£¬ÊÇ" +
-                        this_player()->name() + "Ò»Á³½¹¼±µØÕ¾ÔÚÃÅÍâ£¬\n"
-                        "¿´Ñù×ÓÒ²Ïë½øÀ´ÐÝÏ¢¡£\n", room);
+                message("vision",  "å¤–é¢ä¼ æ¥ä¸€é˜µæ•²é—¨å£°ï¼Œä½ ä»Žé—¨ç¼å¾€å¤–ä¸€çž§ï¼Œæ˜¯" +
+                        this_player()->name() + "ä¸€è„¸ç„¦æ€¥åœ°ç«™åœ¨é—¨å¤–ï¼Œ\n"
+                        "çœ‹æ ·å­ä¹Ÿæƒ³è¿›æ¥ä¼‘æ¯ã€‚\n", room);
         return 1;
 }
 
@@ -114,10 +114,10 @@ int do_kick(string arg)
         object room;
 
         if (!arg || (arg != "door" && arg != "men"))
-                return notify_fail("ÄãÒªÌßÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦è¸¢ä»€ä¹ˆï¼Ÿ\n");
 
         if (query("exits/south"))
-                return notify_fail("´óÃÅ¿ª×Å£¬ÄãÌßËü¸ÉÂð£¿¡£\n");
+                return notify_fail("å¤§é—¨å¼€ç€ï¼Œä½ è¸¢å®ƒå¹²å—ï¼Ÿã€‚\n");
 
         if (!( room = find_object(__DIR__"xiuxishi")) )
                 room = load_object(__DIR__"xiuxishi");
@@ -127,24 +127,24 @@ int do_kick(string arg)
         {
                 if (me->query("qi") < 40)
                 {
-                        message_vision("$N·ÉÆðÒ»½Å£¬ºÝºÝµÄÌßÖÐ´óÃÅ£¬È»¶ø´óÃÅÎÆË¿²»¶¯¡£\n", me);
-                        message("vision", "¾ÍÌý¡°Åé¡±µÄÒ»Éù¾ÞÏì£¬ÍâÃæËÆºõÓÐÈË·¢»ðÌßÃÅÁË¡£\n", room);
-                        tell_object(me, "Äã¾õµÃ½ÅÖº¼¸ºõ¶¼Òª¶ÏÁË£¡\n");
+                        message_vision("$Né£žèµ·ä¸€è„šï¼Œç‹ ç‹ çš„è¸¢ä¸­å¤§é—¨ï¼Œç„¶è€Œå¤§é—¨çº¹ä¸ä¸åŠ¨ã€‚\n", me);
+                        message("vision", "å°±å¬â€œç °â€çš„ä¸€å£°å·¨å“ï¼Œå¤–é¢ä¼¼ä¹Žæœ‰äººå‘ç«è¸¢é—¨äº†ã€‚\n", room);
+                        tell_object(me, "ä½ è§‰å¾—è„šè¶¾å‡ ä¹Žéƒ½è¦æ–­äº†ï¼\n");
                         me->unconcious();
                 } else
                 if (me->query("qi") < 100)
                 {
-                        message_vision("$N·ÉÆðÒ»½Å£¬ºÝºÝµÄÌßÖÐ´óÃÅ£¬È»¶ø´óÃÅÖ»ÊÇ»ÎÁËÒ»ÏÂ¡£\n", me);
-                        message("vision", "¾ÍÌý¡°Åé¡±µÄÒ»Éù¾ÞÏì£¬ÍâÃæËÆºõÓÐÈË·¢»ðÌßÃÅÁË¡£\n", room);
-                        tell_object(me, "Äã¾õµÃ½Å·Ç³£µÄÍ´£¡\n");
+                        message_vision("$Né£žèµ·ä¸€è„šï¼Œç‹ ç‹ çš„è¸¢ä¸­å¤§é—¨ï¼Œç„¶è€Œå¤§é—¨åªæ˜¯æ™ƒäº†ä¸€ä¸‹ã€‚\n", me);
+                        message("vision", "å°±å¬â€œç °â€çš„ä¸€å£°å·¨å“ï¼Œå¤–é¢ä¼¼ä¹Žæœ‰äººå‘ç«è¸¢é—¨äº†ã€‚\n", room);
+                        tell_object(me, "ä½ è§‰å¾—è„šéžå¸¸çš„ç—›ï¼\n");
                         me->set("qi", 20);
                         me->receive_wound("qi", 20);
                 } else
                 {
-                        message_vision("$N·ÉÆðÒ»½Å£¬ºÝºÝ½«´óÃÅõß¿ª¡£\n", me);
-                        message("vision", "¾ÍÌý¡°Åé¡±µÄÒ»Éù¾ÞÏì£¬ÃÅºöµÄÒ»ÏÂ×Ó¾Í¿ªÁË£¬ÏÅÁË"
-                                "ÄãÒ»Ìø¡£×ÐÏ¸Ò»¿´£¬Ô­À´ÊÇ" + me->name() +
-                                "ÆøÊÆÐÚÐÚµÄÕ¾ÔÚÃÅ¿Ú¡£\n", room);
+                        message_vision("$Né£žèµ·ä¸€è„šï¼Œç‹ ç‹ å°†å¤§é—¨è¸¹å¼€ã€‚\n", me);
+                        message("vision", "å°±å¬â€œç °â€çš„ä¸€å£°å·¨å“ï¼Œé—¨å¿½çš„ä¸€ä¸‹å­å°±å¼€äº†ï¼Œå“äº†"
+                                "ä½ ä¸€è·³ã€‚ä»”ç»†ä¸€çœ‹ï¼ŒåŽŸæ¥æ˜¯" + me->name() +
+                                "æ°”åŠ¿æ±¹æ±¹çš„ç«™åœ¨é—¨å£ã€‚\n", room);
                         me->receive_damage("qi", 100);
                         room->delete_temp("person_inside");
                         set("exits/south", __DIR__"xiuxishi");
@@ -162,10 +162,10 @@ int do_push(string arg)
         object room;
 
         if (query("exits/south"))
-                return notify_fail("ÃÅÒÑ¾­ÊÇ¿ª×ÅÁË¡£\n");
+                return notify_fail("é—¨å·²ç»æ˜¯å¼€ç€äº†ã€‚\n");
 
         if (!arg || (arg != "door" && arg != "men"))
-                return notify_fail("ÄãÒªÍÆÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦æŽ¨ä»€ä¹ˆï¼Ÿ\n");
 
         if (!(room = find_object(__DIR__"xiuxishi")))
                 room = load_object(__DIR__"xiuxishi");
@@ -176,14 +176,14 @@ int do_push(string arg)
     	        {
                         room->delete_temp("person_inside");
                         set("exits/south", __DIR__"xiuxishi");
-                        message_vision("$NÇáÇáµØ°ÑÃÅÍÆ¿ª¡£\n", this_player());
+                        message_vision("$Nè½»è½»åœ°æŠŠé—¨æŽ¨å¼€ã€‚\n", this_player());
                         room->set("exits/north", __FILE__);
-                        message("vision", "ÓÐÈË´ÓÍâÃæ°ÑÃÅÍÆ¿ªÁË¡£\n", room);
+                        message("vision", "æœ‰äººä»Žå¤–é¢æŠŠé—¨æŽ¨å¼€äº†ã€‚\n", room);
                         remove_call_out("close_men");
                         call_out("close_men", 10);
                 } else
                 {
-                        message_vision("$NÏë°ÑÃÅÍÆ¿ª£¬È´·¢¾õÃÅ±»ÈË´ÓÀïÃæãÅÉÏÁË¡£\n",
+                        message_vision("$Næƒ³æŠŠé—¨æŽ¨å¼€ï¼Œå´å‘è§‰é—¨è¢«äººä»Žé‡Œé¢é—©ä¸Šäº†ã€‚\n",
                                        this_player());
                 }
         }
@@ -199,9 +199,9 @@ string look_men()
                 room = load_object(__DIR__"xiuxishi");
 
         if (objectp(room) && (int)room->query_temp("person_inside") > 0)
-                return "ÃÅÉÏ¹ÒÁË¸öÅÆ×Ó£ºÐÝÏ¢ÖÐ¡¢ÇëÎã´òÈÅ\n";
+                return "é—¨ä¸ŠæŒ‚äº†ä¸ªç‰Œå­ï¼šä¼‘æ¯ä¸­ã€è¯·æ¯‹æ‰“æ‰°\n";
 
-        return "ÃÅÉÏ¹ÒÁË¸öÅÆ×Ó£ºÐÝÏ¢ÊÒ\n";
+        return "é—¨ä¸ŠæŒ‚äº†ä¸ªç‰Œå­ï¼šä¼‘æ¯å®¤\n";
 }
 
 int valid_leave(object me, string dir)
@@ -231,9 +231,9 @@ int force_open(object room)
         room->delete_temp("person_inside");
     	set("exits/north", __DIR__"xiuxishi");
     	room->set("exits/south", __FILE__);
-    	message("vision", "ÍâÃæÍ»È»ÏìÆð´ÖÖØµÄ½Å²½Éù£¬ÓÉÔ¶¶ø½ü£¬µ½ÃÅÇ°Í£ÁËÏÂÀ´£®£®£®\n"
-        		  "¼¸¸öµÜ×ÓÒ»ÏÂ×Ó°ÑÃÅ´ò¿ª£¬Éì¸öÍ·½øÀ´£¬ÂîÂîßÖßÖµÀ£ºÊ²Ã´ÄñÈË\n"
-			  "ÔÚÀïÃæÄ¥Ä¥²ä²äµÄ£¿\n", room);
+    	message("vision", "å¤–é¢çªç„¶å“èµ·ç²—é‡çš„è„šæ­¥å£°ï¼Œç”±è¿œè€Œè¿‘ï¼Œåˆ°é—¨å‰åœäº†ä¸‹æ¥ï¼Žï¼Žï¼Ž\n"
+        		  "å‡ ä¸ªå¼Ÿå­ä¸€ä¸‹å­æŠŠé—¨æ‰“å¼€ï¼Œä¼¸ä¸ªå¤´è¿›æ¥ï¼Œéª‚éª‚å’§å’§é“ï¼šä»€ä¹ˆé¸Ÿäºº\n"
+			  "åœ¨é‡Œé¢ç£¨ç£¨è¹­è¹­çš„ï¼Ÿ\n", room);
     	remove_call_out("close_men");
     	call_out("close_men", 10);
 

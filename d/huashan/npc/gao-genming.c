@@ -7,12 +7,12 @@ int permit_pass(object me, string dir);
 
 void create()
 {
-        set_name("¸ß¸ùÃ÷", ({ "gao genming","gao","genming" }) );
-        set("nickname", "ÊĞ¾®ºÀ½Ü");
-        set("gender", "ÄĞĞÔ");
+        set_name("é«˜æ ¹æ˜", ({ "gao genming","gao","genming" }) );
+        set("nickname", "å¸‚äº•è±ªæ°");
+        set("gender", "ç”·æ€§");
         set("age", 24);
         set("long",
-                "¸ß¸ùÃ÷ÊÇÔÀ²»ÈºµÄµÚÎåÎ»µÜ×Ó¡£\n");
+                "é«˜æ ¹æ˜æ˜¯å²³ä¸ç¾¤çš„ç¬¬äº”ä½å¼Ÿå­ã€‚\n");
         set("attitude", "peaceful");
 
         set("str", 26);
@@ -56,7 +56,7 @@ void create()
                    "id"        : "yue buqun" ]),
         }));
 
-        create_family("»ªÉ½ÅÉ", 14, "µÜ×Ó");
+        create_family("åå±±æ´¾", 14, "å¼Ÿå­");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();
@@ -73,32 +73,32 @@ int permit_pass(object me, string dir)
 
         if (me->query_temp("beg_huashan"))
         {
-                message_vision("$NÑÛ¾¦Ò»µ¯£¬¶Ô$nºÈµÀ£º¡°ÄãÂÒ"
-                               "ÅÜ¸öÉ¶£¿ÊÇ¼éÏ¸Ã´£¿¡±\n", this_object(), me);
+                message_vision("$Nçœ¼ç›ä¸€å¼¹ï¼Œå¯¹$nå–é“ï¼šâ€œä½ ä¹±"
+                               "è·‘ä¸ªå•¥ï¼Ÿæ˜¯å¥¸ç»†ä¹ˆï¼Ÿâ€\n", this_object(), me);
                 return -1;
         }
 
-        notify_fail("¿´À´" + name() + "²»´òËãÈÃÄã¹ıÈ¥¡£\n");
+        notify_fail("çœ‹æ¥" + name() + "ä¸æ‰“ç®—è®©ä½ è¿‡å»ã€‚\n");
 
         inv = all_inventory(me);
         for (i = 0; i < sizeof(inv); i++)
         {
                 if (! playerp(inv[i])) continue;
-                if ((string) inv[i]->query("family/family_name") != "»ªÉ½ÅÉ")
+                if ((string) inv[i]->query("family/family_name") != "åå±±æ´¾")
                 {
-                        message_vision("$N¶Ô$nºÈµÀ£ºÄã±³µÄÊÇË­£¿»¹²»¿ì¿ì·ÅÏÂ£¡\n",
+                        message_vision("$Nå¯¹$nå–é“ï¼šä½ èƒŒçš„æ˜¯è°ï¼Ÿè¿˜ä¸å¿«å¿«æ”¾ä¸‹ï¼\n",
                                        this_object(), me);
                         return 0;
                 }
         }
 
         if (me->query("family/family_name") &&
-            me->query("family/family_name") != "»ªÉ½ÅÉ" ||
+            me->query("family/family_name") != "åå±±æ´¾" ||
             ! me->query("family/family_name") &&
             me->query("combat_exp") > 20000)
         {
-                message_vision("$N¶Ô$nµÀ£º¶Ô²»Æğ£¬²»ÊÇÎÒÃÇ»ªÉ½ÅÉµÄÈË"
-                               "ÇëÎğÈë±¾ÅÉÖØµØ¡£\n", this_object(), me);
+                message_vision("$Nå¯¹$né“ï¼šå¯¹ä¸èµ·ï¼Œä¸æ˜¯æˆ‘ä»¬åå±±æ´¾çš„äºº"
+                               "è¯·å‹¿å…¥æœ¬æ´¾é‡åœ°ã€‚\n", this_object(), me);
                 return 0;
         }
 

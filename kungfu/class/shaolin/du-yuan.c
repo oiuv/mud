@@ -10,13 +10,13 @@ mixed ask_me();
 void create()
 {
         object ob;
-	set_name("¶ÉÔªìøÊ¦", ({ "duyuan chanshi", "duyuan", "chanshi" }) );
-	set("title", "ÆÎÌïÉÙÁÖËÂ¸ßÊÖ");
-	set("gender", "ÄĞĞÔ");
+	set_name("æ¸¡å…ƒç¦…å¸ˆ", ({ "duyuan chanshi", "duyuan", "chanshi" }) );
+	set("title", "è†ç”°å°‘æ—å¯ºé«˜æ‰‹");
+	set("gender", "ç”·æ€§");
 	set("age", 63);
-	set("long", "¶ÉÔªìøÊ¦ÄËÊÇÆÎÌïÉÙÁÖËÂ·½ÕÉºìÒ¶ìøÊ¦µÄµÃÒâ\n"
-                    "µÜ×Ó£¬ÒòÔÀËàºÍ²Ì×Ó·åÍµ¿´µ½¿û»¨±¦µäÒ»ÊÂ¶ø\n"
-                    "ÏÂÉ½²ì·Ã¡£\n");
+	set("long", "æ¸¡å…ƒç¦…å¸ˆä¹ƒæ˜¯è†ç”°å°‘æ—å¯ºæ–¹ä¸ˆçº¢å¶ç¦…å¸ˆçš„å¾—æ„\n"
+                    "å¼Ÿå­ï¼Œå› å²³è‚ƒå’Œè”¡å­å³°å·çœ‹åˆ°è‘µèŠ±å®å…¸ä¸€äº‹è€Œ\n"
+                    "ä¸‹å±±å¯Ÿè®¿ã€‚\n");
 	set("attitude", "peaceful");
 	set("class", "bonze");
 	set("combat_exp", 3500000);
@@ -30,7 +30,7 @@ void create()
 	set("neili", 7500);
 	set("max_neili", 7500);
 	set("jiali", 200);
-	create_family("ÉÙÁÖÅÉ", 35, "µÜ×Ó");
+	create_family("å°‘æ—æ´¾", 35, "å¼Ÿå­");
 
 	set_skill("force", 280);
 	set_skill("sword", 280);
@@ -68,8 +68,8 @@ void create()
 	prepare_skill("unarmed", "pixie-jian");
 
 	set("inquiry", ([
-		"±ÙĞ°½£·¨" : (: ask_me :),
-		"¿û»¨±¦µä" : (: ask_me :),
+		"è¾Ÿé‚ªå‰‘æ³•" : (: ask_me :),
+		"è‘µèŠ±å®å…¸" : (: ask_me :),
 	]));
 
         set_temp("apply/attack", 150);
@@ -110,8 +110,8 @@ void create()
 
 mixed ask_me()
 {
-        message("vision", HIR "¶ÉÔªìøÊ¦¼â½ĞµÀ£ºÄãÔõÃ´ÖªµÀ£¿½ñÈÕÒª¹Ö¾ÍÖ»"
-                          "ÄÜ¹ÖÄã¶à×ìÁË£¡\n" NOR, environment(),
+        message("vision", HIR "æ¸¡å…ƒç¦…å¸ˆå°–å«é“ï¼šä½ æ€ä¹ˆçŸ¥é“ï¼Ÿä»Šæ—¥è¦æ€ªå°±åª"
+                          "èƒ½æ€ªä½ å¤šå˜´äº†ï¼\n" NOR, environment(),
                           this_object() );
         kill_ob(this_player());
         return 1;

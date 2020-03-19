@@ -10,101 +10,101 @@
 #define VALUE   2
 /*
 mixed *jewel = ({
-        ({ "��ʯ��Ƭ", "һƬ��ʯ��Ƭ��", 80000 }),
-        ({ "��ʯ", "һ���������ľ�����ʯ�������쳣��", 100000 }),
-        ({ "ϡ����ʯ", "һ���������ľ�����ʯ�������Բ�ͬѰ���ĸо���", 120000 }),
-        ({ "��֮��ʯ", "һ����˸�������â�ı�ʯ�����˸е�һ������ļ¡�", 140000 }),
-        ({ "ʥ֮��ʯ", "һ����˸�������â�ı�ʯ�����˸е�һ������ļ¡�", 160000 }),
-        ({ "ħ֮��ʯ", "һ����˸�������â�ı�ʯ�����˸е�һ������ļ¡�", 180000 }),
-        ({ "��֮��ʯ", "һ����˸�������â�ı�ʯ�����˸е�һ������ļ¡�", 200000 }),
+        ({ "宝石碎片", "一片宝石碎片。", 80000 }),
+        ({ "宝石", "一块金光闪闪的精美宝石，华丽异常。", 100000 }),
+        ({ "稀世宝石", "一块金光闪闪的精美宝石，给人以不同寻常的感觉。", 120000 }),
+        ({ "帝之宝石", "一块闪烁这奇异光芒的宝石，让人感到一阵阵的心悸。", 140000 }),
+        ({ "圣之宝石", "一块闪烁这奇异光芒的宝石，让人感到一阵阵的心悸。", 160000 }),
+        ({ "魔之宝石", "一块闪烁这奇异光芒的宝石，让人感到一阵阵的心悸。", 180000 }),
+        ({ "神之宝石", "一块闪烁这奇异光芒的宝石，让人感到一阵阵的心悸。", 200000 }),
 });
 */
 mapping special_data = ([
         /*
-        "int"   : "��������",
-        "str"   : "�������",
-        "con"   : "�������",
-        "dex"   : "��������",
+        "int"   : "后天悟性",
+        "str"   : "后天臂力",
+        "con"   : "后天根骨",
+        "dex"   : "后天身法",
         	*/
-        	//���� by н������ ͳһΪ���ַ�񣬿������롣�����������������ʱ������¡�
-        	//���������������ʵ��query_per()�д�������Ч���ʶ���Ϊ��Ч��ò
-        "personality"   : "��Ч��ò",
-        "attack"        : "ս������",
-        "defense"       : "ս������",
-        "parry"         : "��Ч�м�",
-        "dodge"         : "��Ч�Ṧ",
-        "force"         : "��Ч�ڹ�",
-        "armor"         : "ս������",
-        "damage"        : "�����˺�",
-        "unarmed_damage": "�����˺�",
-        "unarmed"       : "��Чȭ��",
-        "cuff"          : "��Чȭ��",
-        "strike"        : "��Ч�Ʒ�",
-        "hand"          : "��Ч�ַ�",
-        "finger"        : "��Чָ��",
-        "claw"          : "��Чצ��",
-        "warm"          : "��ů����",
+        	//新增 by 薪有所属 统一为四字风格，看着整齐。后续如果有新属性随时补充更新。
+        	//附加属性有这个但实际query_per()中此属性无效，故定义为无效容貌
+        "personality"   : "无效容貌",
+        "attack"        : "战斗攻击",
+        "defense"       : "战斗防御",
+        "parry"         : "有效招架",
+        "dodge"         : "有效轻功",
+        "force"         : "有效内功",
+        "armor"         : "战斗护甲",
+        "damage"        : "兵器伤害",
+        "unarmed_damage": "空手伤害",
+        "unarmed"       : "有效拳脚",
+        "cuff"          : "有效拳法",
+        "strike"        : "有效掌法",
+        "hand"          : "有效手法",
+        "finger"        : "有效指法",
+        "claw"          : "有效爪法",
+        "warm"          : "保暖能力",
         	
         	/*
-        	//������������Է���ο�
-        "max_neili"     : "�����������",
-        "max_jingli"    : "���������",
-        "max_qi"        : "�����Ѫ����",
-        "max_jing"      : "���������",
-        "max_potential" : "���Ǳ������",
-        "max_experience": "����������",
-        "attack"        : "ս����������Ч�ȼ�",
-        "defense"       : "ս����������Ч�ȼ�",
-        "parry"         : "ս���м�����Ч�ȼ�",
-        "dodge"         : "ս����������Ч�ȼ�",
-        "armor"         : "ս��������",
-        "damage"        : "ս�������˺���",
-        "unarmed_damage": "ս��ȭ���˺���",
-        "ap_power"      : "����ս���������ٷֱ�",
-        "dp_power"      : "����ս���������ٷֱ�",
-        "da_power"      : "����ս���˺����ٷֱ�",
-        "add_poison"            : "������������Ч���ٷֱ�",
-        "reduce_poison"         : "���ⶾ������Ч���ٷֱ�",
-        "avoid_poison"          : "�رܶ����������ʰٷֱ�",
-        "add_cold"              : "�����䶳����Ч���ٷֱ�",
-        "add_fire"              : "�������湥��Ч���ٷֱ�",
-        "add_lighting"          : "�������繥��Ч���ٷֱ�",
-        "add_magic"             : "����ħ������Ч���ٷֱ�",
-        "reduce_cold"           : "�����䶳����Ч���ٷֱ�",
-        "reduce_fire"           : "������湥��Ч���ٷֱ�",
-        "reduce_lighting"       : "�������繥��Ч���ٷֱ�",
-        "reduce_magic"          : "����ħ������Ч���ٷֱ�",
-        "avoid_cold"            : "�ر��䶳�������ʰٷֱ�",
-        "avoid_fire"            : "�رܻ��湥�����ʰٷֱ�",
-        "avoid_lighting"        : "�ر����繥�����ʰٷֱ�",
-        "avoid_magic"           : "�ر�ħ���������ʰٷֱ�",
-        "effjing_recover"       : "���ÿ��������ָ�ֵ",
-        "effqi_recover"         : "���ÿ�������Ѫ�ָ�ֵ",
-        "research_times": "�����о��Ĵ���",
-        "learn_times"   : "����ѧϰ�Ĵ���",
-        "practice_times": "������ϰ�Ĵ���",
-        "derive_times"  : "������ȡ������",
-        "study_times"   : "��������Ĵ���",
-        "study_effect"  : "���������Ч���ٷֱ�",
-        "learn_effect"  : "����ѧϰ��Ч���ٷֱ�",
-        "avoid_parry"   : "�ر������мܻ��ʰٷֱ�",                     // ���ķ���
-        "avoid_dodge"   : "�ر�����������ʰٷֱ�",                     // ���ķ���
-        "avoid_attack"  : "�ر����⹥�����ʰٷֱ�",                     // ���ķ���
-        "reduce_age"    : "�����Լ������",
-        "research_effect"       : "�����о���Ч���ٷֱ�",
-        "practice_effect"       : "������ϰ��Ч���ٷֱ�",
-        "derive_effect"         : "������ȡ��Ч���ٷֱ�",
+        	//留着作相关属性翻译参考
+        "max_neili"     : "最大内力上限",
+        "max_jingli"    : "最大精力上限",
+        "max_qi"        : "最大气血上限",
+        "max_jing"      : "最大精气上限",
+        "max_potential" : "最大潜能上限",
+        "max_experience": "最大体会上限",
+        "attack"        : "战斗攻击力有效等级",
+        "defense"       : "战斗防御力有效等级",
+        "parry"         : "战斗招架力有效等级",
+        "dodge"         : "战斗躲闪力有效等级",
+        "armor"         : "战斗保护力",
+        "damage"        : "战斗兵器伤害力",
+        "unarmed_damage": "战斗拳脚伤害力",
+        "ap_power"      : "绝招战斗攻击力百分比",
+        "dp_power"      : "绝招战斗防御力百分比",
+        "da_power"      : "绝招战斗伤害力百分比",
+        "add_poison"            : "附带毒气攻击效果百分比",
+        "reduce_poison"         : "化解毒气攻击效果百分比",
+        "avoid_poison"          : "回避毒气攻击机率百分比",
+        "add_cold"              : "附带冷冻攻击效果百分比",
+        "add_fire"              : "附带火焰攻击效果百分比",
+        "add_lighting"          : "附带闪电攻击效果百分比",
+        "add_magic"             : "附带魔法攻击效果百分比",
+        "reduce_cold"           : "化解冷冻攻击效果百分比",
+        "reduce_fire"           : "化解火焰攻击效果百分比",
+        "reduce_lighting"       : "化解闪电攻击效果百分比",
+        "reduce_magic"          : "化解魔法攻击效果百分比",
+        "avoid_cold"            : "回避冷冻攻击机率百分比",
+        "avoid_fire"            : "回避火焰攻击机率百分比",
+        "avoid_lighting"        : "回避闪电攻击机率百分比",
+        "avoid_magic"           : "回避魔法攻击机率百分比",
+        "effjing_recover"       : "提高每次最大精气恢复值",
+        "effqi_recover"         : "提高每次最大气血恢复值",
+        "research_times": "提升研究的次数",
+        "learn_times"   : "提升学习的次数",
+        "practice_times": "提升练习的次数",
+        "derive_times"  : "提升汲取的消耗",
+        "study_times"   : "提升读书的次数",
+        "study_effect"  : "提升读书的效果百分比",
+        "learn_effect"  : "提升学习的效果百分比",
+        "avoid_parry"   : "回避特殊招架机率百分比",                     // 符文防具
+        "avoid_dodge"   : "回避特殊躲闪机率百分比",                     // 符文防具
+        "avoid_attack"  : "回避特殊攻击机率百分比",                     // 符文防具
+        "reduce_age"    : "降低自己的年纪",
+        "research_effect"       : "提升研究的效果百分比",
+        "practice_effect"       : "提升练习的效果百分比",
+        "derive_effect"         : "提升汲取的效果百分比",
         
-        "avoid_noperform"       : HIR "�رܾ���ʹ�����ƻ��ʰٷֱ�",         // �ռ�����
-        "target_noperform"      : HIB "���ƶ���ʹ�þ��л��ʰٷֱ�",         // �ռ�����
-        "add_busy"      : HIR "����æ������",                           // �ռ�����
-        "reduce_busy"   : HIB "����æ������",                               // �ռ�����
-        "avoid_busy"    : HIB "�ر�æ�һ��ʰٷֱ�",                         // �ռ�����
-        "xuruo_status"  : HIR "�ö��ִ�������״̬���ʰٷֱ�",               // �ռ�����
-        "avoid_xuruo"   : HIB "�ر��������ʰٷֱ�",                         // �ռ�����
-        "add_skilllevel": HIR "�������м��ܵȼ�",                           // �ռ�����
-        "add_damage"    : HIR "׷�������˺��ٷֱ�",                         // �ռ�����
-        "reduce_damage" : HIB "���������˺��ٷֱ�",                         // �ռ�����
+        "avoid_noperform"       : HIR "回避绝招使用限制机率百分比",         // 终极兵器
+        "target_noperform"      : HIB "限制对手使用绝招机率百分比",         // 终极防具
+        "add_busy"      : HIR "对手忙乱秒数",                           // 终极兵器
+        "reduce_busy"   : HIB "化解忙乱秒数",                               // 终极防具
+        "avoid_busy"    : HIB "回避忙乱机率百分比",                         // 终极防具
+        "xuruo_status"  : HIR "让对手处于虚弱状态机率百分比",               // 终极兵器
+        "avoid_xuruo"   : HIB "回避虚弱机率百分比",                         // 终极防具
+        "add_skilllevel": HIR "提升所有技能等级",                           // 终极兵器
+        "add_damage"    : HIR "追加最终伤害百分比",                         // 终极兵器
+        "reduce_damage" : HIB "化解最终伤害百分比",                         // 终极防具
         	*/
 ]);
 

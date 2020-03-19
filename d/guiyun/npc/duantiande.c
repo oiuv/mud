@@ -2,12 +2,12 @@ inherit NPC;
 
 void create()
 {
-        set_name("¶ÎÌìµÂ", ({ "duan tiande", "duan" }));
-        set("gender", "ÄĞĞÔ");
-        set("title", "´óËÎ±øÂíÖ¸»ÓÊ¹");
+        set_name("æ®µå¤©å¾·", ({ "duan tiande", "duan" }));
+        set("gender", "ç”·æ€§");
+        set("title", "å¤§å®‹å…µé©¬æŒ‡æŒ¥ä½¿");
         set("age", 45);
         set("per", 15);
-        set("long", "ËûÊÇ´óËÎÁÙ°²±øÂíÖ¸»ÓÊ¹¡£\n");
+        set("long", "ä»–æ˜¯å¤§å®‹ä¸´å®‰å…µé©¬æŒ‡æŒ¥ä½¿ã€‚\n");
         set("combat_exp", 4000);
         set_skill("dodge", 20);
         set_skill("unarmed", 20);

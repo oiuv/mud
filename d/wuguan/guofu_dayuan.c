@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "������Ժ");
+        set("short", "郭府大院");
         set("long", @LONG
-���Ǹ���Ժ�ӣ��������߶������䳡��������������ϰ��
-ǿ��������ܳ����Һ��ģ��㿴����ʱ�п��Ŷ����ģ�����
-ˮ�ĴҴҶ�����
+这是个大院子，东西两边都是练武场，不少人在这里习武
+强身，这里很吵，乱哄哄的，你看见不时有扛着东西的，挑着
+水的匆匆而过。
 LONG);
         set("no_fight", 1);
         set("exits", ([

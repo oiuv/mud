@@ -3,13 +3,13 @@
 inherit BLADE;
 void create()
 {
-        set_name( "´óµ¶",  ({ "da dao", "dao", "blade" }));
+        set_name( "å¤§åˆ€",  ({ "da dao", "dao", "blade" }));
         set_weight(10000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", "Ò»±ú·æÀûµÄ´óµ¶¡£\n");
+                set("unit", "æŸ„");
+                set("long", "ä¸€æŸ„é”‹åˆ©çš„å¤§åˆ€ã€‚\n");
                 set("value", 1000);
                 set("material", "gold");
         }

@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "¹ÙµÀ" );
+        set("short", "å®˜é“" );
         set("long", @LONG
-Äã×ßÔÚÒ»Ìõ´ó¹ÙµÀÉÏ£¬Á½ÅÔ²»Ê±ÓÐÈË´ÓÄãÉí±ß×ß¹ý£¬¿ÉÒÔ
-·Ö±ç³öÓÐ¼¸¸öÊÇ½­ºþÖÐÈË¡£Î÷ÃæÒþÔ¼¿ÉÒÔ¿´¼û¾£ÖÝ£¬¶«±ßºÍÒ»
-ÌõÐ¡Â·ÏàÁ¬¡£
+ä½ èµ°åœ¨ä¸€æ¡å¤§å®˜é“ä¸Šï¼Œä¸¤æ—ä¸æ—¶æœ‰äººä»Žä½ èº«è¾¹èµ°è¿‡ï¼Œå¯ä»¥
+åˆ†è¾©å‡ºæœ‰å‡ ä¸ªæ˜¯æ±Ÿæ¹–ä¸­äººã€‚è¥¿é¢éšçº¦å¯ä»¥çœ‹è§è†å·žï¼Œä¸œè¾¹å’Œä¸€
+æ¡å°è·¯ç›¸è¿žã€‚
 LONG);
         set("outdoors", "jingzhou");
         set("exits", ([

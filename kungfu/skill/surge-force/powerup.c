@@ -11,23 +11,23 @@ int exert(object me, object target)
         int skill;
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÓÃÅ­º£¿ñÌÎÌáÉý×Ô¼ºµÄÕ½¶·Á¦¡£\n");
+                return notify_fail("ä½ åªèƒ½ç”¨æ€’æµ·ç‹‚æ¶›æå‡è‡ªå·±çš„æˆ˜æ–—åŠ›ã€‚\n");
 
         if ((int)me->query("neili") < 500)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_temp("powerup"))
-                return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖÐÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
         skill = me->query_skill("surge-force", 1);
 
         me->add("neili", -200);
         me->receive_damage("qi", 0);
 
-        message_combatd(HIC "$N" HIC"Ò»Éù³¤Ð¥£¬¼¤ÆðÒ»Õó¿ñ·ç£¬Æø"
-                        "ÀË·­·­¹ö¹ö£¬ÏòÁ½ÅÔÉ¢¿ª¡£\nö®Ê±Ö®¼ä£¬±ã"
-                        "ËÆ³¤·ç¶¯Æð£¬ÆøÔÆ¾ÛºÏ£¬ÌìµØÃìÈ»£¬ÓÐÈçº£"
-                        "ÀËÌÏÌÏ¡£\n" NOR, me);
+        message_combatd(HIC "$N" HIC"ä¸€å£°é•¿å•¸ï¼Œæ¿€èµ·ä¸€é˜µç‹‚é£Žï¼Œæ°”"
+                        "æµªç¿»ç¿»æ»šæ»šï¼Œå‘ä¸¤æ—æ•£å¼€ã€‚\néœŽæ—¶ä¹‹é—´ï¼Œä¾¿"
+                        "ä¼¼é•¿é£ŽåŠ¨èµ·ï¼Œæ°”äº‘èšåˆï¼Œå¤©åœ°æ¸ºç„¶ï¼Œæœ‰å¦‚æµ·"
+                        "æµªæ»”æ»”ã€‚\n" NOR, me);
 
         me->add_temp("apply/attack", skill * 2 / 5);
         me->add_temp("apply/defense", skill * 2 / 5);
@@ -46,6 +46,6 @@ void remove_effect(object me, int skill)
                 me->add_temp("apply/defense", -(skill * 2 / 5));
                 me->add_temp("apply/unarmed_damage", -(skill / 5));
                 me->delete_temp("powerup");
-                tell_object(me, "ÄãµÄÅ­º£¿ñÌÎÔËÐÐÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„æ€’æµ·ç‹‚æ¶›è¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›žä¸¹ç”°ã€‚\n");
         }
 }

@@ -4,14 +4,14 @@ inherit ITEM;
 
 void create()
 {
-       set_name("º¡¹Ç", ({"haigu"}) );
+       set_name("éª¸éª¨", ({"haigu"}) );
        set_weight(10000);
        set_max_encumbrance(6000000);
        if( clonep() )
                set_default_object(__FILE__);
        else{
-       set("unit", "¾ß");
-       set("long", "ÕâÊÇÒ»¾ßÄĞ×ÓµÄº¡¹Ç¡£\n");
+       set("unit", "å…·");
+       set("long", "è¿™æ˜¯ä¸€å…·ç”·å­çš„éª¸éª¨ã€‚\n");
        set("value", 0);
        set("material","wood");
        set("no_get",1);

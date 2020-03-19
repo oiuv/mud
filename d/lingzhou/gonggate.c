@@ -6,10 +6,10 @@
 inherit ROOM;
 void create()
 {
-	set("short", "»Ê¹¬´óÃÅ");
+	set("short", "çš‡å®«å¤§é—¨");
 	set("long", @LONG
-ÕâÀï¾ÍÊÇÎ÷ÏÄ»Ê¹¬ÕıÃÅ£¬ËÄÉÈ¿íÀ«µÄÖìºì´óÃÅ£¬ÉÏÃæ°ü×ÅÈ­Í·´óµÄ
-Í­¶¤¡£ÃÅµÄÁ½±ßÕ¾×ÅÁ½ÅÅÒÂ¼×ÏÊÃ÷µÄÎäÊ¿£¬½ä±¸ÉîÑÏ¡£
+è¿™é‡Œå°±æ˜¯è¥¿å¤çš‡å®«æ­£é—¨ï¼Œå››æ‰‡å®½é˜”çš„æœ±çº¢å¤§é—¨ï¼Œä¸Šé¢åŒ…ç€æ‹³å¤´å¤§çš„
+é“œé’‰ã€‚é—¨çš„ä¸¤è¾¹ç«™ç€ä¸¤æ’è¡£ç”²é²œæ˜çš„æ­¦å£«ï¼Œæˆ’å¤‡æ·±ä¸¥ã€‚
 LONG );
 	set("exits", ([
 		"north"  : __DIR__"gongsquare",
@@ -20,14 +20,14 @@ LONG );
 		__DIR__"npc/gongweishi" : 2,
 	]));
 	setup();
-        create_door("north" , "ºìÆá¹¬ÃÅ", "south" , DOOR_CLOSED);
+        create_door("north" , "çº¢æ¼†å®«é—¨", "south" , DOOR_CLOSED);
 }
 
 int valid_leave(object me, string dir)
 {
         if (dir == "north" && 
             objectp(present("wei shi", environment(me))))
-           return notify_fail("ÎÀÊ¿¶ÔÄã´óºğÒ»Éù£º·ÅËÁ£¡ÄÇ²»ÊÇÄãÄÜ½øÈ¥µÄµØ·½¡£\n");
+           return notify_fail("å«å£«å¯¹ä½ å¤§å¼ä¸€å£°ï¼šæ”¾è‚†ï¼é‚£ä¸æ˜¯ä½ èƒ½è¿›å»çš„åœ°æ–¹ã€‚\n");
 
         return ::valid_leave(me, dir);
 }

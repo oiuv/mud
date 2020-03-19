@@ -9,15 +9,15 @@ int exert(object me, object target)
         int skill;
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÓÃÒõÑôÊ®¶þÖØÌìÀ´ÌáÉý×Ô¼ºµÄÕ½¶·Á¦¡£\n");
+                return notify_fail("ä½ åªèƒ½ç”¨é˜´é˜³åäºŒé‡å¤©æ¥æå‡è‡ªå·±çš„æˆ˜æ–—åŠ›ã€‚\n");
 
         if ((int)me->query_temp("powerup"))
-                return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖÐÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
         skill = me->query_skill("force");
 
-        message_combatd(HIR "$N" HIR "Ë«Ä¿Î¢±Õ£¬ÌåÄÚ¾ÅÒõ¾ÅÑôÕæÆø¼²ËÙÔË×ªÊ®¶þÖÜÌì£¬¶Ù"
-                        "Ê±Ö»¼ûÒ»¹ÉÅìÅÈÎÞ±ÈµÄÆø¾¢ÁýÕÖÈ«Éí¡£\n" NOR, me);
+        message_combatd(HIR "$N" HIR "åŒç›®å¾®é—­ï¼Œä½“å†…ä¹é˜´ä¹é˜³çœŸæ°”ç–¾é€Ÿè¿è½¬åäºŒå‘¨å¤©ï¼Œé¡¿"
+                        "æ—¶åªè§ä¸€è‚¡æ¾Žæ¹ƒæ— æ¯”çš„æ°”åŠ²ç¬¼ç½©å…¨èº«ã€‚\n" NOR, me);
 
         me->add_temp("apply/attack", skill / 2);
         me->add_temp("apply/defense", skill / 2);
@@ -48,6 +48,6 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/dodge", -amount);
                 me->add_temp("apply/armor", -(amount * 4));
                 me->delete_temp("powerup");
-                tell_object(me, HIW "ÄãµÄÒõÑôÊ®¶þÖØÌìÔËÐÐÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n" NOR);
+                tell_object(me, HIW "ä½ çš„é˜´é˜³åäºŒé‡å¤©è¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›žä¸¹ç”°ã€‚\n" NOR);
         }
 }

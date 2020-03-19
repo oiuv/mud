@@ -7,21 +7,21 @@ inherit HEAD;
 
 void create()
 {
-        set_name(HIY "Ãµ¹å" NOR, ({ "rose", "meigui" }));
+        set_name(HIY "ç«ç‘°" NOR, ({ "rose", "meigui" }));
         set_weight(10);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¶ä");
-                set("long", HIY "Ò»¶ä»ÆÉ«µÄÃµ¹å¡£\n" NOR);
+                set("unit", "æœµ");
+                set("long", HIY "ä¸€æœµé»„è‰²çš„ç«ç‘°ã€‚\n" NOR);
                 set("value", 10);
                 set("material", "plant");
                 set("armor_prop/armor", 0);
                 set("armor_prop/personality", 3);
-                set("wear_msg", HIC "$N" HIC "ÇáÇáµØ°ÑÒ»¶ä$n"
-                                HIC "´÷ÔÚÍ·ÉÏ£¬³ÄµÃÃ÷íøºÃ³İ¸ü¼Ó¶¯ÈË¡£\n");
-                set("remove_msg", HIC "$N" HIC "ÇáÇáµÄÌ¾ÁË"
-                                  "¿ÚÆø£¬°Ñ$n" HIC "´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n");
+                set("wear_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠä¸€æœµ$n"
+                                HIC "æˆ´åœ¨å¤´ä¸Šï¼Œè¡¬å¾—æ˜çœ¸å¥½é½¿æ›´åŠ åŠ¨äººã€‚\n");
+                set("remove_msg", HIC "$N" HIC "è½»è½»çš„å¹äº†"
+                                  "å£æ°”ï¼ŒæŠŠ$n" HIC "ä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n");
         }
         setup();
 }

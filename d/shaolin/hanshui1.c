@@ -3,12 +3,12 @@ inherit RIVER;
 
 void create()
 {
-        set("short", "ººË®ÄÏ°¶");
+        set("short", "æ±‰æ°´å—å²¸");
         set("long", @LONG
-ÃæÇ°ÊÇÒ»Ìõ²¨ÌÎ·­¹öµÄ´ó½­ (river)¡£×ÇÁ÷¹ö¹ö£¬ÍòÖÛ¾º
-·¢¡£Á½°¶¶É´¬À´À´ÍùÍù£¬½­±ßÒ»³¤Áï°ÚÂúÁËÓãÌ¯£¬Óæ¼Ò¾Í½«´¬
-²´ÔÚ°¶±ß£¬¼¸¸öÆÆÂÜÖ§Ò»¿éÄ¾°å£¬°åÉÏ°ÚÂúÁË»î±ÄÂÒÌøµÄºº½­
-ÀðÓã¡£¹ýÈ¥²»Ô¶£¬ÊÇÓÐÃûµÄÀÏºÓ¿Ú¡£
+é¢å‰æ˜¯ä¸€æ¡æ³¢æ¶›ç¿»æ»šçš„å¤§æ±Ÿ (river)ã€‚æµŠæµæ»šæ»šï¼Œä¸‡èˆŸç«ž
+å‘ã€‚ä¸¤å²¸æ¸¡èˆ¹æ¥æ¥å¾€å¾€ï¼Œæ±Ÿè¾¹ä¸€é•¿æºœæ‘†æ»¡äº†é±¼æ‘Šï¼Œæ¸”å®¶å°±å°†èˆ¹
+æ³Šåœ¨å²¸è¾¹ï¼Œå‡ ä¸ªç ´èæ”¯ä¸€å—æœ¨æ¿ï¼Œæ¿ä¸Šæ‘†æ»¡äº†æ´»è¹¦ä¹±è·³çš„æ±‰æ±Ÿ
+é²¤é±¼ã€‚è¿‡åŽ»ä¸è¿œï¼Œæ˜¯æœ‰åçš„è€æ²³å£ã€‚
 LONG);
         set("arrive_room", "/d/shaolin/hanshui2");
         set("exits", ([

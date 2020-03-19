@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(NOR + YEL "³ÂÆ¤" NOR, ({ "chen pi", "chen", "pi", "herb_chenpi" }));
+        set_name(NOR + YEL "é™ˆçš®" NOR, ({ "chen pi", "chen", "pi", "herb_chenpi" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + YEL "³ÂÆ¤ÊÇ³£¼ûµÄÖĞÒ©Ò©²Ä¡£\n" NOR);
-                set("base_unit", "¿é");
+                set("long", NOR + YEL "é™ˆçš®æ˜¯å¸¸è§çš„ä¸­è¯è¯æã€‚\n" NOR);
+                set("base_unit", "å—");
                 set("base_value", 10);
                 set("base_weight", 20);
         }

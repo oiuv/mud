@@ -3,9 +3,9 @@ inherit WORM;
 
 void create()
 {
-        set_name(WHT "»Ò±³Ğ«" NOR, ({ "huibei xie", "huibei", "xie" }));
-        set("long", WHT "ÕâÊÇÒ»Ö»±³²¿³¤ÂúÁË»ÒÃ«µÄ¶¾Ğ«¡£\n" NOR);
-        set("race", "Ò°ÊŞ");
+        set_name(WHT "ç°èƒŒè" NOR, ({ "huibei xie", "huibei", "xie" }));
+        set("long", WHT "è¿™æ˜¯ä¸€åªèƒŒéƒ¨é•¿æ»¡äº†ç°æ¯›çš„æ¯’èã€‚\n" NOR);
+        set("race", "é‡å…½");
         set("age", random(200)+100);
         set("attitude", "peaceful");
 
@@ -14,7 +14,7 @@ void create()
 
         set("str", 30);
         set("con", 30);
-        set("limbs", ({ "Í·²¿", "ÉíÌå", "Î²°Í" }));
+        set("limbs", ({ "å¤´éƒ¨", "èº«ä½“", "å°¾å·´" }));
         set("verbs", ({ "bite" }));
 
         set("worm_poison", ([
@@ -36,6 +36,6 @@ void create()
 
 void die()
 {
-        message_vision(HIR "\n$N" HIR "µ¹ÔÚµØÉÏ£¬ËÀÁË¡£\n\n" NOR, this_object());
+        message_vision(HIR "\n$N" HIR "å€’åœ¨åœ°ä¸Šï¼Œæ­»äº†ã€‚\n\n" NOR, this_object());
         destruct(this_object());
 }

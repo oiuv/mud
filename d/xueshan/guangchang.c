@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�㳡");
+        set("short", "广场");
         set("long", @LONG
-�����Ǵ������ڵĹ㳡���㳡ʯ���̾ͣ�����������ƽ��
-����ʵ���㳡�ı��������ɽ�����Ĵ����´������ǿ���
-�䳡��������ɽ�š�������һЩ�ֳ�ɮ����ɮ����Ѳ�ߡ�
+这里是大轮寺内的广场。广场石埕铺就，黄土垫砌，平整
+而坚实。广场的北面就是依山而建的大轮寺大殿。往西是块练
+武场，南面是山门。寺内有一些手持僧棍的僧兵在巡逻。
 LONG);
         set("outdoors", "xueshan");
         set("exits", ([

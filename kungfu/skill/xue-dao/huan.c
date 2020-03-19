@@ -1,4 +1,4 @@
-// huan.c Ñªµ¶µ¶·¨¡¸»ÃÓ°¡¹
+// huan.c è¡€åˆ€åˆ€æ³•ã€Œå¹»å½±ã€
 
 #include <ansi.h>
 
@@ -12,41 +12,41 @@ int perform(object me, object target)
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("Ñªµ¶µ¶·¨¡¸»ÃÓ°¡¹Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("è¡€åˆ€åˆ€æ³•ã€Œå¹»å½±ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "blade")
-		return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô¡£\n");
+		return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ã€‚\n");
 
 	if (target->is_busy())
-		return notify_fail(target->name() + "Ä¿Ç°Õı×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É£¡\n");
+		return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ï¼\n");
 		
 	if ((int)me->query_skill("xue-dao", 1) < 80)
-		return notify_fail("ÄãµÄÑªµ¶µ¶·¨²»¹»æµÊì£¬²»»áÊ¹ÓÃ¡¸»ÃÓ°¡¹¡£\n");
+		return notify_fail("ä½ çš„è¡€åˆ€åˆ€æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ã€Œå¹»å½±ã€ã€‚\n");
 
         if (me->query("neili") < 60)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÎŞ·¨Ê¹ÓÃ¡¸»ÃÓ°¡¹¡£\n");
+                return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•ä½¿ç”¨ã€Œå¹»å½±ã€ã€‚\n");
 
         if (me->query_skill_mapped("blade") != "xue-dao")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢Ñªµ¶µ¶·¨£¬²»ÄÜÊ¹ÓÃ¡¸»ÃÓ°¡¹¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘è¡€åˆ€åˆ€æ³•ï¼Œä¸èƒ½ä½¿ç”¨ã€Œå¹»å½±ã€ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIR "$N" HIR "Ê¹³öÑªµ¶µ¶·¨¾ø¼¼£¬°ÑÊÖÖĞµÄ" +
-              weapon->name() + HIR "ÎèµÃ·É¿ì£¬»ÃÆğ²ã²ãµ¶Ó°±ÆÏò$n"
-              HIR "£¡\n";
+	msg = HIR "$N" HIR "ä½¿å‡ºè¡€åˆ€åˆ€æ³•ç»æŠ€ï¼ŒæŠŠæ‰‹ä¸­çš„" +
+              weapon->name() + HIR "èˆå¾—é£å¿«ï¼Œå¹»èµ·å±‚å±‚åˆ€å½±é€¼å‘$n"
+              HIR "ï¼\n";
 
         me->add("neili", -50);
 	if (random(me->query("combat_exp")) > (int)target->query("combat_exp") / 2)
         {
-		msg += HIR "½á¹û$p" HIR "±»$P" HIR "ÄÖ¸öÊÖÃ¦½ÅÂÒ£¬"
-                       "Ö»ÄÜ½ôÊØÃÅ»§£¬²»¸ÒÉÃ¶¯£¡\n" NOR;
+		msg += HIR "ç»“æœ$p" HIR "è¢«$P" HIR "é—¹ä¸ªæ‰‹å¿™è„šä¹±ï¼Œ"
+                       "åªèƒ½ç´§å®ˆé—¨æˆ·ï¼Œä¸æ•¢æ“…åŠ¨ï¼\n" NOR;
 		target->start_busy((int)me->query_skill("blade") / 27 + 2);
 	} else
         {
-		msg += "¿ÉÊÇ$p" HIR "¿´ÆÆÁË$P" HIR "µÄÆóÍ¼£¬²¢"
-                       "²»»ÅÕÅ£¬Ó¦¶Ô×ÔÈç¡£\n" NOR;
+		msg += "å¯æ˜¯$p" HIR "çœ‹ç ´äº†$P" HIR "çš„ä¼å›¾ï¼Œå¹¶"
+                       "ä¸æ…Œå¼ ï¼Œåº”å¯¹è‡ªå¦‚ã€‚\n" NOR;
 		me->start_busy(1);
 	}
 	message_combatd(msg, me, target);

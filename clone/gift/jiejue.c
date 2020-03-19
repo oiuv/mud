@@ -1,4 +1,4 @@
-// jiejue.c ½â¾È¿¨
+// jiejue.c è§£æ•‘å¡
 
 #include <ansi.h>
 
@@ -6,14 +6,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIG "½â¾È¿¨" NOR, ({ "card", "help card"}) );
+	set_name(HIG "è§£æ•‘å¡" NOR, ({ "card", "help card"}) );
 	set_weight(100);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-                set("long", "Ò»ÕÅ¾§Ó¨ÌŞÍ¸µÄ¿¨Æ¬£¬¾İËµÓÃËü¿ÉÒÔ½â¾öÉíÏİµØÓüÖĞµÄÈË¡£\n");
+                set("long", "ä¸€å¼ æ™¶è¹å‰”é€çš„å¡ç‰‡ï¼Œæ®è¯´ç”¨å®ƒå¯ä»¥è§£å†³èº«é™·åœ°ç‹±ä¸­çš„äººã€‚\n");
                 set("value", 1);
                 set("no_sell", 1);
-		set("unit", "ÕÅ");
+		set("unit", "å¼ ");
 	}
 }

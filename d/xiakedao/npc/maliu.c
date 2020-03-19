@@ -1,13 +1,13 @@
-// maliu.c ÂíÁù
+// maliu.c é©¬å…­
 
 inherit NPC;
 
 void create()
 {
-        set_name("ÂíÁù", ({ "ma liu", "ma" }));
+        set_name("é©¬å…­", ({ "ma liu", "ma" }));
         set("long",
-                "Ëû´óÔ¼¶şÊ®¶àËê£¬¾«Ã÷ÄÜ¸É£¬×ÜÊÇÒõ³Á×ÅÁ³¡£µ«È´¼µ¶ñÈç³ğ£¬ĞÔÈçÁÒ»ğ¡£\n");
-        set("gender", "ÄĞĞÔ");
+                "ä»–å¤§çº¦äºŒåå¤šå²ï¼Œç²¾æ˜èƒ½å¹²ï¼Œæ€»æ˜¯é˜´æ²‰ç€è„¸ã€‚ä½†å´å«‰æ¶å¦‚ä»‡ï¼Œæ€§å¦‚çƒˆç«ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 25);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -17,8 +17,8 @@ void create()
         set("dex", 28);
 
         set("inquiry",([
-            "here" : "ÕâÀïµ±È»¾ÍÊÇÏÀ¿ÍµºÀ²",
-            "ÏÀ¿ÍĞĞ" : "ÍùÄÏÃæ×ß£¬½øÉ½ºó¾ÍÃ÷°×ÁË",
+            "here" : "è¿™é‡Œå½“ç„¶å°±æ˜¯ä¾ å®¢å²›å•¦",
+            "ä¾ å®¢è¡Œ" : "å¾€å—é¢èµ°ï¼Œè¿›å±±åå°±æ˜ç™½äº†",
         ]) );
         set("max_qi", 2000);
         set("qi", 2000);
@@ -48,7 +48,7 @@ void create()
         map_skill("parry", "taiji-jian");
         map_skill("sword", "taiji-jian");
 
-        create_family("ÏÀ¿Íµº", 0, "µÜ×Ó");
+        create_family("ä¾ å®¢å²›", 0, "å¼Ÿå­");
         setup();
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/d/wudang/obj/whiterobe")->wear();

@@ -5,17 +5,17 @@ inherit ITEM;
 
 void create()
 {
-        set_name("»ðÕÛ", ({"fire", "huozhe"}));
+        set_name("ç«æŠ˜", ({"fire", "huozhe"}));
         set_weight(80);
         if (clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("long", "ÕâÊÇÒ»Ö§ÓÃÓÚÒý»ðµÄ»ðÕÛ£¬¿ÉÒÔÓÃÀ´µãÈ¼(light)¶«Î÷£¬»òÕßÊÇ
-µ½ÁËºÚ°µµÄµØ·½Ê¹ÓÃ(use)¡£\n");
-                set("unit", "Ö§");
+                set("long", "è¿™æ˜¯ä¸€æ”¯ç”¨äºŽå¼•ç«çš„ç«æŠ˜ï¼Œå¯ä»¥ç”¨æ¥ç‚¹ç‡ƒ(light)ä¸œè¥¿ï¼Œæˆ–è€…æ˜¯
+åˆ°äº†é»‘æš—çš„åœ°æ–¹ä½¿ç”¨(use)ã€‚\n");
+                set("unit", "æ”¯");
                 set("value", 100);
-                set("no_light", "µã»ðÕÛ£¿µ½ÁËºÚ°µµÄµØ·½Ê¹ÓÃ(use)¾Í¿ÉÒÔÁË¡£\n");
+                set("no_light", "ç‚¹ç«æŠ˜ï¼Ÿåˆ°äº†é»‘æš—çš„åœ°æ–¹ä½¿ç”¨(use)å°±å¯ä»¥äº†ã€‚\n");
         }
         set_temp("count", 10);
 }
@@ -32,20 +32,20 @@ int do_light(string arg)
         object ob;
 
         if (! arg)
-                return notify_fail("ÄãÒªµãÊ²Ã´¶«Î÷£¿\n");
+                return notify_fail("ä½ è¦ç‚¹ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
         me = this_player();
         if (! objectp(ob = present(arg, me)) &&
             ! objectp(ob = present(arg, environment(me))))
-                return notify_fail("ÄãÉíÉÏºÍ¸½½üÃ»ÓÐÕâÑù¶«Î÷°¡¡£\n");
+                return notify_fail("ä½ èº«ä¸Šå’Œé™„è¿‘æ²¡æœ‰è¿™æ ·ä¸œè¥¿å•Šã€‚\n");
 
-        notify_fail("Õâ¶«Î÷¿´ÉÏÈ¥Ã»Ê²Ã´ºÃµãµÄ¡£\n");
+        notify_fail("è¿™ä¸œè¥¿çœ‹ä¸ŠåŽ»æ²¡ä»€ä¹ˆå¥½ç‚¹çš„ã€‚\n");
         if (! ob->fire(me, this_object()))
                 return 0;
 
         if (add_temp("count", -1) < 1)
         {
-                write("Äã°Ñ»ðÕÛÓÃÍê£¬ËæÊÖÈÓµ½ÁËÒ»±ß¡£\n");
+                write("ä½ æŠŠç«æŠ˜ç”¨å®Œï¼Œéšæ‰‹æ‰”åˆ°äº†ä¸€è¾¹ã€‚\n");
                 destruct(this_object());
         }
 

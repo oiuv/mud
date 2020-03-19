@@ -5,19 +5,19 @@ inherit NPC;
 
 void create()
 {
-        set_name("³£½ðÅô", ({ "chang jinpeng", "chang" }) );
-        set("long", "Õâ±ãÊÇÌìÓ¥½ÌÖìÈ¸Ì³µÄÌ³Ö÷³£½ðÅô¡£\n"
-                    "ÎåÊ®À´ËêÄê¼Í£¬Á³ÉÏÊÖÉÏµÄ¼¡Èâ°¼°¼Í¹Í¹¡¢ÅÌ¸ù´í½Ú¡£\n");
+        set_name("å¸¸é‡‘é¹", ({ "chang jinpeng", "chang" }) );
+        set("long", "è¿™ä¾¿æ˜¯å¤©é¹°æ•™æœ±é›€å›çš„å›ä¸»å¸¸é‡‘é¹ã€‚\n"
+                    "äº”åæ¥å²å¹´çºªï¼Œè„¸ä¸Šæ‰‹ä¸Šçš„è‚Œè‚‰å‡¹å‡¹å‡¸å‡¸ã€ç›˜æ ¹é”™èŠ‚ã€‚\n");
         set("attitude", "heroism");
-        set("title", "ÌìÓ¥½Ì");
-        set("nickname", HIR "ÖìÈ¸Ì³Ì³Ö÷" NOR);
+        set("title", "å¤©é¹°æ•™");
+        set("nickname", HIR "æœ±é›€å›å›ä¸»" NOR);
         set("combat_exp", 1000000);
         set("age", 52);
         set("str", 100);
         set("chat_chance_combat", 90);
         set("chat_msg_combat", ({
-                "³£½ðÅôºÈµÀ£º¶ñÔô»¹²»·ÅÊÖ£¿\n",
-                "³£½ðÅôºÈµÀ£º¶ñÔô²»µÃÎÞÀñ£¡\n",
+                "å¸¸é‡‘é¹å–é“ï¼šæ¶è´¼è¿˜ä¸æ”¾æ‰‹ï¼Ÿ\n",
+                "å¸¸é‡‘é¹å–é“ï¼šæ¶è´¼ä¸å¾—æ— ç¤¼ï¼\n",
                 (: perform_action, "hammer.poli" :),
         }) );
         set_skill("force", 160+random(50));
@@ -54,7 +54,7 @@ void create()
 
 int accept_ansuan(object who)
 {
-        return notify_fail("Äã¸ÕÏë°µËã£¬¿ÉÊÇÖ»¼û»á³¡ÀïºÚÑ¹Ñ¹µÄ¼·ÂúÁËÈË£¬¸ù±¾¿´²»Çå³þ¡£\n");
+        return notify_fail("ä½ åˆšæƒ³æš—ç®—ï¼Œå¯æ˜¯åªè§ä¼šåœºé‡Œé»‘åŽ‹åŽ‹çš„æŒ¤æ»¡äº†äººï¼Œæ ¹æœ¬çœ‹ä¸æ¸…æ¥šã€‚\n");
 }
 void init()
 {
@@ -83,7 +83,7 @@ void put()
         if (objectp(ob) && objectp(obj2)) 
         {
                 ob->move(obj2);
-                message_vision(HIC "\n$N¹þ¹þÒ»Ð¦£¬ÊÖÒ»»Ó£¬½«ÄÇÍÀÁú±¦µ¶ÖÀ½øÁËÁÒÑæ³åÌìµÄ´óÌú¶¦ÖÐ¡£\n\n" NOR,
+                message_vision(HIC "\n$Nå“ˆå“ˆä¸€ç¬‘ï¼Œæ‰‹ä¸€æŒ¥ï¼Œå°†é‚£å± é¾™å®åˆ€æŽ·è¿›äº†çƒˆç„°å†²å¤©çš„å¤§é“é¼Žä¸­ã€‚\n\n" NOR,
                                    this_object());
         }
         ob = present("tulong blade", this_object());
@@ -99,9 +99,9 @@ int do_get(string arg)
         return 0;
         if(where == "ding")
         {
-                message_vision(CYN "$N¶Ô$n´óºÈÒ»Éù£º´óµ¨£¡¾¹¸Ò´ò±¦µ¶µÄÖ÷Òâ£¡\n" NOR,
+                message_vision(CYN "$Nå¯¹$nå¤§å–ä¸€å£°ï¼šå¤§èƒ†ï¼ç«Ÿæ•¢æ‰“å®åˆ€çš„ä¸»æ„ï¼\n" NOR,
                                obj,this_player());
-                message_vision(CYN "$N¶Ô$nºÈµÀ£ºÈ¥ËÀ°É¡£\n" NOR,
+                message_vision(CYN "$Nå¯¹$nå–é“ï¼šåŽ»æ­»å§ã€‚\n" NOR,
                                obj,this_player());
                 obj->kill_ob(this_player());
                 this_player()->kill_ob(obj);
@@ -112,7 +112,7 @@ int do_get(string arg)
 int do_bi()
 {
         object obj = this_object();
-        message_vision(CYN "$N¶Ô$n´óºÈÒ»Éù£º±ÈÊ²Ã´±È£¬È¥ËÀ°É£¡\n" NOR,
+        message_vision(CYN "$Nå¯¹$nå¤§å–ä¸€å£°ï¼šæ¯”ä»€ä¹ˆæ¯”ï¼ŒåŽ»æ­»å§ï¼\n" NOR,
                            obj,this_player());
 
         obj->kill_ob(this_player());
@@ -122,7 +122,7 @@ int do_bi()
 int accept_fight(object me)
 {
         object obj = this_object();
-        command("say ËûÄÌÄÌµÄ£¬Òª´ò¼ÜÂð£¿ÕýºÏÀÏ×ÓÐÄÒâ£¡\n");
+        command("say ä»–å¥¶å¥¶çš„ï¼Œè¦æ‰“æž¶å—ï¼Ÿæ­£åˆè€å­å¿ƒæ„ï¼\n");
         this_player()->kill_ob(obj);
         kill_ob(me);
         return 1;
@@ -130,7 +130,7 @@ int accept_fight(object me)
 int accept_hit(object me)
 {
         object obj = this_object();
-        command("say ËûÄÌÄÌµÄ£¬Òª´ò¼ÜÂð£¿ÕýºÏÀÏ×ÓÐÄÒâ£¡\n");
+        command("say ä»–å¥¶å¥¶çš„ï¼Œè¦æ‰“æž¶å—ï¼Ÿæ­£åˆè€å­å¿ƒæ„ï¼\n");
         this_player()->kill_ob(obj);
         kill_ob(me);
         return 1;
@@ -138,7 +138,7 @@ int accept_hit(object me)
 int accept_kill(object me)
 {
         object obj = this_object();
-        command("say ËûÄÌÄÌµÄ£¬Òª´ò¼ÜÂð£¿ÕýºÏÀÏ×ÓÐÄÒâ£¡\n");
+        command("say ä»–å¥¶å¥¶çš„ï¼Œè¦æ‰“æž¶å—ï¼Ÿæ­£åˆè€å­å¿ƒæ„ï¼\n");
         this_player()->kill_ob(obj);
         kill_ob(me);
         return 1;

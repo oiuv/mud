@@ -1,6 +1,6 @@
-// moye.c  ÄªĞ°
+// moye.c  è«é‚ª
 // Written by Doing Lu  1998/11/2
-// Ivy ĞŞ¸ÄÔö¼ÓÈçÒâÇ¬À¤´üµÄÖÆ×÷ 2015/05/05
+// Ivy ä¿®æ”¹å¢åŠ å¦‚æ„ä¹¾å¤è¢‹çš„åˆ¶ä½œ 2015/05/05
 
 inherit NPC;
 inherit F_NOCLONE;
@@ -20,29 +20,29 @@ int     no_money();
 #define DEPOT_OB               "/clone/misc/depot_ob.c"
 
 STATIC_VAR_TAG mapping item_type = ([
-//      ÀàĞÍ        µÀ¾ßÀà±ğ  ¼Ì³ĞÎÄ¼ş  µ¥Î»  ·ÖÁ¿ µãÊı ÌØÊâ±äÁ¿
-        "µ¶"   : ({ "weapon", "blade",  "°Ñ", 150, 100, 0, }),
-        "½£"   : ({ "weapon", "sword",  "±ú", 150, 100, 0, }),
-        "¹÷"   : ({ "weapon", "club",   "¸ù", 150, 100, 0, }),
-        "ÕÈ"   : ({ "weapon", "staff",  "¸ù", 150, 100, 0, }),
-        "´¸"   : ({ "weapon", "hammer", "°Ñ", 350, 100, 0, }),
-        "¸«"   : ({ "weapon", "axe",    "°Ñ", 220, 100, 0, }),
-        "±Ş"   : ({ "weapon", "whip",   "¸ù", 150, 100, 0, }),
-        "¶Ì±ø" : ({ "weapon", "dagger", "Ö§", 30,  100, 0, }),
-        "»¤¼×" : ({ "armor",  "armor",  "ÕÅ", 150, 80,
+//      ç±»å‹        é“å…·ç±»åˆ«  ç»§æ‰¿æ–‡ä»¶  å•ä½  åˆ†é‡ ç‚¹æ•° ç‰¹æ®Šå˜é‡
+        "åˆ€"   : ({ "weapon", "blade",  "æŠŠ", 150, 100, 0, }),
+        "å‰‘"   : ({ "weapon", "sword",  "æŸ„", 150, 100, 0, }),
+        "æ£"   : ({ "weapon", "club",   "æ ¹", 150, 100, 0, }),
+        "æ–"   : ({ "weapon", "staff",  "æ ¹", 150, 100, 0, }),
+        "é”¤"   : ({ "weapon", "hammer", "æŠŠ", 350, 100, 0, }),
+        "æ–§"   : ({ "weapon", "axe",    "æŠŠ", 220, 100, 0, }),
+        "é­"   : ({ "weapon", "whip",   "æ ¹", 150, 100, 0, }),
+        "çŸ­å…µ" : ({ "weapon", "dagger", "æ”¯", 30,  100, 0, }),
+        "æŠ¤ç”²" : ({ "armor",  "armor",  "å¼ ", 150, 80,
                      ([ "armor_prop" : ([ "parry"   : "apply_armor() / 15 + 1",
                                           "armor"   : "apply_armor()",
                                        ]),
                       ]) }),
-        "Õ½ÒÂ" : ({ "armor",  "cloth",  "¼ş", 200, 100, 0, }),
-        "Ñ¥×Ó" : ({ "armor",  "boots",  "Ë«", 60,  40,
+        "æˆ˜è¡£" : ({ "armor",  "cloth",  "ä»¶", 200, 100, 0, }),
+        "é´å­" : ({ "armor",  "boots",  "åŒ", 60,  40,
                      ([ "armor_prop" : ([ "dodge"   : "apply_armor() / 10 + 1",
                                           "armor"   : "apply_armor()",
                                        ]),
                       ]) }),
-        "Í·¿ø" : ({ "armor",  "head",   "¶¥", 75,  50,  0, }),
-        "Ñü´ø" : ({ "armor",  "waist",  "Ìõ", 80,  40,  0, }),
-        "»¤Íó" : ({ "armor",  "wrists", "¶Ô", 50,  25,
+        "å¤´ç›”" : ({ "armor",  "head",   "é¡¶", 75,  50,  0, }),
+        "è…°å¸¦" : ({ "armor",  "waist",  "æ¡", 80,  40,  0, }),
+        "æŠ¤è…•" : ({ "armor",  "wrists", "å¯¹", 50,  25,
                      ([ "armor_prop" : ([ "sword"   : "apply_armor() / 6 + 1",
                                           "staff"   : "apply_armor() / 6 + 1",
                                           "blade"   : "apply_armor() / 6 + 1",
@@ -62,8 +62,8 @@ STATIC_VAR_TAG mapping item_type = ([
                                           "armor"   : "apply_armor()",
                                        ]),
                       ]) }),
-        "óï"   : ({ "weapon", "xsword", "Ö§", 30,  100, 0, }),
-        "ÌúÕÆ" : ({ "armor",  "hands",  "Ë«", 45,  100,
+        "ç®«"   : ({ "weapon", "xsword", "æ”¯", 30,  100, 0, }),
+        "é“æŒ" : ({ "armor",  "hands",  "åŒ", 45,  100,
                     ([ "armor_prop" : ([ "cuff"   : "10",
                                          "strike" : "10",
                                          "unarmed" : "10",
@@ -71,7 +71,7 @@ STATIC_VAR_TAG mapping item_type = ([
                                          "armor"  : "10",
                                        ]),
                      ]) }),
-        "Ö¸Ì×" : ({ "armor",  "hands",  "Ì×", 35,  100,
+        "æŒ‡å¥—" : ({ "armor",  "hands",  "å¥—", 35,  100,
                     ([ "armor_prop" : ([ "claw"   : "10",
                                          "finger" : "10",
                                          "hand" : "10",
@@ -83,52 +83,52 @@ STATIC_VAR_TAG mapping item_type = ([
 
 void create()
 {
-        set_name("ÄªĞ°", ({ "mo ye", "moye", "mo" }));
-        set("long", "Ëı³¤µÃÇåÃÀĞãÀö£¬Ò»¸±²»Ê³ÈË¼äÑÌ»ğµÄÄ£Ñù¡£\n"
-                    "Ëı¾ÍÊÇÖı½£´óÊ¦¸É½«µÄÆŞ×Ó¡£\n" );
+        set_name("è«é‚ª", ({ "mo ye", "moye", "mo" }));
+        set("long", "å¥¹é•¿å¾—æ¸…ç¾ç§€ä¸½ï¼Œä¸€å‰¯ä¸é£Ÿäººé—´çƒŸç«çš„æ¨¡æ ·ã€‚\n"
+                    "å¥¹å°±æ˜¯é“¸å‰‘å¤§å¸ˆå¹²å°†çš„å¦»å­ã€‚\n" );
 
-        set("nickname", HIY "½£ÏÉ" NOR);
-        set("gender", "Å®ĞÔ");
+        set("nickname", HIY "å‰‘ä»™" NOR);
+        set("gender", "å¥³æ€§");
         set("attitude", "friendly");
 
         set("age", 1525);
         set("shen_type", 0);
         
-        set("str", 1000);                       // ±£Ö¤²»»áÒòÎª¸ººÉ¹ı´ó¶ø½ÓÊÜ²»ÁË¶«Î÷
+        set("str", 1000);                       // ä¿è¯ä¸ä¼šå› ä¸ºè´Ÿè·è¿‡å¤§è€Œæ¥å—ä¸äº†ä¸œè¥¿
 
         set("inquiry", ([
-                "Á¶ÖÆ" : (: ask_me :),
-                "Öı½£" : (: ask_me :),
-                "Á¶½£" : (: ask_me :),
-                "Á¶µ¶" : (: ask_me :),
-                "Á¶ÕÈ" : (: ask_me :),
-                "Á¶±Ş" : (: ask_me :),
-                "Á¶´¸" : (: ask_me :),
-                "Á¶¹÷" : (: ask_me :),
-                "Á¶¼×" : (: ask_me :),
-                "´òÔì" : (: ask_me :),
-                "ÖıÔì" : (: ask_me :),
-                "ÖÆÔì" : (: ask_me :),
-                "´òÖÆ" : (: ask_me :),
-                "¶¨ÖÆ" : (: ask_me :),
-                "¶¨×ö" : (: ask_me :),
-                "¶¨Ôì" : (: ask_me :),
-                "±øÆ÷" : (: ask_me :),
-                "µÀ¾ß" : (: ask_me :),
-                "×°±¸" : (: ask_me :),
-                "ÎäÆ÷" : (: ask_me :),
-                "µ¶½£" : (: ask_me :),
-                "×°¼×" : (: ask_me :),                
-                "Ã»Ç®" : (: no_money :),
-                "Ç®²»¹»":(: no_money :),
-                "µÈ»á" : (: no_money :),
-                "Ïú»Ù" : "ÄÇÄã¾Í°Ñ¶«Î÷¸ø¸É½«£¬ËûÀ´×öÖ÷¡£",
-                "ÍË»õ" : "ÄÇÄã¾Í°Ñ¶«Î÷¸ø¸É½«£¬ËûÀ´×öÖ÷¡£",
-                "Ô­ÁÏ" : "Á¶ÖÆµÀ¾ß¿É²»ÄÜÃ»ÓĞÔ­ÁÏ°¡£¬ÒªÏëÁ¶ÖÆºÃÎäÆ÷¾ÍµÃÓĞ"
-                         "ĞşÌúÊ¯Ò»ÀàµÄ¶«Î÷¡£\n          ÒªÏëÁ¶ÖÆºÃ·À¾ß¾Í"
-                         "µÃÓĞÌì²ÏË¿ÄÇĞ©¶«Î÷¡£ÕâĞ©Ô­ÁÏºÜÄÑÕÒ£¬¿ÉÓö²»¿ÉÇó°¡£¡\n",
-                "¼Û¸ñ" : "Äã°ÑÔ­ÁÏ¸øÎÒ¿´¿´(" HIY "show" NOR + CYN ")£¬ÎÒ¾ÍÄÜ¹ÀÃş³öÒ»¸ö¼ÛÇ®¡£" NOR,
-                "Ç¬À¤´ü":"¸øÎÒÒ»¿éÇ¬À¤Ê¯£¬ÎÒ¿ÉÒÔ°ïÄãÁ¶ÖÆ³ÉÈçÒâÇ¬À¤´ü¡£",
+                "ç‚¼åˆ¶" : (: ask_me :),
+                "é“¸å‰‘" : (: ask_me :),
+                "ç‚¼å‰‘" : (: ask_me :),
+                "ç‚¼åˆ€" : (: ask_me :),
+                "ç‚¼æ–" : (: ask_me :),
+                "ç‚¼é­" : (: ask_me :),
+                "ç‚¼é”¤" : (: ask_me :),
+                "ç‚¼æ£" : (: ask_me :),
+                "ç‚¼ç”²" : (: ask_me :),
+                "æ‰“é€ " : (: ask_me :),
+                "é“¸é€ " : (: ask_me :),
+                "åˆ¶é€ " : (: ask_me :),
+                "æ‰“åˆ¶" : (: ask_me :),
+                "å®šåˆ¶" : (: ask_me :),
+                "å®šåš" : (: ask_me :),
+                "å®šé€ " : (: ask_me :),
+                "å…µå™¨" : (: ask_me :),
+                "é“å…·" : (: ask_me :),
+                "è£…å¤‡" : (: ask_me :),
+                "æ­¦å™¨" : (: ask_me :),
+                "åˆ€å‰‘" : (: ask_me :),
+                "è£…ç”²" : (: ask_me :),                
+                "æ²¡é’±" : (: no_money :),
+                "é’±ä¸å¤Ÿ":(: no_money :),
+                "ç­‰ä¼š" : (: no_money :),
+                "é”€æ¯" : "é‚£ä½ å°±æŠŠä¸œè¥¿ç»™å¹²å°†ï¼Œä»–æ¥åšä¸»ã€‚",
+                "é€€è´§" : "é‚£ä½ å°±æŠŠä¸œè¥¿ç»™å¹²å°†ï¼Œä»–æ¥åšä¸»ã€‚",
+                "åŸæ–™" : "ç‚¼åˆ¶é“å…·å¯ä¸èƒ½æ²¡æœ‰åŸæ–™å•Šï¼Œè¦æƒ³ç‚¼åˆ¶å¥½æ­¦å™¨å°±å¾—æœ‰"
+                         "ç„é“çŸ³ä¸€ç±»çš„ä¸œè¥¿ã€‚\n          è¦æƒ³ç‚¼åˆ¶å¥½é˜²å…·å°±"
+                         "å¾—æœ‰å¤©èš•ä¸é‚£äº›ä¸œè¥¿ã€‚è¿™äº›åŸæ–™å¾ˆéš¾æ‰¾ï¼Œå¯é‡ä¸å¯æ±‚å•Šï¼\n",
+                "ä»·æ ¼" : "ä½ æŠŠåŸæ–™ç»™æˆ‘çœ‹çœ‹(" HIY "show" NOR + CYN ")ï¼Œæˆ‘å°±èƒ½ä¼°æ‘¸å‡ºä¸€ä¸ªä»·é’±ã€‚" NOR,
+                "ä¹¾å¤è¢‹":"ç»™æˆ‘ä¸€å—ä¹¾å¤çŸ³ï¼Œæˆ‘å¯ä»¥å¸®ä½ ç‚¼åˆ¶æˆå¦‚æ„ä¹¾å¤è¢‹ã€‚",
         ]));
 
         setup();
@@ -144,7 +144,7 @@ void init()
 {
         object me;
 
-        // Çå³ıÑ¯ÎÊ±êÖ¾
+        // æ¸…é™¤è¯¢é—®æ ‡å¿—
         if (! objectp(me = this_player()) || ! interactive(me))
                 return;
 
@@ -165,8 +165,8 @@ void greeting(object me)
 {
         if (objectp(me) && environment(me) == environment())
         {
-                message_vision(CYN "$N" CYN "Ğ¦×Å¶Ô$n" CYN "Ëµ£ºÄãºÃ£¬ÄãÊÇÏë´ò"
-                               "ÔìµÀ¾ßÂğ£¿\n" NOR, this_object(), me);
+                message_vision(CYN "$N" CYN "ç¬‘ç€å¯¹$n" CYN "è¯´ï¼šä½ å¥½ï¼Œä½ æ˜¯æƒ³æ‰“"
+                               "é€ é“å…·å—ï¼Ÿ\n" NOR, this_object(), me);
         }
 }
 
@@ -174,8 +174,8 @@ void greeting2(object me)
 {
         if (objectp(me) && environment(me) == environment())
         {
-                message_vision(CYN "$N" CYN "¶Ô$n" CYN "Ëµ£º½»Ç®¾Í¿ÉÒÔ´òÔìÁËÅ¶"
-                               "¡£\n" NOR, this_object(), me);
+                message_vision(CYN "$N" CYN "å¯¹$n" CYN "è¯´ï¼šäº¤é’±å°±å¯ä»¥æ‰“é€ äº†å“¦"
+                               "ã€‚\n" NOR, this_object(), me);
         }
 }
 
@@ -191,53 +191,53 @@ int do_show(string arg)
 
         me = this_player();
         if (! arg)
-                return notify_fail("ÄãÏë¸ÉÊ²Ã´£¬ÊÇÒªÌø¸öÎèÃ´£¿\n");
+                return notify_fail("ä½ æƒ³å¹²ä»€ä¹ˆï¼Œæ˜¯è¦è·³ä¸ªèˆä¹ˆï¼Ÿ\n");
 
         mat = arg;
         power_point = 0;
 
         if (! objectp(ob = present(mat, me)))
-                return notify_fail("ËãÁË°É£¬ÄãÉíÉÏÃ»ÓĞ " + mat + " ÕâÖÖ¶«Î÷¡£\n");
+                return notify_fail("ç®—äº†å§ï¼Œä½ èº«ä¸Šæ²¡æœ‰ " + mat + " è¿™ç§ä¸œè¥¿ã€‚\n");
 
        if( ob->query("id") == "qiankun stone" )
         {
-                message_vision(CYN "$N" CYN "¶Ô$n" CYN "ËµµÀ£ºÕâ¿ÉÊÇÁ¶ÖÆÈçÒâÇ¬À¤´üµÄ²ÄÁÏ£¬ÎÒ¿ÉÒÔ"
-                               "Ç××ÔÎªÄãÁ¶ÖÆ£¬Ö»ÒªÎå°ÙÁ½»Æ½ğ¡£\n" NOR,
+                message_vision(CYN "$N" CYN "å¯¹$n" CYN "è¯´é“ï¼šè¿™å¯æ˜¯ç‚¼åˆ¶å¦‚æ„ä¹¾å¤è¢‹çš„ææ–™ï¼Œæˆ‘å¯ä»¥"
+                               "äº²è‡ªä¸ºä½ ç‚¼åˆ¶ï¼Œåªè¦äº”ç™¾ä¸¤é»„é‡‘ã€‚\n" NOR,
                                this_object(), me);
                 return 1;
         }
 
         if (! ob->query("material_attrib"))
         {
-                message_vision(CYN "$N" CYN "Ò»ã¶£¬¶Ô$n" CYN "ËµµÀ£ºÕâÖÖ¶«Î÷Ò²ÄÜ"
-                               "ÓÃÀ´Á¶ÖÆ£¬ÎÒÃ»ÌıËµ¹ı¡£\n" NOR, this_object(), me);
+                message_vision(CYN "$N" CYN "ä¸€æ„£ï¼Œå¯¹$n" CYN "è¯´é“ï¼šè¿™ç§ä¸œè¥¿ä¹Ÿèƒ½"
+                               "ç”¨æ¥ç‚¼åˆ¶ï¼Œæˆ‘æ²¡å¬è¯´è¿‡ã€‚\n" NOR, this_object(), me);
                 return 1;
         }
 
         power_point = ob->query("power_point");
         if (! power_point)
         {
-                message_vision(CYN "$N" CYN "×ĞÏ¸µÄ¿´ÁË¿´$n" CYN "ÄÃ³öµÄÔ­ÁÏ£¬Ì¾"
-                               "µÀ£ºÕâÑùÔ­ÁÏ¿´À´ÒÑ¾­ÊÇ¶ÍÔì²»ÁËÁË¡£\n" NOR,
+                message_vision(CYN "$N" CYN "ä»”ç»†çš„çœ‹äº†çœ‹$n" CYN "æ‹¿å‡ºçš„åŸæ–™ï¼Œå¹"
+                               "é“ï¼šè¿™æ ·åŸæ–™çœ‹æ¥å·²ç»æ˜¯é”»é€ ä¸äº†äº†ã€‚\n" NOR,
                                this_object(), me);
                 return 1;
         }
         value = power_point * 2 + 20;
-        msg = sprintf(CYN "$N" CYN "×ĞÏ¸¿´ÁË¿´$n" CYN "ÄÃ³öµÄÔ­ÁÏ£¬ËµµÀ£ºÕâÖÖÔ­ÁÏ"
-                      "´òÔìµÀ¾ß£¬Ö»ĞèÒª%sÁ½»Æ½ğ¡£ÒªÊÇÃ»ÓĞÎÊÌâ£¬Çë¸øÎÒÔ­ÁÏ²¢¸¶Ç®¡£"
+        msg = sprintf(CYN "$N" CYN "ä»”ç»†çœ‹äº†çœ‹$n" CYN "æ‹¿å‡ºçš„åŸæ–™ï¼Œè¯´é“ï¼šè¿™ç§åŸæ–™"
+                      "æ‰“é€ é“å…·ï¼Œåªéœ€è¦%sä¸¤é»„é‡‘ã€‚è¦æ˜¯æ²¡æœ‰é—®é¢˜ï¼Œè¯·ç»™æˆ‘åŸæ–™å¹¶ä»˜é’±ã€‚"
                       "\n" NOR, chinese_number(value));
         message_sort(msg, this_object(), me);
 
         return 1;
 }
 
-// ·¢³öÌáÊ¾ĞÅÏ¢
+// å‘å‡ºæç¤ºä¿¡æ¯
 int ask_me()
 {
-        message_sort(CYN "$N" CYN "¶Ô$n" CYN "ËµµÀ£ºÄãÊÇÒª´òÔì×Ô¼ºµÄµÀ¾ßÂğ£¿ÎÒÃÇÕâ"
-                     "Àï¿ÉÒÔÎªÄã´òÔì¸÷ÖÖÎäÆ÷°üÀ¨µ¶¡¢½£¡¢´¸¡¢±Ş¡¢ÕÈºÍ»¤¼×¡£ÊÖÒÕ¾ø¶Ô"
-                     "ÊÇÒ»Á÷¡£Äã¿ÉÒÔÏÈ°ÑÔ­ÁÏ¸øÎÒ¿´¿´(" HIY "show" NOR + CYN ")£¬ÎÒ"
-                     "ÏÈ¹ÀËãÒ»ÏÂ¼ÛÇ®¡£Èç¹ûÄã¾õµÃÂúÒâ¾Í½»Ç®¡£\n" NOR,
+        message_sort(CYN "$N" CYN "å¯¹$n" CYN "è¯´é“ï¼šä½ æ˜¯è¦æ‰“é€ è‡ªå·±çš„é“å…·å—ï¼Ÿæˆ‘ä»¬è¿™"
+                     "é‡Œå¯ä»¥ä¸ºä½ æ‰“é€ å„ç§æ­¦å™¨åŒ…æ‹¬åˆ€ã€å‰‘ã€é”¤ã€é­ã€æ–å’ŒæŠ¤ç”²ã€‚æ‰‹è‰ºç»å¯¹"
+                     "æ˜¯ä¸€æµã€‚ä½ å¯ä»¥å…ˆæŠŠåŸæ–™ç»™æˆ‘çœ‹çœ‹(" HIY "show" NOR + CYN ")ï¼Œæˆ‘"
+                     "å…ˆä¼°ç®—ä¸€ä¸‹ä»·é’±ã€‚å¦‚æœä½ è§‰å¾—æ»¡æ„å°±äº¤é’±ã€‚\n" NOR,
                      this_object(), this_player());
         return 1;
 }
@@ -250,13 +250,13 @@ int no_money()
         me = this_player();
         if (me->query_temp("item/status") == "item_gived")
         {
-                message_vision(CYN "$N" CYN "´òÁ¿ÁËÒ»ÏÂ$n" CYN "µÀ£º¼ÈÈ»Ã»Ç®£¬ÄÇÄã"
-                               "¾ÍµÈÏÂ´Î°É¡£\n" NOR, this_object(), me);
+                message_vision(CYN "$N" CYN "æ‰“é‡äº†ä¸€ä¸‹$n" CYN "é“ï¼šæ—¢ç„¶æ²¡é’±ï¼Œé‚£ä½ "
+                               "å°±ç­‰ä¸‹æ¬¡å§ã€‚\n" NOR, this_object(), me);
 
                 if (objectp(ob = query_temp("item/accept")))
                 {
-                        message_vision(HIC "$N" HIC "ËæÊÖ°Ñ" + ob->name() + NOR + HIC
-                                       "½»»¹¸ø$n" HIC "¡£\n" NOR, this_object(), me);
+                        message_vision(HIC "$N" HIC "éšæ‰‹æŠŠ" + ob->name() + NOR + HIC
+                                       "äº¤è¿˜ç»™$n" HIC "ã€‚\n" NOR, this_object(), me);
 
                         if (! ob->move(me))
                                 ob->move(environment());
@@ -266,12 +266,12 @@ int no_money()
                 return 1;
         }
 
-        message_vision(CYN "$N" CYN "ÑÛ¾¦Ò»µÉ£¬¶Ô$n" CYN "ËµµÀ£ºÃ»Ç®£¿ÄãÃ»Ç®¹ØÎÒÉ¶"
-                       "ÊÂ£¬ÎÒÓÖ²»ÊÇ²ÆÉñÒ¯¡£\n" NOR, this_object(), me);
+        message_vision(CYN "$N" CYN "çœ¼ç›ä¸€çªï¼Œå¯¹$n" CYN "è¯´é“ï¼šæ²¡é’±ï¼Ÿä½ æ²¡é’±å…³æˆ‘å•¥"
+                       "äº‹ï¼Œæˆ‘åˆä¸æ˜¯è´¢ç¥çˆ·ã€‚\n" NOR, this_object(), me);
         return 1;
 }
 
-// ½ÓÊÜ¶¨½ğ
+// æ¥å—å®šé‡‘
 int accept_object(object me, object ob)
 {
         string status, filename, file;
@@ -281,8 +281,8 @@ int accept_object(object me, object ob)
         status = query_temp("item/status");
         if (status == "look_working")
         {
-                message_vision(CYN "$N" CYN "½ôÕÅµÄ¶Ô$n" CYN "Ëµ£º±ğ³³£¬¸É½«ÕıÔÚ¸É"
-                               "»îÄØ¡£\n" NOR, this_object(), me);
+                message_vision(CYN "$N" CYN "ç´§å¼ çš„å¯¹$n" CYN "è¯´ï¼šåˆ«åµï¼Œå¹²å°†æ­£åœ¨å¹²"
+                               "æ´»å‘¢ã€‚\n" NOR, this_object(), me);
                 return 0;
         }
 
@@ -290,12 +290,12 @@ int accept_object(object me, object ob)
         {
                 if (query_temp("item/player_id") == me->query("id"))
                 {
-                        command("say ÄãºÃºÃºÍÎÒ·ò¾ıÌ¸£¬ÉÙ´ò²í¡£");
+                        command("say ä½ å¥½å¥½å’Œæˆ‘å¤«å›è°ˆï¼Œå°‘æ‰“å²”ã€‚");
                         return 0;
                 }
 
-                message_vision(CYN "$N" CYN "¶Ô$n" CYN "Ëµ£ºÄã±ğ³³£¬ÎÒ·ò¾ıÕıÔÚºÍ¹Ë"
-                               "¿ÍÌ¸»°ÄØ¡£\n" NOR, this_object(), me);
+                message_vision(CYN "$N" CYN "å¯¹$n" CYN "è¯´ï¼šä½ åˆ«åµï¼Œæˆ‘å¤«å›æ­£åœ¨å’Œé¡¾"
+                               "å®¢è°ˆè¯å‘¢ã€‚\n" NOR, this_object(), me);
                 return 0;
         }
 
@@ -303,13 +303,13 @@ int accept_object(object me, object ob)
         {
                 if (query_temp("item/player_id") != me->query("id"))
                 {
-                        command("say ÎÒÕıÔÚºÍ±ğµÄ¿ÍÈËÉÌÁ¿ÄØ£¬ÄãÏÈ±ğÌíÂÒ£¡");
+                        command("say æˆ‘æ­£åœ¨å’Œåˆ«çš„å®¢äººå•†é‡å‘¢ï¼Œä½ å…ˆåˆ«æ·»ä¹±ï¼");
                         return 0;
                 }
 
                 if (! ob->query("money_id"))
                 {
-                        command("say Äã»¹ÊÇ¿ìµã½»Ç®°É£¬ÒªÊÇÃ»Ç®¾ÍÃ÷Ëµ£¡");
+                        command("say ä½ è¿˜æ˜¯å¿«ç‚¹äº¤é’±å§ï¼Œè¦æ˜¯æ²¡é’±å°±æ˜è¯´ï¼");
                         return 0;
                 }
         }
@@ -319,14 +319,14 @@ int accept_object(object me, object ob)
                 filename = ITEM_DIR + "depot/" + me->query("id");
                 if (file_size(filename + ".c") > 0)
                 {
-                        message_vision("$NÒ»´ô£¬¶Ô$nµÀ£ºÄãÒÑ¾­ÓµÓĞÈçÒâÇ¬À¤´üÁËÑ½£¬Ö±½ÓÕÙ»½(summon)°É£¡¡£\n",
+                        message_vision("$Nä¸€å‘†ï¼Œå¯¹$né“ï¼šä½ å·²ç»æ‹¥æœ‰å¦‚æ„ä¹¾å¤è¢‹äº†å‘€ï¼Œç›´æ¥å¬å”¤(summon)å§ï¼ã€‚\n",
                                        this_object(), me);
                         me->set("can_summon/ruyi dai", filename);
                         return 0;
                 }
                 val = ob->query("value") / 60;
-                message_vision(CYN "$N" CYN "¶Ô$n" CYN "ËµµÀ£ººÜºÃ£¬Á¶ÖÆÈçÒâÇ¬À¤´ü"
-                               "ĞèÒª" + chinese_number(val) + "Á½»Æ½ğ¡£\n" NOR,
+                message_vision(CYN "$N" CYN "å¯¹$n" CYN "è¯´é“ï¼šå¾ˆå¥½ï¼Œç‚¼åˆ¶å¦‚æ„ä¹¾å¤è¢‹"
+                               "éœ€è¦" + chinese_number(val) + "ä¸¤é»„é‡‘ã€‚\n" NOR,
                                this_object(), me);
                 val *= 10000;
                 ob->set("item/value", val);
@@ -336,7 +336,7 @@ int accept_object(object me, object ob)
                 set_temp("item/player_id", me->query("id"));
                 set_temp("item/accept", ob);
 
-                // Èç¹û¹ıÒ»¶ÎÊ±¼äÃ»ÓĞ½»¿î£¬»¹µÀ¾ß´ÖÅ÷
+                // å¦‚æœè¿‡ä¸€æ®µæ—¶é—´æ²¡æœ‰äº¤æ¬¾ï¼Œè¿˜é“å…·ç²—å¯
                 remove_call_out("time_out");
                 call_out("time_out", 30, me, ob);
                 return 1;
@@ -345,16 +345,16 @@ int accept_object(object me, object ob)
         if (ob->query("material_attrib") &&
             ob->query("power_point"))
         {
-                // ¼ÆËã¼ÛÖµ
+                // è®¡ç®—ä»·å€¼
                 val = ob->query("power_point") * 2 + 20;
-                message_vision(CYN "$N" CYN "¶Ô$n" CYN "ËµµÀ£ººÜºÃ£¬ÓÃÕâ¿éÔ­ÁÏ´òÔì"
-                               "µÀ¾ßĞèÒª" + chinese_number(val) + "Á½»Æ½ğ¡£\n" NOR,
+                message_vision(CYN "$N" CYN "å¯¹$n" CYN "è¯´é“ï¼šå¾ˆå¥½ï¼Œç”¨è¿™å—åŸæ–™æ‰“é€ "
+                               "é“å…·éœ€è¦" + chinese_number(val) + "ä¸¤é»„é‡‘ã€‚\n" NOR,
                                this_object(), me);
                 val *= 10000;
                 if (wizardp(me))
                 {
-                        message_vision(HIC "$N" HIC "×ĞÏ¸¿´ÁË¿´$n" HIC "£¬Ğ¦×ÅËµµÀ"
-                                       "£ºÔ­À´ÊÇÎ×Ê¦°¡£¬ÄÇÃ´ÄãËæ±ã¸øµãºÃÁË¡£\n" NOR,
+                        message_vision(HIC "$N" HIC "ä»”ç»†çœ‹äº†çœ‹$n" HIC "ï¼Œç¬‘ç€è¯´é“"
+                                       "ï¼šåŸæ¥æ˜¯å·«å¸ˆå•Šï¼Œé‚£ä¹ˆä½ éšä¾¿ç»™ç‚¹å¥½äº†ã€‚\n" NOR,
                                        this_object(), me);
                         val = 1;
                 }
@@ -365,7 +365,7 @@ int accept_object(object me, object ob)
                 set_temp("item/player_id", me->query("id"));
                 set_temp("item/accept", ob);
 
-                // Èç¹û¹ıÒ»¶ÎÊ±¼äÃ»ÓĞ½»¿î£¬»¹µÀ¾ß´ÖÅ÷
+                // å¦‚æœè¿‡ä¸€æ®µæ—¶é—´æ²¡æœ‰äº¤æ¬¾ï¼Œè¿˜é“å…·ç²—å¯
                 remove_call_out("time_out");
                 call_out("time_out", 30, me, ob);
                 return 1;
@@ -379,23 +379,23 @@ int accept_object(object me, object ob)
 
                 if (me->query_temp("item/status") == "answer_type")
                 {
-                        message_vision(CYN "$N" CYN "Ò¡Ò¡Í·£¬¶Ô$n" CYN "Ëµ£º¿ìËµÄãÒª"
-                                       "×öÊ²Ã´¶«Î÷Ñ½¡£\n" NOR, this_object(), me);
+                        message_vision(CYN "$N" CYN "æ‘‡æ‘‡å¤´ï¼Œå¯¹$n" CYN "è¯´ï¼šå¿«è¯´ä½ è¦"
+                                       "åšä»€ä¹ˆä¸œè¥¿å‘€ã€‚\n" NOR, this_object(), me);
                         return 0;
                 }
 
                 if (me->query_temp("item/status") != "item_gived")
                 {
-                        message_vision(CYN "$N" CYN "°Ñ$n" CYN "µİ¹ıÈ¥µÄ" + ob->name() +
-                                       CYN "ÍÆÁË»ØÀ´£¬Ò¡Í·µÀ£ºÎŞ¹¦²»ÊÜÂ»¡£\n" NOR,
+                        message_vision(CYN "$N" CYN "æŠŠ$n" CYN "é€’è¿‡å»çš„" + ob->name() +
+                                       CYN "æ¨äº†å›æ¥ï¼Œæ‘‡å¤´é“ï¼šæ— åŠŸä¸å—ç¦„ã€‚\n" NOR,
                                        this_object(), me);
                         return 0;
                 }
 
                 if (ob->value() < me->query_temp("item/value"))
                 {
-                        message_vision(CYN "$N" CYN "ÀäĞ¦Ò»Éù£¬¶Ô$n" CYN "Ëµ£º±¾µê¿ª"
-                                       "ÕÅÇ§¶àÄêÀ´£¬»¹Ã»ÓĞ´ò¹ıÕÛ¿Û¡£\n" NOR,
+                        message_vision(CYN "$N" CYN "å†·ç¬‘ä¸€å£°ï¼Œå¯¹$n" CYN "è¯´ï¼šæœ¬åº—å¼€"
+                                       "å¼ åƒå¤šå¹´æ¥ï¼Œè¿˜æ²¡æœ‰æ‰“è¿‡æŠ˜æ‰£ã€‚\n" NOR,
                                        this_object(), me);
                         return 0;
                 }
@@ -407,8 +407,8 @@ int accept_object(object me, object ob)
                         file = read_file(DEPOT_OB);
 
                         file = replace_string(file, "LONG_DESCRIPTION",
-                                                HIB "ÈçÒâÇ¬À¤´üÉÏĞå×ÅÒ»ĞĞĞ¡×Ö£º" + me->query("name") +
-                                                "(" + me->query("id") +")¡£\n" NOR);
+                                                HIB "å¦‚æ„ä¹¾å¤è¢‹ä¸Šç»£ç€ä¸€è¡Œå°å­—ï¼š" + me->query("name") +
+                                                "(" + me->query("id") +")ã€‚\n" NOR);
 
                         // give depot ob to me
                         filename = ITEM_DIR+"depot/" + me->query("id");
@@ -431,7 +431,7 @@ int accept_object(object me, object ob)
                         {
                                 delete_temp("item");
                                 me->delete_temp("item");
-                                message_vision("$NÒ»´ô£¬¶Ô$nµÀ£º±§Ç¸±§Ç¸£¡³öÁËÒ»Ğ©ÎÊÌâ£¡²ÄÁÏÎÒ»¹ÊÇ»¹Äã°É¡£\n",
+                                message_vision("$Nä¸€å‘†ï¼Œå¯¹$né“ï¼šæŠ±æ­‰æŠ±æ­‰ï¼å‡ºäº†ä¸€äº›é—®é¢˜ï¼ææ–™æˆ‘è¿˜æ˜¯è¿˜ä½ å§ã€‚\n",
                                                this_object(), me);
                                 return 0;
                         }
@@ -441,13 +441,13 @@ int accept_object(object me, object ob)
                         me->set("can_summon/ruyi dai", filename);
                         me->delete_temp("item");
                         delete_temp("item");
-						message_vision(HIM "$NËæÊÖ°Ñ" + origin->name() +
-								   HIM "Å×ÈëÂ¯ÄÚ£¬ö®Ê±¼ä£¬ÄÇ" + origin->name() +
-								   HIM "ÒÑ±»»ğÂ¯ÖĞµÄĞÜĞÜ" HIR "ÁÒÑæ" HIM "ÍÌÃ»¡£\n" +
-								   "$NÓÖÏòÂ¯ÖĞ¶ªÁËÒ»ÏµÁĞÇ§Ææ°Ù¹ÖµÄ²ÄÁÏÒ»ÆğÈÛÁ¶¡£\n    ¡­¡­\n"
-								   "·±ÔÓµÄÁ¶ÖÆ²½Öè¿´µÄ$nÑÛ»¨çÔÂÒ£¬¿É$nÒ»µã°ïÒ²Ã¦²»ÁË£¬Ö»ÄÜÉµÉµµÄµÈ×Å¡£\n"
-								   "    ¡­¡­\n    ¡­¡­\n    ¡­¡­\n\n" NOR , this_object(), me);
-                        tell_object(me, HIY "Äã»ñµÃÁËÒ»¸öÈçÒâÇ¬À¤´ü¡£\n" NOR);
+						message_vision(HIM "$Néšæ‰‹æŠŠ" + origin->name() +
+								   HIM "æŠ›å…¥ç‚‰å†…ï¼Œéœæ—¶é—´ï¼Œé‚£" + origin->name() +
+								   HIM "å·²è¢«ç«ç‚‰ä¸­çš„ç†Šç†Š" HIR "çƒˆç„°" HIM "åæ²¡ã€‚\n" +
+								   "$Nåˆå‘ç‚‰ä¸­ä¸¢äº†ä¸€ç³»åˆ—åƒå¥‡ç™¾æ€ªçš„ææ–™ä¸€èµ·ç†”ç‚¼ã€‚\n    â€¦â€¦\n"
+								   "ç¹æ‚çš„ç‚¼åˆ¶æ­¥éª¤çœ‹çš„$nçœ¼èŠ±ç¼­ä¹±ï¼Œå¯$nä¸€ç‚¹å¸®ä¹Ÿå¿™ä¸äº†ï¼Œåªèƒ½å‚»å‚»çš„ç­‰ç€ã€‚\n"
+								   "    â€¦â€¦\n    â€¦â€¦\n    â€¦â€¦\n\n" NOR , this_object(), me);
+                        tell_object(me, HIY "ä½ è·å¾—äº†ä¸€ä¸ªå¦‚æ„ä¹¾å¤è¢‹ã€‚\n" NOR);
                         ob->move(this_object());
                         destruct(origin);
                         return 1;
@@ -474,16 +474,16 @@ int accept_object(object me, object ob)
                 set_temp("item/money", ob);
                 ob->move(this_object());
 
-                message_vision(CYN "$N" CYN "¶Ô$n" CYN "ËµµÀ£ººÃ£¬Õâ¾Í¸øÄãÁ¶¡£Äã´òËã´ò"
-                               "ÔìÊ²Ã´¶«Î÷£¬Çë¸æËß(" HIY "answer <ÀàĞÍ>" NOR + CYN ")ÎÒ"
-                               "ÀàĞÍ¡£\n" HIC "¡¸" + implode(types, "¡¢") + "¡¹\n" NOR,
+                message_vision(CYN "$N" CYN "å¯¹$n" CYN "è¯´é“ï¼šå¥½ï¼Œè¿™å°±ç»™ä½ ç‚¼ã€‚ä½ æ‰“ç®—æ‰“"
+                               "é€ ä»€ä¹ˆä¸œè¥¿ï¼Œè¯·å‘Šè¯‰(" HIY "answer <ç±»å‹>" NOR + CYN ")æˆ‘"
+                               "ç±»å‹ã€‚\n" HIC "ã€Œ" + implode(types, "ã€") + "ã€\n" NOR,
                                this_object(), me);
 
                 me->set_temp("item/status", "answer_type");
                 return -1;
         }
 
-        message_vision(CYN "ÄªĞ°¶Ô$N" CYN "ÖåÃ¼µÀ£ºÄã¸øÎÒÕâĞ©¶«Î÷¸ÉÊ²Ã´£¿\n" NOR, me);
+        message_vision(CYN "è«é‚ªå¯¹$N" CYN "çš±çœ‰é“ï¼šä½ ç»™æˆ‘è¿™äº›ä¸œè¥¿å¹²ä»€ä¹ˆï¼Ÿ\n" NOR, me);
         return 0;
 }
 
@@ -499,30 +499,30 @@ int do_answer(string arg)
                 return 0;
 
         if (! arg)
-                return notify_fail("ÄãÒª»Ø´ğÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦å›ç­”ä»€ä¹ˆï¼Ÿ\n");
 
-        message_vision(CYN "$n" CYN "¶Ô$N" CYN "µÀ£º¾Í´òÔì¡¸" HIY + arg + NOR +
-                       CYN "¡¹°É£¡\n" NOR, this_object(), me);
+        message_vision(CYN "$n" CYN "å¯¹$N" CYN "é“ï¼šå°±æ‰“é€ ã€Œ" HIY + arg + NOR +
+                       CYN "ã€å§ï¼\n" NOR, this_object(), me);
 
         if (member_array(arg, query_temp("item/types")) == -1 ||
             undefinedp(item_type[arg]))
         {
-                message_vision(CYN "$N" CYN "¿´ÁË¿´$n" CYN "£¬ÓĞÒ»´îÃ»Ò»´îµÄ¡°"
-                               "àÅ¡±ÁËÒ»Éù¡£\n" NOR, this_object(), me);
+                message_vision(CYN "$N" CYN "çœ‹äº†çœ‹$n" CYN "ï¼Œæœ‰ä¸€æ­æ²¡ä¸€æ­çš„â€œ"
+                               "å—¯â€äº†ä¸€å£°ã€‚\n" NOR, this_object(), me);
                 return 1;
         }
 
-        // Èç¹û¸É½«²»ÔÚ
+        // å¦‚æœå¹²å°†ä¸åœ¨
         if (! objectp(ganjiang = present("gan jiang")))
         {
-                message_vision(CYN "$N" CYN "¿´ÁË¿´ËÄÖÜ£¬²»½ûÒ»´ô£¬ËµµÀ£ºÎÒ·ò¾ı"
-                               "ÄØ£¿Ã»ËûÔÚ¾ÍÃ»°ì·¨×öÁË¡­¡­Äã¸ÄÌìÔÙÀ´°É¡£\n" NOR,
+                message_vision(CYN "$N" CYN "çœ‹äº†çœ‹å››å‘¨ï¼Œä¸ç¦ä¸€å‘†ï¼Œè¯´é“ï¼šæˆ‘å¤«å›"
+                               "å‘¢ï¼Ÿæ²¡ä»–åœ¨å°±æ²¡åŠæ³•åšäº†â€¦â€¦ä½ æ”¹å¤©å†æ¥å§ã€‚\n" NOR,
                                this_object());
 
                 if (ob = query_temp("item/accept"))
                 {
-                        message_vision(CYN "$N" CYN "°Ñ" + ob->name() + NOR + CYN
-                                       "½»»¹¸ø$n" CYN "¡£\n", this_object(), me);
+                        message_vision(CYN "$N" CYN "æŠŠ" + ob->name() + NOR + CYN
+                                       "äº¤è¿˜ç»™$n" CYN "ã€‚\n", this_object(), me);
 
                         if (! ob->move(me))
                                 ob->move(environment());
@@ -549,8 +549,8 @@ int do_answer(string arg)
         ob->set("item/wscale", item_type[arg][ITEM_WEIGHT]);
         ob->set("item/prop", item_type[arg][ITEM_PROP]);
 
-        message_vision(HIC "$N" HIC "µãÁËµãÍ·£¬°Ñ" + ob->name() + HIC "½»¸øÁË$n"
-                       HIC "¡£\n" NOR, this_object(), ganjiang);
+        message_vision(HIC "$N" HIC "ç‚¹äº†ç‚¹å¤´ï¼ŒæŠŠ" + ob->name() + HIC "äº¤ç»™äº†$n"
+                       HIC "ã€‚\n" NOR, this_object(), ganjiang);
 
         if (! ob->move(ganjiang))
                 error("Can move the object to ganjiang.");
@@ -571,11 +571,11 @@ void time_out(object me, object ob)
 
         if (! objectp(me) || environment(me) != environment())
         {
-                command("say Ææ¹Ö£¬¸Õ²ÅÄÇÎ»¿ÍÈËÄØ£¿ÔõÃ´Õâ¾Í×ßÁË£¿\n");
+                command("say å¥‡æ€ªï¼Œåˆšæ‰é‚£ä½å®¢äººå‘¢ï¼Ÿæ€ä¹ˆè¿™å°±èµ°äº†ï¼Ÿ\n");
                 at_present = 0;
         } else
         {
-                command("say ÄãÂıÂıÓÌÔ¥°É£¬ÎÒ¿É²»ÄÜ¸úÄãºÄ×Å£¡ÏëºÃÔÙÀ´°É£¡");
+                command("say ä½ æ…¢æ…¢çŠ¹è±«å§ï¼Œæˆ‘å¯ä¸èƒ½è·Ÿä½ è€—ç€ï¼æƒ³å¥½å†æ¥å§ï¼");
                 at_present = 1;
         }
 

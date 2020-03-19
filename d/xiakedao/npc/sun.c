@@ -7,8 +7,8 @@ inherit NPC;
 void create()
 {
         object ob;
-        set_name("ËïÓñÏª", ({ "sun yuxi", "sun", "yuxi" }));
-        set("gender", "ÄĞĞÔ");
+        set_name("å­™ç‰æºª", ({ "sun yuxi", "sun", "yuxi" }));
+        set("gender", "ç”·æ€§");
         set("age", 42);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -46,7 +46,7 @@ void create()
         prepare_skill("finger", "qixing-zhi");
 
         set("inquiry", ([
-               "ÆßĞÇÖ¸" : "ÕâÕıÊÇÔÚÏÂµÄ¾øÑ§£¬¸óÏÂÎªºÎÖªÏş£¿\n",
+               "ä¸ƒæ˜ŸæŒ‡" : "è¿™æ­£æ˜¯åœ¨ä¸‹çš„ç»å­¦ï¼Œé˜ä¸‹ä¸ºä½•çŸ¥æ™“ï¼Ÿ\n",
         ]));
 
         set("chat_chance_combat", 120);

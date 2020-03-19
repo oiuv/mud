@@ -8,9 +8,9 @@ inherit F_COAGENT;
 
 void create()
 {
-        set_name("·Ñ±ò", ({ "fei bin", "bin", "fei" }) );
-        set("nickname", HIW "´óáÔÑôÊÖ" NOR);
-        set("gender", "ÄÐÐÔ");
+        set_name("è´¹å½¬", ({ "fei bin", "bin", "fei" }) );
+        set("nickname", HIW "å¤§åµ©é˜³æ‰‹" NOR);
+        set("gender", "ç”·æ€§");
         set("class", "swordsman");
         set("age", 45);
         set("attitude", "peaceful");
@@ -53,7 +53,7 @@ void create()
 
         prepare_skill("strike", "songyang-zhang");
              
-        create_family("áÔÉ½ÅÉ", 13, "»¤·¨");
+        create_family("åµ©å±±æ´¾", 13, "æŠ¤æ³•");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -83,34 +83,34 @@ void attempt_apprentice(object ob)
 
         if ((int)ob->query("shen") < 30000)
         {
-                command("say ÎÒáÔÉ½½£ÅÉÄËÊÇÌÃÌÃÃûÃÅÕýÅÉ£¬¶ÔµÜ×ÓÒªÇóÑÏ¸ñ¡£");
-                command("say ÄãÔÚÕâÏÀÒåÓëµÂÐÐ·½ÃæÊÇ·ñ»¹×öµÃ²»¹»£¿");
+                command("say æˆ‘åµ©å±±å‰‘æ´¾ä¹ƒæ˜¯å ‚å ‚åé—¨æ­£æ´¾ï¼Œå¯¹å¼Ÿå­è¦æ±‚ä¸¥æ ¼ã€‚");
+                command("say ä½ åœ¨è¿™ä¾ ä¹‰ä¸Žå¾·è¡Œæ–¹é¢æ˜¯å¦è¿˜åšå¾—ä¸å¤Ÿï¼Ÿ");
                 return;
         }
 
 	if ((int)ob->query("combat_exp") < 200000)
 	{
-		command("say ÄãÏÖÔÚ¾­ÑéÉÐÇ³£¬»¹ÊÇ¶àÔÚ½­ºþÉÏ×ß×ß°É¡£");
+		command("say ä½ çŽ°åœ¨ç»éªŒå°šæµ…ï¼Œè¿˜æ˜¯å¤šåœ¨æ±Ÿæ¹–ä¸Šèµ°èµ°å§ã€‚");
 		return;
 	}
 
         if ((int)ob->query_skill("songshan-jian", 1) < 120)
 	{	
-		command("say ÎÒáÔÉ½½£ÅÉÄËÎåÔÀ½£ÅÉÖ®Ò»£¬×îÎªÖØÊÓ½£·¨¡£");
-		command("say ÄãµÄáÔÉ½½£·¨»¹²»¹»ÊìÁ·£¬ÏÂÈ¥Á·Á·ÔÙÀ´°É¡£");
+		command("say æˆ‘åµ©å±±å‰‘æ´¾ä¹ƒäº”å²³å‰‘æ´¾ä¹‹ä¸€ï¼Œæœ€ä¸ºé‡è§†å‰‘æ³•ã€‚");
+		command("say ä½ çš„åµ©å±±å‰‘æ³•è¿˜ä¸å¤Ÿç†Ÿç»ƒï¼Œä¸‹åŽ»ç»ƒç»ƒå†æ¥å§ã€‚");
         	return;
         }
    
         if ((int)ob->query_skill("songshan-xinfa", 1) < 100)
 	{
-		command("say ÎÒáÔÉ½½£ÅÉËäÉÆÓÃ½££¬µ«ÄÚ¹¦È´ÊÇÓù½£Ö®±¾¡£");
-		command("say ÄãÊÇ·ñ»¹Ó¦¸ÃÔÚáÔÉ½ÐÄ·¨ÉÏ¶àÏÂµã¹¦·ò£¿");
+		command("say æˆ‘åµ©å±±å‰‘æ´¾è™½å–„ç”¨å‰‘ï¼Œä½†å†…åŠŸå´æ˜¯å¾¡å‰‘ä¹‹æœ¬ã€‚");
+		command("say ä½ æ˜¯å¦è¿˜åº”è¯¥åœ¨åµ©å±±å¿ƒæ³•ä¸Šå¤šä¸‹ç‚¹åŠŸå¤«ï¼Ÿ");
 		return;
  	} 
 
 	command("haha");
-        command("say Èæ×Ó¿É½Ì£¬Èæ×Ó¿É½Ì¡£½ñÈÕÎÒ¾ÍÊÕÏÂÄã°É¡£");
-        command("say ÄãÒÔºó¶¨ÒªÇÚÁ·Îä£¬¶àÐÐÉÆ£¬ÑïÎÒáÔÉ½ÅÉÐÛ·ç¡£");
+        command("say å­ºå­å¯æ•™ï¼Œå­ºå­å¯æ•™ã€‚ä»Šæ—¥æˆ‘å°±æ”¶ä¸‹ä½ å§ã€‚");
+        command("say ä½ ä»¥åŽå®šè¦å‹¤ç»ƒæ­¦ï¼Œå¤šè¡Œå–„ï¼Œæ‰¬æˆ‘åµ©å±±æ´¾é›„é£Žã€‚");
         command("recruit " + ob->query("id"));
 }
  
@@ -118,10 +118,10 @@ int accept_ask(object me, string topic)
 {
         switch (topic)
         {
-        case "ÎÞÓ°ÕÆ" :
+        case "æ— å½±æŽŒ" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/songyang-zhang/ying",
-                           "name"    : "ÎÞÓ°ÕÆ",
+                           "name"    : "æ— å½±æŽŒ",
                            "sk1"     : "songyang-zhang",
                            "lv1"     : 80,
                            "force"   : 80,
@@ -130,10 +130,10 @@ int accept_ask(object me, string topic)
                            "shen"    : 32000, ]));
                 break;
 
-        case "½£Æø³åÏö" :
+        case "å‰‘æ°”å†²éœ„" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/lingyun-jian/xiao",
-                           "name"    : "½£Æø³åÏö",
+                           "name"    : "å‰‘æ°”å†²éœ„",
                            "sk1"     : "lingyun-jian",
                            "lv1"     : 100,
                            "force"   : 120,
@@ -141,10 +141,10 @@ int accept_ask(object me, string topic)
                            "shen"    : 41000, ]));
                 break;
 
-        case "ð©ÔÂ´©¿Õ" :
+        case "çš“æœˆç©¿ç©º" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/chuanyue-jian/hao",
-                           "name"    : "ð©ÔÂ´©¿Õ",
+                           "name"    : "çš“æœˆç©¿ç©º",
                            "sk1"     : "chuanyue-jian",
                            "lv1"     : 120,
                            "force"   : 120,

@@ -6,12 +6,12 @@ inherit HAMMER;
 
 void create()
 {
-        set_name(HIW"¶¨ÑýÉñ´¸"NOR, ({ "dingyao chui", "chui", "dingyao", "hammer" }) );
+        set_name(HIW"å®šå¦–ç¥žé”¤"NOR, ({ "dingyao chui", "chui", "dingyao", "hammer" }) );
         set_weight(18000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "°Ñ");
+                set("unit", "æŠŠ");
                 set("value", 600000);
                 set("material", "steel");
         }

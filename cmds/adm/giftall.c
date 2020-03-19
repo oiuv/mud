@@ -16,7 +16,7 @@ int main(object me, string arg)
                 return 0;
 
         if (! arg)
-                return notify_fail("ÅÉÀñÎï¸øÔÚÏßÍæ¼Ò£¬Í¬IPÍæ¼ÒËæ»úÑ¡ÔñÒ»Î»¡£\n\nÃüÁî¸ñÊ½£º giftall </Â·¾¶/../Ä¿±êÎÄ¼şÃû> <ÊıÁ¿>\n\n");
+                return notify_fail("æ´¾ç¤¼ç‰©ç»™åœ¨çº¿ç©å®¶ï¼ŒåŒIPç©å®¶éšæœºé€‰æ‹©ä¸€ä½ã€‚\n\nå‘½ä»¤æ ¼å¼ï¼š giftall </è·¯å¾„/../ç›®æ ‡æ–‡ä»¶å> <æ•°é‡>\n\n");
 
         if (sscanf(arg, "%s %d", target, count) != 2)
                 target = arg;
@@ -26,7 +26,7 @@ int main(object me, string arg)
         gift_file = target;
 
         if (file_size(gift_file) == -1)
-                return notify_fail("Â·¾¶²»ÕıÈ·£¬ÎŞ·¨ÕÒµ½ÎïÆ·¡£\n");
+                return notify_fail("è·¯å¾„ä¸æ­£ç¡®ï¼Œæ— æ³•æ‰¾åˆ°ç‰©å“ã€‚\n");
 
         seteuid(getuid());
 
@@ -55,12 +55,12 @@ int main(object me, string arg)
 
                         ob->move(pob);
 
-                        tell_object(pob, HIW "\n\nºöÈ»´Ó¼«¸ß¼«Ô¶µÄÌì¿ÕÖĞ¼«ËÙ½µÏÂÒ»Ö»»ëÉíÁÒÑæµÄ"HIR"»ğ·ï"HIW"£¬ÖÜÉíÉÁÒ«Æß²Ê¹âÃ¢¡£\n" NOR);
-                        tell_object(pob, HIC "Ëü×¦ÏÂËÆºõ×¥×ÅÊ²Ã´¶«Î÷£¬Í»È»"HIR"»ğ·ï"HIC"ËÉ¿ª½Å×¦£¬ÓĞ¸ö¶«Î÷Ö±ÏòÄãµôÂäÏÂÀ´¡£\n" NOR);
-                        tell_object(pob, HIG "ÄãÃÍÒ»ÌáÆø×İÉíÒ»Ô¾ÕÉ¸ß½«´ËÎï×¥ÔÚÊÖÖĞ£¬ÓÖäìÈ÷µÄÆ®ÂäµØÃæ¡£\n\n" NOR);
+                        tell_object(pob, HIW "\n\nå¿½ç„¶ä»æé«˜æè¿œçš„å¤©ç©ºä¸­æé€Ÿé™ä¸‹ä¸€åªæµ‘èº«çƒˆç„°çš„"HIR"ç«å‡¤"HIW"ï¼Œå‘¨èº«é—ªè€€ä¸ƒå½©å…‰èŠ’ã€‚\n" NOR);
+                        tell_object(pob, HIC "å®ƒçˆªä¸‹ä¼¼ä¹æŠ“ç€ä»€ä¹ˆä¸œè¥¿ï¼Œçªç„¶"HIR"ç«å‡¤"HIC"æ¾å¼€è„šçˆªï¼Œæœ‰ä¸ªä¸œè¥¿ç›´å‘ä½ æ‰è½ä¸‹æ¥ã€‚\n" NOR);
+                        tell_object(pob, HIG "ä½ çŒ›ä¸€ææ°”çºµèº«ä¸€è·ƒä¸ˆé«˜å°†æ­¤ç‰©æŠ“åœ¨æ‰‹ä¸­ï¼Œåˆæ½‡æ´’çš„é£˜è½åœ°é¢ã€‚\n\n" NOR);
 
                 }
-                str=sprintf("¹²ÓĞ%dÎ»Íæ¼ÒµÃµ½ÁË%s¡£\n\n",sizeof(ks),get_object(target)->query("name"));
+                str=sprintf("å…±æœ‰%dä½ç©å®¶å¾—åˆ°äº†%sã€‚\n\n",sizeof(ks),get_object(target)->query("name"));
                 me->start_more(str);
                 return 1;
         }
@@ -69,9 +69,9 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½£ºgiftall|gift <ÎïÆ·Â·¾¶> <ÊıÁ¿>
+æŒ‡ä»¤æ ¼å¼ï¼šgiftall|gift <ç‰©å“è·¯å¾„> <æ•°é‡>
 
-¸øÔÚÏßµÄÃ¿Ò»¸öIPµÄÍæ¼ÒÒ»¼şÀñÎï¡£
+ç»™åœ¨çº¿çš„æ¯ä¸€ä¸ªIPçš„ç©å®¶ä¸€ä»¶ç¤¼ç‰©ã€‚
 HELP
         );
         return 1;

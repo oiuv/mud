@@ -2,10 +2,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("°¢À­Ä¾º±", ({ "ala muhan", "ala", "muhan" }));
-        set("long", "ËıÉí¶Î²»·ÊÒ²²»Êİ¡£ËıµÄÃ¼Ã«ÏñÍäÔÂ£¬ËıµÄÑÛ¾¦ºÜ¶àÇé¡£\n");
-        set("title", "ÄÁÑò¹ÃÄï");
-        set("gender", "Å®ĞÔ");
+        set_name("é˜¿æ‹‰æœ¨ç½•", ({ "ala muhan", "ala", "muhan" }));
+        set("long", "å¥¹èº«æ®µä¸è‚¥ä¹Ÿä¸ç˜¦ã€‚å¥¹çš„çœ‰æ¯›åƒå¼¯æœˆï¼Œå¥¹çš„çœ¼ç›å¾ˆå¤šæƒ…ã€‚\n");
+        set("title", "ç‰§ç¾Šå§‘å¨˜");
+        set("gender", "å¥³æ€§");
         set("age", 17);
 
         set_skill("unarmed", 20);

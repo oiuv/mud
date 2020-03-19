@@ -7,10 +7,10 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("Òó½õ", ({ "yin jin", "yin"}));
-	set("title", HIY"ÉñÁú½Ì"YEL"»ÆÁúÊ¹"NOR);
-	set("long", "ÕâÊÇ¸öºº×Ó, Ò»Á³¼éÏà, Ã÷ÏÔÊÇ¸öĞ¡ÈË.\n" );
-	set("gender", "ÄĞĞÔ");
+	set_name("æ®·é”¦", ({ "yin jin", "yin"}));
+	set("title", HIY"ç¥é¾™æ•™"YEL"é»„é¾™ä½¿"NOR);
+	set("long", "è¿™æ˜¯ä¸ªæ±‰å­, ä¸€è„¸å¥¸ç›¸, æ˜æ˜¾æ˜¯ä¸ªå°äºº.\n" );
+	set("gender", "ç”·æ€§");
 	set("age", 44);
 	set("str", 22);
         set("int", 29);
@@ -50,14 +50,14 @@ void create()
 	prepare_skill("claw", "sanyin-wugongzhao");
 	prepare_skill("strike", "chousui-zhang");
 
-	create_family("ÉñÁú½Ì", 0, "³¤ÀÏ");
+	create_family("ç¥é¾™æ•™", 0, "é•¿è€");
 
         set("inquiry", ([
-		"ÉñÁú½Ì" : "Ò»°ãÈËÊÇÈë²»ÁËÎÒÉñÁú½ÌµÄ(join shenlongjiao).\n",
-		"ºé°²Í¨" : "½ÌÖ÷Æ¢Æø²»ºÃ,ÒªÌÖËû»¶ĞÄ²ÅºÃ¡£\n",
-		"½ÌÖ÷"   : "½ÌÖ÷Æ¢Æø²»ºÃ,ÒªÌÖËû»¶ĞÄ²ÅºÃ¡£\n",
-		"Èë½Ì"   : "Ò»°ãÈËÊÇÈë²»ÁËÎÒÉñÁú½ÌµÄ(join shenlongjiao).\n",
-		"¿ÚºÅ"   : "ÍòÄê²»ÀÏ£¡ÓÀÏíÏÉ¸££¡ÊÙÓëÌìÆë£¡ÎÄÎäÈÊÊ¥£¡\n",
+		"ç¥é¾™æ•™" : "ä¸€èˆ¬äººæ˜¯å…¥ä¸äº†æˆ‘ç¥é¾™æ•™çš„(join shenlongjiao).\n",
+		"æ´ªå®‰é€š" : "æ•™ä¸»è„¾æ°”ä¸å¥½,è¦è®¨ä»–æ¬¢å¿ƒæ‰å¥½ã€‚\n",
+		"æ•™ä¸»"   : "æ•™ä¸»è„¾æ°”ä¸å¥½,è¦è®¨ä»–æ¬¢å¿ƒæ‰å¥½ã€‚\n",
+		"å…¥æ•™"   : "ä¸€èˆ¬äººæ˜¯å…¥ä¸äº†æˆ‘ç¥é¾™æ•™çš„(join shenlongjiao).\n",
+		"å£å·"   : "ä¸‡å¹´ä¸è€ï¼æ°¸äº«ä»™ç¦ï¼å¯¿ä¸å¤©é½ï¼æ–‡æ­¦ä»åœ£ï¼\n",
 	]));
 	setup();
 	carry_object("/clone/misc/cloth")->wear();
@@ -89,7 +89,7 @@ void greeting(object ob)
 
 void attempt_apprentice(object ob)
 {
-	command("say ³ıÁËÎÄÎäÈÊÊ¥µÄºé½ÌÖ÷£¬Ë­ÓĞ×Ê¸ñÊÕÍ½£¿");
+	command("say é™¤äº†æ–‡æ­¦ä»åœ£çš„æ´ªæ•™ä¸»ï¼Œè°æœ‰èµ„æ ¼æ”¶å¾’ï¼Ÿ");
 	return;
 }
 

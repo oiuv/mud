@@ -3,13 +3,13 @@ inherit NPC;
 
 void create()
 {
-        set_name("ºïÍõ", ({ "hou wang", "hou", "wang", "monkey" }));
-        set("race", "Ò°ÊÞ");
+        set_name("çŒ´çŽ‹", ({ "hou wang", "hou", "wang", "monkey" }));
+        set("race", "é‡Žå…½");
         set("age", 23);
-        set("long", "ÕâÊÇÒ»Ö»Éí²ÄË¶×³µÄ´óÂíºï£¬ÑÛÉñÖÐÍ¸Â¶³öÒ»¹É°Ô\n"
-                    "Æø£¬¿´ÆðÀ´¼«²»ºÃÈÇ¡£\n");
-        set("rank_info/rude", "ÄõÐó");
-        set("rank_info/respect", "´óºï×Ó");
+        set("long", "è¿™æ˜¯ä¸€åªèº«æç¡•å£®çš„å¤§é©¬çŒ´ï¼Œçœ¼ç¥žä¸­é€éœ²å‡ºä¸€è‚¡éœ¸\n"
+                    "æ°”ï¼Œçœ‹èµ·æ¥æžä¸å¥½æƒ¹ã€‚\n");
+        set("rank_info/rude", "å­½ç•œ");
+        set("rank_info/respect", "å¤§çŒ´å­");
         set("combat_exp", 3000000);
         set("attitude", "heroism");
         set("str", 80);
@@ -62,20 +62,20 @@ int accept_object(object me, object ob)
 {
         if (! ob->query("food_supply"))
         {
-                message_vision(CYN "$N" CYN "°ÚÁË°ÚÊÖ£¬Ö¨Ö¨Ö¨Ö¨Ò»Õó"
-                               "ÂÒ½Ð¡£\n" NOR, this_object());
+                message_vision(CYN "$N" CYN "æ‘†äº†æ‘†æ‰‹ï¼Œå±å±å±å±ä¸€é˜µ"
+                               "ä¹±å«ã€‚\n" NOR, this_object());
                 return 0;
         }
 
 	if (query("food") >= max_food_capacity() - ob->query("food_supply"))
         {
-                message_vision(CYN "$N" CYN "Éì³¤²±×ÓÐáÐá£¬°ÚÁË°ÚÊÖ"
-                               "£¬´òÁËÒ»¸ö±¥àÃ¡£\n" NOR, this_object());
+                message_vision(CYN "$N" CYN "ä¼¸é•¿è„–å­å—…å—…ï¼Œæ‘†äº†æ‘†æ‰‹"
+                               "ï¼Œæ‰“äº†ä¸€ä¸ªé¥±å—ã€‚\n" NOR, this_object());
 
         	if (present("pan tao", this_object()))
 		{
-                	message_vision(CYN "\n$N" CYN "ÄÓÁËÄÓÍ·£¬´ÓÉíºóÃþ³ö"
-                                       "¸öË®ÁéÁéµÄ´óó´ÌÒ£¬ÓÖÐáÁËÐá¡£\n" NOR,
+                	message_vision(CYN "\n$N" CYN "æŒ äº†æŒ å¤´ï¼Œä»Žèº«åŽæ‘¸å‡º"
+                                       "ä¸ªæ°´çµçµçš„å¤§èŸ æ¡ƒï¼Œåˆå—…äº†å—…ã€‚\n" NOR,
                                        this_object());
 
 		        command("give pan tao to " + me->query("id"));
@@ -84,10 +84,10 @@ int accept_object(object me, object ob)
                 return 0;
         }
 
-        message_vision(CYN "$N" CYN "Ò»°Ñ×¥¹ý$n" NOR + CYN "£¬Ê¹¾¢ÐáÁËÐá¡£\n"
+        message_vision(CYN "$N" CYN "ä¸€æŠŠæŠ“è¿‡$n" NOR + CYN "ï¼Œä½¿åŠ²å—…äº†å—…ã€‚\n"
                        NOR, this_object(), ob);
 
-        // ±ØÐëÌáÇ°×ªÒÆÎï¼þ£¬·ñÔòÏÂÃæµÄÖ¸ÁîÎÞÐ§
+        // å¿…é¡»æå‰è½¬ç§»ç‰©ä»¶ï¼Œå¦åˆ™ä¸‹é¢çš„æŒ‡ä»¤æ— æ•ˆ
 	ob->move(this_object());
 
       	command("eat " + ob->query("id"));
@@ -98,7 +98,7 @@ int accept_object(object me, object ob)
 
 int accept_fight(object ob)
 {
-        message_vision(CYN "$N" CYN "³¯×Å$n" CYN "Ö¨Ö¨Ö¨Ö¨Ò»ÕóÂÒ½Ð¡£"
+        message_vision(CYN "$N" CYN "æœç€$n" CYN "å±å±å±å±ä¸€é˜µä¹±å«ã€‚"
                        "\n" NOR, this_object(), ob);
         return 0;
 }
@@ -108,8 +108,8 @@ void fight_ob(object ob)
         if (is_fighting(ob))
                 return;
 
-        message_vision(HIW "$N" HIW "ÑöÌìÒ»Éù³¤Ïø£¬³¯$n" HIW "ÃÍÆËÁË"
-                       "ÉÏÈ¥¡£\n" NOR, this_object(), ob);
+        message_vision(HIW "$N" HIW "ä»°å¤©ä¸€å£°é•¿å“®ï¼Œæœ$n" HIW "çŒ›æ‰‘äº†"
+                       "ä¸ŠåŽ»ã€‚\n" NOR, this_object(), ob);
 
         ::fight_ob(ob);
         if (! is_killing(ob->query("id")))
@@ -130,13 +130,13 @@ mixed hit_ob(object me, object ob, int damage_bouns)
 {
         ob->receive_wound("qi", 80 + random(50), me);
         ob->set_temp("can_learn/houwang", 1);
-        return random(2) ? HIY "¶¸È»¼ä$N" HIY "ÕÐÊ½Ò»±ä£¬ÌÚ¿ÕÔ¾Æð£¬Ë«"
-                           "×¦¾¹ËÆ»Ã×÷Á½µÀ½ð¹â£¬ÍðÈôÐÇ»®³¤¿Õ£¬ì¬µÄ×¥Ïò"
-                           "$n" HIY "¶øÈ¥¡£\n" NOR:
+        return random(2) ? HIY "é™¡ç„¶é—´$N" HIY "æ‹›å¼ä¸€å˜ï¼Œè…¾ç©ºè·ƒèµ·ï¼ŒåŒ"
+                           "çˆªç«Ÿä¼¼å¹»ä½œä¸¤é“é‡‘å…‰ï¼Œå®›è‹¥æ˜Ÿåˆ’é•¿ç©ºï¼Œé£•çš„æŠ“å‘"
+                           "$n" HIY "è€ŒåŽ»ã€‚\n" NOR:
 
-                           HIY "$N" HIY "ÝëµØÀïÒ»ÉùÇåÐ¥£¬Ë«È­»ØÈ¦Ð±»Ó"
-                           "¶ø³ö£¬ÕÐÊ½É·Îª¾«Ææ¡£$n" HIY "µÇÊ±Ö»¾õÑÛ»¨"
-                           "çÔÂÒ£¬ÄÑÒÔÕÐ¼Ü¡£\n" NOR;
+                           HIY "$N" HIY "è“¦åœ°é‡Œä¸€å£°æ¸…å•¸ï¼ŒåŒæ‹³å›žåœˆæ–œæŒ¥"
+                           "è€Œå‡ºï¼Œæ‹›å¼ç…žä¸ºç²¾å¥‡ã€‚$n" HIY "ç™»æ—¶åªè§‰çœ¼èŠ±"
+                           "ç¼­ä¹±ï¼Œéš¾ä»¥æ‹›æž¶ã€‚\n" NOR;
 }
 
 void unconcious()
@@ -155,9 +155,9 @@ void unconcious()
            && random(10) == 1
            && userp(ob))
         {
-	        tell_object(ob, HIW "\nÄãÍ¨¹ýºÍºïÍõ¸ñ¶·£¬Í»È»¼äÁé¹âÒ»"
-                                "ÉÁ£¬ÁìÎò³öÁËºïÈ­µÄÕæÒèËùÔÚ¡£\n\n" NOR +
-                                HIC "¹§Ï²ÄãÁ·³ÉÁË¡¸ÃÔ×ÙºïÈ­¡¹¡£\n" NOR);
+	        tell_object(ob, HIW "\nä½ é€šè¿‡å’ŒçŒ´çŽ‹æ ¼æ–—ï¼Œçªç„¶é—´çµå…‰ä¸€"
+                                "é—ªï¼Œé¢†æ‚Ÿå‡ºäº†çŒ´æ‹³çš„çœŸè¯£æ‰€åœ¨ã€‚\n\n" NOR +
+                                HIC "æ­å–œä½ ç»ƒæˆäº†ã€Œè¿·è¸ªçŒ´æ‹³ã€ã€‚\n" NOR);
                 ob->set_skill("mizong-houquan", 49);
                 ob->improve_skill("mizong-houquan", 1500000);
                 ob->improve_skill("martial-cognize", 1500000);

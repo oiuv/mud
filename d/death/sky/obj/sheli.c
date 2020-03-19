@@ -11,15 +11,15 @@ void init()
 
 void create()
 {
-        set_name(CYN "Ä§×ğÉáÀû" NOR, ({"mozun sheli", "sheli"}));
+        set_name(CYN "é­”å°Šèˆåˆ©" NOR, ({"mozun sheli", "sheli"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ö");
-                set("long", CYN "Ò»¸ö»ëÔ²µÄ°µÉ«ÇòÌå£¬Í¨ÌåÍ¸Ã÷¡£Õâ±ãÊÇ´«Ëµ\n"
-                            "ÖĞµÄÄ§½ÌÖÁ±¦¡ª¡ªÄ§×ğÉáÀû¡£Ïà´«ÆäÖĞÔÌ²Ø×Å\n"
-                            "ÎŞ±È¾Ş´óµÄÄÜÁ¿£¬Îä¹¦¸ßÇ¿Õß¿ÉÒÔÎüÈ¡(xi)Æä\n"
-                            "ÖĞµÄÄÜÁ¿À´ÔöÇ¿¹¦Á¦¡£\n" NOR);
+                set("unit", "ä¸ª");
+                set("long", CYN "ä¸€ä¸ªæµ‘åœ†çš„æš—è‰²çƒä½“ï¼Œé€šä½“é€æ˜ã€‚è¿™ä¾¿æ˜¯ä¼ è¯´\n"
+                            "ä¸­çš„é­”æ•™è‡³å®â€”â€”é­”å°Šèˆåˆ©ã€‚ç›¸ä¼ å…¶ä¸­è•´è—ç€\n"
+                            "æ— æ¯”å·¨å¤§çš„èƒ½é‡ï¼Œæ­¦åŠŸé«˜å¼ºè€…å¯ä»¥å¸å–(xi)å…¶\n"
+                            "ä¸­çš„èƒ½é‡æ¥å¢å¼ºåŠŸåŠ›ã€‚\n" NOR);
                 set("value", 1000000);
         }
         setup();
@@ -31,17 +31,17 @@ int do_eat(string arg)
         object me = this_player();
 
         if (!id(arg))
-                return notify_fail("ÄãÒª¸ÉÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦å¹²ä»€ä¹ˆï¼Ÿ\n");
 
         if( me->is_busy() )
-                return notify_fail("ÄãÏÖÔÚÕıÃ¦×ÅÄØ¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
 
-        if( me->query("power/Ä§×ğÉáÀû") )
-                return notify_fail("ÄãÒÑ¾­ÎüÈ¡¹ıÒ»´ÎÁË£¬¿ÖÅÂ²»ÄÜÔÙ´Î¾­ÊÜÄÜÁ¿µÄ³å»÷¡£\n");
+        if( me->query("power/é­”å°Šèˆåˆ©") )
+                return notify_fail("ä½ å·²ç»å¸å–è¿‡ä¸€æ¬¡äº†ï¼Œææ€•ä¸èƒ½å†æ¬¡ç»å—èƒ½é‡çš„å†²å‡»ã€‚\n");
 
-        message_vision (HIY "\n$N" HIY "½«Ë«ÊÖ½ô½ôÌù×¡Ä§×ğÉáÀû£¬"
-                        "Ö»¼ûÒ»¹É¹âÃ¢´ÓÖĞÍ¸³ö£¬ÉõÖÁ¿ÉÒÔ¿´µ½ÄÜ"
-                        "Á¿ÔÚÁ½Õß¼ä±¼Á÷´Ü¶¯¡£\n" NOR, me);
+        message_vision (HIY "\n$N" HIY "å°†åŒæ‰‹ç´§ç´§è´´ä½é­”å°Šèˆåˆ©ï¼Œ"
+                        "åªè§ä¸€è‚¡å…‰èŠ’ä»ä¸­é€å‡ºï¼Œç”šè‡³å¯ä»¥çœ‹åˆ°èƒ½"
+                        "é‡åœ¨ä¸¤è€…é—´å¥”æµçªœåŠ¨ã€‚\n" NOR, me);
         me->start_busy(60);
         remove_call_out("xiqu1");
         call_out("xiqu1", 5, me);
@@ -53,8 +53,8 @@ void xiqu1(string arg)
 //      object ob;
         object me = this_player();
 
-        message_vision(HIB "\nÖ»¼ûÒ»¹É¹âÃ¢´ÓÄ§×ğÉáÀûÖĞÁ÷Èë$N" HIB
-                       "µÄÉí×Ó¡­¡­\n" NOR, me);
+        message_vision(HIB "\nåªè§ä¸€è‚¡å…‰èŠ’ä»é­”å°Šèˆåˆ©ä¸­æµå…¥$N" HIB
+                       "çš„èº«å­â€¦â€¦\n" NOR, me);
         remove_call_out("xiqu2");
         call_out("xiqu2", 4, me);
 }
@@ -64,8 +64,8 @@ void xiqu2(string arg)
 //      object ob;
         object me = this_player();
 
-        message_vision(HIY "\n¼¸Ğíºó£¬ÓÖÒ»¹É¹âÃ¢´Ó$N" HIY "µÄÉí"
-                       "ÌåÀïÁ÷³ö£¬½øÈëÄ§×ğÉáÀû¡­¡­\n" NOR, me);
+        message_vision(HIY "\nå‡ è®¸åï¼Œåˆä¸€è‚¡å…‰èŠ’ä»$N" HIY "çš„èº«"
+                       "ä½“é‡Œæµå‡ºï¼Œè¿›å…¥é­”å°Šèˆåˆ©â€¦â€¦\n" NOR, me);
         remove_call_out("xiqu3");
         call_out("xiqu3", 4, me);
 }
@@ -75,8 +75,8 @@ void xiqu3(string arg)
 //      object ob;
         object me = this_player();
 
-        message_vision(HIR "\n¹ıÁËÒ»»á¶ù£¬ÓÖÊÇÒ»¹É¹âÃ¢´ÓÄ§×ğÉáÀû"
-                       "ÖĞÂıÂıÁ÷³ö£¬Á÷ÈëÁË$N" HIR "µÄÉíÌå¡­¡­\n"
+        message_vision(HIR "\nè¿‡äº†ä¸€ä¼šå„¿ï¼Œåˆæ˜¯ä¸€è‚¡å…‰èŠ’ä»é­”å°Šèˆåˆ©"
+                       "ä¸­æ…¢æ…¢æµå‡ºï¼Œæµå…¥äº†$N" HIR "çš„èº«ä½“â€¦â€¦\n"
                        NOR, me);
         remove_call_out("xiqu4");
         call_out("xiqu4", 4, me);
@@ -87,8 +87,8 @@ void xiqu4(string arg)
 //      object ob;
         object me = this_player();
 
-        message_vision(MAG "\nËæ¼´ÓÖ¼ûÒ»¹É¹âÃ¢´Ó$N" MAG "µÄÉíÌå"
-                       "×ªÈëÄ§×ğÉáÀû¡­¡­\n" NOR, me);
+        message_vision(MAG "\néšå³åˆè§ä¸€è‚¡å…‰èŠ’ä»$N" MAG "çš„èº«ä½“"
+                       "è½¬å…¥é­”å°Šèˆåˆ©â€¦â€¦\n" NOR, me);
         remove_call_out("xiqu5");
         call_out("xiqu5", 4, me);
 }
@@ -98,8 +98,8 @@ void xiqu5(string arg)
 //      object ob;
         object me = this_player();
 
-        message_vision(HIM "\nÉ²ÄÇ¼ä¹â»ª±©ÕÇ£¬¹âÃ¢ÓÖ´ÓÄ§×ğÉáÀû"
-                       "ÖĞÁ÷µ½$N" HIM "µÄÉíÌå¡­¡­\n" NOR, me);
+        message_vision(HIM "\nåˆ¹é‚£é—´å…‰åæš´æ¶¨ï¼Œå…‰èŠ’åˆä»é­”å°Šèˆåˆ©"
+                       "ä¸­æµåˆ°$N" HIM "çš„èº«ä½“â€¦â€¦\n" NOR, me);
         remove_call_out("xiqu6");
         call_out("xiqu6", 4, me);
 }
@@ -109,9 +109,9 @@ void xiqu6(string arg)
 //      object ob;
         object me = this_player();
 
-        message_vision(HIW "\nÖ»¼û$N" HIW "ºÍÉáÀûÍ¬Ê±·¢³öÎŞ"
-                        "±ÈÒ«ÑÛµÄ¹â»ª¡£É²ÄÇ¼ä¿ÕÆø³ãÈÈ£¬¼¸Óû"
-                        "·ĞÌÚ£¬·Â·ğÁ¬ÌìµØ¶¼¿ì±»ÉÕ½¹Ò»°ã¡­¡­\n" NOR, me);
+        message_vision(HIW "\nåªè§$N" HIW "å’Œèˆåˆ©åŒæ—¶å‘å‡ºæ— "
+                        "æ¯”è€€çœ¼çš„å…‰åã€‚åˆ¹é‚£é—´ç©ºæ°”ç‚½çƒ­ï¼Œå‡ æ¬²"
+                        "æ²¸è…¾ï¼Œä»¿ä½›è¿å¤©åœ°éƒ½å¿«è¢«çƒ§ç„¦ä¸€èˆ¬â€¦â€¦\n" NOR, me);
         remove_call_out("xiqu7");
         call_out("xiqu7", 2, me);
 }
@@ -131,11 +131,11 @@ void xiqu7(string arg)
           && me->query("max_jingli") > 1200
           && me->query("combat_exp") > 2000000
           && (int)me->query_skill("force") > 330
-          && me->query("power/ºÎÊÏ±Ú") )
+          && me->query("power/ä½•æ°å£") )
         {
-                message_vision(HIW "\n¹â»ªÉÔÍË£¬ÓÌ¼û$N" HIW "È«Éí¾§Ó¨"
-                               "ÌŞÍ¸£¬¾¹·¢³ö±¦Ê¯¹âÔó£¬ËÆºõÒÑºÍÄ§×ğÉáÀû"
-                               "ºÏÎªÒ»ÌåÁË¡£\n\n" NOR, me);
+                message_vision(HIW "\nå…‰åç¨é€€ï¼ŒçŠ¹è§$N" HIW "å…¨èº«æ™¶è¹"
+                               "å‰”é€ï¼Œç«Ÿå‘å‡ºå®çŸ³å…‰æ³½ï¼Œä¼¼ä¹å·²å’Œé­”å°Šèˆåˆ©"
+                               "åˆä¸ºä¸€ä½“äº†ã€‚\n\n" NOR, me);
 
                 me->add("combat_exp", exp);
                 me->add("potential", pot);
@@ -144,8 +144,8 @@ void xiqu7(string arg)
                 if (me->query("potential") > me->query_potential_limit()) 
                 me->set("potential", me->query_potential_limit());
 
-                tell_object(me, HIY "Äã¸Ğµ½Ä§×ğÉáÀûÖĞµÄÄÜÁ¿Ô´Ô´²»¾øµÄÁ÷"
-                                "ÈëÁËÄãµÄµ¤Ìï£¬¶ÙÊ±ÓĞÒ»ÕóËµ²»³öµÄÊæ·ş¡£\n"
+                tell_object(me, HIY "ä½ æ„Ÿåˆ°é­”å°Šèˆåˆ©ä¸­çš„èƒ½é‡æºæºä¸ç»çš„æµ"
+                                "å…¥äº†ä½ çš„ä¸¹ç”°ï¼Œé¡¿æ—¶æœ‰ä¸€é˜µè¯´ä¸å‡ºçš„èˆ’æœã€‚\n"
                                 NOR);
 
                 max = me->query("max_qi");
@@ -162,23 +162,23 @@ void xiqu7(string arg)
                 max = me->max_water_capacity();  
                 me->set("water", max);
                 me->clear_condition();
-                me->set("power/Ä§×ğÉáÀû", 1);
+                me->set("power/é­”å°Šèˆåˆ©", 1);
 
-                tell_object(me, HIC "Äã»ñµÃÁË" + chinese_number(exp) +
-                                "µã¾­Ñé¡¢" + chinese_number(pot) + "µã"
-                                "Ç±ÄÜ¡¢" + chinese_number(li1) + "µã×î"
-                                "´óÄÚÁ¦ºÍ" + chinese_number(li2) + "µã"
-                                "×î\n´ó¾«Á¦¡£\n" NOR);
+                tell_object(me, HIC "ä½ è·å¾—äº†" + chinese_number(exp) +
+                                "ç‚¹ç»éªŒã€" + chinese_number(pot) + "ç‚¹"
+                                "æ½œèƒ½ã€" + chinese_number(li1) + "ç‚¹æœ€"
+                                "å¤§å†…åŠ›å’Œ" + chinese_number(li2) + "ç‚¹"
+                                "æœ€\nå¤§ç²¾åŠ›ã€‚\n" NOR);
         } else
         {
-                message_vision(HIR "\nÖ»Ìı$N" HIR "Ò»Éù²Ò½Ğ£¬¾­ÊÜ²»×¡ÄÜ"
-                               "Á¿µÄ³å»÷£¬¶ÙÊ±È«Éí½îÂö¾¡¶Ï£¬ÏÊÑª¿ñÅç£¬Éí"
-                               "Ìå±»Õ¨ÁË¸ö·ÛËé¡£\n" NOR, me);
-                me->set_temp("die_reason", "ÍıÍ¼ÎüÈ¡Ä§×ğÉáÀû£¬½á¹ûÈ«Éí½îÂö¾¡¶Ï¶øÍö¡£");
+                message_vision(HIR "\nåªå¬$N" HIR "ä¸€å£°æƒ¨å«ï¼Œç»å—ä¸ä½èƒ½"
+                               "é‡çš„å†²å‡»ï¼Œé¡¿æ—¶å…¨èº«ç­‹è„‰å°½æ–­ï¼Œé²œè¡€ç‹‚å–·ï¼Œèº«"
+                               "ä½“è¢«ç‚¸äº†ä¸ªç²‰ç¢ã€‚\n" NOR, me);
+                me->set_temp("die_reason", "å¦„å›¾å¸å–é­”å°Šèˆåˆ©ï¼Œç»“æœå…¨èº«ç­‹è„‰å°½æ–­è€Œäº¡ã€‚");
                 me->die(); 
         }
-        message_vision (WHT "\nÄ§×ğÉáÀûÉÏµÄ¹â»ª½¥½¥ÏûÊÅ£¬±ä³ÉÁËÒ»"
-                        "¶Ñ·ÛÄ©¡£\n" NOR, me);
+        message_vision (WHT "\né­”å°Šèˆåˆ©ä¸Šçš„å…‰åæ¸æ¸æ¶ˆé€ï¼Œå˜æˆäº†ä¸€"
+                        "å †ç²‰æœ«ã€‚\n" NOR, me);
         destruct(this_object());
         return 0;
 }

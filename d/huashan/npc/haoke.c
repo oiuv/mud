@@ -1,13 +1,13 @@
-// haoke.c ºÀ¿Í
+// haoke.c è±ªå®¢
 
 inherit NPC;
 
 void create()
 {
-	set_name("½­ºşºÀ¿Í", ({ "jianghu haoke", "haoke" }));
+	set_name("æ±Ÿæ¹–è±ªå®¢", ({ "jianghu haoke", "haoke" }));
 	set("long", 
-		"Ò»ÃûÂúÁ³±ëº´Ö®É«µÄ½­ºşºÀ¿Í¡£\n");
-	set("gender", "ÄĞĞÔ");
+		"ä¸€åæ»¡è„¸å½ªæä¹‹è‰²çš„æ±Ÿæ¹–è±ªå®¢ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 30);
 	set("attitude", "heroism");
 	set("shen_type", 1);

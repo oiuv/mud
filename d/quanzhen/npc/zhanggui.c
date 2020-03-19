@@ -3,10 +3,10 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("ÕÆ¹ñ", ({ "zhang gui", "zhang", "gui" }));
+        set_name("æŒæŸœ", ({ "zhang gui", "zhang", "gui" }));
         set("long",
-                "ÕâÊÇÎ»ºÍºÍÆøÆøµÄÉúÒâÈË¡£\n");
-        set("gender", "ÄĞĞÔ");
+                "è¿™æ˜¯ä½å’Œå’Œæ°”æ°”çš„ç”Ÿæ„äººã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 45);
 
         set("combat_exp", 7500);

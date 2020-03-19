@@ -13,17 +13,17 @@ int update_condition(object me, int duration)
 {
         if( duration < 1 ) return 0;
 
-        message("vision", HIG + me->name() + "µÄÁ³µ°ÉÕµÃ"
-		          "Í¨ºì£¬¿´À´ÊÇ·¢¸ßÉÕÁË¡£\n" NOR,
+        message("vision", HIG + me->name() + "çš„è„¸è›‹çƒ§å¾—"
+		          "é€šçº¢ï¼Œçœ‹æ¥æ˜¯å‘é«˜çƒ§äº†ã€‚\n" NOR,
                 environment(me), me);
 
         if( !living(me) && me->query("qi") < 1 ) {
-                me->set_temp("die_reason", "·¢ÉÕÌ«ÖØ£¬»î»î±»ÕÛÄ¥ËÀÁË");
+                me->set_temp("die_reason", "å‘çƒ§å¤ªé‡ï¼Œæ´»æ´»è¢«æŠ˜ç£¨æ­»äº†");
                 me->die();
                 return 0;
         }
         else
-                tell_object(me, HIB "ÄãµÄÁ³µ°ÉÕµÃÍ¨ºì£¬¿´À´ÊÇ·¢¸ßÉÕÁË¡£\n" NOR );
+                tell_object(me, HIB "ä½ çš„è„¸è›‹çƒ§å¾—é€šçº¢ï¼Œçœ‹æ¥æ˜¯å‘é«˜çƒ§äº†ã€‚\n" NOR );
 
         me->receive_wound("qi", 1);
         me->receive_damage("qi", 1);

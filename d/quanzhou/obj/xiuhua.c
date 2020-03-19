@@ -1,4 +1,4 @@
-// weapon: xiuhua.c Ğå»¨Õë
+// weapon: xiuhua.c ç»£èŠ±é’ˆ
 // Jay 4/7/96
 
 #include <weapon.h>
@@ -6,17 +6,17 @@ inherit PIN;
 
 void create()
 {
-        set_name("Ğå»¨Õë", ({ "xiuhua zhen", "zhen", "needle" }));
+        set_name("ç»£èŠ±é’ˆ", ({ "xiuhua zhen", "zhen", "needle" }));
         set_weight(5);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", "ÕâÊÇÒ»¸ù¾«¸ÖÏ¸Ä¥µÄĞå»¨Õë£¬ÊÇĞå»¨ÓÃµÄ¾ø¼Ñ¹¤¾ß¡£\n");
+                set("unit", "æ ¹");
+                set("long", "è¿™æ˜¯ä¸€æ ¹ç²¾é’¢ç»†ç£¨çš„ç»£èŠ±é’ˆï¼Œæ˜¯ç»£èŠ±ç”¨çš„ç»ä½³å·¥å…·ã€‚\n");
                 set("value", 80);
                 set("material", "steel");
-                set("wield_msg", "$NÓÃÄ´Ö¸ºÍÊ³Ö¸´Ó÷Ş¼äÄé³öÒ»¸ù$n¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»Ø÷Ş¼ä¡£\n");
+                set("wield_msg", "$Nç”¨æ‹‡æŒ‡å’Œé£ŸæŒ‡ä»é¬“é—´æ‹ˆå‡ºä¸€æ ¹$nã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›é¬“é—´ã€‚\n");
         }
         init_pin(10);
         setup();

@@ -2,7 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-#define FIREICE "¡¸" HIW "±ù" HIR "»ğ" HIW "¾ÅÖØÌì" NOR "¡¹"
+#define FIREICE "ã€Œ" HIW "å†°" HIR "ç«" HIW "ä¹é‡å¤©" NOR "ã€"
 
 void remove_effect(object me, int amount);
 
@@ -13,30 +13,30 @@ int exert(object me, object target)
         fam = me->query("family/family_name");
 
         if (userp(me) && ! me->query("skybook/item/xuanbingjiu"))
-                return notify_fail("ÄãËùÑ§µÄÄÚ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€å­¦çš„å†…åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÓÃ" FIREICE "À´ÌáÉı×Ô¼ºµÄÕ½¶·Á¦¡£\n");
+                return notify_fail("ä½ åªèƒ½ç”¨" FIREICE "æ¥æå‡è‡ªå·±çš„æˆ˜æ–—åŠ›ã€‚\n");
 
         if ((int)me->query_temp("fireice"))
-                return notify_fail("ÄãÏÖÔÚÕıÔÚÊ©Õ¹" FIREICE "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£åœ¨æ–½å±•" FIREICE "ã€‚\n");
 
         if ((int)me->query_skill("luohan-fumogong", 1) < 180)
-                return notify_fail("ÄãÂŞºº·üÄ§¹¦»ğºò²»×ã£¬ÄÑÒÔÊ©Õ¹" FIREICE "¡£\n");
+                return notify_fail("ä½ ç½—æ±‰ä¼é­”åŠŸç«å€™ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" FIREICE "ã€‚\n");
 
         if ((int)me->query("max_neili") < 4000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»×ã£¬ÄÑÒÔÊ©Õ¹" FIREICE "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" FIREICE "ã€‚\n");
 
         if ((int)me->query("neili") < 500)
-                return notify_fail("ÄãÏÖÔÚµÄÄÚÁ¦²»×ã£¬ÄÑÒÔÊ©Õ¹" FIREICE "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çš„å†…åŠ›ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" FIREICE "ã€‚\n");
 
         skill = me->query_skill("luohan-fumogong", 1);
         me->add("neili", -300);
         me->receive_damage("qi", 0);
 
-        message_combatd(HIC "$N" HIC "×İÉù³¤Ğ¥£¬ÔË×ª¡¸" HIW "±ù"
-                        HIR "»ğ" HIW "¾ÅÖØÌì" HIC "¡¹ÕæÆø£¬¾ÛÁ¦"
-                        "ÓÚÕÆ¼ä£¬¹â»ªÁ÷¶¯£¬É·Îª×³¹Û¡£\n" NOR, me);
+        message_combatd(HIC "$N" HIC "çºµå£°é•¿å•¸ï¼Œè¿è½¬ã€Œ" HIW "å†°"
+                        HIR "ç«" HIW "ä¹é‡å¤©" HIC "ã€çœŸæ°”ï¼ŒèšåŠ›"
+                        "äºæŒé—´ï¼Œå…‰åæµåŠ¨ï¼Œç…ä¸ºå£®è§‚ã€‚\n" NOR, me);
 
         me->add_temp("apply/unarmed_damage", skill / 5);
         me->add_temp("apply/damage", skill / 5);
@@ -60,6 +60,6 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/damage", -amount);
                 me->add_temp("apply/armor", -amount * 2);
                 me->delete_temp("fireice");
-                tell_object(me, "ÄãµÄ" FIREICE "ÔËĞĞÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„" FIREICE "è¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›ä¸¹ç”°ã€‚\n");
         }
 }

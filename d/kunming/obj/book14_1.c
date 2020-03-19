@@ -9,13 +9,13 @@ void init()
 
 void create()
 {
-        set_name("ËÄÊ®¶şÕÂ¾­Ò»", ({"book1"}));
+        set_name("å››åäºŒç« ç»ä¸€", ({"book1"}));
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", "\nÒ»±¾Ïâ»ÆÆìµÄ¾­Êé,·âÆ¤(binding)ºÜ¾«ÖÂ¡£\n");
-                set("unit", "±¾");
+                set("long", "\nä¸€æœ¬é•¶é»„æ——çš„ç»ä¹¦,å°çš®(binding)å¾ˆç²¾è‡´ã€‚\n");
+                set("unit", "æœ¬");
                 set("material", "paper");
         }
         setup();
@@ -32,7 +32,7 @@ int do_tear(string arg)
 
 	if(arg=="book1")
 	{
-	message_vision("$NÒ»ÏÂ°Ñ¾­ÊéËºµÃ·ÛËé¡£\n", this_player());
+	message_vision("$Nä¸€ä¸‹æŠŠç»ä¹¦æ’•å¾—ç²‰ç¢ã€‚\n", this_player());
 	destruct(this_object());
 	return 1;
 	}
@@ -40,18 +40,18 @@ int do_tear(string arg)
 	if( sscanf(arg, "book1 %s", dir)==1 ) {
 	if( dir=="binding" ) {
 		if(this_object()->query("hasgot"))
-		message_vision("$N½«·âÆ¤Ëº¿ª,·¢ÏÖÑòÆ¤ÒÑ¾­±»È¡×ßÁË¡£\n", this_player());
+		message_vision("$Nå°†å°çš®æ’•å¼€,å‘ç°ç¾Šçš®å·²ç»è¢«å–èµ°äº†ã€‚\n", this_player());
 		else
 		{
-		message_vision("$N½«·âÆ¤Ëº¿ª£¬¼¸¿éÑòÆ¤µôÁËÏÂÀ´¡£\n", this_player());
-		message_vision("$NÏÈ½«ÑòÆ¤ÉÏµÄµØÍ¼¼ÇÁËÏÂÀ´£¬È»ºó°ÑËüÃÇÉÕµôÁË¡£\n", this_player());
+		message_vision("$Nå°†å°çš®æ’•å¼€ï¼Œå‡ å—ç¾Šçš®æ‰äº†ä¸‹æ¥ã€‚\n", this_player());
+		message_vision("$Nå…ˆå°†ç¾Šçš®ä¸Šçš„åœ°å›¾è®°äº†ä¸‹æ¥ï¼Œç„¶åæŠŠå®ƒä»¬çƒ§æ‰äº†ã€‚\n", this_player());
 	        me->set("huanggong/haspi1", 1);
                 this_object()->set("hasgot",1);  
         	}
 	}
         else
 	{
-	message_vision("$NÒ»ÏÂ°Ñ¾­ÊéËºµÃ·ÛËé¡£\n", this_player());
+	message_vision("$Nä¸€ä¸‹æŠŠç»ä¹¦æ’•å¾—ç²‰ç¢ã€‚\n", this_player());
 	destruct(this_object());
 	}
 	return 1;

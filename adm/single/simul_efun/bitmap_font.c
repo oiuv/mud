@@ -7,21 +7,21 @@ Date: 2020-02-20
 Description:
     display ASCII and chinese with bitmap font for mudos and fluffos v2017
 *****************************************************************************/
-// ×ÖÌåÎÄ¼ş(Çë¸ù¾İĞèÒªĞŞ¸ÄÂ·¾¶)
+// å­—ä½“æ–‡ä»¶(è¯·æ ¹æ®éœ€è¦ä¿®æ”¹è·¯å¾„)
 #define HZK "/adm/etc/fonts/HZK"
 #define ASC "/adm/etc/fonts/ASC"
-// Ä¬ÈÏÇ°¾°×Ö·û
-#define DEFAULT_FILL "¡ñ"
-// Ä¬ÈÏ±³¾°×Ö·û
+// é»˜è®¤å‰æ™¯å­—ç¬¦
+#define DEFAULT_FILL "â—"
+// é»˜è®¤èƒŒæ™¯å­—ç¬¦
 #define DEFAULT_BG "--"
-// Ä¬ÈÏÇ°¾°ÑÕÉ«
+// é»˜è®¤å‰æ™¯é¢œè‰²
 #define DEFAULT_FCOLOR ""
-// Ä¬ÈÏ±³¾°ÑÕÉ«
+// é»˜è®¤èƒŒæ™¯é¢œè‰²
 #define DEFAULT_BGCOLOR ""
-// Ä¬ÈÏµãÕó´óĞ¡
+// é»˜è®¤ç‚¹é˜µå¤§å°
 #define AUTO_SIZE 16
 /**
- * ×Ö·û¡¢×ÖºÅ¡¢ÄÚÈİÌî³ä¡¢±³¾°Ìî³ä¡¢Ç°¾°É«¡¢±³¾°É«
+ * å­—ç¬¦ã€å­—å·ã€å†…å®¹å¡«å……ã€èƒŒæ™¯å¡«å……ã€å‰æ™¯è‰²ã€èƒŒæ™¯è‰²
  */
 varargs string bitmap_font(string str, int size, string fill, string bg, string fcolor, string bgcolor)
 {
@@ -29,11 +29,11 @@ varargs string bitmap_font(string str, int size, string fill, string bg, string 
     int *mask = ({0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1});
     buffer char;
     string file, *out;
-    // µ±Ç°¿ÉÓÃ×Ö¿â16x12¡¢16x14¡¢16x16
+    // å½“å‰å¯ç”¨å­—åº“16x12ã€16x14ã€16x16
     if (member_array(size, ({12, 14, 16, 32})) < 0)
         size = AUTO_SIZE;
 
-    // ÖĞÎÄ×ÖÌåÕ¼ÓÃµÄ×Ö½ÚÊı(Ö§³Ö32x32µÈ×Ö¿â)
+    // ä¸­æ–‡å­—ä½“å ç”¨çš„å­—èŠ‚æ•°(æ”¯æŒ32x32ç­‰å­—åº“)
     if (size < 16)
         fontsize = size * 2;
     else
@@ -51,7 +51,7 @@ varargs string bitmap_font(string str, int size, string fill, string bg, string 
 
     if (!fcolor) fcolor = DEFAULT_FCOLOR;
     if (!bgcolor) bgcolor = DEFAULT_BGCOLOR;
-    // 16x16ÖĞÎÄ×Ö¿âËæ»ú×ÖÌå
+    // 16x16ä¸­æ–‡å­—åº“éšæœºå­—ä½“
     if (size == 16)
         file = HZK + size + element_of(({"C", "F", "H", "K", "L", "S", "V", "X", "Y"}));
     else
@@ -61,9 +61,9 @@ varargs string bitmap_font(string str, int size, string fill, string bg, string 
     {
         if (mask[0] & str[k])
         {
-            // ÇøÂë£ººº×ÖµÄµÚÒ»¸ö×Ö½Ú-0xA0
-            // Î»Âë£ººº×ÖµÄµÚ¶ş¸ö×Ö½Ú-0xA0
-            // offset = (94 * (ÇøÂë - 1) + (Î»Âë - 1)) * fontsize;
+            // åŒºç ï¼šæ±‰å­—çš„ç¬¬ä¸€ä¸ªå­—èŠ‚-0xA0
+            // ä½ç ï¼šæ±‰å­—çš„ç¬¬äºŒä¸ªå­—èŠ‚-0xA0
+            // offset = (94 * (åŒºç  - 1) + (ä½ç  - 1)) * fontsize;
             offset = fontsize * ((str[k] - 0xA1) * 94 + str[k+1] - 0xA1);
             char = read_buffer(file, offset, fontsize);
             scale = fontsize / size;
@@ -71,7 +71,7 @@ varargs string bitmap_font(string str, int size, string fill, string bg, string 
         }
         else
         {
-            // Ó¢ÎÄÃ¿¸ö×Ö·ûÕ¼1×Ö½Ú
+            // è‹±æ–‡æ¯ä¸ªå­—ç¬¦å 1å­—èŠ‚
             offset = str[k] * size;
             char = read_buffer(ASC + size, offset, size);
             scale = 1;
@@ -79,7 +79,7 @@ varargs string bitmap_font(string str, int size, string fill, string bg, string 
 
         if (!sizeof(char)) return "Can't read bytes from character lib.\n";
 
-        //Ìî³ä×Ö·û
+        //å¡«å……å­—ç¬¦
         for (int i = 0; i < sizeof(char); i++)
         {
             for (int j = 0; j < 8; j++)
@@ -90,7 +90,7 @@ varargs string bitmap_font(string str, int size, string fill, string bg, string 
                     out[i / scale] += bgcolor + bg;
             }
         }
-        // Çå³ı¶àÓàµÄÑÕÉ«´úÂë
+        // æ¸…é™¤å¤šä½™çš„é¢œè‰²ä»£ç 
         for (int i = 0; i < sizeof(out); i++)
         {
             out[i] = replace_string(out[i], fill + fcolor + fill, fill + fill);

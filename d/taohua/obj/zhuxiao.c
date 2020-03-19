@@ -8,14 +8,14 @@ inherit MI_XIAO;
 
 void create()
 {
-        set_name("ÖñÏô", ({ "zhuxiao" }));
+        set_name("ç«¹è§", ({ "zhuxiao" }));
         set_weight(300);
 
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-                set("unit", "¸ù");
-                set("long", "Ò»¸ùÆÕÆÕÍ¨Í¨µÄÖñÏô£¬µ«ÊÇÒ²ÄÜ´µ³ö¶¯ÈËµÄÇú×Ó¡£\n");
+                set("unit", "æ ¹");
+                set("long", "ä¸€æ ¹æ™®æ™®é€šé€šçš„ç«¹è§ï¼Œä½†æ˜¯ä¹Ÿèƒ½å¹å‡ºåŠ¨äººçš„æ›²å­ã€‚\n");
 		set("value", 10);
 		set("material", "bamboo");
 	}

@@ -5,9 +5,9 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("Èç»¨", ({"ru hua"}));
-        set("shop_title", "ÀÏ°åÄï");
-        set("gender", "Å®ĞÔ");
+        set_name("å¦‚èŠ±", ({"ru hua"}));
+        set("shop_title", "è€æ¿å¨˜");
+        set("gender", "å¥³æ€§");
         set("combat_exp", 4000);
         set("age", 34);
         set("per", 40);
@@ -43,7 +43,7 @@ void greeting(object ob)
 {
         if (! ob || environment(ob) != environment())
                 return;
-        say("Èç»¨Ğ¦ßäßäµØËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-            "£¬Å«¼Ò¸øÄãµ¹±­¾Æ³¢³¢°É!\n");
+        say("å¦‚èŠ±ç¬‘å’ªå’ªåœ°è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+            "ï¼Œå¥´å®¶ç»™ä½ å€’æ¯é…’å°å°å§!\n");
 }
 

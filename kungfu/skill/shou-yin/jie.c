@@ -1,4 +1,4 @@
-// jie.c Ìì½Ù
+// jie.c å¤©åŠ«
 
 #include <ansi.h>
 
@@ -18,43 +18,43 @@ int perform(object me, object target)
         }
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail("¡¸Ìì½Ù¡¹Ö»ÄÜÔÚÕ½¶·ÖĞ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("ã€Œå¤©åŠ«ã€åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail("¡¸Ìì½Ù¡¹Ö»ÄÜ¿ÕÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("ã€Œå¤©åŠ«ã€åªèƒ½ç©ºæ‰‹ä½¿ç”¨ã€‚\n");
                 
         if (me->query("max_neili") < 3000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª»¹²»¹»£¬ÎŞ·¨Ê©Õ¹Ìì½Ù¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºè¿˜ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•å¤©åŠ«ã€‚\n");
 
         if ((int)me->query("neili") < 500)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¡\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼\n");
 
         if ((int)me->query("qi") < 800)
-                return notify_fail("ÄãµÄÌåÁ¦ÏÖÔÚ²»¹»£¡\n");
+                return notify_fail("ä½ çš„ä½“åŠ›ç°åœ¨ä¸å¤Ÿï¼\n");
 
         if ((int)me->query_skill("shou-yin", 1) < 150)
-                return notify_fail("ÄãµÄÊÖÓ¡»ğºò²»¹»£¬ÎŞ·¨Ê¹ÓÃÌì½Ù£¡\n");
+                return notify_fail("ä½ çš„æ‰‹å°ç«å€™ä¸å¤Ÿï¼Œæ— æ³•ä½¿ç”¨å¤©åŠ«ï¼\n");
 
         if ((int)me->query_skill("force") < 300)
-                return notify_fail("ÄãµÄÄÚ¹¦ĞŞÎª²»¹»£¬ÎŞ·¨Ê¹ÓÃÌì½Ù£¡\n");
+                return notify_fail("ä½ çš„å†…åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œæ— æ³•ä½¿ç”¨å¤©åŠ«ï¼\n");
 
         if (me->query_skill_prepared("hand") != "shou-yin")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ×¼±¸Ê¹ÓÃÊÖÓ¡£¬ÎŞ·¨Ê¹ÓÃÌì½Ù£¡\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰å‡†å¤‡ä½¿ç”¨æ‰‹å°ï¼Œæ— æ³•ä½¿ç”¨å¤©åŠ«ï¼\n");
 
-        msg = HIW "$N" HIW "Ò»Éù±©ºÈ£¬Ë«ÊÖÃÍÈ»·­¹ö£¬"
-              "É²ÄÇ¼äÖ»¼ûÎŞÊıµÄÊÖÓ¡ÆÌÌì¸ÇµØ·äÓµ¶ø³ö£¬"
-              "ÆøÊÆ»Öºë£¬ÎŞÓëÂ×±È¡£\n" NOR;
+        msg = HIW "$N" HIW "ä¸€å£°æš´å–ï¼ŒåŒæ‰‹çŒ›ç„¶ç¿»æ»šï¼Œ"
+              "åˆ¹é‚£é—´åªè§æ— æ•°çš„æ‰‹å°é“ºå¤©ç›–åœ°èœ‚æ‹¥è€Œå‡ºï¼Œ"
+              "æ°”åŠ¿æ¢å¼˜ï¼Œæ— ä¸ä¼¦æ¯”ã€‚\n" NOR;
         ap = me->query_skill("strike") + me->query("str") * 10;
         dp = target->query_skill("parry") + target->query("dex") * 6;
         if (ap / 2 + random(ap) > dp)
         {
                 count = ap / 9;
-                msg += HIR "$n" HIR "Ãæ¶Ô$P" HIR "ÕâÅÅÉ½µ¹º£¹¥ÊÆ£¬ÍêÈ«"
-                       "ÎŞ·¨µÖµ²£¬Î¨ÓĞÍËºó¡£\n" NOR;
+                msg += HIR "$n" HIR "é¢å¯¹$P" HIR "è¿™æ’å±±å€’æµ·æ”»åŠ¿ï¼Œå®Œå…¨"
+                       "æ— æ³•æŠµæŒ¡ï¼Œå”¯æœ‰é€€åã€‚\n" NOR;
         } else
         {
-                msg += HIC "$n" HIC "ÄıÉñÓ¦Õ½£¬½ß¾¡ËùÄÜ»¯½â$P" HIC
-                       "Õâ¼¸ÕÆ¡£\n" NOR;
+                msg += HIC "$n" HIC "å‡ç¥åº”æˆ˜ï¼Œç«­å°½æ‰€èƒ½åŒ–è§£$P" HIC
+                       "è¿™å‡ æŒã€‚\n" NOR;
                 count = 0;
         }
 

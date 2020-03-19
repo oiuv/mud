@@ -10,7 +10,7 @@ int main(object me, string dir)
     if (dir[ < 1] != '/')
         dir += "/";
     if (file_size(dir) != -2)
-        return notify_fail(dir + "not exist¡£\n");
+        return notify_fail(dir + "not existã€‚\n");
     log_file("loadall", "\n#check dir :" + dir);
     write("check dir " + dir + "\n");
     if (loadall(dir))
@@ -36,7 +36,7 @@ int loadall(string dir)
         switch (file_size(dir + file))
         {
         case -1:
-            //ÎÞ·¨¶ÁÈ¡¸ÃÄ¿Â¼£¬Ìø¹ý
+            //æ— æ³•è¯»å–è¯¥ç›®å½•ï¼Œè·³è¿‡
             break;
         case -2:
             if (file != "." && file != "..")
@@ -58,12 +58,12 @@ int loadall(string dir)
 int help(object me)
 {
     write(@HELP
-    ÔØÈëÄ³¸öÄ¿Â¼ÏÂµÄËùÓÐ.cÎÄ¼þ(°üº¬×ÓÄ¿Â¼)£¬ÒÔ²éÕÒËùÓÐ
-¿ÉÄÜµÄ±àÒë´íÎó¡£
+    è½½å…¥æŸä¸ªç›®å½•ä¸‹çš„æ‰€æœ‰.cæ–‡ä»¶(åŒ…å«å­ç›®å½•)ï¼Œä»¥æŸ¥æ‰¾æ‰€æœ‰
+å¯èƒ½çš„ç¼–è¯‘é”™è¯¯ã€‚
 
-Ö¸Áî¸ñÊ½£º loadall [dir]
-±ÈÈç      loadall /d/city/
-Ã»ÓÐ dir£¬ÔòdirÄ¬ÈÏÎª / £¬ÎÄ¼þÌ«¶à¿ÉÄÜ»á¿¨Ò»»á¡£
+æŒ‡ä»¤æ ¼å¼ï¼š loadall [dir]
+æ¯”å¦‚      loadall /d/city/
+æ²¡æœ‰ dirï¼Œåˆ™diré»˜è®¤ä¸º / ï¼Œæ–‡ä»¶å¤ªå¤šå¯èƒ½ä¼šå¡ä¸€ä¼šã€‚
 
 HELP );
     return 1;

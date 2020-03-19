@@ -1,15 +1,15 @@
-// six-fingers.c ÁùÂöÉñ½£ - ÖĞ³å½£
+// six-fingers.c å…­è„‰ç¥å‰‘ - ä¸­å†²å‰‘
 #include <ansi.h>
 inherit SKILL;
 
 mapping *action = ({
-        ([ "name":   "ÖĞ³å½£",
-           "action": "$NÓÒÊÖÖĞÖ¸Ò»Êú£¬¡°ÖĞ³å½£¡±ÏòÇ°´Ì³ö¡£ÕæÆø¹Äµ´£¬àÍÈ»ÉùÏì£¬"
-                     "ÎŞĞÎ½£ÆøÖ±Ö¸$nµÄ$l",
+        ([ "name":   "ä¸­å†²å‰‘",
+           "action": "$Nå³æ‰‹ä¸­æŒ‡ä¸€ç«–ï¼Œâ€œä¸­å†²å‰‘â€å‘å‰åˆºå‡ºã€‚çœŸæ°”é¼“è¡ï¼Œå—¤ç„¶å£°å“ï¼Œ"
+                     "æ— å½¢å‰‘æ°”ç›´æŒ‡$nçš„$l",
            "force":  490,
            "dodge":  -15,
            "damage": 110,
-           "damage_type": "´ÌÉË"
+           "damage_type": "åˆºä¼¤"
         ]),
 });
 
@@ -20,13 +20,13 @@ int valid_enable(string usage) { return usage == "finger" ||  usage == "parry"; 
 int valid_learn(object me)
 {
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail("Á·ÖĞ³å½£±ØĞë¿ÕÊÖ¡£\n");
+                return notify_fail("ç»ƒä¸­å†²å‰‘å¿…é¡»ç©ºæ‰‹ã€‚\n");
 
         if ((int)me->query("max_neili") < 2250)
-                return notify_fail("ÄãµÄÄÚÁ¦Ì«Èõ£¬ÎŞ·¨Ñ§ÖĞ³å½£¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›å¤ªå¼±ï¼Œæ— æ³•å­¦ä¸­å†²å‰‘ã€‚\n");
 
         if ((int)me->query_skill("finger", 1) < (int)me->query_skill("zhongchong-sword", 1))
-                return notify_fail("ÄãµÄ»ù±¾Ö¸·¨Ë®Æ½ÓĞÏŞ£¬ÎŞ·¨ÎŞ·¨Áì»á¸ü¸ßÉîµÄÖĞ³å½£¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬æŒ‡æ³•æ°´å¹³æœ‰é™ï¼Œæ— æ³•æ— æ³•é¢†ä¼šæ›´é«˜æ·±çš„ä¸­å†²å‰‘ã€‚\n");
 
         return 1;
 }
@@ -45,13 +45,13 @@ int practice_skill(object me)
         //int i, skill, damage;
 
         if ((int)me->query_skill("six-finger", 1))
-                return notify_fail("ÄãÒÑ¾­Ñ§ÆëÁùÂöÉñ½£ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»å­¦é½å…­è„‰ç¥å‰‘äº†ã€‚\n");
 
         if ((int)me->query("qi") < 100)
-                return notify_fail("ÄãµÄÌåÁ¦Ì«µÍÁË¡£\n");
+                return notify_fail("ä½ çš„ä½“åŠ›å¤ªä½äº†ã€‚\n");
 
         if ((int)me->query("neili") < 200)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»Á·ÖĞ³å½£¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿç»ƒä¸­å†²å‰‘ã€‚\n");
 
         me->receive_damage("qi", 40);
         me->add("neili", -80);
@@ -65,7 +65,7 @@ mixed hit_ob(object me, object victim, int damage_bonus)
 	if( random(damage_bonus/4) > victim->query_str() )
 	{
 		victim->receive_wound("qi", (damage_bonus - 100) / 2 );
-		return HIR "ÄãÌıµ½¡¸àÍÀ²¡¹Ò»ÉùÇáÏì£¬Á³ÉÏ¾¹½¦µ½Ò»Ğ©ÑªµÎ£¡\n" NOR;
+		return HIR "ä½ å¬åˆ°ã€Œå—¤å•¦ã€ä¸€å£°è½»å“ï¼Œè„¸ä¸Šç«Ÿæº…åˆ°ä¸€äº›è¡€æ»´ï¼\n" NOR;
 	}
 }
 

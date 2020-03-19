@@ -8,17 +8,17 @@ inherit F_TRANSPORT;
 
 void create()
 {
-        set_name("´ó³µ", ({ "cart" }) );
+        set_name("å¤§è½¦", ({ "cart" }) );
         set_weight(200000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
                 set("value", 1);
-                set("long", "ÕâÊÇÒ»Á¾ÆÕÍ¨µÄ»õ³µ¡£\n");
-                set("no_sell", "Äã»¹ÊÇÄÃµ½±ğµØÈ¥°É¡£\n");
-                set("unit", "Á¾");
+                set("long", "è¿™æ˜¯ä¸€è¾†æ™®é€šçš„è´§è½¦ã€‚\n");
+                set("no_sell", "ä½ è¿˜æ˜¯æ‹¿åˆ°åˆ«åœ°å»å§ã€‚\n");
+                set("unit", "è¾†");
                 set("material", "wood");
-                set("no_get", "ºÃ¼Ò»ï£¬³µÄãÒ²Ïë¿¸ÔÚ¼çÉÏ£¿\n");
+                set("no_get", "å¥½å®¶ä¼™ï¼Œè½¦ä½ ä¹Ÿæƒ³æ‰›åœ¨è‚©ä¸Šï¼Ÿ\n");
         }
         setup();
 }
@@ -32,7 +32,7 @@ string long()
         if (! mapp(goods = query_temp("goods")))
                 return desc;
 
-        desc += "ÀïÃæ×°×Å" + chinese_number(goods["amount"]) +
-                goods["unit"] + goods["name"] + "¡£\n";
+        desc += "é‡Œé¢è£…ç€" + chinese_number(goods["amount"]) +
+                goods["unit"] + goods["name"] + "ã€‚\n";
         return desc;
 }

@@ -4,11 +4,11 @@
 #include <ansi.h>
 inherit F_DBASE;
 
-// ¶¨ÒåÌá¹©¸øÍâ²¿µ÷ÓÃµÄ½Ó¿Úº¯Êı
+// å®šä¹‰æä¾›ç»™å¤–éƒ¨è°ƒç”¨çš„æ¥å£å‡½æ•°
 public mixed teach_pfm(object who, object ob, mapping b);
 public mixed give_item(object who, object ob, mapping b);
 
-// ¶ÔÓ¦ÏÂÃæµÄÌáÉı skills µÄ¿É¼¤·¢¼¼ÄÜ
+// å¯¹åº”ä¸‹é¢çš„æå‡ skills çš„å¯æ¿€å‘æŠ€èƒ½
 string *valid_types = ({
         "force",
         "dodge",
@@ -36,92 +36,92 @@ string *valid_types = ({
         "cooking",
 });
 
-// ´«ÊÚÎä¹¦¾øÕĞ
+// ä¼ æˆæ­¦åŠŸç»æ‹›
 public mixed teach_pfm(object who, object ob, mapping b)
 {
-        string name, perform;           // ¾øÕĞÃû³Æ¼°¾øÕĞ½ø³Ì¼ÇÂ¼
-        int i;                          // µ¼ÈëÖ÷Òª¼¼ÄÜÉı¼¶µÄÑ­»··û
-        string msg;                     // ¶ÔÓÚÄ³Ğ©·µ»ØĞÅÏ¢µÄÃèÊö
-        string msg1, msg2;              // ÏÔÊ¾³öµÄĞÅÏ¢¼°»Ø´ğĞÅÏ¢
-        string sk1, sk2, sk3, sk4, sk5; // ËùĞèÒªµÄÎä¹¦Ãû³Æ
-        int lv1, lv2, lv3, lv4, lv5;    // Ëù¶ÔÓ¦µÄÎä¹¦µÈ¼¶
-        int free;                       // ÓëÏÂÃæµÄÃÅÅÉËù¶ÔÓ¦£¬Èç¹ûÉèÖÃ¸Ã²ÎÊı£¬Ôò
-                                        // ÎŞĞë¿¼ÂÇ´«ÊÚÕßÓë±»´«ÊÚÕßµÄÃÅÅÉÊÇ·ñÒ»ÖÂ
-        string family;                  // ´«ÊÚÕßµÄÃÅÅÉ£¬Èç¹û²»ÉèÖÃ¹«¹²²ÎÊı£¬ÔòÒª
-                                        // ´«ÊÚË«·½µÄÃÅÅÉÎªÍ¬Ò»ÃÅÅÉ
-        int gongxian, shen;             // ĞèÇóµÄ¹±Ï×¼°Éñ
-        int force, dodge;               // ĞèÇóµÄÄÚ¹¦µÈ¼¶ÓëÇá¹¦µÈ¼¶
-        int neili, jingli;              // ĞèÇóµÄ×î´óÄÚÁ¦Óë×î´ó¾«Á¦
-        string temp1, temp2, temp3;     // ÒªÇóµÄ½ø³Ì¼ÇÂ¼
-        string tmsg1, tmsg2, tmsg3;     // ÒªÇóµÄ½ø³Ì¼ÇÂ¼µÄ»Ø´ğĞÅÏ¢
+        string name, perform;           // ç»æ‹›åç§°åŠç»æ‹›è¿›ç¨‹è®°å½•
+        int i;                          // å¯¼å…¥ä¸»è¦æŠ€èƒ½å‡çº§çš„å¾ªç¯ç¬¦
+        string msg;                     // å¯¹äºæŸäº›è¿”å›ä¿¡æ¯çš„æè¿°
+        string msg1, msg2;              // æ˜¾ç¤ºå‡ºçš„ä¿¡æ¯åŠå›ç­”ä¿¡æ¯
+        string sk1, sk2, sk3, sk4, sk5; // æ‰€éœ€è¦çš„æ­¦åŠŸåç§°
+        int lv1, lv2, lv3, lv4, lv5;    // æ‰€å¯¹åº”çš„æ­¦åŠŸç­‰çº§
+        int free;                       // ä¸ä¸‹é¢çš„é—¨æ´¾æ‰€å¯¹åº”ï¼Œå¦‚æœè®¾ç½®è¯¥å‚æ•°ï¼Œåˆ™
+                                        // æ— é¡»è€ƒè™‘ä¼ æˆè€…ä¸è¢«ä¼ æˆè€…çš„é—¨æ´¾æ˜¯å¦ä¸€è‡´
+        string family;                  // ä¼ æˆè€…çš„é—¨æ´¾ï¼Œå¦‚æœä¸è®¾ç½®å…¬å…±å‚æ•°ï¼Œåˆ™è¦
+                                        // ä¼ æˆåŒæ–¹çš„é—¨æ´¾ä¸ºåŒä¸€é—¨æ´¾
+        int gongxian, shen;             // éœ€æ±‚çš„è´¡çŒ®åŠç¥
+        int force, dodge;               // éœ€æ±‚çš„å†…åŠŸç­‰çº§ä¸è½»åŠŸç­‰çº§
+        int neili, jingli;              // éœ€æ±‚çš„æœ€å¤§å†…åŠ›ä¸æœ€å¤§ç²¾åŠ›
+        string temp1, temp2, temp3;     // è¦æ±‚çš„è¿›ç¨‹è®°å½•
+        string tmsg1, tmsg2, tmsg3;     // è¦æ±‚çš„è¿›ç¨‹è®°å½•çš„å›ç­”ä¿¡æ¯
 
-        // Èç¹ûÃ»ÓĞÖ¸Ã÷¶ÔÏó£¬Ôò·µ»Ø
+        // å¦‚æœæ²¡æœ‰æŒ‡æ˜å¯¹è±¡ï¼Œåˆ™è¿”å›
         if (! stringp(name = b["name"])
            || ! stringp(perform = b["perform"]))
                 return 0;
 
-        // ÅĞ¶ÏËùÊôÃÅÅÉ£¬ÈçÎª¹«¹²´«ÊÚ£¬Ó¦Ìí¼Ó free ²ÎÊı
+        // åˆ¤æ–­æ‰€å±é—¨æ´¾ï¼Œå¦‚ä¸ºå…¬å…±ä¼ æˆï¼Œåº”æ·»åŠ  free å‚æ•°
         if (! intp(free = b["free"]) || free <= 0)
         {
                 family = ob->query("family/family_name");
 
                 if (who->query("family/family_name") != family)
-                        return RANK_D->query_respect(who) + "ÓëÎÒ" +
-                               family + "ËØÎŞÔ¨Ô´£¬²»Öª´Ë»°´ÓºÎËµÆğ¡£";
+                        return RANK_D->query_respect(who) + "ä¸æˆ‘" +
+                               family + "ç´ æ— æ¸Šæºï¼Œä¸çŸ¥æ­¤è¯ä»ä½•è¯´èµ·ã€‚";
         }
 
-        // Èç¹ûÒÑ¾­Ñ§»á£¬Ôò·µ»Ø
+        // å¦‚æœå·²ç»å­¦ä¼šï¼Œåˆ™è¿”å›
         if (who->query(perform))
         {
                 switch (random(4))
                 {
                 case 0 :
-                        msg = "×Ô¼ºÏÂÈ¥Á·£¬»¹À´ÂŞàÂÊ²Ã´¡£";
+                        msg = "è‡ªå·±ä¸‹å»ç»ƒï¼Œè¿˜æ¥ç½—å—¦ä»€ä¹ˆã€‚";
                         break;
 
                 case 1 :
-                        msg = "ÎÒ²»ÊÇÒÑ¾­½Ì¹ıÄãÁËÃ´£¿×Ô¼ºÏÂÈ¥Á·¡£";
+                        msg = "æˆ‘ä¸æ˜¯å·²ç»æ•™è¿‡ä½ äº†ä¹ˆï¼Ÿè‡ªå·±ä¸‹å»ç»ƒã€‚";
                         break;
 
                 case 2 :
-                        msg = "ÎÒÄÜ½ÌµÄ¶¼½Ì¸øÄãÁË£¬Ê£ÏÂµÄÄã×Ô¼ºÁìÎò°É¡£";
+                        msg = "æˆ‘èƒ½æ•™çš„éƒ½æ•™ç»™ä½ äº†ï¼Œå‰©ä¸‹çš„ä½ è‡ªå·±é¢†æ‚Ÿå§ã€‚";
                         break;
 
                 default :
-                        msg = "ÕâÕĞÄã²»ÊÇÒÑ¾­»áÁËÃ´£¬»¹²ø×ÅÎÒ×öÉõ£¿";
+                        msg = "è¿™æ‹›ä½ ä¸æ˜¯å·²ç»ä¼šäº†ä¹ˆï¼Œè¿˜ç¼ ç€æˆ‘åšç”šï¼Ÿ";
                         break;
                 }
                 return msg;
         }
 
-        // ÅĞ¶ÏÕıÉñ»ò¸ºÉñµÄÒªÇó
+        // åˆ¤æ–­æ­£ç¥æˆ–è´Ÿç¥çš„è¦æ±‚
         if (intp(shen = b["shen"]))
         {
-                // Èç¹ûÒªÇóÎª¸ºÉñ£¬Ôò×÷³ö´óÓÚÅĞ¶Ï
+                // å¦‚æœè¦æ±‚ä¸ºè´Ÿç¥ï¼Œåˆ™ä½œå‡ºå¤§äºåˆ¤æ–­
                 if (shen < 0 && who->query("shen") > shen)
-                        return "ºß£¡ÏñÄãÕâÑùµÄĞÄ´ÈÊÖÈíÖ®±²£¬ÓÖ"
-                               "ÄÜ¸É³ÉÊ²Ã´´óÊÂ£¿";
+                        return "å“¼ï¼åƒä½ è¿™æ ·çš„å¿ƒæ…ˆæ‰‹è½¯ä¹‹è¾ˆï¼Œåˆ"
+                               "èƒ½å¹²æˆä»€ä¹ˆå¤§äº‹ï¼Ÿ";
 
-                // Èç¹ûÒªÇóÎªÕıÉñ£¬Ôò×÷³öĞ¡ÓÚÅĞ¶Ï
+                // å¦‚æœè¦æ±‚ä¸ºæ­£ç¥ï¼Œåˆ™ä½œå‡ºå°äºåˆ¤æ–­
                 if (shen > 0 && who->query("shen") < shen)
-                        return "ÄãÄ¿Ç°Ëù×öµÄÏÀÒåÕıÊÂ²»¹»£¬ÕâÕĞ"
-                               "ÔİÊ±»¹²»ÄÜ´«Äã¡£";
+                        return "ä½ ç›®å‰æ‰€åšçš„ä¾ ä¹‰æ­£äº‹ä¸å¤Ÿï¼Œè¿™æ‹›"
+                               "æš‚æ—¶è¿˜ä¸èƒ½ä¼ ä½ ã€‚";
         }
 
-        // ÅĞ¶ÏÃÅÅÉ¹±Ï×µÄÒªÇó
+        // åˆ¤æ–­é—¨æ´¾è´¡çŒ®çš„è¦æ±‚
         if (intp(gongxian = b["gongxian"])
            && who->query("gongxian") < gongxian)
-                return "ÄãÎª" + who->query("family/family_name") +
-                       "×÷³öµÄ¹±Ï×²»¹»£¬ÕâÕĞÔİÊ±»¹²»ÄÜ´«Äã¡£";
+                return "ä½ ä¸º" + who->query("family/family_name") +
+                       "ä½œå‡ºçš„è´¡çŒ®ä¸å¤Ÿï¼Œè¿™æ‹›æš‚æ—¶è¿˜ä¸èƒ½ä¼ ä½ ã€‚";
 
-        // ÅĞ¶ÏÌØ¶¨µÄ½ø³Ì¼ÇÂ¼ÒªÇó
+        // åˆ¤æ–­ç‰¹å®šçš„è¿›ç¨‹è®°å½•è¦æ±‚
         if (stringp(temp1 = b["temp1"]) && ! who->query(temp1))
         {
                 if (stringp(tmsg1 = b["tmsg1"]))
                         return tmsg1;
                 else
-                        return "ÏÖÔÚÄ³Ğ©»úÔµÎ´µ½£¬ÕâÕĞÎÒÔİÊ±»¹"
-                               "²»ÄÜ´«¸øÄã¡£";
+                        return "ç°åœ¨æŸäº›æœºç¼˜æœªåˆ°ï¼Œè¿™æ‹›æˆ‘æš‚æ—¶è¿˜"
+                               "ä¸èƒ½ä¼ ç»™ä½ ã€‚";
         }
 
         if (stringp(temp2 = b["temp2"]) && ! who->query(temp2))
@@ -129,8 +129,8 @@ public mixed teach_pfm(object who, object ob, mapping b)
                 if (stringp(tmsg2 = b["tmsg2"]))
                         return tmsg2;
                 else
-                        return "ÏÖÔÚÄ³Ğ©»úÔµÎ´µ½£¬ÕâÕĞÎÒÔİÊ±»¹"
-                               "²»ÄÜ´«¸øÄã¡£";
+                        return "ç°åœ¨æŸäº›æœºç¼˜æœªåˆ°ï¼Œè¿™æ‹›æˆ‘æš‚æ—¶è¿˜"
+                               "ä¸èƒ½ä¼ ç»™ä½ ã€‚";
         }
 
         if (stringp(temp3 = b["temp3"]) && ! who->query(temp3))
@@ -138,67 +138,67 @@ public mixed teach_pfm(object who, object ob, mapping b)
                 if (stringp(tmsg3 = b["tmsg3"]))
                         return tmsg3;
                 else
-                        return "ÏÖÔÚÄ³Ğ©»úÔµÎ´µ½£¬ÕâÕĞÎÒÔİÊ±»¹"
-                               "²»ÄÜ´«¸øÄã¡£";
+                        return "ç°åœ¨æŸäº›æœºç¼˜æœªåˆ°ï¼Œè¿™æ‹›æˆ‘æš‚æ—¶è¿˜"
+                               "ä¸èƒ½ä¼ ç»™ä½ ã€‚";
         }
 
-        // ÅĞ¶ÏÌØ¶¨µÄÎä¹¦ĞèÇó£¬ÆäÖĞ sk1 Ó¦ÎªÖ÷ skills 
+        // åˆ¤æ–­ç‰¹å®šçš„æ­¦åŠŸéœ€æ±‚ï¼Œå…¶ä¸­ sk1 åº”ä¸ºä¸» skills 
         if (stringp(sk1 = b["sk1"]) && intp(lv1 = b["lv1"]))
         {
                 if (who->query_skill(sk1, 1) <= 0)
-                        return "ÄãÁ¬" + to_chinese(sk1) + "¶¼"
-                               "Î´ÔøÑ§¹ı£¬ºÎÌ¸¾øÕĞ¿ÉÑÔ£¿";
+                        return "ä½ è¿" + to_chinese(sk1) + "éƒ½"
+                               "æœªæ›¾å­¦è¿‡ï¼Œä½•è°ˆç»æ‹›å¯è¨€ï¼Ÿ";
 
                 if (who->query_skill(sk1, 1) < lv1)
-                        return "Äã¶Ô" + to_chinese(sk1) + "µÄ"
-                               "ÁË½â»¹²»¹»£¬ÉĞÇÒÎŞ·¨ÁìÎò´ËÕĞ¡£";
+                        return "ä½ å¯¹" + to_chinese(sk1) + "çš„"
+                               "äº†è§£è¿˜ä¸å¤Ÿï¼Œå°šä¸”æ— æ³•é¢†æ‚Ÿæ­¤æ‹›ã€‚";
         }
 
         if (stringp(sk2 = b["sk2"]) && intp(lv2 = b["lv2"])
            && who->query_skill(sk2, 1) < lv2)
-                return "Äã¶Ô" + to_chinese(sk2) + "µÄÁË½â»¹²»"
-                       "¹»£¬ÉĞÇÒÎŞ·¨ÁìÎò´ËÕĞ¡£";
+                return "ä½ å¯¹" + to_chinese(sk2) + "çš„äº†è§£è¿˜ä¸"
+                       "å¤Ÿï¼Œå°šä¸”æ— æ³•é¢†æ‚Ÿæ­¤æ‹›ã€‚";
 
         if (stringp(sk3 = b["sk3"]) && intp(lv3 = b["lv3"])
            && who->query_skill(sk3, 1) < lv3)
-                return "Äã¶Ô" + to_chinese(sk3) + "µÄÁË½â»¹²»"
-                       "¹»£¬ÉĞÇÒÎŞ·¨ÁìÎò´ËÕĞ¡£";
+                return "ä½ å¯¹" + to_chinese(sk3) + "çš„äº†è§£è¿˜ä¸"
+                       "å¤Ÿï¼Œå°šä¸”æ— æ³•é¢†æ‚Ÿæ­¤æ‹›ã€‚";
 
         if (stringp(sk4 = b["sk4"]) && intp(lv4 = b["lv4"])
            && who->query_skill(sk4, 1) < lv4)
-                return "Äã¶Ô" + to_chinese(sk4) + "µÄÁË½â»¹²»"
-                       "¹»£¬ÉĞÇÒÎŞ·¨ÁìÎò´ËÕĞ¡£";
+                return "ä½ å¯¹" + to_chinese(sk4) + "çš„äº†è§£è¿˜ä¸"
+                       "å¤Ÿï¼Œå°šä¸”æ— æ³•é¢†æ‚Ÿæ­¤æ‹›ã€‚";
 
         if (stringp(sk5 = b["sk5"]) && intp(lv5 = b["lv5"])
            && who->query_skill(sk5, 1) < lv5)
-                return "Äã¶Ô" + to_chinese(sk5) + "µÄÁË½â»¹²»"
-                       "¹»£¬ÉĞÇÒÎŞ·¨ÁìÎò´ËÕĞ¡£";
+                return "ä½ å¯¹" + to_chinese(sk5) + "çš„äº†è§£è¿˜ä¸"
+                       "å¤Ÿï¼Œå°šä¸”æ— æ³•é¢†æ‚Ÿæ­¤æ‹›ã€‚";
 
-        // ÅĞ¶Ï¾øÕĞ¶ÔÄÚ¹¦µÄÒªÇó
+        // åˆ¤æ–­ç»æ‹›å¯¹å†…åŠŸçš„è¦æ±‚
         if (intp(force = b["force"])
            && force > 0
            && who->query_skill("force") < force)
-                return "ÄãÄ¿Ç°µÄÄÚ¹¦»ğºò²»×ã£¬ÏÂÈ¥Á·Á·ÔÙÀ´°É¡£";
+                return "ä½ ç›®å‰çš„å†…åŠŸç«å€™ä¸è¶³ï¼Œä¸‹å»ç»ƒç»ƒå†æ¥å§ã€‚";
 
-        // ÅĞ¶Ï¾øÕĞ¶ÔÇá¹¦µÄÒªÇó
+        // åˆ¤æ–­ç»æ‹›å¯¹è½»åŠŸçš„è¦æ±‚
         if (intp(dodge = b["dodge"])
            && dodge > 0
            && who->query_skill("dodge") < dodge)
-                return "ÄãÄ¿Ç°µÄÇá¹¦»ğºò²»×ã£¬ÏÂÈ¥Á·Á·ÔÙÀ´°É¡£";
+                return "ä½ ç›®å‰çš„è½»åŠŸç«å€™ä¸è¶³ï¼Œä¸‹å»ç»ƒç»ƒå†æ¥å§ã€‚";
 
-        // ÅĞ¶Ï¾øÕĞ¶ÔÄÚÁ¦ÉÏÏŞµÄÒªÇó
+        // åˆ¤æ–­ç»æ‹›å¯¹å†…åŠ›ä¸Šé™çš„è¦æ±‚
         if (intp(neili = b["neili"])
            && neili > 0
            && who->query("max_neili") < neili)
-                return "ÄãÏÖÔÚµÄÄÚÁ¦ĞŞÎª²»×ã£¬ĞŞÁ¶¸ßµãÔÙÀ´°É¡£";
+                return "ä½ ç°åœ¨çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œä¿®ç‚¼é«˜ç‚¹å†æ¥å§ã€‚";
 
-        // ÅĞ¶Ï¾øÕĞ¶Ô¾«Á¦ÉÏÏŞµÄÒªÇó
+        // åˆ¤æ–­ç»æ‹›å¯¹ç²¾åŠ›ä¸Šé™çš„è¦æ±‚
         if (intp(jingli = b["jingli"])
            && jingli > 0
            && who->query("max_jingli") < jingli)
-                return "ÄãÏÖÔÚµÄ¾«Á¦ĞŞÎª²»×ã£¬ĞŞÁ¶¸ßµãÔÙÀ´°É¡£";
+                return "ä½ ç°åœ¨çš„ç²¾åŠ›ä¿®ä¸ºä¸è¶³ï¼Œä¿®ç‚¼é«˜ç‚¹å†æ¥å§ã€‚";
 
-        // ¸øÓèÑ§Ï°¾øÕĞµÄÃèÊöĞÅÏ¢
+        // ç»™äºˆå­¦ä¹ ç»æ‹›çš„æè¿°ä¿¡æ¯
         if (stringp(msg1 = b["msg1"]))
         {
                 msg = msg1;
@@ -207,55 +207,55 @@ public mixed teach_pfm(object who, object ob, mapping b)
                 switch (random(4))
                 {
                 case 0 :
-                        msg = "$NÎ¢Î¢µãÁËµãÍ·£¬ÉìÊÖ½«$n" HIY "ÕĞ"
-                              "ÖÁÉíÇ°£¬µÍÉùÔÚ$n" HIY "¶úÅÏ½²ÊöÁË"
-                              "°ëÌì£¬»¹²»Ê±ÉìÊÖ±È»®ÑİÊ¾×ÅÊ²Ã´£¬Ëù"
-                              "½²È«ÊÇ" + to_chinese(sk1) + "µÄ¾«"
-                              "Î¢ÒªÒè¡£$n" HIY "Ìıºó»áĞÄÒ»Ğ¦£¬¿´"
-                              "À´¶Ô$NµÄ½Ìµ¼´óÓĞËùÎò¡£";
+                        msg = "$Nå¾®å¾®ç‚¹äº†ç‚¹å¤´ï¼Œä¼¸æ‰‹å°†$n" HIY "æ‹›"
+                              "è‡³èº«å‰ï¼Œä½å£°åœ¨$n" HIY "è€³ç•”è®²è¿°äº†"
+                              "åŠå¤©ï¼Œè¿˜ä¸æ—¶ä¼¸æ‰‹æ¯”åˆ’æ¼”ç¤ºç€ä»€ä¹ˆï¼Œæ‰€"
+                              "è®²å…¨æ˜¯" + to_chinese(sk1) + "çš„ç²¾"
+                              "å¾®è¦è¯£ã€‚$n" HIY "å¬åä¼šå¿ƒä¸€ç¬‘ï¼Œçœ‹"
+                              "æ¥å¯¹$Nçš„æ•™å¯¼å¤§æœ‰æ‰€æ‚Ÿã€‚";
                         break;
 
                 case 1 :
-                        msg = "$NÄıÊÓÁË$n" HIY "Ğí¾Ã£¬·½²ÅÎ¢Î¢µã"
-                              "ÁËµãÍ·£¬ËµµÀ£º¡°ÎÒ¸øÄãÑİÊ¾Ò»±é£¬¿É"
-                              "¿´Çå³şÁË¡£¡±$N»°Òô¸ÕÂä£¬Ëæ¼´ÆğÉí¶ø"
-                              "Á¢À­¿ª¼ÜÊÆ£¬ÂıÂıµÄÑİÊ¾¿ª" +
-                              to_chinese(sk1) + "µÄÕĞÊ½¡£$n" HIY
-                              "Ö»¾õ$NÕĞÊ½¾«Ææ£¬ÉñÃî·Ç·²£¬ÊµÄËÇ°Ëù"
-                              "Î´ÎÅ£¬¶ÙÊ±´óÓĞ¸ĞÎò¡£";
+                        msg = "$Nå‡è§†äº†$n" HIY "è®¸ä¹…ï¼Œæ–¹æ‰å¾®å¾®ç‚¹"
+                              "äº†ç‚¹å¤´ï¼Œè¯´é“ï¼šâ€œæˆ‘ç»™ä½ æ¼”ç¤ºä¸€éï¼Œå¯"
+                              "çœ‹æ¸…æ¥šäº†ã€‚â€$Nè¯éŸ³åˆšè½ï¼Œéšå³èµ·èº«è€Œ"
+                              "ç«‹æ‹‰å¼€æ¶åŠ¿ï¼Œæ…¢æ…¢çš„æ¼”ç¤ºå¼€" +
+                              to_chinese(sk1) + "çš„æ‹›å¼ã€‚$n" HIY
+                              "åªè§‰$Næ‹›å¼ç²¾å¥‡ï¼Œç¥å¦™éå‡¡ï¼Œå®ä¹ƒå‰æ‰€"
+                              "æœªé—»ï¼Œé¡¿æ—¶å¤§æœ‰æ„Ÿæ‚Ÿã€‚";
                         break;
 
                 case 2 :
-                        msg = "$N¿´ÁË¿´$n" HIY "£¬ÆÄÎªÔŞĞíµÄËµµÀ"
-                              "£º¡°Ïë²»µ½ÄãµÄ" + to_chinese(sk1) +
-                              "½øÕ¹Èç´ËÉñËÙ£¬ÒÑ´ï´Ë°ã¾³½ç¡£²»Ò×£¬"
-                              "²»Ò×¡£½ñÈÕÎÒ±ã´«ÄãÕâÕĞ£¬¿É¼ÇÇå³şÁË"
-                              "¡£¡±ËµÍê$N±ã½«$n" HIY "ÕĞÖÁ¸úÇ°£¬"
-                              "ÄÍĞÄ½²Êö" + name + "µÄÖî¶à¾«Òª£¬$n"
-                              HIY "Ò»±ßÌıÒ»±ß²»×¡µÄµãÍ·¡£";
+                        msg = "$Nçœ‹äº†çœ‹$n" HIY "ï¼Œé¢‡ä¸ºèµè®¸çš„è¯´é“"
+                              "ï¼šâ€œæƒ³ä¸åˆ°ä½ çš„" + to_chinese(sk1) +
+                              "è¿›å±•å¦‚æ­¤ç¥é€Ÿï¼Œå·²è¾¾æ­¤èˆ¬å¢ƒç•Œã€‚ä¸æ˜“ï¼Œ"
+                              "ä¸æ˜“ã€‚ä»Šæ—¥æˆ‘ä¾¿ä¼ ä½ è¿™æ‹›ï¼Œå¯è®°æ¸…æ¥šäº†"
+                              "ã€‚â€è¯´å®Œ$Nä¾¿å°†$n" HIY "æ‹›è‡³è·Ÿå‰ï¼Œ"
+                              "è€å¿ƒè®²è¿°" + name + "çš„è¯¸å¤šç²¾è¦ï¼Œ$n"
+                              HIY "ä¸€è¾¹å¬ä¸€è¾¹ä¸ä½çš„ç‚¹å¤´ã€‚";
                         break;
 
                 default :
-                        msg = "$N¹ş¹şÒ»Ğ¦£¬¶Ô$n" HIY "ÔŞµÀ£º¡°²»"
-                              "´í£¬²»´í¡£ÒÀÕÕÄãÏÖÔÚ" +
-                              to_chinese(sk1) + "µÄÔìÒè£¬ÎÒ±ã´«ÊÚ"
-                              "Äã" + name + "ÓÖÓĞºÎ·Á£¿¡±ËµÍê±ãÖ»"
-                              "¼û$N´Ó»³ÖĞÃş³öÒ»±¾ÆÄÎª¹Å¾ÉµÄĞ¡²á×Ó"
-                              "£¬Ö¸×ÅÆäÖĞÒ»¶Î¶Ô$n" HIY "×ĞÏ¸½²½â"
-                              "¡£$n" HIY "Ìıºó³ÁË¼Á¼¾Ã£¬ÈôÓĞËùÎò¡£";
+                        msg = "$Nå“ˆå“ˆä¸€ç¬‘ï¼Œå¯¹$n" HIY "èµé“ï¼šâ€œä¸"
+                              "é”™ï¼Œä¸é”™ã€‚ä¾ç…§ä½ ç°åœ¨" +
+                              to_chinese(sk1) + "çš„é€ è¯£ï¼Œæˆ‘ä¾¿ä¼ æˆ"
+                              "ä½ " + name + "åˆæœ‰ä½•å¦¨ï¼Ÿâ€è¯´å®Œä¾¿åª"
+                              "è§$Nä»æ€€ä¸­æ‘¸å‡ºä¸€æœ¬é¢‡ä¸ºå¤æ—§çš„å°å†Œå­"
+                              "ï¼ŒæŒ‡ç€å…¶ä¸­ä¸€æ®µå¯¹$n" HIY "ä»”ç»†è®²è§£"
+                              "ã€‚$n" HIY "å¬åæ²‰æ€è‰¯ä¹…ï¼Œè‹¥æœ‰æ‰€æ‚Ÿã€‚";
                         break;
                 }
         }
         message_sort(HIY "\n" + msg + "\n\n" NOR, ob, who);
 
-        // Ñ§»á¸ÃÏî¾øÕĞ
+        // å­¦ä¼šè¯¥é¡¹ç»æ‹›
         who->add(perform, 1);
 
-        // ¸øÓèÌáÊ¾ĞÅÏ¢
-        tell_object(who, HIC "ÄãÑ§»áÁË¡¸" HIW + name +
-                         HIC "¡¹¡£\n" NOR);
+        // ç»™äºˆæç¤ºä¿¡æ¯
+        tell_object(who, HIC "ä½ å­¦ä¼šäº†ã€Œ" HIW + name +
+                         HIC "ã€ã€‚\n" NOR);
 
-        // ÌáÉıÏà¶ÔÓ¦µÄÎä¹¦¼¼ÄÜ
+        // æå‡ç›¸å¯¹åº”çš„æ­¦åŠŸæŠ€èƒ½
         if (stringp(sk1) && who->can_improve_skill(sk1))
                 who->improve_skill(sk1, 1500000);
 
@@ -271,7 +271,7 @@ public mixed teach_pfm(object who, object ob, mapping b)
         if (stringp(sk5) && who->can_improve_skill(sk5))
                 who->improve_skill(sk5, 1500000);
 
-        // ÌáÉıÖ÷ skill µÄ»ù±¾¼¼ÄÜ
+        // æå‡ä¸» skill çš„åŸºæœ¬æŠ€èƒ½
         for (i = 0; i < sizeof(valid_types); i++)
         {
                 if (SKILL_D(sk1)->valid_enable(valid_types[i])
@@ -279,126 +279,126 @@ public mixed teach_pfm(object who, object ob, mapping b)
                         who->improve_skill(valid_types[i], 1500000);
         }
 
-        // ÌáÉıÎäÑ§ĞŞÑøµÈ¼¶
+        // æå‡æ­¦å­¦ä¿®å…»ç­‰çº§
         who->improve_skill("martial-cognize", 3500000);
 
-        // ÏûºÄÃÅÅÉ¹±Ï×Öµ
+        // æ¶ˆè€—é—¨æ´¾è´¡çŒ®å€¼
         if (intp(gongxian) && gongxian > 0)
                 who->add("gongxian", -gongxian);
 
         tell_object(who, "\n");
 
-        // ×îºóµÄ»Ø´ğĞÅÏ¢
+        // æœ€åçš„å›ç­”ä¿¡æ¯
         if (stringp(msg2 = b["msg2"]))
         {
                 msg = msg2;
         } else
         {
-                // ×îºóµÄ»Ø´ğĞÅÏ¢
+                // æœ€åçš„å›ç­”ä¿¡æ¯
                 switch (random(5))
                 {
                 case 0 :
-                        msg = "¸Õ²ÅµÄÕĞÊ½£¬ÄãÃ÷°×ÁË¶àÉÙ£¿";
+                        msg = "åˆšæ‰çš„æ‹›å¼ï¼Œä½ æ˜ç™½äº†å¤šå°‘ï¼Ÿ";
                         break;
 
                 case 1 :
-                        msg = "ÕĞÊ½±ãÊÇÈç´Ë£¬Äã×Ô¼ºÏÂÈ¥ÁìÎò°É¡£";
+                        msg = "æ‹›å¼ä¾¿æ˜¯å¦‚æ­¤ï¼Œä½ è‡ªå·±ä¸‹å»é¢†æ‚Ÿå§ã€‚";
                         break;
 
                 case 2 :
-                        msg = "¸Õ²ÅÎÒËù´«ÊÚµÄÈ«ÊÇ¸ÃÕĞµÄ¾«Òâ£¬¿É¼ÇÀÎÁË¡£";
+                        msg = "åˆšæ‰æˆ‘æ‰€ä¼ æˆçš„å…¨æ˜¯è¯¥æ‹›çš„ç²¾æ„ï¼Œå¯è®°ç‰¢äº†ã€‚";
                         break;
 
                 case 3 :
-                        msg = "ÕâÕĞÄãÏÂÈ¥ºóĞèÇÚ¼ÓÁ·Ï°£¬·½ÄÜÔËÓÃ×ÔÈç¡£";
+                        msg = "è¿™æ‹›ä½ ä¸‹å»åéœ€å‹¤åŠ ç»ƒä¹ ï¼Œæ–¹èƒ½è¿ç”¨è‡ªå¦‚ã€‚";
                         break;
 
                 default :
-                        msg = "ÕâÕĞÆäÊµ²¢²»¸´ÔÓ£¬Äã×Ô¼ºÏÂÈ¥Á·Ï°°É¡£";
+                        msg = "è¿™æ‹›å…¶å®å¹¶ä¸å¤æ‚ï¼Œä½ è‡ªå·±ä¸‹å»ç»ƒä¹ å§ã€‚";
                         break;
                 }
         }
         return msg;
 }
 
-// Îï¼şµÄ·¢·Å
+// ç‰©ä»¶çš„å‘æ”¾
 public mixed give_item(object who, object ob, mapping b)
 {
-        object obj, owner;              // ¸øÓèµÄÎïÆ·¼°ÓµÓĞÕß
-        string item;                    // ¸øÓèÎïÆ·µÄ base_name
-        string msg;                     // ¶ÔÓÚÄ³Ğ©·µ»ØĞÅÏ¢µÄÃèÊö
-        string sk1, sk2, sk3;           // ËùĞèÒªµÄÎä¹¦Ãû³Æ
-        int lv1, lv2, lv3;              // Ëù¶ÔÓ¦µÄÎä¹¦µÈ¼¶
-//      int free;                       // ÊÇ·ñÎª¹«¹²ÎïÆ·ÅÉËÍ
-        int master;                     // ÊÇ·ñÖ»ÓĞÖ±ÊôµÜ×Ó²ÅÄÜÁìÈ¡
-        int generation;                 // ÃÅÅÉÖĞµÄ±²·İÒªÇó
-        string family;                  // ¸øÓèÎïÆ·ÕßµÄÃÅÅÉ
-        int gongxian, shen;             // ĞèÇóµÄ¹±Ï×¼°Éñ
-        string temp1, temp2, temp3;     // ÒªÇóµÄ½ø³Ì¼ÇÂ¼
-        string tmsg1, tmsg2, tmsg3;     // ÒªÇóµÄ½ø³Ì¼ÇÂ¼µÄ»Ø´ğĞÅÏ¢
+        object obj, owner;              // ç»™äºˆçš„ç‰©å“åŠæ‹¥æœ‰è€…
+        string item;                    // ç»™äºˆç‰©å“çš„ base_name
+        string msg;                     // å¯¹äºæŸäº›è¿”å›ä¿¡æ¯çš„æè¿°
+        string sk1, sk2, sk3;           // æ‰€éœ€è¦çš„æ­¦åŠŸåç§°
+        int lv1, lv2, lv3;              // æ‰€å¯¹åº”çš„æ­¦åŠŸç­‰çº§
+//      int free;                       // æ˜¯å¦ä¸ºå…¬å…±ç‰©å“æ´¾é€
+        int master;                     // æ˜¯å¦åªæœ‰ç›´å±å¼Ÿå­æ‰èƒ½é¢†å–
+        int generation;                 // é—¨æ´¾ä¸­çš„è¾ˆä»½è¦æ±‚
+        string family;                  // ç»™äºˆç‰©å“è€…çš„é—¨æ´¾
+        int gongxian, shen;             // éœ€æ±‚çš„è´¡çŒ®åŠç¥
+        string temp1, temp2, temp3;     // è¦æ±‚çš„è¿›ç¨‹è®°å½•
+        string tmsg1, tmsg2, tmsg3;     // è¦æ±‚çš„è¿›ç¨‹è®°å½•çš„å›ç­”ä¿¡æ¯
 
-        // Èç¹ûÃ»ÓĞÖ¸Ã÷¶ÔÏó£¬Ôò·µ»Ø
+        // å¦‚æœæ²¡æœ‰æŒ‡æ˜å¯¹è±¡ï¼Œåˆ™è¿”å›
         if (! stringp(item = b["item"]))
                 return 0;
 
-        // ÅĞ¶ÏËùÊôÃÅÅÉ£¬ÈçÎª¹«¹²Ó¦Ìí¼Ó free ²ÎÊı
+        // åˆ¤æ–­æ‰€å±é—¨æ´¾ï¼Œå¦‚ä¸ºå…¬å…±åº”æ·»åŠ  free å‚æ•°
         //if (! intp(free = b["free"]) || free <= 0)
         //{
                 family = ob->query("family/family_name");
 
                 if (who->query("family/family_name") != family)
-                        return RANK_D->query_respect(who) + "ÓëÎÒ" +
-                               family + "ËØÎŞÔ¨Ô´£¬²»Öª´Ë»°´ÓºÎËµÆğ¡£";
+                        return RANK_D->query_respect(who) + "ä¸æˆ‘" +
+                               family + "ç´ æ— æ¸Šæºï¼Œä¸çŸ¥æ­¤è¯ä»ä½•è¯´èµ·ã€‚";
         //}
 
-        // ²éÕÒ¶ÔÓ¦µÄ base_name ºô³öÎï¼ş
+        // æŸ¥æ‰¾å¯¹åº”çš„ base_name å‘¼å‡ºç‰©ä»¶
         obj = find_object(item);
 
         if (! obj)
                 obj = load_object(item);
 
         if (! obj)
-                return "ÄÇ¶«Î÷³öÁËµãÎÊÌâ£¬Äã×îºÃÕÒÎ×Ê¦ÉÌÁ¿ÉÌÁ¿¡£";
+                return "é‚£ä¸œè¥¿å‡ºäº†ç‚¹é—®é¢˜ï¼Œä½ æœ€å¥½æ‰¾å·«å¸ˆå•†é‡å•†é‡ã€‚";
 
-        // ÅĞ¶ÏÊ¦³Ğ£¬ÈçÌí¼Ó master ²ÎÊı£¬ÔòÖ»ÓĞÖ±ÊôµÜ×Ó²ÅÄÜÁìÈ¡
+        // åˆ¤æ–­å¸ˆæ‰¿ï¼Œå¦‚æ·»åŠ  master å‚æ•°ï¼Œåˆ™åªæœ‰ç›´å±å¼Ÿå­æ‰èƒ½é¢†å–
         if (intp(master = b["master"])
            && master > 0
            && who->query("family/master_id") != ob->query("id"))
-                return "Ö»ÓĞÎÒµÄµÜ×Ó²ÅÅäÊ¹ÓÃ" + obj->name() + CYN
-                       "£¬Äã»¹ÊÇ×ß°É¡£" NOR;
+                return "åªæœ‰æˆ‘çš„å¼Ÿå­æ‰é…ä½¿ç”¨" + obj->name() + CYN
+                       "ï¼Œä½ è¿˜æ˜¯èµ°å§ã€‚" NOR;
 
-        // ÅĞ¶ÏÃÅÅÉ±²·İ£¬Èç¹ûÌí¼Ó master ²ÎÊı£¬ÔòÓ¦×÷È±Ê¡
+        // åˆ¤æ–­é—¨æ´¾è¾ˆä»½ï¼Œå¦‚æœæ·»åŠ  master å‚æ•°ï¼Œåˆ™åº”ä½œç¼ºçœ
         if (intp(generation = b["gen"])
            && generation > 0
            && who->query("family/generation") > generation)
-                return "Æ¾ÄãÔÚ" + who->query("family/family_name") +
-                       "ÖĞµÄµØÎ»£¬»¹²»×ãÒÔÈÃÎÒ½«" + obj->name() + CYN
-                       "½»ÓèÄã¡£" NOR;
+                return "å‡­ä½ åœ¨" + who->query("family/family_name") +
+                       "ä¸­çš„åœ°ä½ï¼Œè¿˜ä¸è¶³ä»¥è®©æˆ‘å°†" + obj->name() + CYN
+                       "äº¤äºˆä½ ã€‚" NOR;
 
-        // ÅĞ¶ÏÕıÉñ»ò¸ºÉñµÄÒªÇó
+        // åˆ¤æ–­æ­£ç¥æˆ–è´Ÿç¥çš„è¦æ±‚
         if (intp(shen = b["shen"]))
         {
-                // Èç¹ûÒªÇóÎª¸ºÉñ£¬Ôò×÷³ö´óÓÚÅĞ¶Ï
+                // å¦‚æœè¦æ±‚ä¸ºè´Ÿç¥ï¼Œåˆ™ä½œå‡ºå¤§äºåˆ¤æ–­
                 if (shen < 0 && who->query("shen") > shen)
-                        return "ºß£¡ÏñÄãÕâÑùµÄĞÄ´ÈÊÖÈíÖ®±²£¬¾Í"
-                               "ËãÄÃ×Å" + obj->name() + CYN "Ò²"
-                               "ÊÇÎŞÓÃ¡£" NOR;
+                        return "å“¼ï¼åƒä½ è¿™æ ·çš„å¿ƒæ…ˆæ‰‹è½¯ä¹‹è¾ˆï¼Œå°±"
+                               "ç®—æ‹¿ç€" + obj->name() + CYN "ä¹Ÿ"
+                               "æ˜¯æ— ç”¨ã€‚" NOR;
 
-                // Èç¹ûÒªÇóÎªÕıÉñ£¬Ôò×÷³öĞ¡ÓÚÅĞ¶Ï
+                // å¦‚æœè¦æ±‚ä¸ºæ­£ç¥ï¼Œåˆ™ä½œå‡ºå°äºåˆ¤æ–­
                 if (shen > 0 && who->query("shen") < shen)
-                        return "ÄãÄ¿Ç°Ëù×öµÄÏÀÒåÕıÊÂ²»¹»£¬Õâ" +
-                               obj->name() + CYN "ÔİÊ±»¹²»ÄÜ½»"
-                               "¸øÄã¡£" NOR;
+                        return "ä½ ç›®å‰æ‰€åšçš„ä¾ ä¹‰æ­£äº‹ä¸å¤Ÿï¼Œè¿™" +
+                               obj->name() + CYN "æš‚æ—¶è¿˜ä¸èƒ½äº¤"
+                               "ç»™ä½ ã€‚" NOR;
         }
 
-        // ÅĞ¶ÏÌØ¶¨µÄ½ø³Ì¼ÇÂ¼ÒªÇó
+        // åˆ¤æ–­ç‰¹å®šçš„è¿›ç¨‹è®°å½•è¦æ±‚
         if (stringp(temp1 = b["temp1"]) && ! who->query(temp1))
         {
                 if (stringp(tmsg1 = b["tmsg1"]))
                         return tmsg1;
                 else
-                        return "ÏÖÔÚÄ³Ğ©»úÔµÎ´µ½£¬Õâ" + obj->name() +
-                               CYN "ÔİÊ±»¹²»ÄÜ½»¸øÄã¡£" NOR;
+                        return "ç°åœ¨æŸäº›æœºç¼˜æœªåˆ°ï¼Œè¿™" + obj->name() +
+                               CYN "æš‚æ—¶è¿˜ä¸èƒ½äº¤ç»™ä½ ã€‚" NOR;
         }
 
         if (stringp(temp2 = b["temp2"]) && ! who->query(temp2))
@@ -406,8 +406,8 @@ public mixed give_item(object who, object ob, mapping b)
                 if (stringp(tmsg2 = b["tmsg2"]))
                         return tmsg2;
                 else
-                        return "ÏÖÔÚÄ³Ğ©»úÔµÎ´µ½£¬Õâ" + obj->name() +
-                               CYN "ÔİÊ±»¹²»ÄÜ½»¸øÄã¡£" NOR;
+                        return "ç°åœ¨æŸäº›æœºç¼˜æœªåˆ°ï¼Œè¿™" + obj->name() +
+                               CYN "æš‚æ—¶è¿˜ä¸èƒ½äº¤ç»™ä½ ã€‚" NOR;
         }
 
         if (stringp(temp3 = b["temp3"]) && ! who->query(temp3))
@@ -415,51 +415,51 @@ public mixed give_item(object who, object ob, mapping b)
                 if (stringp(tmsg3 = b["tmsg3"]))
                         return tmsg3;
                 else
-                        return "ÏÖÔÚÄ³Ğ©»úÔµÎ´µ½£¬Õâ" + obj->name() +
-                               CYN "ÔİÊ±»¹²»ÄÜ½»¸øÄã¡£" NOR;
+                        return "ç°åœ¨æŸäº›æœºç¼˜æœªåˆ°ï¼Œè¿™" + obj->name() +
+                               CYN "æš‚æ—¶è¿˜ä¸èƒ½äº¤ç»™ä½ ã€‚" NOR;
         }
 
-        // ÅĞ¶ÏÌØ¶¨µÄÎä¹¦ĞèÇó
+        // åˆ¤æ–­ç‰¹å®šçš„æ­¦åŠŸéœ€æ±‚
         if (stringp(sk1 = b["sk1"]) && intp(lv1 = b["lv1"]))
         {
                 if (who->query_skill(sk1, 1) <= 0)
-                        return "ÄãÁ¬" + to_chinese(sk1) + "¶¼Î´Ôø"
-                               "Ñ§¹ı£¬ÄÃ" + obj->name() + CYN "ÓÖ"
-                               "ÓĞºÎÓÃ£¿" NOR;
+                        return "ä½ è¿" + to_chinese(sk1) + "éƒ½æœªæ›¾"
+                               "å­¦è¿‡ï¼Œæ‹¿" + obj->name() + CYN "åˆ"
+                               "æœ‰ä½•ç”¨ï¼Ÿ" NOR;
 
                 if (who->query_skill(sk1, 1) < lv1)
-                        return "ÄãµÄ" + to_chinese(sk1) + "»ğºòÎ´"
-                               "µ½£¬¾ÍËãÄÃ×Å" + obj->name() + CYN
-                               "Ò²Ã»ÓÃ¡£" NOR;
+                        return "ä½ çš„" + to_chinese(sk1) + "ç«å€™æœª"
+                               "åˆ°ï¼Œå°±ç®—æ‹¿ç€" + obj->name() + CYN
+                               "ä¹Ÿæ²¡ç”¨ã€‚" NOR;
         }
 
         if (stringp(sk2 = b["sk2"]) && intp(lv2 = b["lv2"]))
         {
                 if (who->query_skill(sk2, 1) <= 0)
-                        return "ÄãÁ¬" + to_chinese(sk2) + "¶¼Î´Ôø"
-                               "Ñ§¹ı£¬ÄÃ" + obj->name() + CYN "ÓÖ"
-                               "ÓĞºÎÓÃ£¿" NOR;
+                        return "ä½ è¿" + to_chinese(sk2) + "éƒ½æœªæ›¾"
+                               "å­¦è¿‡ï¼Œæ‹¿" + obj->name() + CYN "åˆ"
+                               "æœ‰ä½•ç”¨ï¼Ÿ" NOR;
 
                 if (who->query_skill(sk2, 1) < lv2)
-                        return "ÄãµÄ" + to_chinese(sk2) + "»ğºòÎ´"
-                               "µ½£¬¾ÍËãÄÃ×Å" + obj->name() + CYN
-                               "Ò²Ã»ÓÃ¡£" NOR;
+                        return "ä½ çš„" + to_chinese(sk2) + "ç«å€™æœª"
+                               "åˆ°ï¼Œå°±ç®—æ‹¿ç€" + obj->name() + CYN
+                               "ä¹Ÿæ²¡ç”¨ã€‚" NOR;
         }
 
         if (stringp(sk3 = b["sk3"]) && intp(lv3 = b["lv3"]))
         {
                 if (who->query_skill(sk3, 1) <= 0)
-                        return "ÄãÁ¬" + to_chinese(sk3) + "¶¼Î´Ôø"
-                               "Ñ§¹ı£¬ÄÃ" + obj->name() + CYN "ÓÖ"
-                               "ÓĞºÎÓÃ£¿" NOR;
+                        return "ä½ è¿" + to_chinese(sk3) + "éƒ½æœªæ›¾"
+                               "å­¦è¿‡ï¼Œæ‹¿" + obj->name() + CYN "åˆ"
+                               "æœ‰ä½•ç”¨ï¼Ÿ" NOR;
 
                 if (who->query_skill(sk3, 1) < lv3)
-                        return "ÄãµÄ" + to_chinese(sk3) + "»ğºòÎ´"
-                               "µ½£¬¾ÍËãÄÃ×Å" + obj->name() + CYN
-                               "Ò²Ã»ÓÃ¡£" NOR;
+                        return "ä½ çš„" + to_chinese(sk3) + "ç«å€™æœª"
+                               "åˆ°ï¼Œå°±ç®—æ‹¿ç€" + obj->name() + CYN
+                               "ä¹Ÿæ²¡ç”¨ã€‚" NOR;
         }
 
-        // Ñ°ÕÒ¸ÃÎï¼şµÄËùÓĞÕß
+        // å¯»æ‰¾è¯¥ç‰©ä»¶çš„æ‰€æœ‰è€…
 	owner = environment(obj);
         while (owner)
 	{
@@ -470,53 +470,53 @@ public mixed give_item(object who, object ob, mapping b)
 	}
 
         if (owner == who)
-                return "ÄÇ" + obj->query("unit") + obj->name() +
-                       CYN "²»¾ÍÊÇÄãÄÃ×ÅÔÚÓÃÃ´£¬ÔõÃ´·´µ¹ÕÒÎÒ"
-                       "À´ÁË£¿" NOR;
+                return "é‚£" + obj->query("unit") + obj->name() +
+                       CYN "ä¸å°±æ˜¯ä½ æ‹¿ç€åœ¨ç”¨ä¹ˆï¼Œæ€ä¹ˆåå€’æ‰¾æˆ‘"
+                       "æ¥äº†ï¼Ÿ" NOR;
 
         if (objectp(owner) && owner != ob)
         {
                 if (! owner->is_character())
-                        return "ÄÇ" + obj->query("unit") + obj->name() +
-                               CYN "ÎÒÒÑ¾­½è³öÈ¥ÁË£¬Äã»¹ÊÇ¸ô¶ÎÊ±¼äÔÙ"
-                               "À´°É¡£" NOR;
+                        return "é‚£" + obj->query("unit") + obj->name() +
+                               CYN "æˆ‘å·²ç»å€Ÿå‡ºå»äº†ï¼Œä½ è¿˜æ˜¯éš”æ®µæ—¶é—´å†"
+                               "æ¥å§ã€‚" NOR;
 
                 if (owner->query("family/family_name") == family)
-                        return "ÄÇ" + obj->query("unit") + obj->name() +
-                               CYN "ÏÖÔÚÊÇÎÒÅÉµÄ" + owner->name() +
-                               "ÔÚÓÃ£¬ÄãÈôĞèÒª¾ÍÈ¥ÕÒËû°É¡£" NOR;
+                        return "é‚£" + obj->query("unit") + obj->name() +
+                               CYN "ç°åœ¨æ˜¯æˆ‘æ´¾çš„" + owner->name() +
+                               "åœ¨ç”¨ï¼Œä½ è‹¥éœ€è¦å°±å»æ‰¾ä»–å§ã€‚" NOR;
                 else
                 if (owner->query("family/family_name") == who->query("family/family_name"))
-                        return "ÄÇ" + obj->query("unit") + obj->name() +
-                               CYN "ÏÖÔÚÊÇÄãÅÉµÄ" + owner->name() +
-                               "ÔÚÓÃ£¬Äã×Ô¼ºÈ¥ÎÊËûÒª°É¡£" NOR;
+                        return "é‚£" + obj->query("unit") + obj->name() +
+                               CYN "ç°åœ¨æ˜¯ä½ æ´¾çš„" + owner->name() +
+                               "åœ¨ç”¨ï¼Œä½ è‡ªå·±å»é—®ä»–è¦å§ã€‚" NOR;
                 else
-                        return "ÄÇ" + obj->query("unit") + obj->name() +
-                               CYN "ÏÖÔÚÂäÔÚÁË" + owner->name() +
-                               "ÊÖÖĞ£¬ÄãÈ¥°ÑËüÈ¡»ØÀ´°É¡£" NOR;
+                        return "é‚£" + obj->query("unit") + obj->name() +
+                               CYN "ç°åœ¨è½åœ¨äº†" + owner->name() +
+                               "æ‰‹ä¸­ï¼Œä½ å»æŠŠå®ƒå–å›æ¥å§ã€‚" NOR;
         }
 
-        // ÅĞ¶ÏÃÅÅÉ¹±Ï×µÄÒªÇó
+        // åˆ¤æ–­é—¨æ´¾è´¡çŒ®çš„è¦æ±‚
         if (intp(gongxian = b["gongxian"])
            && gongxian > 0
            && who->query("gongxian") < gongxian)
-                return "ÄãÎª" + who->query("family/family_name") +
-                       "×÷³öµÄ¹±Ï×²»¹»£¬Õâ" + obj->name() + CYN
-                       "ÔİÊ±»¹²»ÄÜ½»¸øÄã¡£" NOR;
+                return "ä½ ä¸º" + who->query("family/family_name") +
+                       "ä½œå‡ºçš„è´¡çŒ®ä¸å¤Ÿï¼Œè¿™" + obj->name() + CYN
+                       "æš‚æ—¶è¿˜ä¸èƒ½äº¤ç»™ä½ ã€‚" NOR;
 
-        // Îï¼ş×ªÒÆ£¬¸øÓè³öÌáÊ¾ĞÅÏ¢
-        message_vision("$NÄÃ³ö" + obj->name() + "(" +
-                       obj->query("id") + ")¸ø$n¡£\n" NOR, ob, who);
+        // ç‰©ä»¶è½¬ç§»ï¼Œç»™äºˆå‡ºæç¤ºä¿¡æ¯
+        message_vision("$Næ‹¿å‡º" + obj->name() + "(" +
+                       obj->query("id") + ")ç»™$nã€‚\n" NOR, ob, who);
         obj->move(who, 1);
 
-        // ÏûºÄÃÅÅÉ¹±Ï×Öµ
+        // æ¶ˆè€—é—¨æ´¾è´¡çŒ®å€¼
         if (intp(gongxian) && gongxian > 0)
                 who->add("gongxian", -gongxian);
 
-        // ×îºóµÄ»Ø´ğÌáÊ¾ĞÅÏ¢
+        // æœ€åçš„å›ç­”æç¤ºä¿¡æ¯
         if (! stringp(msg = b["msg"]))
-                msg = "¼ÈÈ»ÕâÑù£¬ÄÇÕâ" + obj->query("unit") +
-                      obj->name() + CYN "Äã¾ÍÔİÊ±ÄÃÈ¥°É¡£" NOR;
+                msg = "æ—¢ç„¶è¿™æ ·ï¼Œé‚£è¿™" + obj->query("unit") +
+                      obj->name() + CYN "ä½ å°±æš‚æ—¶æ‹¿å»å§ã€‚" NOR;
 
         return msg;
 }

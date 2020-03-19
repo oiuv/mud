@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define XUE "¡¸" HIW "çÍ·×Ñ©Îè" NOR "¡¹"
+#define XUE "ã€Œ" HIW "ç¼¤çº·é›ªèˆ" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -13,32 +13,32 @@ int perform(object me, object target)
         int i, attack_time;
 
         if (userp(me) && ! me->query("can_perform/ningxue-zhang/xue"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-                return notify_fail(XUE "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(XUE "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon"))
            || (string)weapon->query("skill_type") != "staff")
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" XUE "¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" XUE "ã€‚\n");
 
 	if ((int)me->query_skill("ningxue-zhang", 1) < 50)
-		return notify_fail("ÄãµÄÄıÑ©ÕÈ·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" XUE "¡£\n");
+		return notify_fail("ä½ çš„å‡é›ªæ–æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" XUE "ã€‚\n");
 
         if (me->query_skill_mapped("staff") != "ningxue-zhang")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢ÄıÑ©ÕÈ·¨£¬ÄÑÒÔÊ©Õ¹" XUE "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å‡é›ªæ–æ³•ï¼Œéš¾ä»¥æ–½å±•" XUE "ã€‚\n");
 
 	if (me->query("neili") < 200)
-		return notify_fail("ÄãÄ¿Ç°µÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" XUE "¡£\n");
+		return notify_fail("ä½ ç›®å‰çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" XUE "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIC "\n$N" HIC "İëµÄÒ»ÉùÇåĞ¥£¬Ê©³ö¾øÑ§¡¸" HIM "çÍ·×Ñ©Îè"
-              HIC "¡¹£¬ÊÖÖĞ" + weapon->name() + HIC "ºôºô×÷Ïì¡£ö®Ê±¼ä"
-              "Á¬Á¬¹¥Ïò$n" HIC "¡£" NOR;
+	msg = HIC "\n$N" HIC "è“¦çš„ä¸€å£°æ¸…å•¸ï¼Œæ–½å‡ºç»å­¦ã€Œ" HIM "ç¼¤çº·é›ªèˆ"
+              HIC "ã€ï¼Œæ‰‹ä¸­" + weapon->name() + HIC "å‘¼å‘¼ä½œå“ã€‚éœæ—¶é—´"
+              "è¿è¿æ”»å‘$n" HIC "ã€‚" NOR;
 
         message_sort(msg, me, target);
 

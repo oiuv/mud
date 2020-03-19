@@ -7,16 +7,16 @@ inherit THROWING;
 
 void create()
 {
-        set_name("ÌúİğŞ¼", ({ "tie jili", "jili" }));
+        set_name("é“è’ºè—œ", ({ "tie jili", "jili" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ğ©");
-                set("base_unit", "Ã¶");
+                set("unit", "äº›");
+                set("base_unit", "æš");
                 set("base_weight", 300);
                 set("base_value", 0);
                 set("material", "iron");
-                set("long", HIG "ÌúİğŞ¼¾­³£ÓÃÓÚ´ã¶¾°µÆ÷£¬´çĞí´óĞ¡¡£\n"NOR);
+                set("long", HIG "é“è’ºè—œç»å¸¸ç”¨äºæ·¬æ¯’æš—å™¨ï¼Œå¯¸è®¸å¤§å°ã€‚\n"NOR);
         }
 
         set_amount(50);

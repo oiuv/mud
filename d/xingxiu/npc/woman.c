@@ -2,10 +2,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("Î¬Îá¶û×å¸¾Å®", ({ "fu nv", "fu", "nv" }));
-        set("gender", "Å®ĞÔ" );
+        set_name("ç»´å¾å°”æ—å¦‡å¥³", ({ "fu nv", "fu", "nv" }));
+        set("gender", "å¥³æ€§" );
         set("age", 40);
-        set("long", "Ò»¸öºÜÅÖµÄÎ¬Îá¶û×åÖĞÄê¸¾Å®¡£\n");
+        set("long", "ä¸€ä¸ªå¾ˆèƒ–çš„ç»´å¾å°”æ—ä¸­å¹´å¦‡å¥³ã€‚\n");
         set("combat_exp", 150);
         set("env/wimpy", 60);
         set("chat_chance_combat", 50 );

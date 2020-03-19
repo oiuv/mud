@@ -1,4 +1,4 @@
-// dongshang.c ìî´¯·Û
+// dongshang.c ç¥›ç–®ç²‰
 
 inherit ITEM;
 #include <ansi.h>
@@ -13,12 +13,12 @@ void init()
 
 void create()
 {
-	set_name(HIC"ìî´¯·Û"NOR, ({"quchuang fen", "quchuangfen"}));
+	set_name(HIC"ç¥›ç–®ç²‰"NOR, ({"quchuang fen", "quchuangfen"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "°ü");
-		set("long", "ÕâÊÇÒ»ÖÎÁÆ¶³´¯µÄÒ©·Û£¬Í¿Ä¨(mo)ÔÚ»¼´¦Á¢¿Ì¼ûÐ§¡£\n");
+		set("unit", "åŒ…");
+		set("long", "è¿™æ˜¯ä¸€æ²»ç–—å†»ç–®çš„è¯ç²‰ï¼Œæ¶‚æŠ¹(mo)åœ¨æ‚£å¤„ç«‹åˆ»è§æ•ˆã€‚\n");
 		set("value", 300);
 	}
 	setup();
@@ -28,16 +28,16 @@ int do_mo(string arg)
 {
 	object me = this_player();
 	if (!id(arg))
-		return notify_fail("ÄãÒªÄ¨Ê²Ã´¶«Î÷£¿\n");
+		return notify_fail("ä½ è¦æŠ¹ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 	if (me->is_busy() )
-		return notify_fail("±ð¼±£¬ÂýÂýÀ´¡£\n");
+		return notify_fail("åˆ«æ€¥ï¼Œæ…¢æ…¢æ¥ã€‚\n");
 	if (!me->query_condition("ill_dongshang"))
 	{
-		write("ÄãÏÖÔÚÓÖÃ»ÓÐ±»¶³ÉË£¬ÍùÄÄ¶ùÄ¨Ò©£¿\n");
+		write("ä½ çŽ°åœ¨åˆæ²¡æœ‰è¢«å†»ä¼¤ï¼Œå¾€å“ªå„¿æŠ¹è¯ï¼Ÿ\n");
 		return 1;
 	} else {
 		me->clear_condition("ill_dongshang");
-		message_vision("$N°Ñìî´¯·ÛÄ¨ÔÚ¶³ÉËµÄµØ·½£¬¶³´¯ÏûÈ¥ÁË²»ÉÙ¡£\n", me);
+		message_vision("$NæŠŠç¥›ç–®ç²‰æŠ¹åœ¨å†»ä¼¤çš„åœ°æ–¹ï¼Œå†»ç–®æ¶ˆåŽ»äº†ä¸å°‘ã€‚\n", me);
 		me->start_busy(2);
 		destruct(this_object());
 		return 1;

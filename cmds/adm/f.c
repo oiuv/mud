@@ -11,31 +11,31 @@ int main(object me, string arg)
         if (! SECURITY_D->valid_grant(me, "(admin)"))
                 return 0;
 
-        if (! arg) return notify_fail("ÄãÒª¿ØÖÆË­×öÊ²Ã´£¿\n");
+        if (! arg) return notify_fail("ä½ è¦æ§åˆ¶è°åšä»€ä¹ˆï¼Ÿ\n");
 
         if (sscanf(arg, "%s to %s", target, arg) != 2 ||
             ! objectp(ob = find_player(target)) &&
             ! objectp(ob = present(target, environment(me))))
         {
-                // Ã»ÓĞÕâ¸ö¶ÔÏó£¬²é¿´×îºóÒ»´ÎµÄ¿ØÖÆ¶ÔÏó
+                // æ²¡æœ‰è¿™ä¸ªå¯¹è±¡ï¼ŒæŸ¥çœ‹æœ€åä¸€æ¬¡çš„æ§åˆ¶å¯¹è±¡
                 if (! objectp(ob = me->query_temp("last_control")))
-                        return notify_fail("ÕâÀïÃ»ÓĞÕâ¸öÈË¿É¹©Äã¿ØÖÆ¡£\n");
+                        return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™ä¸ªäººå¯ä¾›ä½ æ§åˆ¶ã€‚\n");
                 if (stringp(target)) arg = target + " " + arg;
         }
 
         if (ob == me)
-                return notify_fail("¿ØÖÆ×Ô¼º£¿....ÄãºÃÏó²»Ì«Õı³£°¡¡£\n");
+                return notify_fail("æ§åˆ¶è‡ªå·±ï¼Ÿ....ä½ å¥½è±¡ä¸å¤ªæ­£å¸¸å•Šã€‚\n");
 
         if (wiz_level(me) <= wiz_level(ob) &&
             wiz_level(ob) && ! is_root(me))
-                return notify_fail("Äã²»ÄÜ¿ØÖÆÈ¨ÏŞ±È×Ô¼º¸ßµÄÎ×Ê¦¡£\n");
+                return notify_fail("ä½ ä¸èƒ½æ§åˆ¶æƒé™æ¯”è‡ªå·±é«˜çš„å·«å¸ˆã€‚\n");
 
         me->set_temp("last_control", ob);
         ob->delete_temp("notify_fail");
         if (! ob->force_me(arg))
         {
                 if (! stringp(msg = ob->query_temp("notify_fail")))
-                        msg = ob->name(1) + "ÎŞ·¨Ö´ĞĞÄãµÄÃüÁî¡£\n";
+                        msg = ob->name(1) + "æ— æ³•æ‰§è¡Œä½ çš„å‘½ä»¤ã€‚\n";
                 write(msg);
         }
 
@@ -45,10 +45,10 @@ int main(object me, string arg)
 int help(object me)
 {
         write( @HELP
-Ö¸Áî¸ñÊ½: f <ID> to <Ö¸Áî>
+æŒ‡ä»¤æ ¼å¼: f <ID> to <æŒ‡ä»¤>
 
-Õâ¸öÖ¸ÁîÈÃÄã¿ØÖÆÁíÍâÒ»¸öÈËÎï½øĞĞ¶¯×÷£¬Èç¹ûÄãÊÇÁ¬Ğø¿ØÖÆÄ³¸öÈË£¬
-ÄÇÃ´ÒÔºó²»ĞèÒªÔÚÊäÈëÕâ¸öID¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ æ§åˆ¶å¦å¤–ä¸€ä¸ªäººç‰©è¿›è¡ŒåŠ¨ä½œï¼Œå¦‚æœä½ æ˜¯è¿ç»­æ§åˆ¶æŸä¸ªäººï¼Œ
+é‚£ä¹ˆä»¥åä¸éœ€è¦åœ¨è¾“å…¥è¿™ä¸ªIDã€‚
 HELP );
         return 1;
 }

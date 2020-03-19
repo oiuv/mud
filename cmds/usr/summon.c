@@ -1,4 +1,4 @@
-// summon. È¡»Ø±øÆ÷
+// summon. å–å›å…µå™¨
 
 #include <ansi.h>
 #include <command.h>
@@ -16,32 +16,32 @@ int main(object me, string str)
     {
             summon = me->query("can_summon");
             if (! mapp(summon) || ! sizeof(summon))
-                    return notify_fail("ÄãÒªÕÙ»½Ê²Ã´ÎïÆ·£¿\n");
+                    return notify_fail("ä½ è¦å¬å”¤ä»€ä¹ˆç‰©å“ï¼Ÿ\n");
 
             ks = keys(summon);
-            msg = "ÄãÏÖÔÚ¿ÉÒÔÕÙ»½µÄÎïÆ·ÓĞ£º\n";
+            msg = "ä½ ç°åœ¨å¯ä»¥å¬å”¤çš„ç‰©å“æœ‰ï¼š\n";
 
             for( i=0; i<sizeof(ks); i++ )
             {
                     if( !get_object(summon[ks[i]]) ) continue;
-                    msg += sprintf(HIW "ÎïÆ·ID£º" MAG "%-15s" NOR HIW"    ÎïÆ·Ãû×Ö£º%-20s\n"NOR,ks[i],summon[ks[i]]->name());
+                    msg += sprintf(HIW "ç‰©å“IDï¼š" MAG "%-15s" NOR HIW"    ç‰©å“åå­—ï¼š%-20s\n"NOR,ks[i],summon[ks[i]]->name());
             }
             write(msg);
             return 1;
     }
 
     if (! stringp(str = me->query("can_summon/" + str)))
-            return notify_fail("Äã²»ÖªµÀÈçºÎÕÙ»½Õâ¸öÎïÆ·¡£\n");
+            return notify_fail("ä½ ä¸çŸ¥é“å¦‚ä½•å¬å”¤è¿™ä¸ªç‰©å“ã€‚\n");
 
     if (me->is_ghost())
-        return notify_fail("µÈÄã»¹ÁËÑôÔÙÕÙ»½°É¡£\n");
+        return notify_fail("ç­‰ä½ è¿˜äº†é˜³å†å¬å”¤å§ã€‚\n");
 
     call_other(str, "???");
     ob = find_object(str);
     if (! ob || ! ob->receive_summon(me))
     {
-            message_vision(HIM "$N" HIM "ÑïÆğÊÖÀ´£¬¿ÚÖĞÄîÄîÓĞ"
-                           "´Ê¡£\nÈ»¶øÊ²Ã´Ò²Ã»ÓĞ·¢Éú :)\n", me);
+            message_vision(HIM "$N" HIM "æ‰¬èµ·æ‰‹æ¥ï¼Œå£ä¸­å¿µå¿µæœ‰"
+                           "è¯ã€‚\nç„¶è€Œä»€ä¹ˆä¹Ÿæ²¡æœ‰å‘ç”Ÿ :)\n", me);
     }
 
     return 1;
@@ -50,10 +50,10 @@ int main(object me, string str)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : summon <ÎïÆ·µÄID>
+æŒ‡ä»¤æ ¼å¼ : summon <ç‰©å“çš„ID>
 
-´ËÖ¸Áî¿ÉÈÃÄã°ÑÄ³Ğ©ÎïÆ·ºô»½¹ıÀ´²¢×°±¸ÉÏ£¬µ±È»ÄãµÃÓĞÒ»¶¨µÄ
-¾«Á¦Ê©Õ¹ÏÉÊõ²ÅĞĞ¡£
+æ­¤æŒ‡ä»¤å¯è®©ä½ æŠŠæŸäº›ç‰©å“å‘¼å”¤è¿‡æ¥å¹¶è£…å¤‡ä¸Šï¼Œå½“ç„¶ä½ å¾—æœ‰ä¸€å®šçš„
+ç²¾åŠ›æ–½å±•ä»™æœ¯æ‰è¡Œã€‚
 HELP
     );
     return 1;

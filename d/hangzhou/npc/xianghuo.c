@@ -1,14 +1,14 @@
-// xianghuo.c Ïã»ğµÀÈË
+// xianghuo.c é¦™ç«é“äºº
 
 inherit NPC;
 
 void create()
 {
-        set_name("Ïã»ğµÀÈË", ({ "xianghuo daoren","daoren","xianghuo"}));
+        set_name("é¦™ç«é“äºº", ({ "xianghuo daoren","daoren","xianghuo"}));
         set("age", 32);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("long",
-"Îäµ±ÅÉËÄ·½Ïã»ğµÄµÜ×Ó¡£\n");
+"æ­¦å½“æ´¾å››æ–¹é¦™ç«çš„å¼Ÿå­ã€‚\n");
         set("attitude", "peaceful");
         set("str", 24);
         set("dex", 16);
@@ -25,10 +25,10 @@ void create()
         set_temp("apply/armor", 30);
         set("chat_chance", 5);
         set("chat_msg", ({
-                "Ïã»ğµÀÈË°ÑÊÖ¾Ùµ½ÄãÃæÇ°£º¸øµãÏã»ğÇ®°É£¬ÎŞÁ¿ÊÙ·ğ£¡\n",
+                "é¦™ç«é“äººæŠŠæ‰‹ä¸¾åˆ°ä½ é¢å‰ï¼šç»™ç‚¹é¦™ç«é’±å§ï¼Œæ— é‡å¯¿ä½›ï¼\n",
                 (: random_move :)
         }) );
-        create_family("Îäµ±ÅÉ", 4, "µÜ×Ó");
+        create_family("æ­¦å½“æ´¾", 4, "å¼Ÿå­");
         setup();
         carry_object("/clone/weapon/changjian");
         carry_object("/d/wudang/obj/whiterobe")->wear();

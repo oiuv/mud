@@ -3,19 +3,19 @@
 inherit SWORD;
 void create()
 {
-        set_name(CYN "ÒÐÌì½£" NOR, ({ "yitian sword", "jian", "sword" }) );
+        set_name(CYN "å€šå¤©å‰‘" NOR, ({ "yitian sword", "jian", "sword" }) );
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", HIY "Õâ±ãÓëÌìÏÂÖÁ×ðµÄÍÀÁú±¦µ¶²¢³ÆµÄÒÐÌì½£¡£\nÏà´«ÈÃµ¶½£¶Ô¿³(duikan)¿ÉÒÔµÃµ½¿õÊÀµÄÎäÁÖÃØ¼®¡£\n" NOR);
+                set("unit", "æŸ„");
+                set("long", HIY "è¿™ä¾¿ä¸Žå¤©ä¸‹è‡³å°Šçš„å± é¾™å®åˆ€å¹¶ç§°çš„å€šå¤©å‰‘ã€‚\nç›¸ä¼ è®©åˆ€å‰‘å¯¹ç (duikan)å¯ä»¥å¾—åˆ°æ—·ä¸–çš„æ­¦æž—ç§˜ç±ã€‚\n" NOR);
                 set("value", 100000);
-                set("no_sell", "ÕâÑù¶«Î÷²»ÄÜÂô¡£\n");
+                set("no_sell", "è¿™æ ·ä¸œè¥¿ä¸èƒ½å–ã€‚\n");
                 set("rigidity",8000);   
                 set("material", "steel");
-                set("wield_msg", HIW "Ö»Ìý¡°à²¡±µÄÒ»ÉùÆÆ¿ÕÉùÏì£¬ºÅ³ÆÌìÏÂµÚÒ»Éñ±øµÄÒÐÌì½£ÒÑ±»$NÎÕÔÚÊÖÖÐ¡£\n" NOR);
-                set("unwield_msg", HIW "$N½«ÒÐÌì½£²å»ØÑü¼ä£¬ÌìµØÓÖ½¥½¥·Å³ö¹âÃ¢¡£\n"NOR);
+                set("wield_msg", HIW "åªå¬â€œå—–â€çš„ä¸€å£°ç ´ç©ºå£°å“ï¼Œå·ç§°å¤©ä¸‹ç¬¬ä¸€ç¥žå…µçš„å€šå¤©å‰‘å·²è¢«$Næ¡åœ¨æ‰‹ä¸­ã€‚\n" NOR);
+                set("unwield_msg", HIW "$Nå°†å€šå¤©å‰‘æ’å›žè…°é—´ï¼Œå¤©åœ°åˆæ¸æ¸æ”¾å‡ºå…‰èŠ’ã€‚\n"NOR);
         }
         init_sword(500);
         setup();
@@ -30,5 +30,5 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         if (victim->query("neili") < 0) 
         victim->set("neili", 0); 
 
-        return HIW "ÒÐÌì½£Ð¯×Åì¬ì¬´Ì¹Ç·çÉù£¬Ö±Ö±´ÌÏò$n£¬$nÖ»¸Ðµ½È«ÉíµÄÄÚÁ¦¾¹Ò»Ë¿Ë¿Ëæ×Å½£·æÓ¿³ö¡£\n" NOR;
+        return HIW "å€šå¤©å‰‘æºç€é£•é£•åˆºéª¨é£Žå£°ï¼Œç›´ç›´åˆºå‘$nï¼Œ$nåªæ„Ÿåˆ°å…¨èº«çš„å†…åŠ›ç«Ÿä¸€ä¸ä¸éšç€å‰‘é”‹æ¶Œå‡ºã€‚\n" NOR;
 }

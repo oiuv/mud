@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define SHENG "¡¸" HIW "ÌìÉý½£¾÷" NOR "¡¹"
+#define SHENG "ã€Œ" HIW "å¤©å‡å‰‘è¯€" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,35 +12,35 @@ int perform(object me, object target)
         int i;
 
         if (userp(me) && ! me->query("can_perform/liuyue-jian/sheng"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(SHENG "Ö»ÄÜÔÚÕ½¶·ÖÐ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(SHENG "åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
               (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" SHENG "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" SHENG "ã€‚\n");
 
         if (me->query_skill("force") < 200)
-                return notify_fail("ÄãµÄÄÚ¹¦µÄÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" SHENG "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸçš„ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" SHENG "ã€‚\n");
 
         if (me->query_skill("liuyue-jian", 1) < 140)
-                return notify_fail("ÄãµÄÁ÷ÔÂ½£ÎèÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" SHENG "¡£\n");
+                return notify_fail("ä½ çš„æµæœˆå‰‘èˆžä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" SHENG "ã€‚\n");
 
         if (me->query("neili") < 300)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" SHENG "¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" SHENG "ã€‚\n");
 
         if (me->query_skill_mapped("sword") != "liuyue-jian")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢Á÷ÔÂ½£Îè£¬ÄÑÒÔÊ©Õ¹" SHENG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘æµæœˆå‰‘èˆžï¼Œéš¾ä»¥æ–½å±•" SHENG "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "ÊÖÍóÒ»Õó¼²¶¶£¬½£ÉíÎ¢²ü£¬½£×÷ÁúÒ÷¡£É²ÄÇ¼ä½£Ã¢¶¸ÕÇ£¬"
-              "ÈçÌìºÓµ¹ÐºÒ»°ãÈ÷Ïò$n"
-              HIW "¡£\n" NOR;
+        msg = HIW "$N" HIW "æ‰‹è…•ä¸€é˜µç–¾æŠ–ï¼Œå‰‘èº«å¾®é¢¤ï¼Œå‰‘ä½œé¾™åŸã€‚åˆ¹é‚£é—´å‰‘èŠ’é™¡æ¶¨ï¼Œ"
+              "å¦‚å¤©æ²³å€’æ³»ä¸€èˆ¬æ´’å‘$n"
+              HIW "ã€‚\n" NOR;
 
         message_combatd(msg, me, target);
         me->add("neili", -100);

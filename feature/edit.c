@@ -2,8 +2,8 @@
 
 int edit(function callback)
 {
-	write("½áÊøÀë¿ªÓÃ '.'£¬È¡ÏûÊäÈëÓÃ '~q'£¬Ê¹ÓÃÄÚ½¨ÁĞ±à¼­Æ÷ÓÃ '~e'¡£\n");
-	write("¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\n");
+	write("ç»“æŸç¦»å¼€ç”¨ '.'ï¼Œå–æ¶ˆè¾“å…¥ç”¨ '~q'ï¼Œä½¿ç”¨å†…å»ºåˆ—ç¼–è¾‘å™¨ç”¨ '~e'ã€‚\n");
+	write("â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n");
 	input_to("input_line", "", callback);
 	return 1;
 }
@@ -14,7 +14,7 @@ void input_line(string line, string text, function callback)
 		(*callback)(text);
 		return;
 	} else if( line=="~q" ) {
-		write("ÊäÈëÈ¡Ïû¡£\n");
+		write("è¾“å…¥å–æ¶ˆã€‚\n");
 		return;
 	} else if( line=="~e" ) {
 	} else

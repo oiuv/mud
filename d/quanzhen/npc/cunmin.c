@@ -2,10 +2,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("´åÃñ", ({ "cun min", "min" }) );
-        set("gender", "ÄĞĞÔ" );
+        set_name("æ‘æ°‘", ({ "cun min", "min" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 30);
-        set("long", "Ò»¸ö¿ıÎàµÄ×¯¼Úºº×Ó¡£\n");
+        set("long", "ä¸€ä¸ªé­æ¢§çš„åº„ç¨¼æ±‰å­ã€‚\n");
         set("attitude", "friendly");
         set("combat_exp", 500);
         set("shen", 100);

@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "´óÐÛ±¦µî");
+        set("short", "å¤§é›„å®æ®¿");
         set("long", @LONG
-ÕâÊÇ¶ëáÒÉ½»ª²ØâÖµÄ´óÐÛ±¦µî¡£ÕýÖÐ¹©·î×ÅÆÕÏÍÆÐÈø¡£ÓÐ
-ÈºÇàÒÂÐ¡Ê¦Ì«ÕýÔÚµØÉÏËÐ¾­¡£ºóÃæÓÐµÀÐ¡ÃÅÍ¨Íùºóµî¡£ºóµîÊÇ
-¶ëáÒÅÉµÚÈý´úÕÆÃÅÈËÃð¾øÊ¦Ì«´«¹¦µÄµØ·½¡£
+è¿™æ˜¯å³¨åµ‹å±±åŽè—åºµçš„å¤§é›„å®æ®¿ã€‚æ­£ä¸­ä¾›å¥‰ç€æ™®è´¤è©è¨ã€‚æœ‰
+ç¾¤é’è¡£å°å¸ˆå¤ªæ­£åœ¨åœ°ä¸Šè¯µç»ã€‚åŽé¢æœ‰é“å°é—¨é€šå¾€åŽæ®¿ã€‚åŽæ®¿æ˜¯
+å³¨åµ‹æ´¾ç¬¬ä¸‰ä»£æŽŒé—¨äººç­ç»å¸ˆå¤ªä¼ åŠŸçš„åœ°æ–¹ã€‚
 LONG);
         set("exits", ([
                 "north" : __DIR__"hcaguangchang", 
@@ -30,14 +30,14 @@ int do_move(string arg)
         object me = this_player();
 
         if (! arg || arg != "xiang")
-                return notify_fail("ÄãÒªÒÆ¶¯Ê²Ã´£¿\n");
+                return notify_fail("ä½ è¦ç§»åŠ¨ä»€ä¹ˆï¼Ÿ\n");
 
         if (query("exits/down"))
-                return notify_fail("×ùÏñÒÑ¾­±»ÒÆ¿ªÁË¡£\n");
+                return notify_fail("åº§åƒå·²ç»è¢«ç§»å¼€äº†ã€‚\n");
 
-        message_vision(HIC "\n$N" HIC "¸ÕÒ»ÍÆ¶¯" NOR + YEL "ÆÕÏÍÆÐÈøÏñ"
-                       HIC "£¬ÄÇ×ùÏñÈ´×Ô¼ºÏòÒ»·½ÒÆ¿ª£¬µØÃæÏÖ³öÒ»¸ö¶´¿Ú"
-                       "¡£\n\n" NOR, me);
+        message_vision(HIC "\n$N" HIC "åˆšä¸€æŽ¨åŠ¨" NOR + YEL "æ™®è´¤è©è¨åƒ"
+                       HIC "ï¼Œé‚£åº§åƒå´è‡ªå·±å‘ä¸€æ–¹ç§»å¼€ï¼Œåœ°é¢çŽ°å‡ºä¸€ä¸ªæ´žå£"
+                       "ã€‚\n\n" NOR, me);
         set("exits/down", __DIR__"midao");
         remove_call_out("close");
         call_out("close", 8, this_object());
@@ -47,7 +47,7 @@ int do_move(string arg)
 
 void close(object room)
 {
-        message("vision", WHT "ºöÈ»Ö»Ìý¡¸¿¦¿¦¿¦¡¹¼¸Éù£¬" YEL "ÆÕÏÍÆÐÈøÏñ"
-                          WHT "Ëõ»ØÔ­µØ£¬°ÑÃÜµÀµ²×¡ÁË¡£\n" NOR, room);
+        message("vision", WHT "å¿½ç„¶åªå¬ã€Œå–€å–€å–€ã€å‡ å£°ï¼Œ" YEL "æ™®è´¤è©è¨åƒ"
+                          WHT "ç¼©å›žåŽŸåœ°ï¼ŒæŠŠå¯†é“æŒ¡ä½äº†ã€‚\n" NOR, room);
         room->delete("exits/down");
 }

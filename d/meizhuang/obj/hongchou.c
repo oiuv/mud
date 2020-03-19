@@ -10,15 +10,15 @@ void init()
 
 void create()
 {
-        set_name("ºì³ñ", ({"hong chou", "chou"}));
+        set_name("çº¢ç»¸", ({"hong chou", "chou"}));
         set_weight(800);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»¿éºÜÍêÕûµÄºì³ñ£¬µ«ÒÑ¾­¿ªÊ¼±äÉ«ÁË¡£\n");
-                set("unit", "¼ş");
+                set("long", "ä¸€å—å¾ˆå®Œæ•´çš„çº¢ç»¸ï¼Œä½†å·²ç»å¼€å§‹å˜è‰²äº†ã€‚\n");
+                set("unit", "ä»¶");
                 set("material", "cloth");
-                set("no_get", "Õâ¿éºì³ñÒÑ¾­±»ÀÎÀÎµÄ¶¤×¡ÁË¡£\n");
+                set("no_get", "è¿™å—çº¢ç»¸å·²ç»è¢«ç‰¢ç‰¢çš„é’‰ä½äº†ã€‚\n");
                 set("cloth_count",1);
 
         }
@@ -34,11 +34,11 @@ int do_tear(string arg)
                 add("cloth_count", -1);
                 ob=new("/clone/book/zhanyi");
                 ob->move("/d/meizhuang/dingduan");
-                message_vision("$N°Ñºì³ñËº¿ª£¬·¢ÏÖÀïÃæ°ü×ÅÒ»¼şÒÂ·ş¡£\n", me);
+                message_vision("$NæŠŠçº¢ç»¸æ’•å¼€ï¼Œå‘ç°é‡Œé¢åŒ…ç€ä¸€ä»¶è¡£æœã€‚\n", me);
                 return 1;
         }
         else {
-                message_vision("$N°Ñºì³ñËº¿ª£¬µ«ÀïÃæÊ²Ã´¶¼Ã»ÓĞ¡£\n", me);
+                message_vision("$NæŠŠçº¢ç»¸æ’•å¼€ï¼Œä½†é‡Œé¢ä»€ä¹ˆéƒ½æ²¡æœ‰ã€‚\n", me);
                 return 1;
              }
 }

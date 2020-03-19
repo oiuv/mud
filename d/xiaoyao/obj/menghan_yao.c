@@ -5,15 +5,15 @@ inherit COMBINED_ITEM;
 void create()
 {
 
-	set_name("ÃÉº¹Ò©", ({ "menghan yao", "yao" }) );
+	set_name("è’™æ±—è¯", ({ "menghan yao", "yao" }) );
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
 		set("long",
-			"ÕâÊÇ¼«ÆÕÍ¨µÄÃÉº¹Ò©\n" );
-		set("unit", "°ü");
+			"è¿™æ˜¯ææ™®é€šçš„è’™æ±—è¯\n" );
+		set("unit", "åŒ…");
 		set("base_value", 700);
-		set("base_unit", "·İ");
+		set("base_unit", "ä»½");
 		set("base_weight", 30);
                 set("can_pour", 1);
                 set("can_drug", 1);

@@ -3,17 +3,17 @@
 inherit THROWING;
 void create()
 {
-        set_name("Ğ¡·Éµ¶", ({ "xiao feidao", "feidao" }) );
+        set_name("å°é£åˆ€", ({ "xiao feidao", "feidao" }) );
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ğ©");
+                set("unit", "äº›");
                 set("value", 500);
-                set("base_unit", "°Ñ");
+                set("base_unit", "æŠŠ");
                 set("base_value", 100);
                 set("base_weight", 1000);
                 set("material", "steel");
-                set("long", "Ò»°ÑÑ©ÁÁµÄ·Éµ¶¡£\n");
+                set("long", "ä¸€æŠŠé›ªäº®çš„é£åˆ€ã€‚\n");
                 
         }
        set_amount(5);

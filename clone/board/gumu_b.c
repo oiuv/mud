@@ -4,10 +4,10 @@ inherit BULLETIN_BOARD;
 
 void create()
 {
-	set_name("¹ÅÄ¹ÅÉµÜ×ÓÁôÑÔ°å", ({ "board" }) );
+	set_name("å¤å¢“æ´¾å¼Ÿå­ç•™è¨€æ¿", ({ "board" }) );
 	set("location", "/d/gumu/zhengting");
 	set("board_id", "gumu_b");
-	set("long", "ÕâÊÇÒ»¸ö¹©¹ÅÄ¹ÅÉÃÅÏÂ½»Á÷µÄÁôÑÔ°å¡£\n" );
+	set("long", "è¿™æ˜¯ä¸€ä¸ªä¾›å¤å¢“æ´¾é—¨ä¸‹äº¤æµçš„ç•™è¨€æ¿ã€‚\n" );
 	setup();
 	set("capacity", 100);
 	replace_program(BULLETIN_BOARD);

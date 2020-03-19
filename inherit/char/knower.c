@@ -1,5 +1,5 @@
 // inherit object: knower.c
-// 消息灵通人士继承此对象
+// 娑堟伅鐏甸�氫汉澹户鎵挎瀵硅薄
 
 #include <ansi.h>
 
@@ -7,7 +7,7 @@ inherit NPC;
 
 int is_knower() { return 1; }
 
-// 接收打听消息
+// 鎺ユ敹鎵撳惉娑堟伅
 mixed accept_ask(object ob, string topic)
 {
         return QUEST_D->generate_information(this_object(), ob, topic);

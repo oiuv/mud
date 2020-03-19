@@ -19,7 +19,7 @@ object check_clone()
         me->move(me->query("startroom"));
         if (me->is_character())
         {
-                message("vision", me->name() + "走了过来。\n",
+                message("vision", me->name() + "璧颁簡杩囨潵銆俓n",
                         environment(me));
         }
         return this_object();

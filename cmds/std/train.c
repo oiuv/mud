@@ -14,41 +14,41 @@ int main(object me, string arg)
 	seteuid(getuid());
 
         if (me->query_skill("training", 1) < 10)
-		return notify_fail("���Ԧ�����������죬�޷�ѵ��Ұ�ޣ�\n");
+		return notify_fail("你的驭兽术还不纯熟，无法训练野兽！\n");
 
 	if (! arg)
-		return notify_fail("��Ҫѵ��ʲôҰ�ޣ�\n");
+		return notify_fail("你要训练什么野兽？\n");
 
 	if (! objectp(ob = present(arg, environment(me))))
-		return notify_fail("����û����ֻҰ�ްɣ�\n");
+		return notify_fail("这里没有这只野兽吧？\n");
 
 	if (userp(ob)) 
-		return notify_fail("�˼�Ҳ����ң����ʲô�㰡��\n");
+		return notify_fail("人家也是玩家，你搞什么搞啊？\n");
 
-	if (ob->query("race") != "Ұ��")
-		return notify_fail("�ⲻ��Ұ�ޣ�����ͷ�˰ɣ�\n");
+	if (ob->query("race") != "野兽")
+		return notify_fail("这不是野兽，你晕头了吧？\n");
 
         if (ob->query_temp("owner") &&
             (ob->query_temp("owner") == me->query("id")))
-                return notify_fail(ob->name() + "������ѱ�����ģ��㻹���ڸ�ɶ�����أ�\n");
+                return notify_fail(ob->name() + "就是你驯服过的，你还折腾个啥劲儿呢！\n");
 
         if (ob->query_temp("owner") &&
             (ob->query_temp("owner") != me))
-                return notify_fail(ob->name() + "�类�˼�ѱ���ˣ��㻹���ڸ�ɶ�����أ�\n");
+                return notify_fail(ob->name() + "早被人家驯服了，你还折腾个啥劲儿呢！\n");
 
 	if (ob == me)
-		return notify_fail("��û��ô���ɣ����Լ������ˣ�\n");
+		return notify_fail("你没这么笨吧，把自己不当人？\n");
 
 	if (! living(ob)) 
-		return notify_fail("��ֻҰ���ε��ˣ�������ѵ�������أ�\n");
+		return notify_fail("这只野兽晕倒了，你怎能训得它动呢？\n");
 
 	cost = me->query("max_jing") / (me->query_skill("training", 1) / 10) - 10;
 
 	if (me->query("jing") <= cost)
-		return notify_fail("������̫���ˣ��޷�ѵ��Ұ�ޡ�\n");
+		return notify_fail("现在你太累了，无法训练野兽。\n");
 
-	message_vision("ֻ��$N����" + ob->name() +
-                       "�ֽ��Ұڣ������ƶ�������ϸ�\n\n",me);
+	message_vision("只见$N冲着" + ob->name() +
+                       "手脚乱摆，口中似对它轻轻细语。\n\n",me);
 
 	sp = me->query_skill("training",1) + me->query("int");
 	dp = ob->query("combat_exp")/100;
@@ -57,12 +57,12 @@ int main(object me, string arg)
 	{
 		ob->kill_ob(me);
                 me->start_busy(1);
-		return notify_fail("��Ԧ�����������Ƕ���Ұ"
-                                   "�Բ�����������ʹ��˹�����\n");
+		return notify_fail("你驭兽术不精，那东西野"
+                                   "性不泯，冲着你就窜了过来！\n");
 	}
 
 	me->receive_damage("jing", cost);
-	message_vision("��ʱ" + ob->name() + "����$Nҡ��ҡβ�ͣ�����ѱ�����ӡ�\n\n", me);
+	message_vision("顿时" + ob->name() + "冲着$N摇了摇尾巴，很温驯的样子。\n\n", me);
 
 	train_level = me->query_skill("training", 1);
 	if (me->can_improve_skill("training"))
@@ -73,19 +73,19 @@ int main(object me, string arg)
 	ob->set_temp("owner", me);
 	ob->set_temp("owner_name", me->query("name"));
 	ob->set_temp("owner_id", me->query("id"));
-        if ((strsrch(ob->query("name"), "��") >= 0) ||
-            (strsrch(ob->query("name"), "¿") >= 0) ||
-            (strsrch(ob->query("name"), "��") >= 0) ||
-            (strsrch(ob->query("name"), "��") >= 0) ||
-            (strsrch(ob->query("name"), "ţ") >= 0) ||
-            (strsrch(ob->query("name"), "��") >= 0) ||
-            (strsrch(ob->query("name"), "ʨ") >= 0) ||
-            (strsrch(ob->query("name"), "��") >= 0) ||
-            (strsrch(ob->query("name"), "��") >= 0) ||
-            (strsrch(ob->query("name"), "¹") >= 0) ||
-            (strsrch(ob->query("name"), "��") >= 0) ||
-            (strsrch(ob->query("name"), "��") >= 0) ||
-            (strsrch(ob->query("name"), "�F") >= 0))
+        if ((strsrch(ob->query("name"), "马") >= 0) ||
+            (strsrch(ob->query("name"), "驴") >= 0) ||
+            (strsrch(ob->query("name"), "骡") >= 0) ||
+            (strsrch(ob->query("name"), "驼") >= 0) ||
+            (strsrch(ob->query("name"), "牛") >= 0) ||
+            (strsrch(ob->query("name"), "象") >= 0) ||
+            (strsrch(ob->query("name"), "狮") >= 0) ||
+            (strsrch(ob->query("name"), "虎") >= 0) ||
+            (strsrch(ob->query("name"), "豹") >= 0) ||
+            (strsrch(ob->query("name"), "鹿") >= 0) ||
+            (strsrch(ob->query("name"), "鲨") >= 0) ||
+            (strsrch(ob->query("name"), "雕") >= 0) ||
+            (strsrch(ob->query("name"), "獸") >= 0))
                 ob->set("ridable", 1);
 	me->remove_all_enemy();
 	return 1;
@@ -94,22 +94,22 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-ָ���ʽ : train <����>
+指令格式 : train <动物>
 
-��ָ�������ѱ��ĳ��������Ѿ�ѱ���Ķ�����Խ�������ָ�
+此指令可用于驯化某动物。对于已经驯服的动物，可以进行下述指令：
 
-����ָ�
-        come <������>:                  �ö�����������ж���
-        stay:                           ֹͣ����ĸ���״̬��
-        attack <ĳ��>:                  �ö��﹥�����ˡ�
-        stop <������>:                  �ö���ֹͣ���˵Ĺ�����
-        release:                        ������ū״̬����������롣
+基本指令：
+        come <动物名>:                  让动物跟随主人行动。
+        stay:                           停止动物的跟随状态。
+        attack <某人>:                  让动物攻击敌人。
+        stop <动物名>:                  让动物停止对人的攻击。
+        release:                        结束主奴状态，将动物放离。
 
-����ָ���ֻ��ĳЩ�������ã�
-        qi(ride) <������>:              �����������������ȡ�
-        xia(unride) <������>:           �£��뿪���
-        wei(feed) <������>:             �涯��ιʳ��
-        yin <������>:                   ��������ˮ��
+特殊指令：（只对某些动物适用）
+        qi(ride) <动物名>:              骑，如骑马，虎，雕，鲨等。
+        xia(unride) <动物名>:           下，离开坐骑。
+        wei(feed) <动物名>:             替动物喂食。
+        yin <动物名>:                   给动物饮水。
 
 HELP
 	);

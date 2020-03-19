@@ -6,39 +6,39 @@ string ask_for_join()
         me = this_player();
 
         myfam = (mapping)me->query("family");
-        if (! myfam || (myfam["family_name"] != "¶ëáÒÅÉ")) 
-                return ("Ê©Ö÷ÓëÎÒ¶ëáÒÅÉÉÐÎÞÔ¨Ô´£¬Æ¶Äá²»¸Ò¸øÄãÌê¶È¡£");
+        if (! myfam || (myfam["family_name"] != "å³¨åµ‹æ´¾")) 
+                return ("æ–½ä¸»ä¸Žæˆ‘å³¨åµ‹æ´¾å°šæ— æ¸Šæºï¼Œè´«å°¼ä¸æ•¢ç»™ä½ å‰ƒåº¦ã€‚");
 
         if ((string)me->query("class") == "bonze")
-                return "°¢ÃÖÍÓ·ð£¡³ö¼ÒÈË²»´òÚ¿Óï¡£ÄãÒÑ¾­²»ÊÇË×¼ÒÈËÁË¡£";
+                return "é˜¿å¼¥é™€ä½›ï¼å‡ºå®¶äººä¸æ‰“è¯³è¯­ã€‚ä½ å·²ç»ä¸æ˜¯ä¿—å®¶äººäº†ã€‚";
 
-        if ((string)me->query("gender") != "Å®ÐÔ")
-                return "°¢ÃÖÍÓ·ð£¡ÉÆÔÕ£¡ÉÆÔÕ£¡Ê©Ö÷ÈôÕæÐÄð§ÒÀÎÒ·ð£¬¿ÉÈ¥ÉÙÁÖËÂÊÜ½ä¡£";
+        if ((string)me->query("gender") != "å¥³æ€§")
+                return "é˜¿å¼¥é™€ä½›ï¼å–„å“‰ï¼å–„å“‰ï¼æ–½ä¸»è‹¥çœŸå¿ƒçšˆä¾æˆ‘ä½›ï¼Œå¯åŽ»å°‘æž—å¯ºå—æˆ’ã€‚";
 
         me->set_temp("pending/join_bonze", 1);
-        command ("say °¢ÃÖÍÓ·ð£¡ÉÆÔÕ£¡ÉÆÔÕ£¡Ê©Ö÷ÈôÕæÐÄð§ÒÀÎÒ·ð£¬Çë¹òÏÂ(kneel)ÊÜ½ä¡£");
-        return "¼Ç×¡£¬¼ÈÈ»³öÁË¼Ò£¬¾ÍÒ»ÐÄÏò·ð£¬²»ÄÜ»¹Ë×¡£";
+        command ("say é˜¿å¼¥é™€ä½›ï¼å–„å“‰ï¼å–„å“‰ï¼æ–½ä¸»è‹¥çœŸå¿ƒçšˆä¾æˆ‘ä½›ï¼Œè¯·è·ªä¸‹(kneel)å—æˆ’ã€‚");
+        return "è®°ä½ï¼Œæ—¢ç„¶å‡ºäº†å®¶ï¼Œå°±ä¸€å¿ƒå‘ä½›ï¼Œä¸èƒ½è¿˜ä¿—ã€‚";
 }
 
 int do_kneel()
 {
         object me = this_player();
-        string *prename = ({ "Áé", "ÎÄ", "ÐÄ", "Ãî"});
+        string *prename = ({ "çµ", "æ–‡", "å¿ƒ", "å¦™"});
         string name, new_name;
 
         if (! me->query_temp("pending/join_bonze"))
-                return notify_fail("ÄãÔÚµØÉÏ¹òÁËÒ»»á¶ù£¬Ã»ÈËÀíÄã¡£\n");
+                return notify_fail("ä½ åœ¨åœ°ä¸Šè·ªäº†ä¸€ä¼šå„¿ï¼Œæ²¡äººç†ä½ ã€‚\n");
 
-        message_vision(HIC "\n$N" HIC "ÄãË«ÊÖºÏÊ®£¬¹§¹§¾´¾´µØ¹òÁËÏÂÀ´¡£\n\n"
-                       NOR + CYN "$n" CYN "¿´×Å$N" CYN "ËµµÀ£ººÃ°É£¬ÒÔºóÄã¾Í"
-                       "ÔÚ±¾âÖÐÞÐÐ°É¡£\n\n" HIY "$n" HIY "Éì³öÊÖÕÆ£¬ÔÚ$N" HIY
-                       "Í·¶¥ÇáÇáµØÄ¦êýÁË¼¸ÏÂ£¬Ëæ¼´±ã½«$N" HIY "µÄÍ··¢¾¡ÊýÌê"
-                       "È¥¡£\n\n" NOR, me, this_object());
+        message_vision(HIC "\n$N" HIC "ä½ åŒæ‰‹åˆåï¼Œæ­æ­æ•¬æ•¬åœ°è·ªäº†ä¸‹æ¥ã€‚\n\n"
+                       NOR + CYN "$n" CYN "çœ‹ç€$N" CYN "è¯´é“ï¼šå¥½å§ï¼Œä»¥åŽä½ å°±"
+                       "åœ¨æœ¬åºµä¿®è¡Œå§ã€‚\n\n" HIY "$n" HIY "ä¼¸å‡ºæ‰‹æŽŒï¼Œåœ¨$N" HIY
+                       "å¤´é¡¶è½»è½»åœ°æ‘©æŒ²äº†å‡ ä¸‹ï¼Œéšå³ä¾¿å°†$N" HIY "çš„å¤´å‘å°½æ•°å‰ƒ"
+                       "åŽ»ã€‚\n\n" NOR, me, this_object());
 
         name = me->query("purename");
         if (! name) name = me->query("name");
         new_name = prename[random(sizeof(prename))] + name[0..1];
-        command("say ´Ó½ñÒÔºóÄãµÄ·¨Ãû½Ð×ö" + new_name + "¡£");
+        command("say ä»Žä»Šä»¥åŽä½ çš„æ³•åå«åš" + new_name + "ã€‚");
         command("nod");
         me->set("marks/old_name", name);
         me->delete_temp("pending/join_bonze");

@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(HIY "Ç§½ğ×Ó" NOR, ({ "qian jinzi", "qian", "jinzi", "herb_qianjinzi" }));
+        set_name(HIY "åƒé‡‘å­" NOR, ({ "qian jinzi", "qian", "jinzi", "herb_qianjinzi" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIY "Ç§½ğ×ÓÊÇ³£¼ûµÄÖĞÒ©Ò©²Ä¡£\n" NOR);
-                set("base_unit", "¿Å");
+                set("long", HIY "åƒé‡‘å­æ˜¯å¸¸è§çš„ä¸­è¯è¯æã€‚\n" NOR);
+                set("base_unit", "é¢—");
                 set("base_value", 3000);
                 set("base_weight", 20);
         }

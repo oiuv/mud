@@ -7,9 +7,9 @@ inherit NPC;
 void create()
 {
         object ob;
-        set_name("ÎŞ¶´ÉÏÈË", ({ "wudong shangren", "wudong", "shangren" }));
-        set("nickname", HIY "ÆîÁ¬É½" NOR);
-        set("gender", "ÄĞĞÔ");
+        set_name("æ— æ´ä¸Šäºº", ({ "wudong shangren", "wudong", "shangren" }));
+        set("nickname", HIY "ç¥è¿å±±" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 42);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -47,7 +47,7 @@ void create()
         prepare_skill("finger", "qilian-zhi");
 
         set("inquiry", ([
-               "ÆîÁ¬Îå¾øÖ¸" : "ÕâÕıÊÇÔÚÏÂµÄ¾øÑ§£¬¸óÏÂÎªºÎÖªÏş£¿\n",
+               "ç¥è¿äº”ç»æŒ‡" : "è¿™æ­£æ˜¯åœ¨ä¸‹çš„ç»å­¦ï¼Œé˜ä¸‹ä¸ºä½•çŸ¥æ™“ï¼Ÿ\n",
         ]));
 
         set("chat_chance_combat", 120);

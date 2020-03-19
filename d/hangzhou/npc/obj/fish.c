@@ -1,18 +1,18 @@
-// fish.c Î÷ºş´×Óã
+// fish.c è¥¿æ¹–é†‹é±¼
 #include <ansi.h>
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-        set_name(RED"Î÷ºş´×Óã"NOR, ({"fish"}));
+        set_name(RED"è¥¿æ¹–é†‹é±¼"NOR, ({"fish"}));
         set_weight(1300);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»ÅÌÇåÌğ¿ÉÈËµÄÎ÷ºş´×Óã£¬ÓÃÎ÷ºşÖĞµÄ½ğÉ«ÀğÓã
-ÉÕÖÆ¶ø³É£¬ÊÇÎ÷ºşµÚÒ»Ãû²Ë¡£\n");
-                set("unit", "Íë");
+                set("long", "ä¸€ç›˜æ¸…ç”œå¯äººçš„è¥¿æ¹–é†‹é±¼ï¼Œç”¨è¥¿æ¹–ä¸­çš„é‡‘è‰²é²¤é±¼
+çƒ§åˆ¶è€Œæˆï¼Œæ˜¯è¥¿æ¹–ç¬¬ä¸€åèœã€‚\n");
+                set("unit", "ç¢—");
                 set("value", 120);
                 set("food_remaining", 20);
                 set("food_supply", 20);

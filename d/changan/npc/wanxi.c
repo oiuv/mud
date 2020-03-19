@@ -5,15 +5,15 @@ inherit F_DEALER;
 
 void create()
 {
-	set_name("ÏôÍòÏ²", ({ "xiao wanxi", "xiao", "wanxi"}));
-	set("title", "µ±ÆÌÀÏ°å");
+	set_name("è§ä¸‡å–œ", ({ "xiao wanxi", "xiao", "wanxi"}));
+	set("title", "å½“é“ºè€æ¿");
 	set("shen_type", 1);
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set_max_encumbrance(100000000);
 	set("age", 34);
 	set("str", 100);
 	set("long",
-		"ÏôÍòÏ²ÊÇ¶«³ÇÏôÔ±ÍâµÄ°ûµÜ¡£\n");
+		"è§ä¸‡å–œæ˜¯ä¸œåŸè§å‘˜å¤–çš„èƒå¼Ÿã€‚\n");
 	set("no_get_from", 1);
 	set_skill("unarmed", 60);
 	set_skill("dodge", 60);
@@ -42,7 +42,7 @@ int clean_up()
 
 void die()
 {
-        message_vision("\n$NÒ»Éù²Ò½Ğ£¬ËÀÁË¡£\n", this_object());
+        message_vision("\n$Nä¸€å£°æƒ¨å«ï¼Œæ­»äº†ã€‚\n", this_object());
         destruct(this_object());
 }
 

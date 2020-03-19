@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-	set_name("»ÆÃ¼´óÊ¦", ({ "huangmei dashi", "dashi", "huangmei" }));
+	set_name("é»„çœ‰å¤§å¸ˆ", ({ "huangmei dashi", "dashi", "huangmei" }));
 	set("age", 69);
-	set("gender", "ÄĞĞÔ");
-	set("long", "ÕâÊÇÒ»¸öÂúÁ³ÖåÎÆ¡¢ÉíĞÎ¸ß´óµÄÀÏÉ®¡£ÕâÀÏÉ®Á½µÀ½¹»Æ³¤Ã¼£¬
-Ã¼Î²ÏÂ´¹£¬ÊÇÄé»¨ËÂÖ÷³Ö¡£\n");
+	set("gender", "ç”·æ€§");
+	set("long", "è¿™æ˜¯ä¸€ä¸ªæ»¡è„¸çš±çº¹ã€èº«å½¢é«˜å¤§çš„è€åƒ§ã€‚è¿™è€åƒ§ä¸¤é“ç„¦é»„é•¿çœ‰ï¼Œ
+çœ‰å°¾ä¸‹å‚ï¼Œæ˜¯æ‹ˆèŠ±å¯ºä¸»æŒã€‚\n");
 	set("attitude", "peaceful");
 	set("class", "bonze");
 

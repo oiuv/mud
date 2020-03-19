@@ -4,15 +4,15 @@ inherit NPC;
 #include <ansi.h>
 void create()
 {
-	set_name("Áº×ÓÎÌ", ({ "liang ziwen", "liang", "ziwen" }));
-	set("gender", "ÄĞĞÔ");
-	set("nickname", HIR"²ÎÏÉ"HIW"ÀÏ¹Ö"NOR);
+	set_name("æ¢å­ç¿", ({ "liang ziwen", "liang", "ziwen" }));
+	set("gender", "ç”·æ€§");
+	set("nickname", HIR"å‚ä»™"HIW"è€æ€ª"NOR);
 	set("age", 43);
 	set("str", 25);
 	set("per", 20);
 	set("dex", 16);
-	set("long", "Áº×ÓÎÌÉí²ÄÖĞµÈ£¬ÂúÍ·°×·¢ÈçÒø£¬µ«Á³É«¹âÈó£¬Éñ²ÉŞÄŞÄ£¬´©Ò»
-¼ş¸ğ²¼³¤ÅÛ£¬´ò°ç·ÇµÀ·ÇË×¡£ËûÊÇ³¤°×É½ÎäÑ§µÄÒ»ÅÉ×ÚÊ¦¡£\n");
+	set("long", "æ¢å­ç¿èº«æä¸­ç­‰ï¼Œæ»¡å¤´ç™½å‘å¦‚é“¶ï¼Œä½†è„¸è‰²å…‰æ¶¦ï¼Œç¥é‡‡å¼ˆå¼ˆï¼Œç©¿ä¸€
+ä»¶è‘›å¸ƒé•¿è¢ï¼Œæ‰“æ‰®éé“éä¿—ã€‚ä»–æ˜¯é•¿ç™½å±±æ­¦å­¦çš„ä¸€æ´¾å®—å¸ˆã€‚\n");
 	set("combat_exp", 200000);
 	set("shen_type", -1);
 	set("attitude", "peaceful");

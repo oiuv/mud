@@ -1,4 +1,4 @@
-// youfang.c ÓÎ·½µÀÈË
+// youfang.c æ¸¸æ–¹é“äºº
 
 #include <command.h>
 #include <ansi.h>
@@ -7,10 +7,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÓÎ·½µÀÈË", ( {"youfang daoren","daoren","youfang" }));
+        set_name("æ¸¸æ–¹é“äºº", ( {"youfang daoren","daoren","youfang" }));
         set("age",35);
-        set("gender", "ÄĞĞÔ");
-        set("long", "Îäµ±ÅÉÓÎ·½µÀÈË£®\n");
+        set("gender", "ç”·æ€§");
+        set("long", "æ­¦å½“æ´¾æ¸¸æ–¹é“äººï¼\n");
         set("attitude", "peaceful");
 
         set("str", 24);
@@ -28,7 +28,7 @@ void create()
         set_temp("apply/damage", 20);
         set_temp("apply/armor", 80);
         set("chat_chance", 5);
-        create_family("Îäµ±ÅÉ", 3, "µÜ×Ó");
+        create_family("æ­¦å½“æ´¾", 3, "å¼Ÿå­");
 
         setup();
         carry_object("/clone/weapon/changjian");

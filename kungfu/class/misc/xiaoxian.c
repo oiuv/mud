@@ -1,4 +1,4 @@
-// xiaoxian.c ĞÇËŞĞ¡ÏÉ
+// xiaoxian.c æ˜Ÿå®¿å°ä»™
 
 #include <ansi.h>
 
@@ -6,9 +6,9 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("ĞÇËŞĞ¡ÏÉ", ({ "xingxiu xiaoxian", "xiaoxian" }));
-	set("long",  "ËıÊÇÒ»¸öĞ¡Å®º¢£¬¿´ÉÏÈ¥Äê¼Í²»´ó¡£\n");
-	set("gender", "Å®ĞÔ");
+	set_name("æ˜Ÿå®¿å°ä»™", ({ "xingxiu xiaoxian", "xiaoxian" }));
+	set("long",  "å¥¹æ˜¯ä¸€ä¸ªå°å¥³å­©ï¼Œçœ‹ä¸Šå»å¹´çºªä¸å¤§ã€‚\n");
+	set("gender", "å¥³æ€§");
 	set("age", 24);
 	set("attitude", "peaceful");
 	set("shen_type", 1);
@@ -55,7 +55,7 @@ void create()
         prepare_skill("strike", "chousui-zhang");
         prepare_skill("claw", "sanyin-wugongzhao");
 
-	create_family("ĞÇËŞÅÉ", 0, "ÆæÈË");
+	create_family("æ˜Ÿå®¿æ´¾", 0, "å¥‡äºº");
 
 	set("chat_chance_combat", 120);
 	set("chat_msg_combat", ({

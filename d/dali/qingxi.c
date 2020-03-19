@@ -4,11 +4,11 @@
 inherit ROOM;
 void create()
 {
-	set("short","��Ϫ��̶");
+	set("short","清溪三潭");
 	set("long",@LONG
-��Ϫ��̶����������ˮ�������ڲ�ɽ��������ʥӦ��֮�������
-Ͽ���С�ɽȪ�Ҹ�ӿ��������к����Ϫ��أ�׳�����裬��������
-ˮ��ʯ������̽��ӣ����׳����Ϫ��
+清溪三潭，又名翠盆水，隐藏在苍山马龙峰与圣应峰之间幽深的
+峡谷中。山泉岩根涌出，喷珠泻玉，岩溪汇池，壮若大盆，分三叠，
+水清石丽，翠碧交加，故俗称清碧溪。
 LONG);
 	set("objects", ([
 	   __DIR__"npc/biaotou": 1,

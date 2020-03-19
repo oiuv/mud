@@ -1,4 +1,4 @@
-// findwp Ñ°ÕÒ×ÔÖÆ
+// findwp å¯»æ‰¾è‡ªåˆ¶
 
 #include <ansi.h>
 #include <command.h>
@@ -16,25 +16,25 @@ int main(object me, string str)
     {
             summon = me->query("can_summon");
             if (! mapp(summon) || ! sizeof(summon))
-                    return notify_fail("ÄãÒªÑ°ÕÒÊ²Ã´ÎïÆ·£¿\n");
+                    return notify_fail("ä½ è¦å¯»æ‰¾ä»€ä¹ˆç‰©å“ï¼Ÿ\n");
 
             ks = keys(summon);
-            msg = "ÄãÏÖÔÚ¿ÉÒÔÑ°ÕÒµÄÎïÆ·ÓĞ£º\n";
+            msg = "ä½ ç°åœ¨å¯ä»¥å¯»æ‰¾çš„ç‰©å“æœ‰ï¼š\n";
 
             for( i=0; i<sizeof(ks); i++ )
             {
                     if( !get_object(summon[ks[i]]) ) continue;
-                    msg += sprintf(HIW "ÎïÆ·ID£º" MAG "%-15s" NOR HIW"    ÎïÆ·Ãû×Ö£º%-20s\n"NOR,ks[i],summon[ks[i]]->name());
+                    msg += sprintf(HIW "ç‰©å“IDï¼š" MAG "%-15s" NOR HIW"    ç‰©å“åå­—ï¼š%-20s\n"NOR,ks[i],summon[ks[i]]->name());
             }
             write(msg);
             return 1;
     }
 
     if (! stringp(str = me->query("can_summon/" + str)))
-            return notify_fail("Äã²»ÖªµÀÈçºÎÑ°ÕÒÕâ¸öÎïÆ·¡£\n");
+            return notify_fail("ä½ ä¸çŸ¥é“å¦‚ä½•å¯»æ‰¾è¿™ä¸ªç‰©å“ã€‚\n");
 
     if (me->is_ghost())
-        return notify_fail("µÈÄã»¹ÁËÑôÔÙÕÙ»½°É¡£\n");
+        return notify_fail("ç­‰ä½ è¿˜äº†é˜³å†å¬å”¤å§ã€‚\n");
 
     ob = find_object(str);
 	if (! ob) ob = load_object(str);
@@ -42,14 +42,14 @@ int main(object me, string str)
 	owner = environment(ob);
 	if (owner == me)
 	{
-		tell_object(me, "ÑÛÏ¹°¡£¬²»¾ÍÔÚÄã×Ô¼ºÉíÉÏÂğ£¡\n");
+		tell_object(me, "çœ¼çå•Šï¼Œä¸å°±åœ¨ä½ è‡ªå·±èº«ä¸Šå—ï¼\n");
 		
 	} 
 	else
 	if (! owner)
-		tell_object(me, "Õâ¸öÈËºÃÏñÏûÊ§ÁË£¡\n");
+		tell_object(me, "è¿™ä¸ªäººå¥½åƒæ¶ˆå¤±äº†ï¼\n");
 	else
-		tell_object(me, "ÄãµÄ"+ ob->query("name") + "ÔÚ" + owner->query("name") + "ÄÇÀï£¬ÄãÈ¥ÕÒËû°É¡£\n");
+		tell_object(me, "ä½ çš„"+ ob->query("name") + "åœ¨" + owner->query("name") + "é‚£é‡Œï¼Œä½ å»æ‰¾ä»–å§ã€‚\n");
 	
 	return 1;
 }
@@ -57,9 +57,9 @@ int main(object me, string str)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : findwp <ÎïÆ·µÄID>
+æŒ‡ä»¤æ ¼å¼ : findwp <ç‰©å“çš„ID>
 
-´ËÖ¸Áî¿ÉÈÃÄãÑ°ÕÒ×Ô¼ºµÄ×ÔÖÆÎïÆ·¡£
+æ­¤æŒ‡ä»¤å¯è®©ä½ å¯»æ‰¾è‡ªå·±çš„è‡ªåˆ¶ç‰©å“ã€‚
 HELP
     );
     return 1;

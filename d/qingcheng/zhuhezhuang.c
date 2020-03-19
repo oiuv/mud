@@ -4,10 +4,10 @@
 inherit ROOM;
 void create()
 {
-	set("short", "פ��ׯ");
+	set("short", "驻鹤庄");
 	set("long", @LONG
-פ��ׯ�ഫΪ������Ϣ����֮�������г�Ⱥ��������Ϣ������
-���ּ䡣
+驻鹤庄相传为仙人休息赏玩之所。常有成群丹顶鹤栖息、飞鸣
+于林间。
 LONG );
 	set("exits", ([
 		"south"    : __DIR__"tianran",

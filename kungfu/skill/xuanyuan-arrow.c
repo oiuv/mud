@@ -9,10 +9,10 @@ int valid_learn(object me)
         // object ob;
 
         if (me->query_skill("throwing", 1) < 20)
-                return notify_fail("ÄãµÄ°µÆ÷¼¼ÄÜ²»¹»æµÊì£¬ÔõÄÜÔÚ¼¤Õ½ÖÐÉÏ¼ý¿ª¹­ÉäµÐ£¿\n");
+                return notify_fail("ä½ çš„æš—å™¨æŠ€èƒ½ä¸å¤Ÿå¨´ç†Ÿï¼Œæ€Žèƒ½åœ¨æ¿€æˆ˜ä¸­ä¸Šç®­å¼€å¼“å°„æ•Œï¼Ÿ\n");
 
         if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("xuanyuan-arror", 1))
-                return notify_fail("ÄãµÄ»ù±¾°µÆ÷Ë®Æ½ÓÐÏÞ£¬ÄÑÒÔÁì»á¸ü¾«ÃîµÄÉä¼ýÖ®Êõ¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬æš—å™¨æ°´å¹³æœ‰é™ï¼Œéš¾ä»¥é¢†ä¼šæ›´ç²¾å¦™çš„å°„ç®­ä¹‹æœ¯ã€‚\n");
 
         return 1;
 }
@@ -27,7 +27,7 @@ int practice_skill(object me)
         // object weapon;
 
         if ((int)me->query("qi") < 80)
-                return notify_fail("ÄãµÄÌåÁ¦²»×ã£¬À­²»¿ª¹­£¡\n");
+                return notify_fail("ä½ çš„ä½“åŠ›ä¸è¶³ï¼Œæ‹‰ä¸å¼€å¼“ï¼\n");
 
         me->receive_damage("qi", 70);
         return 1;

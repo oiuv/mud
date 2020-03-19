@@ -1,24 +1,24 @@
-// story:challenge ÌôÕ½
+// story:challenge æŒ‘æˆ˜
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-// ÄÚ²¿º¯Êı
+// å†…éƒ¨å‡½æ•°
 string show_time();
 mixed create_challenger();
 mixed master_opinion(int n);
 mixed continue_story(int n);
 int find_respond(object ob);
 
-// Íâ²¿¿ÉÒÔµ÷ÓÃµÄº¯Êı
+// å¤–éƒ¨å¯ä»¥è°ƒç”¨çš„å‡½æ•°
 void stop_story();
 string cannot_respond(object ob);
 void respone_for_challenge(object me);
 
 mixed *story = ({
     (: show_time :),
-    "Ò»¸öÉñÃØµÄÈËÀ´µ½ÁËÖĞÔ­¡­¡­",
+    "ä¸€ä¸ªç¥ç§˜çš„äººæ¥åˆ°äº†ä¸­åŸâ€¦â€¦",
     (: create_challenger :),
     (: master_opinion, 1 :),
     (: master_opinion, 2 :),
@@ -33,65 +33,65 @@ mixed *story = ({
 #define CHALLENGER_IS_TOO_CHEAP 4
 #define CHALLENGER_IS_FIGHTING 5
 
-int stop;        // FLAG: ÊÇ·ñĞèÒªÖÕÖ¹¹ÊÊÂ
-int too_cheap;   // FLAG: µĞÈËµÄË®Æ½ÊÇ·ñÌ«²î(Ïà±È×î¸ßË®Æ½Íæ¼Ò¶øÑÔ)
-int next;        // continue_storyº¯Êı¸ù¾İ¸ÄÖµ¼ÌĞø
-string accepted; // Ó¦Õ½ÕßĞÕÃû
-object cob;      // ÌôÕ½Õß
-object rob;      // Ó¦Õ½Õß
-object *ultra;   // ´ó×ÚÊ¦
+int stop;        // FLAG: æ˜¯å¦éœ€è¦ç»ˆæ­¢æ•…äº‹
+int too_cheap;   // FLAG: æ•Œäººçš„æ°´å¹³æ˜¯å¦å¤ªå·®(ç›¸æ¯”æœ€é«˜æ°´å¹³ç©å®¶è€Œè¨€)
+int next;        // continue_storyå‡½æ•°æ ¹æ®æ”¹å€¼ç»§ç»­
+string accepted; // åº”æˆ˜è€…å§“å
+object cob;      // æŒ‘æˆ˜è€…
+object rob;      // åº”æˆ˜è€…
+object *ultra;   // å¤§å®—å¸ˆ
 
 string *too_cheap_msg = ({
-    "$NÅ­µÀ£ºË­¸ÒÕâÃ´Ëµ£¿ÄãËãÊÇÊ²Ã´ÈË£¿",
-    "¡°Åé¡±µÄÒ»Éù£¬$N±»´òµÃ·ÉÁË³öÈ¥£¬ÑÛ¿´ÊÇ»î²»³ÉÁË¡£",
-    "´ïÄ¦×æÊ¦£º×ï¹ı£¡×ï¹ı£¡",
+    "$Næ€’é“ï¼šè°æ•¢è¿™ä¹ˆè¯´ï¼Ÿä½ ç®—æ˜¯ä»€ä¹ˆäººï¼Ÿ",
+    "â€œç °â€çš„ä¸€å£°ï¼Œ$Nè¢«æ‰“å¾—é£äº†å‡ºå»ï¼Œçœ¼çœ‹æ˜¯æ´»ä¸æˆäº†ã€‚",
+    "è¾¾æ‘©ç¥–å¸ˆï¼šç½ªè¿‡ï¼ç½ªè¿‡ï¼",
 });
 
 string *fenco = ({
-    "ÍõÓïæÌ",
-    "»ÆÈØ",
-    "ÕÔÃô",
-    "ÃçÈôÀ¼",
-    "Ô¬×ÏÒÂ",
-    "Ë®óÏ",
-    "°¢çæ",
-    "ÔÀÁéÉº",
-    "»ôÇàÍ©",
-    "Ğ¡ÁúÅ®",
+    "ç‹è¯­å«£",
+    "é»„è“‰",
+    "èµµæ•",
+    "è‹—è‹¥å…°",
+    "è¢ç´«è¡£",
+    "æ°´ç¬™",
+    "é˜¿ç‚",
+    "å²³çµçŠ",
+    "éœé’æ¡",
+    "å°é¾™å¥³",
 });
 
 string *fenmsg = ({
-    "¿ì¿ì¿ì£¡$C£¡¿ì¿ì¿ì£¡",
-    "³å°¡£¡$C£¡³å°¡£¡$C£¡",
-    "$C£¬¼ÓÓÍ£¡$C¼ÓÓÍ£¡",
-    "$CÅ¬Á¦Ñ½£¡¾Í¿´ÄãµÄÀ²£¡",
-    "$C²»ÒªÍË£¬ÍùÉÏ³å£¡¼ÓÓÍ£¡¼ÓÓÍ£¡¼ÓÓÍ£¡",
+    "å¿«å¿«å¿«ï¼$Cï¼å¿«å¿«å¿«ï¼",
+    "å†²å•Šï¼$Cï¼å†²å•Šï¼$Cï¼",
+    "$Cï¼ŒåŠ æ²¹ï¼$CåŠ æ²¹ï¼",
+    "$CåŠªåŠ›å‘€ï¼å°±çœ‹ä½ çš„å•¦ï¼",
+    "$Cä¸è¦é€€ï¼Œå¾€ä¸Šå†²ï¼åŠ æ²¹ï¼åŠ æ²¹ï¼åŠ æ²¹ï¼",
 });
 
 string *menco = ({
-    "ºúì³",
-    "ÃçÈË·ï",
-    "µÒÔÆ",
-    "¶ÎÓş",
-    "ÒüÖ¾Æ½",
-    "Î¤Ğ¡±¦",
-    "Áîºü³å",
-    "³Â¼ÒÂå",
-    "Ñî¹ı",
-    "Ê¯ÆÆÌì",
-    "ÕÅÎŞ¼É",
-    "Ô¬³ĞÖ¾",
+    "èƒ¡æ–",
+    "è‹—äººå‡¤",
+    "ç‹„äº‘",
+    "æ®µèª‰",
+    "å°¹å¿—å¹³",
+    "éŸ¦å°å®",
+    "ä»¤ç‹å†²",
+    "é™ˆå®¶æ´›",
+    "æ¨è¿‡",
+    "çŸ³ç ´å¤©",
+    "å¼ æ— å¿Œ",
+    "è¢æ‰¿å¿—",
 });
 
 string *menmsg = ({
-    "$N£¬²»ÒªÅÂ£¬ÍùÉÏ¹¥£¡",
-    "$N£¡¹¥ËûÉÏÉí£¬ËûÈ­½Å¹¦·ò²»ĞĞ£¡",
-    "$N£¡¹¥ËûÏÂÈıÂ·£¬ËûÏÂÅÌ²»ÎÈ£¡",
-    "$N¿ì¹¥ËûÕıÊÖ£¬ËûÕıÊÖ·´Ó¦Âı£¡",
-    "$N»¹²»¿ì¹¥Ëû·´ÊÖ£¬Ëû·´ÊÖÁ¦µÀ²»ĞĞ£¡",
+    "$Nï¼Œä¸è¦æ€•ï¼Œå¾€ä¸Šæ”»ï¼",
+    "$Nï¼æ”»ä»–ä¸Šèº«ï¼Œä»–æ‹³è„šåŠŸå¤«ä¸è¡Œï¼",
+    "$Nï¼æ”»ä»–ä¸‹ä¸‰è·¯ï¼Œä»–ä¸‹ç›˜ä¸ç¨³ï¼",
+    "$Nå¿«æ”»ä»–æ­£æ‰‹ï¼Œä»–æ­£æ‰‹ååº”æ…¢ï¼",
+    "$Nè¿˜ä¸å¿«æ”»ä»–åæ‰‹ï¼Œä»–åæ‰‹åŠ›é“ä¸è¡Œï¼",
 });
 
-string prompt() { return HIR "¡¾ Ìô  Õ½ ¡¿" NOR; }
+string prompt() { return HIR "ã€ æŒ‘  æˆ˜ ã€‘" NOR; }
 
 void create()
 {
@@ -113,8 +113,8 @@ mixed query_story_message(int step)
 
 string show_time()
 {
-    return (random(2)) ? "²»Öª²»¾õÖ®¼ä£¬Ê±¼äµ½ÁË" + NATURE_D->game_time() + "¡£"
-                       : "ËêÔÂÈçËó£¬Ëµ»°¼ä¾Íµ½ÁË" + NATURE_D->game_time() + "¡£";
+    return (random(2)) ? "ä¸çŸ¥ä¸è§‰ä¹‹é—´ï¼Œæ—¶é—´åˆ°äº†" + NATURE_D->game_time() + "ã€‚"
+                       : "å²æœˆå¦‚æ¢­ï¼Œè¯´è¯é—´å°±åˆ°äº†" + NATURE_D->game_time() + "ã€‚";
 }
 
 mixed create_challenger()
@@ -126,15 +126,15 @@ mixed create_challenger()
     if (!ob)
     {
         stop_story();
-        return "½á¹ûÃÔÂ·ÁË¡­";
+        return "ç»“æœè¿·è·¯äº†â€¦";
     }
 
     ob->move("/d/city/guangchang");
-    message("vision", ob->name() + "´óÒ¡´ó°ÚµÄ×ßÁË¹ıÀ´£¬µ±½ÖÒ»Á¢£¡\n", environment(ob));
-    CHANNEL_D->do_channel(this_object(), "rumor", "ÌıËµ" + "´Ó" + ob->query("nation") + "À´ÁËÒ»¸öÃû½Ğ" + ob->name(1) + "µÄÈË¡£");
+    message("vision", ob->name() + "å¤§æ‘‡å¤§æ‘†çš„èµ°äº†è¿‡æ¥ï¼Œå½“è¡—ä¸€ç«‹ï¼\n", environment(ob));
+    CHANNEL_D->do_channel(this_object(), "rumor", "å¬è¯´" + "ä»" + ob->query("nation") + "æ¥äº†ä¸€ä¸ªåå«" + ob->name(1) + "çš„äººã€‚");
     next = NOT_READY;
     cob = ob;
-    return ob->name() + "£º" + ob->challenge();
+    return ob->name() + "ï¼š" + ob->challenge();
 }
 
 mixed master_opinion(int n)
@@ -152,7 +152,7 @@ mixed master_opinion(int n)
     if (!cob)
     {
         stop_story();
-        return "ÔõÃ´ÈËÍ»È»¿Ô¶¼²»¿ÔÒ»Éù¾ÍÁï×ßÁË£¿";
+        return "æ€ä¹ˆäººçªç„¶å­éƒ½ä¸å­ä¸€å£°å°±æºœèµ°äº†ï¼Ÿ";
     }
 
     ob = ultra[random(sizeof(ultra))];
@@ -169,19 +169,19 @@ mixed master_opinion(int n)
     {
         if (!too_cheap)
         {
-            ob->force_me("chat ¿ÉÏ§°¡¿ÉÏ§£¬ÏÖÔÚ½­ºşÖĞ¾¹È»ÎŞÈËÄÜÊÕÊ°´ËÈË£¡");
+            ob->force_me("chat å¯æƒœå•Šå¯æƒœï¼Œç°åœ¨æ±Ÿæ¹–ä¸­ç«Ÿç„¶æ— äººèƒ½æ”¶æ‹¾æ­¤äººï¼");
             next = NO_USER_CAN_RESPOND;
             return 1;
         }
 
-        if (cob->query("nation") == "ÈÕ±¾")
+        if (cob->query("nation") == "æ—¥æœ¬")
         {
-            ob->force_me("chat ºß£¡ÄÄÀïÀ´µÄÈÕ±¾¹í×Ó£¿³Ô" + RANK_D->query_self(ob) + "Ò»ÕĞ£¡");
+            ob->force_me("chat å“¼ï¼å“ªé‡Œæ¥çš„æ—¥æœ¬é¬¼å­ï¼Ÿåƒ" + RANK_D->query_self(ob) + "ä¸€æ‹›ï¼");
             next = CHALLENGER_KILLED_BY_ULTRA;
             return 1;
         }
 
-        ob->force_me("chat ¹ş¹ş£¡ÖĞÔ­ÄÜÊÕÊ°ÄãµÄÈË¶àÁË£¡ÄãÎä¹¦Ì«²î£¬²»ÖµµÃÈÃÈË³öÊÖ£¬¹ö°É£¡");
+        ob->force_me("chat å“ˆå“ˆï¼ä¸­åŸèƒ½æ”¶æ‹¾ä½ çš„äººå¤šäº†ï¼ä½ æ­¦åŠŸå¤ªå·®ï¼Œä¸å€¼å¾—è®©äººå‡ºæ‰‹ï¼Œæ»šå§ï¼");
         next = CHALLENGER_IS_TOO_CHEAP;
         return 1;
     }
@@ -189,14 +189,14 @@ mixed master_opinion(int n)
     if (sizeof(u) < 10)
     {
         ob->force_me("chat* sigh");
-        ob->force_me("chat ½­ºşÄÜÊÕÊ°´ËÈËµÄ¹ÌÈ»²»ÉÙ£¬²»¹ıºÏÊÊµÄÈ·ÊÇÁÈÁÈÎŞ¼¸¡£");
+        ob->force_me("chat æ±Ÿæ¹–èƒ½æ”¶æ‹¾æ­¤äººçš„å›ºç„¶ä¸å°‘ï¼Œä¸è¿‡åˆé€‚çš„ç¡®æ˜¯å¯¥å¯¥æ— å‡ ã€‚");
     }
     else
     {
         ob->force_me("chat* heng");
-        ob->force_me("chat ÕâÈËÀ´ÕÒËÀ£¡ÄÜ°ÚÆ½ËüµÄÈË´óÓĞÈËÔÚ£¡");
+        ob->force_me("chat è¿™äººæ¥æ‰¾æ­»ï¼èƒ½æ‘†å¹³å®ƒçš„äººå¤§æœ‰äººåœ¨ï¼");
     }
-    message("vision", HIG + ob->name(1) + "¸æËßÄã£ºÄãºÎ²»³öÊÖÓ¦Õ½(accept)£¿ÑïÎÒÖĞ»ªÎäÁÖÍş·ç£¡\n",
+    message("vision", HIG + ob->name(1) + "å‘Šè¯‰ä½ ï¼šä½ ä½•ä¸å‡ºæ‰‹åº”æˆ˜(accept)ï¼Ÿæ‰¬æˆ‘ä¸­åæ­¦æ—å¨é£ï¼\n",
             u);
     next = CHALLENGER_IS_WAITING;
     return 1;
@@ -222,8 +222,8 @@ mixed continue_story(int n)
         return;
 
     case CHALLENGER_KILLED_BY_ULTRA:
-        cob->force_me("chat °Ë¸ñÑ½Â·£¡");
-        CHANNEL_D->do_channel(this_object(), "rumor", "ÌıËµÈÕ±¾¹í×Ó" + cob->name(1) + "±»´òµÃËûÂè¶¼ÈÏ²»³öËûÀ´ÁË¡£");
+        cob->force_me("chat å…«æ ¼å‘€è·¯ï¼");
+        CHANNEL_D->do_channel(this_object(), "rumor", "å¬è¯´æ—¥æœ¬é¬¼å­" + cob->name(1) + "è¢«æ‰“å¾—ä»–å¦ˆéƒ½è®¤ä¸å‡ºä»–æ¥äº†ã€‚");
         destruct(cob);
         stop_story();
         return 0;
@@ -231,8 +231,8 @@ mixed continue_story(int n)
     case NO_USER_CAN_RESPOND:
         cob->force_me("chat* haha");
         stop_story();
-        CHANNEL_D->do_channel(this_object(), "rumor", "ÌıËµÀ´×Ô" + cob->query("nation") + "µÄ" + cob->name(1) + "ÔÚÖĞ¹ú¾ÓÈ»Ã»ÓĞ¶ÔÊÖ£¬ÕæÊÇÖĞÔ­ÎäÁÖµÄÆæ³Ü´óÈè£¡");
-        return cob->name(1) + "£ºÖĞÔ­ÎäÁÖ£¬²»¹ıÈç´Ë£¡ÎÒÈ¥ÁË£¡";
+        CHANNEL_D->do_channel(this_object(), "rumor", "å¬è¯´æ¥è‡ª" + cob->query("nation") + "çš„" + cob->name(1) + "åœ¨ä¸­å›½å±…ç„¶æ²¡æœ‰å¯¹æ‰‹ï¼ŒçœŸæ˜¯ä¸­åŸæ­¦æ—çš„å¥‡è€»å¤§è¾±ï¼");
+        return cob->name(1) + "ï¼šä¸­åŸæ­¦æ—ï¼Œä¸è¿‡å¦‚æ­¤ï¼æˆ‘å»äº†ï¼";
 
     case CHALLENGER_IS_FIGHTING:
         if (!rob || environment(rob) != environment(cob))
@@ -243,16 +243,16 @@ mixed continue_story(int n)
                 rob->add("weiwang", -rob->query("weiwang") / 10);
                 rob->lost();
             }
-            CHANNEL_D->do_channel(this_object(), "rumor", "ÌıËµ" + accepted + "ÔÚºÍ" + cob->query("nation") + "" + cob->name(1) + "½»ÊÖµÄÊ±ºòÁÙÕóÍÑÌÓ£¬Ê¹ÖĞÔ­ÎäÁÖÃÉĞß£¡");
-            return cob->name(1) + "¿ñĞ¦²»Ö¹£ºÅ³·ò£¡ÖĞ¹ú¶¼ÊÇÒ»Ğ©Å³·ò£¡¹ş¹ş£¡";
+            CHANNEL_D->do_channel(this_object(), "rumor", "å¬è¯´" + accepted + "åœ¨å’Œ" + cob->query("nation") + "" + cob->name(1) + "äº¤æ‰‹çš„æ—¶å€™ä¸´é˜µè„±é€ƒï¼Œä½¿ä¸­åŸæ­¦æ—è’™ç¾ï¼");
+            return cob->name(1) + "ç‹‚ç¬‘ä¸æ­¢ï¼šæ‡¦å¤«ï¼ä¸­å›½éƒ½æ˜¯ä¸€äº›æ‡¦å¤«ï¼å“ˆå“ˆï¼";
         }
 
         if (random(3))
             return 1;
-        if (rob->query("gender") == "ÄĞĞÔ")
-            msg = fenco[random(sizeof(fenco))] + "´óÉùº°µÀ£º" + fenmsg[random(sizeof(fenmsg))];
+        if (rob->query("gender") == "ç”·æ€§")
+            msg = fenco[random(sizeof(fenco))] + "å¤§å£°å–Šé“ï¼š" + fenmsg[random(sizeof(fenmsg))];
         else
-            msg = menco[random(sizeof(menco))] + "´óÉùº°µÀ£º" + menmsg[random(sizeof(menmsg))];
+            msg = menco[random(sizeof(menco))] + "å¤§å£°å–Šé“ï¼š" + menmsg[random(sizeof(menmsg))];
         msg = replace_string(msg, "$N", rob->name(1));
         msg = replace_string(msg, "$C", RANK_D->query_respect(rob));
         return msg;
@@ -262,36 +262,36 @@ mixed continue_story(int n)
     {
     case 1:
         return cob->name(1) +
-               (random(2) ? "£ºÔõÃ´£¬Ã»ÈË¸ÒÓ¦Õ½Ã´£¿ÄÇÎÒ¾ÍÔÙµÈµÈ£¡"
-                          : "£ººÙºÙ£¬¶¼ÊÇÒ»Ğ©µ¨Ğ¡¹í£¡");
+               (random(2) ? "ï¼šæ€ä¹ˆï¼Œæ²¡äººæ•¢åº”æˆ˜ä¹ˆï¼Ÿé‚£æˆ‘å°±å†ç­‰ç­‰ï¼"
+                          : "ï¼šå˜¿å˜¿ï¼Œéƒ½æ˜¯ä¸€äº›èƒ†å°é¬¼ï¼");
 
     case 3:
         return cob->name(1) +
-               (random(2) ? "ËÆºõµÈµÃºÜ²»ÄÍ·³¡£"
-                          : "Ò»»á¶ù¿´¿´Ìì¿Õ£¬Ò»»á¶ùÍûÍûµØÃæ£¬¿´ÆğÀ´ºÜÊÇÓÆÏĞ¡£");
+               (random(2) ? "ä¼¼ä¹ç­‰å¾—å¾ˆä¸è€çƒ¦ã€‚"
+                          : "ä¸€ä¼šå„¿çœ‹çœ‹å¤©ç©ºï¼Œä¸€ä¼šå„¿æœ›æœ›åœ°é¢ï¼Œçœ‹èµ·æ¥å¾ˆæ˜¯æ‚ é—²ã€‚");
 
     case 5:
         return cob->name(1) +
-               (random(2) ? "£ºÔõÃ´£¬»¹ÓĞÃ»ÈË¸ÒÓ¦Õ½Ã´£¿ÕæÊÇÈÃÎÒÊ§Íû£¡"
-                          : "£ºËµÊ²Ã´ÖĞÍÁÎäÑ§²©´ó¾«Éî£¬Ô­À´¶¼ÊÇÒ¥´«¡£");
+               (random(2) ? "ï¼šæ€ä¹ˆï¼Œè¿˜æœ‰æ²¡äººæ•¢åº”æˆ˜ä¹ˆï¼ŸçœŸæ˜¯è®©æˆ‘å¤±æœ›ï¼"
+                          : "ï¼šè¯´ä»€ä¹ˆä¸­åœŸæ­¦å­¦åšå¤§ç²¾æ·±ï¼ŒåŸæ¥éƒ½æ˜¯è°£ä¼ ã€‚");
 
     case 7:
         return cob->name(1) +
-               (random(2) ? "Ò¡Ò¡Í·£¬ÓÖÌ¾Ì¾Æø£¬Ò»¸±²»Ğ¼µÄÑù×Ó¡£¡±"
-                          : "ºßÁËÒ»Éù£¬ÂúÁ³¾¡ÊÇ²»Ğ¼¡£");
+               (random(2) ? "æ‘‡æ‘‡å¤´ï¼Œåˆå¹å¹æ°”ï¼Œä¸€å‰¯ä¸å±‘çš„æ ·å­ã€‚â€"
+                          : "å“¼äº†ä¸€å£°ï¼Œæ»¡è„¸å°½æ˜¯ä¸å±‘ã€‚");
 
     case 9:
         return cob->name(1) +
-               (random(2) ? "£ºËãÁË£¡ÎÒ¿´ÎÒ»¹ÊÇ×ß°É£¡"
-                          : "£ºÎÒÒ²ËãÊÇÀ´¹ıÁË£¬¿´À´»¹ÊÇ²»ÒªÔÚÕâÀË·ÑÊ±¼äÁË¡£");
+               (random(2) ? "ï¼šç®—äº†ï¼æˆ‘çœ‹æˆ‘è¿˜æ˜¯èµ°å§ï¼"
+                          : "ï¼šæˆ‘ä¹Ÿç®—æ˜¯æ¥è¿‡äº†ï¼Œçœ‹æ¥è¿˜æ˜¯ä¸è¦åœ¨è¿™æµªè´¹æ—¶é—´äº†ã€‚");
 
     case 10:
         return cob->name(1) +
-               (random(2) ? "£ºÖĞÔ­ÎäÁÖ£¬È«¶¼ÊÇÒ»Ğ©ËõÍ·ÎÚ¹ê£¡ËãÁË£¬ÎÒ×ßÁË£¡"
-                          : "£º¹ş¹ş¹ş¹ş£¡Ê²Ã´ÎäÊõ£¿¶¼ÊÇÒ»Ğ©Æ­ÈËµÄ¶«Î÷£¡ÎÒ×ßÁË£¡");
+               (random(2) ? "ï¼šä¸­åŸæ­¦æ—ï¼Œå…¨éƒ½æ˜¯ä¸€äº›ç¼©å¤´ä¹Œé¾Ÿï¼ç®—äº†ï¼Œæˆ‘èµ°äº†ï¼"
+                          : "ï¼šå“ˆå“ˆå“ˆå“ˆï¼ä»€ä¹ˆæ­¦æœ¯ï¼Ÿéƒ½æ˜¯ä¸€äº›éª—äººçš„ä¸œè¥¿ï¼æˆ‘èµ°äº†ï¼");
 
     case 11:
-        CHANNEL_D->do_channel(this_object(), "rumor", "ÌıËµÀ´×Ô" + cob->query("nation") + "µÄ" + cob->name(1) + "ÔÚÖĞ¹úÒ«ÎäÑïÍşÁËÒ»·¬ºó°²È»µÄ»Ø¹úÈ¥ÁË£¬ÕæÊÇ³ÜÈè¡£");
+        CHANNEL_D->do_channel(this_object(), "rumor", "å¬è¯´æ¥è‡ª" + cob->query("nation") + "çš„" + cob->name(1) + "åœ¨ä¸­å›½è€€æ­¦æ‰¬å¨äº†ä¸€ç•ªåå®‰ç„¶çš„å›å›½å»äº†ï¼ŒçœŸæ˜¯è€»è¾±ã€‚");
         return 0;
     }
 
@@ -322,22 +322,22 @@ int find_respond(object ob)
 string cannot_accept(object ob)
 {
     if (!cob)
-        return "ÏÖÔÚ»¹Ã»ÓĞÌôÕ½Õß£¡\n";
+        return "ç°åœ¨è¿˜æ²¡æœ‰æŒ‘æˆ˜è€…ï¼\n";
 
     if (rob == ob)
-        return "ÄãÕıÔÚÓ¦Õ½ÄØ£¡\n";
+        return "ä½ æ­£åœ¨åº”æˆ˜å‘¢ï¼\n";
 
     if (accepted)
-        return "Õâ´ÎÌôÕ½ÒÑ¾­±»" + accepted + "½ÓÏÂÁË¡£\n";
+        return "è¿™æ¬¡æŒ‘æˆ˜å·²ç»è¢«" + accepted + "æ¥ä¸‹äº†ã€‚\n";
 
     if (next != CHALLENGER_IS_WAITING)
-        return "ÄãµÈ»á¶ù£¬ÔÚ´ó×ÚÊ¦ÃæÇ°ÇÀÊ²Ã´²ç¶ù£¿\n";
+        return "ä½ ç­‰ä¼šå„¿ï¼Œåœ¨å¤§å®—å¸ˆé¢å‰æŠ¢ä»€ä¹ˆèŒ¬å„¿ï¼Ÿ\n";
 
     if (ob->query("combat_exp") > cob->query("combat_exp") * 3)
-        return "ÌôÕ½ÕßµÄË®Æ½Ì«µÍÁË£¬ÄãÒªÊÇ³öÊÖÊµÔÚÊÇÓĞÊ§Éí·İ£¡\n";
+        return "æŒ‘æˆ˜è€…çš„æ°´å¹³å¤ªä½äº†ï¼Œä½ è¦æ˜¯å‡ºæ‰‹å®åœ¨æ˜¯æœ‰å¤±èº«ä»½ï¼\n";
 
     if (ob->query("combat_exp") < cob->query("combat_exp") / 2)
-        return "ÄãµÄÎä¹¦ºÍÌôÕ½ÕßÏà±È²îµÄÌ«Ô¶£¬»¹ÊÇ²»Òª¶ªÎÒÃÇÖĞ¹úÈËµÄÁ³ÁË£¡\n";
+        return "ä½ çš„æ­¦åŠŸå’ŒæŒ‘æˆ˜è€…ç›¸æ¯”å·®çš„å¤ªè¿œï¼Œè¿˜æ˜¯ä¸è¦ä¸¢æˆ‘ä»¬ä¸­å›½äººçš„è„¸äº†ï¼\n";
     ;
 
     return 0;
@@ -352,19 +352,19 @@ void accept_for_challenge(object me)
     if (!fam)
         fam = "";
     else
-        fam += "¸ßÊÖ";
+        fam += "é«˜æ‰‹";
     me->force_me("chat* heng");
-    me->force_me("chat " + cob->name(1) + "ÉÙÒª²ş¿ñ£¬ÎÒÀ´ÁË£¡");
-    CHANNEL_D->do_channel(this_object(), "rumor", "ÌıËµ" + fam + me->name(1) + "Í¦Éí¶ø³ö£¬½ÓÏÂÁË" + cob->name(1) + "µÄÌôÕ½£¡");
+    me->force_me("chat " + cob->name(1) + "å°‘è¦çŒ–ç‹‚ï¼Œæˆ‘æ¥äº†ï¼");
+    CHANNEL_D->do_channel(this_object(), "rumor", "å¬è¯´" + fam + me->name(1) + "æŒºèº«è€Œå‡ºï¼Œæ¥ä¸‹äº†" + cob->name(1) + "çš„æŒ‘æˆ˜ï¼");
     rob = me;
     accepted = me->name(1);
     if (environment(cob) != environment(me))
     {
-        tell_object(me, HIG "Äã·ÉÒ²ËÆµÄ¸Ïµ½ÁË" + environment(cob)->short() + HIG "¡£\n");
-        message("vision", me->name() + "Í»È»¼±¼±Ã¦Ã¦µÄ×ßÁË¡£\n",
+        tell_object(me, HIG "ä½ é£ä¹Ÿä¼¼çš„èµ¶åˆ°äº†" + environment(cob)->short() + HIG "ã€‚\n");
+        message("vision", me->name() + "çªç„¶æ€¥æ€¥å¿™å¿™çš„èµ°äº†ã€‚\n",
                 environment(me), ({me}));
         me->move(environment(cob));
-        message("vision", me->name() + "¼±¼±Ã¦Ã¦µÄ¸ÏÁË¹ıÀ´¡£\n",
+        message("vision", me->name() + "æ€¥æ€¥å¿™å¿™çš„èµ¶äº†è¿‡æ¥ã€‚\n",
                 environment(me), ({me}));
     }
     next = CHALLENGER_IS_FIGHTING;
@@ -377,7 +377,7 @@ void remove()
     {
         if (environment(cob))
         {
-            message("vision", cob->name() + "ËÊËÊ¼ç£¬¹ş¹ş´óĞ¦£¬Æ®È»¶øÈ¥¡£\n",
+            message("vision", cob->name() + "è€¸è€¸è‚©ï¼Œå“ˆå“ˆå¤§ç¬‘ï¼Œé£˜ç„¶è€Œå»ã€‚\n",
                     environment(cob));
         }
         destruct(cob);

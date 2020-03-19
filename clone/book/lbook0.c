@@ -3,13 +3,13 @@ inherit BOOK;
 
 void create()
 {
-        set_name(HIR "¡¸ÌÆÊ«Ñ¡¼­¡¹" NOR, ({ "tangshi xuanji", "tangshi", "xuanji", "book" }));
+        set_name(HIR "ã€Œå”è¯—é€‰è¾‘ã€" NOR, ({ "tangshi xuanji", "tangshi", "xuanji", "book" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±¾");
-                set("long", HIR "Ò»±¾ÔÚÃñ¼äÁ÷´«Éõ¹ãµÄÊ«Ñ¡¡£\n" NOR);
+                set("unit", "æœ¬");
+                set("long", HIR "ä¸€æœ¬åœ¨æ°‘é—´æµä¼ ç”šå¹¿çš„è¯—é€‰ã€‚\n" NOR);
                 set("value", 500);
                 set("material", "paper");
                 set("skill",

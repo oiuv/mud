@@ -3,12 +3,12 @@ inherit TRANS_ROOM;
 
 void create()
 {
-      set("short","����");
+      set("short","马厩");
       set("long",@LONG
-���ǲ���ߵ����ǣ����깩Ӧ���ʲ��ϡ������ǻ����ǣ
-�����Ǻ����տ���������ι�����㣬��ϴˢ�ø�Ǭ������һֱ
-�ź򵽿�����·�������жѷ������Ѳ���������һ����ۡ���
-�������µ���ľ���϶���һ����ľ��(paizi)��
+这是草棚边的马厩，常年供应新鲜草料。马夫们会把马牵
+到马厩好生照看，将它们喂饱饮足，再洗刷得干乾净净，一直
+伺候到客人上路。马厩中堆放著几堆草料正中有一口泔槽。马
+厩雨檐下的烂木柱上钉着一块破木牌(paizi)。
 LONG);
       set("outdoors", "emei");
       set("exits",([

@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define ZHONG "¡¸" HIW "ÉúËÀ·û" NOR "¡¹"
+#define ZHONG "ã€Œ" HIW "ç”Ÿæ­»ç¬¦" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,36 +12,36 @@ int perform(object me, object target)
         int ap, dp, flvl;
 
         if (userp(me) && ! me->query("can_perform/liuyang-zhang/zhong"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(ZHONG "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(ZHONG "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_skill("force") < 200)
-                return notify_fail("ÄãµÄÄÚ¹¦²»¹»»ðºò£¬ÄÑÒÔÊ©Õ¹" ZHONG "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸä¸å¤Ÿç«å€™ï¼Œéš¾ä»¥æ–½å±•" ZHONG "ã€‚\n");
 
         if ((int)me->query_skill("liuyang-zhang", 1) < 150)
-                return notify_fail("ÄãµÄÌìÉ½ÁùÑôÕÆ²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" ZHONG "¡£\n");
+                return notify_fail("ä½ çš„å¤©å±±å…­é˜³æŽŒä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" ZHONG "ã€‚\n");
 
         if (me->query_skill_mapped("strike") != "liuyang-zhang")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢ÕÆ·¨ÌìÉ½ÁùÑôÕÆ£¬ÄÑÒÔÊ©Õ¹" ZHONG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘æŽŒæ³•å¤©å±±å…­é˜³æŽŒï¼Œéš¾ä»¥æ–½å±•" ZHONG "ã€‚\n");
 			
 		if (me->query_skill_mapped("throwing") != "liuyang-zhang")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢°µÆ÷ÌìÉ½ÁùÑôÕÆ£¬ÄÑÒÔÊ©Õ¹" ZHONG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘æš—å™¨å¤©å±±å…­é˜³æŽŒï¼Œéš¾ä»¥æ–½å±•" ZHONG "ã€‚\n");
 
         if (me->query_skill_prepared("strike") != "liuyang-zhang")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓÐ×¼±¸ÌìÉ½ÁùÑôÕÆ£¬ÄÑÒÔÊ©Õ¹" ZHONG "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ²¡æœ‰å‡†å¤‡å¤©å±±å…­é˜³æŽŒï¼Œéš¾ä»¥æ–½å±•" ZHONG "ã€‚\n");
 
         if (me->query("neili") < 100)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" ZHONG "¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" ZHONG "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "ÄæÔËÕæÆø£¬»¯¿ÕÆøÖÐµÄË®Â¶Îªº®±ù£¬ÄýÓÚÕÆÖÐ£¬¼Ì¶øÕÆ"
-              "³öÈç·ç£¬ÇáÆ®Æ®µØÏò$n" HIW "ÅÄÂä¡£\n";
+        msg = HIW "$N" HIW "é€†è¿çœŸæ°”ï¼ŒåŒ–ç©ºæ°”ä¸­çš„æ°´éœ²ä¸ºå¯’å†°ï¼Œå‡äºŽæŽŒä¸­ï¼Œç»§è€ŒæŽŒ"
+              "å‡ºå¦‚é£Žï¼Œè½»é£˜é£˜åœ°å‘$n" HIW "æ‹è½ã€‚\n";
 
         ap = me->query_skill("force") + me->query_skill("throwing") + me->query_skill("medical");
         dp = target->query_skill("force") + target->query_skill("medical");
@@ -51,9 +51,9 @@ int perform(object me, object target)
                 target->receive_wound("jing", 10 + random(5), me);
                 damage = ap / 2 + random(ap / 2);
                 msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 50,
-                                           HIR "Ö»¼û$n" HIR "±»$N" HIR "Ò»ÕÆÅÄÖÐ"
-                                           "£¬½ô½Ó×ÅÉí×ÓÒ»²ü£¬$P" HIR "ÄÇÃ¶ÉúËÀ·û"
-                                           "ÒÑÖÖÈë$p" HIR "ÌåÄÚ£¡\n" NOR);
+                                           HIR "åªè§$n" HIR "è¢«$N" HIR "ä¸€æŽŒæ‹ä¸­"
+                                           "ï¼Œç´§æŽ¥ç€èº«å­ä¸€é¢¤ï¼Œ$P" HIR "é‚£æžšç”Ÿæ­»ç¬¦"
+                                           "å·²ç§å…¥$p" HIR "ä½“å†…ï¼\n" NOR);
                 target->affect_by("ss_poison",
                                ([ "level" : flvl + random(flvl * 2),
                                   "id"    : me->query("id"),
@@ -61,8 +61,8 @@ int perform(object me, object target)
                 me->start_busy(1 + random(4));
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "ÄÚÁ¦¼¤µ´£¬½«$P"
-                       CYN "ÄÇÃ¶ÉúËÀ·ûÓ²ÉúÉúÕð³öÌåÍâ¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "å†…åŠ›æ¿€è¡ï¼Œå°†$P"
+                       CYN "é‚£æžšç”Ÿæ­»ç¬¦ç¡¬ç”Ÿç”Ÿéœ‡å‡ºä½“å¤–ã€‚\n" NOR;
                 me->start_busy(3);
                 target->start_busy(1);
         }

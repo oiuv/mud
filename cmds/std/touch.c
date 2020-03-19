@@ -9,25 +9,25 @@ int main(object me, string arg)
 	object obj;
 
 	if (! arg)
-                return notify_fail("ÄãÒª´¥ÃþÊ²Ã´ÎïÆ·£¿\n");
+                return notify_fail("ä½ è¦è§¦æ‘¸ä»€ä¹ˆç‰©å“ï¼Ÿ\n");
 
 	if (! objectp(obj = present(arg, me)) &&
             ! objectp(obj = present(arg, environment(me))))
-		return notify_fail("ÄãÉíÉÏÃ»ÓÐÕâÑù¶«Î÷£¬¸½½üÒ²Ã»ÓÐ¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ï¼Œé™„è¿‘ä¹Ÿæ²¡æœ‰ã€‚\n");
 
         if (obj->is_character())
-                return notify_fail("Äã±ðÂÒ¶¯" + obj->name() + "ÁË¡£\n");
+                return notify_fail("ä½ åˆ«ä¹±åŠ¨" + obj->name() + "äº†ã€‚\n");
 
-        notify_fail("ÄãÃþÁËÒ»ÏÂ" + obj->name() + "¡£\n");
+        notify_fail("ä½ æ‘¸äº†ä¸€ä¸‹" + obj->name() + "ã€‚\n");
         return obj->do_touch(me);
 }
 
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : touch <ÎïÆ·Ãû³Æ>
+æŒ‡ä»¤æ ¼å¼ : touch <ç‰©å“åç§°>
  
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã¸§ÃþÄ³Ñù¶«Î÷£¬³¢ÊÔ·¢»ÓËüµÄÌØÊâÄÜÁ¦¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ æŠšæ‘¸æŸæ ·ä¸œè¥¿ï¼Œå°è¯•å‘æŒ¥å®ƒçš„ç‰¹æ®Šèƒ½åŠ›ã€‚
  
 HELP );
         return 1;

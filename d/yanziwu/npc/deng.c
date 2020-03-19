@@ -7,10 +7,10 @@ inherit F_GUARDER;
 
 void create()
 {
-    set_name("µË°Ù´¨", ({"deng baichuan", "deng"}));
-    set("gender", "ÄĞĞÔ");
+    set_name("é‚“ç™¾å·", ({"deng baichuan", "deng"}));
+    set("gender", "ç”·æ€§");
     set("age", 42);
-    set("long", "ËûÊÇÄ½Èİ¼ÒËÄ´ó¼Ò³¼Ö®Ê×£¬¹¦Á¦×îÎªÉîºñ¡£\n");
+    set("long", "ä»–æ˜¯æ…•å®¹å®¶å››å¤§å®¶è‡£ä¹‹é¦–ï¼ŒåŠŸåŠ›æœ€ä¸ºæ·±åšã€‚\n");
     set("attitude", "peaceful");
     set("str", 26);
     set("int", 22);
@@ -41,11 +41,11 @@ void create()
 
     prepare_skill("cuff", "jingang-quan");
 
-    create_family("Ä½ÈİÊÀ¼Ò", 0, "¼Ò³¼");
+    create_family("æ…•å®¹ä¸–å®¶", 0, "å®¶è‡£");
 
     set("inquiry", ([
-        "Ä½Èİ²©":   "ÄÇÊÇÀÏÖ÷ÈË¡£\n",
-        "Ä½Èİ¸´":   "Ëû¾ÍÊÇÎÒÃÇ¸úËæµÄ¹«×Ó£¡\n",
+        "æ…•å®¹åš":   "é‚£æ˜¯è€ä¸»äººã€‚\n",
+        "æ…•å®¹å¤":   "ä»–å°±æ˜¯æˆ‘ä»¬è·Ÿéšçš„å…¬å­ï¼\n",
     ]));
 
     set("coagents", ({
@@ -60,6 +60,6 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-    command("say ÎÒÃÇ¸úËæÄ½Èİ¹«×Ó£¬²»ÊÕÍ½¡£");
+    command("say æˆ‘ä»¬è·Ÿéšæ…•å®¹å…¬å­ï¼Œä¸æ”¶å¾’ã€‚");
     return;
 }

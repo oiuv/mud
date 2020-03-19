@@ -5,8 +5,8 @@ mixed ask_me();
 
 void create()
 {
-        set_name("²Î¿Í", ({ "shen ke", "shen", "ke" }));
-        set("long", "ËûÊÇÒ»¸ö²Î¿Í£¬³£ÄêÔÚ¹ØÍâ¾­Óª£¬ÆÄÎª¸»ÓĞ¡£\n");
+        set_name("å‚å®¢", ({ "shen ke", "shen", "ke" }));
+        set("long", "ä»–æ˜¯ä¸€ä¸ªå‚å®¢ï¼Œå¸¸å¹´åœ¨å…³å¤–ç»è¥ï¼Œé¢‡ä¸ºå¯Œæœ‰ã€‚\n");
         set("age", 65);
         set("combat_exp", 300);
         set("str", 30);
@@ -15,8 +15,8 @@ void create()
         set("int", 30);
         set("attitude", "friendly");
         set("inquiry", ([
-                "Èë¹Ø" : (: ask_me :),
-                "»ØÈ¥" : (: ask_me :),
+                "å…¥å…³" : (: ask_me :),
+                "å›å»" : (: ask_me :),
         ]));
         setup();
         set("startroom", "/d/beijing/majiu");
@@ -28,31 +28,31 @@ mixed ask_me()
         object ob, me;
         me = this_player();
 
-        if ((string)me->query("family/family_name") != "¹ØÍâºú¼Ò")
-                return "ÄãÊÇË­£¿ÇëÎÊÎÒÈÏÊ¶ÄãÃ´£¿";
+        if ((string)me->query("family/family_name") != "å…³å¤–èƒ¡å®¶")
+                return "ä½ æ˜¯è°ï¼Ÿè¯·é—®æˆ‘è®¤è¯†ä½ ä¹ˆï¼Ÿ";
 
         if (find_object(query("startroom")) != environment())
-                return "ÎÒÕâÀï»¹ÓĞÊÂ£¬Äã¾Í×Ô¼º×ß»ØÈ¥°É¡£";
+                return "æˆ‘è¿™é‡Œè¿˜æœ‰äº‹ï¼Œä½ å°±è‡ªå·±èµ°å›å»å§ã€‚";
 
         command("hehe");
-        command("say ¼ÈÈ»ÊÇÆ½ËÄÒ¯ÅóÓÑµÄÊÂ£¬ÎÒÔõÃ´¿ÉÄÜ²»°ï£¿");
+        command("say æ—¢ç„¶æ˜¯å¹³å››çˆ·æœ‹å‹çš„äº‹ï¼Œæˆ‘æ€ä¹ˆå¯èƒ½ä¸å¸®ï¼Ÿ");
 
-        message_sort(HIC "\n±ã¼û²Î¿ÍÖ¸×Å$N" HIC "¶ÔÂí·òµÀ¡¸ÕâÊÇÎÒ"
-                     "ÅóÓÑ£¬ÏÖÔÚÒª»Ø¹ØÍâ£¬ÄãÕÒ¸ö»ï¼ÆËÍËû£¬Â··Ñ»ïÊ³"
-                     "È«²¿ÓÉÎÒµ£¸º£¬Ò»ÇĞÒÔÈı±¶¼ÆËã¡£¡¹Âí·òÌıºóÁ¢Ã¦"
-                     "Á¬Éù³ÆÊÇ£¬½«$N" HIC "ËÍÉÏÂí³µ£¬¾ø³¾¶øÈ¥¡£\n"
+        message_sort(HIC "\nä¾¿è§å‚å®¢æŒ‡ç€$N" HIC "å¯¹é©¬å¤«é“ã€Œè¿™æ˜¯æˆ‘"
+                     "æœ‹å‹ï¼Œç°åœ¨è¦å›å…³å¤–ï¼Œä½ æ‰¾ä¸ªä¼™è®¡é€ä»–ï¼Œè·¯è´¹ä¼™é£Ÿ"
+                     "å…¨éƒ¨ç”±æˆ‘æ‹…è´Ÿï¼Œä¸€åˆ‡ä»¥ä¸‰å€è®¡ç®—ã€‚ã€é©¬å¤«å¬åç«‹å¿™"
+                     "è¿å£°ç§°æ˜¯ï¼Œå°†$N" HIC "é€ä¸Šé©¬è½¦ï¼Œç»å°˜è€Œå»ã€‚\n"
                      "\n" NOR, me);
 
         ob = load_object("/d/guanwai/xiaoyuan");
         ob = find_object("/d/guanwai/xiaoyuan");
         me->move("/d/guanwai/xiaoyuan");
 
-        message("vision", HIC "\nÔ¶´¦Ò»Á¾Âí³µ¼±Ê»¶øÀ´£¬³µÃÅÒ»¿ª" +
-                          me->query("name") + HIC "´ÓÀïÃæ×êÁË³ö"
-                          "À´¡£\n\n" NOR, environment(me), ({me}));
+        message("vision", HIC "\nè¿œå¤„ä¸€è¾†é©¬è½¦æ€¥é©¶è€Œæ¥ï¼Œè½¦é—¨ä¸€å¼€" +
+                          me->query("name") + HIC "ä»é‡Œé¢é’»äº†å‡º"
+                          "æ¥ã€‚\n\n" NOR, environment(me), ({me}));
 
-        tell_object(me, CYN "\nÂí·òĞ¦µÀ£ºÕâÎ»" + RANK_D->query_respect(me) +
-                        CYN "ÒÑ¾­µ½ÁË£¬ÇëÏÂ³µ°É¡£\n\n" NOR );
+        tell_object(me, CYN "\né©¬å¤«ç¬‘é“ï¼šè¿™ä½" + RANK_D->query_respect(me) +
+                        CYN "å·²ç»åˆ°äº†ï¼Œè¯·ä¸‹è½¦å§ã€‚\n\n" NOR );
         return 1;
 
 }

@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÕÊ·¿");
+        set("short", "å¸æˆ¿");
         set("long", @LONG
-ÕâÀïÊÇÎä¹ÝÄÚµÄÒ»¸öÕÊ·¿£¬ÊÒÄÚÒ»¸öÕÊ·¿ÏÈÉúÔÚÕâÀïÈÏÕæ
-µØ×ö×ÅÕÊ¡£¼¸ÃûÐÂµÜ×ÓÕýÎ§×ÅÕÊ·¿ÏÈÉú£¬¿´À´ÊÇÏë°Ñ»ýÔÜÏÂÀ´
-µÄÇ®Îï´æÔÚÕâÀï¡£Ç½ÉÏ¹ÒÓÐÒ»¸öÅÆ×Ó(paizi)¡£
+è¿™é‡Œæ˜¯æ­¦é¦†å†…çš„ä¸€ä¸ªå¸æˆ¿ï¼Œå®¤å†…ä¸€ä¸ªå¸æˆ¿å…ˆç”Ÿåœ¨è¿™é‡Œè®¤çœŸ
+åœ°åšç€å¸ã€‚å‡ åæ–°å¼Ÿå­æ­£å›´ç€å¸æˆ¿å…ˆç”Ÿï¼Œçœ‹æ¥æ˜¯æƒ³æŠŠç§¯æ”’ä¸‹æ¥
+çš„é’±ç‰©å­˜åœ¨è¿™é‡Œã€‚å¢™ä¸ŠæŒ‚æœ‰ä¸€ä¸ªç‰Œå­(paizi)ã€‚
 LONG);
         set("no_fight", 1);
         set("exits", ([
@@ -18,20 +18,20 @@ LONG);
                 __DIR__"npc/fan" : 1,
         ]) );
         set("item_desc", ([
-                "paizi" : WHT "\n\n        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù     ¹«Æ½½»Ò×     ¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù  " NOR + HIW "´æÇ®" NOR + WHT "£º " NOR + HIY "deposit" NOR + WHT "  ¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù  " NOR + HIW "È¡Ç®" NOR + WHT "£º " NOR + HIY "withdraw" NOR + WHT " ¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù  " NOR + HIW "¶Ò»»" NOR + WHT "£º " NOR + HIY "convert" NOR + WHT "  ¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù  " NOR + HIW "²éÕÊ" NOR + WHT "£º " NOR + HIY "check" NOR + WHT "    ¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n\n\n" NOR,
+                "paizi" : WHT "\n\n        â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»     å…¬å¹³äº¤æ˜“     â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»  " NOR + HIW "å­˜é’±" NOR + WHT "ï¼š " NOR + HIY "deposit" NOR + WHT "  â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»  " NOR + HIW "å–é’±" NOR + WHT "ï¼š " NOR + HIY "withdraw" NOR + WHT " â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»  " NOR + HIW "å…‘æ¢" NOR + WHT "ï¼š " NOR + HIY "convert" NOR + WHT "  â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»  " NOR + HIW "æŸ¥å¸" NOR + WHT "ï¼š " NOR + HIY "check" NOR + WHT "    â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n\n\n" NOR,
         ]));
         setup();
         replace_program(ROOM);

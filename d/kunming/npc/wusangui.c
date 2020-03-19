@@ -3,11 +3,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÎâÈı¹ğ", ({ "wu sangui", "wu" }));
+        set_name("å´ä¸‰æ¡‚", ({ "wu sangui", "wu" }));
         set("age", 58);
-        set("title", HIY "Æ½Î÷Íõ" NOR);
-        set("gender", "ÄĞĞÔ");
-        set("long", "Õâ¾ÍÊÇ´óÃû¶¦¶¦µÄÒıÇå±øÈë¹ØµÄÆ½Î÷ÍõÎâÈı¹ğ\n");
+        set("title", HIY "å¹³è¥¿ç‹" NOR);
+        set("gender", "ç”·æ€§");
+        set("long", "è¿™å°±æ˜¯å¤§åé¼é¼çš„å¼•æ¸…å…µå…¥å…³çš„å¹³è¥¿ç‹å´ä¸‰æ¡‚\n");
         set("attitude", "peaceful");
         set("str", 30);
         set("dex", 30);
@@ -58,12 +58,12 @@ void greeting(object ob)
         if (stringp(startroom = query("startroom")) &&
             find_object(startroom) == environment())
         {
-                say(CYN "ÎâÈı¹ğºÈµÀ£º¡°Ê²Ã´ÈË£¡¾ÓÈ»¸ÒÉÃ´³±¾Íõ¸®£¡¡±\n\n" NOR +
-                    HIR "Ö»¼ûÎâÈı¹ğ¾ÙÊÖÒ»Ì§£¬ÌıµÃ¡°ºä¡±µÄÒ»Éù£¬Ò»ÍÅ»ğÑæ´ÓÇ¹¿Ú´Ü³ö¡£\n" NOR);
-                tell_object(ob, HIR "Äã¶ã±Ü²»¼°£¬Ö»¾õĞØ¿ÚÒ»Õó¾çÌÛ£¬ÏÊÑª¿ñÓ¿¶ø³ö£¡\n" NOR);
+                say(CYN "å´ä¸‰æ¡‚å–é“ï¼šâ€œä»€ä¹ˆäººï¼å±…ç„¶æ•¢æ“…é—¯æœ¬ç‹åºœï¼â€\n\n" NOR +
+                    HIR "åªè§å´ä¸‰æ¡‚ä¸¾æ‰‹ä¸€æŠ¬ï¼Œå¬å¾—â€œè½°â€çš„ä¸€å£°ï¼Œä¸€å›¢ç«ç„°ä»æªå£çªœå‡ºã€‚\n" NOR);
+                tell_object(ob, HIR "ä½ èº²é¿ä¸åŠï¼Œåªè§‰èƒ¸å£ä¸€é˜µå‰§ç–¼ï¼Œé²œè¡€ç‹‚æ¶Œè€Œå‡ºï¼\n" NOR);
                 ob->receive_wound("qi", 90);
         } else
-                say(CYN "ÎâÈı¹ğµÉ×ÅÄã£¬Ä¥ÁËÄ¥ÑÀ¡£\n" NOR);
+                say(CYN "å´ä¸‰æ¡‚çªç€ä½ ï¼Œç£¨äº†ç£¨ç‰™ã€‚\n" NOR);
 }
 
 void unconcious()

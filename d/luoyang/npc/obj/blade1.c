@@ -4,12 +4,12 @@ inherit BLADE;
 
 void create()
 {
-        set_name(HIY "³à½ðµ¶" NOR, ({ "chijin dao", "chijin", "blade", "dao" }));
+        set_name(HIY "èµ¤é‡‘åˆ€" NOR, ({ "chijin dao", "chijin", "blade", "dao" }));
         set_weight(5000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
+                set("unit", "æŸ„");
                 set("value", 200000);
                 set("material", "steel");
         }

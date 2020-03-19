@@ -3,31 +3,31 @@ inherit F_MASTER;
 
 #include <ansi.h>
 
-mapping po_type = ([ "ÆÆ½£Ê½" : ({ "sword" }),
-                     "ÆÆµ¶Ê½" : ({ "blade" }),
-                     "ÆÆÇ¹Ê½" : ({ "staff" }),
-                     "ÆÆ±ÞÊ½" : ({ "hammer", "club", "dagger" }),
-                     "ÆÆË÷Ê½" : ({ "whip" }),
-                     "ÆÆÕÆÊ½" : ({ "unarmed", "finger", "claw",
+mapping po_type = ([ "ç ´å‰‘å¼" : ({ "sword" }),
+                     "ç ´åˆ€å¼" : ({ "blade" }),
+                     "ç ´æžªå¼" : ({ "staff" }),
+                     "ç ´éž­å¼" : ({ "hammer", "club", "dagger" }),
+                     "ç ´ç´¢å¼" : ({ "whip" }),
+                     "ç ´æŽŒå¼" : ({ "unarmed", "finger", "claw",
                                    "strike", "hand", "cuff" }),
-                     "ÆÆ¼ýÊ½" : ({ "throwing" }),
-                     "ÆÆÆøÊ½" : ({ "force" }), ]);
+                     "ç ´ç®­å¼" : ({ "throwing" }),
+                     "ç ´æ°”å¼" : ({ "force" }), ]);
 
 int check_skill(string skill);
 mixed teach_lonely_sword();
 
 void create()
 {
-        set_name("·çÇåÑï", ({ "feng qingyang", "feng", "qingyang" }));
-        set("title", "»ªÉ½½£×Ú³¤ÀÏ");
-        set("nickname", HIW "½£Æø³åÏö" NOR);
+        set_name("é£Žæ¸…æ‰¬", ({ "feng qingyang", "feng", "qingyang" }));
+        set("title", "åŽå±±å‰‘å®—é•¿è€");
+        set("nickname", HIW "å‰‘æ°”å†²éœ„" NOR);
         set("long", @LONG
-Õâ±ãÊÇµ±ÄêÃûÕð½­ºþµÄ»ªÉ½ÃûËÞ·çÇåÑï¡£ËûÉí
-ÖøÇàÅÛ£¬ÉñÆøÒÖÓôÁ³Èç½ðÖ½¡£Éí²ÄÊÝ³¤£¬Ã¼Óî
-¼äÒ»Ö±ÁýÕÖ×ÅÒ»¹Éµ­µ­µÄÓÇÉËÉñÉ«£¬ÏÔÈ»¶Ôµ±
-ÄêµÄ½£ÆøÖ®ÕùÒ»Ö±ÄÑÒÔÍü»³¡£
+è¿™ä¾¿æ˜¯å½“å¹´åéœ‡æ±Ÿæ¹–çš„åŽå±±åå®¿é£Žæ¸…æ‰¬ã€‚ä»–èº«
+è‘—é’è¢ï¼Œç¥žæ°”æŠ‘éƒè„¸å¦‚é‡‘çº¸ã€‚èº«æç˜¦é•¿ï¼Œçœ‰å®‡
+é—´ä¸€ç›´ç¬¼ç½©ç€ä¸€è‚¡æ·¡æ·¡çš„å¿§ä¼¤ç¥žè‰²ï¼Œæ˜¾ç„¶å¯¹å½“
+å¹´çš„å‰‘æ°”ä¹‹äº‰ä¸€ç›´éš¾ä»¥å¿˜æ€€ã€‚
 LONG);
-        set("gender", "ÄÐÐÔ");
+        set("gender", "ç”·æ€§");
         set("age", 68);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -67,7 +67,7 @@ LONG);
         prepare_skill("cuff", "poyu-quan");
         prepare_skill("strike", "hunyuan-zhang");
 
-        create_family("»ªÉ½½£×Ú", 0, "¸ßÈË");
+        create_family("åŽå±±å‰‘å®—", 0, "é«˜äºº");
 
         set("chat_chance_combat", 200);
         set("chat_msg_combat", ({
@@ -104,12 +104,12 @@ mixed teach_lonely_sword()
         {
                 if (me->query_temp("feng_has_told"))
                 {
-                        command("say Äã×Ô¼ººÃºÃÁ·°É£¡");
+                        command("say ä½ è‡ªå·±å¥½å¥½ç»ƒå§ï¼");
                         return -1;
                 }
 
                 command("pat " + me->query("id"));
-                command("say ÕâÌ×½£·¨Òª¿¿×Ô¼ºÇÚÁ·£¬ÒÔºóÄã×Ô¼º¶à¼Ó×êÑÐ°É£¡");
+                command("say è¿™å¥—å‰‘æ³•è¦é è‡ªå·±å‹¤ç»ƒï¼Œä»¥åŽä½ è‡ªå·±å¤šåŠ é’»ç ”å§ï¼");
                 me->set_temp("feng_has_told", 1);
                 return -1;
         }
@@ -118,28 +118,28 @@ mixed teach_lonely_sword()
                 return 0;
 
         me->set_temp("learnd_lonely_sword", 1);
-        command("say ºÜºÃ£¬ºÜºÃ¡£ÕâÃÅ½£·¨ÖØÔÚ½£Òâ£¬²»ÔÚÕÐÊ½¡£");
-        command("say ÌÈÈôÑ§Ï°£¬ÇÐ²»¿É¾ÐÄàÓÚÐÎÊ½¡£");
+        command("say å¾ˆå¥½ï¼Œå¾ˆå¥½ã€‚è¿™é—¨å‰‘æ³•é‡åœ¨å‰‘æ„ï¼Œä¸åœ¨æ‹›å¼ã€‚");
+        command("say å€˜è‹¥å­¦ä¹ ï¼Œåˆ‡ä¸å¯æ‹˜æ³¥äºŽå½¢å¼ã€‚");
         return 0;
 }
 
 void attempt_apprentice(object ob)
 {
-        if (ob->query("family/family_name") == "»ªÉ½ÅÉ"
-           || ob->query("family/family_name") == "»ªÉ½½£×Ú")
+        if (ob->query("family/family_name") == "åŽå±±æ´¾"
+           || ob->query("family/family_name") == "åŽå±±å‰‘å®—")
         {
-                command("say ×ß¿ª£¡»ªÉ½µÄµÜ×ÓÎÒÒ»¸Å²»¼û¡£");
+                command("say èµ°å¼€ï¼åŽå±±çš„å¼Ÿå­æˆ‘ä¸€æ¦‚ä¸è§ã€‚");
                 return;
         }
 
-        command("say ÎÒ²»ÊÕÍ½£¬ÄãÁíÇë¸ßÃ÷°É¡£");
+        command("say æˆ‘ä¸æ”¶å¾’ï¼Œä½ å¦è¯·é«˜æ˜Žå§ã€‚");
 }
 
 int check_skill(string skill)
 {
         if (skill != "sword" && skill != "dugu-jiujian")
         {
-                command("say ÎÒÖ»¶®½£·¨£¬ÄãÏëÑ§¾ÍÑ§£¬²»ÏëÑ§¾ÍËãÁË¡£");
+                command("say æˆ‘åªæ‡‚å‰‘æ³•ï¼Œä½ æƒ³å­¦å°±å­¦ï¼Œä¸æƒ³å­¦å°±ç®—äº†ã€‚");
                 return -1;
         }
         return 1;
@@ -156,29 +156,29 @@ int recognize_apprentice(object ob, string skill)
                 if (skill == "sword")
                         return 1;
 
-                command("say ½ÌÄãµã»ù±¾½£·¨ÊÇ¿´µÃÆðÄã£¬ÉÙ¸úÎÒ†ªàÂ£¡");
+                command("say æ•™ä½ ç‚¹åŸºæœ¬å‰‘æ³•æ˜¯çœ‹å¾—èµ·ä½ ï¼Œå°‘è·Ÿæˆ‘å•°å—¦ï¼");
                 return -1;
         }
 
         if (ob->query_temp("have_asked_feng"))
         {
-                command("say »¹²»¿ì¹ö£¡");
+                command("say è¿˜ä¸å¿«æ»šï¼");
                 return -1;
         }
 
-        if (ob->query("character") == "ÒõÏÕ¼éÕ©"
-           || ob->query("character") == "ÐÄºÝÊÖÀ±")
+        if (ob->query("character") == "é˜´é™©å¥¸è¯ˆ"
+           || ob->query("character") == "å¿ƒç‹ æ‰‹è¾£")
         {
                 command("heng");
-                command("say ²»ÏëËÀµÄ¾Í¸øÎÒ¹ö£¡");
+                command("say ä¸æƒ³æ­»çš„å°±ç»™æˆ‘æ»šï¼");
                 ob->set_temp("have_asked_feng", 1);
                 return -1;
         }
 
-        if (ob->query("character") == "¹âÃ÷ÀÚÂä")
+        if (ob->query("character") == "å…‰æ˜Žç£Šè½")
         {
                 command("hmm");
-                command("say ÄãÌìÐÔ²»»µ£¬¿ÉÊÇÈ´²»ÊÊºÏÁ·Ï°ÕâÌ×½£·¨¡£");
+                command("say ä½ å¤©æ€§ä¸åï¼Œå¯æ˜¯å´ä¸é€‚åˆç»ƒä¹ è¿™å¥—å‰‘æ³•ã€‚");
                 ob->set_temp("have_asked_feng", 1);
                 return -1;
         }
@@ -187,7 +187,7 @@ int recognize_apprentice(object ob, string skill)
            || ob->query("shen") > 100000
            || ob->query("weiwang") > 10000)
         {
-                command("say ÎÒ·çÄ³´Ó²»ºÍ³ÉÃûÈËÊ¿´ò½»µÀ£¬Äã×ß°É¡£");
+                command("say æˆ‘é£ŽæŸä»Žä¸å’Œæˆåäººå£«æ‰“äº¤é“ï¼Œä½ èµ°å§ã€‚");
                 ob->set_temp("have_asked_feng", 1);
                 return -1;
         }
@@ -195,7 +195,7 @@ int recognize_apprentice(object ob, string skill)
         if (ob->query("int") < 30)
         {
                 command("sneer");
-                command("say ÄãÕâ¸ö´ôÍ·¶ì£¬ß¯±¿ÁËµã£¬×ß°É¡£");
+                command("say ä½ è¿™ä¸ªå‘†å¤´é¹…ï¼Œå¿’ç¬¨äº†ç‚¹ï¼Œèµ°å§ã€‚");
                 ob->set_temp("have_asked_feng", 1);
                 return -1;
         }
@@ -203,14 +203,14 @@ int recognize_apprentice(object ob, string skill)
         if (ob->query("int") < 35)
         {
                 command("look " + ob->query("id"));
-                command("say Äãµ¹ÊÇ²»Ëã±¿£¬ÓÐµãÐ¡´ÏÃ÷£¬²»¹ý¡­»¹ÊÇ²îµÃÔ¶°¡¡£");
+                command("say ä½ å€’æ˜¯ä¸ç®—ç¬¨ï¼Œæœ‰ç‚¹å°èªæ˜Žï¼Œä¸è¿‡â€¦è¿˜æ˜¯å·®å¾—è¿œå•Šã€‚");
                 ob->set_temp("have_asked_feng", 1);
                 return -1;
         }
 
         if (ob->query_skill("sword", 1) < 100)
         {
-                command("say ÄãÈËËä²»´í£¬¿ÉÊÇÄãµÄ¶Ô½£·¨µÄÀí½âÒ²Î´ÃâÌ«²îÁË¡£");
+                command("say ä½ äººè™½ä¸é”™ï¼Œå¯æ˜¯ä½ çš„å¯¹å‰‘æ³•çš„ç†è§£ä¹Ÿæœªå…å¤ªå·®äº†ã€‚");
                 return -1;
         }
 
@@ -218,33 +218,33 @@ int recognize_apprentice(object ob, string skill)
         {
                 if (skill == "sword")
                 {
-                        command("say ºÃ°É£¬ÎÒ¾Í½ÌÄãÒ»µã¹ØÓÚ½£·¨µÄÖªÊ¶¡£");
+                        command("say å¥½å§ï¼Œæˆ‘å°±æ•™ä½ ä¸€ç‚¹å…³äºŽå‰‘æ³•çš„çŸ¥è¯†ã€‚");
                         ob->set("can_learn/feng/sword", 1);
                         return 1;
                 }
 
                 if (skill != "dugu-jiujian")
                 {
-                        command("say ÎÒÖ»»á½£·¨£¬ÒªÑ§ÆäËüµÄ±¾ÊÂÕÒ±ðµÄÊ¦¸µÈ¥°É£¡");
+                        command("say æˆ‘åªä¼šå‰‘æ³•ï¼Œè¦å­¦å…¶å®ƒçš„æœ¬äº‹æ‰¾åˆ«çš„å¸ˆå‚…åŽ»å§ï¼");
                         return -1;
                 }
 
                 command("sigh");
-                command("say ÄãÕâÈËËãÊÇ´ÏÃ÷£¬¿ÉÀë¶À¹Â¾Å½£»¹ÊÇ²îÖ®ÉõÔ¶¡£");
+                command("say ä½ è¿™äººç®—æ˜¯èªæ˜Žï¼Œå¯ç¦»ç‹¬å­¤ä¹å‰‘è¿˜æ˜¯å·®ä¹‹ç”šè¿œã€‚");
                 return -1;
         }
 
         if (check_skill(skill) == -1)
                 return -1;
 
-        message_sort(HIW "\n$N" HIW "µãÁËµãÍ·£¬¶Ô$n" HIW "ËµµÀ£º¡°Éõ"
-                     "ºÃ£¬ÉõºÃ¡£ËäÈ»ÎÒ²»ÊÕÍ½£¬²»¹ý¿´ÄãÌì×ÊÊµÔÚ²»´í£¬"
-                     "¾Í´«ÄãÒ»µã½£·¨°É¡£ÕâÌ×¶À¹Â¾Å½£¹²·ÖÎª¾ÅÊ½£¬ÎÒÏÈ"
-                     "´«Äã×Ü¾÷Ê½£¬ÆäËûÆÆ½£Ê½¡¢ÆÆµ¶Ê½¡¢ÆÆÇ¹Ê½¡¢ÆÆ±ÞÊ½"
-                     "¡¢ÆÆË÷Ê½¡¢ÆÆÕÆÊ½¡¢ÆÆ¼ýÊ½¡¢ÆÆÆøÊ½ÎÒËæºóÒ»Ò»·Ö½â"
-                     "ÓëÄãÌý¡£¡±\n" NOR, this_object(), ob);
+        message_sort(HIW "\n$N" HIW "ç‚¹äº†ç‚¹å¤´ï¼Œå¯¹$n" HIW "è¯´é“ï¼šâ€œç”š"
+                     "å¥½ï¼Œç”šå¥½ã€‚è™½ç„¶æˆ‘ä¸æ”¶å¾’ï¼Œä¸è¿‡çœ‹ä½ å¤©èµ„å®žåœ¨ä¸é”™ï¼Œ"
+                     "å°±ä¼ ä½ ä¸€ç‚¹å‰‘æ³•å§ã€‚è¿™å¥—ç‹¬å­¤ä¹å‰‘å…±åˆ†ä¸ºä¹å¼ï¼Œæˆ‘å…ˆ"
+                     "ä¼ ä½ æ€»è¯€å¼ï¼Œå…¶ä»–ç ´å‰‘å¼ã€ç ´åˆ€å¼ã€ç ´æžªå¼ã€ç ´éž­å¼"
+                     "ã€ç ´ç´¢å¼ã€ç ´æŽŒå¼ã€ç ´ç®­å¼ã€ç ´æ°”å¼æˆ‘éšåŽä¸€ä¸€åˆ†è§£"
+                     "ä¸Žä½ å¬ã€‚â€\n" NOR, this_object(), ob);
 
-        tell_object(ob, HIC "\n·çÇåÑïÍ¬Òâ´«ÊÚÄã¡¸¶À¹Â¾Å½£¡¹¡£\n" NOR);
+        tell_object(ob, HIC "\né£Žæ¸…æ‰¬åŒæ„ä¼ æŽˆä½ ã€Œç‹¬å­¤ä¹å‰‘ã€ã€‚\n" NOR);
         ob->set("can_learn/feng/dugu-jiujian", 1);
         ob->improve_skill("martial-cognize", 1500000);
         return 1;
@@ -259,7 +259,7 @@ int accept_ask(object me, string topic)
 
         if (! (int)me->query_skill("dugu-jiujian", 1))
         {
-                command("say Äã»á¶À¹Â¾Å½£Ã´£¿¾ÍÏòÎÒÎÊÕâ¸ö£¿");
+                command("say ä½ ä¼šç‹¬å­¤ä¹å‰‘ä¹ˆï¼Ÿå°±å‘æˆ‘é—®è¿™ä¸ªï¼Ÿ");
                 return 1;
         }
 
@@ -268,30 +268,30 @@ int accept_ask(object me, string topic)
                 learned = ({ });
         if (member_array(try_to[0], learned) != -1)
         {
-                command("say Äã²»ÊÇÒÑ¾­Ñ§»á" + topic + "ÁËÃ´£¿");
+                command("say ä½ ä¸æ˜¯å·²ç»å­¦ä¼š" + topic + "äº†ä¹ˆï¼Ÿ");
                 return 1;
         }
 
-        command("say ºÃ°É£¬" + topic + "µÄÒª¾÷ÄãÒªÌý×ÐÏ¸ÁË¡£");
+        command("say å¥½å§ï¼Œ" + topic + "çš„è¦è¯€ä½ è¦å¬ä»”ç»†äº†ã€‚");
         if (me->query("potential") - me->query("learned_points") < 10)
         {
                 me->set("learned_points", me->query("potential"));
-                tell_object(me, HIG "ÄãÌýÁË·çÇåÑïµÄ½Ìµ¼£¬ÆÄ¾õÃÔÃ££¬¿´"
-                                "À´ÊÇÇ±ÄÜ²»¹»ÁË¡£\n" NOR);
+                tell_object(me, HIG "ä½ å¬äº†é£Žæ¸…æ‰¬çš„æ•™å¯¼ï¼Œé¢‡è§‰è¿·èŒ«ï¼Œçœ‹"
+                                "æ¥æ˜¯æ½œèƒ½ä¸å¤Ÿäº†ã€‚\n" NOR);
                 return 1;
         }
 
         me->add("learned_points", 10);
         if (random(2))
         {
-                write(HIY "ÄãÌýÁË·çÇåÑïµÄ½Ìµ¼£¬ÆÄÓÐÐÄµÃ¡£\n" NOR);
+                write(HIY "ä½ å¬äº†é£Žæ¸…æ‰¬çš„æ•™å¯¼ï¼Œé¢‡æœ‰å¿ƒå¾—ã€‚\n" NOR);
                 return 1;
         }
 
         learned -= try_to;
         learned += try_to;
         me->set("can_perform/dugu-jiujian", learned);
-        tell_object(me, HIC "ÄãÑ§»áÁË¶À¹Â¾Å½£Ö®¡¸" + topic + "¡¹¡£\n");
+        tell_object(me, HIC "ä½ å­¦ä¼šäº†ç‹¬å­¤ä¹å‰‘ä¹‹ã€Œ" + topic + "ã€ã€‚\n");
         if (me->can_improve_skill("sword"))
                 me->improve_skill("sword", 1500000);
         if (me->can_improve_skill("dugu-jiujian"))

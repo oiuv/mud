@@ -3,14 +3,14 @@ inherit F_MASTER;
 #include <ansi.h>
 void create()
 {
-	set_name("¹éĞÁÊ÷", ({ "gui xinshu", "gui" }));
-	set("nickname", HIR"ÉñÈ­ÎŞµĞ"NOR);
-	set("title", "»ªÉ½ÅÉÈıÊ®Ò»´ú¸ßÊÖ");
+	set_name("å½’è¾›æ ‘", ({ "gui xinshu", "gui" }));
+	set("nickname", HIR"ç¥æ‹³æ— æ•Œ"NOR);
+	set("title", "åå±±æ´¾ä¸‰åä¸€ä»£é«˜æ‰‹");
 	set("long", 
-"ÉñÈ­ÎŞµĞ¹éĞÄÊ÷ÄË»ªÉ½ÕÆÃÅ¡°Éñ½£ÏÉÔ³¡±ÄÂÈËÇåµÄ\n"
-"¶şµÜ×Ó£¬ÔÚ½­ºşÔçÒÑ³ÉÃû¶àÄê£¬µ«ÊÇ½üÄêÀ´¼«ÉÙÔÚ\n"
-"½­ºşÉÏ×ß¶¯¡£\n");
-	set("gender", "ÄĞĞÔ");
+"ç¥æ‹³æ— æ•Œå½’å¿ƒæ ‘ä¹ƒåå±±æŒé—¨â€œç¥å‰‘ä»™çŒ¿â€ç©†äººæ¸…çš„\n"
+"äºŒå¼Ÿå­ï¼Œåœ¨æ±Ÿæ¹–æ—©å·²æˆåå¤šå¹´ï¼Œä½†æ˜¯è¿‘å¹´æ¥æå°‘åœ¨\n"
+"æ±Ÿæ¹–ä¸Šèµ°åŠ¨ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 78);
 	set("attitude", "peaceful");
 	set("shen_type", 1);
@@ -48,7 +48,7 @@ void create()
 	prepare_skill("strike", "hunyuan-zhang");
 	prepare_skill("cuff", "poyu-quan");
 
-	create_family("»ªÉ½ÅÉ", 31, "µÜ×Ó");
+	create_family("åå±±æ´¾", 31, "å¼Ÿå­");
 
 	set("chat_chance_combat", 60);
 	set("chat_msg_combat", ({

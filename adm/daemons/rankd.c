@@ -19,13 +19,13 @@ string query_rank(object ob)
     count = chinese_number(ob->query("reborn/count"));
 
     if (ob->is_ghost())
-        return HIB "°æ πÌ  ªÍ °ø" NOR;
+        return HIB "„Äê È¨º  È≠Ç „Äë" NOR;
 
     if (ob->query("reborn"))
-        return HIW "°æ" HIY "‘™" HIR "…Ò" HIG + count + HIC "◊™" HIW "°ø" NOR;
+        return HIW "„Äê" HIY "ÂÖÉ" HIR "Á•û" HIG + count + HIC "ËΩ¨" HIW "„Äë" NOR;
 
     if (ob->query("rank_info/rank"))
-        return HIY "°æ" + ob->query("rank_info/rank") + "°ø" NOR;
+        return HIY "„Äê" + ob->query("rank_info/rank") + "„Äë" NOR;
 
     shen = ob->query("shen");
     exp = ob->query("combat_exp");
@@ -36,711 +36,711 @@ string query_rank(object ob)
 
     if (exp > 50000000)
     {
-        if (ob->query("gender") == "Œﬁ–‘")
-            return HIC "°æ æ≈«ßÀÍ °ø" NOR;
+        if (ob->query("gender") == "Êó†ÊÄß")
+            return HIC "„Äê ‰πùÂçÉÂ≤Å „Äë" NOR;
 
         switch (fam)
         {
-        case "…Ÿ¡÷≈…":
-            return HIC "°æ  •  …Æ °ø" NOR;
-        case "Œ‰µ±≈…":
-            return HIC "°æ ÃÏ  ◊ °ø" NOR;
-        case "∂Î·“≈…":
-            return HIC "°æ  •  ƒ· °ø" NOR;
-        case "Â–“£≈…":
-            return HIC "°æ “›  œ… °ø" NOR;
-        case "¡È’π¨":
-            return HIC "°æÃÏ…Ω¿—¿—°ø" NOR;
-        case "–«Àﬁ≈…":
-            return HIC "°æ–«Àﬁ¿œπ÷°ø" NOR;
-        case "π≈ƒπ≈…":
-            return HIC "°æ …Ò  œ¿ °ø" NOR;
-        case "»´’ÊΩÃ":
-            return HIC "°æ ÷–…ÒÕ® °ø" NOR;
-        case "¿•¬ÿ≈…":
-            return HIC "°æ »˝   • °ø" NOR;
-        case "Ã“ª®µ∫":
-            return HIC "°æ ∂´  –∞ °ø" NOR;
-        case "“©Õıπ»":
-            return HIC "°æ∂æ ÷“©Õı°ø" NOR;
-        case "—™µ∂√≈":
-            return HIC "°æ—™µ∂¿œ◊Ê°ø" NOR;
-        case "¥Û¬÷À¬":
-            return HIC "°æ≤ª∂Ø√˜Õı°ø" NOR;
-        case "ÿ§∞Ô":
-            return HIC "°æ ±±  ÿ§ °ø" NOR;
-        case "Ã˙’∆∞Ô":
-            return HIC "°æ ∞Ô  ÷˜ °ø" NOR;
-        case "ÃÏµÿª·":
-            return HIC "°æ ”¢  –€ °ø" NOR;
-        case "∫Ïª®ª·":
-            return HIC "°æøı ¿¥Ûœ¿°ø" NOR;
-        case "…Ò¡˙ΩÃ":
-            return HIC "°æ…Ò¡˙ΩÃ÷˜°ø" NOR;
-        case "ŒÂ∂æΩÃ":
-            return HIC "°æ∂æ ÷≤––ƒ°ø" NOR;
-        case "√˜ΩÃ":
-            return HIC "°æπ‚√˜ • π°ø" NOR;
-        case "√∑◊Ø":
-            return HIC "°æ ◊Ø  ÷˜ °ø" NOR;
-        case "·«·º≈…":
-            return HIC "°æ »≠  Õı °ø" NOR;
-        case "Ã˙Ω£√≈":
-            return HIC "°æ Ω£  “˛ °ø" NOR;
-        case "–˛⁄§π»":
-            return HIC "°æ–˛⁄§¿œ»À°ø" NOR;
-        case "ÃÏ¡˙À¬":
-            return HIC "°æ  •  …Æ °ø" NOR;
-        case "«‡≥«≈…":
-            return HIC "°æ Ω£  –∞ °ø" NOR;
-        case "·‘…Ω≈…":
-            return HIC "°æ Ω£  µ€ °ø" NOR;
-        case "∫„…Ω≈…":
-            return HIC "°æ Ω£  œ… °ø" NOR;
-        case "∫‚…Ω≈…":
-            return HIC "°æ Ω£  ª  °ø" NOR;
-        case "Ã©…Ω≈…":
-            return HIC "°æ Ω£  …Ò °ø" NOR;
-        case "ª™…Ω≈…":
-            return HIC "°æ Ω£   • °ø" NOR;
-        case "ª™…ΩΩ£◊⁄":
-            return HIC "°æ Ω£  ƒß °ø" NOR;
-        case "¡¨≥«Ω£≈…":
-            return HIC "°æ Ω£  –∞ °ø" NOR;
-        case "¡Ëœˆ≥«":
-            return HIC "°æ Ω£  øÒ °ø" NOR;
-        case "»’‘¬…ÒΩÃ":
-            return HIC "°æ»’‘¬ •◊°ø" NOR;
-        case "∞Àÿ‘√≈":
-            return HIC "°æ Œ‰   • °ø" NOR;
-        case "≈∑—Ù ¿º“":
-            return HIC "°æ Œ˜  ∂æ °ø" NOR;
-        case "ƒΩ»› ¿º“":
-            return HIC "°æ ¥Û—‡ª  °ø" NOR;
-        case "πÿÕ‚∫˙º“":
-            return HIC "°æ—©…Ω∑…∫¸°ø" NOR;
-        case "÷–‘≠√Áº“":
-            return HIC "°æΩ£µ®∑–ƒ°ø" NOR;
-        case "…Ãº“±§":
-            return HIC "°æ ±§  ÷˜ °ø" NOR;
-        case "∂Œ œª ◊Â":
-            return HIC "°æ ƒœ  µ€ °ø" NOR;
-        case " Ø¡∫Œ¬º“":
-            return HIC "°æ ±§  ÷˜ °ø" NOR;
-        case "æ¯«Èπ»":
-            return HIC "°æ π»  ÷˜ °ø" NOR;
-        case "Ω≠ƒœ∂° œ":
-            return HIC "°æ ◊Ø  ÷˜ °ø" NOR;
+        case "Â∞ëÊûóÊ¥æ":
+            return HIC "„Äê Âú£  ÂÉß „Äë" NOR;
+        case "Ê≠¶ÂΩìÊ¥æ":
+            return HIC "„Äê Â§©  Â∞ä „Äë" NOR;
+        case "Â≥®ÂµãÊ¥æ":
+            return HIC "„Äê Âú£  Â∞º „Äë" NOR;
+        case "ÈÄçÈÅ•Ê¥æ":
+            return HIC "„Äê ÈÄ∏  ‰ªô „Äë" NOR;
+        case "ÁÅµÈπ´ÂÆ´":
+            return HIC "„ÄêÂ§©Â±±Âß•Âß•„Äë" NOR;
+        case "ÊòüÂÆøÊ¥æ":
+            return HIC "„ÄêÊòüÂÆøËÄÅÊÄ™„Äë" NOR;
+        case "Âè§Â¢ìÊ¥æ":
+            return HIC "„Äê Á•û  ‰æ† „Äë" NOR;
+        case "ÂÖ®ÁúüÊïô":
+            return HIC "„Äê ‰∏≠Á•ûÈÄö „Äë" NOR;
+        case "ÊòÜ‰ªëÊ¥æ":
+            return HIC "„Äê ‰∏â  Âú£ „Äë" NOR;
+        case "Ê°ÉËä±Â≤õ":
+            return HIC "„Äê ‰∏ú  ÈÇ™ „Äë" NOR;
+        case "ËçØÁéãË∞∑":
+            return HIC "„ÄêÊØíÊâãËçØÁéã„Äë" NOR;
+        case "Ë°ÄÂàÄÈó®":
+            return HIC "„ÄêË°ÄÂàÄËÄÅÁ•ñ„Äë" NOR;
+        case "Â§ßËΩÆÂØ∫":
+            return HIC "„Äê‰∏çÂä®ÊòéÁéã„Äë" NOR;
+        case "‰∏êÂ∏Æ":
+            return HIC "„Äê Âåó  ‰∏ê „Äë" NOR;
+        case "ÈìÅÊéåÂ∏Æ":
+            return HIC "„Äê Â∏Æ  ‰∏ª „Äë" NOR;
+        case "Â§©Âú∞‰ºö":
+            return HIC "„Äê Ëã±  ÈõÑ „Äë" NOR;
+        case "Á∫¢Ëä±‰ºö":
+            return HIC "„ÄêÊó∑‰∏ñÂ§ß‰æ†„Äë" NOR;
+        case "Á•ûÈæôÊïô":
+            return HIC "„ÄêÁ•ûÈæôÊïô‰∏ª„Äë" NOR;
+        case "‰∫îÊØíÊïô":
+            return HIC "„ÄêÊØíÊâãÊÆãÂøÉ„Äë" NOR;
+        case "ÊòéÊïô":
+            return HIC "„ÄêÂÖâÊòéÂú£‰Ωø„Äë" NOR;
+        case "Ê¢ÖÂ∫Ñ":
+            return HIC "„Äê Â∫Ñ  ‰∏ª „Äë" NOR;
+        case "Â¥ÜÂ≥íÊ¥æ":
+            return HIC "„Äê Êã≥  Áéã „Äë" NOR;
+        case "ÈìÅÂâëÈó®":
+            return HIC "„Äê Ââë  Èöê „Äë" NOR;
+        case "ÁéÑÂÜ•Ë∞∑":
+            return HIC "„ÄêÁéÑÂÜ•ËÄÅ‰∫∫„Äë" NOR;
+        case "Â§©ÈæôÂØ∫":
+            return HIC "„Äê Âú£  ÂÉß „Äë" NOR;
+        case "ÈùíÂüéÊ¥æ":
+            return HIC "„Äê Ââë  ÈÇ™ „Äë" NOR;
+        case "Âµ©Â±±Ê¥æ":
+            return HIC "„Äê Ââë  Â∏ù „Äë" NOR;
+        case "ÊÅíÂ±±Ê¥æ":
+            return HIC "„Äê Ââë  ‰ªô „Äë" NOR;
+        case "Ë°°Â±±Ê¥æ":
+            return HIC "„Äê Ââë  Áöá „Äë" NOR;
+        case "Ê≥∞Â±±Ê¥æ":
+            return HIC "„Äê Ââë  Á•û „Äë" NOR;
+        case "ÂçéÂ±±Ê¥æ":
+            return HIC "„Äê Ââë  Âú£ „Äë" NOR;
+        case "ÂçéÂ±±ÂâëÂÆó":
+            return HIC "„Äê Ââë  È≠î „Äë" NOR;
+        case "ËøûÂüéÂâëÊ¥æ":
+            return HIC "„Äê Ââë  ÈÇ™ „Äë" NOR;
+        case "ÂáåÈúÑÂüé":
+            return HIC "„Äê Ââë  ÁãÇ „Äë" NOR;
+        case "Êó•ÊúàÁ•ûÊïô":
+            return HIC "„ÄêÊó•ÊúàÂú£Â∞ä„Äë" NOR;
+        case "ÂÖ´Âç¶Èó®":
+            return HIC "„Äê Ê≠¶  Âú£ „Äë" NOR;
+        case "Ê¨ßÈò≥‰∏ñÂÆ∂":
+            return HIC "„Äê Ë•ø  ÊØí „Äë" NOR;
+        case "ÊÖïÂÆπ‰∏ñÂÆ∂":
+            return HIC "„Äê Â§ßÁáïÁöá „Äë" NOR;
+        case "ÂÖ≥Â§ñËÉ°ÂÆ∂":
+            return HIC "„ÄêÈõ™Â±±È£ûÁãê„Äë" NOR;
+        case "‰∏≠ÂéüËãóÂÆ∂":
+            return HIC "„ÄêÂâëËÉÜ‰ΩõÂøÉ„Äë" NOR;
+        case "ÂïÜÂÆ∂Â†°":
+            return HIC "„Äê Â†°  ‰∏ª „Äë" NOR;
+        case "ÊÆµÊ∞èÁöáÊóè":
+            return HIC "„Äê Âçó  Â∏ù „Äë" NOR;
+        case "Áü≥Ê¢ÅÊ∏©ÂÆ∂":
+            return HIC "„Äê Â†°  ‰∏ª „Äë" NOR;
+        case "ÁªùÊÉÖË∞∑":
+            return HIC "„Äê Ë∞∑  ‰∏ª „Äë" NOR;
+        case "Ê±üÂçó‰∏ÅÊ∞è":
+            return HIC "„Äê Â∫Ñ  ‰∏ª „Äë" NOR;
         default:
-            return HIC "°æŒ‰¡÷…Òª∞°ø" NOR;
+            return HIC "„ÄêÊ≠¶ÊûóÁ•ûËØù„Äë" NOR;
         }
     }
     else if (exp > 10000000)
     {
-        if (ob->query("gender") == "Œﬁ–‘")
-            return HIY "°æ¥Ûƒ⁄∏ﬂ ÷°ø" NOR;
+        if (ob->query("gender") == "Êó†ÊÄß")
+            return HIY "„ÄêÂ§ßÂÜÖÈ´òÊâã„Äë" NOR;
 
         switch (fam)
         {
-        case "…Ÿ¡÷≈…":
-            return HIY "°æ …Ò  …Æ °ø" NOR;
-        case "Œ‰µ±≈…":
-            return HIY "°æ ’Ê  »À °ø" NOR;
-        case "∂Î·“≈…":
-            return HIY "°æ …Ò  ƒ· °ø" NOR;
-        case "Â–“£≈…":
-            return HIY "°æ ª§  ∑® °ø" NOR;
-        case "¡È’π¨":
-            return HIY "°æ¡È’◊Û π°ø" NOR;
-        case "–«Àﬁ≈…":
-            return HIY "°æ ∂æ • ÷ °ø" NOR;
-        case "π≈ƒπ≈…":
-            return HIY "°æ “˛  œ¿ °ø" NOR;
-        case "»´’ÊΩÃ":
-            return HIY "°æ ’Ê  »À °ø" NOR;
-        case "¿•¬ÿ≈…":
-            return HIY "°æ Œ‰  øÒ °ø" NOR;
-        case "Ã“ª®µ∫":
-            return HIY "°æ ∞Î  –∞ °ø" NOR;
-        case "“©Õıπ»":
-            return HIY "°æ “©   • °ø" NOR;
-        case "—™µ∂√≈":
-            return HIY "°æ µ∂  ∞‘ °ø" NOR;
-        case "¥Û¬÷À¬":
-            return HIY "°æ ∑®  Õı °ø" NOR;
-        case "ÿ§∞Ô":
-            return HIY "°æ …Ò  ÿ§ °ø" NOR;
-        case "Ã˙’∆∞Ô":
-            return HIY "°æ Ã≥  ÷˜ °ø" NOR;
-        case "ÃÏµÿª·":
-            return HIY "°æ ”¢  ∫¿ °ø" NOR;
-        case "∫Ïª®ª·":
-            return HIY "°æ ”¢  ∫¿ °ø" NOR;
-        case "…Ò¡˙ΩÃ":
-            return HIY "°æ…Ò¡˙Œﬁµ–°ø" NOR;
-        case "ŒÂ∂æΩÃ":
-            return HIY "°æ ∂æ  Õı °ø" NOR;
-        case "√˜ΩÃ":
-            return HIY "°æ ∑®  Õı °ø" NOR;
-        case "√∑◊Ø":
-            return HIY "°æ ¿÷  …Ò °ø" NOR;
-        case "·«·º≈…":
-            return HIY "°æ ≥§  ¿œ °ø" NOR;
-        case "Ã˙Ω£√≈":
-            return HIY "°æ…Ò––Ω£œ¿°ø" NOR;
-        case "–˛⁄§π»":
-            return HIY "°æ–˛⁄§…Ò’∆°ø" NOR;
-        case "ÃÏ¡˙À¬":
-            return HIY "°æ …Ò  …Æ °ø" NOR;
-        case "«‡≥«≈…":
-            return HIY "°æ Ω£  ∫¿ °ø" NOR;
-        case "·‘…Ω≈…":
-            return HIY "°æ Ω£  ∫¿ °ø" NOR;
-        case "∫„…Ω≈…":
-            return HIY "°æ Ω£  ∫¿ °ø" NOR;
-        case "∫‚…Ω≈…":
-            return HIY "°æ Ω£  ∫¿ °ø" NOR;
-        case "Ã©…Ω≈…":
-            return HIY "°æ Ω£  ∫¿ °ø" NOR;
-        case "ª™…Ω≈…":
-            return HIY "°æ Ω£  ∫¿ °ø" NOR;
-        case "ª™…ΩΩ£◊⁄":
-            return HIY "°æ Ω£  ∫¿ °ø" NOR;
-        case "¡¨≥«Ω£≈…":
-            return HIY "°æ Ω£  ∫¿ °ø" NOR;
-        case "¡Ëœˆ≥«":
-            return HIY "°æ Ω£  ∫¿ °ø" NOR;
-        case "»’‘¬…ÒΩÃ":
-            return HIY "°æ •ΩÃ≥§¿œ°ø" NOR;
-        case "∞Àÿ‘√≈":
-            return HIY "°æ Œ‰  …Ò °ø" NOR;
-        case "≈∑—Ù ¿º“":
-            return HIY "°æ …ﬂ  ƒß °ø" NOR;
-        case "ƒΩ»› ¿º“":
-            return HIY "°æ ª   ◊ °ø" NOR;
-        case "πÿÕ‚∫˙º“":
-            return HIY "°æ µ∂  Õı °ø" NOR;
-        case "÷–‘≠√Áº“":
-            return HIY "°æ Ω£   • °ø" NOR;
-        case "…Ãº“±§":
-            return HIY "°æ µ∂  ∞‘ °ø" NOR;
-        case "∂Œ œª ◊Â":
-            return HIY "°æ ’ÚƒœÕı °ø" NOR;
-        case " Ø¡∫Œ¬º“":
-            return HIY "°æ ∂˛µ±º“ °ø" NOR;
-        case "æ¯«Èπ»":
-            return HIY "°æ ◊‹  π‹ °ø" NOR;
-        case "Ω≠ƒœ∂° œ":
-            return HIY "°æ ≈≠Œﬁ≥£ °ø" NOR;
+        case "Â∞ëÊûóÊ¥æ":
+            return HIY "„Äê Á•û  ÂÉß „Äë" NOR;
+        case "Ê≠¶ÂΩìÊ¥æ":
+            return HIY "„Äê Áúü  ‰∫∫ „Äë" NOR;
+        case "Â≥®ÂµãÊ¥æ":
+            return HIY "„Äê Á•û  Â∞º „Äë" NOR;
+        case "ÈÄçÈÅ•Ê¥æ":
+            return HIY "„Äê Êä§  Ê≥ï „Äë" NOR;
+        case "ÁÅµÈπ´ÂÆ´":
+            return HIY "„ÄêÁÅµÈπ´Â∑¶‰Ωø„Äë" NOR;
+        case "ÊòüÂÆøÊ¥æ":
+            return HIY "„Äê ÊØíÂú£Êâã „Äë" NOR;
+        case "Âè§Â¢ìÊ¥æ":
+            return HIY "„Äê Èöê  ‰æ† „Äë" NOR;
+        case "ÂÖ®ÁúüÊïô":
+            return HIY "„Äê Áúü  ‰∫∫ „Äë" NOR;
+        case "ÊòÜ‰ªëÊ¥æ":
+            return HIY "„Äê Ê≠¶  ÁãÇ „Äë" NOR;
+        case "Ê°ÉËä±Â≤õ":
+            return HIY "„Äê Âçä  ÈÇ™ „Äë" NOR;
+        case "ËçØÁéãË∞∑":
+            return HIY "„Äê ËçØ  Âú£ „Äë" NOR;
+        case "Ë°ÄÂàÄÈó®":
+            return HIY "„Äê ÂàÄ  Èú∏ „Äë" NOR;
+        case "Â§ßËΩÆÂØ∫":
+            return HIY "„Äê Ê≥ï  Áéã „Äë" NOR;
+        case "‰∏êÂ∏Æ":
+            return HIY "„Äê Á•û  ‰∏ê „Äë" NOR;
+        case "ÈìÅÊéåÂ∏Æ":
+            return HIY "„Äê Âùõ  ‰∏ª „Äë" NOR;
+        case "Â§©Âú∞‰ºö":
+            return HIY "„Äê Ëã±  Ë±™ „Äë" NOR;
+        case "Á∫¢Ëä±‰ºö":
+            return HIY "„Äê Ëã±  Ë±™ „Äë" NOR;
+        case "Á•ûÈæôÊïô":
+            return HIY "„ÄêÁ•ûÈæôÊó†Êïå„Äë" NOR;
+        case "‰∫îÊØíÊïô":
+            return HIY "„Äê ÊØí  Áéã „Äë" NOR;
+        case "ÊòéÊïô":
+            return HIY "„Äê Ê≥ï  Áéã „Äë" NOR;
+        case "Ê¢ÖÂ∫Ñ":
+            return HIY "„Äê ‰πê  Á•û „Äë" NOR;
+        case "Â¥ÜÂ≥íÊ¥æ":
+            return HIY "„Äê Èïø  ËÄÅ „Äë" NOR;
+        case "ÈìÅÂâëÈó®":
+            return HIY "„ÄêÁ•ûË°åÂâë‰æ†„Äë" NOR;
+        case "ÁéÑÂÜ•Ë∞∑":
+            return HIY "„ÄêÁéÑÂÜ•Á•ûÊéå„Äë" NOR;
+        case "Â§©ÈæôÂØ∫":
+            return HIY "„Äê Á•û  ÂÉß „Äë" NOR;
+        case "ÈùíÂüéÊ¥æ":
+            return HIY "„Äê Ââë  Ë±™ „Äë" NOR;
+        case "Âµ©Â±±Ê¥æ":
+            return HIY "„Äê Ââë  Ë±™ „Äë" NOR;
+        case "ÊÅíÂ±±Ê¥æ":
+            return HIY "„Äê Ââë  Ë±™ „Äë" NOR;
+        case "Ë°°Â±±Ê¥æ":
+            return HIY "„Äê Ââë  Ë±™ „Äë" NOR;
+        case "Ê≥∞Â±±Ê¥æ":
+            return HIY "„Äê Ââë  Ë±™ „Äë" NOR;
+        case "ÂçéÂ±±Ê¥æ":
+            return HIY "„Äê Ââë  Ë±™ „Äë" NOR;
+        case "ÂçéÂ±±ÂâëÂÆó":
+            return HIY "„Äê Ââë  Ë±™ „Äë" NOR;
+        case "ËøûÂüéÂâëÊ¥æ":
+            return HIY "„Äê Ââë  Ë±™ „Äë" NOR;
+        case "ÂáåÈúÑÂüé":
+            return HIY "„Äê Ââë  Ë±™ „Äë" NOR;
+        case "Êó•ÊúàÁ•ûÊïô":
+            return HIY "„ÄêÂú£ÊïôÈïøËÄÅ„Äë" NOR;
+        case "ÂÖ´Âç¶Èó®":
+            return HIY "„Äê Ê≠¶  Á•û „Äë" NOR;
+        case "Ê¨ßÈò≥‰∏ñÂÆ∂":
+            return HIY "„Äê Ëõá  È≠î „Äë" NOR;
+        case "ÊÖïÂÆπ‰∏ñÂÆ∂":
+            return HIY "„Äê Áöá  Â∞ä „Äë" NOR;
+        case "ÂÖ≥Â§ñËÉ°ÂÆ∂":
+            return HIY "„Äê ÂàÄ  Áéã „Äë" NOR;
+        case "‰∏≠ÂéüËãóÂÆ∂":
+            return HIY "„Äê Ââë  Âú£ „Äë" NOR;
+        case "ÂïÜÂÆ∂Â†°":
+            return HIY "„Äê ÂàÄ  Èú∏ „Äë" NOR;
+        case "ÊÆµÊ∞èÁöáÊóè":
+            return HIY "„Äê ÈïáÂçóÁéã „Äë" NOR;
+        case "Áü≥Ê¢ÅÊ∏©ÂÆ∂":
+            return HIY "„Äê ‰∫åÂΩìÂÆ∂ „Äë" NOR;
+        case "ÁªùÊÉÖË∞∑":
+            return HIY "„Äê ÊÄª  ÁÆ° „Äë" NOR;
+        case "Ê±üÂçó‰∏ÅÊ∞è":
+            return HIY "„Äê ÊÄíÊó†Â∏∏ „Äë" NOR;
         default:
-            return HIY "°æŒ‰¡÷Ã©∂∑°ø" NOR;
+            return HIY "„ÄêÊ≠¶ÊûóÊ≥∞Êñó„Äë" NOR;
         }
     }
     else if (exp > 5000000)
     {
-        if (ob->query("gender") == "Œﬁ–‘")
-            return HIR "°æ∂´≥ßÕÚªß°ø" NOR;
+        if (ob->query("gender") == "Êó†ÊÄß")
+            return HIR "„Äê‰∏úÂéÇ‰∏áÊà∑„Äë" NOR;
 
         switch (fam)
         {
-        case "…Ÿ¡÷≈…":
-            return HIR "°æ ≥§  ¿œ °ø" NOR;
-        case "Œ‰µ±≈…":
-            return HIR "°æ ÃÏ   ¶ °ø" NOR;
-        case "∂Î·“≈…":
-            return HIR "°æ µ¬  ƒ· °ø" NOR;
-        case "Â–“£≈…":
-            return HIR "°æ “›   ø °ø" NOR;
-        case "¡È’π¨":
-            return HIR "°æ¡È’”“ π°ø" NOR;
-        case "–«Àﬁ≈…":
-            return HIR "°æ–«Àﬁ∂æ ¶°ø" NOR;
-        case "π≈ƒπ≈…":
-            return HIR "°æ ”Œ  œ¿ °ø" NOR;
-        case "»´’ÊΩÃ":
-            return HIR "°æ ÃÏ   ¶ °ø" NOR;
-        case "¿•¬ÿ≈…":
-            return HIR "°æ ∆Â  Õı °ø" NOR;
-        case "Ã“ª®µ∫":
-            return HIR "°æ “©  Õı °ø" NOR;
-        case "“©Õıπ»":
-            return HIR "°æ “©  œ… °ø" NOR;
-        case "—™µ∂√≈":
-            return HIR "°æ µ∂  –∞ °ø" NOR;
-        case "¥Û¬÷À¬":
-            return HIR "°æ π˙   ¶ °ø" NOR;
-        case "ÿ§∞Ô":
-            return HIR "°æ Ã˙  ÿ§ °ø" NOR;
-        case "Ã˙’∆∞Ô":
-            return HIR "°æ œ„  ÷˜ °ø" NOR;
-        case "ÃÏµÿª·":
-            return HIR "°æ ∫¿  Ω‹ °ø" NOR;
-        case "∫Ïª®ª·":
-            return HIR "°æ ∫¿  Ω‹ °ø" NOR;
-        case "…Ò¡˙ΩÃ":
-            return HIR "°æ ∞◊¡˙ π °ø" NOR;
-        case "ŒÂ∂æΩÃ":
-            return HIR "°æ ∂æ  ∆Õ °ø" NOR;
-        case "√˜ΩÃ":
-            return HIR "°æ …¢  »À °ø" NOR;
-        case "√∑◊Ø":
-            return HIR "°æ ª≠   • °ø" NOR;
-        case "·«·º≈…":
-            return HIR "°æ ÃÏ   ¶ °ø" NOR;
-        case "Ã˙Ω£√≈":
-            return HIR "°æ«ß ÷Ω£œ¿°ø" NOR;
-        case "–˛⁄§π»":
-            return HIR "°æ–˛⁄§ª§∑®°ø" NOR;
-        case "ÃÏ¡˙À¬":
-            return HIR "°æ ≥§  ¿œ °ø" NOR;
-        case "«‡≥«≈…":
-            return HIR "°æ Ω£  œ¿ °ø" NOR;
-        case "·‘…Ω≈…":
-            return HIR "°æ Ω£  œ¿ °ø" NOR;
-        case "∫„…Ω≈…":
-            return HIR "°æ Ω£  œ¿ °ø" NOR;
-        case "∫‚…Ω≈…":
-            return HIR "°æ Ω£  œ¿ °ø" NOR;
-        case "Ã©…Ω≈…":
-            return HIR "°æ Ω£  œ¿ °ø" NOR;
-        case "ª™…Ω≈…":
-            return HIR "°æ Ω£  œ¿ °ø" NOR;
-        case "ª™…ΩΩ£◊⁄":
-            return HIR "°æ Ω£  œ¿ °ø" NOR;
-        case "¡¨≥«Ω£≈…":
-            return HIR "°æ Ω£  œ¿ °ø" NOR;
-        case "¡Ëœˆ≥«":
-            return HIR "°æ Ω£  œ¿ °ø" NOR;
-        case "»’‘¬…ÒΩÃ":
-            return HIR "°æ ª§  ∑® °ø" NOR;
-        case "∞Àÿ‘√≈":
-            return HIR "°æ Œ‰  ◊ °ø" NOR;
-        case "≈∑—Ù ¿º“":
-            return HIR "°æ …ﬂ  ∆Õ °ø" NOR;
-        case "ƒΩ»› ¿º“":
-            return HIR "°æ º“  ≥º °ø" NOR;
-        case "πÿÕ‚∫˙º“":
-            return HIR "°æ ∞‘  µ∂ °ø" NOR;
-        case "÷–‘≠√Áº“":
-            return HIR "°æ …Ò  Ω£ °ø" NOR;
-        case "…Ãº“±§":
-            return HIR "°æ –∞  µ∂ °ø" NOR;
-        case "∂Œ œª ◊Â":
-            return HIR "°æÕı∏Æ◊‹π‹°ø" NOR;
-        case " Ø¡∫Œ¬º“":
-            return HIR "°æ ΩÃ  Õ∑ °ø" NOR;
-        case "æ¯«Èπ»":
-            return HIR "°æ ª§  ‘∫ °ø" NOR;
-        case "Ω≠ƒœ∂° œ":
-            return HIR "°æ œ≤Œﬁ≥£ °ø" NOR;
+        case "Â∞ëÊûóÊ¥æ":
+            return HIR "„Äê Èïø  ËÄÅ „Äë" NOR;
+        case "Ê≠¶ÂΩìÊ¥æ":
+            return HIR "„Äê Â§©  Â∏à „Äë" NOR;
+        case "Â≥®ÂµãÊ¥æ":
+            return HIR "„Äê Âæ∑  Â∞º „Äë" NOR;
+        case "ÈÄçÈÅ•Ê¥æ":
+            return HIR "„Äê ÈÄ∏  Â£´ „Äë" NOR;
+        case "ÁÅµÈπ´ÂÆ´":
+            return HIR "„ÄêÁÅµÈπ´Âè≥‰Ωø„Äë" NOR;
+        case "ÊòüÂÆøÊ¥æ":
+            return HIR "„ÄêÊòüÂÆøÊØíÂ∏à„Äë" NOR;
+        case "Âè§Â¢ìÊ¥æ":
+            return HIR "„Äê Ê∏∏  ‰æ† „Äë" NOR;
+        case "ÂÖ®ÁúüÊïô":
+            return HIR "„Äê Â§©  Â∏à „Äë" NOR;
+        case "ÊòÜ‰ªëÊ¥æ":
+            return HIR "„Äê Ê£ã  Áéã „Äë" NOR;
+        case "Ê°ÉËä±Â≤õ":
+            return HIR "„Äê ËçØ  Áéã „Äë" NOR;
+        case "ËçØÁéãË∞∑":
+            return HIR "„Äê ËçØ  ‰ªô „Äë" NOR;
+        case "Ë°ÄÂàÄÈó®":
+            return HIR "„Äê ÂàÄ  ÈÇ™ „Äë" NOR;
+        case "Â§ßËΩÆÂØ∫":
+            return HIR "„Äê ÂõΩ  Â∏à „Äë" NOR;
+        case "‰∏êÂ∏Æ":
+            return HIR "„Äê ÈìÅ  ‰∏ê „Äë" NOR;
+        case "ÈìÅÊéåÂ∏Æ":
+            return HIR "„Äê È¶ô  ‰∏ª „Äë" NOR;
+        case "Â§©Âú∞‰ºö":
+            return HIR "„Äê Ë±™  Êù∞ „Äë" NOR;
+        case "Á∫¢Ëä±‰ºö":
+            return HIR "„Äê Ë±™  Êù∞ „Äë" NOR;
+        case "Á•ûÈæôÊïô":
+            return HIR "„Äê ÁôΩÈæô‰Ωø „Äë" NOR;
+        case "‰∫îÊØíÊïô":
+            return HIR "„Äê ÊØí  ‰ªÜ „Äë" NOR;
+        case "ÊòéÊïô":
+            return HIR "„Äê Êï£  ‰∫∫ „Äë" NOR;
+        case "Ê¢ÖÂ∫Ñ":
+            return HIR "„Äê Áîª  Âú£ „Äë" NOR;
+        case "Â¥ÜÂ≥íÊ¥æ":
+            return HIR "„Äê Â§©  Â∏à „Äë" NOR;
+        case "ÈìÅÂâëÈó®":
+            return HIR "„ÄêÂçÉÊâãÂâë‰æ†„Äë" NOR;
+        case "ÁéÑÂÜ•Ë∞∑":
+            return HIR "„ÄêÁéÑÂÜ•Êä§Ê≥ï„Äë" NOR;
+        case "Â§©ÈæôÂØ∫":
+            return HIR "„Äê Èïø  ËÄÅ „Äë" NOR;
+        case "ÈùíÂüéÊ¥æ":
+            return HIR "„Äê Ââë  ‰æ† „Äë" NOR;
+        case "Âµ©Â±±Ê¥æ":
+            return HIR "„Äê Ââë  ‰æ† „Äë" NOR;
+        case "ÊÅíÂ±±Ê¥æ":
+            return HIR "„Äê Ââë  ‰æ† „Äë" NOR;
+        case "Ë°°Â±±Ê¥æ":
+            return HIR "„Äê Ââë  ‰æ† „Äë" NOR;
+        case "Ê≥∞Â±±Ê¥æ":
+            return HIR "„Äê Ââë  ‰æ† „Äë" NOR;
+        case "ÂçéÂ±±Ê¥æ":
+            return HIR "„Äê Ââë  ‰æ† „Äë" NOR;
+        case "ÂçéÂ±±ÂâëÂÆó":
+            return HIR "„Äê Ââë  ‰æ† „Äë" NOR;
+        case "ËøûÂüéÂâëÊ¥æ":
+            return HIR "„Äê Ââë  ‰æ† „Äë" NOR;
+        case "ÂáåÈúÑÂüé":
+            return HIR "„Äê Ââë  ‰æ† „Äë" NOR;
+        case "Êó•ÊúàÁ•ûÊïô":
+            return HIR "„Äê Êä§  Ê≥ï „Äë" NOR;
+        case "ÂÖ´Âç¶Èó®":
+            return HIR "„Äê Ê≠¶  Â∞ä „Äë" NOR;
+        case "Ê¨ßÈò≥‰∏ñÂÆ∂":
+            return HIR "„Äê Ëõá  ‰ªÜ „Äë" NOR;
+        case "ÊÖïÂÆπ‰∏ñÂÆ∂":
+            return HIR "„Äê ÂÆ∂  Ëá£ „Äë" NOR;
+        case "ÂÖ≥Â§ñËÉ°ÂÆ∂":
+            return HIR "„Äê Èú∏  ÂàÄ „Äë" NOR;
+        case "‰∏≠ÂéüËãóÂÆ∂":
+            return HIR "„Äê Á•û  Ââë „Äë" NOR;
+        case "ÂïÜÂÆ∂Â†°":
+            return HIR "„Äê ÈÇ™  ÂàÄ „Äë" NOR;
+        case "ÊÆµÊ∞èÁöáÊóè":
+            return HIR "„ÄêÁéãÂ∫úÊÄªÁÆ°„Äë" NOR;
+        case "Áü≥Ê¢ÅÊ∏©ÂÆ∂":
+            return HIR "„Äê Êïô  Â§¥ „Äë" NOR;
+        case "ÁªùÊÉÖË∞∑":
+            return HIR "„Äê Êä§  Èô¢ „Äë" NOR;
+        case "Ê±üÂçó‰∏ÅÊ∞è":
+            return HIR "„Äê ÂñúÊó†Â∏∏ „Äë" NOR;
         default:
-            return HIR "°æŒ‰¡÷∫¿Ω‹°ø" NOR;
+            return HIR "„ÄêÊ≠¶ÊûóË±™Êù∞„Äë" NOR;
         }
     }
     else if (exp > 1000000)
     {
-        if (ob->query("gender") == "Œﬁ–‘")
-            return HIG "°æ∂´≥ß«ßªß°ø" NOR;
+        if (ob->query("gender") == "Êó†ÊÄß")
+            return HIG "„Äê‰∏úÂéÇÂçÉÊà∑„Äë" NOR;
 
         switch (fam)
         {
-        case "…Ÿ¡÷≈…":
-            return HIG "°æ ¬ﬁ  ∫∫ °ø" NOR;
-        case "Œ‰µ±≈…":
-            return HIG "°æ µ¿  ≥§ °ø" NOR;
-        case "∂Î·“≈…":
-            return HIG "°æ œÕ  ƒ· °ø" NOR;
-        case "Â–“£≈…":
-            return HIG "°æ “˛   ø °ø" NOR;
-        case "¡È’π¨":
-            return HIG "°æ ∂¥  ÷˜ °ø" NOR;
-        case "–«Àﬁ≈…":
-            return HIG "°æ–«Àﬁª§Œ¿°ø" NOR;
-        case "π≈ƒπ≈…":
-            return HIG "°æ …Ÿ  œ¿ °ø" NOR;
-        case "»´’ÊΩÃ":
-            return HIG "°æ µ¿  ≥§ °ø" NOR;
-        case "¿•¬ÿ≈…":
-            return HIG "°æ «Ÿ  ≥’ °ø" NOR;
-        case "Ã“ª®µ∫":
-            return HIG "°æ ≤∑À„◊” °ø" NOR;
-        case "“©Õıπ»":
-            return HIG "°æ “©  …Ò °ø" NOR;
-        case "—™µ∂√≈":
-            return HIG "°æ…Æ±¯Õ∑¡Ï°ø" NOR;
-        case "¥Û¬÷À¬":
-            return HIG "°æ…Æ±¯Õ∑¡Ï°ø" NOR;
-        case "ÿ§∞Ô":
-            return HIG "°æ œ¿  ÿ§ °ø" NOR;
-        case "Ã˙’∆∞Ô":
-            return HIG "°æ Ã√  ÷˜ °ø" NOR;
-        case "ÃÏµÿª·":
-            return HIG "°æ ¥Û  œ¿ °ø" NOR;
-        case "∫Ïª®ª·":
-            return HIG "°æ ¥Û  œ¿ °ø" NOR;
-        case "…Ò¡˙ΩÃ":
-            return HIG "°æ «‡¡˙ π °ø" NOR;
-        case "ŒÂ∂æΩÃ":
-            return HIG "°æ ΩÃ  ÕΩ °ø" NOR;
-        case "√˜ΩÃ":
-            return HIG "°æ ∆Ï  ÷˜ °ø" NOR;
-        case "√∑◊Ø":
-            return HIG "°æ ◊‹  π‹ °ø" NOR;
-        case "·«·º≈…":
-            return HIG "°æ µ¿  ≥§ °ø" NOR;
-        case "Ã˙Ω£√≈":
-            return HIG "°æ Ω£  øÕ °ø" NOR;
-        case "–˛⁄§π»":
-            return HIG "°æŒ‰¡÷∏ﬂ ÷°ø" NOR;
-        case "ÃÏ¡˙À¬":
-            return HIG "°æ ¬ﬁ  ∫∫ °ø" NOR;
-        case "«‡≥«≈…":
-            return HIG "°æ Ω£  øÕ °ø" NOR;
-        case "·‘…Ω≈…":
-            return HIG "°æ Ω£  øÕ °ø" NOR;
-        case "∫„…Ω≈…":
-            return HIG "°æ Ω£  øÕ °ø" NOR;
-        case "∫‚…Ω≈…":
-            return HIG "°æ Ω£  øÕ °ø" NOR;
-        case "Ã©…Ω≈…":
-            return HIG "°æ Ω£  øÕ °ø" NOR;
-        case "ª™…Ω≈…":
-            return HIG "°æ Ω£  øÕ °ø" NOR;
-        case "ª™…ΩΩ£◊⁄":
-            return HIG "°æ Ω£  øÕ °ø" NOR;
-        case "¡¨≥«Ω£≈…":
-            return HIG "°æ Ω£  øÕ °ø" NOR;
-        case "¡Ëœˆ≥«":
-            return HIG "°æ Ω£  øÕ °ø" NOR;
-        case "»’‘¬…ÒΩÃ":
-            return HIG "°æ ª§  ΩÃ °ø" NOR;
-        case "∞Àÿ‘√≈":
-            return HIG "°æ Œ‰   ¶ °ø" NOR;
-        case "≈∑—Ù ¿º“":
-            return HIG "°æ ◊‹  π‹ °ø" NOR;
-        case "ƒΩ»› ¿º“":
-            return HIG "°æ ◊‹  π‹ °ø" NOR;
-        case "πÿÕ‚∫˙º“":
-            return HIG "°æ ◊‹  π‹ °ø" NOR;
-        case "÷–‘≠√Áº“":
-            return HIG "°æ ◊‹  π‹ °ø" NOR;
-        case "…Ãº“±§":
-            return HIG "°æ ◊‹  π‹ °ø" NOR;
-        case "∂Œ œª ◊Â":
-            return HIG "°æ ÃŒ¿ ◊¡Ï°ø" NOR;
-        case " Ø¡∫Œ¬º“":
-            return HIG "°æ ◊‹  π‹ °ø" NOR;
-        case "æ¯«Èπ»":
-            return HIG "°æ ◊‹  π‹ °ø" NOR;
-        case "Ω≠ƒœ∂° œ":
-            return HIG "°æ ◊‹  π‹ °ø" NOR;
+        case "Â∞ëÊûóÊ¥æ":
+            return HIG "„Äê ÁΩó  Ê±â „Äë" NOR;
+        case "Ê≠¶ÂΩìÊ¥æ":
+            return HIG "„Äê ÈÅì  Èïø „Äë" NOR;
+        case "Â≥®ÂµãÊ¥æ":
+            return HIG "„Äê Ë¥§  Â∞º „Äë" NOR;
+        case "ÈÄçÈÅ•Ê¥æ":
+            return HIG "„Äê Èöê  Â£´ „Äë" NOR;
+        case "ÁÅµÈπ´ÂÆ´":
+            return HIG "„Äê Ê¥û  ‰∏ª „Äë" NOR;
+        case "ÊòüÂÆøÊ¥æ":
+            return HIG "„ÄêÊòüÂÆøÊä§Âç´„Äë" NOR;
+        case "Âè§Â¢ìÊ¥æ":
+            return HIG "„Äê Â∞ë  ‰æ† „Äë" NOR;
+        case "ÂÖ®ÁúüÊïô":
+            return HIG "„Äê ÈÅì  Èïø „Äë" NOR;
+        case "ÊòÜ‰ªëÊ¥æ":
+            return HIG "„Äê Áê¥  Áó¥ „Äë" NOR;
+        case "Ê°ÉËä±Â≤õ":
+            return HIG "„Äê ÂçúÁÆóÂ≠ê „Äë" NOR;
+        case "ËçØÁéãË∞∑":
+            return HIG "„Äê ËçØ  Á•û „Äë" NOR;
+        case "Ë°ÄÂàÄÈó®":
+            return HIG "„ÄêÂÉßÂÖµÂ§¥È¢Ü„Äë" NOR;
+        case "Â§ßËΩÆÂØ∫":
+            return HIG "„ÄêÂÉßÂÖµÂ§¥È¢Ü„Äë" NOR;
+        case "‰∏êÂ∏Æ":
+            return HIG "„Äê ‰æ†  ‰∏ê „Äë" NOR;
+        case "ÈìÅÊéåÂ∏Æ":
+            return HIG "„Äê Â†Ç  ‰∏ª „Äë" NOR;
+        case "Â§©Âú∞‰ºö":
+            return HIG "„Äê Â§ß  ‰æ† „Äë" NOR;
+        case "Á∫¢Ëä±‰ºö":
+            return HIG "„Äê Â§ß  ‰æ† „Äë" NOR;
+        case "Á•ûÈæôÊïô":
+            return HIG "„Äê ÈùíÈæô‰Ωø „Äë" NOR;
+        case "‰∫îÊØíÊïô":
+            return HIG "„Äê Êïô  Âæí „Äë" NOR;
+        case "ÊòéÊïô":
+            return HIG "„Äê Êóó  ‰∏ª „Äë" NOR;
+        case "Ê¢ÖÂ∫Ñ":
+            return HIG "„Äê ÊÄª  ÁÆ° „Äë" NOR;
+        case "Â¥ÜÂ≥íÊ¥æ":
+            return HIG "„Äê ÈÅì  Èïø „Äë" NOR;
+        case "ÈìÅÂâëÈó®":
+            return HIG "„Äê Ââë  ÂÆ¢ „Äë" NOR;
+        case "ÁéÑÂÜ•Ë∞∑":
+            return HIG "„ÄêÊ≠¶ÊûóÈ´òÊâã„Äë" NOR;
+        case "Â§©ÈæôÂØ∫":
+            return HIG "„Äê ÁΩó  Ê±â „Äë" NOR;
+        case "ÈùíÂüéÊ¥æ":
+            return HIG "„Äê Ââë  ÂÆ¢ „Äë" NOR;
+        case "Âµ©Â±±Ê¥æ":
+            return HIG "„Äê Ââë  ÂÆ¢ „Äë" NOR;
+        case "ÊÅíÂ±±Ê¥æ":
+            return HIG "„Äê Ââë  ÂÆ¢ „Äë" NOR;
+        case "Ë°°Â±±Ê¥æ":
+            return HIG "„Äê Ââë  ÂÆ¢ „Äë" NOR;
+        case "Ê≥∞Â±±Ê¥æ":
+            return HIG "„Äê Ââë  ÂÆ¢ „Äë" NOR;
+        case "ÂçéÂ±±Ê¥æ":
+            return HIG "„Äê Ââë  ÂÆ¢ „Äë" NOR;
+        case "ÂçéÂ±±ÂâëÂÆó":
+            return HIG "„Äê Ââë  ÂÆ¢ „Äë" NOR;
+        case "ËøûÂüéÂâëÊ¥æ":
+            return HIG "„Äê Ââë  ÂÆ¢ „Äë" NOR;
+        case "ÂáåÈúÑÂüé":
+            return HIG "„Äê Ââë  ÂÆ¢ „Äë" NOR;
+        case "Êó•ÊúàÁ•ûÊïô":
+            return HIG "„Äê Êä§  Êïô „Äë" NOR;
+        case "ÂÖ´Âç¶Èó®":
+            return HIG "„Äê Ê≠¶  Â∏à „Äë" NOR;
+        case "Ê¨ßÈò≥‰∏ñÂÆ∂":
+            return HIG "„Äê ÊÄª  ÁÆ° „Äë" NOR;
+        case "ÊÖïÂÆπ‰∏ñÂÆ∂":
+            return HIG "„Äê ÊÄª  ÁÆ° „Äë" NOR;
+        case "ÂÖ≥Â§ñËÉ°ÂÆ∂":
+            return HIG "„Äê ÊÄª  ÁÆ° „Äë" NOR;
+        case "‰∏≠ÂéüËãóÂÆ∂":
+            return HIG "„Äê ÊÄª  ÁÆ° „Äë" NOR;
+        case "ÂïÜÂÆ∂Â†°":
+            return HIG "„Äê ÊÄª  ÁÆ° „Äë" NOR;
+        case "ÊÆµÊ∞èÁöáÊóè":
+            return HIG "„Äê‰æçÂç´È¶ñÈ¢Ü„Äë" NOR;
+        case "Áü≥Ê¢ÅÊ∏©ÂÆ∂":
+            return HIG "„Äê ÊÄª  ÁÆ° „Äë" NOR;
+        case "ÁªùÊÉÖË∞∑":
+            return HIG "„Äê ÊÄª  ÁÆ° „Äë" NOR;
+        case "Ê±üÂçó‰∏ÅÊ∞è":
+            return HIG "„Äê ÊÄª  ÁÆ° „Äë" NOR;
         default:
-            return HIG "°æŒ‰¡÷∏ﬂ ÷°ø" NOR;
+            return HIG "„ÄêÊ≠¶ÊûóÈ´òÊâã„Äë" NOR;
         }
     }
     else if (exp > 500000)
     {
-        if (ob->query("gender") == "Œﬁ–‘")
-            return CYN "°æ∂´≥ß∞Ÿªß°ø" NOR;
+        if (ob->query("gender") == "Êó†ÊÄß")
+            return CYN "„Äê‰∏úÂéÇÁôæÊà∑„Äë" NOR;
 
         switch (fam)
         {
-        case "…Ÿ¡÷≈…":
-            return CYN "°æ ◊  ’ﬂ °ø" NOR;
-        case "Œ‰µ±≈…":
-            return CYN "°æ µ¿   ø °ø" NOR;
-        case "∂Î·“≈…":
-            return CYN "°æ  ¶  Ã´ °ø" NOR;
-        case "Â–“£≈…":
-            return CYN "°æ ∑Ω   ø °ø" NOR;
-        case "¡È’π¨":
-            return CYN "°æ  À  ≈Æ °ø" NOR;
-        case "–«Àﬁ≈…":
-            return CYN "°æ –°∂æ≥Ê °ø" NOR;
-        case "π≈ƒπ≈…":
-            return CYN "°æΩ≠∫˛∫¿Ω‹°ø" NOR;
-        case "»´’ÊΩÃ":
-            return CYN "°æ µ¿   ø °ø" NOR;
-        case "¿•¬ÿ≈…":
-            return CYN "°æΩ≠∫˛∫¿Ω‹°ø" NOR;
-        case "Ã“ª®µ∫":
-            return CYN "°æ –„  ≤≈ °ø" NOR;
-        case "“©Õıπ»":
-            return CYN "°æ ∑Ω   ø °ø" NOR;
-        case "—™µ∂√≈":
-            return CYN "°æ …Æ  ±¯ °ø" NOR;
-        case "¥Û¬÷À¬":
-            return CYN "°æ …Æ  ±¯ °ø" NOR;
-        case "ÿ§∞Ô":
-            return CYN "°æ “Â  ÿ§ °ø" NOR;
-        case "Ã˙’∆∞Ô":
-            return CYN "°æ ΩÃ  Õ∑ °ø" NOR;
-        case "ÃÏµÿª·":
-            return CYN "°æ œ¿  øÕ °ø" NOR;
-        case "∫Ïª®ª·":
-            return CYN "°æ œ¿  øÕ °ø" NOR;
-        case "…Ò¡˙ΩÃ":
-            return CYN "°æ ≥‡¡˙ π °ø" NOR;
-        case "ŒÂ∂æΩÃ":
-            return CYN "°æ ΩÃ  ÷⁄ °ø" NOR;
-        case "√˜ΩÃ":
-            return CYN "°æ √≈  ÷˜ °ø" NOR;
-        case "√∑◊Ø":
-            return CYN "°æ ª§  ‘∫ °ø" NOR;
-        case "·«·º≈…":
-            return CYN "°æ µ¿   ø °ø" NOR;
-        case "Ã˙Ω£√≈":
-            return CYN "°æ Ω£   ø °ø" NOR;
-        case "–˛⁄§π»":
-            return CYN "°æ ª§  ‘∫ °ø" NOR;
-        case "ÃÏ¡˙À¬":
-            return CYN "°æ ◊  ’ﬂ °ø" NOR;
-        case "«‡≥«≈…":
-            return CYN "°æ Ω£   ø °ø" NOR;
-        case "·‘…Ω≈…":
-            return CYN "°æ Ω£   ø °ø" NOR;
-        case "∫„…Ω≈…":
-            return CYN "°æ Ω£   ø °ø" NOR;
-        case "∫‚…Ω≈…":
-            return CYN "°æ Ω£   ø °ø" NOR;
-        case "Ã©…Ω≈…":
-            return CYN "°æ Ω£   ø °ø" NOR;
-        case "ª™…Ω≈…":
-            return CYN "°æ Ω£   ø °ø" NOR;
-        case "ª™…ΩΩ£◊⁄":
-            return CYN "°æ Ω£   ø °ø" NOR;
-        case "¡¨≥«Ω£≈…":
-            return CYN "°æ Ω£   ø °ø" NOR;
-        case "¡Ëœˆ≥«":
-            return CYN "°æ Ω£   ø °ø" NOR;
-        case "»’‘¬…ÒΩÃ":
-            return CYN "°æ Ã√  ÷˜ °ø" NOR;
-        case "∞Àÿ‘√≈":
-            return CYN "°æ Œ‰  ’ﬂ °ø" NOR;
-        case "≈∑—Ù ¿º“":
-            return CYN "°æ ª§  ‘∫ °ø" NOR;
-        case "ƒΩ»› ¿º“":
-            return CYN "°æ ª§  ‘∫ °ø" NOR;
-        case "πÿÕ‚∫˙º“":
-            return CYN "°æ ª§  ‘∫ °ø" NOR;
-        case "÷–‘≠√Áº“":
-            return CYN "°æ ª§  ‘∫ °ø" NOR;
-        case "…Ãº“±§":
-            return CYN "°æ ª§  ‘∫ °ø" NOR;
-        case "∂Œ œª ◊Â":
-            return CYN "°æÕı∏Æ ÃŒ¿°ø" NOR;
-        case " Ø¡∫Œ¬º“":
-            return CYN "°æ ª§  ‘∫ °ø" NOR;
-        case "æ¯«Èπ»":
-            return CYN "°æ ª§  ‘∫ °ø" NOR;
-        case "Ω≠ƒœ∂° œ":
-            return CYN "°æ ª§  ‘∫ °ø" NOR;
+        case "Â∞ëÊûóÊ¥æ":
+            return CYN "„Äê Â∞ä  ËÄÖ „Äë" NOR;
+        case "Ê≠¶ÂΩìÊ¥æ":
+            return CYN "„Äê ÈÅì  Â£´ „Äë" NOR;
+        case "Â≥®ÂµãÊ¥æ":
+            return CYN "„Äê Â∏à  Â§™ „Äë" NOR;
+        case "ÈÄçÈÅ•Ê¥æ":
+            return CYN "„Äê Êñπ  Â£´ „Äë" NOR;
+        case "ÁÅµÈπ´ÂÆ´":
+            return CYN "„Äê ‰ªï  Â•≥ „Äë" NOR;
+        case "ÊòüÂÆøÊ¥æ":
+            return CYN "„Äê Â∞èÊØíËô´ „Äë" NOR;
+        case "Âè§Â¢ìÊ¥æ":
+            return CYN "„ÄêÊ±üÊπñË±™Êù∞„Äë" NOR;
+        case "ÂÖ®ÁúüÊïô":
+            return CYN "„Äê ÈÅì  Â£´ „Äë" NOR;
+        case "ÊòÜ‰ªëÊ¥æ":
+            return CYN "„ÄêÊ±üÊπñË±™Êù∞„Äë" NOR;
+        case "Ê°ÉËä±Â≤õ":
+            return CYN "„Äê ÁßÄ  Êâç „Äë" NOR;
+        case "ËçØÁéãË∞∑":
+            return CYN "„Äê Êñπ  Â£´ „Äë" NOR;
+        case "Ë°ÄÂàÄÈó®":
+            return CYN "„Äê ÂÉß  ÂÖµ „Äë" NOR;
+        case "Â§ßËΩÆÂØ∫":
+            return CYN "„Äê ÂÉß  ÂÖµ „Äë" NOR;
+        case "‰∏êÂ∏Æ":
+            return CYN "„Äê ‰πâ  ‰∏ê „Äë" NOR;
+        case "ÈìÅÊéåÂ∏Æ":
+            return CYN "„Äê Êïô  Â§¥ „Äë" NOR;
+        case "Â§©Âú∞‰ºö":
+            return CYN "„Äê ‰æ†  ÂÆ¢ „Äë" NOR;
+        case "Á∫¢Ëä±‰ºö":
+            return CYN "„Äê ‰æ†  ÂÆ¢ „Äë" NOR;
+        case "Á•ûÈæôÊïô":
+            return CYN "„Äê Ëµ§Èæô‰Ωø „Äë" NOR;
+        case "‰∫îÊØíÊïô":
+            return CYN "„Äê Êïô  ‰ºó „Äë" NOR;
+        case "ÊòéÊïô":
+            return CYN "„Äê Èó®  ‰∏ª „Äë" NOR;
+        case "Ê¢ÖÂ∫Ñ":
+            return CYN "„Äê Êä§  Èô¢ „Äë" NOR;
+        case "Â¥ÜÂ≥íÊ¥æ":
+            return CYN "„Äê ÈÅì  Â£´ „Äë" NOR;
+        case "ÈìÅÂâëÈó®":
+            return CYN "„Äê Ââë  Â£´ „Äë" NOR;
+        case "ÁéÑÂÜ•Ë∞∑":
+            return CYN "„Äê Êä§  Èô¢ „Äë" NOR;
+        case "Â§©ÈæôÂØ∫":
+            return CYN "„Äê Â∞ä  ËÄÖ „Äë" NOR;
+        case "ÈùíÂüéÊ¥æ":
+            return CYN "„Äê Ââë  Â£´ „Äë" NOR;
+        case "Âµ©Â±±Ê¥æ":
+            return CYN "„Äê Ââë  Â£´ „Äë" NOR;
+        case "ÊÅíÂ±±Ê¥æ":
+            return CYN "„Äê Ââë  Â£´ „Äë" NOR;
+        case "Ë°°Â±±Ê¥æ":
+            return CYN "„Äê Ââë  Â£´ „Äë" NOR;
+        case "Ê≥∞Â±±Ê¥æ":
+            return CYN "„Äê Ââë  Â£´ „Äë" NOR;
+        case "ÂçéÂ±±Ê¥æ":
+            return CYN "„Äê Ââë  Â£´ „Äë" NOR;
+        case "ÂçéÂ±±ÂâëÂÆó":
+            return CYN "„Äê Ââë  Â£´ „Äë" NOR;
+        case "ËøûÂüéÂâëÊ¥æ":
+            return CYN "„Äê Ââë  Â£´ „Äë" NOR;
+        case "ÂáåÈúÑÂüé":
+            return CYN "„Äê Ââë  Â£´ „Äë" NOR;
+        case "Êó•ÊúàÁ•ûÊïô":
+            return CYN "„Äê Â†Ç  ‰∏ª „Äë" NOR;
+        case "ÂÖ´Âç¶Èó®":
+            return CYN "„Äê Ê≠¶  ËÄÖ „Äë" NOR;
+        case "Ê¨ßÈò≥‰∏ñÂÆ∂":
+            return CYN "„Äê Êä§  Èô¢ „Äë" NOR;
+        case "ÊÖïÂÆπ‰∏ñÂÆ∂":
+            return CYN "„Äê Êä§  Èô¢ „Äë" NOR;
+        case "ÂÖ≥Â§ñËÉ°ÂÆ∂":
+            return CYN "„Äê Êä§  Èô¢ „Äë" NOR;
+        case "‰∏≠ÂéüËãóÂÆ∂":
+            return CYN "„Äê Êä§  Èô¢ „Äë" NOR;
+        case "ÂïÜÂÆ∂Â†°":
+            return CYN "„Äê Êä§  Èô¢ „Äë" NOR;
+        case "ÊÆµÊ∞èÁöáÊóè":
+            return CYN "„ÄêÁéãÂ∫ú‰æçÂç´„Äë" NOR;
+        case "Áü≥Ê¢ÅÊ∏©ÂÆ∂":
+            return CYN "„Äê Êä§  Èô¢ „Äë" NOR;
+        case "ÁªùÊÉÖË∞∑":
+            return CYN "„Äê Êä§  Èô¢ „Äë" NOR;
+        case "Ê±üÂçó‰∏ÅÊ∞è":
+            return CYN "„Äê Êä§  Èô¢ „Äë" NOR;
         default:
-            return CYN "°æŒ‰¡÷“Ï ø°ø" NOR;
+            return CYN "„ÄêÊ≠¶ÊûóÂºÇÂ£´„Äë" NOR;
         }
     }
     else if (exp > 100000)
     {
-        if (ob->query("gender") == "Œﬁ–‘")
-            return YEL "°æ∂´≥ß Æªß°ø" NOR;
+        if (ob->query("gender") == "Êó†ÊÄß")
+            return YEL "„Äê‰∏úÂéÇÂçÅÊà∑„Äë" NOR;
 
         switch (fam)
         {
-        case "…Ÿ¡÷≈…":
-            return YEL "°æ Ï¯   ¶ °ø" NOR;
-        case "Œ‰µ±≈…":
-            return YEL "°æ –°µ¿ ø °ø" NOR;
-        case "∂Î·“≈…":
-            return YEL "°æ ƒ·  π√ °ø" NOR;
-        case "Â–“£≈…":
-            return YEL "°æ ¿…  ÷– °ø" NOR;
-        case "¡È’π¨":
-            return YEL "°æ  Ã  ≈Æ °ø" NOR;
-        case "–«Àﬁ≈…":
-            return YEL "°æ µ‹  ◊” °ø" NOR;
-        case "π≈ƒπ≈…":
-            return YEL "°æŒ‰¡÷÷–»À°ø" NOR;
-        case "»´’ÊΩÃ":
-            return YEL "°æ –°µ¿ ø °ø" NOR;
-        case "¿•¬ÿ≈…":
-            return YEL "°æŒ‰¡÷÷–»À°ø" NOR;
-        case "Ã“ª®µ∫":
-            return YEL "°æ  È  …˙ °ø" NOR;
-        case "“©Õıπ»":
-            return YEL "°æ “©   ¶ °ø" NOR;
-        case "—™µ∂√≈":
-            return YEL "°æ ¿Æ  ¬Ô °ø" NOR;
-        case "¥Û¬÷À¬":
-            return YEL "°æ ¿Æ  ¬Ô °ø" NOR;
-        case "ÿ§∞Ô":
-            return YEL "°æ ∆Ú  ÿ§ °ø" NOR;
-        case "Ã˙’∆∞Ô":
-            return YEL "°æ ∞Ô  ÷⁄ °ø" NOR;
-        case "ÃÏµÿª·":
-            return YEL "°æ œ¿   ø °ø" NOR;
-        case "∫Ïª®ª·":
-            return YEL "°æ œ¿   ø °ø" NOR;
-        case "…Ò¡˙ΩÃ":
-            return YEL "°æ ÀÊ¡˙ π °ø" NOR;
-        case "ŒÂ∂æΩÃ":
-            return YEL "°æ≥ı»ÎΩ≠∫˛°ø" NOR;
-        case "√˜ΩÃ":
-            return YEL "°æ ΩÃ  ÕΩ °ø" NOR;
-        case "√∑◊Ø":
-            return YEL "°æ ÀÊ  ¥” °ø" NOR;
-        case "·«·º≈…":
-            return YEL "°æ –°µ¿ ø °ø" NOR;
-        case "Ã˙Ω£√≈":
-            return YEL "°æ Ω£  ÕØ °ø" NOR;
-        case "–˛⁄§π»":
-            return YEL "°æ ª§  Œ¿ °ø" NOR;
-        case "ÃÏ¡˙À¬":
-            return YEL "°æ Ï¯   ¶ °ø" NOR;
-        case "«‡≥«≈…":
-            return YEL "°æ Ω£   Ã °ø" NOR;
-        case "·‘…Ω≈…":
-            return YEL "°æ Ω£   Ã °ø" NOR;
-        case "∫„…Ω≈…":
-            return YEL "°æ Ω£   Ã °ø" NOR;
-        case "∫‚…Ω≈…":
-            return YEL "°æ Ω£   Ã °ø" NOR;
-        case "Ã©…Ω≈…":
-            return YEL "°æ Ω£   Ã °ø" NOR;
-        case "ª™…Ω≈…":
-            return YEL "°æ Ω£   Ã °ø" NOR;
-        case "ª™…ΩΩ£◊⁄":
-            return YEL "°æ Ω£   Ã °ø" NOR;
-        case "¡¨≥«Ω£≈…":
-            return YEL "°æ Ω£   Ã °ø" NOR;
-        case "¡Ëœˆ≥«":
-            return YEL "°æ Ω£   Ã °ø" NOR;
-        case "»’‘¬…ÒΩÃ":
-            return YEL "°æ ΩÃ  ÕΩ °ø" NOR;
-        case "∞Àÿ‘√≈":
-            return YEL "°æ Ô⁄   ¶ °ø" NOR;
-        case "≈∑—Ù ¿º“":
-            return YEL "°æ ÀÊ  ¥” °ø" NOR;
-        case "ƒΩ»› ¿º“":
-            return YEL "°æ ÀÊ  ¥” °ø" NOR;
-        case "πÿÕ‚∫˙º“":
-            return YEL "°æ ÀÊ  ¥” °ø" NOR;
-        case "÷–‘≠√Áº“":
-            return YEL "°æ ÀÊ  ¥” °ø" NOR;
-        case "…Ãº“±§":
-            return YEL "°æ ÀÊ  ¥” °ø" NOR;
-        case "∂Œ œª ◊Â":
-            return YEL "°æ  Ã  Œ¿ °ø" NOR;
-        case " Ø¡∫Œ¬º“":
-            return YEL "°æ ÀÊ  ¥” °ø" NOR;
-        case "æ¯«Èπ»":
-            return YEL "°æ ÀÊ  ¥” °ø" NOR;
-        case "Ω≠ƒœ∂° œ":
-            return YEL "°æ ÀÊ  ¥” °ø" NOR;
+        case "Â∞ëÊûóÊ¥æ":
+            return YEL "„Äê Á¶Ö  Â∏à „Äë" NOR;
+        case "Ê≠¶ÂΩìÊ¥æ":
+            return YEL "„Äê Â∞èÈÅìÂ£´ „Äë" NOR;
+        case "Â≥®ÂµãÊ¥æ":
+            return YEL "„Äê Â∞º  Âßë „Äë" NOR;
+        case "ÈÄçÈÅ•Ê¥æ":
+            return YEL "„Äê ÈÉé  ‰∏≠ „Äë" NOR;
+        case "ÁÅµÈπ´ÂÆ´":
+            return YEL "„Äê ‰æç  Â•≥ „Äë" NOR;
+        case "ÊòüÂÆøÊ¥æ":
+            return YEL "„Äê Âºü  Â≠ê „Äë" NOR;
+        case "Âè§Â¢ìÊ¥æ":
+            return YEL "„ÄêÊ≠¶Êûó‰∏≠‰∫∫„Äë" NOR;
+        case "ÂÖ®ÁúüÊïô":
+            return YEL "„Äê Â∞èÈÅìÂ£´ „Äë" NOR;
+        case "ÊòÜ‰ªëÊ¥æ":
+            return YEL "„ÄêÊ≠¶Êûó‰∏≠‰∫∫„Äë" NOR;
+        case "Ê°ÉËä±Â≤õ":
+            return YEL "„Äê ‰π¶  Áîü „Äë" NOR;
+        case "ËçØÁéãË∞∑":
+            return YEL "„Äê ËçØ  Â∏à „Äë" NOR;
+        case "Ë°ÄÂàÄÈó®":
+            return YEL "„Äê Âñá  Âòõ „Äë" NOR;
+        case "Â§ßËΩÆÂØ∫":
+            return YEL "„Äê Âñá  Âòõ „Äë" NOR;
+        case "‰∏êÂ∏Æ":
+            return YEL "„Äê ‰πû  ‰∏ê „Äë" NOR;
+        case "ÈìÅÊéåÂ∏Æ":
+            return YEL "„Äê Â∏Æ  ‰ºó „Äë" NOR;
+        case "Â§©Âú∞‰ºö":
+            return YEL "„Äê ‰æ†  Â£´ „Äë" NOR;
+        case "Á∫¢Ëä±‰ºö":
+            return YEL "„Äê ‰æ†  Â£´ „Äë" NOR;
+        case "Á•ûÈæôÊïô":
+            return YEL "„Äê ÈöèÈæô‰Ωø „Äë" NOR;
+        case "‰∫îÊØíÊïô":
+            return YEL "„ÄêÂàùÂÖ•Ê±üÊπñ„Äë" NOR;
+        case "ÊòéÊïô":
+            return YEL "„Äê Êïô  Âæí „Äë" NOR;
+        case "Ê¢ÖÂ∫Ñ":
+            return YEL "„Äê Èöè  ‰ªé „Äë" NOR;
+        case "Â¥ÜÂ≥íÊ¥æ":
+            return YEL "„Äê Â∞èÈÅìÂ£´ „Äë" NOR;
+        case "ÈìÅÂâëÈó®":
+            return YEL "„Äê Ââë  Á´• „Äë" NOR;
+        case "ÁéÑÂÜ•Ë∞∑":
+            return YEL "„Äê Êä§  Âç´ „Äë" NOR;
+        case "Â§©ÈæôÂØ∫":
+            return YEL "„Äê Á¶Ö  Â∏à „Äë" NOR;
+        case "ÈùíÂüéÊ¥æ":
+            return YEL "„Äê Ââë  ‰æç „Äë" NOR;
+        case "Âµ©Â±±Ê¥æ":
+            return YEL "„Äê Ââë  ‰æç „Äë" NOR;
+        case "ÊÅíÂ±±Ê¥æ":
+            return YEL "„Äê Ââë  ‰æç „Äë" NOR;
+        case "Ë°°Â±±Ê¥æ":
+            return YEL "„Äê Ââë  ‰æç „Äë" NOR;
+        case "Ê≥∞Â±±Ê¥æ":
+            return YEL "„Äê Ââë  ‰æç „Äë" NOR;
+        case "ÂçéÂ±±Ê¥æ":
+            return YEL "„Äê Ââë  ‰æç „Äë" NOR;
+        case "ÂçéÂ±±ÂâëÂÆó":
+            return YEL "„Äê Ââë  ‰æç „Äë" NOR;
+        case "ËøûÂüéÂâëÊ¥æ":
+            return YEL "„Äê Ââë  ‰æç „Äë" NOR;
+        case "ÂáåÈúÑÂüé":
+            return YEL "„Äê Ââë  ‰æç „Äë" NOR;
+        case "Êó•ÊúàÁ•ûÊïô":
+            return YEL "„Äê Êïô  Âæí „Äë" NOR;
+        case "ÂÖ´Âç¶Èó®":
+            return YEL "„Äê Èïñ  Â∏à „Äë" NOR;
+        case "Ê¨ßÈò≥‰∏ñÂÆ∂":
+            return YEL "„Äê Èöè  ‰ªé „Äë" NOR;
+        case "ÊÖïÂÆπ‰∏ñÂÆ∂":
+            return YEL "„Äê Èöè  ‰ªé „Äë" NOR;
+        case "ÂÖ≥Â§ñËÉ°ÂÆ∂":
+            return YEL "„Äê Èöè  ‰ªé „Äë" NOR;
+        case "‰∏≠ÂéüËãóÂÆ∂":
+            return YEL "„Äê Èöè  ‰ªé „Äë" NOR;
+        case "ÂïÜÂÆ∂Â†°":
+            return YEL "„Äê Èöè  ‰ªé „Äë" NOR;
+        case "ÊÆµÊ∞èÁöáÊóè":
+            return YEL "„Äê ‰æç  Âç´ „Äë" NOR;
+        case "Áü≥Ê¢ÅÊ∏©ÂÆ∂":
+            return YEL "„Äê Èöè  ‰ªé „Äë" NOR;
+        case "ÁªùÊÉÖË∞∑":
+            return YEL "„Äê Èöè  ‰ªé „Äë" NOR;
+        case "Ê±üÂçó‰∏ÅÊ∞è":
+            return YEL "„Äê Èöè  ‰ªé „Äë" NOR;
         default:
-            return YEL "°æŒ‰¡÷»À ø°ø" NOR;
+            return YEL "„ÄêÊ≠¶Êûó‰∫∫Â£´„Äë" NOR;
         }
     }
     else
     {
-        if (ob->query("gender") == "Œﬁ–‘")
-            return GRN "°æ π´  π´ °ø" NOR;
+        if (ob->query("gender") == "Êó†ÊÄß")
+            return GRN "„Äê ÂÖ¨  ÂÖ¨ „Äë" NOR;
 
         switch (fam)
         {
-        case "…Ÿ¡÷≈…":
-            return GRN "°æ ±»  « °ø" NOR;
-        case "Œ‰µ±≈…":
-            return GRN "°æ µ¿  ÕØ °ø" NOR;
-        case "∂Î·“≈…":
-            return GRN "°æ –°ƒ·π√ °ø" NOR;
-        case "Â–“£≈…":
-            return GRN "°æ —ß  ÕØ °ø" NOR;
-        case "¡È’π¨":
-            return GRN "°æ  π  ≈Æ °ø" NOR;
-        case "–«Àﬁ≈…":
-            return GRN "°æ ∆Õ  »À °ø" NOR;
-        case "π≈ƒπ≈…":
-            return GRN "°æ≥ı»ÎΩ≠∫˛°ø" NOR;
-        case "»´’ÊΩÃ":
-            return GRN "°æ µ¿  ÕØ °ø" NOR;
-        case "¿•¬ÿ≈…":
-            return GRN "°æ µ‹  ◊” °ø" NOR;
-        case "Ã“ª®µ∫":
-            return GRN "°æ —ß  ÕØ °ø" NOR;
-        case "“©Õıπ»":
-            return GRN "°æ “©  ÕØ °ø" NOR;
-        case "—™µ∂√≈":
-            return GRN "°æ …≥  √÷ °ø" NOR;
-        case "¥Û¬÷À¬":
-            return GRN "°æ …≥  √÷ °ø" NOR;
-        case "ÿ§∞Ô":
-            return GRN "°æ –°Ω–ª® °ø" NOR;
-        case "Ã˙’∆∞Ô":
-            return GRN "°æ ∆Õ  »À °ø" NOR;
-        case "ÃÏµÿª·":
-            return GRN "°æ “Â   ø °ø" NOR;
-        case "∫Ïª®ª·":
-            return GRN "°æ “Â   ø °ø" NOR;
-        case "…Ò¡˙ΩÃ":
-            return GRN "°æ µ‹  ◊” °ø" NOR;
-        case "ŒÂ∂æΩÃ":
-            return GRN "°æ ∆Õ  »À °ø" NOR;
-        case "√˜ΩÃ":
-            return GRN "°æ ΩÃ  ÷⁄ °ø" NOR;
-        case "√∑◊Ø":
-            return GRN "°æ ∆Õ  »À °ø" NOR;
-        case "·«·º≈…":
-            return GRN "°æ µ¿  ÕØ °ø" NOR;
-        case "Ã˙Ω£√≈":
-            return GRN "°æ Ω£  ÕØ °ø" NOR;
-        case "–˛⁄§π»":
-            return GRN "°æ ∆Õ  »À °ø" NOR;
-        case "ÃÏ¡˙À¬":
-            return GRN "°æ ±»  « °ø" NOR;
-        case "«‡≥«≈…":
-            return GRN "°æ Ω£  ÕØ °ø" NOR;
-        case "·‘…Ω≈…":
-            return GRN "°æ Ω£  ÕØ °ø" NOR;
-        case "∫„…Ω≈…":
-            return GRN "°æ Ω£  ÕØ °ø" NOR;
-        case "∫‚…Ω≈…":
-            return GRN "°æ Ω£  ÕØ °ø" NOR;
-        case "Ã©…Ω≈…":
-            return GRN "°æ Ω£  ÕØ °ø" NOR;
-        case "ª™…Ω≈…":
-            return GRN "°æ Ω£  ÕØ °ø" NOR;
-        case "ª™…ΩΩ£◊⁄":
-            return GRN "°æ Ω£  ÕØ °ø" NOR;
-        case "¡¨≥«Ω£≈…":
-            return GRN "°æ Ω£  ÕØ °ø" NOR;
-        case "¡Ëœˆ≥«":
-            return GRN "°æ Ω£  ÕØ °ø" NOR;
-        case "»’‘¬…ÒΩÃ":
-            return GRN "°æ ΩÃ  ÷⁄ °ø" NOR;
-        case "∞Àÿ‘√≈":
-            return GRN "°æ ÃÀ◊” ÷ °ø" NOR;
-        case "≈∑—Ù ¿º“":
-            return GRN "°æ º“  ∂° °ø" NOR;
-        case "ƒΩ»› ¿º“":
-            return GRN "°æ º“  ∂° °ø" NOR;
-        case "πÿÕ‚∫˙º“":
-            return GRN "°æ º“  ∂° °ø" NOR;
-        case "÷–‘≠√Áº“":
-            return GRN "°æ º“  ∂° °ø" NOR;
-        case "…Ãº“±§":
-            return GRN "°æ º“  ∂° °ø" NOR;
-        case "∂Œ œª ◊Â":
-            return GRN "°æ  Ã  ¥” °ø" NOR;
-        case " Ø¡∫Œ¬º“":
-            return GRN "°æ º“  ∂° °ø" NOR;
-        case "æ¯«Èπ»":
-            return GRN "°æ º“  ∂° °ø" NOR;
-        case "Ω≠ƒœ∂° œ":
-            return GRN "°æ º“  ∂° °ø" NOR;
-        case "œ¿øÕ√À":
-            return GRN "°æΩ≠∫˛”Œœ¿°ø" NOR;
+        case "Â∞ëÊûóÊ¥æ":
+            return GRN "„Äê ÊØî  ‰∏ò „Äë" NOR;
+        case "Ê≠¶ÂΩìÊ¥æ":
+            return GRN "„Äê ÈÅì  Á´• „Äë" NOR;
+        case "Â≥®ÂµãÊ¥æ":
+            return GRN "„Äê Â∞èÂ∞ºÂßë „Äë" NOR;
+        case "ÈÄçÈÅ•Ê¥æ":
+            return GRN "„Äê Â≠¶  Á´• „Äë" NOR;
+        case "ÁÅµÈπ´ÂÆ´":
+            return GRN "„Äê ‰Ωø  Â•≥ „Äë" NOR;
+        case "ÊòüÂÆøÊ¥æ":
+            return GRN "„Äê ‰ªÜ  ‰∫∫ „Äë" NOR;
+        case "Âè§Â¢ìÊ¥æ":
+            return GRN "„ÄêÂàùÂÖ•Ê±üÊπñ„Äë" NOR;
+        case "ÂÖ®ÁúüÊïô":
+            return GRN "„Äê ÈÅì  Á´• „Äë" NOR;
+        case "ÊòÜ‰ªëÊ¥æ":
+            return GRN "„Äê Âºü  Â≠ê „Äë" NOR;
+        case "Ê°ÉËä±Â≤õ":
+            return GRN "„Äê Â≠¶  Á´• „Äë" NOR;
+        case "ËçØÁéãË∞∑":
+            return GRN "„Äê ËçØ  Á´• „Äë" NOR;
+        case "Ë°ÄÂàÄÈó®":
+            return GRN "„Äê Ê≤ô  Âº• „Äë" NOR;
+        case "Â§ßËΩÆÂØ∫":
+            return GRN "„Äê Ê≤ô  Âº• „Äë" NOR;
+        case "‰∏êÂ∏Æ":
+            return GRN "„Äê Â∞èÂè´Ëä± „Äë" NOR;
+        case "ÈìÅÊéåÂ∏Æ":
+            return GRN "„Äê ‰ªÜ  ‰∫∫ „Äë" NOR;
+        case "Â§©Âú∞‰ºö":
+            return GRN "„Äê ‰πâ  Â£´ „Äë" NOR;
+        case "Á∫¢Ëä±‰ºö":
+            return GRN "„Äê ‰πâ  Â£´ „Äë" NOR;
+        case "Á•ûÈæôÊïô":
+            return GRN "„Äê Âºü  Â≠ê „Äë" NOR;
+        case "‰∫îÊØíÊïô":
+            return GRN "„Äê ‰ªÜ  ‰∫∫ „Äë" NOR;
+        case "ÊòéÊïô":
+            return GRN "„Äê Êïô  ‰ºó „Äë" NOR;
+        case "Ê¢ÖÂ∫Ñ":
+            return GRN "„Äê ‰ªÜ  ‰∫∫ „Äë" NOR;
+        case "Â¥ÜÂ≥íÊ¥æ":
+            return GRN "„Äê ÈÅì  Á´• „Äë" NOR;
+        case "ÈìÅÂâëÈó®":
+            return GRN "„Äê Ââë  Á´• „Äë" NOR;
+        case "ÁéÑÂÜ•Ë∞∑":
+            return GRN "„Äê ‰ªÜ  ‰∫∫ „Äë" NOR;
+        case "Â§©ÈæôÂØ∫":
+            return GRN "„Äê ÊØî  ‰∏ò „Äë" NOR;
+        case "ÈùíÂüéÊ¥æ":
+            return GRN "„Äê Ââë  Á´• „Äë" NOR;
+        case "Âµ©Â±±Ê¥æ":
+            return GRN "„Äê Ââë  Á´• „Äë" NOR;
+        case "ÊÅíÂ±±Ê¥æ":
+            return GRN "„Äê Ââë  Á´• „Äë" NOR;
+        case "Ë°°Â±±Ê¥æ":
+            return GRN "„Äê Ââë  Á´• „Äë" NOR;
+        case "Ê≥∞Â±±Ê¥æ":
+            return GRN "„Äê Ââë  Á´• „Äë" NOR;
+        case "ÂçéÂ±±Ê¥æ":
+            return GRN "„Äê Ââë  Á´• „Äë" NOR;
+        case "ÂçéÂ±±ÂâëÂÆó":
+            return GRN "„Äê Ââë  Á´• „Äë" NOR;
+        case "ËøûÂüéÂâëÊ¥æ":
+            return GRN "„Äê Ââë  Á´• „Äë" NOR;
+        case "ÂáåÈúÑÂüé":
+            return GRN "„Äê Ââë  Á´• „Äë" NOR;
+        case "Êó•ÊúàÁ•ûÊïô":
+            return GRN "„Äê Êïô  ‰ºó „Äë" NOR;
+        case "ÂÖ´Âç¶Èó®":
+            return GRN "„Äê Ë∂üÂ≠êÊâã „Äë" NOR;
+        case "Ê¨ßÈò≥‰∏ñÂÆ∂":
+            return GRN "„Äê ÂÆ∂  ‰∏Å „Äë" NOR;
+        case "ÊÖïÂÆπ‰∏ñÂÆ∂":
+            return GRN "„Äê ÂÆ∂  ‰∏Å „Äë" NOR;
+        case "ÂÖ≥Â§ñËÉ°ÂÆ∂":
+            return GRN "„Äê ÂÆ∂  ‰∏Å „Äë" NOR;
+        case "‰∏≠ÂéüËãóÂÆ∂":
+            return GRN "„Äê ÂÆ∂  ‰∏Å „Äë" NOR;
+        case "ÂïÜÂÆ∂Â†°":
+            return GRN "„Äê ÂÆ∂  ‰∏Å „Äë" NOR;
+        case "ÊÆµÊ∞èÁöáÊóè":
+            return GRN "„Äê ‰æç  ‰ªé „Äë" NOR;
+        case "Áü≥Ê¢ÅÊ∏©ÂÆ∂":
+            return GRN "„Äê ÂÆ∂  ‰∏Å „Äë" NOR;
+        case "ÁªùÊÉÖË∞∑":
+            return GRN "„Äê ÂÆ∂  ‰∏Å „Äë" NOR;
+        case "Ê±üÂçó‰∏ÅÊ∞è":
+            return GRN "„Äê ÂÆ∂  ‰∏Å „Äë" NOR;
+        case "‰æ†ÂÆ¢Áõü":
+            return GRN "„ÄêÊ±üÊπñÊ∏∏‰æ†„Äë" NOR;
         default:
-            return GRN "°æ≥ı»ÎŒ‰¡÷°ø" NOR;
+            return GRN "„ÄêÂàùÂÖ•Ê≠¶Êûó„Äë" NOR;
         }
     }
 }
@@ -754,77 +754,77 @@ string query_respect(object ob)
         return str;
 
     if ((string)ob->query("id") == "ivy")
-        return "…Òœ…∏Á∏Á";
+        return "Á•û‰ªôÂì•Âì•";
 
     age = ob->query("age");
     switch (ob->query("gender"))
     {
-    case "≈Æ–‘":
+    case "Â•≥ÊÄß":
         switch (ob->query("class"))
         {
         case "bonze":
             if (age < 18)
-                return "–° ¶Ã´";
+                return "Â∞èÂ∏àÂ§™";
             else
-                return " ¶Ã´";
+                return "Â∏àÂ§™";
             break;
         case "taoist":
             if (age < 18)
-                return "–°œ…π√";
+                return "Â∞è‰ªôÂßë";
             else
-                return "œ…π√";
+                return "‰ªôÂßë";
             break;
         default:
             if (age < 18)
-                return "–°π√ƒÔ";
+                return "Â∞èÂßëÂ®ò";
             else if (age < 30)
-                return "π√ƒÔ";
+                return "ÂßëÂ®ò";
             else if (age < 40)
-                return "¥Û…Ù";
+                return "Â§ßÂ©∂";
             else
-                return "∆≈∆≈";
+                return "Â©ÜÂ©Ü";
             break;
         }
-    case "ƒ––‘":
+    case "Áî∑ÊÄß":
     default:
         switch (ob->query("class"))
         {
         case "bonze":
             if (age < 18)
-                return "–° ¶∏∏";
+                return "Â∞èÂ∏àÁà∂";
             else
-                return "¥Û ¶";
+                return "Â§ßÂ∏à";
             break;
         case "taoist":
             if (age < 18)
-                return "µ¿–÷";
+                return "ÈÅìÂÖÑ";
             else
-                return "µ¿≥§";
+                return "ÈÅìÈïø";
             break;
         case "scholar":
             if (age < 18)
-                return "–°œ‡π´";
+                return "Â∞èÁõ∏ÂÖ¨";
             else if (age < 50)
-                return "œ‡π´";
+                return "Áõ∏ÂÖ¨";
             else
-                return "¿œœ»…˙";
+                return "ËÄÅÂÖàÁîü";
             break;
         case "fighter":
         case "swordsman":
             if (age < 18)
-                return "–°¿œµ‹";
+                return "Â∞èËÄÅÂºü";
             else if (age < 50)
-                return "◊≥ ø";
+                return "Â£ÆÂ£´";
             else
-                return "¿œ«∞±≤";
+                return "ËÄÅÂâçËæà";
             break;
         default:
             if (age < 20)
-                return "–°–÷µ‹";
+                return "Â∞èÂÖÑÂºü";
             else if (age < 50)
-                return "◊≥ ø";
+                return "Â£ÆÂ£´";
             else
-                return "¿œ“Ø◊”";
+                return "ËÄÅÁà∑Â≠ê";
             break;
         }
     }
@@ -839,82 +839,82 @@ string query_rude(object ob)
         return str;
 
     if ((string)ob->query("id") == "ivy")
-        return "¥Û…Ò";
+        return "Â§ßÁ•û";
 
     age = ob->query("age");
     switch (ob->query("gender"))
     {
-    case "≈Æ–‘":
+    case "Â•≥ÊÄß":
         switch (ob->query("class"))
         {
         case "bonze":
             if (age < 18)
-                return "–°‘Ùƒ·";
+                return "Â∞èË¥ºÂ∞º";
             if (age < 30)
-                return "‘Ùƒ·";
+                return "Ë¥ºÂ∞º";
             else
-                return "¿œ‘Ùƒ·";
+                return "ËÄÅË¥ºÂ∞º";
             break;
         case "taoist":
             if (age < 18)
-                return "–°—˝≈Æ";
+                return "Â∞èÂ¶ñÂ•≥";
             if (age < 30)
-                return "—˝≈Æ";
+                return "Â¶ñÂ•≥";
             else
-                return "¿œ—˝∆≈";
+                return "ËÄÅÂ¶ñÂ©Ü";
             break;
         default:
             if (age < 18)
-                return "–°ƒÔ∆§";
+                return "Â∞èÂ®òÁöÆ";
             if (age < 25)
-                return "–°º˙»À";
+                return "Â∞èË¥±‰∫∫";
             if (age < 40)
-                return "‘Ù∆≈ƒÔ";
+                return "Ë¥ºÂ©ÜÂ®ò";
             else
-                return "À¿¿œÃ´∆≈";
+                return "Ê≠ªËÄÅÂ§™Â©Ü";
             break;
         }
-    case "ƒ––‘":
+    case "Áî∑ÊÄß":
     default:
         switch (ob->query("class"))
         {
         case "bonze":
             if (age < 18)
-                return "–°‘ÙÕ∫";
+                return "Â∞èË¥ºÁßÉ";
             if (age < 50)
-                return "À¿Õ∫¬ø";
+                return "Ê≠ªÁßÉÈ©¥";
             else
-                return "¿œÕ∫¬ø";
+                return "ËÄÅÁßÉÈ©¥";
             break;
         case "taoist":
             if (age < 18)
-                return "–°‘”√´";
+                return "Â∞èÊùÇÊØõ";
             if (age < 30)
-                return "À¿≈£±«◊”";
+                return "Ê≠ªÁâõÈºªÂ≠ê";
             else
-                return "¿œ‘”√´";
+                return "ËÄÅÊùÇÊØõ";
             break;
         case "scholar":
             if (age < 18)
-                return "–° È¥Ù◊”";
+                return "Â∞è‰π¶ÂëÜÂ≠ê";
             else if (age < 50)
-                return "≥Ù È¥Ù◊”";
+                return "Ëá≠‰π¶ÂëÜÂ≠ê";
             else
-                return "¿œÕØ…˙";
+                return "ËÄÅÁ´•Áîü";
             break;
         default:
             if (age < 18)
-                return "–°Õ√·Ã◊”";
+                return "Â∞èÂÖîÂ¥ΩÂ≠ê";
             if (age < 20)
-                return "–°Õı∞Àµ∞";
+                return "Â∞èÁéãÂÖ´Ëõã";
             if (age < 30)
-                return "÷±ƒÔ‘Ù";
+                return "Áõ¥Â®òË¥º";
             if (age < 50)
-                return "≥Ù‘Ù";
+                return "Ëá≠Ë¥º";
             if (age < 80)
-                return "¿œ∆•∑Ú";
+                return "ËÄÅÂåπÂ§´";
             else
-                return "¿œ≤ªÀ¿";
+                return "ËÄÅ‰∏çÊ≠ª";
             break;
         }
     }
@@ -929,63 +929,63 @@ string query_self(object ob)
         return str;
 
     if ((string)ob->query("id") == "ivy")
-        return "Œ“";
+        return "Êàë";
 
     age = ob->query("age");
     switch (ob->query("gender"))
     {
-    case "≈Æ–‘":
+    case "Â•≥ÊÄß":
         switch (ob->query("class"))
         {
         case "bonze":
             if (age < 50)
-                return "∆∂ƒ·";
+                return "Ë¥´Â∞º";
             else
-                return "¿œƒ·";
+                return "ËÄÅÂ∞º";
             break;
         case "taoist":
-            return "∆∂µ¿";
+            return "Ë¥´ÈÅì";
             break;
         default:
             if (age < 20)
-                return "–°≈Æ◊”";
+                return "Â∞èÂ•≥Â≠ê";
             if (age > 50)
-                return "¿œ…Ì";
+                return "ËÄÅË∫´";
             else
-                return "Ê™…Ì";
+                return "Â¶æË∫´";
             break;
         }
-    case "ƒ––‘":
+    case "Áî∑ÊÄß":
     default:
         switch (ob->query("class"))
         {
         case "bonze":
             if (age < 18)
-                return "–°Òƒ";
+                return "Â∞èË°≤";
             if (age < 40)
-                return "∆∂…Æ";
+                return "Ë¥´ÂÉß";
             else
-                return "¿œÒƒ";
+                return "ËÄÅË°≤";
             break;
         case "taoist":
             if (age < 18)
-                return "–°µ¿";
+                return "Â∞èÈÅì";
             if (age < 30)
-                return "∆∂µ¿";
+                return "Ë¥´ÈÅì";
             else
-                return "¿œµ¿";
+                return "ËÄÅÈÅì";
             break;
         case "scholar":
             if (age < 30)
-                return "ÕÌ…˙";
+                return "ÊôöÁîü";
             else
-                return "≤ª≤≈";
+                return "‰∏çÊâç";
             break;
         default:
             if (age < 50)
-                return "‘⁄œ¬";
+                return "Âú®‰∏ã";
             else
-                return "¿œÕ∑◊”";
+                return "ËÄÅÂ§¥Â≠ê";
             break;
         }
     }
@@ -1000,60 +1000,60 @@ string query_self_rude(object ob)
         return str;
 
     if ((string)ob->query("id") == "ivy")
-        return "±æœ…";
+        return "Êú¨‰ªô";
 
     age = ob->query("age");
     switch (ob->query("gender"))
     {
-    case "≈Æ–‘":
+    case "Â•≥ÊÄß":
         switch (ob->query("class"))
         {
         case "bonze":
             if (age < 50)
-                return "∆∂ƒ·";
+                return "Ë¥´Â∞º";
             else
-                return "¿œƒ·";
+                return "ËÄÅÂ∞º";
             break;
         case "taoist":
-            return "±æœ…π√";
+            return "Êú¨‰ªôÂßë";
             break;
         default:
             if (age < 20)
-                return "±æπ√ƒÔ";
+                return "Êú¨ÂßëÂ®ò";
             if (age < 30)
-                return "±æπ√ƒÃƒÃ";
+                return "Êú¨ÂßëÂ•∂Â•∂";
             else
-                return "¿œƒÔ";
+                return "ËÄÅÂ®ò";
             break;
         }
-    case "ƒ––‘":
+    case "Áî∑ÊÄß":
     default:
         switch (ob->query("class"))
         {
         case "bonze":
             if (age < 50)
-                return "¥Û∫Õ…–Œ“";
+                return "Â§ßÂíåÂ∞öÊàë";
             else
-                return "¿œ∫Õ…–Œ“";
+                return "ËÄÅÂíåÂ∞öÊàë";
             break;
         case "taoist":
             if (age < 30)
-                return "±æ…Ω»À";
-            return "¿œµ¿Œ“";
+                return "Êú¨Â±±‰∫∫";
+            return "ËÄÅÈÅìÊàë";
             break;
         case "scholar":
             if (age < 50)
-                return "±æœ‡π´";
+                return "Êú¨Áõ∏ÂÖ¨";
             else
-                return "¿œ∑Ú◊”Œ“";
+                return "ËÄÅÂ§´Â≠êÊàë";
             break;
         default:
             if (age < 20)
-                return "±æ…Ÿ“ØŒ“";
+                return "Êú¨Â∞ëÁà∑Êàë";
             if (age < 40)
-                return "¥Û“ØŒ“";
+                return "Â§ßÁà∑Êàë";
             else
-                return "¿œ◊”";
+                return "ËÄÅÂ≠ê";
             break;
         }
     }
@@ -1069,18 +1069,18 @@ varargs string query_close(mixed ob, int a1, int a2)
 
     switch (objectp(ob) ? ob->query("gender") : ob)
     {
-    case "≈Æ–‘":
+    case "Â•≥ÊÄß":
         if (a1 >= a2)
-            return "√√√√";
+            return "Â¶πÂ¶π";
         else
-            return "Ω„Ω„";
+            return "ÂßêÂßê";
         break;
 
     default:
         if (a1 >= a2)
-            return "µ‹µ‹";
+            return "ÂºüÂºü";
         else
-            return "∏Á∏Á";
+            return "Âì•Âì•";
     }
 }
 
@@ -1094,17 +1094,17 @@ varargs string query_self_close(mixed ob, mixed me, int a1, int a2)
 
     switch (objectp(me) ? me->query("gender") : this_player() ? this_player()->query("gender") : me)
     {
-    case "≈Æ–‘":
+    case "Â•≥ÊÄß":
         if (a1 >= a2)
-            return "Ω„Ω„Œ“";
+            return "ÂßêÂßêÊàë";
         else
-            return "–°√√Œ“";
+            return "Â∞èÂ¶πÊàë";
         break;
 
     default:
         if (a1 >= a2)
-            return "”ﬁ–÷Œ“";
+            return "ÊÑöÂÖÑÊàë";
         else
-            return "–°µ‹Œ“";
+            return "Â∞èÂºüÊàë";
     }
 }

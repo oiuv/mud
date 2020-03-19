@@ -6,14 +6,14 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("ÑîÀÏ°å", ({ "yang laoban", "yang","laoban" }));
-        set("title", "ÍûĞÇÂ¥ÀÏ°å");
-        set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
+        set_name("æ¨è€æ¿", ({ "yang laoban", "yang","laoban" }));
+        set("title", "æœ›æ˜Ÿæ¥¼è€æ¿");
+        set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
         set("shen_type", 1);
         set("str", 24);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 55);
-        set("long", "ÑîÀÏ°å²»µ«ÊÇÕâ¶ùµÄÕÆ¹ñ£¬»¹ÊÇÕâ¶ùµÄ´ó³ø£¬\n²¢ÇÒÉÕµÃÒ»ÊÖºÃ²Ë¡£\n");
+        set("long", "æ¨è€æ¿ä¸ä½†æ˜¯è¿™å„¿çš„æŒæŸœï¼Œè¿˜æ˜¯è¿™å„¿çš„å¤§å¨ï¼Œ\nå¹¶ä¸”çƒ§å¾—ä¸€æ‰‹å¥½èœã€‚\n");
         set("combat_exp", 50000);
         set("attitude", "friendly");
         set_skill("unarmed", 60);

@@ -17,33 +17,33 @@ int main(object me, string arg)
                 return 0;
 
         if (! arg)
-                return notify_fail("ÇëÊäÈëÂ·¾¶ÃûºÍÎÄ¼şÃû¡£\n");
+                return notify_fail("è¯·è¾“å…¥è·¯å¾„åå’Œæ–‡ä»¶åã€‚\n");
 
         arg = resolve_path(me->query("cwd"), arg);
         switch (file_size(arg))
         {
         case -1:
-                return notify_fail("Ã»ÓĞÕâ¸öÎÄ¼ş»òÊÇÂ·¾¶¡£\n");
+                return notify_fail("æ²¡æœ‰è¿™ä¸ªæ–‡ä»¶æˆ–æ˜¯è·¯å¾„ã€‚\n");
         case -2:
                 if (arg[strlen(arg) - 1] != '/') arg += "/";
-                write("Îª " + build_path(arg) + " ¸öÎÄ¼şÔö¼ÓÁË¼ø±ğID¡£\n");
+                write("ä¸º " + build_path(arg) + " ä¸ªæ–‡ä»¶å¢åŠ äº†é‰´åˆ«IDã€‚\n");
                 return 1;
         }
 
         if (strlen(arg) < 2)
-                return notify_fail("Õâ¸öÎÄ¼şÃ»ÓĞ±ØÒªÔö¼Ó¼ø±ğID¡£\n");
+                return notify_fail("è¿™ä¸ªæ–‡ä»¶æ²¡æœ‰å¿…è¦å¢åŠ é‰´åˆ«IDã€‚\n");
 
         affix = arg[strlen(arg) - 2..<1];
         if (affix != ".c" && affix != ".h")
-                return notify_fail("Õâ¸öÎÄ¼şÃ»ÓĞ±ØÒªÔö¼Ó¼ø±ğID¡£\n");
+                return notify_fail("è¿™ä¸ªæ–‡ä»¶æ²¡æœ‰å¿…è¦å¢åŠ é‰´åˆ«IDã€‚\n");
 
         if (VERSION_D->append_sn(arg) == 1)
         {
-                write("³É¹¦µÄÔö¼ÓÁË¼ø±ğID¡£\n");
+                write("æˆåŠŸçš„å¢åŠ äº†é‰´åˆ«IDã€‚\n");
                 return 1;
         }
 
-        write("Ôö¼Ó¼ø±ğIDÊ§°ÜÁË¡£\n");
+        write("å¢åŠ é‰´åˆ«IDå¤±è´¥äº†ã€‚\n");
 	return 1;
 }
 
@@ -95,10 +95,10 @@ int build_path(string path)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : fcrypt <Ä¿Â¼Ãû> | <ÎÄ¼şÃû>
+æŒ‡ä»¤æ ¼å¼ : fcrypt <ç›®å½•å> | <æ–‡ä»¶å>
 
-ÀûÓÃ´ËÒ»Ö¸Áî¿ÉÒÔÎªÄ³Ò»¸öÎÄ¼ş»òÊÇÄ³Ò»¸öÄ¿Â¼ÏÂµÄËùÓĞÔ´ÎÄ¼şÔö¼Ó
-Êı¾İÍêÕûĞÔID¡£
+åˆ©ç”¨æ­¤ä¸€æŒ‡ä»¤å¯ä»¥ä¸ºæŸä¸€ä¸ªæ–‡ä»¶æˆ–æ˜¯æŸä¸€ä¸ªç›®å½•ä¸‹çš„æ‰€æœ‰æºæ–‡ä»¶å¢åŠ 
+æ•°æ®å®Œæ•´æ€§IDã€‚
 
 HELP
     );

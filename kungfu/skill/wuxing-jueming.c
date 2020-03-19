@@ -1,4 +1,4 @@
-// wuxing-jueming.c ÎÞÐÎ¾øÃü
+// wuxing-jueming.c æ— å½¢ç»å‘½
 // Edit By Vin On 26/2/2001
 
 #include <ansi.h>
@@ -10,10 +10,10 @@ int valid_learn(object me)
 //      object ob;
   
         if (me->query_skill("throwing", 1) < 100)
-                return notify_fail("ÄãµÄ°µÆ÷¼¼ÄÜ²»¹»æµÊì¡£\n");
+                return notify_fail("ä½ çš„æš—å™¨æŠ€èƒ½ä¸å¤Ÿå¨´ç†Ÿã€‚\n");
 
         if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("wuxing-jueming", 1))
-                return notify_fail("ÄãµÄ»ù±¾°µÆ÷Ë®Æ½ÓÐÏÞ£¬ÄÑÒÔÁì»á¸ü¾«ÃîµÄÎÞÐÎ¾øÃü¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬æš—å™¨æ°´å¹³æœ‰é™ï¼Œéš¾ä»¥é¢†ä¼šæ›´ç²¾å¦™çš„æ— å½¢ç»å‘½ã€‚\n");
 
         return 1;
 }
@@ -26,10 +26,10 @@ int valid_enable(string usage)
 int practice_skill(object me)
 {
         if ((int)me->query("qi") < 80)
-                return notify_fail("ÄãµÄÆø²»¹»£¬Ã»ÓÐ°ì·¨Á·Ï°ÎÞÐÎ¾øÃü¡£\n");
+                return notify_fail("ä½ çš„æ°”ä¸å¤Ÿï¼Œæ²¡æœ‰åŠžæ³•ç»ƒä¹ æ— å½¢ç»å‘½ã€‚\n");
 
         if ((int)me->query("neili") < 60)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬Ã»ÓÐ°ì·¨Á·Ï°ÎÞÐÎ¾øÃü¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œæ²¡æœ‰åŠžæ³•ç»ƒä¹ æ— å½¢ç»å‘½ã€‚\n");
 
         me->receive_damage("qi", 70);
         me->add("neili", -50);

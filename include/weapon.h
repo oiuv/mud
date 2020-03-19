@@ -3,7 +3,7 @@
 #ifndef __WEAPON__
 #define __WEAPON__
 
-#define DEFAULT_WEAPON_LIMB "ÓÒÊÖ"
+#define DEFAULT_WEAPON_LIMB "å³æ‰‹"
 
 #define TWO_HANDED	1
 #define SECONDARY	2
@@ -11,18 +11,18 @@
 #define POINTED		8
 #define LONG		16
 
-#define AXE		"/inherit/weapon/axe"		// ¸«
-#define BLADE		"/inherit/weapon/blade"		// µ¶
-#define CLUB		"/inherit/weapon/club"		// ¹÷
-#define DAGGER		"/inherit/weapon/dagger"	// Ã¬
-#define FORK		"/inherit/weapon/fork"		// ²æ
-#define HAMMER 		"/inherit/weapon/hammer"	// ´¸
-#define PIN             "/inherit/weapon/pin"           // Õë
-#define SWORD		"/inherit/weapon/sword"		// ½£
-#define STAFF		"/inherit/weapon/staff"		// ÕÈ
-#define THROWING	"/inherit/weapon/throwing"	// °µÆ÷
-#define WHIP		"/inherit/weapon/whip"		// ±Ş
-#define XSWORD          "/inherit/weapon/xsword"        // Ïô
+#define AXE		"/inherit/weapon/axe"		// æ–§
+#define BLADE		"/inherit/weapon/blade"		// åˆ€
+#define CLUB		"/inherit/weapon/club"		// æ£
+#define DAGGER		"/inherit/weapon/dagger"	// çŸ›
+#define FORK		"/inherit/weapon/fork"		// å‰
+#define HAMMER 		"/inherit/weapon/hammer"	// é”¤
+#define PIN             "/inherit/weapon/pin"           // é’ˆ
+#define SWORD		"/inherit/weapon/sword"		// å‰‘
+#define STAFF		"/inherit/weapon/staff"		// æ–
+#define THROWING	"/inherit/weapon/throwing"	// æš—å™¨
+#define WHIP		"/inherit/weapon/whip"		// é­
+#define XSWORD          "/inherit/weapon/xsword"        // è§
 
 #define F_AXE		"/inherit/weapon/_axe"
 #define F_BLADE		"/inherit/weapon/_blade"

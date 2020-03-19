@@ -6,11 +6,11 @@
 inherit ROOM;
 void create()
 {
-	set("short", "ÓÀµÇ");
+	set("short", "æ°¸ç™»");
 	set("long", @LONG
-ÕâÀï¾ÍÊÇÎ÷±±µÄ¾üÊÂÖØÕòÓÀµÇ¡£Ò»×ù¹Â³ÇËÊÁ¢ÔÚÃ£Ã£»ÄÒ°Ö®ÉÏ¡£´Ë
-³Ç½¨ÓÚºº¹âÎäÄê¼ä£¬¾ÝÎÅ´ó½«¾ü»ôÈ¥²¡ÔøÔÚ´ËÁ·±øÈýÄê£¬ºóÒ»¾ÙÆ½¶¨´ó
-Î÷±±¡£Àú´ú¶øÀ´£¬ÕâÀï¶¼ÓÐ¾ü¶Ó³¤×¤¡£
+è¿™é‡Œå°±æ˜¯è¥¿åŒ—çš„å†›äº‹é‡é•‡æ°¸ç™»ã€‚ä¸€åº§å­¤åŸŽè€¸ç«‹åœ¨èŒ«èŒ«è’é‡Žä¹‹ä¸Šã€‚æ­¤
+åŸŽå»ºäºŽæ±‰å…‰æ­¦å¹´é—´ï¼Œæ®é—»å¤§å°†å†›éœåŽ»ç—…æ›¾åœ¨æ­¤ç»ƒå…µä¸‰å¹´ï¼ŒåŽä¸€ä¸¾å¹³å®šå¤§
+è¥¿åŒ—ã€‚åŽ†ä»£è€Œæ¥ï¼Œè¿™é‡Œéƒ½æœ‰å†›é˜Ÿé•¿é©»ã€‚
 LONG );
 	set("exits", ([
                 "southup" : "/d/changan/tulu4",

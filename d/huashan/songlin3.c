@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "������");
+        set("short", "松树林");
         set("long", @LONG
-����һƬ�����֡����ɸߵ������������飬�ڵò������ա�����
-�������룬�в�֪����Ұ��͵͵�ӹ�������һƬ�ž���
+这是一片松树林。几丈高的松树密密麻麻，遮得不见天日。地上
+落满松针，有不知名的野兔偷偷逃过。四周一片寂静。
 LONG );
         set("exits", ([
                 "south" : __DIR__"songlin" + (random(4) + 1),

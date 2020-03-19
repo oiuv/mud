@@ -4,10 +4,10 @@
 inherit ROOM;
 void create()
 {
-	set("short","����");
+	set("short","杆栏");
 	set("long",@LONG
-һ�������ĸ�����ӣ��˼��²�û��ţ��ȴ����ϯΧ��һ����
-ɣ�ϵ�С���ݣ���������̡�¥�ϴ��������ɴ�����������
+一间摆夷族的杆栏民居，此间下层没有牛羊，却用竹席围成一个养
+桑蚕的小棚屋，有竹架竹盘。楼上传来阵阵纺纱机的梭飞声。
 LONG);
 	set("objects",([
 	    __DIR__"npc/yangcannu" : 1,

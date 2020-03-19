@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ÇàÑò¹¬");
+	set("short", "é’ç¾Šå®«");
 	set("long", @LONG
-ÇàÑò¹¬ÊÇÌìÏÂµÚÒ»´óµÀ¹Û¡£¹ÛÖĞÁÖÄ¾ÆÅæ¶£¬¹Ú¸ÇÍ¤Í¤¹ÛÖĞ
-µÀÊ¿´Ò´ÒÀ´È¥£¬Ã»ÈËµÃ¿ÕÀíÄã£¬¸üÃ»ÈË½Ó´ıÄã¡£Äã¾õµÃµ½Ò»ÖÖ
-¿íËÉµÄÊ§Âä¡£
+é’ç¾Šå®«æ˜¯å¤©ä¸‹ç¬¬ä¸€å¤§é“è§‚ã€‚è§‚ä¸­æ—æœ¨å©†å¨‘ï¼Œå† ç›–äº­äº­è§‚ä¸­
+é“å£«åŒ†åŒ†æ¥å»ï¼Œæ²¡äººå¾—ç©ºç†ä½ ï¼Œæ›´æ²¡äººæ¥å¾…ä½ ã€‚ä½ è§‰å¾—åˆ°ä¸€ç§
+å®½æ¾çš„å¤±è½ã€‚
 LONG);
 	set("exits", ([
 		"northeast" : __DIR__"westroad1",
@@ -23,10 +23,10 @@ void init()
 {
         object me = this_player();
 
-        if (me->query("family/family_name") == "¶ëáÒÅÉ")
+        if (me->query("family/family_name") == "å³¨åµ‹æ´¾")
         {
-                tell_object(me, HIG "\nÄãÍ»È»·¢ÏÖ¶ëáÒÅÉµÜ×ÓÁôÔÚ´Ë´¦µÄ"
-                                "ÃÜĞÅ¡£\n" NOR);
+                tell_object(me, HIG "\nä½ çªç„¶å‘ç°å³¨åµ‹æ´¾å¼Ÿå­ç•™åœ¨æ­¤å¤„çš„"
+                                "å¯†ä¿¡ã€‚\n" NOR);
                 me->set_temp("want_leave", 1);
 
                 remove_call_out("letter");
@@ -43,12 +43,12 @@ void letter(object me)
         if (! me->query_temp("want_leave")) 
                 return;
 
-        tell_object(me, WHT "  ©³©¥©¥©¥©¥©¥©¥©·\n"
-                            "  ©§¹ÛÅÔÊ÷ÁÖÄÚÓĞ©§\n"
-                            "  ©§±¾ÅÉÃÜµÀÄÜ¹»©§\n"
-                            "  ©§Ö±Í¨(" HIY "back" NOR + WHT ")¶ë©§\n"
-                            "  ©§áÒ»ª²ØâÖ´óµî©§\n"
-                            "  ©»©¥©¥©¥©¥©¥©¥©¿\n" NOR);
+        tell_object(me, WHT "  â”â”â”â”â”â”â”â”“\n"
+                            "  â”ƒè§‚æ—æ ‘æ—å†…æœ‰â”ƒ\n"
+                            "  â”ƒæœ¬æ´¾å¯†é“èƒ½å¤Ÿâ”ƒ\n"
+                            "  â”ƒç›´é€š(" HIY "back" NOR + WHT ")å³¨â”ƒ\n"
+                            "  â”ƒåµ‹åè—åºµå¤§æ®¿â”ƒ\n"
+                            "  â”—â”â”â”â”â”â”â”›\n" NOR);
 }
 
 int do_back()
@@ -57,11 +57,11 @@ int do_back()
 
         if (me->query_temp("want_leave")) 
         {
-                message("vision", HIC "ºöÈ»¼äÖ»¼û" + me->name() + HIC
-                                  "ÉíĞÎÒ»»Î£¬¾¹Ã»ÁË×ÙÓ°¡£\n" NOR,
+                message("vision", HIC "å¿½ç„¶é—´åªè§" + me->name() + HIC
+                                  "èº«å½¢ä¸€æ™ƒï¼Œç«Ÿæ²¡äº†è¸ªå½±ã€‚\n" NOR,
                                   environment(me), ({me}));
                 me->move("/d/emei/midao5");
-                tell_object(me, HIC "\nÄã×ê½øÁËÇàÑò¹ÛÊ÷ÁÖÄÚµÄÃÜµÀ¡£\n\n" NOR);
+                tell_object(me, HIC "\nä½ é’»è¿›äº†é’ç¾Šè§‚æ ‘æ—å†…çš„å¯†é“ã€‚\n\n" NOR);
         }
         return 1;
 }

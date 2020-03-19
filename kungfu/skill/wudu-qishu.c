@@ -9,12 +9,12 @@ int valid_enable(string usage) { return usage == "poison"; }
 int valid_learn(object me)
 {
         if ((int)me->query_skill("poison", 1) < 50)
-                return notify_fail("你的基本毒技造诣太浅，无"
-                                   "法领会深奥的五毒奇术。\n");
+                return notify_fail("浣犵殑鍩烘湰姣掓妧閫犺澶祬锛屾棤"
+                                   "娉曢浼氭繁濂ョ殑浜旀瘨濂囨湳銆俓n");
 
         if ((int)me->query_skill("poison", 1) < (int)me->query_skill("wudu-qishu", 1))
-                return notify_fail("你的基本毒技水平有限，无"
-                                   "法掌握更深奥的五毒奇术。\n");
+                return notify_fail("浣犵殑鍩烘湰姣掓妧姘村钩鏈夐檺锛屾棤"
+                                   "娉曟帉鎻℃洿娣卞ゥ鐨勪簲姣掑鏈�俓n");
 
         return 1;
 }

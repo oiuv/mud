@@ -3,12 +3,12 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÒóËØËØ", ({ "yin susu", "yin", "susu" }) );
-        set("long", "Ö»¼ûËıÉí´©µ­ÂÌÉÀ×Ó£¬ÇåÀö²»¿É·½Îï¡£\n");
+        set_name("æ®·ç´ ç´ ", ({ "yin susu", "yin", "susu" }) );
+        set("long", "åªè§å¥¹èº«ç©¿æ·¡ç»¿è¡«å­ï¼Œæ¸…ä¸½ä¸å¯æ–¹ç‰©ã€‚\n");
         set("attitude", "peaceful");
-        set("title", "ÌìÓ¥½Ì");
-        set("nickname", MAG "×ÏÎ¢ÌÃÖ÷" NOR);
-        set("gender","Å®ĞÔ");
+        set("title", "å¤©é¹°æ•™");
+        set("nickname", MAG "ç´«å¾®å ‚ä¸»" NOR);
+        set("gender","å¥³æ€§");
         set("age", 18);
         set("per", 38);
         set("combat_exp", 800000);
@@ -28,33 +28,33 @@ void init()
 
 int do_touxi()
 {
-        write(CYN "\nÒóËØËØºÈµÀ£ºÔô×Ó£¬ÒªÏëĞĞĞ×Ã´£¿ÔÚÕâÀï"
-              "¿ÖÅÂÓÉ²»µÃÄã£¡\n" NOR);
+        write(CYN "\næ®·ç´ ç´ å–é“ï¼šè´¼å­ï¼Œè¦æƒ³è¡Œå‡¶ä¹ˆï¼Ÿåœ¨è¿™é‡Œ"
+              "ææ€•ç”±ä¸å¾—ä½ ï¼\n" NOR);
         return 1;
 }
 
 int accept_fight(object who)
 {
-        command("say ÎÒ²»ºÍÄã±È£¬ÎÒÊÇÅãÕÅ¹«×ÓÀ´²Î¹ÛµÄ£¡");
+        command("say æˆ‘ä¸å’Œä½ æ¯”ï¼Œæˆ‘æ˜¯é™ªå¼ å…¬å­æ¥å‚è§‚çš„ï¼");
         return 0;
 }
 
 int accept_hit(object who)
 {
-        command("say ÎÒ²»ºÍÄã±È£¬ÎÒÊÇÅãÕÅ¹«×ÓÀ´²Î¹ÛµÄ£¡");
+        command("say æˆ‘ä¸å’Œä½ æ¯”ï¼Œæˆ‘æ˜¯é™ªå¼ å…¬å­æ¥å‚è§‚çš„ï¼");
         return 0;
 }
 
 int accept_kill(object who)
 {
-        command("say ÔõÃ´£¬ÒªĞĞĞ×Ã´£¿ÔÚÕâÀï¿ÖÅÂÓÉ²»µÃÄã£¡");
-        return notify_fail("É²ÄÇ¼äÄã¾õµÃ»¹ÊÇ²»ÒªÇá¾ÙÍı¶¯ÎªºÃ¡£\n");
+        command("say æ€ä¹ˆï¼Œè¦è¡Œå‡¶ä¹ˆï¼Ÿåœ¨è¿™é‡Œææ€•ç”±ä¸å¾—ä½ ï¼");
+        return notify_fail("åˆ¹é‚£é—´ä½ è§‰å¾—è¿˜æ˜¯ä¸è¦è½»ä¸¾å¦„åŠ¨ä¸ºå¥½ã€‚\n");
 }
 
 int accept_ansuan(object who)
 {
-        return notify_fail("Äã¸ÕÏë°µËã£¬¿ÉÊÇÖ»¼û»á³¡ÀïºÚÑ¹Ñ¹µÄ"
-                           "¼·ÂúÁËÈË£¬¸ù±¾¿´²»Çå³ş¡£\n");
+        return notify_fail("ä½ åˆšæƒ³æš—ç®—ï¼Œå¯æ˜¯åªè§ä¼šåœºé‡Œé»‘å‹å‹çš„"
+                           "æŒ¤æ»¡äº†äººï¼Œæ ¹æœ¬çœ‹ä¸æ¸…æ¥šã€‚\n");
 }
 
 void receive_damage(string type, int n)

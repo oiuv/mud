@@ -3,14 +3,14 @@ inherit NPC;
 
 void create()
 {
-        set_name("³£½ðÅô", ({ "chang jinpeng", "chang", "jinpeng" }));
+        set_name("å¸¸é‡‘é¹", ({ "chang jinpeng", "chang", "jinpeng" }));
         set("long", @LONG
-Õâ±ãÊÇÌìÓ¥½ÌÖìÈ¸Ì³µÄÌ³Ö÷³£½ðÅô¡£Ö»¼ûËûÎå
-Ê®À´ËêÄê¼Í£¬Á³ÉÏÊÖÉÏµÄ¼¡Èâ°¼°¼Í¹Í¹¡¢ÅÌ¸ù
-´í½Ú£¬ÏÔÊÇÎä¹¦ÁËµÃ¡£
+è¿™ä¾¿æ˜¯å¤©é¹°æ•™æœ±é›€å›çš„å›ä¸»å¸¸é‡‘é¹ã€‚åªè§ä»–äº”
+åæ¥å²å¹´çºªï¼Œè„¸ä¸Šæ‰‹ä¸Šçš„è‚Œè‚‰å‡¹å‡¹å‡¸å‡¸ã€ç›˜æ ¹
+é”™èŠ‚ï¼Œæ˜¾æ˜¯æ­¦åŠŸäº†å¾—ã€‚
 LONG);
-        set("title", "ÌìÓ¥½Ì");
-        set("nickname", HIR "ÖìÈ¸Ì³Ö÷" NOR);
+        set("title", "å¤©é¹°æ•™");
+        set("nickname", HIR "æœ±é›€å›ä¸»" NOR);
         set("attitude", "heroism");
         set("age", 50);
         set("str", 60);
@@ -50,14 +50,14 @@ LONG);
         prepare_skill("claw", "poyue-zhao");
         prepare_skill("cuff", "zhenyu-quan");
 
-        create_family("ÌìÓ¥½Ì", 2, "Ì³Ö÷");
+        create_family("å¤©é¹°æ•™", 2, "å›ä¸»");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
                 (: perform_action, "hammer.kai" :),
                 (: exert_function, "recover" :),
-                CYN "³£½ðÅôºÈµÀ£º¶ñÔô»¹²»·ÅÊÖ£¿\n" NOR,
-                CYN "³£½ðÅôºÈµÀ£º¶ñÔô²»µÃÎÞÀñ£¡\n" NOR,
+                CYN "å¸¸é‡‘é¹å–é“ï¼šæ¶è´¼è¿˜ä¸æ”¾æ‰‹ï¼Ÿ\n" NOR,
+                CYN "å¸¸é‡‘é¹å–é“ï¼šæ¶è´¼ä¸å¾—æ— ç¤¼ï¼\n" NOR,
         }));
 
         set_temp("apply/damage", 100);
@@ -72,8 +72,8 @@ LONG);
 
 int accept_ansuan(object who)
 {
-        return notify_fail("Äã¸ÕÏë°µËã£¬¿ÉÊÇÖ»¼û»á³¡ÀïºÚÑ¹"
-                           "Ñ¹µÄ¼·ÂúÁËÈË£¬¸ù±¾¿´²»Çå³þ¡£\n");
+        return notify_fail("ä½ åˆšæƒ³æš—ç®—ï¼Œå¯æ˜¯åªè§ä¼šåœºé‡Œé»‘åŽ‹"
+                           "åŽ‹çš„æŒ¤æ»¡äº†äººï¼Œæ ¹æœ¬çœ‹ä¸æ¸…æ¥šã€‚\n");
 }
 
 void init()
@@ -95,10 +95,10 @@ int do_get(string arg)
 
         if (where == "ding")
         {
-                message_vision(CYN "$N¶Ô$n" CYN "´óºÈÒ»Éù£º´óµ¨£¡¾¹¸Ò´ò±¦"
-                               "µ¶µÄÖ÷Òâ£¡\n" NOR, obj, this_player());
+                message_vision(CYN "$Nå¯¹$n" CYN "å¤§å–ä¸€å£°ï¼šå¤§èƒ†ï¼ç«Ÿæ•¢æ‰“å®"
+                               "åˆ€çš„ä¸»æ„ï¼\n" NOR, obj, this_player());
 
-                message_vision(CYN "$N¶Ô$n" CYN "ºÈµÀ£ºÈ¥ËÀ°É¡£\n" NOR,
+                message_vision(CYN "$Nå¯¹$n" CYN "å–é“ï¼šåŽ»æ­»å§ã€‚\n" NOR,
                                obj, this_player());
                 obj->kill_ob(this_player());
                 this_player()->kill_ob(obj);
@@ -111,7 +111,7 @@ int do_compare()
 {
         object obj = this_object();
 
-        message_vision(CYN "$N¶Ô$n" CYN "´óºÈÒ»Éù£º±ÈÊ²Ã´±È£¬È¥ËÀ°É£¡\n"
+        message_vision(CYN "$Nå¯¹$n" CYN "å¤§å–ä¸€å£°ï¼šæ¯”ä»€ä¹ˆæ¯”ï¼ŒåŽ»æ­»å§ï¼\n"
                        NOR, obj, this_player());
         obj->kill_ob(this_player());
         this_player()->kill_ob(obj);
@@ -121,7 +121,7 @@ int do_compare()
 int accept_fight(object me)
 {
         object obj = this_object();
-        command("say ËûÄÌÄÌµÄ£¬Òª´ò¼ÜÂð£¿ÕýºÏÀÏ×ÓÐÄÒâ£¡\n");
+        command("say ä»–å¥¶å¥¶çš„ï¼Œè¦æ‰“æž¶å—ï¼Ÿæ­£åˆè€å­å¿ƒæ„ï¼\n");
         this_player()->kill_ob(obj);
         kill_ob(me);
         return 1;
@@ -130,7 +130,7 @@ int accept_fight(object me)
 int accept_hit(object me)
 {
         object obj = this_object();
-        command("say ËûÄÌÄÌµÄ£¬Òª´ò¼ÜÂð£¿ÕýºÏÀÏ×ÓÐÄÒâ£¡\n");
+        command("say ä»–å¥¶å¥¶çš„ï¼Œè¦æ‰“æž¶å—ï¼Ÿæ­£åˆè€å­å¿ƒæ„ï¼\n");
         this_player()->kill_ob(obj);
         kill_ob(me);
         return 1;
@@ -139,7 +139,7 @@ int accept_hit(object me)
 int accept_kill(object me)
 {
         object obj = this_object();
-        command("say ËûÄÌÄÌµÄ£¬Òª´ò¼ÜÂð£¿ÕýºÏÀÏ×ÓÐÄÒâ£¡\n");
+        command("say ä»–å¥¶å¥¶çš„ï¼Œè¦æ‰“æž¶å—ï¼Ÿæ­£åˆè€å­å¿ƒæ„ï¼\n");
         this_player()->kill_ob(obj);
         kill_ob(me);
         return 1;

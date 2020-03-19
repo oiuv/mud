@@ -5,16 +5,16 @@ inherit SWORD;
 
 void create()
 {
-        set_name(HIM "¾ÅÌìÑŞÑô³ß" NOR, ({ "yanyang chi", "yanyang", "chi", "jian", "sword" }) );
+        set_name(HIM "ä¹å¤©è‰³é˜³å°º" NOR, ({ "yanyang chi", "yanyang", "chi", "jian", "sword" }) );
         set_weight(4000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
+                set("unit", "æŸ„");
                 set("value", 2800000);
                 set("material", "steel");
-                set("long", HIW "\n¾ÅÌìÑŞÑô³ßÄË¾Åñ·ÆßÓüÉñ±øÖ®Ò»¡£\n" NOR);
-                set("wield_msg", HIR "$NÇáÇá¶¶³ö$n" HIR "£¬É²Ê±À×ÉùºäÃù£¬Ò»¹ÉÉ±ÆøÖ±Äô¾ÅÏö¡£\n" );
+                set("long", HIW "\nä¹å¤©è‰³é˜³å°ºä¹ƒä¹ç©¹ä¸ƒç‹±ç¥å…µä¹‹ä¸€ã€‚\n" NOR);
+                set("wield_msg", HIR "$Nè½»è½»æŠ–å‡º$n" HIR "ï¼Œåˆ¹æ—¶é›·å£°è½°é¸£ï¼Œä¸€è‚¡æ€æ°”ç›´è‚ä¹éœ„ã€‚\n" );
         }
         init_sword(155);
         setup();

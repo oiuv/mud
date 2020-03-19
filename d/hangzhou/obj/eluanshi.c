@@ -6,18 +6,18 @@ inherit THROWING;
 
 void create()
 {
-	set_name(HIC"¶ìÂÑÊ¯"NOR, ({ "eluan shi", "shi"}));
+	set_name(HIC"é¹…åµçŸ³"NOR, ({ "eluan shi", "shi"}));
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ğ©");
-		set("long", "ÕâÊÇÒ»Á£Æ½Æ½³£³£µÄ¶ìÂÑÊ¯¡£\n");
-                set("base_unit", "Á£");
+		set("unit", "äº›");
+		set("long", "è¿™æ˜¯ä¸€ç²’å¹³å¹³å¸¸å¸¸çš„é¹…åµçŸ³ã€‚\n");
+                set("base_unit", "ç²’");
                 set("base_weight", 300);
 		set("value", 0);
 		set("material", "stone");
-		set("wield_msg", "$NÌÍ³öÒ»Á£$n×¼±¸Õ½¶·¡£\n");
-		set("unwield_msg", "$N·ÅÏÂÊÖÖĞµÄ$n¡£\n");
+		set("wield_msg", "$Næå‡ºä¸€ç²’$nå‡†å¤‡æˆ˜æ–—ã€‚\n");
+		set("unwield_msg", "$Næ”¾ä¸‹æ‰‹ä¸­çš„$nã€‚\n");
 	}
         set_amount(10);
 	init_throwing(1);

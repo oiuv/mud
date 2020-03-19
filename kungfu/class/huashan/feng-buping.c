@@ -1,4 +1,4 @@
-// feng-buping.c  ·â²»Æ½
+// feng-buping.c  å°ä¸å¹³
 
 inherit NPC;
 inherit F_MASTER;
@@ -8,12 +8,12 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("·â²»Æ½", ({ "feng buping", "feng" }) );
-        set("gender", "ÄĞĞÔ");
+        set_name("å°ä¸å¹³", ({ "feng buping", "feng" }) );
+        set("gender", "ç”·æ€§");
         set("class", "swordsman");
-        set("title", "»ªÉ½½£×ÚµÚÊ®Èı´úµÜ×Ó");
+        set("title", "åå±±å‰‘å®—ç¬¬åä¸‰ä»£å¼Ÿå­");
         set("age", 45);
-        set("long", "·â²»Æ½ÊÇ»ªÉ½½£×ÚµÚÒ»¸ßÊÖ£¬ÂúÁ³ìåÆøÒ»ÕÅ»Æ½¹½¹µÄÃæÆ¤¡£\n");
+        set("long", "å°ä¸å¹³æ˜¯åå±±å‰‘å®—ç¬¬ä¸€é«˜æ‰‹ï¼Œæ»¡è„¸æˆ¾æ°”ä¸€å¼ é»„ç„¦ç„¦çš„é¢çš®ã€‚\n");
         set("attitude", "peaceful");
         set("str", 28);
         set("int", 32);
@@ -62,10 +62,10 @@ void create()
         prepare_skill("cuff", "poyu-quan");
 
         set("inquiry", ([
-                "¾øÕĞ"     : "ÎÒ½£×Ú½£·¨¾«Ææ£¬ÄãÏëÑ§ÄÄÃÅ¾øÕĞ£¿\n",
-                "¾ø¼¼"     : "ÎÒ½£×Ú½£·¨¾«Ææ£¬ÄãÏëÑ§ÄÄÃÅ¾øÕĞ£¿\n",
-                "½£×Ú"     : "ÎÒ¾ÍÊÇ½£×Ú´«ÈË£¡\n",
-                "¿ñ·ç¿ì½£" : "ÄãÏëÑ§µÄ»°»¹ÊÇÕÒÎÒ³ÉÊ¦µÜ°É£¡\n",
+                "ç»æ‹›"     : "æˆ‘å‰‘å®—å‰‘æ³•ç²¾å¥‡ï¼Œä½ æƒ³å­¦å“ªé—¨ç»æ‹›ï¼Ÿ\n",
+                "ç»æŠ€"     : "æˆ‘å‰‘å®—å‰‘æ³•ç²¾å¥‡ï¼Œä½ æƒ³å­¦å“ªé—¨ç»æ‹›ï¼Ÿ\n",
+                "å‰‘å®—"     : "æˆ‘å°±æ˜¯å‰‘å®—ä¼ äººï¼\n",
+                "ç‹‚é£å¿«å‰‘" : "ä½ æƒ³å­¦çš„è¯è¿˜æ˜¯æ‰¾æˆ‘æˆå¸ˆå¼Ÿå§ï¼\n",
         ]));
 
         set_temp("apply/attack", 220);
@@ -73,7 +73,7 @@ void create()
         set_temp("apply/damage", 200);
         set_temp("apply/unarmed_damage", 200);
 
-        create_family("»ªÉ½ÅÉ", 13, "µÜ×Ó");
+        create_family("åå±±æ´¾", 13, "å¼Ÿå­");
 
         setup();
 
@@ -83,37 +83,37 @@ void create()
 
 int accept_ask(object me, string topic)
 {
-        if (me->query("family/family_name") != "»ªÉ½ÅÉ")
+        if (me->query("family/family_name") != "åå±±æ´¾")
                 return 0;
 
         switch (topic)
         {
-        case "·çÆğÔÆÓ¿" :
+        case "é£èµ·äº‘æ¶Œ" :
                 if (me->query("max_neili") > 2000 || me->query_skill("force") > 205)
                 {
                       command("shake");
-                      command("say ÎÒ½£×ÚÒÔ½£ÊõÎªÖ÷£¬ÆøÎª´Î£¡ÄãµÄÄÚ¹¦ĞŞÎªÒÑÈëÁËÆø×ÚÆçÍ¾£¬ÔÙ²»ÄÜĞŞÁ¶½£×Ú½£Êõ¡£");
+                      command("say æˆ‘å‰‘å®—ä»¥å‰‘æœ¯ä¸ºä¸»ï¼Œæ°”ä¸ºæ¬¡ï¼ä½ çš„å†…åŠŸä¿®ä¸ºå·²å…¥äº†æ°”å®—æ­§é€”ï¼Œå†ä¸èƒ½ä¿®ç‚¼å‰‘å®—å‰‘æœ¯ã€‚");
                       return 1;
                 }
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/kuangfeng-jian/yong",
-                           "name"    : "·çÆğÔÆÓ¿ ",
+                           "name"    : "é£èµ·äº‘æ¶Œ ",
                            "sk1"     : "kuangfeng-jian",
                            "lv1"     : 140,
                            "sk2"     : "dodge",
                            "lv2"     : 140, ]));
                 break;
 
-        case "¶áÃüÁ¬»·ÈıÏÉ½£" :
+        case "å¤ºå‘½è¿ç¯ä¸‰ä»™å‰‘" :
                 if (me->query("max_neili") > 2000 || me->query_skill("force") > 205)
                 {
                       command("shake");
-                      command("say ÎÒ½£×ÚÒÔ½£ÊõÎªÖ÷£¬ÆøÎª´Î£¡ÄãµÄÄÚ¹¦ĞŞÎªÒÑÈëÁËÆø×ÚÆçÍ¾£¬ÔÙ²»ÄÜĞŞÁ¶½£×Ú½£Êõ¡£");
+                      command("say æˆ‘å‰‘å®—ä»¥å‰‘æœ¯ä¸ºä¸»ï¼Œæ°”ä¸ºæ¬¡ï¼ä½ çš„å†…åŠŸä¿®ä¸ºå·²å…¥äº†æ°”å®—æ­§é€”ï¼Œå†ä¸èƒ½ä¿®ç‚¼å‰‘å®—å‰‘æœ¯ã€‚");
                       return 1;
                 }
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/huashan-jian/xian",
-                           "name"    : "¶áÃüÁ¬»·ÈıÏÉ½£",
+                           "name"    : "å¤ºå‘½è¿ç¯ä¸‰ä»™å‰‘",
                            "sk1"     : "huashan-jian",
                            "lv1"     : 160,
                            "sk2"     : "dodge",
@@ -127,6 +127,6 @@ int accept_ask(object me, string topic)
 
 void attempt_apprentice(object ob)
 {
-        command("say ÎÒ´Ó²»ÊÕÍ½µÜ£¡");
+        command("say æˆ‘ä»ä¸æ”¶å¾’å¼Ÿï¼");
         return;
 }

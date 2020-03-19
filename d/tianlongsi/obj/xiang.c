@@ -4,13 +4,13 @@ void init();
 int do_dian(string arg);
 void create()
 {
-	set_name("Ïã", ({ "xiang" }) );
+	set_name("é¦™", ({ "xiang" }) );
 	set_weight(30);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Öù");
-                set("long", "ÕâÊÇÒ»ÖùÏã,Äã¿ÉÒÔµãÈ¼Ëü(dian)¡£\n");
+		set("unit", "æŸ±");
+                set("long", "è¿™æ˜¯ä¸€æŸ±é¦™,ä½ å¯ä»¥ç‚¹ç‡ƒå®ƒ(dian)ã€‚\n");
 		set("value", 100);
 		set("material", "wood");
 	}
@@ -29,12 +29,12 @@ int do_dian(string arg)
 
 	me = this_player();
 	if(!arg||arg!="xiang")
-		return notify_fail("ÄãÒªµãÈ¼Ê²Ã´¶«Î÷£¿\n");
+		return notify_fail("ä½ è¦ç‚¹ç‡ƒä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 	else
 		{
 		if(me->query_temp("marks/ask_temp3"))
 			me->set_temp("marks/dian_temp",1);
-		return notify_fail("ÄãµãÈ¼Ò»ÖùÏãÄÃÔÚÊÖÖĞ¡£\n");
+		return notify_fail("ä½ ç‚¹ç‡ƒä¸€æŸ±é¦™æ‹¿åœ¨æ‰‹ä¸­ã€‚\n");
 		}		
 	return 0;
 }

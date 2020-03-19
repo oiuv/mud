@@ -11,14 +11,14 @@ string ask_for_join()
         me = this_player();
 
         if ((string)me->query("class") == "bonze")
-                return "ÄãÒÑ¾­ÊÇ³ö¼ÒÈËÁË£¬»¹¸úÎÒÂŞàÂĞ©Ê²Ã´£¿";
+                return "ä½ å·²ç»æ˜¯å‡ºå®¶äººäº†ï¼Œè¿˜è·Ÿæˆ‘ç½—å—¦äº›ä»€ä¹ˆï¼Ÿ";
 
-        if ((string)me->query("gender") != "ÄĞĞÔ")
-                return "ÎÒÃÇ´óÂÖËÂÀúÀ´Ö»ÊÕÄĞÍ½£¬Äã»¹ÊÇ×ß°É¡£";
+        if ((string)me->query("gender") != "ç”·æ€§")
+                return "æˆ‘ä»¬å¤§è½®å¯ºå†æ¥åªæ”¶ç”·å¾’ï¼Œä½ è¿˜æ˜¯èµ°å§ã€‚";
 
         me->set_temp("pending/join_bonze", 1);
 
-        return "ÉõºÃ£¬ÉõºÃ£¡ÄãÈôÕæĞÄğ§ÒÀÎÒ·ğ£¬Çë¹òÏÂ(kneel)ÊÜ½ä¡£";
+        return "ç”šå¥½ï¼Œç”šå¥½ï¼ä½ è‹¥çœŸå¿ƒçšˆä¾æˆ‘ä½›ï¼Œè¯·è·ªä¸‹(kneel)å—æˆ’ã€‚";
 }
 
 int do_kneel()
@@ -28,17 +28,17 @@ int do_kneel()
         if (! me->query_temp("pending/join_bonze"))
                 return 0;
 
-        message_vision(HIC "\n$N" HIC "ÄãË«ÊÖºÏÊ®£¬¹§¹§¾´¾´µØ¹òÁËÏÂÀ´¡£\n\n"
-                       NOR + CYN "$n" CYN "¿´×Å$N" CYN "ËµµÀ£ººÃ°É£¬ÒÔºóÄã¾Í"
-                       "ÔÚ±¾ËÂĞŞĞĞ°É¡£\n\n" HIY "$n" HIY "Éì³öÊÖÕÆ£¬ÔÚ$N" HIY
-                       "Í·¶¥ÇáÇáµØÄ¦êıÁË¼¸ÏÂ£¬Ëæ¼´±ã½«$N" HIY "µÄÍ··¢¾¡ÊıÌê"
-                       "È¥¡£\n\n" NOR, me, this_object());
+        message_vision(HIC "\n$N" HIC "ä½ åŒæ‰‹åˆåï¼Œæ­æ­æ•¬æ•¬åœ°è·ªäº†ä¸‹æ¥ã€‚\n\n"
+                       NOR + CYN "$n" CYN "çœ‹ç€$N" CYN "è¯´é“ï¼šå¥½å§ï¼Œä»¥åä½ å°±"
+                       "åœ¨æœ¬å¯ºä¿®è¡Œå§ã€‚\n\n" HIY "$n" HIY "ä¼¸å‡ºæ‰‹æŒï¼Œåœ¨$N" HIY
+                       "å¤´é¡¶è½»è½»åœ°æ‘©æŒ²äº†å‡ ä¸‹ï¼Œéšå³ä¾¿å°†$N" HIY "çš„å¤´å‘å°½æ•°å‰ƒ"
+                       "å»ã€‚\n\n" NOR, me, this_object());
 
         me->set("class", "bonze");
-        me->set("title", "´óÂÖËÂÀ®Âï");      
+        me->set("title", "å¤§è½®å¯ºå–‡å˜›");      
 
         command("nod");
-        command("say ¼ÈÈ»³öÁË¼Ò£¬¾ÍµÃÒ»ĞÄÏò·ğ£¬ÔÙ²»ÄÜ»¹Ë×¡£");
+        command("say æ—¢ç„¶å‡ºäº†å®¶ï¼Œå°±å¾—ä¸€å¿ƒå‘ä½›ï¼Œå†ä¸èƒ½è¿˜ä¿—ã€‚");
 
         return 1;
 }

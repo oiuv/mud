@@ -1,4 +1,4 @@
-// idle-force.c ·¢´ôÉñ¹¦
+// idle-force.c å‘å‘†ç¥åŠŸ
 
 inherit SKILL;
 

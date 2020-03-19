@@ -1,4 +1,4 @@
-// jitui.c É½¼¦ÍÈ
+// jitui.c å±±é¸¡è…¿
 
 #include <weapon.h>
 
@@ -7,17 +7,17 @@ inherit F_FOOD;
 
 void create()
 {
-        set_name("¿¾É½¼¦ÍÈ", ({ "jitui", "tui" }) );
+        set_name("çƒ¤å±±é¸¡è…¿", ({ "jitui", "tui" }) );
         set_weight(350);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»Ö¦¿¾µÃÏãÅçÅçµÄÉ½¼¦ÍÈ¡£\n");
-                set("unit", "¸ù");
+                set("long", "ä¸€æçƒ¤å¾—é¦™å–·å–·çš„å±±é¸¡è…¿ã€‚\n");
+                set("unit", "æ ¹");
                 set("value", 80);
                 set("food_remaining", 4);
                 set("food_supply", 15);
-                set("wield_msg", "$N×¥ÆğÒ»¸ù$n£¬ÎÕÔÚÊÖÖĞµ±ÎäÆ÷¡£\n");
+                set("wield_msg", "$NæŠ“èµ·ä¸€æ ¹$nï¼Œæ¡åœ¨æ‰‹ä¸­å½“æ­¦å™¨ã€‚\n");
                 set("material", "bone");
         }
         init_hammer(1);
@@ -27,8 +27,8 @@ void create()
 int finish_eat()
 {
         if( !query("weapon_prop") ) return 0;
-        set_name("¿ĞµÃ¾«¹âµÄÉ½¼¦ÍÈ¹ÇÍ·", ({ "bone" }) );
+        set_name("å•ƒå¾—ç²¾å…‰çš„å±±é¸¡è…¿éª¨å¤´", ({ "bone" }) );
         set_weight(150);
-        set("long", "Ò»¸ù¿ĞµÃ¾«¹âµÄÉ½¼¦ÍÈ¹ÇÍ·¡£\n");
+        set("long", "ä¸€æ ¹å•ƒå¾—ç²¾å…‰çš„å±±é¸¡è…¿éª¨å¤´ã€‚\n");
         return 1;
 }

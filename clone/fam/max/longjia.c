@@ -1,4 +1,4 @@
-// longjia.c ×ÓÎçÁú¼×µ¤
+// longjia.c å­åˆé¾™ç”²ä¸¹
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIR "×ÓÎçÁú¼×µ¤" NOR, ({ "longjia dan", "longjia", "dan" }) );
+        set_name(HIR "å­åˆé¾™ç”²ä¸¹" NOR, ({ "longjia dan", "longjia", "dan" }) );
         set_weight(300);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", HIR "ÁéÒ©ÖĞµÄÉñÆ·£¬·şÓÃºó²»µ«¿ÉÒÔÒ½ÖÎÈÎºÎÄÚÉË£¬¶øÇÒ\n"
-                                "¿ÉÆ½ÔöÒ»¸ö¼××ÓÒÔÉÏµÄ¹¦Á¦¡£¸üÓĞÏà´«Ëµ´Ëµ¤É¢·¢³ö\n"
-                                "µÄÒìÏã¿ÉçÔÈÆÖÜÎ§ÊıÊ®Íò·½Ô²¡£\n" NOR);
+                set("long", HIR "çµè¯ä¸­çš„ç¥å“ï¼Œæœç”¨åä¸ä½†å¯ä»¥åŒ»æ²»ä»»ä½•å†…ä¼¤ï¼Œè€Œä¸”\n"
+                                "å¯å¹³å¢ä¸€ä¸ªç”²å­ä»¥ä¸Šçš„åŠŸåŠ›ã€‚æ›´æœ‰ç›¸ä¼ è¯´æ­¤ä¸¹æ•£å‘å‡º\n"
+                                "çš„å¼‚é¦™å¯ç¼­ç»•å‘¨å›´æ•°åä¸‡æ–¹åœ†ã€‚\n" NOR);
                 set("value", 100000);
-                set("unit", "¿Å");
+                set("unit", "é¢—");
                 set("only_do_effect", 1);
         }
 }
@@ -26,23 +26,23 @@ int do_effect(object me)
         int effect;
 //      int neili;
 
-        log_file("static/using", sprintf("%s(%s) eat ×ÓÎçÁú¼×µ¤ at %s.\n",
+        log_file("static/using", sprintf("%s(%s) eat å­åˆé¾™ç”²ä¸¹ at %s.\n",
                  me->name(1), me->query("id"), ctime(time())));
 
         effect = 0;
 
         if (me->query("skybook/item/longjia"))
         {
-	        message_vision(HIR "$N" HIR "Ò»Ñö²±£¬ÍÌÏÂÁËÒ»¿Å×ÓÎçÁú¼×µ¤£¬È´Ìı$P"
-                               HIR "Ò»Éù¼âÏø£¬Åç³öÒ»¿ÚÏÊÑª£¬ÑöÃæ±ãµ¹¡£\n" NOR, me);
+	        message_vision(HIR "$N" HIR "ä¸€ä»°è„–ï¼Œåä¸‹äº†ä¸€é¢—å­åˆé¾™ç”²ä¸¹ï¼Œå´å¬$P"
+                               HIR "ä¸€å£°å°–å“®ï¼Œå–·å‡ºä¸€å£é²œè¡€ï¼Œä»°é¢ä¾¿å€’ã€‚\n" NOR, me);
 
-                me->set_temp("die_reason", "Ì°³Ô×ÓÎçÁú¼×µ¤£¬½á¹ûÅªµÃÈ«Éí½îÂö¾¡¶Ï"
-                                           "¶øÍö");
+                me->set_temp("die_reason", "è´ªåƒå­åˆé¾™ç”²ä¸¹ï¼Œç»“æœå¼„å¾—å…¨èº«ç­‹è„‰å°½æ–­"
+                                           "è€Œäº¡");
                 me->die(); 
         } else
 	{
-        	message_vision(HIW "$N" HIW "Ò»Ñö²±£¬ÍÌÏÂÁËÒ»¿Å×ÓÎçÁú¼×µ¤£¬Ö»¼û$P"
-                               HIW "»ëÉíÒ»²ü£¬ÆßÇÏ¶¼Ã°³ö°×ÑÌÀ´¡£\n" NOR, me);
+        	message_vision(HIW "$N" HIW "ä¸€ä»°è„–ï¼Œåä¸‹äº†ä¸€é¢—å­åˆé¾™ç”²ä¸¹ï¼Œåªè§$P"
+                               HIW "æµ‘èº«ä¸€é¢¤ï¼Œä¸ƒçªéƒ½å†’å‡ºç™½çƒŸæ¥ã€‚\n" NOR, me);
 
         	me->add("combat_exp", 100000 + random(50000));
         	me->add("potential", 10000);

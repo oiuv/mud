@@ -17,21 +17,21 @@ int perform(object me, object target)
         if( !target ) target = offensive_target(me);
 
         if( !target || !me->is_fighting(target) )
-                return notify_fail("��������β��ֻ����ս���жԶ���ʹ�á�\n");
+                return notify_fail("「神龙摆尾」只能在战斗中对对手使用。\n");
 
         if( !objectp(me->query_temp("weapon") || (string)weapon->query("skill_type") != "staff"))
-                return notify_fail("ʹ�á�������β��ʱ˫��Ӧ�ó��ȣ�\n");
+                return notify_fail("使用「神龙摆尾」时双手应该持杖！\n");
 
         if( (int)me->query_skill("huilong-zhang", 1) < 80 )
-                return notify_fail("��Ļ����Ȳ�����죬����ʹ�á�������β����\n");
+                return notify_fail("你的回龙杖不够娴熟，不会使用「神龙摆尾」。\n");
 
         if( (int)me->query_skill("shaolin-xinfa", 1) < 80 )
-                return notify_fail("����ڹ��ȼ�����������ʹ�á�������β����\n");
+                return notify_fail("你的内功等级不够，不能使用「神龙摆尾」。\n");
      
         if( (int)me->query("neili") < 600 )
-                return notify_fail("����������̫��������ʹ�á�������β����\n");
+                return notify_fail("你现在内力太弱，不能使用「神龙摆尾」。\n");
 
-        msg = HIY "$N��Хһ�����������������и��ȣ�ͻȻһ��ת�������и��ȵ���$n��\n" NOR;
+        msg = HIY "$N长啸一声，将内力聚于手中钢杖，突然一个转身，手中钢杖点向$n！\n" NOR;
 
         message_vision(msg, me, target); 
 

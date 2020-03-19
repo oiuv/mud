@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIW "ªš½Ç«FÖ®½Ç" NOR, ({ "unicorn horn", "unicorn", "horn" }));
+        set_name(HIW "ç¨è§’ç¸ä¹‹è§’" NOR, ({ "unicorn horn", "unicorn", "horn" }));
         set_weight(1000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIW "ªš½Ç«FµÄ½Ç£¬ËÆºõ¿ÉÒÔÙu‚€ºÃƒråX¡£\n" NOR);
-                set("unit", "¸ù");
+                set("long", HIW "ç¨è§’ç¸çš„è§’ï¼Œä¼¼ä¹å¯ä»¥è³£å€‹å¥½åƒ¹éŒ¢ã€‚\n" NOR);
+                set("unit", "æ ¹");
                 set("value", 700000);
         }
         setup();

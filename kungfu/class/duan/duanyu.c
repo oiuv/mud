@@ -1,4 +1,4 @@
-// duanyu.c ¶ÎÓþ
+// duanyu.c æ®µèª‰
 
 #include <ansi.h>
 
@@ -6,11 +6,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("¶ÎÓþ", ({"duan yu", "duan", "yu"}));
-        set("gender", "ÄÐÐÔ");
-        set("title", "´óÀí¹úÍõ×Ó");
+        set_name("æ®µèª‰", ({"duan yu", "duan", "yu"}));
+        set("gender", "ç”·æ€§");
+        set("title", "å¤§ç†å›½çŽ‹å­");
         set("age", 22);
-        set("long", "ËûÊÇÒ»¸öÉí´©ÇàÉÀµÄÄêÇáÄÐ×Ó¡£Á³¿×ÂÔ¼â£¬ÓÐÒ»¹ÉÊéÉúµÄ´ôÆø¡£\n");
+        set("long", "ä»–æ˜¯ä¸€ä¸ªèº«ç©¿é’è¡«çš„å¹´è½»ç”·å­ã€‚è„¸å­”ç•¥å°–ï¼Œæœ‰ä¸€è‚¡ä¹¦ç”Ÿçš„å‘†æ°”ã€‚\n");
         set("attitude", "peaceful");
         set("class", "royal");
         
@@ -21,13 +21,13 @@ void create()
 
         set("chat_chance", 1);
         set("chat_msg", ({
-                CYN "¶ÎÓþÌ¾ÁË¿ÚÆøµÀ£º°¦£¬ÀÏ°ÖÕâÊÇÔõÃ´»ØÊÂ£¿\n" NOR,
+                CYN "æ®µèª‰å¹äº†å£æ°”é“ï¼šå”‰ï¼Œè€çˆ¸è¿™æ˜¯æ€Žä¹ˆå›žäº‹ï¼Ÿ\n" NOR,
         }));
 
         set("inquiry", ([
-                "´óÀí" : "´óÀíÊÇ¸öºÃµØ·½£¬É½ÇåË®Ðã£¬·ç¾°ÒËÈË¡£\n",
-                "ÍõÓïæÌ" : "°¦£¬ËýÐÄÀïÖ»ÓÐËý±í¸ç£¬´ÓÀ´¾ÍÃ»°ÑÎÒ·ÅÔÚÑÛÀï¡£\n",
-                "°ÝÊ¦" : "àÅ¡­¡­ÎÒµÄÊ¦¸µÊÇÀÏ×Ó¡¢¿××ÓºÍ×¯×Ó£¬ËûÃÇµÄÑ§ÎÊÎÒ»¹Ã»Ñ§È«ÄØ¡£\n",
+                "å¤§ç†" : "å¤§ç†æ˜¯ä¸ªå¥½åœ°æ–¹ï¼Œå±±æ¸…æ°´ç§€ï¼Œé£Žæ™¯å®œäººã€‚\n",
+                "çŽ‹è¯­å«£" : "å”‰ï¼Œå¥¹å¿ƒé‡Œåªæœ‰å¥¹è¡¨å“¥ï¼Œä»Žæ¥å°±æ²¡æŠŠæˆ‘æ”¾åœ¨çœ¼é‡Œã€‚\n",
+                "æ‹œå¸ˆ" : "å—¯â€¦â€¦æˆ‘çš„å¸ˆå‚…æ˜¯è€å­ã€å­”å­å’Œåº„å­ï¼Œä»–ä»¬çš„å­¦é—®æˆ‘è¿˜æ²¡å­¦å…¨å‘¢ã€‚\n",
         ]));
 
         set("qi", 5000);
@@ -89,21 +89,21 @@ void help_girl(object me)
         if (! living(this_object()))
                 return;
 
-        command("say ÓïæÌÃÃ×Ó£¬²»Òª»ÅÕÅ£¬ÓÐÎÒ¶ÎÓþÔÚ´Ë£¡");
+        command("say è¯­å«£å¦¹å­ï¼Œä¸è¦æ…Œå¼ ï¼Œæœ‰æˆ‘æ®µèª‰åœ¨æ­¤ï¼");
 
         switch (me->query("gender"))
         {
-        case "ÄÐÐÔ":
-                msg = "ÕâÎ»" + RANK_D->query_respect(me) +
-                      "£¬ÄãÔõÄÜÈç´ËºÝÐÄ£¿ÕâÃ´¶¯ÈËµÄÃÃ×ÓÄãÒ²ÏÂµÃÁËÊÖ£¿";
+        case "ç”·æ€§":
+                msg = "è¿™ä½" + RANK_D->query_respect(me) +
+                      "ï¼Œä½ æ€Žèƒ½å¦‚æ­¤ç‹ å¿ƒï¼Ÿè¿™ä¹ˆåŠ¨äººçš„å¦¹å­ä½ ä¹Ÿä¸‹å¾—äº†æ‰‹ï¼Ÿ";
                 break;
-        case "Å®ÐÔ":
-                msg = "ÕâÎ»" + RANK_D->query_respect(me) +
-                      "£¬ÄãÄª·Ç¶Ê¼ÉÈË¼ÒÃÀÃ²£¬ËùÒÔÏÂ´Ë¶¾ÊÖ£¿";
+        case "å¥³æ€§":
+                msg = "è¿™ä½" + RANK_D->query_respect(me) +
+                      "ï¼Œä½ èŽ«éžå¦’å¿Œäººå®¶ç¾Žè²Œï¼Œæ‰€ä»¥ä¸‹æ­¤æ¯’æ‰‹ï¼Ÿ";
                 break;
         default:
-                msg = "ÕâÎ»" + RANK_D->query_respect(me) +
-                      "£¬ÎÒËµÄãÒÑÈ»°ëÄÐ²»Å®£¬ÔõÃ´»¹´òÅ®º¢×ÓµÄÖ÷Òâ£¿";
+                msg = "è¿™ä½" + RANK_D->query_respect(me) +
+                      "ï¼Œæˆ‘è¯´ä½ å·²ç„¶åŠç”·ä¸å¥³ï¼Œæ€Žä¹ˆè¿˜æ‰“å¥³å­©å­çš„ä¸»æ„ï¼Ÿ";
                 break;
         }        
         command("say " + msg);
@@ -111,12 +111,12 @@ void help_girl(object me)
         if (wang = present("wang yuyan"))
         {
                 if (living(wang))
-                        message_vision(HIW "\n$N" HIW "Á¬Ã¦·ö×¡$n" HIW "£¬±³ÔÚÉí"
-                                       "ºó¡£\n$n" HIW "µÀ£º¶ÎÀÉ£¬ÎÒ¿´ËûÎä¹¦À´Àú£¬"
-                                       "°ïÄãÖ¸µãËûµÄÆÆÕÀ¡£\n" NOR, this_object(), wang);
+                        message_vision(HIW "\n$N" HIW "è¿žå¿™æ‰¶ä½$n" HIW "ï¼ŒèƒŒåœ¨èº«"
+                                       "åŽã€‚\n$n" HIW "é“ï¼šæ®µéƒŽï¼Œæˆ‘çœ‹ä»–æ­¦åŠŸæ¥åŽ†ï¼Œ"
+                                       "å¸®ä½ æŒ‡ç‚¹ä»–çš„ç ´ç»½ã€‚\n" NOR, this_object(), wang);
                 else
-                        message_vision(HIW "\n$N" HIW "Ò»°ÑÂ§×¡$n" HIW "£¬±§ÔÚ»³"
-                                       "ÖÐ¡£\n" NOR, this_object(), wang);
+                        message_vision(HIW "\n$N" HIW "ä¸€æŠŠæ‚ä½$n" HIW "ï¼ŒæŠ±åœ¨æ€€"
+                                       "ä¸­ã€‚\n" NOR, this_object(), wang);
 
                 me->remove_enemy(wang);
                 wang->move(this_object());
@@ -130,19 +130,19 @@ void help_girl(object me)
 
 int accept_fight(object me)
 {
-        command("say °¥Ñ½Ñ½£¬ÓÐ»°ºÃºÃËµ£¬²»Òª¾Í¶¯ÊÖÂï¡£");
+        command("say å“Žå‘€å‘€ï¼Œæœ‰è¯å¥½å¥½è¯´ï¼Œä¸è¦å°±åŠ¨æ‰‹å˜›ã€‚");
         return 0;
 }
 
 int accept_hit(object me)
 {
-        command("say ÄãÕâÈËÔõÃ´»ØÊÂ£¿ÔõÃ´Í»È»¾Í¶¯ÊÖ´òÈËÄØ£¿¡£");
+        command("say ä½ è¿™äººæ€Žä¹ˆå›žäº‹ï¼Ÿæ€Žä¹ˆçªç„¶å°±åŠ¨æ‰‹æ‰“äººå‘¢ï¼Ÿã€‚");
         return 1;
 }
 
 int accept_kill(object me)
 {
-        command("say ·´ÁË·´ÁË£¬ÕâÄêÍ·»¹ÓÐÍõ·¨Ã»ÓÐ£¿");
+        command("say åäº†åäº†ï¼Œè¿™å¹´å¤´è¿˜æœ‰çŽ‹æ³•æ²¡æœ‰ï¼Ÿ");
         return 1;
 }
 
@@ -150,13 +150,13 @@ void unconcious()
 {
         object wang;
 
-        command("say ÓïæÌÃÃ×Ó¡­¡­");
+        command("say è¯­å«£å¦¹å­â€¦â€¦");
 
         if (wang = present("wang yuyan", this_object()))
         {
                 wang->move(environment());
-                message_vision(HIW "\n$N" HIW "´Ó$n" HIW "ÉíÉÏµøÁËÏÂÀ´£¬´ó¾ª"
-                               "Ê§É«£¬µÀ£º¶ÎÀÉ£¬¶ÎÀÉ£¡ÄãÔõÃ´ÁËÀ²£¿\n" NOR, wang,
+                message_vision(HIW "\n$N" HIW "ä»Ž$n" HIW "èº«ä¸Šè·Œäº†ä¸‹æ¥ï¼Œå¤§æƒŠ"
+                               "å¤±è‰²ï¼Œé“ï¼šæ®µéƒŽï¼Œæ®µéƒŽï¼ä½ æ€Žä¹ˆäº†å•¦ï¼Ÿ\n" NOR, wang,
                                this_object());
         }
 
@@ -170,8 +170,8 @@ void die()
         if (wang = present("wang yuyan", this_object()))
         {
                 wang->move(environment());
-                message_vision(HIW "$N" HIW "´Ó$n" HIW "ÉíÉÏµøÁËÏÂÀ´£¬´ó¾ªÊ§"
-                               "É«£¬µÀ£º¶ÎÀÉ£¬¶ÎÀÉ£¡ÄãÔõÃ´ËÀÁË°¡£¿\n" NOR, wang,
+                message_vision(HIW "$N" HIW "ä»Ž$n" HIW "èº«ä¸Šè·Œäº†ä¸‹æ¥ï¼Œå¤§æƒŠå¤±"
+                               "è‰²ï¼Œé“ï¼šæ®µéƒŽï¼Œæ®µéƒŽï¼ä½ æ€Žä¹ˆæ­»äº†å•Šï¼Ÿ\n" NOR, wang,
                                this_object());
         }
 
@@ -188,7 +188,7 @@ void check_enemys(object wang)
 
         if (is_fighting() && random(5) == 0 && living(wang))
         {
-                message_vision(HIW "\nÍõÓïæÌÔÚ$N" HIW "¶ú±ßàÖàÖ¹¾¹¾µÄËµÐ©»°¡£\n"
+                message_vision(HIW "\nçŽ‹è¯­å«£åœ¨$N" HIW "è€³è¾¹å˜€å˜€å’•å’•çš„è¯´äº›è¯ã€‚\n"
                                NOR, this_object());
                 add_temp("apply/damage", 10);
                 add_temp("apply/defense", 10);
@@ -204,12 +204,12 @@ void check_enemys(object wang)
                 set_temp("apply/defense", 50);
                 if (! living(wang))
                 {
-                        command("say ÕâÏÂºÃÁË£¬ÎÒµÄÓïæÌÃÃ×Ó²»»áÊÜ¾ªÁË¡£");
+                        command("say è¿™ä¸‹å¥½äº†ï¼Œæˆ‘çš„è¯­å«£å¦¹å­ä¸ä¼šå—æƒŠäº†ã€‚");
                         return;
                 }
-                message_vision(HIW "$n" HIW "¶Ô$N" HIW "µÀ£ººÃÁË£¬µÐÈËÍËÁË£¬ÎÒ"
-                               "ÏÂÀ´°É¡£\n$N" HIW "Õâ²ÅÁµÁµ²»ÉáµÄ°Ñ$n" HIW "·Å"
-                               "ÁËÏÂÀ´¡£\n" NOR, this_object(), wang);
+                message_vision(HIW "$n" HIW "å¯¹$N" HIW "é“ï¼šå¥½äº†ï¼Œæ•Œäººé€€äº†ï¼Œæˆ‘"
+                               "ä¸‹æ¥å§ã€‚\n$N" HIW "è¿™æ‰æ‹æ‹ä¸èˆçš„æŠŠ$n" HIW "æ”¾"
+                               "äº†ä¸‹æ¥ã€‚\n" NOR, this_object(), wang);
                 wang->move(environment(this_object()));
                 return;
         }

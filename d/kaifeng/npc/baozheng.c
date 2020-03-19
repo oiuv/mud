@@ -3,15 +3,15 @@ inherit NPC;
 
 void create()
 {
-        set_name("°üÕü", ({ "bao zheng", "bao", "zheng" }));
-        set("title", HIY "ÁúÍ¼´óÑ§Ê¿" NOR);
-        set("gender", "ÄĞĞÔ");
+        set_name("åŒ…æ‹¯", ({ "bao zheng", "bao", "zheng" }));
+        set("title", HIY "é¾™å›¾å¤§å­¦å£«" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 53);
         set("str", 20);
         set("dex", 20);
-        set("long", "Ëû¾ÍÊÇ³¯ÖĞµÄÁúÍ¼´óÑ§Ê¿°üØ©Ïà¡£Ö»¼ûËûÃæÉ«÷î\n"
-                    "ºÚ£¬ÏàÃ²ÇåÆæ£¬Æø¶È²»·²¡£ÈÃÄã²»ÓÉ×ÔÖ÷£¬ºÃÉú\n"
-                    "¾´Ñö\n");
+        set("long", "ä»–å°±æ˜¯æœä¸­çš„é¾™å›¾å¤§å­¦å£«åŒ…ä¸ç›¸ã€‚åªè§ä»–é¢è‰²é»\n"
+                    "é»‘ï¼Œç›¸è²Œæ¸…å¥‡ï¼Œæ°”åº¦ä¸å‡¡ã€‚è®©ä½ ä¸ç”±è‡ªä¸»ï¼Œå¥½ç”Ÿ\n"
+                    "æ•¬ä»°\n");
         set("combat_exp", 3000000);
         set("shen_type", 1);
         set("attitude", "heroism");

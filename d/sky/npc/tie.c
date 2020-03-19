@@ -4,12 +4,12 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("Ìú´«¼×", ({ "tie chuanjia", "tie", "chuanjia" }) );
-        set("nickname", WHT "Ìú¼×½ğ¸Õ" NOR);
-        set("title", "ÖÒĞÄ»¤ÎÀ");
-        set("gender", "ÄĞĞÔ");
+        set_name("é“ä¼ ç”²", ({ "tie chuanjia", "tie", "chuanjia" }) );
+        set("nickname", WHT "é“ç”²é‡‘åˆš" NOR);
+        set("title", "å¿ å¿ƒæŠ¤å«");
+        set("gender", "ç”·æ€§");
         set("age", 42);
-        set("long", "Ò»¸öÉí²Ä¿ıÎàµÄºº×Ó¡£\n");
+        set("long", "ä¸€ä¸ªèº«æé­æ¢§çš„æ±‰å­ã€‚\n");
         set("attitude", "peaceful");
 
         set("str", 40);

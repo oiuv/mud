@@ -1,4 +1,4 @@
-// fuyun.c ¸¡ÔÆ
+// fuyun.c æµ®äº‘
 
 #include <ansi.h>
 #include <command.h>
@@ -32,13 +32,13 @@ mapping convert_list = ([
 
 void create()
 {
-	set_name("¸¡ÔÆ", ({ "fu yun","fu", "yun" }));
-	set("title", HIC"ÃÅ¹±ÉÌÈË"NOR);
-  set("nickname", HIY "¶à¶àÒæÉÆ" NOR);
-	set("gender", "ÄĞĞÔ");
+	set_name("æµ®äº‘", ({ "fu yun","fu", "yun" }));
+	set("title", HIC"é—¨è´¡å•†äºº"NOR);
+  set("nickname", HIY "å¤šå¤šç›Šå–„" NOR);
+	set("gender", "ç”·æ€§");
 	set("age", 60);
 	set("str", 100);
-	set("long", "Ò»ÇĞ¶¼ÊÇ¸¡ÔÆ¡£\n");
+	set("long", "ä¸€åˆ‡éƒ½æ˜¯æµ®äº‘ã€‚\n");
 	set_skill("unarmed", 50);
 	set_skill("dodge", 50);
 	set_skill("higgling", 500);
@@ -48,9 +48,9 @@ void create()
 	set("attitude", "friendly");
 
         set("inquiry", ([
-                "ÃÅ¹±" : (: do_answer :),
-                "¹±Ï×" : (: do_answer :),
-                "ÃÅÅÉ¹±Ï×" : (: do_answer :),
+                "é—¨è´¡" : (: do_answer :),
+                "è´¡çŒ®" : (: do_answer :),
+                "é—¨æ´¾è´¡çŒ®" : (: do_answer :),
         ]));
 
 	setup();
@@ -65,7 +65,7 @@ void init()
 
 int do_answer()
 {
-        write(name() + "ÔÚÄã¶ú±ßÇáÉùËµµÀ£ºÃÅÅÉ½±ÀøÎïÆ·ÎÒÕâÀï¶¼ÓĞ£¬ÊäÈë£¨list£©²é¿´£¡\n");
+        write(name() + "åœ¨ä½ è€³è¾¹è½»å£°è¯´é“ï¼šé—¨æ´¾å¥–åŠ±ç‰©å“æˆ‘è¿™é‡Œéƒ½æœ‰ï¼Œè¾“å…¥ï¼ˆlistï¼‰æŸ¥çœ‹ï¼\n");
         return 1;
 }
 
@@ -74,9 +74,9 @@ int do_list()
 	    int i,gx;
 		object ob;
 
-        write("¸¡ÔÆÄ¿Ç°¿ÉÒÔ¶Ò»»£¨duihuan£©ÒÔÏÂÎïÆ·£º\n");
+        write("æµ®äº‘ç›®å‰å¯ä»¥å…‘æ¢ï¼ˆduihuanï¼‰ä»¥ä¸‹ç‰©å“ï¼š\n");
         write("==========================================\n");
-        write("±àºÅ  ÃÅ¹±    ÎïÆ·\n");
+        write("ç¼–å·  é—¨è´¡    ç‰©å“\n");
         write("------------------------------------------\n");
         for(i = 1; i <= sizeof(convert_list); i++){
 			    ob = new(convert_list[i][0]);
@@ -105,18 +105,18 @@ int do_duihuan(string arg)
 		string  name;
 
 		if (!arg || sscanf(arg, "%d %d", n, count) != 2)
-                return notify_fail(CYN "¸¡ÔÆÎ¢Ğ¦µÀ£ºÄãÒª¶Ò»»Ê²Ã´¶«Î÷£¿"
-                                   "Ö¸Áî£ºduihuan <±àºÅ> <ÊıÁ¿>\n" NOR);
+                return notify_fail(CYN "æµ®äº‘å¾®ç¬‘é“ï¼šä½ è¦å…‘æ¢ä»€ä¹ˆä¸œè¥¿ï¼Ÿ"
+                                   "æŒ‡ä»¤ï¼šduihuan <ç¼–å·> <æ•°é‡>\n" NOR);
 
 		if (n > sizeof(convert_list))
-                return notify_fail(CYN "¸¡ÔÆÎ¢Ğ¦µÀ£ºÊäÈë£¨list£©"
-		                           "¿´Çå±àºÅÔÙÀ´°É¡£\n" NOR);
+                return notify_fail(CYN "æµ®äº‘å¾®ç¬‘é“ï¼šè¾“å…¥ï¼ˆlistï¼‰"
+		                           "çœ‹æ¸…ç¼–å·å†æ¥å§ã€‚\n" NOR);
 
 		me = this_player();
 		gx = convert_list[n][1] * count;
 
 		if(me->query("gongxian") < gx)
-			    return notify_fail(CYN "¸¡ÔÆ¶ÔÄãÀäĞ¦Ò»Éù£¬Ã»ÀíÄã¡£\n" NOR);
+			    return notify_fail(CYN "æµ®äº‘å¯¹ä½ å†·ç¬‘ä¸€å£°ï¼Œæ²¡ç†ä½ ã€‚\n" NOR);
 
 		for(i=0; i<count; i++){
 		        ob = new(convert_list[n][0]);
@@ -126,19 +126,19 @@ int do_duihuan(string arg)
 
 		me->add("gongxian", -gx);
 
-        write(CYN "¸¡ÔÆÄÃ³öÒ»Ğ©" + name + CYN "¸øÄã£¬"
-		                            "Ğ¦ÃĞÃĞµÄËµ£º»¶Ó­ÏÂ´Î¹âÁÙ¡£\n" NOR);
+        write(CYN "æµ®äº‘æ‹¿å‡ºä¸€äº›" + name + CYN "ç»™ä½ ï¼Œ"
+		                            "ç¬‘çœ¯çœ¯çš„è¯´ï¼šæ¬¢è¿ä¸‹æ¬¡å…‰ä¸´ã€‚\n" NOR);
         return 1;
 }
 
 void unconcious()
 {
-        message_vision("\n$NºßºßÁ½Éù£¬µÀ£º¡°Ê²Ã´Çé¿ö¡­¡­¡±\n",
+        message_vision("\n$Nå“¼å“¼ä¸¤å£°ï¼Œé“ï¼šâ€œä»€ä¹ˆæƒ…å†µâ€¦â€¦â€\n",
                        this_object());
 }
 
 void die()
 {
-        message_vision("\n$N´ó½ĞÒ»Éù£¬Ëµ£º¡°ÎÒ»¹»á»ØÀ´µÄ¡­¡­¡±\n",
+        message_vision("\n$Nå¤§å«ä¸€å£°ï¼Œè¯´ï¼šâ€œæˆ‘è¿˜ä¼šå›æ¥çš„â€¦â€¦â€\n",
                        this_object());
 }

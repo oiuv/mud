@@ -8,14 +8,14 @@ string extra_long()
 {
         string str;
 
-        str =  "\nÎïÆ·ÀàĞÍ : ÈİÆ÷\n";
-        str += sprintf("Èİ    Á¿ : %d\n", this_object()->query_max_encumbrance());
-        str += sprintf("ÏŞ    ÖÆ : %s\n", this_object()->no_limit_amount() ? "·ñ" : "ÊÇ");
-        str += sprintf("Ê¹ÓÃ·½·¨ : ÊäÈëÖ¸Áî put <id> in %s ·ÅÈë¡£\n", query("id"));
-        str += sprintf("                  ÊäÈëÖ¸Áî get <id> from %s È¡³ö¡£\n", query("id"));
+        str =  "\nç‰©å“ç±»å‹ : å®¹å™¨\n";
+        str += sprintf("å®¹    é‡ : %d\n", this_object()->query_max_encumbrance());
+        str += sprintf("é™    åˆ¶ : %s\n", this_object()->no_limit_amount() ? "å¦" : "æ˜¯");
+        str += sprintf("ä½¿ç”¨æ–¹æ³• : è¾“å…¥æŒ‡ä»¤ put <id> in %s æ”¾å…¥ã€‚\n", query("id"));
+        str += sprintf("                  è¾“å…¥æŒ‡ä»¤ get <id> from %s å–å‡ºã€‚\n", query("id"));
         if (this_object()->query_autoload())
-                str += "ÏÂÏß¶ªÊ§ : ·ñ\n";
+                str += "ä¸‹çº¿ä¸¢å¤± : å¦\n";
         else
-                str += "ÏÂÏß¶ªÊ§ : ÊÇ\n";
+                str += "ä¸‹çº¿ä¸¢å¤± : æ˜¯\n";
         return str;
 }

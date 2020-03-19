@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "˿��֮·");
+        set("short", "丝绸之路");
           set("long", @LONG
-����һ����ԭ������֮����̵���������һ���޼ʵĴ�ɳ
-Į����˵���ﳣ�е��˳�û��������ͨ��һƬ�����ɽ������
-����ͨ����ԭ��·��·����һ��ʯ����
+这是一条中原和西域之间的商道。西面是一望无际的大沙
+漠，传说那里常有盗匪出没。西北则通向一片连绵的山脉东面
+就是通向中原的路。路边有一块石碑。
 LONG);
         set("outdoors", "xiyu");
         set("exits", ([

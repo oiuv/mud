@@ -3,12 +3,12 @@
 
 void create()
 {
-        set_name(HIC "ÑøÉúµ¤" NOR, ({ "yangsheng dan", "yangsheng", "dan" }));
+        set_name(HIC "å…»ç”Ÿä¸¹" NOR, ({ "yangsheng dan", "yangsheng", "dan" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIC "ÒÔÃû¹óÒ©²Ä¾«Á¶¶ø³É£¬ÄËÊÇ¸ßÀö¹úµÄ¹±Îï¡£\n" NOR);
-                set("base_unit", "Á£");
+                set("long", HIC "ä»¥åè´µè¯æç²¾ç‚¼è€Œæˆï¼Œä¹ƒæ˜¯é«˜ä¸½å›½çš„è´¡ç‰©ã€‚\n" NOR);
+                set("base_unit", "ç²’");
                 set("base_value", 10000);
                 set("base_weight", 55);
                 set("only_do_effect", 1);
@@ -26,11 +26,11 @@ int do_effect(object me)
         limit1 = me->max_food_capacity();
         limit2 = me->max_water_capacity();
 
-        message_vision(HIC "$N" HIC "Ò»Ñö²±£¬ÍÌÏÂÁËÒ»" + un + na + HIW "¡£\n" NOR, me);
+        message_vision(HIC "$N" HIC "ä¸€ä»°è„–ï¼Œåžä¸‹äº†ä¸€" + un + na + HIW "ã€‚\n" NOR, me);
 
 	if (me->query("food") < limit1 * 3 || me->query("water") < limit2 * 3)
 	{
-       		tell_object(me, HIY "ÄãÖ»¸ÐÆ£ÀÍÒ»É¨¶ø¿Õ£¬ÔÙÒ²²»¾õµÃ¼¢¶ö¡£\n" NOR);
+       		tell_object(me, HIY "ä½ åªæ„Ÿç–²åŠ³ä¸€æ‰«è€Œç©ºï¼Œå†ä¹Ÿä¸è§‰å¾—é¥¥é¥¿ã€‚\n" NOR);
 
 	        if (me->query("food") < limit1 * 3)
 		        me->set("food", limit1 * 3);
@@ -39,8 +39,8 @@ int do_effect(object me)
         		me->set("water", limit2 * 3);
 	} else
 	{
-       		tell_object(me, HIR "ÄãÖ»¾õ¶Ç×Ó¡¸¹¾¹¾¹¾¡¹½Ð¸ö²»Í££¬Ëæºó·ÅÁË¸öÆæ³ô"
-                                "ÎÞ±ÈµÄÆ¨¡£\n" NOR);
+       		tell_object(me, HIR "ä½ åªè§‰è‚šå­ã€Œå’•å’•å’•ã€å«ä¸ªä¸åœï¼ŒéšåŽæ”¾äº†ä¸ªå¥‡è‡­"
+                                "æ— æ¯”çš„å±ã€‚\n" NOR);
 
 	        if (me->query("food") > limit1 / 10)
 		        me->set("food", limit1 / 10);

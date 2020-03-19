@@ -4,12 +4,12 @@ inherit NPC;
 
 void create()
 {
-	set_name("Ç×±ø", ({ "qin bing", "qin", "bing" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("äº²å…µ", ({ "qin bing", "qin", "bing" }));
+	set("gender", "ç”·æ€§");
 	set("age", random(20) + 30);
 	set("str", 25);
 	set("dex", 16);
-	set("long", "ËûÊÖÎÕ¸Öµ¶£¬Ä¿ÊÓÇ°·½£¬ÕæÊÇÍş·çÁİÁİ¡£\n");
+	set("long", "ä»–æ‰‹æ¡é’¢åˆ€ï¼Œç›®è§†å‰æ–¹ï¼ŒçœŸæ˜¯å¨é£å‡›å‡›ã€‚\n");
 	set("combat_exp", 75000);
 	set("shen_type", 1);
 	set("attitude", "peaceful");
@@ -45,7 +45,7 @@ void init()
         switch(random(10))
 	{   
 		case 1:
-		message_vision("\nÇ×±øºöÈ»¶Ô$N´óºÈÒ»Éù£ººÎ·½µóÃñ£¬¾¹¸ÒÔÚÌá¶½ÑÃÇ°´ËÈöÒ°£¡¿´µ¶£¡\n",this_player());
+		message_vision("\näº²å…µå¿½ç„¶å¯¹$Nå¤§å–ä¸€å£°ï¼šä½•æ–¹åˆæ°‘ï¼Œç«Ÿæ•¢åœ¨æç£è¡™å‰æ­¤æ’’é‡ï¼çœ‹åˆ€ï¼\n",this_player());
 		remove_call_out("kill_ob");
 		call_out("kill_ob", 1, ob);
 		break;

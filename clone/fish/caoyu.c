@@ -1,4 +1,4 @@
-// caoyu.c ²İÓã
+// caoyu.c è‰é±¼
 
 inherit ITEM;
 
@@ -7,13 +7,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name("²İÓã", ({ "caoyu", "cao yu" }) );
+        set_name("è‰é±¼", ({ "caoyu", "cao yu" }) );
         if (clonep())
                 set_default_object(__FILE__);
         else
         {
-	        set("long", "Ò»Ìõ»î±ÄÂÒÌøµÄ²İÓã¡£\n");
-                set("unit", "Ìõ");
+	        set("long", "ä¸€æ¡æ´»è¹¦ä¹±è·³çš„è‰é±¼ã€‚\n");
+                set("unit", "æ¡");
         }
 
 	setup();

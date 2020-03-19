@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "���޺�");
+        set("short", "星宿海");
         set("long", @LONG
-���������޺��ߡ�˵�Ǻ�����ʵ��Ƭ���������󣬵���ʮ
-���ն񡣶���ʯ����һ���ѷ�ͨ��һ��ɽ����
+这里是星宿海边。说是海，其实是片湖泊和沼泽，地形十
+分险恶。东面石壁上一道裂缝通到一个山洞。
 LONG);
         set("exits", ([
              	"north"   : __DIR__"xxh2",

@@ -16,11 +16,11 @@ int main(object me, string arg)
 		alias = me->query_all_alias();
 		if (! sizeof(alias))
 		{
-			write("ÄãÄ¿Ç°²¢Ã»ÓĞÉè¶¨ÈÎºÎ alias¡£\n");
+			write("ä½ ç›®å‰å¹¶æ²¡æœ‰è®¾å®šä»»ä½• aliasã€‚\n");
 			return 1;
 		} else
 		{
-			write("ÄãÄ¿Ç°Éè¶¨µÄ alias ÓĞ£º\n");
+			write("ä½ ç›®å‰è®¾å®šçš„ alias æœ‰ï¼š\n");
 			vrbs = sort_array(keys(alias), 1);
 			for (i = 0; i < sizeof(vrbs); i++)
 				write(sprintf("%-15s = %s\n", vrbs[i], alias[vrbs[i]]));
@@ -31,14 +31,14 @@ int main(object me, string arg)
 	if (sscanf(arg, "%s %s", verb, replace) != 2)
 	{
 		me->set_alias(arg, 0);
-		write("ÄãÈ¡ÏûÁË " HIR + arg + NOR " Õâ¸öÌæ´úÃüÁî¡£\n");
+		write("ä½ å–æ¶ˆäº† " HIR + arg + NOR " è¿™ä¸ªæ›¿ä»£å‘½ä»¤ã€‚\n");
 	}
 	else if (verb == "alias")
-		return notify_fail("Äã²»ÄÜ½« \"alias\" Ö¸ÁîÉè¶¨ÆäËûÓÃÍ¾¡£\n");
+		return notify_fail("ä½ ä¸èƒ½å°† \"alias\" æŒ‡ä»¤è®¾å®šå…¶ä»–ç”¨é€”ã€‚\n");
 	else if (verb == "")
-		return notify_fail("ÄãÒªÉèÊ²Ã´ alias£¿\n");
+		return notify_fail("ä½ è¦è®¾ä»€ä¹ˆ aliasï¼Ÿ\n");
         else if (stringp(COMMAND_D->find_command(verb, PLR_PATH)))
-                return notify_fail("¶¯´Ê " + verb + " ÊÇÒ»¸ö³£ÓÃÃüÁî£¬Äã²»ÄÜÌæ´úËü¡£\n");
+                return notify_fail("åŠ¨è¯ " + verb + " æ˜¯ä¸€ä¸ªå¸¸ç”¨å‘½ä»¤ï¼Œä½ ä¸èƒ½æ›¿ä»£å®ƒã€‚\n");
 	else
 	{
 		if (! me->set_alias(verb, replace))
@@ -46,8 +46,8 @@ int main(object me, string arg)
 			// failed.
 			return 0;
 		}
-		write("½ñºóÄãÓÃ " HIR + verb + NOR " À´Ìæ´ú " HIG +
-		      replace + NOR " ÃüÁî¡£\n");
+		write("ä»Šåä½ ç”¨ " HIR + verb + NOR " æ¥æ›¿ä»£ " HIG +
+		      replace + NOR " å‘½ä»¤ã€‚\n");
 	}
 	return 1;
 }
@@ -55,24 +55,24 @@ int main(object me, string arg)
 int help (object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : alias <ÓûÉè¶¨Ö®Ö¸Áî> <ÏµÍ³Ìá¹©Ö®Ö¸Áî>
+æŒ‡ä»¤æ ¼å¼ : alias <æ¬²è®¾å®šä¹‹æŒ‡ä»¤> <ç³»ç»Ÿæä¾›ä¹‹æŒ‡ä»¤>
  
-ÓĞÊ±ÏµÍ³ËùÌá¹©Ö®Ö¸ÁîĞèÒªÊäÈëºÜ³¤µÄ×Ö´®, ÔÚÊ¹ÓÃÊ±(ÓÈÆäÊÇ¾­³£ÓÃµ½µÄ)
-»òĞí»á¸Ğ¾õ²»·½±ã, ´ËÊ±Äã(Äã)¼´¿ÉÓÃ´ËÒ»Ö¸ÁîÉè¶¨²¢Ìæ´úÔ­ÓĞÖ®Ö¸Áî¡£
+æœ‰æ—¶ç³»ç»Ÿæ‰€æä¾›ä¹‹æŒ‡ä»¤éœ€è¦è¾“å…¥å¾ˆé•¿çš„å­—ä¸², åœ¨ä½¿ç”¨æ—¶(å°¤å…¶æ˜¯ç»å¸¸ç”¨åˆ°çš„)
+æˆ–è®¸ä¼šæ„Ÿè§‰ä¸æ–¹ä¾¿, æ­¤æ—¶ä½ (ä½ )å³å¯ç”¨æ­¤ä¸€æŒ‡ä»¤è®¾å®šå¹¶æ›¿ä»£åŸæœ‰ä¹‹æŒ‡ä»¤ã€‚
  
-·¶Àı:
-	'alias sc score' »áÒÔ sc È¡´ú score Ö¸Áî¡£
-	'alias' ºó²»¼Ó²ÎÊıÔòÁĞ³öÄãËùÓĞµÄÌæ´úÖ¸Áî¡£
-	'alias sc' »áÏû³ı sc Õâ¸öÌæ´úÖ¸Áî¡£ (Èç¹ûÄãÓĞÉèµÄ»°)
+èŒƒä¾‹:
+	'alias sc score' ä¼šä»¥ sc å–ä»£ score æŒ‡ä»¤ã€‚
+	'alias' åä¸åŠ å‚æ•°åˆ™åˆ—å‡ºä½ æ‰€æœ‰çš„æ›¿ä»£æŒ‡ä»¤ã€‚
+	'alias sc' ä¼šæ¶ˆé™¤ sc è¿™ä¸ªæ›¿ä»£æŒ‡ä»¤ã€‚ (å¦‚æœä½ æœ‰è®¾çš„è¯)
  
-ÆäÖĞ¿ÉÒÔÓÃ $1, $2, $3 .... À´È¡´úµÚÒ»¡¢µÚ¶ş¡¢µÚÈı¸ö²ÎÊı£¬»òÊÇ $* È¡´ú
-ËùÓĞµÄ²ÎÊı£¬Èç£º
+å…¶ä¸­å¯ä»¥ç”¨ $1, $2, $3 .... æ¥å–ä»£ç¬¬ä¸€ã€ç¬¬äºŒã€ç¬¬ä¸‰ä¸ªå‚æ•°ï¼Œæˆ–æ˜¯ $* å–ä»£
+æ‰€æœ‰çš„å‚æ•°ï¼Œå¦‚ï¼š
 	'alias pb put $1 in $2'
 
-ÔòÃ¿µ±Äã(Äã)´ò£º
+åˆ™æ¯å½“ä½ (ä½ )æ‰“ï¼š
 	pb bandage bag
 
-¾Í»áÈ¡´ú³É£º
+å°±ä¼šå–ä»£æˆï¼š
 	put bandage in bag
 	
 HELP );

@@ -9,21 +9,21 @@ int exert(object me, object target)
         object weapon;
 
         if (target != me)
-                return notify_fail("ºÇÆø³É½£Ö»ÄÜ¶Ô×Ô¼ºÊ¹ÓÃ¡£\n");
+                return notify_fail("å‘µæ°”æˆå‰‘åªèƒ½å¯¹è‡ªå·±ä½¿ç”¨ã€‚\n");
 
         if ((int)me->query("neili") < 50)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail("ÄãÊÖÖÐÒÑ¾­ÓÐÎäÆ÷ÁË¡£\n");
+                return notify_fail("ä½ æ‰‹ä¸­å·²ç»æœ‰æ­¦å™¨äº†ã€‚\n");
 
         if (present("jian qi", me))
-                return notify_fail("ÄãÉíÉÏÒÑ¾­ÓÐÒ»Êø½£ÆøÁË¡£\n");
+                return notify_fail("ä½ èº«ä¸Šå·²ç»æœ‰ä¸€æŸå‰‘æ°”äº†ã€‚\n");
 
         me->add("neili", -30);
 
-        message_combatd(HIW "$N" HIW "Ê³Ö¸Ðéµã£¬Ö¸¼â¶ÙÊ±Éú³ö°ë³ßÍÌÍÂ²»¶¨µÄ"
-                        "ÇàÃ¢£¬ÍðÈôÒ»ÊøÎÞÐÎ½£Æø¡£\n" NOR, me);
+        message_combatd(HIW "$N" HIW "é£ŸæŒ‡è™šç‚¹ï¼ŒæŒ‡å°–é¡¿æ—¶ç”Ÿå‡ºåŠå°ºåžåä¸å®šçš„"
+                        "é’èŠ’ï¼Œå®›è‹¥ä¸€æŸæ— å½¢å‰‘æ°”ã€‚\n" NOR, me);
 
         weapon = new("/clone/weapon/jianqi");
         weapon->move(me);

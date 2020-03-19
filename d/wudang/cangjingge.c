@@ -17,11 +17,11 @@ string* books = ({
 
 void create()
 {
-        set("short", "²Ø¾­¸ó");
+        set("short", "è—ç»é˜");
         set("long", @LONG
-ÕâÀïÊÇ²Ø¾­¸ó£¬¿¿Ç½ÊÇÒ»ÅÅÊé¼Ü£¬°ÚÂúÁËµÀ½ÌµÄµä¼®¡£ÖĞ
-ÑëÓĞÒ»¸ö³¤·½ĞÎµÄ´ó×À×Ó£¬ÉÏÃæÒ²¶ÑÂúÁËÊé¡£Ò»¸öµÀÍ¯ÕıÔÚÕû
-ÀíÊé¼®¡£¼¸¸öÀÏµÀÅÌÏ¥¶ø×ö£¬ÕıÔÚ´ËµØ¾²ĞŞ(jingxiu)¡£
+è¿™é‡Œæ˜¯è—ç»é˜ï¼Œé å¢™æ˜¯ä¸€æ’ä¹¦æ¶ï¼Œæ‘†æ»¡äº†é“æ•™çš„å…¸ç±ã€‚ä¸­
+å¤®æœ‰ä¸€ä¸ªé•¿æ–¹å½¢çš„å¤§æ¡Œå­ï¼Œä¸Šé¢ä¹Ÿå †æ»¡äº†ä¹¦ã€‚ä¸€ä¸ªé“ç«¥æ­£åœ¨æ•´
+ç†ä¹¦ç±ã€‚å‡ ä¸ªè€é“ç›˜è†è€Œåšï¼Œæ­£åœ¨æ­¤åœ°é™ä¿®(jingxiu)ã€‚
 LONG );
         set("exits", ([
                 "southdown" : __DIR__"xilang",
@@ -46,32 +46,32 @@ int do_jingxiu(string arg)
 
         me = this_player();
         if (me->is_busy())
-                return notify_fail("µÈÄãÃ¦ÍêÁËÊÖÍ·µÄÊÂÇéÔÙËµ£¡\n");
+                return notify_fail("ç­‰ä½ å¿™å®Œäº†æ‰‹å¤´çš„äº‹æƒ…å†è¯´ï¼\n");
 
         if (me->is_fighting())
-                return notify_fail("Äã±ß´ò¼ÜÒ»±ß¾²ĞŞ£¿ÕæÓĞÄãµÄ¡£\n");
+                return notify_fail("ä½ è¾¹æ‰“æ¶ä¸€è¾¹é™ä¿®ï¼ŸçœŸæœ‰ä½ çš„ã€‚\n");
 
         if (me->query("jing") < me->query("max_jing") * 7 / 10)
-                return notify_fail("ÄãÏÖÔÚµÄ¾«²»¹»£¬ÎŞ·¨¾²ĞŞ¡£\n");
+                return notify_fail("ä½ ç°åœ¨çš„ç²¾ä¸å¤Ÿï¼Œæ— æ³•é™ä¿®ã€‚\n");
 
         if (me->query_skill("taoism", 1) < 250)
-                return notify_fail("Äã¶ÔµÀÑ§ĞÄ·¨Àí½âÌ«Ç³£¬¾²ĞŞ»ñµÃ²»ÁËÊ²Ã´½ø¾³¡£\n");
+                return notify_fail("ä½ å¯¹é“å­¦å¿ƒæ³•ç†è§£å¤ªæµ…ï¼Œé™ä¿®è·å¾—ä¸äº†ä»€ä¹ˆè¿›å¢ƒã€‚\n");
 
         if (! arg || ! sscanf(arg, "%d", cost))
-                return notify_fail("ÄãÒª»¨¶àÉÙÇ±ÄÜ½øĞĞ¾²ĞŞ£¿\n");
+                return notify_fail("ä½ è¦èŠ±å¤šå°‘æ½œèƒ½è¿›è¡Œé™ä¿®ï¼Ÿ\n");
 
         if (cost >= me->query("potential") - me->query("learned_points"))
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞÕâÃ´¶àµÄÇ±ÄÜ£¡\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰è¿™ä¹ˆå¤šçš„æ½œèƒ½ï¼\n");
 
         if (cost < 100)
-                return notify_fail("ÄãÖÁÉÙÒª»¨Ò»°ÙµãÇ±ÄÜ²ÅÄÜÓĞËù½ø²½¡£\n");
+                return notify_fail("ä½ è‡³å°‘è¦èŠ±ä¸€ç™¾ç‚¹æ½œèƒ½æ‰èƒ½æœ‰æ‰€è¿›æ­¥ã€‚\n");
 
-        message_vision(HIC "\n$N" HIC "ÕÒÁËÒ»¸öµØ·½×øÁËÏÂÀ´£¬±ÕÄ¿Ú¤Éñ£¬¿ª"
-                       "Ê¼×¨ĞÄÑĞ¾¿µÀÑ§ĞÄ·¨¡£\n\n" NOR, me);
+        message_vision(HIC "\n$N" HIC "æ‰¾äº†ä¸€ä¸ªåœ°æ–¹åäº†ä¸‹æ¥ï¼Œé—­ç›®å†¥ç¥ï¼Œå¼€"
+                       "å§‹ä¸“å¿ƒç ”ç©¶é“å­¦å¿ƒæ³•ã€‚\n\n" NOR, me);
 
         me->set_temp("pending/jingxiu", 1);
         me->set_temp("potential_cost", cost);
-        me->set_short_desc("Õı×øÔÚµØÏÂÚ¤Éñ¾²ĞŞ¡£");
+        me->set_short_desc("æ­£ååœ¨åœ°ä¸‹å†¥ç¥é™ä¿®ã€‚");
         me->start_busy((:call_other, __FILE__, "jingxiu" :),
                        (:call_other, __FILE__, "halt_jingxiu" :));
         return 1;
@@ -97,15 +97,15 @@ int jingxiu(object me)
 
         me->set_temp("pending/jingxiu", 0);
         me->set_short_desc(0);
-        message_vision(HIG "$N" HIG "¾²ĞŞÍê±Ï£¬ÃæÂ¶Î¢Ğ¦£¬Õ¾ÁËÆğÀ´¡£\n" NOR, me);
+        message_vision(HIG "$N" HIG "é™ä¿®å®Œæ¯•ï¼Œé¢éœ²å¾®ç¬‘ï¼Œç«™äº†èµ·æ¥ã€‚\n" NOR, me);
         return 0;
 }
 
 int halt_jingxiu(object me)
 {
-        tell_object(me, HIY "ÄãÕö¿ªÑÛ¾¦£¬Õ¾ÁËÆğÀ´¡£\n" NOR);
-        tell_room(environment(me), HIY + me->name() + HIY "ÂıÂıµÄÕö¿ªÁË"
-                                   "Ë«ÑÛ£¬Õ¾ÁËÆğÀ´¡£\n" NOR, me);
+        tell_object(me, HIY "ä½ çå¼€çœ¼ç›ï¼Œç«™äº†èµ·æ¥ã€‚\n" NOR);
+        tell_room(environment(me), HIY + me->name() + HIY "æ…¢æ…¢çš„çå¼€äº†"
+                                   "åŒçœ¼ï¼Œç«™äº†èµ·æ¥ã€‚\n" NOR, me);
         me->set_temp("pending/jingxiu", 0);
         me->delete_temp("potential_cost");
         me->set_short_desc(0);

@@ -18,7 +18,7 @@
 #define HUO_SHAN "/kungfu/class/ultra/huoshan"
 
 mapping place = ([
-        "ÂåÑô³Ç":({
+        "æ´›é˜³åŸ":({
                      "/d/luoyang/xidoor",
                      "/d/luoyang/beidoor",
                      "/d/luoyang/dongdoor",
@@ -30,7 +30,7 @@ mapping place = ([
                      "/d/luoyang/center",
                      "/d/luoyang/nantou2",
                  }),
-        "±±¾©³Ç":({
+        "åŒ—äº¬åŸ":({
                      "/d/beijing/tiananmen",
                      "/d/beijing/dianmen",
                      "/d/beijing/huangling",
@@ -42,7 +42,7 @@ mapping place = ([
                      "/d/beijing/tiantan",
                      "/d/beijing/caishi",
                  }),
-        "³¤°²³Ç":({
+        "é•¿å®‰åŸ":({
                      "/d/changan/dong-chengmen",
                      "/d/changan/nan-chengmen",
                      "/d/changan/xi-chengmen",
@@ -50,7 +50,7 @@ mapping place = ([
                      "/d/changan/qinglong2",
                      "/d/changan/baihu2",
                  }),
-        "¿ª·â³Ç":({
+        "å¼€å°åŸ":({
                      "/d/kaifeng/road4",
                      "/d/kaifeng/zhuque",
                      "/d/kaifeng/yanqing",
@@ -58,7 +58,7 @@ mapping place = ([
                      "/d/kaifeng/nanying",
                      "/d/kaifeng/fangsheng",
                  }),
-        "ÖĞÖİ³Ç":({
+        "ä¸­å·åŸ":({
                      "/d/zhongzhou/shizhongxin",
                      "/d/zhongzhou/nanmeng",
                      "/d/zhongzhou/beimen",
@@ -66,7 +66,7 @@ mapping place = ([
                      "/d/zhongzhou/yanlingdong1",
                      "/d/zhongzhou/inpomiao",
                  }),
-        "ËÕÖİ³Ç":({
+        "è‹å·åŸ":({
                      "/d/suzhou/xidajie2",
                      "/d/suzhou/dongdajie2",
                      "/d/suzhou/road5",
@@ -74,7 +74,7 @@ mapping place = ([
                      "/d/suzhou/gumujiaohe",
                      "/d/suzhou/zhenquting",
                  }),
-        "º¼Öİ³Ç":({
+        "æ­å·åŸ":({
                      "/d/hangzhou/suti2",
                      "/d/hangzhou/jujingyuan",
                      "/d/hangzhou/liuzhuang",
@@ -82,7 +82,7 @@ mapping place = ([
                      "/d/hangzhou/huangniling",
                      "/d/hangzhou/qinglindong",
                  }),
-        "ÏåÑô³Ç":({
+        "è¥„é˜³åŸ":({
                      "/d/xiangyang/westjie2",
                      "/d/xiangyang/southjie2",
                      "/d/xiangyang/xiaorong1",
@@ -90,81 +90,81 @@ mapping place = ([
                      "/d/xiangyang/guangchang",
                      "/d/xiangyang/dingzi",
                  }),
-        "ÑïÖİ³Ç":({
+        "æ‰¬å·åŸ":({
                      "/d/city/beimen",
                      "/d/city/nanmen",
                      "/d/city/ximen",
                      "/d/city/dongmen",
                  }),
-        "À¥Ã÷³Ç":({
+        "æ˜†æ˜åŸ":({
                      "/d/kunming/nandajie2",
                      "/d/kunming/yunnan1",
                      "/d/kunming/xiaoximen",
                      "/d/kunming/xiaolu",
                  }),
-        "¾£Öİ³Ç":({
+        "è†å·åŸ":({
                      "/d/jingzhou/guangchang",
                      "/d/jingzhou/jznanmen",
                      "/d/jingzhou/wenquan",
                      "/d/jingzhou/zizhulin",
                  }),
-        "À¼Öİ³Ç":({
+        "å…°å·åŸ":({
                      "/d/lanzhou/guangchang",
                      "/d/lanzhou/nroad1",
                      "/d/lanzhou/nanmen",
                      "/d/lanzhou/ximen",
                  }),
-        "³É¶¼³Ç":({
+        "æˆéƒ½åŸ":({
                      "/d/city3/southroad1",
                      "/d/city3/qingyanggong",
                      "/d/city3/northroad2",
                      "/d/city3/fuheqiaoe",
                  }),
-        "¸£Öİ³Ç":({
+        "ç¦å·åŸ":({
                      "/d/fuzhou/ximendajie",
                      "/d/fuzhou/dongxiaojie",
                      "/d/fuzhou/nanmen",
                      "/d/fuzhou/pingshan",
                  }),
-        "ÁéÖİ³Ç":({
+        "çµå·åŸ":({
                      "/d/lingzhou/xidajie",
                      "/d/lingzhou/nanmen",
                      "/d/lingzhou/dongdajie",
                  }),
-        "Îä¹¦Õò":({
+        "æ­¦åŠŸé•‡":({
                      "/d/quanzhen/xijie",
                      "/d/quanzhen/nanjie",
                  }),
-        "ÈªÖİ³Ç":({
+        "æ³‰å·åŸ":({
                      "/d/quanzhou/zhongxin",
                  }),
-      "»ªÉ½¸½½ü":({
+      "åå±±é™„è¿‘":({
                      "/d/huashan/pingxinshi",
                      "/d/village/square",
                      "/d/village/wexit",
                  }),
-    "ÁèÏö³Ç¸½½ü":({
+    "å‡Œéœ„åŸé™„è¿‘":({
                      "/d/lingxiao/sroad5",
                      "/d/lingxiao/bar",
                  }),
-    "Îå¶¾½Ì¸½½ü":({
+    "äº”æ¯’æ•™é™„è¿‘":({
                      "/d/wudu/cun3",
                      "/d/wudu/jiang2",
                      "/d/wudu/bianzhai1",
                      "/d/wudu/milin4",
                  }),
-      "·ğÉ½Ò»´ø":({
+      "ä½›å±±ä¸€å¸¦":({
                      "/d/foshan/street1",
                      "/d/foshan/southgate",
                  }),
-      "ÄÏº£Ò»´ø":({"/d/xiakedao/xkroad4"}),
-      "ÈêÖİÒ»´ø":({"/d/shaolin/ruzhou"}),
-      "áÔÉ½Ò»´ø":({
+      "å—æµ·ä¸€å¸¦":({"/d/xiakedao/xkroad4"}),
+      "æ±å·ä¸€å¸¦":({"/d/shaolin/ruzhou"}),
+      "åµ©å±±ä¸€å¸¦":({
                      "/d/songshan/tianzhongge",
                      "/d/shaolin/shijie1",
                      "/d/shaolin/shijie8",
                  }),
-        "ÖÕÄÏÉ½":({
+        "ç»ˆå—å±±":({
                      "/d/quanzhen/shanlu1",
                      "/d/quanzhen/shijie1",
                      "/d/quanzhen/shijie9",
@@ -174,20 +174,20 @@ mapping place = ([
                      "/d/gumu/shenheyuan",
                      "/d/quanzhen/banshanting",
                  }),
-        "ĞÇËŞº£":({
+        "æ˜Ÿå®¿æµ·":({
                      "/d/xingxiu/tianroad2",
                  }),
-          "ÌìÉ½":({
+          "å¤©å±±":({
                      "/d/lingjiu/yan",
                  }),
-          "¹ØÍâ":({
+          "å…³å¤–":({
                      "/d/guanwai/baihe",
                      "/d/guanwai/road8",
                      "/d/guanwai/xuedi1",
                      "/d/guanwai/beicheng",
                      "/d/guanwai/shanshenmiao",
                  }),
-          "Î÷Óò":({
+          "è¥¿åŸŸ":({
                      "/d/xingxiu/shamo5",
                      "/d/baituo/gebi",
                      "/d/xueshan/shenghu",
@@ -197,7 +197,7 @@ mapping place = ([
                      "/d/mingjiao/gebitan5",
                      "/d/xingxiu/nanjiang2",
                  }),
-      "´óÀíÒ»´ø":({
+      "å¤§ç†ä¸€å¸¦":({
                      "/d/dali/northgate",
                      "/d/dali/southgate",
                      "/d/dali/shanlu2",
@@ -220,7 +220,7 @@ mapping place = ([
 /*
 mapping levels = ([
         // combat_exp   skill_level
-        // ±£Ö¤ÎåÊ®ÍòÒÔÇ°ÈÎÎñÈİÒ×Íê³É£¬°ËÊ®ÍòÖ®Ç°¼òµ¥Íê³É¡£
+        // ä¿è¯äº”åä¸‡ä»¥å‰ä»»åŠ¡å®¹æ˜“å®Œæˆï¼Œå…«åä¸‡ä¹‹å‰ç®€å•å®Œæˆã€‚
         50000      : 20,                // level 1
         100000     : 30,                // level 2
         200000     : 40,                // level 3
@@ -239,7 +239,7 @@ mapping levels = ([
         15000000   : 500,               // level 16
 ]);
 */
-//ĞÂÔö¸ß¼¶±ğnpc
+//æ–°å¢é«˜çº§åˆ«npc
 mapping levels = ([
         50000:20,  // level 1
        100000:30,  // level 2
@@ -258,8 +258,8 @@ mapping levels = ([
       9000000:450, // level 15
      15000000:500, // level 16
 
-     //ĞÂÔö10¸ö¼¶±ğ£¬Èç¹ûÉ±²»¶¯¾Í²»ÒªÏë×ªÊÀÁË
-     //ÁíÍâÉ±²»¶¯Ò²¿ÉÈ¥×ª×ötaskºÍÉ±ÍâµĞµÈÊÖ¶¯»òÆäËü·ÇÉ±µĞÈÎÎñ¡£
+     //æ–°å¢10ä¸ªçº§åˆ«ï¼Œå¦‚æœæ€ä¸åŠ¨å°±ä¸è¦æƒ³è½¬ä¸–äº†
+     //å¦å¤–æ€ä¸åŠ¨ä¹Ÿå¯å»è½¬åštaskå’Œæ€å¤–æ•Œç­‰æ‰‹åŠ¨æˆ–å…¶å®ƒéæ€æ•Œä»»åŠ¡ã€‚
 
      20000000:550,  // level 17
      28000000:600,  // level 18
@@ -287,7 +287,7 @@ int check_level(object ob)
     return i;
 }
 
-// return the character(ob) 's exp, by ´óÔø
+// return the character(ob) 's exp, by å¤§æ›¾
 int get_exp(object ob)
 {
     int exp;
@@ -338,9 +338,9 @@ void init_npc_skill(object ob, int lvl)
     return;
 }
 
-string *nations = ({"ÖĞ¹ú", "ÈÕ±¾", "¹ê´È", "ºÉÀ¼", "ÌìóÃ", "ÃÉ¹Å",
-                    "¶íÂŞË¹", "Ó¢¼ªÀû", "·¨À¼Î÷", "Î÷°àÑÀ", "ÆÏÌÑÑÀ",
-                    "±ÈÀûÊ±", "Ëş¼ª¿ËË¹Ì¹", "¹şÉ³¿ËË¹Ì¹", "ÎÚ×È±ğ¿ËË¹Ì¹"});
+string *nations = ({"ä¸­å›½", "æ—¥æœ¬", "é¾Ÿæ…ˆ", "è·å…°", "å¤©ç«º", "è’™å¤",
+                    "ä¿„ç½—æ–¯", "è‹±å‰åˆ©", "æ³•å…°è¥¿", "è¥¿ç­ç‰™", "è‘¡è„ç‰™",
+                    "æ¯”åˆ©æ—¶", "å¡”å‰å…‹æ–¯å¦", "å“ˆæ²™å…‹æ–¯å¦", "ä¹Œå…¹åˆ«å…‹æ–¯å¦"});
 
 // generate a npc with nation & skill level
 object create_npc(string nation, int lvl)
@@ -349,37 +349,37 @@ object create_npc(string nation, int lvl)
 
     switch (nation)
     {
-    case "ÖĞ¹ú":
+    case "ä¸­å›½":
         ob = new (CLASS_D("generate") + "/chinese");
         NPC_D->generate_cn_name(ob);
         break;
-    case "ÈÕ±¾":
+    case "æ—¥æœ¬":
         ob = new (CLASS_D("generate") + "/japanese");
         NPC_D->generate_jp_name(ob);
         break;
-    case "Ó¢¼ªÀû":
+    case "è‹±å‰åˆ©":
         ob = new (CLASS_D("generate") + "/english");
         NPC_D->generate_e_name(ob);
         break;
-    case "·¨À¼Î÷":
-    case "Î÷°àÑÀ":
-    case "ÆÏÌÑÑÀ":
-    case "±ÈÀûÊ±":
-    case "ºÉÀ¼":
+    case "æ³•å…°è¥¿":
+    case "è¥¿ç­ç‰™":
+    case "è‘¡è„ç‰™":
+    case "æ¯”åˆ©æ—¶":
+    case "è·å…°":
         ob = new (CLASS_D("generate") + "/european");
         NPC_D->generate_e_name(ob);
         break;
-    case "ÌìóÃ":
+    case "å¤©ç«º":
         ob = new (CLASS_D("generate") + "/indian");
         NPC_D->generate_in_name(ob);
         break;
-    case "»¨Øİ×ÓÄ£":
-    case "¹ê´È":
-    case "¶íÂŞË¹":
-    case "Ëş¼ª¿ËË¹Ì¹":
-    case "¹şÉ³¿ËË¹Ì¹":
-    case "ÎÚ×È±ğ¿ËË¹Ì¹":
-    case "ÃÉ¹Å":
+    case "èŠ±å‰Œå­æ¨¡":
+    case "é¾Ÿæ…ˆ":
+    case "ä¿„ç½—æ–¯":
+    case "å¡”å‰å…‹æ–¯å¦":
+    case "å“ˆæ²™å…‹æ–¯å¦":
+    case "ä¹Œå…¹åˆ«å…‹æ–¯å¦":
+    case "è’™å¤":
         return 0;
     }
 
@@ -410,21 +410,21 @@ object create_challenger()
         lvl = max_level;
 
     n = ({
-        "ÈÕ±¾",
-        "ÈÕ±¾",
-        "ÈÕ±¾",
-        "ÌìóÃ",
-        "Ó¢¼ªÀû",
-        "·¨À¼Î÷",
-        "Î÷°àÑÀ",
-        "ÆÏÌÑÑÀ",
-        "±ÈÀûÊ±",
-        "ºÉÀ¼",
+        "æ—¥æœ¬",
+        "æ—¥æœ¬",
+        "æ—¥æœ¬",
+        "å¤©ç«º",
+        "è‹±å‰åˆ©",
+        "æ³•å…°è¥¿",
+        "è¥¿ç­ç‰™",
+        "è‘¡è„ç‰™",
+        "æ¯”åˆ©æ—¶",
+        "è·å…°",
     });
     return create_npc(n[random(sizeof(n))], lvl);
 }
 
-// ÍêÈ«¶ÀÁ¢µÄNPCÊôĞÔÏµÍ³ by ´óÔø
+// å®Œå…¨ç‹¬ç«‹çš„NPCå±æ€§ç³»ç»Ÿ by å¤§æ›¾
 void set_from_me(object tob, object fob, int scale)
 {
     mapping my, hp_status;
@@ -557,7 +557,7 @@ void place_npc(object ob, string *not_place, string *in_place)
     ob->set("place", p);
     ob->set("startroom", startroom);
     ob->set_temp("moved", ({}));
-    message_vision("$N×ßÁË¹ıÀ´¡£\n", ob);
+    message_vision("$Nèµ°äº†è¿‡æ¥ã€‚\n", ob);
 
     return;
 }

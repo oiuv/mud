@@ -57,10 +57,10 @@ void assign_apprentice(string title, int privs)
             set("title", family["family_name"] + family["title"]);
             break;
         case 1:
-            set("title", family["family_name"] + "¿ªÉ½×æÊ¦");
+            set("title", family["family_name"] + "å¼€å±±ç¥–å¸ˆ");
             break;
         default:
-            set("title", sprintf("%sµÚ%s´ú%s", family["family_name"],
+            set("title", sprintf("%sç¬¬%sä»£%s", family["family_name"],
                                  chinese_number(family["generation"]), family["title"]));
             break;
         }
@@ -112,10 +112,10 @@ int recruit_apprentice(object ob)
         ob->set("family", family);
         return 1;
     }
-    else if (query("born_family") != "Ã»ÓÐ")
-        family["title"] = "´«ÈË";
+    else if (query("born_family") != "æ²¡æœ‰")
+        family["title"] = "ä¼ äºº";
     else
-        family["title"] = "µÜ×Ó";
+        family["title"] = "å¼Ÿå­";
 
     ob->set("family", family);
     ob->assign_apprentice(family["title"], 0);

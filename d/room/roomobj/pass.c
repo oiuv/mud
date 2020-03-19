@@ -6,16 +6,16 @@ inherit ITEM;
 
 void create()
 {
-	set_name(YEL "ÊÖÚÍ" NOR, ({ "pass" }) );
+	set_name(YEL "æ‰‹è°•" NOR, ({ "pass" }) );
         set_weight(10);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "ÕÅ");
+		set("unit", "å¼ ");
                 set("no_sell", 1);
 		set("material", "paper");
 	}
-        set("long", "Ò»ÕÅÊÖÚÍ¡£\n");
+        set("long", "ä¸€å¼ æ‰‹è°•ã€‚\n");
 	setup();
 }
 

@@ -43,7 +43,7 @@ void make_profile(string sort_by)
 	
 	if( !stringp(sort_by) )	entry = sort_array(entry, 1);
 	else 					entry = sort_array(entry, "sort_entry", this_object() );
-	msg = "Ãû³Æ           ´ÎÊı           ¼ÇÒäÌå         ÏµÍ³Ê±¼ä       Ê¹ÓÃÕßÊ±¼ä\n";
+	msg = "åç§°           æ¬¡æ•°           è®°å¿†ä½“         ç³»ç»Ÿæ—¶é—´       ä½¿ç”¨è€…æ—¶é—´\n";
 	for(i=0; i<sizeof(entry); i++)
 		msg += sprintf("%-15s%-15d%-15d%-15d%-15d\n", entry[i],
 			command_log[entry[i]]["count"],

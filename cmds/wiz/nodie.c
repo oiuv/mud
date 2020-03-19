@@ -22,19 +22,19 @@ int main(object me, string arg)
         }
 
         if (! ob || ! userp(ob))
-                return notify_fail("ÄãÒªÎªË­ÉèÖÃËÀÍö±£»¤£¿\n");
+                return notify_fail("ä½ è¦ä¸ºè°è®¾ç½®æ­»äº¡ä¿æŠ¤ï¼Ÿ\n");
  
         if (ob->query_temp("guard_death") >= 1)
-                return notify_fail("Ä¿±êÒÑ¾­ÉèÖÃËÀÍö±£»¤£¬ÈçÒª»Ö¸´£¬Çë"
-                                   "Ê¹ÓÃ full Ö¸Áî¡£\n");
+                return notify_fail("ç›®æ ‡å·²ç»è®¾ç½®æ­»äº¡ä¿æŠ¤ï¼Œå¦‚è¦æ¢å¤ï¼Œè¯·"
+                                   "ä½¿ç”¨ full æŒ‡ä»¤ã€‚\n");
 
         if (ob != me)
         {
 	        if (wiz_level(me) < wiz_level("(wizard)"))
-		        return notify_fail("ÄãÃ»ÓĞÈ¨ÏŞÎª" + ob->name() +
-                                           "ÉèÖÃËÀÍö±£»¤¡£\n");
+		        return notify_fail("ä½ æ²¡æœ‰æƒé™ä¸º" + ob->name() +
+                                           "è®¾ç½®æ­»äº¡ä¿æŠ¤ã€‚\n");
 
-                message_system(sprintf("%s(%s)Îª%s(%s)ÉèÖÃÁËËÀÍö±£»¤¡£\n",
+                message_system(sprintf("%s(%s)ä¸º%s(%s)è®¾ç½®äº†æ­»äº¡ä¿æŠ¤ã€‚\n",
                                        me->name(1), me->query("id"),
                                        ob->name(1), ob->query("id")));
         }
@@ -49,19 +49,19 @@ int main(object me, string arg)
 
         if (me == ob)
 	{
-                message_vision(HIY "$N" HIY "ÃæÂ¶Äé»¨Ö®É«£¬¿ÚÖĞÄîÄî"
-                               "ÓĞ´Ê£¬Ëµ²»¾¡µÄ´ÈÏé°²ºÍ¡£\n" NOR, me);
+                message_vision(HIY "$N" HIY "é¢éœ²æ‹ˆèŠ±ä¹‹è‰²ï¼Œå£ä¸­å¿µå¿µ"
+                               "æœ‰è¯ï¼Œè¯´ä¸å°½çš„æ…ˆç¥¥å®‰å’Œã€‚\n" NOR, me);
 		me->clear_condition();
                 me->set_temp("guard_death", 1);
         } else
         {
-                message_vision(HIY "$N" HIY "ÃæÂ¶Äé»¨Ö®É«£¬Ëµ²»¾¡µÄ"
-                               "´ÈÏé°²ºÍ¡£ÉìÊÖÇáÇá¸§¹ı$n" HIY "µÄÍ·"
-                               "¶¥¡£\n" NOR, me, ob);
+                message_vision(HIY "$N" HIY "é¢éœ²æ‹ˆèŠ±ä¹‹è‰²ï¼Œè¯´ä¸å°½çš„"
+                               "æ…ˆç¥¥å®‰å’Œã€‚ä¼¸æ‰‹è½»è½»æŠšè¿‡$n" HIY "çš„å¤´"
+                               "é¡¶ã€‚\n" NOR, me, ob);
                 if (! living(ob)) ob->revive();
 		ob->clear_condition();
                 ob->set_temp("guard_death", 1);
-		log_file("static/nodie", sprintf("%s %s Îª %s(%s) ÉèÖÃÁËËÀÍö±£»¤¡£\n",
+		log_file("static/nodie", sprintf("%s %s ä¸º %s(%s) è®¾ç½®äº†æ­»äº¡ä¿æŠ¤ã€‚\n",
 					 log_time(), log_id(me),
 				         ob->name(1), ob->query("id")));
         }
@@ -71,9 +71,9 @@ int main(object me, string arg)
 int help()
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : nodie <¶ÔÏóÃû³Æ>
+æŒ‡ä»¤æ ¼å¼ : nodie <å¯¹è±¡åç§°>
  
-Õâ¸öÖ¸Áî¿ÉÒÔ¸ø¶ÔÏóÉèÖÃËÀÍö±£»¤¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥ç»™å¯¹è±¡è®¾ç½®æ­»äº¡ä¿æŠ¤ã€‚
  
 HELP);
         return 1;

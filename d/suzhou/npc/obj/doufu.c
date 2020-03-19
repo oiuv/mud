@@ -6,12 +6,12 @@ inherit F_FOOD;
 
 void create()
 {
-	set_name(WHT"ÈÕ±¾¶¹¸¯"NOR, ({ "riben doufu", "doufu" }) );
+	set_name(WHT"æ—¥æœ¬è±†è…"NOR, ({ "riben doufu", "doufu" }) );
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»ÍëÄÛ°×ÓÍ»¬µÄÈÕ±¾¶¹¸¯¡£\n");
-		set("unit", "Íë");
+		set("long", "ä¸€ç¢—å«©ç™½æ²¹æ»‘çš„æ—¥æœ¬è±†è…ã€‚\n");
+		set("unit", "ç¢—");
 		set("value", 100);
 		set("food_remaining", 10);
 		set("food_supply", 25);

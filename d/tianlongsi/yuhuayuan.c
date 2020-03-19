@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�껨Ժ");
+        set("short", "雨花院");
         set("long",@LONG
-�ഫ������潵�������´���ʱ����������껨ʯ��������ʯ��
-Ժ�����ɴ˼���Ժ��Ժ�г���̴�����磬�����Ŀ�������
+相传当年佛祖降临天龙寺传法时，漫天遍洒雨花石。后人以石建
+院，即成此间玉花院。院中常年檀香四溢，令人心旷神怡。
 LONG );
         set("exits", ([
                 "west" : __DIR__"wuwujing",

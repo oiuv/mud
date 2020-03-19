@@ -7,20 +7,20 @@ inherit F_LIQUID;
 
 void create()
 {
-	set_name(MAG"×íÑ¬·ç"NOR, ({ "zui xunfeng", "xunfeng" }));
+	set_name(MAG"é†‰ç†é£"NOR, ({ "zui xunfeng", "xunfeng" }));
         set_weight(300);
 	if (clonep())
         	set_default_object(__FILE__);
 	else 
         {
-		set("long", "Ò»ºø°ÍÊñ¼ÑÄğ"MAG+"×íÑ¬·ç"NOR"£¬ÌğÃÀ´¼Ãà¡£\n");
-		set("unit", "ºø");
+		set("long", "ä¸€å£¶å·´èœ€ä½³é…¿"MAG+"é†‰ç†é£"NOR"ï¼Œç”œç¾é†‡ç»µã€‚\n");
+		set("unit", "å£¶");
 		set("value", 500);
 		set("max_liquid", 10);
 	}
 	set("liquid", ([
 		"type": "alcohol",
-		"name": MAG"×íÑ¬·ç"NOR"¼ÑÄğ",
+		"name": MAG"é†‰ç†é£"NOR"ä½³é…¿",
 		"remaining": 25,
         	"drunk_apply": 7,
 	]) );

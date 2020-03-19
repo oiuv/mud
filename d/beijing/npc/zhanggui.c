@@ -2,8 +2,8 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÕÆ¹ñ", ({ "zhanggui", "gui" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("æŒæŸœ", ({ "zhanggui", "gui" }));
+	set("gender", "ç”·æ€§");
 	set("age", 45);
 
 	set("combat_exp", 7500);

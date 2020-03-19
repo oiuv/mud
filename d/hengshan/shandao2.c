@@ -3,10 +3,10 @@
 inherit ROOM;
 void create()
 {
-        set("short", "���Է�ɽ��");
+        set("short", "见性峰山道");
         set("long", @LONG
-�����ڼ��Է�ɽ��С·�ϣ�����ɽ��������ӹģ���ǰ����Ư
-����ԶԶ����ǰ����Ƿ嶥�ˡ�
+你走在见性峰山脊小路上，听着山下庙宇的钟鼓，眼前白云漂
+荡，远远看到前面就是峰顶了。
 LONG);
         set("exits", ([ /* sizeof() == 4 */
            "southdown"  : __DIR__"beiyuedian",

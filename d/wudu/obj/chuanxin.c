@@ -3,9 +3,9 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIC "´©ĞÄÁ«" NOR, ({"chuanxin lian", "chuanxin", "lian"}));
-        set("unit", "¶ä");
-        set("long", HIC "ÕâÊÇÒ»¶ä±ÌÀ¶É«µÄÁ«»¨£¬º¬¾ç¶¾¡£\n" NOR);
+        set_name(HIC "ç©¿å¿ƒè²" NOR, ({"chuanxin lian", "chuanxin", "lian"}));
+        set("unit", "æœµ");
+        set("long", HIC "è¿™æ˜¯ä¸€æœµç¢§è“è‰²çš„è²èŠ±ï¼Œå«å‰§æ¯’ã€‚\n" NOR);
         set("value", 10);
         set_weight(100);
         set("only_do_effect", 1);
@@ -14,8 +14,8 @@ void create()
 
 int do_effect(object me)
 {
-        message_vision("$NÒ»Ñö²±£¬½«´©ĞÄÁ«ÈûÈëÁË×ìÖĞ¡£\n", me);
-        me->set_temp("die_reason", "³ÔÁË´©ĞÄÁ«È¥¼ûºÚ°×ÎŞ³£ÁË");
+        message_vision("$Nä¸€ä»°è„–ï¼Œå°†ç©¿å¿ƒè²å¡å…¥äº†å˜´ä¸­ã€‚\n", me);
+        me->set_temp("die_reason", "åƒäº†ç©¿å¿ƒè²å»è§é»‘ç™½æ— å¸¸äº†");
         me->die();
         destruct(this_object());
         return 1;

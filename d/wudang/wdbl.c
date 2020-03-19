@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-      set("short", "�䵱����");
+      set("short", "武当柏林");
       set("long", @LONG
-�㴩����һƬï�ܵİ����У���ɭ���䣬��ʯ��ᾣ�����
-û�ˡ���ʱ�������Ӵ�������߷��ܶ�����
+你穿行在一片茂密的柏林中，阴森郁翠，怪石嶙峋，草深
+没人。不时地有兔子从你的身边飞跑而过。
 LONG);
       set("outdoors", "wudang");
       set("exits", ([

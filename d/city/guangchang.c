@@ -3,23 +3,23 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÖĞÑë¹ã³¡");
+        set("short", "ä¸­å¤®å¹¿åœº");
         set("long", @LONG
-ÕâÀïÊÇ³ÇÊĞµÄÕıÖĞĞÄ£¬Ò»¸öºÜ¿íÀ«µÄ¹ã³¡£¬ÆÌ×ÅÇàÊ¯µØÃæ¡£
-ÓÎÊÖºÃÏĞµÄÈË³£ÔÚÕâÀïÁïÁï´ï´ï£¬¾­³£ÓĞÒÕÈËÔÚÕâÀï±íÑİ¡£ÖĞ
-ÑëÒ»¿Ã´óéÅÊ÷(tree)ÅÌ¸ù´í½Ú£¬¾İ´«ÒÑÓĞÇ§ÄêµÄÊ÷Áä£¬ÊÇÕâ×ù
-³ÇÊĞµÄÀúÊ·¼ûÖ¤¡£Ê÷¸Éµ×²¿ÓĞÒ»¸öºÜ´óµÄÊ÷¶´ (dong)¡£ Äã¿É
-ÒÔ¿´µ½±±±ßÓĞÀ´×Ô¸÷µØµÄĞĞÈËÀ´À´ÍùÍù£¬ÄÏÃæÈËÉù¶¦·Ğ£¬Ò»ÅÉ
-·±»ª¾°Ïó£¬¶«±ß²»Ê±µØ´«À´ÀÊÀÊµÄ¶ÁÊéÉù£¬Î÷±ßÔò¼û²»µ½¼¸¸ö
-ĞĞÈË£¬Ò»Æ¬Ëà¾²¡£
+è¿™é‡Œæ˜¯åŸå¸‚çš„æ­£ä¸­å¿ƒï¼Œä¸€ä¸ªå¾ˆå®½é˜”çš„å¹¿åœºï¼Œé“ºç€é’çŸ³åœ°é¢ã€‚
+æ¸¸æ‰‹å¥½é—²çš„äººå¸¸åœ¨è¿™é‡Œæºœæºœè¾¾è¾¾ï¼Œç»å¸¸æœ‰è‰ºäººåœ¨è¿™é‡Œè¡¨æ¼”ã€‚ä¸­
+å¤®ä¸€æ£µå¤§æ¦•æ ‘(tree)ç›˜æ ¹é”™èŠ‚ï¼Œæ®ä¼ å·²æœ‰åƒå¹´çš„æ ‘é¾„ï¼Œæ˜¯è¿™åº§
+åŸå¸‚çš„å†å²è§è¯ã€‚æ ‘å¹²åº•éƒ¨æœ‰ä¸€ä¸ªå¾ˆå¤§çš„æ ‘æ´ (dong)ã€‚ ä½ å¯
+ä»¥çœ‹åˆ°åŒ—è¾¹æœ‰æ¥è‡ªå„åœ°çš„è¡Œäººæ¥æ¥å¾€å¾€ï¼Œå—é¢äººå£°é¼æ²¸ï¼Œä¸€æ´¾
+ç¹åæ™¯è±¡ï¼Œä¸œè¾¹ä¸æ—¶åœ°ä¼ æ¥æœ—æœ—çš„è¯»ä¹¦å£°ï¼Œè¥¿è¾¹åˆ™è§ä¸åˆ°å‡ ä¸ª
+è¡Œäººï¼Œä¸€ç‰‡è‚ƒé™ã€‚
 LONG);
         set("no_sleep_room",1);
         set("outdoors", "city");
         set("item_desc", ([
-                "dong" : WHT "\nÕâÊÇÒ»¸öºÚ²»ÁïäĞµÄ´ó¶´£¬ÀïÃæ²»ÖªµÀ"
-                         "ÓĞĞ©Ê²Ã´¹Å¹Ö¡£\n" NOR,
-                "tree" : GRN "\nÕâÊÇÒ»¿Ã¾Ş´ó¹ÅÀÏµÄ´óéÅÊ÷£¬Ö¦Ò¶·Ç³£"
-                         "µÄÃ¯ÃÜ¡£\n" NOR,
+                "dong" : WHT "\nè¿™æ˜¯ä¸€ä¸ªé»‘ä¸æºœæ¹«çš„å¤§æ´ï¼Œé‡Œé¢ä¸çŸ¥é“"
+                         "æœ‰äº›ä»€ä¹ˆå¤æ€ªã€‚\n" NOR,
+                "tree" : GRN "\nè¿™æ˜¯ä¸€æ£µå·¨å¤§å¤è€çš„å¤§æ¦•æ ‘ï¼Œæå¶éå¸¸"
+                         "çš„èŒ‚å¯†ã€‚\n" NOR,
         ]));
 
         set("exits", ([
@@ -46,7 +46,7 @@ void init()
         if (me->query("festival/15.5.1"))
         {
              me->delete("festival");
-             log_file("static/log", sprintf("%s(%s) É¾³ıfestival¼ÇÂ¼ÓÚ %s.\n",
+             log_file("static/log", sprintf("%s(%s) åˆ é™¤festivalè®°å½•äº %s.\n",
                       me->name(1), me->query("id"), ctime(time())));             
         }
 */
@@ -66,16 +66,16 @@ int do_enter(string arg)
         {
                 if (me->is_busy())
                 {
-                        return notify_fail("ÄãµÄ¶¯×÷»¹Ã»ÓĞÍê³É£¬²»ÄÜÒÆ¶¯¡£\n");
+                        return notify_fail("ä½ çš„åŠ¨ä½œè¿˜æ²¡æœ‰å®Œæˆï¼Œä¸èƒ½ç§»åŠ¨ã€‚\n");
                         return 1; 
                 }
 
-                message("vision", HIC + me->name() + HIC "Ò»ÍäÑüÍù¶´Àï×ß"
-                                  "ÁË½øÈ¥¡£\n" NOR, environment(me), ({me}));
+                message("vision", HIC + me->name() + HIC "ä¸€å¼¯è…°å¾€æ´é‡Œèµ°"
+                                  "äº†è¿›å»ã€‚\n" NOR, environment(me), ({me}));
 
                 me->move("/d/gaibang/inhole");
-                message("vision", HIC + me->name() + HIC "´Ó¶´Àï×ßÁË½øÀ´"
-                                  "¡£\n" NOR, environment(me), ({me}));
+                message("vision", HIC + me->name() + HIC "ä»æ´é‡Œèµ°äº†è¿›æ¥"
+                                  "ã€‚\n" NOR, environment(me), ({me}));
                 return 1;
         }
 }
@@ -92,24 +92,24 @@ int do_climb(string arg)
         {
                 if (me->is_busy())
                 {
-                        return notify_fail("ÄãµÄ¶¯×÷»¹Ã»ÓĞÍê³É£¬²»ÄÜÒÆ¶¯¡£\n");
+                        return notify_fail("ä½ çš„åŠ¨ä½œè¿˜æ²¡æœ‰å®Œæˆï¼Œä¸èƒ½ç§»åŠ¨ã€‚\n");
                         return 1; 
                 }
 
                 foreach( ob in deep_inventory( me ) )
                 if ( ob == me->query_temp( "is_riding" ) )
                 {
-                    message_vision( "$N´Ó$nÉÏ·ÉÉíÌøÏÂ¡£\n", me, ob );
+                    message_vision( "$Nä»$nä¸Šé£èº«è·³ä¸‹ã€‚\n", me, ob );
                     me->delete_temp( "is_riding" );
                     ob->delete_temp( "is_rided_by" );
                     ob->move( environment( me ) );
                 }
 
-                message_vision(HIC "$N" HIC "ÅÊ×ÅéÅÊ÷µÄÖ¦è¾£¬ÈıÏÂÁ½ÏÂÅÀÁËÉÏÈ¥¡£\n"
+                message_vision(HIC "$N" HIC "æ”€ç€æ¦•æ ‘çš„ææˆï¼Œä¸‰ä¸‹ä¸¤ä¸‹çˆ¬äº†ä¸Šå»ã€‚\n"
                                NOR, me);
 
                 me->move(__DIR__"tree");
-                message("vision", HIC + me->name() + HIC "´ÓÏÂÃæµÄ¹ã³¡ÅÊÅÀÁËÉÏÀ´¡£\n"
+                message("vision", HIC + me->name() + HIC "ä»ä¸‹é¢çš„å¹¿åœºæ”€çˆ¬äº†ä¸Šæ¥ã€‚\n"
                                   NOR, environment(me), ({me}));
                 return 1;
         }

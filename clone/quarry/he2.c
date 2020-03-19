@@ -3,8 +3,8 @@ inherit QUARRY;
 
 void create()
 {
-	set_name(HIW "雪鹤" NOR, ({ "xue he", "xue", "he" }));
-	set("long", HIW "全身洁白的雪鹤，是大雪山的特产。\n" NOR);
+	set_name(HIW "闆工" NOR, ({ "xue he", "xue", "he" }));
+	set("long", HIW "鍏ㄨ韩娲佺櫧鐨勯洩楣わ紝鏄ぇ闆北鐨勭壒浜с�俓n" NOR);
         set("no_auto_kill", 1);
         set("aves", 1);
 

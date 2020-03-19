@@ -24,15 +24,15 @@ int main(object me, string arg)
 		if (! ob) ob = find_living(arg);
         }
 
-        if (! ob) return notify_fail("ÄãÒª»Ö¸´Ë­µÄ×´Ì¬£¿\n");
+        if (! ob) return notify_fail("ä½ è¦æ¢å¤è°çš„çŠ¶æ€ï¼Ÿ\n");
  
         if (ob != me)
         {
 	        if (wiz_level(me) < wiz_level("(wizard)"))
-		        return notify_fail("ÄãÃ»ÓĞÈ¨ÏŞ»Ö¸´" + ob->name() + "¡£\n");
+		        return notify_fail("ä½ æ²¡æœ‰æƒé™æ¢å¤" + ob->name() + "ã€‚\n");
 
                 if (! me->is_admin())
-                        message_system(sprintf("%s(%s)Îª%s(%s)»Ö¸´ÁË×´Ì¬¡£\n",
+                        message_system(sprintf("%s(%s)ä¸º%s(%s)æ¢å¤äº†çŠ¶æ€ã€‚\n",
                                                me->name(1), me->query("id"),
                                                ob->name(1), ob->query("id")));
         }
@@ -47,14 +47,14 @@ int main(object me, string arg)
 
         if (me == ob)
 	{
-                message_vision(HIY "$N¿ÚÖĞÄîÄîÓĞ´Ê£¬²»Ò»»á¶ù¾Í±äµÃ"
-			       "¾«Éñ»À·¢£¬Éñ²ÉŞÈŞÈ¡£\n" NOR, me);
+                message_vision(HIY "$Nå£ä¸­å¿µå¿µæœ‰è¯ï¼Œä¸ä¸€ä¼šå„¿å°±å˜å¾—"
+			       "ç²¾ç¥ç„•å‘ï¼Œç¥é‡‡å¥•å¥•ã€‚\n" NOR, me);
 		if (me->is_ghost()) me->reincarnate();
 		me->clear_condition();
         } else
         {
-                message_vision(HIY "$NÉìÊÖÒ»Ö¸£¬$nÁ¢¿Ì¾«Éñ»À"
-			       "·¢£¬Éñ²ÉŞÈŞÈ¡£\n" NOR,
+                message_vision(HIY "$Nä¼¸æ‰‹ä¸€æŒ‡ï¼Œ$nç«‹åˆ»ç²¾ç¥ç„•"
+			       "å‘ï¼Œç¥é‡‡å¥•å¥•ã€‚\n" NOR,
                                me, ob);
                 if (! living(ob)) ob->revive();
 		if (ob->is_ghost()) ob->reincarnate();
@@ -69,9 +69,9 @@ int main(object me, string arg)
 int help()
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : recover <¶ÔÏóÃû³Æ>
+æŒ‡ä»¤æ ¼å¼ : recover <å¯¹è±¡åç§°>
  
-Õâ¸öÖ¸Áî¿ÉÒÔ»Ö¸´Äã(Äã)»òÖ¸¶¨¶ÔÏó(º¬¹ÖÎï)µÄ¾«, Æø, ÄÚÁ¦µÈÊıÖµ¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥æ¢å¤ä½ (ä½ )æˆ–æŒ‡å®šå¯¹è±¡(å«æ€ªç‰©)çš„ç²¾, æ°”, å†…åŠ›ç­‰æ•°å€¼ã€‚
  
 HELP );
         return 1;

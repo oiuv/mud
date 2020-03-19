@@ -1,4 +1,4 @@
-// mantian-xing.c ÂúÌìĞÇ
+// mantian-xing.c æ»¡å¤©æ˜Ÿ
 // modified by Venus Oct.1997
 
 #include <ansi.h>
@@ -10,16 +10,16 @@ int valid_enable(string usage) { return usage == "throwing"; }
 int valid_learn(object me)
 {
         if ((int)me->query_skill("force") < 60)
-                return notify_fail("ÄãµÄÄÚ¹¦ĞÄ·¨»ğºò²»¹»£¬ÎŞ·¨Ñ§ÂúÌìĞÇ¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸå¿ƒæ³•ç«å€™ä¸å¤Ÿï¼Œæ— æ³•å­¦æ»¡å¤©æ˜Ÿã€‚\n");
 
         if ((int)me->query_skill("dodge") < 60)
-                return notify_fail("ÄãµÄÇá¹¦»ğºò²»¹»£¬ÎŞ·¨ÁìÎòÂúÌìĞÇ¡£\n");
+                return notify_fail("ä½ çš„è½»åŠŸç«å€™ä¸å¤Ÿï¼Œæ— æ³•é¢†æ‚Ÿæ»¡å¤©æ˜Ÿã€‚\n");
 
         if ((int)me->query_dex() < 25)
-                return notify_fail("ÄãµÄÉí·¨²»¹»ÁéÇÉ£¬ÎŞ·¨ÁìÎòÂúÌìĞÇ¡£\n");
+                return notify_fail("ä½ çš„èº«æ³•ä¸å¤Ÿçµå·§ï¼Œæ— æ³•é¢†æ‚Ÿæ»¡å¤©æ˜Ÿã€‚\n");
 
         if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("mantian-xing", 1))
-                return notify_fail("ÄãµÄ»ù±¾°µÆ÷Ë®Æ½ÓĞÏŞ£¬ÄÑÒÔÁì»á¸ü¸ßÉîµÄÂúÌìĞÇ¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬æš—å™¨æ°´å¹³æœ‰é™ï¼Œéš¾ä»¥é¢†ä¼šæ›´é«˜æ·±çš„æ»¡å¤©æ˜Ÿã€‚\n");
 
         return 1;
 }
@@ -29,10 +29,10 @@ int practice_skill(object me)
 //      object weapon;
 
         if ((int)me->query("qi") < 60)
-                return notify_fail("ÄãµÄÌåÁ¦Ì«µÍÁË¡£\n");
+                return notify_fail("ä½ çš„ä½“åŠ›å¤ªä½äº†ã€‚\n");
 
         if ((int)me->query("neili") < 60)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»Á·ÂúÌìĞÇ¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿç»ƒæ»¡å¤©æ˜Ÿã€‚\n");
 
         me->receive_damage("qi", 45);
         me->add("neili", -35);

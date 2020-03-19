@@ -5,13 +5,13 @@ inherit THROWING;
 
 void create()
 {
-        set_name(HIW "ÏÉº×ÉñÕë" NOR, ({ "xianhe shenzhen", "zhen" }) );
+        set_name(HIW "ä»™é¹¤ç¥žé’ˆ" NOR, ({ "xianhe shenzhen", "zhen" }) );
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ð©");
+                set("unit", "äº›");
                 set("value", 50000);
-                set("base_unit", "¸ù");
+                set("base_unit", "æ ¹");
                 set("base_weight", 300);
                 set("base_value", 1000);
                 set("material", "iron");

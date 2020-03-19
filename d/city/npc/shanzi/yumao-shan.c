@@ -5,18 +5,18 @@ inherit DAGGER;
 
 void create()
 {
-        set_name(HIW "ÓğÃ«ÉÈ" NOR, ({ "yumao shan", "yumao", "shan" }));
+        set_name(HIW "ç¾½æ¯›æ‰‡" NOR, ({ "yumao shan", "yumao", "shan" }));
         set_weight(200);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "°Ñ");
-                set("long", HIW "ÕâÊÇÒ»°ÑÓÃÑ©°×É«µÄº×³áÓ²ôáÖÆ"
-                            "×÷µÄÓğÃ«ÉÈ¡£\n" NOR);
+                set("unit", "æŠŠ");
+                set("long", HIW "è¿™æ˜¯ä¸€æŠŠç”¨é›ªç™½è‰²çš„é¹¤ç¿…ç¡¬ç¿åˆ¶"
+                            "ä½œçš„ç¾½æ¯›æ‰‡ã€‚\n" NOR);
                 set("value", 1000);
                 set("material", "wood");
-                set("wield_msg", "$NÄÃÆğÒ»°Ñ$nÎÕÔÚÊÖÀï¡£\n");
-                set("unwield_msg", "$NºÏÉÏ$n£¬ÊÕ»Ø»³Àï¡£\n");
+                set("wield_msg", "$Næ‹¿èµ·ä¸€æŠŠ$næ¡åœ¨æ‰‹é‡Œã€‚\n");
+                set("unwield_msg", "$Nåˆä¸Š$nï¼Œæ”¶å›æ€€é‡Œã€‚\n");
         }
         init_dagger(15);
         setup();

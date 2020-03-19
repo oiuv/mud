@@ -3,20 +3,20 @@ inherit F_LIQUID;
 #include <ansi.h>
 void create()
 {
-        set_name(GRN"´Ö´ÉÍë"NOR, ({"wan"}));
+        set_name(GRN"ç²—ç“·ç¢—"NOR, ({"wan"}));
         set_weight(50);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»ÍëÈÈÆøÌÚÌÚµÄÖà¡£\n");
-                set("unit", "Íë");
+                set("long", "ä¸€ç¢—çƒ­æ°”è…¾è…¾çš„ç²¥ã€‚\n");
+                set("unit", "ç¢—");
                 set("value", 20);
                 set("max_liquid", 20);
     }
 
     set("liquid", ([
         "type": "water",
-        "name": "ÈÈÖà",
+        "name": "çƒ­ç²¥",
         "remaining": 20,
         "drunk_supply": 40,
     ]));

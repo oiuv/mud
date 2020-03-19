@@ -4,9 +4,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÇàÆìµÜ×Ó", ({ "qingqi dizi", "qingqi", "dizi" }));
-        set("long", "ÕâÊÇÈÕÔÂÉñ½ÌµÄÇàÆìµÜ×Ó¡£\n");
-        set("gender", "Å®ĞÔ");
+        set_name("é’æ——å¼Ÿå­", ({ "qingqi dizi", "qingqi", "dizi" }));
+        set("long", "è¿™æ˜¯æ—¥æœˆç¥æ•™çš„é’æ——å¼Ÿå­ã€‚\n");
+        set("gender", "å¥³æ€§");
         set("attitude", "peaceful");
 
         set("str", 30);
@@ -54,5 +54,5 @@ void greeting(object ob)
 {
         if (! ob || environment(ob) != environment()) return;
 
-	say(CYN "ÇàÆìµÜ×Ó¸ßÉùºôº°µÀ£ºÈÕÔÂÉñ½Ì£¬ÎÄ³ÉÎäµÂ¡£Ç§ÇïÍòÔØ£¬Ò»Í³½­ºş¡£\n" NOR);
+	say(CYN "é’æ——å¼Ÿå­é«˜å£°å‘¼å–Šé“ï¼šæ—¥æœˆç¥æ•™ï¼Œæ–‡æˆæ­¦å¾·ã€‚åƒç§‹ä¸‡è½½ï¼Œä¸€ç»Ÿæ±Ÿæ¹–ã€‚\n" NOR);
 }

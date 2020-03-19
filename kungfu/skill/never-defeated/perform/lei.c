@@ -1,4 +1,4 @@
-// lei.c Ìì´òÀ×Åü
+// lei.c å¤©æ‰“é›·åŠˆ
 
 #include <ansi.h>
 #include <combat.h>
@@ -14,23 +14,23 @@ int perform(object me, object target)
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-	        return notify_fail("Ìì´òÀ×ÅüÖ»ÄÜÔÚÕ½¶·ÖĞ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+	        return notify_fail("å¤©æ‰“é›·åŠˆåªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (me->query_skill("never-defeated", 1) < 150)
-		return notify_fail("ÄãµÄ²»°ÜÉñ¹¦»¹²»¹»æµÊì£¬²»ÄÜÊ¹ÓÃÌì´òÀ×Åü£¡\n");
+		return notify_fail("ä½ çš„ä¸è´¥ç¥åŠŸè¿˜ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸èƒ½ä½¿ç”¨å¤©æ‰“é›·åŠˆï¼\n");
 
         if (! objectp(weapon = me->query_temp("weapon")))
-                return notify_fail("Äã±ØĞëÊÖ³Ö±øÈĞ²ÅÄÜÊ©Õ¹Ìì´òÀ×Åü£¡\n");
+                return notify_fail("ä½ å¿…é¡»æ‰‹æŒå…µåˆƒæ‰èƒ½æ–½å±•å¤©æ‰“é›·åŠˆï¼\n");
 
 	if (me->query("neili") < 300)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIC "$N" HIC "´óºÈÒ»Éù£¬ÊÖÖĞµÄ" + weapon->name() +
-              HIC "³¤Åü¶øÏÂ£¬¿´ËÆ¼òµ¥£¬¾¹È»·â×¡ÁË$n"
-              HIC "ËùÓĞµÄÍËÂ·£¡\n" NOR;
+        msg = HIC "$N" HIC "å¤§å–ä¸€å£°ï¼Œæ‰‹ä¸­çš„" + weapon->name() +
+              HIC "é•¿åŠˆè€Œä¸‹ï¼Œçœ‹ä¼¼ç®€å•ï¼Œç«Ÿç„¶å°ä½äº†$n"
+              HIC "æ‰€æœ‰çš„é€€è·¯ï¼\n" NOR;
 
         ap = me->query_skill("never-defeated", 1);
         dp = target->query("combat_exp") / 10000;
@@ -40,19 +40,19 @@ int perform(object me, object target)
 	me->want_kill(target);
         if (dp >= 100)
         {
-                msg += HIY "$n" HIY "Ê¹³öÆ½ÉúËùÑ§£¬·ÜÁ¦»¯½â£¬Ã»³öÒ»µã²î´í¡£\n" NOR;
+                msg += HIY "$n" HIY "ä½¿å‡ºå¹³ç”Ÿæ‰€å­¦ï¼Œå¥‹åŠ›åŒ–è§£ï¼Œæ²¡å‡ºä¸€ç‚¹å·®é”™ã€‚\n" NOR;
         } else
         if (random(ap) > dp)
         {
-                msg += HIR "$n" HIR "Æ½ÉúºÎÔø¼û¹ıÕâÑùµÄÕĞÊı£¬È«È»ÎŞ·¨»¯½â£¬"
-                       HIR "¶ÙÊ±±»»÷ÖĞÊı´¦Òªº¦£¬ÍÇÈ»µ¹µØ£¡\n" NOR;
+                msg += HIR "$n" HIR "å¹³ç”Ÿä½•æ›¾è§è¿‡è¿™æ ·çš„æ‹›æ•°ï¼Œå…¨ç„¶æ— æ³•åŒ–è§£ï¼Œ"
+                       HIR "é¡¿æ—¶è¢«å‡»ä¸­æ•°å¤„è¦å®³ï¼Œé¢“ç„¶å€’åœ°ï¼\n" NOR;
                 message_combatd(msg, me, target);
                 target->die(me);
                 return 1;
         } else
         {
-                msg += HIM "$n" HIM "´ó³ÔÒ»¾ª£¬Á¬Ã¦ºúÂÒµÖµ²£¬¾Ó"
-                      "È»Ã»ÓĞÒ»µãÉËº¦£¬½ÄĞÒµÃÍÑ£¡\n" NOR;
+                msg += HIM "$n" HIM "å¤§åƒä¸€æƒŠï¼Œè¿å¿™èƒ¡ä¹±æŠµæŒ¡ï¼Œå±…"
+                      "ç„¶æ²¡æœ‰ä¸€ç‚¹ä¼¤å®³ï¼Œä¾¥å¹¸å¾—è„±ï¼\n" NOR;
         }
 
         message_combatd(msg, me, target);

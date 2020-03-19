@@ -22,7 +22,7 @@ int main(object me, string arg)
                 if (sscanf(site, "%*d.%*d.%*d.%*d") != 4 &&
                     sscanf(site, "%*d.%*d.%*d.*") != 3)
                 {
-                        write("ÄãÖ»ÄÜ½ûÖ¹Ò»¸öIPµØÖ·»òÊÇÒ»¸öCÀàÍø¶Î(?.?.?.*)µØÖ·¡£\n");
+                        write("ä½ åªèƒ½ç¦æ­¢ä¸€ä¸ªIPåœ°å€æˆ–æ˜¯ä¸€ä¸ªCç±»ç½‘æ®µ(?.?.?.*)åœ°å€ã€‚\n");
                         return 1;
                 }
 
@@ -32,7 +32,7 @@ int main(object me, string arg)
         if (sscanf(arg, "- %s", site) == 1)
 		BAN_D->remove_site(site);
 	else
-                write("Ö¸Áî¸ñÊ½£ºban [+|- site]\n");
+                write("æŒ‡ä»¤æ ¼å¼ï¼šban [+|- site]\n");
 
 	return 1;
 	
@@ -41,10 +41,10 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½£ºban [+|- site]
+æŒ‡ä»¤æ ¼å¼ï¼šban [+|- site]
 
-ÕâÌõÃüÁîÊÇÓÃÀ´·ÀÖ¹ÓĞÈËĞîÒâµ·ÂÒ¡£¿ÉÒÔÊäÈëban + ??.??.??.*À´½û
-Ö¹Ò»¸öCÀàÍø¶ÎµØÖ·¡£
+è¿™æ¡å‘½ä»¤æ˜¯ç”¨æ¥é˜²æ­¢æœ‰äººè“„æ„æ£ä¹±ã€‚å¯ä»¥è¾“å…¥ban + ??.??.??.*æ¥ç¦
+æ­¢ä¸€ä¸ªCç±»ç½‘æ®µåœ°å€ã€‚
 HELP );
 	return 1;
 }

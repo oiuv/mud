@@ -1,21 +1,21 @@
-// musword.c Ä¾½£
+// musword.c æœ¨å‰‘
 
 #include <weapon.h>
 inherit SWORD;
 
 void create()
 {
-        set_name("Ä¾½£", ({ "woodjian", "jian" }));
+        set_name("æœ¨å‰‘", ({ "woodjian", "jian" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", "ÕâÊÇÒ»±úÁ·¹¦ÓÃµÄÄ¾½££¬½£Í·ÊÇÆ½µÄ¡£\n");
+                set("unit", "æŸ„");
+                set("long", "è¿™æ˜¯ä¸€æŸ„ç»ƒåŠŸç”¨çš„æœ¨å‰‘ï¼Œå‰‘å¤´æ˜¯å¹³çš„ã€‚\n");
                 set("value", 100);
                 set("material", "wood");
-                set("wield_msg", "$N¡¸à§¡¹µÄÒ»Éù³é³öÒ»±ú$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»Ø½£ÇÊ¡£\n");
+                set("wield_msg", "$Nã€Œå”°ã€çš„ä¸€å£°æŠ½å‡ºä¸€æŸ„$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›å‰‘é˜ã€‚\n");
         }
         init_sword(5);
         setup();

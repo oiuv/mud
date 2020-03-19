@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "¶õÓãÌ¶ÖÐ");
+        set("short", "é„‚é±¼æ½­ä¸­");
         set("long", @LONG
-¶õÓãÌ¶ÖÐº®Ë®´Ì¹Ç£¬Éî²»¼ûµ×£¬Ì¶µ×Ë®Éùäýäý£¬ÁîÈËÃ«¹Ç
-ã¤È»¡£¿´À´ÒªÀë¿ªÕâÀïÖ»ÓÐÓÎ(swim)»Ø°¶±ß(bank)¡£
+é„‚é±¼æ½­ä¸­å¯’æ°´åˆºéª¨ï¼Œæ·±ä¸è§åº•ï¼Œæ½­åº•æ°´å£°æ½ºæ½ºï¼Œä»¤äººæ¯›éª¨
+æ‚šç„¶ã€‚çœ‹æ¥è¦ç¦»å¼€è¿™é‡Œåªæœ‰æ¸¸(swim)å›žå²¸è¾¹(bank)ã€‚
 LONG);
         set("objects", ([
                 "/clone/quarry/eyu" : 1 + random(6),
@@ -27,19 +27,19 @@ int do_swim(string arg)
         object ob;
 
         if (! arg || arg != "bank" )
-                return notify_fail("ÄãÒªÍùÄÄ¶ùÓÎ£¿\n");
+                return notify_fail("ä½ è¦å¾€å“ªå„¿æ¸¸ï¼Ÿ\n");
 
         if (! ob = find_object(__DIR__"eyutan1"))
                 ob = load_object(__DIR__"eyutan1");
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕýÃ¦×ÅÄØ£¡\n");
+                return notify_fail("ä½ çŽ°åœ¨æ­£å¿™ç€å‘¢ï¼\n");
 
         if (me->is_fighting())
-                return notify_fail("Äã»¹ÊÇÏÈ°ÑÄãÃæÇ°Õâ¸ö¼Ò»ï½â¾öÁËÔÙËµ¡£\n");
+                return notify_fail("ä½ è¿˜æ˜¯å…ˆæŠŠä½ é¢å‰è¿™ä¸ªå®¶ä¼™è§£å†³äº†å†è¯´ã€‚\n");
 
-        tell_object(me, HIY "ÄãÊ¹¾¡ËùÓÐÁ¦ÆøÏò°¶±ßÓÎÈ¥¡­\n" NOR);
-        tell_room(ob, HIC + me->name() + "ÓÎÁËÉÏÀ´¡£\n" NOR, me);
+        tell_object(me, HIY "ä½ ä½¿å°½æ‰€æœ‰åŠ›æ°”å‘å²¸è¾¹æ¸¸åŽ»â€¦\n" NOR);
+        tell_room(ob, HIC + me->name() + "æ¸¸äº†ä¸Šæ¥ã€‚\n" NOR, me);
         me->move(ob);
 
         return 1;

@@ -6,10 +6,10 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÂÀÕıÆ½", ({ "lu zhengping", "lu"}));
-	set("title", HIC "¿ìµ¶ÃÅÕÆÃÅÈË" NOR);
-	set("long", "Ö»¼ûËûÒ»ÕÅ¹ú×Ö·½Á³£¬ÈùÉÏÒ»²¿ò°÷×£¬½«´ó°ëÕÅÁ³¶¼ÕÚÃ»ÁË¡£\n");
-	set("gender", "ÄĞĞÔ");
+	set_name("å•æ­£å¹³", ({ "lu zhengping", "lu"}));
+	set("title", HIC "å¿«åˆ€é—¨æŒé—¨äºº" NOR);
+	set("long", "åªè§ä»–ä¸€å¼ å›½å­—æ–¹è„¸ï¼Œè…®ä¸Šä¸€éƒ¨è™¬é«¯ï¼Œå°†å¤§åŠå¼ è„¸éƒ½é®æ²¡äº†ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 41);
 	set("attitude", "peaceful");
 	set("shen_type", 1);

@@ -1,4 +1,4 @@
-// qianting.c ÅÌÁú¾ÓÇ°Í¥
+// qianting.c ç›˜é¾™å±…å‰åº­
 
 //** inherit PRIVATE_ROOM;
 inherit ROOM;                                   /* EXAMPLE */
@@ -7,16 +7,16 @@ void create()
 {
 //**    object ob;
 
-	set("short", "Ç°Í¥");             /* EXAMPLE */
-//**    set("short", "ROOM_NAMEÇ°Í¥");
+	set("short", "å‰åº­");             /* EXAMPLE */
+//**    set("short", "ROOM_NAMEå‰åº­");
 	set("long", @LONG
-ÕâÀïËÆºõ·Ç³£°²¾²£¬µ¹ÊÇÊ±²»Ê±Ìı¼ûÄñ¶ùßóßóÔûÔûµÄ½Ğ¡£ÔºÖĞ²»ÉÙÊ÷
-Ä¾ÒÑÈ»ÓĞÕÚÌìÖ®ÊÆ£¬ËàÄÂ·Ç³£¡£
+è¿™é‡Œä¼¼ä¹éå¸¸å®‰é™ï¼Œå€’æ˜¯æ—¶ä¸æ—¶å¬è§é¸Ÿå„¿å”§å”§å–³å–³çš„å«ã€‚é™¢ä¸­ä¸å°‘æ ‘
+æœ¨å·²ç„¶æœ‰é®å¤©ä¹‹åŠ¿ï¼Œè‚ƒç©†éå¸¸ã€‚
 LONG );
 
-	set("default_long", "ÕâÀïËÆºõ·Ç³£°²¾²£¬Ìı²»µ½Ê²Ã´ÉùÏì£¬µ½ÊÇÊ±²»" /* EXAMPLE */
-                            "Ê±Ìı¼ûÄñ¶ùßóßóÔûÔûµÄ½Ğ¡£ÔºÖĞ²»ÉÙÊ÷Ä¾ÒÑÈ»ÓĞ" /* EXAMPLE */
-                            "ÕÚÌìÖ®ÊÆ£¬ËàÄÂ·Ç³£¡£");                     /* EXAMPLE */
+	set("default_long", "è¿™é‡Œä¼¼ä¹éå¸¸å®‰é™ï¼Œå¬ä¸åˆ°ä»€ä¹ˆå£°å“ï¼Œåˆ°æ˜¯æ—¶ä¸" /* EXAMPLE */
+                            "æ—¶å¬è§é¸Ÿå„¿å”§å”§å–³å–³çš„å«ã€‚é™¢ä¸­ä¸å°‘æ ‘æœ¨å·²ç„¶æœ‰" /* EXAMPLE */
+                            "é®å¤©ä¹‹åŠ¿ï¼Œè‚ƒç©†éå¸¸ã€‚");                     /* EXAMPLE */
                                                                          /* EXAMPLE */
 
 	set("exits", ([
@@ -66,35 +66,35 @@ int do_push()
         object room;
 
         if (query("gate") == "open")
-                return notify_fail("´óÃÅ¿ª×ÅÄØ£¬Äã»¹ÍÆÊ²Ã´£¿\n");
+                return notify_fail("å¤§é—¨å¼€ç€å‘¢ï¼Œä½ è¿˜æ¨ä»€ä¹ˆï¼Ÿ\n");
 
         me = this_player();
         ob = present("saodi laopu", this_object());
         if (me && (! ob || ! living(ob) || ob->is_owner_permit(me)))
         {
-                message_vision("$NÓÃÁ¦Ò»ÍÆ´óÃÅ£¬¾ÍÌı¼û´óÃÅ¡°Ö¨Ñ½Ñ½¡±µÄ¿ªÁË¡£\n",
+                message_vision("$Nç”¨åŠ›ä¸€æ¨å¤§é—¨ï¼Œå°±å¬è§å¤§é—¨â€œå±å‘€å‘€â€çš„å¼€äº†ã€‚\n",
                                me);
         } else
         if (me && ! ob->is_owner(me))
         {
-                message_vision("$NÉìÊÖÀ¹×¡$n£¬¿Í¿ÍÆøÆøµÀ£º¡°¶Ô²»Æğ£¬ÕâÎ»" +
-                               RANK_D->query_respect(me) + "»¹ÊÇÇë»Ø"
-                               "°É£¡¡±\n", ob, me);
+                message_vision("$Nä¼¸æ‰‹æ‹¦ä½$nï¼Œå®¢å®¢æ°”æ°”é“ï¼šâ€œå¯¹ä¸èµ·ï¼Œè¿™ä½" +
+                               RANK_D->query_respect(me) + "è¿˜æ˜¯è¯·å›"
+                               "å§ï¼â€\n", ob, me);
                 return 1;
         } else
         if (ob && living(ob))
         {
-                message_vision("$nÁ¬Ã¦ÅÜÉÏÇ°À´£¬¶Ô$NµÀ£º¡°Ö÷ÈËºÎ±ØÇ×"
-                        "ÀÍ£¬ÎÒÀ´°É£¡¡±\n$n×ßÉÏÇ°È¥£¬ÓÃÁ¦½«´óÃÅ¡°Ö¨Ñ½"
-                        "Ñ½¡±µÄÍÆ¿ªÁË¡£\n", me, ob);
+                message_vision("$nè¿å¿™è·‘ä¸Šå‰æ¥ï¼Œå¯¹$Né“ï¼šâ€œä¸»äººä½•å¿…äº²"
+                        "åŠ³ï¼Œæˆ‘æ¥å§ï¼â€\n$nèµ°ä¸Šå‰å»ï¼Œç”¨åŠ›å°†å¤§é—¨â€œå±å‘€"
+                        "å‘€â€çš„æ¨å¼€äº†ã€‚\n", me, ob);
         } else
         {
-                message("vision",  "´óÃÅ¡°Ö¨Ñ½Ñ½¡±µÄ±»ÈË´ò¿ªÁË¡£\n",
+                message("vision",  "å¤§é—¨â€œå±å‘€å‘€â€çš„è¢«äººæ‰“å¼€äº†ã€‚\n",
                         this_object());
         }
 
         room = get_object(__DIR__"zoudao");
-        message("vision", "´óÃÅ¡°Ö¨Ñ½Ñ½¡±µÄ±»ÈËÍÆ¿ªÁË¡£\n", room);
+        message("vision", "å¤§é—¨â€œå±å‘€å‘€â€çš„è¢«äººæ¨å¼€äº†ã€‚\n", room);
         set("gate", "open");
         set("exits/north", __DIR__"zoudao");
         room->set("exits/south", __FILE__);
@@ -111,37 +111,37 @@ int do_close(string arg, int n)
         object room;
 
         if (query("gate") == "close")
-                return notify_fail("´óÃÅ¹Ø×ÅÄØ£¬Äã»¹ÔÙ¹ØÒ»±é£¿\n");
+                return notify_fail("å¤§é—¨å…³ç€å‘¢ï¼Œä½ è¿˜å†å…³ä¸€éï¼Ÿ\n");
 
         me = this_player();
         ob = present("saodi laopu", this_object());
         if (! n && me && (! ob || ! living(ob)))
         {
-                message_vision("$NÓÃÁ¦Ò»À­´óÃÅ£¬¾ÍÌı¼û´óÃÅ¡°Ö¨Ñ½Ñ½¡±µÄ¹ØÉÏÁË¡£\n",
+                message_vision("$Nç”¨åŠ›ä¸€æ‹‰å¤§é—¨ï¼Œå°±å¬è§å¤§é—¨â€œå±å‘€å‘€â€çš„å…³ä¸Šäº†ã€‚\n",
                                me);
         } else
         if (! n && me && ! ob->is_owner(me))
         {
-                message_vision("$N×ßÉÏÇ°È¥£¬ÓÃÁ¦ºÏÉÏ´óÃÅ¡£\n", me);
+                message_vision("$Nèµ°ä¸Šå‰å»ï¼Œç”¨åŠ›åˆä¸Šå¤§é—¨ã€‚\n", me);
         } else
         if (! n && me && ob->is_owner(me))
         {
-                message_vision("$nÁ¬Ã¦ÅÜÉÏÇ°À´£¬¶Ô$NµÀ£º¡°Ö÷ÈËºÎ±Ø"
-                        "Ç×ÀÍ£¬ÎÒÀ´°É£¡¡±\n$n×ßÉÏÇ°È¥£¬ÓÃÁ¦ºÏÉÏ´óÃÅ¡£\n",
+                message_vision("$nè¿å¿™è·‘ä¸Šå‰æ¥ï¼Œå¯¹$Né“ï¼šâ€œä¸»äººä½•å¿…"
+                        "äº²åŠ³ï¼Œæˆ‘æ¥å§ï¼â€\n$nèµ°ä¸Šå‰å»ï¼Œç”¨åŠ›åˆä¸Šå¤§é—¨ã€‚\n",
                         me, ob);
         } else
         if (ob && living(ob))
         {
-                message("vision", ob->name() + "×ßÉÏÇ°È¥£¬ÓÃÁ¦ºÏÉÏ´óÃÅ¡£\n",
+                message("vision", ob->name() + "èµ°ä¸Šå‰å»ï¼Œç”¨åŠ›åˆä¸Šå¤§é—¨ã€‚\n",
                         this_object());
         } else
         {
-                message("vision", "´óÃÅ¡°Ö¨Ñ½Ñ½¡±µÄ±»ÈË¹ØÉÏÁË¡£\n",
+                message("vision", "å¤§é—¨â€œå±å‘€å‘€â€çš„è¢«äººå…³ä¸Šäº†ã€‚\n",
                         this_object());
         }
 
         room = get_object(__DIR__"zoudao");
-        message("vision", "´óÃÅ¡°Ö¨Ñ½Ñ½¡±µÄ±»ÈË¹ØÉÏÁË¡£\n", room);
+        message("vision", "å¤§é—¨â€œå±å‘€å‘€â€çš„è¢«äººå…³ä¸Šäº†ã€‚\n", room);
         set("gate", "close");
         delete("exits/north");
         room->delete("exits/south");
@@ -154,12 +154,12 @@ string long()
         string msg;
         msg = "    ";
         if (present("lao jiaren"))
-                msg += "Ò»ÀÏ¼ÒÈËÂıÂıµÄ»ÓÎè×ÅÉ¨°Ñ£¬´òÉ¨×ÅÂäÒ¶¡£";
+                msg += "ä¸€è€å®¶äººæ…¢æ…¢çš„æŒ¥èˆç€æ‰«æŠŠï¼Œæ‰“æ‰«ç€è½å¶ã€‚";
 
         if (query("gate") != "open")
-                msg += "Ïò±±ÍûÈ¥£¬ÓĞÒ»ÉÈ´óÃÅ½ô½ôµÄ¹Ø±Õ×Å¡£";
+                msg += "å‘åŒ—æœ›å»ï¼Œæœ‰ä¸€æ‰‡å¤§é—¨ç´§ç´§çš„å…³é—­ç€ã€‚";
         else
-                msg += "´óÃÅ³©¿ª£¬Ô¶Ô¶ÍûÈ¥£¬ÒşÈ»¿É¼ûÓ­¿ÍÌü¡£";
+                msg += "å¤§é—¨ç•…å¼€ï¼Œè¿œè¿œæœ›å»ï¼Œéšç„¶å¯è§è¿å®¢å…ã€‚";
 
         return query("long") + sort_string(msg, 60, 0);
 }
@@ -174,17 +174,17 @@ int valid_leave(object me, string dir)
 
         if (ob->is_owner(me))
         {
-                message_vision("$NÍäÑü¶Ô$nµÀ£º¡°Çë½ø£¡¡±\n", ob, me);
+                message_vision("$Nå¼¯è…°å¯¹$né“ï¼šâ€œè¯·è¿›ï¼â€\n", ob, me);
                 return ::valid_leave(me, dir);
         }
 
         if (ob->is_owner_permit(me))
         {
-                message_vision("$N¶Ô$nµÀ£º¡°¼´È»ÊÇÖ÷ÈËµÄÅóÓÑ£¬µ«½øÎŞ·Á¡£¡±\n",
+                message_vision("$Nå¯¹$né“ï¼šâ€œå³ç„¶æ˜¯ä¸»äººçš„æœ‹å‹ï¼Œä½†è¿›æ— å¦¨ã€‚â€\n",
                                ob, me);
                 return ::valid_leave(me, dir);
         }
 
-        message_vision("$NÉìÊÖÀ¹×¡$n£¬µÀ£º¡°·ÇÇëÄªÈë£¡¡±\n", ob, me);
+        message_vision("$Nä¼¸æ‰‹æ‹¦ä½$nï¼Œé“ï¼šâ€œéè¯·è«å…¥ï¼â€\n", ob, me);
         return 0;
 }

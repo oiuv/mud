@@ -2,9 +2,9 @@
 inherit SKILL;
 
 string *dodge_msg = ({
-	"$nÉíÐÎ¼±×ª£¬±Ü¹ýÁË$NµÄ¹¥ÊÆ¡£\n",
-	"¿ÉÊÇ$n°ÎµØ¶øÆð£¬¶ã¹ýÁË$NÕâÒ»ÕÐ¡£\n",
-	"$n×÷ÉÁÓÒ±Ü£¬×ÜËã¶ã¹ýÁË$NÕâÒ»ÕÐ¡£\n",
+	"$nèº«å½¢æ€¥è½¬ï¼Œé¿è¿‡äº†$Nçš„æ”»åŠ¿ã€‚\n",
+	"å¯æ˜¯$næ‹”åœ°è€Œèµ·ï¼Œèº²è¿‡äº†$Nè¿™ä¸€æ‹›ã€‚\n",
+	"$nä½œé—ªå³é¿ï¼Œæ€»ç®—èº²è¿‡äº†$Nè¿™ä¸€æ‹›ã€‚\n",
 });
 
 int valid_enable(string usage) { return (usage == "dodge") || (usage == "move"); }
@@ -19,7 +19,7 @@ string query_dodge_msg(string limb)
 int practice_skill(object me)
 {
         if( (int)me->query("qi") < 50 )
-                return notify_fail("ÄãµÄÌåÁ¦Ì«²îÁË£¬ÎÞ·¨Á·Ï°Ê¥»ð²½·¨¡£\n");
+                return notify_fail("ä½ çš„ä½“åŠ›å¤ªå·®äº†ï¼Œæ— æ³•ç»ƒä¹ åœ£ç«æ­¥æ³•ã€‚\n");
 
         me->receive_damage("qi", 40);
         return 1;

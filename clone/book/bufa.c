@@ -3,13 +3,13 @@ inherit BOOK;
 
 void create()
 {
-	set_name( "ÒâĞÎ²½·¨",({ "bufa book","bufa","shu","book"}));
+	set_name( "æ„å½¢æ­¥æ³•",({ "bufa book","bufa","shu","book"}));
 	set_weight(200);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±¾");
-		set("long","ÕâÊÇÒ»±¾ÒâĞÎ²½²½·¨¡£\n");
+		set("unit", "æœ¬");
+		set("long","è¿™æ˜¯ä¸€æœ¬æ„å½¢æ­¥æ­¥æ³•ã€‚\n");
 		set("value", 5000);
 		set("material", "paper");
 		set("skill", ([

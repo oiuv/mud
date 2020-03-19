@@ -1,17 +1,17 @@
-// basi-shanyao.c °ÎË¿É½Ò©
+// basi-shanyao.c æ‹”ä¸å±±è¯
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-	set_name("°ÎË¿É½Ò©", ({"basi shanyao", "shanyao"}));
+	set_name("æ‹”ä¸å±±è¯", ({"basi shanyao", "shanyao"}));
 	set_weight(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»ÅèÉ«ÈôÃµ¹å£¬ÌğÄÛÏãÄÛµÄ°ÎË¿É½Ò©¡£\n");
-		set("unit", "Åè");
+		set("long", "ä¸€ç›†è‰²è‹¥ç«ç‘°ï¼Œç”œå«©é¦™å«©çš„æ‹”ä¸å±±è¯ã€‚\n");
+		set("unit", "ç›†");
 		set("value", 150);
 		set("food_remaining", 4);
 		set("food_supply", 40);

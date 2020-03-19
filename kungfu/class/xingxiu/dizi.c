@@ -3,8 +3,8 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("ĞÇËŞµÜ×Ó", ({ "xingxiu dizi", "dizi"}));
-        set("gender", "ÄĞĞÔ");
+        set_name("æ˜Ÿå®¿å¼Ÿå­", ({ "xingxiu dizi", "dizi"}));
+        set("gender", "ç”·æ€§");
         set("age", 16);
         set("attitude", "peaceful");
         set("class", "fighter");
@@ -48,7 +48,7 @@ void create()
         prepare_skill("strike", "chousui-zhang");
         prepare_skill("claw", "sanyin-wugongzhao");
 
-        create_family("ĞÇËŞÅÉ", 3, "µÜ×Ó");
+        create_family("æ˜Ÿå®¿æ´¾", 3, "å¼Ÿå­");
 
         set("coagents", ({
                 ([ "startroom" : "/d/xingxiu/riyuedong",

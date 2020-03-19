@@ -3,19 +3,19 @@ inherit __DIR__"pill";
 
 void create()
 {
-        set_name(NOR + RED "ÑªÆĞÌá" NOR, ({ "xue puti", "xue", "puti" }));
+        set_name(NOR + RED "è¡€è©æ" NOR, ({ "xue puti", "xue", "puti" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", RED "´ËÍòÄêÆĞÌáÊ÷Ö®Êµ£¬²É×ÔÁéÉ½·ğ×æ×ùÇ°£¬ÕäÏ¡ÎŞ±È¡£\n" NOR);
-                set("base_unit", "¿Å");
+                set("long", RED "æ­¤ä¸‡å¹´è©ææ ‘ä¹‹å®ï¼Œé‡‡è‡ªçµå±±ä½›ç¥–åº§å‰ï¼Œçç¨€æ— æ¯”ã€‚\n" NOR);
+                set("base_unit", "é¢—");
                 set("base_value", 5000);
                 set("base_weight", 50);
                 set("only_do_effect", 1);
                 set("pill_skill", "force");
                 set("force_point", 5);
-                set("pill_msg3", HIM "Äã¸Ğµ½ÄÚÁ¦ÓÖĞÛºñÁËÒ»Ğ©¡£\n" NOR);
-                set("pill_msg4", HIR "Äã¸Ğµ½ÄÚÏ¢ÅìÅÈ£¬ÄÑÒÔÎüÊÕÒ©Á¦¡£\n" NOR);
+                set("pill_msg3", HIM "ä½ æ„Ÿåˆ°å†…åŠ›åˆé›„åšäº†ä¸€äº›ã€‚\n" NOR);
+                set("pill_msg4", HIR "ä½ æ„Ÿåˆ°å†…æ¯æ¾æ¹ƒï¼Œéš¾ä»¥å¸æ”¶è¯åŠ›ã€‚\n" NOR);
         }
         setup();
 }

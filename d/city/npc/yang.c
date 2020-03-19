@@ -4,12 +4,12 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("ÑîÓÀ¸£", ({ "yang yongfu", "yang", "yongfu" }));
-        set("title", "ÔÓ»õÆÌÀÏ°å");
+        set_name("æ¨æ°¸ç¦", ({ "yang yongfu", "yang", "yongfu" }));
+        set("title", "æ‚è´§é“ºè€æ¿");
         set("shen_type", 1);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 45);
-        set("long", "ÑîÀÏ°åÊÇÍÁÉúÍÁ³¤µÄÑïÖİÈË£¬×öÁË¼¸Ê®ÄêµÄĞ¡ÂòÂô¡£\n");
+        set("long", "æ¨è€æ¿æ˜¯åœŸç”ŸåœŸé•¿çš„æ‰¬å·äººï¼Œåšäº†å‡ åå¹´çš„å°ä¹°å–ã€‚\n");
         set_skill("unarmed", 50);
         set_skill("dodge", 50);
         set_temp("apply/damage", 15);

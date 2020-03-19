@@ -6,14 +6,14 @@ inherit HEAD;
  
 void create()
 {
-	set_name("Ì¨ÒÄÍ·½í", ({ "tou jin" }) );
+	set_name("å°å¤·å¤´å·¾", ({ "tou jin" }) );
 	set_weight(2000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
 		set("material", "steel");
-		set("unit", "Ìõ");
-		set("long", "ÕâÊÇÒ»ÌõÌ¨ÒÄÍ·½í£¬ÓÃÒÔ²øÈÆÍ·²¿¡£\n");
+		set("unit", "æ¡");
+		set("long", "è¿™æ˜¯ä¸€æ¡å°å¤·å¤´å·¾ï¼Œç”¨ä»¥ç¼ ç»•å¤´éƒ¨ã€‚\n");
 		set("value", 1500);
 		set("armor_prop/dodge", -5);
 	}

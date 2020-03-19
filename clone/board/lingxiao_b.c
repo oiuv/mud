@@ -2,10 +2,10 @@ inherit BULLETIN_BOARD;
 
 void create()
 {
-        set_name("ÁèÏö³ÇµÜ×ÓÁôÑÔ°å", ({ "board" }) );
+        set_name("å‡Œéœ„åŸå¼Ÿå­ç•™è¨€æ¿", ({ "board" }) );
         set("location", "/d/lingxiao/dadian");
         set("board_id", "lingxiao_b");
-        set("long", "ÕâÊÇÒ»¸ö¹©ÁèÏö³ÇµÜ×Ó½»Á÷µÄÁôÑÔ°å¡£\n" );
+        set("long", "è¿™æ˜¯ä¸€ä¸ªä¾›å‡Œéœ„åŸå¼Ÿå­äº¤æµçš„ç•™è¨€æ¿ã€‚\n" );
         setup();
         set("capacity", 100);
         replace_program(BULLETIN_BOARD);

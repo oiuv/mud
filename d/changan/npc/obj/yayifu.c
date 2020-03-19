@@ -6,16 +6,16 @@ inherit CLOTH;
 
 void create()
 {
-        set_name("ÑÃÒÛ·ş", ({"yayi fu", "cloth"}));
+        set_name("è¡™å½¹æœ", ({"yayi fu", "cloth"}));
         set_weight(2000);
         if (clonep())
         	set_default_object(__FILE__);
         else 
 	{
 		set("long",
-        	"Ò»¼şºÚÉ«¶Ì×°£¬Ç¶ÒÔºì±ß£¬ÊÇ³¤°²¸®µÄÑÃÒÛ´©µÄ£®\n");
+        	"ä¸€ä»¶é»‘è‰²çŸ­è£…ï¼ŒåµŒä»¥çº¢è¾¹ï¼Œæ˜¯é•¿å®‰åºœçš„è¡™å½¹ç©¿çš„ï¼\n");
         	set("material", "cloth");
-        	set("unit", "¼ş");
+        	set("unit", "ä»¶");
         	set("value", 500);
         	set("armor_prop/armor", 10);
 	}

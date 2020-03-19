@@ -5,18 +5,18 @@ inherit CLUB;
 
 void create()
 {
-	set_name("Èı¹É²æ", ({ "sangu cha" }));
+	set_name("ä¸‰è‚¡å‰", ({ "sangu cha" }));
 	set_weight(5000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¸Ë");
-		set("long", "ÕâÊÇÒ»¸ËÈı¼â¿ªÈĞµÄÈı¹É²æ¡£\n");
+		set("unit", "æ†");
+		set("long", "è¿™æ˜¯ä¸€æ†ä¸‰å°–å¼€åˆƒçš„ä¸‰è‚¡å‰ã€‚\n");
 		set("value", 1500);
 		set("rigidity",100);
 		set("material", "steel");
-		set("wield_msg", "$N³¸³öÒ»¸Ë$nÎÕÔÚÊÖÖĞ¡£\n");
-		set("unwield_msg", "$N½«ÊÖÖĞµÄ$n·´±ğÉíºó¡£\n");
+		set("wield_msg", "$Næ£å‡ºä¸€æ†$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+		set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$nååˆ«èº«åã€‚\n");
 	}
   	init_club(15);
 	setup();

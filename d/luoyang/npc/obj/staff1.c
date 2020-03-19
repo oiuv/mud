@@ -4,12 +4,12 @@ inherit STAFF;
 
 void create()
 {
-        set_name(HIY "³à½ğÕÈ" NOR, ({ "chijin zhang", "chijin", "staff", "zhang" }));
+        set_name(HIY "èµ¤é‡‘æ–" NOR, ({ "chijin zhang", "chijin", "staff", "zhang" }));
         set_weight(5000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
+                set("unit", "æ ¹");
                 set("value", 200000);
                 set("material", "steel");
         }

@@ -3,27 +3,27 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÌÒÔ°Àé°Ê");
+        set("short", "æ¡ƒå›­ç¯±ç¬†");
         set("long", @LONG
-Äã×ßÔÚÒ»ÌõÍ¨ÍùÌÒÊ÷ÁÖÉî´¦µÄÐ¡µÀÉÏ£¬ËÄÖÜ·Ç³£°²¾²£¬¾°
-É«âùÈË¡£Ç°ÃæÓÐ¸öÀé°Ê(fence)ÃÅ¡£
+ä½ èµ°åœ¨ä¸€æ¡é€šå¾€æ¡ƒæ ‘æž—æ·±å¤„çš„å°é“ä¸Šï¼Œå››å‘¨éžå¸¸å®‰é™ï¼Œæ™¯
+è‰²æ€¡äººã€‚å‰é¢æœ‰ä¸ªç¯±ç¬†(fence)é—¨ã€‚
 LONG );
         set("outdoors", "wudang");
         set("item_desc",([
                 "fence" : WHT "\n\n"
-                          "\t¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡¡" HIM "Ó¦Á¯åì³ÝÓ¡²ÔÌ¦" NOR + WHT "¡¡¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡¡" HIM "Ð¡¿Û²ñìé¾Ã²»¿ª" NOR + WHT "¡¡¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡¡" HIM "´ºÉ«ÂúÔ°¹Ø²»×¡" NOR + WHT "¡¡¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡¡" HIM "Ò»Ö¦ºìÐÓ³öÇ½À´" NOR + WHT "¡¡¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-                          "\t¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n\n\n" NOR,
+                          "\tâ€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n"
+                          "\tâ€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n"
+                          "\tâ€»â€»â€»ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€â€»â€»â€»\n"
+                          "\tâ€»â€»â€»ã€€" HIM "åº”æ€œå±é½¿å°è‹è‹”" NOR + WHT "ã€€â€»â€»â€»\n"
+                          "\tâ€»â€»â€»ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€â€»â€»â€»\n"
+                          "\tâ€»â€»â€»ã€€" HIM "å°æ‰£æŸ´æ‰‰ä¹…ä¸å¼€" NOR + WHT "ã€€â€»â€»â€»\n"
+                          "\tâ€»â€»â€»ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€â€»â€»â€»\n"
+                          "\tâ€»â€»â€»ã€€" HIM "æ˜¥è‰²æ»¡å›­å…³ä¸ä½" NOR + WHT "ã€€â€»â€»â€»\n"
+                          "\tâ€»â€»â€»ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€â€»â€»â€»\n"
+                          "\tâ€»â€»â€»ã€€" HIM "ä¸€æžçº¢æå‡ºå¢™æ¥" NOR + WHT "ã€€â€»â€»â€»\n"
+                          "\tâ€»â€»â€»ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€â€»â€»â€»\n"
+                          "\tâ€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n"
+                          "\tâ€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n\n\n" NOR,
         ]));
         set("exits", ([
                 "south" : __DIR__"tyroad10",

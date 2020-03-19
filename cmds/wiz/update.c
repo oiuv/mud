@@ -22,7 +22,7 @@ int main(object me, string file)
 
 	if (! file) file = me->query("cwf");
 	if (! file)
-		return notify_fail("ÄãÒªÖØĞÂ±àÒëÊ²÷áµµ°¸£¿\n");
+		return notify_fail("ä½ è¦é‡æ–°ç¼–è¯‘ä»€éº½æ¡£æ¡ˆï¼Ÿ\n");
 
 	if ((obj = present(file, environment(me))) && playerp(obj))
 		return update_player(obj);
@@ -36,7 +36,7 @@ int main(object me, string file)
 	}
 
 	if (file_size(file) == -1)
-		return notify_fail("Ã»ÓĞÕâ¸öµµ°¸¡£\n");
+		return notify_fail("æ²¡æœ‰è¿™ä¸ªæ¡£æ¡ˆã€‚\n");
 
 	me->set("cwf", file);
 
@@ -45,13 +45,13 @@ int main(object me, string file)
 		if (obj == environment(me))
 		{
 			if (file_name(obj) == VOID_OB)
-				return notify_fail("Äã²»ÄÜÔÚ VOID_OB ÀïÖØĞÂ±àÒë VOID_OB¡£\n");
+				return notify_fail("ä½ ä¸èƒ½åœ¨ VOID_OB é‡Œé‡æ–°ç¼–è¯‘ VOID_OBã€‚\n");
 			inv = all_inventory(obj);
 			i = sizeof(inv);
 			while (i--)
 				if (playerp(inv[i]) || inv[i]->is_chatter() ||
                                     inv[i]->query_temp("owner"))
-                                        // Íæ¼Ò¡¢ÁÄÌì»êÆÇ¡¢ÓĞÖ÷µÄÎïÆ·»òÈËÎï
+                                        // ç©å®¶ã€èŠå¤©é­‚é­„ã€æœ‰ä¸»çš„ç‰©å“æˆ–äººç‰©
 					inv[i]->move(VOID_OB, 1);
 				else    inv[i] = 0;
 		}
@@ -59,9 +59,9 @@ int main(object me, string file)
                 if (obj == find_object(VERSION_D) &&
                     VERSION_D->is_release_server())
                 {
-                        // Èç¹ûÊÇ°æ±¾·¢²¼µÄ·şÎñÆ÷£¬ÔòÉ¾³ı
-                        // VERSION_D µÄ bin ´úÂë£¬ÒòÎªÔÚÃ»ÓĞ
-                        // VERSION_D µÄÊ±ºò driver ÊÇ²»Óè±àÒëµÄ¡£
+                        // å¦‚æœæ˜¯ç‰ˆæœ¬å‘å¸ƒçš„æœåŠ¡å™¨ï¼Œåˆ™åˆ é™¤
+                        // VERSION_D çš„ bin ä»£ç ï¼Œå› ä¸ºåœ¨æ²¡æœ‰
+                        // VERSION_D çš„æ—¶å€™ driver æ˜¯ä¸äºˆç¼–è¯‘çš„ã€‚
 			bin_file = "/binaries" + base_name(obj) + ".b";
 			write("Remove: " + bin_file + "\n");
                         rm(bin_file);
@@ -70,15 +70,15 @@ int main(object me, string file)
 		destruct(obj);
 	}
 
-	if (obj) return notify_fail("ÎŞ·¨Çå³ı¾É³ÌÊ½Âë¡£\n");
+	if (obj) return notify_fail("æ— æ³•æ¸…é™¤æ—§ç¨‹å¼ç ã€‚\n");
 
-        write("ÖØĞÂ±àÒë " + file + "£º");
+        write("é‡æ–°ç¼–è¯‘ " + file + "ï¼š");
 	err = catch(call_other(file, "???"));
 	if (err)
-		write(sprintf( "·¢Éú´íÎó£º\n%s\n", err));
+		write(sprintf( "å‘ç”Ÿé”™è¯¯ï¼š\n%s\n", err));
 	else
 	{
-		write("³É¹¦£¡\n");
+		write("æˆåŠŸï¼\n");
 		if ((i = sizeof(inv)) && (obj = find_object(file)))
 			while (i--)
 				if (inv[i]) inv[i]->move(obj, 1);
@@ -95,7 +95,7 @@ int update_player(object me)
         int i;
 
 	if (me->is_chatter())
-		return notify_fail("Äã²»ÄÜ¸üĞÂÁÄÌìID¡£\n");
+		return notify_fail("ä½ ä¸èƒ½æ›´æ–°èŠå¤©IDã€‚\n");
 
         seteuid(getuid());
 	env = environment(me);
@@ -108,7 +108,7 @@ int update_player(object me)
                 link_ob->set("id", me->query("id"));
                 if (! link_ob->restore())
                 {
-                        write("ÕÒ²»µ½¸ÃÍæ¼ÒµÄ´æÅÌÊı¾İ¡£\n");
+                        write("æ‰¾ä¸åˆ°è¯¥ç©å®¶çš„å­˜ç›˜æ•°æ®ã€‚\n");
                         return 1;
                 }
 		if (interactive(me))
@@ -117,8 +117,8 @@ int update_player(object me)
 
         if (link_ob->query("id") != getuid(me))
         {
-                write (sprintf("Á¬½Ó¶ÔÏóµÄID(%s)ºÍÓÃ»§µÄID(%s)²»ÏàÍ¬£¬²»ÄÜ"
-                       "¸üĞÂ¸ÃÍæ¼Ò¡£\n", link_ob->query("id"), getuid(me)));
+                write (sprintf("è¿æ¥å¯¹è±¡çš„ID(%s)å’Œç”¨æˆ·çš„ID(%s)ä¸ç›¸åŒï¼Œä¸èƒ½"
+                       "æ›´æ–°è¯¥ç©å®¶ã€‚\n", link_ob->query("id"), getuid(me)));
                 return 1;
         }
 
@@ -143,7 +143,7 @@ int update_player(object me)
         for (i = 0; i < sizeof(dob); i++)
                 destruct(dob[i]);
 
-	write("ÉíÌå¸üĞÂÍê±Ï¡£\n\n");
+	write("èº«ä½“æ›´æ–°å®Œæ¯•ã€‚\n\n");
 	obj->move(env);
         ob->move(obj);
 
@@ -165,11 +165,11 @@ int update_player(object me)
 int help(object me)
 {
   write(@HELP
-Ö¸Áî¸ñÊ½ : update <µµÃû|here|me|Íæ¼ÒÃû>
+æŒ‡ä»¤æ ¼å¼ : update <æ¡£å|here|me|ç©å®¶å>
  
-Õâ¸öÖ¸Áî¿ÉÒÔ¸üĞÂµµ°¸, ²¢½«ĞÂµµµÄÄÚÈİÔØÈë¼ÇÒäÌåÄÚ. ÈôÄ¿±êÎª
-'here' Ôò¸üĞÂËùÔÚ»·¾³. ÈôÄ¿±êÎª 'me' Ôò¸üĞÂ×Ô¼ºµÄÈËÎï. ÈôÄ¿
-±êÎªÍæ¼ÒÔò¿É¸üĞÂÍæ¼ÒÎï¼ş.
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥æ›´æ–°æ¡£æ¡ˆ, å¹¶å°†æ–°æ¡£çš„å†…å®¹è½½å…¥è®°å¿†ä½“å†…. è‹¥ç›®æ ‡ä¸º
+'here' åˆ™æ›´æ–°æ‰€åœ¨ç¯å¢ƒ. è‹¥ç›®æ ‡ä¸º 'me' åˆ™æ›´æ–°è‡ªå·±çš„äººç‰©. è‹¥ç›®
+æ ‡ä¸ºç©å®¶åˆ™å¯æ›´æ–°ç©å®¶ç‰©ä»¶.
  
 HELP
     );

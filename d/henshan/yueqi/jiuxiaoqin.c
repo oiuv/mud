@@ -6,16 +6,16 @@ inherit MI_QIN;
 
 void create()
 {
-        set_name(MAG "¾ÅÏö»·Åå¡¤ÌÆ³¯" NOR, ({ "jiuxiao qin", "jiuxiao", "qin" }));
+        set_name(MAG "ä¹éœ„ç¯ä½©Â·å”æœ" NOR, ({ "jiuxiao qin", "jiuxiao", "qin" }));
         set_weight(600);
 
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-                set("unit", "°Ñ");
-                set("long", MAG "ÕâÊÇÀúÊ·×îÓÆ¾ÃµÄ´«ÊÀÖ®ÇÙ£¬Ê¢ÌÆ¿ªÔªÖ®Æ÷¡£\n"
-                                "´ËÇÙĞÎÌå±¥Âú£¬ÉÏ÷Û×ÏÆá£¬¼äÔÓÖìÉ°ºó²¹Ö®  \n"
-                                "É«£¬¹óÔÚÉùĞÎ¾ã¼Ñ£¬Îª´«ÊÀÖ®Æ÷µÄ¼«Æ·¡£\n" NOR);
+                set("unit", "æŠŠ");
+                set("long", MAG "è¿™æ˜¯å†å²æœ€æ‚ ä¹…çš„ä¼ ä¸–ä¹‹ç´ï¼Œç››å”å¼€å…ƒä¹‹å™¨ã€‚\n"
+                                "æ­¤ç´å½¢ä½“é¥±æ»¡ï¼Œä¸Šé«¹ç´«æ¼†ï¼Œé—´æ‚æœ±ç ‚åè¡¥ä¹‹  \n"
+                                "è‰²ï¼Œè´µåœ¨å£°å½¢ä¿±ä½³ï¼Œä¸ºä¼ ä¸–ä¹‹å™¨çš„æå“ã€‚\n" NOR);
 
 		set("value", 400000);
 		set("material", "wood");

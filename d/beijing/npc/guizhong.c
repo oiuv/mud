@@ -3,11 +3,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("¹éÖÓ", ({ "gui zhong", "gui" }));
-        set("title", "¹éÐÁÊ÷Ö®×Ó");
-        set("long", "Ò»¸öðì²¡¹í£¬²»×¡µÄ¿ÈËÔ£¬ÉñÇéÈ´ÓÖÓÌÈçÐ¡º¢×ÓÒ»\n"
-                    "°ã£¬Ëû±ãÊÇ¹éÐÁÊ÷Ö®×Ó¡ª¹éÖÓ£¬´ÓÐ¡±ãÌåÈõ¶à²¡¡£\n");
-        set("gender", "ÄÐÐÔ");
+        set_name("å½’é’Ÿ", ({ "gui zhong", "gui" }));
+        set("title", "å½’è¾›æ ‘ä¹‹å­");
+        set("long", "ä¸€ä¸ªç—¨ç—…é¬¼ï¼Œä¸ä½çš„å’³å—½ï¼Œç¥žæƒ…å´åˆçŠ¹å¦‚å°å­©å­ä¸€\n"
+                    "èˆ¬ï¼Œä»–ä¾¿æ˜¯å½’è¾›æ ‘ä¹‹å­â€”å½’é’Ÿï¼Œä»Žå°ä¾¿ä½“å¼±å¤šç—…ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 34);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -49,12 +49,12 @@ void create()
 
         set("chat_chance", 20);
         set("chat_msg", ({
-                CYN "¹éÖÓÇáÇáµØ¿ÈËÔÁË¼¸Éù¡£\n" NOR,
-                CYN "¹éÖÓ¿ÈËÔÁË¼¸Éù£¬Ò»ÕÅÁ³ÕÇµÃÍ¨ºì¡£\n" NOR,
+                CYN "å½’é’Ÿè½»è½»åœ°å’³å—½äº†å‡ å£°ã€‚\n" NOR,
+                CYN "å½’é’Ÿå’³å—½äº†å‡ å£°ï¼Œä¸€å¼ è„¸æ¶¨å¾—é€šçº¢ã€‚\n" NOR,
         }) );       
 
 
-        create_family("»ªÉ½ÅÉ", 32, "µÜ×Ó");
+        create_family("åŽå±±æ´¾", 32, "å¼Ÿå­");
 
         set("chat_chance_combat", 60);
         set("chat_msg_combat", ({
@@ -75,8 +75,8 @@ void kill_ob (object ob)
   	::kill_ob(ob);
   	if (guard && !guard->is_fighting())
    	{
-        	message_vision (HIR "$N" HIR "´óÅ­£º¸óÏÂÆÛÈËÌ«"
-                                "Éõ£¬±ð¹ÖÎÒÎÞÇé£¡\n" NOR, guard);
+        	message_vision (HIR "$N" HIR "å¤§æ€’ï¼šé˜ä¸‹æ¬ºäººå¤ª"
+                                "ç”šï¼Œåˆ«æ€ªæˆ‘æ— æƒ…ï¼\n" NOR, guard);
         	guard->kill_ob(ob);
    	}
 }

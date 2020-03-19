@@ -4,15 +4,15 @@ inherit NPC;
 
 void create()
 {
-        set_name("À´¸£¶ù", ({ "lai fuer","lai" }) );
-        set("gender", "ÄĞĞÔ" );
+        set_name("æ¥ç¦å„¿", ({ "lai fuer","lai" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 45);
         set("str", 16);
         set("con", 24);
         set("dex", 21);
         set("per", 17);
         set("int", 14);
-        set("long", "À´¸£¶ùÊÇÍò½Ù¹ÈµÄÏÂÈË¡£\n");
+        set("long", "æ¥ç¦å„¿æ˜¯ä¸‡åŠ«è°·çš„ä¸‹äººã€‚\n");
         set("attitude", "friendly");
 
         set("max_force", 200);

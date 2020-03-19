@@ -3,8 +3,8 @@ inherit NPC;
 
 void create()
 {
-        set_name("½øÏã¿Í", ({ "jinxiang ke", "jinxiang", "ke" }) );
-        set("gender", "ÄĞĞÔ" );
+        set_name("è¿›é¦™å®¢", ({ "jinxiang ke", "jinxiang", "ke" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 32);
         set("shen_type", 1);
         set("combat_exp", 10000);
@@ -17,7 +17,7 @@ void create()
         set_skill("unarmed", 20);
         set("chat_chance", 2);
         set("chat_msg", ({
-                CYN "½øÏã¿ÍÇáÇá¿ÈËÔÁËÒ»Éù¡£\n" NOR,
+                CYN "è¿›é¦™å®¢è½»è½»å’³å—½äº†ä¸€å£°ã€‚\n" NOR,
         }) );       
 
         setup();

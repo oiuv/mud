@@ -1,4 +1,4 @@
-//ĞÂÔöºïÈ­Ò»¸öÁ¬ÕĞpfm
+//æ–°å¢çŒ´æ‹³ä¸€ä¸ªè¿æ‹›pfm
 #include <ansi.h>
 #include <combat.h>
 inherit F_SSERVER;
@@ -9,39 +9,39 @@ int perform(object me, object target)
 	int i, n;
 //	object weapon;
 	string *msgs = ({ 
-			"Ğ¦ÎÊÆß½£Ò»Ö¸ÏÉ£¡",
-			"Ò¶Âä·ãÎè¶ş´©É½£¡",
-			"ĞäÀï·çÔÆÈıµãÍ·£¡",
-			"»ØÊ×Ì«°×ËÄÆøµ¶£¡",
-			"»¯ÔÂ¹ÂĞÄÎå¿´µØ£¡",
-			"Ã£Ã£ÇïË®Áù»ÄÌì£¡",
-			"Ğ¦ÎÊÒ¶Âä¿´·çÔÆ£¡",
-			"»ØÊ×»¯ÔÂÍûÇïË®£¡",}); 
+			"ç¬‘é—®ä¸ƒå‰‘ä¸€æŒ‡ä»™ï¼",
+			"å¶è½æ«èˆäºŒç©¿å±±ï¼",
+			"è¢–é‡Œé£äº‘ä¸‰ç‚¹å¤´ï¼",
+			"å›é¦–å¤ªç™½å››æ°”åˆ€ï¼",
+			"åŒ–æœˆå­¤å¿ƒäº”çœ‹åœ°ï¼",
+			"èŒ«èŒ«ç§‹æ°´å…­è’å¤©ï¼",
+			"ç¬‘é—®å¶è½çœ‹é£äº‘ï¼",
+			"å›é¦–åŒ–æœˆæœ›ç§‹æ°´ï¼",}); 
 	n = 2 + random(me->query_skill("mizong-houquan", 1) / 40);
 	if (n > 8) n = 8;
 	
 	if (me->is_busy())
-		return notify_fail("ÄãÏÖÔÚÃ»¿Õ£¡£¡\n");
+		return notify_fail("ä½ ç°åœ¨æ²¡ç©ºï¼ï¼\n");
 	
 	if ((int)me->query_skill("mizong-houquan", 1) < 200)
-		return notify_fail("ÄãµÄºïÈ­²»¹»æµÊì!\n");
+		return notify_fail("ä½ çš„çŒ´æ‹³ä¸å¤Ÿå¨´ç†Ÿ!\n");
 	
 	if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-		return notify_fail("¡¸ÆÆ¸ª³ÁÖÛ¡¹Ö»ÄÜ¿ÕÊÖÊ¹ÓÃ¡£\n");		
+		return notify_fail("ã€Œç ´é‡œæ²‰èˆŸã€åªèƒ½ç©ºæ‰‹ä½¿ç”¨ã€‚\n");		
 
 	if (!target ) target = offensive_target(me);
 	
 	if (!target || !target->is_character() || !me->is_fighting(target))
-		return notify_fail("£ÛÆÆ¸ª³ÁÖÛ£İÖ»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ï¼»ç ´é‡œæ²‰èˆŸï¼½åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 	
 	if ((int)me->query("neili", 1) < 500)
-		return notify_fail("ÄãÏÖÔÚÄÚÁ¦Ì«Èõ£¬²»ÄÜÊ¹ÓÃ¡¸ÆÆ¸ª³ÁÖÛ¡¹¡£\n");
+		return notify_fail("ä½ ç°åœ¨å†…åŠ›å¤ªå¼±ï¼Œä¸èƒ½ä½¿ç”¨ã€Œç ´é‡œæ²‰èˆŸã€ã€‚\n");
 	
 	if (me->query_skill_prepared("unarmed") ||
 		me->query_skill_prepared("strike"))
 			n -= 3;
 		
-	msg = HIY  "$NÊ¹³ö¶À²½ÌìÏÂµÄ£ÛÃÔ×ÙºïÈ­£İ£¬Ò»ÕĞ[ÆÆ¸ª³ÁÖÛ]´ò³öÁËµÚÒ»Ê½£¡\n" NOR;
+	msg = HIY  "$Nä½¿å‡ºç‹¬æ­¥å¤©ä¸‹çš„ï¼»è¿·è¸ªçŒ´æ‹³ï¼½ï¼Œä¸€æ‹›[ç ´é‡œæ²‰èˆŸ]æ‰“å‡ºäº†ç¬¬ä¸€å¼ï¼\n" NOR;
 	message_combatd(msg, me, target);
 	
 	for (i = 1; i < n; i++)
@@ -49,7 +49,7 @@ int perform(object me, object target)
 		me->add_temp("apply/attack", i * 50);
         me->add_temp("apply/unarmed_damage", i * 10);
 		msg = msgs[random(sizeof(msgs))];
-		msg = HIC "\nµÚ" + chinese_number(i) + "ÕĞ---" + msg + NOR;
+		msg = HIC "\nç¬¬" + chinese_number(i) + "æ‹›---" + msg + NOR;
 		message_vision(msg, me, target);
 		COMBAT_D->do_attack(me, target);
 		me->add_temp("apply/attack", -i * 50);

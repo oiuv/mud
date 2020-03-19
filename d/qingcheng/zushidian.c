@@ -4,10 +4,10 @@
 inherit ROOM;
 void create()
 {
-	set("short", "��ʦ��");
+	set("short", "祖师殿");
 	set("long", @LONG
-��ʦ���������乬����ʦ�����ԯ�壬�������Ϫ��ʮ����
-�ġ���������̨���ഫΪ�Ƶ��ڵ�����
+祖师殿又名真武宫。祖师殿背靠轩辕峰，面向白云溪，十分清
+幽。附近轩皇台，相传为黄帝授道处。
 LONG );
 	set("exits", ([
 		"eastup"    : __DIR__"chaoyangdong",

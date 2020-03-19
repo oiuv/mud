@@ -8,9 +8,9 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("¾²ºÍÊ¦Ì«", ({ "jinghe shitai","jinghe","shitai"}));
-        set("long", "ËýÊÇÒ»Î»ÖÐÄê³ö¼ÒµÀ¹Ã£¬µÀ¹Ú¸ßÂ££¬´ÈÃ¼ÉÆÄ¿¡£\n");
-        set("gender", "Å®ÐÔ");
+        set_name("é™å’Œå¸ˆå¤ª", ({ "jinghe shitai","jinghe","shitai"}));
+        set("long", "å¥¹æ˜¯ä¸€ä½ä¸­å¹´å‡ºå®¶é“å§‘ï¼Œé“å† é«˜æ‹¢ï¼Œæ…ˆçœ‰å–„ç›®ã€‚\n");
+        set("gender", "å¥³æ€§");
         set("age", 45);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -62,10 +62,10 @@ void create()
         prepare_skill("finger", "tiangang-zhi");
 
         set("no_teach", ([
-                "linji-zhuang" : "ÁÙ¼ÃÊ®¶þ×¯ÐèµÃÎÒÊ¦¸¸Ãð¾øÊ¦Ì«Ç××Ô´«ÊÚ¡£",
+                "linji-zhuang" : "ä¸´æµŽåäºŒåº„éœ€å¾—æˆ‘å¸ˆçˆ¶ç­ç»å¸ˆå¤ªäº²è‡ªä¼ æŽˆã€‚",
         ]));
 
-        create_family("¶ëáÒÅÉ", 4, "µÜ×Ó");
+        create_family("å³¨åµ‹æ´¾", 4, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -89,17 +89,17 @@ void attempt_apprentice(object ob)
         if ((int)ob->query("shen") < 1000)
         {
                 command("say " + RANK_D->query_respect(ob) +
-                        "ÄãÐÐÏÀÕÌÒåÖ®ÊÂ»¹×öµÄ²»¹»¡£");
+                        "ä½ è¡Œä¾ ä»—ä¹‰ä¹‹äº‹è¿˜åšçš„ä¸å¤Ÿã€‚");
                 return;
         }
 
         if ((int)ob->query_skill("mahayana",1) < 50)
         {
-                command("say Äã´ó³ËÄùÅÍ¹¦µÄÐÞÎª»¹²»¹»£¬Ìá¸ßÐ©ÔÙÀ´°É¡£");
+                command("say ä½ å¤§ä¹˜æ¶…ç£åŠŸçš„ä¿®ä¸ºè¿˜ä¸å¤Ÿï¼Œæé«˜äº›å†æ¥å§ã€‚");
                 return;
         }
 
-        command("say °¢ÃÖÍÓ·ð£¬ÉÆÔÕ£¡ÉÆÔÕ£¡ºÃ°É£¬ÎÒ¾ÍÊÕÏÂÄãÁË¡£");
-        command("say Ï£ÍûÄãÄÜÒÔ´È±¯Ö®ÐÄ£¬ÒÔÖÇ»ÛÖ®Á¦£¬Å¬Á¦ÐÐÉÆ£¬¼Ã¶ÈÖÚÉú¡£");
+        command("say é˜¿å¼¥é™€ä½›ï¼Œå–„å“‰ï¼å–„å“‰ï¼å¥½å§ï¼Œæˆ‘å°±æ”¶ä¸‹ä½ äº†ã€‚");
+        command("say å¸Œæœ›ä½ èƒ½ä»¥æ…ˆæ‚²ä¹‹å¿ƒï¼Œä»¥æ™ºæ…§ä¹‹åŠ›ï¼ŒåŠªåŠ›è¡Œå–„ï¼ŒæµŽåº¦ä¼—ç”Ÿã€‚");
         command("recruit " + ob->query("id"));
 }

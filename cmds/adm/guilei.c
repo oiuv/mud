@@ -7,7 +7,7 @@ inherit F_CLEAN_UP;
 
 int guilei_dir(object me, string dir, string type, int continueable, int *total);
 int guilei_file(object me, string file, string type);
-STATIC_VAR_TAG int all_num;	//ÅĞ¶Ï¶àÉÙÎÄ¼ş¸ø¹éÀà
+STATIC_VAR_TAG int all_num;	//åˆ¤æ–­å¤šå°‘æ–‡ä»¶ç»™å½’ç±»
 
 int main(object me, string arg)
 {
@@ -20,11 +20,11 @@ int main(object me, string arg)
         if (! SECURITY_D->valid_grant(me, "(admin)"))
                 return 0;
 
-        write("ÎÄ¼ş¹éÀà¡£");
+        write("æ–‡ä»¶å½’ç±»ã€‚");
 
         continueable = 1;
  	if (!arg || !(sscanf(arg,"%s %s",dir,type) == 2)) 
-                return notify_fail("¸ñÊ½£ºguilei <Â·¾¶> room|npc \n");
+                return notify_fail("æ ¼å¼ï¼šguilei <è·¯å¾„> room|npc \n");
 
        	dir = resolve_path(me->query("cwd"), dir);
 
@@ -32,38 +32,38 @@ int main(object me, string arg)
                 dir += "/";
 
 	if (file_size(dir) != -2)
-		return notify_fail("Ã»ÓĞ" + dir + "Õâ¸öÂ·¾¶¡£\n");
+		return notify_fail("æ²¡æœ‰" + dir + "è¿™ä¸ªè·¯å¾„ã€‚\n");
 
-        //¹éÀàÀàĞÍ
+        //å½’ç±»ç±»å‹
         switch(type)
         {
                 case "room":
-                        type_name = "·¿¼ä";
+                        type_name = "æˆ¿é—´";
                         break;
                 case "npc":
                         type_name = "NPC";
                         break;
                 case "obj":
-                        type_name = "ÎïÆ·";
+                        type_name = "ç‰©å“";
                         break;
                 default:
-                        return notify_fail("¸ñÊ½£ºguilei <Â·¾¶> room|npc \n");
+                        return notify_fail("æ ¼å¼ï¼šguilei <è·¯å¾„> room|npc \n");
         }
 
 	me->set("cwd", dir);
 
-	message_system("ÕûÀí¹éÀà" + type_name + "µµ°¸ÖĞ£¬ÇëÉÔºò...");
+	message_system("æ•´ç†å½’ç±»" + type_name + "æ¡£æ¡ˆä¸­ï¼Œè¯·ç¨å€™...");
         if (! guilei_dir(me, dir, type, continueable, total))
         {
-                write(HIR "¹éÀàÓöµ½´íÎóÖĞÖ¹¡£\n" NOR);
+                write(HIR "å½’ç±»é‡åˆ°é”™è¯¯ä¸­æ­¢ã€‚\n" NOR);
         }
 
         if (total[0] > 0)
         {
-                write(HIC "×Ü¹²ÓĞ" + HIW + total[0] + HIC "¸öµµ°¸±»³É¹¦¹éÀà£¡\n" NOR);
-                write(HIC "¹éÀàĞÅÏ¢´æ·ÅÔÚ" + HIW + "/log/static/" + type + HIC "Ö®ÖĞ£¡\n" NOR);
+                write(HIC "æ€»å…±æœ‰" + HIW + total[0] + HIC "ä¸ªæ¡£æ¡ˆè¢«æˆåŠŸå½’ç±»ï¼\n" NOR);
+                write(HIC "å½’ç±»ä¿¡æ¯å­˜æ”¾åœ¨" + HIW + "/log/static/" + type + HIC "ä¹‹ä¸­ï¼\n" NOR);
         } else
-                write(HIC "Ã»ÓĞ¹éÀàÈÎºÎµµ°¸¡£\n" NOR);
+                write(HIC "æ²¡æœ‰å½’ç±»ä»»ä½•æ¡£æ¡ˆã€‚\n" NOR);
 
         return 1;
 }
@@ -83,13 +83,13 @@ int guilei_dir(object me, string dir, string type, int continueable, int *total)
 	if (! sizeof(file))
 	{
                 if (file_size(dir) == -2)
-                        write(dir + "Õâ¸öÄ¿Â¼ÊÇ¿ÕµÄ¡£\n");
+                        write(dir + "è¿™ä¸ªç›®å½•æ˜¯ç©ºçš„ã€‚\n");
 		else
-		        write("Ã»ÓĞ" + dir + "Õâ¸öÄ¿Â¼¡£\n");
+		        write("æ²¡æœ‰" + dir + "è¿™ä¸ªç›®å½•ã€‚\n");
                 return 1;
 	}
 
-        write (HIY "¿ªÊ¼¼ì²éÄ¿Â¼" + dir + "ÏÂÃæµÄËùÓĞÎÄ¼ş¡£\n" NOR);
+        write (HIY "å¼€å§‹æ£€æŸ¥ç›®å½•" + dir + "ä¸‹é¢çš„æ‰€æœ‰æ–‡ä»¶ã€‚\n" NOR);
 	i = sizeof(file);
         compcount = 0;
         filecount = 0;
@@ -117,9 +117,9 @@ int guilei_dir(object me, string dir, string type, int continueable, int *total)
 
                 // continue to compile next file
 	}
-        write(HIC "\nÕûÀíÁËÄ¿Â¼" + dir + "ÏÂµÄ" + HIW + filecount + HIC +
-              "¸öÎÄ¼ş¡£\n¼ì²éÁËÆäÖĞ" + HIW + compcount + HIC + 
-              "¸öµµ°¸¡£\n¹éÀàÁËÆäÖĞ" + HIW + all_num + HIC + "¸öµµ°¸¡£\n" + NOR );
+        write(HIC "\næ•´ç†äº†ç›®å½•" + dir + "ä¸‹çš„" + HIW + filecount + HIC +
+              "ä¸ªæ–‡ä»¶ã€‚\næ£€æŸ¥äº†å…¶ä¸­" + HIW + compcount + HIC + 
+              "ä¸ªæ¡£æ¡ˆã€‚\nå½’ç±»äº†å…¶ä¸­" + HIW + all_num + HIC + "ä¸ªæ¡£æ¡ˆã€‚\n" + NOR );
 
 	i = sizeof(file);
 	while (i--)
@@ -146,12 +146,12 @@ int guilei_file(object me, string file, string type)
         object obj,*inv;
 
         if (file == "/cmds/adm/guilei.c")
-                // ²»×ÔÎÒ¶Á±¾Ö¸ÁîÎÄ¼ş
+                // ä¸è‡ªæˆ‘è¯»æœ¬æŒ‡ä»¤æ–‡ä»¶
                 return 1;
 
         write (".");
         
-        //¹éÀà·¿¼äÎÄ¼ş
+        //å½’ç±»æˆ¿é—´æ–‡ä»¶
         if (type == "room")
         {
                 document = read_file(file);
@@ -193,7 +193,7 @@ int guilei_file(object me, string file, string type)
                 }
         }
 
-        //¹éÀàNPCÎÄ¼ş
+        //å½’ç±»NPCæ–‡ä»¶
         if (type == "npc"){
                 document = read_file(file);
                 if (!document) return 0;
@@ -251,7 +251,7 @@ int guilei_file(object me, string file, string type)
                 }
         }
 
-        //¹éÀàÎïÆ·ÎÄ¼ş
+        //å½’ç±»ç‰©å“æ–‡ä»¶
         if (type == "obj"){
                 document = read_file(file);
                 if (!document) return 0;
@@ -277,19 +277,19 @@ int guilei_file(object me, string file, string type)
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: guilei <Â·¾¶|ÎÄ¼şÃû> <room|npc|obj>
+æŒ‡ä»¤æ ¼å¼: guilei <è·¯å¾„|æ–‡ä»¶å> <room|npc|obj>
  
-Õâ¸öÖ¸ÁîÈÃÄãÖ¸¶¨¶ÔÒ»¸öÎÄ¼ş»òÕßÒ»¸öÄ¿Â¼ÏÂµÄ·¿¼ä¡¢ÈËÎï¡¢ÎïÆ·µÄ
-ÊôĞÔ½øĞĞ¹éÀà¡£
-room²ÎÊı±íÊ¾¹éÀà·¿¼äÎÄ¼ş£¬ĞÅÏ¢°üÀ¨ÎÄ¼şÃû¡¢·¿¼äÃû¡¢·¿¼äÀïµÄÎï
-Æ·ÎÄ¼şÃû¡¢ÎïÆ·ÖĞÎÄÃû¡¢ÎïÆ·Ó¢ÎÄÃû£»
-npc ²ÎÊı±íÊ¾¹éÀàÈËÎïÎÄ¼ş£¬ĞÅÏ¢°üÀ¨ÎÄ¼şÃû¡¢ÖĞÎÄÃû¡¢Ó¢ÎÄÃû¡¢ÃÅ
-ÅÉID¡¢ÃÅÅÉÖĞÎÄÃû¡¢ÉíÉÏÎïÆ·µÄÎÄ¼şÃû¡¢ÎïÆ·ID¡¢ÎïÆ·ÖĞÎÄÃû¡¢ÈËÎï
-µÄ¸øÏîHPÊôĞÔ¡¢ÈËÎïµÄÖ÷ÒªSCOREÊôĞÔ£»
-obj ²ÎÊı±íÊ¾¹éÀàÎïÆ·ÎÄ¼ş£¬ĞÅÏ¢°üÀ¨ÎÄ¼şÃû¡¢ÎïÆ·ID¡¢ÎïÆ·ÖĞÎÄÃû¡¢
-ÎïÆ·µÄ¼ÛÖµµÈµÈ£»
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ æŒ‡å®šå¯¹ä¸€ä¸ªæ–‡ä»¶æˆ–è€…ä¸€ä¸ªç›®å½•ä¸‹çš„æˆ¿é—´ã€äººç‰©ã€ç‰©å“çš„
+å±æ€§è¿›è¡Œå½’ç±»ã€‚
+roomå‚æ•°è¡¨ç¤ºå½’ç±»æˆ¿é—´æ–‡ä»¶ï¼Œä¿¡æ¯åŒ…æ‹¬æ–‡ä»¶åã€æˆ¿é—´åã€æˆ¿é—´é‡Œçš„ç‰©
+å“æ–‡ä»¶åã€ç‰©å“ä¸­æ–‡åã€ç‰©å“è‹±æ–‡åï¼›
+npc å‚æ•°è¡¨ç¤ºå½’ç±»äººç‰©æ–‡ä»¶ï¼Œä¿¡æ¯åŒ…æ‹¬æ–‡ä»¶åã€ä¸­æ–‡åã€è‹±æ–‡åã€é—¨
+æ´¾IDã€é—¨æ´¾ä¸­æ–‡åã€èº«ä¸Šç‰©å“çš„æ–‡ä»¶åã€ç‰©å“IDã€ç‰©å“ä¸­æ–‡åã€äººç‰©
+çš„ç»™é¡¹HPå±æ€§ã€äººç‰©çš„ä¸»è¦SCOREå±æ€§ï¼›
+obj å‚æ•°è¡¨ç¤ºå½’ç±»ç‰©å“æ–‡ä»¶ï¼Œä¿¡æ¯åŒ…æ‹¬æ–‡ä»¶åã€ç‰©å“IDã€ç‰©å“ä¸­æ–‡åã€
+ç‰©å“çš„ä»·å€¼ç­‰ç­‰ï¼›
 
-¹éÀàĞÅÏ¢´æ·ÅÔÚ/log/staticÄ¿Â¼ÏÂ¡£
+å½’ç±»ä¿¡æ¯å­˜æ”¾åœ¨/log/staticç›®å½•ä¸‹ã€‚
 
 HELP );
         return 1;

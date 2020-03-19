@@ -3,17 +3,17 @@ inherit ROOM;
 
 void create()
 {
-        set("short", HIW "¡¾ËÄÖØÌì¡¿" NOR);
+        set("short", HIW "ã€å››é‡å¤©ã€‘" NOR);
         set("long", HIW @LONG
 
-                ËÄ         ÖØ         Ìì
+                å››         é‡         å¤©
 
-    ÕâÀïÒ»Æ¬Ìì¼Ê£¬Ã£Ã£ÔÆº££¬ËÄÖÜ²»¼ûÈÎºÎÊÂÎï¡£Ô¶·½Ò»ÖØÔÆ²Ê´Ó
-µØÃæÉıÆğ£¬¼ÜÆğÁËÒ»×ùÔÆÌİ(yunti)£¬ËÆºõÁ¬½ÓÉÏ²ãµÄÌì¼Ê¡­¡­¡­¡­
+    è¿™é‡Œä¸€ç‰‡å¤©é™…ï¼ŒèŒ«èŒ«äº‘æµ·ï¼Œå››å‘¨ä¸è§ä»»ä½•äº‹ç‰©ã€‚è¿œæ–¹ä¸€é‡äº‘å½©ä»
+åœ°é¢å‡èµ·ï¼Œæ¶èµ·äº†ä¸€åº§äº‘æ¢¯(yunti)ï¼Œä¼¼ä¹è¿æ¥ä¸Šå±‚çš„å¤©é™…â€¦â€¦â€¦â€¦
 
 LONG NOR );
         set("item_desc", ([
-                "yunti" : HIW "\nÒ»Åî°×É«µÄÔÆ²Ê°ÎµØ¶øÆğ£¬Á¬½ÓÉÏ²ãµÄÌì¼Ê¡£\n" NOR,
+                "yunti" : HIW "\nä¸€è“¬ç™½è‰²çš„äº‘å½©æ‹”åœ°è€Œèµ·ï¼Œè¿æ¥ä¸Šå±‚çš„å¤©é™…ã€‚\n" NOR,
 ]));
         set("sleep_room", 1);
         set("objects", ([
@@ -45,11 +45,11 @@ int do_move(string arg)
                 if ( objectp(present("tian shen", environment(me))))
                   // || objectp(present("tian shen", environment(me))))
                 {
-                        write(CYN "Ö»¼ûÒ»¸öÈËÓ°Í»È»»Î¶¯£¬µ²ÔÚÄãÃæÇ°¡£\n" NOR);
+                        write(CYN "åªè§ä¸€ä¸ªäººå½±çªç„¶æ™ƒåŠ¨ï¼ŒæŒ¡åœ¨ä½ é¢å‰ã€‚\n" NOR);
                         return 1;
                 }
-                message_vision(HIW "\n$N" HIW "Ë³×ÅÔÆÌİÇáÇáÒ»"
-                               "×İ£¬ÉíÌå±ãËæ×ÅÆøÁ÷Æ®ÁËÉÏÈ¥¡­¡­\n"
+                message_vision(HIW "\n$N" HIW "é¡ºç€äº‘æ¢¯è½»è½»ä¸€"
+                               "çºµï¼Œèº«ä½“ä¾¿éšç€æ°”æµé£˜äº†ä¸Šå»â€¦â€¦\n"
                                NOR, this_player());
                 me->move("/d/death/sky/sky5");
                 return 1;

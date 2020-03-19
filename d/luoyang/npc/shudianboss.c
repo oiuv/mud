@@ -3,10 +3,10 @@ inherit F_VENDOR;
 
 void create()
 {
-        set_name("ÊéµêÀÏ°å", ({ "shudian laoban", "laoban", "shudian" }) );
-        set("gender", "ÄĞĞÔ" );
+        set_name("ä¹¦åº—è€æ¿", ({ "shudian laoban", "laoban", "shudian" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 62);
-        set("long", "Ò»¸öÈÃº¢×ÓÃÇÒ»¼û¾Í¾õµÃ¿ÉÇ×µÄÀÏÎÌ¡£\n");
+        set("long", "ä¸€ä¸ªè®©å­©å­ä»¬ä¸€è§å°±è§‰å¾—å¯äº²çš„è€ç¿ã€‚\n");
         set("combat_exp", 3000);
         set("str", 17);
         set("dex", 20);

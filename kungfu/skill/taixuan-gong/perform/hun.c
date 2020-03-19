@@ -3,7 +3,7 @@
  
 inherit F_SSERVER;
 
-#define HUN "¡¸" HIW "»ìÌìÒ»Æø" NOR "¡¹"
+#define HUN "ã€Œ" HIW "æ··å¤©ä¸€æ°”" NOR "ã€"
 
 string final(object me, object target, int damage);
 
@@ -14,36 +14,36 @@ int perform(object me, object target)
         int damage;
 
         if (userp(me) && ! me->query("can_perform/taixuan-gong/hun"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)target = me->select_opponent();
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(HUN "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(HUN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(HUN "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(HUN "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if (me->query_skill("taixuan-gong", 1) < 200)
-                return notify_fail("ÄãµÄÌ«Ğş¹¦»¹²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" HUN "¡£\n");
+                return notify_fail("ä½ çš„å¤ªç„åŠŸè¿˜ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" HUN "ã€‚\n");
 
         if (me->query_skill_mapped("unarmed") != "taixuan-gong")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ¼¤·¢Ì«Ğş¹¦ÎªÈ­½Å£¬ÄÑÒÔÊ©Õ¹" HUN "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰æ¿€å‘å¤ªç„åŠŸä¸ºæ‹³è„šï¼Œéš¾ä»¥æ–½å±•" HUN "ã€‚\n");
 
         if (me->query_skill_mapped("force") != "taixuan-gong")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ¼¤·¢Ì«Ğş¹¦ÎªÄÚ¹¦£¬ÄÑÒÔÊ©Õ¹" HUN "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰æ¿€å‘å¤ªç„åŠŸä¸ºå†…åŠŸï¼Œéš¾ä»¥æ–½å±•" HUN "ã€‚\n");
 
         if (me->query_skill_prepared("unarmed") != "taixuan-gong")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ×¼±¸Ê¹ÓÃÌ«Ğş¹¦£¬ÄÑÒÔÊ©Õ¹" HUN "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰å‡†å¤‡ä½¿ç”¨å¤ªç„åŠŸï¼Œéš¾ä»¥æ–½å±•" HUN "ã€‚\n");
 
         if (me->query("neili") < 600)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬ÄÑÒÔÊ©Õ¹" HUN "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HUN "ã€‚\n");
  
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIG "\n$N" HIG "Ë«ÊÖºÏÊ®£¬Ë«Ä¿Î¢±Õ£¬Ì«Ğş°ÂÒå×ÔĞÄµ×Ó¿³ö£¬ÃÍÈ»¼ä£¬$N"
-              HIG "Ë«ÊÖÏòÇ°ÍÆ³ö£¬Ò»¹ÉÇ¿¾¢µÄÆøÁ÷Ï®Ïò$n " HIG "¡£\n" NOR;
+        msg = HIG "\n$N" HIG "åŒæ‰‹åˆåï¼ŒåŒç›®å¾®é—­ï¼Œå¤ªç„å¥¥ä¹‰è‡ªå¿ƒåº•æ¶Œå‡ºï¼ŒçŒ›ç„¶é—´ï¼Œ$N"
+              HIG "åŒæ‰‹å‘å‰æ¨å‡ºï¼Œä¸€è‚¡å¼ºåŠ²çš„æ°”æµè¢­å‘$n " HIG "ã€‚\n" NOR;
  
         ap = me->query_skill("taixuan-gong", 1) * 2 + me->query("con") * 10 +
              me->query_skill("martial-cognize", 1);
@@ -55,8 +55,8 @@ int perform(object me, object target)
 
         if (ap / 2 + random(ap) < dp)
         {
-                msg += HIY "È»¶ø$n" HIY "È«Á¦µÖµ²£¬ÖÕÓÚ½«$N" HIY
-                       "·¢³öµÄÆøÁ÷µ²×¡¡£\n" NOR;
+                msg += HIY "ç„¶è€Œ$n" HIY "å…¨åŠ›æŠµæŒ¡ï¼Œç»ˆäºå°†$N" HIY
+                       "å‘å‡ºçš„æ°”æµæŒ¡ä½ã€‚\n" NOR;
 	        me->start_busy(2);
         } else
         {
@@ -79,8 +79,8 @@ string final(object me, object target, int damage)
         target->receive_damage("jing", damage / 2, me);
         target->receive_wound("jing", damage / 3, me);
         target->busy(1);
-        return  HIR "$n" HIR "¼±Ã¦·ÉÉíºóÍË£¬¿ÉÊÇÆøÁ÷Éä"
-                "µÃ¸ü¿ì£¬Ö»Ìı$p" HIR "Ò»Éù²Ò½Ğ£¬Ò»¹ÉÆø"
-                "Á÷ÒÑ¾­Í¸Ìå¶ø¹ı£¬ÏÊÑª·É½¦£¡$n" HIR "¶Ù"
-                "¾õ¾«Á¦»ÁÉ¢£¬ÎŞ·¨¼¯ÖĞ¡£\n" NOR;
+        return  HIR "$n" HIR "æ€¥å¿™é£èº«åé€€ï¼Œå¯æ˜¯æ°”æµå°„"
+                "å¾—æ›´å¿«ï¼Œåªå¬$p" HIR "ä¸€å£°æƒ¨å«ï¼Œä¸€è‚¡æ°”"
+                "æµå·²ç»é€ä½“è€Œè¿‡ï¼Œé²œè¡€é£æº…ï¼$n" HIR "é¡¿"
+                "è§‰ç²¾åŠ›æ¶£æ•£ï¼Œæ— æ³•é›†ä¸­ã€‚\n" NOR;
 }

@@ -4,19 +4,19 @@ inherit F_LIQUID;
 
 void create()
 {
-        set_name(HIG "ÇàºùÂ«" NOR, ({ "qing hulu", "hulu" }));
+        set_name(HIG "é’è‘«èŠ¦" NOR, ({ "qing hulu", "hulu" }));
         set_weight(400);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "ÕâÊÇÒ»¸ö±ÌÂÌÉ«µÄºùÂ«¡£\n");
-                set("unit", "¸ö");
+                set("long", "è¿™æ˜¯ä¸€ä¸ªç¢§ç»¿è‰²çš„è‘«èŠ¦ã€‚\n");
+                set("unit", "ä¸ª");
                 set("value", 80);
                 set("max_liquid", 30);
         }
         set("liquid", ([
                 "type": "water",
-                "name": "¸ÊÈªË®",
+                "name": "ç”˜æ³‰æ°´",
                 "remaining": 40,
         ]) );
 }

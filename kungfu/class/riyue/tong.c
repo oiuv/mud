@@ -6,15 +6,15 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("Í¯°ÙĞÜ", ({ "tong baixiong", "tong", "baixiong"}) );
-        set("nickname", HIR "³àµ¨ÖÒĞÄ" NOR );
-        set("title", "ÈÕÔÂÉñ½Ì·çÀ×ÌÃ³¤ÀÏ");
+	set_name("ç«¥ç™¾ç†Š", ({ "tong baixiong", "tong", "baixiong"}) );
+        set("nickname", HIR "èµ¤èƒ†å¿ å¿ƒ" NOR );
+        set("title", "æ—¥æœˆç¥æ•™é£é›·å ‚é•¿è€");
         set("long", @LONG
-Õâ¾ÍÊÇÈÕÔÂÉñ½Ì·çÀ×ÌÃ³¤ÀÏÍ¯°ÙĞÜ£¬ËûÔÚ½ÌÖĞ
-Á¢Î»ÒÑ¾Ã£¬Ö»¼ûËû°×·¢ÅûÉ¢£¬Òø÷×êªÕÅ£¬Á³ÉÏ
-µÄ¼¡Èâ²»Í£Ç£¶¯¡£
+è¿™å°±æ˜¯æ—¥æœˆç¥æ•™é£é›·å ‚é•¿è€ç«¥ç™¾ç†Šï¼Œä»–åœ¨æ•™ä¸­
+ç«‹ä½å·²ä¹…ï¼Œåªè§ä»–ç™½å‘æŠ«æ•£ï¼Œé“¶é«¯æˆŸå¼ ï¼Œè„¸ä¸Š
+çš„è‚Œè‚‰ä¸åœç‰µåŠ¨ã€‚
 LONG);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("class", "scholar");
         set("age", 75);
         set("attitude", "friendly");
@@ -60,7 +60,7 @@ LONG);
         prepare_skill("claw", "poyue-zhao");
         prepare_skill("cuff", "zhenyu-quan");
 
-        create_family("ÈÕÔÂÉñ½Ì", 13, "·çÀ×ÌÃ³¤ÀÏ");
+        create_family("æ—¥æœˆç¥æ•™", 13, "é£é›·å ‚é•¿è€");
 
         set_temp("apply/damage", 200);
         set_temp("apply/unarmed_damage", 100);
@@ -86,5 +86,5 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-     	command("say ÀÏ·òÄêËêÒÑ´ó£¬²»ÔÙÊÕÍ½£¬ÄãÈ¥ÕÒÆäËû³¤ÀÏºÃÁË¡£");
+     	command("say è€å¤«å¹´å²å·²å¤§ï¼Œä¸å†æ”¶å¾’ï¼Œä½ å»æ‰¾å…¶ä»–é•¿è€å¥½äº†ã€‚");
 }

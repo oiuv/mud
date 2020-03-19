@@ -6,12 +6,12 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "����С��");
+	set("short", "竹林小道");
 	set("long", @LONG
-����һ����ʯ�̳ɵ�С�����������۵�ͨ��ǰ����������
-���ܵ����֡������˼�������Ω�����ߵ��·�棬΢�紵����
-Ҷ�����˳���Ϊ֮һ�ӡ��������ľ�֮�⣬ȴ�����й�ɱ����
-����������֮�У�������������һ����
+这是一条卵石铺成的小道，曲曲折折地通向前方。两边是
+密密的竹林。这里人迹罕至，惟闻足底叩击路面，微风吹拂竹
+叶，令人尘心为之一涤。但除了幽静之外，却隐隐有股杀气弥
+漫在这竹林之中，不禁让人心里一紧。
 LONG );
 	set("exits", ([
 		"west"  : __DIR__"qinglong",
@@ -20,7 +20,7 @@ LONG );
 	]));
 
 	set("outdoors", "quanzhou");
-	create_door("west","ľ��","east",DOOR_CLOSED);
+	create_door("west","木门","east",DOOR_CLOSED);
 	set("no_clean_up", 0);
 	setup();
 	replace_program(ROOM);

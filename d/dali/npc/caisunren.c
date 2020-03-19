@@ -4,10 +4,10 @@ inherit NPC;
 
 void create()
 {
-	set_name("²ÉËñÈË",({ "caisun ren", "ren" }) );
-        set("gender", "Å®ĞÔ" );
+	set_name("é‡‡ç¬‹äºº",({ "caisun ren", "ren" }) );
+        set("gender", "å¥³æ€§" );
         set("age", 22);
-        set("long", "Ò»¸öÂ¬Â¹²¿µÄÇàÄêÌ¨ÒÄ¸¾Å®£¬±³ºó±³ÁË¸öÖñ¿ğ£¬ÊÖÄÃÒ»°Ñ¿³²ñµ¶£¬À´²ÉÖñËñ¡£\n");
+        set("long", "ä¸€ä¸ªå¢é¹¿éƒ¨çš„é’å¹´å°å¤·å¦‡å¥³ï¼ŒèƒŒåèƒŒäº†ä¸ªç«¹ç­ï¼Œæ‰‹æ‹¿ä¸€æŠŠç æŸ´åˆ€ï¼Œæ¥é‡‡ç«¹ç¬‹ã€‚\n");
         set_temp("apply/defense", 15);
 	set("combat_exp", 170);
 	set("shen_type", 1);

@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "���׽���");
+        set("short", "澜沧江畔");
         set("long", @LONG
-������һ��Сɽ�£���������ɽ��·������һ�������ź�罭
-�棬ֻ����ˮ���ڣ���Х���������紵�������Ż�����ȥ��
+这里是一个小山坡，西面是上山的路，东面一条铁索桥横跨江
+面，只见江水奔腾，呼啸而过，江风吹得铁索桥晃来晃去。
 LONG
         );
         set("outdoors", "wanjiegu");

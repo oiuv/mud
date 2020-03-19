@@ -4,9 +4,9 @@ inherit NPC;
 
 void create()
 {
-	set_name("³Â¼ÌÊ¢", ({ "chen jisheng", "chen" }));
-	set("title", "Öª¸®Ê¦Ò¯");
-	set("gender", "ÄÐÐÔ");
+	set_name("é™ˆç»§ç››", ({ "chen jisheng", "chen" }));
+	set("title", "çŸ¥åºœå¸ˆçˆ·");
+	set("gender", "ç”·æ€§");
 	set("age", 60);
 	set("combat_exp", 40000);
 	set_skill("unarmed", 60);

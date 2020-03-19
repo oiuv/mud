@@ -2,16 +2,16 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÃÜµÀ");
+        set("short", "å¯†é“");
         set("long", @LONG
-ÕâÀïÊÇÎå¶¾½Ì»¨Ô°ÏÂÃæµÄÒ»ÌõÏÁÕ­µÄ°µµÀ¡£ÒõÉ­¿ÉÅÂ£¬µ½
-´¦»ýÂúÁË»Ò³¾£¬½áÂúÁËÖëÍø£¬Ò²²»ÖªµÀÍ¨ÍùºÎ´¦¡£
+è¿™é‡Œæ˜¯äº”æ¯’æ•™èŠ±å›­ä¸‹é¢çš„ä¸€æ¡ç‹­çª„çš„æš—é“ã€‚é˜´æ£®å¯æ€•ï¼Œåˆ°
+å¤„ç§¯æ»¡äº†ç°å°˜ï¼Œç»“æ»¡äº†è››ç½‘ï¼Œä¹Ÿä¸çŸ¥é“é€šå¾€ä½•å¤„ã€‚
 LONG);
         set("exits", ([
                 "up"   : __DIR__"huating2",
                 "west" : __DIR__"midao2",
         ]));
- //ÐÂÔö½âÃÜÇ§ÖëÍò¶¾ËùÐèµÄ»ð°Ñ 2017-02-10       
+ //æ–°å¢žè§£å¯†åƒè››ä¸‡æ¯’æ‰€éœ€çš„ç«æŠŠ 2017-02-10       
          set("objects", ([
                   __DIR__"obj/huoba": 1,
         ]));

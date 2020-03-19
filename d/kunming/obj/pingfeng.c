@@ -3,14 +3,14 @@ inherit ITEM;
 
 void create()
 {
-        set_name(WHT "´óÀíÊ¯ÆÁ·ç" NOR, ({ "ping feng", "ping", "feng" }) );
+        set_name(WHT "å¤§ç†çŸ³å±é£" NOR, ({ "ping feng", "ping", "feng" }) );
         set_weight(500000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "×ù");
-                set("long", WHT "Ò»×ù´óÀíÊ¯µÄÆÁ·ç£¬ÉÏÃæµÄÌìÈ»»¨"
-                            "ÎÆèòèòÈçÉú¡£\n" NOR);
+                set("unit", "åº§");
+                set("long", WHT "ä¸€åº§å¤§ç†çŸ³çš„å±é£ï¼Œä¸Šé¢çš„å¤©ç„¶èŠ±"
+                            "çº¹æ ©æ ©å¦‚ç”Ÿã€‚\n" NOR);
                 set("value", 5000000);
         }
 }

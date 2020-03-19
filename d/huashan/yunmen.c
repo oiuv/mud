@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "云门");
         set("long", @LONG
-��ɯ��ƺ���ǻ�ɽʮ���̡�ʮ���̵ľ������ǡ����š��ˡ��������
-���ɾ����������µ�һ��ɽ����ʯ�̡�����֮�ڵ�С��ؾ������ƺ��
+过莎萝坪，是华山十八盘。十八盘的尽处就是“云门”了。这里刻着
+“仙境”、“天下第一名山”等石刻。云门之内的小盆地就是青柯坪。
 LONG
         );
         set("exits", ([ /* sizeof() == 2 */

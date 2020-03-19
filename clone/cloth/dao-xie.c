@@ -7,13 +7,13 @@ inherit BOOTS;
 
 void create()
 {
-	set_name( HIY "��Ь" NOR, ({ "ma xie", "xie" }) );
+	set_name( HIY "麻鞋" NOR, ({ "ma xie", "xie" }) );
 	set_weight(1000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "˫");
-		set("long", "һ˫�಼��Ь��\n");
+		set("unit", "双");
+		set("long", "一双青布麻鞋。\n");
 		set("value", 0);
 		set("material", "boots");
 		set("armor_prop/dodge", 5);

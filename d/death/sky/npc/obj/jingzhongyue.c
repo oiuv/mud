@@ -4,18 +4,18 @@ inherit BLADE;
 
 void create()
 {
-        set_name(CYN "¾®ÖĞÔÂ" NOR, ({ "jingzhong yue" , "blade" ,"dao", "yue", "jingzhong" }) );
+        set_name(CYN "äº•ä¸­æœˆ" NOR, ({ "jingzhong yue" , "blade" ,"dao", "yue", "jingzhong" }) );
         set_weight(20000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", CYN "Ò»±úËÄ³ßÀ´³¤µÄµ¥µ¶£¬ÖØ´ï°Ù½ï£¬µ¶ÉíÉ¢·¢×ÅÎÚºÚµÄ¹âÔó¡£\n" NOR);
+                set("unit", "æŸ„");
+                set("long", CYN "ä¸€æŸ„å››å°ºæ¥é•¿çš„å•åˆ€ï¼Œé‡è¾¾ç™¾æ–¤ï¼Œåˆ€èº«æ•£å‘ç€ä¹Œé»‘çš„å…‰æ³½ã€‚\n" NOR);
                 set("value", 100000);
                 set("rigidity", 8000);   
                 set("material", "steel");
-                set("wield_msg", HIY "$N" HIY "Ò»Éù¿ñĞ¦£¬´Ó±³ºó³é³ö¾®ÖĞÔÂ¸ß¸ß¾ÙÆğ¡£\n" NOR);
-                set("unwield_msg", HIY "$N" HIY "¹ş¹şÒ»Ğ¦£¬½«¾®ÖĞÔÂ²å»Ø±³ºó¡£\n"NOR);
+                set("wield_msg", HIY "$N" HIY "ä¸€å£°ç‹‚ç¬‘ï¼Œä»èƒŒåæŠ½å‡ºäº•ä¸­æœˆé«˜é«˜ä¸¾èµ·ã€‚\n" NOR);
+                set("unwield_msg", HIY "$N" HIY "å“ˆå“ˆä¸€ç¬‘ï¼Œå°†äº•ä¸­æœˆæ’å›èƒŒåã€‚\n"NOR);
         }
         init_blade(200);
         setup();
@@ -26,5 +26,5 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         int dam;
         dam = (int) me->query("str");
         victim->receive_damage("jing", dam);
-        return HIY "¾®ÖĞÔÂ»®³öÒ»µÀ³ãÈÈµÄ»ÆÃ¢£¬$n" HIY "Ö»¸Ğµ½ĞÄÉñ¾ãËé¡£\n" NOR;
+        return HIY "äº•ä¸­æœˆåˆ’å‡ºä¸€é“ç‚½çƒ­çš„é»„èŠ’ï¼Œ$n" HIY "åªæ„Ÿåˆ°å¿ƒç¥ä¿±ç¢ã€‚\n" NOR;
 }

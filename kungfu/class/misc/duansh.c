@@ -1,4 +1,4 @@
-// duansh.c ¶ÎÊÙ»Ô
+// duansh.c æ®µå¯¿è¾‰
 
 #include <ansi.h>
 
@@ -6,9 +6,9 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("¶ÎÊÙ»Ô", ({ "duan shouhui", "duan" }));
-	set("long",  "ËûÒ»¸±É®ÈË´ò°ç£¬µ«ÊÇÈ´Í¸Â¶³öÒ»¹ÉÓºÈİ»ª¹óµÄÆøÖÊ¡£\n");
-	set("gender", "ÄĞĞÔ");
+	set_name("æ®µå¯¿è¾‰", ({ "duan shouhui", "duan" }));
+	set("long",  "ä»–ä¸€å‰¯åƒ§äººæ‰“æ‰®ï¼Œä½†æ˜¯å´é€éœ²å‡ºä¸€è‚¡é›å®¹åè´µçš„æ°”è´¨ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 60);
 	set("attitude", "peaceful");
 	set("shen_type", 1);
@@ -50,7 +50,7 @@ void create()
 
         prepare_skill("finger", "sun-finger");
 
-	create_family("¶ÎÊÏ»Ê×å", 0, "ÀÏÉ®");
+	create_family("æ®µæ°çš‡æ—", 0, "è€åƒ§");
 
 	set("chat_chance_combat", 120);
 	set("chat_msg_combat", ({

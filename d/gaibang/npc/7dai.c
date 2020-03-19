@@ -6,9 +6,9 @@ inherit NPC;
 void create()                                                                   
 {
         NPC_D->generate_cn_name(this_object());
-        set("gender", "ÄĞĞÔ");
-        set("long", "ÕâÊÇÎ»Ø¤°ïÆß´üµÜ×Ó£¬Ö»¼ûËûÉí²Ä¿ıÎà£¬Ë«Ä¿¾«¹âËÄÉä¡£\n");
-        set("title", "Ø¤°ïÆß´üµÜ×Ó");
+        set("gender", "ç”·æ€§");
+        set("long", "è¿™æ˜¯ä½ä¸å¸®ä¸ƒè¢‹å¼Ÿå­ï¼Œåªè§ä»–èº«æé­æ¢§ï¼ŒåŒç›®ç²¾å…‰å››å°„ã€‚\n");
+        set("title", "ä¸å¸®ä¸ƒè¢‹å¼Ÿå­");
         set("age", 38);
         set("attitude", "peaceful");
         set("class", "beggar");
@@ -50,7 +50,7 @@ void create()
         prepare_skill("strike", "tongchui-zhang");
         prepare_skill("unarmed", "jueming-tui");
 
-        create_family("Ø¤°ï", 20, "µÜ×Ó");
+        create_family("ä¸å¸®", 20, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({

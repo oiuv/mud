@@ -1,4 +1,4 @@
-// ÂŞºº·üÄ§Éñ¹¦ luohan-fumogong.c
+// ç½—æ±‰ä¼é­”ç¥åŠŸ luohan-fumogong.c
 // Editd By Vin On 29/5/2002
 
 #include <ansi.h>
@@ -17,24 +17,24 @@ int query_neili_improve(object me)
         fam = me->query("family/family_name");
         lvl = (int)me->query_skill("luohan-fumogong", 1);
 
-        // ºÈ¹ıĞş±ù±Ì»ğ¾Æ²¢ÇÒÃÅÅÉÎªÉÙÁÖ
+        // å–è¿‡ç„å†°ç¢§ç«é…’å¹¶ä¸”é—¨æ´¾ä¸ºå°‘æ—
         if (me->query("skybook/item/xuanbingjiu")
-           && fam == "ÉÙÁÖÅÉ"
+           && fam == "å°‘æ—æ´¾"
            && me->query("class") == "bonze")
                 return lvl * lvl * 15 * 18 / 100 / 200;
         else
 
-        // Ã»ºÈ¹ıĞş±ù±Ì»ğ¾Æµ«ÃÅÅÉÎªÉÙÁÖ
+        // æ²¡å–è¿‡ç„å†°ç¢§ç«é…’ä½†é—¨æ´¾ä¸ºå°‘æ—
         if (me->query("class") == "bonze"
-           && fam == "ÉÙÁÖÅÉ")
+           && fam == "å°‘æ—æ´¾")
                 return lvl * lvl * 15 * 15 / 100 / 200;
         else
 
-        // ºÈ¹ıĞş±ù±Ì»ğµÄÆäËûÃÅÅÉÍæ¼Ò
+        // å–è¿‡ç„å†°ç¢§ç«çš„å…¶ä»–é—¨æ´¾ç©å®¶
         if (me->query("skybook/item/xuanbingjiu"))
                 return lvl * lvl * 15 * 12 / 100 / 200;
         else
-        // ÆÕÍ¨Çé¿ö
+        // æ™®é€šæƒ…å†µ
                 return lvl * lvl * 15 * 4 / 100 / 200;
 }
 
@@ -45,33 +45,33 @@ int valid_enable(string usage)
 
 int valid_learn(object me)
 {
-        if (me->query("character") == "ĞÄºİÊÖÀ±")
-                return notify_fail("ÄãĞÄÖĞ°µµÀ£º´Ë¹¦Ò»µãÆøÊÆÒ²ÎŞ£¬ºÎ¿à·ÑÁ¦Ñ§Ëü¡£¡£\n");
+        if (me->query("character") == "å¿ƒç‹ æ‰‹è¾£")
+                return notify_fail("ä½ å¿ƒä¸­æš—é“ï¼šæ­¤åŠŸä¸€ç‚¹æ°”åŠ¿ä¹Ÿæ— ï¼Œä½•è‹¦è´¹åŠ›å­¦å®ƒã€‚ã€‚\n");
 
-        if (me->query("character") == "ÒõÏÕ¼éÕ©")
-                return notify_fail("ÄãĞÄÖĞ°µµÀ£º´Ë¹¦Æ½µ­ÎŞÆæ£¬ºÎ¿àÎªËü»¨·ÑĞÄË¼¡£\n");
+        if (me->query("character") == "é˜´é™©å¥¸è¯ˆ")
+                return notify_fail("ä½ å¿ƒä¸­æš—é“ï¼šæ­¤åŠŸå¹³æ·¡æ— å¥‡ï¼Œä½•è‹¦ä¸ºå®ƒèŠ±è´¹å¿ƒæ€ã€‚\n");
 
         if ((int)me->query("int") < 30)
-                return notify_fail("ÄãÏÈÌìÎòĞÔ²»×ã£¬ÄÑÒÔÁì»áÂŞºº·üÄ§Éñ¹¦¡£\n");
+                return notify_fail("ä½ å…ˆå¤©æ‚Ÿæ€§ä¸è¶³ï¼Œéš¾ä»¥é¢†ä¼šç½—æ±‰ä¼é­”ç¥åŠŸã€‚\n");
 
         if ((int)me->query("con") < 30)
-                return notify_fail("ÄãÏÈÌì¸ù¹ÇåîÈõ£¬ÎŞ·¨ĞŞÁ¶ÂŞºº·üÄ§Éñ¹¦¡£\n");
+                return notify_fail("ä½ å…ˆå¤©æ ¹éª¨å­±å¼±ï¼Œæ— æ³•ä¿®ç‚¼ç½—æ±‰ä¼é­”ç¥åŠŸã€‚\n");
 
-        if ( me->query("gender") == "ÎŞĞÔ" && me->query("luohan-fumogong", 1) > 29)
-                return notify_fail("ÄãÎŞ¸ùÎŞĞÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄÂŞºº·üÄ§Éñ¹¦¡£\n");
+        if ( me->query("gender") == "æ— æ€§" && me->query("luohan-fumogong", 1) > 29)
+                return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„ç½—æ±‰ä¼é­”ç¥åŠŸã€‚\n");
 
         if ((int)me->query_skill("force", 1) < 100)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ğºò²»×ã£¬²»ÄÜÑ§ÂŞºº·üÄ§Éñ¹¦¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™ä¸è¶³ï¼Œä¸èƒ½å­¦ç½—æ±‰ä¼é­”ç¥åŠŸã€‚\n");
 
         if ((int)me->query("max_neili", 1) < 1000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»×ã£¬²»ÄÜÑ§ÂŞºº·üÄ§Éñ¹¦¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œä¸èƒ½å­¦ç½—æ±‰ä¼é­”ç¥åŠŸã€‚\n");
 
         return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("ÂŞºº·üÄ§Éñ¹¦Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("ç½—æ±‰ä¼é­”ç¥åŠŸåªèƒ½ç”¨å­¦(learn)çš„æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 int difficult_level(object me)
@@ -83,13 +83,13 @@ int difficult_level(object me)
         fam = me->query("family/family_name");
 
         if (me->query("skybook/item/xuanbingjiu")
-           && fam == "ÉÙÁÖÅÉ"
+           && fam == "å°‘æ—æ´¾"
            && me->query("class") == "bonze")
                 return 200;
         else
 
         if (me->query("class") == "bonze"
-           && fam == "ÉÙÁÖÅÉ")
+           && fam == "å°‘æ—æ´¾")
                 return 400;
         else
 

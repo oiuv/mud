@@ -3,18 +3,18 @@ inherit ITEM;
 
 void create()
 {
-        set_name(WHT "¡¸¾ÅÒõÕæ¾­¡¹ÉÏ²á" NOR, ({ "zhenjing shangce", "shangce", "zhenjing", "jing"}));
+        set_name(WHT "ã€Œä¹é˜´çœŸç»ã€ä¸Šå†Œ" NOR, ({ "zhenjing shangce", "shangce", "zhenjing", "jing"}));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
+                set("unit", "æœ¬");
                 set("material", "paper");
                 set("no_sell", 1);
-                set("long", WHT "\nÕâÊÇÒ»±¾ÓÃ±¡Ö½Ğ´³ÉµÄÊé£¬·âÆ¤ÉÏĞ´ÓĞ¡¸¾ÅÒõÕæ¾­¡¹ÉÏ\n"
-                            "²áÁù×Ö¡£ÊéÆ¤·º»Æ£¬¿´À´ÒÑ¾­±£´æºÜ¾ÃÁË¡£Õæ¾­ÖĞ¼ÇÔØ\n"
-                            "ÓĞ´ó·üÄ§È­¡¢Ò×½î¶Í¹ÇºÍÉßĞĞÀê·­µÈ¾ø¼¼£¬Äã¿ÉÒÔÊÔ×Å\n"
-                            "¶Á¶Á(read)¿´¡£\n\n" NOR, );
+                set("long", WHT "\nè¿™æ˜¯ä¸€æœ¬ç”¨è–„çº¸å†™æˆçš„ä¹¦ï¼Œå°çš®ä¸Šå†™æœ‰ã€Œä¹é˜´çœŸç»ã€ä¸Š\n"
+                            "å†Œå…­å­—ã€‚ä¹¦çš®æ³›é»„ï¼Œçœ‹æ¥å·²ç»ä¿å­˜å¾ˆä¹…äº†ã€‚çœŸç»ä¸­è®°è½½\n"
+                            "æœ‰å¤§ä¼é­”æ‹³ã€æ˜“ç­‹é”»éª¨å’Œè›‡è¡Œç‹¸ç¿»ç­‰ç»æŠ€ï¼Œä½ å¯ä»¥è¯•ç€\n"
+                            "è¯»è¯»(read)çœ‹ã€‚\n\n" NOR, );
         }
 }
 
@@ -34,64 +34,64 @@ int do_du(string arg)
 
         if (! arg)
         {
-                write("ÑĞ¶Á¾ÅÒõÕæ¾­Ö¸Áî¸ñÊ½£ºread <¼¼ÄÜ> from <¾ÅÒõÕæ¾­>\n");
+                write("ç ”è¯»ä¹é˜´çœŸç»æŒ‡ä»¤æ ¼å¼ï¼šread <æŠ€èƒ½> from <ä¹é˜´çœŸç»>\n");
                 return 1;
         }
 
         if (sscanf(arg, "%s from %s", skill, book) != 2)
         {
-                write("ÑĞ¶Á¾ÅÒõÕæ¾­Ö¸Áî¸ñÊ½£ºread <¼¼ÄÜ> from <¾ÅÒõÕæ¾­>\n");
+                write("ç ”è¯»ä¹é˜´çœŸç»æŒ‡ä»¤æ ¼å¼ï¼šread <æŠ€èƒ½> from <ä¹é˜´çœŸç»>\n");
                 return 1;
         }
 
         if (me->is_busy())
         {
-                write("ÄãÏÖÔÚÕıÃ¦×ÅÄØ¡£\n");
+                write("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
                 return 1;
         }
 
         if (me->is_fighting())
         {
-                write("ÄãÎŞ·¨ÔÚÕ½¶·ÖĞ×¨ĞÄÏÂÀ´ÑĞ¶ÁĞÂÖª£¡\n");
+                write("ä½ æ— æ³•åœ¨æˆ˜æ–—ä¸­ä¸“å¿ƒä¸‹æ¥ç ”è¯»æ–°çŸ¥ï¼\n");
                 return 1;
         }
 
         if (where->query("no_fight")
            && me->query("doing") != "scheme")
         {
-                write("ÄãÎŞ·¨ÔÚÕâÀï¾²ÏÂĞÄÀ´ÑĞ¶ÁÕæ¾­¡£\n");
+                write("ä½ æ— æ³•åœ¨è¿™é‡Œé™ä¸‹å¿ƒæ¥ç ”è¯»çœŸç»ã€‚\n");
                 return 1;
         }
 
         if (! me->query_skill("literate", 1))
         {
-                write("ÄãÊÇ¸öÎÄÃ¤£¬ÏÈÑ§µãÎÄ»¯(literate)°É¡£\n");
+                write("ä½ æ˜¯ä¸ªæ–‡ç›²ï¼Œå…ˆå­¦ç‚¹æ–‡åŒ–(literate)å§ã€‚\n");
                 return 1;
         }
 
         if (! id(book))
         {
-                write("ÕâÀïÃ»ÓĞÕâ±¾Êé¡£\n");
+                write("è¿™é‡Œæ²¡æœ‰è¿™æœ¬ä¹¦ã€‚\n");
                 return 1;
         }
 
-        if (skill != "yijin-duangu" && skill != "Ò×½î¶Í¹Ç"
-           && skill != "shexing-lifan" && skill != "ÉßĞĞÀê·­"
-           && skill != "dafumo-quan" && skill != "´ó·üÄ§È­")
+        if (skill != "yijin-duangu" && skill != "æ˜“ç­‹é”»éª¨"
+           && skill != "shexing-lifan" && skill != "è›‡è¡Œç‹¸ç¿»"
+           && skill != "dafumo-quan" && skill != "å¤§ä¼é­”æ‹³")
         {
-                write("Õæ¾­ÉÏ²¢Ã»ÓĞ¼ÇÔØÄã´òËãÑĞ¾¿µÄÄÚÈİ¡£\n" NOR);
+                write("çœŸç»ä¸Šå¹¶æ²¡æœ‰è®°è½½ä½ æ‰“ç®—ç ”ç©¶çš„å†…å®¹ã€‚\n" NOR);
                 return 1;
         }
 
         if (me->query_skill("sanscrit", 1) < 200)
         {
-                write("ÄãµÄèóÎÄË®Æ½Ì«µÍ£¬ÎŞ·¨¿´¶®Õæ¾­ÀïËù¼ÇÔØµÄÄÚÈİ¡£\n");
+                write("ä½ çš„æ¢µæ–‡æ°´å¹³å¤ªä½ï¼Œæ— æ³•çœ‹æ‡‚çœŸç»é‡Œæ‰€è®°è½½çš„å†…å®¹ã€‚\n");
                 return 1;
         }
 
         if ((int)me->query("combat_exp") < 800000)
         {
-                write("ÄãµÄÊµÕ½¾­Ñé²»×ã£¬ÔÙÔõÃ´¶ÁÒ²Ã»ÓÃ¡£\n");
+                write("ä½ çš„å®æˆ˜ç»éªŒä¸è¶³ï¼Œå†æ€ä¹ˆè¯»ä¹Ÿæ²¡ç”¨ã€‚\n");
                 return 1;
         }
 
@@ -99,19 +99,19 @@ int do_du(string arg)
            || (int)me->query("qi") < 100
            || (int)me->query("neili") < 200)
         {
-                write("ÄãÏÖÔÚ¹ıÓÚÆ£¾ë£¬ÎŞ·¨×¨ĞÄÏÂÀ´ÑĞ¶ÁĞÂÖª¡£\n");
+                write("ä½ ç°åœ¨è¿‡äºç–²å€¦ï¼Œæ— æ³•ä¸“å¿ƒä¸‹æ¥ç ”è¯»æ–°çŸ¥ã€‚\n");
                 return 1;
         }
 
-        if (skill == "yijin-duangu" || skill == "Ò×½î¶Í¹Ç")
+        if (skill == "yijin-duangu" || skill == "æ˜“ç­‹é”»éª¨")
 		skill = "yijin-duangu";
         else
 
-        if (skill == "shexing-lifan" || skill == "ÉßĞĞÀê·­")
+        if (skill == "shexing-lifan" || skill == "è›‡è¡Œç‹¸ç¿»")
 		skill = "shexing-lifan";
         else
 
-        if (skill == "dafumo-quan" || skill == "´ó·üÄ§È­")
+        if (skill == "dafumo-quan" || skill == "å¤§ä¼é­”æ‹³")
 		skill = "dafumo-quan";
 
         if (! SKILL_D(skill)->valid_learn(me))
@@ -119,7 +119,7 @@ int do_du(string arg)
 
         if (! me->can_improve_skill(skill))
        	{
-               	write("ÄãµÄÊµÕ½¾­Ñé²»×ã£¬ÔÙÔõÃ´¶ÁÒ²Ã»ÓÃ¡£\n");
+               	write("ä½ çš„å®æˆ˜ç»éªŒä¸è¶³ï¼Œå†æ€ä¹ˆè¯»ä¹Ÿæ²¡ç”¨ã€‚\n");
                	return 1;
        	}
 
@@ -127,11 +127,11 @@ int do_du(string arg)
 
         if (lv >= 180)
 	{
-                write("ÄãÑĞ¶ÁÁËÒ»»á¶ù£¬µ«ÊÇ·¢ÏÖÉÏÃæËùËµµÄ¶ÔÄã¶øÑÔ¶¼Ì«Ç³ÁË¡£\n");
+                write("ä½ ç ”è¯»äº†ä¸€ä¼šå„¿ï¼Œä½†æ˜¯å‘ç°ä¸Šé¢æ‰€è¯´çš„å¯¹ä½ è€Œè¨€éƒ½å¤ªæµ…äº†ã€‚\n");
                 return 1;
         }
 
-        // Ìì¸³´ÏÓ±Ôö¼ÓÑĞ¶ÁËÙ¶È
+        // å¤©èµ‹èªé¢–å¢åŠ ç ”è¯»é€Ÿåº¦
         if (me->query("special_skill/clever"))
                 me->improve_skill(skill, me->query("int") + random(me->query_int()) + 11);
         else
@@ -140,8 +140,8 @@ int do_du(string arg)
         me->receive_damage("qi", random(40) + 10);
         me->receive_damage("jing", random(40) + 10);
         me->add("neili", -random(lv));
-        message("vision", me->name() + "Õı×¨ĞÄµØÑĞ¶Á¾ÅÒõÕæ¾­¡£\n",
+        message("vision", me->name() + "æ­£ä¸“å¿ƒåœ°ç ”è¯»ä¹é˜´çœŸç»ã€‚\n",
                           environment(me), me);
-        write("Äã×ĞÏ¸ÑĞ¶Á¾ÅÒõÕæ¾­£¬ÆÄÓĞĞÄµÃ¡£\n");
+        write("ä½ ä»”ç»†ç ”è¯»ä¹é˜´çœŸç»ï¼Œé¢‡æœ‰å¿ƒå¾—ã€‚\n");
         return 1;
 }

@@ -5,7 +5,7 @@ inherit ITEM;
 void create()
 {
         object ob;
-        set_name(HIW "ÓñÆ¿" NOR, ({ "yu ping" , "yu", "ping" }) );
+        set_name(HIW "ç‰ç“¶" NOR, ({ "yu ping" , "yu", "ping" }) );
         set_weight(150);
         set_max_encumbrance(100);
         if (clonep())
@@ -22,9 +22,9 @@ void create()
                 ob->move(this_object());
         } else
         {
-                set("unit", "Ö§");
+                set("unit", "æ”¯");
                 set("prep", "in");
-                set("long", HIW "Ò»Ö§°×ÓñµñÖÆµÄÓñÆ¿£¬Æ¿ÉÏµÄÄ¾ÈûÒÑÉõÎª¹Å¾É¡£\n" NOR);
+                set("long", HIW "ä¸€æ”¯ç™½ç‰é›•åˆ¶çš„ç‰ç“¶ï¼Œç“¶ä¸Šçš„æœ¨å¡å·²ç”šä¸ºå¤æ—§ã€‚\n" NOR);
                 set("value", 3000);
         }
 }

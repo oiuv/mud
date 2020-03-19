@@ -7,10 +7,10 @@ int query_rate();
 
 void create()
 {
-        set("short", "�����ľ�");
+        set("short", "昆仑幽境");
         set("long", @LONG
-���ﶼ��һЩǧ���ľ������ߴ�ïʢ���˼������������ޱȡ�
-������Ȼ�о���Щ�������Ĳ���������ǸϿ��뿪����Ϊ�á�
+这里都是一些千年古木，极其高大茂盛，人迹罕至，荒凉无比。
+你隐隐然感觉有些寒气，颇不舒服，还是赶快离开这里为好。
 LONG );
         set("exits", ([
                 "south" : __DIR__"donglu",

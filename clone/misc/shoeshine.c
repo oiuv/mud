@@ -1,4 +1,4 @@
-// shoeshine.c Ğ¬ÓÍ
+// shoeshine.c é‹æ²¹
 
 #include <ansi.h>
 
@@ -6,13 +6,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(YEL "Ğ¬ÓÍ" NOR, ({"shoeshine", "xie you"}));
+        set_name(YEL "é‹æ²¹" NOR, ({"shoeshine", "xie you"}));
         set_weight(200);
         if (clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("unit", "Ö§");
+                set("unit", "æ”¯");
                 set("value", 90);
         }
         set("count", 10);
@@ -30,14 +30,14 @@ string long()
                 c = 1;
         }
 
-        return "ÕâÊÇÒ»°üĞ¬ÓÍ£¬¿´ÉÏÈ¥»¹ÄÜÓÃ" + chinese_number(c) + "´Î¡£\n";
+        return "è¿™æ˜¯ä¸€åŒ…é‹æ²¹ï¼Œçœ‹ä¸Šå»è¿˜èƒ½ç”¨" + chinese_number(c) + "æ¬¡ã€‚\n";
 }
 
 void cost()
 {
         if (add("count", -1) < 1)
         {
-                message_vision("$N°Ñ$nÓÃÍêÁË£¬ËæÊÖÈÓµ½ÁËÒ»±ß¡£\n",
+                message_vision("$NæŠŠ$nç”¨å®Œäº†ï¼Œéšæ‰‹æ‰”åˆ°äº†ä¸€è¾¹ã€‚\n",
                                this_player(), this_object());
                 destruct(this_object());
         }

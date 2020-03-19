@@ -6,14 +6,14 @@ inherit POISON;
 
 string name() { return "qianzhu_wandushou"; }
 
-string chinese_name() { return "Öë¹Æ¶¾"; }
+string chinese_name() { return "è››è›Šæ¯’"; }
 
 string update_msg_others()
 {
-       return HIB "Ö»¼û$N" HIB "¶¾ÆøÉÏÓ¿£¬Á³¸¡ÏÖ³öÒ»²ãºÚÆø£¬²»×¡µÄ²ü¶¶¡£\n" NOR;
+       return HIB "åªè§$N" HIB "æ¯’æ°”ä¸Šæ¶Œï¼Œè„¸æµ®ç°å‡ºä¸€å±‚é»‘æ°”ï¼Œä¸ä½çš„é¢¤æŠ–ã€‚\n" NOR;
 }
 
 string update_msg_self()
 {
-        return HIB "ÄãÖ»¾õ¹Æ¶¾¹¥ĞÄ£¬Í·ÔÎÄ¿Ñ££¬Ò»ÕóËµ²»³öµÄ¶ñĞÄ¡£\n" NOR;
+        return HIB "ä½ åªè§‰è›Šæ¯’æ”»å¿ƒï¼Œå¤´æ™•ç›®çœ©ï¼Œä¸€é˜µè¯´ä¸å‡ºçš„æ¶å¿ƒã€‚\n" NOR;
 }

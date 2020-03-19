@@ -3,12 +3,12 @@
 inherit BOOK;
 
 string* titles = ({
-	"Î¤ÍÓ¹÷·¨",
-	"×í¹÷¹÷·¨",
-	"ÎŞ³£ÕÈ·¨",
-	"ÆÕ¶ÉÕÈ·¨",
-	"·üÄ§½£·¨",
-	"´ïÄ¦½£·¨",
+	"éŸ¦é™€æ£æ³•",
+	"é†‰æ£æ£æ³•",
+	"æ— å¸¸æ–æ³•",
+	"æ™®æ¸¡æ–æ³•",
+	"ä¼é­”å‰‘æ³•",
+	"è¾¾æ‘©å‰‘æ³•",
 });
 
 string* skills = ({
@@ -26,8 +26,8 @@ void create()
 
 	set_name(titles[i], ({ "shaolin wuji", "wuji" }));
 	set_weight(200);
-	set("unit", "²á");
-	set("long", "ÕâÊÇÒ»²á" + titles[i] + "\n");
+	set("unit", "å†Œ");
+	set("long", "è¿™æ˜¯ä¸€å†Œ" + titles[i] + "\n");
 	set("value", 500);
 	set("material", "paper");
 	set("skill", ([

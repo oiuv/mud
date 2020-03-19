@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "³ø·¿");
+	set("short", "å¨æˆ¿");
 	set("long", @LONG
-ÕâÀïÊÇºâÉ½ÅÉ³¤ÀÈ¶«±±²àµÄÒ»¼ä³ø·¿£¬Æ½³£ºâÉ½µÄµÜ×ÓÃÇ
-¶öÁË±ã¿ÉÒÔµ½ÕâÀïÀ´Òª(serve)Ğ©Ê³Îï³Ô¡£·¿ÖĞÔî»ğÕıÍú£¬Ò»
-¸ö³øÊ¦ÕıÃ¦µÄÂúÍ·´óº¹¡£Îİ½Ç·Å×ÅÒ»¸ö´óË®¸×¡£  
+è¿™é‡Œæ˜¯è¡¡å±±æ´¾é•¿å»Šä¸œåŒ—ä¾§çš„ä¸€é—´å¨æˆ¿ï¼Œå¹³å¸¸è¡¡å±±çš„å¼Ÿå­ä»¬
+é¥¿äº†ä¾¿å¯ä»¥åˆ°è¿™é‡Œæ¥è¦(serve)äº›é£Ÿç‰©åƒã€‚æˆ¿ä¸­ç¶ç«æ­£æ—ºï¼Œä¸€
+ä¸ªå¨å¸ˆæ­£å¿™çš„æ»¡å¤´å¤§æ±—ã€‚å±‹è§’æ”¾ç€ä¸€ä¸ªå¤§æ°´ç¼¸ã€‚  
 LONG);
 	set("exits", ([
   	       "southwest" : __DIR__"changlang",
@@ -35,19 +35,19 @@ int do_serve()
         object water;
         me = this_player();
 
-        if (me->query("family/family_name") != "ºâÉ½ÅÉ")
-                return notify_fail(CYN "³øÊ¦´óÑÛÒ»µÉ£¬ËµµÀ£ºÄãÓÖ²»ÊÇºâÉ½ÅÉµÄ£¬³Ô°×Ê³°¡£¿\n" NOR);
+        if (me->query("family/family_name") != "è¡¡å±±æ´¾")
+                return notify_fail(CYN "å¨å¸ˆå¤§çœ¼ä¸€çªï¼Œè¯´é“ï¼šä½ åˆä¸æ˜¯è¡¡å±±æ´¾çš„ï¼Œåƒç™½é£Ÿå•Šï¼Ÿ\n" NOR);
 
         if (present("man tou", this_player())) 
-                return notify_fail(CYN "³øÊ¦Ã¼Í·Ò»Öå£¬ËµµÀ£º³ÔÍêÁËÔÙÄÃ£¬±ğÀË·ÑÊ³Îï¡£\n" NOR);
+                return notify_fail(CYN "å¨å¸ˆçœ‰å¤´ä¸€çš±ï¼Œè¯´é“ï¼šåƒå®Œäº†å†æ‹¿ï¼Œåˆ«æµªè´¹é£Ÿç‰©ã€‚\n" NOR);
 
         if (present("water", this_object())) 
-                return notify_fail(CYN "³øÊ¦Ã¼Í·Ò»Öå£¬ËµµÀ£º³ÔÍêÁËÔÙÄÃ£¬±ğÀË·ÑÊ³Îï¡£\n" NOR);
+                return notify_fail(CYN "å¨å¸ˆçœ‰å¤´ä¸€çš±ï¼Œè¯´é“ï¼šåƒå®Œäº†å†æ‹¿ï¼Œåˆ«æµªè´¹é£Ÿç‰©ã€‚\n" NOR);
 
         if (query("ricewater") > 0)
         {
-                message_vision(CYN "³øÊ¦½«Ò»¸öÂøÍ·ºÍÒ»ÍëÇåË®µİµ½$NÊÖÖĞ£¬Ğ¦"
-                               "µÀ£ºÄãÂıÓÃ¡£\n" NOR, me);
+                message_vision(CYN "å¨å¸ˆå°†ä¸€ä¸ªé¦’å¤´å’Œä¸€ç¢—æ¸…æ°´é€’åˆ°$Næ‰‹ä¸­ï¼Œç¬‘"
+                               "é“ï¼šä½ æ…¢ç”¨ã€‚\n" NOR, me);
                 food = new(__DIR__"obj/mantou");
                 water = new(__DIR__"obj/water");
                 food->move(me);
@@ -55,7 +55,7 @@ int do_serve()
                 add("ricewater", -1);
         }
         else 
-                message_vision(CYN "³øÊ¦¶Ô$N" CYN "Ç¸ÉùµÀ£ºàË£¬³ÔµÄºÈµÄ¶¼"
-                               "Ã»ÁË¡£\n" NOR,me);
+                message_vision(CYN "å¨å¸ˆå¯¹$N" CYN "æ­‰å£°é“ï¼šå—¨ï¼Œåƒçš„å–çš„éƒ½"
+                               "æ²¡äº†ã€‚\n" NOR,me);
         return 1; 
 }

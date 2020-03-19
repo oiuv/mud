@@ -4,13 +4,13 @@ inherit ITEM;
 
 void create()
 {
-	set_name("½ğ¹Ï", ({ "jin gua", "gua" }));
+	set_name("é‡‘ç“œ", ({ "jin gua", "gua" }));
 	set_weight(8000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¹Ï");
-		set("long", "ÕâÊÇÒ»Ö»»ÆÍ­½½ÖıµÄ¶Æ½ğ¹Ï×´£¬Í¸Â¶³öÒ»¹É»ª¹óÆøÏ¢¡£\n");
+		set("unit", "ç“œ");
+		set("long", "è¿™æ˜¯ä¸€åªé»„é“œæµ‡é“¸çš„é•€é‡‘ç“œçŠ¶ï¼Œé€éœ²å‡ºä¸€è‚¡åè´µæ°”æ¯ã€‚\n");
 		set("value", 5000);
 		set("material", "copper");
 	}

@@ -6,18 +6,18 @@ inherit ROOM;
 
 void create()
 {
-	set("short", HIW "Ó¢ÐÛÊ¥µî" NOR);
+	set("short", HIW "è‹±é›„åœ£æ®¿" NOR);
 	set("long", HIY "\n\n"
-"       ¹Å   Ò»   ¹ß   °×   ¼¸   Çà   ÊÇ   ÀË   ¹ö\n"
-"       ½ñ   ºø   ¿´   ·¢   ¶È   É½   ·Ç   »¨   ¹ö\n"
-"       ¶à   ×Ç   Çï   Óæ   Ï¦   ÒÀ   ³É   ÌÔ   ³¤\n"
-"       ÉÙ   ¾Æ   ÔÂ   éÔ   Ñô   ¾É   °Ü   ¾¡   ½­\n"
-"       ÊÂ   Ï²   ´º   ½­   ºì   ÔÚ   ×ª   Ó¢   ¶«\n"
-"       ¶¼   Ïà   ·ç   ä¾             Í·   ÐÛ   ÊÅ\n"
-"       ¸¶   ·ê        ÉÏ             ¿Õ        Ë®\n"
-"       Ð¦                                        \n"
-"       Ì¸                                        \n"
-"       ÖÐ                                        \n\n" NOR
+"       å¤   ä¸€   æƒ¯   ç™½   å‡    é’   æ˜¯   æµª   æ»š\n"
+"       ä»Š   å£¶   çœ‹   å‘   åº¦   å±±   éž   èŠ±   æ»š\n"
+"       å¤š   æµŠ   ç§‹   æ¸”   å¤•   ä¾   æˆ   æ·˜   é•¿\n"
+"       å°‘   é…’   æœˆ   æ¨µ   é˜³   æ—§   è´¥   å°½   æ±Ÿ\n"
+"       äº‹   å–œ   æ˜¥   æ±Ÿ   çº¢   åœ¨   è½¬   è‹±   ä¸œ\n"
+"       éƒ½   ç›¸   é£Ž   æ¸š             å¤´   é›„   é€\n"
+"       ä»˜   é€¢        ä¸Š             ç©º        æ°´\n"
+"       ç¬‘                                        \n"
+"       è°ˆ                                        \n"
+"       ä¸­                                        \n\n" NOR
 
        );                
 

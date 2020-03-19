@@ -5,10 +5,10 @@ int exert(object me, object target)
         object where;
 
         if (! me->query("can_perform/wiz_test"))
-                return notify_fail("ÄãËùÑ§µÄÄÚ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€å­¦çš„å†…åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! me->query("quest/id"))
-                return notify_fail("ÄãËùÑ§µÄÄÚ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€å­¦çš„å†…åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         target = find_player(me->query("quest/id"));
 
@@ -19,19 +19,19 @@ int exert(object me, object target)
                 target = find_object(me->query("quest/id"));
 
         if (! target)
-                return notify_fail("Ã»ÓÐÕÒµ½Õâ¸öÈËÎï¡£\n");
+                return notify_fail("æ²¡æœ‰æ‰¾åˆ°è¿™ä¸ªäººç‰©ã€‚\n");
 
         where = environment(target);
 
         if (! where)
-                return notify_fail("Õâ¸öÈË²»ÖªµÀÔÚÄÇÀïÒ®¡£\n");
+                return notify_fail("è¿™ä¸ªäººä¸çŸ¥é“åœ¨é‚£é‡Œè€¶ã€‚\n");
 
         if (target->query("place")
-           && (target->query("place") == "Î÷Óò"
-           || target->query("place") == "ºÜÔ¶µÄµØ·½"))
+           && (target->query("place") == "è¥¿åŸŸ"
+           || target->query("place") == "å¾ˆè¿œçš„åœ°æ–¹"))
                 target->move("/d/foshan/street3");
 
-        write(sprintf("%s(%s)ÏÖÔÚÔÚ%s(%s).\n",
+        write(sprintf("%s(%s)çŽ°åœ¨åœ¨%s(%s).\n",
                 (string)target->name(1),
                 (string)target->query("id"),
                 (string)where->short(),

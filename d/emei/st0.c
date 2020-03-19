@@ -3,12 +3,12 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÉîÌ¶");
+        set("short", "æ·±æ½­");
         set("long", @LONG
-ÄãÕýºÃµøÔÚÉáÉíÑÂÏÂÉîÌ¶ÖÐ¡£»èÃÔÖÐÐÑÀ´£¬ËÄÖÜºÚÃÉÃÉÊ²
-Ã´¶¼¿´²»Çå¡£Ì¶Ë®·¢×Å¶ñ³ô£¬Å¼¶û»¹´¥¼°Ò»Á½¸ù²»ÖªÊÇÈËÊÇÊÞ
-µÄ¿Ý¹Ç£¬ÈÃÄãÈ«ÉíÖ±Æð¼¦Æ¤¸í´ñ¡£ÄãÆ¯¸¡ÔÚË®ÖÐÎÞÖúÖÁ¼«¡£Çé
-¼±Ö®ÏÂÖ»ÓÐËÄ´¦ÕÅÍû¡£
+ä½ æ­£å¥½è·Œåœ¨èˆèº«å´–ä¸‹æ·±æ½­ä¸­ã€‚æ˜è¿·ä¸­é†’æ¥ï¼Œå››å‘¨é»‘è’™è’™ä»€
+ä¹ˆéƒ½çœ‹ä¸æ¸…ã€‚æ½­æ°´å‘ç€æ¶è‡­ï¼Œå¶å°”è¿˜è§¦åŠä¸€ä¸¤æ ¹ä¸çŸ¥æ˜¯äººæ˜¯å…½
+çš„æž¯éª¨ï¼Œè®©ä½ å…¨èº«ç›´èµ·é¸¡çš®ç–™ç˜©ã€‚ä½ æ¼‚æµ®åœ¨æ°´ä¸­æ— åŠ©è‡³æžã€‚æƒ…
+æ€¥ä¹‹ä¸‹åªæœ‰å››å¤„å¼ æœ›ã€‚
 LONG);
         set("no_sleep_room",1);
         set("objects", ([
@@ -27,8 +27,8 @@ int do_wang()
 {
     	object ob = this_player();
 
-    	message_vision(HIC "\n$N" HIC "¼«Ä¿ËÄÍû£¬·¢ÏÖ»¹ÊÇÓÐ³öÂ·µÄ£¬ÓÚ"
-                       "ÊÇÇóÉúÊÔÌ½Ö®ÐÄ´ó¶¯¡£\n"NOR, ob);
+    	message_vision(HIC "\n$N" HIC "æžç›®å››æœ›ï¼Œå‘çŽ°è¿˜æ˜¯æœ‰å‡ºè·¯çš„ï¼ŒäºŽ"
+                       "æ˜¯æ±‚ç”Ÿè¯•æŽ¢ä¹‹å¿ƒå¤§åŠ¨ã€‚\n"NOR, ob);
 
     	switch (random(4))
     	{

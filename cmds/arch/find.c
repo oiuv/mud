@@ -4,10 +4,10 @@
 
 #include <ansi.h>
 
-// ENABLE_BAR Ä£Ê½Õë¶ÔÀà hell µÄ MUD£¬ËüÌá¹©ÁË process_bar()
-// Õâ¸ö simul_efun ºÍ attack_system(),detach_system() ÕâÁ½¸ö
-// ¶¨ÒåÔÚ USER_OB µÄº¯Êı£¬²¢ÇÒÀûÓÃ ANSI ¿ØÖÆ·û¶ÔÌáÊ¾·ûÓĞÁËÒ»
-// Ğ©¸Ä½ø¡£¿ªÆôÊ±¶¨ÒåÎª 1 ¼´¿É¡£
+// ENABLE_BAR æ¨¡å¼é’ˆå¯¹ç±» hell çš„ MUDï¼Œå®ƒæä¾›äº† process_bar()
+// è¿™ä¸ª simul_efun å’Œ attack_system(),detach_system() è¿™ä¸¤ä¸ª
+// å®šä¹‰åœ¨ USER_OB çš„å‡½æ•°ï¼Œå¹¶ä¸”åˆ©ç”¨ ANSI æ§åˆ¶ç¬¦å¯¹æç¤ºç¬¦æœ‰äº†ä¸€
+// äº›æ”¹è¿›ã€‚å¼€å¯æ—¶å®šä¹‰ä¸º 1 å³å¯ã€‚
 #define ENABLE_BAR      1
 
 inherit F_CLEAN_UP;
@@ -25,27 +25,27 @@ int main(object me, string arg)
         string file, dir, flag;
         int raw;
         
-        // È¨ÏŞ¼ì²é£¬ĞèÒª°²È«ÏµÍ³Ö§³Ö
+        // æƒé™æ£€æŸ¥ï¼Œéœ€è¦å®‰å…¨ç³»ç»Ÿæ”¯æŒ
         if (! SECURITY_D->valid_grant(me, "(arch)"))
                 return 0;
 
         if (! arg)
-                return notify_fail("Ö¸Áî¸ñÊ½£ºfind <ÎÄ¼şÃû|ÄÚÈİ> in <Ä¿Â¼Ãû|ÎÄ¼şÃû> [-c]\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šfind <æ–‡ä»¶å|å†…å®¹> in <ç›®å½•å|æ–‡ä»¶å> [-c]\n");
 
         if (sscanf(arg, "%s in %s %s", file, dir, flag) != 3)
         {
                 if (sscanf(arg, "%s in %s", file, dir) != 2)
-                        notify_fail("Ö¸Áî¸ñÊ½£ºfind <ÎÄ¼şÃû|ÄÚÈİ> in <Ä¿Â¼Ãû|ÎÄ¼şÃû> [-c]\n");
+                        notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šfind <æ–‡ä»¶å|å†…å®¹> in <ç›®å½•å|æ–‡ä»¶å> [-c]\n");
         }
 
-        // Èç¹ûÊÇ²éÕÒ°üº¬ÄÚÈİÄ£Ê½
+        // å¦‚æœæ˜¯æŸ¥æ‰¾åŒ…å«å†…å®¹æ¨¡å¼
         if (flag == "-c") raw = 1;
 
         dir = resolve_path(me->query("cwd"), dir);
         
         seteuid(getuid(me));
 
-        // Èç¹ûÊÇÔÚÎÄ¼şÖĞ²éÕÒÄ£Ê½
+        // å¦‚æœæ˜¯åœ¨æ–‡ä»¶ä¸­æŸ¥æ‰¾æ¨¡å¼
         if (file_size(dir) >= 0)
         {
                 search_in_file(me, file, dir);
@@ -54,14 +54,14 @@ int main(object me, string arg)
         
         if (file_size(dir) == -2 && dir[strlen(dir) - 1] != '/') dir += "/";
         if (file_size(dir) != -2) 
-                return notify_fail(dir + " ²¢²»ÊÇÒ»¸öÄ¿Â¼¡£\n");
+                return notify_fail(dir + " å¹¶ä¸æ˜¯ä¸€ä¸ªç›®å½•ã€‚\n");
         
-        // ¸øÒ»µãÌáÊ¾£¬ÒòÎªÍæ¼Ò¿ÉÄÜ»á¹ıÓÚ³ÙÖÍ
-        message_system("ÏµÍ³½øĞĞÊı¾İ´¦ÀíÖĞ£¬ÇëÄÍĞÄµÈºò...");
+        // ç»™ä¸€ç‚¹æç¤ºï¼Œå› ä¸ºç©å®¶å¯èƒ½ä¼šè¿‡äºè¿Ÿæ»
+        message_system("ç³»ç»Ÿè¿›è¡Œæ•°æ®å¤„ç†ä¸­ï¼Œè¯·è€å¿ƒç­‰å€™...");
         
 #if ENABLE_BAR 
-        write(HIR "\nÏÖÔÚÏµÍ³ÕıÔÚËÑË÷ " + dir + " Ä¿Â¼£¬ÉÔºó»ã±¨¡£\n\n" NOR
-              HIW "½ø¶È£º" + process_bar(0) + "\n");
+        write(HIR "\nç°åœ¨ç³»ç»Ÿæ­£åœ¨æœç´¢ " + dir + " ç›®å½•ï¼Œç¨åæ±‡æŠ¥ã€‚\n\n" NOR
+              HIW "è¿›åº¦ï¼š" + process_bar(0) + "\n");
         if (me)
         {
                 me->attach_system();
@@ -78,14 +78,14 @@ void search_dir(object me, string file, string dir, int raw)
         string *flist, *result;
         string info, file_info, size;
         
-        // »ñµÃËùÓĞµÄÉî²ãÄ¿Â¼ÎÄ¼şÁĞ±í
+        // è·å¾—æ‰€æœ‰çš„æ·±å±‚ç›®å½•æ–‡ä»¶åˆ—è¡¨
         flist = deep_file_list(dir);
         
         if (! arrayp(flist) || ! sizeof(flist))
         {
-                message_system("ÏµÍ³Êı¾İ´¦ÀíÍê±Ï£¬Çë¼ÌĞøÓÎÏ·¡£\n" ESC + "[K");
-                info = HIR "ÎÄ¼şËÑË÷Íê±Ï£º\n\n" NOR ESC + "[K"
-                       HIR "Ä¿Â¼ " + dir + " ÏÂ²¢Ã»ÓĞ¿É¹©²éÕÒµÄÎÄ¼ş¡£" NOR;
+                message_system("ç³»ç»Ÿæ•°æ®å¤„ç†å®Œæ¯•ï¼Œè¯·ç»§ç»­æ¸¸æˆã€‚\n" ESC + "[K");
+                info = HIR "æ–‡ä»¶æœç´¢å®Œæ¯•ï¼š\n\n" NOR ESC + "[K"
+                       HIR "ç›®å½• " + dir + " ä¸‹å¹¶æ²¡æœ‰å¯ä¾›æŸ¥æ‰¾çš„æ–‡ä»¶ã€‚" NOR;
                 
                 message("system", info, me);
 #if ENABLE_BAR
@@ -100,11 +100,11 @@ void search_dir(object me, string file, string dir, int raw)
         me->detach_system();
 #endif
 
-        message_system("ÏµÍ³Êı¾İ´¦ÀíÍê±Ï£¬Çë¼ÌĞøÓÎÏ·¡£\n" ESC + "[K");
+        message_system("ç³»ç»Ÿæ•°æ®å¤„ç†å®Œæ¯•ï¼Œè¯·ç»§ç»­æ¸¸æˆã€‚\n" ESC + "[K");
                 
         if (! sizeof(result))
-                info = HIR "ÎÄ¼şËÑË÷Íê±Ï£º\n" + ESC + "[K" + "\n" NOR ESC + "[K"
-                       HIR "Ä¿Â¼ " + dir + " ÏÂÃ»ÓĞÕÒµ½ÈÎºÎ·ûºÏÒªÇóµÄÎÄ¼ş¡£\n" NOR
+                info = HIR "æ–‡ä»¶æœç´¢å®Œæ¯•ï¼š\n" + ESC + "[K" + "\n" NOR ESC + "[K"
+                       HIR "ç›®å½• " + dir + " ä¸‹æ²¡æœ‰æ‰¾åˆ°ä»»ä½•ç¬¦åˆè¦æ±‚çš„æ–‡ä»¶ã€‚\n" NOR
                        ESC + "[K";
 
         else 
@@ -121,9 +121,9 @@ void search_dir(object me, string file, string dir, int raw)
                                              CHINESE_D->chinese_time(9, ctime(stat(result[i])[1])), );
                 }
                 
-                info = HIR "ÎÄ¼şËÑË÷Íê±Ï£º\n" + ESC + "[K" + "\n" NOR ESC + "[K" + 
+                info = HIR "æ–‡ä»¶æœç´¢å®Œæ¯•ï¼š\n" + ESC + "[K" + "\n" NOR ESC + "[K" + 
                        file_info + NOR + ESC + "[K"
-                       HIR "\nÒ»¹²ÕÒµ½ " + sizeof(result) + " ¸öÎÄ¼ş¡£" + ESC + "[K" + NOR
+                       HIR "\nä¸€å…±æ‰¾åˆ° " + sizeof(result) + " ä¸ªæ–‡ä»¶ã€‚" + ESC + "[K" + NOR
                        ESC + "[K\n" + ESC + "[K";
         }
         
@@ -162,7 +162,7 @@ string *search_file(string file, string *flist, object me, int raw)
         {
 #if ENABLE_BAR
                 message("system", NOR ESC + "[1A" + ESC + "[256D"
-                                  HIG "½ø¶È£º" + process_bar((i + 1) * 100 / sizeof(flist)) +
+                                  HIG "è¿›åº¦ï¼š" + process_bar((i + 1) * 100 / sizeof(flist)) +
                                   "\n" + ESC + "[K", me);
 #endif
                 if (raw == 0)
@@ -183,7 +183,7 @@ string *search_file(string file, string *flist, object me, int raw)
                 }
                 else
                 {
-                        // Èç¹ûÎÄ¼ş±¾Éí¶¼Ã»ÓĞÕâ¸öÒªÕÒµÄ×Ö·û´®³¤
+                        // å¦‚æœæ–‡ä»¶æœ¬èº«éƒ½æ²¡æœ‰è¿™ä¸ªè¦æ‰¾çš„å­—ç¬¦ä¸²é•¿
                         if (file_size(flist[i]) < strlen(file))
                                 continue;
                         
@@ -209,19 +209,19 @@ void search_in_file(object me, string word, string file)
         seteuid(getuid(me));
         if (! text = read_file(file))
         {
-                write(HIR "\nÎÄ¼ş " + file + " ´ò¿ªÊ§°Ü£¬¿ÉÄÜÊÇÒòÎªÎÄ¼ş¹ı´ó¡£\n" NOR);
+                write(HIR "\næ–‡ä»¶ " + file + " æ‰“å¼€å¤±è´¥ï¼Œå¯èƒ½æ˜¯å› ä¸ºæ–‡ä»¶è¿‡å¤§ã€‚\n" NOR);
                 return;
         }
         
         if (strsrch(text, word) == -1)
         {
-                write(HIR "\nÎÄ¼ş " + file + " ÄÚ²¿²¢ÎŞ°üº¬¡°" HIW + word + 
-                      HIR "¡±×Ö·û´®¡£\n" NOR);
+                write(HIR "\næ–‡ä»¶ " + file + " å†…éƒ¨å¹¶æ— åŒ…å«â€œ" HIW + word + 
+                      HIR "â€å­—ç¬¦ä¸²ã€‚\n" NOR);
                 return;
         }
         
         lines = explode(text, "\n");
-        info = HIR "ÕıÔÚÎÄ¼ş " + file + " ÖĞ²éÕÒ°üº¬ " + word + "\n×Ö·û´®µÄÄÚÈİ£º\n\n" NOR;
+        info = HIR "æ­£åœ¨æ–‡ä»¶ " + file + " ä¸­æŸ¥æ‰¾åŒ…å« " + word + "\nå­—ç¬¦ä¸²çš„å†…å®¹ï¼š\n\n" NOR;
         
         line = sizeof(lines);
         for (i = 0; i < line; i++)
@@ -230,8 +230,8 @@ void search_in_file(object me, string word, string file)
 
                 if (num > -1)
                 {
-                        info += WHT "ÔÚµÚ " + (i + 1) + " ĞĞµÄµÚ " + (num + 1) + " ×Ö½Ú´¦"
-                                "ÕÒµ½Ö¸¶¨×Ö·û¡£\n" NOR;
+                        info += WHT "åœ¨ç¬¬ " + (i + 1) + " è¡Œçš„ç¬¬ " + (num + 1) + " å­—èŠ‚å¤„"
+                                "æ‰¾åˆ°æŒ‡å®šå­—ç¬¦ã€‚\n" NOR;
 
                         info += CYN "............\n" NOR;
                         info += (i - 1) >= 0 ? CYN + lines[i - 1] + "\n" + NOR : "";
@@ -242,7 +242,7 @@ void search_in_file(object me, string word, string file)
                         count++;
                 }
         }
-        info += HIR "²éÑ¯Íê±Ï£¬Ò»¹²ÕÒµ½ " + count + " ¸ö·ûºÏµÄÄÚÈİ¡£" NOR;
+        info += HIR "æŸ¥è¯¢å®Œæ¯•ï¼Œä¸€å…±æ‰¾åˆ° " + count + " ä¸ªç¬¦åˆçš„å†…å®¹ã€‚" NOR;
         
         me->start_more(info);
         return;
@@ -252,13 +252,13 @@ void search_in_file(object me, string word, string file)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: find <ÎÄ¼şÃû|ÄÚÈİ> in <Ä¿Â¼Ãû|ÎÄ¼şÃû> [-c]
+æŒ‡ä»¤æ ¼å¼: find <æ–‡ä»¶å|å†…å®¹> in <ç›®å½•å|æ–‡ä»¶å> [-c]
  
-²éÕÒÄ¿Â¼¼°Æä×ÓÄ¿Â¼ÏÂËùÓĞ°üº¬Ö¸¶¨ÎÄ¼şÃûµÄÎÄ¼şºÍÄ¿Â¼¡£²éÕÒ½á¹û·µ
-»ØµÄ¸ñÊ½Îª£º<ÎÄ¼şÃû> <ÎÄ¼ş´óĞ¡> <ÉÏÒ»´ÎĞŞ¸ÄÊ±¼ä>¡£
-Èç¹û¼ÓÉÏÁË -c ²ÎÊıÔò±íÊ¾²éÕÒÔÚÖ¸¶¨Ä¿Â¼ÏÂ°üº¬Ö¸¶¨ÄÚÈİµÄÎÄ¼ş¡£
-Èç¹ûÖ¸¶¨µÄÎ»ÖÃÊÇÒ»¸öÎÄ¼şÃû£¬Ôò±íÊ¾ÔÚÄÇ¸öÎÄ¼şÖĞ²éÕÒ°üº¬Ö¸¶¨ÄÚÈİ
-µÄĞĞ¡£
+æŸ¥æ‰¾ç›®å½•åŠå…¶å­ç›®å½•ä¸‹æ‰€æœ‰åŒ…å«æŒ‡å®šæ–‡ä»¶åçš„æ–‡ä»¶å’Œç›®å½•ã€‚æŸ¥æ‰¾ç»“æœè¿”
+å›çš„æ ¼å¼ä¸ºï¼š<æ–‡ä»¶å> <æ–‡ä»¶å¤§å°> <ä¸Šä¸€æ¬¡ä¿®æ”¹æ—¶é—´>ã€‚
+å¦‚æœåŠ ä¸Šäº† -c å‚æ•°åˆ™è¡¨ç¤ºæŸ¥æ‰¾åœ¨æŒ‡å®šç›®å½•ä¸‹åŒ…å«æŒ‡å®šå†…å®¹çš„æ–‡ä»¶ã€‚
+å¦‚æœæŒ‡å®šçš„ä½ç½®æ˜¯ä¸€ä¸ªæ–‡ä»¶åï¼Œåˆ™è¡¨ç¤ºåœ¨é‚£ä¸ªæ–‡ä»¶ä¸­æŸ¥æ‰¾åŒ…å«æŒ‡å®šå†…å®¹
+çš„è¡Œã€‚
 HELP );
         return 1;
 }

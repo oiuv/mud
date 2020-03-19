@@ -8,16 +8,16 @@ string look_desk();
 
 void create()
 {
-        set("short", "×Ï¸ÇÏÉ¶´");
+        set("short", "ç´«ç›–ä»™æ´ž");
         set("long", @LONG
-ÕâÀï±ãÊÇ×Ï¸ÇÏÉ¶´¡£ÌýÕâÀïµÄÈËËµµÄÓÉÓÚÕâÀï´¦ÓÚ×Ï¸Ç·å
-ÏÂ£¬·åÉÏÈÚ»¯µÄÑ©Ë®±ã¾­¹ýÉ½½§»ãÈç×Ï¸ÇÏÉ¶´ÖÐ£¬µ«ÊÇÕâÀïÈ´
-Ò»µãË®Ò²Ã»ÓÐ£¬¶ú±ßÈ´´«À´À´äÈäÈµÄË®Á÷Éù£¬Äã²Å·¢ÏÖÑ©Ë®²¢
-²»ÊÇ»ãÖ±½ÓÁ÷Èë¶´ÖÐ£¬¶øÊÇ´Ó¶´±ÚÉÏË³ÊÆÏòÏÂÁ÷£¬¾­¹ýÒ»¸ö½Ï
-ÉîµÄµÍÍÝµØ´ø£¬»ýÐîÆðÀ´£¬Ë®ÂúÔòÒç£¬±ãÐÎ³ÉÁËË®Á«¶´ÍâµÄ·É
-ÆÙ¡£Íù¹âÕÕÀ´µÄµÄµØ·½¿´È¥£¬ÒÑÃ»ÓÐÂ·¿É×ß£¬ÊýÕÉÔ¶´¦±ãÊÇÐü
-ÑÂ£¬Ô­À´Õâ¸ö¶´¾¹ÉúÓÚÒ»¸öÇÍ±ÚÖ®ÉÏ¡£Ö»¼û²»Ô¶´¦°Ú×ÅÒ»¸öÊ¯
-×À(desk)£¬ÏÔÈ»ÕâÀïÔø¾­ÓÐÈËÀ´¹ý¡£
+è¿™é‡Œä¾¿æ˜¯ç´«ç›–ä»™æ´žã€‚å¬è¿™é‡Œçš„äººè¯´çš„ç”±äºŽè¿™é‡Œå¤„äºŽç´«ç›–å³°
+ä¸‹ï¼Œå³°ä¸ŠèžåŒ–çš„é›ªæ°´ä¾¿ç»è¿‡å±±æ¶§æ±‡å¦‚ç´«ç›–ä»™æ´žä¸­ï¼Œä½†æ˜¯è¿™é‡Œå´
+ä¸€ç‚¹æ°´ä¹Ÿæ²¡æœ‰ï¼Œè€³è¾¹å´ä¼ æ¥æ¥æ·™æ·™çš„æ°´æµå£°ï¼Œä½ æ‰å‘çŽ°é›ªæ°´å¹¶
+ä¸æ˜¯æ±‡ç›´æŽ¥æµå…¥æ´žä¸­ï¼Œè€Œæ˜¯ä»Žæ´žå£ä¸Šé¡ºåŠ¿å‘ä¸‹æµï¼Œç»è¿‡ä¸€ä¸ªè¾ƒ
+æ·±çš„ä½Žæ´¼åœ°å¸¦ï¼Œç§¯è“„èµ·æ¥ï¼Œæ°´æ»¡åˆ™æº¢ï¼Œä¾¿å½¢æˆäº†æ°´èŽ²æ´žå¤–çš„é£ž
+ç€‘ã€‚å¾€å…‰ç…§æ¥çš„çš„åœ°æ–¹çœ‹åŽ»ï¼Œå·²æ²¡æœ‰è·¯å¯èµ°ï¼Œæ•°ä¸ˆè¿œå¤„ä¾¿æ˜¯æ‚¬
+å´–ï¼ŒåŽŸæ¥è¿™ä¸ªæ´žç«Ÿç”ŸäºŽä¸€ä¸ªå³­å£ä¹‹ä¸Šã€‚åªè§ä¸è¿œå¤„æ‘†ç€ä¸€ä¸ªçŸ³
+æ¡Œ(desk)ï¼Œæ˜¾ç„¶è¿™é‡Œæ›¾ç»æœ‰äººæ¥è¿‡ã€‚
 LONG);
         
         set("item_desc",([
@@ -48,20 +48,20 @@ int do_move(string arg)
         if (! here = find_object(__DIR__"zigaihole"))
                 here = load_object(__DIR__"zigaihole");
 
-        if (! arg || (arg != "desk" && arg != "Ê¯×À"))
-                return notify_fail("ÄãÏëÒÆÊ²Ã´£¿\n");
+        if (! arg || (arg != "desk" && arg != "çŸ³æ¡Œ"))
+                return notify_fail("ä½ æƒ³ç§»ä»€ä¹ˆï¼Ÿ\n");
        
-        if (here->query_temp("marks/ÒÆ"))
+        if (here->query_temp("marks/ç§»"))
         {
-                write(HIG "\nÄãÓÃÁ¦Ò»ÍÆ£¬½«Ê¯×ÀÒÆ»ØÁËÔ­´¦¡£\n\n" NOR);
-                here->delete_temp("marks/ÒÆ");
+                write(HIG "\nä½ ç”¨åŠ›ä¸€æŽ¨ï¼Œå°†çŸ³æ¡Œç§»å›žäº†åŽŸå¤„ã€‚\n\n" NOR);
+                here->delete_temp("marks/ç§»");
                 return 1;
         }
         
         
-        write(HIC "\nÄãÓÃÁ¦Ò»ÍÆ£¬Ê¯×ÀÏÂÃæ¾¹Â¶³öÒ»¸ö¿Ó(keng)À´¡£\n\n"NOR);
+        write(HIC "\nä½ ç”¨åŠ›ä¸€æŽ¨ï¼ŒçŸ³æ¡Œä¸‹é¢ç«Ÿéœ²å‡ºä¸€ä¸ªå‘(keng)æ¥ã€‚\n\n"NOR);
 
-        here->set_temp("marks/ÒÆ", 1);
+        here->set_temp("marks/ç§»", 1);
         return 1;
 }
 
@@ -75,10 +75,10 @@ int do_pick(string arg)
                 here = load_object(__DIR__"zigaihole");
 
         if (! arg || (arg != "book"))
-                return notify_fail("ÄãÒªÄÃÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦æ‹¿ä»€ä¹ˆï¼Ÿ\n");
         
-        if (here->query_temp("marks/ÄÃ") || ! here->query_temp("marks/ÒÆ"))
-                return notify_fail("ÄãÒªÄÃÊ²Ã´£¿\n");
+        if (here->query_temp("marks/æ‹¿") || ! here->query_temp("marks/ç§»"))
+                return notify_fail("ä½ è¦æ‹¿ä»€ä¹ˆï¼Ÿ\n");
 
         book = find_object(ZHUJIAN);
 
@@ -87,11 +87,11 @@ int do_pick(string arg)
         if (! environment(book))
         {
                 book->move(me, 1);
-                message_vision(HIC "$N" HIC "´Ó¿ÓÖÐ½«" + book->query("name") +
-                               HIC "ÄÃÁË³öÀ´¡£\n" NOR, me);
+                message_vision(HIC "$N" HIC "ä»Žå‘ä¸­å°†" + book->query("name") +
+                               HIC "æ‹¿äº†å‡ºæ¥ã€‚\n" NOR, me);
                 return 1;
         } else
-                return notify_fail(YEL "ÕâÀïÃæÊ²Ã´Ò²Ã»ÓÐ¡£\n" NOR);
+                return notify_fail(YEL "è¿™é‡Œé¢ä»€ä¹ˆä¹Ÿæ²¡æœ‰ã€‚\n" NOR);
         return 1;
 }
 
@@ -102,11 +102,11 @@ string look_desk()
         if (! here = find_object(__DIR__"zigaihole"))
                 here = load_object(__DIR__"zigaihole");
 
-        if (here->query_temp("marks/ÒÆ"))
-                return WHT "\nÊ¯×ÀÏñÊÇÒÑ±»ÈËÍÆ¿ª£¬ÏÂÃæÂ¶³öÒ»¸ö¿Ó(keng)À´¡£\n";
+        if (here->query_temp("marks/ç§»"))
+                return WHT "\nçŸ³æ¡Œåƒæ˜¯å·²è¢«äººæŽ¨å¼€ï¼Œä¸‹é¢éœ²å‡ºä¸€ä¸ªå‘(keng)æ¥ã€‚\n";
         else
    
-                return WHT "\nÒ»ÕÅÊ¯×À£¬ÉÏÃæÒÑ²¼ÂúÁË»Ò³¾¡£\n";
+                return WHT "\nä¸€å¼ çŸ³æ¡Œï¼Œä¸Šé¢å·²å¸ƒæ»¡äº†ç°å°˜ã€‚\n";
 
        
 }
@@ -120,16 +120,16 @@ string look_keng()
         if (! here = find_object(__DIR__"zigaihole"))
                 here = load_object(__DIR__"zigaihole");
 
-        if (! here->query_temp("marks/ÒÆ"))
-                return "ÄãÒª¿´Ê²Ã´£¿\n\n";
+        if (! here->query_temp("marks/ç§»"))
+                return "ä½ è¦çœ‹ä»€ä¹ˆï¼Ÿ\n\n";
 
         if (! book) book = load_object(ZHUJIAN);
 
         if (environment(book))
-                return HIY "\nÕâ¸ö¿ÓÖÐÏñÊÇ²Ø¶«Î÷µÄ£¬µ«ÀïÃæ¿Õ¿ÕÈçÒ²£¬ÏÔÈ»ÀïÃæµÄ¶«Î÷ÒÑ\n"
-                           "±»ÈËÄÃ×ßÁË¡£\n" NOR;
+                return HIY "\nè¿™ä¸ªå‘ä¸­åƒæ˜¯è—ä¸œè¥¿çš„ï¼Œä½†é‡Œé¢ç©ºç©ºå¦‚ä¹Ÿï¼Œæ˜¾ç„¶é‡Œé¢çš„ä¸œè¥¿å·²\n"
+                           "è¢«äººæ‹¿èµ°äº†ã€‚\n" NOR;
 
-        return HIY "\nÖ»¼ûÀïÃæ·Å×ÅÒ»±¾(book)£¬ÄãÈÌ²»×¡ÏëÄÃ(pick)À´¿´¿´¡£\n" NOR;
+        return HIY "\nåªè§é‡Œé¢æ”¾ç€ä¸€æœ¬(book)ï¼Œä½ å¿ä¸ä½æƒ³æ‹¿(pick)æ¥çœ‹çœ‹ã€‚\n" NOR;
            
 }
 
@@ -142,8 +142,8 @@ void reset()
 
         ::reset();
 
-        here->delete_temp("marks/ÒÆ");
-        here->delete_temp("marks/ÄÃ");
+        here->delete_temp("marks/ç§»");
+        here->delete_temp("marks/æ‹¿");
 
         return ;
 

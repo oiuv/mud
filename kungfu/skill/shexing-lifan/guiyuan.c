@@ -13,28 +13,28 @@ int perform(object me, object target)
         int count, cnt, skill;
 
         if ((int)me->query_temp("gui_yuan"))
-                return notify_fail("ÄãÒÑ¾­ÔËÆğ¡¸¾ÅÒõ¹éÔª¡¹ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»è¿èµ·ã€Œä¹é˜´å½’å…ƒã€äº†ã€‚\n");
 
         if ((int)me->query_skill("shexing-lifan", 1)< 150)
-                return notify_fail("ÄãµÄÉßĞĞÀê·­µÈ¼¶²»¹»£¬ÄÑÒÔÊ©Õ¹´ËÏî¾ø¼¼£¡\n");
+                return notify_fail("ä½ çš„è›‡è¡Œç‹¸ç¿»ç­‰çº§ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•æ­¤é¡¹ç»æŠ€ï¼\n");
 
         if ((int)me->query_dex() < 30)
-                return notify_fail("ÄãµÄÉí·¨²»¹»Ê¹ÓÃ¡¸¾ÅÒõ¹éÔª¡¹¾ø¼¼£¡\n");
+                return notify_fail("ä½ çš„èº«æ³•ä¸å¤Ÿä½¿ç”¨ã€Œä¹é˜´å½’å…ƒã€ç»æŠ€ï¼\n");
 
         if ((int)me->query_skill("force", 1)< 150)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¬ÄÑÒÔÊ©Õ¹´ËÏî¾ø¼¼£¡\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•æ­¤é¡¹ç»æŠ€ï¼\n");
 
         if ((int)me->query_skill("dodge", 1)< 150)
-                return notify_fail("ÄãµÄÇá¹¦ĞŞÎª²»¹»£¬²»»áÊ¹ÓÃ´ËÏî¾ø¼¼£¡\n");
+                return notify_fail("ä½ çš„è½»åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œä¸ä¼šä½¿ç”¨æ­¤é¡¹ç»æŠ€ï¼\n");
 
         if ((int)me->query("max_neili") < 1000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»¹»Ê¹ÓÃ¡¸¾ÅÒõ¹éÔª¡¹£¡\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸å¤Ÿä½¿ç”¨ã€Œä¹é˜´å½’å…ƒã€ï¼\n");
 
         if ((int)me->query("neili") < 250)
-                return notify_fail("Äã´ËÊ±µÄÄÚÁ¦²»×ã£¡\n");
+                return notify_fail("ä½ æ­¤æ—¶çš„å†…åŠ›ä¸è¶³ï¼\n");
 
-        msg = HIW "$N" HIW "ÔËÆğ¾ÅÒõÕæÆø£¬Ë«±Û¹Ç÷ÀÒ»Õó±¬Ïì£¬ÉíĞÎÒ»Õ¹£¬Õû"
-                  "¸öÈË¶ÙÊ±Áè¿ÕÆ®Æğ£¬ËÙ¶È±äµÃÒì³£Ãô½İ¡£\n" NOR;
+        msg = HIW "$N" HIW "è¿èµ·ä¹é˜´çœŸæ°”ï¼ŒåŒè‡‚éª¨éª¼ä¸€é˜µçˆ†å“ï¼Œèº«å½¢ä¸€å±•ï¼Œæ•´"
+                  "ä¸ªäººé¡¿æ—¶å‡Œç©ºé£˜èµ·ï¼Œé€Ÿåº¦å˜å¾—å¼‚å¸¸æ•æ·ã€‚\n" NOR;
         
         message_combatd(msg, me, target);
         skill = me->query_skill("shexing-lifan", 1);
@@ -61,6 +61,6 @@ void remove_effect(object me, int amount, int amount1)
                 me->add_temp("str", -amount);
                 me->add_temp("dex", -amount);
                 me->delete_temp("gui_yuan");
-                tell_object(me, "ÄãµÄ¡¸¾ÅÒõ¹éÔª¡¹ÔË¹¦Íê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„ã€Œä¹é˜´å½’å…ƒã€è¿åŠŸå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›ä¸¹ç”°ã€‚\n");
         }
 }

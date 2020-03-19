@@ -6,15 +6,15 @@ inherit NPC;
 
 void create()
 {
-        set_name("´òÊÖ", ({ "da shou" }) );
-        set("title",MAG "»¤»¨Ê¹Õß" NOR);
+        set_name("æ‰“æ‰‹", ({ "da shou" }) );
+        set("title",MAG "æŠ¤èŠ±ä½¿è€…" NOR);
         set("age", random(25)+15);
-        set("long", "Ò»¸öÎªÈºÓñÂ¥Ð§Á¦£¬ÕýÔÚ¿´ÃÅµÄ´òÊÖ\n");
+        set("long", "ä¸€ä¸ªä¸ºç¾¤çŽ‰æ¥¼æ•ˆåŠ›ï¼Œæ­£åœ¨çœ‹é—¨çš„æ‰“æ‰‹\n");
 	set("per",15);
         set("combat_exp", 100000);
 	set("no_arrest",1);
         set("attitude", "heroism");
-        set("gender", "ÄÐÐÔ" );
+        set("gender", "ç”·æ€§" );
         set_skill("unarmed", 200);
         set_skill("blade",200);
         set_skill("parry", 200);
@@ -43,10 +43,10 @@ int do_killing(string arg)
             && living(victim))
 	{
                 name = (string)victim->name();
-                if ((string)name == "´òÊÖ")
+                if ((string)name == "æ‰“æ‰‹")
         	{
-                        message_vision("$NµÀ£º¸Òµ½À´ÈºÓñÂ¥ÄÖÊÂ£¬ÎÒ"
-                                       "¿´Äã»îµÃ²»ÄÍ·³ÁË¡£\n",
+                        message_vision("$Né“ï¼šæ•¢åˆ°æ¥ç¾¤çŽ‰æ¥¼é—¹äº‹ï¼Œæˆ‘"
+                                       "çœ‹ä½ æ´»å¾—ä¸è€çƒ¦äº†ã€‚\n",
                                        this_object());
                         this_object()->kill_ob(player);
                         player->kill_ob(this_object());

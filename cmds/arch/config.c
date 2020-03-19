@@ -33,45 +33,45 @@ int main(object me, string arg)
 
         if (undefinedp(CONFIG_D->query(key)))
         {
-            write("ÏÖÔÚÅäÖÃÖĞÃ»ÓĞ " + key + " Õâ¸ö²ÎÊı¡£\n");
+            write("ç°åœ¨é…ç½®ä¸­æ²¡æœ‰ " + key + " è¿™ä¸ªå‚æ•°ã€‚\n");
             return 1;
         }
 
         CONFIG_D->delete (key);
-        write("È¥µôÁË²ÎÊı£º" + key + "¡£\n");
+        write("å»æ‰äº†å‚æ•°ï¼š" + key + "ã€‚\n");
         return 1;
     }
 
     if (sscanf(arg, "%s=%s", key, val) == 2)
     {
-        // È¥µôkey/valÁ½¶ËµÄ¿Õ¸ñ
+        // å»æ‰key/valä¸¤ç«¯çš„ç©ºæ ¼
         key = trim(key);
         val = trim(val);
 
         if ((len = strsrch(val, '#')) != -1)
         {
-            // ÓĞÎ²×¢
+            // æœ‰å°¾æ³¨
             affix = val[len..< 1];
             val = val[0..len - 1];
         }
         else
             affix = 0;
 
-        // È¥µô""
+        // å»æ‰""
         sscanf(val, "\"%s\"", val);
         if (strlen(val) < 1)
         {
-            write("ÄãÃ»ÓĞÖ¸Ã÷Õâ¸ö²ÎÊıµÄÖµ£¬Èç¹ûĞèÒªÉ¾³ıµÄ»°ÇëÓÃ -d Ñ¡Ïî¡£\n");
+            write("ä½ æ²¡æœ‰æŒ‡æ˜è¿™ä¸ªå‚æ•°çš„å€¼ï¼Œå¦‚æœéœ€è¦åˆ é™¤çš„è¯è¯·ç”¨ -d é€‰é¡¹ã€‚\n");
             return 1;
         }
 
         if (!undefinedp(CONFIG_D->query(key)) &&
             intp(CONFIG_D->query(key)))
-            // Ô­ÏÈ²ÎÊıµÄÖµÊÇÕûÊı
+            // åŸå…ˆå‚æ•°çš„å€¼æ˜¯æ•´æ•°
             if (!sscanf(val, "%d", val))
-                write("×¢Òâ£ºÔ­ÏÈ " + key + " Ê¹ÓÃµÄÊÇÕûÊıÖµ£¬ÏÖÔÚÀàĞÍ±ä»¯ÁË¡£\n");
+                write("æ³¨æ„ï¼šåŸå…ˆ " + key + " ä½¿ç”¨çš„æ˜¯æ•´æ•°å€¼ï¼Œç°åœ¨ç±»å‹å˜åŒ–äº†ã€‚\n");
 
-        write(sprintf("ÖØĞÂÉèÖÃÁË %s ²ÎÊıÎª %O¡£\n", key, val));
+        write(sprintf("é‡æ–°è®¾ç½®äº† %s å‚æ•°ä¸º %Oã€‚\n", key, val));
         CONFIG_D->set(key, val);
         if (stringp(affix))
             CONFIG_D->set_temp("affix/" + key, affix);
@@ -87,8 +87,8 @@ int main(object me, string arg)
 
     if (arg == "-r")
     {
-        // ÖØĞÂ¶ÁÈ¡ÅäÖÃ
-        write("ÖØĞÂ¶ÁÈ¡ÔËĞĞÖĞµÄÅäÖÃ²ÎÊı¡£\n\n");
+        // é‡æ–°è¯»å–é…ç½®
+        write("é‡æ–°è¯»å–è¿è¡Œä¸­çš„é…ç½®å‚æ•°ã€‚\n\n");
         if (objectp(ob = find_object(CONFIG_D)))
         {
             destruct(ob);
@@ -98,29 +98,29 @@ int main(object me, string arg)
     }
 
     msg = "";
-    msg += "Mud Ãû³Æ£º\t\t" + get_config(__MUD_NAME__) + "\n";
-    msg += "ÍøÂ·µØÖ·Ãû³ÆËÅ·şÆ÷²ººÅ£º" + get_config(__ADDR_SERVER_IP__) + "\n";
-    msg += "Mudlib Â·¾¶£º\t\t" + get_config(__MUD_LIB_DIR__) + "\n";
-    msg += "MudOS Ö´ĞĞµµÂ·¾¶£º\t" + get_config(__BIN_DIR__) + "\n\n";
+    msg += "Mud åç§°ï¼š\t\t" + get_config(__MUD_NAME__) + "\n";
+    msg += "ç½‘è·¯åœ°å€åç§°ä¼ºæœå™¨åŸ å·ï¼š" + get_config(__ADDR_SERVER_IP__) + "\n";
+    msg += "Mudlib è·¯å¾„ï¼š\t\t" + get_config(__MUD_LIB_DIR__) + "\n";
+    msg += "MudOS æ‰§è¡Œæ¡£è·¯å¾„ï¼š\t" + get_config(__BIN_DIR__) + "\n\n";
 
     dbase = CONFIG_D->query_entire_dbase();
     if (!mapp(dbase))
     {
-        write(msg + "ÏÖÔÚÃ»ÓĞÈÎºÎÔËĞĞÖĞµÄÅäÖÃ²ÎÊı¡£\n");
+        write(msg + "ç°åœ¨æ²¡æœ‰ä»»ä½•è¿è¡Œä¸­çš„é…ç½®å‚æ•°ã€‚\n");
         return 1;
     }
 
-    msg += "ÏÖÔÚÏµÍ³µÄÔËĞĞÅäÖÃ²ÎÊı£º\n";
+    msg += "ç°åœ¨ç³»ç»Ÿçš„è¿è¡Œé…ç½®å‚æ•°ï¼š\n";
     cfg = keys(dbase);
     cfg = filter_array(cfg, (: stringp($(dbase)[$1]) || intp($(dbase)[$1]) :));
     if (stringp(arg) && strlen(arg))
     {
-        // Ñ°ÕÒÆ¥ÅäµÄ²ÎÊı
+        // å¯»æ‰¾åŒ¹é…çš„å‚æ•°
         cfg = filter_array(cfg, (: strsrch($1, $(arg)) != -1 :));
         if (!sizeof(cfg))
         {
-            write(msg + "ÏÖÔÚÃ»ÓĞÈÎºÎ¿ÉÒÔºÍ " + arg +
-                  " Æ¥ÅäµÄÅäÖÃ²ÎÊı¡£\n");
+            write(msg + "ç°åœ¨æ²¡æœ‰ä»»ä½•å¯ä»¥å’Œ " + arg +
+                  " åŒ¹é…çš„é…ç½®å‚æ•°ã€‚\n");
             return 1;
         }
     }
@@ -141,7 +141,7 @@ int main(object me, string arg)
     return 1;
 }
 
-// Ğ´»Ø²ÎÊı
+// å†™å›å‚æ•°
 void write_config()
 {
     string *tmp, file;
@@ -153,23 +153,23 @@ void write_config()
     int len;
     int i;
 
-    // È¡µ±Ç°ËùÓĞµÄ²ÎÊı
+    // å–å½“å‰æ‰€æœ‰çš„å‚æ•°
     if (!mapp(dbase = CONFIG_D->query_entire_dbase()))
         dbase = ([]);
     cfg = keys(dbase);
     cfg = filter_array(cfg, (: stringp($(dbase)[$1]) || intp($(dbase)[$1]) :));
 
-    // ¶ÁÈ¡ÅäÖÃÎÄ¼ş
+    // è¯»å–é…ç½®æ–‡ä»¶
     file = read_file(CONFIG_D->query_config_file_name());
     if (!stringp(file))
         file = "";
 
-    // È¥µô"\r"±£Ö¤ºÍMSDOSµÄÎÄ¼ş¸ñÊ½¼æÈİ
+    // å»æ‰"\r"ä¿è¯å’ŒMSDOSçš„æ–‡ä»¶æ ¼å¼å…¼å®¹
     file = replace_string(file, "\r", "");
 
     tmp = explode(file, "\n");
 
-    // È¥µô×îºóµÄ¿ÕĞĞ
+    // å»æ‰æœ€åçš„ç©ºè¡Œ
     while (sizeof(tmp) && tmp[sizeof(tmp) - 1] == "")
         tmp = tmp[0.. < 2];
 
@@ -177,7 +177,7 @@ void write_config()
     {
         line = tmp[i];
 
-        // È¥µôĞĞÊ×µÄ¿Õ¸ñ
+        // å»æ‰è¡Œé¦–çš„ç©ºæ ¼
         while (strlen(line) && line[0] == ' ')
             line = line[1.. < 1];
         if (line[0] == '#')
@@ -185,17 +185,17 @@ void write_config()
 
         if (line[0] == '&')
         {
-            // ±»ÏµÍ³×¢ÊÍµÄ
+            // è¢«ç³»ç»Ÿæ³¨é‡Šçš„
             line = line[1.. < 1];
             while (strlen(line) && line[0] == ' ')
                 line = line[1.. < 1];
         }
 
-        // È¥µô#ÒÔºóËùÓĞµÄ×Ö·û
+        // å»æ‰#ä»¥åæ‰€æœ‰çš„å­—ç¬¦
         len = strsrch(line, '#');
         if (len != -1)
         {
-            // ¼ÇÂ¼Î²×¢
+            // è®°å½•å°¾æ³¨
             affix = line[len..< 1];
             line = line[0..len - 1];
         }
@@ -205,15 +205,15 @@ void write_config()
         if (!strlen(line))
             continue;
 
-        // ¼ì²é¸ÃĞĞ
+        // æ£€æŸ¥è¯¥è¡Œ
         if (sscanf(line, "%s:%s", arg, value) != 2)
             continue;
 
-        // È¥µôargÄ©Î²µÄ¿Õ¸ñ
+        // å»æ‰argæœ«å°¾çš„ç©ºæ ¼
         while ((len = strlen(arg)) > 0 && arg[len - 1] == ' ')
             arg = arg[0.. < 2];
 
-        // ¸ü»»¸ÃĞĞ
+        // æ›´æ¢è¯¥è¡Œ
         value = dbase[arg];
 
         if (stringp(value))
@@ -225,7 +225,7 @@ void write_config()
 
         cfg -= ({arg});
 
-        // ¼ÓÉÏÎ²×¢
+        // åŠ ä¸Šå°¾æ³¨
         if (stringp(affix))
             line = sprintf("%-44s %s", line, affix);
 
@@ -248,20 +248,20 @@ void write_config()
 
     file = implode(tmp, "\n") + "\n";
     write_file(CONFIG_D->query_config_file_name(), file, 1);
-    write("½«²ÎÊıĞ´»Øµ½ÅäÖÃÎÄ¼şÖĞ¡£\n");
+    write("å°†å‚æ•°å†™å›åˆ°é…ç½®æ–‡ä»¶ä¸­ã€‚\n");
 }
 
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : config [-r | -w] [ÅäÖÃÏî=Öµ] [-d ÅäÖÃÏî]
+æŒ‡ä»¤æ ¼å¼ : config [-r | -w] [é…ç½®é¡¹=å€¼] [-d é…ç½®é¡¹]
 
-Show ³ö±¾ MUD µÄ Startup Configuration ¡£Èç¹û²»¼Ó²ÎÊıÔòÍ¬Ê±
-ÏÔÊ¾³öÔËĞĞÖĞµÄÅäÖÃ(/adm/etc/config)¡£
+Show å‡ºæœ¬ MUD çš„ Startup Configuration ã€‚å¦‚æœä¸åŠ å‚æ•°åˆ™åŒæ—¶
+æ˜¾ç¤ºå‡ºè¿è¡Œä¸­çš„é…ç½®(/adm/etc/config)ã€‚
 
--r ¿ÉÒÔÖØĞÂ¶ÁÈ¡ÔËĞĞÖĞµÄÅäÖÃ¡£
--w ¿ÉÒÔÖØĞÂĞ´ÈëÔËĞĞÖĞµÄÅäÖÃ¡£
--d ¿ÉÒÔÈ¥µôÒ»¸öÅäÖÃÏî¡£
+-r å¯ä»¥é‡æ–°è¯»å–è¿è¡Œä¸­çš„é…ç½®ã€‚
+-w å¯ä»¥é‡æ–°å†™å…¥è¿è¡Œä¸­çš„é…ç½®ã€‚
+-d å¯ä»¥å»æ‰ä¸€ä¸ªé…ç½®é¡¹ã€‚
 
 HELP );
      return 1;

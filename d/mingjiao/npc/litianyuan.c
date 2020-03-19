@@ -7,16 +7,16 @@ inherit NPC;
 
 void create()
 {
-    set_name("ÀîÌìÔ«", ({ "li tianyuan", "li", "tianyuan", }));
+    set_name("æå¤©å£", ({ "li tianyuan", "li", "tianyuan", }));
 	set("long",
-        "ËûÊÇÒ»Î»¿´ÆğÀ´ºÜ´ÈÏéµÄÀÏÕß£¬Éí´©Ò»¼ş°×²¼³¤ÅÛ¡£\n"
-        "ËûÊÇ°×Ã¼Ó¥ÍõÒóÌìÕıµÄÊ¦µÜ¡£Ò»Ë«ÑÛ¾¦×ÜÊÇĞ¦ÃĞÃĞµÄ£¬µ«²»ÖªÎªÊ²Ã´£¬ËûµÄÏÂÊô\n"
-        "¶ÔËûÎ·ÈçÉßĞ«¡£\n"
+        "ä»–æ˜¯ä¸€ä½çœ‹èµ·æ¥å¾ˆæ…ˆç¥¥çš„è€è€…ï¼Œèº«ç©¿ä¸€ä»¶ç™½å¸ƒé•¿è¢ã€‚\n"
+        "ä»–æ˜¯ç™½çœ‰é¹°ç‹æ®·å¤©æ­£çš„å¸ˆå¼Ÿã€‚ä¸€åŒçœ¼ç›æ€»æ˜¯ç¬‘çœ¯çœ¯çš„ï¼Œä½†ä¸çŸ¥ä¸ºä»€ä¹ˆï¼Œä»–çš„ä¸‹å±\n"
+        "å¯¹ä»–ç•å¦‚è›‡èã€‚\n"
     );
 
-        set("title", HIR "Ã÷½Ì" CYN "ÌìÊĞÌÃ" NOR "ÌÃÖ÷" );
-        set("nickname", "´ÈÃ¼ÉÆÄ¿");
-	set("gender", "ÄĞĞÔ");
+        set("title", HIR "æ˜æ•™" CYN "å¤©å¸‚å ‚" NOR "å ‚ä¸»" );
+        set("nickname", "æ…ˆçœ‰å–„ç›®");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
         set("class", "fighter");
 
@@ -50,7 +50,7 @@ void create()
 	map_skill("parry", "jingang-quan");
 
 	prepare_skill("cuff", "jingang-quan");
-        create_family("Ã÷½Ì", 3, "ÌìÊĞÌÃÌÃÖ÷");
+        create_family("æ˜æ•™", 3, "å¤©å¸‚å ‚å ‚ä¸»");
 
 	setup();
 

@@ -3,19 +3,19 @@ inherit __DIR__"pill";
 
 void create()
 {
-        set_name(NOR + CYN "·ğ×ğÉáÀû" NOR, ({ "fozun sheli", "sheli", "fozun" }));
+        set_name(NOR + CYN "ä½›å°Šèˆåˆ©" NOR, ({ "fozun sheli", "sheli", "fozun" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", CYN "·ğÃÅ¸ßÉ®ÔÚÔ²¼ÅÇ°Í¨³£¶¼½«±ÏÉú¹¦Á¦×¢ÈëÉáÀû×ÓÖĞ¡£\n" NOR);
-                set("base_unit", "¿Å");
+                set("long", CYN "ä½›é—¨é«˜åƒ§åœ¨åœ†å¯‚å‰é€šå¸¸éƒ½å°†æ¯•ç”ŸåŠŸåŠ›æ³¨å…¥èˆåˆ©å­ä¸­ã€‚\n" NOR);
+                set("base_unit", "é¢—");
                 set("base_value", 8000);
                 set("base_weight", 50);
                 set("only_do_effect", 1);
                 set("pill_skill", "etc");
                 set("force_point", 12);
-                set("pill_msg3", HIM "Äã¸Ğµ½¾«Á¦ÓÖÔö¼ÓÁËÒ»Ğ©¡£\n" NOR);
-                set("pill_msg4", HIR "Äã¸Ğµ½ÄÚÏ¢ÅìÅÈ£¬ÄÑÒÔÎüÊÕÒ©Á¦¡£\n" NOR);
+                set("pill_msg3", HIM "ä½ æ„Ÿåˆ°ç²¾åŠ›åˆå¢åŠ äº†ä¸€äº›ã€‚\n" NOR);
+                set("pill_msg4", HIR "ä½ æ„Ÿåˆ°å†…æ¯æ¾æ¹ƒï¼Œéš¾ä»¥å¸æ”¶è¯åŠ›ã€‚\n" NOR);
         }
         setup();
 }

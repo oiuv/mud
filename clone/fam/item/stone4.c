@@ -3,11 +3,11 @@
 
 void create()
 {
-        set_name(HIM "»ÔÊ¯" NOR, ({ "hui shi", "hui", "shi" }));
+        set_name(HIM "è¾‰çŸ³" NOR, ({ "hui shi", "hui", "shi" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("base_unit", "¿Å");
+                set("base_unit", "é¢—");
                 set("base_value", 180000);
                 set("base_weight", 100);
         }

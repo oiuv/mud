@@ -6,19 +6,19 @@ inherit EQUIP;
 
 void create()
 {
-        set_name( HIM "Æß²ÊÏ¼ÔÆÒÂ" NOR, ({ "qicai yi", "qicai", "yi" }) );
+        set_name( HIM "ä¸ƒå½©éœäº‘è¡£" NOR, ({ "qicai yi", "qicai", "yi" }) );
         set_weight(700);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼ş");
+                set("unit", "ä»¶");
                 set("value", 2000);
                 set("material", "cloth");
                 set("armor_type", "cloth");
                 set("armor_prop/armor", 3);
                 set("female_only", 1);
-                set("wear_msg","$N´©ÉÏÒ»¼ş$n¡£\n");
-                set("remove_msg","$N½«$nÍÑÁËÏÂÀ´¡£\n");
+                set("wear_msg","$Nç©¿ä¸Šä¸€ä»¶$nã€‚\n");
+                set("remove_msg","$Nå°†$nè„±äº†ä¸‹æ¥ã€‚\n");
         }
 
         setup();

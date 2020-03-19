@@ -5,21 +5,21 @@ int main(object me, string arg)
 {
 	int max, pts;
 
-        // ·ßÅ­Ö®ĞÄÔö¼Ó¼ÓÅ­ÉÏÏŞ
+        // æ„¤æ€’ä¹‹å¿ƒå¢åŠ åŠ æ€’ä¸Šé™
         if (me->query("special_skill/wrath"))
                 max = me->query_max_craze() / 70;
         else
                 max = me->query_max_craze() / 100;
 
         if (max < 1)
-                return notify_fail("ÄãµÄĞÔ¸ñ²»ºÏ£¬ÎŞ·¨Ê¹ÓÃ·ßÅ­¹¥»÷¡£\n");
+                return notify_fail("ä½ çš„æ€§æ ¼ä¸åˆï¼Œæ— æ³•ä½¿ç”¨æ„¤æ€’æ”»å‡»ã€‚\n");
 
 	if (! arg || (arg != "none" && arg != "max"
            && arg != "half" && ! sscanf(arg, "%d", pts)))
-                return notify_fail("\nÖ¸Áî¸ñÊ½£ºpique|jianu <Ê¹³ö¼¸³É·ß"
-                                   "Å­ÉËµĞ> |max|half|none \nÄãÏÖÔÚ×î¶à"
-                                   "ÄÜÓÃ" HIG + chinese_number(max) + NOR
-                                   "µã·ßÅ­ÖµÉËµĞ¡£\n");
+                return notify_fail("\næŒ‡ä»¤æ ¼å¼ï¼špique|jianu <ä½¿å‡ºå‡ æˆæ„¤"
+                                   "æ€’ä¼¤æ•Œ> |max|half|none \nä½ ç°åœ¨æœ€å¤š"
+                                   "èƒ½ç”¨" HIG + chinese_number(max) + NOR
+                                   "ç‚¹æ„¤æ€’å€¼ä¼¤æ•Œã€‚\n");
 
 	if (arg == "none")
 		me->delete("jianu");
@@ -32,34 +32,34 @@ int main(object me, string arg)
 			pts = max / 2;
 
 		if (pts < 0)
-			return notify_fail("ÄãÖ»ÄÜÓÃ none ±íÊ¾²»ÓÃ·ßÅ­£¬»òÊı×Ö"
-                                           "±íÊ¾Ã¿Ò»»÷ÓÃ¼¸µã·ßÅ­Öµ¡£\n");
+			return notify_fail("ä½ åªèƒ½ç”¨ none è¡¨ç¤ºä¸ç”¨æ„¤æ€’ï¼Œæˆ–æ•°å­—"
+                                           "è¡¨ç¤ºæ¯ä¸€å‡»ç”¨å‡ ç‚¹æ„¤æ€’å€¼ã€‚\n");
 
 		if (pts > max)
-			return notify_fail("Äã×î¶àÖ»ÄÜÓÃ" HIG + chinese_number(max)
-                                           + NOR "µã·ßÅ­ÖµÉËµĞ¡£\n");
+			return notify_fail("ä½ æœ€å¤šåªèƒ½ç”¨" HIG + chinese_number(max)
+                                           + NOR "ç‚¹æ„¤æ€’å€¼ä¼¤æ•Œã€‚\n");
 
 		me->set("jianu", pts);
 	}
 	if (! me->query("jianu"))
-		write(HIC "Äã¾ö¶¨·ÅÆúÊ¹ÓÃ·ßÅ­ÖµÉËµĞ¡£\n" NOR);
+		write(HIC "ä½ å†³å®šæ”¾å¼ƒä½¿ç”¨æ„¤æ€’å€¼ä¼¤æ•Œã€‚\n" NOR);
 	else
-		write(HIR "Äã¾ö¶¨ÓÃ" HIG + chinese_number(pts) +
-                      HIR "µã·ßÅ­ÖµÉËµĞ¡£\n" NOR);
+		write(HIR "ä½ å†³å®šç”¨" HIG + chinese_number(pts) +
+                      HIR "ç‚¹æ„¤æ€’å€¼ä¼¤æ•Œã€‚\n" NOR);
 	return 1;
 }
 
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: pique|jianu <Ê¹³ö¼¸µã·ßÅ­ÖµÉËµĞ>|max|half|none
+æŒ‡ä»¤æ ¼å¼: pique|jianu <ä½¿å‡ºå‡ ç‚¹æ„¤æ€’å€¼ä¼¤æ•Œ>|max|half|none
  
-Õâ¸öÖ¸ÁîÈÃÄãÖ¸¶¨Ã¿´Î»÷ÖĞµĞÈËÊ±£¬·¢³ö¼¸µã·ßÅ­ÉËº¦¶Ô·½¡£Èç¹ûÊ¹
-ÓÃ·ßÅ­ÉËµĞ£¬ÔòÔÚ¹¥»÷ÖĞ»¹ÓĞÒ»¶¨µÄ¼¸ÂÊ¿ÉÒÔÊ¹³ö·ßÅ­±ØÉ±¼¼±©Å­ÕĞ
-Ê½¡£ÆäÖĞ max ±íÊ¾Äã½«Ê¹ÓÃ×î´óÏŞ¶îµÄ·ßÅ­ÖµÉËµĞ¡£half ±íÊ¾Ê¹ÓÃ
-×î´óÏŞ¶îÒ»°ëµÄ·ßÅ­ÖµÉËµĞ¡£¶ønoneÔò±íÊ¾Äã²»ÔÙÊ¹ÓÃ·ßÅ­ÖµÉËµĞ¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ æŒ‡å®šæ¯æ¬¡å‡»ä¸­æ•Œäººæ—¶ï¼Œå‘å‡ºå‡ ç‚¹æ„¤æ€’ä¼¤å®³å¯¹æ–¹ã€‚å¦‚æœä½¿
+ç”¨æ„¤æ€’ä¼¤æ•Œï¼Œåˆ™åœ¨æ”»å‡»ä¸­è¿˜æœ‰ä¸€å®šçš„å‡ ç‡å¯ä»¥ä½¿å‡ºæ„¤æ€’å¿…æ€æŠ€æš´æ€’æ‹›
+å¼ã€‚å…¶ä¸­ max è¡¨ç¤ºä½ å°†ä½¿ç”¨æœ€å¤§é™é¢çš„æ„¤æ€’å€¼ä¼¤æ•Œã€‚half è¡¨ç¤ºä½¿ç”¨
+æœ€å¤§é™é¢ä¸€åŠçš„æ„¤æ€’å€¼ä¼¤æ•Œã€‚è€Œnoneåˆ™è¡¨ç¤ºä½ ä¸å†ä½¿ç”¨æ„¤æ€’å€¼ä¼¤æ•Œã€‚
 
-Ïà¹ØÖ¸Áî£º¼¤Å­(berserk)£¬·¢Ğ¹(burning)
+ç›¸å…³æŒ‡ä»¤ï¼šæ¿€æ€’(berserk)ï¼Œå‘æ³„(burning)
 
 HELP);
         return 1;

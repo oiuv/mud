@@ -1,13 +1,13 @@
-// bing.c ËÎ±ø
+// bing.c å®‹å…µ
 
 inherit NPC;
 
 void create()
 {
-	set_name("ËÎ±ø", ({ "song bing", "bing" }));
+	set_name("å®‹å…µ", ({ "song bing", "bing" }));
 	set("age", 22);
-	set("gender", "ÄĞĞÔ");
-	set("long", "´óËÎ¹Ù±øµÄÎäÒÕ²»ÄÜºÍÎäÁÖÈËÊ¿Ïà±È£¬µ«ÏåÑôÊØ¾üÖ®¾«£¬ÌìÏÂµÚÒ»¡£\n");
+	set("gender", "ç”·æ€§");
+	set("long", "å¤§å®‹å®˜å…µçš„æ­¦è‰ºä¸èƒ½å’Œæ­¦æ—äººå£«ç›¸æ¯”ï¼Œä½†è¥„é˜³å®ˆå†›ä¹‹ç²¾ï¼Œå¤©ä¸‹ç¬¬ä¸€ã€‚\n");
 	set("attitude", "peaceful");
 //	set("vendetta_mark", "authority");
 //      set("pursuer", 1);
@@ -33,8 +33,8 @@ void create()
 
         set("chat_chance_combat", 10);
 	set("chat_msg_combat", ({
-		"ËÎ±øºÈµÀ£º´óµ¨µóÃñ£¬¾¹¸ÒÔì·´²»³É£¿\n",
-		"ËÎ±øºÈµÀ£ºÅÜµÃÁËºÍÉĞÅÜ²»ÁËÃí£¬Äã»¹ÊÇ¿ì¿ìÊøÊÖ¾ÍÇÜ£¡\n",
+		"å®‹å…µå–é“ï¼šå¤§èƒ†åˆæ°‘ï¼Œç«Ÿæ•¢é€ åä¸æˆï¼Ÿ\n",
+		"å®‹å…µå–é“ï¼šè·‘å¾—äº†å’Œå°šè·‘ä¸äº†åº™ï¼Œä½ è¿˜æ˜¯å¿«å¿«æŸæ‰‹å°±æ“’ï¼\n",
 	}));
 	setup();
 	carry_object("/clone/weapon/gangdao")->wield();
@@ -54,7 +54,7 @@ void init()
 
 int accept_fight(object me)
 {
-	command("say ´óÒ¯ÎÒÕıÏëÕÒÈËÉ±ÄÅ£¬½ñÌìËãÄãµ¹Ã¹¡£\n");
+	command("say å¤§çˆ·æˆ‘æ­£æƒ³æ‰¾äººæ€å‘ï¼Œä»Šå¤©ç®—ä½ å€’éœ‰ã€‚\n");
 	kill_ob(me);
 	return 1;
 }

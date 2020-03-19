@@ -7,10 +7,10 @@ inherit PRODUCING_ROOM;
 
 void create ()
 {
-        set ("short", "¹¤²¿Ê¯³§");
+        set ("short", "å·¥éƒ¨çŸ³å‚");
         set ("long", @LONG
-ÕâÊÇ¹¤²¿µÄÊÕ¼¯Ê¯ÁÏ£¬Ñ¡ÁÏ´òÄ¥µÄµØ·½¡£¼ğÑ¡À´×ÔÈ«¹ú¸÷µØÔËÀ´µÄ
-Ê¯ÁÏ£¬·ÖÃÅ±ğÀà£¬¹©¾©³Ç½¨ÖşÊ¹ÓÃ¡£
+è¿™æ˜¯å·¥éƒ¨çš„æ”¶é›†çŸ³æ–™ï¼Œé€‰æ–™æ‰“ç£¨çš„åœ°æ–¹ã€‚æ‹£é€‰æ¥è‡ªå…¨å›½å„åœ°è¿æ¥çš„
+çŸ³æ–™ï¼Œåˆ†é—¨åˆ«ç±»ï¼Œä¾›äº¬åŸå»ºç­‘ä½¿ç”¨ã€‚
 LONG);
         set("exits",  ([ //sizeof() == 2
                 "north" : __DIR__"gongbu",
@@ -23,12 +23,12 @@ LONG);
         set("no_fight", 1);
         set("no_sleep_room", 1);
 
-        set("product/perfect-stone", ([ "name" : "¾«Ê¯",
+        set("product/perfect-stone", ([ "name" : "ç²¾çŸ³",
                                         "rate" : 300,
                                         "max"  : 50000,
                                         "cost" : ({ "stone" }), ]));
 
-        set("product/stone", ([ "name" : "Ê¯ÁÏ",
+        set("product/stone", ([ "name" : "çŸ³æ–™",
                                      "max"  : 50000,
                                      "rate" : 100, ]));
 

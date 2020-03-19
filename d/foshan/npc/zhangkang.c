@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÕÅ¿µ", ({ "zhang kang", "zhang" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("å¼ åº·", ({ "zhang kang", "zhang" }));
+	set("gender", "ç”·æ€§");
 	set("age", 25);
 	set("per", 20);
-	set("long", "ÕâÊÇ¸öÀÏÊµ°Í½»µÄºº×Ó£¬ÊÇÕÅ³¯ÌÆµÄ´ÓÈË¡£\n");
+	set("long", "è¿™æ˜¯ä¸ªè€å®å·´äº¤çš„æ±‰å­ï¼Œæ˜¯å¼ æœå”çš„ä»äººã€‚\n");
 	set("combat_exp", 2000);
         set_skill("dodge", 20);
         set_skill("unarmed", 20);

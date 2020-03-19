@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�Ͻ�С��");
+        set("short", "南疆小镇");
         set("long", @LONG
-�Ӳ�ԭ�����£���ӽ��Ͻ�ɳĮ�ˡ���������𽥸�����
-��ʱ����ɳĮ��ӿ����ɳĮ�ﻹ���������̶ӣ��������Ϣ��
-�������������������������ʮ�����֡�������һСԺ��
+从草原上南下，便接近南疆沙漠了。这儿气候逐渐干燥热
+浪时而从沙漠里涌来。沙漠里还走来骆驼商队，在这儿休息分
+发货物。于是商铺林立人来人往十分热闹。西面是一小院。
 LONG);
         set("outdoors", "shenfeng");
         set("exits", ([

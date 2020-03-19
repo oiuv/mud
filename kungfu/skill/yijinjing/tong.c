@@ -1,4 +1,4 @@
-// shield.c Ò×½î¾­ Ò×½îÍ¨Âö
+// shield.c æ˜“ç­‹ç» æ˜“ç­‹é€šè„‰
 
 #include <ansi.h>
 
@@ -11,35 +11,35 @@ int exert(object me, object target)
         int skill;
 
 
-        //if (me->query("family/family_name") != "ÉÙÁÖÅÉ")
-        //        return notify_fail("Äã²»ÊÇÉÙÁÖµÜ×Ó£¬ÎŞ·¨Ê¹ÓÃ¡°Ò×½îÍ¨Âö¡±¡£\n");
+        //if (me->query("family/family_name") != "å°‘æ—æ´¾")
+        //        return notify_fail("ä½ ä¸æ˜¯å°‘æ—å¼Ÿå­ï¼Œæ— æ³•ä½¿ç”¨â€œæ˜“ç­‹é€šè„‰â€ã€‚\n");
         if (userp(me) && ! me->query("can_perform/yijinjing/tong"))
-                return notify_fail("ÄãËùÑ§µÄÄÚ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€å­¦çš„å†…åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÓÃÒ×½î¾­À´Îª×Ô¼ºÒ×½îÍ¨Âö¡£ \n");
+                return notify_fail("ä½ åªèƒ½ç”¨æ˜“ç­‹ç»æ¥ä¸ºè‡ªå·±æ˜“ç­‹é€šè„‰ã€‚ \n");
 
         if ((skill = (int)me->query_skill("yijinjing", 1)) < 100)
-                return notify_fail("ÄãµÄÒ×½î¾­µÈ¼¶²»¹»¡£\n");
+                return notify_fail("ä½ çš„æ˜“ç­‹ç»ç­‰çº§ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query("eff_qi")*100/(int)me->query("max_qi") > 80)
-                return notify_fail("ÄãÉËÊÆºÜÇá£¬²»ÓÃ¼¤ÀøÒ×½î¾­ÖÁ¸ß¾øÑ§¡£\n");
+                return notify_fail("ä½ ä¼¤åŠ¿å¾ˆè½»ï¼Œä¸ç”¨æ¿€åŠ±æ˜“ç­‹ç»è‡³é«˜ç»å­¦ã€‚\n");
 
         if ((int)me->query("eff_qi")*100/(int)me->query("max_qi") < 10)
-                return notify_fail("ÄãÄÚÉËÌ«ÖØ£¬ÎŞ·¨¼¤ÀøÒ×½î¾­ÖÁ¸ß¾øÑ§¡£\n");
+                return notify_fail("ä½ å†…ä¼¤å¤ªé‡ï¼Œæ— æ³•æ¿€åŠ±æ˜“ç­‹ç»è‡³é«˜ç»å­¦ã€‚\n");
 
         if ((int)me->query("neili") < skill*5 || (int)me->query("max_neili") < 500)
-                return notify_fail("ÄãµÄÕæÆø²»¹»¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿã€‚\n");
 
         me->add("neili", -skill*4);
         me->receive_damage("qi", 0);
 
-        message_combatd(HIM "$N" HIM "Ä¬ÄîÒ×½î¾­µÄ¿Ú¾÷: "
-                            "ÔªÆø,Æø´æÓÚÄÚ,·ÅÓÚÍâ¡£"
-                            "Ò×½î,ÔĞ»³ÓÚÏ¢,ÊæÓÚÖ§....\n"
-                        HIW "Ò»¹ÉÏêºÍµÄ°×É«î¸Æø×ÔÍ·¶¥Ñ¸ËÙ"
-                        HIW "ÓÎ±é" HIW "$N" HIW "µÄÆæ¾­°ËÂö£¡\n"
-                        HIC "$N" HIC "µÄÄÚÉËÉ²ÄÇ¼ä´óÎªºÃ×ª£¡£¡\n" NOR, me);
+        message_combatd(HIM "$N" HIM "é»˜å¿µæ˜“ç­‹ç»çš„å£è¯€: "
+                            "å…ƒæ°”,æ°”å­˜äºå†…,æ”¾äºå¤–ã€‚"
+                            "æ˜“ç­‹,å­•æ€€äºæ¯,èˆ’äºæ”¯....\n"
+                        HIW "ä¸€è‚¡è¯¦å’Œçš„ç™½è‰²ç½¡æ°”è‡ªå¤´é¡¶è¿…é€Ÿ"
+                        HIW "æ¸¸é" HIW "$N" HIW "çš„å¥‡ç»å…«è„‰ï¼\n"
+                        HIC "$N" HIC "çš„å†…ä¼¤åˆ¹é‚£é—´å¤§ä¸ºå¥½è½¬ï¼ï¼\n" NOR, me);
 
         me->add("max_neili", -skill/4);
 

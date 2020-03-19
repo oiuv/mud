@@ -5,11 +5,11 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("³ÌÑþåÈ", ({ "cheng yaojia", "cheng", "yaojia"}));
-        set("gender", "Å®ÐÔ");
+        set_name("ç¨‹ç‘¶è¿¦", ({ "cheng yaojia", "cheng", "yaojia"}));
+        set("gender", "å¥³æ€§");
         set("age", 24);
         set("class", "taoist");
-        set("long", "ËýÊÇÇå¾»É¢ÈËËï²»¶þµÄµÜ×Ó¡£\n");
+        set("long", "å¥¹æ˜¯æ¸…å‡€æ•£äººå­™ä¸äºŒçš„å¼Ÿå­ã€‚\n");
         set("attitude", "friendly");
         set("shen_type",1);
         set("per", 26);
@@ -52,7 +52,7 @@ void create()
 
         prepare_skill("finger", "zhongnan-zhi");
 
-        create_family("È«Õæ½Ì", 3, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 3, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -72,6 +72,6 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-        command("say ¡­àÅ¡­ÄÇÎÒ¾ÍÔÝÊ±ÊÕÏÂÄãºÃÁË¡£");
+        command("say â€¦å—¯â€¦é‚£æˆ‘å°±æš‚æ—¶æ”¶ä¸‹ä½ å¥½äº†ã€‚");
         command("recruit " + ob->query("id"));
 }

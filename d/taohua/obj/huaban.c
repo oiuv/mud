@@ -5,14 +5,14 @@ inherit THROWING;
 
 void create()
 {
-        set_name(HIM "ÌÒ»¨°ê" NOR, ({ "flower leaf", "hua ban", "ban" }) );
+        set_name(HIM "æ¡ƒèŠ±ç“£" NOR, ({ "flower leaf", "hua ban", "ban" }) );
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIM "ĞÂÏÊµÄÌÒ»¨»¨°ê£¬ÉÏÃæ»¹¹ÒÕâ¾§Ó¨µÄÂ¶Öé¡£\n" NOR);
-                set("unit", "°Ñ");
+                set("long", HIM "æ–°é²œçš„æ¡ƒèŠ±èŠ±ç“£ï¼Œä¸Šé¢è¿˜æŒ‚è¿™æ™¶è¹çš„éœ²ç ã€‚\n" NOR);
+                set("unit", "æŠŠ");
                 set("value", 0);
-                set("base_unit", "Æ¬");
+                set("base_unit", "ç‰‡");
                 set("base_weight", 1);
                 set("base_value", 0);
                 set("material", "wood");

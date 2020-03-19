@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short",  "������" );
+        set("short",  "东走廊" );
         set("long", @LONG
-������һ���ɾ������ȣ������濴ȥ���������͵���԰��
-�ķ羰��ֻ�����ּ�ɽ��ʯ���滨��ݣ��������֮���ɡ�
+这里是一条干净的走廊，从两面看去，可以欣赏到花园里
+的风景，只见各种假山怪石，奇花异草，足见王府之气派。
 LONG);
         set("exits", ([
                 "west"   :__DIR__"wangfu1",

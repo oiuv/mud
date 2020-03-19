@@ -9,29 +9,29 @@ int perform(object me, object target)
         int skill;
 
         if (userp(me) && ! me->query("can_perform/jinzhong-zhao/zhao"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if ((int)me->query("neili") < 400)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_skill("jinzhong-zhao", 1) < 150)
-                return notify_fail("ÄãµÄ[½ðÖÓÕÖ]ÐÞÎª²»¹»¡£\n");
+                return notify_fail("ä½ çš„[é‡‘é’Ÿç½©]ä¿®ä¸ºä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_temp("jinzhongzhao"))
-                return notify_fail("ÄãÒÑ¾­ÔËÆð[½ðÖÓÕÖ]×÷Îª»¤ÌåÉñ¹¦ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»è¿èµ·[é‡‘é’Ÿç½©]ä½œä¸ºæŠ¤ä½“ç¥žåŠŸäº†ã€‚\n");
 
 	      if ((int)me->query_temp("jingangbuhuai"))
-                return notify_fail("ÄãÒÑ¾­ÔËÆð½ð¸Õ²»»µ»¤ÌåÉñ¹¦ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»è¿èµ·é‡‘åˆšä¸åæŠ¤ä½“ç¥žåŠŸäº†ã€‚\n");
 
         if ((int)me->query_temp("special/jinshen"))
-                return notify_fail("ÄãÒÑ¾­ÔËÆðÉñÄ§½ðÉíÖ®ÊõÁË¡£\n");
+                return notify_fail("ä½ å·²ç»è¿èµ·ç¥žé­”é‡‘èº«ä¹‹æœ¯äº†ã€‚\n");
 
         skill = me->query_skill("force", 1) + me->query_skill("jinzhong-zhao", 1) / 2;
         me->add("neili", -300);
         me->receive_damage("qi", 0);
 
-        message_combatd(HIW "Ö»Ìý$N" HIW "ÑöÌì±©ºÈÒ»Éù£¬È«ÉíÃÍÈ»Ò»¶¶£¬Ò»¹ÉÎÞÐÎÕæÆøÑ¸ËÙÓÎ¾­°Ë"
-                            "ÂöÕÖ×¡È«Éí\nËæ¼´ÂûÏòÏòËÄÖÜ£¬É²Ê±¼äËÄÖÜ·ÉÉ³×ßÊ¯£¬ÑÌ³¾¹ö¹ö!¡£\n" NOR, me);
+        message_combatd(HIW "åªå¬$N" HIW "ä»°å¤©æš´å–ä¸€å£°ï¼Œå…¨èº«çŒ›ç„¶ä¸€æŠ–ï¼Œä¸€è‚¡æ— å½¢çœŸæ°”è¿…é€Ÿæ¸¸ç»å…«"
+                            "è„‰ç½©ä½å…¨èº«\néšå³è”“å‘å‘å››å‘¨ï¼Œåˆ¹æ—¶é—´å››å‘¨é£žæ²™èµ°çŸ³ï¼ŒçƒŸå°˜æ»šæ»š!ã€‚\n" NOR, me);
 
         //me->add_temp("apply/armor", skill / 3);
         me->add_temp("apply/armor", skill / 2);
@@ -52,6 +52,6 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/armor", -(amount / 2));
                 me->add_temp("apply/force", -(amount / 4));
                 me->delete_temp("jinzhongzhao");
-                tell_object(me, "ÄãµÄ[½ðÖÓÕÖ]»¤ÌåÉñ¹¦ÔËÐÐÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„[é‡‘é’Ÿç½©]æŠ¤ä½“ç¥žåŠŸè¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›žä¸¹ç”°ã€‚\n");
         }
 }

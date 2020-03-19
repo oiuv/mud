@@ -7,7 +7,7 @@ inherit CLASS_D("generate") + "/chinese";
 void create()
 {
         ::create();
-	set("gender", "ÄĞĞÔ" );
+	set("gender", "ç”·æ€§" );
 	set("age", 15 + random(20));
 	set("long", "");
 	set("attitude", "friendly");
@@ -33,8 +33,8 @@ void kill_ob(object ob)
 {
         if (ob->query("family/family_name") == query("family/family_name"))
         {
-                message_vision(HIC "$N" HIC "¿´ÁË¿´¶Ô·½£¬Á¬Ã¦ÍùºóÒ»Ìø£¬"
-                               "´óÉùº°µÀ£º¡°´ó¼Ò×¡ÊÖ£¡ÓĞ»°ºÃËµ£¡¡±\n" NOR,
+                message_vision(HIC "$N" HIC "çœ‹äº†çœ‹å¯¹æ–¹ï¼Œè¿å¿™å¾€åä¸€è·³ï¼Œ"
+                               "å¤§å£°å–Šé“ï¼šâ€œå¤§å®¶ä½æ‰‹ï¼æœ‰è¯å¥½è¯´ï¼â€\n" NOR,
                                this_object());
                 return;
         }
@@ -44,14 +44,14 @@ void kill_ob(object ob)
 
 int accept_fight(object ob)
 {
-        message_vision("$NÁ¬Á¬Ò¡Í·£¬µÀ£º¡°²»±ØÁË£¬ÎÒÃ»ÓĞĞËÈ¤¡£¡±\n",
+        message_vision("$Nè¿è¿æ‘‡å¤´ï¼Œé“ï¼šâ€œä¸å¿…äº†ï¼Œæˆ‘æ²¡æœ‰å…´è¶£ã€‚â€\n",
                        this_object());
         return 0;
 }
 
 int accept_hit(object ob)
 {
-        message_vision("$NÍùºóÒ»ÍË£¬µÀ£º¡°ÎÒ¿ÉÃ»ÓĞĞËÈ¤ºÍÄã¹ıÕĞ¡£¡±\n",
+        message_vision("$Nå¾€åä¸€é€€ï¼Œé“ï¼šâ€œæˆ‘å¯æ²¡æœ‰å…´è¶£å’Œä½ è¿‡æ‹›ã€‚â€\n",
                        this_object());
         return 0;
 }
@@ -60,14 +60,14 @@ int accept_kill(object ob)
 {
         if (ob == query_temp("owner"))
         {
-                message_vision("$NÏòºóÒ»ÍË£¬´óÉùº°µÀ£º¡°ËùÎ½ºÏÔòÁô£¬²»ºÏ"
-                               "ÔòÈ¥£¬ÎÒÊÇ²»ÄÜÊÌ·îÄãÁË£¡¡±\nËµ°Õ£¬Ò²²»´ı"
-                               "$n»Ø»°£¬×Ô¹ËÈ¥ÁË¡£\n", this_object(), ob);
+                message_vision("$Nå‘åä¸€é€€ï¼Œå¤§å£°å–Šé“ï¼šâ€œæ‰€è°“åˆåˆ™ç•™ï¼Œä¸åˆ"
+                               "åˆ™å»ï¼Œæˆ‘æ˜¯ä¸èƒ½ä¾å¥‰ä½ äº†ï¼â€\nè¯´ç½¢ï¼Œä¹Ÿä¸å¾…"
+                               "$nå›è¯ï¼Œè‡ªé¡¾å»äº†ã€‚\n", this_object(), ob);
                 destruct(this_object());
                 return -1;
         }
 
-        message_vision("$NÒ»ÉùÀäĞ¦£¬µÀ£º¡°ÆñÓĞ´ËÀí£¡½ÓÕĞ°É£¡¡±\n",
+        message_vision("$Nä¸€å£°å†·ç¬‘ï¼Œé“ï¼šâ€œå²‚æœ‰æ­¤ç†ï¼æ¥æ‹›å§ï¼â€\n",
                        this_object());
 	return 1;
 }
@@ -95,7 +95,7 @@ void scan()
         if (! objectp(ob = query_temp("owner")))
         {
                 if (environment())
-                        message_vision("$N¼±¼±Ã¦Ã¦µÄ×ßÁË¡£\n", this_object());
+                        message_vision("$Næ€¥æ€¥å¿™å¿™çš„èµ°äº†ã€‚\n", this_object());
                 destruct(this_object());
                 return;
         }
@@ -104,9 +104,9 @@ void scan()
         {
                 if (environment())
                 {
-                        command("tell " + ob->query("id") + " ¸úËæÄãÒ»Äê£¬ÊÇ"
-                                "Ê±ºò»ØÏÀ¿ÍµºÀ²£¬¸ÄÈÕÔÙ»á°É£¡\n");
-                        message_vision("$N¼±¼±Ã¦Ã¦µÄ×ßÁË¡£\n", this_object());
+                        command("tell " + ob->query("id") + " è·Ÿéšä½ ä¸€å¹´ï¼Œæ˜¯"
+                                "æ—¶å€™å›ä¾ å®¢å²›å•¦ï¼Œæ”¹æ—¥å†ä¼šå§ï¼\n");
+                        message_vision("$Næ€¥æ€¥å¿™å¿™çš„èµ°äº†ã€‚\n", this_object());
                 }
                 destruct(this_object());
         }
@@ -115,18 +115,18 @@ void scan()
 
         env = environment(ob);
         if (environment() == env || ob->is_ghost())
-                // ºÍÖ÷ÈËÔÚµÄµØµãÏàÍ¬£¬»òÊÇÖ÷ÈË´¦ÓÚ¹í»ê×´Ì¬
+                // å’Œä¸»äººåœ¨çš„åœ°ç‚¹ç›¸åŒï¼Œæˆ–æ˜¯ä¸»äººå¤„äºé¬¼é­‚çŠ¶æ€
                 return;
 
         if (is_busy() || is_fighting() || ! living(this_object()))
-                // ÏÖÔÚÃ¦
+                // ç°åœ¨å¿™
                 return;
 
         if (! sizeof(env->query("exits")) ||
             ! sizeof(environment()->query("exits")))
                 return;
 
-        message_vision("$N¼±¼±Ã¦Ã¦µÄ×ß¿ªÁË¡£\n", this_object());
+        message_vision("$Næ€¥æ€¥å¿™å¿™çš„èµ°å¼€äº†ã€‚\n", this_object());
         if (! move(env)) return;
         obs = filter_array(all_inventory(env),
                            (: $1->is_character() &&
@@ -134,11 +134,11 @@ void scan()
                               $1->query_competitor() != $(ob) :));
         if (sizeof(obs))
         {
-                message_vision("$N¼±¼±Ã¦Ã¦µÄ¸ÒÁË¹ıÀ´£¬¿´¼û$nÕı"
-                               "ÔÚ¿à¶·£¬µ±¼´´óºÈÒ»Éù£¬¼ÓÈëÁË$nµÄÕ½ÍÅ£¡\n",
+                message_vision("$Næ€¥æ€¥å¿™å¿™çš„æ•¢äº†è¿‡æ¥ï¼Œçœ‹è§$næ­£"
+                               "åœ¨è‹¦æ–—ï¼Œå½“å³å¤§å–ä¸€å£°ï¼ŒåŠ å…¥äº†$nçš„æˆ˜å›¢ï¼\n",
                                this_object(), ob);
                 foreach (enemy in obs) kill_ob(enemy);
         } else
-                message_vision("$N×ßÁË¹ıÀ´£¬Õ¾ÔÚ$nµÄÉíºó¡£\n",
+                message_vision("$Nèµ°äº†è¿‡æ¥ï¼Œç«™åœ¨$nçš„èº«åã€‚\n",
                                this_object(), ob);
 }

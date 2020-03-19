@@ -1,4 +1,4 @@
-// Íæ¼ÒÈÎÎñÊØ»¤½ø³Ì£ºsearch.c
+// ç©å®¶ä»»åŠ¡å®ˆæŠ¤è¿›ç¨‹ï¼šsearch.c
 
 #include <ansi.h>
 
@@ -26,7 +26,7 @@ string *lost_objs = ({
 
 void startup();
 
-// ÈÎÎñ¶ÔÏó´´½¨
+// ä»»åŠ¡å¯¹è±¡åˆ›å»º
 void create()
 {
     seteuid(getuid());
@@ -40,19 +40,19 @@ void start_quest()
     string qob_name;
     string *ob_names;
 
-    // ÅÉÉúÆäËüµÄÈÎÎñ¶ÔÏó£º±ØĞëÓĞ¿ÉÓÃÎïÆ·£¬µ±Ç°ÈÎÎñ < 5
+    // æ´¾ç”Ÿå…¶å®ƒçš„ä»»åŠ¡å¯¹è±¡ï¼šå¿…é¡»æœ‰å¯ç”¨ç‰©å“ï¼Œå½“å‰ä»»åŠ¡ < 5
     ob_names = filter_array(lost_objs, (: !find_object($1) || !$1->query_temp("quest_ob") :));
     if (sizeof(ob_names) < 1)
         return;
 
-    // ÏµÍ³ÖĞ×î¶à15¸öÑ°ÕÒÎïÆ·µÄÈÎÎñ
+    // ç³»ç»Ÿä¸­æœ€å¤š15ä¸ªå¯»æ‰¾ç‰©å“çš„ä»»åŠ¡
     if (sizeof(children("/clone/quest/search")) > 15)
         return;
 
     qob_name = ob_names[random(sizeof(ob_names))];
     qob = new ("/clone/quest/search");
     qob->init_quest(qob_name);
-    CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "½ø³Ì(SEARCH)" HIR "ÀûÓÃ" + qob_name->name() + HIR "´´½¨ÁËÒ»¸öÈÎÎñ¡£");
+    CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "è¿›ç¨‹(SEARCH)" HIR "åˆ©ç”¨" + qob_name->name() + HIR "åˆ›å»ºäº†ä¸€ä¸ªä»»åŠ¡ã€‚");
 }
 
 private void heart_beat()
@@ -60,27 +60,27 @@ private void heart_beat()
     if (!find_object(QUEST_D))
         return;
 
-    // Èç¹û¿ÉÒÔ£¬Ã¿´ÎĞÄÌø²úÉú3¸öQUEST
+    // å¦‚æœå¯ä»¥ï¼Œæ¯æ¬¡å¿ƒè·³äº§ç”Ÿ3ä¸ªQUEST
     start_quest();
     start_quest();
     start_quest();
 }
 
-// ÈÎÎñÊØ»¤½ø³Ì»½ĞÑÕâ¸ö½ø³Ì
+// ä»»åŠ¡å®ˆæŠ¤è¿›ç¨‹å”¤é†’è¿™ä¸ªè¿›ç¨‹
 void startup()
 {
-    // Æô¶¯
+    // å¯åŠ¨
     if (!find_object(QUEST_D))
         return;
 
     if (!query_heart_beat())
-        CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "½ø³Ì(SEARCH)Æô¶¯ÁË¡£");
+        CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "è¿›ç¨‹(SEARCH)å¯åŠ¨äº†ã€‚");
 
-    // Æ½¾ùÃ¿ËÄ·ÖÖÓ²úÉúÒ»¸öÈÎÎñ
+    // å¹³å‡æ¯å››åˆ†é’Ÿäº§ç”Ÿä¸€ä¸ªä»»åŠ¡
     set_heart_beat(110 + random(20));
 }
 
-// Í£Ö¹Õâ¸öÈÎÎñ½ø³Ì
+// åœæ­¢è¿™ä¸ªä»»åŠ¡è¿›ç¨‹
 void stop()
 {
     set_heart_beat(0);

@@ -4,17 +4,17 @@ inherit BOOK;
 
 void create()
 {
-        set_name(CYN "¡¸ÖĞÆ½Ç¹Æ×¡¹" NOR, ({ "zhongping qiangpu", "zhongping", "qiangpu",
+        set_name(CYN "ã€Œä¸­å¹³æªè°±ã€" NOR, ({ "zhongping qiangpu", "zhongping", "qiangpu",
                                             "pu", "book" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
-                set("long", CYN "ÕâÊÇÒ»±¾±¡±¡µÄÊé²á£¬·âÆ¤ÉÏÓÃÕı¿¬Ğ´ÓĞ¡¸ÖĞÆ½"
-                            "Ç¹·¨¡¹ËÄ¸ö´ó×Ö¡£\n" NOR);
+                set("unit", "æœ¬");
+                set("long", CYN "è¿™æ˜¯ä¸€æœ¬è–„è–„çš„ä¹¦å†Œï¼Œå°çš®ä¸Šç”¨æ­£æ¥·å†™æœ‰ã€Œä¸­å¹³"
+                            "æªæ³•ã€å››ä¸ªå¤§å­—ã€‚\n" NOR);
                 set("value", 1);
-                set("no_sell", "¡­Õâ¡­ÕâÊÇÉ¶£¿");
+                set("no_sell", "â€¦è¿™â€¦è¿™æ˜¯å•¥ï¼Ÿ");
                 set("material", "paper");
                 set("skill", ([
                         "name" : "zhongping-qiang",
@@ -43,104 +43,104 @@ int do_yanjiu(string arg)
 
         if (! arg)
         {
-                write("ÑĞ¾¿ÖĞÆ½Ç¹Æ×Ö¸Áî¸ñÊ½£ºresearch|yanjiu <¾øÕĞ> from <ÖĞÆ½Ç¹Æ×>\n");
+                write("ç ”ç©¶ä¸­å¹³æªè°±æŒ‡ä»¤æ ¼å¼ï¼šresearch|yanjiu <ç»æ‹›> from <ä¸­å¹³æªè°±>\n");
                 return 1;
         }
 
         if (sscanf(arg, "%s from %s", pfm, book) != 2)
         {
-                write("ÑĞ¾¿ÖĞÆ½Ç¹Æ×Ö¸Áî¸ñÊ½£ºresearch|yanjiu <¾øÕĞ> from <ÖĞÆ½Ç¹Æ×>\n");
+                write("ç ”ç©¶ä¸­å¹³æªè°±æŒ‡ä»¤æ ¼å¼ï¼šresearch|yanjiu <ç»æ‹›> from <ä¸­å¹³æªè°±>\n");
                 return 1;
         }
 
         if (me->is_busy())
         {
-                write("ÄãÏÖÔÚÕıÃ¦×ÅÄØ¡£\n");
+                write("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
                 return 1;
         }
 
         if (me->is_fighting())
         {
-                write("ÄãÎŞ·¨ÔÚÕ½¶·ÖĞ×¨ĞÄÏÂÀ´ÑĞ¶ÁĞÂÖª£¡\n");
+                write("ä½ æ— æ³•åœ¨æˆ˜æ–—ä¸­ä¸“å¿ƒä¸‹æ¥ç ”è¯»æ–°çŸ¥ï¼\n");
                 return 1;
         }
 
         if (where->query("no_fight") && me->query("doing") != "scheme")
         {
-                write("ÄãÎŞ·¨ÔÚÕâÀï¾²ÏÂĞÄÀ´ÑĞ¶ÁÇ¹Æ×¡£\n");
+                write("ä½ æ— æ³•åœ¨è¿™é‡Œé™ä¸‹å¿ƒæ¥ç ”è¯»æªè°±ã€‚\n");
                 return 1;
         }
 
         if (! me->query_skill("literate", 1))
         {
-                write("ÄãÊÇ¸öÎÄÃ¤£¬ÏÈÑ§µãÎÄ»¯(literate)°É¡£\n");
+                write("ä½ æ˜¯ä¸ªæ–‡ç›²ï¼Œå…ˆå­¦ç‚¹æ–‡åŒ–(literate)å§ã€‚\n");
                 return 1;
         }
 
         if (! id(book))
         {
-                write("ÄãÒªÑĞ¾¿Ê²Ã´£¿\n");
+                write("ä½ è¦ç ”ç©¶ä»€ä¹ˆï¼Ÿ\n");
                 return 1;
         }
 
         if (pfm != "ding")
         {
-                write("Ç¹Æ×ÉÏ²¢Ã»ÓĞ¼ÇÔØÄãÏëÑĞ¾¿µÄ¾øÕĞ¡£\n");
+                write("æªè°±ä¸Šå¹¶æ²¡æœ‰è®°è½½ä½ æƒ³ç ”ç©¶çš„ç»æ‹›ã€‚\n");
                 return 1;
         }
 
         if ((int)me->query("combat_exp") < 100000)
         {
-                write("ÄãµÄÊµÕ½¾­Ñé²»×ã£¬ÔÙÔõÃ´¶ÁÒ²Ã»ÓÃ¡£\n");
+                write("ä½ çš„å®æˆ˜ç»éªŒä¸è¶³ï¼Œå†æ€ä¹ˆè¯»ä¹Ÿæ²¡ç”¨ã€‚\n");
                 return 1;
         }
 
         if ((int)me->query("jing") < 100)
         {
-                write("ÄãÏÖÔÚ¹ıÓÚÆ£¾ë£¬ÎŞ·¨×¨ĞÄÏÂÀ´ÑĞ¶ÁĞÂÖª¡£\n");
+                write("ä½ ç°åœ¨è¿‡äºç–²å€¦ï¼Œæ— æ³•ä¸“å¿ƒä¸‹æ¥ç ”è¯»æ–°çŸ¥ã€‚\n");
                 return 1;
         }
 
         if (me->query("potential") < me->query("learned_points") + 10) 
         {
-                write("ÄãµÄÇ±ÄÜ²»¹»ÁË£¬ÑĞ¾¿²»³öÊ²Ã´¡£\n");
+                write("ä½ çš„æ½œèƒ½ä¸å¤Ÿäº†ï¼Œç ”ç©¶ä¸å‡ºä»€ä¹ˆã€‚\n");
                 return 1;
         }
 
-        // ÖĞÆ½Ç¹·¨¾øÕĞ¶¨ÔÀÆß·½
+        // ä¸­å¹³æªæ³•ç»æ‹›å®šå²³ä¸ƒæ–¹
         if (pfm == "ding")
         {
                 if ((int)me->query("can_perform/zhongping-qiang/ding"))
                 {
-                        write("ÄãÒÑ¾­Ñ§»áÁËÕâÕĞ£¬ÔÙÑĞ¾¿Ò²Ã»ÓÃ¡£\n");
+                        write("ä½ å·²ç»å­¦ä¼šäº†è¿™æ‹›ï¼Œå†ç ”ç©¶ä¹Ÿæ²¡ç”¨ã€‚\n");
                         return 1;
                 }
 
                 if (! (int)me->query_skill("zhongping-qiang"))
                 {
-                        write("ÄãÑĞ¾¿ÁË°ëÌì£¬·¢ÏÖÇ¹Æ×Ëù¼ÇÔØµÄ¾øÕĞÓëÄãºÁÎŞ¹ØÏµ¡£\n");
+                        write("ä½ ç ”ç©¶äº†åŠå¤©ï¼Œå‘ç°æªè°±æ‰€è®°è½½çš„ç»æ‹›ä¸ä½ æ¯«æ— å…³ç³»ã€‚\n");
                         return 1;
                 }
 
                 if ((int)me->query_skill("zhongping-qiang", 1) < 120)
                 {
-                        write("Äã·¢ÏÖÇ¹Æ×ÉÏ¼ÇÔØµÄ¾øÕĞ¹ıÓÚÉî°Â£¬Ò»Ê±ÄÑÒÔÃ÷°×¡£\n");
+                        write("ä½ å‘ç°æªè°±ä¸Šè®°è½½çš„ç»æ‹›è¿‡äºæ·±å¥¥ï¼Œä¸€æ—¶éš¾ä»¥æ˜ç™½ã€‚\n");
                         return 1;
                 }
 
                 if (random(20) < 18)
                 {
-                        message_vision(HIR "$N" HIR "×ĞÏ¸µÄÑĞ¶ÁÇ¹Æ×ÉÏ¼ÇÔØµÄ¾øÕĞ£¬ËÆ"
-                                       "ÓĞËùÎò¡£\n" NOR, me);
-                        tell_object(me, HIY "Äã¶ÔÖĞÆ½Ç¹·¨ÓĞÁË¸üÉîµÄÀí½â£¬µ«ÉĞĞè½øÒ»"
-                                       "²½µÄÑĞ¾¿¡£\n" NOR);
+                        message_vision(HIR "$N" HIR "ä»”ç»†çš„ç ”è¯»æªè°±ä¸Šè®°è½½çš„ç»æ‹›ï¼Œä¼¼"
+                                       "æœ‰æ‰€æ‚Ÿã€‚\n" NOR, me);
+                        tell_object(me, HIY "ä½ å¯¹ä¸­å¹³æªæ³•æœ‰äº†æ›´æ·±çš„ç†è§£ï¼Œä½†å°šéœ€è¿›ä¸€"
+                                       "æ­¥çš„ç ”ç©¶ã€‚\n" NOR);
                 } else
                 { 
-                        message_vision(HIR "$N" HIR "×ĞÏ¸µÄÑĞ¶ÁÇ¹Æ×ÉÏ¼ÇÔØµÄ¾øÕĞ£¬ËÆ"
-                                       "ÓĞËùÎò¡£\n" NOR, me);
-                        tell_object(me, HIY "¹ıµÃÁ¼¾Ã£¬¶¸È»¼äÄãË«Ä¿Ò»ÁÁ£¬ÖÕÓÚÁìÎòÁË"
-                                        "Ç¹Æ×ÖĞËù¼ÇÔØµÄÖĞÆ½Ç¹·¨¾ø¼¼¡¸¶¨ÔÀÆß·½¡¹µÄ°Â"
-                                        "ÃØ£¡\n" NOR + HIC "ÄãÑ§»áÁË¡¸¶¨ÔÀÆß·½¡¹¡£\n" NOR);
+                        message_vision(HIR "$N" HIR "ä»”ç»†çš„ç ”è¯»æªè°±ä¸Šè®°è½½çš„ç»æ‹›ï¼Œä¼¼"
+                                       "æœ‰æ‰€æ‚Ÿã€‚\n" NOR, me);
+                        tell_object(me, HIY "è¿‡å¾—è‰¯ä¹…ï¼Œé™¡ç„¶é—´ä½ åŒç›®ä¸€äº®ï¼Œç»ˆäºé¢†æ‚Ÿäº†"
+                                        "æªè°±ä¸­æ‰€è®°è½½çš„ä¸­å¹³æªæ³•ç»æŠ€ã€Œå®šå²³ä¸ƒæ–¹ã€çš„å¥¥"
+                                        "ç§˜ï¼\n" NOR + HIC "ä½ å­¦ä¼šäº†ã€Œå®šå²³ä¸ƒæ–¹ã€ã€‚\n" NOR);
 
                         if (me->can_improve_skill("club"))
                                 me->improve_skill("club", 1500000);

@@ -11,9 +11,9 @@ void create()
         ::create();
         set_name(query("name"), ({ query("id"), "shou wei", "guarder" }));
         NPC_D->init_npc_skill(this_object(), 7 + random(2));
-	set("gender", "ÄĞĞÔ" );
+	set("gender", "ç”·æ€§" );
 	set("age", 30 + random(30));
-	set("long", "ÕâÊÇ¿´»¤×¯Ô°µÄÊØÎÀ£¬¿´ÉÏÈ¥ËÆºõÉí»³¾ø¼¼¡£\n");
+	set("long", "è¿™æ˜¯çœ‹æŠ¤åº„å›­çš„å®ˆå«ï¼Œçœ‹ä¸Šå»ä¼¼ä¹èº«æ€€ç»æŠ€ã€‚\n");
 	set("attitude", "friendly");
 
         set("max_qi", 4800);
@@ -43,7 +43,7 @@ int accept_object(object who, object ob)
 
         if (is_owner(who))
         {
-                message_vision(name() + "¶Ô$NÊ©ÁËÒ»Àñ¡£\n", who);
+                message_vision(name() + "å¯¹$Næ–½äº†ä¸€ç¤¼ã€‚\n", who);
                 destruct(ob);
                 return 1;
         }
@@ -54,8 +54,8 @@ int accept_hit(object ob)
 {
         if (is_owner(ob))
         {
-                message_vision("$NÁ¬Ã¦°Ú°ÚÊÖ£¬¶Ô$nµÀ£º¡°¿É²»ÒªºÍÎÒ¿ªÕâ"
-                               "ÖÖÍæĞ¦£¡¡±\n", this_object(), ob);
+                message_vision("$Nè¿å¿™æ‘†æ‘†æ‰‹ï¼Œå¯¹$né“ï¼šâ€œå¯ä¸è¦å’Œæˆ‘å¼€è¿™"
+                               "ç§ç©ç¬‘ï¼â€\n", this_object(), ob);
                 return 0;
         }
 
@@ -66,8 +66,8 @@ int accept_fight(object ob)
 {
         if (is_owner(ob))
         {
-                message_vision("$NÏÅÁËÒ»Ìø£¬»ÅÃ¦¶Ô$nµÀ£º¡°Ğ¡µÄ²»¸Ò£¬Ğ¡"
-                               "µÄ²»¸Ò£¡¡±\n", this_object(), ob);
+                message_vision("$Nå“äº†ä¸€è·³ï¼Œæ…Œå¿™å¯¹$né“ï¼šâ€œå°çš„ä¸æ•¢ï¼Œå°"
+                               "çš„ä¸æ•¢ï¼â€\n", this_object(), ob);
                 return 0;
         }
 
@@ -78,9 +78,9 @@ int accept_kill(object ob)
 {
         if (is_owner(ob))
         {
-                message_vision("$NÒ»Éù³¤Ì¾£¬µÀ£º¡°¼ÈÈ»Ö÷ÈË²»ÁôÎÒÁË£¬°Õ"
-                               "°Õ°Õ£¡ºÏÔòÁô£¬²»ºÏÔòÈ¥£¡ÎÒ×ßÁË¡£¡±\n"
-                               "Ëµ°Õ£¬$NÒ»ÑïÊÖ£¬ÇĞÏÂÒ»½ÇÒÂ¾ñ£¬Æ®È»¶øÈ¥¡£\n",
+                message_vision("$Nä¸€å£°é•¿å¹ï¼Œé“ï¼šâ€œæ—¢ç„¶ä¸»äººä¸ç•™æˆ‘äº†ï¼Œç½¢"
+                               "ç½¢ç½¢ï¼åˆåˆ™ç•™ï¼Œä¸åˆåˆ™å»ï¼æˆ‘èµ°äº†ã€‚â€\n"
+                               "è¯´ç½¢ï¼Œ$Nä¸€æ‰¬æ‰‹ï¼Œåˆ‡ä¸‹ä¸€è§’è¡£æŠ‰ï¼Œé£˜ç„¶è€Œå»ã€‚\n",
                                this_object(), ob);
                 destruct(this_object());
                 return 0;

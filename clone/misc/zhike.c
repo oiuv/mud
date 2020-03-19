@@ -1,4 +1,4 @@
-// zhike.c Ö¹¿ÈÒ©
+// zhike.c æ­¢å’³è¯
 
 inherit ITEM;
 
@@ -6,12 +6,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIY"Ö¹¿ÈÒ©"NOR, ({"zhike yao", "zhikeyao"}));
+	set_name(HIY"æ­¢å’³è¯"NOR, ({"zhike yao", "zhikeyao"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "°ü");
-		set("long", "ÕâÊÇÒ»°ü³£¼ûµÄÖ¹¿ÈÒ©¡£\n");
+		set("unit", "åŒ…");
+		set("long", "è¿™æ˜¯ä¸€åŒ…å¸¸è§çš„æ­¢å’³è¯ã€‚\n");
 		set("value", 100);
 		set("only_do_effect", 1);
 	}
@@ -22,11 +22,11 @@ int do_effect(object me)
 {
 	if (! me->query_condition("ill_kesou"))
 	{
-		write("ÄãÏÖÔÚÓÖÃ»ÓĞ¿ÈËÔ£¬±ğÂÒ³ÔÒ©¡£\n");
+		write("ä½ ç°åœ¨åˆæ²¡æœ‰å’³å—½ï¼Œåˆ«ä¹±åƒè¯ã€‚\n");
 		return 1;
 	} else {
 		me->clear_condition("ill_kesou");
-		message_vision("$N³ÔÏÂÒ»°üÖ¹¿ÈÒ©£¬¿ÈËÔÇá¶àÁË¡£\n", me);
+		message_vision("$Nåƒä¸‹ä¸€åŒ…æ­¢å’³è¯ï¼Œå’³å—½è½»å¤šäº†ã€‚\n", me);
 		me->start_busy(2);
 		destruct(this_object());
 		return 1;

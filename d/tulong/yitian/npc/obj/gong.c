@@ -5,13 +5,13 @@ inherit HANDS;
 
 void create()
 {
-        set_name(HIY "µã½ðÅÌÁú¹­" NOR, ({ "panlong gong", "gong", "panlong" }));
+        set_name(HIY "ç‚¹é‡‘ç›˜é¾™å¼“" NOR, ({ "panlong gong", "gong", "panlong" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("unit", "Ö§");
+                set("unit", "æ”¯");
                 set("value", 8000);
                 set("armor_prop/armor", 1);
                 set("armor_prop/hand", 1);

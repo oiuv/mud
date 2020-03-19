@@ -5,16 +5,16 @@ inherit HAMMER;
 
 void create()
 {
-        set_name(MAG "ÆßĞÇ´¸¡¤ÕòĞ°" NOR, ({ "zhen xie","hammer","chui" }));
+        set_name(MAG "ä¸ƒæ˜Ÿé”¤Â·é•‡é‚ª" NOR, ({ "zhen xie","hammer","chui" }));
         set_weight(28000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "°Ñ");
+                set("unit", "æŠŠ");
                 set("value", 2600000);
                 set("material", "steel");
-                set("long", HIW "\nÆßĞÇ´¸¡¤ÕòĞ°ÄË¾Åñ·ÆßÓüÉñ±øÖ®Ò»¡£\n" NOR);
-                set("wield_msg", HIR "$NÇáÇá¶¶³ö$n" HIR "£¬É²Ê±À×ÉùºäÃù£¬Ò»¹ÉÉ±ÆøÖ±Äô¾ÅÏö¡£\n" NOR);
+                set("long", HIW "\nä¸ƒæ˜Ÿé”¤Â·é•‡é‚ªä¹ƒä¹ç©¹ä¸ƒç‹±ç¥å…µä¹‹ä¸€ã€‚\n" NOR);
+                set("wield_msg", HIR "$Nè½»è½»æŠ–å‡º$n" HIR "ï¼Œåˆ¹æ—¶é›·å£°è½°é¸£ï¼Œä¸€è‚¡æ€æ°”ç›´è‚ä¹éœ„ã€‚\n" NOR);
         }
         init_hammer(175);
         setup();

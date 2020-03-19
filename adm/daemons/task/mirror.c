@@ -1,19 +1,19 @@
 
 #include <ansi.h>
-#define TASK_OBJ_PATH "/adm/daemons/task/obj/" //taskÎï¼şÄ¿Â¼
+#define TASK_OBJ_PATH "/adm/daemons/task/obj/" //taskç‰©ä»¶ç›®å½•
 
 inherit ITEM;
 
 void create()
 {
-    set_name(HIR "Ç¬" HIY "À¤" HIW "±¦" HIG "¾µ" NOR,
+    set_name(HIR "ä¹¾" HIY "å¤" HIW "å®" HIG "é•œ" NOR,
              ({"bao jing", "jing", "mirror"}));
     if (clonep())
         set_default_object(__FILE__);
     else
     {
-        set("long", HIG "ÕâÊÇµÀÃÅÖÁ±¦Ç¬À¤¾µ£¬¾İËµÄÚÔÌÇ¬À¤£¬¿É¶¨Î»ÍòÎï¡£\n" NOR);
-        set("unit", "Ãæ");
+        set("long", HIG "è¿™æ˜¯é“é—¨è‡³å®ä¹¾å¤é•œï¼Œæ®è¯´å†…è•´ä¹¾å¤ï¼Œå¯å®šä½ä¸‡ç‰©ã€‚\n" NOR);
+        set("unit", "é¢");
         set("weight", 10);
         set("material", "tian jing");
         set("no_sell", 1);
@@ -44,29 +44,29 @@ int do_locate(string arg)
     dir_total = "";
 
     if (me->is_busy())
-        return notify_fail("ÄãÏÖÔÚÕıÃ¦£¬Ã»¿ÕÊ¹ÓÃ±¦¾µ£¡\n");
+        return notify_fail("ä½ ç°åœ¨æ­£å¿™ï¼Œæ²¡ç©ºä½¿ç”¨å®é•œï¼\n");
 
     if (query("power") <= 0)
-        return notify_fail("Õâ¿éÇ¬À¤±¦¾µÒÑ¾­Ã»ÓĞÁéÁ¦ÁË£¡\n");
+        return notify_fail("è¿™å—ä¹¾å¤å®é•œå·²ç»æ²¡æœ‰çµåŠ›äº†ï¼\n");
 
     if (!arg)
-        return notify_fail("ÄãÒª¶¨Î»Ê²Ã´¶«Î÷£¿\n");
+        return notify_fail("ä½ è¦å®šä½ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
     if (file_size(TASK_OBJ_PATH + arg + ".c") < 0)
-        return notify_fail(HIR "Ã»ÓĞÕâ¸öTASKÎïÆ·£¡\n" NOR);
+        return notify_fail(HIR "æ²¡æœ‰è¿™ä¸ªTASKç‰©å“ï¼\n" NOR);
 
     ob = find_object(TASK_OBJ_PATH + arg);
 
     if (!ob)
-        return notify_fail(HIC + arg + "Õâ¸öÎïÆ·ÒÑ¾­Îï¹éÔ­Ö÷ÁË£¡\n" NOR);
+        return notify_fail(HIC + arg + "è¿™ä¸ªç‰©å“å·²ç»ç‰©å½’åŸä¸»äº†ï¼\n" NOR);
 
     npc = environment(ob);
 
     if (!npc || npc == 0)
-        return notify_fail("È·¶¨²»ÁË" + arg + "µÄÎ»ÖÃ¡£\n");
+        return notify_fail("ç¡®å®šä¸äº†" + arg + "çš„ä½ç½®ã€‚\n");
 
     if (npc->is_player())
-        return notify_fail("Õâ¸ö¶«Î÷ÏÖÔÚÒÑ¾­±»±ğÈËÄÃÁË£¬Äã±ğÏ¹Ã¦ÁË¡£\n");
+        return notify_fail("è¿™ä¸ªä¸œè¥¿ç°åœ¨å·²ç»è¢«åˆ«äººæ‹¿äº†ï¼Œä½ åˆ«çå¿™äº†ã€‚\n");
 
     me->start_busy(2);
 
@@ -78,10 +78,10 @@ int do_locate(string arg)
     {
         env = environment(npc);
     }
-    msg = env->long(); //ÎïÆ·ËùÔÚ·¿¼äµÄÃèÊö
+    msg = env->long(); //ç‰©å“æ‰€åœ¨æˆ¿é—´çš„æè¿°
     per = sizeof(msg) / 2 * (100 - query("power")) / 100;
 
-    dir = env->query("exits"); //ÎïÆ·ËùÔÚµÄµØ·½ÓĞ¼¸¸ö·½Ïò
+    dir = env->query("exits"); //ç‰©å“æ‰€åœ¨çš„åœ°æ–¹æœ‰å‡ ä¸ªæ–¹å‘
 
     foreach (dir_name in keys(dir))
 
@@ -103,10 +103,10 @@ int do_locate(string arg)
     }
 
     if (!msg || msg == 0)
-        return notify_fail("È·¶¨²»ÁË" + arg + "µÄÎ»ÖÃ¡£\n");
+        return notify_fail("ç¡®å®šä¸äº†" + arg + "çš„ä½ç½®ã€‚\n");
 
-    tell_object(me, WHT "Ç¬À¤±¦¾µÏÔÊ¾" NOR + ob->name() + NOR WHT "ÏÖÔÚËùÔÚµØ·½µÄÃèÊöÊÇ:\n\n" NOR + msg + "\n" +
-                        "Õâ¸öµØ·½µÄ³ö¿ÚÓĞ" HIG + dir_total + NOR "¡£\n");
+    tell_object(me, WHT "ä¹¾å¤å®é•œæ˜¾ç¤º" NOR + ob->name() + NOR WHT "ç°åœ¨æ‰€åœ¨åœ°æ–¹çš„æè¿°æ˜¯:\n\n" NOR + msg + "\n" +
+                        "è¿™ä¸ªåœ°æ–¹çš„å‡ºå£æœ‰" HIG + dir_total + NOR "ã€‚\n");
 
     this_object()->add("power", -(random(3) + 3));
     if (this_object()->query("power") < 0)
@@ -124,7 +124,7 @@ int do_task(string arg)
         int x, len;
 
         if (this_player()->is_busy())
-            return notify_fail("ÄãÏÖÔÚÕıÃ¦£¬Ã»¿ÕÊ¹ÓÃ±¦¾µ£¡\n");
+            return notify_fail("ä½ ç°åœ¨æ­£å¿™ï¼Œæ²¡ç©ºä½¿ç”¨å®é•œï¼\n");
 
         i_list = get_dir(TASK_OBJ_PATH);
         msg = "";
@@ -133,7 +133,7 @@ int do_task(string arg)
 
         msg += "=================================================="
                "====================\n";
-        msg += HIG "                         ±¦¾µÈÎÎñÊ¹Ãü°ñ\n\n" NOR;
+        msg += HIG "                         å®é•œä»»åŠ¡ä½¿å‘½æ¦œ\n\n" NOR;
 
         for (x = 0; x < sizeof(i_list); x++)
         {
@@ -141,28 +141,28 @@ int do_task(string arg)
             if (!task)
             {
                 task = load_object(TASK_OBJ_PATH + i_list[x]);
-                msg1 = task->query("owner") + "µÄ" + task->name() + "(" +
+                msg1 = task->query("owner") + "çš„" + task->name() + "(" +
                        task->query("id") + ")";
                 len = sizeof(task->query("owner")) + 4 +
                       sizeof(filter_color(task->name())) +
                       sizeof(task->query("id"));
                 len = 26 - len;
 
-                msg1 = msg1 + space[0..len] + HIB "(ÒÑ×ö)" NOR;
+                msg1 = msg1 + space[0..len] + HIB "(å·²åš)" NOR;
 
                 destruct(task);
             }
 
             if (task)
             {
-                msg1 = task->query("owner") + "µÄ" + task->name() + "(" +
+                msg1 = task->query("owner") + "çš„" + task->name() + "(" +
                        task->query("id") + ")";
                 len = sizeof(task->query("owner")) + 4 +
                       sizeof(filter_color(task->name())) +
                       sizeof(task->query("id"));
                 len = 26 - len;
 
-                msg1 = msg1 + space[0..len] + HIG "(Î´×ö)" NOR;
+                msg1 = msg1 + space[0..len] + HIG "(æœªåš)" NOR;
             }
             if (x % 2 == 1)
             {
@@ -178,8 +178,8 @@ int do_task(string arg)
                "====================\n";
         if (this_player()->query("mirror_count"))
         {
-            msg += HIY "ÄãÀÛ¼ÆÒÑÍê³É" + HIR +
-                   chinese_number(this_player()->query("mirror_count")) + NOR + HIY "¸ö±¦¾µÈÎÎñ¡£\n" NOR;
+            msg += HIY "ä½ ç´¯è®¡å·²å®Œæˆ" + HIR +
+                   chinese_number(this_player()->query("mirror_count")) + NOR + HIY "ä¸ªå®é•œä»»åŠ¡ã€‚\n" NOR;
         }
 
         tell_object(this_player(), msg + "\n");
@@ -189,6 +189,6 @@ int do_task(string arg)
 
 string long()
 {
-    return query("power") ? query("long") + HIW "ÏÖÔÚ±¦¾µµÄÁéÁ¦Îª£º" + query("power") + "\n" NOR
-                          : query("long") + HIR "ÏÖÔÚ±¦¾µµÄÁéÁ¦ÒÑ¾­ºÄ¾¡ÁË¡£\n" NOR;
+    return query("power") ? query("long") + HIW "ç°åœ¨å®é•œçš„çµåŠ›ä¸ºï¼š" + query("power") + "\n" NOR
+                          : query("long") + HIR "ç°åœ¨å®é•œçš„çµåŠ›å·²ç»è€—å°½äº†ã€‚\n" NOR;
 }

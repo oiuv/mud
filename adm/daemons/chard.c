@@ -19,8 +19,8 @@ void setup_char(object ob)
  
         if (! stringp(race = ob->query("race")))
         {
-                race = "人类";
-                ob->set("race", "人类");
+                race = "浜虹被";
+                ob->set("race", "浜虹被");
         }
 
         my = ob->query_entire_dbase();
@@ -38,13 +38,13 @@ void setup_char(object ob)
 
         switch(race)
         {
-        case "人类":
+        case "浜虹被":
                 HUMAN_RACE->setup_human(ob);
                 break;        
-        case "妖魔":
+        case "濡栭瓟":
                 MONSTER_RACE->setup_monster(ob);
                 break;        
-        case "野兽":
+        case "閲庡吔":
                 BEAST_RACE->setup_beast(ob);
                 break;        
         default: 

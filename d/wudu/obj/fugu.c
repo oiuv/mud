@@ -3,9 +3,9 @@ inherit ITEM;
 
 void create()
 {
-        set_name(WHT "¸¯¹Ç²İ" NOR, ({"fugu cao", "fugu", "cao"}));
-        set("unit", "Öê");
-        set("long", WHT "ÕâÊÇÒ»ÖêÆÕÍ¨µÄĞ¡²İ£¬Ò¶Ãæ·¢³öÒ»¹ÉÄÑÎÅµÄ³ôÆø¡£\n" NOR);
+        set_name(WHT "è…éª¨è‰" NOR, ({"fugu cao", "fugu", "cao"}));
+        set("unit", "æ ª");
+        set("long", WHT "è¿™æ˜¯ä¸€æ ªæ™®é€šçš„å°è‰ï¼Œå¶é¢å‘å‡ºä¸€è‚¡éš¾é—»çš„è‡­æ°”ã€‚\n" NOR);
         set("value", 10);
         set_weight(100);
         set("only_do_effect", 1);
@@ -14,8 +14,8 @@ void create()
 
 int do_effect(object me)
 {
-        message_vision("$NÒ»Ñö²±£¬½«¸¯¹Ç²İÈûÈëÁË×ìÖĞ¡£\n", me);
-        me->set_temp("die_reason", "³ÔÁË¸¯¹Ç²İÈ¥¼ûºÚ°×ÎŞ³£ÁË");
+        message_vision("$Nä¸€ä»°è„–ï¼Œå°†è…éª¨è‰å¡å…¥äº†å˜´ä¸­ã€‚\n", me);
+        me->set_temp("die_reason", "åƒäº†è…éª¨è‰å»è§é»‘ç™½æ— å¸¸äº†");
         me->die();
         destruct(this_object());
         return 1;

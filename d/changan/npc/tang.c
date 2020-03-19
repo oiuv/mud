@@ -4,10 +4,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÌË×ÓÊÖ", ({ "tang" }));
-        set("gender", "ÄĞĞÔ" );
+        set_name("è¶Ÿå­æ‰‹", ({ "tang" }));
+        set("gender", "ç”·æ€§" );
         set("age", 24);
-        set("long", "Ò»Î»ÑµÁ·ÓĞËØµÄÌË×ÓÊÖ¡£\n");
+        set("long", "ä¸€ä½è®­ç»ƒæœ‰ç´ çš„è¶Ÿå­æ‰‹ã€‚\n");
         set("combat_exp", 40000);
         set("attitude", "friendly");
         set_skill("unarmed", 80);

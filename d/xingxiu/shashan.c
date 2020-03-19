@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��ɳɽ");
+        set("short", "鸣沙山");
         set("long", @LONG
-����һ����ɳ�ѻ��γɵ�ɽ��΢�紵����ɳɽ�������˵�
-�������ʶ������˳�֮Ϊ��ɳɽ��ɳ�����ƺ��г������䶯��
+这是一座黄沙堆积形成的山。微风吹动，沙山发出嗡嗡的
+响声。故而当地人称之为鸣沙山。沙土中似乎有虫子在蠕动。
 LONG);
         set("outdoors", "xingxiu");
         set("exits", ([

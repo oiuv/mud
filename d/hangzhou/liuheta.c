@@ -4,11 +4,11 @@
 inherit ROOM;
 void create()
 {
-        set("short", "ÁùºÍËþµ×");
+        set("short", "å…­å’Œå¡”åº•");
         set("long", @LONG
-ÅÀÉÏÔÂÂÖÉ½£¬±ãÀ´µ½ÁËÁùºÍËþÖ®Ç°¡£ÁùºÍËþÒàÃûÁùºÏËþ£¬¡°ÁùºÍ¡±
-Ö®ÃûÀ´Ö®·ð¼ÒµÄÁùÖÖ¹æÔ¼£¬¡°ÁùºÏ¡±¾ÍÊÇ¡°Ìì£¬µØ£¬ËÄ·½¡±µÄÒâË¼¡£
-Õâ×ù°Ë½ÇËþÓÐÊ®Èý²ã£¬ÔÚËüµÄ·ÉéÜÇÌ½ÇÉÏÀ¨ÓÐÒ»°ÙÁãËÄÖ»´óÌúÁå¡£
+çˆ¬ä¸Šæœˆè½®å±±ï¼Œä¾¿æ¥åˆ°äº†å…­å’Œå¡”ä¹‹å‰ã€‚å…­å’Œå¡”äº¦åå…­åˆå¡”ï¼Œâ€œå…­å’Œâ€
+ä¹‹åæ¥ä¹‹ä½›å®¶çš„å…­ç§è§„çº¦ï¼Œâ€œå…­åˆâ€å°±æ˜¯â€œå¤©ï¼Œåœ°ï¼Œå››æ–¹â€çš„æ„æ€ã€‚
+è¿™åº§å…«è§’å¡”æœ‰åä¸‰å±‚ï¼Œåœ¨å®ƒçš„é£žæªç¿˜è§’ä¸Šæ‹¬æœ‰ä¸€ç™¾é›¶å››åªå¤§é“é“ƒã€‚
 LONG);
         set("exits", ([
             "eastdown" : __DIR__"qiantang",

@@ -4,15 +4,15 @@ inherit MONEY;
 
 void create()
 {
-	set_name("Ò»Ç§Á½ÒøÆ±", ({"cash", "thousand-cash", "cash_money"}));
+	set_name("ä¸€åƒä¸¤é“¶ç¥¨", ({"cash", "thousand-cash", "cash_money"}));
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
 		set("money_id", "cash");
-		set("long", "Ò»ÕÅÃæ¶îÖµÒ»Ç§Á½Òø×ÓµÄÒøÆ±¡£\n");
-		set("unit", "µş");
+		set("long", "ä¸€å¼ é¢é¢å€¼ä¸€åƒä¸¤é“¶å­çš„é“¶ç¥¨ã€‚\n");
+		set("unit", "å ");
 		set("base_value", 100000);
-		set("base_unit", "ÕÅ");
+		set("base_unit", "å¼ ");
 		set("base_weight", 3);
                 set("material", "paper");
 	}

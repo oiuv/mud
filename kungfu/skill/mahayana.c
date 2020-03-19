@@ -1,4 +1,4 @@
-//mahayana.c  ´ó³ËÄùÅÍ¹¦
+//mahayana.c  å¤§ä¹˜æ¶…ç£åŠŸ
 inherit SKILL;
 
 string type() { return "knowledge"; }
@@ -6,7 +6,7 @@ string type() { return "knowledge"; }
 int valid_learn(object me)
 {
     if ((int)me->query("shen") < 0 )
-       return notify_fail("ÄãµÄÐ°ÆøÌ«ÖØ£¬ÎÞ·¨ÐÞÁ¶´ó³ËÄùÅÍ¹¦¡£\n");
+       return notify_fail("ä½ çš„é‚ªæ°”å¤ªé‡ï¼Œæ— æ³•ä¿®ç‚¼å¤§ä¹˜æ¶…ç£åŠŸã€‚\n");
 
     return 1;
 }

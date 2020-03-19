@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "»ØÂíÁë");
+	set("short", "å›žé©¬å²­");
 	set("long", @LONG
-´Ë´¦ÓÖÃûÌì¹Ø£¬µ½ÁËÕâÀï£¬ÂíÆ¥ÒÑ²»ÄÜÔÙÇ°½ø¡£¾ÝËµµ±ÄêÌÆÐþ
-×ÚÉÏÌ©É½·âìø£¬À´µ½ÕâÀï£¬Òò¶¸ÇÍÄÑÅÊ£¬ÀÛËÀÁË°×Âí£¬Òª¸Ä³ËÐ¡½Î
-ÉÏÉ½¡£
+æ­¤å¤„åˆåå¤©å…³ï¼Œåˆ°äº†è¿™é‡Œï¼Œé©¬åŒ¹å·²ä¸èƒ½å†å‰è¿›ã€‚æ®è¯´å½“å¹´å”çŽ„
+å®—ä¸Šæ³°å±±å°ç¦…ï¼Œæ¥åˆ°è¿™é‡Œï¼Œå› é™¡å³­éš¾æ”€ï¼Œç´¯æ­»äº†ç™½é©¬ï¼Œè¦æ”¹ä¹˜å°è½¿
+ä¸Šå±±ã€‚
 LONG );
 	set("exits", ([
 		"northup" : __DIR__"ertian",

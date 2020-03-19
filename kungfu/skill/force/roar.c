@@ -23,20 +23,20 @@ int exert(object me, object target)
            && me->query_skill_mapped("force") != "zhanshen-xinjing"
            && me->query_skill_mapped("force") != "yijinjing"
            && me->query_skill_mapped("force") != "hunyuan-gong")
-                return notify_fail("ÄãËùÑ§µÄÄÚ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€å­¦çš„å†…åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (skill < 180)
-                return notify_fail("ÄãµÄÄÚ¹¦ĞŞÎª²»¹»¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸä¿®ä¸ºä¸å¤Ÿã€‚\n");
 
         if (environment(me)->query("no_fight"))
-                return notify_fail("ÔÚÕâÀï²»ÄÜ¹¥»÷ËûÈË¡£\n");
+                return notify_fail("åœ¨è¿™é‡Œä¸èƒ½æ”»å‡»ä»–äººã€‚\n");
 
-        // Ö´ĞĞÌìÊéÈÎÎñµÄÌØÊâ·¿¼ä·ÀÖ¹ÁúÒ÷ÖĞ¶Ï¾çÇé¡£
+        // æ‰§è¡Œå¤©ä¹¦ä»»åŠ¡çš„ç‰¹æ®Šæˆ¿é—´é˜²æ­¢é¾™åŸä¸­æ–­å‰§æƒ…ã€‚
         if (environment(me)->query("skybook"))
-                return notify_fail("ÔÚÕâÀï²»ÄÜ¹¥»÷ËûÈË¡£\n");
+                return notify_fail("åœ¨è¿™é‡Œä¸èƒ½æ”»å‡»ä»–äººã€‚\n");
 
         if ((int)me->query("neili") < 800)
-                return notify_fail("ÄãµÄÕæÆø²»¹»¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿã€‚\n");
 
         me->add("neili", -800);
 
@@ -45,39 +45,39 @@ int exert(object me, object target)
         switch (f)
         {
         case "longxiang-gong" :
-                msg = HIW "$N" HIW "ÔË×ªÕæÆø£¬ÃæÎŞ±íÇé£¬¸èÉùÈçèó³ª°ã"
-                      "¹áÈëÖÚÈË¶úÖĞ¡£\n" NOR;
+                msg = HIW "$N" HIW "è¿è½¬çœŸæ°”ï¼Œé¢æ— è¡¨æƒ…ï¼Œæ­Œå£°å¦‚æ¢µå”±èˆ¬"
+                      "è´¯å…¥ä¼—äººè€³ä¸­ã€‚\n" NOR;
                 break;
 
         case "huntian-qigong" :
-                msg = HIY "$N" HIY "ÉîÉîÎüÈëÒ»àíÆø£¬ÔË×ãÄÚÁ¦·¢³öÒ»Õó"
-                      "³¤Ğ¥£¬Òô´«°ÙÀï£¬ÉåÈËĞÄÉñ¡£\n" NOR;
+                msg = HIY "$N" HIY "æ·±æ·±å¸å…¥ä¸€å›—æ°”ï¼Œè¿è¶³å†…åŠ›å‘å‡ºä¸€é˜µ"
+                      "é•¿å•¸ï¼ŒéŸ³ä¼ ç™¾é‡Œï¼Œæ…‘äººå¿ƒç¥ã€‚\n" NOR;
                 break;
 
         case "jiuyang-shengong" :
-                msg = HIY "$N" HIY "ÑöÌì³¤Ğ¥£¬ÉùÒôÃà²´²»¾ø£¬ÖÚÈËÎŞ²»"
-                      "ÌıµÃĞÄ³ÛÉñÒ¡¡£\n" NOR;
+                msg = HIY "$N" HIY "ä»°å¤©é•¿å•¸ï¼Œå£°éŸ³ç»µæ³Šä¸ç»ï¼Œä¼—äººæ— ä¸"
+                      "å¬å¾—å¿ƒé©°ç¥æ‘‡ã€‚\n" NOR;
                 break;
 
         case "jiuyin-shengong" :
-                msg = HIY "$N" HIY "ÆøÄıµ¤Ìï£¬ÃÍÈ»Ò»Éù¶ÏºÈ£¬ÉùÒôÔ¶Ô¶"
-                      "µÄ´«ÁË¿ªÈ¥£¬¼¤µ´²»Ö¹¡£\n" NOR;
+                msg = HIY "$N" HIY "æ°”å‡ä¸¹ç”°ï¼ŒçŒ›ç„¶ä¸€å£°æ–­å–ï¼Œå£°éŸ³è¿œè¿œ"
+                      "çš„ä¼ äº†å¼€å»ï¼Œæ¿€è¡ä¸æ­¢ã€‚\n" NOR;
                 break;
 
         case "kuihua-mogong" :
-                msg = HIY "$N" HIY "İëµØ¼«Ë»³¤ºô£¬ÉùÒôÆàÀ÷Ö®¼«£¬ÁîÈË"
-                      "Ã«¹Çã¤È»¡£\n" NOR;
+                msg = HIY "$N" HIY "è“¦åœ°æå˜¶é•¿å‘¼ï¼Œå£°éŸ³å‡„å‰ä¹‹æï¼Œä»¤äºº"
+                      "æ¯›éª¨æ‚šç„¶ã€‚\n" NOR;
                 break;
 
         case "yijinjing" :
         case "hunyuan-gong" :
-                msg = HIY "$N" HIY "ÉîÉîÎüÈëÒ»àíÆø£¬ÔËÆğ½ğ¸ÕìøÊ¨×Óºğ"
-                      "£¬·¢³ö¾ªÌì¶¯µØµÄÒ»Éù¾Şºğ¡£\n" NOR;
+                msg = HIY "$N" HIY "æ·±æ·±å¸å…¥ä¸€å›—æ°”ï¼Œè¿èµ·é‡‘åˆšç¦…ç‹®å­å¼"
+                      "ï¼Œå‘å‡ºæƒŠå¤©åŠ¨åœ°çš„ä¸€å£°å·¨å¼ã€‚\n" NOR;
                 break;
 
         default:
-                msg = HIY "$N" HIY "ÉîÉîÎüÈëÒ»àíÆø£¬ÌåÄÚ" + to_chinese(f) +
-                      HIY "ÕæÆø¼±¾ç±Å·¢£¬¶¸È»Ò»Éù¾ŞĞ¥¡£\n" NOR;
+                msg = HIY "$N" HIY "æ·±æ·±å¸å…¥ä¸€å›—æ°”ï¼Œä½“å†…" + to_chinese(f) +
+                      HIY "çœŸæ°”æ€¥å‰§è¿¸å‘ï¼Œé™¡ç„¶ä¸€å£°å·¨å•¸ã€‚\n" NOR;
                 break;
         }
         msg += "\n";
@@ -94,7 +94,7 @@ int exert(object me, object target)
                 if (skill / 2 + random(skill / 2) < (int)ob[i]->query("con") * 2)
                         continue;
 
-                // ±»ËÀÍö±£»¤µÄÍæ¼Ò²»ÊÜÉËº¦
+                // è¢«æ­»äº¡ä¿æŠ¤çš„ç©å®¶ä¸å—ä¼¤å®³
                 if ((int)ob[i]->query_condition("die_guard"))
                         continue;
 
@@ -107,27 +107,27 @@ int exert(object me, object target)
                         if ((int)ob[i]->query("neili") < skill * 2)
                                 ob[i]->receive_wound("jing", damage, me);
 
-                        tell_object(ob[i], HIR "Í»È»¼äÄãÖ»¾õÁ½¶úÒ»ÕóºäÃù£¬ÑÛÇ°½ğ"
-                                           "ĞÇÂÒÃ°£¬Õû¸öÍ·±ãÊÇÒªÁÑ¿ªÒ»°ã¡£\n" NOR);
+                        tell_object(ob[i], HIR "çªç„¶é—´ä½ åªè§‰ä¸¤è€³ä¸€é˜µè½°é¸£ï¼Œçœ¼å‰é‡‘"
+                                           "æ˜Ÿä¹±å†’ï¼Œæ•´ä¸ªå¤´ä¾¿æ˜¯è¦è£‚å¼€ä¸€èˆ¬ã€‚\n" NOR);
 
                         switch (random(3))
         		{
         		case 0 :
-                		msg = WHT "Í»È»Ö»¼û" + ob[i]->name() + WHT "Á½ÊÖ"
-                                      "±§Í·£¬Ë«Ä¿Í¹³ö£¬×ì½Ç·º³öĞ©Ğí°×Ä­£¬ºíÁü¿©¿©"
-                                      "×÷Ïì¡£\n" NOR;
+                		msg = WHT "çªç„¶åªè§" + ob[i]->name() + WHT "ä¸¤æ‰‹"
+                                      "æŠ±å¤´ï¼ŒåŒç›®å‡¸å‡ºï¼Œå˜´è§’æ³›å‡ºäº›è®¸ç™½æ²«ï¼Œå–‰å’™å’¯å’¯"
+                                      "ä½œå“ã€‚\n" NOR;
                 		break;
 
 		        case 1 :
-                		msg = WHT "¶ÙÊ±ÌıµÃ" + ob[i]->name() + WHT "Ò»Éù"
-                                      "²Ò½Ğ£¬Á½ÑÛ·¢Ö±£¬È«Éí²»×¡²ü¶¶£¬İëµØÅ»³öÒ»¿Ú"
-                                      "ÏÊÑª¡£\n" NOR;
+                		msg = WHT "é¡¿æ—¶å¬å¾—" + ob[i]->name() + WHT "ä¸€å£°"
+                                      "æƒ¨å«ï¼Œä¸¤çœ¼å‘ç›´ï¼Œå…¨èº«ä¸ä½é¢¤æŠ–ï¼Œè“¦åœ°å‘•å‡ºä¸€å£"
+                                      "é²œè¡€ã€‚\n" NOR;
                 		break;
 
 		        default :
-                		msg = WHT "È´¼û" + ob[i]->name() + WHT "¾¹Ë¤µ¹ÔÚ"
-                                      "µØ£¬·¢³öÉùÉù°§º¿£¬Ë«Ä¿Ë«¶ú¼°±Ç¿×¾ùÉø³öË¿Ë¿"
-                                      "ÏÊÑª¡£\n" NOR;
+                		msg = WHT "å´è§" + ob[i]->name() + WHT "ç«Ÿæ‘”å€’åœ¨"
+                                      "åœ°ï¼Œå‘å‡ºå£°å£°å“€åšï¼ŒåŒç›®åŒè€³åŠé¼»å­”å‡æ¸—å‡ºä¸ä¸"
+                                      "é²œè¡€ã€‚\n" NOR;
                 		break;
         		}
                         message("vision", msg, environment(ob[i]), ({ob[i]}));

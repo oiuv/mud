@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "Ê¯µÀ");
+        set("short", "çŸ³é“");
         set("long", @LONG
-ÕâÊÇĞÇËŞº£±ßÓĞÈËÓÃÊ¯Í·ÆÌ³ÉµÄÒ»ÌõĞ¡µÀ£¬ÖÜÎ§ÃÖÂş×ÅÕÓ
-ÔóµÄÕÎÆøºÍÒ»ÖÖËµ²»³öÀ´µÄÏãÎ¶¡£Â·±ßÓĞ¸öÊ¯¶´¡£
+è¿™æ˜¯æ˜Ÿå®¿æµ·è¾¹æœ‰äººç”¨çŸ³å¤´é“ºæˆçš„ä¸€æ¡å°é“ï¼Œå‘¨å›´å¼¥æ¼«ç€æ²¼
+æ³½çš„ç˜´æ°”å’Œä¸€ç§è¯´ä¸å‡ºæ¥çš„é¦™å‘³ã€‚è·¯è¾¹æœ‰ä¸ªçŸ³æ´ã€‚
 LONG);
         set("exits", ([ 
             	"east" : __DIR__"xxh4",
@@ -31,17 +31,17 @@ int valid_leave(object me, string dir)
 	{
 	        if (present("caihua zi", environment(me)))
 		{
-                        if (! myfam || myfam["family_name"] != "ĞÇËŞÅÉ") 
-                	        return notify_fail(CYN "²É»¨×Óµ²×¡ÁËÄã£ºÎÒµÄĞ¡æ¤¿É²»ÊÇ"
-                                                   "¸øÄãÃÇĞ°ÅÉµÜ×Ó×¼±¸µÄ£¡\n" NOR);
+                        if (! myfam || myfam["family_name"] != "æ˜Ÿå®¿æ´¾") 
+                	        return notify_fail(CYN "é‡‡èŠ±å­æŒ¡ä½äº†ä½ ï¼šæˆ‘çš„å°å¦å¯ä¸æ˜¯"
+                                                   "ç»™ä½ ä»¬é‚ªæ´¾å¼Ÿå­å‡†å¤‡çš„ï¼\n" NOR);
 
-                        if  (me->query("gender") == "ÎŞĞÔ") 
-                                return notify_fail(CYN "²É»¨×Óµ²×¡ÁËÄã£¬Ò»Á³¼¥Ğ¦£ºÄúÕâ"
-                                                   "Ğ¡Éí°å»¹ÏëÍææ¤£¿±ğ¿ªÍæĞ¦ÁË¡£\n" NOR);
+                        if  (me->query("gender") == "æ— æ€§") 
+                                return notify_fail(CYN "é‡‡èŠ±å­æŒ¡ä½äº†ä½ ï¼Œä¸€è„¸è®¥ç¬‘ï¼šæ‚¨è¿™"
+                                                   "å°èº«æ¿è¿˜æƒ³ç©å¦ï¼Ÿåˆ«å¼€ç©ç¬‘äº†ã€‚\n" NOR);
 
-                        if (! (int)this_player()->query_temp("marks/»¨"))
-                                return notify_fail(CYN "²É»¨×Óµ²×¡ÁËÄã£ºÎ¹£¬Äã×Ü¸ÃÒâË¼"
-                                                   "ÒâË¼°É£¿\n" NOR);
+                        if (! (int)this_player()->query_temp("marks/èŠ±"))
+                                return notify_fail(CYN "é‡‡èŠ±å­æŒ¡ä½äº†ä½ ï¼šå–‚ï¼Œä½ æ€»è¯¥æ„æ€"
+                                                   "æ„æ€å§ï¼Ÿ\n" NOR);
                 }
 	        return 1;
         }

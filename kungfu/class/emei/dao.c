@@ -6,9 +6,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("¾²µÀÊ¦Ì«", ({ "jingdao shitai","jingdao","shitai"}));
-        set("long", "ËıÊÇÒ»Î»ÖĞÄê³ö¼ÒµÀ¹Ã£¬µÀ¹Ú¸ßÂ££¬´ÈÃ¼ÉÆÄ¿¡£\n");
-        set("gender", "Å®ĞÔ");
+        set_name("é™é“å¸ˆå¤ª", ({ "jingdao shitai","jingdao","shitai"}));
+        set("long", "å¥¹æ˜¯ä¸€ä½ä¸­å¹´å‡ºå®¶é“å§‘ï¼Œé“å† é«˜æ‹¢ï¼Œæ…ˆçœ‰å–„ç›®ã€‚\n");
+        set("gender", "å¥³æ€§");
         set("age", 42);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -53,7 +53,7 @@ void create()
         prepare_skill("hand", "jieshou-jiushi");
         prepare_skill("finger", "tiangang-zhi");
 
-        create_family("¶ëáÒÅÉ", 4, "µÜ×Ó");
+        create_family("å³¨åµ‹æ´¾", 4, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -69,6 +69,6 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        command ("say °¢ÃÖÍÓ·ğ£¡Æ¶Äá²»ÊÕµÜ×Ó¡£\n");
+        command ("say é˜¿å¼¥é™€ä½›ï¼è´«å°¼ä¸æ”¶å¼Ÿå­ã€‚\n");
         return;
 }

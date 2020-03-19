@@ -5,13 +5,13 @@ inherit ARMOR;
 
 void create()
 {
-        set_name( HIY "½ğ»·Ëø×Ó¼×" NOR, ({"jinhuan jia","jinhuan", "jia", "armor"}));
+        set_name( HIY "é‡‘ç¯é”å­ç”²" NOR, ({"jinhuan jia","jinhuan", "jia", "armor"}));
         set_weight(20000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼ş");
-                set("long", HIC"Ò»¼ş½ğÏßÖ¯¾ÍµÄ±¦¼×£®\n"NOR);
+                set("unit", "ä»¶");
+                set("long", HIC"ä¸€ä»¶é‡‘çº¿ç»‡å°±çš„å®ç”²ï¼\n"NOR);
                 set("material", "steel");
                 set("value", 400000);
                 set("armor_prop/armor", 30);

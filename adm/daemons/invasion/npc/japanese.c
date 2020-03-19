@@ -1,4 +1,4 @@
-// japanese.c ÈÕ±¾¹í×ÓÈëÇÖÕß
+// japanese.c æ—¥æœ¬é¬¼å­å…¥ä¾µè€…
 
 inherit __DIR__"invader";
 
@@ -6,9 +6,9 @@ inherit __DIR__"invader";
 void create()
 {
 //      object ob;
-        set_name("ÈÕ±¾¹í×Ó", ({ "japanese" }));
-        set("long", "ÈÕ±¾¹í×Ó¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("æ—¥æœ¬é¬¼å­", ({ "japanese" }));
+        set("long", "æ—¥æœ¬é¬¼å­ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 20);
         set("str", 20);
         set("int", 20);
@@ -39,7 +39,7 @@ void create()
         map_skill("dodge", "renshu");
         map_skill("parry", "dongyang-dao");
 
-        set("rank_info/rude", "¹í×Ó");
+        set("rank_info/rude", "é¬¼å­");
 
         set("chat_chance", 10);
         set("chat_msg", ({ (: do_leave :) }));

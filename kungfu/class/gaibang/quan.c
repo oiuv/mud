@@ -9,11 +9,11 @@ inherit F_GUARDER;
 
 void create()                                                                   
 {
-        set_name("È«¹ÚÇå", ({ "quan guanqing", "quan", "guanqing" }));
-        set("gender", "ÄÐÐÔ");
-        set("long", "ÕâÊÇÎ»³ÁÄ¬¹ÑÑÔÈ´ÆÄÓÐÐÄ¼ÆµÄÒõ¶¾µÄØ¤°ï°Ë´üµÜ×Ó¡£\n");
-        set("title", "Ø¤°ï°Ë´üµÜ×Ó");
-        set("nickname", HIY "Ê®·½Ðã²Å" NOR);
+        set_name("å…¨å† æ¸…", ({ "quan guanqing", "quan", "guanqing" }));
+        set("gender", "ç”·æ€§");
+        set("long", "è¿™æ˜¯ä½æ²‰é»˜å¯¡è¨€å´é¢‡æœ‰å¿ƒè®¡çš„é˜´æ¯’çš„ä¸å¸®å…«è¢‹å¼Ÿå­ã€‚\n");
+        set("title", "ä¸å¸®å…«è¢‹å¼Ÿå­");
+        set("nickname", HIY "åæ–¹ç§€æ‰" NOR);
         set("age", 37);
         set("attitude", "peaceful");
         set("class", "beggar");
@@ -59,7 +59,7 @@ void create()
         prepare_skill("strike", "tongchui-zhang");
         prepare_skill("unarmed", "jueming-tui");
 
-        create_family("Ø¤°ï", 19, "µÜ×Ó");
+        create_family("ä¸å¸®", 19, "å¼Ÿå­");
 
         set("coagents", ({
                 ([ "startroom" : "/d/city/ma_zhengting",
@@ -98,7 +98,7 @@ void attempt_apprentice(object ob)
                 return;
 
         command("hmm");
-        command("say àÅ¡­Ò²ºÃ¡£ÄãÒÔºó¾Í¸ú×ÅÎÒ°É¡£");
+        command("say å—¯â€¦ä¹Ÿå¥½ã€‚ä½ ä»¥åŽå°±è·Ÿç€æˆ‘å§ã€‚");
         command("recruit " + ob->query("id"));
 
         if (ob->query("class") != "beggar")

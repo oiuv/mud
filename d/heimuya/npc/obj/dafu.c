@@ -5,18 +5,18 @@ inherit HAMMER;
 
 void create()
 {
-	set_name(WHT "¿ªÉ½¸«" NOR, ({"kaishan fu", "kaishan", "fu"}));
+	set_name(WHT "å¼€å±±æ–§" NOR, ({"kaishan fu", "kaishan", "fu"}));
 	set_weight(5000);
 
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±ú");
-		set("long", WHT "Ò»±úÊ®·Ö·æÀûµÄ´ó¸«¡£\n" NOR);
+		set("unit", "æŸ„");
+		set("long", WHT "ä¸€æŸ„ååˆ†é”‹åˆ©çš„å¤§æ–§ã€‚\n" NOR);
 		set("value", 100);
 		set("material", "iron");
-		set("wield_msg", WHT "$N" WHT "»ØÊÖ´ÓÉíºó³é³öÒ»±ú´ó¸«¡£\n" NOR);
-		set("unwield_msg", WHT "$N" WHT "ÊÖÍùºóÒ»±ğ£¬°Ñ´ó¸«²åÔÚºóÑüÉÏ¡£\n" NOR);
+		set("wield_msg", WHT "$N" WHT "å›æ‰‹ä»èº«åæŠ½å‡ºä¸€æŸ„å¤§æ–§ã€‚\n" NOR);
+		set("unwield_msg", WHT "$N" WHT "æ‰‹å¾€åä¸€åˆ«ï¼ŒæŠŠå¤§æ–§æ’åœ¨åè…°ä¸Šã€‚\n" NOR);
 	}
 	init_hammer(60);
 	setup();

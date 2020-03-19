@@ -4,16 +4,16 @@ inherit BOOK;
 
 void create()
 {
-        set_name(HIG "Öñ¼ò" NOR, ({ "zhu jian", "zhu", "jian" }));
+        set_name(HIG "ç«¹ç®€" NOR, ({ "zhu jian", "zhu", "jian" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "¾í");
-                set("long", HIG "Ò»¾íÓ¨ÂÌÉ«µÄÖñ¼ò£¬¿´Ñù×ÓÄêÉúÒÑ¾­ÆÄÎª¾ÃÔ¶ÁË¡£Öñ"
-                            "¼òÉÏÃÜÃÜ\nÂéÂéĞ´ÂúÁËĞ¡×Ö£¬Ò²²»ÖªÊÇÊ²Ã´ÄÚÈİ¡£\n" NOR);
+                set("unit", "å·");
+                set("long", HIG "ä¸€å·è¹ç»¿è‰²çš„ç«¹ç®€ï¼Œçœ‹æ ·å­å¹´ç”Ÿå·²ç»é¢‡ä¸ºä¹…è¿œäº†ã€‚ç«¹"
+                            "ç®€ä¸Šå¯†å¯†\néº»éº»å†™æ»¡äº†å°å­—ï¼Œä¹Ÿä¸çŸ¥æ˜¯ä»€ä¹ˆå†…å®¹ã€‚\n" NOR);
                 set("value", 1);
-                set("no_sell", "¿ìÄÃ×ß£¬Ê²Ã´ÆÆÍæÒâ£¿");
+                set("no_sell", "å¿«æ‹¿èµ°ï¼Œä»€ä¹ˆç ´ç©æ„ï¼Ÿ");
                 set("material", "bamboo");
                 set("skill", ([
                         "name" : "zhanshen-xinjing",

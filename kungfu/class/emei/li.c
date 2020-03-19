@@ -8,10 +8,10 @@ mixed ask_back();
 
 void create()
 {
-        set_name("ÀîÃ÷Ï¼", ({ "li mingxia", "li", "mingxia"}));
-        set("long", "ËıÊÇ¶ëáÒÅÉµÄµÚËÄ´úË×¼ÒµÜ×Ó£¬Æ½Ê±¾­³£ÕÆ¹ÜÒ»Ğ©"
-                    "ÈëÃÅµÜ×ÓµÄÔÓÊÂ¡£\n");
-        set("gender", "Å®ĞÔ");
+        set_name("ææ˜éœ", ({ "li mingxia", "li", "mingxia"}));
+        set("long", "å¥¹æ˜¯å³¨åµ‹æ´¾çš„ç¬¬å››ä»£ä¿—å®¶å¼Ÿå­ï¼Œå¹³æ—¶ç»å¸¸æŒç®¡ä¸€äº›"
+                    "å…¥é—¨å¼Ÿå­çš„æ‚äº‹ã€‚\n");
+        set("gender", "å¥³æ€§");
         set("age", 23);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -31,7 +31,7 @@ void create()
         set("combat_exp", 90000);
 
         set("inquiry", ([
-                "ÉÏÉ½" : (: ask_back :),
+                "ä¸Šå±±" : (: ask_back :),
                 "back" : (: ask_back :),
         ]));
 
@@ -61,7 +61,7 @@ void create()
 
         prepare_skill("strike", "sixiang-zhang");
 
-        create_family("¶ëáÒÅÉ", 4, "µÜ×Ó");
+        create_family("å³¨åµ‹æ´¾", 4, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -82,7 +82,7 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-        command("say ºÃ°É£¬ÎÒ¾ÍÊÕÏÂÄãÁË¡£");
+        command("say å¥½å§ï¼Œæˆ‘å°±æ”¶ä¸‹ä½ äº†ã€‚");
         command("recruit " + ob->query("id"));
 }
 
@@ -93,24 +93,24 @@ mixed ask_back()
         me = this_player();
 
         if (find_object(query("startroom")) != environment())
-                return "±ğÊ²Ã´¶¼ÎÊÎÒ£¬ÎÒ²»ÖªµÀ£¡";
+                return "åˆ«ä»€ä¹ˆéƒ½é—®æˆ‘ï¼Œæˆ‘ä¸çŸ¥é“ï¼";
 
         if (me->query("family/family_name") != query("family/family_name"))
-                return "Äã²»ÊÇ³¤½ÅÁËÂğ£¿ÄÑµÀÉÏÉ½»¹ÒªÎÒÀ´Ì§Äã£¿";
+                return "ä½ ä¸æ˜¯é•¿è„šäº†å—ï¼Ÿéš¾é“ä¸Šå±±è¿˜è¦æˆ‘æ¥æŠ¬ä½ ï¼Ÿ";
 
         if (me->query("age") >= 18)
-                return "ÎÒËµÄãÑ½£¬Äê¼ÍÕâÃ´´óÁË»¹ÒªÎÒ´øÄãÉÏÉ½Ã´£¿";
+                return "æˆ‘è¯´ä½ å‘€ï¼Œå¹´çºªè¿™ä¹ˆå¤§äº†è¿˜è¦æˆ‘å¸¦ä½ ä¸Šå±±ä¹ˆï¼Ÿ";
 
-        command("say ºÃ°É£¬¿´ÔÚÍ¬ÃÅµÄ·ÖÉÏ£¬ÎÒ¾Í´øÄãÉÏÉ½°É¡£");
+        command("say å¥½å§ï¼Œçœ‹åœ¨åŒé—¨çš„åˆ†ä¸Šï¼Œæˆ‘å°±å¸¦ä½ ä¸Šå±±å§ã€‚");
 
-        message_vision(HIC "$N" HIC "À­×Å$n" HIC "µÄÊÖÏòÉ½¶¥ÉÏ×ßÈ¥¡£\n\n" NOR,
+        message_vision(HIC "$N" HIC "æ‹‰ç€$n" HIC "çš„æ‰‹å‘å±±é¡¶ä¸Šèµ°å»ã€‚\n\n" NOR,
                        this_object(), me);
-        tell_object(me, HIY "Äã¾õµÃÊ¡Á¦¶àÁË£¬ºÁ²»·Ñ¾¢µÄ¾ÍÉÏÁË½ğ¶¥¡£\n" NOR);
+        tell_object(me, HIY "ä½ è§‰å¾—çœåŠ›å¤šäº†ï¼Œæ¯«ä¸è´¹åŠ²çš„å°±ä¸Šäº†é‡‘é¡¶ã€‚\n" NOR);
 
         me->move("/d/emei/jinding");
 
-        message("vision", HIC + name() + HIC "Ò»ÊÖÀ­×Å" + me->name() +
-                          HIC "¿ì²½µÄÏòÉ½ÉÏ×ßÈ¥£¬Ò»»á¶ù¾Í²»¼ûÓ°×ÓÁË¡£\n" NOR,
+        message("vision", HIC + name() + HIC "ä¸€æ‰‹æ‹‰ç€" + me->name() +
+                          HIC "å¿«æ­¥çš„å‘å±±ä¸Šèµ°å»ï¼Œä¸€ä¼šå„¿å°±ä¸è§å½±å­äº†ã€‚\n" NOR,
                           environment());
         move("/d/emei/jinding");
         me->start_busy();
@@ -131,9 +131,9 @@ void back_to_startroom()
         if (find_object(startroom) == environment())
                 return;
 
-        message_vision(HIC "$N" HIC "Í·Ò²²»»ØµÄ¼±¼±Ã¦Ã¦×ßÁË¡£\n" NOR,
+        message_vision(HIC "$N" HIC "å¤´ä¹Ÿä¸å›çš„æ€¥æ€¥å¿™å¿™èµ°äº†ã€‚\n" NOR,
                        this_object());
         move(startroom);
-        message_vision(HIC "$N" HIC "´ó²½Á÷ĞÇµÄ¸ÏÁË¹ıÀ´¡£\n" NOR,
+        message_vision(HIC "$N" HIC "å¤§æ­¥æµæ˜Ÿçš„èµ¶äº†è¿‡æ¥ã€‚\n" NOR,
                        this_object());
 }

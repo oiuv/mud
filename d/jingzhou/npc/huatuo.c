@@ -1,14 +1,14 @@
-// huatuo.c »ªÍÓ¶şÊÀ
+// huatuo.c åé™€äºŒä¸–
 
 inherit NPC;
 inherit F_DEALER;
 
 void create()
 {
-	set_name("»ªÍÓ¶şÊÀ", ({ "huatuo ershi", "huatuo", "ershi", "hua", "tuo" }));
-	set("title", "Ò©ÆÌÀÏ°å");
-	set("gender", "ÄĞĞÔ");
-	set("long", "Ëû¾ÍÊÇÒ½Êõ¸ß³¬µÄ»ªÍÓºóÒá¡£¿ÉÊÇËûĞÔ¸ñ¹Å¹Ö£¬²»ÊÇÊ²Ã´ÈË¶¼Ò½µÄ¡£\n");
+	set_name("åé™€äºŒä¸–", ({ "huatuo ershi", "huatuo", "ershi", "hua", "tuo" }));
+	set("title", "è¯é“ºè€æ¿");
+	set("gender", "ç”·æ€§");
+	set("long", "ä»–å°±æ˜¯åŒ»æœ¯é«˜è¶…çš„åé™€åè£”ã€‚å¯æ˜¯ä»–æ€§æ ¼å¤æ€ªï¼Œä¸æ˜¯ä»€ä¹ˆäººéƒ½åŒ»çš„ã€‚\n");
 	set("age", 65);
 	set("int", 30);
 	

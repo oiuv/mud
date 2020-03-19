@@ -5,13 +5,13 @@ inherit SWORD;
 
 void create()
 {
-	set_name("³¤½£", ({ "changjian","sword" , "chang jian" , "jian" }) );
+	set_name("é•¿å‰‘", ({ "changjian","sword" , "chang jian" , "jian" }) );
 	set_weight(7000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "°Ñ");
-		set("long", "ÕâÊÇÒ»°Ñ¿´ÆğÏàµ±ÆÕÍ¨µÄ³¤½£¡£\n");
+		set("unit", "æŠŠ");
+		set("long", "è¿™æ˜¯ä¸€æŠŠçœ‹èµ·ç›¸å½“æ™®é€šçš„é•¿å‰‘ã€‚\n");
 		set("value" , 1000);
 		set("material", "steel");
 	}
@@ -20,8 +20,8 @@ void create()
 // These properties are optional, if you don't set them, it will use the
 // default values.
 
-	set("wield_msg", "$N¡¸à§¡¹µØÒ»Éù³é³öÒ»°Ñ$nÎÕÔÚÊÖÖĞ¡£\n");
-	set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²åÈëÑü¼äµÄ½£ÇÊ¡£\n");
+	set("wield_msg", "$Nã€Œå”°ã€åœ°ä¸€å£°æŠ½å‡ºä¸€æŠŠ$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+	set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å…¥è…°é—´çš„å‰‘é˜ã€‚\n");
 
 	setup();
 }

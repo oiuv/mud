@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-    	set("short", "�ݵ�");
+    	set("short", "草地");
     	set("long", @LONG
-�������ݽ����һƬ���ݵأ���Ӣ�ͷף������裬��¶
-Ϧ�⣬������Ƣ�������ѿ�����������ʱ��
+这是扬州郊外的一片芳草地，落英缤纷，蜂歌蝶舞，朝露
+夕光，沁人心脾。呼朋唤友开怀欢乐正其时。
 LONG);
         set("outdoors", "city");
     	set("exits", ([

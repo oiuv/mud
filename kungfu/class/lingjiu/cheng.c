@@ -6,14 +6,14 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("³ÌÇàËª", ({ "cheng qingshuang", "cheng"}));
+        set_name("ç¨‹é’éœœ", ({ "cheng qingshuang", "cheng"}));
         set("long", @LONG
-³ÌÇàËªÄËÊÇçÎç¿·åÁéðÕ¹¬ÖÐ¾ÅÌì¾Å²¿ÖÐ¾ûÌì²¿
-µÄ¸±Ê×Áì¡£Ö»¼ûËýÈýÊ®¿ªÍâ£¬³¤µÃÆÄÓÐ×ËÉ«¡£
+ç¨‹é’éœœä¹ƒæ˜¯ç¼¥ç¼ˆå³°çµé¹«å®«ä¸­ä¹å¤©ä¹éƒ¨ä¸­é’§å¤©éƒ¨
+çš„å‰¯é¦–é¢†ã€‚åªè§å¥¹ä¸‰åå¼€å¤–ï¼Œé•¿å¾—é¢‡æœ‰å§¿è‰²ã€‚
 LONG);
-        set("title", "çÎç¿·ìÁéðÕ¹¬");
-        set("nickname", HIY "¾ûÌì²¿¸±Ê×Áì" NOR);
-	set("gender", "Å®ÐÔ");
+        set("title", "ç¼¥ç¼ˆç¼çµé¹«å®«");
+        set("nickname", HIY "é’§å¤©éƒ¨å‰¯é¦–é¢†" NOR);
+	set("gender", "å¥³æ€§");
         set("age", 37);
 	set("attitude", "peaceful");
 	set("str", 30);
@@ -51,7 +51,7 @@ LONG);
 
 	prepare_skill("strike", "piaomiao-zhang");
 
-	create_family("ÁéðÕ¹¬", 3, "¸±Ê×Áì");
+	create_family("çµé¹«å®«", 3, "å‰¯é¦–é¢†");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -73,28 +73,28 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-        if ((string)ob->query("gender") == "ÄÐÐÔ")
+        if ((string)ob->query("gender") == "ç”·æ€§")
         {
                 command("hmm");
-                command("say ×ß¿ª£¬ÁéðÕ¹¬ËØÀ´²»ÊÕÄÐÍ½¡£");
+                command("say èµ°å¼€ï¼Œçµé¹«å®«ç´ æ¥ä¸æ”¶ç”·å¾’ã€‚");
                 return;
         }
 
-        if ((string)ob->query("gender") != "Å®ÐÔ")
+        if ((string)ob->query("gender") != "å¥³æ€§")
         {
                 command("sneer");
-                command("say ÁéðÕ¹¬ÓÖ²»ÊÇ»Ê¹¬£¬ÄãÒ»¸öÌ«¼àÅÜÀ´×öÉõ£¿");
+                command("say çµé¹«å®«åˆä¸æ˜¯çš‡å®«ï¼Œä½ ä¸€ä¸ªå¤ªç›‘è·‘æ¥åšç”šï¼Ÿ");
                 return;
         }
 
         if ((int)ob->query_skill("lingjiu-xinfa", 1) < 25) 
         {
-                command("say Äã°Ñ±¾ÃÅµÄÐÄ·¨Á¶ºÃÁËÔÙÀ´ÕÒÎÒ¡£");
+                command("say ä½ æŠŠæœ¬é—¨çš„å¿ƒæ³•ç‚¼å¥½äº†å†æ¥æ‰¾æˆ‘ã€‚");
                 return;
         }
 
         command("nod2");
-        command("say ÄÇÄãÒÔºó¾Í¸ú×ÅÎÒ°É¡£");
+        command("say é‚£ä½ ä»¥åŽå°±è·Ÿç€æˆ‘å§ã€‚");
         command("recruit " + ob->query("id"));
 
         if ((string)ob->query("class") != "dancer")

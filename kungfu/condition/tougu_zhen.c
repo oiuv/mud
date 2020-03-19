@@ -6,15 +6,15 @@ inherit POISON;
 
 string name() { return "tougu_zhen"; }
 
-string chinese_name() { return "透骨寒针之扰"; }
+string chinese_name() { return "閫忛瀵掗拡涔嬫壈"; }
 
 string update_msg_others()
 {
-       return HIC "$N只觉一股奇寒散尽七筋八脉，犹感身陷万蚁之狱，全身不停的颤抖。\n" NOR;
+       return HIC "$N鍙涓�鑲″瀵掓暎灏戒竷绛嬪叓鑴夛紝鐘规劅韬櫡涓囪殎涔嬬嫳锛屽叏韬笉鍋滅殑棰ゆ姈銆俓n" NOR;
 }
 
 string update_msg_self()
 {
-        return HIC "你感到一股切骨奇寒由伤口处升起，看来是中了透骨针内劲的干扰！\n" NOR;
+        return HIC "浣犳劅鍒颁竴鑲″垏楠ㄥ瀵掔敱浼ゅ彛澶勫崌璧凤紝鐪嬫潵鏄腑浜嗛�忛閽堝唴鍔茬殑骞叉壈锛乗n" NOR;
 }
 

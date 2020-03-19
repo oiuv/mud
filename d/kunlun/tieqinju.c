@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ÌúÇÙ¾Ó");
+	set("short", "é“ç´å±…");
         set("long", @long
-Õâ¶ù±ãÊÇ¡°ÌúÇÙÏÈÉú¡±ºÎÌ«³åµÄ¾Ó´¦¡£·¿¼ä³ÂÉèÆÄÎª¾«ÇÉ£¬
-ÎïÆ·ÓëÖÐÍÁËù¼û±ðÊÇ²»Í¬¡£¼¸¸öÀ¥ÂØÅÉµÜ×ÓÊØÔÚÕâÀï£¬¸ö¸öÉî
-ÓÐÓÇÉ«¡£¶«±ßÍ¨ÍùÈýÊ¥ÌÃ£¬Î÷±ßÍ¨ÍùÎÔÊÒ¡£
+è¿™å„¿ä¾¿æ˜¯â€œé“ç´å…ˆç”Ÿâ€ä½•å¤ªå†²çš„å±…å¤„ã€‚æˆ¿é—´é™ˆè®¾é¢‡ä¸ºç²¾å·§ï¼Œ
+ç‰©å“ä¸Žä¸­åœŸæ‰€è§åˆ«æ˜¯ä¸åŒã€‚å‡ ä¸ªæ˜†ä»‘æ´¾å¼Ÿå­å®ˆåœ¨è¿™é‡Œï¼Œä¸ªä¸ªæ·±
+æœ‰å¿§è‰²ã€‚ä¸œè¾¹é€šå¾€ä¸‰åœ£å ‚ï¼Œè¥¿è¾¹é€šå¾€å§å®¤ã€‚
 long);
 
 	set("objects",([
@@ -22,7 +22,7 @@ long);
 	]));
 
         set("no_clean_up", 0);
-        create_door("west", "Ð¡ÃÅ", "east", DOOR_CLOSED);
+        create_door("west", "å°é—¨", "east", DOOR_CLOSED);
         setup();
         replace_program(ROOM);
 }

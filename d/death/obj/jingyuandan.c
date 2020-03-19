@@ -4,13 +4,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(RED "¾«Ôªµ¤" NOR, ({ "jingyuan dan", "jingyuan", " dan"}));
+        set_name(RED "ç²¾å…ƒä¸¹" NOR, ({ "jingyuan dan", "jingyuan", " dan"}));
         set_weight(700);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", RED "Ò»¿ÅÉñÃØµÄÉñµ¤£¬É¢·¢³öÒşÒşÑª¹â¡£\n" NOR);
-                set("unit", "¿é");
+                set("long", RED "ä¸€é¢—ç¥ç§˜çš„ç¥ä¸¹ï¼Œæ•£å‘å‡ºéšéšè¡€å…‰ã€‚\n" NOR);
+                set("unit", "å—");
                 set("value", 20000);
         }
 }

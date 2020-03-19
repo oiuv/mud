@@ -1,13 +1,13 @@
-// youth.c ÌìÑÕÓÀ×¤
+// youth.c å¤©é¢œæ°¸é©»
 // Created by Doing Lu 10/7/2K
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return HIG "ÌìÑÕÓÀ×¤" NOR; }
+string name() { return HIG "å¤©é¢œæ°¸é©»" NOR; }
 
 int perform(object me, string skill)
 {
-        return notify_fail("ÕâÏî¼¼ÄÜÄÜ¹»±£³ÖÄãÇà´ºÓÀ×¤£¬²»ÐèÒªÔËÓÃ¡£\n");
+        return notify_fail("è¿™é¡¹æŠ€èƒ½èƒ½å¤Ÿä¿æŒä½ é’æ˜¥æ°¸é©»ï¼Œä¸éœ€è¦è¿ç”¨ã€‚\n");
 }

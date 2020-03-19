@@ -6,17 +6,17 @@ inherit ITEM;
 
 void create()
 {
-        set_name("¶Ì¹­", ({ "short bow", "bow", "duan gong", "gong" }));
+        set_name("çŸ­å¼“", ({ "short bow", "bow", "duan gong", "gong" }));
         set_weight(2000);
         if (clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("unit", "ÕÅ");
-                set("long", "Ò»ÕÅ¶Ì¹­£¬´òÔìµÃÆÄÎª¾«ÖÂ£¬¾ßÓĞ²»´íµÄ×¼È·¶È¡£\n");
+                set("unit", "å¼ ");
+                set("long", "ä¸€å¼ çŸ­å¼“ï¼Œæ‰“é€ å¾—é¢‡ä¸ºç²¾è‡´ï¼Œå…·æœ‰ä¸é”™çš„å‡†ç¡®åº¦ã€‚\n");
                 set("value", 20000);
-                set("power", 100000);   // ¹¥»÷ÍşÁ¦
-                set("accuracy", 120);   // ×¼È·¶È120%
+                set("power", 100000);   // æ”»å‡»å¨åŠ›
+                set("accuracy", 120);   // å‡†ç¡®åº¦120%
         }
         setup();
 }
@@ -40,86 +40,86 @@ int do_shot(string arg)
 
         me = this_player();
         if (me->query_temp("handing") != this_object())
-                return notify_fail("ÄãµÃÏÈ°Ñ" + name() + "ÄÃ(hand)ÔÚÊÖÖĞ²ÅĞĞ¡£\n");
+                return notify_fail("ä½ å¾—å…ˆæŠŠ" + name() + "æ‹¿(hand)åœ¨æ‰‹ä¸­æ‰è¡Œã€‚\n");
 
         env = environment(me);
         if (! env || env->query("no_fight"))
-                return notify_fail("ÕâÀï²»ÄÜÕ½¶·¡£\n");
+                return notify_fail("è¿™é‡Œä¸èƒ½æˆ˜æ–—ã€‚\n");
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÃ¦×ÅÄØ¡£\n");
+                return notify_fail("ä½ ç°åœ¨å¿™ç€å‘¢ã€‚\n");
 
         if (me->query("jing") < 80)
-                return notify_fail("ÄãÏÖÔÚ¾«Éñ²»¹»ºÃ£¬ÎŞ·¨Ê¹ÓÃ" + name() +
-                                   "¹¥»÷¶ÔÊÖ¡£\n");
+                return notify_fail("ä½ ç°åœ¨ç²¾ç¥ä¸å¤Ÿå¥½ï¼Œæ— æ³•ä½¿ç”¨" + name() +
+                                   "æ”»å‡»å¯¹æ‰‹ã€‚\n");
 
         if (userp(me))
 	{
 	        if (! arg)
-        	        return notify_fail("ÄãÏë¹¥»÷Ë­£¿\n");
+        	        return notify_fail("ä½ æƒ³æ”»å‡»è°ï¼Ÿ\n");
 
         	if (sscanf(arg, "%s with %s", target, item) != 2)
-                	return notify_fail("ÄãÒªÓÃÊ²Ã´¹¥»÷¶ÔÊÖ£¿(shot <¶Ô"
-                                           "Ïó> with <ÀûÆ÷>)\n");
+                	return notify_fail("ä½ è¦ç”¨ä»€ä¹ˆæ”»å‡»å¯¹æ‰‹ï¼Ÿ(shot <å¯¹"
+                                           "è±¡> with <åˆ©å™¨>)\n");
 
         	if (! objectp(ob = present(item, me)))
-                	return notify_fail("ÄãÉíÉÏÃ»ÓĞ " + item + " ÕâÑùÎï"
-                                           "Æ·¿ÉÒÔ·¢Éä¡£\n");
+                	return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰ " + item + " è¿™æ ·ç‰©"
+                                           "å“å¯ä»¥å‘å°„ã€‚\n");
 
 	        if (! ob->is_arrow())
-        	        return notify_fail("Õâ²»ÊÇ¼ı£¬ÄãÎŞ·¨·¢Éä¡£\n");
+        	        return notify_fail("è¿™ä¸æ˜¯ç®­ï¼Œä½ æ— æ³•å‘å°„ã€‚\n");
 
 	        if ((amount = ob->query_amount()) < 1)
-        	        return notify_fail("ÄãÉíÉÏµÄ" + ob->name() + "²»¹»"
-                                           "ÓÃÁË¡£\n");
+        	        return notify_fail("ä½ èº«ä¸Šçš„" + ob->name() + "ä¸å¤Ÿ"
+                                           "ç”¨äº†ã€‚\n");
 
 	        if (! objectp(victim = present(target, env)))
-        	        return notify_fail("ÕâÀïÃ»ÓĞÕâ¸öÈË¡£\n");
+        	        return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™ä¸ªäººã€‚\n");
 
 	        if (! victim->is_character() || victim->query("not_living"))
-        	        return notify_fail("¿´Çå³şÁË£¬ÄÇ²»ÊÇ»îÈË£¡\n");
+        	        return notify_fail("çœ‹æ¸…æ¥šäº†ï¼Œé‚£ä¸æ˜¯æ´»äººï¼\n");
 
 	        if (! me->is_fighting(victim))
-        	        return notify_fail("ÄãÖ»ÄÜÉä»÷Õ½¶·ÖĞµÄ¶ÔÊÖ¡£\n");
+        	        return notify_fail("ä½ åªèƒ½å°„å‡»æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ã€‚\n");
 	} else
 	{
         	if (! objectp(ob = present("arrow", me))
                    || ! ob->is_arrow()
                    || (amount = ob->query_amount()) < 1)
-        	        return notify_fail("Éä»÷Ê§°Ü¡£\n");
+        	        return notify_fail("å°„å‡»å¤±è´¥ã€‚\n");
 
                 me->clean_up_enemy();
                 victim = me->select_opponent();
 	}
 
         if (me->query("special_skill/accuracy"))
-	        my_exp = me->query("combat_exp") * 3;//Ç¿»¯¾«×¼Éä»÷
+	        my_exp = me->query("combat_exp") * 3;//å¼ºåŒ–ç²¾å‡†å°„å‡»
 		else
 	        my_exp = me->query("combat_exp");
 
         v_exp = victim->query("combat_exp");
 
         if (my_exp < 100000)
-                return notify_fail("ÄãÊµÕ½¾­ÑéÌ«Ç³£¬ÄÑÒÔÔËÓÃ" + name() + "Éä»÷¶ÔÊÖ¡£\n");
+                return notify_fail("ä½ å®æˆ˜ç»éªŒå¤ªæµ…ï¼Œéš¾ä»¥è¿ç”¨" + name() + "å°„å‡»å¯¹æ‰‹ã€‚\n");
 
         switch (random(3))
         {
         case 0:
-                msg = HIY "$N" HIY "×óÊÖÃÍµØÌ§Æğ" + name() + HIY "£¬ËæÊÖ³é³öÒ»"
-                      + ob->query("base_unit") + ob->name() + HIY "£¬¡¸à²¡¹µÄÒ»"
-                      "ÉùÖ±Éä$n" HIY "¶øÈ¥£¡\n" NOR;
+                msg = HIY "$N" HIY "å·¦æ‰‹çŒ›åœ°æŠ¬èµ·" + name() + HIY "ï¼Œéšæ‰‹æŠ½å‡ºä¸€"
+                      + ob->query("base_unit") + ob->name() + HIY "ï¼Œã€Œå—–ã€çš„ä¸€"
+                      "å£°ç›´å°„$n" HIY "è€Œå»ï¼\n" NOR;
                 break;
 
         case 1:
-                msg = HIY "µç¹â»ğÊ¯¼ä$N" HIY "¾ÙÆğ" + name() + HIY "¶¸È»Éä³öÒ»"
-                      + ob->query("base_unit") + ob->name() + HIY "£¬´ø×Å¼ıĞ¥Ö±"
-                      "±¼$n" HIY "¶øÈ¥£¡\n" NOR;
+                msg = HIY "ç”µå…‰ç«çŸ³é—´$N" HIY "ä¸¾èµ·" + name() + HIY "é™¡ç„¶å°„å‡ºä¸€"
+                      + ob->query("base_unit") + ob->name() + HIY "ï¼Œå¸¦ç€ç®­å•¸ç›´"
+                      "å¥”$n" HIY "è€Œå»ï¼\n" NOR;
                 break;
 
         default:
-                msg = HIY "ö®Ê±Ö»Ìı¡¸à²¡¹µÄÒ»ÉùÆÆ¿ÕÉùÏì£¬ÄÇ" + ob->query("base_unit")
-                      + ob->name() + HIY "ÒÑ´Ó$N" HIY "µÄ" + name() + HIY "ÏÒÉÏ"
-                      "Éä³ö£¬·É¹áÏò$n" HIY "£¡\n" NOR;
+                msg = HIY "éœæ—¶åªå¬ã€Œå—–ã€çš„ä¸€å£°ç ´ç©ºå£°å“ï¼Œé‚£" + ob->query("base_unit")
+                      + ob->name() + HIY "å·²ä»$N" HIY "çš„" + name() + HIY "å¼¦ä¸Š"
+                      "å°„å‡ºï¼Œé£è´¯å‘$n" HIY "ï¼\n" NOR;
                 break;
         }
 
@@ -132,16 +132,16 @@ int do_shot(string arg)
                 switch (random(3))
                 {
                 case 0:
-                        msg += CYN "È´¼û$n" CYN "ÇáÇáÒ»ÉÁ£¬ÒÑ½«$N" CYN "Éä³ö"
-                               "µÄ¼ı±ÜÁË¿ªÈ¥¡£\n" NOR;
+                        msg += CYN "å´è§$n" CYN "è½»è½»ä¸€é—ªï¼Œå·²å°†$N" CYN "å°„å‡º"
+                               "çš„ç®­é¿äº†å¼€å»ã€‚\n" NOR;
                         break;
                 case 1:
-                        msg += CYN "Ö»¼û$n" CYN "²»»Å²»Ã¦£¬Éí×ÓÏòÒ»ÅÔºáÒÆÊı"
-                               "³ß£¬¶ã¿ªÁË$N" CYN "ÕâÒ»ÕĞ¡£\n" NOR;
+                        msg += CYN "åªè§$n" CYN "ä¸æ…Œä¸å¿™ï¼Œèº«å­å‘ä¸€æ—æ¨ªç§»æ•°"
+                               "å°ºï¼Œèº²å¼€äº†$N" CYN "è¿™ä¸€æ‹›ã€‚\n" NOR;
                         break;
                 default:
-                        msg += CYN "¿ÉÊÇ$n" CYN "Éí×ÓÍùºóÒ»Ñö£¬¶ÙÊ±ÈÃ$N" CYN
-                               "Éä³öµÄ¼ıÂä¿Õ¡£\n";
+                        msg += CYN "å¯æ˜¯$n" CYN "èº«å­å¾€åä¸€ä»°ï¼Œé¡¿æ—¶è®©$N" CYN
+                               "å°„å‡ºçš„ç®­è½ç©ºã€‚\n";
                         break;
                 }
         } else
@@ -149,9 +149,9 @@ int do_shot(string arg)
                 msg += COMBAT_D->do_damage(me, victim, ob,
                                            ob->query("weapon_prop/damage"),
                                            ob->query("wound_percent"),
-                                           HIR "Ö»¼û$p" HIR "Ò»¸öÉÁ±Ü²»¼°£¬ÕıÖĞ$P"
-                                           HIR "ÕâÒ»" + ob->name() + HIR "£¬µÇÊ±"
-                                           "ÏÊÑª·É½¦£¡\n" NOR);
+                                           HIR "åªè§$p" HIR "ä¸€ä¸ªé—ªé¿ä¸åŠï¼Œæ­£ä¸­$P"
+                                           HIR "è¿™ä¸€" + ob->name() + HIR "ï¼Œç™»æ—¶"
+                                           "é²œè¡€é£æº…ï¼\n" NOR);
         }
         ob->add_amount(-1);
         me->start_busy(2);

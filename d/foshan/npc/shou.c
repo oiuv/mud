@@ -4,10 +4,10 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÊİÉÌÈË", ({ "shou shangren", "shou" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("ç˜¦å•†äºº", ({ "shou shangren", "shou" }));
+	set("gender", "ç”·æ€§");
 	set("age", 43);
-	set("long", "ËûÊİÙâÙâµÄ£¬Ò»Á³Çî¿àÏà¡£\n");
+	set("long", "ä»–ç˜¦å…®å…®çš„ï¼Œä¸€è„¸ç©·è‹¦ç›¸ã€‚\n");
 	set("combat_exp", 2000);
         set_skill("dodge", 20);
         set_skill("unarmed", 20);

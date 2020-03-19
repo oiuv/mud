@@ -5,17 +5,17 @@ inherit CLOTH;
 
 void create()
 {
-        set_name(HIW "ÈÕÔÂ½õÅÛ" NOR, ({ "jin pao", "jin", "pao", "cloth" }));
-        set("long", HIW "ÕâÊÇÒ»¼şÈÕÔÂÉñ½Ì³¤ÀÏËù´©´÷µÄ»ªÀö½õÅÛ¡£\n" NOR);
+        set_name(HIW "æ—¥æœˆé”¦è¢" NOR, ({ "jin pao", "jin", "pao", "cloth" }));
+        set("long", HIW "è¿™æ˜¯ä¸€ä»¶æ—¥æœˆç¥æ•™é•¿è€æ‰€ç©¿æˆ´çš„åä¸½é”¦è¢ã€‚\n" NOR);
         set_weight(10);
         if (clonep())
                 set_default_object(__FILE__);
         else {
                 set("material", "cloth");
-                set("unit", "¼ş");
+                set("unit", "ä»¶");
                 set("armor_prop/armor", 1);
                 set("value", 10000);
-                set("no_sell", "ÎÒµÄÌì¡­Á¬ÈÕÔÂÉñ½ÌµÄ¶«Î÷Äã¶¼ÄÃ³öÀ´Âô£¿");
+                set("no_sell", "æˆ‘çš„å¤©â€¦è¿æ—¥æœˆç¥æ•™çš„ä¸œè¥¿ä½ éƒ½æ‹¿å‡ºæ¥å–ï¼Ÿ");
         }
         setup();
 }

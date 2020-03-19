@@ -1,4 +1,4 @@
-// banker.c ÒøĞĞ¼Ò
+// banker.c é“¶è¡Œå®¶
 // This is a inheritable object.
 // Each dealer should support buy, sell, list, value 4 commands
 
@@ -13,11 +13,11 @@ int do_check()
         if (!total || total < 0)
         {
                 this_player()->set("balance", 0);
-                write("ÄúÔÚ±ÖÉÌºÅÃ»ÓĞ´æÇ®¡£\n");
+                write("æ‚¨åœ¨æ•å•†å·æ²¡æœ‰å­˜é’±ã€‚\n");
                 return 1;
         }
-        write(this_object()->query("name")+"ÇÄÇÄ¸æËßÄã£ºÄúÔÚ±×ÉÌºÅ¹²´æÓĞ" + 
-              MONEY_D->money_str(total) + "¡£\n");
+        write(this_object()->query("name")+"æ‚„æ‚„å‘Šè¯‰ä½ ï¼šæ‚¨åœ¨å¼Šå•†å·å…±å­˜æœ‰" + 
+              MONEY_D->money_str(total) + "ã€‚\n");
         return 1;                                                               
 }
 
@@ -31,48 +31,48 @@ int do_convert(string arg)
         me = this_player();                                                     
 
 	if (me->is_busy())
-		return notify_fail("Äã»¹ÊÇµÈÓĞ¿ÕÁËÔÙËµ°É£¡\n");
+		return notify_fail("ä½ è¿˜æ˜¯ç­‰æœ‰ç©ºäº†å†è¯´å§ï¼\n");
 
         if (this_object()->is_fighting())
-                return notify_fail("Ó´£¬±§Ç¸°¡£¬ÎÒÕâ¶ùÕıÃ¦×ÅÄØ¡­¡­ÄúÇëÉÔºò¡£\n");
+                return notify_fail("å“Ÿï¼ŒæŠ±æ­‰å•Šï¼Œæˆ‘è¿™å„¿æ­£å¿™ç€å‘¢â€¦â€¦æ‚¨è¯·ç¨å€™ã€‚\n");
 
         if (! arg || sscanf(arg, "%d %s to %s", amount, from, to) != 3)
         {
-           	return notify_fail("ÃüÁî¸ñÊ½£ºconvert|duihuan <ÊıÁ¿> <»õ±Òµ¥Î»> to <ĞÂ»õ±Òµ¥Î»>\n");
+           	return notify_fail("å‘½ä»¤æ ¼å¼ï¼šconvert|duihuan <æ•°é‡> <è´§å¸å•ä½> to <æ–°è´§å¸å•ä½>\n");
         }
 
         from_ob = present(from + "_money", me);
         to_ob = present(to + "_money", me);
 
         if (! to_ob && file_size("/clone/money/" + to + ".c") < 0)
-           	return notify_fail("ÄãÏë¶Ò»»³ÉÊ²Ã´£¿\n");
+           	return notify_fail("ä½ æƒ³å…‘æ¢æˆä»€ä¹ˆï¼Ÿ\n");
 
         if (! from_ob)
-           	return notify_fail("ÄãÉíÉÏÃ»ÓĞ´øÕâÖÖÇ®¡£\n");
+           	return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰å¸¦è¿™ç§é’±ã€‚\n");
 
 	if (from_ob == to_ob)
-		return notify_fail("ÄãÓĞÃ«²¡°¡£¿\n");
+		return notify_fail("ä½ æœ‰æ¯›ç—…å•Šï¼Ÿ\n");
 
         if (amount < 1)
-           	return notify_fail("ÄãÏë°××¬°¡£¿\n");
+           	return notify_fail("ä½ æƒ³ç™½èµšå•Šï¼Ÿ\n");
 
         if ((int)from_ob->query_amount() < amount)
-           	return notify_fail("Äã´øµÄ" + from_ob->query("name") +
-				   "²»¹»¡£\n");
+           	return notify_fail("ä½ å¸¦çš„" + from_ob->query("name") +
+				   "ä¸å¤Ÿã€‚\n");
 
         bv1 = from_ob->query("base_value");
         if (! bv1)
-           	return notify_fail("ÕâÑù¶«Î÷²»ÖµÇ®¡£\n");
+           	return notify_fail("è¿™æ ·ä¸œè¥¿ä¸å€¼é’±ã€‚\n");
 
         bv2 = to_ob ? to_ob->query("base_value")
 		    : call_other("/clone/money/" + to, "query", "base_value");
         if (bv1 < bv2)  amount -= amount % (bv2 / bv1);
         if (amount == 0)
-           	return notify_fail("ÕâĞ©" + from_ob->query("name") +
-				   "²»¹»»»¡£\n ");
+           	return notify_fail("è¿™äº›" + from_ob->query("name") +
+				   "ä¸å¤Ÿæ¢ã€‚\n ");
 
 	if (bv1 > bv2 && bv1 / bv2 * amount > 10000)
-		return notify_fail("Å¶ßÏ...ÎÒÕâÒ»ÏÂ×Ó»¹ÄÃ²»³öÕâÃ´¶àÉ¢Ç®...\n");
+		return notify_fail("å“¦å‘¦...æˆ‘è¿™ä¸€ä¸‹å­è¿˜æ‹¿ä¸å‡ºè¿™ä¹ˆå¤šæ•£é’±...\n");
 
         // allowed to convert now
         me->start_busy(1);
@@ -88,7 +88,7 @@ int do_convert(string arg)
         else
                 to_ob->add_amount(amount * bv1 / bv2);
 
-        message_vision(sprintf("$N´ÓÉíÉÏÈ¡³ö%s%s%s£¬»»³ÉÁË%s%s%s¡£\n",
+        message_vision(sprintf("$Nä»èº«ä¸Šå–å‡º%s%s%sï¼Œæ¢æˆäº†%s%s%sã€‚\n",
         		       chinese_number(amount),
 			       from_ob->query("base_unit"),
 			       from_ob->query("name"),
@@ -108,32 +108,32 @@ int do_deposit(string arg)
         me = this_player();
 
 	if (me->is_busy())
-		return notify_fail("Äã»¹ÊÇµÈÓĞ¿ÕÁËÔÙËµ°É£¡\n");
+		return notify_fail("ä½ è¿˜æ˜¯ç­‰æœ‰ç©ºäº†å†è¯´å§ï¼\n");
 
         if (this_object()->is_fighting())
-                return notify_fail("Ó´£¬±§Ç¸°¡£¬ÎÒÕâ¶ùÕıÃ¦×ÅÄØ¡­¡­ÄúÇëÉÔºò¡£\n");
+                return notify_fail("å“Ÿï¼ŒæŠ±æ­‰å•Šï¼Œæˆ‘è¿™å„¿æ­£å¿™ç€å‘¢â€¦â€¦æ‚¨è¯·ç¨å€™ã€‚\n");
 
         if (! arg || sscanf(arg, "%d %s", amount, what) != 2)
-                return notify_fail("ÃüÁî¸ñÊ½£ºdeposit:cun <ÊıÁ¿> <»õ±Òµ¥Î»>\n");
+                return notify_fail("å‘½ä»¤æ ¼å¼ï¼šdeposit:cun <æ•°é‡> <è´§å¸å•ä½>\n");
 
         what_ob = present(what + "_money", me);
         if (! what_ob)
-                return notify_fail("ÄãÉíÉÏÃ»ÓĞ´øÕâÖÖÇ®¡£\n");
+                return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰å¸¦è¿™ç§é’±ã€‚\n");
 
         if (amount < 1)
-                return notify_fail("ÄãÏë´æ¶àÉÙ" + what_ob->query("name") +
-				   "£¿\n");
+                return notify_fail("ä½ æƒ³å­˜å¤šå°‘" + what_ob->query("name") +
+				   "ï¼Ÿ\n");
 
         if ((int)what_ob->query_amount() < amount)
-                return notify_fail("Äã´øµÄ" + what_ob->query("name") +
-				   "²»¹»¡£\n");
+                return notify_fail("ä½ å¸¦çš„" + what_ob->query("name") +
+				   "ä¸å¤Ÿã€‚\n");
 
         // deposit it
         me->start_busy(1);
 
         me->add("balance", what_ob->query("base_value") * amount);
         what_ob->add_amount(-amount);
-        message_vision(sprintf("$NÄÃ³ö%s%s%s£¬´æ½øÁËÒøºÅ¡£\n",
+        message_vision(sprintf("$Næ‹¿å‡º%s%s%sï¼Œå­˜è¿›äº†é“¶å·ã€‚\n",
         chinese_number(amount), what_ob->query("base_unit"),
         what_ob->query("name")), me);
 
@@ -150,34 +150,34 @@ int do_withdraw(string arg)
         me = this_player();
 
 	if (me->is_busy())
-		return notify_fail("Äã»¹ÊÇµÈÓĞ¿ÕÁËÔÙËµ°É£¡\n");
+		return notify_fail("ä½ è¿˜æ˜¯ç­‰æœ‰ç©ºäº†å†è¯´å§ï¼\n");
 
         if (this_object()->is_fighting())
-                return notify_fail("Ó´£¬±§Ç¸°¡£¬ÎÒÕâ¶ùÕıÃ¦×ÅÄØ¡­¡­ÄúÇëÉÔºò¡£\n");
+                return notify_fail("å“Ÿï¼ŒæŠ±æ­‰å•Šï¼Œæˆ‘è¿™å„¿æ­£å¿™ç€å‘¢â€¦â€¦æ‚¨è¯·ç¨å€™ã€‚\n");
 
         if (!arg || sscanf(arg, "%d %s", amount, what) != 2)
-                return notify_fail("ÃüÁî¸ñÊ½£ºwithdraw|qu <ÊıÁ¿> <»õ±Òµ¥Î»>\n");
+                return notify_fail("å‘½ä»¤æ ¼å¼ï¼šwithdraw|qu <æ•°é‡> <è´§å¸å•ä½>\n");
 
         if (amount < 1)
-                return notify_fail("ÄãÏëÈ¡³ö¶àÉÙÇ®£¿\n");
+                return notify_fail("ä½ æƒ³å–å‡ºå¤šå°‘é’±ï¼Ÿ\n");
 
         if(amount >= 10000)
-                return notify_fail("ÕâÃ´´óµÄÊıÄ¿¡£±¾µêÃ»ÕâÃ´¶àÁãÉ¢ÏÖ½ğ¡£\n");
+                return notify_fail("è¿™ä¹ˆå¤§çš„æ•°ç›®ã€‚æœ¬åº—æ²¡è¿™ä¹ˆå¤šé›¶æ•£ç°é‡‘ã€‚\n");
 
         if (file_size("/clone/money/" + what + ".c") < 0)
-                return notify_fail("ÄãÏëÈ¡³öÊ²Ã´Ç®£¿\n");
+                return notify_fail("ä½ æƒ³å–å‡ºä»€ä¹ˆé’±ï¼Ÿ\n");
 
         what = "/clone/money/" + what;
         if ((v = amount * what->query("base_value")) > me->query("balance") ||
             v <= 0)
-               return notify_fail("Äã´æµÄÇ®²»¹»È¡¡£\n");
+               return notify_fail("ä½ å­˜çš„é’±ä¸å¤Ÿå–ã€‚\n");
 
         me->start_busy(1);
 
         me->add("balance",  -v);
         MONEY_D->pay_player(me, v);
 
-        message_vision(sprintf("$N´ÓÒøºÅÀïÈ¡³ö%s¡£\n", MONEY_D->money_str(v)), me);
+        message_vision(sprintf("$Nä»é“¶å·é‡Œå–å‡º%sã€‚\n", MONEY_D->money_str(v)), me);
 
         return 1;
 }
@@ -192,34 +192,34 @@ int do_transfer(string arg)
         me = this_player();
 
         if( me->is_busy() )
-                return notify_fail("Äã»¹ÊÇµÈÓĞ¿ÕÁËÔÙËµ°É£¡\n");
+                return notify_fail("ä½ è¿˜æ˜¯ç­‰æœ‰ç©ºäº†å†è¯´å§ï¼\n");
 
         if( this_object()->is_fighting() )
-                return notify_fail("Ó´£¬±§Ç¸°¡£¬ÎÒÕâ¶ùÕıÃ¦×ÅÄØ¡­¡­ÄúÇëÉÔºò¡£\n");
+                return notify_fail("å“Ÿï¼ŒæŠ±æ­‰å•Šï¼Œæˆ‘è¿™å„¿æ­£å¿™ç€å‘¢â€¦â€¦æ‚¨è¯·ç¨å€™ã€‚\n");
 
         if( REBOOT_CMD->is_rebooting() )
-                return notify_fail("ÏÖÔÚ±¾Õ¾ÕıÔÚ×¼±¸ÖØĞÂÆô¶¯£¬±¾Ç®×¯ÔİÍ£×ªÕÊ¹¦ÄÜ¡£\n");
+                return notify_fail("ç°åœ¨æœ¬ç«™æ­£åœ¨å‡†å¤‡é‡æ–°å¯åŠ¨ï¼Œæœ¬é’±åº„æš‚åœè½¬å¸åŠŸèƒ½ã€‚\n");
 
         if( !arg || sscanf(arg, "%d %s to %s", amount, what, who) != 3 )
-                return notify_fail("ÃüÁî¸ñÊ½£ºtransfer|zhuan <ÊıÁ¿> <»õ±Òµ¥Î»> to <Ä³ÈË>\n");
+                return notify_fail("å‘½ä»¤æ ¼å¼ï¼štransfer|zhuan <æ•°é‡> <è´§å¸å•ä½> to <æŸäºº>\n");
 
 		if( amount < 1 )
-                return notify_fail("ÄãÏë×ªÕÊ¶àÉÙÇ®£¿\n");
+                return notify_fail("ä½ æƒ³è½¬å¸å¤šå°‘é’±ï¼Ÿ\n");
 
         if( amount > 10000 )
-                return notify_fail("ÕâÃ´´óµÄÊıÄ¿£¬ÓĞÏ´Ç®µÄÏÓÒÉ£¬±¾µê¿É²»¸Ò·¸·¨¡£\n");
+                return notify_fail("è¿™ä¹ˆå¤§çš„æ•°ç›®ï¼Œæœ‰æ´—é’±çš„å«Œç–‘ï¼Œæœ¬åº—å¯ä¸æ•¢çŠ¯æ³•ã€‚\n");
 
         if( file_size("/clone/money/" + what + ".c") < 0 )
-                return notify_fail("ÄãÏë×ªÕÊÇ®µÄµ¥Î»ÊÇ£¿\n");
+                return notify_fail("ä½ æƒ³è½¬å¸é’±çš„å•ä½æ˜¯ï¼Ÿ\n");
 			
 		what = "/clone/money/" + what;
         value = amount * what->query("base_value");
 
 		if( value > me->query("balance") || value <= 0 )
-               return notify_fail("Äã´æµÄÇ®²»¹»×ªÕÊ¡£\n");
+               return notify_fail("ä½ å­˜çš„é’±ä¸å¤Ÿè½¬å¸ã€‚\n");
 
 		if( !objectp(ob = UPDATE_D->global_find_player(who)) )
-                return notify_fail("Ã»ÓĞÕâ¸öÈË£¡\n");
+                return notify_fail("æ²¡æœ‰è¿™ä¸ªäººï¼\n");
 		
         me->start_busy(1);
 
@@ -228,8 +228,8 @@ int do_transfer(string arg)
         me->save();
         ob->save();
         
-        tell_object(ob, HIR + me->query("name") + HIR "´ÓÒøºÅÀï»®×ª"+ MONEY_D->money_str(value) + "µ½ÄãµÄÕÊ»§ÉÏ¡£\n" NOR);
-        tell_object(me, HIR "Äã´ÓÒøºÅÀï»®×ª"+ MONEY_D->money_str(value) + "µ½" + ob->query("name") + HIR "µÄÕÊ»§ÉÏ¡£\n" NOR);
+        tell_object(ob, HIR + me->query("name") + HIR "ä»é“¶å·é‡Œåˆ’è½¬"+ MONEY_D->money_str(value) + "åˆ°ä½ çš„å¸æˆ·ä¸Šã€‚\n" NOR);
+        tell_object(me, HIR "ä½ ä»é“¶å·é‡Œåˆ’è½¬"+ MONEY_D->money_str(value) + "åˆ°" + ob->query("name") + HIR "çš„å¸æˆ·ä¸Šã€‚\n" NOR);
         UPDATE_D->global_destruct_player(ob);
         return 1;
 }

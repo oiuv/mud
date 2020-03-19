@@ -1,14 +1,14 @@
-// dexterity.c 玲珑玉躯
+// dexterity.c 鐜茬彂鐜夎函
 // Created by Vin 1/9/2001
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return HIW "玲珑玉躯" NOR; }
+string name() { return HIW "鐜茬彂鐜夎函" NOR; }
 
 int perform(object me, string skill)
 {
-        return notify_fail("这项技能能够使你身法更高，不需要运用。\n");
+        return notify_fail("杩欓」鎶�鑳借兘澶熶娇浣犺韩娉曟洿楂橈紝涓嶉渶瑕佽繍鐢ㄣ�俓n");
 }
 

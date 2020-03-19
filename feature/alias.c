@@ -12,17 +12,17 @@
 #define MAX_ALIASES             40
 mapping alias;
 
-// ¼ÇÂ¼ÓÃ»§ÊäÈëµÄĞÅÏ¢±äÁ¿
+// è®°å½•ç”¨æˆ·è¾“å…¥çš„ä¿¡æ¯å˜é‡
 STATIC_VAR_TAG string *history, last_input, orginal_input;
 STATIC_VAR_TAG int direct_command;
 
-// ×îºóµÄÊäÈëÃüÁî(ÒÑ¾­¾­¹ıALIAS´¦Àí)
+// æœ€åçš„è¾“å…¥å‘½ä»¤(å·²ç»ç»è¿‡ALIASå¤„ç†)
 string query_last_input() { return last_input; }
 
-// ×îºóµÄÊäÈëÔ­Ê¼×Ö·û´®(ÒÑ¾­¾­¹ıÃüÁîÈ·ÈÏ£º/»ò//´òÍ·)
+// æœ€åçš„è¾“å…¥åŸå§‹å­—ç¬¦ä¸²(å·²ç»ç»è¿‡å‘½ä»¤ç¡®è®¤ï¼š/æˆ–//æ‰“å¤´)
 string query_orginal_input() { return orginal_input; }
 
-// ÊÇ·ñÊÇ¿ØÖÆÃüÁî(ÒÔ/»ò//´òÍ·)
+// æ˜¯å¦æ˜¯æ§åˆ¶å‘½ä»¤(ä»¥/æˆ–//æ‰“å¤´)
 int is_direct_command() { return direct_command; }
 
 string process_input(string str)
@@ -32,11 +32,11 @@ string process_input(string str)
 	int i, j;
 	
         me = this_object();
-	notify_fail("Ê²Ã´£¿\n");
+	notify_fail("ä»€ä¹ˆï¼Ÿ\n");
         clear_written();
         if (! living(me)) return "";
 
-        // ¼ÇÂ¼×îÔ­Ê¼µÄÊäÈë
+        // è®°å½•æœ€åŸå§‹çš„è¾“å…¥
         if (str[0] == '/')
         {
                 direct_command = 1;
@@ -50,7 +50,7 @@ string process_input(string str)
         if (me->is_attach_system())
         {
                 me->detach_system();
-                tell_object(me, HIR "ÓÃ»§ÖÕÖ¹ÁËµ±Ç°Ö´ĞĞµÄ½ø³Ì¡£\n" NOR);
+                tell_object(me, HIR "ç”¨æˆ·ç»ˆæ­¢äº†å½“å‰æ‰§è¡Œçš„è¿›ç¨‹ã€‚\n" NOR);
         }
 
 	if (str == "") return str;
@@ -61,35 +61,35 @@ string process_input(string str)
                 {
 			int cq, cj;
 
-                        // ÔÎµ¹ÒÔºóÒª±£Ö¤qi/jing²»±ä
+                        // æ™•å€’ä»¥åè¦ä¿è¯qi/jingä¸å˜
 			cq = query("qi");
 			cj = query("jing");
 
-                        // È·±£qi/jing²»Ğ¡ÓÚÁã£¬ÃâµÃÖ¸Áî¹ı¶à¶øÔ©ËÀ
+                        // ç¡®ä¿qi/jingä¸å°äºé›¶ï¼Œå…å¾—æŒ‡ä»¤è¿‡å¤šè€Œå†¤æ­»
                         if (cq < 1) cq = 0;
                         if (cj < 1) cj = 0;
 
-                        // ÎÒÒª±£Ö¤Çå³ı×îºó´òÉËÕâ¸ö½ÇÉ«µÄÈË
+                        // æˆ‘è¦ä¿è¯æ¸…é™¤æœ€åæ‰“ä¼¤è¿™ä¸ªè§’è‰²çš„äºº
                         set("jing", 0);
 			me->receive_damage("jing", 0);
 
-			message_vision(HIC "\nÌì¿ÕºöÈ»´«À´ÁË¼¸ÉùÀäĞ¦£¬"
-                                       "ö®Ê±¼äÎÚÔÆÃÜ²¼£¡Ò»µÀ" HIY "ÉÁµç"
-				       HIC "´ÓÌì¶ø½µ£¡\n"
+			message_vision(HIC "\nå¤©ç©ºå¿½ç„¶ä¼ æ¥äº†å‡ å£°å†·ç¬‘ï¼Œ"
+                                       "éœæ—¶é—´ä¹Œäº‘å¯†å¸ƒï¼ä¸€é“" HIY "é—ªç”µ"
+				       HIC "ä»å¤©è€Œé™ï¼\n"
                                        NOR, me);
 			me->unconcious();				
 
-                        // »Ö¸´ÔÎµ¹Ç°µÄqi/jing
+                        // æ¢å¤æ™•å€’å‰çš„qi/jing
 			set("qi", cq);
 			set("jing", cj);
 
-                        // È·±£ÓĞĞ§µÄqi/jing²»Ğ¡ÓÚÁã£¬ÃâµÃÒò
-                        // ÎªÖ¸Áî¹ı¶à¶øÔ©ËÀ¡£
+                        // ç¡®ä¿æœ‰æ•ˆçš„qi/jingä¸å°äºé›¶ï¼Œå…å¾—å› 
+                        // ä¸ºæŒ‡ä»¤è¿‡å¤šè€Œå†¤æ­»ã€‚
                         if (query("eff_qi") < 1) set("eff_qi", 0);
                         if (query("eff_jing") < 1) set("eff_jing", 0);
 
-                        message_vision(HIW "Ö»¼ûÔÎµ¹ÔÚµØµÄ$N"
-                                       "ÉíÉÏÃ°×ÅÂÆÂÆÇáÑÌ......\n\n" NOR, me);
+                        message_vision(HIW "åªè§æ™•å€’åœ¨åœ°çš„$N"
+                                       "èº«ä¸Šå†’ç€ç¼•ç¼•è½»çƒŸ......\n\n" NOR, me);
 			return "";
 		}
 	}
@@ -130,7 +130,7 @@ int set_alias(string verb, string replace)
         {
 		if (! mapp(alias)) alias = ([ verb : replace ]);
 		else if (sizeof(alias) > MAX_ALIASES)
-			return notify_fail("ÄúÉè¶¨µÄ alias Ì«¶àÁË£¬ÇëÏÈÉ¾µôÒ»Ğ©²»³£ÓÃµÄ¡£\n");
+			return notify_fail("æ‚¨è®¾å®šçš„ alias å¤ªå¤šäº†ï¼Œè¯·å…ˆåˆ æ‰ä¸€äº›ä¸å¸¸ç”¨çš„ã€‚\n");
 		else alias[verb] = replace;
 		return 1;
 	}

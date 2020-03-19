@@ -14,19 +14,19 @@ int exert(object me, object target)
         if (layer > 13) layer = 13;
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÌáÉı×Ô¼ºµÄ·ÀÓùÁ¦¡£\n");
+                return notify_fail("ä½ åªèƒ½æå‡è‡ªå·±çš„é˜²å¾¡åŠ›ã€‚\n");
 
         if (layer < 3)
-                return notify_fail("ÄãÁúÏó°ãÈô¹¦ĞŞÎª²»¹»£¬ÄÑÒÔÔË¹¦¡£\n");
+                return notify_fail("ä½ é¾™è±¡èˆ¬è‹¥åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥è¿åŠŸã€‚\n");
 
         if ((int)me->query("neili") < 500)
-                return notify_fail("ÄãÄ¿Ç°µÄÕæÆø²»¹»¡£\n");
+                return notify_fail("ä½ ç›®å‰çš„çœŸæ°”ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_temp("shield"))
-                return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖĞÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
-        message_combatd(HIW "$N" HIW "°µ¾ÛÁúÏó°ãÈô¹¦µÚ" + chinese_number(layer) +
-                        "²ã¹¦Á¦£¬¶ÙÊ±Ò»¹É°×ÎíÕôÌÚ¶øÆğ£¬Ë²¼äÁıÕÖ$N" HIW "È«Éí£¡\n"
+        message_combatd(HIW "$N" HIW "æš—èšé¾™è±¡èˆ¬è‹¥åŠŸç¬¬" + chinese_number(layer) +
+                        "å±‚åŠŸåŠ›ï¼Œé¡¿æ—¶ä¸€è‚¡ç™½é›¾è’¸è…¾è€Œèµ·ï¼Œç¬é—´ç¬¼ç½©$N" HIW "å…¨èº«ï¼\n"
                         NOR, me);
 
         me->add_temp("apply/armor", skill / 2);
@@ -47,6 +47,6 @@ void remove_effect(object me, int amount)
         {
                 me->add_temp("apply/armor", -amount);
                 me->delete_temp("shield");
-                tell_object(me, "ÄãµÄÁúÏó°ãÈô¹¦ÔËĞĞÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„é¾™è±¡èˆ¬è‹¥åŠŸè¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›ä¸¹ç”°ã€‚\n");
         }
 }

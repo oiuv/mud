@@ -1,4 +1,4 @@
-// hongri.c ºìÈÕ·¨Íõ
+// hongri.c çº¢æ—¥æ³•ç‹
 
 #include <ansi.h>
 
@@ -6,9 +6,9 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-        set_name("ºìÈÕ·¨Íõ", ({ "hongri fawang", "fawang" }));
-        set("long",  "Ëû¿´ÉÏÈ¥ÊÇÒ»¸ö²ØÉ®£¬ĞØÇ°Ğå×ÅÒ»¸ö´ó´óµÄÌ«Ñô¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("çº¢æ—¥æ³•ç‹", ({ "hongri fawang", "fawang" }));
+        set("long",  "ä»–çœ‹ä¸Šå»æ˜¯ä¸€ä¸ªè—åƒ§ï¼Œèƒ¸å‰ç»£ç€ä¸€ä¸ªå¤§å¤§çš„å¤ªé˜³ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 62);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -53,7 +53,7 @@ void create()
         prepare_skill("cuff", "yujiamu-quan");
         prepare_skill("hand", "dashou-yin");
 
-        create_family("Ñªµ¶ÃÅ", 0, "·¨Íõ");
+        create_family("è¡€åˆ€é—¨", 0, "æ³•ç‹");
         set("class", "bonze");
 
         set("chat_chance_combat", 120);

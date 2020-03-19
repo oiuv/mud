@@ -1,13 +1,13 @@
-// Room: chaopath2.c ³¯Ñô·åÐ¡Â·
+// Room: chaopath2.c æœé˜³å³°å°è·¯
 //Date: Oct. 2 1997 by Venus
 inherit ROOM;
 
 void create()
 {
-      set("short","³¯Ñô·åÐ¡Â·");
+      set("short","æœé˜³å³°å°è·¯");
       set("long",@LONG
-ÕâÀïÊÇ³¯Ñô·åÐ¡Â·£¬É½ÊÆ¶¸ÇÍ£¬Á½±ßÏÂÁÙÉî¹È£¬Ò»²»Ð¡ÐÄ¶¼»áµô
-ÁËÏÂÈ¥¡£Î÷ÃæÓÐÒ»ÌõÐ¡Â·£¬³¤²ÝÃ»¾¶¡£
+è¿™é‡Œæ˜¯æœé˜³å³°å°è·¯ï¼Œå±±åŠ¿é™¡å³­ï¼Œä¸¤è¾¹ä¸‹ä¸´æ·±è°·ï¼Œä¸€ä¸å°å¿ƒéƒ½ä¼šæŽ‰
+äº†ä¸‹åŽ»ã€‚è¥¿é¢æœ‰ä¸€æ¡å°è·¯ï¼Œé•¿è‰æ²¡å¾„ã€‚
 LONG);
       set("outdoors", "huashan");
       set("exits",([ /* sizeof() == 1 */
@@ -36,20 +36,20 @@ int valid_leave(object me, string dir)
             (me->query("family/master_id")!="ai laozhe"))
                 return ::valid_leave(me, dir);
 
-        if (me->query("family/family_name") != "»ªÉ½ÅÉ")
+        if (me->query("family/family_name") != "åŽå±±æ´¾")
         {
-                message_vision("Ê©´÷×ÓÉìÊÖÀ¹×¡$N£¬µÀ£º±§Ç¸£¬ÉÏÃæÊÇÁ½Î»"
-                               "³¤ÀÏÇåÐÞÖ®´¦£¬ÕâÎ»" + RANK_D->query_respect(me) +
-                               "ÇëÖ¹²½£¡\n", me);
-                return notify_fail("¿´À´Ê©´÷×Ó²»»áÈÃÄã¹ýÈ¥¡£\n");
+                message_vision("æ–½æˆ´å­ä¼¸æ‰‹æ‹¦ä½$Nï¼Œé“ï¼šæŠ±æ­‰ï¼Œä¸Šé¢æ˜¯ä¸¤ä½"
+                               "é•¿è€æ¸…ä¿®ä¹‹å¤„ï¼Œè¿™ä½" + RANK_D->query_respect(me) +
+                               "è¯·æ­¢æ­¥ï¼\n", me);
+                return notify_fail("çœ‹æ¥æ–½æˆ´å­ä¸ä¼šè®©ä½ è¿‡åŽ»ã€‚\n");
         }
 
         if (me->query("combat_exp") < 100000)
         {
-                message_vision("Ê©´÷×ÓÉìÊÖÀ¹×¡$N£¬µÀ£ºÖ¹²½£¡ÉÏÃæÊÇÁ½Î»"
-                               "³¤ÀÏÇåÐÞÖ®´¦£¬ÄãËäÈ»ÊÇ±¾ÅÉµÜ×Ó£¬µ«ÊÇÑ§"
-                               "ÒÕ²»¾«£¬²»ÄÜ°Ý¼û£¡\n", me);
-                return notify_fail("¿´À´Ê©´÷×Ó²»»áÈÃÄã¹ýÈ¥¡£\n");
+                message_vision("æ–½æˆ´å­ä¼¸æ‰‹æ‹¦ä½$Nï¼Œé“ï¼šæ­¢æ­¥ï¼ä¸Šé¢æ˜¯ä¸¤ä½"
+                               "é•¿è€æ¸…ä¿®ä¹‹å¤„ï¼Œä½ è™½ç„¶æ˜¯æœ¬æ´¾å¼Ÿå­ï¼Œä½†æ˜¯å­¦"
+                               "è‰ºä¸ç²¾ï¼Œä¸èƒ½æ‹œè§ï¼\n", me);
+                return notify_fail("çœ‹æ¥æ–½æˆ´å­ä¸ä¼šè®©ä½ è¿‡åŽ»ã€‚\n");
         }
 
         return ::valid_leave(me, dir);

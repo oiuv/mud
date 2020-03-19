@@ -16,40 +16,40 @@ int main(object me, string arg)
         string no_tell, can_tell;
 
         if (((int)me->query("jing") < 50) && (! wizardp(me)))
-                return notify_fail("ÄãÏÖÔÚ¾«Éñ²»¼Ñ£¬Ðª»á°É¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨ç²¾ç¥žä¸ä½³ï¼Œæ­‡ä¼šå§ã€‚\n");
 
         if (me->is_busy()) 
-                return notify_fail("ÄãÏÖÔÚÕýÃ¦×ÅÄØ¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
  
         if (! arg || arg == "")
-                return notify_fail("ÄãÊÇ´òËãºô½ÐË­£¿\n");
+                return notify_fail("ä½ æ˜¯æ‰“ç®—å‘¼å«è°ï¼Ÿ\n");
 
         if (arg == me->query("id"))
-                return notify_fail("Äã´òËãºô½Ð×Ô¼º£¿\n");
+                return notify_fail("ä½ æ‰“ç®—å‘¼å«è‡ªå·±ï¼Ÿ\n");
 
         obj = find_player(arg);
 
         if (! obj || ! me->visible(obj)) 
-                return notify_fail("Ã»ÓÐÕâ¸öÈË¡£\n");
+                return notify_fail("æ²¡æœ‰è¿™ä¸ªäººã€‚\n");
 
         no_tell = obj->query("env/no_tell");
 
         if (wizardp(obj)
            && obj->query("env/invisible")
            && wiz_level(obj) >= wiz_level(me))
-                return notify_fail("Ã»ÓÐÕâ¸öÈË¡£\n");
+                return notify_fail("æ²¡æœ‰è¿™ä¸ªäººã€‚\n");
 
         if (! wizardp(me) && (no_tell == "all" || no_tell == "ALL" ||
             is_sub(me->query("id"), no_tell)))
         {
                 can_tell = obj->query("env/can_tell");
                 if (! is_sub(me->query("id"), can_tell))
-                        return notify_fail("Õâ¸öÈË²»ÏëÌýÄãÂÞàÂÀ²¡£\n");
+                        return notify_fail("è¿™ä¸ªäººä¸æƒ³å¬ä½ ç½—å—¦å•¦ã€‚\n");
         }
 
-        message_vision(HIC "$N" HIC "Åª³öÒ»Õó´Ì¶úµÄÉùÏì¡«¡«¡«¡«¡«\n" NOR, me);
-        tell_object(obj, HIW "Ö»Ìý¡¸¶£¶£¶£¶£¡¹Ïì¸ö²»Í££¬Ô­À´ÊÇ" + me->name(1) +
-                         HIW "ÓÐÊÂÕÒÄã¡£\n" BEEP BEEP NOR);
+        message_vision(HIC "$N" HIC "å¼„å‡ºä¸€é˜µåˆºè€³çš„å£°å“ï½žï½žï½žï½žï½ž\n" NOR, me);
+        tell_object(obj, HIW "åªå¬ã€Œå®å®å®å®ã€å“ä¸ªä¸åœï¼ŒåŽŸæ¥æ˜¯" + me->name(1) +
+                         HIW "æœ‰äº‹æ‰¾ä½ ã€‚\n" BEEP BEEP NOR);
 
         call_out("do_beep", 1, obj);
         call_out("do_beep", 2, obj);
@@ -74,9 +74,9 @@ int do_beep(object obj)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½£ºbeep <Ä³ÈË>
+æŒ‡ä»¤æ ¼å¼ï¼šbeep <æŸäºº>
 
-Ö»ÒªÄî³öÕâ¶Î´«ÒôÖä£¬ÄãÏëºô½ÐµÄÈËµÄÒôÏäÄÚ±ã»áÓÐÌáÊ¾Òô·¢³ö¡£
+åªè¦å¿µå‡ºè¿™æ®µä¼ éŸ³å’’ï¼Œä½ æƒ³å‘¼å«çš„äººçš„éŸ³ç®±å†…ä¾¿ä¼šæœ‰æç¤ºéŸ³å‘å‡ºã€‚
 
 HELP);
         return 1;

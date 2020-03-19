@@ -1,4 +1,4 @@
-// longcheng.c Ä½ÈÝÁú³Ç
+// longcheng.c æ…•å®¹é¾™åŸŽ
 
 #include <ansi.h>
 
@@ -9,12 +9,12 @@ mixed try_learn_sk();
 
 void create()
 {
-	set_name("Ä½ÈÝÁú³Ç", ({ "murong longcheng", "murong", "longcheng" }));
+	set_name("æ…•å®¹é¾™åŸŽ", ({ "murong longcheng", "murong", "longcheng" }));
 	set("long", @LONG
-ËûÊÇ¹ÃËÕÄ½ÈÝµÄ´«ÈË£¬Ò»ÊÖ´´ÔìÁË¾øÊÀÎä¹¦¶·×ªÐÇÒÆ£¬´Ó¶ø
-Ê¹Ä½ÈÝ¼ÒõÒÉíÎªÎäÁÖÊÀ¼ÒµØÎ»¡£
+ä»–æ˜¯å§‘è‹æ…•å®¹çš„ä¼ äººï¼Œä¸€æ‰‹åˆ›é€ äº†ç»ä¸–æ­¦åŠŸæ–—è½¬æ˜Ÿç§»ï¼Œä»Žè€Œ
+ä½¿æ…•å®¹å®¶è·»èº«ä¸ºæ­¦æž—ä¸–å®¶åœ°ä½ã€‚
 LONG );
-	set("gender", "ÄÐÐÔ");
+	set("gender", "ç”·æ€§");
 	set("age", 54);
 	set("attitude", "peaceful");
 
@@ -63,15 +63,15 @@ LONG );
         prepare_skill("cuff", "qixing-quan");
 
         set("inquiry", ([
-                "¾øÕÐ"   : (: ask_me :),
-                "¾ø¼¼"   : (: ask_me :),
-                "·çÓê½»¼Ó": (: ask_me :),
+                "ç»æ‹›"   : (: ask_me :),
+                "ç»æŠ€"   : (: ask_me :),
+                "é£Žé›¨äº¤åŠ ": (: ask_me :),
         ]));
 
-	create_family("Ä½ÈÝÊÀ¼Ò", 12, "´«ÈË");
+	create_family("æ…•å®¹ä¸–å®¶", 12, "ä¼ äºº");
         set("chat_chance", 1);
         set("chat_msg",({
-                "Ä½ÈÝÁú³ÇµÍÍ·²»Óï¡£\n",
+                "æ…•å®¹é¾™åŸŽä½Žå¤´ä¸è¯­ã€‚\n",
         }));
 
 	setup();
@@ -84,10 +84,10 @@ void attempt_apprentice(object ob)
 {
         if (ob->query("family/family_name") == query("family/family_name"))
         {
-                command("say ÎÒÔç¾Í²»ÊÕÍ½µÜÁË£¬²»¹ýÄãÒ²ÊÇÎÒÃÇ"
-                        "Ä½ÈÝ¼ÒµÄ´«ÈË£¬ÎÒ¾Í´«ÄãÒ»Ì×µ¶·¨(longcheng-shendao)°É£¡");
+                command("say æˆ‘æ—©å°±ä¸æ”¶å¾’å¼Ÿäº†ï¼Œä¸è¿‡ä½ ä¹Ÿæ˜¯æˆ‘ä»¬"
+                        "æ…•å®¹å®¶çš„ä¼ äººï¼Œæˆ‘å°±ä¼ ä½ ä¸€å¥—åˆ€æ³•(longcheng-shendao)å§ï¼");
         } else
-                command("say ÎÒ²»ÊÕÍ½µÜ¡£");
+                command("say æˆ‘ä¸æ”¶å¾’å¼Ÿã€‚");
 }
 
 
@@ -97,21 +97,21 @@ mixed ask_me()
 
         me = this_player();
         if (me->query("can_perform/longcheng-shendao/fengyu"))
-                return "ºÃºÃÁ·¹¦°É£¡¹â¸´´óÑà¾Í¿¿ÄãÃÇÕâÅúÈËÀ²£¡£¡";
+                return "å¥½å¥½ç»ƒåŠŸå§ï¼å…‰å¤å¤§ç‡•å°±é ä½ ä»¬è¿™æ‰¹äººå•¦ï¼ï¼";
 
         if (me->query("family/family_name") != query("family/family_name"))
-                return "ÄãÊÇÄÄ¶ùÀ´µÄ£¿ÎÒ¿É²»ÈÏÊ¶Äã¡£";
+                return "ä½ æ˜¯å“ªå„¿æ¥çš„ï¼Ÿæˆ‘å¯ä¸è®¤è¯†ä½ ã€‚";
 
         if (me->query_skill("longcheng-shendao", 1) < 120)
-                return "ÏëÑ§·çÓê½»¼ÓÊ×ÏÈ¿ÉµÃÁ·ºÃÎÒµÄÁú³ÇÉñµ¶°¡£¡";
+                return "æƒ³å­¦é£Žé›¨äº¤åŠ é¦–å…ˆå¯å¾—ç»ƒå¥½æˆ‘çš„é¾™åŸŽç¥žåˆ€å•Šï¼";
 
-        message_vision(HIC "$n" HIC "»º»ºµÄÃþ³öÒ»¸ù´ø×Ó£¬ÇáÇáÒ»¶¶£¬Á¢¿Ì"
-                       "±äµÃ±ÊÖ±£¬Ëæ¼´Åü³ö£¬$N" HIC "Ö»ÄÜ¿´µÃµ½ÐÇ¹âµãµã¡£\n$n"
-                       HIC "ºöµÄÊÕ»Øµ¶ÊÆ£¬ÂýÂýµÄÓÖÅü³öÎåµ¶£¬$N"
-                       HIC "¿´ÁË²»½û»ÐÈ»´óÎò£¡\n" NOR,
+        message_vision(HIC "$n" HIC "ç¼“ç¼“çš„æ‘¸å‡ºä¸€æ ¹å¸¦å­ï¼Œè½»è½»ä¸€æŠ–ï¼Œç«‹åˆ»"
+                       "å˜å¾—ç¬”ç›´ï¼Œéšå³åŠˆå‡ºï¼Œ$N" HIC "åªèƒ½çœ‹å¾—åˆ°æ˜Ÿå…‰ç‚¹ç‚¹ã€‚\n$n"
+                       HIC "å¿½çš„æ”¶å›žåˆ€åŠ¿ï¼Œæ…¢æ…¢çš„åˆåŠˆå‡ºäº”åˆ€ï¼Œ$N"
+                       HIC "çœ‹äº†ä¸ç¦æç„¶å¤§æ‚Ÿï¼\n" NOR,
                        me, this_object());
-        command("say ÖªµÀÁË°É£¿");
-        tell_object(me, HIG "ÄãÑ§»áÁË·çÓê½»¼Ó¡£\n" NOR);
+        command("say çŸ¥é“äº†å§ï¼Ÿ");
+        tell_object(me, HIG "ä½ å­¦ä¼šäº†é£Žé›¨äº¤åŠ ã€‚\n" NOR);
         if (me->can_improve_skill("blade"))
                 me->improve_skill("blade", 160000);
         me->set("can_perform/longcheng-shendao/fengyu", 1);

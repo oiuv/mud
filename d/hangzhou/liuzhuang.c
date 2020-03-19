@@ -4,10 +4,10 @@ int do_knock(string arg);
 
 void create()
 {
-        set("short", "Áõ×¯");
+        set("short", "åˆ˜åº„");
         set("long", @LONG
-×¯Ô°µÄ´óØÒÉÏÊÇ¡°Áõ×¯¡±Á½¸ö´ó×Ö¡£´óÃÅ(gate)½ô±Õ£¬ÀïÃæ¾²ÇÄ
-ÇÄµÄÒ»µãÉùÒô¶¼Ã»ÓĞ¡£
+åº„å›­çš„å¤§åŒ¾ä¸Šæ˜¯â€œåˆ˜åº„â€ä¸¤ä¸ªå¤§å­—ã€‚å¤§é—¨(gate)ç´§é—­ï¼Œé‡Œé¢é™æ‚„
+æ‚„çš„ä¸€ç‚¹å£°éŸ³éƒ½æ²¡æœ‰ã€‚
 LONG);
         set("exits", ([
             	"east"  : __DIR__"dadao3",
@@ -15,7 +15,7 @@ LONG);
 		"north" : __DIR__"liuzhuang2",
         ]));
         set("item_desc", ([
-           	"gate" : "ÖìºìµÄ´óÃÅ½ô±Õ×Å£¬ÇÃÇÃ(knock)¿´°É¡£\n"
+           	"gate" : "æœ±çº¢çš„å¤§é—¨ç´§é—­ç€ï¼Œæ•²æ•²(knock)çœ‹å§ã€‚\n"
         ]));
         set("objects", ([
                 __DIR__"npc/guanjia" : 1,
@@ -35,8 +35,8 @@ int do_knock(string arg)
         object me;
 
         me = this_player();
-	message_vision("$N¡°ßË£¬ßË£¬ßË¡±µØÇÃ×ÅÃÅ£¬¿ÉÀïÃæÈ´Ò»"
-		       "µã¶¯¾²¶¼Ã»ÓĞ¡£\n", me);
+	message_vision("$Nâ€œå’šï¼Œå’šï¼Œå’šâ€åœ°æ•²ç€é—¨ï¼Œå¯é‡Œé¢å´ä¸€"
+		       "ç‚¹åŠ¨é™éƒ½æ²¡æœ‰ã€‚\n", me);
         return 1;
 }
 

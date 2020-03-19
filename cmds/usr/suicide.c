@@ -12,23 +12,23 @@ int main(object me, string arg)
 	object *inv;
 	int i;
 	if (me->is_busy())
-		return notify_fail("ÄãÉÏÒ»¸ö¶¯×÷»¹Ã»Íê³É¡£\n");
+		return notify_fail("ä½ ä¸Šä¸€ä¸ªåŠ¨ä½œè¿˜æ²¡å®Œæˆã€‚\n");
 
         inv = deep_inventory(me);
         for (i = 0; i < sizeof(inv); i++)
 	{
                 if (! userp(inv[i]) && ! playerp(inv[i])) continue;
-		return notify_fail("ÄãÉíÉÏ»¹ÓĞ¸ö´ó»îÈËÄØ£¬Ïë²»¿ªÒ²±ğ¼±Ñ½£¿\n");
+		return notify_fail("ä½ èº«ä¸Šè¿˜æœ‰ä¸ªå¤§æ´»äººå‘¢ï¼Œæƒ³ä¸å¼€ä¹Ÿåˆ«æ€¥å‘€ï¼Ÿ\n");
         }
 
 	if (! arg || arg != "-f") 
-		return notify_fail(HIC "ÄúÑ¡ÔñÓÀÔ¶ËÀµôµÄ×ÔÉ±·½Ê½£¬Õâ¸öÈËÎïµÄ×Ê"
-                                   "ÁÏ½«ÓÀÔ¶É¾³ı£¬ÇëÎñ±Ø\n¿¼ÂÇÇå³ş£¬È·¶¨µÄ»°Çë"
-                                   "ÊäÈëÍêÕûµÄ×ÔÉ±(" HIY "suicide -f" HIC ")Ö¸"
-                                   "Áî¡£\n\n" NOR);
+		return notify_fail(HIC "æ‚¨é€‰æ‹©æ°¸è¿œæ­»æ‰çš„è‡ªæ€æ–¹å¼ï¼Œè¿™ä¸ªäººç‰©çš„èµ„"
+                                   "æ–™å°†æ°¸è¿œåˆ é™¤ï¼Œè¯·åŠ¡å¿…\nè€ƒè™‘æ¸…æ¥šï¼Œç¡®å®šçš„è¯è¯·"
+                                   "è¾“å…¥å®Œæ•´çš„è‡ªæ€(" HIY "suicide -f" HIC ")æŒ‡"
+                                   "ä»¤ã€‚\n\n" NOR);
 
-	write(HIR "ÄúÑ¡ÔñÓÀÔ¶ËÀµôµÄ×ÔÉ±·½Ê½£¬Õâ¸öÈËÎïµÄ×ÊÁÏ½«ÓÀÔ¶É¾³ı£¬ÇëÎñ±Ø\n"
-	      "¿¼ÂÇÇå³ş£¬È·¶¨µÄ»°ÇëÊäÈëÄúµÄ¹ÜÀíÃÜÂë£º\n" NOR);
+	write(HIR "æ‚¨é€‰æ‹©æ°¸è¿œæ­»æ‰çš„è‡ªæ€æ–¹å¼ï¼Œè¿™ä¸ªäººç‰©çš„èµ„æ–™å°†æ°¸è¿œåˆ é™¤ï¼Œè¯·åŠ¡å¿…\n"
+	      "è€ƒè™‘æ¸…æ¥šï¼Œç¡®å®šçš„è¯è¯·è¾“å…¥æ‚¨çš„ç®¡ç†å¯†ç ï¼š\n" NOR);
 	input_to("check_password", 1, me, 1);
 	return 1;
 }
@@ -43,15 +43,15 @@ private void check_password(string passwd, object me, int forever)
 
 	if (! stringp(old_pass) || crypt(passwd, old_pass) != old_pass)
 	{
-		write(HIW "\nÃÜÂë´íÎó£¡Çë×¢Òâ£¬×ÔÉ±±ØĞëÊäÈë¹ÜÀíÃÜÂë¡£\n\n");
+		write(HIW "\nå¯†ç é”™è¯¯ï¼è¯·æ³¨æ„ï¼Œè‡ªæ€å¿…é¡»è¾“å…¥ç®¡ç†å¯†ç ã€‚\n\n");
 		return;
 	}
 
 	if (forever)
         {
-		tell_object(me, HIR "\nÄã¾ö¶¨Òª×ÔÉ±ÁË£¬Èç¹ûÊ®ÎåÃë"
-                            "ÄÚ²»ºó»Ú(" HIC "haltÍ£Ö¹" HIR ")£¬¾Í"
-                            "ÕæµÄÓÀ±ğÁË¡£\n\n" NOR);
+		tell_object(me, HIR "\nä½ å†³å®šè¦è‡ªæ€äº†ï¼Œå¦‚æœåäº”ç§’"
+                            "å†…ä¸åæ‚”(" HIC "haltåœæ­¢" HIR ")ï¼Œå°±"
+                            "çœŸçš„æ°¸åˆ«äº†ã€‚\n\n" NOR);
 		me->set_temp("suicide/time", time());
 		me->set_temp("suicide/last", 0);
 		me->set_temp("suicide/from", query_ip_number(me));
@@ -80,8 +80,8 @@ private int slow_suicide(object me)
                 if (t - me->query_temp("suicide/last") < 5)
                         return 1;
 
-                tell_object(me, HIR "\nÄã»¹ÓĞ" + chinese_number(15 - t) +
-                            "ÃëÖÓ×ĞÏ¸¿¼ÂÇ(" HIC "haltÍ£Ö¹" HIR ")¡£\n" NOR);
+                tell_object(me, HIR "\nä½ è¿˜æœ‰" + chinese_number(15 - t) +
+                            "ç§’é’Ÿä»”ç»†è€ƒè™‘(" HIC "haltåœæ­¢" HIR ")ã€‚\n" NOR);
                 me->set_temp("suicide/last", t / 5 * 5);
 		return 1;
 	}
@@ -90,24 +90,24 @@ private int slow_suicide(object me)
 	if (! link_ob || ! interactive(me)) return 0;
 
 	seteuid(getuid());
-	write(HIW "\n¼ÈÈ»Èç´Ë¡­ÄÇ¾Í¡­¡­ÓÀ±ğÁË£¬" + me->name() + "¡£\n"
-              HIC "»¶Ó­ÄúÄÜ¹»ÒÔĞÂµÄÉí·İÔÙ´Î¹âÁÙ¡¸" HIY "ÎäÁÖÈºÏÀ´«"
-              HIC "¡¹¡£\n\n" NOR);
+	write(HIW "\næ—¢ç„¶å¦‚æ­¤â€¦é‚£å°±â€¦â€¦æ°¸åˆ«äº†ï¼Œ" + me->name() + "ã€‚\n"
+              HIC "æ¬¢è¿æ‚¨èƒ½å¤Ÿä»¥æ–°çš„èº«ä»½å†æ¬¡å…‰ä¸´ã€Œ" HIY "æ­¦æ—ç¾¤ä¾ ä¼ "
+              HIC "ã€ã€‚\n\n" NOR);
 
         if (me->query("combat_exp") >= 1000)
         {
                 CHANNEL_D->do_channel(this_object(), "rumor",
-                                      sprintf("%s×ÔÉ±ÁË£¬ÒÔºóÄãÔÙÒ²¿´"
-                                      "²»µ½Õâ¸öÈËÁË¡£", me->name()));
+                                      sprintf("%sè‡ªæ€äº†ï¼Œä»¥åä½ å†ä¹Ÿçœ‹"
+                                      "ä¸åˆ°è¿™ä¸ªäººäº†ã€‚", me->name()));
 
                 log_file("static/suicide",
-                                      sprintf("%s ÓÃ»§£¨%s£©×ÔÉ±µµ°¸À´"
-                                      "×ÔÁªÏß %s¡£\n", log_time(),
+                                      sprintf("%s ç”¨æˆ·ï¼ˆ%sï¼‰è‡ªæ€æ¡£æ¡ˆæ¥"
+                                      "è‡ªè”çº¿ %sã€‚\n", log_time(),
                                       log_id(me), me->query_temp("suicide/from")));
         }
 
 	tell_room(environment(me), me->name() +
-		"ÔÚÄãµÄÃæÇ°»¯×÷ÇáÑÌ£¬½¥½¥ÏûÊ§ÁË¡­¡­\n", ({me}));
+		"åœ¨ä½ çš„é¢å‰åŒ–ä½œè½»çƒŸï¼Œæ¸æ¸æ¶ˆå¤±äº†â€¦â€¦\n", ({me}));
 
         UPDATE_D->remove_user(me->query("id"));
 	return 0;
@@ -115,7 +115,7 @@ private int slow_suicide(object me)
 
 private int halt_suicide(object me)
 {
-	tell_object(me, HIG "Äã´òÏûÁËÑ°ËÀµÄÄîÍ·¡£\n" NOR);
+	tell_object(me, HIG "ä½ æ‰“æ¶ˆäº†å¯»æ­»çš„å¿µå¤´ã€‚\n" NOR);
 	me->delete_temp("suicide");
 	return 1;
 }
@@ -123,13 +123,13 @@ private int halt_suicide(object me)
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: suicide [-f]
+æŒ‡ä»¤æ ¼å¼: suicide [-f]
  
-Èç¹ûÒòÎªÄ³ÖÖÔ­ÒòÄã²»Ïë»îÁË£¬Äã¿ÉÒÔÑ¡Ôñ×ÔÉ±¡£
-suicide -f : ÓÀÔ¶µÄ³ıÈ¥Íæ¼Ò×ÊÁÏ£¬ÏµÍ³»áÒªÇóÄã
-             ÊäÈëÃÜÂëÒÔÈ·ÈÏÉí·İ¡£
+å¦‚æœå› ä¸ºæŸç§åŸå› ä½ ä¸æƒ³æ´»äº†ï¼Œä½ å¯ä»¥é€‰æ‹©è‡ªæ€ã€‚
+suicide -f : æ°¸è¿œçš„é™¤å»ç©å®¶èµ„æ–™ï¼Œç³»ç»Ÿä¼šè¦æ±‚ä½ 
+             è¾“å…¥å¯†ç ä»¥ç¡®è®¤èº«ä»½ã€‚
  
-ÇëÉ÷ÖØÑ¡Ôñ¡£
+è¯·æ…é‡é€‰æ‹©ã€‚
  
 HELP);
         return 1;

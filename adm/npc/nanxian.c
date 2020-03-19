@@ -6,17 +6,17 @@ inherit F_UNIQUE;
 
 void create()
 {
-        set_name("ÄÏÏÍ", ({ "nan xian", "nan", "xian" }));
+        set_name("å—è´¤", ({ "nan xian", "nan", "xian" }));
         set("long", @LONG
-´ËÈËÒÂ×ÅÇàÉ¼£¬Ğë·¢½Ô°×¡£¿´ËÆÆäÃ²²»Ñï£¬Êµ
-È´ÎªÊÀÉÏÍ·ºÅÈËÎï¡£Õâ±ãÊÇÎäÁÖÖĞºÅ³Æ¡¸ÄÏÏÍ
-±±³ó¡¹µÄÄÏÏÍ¡£ÆäÎªÈËÒàÕıÒàĞ°£¬ÄêÇáÊ±Ôø¸É
-ÏÂÁËÎŞÊıºäÌì¶¯µØµÄ´ó¾Ù¡£ÉúÆ½¾öÕ½ÎŞÊı£¬½ö
-ÔÚ±±³óÊÖÏÂÊ§¹ıÊÖ¡£
+æ­¤äººè¡£ç€é’æ‰ï¼Œé¡»å‘çš†ç™½ã€‚çœ‹ä¼¼å…¶è²Œä¸æ‰¬ï¼Œå®
+å´ä¸ºä¸–ä¸Šå¤´å·äººç‰©ã€‚è¿™ä¾¿æ˜¯æ­¦æ—ä¸­å·ç§°ã€Œå—è´¤
+åŒ—ä¸‘ã€çš„å—è´¤ã€‚å…¶ä¸ºäººäº¦æ­£äº¦é‚ªï¼Œå¹´è½»æ—¶æ›¾å¹²
+ä¸‹äº†æ— æ•°è½°å¤©åŠ¨åœ°çš„å¤§ä¸¾ã€‚ç”Ÿå¹³å†³æˆ˜æ— æ•°ï¼Œä»…
+åœ¨åŒ—ä¸‘æ‰‹ä¸‹å¤±è¿‡æ‰‹ã€‚
 LONG);
-        set("nickname", HIW "ÌìÏÂÖÁÏÍ" NOR);
-        set("title", HIC "ÎäÁÖÌ©¶·" NOR);
-        set("gender", "ÄĞĞÔ" );
+        set("nickname", HIW "å¤©ä¸‹è‡³è´¤" NOR);
+        set("title", HIC "æ­¦æ—æ³°æ–—" NOR);
+        set("gender", "ç”·æ€§" );
         set("age", 74);
         set("attitude", "friendly");
         set("max_jing", 50000);
@@ -70,8 +70,8 @@ LONG);
         }));
 
         set("inquiry", ([
-                "name" : "ĞÕÃû²»¹ıÊÇÒ»ÖÖ´úºÅ¶øÒÑ£¬ÎÊËüÓĞºÎÒâÒå£¿",
-                "±±³ó" : "Äã¾¡ÌáÄÇ¸öö»öºµÄ¼Ò»ï×öÉõ£¿",
+                "name" : "å§“åä¸è¿‡æ˜¯ä¸€ç§ä»£å·è€Œå·²ï¼Œé—®å®ƒæœ‰ä½•æ„ä¹‰ï¼Ÿ",
+                "åŒ—ä¸‘" : "ä½ å°½æé‚£ä¸ªé¾Œé¾Šçš„å®¶ä¼™åšç”šï¼Ÿ",
         ]));
 
         setup();
@@ -80,13 +80,13 @@ LONG);
         if (! clonep(this_object()))
         {
                 move("/d/xiakedao/haibin");
-                message_vision(WHT "\nÍ»È»¼äÄãÑÛÇ°Ò»»¨£¬ÉíºóËÆºõ¶àÁË¸ö"
-                               "ÈËÓ°¡£\n" NOR, this_object());
+                message_vision(WHT "\nçªç„¶é—´ä½ çœ¼å‰ä¸€èŠ±ï¼Œèº«åä¼¼ä¹å¤šäº†ä¸ª"
+                               "äººå½±ã€‚\n" NOR, this_object());
                 set("startroom", "/d/xiakedao/haibin");
         }
 }
 
-// ½ÓÊÜÑ¯ÎÊ
+// æ¥å—è¯¢é—®
 mixed accept_ask(object who, string topic)
 {
         return ULTRA_D->accept_ask(this_object(), who, topic);
@@ -97,7 +97,7 @@ void fight_ob(object ob)
         if (is_fighting(ob))
                 return;
 
-        command("say ºß£¡²»ÖªËÀ»î¡£");
+        command("say å“¼ï¼ä¸çŸ¥æ­»æ´»ã€‚");
         command("exert powerup");
         command("exert sword");
         ::fight_ob(ob);
@@ -105,13 +105,13 @@ void fight_ob(object ob)
 
 int accept_fight(object who)
 {
-        command("say Ã»ĞËÈ¤¡£");
+        command("say æ²¡å…´è¶£ã€‚");
         return 0;
 }
 
 int accept_ansuan(object who)
 {
-        return notify_fail("Äã¸ÕÏë°µËã£¬¿ÉÊÇÑÛÇ°Ò»»¨£¬¿´²»Ì«Çå³ş¡£\n");
+        return notify_fail("ä½ åˆšæƒ³æš—ç®—ï¼Œå¯æ˜¯çœ¼å‰ä¸€èŠ±ï¼Œçœ‹ä¸å¤ªæ¸…æ¥šã€‚\n");
 }
 
 void unconcious()

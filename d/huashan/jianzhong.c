@@ -1,6 +1,6 @@
-// Room: jianzhong ½£Ú£
+// Room: jianzhong å‰‘å†¢
 // Modify by Rcwiz for hero.cd
-// »ñµÃĞşÌúÖØ½£¡¢ÎŞÃû½£
+// è·å¾—ç„é“é‡å‰‘ã€æ— åå‰‘
 
 #include <ansi.h>
 
@@ -16,27 +16,27 @@ string look_sword3();
 
 void create()
 {
-        set("short", "½£Ú£");
+        set("short", "å‰‘å†¢");
         set("long",@LONG
-Ö»¼ûĞí¶àÊ¯¿é¶ÑÖøÒ»¸ö´ó·Ø¡£Õâ·Ø£¨fen£©±³ÏòÉ½¹È£¬¸©Ñö¿ÕÀ«¡£ ·Ø
-ÅÔÁ¢ÓĞÒ»´óÊ¯£¨stone£©£¬ÉÏ¿Ì£º¡¸½£Ú£¡¹¶ş×Ö¡£Õ¾ÔÚ´Ë´¦£¬ É½·ç´Ì¹Ç£¬
-¸©î«Á«»¨·å£¨lianhua£©ÏÂ¾°É«×³ÀöÎŞ±È¡£
+åªè§è®¸å¤šçŸ³å—å †è‘—ä¸€ä¸ªå¤§åŸã€‚è¿™åŸï¼ˆfenï¼‰èƒŒå‘å±±è°·ï¼Œä¿¯ä»°ç©ºé˜”ã€‚ åŸ
+æ—ç«‹æœ‰ä¸€å¤§çŸ³ï¼ˆstoneï¼‰ï¼Œä¸Šåˆ»ï¼šã€Œå‰‘å†¢ã€äºŒå­—ã€‚ç«™åœ¨æ­¤å¤„ï¼Œ å±±é£åˆºéª¨ï¼Œ
+ä¿¯ç°è²èŠ±å³°ï¼ˆlianhuaï¼‰ä¸‹æ™¯è‰²å£®ä¸½æ— æ¯”ã€‚
 LONG);
         set("outdoors", "huashan");
 
         set("item_desc", ([
                 "stone"          : (: look_stone :),
                 "fen"            : (: look_fen :),
-                "fir sword"      : NOR + GRN "ÄãÄÃÆğÕâ±ú½££¬Ö»¾õ×ÅÊÖÇáÆ®Æ®µÄ»ëËÆÎŞÎï£¬Ô­À´ÊÇ±úÖñ½£¡£µ«¼û½£ÏÂµÄÊ¯¿ÌµÀ£º\n"
-                                   HIM "¡¸ËÄÊ®Ëêáá£¬²»ÖÍì¶Îï£¬²İÄ¾ÖñÊ¯¾ù¿ÉÎª½£¡£×Ô´Ë¾«ĞŞ£¬½¥½øì¶ÎŞ½£Ê¤ÓĞ½£Ö®¾³¡£ ¡¹ \n" NOR,
+                "fir sword"      : NOR + GRN "ä½ æ‹¿èµ·è¿™æŸ„å‰‘ï¼Œåªè§‰ç€æ‰‹è½»é£˜é£˜çš„æµ‘ä¼¼æ— ç‰©ï¼ŒåŸæ¥æ˜¯æŸ„ç«¹å‰‘ã€‚ä½†è§å‰‘ä¸‹çš„çŸ³åˆ»é“ï¼š\n"
+                                   HIM "ã€Œå››åå²å¾Œï¼Œä¸æ»æ–¼ç‰©ï¼Œè‰æœ¨ç«¹çŸ³å‡å¯ä¸ºå‰‘ã€‚è‡ªæ­¤ç²¾ä¿®ï¼Œæ¸è¿›æ–¼æ— å‰‘èƒœæœ‰å‰‘ä¹‹å¢ƒã€‚ ã€ \n" NOR,
                 "sec sword"      : (: look_sword2 :),
                 "thi sword"      : (: look_sword3 :), 
-                "piece"          : HIW "ÄãÄÃÆğ³¤ÌõÊ¯Æ¬ £¬¼ûÊ¯Æ¬ÏÂµÄÇàÊ¯ÉÏÒ²¿ÌÓĞÁ½ĞĞĞ¡×Ö£º\n"
-                                   HIM "¡¸×ÏŞ±Èí½££¬ÈıÊ®ËêÇ°ËùÓÃ£¬ÎóÉËÒå²»Ïé£¬ÄËÆúÖ®Éî¹È¡£¡¹ \n" NOR,
-                "sec piece"      : HIW "Ï¸¿´Ê¯¿Ì£¬¼ûÁ½ĞĞĞ¡×ÖµÀ£º¡¸ÖØ½£ÎŞ·æ£¬´óÇÉ²»¹¤¡£ËÄÊ®ËêÇ°ÊÑÖ®ºáĞĞÌìÏÂ¡£¡¹ \n" NOR,
-                "thi piece"      : HIW "Ê¯ÉÏ¿ÌÓĞÁ½ĞĞĞ¡×Ö£º¡¸ÁèÀ÷¸ÕÃÍ£¬ÎŞ¼á²»´İ£¬Èõ¹ÚÇ°ÒÔÖ®ÓëºÓË·ÈºĞÛÕù·æ¡£¡¹ \n" NOR,
-                "big stone"      : NOR + WHT "Ò»¶ÑÊ¯Í·£¬ËÆºõ¶À¹ÂÇó°ÜËùÒÅÁôÖ®½£¾ÍÔÚÏÂÃæ¡£\n" NOR,
-                "lianhua"        : HIG "¾°É«×³ÀöÎŞ±È£¬¿ÉÒÔ´ÓÕâÀï£¨jump lianhua£©µ½Á«»¨·å¡£\n" NOR,
+                "piece"          : HIW "ä½ æ‹¿èµ·é•¿æ¡çŸ³ç‰‡ ï¼Œè§çŸ³ç‰‡ä¸‹çš„é’çŸ³ä¸Šä¹Ÿåˆ»æœ‰ä¸¤è¡Œå°å­—ï¼š\n"
+                                   HIM "ã€Œç´«è–‡è½¯å‰‘ï¼Œä¸‰åå²å‰æ‰€ç”¨ï¼Œè¯¯ä¼¤ä¹‰ä¸ç¥¥ï¼Œä¹ƒå¼ƒä¹‹æ·±è°·ã€‚ã€ \n" NOR,
+                "sec piece"      : HIW "ç»†çœ‹çŸ³åˆ»ï¼Œè§ä¸¤è¡Œå°å­—é“ï¼šã€Œé‡å‰‘æ— é”‹ï¼Œå¤§å·§ä¸å·¥ã€‚å››åå²å‰æƒä¹‹æ¨ªè¡Œå¤©ä¸‹ã€‚ã€ \n" NOR,
+                "thi piece"      : HIW "çŸ³ä¸Šåˆ»æœ‰ä¸¤è¡Œå°å­—ï¼šã€Œå‡Œå‰åˆšçŒ›ï¼Œæ— åšä¸æ‘§ï¼Œå¼±å† å‰ä»¥ä¹‹ä¸æ²³æœ”ç¾¤é›„äº‰é”‹ã€‚ã€ \n" NOR,
+                "big stone"      : NOR + WHT "ä¸€å †çŸ³å¤´ï¼Œä¼¼ä¹ç‹¬å­¤æ±‚è´¥æ‰€é—ç•™ä¹‹å‰‘å°±åœ¨ä¸‹é¢ã€‚\n" NOR,
+                "lianhua"        : HIG "æ™¯è‰²å£®ä¸½æ— æ¯”ï¼Œå¯ä»¥ä»è¿™é‡Œï¼ˆjump lianhuaï¼‰åˆ°è²èŠ±å³°ã€‚\n" NOR,
  
         ]));
 
@@ -54,9 +54,9 @@ string look_stone()
 {
         string msg;
 
-        msg = NOR + WHT "Ö»¼û´óÊ¯ÉÏ¡¸½£Ú£¡¹Á½¸ö´ó×ÖÖ®ÅÔ£¬ÉĞÓĞÁ½ĞĞ×ÖÌå½ÏĞ¡µÄÊ¯¿Ì£º\n"
-              HIR "¡¸½£Ä§¶À¹ÂÇó°Ü¼ÈÎŞµĞì¶ÌìÏÂ£¬ÄËÂñ½£ì¶Ë¹¡£ÎØºô£¡ÈºĞÛÊøÊÖ£¬³¤½£¿Õ"
-              "Àû£¬²»Òà±¯·ò£¡¡¹ \n" NOR;
+        msg = NOR + WHT "åªè§å¤§çŸ³ä¸Šã€Œå‰‘å†¢ã€ä¸¤ä¸ªå¤§å­—ä¹‹æ—ï¼Œå°šæœ‰ä¸¤è¡Œå­—ä½“è¾ƒå°çš„çŸ³åˆ»ï¼š\n"
+              HIR "ã€Œå‰‘é­”ç‹¬å­¤æ±‚è´¥æ—¢æ— æ•Œæ–¼å¤©ä¸‹ï¼Œä¹ƒåŸ‹å‰‘æ–¼æ–¯ã€‚å‘œå‘¼ï¼ç¾¤é›„æŸæ‰‹ï¼Œé•¿å‰‘ç©º"
+              "åˆ©ï¼Œä¸äº¦æ‚²å¤«ï¼ã€ \n" NOR;
 
         return msg;
 }
@@ -71,7 +71,7 @@ string look_fen()
                  ob = load_object(__FILE__);
         
         if (! ob->query_temp("moved"))
-                 return NOR + WHT "Ïë±ØÕâ¾ÍÊÇ½£Ä§¶À¹ÂÇó°ÜÂñ½£µÄµØ·½£¬ÉÏÃæ¶ÑÂúÁË´óÊ¯£¨big stone£©¡£\n" NOR;
+                 return NOR + WHT "æƒ³å¿…è¿™å°±æ˜¯å‰‘é­”ç‹¬å­¤æ±‚è´¥åŸ‹å‰‘çš„åœ°æ–¹ï¼Œä¸Šé¢å †æ»¡äº†å¤§çŸ³ï¼ˆbig stoneï¼‰ã€‚\n" NOR;
         
         if (! noname = find_object(NONAME));
                  noname = load_object(NONAME);
@@ -79,25 +79,25 @@ string look_fen()
         if (! xuantie = find_object(XUANTIE));
                  xuantie = load_object(XUANTIE);
         
-        // µÚÒ»£¨fir sword£©ÊÇÖñ½££¬µÚ¶şÊÇĞşÌú½££¬×îÓÒÊÇÎŞÃû½£
+        // ç¬¬ä¸€ï¼ˆfir swordï¼‰æ˜¯ç«¹å‰‘ï¼Œç¬¬äºŒæ˜¯ç„é“å‰‘ï¼Œæœ€å³æ˜¯æ— åå‰‘
         if (! environment(noname) && ! environment(xuantie))
-                 msg = NOR + WHT "½£Ú£ÏÂÂ¶³ö²¢ÁĞ×ÅµÄÈı±ú³¤½£¡£\nÔÚµÚÒ»£¨fir sword£©¡¢µÚ¶ş£¨sec sword£©°Ñ½£Ö®"
-                       "¼ä£¬ÁíÓĞÒ»¿é³¤ÌõÊ¯Æ¬£¨piece£©¡£\nÈı±ú½£ºÍÊ¯Æ¬²¢ÁĞì¶Ò»¿é´óÇàÊ¯Ö®ÉÏ¡£\n" NOR;
+                 msg = NOR + WHT "å‰‘å†¢ä¸‹éœ²å‡ºå¹¶åˆ—ç€çš„ä¸‰æŸ„é•¿å‰‘ã€‚\nåœ¨ç¬¬ä¸€ï¼ˆfir swordï¼‰ã€ç¬¬äºŒï¼ˆsec swordï¼‰æŠŠå‰‘ä¹‹"
+                       "é—´ï¼Œå¦æœ‰ä¸€å—é•¿æ¡çŸ³ç‰‡ï¼ˆpieceï¼‰ã€‚\nä¸‰æŸ„å‰‘å’ŒçŸ³ç‰‡å¹¶åˆ—æ–¼ä¸€å—å¤§é’çŸ³ä¹‹ä¸Šã€‚\n" NOR;
 
         else if (! environment(noname) && environment(xuantie))
-                 msg = NOR + WHT "½£Ú£ÏÂÂ¶³ö²¢ÁĞ×ÅµÄÁ½±ú³¤½££¬ÔÚµÚÒ»£¨fir sword£©µÄÓÒ±ß"
-                       "ÁíÓĞÒ»¿é³¤ÌõÊ¯Æ¬£¨piece£©¡£\n¶øµÚ¶ş°Ñ½£ÒÑ²»ÖªÈ¥Ïò£¬Ö»ÁôÏÂÊ¯Æ¬£¨se"
-                       "c piece£©ÉÏËù¿ÌµÄĞ¡×Ö¡£\nÁ½±ú½£ºÍÊ¯Æ¬²¢ÁĞì¶Ò»¿é´óÇàÊ¯Ö®ÉÏ¡£ \n" NOR;
+                 msg = NOR + WHT "å‰‘å†¢ä¸‹éœ²å‡ºå¹¶åˆ—ç€çš„ä¸¤æŸ„é•¿å‰‘ï¼Œåœ¨ç¬¬ä¸€ï¼ˆfir swordï¼‰çš„å³è¾¹"
+                       "å¦æœ‰ä¸€å—é•¿æ¡çŸ³ç‰‡ï¼ˆpieceï¼‰ã€‚\nè€Œç¬¬äºŒæŠŠå‰‘å·²ä¸çŸ¥å»å‘ï¼Œåªç•™ä¸‹çŸ³ç‰‡ï¼ˆse"
+                       "c pieceï¼‰ä¸Šæ‰€åˆ»çš„å°å­—ã€‚\nä¸¤æŸ„å‰‘å’ŒçŸ³ç‰‡å¹¶åˆ—æ–¼ä¸€å—å¤§é’çŸ³ä¹‹ä¸Šã€‚ \n" NOR;
 
         else if (environment(noname) && ! environment(xuantie))
-                 msg = NOR + WHT "½£Ú£ÏÂÂ¶³ö²¢ÁĞ×ÅµÄÁ½±ú³¤½£¡£\nÔÚµÚÒ»£¨fir sword£©¡¢µÚ¶ş£¨sec sword£©°Ñ½£Ö®"
-                       "¼ä£¬ÁíÓĞÒ»¿é³¤ÌõÊ¯Æ¬£¨piece£©¡£\n¶ø×îÓÒÊ×µÄ½£ÒÑ²»ÖªÈ¥Ïò£¬Ö»ÁôÏÂ"
-                       "Ê¯Æ¬£¨thi piece£©ÉÏËù¿ÌµÄĞ¡×Ö¡£\nÁ½±ú½£ºÍÊ¯Æ¬²¢ÁĞì¶Ò»¿é´óÇàÊ¯Ö®ÉÏ¡£ \n" NOR;
+                 msg = NOR + WHT "å‰‘å†¢ä¸‹éœ²å‡ºå¹¶åˆ—ç€çš„ä¸¤æŸ„é•¿å‰‘ã€‚\nåœ¨ç¬¬ä¸€ï¼ˆfir swordï¼‰ã€ç¬¬äºŒï¼ˆsec swordï¼‰æŠŠå‰‘ä¹‹"
+                       "é—´ï¼Œå¦æœ‰ä¸€å—é•¿æ¡çŸ³ç‰‡ï¼ˆpieceï¼‰ã€‚\nè€Œæœ€å³é¦–çš„å‰‘å·²ä¸çŸ¥å»å‘ï¼Œåªç•™ä¸‹"
+                       "çŸ³ç‰‡ï¼ˆthi pieceï¼‰ä¸Šæ‰€åˆ»çš„å°å­—ã€‚\nä¸¤æŸ„å‰‘å’ŒçŸ³ç‰‡å¹¶åˆ—æ–¼ä¸€å—å¤§é’çŸ³ä¹‹ä¸Šã€‚ \n" NOR;
 
-        else     msg = NOR + WHT "½£Ú£ÏÂÂ¶³ö²¢ÁĞ×ÅµÄÒ»±ú³¤½££¬ÔÚµÚÒ»£¨fir sword£©µÄÓÒ±ß"
-                       "ÁíÓĞÒ»¿é³¤ÌõÊ¯Æ¬£¨piece£©¡£\nÆäÓàµÄÁ½°Ñ½£ÒÑ²»ÖªÈ¥Ïò£¬Ö»ÁôÏÂ"
-                       "Ê¯Æ¬£¨sec piece¡¢thi piece£©ÉÏËù¿ÌµÄĞ¡×Ö¡£\nÕâ±ú½£ºÍÊ¯Æ¬²¢ÁĞ"
-                       "ì¶Ò»¿é´óÇàÊ¯Ö®ÉÏ¡£ \n" NOR;
+        else     msg = NOR + WHT "å‰‘å†¢ä¸‹éœ²å‡ºå¹¶åˆ—ç€çš„ä¸€æŸ„é•¿å‰‘ï¼Œåœ¨ç¬¬ä¸€ï¼ˆfir swordï¼‰çš„å³è¾¹"
+                       "å¦æœ‰ä¸€å—é•¿æ¡çŸ³ç‰‡ï¼ˆpieceï¼‰ã€‚\nå…¶ä½™çš„ä¸¤æŠŠå‰‘å·²ä¸çŸ¥å»å‘ï¼Œåªç•™ä¸‹"
+                       "çŸ³ç‰‡ï¼ˆsec pieceã€thi pieceï¼‰ä¸Šæ‰€åˆ»çš„å°å­—ã€‚\nè¿™æŸ„å‰‘å’ŒçŸ³ç‰‡å¹¶åˆ—"
+                       "æ–¼ä¸€å—å¤§é’çŸ³ä¹‹ä¸Šã€‚ \n" NOR;
 
         return msg;
 }
@@ -111,15 +111,15 @@ string look_sword2()
                  ob = load_object(__FILE__);
         
         if (! ob->query_temp("moved"))
-                 return "ÄãÒª¿´Ê²Ã´£¿\n";
+                 return "ä½ è¦çœ‹ä»€ä¹ˆï¼Ÿ\n";
         
         if (! xuantie = find_object(XUANTIE));
                  xuantie = load_object(XUANTIE);
 
         if (environment(xuantie))
-                 return "ÄãÒª¿´Ê²Ã´£¿\n";
+                 return "ä½ è¦çœ‹ä»€ä¹ˆï¼Ÿ\n";
 
-        msg = NOR + WHT "Ò»°ÑºÚ÷î÷îµÄÌú½££¬ÏÂÃæÓĞÒ»¸öÊ¯Æ¬£¨sec piece£©¡£\n" NOR;
+        msg = NOR + WHT "ä¸€æŠŠé»‘é»é»çš„é“å‰‘ï¼Œä¸‹é¢æœ‰ä¸€ä¸ªçŸ³ç‰‡ï¼ˆsec pieceï¼‰ã€‚\n" NOR;
 
         if (objectp(xuantie))destruct(xuantie);
       
@@ -136,15 +136,15 @@ string look_sword3()
                  ob = load_object(__FILE__);
         
         if (! ob->query_temp("moved"))
-                 return "ÄãÒª¿´Ê²Ã´£¿\n";
+                 return "ä½ è¦çœ‹ä»€ä¹ˆï¼Ÿ\n";
         
         if (! noname = find_object(NONAME));
                  noname = load_object(NONAME);
 
         if (environment(noname))
-                 return "ÄãÒª¿´Ê²Ã´£¿\n";
+                 return "ä½ è¦çœ‹ä»€ä¹ˆï¼Ÿ\n";
 
-        msg = HIC "Ö»¼û´Ë½£³¤Ô¼ËÄ³ß£¬Çà¹âÉÁÉÁ£¬ËÆÊÇÀûÆ÷¡£ÏÂÃæÓĞÒ»¸öÊ¯Æ¬£¨thi piece£©¡£\n" NOR;
+        msg = HIC "åªè§æ­¤å‰‘é•¿çº¦å››å°ºï¼Œé’å…‰é—ªé—ªï¼Œä¼¼æ˜¯åˆ©å™¨ã€‚ä¸‹é¢æœ‰ä¸€ä¸ªçŸ³ç‰‡ï¼ˆthi pieceï¼‰ã€‚\n" NOR;
 
         if (objectp(noname))destruct(noname);
       
@@ -158,19 +158,19 @@ int do_move(string arg)
         object ob;
 
         if (me->is_busy() || me->is_fighting())
-              return notify_fail("ÄãÃ¦ÍêÁËÔÙËµ°É£¡\n");
+              return notify_fail("ä½ å¿™å®Œäº†å†è¯´å§ï¼\n");
 
         if (! arg || arg != "big stone")
-              return notify_fail("ÄãÒª¸ÉÊ²Ã´£¿\n");
+              return notify_fail("ä½ è¦å¹²ä»€ä¹ˆï¼Ÿ\n");
         
         if (! ob = find_object(__FILE__));
                  ob = load_object(__FILE__);
 
         if (ob->query_temp("moved"))
-                 return notify_fail("ÉÏÃæµÄÊ¯Í·ÒÑ¾­±»ÒÆ¿ªÁË£¡\n");
+                 return notify_fail("ä¸Šé¢çš„çŸ³å¤´å·²ç»è¢«ç§»å¼€äº†ï¼\n");
  
                 
-        message_vision(HIG "$N" HIG "ÓÃÁ¦½«½£Ú£ÉÏÃæµÄÊ¯Í·Ò»¿é¿éµØÒÆ¿ª ¡­¡­\n", me);
+        message_vision(HIG "$N" HIG "ç”¨åŠ›å°†å‰‘å†¢ä¸Šé¢çš„çŸ³å¤´ä¸€å—å—åœ°ç§»å¼€ â€¦â€¦\n", me);
 
         ob->set_temp("moved", 1);
  
@@ -185,13 +185,13 @@ int do_pick(string arg)
         object ob, noname, xuantie;
 
         if (me->is_busy() || me->is_fighting())
-              return notify_fail("ÄãÃ¦ÍêÁËÔÙËµ°É£¡\n");
+              return notify_fail("ä½ å¿™å®Œäº†å†è¯´å§ï¼\n");
 
         if (! arg || 
             arg != "fir sword" &&
             arg != "sec sword" &&
             arg != "thi sword")
-              return notify_fail("ÄãÒªÈ¡Ê²Ã´£¿\n");
+              return notify_fail("ä½ è¦å–ä»€ä¹ˆï¼Ÿ\n");
         
         if (! ob = find_object(__FILE__));
                  ob = load_object(__FILE__);
@@ -203,22 +203,22 @@ int do_pick(string arg)
                  xuantie = load_object(XUANTIE);
 
         if (! ob->query_temp("moved"))
-                 return notify_fail("ÄãÒª¸ÉÊ²Ã´£¿\n");
+                 return notify_fail("ä½ è¦å¹²ä»€ä¹ˆï¼Ÿ\n");
 
         switch(arg)
         {
               case "fir sword" : 
-                     return notify_fail(HIC "Äã½«Öñ½£ÄÃÆğÀ´¿´ÁË¿´£¬¾õµÃÆÕÍ¨Ö®¼«£¬±ãÓÖ·ÅÁË»ØÈ¥¡£\n" NOR);
+                     return notify_fail(HIC "ä½ å°†ç«¹å‰‘æ‹¿èµ·æ¥çœ‹äº†çœ‹ï¼Œè§‰å¾—æ™®é€šä¹‹æï¼Œä¾¿åˆæ”¾äº†å›å»ã€‚\n" NOR);
 
               case "sec sword":
                      if (environment(xuantie))
-                           return notify_fail("ÉÏÃæµÄ¶«Î÷ÒÑ±»ÈËÄÃ×ßÁË£¡\n");
+                           return notify_fail("ä¸Šé¢çš„ä¸œè¥¿å·²è¢«äººæ‹¿èµ°äº†ï¼\n");
 
                      if (me->query("str") < 34)
-                           return notify_fail("Äã½«Ìú½£Ö»ÌáÆğÊı³ß£¬ÇºµÄÒ»Éù£¬¾¹È»ÍÑÊÖµôÏÂ"
-                                              "£¬ÔÚÊ¯ÉÏÒ»Åö£¬»ğ»¨ËÄ½¦£¬²»½ûÏÅÁËÒ»Ìø¡£\n");
+                           return notify_fail("ä½ å°†é“å‰‘åªæèµ·æ•°å°ºï¼Œå‘›çš„ä¸€å£°ï¼Œç«Ÿç„¶è„±æ‰‹æ‰ä¸‹"
+                                              "ï¼Œåœ¨çŸ³ä¸Šä¸€ç¢°ï¼Œç«èŠ±å››æº…ï¼Œä¸ç¦å“äº†ä¸€è·³ã€‚\n");
 
-                     message_vision(HIM "$N" HIM "½«ĞşÌúÖØ½£ÌáÁËÆğÀ´¡£\n" NOR, me);
+                     message_vision(HIM "$N" HIM "å°†ç„é“é‡å‰‘æäº†èµ·æ¥ã€‚\n" NOR, me);
 
                      xuantie->move(me);
 
@@ -226,9 +226,9 @@ int do_pick(string arg)
 
               case "thi sword":
                      if (environment(noname))
-                           return notify_fail("ÉÏÃæµÄ¶«Î÷ÒÑ±»ÈËÄÃ×ßÁË£¡\n");
+                           return notify_fail("ä¸Šé¢çš„ä¸œè¥¿å·²è¢«äººæ‹¿èµ°äº†ï¼\n");
               
-                     message_vision(HIM "$N" HIM "½«ÎŞÃû½£ÌáÁËÆğÀ´¡£\n" NOR, me);
+                     message_vision(HIM "$N" HIM "å°†æ— åå‰‘æäº†èµ·æ¥ã€‚\n" NOR, me);
 
                      noname->move(me);
 
@@ -245,17 +245,17 @@ int do_jump(string arg)
         object me = this_player();
 
         if (! arg || arg != "lianhua")
-             return notify_fail("ÄãÒªÍùÄÄ¶ùÌø£¿\n");
+             return notify_fail("ä½ è¦å¾€å“ªå„¿è·³ï¼Ÿ\n");
 
         if (me->query("qi") < 300)
-             return notify_fail("ÄãÁ¦Æø²»¼Ó¡£\n");
+             return notify_fail("ä½ åŠ›æ°”ä¸åŠ ã€‚\n");
 
         if (me->is_busy() || me->is_fighting())
-             return notify_fail("µÈÄãÃ¦ÍêÁËÔÙËµ¡£\n");
+             return notify_fail("ç­‰ä½ å¿™å®Œäº†å†è¯´ã€‚\n");
 
         me->start_busy(1 + random(3));
 
-        message_sort(HIG "\n$N" HIG "×İÉíÌøÏÂ ¡­¡­\n" NOR, me);
+        message_sort(HIG "\n$N" HIG "çºµèº«è·³ä¸‹ â€¦â€¦\n" NOR, me);
 
        me->move(__DIR__"lianhua");
       

@@ -7,7 +7,7 @@ int main(object me, string arg, string flag1)
        && flag1 != "call")
         return 0;
    if (! arg)
-       return notify_fail("����ȱ�ٴ������ݣ�\n");
+       return notify_fail("错误：缺少代码内容！\n");
 
    flag = (int)me->query("env/dual_type");
 
@@ -23,21 +23,21 @@ int main(object me, string arg, string flag1)
 int help(object me)
 {
  write(@HELP
-ָ���ʽ : dual [detail]
+指令格式 : dual [detail]
 
-���ָ�����ִ��һ�ε�����LPC���롣
-����ʹ��var������˽�б�����
+这个指令可以执行一段单独的LPC代码。
+可以使用var命令定义的私有变量。
 
-����öδ���û�з���ֵ��������Ҫʹ��һ����ϵĴ���Ρ�
-�������û������� dual_type
+如果该段代码没有返回值，或者需要使用一个组合的代码段。
+必须设置环境变量 dual_type
 
-��Unix��ͬ����Ҳ����ʹ�� ` ���ŵ���Ƕ�����ʽ��
-����Ҫ���� use_shell ����������
-���Ǹô�������з���ֵ��
-���� chat I am `me->short()`, at `here->query("short")`
-���ȼ���� me->short() �� here->query("short") ��ֵ��Ȼ�����滻���
-�֣� `here->query("exits")[random(here->query("exits"))]`
-�������ѡ��ǰ�����һ���������ߡ�
+与Unix相同，您也可以使用 ` 符号的内嵌命令格式，
+（需要设置 use_shell 环境变量）
+但是该代码必须有返回值。
+例如 chat I am `me->short()`, at `here->query("short")`
+会先计算出 me->short() 和 here->query("short") 的值，然后再替换命令。
+又： `here->query("exits")[random(here->query("exits"))]`
+会随机的选择当前房间的一个出口行走。
 
 HELP
    );

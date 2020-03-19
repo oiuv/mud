@@ -11,16 +11,16 @@ string status_color(int current, int max);
 string date_string(int date);
 
 mapping oprank = ([
-        "×ÚÊ¦"     : HIW "×ÚÊ¦¾³½ç  ",
-        "µÇ·åÔì¼«" : HIY "¡ï¡ï¡ï¡ï¡î",
-        "³¬·²ÍÑË×" : HIY "¡ï¡ï¡ï¡ï  ",
-        "ÕéÖÁ»¯¾³" : HIR "¡ï¡ï¡ï¡î  ",
-        "Â¯»ğ´¿Çà" : HIR "¡ï¡ï¡ï    ",
-        "ÒÑÓĞ´ó³É" : HIC "¡ï¡ï¡î    ",
-        "·ÇÍ¬·²Ïì" : HIC "¡ï¡ï      ",
-        "³öÀà°ÎİÍ" : HIG "¡ï¡î      ",
-        "ÉíÊÖ²»·²" : HIG "¡ï        ",
-        "ÒÑÓĞĞ¡³É" : HIM "¡î        ",
+        "å®—å¸ˆ"     : HIW "å®—å¸ˆå¢ƒç•Œ  ",
+        "ç™»å³°é€ æ" : HIY "â˜…â˜…â˜…â˜…â˜†",
+        "è¶…å‡¡è„±ä¿—" : HIY "â˜…â˜…â˜…â˜…  ",
+        "è‡»è‡³åŒ–å¢ƒ" : HIR "â˜…â˜…â˜…â˜†  ",
+        "ç‚‰ç«çº¯é’" : HIR "â˜…â˜…â˜…    ",
+        "å·²æœ‰å¤§æˆ" : HIC "â˜…â˜…â˜†    ",
+        "éåŒå‡¡å“" : HIC "â˜…â˜…      ",
+        "å‡ºç±»æ‹”èƒ" : HIG "â˜…â˜†      ",
+        "èº«æ‰‹ä¸å‡¡" : HIG "â˜…        ",
+        "å·²æœ‰å°æˆ" : HIM "â˜†        ",
 ]);
 
 void create() { seteuid(ROOT_UID); }
@@ -46,22 +46,22 @@ int main(object me, string arg)
                 if (! ob || ! ob->is_character()) ob = find_player(arg);
                 if (! ob || ! ob->is_character()) ob = find_living(arg);
                 if (! ob || ! ob->is_character())
-                        return notify_fail("ÄãÒª²ì¿´Ë­µÄ×´Ì¬£¿\n");
+                        return notify_fail("ä½ è¦å¯Ÿçœ‹è°çš„çŠ¶æ€ï¼Ÿ\n");
         } else
-                return notify_fail("Ö»ÓĞÎ×Ê¦ÄÜ²ì¿´±ğÈËµÄ×´Ì¬¡£\n");
+                return notify_fail("åªæœ‰å·«å¸ˆèƒ½å¯Ÿçœ‹åˆ«äººçš„çŠ¶æ€ã€‚\n");
 
         my = ob->query_entire_dbase();
         mci = my["combat"];
         if (! mci) mci = ([ ]);
 
         if (playerp(ob) && (! stringp(my["born"]) || ! my["born"]))
-                return notify_fail("»¹Ã»ÓĞ³öÉúÄÅ£¬²ì¿´Ê²Ã´£¿\n");
+                return notify_fail("è¿˜æ²¡æœ‰å‡ºç”Ÿå‘ï¼Œå¯Ÿçœ‹ä»€ä¹ˆï¼Ÿ\n");
 
         if (my["max_jing"] < 1 || my["max_qi"] < 1)
-                return notify_fail("ÎŞ·¨²ì¿´" + ob->name(1) + "µÄ×´Ì¬¡£\n");
+                return notify_fail("æ— æ³•å¯Ÿçœ‹" + ob->name(1) + "çš„çŠ¶æ€ã€‚\n");
 
-        line = (ob == me ? "Äã" : ob->name()) + "µÄ×´Ì¬ÊôĞÔÈçÏÂ£º\n\n";
-        line += HIC "¡Ô" HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
+        line = (ob == me ? "ä½ " : ob->name()) + "çš„çŠ¶æ€å±æ€§å¦‚ä¸‹ï¼š\n\n";
+        line += HIC "â‰¡" HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
         line += sprintf( BOLD " %s" NOR "%s\n\n", RANK_D->query_rank(ob), ob->short(1) );
 
         if (playerp(ob))
@@ -92,28 +92,28 @@ int main(object me, string arg)
                 if (month > 12 || month < 1)
                         month = 1;
 
-                if (ob->query("gender") == "ÎŞĞÔ")
-                        race = "ÑËÈË";
+                if (ob->query("gender") == "æ— æ€§")
+                        race = "é˜‰äºº";
                 else
                         race = ob->query("gender");
 
-                line += sprintf(WHT "  ÄãÊÇ%s%sËê%s¸öÔÂµÄ" + race + "£¬%sÉú¡£\n",
+                line += sprintf(WHT "  ä½ æ˜¯%s%så²%sä¸ªæœˆçš„" + race + "ï¼Œ%sç”Ÿã€‚\n",
                         ob->query("unit"),
                         chinese_number(age),
                         chinese_number(month),
-                        //ÉúÈÕĞŞÕıÎªºÍÓÎÏ·ÖĞtimeÖ¸ÁîÏÔÊ¾µÄÊ±¼äÍ³Ò»
+                        //ç”Ÿæ—¥ä¿®æ­£ä¸ºå’Œæ¸¸æˆä¸­timeæŒ‡ä»¤æ˜¾ç¤ºçš„æ—¶é—´ç»Ÿä¸€
                         CHINESE_D->chinese_date((((int)ob->query("birthday")- 971000000) % 86400) * 365,
 						                         ((int)ob->query("birthday")- 971000000) / 86400));
         }
 
         else
-        line += sprintf(WHT "  ÕâÊÇÒ»%s%sËêµÄ%s%s¡£\n",
+        line += sprintf(WHT "  è¿™æ˜¯ä¸€%s%så²çš„%s%sã€‚\n",
                 ob->query("unit"),
                 chinese_number(ob->query("age")), 
                 ob->query("gender"),
                 ob->query("race"));
 
-        line += sprintf(WHT "  ëöÁ¦£º[%s]  ÎòĞÔ£º[%s]  ¸ù¹Ç£º[%s]  Éí·¨£º[%s]\n",
+        line += sprintf(WHT "  è†‚åŠ›ï¼š[%s]  æ‚Ÿæ€§ï¼š[%s]  æ ¹éª¨ï¼š[%s]  èº«æ³•ï¼š[%s]\n",
                 display_attr(my["str"], ob->query_str()) + WHT,
                 display_attr(my["int"], ob->query_int()) + WHT,
                 display_attr(my["con"], ob->query_con()) + WHT,
@@ -121,55 +121,55 @@ int main(object me, string arg)
 
         if (playerp(ob))
         {
-                if (my["born_family"] && my["born_family"] != "Ã»ÓĞ")
+                if (my["born_family"] && my["born_family"] != "æ²¡æœ‰")
                 {
-                        line += HIW "\n  Äã³öÉúÔÚ" + my["born_family"] +
-                                "£¬ÌìĞÔ" + my["character"];
+                        line += HIW "\n  ä½ å‡ºç”Ÿåœ¨" + my["born_family"] +
+                                "ï¼Œå¤©æ€§" + my["character"];
                 } else
                 if (stringp(my["born"]) && my["born"])
                 {
-                        line += HIW "\n  ÄãÊÇ" + my["born"] +
-                                "£¬ÌìĞÔ" + my["character"];
+                        line += HIW "\n  ä½ æ˜¯" + my["born"] +
+                                "ï¼Œå¤©æ€§" + my["character"];
                 } else
-                        line += HIW "\n  ÄãÉĞÎ´³öÉú";
+                        line += HIW "\n  ä½ å°šæœªå‡ºç”Ÿ";
 
                 if (mapp(my["family"])) {
                         if (my["family"]["master_name"])
-                                line += sprintf("£¬Ê¦¸¸ÊÇ%s¡£\n" NOR,
+                                line += sprintf("ï¼Œå¸ˆçˆ¶æ˜¯%sã€‚\n" NOR,
                                                 my["family"]["master_name"]);
                         else
-                                line += "£¬»¹Ã»ÓĞÊ¦¸¸¡£\n" NOR;
+                                line += "ï¼Œè¿˜æ²¡æœ‰å¸ˆçˆ¶ã€‚\n" NOR;
                 } else
-                        line += "£¬»¹Ã»ÓĞ°İÊ¦¡£\n" NOR;
+                        line += "ï¼Œè¿˜æ²¡æœ‰æ‹œå¸ˆã€‚\n" NOR;
 
                 rmb = ob->query("rmb", 1);
 
                 if ((int)ob->query("rmb") > 0)
-                        line += HIY "  ÄãÄ¿Ç°µÄ×¢Èë×Ê½ğ£ºÈËÃñ±Ò" + chinese_number(rmb) + "ÔªÕû¡£\n" NOR;
+                        line += HIY "  ä½ ç›®å‰çš„æ³¨å…¥èµ„é‡‘ï¼šäººæ°‘å¸" + chinese_number(rmb) + "å…ƒæ•´ã€‚\n" NOR;
 
                 if ((int)ob->query("balance") > 0)
-                        line += HIY "  ÄãÄ¿Ç°µÄ´æ¿î£º" + MONEY_D->money_str((int)ob->query("balance")) + "¡£\n" NOR;
+                        line += HIY "  ä½ ç›®å‰çš„å­˜æ¬¾ï¼š" + MONEY_D->money_str((int)ob->query("balance")) + "ã€‚\n" NOR;
                 else
-                        line += HIY "  ÄãÄ¿Ç°Ã»ÓĞ´æ¿î¡£\n" NOR;
+                        line += HIY "  ä½ ç›®å‰æ²¡æœ‰å­˜æ¬¾ã€‚\n" NOR;
 
-                if (ob->query("gender") != "ÎŞĞÔ")
+                if (ob->query("gender") != "æ— æ€§")
                 {
                         if (! ob->query("couple/name"))
                         {
-                                if (ob->query("gender") == "Å®ĞÔ")
-                                        line += HIC "  ÄãÉĞÎ´»éÅä¡£\n" NOR;
+                                if (ob->query("gender") == "å¥³æ€§")
+                                        line += HIC "  ä½ å°šæœªå©šé…ã€‚\n" NOR;
                                 else
-                                        line += HIC "  ÄãÉĞÎ´È¢ÆŞ¡£\n" NOR;
+                                        line += HIC "  ä½ å°šæœªå¨¶å¦»ã€‚\n" NOR;
                         } else
-                                line += HIC "  ÄãµÄ°éÂÂÊÇ" + ob->query("couple/name") + "(" +
-                                        ob->query("couple/id") + ")¡£\n" NOR;
+                                line += HIC "  ä½ çš„ä¼´ä¾£æ˜¯" + ob->query("couple/name") + "(" +
+                                        ob->query("couple/id") + ")ã€‚\n" NOR;
         
                         if (! (int)ob->query("sex/times"))
                         {
-                                if (ob->query("gender") == "Å®ĞÔ")
-                                        line += HIG "  Äã»¹ÊÇ´¦Å®¡£\n" NOR;
+                                if (ob->query("gender") == "å¥³æ€§")
+                                        line += HIG "  ä½ è¿˜æ˜¯å¤„å¥³ã€‚\n" NOR;
                                 else
-                                        line += HIC "  Äã»¹ÊÇÍ¯ÄĞ¡£\n" NOR;
+                                        line += HIC "  ä½ è¿˜æ˜¯ç«¥ç”·ã€‚\n" NOR;
                         } else
                         {
                                 string *ks;
@@ -177,11 +177,11 @@ int main(object me, string arg)
                                 ks = keys(ob->query("sex"));
                                 ks -= ({ "times", "first", "" });
                                 if (sizeof(ks) >= 10)
-                                        line += HIW "  ÄãÔø¾­ºÍÊı²»ÇåµÄÈË·¢Éú¹ı¹ØÏµ£¬½á¹û"
-                                                "Á¬×Ô¼º¶¼ÍüÁËÓĞË­ÁË¡£\n" NOR;
+                                        line += HIW "  ä½ æ›¾ç»å’Œæ•°ä¸æ¸…çš„äººå‘ç”Ÿè¿‡å…³ç³»ï¼Œç»“æœ"
+                                                "è¿è‡ªå·±éƒ½å¿˜äº†æœ‰è°äº†ã€‚\n" NOR;
                                 else
-                                        line += HIW "  ÄãÔø¾­ºÍ" + implode(ks, HIW "¡¢") +
-                                                HIW "·¢Éú¹ı¹ØÏµ¡£\n" NOR;
+                                        line += HIW "  ä½ æ›¾ç»å’Œ" + implode(ks, HIW "ã€") +
+                                                HIW "å‘ç”Ÿè¿‡å…³ç³»ã€‚\n" NOR;
                         }
 
                 }
@@ -221,9 +221,9 @@ int main(object me, string arg)
 
         /*if (wizardp(me))
         {
-                line += sprintf(WHT "\n  Õ½¶·¹¥»÷£º " HIW "%8d" NOR WHT "\t\t  Õ½¶··ÀÓù£º " HIW "%8d\n" NOR,
+                line += sprintf(WHT "\n  æˆ˜æ–—æ”»å‡»ï¼š " HIW "%8d" NOR WHT "\t\t  æˆ˜æ–—é˜²å¾¡ï¼š " HIW "%8d\n" NOR,
                         attack_points/100 + 1, (dodge_points + (weapon? parry_points: (parry_points/10)))/100 + 1,);
-                line += sprintf(WHT "  Õ½¶·ÉËº¦£º " HIW "%8d" NOR WHT "\t\t  Õ½¶·±£»¤£º " HIW "%8d\n" NOR,
+                line += sprintf(WHT "  æˆ˜æ–—ä¼¤å®³ï¼š " HIW "%8d" NOR WHT "\t\t  æˆ˜æ–—ä¿æŠ¤ï¼š " HIW "%8d\n" NOR,
                         weapon ? ob->query_temp("apply/damage")
                                : ob->query_temp("apply/unarmed_damage"),
                         ob->query_temp("apply/armor"));
@@ -233,65 +233,65 @@ int main(object me, string arg)
         {
                 if (! ((int)mci["MKS"] + (int)mci["PKS"]))
                 {
-                        line += HIY "\n  Äãµ½Ä¿Ç°ÎªÖ¹ÉĞÎ´¿ªÉ±½ä¡£\n";
+                        line += HIY "\n  ä½ åˆ°ç›®å‰ä¸ºæ­¢å°šæœªå¼€æ€æˆ’ã€‚\n";
                 } else
                 {
-                        line += sprintf(HIR "\n  Äãµ½Ä¿Ç°ÎªÖ¹×Ü¹²É±Éú%s´Î¡£\n",
+                        line += sprintf(HIR "\n  ä½ åˆ°ç›®å‰ä¸ºæ­¢æ€»å…±æ€ç”Ÿ%sæ¬¡ã€‚\n",
                                         chinese_number(mci["MKS"] + mci["PKS"]));
 
                         if ((int)mci["PKS"])
                         {
-                                line += "  ÆäÖĞÓĞ" + chinese_number(mci["PKS"]) +
-                                        "´ÎÊÇÍæ¼Ò£¬";
+                                line += "  å…¶ä¸­æœ‰" + chinese_number(mci["PKS"]) +
+                                        "æ¬¡æ˜¯ç©å®¶ï¼Œ";
 
                                 if ((int)mci["WPK"] >= (int)mci["PKS"])
                                 {
                                         mci["WPK"] = (int)mci["PKS"];
-                                        line += "ËûÃÇ¶¼ÊÇÄãÓĞÒâÉ±º¦µÄ¡£\n";
+                                        line += "ä»–ä»¬éƒ½æ˜¯ä½ æœ‰æ„æ€å®³çš„ã€‚\n";
                                 } else
                                 if ((int)mci["WPK"])
                                 {
                                         line += chinese_number(mci["WPK"]) +
-                                                "´ÎÊÇÄãÓĞÒâÉ±º¦µÄ¡£\n";
+                                                "æ¬¡æ˜¯ä½ æœ‰æ„æ€å®³çš„ã€‚\n";
                                 } else
-                                        line += "µ«ËûÃÇÈ«¶¼ÊÇÄãÎŞĞÄÉ±º¦µÄ¡£\n";
+                                        line += "ä½†ä»–ä»¬å…¨éƒ½æ˜¯ä½ æ— å¿ƒæ€å®³çš„ã€‚\n";
                         }
                 }
         }
 
         if ((int)mci["dietimes"])
         {
-                line += sprintf(HIR "\n  Äãµ½Ä¿Ç°ÎªÖ¹×Ü¹²µ½ºÚ°×ÎŞ³£ÄÇÀï´®"
-                                "ÃÅ%s´Î¡£\n" NOR, chinese_number(mci["dietimes"]));
+                line += sprintf(HIR "\n  ä½ åˆ°ç›®å‰ä¸ºæ­¢æ€»å…±åˆ°é»‘ç™½æ— å¸¸é‚£é‡Œä¸²"
+                                "é—¨%sæ¬¡ã€‚\n" NOR, chinese_number(mci["dietimes"]));
 
                 if (stringp(mci["last_die"]))
-                        line += sprintf(HIR "  Äã×îºóÒ»´ÎÊÇ%s¡£\n" NOR,
+                        line += sprintf(HIR "  ä½ æœ€åä¸€æ¬¡æ˜¯%sã€‚\n" NOR,
                                         mci["last_die"]);
                 line += "\n";
         } else
         if (playerp(ob))
 
-                line += HIC "\n  Äãµ½Ä¿Ç°ÎªÖ¹ÉĞÎŞËÀÍö¼ÇÂ¼¡£\n\n" NOR;
+                line += HIC "\n  ä½ åˆ°ç›®å‰ä¸ºæ­¢å°šæ— æ­»äº¡è®°å½•ã€‚\n\n" NOR;
 
         while (playerp(ob))
         {
-                line += HIR "  ×ÓÎçÁú¼×µ¤£º " NOR;
+                line += HIR "  å­åˆé¾™ç”²ä¸¹ï¼š " NOR;
                 if (ob->query("skybook/item/longjia"))
-                        line += HIC "¡Ì" NOR;
+                        line += HIC "âˆš" NOR;
                 else
-                        line += HIR "¡Á" NOR;
+                        line += HIR "Ã—" NOR;
 
-                line += HIM "\n  Ğş»Æ×Ïóäµ¤£º " NOR;
+                line += HIM "\n  ç„é»„ç´«ç®ä¸¹ï¼š " NOR;
                 if (ob->query("skybook/item/xuanhuang"))
-                        line += HIC "¡Ì" NOR;
+                        line += HIC "âˆš" NOR;
                 else
-                        line += HIR "¡Á" NOR;
+                        line += HIR "Ã—" NOR;
 
-                line += HIW "\n  ÕòÓü¾ªÌìÍè£º " NOR;
+                line += HIW "\n  é•‡ç‹±æƒŠå¤©ä¸¸ï¼š " NOR;
                 if (ob->query("skybook/item/zhenyu"))
-                        line += HIC "¡Ì" NOR;
+                        line += HIC "âˆš" NOR;
                 else
-                        line += HIR "¡Á" NOR;
+                        line += HIR "Ã—" NOR;
 
                 line += "\n\n" NOR;
                 break;
@@ -301,29 +301,29 @@ int main(object me, string arg)
         {
 //              string op;
 
-                line += HIY "  ÈÎ¶½¶şÂö£º   " NOR;
+                line += HIY "  ä»»ç£äºŒè„‰ï¼š   " NOR;
                 if (my["breakup"])
-                        line += HIC "¡ğ" NOR;
+                        line += HIC "â—‹" NOR;
                 else
-                        line += HIR "¡Á" NOR;
+                        line += HIR "Ã—" NOR;
 
-                line += HIY "                 ÔªÓ¤³öÊÀ£º   " NOR;
+                line += HIY "                 å…ƒå©´å‡ºä¸–ï¼š   " NOR;
                 if (my["animaout"])
-                        line += HIC "¡ğ" NOR;
+                        line += HIC "â—‹" NOR;
                 else
-                        line += HIR "¡Á" NOR;
+                        line += HIR "Ã—" NOR;
 
-                line += HIY "\n  ÉúËÀĞş¹Ø£º   " NOR;
+                line += HIY "\n  ç”Ÿæ­»ç„å…³ï¼š   " NOR;
                 if (my["death"])
-                        line += HIC "¡ğ" NOR;
+                        line += HIC "â—‹" NOR;
                 else
-                        line += HIR "¡Á" NOR;
+                        line += HIR "Ã—" NOR;
 
-                line += HIY "                 ×ªÊÀÖØÉú£º   " NOR;
+                line += HIY "                 è½¬ä¸–é‡ç”Ÿï¼š   " NOR;
                 if (my["reborn"])
                         line += HIC + ob->query("reborn/count") + NOR;
                 else
-                        line += HIR "¡Á" NOR;
+                        line += HIR "Ã—" NOR;
 
                 line += "\n\n" NOR;
                 break;
@@ -334,64 +334,64 @@ int main(object me, string arg)
                 string op;
                 if (ultrap(ob))
                 {
-                        line += HIC "  ÄãÏÖÔÚÒÑ¾­³ÉÎªÎäÑ§´ó×ÚÊ¦¡£\n\n" NOR;
+                        line += HIC "  ä½ ç°åœ¨å·²ç»æˆä¸ºæ­¦å­¦å¤§å®—å¸ˆã€‚\n\n" NOR;
                         break;
                 }
 
-                line += WHT "  È­½Å¹¦·ò£º  " NOR;
+                line += WHT "  æ‹³è„šåŠŸå¤«ï¼š  " NOR;
                 if (op = ob->query("opinion/unarmed"))
                         line += oprank[op] + "        ";
                 else
-                        line += CYN "ÎŞÆÀ¼Û            ";
+                        line += CYN "æ— è¯„ä»·            ";
 
-                line += NOR WHT "  ±øÆ÷ÔËÓÃ£º  " NOR;
+                line += NOR WHT "  å…µå™¨è¿ç”¨ï¼š  " NOR;
                 if (op = ob->query("opinion/weapon"))
                         line += oprank[op] + "        ";
                 else
-                        line += CYN "ÎŞÆÀ¼Û";
+                        line += CYN "æ— è¯„ä»·";
 
-                line += NOR WHT "\n  ÄÚ¼Ò¹¦·ò£º  " NOR;
+                line += NOR WHT "\n  å†…å®¶åŠŸå¤«ï¼š  " NOR;
                 if (op = ob->query("opinion/force"))
                         line += oprank[op] + "        ";
                 else
-                        line += CYN "ÎŞÆÀ¼Û            ";
+                        line += CYN "æ— è¯„ä»·            ";
 
-                line += NOR WHT "  ÇáÉí¹¦·ò£º  " NOR;
+                line += NOR WHT "  è½»èº«åŠŸå¤«ï¼š  " NOR;
                 if (op = ob->query("opinion/dodge"))
                         line += oprank[op] + "        ";
                 else
-                        line += CYN "ÎŞÆÀ¼Û";
+                        line += CYN "æ— è¯„ä»·";
 
                 line += "\n\n" NOR;
                 break;
         }
         if (playerp(ob))
         {
-                line += sprintf(WHT "  Õ½¶·ÉËº¦£º " HIW "%8d" NOR WHT "\t\t  Õ½¶·±£»¤£º " HIW "%8d\n" NOR,
+                line += sprintf(WHT "  æˆ˜æ–—ä¼¤å®³ï¼š " HIW "%8d" NOR WHT "\t\t  æˆ˜æ–—ä¿æŠ¤ï¼š " HIW "%8d\n" NOR,
                         weapon ? ob->query_temp("apply/damage")
                                : ob->query_temp("apply/unarmed_damage"),
                         ob->query_temp("apply/armor"));
         }
 
-        line += sprintf(NOR + WHT "\n  ÊµÕ½¾­Ñé£º " HIW "%8d\t\t" NOR, my["combat_exp"]);
-        line += sprintf(WHT "  ÃÅÅÉ¹±Ï×£º " HIW "%8d\n" NOR, my["gongxian"]);
+        line += sprintf(NOR + WHT "\n  å®æˆ˜ç»éªŒï¼š " HIW "%8d\t\t" NOR, my["combat_exp"]);
+        line += sprintf(WHT "  é—¨æ´¾è´¡çŒ®ï¼š " HIW "%8d\n" NOR, my["gongxian"]);
 
         if (playerp(ob))
         {
-                line += sprintf(WHT "  ½­ºşÔÄÀú£º " HIC "%8d\t\t" NOR, my["score"]);
-                line += sprintf(WHT "  ½­ºşÍşÍû£º " HIC "%8d\n" NOR, my["weiwang"]);
+                line += sprintf(WHT "  æ±Ÿæ¹–é˜…å†ï¼š " HIC "%8d\t\t" NOR, my["score"]);
+                line += sprintf(WHT "  æ±Ÿæ¹–å¨æœ›ï¼š " HIC "%8d\n" NOR, my["weiwang"]);
         }
 
         if (my["shen"] >= 0)
-                line += sprintf(WHT "  Õı    Æø£º " HIY "%8d\t\t" NOR, my["shen"]);
+                line += sprintf(WHT "  æ­£    æ°”ï¼š " HIY "%8d\t\t" NOR, my["shen"]);
         else
-                line += sprintf(WHT "  Ğ°    Æø£º " HIR "%8d\t\t" NOR, -ob->query("shen"));
+                line += sprintf(WHT "  é‚ª    æ°”ï¼š " HIR "%8d\t\t" NOR, -ob->query("shen"));
 
-        line += sprintf(WHT "  Áé    »Û£º %s%8d\n" NOR,
+        line += sprintf(WHT "  çµ    æ…§ï¼š %s%8d\n" NOR,
                         my["magic_points"] < 100 ? HIY : HIM,
                        (my["magic_points"] - my["magic_learned"]));
 
-        line += HIC "¡Ô" HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
+        line += HIC "â‰¡" HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
         write(line);
         return 1;
 }
@@ -425,11 +425,11 @@ string status_color(int current, int max)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½£º score
-           score <¶ÔÏóÃû³Æ>                   (Î×Ê¦×¨ÓÃ)
+æŒ‡ä»¤æ ¼å¼ï¼š score
+           score <å¯¹è±¡åç§°>                   (å·«å¸ˆä¸“ç”¨)
 
-Õâ¸öÖ¸Áî¿ÉÒÔÏÔÊ¾Äã»òÖ¸¶¨¶ÔÏóµÄ»ù±¾×ÊÁÏ¡£
-Ïà¹ØÖ¸Áî£º²é¿´×´Ì¬(hp)
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥æ˜¾ç¤ºä½ æˆ–æŒ‡å®šå¯¹è±¡çš„åŸºæœ¬èµ„æ–™ã€‚
+ç›¸å…³æŒ‡ä»¤ï¼šæŸ¥çœ‹çŠ¶æ€(hp)
 
 HELP);
         return 1;

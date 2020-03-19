@@ -1,17 +1,17 @@
-// shourou1.c áó×ÓÈâ
+// shourou1.c ç‹å­è‚‰
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-        set_name("áó×ÓÈâ", ({"paozi rou", "rou"}));
+        set_name("ç‹å­è‚‰", ({"paozi rou", "rou"}));
         set_weight(200);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»¿é·ç¸ÉµÄÀ°Èâ¡£\n");
-                set("unit", "¿é");
+                set("long", "ä¸€å—é£å¹²çš„è…Šè‚‰ã€‚\n");
+                set("unit", "å—");
                 set("value", 20);
                 set("food_remaining", 15);
                 set("food_supply", 100);

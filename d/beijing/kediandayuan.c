@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-    set("short", "¿ÍµêºóÔº");
+    set("short", "å®¢åº—åé™¢");
     set("long", @LONG
-ÕâÀï¿ÍµêºóÔº¡£Ò»ÕóÕó´ò¶·Ö®Éù´Ó¶«ÃæµÄÏá·¿ (room) ÖĞ´«À´£¬ÆäÖĞ¼ĞÔÓ
-×ÅÒ»¸öÅ®×ÓµÄÉùÒô¡£·¿ÃÅµÄ°å±Ú(wall)²»×¡µÄÕğ¶¯£¬ËÆºõ¿Í·¿ËÄÖÜµÄ°å±Ú¶¼Òª
-±»µ¶·çÕÆÁ¦ÕğÌ®Ò»°ã¡£ÄÏÃæÊÇ¿Íµê´óÃÅ¡£
+è¿™é‡Œå®¢åº—åé™¢ã€‚ä¸€é˜µé˜µæ‰“æ–—ä¹‹å£°ä»ä¸œé¢çš„å¢æˆ¿ (room) ä¸­ä¼ æ¥ï¼Œå…¶ä¸­å¤¹æ‚
+ç€ä¸€ä¸ªå¥³å­çš„å£°éŸ³ã€‚æˆ¿é—¨çš„æ¿å£(wall)ä¸ä½çš„éœ‡åŠ¨ï¼Œä¼¼ä¹å®¢æˆ¿å››å‘¨çš„æ¿å£éƒ½è¦
+è¢«åˆ€é£æŒåŠ›éœ‡åä¸€èˆ¬ã€‚å—é¢æ˜¯å®¢åº—å¤§é—¨ã€‚
 LONG );
     set("no_sleep_room", 1);
     set("exits", ([
@@ -14,8 +14,8 @@ LONG );
         "south" : __DIR__"fukedian",
     ]));
     set("item_desc", ([
-        "wall" : "\nÕâÊÇÒ»¶ÂÄ¾Ç½£¬°å±Ú²»¹ıÒ»´çÀ´ºñ£¬±»ÕğµÃÒ¡Ò¡»Î»Î¡£\n",
-        "room" : "\nÕâÀïÊÇ¿ÍµêµÄ¶«¿Í·¿£¬²¼ÖÃºÜ¼òµ¥£¬·¿¼äÀï·¢ÉúÁË´ò¶·£¬µØÉÏ°ß°ßµãµã¶¼ÊÇÑª¼£¡£\n",
+        "wall" : "\nè¿™æ˜¯ä¸€å µæœ¨å¢™ï¼Œæ¿å£ä¸è¿‡ä¸€å¯¸æ¥åšï¼Œè¢«éœ‡å¾—æ‘‡æ‘‡æ™ƒæ™ƒã€‚\n",
+        "room" : "\nè¿™é‡Œæ˜¯å®¢åº—çš„ä¸œå®¢æˆ¿ï¼Œå¸ƒç½®å¾ˆç®€å•ï¼Œæˆ¿é—´é‡Œå‘ç”Ÿäº†æ‰“æ–—ï¼Œåœ°ä¸Šæ–‘æ–‘ç‚¹ç‚¹éƒ½æ˜¯è¡€è¿¹ã€‚\n",
     ]));
     setup();
 }
@@ -32,10 +32,10 @@ int valid_leave(object me, string dir)
     if (room && present("la ma", room) && present("dubi shenni", room))
     {
         if ((int)me->query_skill("force") < 100)
-            return notify_fail("\nÄãÒ»²½Ì¤½ø¿Í·¿£¬Í»¾õÒ»¹ÉÁ¦µÀÆæ"
-                               "´óµÄ¾¢·ç¼¤ÆË³öÀ´£¬½«ÄãÒ»×²£¬\n"
-                               "ÄãµÇÊ±Á¢×ã²»ÎÈ£¬ÌÚÌÚÌÚµ½ÍËÈı²½£¬"
-                               "Ë¤ÁËÒ»õÓ¡£\n");
+            return notify_fail("\nä½ ä¸€æ­¥è¸è¿›å®¢æˆ¿ï¼Œçªè§‰ä¸€è‚¡åŠ›é“å¥‡"
+                               "å¤§çš„åŠ²é£æ¿€æ‰‘å‡ºæ¥ï¼Œå°†ä½ ä¸€æ’ï¼Œ\n"
+                               "ä½ ç™»æ—¶ç«‹è¶³ä¸ç¨³ï¼Œè…¾è…¾è…¾åˆ°é€€ä¸‰æ­¥ï¼Œ"
+                               "æ‘”äº†ä¸€è·¤ã€‚\n");
         me -> receive_damage ("qi",50) ;
         me -> receive_wound  ("qi",50) ;
     }
@@ -54,36 +54,36 @@ int do_thrust(string arg)
     object room/*, me*/,man;
     object weapon;
 
-    if (! arg || arg != "wall" ) return notify_fail("ÄãÒª´ÌÊ²Ã´£¿\n");
+    if (! arg || arg != "wall" ) return notify_fail("ä½ è¦åˆºä»€ä¹ˆï¼Ÿ\n");
 
     weapon = this_player()->query_temp("weapon");
     if (! weapon ||
         (weapon->query("skill_type") != "sword" &&
          weapon->query("skill_type") != "blade" &&
          weapon->query("skill_type") != "dagger"))
-        return notify_fail("²»ÓÃµ¶½£¿ÖÅÂ²»ĞĞ°É£¡\n");
+        return notify_fail("ä¸ç”¨åˆ€å‰‘ææ€•ä¸è¡Œå§ï¼\n");
 
     if (!( room = find_object(__DIR__"kefang")))
         room = load_object(__DIR__"kefang");
 
     if (man = present("la ma", room))
     {
-        message_vision("\n$N×ßµ½Ç½±ß£¬³é³ö±øÈĞ£¬¶Ô×¼Ä¾°åºİ"
-                       "ºİµØÒ»´Á¡£\n",this_player());
+        message_vision("\n$Nèµ°åˆ°å¢™è¾¹ï¼ŒæŠ½å‡ºå…µåˆƒï¼Œå¯¹å‡†æœ¨æ¿ç‹ "
+                       "ç‹ åœ°ä¸€æˆ³ã€‚\n",this_player());
 
         if (this_player()->query_temp("apply/damage") < 100)
         {
-            message_vision("½á¹û$NóÆµÄÒ»Éù£¬±øÈĞ²åÈë´çĞí£¬ÔÙÒ²"
-                           "´Ì²»½ø°ë·Ö¡£\n",this_player());
+            message_vision("ç»“æœ$Nç¬ƒçš„ä¸€å£°ï¼Œå…µåˆƒæ’å…¥å¯¸è®¸ï¼Œå†ä¹Ÿ"
+                           "åˆºä¸è¿›åŠåˆ†ã€‚\n",this_player());
             return 1;
         }
 
-        message_vision("Ö»ÌıàÛµÄÒ»Éù£¬Ø°Ê×ÇáÇá´©¹ıÄ¾°å£¬·¿ÖĞÁ¢Ê±´«"
-                       "À´Ò»Éù²Ò½Ğ¡£\n",this_player());
-        message("vision", "ºöÈ»Ò»¸öÀ®Âï²Ò½ĞÒ»Éùµ¹ÁËÏÂÈ¥¡£\n",room );
+        message_vision("åªå¬å™—çš„ä¸€å£°ï¼ŒåŒ•é¦–è½»è½»ç©¿è¿‡æœ¨æ¿ï¼Œæˆ¿ä¸­ç«‹æ—¶ä¼ "
+                       "æ¥ä¸€å£°æƒ¨å«ã€‚\n",this_player());
+        message("vision", "å¿½ç„¶ä¸€ä¸ªå–‡å˜›æƒ¨å«ä¸€å£°å€’äº†ä¸‹å»ã€‚\n",room );
         man->die();
     }
-    else return notify_fail("ÎİÀïÃ»ÓĞÀ®Âï£¬²»ÓÃÔÙÉ±ÁË¡£\n");
+    else return notify_fail("å±‹é‡Œæ²¡æœ‰å–‡å˜›ï¼Œä¸ç”¨å†æ€äº†ã€‚\n");
 
     return 1;
 }

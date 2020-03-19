@@ -1,4 +1,4 @@
-// xiaohuan-dan.c Ğ¡»¹µ¤
+// xiaohuan-dan.c å°è¿˜ä¸¹
 
 #include <ansi.h>
 
@@ -6,14 +6,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name("Ğ¡»¹µ¤", ({"xiaohuan dan", "xiaohuan", "dan"}));
+	set_name("å°è¿˜ä¸¹", ({"xiaohuan dan", "xiaohuan", "dan"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¿Å");
-		set("long", "ÕâÊÇÒ»¿ÅÓ¨°×ÁïÔ²µÄĞ¡»¹µ¤¡£´Ëµ¤ÄËÉÙÁÖÆæÒ©£¬Öú³¤ÄÚÁ¦£¬ÁéĞ§ÎŞ±È¡£\n");
+		set("unit", "é¢—");
+		set("long", "è¿™æ˜¯ä¸€é¢—è¹ç™½æºœåœ†çš„å°è¿˜ä¸¹ã€‚æ­¤ä¸¹ä¹ƒå°‘æ—å¥‡è¯ï¼ŒåŠ©é•¿å†…åŠ›ï¼Œçµæ•ˆæ— æ¯”ã€‚\n");
 		set("value", 10000);
-		set("no_drop", "ÕâÑù¶«Î÷²»ÄÜÀë¿ªÄã¡£\n");
+		set("no_drop", "è¿™æ ·ä¸œè¥¿ä¸èƒ½ç¦»å¼€ä½ ã€‚\n");
                 set("only_do_effect", 1);
 	}
 
@@ -24,12 +24,12 @@ void create()
 int do_effect(object me)
 {
 	if (me->query("neili") >= me->query("max_neili") * 2)
-	        return notify_fail("ÄãÏÖÔÚÃ»±ØÒª³ÔĞ¡»¹µ¤¡£\n");
+	        return notify_fail("ä½ ç°åœ¨æ²¡å¿…è¦åƒå°è¿˜ä¸¹ã€‚\n");
 
 	if (me->query_skill_mapped("force") != "hunyuan-yiqi")
 	{
 		me->set("neili", 0);
-		message_vision(HIR "$N" HIR "³ÔÏÂÒ»¿ÅĞ¡»¹µ¤£¬Ö»¾õµÃÎåÔàÓûÁÑ£¬Ô­À´ËùÁ·ÄÚ¹¦²»·û£¬·´¶ø´óËğĞŞÎª£¡\n" NOR, me);
+		message_vision(HIR "$N" HIR "åƒä¸‹ä¸€é¢—å°è¿˜ä¸¹ï¼Œåªè§‰å¾—äº”è„æ¬²è£‚ï¼ŒåŸæ¥æ‰€ç»ƒå†…åŠŸä¸ç¬¦ï¼Œåè€Œå¤§æŸä¿®ä¸ºï¼\n" NOR, me);
 		me->unconcious();
 		destruct(this_object());
 		return 1;
@@ -38,12 +38,12 @@ int do_effect(object me)
 	if ((int)me->query_condition("bonze_drug" ) > 0 )
 	{
 		me->add("neili", -200);
-		message_vision(HIR "$N³ÔÏÂÒ»¿ÅĞ¡»¹µ¤£¬Ö»¾õµÃÍ·ÖØ½ÅÇá£¬Ò¡Ò¡Óûµ¹£¬Ô­À´·şÊ³Ì«¼±Ì«¶à£¬Ò©Ğ§ÊÊµÃÆä·´£¡\n" NOR, me);
+		message_vision(HIR "$Nåƒä¸‹ä¸€é¢—å°è¿˜ä¸¹ï¼Œåªè§‰å¾—å¤´é‡è„šè½»ï¼Œæ‘‡æ‘‡æ¬²å€’ï¼ŒåŸæ¥æœé£Ÿå¤ªæ€¥å¤ªå¤šï¼Œè¯æ•ˆé€‚å¾—å…¶åï¼\n" NOR, me);
 	}
 	else
 	{
 		me->add("neili", 200);
-		message_vision(HIY "$N³ÔÏÂÒ»¿ÅĞ¡»¹µ¤£¬Ö»¾õµÃÉíÇáÈçÑà£¬ËÄÖ«°Ùº¡ÕæÆø³äÓ¯ÎŞ±È£¬¼¸Óû±¼ÌÚ¶ø³ö£¡\n" NOR, me);
+		message_vision(HIY "$Nåƒä¸‹ä¸€é¢—å°è¿˜ä¸¹ï¼Œåªè§‰å¾—èº«è½»å¦‚ç‡•ï¼Œå››è‚¢ç™¾éª¸çœŸæ°”å……ç›ˆæ— æ¯”ï¼Œå‡ æ¬²å¥”è…¾è€Œå‡ºï¼\n" NOR, me);
 	}
 
 	me->apply_condition("bonze_drug", 30);

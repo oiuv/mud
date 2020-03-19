@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define QI "¡¸" HIW "ÆÆÆøÊ½" NOR "¡¹"
+#define QI "ã€Œ" HIW "ç ´æ°”å¼" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -15,10 +15,10 @@ int perform(object me, object target)
         int damage;
 
         if (me->query("can_learn/dugu-jiujian/nothing"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");       
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");       
 
         if (userp(me) && me->query("can_perform/dugu/qi") < 100)
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         me->clean_up_enemy();
         if (! target) target = me->select_opponent();
@@ -26,26 +26,26 @@ int perform(object me, object target)
         skill = me->query_skill("dugu-jiujian", 1);
 
         if (! me->is_fighting(target))
-                return notify_fail(QI "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(QI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (skill < 120)
-                return notify_fail("Äã¶À¹Â¾Å½£µÈ¼¶²»¹»£¬ÎŞ·¨Ê©Õ¹" QI "¡£\n");
+                return notify_fail("ä½ ç‹¬å­¤ä¹å‰‘ç­‰çº§ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" QI "ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon"))
            || weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÎŞ·¨Ê©Õ¹" QI "¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œæ— æ³•æ–½å±•" QI "ã€‚\n");
 
         if (me->query_skill_mapped("sword") != "dugu-jiujian") 
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢¶À¹Â¾Å½££¬ÎŞ·¨Ê©Õ¹" QI "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ç‹¬å­¤ä¹å‰‘ï¼Œæ— æ³•æ–½å±•" QI "ã€‚\n");
 
         if (target->query_temp("no_exert"))
-                return notify_fail("¶Ô·½ÏÖÔÚÒÑ¾­ÎŞ·¨¿ØÖÆÕæÆø£¬·Åµ¨¹¥»÷°É¡£\n");
+                return notify_fail("å¯¹æ–¹ç°åœ¨å·²ç»æ— æ³•æ§åˆ¶çœŸæ°”ï¼Œæ”¾èƒ†æ”»å‡»å§ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "Ê©³ö¶À¹Â¾Å½£¡¸ÆÆÆøÊ½¡¹£¬ÊÖÖĞ" + weapon->name() +
-              HIW "ÖĞ¹¥Ö±½ø£¬Ò£Ö¸$n" HIW "µÄÆøº£ÒªÑ¨¡£\n" NOR;
+        msg = HIW "$N" HIW "æ–½å‡ºç‹¬å­¤ä¹å‰‘ã€Œç ´æ°”å¼ã€ï¼Œæ‰‹ä¸­" + weapon->name() +
+              HIW "ä¸­æ”»ç›´è¿›ï¼Œé¥æŒ‡$n" HIW "çš„æ°”æµ·è¦ç©´ã€‚\n" NOR;
 
         ap = me->query_skill("sword") +
              me->query_skill("parry");
@@ -61,8 +61,8 @@ int perform(object me, object target)
                 me->start_busy(3);
         } else 
         {
-                msg += CYN "¿É$n" CYN "ÉîÖª$N" CYN "ÕâÕĞµÄÀ÷"
-                       "º¦£¬µ±¼´ÏòºóºáÒÆÊı³ß£¬¶ãÉÁ¿ªÀ´¡£\n" NOR;
+                msg += CYN "å¯$n" CYN "æ·±çŸ¥$N" CYN "è¿™æ‹›çš„å‰"
+                       "å®³ï¼Œå½“å³å‘åæ¨ªç§»æ•°å°ºï¼Œèº²é—ªå¼€æ¥ã€‚\n" NOR;
                 me->start_busy(4);
         }
         message_combatd(msg, me, target);
@@ -74,8 +74,8 @@ string final(object me, object target, int ap)
 {
         target->set_temp("no_exert", 1);
         call_out("poqi_end", 10 + random(ap / 30), me, target);
-        return  HIR "$n" HIR "±»$N" HIR "Ò»½£»®¹ıÆøÃÅ£¬µÇ¸ĞÒ»Õó"
-                "×¶ĞÄµÄ´ÌÍ´£¬È«ÉíÕæÆøÔ´Ô´¶øĞº£¡\n" NOR;
+        return  HIR "$n" HIR "è¢«$N" HIR "ä¸€å‰‘åˆ’è¿‡æ°”é—¨ï¼Œç™»æ„Ÿä¸€é˜µ"
+                "é”¥å¿ƒçš„åˆºç—›ï¼Œå…¨èº«çœŸæ°”æºæºè€Œæ³»ï¼\n" NOR;
 }
 
 void poqi_end(object me, object target)
@@ -84,11 +84,11 @@ void poqi_end(object me, object target)
         {
                 if (living(target))
                 {
-                        message_combatd(HIC "$N" HIC "ÉîÉîÎüÈëÒ»¿ÚÆø£¬Á³É«ÓÉ"
-                                        "°××ªºì£¬¿´ÆğÀ´ºÃ¶àÁË¡£\n" NOR, target);
+                        message_combatd(HIC "$N" HIC "æ·±æ·±å¸å…¥ä¸€å£æ°”ï¼Œè„¸è‰²ç”±"
+                                        "ç™½è½¬çº¢ï¼Œçœ‹èµ·æ¥å¥½å¤šäº†ã€‚\n" NOR, target);
 
-                        tell_object(target, HIY "Äã¸Ğµ½±»ÈÅÂÒµÄÕæÆøÂıÂıÆ½¾²"
-                                            "ÁËÏÂÀ´¡£\n" NOR);
+                        tell_object(target, HIY "ä½ æ„Ÿåˆ°è¢«æ‰°ä¹±çš„çœŸæ°”æ…¢æ…¢å¹³é™"
+                                            "äº†ä¸‹æ¥ã€‚\n" NOR);
                 }
                 target->delete_temp("no_exert");
         }

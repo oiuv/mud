@@ -4,10 +4,10 @@ void destroying(object, object);
 
 void create()
 {
-        set_name("¶¡µä", ({ "ding dian", "ding" }));
+        set_name("ä¸å…¸", ({ "ding dian", "ding" }));
         set("long", 
-                "ÕâÈËÂúÁ³ò°÷×£¬Í··¢³¤³¤µÄÖ±´¹ÖÁ¾±£¬ÒÂÉÀÆÆÀÃ²»¿°£¬¼òÖ±ÈçÍ¬»ÄÉ½ÖĞµÄÒ°ÈË¡£\n");
-        set("gender", "ÄĞĞÔ");
+                "è¿™äººæ»¡è„¸è™¬é«¯ï¼Œå¤´å‘é•¿é•¿çš„ç›´å‚è‡³é¢ˆï¼Œè¡£è¡«ç ´çƒ‚ä¸å ªï¼Œç®€ç›´å¦‚åŒè’å±±ä¸­çš„é‡äººã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 35);
 
         set_skill("unarmed", 120);
@@ -34,21 +34,21 @@ int accept_object(object me, object obj)
 {
         object key;
         if ((string)obj->query("id")=="lv juhua") {
-                message("vision",me->name()+"¸ø¶¡µäÒ»ÅèÂÌ¾Õ»¨¡£\n",environment(me),
+                message("vision",me->name()+"ç»™ä¸å…¸ä¸€ç›†ç»¿èŠèŠ±ã€‚\n",environment(me),
             ({me}));
         key = new("/clone/book/shenzhaojing");
         if (!key){
-         command("say ÎÒÒÑ¾­ÍĞÈË°ÑÊé´ø¸øËª»ªÁË£¬²»ÀÍÄú´ó¼İÁË¡£");
+         command("say æˆ‘å·²ç»æ‰˜äººæŠŠä¹¦å¸¦ç»™éœœåäº†ï¼Œä¸åŠ³æ‚¨å¤§é©¾äº†ã€‚");
         return 0;
         }
         
         command("touch "+me->query("id"));
-        command("say ÕâÎ»"+RANK_D->query_respect(me)+"ÊÇËª»ªÅÉÀ´ËÍĞÅµÄ°É¡£");
+        command("say è¿™ä½"+RANK_D->query_respect(me)+"æ˜¯éœœåæ´¾æ¥é€ä¿¡çš„å§ã€‚");
         key->move(me);
         add("book_count", -1);
-        message_vision("$nµİ¸ø$NÒ»±¾Êé¡£\n", me, this_object() );
-        command("say Õâ±¾Êé¾ÍÊÇÎÒÁ·¹¦´ò×øÓÃµÄ¡¶ÉñÕÕ¾­¡·£¬ÄãÄÃÈ¥´ø¸øËª»ª°É¡£");
-        command ("rumor "+me->query("name")+"Åªµ½ÁËÒ»²áÉñÕÕ¾­¡£");
+        message_vision("$né€’ç»™$Nä¸€æœ¬ä¹¦ã€‚\n", me, this_object() );
+        command("say è¿™æœ¬ä¹¦å°±æ˜¯æˆ‘ç»ƒåŠŸæ‰“åç”¨çš„ã€Šç¥ç…§ç»ã€‹ï¼Œä½ æ‹¿å»å¸¦ç»™éœœåå§ã€‚");
+        command ("rumor "+me->query("name")+"å¼„åˆ°äº†ä¸€å†Œç¥ç…§ç»ã€‚");
         remove_call_out("destroying");
         call_out("destroying", 1, this_object(), obj);
         return 1;

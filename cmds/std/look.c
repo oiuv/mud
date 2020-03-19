@@ -12,7 +12,7 @@
 
 inherit F_CLEAN_UP;
 
-//ÐÂÔö
+//æ–°å¢ž
 #include <locate.h>
 
 int look_room(object me, object env, int brief);
@@ -28,67 +28,67 @@ string getdam(object me, object obj);
 string tough_level(int power);
 
 string *tough_level_desc = ({
-        BLU "²»¿°Ò»»÷" NOR,
-        BLU "ºÁ²»×ãÂÇ" NOR,
-        BLU "²»×ã¹Ò³Ý" NOR,
-        BLU "³õÑ§Õ§Á·" NOR,
-        BLU "ÂÔÖªÒ»¶þ" NOR,
-        HIB "´ÖÍ¨Æ¤Ã«" NOR,
-        HIB "³õ¿úÃÅ¾¶" NOR,
-        HIB "ÃãÃãÇ¿Ç¿" NOR,
-        HIB "Æ½Æ½µ­µ­" NOR,
-        HIB "³õ³öÃ©Â®" NOR,
-        CYN "Æ½µ­ÎÞÆæ" NOR,
-        CYN "°ëÉú²»Êì" NOR,
-        CYN "ÆÕÆÕÍ¨Í¨" NOR,
-        CYN "ÂíÂí»¢»¢" NOR,
-        CYN "ÂÔÓÐÐ¡³É" NOR,
-        HIC "ÒÑÓÐÐ¡³É" NOR,
-        HIC "º×Á¢¼¦Èº" NOR,
-        HIC "¼ÝÇá¾ÍÊì" NOR,
-        HIC "Çà³öÓÚÀ¶" NOR,
-        HIC "ÈÚ»á¹áÍ¨" NOR,
-        HIG "ÐÄÁìÉñ»á" NOR,
-        HIG "Â¯»ð´¿Çà" NOR,
-        HIG "ÁËÈ»ÓÚÐØ" NOR,
-        HIG "ÂÔÓÐ´ó³É" NOR,
-        HIG "ÒÑÓÐ´ó³É" NOR,
-        YEL "»íÈ»¹áÍ¨" NOR,
-        YEL "³öÀà°ÎÝÍ" NOR,
-        YEL "ÎÞ¿ÉÆ¥µÐ" NOR,
-        YEL "¼¼¹ÚÈºÐÛ" NOR,
-        YEL "ÉñºõÆä¼¼" NOR,
-        HIY "³öÉñÈë»¯" NOR,
-        HIY "·ÇÍ¬·²Ïì" NOR,
-        HIY "°ÁÊÓÈºÐÛ" NOR,
-        HIY "µÇ·åÔì¼«" NOR,
-        HIY "ÎÞÓëÂ×±È" NOR,
-        RED "ËùÏòÅûÃÒ" NOR,
-        RED "Ò»´ú×ÚÊ¦" NOR,
-        RED "¾«Éî°ÂÃî" NOR,
-        RED "Éñ¹¦¸ÇÊÀ" NOR,
-        RED "¾ÙÊÀÎÞË«" NOR,
-        WHT "¾ªÊÀº§Ë×" NOR,
-        WHT "º³Ìì¶¯µØ" NOR,
-        WHT "Õð¹Åîå½ñ" NOR,
-        WHT "³¬·²ÈëÊ¥" NOR,
-        WHT "ÍþÕòå¾Óî" NOR,
-        HIW "¿ÕÇ°¾øºó" NOR,
-        HIW "ÌìÈËºÏÒ»" NOR,
-        MAG "Éî²Ø²»Â¶" NOR,
-        HIM "Éî²»¿É²â" NOR,
-        HIR "·µè±¹éÕæ" NOR
+        BLU "ä¸å ªä¸€å‡»" NOR,
+        BLU "æ¯«ä¸è¶³è™‘" NOR,
+        BLU "ä¸è¶³æŒ‚é½¿" NOR,
+        BLU "åˆå­¦ä¹ç»ƒ" NOR,
+        BLU "ç•¥çŸ¥ä¸€äºŒ" NOR,
+        HIB "ç²—é€šçš®æ¯›" NOR,
+        HIB "åˆçª¥é—¨å¾„" NOR,
+        HIB "å‹‰å‹‰å¼ºå¼º" NOR,
+        HIB "å¹³å¹³æ·¡æ·¡" NOR,
+        HIB "åˆå‡ºèŒ…åº" NOR,
+        CYN "å¹³æ·¡æ— å¥‡" NOR,
+        CYN "åŠç”Ÿä¸ç†Ÿ" NOR,
+        CYN "æ™®æ™®é€šé€š" NOR,
+        CYN "é©¬é©¬è™Žè™Ž" NOR,
+        CYN "ç•¥æœ‰å°æˆ" NOR,
+        HIC "å·²æœ‰å°æˆ" NOR,
+        HIC "é¹¤ç«‹é¸¡ç¾¤" NOR,
+        HIC "é©¾è½»å°±ç†Ÿ" NOR,
+        HIC "é’å‡ºäºŽè“" NOR,
+        HIC "èžä¼šè´¯é€š" NOR,
+        HIG "å¿ƒé¢†ç¥žä¼š" NOR,
+        HIG "ç‚‰ç«çº¯é’" NOR,
+        HIG "äº†ç„¶äºŽèƒ¸" NOR,
+        HIG "ç•¥æœ‰å¤§æˆ" NOR,
+        HIG "å·²æœ‰å¤§æˆ" NOR,
+        YEL "è±ç„¶è´¯é€š" NOR,
+        YEL "å‡ºç±»æ‹”èƒ" NOR,
+        YEL "æ— å¯åŒ¹æ•Œ" NOR,
+        YEL "æŠ€å† ç¾¤é›„" NOR,
+        YEL "ç¥žä¹Žå…¶æŠ€" NOR,
+        HIY "å‡ºç¥žå…¥åŒ–" NOR,
+        HIY "éžåŒå‡¡å“" NOR,
+        HIY "å‚²è§†ç¾¤é›„" NOR,
+        HIY "ç™»å³°é€ æž" NOR,
+        HIY "æ— ä¸Žä¼¦æ¯”" NOR,
+        RED "æ‰€å‘æŠ«é¡" NOR,
+        RED "ä¸€ä»£å®—å¸ˆ" NOR,
+        RED "ç²¾æ·±å¥¥å¦™" NOR,
+        RED "ç¥žåŠŸç›–ä¸–" NOR,
+        RED "ä¸¾ä¸–æ— åŒ" NOR,
+        WHT "æƒŠä¸–éª‡ä¿—" NOR,
+        WHT "æ’¼å¤©åŠ¨åœ°" NOR,
+        WHT "éœ‡å¤é“„ä»Š" NOR,
+        WHT "è¶…å‡¡å…¥åœ£" NOR,
+        WHT "å¨é•‡å¯°å®‡" NOR,
+        HIW "ç©ºå‰ç»åŽ" NOR,
+        HIW "å¤©äººåˆä¸€" NOR,
+        MAG "æ·±è—ä¸éœ²" NOR,
+        HIM "æ·±ä¸å¯æµ‹" NOR,
+        HIR "è¿”ç’žå½’çœŸ" NOR
 });
 string *heavy_level_desc= ({
-        "¼«Çá",
-        "ºÜÇá",
-        "²»ÖØ",
-        "²»Çá",
-        "ºÜÖØ",
-        "¼«ÖØ"
+        "æžè½»",
+        "å¾ˆè½»",
+        "ä¸é‡",
+        "ä¸è½»",
+        "å¾ˆé‡",
+        "æžé‡"
 });
 /*
-//²âÊÔ´úÂë¿ªÊ¼£¨ÒÑ³É¹¦£©
+//æµ‹è¯•ä»£ç å¼€å§‹ï¼ˆå·²æˆåŠŸï¼‰
 string locate(string file)
 {
         string domain_file;
@@ -96,7 +96,7 @@ string locate(string file)
         string the_place;
 
        if (sscanf(file, "/f/%*s"))
-               return "¸±±¾";
+               return "å‰¯æœ¬";
 
        domain_file = domain_file(file);
 
@@ -111,11 +111,11 @@ string locate(string file)
         if (! undefinedp(region_names[domain_file]))
                 return region_names[domain_file];
 
-        return "Î´ÖªÇøÓò";
+        return "æœªçŸ¥åŒºåŸŸ";
 }
 
 
-//²âÊÔ´úÂë½áÊø
+//æµ‹è¯•ä»£ç ç»“æŸ
 */
 
 void create() { seteuid(getuid()); }
@@ -141,24 +141,24 @@ int main(object me, string arg)
                         {
                                 env = present(where, environment(me));
                                 if (! objectp(env))
-                                        return notify_fail("ÄãÒª¿´ÄÄÀïµÄ¶«Î÷£¿\n");
+                                        return notify_fail("ä½ è¦çœ‹å“ªé‡Œçš„ä¸œè¥¿ï¼Ÿ\n");
                                 obj = present(objid, env);
                                 if (env->is_character() && env != me)
                                 {
                                         if (! objectp(obj) ||
                                             ! obj->query("equipped") &&
                                             env->query_temp("handing") != obj)
-                                                return notify_fail("ÕâÈËºÃÏñ²¢Ã»ÓÐÂ©³öÀ´ÄãÏë¿´µÄ¶«Î÷°¡¡£\n");
-                                        message("vision", me->name() + "¶¢×ÅÄãµÄ" + obj->name() +
-                                                "¿´ÁËÒ»»á¶ù£¬²»ÖªµÀÔÚ´òÊ²Ã´Ö÷Òâ¡£\n", env);
-                                        message("vision", me->name() + "¶¢×Å" + env->name() + "µÄ" +
-                                                obj->name() + "¿´ÁËÒ»»á¶ù£¬²»ÖªµÀÔÚ´òÊ²Ã´Ö÷Òâ¡£\n",
+                                                return notify_fail("è¿™äººå¥½åƒå¹¶æ²¡æœ‰æ¼å‡ºæ¥ä½ æƒ³çœ‹çš„ä¸œè¥¿å•Šã€‚\n");
+                                        message("vision", me->name() + "ç›¯ç€ä½ çš„" + obj->name() +
+                                                "çœ‹äº†ä¸€ä¼šå„¿ï¼Œä¸çŸ¥é“åœ¨æ‰“ä»€ä¹ˆä¸»æ„ã€‚\n", env);
+                                        message("vision", me->name() + "ç›¯ç€" + env->name() + "çš„" +
+                                                obj->name() + "çœ‹äº†ä¸€ä¼šå„¿ï¼Œä¸çŸ¥é“åœ¨æ‰“ä»€ä¹ˆä¸»æ„ã€‚\n",
                                                 environment(me), ({ me, env }));
                                 }
                         }
 
                         if (! obj)
-                                return notify_fail("ÄÇÀïÃ»ÓÐÕâÑù¶«Î÷¡£\n");
+                                return notify_fail("é‚£é‡Œæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
                 }
 
                 if( obj || (obj = present(arg, environment(me))) || (obj = present(arg, me)) )
@@ -178,7 +178,7 @@ int look_room(object me, object env, int brief)
         string str, *dirs;
 
         if( !env ) {
-                tell_object(me, "ÄãµÄËÄÖÜ»ÒÃÉÃÉµØÒ»Æ¬£¬Ê²Ã´Ò²Ã»ÓÐ¡£\n");
+                tell_object(me, "ä½ çš„å››å‘¨ç°è’™è’™åœ°ä¸€ç‰‡ï¼Œä»€ä¹ˆä¹Ÿæ²¡æœ‰ã€‚\n");
                 return 1;
         }
 
@@ -205,13 +205,13 @@ int look_room(object me, object env, int brief)
                                 dirs[i] = 0;
                 dirs -= ({ 0 });
                 if (sizeof(dirs) == 0)
-                        str += "    ÕâÀïÃ»ÓÐÈÎºÎÃ÷ÏÔµÄ³öÂ·¡£\n";
+                        str += "    è¿™é‡Œæ²¡æœ‰ä»»ä½•æ˜Žæ˜¾çš„å‡ºè·¯ã€‚\n";
                 else if (sizeof(dirs) == 1)
-                        str += "    ÕâÀïÎ¨Ò»µÄ³ö¿ÚÊÇ " + BOLD +
-			       dirs[0] + NOR + "¡£\n";
+                        str += "    è¿™é‡Œå”¯ä¸€çš„å‡ºå£æ˜¯ " + BOLD +
+			       dirs[0] + NOR + "ã€‚\n";
                 else
-                        str += sprintf("    ÕâÀïÃ÷ÏÔµÄ³ö¿ÚÊÇ " + BOLD + "%s" + NOR + " ºÍ " + BOLD + "%s" + NOR + "¡£\n",
-                                implode(dirs[0..sizeof(dirs)-2], "¡¢"), dirs[sizeof(dirs)-1]);
+                        str += sprintf("    è¿™é‡Œæ˜Žæ˜¾çš„å‡ºå£æ˜¯ " + BOLD + "%s" + NOR + " å’Œ " + BOLD + "%s" + NOR + "ã€‚\n",
+                                implode(dirs[0..sizeof(dirs)-2], "ã€"), dirs[sizeof(dirs)-1]);
         }
 
         str += look_all_inventory_of_room(me, env, RETURN_RESULT);
@@ -241,7 +241,7 @@ string desc_of_objects(object *obs)
                 {
                         if (stringp(league_name = obs[i]->query("league/league_name")))
                         {
-                               short_name = HIG + "¡¸" + league_name + "¡¹" + NOR + obs[i]->short();
+                               short_name = HIG + "ã€Œ" + league_name + "ã€" + NOR + obs[i]->short();
                         }
                         else   short_name = obs[i]->short();
                         if (undefinedp(count[short_name]))
@@ -340,7 +340,7 @@ int look_item(object me, object obj)
  /*if (obj->query("no_identify"))
         {
                 str += "-------------------------------------\n";
-                str += HIC "´ËÎïÆ·Î´¼ø¶¨\n" NOR;
+                str += HIC "æ­¤ç‰©å“æœªé‰´å®š\n" NOR;
                 str += "-------------------------------------\n";
         } else*/
         if (mapp(obj->query("weapon_prop")) ||mapp(obj->query("armor_prop")))
@@ -352,7 +352,7 @@ int look_item(object me, object obj)
                         applied_prop = obj->query("armor_prop");
                   /*
                 if (arrayp(apply1) && sizeof(apply1) > 0) {
-                        str += "---------------±øÆ÷¸½¼Ó--------------\n";
+                        str += "---------------å…µå™¨é™„åŠ --------------\n";
                         for (i = 0; i<sizeof(apply1); i++)
                         {
                                 f = obj->query("enchase/wspe_data")[apply1[i]];
@@ -366,7 +366,7 @@ int look_item(object me, object obj)
                 }
 
                 if (arrayp(apply2) && sizeof(apply2) > 0) {
-                        str += "---------------·À¾ß¸½¼Ó--------------\n";
+                        str += "---------------é˜²å…·é™„åŠ --------------\n";
                         for (i = 0; i<sizeof(apply2); i++)
                         {
                                 f = obj->query("enchase/aspe_data")[apply2[i]];
@@ -396,7 +396,7 @@ int look_item(object me, object obj)
                 if (mapp(special_prop) && sizeof(special_prop) > 0)
                         apply = keys(special_prop);
                 if (arrayp(apply) && sizeof(apply) > 0) {
-                        str += "---------------¸½¼ÓÊôÐÔ--------------\n";
+                        str += "---------------é™„åŠ å±žæ€§--------------\n";
                         for (i = 0; i<sizeof(apply); i++)
                         {
                                 f = special_prop[apply[i]];
@@ -404,7 +404,7 @@ int look_item(object me, object obj)
 
                     		str += sprintf(HIC "%s%10s%-5d\n" NOR, desc,
                          //                      f > 0 ? "+" : "-", abs(f));
-                         f > 0 ? "+" : "-",abs(f));//ÐÂÔöabs¾ø¶ÔÖµº¯Êý£¬ÒÑ¿ÉÕý³£ÔËÐÐ
+                         f > 0 ? "+" : "-",abs(f));//æ–°å¢žabsç»å¯¹å€¼å‡½æ•°ï¼Œå·²å¯æ­£å¸¸è¿è¡Œ
                         }
                 }
                 str += "-------------------------------------\n";
@@ -418,17 +418,17 @@ int look_item(object me, object obj)
 
                 if (obj->query_temp("daub/poison/id") == me->query("id"))
                 {
-                        str += HIG "Äã·¢ÏÖÕâÉÏÃæ»¹ÓÐÄãÁ¶ÖÆµÄ" +
+                        str += HIG "ä½ å‘çŽ°è¿™ä¸Šé¢è¿˜æœ‰ä½ ç‚¼åˆ¶çš„" +
                                obj->query_temp("daub/poison/name") +
-                               HIG "ÄØ¡£\n" NOR;
+                               HIG "å‘¢ã€‚\n" NOR;
                         break;
                 }
 
                 if (obj->query_temp("daub/who_id") == me->query("id"))
                 {
-                        str += HIG "ÕâÉÏÃæ»¹ÓÐÄãÇ×ÊÖ²¼ÏÂµÄ" +
+                        str += HIG "è¿™ä¸Šé¢è¿˜æœ‰ä½ äº²æ‰‹å¸ƒä¸‹çš„" +
                                obj->query_temp("daub/poison/name") +
-                               HIG "ÄØ¡£\n" NOR;
+                               HIG "å‘¢ã€‚\n" NOR;
                         break;
                 }
 
@@ -436,18 +436,18 @@ int look_item(object me, object obj)
                         // nothing was worked out
                         break;
 
-                str += HIG "ºöÈ»¼äÄã·¢ÏÖÉÏÃæËÆºõ·º×ÅÒ»Ð©ÆæÒìÓ«¹â";
+                str += HIG "å¿½ç„¶é—´ä½ å‘çŽ°ä¸Šé¢ä¼¼ä¹Žæ³›ç€ä¸€äº›å¥‡å¼‚è§å…‰";
                 if (me->query_skill("poison", 1) >= 120)
                 {
-                        str += "£¬¿ÉÄÜÊÇ" + obj->query_temp("daub/poison/name");
+                        str += "ï¼Œå¯èƒ½æ˜¯" + obj->query_temp("daub/poison/name");
                 }
 
-                str += "¡£\n" NOR;
+                str += "ã€‚\n" NOR;
                 break;
         }
 
         if (obj->query("consistence"))
-                str += sprintf("ÄÍ¾Ã¶È£º" WHT "%d%%\n" NOR, obj->query("consistence"));
+                str += sprintf("è€ä¹…åº¦ï¼š" WHT "%d%%\n" NOR, obj->query("consistence"));
 
         inv = all_inventory(obj);
         if (! sizeof(inv))
@@ -461,20 +461,20 @@ int look_item(object me, object obj)
                 if (objectp(hob = obj->query_temp("handing")))
                 {
                         if (hob->query_amount())
-                                str += "ÊÖÖÐ»¹ËÀËÀÎÕ×ÅÒ»" + hob->query("base_unit") +
-                                       hob->name() + "£¬";
+                                str += "æ‰‹ä¸­è¿˜æ­»æ­»æ¡ç€ä¸€" + hob->query("base_unit") +
+                                       hob->name() + "ï¼Œ";
                         else
-                                str += "ÊÖÖÐ»¹ËÀËÀÎÕ×ÅÒ»" + hob->query("unit") +
-                                       hob->name() + "£¬";
+                                str += "æ‰‹ä¸­è¿˜æ­»æ­»æ¡ç€ä¸€" + hob->query("unit") +
+                                       hob->name() + "ï¼Œ";
                         inv -= ({ hob });
                         if (! sizeof(inv))
-                                str += "Ã»ÓÐÊ²Ã´ÆäËûÒÅÎïÁË¡£\n";
+                                str += "æ²¡æœ‰ä»€ä¹ˆå…¶ä»–é—ç‰©äº†ã€‚\n";
                         else
-                                str += "ÀïÃæµÄÒÅÎïÓÐ£º\n";
+                                str += "é‡Œé¢çš„é—ç‰©æœ‰ï¼š\n";
                 } else
-                        str += "ÀïÃæµÄÒÅÎïÓÐ£º\n";
+                        str += "é‡Œé¢çš„é—ç‰©æœ‰ï¼š\n";
         } else
-                str += "ÀïÃæÓÐ£º\n";
+                str += "é‡Œé¢æœ‰ï¼š\n";
 
         for (i = 0; i < sizeof(inv); i++)
         {
@@ -496,7 +496,7 @@ int look_item(object me, object obj)
         for (i = 0; i < sizeof(dk); i++)
         {
             if (equiped[dk[i]])
-                str += HIC "  ¡õ" NOR;
+                str += HIC "  â–¡" NOR;
             else
                 str += "    ";
 
@@ -532,12 +532,12 @@ string look_equiped(object me, object obj, string pro)
                 {
                 case "wielded":
                         n++;
-                        subs = HIC "  ¡õ" NOR + inv[i]->short() + "\n" + subs;
+                        subs = HIC "  â–¡" NOR + inv[i]->short() + "\n" + subs;
                         break;
 
                 case "worn":
                         n++;
-                        subs += HIC "  ¡õ" NOR + inv[i]->short() + "\n";
+                        subs += HIC "  â–¡" NOR + inv[i]->short() + "\n";
                         break;
 
                 default:
@@ -546,7 +546,7 @@ string look_equiped(object me, object obj, string pro)
         }
 
         if (n)
-                str += pro + "×°±¸×Å£º\n" + subs;
+                str += pro + "è£…å¤‡ç€ï¼š\n" + subs;
 
         if (objectp(hob = obj->query_temp("handing")))
         {
@@ -556,17 +556,17 @@ string look_equiped(object me, object obj, string pro)
                 mad = (! objectp(obj->query_temp("armor/cloth")) &&
                        hob->query("armor_type") == "cloth");
 
-                str = pro + "ÊÖÖÐ" + (mad ? "È´" : "" ) + "ÎÕ×ÅÒ»" +
+                str = pro + "æ‰‹ä¸­" + (mad ? "å´" : "" ) + "æ¡ç€ä¸€" +
                       (hob->query_amount() ? hob->query("base_unit")
                                            : hob->query("unit")) +
                       hob->name() +
-                      (mad ? "£¬·èÁË£¬Ò»¶¨ÊÇ·èÁË£¡\n" : "¡£\n") + str;
+                      (mad ? "ï¼Œç–¯äº†ï¼Œä¸€å®šæ˜¯ç–¯äº†ï¼\n" : "ã€‚\n") + str;
         }
 
         if (playerp(obj) &&
             ! objectp(obj->query_temp("armor/cloth")))
         {
-                str = pro + "ÉíÉÏÃ»ÓÐ´©ÒÂ·þ°¡£¡\n" + str;
+                str = pro + "èº«ä¸Šæ²¡æœ‰ç©¿è¡£æœå•Šï¼\n" + str;
         }
 
         return str;
@@ -624,143 +624,143 @@ string description(object obj)
             per = obj->query_per();
             age = obj->query("age");
             if (obj->query("special_skill/youth")) age = 14;
-            if ((string) obj->query("gender") == "ÄÐÐÔ" || (string) obj->query("gender") == "ÎÞÐÔ")
+            if ((string) obj->query("gender") == "ç”·æ€§" || (string) obj->query("gender") == "æ— æ€§")
             {
                     if (per >=40)
-                        return HIW"ÏÖÔÚÒ»ÅÉÉñÈËÆø¶È£¬ÏÉ·çµÀ¹Ç£¬¾ÙÖ¹³ö³¾¡£\n"NOR;
+                        return HIW"çŽ°åœ¨ä¸€æ´¾ç¥žäººæ°”åº¦ï¼Œä»™é£Žé“éª¨ï¼Œä¸¾æ­¢å‡ºå°˜ã€‚\n"NOR;
                 if (per <= 39 && (per > 38))
-                        return HIG"ÏÖÔÚÉñÇåÆøË¬£¬¹Ç¸ñÇåÆæ£¬ÍðÈôÏÉÈË¡£\n"NOR;
+                        return HIG"çŽ°åœ¨ç¥žæ¸…æ°”çˆ½ï¼Œéª¨æ ¼æ¸…å¥‡ï¼Œå®›è‹¥ä»™äººã€‚\n"NOR;
                 if (per <= 38 && (per > 37))
-                        return HIG"ÏÖÔÚ·áÉñ¿¡ÀÊ£¬³¤ÉíÓñÁ¢£¬ÍðÈçÓñÊ÷ÁÙ·ç¡£\n"NOR;
+                        return HIG"çŽ°åœ¨ä¸°ç¥žä¿Šæœ—ï¼Œé•¿èº«çŽ‰ç«‹ï¼Œå®›å¦‚çŽ‰æ ‘ä¸´é£Žã€‚\n"NOR;
                 if (per <= 37 && (per > 36))
-                        return HIG"ÏÖÔÚÆ®ÒÝ³ö³¾£¬äìÈ÷¾øÂ×¡£\n"NOR;
+                        return HIG"çŽ°åœ¨é£˜é€¸å‡ºå°˜ï¼Œæ½‡æ´’ç»ä¼¦ã€‚\n"NOR;
                 if (per <= 36 && (per > 35))
-                        return HIG"ÏÖÔÚÃæÈçÃÀÓñ£¬·Û×±Óñ×Á£¬¿¡ÃÀ²»·²¡£\n"NOR;
+                        return HIG"çŽ°åœ¨é¢å¦‚ç¾ŽçŽ‰ï¼Œç²‰å¦†çŽ‰ç¢ï¼Œä¿Šç¾Žä¸å‡¡ã€‚\n"NOR;
                 if (per <= 35 && (per > 34))
-                        return HIG"ÏÖÔÚ·áÉñÈçÓñ£¬Ä¿ËÆÀÊÐÇ£¬ÁîÈË¹ýÄ¿ÄÑÍü¡£\n"NOR;
+                        return HIG"çŽ°åœ¨ä¸°ç¥žå¦‚çŽ‰ï¼Œç›®ä¼¼æœ—æ˜Ÿï¼Œä»¤äººè¿‡ç›®éš¾å¿˜ã€‚\n"NOR;
                 if (per <= 34 && (per > 33))
-                        return HIY"ÏÖÔÚ·ÛÃæÖì´½£¬Éí×Ë¿¡ÇÎ£¬¾ÙÖ¹·çÁ÷ÎÞÏÞ¡£\n"NOR;
+                        return HIY"çŽ°åœ¨ç²‰é¢æœ±å”‡ï¼Œèº«å§¿ä¿Šä¿ï¼Œä¸¾æ­¢é£Žæµæ— é™ã€‚\n"NOR;
                 if (per <= 33 && (per > 32))
-                        return HIY"ÏÖÔÚË«Ä¿ÈçÐÇ£¬Ã¼ÉÒ´«Çé£¬Ëù¼ûÕßÎÞ²»ÎªÖ®ÐÄ¶¯¡£\n"NOR;
+                        return HIY"çŽ°åœ¨åŒç›®å¦‚æ˜Ÿï¼Œçœ‰æ¢¢ä¼ æƒ…ï¼Œæ‰€è§è€…æ— ä¸ä¸ºä¹‹å¿ƒåŠ¨ã€‚\n"NOR;
                 if (per <= 32 && (per > 31))
-                        return HIY"ÏÖÔÚ¾Ù¶¯ÈçÐÐÔÆÓÎË®£¬¶ÀÔÌ·çÇé£¬ÎüÒýËùÓÐÒìÐÔÄ¿¹â¡£\n"NOR;
+                        return HIY"çŽ°åœ¨ä¸¾åŠ¨å¦‚è¡Œäº‘æ¸¸æ°´ï¼Œç‹¬è•´é£Žæƒ…ï¼Œå¸å¼•æ‰€æœ‰å¼‚æ€§ç›®å…‰ã€‚\n"NOR;
                 if (per <= 31 && (per > 30))
-                        return HIY"ÏÖÔÚË«ÑÛ¹â»ªÓ¨Èó£¬Í¸³öÉãÈËÐÄÆÇµÄ¹âÃ¢¡£\n"NOR;
+                        return HIY"çŽ°åœ¨åŒçœ¼å…‰åŽèŽ¹æ¶¦ï¼Œé€å‡ºæ‘„äººå¿ƒé­„çš„å…‰èŠ’ã€‚\n"NOR;
                 if (per <= 30 && (per > 29))
-                        return HIY"ÉúµÃÓ¢¿¡äìÈ÷£¬·çÁ÷ÙÃÙÎ¡£\n"NOR;
+                        return HIY"ç”Ÿå¾—è‹±ä¿Šæ½‡æ´’ï¼Œé£Žæµå€œå‚¥ã€‚\n"NOR;
                 if (per <= 29 && (per > 28))
-                        return MAG"ÉúµÃÄ¿ËÆµãÆá£¬¸ß´óÍ¦¿¡£¬ÁîÈËÐÄ¶¯¡£\n"NOR;
+                        return MAG"ç”Ÿå¾—ç›®ä¼¼ç‚¹æ¼†ï¼Œé«˜å¤§æŒºä¿Šï¼Œä»¤äººå¿ƒåŠ¨ã€‚\n"NOR;
                 if (per <= 28 && (per > 27))
-                        return MAG"ÉúµÃÃæÈôÇïÔÂ£¬ÈåÑÅË¹ÎÄ£¬¾ÙÖ¹ÊÊ¶È¡£\n"NOR;
+                        return MAG"ç”Ÿå¾—é¢è‹¥ç§‹æœˆï¼Œå„’é›…æ–¯æ–‡ï¼Œä¸¾æ­¢é€‚åº¦ã€‚\n"NOR;
                 if (per <= 27 && (per > 26))
-                        return MAG"ÉúµÃ½£Ã¼ÐÇÄ¿£¬Ó¢×Ë²ª²ª£¬ÒÇ±í²»·²¡£\n"NOR;
+                        return MAG"ç”Ÿå¾—å‰‘çœ‰æ˜Ÿç›®ï¼Œè‹±å§¿å‹ƒå‹ƒï¼Œä»ªè¡¨ä¸å‡¡ã€‚\n"NOR;
                 if (per <= 26 && (per > 25))
-                        return MAG"ÉúµÃÂúÃæÅ¨÷×£¬»·ÑÛ±ª±Ç£¬Íþ·çÁÝÁÝ£¬ÈÃÈËÇãµ¹¡£\n"NOR;
+                        return MAG"ç”Ÿå¾—æ»¡é¢æµ“é«¯ï¼ŒçŽ¯çœ¼è±¹é¼»ï¼Œå¨é£Žå‡›å‡›ï¼Œè®©äººå€¾å€’ã€‚\n"NOR;
                 if (per <= 25 && (per > 24))
-                        return MAG"ÉúµÃÃ¼ÈçË«½££¬ÑÛÈçÃ÷ÐÇ£¬Ó¢Í¦³öÖÚ¡£\n"NOR;
+                        return MAG"ç”Ÿå¾—çœ‰å¦‚åŒå‰‘ï¼Œçœ¼å¦‚æ˜Žæ˜Ÿï¼Œè‹±æŒºå‡ºä¼—ã€‚\n"NOR;
                 if (per <= 24 && (per > 23))
-                        return CYN"ÉúµÃ»¢±³ÐÜÑü£¬×³½¡ÓÐÁ¦£¬Ó¢×Ë²ª·¢¡£\n"NOR;
+                        return CYN"ç”Ÿå¾—è™ŽèƒŒç†Šè…°ï¼Œå£®å¥æœ‰åŠ›ï¼Œè‹±å§¿å‹ƒå‘ã€‚\n"NOR;
                 if (per <= 23 && (per > 22))
-                        return CYN"ÉúµÃ·ôÉ«°×ðª£¬ºì´½Ä«·¢£¬Ë¹ÎÄÓÐÀñ¡£\n"NOR;
+                        return CYN"ç”Ÿå¾—è‚¤è‰²ç™½çš™ï¼Œçº¢å”‡å¢¨å‘ï¼Œæ–¯æ–‡æœ‰ç¤¼ã€‚\n"NOR;
                 if (per <= 22 && (per > 21))
-                        return CYN"ÉúµÃÅ¨Ã¼´óÑÛ£¬¸ß´óÍ¦°Î£¬ÆøÓîÐù°º¡£\n"NOR;
+                        return CYN"ç”Ÿå¾—æµ“çœ‰å¤§çœ¼ï¼Œé«˜å¤§æŒºæ‹”ï¼Œæ°”å®‡è½©æ˜‚ã€‚\n"NOR;
                 if (per <= 21 && (per > 20))
-                        return CYN"ÉúµÃ±ÇÖ±¿Ú·½£¬ÏßÌõ·ÖÃ÷£¬ÏÔ³ö¸ÕÒãÐÔ¸ñ¡£\n"NOR;
+                        return CYN"ç”Ÿå¾—é¼»ç›´å£æ–¹ï¼Œçº¿æ¡åˆ†æ˜Žï¼Œæ˜¾å‡ºåˆšæ¯…æ€§æ ¼ã€‚\n"NOR;
                 if (per <= 20 && (per > 19))
-                        return CYN"ÉúµÃÃ¼Ä¿ÇåÐã£¬¶ËÕý´ó·½£¬Ò»±íÈË²Å¡£\n"NOR;
+                        return CYN"ç”Ÿå¾—çœ‰ç›®æ¸…ç§€ï¼Œç«¯æ­£å¤§æ–¹ï¼Œä¸€è¡¨äººæ‰ã€‚\n"NOR;
                 if (per <= 19 && (per > 18))
-                        return YEL"ÉúµÃÑüÔ²±³ºñ£¬ÃæÀ«¿Ú·½£¬¹Ç¸ñ²»·²¡£\n"NOR;
+                        return YEL"ç”Ÿå¾—è…°åœ†èƒŒåŽšï¼Œé¢é˜”å£æ–¹ï¼Œéª¨æ ¼ä¸å‡¡ã€‚\n"NOR;
                 if (per <= 18 && (per > 17))
-                        return YEL"ÉúµÃÏàÃ²Æ½Æ½£¬²»»á¸øÈËÁôÏÂÊ²Ã´Ó¡Ïó¡£\n"NOR;
+                        return YEL"ç”Ÿå¾—ç›¸è²Œå¹³å¹³ï¼Œä¸ä¼šç»™äººç•™ä¸‹ä»€ä¹ˆå°è±¡ã€‚\n"NOR;
                 if (per <= 17 && (per > 16))
-                        return YEL"ÉúµÃ°ò´óÑüÔ²£¬ÂúÁ³ºáÈâ£¬¶ñÐÎ¶ñÏà¡£\n"NOR;
+                        return YEL"ç”Ÿå¾—è†€å¤§è…°åœ†ï¼Œæ»¡è„¸æ¨ªè‚‰ï¼Œæ¶å½¢æ¶ç›¸ã€‚\n"NOR;
                 if (per <= 16 && (per > 15))
-                        return YEL"ÉúµÃâ¯Í·ÊóÐë£¬ÈÃÈËÒ»¿´¾Í²»ÉúºÃ¸Ð¡£\n"NOR;
+                        return YEL"ç”Ÿå¾—çå¤´é¼ é¡»ï¼Œè®©äººä¸€çœ‹å°±ä¸ç”Ÿå¥½æ„Ÿã€‚\n"NOR;
                 if (per <= 15 && (per > 14))
-                        return YEL"ÉúµÃÃæ¼ÕÉîÏÝ£¬ÊÝÈç¿Ý¹Ç£¬ÈÃÈËÒª·¢¶ñÃÎ¡£\n"NOR;
+                        return YEL"ç”Ÿå¾—é¢é¢Šæ·±é™·ï¼Œç˜¦å¦‚æž¯éª¨ï¼Œè®©äººè¦å‘æ¶æ¢¦ã€‚\n"NOR;
                 if (per <= 14 && (per > 13))
-                        return RED"ÉúµÃ·ÊÍ·´ó¶ú£¬¸¹Ô²Èç¹Ä£¬ÊÖ½Å¶Ì´Ö£¬ÁîÈË·¢Ð¦¡£\n"NOR;
+                        return RED"ç”Ÿå¾—è‚¥å¤´å¤§è€³ï¼Œè…¹åœ†å¦‚é¼“ï¼Œæ‰‹è„šçŸ­ç²—ï¼Œä»¤äººå‘ç¬‘ã€‚\n"NOR;
                 if (per <= 13 && (per > 12))
-                        return RED"ÉúµÃÔôÃ¼ÊóÑÛ£¬Éí¸ßÈý³ß£¬ÍðÈôºï×´¡£\n"NOR;
+                        return RED"ç”Ÿå¾—è´¼çœ‰é¼ çœ¼ï¼Œèº«é«˜ä¸‰å°ºï¼Œå®›è‹¥çŒ´çŠ¶ã€‚\n"NOR;
                 if (per <= 12 && (per > 11))
-                        return RED"ÉúµÃÃæÈç½ÛÆ¤£¬Í·Ö×ÈçÖí£¬ÈÃÈË²»ÏëÔÙ¿´µÚ¶þÑÛ¡£\n"NOR;
+                        return RED"ç”Ÿå¾—é¢å¦‚æ¡”çš®ï¼Œå¤´è‚¿å¦‚çŒªï¼Œè®©äººä¸æƒ³å†çœ‹ç¬¬äºŒçœ¼ã€‚\n"NOR;
                 if (per <= 11 && (per > 10))
-                        return RED"ÉúµÃßÚÑÀßÖ×ì£¬ºÚÈç¹øµ×£¬Ææ³óÎÞ±È¡£\n"NOR;
+                        return RED"ç”Ÿå¾—å‘²ç‰™å’§å˜´ï¼Œé»‘å¦‚é”…åº•ï¼Œå¥‡ä¸‘æ— æ¯”ã€‚\n"NOR;
                 if (per <= 10)
-                        return RED"ÉúµÃÃ¼ÍáÑÛÐ±£¬ðøÍ·Ñ¢½Å£¬²»ÏóÈËÑù¡£\n"NOR;
+                        return RED"ç”Ÿå¾—çœ‰æ­ªçœ¼æ–œï¼Œç˜Œå¤´ç™£è„šï¼Œä¸è±¡äººæ ·ã€‚\n"NOR;
             } else
             {
                if (per >=40)
-                        return HIW"ÏÖÔÚÍðÈçÓñµñ±ùËÜ£¬ËÆÃÎËÆ»Ã£¬ÒÑ²»ÔÙÊÇ·²¼äÈËÎï\n"NOR;
+                        return HIW"çŽ°åœ¨å®›å¦‚çŽ‰é›•å†°å¡‘ï¼Œä¼¼æ¢¦ä¼¼å¹»ï¼Œå·²ä¸å†æ˜¯å‡¡é—´äººç‰©\n"NOR;
                 if (per <= 39 && (per > 38))
-                        return HIG"ÏÖÔÚÃÀÈôÌìÏÉ£¬²»Õ´Ò»Ë¿ÑÌ³¾¡£\n"NOR;
+                        return HIG"çŽ°åœ¨ç¾Žè‹¥å¤©ä»™ï¼Œä¸æ²¾ä¸€ä¸çƒŸå°˜ã€‚\n"NOR;
                 if (per <= 38 && (per > 37))
-                        return  HIG"ÏÖÔÚ²ÓÈôÃ÷Ï¼£¬±¦ÈóÈçÓñ£¬»ÐÈçÉñåúÏÉ×Ó¡£\n"NOR;
+                        return  HIG"çŽ°åœ¨ç¿è‹¥æ˜Žéœžï¼Œå®æ¶¦å¦‚çŽ‰ï¼Œæå¦‚ç¥žå¦ƒä»™å­ã€‚\n"NOR;
                 if (per <= 37 && (per > 36))
-                        return HIG"ÏÖÔÚÆøÖÊÃÀÈçÀ¼£¬²Å»ªð¥±ÈÉ½£¬ÁîÈË¼ûÖ®ÍüË×¡£\n"NOR;
+                        return HIG"çŽ°åœ¨æ°”è´¨ç¾Žå¦‚å…°ï¼Œæ‰åŽé¦¥æ¯”å±±ï¼Œä»¤äººè§ä¹‹å¿˜ä¿—ã€‚\n"NOR;
                 if (per <= 36 && (per > 35))
-                        return HIG"ÏÖÔÚ·áÈóÄÛ°×£¬Ó£ÌÒÐ¡¿Ú£¬Ã¼Ä¿º¬Çé£¬·Â·ðÌ«ÕæÖØÁÙ¡£\n"NOR;
+                        return HIG"çŽ°åœ¨ä¸°æ¶¦å«©ç™½ï¼Œæ¨±æ¡ƒå°å£ï¼Œçœ‰ç›®å«æƒ…ï¼Œä»¿ä½›å¤ªçœŸé‡ä¸´ã€‚\n"NOR;
                 if (per <= 35 && (per > 34))
-                        return HIG"ÏÖÔÚÏÊÑÞåüÃÄ£¬ôÁÄÈ·çÁ÷£¬ÈáÃÄæ¯ÇÎ£¬·Û¹âÖ¬ÑÞ¡£\n"NOR;
+                        return HIG"çŽ°åœ¨é²œè‰³å¦©åªšï¼Œè¢…å¨œé£Žæµï¼ŒæŸ”åªšå§£ä¿ï¼Œç²‰å…‰è„‚è‰³ã€‚\n"NOR;
                 if (per <= 34 && (per > 33))
-                        return HIY"ÏÖÔÚ÷ÞÈôµ¶²Ã£¬Ã¼ÈçÄ«»­£¬ÃæÈçÌÒ°ê£¬Ä¿ÈôÇï²¨¡£\n"NOR;
+                        return HIY"çŽ°åœ¨é¬“è‹¥åˆ€è£ï¼Œçœ‰å¦‚å¢¨ç”»ï¼Œé¢å¦‚æ¡ƒç“£ï¼Œç›®è‹¥ç§‹æ³¢ã€‚\n"NOR;
                 if (per <= 33 && (per > 32))
-                        return HIY"ÏÖÔÚ·ïÑÛÁøÃ¼£¬·ÛÃæº¬´º£¬µ¤´½±´³Ý£¬×ªÅÎ¶àÇé¡£\n"NOR;
+                        return HIY"çŽ°åœ¨å‡¤çœ¼æŸ³çœ‰ï¼Œç²‰é¢å«æ˜¥ï¼Œä¸¹å”‡è´é½¿ï¼Œè½¬ç›¼å¤šæƒ…ã€‚\n"NOR;
                 if (per <= 32 && (per > 31))
-                        return HIY"ÏÖÔÚÃ¼Ä¿Èç»­£¬¼¡·ôÊ¤Ñ©£¬Õæ¿ÉÎ½±ÕÔÂÐß»¨¡£\n"NOR;
+                        return HIY"çŽ°åœ¨çœ‰ç›®å¦‚ç”»ï¼Œè‚Œè‚¤èƒœé›ªï¼ŒçœŸå¯è°“é—­æœˆç¾žèŠ±ã€‚\n"NOR;
                 if (per <= 31 && (per > 30))
-                        return HIY"ÏÖÔÚ½¿Èô´º»¨£¬ÃÄÈçÇïÔÂ£¬ÕæµÄÄÜ³ÁÓãÂäÑã¡£¡£\n"NOR;
+                        return HIY"çŽ°åœ¨å¨‡è‹¥æ˜¥èŠ±ï¼Œåªšå¦‚ç§‹æœˆï¼ŒçœŸçš„èƒ½æ²‰é±¼è½é›ã€‚ã€‚\n"NOR;
                 if (per <= 30 && (per > 29))
-                        return HIY"ÉúµÃÏÐ¾²Èçæ¯»¨ÕÕË®£¬ÐÐ¶¯ËÆÈõÁø·ö·ç£¬ÌåÌ¬ÍòÇ§¡£\n"NOR;
+                        return HIY"ç”Ÿå¾—é—²é™å¦‚å§£èŠ±ç…§æ°´ï¼Œè¡ŒåŠ¨ä¼¼å¼±æŸ³æ‰¶é£Žï¼Œä½“æ€ä¸‡åƒã€‚\n"NOR;
                 if (per <= 29 && (per > 28))
-                        return MAG"ÉúµÃ½¿Ð¡Ááçç£¬ÍðÈç·ÉÑàÔÙÊÀ£¬³þ³þ¶¯ÈË¡£\n"NOR;
+                        return MAG"ç”Ÿå¾—å¨‡å°çŽ²ç‘ï¼Œå®›å¦‚é£žç‡•å†ä¸–ï¼Œæ¥šæ¥šåŠ¨äººã€‚\n"NOR;
                 if (per <= 28 && (per > 27))
-                        return MAG"ÉúµÃÑ¼µ°ÐãÁ³£¬¿¡ÑÛÐÞÃ¼£¬ºÚ·¢ÈçÆÙ£¬·çÇéÍòÖÖ¡£\n"NOR;
+                        return MAG"ç”Ÿå¾—é¸­è›‹ç§€è„¸ï¼Œä¿Šçœ¼ä¿®çœ‰ï¼Œé»‘å‘å¦‚ç€‘ï¼Œé£Žæƒ…ä¸‡ç§ã€‚\n"NOR;
                 if (per <= 27 && (per > 26))
-                        return MAG"ÉúµÃÏ÷¼çÏ¸Ñü£¬Éí²ÄÃçÌõ£¬½¿ÃÄ¶¯ÈË£¬¹ËÅÎÉñ·É¡£\n"NOR;
+                        return MAG"ç”Ÿå¾—å‰Šè‚©ç»†è…°ï¼Œèº«æè‹—æ¡ï¼Œå¨‡åªšåŠ¨äººï¼Œé¡¾ç›¼ç¥žé£žã€‚\n"NOR;
                 if (per <= 26 && (per > 25))
-                        return MAG"ÉúµÃ·áÐØÏ¸Ñü£¬Ñýæ¬¶à×Ë£¬ÈÃÈËÒ»¿´¾ÍÐÄÌø²»ÒÑ¡£\n"NOR;
+                        return MAG"ç”Ÿå¾—ä¸°èƒ¸ç»†è…°ï¼Œå¦–å¨†å¤šå§¿ï¼Œè®©äººä¸€çœ‹å°±å¿ƒè·³ä¸å·²ã€‚\n"NOR;
                 if (per <= 25 && (per > 24))
-                        return MAG"ÉúµÃ·ÛÄÛ°×ÖÁ£¬ÈçÉÖÒ©ÁýÑÌ£¬ÎíÀï¿´»¨¡£\n"NOR;
+                        return MAG"ç”Ÿå¾—ç²‰å«©ç™½è‡³ï¼Œå¦‚èŠè¯ç¬¼çƒŸï¼Œé›¾é‡Œçœ‹èŠ±ã€‚\n"NOR;
                 if (per <= 24 && (per > 23))
-                        return CYN"ÉúµÃÈùÄýÐÂÀó£¬Ä¿ÈôÇïË®£¬Ç§½¿°ÙÃÄ¡£\n"NOR;
+                        return CYN"ç”Ÿå¾—è…®å‡æ–°è”ï¼Œç›®è‹¥ç§‹æ°´ï¼Œåƒå¨‡ç™¾åªšã€‚\n"NOR;
                 if (per <= 23 && (per > 22))
-                        return CYN"ÉúµÃÏÊÑÞåûÃÄ£¬¼¡·ôÓ¨Í¸£¬ÒýÈËåÚË¼¡£\n"NOR;
+                        return CYN"ç”Ÿå¾—é²œè‰³å¦åªšï¼Œè‚Œè‚¤èŽ¹é€ï¼Œå¼•äººéæ€ã€‚\n"NOR;
                 if (per <= 22 && (per > 21))
-                        return CYN"ÉúµÃÇÉÐ¦æÌÈ»£¬ÍðÔ¼¿ÉÈË¡£\n"NOR;
+                        return CYN"ç”Ÿå¾—å·§ç¬‘å«£ç„¶ï¼Œå®›çº¦å¯äººã€‚\n"NOR;
                 if (per <= 21 && (per > 20))
-                        return CYN"ÉúµÃÈçÀæ»¨´øÂ¶£¬ÇåÐÂÐãÀö¡£\n"NOR;
+                        return CYN"ç”Ÿå¾—å¦‚æ¢¨èŠ±å¸¦éœ²ï¼Œæ¸…æ–°ç§€ä¸½ã€‚\n"NOR;
                 if (per <= 20 && (per > 19))
-                        return CYN"ÉúµÃ·ç×Ë³þ³þ£¬Ã÷Àö¶¯ÈË¡£\n"NOR;
+                        return CYN"ç”Ÿå¾—é£Žå§¿æ¥šæ¥šï¼Œæ˜Žä¸½åŠ¨äººã€‚\n"NOR;
                 if (per <= 19 && (per > 18))
-                        return YEL"ÉúµÃ¼¡·ôÎ¢·á£¬ÑÅµ­ÎÂÍð£¬ÇåÐÂ¿ÉÈË¡£\n"NOR;
+                        return YEL"ç”Ÿå¾—è‚Œè‚¤å¾®ä¸°ï¼Œé›…æ·¡æ¸©å®›ï¼Œæ¸…æ–°å¯äººã€‚\n"NOR;
                 if (per <= 18 && (per > 17))
-                        return YEL"ÉúµÃËä²»±êÖÂ£¬µ¹Ò²°×¾»£¬ÓÐÐ©¶¯ÈËÖ®´¦¡£\n"NOR;
+                        return YEL"ç”Ÿå¾—è™½ä¸æ ‡è‡´ï¼Œå€’ä¹Ÿç™½å‡€ï¼Œæœ‰äº›åŠ¨äººä¹‹å¤„ã€‚\n"NOR;
                 if (per <= 17 && (per > 16))
-                        return YEL"ÉúµÃÉí²ÄÊÝÐ¡£¬¼¡·ôÎÞ¹â£¬Á½ÑÛÎÞÉñ¡£\n"NOR;
+                        return YEL"ç”Ÿå¾—èº«æç˜¦å°ï¼Œè‚Œè‚¤æ— å…‰ï¼Œä¸¤çœ¼æ— ç¥žã€‚\n"NOR;
                 if (per <= 16 && (per > 15))
-                        return  YEL"ÉúµÃ¸É»Æ¿ÝÊÝ£¬Á³É«À°»Æ£¬ºÁÎÞÅ®ÈËÎ¶¡£\n"NOR;
+                        return  YEL"ç”Ÿå¾—å¹²é»„æž¯ç˜¦ï¼Œè„¸è‰²è…Šé»„ï¼Œæ¯«æ— å¥³äººå‘³ã€‚\n"NOR;
                 if (per <= 15 && (per > 14))
-                        return YEL"ÉúµÃÂúÁ³¸í´ñ£¬Æ¤É«´ÖºÚ£¬³óÂª²»¿°¡£\n"NOR;
+                        return YEL"ç”Ÿå¾—æ»¡è„¸ç–™ç˜©ï¼Œçš®è‰²ç²—é»‘ï¼Œä¸‘é™‹ä¸å ªã€‚\n"NOR;
                 if (per <= 14 && (per > 13))
-                        return RED"ÉúµÃÒ»×ì´ó±©ÑÀ£¬ÈÃÈËÒ»¿´¾ÍÃ»ºÃ¸Ð¡£\n"NOR;
+                        return RED"ç”Ÿå¾—ä¸€å˜´å¤§æš´ç‰™ï¼Œè®©äººä¸€çœ‹å°±æ²¡å¥½æ„Ÿã€‚\n"NOR;
                 if (per <= 13 && (per > 12))
-                        return RED"ÉúµÃÑÛÐ¡Èç¶¹£¬Ã¼Ã«Ï¡Êè£¬ÊÖÈçºï×¦£¬²»³ÉÈËÑù¡£\n"NOR;
+                        return RED"ç”Ÿå¾—çœ¼å°å¦‚è±†ï¼Œçœ‰æ¯›ç¨€ç–ï¼Œæ‰‹å¦‚çŒ´çˆªï¼Œä¸æˆäººæ ·ã€‚\n"NOR;
                 if (per <= 12 && (per > 11))
-                        return RED"ÉúµÃ°Ë×ÖÃ¼£¬Èý½ÇÑÛ£¬¼¦Æ¤»Æ·¢£¬ÈÃÈËÒ»¼û¾ÍÏëÍÂ¡£\n"NOR;
+                        return RED"ç”Ÿå¾—å…«å­—çœ‰ï¼Œä¸‰è§’çœ¼ï¼Œé¸¡çš®é»„å‘ï¼Œè®©äººä¸€è§å°±æƒ³åã€‚\n"NOR;
                 if (per <= 11 && (per > 10))
-                        return RED"ÉúµÃÍá±ÇÐ±ÑÛ£¬Á³É«»Ò°Ü£¬Ö±Èç¹í¹ÖÒ»°ã¡£\n"NOR;
+                        return RED"ç”Ÿå¾—æ­ªé¼»æ–œçœ¼ï¼Œè„¸è‰²ç°è´¥ï¼Œç›´å¦‚é¬¼æ€ªä¸€èˆ¬ã€‚\n"NOR;
                 if (per <= 10)
-                        return RED"³¤µÃºÍÎÞÑÎÓÐµãÏàËÆÒ®¡£\n"NOR;
+                        return RED"é•¿å¾—å’Œæ— ç›æœ‰ç‚¹ç›¸ä¼¼è€¶ã€‚\n"NOR;
             }
         } else
         if (! obj->query("can_speak") && living(obj))
         {
                 if (! obj->query_temp("owner"))
-                        return "ÊÇÒ»Ö»Î´±»Ñ±·þµÄÐóÉú£¬ÑÛ¹âÀïÂúÊÇ½äÐÄºÍµÐÒâ¡£\n";
+                        return "æ˜¯ä¸€åªæœªè¢«é©¯æœçš„ç•œç”Ÿï¼Œçœ¼å…‰é‡Œæ»¡æ˜¯æˆ’å¿ƒå’Œæ•Œæ„ã€‚\n";
                 else
-                        return "ÊÇÒ»Ö»±»" + obj->query_temp("owner_name") +
-                               "Ñ±·þµÄÐóÉú£¬Ò»¸±ºÜÎÂÑ±µÄÑù×Ó¡£\n";
+                        return "æ˜¯ä¸€åªè¢«" + obj->query_temp("owner_name") +
+                               "é©¯æœçš„ç•œç”Ÿï¼Œä¸€å‰¯å¾ˆæ¸©é©¯çš„æ ·å­ã€‚\n";
         }
 
         return "";
@@ -785,44 +785,44 @@ int look_living(object me, object obj)
 
         if (playerp(obj) && ! (obj->query("born")))
         {
-                tell_object(me, pro + "»¹Ã»ÓÐÍ¶Ì¥£¬Ö»ÓÐÒ»¹ÉÔªÉñ£¬Ê²Ã´¶¼¿´²»µ½Ò®£¡\n");
+                tell_object(me, pro + "è¿˜æ²¡æœ‰æŠ•èƒŽï¼Œåªæœ‰ä¸€è‚¡å…ƒç¥žï¼Œä»€ä¹ˆéƒ½çœ‹ä¸åˆ°è€¶ï¼\n");
                 return 1;
         }
 
         me_shen = (int)me->query("shen");
         if (me != obj)
 	{
-                message("vision", me->name() + "Õý¶¢ÖøÄã¿´£¬²»ÖªµÀÔÚ´ò"
-			"Ê²Ã´Ö÷Òâ¡£\n", obj);
-		message("vision", me->name() + "¶¢×Å" + obj->name() +
-			"¿´ÁËÒ»»á¶ù£¬²»ÖªµÀÔÚ´òÊ²Ã´Ö÷Òâ¡£\n",
+                message("vision", me->name() + "æ­£ç›¯è‘—ä½ çœ‹ï¼Œä¸çŸ¥é“åœ¨æ‰“"
+			"ä»€ä¹ˆä¸»æ„ã€‚\n", obj);
+		message("vision", me->name() + "ç›¯ç€" + obj->name() +
+			"çœ‹äº†ä¸€ä¼šå„¿ï¼Œä¸çŸ¥é“åœ¨æ‰“ä»€ä¹ˆä¸»æ„ã€‚\n",
 			environment(me), ({ me, obj }));
 	}
 
         if (stringp(league_name = obj->query("league/league_name")))
         {
-                  str = HIG + "¡¸" + league_name + "¡¹" + NOR + obj->long();
+                  str = HIG + "ã€Œ" + league_name + "ã€" + NOR + obj->long();
         }
         else str = obj->long();
         if (me != obj && objectp(obj->query_temp("is_riding")))
-                str += sprintf("%sÕýÆïÔÚ%sÉÏ£¬µÍÍ·¿´×ÅÄã¡£\n", pro, obj->query_temp("is_riding")->name());
+                str += sprintf("%sæ­£éª‘åœ¨%sä¸Šï¼Œä½Žå¤´çœ‹ç€ä½ ã€‚\n", pro, obj->query_temp("is_riding")->name());
 
         if (obj->is_character() &&
             obj->query("can_speak"))
         {
-                // ÊÇÈËÎï½ÇÉ«
+                // æ˜¯äººç‰©è§’è‰²
                 if (age >= 25 && obj->query("special_skill/youth"))
-                        str += pro + "¿´²»³öÄê¼ÍµÄ´óÐ¡£¬ºÃÏñÖ»ÓÐ¶þÊ®¶àËê¡£\n";
+                        str += pro + "çœ‹ä¸å‡ºå¹´çºªçš„å¤§å°ï¼Œå¥½åƒåªæœ‰äºŒåå¤šå²ã€‚\n";
                 else
                 {
                         if (age >= 200)
-                                str += pro + "¿´ÆðÀ´Äê¼ÍºÜ´óÁË£¬ÄÑÒÔ¹À¼Æ¡£\n";
+                                str += pro + "çœ‹èµ·æ¥å¹´çºªå¾ˆå¤§äº†ï¼Œéš¾ä»¥ä¼°è®¡ã€‚\n";
                         else
                         if (age < 10)
-                                str += pro + "¿´ÆðÀ´Äê¼ÍÉÐÓ×¡£\n";
+                                str += pro + "çœ‹èµ·æ¥å¹´çºªå°šå¹¼ã€‚\n";
                         else
-                                str += pro + "¿´ÆðÀ´ÓÐ" + chinese_number(age / 10 * 10) +
-                                       "¶àËê¡£\n";
+                                str += pro + "çœ‹èµ·æ¥æœ‰" + chinese_number(age / 10 * 10) +
+                                       "å¤šå²ã€‚\n";
                 }
         }
 
@@ -830,16 +830,16 @@ int look_living(object me, object obj)
         if (desc && desc != "")
                 str += pro + desc;
 
-       	// ¼ì²éÈËÎïµÄ´ÌÇàÎÆÉíÇé¿ö
+       	// æ£€æŸ¥äººç‰©çš„åˆºé’çº¹èº«æƒ…å†µ
        	if (obj->is_character()
        	   && obj->query("tattoo"))
        	{
        		str += pro;
 
-                // ¼ì²é½ÇÉ«Á³²¿µÄ´ÌÇàÇé¿ö
+                // æ£€æŸ¥è§’è‰²è„¸éƒ¨çš„åˆºé’æƒ…å†µ
        	        if (obj->query("tattoo/face_long"))
        	        {
-       	                str += "µÄÁ³ÉÏ´ÌÓÐ" +  obj->query("tattoo/face_long") + "¡£\n";
+       	                str += "çš„è„¸ä¸Šåˆºæœ‰" +  obj->query("tattoo/face_long") + "ã€‚\n";
 
        	        	if (((obj->query("tattoo/chest_long")
        	           	   || obj->query("tattoo/back_long"))
@@ -850,97 +850,97 @@ int look_living(object me, object obj)
                 }
 
 
-                // ¼ì²éÇûÌåÇ°ºóµÄ´ÌÇàÇé¿ö£¬Èç¹ûÒ»ÑùÔòÐÞÕýÃèÊö
+                // æ£€æŸ¥èº¯ä½“å‰åŽçš„åˆºé’æƒ…å†µï¼Œå¦‚æžœä¸€æ ·åˆ™ä¿®æ­£æè¿°
        	        if ((obj->query("tattoo/chest_long")
        	           == obj->query("tattoo/back_long"))
        	           && obj->query("tattoo/chest_long")
        	           && obj->query("tattoo/back_long")
        	           && ! objectp(obj->query_temp("armor/cloth")))
        	        {
-       	                str += "ÂãÂ¶³öµÄÐØ¿ÚºÍ±³²¿¶¼´ÌÓÐ" +
-       	                       obj->query("tattoo/chest_long") + "¡£\n";
+       	                str += "è£¸éœ²å‡ºçš„èƒ¸å£å’ŒèƒŒéƒ¨éƒ½åˆºæœ‰" +
+       	                       obj->query("tattoo/chest_long") + "ã€‚\n";
        	        } else
        	        {
        	        	if (obj->query("tattoo/chest_long")
        	                   && ! objectp(obj->query_temp("armor/cloth")))
-       	                	str += "ÂãÂ¶³öµÄÐØ¿ÚÉÏ´ÌÓÐ" +
-       	                               obj->query("tattoo/chest_long") + "¡£\n";
+       	                	str += "è£¸éœ²å‡ºçš„èƒ¸å£ä¸Šåˆºæœ‰" +
+       	                               obj->query("tattoo/chest_long") + "ã€‚\n";
 
        	        	if (obj->query("tattoo/back_long")
        	                   && ! objectp(obj->query_temp("armor/cloth")))
        	        	{
        	                	if (obj->query("tattoo/chest_long"))
-       	                        	str += "¶ø" + pro + "µÄ±³²¿»¹´ÌÓÐ" +
-       	                                       obj->query("tattoo/back_long") + "¡£\n";
+       	                        	str += "è€Œ" + pro + "çš„èƒŒéƒ¨è¿˜åˆºæœ‰" +
+       	                                       obj->query("tattoo/back_long") + "ã€‚\n";
        	                	else
-       	                        	str += "ÂãÂ¶³öµÄ±³²¿´ÌÓÐ" +
-       	                                       obj->query("tattoo/back_long") + "¡£\n";
+       	                        	str += "è£¸éœ²å‡ºçš„èƒŒéƒ¨åˆºæœ‰" +
+       	                                       obj->query("tattoo/back_long") + "ã€‚\n";
        	        	}
        	        }
 
-                // ¼ì²é×óÓÒÊÖ±ÛµÄ´ÌÇàÇé¿ö£¬Èç¹ûÒ»ÑùÔòÐÞÕýÃèÊö
+                // æ£€æŸ¥å·¦å³æ‰‹è‡‚çš„åˆºé’æƒ…å†µï¼Œå¦‚æžœä¸€æ ·åˆ™ä¿®æ­£æè¿°
        	        if ((obj->query("tattoo/leftarm_long")
        	           == obj->query("tattoo/rightarm_long"))
        	           && obj->query("tattoo/leftarm_long")
        	           && obj->query("tattoo/rightarm_long"))
        	        {
-       	                str += "½áÊµµÄË«±ÛÉÏ¶¼´ÌÓÐ" +
-       	                       obj->query("tattoo/leftarm_long") + "¡£\n";
+       	                str += "ç»“å®žçš„åŒè‡‚ä¸Šéƒ½åˆºæœ‰" +
+       	                       obj->query("tattoo/leftarm_long") + "ã€‚\n";
        	        } else
                 {
        	        	if (obj->query("tattoo/leftarm_long"))
-       	                	str += "½áÊµµÄ×ó±ÛÉÏ´ÌÓÐ" +
+       	                	str += "ç»“å®žçš„å·¦è‡‚ä¸Šåˆºæœ‰" +
        	                               obj->query("tattoo/leftarm_long");
 
        	        	if (obj->query("tattoo/rightarm_long"))
        	        	{
        	                	if (obj->query("tattoo/leftarm_long"))
-       	                        	str += "£¬¶øÓÒ±ÛÔò´ÌÓÐ" +
-       	                                       obj->query("tattoo/rightarm_long") + "¡£\n";
+       	                        	str += "ï¼Œè€Œå³è‡‚åˆ™åˆºæœ‰" +
+       	                                       obj->query("tattoo/rightarm_long") + "ã€‚\n";
        	                	else
-       	                        	str += "½áÊµµÄÓÒ±ÛÉÏ´ÌÓÐ" +
-       	                                       obj->query("tattoo/rightarm_long") + "¡£\n";
+       	                        	str += "ç»“å®žçš„å³è‡‚ä¸Šåˆºæœ‰" +
+       	                                       obj->query("tattoo/rightarm_long") + "ã€‚\n";
        	        	} else
        	        	if (obj->query("tattoo/leftarm_long"))
-       	                	str += "¡£\n";
+       	                	str += "ã€‚\n";
        	        }
        	}
-		str +=sprintf("%sÎä¹¦¿´ÆðÀ´ºÃÏó", pro);
+		str +=sprintf("%sæ­¦åŠŸçœ‹èµ·æ¥å¥½è±¡", pro);
 		str+=gettof(me,obj);
-		str += sprintf("£¬");
-		str +=sprintf("³öÊÖËÆºõ");
+		str += sprintf("ï¼Œ");
+		str +=sprintf("å‡ºæ‰‹ä¼¼ä¹Ž");
 		str +=getdam(me,obj);
-		str += sprintf("¡£\n");
+		str += sprintf("ã€‚\n");
         //check about wife and husband
         if (obj->query("id")== me->query("couple/id"))
         {
-                // ·òÆÞ¹ØÏµ
-                if ((string)me->query("gender") == "Å®ÐÔ")
-                        str += sprintf("%s¾ÍÊÇÄãµÄ·ò¾ý¡£\n", pro);
+                // å¤«å¦»å…³ç³»
+                if ((string)me->query("gender") == "å¥³æ€§")
+                        str += sprintf("%så°±æ˜¯ä½ çš„å¤«å›ã€‚\n", pro);
                 else
-                        str += sprintf("%s¾ÍÊÇÄãµÄÆÞ×Ó¡£\n", pro);
+                        str += sprintf("%så°±æ˜¯ä½ çš„å¦»å­ã€‚\n", pro);
         } else
         if (obj->is_brother(me))
         {
-                // ÐÖµÜ
-                if (obj->query("gender") == "Å®ÐÔ")
+                // å…„å¼Ÿ
+                if (obj->query("gender") == "å¥³æ€§")
                 {
                         if (obj->query("mud_age") > me->query("mud_age"))
-                                str += sprintf("%sÊÇÄãµÄÒå½ã¡£\n", pro);
+                                str += sprintf("%sæ˜¯ä½ çš„ä¹‰å§ã€‚\n", pro);
                         else
-                                str += sprintf("%sÊÇÄãµÄ½áÒåÃÃ×Ó¡£\n", pro);
+                                str += sprintf("%sæ˜¯ä½ çš„ç»“ä¹‰å¦¹å­ã€‚\n", pro);
                 } else
                 {
                         if (obj->query("mud_age") > me->query("mud_age"))
-                                str += sprintf("%sÊÇÄãµÄ½áÒåÐÖ³¤¡£\n", pro);
+                                str += sprintf("%sæ˜¯ä½ çš„ç»“ä¹‰å…„é•¿ã€‚\n", pro);
                         else
-                                str += sprintf("%sÊÇÄãµÄÒåµÜ¡£\n", pro);
+                                str += sprintf("%sæ˜¯ä½ çš„ä¹‰å¼Ÿã€‚\n", pro);
                 }
         } else
         if (obj != me && obj->query("league") &&
             obj->query("league/league_name") == me->query("league/league_name"))
         {
-                str += sprintf("%sºÍÄã¾ùÊÇ%sµÄÍ¬ÃËÒåÊ¿¡£\n", pro,
+                str += sprintf("%så’Œä½ å‡æ˜¯%sçš„åŒç›Ÿä¹‰å£«ã€‚\n", pro,
                                obj->query("league/league_name"));
         }
 
@@ -954,37 +954,37 @@ int look_living(object me, object obj)
                 if (fam["generation"] == my_fam["generation"])
                 {
 
-                        if ((string)obj->query("gender") == "ÄÐÐÔ" ||
-                                (string)obj->query("gender") == "ÎÞÐÔ")
-                                str += sprintf( pro + "ÊÇÄãµÄ%s%s¡£\n",
-                                        my_fam["master_id"] == fam["master_id"]? "": "Í¬ÃÅ",
-                                        my_fam["enter_time"] > fam["enter_time"] ? "Ê¦ÐÖ": "Ê¦µÜ");
+                        if ((string)obj->query("gender") == "ç”·æ€§" ||
+                                (string)obj->query("gender") == "æ— æ€§")
+                                str += sprintf( pro + "æ˜¯ä½ çš„%s%sã€‚\n",
+                                        my_fam["master_id"] == fam["master_id"]? "": "åŒé—¨",
+                                        my_fam["enter_time"] > fam["enter_time"] ? "å¸ˆå…„": "å¸ˆå¼Ÿ");
                         else
-                                str += sprintf( pro + "ÊÇÄãµÄ%s%s¡£\n",
-                                        my_fam["master_id"] == fam["master_id"]? "": "Í¬ÃÅ",
-                                        my_fam["enter_time"] > fam["enter_time"] ? "Ê¦½ã": "Ê¦ÃÃ");
+                                str += sprintf( pro + "æ˜¯ä½ çš„%s%sã€‚\n",
+                                        my_fam["master_id"] == fam["master_id"]? "": "åŒé—¨",
+                                        my_fam["enter_time"] > fam["enter_time"] ? "å¸ˆå§": "å¸ˆå¦¹");
                 } else
                 if (fam["generation"] < my_fam["generation"])
                 {
                         if (my_fam["master_id"] == obj->query("id"))
-                                str += pro + "ÊÇÄãµÄÊ¦¸¸¡£\n";
+                                str += pro + "æ˜¯ä½ çš„å¸ˆçˆ¶ã€‚\n";
                         else
                         if (my_fam["generation"] - fam["generation"] > 1)
-                                str += pro + "ÊÇÄãµÄÍ¬ÃÅ³¤±²¡£\n";
+                                str += pro + "æ˜¯ä½ çš„åŒé—¨é•¿è¾ˆã€‚\n";
                         else
                         if (fam["enter_time"] < my_fam["enter_time"])
-                                str += pro + "ÊÇÄãµÄÊ¦²®¡£\n";
+                                str += pro + "æ˜¯ä½ çš„å¸ˆä¼¯ã€‚\n";
                         else
-                                str += pro + "ÊÇÄãµÄÊ¦Êå¡£\n";
+                                str += pro + "æ˜¯ä½ çš„å¸ˆå”ã€‚\n";
                 } else
                 {
                         if (fam["generation"] - my_fam["generation"] > 1)
-                                str += pro + "ÊÇÄãµÄÍ¬ÃÅÍí±²¡£\n";
+                                str += pro + "æ˜¯ä½ çš„åŒé—¨æ™šè¾ˆã€‚\n";
                         else
                         if (fam["master_id"] == me->query("id"))
-                                str += pro + "ÊÇÄãµÄµÜ×Ó¡£\n";
+                                str += pro + "æ˜¯ä½ çš„å¼Ÿå­ã€‚\n";
                         else
-                                str += pro + "ÊÇÄãµÄÊ¦Ö¶¡£\n";
+                                str += pro + "æ˜¯ä½ çš„å¸ˆä¾„ã€‚\n";
                 }
         }
 
@@ -1004,9 +1004,9 @@ int look_living(object me, object obj)
         if (obj->query_temp("daub/poison/remain") &&
             (me == obj || random((int)me->query_skill("poison", 1)) > 80))
         {
-                str += pro + HIG "ÉíÉÏÏÖÔÚ" + (me == obj ? "" : "ËÆºõ") +
-                       "´ãÁË" + (me == obj ? obj->query_temp("daub/poison/name") : "¶¾") +
-                       NOR "¡£\n";
+                str += pro + HIG "èº«ä¸ŠçŽ°åœ¨" + (me == obj ? "" : "ä¼¼ä¹Ž") +
+                       "æ·¬äº†" + (me == obj ? obj->query_temp("daub/poison/name") : "æ¯’") +
+                       NOR "ã€‚\n";
         }
 
         str += look_equiped(me, obj, pro);
@@ -1023,7 +1023,7 @@ int look_living(object me, object obj)
            && (((me_shen - obj_shen) > ((int)obj->query("max_neili") * 20))
            || ((obj_shen - me_shen) > ((int)obj->query("max_neili") * 20))))
         {
-                tell_object(me, obj->name() + "Í»È»×ª¹ýÍ·À´µÉÄãÒ»ÑÛ¡£\n");
+                tell_object(me, obj->name() + "çªç„¶è½¬è¿‡å¤´æ¥çžªä½ ä¸€çœ¼ã€‚\n");
                 if (obj->query("age") > 15 && me->query("age") > 15)
                    if (! wizardp(obj) && ! wizardp(me))
                         COMBAT_D->auto_fight(obj, me, "berserk");
@@ -1037,7 +1037,7 @@ int look_room_item(object me, string arg)
         mapping item, exits;
 
         if (! objectp(env = environment(me)))
-                return notify_fail("ÕâÀïÖ»ÓÐ»ÒÃÉÃÉµØÒ»Æ¬£¬Ê²Ã´Ò²Ã»ÓÐ¡£\n");
+                return notify_fail("è¿™é‡Œåªæœ‰ç°è’™è’™åœ°ä¸€ç‰‡ï¼Œä»€ä¹ˆä¹Ÿæ²¡æœ‰ã€‚\n");
         if (mapp(item = env->query("item_desc")) && !undefinedp(item[arg]))
 	{
                 if (stringp(item[arg]))
@@ -1059,20 +1059,20 @@ int look_room_item(object me, string arg)
                 }
                 return 1;
         }
-        return notify_fail("ÄãÒª¿´Ê²Ã´£¿\n");
+        return notify_fail("ä½ è¦çœ‹ä»€ä¹ˆï¼Ÿ\n");
 }
 
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: look [<ÎïÆ·>|<ÉúÎï>|<·½Ïò>]
+æŒ‡ä»¤æ ¼å¼: look [<ç‰©å“>|<ç”Ÿç‰©>|<æ–¹å‘>]
 
-Õâ¸öÖ¸ÁîÈÃÄã²é¿´ÄãËùÔÚµÄ»·¾³¡¢Ä³¼þÎïÆ·¡¢ÉúÎï¡¢»òÊÇ·½Ïò¡£Èç¹û
-ÔÚlookÖ¸ÁîºóÃæÓÐ²ÎÊý£¬½«ÏÈ²ì¿´ÉíÉÏÊÇ·ñÓÐ¸ÃÎïÆ·£¬Èç¹ûÃ»ÓÐÔò²ì
-¿´ÄãËùÔÚµÄ»·¾³ÖÐÊÇ·ñÓÐ¸ÃÎïÆ·»òÈËÎï¡£Èç¹ûÄãÉíÉÏµÄÎïÆ·ºÍÄãËùÔÚ
-µÄ»·¾³ÓÐIDÏàÍ¬µÄÎïÆ·£¬Äã¿ÉÒÔÖ¸Ã÷look ??? of me/here ÒÔÖ¸Ã÷Äã
-ÏëÒª²ì¿´×Ô¼ºÉíÉÏµÄÎïÆ·»¹ÊÇ¸½½ü»·¾³ÖÐµÄÎïÆ·¡£Í¬Ê±£¬Èç¹ûÊ¹ÓÃÃü
-Áî look ??? of <id> ¿ÉÒÔ¿´ËûÈËµÄ×°±¸»òÊÇÁÁ³öÀ´µÄÎïÆ·¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ æŸ¥çœ‹ä½ æ‰€åœ¨çš„çŽ¯å¢ƒã€æŸä»¶ç‰©å“ã€ç”Ÿç‰©ã€æˆ–æ˜¯æ–¹å‘ã€‚å¦‚æžœ
+åœ¨lookæŒ‡ä»¤åŽé¢æœ‰å‚æ•°ï¼Œå°†å…ˆå¯Ÿçœ‹èº«ä¸Šæ˜¯å¦æœ‰è¯¥ç‰©å“ï¼Œå¦‚æžœæ²¡æœ‰åˆ™å¯Ÿ
+çœ‹ä½ æ‰€åœ¨çš„çŽ¯å¢ƒä¸­æ˜¯å¦æœ‰è¯¥ç‰©å“æˆ–äººç‰©ã€‚å¦‚æžœä½ èº«ä¸Šçš„ç‰©å“å’Œä½ æ‰€åœ¨
+çš„çŽ¯å¢ƒæœ‰IDç›¸åŒçš„ç‰©å“ï¼Œä½ å¯ä»¥æŒ‡æ˜Žlook ??? of me/here ä»¥æŒ‡æ˜Žä½ 
+æƒ³è¦å¯Ÿçœ‹è‡ªå·±èº«ä¸Šçš„ç‰©å“è¿˜æ˜¯é™„è¿‘çŽ¯å¢ƒä¸­çš„ç‰©å“ã€‚åŒæ—¶ï¼Œå¦‚æžœä½¿ç”¨å‘½
+ä»¤ look ??? of <id> å¯ä»¥çœ‹ä»–äººçš„è£…å¤‡æˆ–æ˜¯äº®å‡ºæ¥çš„ç‰©å“ã€‚
 
 HELP
 );

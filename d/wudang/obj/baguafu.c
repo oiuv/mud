@@ -1,17 +1,17 @@
-//baguafu.c °ËØÔµÜ×Ó·ş
+//baguafu.c å…«å¦å¼Ÿå­æœ
 #include <armor.h>
 inherit CLOTH;
 
 void create()
 {
-        set_name("°ËØÔ·ş", ({ "baguafu" }));
-        set("long", "ÕâÊÇ°ËØÔµÜ×ÓÁ·¹¦·ş¡£\n");
+        set_name("å…«å¦æœ", ({ "baguafu" }));
+        set("long", "è¿™æ˜¯å…«å¦å¼Ÿå­ç»ƒåŠŸæœã€‚\n");
         set_weight(2000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
                 set("material", "cloth");
-                set("unit", "¼ş");
+                set("unit", "ä»¶");
                 set("value", 200);
                 set("armor_prop/armor", 50);
         }

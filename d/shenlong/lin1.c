@@ -9,11 +9,11 @@ string* npcs = ({
  
 void create()
 {
-        set("short", "¹àÄ¾ÁÖ");
+        set("short", "çŒæœ¨æ—");
         set("long",@LONG
-ÕâÊÇÒ»Æ¬¹àÄ¾ÁÖ¡£ÄãÃ»ÓĞÏëµ½ÕâÑùÒ»¸ö¹ÂµºÉÏ¾¹ÓĞÕâÑù´óÒ»Æ¬¹à
-Ä¾ÁÖ(bush)£¬²»ÓÉ¸Ğµ½·Ç³£³Ô¾ª¡£Ç°Ãæ¸ù±¾Ã»ÓĞÂ·£¬ËÄÖÜµÄÃÜÁÖÖĞ³¤
-ÂúÁËÔÓ²İ¡£
+è¿™æ˜¯ä¸€ç‰‡çŒæœ¨æ—ã€‚ä½ æ²¡æœ‰æƒ³åˆ°è¿™æ ·ä¸€ä¸ªå­¤å²›ä¸Šç«Ÿæœ‰è¿™æ ·å¤§ä¸€ç‰‡çŒ
+æœ¨æ—(bush)ï¼Œä¸ç”±æ„Ÿåˆ°éå¸¸åƒæƒŠã€‚å‰é¢æ ¹æœ¬æ²¡æœ‰è·¯ï¼Œå››å‘¨çš„å¯†æ—ä¸­é•¿
+æ»¡äº†æ‚è‰ã€‚
 LONG);
 
 	set("exits", ([
@@ -21,7 +21,7 @@ LONG);
 	]));
 
 	set("item_desc", ([
-	    "bush" : "ÕâÆ¬¹àÄ¾ÁÖÌ«ÉîÁË,ÒªÏë¹ıÈ¥¿ÖÅÂÖ»ÓĞ¿³³öÒ»ÌõÂ·ÁË(kan)¡£\n",
+	    "bush" : "è¿™ç‰‡çŒæœ¨æ—å¤ªæ·±äº†,è¦æƒ³è¿‡å»ææ€•åªæœ‰ç å‡ºä¸€æ¡è·¯äº†(kan)ã€‚\n",
 	]));
 
 	set("objects", ([
@@ -45,28 +45,28 @@ int do_kan(string arg)
         object me;
 
         if (arg != "bush")
-                return notify_fail("ÄãÒª¿³Ê²Ã´£¿\n" ) ;
+                return notify_fail("ä½ è¦ç ä»€ä¹ˆï¼Ÿ\n" ) ;
 
         me = this_player();
 	if (! objectp(weapon = me->query_temp("weapon")))
-		return notify_fail("²»ÓÃÎäÆ÷¿ÖÅÂ²»ĞĞ°É£¡\n");
+		return notify_fail("ä¸ç”¨æ­¦å™¨ææ€•ä¸è¡Œå§ï¼\n");
 
         if (weapon->query("skill_type") != "blade" &&
             weapon->query("skill_type") != "sword")
-                return notify_fail(weapon->name() + "Ò²ÄÜÓÃÀ´¿³¶«Î÷£¿\n");
+                return notify_fail(weapon->name() + "ä¹Ÿèƒ½ç”¨æ¥ç ä¸œè¥¿ï¼Ÿ\n");
 
-	message_vision("$N³é³ö±øÈĞ£¬¶Ô×Å¹àÄ¾´Ô¾ÍÊÇÒ»ÕóÂÒ¿³¡£\n", me);
+	message_vision("$NæŠ½å‡ºå…µåˆƒï¼Œå¯¹ç€çŒæœ¨ä¸›å°±æ˜¯ä¸€é˜µä¹±ç ã€‚\n", me);
 
         if (me->query("neili") > 100)
         {
                 set("exits/north", __DIR__"lin2");
-                message_vision("$NÀÛµÃÆø´­ÓõÓõ,ÖÕÓÚ¿³³öÒ»ÌõĞ¡Â·¡£\n", me);
+                message_vision("$Nç´¯å¾—æ°”å–˜åå,ç»ˆäºç å‡ºä¸€æ¡å°è·¯ã€‚\n", me);
                 me->add("neili", -50);
                 remove_call_out("close");
                 call_out("close", 20);
 	} else	
 	{
-                message_vision("$NÀÛµÃÆø´­ÓõÓõ,Ò²Ã»¿³¿ªÒ»ÌõÂ·À´¡£\n", me);
+                message_vision("$Nç´¯å¾—æ°”å–˜åå,ä¹Ÿæ²¡ç å¼€ä¸€æ¡è·¯æ¥ã€‚\n", me);
 	        me->set("neili", 0);
 	}
         return 1;
@@ -74,7 +74,7 @@ int do_kan(string arg)
 
 void close()
 {
-        message("vision", "¹àÄ¾´Ô½¥½¥ºÏÂ£ÆğÀ´,ÖÕÓÚÓÖ»Ö¸´ÁËÔ­×´¡£\n",
+        message("vision", "çŒæœ¨ä¸›æ¸æ¸åˆæ‹¢èµ·æ¥,ç»ˆäºåˆæ¢å¤äº†åŸçŠ¶ã€‚\n",
                 this_object());
         delete("exits/north");
 }

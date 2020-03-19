@@ -3,7 +3,7 @@
  
 inherit F_SSERVER;
 
-#define HUN "¡¸" HIR "»ìãçÒ»Ñô" NOR "¡¹"
+#define HUN "ã€Œ" HIR "æ··æ²Œä¸€é˜³" NOR "ã€"
 
 int perform(object me, object target)
 {
@@ -12,7 +12,7 @@ int perform(object me, object target)
         int damage;
 
         if (userp(me) && ! me->query("can_perform/jiuyang-shengong/hun"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target)
         {
@@ -21,31 +21,31 @@ int perform(object me, object target)
         }
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(HUN "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(HUN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(HUN "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(HUN "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if (me->query_skill("jiuyang-shengong", 1) < 180)
-                return notify_fail("ÄãµÄ¾ÅÑôÉñ¹¦»¹²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" HUN "¡£\n");
+                return notify_fail("ä½ çš„ä¹é˜³ç¥åŠŸè¿˜ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" HUN "ã€‚\n");
 
         if (me->query_skill_mapped("unarmed") != "jiuyang-shengong")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ¼¤·¢¾ÅÑôÉñ¹¦ÎªÈ­½Å£¬ÄÑÒÔÊ©Õ¹" HUN "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰æ¿€å‘ä¹é˜³ç¥åŠŸä¸ºæ‹³è„šï¼Œéš¾ä»¥æ–½å±•" HUN "ã€‚\n");
 
         if (me->query_skill_mapped("force") != "jiuyang-shengong")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ¼¤·¢¾ÅÑôÉñ¹¦ÎªÄÚ¹¦£¬ÄÑÒÔÊ©Õ¹" HUN "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰æ¿€å‘ä¹é˜³ç¥åŠŸä¸ºå†…åŠŸï¼Œéš¾ä»¥æ–½å±•" HUN "ã€‚\n");
 
         if (me->query_skill_prepared("unarmed") != "jiuyang-shengong")
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ×¼±¸Ê¹ÓÃ¾ÅÑôÉñ¹¦£¬ÄÑÒÔÊ©Õ¹" HUN "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰å‡†å¤‡ä½¿ç”¨ä¹é˜³ç¥åŠŸï¼Œéš¾ä»¥æ–½å±•" HUN "ã€‚\n");
 
         if (me->query("neili") < 300)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬ÄÑÒÔÊ©Õ¹" HUN "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HUN "ã€‚\n");
  
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIR "$N" HIR "¿çÇ°Ò»²½£¬Ë«ÊÖ»ØÈ¦£¬ÆÄµÃÌ«¼«Ö®Òâ¡£ÕÆĞÄ¶ÙÊ±ÉÁ"
-              "³öÒ»¸öÆøÍÅ£¬Ïò$n" HIR "µçÉä¶øÈ¥¡£\n" NOR;
+        msg = HIR "$N" HIR "è·¨å‰ä¸€æ­¥ï¼ŒåŒæ‰‹å›åœˆï¼Œé¢‡å¾—å¤ªæä¹‹æ„ã€‚æŒå¿ƒé¡¿æ—¶é—ª"
+              "å‡ºä¸€ä¸ªæ°”å›¢ï¼Œå‘$n" HIR "ç”µå°„è€Œå»ã€‚\n" NOR;
  
         ap = me->query_skill("jiuyang-shengong", 1) * 2 + me->query("con") * 10 +
              me->query_skill("martial-cognize", 1);
@@ -56,8 +56,8 @@ int perform(object me, object target)
 
         if (ap / 2 + random(ap) < dp)
         {
-                msg += HIY "È»¶ø$n" HIY "È«Á¦µÖµ²£¬ÖÕÓÚ½«$N" HIY
-                       "·¢³öµÄÆøÍÅ²¦¿ª¡£\n" NOR;
+                msg += HIY "ç„¶è€Œ$n" HIY "å…¨åŠ›æŠµæŒ¡ï¼Œç»ˆäºå°†$N" HIY
+                       "å‘å‡ºçš„æ°”å›¢æ‹¨å¼€ã€‚\n" NOR;
 	        me->start_busy(3);
         } else
         {
@@ -65,9 +65,9 @@ int perform(object me, object target)
 	        me->start_busy(1);
                 damage = ap / 2 + random(ap / 2);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 50,
-                                           HIR "$n" HIR "¼±Ã¦³éÉíºóÍË£¬¿ÉÊÇÆøÍÅÉä"
-                                           "µÃ¸ü¿ì£¬Ö»Ìı$p" HIR "Ò»Éù²Ò½Ğ£¬ÏÊÑª·É"
-                                           "½¦£¡\n" NOR);
+                                           HIR "$n" HIR "æ€¥å¿™æŠ½èº«åé€€ï¼Œå¯æ˜¯æ°”å›¢å°„"
+                                           "å¾—æ›´å¿«ï¼Œåªå¬$p" HIR "ä¸€å£°æƒ¨å«ï¼Œé²œè¡€é£"
+                                           "æº…ï¼\n" NOR);
         }
         message_combatd(msg, me, target);
         return 1;

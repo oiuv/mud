@@ -1,10 +1,10 @@
 inherit ROOM;
 void create()
 {
-        set("short", "�ϴ��");
+        set("short", "南大街");
         set("long", @LONG
-������һ����æ�Ľֵ��ϣ����Ų�����ǻ������������ɫ
-�Ҵң������˶���������ȥ��������һ�����ֵĹ㳡��
+你走在一条繁忙的街道上，看着操着南腔北调的人们行色
+匆匆，许多人都往北边走去，那里有一个热闹的广场。
 LONG);
         set("outdoors", "lanzhou");
         set("exits", ([

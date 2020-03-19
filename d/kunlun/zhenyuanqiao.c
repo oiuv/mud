@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "��Զ��");
+	set("short", "镇远桥");
         set("long",@long
-�����źųơ����»ƺӵ�һ�š������Ƽ�Ϊ��ΰ��������
-�򣬶�����ԭ���ƺ�ˮ���ŵ���к��������¡���졣
+这座桥号称“天下黄河第一桥”，气势极为雄伟，扼守西
+域，东往中原。黄河水从桥底倾泻而过，轰隆作响。
 long);
 
          set("exits",([

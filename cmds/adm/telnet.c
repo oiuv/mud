@@ -16,12 +16,12 @@ int main(object me, string arg)
         seteuid(getuid());
 
         if (! arg)
-                return notify_fail("ÄãÒªÁ¬½ÓÄÄÀï£¿\n");
+                return notify_fail("ä½ è¦è¿æ¥å“ªé‡Œï¼Ÿ\n");
 
         if (mapp(minfo = DNS_MASTER->query_mud_info(arg)))
         {
                 arg = minfo["HOSTADDRESS"] + " " + minfo["PORT"];
-                write("Á¬½Ó" + minfo["NAME"] + "(" + arg + ")\n");
+                write("è¿æ¥" + minfo["NAME"] + "(" + arg + ")\n");
         } else
         if (sscanf(arg, "%*s %*s") != 2)
                 arg += " 23";
@@ -29,7 +29,7 @@ int main(object me, string arg)
         tob = new("/shadow/telnet");
         if (tob->do_shadow(me, 1) != me)
         {
-                write("ÏµÍ³´íÎó£¬Ó³ÉäÊ§°Ü¡£\n");
+                write("ç³»ç»Ÿé”™è¯¯ï¼Œæ˜ å°„å¤±è´¥ã€‚\n");
                 return 1;
         }
 
@@ -40,11 +40,11 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: telnet <MUD> | <Ö÷»úµØÖ·> [<Ä¿µÄ¶Ë¿Ú>]
+æŒ‡ä»¤æ ¼å¼: telnet <MUD> | <ä¸»æœºåœ°å€> [<ç›®çš„ç«¯å£>]
 
-Õâ¸öÖ¸ÁîÈÃÄã¿ÉÒÔÁ¬½ÓÁíÍâÒ»¸ö·şÎñÆ÷¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ å¯ä»¥è¿æ¥å¦å¤–ä¸€ä¸ªæœåŠ¡å™¨ã€‚
 
-Á¬½ÓÊ±ÊäÈë CLOSE ÃüÁî¿ÉÒÔÖÕÖ¹Á¬½Ó¡£
+è¿æ¥æ—¶è¾“å…¥ CLOSE å‘½ä»¤å¯ä»¥ç»ˆæ­¢è¿æ¥ã€‚
 
 HELP );
         return 1;

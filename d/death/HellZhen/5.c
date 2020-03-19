@@ -16,7 +16,7 @@ void create()
         name += last_words[random(sizeof(last_words))];
         
         set_name(name, ({ "ghost"}) );
-        set("gender", "ÄĞĞÔ" );        
+        set("gender", "ç”·æ€§" );        
         set("age",40);
         set("str", 30);
         set("int", 20);
@@ -79,8 +79,8 @@ void invocation(object target)
 
         skill = me->query_skill("longzhua-gong", 1);
 
-        msg = HIY "$N" HIY "´óºÈÒ»Éù£¬·ÉÉíÆËÖÁ$n" HIY "ÃæÇ°£¬Ëæ¼´ÉìÊÖ×¥Ïò"
-              "$p" HIY "µÄÒªº¦£¡\n" NOR;
+        msg = HIY "$N" HIY "å¤§å–ä¸€å£°ï¼Œé£èº«æ‰‘è‡³$n" HIY "é¢å‰ï¼Œéšå³ä¼¸æ‰‹æŠ“å‘"
+              "$p" HIY "çš„è¦å®³ï¼\n" NOR;
  
         ap = me->query_skill("claw") * 3 / 2 + me->query_skill("martial-cognize", 1);
         dp = target->query_skill("parry") + target->query_skill("martial-cognize", 1);
@@ -89,16 +89,16 @@ void invocation(object target)
                 me->add("neili", -180);
                 damage = ap / 3 + random(ap / 5);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 90,
-                                           HIR "$p" HIR "¼ûÀ´ÊÆĞ×ÃÍ£¬ÄÑÒÔ¶ã±Ü£¬Ö»ºÃ"
-                                           "ÃãÇ¿»¯½â£¬Ë­Öª$P" HIR "µÄÊÖºÃÏñ³¤ÁËÑÛ¾¦"
-                                           "Ò»°ã£¬ÆËßêÒ»ÏÂÕı×¥ÖĞ$p" HIR "µÄÒªº¦£¬µÇ"
-                                           "Ê±ÏÊÑª·É½¦£¡\n" NOR);
+                                           HIR "$p" HIR "è§æ¥åŠ¿å‡¶çŒ›ï¼Œéš¾ä»¥èº²é¿ï¼Œåªå¥½"
+                                           "å‹‰å¼ºåŒ–è§£ï¼Œè°çŸ¥$P" HIR "çš„æ‰‹å¥½åƒé•¿äº†çœ¼ç›"
+                                           "ä¸€èˆ¬ï¼Œæ‰‘å“§ä¸€ä¸‹æ­£æŠ“ä¸­$p" HIR "çš„è¦å®³ï¼Œç™»"
+                                           "æ—¶é²œè¡€é£æº…ï¼\n" NOR);
                 me->start_busy(2);
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "µÄ¿´ÆÆÁË$P" CYN
-                       "µÄÕĞÊ½£¬Á¬Ïû´ø´ò£¬È«È»»¯½âÁË$P"
-                       CYN "µÄ¹¥ÊÆ¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çš„çœ‹ç ´äº†$P" CYN
+                       "çš„æ‹›å¼ï¼Œè¿æ¶ˆå¸¦æ‰“ï¼Œå…¨ç„¶åŒ–è§£äº†$P"
+                       CYN "çš„æ”»åŠ¿ã€‚\n" NOR;
                 me->add("neili",-60);
                 me->start_busy(3);
         }

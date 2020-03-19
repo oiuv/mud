@@ -6,12 +6,12 @@ inherit KNOWER;
 
 void create()
 {
-	set_name("Îä¶ØÈå", ({"wu dunru", "wu", "dunru"}));
-	set("title", HIY"¹ù¾¸´óµÜ×Ó"NOR);
-	set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
-	set("gender", "ÄĞĞÔ");
+	set_name("æ­¦æ•¦å„’", ({"wu dunru", "wu", "dunru"}));
+	set("title", HIY"éƒ­é–å¤§å¼Ÿå­"NOR);
+	set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
+	set("gender", "ç”·æ€§");
 	set("age", 23);
-	set("long", "ËûÊÇ¹ù¾¸´óµÜ×Ó£¬ÏàÃ²ºÍ°ª£¬Ò»Ììµ½ÍíĞ¦ºÇºÇµÄ¡£\n");
+	set("long", "ä»–æ˜¯éƒ­é–å¤§å¼Ÿå­ï¼Œç›¸è²Œå’Œè”¼ï¼Œä¸€å¤©åˆ°æ™šç¬‘å‘µå‘µçš„ã€‚\n");
  	set("attitude", "peaceful");
 	
 	set("per", 24);
@@ -21,8 +21,8 @@ void create()
 	set("dex", 25);
 
 	set("inquiry", ([
-		"»ÆÈØ" : "ÄÇÊÇÎÒÊ¦Ä¸¡£\n",
-		"¹ù¾¸" : "ÄÇÊÇÎÒÊ¦¸¸¡£\n",
+		"é»„è“‰" : "é‚£æ˜¯æˆ‘å¸ˆæ¯ã€‚\n",
+		"éƒ­é–" : "é‚£æ˜¯æˆ‘å¸ˆçˆ¶ã€‚\n",
 	]));
 
 	set("qi", 1000);

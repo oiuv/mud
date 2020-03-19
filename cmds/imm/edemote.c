@@ -17,13 +17,13 @@ int main(object me, string arg)
         seteuid(getuid());
 
         if (! VERSION_D->is_release_server())
-                return notify_fail("Ö»ÓĞ°æ±¾·¢²¼Õ¾µã²ÅÄÜĞŞ¸Ä±íÇé¶¯´Ê¡£\n");
+                return notify_fail("åªæœ‰ç‰ˆæœ¬å‘å¸ƒç«™ç‚¹æ‰èƒ½ä¿®æ”¹è¡¨æƒ…åŠ¨è¯ã€‚\n");
 
-        if (! arg) return notify_fail("ÄãÒª±à¼­Ê²Ã´ emote£¿\n");
+        if (! arg) return notify_fail("ä½ è¦ç¼–è¾‘ä»€ä¹ˆ emoteï¼Ÿ\n");
 
         if (sscanf(arg, "-d %s", arg))
         {
-                write("É¾³ı emote£º" + arg + "\n");
+                write("åˆ é™¤ emoteï¼š" + arg + "\n");
                 EMOTE_D->delete_emote(arg);
                 return 1;
         }
@@ -33,12 +33,12 @@ int main(object me, string arg)
                 if (! mapp(emote = EMOTE_D->query_emote(arg)) ||
                     ! sizeof(emote))
                 {
-                        write("Ã»ÓĞÕâ¸ö±íÇé¶¯´Ê¡£\n");
+                        write("æ²¡æœ‰è¿™ä¸ªè¡¨æƒ…åŠ¨è¯ã€‚\n");
                         return 1;
                 }
 
-                write(sprintf("ÉÏ´ÎĞŞ¸Ä£º%s(%s)\n", emote["updated"], ctime(emote["time"])));
-                write(sprintf("¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
+                write(sprintf("ä¸Šæ¬¡ä¿®æ”¹ï¼š%s(%s)\n", emote["updated"], ctime(emote["time"])));
+                write(sprintf("â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
                         emote["myself"], emote["others"], emote["myself_self"],
                         emote["others_self"], emote["myself_target"], emote["target"],
                         emote["others_target"]));
@@ -48,29 +48,29 @@ int main(object me, string arg)
         write(sprintf("arg = %s\n", arg));
         for (i = 0; i < strlen(arg); i++)
                 if (arg[i] <= 32 || arg[i] > 'z')
-                        return notify_fail("±íÇé¶¯´Ê±ØĞëÓÉ×ÖÄ¸»òÊı×Ö¡¢±êµã¹¹³É¡£\n");
+                        return notify_fail("è¡¨æƒ…åŠ¨è¯å¿…é¡»ç”±å­—æ¯æˆ–æ•°å­—ã€æ ‡ç‚¹æ„æˆã€‚\n");
 
         emote = EMOTE_D->query_emote(arg);
         if (! mapp(emote)) emote = ([ ]);
 
         emote["updated"] = geteuid(me);
 
-        write("±à¼­ emote£º" + arg + "\n");
-        write("Ñ¶Ï¢¿ÉÒÔÓĞºÃ¼¸ĞĞ£¬ÓÃ . ±íÊ¾½áÊø¡£\n"
-              "ÊäÈë x ±íÊ¾¸ÃĞĞ²ÉÓÃÍ¬Ò»×åÀàËÆµÄ±íÇéÃèÊö¡£\n");
-        write("Ñ¶Ï¢ÖĞ¿ÉÊ¹ÓÃµÄ²ÎÊıÓĞÒÔÏÂ¼¸ÖÖ£º\n");
-        write("  $N  ×Ô¼ºµÄÃû×Ö¡£\n");
-        write("  $n  Ê¹ÓÃ¶ÔÏóµÄÃû×Ö¡£\n");
-        write("  $P  ×Ô¼ºµÄÈË³Æ´úÃû´Ê£¬ÈçÄã¡¢Äã¡¢Ëû¡¢Ëı¡¢Ëü¡¢Ëü¡£\n");
-        write("  $p  Ê¹ÓÃ¶ÔÏóµÄÈË³Æ´úÃû´Ê£¬ÈçÄã¡¢Äã¡¢Ëû¡¢Ëı¡¢Ëü¡¢Ëü¡£\n");
-        write("  $S  ¶Ô×Ô¼ºµÄ³Æºô¡£\n");
-        write("  $s  ¶Ô×Ô¼ºµÄ´ÖÂ³³Æºô¡£\n");
-        write("  $C  ¶Ô×Ô¼ºµÄÄØ³Æ¡£\n");
-        write("  $c  ¶Ô±ğÈËµÄÄØ³Æ¡£\n");
-        write("  $R  ¶Ô±ğÈËµÄ×ğ³Æ¡£\n");
-        write("  $r  ¶Ô±ğÈËµÄ´ÖÂ³³Æºô¡£\n");
-        write("¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª\n");
-        write("²»Ö¸¶¨¶ÔÏóÊ¹ÓÃÕâ¸ö emote Ê±£¬Äã×Ô¼º¿´µ½µÄÑ¶Ï¢£º\n->");
+        write("ç¼–è¾‘ emoteï¼š" + arg + "\n");
+        write("è®¯æ¯å¯ä»¥æœ‰å¥½å‡ è¡Œï¼Œç”¨ . è¡¨ç¤ºç»“æŸã€‚\n"
+              "è¾“å…¥ x è¡¨ç¤ºè¯¥è¡Œé‡‡ç”¨åŒä¸€æ—ç±»ä¼¼çš„è¡¨æƒ…æè¿°ã€‚\n");
+        write("è®¯æ¯ä¸­å¯ä½¿ç”¨çš„å‚æ•°æœ‰ä»¥ä¸‹å‡ ç§ï¼š\n");
+        write("  $N  è‡ªå·±çš„åå­—ã€‚\n");
+        write("  $n  ä½¿ç”¨å¯¹è±¡çš„åå­—ã€‚\n");
+        write("  $P  è‡ªå·±çš„äººç§°ä»£åè¯ï¼Œå¦‚ä½ ã€ä½ ã€ä»–ã€å¥¹ã€å®ƒã€å®ƒã€‚\n");
+        write("  $p  ä½¿ç”¨å¯¹è±¡çš„äººç§°ä»£åè¯ï¼Œå¦‚ä½ ã€ä½ ã€ä»–ã€å¥¹ã€å®ƒã€å®ƒã€‚\n");
+        write("  $S  å¯¹è‡ªå·±çš„ç§°å‘¼ã€‚\n");
+        write("  $s  å¯¹è‡ªå·±çš„ç²—é²ç§°å‘¼ã€‚\n");
+        write("  $C  å¯¹è‡ªå·±çš„å‘¢ç§°ã€‚\n");
+        write("  $c  å¯¹åˆ«äººçš„å‘¢ç§°ã€‚\n");
+        write("  $R  å¯¹åˆ«äººçš„å°Šç§°ã€‚\n");
+        write("  $r  å¯¹åˆ«äººçš„ç²—é²ç§°å‘¼ã€‚\n");
+        write("â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”\n");
+        write("ä¸æŒ‡å®šå¯¹è±¡ä½¿ç”¨è¿™ä¸ª emote æ—¶ï¼Œä½ è‡ªå·±çœ‹åˆ°çš„è®¯æ¯ï¼š\n->");
         input_to("get_msg_myself", emote, arg);
         return 1;
 }
@@ -84,8 +84,8 @@ int get_msg_myself(string msg, mapping emote, string pattern, int n)
                 if (msg == "x")
                         map_delete(emote, "myself");
                 else
-                if (! n) write("ºöÂÔ¸ÃÏîÃèÊö¡£\n");
-                write("²»Ö¸¶¨¶ÔÏóÊ¹ÓÃÕâ¸ö emote Ê±£¬ÆäËûÈË¿´µ½µÄÑ¶Ï¢£º\n->");
+                if (! n) write("å¿½ç•¥è¯¥é¡¹æè¿°ã€‚\n");
+                write("ä¸æŒ‡å®šå¯¹è±¡ä½¿ç”¨è¿™ä¸ª emote æ—¶ï¼Œå…¶ä»–äººçœ‹åˆ°çš„è®¯æ¯ï¼š\n->");
                 input_to("get_msg_others", emote, pattern);
                 return 1;
         }
@@ -107,8 +107,8 @@ int get_msg_others(string msg, mapping emote, string pattern, int n)
                 if (msg == "x")
                         map_delete(emote, "others");
                 else
-                if (! n) write("ºöÂÔ¸ÃÏîÃèÊö¡£\n");
-                write("¶Ô×Ô¼ºÊ¹ÓÃÕâ¸ö emote Ê±£¬×Ô¼º¿´µ½µÄÑ¶Ï¢£º\n->");
+                if (! n) write("å¿½ç•¥è¯¥é¡¹æè¿°ã€‚\n");
+                write("å¯¹è‡ªå·±ä½¿ç”¨è¿™ä¸ª emote æ—¶ï¼Œè‡ªå·±çœ‹åˆ°çš„è®¯æ¯ï¼š\n->");
                 input_to("get_msg_myself_self", emote, pattern);
                 return 1;
         }
@@ -130,8 +130,8 @@ int get_msg_myself_self(string msg, mapping emote, string pattern, int n)
                 if (msg == "x")
                         map_delete(emote, "myself_self");
                 else
-                if (! n) write("ºöÂÔ¸ÃÏîÃèÊö¡£\n");
-                write("¶Ô×Ô¼ºÊ¹ÓÃÕâ¸ö emote Ê±£¬ÆäËûÈË¿´µ½µÄÑ¶Ï¢£º\n->");
+                if (! n) write("å¿½ç•¥è¯¥é¡¹æè¿°ã€‚\n");
+                write("å¯¹è‡ªå·±ä½¿ç”¨è¿™ä¸ª emote æ—¶ï¼Œå…¶ä»–äººçœ‹åˆ°çš„è®¯æ¯ï¼š\n->");
                 input_to("get_msg_others_self", emote, pattern);
                 return 1;
         }
@@ -153,8 +153,8 @@ int get_msg_others_self(string msg, mapping emote, string pattern, int n)
                 if (msg == "x")
                         map_delete(emote, "others_self");
                 else
-                if (! n) write("ºöÂÔ¸ÃÏîÃèÊö¡£\n");
-                write("¶Ô±ğÈËÊ¹ÓÃÕâ¸ö emote Ê±£¬×Ô¼º¿´µ½µÄÑ¶Ï¢£º\n->");
+                if (! n) write("å¿½ç•¥è¯¥é¡¹æè¿°ã€‚\n");
+                write("å¯¹åˆ«äººä½¿ç”¨è¿™ä¸ª emote æ—¶ï¼Œè‡ªå·±çœ‹åˆ°çš„è®¯æ¯ï¼š\n->");
                 input_to("get_msg_myself_target", emote, pattern);
                 return 1;
         }
@@ -176,8 +176,8 @@ int get_msg_myself_target(string msg, mapping emote, string pattern, int n)
                 if (msg == "x")
                         map_delete(emote, "myself_target");
                 else
-                if (! n) write("ºöÂÔ¸ÃÏîÃèÊö¡£\n");
-                write("¶Ô±ğÈËÊ¹ÓÃÕâ¸ö emote Ê±£¬Ê¹ÓÃ¶ÔÏó¿´µ½µÄÑ¶Ï¢£º\n->");
+                if (! n) write("å¿½ç•¥è¯¥é¡¹æè¿°ã€‚\n");
+                write("å¯¹åˆ«äººä½¿ç”¨è¿™ä¸ª emote æ—¶ï¼Œä½¿ç”¨å¯¹è±¡çœ‹åˆ°çš„è®¯æ¯ï¼š\n->");
                 input_to("get_msg_target", emote, pattern);
                 return 1;
         }
@@ -199,8 +199,8 @@ int get_msg_target(string msg, mapping emote, string pattern, int n)
                 if (msg == "x")
                         map_delete(emote, "target");
                 else
-                if (! n) write("ºöÂÔ¸ÃÏîÃèÊö¡£\n");
-                write("¶Ô±ğÈËÊ¹ÓÃÕâ¸ö emote Ê±£¬³ıÄã×Ô¼ººÍÊ¹ÓÃ¶ÔÏóÍâ£¬ÆäËûÈË¿´µ½µÄÑ¶Ï¢£º\n->");
+                if (! n) write("å¿½ç•¥è¯¥é¡¹æè¿°ã€‚\n");
+                write("å¯¹åˆ«äººä½¿ç”¨è¿™ä¸ª emote æ—¶ï¼Œé™¤ä½ è‡ªå·±å’Œä½¿ç”¨å¯¹è±¡å¤–ï¼Œå…¶ä»–äººçœ‹åˆ°çš„è®¯æ¯ï¼š\n->");
                 input_to("get_msg_others_target", emote, pattern);
                 return 1;
         }
@@ -222,10 +222,10 @@ int get_msg_others_target(string msg, mapping emote, string pattern, int n)
                 if (msg == "x")
                         map_delete(emote, "others_target");
                 else
-                if (! n) write("ºöÂÔ¸ÃÏîÃèÊö¡£\n");
+                if (! n) write("å¿½ç•¥è¯¥é¡¹æè¿°ã€‚\n");
                 emote["time"] = time();
                 EMOTE_D->set_emote(pattern, emote);
-                write("Emote ±à¼­½áÊø¡£\n");
+                write("Emote ç¼–è¾‘ç»“æŸã€‚\n");
                 return 1;
         }
 
@@ -241,35 +241,35 @@ int get_msg_others_target(string msg, mapping emote, string pattern, int n)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : edemote [-d|-p] <emote>
+æŒ‡ä»¤æ ¼å¼ : edemote [-d|-p] <emote>
 
-Õâ¸öÖ¸Áî¿ÉÒÔĞŞ¸Ä£¬É¾³ı emote »òÁĞ³öÆäÄÚÈİ¡£ ¼ÓÉÏ -d ²ÎÊı»áÉ¾
-³ıÖ¸¶¨µÄ emote£¬-p ²ÎÊıÔò»áÁĞ³öÖ¸¶¨ emote µÄÄÚÈİ. ÁĞ³öµÄË³Ğò
-Óë±à¼­ emote Ê±ÏàÍ¬.
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥ä¿®æ”¹ï¼Œåˆ é™¤ emote æˆ–åˆ—å‡ºå…¶å†…å®¹ã€‚ åŠ ä¸Š -d å‚æ•°ä¼šåˆ 
+é™¤æŒ‡å®šçš„ emoteï¼Œ-p å‚æ•°åˆ™ä¼šåˆ—å‡ºæŒ‡å®š emote çš„å†…å®¹. åˆ—å‡ºçš„é¡ºåº
+ä¸ç¼–è¾‘ emote æ—¶ç›¸åŒ.
  
-ÊäÈë emote Ñ¶Ï¢Ê±ÓĞÈı¸öÏîÄ¿£ºÃ»ÓĞÄ¿±ê£¬ Ö¸¶¨Ä¿±ê»òÊÇ¶Ô×Ô¼º¡£
-Èô²»ÏëĞŞ¸ÄÄ³ÏîÑ¶Ï¢£¬ÔòÖ±½ÓÔÚ¿Õ°×ĞĞÊäÈë '.' Ìø¹ı.
+è¾“å…¥ emote è®¯æ¯æ—¶æœ‰ä¸‰ä¸ªé¡¹ç›®ï¼šæ²¡æœ‰ç›®æ ‡ï¼Œ æŒ‡å®šç›®æ ‡æˆ–æ˜¯å¯¹è‡ªå·±ã€‚
+è‹¥ä¸æƒ³ä¿®æ”¹æŸé¡¹è®¯æ¯ï¼Œåˆ™ç›´æ¥åœ¨ç©ºç™½è¡Œè¾“å…¥ '.' è·³è¿‡.
  
-Ò»¸ö emote Ñ¶Ï¢¿ÉÒÔÓĞºÜ¶àĞĞ, ÔÚ¿Õ°×ĞĞÊäÈë '.' ±íÊ¾½áÊøÊäÈë¸Ã
-Ïî emote.
+ä¸€ä¸ª emote è®¯æ¯å¯ä»¥æœ‰å¾ˆå¤šè¡Œ, åœ¨ç©ºç™½è¡Œè¾“å…¥ '.' è¡¨ç¤ºç»“æŸè¾“å…¥è¯¥
+é¡¹ emote.
  
-±à¼­ emote Ê±¿ÉÒÔÓÃÒÔÏÂµÄ·ûºÅÀ´±íÊ¾:
+ç¼–è¾‘ emote æ—¶å¯ä»¥ç”¨ä»¥ä¸‹çš„ç¬¦å·æ¥è¡¨ç¤º:
  
-$N : ×Ô¼ºµÄÃû×Ö.
-$n : Ä¿±êµÄÃû×Ö.
-$P : ×Ô¼ºµÄÈË³Æ´úÃû´Ê.
-$p : Ä¿±êµÄÈË³Æ´úÃû´Ê.
-$S : ¶Ô×Ô¼ºµÄ³Æºô¡£
-$s : ¶Ô×Ô¼ºµÄ´ÖÂ³³Æºô¡£
-$C : ¶Ô×Ô¼ºµÄÄØ³Æ¡£
-$c : ¶Ô±ğÈËµÄÄØ³Æ¡£
-$R : ¶Ô±ğÈËµÄ×ğ³Æ¡£
-$r : ¶Ô±ğÈËµÄ´ÖÂ³³Æºô¡£
+$N : è‡ªå·±çš„åå­—.
+$n : ç›®æ ‡çš„åå­—.
+$P : è‡ªå·±çš„äººç§°ä»£åè¯.
+$p : ç›®æ ‡çš„äººç§°ä»£åè¯.
+$S : å¯¹è‡ªå·±çš„ç§°å‘¼ã€‚
+$s : å¯¹è‡ªå·±çš„ç²—é²ç§°å‘¼ã€‚
+$C : å¯¹è‡ªå·±çš„å‘¢ç§°ã€‚
+$c : å¯¹åˆ«äººçš„å‘¢ç§°ã€‚
+$R : å¯¹åˆ«äººçš„å°Šç§°ã€‚
+$r : å¯¹åˆ«äººçš„ç²—é²ç§°å‘¼ã€‚
 
-ÓÉÓÚ±íÇé¶¯´Ê»áÔÚ°æ±¾Í¬²½Ê±¸üĞÂ£¬Òò´ËÖ»ÓĞ°æ±¾·¢²¼Õ¾µã²ÅÄÜ¹»Ê¹
-ÓÃÕâ¸öÃüÁî¡£
+ç”±äºè¡¨æƒ…åŠ¨è¯ä¼šåœ¨ç‰ˆæœ¬åŒæ­¥æ—¶æ›´æ–°ï¼Œå› æ­¤åªæœ‰ç‰ˆæœ¬å‘å¸ƒç«™ç‚¹æ‰èƒ½å¤Ÿä½¿
+ç”¨è¿™ä¸ªå‘½ä»¤ã€‚
 
-see also£ºedemote¡¢rnemote
+see alsoï¼šedemoteã€rnemote
 HELP );
     return 1;
 }

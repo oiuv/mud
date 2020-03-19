@@ -5,13 +5,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name("Í­ºÅ", ({ "tonghao" }) );
+        set_name("é“œå·", ({ "tonghao" }) );
         set_weight(2000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "°Ñ");
-                set("long", "ÕâÊÇÒ»°Ñ½ğ¹âÉÁÁÁµÄÍ­ºÅ¡£\n");
+                set("unit", "æŠŠ");
+                set("long", "è¿™æ˜¯ä¸€æŠŠé‡‘å…‰é—ªäº®çš„é“œå·ã€‚\n");
                 set("value", 50);
         }
         setup();

@@ -5,15 +5,15 @@ inherit ARMOR;
 
 void create()
 {
-        set_name(NOR + CYN "ÕæË¿" HIY "±¦¼×" NOR, ({ "zhensi baojia", "zhensi", "baojia" }));
+        set_name(NOR + CYN "çœŸä¸" HIY "å®ç”²" NOR, ({ "zhensi baojia", "zhensi", "baojia" }));
         set_weight(6000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼ş");
-                set("long", NOR + CYN "ÕâÊÇÒ»¼şºÚ÷î÷îµÄÂí¼×£¬ÈëÊÖ³Á"
-                            "ÖØ£¬³õ¿´Ö®ÏÂºÁ²»ÆğÑÛ¡£\n" NOR);
-                set("no_sell", "ÕâÑù¶«Î÷ÄÜÖµÇ®Ã´¡£");
+                set("unit", "ä»¶");
+                set("long", NOR + CYN "è¿™æ˜¯ä¸€ä»¶é»‘é»é»çš„é©¬ç”²ï¼Œå…¥æ‰‹æ²‰"
+                            "é‡ï¼Œåˆçœ‹ä¹‹ä¸‹æ¯«ä¸èµ·çœ¼ã€‚\n" NOR);
+                set("no_sell", "è¿™æ ·ä¸œè¥¿èƒ½å€¼é’±ä¹ˆã€‚");
                 set("value", 100000);
                 set("material", "silk");
                 set("armor_prop/armor", 200);

@@ -1,4 +1,4 @@
-// ÔÆÁúÉñ¹¦
+// äº‘é¾™ç¥žåŠŸ
 
 inherit FORCE;
 
@@ -9,12 +9,12 @@ int valid_enable(string usage)
 
 int valid_learn(object me)
 {
-	if (me->query("gender") == "ÎÞÐÔ" &&
+	if (me->query("gender") == "æ— æ€§" &&
             (int)me->query_skill("yunlong-shengong", 1) > 49)
-		return notify_fail("ÄãÎÞ¸ùÎÞÐÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄÔÆÁúÉñ¹¦¡£\n");
+		return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„äº‘é¾™ç¥žåŠŸã€‚\n");
 
 	if ((int)me->query_skill("force", 1) < 30)
-		return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ðºò»¹²»¹»£¬ÎÞ·¨Áì»áÔÆÁúÉñ¹¦¡£\n");
+		return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™è¿˜ä¸å¤Ÿï¼Œæ— æ³•é¢†ä¼šäº‘é¾™ç¥žåŠŸã€‚\n");
 
 	return ::valid_learn(me);
 }
@@ -22,7 +22,7 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-	return notify_fail("ÔÆÁúÄÚ¹¦Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+	return notify_fail("äº‘é¾™å†…åŠŸåªèƒ½ç”¨å­¦(learn)çš„æ¥å¢žåŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)

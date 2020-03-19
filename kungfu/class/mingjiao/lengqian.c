@@ -11,15 +11,15 @@ inherit F_COAGENT;
 
 void create()
 {
-        set_name("ÀäÇ«", ({ "leng qian", "leng", "qian", }));
+        set_name("å†·è°¦", ({ "leng qian", "leng", "qian", }));
 	set("long",
-        "ËûÊÇÒ»Î»ÀäÀäµÄÀÏÕß£¬Éí´©Ò»¼þ°×²¼³¤ÅÛ¡£\n"
-        "ËûËµ»°¼«Îª¼ò½Ý£¬±ãÊÇÉ±ÁËËûµÄÍ·Ò²²»¿Ï¶àËµ°ë¾ä·Ï»°¡£\n"
+        "ä»–æ˜¯ä¸€ä½å†·å†·çš„è€è€…ï¼Œèº«ç©¿ä¸€ä»¶ç™½å¸ƒé•¿è¢ã€‚\n"
+        "ä»–è¯´è¯æžä¸ºç®€æ·ï¼Œä¾¿æ˜¯æ€äº†ä»–çš„å¤´ä¹Ÿä¸è‚¯å¤šè¯´åŠå¥åºŸè¯ã€‚\n"
 	);
 
-        set("title", HIR "Ã÷½Ì" NOR + WHT "ÎåÉ¢ÈË" NOR);
-        set("nickname", "ÀäÃæÏÈÉú");
-	set("gender", "ÄÐÐÔ");
+        set("title", HIR "æ˜Žæ•™" NOR + WHT "äº”æ•£äºº" NOR);
+        set("nickname", "å†·é¢å…ˆç”Ÿ");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
         set("class", "fighter");
 
@@ -57,7 +57,7 @@ void create()
 
 	prepare_skill("cuff", "pili-quan");
 
-        create_family("Ã÷½Ì", 37, "µÜ×Ó");
+        create_family("æ˜Žæ•™", 37, "å¼Ÿå­");
 
         set_temp("apply/attack", 120);
         set_temp("apply/damage", 120);
@@ -92,12 +92,12 @@ void attempt_apprentice(object ob)
 
         if ((int)ob->query("shen") < 0)
         {
-                command("say ¸óÏÂÉíÈ¾Ð°Æø£¬»¹ÊÇ¼°Ôç»ØÍ·µÃºÃ¡£");
+                command("say é˜ä¸‹èº«æŸ“é‚ªæ°”ï¼Œè¿˜æ˜¯åŠæ—©å›žå¤´å¾—å¥½ã€‚");
                 return;
         }
 
         command("nod");
-        command("say ºÃ£¬ºÃ£¬½ñÈÕÎÒ¾ÍÊÕÄãÎªµÜ×Ó£¬´Ó´ËÄã±ãÈëÎÒÃ÷½Ì£¬ÐÅ·îÃ÷×ð¡£");
+        command("say å¥½ï¼Œå¥½ï¼Œä»Šæ—¥æˆ‘å°±æ”¶ä½ ä¸ºå¼Ÿå­ï¼Œä»Žæ­¤ä½ ä¾¿å…¥æˆ‘æ˜Žæ•™ï¼Œä¿¡å¥‰æ˜Žå°Šã€‚");
         command("recruit " + ob->query("id"));
 }
 
@@ -106,10 +106,10 @@ int accept_ask(object me, string topic)
         switch (topic)
         {
 
-        case "×ÏÀ×¾¢" :
+        case "ç´«é›·åŠ²" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/pili-quan/jin",
-                           "name"    : "×ÏÀ×¾¢",
+                           "name"    : "ç´«é›·åŠ²",
                            "sk1"     : "pili-quan",
                            "lv1"     : 40,
                            "gongxian": 80,

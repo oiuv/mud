@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short","´óÌü");
+	set("short","å¤§åŽ…");
 	set("long",@LONG
-ÕâÀïÊÇÎå»ªÂ¥µÄÇ°´óÌü£¬´óÌüÄÚÒì³£¿í³¨Ã÷ÁÁ£¬×ãÓÐÒ»
-Àï¼û·½¡£È«ÊÇÔÆÊ¯ÆÌµØ£¬ºÚ°×Ïà¼ä£¬×ã×ã¿ÉÒÔÈÝÄÉ¶þ¡¢ÈýÇ§
-ÈË¡£Ê±Ê±¿É¼û½õÒÂÊÌÕßÊÖÍÐÃÀÊ³À´»ØÐÐ×ß¡£
+è¿™é‡Œæ˜¯äº”åŽæ¥¼çš„å‰å¤§åŽ…ï¼Œå¤§åŽ…å†…å¼‚å¸¸å®½æ•žæ˜Žäº®ï¼Œè¶³æœ‰ä¸€
+é‡Œè§æ–¹ã€‚å…¨æ˜¯äº‘çŸ³é“ºåœ°ï¼Œé»‘ç™½ç›¸é—´ï¼Œè¶³è¶³å¯ä»¥å®¹çº³äºŒã€ä¸‰åƒ
+äººã€‚æ—¶æ—¶å¯è§é”¦è¡£ä¾è€…æ‰‹æ‰˜ç¾Žé£Ÿæ¥å›žè¡Œèµ°ã€‚
 LONG);
 	set("objects", ([
 	   	__DIR__"npc/shizhe": 3,

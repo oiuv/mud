@@ -3,10 +3,10 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("ÏôÄÏÖÒ", ({ "xiao nanzhong", "xiao", "nanzhong" }));
-        set("title", "ÔÓ»õÆÌÀÏ°å");
+        set_name("è§å—å¿ ", ({ "xiao nanzhong", "xiao", "nanzhong" }));
+        set("title", "æ‚è´§é“ºè€æ¿");
         set("shen_type", 1);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 45);
         set_skill("unarmed", 50);
         set_skill("dodge", 50);

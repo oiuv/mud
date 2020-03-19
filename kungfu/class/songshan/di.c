@@ -7,8 +7,8 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("µ“–ﬁ", ({ "di xiu", "xiu", "di" }) );
-        set("gender", "ƒ––‘");
+        set_name("ÁãÑ‰øÆ", ({ "di xiu", "xiu", "di" }) );
+        set("gender", "Áî∑ÊÄß");
         set("class", "swordsman");
         set("age", 25);
         set("attitude", "peaceful");
@@ -50,7 +50,7 @@ void create()
         prepare_skill("strike", "songshan-zhang");
         prepare_skill("strike", "songshan-quan");
 
-        create_family("·‘…Ω≈…", 14, "µ‹◊”");
+        create_family("Âµ©Â±±Ê¥æ", 14, "ÂºüÂ≠ê");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -78,11 +78,11 @@ void attempt_apprentice(object ob)
 
         if ((int)ob->query("shen") < 0)
         {
-                command("say ƒ„’‚»À≤ª◊ˆ∫√ ¬£¨Œ“·‘…Ω≈…ø…»›ƒ„≤ªµ√°£");
+                command("say ‰Ω†Ëøô‰∫∫‰∏çÂÅöÂ•Ω‰∫ãÔºåÊàëÂµ©Â±±Ê¥æÂèØÂÆπ‰Ω†‰∏çÂæó„ÄÇ");
                 return;
         }
 
-        command("say º»»ª»Á¥À£¨ƒ«ƒ„“‘∫ÛæÕ∏˙◊≈Œ“∞…°£");
+        command("say Êó¢ÁÑ∂Â¶ÇÊ≠§ÔºåÈÇ£‰Ω†‰ª•ÂêéÂ∞±Ë∑üÁùÄÊàëÂêß„ÄÇ");
         command("recruit " + ob->query("id"));
 }
 
@@ -90,10 +90,10 @@ int accept_ask(object me, string topic)
 {
         switch (topic)
         {
-        case "«ßΩÔ¥∏" :
+        case "ÂçÉÊñ§Èî§" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/songshan-quan/chui",
-                           "name"    : "«ßΩÔ¥∏",
+                           "name"    : "ÂçÉÊñ§Èî§",
                            "sk1"     : "songshan-quan",
                            "lv1"     : 30,
                            "force"   : 30,
@@ -101,10 +101,10 @@ int accept_ask(object me, string topic)
                            "shen"    : 2000, ]));
                 break;
 
-        case "∆∆…Ω∏´" :
+        case "Á†¥Â±±Êñß" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/songshan-zhang/po",
-                           "name"    : "∆∆…Ω∏´",
+                           "name"    : "Á†¥Â±±Êñß",
                            "sk1"     : "songshan-zhang",
                            "lv1"     : 30,
                            "force"   : 30,
@@ -112,10 +112,10 @@ int accept_ask(object me, string topic)
                            "shen"    : 2000, ]));
                 break;
 
-        case "»Á√Œ»Áª√" :
+        case "Â¶ÇÊ¢¶Â¶ÇÂπª" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/songshan-jian/meng",
-                           "name"    : "»Á√Œ»Áª√",
+                           "name"    : "Â¶ÇÊ¢¶Â¶ÇÂπª",
                            "sk1"     : "songshan-jian",
                            "lv1"     : 40,
                            "gongxian": 80,

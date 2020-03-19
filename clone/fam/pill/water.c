@@ -5,20 +5,20 @@ inherit F_LIQUID;
 
 void create()
 {
-        set_name(NOR + YEL "Å£Æ¤Ë®´ü" NOR, ({ "shui dai", "shui", "dai" }));
+        set_name(NOR + YEL "ç‰›çš®æ°´è¢‹" NOR, ({ "shui dai", "shui", "dai" }));
         set_weight(5000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + YEL "ÕâÊÇÒ»Ö§ÌØ´óºÅµÄÅ£Æ¤Ë®´ü£¬ÖÊÁ¿"
-                            "Ïàµ±²»´í¡£ÉõÖÁ¿ÉÒÔÓÃËüÀ´´©Ô½É³Ä®¡£\n" NOR);
-                set("unit", "Ö§");
+                set("long", NOR + YEL "è¿™æ˜¯ä¸€æ”¯ç‰¹å¤§å·çš„ç‰›çš®æ°´è¢‹ï¼Œè´¨é‡"
+                            "ç›¸å½“ä¸é”™ã€‚ç”šè‡³å¯ä»¥ç”¨å®ƒæ¥ç©¿è¶Šæ²™æ¼ ã€‚\n" NOR);
+                set("unit", "æ”¯");
                 set("value", 5000);
                 set("max_liquid", 800);
         }
         set("liquid", ([
                 "type"         : "water",
-                "name"         : "ÇåË®",
+                "name"         : "æ¸…æ°´",
                 "remaining"    : 300,
                 "drunk_supply" : 300,
         ]));

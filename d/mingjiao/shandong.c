@@ -6,16 +6,16 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "Ã÷½ÌÃÜ¶´");
+	set("short", "æ˜Žæ•™å¯†æ´ž");
 	set("long", @LONG
-ÕâÀïÊÇÒ»¸öÐ¡Ð¡ÍÁ¶´£¬ÖÜÎ§ºÚºõºõµÄºÜÄÑ¿´Çå³þ¡£ÒþÒþÔ¼Ô¼£¬¿É
-ÒÔ¿´µ½Ò»ÉÈ´óÊ¯ÃÅ(men)¡£
+è¿™é‡Œæ˜¯ä¸€ä¸ªå°å°åœŸæ´žï¼Œå‘¨å›´é»‘ä¹Žä¹Žçš„å¾ˆéš¾çœ‹æ¸…æ¥šã€‚éšéšçº¦çº¦ï¼Œå¯
+ä»¥çœ‹åˆ°ä¸€æ‰‡å¤§çŸ³é—¨(men)ã€‚
 LONG );
 	set("exits", ([
 		"out"  : __DIR__"huangtulu2",
 	]));
 	set("item_desc", ([
-		"men"  : "Ò»ÉÈ´óÊ¯ÃÅ£¬¿´À´×ÜÓÐÁ½Íò½ïÖØ°É¡£\n",
+		"men"  : "ä¸€æ‰‡å¤§çŸ³é—¨ï¼Œçœ‹æ¥æ€»æœ‰ä¸¤ä¸‡æ–¤é‡å§ã€‚\n",
 	]));
 	set("outdoors", "mingjiao");
 	setup();
@@ -32,24 +32,24 @@ int do_break(string arg)
 //      int i;
 
         if (arg != "men")
-		return notify_fail("ÄãÔÚ¸ÉÂð? \n");
+		return notify_fail("ä½ åœ¨å¹²å—? \n");
 
 	if (me->query("neili") < 2000)
 	{
-		write("ÄãÔËÁËÔËÆø£¬¾õµÃ×Ô¼ºÏÖÔÚµÄÄÚÁ¦²»¼Ã¡£\n");
+		write("ä½ è¿äº†è¿æ°”ï¼Œè§‰å¾—è‡ªå·±çŽ°åœ¨çš„å†…åŠ›ä¸æµŽã€‚\n");
 		return 1;
 	}
 
 	me->add("neili", -2000);
         if (me->query_skill("force", 1) < 300)
         {
-                message_vision(CYN "$N" CYN "Ñ½Ñ½ºÙºÙ·ÏÁË°ëÌìÁ¦Æø£¬½á¹û"
-		   	       "Ã»Ê²Ã´¶¯¾²¡£\n", me);
-		tell_object(me, "¿´À´ÊÇ×Ô¼ºµÄÄÚ¹¦»ðºò»¹²»¹»¡£\n");
+                message_vision(CYN "$N" CYN "å‘€å‘€å˜¿å˜¿åºŸäº†åŠå¤©åŠ›æ°”ï¼Œç»“æžœ"
+		   	       "æ²¡ä»€ä¹ˆåŠ¨é™ã€‚\n", me);
+		tell_object(me, "çœ‹æ¥æ˜¯è‡ªå·±çš„å†…åŠŸç«å€™è¿˜ä¸å¤Ÿã€‚\n");
                 return 1;
         }
 
-        message_vision(CYN "Ê¯ÃÅÔÚ$N" CYN "Ò»»÷Ö®ÏÂÔþÔþÉùÏì£¬»º»ºÒÆ¿ª¡£\n" NOR,
+        message_vision(CYN "çŸ³é—¨åœ¨$N" CYN "ä¸€å‡»ä¹‹ä¸‹è½§è½§å£°å“ï¼Œç¼“ç¼“ç§»å¼€ã€‚\n" NOR,
 		       me);
 
         set("exits/enter",__DIR__"midao0");
@@ -61,6 +61,6 @@ int do_break(string arg)
 
 void close(object room)
 {
-        message("vision", "Ê¯ÃÅÓÖÔÚÔþÔþÉùÏì£¬»º»º±ÕÉÏ¡£\n"NOR, room);
+        message("vision", "çŸ³é—¨åˆåœ¨è½§è½§å£°å“ï¼Œç¼“ç¼“é—­ä¸Šã€‚\n"NOR, room);
         room->delete("exits/enter");
 }

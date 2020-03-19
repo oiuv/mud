@@ -1,8 +1,8 @@
-// ÌìÄ§½âÌå´ó·¨
-//´ËbuffÏÂ£¬²»ÄÜyun heal£¬²»ÄÜ³ÔÏÈÌìµ¤£¬ÎŞ·¨ÖĞÏÈÌì¹ÊÊÂ
+// å¤©é­”è§£ä½“å¤§æ³•
+//æ­¤buffä¸‹ï¼Œä¸èƒ½yun healï¼Œä¸èƒ½åƒå…ˆå¤©ä¸¹ï¼Œæ— æ³•ä¸­å…ˆå¤©æ•…äº‹
 
 #include <ansi.h>
-#define TIANMO "¡¸" RED "ÌìÄ§½âÌå´ó·¨" NOR "¡¹"
+#define TIANMO "ã€Œ" RED "å¤©é­”è§£ä½“å¤§æ³•" NOR "ã€"
 
 inherit F_CLEAN_UP;
 
@@ -20,20 +20,20 @@ int exert(object me, object target)
     skills = keys(me->query_skill_map());
 
     if (me->query_temp("tianmo"))
-        return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖĞÁË¡£\n");
+        return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
     if (me->query("str") < 30 && me->query("con") < 30)
-        return notify_fail("ÄãµÄ×ÊÖÊ²»ÊÊºÏÊ¹ÓÃ" TIANMO "¡£\n");
+        return notify_fail("ä½ çš„èµ„è´¨ä¸é€‚åˆä½¿ç”¨" TIANMO "ã€‚\n");
 
     if ((int)me->query("neili") < 8000)
-        return notify_fail("ÄãµÄÄÚÁ¦²»¹»!");
+        return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿ!");
 
     if (me->query("shen") > -10000000)
-        return notify_fail("Äã»¹Ã»ÓĞÈëÄ§£¬ÎŞ·¨Ê¹ÓÃ" TIANMO "¡£\n");
+        return notify_fail("ä½ è¿˜æ²¡æœ‰å…¥é­”ï¼Œæ— æ³•ä½¿ç”¨" TIANMO "ã€‚\n");
 
     if ((int)me->query_skill("martial-cognize", 1) < 300 ||
         (int)me->query_skill("force", 1) < 300)
-        return notify_fail("ÄãµÄĞŞĞĞ»¹²»¹»,ÎŞ·¨Ê¹ÓÃ" TIANMO "¡£\n");
+        return notify_fail("ä½ çš„ä¿®è¡Œè¿˜ä¸å¤Ÿ,æ— æ³•ä½¿ç”¨" TIANMO "ã€‚\n");
 
     me->set("neili", 0);
     me->receive_damage("qi", skill + shen_lvl + random(1000));
@@ -41,8 +41,8 @@ int exert(object me, object target)
     me->receive_damage("jing", skill + shen_lvl + random(1000));
     me->receive_wound("jing", skill + shen_lvl + random(1000));
 
-    message_combatd(RED "$NİëµØ´ó½ĞÒ»Éù£¬Åç³öÒ»¿ÚÏÊÑª£¬"
-                        "ÕıÊÇÌìÏÂÎÅÃûµÄ " TIANMO "¡£\n" NOR, me);
+    message_combatd(RED "$Nè“¦åœ°å¤§å«ä¸€å£°ï¼Œå–·å‡ºä¸€å£é²œè¡€ï¼Œ"
+                        "æ­£æ˜¯å¤©ä¸‹é—»åçš„ " TIANMO "ã€‚\n" NOR, me);
 
     me->add_temp("apply/str", me->query("str"));
     me->add_temp("apply/int", me->query("int"));

@@ -6,16 +6,16 @@ inherit POISON;
 
 string name() { return "xuanming_poison"; }
 
-string chinese_name() { return "玄冥寒毒"; }
+string chinese_name() { return "鐜勫啣瀵掓瘨"; }
 
 string update_msg_others()
 {
-       return MAG "$N脸色发紫，全身不住的颤抖，牙关格格作响。\n" NOR;
+       return MAG "$N鑴歌壊鍙戠传锛屽叏韬笉浣忕殑棰ゆ姈锛岀墮鍏虫牸鏍间綔鍝嶃�俓n" NOR;
 }
 
 string update_msg_self()
 {
-        return HIW "只感到一股奇寒从体内犹然而升，沁入三焦六脉，看来是玄冥神掌之毒发作了！\n" NOR;
+        return HIW "鍙劅鍒颁竴鑲″瀵掍粠浣撳唴鐘圭劧鑰屽崌锛屾瞾鍏ヤ笁鐒﹀叚鑴夛紝鐪嬫潵鏄巹鍐ョ鎺屼箣姣掑彂浣滀簡锛乗n" NOR;
 }
 
 int jing_damage(object me, mapping cnd)

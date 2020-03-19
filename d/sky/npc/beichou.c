@@ -3,14 +3,14 @@ inherit NPC;
 
 void create()
 {
-        set_name("±±³ó", ({ "bei chou", "bei", "chou", "xizi" }) );
-        set("nickname", HIW "±±Ï·×Ó" NOR);
-        set("title", HIC "ÎäÁÖÌ©¶·" NOR);
-        set("gender", "ÄĞĞÔ" );
+        set_name("åŒ—ä¸‘", ({ "bei chou", "bei", "chou", "xizi" }) );
+        set("nickname", HIW "åŒ—æˆå­" NOR);
+        set("title", HIC "æ­¦æ—æ³°æ–—" NOR);
+        set("gender", "ç”·æ€§" );
         set("age", 68);
-        set("long", HIC "ÕâÊÇÒ»¸öÉí×ÅÏ·×Ó´ò°çµÄÊİĞ¡ÀÏÍ·£¬³¤µÃ¼â\n"
-                        "×ìºïÈù£¬ÌìÉúÒ»¸±¼éÏà¡£Õâ±ãÊÇµ±½ñÎäÁÖÖĞ\n"
-                        "ºÅ³Æ¡¸" HIR "ÄÏÏÍ±±³ó" HIC "¡¹Ï·×Ó±±³ó¡£"
+        set("long", HIC "è¿™æ˜¯ä¸€ä¸ªèº«ç€æˆå­æ‰“æ‰®çš„ç˜¦å°è€å¤´ï¼Œé•¿å¾—å°–\n"
+                        "å˜´çŒ´è…®ï¼Œå¤©ç”Ÿä¸€å‰¯å¥¸ç›¸ã€‚è¿™ä¾¿æ˜¯å½“ä»Šæ­¦æ—ä¸­\n"
+                        "å·ç§°ã€Œ" HIR "å—è´¤åŒ—ä¸‘" HIC "ã€æˆå­åŒ—ä¸‘ã€‚"
                         "\n" NOR);
         set("attitude", "friendly");
         set("max_jing", 25000);

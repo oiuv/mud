@@ -1,17 +1,17 @@
-// xueli.c ´óÀíÑ©Àæ
+// xueli.c å¤§ç†é›ªæ¢¨
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-	set_name("´óÀíÑ©Àæ", ({"li", "xue li"}));
+	set_name("å¤§ç†é›ªæ¢¨", ({"li", "xue li"}));
 	set_weight(40);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»µúĞÂÏÊµÄ´óÀíÑ©Àæ¡£\n");
-		set("unit", "µú");
+		set("long", "ä¸€ç¢Ÿæ–°é²œçš„å¤§ç†é›ªæ¢¨ã€‚\n");
+		set("unit", "ç¢Ÿ");
 		set("value", 80);
 		set("food_remaining", 4);
 		set("food_supply", 40);

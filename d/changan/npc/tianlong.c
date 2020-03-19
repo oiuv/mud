@@ -7,9 +7,9 @@ inherit NPC;
 void create()
 {
         object ob;
-        set_name("´óÌìÁú", ({ "da tianlong", "da", "tianlong" }));
-        set("nickname", HIY "¹Ø¶«" NOR);
-        set("gender", "ÄĞĞÔ");
+        set_name("å¤§å¤©é¾™", ({ "da tianlong", "da", "tianlong" }));
+        set("nickname", HIY "å…³ä¸œ" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 42);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -47,7 +47,7 @@ void create()
         prepare_skill("finger", "datianlong-zhi");
 
         set("inquiry", ([
-               "´óÌìÁúÖ¸" : "ÕâÕıÊÇÔÚÏÂµÄ¾øÑ§£¬¸óÏÂÎªºÎÖªÏş£¿\n",
+               "å¤§å¤©é¾™æŒ‡" : "è¿™æ­£æ˜¯åœ¨ä¸‹çš„ç»å­¦ï¼Œé˜ä¸‹ä¸ºä½•çŸ¥æ™“ï¼Ÿ\n",
         ]));
 
         set("chat_chance_combat", 120);

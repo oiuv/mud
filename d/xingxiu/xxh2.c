@@ -5,11 +5,11 @@ string look_duilian();
 
 void create()
 {
-        set("short", "ÐÇËÞº£");
+        set("short", "æ˜Ÿå®¿æµ·");
         set("long", @LONG
-ÕâÀïÊÇÐÇËÞº£±ß¡£ËµÊÇº££¬ÆäÊµÊÇÆ¬ºþ²´ºÍÕÓÔó£¬µØÐÎÊ®
-·ÖÏÕ¶ñ¡£ÕâÀï×óÓÒÁ½ÏáÍ¨ÏòÐÇËÞº£µÄÉî´¦£¬ÄÏ±ßÊÇÐÇËÞÅÉ×Ü¶æ
-ÈÕÔÂ¶´¡£¶´¿Ú¹Ò×ÅÒ»·ù¶ÔÁª(duilian)¡£
+è¿™é‡Œæ˜¯æ˜Ÿå®¿æµ·è¾¹ã€‚è¯´æ˜¯æµ·ï¼Œå…¶å®žæ˜¯ç‰‡æ¹–æ³Šå’Œæ²¼æ³½ï¼Œåœ°å½¢å
+åˆ†é™©æ¶ã€‚è¿™é‡Œå·¦å³ä¸¤åŽ¢é€šå‘æ˜Ÿå®¿æµ·çš„æ·±å¤„ï¼Œå—è¾¹æ˜¯æ˜Ÿå®¿æ´¾æ€»èˆµ
+æ—¥æœˆæ´žã€‚æ´žå£æŒ‚ç€ä¸€å¹…å¯¹è”(duilian)ã€‚
 LONG);
         set("exits", ([
              	"north" : __DIR__"riyuedong",
@@ -36,21 +36,21 @@ string look_duilian()
 {
         return
         RED "\n"
-        "        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù            ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-        "        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù            ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-        "        ¡ù¡ù      ¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "        ¡ù¡ù" NOR + HIW "¡¡ÐÇ¡¡" NOR + RED "¡ù¡ù            ¡ù¡ù" NOR + HIW "  ÈÕ  " NOR + RED "¡ù¡ù\n"
-        "        ¡ù¡ù¡¡ ¡¡ ¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "        ¡ù¡ù" NOR + HIW "  ËÞ  " NOR + RED "¡ù¡ù            ¡ù¡ù" NOR + HIW "  ÔÂ  " NOR + RED "¡ù¡ù\n"
-        "        ¡ù¡ù      ¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "        ¡ù¡ù" NOR + HIW "  º£  " NOR + RED "¡ù¡ù            ¡ù¡ù" NOR + HIW "  ¶´  " NOR + RED "¡ù¡ù\n"
-        "        ¡ù¡ù      ¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "        ¡ù¡ù" NOR + HIW "  ¸£  " NOR + RED "¡ù¡ù            ¡ù¡ù" NOR + HIW "  ¶´  " NOR + RED "¡ù¡ù\n"
-        "        ¡ù¡ù      ¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "        ¡ù¡ù" NOR + HIW "  µØ  " NOR + RED "¡ù¡ù            ¡ù¡ù" NOR + HIW "  Ìì  " NOR + RED "¡ù¡ù\n"
-        "        ¡ù¡ù    ¡¡¡ù¡ù            ¡ù¡ù      ¡ù¡ù\n"
-        "        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù            ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-        "        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù            ¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n\n\n" NOR;
+        "        â€»â€»â€»â€»â€»â€»â€»            â€»â€»â€»â€»â€»â€»â€»\n"
+        "        â€»â€»â€»â€»â€»â€»â€»            â€»â€»â€»â€»â€»â€»â€»\n"
+        "        â€»â€»      â€»â€»            â€»â€»      â€»â€»\n"
+        "        â€»â€»" NOR + HIW "ã€€æ˜Ÿã€€" NOR + RED "â€»â€»            â€»â€»" NOR + HIW "  æ—¥  " NOR + RED "â€»â€»\n"
+        "        â€»â€»ã€€ ã€€ â€»â€»            â€»â€»      â€»â€»\n"
+        "        â€»â€»" NOR + HIW "  å®¿  " NOR + RED "â€»â€»            â€»â€»" NOR + HIW "  æœˆ  " NOR + RED "â€»â€»\n"
+        "        â€»â€»      â€»â€»            â€»â€»      â€»â€»\n"
+        "        â€»â€»" NOR + HIW "  æµ·  " NOR + RED "â€»â€»            â€»â€»" NOR + HIW "  æ´ž  " NOR + RED "â€»â€»\n"
+        "        â€»â€»      â€»â€»            â€»â€»      â€»â€»\n"
+        "        â€»â€»" NOR + HIW "  ç¦  " NOR + RED "â€»â€»            â€»â€»" NOR + HIW "  æ´ž  " NOR + RED "â€»â€»\n"
+        "        â€»â€»      â€»â€»            â€»â€»      â€»â€»\n"
+        "        â€»â€»" NOR + HIW "  åœ°  " NOR + RED "â€»â€»            â€»â€»" NOR + HIW "  å¤©  " NOR + RED "â€»â€»\n"
+        "        â€»â€»    ã€€â€»â€»            â€»â€»      â€»â€»\n"
+        "        â€»â€»â€»â€»â€»â€»â€»            â€»â€»â€»â€»â€»â€»â€»\n"
+        "        â€»â€»â€»â€»â€»â€»â€»            â€»â€»â€»â€»â€»â€»â€»\n\n\n" NOR;
 }
 
 int valid_leave(object me, string dir)

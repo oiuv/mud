@@ -2,8 +2,8 @@ inherit ROOM;
 
 void create()
 {
-	set("short","¿Õ·¿¼ä");
-	set("long","ÄãÍêÁË...\n");
+	set("short","ç©ºæˆ¿é—´");
+	set("long","ä½ å®Œäº†...\n");
 	set("valid_startroom",1);
 	setup();
 }

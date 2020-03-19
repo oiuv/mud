@@ -5,18 +5,18 @@ inherit STAFF;
 
 void create()
 {
-        set_name(NOR + WHT "Â¹Í·ÕÈ" NOR,({ "lutou zhang", "lutou", "zhang" }) );
+        set_name(NOR + WHT "é¹¿å¤´æ–" NOR,({ "lutou zhang", "lutou", "zhang" }) );
         set_weight(800);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", NOR + WHT  "Ò»¸ù´Ö³¤µÄÄ¾ÕÈ£¬ÉÏ·½³ÊÂ¹Í·×´¡£\n" NOR);
-                set("unit", "¸ù");
+                set("long", NOR + WHT  "ä¸€æ ¹ç²—é•¿çš„æœ¨æ–ï¼Œä¸Šæ–¹å‘ˆé¹¿å¤´çŠ¶ã€‚\n" NOR);
+                set("unit", "æ ¹");
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "wood");
-                set("wield_msg", WHT "$N" WHT "½«ÊÖÖĞÂ¹Í·ÕÈÃÍµØ»ÓÎè¼¸È¦£¬È»ºóÄÃÔÚÊÖÖĞ¡£\n" NOR);
-                set("unwield_msg", WHT "$N" WHT "´óºÈÒ»Éù£¬½«Â¹Í·ÕÈÈ¡ÏÂ´£ÔÚµØÉÏ¡£\n" NOR);
+                set("wield_msg", WHT "$N" WHT "å°†æ‰‹ä¸­é¹¿å¤´æ–çŒ›åœ°æŒ¥èˆå‡ åœˆï¼Œç„¶åæ‹¿åœ¨æ‰‹ä¸­ã€‚\n" NOR);
+                set("unwield_msg", WHT "$N" WHT "å¤§å–ä¸€å£°ï¼Œå°†é¹¿å¤´æ–å–ä¸‹çŸ—åœ¨åœ°ä¸Šã€‚\n" NOR);
                 set("stable", 100);
         }
         init_staff(100);
@@ -37,13 +37,13 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         case 0:
                 if (! victim->is_busy())
                 victim->start_busy(me->query_skill("staff") / 10 + 2);
-                return WHT "$N" WHT "½«ÊÖÖĞÂ¹Í·ÕÈ»ÓÎèµÃ·çÉùºôºô£¬¾¹½«$n" WHT "ÁıÕÖ£¡\n" NOR;
+                return WHT "$N" WHT "å°†æ‰‹ä¸­é¹¿å¤´æ–æŒ¥èˆå¾—é£å£°å‘¼å‘¼ï¼Œç«Ÿå°†$n" WHT "ç¬¼ç½©ï¼\n" NOR;
 
         case 1:
                 n = me->query_skill("staff");
                 victim->receive_damage("qi", n * 3 / 4, me);
                 victim->receive_wound("qi", n * 3 / 4, me);
-                return HIR "$N" HIR "·ÉÉí¶øÆğ£¬ÊÖÖĞÂ¹Í·ÕÈ´ÓÌì¶øÏÂ£¬ÔÒÏò$n" HIR "£¡\n" NOR;
+                return HIR "$N" HIR "é£èº«è€Œèµ·ï¼Œæ‰‹ä¸­é¹¿å¤´æ–ä»å¤©è€Œä¸‹ï¼Œç ¸å‘$n" HIR "ï¼\n" NOR;
         }
         return damage_bonus;
 }

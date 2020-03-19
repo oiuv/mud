@@ -1,4 +1,4 @@
-// magate.c ÉñÖ®Âêè§
+// magate.c ç¥ä¹‹ç›ç‘™
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,23 +7,23 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIR "ÉñÖ®Âêè§" NOR, ({ "magic agate" }) );
+	set_name(HIR "ç¥ä¹‹ç›ç‘™" NOR, ({ "magic agate" }) );
 	set_weight(50);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-                set("long", HIR "Ò»¿éÉÁË¸ÕâÆæÒì¹âÃ¢µÄ°µºìÉ«Âêè§£¬"
-                    "ÈÃÈË¸Ğµ½Ò»ÕóÕóµÄĞÄ¼Â¡£\n" NOR);
+                set("long", HIR "ä¸€å—é—ªçƒè¿™å¥‡å¼‚å…‰èŠ’çš„æš—çº¢è‰²ç›ç‘™ï¼Œ"
+                    "è®©äººæ„Ÿåˆ°ä¸€é˜µé˜µçš„å¿ƒæ‚¸ã€‚\n" NOR);
                 set("value", 200000);
-		set("unit", "¿é");
+		set("unit", "å—");
                 set("can_be_enchased", 1);
                 set("magic/type", "fire");
                 set("magic/power", 15 + random(16));
                 set("armor_prop/per", 8);
-                set("wear_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´÷ÔÚÍ·ÉÏ¡£\n" NOR);
-                set("remove_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n" NOR);
+                set("wear_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "æˆ´åœ¨å¤´ä¸Šã€‚\n" NOR);
+                set("remove_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "ä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n" NOR);
 	}
         setup();
 }

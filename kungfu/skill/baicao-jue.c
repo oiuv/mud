@@ -1,6 +1,6 @@
-// baicao-jue.c °Ù²İ¾÷
+// baicao-jue.c ç™¾è‰è¯€
 // Edit By Vin On 26/2/2001
-// ºÜÄÑÑ§µÄÖªÊ¶¼¼ÄÜ£¬´ïµ½¶ş°ÙÎåÊ®¼¶¿ÉÒÔÔÔÅàÆßĞÇº£ÌÄ¡£
+// å¾ˆéš¾å­¦çš„çŸ¥è¯†æŠ€èƒ½ï¼Œè¾¾åˆ°äºŒç™¾äº”åçº§å¯ä»¥æ ½åŸ¹ä¸ƒæ˜Ÿæµ·æ£ ã€‚
 
 inherit SKILL;
 
@@ -11,25 +11,25 @@ int valid_enable(string usage) { return usage == "medical"; }
 int valid_learn(object me)
 {
         if ((int)me->query_skill("medical", 1) < 150)
-                return notify_fail("ÄãµÄ»ù±¾Ò½ÊõÔìÒèÌ«Ç³£¬ÎŞ"
-                                   "·¨Áì»áÉî°ÂµÄ°Ù²İ¾÷¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬åŒ»æœ¯é€ è¯£å¤ªæµ…ï¼Œæ— "
+                                   "æ³•é¢†ä¼šæ·±å¥¥çš„ç™¾è‰è¯€ã€‚\n");
 
         if ((int)me->query_skill("yaowang-miaoshu", 1) < 150)
-                return notify_fail("ÄãµÄÒ©ÍõÃîÊõÔìÒèÌ«Ç³£¬ÎŞ"
-                                   "·¨Áì»áÉî°ÂµÄ°Ù²İ¾÷¡£\n");
+                return notify_fail("ä½ çš„è¯ç‹å¦™æœ¯é€ è¯£å¤ªæµ…ï¼Œæ— "
+                                   "æ³•é¢†ä¼šæ·±å¥¥çš„ç™¾è‰è¯€ã€‚\n");
 
         if ((int)me->query_skill("medical", 1) < (int)me->query_skill("baicao-jue", 1))
-                return notify_fail("ÄãµÄ»ù±¾Ò½ÊõË®Æ½ÓĞÏŞ£¬ÎŞ"
-                                   "·¨ÕÆÎÕ¸üÉî°ÂµÄ°Ù²İ¾÷¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬åŒ»æœ¯æ°´å¹³æœ‰é™ï¼Œæ— "
+                                   "æ³•æŒæ¡æ›´æ·±å¥¥çš„ç™¾è‰è¯€ã€‚\n");
 
         if ((int)me->query_skill("yaowang-miaoshu", 1) < (int)me->query_skill("baicao-jue", 1))
-                return notify_fail("ÄãµÄÒ©ÍõÃîÊõË®Æ½ÓĞÏŞ£¬ÎŞ"
-                                   "·¨ÕÆÎÕ¸üÉî°ÂµÄ°Ù²İ¾÷¡£\n");
+                return notify_fail("ä½ çš„è¯ç‹å¦™æœ¯æ°´å¹³æœ‰é™ï¼Œæ— "
+                                   "æ³•æŒæ¡æ›´æ·±å¥¥çš„ç™¾è‰è¯€ã€‚\n");
 
         return 1;
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("°Ù²İ¾÷Ö»ÄÜÍ¨¹ıÑ§Ï°»ñµÃ³¤½ø¡£\n");
+        return notify_fail("ç™¾è‰è¯€åªèƒ½é€šè¿‡å­¦ä¹ è·å¾—é•¿è¿›ã€‚\n");
 }

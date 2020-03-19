@@ -6,10 +6,10 @@ inherit KNOWER;
 
 void create()
 {
-        set_name("×¿Âê", ({ "zhuo ma", "zhuo", "ma" }));
-        set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
-        set("long", "ËýÊÇÒ»Î»²Ø×åÅ®Í¬°û¡£\n");
-        set("gender", "Å®ÐÔ");
+        set_name("å“çŽ›", ({ "zhuo ma", "zhuo", "ma" }));
+        set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
+        set("long", "å¥¹æ˜¯ä¸€ä½è—æ—å¥³åŒèƒžã€‚\n");
+        set("gender", "å¥³æ€§");
         set("age", 25);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -52,6 +52,6 @@ void greeting(object ob)
 {
 	if (! ob) return;
 
-        say (CYN "×¿ÂêºÏÊ²ÎªÀñ£¬ËµµÀ£º°¢åôÙ¢·ð£¡" +
-             RANK_D->query_respect(ob) + CYN "£¬Æ¶ÄáÕâÏáÓÐÀñÁË¡£\n" NOR);
+        say (CYN "å“çŽ›åˆä»€ä¸ºç¤¼ï¼Œè¯´é“ï¼šé˜¿å¼­ä½—ä½›ï¼" +
+             RANK_D->query_respect(ob) + CYN "ï¼Œè´«å°¼è¿™åŽ¢æœ‰ç¤¼äº†ã€‚\n" NOR);
 }

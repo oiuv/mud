@@ -1,4 +1,4 @@
-// luoying-xinfa.c 落英心法
+// luoying-xinfa.c 钀借嫳蹇冩硶
 // written by deaner
 // modified by Venus Oct.1997
 
@@ -18,7 +18,7 @@ int valid_force(string force)
 
 int practice_skill(object me)
 {
-    return notify_fail("落英心法只能用学(learn)的来增加熟练度。\n");
+    return notify_fail("钀借嫳蹇冩硶鍙兘鐢ㄥ(learn)鐨勬潵澧炲姞鐔熺粌搴︺�俓n");
 }
 
 string exert_function_file(string func)

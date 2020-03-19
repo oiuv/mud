@@ -3,12 +3,12 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIW "ÌìÒÒÉñ¾Æ" NOR, ({"tianyi shenjiu", "jiu", "shenjiu", "tianyi"}));
+        set_name(HIW "å¤©ä¹™ç¥žé…’" NOR, ({"tianyi shenjiu", "jiu", "shenjiu", "tianyi"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIW "ÕâÊÇÒ»Æ¿ÌìÒÒÉñ¾Æ£¬±ãÊÇÖ»ÎÅÎÅÒ²ÈÃÄã»è»èÓû×í¡£\n" NOR);
-                set("unit", "Æ¿");
+                set("long", HIW "è¿™æ˜¯ä¸€ç“¶å¤©ä¹™ç¥žé…’ï¼Œä¾¿æ˜¯åªé—»é—»ä¹Ÿè®©ä½ æ˜æ˜æ¬²é†‰ã€‚\n" NOR);
+                set("unit", "ç“¶");
                 set("no_sell", 1);
                 set("value", 50000);
         }
@@ -28,21 +28,21 @@ int do_eat(string arg)
         if (! id(arg) && arg != "tianyi shenjiu"
            && arg != "jiu" && arg != "shenjiu"
            && arg != "tianyi")
-                return notify_fail("ÄãÒªºÈÊ²Ã´¶«Î÷£¿\n");
+                return notify_fail("ä½ è¦å–ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("¼±Ê²Ã´£¬Ð¡ÐÄ±ðÒ­×ÅÁË¡£\n");
+                return notify_fail("æ€¥ä»€ä¹ˆï¼Œå°å¿ƒåˆ«å™Žç€äº†ã€‚\n");
 
         if (random(30) > 1)
         {
-                message_vision(WHT "$N" WHT "ºÈÁË¼¸¿Ú£¬È´·¢ÏÖÆ¿ÄÚËù×°²»"
-                               "¹ýÊÇÆÕÍ¨µÄÅ®¶ùºì¡£\n" NOR, me);
+                message_vision(WHT "$N" WHT "å–äº†å‡ å£ï¼Œå´å‘çŽ°ç“¶å†…æ‰€è£…ä¸"
+                               "è¿‡æ˜¯æ™®é€šçš„å¥³å„¿çº¢ã€‚\n" NOR, me);
                 destruct(this_object());
                 return 1;
         }
 
-        message_vision(HIW "$N" HIW "Ò»ÑöÍ·£¬½«ÌìÒÒÉñ¾ÆºÈÁËÏÂÈ¥£¬¾«Éñ¶Ù"
-                       "Ê±ÎªÖ®Ò»Õñ¡£\n" NOR, me);
+        message_vision(HIW "$N" HIW "ä¸€ä»°å¤´ï¼Œå°†å¤©ä¹™ç¥žé…’å–äº†ä¸‹åŽ»ï¼Œç²¾ç¥žé¡¿"
+                       "æ—¶ä¸ºä¹‹ä¸€æŒ¯ã€‚\n" NOR, me);
 
         me->set("jingli", me->query("max_jingli"));
         me->set("neili", me->query("max_neili"));

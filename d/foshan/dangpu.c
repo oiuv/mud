@@ -3,28 +3,28 @@ inherit ROOM;
 
 void create()
 {
-	set("short","Ó¢ÐÛµäµ±");
+	set("short","è‹±é›„å…¸å½“");
 	set("long",@LONG
-µ±ÆÌÀïÒ»ÕÅ¸ß¸ßµÄ¹ñÌ¨£¬¹ñÌ¨ºóÃæ×ø×Åµ±ÆÌµÄ³¯·î¡£Õâ¼Ò
-µ±ÆÌÊÇ·ïÀÏÒ¯Ëù¿ª£¬Ê®¶àÄêÀ´´ÓÃ»ÈËÀ´ÄÖ¹ýÊÂ£¬³¯·îÒ²¾ÍºÜ·Å
-ÐÄ¡£¹ñÌ¨ÉÏ¹Ò×ÅÒ»¸öÄ¾ÅÆ×Ó(paizi)¡£
+å½“é“ºé‡Œä¸€å¼ é«˜é«˜çš„æŸœå°ï¼ŒæŸœå°åŽé¢åç€å½“é“ºçš„æœå¥‰ã€‚è¿™å®¶
+å½“é“ºæ˜¯å‡¤è€çˆ·æ‰€å¼€ï¼Œåå¤šå¹´æ¥ä»Žæ²¡äººæ¥é—¹è¿‡äº‹ï¼Œæœå¥‰ä¹Ÿå°±å¾ˆæ”¾
+å¿ƒã€‚æŸœå°ä¸ŠæŒ‚ç€ä¸€ä¸ªæœ¨ç‰Œå­(paizi)ã€‚
 LONG);
         set("no_fight", 1);
         set("no_steal", 1);
         set("no_beg", 1);
         set("item_desc", ([
-                "paizi" : WHT "\n\n        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù     ¹«Æ½½»Ò×     ¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù  " NOR + HIW "Âô³ö" NOR + WHT "£º   " NOR + HIY "sell" NOR + WHT "   ¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù  " NOR + HIW "Âò½ø" NOR + WHT "£º   " NOR + HIY "buy" NOR + WHT "    ¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù  " NOR + HIW "¹À¼Û" NOR + WHT "£º   " NOR + HIY "value" NOR + WHT "  ¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù                  ¡ù\n"
-                              "        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n\n\n" NOR,
+                "paizi" : WHT "\n\n        â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»     å…¬å¹³äº¤æ˜“     â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»  " NOR + HIW "å–å‡º" NOR + WHT "ï¼š   " NOR + HIY "sell" NOR + WHT "   â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»  " NOR + HIW "ä¹°è¿›" NOR + WHT "ï¼š   " NOR + HIY "buy" NOR + WHT "    â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»  " NOR + HIW "ä¼°ä»·" NOR + WHT "ï¼š   " NOR + HIY "value" NOR + WHT "  â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»                  â€»\n"
+                              "        â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n\n\n" NOR,
         ]));
 
 	set("objects", ([

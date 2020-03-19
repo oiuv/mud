@@ -4,8 +4,8 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÍõÓïæÌ", ({ "wang yuyan", "wang" }));
-	set("gender", "Å®ĞÔ");
+	set_name("ç‹è¯­å«£", ({ "wang yuyan", "wang" }));
+	set("gender", "å¥³æ€§");
 	set("age", 20);
 	set("attitude", "peaceful");
 
@@ -32,32 +32,32 @@ void create()
 string long()
 {
 	if (! this_player())
-		return "ÕâÊÇÒ»¸öÃ²ÈôÌìÏÉµÄÅ®×Ó£¬ÃÀÀöµÄÈÃÄãÎŞ·¨ÏëÏó¡£\n";
+		return "è¿™æ˜¯ä¸€ä¸ªè²Œè‹¥å¤©ä»™çš„å¥³å­ï¼Œç¾ä¸½çš„è®©ä½ æ— æ³•æƒ³è±¡ã€‚\n";
 
         switch (this_player()->query("gender"))
         {
-        case "ÄĞĞÔ":
-                return "ÑÛÇ°ÊÇÈç´ËÒ»Î»ÃÀÃ²Å®×Ó£¬ÎŞ·¨ÓÃÑÔ´ÇĞÎÈİ¡£±ãÊÇÌì"
-                       "ÉÏÏÉÅ®£¬Ö»ÅÂÒ²²»¹ıÈç´Ë¡£\n";
-        case "Å®ĞÔ":
-                return "ÄãĞÄÇ°ÈçÔâÍ´»÷£¬ÑÛÇ°Å®×ÓÈç´ËÃÀÃ²£¬´ó¸Å×Ô¼ºÔÙ³¤"
-                       "Ò»°ÙÄêÒ²±È²»ÉÏÁË¡£\n";
+        case "ç”·æ€§":
+                return "çœ¼å‰æ˜¯å¦‚æ­¤ä¸€ä½ç¾è²Œå¥³å­ï¼Œæ— æ³•ç”¨è¨€è¾å½¢å®¹ã€‚ä¾¿æ˜¯å¤©"
+                       "ä¸Šä»™å¥³ï¼Œåªæ€•ä¹Ÿä¸è¿‡å¦‚æ­¤ã€‚\n";
+        case "å¥³æ€§":
+                return "ä½ å¿ƒå‰å¦‚é­ç—›å‡»ï¼Œçœ¼å‰å¥³å­å¦‚æ­¤ç¾è²Œï¼Œå¤§æ¦‚è‡ªå·±å†é•¿"
+                       "ä¸€ç™¾å¹´ä¹Ÿæ¯”ä¸ä¸Šäº†ã€‚\n";
         default:
-                return "Ò»Î»ÏÉÅ®°ãµÄÅ®×ÓÀïÔÚÃæÇ°£¬²»´øÒ»Ë¿ÈË¼äÑÌ»ğÆø£¬"
-                       "ÄãÕæºó»Úµ±³õÒ»µ¶Ë¬¿ìÁË¡£\n";
+                return "ä¸€ä½ä»™å¥³èˆ¬çš„å¥³å­é‡Œåœ¨é¢å‰ï¼Œä¸å¸¦ä¸€ä¸äººé—´çƒŸç«æ°”ï¼Œ"
+                       "ä½ çœŸåæ‚”å½“åˆä¸€åˆ€çˆ½å¿«äº†ã€‚\n";
         }
 }
 
 int accept_hit(object me)
 {
-        tell_object(me, "ÕâÃ´ÃÀÀöµÄÅ®×ÓÄãÒ²ÏÂµÃÁËÊÖ£¿\n");
+        tell_object(me, "è¿™ä¹ˆç¾ä¸½çš„å¥³å­ä½ ä¹Ÿä¸‹å¾—äº†æ‰‹ï¼Ÿ\n");
         return 0;
 }
 
 int accept_fight(object me)
 {
-        command("say Ğ¡Å®×Ó²»»áÎä¹¦£¬ÕâÎ»" + RANK_D->query_respect(me) +
-                "·Å¹ıÎÒ°É£¡");
+        command("say å°å¥³å­ä¸ä¼šæ­¦åŠŸï¼Œè¿™ä½" + RANK_D->query_respect(me) +
+                "æ”¾è¿‡æˆ‘å§ï¼");
         return 0;
 }
 
@@ -70,8 +70,8 @@ int accept_kill(object me)
 
         if (living(this_object()))
         {
-                command("chat ²»ºÃÀ²£¡ÕâÎ»" +  RANK_D->query_respect(me) +
-                        "ÒªĞĞĞ×É±ÈË°¡£¡");
+                command("chat ä¸å¥½å•¦ï¼è¿™ä½" +  RANK_D->query_respect(me) +
+                        "è¦è¡Œå‡¶æ€äººå•Šï¼");
         }
 
         if (duan = present("duan yu", environment(me)))

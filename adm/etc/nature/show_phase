@@ -24,49 +24,49 @@ length:time_msg:desc_msg:event_fun:outcolor
 # in each record sequently.
 
 0
-$HIC$¡¾ÌìÉ«¡¿$BLU$ÒÑ¾­ÊÇÎçÒ¹ÁË¡£
-$HIG$¡¾´°Íâ¡¿$BLU$Ò¹Ä»µÍ´¹£¬ÂúÌì·±ÐÇ
+$HIC$ã€å¤©è‰²ã€‘$BLU$å·²ç»æ˜¯åˆå¤œäº†ã€‚
+$HIG$ã€çª—å¤–ã€‘$BLU$å¤œå¹•ä½Žåž‚ï¼Œæ»¡å¤©ç¹æ˜Ÿ
 event_midnight
 $BLU$
 
 3
-$HIC$¡¾ÌìÉ«¡¿$WHT$¶«·½µÄÌì¿ÕÖÐ¿ªÊ¼³öÏÖÒ»Ë¿Î¢êØ¡£
-$HIG$¡¾´°Íâ¡¿$WHT$¶«·½µÄÌì¿ÕÒÑÖð½¥·¢°×
+$HIC$ã€å¤©è‰²ã€‘$WHT$ä¸œæ–¹çš„å¤©ç©ºä¸­å¼€å§‹å‡ºçŽ°ä¸€ä¸å¾®æ›¦ã€‚
+$HIG$ã€çª—å¤–ã€‘$WHT$ä¸œæ–¹çš„å¤©ç©ºå·²é€æ¸å‘ç™½
 event_dawn
 $WHT$
 
 6
-$HIC$¡¾ÌìÉ«¡¿$HIC$Ì«Ñô´Ó¶«·½µÄµØÆ½ÏßÉýÆðÁË¡£
-$HIG$¡¾´°Íâ¡¿$HIC$Ì«Ñô¸Õ´Ó¶«·½µÄµØÆ½ÏßÉýÆð
+$HIC$ã€å¤©è‰²ã€‘$HIC$å¤ªé˜³ä»Žä¸œæ–¹çš„åœ°å¹³çº¿å‡èµ·äº†ã€‚
+$HIG$ã€çª—å¤–ã€‘$HIC$å¤ªé˜³åˆšä»Žä¸œæ–¹çš„åœ°å¹³çº¿å‡èµ·
 event_sunrise
 $HIC$
 
 9
-$HIC$¡¾ÌìÉ«¡¿$HIW$Ì«ÑôÒÑ¾­¸ß¸ßµØ¹ÒÔÚ¶«·½µÄÌì¿ÕÖÐ¡£
-$HIG$¡¾´°Íâ¡¿$HIW$Ì«ÑôÕý¸ß¹ÒÔÚ¶«·½µÄÌì¿ÕÖÐ
+$HIC$ã€å¤©è‰²ã€‘$HIW$å¤ªé˜³å·²ç»é«˜é«˜åœ°æŒ‚åœ¨ä¸œæ–¹çš„å¤©ç©ºä¸­ã€‚
+$HIG$ã€çª—å¤–ã€‘$HIW$å¤ªé˜³æ­£é«˜æŒ‚åœ¨ä¸œæ–¹çš„å¤©ç©ºä¸­
 event_morning
 $HIW$
 
 12
-$HIC$¡¾ÌìÉ«¡¿$HIY$ÒÑ¾­ÊÇÕýÎçÁË£¬Ì«Ñô´ÓÄãÕýÉÏ·½ÕÕÒ«Öø´óµØ¡£
-$HIG$¡¾´°Íâ¡¿$HIY$ÏÖÔÚÊÇÕýÎçÊ±·Ö£¬Ì«Ñô¸ß¹ÒÔÚÄãµÄÍ·¶¥ÕýÉÏ·½
+$HIC$ã€å¤©è‰²ã€‘$HIY$å·²ç»æ˜¯æ­£åˆäº†ï¼Œå¤ªé˜³ä»Žä½ æ­£ä¸Šæ–¹ç…§è€€è‘—å¤§åœ°ã€‚
+$HIG$ã€çª—å¤–ã€‘$HIY$çŽ°åœ¨æ˜¯æ­£åˆæ—¶åˆ†ï¼Œå¤ªé˜³é«˜æŒ‚åœ¨ä½ çš„å¤´é¡¶æ­£ä¸Šæ–¹
 event_noon
 $HIY$
 
 15
-$HIC$¡¾ÌìÉ«¡¿$GRN$Ì«Ñô¿ªÊ¼´ÓÎ÷·½µÄÌì¿ÕÖÐÂýÂýÎ÷³Á¡£
-$HIG$¡¾´°Íâ¡¿$GRN$Ì«ÑôÕý¸ß¹ÒÔÚÎ÷·½µÄÌì¿ÕÖÐ
+$HIC$ã€å¤©è‰²ã€‘$GRN$å¤ªé˜³å¼€å§‹ä»Žè¥¿æ–¹çš„å¤©ç©ºä¸­æ…¢æ…¢è¥¿æ²‰ã€‚
+$HIG$ã€çª—å¤–ã€‘$GRN$å¤ªé˜³æ­£é«˜æŒ‚åœ¨è¥¿æ–¹çš„å¤©ç©ºä¸­
 event_afternoon
 $GRN$
 
 18
-$HIC$¡¾ÌìÉ«¡¿$HIR$°øÍíÁË£¬Ì«ÑôµÄâÅêÍ½«Î÷·½µÄÌì¿ÕÓ³³ÉÒ»Æ¬»ðºì¡£
-$HIG$¡¾´°Íâ¡¿$HIR$Ò»ÂÖ»ðºìµÄÏ¦ÑôÕýÅÇ»²ÔÚÎ÷·½µÄµØÆ½ÏßÉÏ
+$HIC$ã€å¤©è‰²ã€‘$HIR$å‚æ™šäº†ï¼Œå¤ªé˜³çš„é¦€æ™–å°†è¥¿æ–¹çš„å¤©ç©ºæ˜ æˆä¸€ç‰‡ç«çº¢ã€‚
+$HIG$ã€çª—å¤–ã€‘$HIR$ä¸€è½®ç«çº¢çš„å¤•é˜³æ­£å¾˜å¾Šåœ¨è¥¿æ–¹çš„åœ°å¹³çº¿ä¸Š
 event_evening
 $HIR$
 
 21
-$HIC$¡¾ÌìÉ«¡¿$HIB$Ò¹Íí½µÁÙÁË¡£
-$HIG$¡¾´°Íâ¡¿$HIB$Ò¹Ä»ÁýÕÖÖø´óµØ
+$HIC$ã€å¤©è‰²ã€‘$HIB$å¤œæ™šé™ä¸´äº†ã€‚
+$HIG$ã€çª—å¤–ã€‘$HIB$å¤œå¹•ç¬¼ç½©è‘—å¤§åœ°
 event_night
 $HIB$

@@ -3,9 +3,9 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÉÕÏãÀÏÌ«", ({"lao taitai", "lao", "taitai"}));
-        set("gender", "Å®ĞÔ");
- 	set("long", "¼û·ğÉÕÏãµÄÀÏÌ«Ì«¡£\n");
+	set_name("çƒ§é¦™è€å¤ª", ({"lao taitai", "lao", "taitai"}));
+        set("gender", "å¥³æ€§");
+ 	set("long", "è§ä½›çƒ§é¦™çš„è€å¤ªå¤ªã€‚\n");
         set("combat_exp", 5000);
    	set("age",64);
 
@@ -44,12 +44,12 @@ void greeting(object ob)
 
  	if (xiang)
 	{
-  		message_vision(CYN "$N" CYN "¹§¾´µØÏò$n" NOR +
-                               CYN "¹òµ¹£¬×ìÀïÄîÄîÓĞ´Ê¡£\n" NOR,
+  		message_vision(CYN "$N" CYN "æ­æ•¬åœ°å‘$n" NOR +
+                               CYN "è·ªå€’ï¼Œå˜´é‡Œå¿µå¿µæœ‰è¯ã€‚\n" NOR,
                                this_object(), xiang);
     		return;
    	}
-  	tell_object(ob, CYN "ÉÕÏãÀÏÌ«¶ÔÄãµÀ£º¶ÔÆĞÈøÒª¹§¾´£¬Òª¾´"
-                        "ÖØ¹íÉñ¡£" NOR);
+  	tell_object(ob, CYN "çƒ§é¦™è€å¤ªå¯¹ä½ é“ï¼šå¯¹è©è¨è¦æ­æ•¬ï¼Œè¦æ•¬"
+                        "é‡é¬¼ç¥ã€‚" NOR);
   	return;
 }

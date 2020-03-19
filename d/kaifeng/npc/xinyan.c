@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("ĞÄÑâ", ({ "xin yan", "yan", "xin" }));
-        set("title", "³Â¼ÒÂåÊéÙ×");
-        set("long", "ËûÊÇºì»¨»á×Ü¶æÖ÷³Â¼ÒÂåµÄÌùÉíÊéÙ×¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("å¿ƒç š", ({ "xin yan", "yan", "xin" }));
+        set("title", "é™ˆå®¶æ´›ä¹¦åƒ®");
+        set("long", "ä»–æ˜¯çº¢èŠ±ä¼šæ€»èˆµä¸»é™ˆå®¶æ´›çš„è´´èº«ä¹¦åƒ®ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("class", "scholar");
         set("age", 15);
         set("attitude", "friendly");

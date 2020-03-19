@@ -1,6 +1,6 @@
 #include <ansi.h>
 
-#define HUA "¡¸" MAG "»¯µû" NOR "¡¹"
+#define HUA "ã€Œ" MAG "åŒ–è¶" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -15,31 +15,31 @@ int perform(object me, object target)
         int count, cnt, skill;
 
         if (userp(me) && ! me->query("can_perform/zhuangzi-wu/hua"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if ((int)me->query_temp("hua_die"))
-                return notify_fail("ÄãÒÑ¾­ÔËÆğ" HUA "ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»è¿èµ·" HUA "äº†ã€‚\n");
 
         if ((int)me->query_skill("zhuangzi-wu", 1) < 150)
-                return notify_fail("ÄãµÄ×¯×ÓÎèµÈ¼¶²»¹»£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ çš„åº„å­èˆç­‰çº§ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if ((int)me->query_dex() < 32)
-                return notify_fail("ÄãµÄÉí·¨²»¹»£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ çš„èº«æ³•ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if ((int)me->query_skill("force", 1) < 150)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if ((int)me->query_skill("dodge", 1) < 150)
-                return notify_fail("ÄãµÄÇá¹¦ĞŞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ çš„è½»åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if ((int)me->query("max_neili") < 1000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if ((int)me->query("neili") < 250)
-                return notify_fail("Äã´ËÊ±µÄÄÚÁ¦²»×ã£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ æ­¤æ—¶çš„å†…åŠ›ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
-        msg = MAG "$N" MAG "Ò»ÉùÇåĞ¥£¬ÉíĞÎÒ»Õ¹£¬Îè²½ÍğÈçĞĞÔÆÁ÷Ë®¡¢²Êµú·É"
-              "Ñï£¬ËÙ¶È±äµÃÒì³£Ãô½İ¡£\n\n" NOR;
+        msg = MAG "$N" MAG "ä¸€å£°æ¸…å•¸ï¼Œèº«å½¢ä¸€å±•ï¼Œèˆæ­¥å®›å¦‚è¡Œäº‘æµæ°´ã€å½©ç¢Ÿé£"
+              "æ‰¬ï¼Œé€Ÿåº¦å˜å¾—å¼‚å¸¸æ•æ·ã€‚\n\n" NOR;
         
         message_combatd(msg, me, target);
         skill = me->query_skill("zhuangzi-wu", 1);
@@ -64,6 +64,6 @@ void remove_effect(object me, int amount, int amount1)
         {
                 me->add_temp("dex", -amount);
                 me->delete_temp("hua_die");
-                tell_object(me, "ÄãµÄ" HUA "ÔËĞĞÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„" HUA "è¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›ä¸¹ç”°ã€‚\n");
         }
 }

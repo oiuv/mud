@@ -1,4 +1,4 @@
-// diaogan.c µö¸Í
+// diaogan.c é’“ç«¿
 
 #include <ansi.h>
 
@@ -16,13 +16,13 @@ void init()
 
 void create()
 {
-	set_name(HIG "µö¸Í" NOR, ({ "diao gan", "gan" }));
+	set_name(HIG "é’“ç«¿" NOR, ({ "diao gan", "gan" }));
 	if (clonep())
 		set_default_object(__FILE__);
 	else
         {
-		set("unit", "¸ù");
-		set("long", "ÕâÊÇÒ»¸ùµöÓãÕß³£ÓÃµÄµö¸Í£¬³£ÓÃËüÀ´µöÓã(fish)¡£\n");
+		set("unit", "æ ¹");
+		set("long", "è¿™æ˜¯ä¸€æ ¹é’“é±¼è€…å¸¸ç”¨çš„é’“ç«¿ï¼Œå¸¸ç”¨å®ƒæ¥é’“é±¼(fish)ã€‚\n");
 		set("value", 2000);
 	}
 
@@ -36,16 +36,16 @@ int do_fish()
 	object me = this_player();
 
         if (! arrayp(environment(me)->query("resource/fish")))
-                return notify_fail("ÕâÀï¿´²»³öÓĞÓãµÄÑù×Ó¡£\n");
+                return notify_fail("è¿™é‡Œçœ‹ä¸å‡ºæœ‰é±¼çš„æ ·å­ã€‚\n");
 
         if (! objectp(yr = present("yu er", me)) || yr->query_amount() < 1)
-                return notify_fail("ÄãÉíÉÏÃ»ÓĞÓã¶üÁË¡£\n");
+                return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰é±¼é¥µäº†ã€‚\n");
 
         if (me->is_busy() || me->is_fighting())
-                return notify_fail("Äã»¹ÊÇÃ¦ÍêÊÖÍ·ÉÏµÄÊÂÇéÔÙËµ°É¡£\n");
+                return notify_fail("ä½ è¿˜æ˜¯å¿™å®Œæ‰‹å¤´ä¸Šçš„äº‹æƒ…å†è¯´å§ã€‚\n");
 
-        message_vision("$NÌÍ³öÒ»µãÓã¶ü£¬×ĞÏ¸µÄ·ÅÔÚµö¹³ÉÏ£¬ÇáÇáÒ»Ë¦¸Ë£¬Ö»¼ûË®ÃæÉÏµ´ÆğÁË\n"
-                       "Ò»¸ö¸öÔ²È¦£¬ÖĞ¼äÖ»ÓĞÒ»¸ö°×É«µÄ¸¡×ÓÔÚËæ×ÅË®²¨µ´Ñú¡£\n", me);
+        message_vision("$Næå‡ºä¸€ç‚¹é±¼é¥µï¼Œä»”ç»†çš„æ”¾åœ¨é’“é’©ä¸Šï¼Œè½»è½»ä¸€ç”©æ†ï¼Œåªè§æ°´é¢ä¸Šè¡èµ·äº†\n"
+                       "ä¸€ä¸ªä¸ªåœ†åœˆï¼Œä¸­é—´åªæœ‰ä¸€ä¸ªç™½è‰²çš„æµ®å­åœ¨éšç€æ°´æ³¢è¡æ¼¾ã€‚\n", me);
         yr->add_amount(-1);
         me->start_busy((: call_other, __FILE__, "finishing" :),
                        (: call_other, __FILE__, "halt_finishing" :));
@@ -71,29 +71,29 @@ int finishing(object me)
         case 1:
                 if (random(4))
                 {
-                        message_vision("$NµÄ¸¡×ÓÇáÇáµÄÕğ¶¯£¬Ò»ÉÏ"
-                                       "Ò»ÏÂµÄÒ¡»Î¸ö²»Í£¡£\n", me);
+                        message_vision("$Nçš„æµ®å­è½»è½»çš„éœ‡åŠ¨ï¼Œä¸€ä¸Š"
+                                       "ä¸€ä¸‹çš„æ‘‡æ™ƒä¸ªä¸åœã€‚\n", me);
                         break;
                 }
 
-                message_vision("$NµÄ¸¡×ÓºöÈ»¾çÁÒµÄÕğµ´ÆğÀ´¡£\n", me);
+                message_vision("$Nçš„æµ®å­å¿½ç„¶å‰§çƒˆçš„éœ‡è¡èµ·æ¥ã€‚\n", me);
                 stage++;
                 break;
 
         case 2:
         case 3:
-                message_vision(random(2) ? "$NµÄ¸¡×Óºö×óºöÓÒÒ¡°Ú¸ö²»Í£¡£\n"
-                                         : "$NµÄ¸¡×ÓÃÍÈ»ÏòÏÂÒ»´Ü£¬È»ºóÓÖÌø³öË®Ãæ¡£\n",
+                message_vision(random(2) ? "$Nçš„æµ®å­å¿½å·¦å¿½å³æ‘‡æ‘†ä¸ªä¸åœã€‚\n"
+                                         : "$Nçš„æµ®å­çŒ›ç„¶å‘ä¸‹ä¸€çªœï¼Œç„¶ååˆè·³å‡ºæ°´é¢ã€‚\n",
                                me);
                 stage++;
                 break;
         case 4:
-                message_vision(random(2) ? "Ò»Õó¾çÁÒµÄÒ¡°Ú¹ıºó£¬¸¡×Ó°²¾²"
-                                           "ÏÂÀ´£¬$NÁ¬Ã¦À­Æğµö¸Í£¬Ò»¿´¹³ÉÏ¿Õ¿ÕÈçÒ²¡£\n"
-                                         : "¸¡×ÓÃÍÈ»µÄ×óÓÒ°Ú¶¯£¬ºöÈ»ÓÖ°²¾²ÁËÏÂÁË£¬$NÒÉ»óµÄ"
-                                           "À­Æğµö¸Í£¬³ıÁËÉÁÁÁ\nµÄÓã¹³£¬ÉÏÃæÊ²Ã´Ò²Ã»ÓĞ¡£\n",
+                message_vision(random(2) ? "ä¸€é˜µå‰§çƒˆçš„æ‘‡æ‘†è¿‡åï¼Œæµ®å­å®‰é™"
+                                           "ä¸‹æ¥ï¼Œ$Nè¿å¿™æ‹‰èµ·é’“ç«¿ï¼Œä¸€çœ‹é’©ä¸Šç©ºç©ºå¦‚ä¹Ÿã€‚\n"
+                                         : "æµ®å­çŒ›ç„¶çš„å·¦å³æ‘†åŠ¨ï¼Œå¿½ç„¶åˆå®‰é™äº†ä¸‹äº†ï¼Œ$Nç–‘æƒ‘çš„"
+                                           "æ‹‰èµ·é’“ç«¿ï¼Œé™¤äº†é—ªäº®\nçš„é±¼é’©ï¼Œä¸Šé¢ä»€ä¹ˆä¹Ÿæ²¡æœ‰ã€‚\n",
                                me);
-                tell_object(me, CYN "¿´À´ÊÇÀ­¸Ë(draw)À­ÍíÁË£¬°×°×µÄÅâÁËÒ»¸öÓã¶ü£¡\n" NOR);
+                tell_object(me, CYN "çœ‹æ¥æ˜¯æ‹‰æ†(draw)æ‹‰æ™šäº†ï¼Œç™½ç™½çš„èµ”äº†ä¸€ä¸ªé±¼é¥µï¼\n" NOR);
                 me->delete_temp("fishing");
                 delete_temp("owner");
                 return 0;
@@ -102,11 +102,11 @@ int finishing(object me)
                 if (random(5))
                 {
                         if (random(3)) return 1;
-                        tell_object(me, random(2) ? "Ë®Ãæ²¨À½²»¾ª£¬Ã»ÓĞÊ²Ã´±ä»¯¡£\n"
-                                                  : "Î¢·çÇàÇàµÄ´µ£¬Ë®Ãæµ´ÆğÒ»²ã²ãÏ¸ÀË£¬¾ÍÊÇÃ»ÓĞÓãÉÏ¹³¡£\n");
+                        tell_object(me, random(2) ? "æ°´é¢æ³¢æ¾œä¸æƒŠï¼Œæ²¡æœ‰ä»€ä¹ˆå˜åŒ–ã€‚\n"
+                                                  : "å¾®é£é’é’çš„å¹ï¼Œæ°´é¢è¡èµ·ä¸€å±‚å±‚ç»†æµªï¼Œå°±æ˜¯æ²¡æœ‰é±¼ä¸Šé’©ã€‚\n");
 			break;
                 }
-                message_vision("ºöÈ»$NµÄ¸¡×ÓÕğ¶¯ÁËÒ»ÏÂ¡£\n", me);
+                message_vision("å¿½ç„¶$Nçš„æµ®å­éœ‡åŠ¨äº†ä¸€ä¸‹ã€‚\n", me);
                 stage = 1;
                 break;
         }
@@ -119,7 +119,7 @@ int halt_finishing(object me)
 {
         delete_temp("owner");
         me->delete_temp("fishing");
-        message_vision("$NÊÕÆğµö¸Í£¬¿´Ñù×ÓÊÇ²»ÏëÔÙµöÁË¡£\n",  me);
+        message_vision("$Næ”¶èµ·é’“ç«¿ï¼Œçœ‹æ ·å­æ˜¯ä¸æƒ³å†é’“äº†ã€‚\n",  me);
         return 1;
 }
 
@@ -133,12 +133,12 @@ int do_draw(string arg)
         int pot;
 
         if (! arg || ! id(arg))
-                return notify_fail("ÄãÒªÀ­Ê²Ã´£¿\n");
+                return notify_fail("ä½ è¦æ‹‰ä»€ä¹ˆï¼Ÿ\n");
 
         me = this_player();
 
         if (query_temp("owner") != me)
-                return notify_fail("ÄãÓÖÃ»ÔÚµöÓã£¬À­¸Ë¸ÉÊ²Ã´£¿\n");
+                return notify_fail("ä½ åˆæ²¡åœ¨é’“é±¼ï¼Œæ‹‰æ†å¹²ä»€ä¹ˆï¼Ÿ\n");
 
         if (environment(me) != me->query_temp("fishing_env"))
                 return 0;
@@ -146,8 +146,8 @@ int do_draw(string arg)
         stage = me->query_temp("fishing");
         if (stage < 2)
         {
-                message_vision("$NÁ¬Ã¦Ò»À­µö¸Í£¬¸ß¸ßµÄ¾ÙÁËÆğÀ´£¬È´¼ûÉÏÃæÓã¶üÒÀÈ»£¬»¹"
-                               "ÊÇÀÏÑù×Ó£¬Ö»ºÃ\n´¹Í·É¥ÆøµÄÖØĞÂ°Ñ¸ËË¦ÁË³öÈ¥¡£\n", me);
+                message_vision("$Nè¿å¿™ä¸€æ‹‰é’“ç«¿ï¼Œé«˜é«˜çš„ä¸¾äº†èµ·æ¥ï¼Œå´è§ä¸Šé¢é±¼é¥µä¾ç„¶ï¼Œè¿˜"
+                               "æ˜¯è€æ ·å­ï¼Œåªå¥½\nå‚å¤´ä¸§æ°”çš„é‡æ–°æŠŠæ†ç”©äº†å‡ºå»ã€‚\n", me);
                 me->set_temp("fishing", 0);
                 return 1;
         }
@@ -158,13 +158,13 @@ int do_draw(string arg)
                                         base_name(environment(me))));
         ob = new(fish[random(sizeof(fish))]);
 
-        message_vision(random(2) ? "$NÊÖ¼²ÑÛ¿ì£¬ÃÍµØÒ»ÊÕµö¸Í£¬Ö»¼ûÉÏÃæ¹Ò×ÅÒ»" +
-                                   ob->query("unit") + "Å¤À´Å¤È¥µÄ" +
-                                   ob->name() + "¡£\n"
-                                 : "$NË³ÊÆÒ»À­¸Ë£¬µÇÊ±°ÑÒ»" + ob->query("unit") +
-                                   ob->name() + "µöÁËÉÏÀ´¡£\n", me);
-        tell_object(me, HIG "Äãµöµ½ÁËÒ»" + ob->query("unit") +
-                        ob->name() + HIG + "¡£\n" NOR);
+        message_vision(random(2) ? "$Næ‰‹ç–¾çœ¼å¿«ï¼ŒçŒ›åœ°ä¸€æ”¶é’“ç«¿ï¼Œåªè§ä¸Šé¢æŒ‚ç€ä¸€" +
+                                   ob->query("unit") + "æ‰­æ¥æ‰­å»çš„" +
+                                   ob->name() + "ã€‚\n"
+                                 : "$Né¡ºåŠ¿ä¸€æ‹‰æ†ï¼Œç™»æ—¶æŠŠä¸€" + ob->query("unit") +
+                                   ob->name() + "é’“äº†ä¸Šæ¥ã€‚\n", me);
+        tell_object(me, HIG "ä½ é’“åˆ°äº†ä¸€" + ob->query("unit") +
+                        ob->name() + HIG + "ã€‚\n" NOR);
         ob->move(me, 1);
 
         delete_temp("owner");
@@ -175,12 +175,12 @@ int do_draw(string arg)
             me->query("combat_exp") > 150000)
                 return 1;
 
-        exp = 50 + random(20);//»ù´¡¾­ÑéÔö¼Ó10±¶
+        exp = 50 + random(20);//åŸºç¡€ç»éªŒå¢åŠ 10å€
         pot = exp / 2;
         me->add("combat_exp", exp);
         if (me->query("potential") < me->query_potential_limit())
                 me->add("potential", pot);
-        tell_object(me, HIC "ÄãĞÄÖĞÎ¢Î¢Ò»¶¯£¬¶ÔÎäÑ§µÄÀí½âÓÖÉîÁËÒ»²ã¡£\n" NOR);
+        tell_object(me, HIC "ä½ å¿ƒä¸­å¾®å¾®ä¸€åŠ¨ï¼Œå¯¹æ­¦å­¦çš„ç†è§£åˆæ·±äº†ä¸€å±‚ã€‚\n" NOR);
         return 1;
 }
 

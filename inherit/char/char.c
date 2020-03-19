@@ -210,10 +210,10 @@ void heart_beat()
         {
             string msg;
 
-            msg = HIY "¡¾½­ºþ¹«¸æ¡¿" NOR + WHT "»¶Ó­¼ÓÈë¹Ù·½ÓÎÏ·QQÈº£º9783836¡£\n" NOR;
+            msg = HIY "ã€æ±Ÿæ¹–å…¬å‘Šã€‘" NOR + WHT "æ¬¢è¿ŽåŠ å…¥å®˜æ–¹æ¸¸æˆQQç¾¤ï¼š9783836ã€‚\n" NOR;
 
             if (!me->save())
-                msg = HIR "¡¾Êý¾Ý±£»¤¡¿ÓÉÓÚÊý¾ÝÒì³££¬ÄúµÄµµ°¸±¾´Î´æÅÌÊ§°Ü¡£\n" NOR;
+                msg = HIR "ã€æ•°æ®ä¿æŠ¤ã€‘ç”±äºŽæ•°æ®å¼‚å¸¸ï¼Œæ‚¨çš„æ¡£æ¡ˆæœ¬æ¬¡å­˜ç›˜å¤±è´¥ã€‚\n" NOR;
 
             set("last_save", t);
             tell_object(me, msg);
@@ -296,17 +296,17 @@ varargs string short(int raw)
 
             title = query("title");
         /*
-        // ÏÔÊ¾Í¬ÃË
+        // æ˜¾ç¤ºåŒç›Ÿ
         if (me->query("league/league_name"))
         {
-            title = HIG + "¡º" + me->query("league/league_name") + "¡»" + NOR + " ";
+            title = HIG + "ã€Ž" + me->query("league/league_name") + "ã€" + NOR + " ";
             if (! stringp(title += query_temp("title")))
                 title += query("title");
         }
         */
         if (nick = query("nickname"))
         {
-            str = "¡¸" + nick + "¡¹" + str;
+            str = "ã€Œ" + nick + "ã€" + str;
             if (title)
                 str = title + str;
         }
@@ -323,48 +323,48 @@ varargs string short(int raw)
         return str;
 
     if (me->is_ghost())
-        str = HIB "(¹íÆø) " NOR + str;
+        str = HIB "(é¬¼æ°”) " NOR + str;
 
     if (me->is_net_dead())
     {
         switch (me->query("doing"))
         {
         case "breakup":
-            str += HIY " <Í¨ÂöÖÐ>" NOR;
+            str += HIY " <é€šè„‰ä¸­>" NOR;
             break;
 
         case "closed":
-            str += HIY " <±Õ¹ØÖÐ>" NOR;
+            str += HIY " <é—­å…³ä¸­>" NOR;
             break;
 
         case "animaout":
-            str += HIY " <ÔªÓ¤ÖÐ>" NOR;
+            str += HIY " <å…ƒå©´ä¸­>" NOR;
             break;
 
         case "death":
-            str += HIY " <ÉúËÀÖÐ>" NOR;
+            str += HIY " <ç”Ÿæ­»ä¸­>" NOR;
             break;
 
         case "scheme":
-            str += HIW " <¼Æ»®ÖÐ>" NOR;
+            str += HIW " <è®¡åˆ’ä¸­>" NOR;
             break;
 
         default:
-            str += HIG " <¶ÏÏßÖÐ>" NOR;
+            str += HIG " <æ–­çº¿ä¸­>" NOR;
         }
     }
 
     if (in_input())
-        str += HIC " <ÊäÈëÎÄ×ÖÖÐ>" NOR;
+        str += HIC " <è¾“å…¥æ–‡å­—ä¸­>" NOR;
 
     if (!living(me) && query("disable_type"))
         str += HIR + query("disable_type") + NOR;
 
     if (in_edit())
-        str += HIY " <±à¼­µµ°¸ÖÐ>" NOR;
+        str += HIY " <ç¼–è¾‘æ¡£æ¡ˆä¸­>" NOR;
 
     if (interactive(this_object()) && query_idle(this_object()) > 120 && !this_object()->query_temp("on_baitan"))
-        str += HIM " <·¢´ôÖÐ>" NOR;
+        str += HIM " <å‘å‘†ä¸­>" NOR;
 
     return str;
 }

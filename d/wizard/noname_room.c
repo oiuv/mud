@@ -7,13 +7,13 @@ inherit ROOM;
 
 void create()
 {
-	set("short", HIR "ÄäÃûÁôÑÔÊÒ" NOR);
+	set("short", HIR "åŒ¿åç•™è¨€å®¤" NOR);
 	set("long", @LONG
-Èç¹ûÄúÓÐÎÊÌâÁôÑÔ¸øÑ×»ÆÎ×Ê¦µ«ÓÖ²»ÏëÆäËûÍæ¼Ò¿´µ½£¬ÄÇ
-Ã´Äú¿ÉÒÔÔÚÕâÀï(post)£¬ÆäËûÍæ¼Ò½«²»ÄÜ¿´µ½ÄúµÄÁôÑÔ£¬ÔÚÕâ
-ÀïÄú¿ÉÒÔ¾Ù±¨ÓÐÎÊÌâµÄidºÍÆäËû×÷±×ÐÐÎª£¬Ñ×»ÆÎ×Ê¦½«ÎªÄúµÄ
-ÁôÑÔÍêÈ«±£ÃÜ¡£
-                                ==ÎäÁÖÈºÏÀ´«È«ÌåÎ×Ê¦==
+å¦‚æžœæ‚¨æœ‰é—®é¢˜ç•™è¨€ç»™ç‚Žé»„å·«å¸ˆä½†åˆä¸æƒ³å…¶ä»–çŽ©å®¶çœ‹åˆ°ï¼Œé‚£
+ä¹ˆæ‚¨å¯ä»¥åœ¨è¿™é‡Œ(post)ï¼Œå…¶ä»–çŽ©å®¶å°†ä¸èƒ½çœ‹åˆ°æ‚¨çš„ç•™è¨€ï¼Œåœ¨è¿™
+é‡Œæ‚¨å¯ä»¥ä¸¾æŠ¥æœ‰é—®é¢˜çš„idå’Œå…¶ä»–ä½œå¼Šè¡Œä¸ºï¼Œç‚Žé»„å·«å¸ˆå°†ä¸ºæ‚¨çš„
+ç•™è¨€å®Œå…¨ä¿å¯†ã€‚
+                                ==æ­¦æž—ç¾¤ä¾ ä¼ å…¨ä½“å·«å¸ˆ==
 LONG );
 
 	set("exits", ([
@@ -30,7 +30,7 @@ LONG );
 int valid_leave(object me, string dir)
 {
 	if (dir == "west" && ! wizardp(me))
-		return notify_fail("Ö»ÓÐÎ×Ê¦²ÅÄÜ½øÈ¥£¡\n");
+		return notify_fail("åªæœ‰å·«å¸ˆæ‰èƒ½è¿›åŽ»ï¼\n");
 
 	return ::valid_leave(me, dir);
 }

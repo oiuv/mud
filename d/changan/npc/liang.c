@@ -1,12 +1,12 @@
-// liang.c ÁºÏ²Â»
+// liang.c æ¢å–œç¦„
 
 inherit NPC;
 
 void create()
 {
-        set_name("ÁºÏ²Â»", ({"liang xilu", "liang", "boss"}));
-	set("title", "»õÕ»ÀÏ°å");
-	set("gender", "ÄĞĞÔ");
+        set_name("æ¢å–œç¦„", ({"liang xilu", "liang", "boss"}));
+	set("title", "è´§æ ˆè€æ¿");
+	set("gender", "ç”·æ€§");
 	set("age", 35);
 	set("kee", 350); 
 	set("max_kee", 350);

@@ -7,16 +7,16 @@ int main(object me, string arg)
         object *t;
 
 	if (! pointerp(t = me->query_team()))
-		return notify_fail("你现在并没有参加任何队伍。\n");
+		return notify_fail("浣犵幇鍦ㄥ苟娌℃湁鍙傚姞浠讳綍闃熶紞銆俓n");
 
 	if (me->is_team_leader())
         {
-		message("team", me->name(1) + "将队伍解散了。\n", t, me);
-		write("你将队伍解散了。\n");
+		message("team", me->name(1) + "灏嗛槦浼嶈В鏁ｄ簡銆俓n", t, me);
+		write("浣犲皢闃熶紞瑙ｆ暎浜嗐�俓n");
 	} else
         {
-		message("team", me->name(1) + "决定脱离队伍。\n", t, me);
-		write("你脱离了你的队伍。\n");
+		message("team", me->name(1) + "鍐冲畾鑴辩闃熶紞銆俓n", t, me);
+		write("浣犺劚绂讳簡浣犵殑闃熶紞銆俓n");
 	}
 
 	me->dismiss_team();

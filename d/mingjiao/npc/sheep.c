@@ -4,16 +4,16 @@ inherit NPC;
 
 void create()
 {
-    set_name("Ò°Ñò", ({ "sheep" }) );
-    set("gender", "ĞÛĞÔ");
-    set("race", "Ò°ÊŞ");
+    set_name("é‡ç¾Š", ({ "sheep" }) );
+    set("gender", "é›„æ€§");
+    set("race", "é‡å…½");
     set("age", 2);
     set("long",
-        "ÕâÖ»Ò°ÑòÔÚµÍÍ·³Ô²İ£¬¼ûÁËÈËÒ²²»¾ª±Ü¡£\n");
+        "è¿™åªé‡ç¾Šåœ¨ä½å¤´åƒè‰ï¼Œè§äº†äººä¹Ÿä¸æƒŠé¿ã€‚\n");
     set("combat_exp", 5000);
     set("shen_type", -1);
     set("attitude", "peaceful");
-    set("limbs", ({ "Ñò½Ç", "Ç°Ìã", "ºóÌã" }) );
+    set("limbs", ({ "ç¾Šè§’", "å‰è¹„", "åè¹„" }) );
     set("verbs", ({ "hoof" }) );
 
     set("water", 200);

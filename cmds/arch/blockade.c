@@ -15,12 +15,12 @@ int main(object me, string arg)
 	
 	wiz_status = SECURITY_D->get_status(me);
 	if( wiz_status != "(admin)" && wiz_status != "(arch)" )
-		return notify_fail("Ö»ÓĞ (arch) ÒÔÉÏµÄÎ×Ê¦²ÅÄÜ·â×¡Ê±¿Õ\n");
+		return notify_fail("åªæœ‰ (arch) ä»¥ä¸Šçš„å·«å¸ˆæ‰èƒ½å°ä½æ—¶ç©º\n");
 
 	seteuid(getuid());
 	LOGIN_D->set_madlock(1);
-        message("system", "\n*** " + RANK_D->query_rank(me) + me->short(1) + "ÕıÔÚ·âËøÊ±¿Õ. ***\n*** ¿ÕÖĞ·¢³ößĞßĞµÄÏìÉù. ÑÏ¿áµÄ¿¼Ñé¾ÍÒªÀ´ÁÙ... ***\n", users());
-        write("´¦ÀíÖĞ£º");
+        message("system", "\n*** " + RANK_D->query_rank(me) + me->short(1) + "æ­£åœ¨å°é”æ—¶ç©º. ***\n*** ç©ºä¸­å‘å‡ºå’å’çš„å“å£°. ä¸¥é…·çš„è€ƒéªŒå°±è¦æ¥ä¸´... ***\n", users());
+        write("å¤„ç†ä¸­ï¼š");
 
 	ob = users();
 	for(i=0; i<sizeof(ob); i++) {
@@ -33,12 +33,12 @@ int main(object me, string arg)
 			}
 			else { 
 				LOGIN_D->set_madlock(0);
-				return notify_fail("Ê±¿Õ·âËøÊ§°ÜÁË£¡£¡\n");
+				return notify_fail("æ—¶ç©ºå°é”å¤±è´¥äº†ï¼ï¼\n");
 			}
 		}
 	}
 
-	write("³É¹¦µÄ·â×¡ÁËÊ±¿Õ¡£\n");
+	write("æˆåŠŸçš„å°ä½äº†æ—¶ç©ºã€‚\n");
 
 	return 1;
 }
@@ -46,9 +46,9 @@ int main(object me, string arg)
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: blockade
+æŒ‡ä»¤æ ¼å¼: blockade
  
-·âËø×¡ÏÖÔÚµÄÊ±¿Õ¡­¡­
+å°é”ä½ç°åœ¨çš„æ—¶ç©ºâ€¦â€¦
  
 HELP
 );

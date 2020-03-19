@@ -8,14 +8,14 @@ int is_chat_room()
 
 void create()
 {
-    set("short", NOR + WHT "ÖíÈ¦" NOR);
+    set("short", NOR + WHT "çŒªåœˆ" NOR);
     set("long", @LONG
-ÕâÀïÊÇÒ»¸ö¹©ÀÁÖíÍæ¼Ò·¢´ôµÄµØ·½£¬À¸ÉÏ¹Ò×ÅÒ»¸öÅÆ×Ó(paizi)¡£
+è¿™é‡Œæ˜¯ä¸€ä¸ªä¾›æ‡’çŒªç©å®¶å‘å‘†çš„åœ°æ–¹ï¼Œæ ä¸ŠæŒ‚ç€ä¸€ä¸ªç‰Œå­(paizi)ã€‚
 LONG);
     set("no_fight", 1);
     set("no_sleep_room",1);
     set("item_desc", ([
-        "paizi" : WHT "´ó¼ÒÒ»Æğ·¢´ô£¬°ÑÄàÌ¶±ä³ÉÖíµÄÊÀ½ç¡£\n" NOR,
+        "paizi" : WHT "å¤§å®¶ä¸€èµ·å‘å‘†ï¼ŒæŠŠæ³¥æ½­å˜æˆçŒªçš„ä¸–ç•Œã€‚\n" NOR,
     ]));
     set("exits", ([
         "south"   : __DIR__"majiu",

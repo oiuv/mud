@@ -3,19 +3,19 @@ inherit ROOM;
 
 void create ()
 {
-  	set ("short", "Á·Îä³¡");
+  	set ("short", "ç»ƒæ­¦åœº");
   	set ("long", @LONG
-¿ÕÀ«µÄ³¡µØÉÏÆÌÂúÁËÏ¸Ï¸µÄ»ÆÍÁ£¬ÕıºÃÊÊºÏÑİÎä¡£ËÄÃæÓĞ¼¸¸öïÚ¾ÖµÄïÚÊ¦
-ÕıÔÚÁ·Îä¡£Á·Îä³¡µÄÖĞĞÄÊú×Å¼¸¸ùÄ¾×®(muzhuang)£¬Ä¾×®ÖÜÎ§»¹ÍÚÁËÈô¸É¸ö´ó
-É³¿Ó (shakeng)¡£Î÷ÃæÊÇÒ»¼äÏá·¿£¬ïÚ¾ÖµÄ¿ÍÈË¿ÉÒÔÈ¥ĞİÏ¢¡£³¡µØ¶«±ßÓĞ¸ö±ø
-Æ÷¼Ü¡£
+ç©ºé˜”çš„åœºåœ°ä¸Šé“ºæ»¡äº†ç»†ç»†çš„é»„åœŸï¼Œæ­£å¥½é€‚åˆæ¼”æ­¦ã€‚å››é¢æœ‰å‡ ä¸ªé•–å±€çš„é•–å¸ˆ
+æ­£åœ¨ç»ƒæ­¦ã€‚ç»ƒæ­¦åœºçš„ä¸­å¿ƒç«–ç€å‡ æ ¹æœ¨æ¡©(muzhuang)ï¼Œæœ¨æ¡©å‘¨å›´è¿˜æŒ–äº†è‹¥å¹²ä¸ªå¤§
+æ²™å‘ (shakeng)ã€‚è¥¿é¢æ˜¯ä¸€é—´å¢æˆ¿ï¼Œé•–å±€çš„å®¢äººå¯ä»¥å»ä¼‘æ¯ã€‚åœºåœ°ä¸œè¾¹æœ‰ä¸ªå…µ
+å™¨æ¶ã€‚
 LONG);
 
   	set("item_desc", ([
-  		"shakeng"  : WHT "É³¿ÓÀïÓĞĞ©¼Ò½«ÔÚÁ·Ï°Çá¹¦£¬ÄãÒ²¿É"
-                             "ÒÔÌø(tiao)ÏÂÈ¥ÊÔÊÔ¡£\n" NOR,
-  		"muzhuang" : WHT "¼¸¸ùÄ¾×®ÉÏÓĞ²»ÉÙ»÷´ò(jida)¹ıµÄºÛ"
-                             "¼£¡£\n" NOR,
+  		"shakeng"  : WHT "æ²™å‘é‡Œæœ‰äº›å®¶å°†åœ¨ç»ƒä¹ è½»åŠŸï¼Œä½ ä¹Ÿå¯"
+                             "ä»¥è·³(tiao)ä¸‹å»è¯•è¯•ã€‚\n" NOR,
+  		"muzhuang" : WHT "å‡ æ ¹æœ¨æ¡©ä¸Šæœ‰ä¸å°‘å‡»æ‰“(jida)è¿‡çš„ç—•"
+                             "è¿¹ã€‚\n" NOR,
 	]));
 
   	set("exits", ([
@@ -45,26 +45,26 @@ int do_jida(string arg)
         me = this_player();
 
         if (! living(me) || arg != "muzhuang")
-                return notify_fail("ÄãÒª»÷´òÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦å‡»æ‰“ä»€ä¹ˆï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕıÃ¦×ÅÄØ¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
 
         if (objectp(weapon = me->query_temp("weapon")))
-                return notify_fail("Äã²ÙÆğÊÖÖĞ±øÆ÷ÏòÄ¾×®¿³È¥£¬¿³ÁË°ëÌì·¢ÏÖºÁÎŞ³ÉĞ§¡£\n");
+                return notify_fail("ä½ æ“èµ·æ‰‹ä¸­å…µå™¨å‘æœ¨æ¡©ç å»ï¼Œç äº†åŠå¤©å‘ç°æ¯«æ— æˆæ•ˆã€‚\n");
 
         if ((int)me->query_skill("bagua-quan", 1) < 30
            || (int)me->query_skill("bagua-zhang", 1) < 30)
-                return notify_fail("Äã»÷´òÁË°ëÌì£¬ËÆºõÃ»Ê²Ã´Ğ§¹û£¬¿ÉÄÜÊÇ°ËØÔÈ­ÕÆµÈ¼¶Ì«"
-                                   "µÍµÄÔµ¹Ê¡£\n");
+                return notify_fail("ä½ å‡»æ‰“äº†åŠå¤©ï¼Œä¼¼ä¹æ²¡ä»€ä¹ˆæ•ˆæœï¼Œå¯èƒ½æ˜¯å…«å¦æ‹³æŒç­‰çº§å¤ª"
+                                   "ä½çš„ç¼˜æ•…ã€‚\n");
 
         if ((int)me->query_skill("bagua-quan", 1) >= 120
            && (int)me->query_skill("bagua-zhang", 1) >= 120)
-                return notify_fail("Äã¶Ô×ÅÄ¾×®»÷´òÁËÒ»»á¶ù£¬·¢ÏÖÕâÀïÒÑ¾­²»ÄÜÔÙÌá¸ßÊ²Ã´"
-                                   "ÁË¡£\n");
+                return notify_fail("ä½ å¯¹ç€æœ¨æ¡©å‡»æ‰“äº†ä¸€ä¼šå„¿ï¼Œå‘ç°è¿™é‡Œå·²ç»ä¸èƒ½å†æé«˜ä»€ä¹ˆ"
+                                   "äº†ã€‚\n");
 
         if ((int)me->query("qi") < 40)
-                return notify_fail("ÄãÏÖÔÚÀÛµÃ¸ì²²¶¼Ì§²»ÆğÀ´ÁË£¬»¹ÊÇÏÈĞİÏ¢Ò»»á¶ù°É£¡\n");
+                return notify_fail("ä½ ç°åœ¨ç´¯å¾—èƒ³è†Šéƒ½æŠ¬ä¸èµ·æ¥äº†ï¼Œè¿˜æ˜¯å…ˆä¼‘æ¯ä¸€ä¼šå„¿å§ï¼\n");
 
         me->receive_damage("qi", 30);
 
@@ -77,8 +77,8 @@ int do_jida(string arg)
                 me->improve_skill("bagua-quan", me->query("con") * 2);
 
         me->start_busy(random(2));
-        message_vision(WHT "\n$N" WHT "Õ¾ÎÈÂí²½£¬Ò»ÕÆÒ»È­¶Ô×ÅÄ¾×®´òÁËÆğÀ´¡£\n" NOR, me);
-        write(HIC "ÄãÔÚ»÷´ò¹ı³ÌÖĞÁìÎòÁË²»ÉÙ¡¸°ËØÔÈ­·¨¡¹¼°¡¸°ËØÔÕÆ·¨¡¹µÄÇÏÃÅ¡£\n" NOR);
+        message_vision(WHT "\n$N" WHT "ç«™ç¨³é©¬æ­¥ï¼Œä¸€æŒä¸€æ‹³å¯¹ç€æœ¨æ¡©æ‰“äº†èµ·æ¥ã€‚\n" NOR, me);
+        write(HIC "ä½ åœ¨å‡»æ‰“è¿‡ç¨‹ä¸­é¢†æ‚Ÿäº†ä¸å°‘ã€Œå…«å¦æ‹³æ³•ã€åŠã€Œå…«å¦æŒæ³•ã€çš„çªé—¨ã€‚\n" NOR);
         return 1;
 }
 
@@ -89,21 +89,21 @@ int do_tiao(string arg)
         me = this_player();
 
         if (! living(me) || arg != "shakeng")
-                return notify_fail("ÄãÒª»÷´òÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦å‡»æ‰“ä»€ä¹ˆï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕıÃ¦×ÅÄØ¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
 
         if ((int)me->query_skill("dodge", 1) < 30
            || (int)me->query_skill("bagua-bu", 1) < 30)
-                return notify_fail("Äã±ï×ãÆø³¯×ÅÉ³¿ÓÌøÈ¥£¬½á¹ûÒ»õÓÖØÖØµØË¤ÔÚÁË¿ÓÖĞ¡£\n");
+                return notify_fail("ä½ æ†‹è¶³æ°”æœç€æ²™å‘è·³å»ï¼Œç»“æœä¸€è·¤é‡é‡åœ°æ‘”åœ¨äº†å‘ä¸­ã€‚\n");
 
         if ((int)me->query_skill("dodge", 1) >= 120
            && (int)me->query_skill("bagua-bu", 1) >= 120)
-                return notify_fail("ÄãÔÚÉ³¿ÓÖÜÎ§ÌøÁËÒ»»á¶ù£¬·¢ÏÖÔÚÕâÀïÁ·Ï°ÒÑ¾­Ã»Ê²Ã´ÓÃÁË¡£\n");
+                return notify_fail("ä½ åœ¨æ²™å‘å‘¨å›´è·³äº†ä¸€ä¼šå„¿ï¼Œå‘ç°åœ¨è¿™é‡Œç»ƒä¹ å·²ç»æ²¡ä»€ä¹ˆç”¨äº†ã€‚\n");
 
         if ((int)me->query("qi") < 40)
-                return notify_fail("ÄãÏÖÔÚÀÛµÃ½Å¶¼Ì§²»ÆğÀ´ÁË£¬»¹ÊÇÏÈĞİÏ¢Ò»»á¶ù°É£¡\n");
+                return notify_fail("ä½ ç°åœ¨ç´¯å¾—è„šéƒ½æŠ¬ä¸èµ·æ¥äº†ï¼Œè¿˜æ˜¯å…ˆä¼‘æ¯ä¸€ä¼šå„¿å§ï¼\n");
 
         me->receive_damage("qi", 30);
 
@@ -116,8 +116,8 @@ int do_tiao(string arg)
                 me->improve_skill("bagua-bu", me->query("con") * 2);
 
         me->start_busy(random(2));
-        message_vision(WHT "\n$N" WHT "ÉîÎüÒ»¿ÚÆø£¬¡°ì¬¡±µÄÒ»ÉùÌø¹ıÁËÉ³¿Ó£¬½Ó×Å·­ÉíÒ»×İ"
-                       "ÓÖÌøÁË»ØÀ´¡£\n" NOR, me);
-        write(HIC "Äã¶Ô¡¸°ËØÔ²½·¨¡¹¼°¡¸»ù±¾Çá¹¦¡¹ÓĞÁËĞÂµÄÀí½â¡£\n" NOR);
+        message_vision(WHT "\n$N" WHT "æ·±å¸ä¸€å£æ°”ï¼Œâ€œé£•â€çš„ä¸€å£°è·³è¿‡äº†æ²™å‘ï¼Œæ¥ç€ç¿»èº«ä¸€çºµ"
+                       "åˆè·³äº†å›æ¥ã€‚\n" NOR, me);
+        write(HIC "ä½ å¯¹ã€Œå…«å¦æ­¥æ³•ã€åŠã€ŒåŸºæœ¬è½»åŠŸã€æœ‰äº†æ–°çš„ç†è§£ã€‚\n" NOR);
         return 1;
 }

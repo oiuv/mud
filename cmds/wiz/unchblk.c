@@ -14,22 +14,22 @@ int main(object me, string arg)
                 return 0;
 
 	if (! arg)
-		return notify_fail("Ö¸Áî¸ñÊ½: unchblk <player id>\n");
+		return notify_fail("æŒ‡ä»¤æ ¼å¼: unchblk <player id>\n");
 		
 	ob = UPDATE_D->global_find_player(arg);
 	if (! ob)
-                return notify_fail(LOCAL_MUD_NAME() + "²¢Ã»ÓĞÕâ¸öÈË£¡\n");
+                return notify_fail(LOCAL_MUD_NAME() + "å¹¶æ²¡æœ‰è¿™ä¸ªäººï¼\n");
 
         if (! ob->query("chblk_on"))
         {
                 UPDATE_D->global_destruct_player(ob);
-                return notify_fail("Õâ¸öÈËµÄÆµµÀÄ¿Ç°ºÃºÃµÄ¡£\n");
+                return notify_fail("è¿™ä¸ªäººçš„é¢‘é“ç›®å‰å¥½å¥½çš„ã€‚\n");
         }
 
         ob->delete("chblk_on");
         ob->delete("chblk_by");
-        write("Äã´ò¿ªÁË" + ob->name(1) + "µÄÆµµÀ¡£\n");
-        tell_object(ob, me->name(1) + "´ò¿ªÁËÄãµÄÆµµÀ¡£\n");
+        write("ä½ æ‰“å¼€äº†" + ob->name(1) + "çš„é¢‘é“ã€‚\n");
+        tell_object(ob, me->name(1) + "æ‰“å¼€äº†ä½ çš„é¢‘é“ã€‚\n");
 
         UPDATE_D->global_destruct_player(ob, 1);
         return 1;
@@ -38,9 +38,9 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : unchblk <Íæ¼Ò>
+æŒ‡ä»¤æ ¼å¼ : unchblk <ç©å®¶>
 
-´ËÃüÁî½«´ò¿ªÄ³¸öÍæ¼ÒµÄÆµµÀ¡£
+æ­¤å‘½ä»¤å°†æ‰“å¼€æŸä¸ªç©å®¶çš„é¢‘é“ã€‚
 
 HELP );
         return 1;

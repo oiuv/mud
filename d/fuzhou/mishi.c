@@ -8,11 +8,11 @@ int valid_leave( object me, string dir );
 
 void create()
 {
-	set( "short", "²ñ·¿" );
+	set( "short", "æŸ´æˆ¿" );
 	set( "long", @LONG
-ÕâÊÇÏòÑôÀÏÕ¬ºóÔºµÄÒ»¼äÐ¡²ñ·¿£¬·¿ÎÝÀï²¼ÂúÁËÖëÍø£¬µØ
-ÃæÂúÊÇ»Ò³¾£¬¿´Ñù×ÓÒÑ¾­ºÜ¾ÃÃ»ÓÐÈË´òÉ¨ÁË¡£·¿¼äµÄÇ½±ÚÆÆÀÃ
-²»¿°£¬×óÊ×´¦Ðü¹Ò×ÅÒ»·ù»­(hua)£¬½ÇÂä´¦Ð±·Å×Å¼¸À¦¸É²ñ¡£
+è¿™æ˜¯å‘é˜³è€å®…åŽé™¢çš„ä¸€é—´å°æŸ´æˆ¿ï¼Œæˆ¿å±‹é‡Œå¸ƒæ»¡äº†è››ç½‘ï¼Œåœ°
+é¢æ»¡æ˜¯ç°å°˜ï¼Œçœ‹æ ·å­å·²ç»å¾ˆä¹…æ²¡æœ‰äººæ‰“æ‰«äº†ã€‚æˆ¿é—´çš„å¢™å£ç ´çƒ‚
+ä¸å ªï¼Œå·¦é¦–å¤„æ‚¬æŒ‚ç€ä¸€å¹…ç”»(hua)ï¼Œè§’è½å¤„æ–œæ”¾ç€å‡ æ†å¹²æŸ´ã€‚
 LONG );
 	set( "exits", ([
 		 "east" : __DIR__ "houyuan",
@@ -37,27 +37,27 @@ string look_hua()
 	object me = this_player();
 
 	if ( me->query( "score" ) < 1000 )
-		return(HIR "\nÒ»·ù³Â¾ÉµÄ»­¾í£¬»­ÖÐÄËÊÇ´ïÄ¦ÀÏ×æ£¬Ã»ÓÐÊ²Ã´²»Í¬¡£\n" NOR);
+		return(HIR "\nä¸€å¹…é™ˆæ—§çš„ç”»å·ï¼Œç”»ä¸­ä¹ƒæ˜¯è¾¾æ‘©è€ç¥–ï¼Œæ²¡æœ‰ä»€ä¹ˆä¸åŒã€‚\n" NOR);
 
 	if ( me->query( "score" ) < 3000 )
-		return(HIR "\nÒ»·ù³Â¾ÉµÄ»­¾í£¬»­ÖÐ´ïÄ¦ÀÏ×æ×óÊÖÎÕ¸ö½£¾÷£¬´ÈÏé°²ºÍ¡£\n" NOR);
+		return(HIR "\nä¸€å¹…é™ˆæ—§çš„ç”»å·ï¼Œç”»ä¸­è¾¾æ‘©è€ç¥–å·¦æ‰‹æ¡ä¸ªå‰‘è¯€ï¼Œæ…ˆç¥¥å®‰å’Œã€‚\n" NOR);
 
-	me->set_temp( "marks/±Ù1", 1 );
-	return(HIR "\nÒ»·ù³Â¾ÉµÄ»­¾í£¬»­ÖÐ´ïÄ¦ÀÏ×æ×óÊÖÎÕ¸ö½£¾÷£¬ÕýÖ¸Ïò·¿Áº(liang)´¦¡£\n" NOR);
+	me->set_temp( "marks/è¾Ÿ1", 1 );
+	return(HIR "\nä¸€å¹…é™ˆæ—§çš„ç”»å·ï¼Œç”»ä¸­è¾¾æ‘©è€ç¥–å·¦æ‰‹æ¡ä¸ªå‰‘è¯€ï¼Œæ­£æŒ‡å‘æˆ¿æ¢(liang)å¤„ã€‚\n" NOR);
 }
 
 string look_liang()
 {
 	object me = this_player();
 
-	if ( !me->query_temp( "marks/±Ù1" ) )
-		return("ÄãÒª¿´Ê²Ã´£¿\n");
+	if ( !me->query_temp( "marks/è¾Ÿ1" ) )
+		return("ä½ è¦çœ‹ä»€ä¹ˆï¼Ÿ\n");
 
 	if ( query( "move" ) )
-		return(WHT "Ò»¸ùéªÄ¾×öµÄ·¿Áº£¬ÉÏÃæÓÐÕ¸ÐÂµÄ¹ÎºÛ£¬ËÆºõ²»¾ÃÇ°²ÅÓÐÈË¶¯¹ý¡£\n" NOR);
+		return(WHT "ä¸€æ ¹æ¥ æœ¨åšçš„æˆ¿æ¢ï¼Œä¸Šé¢æœ‰å´­æ–°çš„åˆ®ç—•ï¼Œä¼¼ä¹Žä¸ä¹…å‰æ‰æœ‰äººåŠ¨è¿‡ã€‚\n" NOR);
 
-	me->set_temp( "marks/±Ù2", 1 );
-	return(WHT "Ò»¸ùéªÄ¾×öµÄ·¿Áº£¬¿ÉÏ§Äê´úÌ«¾Ã£¬ÒÑ¾­¸¯ÀÃµÃ²»³ÉÑù×ÓÁË¡£\n" NOR);
+	me->set_temp( "marks/è¾Ÿ2", 1 );
+	return(WHT "ä¸€æ ¹æ¥ æœ¨åšçš„æˆ¿æ¢ï¼Œå¯æƒœå¹´ä»£å¤ªä¹…ï¼Œå·²ç»è…çƒ‚å¾—ä¸æˆæ ·å­äº†ã€‚\n" NOR);
 }
 
 int do_jump( string arg )
@@ -67,45 +67,45 @@ int do_jump( string arg )
 	if ( !arg || arg != "liang" )
 		return(0);
 
-	if ( me->query_temp( "marks/±Ù2" ) )
+	if ( me->query_temp( "marks/è¾Ÿ2" ) )
 	{
 		if ( me->query_dex() < 40 )
-			write( HIC "ÄãÊÔÍ¼ÌøÉÏ·¿Áº£¬ÎÞÄÎÉí·¨²»¹»Ãô½Ý£¬Ö»ºÃ×ö°Õ¡£\n" NOR );
+			write( HIC "ä½ è¯•å›¾è·³ä¸Šæˆ¿æ¢ï¼Œæ— å¥ˆèº«æ³•ä¸å¤Ÿæ•æ·ï¼Œåªå¥½åšç½¢ã€‚\n" NOR );
 		else{
 			foreach( ob in deep_inventory( me ) )
 			if ( ob->is_character() )
 			{
 				if ( ob == me->query_temp( "is_riding" ) )
 				{
-					message_vision( "$N´Ó$nÉÏ·ÉÉíÌøÏÂ¡£\n", me, ob );
+					message_vision( "$Nä»Ž$nä¸Šé£žèº«è·³ä¸‹ã€‚\n", me, ob );
 					me->delete_temp( "is_riding" );
 					ob->delete_temp( "is_rided_by" );
 					ob->move( environment( me ) );
 				} else {
 					ob->move( environment( me ) );
-					message_vision( "\n$N½«" + ob->name() + "´Ó±³ÉÏ·ÅÁËÏÂÀ´"
-							"£¬ÌÉÔÚµØÉÏ¡£\n\n" NOR, me );
+					message_vision( "\n$Nå°†" + ob->name() + "ä»ŽèƒŒä¸Šæ”¾äº†ä¸‹æ¥"
+							"ï¼Œèººåœ¨åœ°ä¸Šã€‚\n\n" NOR, me );
 				}
 			}
 
-			message( "vision", HIY "Ö»¼û" + me->name() + HIY "Ò»×ÝÉíÔ¾ÉÏÁË·¿"
-				 "Áº¡£\n" NOR, environment( me ), me );
+			message( "vision", HIY "åªè§" + me->name() + HIY "ä¸€çºµèº«è·ƒä¸Šäº†æˆ¿"
+				 "æ¢ã€‚\n" NOR, environment( me ), me );
 			set( "move", 1 );
-			write( HIY "\nÄã×ÝÉíÇáÇáÒ»Ô¾£¬ÌøÉÏÁË·¿Áº¡£\n\n" NOR );
+			write( HIY "\nä½ çºµèº«è½»è½»ä¸€è·ƒï¼Œè·³ä¸Šäº†æˆ¿æ¢ã€‚\n\n" NOR );
 			me->move( __DIR__ "liang" );
-			message( "vision", HIY "Ö»¼û" + me->name() + HIY "´ÓÏÂÃæµÄ²ñ·¿Ô¾"
-				 "ÁËÉÏÀ´¡£\n" NOR, environment( me ), me );
+			message( "vision", HIY "åªè§" + me->name() + HIY "ä»Žä¸‹é¢çš„æŸ´æˆ¿è·ƒ"
+				 "äº†ä¸Šæ¥ã€‚\n" NOR, environment( me ), me );
 		}
 		return(1);
 	}
-	write( "Ê²Ã´£¿\n" );
+	write( "ä»€ä¹ˆï¼Ÿ\n" );
 
 	return(1);
 }
 
 int valid_leave( object me, string dir )
 {
-	me->delete_temp( "marks/±Ù1" );
-	me->delete_temp( "marks/±Ù2" );
+	me->delete_temp( "marks/è¾Ÿ1" );
+	me->delete_temp( "marks/è¾Ÿ2" );
 	return(::valid_leave( me, dir ) );
 }

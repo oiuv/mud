@@ -5,12 +5,12 @@ inherit BLADE;
 
 void create()
 {
-        set_name(RED "ÆßÉ·ÒõÑôÈÐ" NOR, ({ "yinyang ren", "ren", "blade", "dao" }) );
+        set_name(RED "ä¸ƒç…žé˜´é˜³åˆƒ" NOR, ({ "yinyang ren", "ren", "blade", "dao" }) );
         set_weight(4000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
+                set("unit", "æŸ„");
                 set("value", 1300000);
                 set("material", "steel");
         }

@@ -6,14 +6,14 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("»ÆÈØ", ({"huang rong", "huang", "rong"}));
-        set("title", "¶«º£ÌÒ»¨µºÖ÷Ö®Å®");
-        set("nickname", HIY "Ø¤°ïÇ°ÈÎ°ïÖ÷" NOR);
-        set("gender", "Å®ĞÔ");
+        set_name("é»„è“‰", ({"huang rong", "huang", "rong"}));
+        set("title", "ä¸œæµ·æ¡ƒèŠ±å²›ä¸»ä¹‹å¥³");
+        set("nickname", HIY "ä¸å¸®å‰ä»»å¸®ä¸»" NOR);
+        set("gender", "å¥³æ€§");
         set("age", 28);
-        set("long", "Õâ±ãÊÇÌÒ»¨µºµºÖ÷µÄ¶ÀÉúÅ®¶ù¡£ÓÉÓÚµºÖ÷·òÈË\n"
-                    "ÔçËÀ£¬µºÖ÷¶ÔÕâ¸öÅ®¶ù±¸¼ÓÌÛ°®¡£ËıÉúĞÔÌøÍÑ\n"
-                    "·ÉÑï£¬Ï²»¶ËÄ´¦ÂÒÅÜ¡£\n");
+        set("long", "è¿™ä¾¿æ˜¯æ¡ƒèŠ±å²›å²›ä¸»çš„ç‹¬ç”Ÿå¥³å„¿ã€‚ç”±äºå²›ä¸»å¤«äºº\n"
+                    "æ—©æ­»ï¼Œå²›ä¸»å¯¹è¿™ä¸ªå¥³å„¿å¤‡åŠ ç–¼çˆ±ã€‚å¥¹ç”Ÿæ€§è·³è„±\n"
+                    "é£æ‰¬ï¼Œå–œæ¬¢å››å¤„ä¹±è·‘ã€‚\n");
         set("attitude", "peaceful");
         set("class", "scholar");
         set("str", 28);
@@ -70,7 +70,7 @@ void create()
         prepare_skill("hand", "lanhua-shou");
         prepare_skill("strike", "luoying-shenzhang");
 
-        create_family("ÌÒ»¨µº", 2, "°®Å®");
+        create_family("æ¡ƒèŠ±å²›", 2, "çˆ±å¥³");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -91,7 +91,7 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        command("say ÏÖÔÚ¹úÄÑµ±Í·£¬ÎÒÄÄÀïÓĞÊ±¼äÊÕÍ½°¡¡£");
+        command("say ç°åœ¨å›½éš¾å½“å¤´ï¼Œæˆ‘å“ªé‡Œæœ‰æ—¶é—´æ”¶å¾’å•Šã€‚");
         return;
 }
 

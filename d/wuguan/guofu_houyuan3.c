@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��Ժ");
+        set("short", "后院");
         set("long", @LONG
-�����Ǻ�Ժ���ˣ����ܶ��ǲ˵أ������Ǹ�Сɽ�£�����
-�涼�������Χ��Ĳ˵أ����Ÿ����Ĳˣ���ʺ����ã�ҡҡ
-��׹����������ûʲô�˴�����
+这里是后院外了，四周都是菜地，往北是个小山坡，东西
+面都是用篱笆围起的菜地，种着各样的菜，篱笆很破烂，摇摇
+欲坠，看来这里没什么人打理。
 LONG);
         set("no_fight", 1);
         set("exits", ([

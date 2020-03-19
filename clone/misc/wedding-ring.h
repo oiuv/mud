@@ -13,12 +13,12 @@ void set_attrib();
 
 void create()
 {
-	set_name(HIG "½á»é½äÖ¸" NOR, ({ "wedding ring", "ring" }) );
+	set_name(HIG "ç»“å©šæˆ’æŒ‡" NOR, ({ "wedding ring", "ring" }) );
 	set_weight(100);
 	set("material", "gold");
-	set("unit", "Ö»");
+	set("unit", "åª");
 	set("value", 50000);
-        set("no_sell", "ÕâÄãÒ²ÒªÂô£¿²»Èç°ÑÄã×Ô¼ºÂôÁË£¡");
+        set("no_sell", "è¿™ä½ ä¹Ÿè¦å–ï¼Ÿä¸å¦‚æŠŠä½ è‡ªå·±å–äº†ï¼");
 	set("armor_prop/armor", 20);
 	set("armor_prop/unarmed", 5);
 	set("armor_prop/hand", 5);
@@ -27,7 +27,7 @@ void create()
 	set("armor_prop/cuff", 5);
         set("armor_prop/unarmed_damage", 8);
         set("wear_msg", (: do_wear :));
-        set("remove_msg", HIG "$N" HIG "°Ñ$n" HIG "ÍÑÁËÏÂÀ´¡£\n" );
+        set("remove_msg", HIG "$N" HIG "æŠŠ$n" HIG "è„±äº†ä¸‹æ¥ã€‚\n" );
         if (! check_clone()) return 0;
 
         set("stable", 0);
@@ -44,31 +44,31 @@ void set_attrib()
         int tname;
         string desc;
 
-        // ¼ÆËã¶ÔÈİÃ²µÄÓ°Ïì
+        // è®¡ç®—å¯¹å®¹è²Œçš„å½±å“
         lvl = query("enchase/lvl");
         per = query("enchase/point") * lvl / 10000;
         set("armor_prop/per", per);
 
-        // Éú³ÉÃèÊö
+        // ç”Ÿæˆæè¿°
         tname = query("enchase/name");
         desc = query("long");
         if (stringp(tname))
         {
                 if (lvl >= 300)
                 {
-                        desc += HIG "ÉÏÃæÏâÇ¶×Å" + tname + HIG
-                                "£¬ÇÉ¶áÌì¹¤£¬ÃÀµÃÒìºõÑ°³££¬ÈÃ" + name() +
-                                HIG "Ô½·¢ÏÔµÃ¾«ÖÂ¡£\n" NOR;
+                        desc += HIG "ä¸Šé¢é•¶åµŒç€" + tname + HIG
+                                "ï¼Œå·§å¤ºå¤©å·¥ï¼Œç¾å¾—å¼‚ä¹å¯»å¸¸ï¼Œè®©" + name() +
+                                HIG "è¶Šå‘æ˜¾å¾—ç²¾è‡´ã€‚\n" NOR;
                 } else
                 if (lvl >= 200)
                 {
-                        desc += HIG "ÉÏÃæÏâÇ¶×Å" + tname + HIG
-                                "£¬¼¸ºõÃ»ÓĞè¦´Ã£¬¿ÉÎ½ÈË¼äº±¼ûµÄÕäÆ·¡£\n" NOR;
+                        desc += HIG "ä¸Šé¢é•¶åµŒç€" + tname + HIG
+                                "ï¼Œå‡ ä¹æ²¡æœ‰ç‘•ç–µï¼Œå¯è°“äººé—´ç½•è§çš„çå“ã€‚\n" NOR;
                 } else
                 {
-                        desc += HIG "ÉÏÃæÏâÇ¶×Å" + tname + HIG
-                                "£¬³ÄÍĞ³ö" + name() + HIG +
-                                "µÄ²»Ë×£¬Ö»ÊÇÓĞĞ©ÉÙè¦´ÃÏÔµÃÃÀÖĞ²»×ã¡£\n" NOR;
+                        desc += HIG "ä¸Šé¢é•¶åµŒç€" + tname + HIG
+                                "ï¼Œè¡¬æ‰˜å‡º" + name() + HIG +
+                                "çš„ä¸ä¿—ï¼Œåªæ˜¯æœ‰äº›å°‘ç‘•ç–µæ˜¾å¾—ç¾ä¸­ä¸è¶³ã€‚\n" NOR;
                 }
                 set("long", desc);
         }
@@ -85,44 +85,44 @@ string do_wear()
         tname = query("enchase/name");
         point = query("enchase/point");
 
-        if (me->query("gender") == "Å®ĞÔ")
+        if (me->query("gender") == "å¥³æ€§")
         {
-                msg = HIG "$N" HIG "ÇáÇÉÇÉµÄ´÷ÉÏÁËÒ»¸ö$n"
-                      HIG "£¬è²È»Ò»Ğ¦£¬Ó³µÄ±¦¹âËÄÉä£¬Ö±ÁîµÃ»¨¶ùÒ²ã¾ã²ÁË¡£\n" NOR;
+                msg = HIG "$N" HIG "è½»å·§å·§çš„æˆ´ä¸Šäº†ä¸€ä¸ª$n"
+                      HIG "ï¼Œç’¨ç„¶ä¸€ç¬‘ï¼Œæ˜ çš„å®å…‰å››å°„ï¼Œç›´ä»¤å¾—èŠ±å„¿ä¹Ÿæ†”æ‚´äº†ã€‚\n" NOR;
                 if (stringp(tname))
                 {
                         if (point >= 150)
-                                msg += HIG "Ö»¼û" + tname + HIG "ÉÁ¹ı"
-                                       "Ò»µÀ¹âÃ¢£¬Ó³ÉäµÃ$N" HIG "ÓĞÈô"
-                                       "ÏÉ×ÓÂä·²£¬ÁîÈËĞÄ³ÚÉñÒ¡¡£\n" NOR;
+                                msg += HIG "åªè§" + tname + HIG "é—ªè¿‡"
+                                       "ä¸€é“å…‰èŠ’ï¼Œæ˜ å°„å¾—$N" HIG "æœ‰è‹¥"
+                                       "ä»™å­è½å‡¡ï¼Œä»¤äººå¿ƒå¼›ç¥æ‘‡ã€‚\n" NOR;
                         else
                         if (point >= 100)
-                                msg += HIG "Ö»¼û" + tname + HIG "ÉÁÉÁ"
-                                       "·¢¹â£¬³ÄÍĞµÃ$N" HIG "Ëµ²»³öµÄ"
-                                       "½¿ÃÄ¡£\n" NOR;
+                                msg += HIG "åªè§" + tname + HIG "é—ªé—ª"
+                                       "å‘å…‰ï¼Œè¡¬æ‰˜å¾—$N" HIG "è¯´ä¸å‡ºçš„"
+                                       "å¨‡åªšã€‚\n" NOR;
                         else
-                                msg += HIG "Ö»¼û" + tname + HIG "ÉÁÁË"
-                                       "Ò»ÏÂ£¬ÕÕÁÁÁË$N" HIG "öÁĞãµÄÈİÑÕ"
-                                       "¡£\n" NOR;
+                                msg += HIG "åªè§" + tname + HIG "é—ªäº†"
+                                       "ä¸€ä¸‹ï¼Œç…§äº®äº†$N" HIG "éš½ç§€çš„å®¹é¢œ"
+                                       "ã€‚\n" NOR;
                 }
         } else
         {
-                msg = HIG "$N" HIG "´÷ÉÏÁËÒ»¸ö$n"
-                      HIG "£¬µ±ÏÂÒâÆø·ç·¢£¬ÉñÍêÆø×ã¡£\n" NOR;
+                msg = HIG "$N" HIG "æˆ´ä¸Šäº†ä¸€ä¸ª$n"
+                      HIG "ï¼Œå½“ä¸‹æ„æ°”é£å‘ï¼Œç¥å®Œæ°”è¶³ã€‚\n" NOR;
                 if (stringp(tname))
                 {
                         if (point >= 150)
-                                msg += HIG "Ö»¼û" + tname + HIG "ÉÁ¹ı"
-                                       "Ò»µÀ¹âÃ¢£¬Ó³ÉäµÃ$N" HIG "ÈçÍ¬"
-                                       "ÌìÉñ½µÊÀ£¬ÁîÈËÄ¿µÉ¿Ú´ô¡£\n" NOR;
+                                msg += HIG "åªè§" + tname + HIG "é—ªè¿‡"
+                                       "ä¸€é“å…‰èŠ’ï¼Œæ˜ å°„å¾—$N" HIG "å¦‚åŒ"
+                                       "å¤©ç¥é™ä¸–ï¼Œä»¤äººç›®çªå£å‘†ã€‚\n" NOR;
                         else
                         if (point >= 100)
-                                msg += HIG "Ö»¼û" + tname + HIG "ÉÁÉÁ"
-                                       "·¢¹â£¬ÈÃ$N" HIG "Ô½·¢ÏÔµÃÍ¦°Î"
-                                       "ÉñÆø¡£\n" NOR;
+                                msg += HIG "åªè§" + tname + HIG "é—ªé—ª"
+                                       "å‘å…‰ï¼Œè®©$N" HIG "è¶Šå‘æ˜¾å¾—æŒºæ‹”"
+                                       "ç¥æ°”ã€‚\n" NOR;
                         else
-                                msg += HIG "Ö»¼û" + tname + HIG "ÉÁÁË"
-                                       "Ò»ÏÂ£¬ÕÕÁÁÁË$N" HIG "µÄÁ³ÅÓ¡£\n" NOR;
+                                msg += HIG "åªè§" + tname + HIG "é—ªäº†"
+                                       "ä¸€ä¸‹ï¼Œç…§äº®äº†$N" HIG "çš„è„¸åºã€‚\n" NOR;
                 }
         }
         return msg;
@@ -135,15 +135,15 @@ int receive_summon(object me)
 
         if ((env = environment()) && env == me)
         {
-                write(name() + "²»¾ÍÔÚÄãÉíÉÏÂï£¿ÄãÕÙ»½¸öÊ²Ã´¾¢£¿\n");
+                write(name() + "ä¸å°±åœ¨ä½ èº«ä¸Šå˜›ï¼Ÿä½ å¬å”¤ä¸ªä»€ä¹ˆåŠ²ï¼Ÿ\n");
                 return 1;
         }
 
         if (env == environment(me))
         {
-                message_vision(HIG "Ö»¼ûµØÉÏµÄ" + name() +
-                               HIG "»¯×÷Ò»µÀ¹âÃ¢£¬·ÉÔ¾ÖÁ$N" HIW
-                               "µÄÕÆÖĞ£¡\n\n" NOR, me);
+                message_vision(HIG "åªè§åœ°ä¸Šçš„" + name() +
+                               HIG "åŒ–ä½œä¸€é“å…‰èŠ’ï¼Œé£è·ƒè‡³$N" HIW
+                               "çš„æŒä¸­ï¼\n\n" NOR, me);
         } else
         {
                 if (env)
@@ -151,18 +151,18 @@ int receive_summon(object me)
                         if (env->is_character() && environment(env))
                                         env = environment(env);
 
-                        message("vision", HIG "Í»È»" + name() + HIG "»¯×÷Ò»µÀ"
-                                HIG "¹âÃ¢ÏûÊ§ÁË£¡\n\n" NOR, env);
+                        message("vision", HIG "çªç„¶" + name() + HIG "åŒ–ä½œä¸€é“"
+                                HIG "å…‰èŠ’æ¶ˆå¤±äº†ï¼\n\n" NOR, env);
 
                         if (interactive(env = environment()))
                         {
                                 tell_object(env, HIM + name() +
-                                                 HIM "ºöÈ»ÀëÄã¶øÈ¥ÁË£¡\n" NOR);
+                                                 HIM "å¿½ç„¶ç¦»ä½ è€Œå»äº†ï¼\n" NOR);
                         }
                 }
 
-                message_vision(HIG "Ò»µÀ¹âÃ¢»®¹ı£¬Ö»¼û$N"
-                               HIG "ÕÆÖĞ¶àÁËÒ»¸ö$n" HIG "£¡\n\n" NOR,
+                message_vision(HIG "ä¸€é“å…‰èŠ’åˆ’è¿‡ï¼Œåªè§$N"
+                               HIG "æŒä¸­å¤šäº†ä¸€ä¸ª$n" HIG "ï¼\n\n" NOR,
                                me, this_object());
         }
 
@@ -177,7 +177,7 @@ int receive_summon(object me)
         return 1;
 }
 
-// ÏâÇ¶
+// é•¶åµŒ
 int do_enchase(object me, object tessera)
 {
         object item;
@@ -185,35 +185,35 @@ int do_enchase(object me, object tessera)
 
         item = this_object();
         if (stringp(item->query("enchase/name")))
-                return notify_fail("ÏÖÔÚ" + item->name() + "ÉÏÃæ"
-                                   "ÒÑ¾­ÏâÇ¶ÁËÎïÆ·ÁË¡£\n");
+                return notify_fail("ç°åœ¨" + item->name() + "ä¸Šé¢"
+                                   "å·²ç»é•¶åµŒäº†ç‰©å“äº†ã€‚\n");
 
         if (tessera->query_wight() > 100)
-                return notify_fail("Õâ¼şÎïÆ·Ò²Ì«ÖØÁË£¬ÄãÔõÃ´ÏâÇ¶ÉÏÈ¥°¡£¿\n");
+                return notify_fail("è¿™ä»¶ç‰©å“ä¹Ÿå¤ªé‡äº†ï¼Œä½ æ€ä¹ˆé•¶åµŒä¸Šå»å•Šï¼Ÿ\n");
 
         if (query("equipped"))
-                return notify_fail("ÄãÏÖÔÚÕı´÷×ÅËüÄØ£¬ÔõÃ´ÏâÇ¶ÄØ£¿ÏÈÍÑÏÂÀ´°É¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£æˆ´ç€å®ƒå‘¢ï¼Œæ€ä¹ˆé•¶åµŒå‘¢ï¼Ÿå…ˆè„±ä¸‹æ¥å§ã€‚\n");
 
         if (! tessera->query("can_be_enchased"))
-                return notify_fail("Ìì°¡£¬Äã»¹Ã»ÓĞÕâÊÖÒÕ°Ñ" +
-                                   tessera->name() + "ÏâÇ¶ÉÏÈ¥¡£\n");
+                return notify_fail("å¤©å•Šï¼Œä½ è¿˜æ²¡æœ‰è¿™æ‰‹è‰ºæŠŠ" +
+                                   tessera->name() + "é•¶åµŒä¸Šå»ã€‚\n");
 
         if ((lvl = me->query_skill("certosina", 1)) < 100)
-                return notify_fail("ÄãµÄÏâÇ¶¼¼Êõ²»µ½£¬ÎŞ·¨Íê"
-                                   "³ÉÕâÃ´¾«Ï¸»î¶ù¡£\n");
+                return notify_fail("ä½ çš„é•¶åµŒæŠ€æœ¯ä¸åˆ°ï¼Œæ— æ³•å®Œ"
+                                   "æˆè¿™ä¹ˆç²¾ç»†æ´»å„¿ã€‚\n");
 
-        message_vision("Ö»Ìı¡°¿¦À²¡±Ò»Éù£¬$NÒÑ¾­°Ñ" + tessera->name() +
-                       "¹æ¹æ¾Ù¾ÙµÄÏâÇ¶µ½ÁË$nÉÏÃæ¡£\n", me, item);
+        message_vision("åªå¬â€œå–€å•¦â€ä¸€å£°ï¼Œ$Nå·²ç»æŠŠ" + tessera->name() +
+                       "è§„è§„ä¸¾ä¸¾çš„é•¶åµŒåˆ°äº†$nä¸Šé¢ã€‚\n", me, item);
         if (lvl >= 300)
-                message_vision("Ò»Ê±¼ä£¬ÄãÖ»¾õµÃ$N±¦Æø¶ÙÉú£¬×ğ»ª"
-                               "ÎŞ±È£¬ÊµÔÚÊÇÈË¼äÉñÆ·£¬Ã»ÓĞ°ëµãè¦´Ã¡£\n", item);
+                message_vision("ä¸€æ—¶é—´ï¼Œä½ åªè§‰å¾—$Nå®æ°”é¡¿ç”Ÿï¼Œå°Šå"
+                               "æ— æ¯”ï¼Œå®åœ¨æ˜¯äººé—´ç¥å“ï¼Œæ²¡æœ‰åŠç‚¹ç‘•ç–µã€‚\n", item);
         else
         if (lvl >= 200)
-                message_vision("Ö»¼û$N±¦ÆøËÄÉä£¬±äµÃÔ½·¢åûÃÀ£¬Êü"
-                               "¼¸Ã»ÓĞ°ëµãÈ±º¶¡£\n", item);
+                message_vision("åªè§$Nå®æ°”å››å°„ï¼Œå˜å¾—è¶Šå‘å¦ç¾ï¼Œåº¶"
+                               "å‡ æ²¡æœ‰åŠç‚¹ç¼ºæ†¾ã€‚\n", item);
         else
-                message_vision("Ö»¼û$N¶ÙÊ±Æ½Ìí¼¸·ÖÀöÉ«£¬ËäÈ»ÓĞ"
-                               "Ğ©Ğ¡Ğ¡È±º¶£¬Ò²ÊÇè¦²»ÑÚè¤¡£\n", item);
+                message_vision("åªè§$Né¡¿æ—¶å¹³æ·»å‡ åˆ†ä¸½è‰²ï¼Œè™½ç„¶æœ‰"
+                               "äº›å°å°ç¼ºæ†¾ï¼Œä¹Ÿæ˜¯ç‘•ä¸æ©ç‘œã€‚\n", item);
         set("enchase/name", tessera->name());
         set("enchase/point", tessera->query("magic/power"));
         set("enchase/lvl", lvl);
@@ -224,7 +224,7 @@ int do_enchase(object me, object tessera)
         return 1;
 }
 
-// ½øĞĞ±£´æÊı¾İµÄ½Ó¿Úº¯Êı
+// è¿›è¡Œä¿å­˜æ•°æ®çš„æ¥å£å‡½æ•°
 mixed save_dbase_data()
 {
         mapping data;
@@ -241,7 +241,7 @@ mixed save_dbase_data()
         return data;
 }
 
-// ½ÓÊÜ´æÅÌÊı¾İµÄ½Ó¿Úº¯Êı
+// æ¥å—å­˜ç›˜æ•°æ®çš„æ¥å£å‡½æ•°
 int receive_dbase_data(mixed data)
 {
         if (! mapp(data))

@@ -14,25 +14,25 @@ int main(object me, string arg)
                 return 0;
 
 	if (! arg)
-                return notify_fail("ÄãÒª°ÑË­´ø³öµØÓü£¿\n");
+                return notify_fail("ä½ è¦æŠŠè°å¸¦å‡ºåœ°ç‹±ï¼Ÿ\n");
 
         if (sscanf(arg, "%s %d", arg, time) != 2)
                 time = 0;
 
         ob = find_player(arg);
         if (! ob || ! me->visible(ob))
-                return notify_fail("Ã»ÓĞÕâ¸öÍæ¼Ò¡£\n");
+                return notify_fail("æ²¡æœ‰è¿™ä¸ªç©å®¶ã€‚\n");
 
         if (! ob->is_in_prison())
-                return notify_fail("Õâ¸öÍæ¼ÒÏÖÔÚÃ»ÓĞ±»½û±Õ¡£\n");
+                return notify_fail("è¿™ä¸ªç©å®¶ç°åœ¨æ²¡æœ‰è¢«ç¦é—­ã€‚\n");
 
         if (! SECURITY_D->valid_grant(me, "(arch)"))
         {
                 if (! objectp(card = present("help card", me)))
-                        return notify_fail("ÄãÃ»ÓĞÈ¨Àû°ÑÈË·Å³öÀ´¡£\n");
+                        return notify_fail("ä½ æ²¡æœ‰æƒåˆ©æŠŠäººæ”¾å‡ºæ¥ã€‚\n");
 
-                message_vision("$NÃş³öÒ»ÕÅ¿¨Æ¬£¬Æ´ÃüÄîß¶£ºÌ«ÉÏÀÏ¾ı¾ÈÃü°¡£¬" +
-                               ob->name(1) + "ÕæÊÇÎŞ¹¼°¡£¡\n", me);
+                message_vision("$Næ‘¸å‡ºä¸€å¼ å¡ç‰‡ï¼Œæ‹¼å‘½å¿µå¨ï¼šå¤ªä¸Šè€å›æ•‘å‘½å•Šï¼Œ" +
+                               ob->name(1) + "çœŸæ˜¯æ— è¾œå•Šï¼\n", me);
                 destruct(card);
         }
 
@@ -43,9 +43,9 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : free <Íæ¼ÒID>
+æŒ‡ä»¤æ ¼å¼ : free <ç©å®¶ID>
  
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã°Ñ±»½û±ÕµÄÍæ¼ÒÊÍ·Å³öÀ´¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ æŠŠè¢«ç¦é—­çš„ç©å®¶é‡Šæ”¾å‡ºæ¥ã€‚
 
 see also : throw
  

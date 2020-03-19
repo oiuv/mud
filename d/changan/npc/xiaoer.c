@@ -5,11 +5,11 @@ inherit KNOWER;
 
 void create()
 {
-        set_name("µêĞ¡¶ş", ({"xiaoer","xiaoer","xiao","waiter","er"}));
+        set_name("åº—å°äºŒ", ({"xiaoer","xiaoer","xiao","waiter","er"}));
         set("shop_id",({"waiter","xiaoer","xiao","er"}));
-        set("shop_title","µêĞ¡¶ş");
-        set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
-        set("gender", "ÄĞĞÔ");
+        set("shop_title","åº—å°äºŒ");
+        set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
+        set("gender", "ç”·æ€§");
         set("combat_exp", 2000);
         set("age", 21);
         set("per", 23);
@@ -26,15 +26,15 @@ void greeting(object ob)
 {
         if (! ob || ! visible(ob) || environment(ob) != environment())
                 return;
-        say(name() + "Ğ¦ßäßäµØËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-            "£¬½øÀ´ĞªĞª½Å£¬ĞİÏ¢Ò»ÏÂ°É¡£\n");
+        say(name() + "ç¬‘å’ªå’ªåœ°è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+            "ï¼Œè¿›æ¥æ­‡æ­‡è„šï¼Œä¼‘æ¯ä¸€ä¸‹å§ã€‚\n");
 }
 
 int accept_object(object who, object ob)
 {
 	if (ob->query("money_id") && ob->value() >= 300)
 	{
-        	tell_object(who, "Ğ¡¶şÒ»¹şÑü£¬ËµµÀ£º¶àĞ»ÄúÀÏ£¬¿Í¹ÙÇëÉÏÂ¥ĞªÏ¢¡£\n");
+        	tell_object(who, "å°äºŒä¸€å“ˆè…°ï¼Œè¯´é“ï¼šå¤šè°¢æ‚¨è€ï¼Œå®¢å®˜è¯·ä¸Šæ¥¼æ­‡æ¯ã€‚\n");
         	who->set_temp("rent_paid", 1);
         	return 1;
 	}

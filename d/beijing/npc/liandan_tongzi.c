@@ -8,12 +8,12 @@ mixed ask_caiyao();
 
 void create()
 {
-        set_name("Ğ¡Í¯", ({"xiao tong", "xiao", "tong"}));
-        set("gender", "ÄĞĞÔ");
+        set_name("å°ç«¥", ({"xiao tong", "xiao", "tong"}));
+        set("gender", "ç”·æ€§");
         set("age", 12);
         set("long",
-                "ÕâÊÇÁ¶µ¤·¿ÖĞµÄÕÆ¹ÜÒ©²ÄµÄÍ¯×Ó¡£ËûÄê¼Í²»´ó£¬µ«¿´ÆğÀ´\n"
-                "ÏÔµÃÉÙÄêÀÏ³É¡£\n");
+                "è¿™æ˜¯ç‚¼ä¸¹æˆ¿ä¸­çš„æŒç®¡è¯æçš„ç«¥å­ã€‚ä»–å¹´çºªä¸å¤§ï¼Œä½†çœ‹èµ·æ¥\n"
+                "æ˜¾å¾—å°‘å¹´è€æˆã€‚\n");
         set("attitude", "friendly");
         set("shen_type",1);
         set("str", 21);
@@ -30,10 +30,10 @@ void create()
         set("combat_exp", 300000);
 
         set("inquiry", ([
-                "Ò©²Ä" : (: ask_caiyao :),
-                "Ò©"   : (: ask_caiyao :),
-                "²ÉÒ©" : (: ask_caiyao :),
-                "²İÒ©" : (: ask_caiyao :),
+                "è¯æ" : (: ask_caiyao :),
+                "è¯"   : (: ask_caiyao :),
+                "é‡‡è¯" : (: ask_caiyao :),
+                "è‰è¯" : (: ask_caiyao :),
                 "yaocai" : (: ask_caiyao :),
         ]) );
         set("caiyao", 12);
@@ -48,33 +48,33 @@ mixed ask_caiyao()
         switch (me->query_temp("caiyao"))
         {
         case 1:
-                return "½ĞÄãÈ¥²ÉÒ©£¬»¹´ôÔÚÕâ¸ÉÂï£¡";
+                return "å«ä½ å»é‡‡è¯ï¼Œè¿˜å‘†åœ¨è¿™å¹²å˜›ï¼";
 
         case 2:
-                return "Ò©²ÉÀ´ÁË£¿»¹²»¿ì¸øÎÒ£¡";
+                return "è¯é‡‡æ¥äº†ï¼Ÿè¿˜ä¸å¿«ç»™æˆ‘ï¼";
         }
 
         switch (me->query_temp("liandan"))
         {
         case 1:
-                // ÒÑ¾­´òÌı¹ıÁËÁ·µ¤µÄÏûÏ¢ÁË
+                // å·²ç»æ‰“å¬è¿‡äº†ç»ƒä¸¹çš„æ¶ˆæ¯äº†
                 break;
 
         case 2:
-                return "Ò©²ÄÒÑ¾­×¼±¸ºÃ£¬¿ÉÒÔÈ¥ÁË¡£";
+                return "è¯æå·²ç»å‡†å¤‡å¥½ï¼Œå¯ä»¥å»äº†ã€‚";
 
         case 3:
-                return "Äã²»ÊÇÔÚÀïÃæÁ¶Ò©Âğ£¿ÔõÃ´³öÀ´ÁË¡£";
+                return "ä½ ä¸æ˜¯åœ¨é‡Œé¢ç‚¼è¯å—ï¼Ÿæ€ä¹ˆå‡ºæ¥äº†ã€‚";
 
         case 4:
-                return "»¹ÊÇÏÈÈ¥¸´Ãü°É¡£";
+                return "è¿˜æ˜¯å…ˆå»å¤å‘½å§ã€‚";
 
         default:
-                return "ÄãÓÖ²»Á¶Ò©£¬ÒªÒ©²Ä¸ÉÊ²Ã´£¿";
+                return "ä½ åˆä¸ç‚¼è¯ï¼Œè¦è¯æå¹²ä»€ä¹ˆï¼Ÿ";
         }
 
-        message_vision(CYN "Ğ¡Í¯¶Ô$N" CYN "ËµµÀ£ººÃ°É£¬ÄÇÄã"
-                       "È¥³ÇÎ÷µÄÁÖ×ÓÀïÍÚ¼¸ÑùĞÂÏÊµÄ²İÒ©À´¡£\n" NOR, me);
+        message_vision(CYN "å°ç«¥å¯¹$N" CYN "è¯´é“ï¼šå¥½å§ï¼Œé‚£ä½ "
+                       "å»åŸè¥¿çš„æ—å­é‡ŒæŒ–å‡ æ ·æ–°é²œçš„è‰è¯æ¥ã€‚\n" NOR, me);
         me->set_temp("caiyao", 1);
         add("caiyao", -1);
         return 1;
@@ -86,22 +86,22 @@ int accept_object(object me, object ob)
 
         if (me->query_temp("caiyao") < 1)
         {
-                command("say ÎÒÊ²Ã´Ê±ºò½ĞÄãÄÃÕâ¸ö¸øÎÒµÄ£¿");
+                command("say æˆ‘ä»€ä¹ˆæ—¶å€™å«ä½ æ‹¿è¿™ä¸ªç»™æˆ‘çš„ï¼Ÿ");
         } else
 	if (me->query_temp("caiyao") == 1)
         {
-                command("say ÊÇË­°ïÄãÕÒµÄ¶«Î÷À´·óÑÜÎÒ£¬±ğÒÔÎªÎÒĞ¡¾ÍºÃÆ­¡£");
+                command("say æ˜¯è°å¸®ä½ æ‰¾çš„ä¸œè¥¿æ¥æ•·è¡æˆ‘ï¼Œåˆ«ä»¥ä¸ºæˆ‘å°å°±å¥½éª—ã€‚");
         } else
-	if (strsrch(ob->query("name"), "²»ÖªÃû²İÒ©") < 0) 
+	if (strsrch(ob->query("name"), "ä¸çŸ¥åè‰è¯") < 0) 
         {
-                command("say ÄãÆÛÎÒĞ¡°¡£¿ÄÃÕâÖÖ¶«Î÷Æ­ÎÒ¡£\n");
+                command("say ä½ æ¬ºæˆ‘å°å•Šï¼Ÿæ‹¿è¿™ç§ä¸œè¥¿éª—æˆ‘ã€‚\n");
         } else
 	{
-                command("say ºÃ°É£¬ÈÃÎÒÀ´¸øÄã¼Ó¹¤¡£");
-                command("say ÄãÏÖÔÚÖ±½ÓÈ¥µ¤·¿Á¶µ¤£¨liandan£©¾ÍĞĞÁË¡£");
+                command("say å¥½å§ï¼Œè®©æˆ‘æ¥ç»™ä½ åŠ å·¥ã€‚");
+                command("say ä½ ç°åœ¨ç›´æ¥å»ä¸¹æˆ¿ç‚¼ä¸¹ï¼ˆliandanï¼‰å°±è¡Œäº†ã€‚");
                 me->delete_temp("caiyao");
                 me->set_temp("liandan", 2);
-				//½±ÀøÔö¼Ó5±¶£¨2015Äê4ÔÂ25ÈÕ£©
+				//å¥–åŠ±å¢åŠ 5å€ï¼ˆ2015å¹´4æœˆ25æ—¥ï¼‰
                 exp = 2 + random(2);
                 pot = 1 + random(2);
 
@@ -111,8 +111,8 @@ int accept_object(object me, object ob)
                 if (me->query("potential") > me->query_potential_limit()) 
 			pot = 1;
 
-                tell_object(me, HIC "Äã»ñµÃÁË" + chinese_number(exp) +
-                                "µã¾­ÑéºÍ" + chinese_number(pot) + "µãÇ±ÄÜ¡£\n"
+                tell_object(me, HIC "ä½ è·å¾—äº†" + chinese_number(exp) +
+                                "ç‚¹ç»éªŒå’Œ" + chinese_number(pot) + "ç‚¹æ½œèƒ½ã€‚\n"
                                 NOR );
                 destruct(ob);
                 return 1;

@@ -5,8 +5,8 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("³ÂÖ¾Òæ", ({ "chen zhiyi", "chen", "zhiyi" }));
-        set("gender", "ÄÐÐÔ");
+        set_name("é™ˆå¿—ç›Š", ({ "chen zhiyi", "chen", "zhiyi" }));
+        set("gender", "ç”·æ€§");
         set("class", "taoist");
         set("age", 24);
         set("attitude", "friendly");
@@ -45,7 +45,7 @@ void create()
 
         prepare_skill("finger", "zhongnan-zhi");
 
-        create_family("È«Õæ½Ì", 3, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 3, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -66,6 +66,6 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-        command("say ºÃ°É£¬ÎÒ¾ÍÊÕÏÂÄãÕâ¸öÍ½µÜ¡£");
+        command("say å¥½å§ï¼Œæˆ‘å°±æ”¶ä¸‹ä½ è¿™ä¸ªå¾’å¼Ÿã€‚");
         command("recruit " + ob->query("id"));
 }

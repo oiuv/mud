@@ -1,16 +1,16 @@
-// force_book.c ÄÚ¹¦ĞÄ·¨
+// force_book.c å†…åŠŸå¿ƒæ³•
 
 inherit BOOK;
 
 void create()
 {
-	set_name("Ì«¼«Ê®ÈıÊ½", ({ "shu", "book" }));
+	set_name("å¤ªæåä¸‰å¼", ({ "shu", "book" }));
 	set_weight(600);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±¾");
-		set("long", "ÕâÊÇÒ»±¾Ïß×°Êé£¬ÀïÃæÃÜÃÜÂéÂéµÄ»­ÁË²»ÉÙ´ò×øÍÂÄÅµÄ×ËÊÆ¡£\n");
+		set("unit", "æœ¬");
+		set("long", "è¿™æ˜¯ä¸€æœ¬çº¿è£…ä¹¦ï¼Œé‡Œé¢å¯†å¯†éº»éº»çš„ç”»äº†ä¸å°‘æ‰“ååå‘çš„å§¿åŠ¿ã€‚\n");
 		set("value", 500);
 		set("material", "paper");
 		set("skill", ([

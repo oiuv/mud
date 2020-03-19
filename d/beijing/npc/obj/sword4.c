@@ -3,13 +3,13 @@
 inherit SWORD;
 void create()
 {
-        set_name( "¹Ù¸®ÓÃ½£",  ({ "chang jian", "sword", "jian" }));
+        set_name( "å®˜åºœç”¨å‰‘",  ({ "chang jian", "sword", "jian" }));
         set_weight(10000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", "Ò»±ú¹Ù¸®ÎÀ±øÌØÓÃµÄ³¤½£¡£\n");
+                set("unit", "æŸ„");
+                set("long", "ä¸€æŸ„å®˜åºœå«å…µç‰¹ç”¨çš„é•¿å‰‘ã€‚\n");
                 set("value", 2000);
                 set("material", "gold");
         }

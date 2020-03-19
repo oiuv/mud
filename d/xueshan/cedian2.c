@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "²àµî");
+        set("short", "ä¾§æ®¿");
         set("long", @LONG
-ÕâÀïÊÇ´óÂÖËÂµÄÎ÷²àµî¡£ÕâÀïµÄÇ½±ÚÉÏÃè»æ×Å·ğ×æ´«µÀµÄ
-¹ÊÊÂ£¬·ğ×æÊÖÄé½ğ»¨±¦Ïà×¯ÑÏ¡£
+è¿™é‡Œæ˜¯å¤§è½®å¯ºçš„è¥¿ä¾§æ®¿ã€‚è¿™é‡Œçš„å¢™å£ä¸Šæç»˜ç€ä½›ç¥–ä¼ é“çš„
+æ•…äº‹ï¼Œä½›ç¥–æ‰‹æ‹ˆé‡‘èŠ±å®ç›¸åº„ä¸¥ã€‚
 LONG );
         set("exits", ([
                 "northup" : __DIR__"zoulang2",
@@ -24,11 +24,11 @@ int valid_leave(object me, string dir)
         mapping myfam;
         myfam = (mapping)me->query("family");
 
-        if ((! myfam || myfam["family_name"] != "´óÂÖËÂ")
+        if ((! myfam || myfam["family_name"] != "å¤§è½®å¯º")
            && dir=="northup"
            && objectp(present ("samu huofo", environment(me)))) 
-                return notify_fail(CYN "ÈøÄ¾»î·ğËµµÀ£ºÄã·Ç´óÂÖËÂ"
-                                   "µÜ×Ó£¬²»µÃÈëÄÚ¡£\n" NOR);
+                return notify_fail(CYN "è¨æœ¨æ´»ä½›è¯´é“ï¼šä½ éå¤§è½®å¯º"
+                                   "å¼Ÿå­ï¼Œä¸å¾—å…¥å†…ã€‚\n" NOR);
 
         return ::valid_leave(me,dir);
 }

@@ -6,17 +6,17 @@ inherit HAMMER;
 
 void create()
 {
-        set_name(HIC"ÌúÅıÅÃ"NOR, ({ "tiepipa" }) );
+        set_name(HIC"é“çµç¶"NOR, ({ "tiepipa" }) );
         set_weight(50000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "°Ñ");
-                set("long", "ÕâÊÇÒ»°ÑÆæĞÎÌúÅıÅÃ£¬´òÔìµÄÏàµ±¾«ÇÉ¼áÊµ¡£\n");
+                set("unit", "æŠŠ");
+                set("long", "è¿™æ˜¯ä¸€æŠŠå¥‡å½¢é“çµç¶ï¼Œæ‰“é€ çš„ç›¸å½“ç²¾å·§åšå®ã€‚\n");
                 set("value", 3);
                 set("material", "iron");
-                set("wield_msg", "$N´Ó±³ÉÏ½âÏÂÒ»°Ñ$n£¬È»ááºáÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N·ÅÏÂÊÖÖĞµÄ$n¡£\n");
+                set("wield_msg", "$Nä»èƒŒä¸Šè§£ä¸‹ä¸€æŠŠ$nï¼Œç„¶å¾Œæ¨ªåœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Næ”¾ä¸‹æ‰‹ä¸­çš„$nã€‚\n");
         }
         init_hammer(45);
         setup();

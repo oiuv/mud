@@ -4,10 +4,10 @@
 inherit ROOM;
 void create()
 {
-	set("short","ÒéÊÂÌü");
+	set("short","è®®äº‹åŽ…");
 	set("long",@LONG
-ÒéÊÂÌüÖÐÑëÓÐÉñíè£¬íèÏÂ³ÂÁÐ×Åµ¶¡¢²æ¡¢Ã¬¡¢êªµÈ±øÆ÷¡£¿íÀ«µÄ´óÂ¥ÉÏ
-ÏÂ£¬ÖùÁº´ÖÊµ¡£ÌüÌÃ¿í³¨£¬Ç°ºó¸÷ÓÐÒ»³¤ÅÅ×øÀ¸£¬¹©ÈËÄÉÁ¹í¬Ï¢¡£
+è®®äº‹åŽ…ä¸­å¤®æœ‰ç¥žé¾›ï¼Œé¾›ä¸‹é™ˆåˆ—ç€åˆ€ã€å‰ã€çŸ›ã€æˆŸç­‰å…µå™¨ã€‚å®½é˜”çš„å¤§æ¥¼ä¸Š
+ä¸‹ï¼ŒæŸ±æ¢ç²—å®žã€‚åŽ…å ‚å®½æ•žï¼Œå‰åŽå„æœ‰ä¸€é•¿æŽ’åæ ï¼Œä¾›äººçº³å‡‰æ†©æ¯ã€‚
 LONG);
 	set("objects", ([
 	   __DIR__"npc/datusi": 1,

@@ -8,19 +8,19 @@ inherit POISON;
 
 string name() { return "huagu"; }
 
-string chinese_name() { return "»¯¹ÇÕÆÉË"; }
+string chinese_name() { return "åŒ–éª¨æŽŒä¼¤"; }
 
 string update_msg_others()
 {
-       return HIC "$N" HIC "µÄÉí×ÓÍ»È»»ÎÁËÁ½»Î£¬¼¸ºõµøµ¹¡£\n" NOR;
+       return HIC "$N" HIC "çš„èº«å­çªç„¶æ™ƒäº†ä¸¤æ™ƒï¼Œå‡ ä¹Žè·Œå€’ã€‚\n" NOR;
 }
 
 string update_msg_self()
 {
-        return HIR "ºöÈ»»ëÉíÒ»Õó¾çÍ´£¬ÄãÖÐµÄ»¯¹ÇÃàÕÆ¶¾·¢ÁË£¡\n" NOR;
+        return HIR "å¿½ç„¶æµ‘èº«ä¸€é˜µå‰§ç—›ï¼Œä½ ä¸­çš„åŒ–éª¨ç»µæŽŒæ¯’å‘äº†ï¼\n" NOR;
 }
 
 string die_reason(string name)
 {
-        return "½î¶Ï¹ÇËé£¬ËÀµÄ²Ò²»¿°ÑÔ";
+        return "ç­‹æ–­éª¨ç¢Žï¼Œæ­»çš„æƒ¨ä¸å ªè¨€";
 }

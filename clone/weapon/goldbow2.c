@@ -6,18 +6,18 @@ inherit __DIR__"bow";
 
 void create()
 {
-        set_name(HIR "³àÔ§åó" NOR, ({ "chiyuan nu", "chiyuan", "nu", "bow" }));
+        set_name(HIR "èµ¤é¸³å¼©" NOR, ({ "chiyuan nu", "chiyuan", "nu", "bow" }));
         set_weight(5000);
         if (clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("unit", "ÕÅ");
-                set("long", HIR "ÕâÊÇÒ»ÕÅÇ¦ÌúËùÖı£¬Îè·ïµñÎÆ£¬ÖÆ×÷·Ç³£¾«Ï¸µÄåó¡£\n" NOR);
-                set("no_sell", "ÎÒµÄÌì¡­¿¤Íõ¸®µÄ¶«Î÷ÄãÒ²¸ÒÄÃÀ´Âô£¿");
+                set("unit", "å¼ ");
+                set("long", HIR "è¿™æ˜¯ä¸€å¼ é“…é“æ‰€é“¸ï¼Œèˆå‡¤é›•çº¹ï¼Œåˆ¶ä½œéå¸¸ç²¾ç»†çš„å¼©ã€‚\n" NOR);
+                set("no_sell", "æˆ‘çš„å¤©â€¦éƒ¡ç‹åºœçš„ä¸œè¥¿ä½ ä¹Ÿæ•¢æ‹¿æ¥å–ï¼Ÿ");
 		set("value", 80000);
-                set("power", 200000);   // ¹¥»÷ÍşÁ¦
-                set("accuracy", 200);   // ×¼È·¶È200%
+                set("power", 200000);   // æ”»å‡»å¨åŠ›
+                set("accuracy", 200);   // å‡†ç¡®åº¦200%
         }
         setup();
 }

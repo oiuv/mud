@@ -3,12 +3,12 @@ inherit NPC;
 
 void create()
 {
-        set_name("¶¼´ó½õ", ({ "du dajin", "du", "dajin"}) );
-        set("nickname", YEL "¶à±ÛĞÜ" NOR );
-        set("title", "ÁúÃÅïÚ¾Ö×ÜïÚÍ·");
-        set("long", "Õâ±ãÊÇÁúÃÅïÚ¾ÖµÄ×ÜïÚÍ·¶¼´ó½õ£¬ÄËÊÇÉÙÁÖËÂË×¼ÒµÜ×Ó¡£\n");
+        set_name("éƒ½å¤§é”¦", ({ "du dajin", "du", "dajin"}) );
+        set("nickname", YEL "å¤šè‡‚ç†Š" NOR );
+        set("title", "é¾™é—¨é•–å±€æ€»é•–å¤´");
+        set("long", "è¿™ä¾¿æ˜¯é¾™é—¨é•–å±€çš„æ€»é•–å¤´éƒ½å¤§é”¦ï¼Œä¹ƒæ˜¯å°‘æ—å¯ºä¿—å®¶å¼Ÿå­ã€‚\n");
         set("shen_type", 1);
-        set("gender", "ÄĞĞÔ" );
+        set("gender", "ç”·æ€§" );
         set("attitude", "friendly");
         set("age", 36);
         set("str", 25);

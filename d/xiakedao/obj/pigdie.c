@@ -5,21 +5,21 @@ inherit F_CUTABLE;
 
 void create()
 {
-        set_name("ËÀÖí", ({ "pig", "pigdie" }));
+        set_name("æ­»çŒª", ({ "pig", "pigdie" }));
         set_weight(50000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
                 set("parts", ([
-                        "zhutou" : ({ 0, "¸ö", "ÖíÍ·", "ÖíÍ·", "zhutou",
-                                      0, "¶çÏÂ", __DIR__"zhutou" }),
-                        "forleg" : ({ 0, "¶Ô", "Ç°ÍÈ", "Ç°ÍÈ", "forleg",
-                                      0, "¶çÏÂ", __DIR__"forleg" }),
-                        "backleg": ({ 0, "¶Ô", "ºóÍÈ", "ºóÍÈ", "backleg",
-                                      0, "¶çÏÂ", __DIR__"backleg" }),
+                        "zhutou" : ({ 0, "ä¸ª", "çŒªå¤´", "çŒªå¤´", "zhutou",
+                                      0, "å‰ä¸‹", __DIR__"zhutou" }),
+                        "forleg" : ({ 0, "å¯¹", "å‰è…¿", "å‰è…¿", "forleg",
+                                      0, "å‰ä¸‹", __DIR__"forleg" }),
+                        "backleg": ({ 0, "å¯¹", "åè…¿", "åè…¿", "backleg",
+                                      0, "å‰ä¸‹", __DIR__"backleg" }),
                 ]));
-                set("long", "ÕâÊÇÒ»Ö»ËÀÈ¥µÄÒ°Öí£¬³¤µÃÆÄÎª´Ö×³£¬¿´À´¿ÉÒÔ¸îµãÈâ³¢³¢¡£\n");
-                set("unit", "Ö»");
+                set("long", "è¿™æ˜¯ä¸€åªæ­»å»çš„é‡çŒªï¼Œé•¿å¾—é¢‡ä¸ºç²—å£®ï¼Œçœ‹æ¥å¯ä»¥å‰²ç‚¹è‚‰å°å°ã€‚\n");
+                set("unit", "åª");
                 set("value", 1000);
         };
 

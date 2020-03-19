@@ -33,13 +33,13 @@ int main(object me, string arg)
 	if (! arg)
 	{
 		if (! me->query("tianshu"))
-			return notify_fail("ÄãÏÖÔÚÃ»ÓĞÌìÊéµÄÈÎÎñ£¡\n");
+			return notify_fail("ä½ ç°åœ¨æ²¡æœ‰å¤©ä¹¦çš„ä»»åŠ¡ï¼\n");
         	else
 		if (me->query(me->query("tianshu")))
-			return notify_fail("ÄãÏÖÔÚ¸Õ×öÍê"+me->query("tianshu")+"£¡\n");
+			return notify_fail("ä½ ç°åœ¨åˆšåšå®Œ"+me->query("tianshu")+"ï¼\n");
         	else
 		{
-			tell_object(me,"ÄãÄ¿Ç°¸ÃÍê³É"+me->query("tianshu")+"£¡\n");
+			tell_object(me,"ä½ ç›®å‰è¯¥å®Œæˆ"+me->query("tianshu")+"ï¼\n");
 			return 1;
 		}
 	}
@@ -51,23 +51,23 @@ int main(object me, string arg)
 */
 	        if (! me->query("tianshu"))
                 {
-			tell_object(me,"Äã¿ªÊ¼×öÌìÊéÁË£¡\n");
-	                me->set("tianshu","·ÉºüÍâ´«");
+			tell_object(me,"ä½ å¼€å§‹åšå¤©ä¹¦äº†ï¼\n");
+	                me->set("tianshu","é£ç‹å¤–ä¼ ");
         	        me->set("tianfile","tianshu0");
                 	me->delete("xiansuo");
-	                me->delete("ĞÄÔ¸");
-        	        me->delete("ÌØÊâ");
+	                me->delete("å¿ƒæ„¿");
+        	        me->delete("ç‰¹æ®Š");
                 	me->delete("bu");
 	                me->delete("told");
         	        return 1;
 		} else
 		{
-                	tell_object(me,"Äã¿ªÊ¼ÖØ×ö"+me->query("tianshu")+"ÁË£¡\n");
+                	tell_object(me,"ä½ å¼€å§‹é‡åš"+me->query("tianshu")+"äº†ï¼\n");
 	                me->delete(me->query("tianshu"));
         	        me->delete("xiansuo");
-                	me->delete("ĞÄÔ¸");
+                	me->delete("å¿ƒæ„¿");
 	                me->delete("bu");
-        	        me->delete("ÌØÊâ");
+        	        me->delete("ç‰¹æ®Š");
                 	me->delete("told");
         	        return 1;
 		}
@@ -76,9 +76,9 @@ int main(object me, string arg)
 	{
                me->delete(me->query("tianshu"));
                 me->delete("xiansuo");
-                me->delete("ĞÄÔ¸");
+                me->delete("å¿ƒæ„¿");
                 me->delete("told");
-                me->delete("ÌØÊâ");
+                me->delete("ç‰¹æ®Š");
                 return 1;
 	}
 
@@ -117,7 +117,7 @@ int main(object me, string arg)
 		bigreward(me);
 		return 1;
 	}
-	tell_object(me,"ÇëÓÃhelp tianshu¿´°ïÖúÎÄ¼ş»òhelp exp¿´°ïÖúÎÄ¼ş¡£\n");
+	tell_object(me,"è¯·ç”¨help tianshuçœ‹å¸®åŠ©æ–‡ä»¶æˆ–help expçœ‹å¸®åŠ©æ–‡ä»¶ã€‚\n");
 	return 1;
 }
 
@@ -126,9 +126,9 @@ void select(object me)
         if (!me->query_temp("select"))
 		return;
 
-        write(" £°£®·É£±£®Ñ©£²£®Á¬£³£®Ìì£´£®Éä£µ£®°×£®£¶£®Â¹
-                £·£®Ğ¦£¸£®Êé£¹£®Éñ£á£®ÏÀ£â£®ÒĞ£ã£®±Ì£®£ä£®Ô§\n");
-        write("ÇëÑ¡Ôñ£¨0£¬1£¬2£¬3£®£®£®£©£º");
+        write(" ï¼ï¼é£ï¼‘ï¼é›ªï¼’ï¼è¿ï¼“ï¼å¤©ï¼”ï¼å°„ï¼•ï¼ç™½ï¼ï¼–ï¼é¹¿
+                ï¼—ï¼ç¬‘ï¼˜ï¼ä¹¦ï¼™ï¼ç¥ï½ï¼ä¾ ï½‚ï¼å€šï½ƒï¼ç¢§ï¼ï½„ï¼é¸³\n");
+        write("è¯·é€‰æ‹©ï¼ˆ0ï¼Œ1ï¼Œ2ï¼Œ3ï¼ï¼ï¼ï¼‰ï¼š");
         input_to("get_num",me);
 }
 
@@ -137,37 +137,37 @@ void get_num(string arg,object me)
         string s; 
        	if (arg == "" )
 	{
-                write("ÇëÑ¡Ôñ£¨0£¬1£¬2£¬3£®£®£®£©£º");
+                write("è¯·é€‰æ‹©ï¼ˆ0ï¼Œ1ï¼Œ2ï¼Œ3ï¼ï¼ï¼ï¼‰ï¼š");
                 input_to("get_num",me);
                 return;
         }
         if( arg[0]=='0')
         {
-		me->set("tianshu","·ÉºüÍâ´«");
+		me->set("tianshu","é£ç‹å¤–ä¼ ");
 		s="0";
 	}
-        else if (arg[0]=='1') {me->set("tianshu","Ñ©É½·Éºü");s="1";}
-        else if (arg[0]=='2') {me->set("tianshu","Á¬³Ç¾ö");s="2";}
-        else if (arg[0]=='3') {me->set("tianshu","ÌìÁú°Ë²¿");s="3";}
-        else if (arg[0]=='4') {me->set("tianshu","ÉäµñÓ¢ĞÛ´«");s="4";}
-        else if (arg[0]=='5') {me->set("tianshu","°×ÂíĞ¥Î÷·ç");s="5";}
-        else if (arg[0]=='6') {me->set("tianshu","Â¹¶¦¼Ç");s="6";}
-        else if (arg[0]=='7') {me->set("tianshu","Ğ¦°Á½­ºş");s="7";}
-        else if (arg[0]=='8') {me->set("tianshu","Êé½£¶÷³ğÂ¼");s="8";}
-        else if (arg[0]=='9') {me->set("tianshu","ÉñµñÏÀÂÂ");s="9";}
-        else if (arg[0]=='a') {me->set("tianshu","ÏÀ¿ÍĞĞ");s="a";}
-        else if (arg[0]=='b') {me->set("tianshu","ÒĞÌìÍÀÁú¼Ç");s="b";}
-        else if (arg[0]=='c') {me->set("tianshu","±ÌÑª½£");s="c";}
-        else if (arg[0]=='d') {me->set("tianshu","Ô§Ñìµ¶");s="d";}
+        else if (arg[0]=='1') {me->set("tianshu","é›ªå±±é£ç‹");s="1";}
+        else if (arg[0]=='2') {me->set("tianshu","è¿åŸå†³");s="2";}
+        else if (arg[0]=='3') {me->set("tianshu","å¤©é¾™å…«éƒ¨");s="3";}
+        else if (arg[0]=='4') {me->set("tianshu","å°„é›•è‹±é›„ä¼ ");s="4";}
+        else if (arg[0]=='5') {me->set("tianshu","ç™½é©¬å•¸è¥¿é£");s="5";}
+        else if (arg[0]=='6') {me->set("tianshu","é¹¿é¼è®°");s="6";}
+        else if (arg[0]=='7') {me->set("tianshu","ç¬‘å‚²æ±Ÿæ¹–");s="7";}
+        else if (arg[0]=='8') {me->set("tianshu","ä¹¦å‰‘æ©ä»‡å½•");s="8";}
+        else if (arg[0]=='9') {me->set("tianshu","ç¥é›•ä¾ ä¾£");s="9";}
+        else if (arg[0]=='a') {me->set("tianshu","ä¾ å®¢è¡Œ");s="a";}
+        else if (arg[0]=='b') {me->set("tianshu","å€šå¤©å± é¾™è®°");s="b";}
+        else if (arg[0]=='c') {me->set("tianshu","ç¢§è¡€å‰‘");s="c";}
+        else if (arg[0]=='d') {me->set("tianshu","é¸³é¸¯åˆ€");s="d";}
      	else {
-               	write("¶Ô²»Æğ£¬ÄúÖ»ÄÜ´Ó£¨0,1,2,3£®£®£®£©ÖĞÑ¡Ôñ£º ");
+               	write("å¯¹ä¸èµ·ï¼Œæ‚¨åªèƒ½ä»ï¼ˆ0,1,2,3ï¼ï¼ï¼ï¼‰ä¸­é€‰æ‹©ï¼š ");
               	input_to("get_num",me);
                 return;
         }
-        tell_object(me,"Äã¾ö¶¨¿ªÊ¼×ö"+me->query("tianshu")+"ÁË¡£\n");
+        tell_object(me,"ä½ å†³å®šå¼€å§‹åš"+me->query("tianshu")+"äº†ã€‚\n");
         me->delete("xiansuo");
-        me->delete("ĞÄÔ¸");
-        me->delete("ÌØÊâ");
+        me->delete("å¿ƒæ„¿");
+        me->delete("ç‰¹æ®Š");
         me->delete("bu");
         me->delete("told");
         me->set("tianfile","tianshu"+s);
@@ -185,20 +185,20 @@ void xiansuo(object me)
 
 	if (! me->query("tianshu"))
 	{
-		tell_object(me,"ÄãÃ»´òÌıÈÎºÎÓĞ¹ØÌìÊéµÄÏûÏ¢¡£\n");
+		tell_object(me,"ä½ æ²¡æ‰“å¬ä»»ä½•æœ‰å…³å¤©ä¹¦çš„æ¶ˆæ¯ã€‚\n");
 		return;
 	}
 
         if (me->query(me->query("tianshu")))
 	{
-		tell_object(me,"ÄãÒÑ¾­Íê³ÉÁË"+me->query("tianshu")+"¡£"
-                               "ÇëÓÃselectÁíÑ¡»òÓÃbeginÖØ¿ª¡£\n");
+		tell_object(me,"ä½ å·²ç»å®Œæˆäº†"+me->query("tianshu")+"ã€‚"
+                               "è¯·ç”¨selectå¦é€‰æˆ–ç”¨beginé‡å¼€ã€‚\n");
 		return;
 	}
 
 	if (!me->query("tianfile"))
 	{
-		tell_object(me,"ÄãÃ»´òÌıÈÎºÎÓĞ¹ØÌìÊéµÄÏûÏ¢¡£\n");
+		tell_object(me,"ä½ æ²¡æ‰“å¬ä»»ä½•æœ‰å…³å¤©ä¹¦çš„æ¶ˆæ¯ã€‚\n");
 		return;
 	}
 
@@ -211,7 +211,7 @@ void xiansuo(object me)
                 {
                		xiansuo=lines[random(sizeof(lines))];
                		words=explode(xiansuo,"/");
-               		me->set("ÌØÊâ",words);
+               		me->set("ç‰¹æ®Š",words);
                		me->set("xiansuo",words[0]);
                 }
 	} else
@@ -237,17 +237,17 @@ void xiansuo(object me)
 	}
 
 	if (j<0)
-	        tell_object(me,"Ä¿Ç°ËÆºõ"+me->query("xiansuo")+"ÄÇ¶ùÓĞĞ©ÏßË÷¡£\n");
+	        tell_object(me,"ç›®å‰ä¼¼ä¹"+me->query("xiansuo")+"é‚£å„¿æœ‰äº›çº¿ç´¢ã€‚\n");
 	else 
         {
        		if (me->query("told"))
 		{
-			tell_object(me,inv[j]->name()+"ËµµÀ£ºÎÒÒÑ¾­Ëµ¹ıÁË¡£\n");
+			tell_object(me,inv[j]->name()+"è¯´é“ï¼šæˆ‘å·²ç»è¯´è¿‡äº†ã€‚\n");
 		} else
 		{
-			tell_object(me, inv[j]->name()+"ËµµÀ£ºÎÒÖªµÀ" +
-				        me->query("tianshu")+"ÔÚÄÄ¶ù£¬"
-					"Äã°ïÎÒÍê³É¼¸¸öÈÎÎñ£¬ÎÒÔÙ¸æËßÄã¡£\n");
+			tell_object(me, inv[j]->name()+"è¯´é“ï¼šæˆ‘çŸ¥é“" +
+				        me->query("tianshu")+"åœ¨å“ªå„¿ï¼Œ"
+					"ä½ å¸®æˆ‘å®Œæˆå‡ ä¸ªä»»åŠ¡ï¼Œæˆ‘å†å‘Šè¯‰ä½ ã€‚\n");
 	               	me->set_temp("giverenwu",1);
 			me->set("told",1);
 		}
@@ -267,25 +267,25 @@ void renwu(object me)
 
 	if (!me->query_temp("giverenwu")) 
 	{
-        	sss=me->query("ĞÄÔ¸");
+        	sss=me->query("å¿ƒæ„¿");
 	        if (sss)
         	{
 			if (sss["class"]=="kill")
-				tell_object(me, "ÄãÄ¿Ç°ÈÎÎñ£º°ï"+me->query("xiansuo")+
-						"É±ÁË"+sss["name"]+"¡£\n");
+				tell_object(me, "ä½ ç›®å‰ä»»åŠ¡ï¼šå¸®"+me->query("xiansuo")+
+						"æ€äº†"+sss["name"]+"ã€‚\n");
 	                else
 			if (sss["class"]=="find")
-				tell_object(me, "ÄãÄ¿Ç°ÈÎÎñ£º°ï"+me->query("xiansuo")+
-						"ÕÒµ½"+sss["name"]+"¡£\n");
+				tell_object(me, "ä½ ç›®å‰ä»»åŠ¡ï¼šå¸®"+me->query("xiansuo")+
+						"æ‰¾åˆ°"+sss["name"]+"ã€‚\n");
 	                else
 			if (sss["class"]=="song")
-				tell_object(me, "ÄãÄ¿Ç°ÈÎÎñ£º°ï"+me->query("xiansuo")+
-						"°Ñ"+me->query("target")+"ËÍµ½"+sss["name"]+"ÊÖÖĞ¡£\n");
+				tell_object(me, "ä½ ç›®å‰ä»»åŠ¡ï¼šå¸®"+me->query("xiansuo")+
+						"æŠŠ"+me->query("target")+"é€åˆ°"+sss["name"]+"æ‰‹ä¸­ã€‚\n");
 	                else
 			if (sss["class"]=="baohu")
-				tell_object(me,"ÄãÄ¿Ç°ÈÎÎñ£º±£»¤"+me->query("xiansuo")+"¡£\n");
+				tell_object(me,"ä½ ç›®å‰ä»»åŠ¡ï¼šä¿æŠ¤"+me->query("xiansuo")+"ã€‚\n");
        		} else
-			tell_object(me,"ÄãÄ¿Ç°Ã»ÓĞÈÎÎñ£¬»¹ÊÇÏÈ´òÌ½Ò»ÏÂÏßË÷¡£\n");
+			tell_object(me,"ä½ ç›®å‰æ²¡æœ‰ä»»åŠ¡ï¼Œè¿˜æ˜¯å…ˆæ‰“æ¢ä¸€ä¸‹çº¿ç´¢ã€‚\n");
 	} else
 	{
         	env=environment(me);
@@ -300,27 +300,27 @@ void renwu(object me)
 
 		if (j<0)
 	        {
-			tell_object(me,"Äã¸úË­Ëµ»°£¿\n");
+			tell_object(me,"ä½ è·Ÿè°è¯´è¯ï¼Ÿ\n");
 			return;
 		}
 
-		if (me->query("ÌØÊâ")) 
+		if (me->query("ç‰¹æ®Š")) 
        	        {
-        	        words=me->query("ÌØÊâ");
+        	        words=me->query("ç‰¹æ®Š");
        	        	switch(words[1])
 			{
-       	                case "kill":tell_object(me,me->query("xiansuo")+"ËµµÀ£ºÄã°ïÎÒÉ±ÁË"+words[2]+"£¬´øÆäÊ¬ÌåÀ´¼ûÎÒ£¡\n");
-                                    tell_object(me,me->query("xiansuo")+"ËµµÀ£º"+words[3]+"\n");
+       	                case "kill":tell_object(me,me->query("xiansuo")+"è¯´é“ï¼šä½ å¸®æˆ‘æ€äº†"+words[2]+"ï¼Œå¸¦å…¶å°¸ä½“æ¥è§æˆ‘ï¼\n");
+                                    tell_object(me,me->query("xiansuo")+"è¯´é“ï¼š"+words[3]+"\n");
                                     sss["class"]="kill";sscanf(words[4],"%d",sss["exp"]);sss["name"]=words[2];
                                     break;
 
-        	        case "find":tell_object(me,me->query("xiansuo")+"ËµµÀ£ºÄã°ïÎÒÕÒµ½"+words[2]+"£¡\n");
-                                    tell_object(me,me->query("xiansuo")+"ËµµÀ£º"+words[3]+"\n");
+        	        case "find":tell_object(me,me->query("xiansuo")+"è¯´é“ï¼šä½ å¸®æˆ‘æ‰¾åˆ°"+words[2]+"ï¼\n");
+                                    tell_object(me,me->query("xiansuo")+"è¯´é“ï¼š"+words[3]+"\n");
                                     sss["class"]="find";sscanf(words[4],"%d",sss["exp"]);sss["name"]=words[2];
                                     break;
 
-               	 	case "song":tell_object(me,me->query("xiansuo")+"ËµµÀ£ºÄã°ïÎÒ°Ñ"+words[3]+"ËÍµ½"+words[2]+"ÊÖÖĞ£¡\n");
-                                    tell_object(me,me->query("xiansuo")+"ËµµÀ£º"+words[4]+"\n");
+               	 	case "song":tell_object(me,me->query("xiansuo")+"è¯´é“ï¼šä½ å¸®æˆ‘æŠŠ"+words[3]+"é€åˆ°"+words[2]+"æ‰‹ä¸­ï¼\n");
+                                    tell_object(me,me->query("xiansuo")+"è¯´é“ï¼š"+words[4]+"\n");
                                     sss["class"]="song";sscanf(words[5],"%d",sss["exp"]);sss["name"]=words[2];
                                     me->set("target",words[3]);
                                     ob=new("/obj/tianshu/wupin");
@@ -328,7 +328,7 @@ void renwu(object me)
                                     ob->set("name",words[3]);
                                     break;
                        	}
-                	me->set("ĞÄÔ¸",sss);
+                	me->set("å¿ƒæ„¿",sss);
        	        	me->delete_temp("giverenwu");
                	} else
 		{
@@ -358,21 +358,21 @@ void renwu(object me)
 			if (sscanf(task,"%s/%s/%d",sss["class"],sss["name"],sss["exp"])!=3)
 				return;
 
-			me->set("ĞÄÔ¸",sss);
+			me->set("å¿ƒæ„¿",sss);
 
 			if (sss["class"]=="kill")
 				tell_object(me, me->query("xiansuo")+
-                                                "ËµµÀ£ºÄã°ïÎÒÉ±ÁË"+sss["name"]+
-                                                "£¬´øÆäÊ¬ÌåÀ´¼ûÎÒ£¡\n");
+                                                "è¯´é“ï¼šä½ å¸®æˆ‘æ€äº†"+sss["name"]+
+                                                "ï¼Œå¸¦å…¶å°¸ä½“æ¥è§æˆ‘ï¼\n");
 			else
 			if (sss["class"]=="find")
-				tell_object(me, me->query("xiansuo")+"ËµµÀ£ºÄã°ï"
-						"ÎÒÕÒµ½"+sss["name"]+"£¡\n");
+				tell_object(me, me->query("xiansuo")+"è¯´é“ï¼šä½ å¸®"
+						"æˆ‘æ‰¾åˆ°"+sss["name"]+"ï¼\n");
 			else
 			if (sss["class"]=="baohu")
 			{
-				tell_object(me, me->query("xiansuo")+"ËµµÀ£ºÓĞÈË"
-						"Òª¶Ô¸¶ÎÒ£¬ÄãÁôÔÚÕâÀï±£»¤ÎÒ£¡\n");
+				tell_object(me, me->query("xiansuo")+"è¯´é“ï¼šæœ‰äºº"
+						"è¦å¯¹ä»˜æˆ‘ï¼Œä½ ç•™åœ¨è¿™é‡Œä¿æŠ¤æˆ‘ï¼\n");
 				call_out("baohu",10,me,inv[j]);
 			}
 			me->delete_temp("giverenwu");
@@ -380,14 +380,14 @@ void renwu(object me)
 	}
 
 	if (me->query("wancheng"))
-		tell_object(me,"ÄãÈÎÎñÍê³ÉÁË£¬Ã»È¥½»²îÂğ£¿\n");
+		tell_object(me,"ä½ ä»»åŠ¡å®Œæˆäº†ï¼Œæ²¡å»äº¤å·®å—ï¼Ÿ\n");
 }
 
 void check_corpse(object me)
 {
         object *inv,env;int i,j=-1;
         mapping renwu;
-        renwu=me->query("ĞÄÔ¸");
+        renwu=me->query("å¿ƒæ„¿");
         env=environment(me);
         inv=all_inventory(env);
         i=sizeof(inv);
@@ -400,7 +400,7 @@ void check_corpse(object me)
 
 	if (j<0)
         {
-		tell_object(me,"Äã¸úË­Ëµ»°£¿\n");
+		tell_object(me,"ä½ è·Ÿè°è¯´è¯ï¼Ÿ\n");
 			return;
 	}
         j=-1;
@@ -410,14 +410,14 @@ void check_corpse(object me)
 
         while(i--)
         {
-                if (inv[i]->query("name")==(me->query("ĞÄÔ¸"))["name"]+"µÄÊ¬Ìå")
+                if (inv[i]->query("name")==(me->query("å¿ƒæ„¿"))["name"]+"çš„å°¸ä½“")
 			j=i;
         }
 
         if (j>=0)
 	{
-		tell_object(me, me->query("xiansuo")+"ËµµÀ£ººÜºÃ£¡ÄãÒÑ¾­°ïÎÒÉ±ÁË"+
-				(me->query("ĞÄÔ¸"))["name"]+"¡£\n");
+		tell_object(me, me->query("xiansuo")+"è¯´é“ï¼šå¾ˆå¥½ï¼ä½ å·²ç»å¸®æˆ‘æ€äº†"+
+				(me->query("å¿ƒæ„¿"))["name"]+"ã€‚\n");
                 destruct(inv[j]);
 
                 if (me->query("bu"))
@@ -425,13 +425,13 @@ void check_corpse(object me)
                 else
 			me->set("bu",1);
                 reward(renwu["exp"],me);
-                me->delete("ĞÄÔ¸");
-                me->delete("ÌØÊâ");
+                me->delete("å¿ƒæ„¿");
+                me->delete("ç‰¹æ®Š");
                 nextstep(me);
         } else
 	{
-                tell_object(me, me->query("xiansuo")+"ËµµÀ£ºÎÒÒªÄã°ïÎÒÉ±ÁË"+
-                                (me->query("ĞÄÔ¸"))["name"]+"¡£Äã»¹Ã»Íê³É£¡\n");
+                tell_object(me, me->query("xiansuo")+"è¯´é“ï¼šæˆ‘è¦ä½ å¸®æˆ‘æ€äº†"+
+                                (me->query("å¿ƒæ„¿"))["name"]+"ã€‚ä½ è¿˜æ²¡å®Œæˆï¼\n");
 	}
 }
 
@@ -443,13 +443,13 @@ void nextstep(object me)
         if (me->query("bu")>=random(3)+9) 
                 {
 me->set("end_time",time());
-                tell_object(me,me->query("xiansuo")+"ËµµÀ£ºÎÒÕâ¶ùÓĞÒ»±¾¾ÉÊé£¬¶ÔÄã¿ÉÄÜÓĞÓÃ£¬Õâ¾Í¸øÄã°É¡£\n");
+                tell_object(me,me->query("xiansuo")+"è¯´é“ï¼šæˆ‘è¿™å„¿æœ‰ä¸€æœ¬æ—§ä¹¦ï¼Œå¯¹ä½ å¯èƒ½æœ‰ç”¨ï¼Œè¿™å°±ç»™ä½ å§ã€‚\n");
                 me->set(me->query("tianshu"),1);
 if (me->query(me->query("tianshu")+"s")) me->add(me->query("tianshu")+"s",1);
                         else me->set(me->query("tianshu")+"s",1);
                 me->delete("xiansuo");
-                me->delete("ÌØÊâ");
-                me->delete("ĞÄÔ¸");
+                me->delete("ç‰¹æ®Š");
+                me->delete("å¿ƒæ„¿");
                 me->delete("bu");
                 me->delete("told");
 exp=400 + me->query("combat_exp")/3000+random(me->query("combat_exp")/3000);
@@ -467,7 +467,7 @@ case 0: file=read_file(XIANSUOO+me->query("tianfile"));
         lines=explode(file,"\n");
                 xiansuo=lines[random(sizeof(lines))];
                 words=explode(xiansuo,"/");
-                me->set("ÌØÊâ",words);
+                me->set("ç‰¹æ®Š",words);
                 me->set("xiansuo",words[0]);
         break;
                 }
@@ -477,7 +477,7 @@ else{
         xiansuo=lines[random(sizeof(lines))];
         me->set("xiansuo",xiansuo);
         }
-        tell_object(me,"ÄãÈ¥ÕÒ"+me->query("xiansuo")+"ÎÊÎÊ£¬¿´¿´ÓĞÃ»ÓĞÊ²Ã´ÏûÏ¢¡£\n");
+        tell_object(me,"ä½ å»æ‰¾"+me->query("xiansuo")+"é—®é—®ï¼Œçœ‹çœ‹æœ‰æ²¡æœ‰ä»€ä¹ˆæ¶ˆæ¯ã€‚\n");
         me->delete("told");
                         }
 }
@@ -485,8 +485,8 @@ void check(object me)
 {       
         mapping renwu;
         if (!me->query_temp("jiaochai")) return;
-if (!me->query("ĞÄÔ¸")) {tell_object(me,"ÄãÄ¿Ç°²¢ÎŞÈÎÎñ£¬Äã»¹ÊÇÏÈÕÒÕÒÏßË÷¡£\n");return;}
-renwu=me->query("ĞÄÔ¸");
+if (!me->query("å¿ƒæ„¿")) {tell_object(me,"ä½ ç›®å‰å¹¶æ— ä»»åŠ¡ï¼Œä½ è¿˜æ˜¯å…ˆæ‰¾æ‰¾çº¿ç´¢ã€‚\n");return;}
+renwu=me->query("å¿ƒæ„¿");
 if (renwu["class"]=="kill") check_corpse(me);
         else if (renwu["class"]=="find") check_thing(me);
         else if (renwu["class"]=="song") check_song(me);
@@ -496,7 +496,7 @@ void check_thing(object me)
 {
         object *inv,env;int i,j=-1;
         mapping renwu;
-        renwu=me->query("ĞÄÔ¸");
+        renwu=me->query("å¿ƒæ„¿");
         env=environment(me);
         inv=all_inventory(env);
         i=sizeof(inv);
@@ -505,25 +505,25 @@ void check_thing(object me)
 
                 if (inv[i]->query("name")==me->query("xiansuo")&&!userp(inv[i])) j=i;
         }
-if (j<0)        {tell_object(me,"Äã¸úË­Ëµ»°£¿\n");return;}
+if (j<0)        {tell_object(me,"ä½ è·Ÿè°è¯´è¯ï¼Ÿ\n");return;}
         j=-1;
         inv=all_inventory(me);
         i=sizeof(inv);
         while(i--)
         {
-                if (inv[i]->query("name")==(me->query("ĞÄÔ¸"))["name"]) j=i;
+                if (inv[i]->query("name")==(me->query("å¿ƒæ„¿"))["name"]) j=i;
         }
-        if (j>=0) {tell_object(me,me->query("xiansuo")+"ËµµÀ£ººÜºÃ£¡ÄãÒÑ¾­°ïÎÒÕÒµ½"+(me->query("ĞÄÔ¸"))["name"]+"ÁË¡£\n");
+        if (j>=0) {tell_object(me,me->query("xiansuo")+"è¯´é“ï¼šå¾ˆå¥½ï¼ä½ å·²ç»å¸®æˆ‘æ‰¾åˆ°"+(me->query("å¿ƒæ„¿"))["name"]+"äº†ã€‚\n");
                         destruct(inv[j]);
                 if (me->query("bu")) me->add("bu",1);
                                 else me->set("bu",1);
-                        me->delete("ĞÄÔ¸");
-                        me->delete("ÌØÊâ");
+                        me->delete("å¿ƒæ„¿");
+                        me->delete("ç‰¹æ®Š");
                         reward(renwu["exp"],me);
                         nextstep(me);
                         }
         else {
-                tell_object(me,me->query("xiansuo")+"ËµµÀ£ºÎÒÒªÄã°ïÎÒÕÒµ½"+(me->query("ĞÄÔ¸"))["name"]+"¡£Äã»¹Ã»Íê³É£¡
+                tell_object(me,me->query("xiansuo")+"è¯´é“ï¼šæˆ‘è¦ä½ å¸®æˆ‘æ‰¾åˆ°"+(me->query("å¿ƒæ„¿"))["name"]+"ã€‚ä½ è¿˜æ²¡å®Œæˆï¼
 \n");
 }
 }
@@ -533,8 +533,8 @@ object obj;
 me->set("baohuren",me->query("xiansuo"));
 obj->move(environment(me));
 obj->set("kill",me->query("xiansuo"));
-message_vision("$N×ßÁË½øÀ´£¬ÀäÀäµØ¿´×Å$n¡£\n",obj,vic);
-message_vision("$N¶Ô$nºÈµÀ£ºÕÒÁËÄãÕâĞí¾Ã£¬Ô­À´Äã¶ãÔÚÕâÀï¡£È¥ËÀ°É£¡\n",obj,vic);
+message_vision("$Nèµ°äº†è¿›æ¥ï¼Œå†·å†·åœ°çœ‹ç€$nã€‚\n",obj,vic);
+message_vision("$Nå¯¹$nå–é“ï¼šæ‰¾äº†ä½ è¿™è®¸ä¹…ï¼ŒåŸæ¥ä½ èº²åœ¨è¿™é‡Œã€‚å»æ­»å§ï¼\n",obj,vic);
 obj->set("combat_exp",me->query("combat_exp")+random(1000000));
 vic->set("kee",3000);
 obj->kill_ob(vic);
@@ -546,7 +546,7 @@ void check_baohu(object me)
 {
         object *inv,env;int i,j=-1;
         mapping renwu;
-        renwu=me->query("ĞÄÔ¸");
+        renwu=me->query("å¿ƒæ„¿");
         env=environment(me);
         inv=all_inventory(env);
         i=sizeof(inv);
@@ -554,15 +554,15 @@ void check_baohu(object me)
         {
                 if (inv[i]->query("name")==me->query("xiansuo")&&!userp(inv[i])) j=i;
         }
-if (j<0)        {tell_object(me,"Äã¸úË­Ëµ»°£¿\n");return;}
-if (me->query("baohuren")) {tell_object(me,me->query("xiansuo")+"ËµµÀ£ºÎÒÒªÄã±£»¤ÎÒ¡£Äã»¹Ã»Íê³É£¡\n");return;}
-if (!me->query("baohu")) {tell_object(me,me->query("xiansuo")+"ËµµÀ£ºÎÒÒªÄã±£»¤ÎÒ¡£ÄãÍê³ÉÁËÂğ£¿\n");return;}
-        else {tell_object(me,me->query("xiansuo")+"ËµµÀ£ººÜºÃ£¡ÄãÒÑ¾­±£»¤¹ıÎÒ¡£\n");
+if (j<0)        {tell_object(me,"ä½ è·Ÿè°è¯´è¯ï¼Ÿ\n");return;}
+if (me->query("baohuren")) {tell_object(me,me->query("xiansuo")+"è¯´é“ï¼šæˆ‘è¦ä½ ä¿æŠ¤æˆ‘ã€‚ä½ è¿˜æ²¡å®Œæˆï¼\n");return;}
+if (!me->query("baohu")) {tell_object(me,me->query("xiansuo")+"è¯´é“ï¼šæˆ‘è¦ä½ ä¿æŠ¤æˆ‘ã€‚ä½ å®Œæˆäº†å—ï¼Ÿ\n");return;}
+        else {tell_object(me,me->query("xiansuo")+"è¯´é“ï¼šå¾ˆå¥½ï¼ä½ å·²ç»ä¿æŠ¤è¿‡æˆ‘ã€‚\n");
                         me->delete("baohu");
                 if (me->query("bu")) me->add("bu",1);
                                 else me->set("bu",1);
-                        me->delete("ĞÄÔ¸");
-                        me->delete("ÌØÊâ");
+                        me->delete("å¿ƒæ„¿");
+                        me->delete("ç‰¹æ®Š");
                         reward(renwu["exp"],me);
                         nextstep(me);
                         }
@@ -571,7 +571,7 @@ void check_song(object me)
 {
         object *inv,env;int i,j=-1;
         mapping renwu;
-        renwu=me->query("ĞÄÔ¸");
+        renwu=me->query("å¿ƒæ„¿");
         env=environment(me);
         inv=all_inventory(env);
         i=sizeof(inv);
@@ -579,14 +579,14 @@ void check_song(object me)
         {
                 if (inv[i]->query("name")==me->query("xiansuo")&&!userp(inv[i])) j=i;
         }
-if (j<0)        {tell_object(me,"Äã¸úË­Ëµ»°£¿\n");return;}
-if (!me->query("wancheng")) {tell_object(me,me->query("xiansuo")+"ËµµÀ£ºÎÒÒªÄã¸øÎÒËÍ¶«Î÷¡£ÄãÍê³ÉÁËÂğ£¿\n");return;}
-        else {tell_object(me,me->query("xiansuo")+"ËµµÀ£ººÜºÃ£¡ÄãÒÑ¾­Íê³ÉÈÎÎñÁË¡£\n");
+if (j<0)        {tell_object(me,"ä½ è·Ÿè°è¯´è¯ï¼Ÿ\n");return;}
+if (!me->query("wancheng")) {tell_object(me,me->query("xiansuo")+"è¯´é“ï¼šæˆ‘è¦ä½ ç»™æˆ‘é€ä¸œè¥¿ã€‚ä½ å®Œæˆäº†å—ï¼Ÿ\n");return;}
+        else {tell_object(me,me->query("xiansuo")+"è¯´é“ï¼šå¾ˆå¥½ï¼ä½ å·²ç»å®Œæˆä»»åŠ¡äº†ã€‚\n");
                         me->delete("wancheng");
                 if (me->query("bu")) me->add("bu",1);
                                 else me->set("bu",1);
-                        me->delete("ĞÄÔ¸");
-                        me->delete("ÌØÊâ");
+                        me->delete("å¿ƒæ„¿");
+                        me->delete("ç‰¹æ®Š");
                         reward(renwu["exp"],me);
                         nextstep(me);
                         }
@@ -599,28 +599,28 @@ void songwu(object me)
         if (!me->query_temp("song")) return;
         env=environment(me);
         inv=all_inventory(env);
-        renwu=me->query("ĞÄÔ¸");
-        if (!renwu) {tell_object(me,"ÄãÄ¿Ç°Ã»ÓĞÈÎÎñ£¡\n");return;}
+        renwu=me->query("å¿ƒæ„¿");
+        if (!renwu) {tell_object(me,"ä½ ç›®å‰æ²¡æœ‰ä»»åŠ¡ï¼\n");return;}
         i=sizeof(inv);
         j=-1;
         while(i--)
         {
                 if (inv[i]->query("name")==renwu["name"]&&!userp(inv[i])) j=i;
         }
-if (j<0)        {tell_object(me,"ÄãÓ¦¸Ã°Ñ"+me->query("target")+"ËÍ¸ø"+renwu["name"]+"\n");return;}
+if (j<0)        {tell_object(me,"ä½ åº”è¯¥æŠŠ"+me->query("target")+"é€ç»™"+renwu["name"]+"\n");return;}
         wu=present("wu pin",me);
 if (!wu) {
-        tell_object(me,"Äã°Ñ¶«Î÷Åªµ½ÄÄ¶ùÈ¥ÁË£¿\n");return;
+        tell_object(me,"ä½ æŠŠä¸œè¥¿å¼„åˆ°å“ªå„¿å»äº†ï¼Ÿ\n");return;
 }
         if (wu->query("name")==me->query("target")) 
         {
-        tell_object(me,renwu["name"]+"Ğ¦ÁËĞ¦£¬Ëµµ½£ºĞ»Ğ»Äã£¡\n");
-        tell_object(me,"ÄãµÄÈÎÎñÍê³ÉÁË£¬»ØÈ¥½»²î°É¡£\n");
+        tell_object(me,renwu["name"]+"ç¬‘äº†ç¬‘ï¼Œè¯´åˆ°ï¼šè°¢è°¢ä½ ï¼\n");
+        tell_object(me,"ä½ çš„ä»»åŠ¡å®Œæˆäº†ï¼Œå›å»äº¤å·®å§ã€‚\n");
         me->set("wancheng",1);
         destruct(wu);
         return;
         }
-        else {tell_object(me,renwu["name"]+"ÖåÁËÖåÃ¼ËµµÀ£ºÕâ¸ö£¬²»¶Ô°É¡£\n");return;
+        else {tell_object(me,renwu["name"]+"çš±äº†çš±çœ‰è¯´é“ï¼šè¿™ä¸ªï¼Œä¸å¯¹å§ã€‚\n");return;
 }
 }
 void reward(int exp,object me)
@@ -633,10 +633,10 @@ if(exp>300){
     me->add("combat_exp",exp);
     me->add("potential",pot);
     me->add("score",score);
-    tell_object(me,HIW"Äã±»½±ÀøÁË£º\n" +
-        chinese_number(exp) + "µãÊµÕ½¾­Ñé\n"+
-        chinese_number(pot) + "µãÇ±ÄÜ\n"+ 
-        chinese_number(score) + "µãÆÀ¼Û\n"NOR);
+    tell_object(me,HIW"ä½ è¢«å¥–åŠ±äº†ï¼š\n" +
+        chinese_number(exp) + "ç‚¹å®æˆ˜ç»éªŒ\n"+
+        chinese_number(pot) + "ç‚¹æ½œèƒ½\n"+ 
+        chinese_number(score) + "ç‚¹è¯„ä»·\n"NOR);
 }
 else{
                 exp=exp*me->query_kar()/20;
@@ -644,9 +644,9 @@ else{
                 pot=exp/8;
                 me->add("combat_exp",exp);
                 me->add("potential",pot);
-                tell_object(me,HIW"Äã±»½±ÀøÁË£º\n" +
-                chinese_number(exp) + "µãÊµÕ½¾­Ñé\n"+
-                chinese_number(pot) + "µãÇ±ÄÜ\n"NOR);
+                tell_object(me,HIW"ä½ è¢«å¥–åŠ±äº†ï¼š\n" +
+                chinese_number(exp) + "ç‚¹å®æˆ˜ç»éªŒ\n"+
+                chinese_number(pot) + "ç‚¹æ½œèƒ½\n"NOR);
 }
 }
 void status(object me)
@@ -654,27 +654,27 @@ void status(object me)
         string line;
         if (!me->query_temp("status")) return;
         line = sprintf( BOLD "\n%s" NOR "%s\n", RANK_D->query_rank(me), me->short(1) );
-        line += sprintf(" ·ÉºüÍâ´«£º\t%s\t\tĞ¦°Á½­ºş£º\t%s\n"
-                        " Ñ©É½·Éºü£º\t%s\t\tÊé½£¶÷³ğÂ¼£º\t%s\n"
-                        " Á¬³Ç¾ö£º\t%s\t\tÉñµñÏÀÂÂ£º\t%s\n"
-                        " ÌìÁú°Ë²¿£º\t%s\t\tÏÀ¿ÍĞĞ£º\t%s\n"
-                        " ÉäµñÓ¢ĞÛ´«£º\t%s\t\tÒĞÌìÍÀÁú¼Ç£º\t%s\n"
-                        " °×ÂíĞ¥Î÷·ç£º\t%s\t\t±ÌÑª½££º\t%s\n"
-                        " Â¹¶¦¼Ç£º\t%s\t\tÔ§Ñìµ¶£º\t%s\n",
-                        wan(me->query("·ÉºüÍâ´«")),     
-                        wan(me->query("Ğ¦°Á½­ºş")),     
-                        wan(me->query("Ñ©É½·Éºü")),     
-                        wan(me->query("Êé½£¶÷³ğÂ¼")),   
-                        wan(me->query("Á¬³Ç¾ö")),       
-                        wan(me->query("ÉñµñÏÀÂÂ")),     
-                        wan(me->query("ÌìÁú°Ë²¿")),     
-                        wan(me->query("ÏÀ¿ÍĞĞ")),       
-                        wan(me->query("ÉäµñÓ¢ĞÛ´«")),   
-                        wan(me->query("ÒĞÌìÍÀÁú¼Ç")),   
-                        wan(me->query("°×ÂíĞ¥Î÷·ç")),   
-                        wan(me->query("±ÌÑª½£")),       
-                        wan(me->query("Â¹¶¦¼Ç")),       
-                        wan(me->query("Ô§Ñìµ¶")));
+        line += sprintf(" é£ç‹å¤–ä¼ ï¼š\t%s\t\tç¬‘å‚²æ±Ÿæ¹–ï¼š\t%s\n"
+                        " é›ªå±±é£ç‹ï¼š\t%s\t\tä¹¦å‰‘æ©ä»‡å½•ï¼š\t%s\n"
+                        " è¿åŸå†³ï¼š\t%s\t\tç¥é›•ä¾ ä¾£ï¼š\t%s\n"
+                        " å¤©é¾™å…«éƒ¨ï¼š\t%s\t\tä¾ å®¢è¡Œï¼š\t%s\n"
+                        " å°„é›•è‹±é›„ä¼ ï¼š\t%s\t\tå€šå¤©å± é¾™è®°ï¼š\t%s\n"
+                        " ç™½é©¬å•¸è¥¿é£ï¼š\t%s\t\tç¢§è¡€å‰‘ï¼š\t%s\n"
+                        " é¹¿é¼è®°ï¼š\t%s\t\té¸³é¸¯åˆ€ï¼š\t%s\n",
+                        wan(me->query("é£ç‹å¤–ä¼ ")),     
+                        wan(me->query("ç¬‘å‚²æ±Ÿæ¹–")),     
+                        wan(me->query("é›ªå±±é£ç‹")),     
+                        wan(me->query("ä¹¦å‰‘æ©ä»‡å½•")),   
+                        wan(me->query("è¿åŸå†³")),       
+                        wan(me->query("ç¥é›•ä¾ ä¾£")),     
+                        wan(me->query("å¤©é¾™å…«éƒ¨")),     
+                        wan(me->query("ä¾ å®¢è¡Œ")),       
+                        wan(me->query("å°„é›•è‹±é›„ä¼ ")),   
+                        wan(me->query("å€šå¤©å± é¾™è®°")),   
+                        wan(me->query("ç™½é©¬å•¸è¥¿é£")),   
+                        wan(me->query("ç¢§è¡€å‰‘")),       
+                        wan(me->query("é¹¿é¼è®°")),       
+                        wan(me->query("é¸³é¸¯åˆ€")));
         write(line);
         return;
 }
@@ -682,150 +682,150 @@ void status(object me)
 string wan(int i)
 {
 	if (i)
-		return HIY"ÒÑÍê³É"NOR ;
+		return HIY"å·²å®Œæˆ"NOR ;
 	else
-		return "Î´Íê³É";
+		return "æœªå®Œæˆ";
 }
 void bigreward(object me)
 {
         object obj;
-        if (me->query("·ÉºüÍâ´«")&&
-        me->query("Ğ¦°Á½­ºş")&&
-        me->query("Ñ©É½·Éºü")&& 
-        me->query("Êé½£¶÷³ğÂ¼")&&
-        me->query("Á¬³Ç¾ö")&&
-        me->query("ÉñµñÏÀÂÂ")&&
-        me->query("ÌìÁú°Ë²¿")&&
-        me->query("ÏÀ¿ÍĞĞ")&&
-        me->query("ÉäµñÓ¢ĞÛ´«")&&
-        me->query("ÒĞÌìÍÀÁú¼Ç")&&
-        me->query("°×ÂíĞ¥Î÷·ç")&&
-        me->query("±ÌÑª½£")&&
-        me->query("Â¹¶¦¼Ç")&&
-        me->query("Ô§Ñìµ¶")) 
+        if (me->query("é£ç‹å¤–ä¼ ")&&
+        me->query("ç¬‘å‚²æ±Ÿæ¹–")&&
+        me->query("é›ªå±±é£ç‹")&& 
+        me->query("ä¹¦å‰‘æ©ä»‡å½•")&&
+        me->query("è¿åŸå†³")&&
+        me->query("ç¥é›•ä¾ ä¾£")&&
+        me->query("å¤©é¾™å…«éƒ¨")&&
+        me->query("ä¾ å®¢è¡Œ")&&
+        me->query("å°„é›•è‹±é›„ä¼ ")&&
+        me->query("å€šå¤©å± é¾™è®°")&&
+        me->query("ç™½é©¬å•¸è¥¿é£")&&
+        me->query("ç¢§è¡€å‰‘")&&
+        me->query("é¹¿é¼è®°")&&
+        me->query("é¸³é¸¯åˆ€")) 
                 {
                 obj=new("/obj/tianshu/hongbao");
                 obj->move(me);
                 obj->set("endname",me);
-                tell_object(me,HIY"ÄãµÃµ½Ò»¸ö¶îÍâ½±Àø¡£\n"NOR);
-        me->delete("·ÉºüÍâ´«");
-        me->delete("Ğ¦°Á½­ºş");
-        me->delete("Ñ©É½·Éºü"); 
-        me->delete("Êé½£¶÷³ğÂ¼");
-        me->delete("Á¬³Ç¾ö");
-        me->delete("ÉñµñÏÀÂÂ");
-        me->delete("ÌìÁú°Ë²¿");
-        me->delete("ÏÀ¿ÍĞĞ");
-        me->delete("ÉäµñÓ¢ĞÛ´«");
-        me->delete("ÒĞÌìÍÀÁú¼Ç");
-        me->delete("°×ÂíĞ¥Î÷·ç");
-        me->delete("±ÌÑª½£");
-        me->delete("Â¹¶¦¼Ç");
-        me->delete("Ô§Ñìµ¶"); 
+                tell_object(me,HIY"ä½ å¾—åˆ°ä¸€ä¸ªé¢å¤–å¥–åŠ±ã€‚\n"NOR);
+        me->delete("é£ç‹å¤–ä¼ ");
+        me->delete("ç¬‘å‚²æ±Ÿæ¹–");
+        me->delete("é›ªå±±é£ç‹"); 
+        me->delete("ä¹¦å‰‘æ©ä»‡å½•");
+        me->delete("è¿åŸå†³");
+        me->delete("ç¥é›•ä¾ ä¾£");
+        me->delete("å¤©é¾™å…«éƒ¨");
+        me->delete("ä¾ å®¢è¡Œ");
+        me->delete("å°„é›•è‹±é›„ä¼ ");
+        me->delete("å€šå¤©å± é¾™è®°");
+        me->delete("ç™½é©¬å•¸è¥¿é£");
+        me->delete("ç¢§è¡€å‰‘");
+        me->delete("é¹¿é¼è®°");
+        me->delete("é¸³é¸¯åˆ€"); 
         me->set_temp("bigreward",1);
                 }
 }
 int help(object me)
 {
   this_player()->start_more(@HELP
-ÌìÊéÃüÁîÓĞÈıÖÖ¸ñÊ½£ºtianshu ¡¢tianshu begin ¡¢tianshu select 
-Ïà¹ØÖ¸Áî£ºdating ´òÌı¡¢renwu ÈÎÎñ¡¢jiaochai ½»²î¡¢status ×´Ì¬
-¸üÏêÏ¸µÄÊ¹ÓÃ¼ûÏÂÃæÌìÊéÈÎÎñµÄ¹ı³Ì£º
+å¤©ä¹¦å‘½ä»¤æœ‰ä¸‰ç§æ ¼å¼ï¼štianshu ã€tianshu begin ã€tianshu select 
+ç›¸å…³æŒ‡ä»¤ï¼šdating æ‰“å¬ã€renwu ä»»åŠ¡ã€jiaochai äº¤å·®ã€status çŠ¶æ€
+æ›´è¯¦ç»†çš„ä½¿ç”¨è§ä¸‹é¢å¤©ä¹¦ä»»åŠ¡çš„è¿‡ç¨‹ï¼š
 > ask nanxian about tianshu
-ÄãÏòÄÏÏÍ´òÌıÓĞ¹Ø¡ºtianshu¡»µÄÏûÏ¢¡£
-ÄÏÏÍËµµÀ£ºÄãÏëÕÒÌìÊé£¿ÇëÓÃselectÑ¡ÔñÄãÏëÒªÕÒµÄÌìÊé£¬È»ºó(accept)
+ä½ å‘å—è´¤æ‰“å¬æœ‰å…³ã€tianshuã€çš„æ¶ˆæ¯ã€‚
+å—è´¤è¯´é“ï¼šä½ æƒ³æ‰¾å¤©ä¹¦ï¼Ÿè¯·ç”¨selecté€‰æ‹©ä½ æƒ³è¦æ‰¾çš„å¤©ä¹¦ï¼Œç„¶å(accept)
 > select
 
-                £°£®·É£±£®Ñ©£²£®Á¬£³£®Ìì£´£®Éä£µ£®°×£®£¶£®Â¹
-                £·£®Ğ¦£¸£®Êé£¹£®Éñ£á£®ÏÀ£â£®ÒĞ£ã£®±Ì£®£ä£®Ô§
+                ï¼ï¼é£ï¼‘ï¼é›ªï¼’ï¼è¿ï¼“ï¼å¤©ï¼”ï¼å°„ï¼•ï¼ç™½ï¼ï¼–ï¼é¹¿
+                ï¼—ï¼ç¬‘ï¼˜ï¼ä¹¦ï¼™ï¼ç¥ï½ï¼ä¾ ï½‚ï¼å€šï½ƒï¼ç¢§ï¼ï½„ï¼é¸³
                 
-ÇëÑ¡Ôñ£¨0£¬1£¬2£¬3£®£®£®£©£º1
-Äã¾ö¶¨¿ªÊ¼×öÑ©É½·ÉºüÁË¡£
+è¯·é€‰æ‹©ï¼ˆ0ï¼Œ1ï¼Œ2ï¼Œ3ï¼ï¼ï¼ï¼‰ï¼š1
+ä½ å†³å®šå¼€å§‹åšé›ªå±±é£ç‹äº†ã€‚
 > accept
-ÄÏÏÍËµµÀ£ºÄãÒÑ¾­Íê³ÉÁËÑ©É½·Éºü¡£ÇëÓÃselectÁíÑ¡»òÓÃbeginÖØ¿ª¡£
+å—è´¤è¯´é“ï¼šä½ å·²ç»å®Œæˆäº†é›ªå±±é£ç‹ã€‚è¯·ç”¨selectå¦é€‰æˆ–ç”¨beginé‡å¼€ã€‚
 > begin
-Äã¿ªÊ¼ÖØ×öÑ©É½·ÉºüÁË£¡
+ä½ å¼€å§‹é‡åšé›ªå±±é£ç‹äº†ï¼
 > accept
-ÄÏÏÍËµµÀ£ºÄ¿Ç°ËÆºõÄÏÇ§ÍõÄÇ¶ùÓĞĞ©ÏßË÷¡£
+å—è´¤è¯´é“ï¼šç›®å‰ä¼¼ä¹å—åƒç‹é‚£å„¿æœ‰äº›çº¿ç´¢ã€‚
 > dating
-ÄÏÇ§ÍõËµµÀ£ºÎÒÖªµÀÑ©É½·ÉºüÔÚÄÄ¶ù£¬Äã°ïÎÒÍê³É¼¸¸öÈÎÎñ£¬ÎÒÔÙ¸æËßÄã¡£
+å—åƒç‹è¯´é“ï¼šæˆ‘çŸ¥é“é›ªå±±é£ç‹åœ¨å“ªå„¿ï¼Œä½ å¸®æˆ‘å®Œæˆå‡ ä¸ªä»»åŠ¡ï¼Œæˆ‘å†å‘Šè¯‰ä½ ã€‚
 > renwu
-ÄÏÇ§ÍõËµµÀ£ºÓĞÈËÒª¶Ô¸¶ÎÒ£¬ÄãÁôÔÚÕâÀï±£»¤ÎÒ£¡
-> ÉñÃØÈË×ßÁË½øÀ´£¬ÀäÀäµØ¿´×ÅÄÏÇ§Íõ¡£
-ÉñÃØÈË¶ÔÄÏÇ§ÍõºÈµÀ£ºÕÒÁËÄãÕâĞí¾Ã£¬Ô­À´Äã¶ãÔÚÕâÀï¡£È¥ËÀ°É£¡
-ÉñÃØÈËËÀÁË¡£
+å—åƒç‹è¯´é“ï¼šæœ‰äººè¦å¯¹ä»˜æˆ‘ï¼Œä½ ç•™åœ¨è¿™é‡Œä¿æŠ¤æˆ‘ï¼
+> ç¥ç§˜äººèµ°äº†è¿›æ¥ï¼Œå†·å†·åœ°çœ‹ç€å—åƒç‹ã€‚
+ç¥ç§˜äººå¯¹å—åƒç‹å–é“ï¼šæ‰¾äº†ä½ è¿™è®¸ä¹…ï¼ŒåŸæ¥ä½ èº²åœ¨è¿™é‡Œã€‚å»æ­»å§ï¼
+ç¥ç§˜äººæ­»äº†ã€‚
 > jiaochai
-ÄÏÇ§ÍõËµµÀ£ººÜºÃ£¡ÄãÒÑ¾­±£»¤¹ıÎÒ¡£
-Äã±»½±ÀøÁË£º
-ÎåÊ®µãÊµÕ½¾­Ñé
-°ËµãÇ±ÄÜ
-ÄãÈ¥ÕÒÃÅÎÀÎÊÎÊ£¬¿´¿´ÓĞÃ»ÓĞÊ²Ã´ÏûÏ¢¡£
+å—åƒç‹è¯´é“ï¼šå¾ˆå¥½ï¼ä½ å·²ç»ä¿æŠ¤è¿‡æˆ‘ã€‚
+ä½ è¢«å¥–åŠ±äº†ï¼š
+äº”åç‚¹å®æˆ˜ç»éªŒ
+å…«ç‚¹æ½œèƒ½
+ä½ å»æ‰¾é—¨å«é—®é—®ï¼Œçœ‹çœ‹æœ‰æ²¡æœ‰ä»€ä¹ˆæ¶ˆæ¯ã€‚
 > dating
-ÃÅÎÀËµµÀ£ºÎÒÖªµÀÑ©É½·ÉºüÔÚÄÄ¶ù£¬Äã°ïÎÒÍê³É¼¸¸öÈÎÎñ£¬ÎÒÔÙ¸æËßÄã¡£
+é—¨å«è¯´é“ï¼šæˆ‘çŸ¥é“é›ªå±±é£ç‹åœ¨å“ªå„¿ï¼Œä½ å¸®æˆ‘å®Œæˆå‡ ä¸ªä»»åŠ¡ï¼Œæˆ‘å†å‘Šè¯‰ä½ ã€‚
 > renwu
-ÃÅÎÀËµµÀ£ºÄã°ïÎÒÕÒµ½µ¥µ¶£¡
+é—¨å«è¯´é“ï¼šä½ å¸®æˆ‘æ‰¾åˆ°å•åˆ€ï¼
 > jiaochai
-ÃÅÎÀËµµÀ£ººÜºÃ£¡ÄãÒÑ¾­°ïÎÒÕÒµ½µ¥µ¶ÁË¡£
-Äã±»½±ÀøÁË£º
-ÎåÊ®µãÊµÕ½¾­Ñé
+é—¨å«è¯´é“ï¼šå¾ˆå¥½ï¼ä½ å·²ç»å¸®æˆ‘æ‰¾åˆ°å•åˆ€äº†ã€‚
+ä½ è¢«å¥–åŠ±äº†ï¼š
+äº”åç‚¹å®æˆ˜ç»éªŒ
 
-°ËµãÇ±ÄÜ
-ÄãÈ¥ÕÒÕÅÁúÎÊÎÊ£¬¿´¿´ÓĞÃ»ÓĞÊ²Ã´ÏûÏ¢¡£
+å…«ç‚¹æ½œèƒ½
+ä½ å»æ‰¾å¼ é¾™é—®é—®ï¼Œçœ‹çœ‹æœ‰æ²¡æœ‰ä»€ä¹ˆæ¶ˆæ¯ã€‚
 > dating
-ÕÅÁúËµµÀ£ºÎÒÖªµÀÑ©É½·ÉºüÔÚÄÄ¶ù£¬Äã°ïÎÒÍê³É¼¸¸öÈÎÎñ£¬ÎÒÔÙ¸æËßÄã¡£
+å¼ é¾™è¯´é“ï¼šæˆ‘çŸ¥é“é›ªå±±é£ç‹åœ¨å“ªå„¿ï¼Œä½ å¸®æˆ‘å®Œæˆå‡ ä¸ªä»»åŠ¡ï¼Œæˆ‘å†å‘Šè¯‰ä½ ã€‚
 > renwu
-ÕÅÁúËµµÀ£ºÄã°ïÎÒÉ±ÁË»õÀÉ£¬´øÆäÊ¬ÌåÀ´¼ûÎÒ£¡
+å¼ é¾™è¯´é“ï¼šä½ å¸®æˆ‘æ€äº†è´§éƒï¼Œå¸¦å…¶å°¸ä½“æ¥è§æˆ‘ï¼
 ...
-»õÀÉËÀÁË¡£
+è´§éƒæ­»äº†ã€‚
 > get corpse
-Äã½«»õÀÉµÄÊ¬Ìå·öÁËÆğÀ´±³ÔÚ±³ÉÏ¡£
+ä½ å°†è´§éƒçš„å°¸ä½“æ‰¶äº†èµ·æ¥èƒŒåœ¨èƒŒä¸Šã€‚
 > jiaochai
-ÕÅÁúËµµÀ£ººÜºÃ£¡ÄãÒÑ¾­°ïÎÒÉ±ÁË»õÀÉ¡£
-Äã±»½±ÀøÁË£º
-ÎåÊ®µãÊµÕ½¾­Ñé
-°ËµãÇ±ÄÜ
-ÄãÈ¥ÕÒÃÅÎÀÎÊÎÊ£¬¿´¿´ÓĞÃ»ÓĞÊ²Ã´ÏûÏ¢¡£
+å¼ é¾™è¯´é“ï¼šå¾ˆå¥½ï¼ä½ å·²ç»å¸®æˆ‘æ€äº†è´§éƒã€‚
+ä½ è¢«å¥–åŠ±äº†ï¼š
+äº”åç‚¹å®æˆ˜ç»éªŒ
+å…«ç‚¹æ½œèƒ½
+ä½ å»æ‰¾é—¨å«é—®é—®ï¼Œçœ‹çœ‹æœ‰æ²¡æœ‰ä»€ä¹ˆæ¶ˆæ¯ã€‚
 ......
-Ğ¡¹ÃÄïËµµÀ£ººÜºÃ£¡ÄãÒÑ¾­±£»¤¹ıÎÒ¡£
-Äã±»½±ÀøÁË£º
-ÎåÊ®µãÊµÕ½¾­Ñé
-°ËµãÇ±ÄÜ
-Ğ¡¹ÃÄïËµµÀ£ºÎÒÕâ¶ùÓĞÒ»±¾¾ÉÊé£¬¶ÔÄã¿ÉÄÜÓĞÓÃ£¬Õâ¾Í¸øÄã°É¡£
-Äã±»½±ÀøÁË£º
-ÈıÇ§Æß°ÙÁùÊ®Ò»µãÊµÕ½¾­Ñé
-Áù°Ù¶şÊ®ÁùµãÇ±ÄÜ
-ÈıÊ®¶şµãÆÀ¼Û
+å°å§‘å¨˜è¯´é“ï¼šå¾ˆå¥½ï¼ä½ å·²ç»ä¿æŠ¤è¿‡æˆ‘ã€‚
+ä½ è¢«å¥–åŠ±äº†ï¼š
+äº”åç‚¹å®æˆ˜ç»éªŒ
+å…«ç‚¹æ½œèƒ½
+å°å§‘å¨˜è¯´é“ï¼šæˆ‘è¿™å„¿æœ‰ä¸€æœ¬æ—§ä¹¦ï¼Œå¯¹ä½ å¯èƒ½æœ‰ç”¨ï¼Œè¿™å°±ç»™ä½ å§ã€‚
+ä½ è¢«å¥–åŠ±äº†ï¼š
+ä¸‰åƒä¸ƒç™¾å…­åä¸€ç‚¹å®æˆ˜ç»éªŒ
+å…­ç™¾äºŒåå…­ç‚¹æ½œèƒ½
+ä¸‰åäºŒç‚¹è¯„ä»·
 > l book
-¡¶Ñ©É½·Éºü¡·--Ò»±¾Á÷´«ÒÑ¾ÃµÄÊé£¬ÒÉÎªÉñÏÉËùÖø¡£
+ã€Šé›ªå±±é£ç‹ã€‹--ä¸€æœ¬æµä¼ å·²ä¹…çš„ä¹¦ï¼Œç–‘ä¸ºç¥ä»™æ‰€è‘—ã€‚
 > give book to nanxian
-ÄÏÏÍÓä¿ìµØĞ¦ÁËĞ¦¡£
-ÄÏÏÍËµµÀ£º¶àĞ»ÕâÎ»¹ÃÄï£¬ÄúºÃĞÄÒ»¶¨»áÓĞºÃ±¨µÄ£¡
-Äã±»½±ÀøÁË£º
-ËÄÇ§Æß°ÙËÄÊ®ËÄµãÊµÕ½¾­Ñé
-Æß°Ù¾ÅÊ®µãÇ±ÄÜ
-Ê®ÈıµãÆÀ¼Û
-ÄãÄÃ³öÌìÊé(Book)¸øÄÏÏÍ¡£
+å—è´¤æ„‰å¿«åœ°ç¬‘äº†ç¬‘ã€‚
+å—è´¤è¯´é“ï¼šå¤šè°¢è¿™ä½å§‘å¨˜ï¼Œæ‚¨å¥½å¿ƒä¸€å®šä¼šæœ‰å¥½æŠ¥çš„ï¼
+ä½ è¢«å¥–åŠ±äº†ï¼š
+å››åƒä¸ƒç™¾å››åå››ç‚¹å®æˆ˜ç»éªŒ
+ä¸ƒç™¾ä¹åç‚¹æ½œèƒ½
+åä¸‰ç‚¹è¯„ä»·
+ä½ æ‹¿å‡ºå¤©ä¹¦(Book)ç»™å—è´¤ã€‚
 > status
 
-¡¾ ÌìÏÂÓ¢½Ü ¡¿ºì»¨»áµÜ×Ó¡¸²»ÒªÎÊÎÒ£¬ÎÒÊ²Ã´¶¼²»ÖªµÀ£¡£¡¡¹½­µÌÁø(Diliu)
- ·ÉºüÍâ´«£º     Î´Íê³É          Ğ¦°Á½­ºş£º      Î´Íê³É
- Ñ©É½·Éºü£º     ÒÑÍê³É          Êé½£¶÷³ğÂ¼£º    Î´Íê³É
- Á¬³Ç¾ö£º       ÒÑÍê³É          ÉñµñÏÀÂÂ£º      Î´Íê³É
- ÌìÁú°Ë²¿£º     ÒÑÍê³É          ÏÀ¿ÍĞĞ£º        Î´Íê³É
- ÉäµñÓ¢ĞÛ´«£º   Î´Íê³É          ÒĞÌìÍÀÁú¼Ç£º    Î´Íê³É
- °×ÂíĞ¥Î÷·ç£º   Î´Íê³É          ±ÌÑª½££º        ÒÑÍê³É
- Â¹¶¦¼Ç£º       ÒÑÍê³É          Ô§Ñìµ¶£º        Î´Íê³É
-¿ÉÒÔ²é¿´ÄãÒÑ¾­Íê³ÉµÄËùÓĞÌìÊé×´¿ö
+ã€ å¤©ä¸‹è‹±æ° ã€‘çº¢èŠ±ä¼šå¼Ÿå­ã€Œä¸è¦é—®æˆ‘ï¼Œæˆ‘ä»€ä¹ˆéƒ½ä¸çŸ¥é“ï¼ï¼ã€æ±Ÿå ¤æŸ³(Diliu)
+ é£ç‹å¤–ä¼ ï¼š     æœªå®Œæˆ          ç¬‘å‚²æ±Ÿæ¹–ï¼š      æœªå®Œæˆ
+ é›ªå±±é£ç‹ï¼š     å·²å®Œæˆ          ä¹¦å‰‘æ©ä»‡å½•ï¼š    æœªå®Œæˆ
+ è¿åŸå†³ï¼š       å·²å®Œæˆ          ç¥é›•ä¾ ä¾£ï¼š      æœªå®Œæˆ
+ å¤©é¾™å…«éƒ¨ï¼š     å·²å®Œæˆ          ä¾ å®¢è¡Œï¼š        æœªå®Œæˆ
+ å°„é›•è‹±é›„ä¼ ï¼š   æœªå®Œæˆ          å€šå¤©å± é¾™è®°ï¼š    æœªå®Œæˆ
+ ç™½é©¬å•¸è¥¿é£ï¼š   æœªå®Œæˆ          ç¢§è¡€å‰‘ï¼š        å·²å®Œæˆ
+ é¹¿é¼è®°ï¼š       å·²å®Œæˆ          é¸³é¸¯åˆ€ï¼š        æœªå®Œæˆ
+å¯ä»¥æŸ¥çœ‹ä½ å·²ç»å®Œæˆçš„æ‰€æœ‰å¤©ä¹¦çŠ¶å†µ
 > tianshu
-ÄãÏÖÔÚ¸Õ×öÍêÑ©É½·Éºü£¡
+ä½ ç°åœ¨åˆšåšå®Œé›ªå±±é£ç‹ï¼
 > begin
-Äã¿ªÊ¼ÖØ×öÑ©É½·ÉºüÁË£¡
+ä½ å¼€å§‹é‡åšé›ªå±±é£ç‹äº†ï¼
 > tianshu
-ÄãÄ¿Ç°¸ÃÍê³ÉÑ©É½·Éºü£¡
+ä½ ç›®å‰è¯¥å®Œæˆé›ªå±±é£ç‹ï¼
 > ask nanxian about tianshu
-ÄãÏòÄÏÏÍ´òÌıÓĞ¹Ø¡ºtianshu¡»µÄÏûÏ¢¡£
-ÄÏÏÍËµµÀ£ºÄãÏëÕÒÌìÊé£¿ÇëÓÃselectÑ¡ÔñÄãÏëÒªÕÒµÄÌìÊé£¬È»ºó(accept)
-ÔÙÈ¥ÕÒÄÏÏÍ´òÌı
+ä½ å‘å—è´¤æ‰“å¬æœ‰å…³ã€tianshuã€çš„æ¶ˆæ¯ã€‚
+å—è´¤è¯´é“ï¼šä½ æƒ³æ‰¾å¤©ä¹¦ï¼Ÿè¯·ç”¨selecté€‰æ‹©ä½ æƒ³è¦æ‰¾çš„å¤©ä¹¦ï¼Œç„¶å(accept)
+å†å»æ‰¾å—è´¤æ‰“å¬
 HELP
     );
     return 1;

@@ -168,7 +168,7 @@ mapping *query_connections()
 
 void create()
 {
-	set("channel_id", "´«Êä¾«Áé");
+	set("channel_id", "ä¼ è¾“ç²¾çµ");
 	seteuid(ROOT_UID);
 	if ( !socket_info ) {
 		socket_info = ([  ]);
@@ -179,7 +179,7 @@ void create()
 	}
 
 	rest_pos = 0;
-	CHANNEL_D->do_channel(this_object(), "sys", "FTP·şÎñÒÑ¾­Æô¶¯¡£");
+	CHANNEL_D->do_channel(this_object(), "sys", "FTPæœåŠ¡å·²ç»å¯åŠ¨ã€‚");
 }
 
 protected void setup_ftp( int port )

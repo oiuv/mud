@@ -5,17 +5,17 @@ inherit CLUB;
 
 void create()
 {
-        set_name(HIY "´óÆì" NOR, ({ "flag", "qi" }));
+        set_name(HIY "å¤§æ——" NOR, ({ "flag", "qi" }));
         set_weight(15000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ãæ");
-                set("long", HIY "ÆìÉÏĞå×ÅÒ»Í·´óÓ¥£¬Ë«³áÉìÕ¹£¬ÉõÊÇÍşÎä¡£\n" NOR);
+                set("unit", "é¢");
+                set("long", HIY "æ——ä¸Šç»£ç€ä¸€å¤´å¤§é¹°ï¼ŒåŒç¿…ä¼¸å±•ï¼Œç”šæ˜¯å¨æ­¦ã€‚\n" NOR);
                 set("value", 300);
                 set("material", "silk");
-                set("wield_msg", "$NÄÃ³öÒ»Ãæ$n£¬»ÓÎèÊ¾Òâ¡£\n");
-                set("unwield_msg", "$N·ÅÏÂÊÖÖĞµÄ$n¡£\n");
+                set("wield_msg", "$Næ‹¿å‡ºä¸€é¢$nï¼ŒæŒ¥èˆç¤ºæ„ã€‚\n");
+                set("unwield_msg", "$Næ”¾ä¸‹æ‰‹ä¸­çš„$nã€‚\n");
         }
         init_club(10);
         setup();

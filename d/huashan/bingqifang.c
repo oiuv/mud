@@ -1,13 +1,13 @@
-// bingqifang.c ±øÆ÷·¿
+// bingqifang.c å…µå™¨æˆ¿
 
 inherit ROOM;
 
 void create()
 {
-        set("short", "±øÆ÷·¿");
+        set("short", "å…µå™¨æˆ¿");
         set("long", @LONG
-ÕâÀïÊÇ»ªÉ½ÅÉµÄ±øÆ÷·¿£¬ËÄÖÜ·ÅÕâ¼¸¸ö±øÆ÷¼Ü£¬ÉÏÃæÊÇ»ªÉ½ÅÉ¸÷µÜ×Ó
-Æ½Ê±Á·½£ÓÃµÄÖñ½£¡£
+è¿™é‡Œæ˜¯åŽå±±æ´¾çš„å…µå™¨æˆ¿ï¼Œå››å‘¨æ”¾è¿™å‡ ä¸ªå…µå™¨æž¶ï¼Œä¸Šé¢æ˜¯åŽå±±æ´¾å„å¼Ÿå­
+å¹³æ—¶ç»ƒå‰‘ç”¨çš„ç«¹å‰‘ã€‚
 LONG );
         set("exits", ([
                 "west" : __DIR__"square",
@@ -31,6 +31,6 @@ int valid_leave(object me, string dir)
 		if (inv[i]->query("id") == "zhujian") j++;
 	}
 	if (j > 1)
-                return notify_fail("ÕâÎ»" + RANK_D->query_respect(me) + "±ðÄÇ÷áÌ°ÐÄ£¬´ø×ßÒ»°ÑÖñ½£¾Í¹»À²¡£\n");
+                return notify_fail("è¿™ä½" + RANK_D->query_respect(me) + "åˆ«é‚£éº½è´ªå¿ƒï¼Œå¸¦èµ°ä¸€æŠŠç«¹å‰‘å°±å¤Ÿå•¦ã€‚\n");
         return ::valid_leave(me, dir);
 }

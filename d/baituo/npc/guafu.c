@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("¹Ñ¸¾", ({ "gua fu", "gua", "fu" }));
-        set("gender", "Å®ĞÔ" );
+        set_name("å¯¡å¦‡", ({ "gua fu", "gua", "fu" }));
+        set("gender", "å¥³æ€§" );
         set("age", 25);
-        set("long", "Ò»¸öÄêÇáÆ¯ÁÁÓÖ²»¸Ê¼ÅÄ¯µÄĞ¡¹Ñ¸¾¡£\n");
+        set("long", "ä¸€ä¸ªå¹´è½»æ¼‚äº®åˆä¸ç”˜å¯‚å¯çš„å°å¯¡å¦‡ã€‚\n");
         set("shen_type", -1);
         set("combat_exp", 10000);
         set("str", 18);
@@ -16,8 +16,8 @@ void create()
         set("attitude", "friendly");
         set("chat_chance", 2);
         set("chat_msg", ({
-                CYN "Ğ¡¹Ñ¸¾¿Ş×Å£ºÎÒ¿àÃüµÄ·òÍÛ£¬ÄãÔõÃ´Æ²ÏÂÎÒ²»¹ÜÁËÓ´¡£\n" NOR,
-                CYN "Ğ¡¹Ñ¸¾Ä¨ÁË°ÑÑÛÀá£¬°µ°µî©ÁËÄãÒ»ÑÛ¡£\n" NOR,
+                CYN "å°å¯¡å¦‡å“­ç€ï¼šæˆ‘è‹¦å‘½çš„å¤«å“‡ï¼Œä½ æ€ä¹ˆæ’‡ä¸‹æˆ‘ä¸ç®¡äº†å“Ÿã€‚\n" NOR,
+                CYN "å°å¯¡å¦‡æŠ¹äº†æŠŠçœ¼æ³ªï¼Œæš—æš—çŸäº†ä½ ä¸€çœ¼ã€‚\n" NOR,
         }));
         setup();
         carry_object("/clone/misc/cloth")->wear();

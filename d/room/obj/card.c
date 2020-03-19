@@ -1,6 +1,6 @@
-// feecard.c цБ╥я©╗
+// feecard.c Е┘█Х╢╧Е█║
 //
-// й╧сццБ╥я©╗╫╗╥©╡╩пХр╙╩╗╥яхн╨нрЬа╫
+// Д╫©Г■╗Е┘█Х╢╧Е█║Е╩╨Ф┬©Д╦█И°─Х╕│Х┼╠Х╢╧Д╩╩Д╫∙И⌠╤Д╦╓
 
 #include <ansi.h>
 
@@ -8,12 +8,12 @@ inherit ITEM;
 
 void create()
 {
-        set_name(CYN "цБ╥я©╗" NOR, ({ "card", "fee free card" }));
+        set_name(CYN "Е┘█Х╢╧Е█║" NOR, ({ "card", "fee free card" }));
         set_weight(10);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "уе");
+                set("unit", "Е╪═");
                 set("material", "paper");
                 set("fee free", 25000000);
                 set("value", 1);
@@ -25,9 +25,9 @@ string long()
 {
         string msg;
 
-        msg = "уБйгр╩уев║╥©цБ╥я©╗ё╛ф╬уБуе©╗©иртцБ╥я╧╨бРр╩лв╪ш╦Я";
+        msg = "Х©≥Ф≤╞Д╦─Е╪═Д╫▐Ф┬©Е┘█Х╢╧Е█║О╪▄Е┤╜Х©≥Е╪═Е█║Е▐╞Д╩╔Е┘█Х╢╧Х╢╜Д╧╟Д╦─Е╔≈Д╩╥Ф═╪";
         msg += MONEY_D->price_str(query("fee free"));
-        msg += "ртоб╣дв║╥©р╩лв║ё\n";
+        msg += "Д╩╔Д╦▀Г └Д╫▐Ф┬©Д╦─Е╔≈Ц─┌\n";
         return msg;
 }
 

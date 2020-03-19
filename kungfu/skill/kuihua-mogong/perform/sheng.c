@@ -1,10 +1,10 @@
-// sheng.c ÎŞÉùÎŞÏ¢
+// sheng.c æ— å£°æ— æ¯
 
 #include <ansi.h>
 
 inherit F_SSERVER;
 
-#define XI "¡¸" HIW "ÎŞÉùÎŞÏ¢" NOR "¡¹"
+#define XI "ã€Œ" HIW "æ— å£°æ— æ¯" NOR "ã€"
 
 int perform(object me, object target)
 {
@@ -12,33 +12,33 @@ int perform(object me, object target)
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/kuihua-mogong/sheng"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail(XI "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail(XI "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (target->is_busy())
-		return notify_fail(target->name() + "Ä¿Ç°Õı×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É£¡\n");
+		return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ï¼\n");
 		
 	if ((int)me->query_skill("kuihua-mogong", 1) < 200)
-		return notify_fail("ÄãµÄ¿û»¨Ä§¹¦²»¹»Éîºñ£¬²»»áÊ¹ÓÃ" XI "¡£\n");
+		return notify_fail("ä½ çš„è‘µèŠ±é­”åŠŸä¸å¤Ÿæ·±åšï¼Œä¸ä¼šä½¿ç”¨" XI "ã€‚\n");
 
         if ((int)me->query("max_neili") < 3000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»×ã£¬ÄÑÒÔÊ©Õ¹" XI "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" XI "ã€‚\n");
 
 	if (me->query("neili") < 200)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎŞ·¨Ê©Õ¹" XI "£¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" XI "ï¼\n");
 
         if (me->query_skill_mapped("dodge") != "kuihua-mogong")
-                return notify_fail("Äã»¹Ã»ÓĞ¼¤·¢¿û»¨Ä§¹¦ÎªÇá¹¦£¬ÎŞ·¨Ê©Õ¹" XI "¡£\n");            
+                return notify_fail("ä½ è¿˜æ²¡æœ‰æ¿€å‘è‘µèŠ±é­”åŠŸä¸ºè½»åŠŸï¼Œæ— æ³•æ–½å±•" XI "ã€‚\n");            
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIR "$N" HIR "Éí×Óºö½øºöÍË£¬ÉíĞÎ¹îÃØÒì³££¬ÔÚ$n"
-              HIR "Éí±ßÆ®ºö²»¶¨¡£\n" NOR;
+	msg = HIR "$N" HIR "èº«å­å¿½è¿›å¿½é€€ï¼Œèº«å½¢è¯¡ç§˜å¼‚å¸¸ï¼Œåœ¨$n"
+              HIR "èº«è¾¹é£˜å¿½ä¸å®šã€‚\n" NOR;
 
         ap = me->query_skill("kuihua-mogong", 1) * 3 / 2 +
              me->query_skill("martial-cognize", 1);
@@ -47,14 +47,14 @@ int perform(object me, object target)
 
 	if (ap * 3 / 5 + random(ap) > dp)
         {
-		msg += HIR "½á¹û$p" HIR "Ö»ÄÜ½ôÊØÃÅ»§£¬²»¸ÒÍı×Ô³ö»÷£¡\n" NOR;
+		msg += HIR "ç»“æœ$p" HIR "åªèƒ½ç´§å®ˆé—¨æˆ·ï¼Œä¸æ•¢å¦„è‡ªå‡ºå‡»ï¼\n" NOR;
 		target->start_busy(ap / 30 + 2);
                 me->add("neili", -120);
                 me->start_busy(1);
 	} else
         {
-		msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P" CYN "µÄÉí·¨£¬²¢Ã»"
-                       "ÓĞÊÜµ½ÈÎºÎÓ°Ïì¡£\n" NOR;
+		msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P" CYN "çš„èº«æ³•ï¼Œå¹¶æ²¡"
+                       "æœ‰å—åˆ°ä»»ä½•å½±å“ã€‚\n" NOR;
 		me->start_busy(1 + random(2));
                 me->add("neili", -80);
 	}

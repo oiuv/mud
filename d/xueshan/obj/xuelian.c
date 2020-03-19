@@ -7,12 +7,12 @@ inherit ITEM;
 
 void create()
 {
-        set_name("ÌìÉ½Ñ©Á«", ({"xuelian", "lian", "lotus"}));
+        set_name("å¤©å±±é›ªè²", ({"xuelian", "lian", "lotus"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ö§");
-                set("long", "ÕâÊÇÒ»Ö§Ö»ÓĞÔÚº®ÀäµÄµØ·½²ÅÄÜÉú³¤µÄÑ©Á«¡£\n");
+                set("unit", "æ”¯");
+                set("long", "è¿™æ˜¯ä¸€æ”¯åªæœ‰åœ¨å¯’å†·çš„åœ°æ–¹æ‰èƒ½ç”Ÿé•¿çš„é›ªè²ã€‚\n");
                 set("value", 100);
                 set("only_do_effect", 1);
         }
@@ -22,10 +22,10 @@ void create()
 int do_effect(object me)
 {
        if ((int)me->query("eff_qi") >= (int)me->query("max_qi"))
-                return notify_fail("ÄãÏÖÔÚ²»ÓÃ³ÔÕâ±¦±´£¡\n");
+                return notify_fail("ä½ ç°åœ¨ä¸ç”¨åƒè¿™å®è´ï¼\n");
 
        me->receive_curing("qi", 200);
-       message_vision("$NĞ¡ĞÄµØ³ÔÏÂÒ»ÖêÑ©Á«£¬¶ÙÊ±¾õµÃÉñÇåÆøË¬ÁË²»ÉÙ£¡\n",
+       message_vision("$Nå°å¿ƒåœ°åƒä¸‹ä¸€æ ªé›ªè²ï¼Œé¡¿æ—¶è§‰å¾—ç¥æ¸…æ°”çˆ½äº†ä¸å°‘ï¼\n",
                       me);
 
        destruct(this_object());

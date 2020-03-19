@@ -1,6 +1,6 @@
 #include <ansi.h>
 
-#define JUAN "¡¸" HIW "¾í×Ö¾ö" NOR "¡¹"
+#define JUAN "ã€Œ" HIW "å·å­—å†³" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,40 +12,40 @@ int perform(object me, object target)
 	if (! target) target = offensive_target(me);
 
         if (userp(me) && ! me->query("can_perform/piaofeng-quan/juan"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail(JUAN "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail(JUAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (target->is_busy())
-		return notify_fail(target->name() + "Ä¿Ç°Õý×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É£¡\n");
+		return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ï¼\n");
 		
 	if ((int)me->query_skill("piaofeng-quan", 1) < 30)
-		return notify_fail("ÄãµÄÆ®·çÈ­·¨²»¹»æµÊì£¬²»»áÊ¹ÓÃ" JUAN "¡£\n");
+		return notify_fail("ä½ çš„é£˜é£Žæ‹³æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨" JUAN "ã€‚\n");
 
         if (me->query_skill_prepared("cuff") != "piaofeng-quan")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸Ê¹ÓÃÆ®·çÈ­·¨£¬ÎÞ·¨Ê©Õ¹" JUAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨é£˜é£Žæ‹³æ³•ï¼Œæ— æ³•æ–½å±•" JUAN "ã€‚\n");
 
         if (me->query("neili") < 80)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÎÞ·¨Ê©Õ¹" JUAN "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" JUAN "ã€‚\n");
 
         if (! living(target))
-               return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+               return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIC "\nÖ»¼û$N" HIC "ÓÒÈ­Ö±³ö£¬ÖÐÍ¾ÃÍµØÒ»×ª£¬Í»È»·¢Á¦£¬Éí·¨"
-              "¶¸¿ì£¬½«$n" HIC "ÁýÕÖ£¬ ÕýÊÇÆ®·çÈ­·¨¾øÕÐ¡¸" HIW "¾í×Ö¾ö" HIC "¡¹¡£\n" NOR;
+        msg = HIC "\nåªè§$N" HIC "å³æ‹³ç›´å‡ºï¼Œä¸­é€”çŒ›åœ°ä¸€è½¬ï¼Œçªç„¶å‘åŠ›ï¼Œèº«æ³•"
+              "é™¡å¿«ï¼Œå°†$n" HIC "ç¬¼ç½©ï¼Œ æ­£æ˜¯é£˜é£Žæ‹³æ³•ç»æ‹›ã€Œ" HIW "å·å­—å†³" HIC "ã€ã€‚\n" NOR;
 
         me->add("neili", -40);
 	if (random(me->query_skill("cuff")) > (int)target->query_skill("force") / 2)
         {
-		msg += HIR "½á¹û$p" HIR "ÔËÁ¦ÕÐ¼Ü£¬Ò»Ê±È´¾õµÃ"
-                       "ÄÚÁ¦²»¼Ã£¬±»$P" HIR "ÇÀ×¡ÊÖÍóÒ»À­£¬¶ÙÊ±Á¢×ã"
-                       "²»ÎÈ£¬µÎÁïÁï´òÁËÁ½¸öÈ¦×Ó¡£\n" NOR;
+		msg += HIR "ç»“æžœ$p" HIR "è¿åŠ›æ‹›æž¶ï¼Œä¸€æ—¶å´è§‰å¾—"
+                       "å†…åŠ›ä¸æµŽï¼Œè¢«$P" HIR "æŠ¢ä½æ‰‹è…•ä¸€æ‹‰ï¼Œé¡¿æ—¶ç«‹è¶³"
+                       "ä¸ç¨³ï¼Œæ»´æºœæºœæ‰“äº†ä¸¤ä¸ªåœˆå­ã€‚\n" NOR;
 		target->start_busy((int)me->query_skill("cuff") / 22);
 	} else
         {
-		msg += CYN "¿ÉÊÇ$p" CYN "·ÜÁ¦Ò»¼Ü£¬Ó²ÉúÉú¸ñ¿ªÁË$P"
-                       CYN "ÕâÒ»È­¡£\n" NOR;
+		msg += CYN "å¯æ˜¯$p" CYN "å¥‹åŠ›ä¸€æž¶ï¼Œç¡¬ç”Ÿç”Ÿæ ¼å¼€äº†$P"
+                       CYN "è¿™ä¸€æ‹³ã€‚\n" NOR;
 		me->start_busy(1);
 	}
 	message_sort(msg, me, target);

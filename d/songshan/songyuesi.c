@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "������");
+	set("short", "嵩岳寺");
 	set("long", @LONG
-����ԭ�Ǳ�κ�빬��Т������Ϊ��Ժ�����巽�н�������
-Χ����ɮ�����ơ�Ժ�ڷ綯����ҡ���ң�����һ���徲��
+这里原是北魏离宫。孝明帝舍为佛院，至隋方有今名，寺
+围阔大，僧舍连云。院内风动旌扬，松摇竹乱，别有一般清静。
 LONG );
 	set("exits", ([
 		"southdown" : __DIR__"shandao3",

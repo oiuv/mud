@@ -1,4 +1,4 @@
-// break -¡¸ÒÔÈáÆÆ¸Ö¡¹
+// break -ã€Œä»¥æŸ”ç ´é’¢ã€
 // made by deaner
 
 #include <ansi.h>
@@ -18,20 +18,20 @@ int exert(object me, object target)
 	        target = me->select_opponent();
         }
 	if (! target || ! me->is_fighting(target))
-                return notify_fail("ÄãÖ»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡¸ÒÔÈáÆÆ¸Ö¡¹¡£\n");
+                return notify_fail("ä½ åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€Œä»¥æŸ”ç ´é’¢ã€ã€‚\n");
 
         if (target->is_busy())
-                return notify_fail(target->name() + "Ä¿Ç°ÕıÔÚ·¢ã¶£¬ÊÇ½ø¹¥µÄºÃÊ±»ú£¡\n");
+                return notify_fail(target->name() + "ç›®å‰æ­£åœ¨å‘æ„£ï¼Œæ˜¯è¿›æ”»çš„å¥½æ—¶æœºï¼\n");
 
         if ((int)me->query_skill("lingyuan-xinfa", 1) < 150)
-                return notify_fail("ÄãµÄÁéÔªĞÄ·¨»ğºò²»¹»£¬»¹²»»áÊ¹ÓÃ¡¸ÒÔÈáÆÆ¸Ö¡¹¡£\n");
+                return notify_fail("ä½ çš„çµå…ƒå¿ƒæ³•ç«å€™ä¸å¤Ÿï¼Œè¿˜ä¸ä¼šä½¿ç”¨ã€Œä»¥æŸ”ç ´é’¢ã€ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIC "$N" HIC "³Á¼ç»¬²½£¬×Ôµ¤ÌïÖĞÉıÆğÒ»¹ÉÒõÈáÖ®Æø"
-              "Ë³×ÅÑªÂö¾­Âç´«ÖÁË«ÊÖÀÍ¹¬Ñ¨£¬½Ó×ÅÕâ¹ÉÒõÈáÖ®Æø¾Í"
-              "¼¤Éä¶ø³ö£¬ÅçÏò$n" HIC "ÊÖÖĞµÄ±øÈĞ£¡\n" NOR;
+        msg = HIC "$N" HIC "æ²‰è‚©æ»‘æ­¥ï¼Œè‡ªä¸¹ç”°ä¸­å‡èµ·ä¸€è‚¡é˜´æŸ”ä¹‹æ°”"
+              "é¡ºç€è¡€è„‰ç»ç»œä¼ è‡³åŒæ‰‹åŠ³å®«ç©´ï¼Œæ¥ç€è¿™è‚¡é˜´æŸ”ä¹‹æ°”å°±"
+              "æ¿€å°„è€Œå‡ºï¼Œå–·å‘$n" HIC "æ‰‹ä¸­çš„å…µåˆƒï¼\n" NOR;
         me->start_busy(2);
 
         if (target->query_temp("weapon") || target->query_temp("secondary_weapon"))
@@ -39,20 +39,20 @@ int exert(object me, object target)
                 if (random(me->query("combat_exp")) >
                     (int)target->query("combat_exp") / 3)
                 {
-                        msg += HIW "½á¹û$p" HIW "ÊÖÖĞµÄ" +
+                        msg += HIW "ç»“æœ$p" HIW "æ‰‹ä¸­çš„" +
                                target_w->query("name") +
-                               "ÓëÕâ¹ÉÒõÈáÖ®ÆøÒ»Åö¾¹±»ÕğÂäÔÚµØÉÏ£¡\n" NOR;
+                               "ä¸è¿™è‚¡é˜´æŸ”ä¹‹æ°”ä¸€ç¢°ç«Ÿè¢«éœ‡è½åœ¨åœ°ä¸Šï¼\n" NOR;
                         target_w->unequip();
                         target_w->move(environment(target));
                         target->reset_action();
                         target->start_busy((int)me->query_skill("lingyuan-xinfa") / 20);
                 } else
                 {
-                        msg += CYN "¿ÉÊÇ$p" CYN "¼±¼±²ğÕĞ£¬¶ãÁË"
-                               "¿ªÈ¥£¬Ê¹$P" CYN "µÄ¼ÆÄ±Ã»ÓĞµÃ³Ñ¡£\n" NOR;
+                        msg += CYN "å¯æ˜¯$p" CYN "æ€¥æ€¥æ‹†æ‹›ï¼Œèº²äº†"
+                               "å¼€å»ï¼Œä½¿$P" CYN "çš„è®¡è°‹æ²¡æœ‰å¾—é€ã€‚\n" NOR;
                 }
                 message_combatd(msg, me, target);
                 return 1;
         }
-        return notify_fail(target->name() + "Ä¿Ç°ÊÇ¿ÕÊÖ£¬Ã»Ê²Ã´±ØÒªÊ©Õ¹¡¸ÒÔÈáÆÆ¸Ö¡¹¡£\n");
+        return notify_fail(target->name() + "ç›®å‰æ˜¯ç©ºæ‰‹ï¼Œæ²¡ä»€ä¹ˆå¿…è¦æ–½å±•ã€Œä»¥æŸ”ç ´é’¢ã€ã€‚\n");
 }

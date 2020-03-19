@@ -4,11 +4,11 @@
 inherit ROOM;
 void create()
 {
-	set("short","�س�С·");
+	set("short","沿池小路");
 	set("long",@LONG
-����һ�����ŵ���ϰ���С·������а������Ϯ�ˡ�Զ�����
-���棬�̲�����������Ϸˮ��ңң�ɼ��δ����洬�ᷫ���ơ��˵���
-�˼��ɾ�����·����ֱ�ϵ��������Ⱥɽ��
+这是一条沿着滇池南岸的小路，柳荫夹岸，清风袭人。远望滇池
+湖面，碧波荡漾，飞鸟戏水，遥遥可见游船、渔船轻帆浮云。端地是
+人间仙境。此路向西直上滇池西岸的群山。
 LONG);
 	set("outdoors", "dali");
 	set("exits",([ /* sizeof() == 1 */

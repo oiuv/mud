@@ -10,42 +10,42 @@ int exert(object me, object target)
         string fam;
         fam = me->query("family/family_name");
 
-        // ÒªÇóÖ»ÓÐºÈ¹ýÐþ±ù±Ì»ð¾Æ»òÊÇÉÙÁÖÅÉÍæ¼Ò²ÅÄÜÊ©Õ¹
+        // è¦æ±‚åªæœ‰å–è¿‡çŽ„å†°ç¢§ç«é…’æˆ–æ˜¯å°‘æž—æ´¾çŽ©å®¶æ‰èƒ½æ–½å±•
         if (userp(me)
-           && fam != "ÉÙÁÖÅÉ"
+           && fam != "å°‘æž—æ´¾"
            && ! me->query("skybook/item/xuanbingjiu"))
-                return notify_fail("ÄãËùÑ§µÄÄÚ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€å­¦çš„å†…åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÓÃÂÞºº·üÄ§Éñ¹¦À´ÌáÉý×Ô¼ºµÄÕ½¶·Á¦¡£\n");
+                return notify_fail("ä½ åªèƒ½ç”¨ç½—æ±‰ä¼é­”ç¥žåŠŸæ¥æå‡è‡ªå·±çš„æˆ˜æ–—åŠ›ã€‚\n");
 
         if ((int)me->query("neili") < 150)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_temp("powerup"))
-                return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖÐÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
         skill = me->query_skill("luohan-fumogong", 1);
         me->add("neili", -100);
         me->receive_damage("qi", 0);
 
         if (me->query("skybook/item/xuanbingjiu")
-           && fam == "ÉÙÁÖÅÉ")
-	        message_combatd(HIY "$N" HIY "¸ßºôÒ»Éù·ðºÅ£¬ÔËÆðÂÞºº·üÄ§Éñ"
-                                "¹¦£¬È«ÉíÆ¤·ôÒ»°ë³ÊÏÖ" NOR + HIB "µåÇà" HIY
-                                "É«£¬ÁíÒ»°ëÈ´Îª" HIR "Ñªºì" HIY "É«¡£\n"
+           && fam == "å°‘æž—æ´¾")
+	        message_combatd(HIY "$N" HIY "é«˜å‘¼ä¸€å£°ä½›å·ï¼Œè¿èµ·ç½—æ±‰ä¼é­”ç¥ž"
+                                "åŠŸï¼Œå…¨èº«çš®è‚¤ä¸€åŠå‘ˆçŽ°" NOR + HIB "é›é’" HIY
+                                "è‰²ï¼Œå¦ä¸€åŠå´ä¸º" HIR "è¡€çº¢" HIY "è‰²ã€‚\n"
                                 NOR, me);
         else
 
-        if (fam == "ÉÙÁÖÅÉ")
-	        message_combatd(HIY "$N" HIY "¸ßºôÒ»Éù·ðºÅ£¬ÔËÆðÂÞºº·üÄ§Éñ"
-                                "¹¦£¬È«ÉíÕæÆøÅìÅÈ£¬ÒÂÉÀËæÖ®¹ÄÕÍ¡£\n"
+        if (fam == "å°‘æž—æ´¾")
+	        message_combatd(HIY "$N" HIY "é«˜å‘¼ä¸€å£°ä½›å·ï¼Œè¿èµ·ç½—æ±‰ä¼é­”ç¥ž"
+                                "åŠŸï¼Œå…¨èº«çœŸæ°”æ¾Žæ¹ƒï¼Œè¡£è¡«éšä¹‹é¼“èƒ€ã€‚\n"
                                 NOR, me);
 
         else
-	        message_combatd(HIY "$N" HIY "Î¢Ò»ÄýÉñ£¬ÔËÆðÂÞºº·üÄ§Éñ¹¦£¬"
-                                "È«Éí¼¡·ô¾¹½»Ìæ³ÊÏÖ³ö" NOR + HIB "µåÇà" HIY
-                                "Óë" HIR "Ñªºì" HIY "Á½É«¡£\n" NOR, me);
+	        message_combatd(HIY "$N" HIY "å¾®ä¸€å‡ç¥žï¼Œè¿èµ·ç½—æ±‰ä¼é­”ç¥žåŠŸï¼Œ"
+                                "å…¨èº«è‚Œè‚¤ç«Ÿäº¤æ›¿å‘ˆçŽ°å‡º" NOR + HIB "é›é’" HIY
+                                "ä¸Ž" HIR "è¡€çº¢" HIY "ä¸¤è‰²ã€‚\n" NOR, me);
 
  
         me->add_temp("apply/attack", skill / 3);
@@ -68,6 +68,6 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/attack", -amount);
                 me->add_temp("apply/defense", -amount);
                 me->delete_temp("powerup");
-                tell_object(me, "ÄãµÄÂÞºº·üÄ§Éñ¹¦ÔËÐÐÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„ç½—æ±‰ä¼é­”ç¥žåŠŸè¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›žä¸¹ç”°ã€‚\n");
         }
 }

@@ -3,10 +3,10 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÀÏµÀÊ¿", ({"lao daoshi", "daoshi"}));
-	set("long", "ÕâÊÇÒ»¸ö¾«×³ÀÏµÀÊ¿¡£\n");
+	set_name("è€é“å£«", ({"lao daoshi", "daoshi"}));
+	set("long", "è¿™æ˜¯ä¸€ä¸ªç²¾å£®è€é“å£«ã€‚\n");
 
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set("attitude", "peace");
 	set("class", "taoist");
 

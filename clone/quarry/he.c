@@ -3,8 +3,8 @@ inherit QUARRY;
 
 void create()
 {
-	set_name(HIR "µ¤¶¥º×" NOR, ({ "danding he", "danding", "he" }));
-	set("long", HIR "È«Éí½à°×µÄµ¤¶¥º×£¬¿´À´ÊÇĞŞÁË³á°ò£¬Ã»·¨¸ß·ÉÁË¡£\n" NOR);
+	set_name(HIR "ä¸¹é¡¶é¹¤" NOR, ({ "danding he", "danding", "he" }));
+	set("long", HIR "å…¨èº«æ´ç™½çš„ä¸¹é¡¶é¹¤ï¼Œçœ‹æ¥æ˜¯ä¿®äº†ç¿…è†€ï¼Œæ²¡æ³•é«˜é£äº†ã€‚\n" NOR);
         set("no_auto_kill", 1);
         set("aves", 1);
 

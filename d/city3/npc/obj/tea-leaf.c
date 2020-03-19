@@ -7,18 +7,18 @@ inherit THROWING;
  
 void create()
 {
-        set_name(HIG "²èÒ¶" NOR, ({ "tea leaf", "tea" }));
+        set_name(HIG "èŒ¶å¶" NOR, ({ "tea leaf", "tea" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "²Å²ÉµÄĞÂ²è£¬·¢³öÒ»¹Éµ­µ­µÄÏãÆø¡£\n");
-                set("unit", "°Ñ");
-                set("base_unit", "Æ¬");
+                set("long", "æ‰é‡‡çš„æ–°èŒ¶ï¼Œå‘å‡ºä¸€è‚¡æ·¡æ·¡çš„é¦™æ°”ã€‚\n");
+                set("unit", "æŠŠ");
+                set("base_unit", "ç‰‡");
                 set("base_weight", 1);
                 set("base_value", 1);
                 set("material", "wood");
-                set("wield_msg", "$NÑ¸ËÙµØ´Ó°µÆ÷´üÖĞÌÍ³öÒ»Ğ©²èÒ¶£¬ÄóÔÚÊÖÖĞ¾Í´ı·¢³ö£¡\n");
-                set("unwield_msg", "$N½«ÊÖÀïÊ£ÏÂµÄ²èÒ¶¾¡Êı·Å»Ø°µÆ÷´üÖĞ¡£\n");
+                set("wield_msg", "$Nè¿…é€Ÿåœ°ä»æš—å™¨è¢‹ä¸­æå‡ºä¸€äº›èŒ¶å¶ï¼Œæåœ¨æ‰‹ä¸­å°±å¾…å‘å‡ºï¼\n");
+                set("unwield_msg", "$Nå°†æ‰‹é‡Œå‰©ä¸‹çš„èŒ¶å¶å°½æ•°æ”¾å›æš—å™¨è¢‹ä¸­ã€‚\n");
                 set("only_do_effect", 1);
         }
         set_amount(50);
@@ -32,7 +32,7 @@ int do_effect(object me)
                 return 0;
 
         add_amount(-1);
-        write("Äã½ÀÁË¼¸¿Ú²èÒ¶£¬¾õµÃ¿àÖĞ´ø×ÅÒ»¹ÉÇåÏã£¬¾«Éñ²»ÓÉµÃÒ»Õñ¡£\n");
+        write("ä½ åš¼äº†å‡ å£èŒ¶å¶ï¼Œè§‰å¾—è‹¦ä¸­å¸¦ç€ä¸€è‚¡æ¸…é¦™ï¼Œç²¾ç¥ä¸ç”±å¾—ä¸€æŒ¯ã€‚\n");
         me->receive_heal("jing", 1 + random(2));
         me->start_busy(1);
         return 1;

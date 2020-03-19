@@ -4,16 +4,16 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name("Ä¾Æ÷", ({ "woodware", "mu qi", "wood" }));
+        set_name("æœ¨å™¨", ({ "woodware", "mu qi", "wood" }));
         if(clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("long", "ÕâÊÇÒ»¸öÄ¾ÖÆµÄ¼Ò¾ß¡£\n");
-                set("base_unit", "¸ö");
+                set("long", "è¿™æ˜¯ä¸€ä¸ªæœ¨åˆ¶çš„å®¶å…·ã€‚\n");
+                set("base_unit", "ä¸ª");
                 set("base_weight", 8000);
                 set("no_sell", 1);
-                set("unit", "Ð©");
+                set("unit", "äº›");
         }
 
         set_amount(1);

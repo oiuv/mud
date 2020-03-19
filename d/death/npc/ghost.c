@@ -2,10 +2,10 @@
 inherit NPC;
 void create()
 {
-        set_name("亡魂", ({ "ghost" }) );
-        set("long", HIB "\n\n一个死者的魂魄。\n" NOR);
+        set_name("浜￠瓊", ({ "ghost" }) );
+        set("long", HIB "\n\n涓�涓鑰呯殑榄傞瓌銆俓n" NOR);
         set("attitude", "peaceful");
-        set("title", HIB "(鬼气)" NOR);
+        set("title", HIB "(楝兼皵)" NOR);
 
         setup();
 }

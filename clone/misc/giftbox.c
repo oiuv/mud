@@ -1,17 +1,17 @@
-// giftbox.c ÀñÆ·ºĞ
+// giftbox.c ç¤¼å“ç›’
 #include <ansi.h>
 inherit ITEM;
 
 void create()
 {
-        set_name(HIR"ÀñÆ·ºĞ"NOR, ({ "giftbox", "box" }));
+        set_name(HIR"ç¤¼å“ç›’"NOR, ({ "giftbox", "box" }));
         set_weight(500);
         set_max_encumbrance(10000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "ºĞ");
-                set("long", "Ò»ºĞÀñÆ·ºĞ£¬ºĞÀï×°×ÅĞÂÄêºØÀñ¡£\n\n    "HIR"ĞÂÄê¿ìÀÖ£¡£¡\n\n"NOR);
+                set("unit", "ç›’");
+                set("long", "ä¸€ç›’ç¤¼å“ç›’ï¼Œç›’é‡Œè£…ç€æ–°å¹´è´ºç¤¼ã€‚\n\n    "HIR"æ–°å¹´å¿«ä¹ï¼ï¼\n\n"NOR);
                 set("value", 0);
         }
 }

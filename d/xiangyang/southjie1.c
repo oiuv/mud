@@ -5,12 +5,12 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�ϴ��");
+	set("short", "南大街");
 	set("long", @LONG
-����һ����������ʯ��ֵ������ϱ���ͷ���졣�ϱ߾���
-��ȸ�ţ�����������㳡��������Ǯׯ���������������ڵ�Ψ
-һһ��ѧ�á���Ȼ����ս�𲻶ϣ�����������ѧ���ﴫ��ѧ��
-�����ʵض�������
+这是一条宽阔的青石板街道，向南北两头延伸。南边就是
+朱雀门，北面是中央广场，西面是钱庄，东面是襄阳城内的唯
+一一家学堂。虽然襄阳战火不断，你仍能听到学堂里传来学生
+们朗朗地读书声。
 LONG );
         set("outdoors", "xiangyang");
 	set("no_clean_up", 0);

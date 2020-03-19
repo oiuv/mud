@@ -1,4 +1,4 @@
-// chan.c ÁéÉß²øÉí
+// chan.c çµè›‡ç¼ èº«
 
 #include <ansi.h>
 
@@ -17,34 +17,34 @@ int perform(object me, object target)
         }
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("¡¸ÁéÉß²øÉí¡¹Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ã€Œçµè›‡ç¼ èº«ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "staff")
-		return notify_fail("ÔËÓÃ¡¸ÁéÉß²øÉí¡¹ÊÖÖĞ±ØĞë³ÖÕÈ£¡\n");
+		return notify_fail("è¿ç”¨ã€Œçµè›‡ç¼ èº«ã€æ‰‹ä¸­å¿…é¡»æŒæ–ï¼\n");
 
 	if ((int)me->query_skill("force") < 80)
-		return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¡\n");
+		return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼\n");
 
 	if ((int)me->query_skill("staff") < 80)
-		return notify_fail("ÄãµÄÕÈ·¨»¹²»µ½¼Ò£¬ÎŞ·¨Ê¹ÓÃ¡¸ÁéÉß²øÉí¡¹£¡\n");
+		return notify_fail("ä½ çš„æ–æ³•è¿˜ä¸åˆ°å®¶ï¼Œæ— æ³•ä½¿ç”¨ã€Œçµè›‡ç¼ èº«ã€ï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIG "$N" HIG "ÊÖÖĞµÄ" + weapon->name() +
-              HIG "²»×¡µÄ²ü¶¯£¬»îÏÖÒ»ÌõÁéÉß£¬²øÏò$n" HIG "£¬ÄÑÒÔ×½Ãş¡£\n" NOR;
+	msg = HIG "$N" HIG "æ‰‹ä¸­çš„" + weapon->name() +
+              HIG "ä¸ä½çš„é¢¤åŠ¨ï¼Œæ´»ç°ä¸€æ¡çµè›‡ï¼Œç¼ å‘$n" HIG "ï¼Œéš¾ä»¥æ‰æ‘¸ã€‚\n" NOR;
 
         ap = me->query_skill("staff");
         dp = target->query_skill("dodge");
         if (ap / 2 + random(ap) > dp)
 	{
-                msg += HIY "$n" HIY "²Ö»ÊÖ®ÏÂÖ»ÓĞÑÏÊØÃÅ»§£¬ÎŞÏ¾·´»÷£¡\n" NOR;
+                msg += HIY "$n" HIY "ä»“çš‡ä¹‹ä¸‹åªæœ‰ä¸¥å®ˆé—¨æˆ·ï¼Œæ— æš‡åå‡»ï¼\n" NOR;
 		target->start_busy(ap / 19 + 2);
 	} else 
 	{
-		msg += HIC "¿ÉÊÇ$p" HIC "¿´ÆÆÁË$N" HIC
-		       "µÄĞéÕĞ£¬ÇÉÃîµÄÔËÓÃÉí·¨¶ã¹ıÁË$PµÄ¹¥»÷£¡" NOR;
+		msg += HIC "å¯æ˜¯$p" HIC "çœ‹ç ´äº†$N" HIC
+		       "çš„è™šæ‹›ï¼Œå·§å¦™çš„è¿ç”¨èº«æ³•èº²è¿‡äº†$Pçš„æ”»å‡»ï¼" NOR;
 		me->start_busy(2);
 	}
 	message_combatd(msg, me, target);

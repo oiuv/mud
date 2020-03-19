@@ -1,4 +1,4 @@
-// guzheng.c ¹Åóİ
+// guzheng.c å¤ç­
 // cck 4/7/97
 
 #include <ansi.h>
@@ -7,14 +7,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIG"¹Åóİ"NOR, ({ "gu zheng", "zheng", "qin" }));
+	set_name(HIG"å¤ç­"NOR, ({ "gu zheng", "zheng", "qin" }));
 	set_weight(2000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "ÕÅ");
+		set("unit", "å¼ ");
 		set("long",
-			HIG"ÕâÊÇÒ»ÕÅ×ö¹¤Ê®·Ö¿¼¾¿µÄ¹Åóİ£¬¹ÅÏã¹ÅÉ«£¬ÒôÖÊ¼«ºÃ¡£\n"NOR);
+			HIG"è¿™æ˜¯ä¸€å¼ åšå·¥ååˆ†è€ƒç©¶çš„å¤ç­ï¼Œå¤é¦™å¤è‰²ï¼ŒéŸ³è´¨æå¥½ã€‚\n"NOR);
 		set("value", 5000);
 		set("material", "steel");
       }

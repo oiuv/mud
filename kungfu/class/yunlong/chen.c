@@ -1,4 +1,4 @@
-// chen.c ³Â½üÄÏ
+// chen.c é™ˆè¿‘å—
 
 #include <ansi.h>
 
@@ -11,15 +11,15 @@ mixed ask_me();
 
 void create()
 {
-        set_name("³Â½üÄÏ", ({ "chen jinnan", "chen","jinnan" }));
-        set("title", HIR "ÌìµØ»á"HIM"×Ü¶æÖ÷"NOR );
-        set("nickname", HIC "Ó¢ĞÛÎŞµĞ" NOR);
+        set_name("é™ˆè¿‘å—", ({ "chen jinnan", "chen","jinnan" }));
+        set("title", HIR "å¤©åœ°ä¼š"HIM"æ€»èˆµä¸»"NOR );
+        set("nickname", HIC "è‹±é›„æ— æ•Œ" NOR);
         set("long", 
-                "\nÕâÊÇÒ»¸öÎÄÊ¿´ò°çµÄÖĞÄêÊéÉú£¬ÉñÉ«ºÍ°ª¡£\n"
-                "Ëû¾ÍÊÇÌìÏÂÎÅÃûµÄÌìµØ»á×Ü¶æÖ÷³Â½üÄÏ£¬\n"
-                "¾İËµÊ®°Ë°ãÎäÒÕ£¬ÑùÑù¾«Í¨¡£\n"
-                "Å¼¶ûÏòÕâ±ß¿´¹ıÀ´£¬¶Ù¾õËûÄ¿¹âÈçµç£¬Ó¢Æø±ÆÈË¡£\n");
-        set("gender", "ÄĞĞÔ");
+                "\nè¿™æ˜¯ä¸€ä¸ªæ–‡å£«æ‰“æ‰®çš„ä¸­å¹´ä¹¦ç”Ÿï¼Œç¥è‰²å’Œè”¼ã€‚\n"
+                "ä»–å°±æ˜¯å¤©ä¸‹é—»åçš„å¤©åœ°ä¼šæ€»èˆµä¸»é™ˆè¿‘å—ï¼Œ\n"
+                "æ®è¯´åå…«èˆ¬æ­¦è‰ºï¼Œæ ·æ ·ç²¾é€šã€‚\n"
+                "å¶å°”å‘è¿™è¾¹çœ‹è¿‡æ¥ï¼Œé¡¿è§‰ä»–ç›®å…‰å¦‚ç”µï¼Œè‹±æ°”é€¼äººã€‚\n");
+        set("gender", "ç”·æ€§");
         set("class", "scholar");
         set("age", 45);
         set("attitude", "friendly");
@@ -63,16 +63,16 @@ void create()
                 (: exert_function, "recover" :),
         }) );
 
-        create_family("ÔÆÁúÃÅ", 1, "¿ªÉ½×æÊ¦");
+        create_family("äº‘é¾™é—¨", 1, "å¼€å±±ç¥–å¸ˆ");
         set("book_count", 1);
         set("inquiry", ([
-                "ÌìµØ»á" :  "Ö»ÒªÊÇÓ¢ĞÛºÃºº£¬¶¼¿ÉÒÔÈëÎÒÌìµØ»á(join tiandihui)¡£",
-                "Èë»á" :  "»¹²»¿ì¿ìÈçÌìµØ»áÒ»Í¬·´Çå¸´Ã÷¡£",
-                "¾øÕĞ" : (: ask_me :),
-                "¾ø¼¼" : (: ask_me :),
-                "¼²µç" : (: ask_me :),
-                "ÄıÑªÉñ×¦" : (: ask_me :),
-                "ÍË»á" : (: ask_tuihui :),
+                "å¤©åœ°ä¼š" :  "åªè¦æ˜¯è‹±é›„å¥½æ±‰ï¼Œéƒ½å¯ä»¥å…¥æˆ‘å¤©åœ°ä¼š(join tiandihui)ã€‚",
+                "å…¥ä¼š" :  "è¿˜ä¸å¿«å¿«å¦‚å¤©åœ°ä¼šä¸€åŒåæ¸…å¤æ˜ã€‚",
+                "ç»æ‹›" : (: ask_me :),
+                "ç»æŠ€" : (: ask_me :),
+                "ç–¾ç”µ" : (: ask_me :),
+                "å‡è¡€ç¥çˆª" : (: ask_me :),
+                "é€€ä¼š" : (: ask_tuihui :),
                 "tuihui"   : (: ask_tuihui :),
         ]) );
 
@@ -97,15 +97,15 @@ int ask_tuihui()
         object ob;
 
         ob = this_player();
-        if (ob->query("party/party_name") != "ÌìµØ»á")
+        if (ob->query("party/party_name") != "å¤©åœ°ä¼š")
         {
-                message_vision("³Â½üÄÏĞ¦ÁËĞ¦£¬¶Ô$NËµµÀ£ºÄã»¹Ã»"
-                               "¼ÓÈëÎÒÌìµØ»áÄØ£¬ÍËÊ²Ã´ÍË£¿\n", ob);
+                message_vision("é™ˆè¿‘å—ç¬‘äº†ç¬‘ï¼Œå¯¹$Nè¯´é“ï¼šä½ è¿˜æ²¡"
+                               "åŠ å…¥æˆ‘å¤©åœ°ä¼šå‘¢ï¼Œé€€ä»€ä¹ˆé€€ï¼Ÿ\n", ob);
                 return 1;
         }
         command("look "+ob->query("id"));
         command("sigh ");
-        command("say ·´Çå¸´Ã÷£¬¾ÍÒª¼áÕêÖ¾Ê¿£¬ÄãÈ¥°É! ");
+        command("say åæ¸…å¤æ˜ï¼Œå°±è¦åšè´å¿—å£«ï¼Œä½ å»å§! ");
         ob->delete("party");
         ob->delete("rank");
         ob->delete("level");
@@ -118,24 +118,24 @@ mixed ask_me()
 
         me = this_player();
         if (me->query("can_perform/ningxue-shenzhao/ji"))
-                return "ÄãÕæ»á¿ªÍæĞ¦£¬»áÁË»¹À´ÕÒÎÒ¡£";
+                return "ä½ çœŸä¼šå¼€ç©ç¬‘ï¼Œä¼šäº†è¿˜æ¥æ‰¾æˆ‘ã€‚";
 
         if (! me->query("story/shenzhao"))
-                return "Äã´òÌıÕâ¸ö¸ÉÂï£¿";
+                return "ä½ æ‰“å¬è¿™ä¸ªå¹²å˜›ï¼Ÿ";
 
         if (me->query("shen") < 1000000)
-                return "Ï°ÎäÖ®ÈË×îÖØÒ»¸ö¡°ÏÀ¡±×Ö£¬ÏÀÒå·½ÃæÄã»¹×öµÃ²»¹»£¡";
+                return "ä¹ æ­¦ä¹‹äººæœ€é‡ä¸€ä¸ªâ€œä¾ â€å­—ï¼Œä¾ ä¹‰æ–¹é¢ä½ è¿˜åšå¾—ä¸å¤Ÿï¼";
 
         if (me->query_skill("ningxue-shenzhao", 1) < 250)
-                return "ÄãµÄÄıÑªÉñ×¦»¹²»µ½¼Ò£¬Òª¶àÁ·Á·£¡";
+                return "ä½ çš„å‡è¡€ç¥çˆªè¿˜ä¸åˆ°å®¶ï¼Œè¦å¤šç»ƒç»ƒï¼";
 
-        message_vision(HIY "$n" HIY "µãÁËµãÍ·£¬±äÕÆÎª×¦£¬"
-                       "ËæÒâ»ÓÈ÷¶ø³ö£¬Ë«×¦¶ÙÊ±»Ã³öÂşÌì×¦Ó°£¬"
-                       "ÆøÊÆ»ÖºëÎŞ±È¡£\n" NOR,
+        message_vision(HIY "$n" HIY "ç‚¹äº†ç‚¹å¤´ï¼Œå˜æŒä¸ºçˆªï¼Œ"
+                       "éšæ„æŒ¥æ´’è€Œå‡ºï¼ŒåŒçˆªé¡¿æ—¶å¹»å‡ºæ¼«å¤©çˆªå½±ï¼Œ"
+                       "æ°”åŠ¿æ¢å¼˜æ— æ¯”ã€‚\n" NOR,
                        me, this_object());
         command("nod");
-        command("say Äã¿ÉÃ÷°×ÁË£¿");
-        tell_object(me, HIC "ÄãÑ§»áÁË¡¸¼²µç¡¹ÕâÒ»ÕĞ¡£\n" NOR);
+        command("say ä½ å¯æ˜ç™½äº†ï¼Ÿ");
+        tell_object(me, HIC "ä½ å­¦ä¼šäº†ã€Œç–¾ç”µã€è¿™ä¸€æ‹›ã€‚\n" NOR);
         if (me->can_improve_skill("claw"))
                 me->improve_skill("claw", 250000);
         me->set("can_perform/ningxue-shenzhao/ji", 1);

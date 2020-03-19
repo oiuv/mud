@@ -1,14 +1,14 @@
-// puren.c ÆÍÈË
+// puren.c ä»†äºº
 
 inherit NPC;
 
 void create()
 {
-        set_name("ÆÍÈË", ({ "pu ren" }));
+        set_name("ä»†äºº", ({ "pu ren" }));
         set("age", 18);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("long",
-"ÕâÊÇÒ»¸öÌÒ»¨µºµÄÆÍÈË¡£\n");
+"è¿™æ˜¯ä¸€ä¸ªæ¡ƒèŠ±å²›çš„ä»†äººã€‚\n");
         set("attitude", "peaceful");
         set("str", 24);
         set("dex", 16);

@@ -2,13 +2,13 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÁèÍËË¼", ({ "ling tuisi", "ling", "tuisi" }));
-	set("title", "¾£ÖİÖª¸®");
-	set("gender", "ÄĞĞÔ");
+	set_name("å‡Œé€€æ€", ({ "ling tuisi", "ling", "tuisi" }));
+	set("title", "è†å·çŸ¥åºœ");
+	set("gender", "ç”·æ€§");
 	set("age", 35);
 	set("str", 20);
 	set("dex", 20);
-	set("long", "Ëû¾ÍÊÇÁèÍËË¼£¬¾£ÖİÏÖÈÎÖª¸®¡£\n");
+	set("long", "ä»–å°±æ˜¯å‡Œé€€æ€ï¼Œè†å·ç°ä»»çŸ¥åºœã€‚\n");
 	set("combat_exp", 30000);
 	set("shen_type", 0);
 	set("attitude", "heroism");

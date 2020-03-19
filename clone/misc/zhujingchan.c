@@ -3,14 +3,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIR"Öì¾¦"HIW"±ù"HIR"ó¸"NOR, ({"chan"}));
+	set_name(HIR"æœ±ç›"HIW"å†°"HIR"èŸ¾"NOR, ({"chan"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ö»");
+		set("unit", "åª");
 		set("value", 40000);
-		set("long", "ÕâÊÇÒ»Ç§ÄêÄÑµÃÒ»¼ûµÄÖì¾¦±ùó¸£¬Í¨ÌåÍ¸Ã÷£¬Î©ÑÛ³Ê³à"
-		            "É«£¬ÄÜ½â°Ù¶¾¡£\n");
+		set("long", "è¿™æ˜¯ä¸€åƒå¹´éš¾å¾—ä¸€è§çš„æœ±ç›å†°èŸ¾ï¼Œé€šä½“é€æ˜ï¼ŒæƒŸçœ¼å‘ˆèµ¤"
+		            "è‰²ï¼Œèƒ½è§£ç™¾æ¯’ã€‚\n");
 		set("only_do_effect", 1);
 	}
 	setup();
@@ -18,8 +18,8 @@ void create()
 
 int do_effect(object me)
 {
-        message_vision(HIR "$N" HIG "·şÏÂÒ»Ö»Öì¾¦±ùó¸£¬Ö»¾õÒ»¹Éµ¤ÌïÒ»Æ¬»ğÈÈ£¬"
-                       "ÄÚÏ¢ÔË×ªÎŞ±ÈË³³©£¡\n" NOR, me);
+        message_vision(HIR "$N" HIG "æœä¸‹ä¸€åªæœ±ç›å†°èŸ¾ï¼Œåªè§‰ä¸€è‚¡ä¸¹ç”°ä¸€ç‰‡ç«çƒ­ï¼Œ"
+                       "å†…æ¯è¿è½¬æ— æ¯”é¡ºç•…ï¼\n" NOR, me);
         set_temp("nopoison", 3);
 	destruct(this_object());
 	return 1;

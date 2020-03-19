@@ -1,17 +1,17 @@
-// hdjiudai.c  »¨µñ¾Æ´ü
+// hdjiudai.c  èŠ±é›•é…’è¢‹
 
 inherit ITEM;
 inherit F_LIQUID;
 
 void create()
 {
-	set_name("»¨µñ¾Æ´ü", ({"jiudai", "skin", "huadiao"}));
+	set_name("èŠ±é›•é…’è¢‹", ({"jiudai", "skin", "huadiao"}));
 	set_weight(700);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»¸öÓÃÀ´×°¸ß¼¶»¨µñ¾ÆµÄ´ó¾Æ´ü¡£\n");
-		set("unit", "¸ö");
+		set("long", "ä¸€ä¸ªç”¨æ¥è£…é«˜çº§èŠ±é›•é…’çš„å¤§é…’è¢‹ã€‚\n");
+		set("unit", "ä¸ª");
 		set("value", 120);
 		set("max_liquid", 20);
 	}
@@ -20,7 +20,7 @@ void create()
 	// we set it to contain wine at the beginning
 	set("liquid", ([
 		"type": "alcohol",
-		"name": "»¨µñ¾Æ",
+		"name": "èŠ±é›•é…’",
 		"remaining": 20,
 		"drunk_apply": 6,
 	]));

@@ -133,7 +133,7 @@ void kill_ob(object ob)
 	if (! guarded) guarded = ({ });
         if (member_array(me, guarded) != -1)
         {
-                tell_object(ob, HIR "²»ÄÜÉ±ÄãÒª±£»¤µÄÈË£¡\n" NOR);
+                tell_object(ob, HIR "ä¸èƒ½æ€ä½ è¦ä¿æŠ¤çš„äººï¼\n" NOR);
                 return;
         }
 
@@ -141,8 +141,8 @@ void kill_ob(object ob)
         if (member_array(ob->query("id"), killer) == -1)
         {
                 killer += ({ ob->query("id") });
-        	tell_object(ob, HIR "¿´ÆğÀ´" + this_object()->name() +
-		    	     HIR "ÏëÉ±ËÀÄã£¡\n" NOR);
+        	tell_object(ob, HIR "çœ‹èµ·æ¥" + this_object()->name() +
+		    	     HIR "æƒ³æ€æ­»ä½ ï¼\n" NOR);
 	}
 
         foreach (gob in guarded)
@@ -158,46 +158,46 @@ void kill_ob(object ob)
 			continue;
 
                 tell_object(gob, HIR + ob->name(1) +
-			    "ÊÜµ½¹¥»÷£¬ÄãÍ¦Éí¶ø³ö£¬¼ÓÈëÕ½ÍÅ£¡\n" NOR);
+			    "å—åˆ°æ”»å‡»ï¼Œä½ æŒºèº«è€Œå‡ºï¼ŒåŠ å…¥æˆ˜å›¢ï¼\n" NOR);
                 switch (random(8))
                 {
                 case 0:
-		        message_vision(HIW "$N" HIW "Ò»ÑÔ²»·¢£¬¶Ô$n"
-                                       HIW "·¢¶¯ÁË¹¥»÷¡£\n" NOR, gob, me);
+		        message_vision(HIW "$N" HIW "ä¸€è¨€ä¸å‘ï¼Œå¯¹$n"
+                                       HIW "å‘åŠ¨äº†æ”»å‡»ã€‚\n" NOR, gob, me);
                         break;
                 case 1:
-                        message_vision(HIW "$N" HIW "Ò»ÉùÅ­ºğ£¬³åÉÏÇ°"
-                                       "È¥£¬¿´À´ÊÇÒªºÍ$n" HIW "Æ´Ãü¡£\n" NOR,
+                        message_vision(HIW "$N" HIW "ä¸€å£°æ€’å¼ï¼Œå†²ä¸Šå‰"
+                                       "å»ï¼Œçœ‹æ¥æ˜¯è¦å’Œ$n" HIW "æ‹¼å‘½ã€‚\n" NOR,
                                        gob, me);
                         break;
                 case 2:
-                        message_vision(HIW "$N" HIW "ÀäĞ¦ÁËÒ»Éù£¬µÀ£º"
-                                       "¡°½ÓÕĞ°É£¡¡±Ëµ°Õ¾Í¶Ô$n" HIW
-                                       "·¢¶¯ÁË¹¥»÷¡£\n" NOR, gob, me);
+                        message_vision(HIW "$N" HIW "å†·ç¬‘äº†ä¸€å£°ï¼Œé“ï¼š"
+                                       "â€œæ¥æ‹›å§ï¼â€è¯´ç½¢å°±å¯¹$n" HIW
+                                       "å‘åŠ¨äº†æ”»å‡»ã€‚\n" NOR, gob, me);
                         break;
                 case 3:
-                        message_vision(HIW "$N" HIW "ÂõÉÏÒ»²½£¬µ²ÔÚÇ°"
-                                       "Ãæ£¬¿ªÊ¼ºÍ$n" HIW "½øĞĞÊâËÀ²«"
-                                       "¶·£¡\n" NOR, gob, me);
+                        message_vision(HIW "$N" HIW "è¿ˆä¸Šä¸€æ­¥ï¼ŒæŒ¡åœ¨å‰"
+                                       "é¢ï¼Œå¼€å§‹å’Œ$n" HIW "è¿›è¡Œæ®Šæ­»æ"
+                                       "æ–—ï¼\n" NOR, gob, me);
                         break;
                 case 4:
-                        message_vision(HIW "$N" HIW "Ë«±ÛÒ»Õñ£¬Á³Èçº®Ë®£¬"
-                                       "ÒÑ¾­Ïò$n" HIW "½ÓÁ¬·¢³öÊıÕĞ£¡\n"
+                        message_vision(HIW "$N" HIW "åŒè‡‚ä¸€æŒ¯ï¼Œè„¸å¦‚å¯’æ°´ï¼Œ"
+                                       "å·²ç»å‘$n" HIW "æ¥è¿å‘å‡ºæ•°æ‹›ï¼\n"
                                        NOR, gob, me);
                         break;
                 case 5:
-                        message_vision(HIW "$N" HIW "ÉîÎüÒ»¿ÚÆø£¬Ò»ÕĞ"
-                                       "Ö±Ö¸$n" HIW "µÄÒªº¦£¬¾¹È»ÊÇÒª"
-                                       "È¡ÈËµÄĞÔÃü£¡\n" NOR, gob, me);
+                        message_vision(HIW "$N" HIW "æ·±å¸ä¸€å£æ°”ï¼Œä¸€æ‹›"
+                                       "ç›´æŒ‡$n" HIW "çš„è¦å®³ï¼Œç«Ÿç„¶æ˜¯è¦"
+                                       "å–äººçš„æ€§å‘½ï¼\n" NOR, gob, me);
                         break;
                 case 6:
-                        message_vision(HIW "½ô½Ó×Å$N" HIW "ÒÑ¾­¹¥ÉÏ£¡"
-                                       "ÕĞÕĞ½ø±Æ$n" HIW "£¬ºÁÎŞÈİÇéÓà"
-                                       "µØ£¡\n" NOR, gob, me);
+                        message_vision(HIW "ç´§æ¥ç€$N" HIW "å·²ç»æ”»ä¸Šï¼"
+                                       "æ‹›æ‹›è¿›é€¼$n" HIW "ï¼Œæ¯«æ— å®¹æƒ…ä½™"
+                                       "åœ°ï¼\n" NOR, gob, me);
                         break;
                 default:
-                        message_vision(HIW "$N" HIW "·ÉÒ²ËÆµÄÆËÉÏÇ°À´"
-                                       "£¬¿ªÊ¼½ø¹¥$n" HIW "¡£\n" NOR, gob, me);
+                        message_vision(HIW "$N" HIW "é£ä¹Ÿä¼¼çš„æ‰‘ä¸Šå‰æ¥"
+                                       "ï¼Œå¼€å§‹è¿›æ”»$n" HIW "ã€‚\n" NOR, gob, me);
                         break;
                 }
 
@@ -261,7 +261,7 @@ int remove_enemy(object ob)
         int i;
 		enemy -= ({ ob });
         if (! (i = sizeof(enemy)))
-			delete_temp("combat_time");//combat_time Íæ¼ÒÕ½¶·Ê±¼ä
+			delete_temp("combat_time");//combat_time ç©å®¶æˆ˜æ–—æ—¶é—´
 		return 1;
 }
 
@@ -287,7 +287,7 @@ int remove_killer(object ob)
 void remove_all_enemy(int force)
 {
         int i;
-		delete_temp("combat_time");//combat_time Íæ¼ÒÕ½¶·Ê±¼ä
+		delete_temp("combat_time");//combat_time ç©å®¶æˆ˜æ–—æ—¶é—´
 	if (! (i = sizeof(enemy)))
 		return;
 

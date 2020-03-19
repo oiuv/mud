@@ -2,7 +2,7 @@ inherit ITEM;
 
 void create()
 {
-	set_name("²Ë¿ğ×Ó", ({ "cai kuang"}) );
+	set_name("èœç­å­", ({ "cai kuang"}) );
 	set_weight(500);
         set_max_encumbrance(8000);
         if (clonep())
@@ -17,8 +17,8 @@ void create()
 		set_default_object(__FILE__);
 	}
 	else {
-		set("unit", "Ö»");
-		set("long", "Ò»Ö»´äÂÌÏ¸Öñ×ÓÖñ¿ğ¡£\n");
+		set("unit", "åª");
+		set("long", "ä¸€åªç¿ ç»¿ç»†ç«¹å­ç«¹ç­ã€‚\n");
 		set("value", 500);
 	}
 }

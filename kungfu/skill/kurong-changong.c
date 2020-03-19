@@ -23,15 +23,15 @@ int query_neili_improve(object me)
 
 int valid_learn(object me)
 {
-    	if (me->query("gender") == "ÎŞĞÔ")
-        	return notify_fail("ÄãÎŞ¸ùÎŞĞÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¿İÈÙìø¹¦¡£\n");
+    	if (me->query("gender") == "æ— æ€§")
+        	return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šæ¯è£ç¦…åŠŸã€‚\n");
 
     	return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("¿İÈÙìø¹¦Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("æ¯è£ç¦…åŠŸåªèƒ½ç”¨å­¦(learn)çš„æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)

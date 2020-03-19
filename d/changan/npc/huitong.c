@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("»ÛÍ¨ìøÊ¦", ({"huitong chanshi","monk", "huitong","chanshi"}));
+        set_name("æ…§é€šç¦…å¸ˆ", ({"huitong chanshi","monk", "huitong","chanshi"}));
         set("long",
-        "»ÛÍ¨ìøÊ¦ÊÇ±¦ÏóËÂµÄÖ÷³Ö£¬ÉñÉ«×¯ÖØ£¬¾ÙÖ¹¼ä×ÔÓĞÒ»·¬ÍşÒÇ¡£\n");
-	set("title", "±¦ÏóËÂÖ÷³Ö");
-        set("gender", "ÄĞĞÔ");
+        "æ…§é€šç¦…å¸ˆæ˜¯å®è±¡å¯ºçš„ä¸»æŒï¼Œç¥è‰²åº„é‡ï¼Œä¸¾æ­¢é—´è‡ªæœ‰ä¸€ç•ªå¨ä»ªã€‚\n");
+	set("title", "å®è±¡å¯ºä¸»æŒ");
+        set("gender", "ç”·æ€§");
         set("attitude", "friendly");
         set("class", "bonze");
         set("age", 69);

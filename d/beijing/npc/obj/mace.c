@@ -4,17 +4,17 @@ inherit CLUB;
 
 void create()
 {
-  set_name("ÊìÍ­ïµ", ({"copper mace", "mace", "coppermace", "tongjian", "jian"}));
+  set_name("ç†Ÿé“œé”", ({"copper mace", "mace", "coppermace", "tongjian", "jian"}));
   set_weight(5000);
   if( clonep() )
     set_default_object(__FILE__);
   else {
-    set("unit", "±ú");
+    set("unit", "æŸ„");
     set("value", 2000);
     set("material", "copper");
-    set("long", "Ò»±ú³ÁµéµéµÄÊìÍ­ïµ£¬ÉÏÃæÍ­Ğâ°ß°ß¡£\n");
-    set("wield_msg", "$N¾ÙÆğÒ»±ú$n£¬ÔÚµØÉÏ×²³öµãµã»ğĞÇ¡£\n");
-    set("unwield_msg", "$NÄ¨ÁËÄ¨$nÉÏµÄĞâ£¬°ÑËüÊÕÁËÆğÀ´¡£\n");
+    set("long", "ä¸€æŸ„æ²‰ç”¸ç”¸çš„ç†Ÿé“œé”ï¼Œä¸Šé¢é“œé”ˆæ–‘æ–‘ã€‚\n");
+    set("wield_msg", "$Nä¸¾èµ·ä¸€æŸ„$nï¼Œåœ¨åœ°ä¸Šæ’å‡ºç‚¹ç‚¹ç«æ˜Ÿã€‚\n");
+    set("unwield_msg", "$NæŠ¹äº†æŠ¹$nä¸Šçš„é”ˆï¼ŒæŠŠå®ƒæ”¶äº†èµ·æ¥ã€‚\n");
   }
   
   init_club(25);

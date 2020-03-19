@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��Ժ");
+        set("short", "后院");
         set("long", @LONG
-�����Ǻ�Ժ������������������һ��Բ�ε��Ŷ�����
-��С·ͨ����ɽ��
+这里是后院，北面是三清殿，南面是一个圆形的门洞，有
+条小路通往后山。
 LONG);
         set("exits", ([
                 "south" : __DIR__"xiaolu1",

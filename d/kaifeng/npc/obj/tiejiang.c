@@ -4,17 +4,17 @@ inherit STAFF;
 
 void create()
 {
-        set_name(WHT "Ìú½°" NOR, ({ "tie jiang", "tie", "jiang" }));
+        set_name(WHT "é“æ¡¨" NOR, ({ "tie jiang", "tie", "jiang" }));
         set_weight(3000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", "ÕâÊÇÒ»¸ùÌú½°£¬¾Ù¿ÉÆëÃ¼£¬¿´À´ºÜÊÇ³ÁÖØ£¬¿É¹¥»÷´óÆ¬µĞÈË¡£\n");
+                set("unit", "æ ¹");
+                set("long", "è¿™æ˜¯ä¸€æ ¹é“æ¡¨ï¼Œä¸¾å¯é½çœ‰ï¼Œçœ‹æ¥å¾ˆæ˜¯æ²‰é‡ï¼Œå¯æ”»å‡»å¤§ç‰‡æ•Œäººã€‚\n");
                 set("value", 200);
                 set("material", "steel");
-                set("wield_msg", "$N³é³öÒ»¸ù$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»ØÑü¼ä¡£\n");
+                set("wield_msg", "$NæŠ½å‡ºä¸€æ ¹$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›è…°é—´ã€‚\n");
         }
         init_staff(30);
         setup();

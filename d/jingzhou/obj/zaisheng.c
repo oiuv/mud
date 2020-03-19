@@ -1,4 +1,4 @@
-// lianzi.c °×Á«×Ó
+// lianzi.c ç™½è²å­
 
 inherit ITEM;
 
@@ -12,12 +12,12 @@ void init()
 
 void create()
 {
-	set_name("ÔÙÉúÍè", ({"bailian zi", "zi"}));
+	set_name("å†ç”Ÿä¸¸", ({"bailian zi", "zi"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¿Å");
-		set("long", "ÕâÊÇÒ»¿Å½à°×ÈçÓñµÄÔÙÉúÍè¡£\n");
+		set("unit", "é¢—");
+		set("long", "è¿™æ˜¯ä¸€é¢—æ´ç™½å¦‚ç‰çš„å†ç”Ÿä¸¸ã€‚\n");
 		set("value", 2000);
 	}
 	setup();
@@ -26,14 +26,14 @@ void create()
 int do_eat(string arg)
 {
 	if (!id(arg))
-	return notify_fail("ÄãÒª³ÔÊ²Ã´Ò©£¿\n");
+	return notify_fail("ä½ è¦åƒä»€ä¹ˆè¯ï¼Ÿ\n");
 
 	if (((int)this_player()->query("potential") - 100) >=
 	     (int)this_player()->query("learned_points") )
-		return notify_fail("ÄãÏÖÔÚ²»ĞèÒªÓÃÔÙÉúÍè¡£\n");
+		return notify_fail("ä½ ç°åœ¨ä¸éœ€è¦ç”¨å†ç”Ÿä¸¸ã€‚\n");
 	else {
 	        this_player()->add("potential", 1);
-	        message_vision("$N³ÔÏÂÒ»¿ÅÔÙÉúÍè£¬¸Ğµ½ÉíÌåÀï²úÉúÁËÒ»ÖÖÎ¢ÃîµÄ±ä»¯ !\n", this_player());
+	        message_vision("$Nåƒä¸‹ä¸€é¢—å†ç”Ÿä¸¸ï¼Œæ„Ÿåˆ°èº«ä½“é‡Œäº§ç”Ÿäº†ä¸€ç§å¾®å¦™çš„å˜åŒ– !\n", this_player());
 	        destruct(this_object());
 	        return 1;
 	}

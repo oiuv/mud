@@ -5,15 +5,15 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ÕÔÖ¾¾´", ({ "zhao zhijing", "zhao", "zhijing" }));
+        set_name("èµµå¿—æ•¬", ({ "zhao zhijing", "zhao", "zhijing" }));
         set("long", @LONG
-Ëû¾ÍÊÇÈ«Õæ½ÌµÚÈý´úµÜ×ÓÖÐµÄºÃÊÖ£¬Íõ´¦Ò»µÄ
-´óµÜ×ÓÕÔÖ¾¾´¡£ËûÏàÃ²¶ËÕý£¬µ«Ã¼Óî¼äËÆºõÒþ
-²Ø×ÅÒ»Ë¿½Æ»«µÄÉñÉ«¡£ËûÊÇÒ»¸ö³¤ÐëµÀÈË£¬¿´
-ÆðÀ´È´ÓÐÐ©É·Æø¡£
+ä»–å°±æ˜¯å…¨çœŸæ•™ç¬¬ä¸‰ä»£å¼Ÿå­ä¸­çš„å¥½æ‰‹ï¼ŒçŽ‹å¤„ä¸€çš„
+å¤§å¼Ÿå­èµµå¿—æ•¬ã€‚ä»–ç›¸è²Œç«¯æ­£ï¼Œä½†çœ‰å®‡é—´ä¼¼ä¹Žéš
+è—ç€ä¸€ä¸ç‹¡çŒ¾çš„ç¥žè‰²ã€‚ä»–æ˜¯ä¸€ä¸ªé•¿é¡»é“äººï¼Œçœ‹
+èµ·æ¥å´æœ‰äº›ç…žæ°”ã€‚
 LONG);
 
-        set("gender", "ÄÐÐÔ");
+        set("gender", "ç”·æ€§");
         set("class", "taoist");
         set("age", 24);
         set("attitude", "friendly");
@@ -52,7 +52,7 @@ LONG);
 
         prepare_skill("finger", "zhongnan-zhi");
 
-        create_family("È«Õæ½Ì", 3, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 3, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -73,6 +73,6 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-        command("say ºÃ°É£¬ÎÒ¾ÍÊÕÏÂÄãÕâ¸öÍ½µÜ¡£");
+        command("say å¥½å§ï¼Œæˆ‘å°±æ”¶ä¸‹ä½ è¿™ä¸ªå¾’å¼Ÿã€‚");
         command("recruit " + ob->query("id"));
 }

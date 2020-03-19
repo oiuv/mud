@@ -2,12 +2,12 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "É½¼äÆ½µØ");
+        set("short", "å±±é—´å¹³åœ°");
         set("long", @LONG
-É½¼äÆ½µØ£¬µØÉÏÊÇÄÛÂÌµÄÐ¡²Ý£¬ÖÜÎ§²¼ÁË¼¸¿ÃèëÊ÷£¬É½±ß
-ÓÐÒ»ÑÛÇåÈª¡£²ÝµØÉÏÊ÷×Å¼¸¸öÐÇËÞÀÏ¹Öµ±Äê´ÓÉÙÁÖËÂÍµÀ´µÄÄ¾
-ÈË£¬ÏÔÊÇÐÇËÞµÜ×ÓÁ·¹¦ËùÓÃ¡£Î÷±ß¹ýÈ¥»¹ÓÐÒ»¿éÆ½µØ£¬Ò²ÊÇÁ·
-¹¦µÄÈ¥´¦¡£
+å±±é—´å¹³åœ°ï¼Œåœ°ä¸Šæ˜¯å«©ç»¿çš„å°è‰ï¼Œå‘¨å›´å¸ƒäº†å‡ æ£µæ¡¦æ ‘ï¼Œå±±è¾¹
+æœ‰ä¸€çœ¼æ¸…æ³‰ã€‚è‰åœ°ä¸Šæ ‘ç€å‡ ä¸ªæ˜Ÿå®¿è€æ€ªå½“å¹´ä»Žå°‘æž—å¯ºå·æ¥çš„æœ¨
+äººï¼Œæ˜¾æ˜¯æ˜Ÿå®¿å¼Ÿå­ç»ƒåŠŸæ‰€ç”¨ã€‚è¥¿è¾¹è¿‡åŽ»è¿˜æœ‰ä¸€å—å¹³åœ°ï¼Œä¹Ÿæ˜¯ç»ƒ
+åŠŸçš„åŽ»å¤„ã€‚
 LONG );
 
         set("resource/water", 1);
@@ -19,7 +19,7 @@ LONG );
                 "west" : __DIR__"wuchang2",
         ]));
         set("outdoors", "xingxiu");
-        set("for_family", "ÐÇËÞÅÉ");
+        set("for_family", "æ˜Ÿå®¿æ´¾");
         setup();
         replace_program(ROOM);
 }

@@ -5,10 +5,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "��԰");
+	set("short", "留园");
 	set("long", @LONG
-��԰�����ݵ�һ������֮һ�����Խṹ���ֽ��ܡ����û�
-����֡�װ�ξ������Ŷ����С����е�һ��԰��֮����
+留园是苏州的一大名景之一，它以结构布局紧密、厅堂华
+丽宏敝、装饰精美典雅而享有“吴中第一名园”之誉。
 LONG );
 	set("outdoors", "suzhou");
 //	set("no_clean_up", 0);

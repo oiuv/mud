@@ -24,17 +24,17 @@ int query_neili_improve(object me)
 
 int valid_learn(object me)
 {
-        if ( me->query("gender") == "ÎŞĞÔ")
-                return notify_fail("ÄãÎŞ¸ùÎŞĞÔ£¬ÒõÑôÄÑµ÷£¬²»ÄÜĞŞÏ°ÓñÅ®ĞÄ¾­¡£\n");
+        if ( me->query("gender") == "æ— æ€§")
+                return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³éš¾è°ƒï¼Œä¸èƒ½ä¿®ä¹ ç‰å¥³å¿ƒç»ã€‚\n");
 
         if ((int)me->query_skill("force", 1) < 150)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ğºò»¹²»¹»£¬²»ÄÜĞŞÏ°ÓñÅ®ĞÄ¾­¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™è¿˜ä¸å¤Ÿï¼Œä¸èƒ½ä¿®ä¹ ç‰å¥³å¿ƒç»ã€‚\n");
 
         if ((int)me->query("int", 1) < 32)
-                return notify_fail("ÄãµÄÏÈÌìÎòĞÔ²»×ã£¬ÎŞ·¨ÁìÎòÓñÅ®ĞÄ¾­¡£\n");
+                return notify_fail("ä½ çš„å…ˆå¤©æ‚Ÿæ€§ä¸è¶³ï¼Œæ— æ³•é¢†æ‚Ÿç‰å¥³å¿ƒç»ã€‚\n");
 
         if ((int)me->query("max_neili", 1) < 2000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»×ã£¬ÄÑÒÔÁì»áÓñÅ®ĞÄ¾­¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œéš¾ä»¥é¢†ä¼šç‰å¥³å¿ƒç»ã€‚\n");
 
         return ::valid_learn(me);
 }
@@ -66,8 +66,8 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
                 victim->receive_damage("qi", damage_bonus, me);
                 victim->receive_wound("qi", damage_bonus * 2 / 3, me);
 
-                return HIW "$N" HIW "ÊÖÖĞ" + wn + HIW "ºöµÄÒ»Õñ£¬½«Óñ"
-                       "Å®ĞÄ¾­¹¦Á¦ÔËÓÚ½£¶Ë£¬Âş³öÎŞ±ßº®Òâ¡£\n" NOR;         
+                return HIW "$N" HIW "æ‰‹ä¸­" + wn + HIW "å¿½çš„ä¸€æŒ¯ï¼Œå°†ç‰"
+                       "å¥³å¿ƒç»åŠŸåŠ›è¿äºå‰‘ç«¯ï¼Œæ¼«å‡ºæ— è¾¹å¯’æ„ã€‚\n" NOR;         
         } else
         if ((string)weapon->query("skill_type") == "whip"
             && me->query_skill_mapped("whip") == "yinsuo-jinling")
@@ -78,14 +78,14 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
                 victim->receive_damage("qi", damage_bonus, me);
                 victim->receive_wound("qi", damage_bonus * 2 / 3, me);
 
-                return HIW "$N" HIW "Ò»Éù½¿ºÈ£¬½«ÓñÅ®ĞÄ¾­¹¦Á¦ÔËÖÁ" + wn +
-                       HIW "Ö®ÉÏ£¬×ËÊÆÃîÂü£¬ÁîÈËËàÈ»Æğ¾´¡£\n" NOR;         
+                return HIW "$N" HIW "ä¸€å£°å¨‡å–ï¼Œå°†ç‰å¥³å¿ƒç»åŠŸåŠ›è¿è‡³" + wn +
+                       HIW "ä¹‹ä¸Šï¼Œå§¿åŠ¿å¦™æ›¼ï¼Œä»¤äººè‚ƒç„¶èµ·æ•¬ã€‚\n" NOR;         
         }
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("ÓñÅ®ĞÄ¾­Ö»ÄÜÓÃÑ§(learn)À´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("ç‰å¥³å¿ƒç»åªèƒ½ç”¨å­¦(learn)æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 int difficult_level()

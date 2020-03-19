@@ -4,17 +4,17 @@
 inherit BLADE;
 void create()
 {
-        set_name("²ñµ¶", ({ "cut knife", "knife" }) );
+        set_name("æŸ´åˆ€", ({ "cut knife", "knife" }) );
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "°Ñ");
+                set("unit", "æŠŠ");
                 set("value", 500);
                 set("material", "iron");
-                set("long", "ÕâÊÇÒ»±ú°ëĞÂ²»¾ÉµÄ²ñµ¶¡£\n");
-                set("wield_msg", "$N³é³öÒ»°Ñ$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unequip_msg", "$N½«ÊÖÖĞµÄ$n²å»ØÑü¼ä¡£\n");
+                set("long", "è¿™æ˜¯ä¸€æŸ„åŠæ–°ä¸æ—§çš„æŸ´åˆ€ã€‚\n");
+                set("wield_msg", "$NæŠ½å‡ºä¸€æŠŠ$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unequip_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›è…°é—´ã€‚\n");
         }
         init_blade(5);
         setup();

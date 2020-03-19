@@ -4,80 +4,80 @@
  * port to chinese wizard group : /feature/vi.c by ken@chinesemud.net (99-3-15)
  */
 
-#include <ansi.h>                       // ¶¨Òå ANSI/VT100 ÖÕ¶Ë»úµÄÒİÍÑÂë
+#include <ansi.h>                       // å®šä¹‰ ANSI/VT100 ç»ˆç«¯æœºçš„é€¸è„±ç 
 
-#define ECHO 0                          // ¶ÁÈ¡ÊäÈëÊ±ÒªÏÔÊ¾×ÖÔª
-#define HIDE 1                          // ¶ÁÈ¡ÊäÈëÊ±²»ÏÔÊ¾×ÖÔª
-#define REFRESH 1                       // ¶ÁÈ¡ÊäÈëááÒªÖØ»æ»­Ãæ
-#define LOGFILE "static/VI"             // µµ°¸Òì¶¯¼ÇÂ¼µµ
+#define ECHO 0                          // è¯»å–è¾“å…¥æ—¶è¦æ˜¾ç¤ºå­—å…ƒ
+#define HIDE 1                          // è¯»å–è¾“å…¥æ—¶ä¸æ˜¾ç¤ºå­—å…ƒ
+#define REFRESH 1                       // è¯»å–è¾“å…¥å¾Œè¦é‡ç»˜ç”»é¢
+#define LOGFILE "static/VI"             // æ¡£æ¡ˆå¼‚åŠ¨è®°å½•æ¡£
 
-void start_edit(string filename);       // ºô½Ğ±à¼­Æ÷£¬¿ªÊ¼±à¼­
-private void _append(object pl);        // ÔÚÓÎ±êááÃæ¼Ó×Ö
-private void _append_line(object pl);   // ÔÚÓÎ±êµ×ÏÂ¼ÓÒ»ĞÂĞĞ
-private void _backspace(object pl);     // É¾³ıÓÎ±êÇ°µÄ×Ö
-protected void _confirm_save(string str, object pl); // Àë¿ª±à¼­Æ÷Ç°È·ÈÏ´æµµ
-private void _del_char(object pl, int bs);      // É¾³ıÓÎ±êÉÏµÄ×Ö
-private void _del_line(object pl);              // É¾³ıÕûĞĞ
-private int  _dispatcher(object pl);            // ·ÖÅÉÖ¸Áîµ½²»Í¬º¯Ê½
-private void _down(object pl);                  // ÓÎ±êÍùÏÂÒÆÒ»ĞĞ
-private void _end(object pl);                   // ½«ÓÎ±êÒÆµ½ĞĞÎ²
-private void _esc(object pl);                   // ´ÓÊäÈëÄ£Ê½»Øµ½ÃüÁîÄ£Ê½
-private void _file_end(object pl);              // ½«ÓÎ±êÒÆµ½µµÎ²
-private void _file_head(object pl);             // ½«ÓÎ±êÒÆµ½µµÍ·
-private void _goto_line(object pl);             // Ìøµ½ÌØ¶¨ĞĞÈ¥
-protected void _goto_line_done(string str, object pl, int rein); // È¡µÃĞĞºÅ
-private void _help(object pl);                  // ¸¨Öú»­Ãæ
-private void _home(object pl);                  // ½«ÓÎ±êÒÆµ½ĞĞÊ×
-protected void _input(string str, object pl, int fresh); // ¶ÁµÃÊäÈë×Ö´®
-private void _insert(object pl);                // ÔÚÓÎ±êÇ°Ãæ²å×Ö
-private void _insert_line(object pl);           // ÔÚÓÎ±êÉÏ·½¼ÓÒ»ĞÂĞĞ
-private void _insert_exclam_mark(object pl);    // ÔÚÓÎ±êÇ°Ãæ²åÈëÒ»¸ö¡¸!¡¹×ÖÔª
-private void _join(object pl);                  // ½«ÏÂĞĞÎÄ×ÖÒÆµ½´ËĞĞááÃæ
-private void _keymap(object pl);                // ¶¨ÒåĞÂ¹¦ÄÜ¼ü
-protected void _keymap_done(string str, object pl); // È¡µÃ¶¨Òå¹¦ÄÜ¼ü
-private void _left(object pl);                  // ÓÎ±êÍù×óÒÆÒ»×Ö
-// ÔÚ×´Ì¬ÁĞÏÔÊ¾Ñ¶Ï¢
+void start_edit(string filename);       // å‘¼å«ç¼–è¾‘å™¨ï¼Œå¼€å§‹ç¼–è¾‘
+private void _append(object pl);        // åœ¨æ¸¸æ ‡å¾Œé¢åŠ å­—
+private void _append_line(object pl);   // åœ¨æ¸¸æ ‡åº•ä¸‹åŠ ä¸€æ–°è¡Œ
+private void _backspace(object pl);     // åˆ é™¤æ¸¸æ ‡å‰çš„å­—
+protected void _confirm_save(string str, object pl); // ç¦»å¼€ç¼–è¾‘å™¨å‰ç¡®è®¤å­˜æ¡£
+private void _del_char(object pl, int bs);      // åˆ é™¤æ¸¸æ ‡ä¸Šçš„å­—
+private void _del_line(object pl);              // åˆ é™¤æ•´è¡Œ
+private int  _dispatcher(object pl);            // åˆ†æ´¾æŒ‡ä»¤åˆ°ä¸åŒå‡½å¼
+private void _down(object pl);                  // æ¸¸æ ‡å¾€ä¸‹ç§»ä¸€è¡Œ
+private void _end(object pl);                   // å°†æ¸¸æ ‡ç§»åˆ°è¡Œå°¾
+private void _esc(object pl);                   // ä»è¾“å…¥æ¨¡å¼å›åˆ°å‘½ä»¤æ¨¡å¼
+private void _file_end(object pl);              // å°†æ¸¸æ ‡ç§»åˆ°æ¡£å°¾
+private void _file_head(object pl);             // å°†æ¸¸æ ‡ç§»åˆ°æ¡£å¤´
+private void _goto_line(object pl);             // è·³åˆ°ç‰¹å®šè¡Œå»
+protected void _goto_line_done(string str, object pl, int rein); // å–å¾—è¡Œå·
+private void _help(object pl);                  // è¾…åŠ©ç”»é¢
+private void _home(object pl);                  // å°†æ¸¸æ ‡ç§»åˆ°è¡Œé¦–
+protected void _input(string str, object pl, int fresh); // è¯»å¾—è¾“å…¥å­—ä¸²
+private void _insert(object pl);                // åœ¨æ¸¸æ ‡å‰é¢æ’å­—
+private void _insert_line(object pl);           // åœ¨æ¸¸æ ‡ä¸Šæ–¹åŠ ä¸€æ–°è¡Œ
+private void _insert_exclam_mark(object pl);    // åœ¨æ¸¸æ ‡å‰é¢æ’å…¥ä¸€ä¸ªã€Œ!ã€å­—å…ƒ
+private void _join(object pl);                  // å°†ä¸‹è¡Œæ–‡å­—ç§»åˆ°æ­¤è¡Œå¾Œé¢
+private void _keymap(object pl);                // å®šä¹‰æ–°åŠŸèƒ½é”®
+protected void _keymap_done(string str, object pl); // å–å¾—å®šä¹‰åŠŸèƒ½é”®
+private void _left(object pl);                  // æ¸¸æ ‡å¾€å·¦ç§»ä¸€å­—
+// åœ¨çŠ¶æ€åˆ—æ˜¾ç¤ºè®¯æ¯
 private varargs void _message(object pl, string str, string callback, int hide,
 mixed arg);
-protected void _message_done(string str, object pl); // ½áÊøÑ¶Ï¢µÄÏÔÊ¾
-private void _next_match(object pl);            // ËÑÑ°/Ìæ»»ÏÂ¸ö·ûºÏ×Ö´®
-private void _page_down(object pl);             // ÍùÏÂ¾íÒ»Ò³£¨22 ĞĞ£©
-private void _page_up(object pl);               // ÍùÉÏ¾íÒ»Ò³£¨22 ĞĞ£©
-private void _process(object pl);               // ´¦ÀíÊäÈëÄ£Ê½µÄ×Ö´®ÊäÈë
-protected void _quit(mixed unused, mixed pl);   // Àë¿ª±à¼­Æ÷
-private void _refresh(object pl);               // ¸üĞÂ»­Ãæ
-private void _refresh_cursor(object pl);        // ¸üĞÂÓÎ±êÎ»ÖÃ
-// ÖØ»æ»­Ãæ
+protected void _message_done(string str, object pl); // ç»“æŸè®¯æ¯çš„æ˜¾ç¤º
+private void _next_match(object pl);            // æœå¯»/æ›¿æ¢ä¸‹ä¸ªç¬¦åˆå­—ä¸²
+private void _page_down(object pl);             // å¾€ä¸‹å·ä¸€é¡µï¼ˆ22 è¡Œï¼‰
+private void _page_up(object pl);               // å¾€ä¸Šå·ä¸€é¡µï¼ˆ22 è¡Œï¼‰
+private void _process(object pl);               // å¤„ç†è¾“å…¥æ¨¡å¼çš„å­—ä¸²è¾“å…¥
+protected void _quit(mixed unused, mixed pl);   // ç¦»å¼€ç¼–è¾‘å™¨
+private void _refresh(object pl);               // æ›´æ–°ç”»é¢
+private void _refresh_cursor(object pl);        // æ›´æ–°æ¸¸æ ‡ä½ç½®
+// é‡ç»˜ç”»é¢
 private void _refresh_screen(object pl, int s_row, int e_row, int s_col);
-private void _refresh_status(object pl);        // ¸üĞÂ×´Ì¬ÁĞ
-private void _replace(object pl);               // ×Ö´®Ìæ»»
-protected void _replace_done(string str, object pl); // È¡µÃÌæ»»×Ö´®
-private void _right(object pl, int col, int extra);  // ÓÎ±êÍùÓÒÒÆÒ»×Ö
-private void _search(object pl);                     // ×Ö´®ËÑÑ°
-protected void _search_done(string str, object pl);  // È¡µÃËÑÑ°×Ö´®
-private void _tab(object pl);                        // ÃüÁîÄ£Ê½ÏÂ TAB ¼üµÄ¶¨Î»
-private void _undef_key(object pl);                  // È¡ÏûÄ³¹¦ÄÜ¼ü¶¨Òå
-protected void _undef_key_done(string str, object pl); // È¡µÃÖ¸¶¨¹¦ÄÜ¼ü
-private void _up(object pl);                           // ÓÎ±êÍùÉÏÒÆÒ»ĞĞ
-private void _write(object pl);                        // È¡µÃ´¢´æµµ°¸Ãû³Æ
-protected void _write_done(string str, object pl, int quit); // ´¢´æµµ°¸
+private void _refresh_status(object pl);        // æ›´æ–°çŠ¶æ€åˆ—
+private void _replace(object pl);               // å­—ä¸²æ›¿æ¢
+protected void _replace_done(string str, object pl); // å–å¾—æ›¿æ¢å­—ä¸²
+private void _right(object pl, int col, int extra);  // æ¸¸æ ‡å¾€å³ç§»ä¸€å­—
+private void _search(object pl);                     // å­—ä¸²æœå¯»
+protected void _search_done(string str, object pl);  // å–å¾—æœå¯»å­—ä¸²
+private void _tab(object pl);                        // å‘½ä»¤æ¨¡å¼ä¸‹ TAB é”®çš„å®šä½
+private void _undef_key(object pl);                  // å–æ¶ˆæŸåŠŸèƒ½é”®å®šä¹‰
+protected void _undef_key_done(string str, object pl); // å–å¾—æŒ‡å®šåŠŸèƒ½é”®
+private void _up(object pl);                           // æ¸¸æ ‡å¾€ä¸Šç§»ä¸€è¡Œ
+private void _write(object pl);                        // å–å¾—å‚¨å­˜æ¡£æ¡ˆåç§°
+protected void _write_done(string str, object pl, int quit); // å‚¨å­˜æ¡£æ¡ˆ
 
-private mapping EditedFiles=([ ]);              // ±à¼­ÖĞµÄµµ°¸
+private mapping EditedFiles=([ ]);              // ç¼–è¾‘ä¸­çš„æ¡£æ¡ˆ
 /*
-int iS_Row, iE_Row,                             // ¿É¼ûÊÓ´°µÄÊ¼Ä©ĞĞºÅ
-    iS_Col, iE_Col,                             // ¿É¼ûÊÓ´°µÄÊ¼Î´À¸Î»
-    iRow,   iCol,                               // ÓÎ±êÎ»ÖÃ
-    is_Command_Mode, is_NewFile, is_Modify,     // µµ°¸×´¿öÆì±ê
-    is_Substituted;                             // ´ú»»ÄÚÂëÆì±ê
-string *sText,                                  // µµ°¸ÄÚÈİ
-       sChar, sOldChar,                         // ÊäÈë×Ö´®£¨ÃüÁî£©
-       sCount,                                  // ÃüÁî¼ÆÊı
-       sFileName,                               // ±à¼­µµÃû
-       sSearch, sReplace;                       // ËÑÑ°/Ìæ»»×Ö´®
-mapping keymap;                                 // ¹¦ÄÜ¼ü¶¨Òå¶ÔÕÕ±í
+int iS_Row, iE_Row,                             // å¯è§è§†çª—çš„å§‹æœ«è¡Œå·
+    iS_Col, iE_Col,                             // å¯è§è§†çª—çš„å§‹æœªæ ä½
+    iRow,   iCol,                               // æ¸¸æ ‡ä½ç½®
+    is_Command_Mode, is_NewFile, is_Modify,     // æ¡£æ¡ˆçŠ¶å†µæ——æ ‡
+    is_Substituted;                             // ä»£æ¢å†…ç æ——æ ‡
+string *sText,                                  // æ¡£æ¡ˆå†…å®¹
+       sChar, sOldChar,                         // è¾“å…¥å­—ä¸²ï¼ˆå‘½ä»¤ï¼‰
+       sCount,                                  // å‘½ä»¤è®¡æ•°
+       sFileName,                               // ç¼–è¾‘æ¡£å
+       sSearch, sReplace;                       // æœå¯»/æ›¿æ¢å­—ä¸²
+mapping keymap;                                 // åŠŸèƒ½é”®å®šä¹‰å¯¹ç…§è¡¨
 */
 
-void start_edit(string file)                // ºô½Ğ±à¼­Æ÷£¬¿ªÊ¼±à¼­
+void start_edit(string file)                // å‘¼å«ç¼–è¾‘å™¨ï¼Œå¼€å§‹ç¼–è¾‘
 {
         int  i;
         mapping me;
@@ -85,7 +85,7 @@ void start_edit(string file)                // ºô½Ğ±à¼­Æ÷£¬¿ªÊ¼±à¼­
 
         if (objectp(EditedFiles[file]))
         {
-                write(sprintf("%s ÕıÔÚ±à¼­Õâ¸öµµ°¸£¬ÇëÉÔºòÔÙ±à¼­¡£\n",
+                write(sprintf("%s æ­£åœ¨ç¼–è¾‘è¿™ä¸ªæ¡£æ¡ˆï¼Œè¯·ç¨å€™å†ç¼–è¾‘ã€‚\n",
                         capitalize(EditedFiles[file]->query("id"))));
                 return;
         } // if
@@ -93,10 +93,10 @@ void start_edit(string file)                // ºô½Ğ±à¼­Æ÷£¬¿ªÊ¼±à¼­
         me = this_player()->query_temp("me");
         me["sFileName"] = file;
         if (file_size(file) <= 0)
-        {        // µµ°¸³¤¶ÈĞ¡ì¶ 1
+        {        // æ¡£æ¡ˆé•¿åº¦å°æ–¼ 1
                 me["sText"] = ({ "" });
                 if (file_size(file) < 0)
-                {        // ĞÂµµ
+                {        // æ–°æ¡£
                         me["is_Command_Mode"] = 0;
                         me["is_NewFile"] = 1;
                 }
@@ -105,13 +105,13 @@ void start_edit(string file)                // ºô½Ğ±à¼­Æ÷£¬¿ªÊ¼±à¼­
         {
                 string content=read_file(file), tabs="        ";
 
-                // µµ°¸³¤¶È´óì¶ 0
+                // æ¡£æ¡ˆé•¿åº¦å¤§æ–¼ 0
                 me["is_Command_Mode"] = 1;
                 me["is_NewFile"] = 0;
                 if (stringp(content))
                 {
                         me["sText"] = explode(read_file(file), "\n");
-                        // ½« TAB£¬ÒÔ 8 ¸ö¿Õ°×´úÌæ£¬ÒÔ·½±ãÓÎ±êÎ»ÖÃµÄ¼ÆËã
+                        // å°† TABï¼Œä»¥ 8 ä¸ªç©ºç™½ä»£æ›¿ï¼Œä»¥æ–¹ä¾¿æ¸¸æ ‡ä½ç½®çš„è®¡ç®—
                         for (i=sizeof(me["sText"])-1; i>=0; i--)
                         {
                                 int len=sizeof(me["sText"][i]);
@@ -131,53 +131,53 @@ void start_edit(string file)                // ºô½Ğ±à¼­Æ÷£¬¿ªÊ¼±à¼­
         me["iS_Row"] = me["iS_Col"] = me["iRow"] = me["iCol"] = 1;
         EditedFiles += ([ file: this_player()->link() ]);
 
-        // È¡µÃ/Éè¶¨¹¦ÄÜ¼ü¶¨Òå¶ÔÕÕ±í
+        // å–å¾—/è®¾å®šåŠŸèƒ½é”®å®šä¹‰å¯¹ç…§è¡¨
              if (!mapp(me["keymap"] = this_player()->query("me_keymap")))
                      me["keymap"] = ([ ]);
         if (this_player()->query("me_no_help") ||
             this_player()->query_temp("no_me_help"))
-        {        // ·ÇµÚÒ»´ÎÊ¹ÓÃ±à¼­Æ÷£¬Ö±½Ó½øÈë±à¼­Æ÷
+        {        // éç¬¬ä¸€æ¬¡ä½¿ç”¨ç¼–è¾‘å™¨ï¼Œç›´æ¥è¿›å…¥ç¼–è¾‘å™¨
                 _refresh_screen(this_player(), 1, 23, 1);
 
                 get_char("_input", HIDE, this_player());
         }
         else
-        {        // µÚÒ»´ÎÊ¹ÓÃ±à¼­Æ÷£¬ÏÈ¿´¹¦ÄÜËµÃ÷
+        {        // ç¬¬ä¸€æ¬¡ä½¿ç”¨ç¼–è¾‘å™¨ï¼Œå…ˆçœ‹åŠŸèƒ½è¯´æ˜
                 this_player()->set_temp("no_me_help", 1);
                 _help(this_player());
         }
 } // start_edit()
 
 
-private void _refresh_cursor(object pl)        // ¸üĞÂÓÎ±êÎ»ÖÃ
+private void _refresh_cursor(object pl)        // æ›´æ–°æ¸¸æ ‡ä½ç½®
 {
         mapping me=pl->query_temp("me");
         printf(ESC "[%d;%df", me["iRow"]+1, me["iCol"]);
 } // _refresh_cursor()
 
 
-private void _refresh_status(object pl)        // ¸üĞÂ×´Ì¬ÁĞ
+private void _refresh_status(object pl)        // æ›´æ–°çŠ¶æ€åˆ—
 {
         mapping me=pl->query_temp("me");
 
-        // ÒÆ¶¯ÓÎ±êµ½ (1,1)£¬ÓÃ·´Ïà×ÖÔªÏÔÊ¾×´Ì¬ÁĞ
-        printf(HOME + NOR + REV + "ÁĞ:%4d ĞĞ:%3d %-43s %10s [ÃüÁîÄ£Ê½]" + NOR,
+        // ç§»åŠ¨æ¸¸æ ‡åˆ° (1,1)ï¼Œç”¨åç›¸å­—å…ƒæ˜¾ç¤ºçŠ¶æ€åˆ—
+        printf(HOME + NOR + REV + "åˆ—:%4d è¡Œ:%3d %-43s %10s [å‘½ä»¤æ¨¡å¼]" + NOR,
                 me["iS_Row"]+me["iRow"]-1, me["iS_Col"]+me["iCol"]-1,
-                sprintf("%s %s", me["sFileName"], (me["is_Modify"]? "(ÒÑĞŞ¸Ä)":
-                (me["is_NewFile"]? "(ĞÂµµ)": "")))[0..42],
-                (me["is_Command_Mode"]? "?:¸¨Öú»­Ãæ": "[ÊäÈëÄ£Ê½]"));
+                sprintf("%s %s", me["sFileName"], (me["is_Modify"]? "(å·²ä¿®æ”¹)":
+                (me["is_NewFile"]? "(æ–°æ¡£)": "")))[0..42],
+                (me["is_Command_Mode"]? "?:è¾…åŠ©ç”»é¢": "[è¾“å…¥æ¨¡å¼]"));
         _refresh_cursor(pl);
 } // _refresh_status()
 
 
-// ÖØ»æ»­Ãæ
+// é‡ç»˜ç”»é¢
 private void _refresh_screen(object pl, int s_row, int e_row, int s_col)
 {
         int  i, temp;
         mapping me=pl->query_temp("me");
 
 
-        if (e_row < s_row)                // ¼ì²éÊ¼Ä©ĞĞºÅµÄÏÈáá´ÎĞò
+        if (e_row < s_row)                // æ£€æŸ¥å§‹æœ«è¡Œå·çš„å…ˆå¾Œæ¬¡åº
         {
                 temp = e_row;
                 e_row = s_row;
@@ -186,54 +186,54 @@ private void _refresh_screen(object pl, int s_row, int e_row, int s_col)
 
         if (s_row < 1) s_row = 1;
         if (s_col < 1) s_col = 1;
-        if (e_row > sizeof(me["sText"])) // ²»ÄÜ³¬¹ıµµÎ²
+        if (e_row > sizeof(me["sText"])) // ä¸èƒ½è¶…è¿‡æ¡£å°¾
                 e_row = sizeof(me["sText"]);
         if (e_row-s_row > 22) e_row = s_row+22;
 
         me["iS_Row"] = s_row;        me["iE_Row"] = e_row;
         me["iS_Col"] = s_col;        me["iE_Col"] = s_col+79;
 
-        printf(REF+NOR);                // Çå³ı»­Ãæ£¬ÒÆ¶¯ÓÎ±êµ½ (1,1)
+        printf(REF+NOR);                // æ¸…é™¤ç”»é¢ï¼Œç§»åŠ¨æ¸¸æ ‡åˆ° (1,1)
         for (i=me["iS_Row"]-1; i<me["iE_Row"]; i++)
                 printf("\r\n%s", me["sText"][i][me["iS_Col"]-1..me["iE_Col"]-1]);
         for (i=me["iS_Row"]+22-me["iE_Row"]; i>0; i--)
-                printf("\r\n~");        // ²»×ãĞĞºÅÓÃ ~ ±íÊ¾
+                printf("\r\n~");        // ä¸è¶³è¡Œå·ç”¨ ~ è¡¨ç¤º
         _refresh_status(pl);
 } // _refresh_screen()
 
 
-protected void _input(string str, object pl, int fresh) // ¶ÁµÃÊäÈë×Ö´®
+protected void _input(string str, object pl, int fresh) // è¯»å¾—è¾“å…¥å­—ä¸²
 {
         int    i, size, bs=0;
         string *chars;
         mapping me=pl->query_temp("me");
 
         if (fresh)
-        {        // ÖØ»æ»­Ãæ
+        {        // é‡ç»˜ç”»é¢
                 _refresh_screen(pl, me["iS_Row"], me["iE_Row"], me["iS_Col"]);
                 get_char("_input", HIDE, pl);
                 return;
         }
 
-        me["is_Substituted"] = 1;       // ÏÈÉè¶¨´ú»»ÄÚÂëÆì±ê
-        if (str == "")                  // ´ú»»µô Backspace/Ctrl-Backspace
+        me["is_Substituted"] = 1;       // å…ˆè®¾å®šä»£æ¢å†…ç æ——æ ‡
+        if (str == "")                  // ä»£æ¢æ‰ Backspace/Ctrl-Backspace
         {
                 str = "BACKSPACE";
                 bs = 1;
         }
         if (str[0] == 27)
         {
-                chars = explode(str, ESC);      // ÒİÍÑÂëµÄ×Ö´®£¬ÒÔ ESC ¶Ï¿ª
+                chars = explode(str, ESC);      // é€¸è„±ç çš„å­—ä¸²ï¼Œä»¥ ESC æ–­å¼€
                 for (i=sizeof(chars)-1; i>=0; i--)
-                        chars[i] = ESC + chars[i];      // ¼Ó»Ø ESC
-                if (sizeof(chars) == 0)                 // ÈôÖ»ÊÇµ¥Ò»×ÖÔª ESC
+                        chars[i] = ESC + chars[i];      // åŠ å› ESC
+                if (sizeof(chars) == 0)                 // è‹¥åªæ˜¯å•ä¸€å­—å…ƒ ESC
                         chars = ({ ESC });
         }
         else    chars = ({ str });
 
         size = sizeof(chars);
         for (i=0; i<size; i++)
-        {        // ×ª»»ÒİÍÑÂëÎª±à¼­Æ÷ÄÚÂë
+        {        // è½¬æ¢é€¸è„±ç ä¸ºç¼–è¾‘å™¨å†…ç 
                 switch (chars[i])
                 {
                 case "\t":       me["sChar"] = "TAB";   break;
@@ -273,7 +273,7 @@ protected void _input(string str, object pl, int fresh) // ¶ÁµÃÊäÈë×Ö´®
                         if (sizeof(chars[i])==1 &&
                             0<chars[i][0] && chars[i][0]<27)
                                 switch (chars[i][0])
-                                { // ´ú»»ÄÚÂë£¬Ê¹ÔÚÊäÈëÄ£Ê½Ò²ÄÜÊ¹ÓÃÖ¸Áî
+                                { // ä»£æ¢å†…ç ï¼Œä½¿åœ¨è¾“å…¥æ¨¡å¼ä¹Ÿèƒ½ä½¿ç”¨æŒ‡ä»¤
                                 case  1: me["sChar"]="Ctrl-A"; break;
                                 case  2: me["sChar"]="Ctrl-B"; break;
                                 case  4: me["sChar"]="Ctrl-D"; break;
@@ -298,50 +298,50 @@ protected void _input(string str, object pl, int fresh) // ¶ÁµÃÊäÈë×Ö´®
                         } // switch
                         else
                         {
-                                me["sChar"] = chars[i];            // ´ËÎªÆÕÍ¨×Ö´®
-                                if (!bs) me["is_Substituted"] = 0; // Çå³ı´ú»»ÄÚ
+                                me["sChar"] = chars[i];            // æ­¤ä¸ºæ™®é€šå­—ä¸²
+                                if (!bs) me["is_Substituted"] = 0; // æ¸…é™¤ä»£æ¢å†…
                         } // else
                 } // switch
-                // ½«×ª»»ááµÄ×Ö´®ËÍµ½·ÖÅÉÖ¸Áîº¯Ê½´¦Àí£¬²¢µÈ´ı¶ÁÈ¡ÏÂ¸öÊäÈë
+                // å°†è½¬æ¢å¾Œçš„å­—ä¸²é€åˆ°åˆ†æ´¾æŒ‡ä»¤å‡½å¼å¤„ç†ï¼Œå¹¶ç­‰å¾…è¯»å–ä¸‹ä¸ªè¾“å…¥
                 if (_dispatcher(pl) && i==size-1) get_char("_input", HIDE, pl);
         } // for
 } // input()
 
 
-private int _dispatcher(object pl)                // ·ÖÅÉÖ¸Áîµ½²»Í¬º¯Ê½
+private int _dispatcher(object pl)                // åˆ†æ´¾æŒ‡ä»¤åˆ°ä¸åŒå‡½å¼
 {
         int  i, count=1;
         mapping me=pl->query_temp("me");
 
 
         if ( me["is_Command_Mode"] ||
-            (me["is_Substituted"] && // ÈÃÊäÈëÄ£Ê½Ò²ÄÜÊ¹ÓÃÄ³Ğ©Ö¸Áî
-             // Õâ¶ş¸öÖ¸Áî²»ÔÚÕâ´¦Àí
+            (me["is_Substituted"] && // è®©è¾“å…¥æ¨¡å¼ä¹Ÿèƒ½ä½¿ç”¨æŸäº›æŒ‡ä»¤
+             // è¿™äºŒä¸ªæŒ‡ä»¤ä¸åœ¨è¿™å¤„ç†
              me["sChar"]!="ENTER" && me["sChar"]!="TAB") )
-        {        // ÏÖÔÚÊÇÃüÁîÄ£Ê½
+        {        // ç°åœ¨æ˜¯å‘½ä»¤æ¨¡å¼
                 if (sizeof(me["sChar"])!=1 && !me["is_Substituted"])
                         return 1;
-                // ¼ì²é¹¦ÄÜ¼ü¶¨Òå¶ÔÕÕ±í£¬ÖØĞÂ¶¨ÒåÃüÁî
+                // æ£€æŸ¥åŠŸèƒ½é”®å®šä¹‰å¯¹ç…§è¡¨ï¼Œé‡æ–°å®šä¹‰å‘½ä»¤
                 if (!undefinedp(me["keymap"][me["sChar"]]))
                         me["sChar"] =
                         me["keymap"][me["sChar"]];
                 if (!stringp(me["sChar"])) return 1; // Type checking...
-                // ¼ì²éÊÇÊı×ÖµÄ»°£¬¾ÍÊÇ¸½¼Óµ½ÃüÁî¼ÆÊıÀï
+                // æ£€æŸ¥æ˜¯æ•°å­—çš„è¯ï¼Œå°±æ˜¯é™„åŠ åˆ°å‘½ä»¤è®¡æ•°é‡Œ
                 if ('0'<=me["sChar"][0] && me["sChar"][0]<='9')
                         me["sCount"] += me["sChar"];
                 else
                 {
                         sscanf(me["sCount"], "%d", count);
-                        me["sCount"] = ""; // ¼ÆÊıÆ÷¹éÁã
-                        // ÖØ¸²ÉÏ¸öÖ¸Áî
+                        me["sCount"] = ""; // è®¡æ•°å™¨å½’é›¶
+                        // é‡è¦†ä¸Šä¸ªæŒ‡ä»¤
                         if (me["sChar"] == ".")
                                 me["sChar"] = me["sOldChar"];
-                        else        // ¼ÇÂ¼Õâ´ÎµÄÖ¸Áî
+                        else        // è®°å½•è¿™æ¬¡çš„æŒ‡ä»¤
                                 me["sOldChar"] = me["sChar"];
                 }
 
                 for (i=0; i<count; i++)
-                        switch (me["sChar"]) // ·ÖÅÉÖ¸Áîµ½²»Í¬º¯Ê½
+                        switch (me["sChar"]) // åˆ†æ´¾æŒ‡ä»¤åˆ°ä¸åŒå‡½å¼
                         {
                         case "a":_append(pl);                           break;
                         case "d":
@@ -369,7 +369,7 @@ private int _dispatcher(object pl)                // ·ÖÅÉÖ¸Áîµ½²»Í¬º¯Ê½
                         case "n":
                         case "Ctrl-N": _next_match(pl);                break;
                         case "o": _append_line(pl);                    break;
-                        case "q":        // ±íÊ¾²»ÔÙ¶ÁÈ¡ĞÂÊäÈë£¬½áÊø±à¼­
+                        case "q":        // è¡¨ç¤ºä¸å†è¯»å–æ–°è¾“å…¥ï¼Œç»“æŸç¼–è¾‘
                         case "F4":
                         case "Ctrl-Q": _quit(0, pl);                return 0;
                         case "r":
@@ -413,13 +413,13 @@ private int _dispatcher(object pl)                // ·ÖÅÉÖ¸Áîµ½²»Í¬º¯Ê½
                         } // switch
         } // if me["is_Command_Mode"]
         else
-                _process(pl);                // ´¦ÀíÊäÈëÄ£Ê½µÄ×Ö´®ÊäÈë
+                _process(pl);                // å¤„ç†è¾“å…¥æ¨¡å¼çš„å­—ä¸²è¾“å…¥
 
-        return 1;                        // ±íÊ¾¼ÌĞø¶ÁÈ¡ĞÂÊäÈë£¬¼ÌĞø±à¼­
+        return 1;                        // è¡¨ç¤ºç»§ç»­è¯»å–æ–°è¾“å…¥ï¼Œç»§ç»­ç¼–è¾‘
 } // dispatcher()
 
 
-private void _append(object pl)                // ÔÚÓÎ±êááÃæ¼Ó×Ö
+private void _append(object pl)                // åœ¨æ¸¸æ ‡å¾Œé¢åŠ å­—
 {
         mapping me=pl->query_temp("me");
 
@@ -430,7 +430,7 @@ private void _append(object pl)                // ÔÚÓÎ±êááÃæ¼Ó×Ö
 } // _append()
 
 
-private void _append_line(object pl)        // ÔÚÓÎ±êµ×ÏÂ¼ÓÒ»ĞÂĞĞ
+private void _append_line(object pl)        // åœ¨æ¸¸æ ‡åº•ä¸‹åŠ ä¸€æ–°è¡Œ
 {
         string *text;
         mapping me=pl->query_temp("me");
@@ -446,7 +446,7 @@ private void _append_line(object pl)        // ÔÚÓÎ±êµ×ÏÂ¼ÓÒ»ĞÂĞĞ
 } // _append_line()
 
 
-private void _backspace(object pl)        // É¾³ıÓÎ±êÇ°µÄ×Ö
+private void _backspace(object pl)        // åˆ é™¤æ¸¸æ ‡å‰çš„å­—
 {
         mapping me=pl->query_temp("me");
 
@@ -456,19 +456,19 @@ private void _backspace(object pl)        // É¾³ıÓÎ±êÇ°µÄ×Ö
 } // _backspace()
 
 
-protected void _confirm_save(string str, object pl) // Àë¿ª±à¼­Æ÷Ç°È·ÈÏ´æµµ
+protected void _confirm_save(string str, object pl) // ç¦»å¼€ç¼–è¾‘å™¨å‰ç¡®è®¤å­˜æ¡£
 {
         mapping me=pl->query_temp("me");
 
         if (str=="y" || str=="Y") return _write_done("", pl, 1);
-        me["is_Modify"] = 0;                // Éè¶¨¡¸Î´ĞŞ¸Ä¡¹Æì±ê
+        me["is_Modify"] = 0;                // è®¾å®šã€Œæœªä¿®æ”¹ã€æ——æ ‡
         _quit(0, pl);
 } // _confirm_save()
 
 
-private void _del_char(object pl, int bs)                // É¾³ıÓÎ±êÉÏµÄ×Ö
+private void _del_char(object pl, int bs)                // åˆ é™¤æ¸¸æ ‡ä¸Šçš„å­—
 {
-        int    go_left=0;                // ÊÇ·ñÔÚÉ¾³ıááÒª×óÒÆÓÎ±ê
+        int    go_left=0;                // æ˜¯å¦åœ¨åˆ é™¤å¾Œè¦å·¦ç§»æ¸¸æ ‡
         string str;
         mapping me=pl->query_temp("me");
 
@@ -487,12 +487,12 @@ private void _del_char(object pl, int bs)                // É¾³ıÓÎ±êÉÏµÄ×Ö
                 return;
         str = me["sText"][me["iS_Row"]+me["iRow"]-2][0..me["iS_Col"]+
                 me["iCol"]-3];
-        // ¼ì²éÊÇ·ñĞèÒª¸½¼ÓÊ£ÏÂµÄÄÚÈİ
+        // æ£€æŸ¥æ˜¯å¦éœ€è¦é™„åŠ å‰©ä¸‹çš„å†…å®¹
         if (me["iS_Col"]+me["iCol"]-1 <
             sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2]))
                 str += me["sText"][me["iS_Row"]+
                 me["iRow"]-2][me["iS_Col"]+me["iCol"]-1..<1];
-        else        go_left = 1;                // ÒòÎªÊÇÉ¾³ıĞĞÎ²µÄ×Ö£¬ËùÒÔÒª×ó 
+        else        go_left = 1;                // å› ä¸ºæ˜¯åˆ é™¤è¡Œå°¾çš„å­—ï¼Œæ‰€ä»¥è¦å·¦ 
 	me["sText"][me["iS_Row"]+me["iRow"]-2] = str;
         printf(ESC "[%d;1f%-80s", me["iRow"]+1,        me["sText"][me["iS_Row"]+
                 me["iRow"]-2][me["iS_Col"]-1..me["iE_Col"]-1]);
@@ -501,7 +501,7 @@ private void _del_char(object pl, int bs)                // É¾³ıÓÎ±êÉÏµÄ×Ö
 } // _del_char()
 
 
-private void _del_line(object pl)        // É¾³ıÕûĞĞ
+private void _del_line(object pl)        // åˆ é™¤æ•´è¡Œ
 {
         string *text=({ });
         mapping me=pl->query_temp("me");
@@ -513,48 +513,48 @@ private void _del_line(object pl)        // É¾³ıÕûĞĞ
         me["sText"] = text;
         _refresh_screen(pl, me["iS_Row"], me["iE_Row"], me["iS_Col"]);
         if (me["iS_Row"]+me["iRow"]-1 > sizeof(me["sText"]))
-                _up(pl);                // ÈôÊÇÉ¾³ı×îááÒ»ĞĞ£¬¾ÍÒªÉÏÒÆÓÎ±ê
-        // ÈôÓÎ±êµÄĞÂÎ»ÖÃ³¬¹ıĞĞÎ²£¬ÔòÒÆ¶¯ÓÎ±êµ½ĞĞÎ²
+                _up(pl);                // è‹¥æ˜¯åˆ é™¤æœ€å¾Œä¸€è¡Œï¼Œå°±è¦ä¸Šç§»æ¸¸æ ‡
+        // è‹¥æ¸¸æ ‡çš„æ–°ä½ç½®è¶…è¿‡è¡Œå°¾ï¼Œåˆ™ç§»åŠ¨æ¸¸æ ‡åˆ°è¡Œå°¾
         else if (me["iS_Col"]+me["iCol"]-1 >
             sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2]))
             _end(pl);
 } // _del_line()
 
 
-private void _down(object pl)                // ÓÎ±êÍùÏÂÒÆÒ»ĞĞ
+private void _down(object pl)                // æ¸¸æ ‡å¾€ä¸‹ç§»ä¸€è¡Œ
 {
         int  acc;
         mapping me=pl->query_temp("me");
 
 
-        // ¼ì²éÊÇ·ñÒÑÔÚµµÎ²
+        // æ£€æŸ¥æ˜¯å¦å·²åœ¨æ¡£å°¾
         if (me["iS_Row"]+me["iRow"]-1 >= sizeof(me["sText"]))
-                // ÈôÒÑÏÔÊ¾µµÎ²ÏÂÒ»ĞĞ£¬Ôò²»×öÊÂ
+                // è‹¥å·²æ˜¾ç¤ºæ¡£å°¾ä¸‹ä¸€è¡Œï¼Œåˆ™ä¸åšäº‹
                 if (me["iRow"] < 23) return;
                 else
-                {        // ¶àÏÔÊÓµµÎ²ÏÂÒ»ĞĞ£¬ÒÔÍ»ÏÔµµÎ²µÄ´æÔÚ
+                {        // å¤šæ˜¾è§†æ¡£å°¾ä¸‹ä¸€è¡Œï¼Œä»¥çªæ˜¾æ¡£å°¾çš„å­˜åœ¨
                         me["iS_Row"]++;
                         printf(ESC "[24;1f\r\n~");
                         me["iRow"] = 22;
                 }
         else if (++me["iRow"] > 23)
-        {        // »­ÃæÉÏ¾í£¬ÏÔÊ¾ÏÂÒ»ĞĞ
+        {        // ç”»é¢ä¸Šå·ï¼Œæ˜¾ç¤ºä¸‹ä¸€è¡Œ
                 me["iS_Row"]++;                me["iE_Row"]++;
                 printf(ESC "[24;1f\r\n%s", me["sText"][me["iE_Row"]-1]
                         [me["iS_Col"]-1..me["iE_Col"]-1]);
                 me["iRow"] = 23;
         }
 
-        // ÈôÓÎ±êµÄĞÂÎ»ÖÃ³¬¹ıĞĞÎ²£¬ÔòÒÆ¶¯ÓÎ±êµ½ĞĞÎ²
+        // è‹¥æ¸¸æ ‡çš„æ–°ä½ç½®è¶…è¿‡è¡Œå°¾ï¼Œåˆ™ç§»åŠ¨æ¸¸æ ‡åˆ°è¡Œå°¾
         if (me["iS_Col"]+me["iCol"]-1 >
             sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2]))
                 me["iCol"] = sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2])-
                         me["iS_Col"]+(me["is_Command_Mode"]?1:2);
-        // Èô´ËĞĞÎŞ×Ö£¬Ôò¶¨Î»ÔÚµÚÒ»À¸
+        // è‹¥æ­¤è¡Œæ— å­—ï¼Œåˆ™å®šä½åœ¨ç¬¬ä¸€æ 
         if (me["iCol"]==0 && me["iS_Col"]==1) me["iCol"] = 1;
         if (me["iCol"] > 0)_refresh_status(pl);
         else
-        {        // ÓÎ±êµÄĞÂÎ»ÖÃÔÚÔ­»­ÃæÍâ£¬ĞèÒªÖØ»æ»­Ãæ
+        {        // æ¸¸æ ‡çš„æ–°ä½ç½®åœ¨åŸç”»é¢å¤–ï¼Œéœ€è¦é‡ç»˜ç”»é¢
                 acc = me["iCol"];        me["iCol"] = 1;
                 _refresh_screen(pl, me["iS_Row"], me["iE_Row"],
                         me["iS_Col"]+acc-1);
@@ -562,19 +562,19 @@ private void _down(object pl)                // ÓÎ±êÍùÏÂÒÆÒ»ĞĞ
 } // _down()
 
 
-private void _end(object pl)                // ½«ÓÎ±êÒÆµ½ĞĞÎ²
+private void _end(object pl)                // å°†æ¸¸æ ‡ç§»åˆ°è¡Œå°¾
 {
         mapping me=pl->query_temp("me");
 
         if (sizeof(me["sText"]) == 0) return;
-        // ¼ÆËãĞĞÎ²µÄÎ»ÖÃ
+        // è®¡ç®—è¡Œå°¾çš„ä½ç½®
         me["iCol"] = sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2])-
                 me["iS_Col"]+(me["is_Command_Mode"]?1:2);
-        if (me["iCol"] == 0) me["iCol"] = 1; // Èô´ËĞĞÎŞ×Ö£¬Ôò¶¨Î»ÔÚµÚÒ»À¸
+        if (me["iCol"] == 0) me["iCol"] = 1; // è‹¥æ­¤è¡Œæ— å­—ï¼Œåˆ™å®šä½åœ¨ç¬¬ä¸€æ 
         if (sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2]) < me["iE_Col"])
                     _refresh_status(pl);
         else
-        {        // ÓÎ±êµÄĞÂÎ»ÖÃÔÚÔ­»­ÃæÍâ£¬ĞèÒªÖØ»æ»­Ãæ
+        {        // æ¸¸æ ‡çš„æ–°ä½ç½®åœ¨åŸç”»é¢å¤–ï¼Œéœ€è¦é‡ç»˜ç”»é¢
                 me["iCol"] = 79;
                 _refresh_screen(pl, me["iS_Row"], me["iE_Row"], me["iS_Col"]+
                         (sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2])-
@@ -583,7 +583,7 @@ private void _end(object pl)                // ½«ÓÎ±êÒÆµ½ĞĞÎ²
 } // _end()
 
 
-private void _esc(object pl)                // ´ÓÊäÈëÄ£Ê½»Øµ½ÃüÁîÄ£Ê½
+private void _esc(object pl)                // ä»è¾“å…¥æ¨¡å¼å›åˆ°å‘½ä»¤æ¨¡å¼
 {
         mapping me=pl->query_temp("me");
         me["is_Command_Mode"] = 1;
@@ -591,7 +591,7 @@ private void _esc(object pl)                // ´ÓÊäÈëÄ£Ê½»Øµ½ÃüÁîÄ£Ê½
 } // _esc()
 
 
-private void _file_end(object pl)        // ½«ÓÎ±êÒÆµ½µµÎ²
+private void _file_end(object pl)        // å°†æ¸¸æ ‡ç§»åˆ°æ¡£å°¾
 {
         mapping me=pl->query_temp("me");
         if (sizeof(me["sText"]) == 0) return;
@@ -599,7 +599,7 @@ private void _file_end(object pl)        // ½«ÓÎ±êÒÆµ½µµÎ²
 } // _file_end()
 
 
-private void _file_head(object pl)        // ½«ÓÎ±êÒÆµ½µµÍ·
+private void _file_head(object pl)        // å°†æ¸¸æ ‡ç§»åˆ°æ¡£å¤´
 {
         mapping me=pl->query_temp("me");
         if (sizeof(me["sText"]) == 0) return;
@@ -607,74 +607,74 @@ private void _file_head(object pl)        // ½«ÓÎ±êÒÆµ½µµÍ·
 } // _file_head()
 
 
-private void _goto_line(object pl)        // Ìøµ½ÌØ¶¨ĞĞÈ¥
+private void _goto_line(object pl)        // è·³åˆ°ç‰¹å®šè¡Œå»
 {
         mapping me=pl->query_temp("me");
-        _message(pl, sprintf("ÇëÊäÈëĞĞºÅ£¨Ö±½Ó°´ ENTER È¡Ïû£¬1~%d)£º",
+        _message(pl, sprintf("è¯·è¾“å…¥è¡Œå·ï¼ˆç›´æ¥æŒ‰ ENTER å–æ¶ˆï¼Œ1~%d)ï¼š",
                 sizeof(me["sText"])), "_goto_line_done", ECHO, 1);
 } // _goto_line()
 
 
-protected void _goto_line_done(string str, object pl, int rein) // È¡µÃĞĞºÅ
+protected void _goto_line_done(string str, object pl, int rein) // å–å¾—è¡Œå·
 {
         int        no;
         mapping me=pl->query_temp("me");
 
         if (str == "") return _message_done("", pl);
         if (sscanf(str, "%d", no)!=1 || no<1 || no>sizeof(me["sText"]))
-                return _message(pl, "´íÎóµÄĞĞºÅ£¡", "_message_done", HIDE);
+                return _message(pl, "é”™è¯¯çš„è¡Œå·ï¼", "_message_done", HIDE);
 
         me["iCol"] = 1;
         if (me["iS_Row"]<=no && no<=me["iE_Row"])
-        {        // Ö¸¶¨ĞĞºÅÔÚÔ­¿ÉÊÓ·¶Î§ÖĞ
+        {        // æŒ‡å®šè¡Œå·åœ¨åŸå¯è§†èŒƒå›´ä¸­
                 me["iRow"] = no-me["iS_Row"]+1;
                 _refresh_status(pl);
         }
         else
-        {        // Ö¸¶¨ĞĞºÅ²»ÔÚÔ­¿ÉÊÓ·¶Î§ÖĞ£¬ĞèÒªÖØ»æ»­Ãæ
+        {        // æŒ‡å®šè¡Œå·ä¸åœ¨åŸå¯è§†èŒƒå›´ä¸­ï¼Œéœ€è¦é‡ç»˜ç”»é¢
                 me["iS_Row"] = no-11;
                 if (me["iS_Row"] < 1)        me["iS_Row"] = 1;
                 if (me["iE_Row"] < no+11)        me["iE_Row"] = no+11;
                 me["iRow"] = no-me["iS_Row"]+1;
                 _refresh_screen(pl, me["iS_Row"], me["iE_Row"], 1);
         }
-        if (rein) get_char("_input", HIDE, pl); // ¼ì²éÊÇ·ñĞèÒª¶ÁÈ¡ÏÂ´ÎÊäÈë
+        if (rein) get_char("_input", HIDE, pl); // æ£€æŸ¥æ˜¯å¦éœ€è¦è¯»å–ä¸‹æ¬¡è¾“å…¥
 } // _goto_line_done()
 
 
-private void _help(object pl)                // ¸¨Öú»­Ãæ
+private void _help(object pl)                // è¾…åŠ©ç”»é¢
 {
         printf(REF +
-"¡¾ LPMud È«Ó©Ä»±à¼­Æ÷ ¡¿1.3 °æ 3/25/1998  by Ğ»³çÏé(Kenny Hsieh), °æÈ¨ËùÓĞ.\r
+"ã€ LPMud å…¨è¤å¹•ç¼–è¾‘å™¨ ã€‘1.3 ç‰ˆ 3/25/1998  by è°¢å´‡ç¥¥(Kenny Hsieh), ç‰ˆæƒæ‰€æœ‰.\r
 \r
-a            ÔÚÓÎ±êááÃæ¼Ó×Ö               d  Ctrl-D    É¾³ıÕûĞĞ\r
-f  Ctrl-Z    ¸üĞÂ»­Ãæ                     g  Ctrl-G    Ìøµ½ÌØ¶¨ĞĞÈ¥\r
-h  Ctrl-J    ÓÎ±êÍù×óÒÆÒ»×Ö               i            ÔÚÓÎ±êÇ°Ãæ²å×Ö\r
-j  Ctrl-K    ÓÎ±êÍùÏÂÒÆÒ»ĞĞ               k  Ctrl-O    ÓÎ±êÍùÉÏÒÆÒ»ĞĞ\r
-l  Ctrl-L    ÓÎ±êÍùÓÒÒÆÒ»×Ö               m            ¶¨ÒåĞÂ¹¦ÄÜ¼ü\r
-n  Ctrl-N    ËÑÑ°/Ìæ»»ÏÂ¸ö·ûºÏ×Ö´®        o            ÔÚÓÎ±êµ×ÏÂ¼ÓÒ»ĞÂĞĞ\r
-q  Ctrl-Q    Àë¿ª±à¼­Æ÷                   r  Ctrl-R    ×Ö´®Ìæ»»\r
-s  Ctrl-S    ×Ö´®ËÑÑ°                     u            È¡ÏûÄ³¹¦ÄÜ¼ü¶¨Òå\r
-w  Ctrl-W    ´¢´æµµ°¸                     x  Ctrl-X    É¾³ıÓÎ±êÉÏµÄ×Ö\r
-A  Ctrl-A    ½«ÓÎ±êÒÆµ½ĞĞÊ×               B  Ctrl-B    ÍùÉÏ¾íÒ»Ò³£¨22 ĞĞ£©\r
-E  Ctrl-E    ½«ÓÎ±êÒÆµ½ĞĞÎ²               F  Ctrl-F    ÍùÏÂ¾íÒ»Ò³£¨22 ĞĞ£©\r
-J  Ctrl-P    ½«ÏÂĞĞÎÄ×Ö½Óµ½´ËĞĞááÃæ       O            ÔÚÓÎ±êÉÏ·½¼ÓÒ»ĞÂĞĞ\r
-U  Ctrl-U    ½«ÓÎ±êÒÆµ½µµÍ·               V  Ctrl-V    ½«ÓÎ±êÒÆµ½µµÎ²\r\n");
+a            åœ¨æ¸¸æ ‡å¾Œé¢åŠ å­—               d  Ctrl-D    åˆ é™¤æ•´è¡Œ\r
+f  Ctrl-Z    æ›´æ–°ç”»é¢                     g  Ctrl-G    è·³åˆ°ç‰¹å®šè¡Œå»\r
+h  Ctrl-J    æ¸¸æ ‡å¾€å·¦ç§»ä¸€å­—               i            åœ¨æ¸¸æ ‡å‰é¢æ’å­—\r
+j  Ctrl-K    æ¸¸æ ‡å¾€ä¸‹ç§»ä¸€è¡Œ               k  Ctrl-O    æ¸¸æ ‡å¾€ä¸Šç§»ä¸€è¡Œ\r
+l  Ctrl-L    æ¸¸æ ‡å¾€å³ç§»ä¸€å­—               m            å®šä¹‰æ–°åŠŸèƒ½é”®\r
+n  Ctrl-N    æœå¯»/æ›¿æ¢ä¸‹ä¸ªç¬¦åˆå­—ä¸²        o            åœ¨æ¸¸æ ‡åº•ä¸‹åŠ ä¸€æ–°è¡Œ\r
+q  Ctrl-Q    ç¦»å¼€ç¼–è¾‘å™¨                   r  Ctrl-R    å­—ä¸²æ›¿æ¢\r
+s  Ctrl-S    å­—ä¸²æœå¯»                     u            å–æ¶ˆæŸåŠŸèƒ½é”®å®šä¹‰\r
+w  Ctrl-W    å‚¨å­˜æ¡£æ¡ˆ                     x  Ctrl-X    åˆ é™¤æ¸¸æ ‡ä¸Šçš„å­—\r
+A  Ctrl-A    å°†æ¸¸æ ‡ç§»åˆ°è¡Œé¦–               B  Ctrl-B    å¾€ä¸Šå·ä¸€é¡µï¼ˆ22 è¡Œï¼‰\r
+E  Ctrl-E    å°†æ¸¸æ ‡ç§»åˆ°è¡Œå°¾               F  Ctrl-F    å¾€ä¸‹å·ä¸€é¡µï¼ˆ22 è¡Œï¼‰\r
+J  Ctrl-P    å°†ä¸‹è¡Œæ–‡å­—æ¥åˆ°æ­¤è¡Œå¾Œé¢       O            åœ¨æ¸¸æ ‡ä¸Šæ–¹åŠ ä¸€æ–°è¡Œ\r
+U  Ctrl-U    å°†æ¸¸æ ‡ç§»åˆ°æ¡£å¤´               V  Ctrl-V    å°†æ¸¸æ ‡ç§»åˆ°æ¡£å°¾\r\n");
         printf(
-".            ÖØ¸²ÉÏ¸öÖ¸Áî                 ?  Ctrl-Y    ¸¨Öú»­Ãæ£¨´Ë»­Ãæ£©\r
-~  Ctrl-T    ÔÚÓÎ±êÇ°Ãæ²åÈëÒ»¸ö¡¸!¡¹×ÖÔª\r\n
-ºÏ·¨µÄ¶¨Òå¼üÊÇ¿ÉÓ¡×ÖÄ¸ºÍ ESC¡¢F1¡«F12¡¢BACKSPACE¡¢TAB¡¢ENTER¡¢INSERT¡¢DELETE¡¢\r
-HOME¡¢END¡¢PAGEUP¡¢PAGEDOWN¡¢UP¡¢DOWN¡¢LEFT¡¢RIGHT¡¢Ctrl-A¡«Ctrl-Z¡£\r
+".            é‡è¦†ä¸Šä¸ªæŒ‡ä»¤                 ?  Ctrl-Y    è¾…åŠ©ç”»é¢ï¼ˆæ­¤ç”»é¢ï¼‰\r
+~  Ctrl-T    åœ¨æ¸¸æ ‡å‰é¢æ’å…¥ä¸€ä¸ªã€Œ!ã€å­—å…ƒ\r\n
+åˆæ³•çš„å®šä¹‰é”®æ˜¯å¯å°å­—æ¯å’Œ ESCã€F1ï½F12ã€BACKSPACEã€TABã€ENTERã€INSERTã€DELETEã€\r
+HOMEã€ENDã€PAGEUPã€PAGEDOWNã€UPã€DOWNã€LEFTã€RIGHTã€Ctrl-Aï½Ctrl-Zã€‚\r
 \r
-»¶Ó­´«²¥´Ë±à¼­Æ÷£¬µ«Çë±£Áô°æÈ¨Ğû¸æ£¬ÓĞÈÎºÎÎÊÌâºÍ½¨ÒéÇëÁªÂçÎÒ£º\r
-kenny@cindy.cis.nctu.edu.tw¡£\r
-                                                           [°´ÈÎÒâ¼ü»Øµ½±à¼­Æ÷]"
+æ¬¢è¿ä¼ æ’­æ­¤ç¼–è¾‘å™¨ï¼Œä½†è¯·ä¿ç•™ç‰ˆæƒå®£å‘Šï¼Œæœ‰ä»»ä½•é—®é¢˜å’Œå»ºè®®è¯·è”ç»œæˆ‘ï¼š\r
+kenny@cindy.cis.nctu.edu.twã€‚\r
+                                                           [æŒ‰ä»»æ„é”®å›åˆ°ç¼–è¾‘å™¨]"
 );
-        get_char("_input", HIDE, pl, REFRESH); // ¶ÁÈ¡°´¼üÒÔÖØ»æ»­Ãæ
+        get_char("_input", HIDE, pl, REFRESH); // è¯»å–æŒ‰é”®ä»¥é‡ç»˜ç”»é¢
 } // _help()
 
 
-private void _home(object pl)                // ½«ÓÎ±êÒÆµ½ĞĞÊ×
+private void _home(object pl)                // å°†æ¸¸æ ‡ç§»åˆ°è¡Œé¦–
 {
         mapping me=pl->query_temp("me");
 
@@ -684,7 +684,7 @@ private void _home(object pl)                // ½«ÓÎ±êÒÆµ½ĞĞÊ×
 } // _home()
 
 
-private void _insert(object pl)                // ÔÚÓÎ±êÇ°Ãæ²å×Ö
+private void _insert(object pl)                // åœ¨æ¸¸æ ‡å‰é¢æ’å­—
 {
         mapping me=pl->query_temp("me");
 
@@ -694,14 +694,14 @@ private void _insert(object pl)                // ÔÚÓÎ±êÇ°Ãæ²å×Ö
 } // _insert()
 
 
-private void _insert_line(object pl)        // ÔÚÓÎ±êÉÏ·½¼ÓÒ»ĞÂĞĞ
+private void _insert_line(object pl)        // åœ¨æ¸¸æ ‡ä¸Šæ–¹åŠ ä¸€æ–°è¡Œ
 {
         string *text=({ });
         mapping me=pl->query_temp("me");
 
         me["is_Command_Mode"] = me["is_NewFile"] = 0;
         me["is_Modify"] = 1;
-        // ¼ì²éÊÇ·ñÓÎ±êÉÏ·½ÊÇ·ñÓĞÄÚÈİ
+        // æ£€æŸ¥æ˜¯å¦æ¸¸æ ‡ä¸Šæ–¹æ˜¯å¦æœ‰å†…å®¹
         if (me["iS_Row"]+me["iRow"]-3 >= 0)
                 text = me["sText"][0..me["iS_Row"]+me["iRow"]-3];
         text += ({ "" });
@@ -712,18 +712,18 @@ private void _insert_line(object pl)        // ÔÚÓÎ±êÉÏ·½¼ÓÒ»ĞÂĞĞ
 } // _insert_line()
 
 
-private void _insert_exclam_mark(object pl) // ÔÚÓÎ±êÇ°Ãæ²åÈëÒ»¸ö¡¸!¡¹×ÖÔª
+private void _insert_exclam_mark(object pl) // åœ¨æ¸¸æ ‡å‰é¢æ’å…¥ä¸€ä¸ªã€Œ!ã€å­—å…ƒ
 {
         mapping me=pl->query_temp("me");
 
-        // ÒòÎªÎŞ·¨Õı³£ÊäÈë¡¸!¡¹£¬ËùÒÔÌØµØ¼Ó´Ëº¯Ê½ÒÔÊäÈë¡¸!¡¹¡£
+        // å› ä¸ºæ— æ³•æ­£å¸¸è¾“å…¥ã€Œ!ã€ï¼Œæ‰€ä»¥ç‰¹åœ°åŠ æ­¤å‡½å¼ä»¥è¾“å…¥ã€Œ!ã€ã€‚
         if (sizeof(me["sText"]) == 0) return;
         me["sChar"] = "!";
         _process(pl);
 } // _insert_!()
 
 
-private void _join(object pl)                // ½«ÏÂĞĞÎÄ×ÖÒÆµ½´ËĞĞááÃæ
+private void _join(object pl)                // å°†ä¸‹è¡Œæ–‡å­—ç§»åˆ°æ­¤è¡Œå¾Œé¢
 {
         string *text=({ });
         mapping me=pl->query_temp("me");
@@ -733,10 +733,10 @@ private void _join(object pl)                // ½«ÏÂĞĞÎÄ×ÖÒÆµ½´ËĞĞááÃæ
 
         me["is_NewFile"] = 0;
         me["is_Modify"] = 1;
-        _end(pl);                        // ÏÈ½«ÓÎ±êÒÆµ½ĞĞÎ²
+        _end(pl);                        // å…ˆå°†æ¸¸æ ‡ç§»åˆ°è¡Œå°¾
         text = me["sText"][0..me["iS_Row"]+me["iRow"]-2];
         if (sizeof(me["sText"][me["iS_Row"]+me["iRow"]-1]))
-        {        // ÈôÏÂĞĞÓĞÄÚÈİ¸½¼ÓÉÏÀ´
+        {        // è‹¥ä¸‹è¡Œæœ‰å†…å®¹é™„åŠ ä¸Šæ¥
                 text[me["iS_Row"]+me["iRow"]-2] += (" "+
                         me["sText"][me["iS_Row"]+me["iRow"]-1]);
                 _right(pl, 1, 1);
@@ -747,44 +747,44 @@ private void _join(object pl)                // ½«ÏÂĞĞÎÄ×ÖÒÆµ½´ËĞĞááÃæ
 } // _join()
 
 
-private void _keymap(object pl)                // ¶¨ÒåĞÂ¹¦ÄÜ¼ü
+private void _keymap(object pl)                // å®šä¹‰æ–°åŠŸèƒ½é”®
 {
-        _message(pl, "ÇëÊäÈëĞÂ¶¨Òå¼üºÍÔ­¹¦ÄÜ¼ü£¨Ö±½Ó°´ ENTER È¡Ïû£¬ÒÔ¿Õ°×¸ô¿ª£©",
+        _message(pl, "è¯·è¾“å…¥æ–°å®šä¹‰é”®å’ŒåŸåŠŸèƒ½é”®ï¼ˆç›´æ¥æŒ‰ ENTER å–æ¶ˆï¼Œä»¥ç©ºç™½éš”å¼€ï¼‰",
                 "_keymap_done", ECHO);
 } // _keymap()
 
 
-protected void _keymap_done(string str, object pl) // È¡µÃ¶¨Òå¹¦ÄÜ¼ü
+protected void _keymap_done(string str, object pl) // å–å¾—å®šä¹‰åŠŸèƒ½é”®
 {
         string old, _new;
         mapping me=pl->query_temp("me");
 
         _refresh_status(pl);
         if (str != "")
-        {        // ÈôÓĞ×ÊÁÏÊäÈë
+        {        // è‹¥æœ‰èµ„æ–™è¾“å…¥
                 if (sscanf(str, "%s %s", _new, old) != 2)
-                        return _message(pl, "ÊäÈë¸ñÊ½´íÎó¡£", "_message_done",
+                        return _message(pl, "è¾“å…¥æ ¼å¼é”™è¯¯ã€‚", "_message_done",
                                 HIDE);
                 me["keymap"][_new] = old;
-                _message(pl, sprintf("ºÃÁË£¬´Ó´ËÒÔááĞÂ¶¨Òå¼ü¡¸%s¡¹¾ÍÓĞÔ­¹¦ÄÜ¼ü?
-?s¡¹µÄ¹¦ÄÜÁË£¡",
+                _message(pl, sprintf("å¥½äº†ï¼Œä»æ­¤ä»¥å¾Œæ–°å®šä¹‰é”®ã€Œ%sã€å°±æœ‰åŸåŠŸèƒ½é”®?
+?sã€çš„åŠŸèƒ½äº†ï¼",
                         _new, old), "_message_done", HIDE);
         }
-        else        get_char("_input", HIDE, pl); // È¡ÏûÊäÈë£¬¼ÌĞø¶ÁÈ¡ÏÂ¸öÊäÈë
+        else        get_char("_input", HIDE, pl); // å–æ¶ˆè¾“å…¥ï¼Œç»§ç»­è¯»å–ä¸‹ä¸ªè¾“å…¥
 } // _keymap_done()
 
 
-private void _left(object pl)                // ÓÎ±êÍù×óÒÆÒ»×Ö
+private void _left(object pl)                // æ¸¸æ ‡å¾€å·¦ç§»ä¸€å­—
 {
         mapping me=pl->query_temp("me");
 
         if (me["iS_Col"]==1 && me["iCol"]==1) return _refresh_status(pl);
         if (--me["iCol"] < 1)
-        {        // ÓÎ±êµÄĞÂÎ»ÖÃÔÚÔ­»­ÃæÍâ£¬ĞèÒªÖØ»æ»­Ãæ
-                // Èô×óÒÆ 8 À¸Ì«¶àµÄ»°£¬¾ÍÖ»×óÒÆÒ»À¸
+        {        // æ¸¸æ ‡çš„æ–°ä½ç½®åœ¨åŸç”»é¢å¤–ï¼Œéœ€è¦é‡ç»˜ç”»é¢
+                // è‹¥å·¦ç§» 8 æ å¤ªå¤šçš„è¯ï¼Œå°±åªå·¦ç§»ä¸€æ 
                 if (me["iS_Col"]-8 < 1)
                         me["iCol"] = me["iS_Col"]-1;
-                else        me["iCol"] = 8; // ²»È»¾ÍÉè¶¨ÓÎ±êÔÚµÚ 8 À¸Î»ÖÃ
+                else        me["iCol"] = 8; // ä¸ç„¶å°±è®¾å®šæ¸¸æ ‡åœ¨ç¬¬ 8 æ ä½ç½®
                 _refresh_screen(pl, me["iS_Row"], me["iE_Row"],
                         me["iS_Col"]-me["iCol"]);
                 return;
@@ -793,67 +793,67 @@ private void _left(object pl)                // ÓÎ±êÍù×óÒÆÒ»×Ö
 } // _left()
 
 
-// ÔÚ×´Ì¬ÁĞÏÔÊ¾Ñ¶Ï¢
+// åœ¨çŠ¶æ€åˆ—æ˜¾ç¤ºè®¯æ¯
 private varargs void _message(object pl, string str, string callback, int hide,
 mixed arg)
 {
-        printf(HOME + NOR + REV);        // ÒÆ¶¯ÓÎ±êµ½ (1,1)£¬Éè¶¨·´Ïà×ÖÔªÏÔÊ¾
-        // Çå³ıÔ­×´Ì¬ÁĞµÄÑ¶Ï¢
+        printf(HOME + NOR + REV);        // ç§»åŠ¨æ¸¸æ ‡åˆ° (1,1)ï¼Œè®¾å®šåç›¸å­—å…ƒæ˜¾ç¤º
+        // æ¸…é™¤åŸçŠ¶æ€åˆ—çš„è®¯æ¯
         printf("
                 ");
-        printf(HOME + str);                // ÒÆ¶¯ÓÎ±êµ½ (1,1)£¬ÔÙÏÔÊ¾Ñ¶Ï¢
-        input_to(callback, hide, pl, arg); // ¶ÁÈ¡ÊäÈë×ÊÁÏ
+        printf(HOME + str);                // ç§»åŠ¨æ¸¸æ ‡åˆ° (1,1)ï¼Œå†æ˜¾ç¤ºè®¯æ¯
+        input_to(callback, hide, pl, arg); // è¯»å–è¾“å…¥èµ„æ–™
 } // _message()
 
 
-protected void _message_done(string str, object pl) // ½áÊøÑ¶Ï¢µÄÏÔÊ¾
+protected void _message_done(string str, object pl) // ç»“æŸè®¯æ¯çš„æ˜¾ç¤º
 {
         _refresh_status(pl);
-        get_char("_input", HIDE, pl);        // ¼ÌĞø¶ÁÈ¡ÊäÈë×Ö´®
+        get_char("_input", HIDE, pl);        // ç»§ç»­è¯»å–è¾“å…¥å­—ä¸²
 } // _message_done()
 
 
-private void _next_match(object pl)                // ËÑÑ°/Ìæ»»ÏÂ¸ö·ûºÏ×Ö´®
+private void _next_match(object pl)                // æœå¯»/æ›¿æ¢ä¸‹ä¸ªç¬¦åˆå­—ä¸²
 {
         mapping me=pl->query_temp("me");
         string str="";
-        // Éè¶¨ÆğÊ¼ËÑÑ°Î»ÖÃÎªÓÎ±êÏÖÔÚÎ»ÖÃ
+        // è®¾å®šèµ·å§‹æœå¯»ä½ç½®ä¸ºæ¸¸æ ‡ç°åœ¨ä½ç½®
         int    j=me["iS_Col"]+me["iCol"]-1,
                i, ofs;
 
 
-        if (!stringp(me["sSearch"])) return; // ÈôÃ»ÏÈÉè¶¨ËÑÑ°×Ö´®£¬²»×öÊÂ
+        if (!stringp(me["sSearch"])) return; // è‹¥æ²¡å…ˆè®¾å®šæœå¯»å­—ä¸²ï¼Œä¸åšäº‹
 
         for (i=me["iS_Row"]+me["iRow"]-2; i<sizeof(me["sText"]); i++)
         {
                 if ((ofs = strsrch(me["sText"][i][j-1..<1], me["sSearch"]))== -1)
-                        j = 1; // ÕâĞĞÃ»ÕÒµ½µÄ»°£¬Éè¶¨ÏÂĞĞ´ÓµÚÒ»À¸¿ªÊ¼ÕÒ
+                        j = 1; // è¿™è¡Œæ²¡æ‰¾åˆ°çš„è¯ï¼Œè®¾å®šä¸‹è¡Œä»ç¬¬ä¸€æ å¼€å§‹æ‰¾
                 else
-                {        // ÕÒµ½Ö¸¶¨×Ö´®ÁË, ÒÆ¶¯ÓÎ±êµ½Ä¿µÄĞĞ
+                {        // æ‰¾åˆ°æŒ‡å®šå­—ä¸²äº†, ç§»åŠ¨æ¸¸æ ‡åˆ°ç›®çš„è¡Œ
                         _goto_line_done(sprintf("%d", i+1), pl, 0);
-                        me["iCol"] = j+ofs; // ¼ÆËãÖ¸¶¨×Ö´®µÄ¾ø¶ÔÎ»ÖÃ
-                        // ÈôÖ¸¶¨×Ö´®ÂäÔÚÔ­»­ÃæÍâ£¬ÔòÖØ»æ»­Ãæ
+                        me["iCol"] = j+ofs; // è®¡ç®—æŒ‡å®šå­—ä¸²çš„ç»å¯¹ä½ç½®
+                        // è‹¥æŒ‡å®šå­—ä¸²è½åœ¨åŸç”»é¢å¤–ï¼Œåˆ™é‡ç»˜ç”»é¢
                         if (me["iCol"]<me["iS_Col"] ||
                             me["iCol"]+strlen(me["sSearch"])>me["iS_Col"]+79)
                                 _refresh_screen(pl, me["iS_Row"], me["iE_Row"],
                                         me["iCol"]);
                         if (stringp(me["sReplace"]))
-                        {        // ĞèÒªÌæ»»×Ö´®
+                        {        // éœ€è¦æ›¿æ¢å­—ä¸²
                                 me["is_NewFile"] = 0;
                                 me["is_Modify"] = 1;
-                                // ¸½¼ÓÓÎ±êÇ°ÄÚÈİ
+                                // é™„åŠ æ¸¸æ ‡å‰å†…å®¹
                                 str = me["sText"][i][0..me["iCol"]-2];
                                 str += me["sReplace"];
                                 str += (me["sText"][i][me["iCol"]+
                                         strlen(me["sSearch"])-1..<1]);
                                 me["sText"][i] = str;
-                                // ÈôÌæ»»×Ö´®ÂäÔÚÔ­»­ÃæÍâ£¬ÔòÖØ»æ»­Ãæ
+                                // è‹¥æ›¿æ¢å­—ä¸²è½åœ¨åŸç”»é¢å¤–ï¼Œåˆ™é‡ç»˜ç”»é¢
                                 if (me["iCol"]<me["iS_Col"] ||
                                     me["iCol"]+strlen(me["sReplace"])
                                     > me["iS_Col"]+79)
                                         _refresh_screen(pl, me["iS_Row"],
                                                 me["iE_Row"], me["iCol"]);
-                                // ½«ÓÎÆ¯ÒÆµ½Ìæ»»×Ö´®ááÃæ
+                                // å°†æ¸¸æ¼‚ç§»åˆ°æ›¿æ¢å­—ä¸²å¾Œé¢
                                 me["iCol"] = me["iCol"]+strlen(me["sReplace"])-
                                         me["iS_Col"]+1;
                                 printf(ESC "[%d;1f%-80s", me["iRow"]+1,
@@ -861,7 +861,7 @@ private void _next_match(object pl)                // ËÑÑ°/Ìæ»»ÏÂ¸ö·ûºÏ×Ö´®
                                         me["iRow"]-2][me["iS_Col"]-1
                                         ..me["iE_Col"]-1]);
                         }
-                        // ½«ÓÎÆ¯ÒÆµ½ËÑÑ°×Ö´®ááÃæ
+                        // å°†æ¸¸æ¼‚ç§»åˆ°æœå¯»å­—ä¸²å¾Œé¢
                         else        
 				me["iCol"] = me["iCol"]+strlen(me["sSearch"])-me["iS_Col"]+1;
                         _refresh_status(pl);
@@ -869,44 +869,44 @@ private void _next_match(object pl)                // ËÑÑ°/Ìæ»»ÏÂ¸ö·ûºÏ×Ö´®
                 } // if found
         } // for each row
         if (i >= sizeof(me["sText"]))
-                _message(pl, "ÕÒ²»µ½Ö¸¶¨×Ö´®£¡", "_message_done", HIDE);
-        else        get_char("_input", HIDE, pl); // ¶ÁÈ¡ÏÂ¸öÊäÈë×Ö´®
+                _message(pl, "æ‰¾ä¸åˆ°æŒ‡å®šå­—ä¸²ï¼", "_message_done", HIDE);
+        else        get_char("_input", HIDE, pl); // è¯»å–ä¸‹ä¸ªè¾“å…¥å­—ä¸²
 } // _next_match()
 
 
-private void _page_down(object pl)        // ÍùÏÂ¾íÒ»Ò³£¨22 ĞĞ£©
+private void _page_down(object pl)        // å¾€ä¸‹å·ä¸€é¡µï¼ˆ22 è¡Œï¼‰
 {
         mapping me=pl->query_temp("me");
 
-        if (me["iS_Row"]+22 > sizeof(me["sText"])) return; // ¼ì²éÊÇ·ñ²»ÄÜÔÙ¾íÁË
+        if (me["iS_Row"]+22 > sizeof(me["sText"])) return; // æ£€æŸ¥æ˜¯å¦ä¸èƒ½å†å·äº†
         me["iS_Row"] += 22;        me["iE_Row"] += 22;
-        // ¼ì²éÓÎ±êµÄĞÂÎ»ÖÃÊÇ·ñ³¬¹ıµµÎ²
+        // æ£€æŸ¥æ¸¸æ ‡çš„æ–°ä½ç½®æ˜¯å¦è¶…è¿‡æ¡£å°¾
         if (me["iS_Row"]+me["iRow"]-1 > sizeof(me["sText"]))
                 me["iRow"] = sizeof(me["sText"])-me["iS_Row"]+1;
         _refresh_screen(pl, me["iS_Row"], me["iE_Row"], me["iS_Col"]);
-        // ÈôÓÎ±êµÄĞÂÎ»ÖÃ³¬¹ıĞĞÎ²£¬ÔòÒÆ¶¯ÓÎ±êµ½ĞĞÎ²
+        // è‹¥æ¸¸æ ‡çš„æ–°ä½ç½®è¶…è¿‡è¡Œå°¾ï¼Œåˆ™ç§»åŠ¨æ¸¸æ ‡åˆ°è¡Œå°¾
         if (me["iS_Col"]+me["iCol"]-1 > sizeof(me["sText"][me["iS_Row"]+
                 me["iRow"]-2]))
                 _end(pl);
 } // _page_down()
 
 
-private void _page_up(object pl)        // ÍùÉÏ¾íÒ»Ò³£¨22 ĞĞ£©
+private void _page_up(object pl)        // å¾€ä¸Šå·ä¸€é¡µï¼ˆ22 è¡Œï¼‰
 {
         mapping me=pl->query_temp("me");
 
-        if (me["iS_Row"] <= 1) return; // ¼ì²éÊÇ·ñ²»ÄÜÔÙ¾íÁË
+        if (me["iS_Row"] <= 1) return; // æ£€æŸ¥æ˜¯å¦ä¸èƒ½å†å·äº†
         me["iS_Row"] -= 22;
-        if (me["iS_Row"] < 1) me["iS_Row"] = 1; // ×î¶àÖ»ÄÜ·­µ½µÚÒ»ÁĞ
+        if (me["iS_Row"] < 1) me["iS_Row"] = 1; // æœ€å¤šåªèƒ½ç¿»åˆ°ç¬¬ä¸€åˆ—
         _refresh_screen(pl, me["iS_Row"], me["iE_Row"], me["iS_Col"]);
-        // ÈôÓÎ±êµÄĞÂÎ»ÖÃ³¬¹ıĞĞÎ²£¬ÔòÒÆ¶¯ÓÎ±êµ½ĞĞÎ²
+        // è‹¥æ¸¸æ ‡çš„æ–°ä½ç½®è¶…è¿‡è¡Œå°¾ï¼Œåˆ™ç§»åŠ¨æ¸¸æ ‡åˆ°è¡Œå°¾
         if (me["iS_Col"]+me["iCol"]-1 >
             sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2]))
             _end(pl);
 } // _page_up()
 
 
-private void _process(object pl)        // ´¦ÀíÊäÈëÄ£Ê½µÄ×Ö´®ÊäÈë
+private void _process(object pl)        // å¤„ç†è¾“å…¥æ¨¡å¼çš„å­—ä¸²è¾“å…¥
 {
         int    i, size;
         string str, rest, *input;
@@ -921,29 +921,29 @@ private void _process(object pl)        // ´¦ÀíÊäÈëÄ£Ê½µÄ×Ö´®ÊäÈë
         }
         if (!me["is_Substituted"] && (strsrch(me["sChar"], "\r")!=-1 ||
             strsrch(me["sChar"], "\n")!=-1))
-                me["is_Substituted"] = 1; // Éè¶¨ÄÚÂë´ú»»Æì±ê
+                me["is_Substituted"] = 1; // è®¾å®šå†…ç ä»£æ¢æ——æ ‡
         me["sChar"] = replace_string(me["sChar"], "\t", "        ");
         me["sChar"] = replace_string(me["sChar"], "\r", "\rENTER\r");
         me["sChar"] = replace_string(me["sChar"], "\n", "\rENTER\r");
         input = explode(me["sChar"], "\r");
 
         size = sizeof(input);
-        for (i=0; i<size; i++)                // Ò»´Î´¦ÀíÒ»ĞĞÊäÈë
+        for (i=0; i<size; i++)                // ä¸€æ¬¡å¤„ç†ä¸€è¡Œè¾“å…¥
         {
                 if (me["is_Substituted"] && input[i] == "ENTER")
-                {        // µ±¼üÈë ENTER Ê±£¬Òª½«ÓÎ±êÖ®ááµÄÄÚÈİÒÆµ½ÏÂÃæµÄĞÂĞĞ
+                {        // å½“é”®å…¥ ENTER æ—¶ï¼Œè¦å°†æ¸¸æ ‡ä¹‹å¾Œçš„å†…å®¹ç§»åˆ°ä¸‹é¢çš„æ–°è¡Œ
                         rest = me["sText"][me["iS_Row"]+
                                 me["iRow"]-2][me["iS_Col"]+me["iCol"]-2..<1];
                         me["sText"][me["iS_Row"]+me["iRow"]-2] =
                                 me["sText"][me["iS_Row"]+
                                 me["iRow"]-2][0..me["iS_Col"]+me["iCol"]-3];
-                        _append_line(pl); // ÔÚÓÎ±êµ×ÏÂ¼ÓÒ»ĞÂĞĞ
-                        // ĞÂĞĞµÄÄÚÈİÊÇÔ­ÓÎ±êÎ»ÖÃÒÔááµÄÄÚÈİ
+                        _append_line(pl); // åœ¨æ¸¸æ ‡åº•ä¸‹åŠ ä¸€æ–°è¡Œ
+                        // æ–°è¡Œçš„å†…å®¹æ˜¯åŸæ¸¸æ ‡ä½ç½®ä»¥å¾Œçš„å†…å®¹
                         me["sText"][me["iS_Row"]+me["iRow"]-2] = rest;
                         continue;
                 }
 
-                // ÊäÈë×Ö´®²»ÊÇ ENTER Ê±, ´¦Àí TAB µÄ¶¨Î»
+                // è¾“å…¥å­—ä¸²ä¸æ˜¯ ENTER æ—¶, å¤„ç† TAB çš„å®šä½
                 if (me["is_Substituted"] && input[i] == "TAB")
                         input[i] = "        "[0..7-(me["iCol"]-1)%8];
                 str = me["sText"][me["iS_Row"]+me["iRow"]-2][0..me["iS_Col"]+
@@ -959,58 +959,58 @@ private void _process(object pl)        // ´¦ÀíÊäÈëÄ£Ê½µÄ×Ö´®ÊäÈë
 } // _process()
 
 
-protected void _quit(mixed unused, mixed pl) // Àë¿ª±à¼­Æ÷
+protected void _quit(mixed unused, mixed pl) // ç¦»å¼€ç¼–è¾‘å™¨
 {
         mapping me;
 
         seteuid(geteuid(pl));
         me = pl->query_temp("me");
         if (me["is_Modify"])
-                return _message(pl, "´Ëµµ°¸ÒÑ¸ü¸Ä£¬ÇëÎÊĞèÒª´æµµÂğ£¨y/n)£¿[n]",
+                return _message(pl, "æ­¤æ¡£æ¡ˆå·²æ›´æ”¹ï¼Œè¯·é—®éœ€è¦å­˜æ¡£å—ï¼ˆy/n)ï¼Ÿ[n]",
                         "_confirm_save", ECHO);
         me["iRow"] = 23;
-        _refresh_cursor(pl);                // ÒÆ¶¯ÓÎ±êµ½×îááÒ»ĞĞ
+        _refresh_cursor(pl);                // ç§»åŠ¨æ¸¸æ ‡åˆ°æœ€å¾Œä¸€è¡Œ
         printf(NOR "\r\n");
-        // Èô¹¦ÄÜ¼ü¶¨Òå¶ÔÕÕ±íÊÇ¿ÕµÄ£¬¾ÍÇå³ıÍæ¼ÒÉíÉÏµÄ¼ÇÂ¼£¬²»È»¾Í¼ÇÂ¼ÔÚÍæ¼ÒÉíÉÏ
+        // è‹¥åŠŸèƒ½é”®å®šä¹‰å¯¹ç…§è¡¨æ˜¯ç©ºçš„ï¼Œå°±æ¸…é™¤ç©å®¶èº«ä¸Šçš„è®°å½•ï¼Œä¸ç„¶å°±è®°å½•åœ¨ç©å®¶èº«ä¸Š
         if (sizeof(me["keymap"]) == 0) pl->delete("me_keymap");
         else pl->set("me_keymap", me["keymap"]);
         map_delete(EditedFiles, pl->query_temp("me/sFileName"));
-        pl->delete_temp("me"); // Çå³ı±à¼­Æ÷ÓÃµ½µÄÔİÊ±±äÊı
+        pl->delete_temp("me"); // æ¸…é™¤ç¼–è¾‘å™¨ç”¨åˆ°çš„æš‚æ—¶å˜æ•°
 } // _quit()
 
 
-private void _refresh(object pl)        // ¸üĞÂ»­Ãæ
+private void _refresh(object pl)        // æ›´æ–°ç”»é¢
 {
         mapping me=pl->query_temp("me");
         _refresh_screen(pl, me["iS_Row"], me["iE_Row"], me["iS_Col"]);
 } // _refresh()
 
 
-private void _replace(object pl)        // ×Ö´®Ìæ»»
+private void _replace(object pl)        // å­—ä¸²æ›¿æ¢
 {
-        _message(pl, "ËÑÑ°/Ìæ»»×Ö´®(Ö±½Ó°´ENTERÈ¡Ïû,ÒÔ¿Õ°×¸ô¿ª):",
+        _message(pl, "æœå¯»/æ›¿æ¢å­—ä¸²(ç›´æ¥æŒ‰ENTERå–æ¶ˆ,ä»¥ç©ºç™½éš”å¼€):",
                 "_replace_done", ECHO);
 } // _replace()
 
-protected void _replace_done(string str, object pl) // È¡µÃÌæ»»×Ö´®
+protected void _replace_done(string str, object pl) // å–å¾—æ›¿æ¢å­—ä¸²
 {
         mapping me=pl->query_temp("me");
 
         _refresh_status(pl);
         if (str != "")
-        {        // ÓĞÊäÈë×ÊÁÏÊ±
+        {        // æœ‰è¾“å…¥èµ„æ–™æ—¶
                 if (sscanf(str, "%s %s", me["sSearch"],        me["sReplace"]) != 2)
-                {        // Ö»ÓĞÒ»¸ö×Ö´®£¬¾ÍÖ¸¶¨ÎªËÑÑ°×Ö´®£¬Òâ¼´ÄÃµôÖ¸¶¨×Ö´®
+                {        // åªæœ‰ä¸€ä¸ªå­—ä¸²ï¼Œå°±æŒ‡å®šä¸ºæœå¯»å­—ä¸²ï¼Œæ„å³æ‹¿æ‰æŒ‡å®šå­—ä¸²
                         me["sSearch"] = str;
                         me["sReplace"] = "";
                 }
                 _next_match(pl);
         }
-        else        get_char("_input", HIDE, pl); // ¼ÌĞø¶ÁÈ¡ÏÂ¸öÊäÈë×Ö´®
+        else        get_char("_input", HIDE, pl); // ç»§ç»­è¯»å–ä¸‹ä¸ªè¾“å…¥å­—ä¸²
 } // _replace_done()
 
 
-private void _right(object pl, int col, int extra)        // ÓÎ±êÍùÓÒÒÆÒ»×Ö
+private void _right(object pl, int col, int extra)        // æ¸¸æ ‡å¾€å³ç§»ä¸€å­—
 {
         int    acc;
         mapping me=pl->query_temp("me");
@@ -1025,14 +1025,14 @@ private void _right(object pl, int col, int extra)        // ÓÎ±êÍùÓÒÒÆÒ»×Ö
                 me["iCol"] = sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2])-
                         me["iS_Col"]+1+extra;
         if (me["iCol"] > 80)
-        {        // ÓÎ±êµÄĞÂÎ»ÖÃ²»ÔÚ¿É¼ûÊÓ´°ÄÚ£¬ĞèÒªÍùÓÒÒÆ¶¯ÊÓ´°
-                // ÈôÓÒÒÆ 8 À¸Ì«¶àµÄ»°£¬¾ÍÖ»ÓÒÒÆµ½ĞĞÎ²
+        {        // æ¸¸æ ‡çš„æ–°ä½ç½®ä¸åœ¨å¯è§è§†çª—å†…ï¼Œéœ€è¦å¾€å³ç§»åŠ¨è§†çª—
+                // è‹¥å³ç§» 8 æ å¤ªå¤šçš„è¯ï¼Œå°±åªå³ç§»åˆ°è¡Œå°¾
                 if (me["iE_Col"]+8 > sizeof(me["sText"][me["iS_Row"]+
                     me["iRow"]-2])+1)
                         acc = sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2])-
                                 me["iE_Col"]+1;
                 else        acc = 8;
-                me["iCol"] = 80-acc+1;         // ¼ÆËãÓÎ±êµÄĞÂÎ»ÖÃ
+                me["iCol"] = 80-acc+1;         // è®¡ç®—æ¸¸æ ‡çš„æ–°ä½ç½®
                 _refresh_screen(pl, me["iS_Row"], me["iE_Row"], me["iS_Col"]+acc);
                 return;
         }
@@ -1040,42 +1040,42 @@ private void _right(object pl, int col, int extra)        // ÓÎ±êÍùÓÒÒÆÒ»×Ö
 } // _right()
 
 
-private void _search(object pl)                // ×Ö´®ËÑÑ°
+private void _search(object pl)                // å­—ä¸²æœå¯»
 {
-        _message(pl, "ÇëÊäÈëËÑÑ°×Ö´®£¨Ö±½Ó°´ ENTER È¡Ïû)£º", "_search_done",
+        _message(pl, "è¯·è¾“å…¥æœå¯»å­—ä¸²ï¼ˆç›´æ¥æŒ‰ ENTER å–æ¶ˆ)ï¼š", "_search_done",
                 ECHO);
 } // _search()
 
 
-protected void _search_done(string str, object pl) // È¡µÃËÑÑ°×Ö´®
+protected void _search_done(string str, object pl) // å–å¾—æœå¯»å­—ä¸²
 {
         mapping me=pl->query_temp("me");
 
         _refresh_status(pl);
         if (str != "")
-        {        // ÓĞÊäÈë×ÊÁÏÊ±
+        {        // æœ‰è¾“å…¥èµ„æ–™æ—¶
                 me["sSearch"] = str;        me["sReplace"] = 0;
                 _next_match(pl);
         }
-        else        get_char("_input", HIDE, pl); // ¼ÌĞø¶ÁÈ¡ÏÂ¸öÊäÈë×Ö´®
+        else        get_char("_input", HIDE, pl); // ç»§ç»­è¯»å–ä¸‹ä¸ªè¾“å…¥å­—ä¸²
 } // _search_done()
 
 
-private void _tab(object pl)                 // ÃüÁîÄ£Ê½ÏÂ TAB ¼üµÄ¶¨Î»
+private void _tab(object pl)                 // å‘½ä»¤æ¨¡å¼ä¸‹ TAB é”®çš„å®šä½
 {
         mapping me=pl->query_temp("me");
         _right(pl, 8-(me["iCol"]-1)%8, 0);
 } // _tab()
 
 
-private void _undef_key(object pl)        // È¡ÏûÄ³¹¦ÄÜ¼ü¶¨Òå
+private void _undef_key(object pl)        // å–æ¶ˆæŸåŠŸèƒ½é”®å®šä¹‰
 {
-        _message(pl, "ÇëÊäÈëÓûÈ¡Ïû¶¨ÒåÖ®¹¦ÄÜ¼ü£¨Ö±½Ó°´ ENTER È¡Ïû)£º",
+        _message(pl, "è¯·è¾“å…¥æ¬²å–æ¶ˆå®šä¹‰ä¹‹åŠŸèƒ½é”®ï¼ˆç›´æ¥æŒ‰ ENTER å–æ¶ˆ)ï¼š",
                 "_undef_key_done", ECHO);
 } // undef_key()
 
 
-protected void _undef_key_done(string str, object pl) // È¡µÃÖ¸¶¨¹¦ÄÜ¼ü
+protected void _undef_key_done(string str, object pl) // å–å¾—æŒ‡å®šåŠŸèƒ½é”®
 {
         mapping me=pl->query_temp("me");
         if (str != "")        map_delete(me["keymap"], str);
@@ -1083,7 +1083,7 @@ protected void _undef_key_done(string str, object pl) // È¡µÃÖ¸¶¨¹¦ÄÜ¼ü
 } // undef_key_done()
 
 
-private void _up(object pl)                // ÓÎ±êÍùÉÏÒÆÒ»ĞĞ
+private void _up(object pl)                // æ¸¸æ ‡å¾€ä¸Šç§»ä¸€è¡Œ
 {
         int  acc;
         mapping me=pl->query_temp("me");
@@ -1091,22 +1091,22 @@ private void _up(object pl)                // ÓÎ±êÍùÉÏÒÆÒ»ĞĞ
 
         if (me["iRow"]==1 && me["iS_Row"]==1)        return;
         if (--me["iRow"] < 1)
-        {        // ÓÎ±êĞÂÎ»ÖÃ²»ÔÚ¿É¼ûÊÓ´°ÄÚ£¬¾ÍÉÏÒÆÊÓ´°
+        {        // æ¸¸æ ‡æ–°ä½ç½®ä¸åœ¨å¯è§è§†çª—å†…ï¼Œå°±ä¸Šç§»è§†çª—
                 me["iS_Row"]--;
                 me["iE_Row"]=me["iS_Row"]+22;
                 _refresh_screen(pl, me["iS_Row"], me["iE_Row"], me["iS_Col"]);
                 me["iRow"] = 1;
         }
-        // ÈôÓÎ±êĞÂÎ»ÖÃ³¬¹ıĞĞÎ²£¬ÔòÒÆµ½ĞĞÎ²
+        // è‹¥æ¸¸æ ‡æ–°ä½ç½®è¶…è¿‡è¡Œå°¾ï¼Œåˆ™ç§»åˆ°è¡Œå°¾
         if (me["iS_Col"]+me["iCol"]-1 > sizeof(me["sText"][me["iS_Row"]+
             me["iRow"]-2]))
                 me["iCol"] = sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2])-
                         me["iS_Col"]+(me["is_Command_Mode"]?1:2);
-        // Èô´ËĞĞÎŞ×Ö£¬Ôò¶¨Î»ÔÚµÚÒ»À¸
+        // è‹¥æ­¤è¡Œæ— å­—ï¼Œåˆ™å®šä½åœ¨ç¬¬ä¸€æ 
         if (me["iCol"]==0 && me["iS_Col"]==1) me["iCol"] = 1;
         if (me["iCol"] > 0) _refresh_status(pl);
         else
-        {        // ÓÎ±êĞÂÎ»ÖÃ²»ÔÚ¿É¼ûÊÓ´°ÄÚ£¬ÖØ»æ»­Ãæ
+        {        // æ¸¸æ ‡æ–°ä½ç½®ä¸åœ¨å¯è§è§†çª—å†…ï¼Œé‡ç»˜ç”»é¢
                 acc = me["iCol"];        me["iCol"] = 1;
                 _refresh_screen(pl, me["iS_Row"], me["iE_Row"],
                         me["iS_Col"]+acc-1);
@@ -1114,20 +1114,20 @@ private void _up(object pl)                // ÓÎ±êÍùÉÏÒÆÒ»ĞĞ
 } // _up()
 
 
-private void _write(object pl)                // È¡µÃ´¢´æµµ°¸Ãû³Æ
+private void _write(object pl)                // å–å¾—å‚¨å­˜æ¡£æ¡ˆåç§°
 {
-        _message(pl, "ÇëÊäÈëĞÂµµÃû£¨Ö±½Ó°´ ENTER ÒÔÊ¹ÓÃ¾ÉµµÃû)£º",
+        _message(pl, "è¯·è¾“å…¥æ–°æ¡£åï¼ˆç›´æ¥æŒ‰ ENTER ä»¥ä½¿ç”¨æ—§æ¡£å)ï¼š",
                 "_write_done", ECHO, 0);
 } // _write()
 
 
-protected void _write_done(string str, object pl, int quit) // ´¢´æµµ°¸
+protected void _write_done(string str, object pl, int quit) // å‚¨å­˜æ¡£æ¡ˆ
 {
         string callback;
         mapping me=pl->query_temp("me");
 
         if (str == "") str = me["sFileName"];
-        else        // È¡µÃµµÃû
+        else        // å–å¾—æ¡£å
                 str = resolve_path(pl->query("cwd"), str);
         if (quit) callback = "_quit";
         else callback = "_message_done";
@@ -1139,8 +1139,8 @@ protected void _write_done(string str, object pl, int quit) // ´¢´æµµ°¸
                                 me["is_NewFile"]? "+": "*", str));
                 me["is_Modify"] = me["is_NewFile"] = 0;
                 me["sFileName"] = str;
-                _message(pl, "´æµµ³É¹¦¡£", callback, HIDE);
+                _message(pl, "å­˜æ¡£æˆåŠŸã€‚", callback, HIDE);
         }
         else
-                _message(pl, "´æµµÊ§°Ü¡£", callback, HIDE);
+                _message(pl, "å­˜æ¡£å¤±è´¥ã€‚", callback, HIDE);
 } // write_done()

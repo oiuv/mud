@@ -3,9 +3,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("¶¾ÀÉÖÐ", ({ "du langzhong", "du", "langzhong" }));
-        set("long", "Ò»¸öÃæÄ¿Ð×Éñ¶ñÉ²µÄÖÐÄêÈË£¬ÏÖÔÚÔÚµ½´¦ÊÕ¼¯¶¾Ò©¡£\n");
-        set("gender", "ÄÐÐÔ");
+        set_name("æ¯’éƒŽä¸­", ({ "du langzhong", "du", "langzhong" }));
+        set("long", "ä¸€ä¸ªé¢ç›®å‡¶ç¥žæ¶åˆ¹çš„ä¸­å¹´äººï¼ŒçŽ°åœ¨åœ¨åˆ°å¤„æ”¶é›†æ¯’è¯ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 50);
         set("attitude", "peaceful");
         set("class", "fighter");
@@ -39,7 +39,7 @@ void create()
         map_skill("force", "wudu-xinfa");
         map_skill("blade", "ruyi-dao");
 
-        set("title","Îå¶¾½Ì½ÌÖÚ");
+        set("title","äº”æ¯’æ•™æ•™ä¼—");
         setup();
         carry_object(__DIR__"obj/cloth1")->wear();
         carry_object(__DIR__"obj/blade2")->wield();
@@ -54,7 +54,7 @@ void init()
         ob = this_player();
 
         if (interactive(ob)
-           && (string)ob->query("family/family_name") != "Îå¶¾½Ì")
+           && (string)ob->query("family/family_name") != "äº”æ¯’æ•™")
         {
                 remove_call_out("kill_ob");
                 call_out("kill_ob", 1, ob); 

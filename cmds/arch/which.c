@@ -6,10 +6,10 @@ int main(object me, string arg)
         if (! SECURITY_D->valid_grant(me, "(wizard)"))
         return 0;
         if(!arg)
-                return notify_fail("Ö¸Áî¸ñÊ½£ºwhich <ÃüÁî>\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šwhich <å‘½ä»¤>\n");
       file=me->find_command(arg);
         if(!file)
-                write("Ã»ÓĞÕÒµ½ "+arg+" Õâ¸öÃüÁî¡£\n");
+                write("æ²¡æœ‰æ‰¾åˆ° "+arg+" è¿™ä¸ªå‘½ä»¤ã€‚\n");
         else
                 write(file+"\n" );
         return 1;
@@ -17,8 +17,8 @@ int main(object me, string arg)
 int help()
 {
         write(@TEXT
-Ö¸Áî¸ñÊ½£ºwhich <ÃüÁî>
-Õâ¸öÖ¸Áî¿ÉÒÔÕÒµ½Ä³¸öÃüÁîÔÚÊ²Ã´Ä¿Â¼¡£
+æŒ‡ä»¤æ ¼å¼ï¼šwhich <å‘½ä»¤>
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥æ‰¾åˆ°æŸä¸ªå‘½ä»¤åœ¨ä»€ä¹ˆç›®å½•ã€‚
 TEXT
         );
         return 1;

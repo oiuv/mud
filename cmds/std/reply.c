@@ -16,15 +16,15 @@ int main(object me, string arg)
         string reply_out;
 
 	if (! arg || arg == "")
-		return notify_fail("ÄãÒª»Ø´ğÊ²Ã´£¿\n");
+		return notify_fail("ä½ è¦å›ç­”ä»€ä¹ˆï¼Ÿ\n");
 
 	if (! stringp(target = me->query_temp("reply")) )
-		return notify_fail("¸Õ²ÅÃ»ÓĞÈËºÍÄãËµ¹ı»°¡£\n");
+		return notify_fail("åˆšæ‰æ²¡æœ‰äººå’Œä½ è¯´è¿‡è¯ã€‚\n");
 
 	if (sscanf(target, "%s@%s", target, mud) == 2)
 	{
 		GTELL->send_gtell(lower_case(mud), lower_case(target), me, arg);
-		write("ÍøÂ·Ñ¶Ï¢ÒÑËÍ³ö£¬¿ÉÄÜÒªÉÔºò²ÅÄÜµÃµ½»ØÓ¦¡£\n");
+		write("ç½‘è·¯è®¯æ¯å·²é€å‡ºï¼Œå¯èƒ½è¦ç¨å€™æ‰èƒ½å¾—åˆ°å›åº”ã€‚\n");
 		return 1;
 	}
 
@@ -33,7 +33,7 @@ int main(object me, string arg)
 	{
 		if (MESSAGE_D->send_msg_to(me, target, arg))
 			return 1;
-		return notify_fail("¸Õ²ÅºÍÄãËµ»°µÄÈËÏÖÔÚÒÑ¾­Àë¿ªÓÎÏ·ÁË¡£\n");
+		return notify_fail("åˆšæ‰å’Œä½ è¯´è¯çš„äººç°åœ¨å·²ç»ç¦»å¼€æ¸¸æˆäº†ã€‚\n");
 	}
 
         no_tell = obj->query("env/no_tell");
@@ -42,26 +42,26 @@ int main(object me, string arg)
         {
                 can_tell = obj->query("env/can_tell");
                 if (! is_sub(me->query("id"), can_tell))
-		        return notify_fail("Õâ¸öÈË²»ÏëÌıÄãÂŞàÂÀ²¡£\n");
+		        return notify_fail("è¿™ä¸ªäººä¸æƒ³å¬ä½ ç½—å—¦å•¦ã€‚\n");
         }
 
 	if (playerp(obj) && obj->is_net_dead())
-		return notify_fail("Õâ¸öÈËÏÖÔÚ²»ÔÚÏßÉÏ£¬Ìı²»µ½ÄãµÄ»°¡£\n");
+		return notify_fail("è¿™ä¸ªäººç°åœ¨ä¸åœ¨çº¿ä¸Šï¼Œå¬ä¸åˆ°ä½ çš„è¯ã€‚\n");
 
 	if (! living(obj))
-		return notify_fail("ÕâÈËÏÖÔÚ¿ÖÅÂÌı²»µ½ÄãËµµÄ»°ÁË...\n");
+		return notify_fail("è¿™äººç°åœ¨ææ€•å¬ä¸åˆ°ä½ è¯´çš„è¯äº†...\n");
 
-	reply_out = sprintf(HIG "%s»Ø´ğÄã£º%s\n" NOR,
+	reply_out = sprintf(HIG "%så›ç­”ä½ ï¼š%s\n" NOR,
                             me->name(1) + HIG "(" + me->query("id") + ")", arg);
         if (! TELL_CMD->notice_user(me->name(1), me->query("id"), obj, reply_out))
                 return 1;
 
-        // ³É¹¦µÄ»Ø´ğÁË
-	write(HIG "Äã»Ø´ğ" + obj->name(1) + HIG + "(" + obj->query("id") +
-              ")£º" + arg + "\n" NOR);
+        // æˆåŠŸçš„å›ç­”äº†
+	write(HIG "ä½ å›ç­”" + obj->name(1) + HIG + "(" + obj->query("id") +
+              ")ï¼š" + arg + "\n" NOR);
 
-        // Èç¹ûÑ¡ÔñµÄ²»ÊÇÈ«×èÈû(2)£¬Ôò×Ô¶¯ºöÂÔÕâÌõĞÅÏ¢£¬ÏÔÊ¾
-        // ÏÂÒ»ÌõĞÅÏ¢¡£
+        // å¦‚æœé€‰æ‹©çš„ä¸æ˜¯å…¨é˜»å¡(2)ï¼Œåˆ™è‡ªåŠ¨å¿½ç•¥è¿™æ¡ä¿¡æ¯ï¼Œæ˜¾ç¤º
+        // ä¸‹ä¸€æ¡ä¿¡æ¯ã€‚
         if (me->query("env/jam_talk") != 2)
                 SKIP_CMD->main(me, "");
 
@@ -71,15 +71,15 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½£ºreply <Ñ¶Ï¢>
+æŒ‡ä»¤æ ¼å¼ï¼šreply <è®¯æ¯>
 
-Äã¿ÉÒÔÓÃÕâ¸öÖ¸ÁîºÍ¸Õ²ÅÓÃ tell ºÍÄãËµ»°µÄÊ¹ÓÃÕßËµ»°¡£ÔÚ¶àÈËºÍ
-Äã½»Ì¸µÄÊ±ºò£¬Õâ¸öÃüÁîÍ¨³£²»»áÄÇÃ´ºÃÓÃ£¬ÒòÎªÓĞ¿ÉÄÜÔÚÄã reply
-µÄÊ±ºòÓÖÓĞÈËÏòÄã·¢ËÍĞÅÏ¢¶øµ¼ÖÂÄãÓ¦´ğ´íÎó£¬ÔÚÕâÖÖÇé¿öÏÂÄã¿ÉÒÔ
-ÉèÖÃ²ÎÊıjam_talk£¬Ñ¡Ôñ×èÈûÊ½½»Ì¸¡£µ±ÄãµÄÌáÊ¾·û >  µÄÑÕÉ«±ä³É
-ÂÌÉ«µÄÊ±ºò£¬ÒâÎ¶ÄãÏÖÔÚÕıÊÕµ½ÆäËûÈË·¢ËÍ¸øÄãµÄ½»Ì¸ĞÅÏ¢¡£
+ä½ å¯ä»¥ç”¨è¿™ä¸ªæŒ‡ä»¤å’Œåˆšæ‰ç”¨ tell å’Œä½ è¯´è¯çš„ä½¿ç”¨è€…è¯´è¯ã€‚åœ¨å¤šäººå’Œ
+ä½ äº¤è°ˆçš„æ—¶å€™ï¼Œè¿™ä¸ªå‘½ä»¤é€šå¸¸ä¸ä¼šé‚£ä¹ˆå¥½ç”¨ï¼Œå› ä¸ºæœ‰å¯èƒ½åœ¨ä½  reply
+çš„æ—¶å€™åˆæœ‰äººå‘ä½ å‘é€ä¿¡æ¯è€Œå¯¼è‡´ä½ åº”ç­”é”™è¯¯ï¼Œåœ¨è¿™ç§æƒ…å†µä¸‹ä½ å¯ä»¥
+è®¾ç½®å‚æ•°jam_talkï¼Œé€‰æ‹©é˜»å¡å¼äº¤è°ˆã€‚å½“ä½ çš„æç¤ºç¬¦ >  çš„é¢œè‰²å˜æˆ
+ç»¿è‰²çš„æ—¶å€™ï¼Œæ„å‘³ä½ ç°åœ¨æ­£æ”¶åˆ°å…¶ä»–äººå‘é€ç»™ä½ çš„äº¤è°ˆä¿¡æ¯ã€‚
 
-see also : tell¡¢skip
+see also : tellã€skip
 HELP );
 	return 1;
 }

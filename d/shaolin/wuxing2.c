@@ -9,13 +9,13 @@ string* dirs = ({"east", "south", "west", "north"});
 
 void create()
 {
-	set("short", HIB "ÎåĞĞ¶´" NOR);
+	set("short", HIB "äº”è¡Œæ´" NOR);
 	set("long", HIB @LONG
-ÕâÊÇÎåĞĞ¶´¡£Ò»½øÕâÀï£¬Äã¾ÍÏİÔÚÆëÑüÉîµÄË®Àï£¬½Åµ×ÊÇºñ
-ºñµÄÓÙÄà£¬Ò»²ÈÉÏÈ¥¾ÍËÉËÉµØÉ¢¿ª£¬»¹´ø³öÒ»´ó´®ÆøÅİÃ°³öË®Ãæ¡£
-×î¿É²ÀµÄÊÇË®ÃæÉÏ²»Ê±Æ®¹ıÀ´Ò»Á½¾ß½şµÃ·¢Ö×µÄ¸¡Ê¬£¬¼¸Ö»ÀÏÊó
-ÔÚÉÏÃæÅÀÉÏÅÀÏÂ£¬°ÑÊ¬ÌåÒ§µÃÃæÄ¾È«·Ç¡£ËÄ±ÚÓÃ´Ö²ÚµÄÆ¬ÑÒÀİ¶â
-¶ø³É£¬Ò»¿Å¿ÅË®ÖéÑØ×ÅÇ½±Ú¹öÏÂÀ´£¬½¦ÔÚË®ÖĞ£®
+è¿™æ˜¯äº”è¡Œæ´ã€‚ä¸€è¿›è¿™é‡Œï¼Œä½ å°±é™·åœ¨é½è…°æ·±çš„æ°´é‡Œï¼Œè„šåº•æ˜¯åš
+åšçš„æ·¤æ³¥ï¼Œä¸€è¸©ä¸Šå»å°±æ¾æ¾åœ°æ•£å¼€ï¼Œè¿˜å¸¦å‡ºä¸€å¤§ä¸²æ°”æ³¡å†’å‡ºæ°´é¢ã€‚
+æœ€å¯æ€–çš„æ˜¯æ°´é¢ä¸Šä¸æ—¶é£˜è¿‡æ¥ä¸€ä¸¤å…·æµ¸å¾—å‘è‚¿çš„æµ®å°¸ï¼Œå‡ åªè€é¼ 
+åœ¨ä¸Šé¢çˆ¬ä¸Šçˆ¬ä¸‹ï¼ŒæŠŠå°¸ä½“å’¬å¾—é¢æœ¨å…¨éã€‚å››å£ç”¨ç²—ç³™çš„ç‰‡å²©å’å›
+è€Œæˆï¼Œä¸€é¢—é¢—æ°´ç æ²¿ç€å¢™å£æ»šä¸‹æ¥ï¼Œæº…åœ¨æ°´ä¸­ï¼
 LONG
 NOR	);
 	set("exits", ([
@@ -32,11 +32,11 @@ int check_out(object me)
 {
 	int metal, wood, water, fire, earth;
 
-	metal = me->query_temp("wuxing/½ğ");
-	wood = me->query_temp("wuxing/Ä¾");
-	water = me->query_temp("wuxing/Ë®");
-	fire = me->query_temp("wuxing/»ğ");
-	earth = me->query_temp("wuxing/ÍÁ");
+	metal = me->query_temp("wuxing/é‡‘");
+	wood = me->query_temp("wuxing/æœ¨");
+	water = me->query_temp("wuxing/æ°´");
+	fire = me->query_temp("wuxing/ç«");
+	earth = me->query_temp("wuxing/åœŸ");
 
 	if ( metal > 0 &&
 		metal == wood && metal == water &&
@@ -57,19 +57,19 @@ int valid_leave(object me, string dir)
 	{
 		if (dir == "east")
 		{
-//			write("*Ë®ÉúÄ¾*\n");
-			count = me->query_temp("wuxing/Ä¾");
+//			write("*æ°´ç”Ÿæœ¨*\n");
+			count = me->query_temp("wuxing/æœ¨");
 			count++;
-			me->set_temp("wuxing/Ä¾", count);
+			me->set_temp("wuxing/æœ¨", count);
 			if (check_out(me))
-				return notify_fail("ÄãË³ÀûµØ×ß³öÁËÎåĞĞÃÔ¹¬¡£\n");
+				return notify_fail("ä½ é¡ºåˆ©åœ°èµ°å‡ºäº†äº”è¡Œè¿·å®«ã€‚\n");
 		}
 		else if (dir == "north")
 		{
-//			write("*Ë®¿Ë»ğ*\n");
+//			write("*æ°´å…‹ç«*\n");
 			me->delete_temp("wuxing");
 			me->move(__DIR__"jianyu1");
-			return notify_fail("Äãµô½ø»ú¹Ø£¬ÂäÈëÉ®¼à¡£\n");
+			return notify_fail("ä½ æ‰è¿›æœºå…³ï¼Œè½å…¥åƒ§ç›‘ã€‚\n");
 		}
 	}
 	return ::valid_leave(me, dir);

@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ɽ·");
+	set("short", "山路");
 	set("long", @LONG
-ɽ·�������ƺ���ÿ�����Щ�����µ�ɽ���������������
-�����Ϊһˬ��Զ����������ˮ�������н�Զ��ɽ���Ϲ���
-�˺��ܵ����ܣ��������ҡ߮��
+山路到这里似乎变得宽阔了些。清新的山风扑面而来，令人
+精神顿为一爽。远处传来淙淙水声，渐行渐远。山壁上挂满
+了厚密的藤萝，随风轻轻摇弋。
 LONG );
 	set("exits", ([
 		"north" : __DIR__"tohsq5",

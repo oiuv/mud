@@ -3,12 +3,12 @@
 
 void create()
 {
-        set_name(NOR + YEL "»î¹ÇÁéÒ©" NOR, ({ "huogu lingyao", "huogu", "lingyao", "yao" }));
+        set_name(NOR + YEL "æ´»éª¨çµè¯" NOR, ({ "huogu lingyao", "huogu", "lingyao", "yao" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", YEL "ÕâÊÇÒ»Á£²Ó½ğÉ«µÄÒ©Íè£¬ÔÚÎäÁÖÖĞ±»Ó÷ÎªÊÇÁÆÉËÊ¥Ò©¡£\n" NOR);
-                set("base_unit", "Á£");
+                set("long", YEL "è¿™æ˜¯ä¸€ç²’ç¿é‡‘è‰²çš„è¯ä¸¸ï¼Œåœ¨æ­¦æ—ä¸­è¢«å–»ä¸ºæ˜¯ç–—ä¼¤åœ£è¯ã€‚\n" NOR);
+                set("base_unit", "ç²’");
                 set("base_value", 10000);
                 set("base_weight", 55);
                 set("only_do_effect", 1);
@@ -26,7 +26,7 @@ int do_effect(object me)
 
         if (time() - me->query_temp("last_eat/dan(full)") < 240)
         {
-                write("Äã¸Õ·şÓÃ¹ıÒ©£¬ĞèÒ©ĞÔ·¢»ÓÍêĞ§ÓÃÒÔºó²ÅÄÜ¼ÌĞø·şÓÃ¡£\n");
+                write("ä½ åˆšæœç”¨è¿‡è¯ï¼Œéœ€è¯æ€§å‘æŒ¥å®Œæ•ˆç”¨ä»¥åæ‰èƒ½ç»§ç»­æœç”¨ã€‚\n");
                 return 1;
         }
 
@@ -34,8 +34,8 @@ int do_effect(object me)
 
         me->set_temp("last_eat/dan(full)", time());
 
-        message_vision(HIY "$N" HIY "ÍÌÏÂÒ»" + un + na + HIY "£¬ÔÙÒ²¸Ğ¾õ"
-                       "²»µ½ÈÎºÎÆ£±¹¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "åä¸‹ä¸€" + un + na + HIY "ï¼Œå†ä¹Ÿæ„Ÿè§‰"
+                       "ä¸åˆ°ä»»ä½•ç–²æƒ«ã€‚\n" NOR, me);
 
         my["jing"]   = my["max_jing"];
         my["qi"]     = my["max_qi"];

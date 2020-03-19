@@ -1,4 +1,4 @@
-// xuwen-qixingding.c ÐéÎÃÆßÐÇ¶¤
+// xuwen-qixingding.c è™šèšŠä¸ƒæ˜Ÿé’‰
 // Edit By Vin On 26/2/2001
 
 #include <ansi.h>
@@ -10,10 +10,10 @@ int valid_learn(object me)
         // object ob;
 
         if (me->query_skill("throwing", 1) < 20)
-                return notify_fail("ÄãµÄ°µÆ÷¼¼ÄÜ²»¹»æµÊì¡£\n");
+                return notify_fail("ä½ çš„æš—å™¨æŠ€èƒ½ä¸å¤Ÿå¨´ç†Ÿã€‚\n");
 
         if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("xuwen-qixingding", 1))
-                return notify_fail("ÄãµÄ»ù±¾°µÆ÷Ë®Æ½ÓÐÏÞ£¬ÄÑÒÔÁì»á¸ü¾«ÃîµÄÐéÎÃÆßÐÇ¶¤¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬æš—å™¨æ°´å¹³æœ‰é™ï¼Œéš¾ä»¥é¢†ä¼šæ›´ç²¾å¦™çš„è™šèšŠä¸ƒæ˜Ÿé’‰ã€‚\n");
 
         return 1;
 }
@@ -28,7 +28,7 @@ int practice_skill(object me)
         // object weapon;
 
         if ((int)me->query("qi") < 110)
-                return notify_fail("ÄãµÄÌåÁ¦²»×ãÁ·Ï°ÐéÎÃÆßÐÇ¶¤¡£\n");
+                return notify_fail("ä½ çš„ä½“åŠ›ä¸è¶³ç»ƒä¹ è™šèšŠä¸ƒæ˜Ÿé’‰ã€‚\n");
 
         me->receive_damage("qi", 100);
         return 1;

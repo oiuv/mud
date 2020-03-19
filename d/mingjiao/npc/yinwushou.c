@@ -7,14 +7,14 @@ inherit F_UNIQUE;
 
 void create()
 {
-        set_name("ÒóÎŞÊÙ", ({ "yin wushou", "yin", "wushou", }));
+        set_name("æ®·æ— å¯¿", ({ "yin wushou", "yin", "wushou", }));
 	set("long",
-        "ËûÊÇÒ»Î»ÀÏÕß£¬Éí´©Ò»¼ş°×²¼³¤ÅÛ¡£\n"
-        "ËûÊÇ°×Ã¼Ó¥ÍõÒóÌìÕıµÄÆÍ´Ó¡£ÕûÌì³îÃ¼¿àÁ³µÄ£¬Ò»¸±¶ÌÃüºáËÀÏà¡£\n"
+        "ä»–æ˜¯ä¸€ä½è€è€…ï¼Œèº«ç©¿ä¸€ä»¶ç™½å¸ƒé•¿è¢ã€‚\n"
+        "ä»–æ˜¯ç™½çœ‰é¹°ç‹æ®·å¤©æ­£çš„ä»†ä»ã€‚æ•´å¤©æ„çœ‰è‹¦è„¸çš„ï¼Œä¸€å‰¯çŸ­å‘½æ¨ªæ­»ç›¸ã€‚\n"
 	);
 
-        set("title", HIR "Ã÷½Ì" MAG "×ÏÎ¢ÌÃ" NOR "ÊôÏÂ");
- 	set("gender", "ÄĞĞÔ");
+        set("title", HIR "æ˜æ•™" MAG "ç´«å¾®å ‚" NOR "å±ä¸‹");
+ 	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
         set("class", "fighter");
 
@@ -48,7 +48,7 @@ void create()
 	map_skill("parry", "jingang-quan");
 
 	prepare_skill("cuff", "jingang-quan");
-        create_family("Ã÷½Ì", 4, "×ÏÎ¢ÌÃÊôÏÂ");
+        create_family("æ˜æ•™", 4, "ç´«å¾®å ‚å±ä¸‹");
 	setup();
 
         carry_object("/d/mingjiao/obj/baipao")->wear();

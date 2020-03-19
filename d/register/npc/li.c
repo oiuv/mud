@@ -5,9 +5,9 @@ void greeting(object me);
 
 void create()
 {
-        set_name("Àî×Ô³É", ({ "li zicheng", "li", "zicheng"}));
-        set("long", "ËûÃæÍ¸É·Æø£¬±©ìåÒì³££¬¿´µÃÄãĞÄÀïÃ«Ã«µÄ¡£\n");
-        set("gender", "ÄĞĞÔ");
+        set_name("æè‡ªæˆ", ({ "li zicheng", "li", "zicheng"}));
+        set("long", "ä»–é¢é€ç…æ°”ï¼Œæš´æˆ¾å¼‚å¸¸ï¼Œçœ‹å¾—ä½ å¿ƒé‡Œæ¯›æ¯›çš„ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 49);
         set("attitude", "peaceful");
         set("shen_type", -1);
@@ -26,22 +26,22 @@ void init()
                 return;
 
         command("nod " + me->query("id"));
-        command("say ÕâÎ»" + RANK_D->query_respect(me) + "À´µÃÕıºÃ£¬ÒªµÃ"
-                "È¨ÊÆ£¬¾Í±ØĞë" HIR "ĞÄºİÊÖÀ±" NOR + CYN "²»¿É¡£" NOR);
-        command("say Ê²Ã´ÕıÅÉÈËÊ¿£¬È«ÊÇÎ±¾ı×Ó£¬Òª°ÑËûÃÇÍ³Í³É±¹â£¡");
+        command("say è¿™ä½" + RANK_D->query_respect(me) + "æ¥å¾—æ­£å¥½ï¼Œè¦å¾—"
+                "æƒåŠ¿ï¼Œå°±å¿…é¡»" HIR "å¿ƒç‹ æ‰‹è¾£" NOR + CYN "ä¸å¯ã€‚" NOR);
+        command("say ä»€ä¹ˆæ­£æ´¾äººå£«ï¼Œå…¨æ˜¯ä¼ªå›å­ï¼Œè¦æŠŠä»–ä»¬ç»Ÿç»Ÿæ€å…‰ï¼");
 }
 
 void check_leave(object me, string dir)
 {
         if (dir == "out")
         {
-                message_vision(CYN "$N" CYN "¶Ô$n" CYN "¿ñĞ¦µÀ£º¹ş¹ş¹ş£¡"
-                               "É±¹âÄÇ°ïÎ±¾ı×Ó£¡\n" NOR, this_object(), me);
-                me->set("character", "ĞÄºİÊÖÀ±");
+                message_vision(CYN "$N" CYN "å¯¹$n" CYN "ç‹‚ç¬‘é“ï¼šå“ˆå“ˆå“ˆï¼"
+                               "æ€å…‰é‚£å¸®ä¼ªå›å­ï¼\n" NOR, this_object(), me);
+                me->set("character", "å¿ƒç‹ æ‰‹è¾£");
         } else
         if (dir == "south")
         {
                 command("sneer");
-                command("say µ¨Ğ¡¹í£¡");
+                command("say èƒ†å°é¬¼ï¼");
         }
 }

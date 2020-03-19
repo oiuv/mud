@@ -4,8 +4,8 @@ inherit F_MASTER;
 #include <ansi.h>
 void create()
 {
-        set_name("Ö£Ýà", ({ "zheng e", "zheng", "e" }) );
-        set("gender", "Å®ÐÔ");
+        set_name("éƒ‘è¼", ({ "zheng e", "zheng", "e" }) );
+        set("gender", "å¥³æ€§");
         set("class", "swordsman");
         set("age", 16);
         set("attitude", "peaceful");
@@ -35,7 +35,7 @@ void create()
         map_skill("parry", "hengshan-jian");
         map_skill("dodge", "lingxu-bu");
 
-        create_family("ºãÉ½ÅÉ", 14, "µÜ×Ó");
+        create_family("æ’å±±æ´¾", 14, "å¼Ÿå­");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();

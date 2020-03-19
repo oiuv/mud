@@ -11,38 +11,38 @@ int perform(object me, object target)
         i = me->query_skill("ruying-suixingtui", 1) / 4;
 
         if ( userp(me) && !me->query("can_perform/ruying-suixingtui/ruying"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÑùµÄ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™æ ·çš„åŠŸèƒ½ã€‚\n");
         
         if( !target ) target = offensive_target(me);
 
         if( !target || !me->is_fighting(target) )
-                return notify_fail("¡¸ÈçÓ°ËæÐÎ¡¹Ö»ÄÜÔÚÕ½¶·ÖÐ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("ã€Œå¦‚å½±éšå½¢ã€åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if( objectp(me->query_temp("weapon")) )
-                return notify_fail("Ê¹ÓÃ¡¸ÈçÓ°ËæÐÎ¡¹Ê±Ë«ÊÖ±ØÐë¿Õ×Å£¡\n");
+                return notify_fail("ä½¿ç”¨ã€Œå¦‚å½±éšå½¢ã€æ—¶åŒæ‰‹å¿…é¡»ç©ºç€ï¼\n");
 
         if( (int)me->query_skill("ruying-suixingtui", 1) < 160 )
-                return notify_fail("ÄãµÄÈçÓ°ËæÐÎÍÈ²»¹»æµÊì£¬²»»áÊ¹ÓÃ¡¸ÈçÓ°ËæÐÎ¡¹¡£\n");
+                return notify_fail("ä½ çš„å¦‚å½±éšå½¢è…¿ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ã€Œå¦‚å½±éšå½¢ã€ã€‚\n");
 
         if( (int)me->query_skill("force", 1) < 160 )
-                return notify_fail("ÄãµÄÄÚ¹¦µÈ¼¶²»¹»£¬²»ÄÜÊ¹ÓÃ¡¸ÈçÓ°ËæÐÎ¡¹¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç­‰çº§ä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨ã€Œå¦‚å½±éšå½¢ã€ã€‚\n");
 
         if( (int)me->query_dex() < 30 )
-                return notify_fail("ÄãµÄÉí·¨²»¹»Ç¿£¬²»ÄÜÊ¹ÓÃ¡¸ÈçÓ°ËæÐÎ¡¹¡£\n");
+                return notify_fail("ä½ çš„èº«æ³•ä¸å¤Ÿå¼ºï¼Œä¸èƒ½ä½¿ç”¨ã€Œå¦‚å½±éšå½¢ã€ã€‚\n");
 
         if (me->query_skill_prepared("unarmed") != "ruying-suixingtui"
         || me->query_skill_mapped("unarmed") != "ruying-suixingtui")
-                return notify_fail("ÄãÏÖÔÚÎÞ·¨Ê¹ÓÃ¡¸ÈçÓ°ËæÐÎ¡¹½øÐÐ¹¥»÷¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ— æ³•ä½¿ç”¨ã€Œå¦‚å½±éšå½¢ã€è¿›è¡Œæ”»å‡»ã€‚\n");
  
         if( (int)me->query("max_neili") < 2000 ) 
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎªÌ«Èõ£¬²»ÄÜÊ¹ÓÃ¡¸ÈçÓ°ËæÐÎ¡¹£¡\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºå¤ªå¼±ï¼Œä¸èƒ½ä½¿ç”¨ã€Œå¦‚å½±éšå½¢ã€ï¼\n");
 
         if( (int)me->query("neili") < 700 )
-                return notify_fail("ÄãÏÖÔÚÄÚÁ¦Ì«ÉÙ£¬²»ÄÜÊ¹ÓÃ¡¸ÈçÓ°ËæÐÎ¡¹¡£\n"); 
+                return notify_fail("ä½ çŽ°åœ¨å†…åŠ›å¤ªå°‘ï¼Œä¸èƒ½ä½¿ç”¨ã€Œå¦‚å½±éšå½¢ã€ã€‚\n"); 
 
         me->add("neili", -500);
       
-        msg = YEL "\nÄãÃÍÎüÒ»¿ÚÕæÆø£¬ÌåÄÚ¾¢Á¦Ë²Ê±±¬·¢£¡\n" NOR;
+        msg = YEL "\nä½ çŒ›å¸ä¸€å£çœŸæ°”ï¼Œä½“å†…åŠ²åŠ›çž¬æ—¶çˆ†å‘ï¼\n" NOR;
         message_vision(msg, me, target); 
        
         me->add_temp("apply/strength", i);
@@ -53,36 +53,36 @@ int perform(object me, object target)
         if (random((int)me->query("combat_exp")) > (int)target->query("combat_exp") / 2 
         &&  random((int)me->query_skill("force")) > (int)target->query_skill("force") / 2)
        { 
-             msg = HIY "$NºöÈ»Ô¾Æð£¬×ó½ÅÒ»¹´Ò»µ¯£¬ö®Ê±Ö®¼äÌß³öÒ»ÕÐ¡¸Èç¡¹×Ö¾÷µÄ´©ÐÄÍÈ£¬Ö±Ï®$nÇ°ÐØ£¡"NOR;
+             msg = HIY "$Nå¿½ç„¶è·ƒèµ·ï¼Œå·¦è„šä¸€å‹¾ä¸€å¼¹ï¼ŒéœŽæ—¶ä¹‹é—´è¸¢å‡ºä¸€æ‹›ã€Œå¦‚ã€å­—è¯€çš„ç©¿å¿ƒè…¿ï¼Œç›´è¢­$nå‰èƒ¸ï¼"NOR;
              COMBAT_D->do_attack(me, target, me->query_temp("weapon"), TYPE_QUICK,msg);
         
-             msg = HIY "½ô½Ó×Å$N×óÍÈ¹´»Ø£¬½«ÑüÉíÒ»Å¤£¬ÄÇÓÒÍÈµÄÒ»ÕÐ¡¸Ó°¡¹×Ö¾÷±ã½ôËæ¶øÖÁ£¬·ÉÏò$n£¡"NOR;
+             msg = HIY "ç´§æŽ¥ç€$Nå·¦è…¿å‹¾å›žï¼Œå°†è…°èº«ä¸€æ‰­ï¼Œé‚£å³è…¿çš„ä¸€æ‹›ã€Œå½±ã€å­—è¯€ä¾¿ç´§éšè€Œè‡³ï¼Œé£žå‘$nï¼"NOR;
              COMBAT_D->do_attack(me, target, me->query_temp("weapon"), 1,msg);
  
-             msg = HIY"Ö»¼û$NÓÒ½Å¾¢Á¦Î´Ïû£¬±ãÁè¿ÕÒ»×ª£¬×óÍÈË³ÊÆÉ¨³öÒ»ÕÐ¡¸Ëæ¡¹×Ö¾÷£¬ÈçÓ°¶øÖÁ£¡"NOR;
+             msg = HIY"åªè§$Nå³è„šåŠ²åŠ›æœªæ¶ˆï¼Œä¾¿å‡Œç©ºä¸€è½¬ï¼Œå·¦è…¿é¡ºåŠ¿æ‰«å‡ºä¸€æ‹›ã€Œéšã€å­—è¯€ï¼Œå¦‚å½±è€Œè‡³ï¼"NOR;
              COMBAT_D->do_attack(me, target, me->query_temp("weapon"), TYPE_QUICK,msg);
 
-             msg = HIY"°ë¿ÕÖÐ$N½ÅÎ´ºó³·£¬ÒÑ¾­ÔËÆð¡¸ÐÎ¡¹×Ö¾÷£¬ÄÚ¾¢Ö±Í¸½Å¼â£¬ÔÚ$nÐØ¸¹´¦Á¬µãÁËÊýÊ®ÏÂ£¡"NOR;
+             msg = HIY"åŠç©ºä¸­$Nè„šæœªåŽæ’¤ï¼Œå·²ç»è¿èµ·ã€Œå½¢ã€å­—è¯€ï¼Œå†…åŠ²ç›´é€è„šå°–ï¼Œåœ¨$nèƒ¸è…¹å¤„è¿žç‚¹äº†æ•°åä¸‹ï¼"NOR;
              COMBAT_D->do_attack(me, target, me->query_temp("weapon"), TYPE_QUICK,msg);
 
-             msg = HIR"ÕâÊ±$NË«±ÛÕ¹¶¯£¬´øÆðÒ»¹ÉÇ¿ÁÒµÄÐý·ç£¬Ë«ÍÈö®Ê±Æë²¢£¬¡¸ÈçÓ°ËæÐÎ¡¹Ò»»÷ÖØÅÚºäÔÚ$nÐØÌÅÖ®ÉÏ£¡"NOR;
+             msg = HIR"è¿™æ—¶$NåŒè‡‚å±•åŠ¨ï¼Œå¸¦èµ·ä¸€è‚¡å¼ºçƒˆçš„æ—‹é£Žï¼ŒåŒè…¿éœŽæ—¶é½å¹¶ï¼Œã€Œå¦‚å½±éšå½¢ã€ä¸€å‡»é‡ç‚®è½°åœ¨$nèƒ¸è†›ä¹‹ä¸Šï¼"NOR;
              COMBAT_D->do_attack(me, target, me->query_temp("weapon"), TYPE_QUICK,msg);
         } else 
        {
-             msg = HIY"$NºöÈ»Ô¾Æð£¬×ó½ÅÒ»¹´Ò»µ¯£¬ö®Ê±Ö®¼äÌß³öÒ»ÕÐ¡¸Èç¡¹×Ö¾÷µÄ´©ÐÄÍÈ£¬Ö±Ï®$nÇ°ÐØ£¡"NOR;
+             msg = HIY"$Nå¿½ç„¶è·ƒèµ·ï¼Œå·¦è„šä¸€å‹¾ä¸€å¼¹ï¼ŒéœŽæ—¶ä¹‹é—´è¸¢å‡ºä¸€æ‹›ã€Œå¦‚ã€å­—è¯€çš„ç©¿å¿ƒè…¿ï¼Œç›´è¢­$nå‰èƒ¸ï¼"NOR;
              COMBAT_D->do_attack(me, target, me->query_temp("weapon"), TYPE_QUICK,msg);
         
-             msg = HIY"½ô½Ó×Å$N×óÍÈ¹´»Ø£¬½«ÑüÉíÒ»Å¤£¬ÄÇÓÒÍÈµÄÒ»ÕÐ¡¸Ó°¡¹×Ö¾÷±ã½ôËæ¶øÖÁ£¬·ÉÏò$n£¡"NOR;
+             msg = HIY"ç´§æŽ¥ç€$Nå·¦è…¿å‹¾å›žï¼Œå°†è…°èº«ä¸€æ‰­ï¼Œé‚£å³è…¿çš„ä¸€æ‹›ã€Œå½±ã€å­—è¯€ä¾¿ç´§éšè€Œè‡³ï¼Œé£žå‘$nï¼"NOR;
              COMBAT_D->do_attack(me, target, me->query_temp("weapon"), 1,msg);
  
-             msg = HIY"Ö»¼û$NÓÒ½Å¾¢Á¦Î´Ïû£¬±ãÁè¿ÕÒ»×ª£¬×óÍÈË³ÊÆÉ¨³öÒ»ÕÐ¡¸Ëæ¡¹×Ö¾÷£¬ÈçÓ°¶øÖÁ£¡"NOR;
+             msg = HIY"åªè§$Nå³è„šåŠ²åŠ›æœªæ¶ˆï¼Œä¾¿å‡Œç©ºä¸€è½¬ï¼Œå·¦è…¿é¡ºåŠ¿æ‰«å‡ºä¸€æ‹›ã€Œéšã€å­—è¯€ï¼Œå¦‚å½±è€Œè‡³ï¼"NOR;
              COMBAT_D->do_attack(me, target, me->query_temp("weapon"),TYPE_QUICK,msg);
 
-             msg = HIY"°ë¿ÕÖÐ$N½ÅÎ´ºó³·£¬ÒÑ¾­ÔËÆð¡¸ÐÎ¡¹×Ö¾÷£¬ÄÚ¾¢Ö±Í¸½Å¼â£¬ÔÚ$nÐØ¸¹´¦Á¬µãÁËÊýÊ®ÏÂ£¡"NOR;
+             msg = HIY"åŠç©ºä¸­$Nè„šæœªåŽæ’¤ï¼Œå·²ç»è¿èµ·ã€Œå½¢ã€å­—è¯€ï¼Œå†…åŠ²ç›´é€è„šå°–ï¼Œåœ¨$nèƒ¸è…¹å¤„è¿žç‚¹äº†æ•°åä¸‹ï¼"NOR;
              COMBAT_D->do_attack(me, target, me->query_temp("weapon"), 1,msg);
         }
  
-             msg = YEL "\nÄãÁ¬»··ÉÍÈÊ¹Íê£¬È«ÉíÒ»×ª£¬ÎÈÎÈÂäÔÚµØÉÏ¡£\n" NOR;
+             msg = YEL "\nä½ è¿žçŽ¯é£žè…¿ä½¿å®Œï¼Œå…¨èº«ä¸€è½¬ï¼Œç¨³ç¨³è½åœ¨åœ°ä¸Šã€‚\n" NOR;
                
              //me->add("neili", -400);
              me->add_temp("apply/dexerity", -i);

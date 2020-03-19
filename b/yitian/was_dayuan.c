@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "Í¥Ôº");
+        set("short", "åº­é™¢");
         set("long", @LONG
-ÕâÀïÊÇÍò°²ËÂµÄ´óÔº£¬´òÉ¨µÃ·Ç³£¸É¾»¡£´óÔºÁ½ÅÔÊÇ¼¸¼ä´óÎİ£¬È«ÒÔËÉ
-Ä¾´î³É£¬¼«´óµÄÄ¾Öù£¬Ä¾ÁÏ¾ù²»È¥Æ¤£¬ÌìÈ»ÖÊÆÓ£¬È´Óë´óÔºÕı¶ÔµÄÒ»×ù½ğ±Ì
-»Ô»ÍµÄµîÌÃ½ØÈ»²»Í¬¡£
+è¿™é‡Œæ˜¯ä¸‡å®‰å¯ºçš„å¤§é™¢ï¼Œæ‰“æ‰«å¾—éå¸¸å¹²å‡€ã€‚å¤§é™¢ä¸¤æ—æ˜¯å‡ é—´å¤§å±‹ï¼Œå…¨ä»¥æ¾
+æœ¨æ­æˆï¼Œæå¤§çš„æœ¨æŸ±ï¼Œæœ¨æ–™å‡ä¸å»çš®ï¼Œå¤©ç„¶è´¨æœ´ï¼Œå´ä¸å¤§é™¢æ­£å¯¹çš„ä¸€åº§é‡‘ç¢§
+è¾‰ç…Œçš„æ®¿å ‚æˆªç„¶ä¸åŒã€‚
 LONG );
         set("exits", ([
                 "out" : __DIR__"was_damen",
@@ -37,7 +37,7 @@ int valid_leave(object me,string dir)
 
         if ( dir == "north" && ob = present("zhao yishang"))
         {
-                message_vision(CYN "$NºÈµÀ£ºÔÚÕâÀïÒ²¸ÒÂÒ´³£¿È¥ËÀ°É£¡\n" NOR,ob,me);
+                message_vision(CYN "$Nå–é“ï¼šåœ¨è¿™é‡Œä¹Ÿæ•¢ä¹±é—¯ï¼Ÿå»æ­»å§ï¼\n" NOR,ob,me);
                 ob->kill_ob(me);
                 ob = present("qian erbai");
                 if (objectp(ob)) ob->kill_ob(me);
@@ -53,7 +53,7 @@ int valid_leave(object me,string dir)
                 if (objectp(ob)) ob->kill_ob(me);
                 ob = present("wang bashuai");
                 if (objectp(ob)) ob->kill_ob(me);
-                return notify_fail("Ïò±±µÄÂ·±»Éñ¼ı°ËĞÛÀ¹×¡ÁË¡£\n");
+                return notify_fail("å‘åŒ—çš„è·¯è¢«ç¥ç®­å…«é›„æ‹¦ä½äº†ã€‚\n");
         }
         return 1;
 }

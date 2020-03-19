@@ -10,24 +10,24 @@ int exert(object me, object target)
         int skill;
 
         if (target != me)
-                return notify_fail("ÄãÖ»ÄÜÓÃÌ«Ðþ¹¦À´ÌáÉý×Ô¼ºµÄ·ÀÓùÁ¦¡£\n");
+                return notify_fail("ä½ åªèƒ½ç”¨å¤ªçŽ„åŠŸæ¥æå‡è‡ªå·±çš„é˜²å¾¡åŠ›ã€‚\n");
 
         if ((int)me->query("neili") < 100)
-                return notify_fail("ÄãµÄÕæÆø²»¹»¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_skill("taixuan-gong", 1) < 40)
-                return notify_fail("ÄãµÄÌ«Ðþ¹¦µÈ¼¶²»¹»¡£\n");
+                return notify_fail("ä½ çš„å¤ªçŽ„åŠŸç­‰çº§ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_temp("shield"))
-                return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖÐÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
         skill = me->query_skill("force");
 
         me->add("neili", -100);
         me->receive_damage("qi", 0);
 
-        message_vision(HIG "$N" HIG "Ä¬Ä¬ÔË¹¦£¬ÎôÈÕÏÀ¿ÍµºÊ¯±ÚÉÏµÄ¿Ú¾÷Ò»Ò»"
-                        "³ÊÏÖ£¬Ì«Ðþ¹¦ÄÚ¾¢ÒÑ»¤ÓÚÈ«Éí¡£\n" NOR, me);
+        message_vision(HIG "$N" HIG "é»˜é»˜è¿åŠŸï¼Œæ˜”æ—¥ä¾ å®¢å²›çŸ³å£ä¸Šçš„å£è¯€ä¸€ä¸€"
+                        "å‘ˆçŽ°ï¼Œå¤ªçŽ„åŠŸå†…åŠ²å·²æŠ¤äºŽå…¨èº«ã€‚\n" NOR, me);
 
         if (me->query("breakup"))
         {
@@ -53,7 +53,7 @@ void remove_effect(object me, int amount)
         {
                 me->add_temp("apply/armor", -amount);
                 me->delete_temp("shield");
-                tell_object(me, "ÄãµÄÌ«Ðþ¹¦ÔËÐÐÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„å¤ªçŽ„åŠŸè¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›žä¸¹ç”°ã€‚\n");
         }
        
 }

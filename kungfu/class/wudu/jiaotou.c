@@ -7,15 +7,15 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("É³Ç§Àï", ({ "sha qianli", "sha", "qianli" }));
-        set("nickname", HIR "ºÚÁú" NOR);
+        set_name("æ²™åƒé‡Œ", ({ "sha qianli", "sha", "qianli" }));
+        set("nickname", HIR "é»‘é¾™" NOR);
         set("long",@LONG
-Ëû¾ÍÊÇÎå¶¾½ÌµÄ»¤·¨µÜ×ÓÉ³Ç§Àï£¬Éí²Ä¿ýÎà£¬·½
-Ãæ´ó¶ú¡£ÔÚ½ÌÖÐ×ª¹ÜÕÐÄ¼½ÌÖÚ£¬½ÌÊÚµÜ×ÓÃÇµÄÈë
-ÃÅ¹¦·ò¡£
+ä»–å°±æ˜¯äº”æ¯’æ•™çš„æŠ¤æ³•å¼Ÿå­æ²™åƒé‡Œï¼Œèº«æé­æ¢§ï¼Œæ–¹
+é¢å¤§è€³ã€‚åœ¨æ•™ä¸­è½¬ç®¡æ‹›å‹Ÿæ•™ä¼—ï¼Œæ•™æŽˆå¼Ÿå­ä»¬çš„å…¥
+é—¨åŠŸå¤«ã€‚
 LONG);
-        set("title","Îå¶¾½Ì»¤·¨µÜ×Ó");
-        set("gender", "ÄÐÐÔ");
+        set("title","äº”æ¯’æ•™æŠ¤æ³•å¼Ÿå­");
+        set("gender", "ç”·æ€§");
         set("age", 32);
         set("attitude", "friendly");
         set("shen_type", -1);
@@ -61,15 +61,15 @@ LONG);
         }));
 
         set("guarder", ([
-                "refuse_other": CYN "$N" CYN "ÉíÐÎÒ»»Î£¬µ²ÔÚ$n" CYN
-                                "¸úÇ°£¬À÷ÉùËµµÀ£º·Ç±¾½ÌµÜ×Ó£¬²»µÃ½ø"
-                                "Èë±¾½Ì½ûµØ¡£" NOR,
-                "refuse_carry": CYN "$N" CYN "¶Ô$n" CYN "ºÈµÀ£ºÄã"
-                                "±³ÉÏ±³µÄÊÇÊ²Ã´ÈË£¿¿ì¸øÎÒ·ÅÏÂÀ´£¡"
+                "refuse_other": CYN "$N" CYN "èº«å½¢ä¸€æ™ƒï¼ŒæŒ¡åœ¨$n" CYN
+                                "è·Ÿå‰ï¼ŒåŽ‰å£°è¯´é“ï¼šéžæœ¬æ•™å¼Ÿå­ï¼Œä¸å¾—è¿›"
+                                "å…¥æœ¬æ•™ç¦åœ°ã€‚" NOR,
+                "refuse_carry": CYN "$N" CYN "å¯¹$n" CYN "å–é“ï¼šä½ "
+                                "èƒŒä¸ŠèƒŒçš„æ˜¯ä»€ä¹ˆäººï¼Ÿå¿«ç»™æˆ‘æ”¾ä¸‹æ¥ï¼"
                                 NOR,
         ]));
 
-        create_family("Îå¶¾½Ì", 13, "»¤·¨µÜ×Ó");
+        create_family("äº”æ¯’æ•™", 13, "æŠ¤æ³•å¼Ÿå­");
 
         setup();
 
@@ -86,10 +86,10 @@ void attempt_apprentice(object ob)
 
         if ((int)ob->query("shen") > -1000)
         {
-                command("say ÎÒ½ÌµÜ×Ó¹óÔÚËæÐÄËùÓû£¬²»ÊÕÎ±¾ý×Ó");
+                command("say æˆ‘æ•™å¼Ÿå­è´µåœ¨éšå¿ƒæ‰€æ¬²ï¼Œä¸æ”¶ä¼ªå›å­");
                 return;
         }
         command("recruit " + ob->query("id"));
-        ob->set("title", "Îå¶¾½Ì½ÌÖÚ");
+        ob->set("title", "äº”æ¯’æ•™æ•™ä¼—");
         return;
 }

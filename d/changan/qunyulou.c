@@ -8,17 +8,17 @@ int check_container(object ob);
 
 void create()
 {
-        set("short", "ÈºÓñÂ¥");
+        set("short", "ç¾¤çŽ‰æ¥¼");
         set("long", 
-"ÈºÓñÂ¥ÊÇ³¤°²³ÇÊ×ÇüÒ»Ö¸µÄ´ó¼ËÔº¡£ÕâÀï²»ÊÇÆÕÍ¨ÈËÄÜÀ´µÄµØ·½£¬\n"
-"Èç¹ûÄã²»ÊÇ¸»¼×Ò»·½µÄ²ÆÖ÷£¬Èç¹ûÄã²»ÊÇÐÛ°ÔÒ»·½µÄ°ïÖ÷ÕÆÃÅ£¬Èç¹ûÄã\n"
-"²»ÊÇÍõ¹«¹ó×å£¬¾ÍÁ¬½øÕâ¸öÃÅÒ²±ðÏë¡£Â¥ÖÐ¹ÍµÄ´òÊÖ±ãÓÐËÄÃûÔÚÕâ¶ùÊØ\n"
-"×Å£¬²»ÊÇÓÐÍ·ÓÐÁ³µÄ¼ûÁËÕâÕóÕÌÔç¾ÍÈÆ¿ªÁËÈ¥¡£´óÃÅÌù×Å¸æÊ¾(gaoshi)\n"
-"Ò»ÕÅ£¬ÓÖ¸ß¹ÒÁ½·ù³¤Áª£º\n"
-HIR"             Ïú"HIG"              ´º\n\n"NOR
-HIR"             »ê"HIG"              É«\n\n"NOR
-HIR"             Ê´"HIG"              ÎÞ\n\n"NOR
-HIR"             ¹Ç"HIG"              ±ß\n"NOR  	
+"ç¾¤çŽ‰æ¥¼æ˜¯é•¿å®‰åŸŽé¦–å±ˆä¸€æŒ‡çš„å¤§å¦“é™¢ã€‚è¿™é‡Œä¸æ˜¯æ™®é€šäººèƒ½æ¥çš„åœ°æ–¹ï¼Œ\n"
+"å¦‚æžœä½ ä¸æ˜¯å¯Œç”²ä¸€æ–¹çš„è´¢ä¸»ï¼Œå¦‚æžœä½ ä¸æ˜¯é›„éœ¸ä¸€æ–¹çš„å¸®ä¸»æŽŒé—¨ï¼Œå¦‚æžœä½ \n"
+"ä¸æ˜¯çŽ‹å…¬è´µæ—ï¼Œå°±è¿žè¿›è¿™ä¸ªé—¨ä¹Ÿåˆ«æƒ³ã€‚æ¥¼ä¸­é›‡çš„æ‰“æ‰‹ä¾¿æœ‰å››ååœ¨è¿™å„¿å®ˆ\n"
+"ç€ï¼Œä¸æ˜¯æœ‰å¤´æœ‰è„¸çš„è§äº†è¿™é˜µä»—æ—©å°±ç»•å¼€äº†åŽ»ã€‚å¤§é—¨è´´ç€å‘Šç¤º(gaoshi)\n"
+"ä¸€å¼ ï¼Œåˆé«˜æŒ‚ä¸¤å¹…é•¿è”ï¼š\n"
+HIR"             é”€"HIG"              æ˜¥\n\n"NOR
+HIR"             é­‚"HIG"              è‰²\n\n"NOR
+HIR"             èš€"HIG"              æ— \n\n"NOR
+HIR"             éª¨"HIG"              è¾¹\n"NOR  	
         );
         set("exits", ([ /* sizeof() == 2 */
         	"north" : __DIR__"qixiang4",
@@ -26,9 +26,9 @@ HIR"             ¹Ç"HIG"              ±ß\n"NOR
         ]));
         set("item_desc", ([
         	"gaoshi": HIY @TEXT
-¹æ¶¨:
-£±£®²»¿ÉÒÔ´øÎäÆ÷ÉÏÂ¥¡£
-£²£®²»ÐíÄÖÊÂ£¬·ñÔòºó¹û×Ô¸º¡£
+è§„å®š:
+ï¼‘ï¼Žä¸å¯ä»¥å¸¦æ­¦å™¨ä¸Šæ¥¼ã€‚
+ï¼’ï¼Žä¸è®¸é—¹äº‹ï¼Œå¦åˆ™åŽæžœè‡ªè´Ÿã€‚
 TEXT NOR
         ]) );
         set("objects", ([
@@ -51,17 +51,17 @@ int valid_leave(object me, string dir)
                 if (wizardp(me))
                         return ::valid_leave(me, dir);
 
-                if ((string)me->query("gender")=="Å®ÐÔ")
+                if ((string)me->query("gender")=="å¥³æ€§")
         	        return notify_fail(ob->name() +
-                               "Ò»°Ñ×¥×¡ÁËÄã£¬ËµµÀ:¡°ÕâÀï²»ÊÇÅ®ÈË"
-                               "¸ÃÀ´µÄµØ·½£¬Äã±ð½øÈ¥¡£¡±\n");
+                               "ä¸€æŠŠæŠ“ä½äº†ä½ ï¼Œè¯´é“:â€œè¿™é‡Œä¸æ˜¯å¥³äºº"
+                               "è¯¥æ¥çš„åœ°æ–¹ï¼Œä½ åˆ«è¿›åŽ»ã€‚â€\n");
                 inv = all_inventory(me);
                 for(i = 0; i < sizeof(inv); i++)
                 {
                         if ((int)inv[i]->query("weapon_prop"))
         	                return notify_fail(ob->name() +
-                                                   "Ò»°Ñ×¥×¡ÁËÄã£¬ËµµÀ£º¡°ÔÛÃÇÕâÀïÊÇÓÐ"
-                                                   "¹æ¾ØµÄµØ·½£¬²»×¼´øÎäÆ÷½øÈë¡£¡±\n");
+                                                   "ä¸€æŠŠæŠ“ä½äº†ä½ ï¼Œè¯´é“ï¼šâ€œå’±ä»¬è¿™é‡Œæ˜¯æœ‰"
+                                                   "è§„çŸ©çš„åœ°æ–¹ï¼Œä¸å‡†å¸¦æ­¦å™¨è¿›å…¥ã€‚â€\n");
                 }
         }
         return 1;

@@ -5,18 +5,18 @@ inherit HAMMER;
 
 void create()
 {
-        set_name(HIG "±ÌÂÌ" NOR+HIR "Î÷¹Ï" NOR, ({ "green xigua","xigua","hammer" }) );
-        set_weight(160000); // Ò²Ì«ÖØÁË
+        set_name(HIG "ç¢§ç»¿" NOR+HIR "è¥¿ç“œ" NOR, ({ "green xigua","xigua","hammer" }) );
+        set_weight(160000); // ä¹Ÿå¤ªé‡äº†
         set_weight(20000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¶Ô");
-                set("long", "ÕâÎ÷¹ÏÓÉ¾«¸ÖÖı³É£¬¹ÏÉÏÆá³ÉÂÌºÚ¼äÌõÖ®É«£¬¹²ÓĞÒ»¶Ô£¬ÏµÒÔ¸ÖÁ´¡£\n");
+                set("unit", "å¯¹");
+                set("long", "è¿™è¥¿ç“œç”±ç²¾é’¢é“¸æˆï¼Œç“œä¸Šæ¼†æˆç»¿é»‘é—´æ¡ä¹‹è‰²ï¼Œå…±æœ‰ä¸€å¯¹ï¼Œç³»ä»¥é’¢é“¾ã€‚\n");
                 set("value", 3000);
                 set("material", "iron");
-                set("wield_msg", "$NÄÃ³öÒ»¶Ô$n£¬ÊÔÁËÊÔÖØÁ¿£¬È»ááÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N·ÅÏÂÊÖÖĞµÄ$n¡£\n");
+                set("wield_msg", "$Næ‹¿å‡ºä¸€å¯¹$nï¼Œè¯•äº†è¯•é‡é‡ï¼Œç„¶å¾Œæ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Næ”¾ä¸‹æ‰‹ä¸­çš„$nã€‚\n");
         }
         init_hammer(80);
         setup();

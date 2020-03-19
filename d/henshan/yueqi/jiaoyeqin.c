@@ -6,17 +6,17 @@ inherit MI_QIN;
 
 void create()
 {
-        set_name(HIY "½¶Ò¶¹ÅÇÙ¡¤Ã÷³¯" NOR, ({ "jiaoye qin", "jiaoye", "qin" }));
+        set_name(HIY "è•‰å¶å¤ç´Â·æ˜æœ" NOR, ({ "jiaoye qin", "jiaoye", "qin" }));
         set_weight(700);
 
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-                set("unit", "°Ñ");
+                set("unit", "æŠŠ");
   			    
-                set("long", HIY "´ËÇÙÄËºëÖÎ¼Î¾¸Äê¼äÖøÃûí½ÇÙ¼Ò×£º£º×ËùÖÆ\n"
-				"ÇÙĞÎì½ì»ĞãÒİ£¬½¶Ò¶¾í±ß¹¤ÑÅÉú¶¯£¬ÒôÉ«Èó\n"
-				"ÔÈÍ¸¾²£¬ÎªÇÙÆ÷ÖĞÄÑµÃÒ»¼ûµÄÕäÆ·¡£\n" NOR);
+                set("long", HIY "æ­¤ç´ä¹ƒå¼˜æ²»å˜‰é–å¹´é—´è‘—åæ–«ç´å®¶ç¥æµ·é¹¤æ‰€åˆ¶\n"
+				"ç´å½¢æ—–æ—ç§€é€¸ï¼Œè•‰å¶å·è¾¹å·¥é›…ç”ŸåŠ¨ï¼ŒéŸ³è‰²æ¶¦\n"
+				"åŒ€é€é™ï¼Œä¸ºç´å™¨ä¸­éš¾å¾—ä¸€è§çš„çå“ã€‚\n" NOR);
 		set("value", 800000);
 		set("material", "wood");
 	     }

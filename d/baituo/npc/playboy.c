@@ -3,11 +3,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("»¨»¨¹«×Ó", ({ "gong zi", "gong", "zi" }));
-        set("nickname", HIR "²É»¨´óµÁ" NOR);
-        set("gender", "ÄĞĞÔ" );
+        set_name("èŠ±èŠ±å…¬å­", ({ "gong zi", "gong", "zi" }));
+        set("nickname", HIR "é‡‡èŠ±å¤§ç›—" NOR);
+        set("gender", "ç”·æ€§" );
         set("age", 21);
-        set("long", "ÕâÊÇ¸öÁ÷ÀïÁ÷ÆøµÄ»¨»¨¹«×Ó¡£\n");
+        set("long", "è¿™æ˜¯ä¸ªæµé‡Œæµæ°”çš„èŠ±èŠ±å…¬å­ã€‚\n");
         set("attitude", "friendly");
         set("shen_type", -1);
 

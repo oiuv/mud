@@ -7,11 +7,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "������");
+	set("short", "南天门");
 	set("long", @LONG
-������ʮ���̣��������̩ɽ������ڴ��������︽��ɽ�£�
-Ⱥɽ�����أ����������ƣ���ؿ������޿���״������������
-���߿ɵ�һ���м��������߱����¹۷壬���������ǵ���ʶ�֮·��
+走完了十八盘，这里便是泰山顶的入口处。从这里附视山下，
+群山如龟伏地，河流如蚓缠绕，天地空阔，无可名状。从这里往东
+北走可到一个市集，往西走便是月观峰，往北走则是到玉皇顶之路。
 LONG );
 	set("exits", ([
 		"eastup" : __DIR__"tianjie",
@@ -40,9 +40,9 @@ int valid_leave(object me, string dir)
 	if( dir == "northup" ) { 
 		if( present("jiang baisheng", environment(me)) 
 		&& me->query("id") != mengzhu)
-			return notify_fail("����ʤ������ס��˵����������æ�����ڲ�����ͣ�����ɽȥ�ɣ�\n");
+			return notify_fail("江百胜伸手拦住你说道：盟主很忙，现在不见外客，你下山去吧！\n");
 		else if( me->query("id") == mengzhu ) {
-			message_vision(HIY "\n����ʤ�ϻ̳Ͽֵ���$N�򵹿�ͷ�������������������꣬���꣬�����꣡\n" NOR, me);
+			message_vision(HIY "\n江百胜诚惶诚恐的向$N跪倒磕头，大声喊道：盟主万岁，万岁，万万岁！\n" NOR, me);
 		}	
 	}
 

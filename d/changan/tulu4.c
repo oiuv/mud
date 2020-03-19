@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "��·");
+	set("short", "土路");
 	set("long", @LONG
-����һ�����������·������̫����·�ϵ�����Ҳ���࣬���
-�ǵش�ƫԶ��Ե�ʣ�����û��ʲô���̡�
+这是一条黄土飞扬的路，不算太宽，路上的行人也不多，大概
+是地处偏远的缘故，几乎没有什么人烟。
 LONG);
 	set("exits",  ([  /*  sizeof()  ==  2  */
 		"northdown" : "/d/huanghe/yongdeng",

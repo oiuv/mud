@@ -1,13 +1,13 @@
-// dizi.c Îå¶¾½ÌµÜ×Ó
+// dizi.c äº”æ¯’æ•™å¼Ÿå­
 
 inherit NPC;
 
 void create()
 {
-        set_name("Îå¶¾½ÌµÜ×Ó", ({ "di zi", "dizi" }));
+        set_name("äº”æ¯’æ•™å¼Ÿå­", ({ "di zi", "dizi" }));
         set("age", 28);
-        set("gender", "ÄĞĞÔ");
-        set("long", "Ò»¸öÉíÌåÇ¿×³µÄÃç×åÇàÄê£¬¿´À´Îä¹¦ÒÑĞ¡ÓÉËù³É¡£\n");
+        set("gender", "ç”·æ€§");
+        set("long", "ä¸€ä¸ªèº«ä½“å¼ºå£®çš„è‹—æ—é’å¹´ï¼Œçœ‹æ¥æ­¦åŠŸå·²å°ç”±æ‰€æˆã€‚\n");
         set("attitude", "peaceful");
         set("max_qi", 500);
 

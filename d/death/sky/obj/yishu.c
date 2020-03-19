@@ -2,13 +2,13 @@
 inherit ITEM;
 void create()
 {
-        set_name(WHT "ÔÀÉ½ÒÅÊé" NOR, ({ "yishu", "shu", "book" }));
+        set_name(WHT "å²³å±±é—ä¹¦" NOR, ({ "yishu", "shu", "book" }));
         set_weight(50);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±¾");
-                set("long", "Õâ±ãÊÇµ±Äê¡¸°Ôµ¶¡¹ÔÀÉ½ÁÙËÀÇ°µÄÒÅÊé£¬ÉÏÃæ¼ÇÔØÁËËû¶Ôµ¶·¨µÄÌå»á¡£\n");
+                set("unit", "æœ¬");
+                set("long", "è¿™ä¾¿æ˜¯å½“å¹´ã€Œéœ¸åˆ€ã€å²³å±±ä¸´æ­»å‰çš„é—ä¹¦ï¼Œä¸Šé¢è®°è½½äº†ä»–å¯¹åˆ€æ³•çš„ä½“ä¼šã€‚\n");
                 set("value", 100);
                 set("material", "paper");
                 set("skill", ([

@@ -23,7 +23,7 @@ int is_stay_in_room() { return 1; }
 
 void create()
 {
-	set_name("ÁÄÌìÕß", ({ "chatter object", "chatter" }));
+	set_name("èŠå¤©è€…", ({ "chatter object", "chatter" }));
         seteuid(0);
 }
 
@@ -48,27 +48,27 @@ string find_chat_command(string verb)
 
 string long()
 {
-        return "ÕâÊÇ" + name() + "µÄÁÄÌì»êÆÇ¡£\n";
+        return "è¿™æ˜¯" + name() + "çš„èŠå¤©é­‚é­„ã€‚\n";
 }
 
 int accept_fight(object ob)
 {
-	message_vision("$N¼±Ã¦¶Ô$nµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-		       "£¬ÓĞ»°ºÃºÃËµ£¬ÔõÃ´¿ÉÒÔÕâ¸öÑù×Ó£¿\n",
+	message_vision("$Næ€¥å¿™å¯¹$né“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+		       "ï¼Œæœ‰è¯å¥½å¥½è¯´ï¼Œæ€ä¹ˆå¯ä»¥è¿™ä¸ªæ ·å­ï¼Ÿ\n",
 		       this_object(), ob);
         return 0;
 }
 
 int accept_hit(object ob)
 {
-        message_vision("$N¿´ÁË¿´$n£¬´òÁË¸ö¹şÇ·£¬ÏÔµÃÎŞÁÄ¼«ÁË¡£\n",
+        message_vision("$Nçœ‹äº†çœ‹$nï¼Œæ‰“äº†ä¸ªå“ˆæ¬ ï¼Œæ˜¾å¾—æ— èŠæäº†ã€‚\n",
                        this_object(), ob);
         return 0;
 }
 
 int accept_kill(object ob)
 {
-        message_vision("$NÒ»Á³ÎŞ¹¼µÄÍû×Å$n£¬ÏÔµÃÎ¯Çü¼«ÁË¡£\n",
+        message_vision("$Nä¸€è„¸æ— è¾œçš„æœ›ç€$nï¼Œæ˜¾å¾—å§”å±ˆæäº†ã€‚\n",
                        this_object(), ob);
         return 0;
 }
@@ -79,7 +79,7 @@ int accept_ask(object ob, string topic)
                 return 0;
 
         MESSAGE_D->tell_user(this_object(), FUN_NOTICE,
-                             sprintf("%s(%s)ÏòÄã´òÌıÓĞ¹Ø¡º%s¡»µÄÏûÏ¢¡£\n",
+                             sprintf("%s(%s)å‘ä½ æ‰“å¬æœ‰å…³ã€%sã€çš„æ¶ˆæ¯ã€‚\n",
                                      name(1), query("id"), topic));
         return 1;
 }
@@ -146,7 +146,7 @@ int force_me(string arg)
         int flag;
         int result;
 
-        set_temp("notify_fail", "ÄãÏëÒª×öÊ²Ã´£¿\n");
+        set_temp("notify_fail", "ä½ æƒ³è¦åšä»€ä¹ˆï¼Ÿ\n");
 
         // start record command result
         flag = objectp(this_player());
@@ -180,8 +180,8 @@ varargs int move(mixed dest, int raw)
 		if (! ob)
                 {
                         MESSAGE_D->tell_object(this_object(), FUN_NOTICE,
-                                               HIR "ÄãÎŞ·¨ÒÆ¶¯µ½(" + HIG +
-                                               dest + HIR ")¡£\n" NOR);
+                                               HIR "ä½ æ— æ³•ç§»åŠ¨åˆ°(" + HIG +
+                                               dest + HIR ")ã€‚\n" NOR);
                         return 0;
                 }
 
@@ -232,13 +232,13 @@ void new_file_arrival(string file, string content)
         if (file_size(file) == -2)
         {
                 MESSAGE_D->tell_user(this_object(),
-                                     FUN_NOTICE, "¸üĞÂÎÄ¼şÊ§°Ü\n¡£");
+                                     FUN_NOTICE, "æ›´æ–°æ–‡ä»¶å¤±è´¥\nã€‚");
                 return;
         }
 
         write_file(file, content, 1);
         MESSAGE_D->tell_user(this_object(),
-                             FUN_NOTICE, "³É¹¦µÄĞŞ¸ÄÁËÎÄ¼ş¡£\n");
+                             FUN_NOTICE, "æˆåŠŸçš„ä¿®æ”¹äº†æ–‡ä»¶ã€‚\n");
 }
 
 // Edit file
@@ -259,12 +259,12 @@ varargs void edit_file(string file)
         if (fs > MAX_FILE_SIZE)
         {
                 MESSAGE_D->tell_user(this_object(), FUN_NOTICE,
-                                     "ÎÄ¼şÌ«³¤ÁË£¬ÇëÓÃ FTP ½øĞĞ¸üĞÂ¡£\n");
+                                     "æ–‡ä»¶å¤ªé•¿äº†ï¼Œè¯·ç”¨ FTP è¿›è¡Œæ›´æ–°ã€‚\n");
                 return;
         } else
         {
                 MESSAGE_D->tell_user(this_object(), FUN_NOTICE,
-                                     "²»ÄÜ±à¼­Õâ¸öÎÄ¼ş¡£\n");
+                                     "ä¸èƒ½ç¼–è¾‘è¿™ä¸ªæ–‡ä»¶ã€‚\n");
                 return;
         }
 
@@ -293,7 +293,7 @@ void start_more_file(string file)
         if (fs == -1)
         {
                 MESSAGE_D->tell_user(this_object(), FUN_NOTICE,
-                                     "Ã»ÓĞÕâ¸öÎÄ¼ş¡£\n");
+                                     "æ²¡æœ‰è¿™ä¸ªæ–‡ä»¶ã€‚\n");
         } else
         if (fs >= 0 && fs <= MAX_FILE_SIZE)
         {
@@ -302,14 +302,14 @@ void start_more_file(string file)
         if (fs > MAX_FILE_SIZE)
         {
                 MESSAGE_D->tell_user(this_object(), FUN_NOTICE,
-                                     "ÎÄ¼şÌ«³¤ÁË£¬ÇëÓÃ FTP ÏÂÔØ²ì¿´¡£\n");
+                                     "æ–‡ä»¶å¤ªé•¿äº†ï¼Œè¯·ç”¨ FTP ä¸‹è½½å¯Ÿçœ‹ã€‚\n");
                 return;
         }
 
         if (! content)
         {
                 MESSAGE_D->tell_user(this_object(), FUN_NOTICE,
-                                     "ÄãÃ»ÓĞÈ¨Àû¶ÁÈ¡Õâ¸öÎÄ¼ş¡£\n");
+                                     "ä½ æ²¡æœ‰æƒåˆ©è¯»å–è¿™ä¸ªæ–‡ä»¶ã€‚\n");
                 return;
         }
 
@@ -328,8 +328,8 @@ int do_look(string arg)
 
         if (! objectp(env = environment(me)) || env == find_object(VOID_OB))
         {
-                MESSAGE_D->tell_user(me, FUN_LOOK, "ÄãÏÖÔÚ´¦ÔÚçÎç¿µÄ"
-                                     "Ğé¿ÕÖĞ£¬ËÄÖÜÖ»ÓĞÎŞÊıÉÁÁÁµÄĞÇ¹â¡£\n");
+                MESSAGE_D->tell_user(me, FUN_LOOK, "ä½ ç°åœ¨å¤„åœ¨ç¼¥ç¼ˆçš„"
+                                     "è™šç©ºä¸­ï¼Œå››å‘¨åªæœ‰æ— æ•°é—ªäº®çš„æ˜Ÿå…‰ã€‚\n");
                 return 1;
         }
 
@@ -355,8 +355,8 @@ int do_look(string arg)
                         if (! ob)
                         {
                                 MESSAGE_D->tell_user(me, FUN_NOTICE,
-                                        "Äã¿´ÁË°ëÌì£¬È´Ã»ÄÜ·¢ÏÖ(" +
-                                        arg + ")ÔÚ¸½½ü¡£\n");
+                                        "ä½ çœ‹äº†åŠå¤©ï¼Œå´æ²¡èƒ½å‘ç°(" +
+                                        arg + ")åœ¨é™„è¿‘ã€‚\n");
                                 return 1;
                         }
                         fun = FUN_NOTICE;
@@ -389,7 +389,7 @@ string short()
                 title = query("title");
 	if (nick = query("nickname"))
         {
-		str = "¡¸" + nick + "¡¹" + str;
+		str = "ã€Œ" + nick + "ã€" + str;
 		if (title) str = title + str;
         } else
 	if (title) str = title + " " + str;

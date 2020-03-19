@@ -7,14 +7,14 @@ inherit MEDICAL_BOOK;
 
 void create()
 {
-        set_name(HIG "ÌÒ»¨Ò©Êõ" NOR, ({ "taohua yaoshu", "yaoshu" }));
+        set_name(HIG "æ¡ƒèŠ±è¯æœ¯" NOR, ({ "taohua yaoshu", "yaoshu" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±¾");
-                set("long", "ÕâÊÇÒ»±¾·º»ÆµÄÊé¼®£¬ÉÏÃæÓÃ¹Å×­Êé"
-                            "Ğ´×Å¡°ÌÒ»¨Ò©Êõ¡±¼¸¸ö×Ö¡£\n",
+                set("unit", "æœ¬");
+                set("long", "è¿™æ˜¯ä¸€æœ¬æ³›é»„çš„ä¹¦ç±ï¼Œä¸Šé¢ç”¨å¤ç¯†ä¹¦"
+                            "å†™ç€â€œæ¡ƒèŠ±è¯æœ¯â€å‡ ä¸ªå­—ã€‚\n",
 
                 );
                 set("material", "paper");
@@ -27,15 +27,15 @@ void create()
                 ]));
 
                 set("can_make", ([
-                        "liuhe" : 80,           // ÁùºÏ·µ¾«É¢
-                        "qingxin" : 100,        // ÇåĞÄ¶¨ÉñÉ¢
-                        "zhending": 150,        // ¹ÌÔªÕò¶¨É¢
-                        "dieda" : 80,           // µø´òÉËÓú¸à
-                        "huojin" : 100,         // »î½îÊæÑªÍè
-                        "tongmai" : 150,        // ¹áÆøÍ¨Âöµ¤
-                        "jiedu" : 100,          // Å£»Æ½â¶¾Íè
-                        "jiuhua" : 200,         // ¾Å»¨ÓñÂ¶Íè
-                        "wuchang" : 250,        // ÎŞ³£µ¤
+                        "liuhe" : 80,           // å…­åˆè¿”ç²¾æ•£
+                        "qingxin" : 100,        // æ¸…å¿ƒå®šç¥æ•£
+                        "zhending": 150,        // å›ºå…ƒé•‡å®šæ•£
+                        "dieda" : 80,           // è·Œæ‰“ä¼¤æ„ˆè†
+                        "huojin" : 100,         // æ´»ç­‹èˆ’è¡€ä¸¸
+                        "tongmai" : 150,        // è´¯æ°”é€šè„‰ä¸¹
+                        "jiedu" : 100,          // ç‰›é»„è§£æ¯’ä¸¸
+                        "jiuhua" : 200,         // ä¹èŠ±ç‰éœ²ä¸¸
+                        "wuchang" : 250,        // æ— å¸¸ä¸¹
                 ]));
         }
         setup();

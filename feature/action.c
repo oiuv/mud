@@ -26,7 +26,7 @@ varargs void start_busy(mixed new_busy, mixed new_interrupt)
                 }
 
                 if (new_busy > 1 && random(10) < 4 &&
-                    me->query("character") == "½Ζχο¶ΰ±δ")
+                    me->query("character") == "η‹΅ι» ε¤ε")
                         new_busy--;
         }
 

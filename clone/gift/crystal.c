@@ -1,4 +1,4 @@
-// crystal.c Ë®¾§
+// crystal.c æ°´æ™¶
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,19 +7,19 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIM "Ë®¾§" NOR, ({ "crystal" }) );
+	set_name(HIM "æ°´æ™¶" NOR, ({ "crystal" }) );
 	set_weight(30);
 	if( clonep() )
 		set_default_object(__FILE__);
         else {
-	        set("long", HIM "Ò»¿é·ÛÉ«µÄË®¾§¡£\n" NOR);
+	        set("long", HIM "ä¸€å—ç²‰è‰²çš„æ°´æ™¶ã€‚\n" NOR);
                 set("value", 50000);
-		set("unit", "¿é");
+		set("unit", "å—");
                 set("armor_prop/per", 5);
-                set("wear_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´÷ÔÚÍ·ÉÏ¡£\n" NOR);
-                set("remove_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n" NOR);
+                set("wear_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "æˆ´åœ¨å¤´ä¸Šã€‚\n" NOR);
+                set("remove_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "ä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n" NOR);
 	}
         setup();
 }

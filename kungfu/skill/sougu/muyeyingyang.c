@@ -1,4 +1,4 @@
-// muyeyingyang.c ÄÁÒ°Ó¥Ñï
+// muyeyingyang.c ç‰§é‡é¹°æ‰¬
 
 #include <ansi.h>
 
@@ -11,34 +11,34 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail("ÄÁÒ°Ó¥ÑïÖ»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("ç‰§é‡é¹°æ‰¬åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if ((int)me->query_str() < 30)
-                return notify_fail("Äã±ÛÁ¦²»¹»,²»ÄÜÊ¹ÓÃÄÁÒ°Ó¥Ñï£¡\n");
+                return notify_fail("ä½ è‡‚åŠ›ä¸å¤Ÿ,ä¸èƒ½ä½¿ç”¨ç‰§é‡é¹°æ‰¬ï¼\n");
 
         if ((int)me->query_skill("sougu",1) < 150)
-                return notify_fail("ÄãµÄËÑ¹ÇÓ¥×¦¹¦ĞŞÎª²»¹»,Ä¿Ç°»¹²»ÄÜÊ¹ÓÃÄÁÒ°Ó¥Ñï£¡\n");
+                return notify_fail("ä½ çš„æœéª¨é¹°çˆªåŠŸä¿®ä¸ºä¸å¤Ÿ,ç›®å‰è¿˜ä¸èƒ½ä½¿ç”¨ç‰§é‡é¹°æ‰¬ï¼\n");
 
         if ((int)me->query("neili") < 800)
-                return notify_fail("ÄãÄÚÁ¦ÏÖÔÚ²»¹», ²»ÄÜÊ¹ÓÃÄÁÒ°Ó¥Ñï£¡\n");
+                return notify_fail("ä½ å†…åŠ›ç°åœ¨ä¸å¤Ÿ, ä¸èƒ½ä½¿ç”¨ç‰§é‡é¹°æ‰¬ï¼\n");
 
         if (target->is_busy())
-                return notify_fail(target->name() + "Ä¿Ç°Õı×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É£¡\n");
+                return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIY "$N" HIY "Ê¹³öËÑ¹ÇÓ¥×¦¹¦¾ø¼¼¡¸ÄÁÒ°Ó¥Ñï¡¹£¬Ë«×¦İëµØ×¥Ïò$n"
-              HIY "µÄÈ«ÉíÒªÑ¨¡£\n" NOR;
+        msg = HIY "$N" HIY "ä½¿å‡ºæœéª¨é¹°çˆªåŠŸç»æŠ€ã€Œç‰§é‡é¹°æ‰¬ã€ï¼ŒåŒçˆªè“¦åœ°æŠ“å‘$n"
+              HIY "çš„å…¨èº«è¦ç©´ã€‚\n" NOR;
 
         if (random(me->query("combat_exp")) > (int)target->query("combat_exp") / 2)
         {
-                msg += HIR "½á¹û$p" HIR "±»$P" HIR "µãÖĞÒªÑ¨£¬Á¢Ê±¶¯µ¯²»µÃ£¡\n" NOR;
+                msg += HIR "ç»“æœ$p" HIR "è¢«$P" HIR "ç‚¹ä¸­è¦ç©´ï¼Œç«‹æ—¶åŠ¨å¼¹ä¸å¾—ï¼\n" NOR;
                 target->start_busy( (int)me->query_skill("sougu",1) / 22 + 1);
                 me->add("neili", -150);
         } else
         {
-                msg += HIG "¿ÉÊÇ$p" HIG "¿´ÆÆÁË$P" HIG "µÄÆóÍ¼£¬²¢Ã»ÓĞÉÏµ±¡£\n" NOR;
+                msg += HIG "å¯æ˜¯$p" HIG "çœ‹ç ´äº†$P" HIG "çš„ä¼å›¾ï¼Œå¹¶æ²¡æœ‰ä¸Šå½“ã€‚\n" NOR;
                 me->start_busy(4);
         }
         message_combatd(msg, me, target);

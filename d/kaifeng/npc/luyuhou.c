@@ -1,8 +1,8 @@
 inherit NPC;
 void create()
 {
-        set_name("Â½ÓÝºò",({"lu yuhou", "lu"}));
-        set("gender", "ÄÐÐÔ");
+        set_name("é™†è™žå€™",({"lu yuhou", "lu"}));
+        set("gender", "ç”·æ€§");
         set("age", 53);
         set("str", 20);
         set("dex", 20);

@@ -5,15 +5,15 @@ inherit MEDICAL_BOOK;
 
 void create()
 {
-        set_name(RED "¡¸Ò©ÍõÉñÆª¡¹" NOR, ({ "yaowang shenpian", "yaowang",
+        set_name(RED "ã€Œè¯ç‹ç¥ç¯‡ã€" NOR, ({ "yaowang shenpian", "yaowang",
                                             "shenpian", "pian", "book" }));
         set_weight(600);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
+                set("unit", "æœ¬");
                 set("no_sell",1);
-                set("long", RED "Ò»±¾±¡±¡µÄÊé¼®£¬·âÃæ»íÈ»Ğ´×Å¡°Ò©ÍõÉñÆª¡±ËÄ¸ö×Ö¡£\n" NOR);
+                set("long", RED "ä¸€æœ¬è–„è–„çš„ä¹¦ç±ï¼Œå°é¢è±ç„¶å†™ç€â€œè¯ç‹ç¥ç¯‡â€å››ä¸ªå­—ã€‚\n" NOR);
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "paper");
@@ -27,15 +27,15 @@ void create()
                 ]));
 
                 set("can_make", ([
-                        "liuhe" : 80,           // ÁùºÏ·µ¾«É¢
-                        "qingxin" : 100,        // ÇåĞÄ¶¨ÉñÉ¢
-                        "zhending": 150,        // ¹ÌÔªÕò¶¨É¢
-                        "dieda" : 80,           // µø´òÉËÓú¸à
-                        "huojin" : 100,         // »î½îÊæÑªÍè
-                        "tongmai" : 150,        // ¹áÆøÍ¨Âöµ¤
-                        "jiedu" : 100,          // Å£»Æ½â¶¾Íè
-                        "jiuhua" : 200,         // ¾Å»¨ÓñÂ¶Íè
-                        "wuchang" : 250,        // ÎŞ³£µ¤
+                        "liuhe" : 80,           // å…­åˆè¿”ç²¾æ•£
+                        "qingxin" : 100,        // æ¸…å¿ƒå®šç¥æ•£
+                        "zhending": 150,        // å›ºå…ƒé•‡å®šæ•£
+                        "dieda" : 80,           // è·Œæ‰“ä¼¤æ„ˆè†
+                        "huojin" : 100,         // æ´»ç­‹èˆ’è¡€ä¸¸
+                        "tongmai" : 150,        // è´¯æ°”é€šè„‰ä¸¹
+                        "jiedu" : 100,          // ç‰›é»„è§£æ¯’ä¸¸
+                        "jiuhua" : 200,         // ä¹èŠ±ç‰éœ²ä¸¸
+                        "wuchang" : 250,        // æ— å¸¸ä¸¹
                 ]));
 
         }

@@ -4,14 +4,14 @@ inherit ROOM;
 
 void create()
 {
-        set("short", NOR + WHT "¡¾ÄÎºÓÇÅ¡¿" NOR);
+        set("short", NOR + WHT "ã€å¥ˆæ²³æ¡¥ã€‘" NOR);
         set("long", NOR + WHT @LONG
 
-                    ÄÎ         ºÓ         ÇÅ
+                    å¥ˆ         æ²³         æ¡¥
 
-    ÕâÀï¾ÍÊÇÖøÃûµÄÒõ¼äÍ¨µÀ¡¸ÄÎºÓÇÅ¡¹£¬Äã×ßÔÚÕâ³¤³¤µÄÊ¯ÖÆ¹°ÇÅÉÏ
-Ãæ£¬Ðí¶àÍö»êÕý¿Þ¿ÞÌäÌäµØ´ÓÄãÉíÅÔ²ÁÉí¶ø¹ý£¬ÇÅµÄÁíÒ»¶ËÕ¾×ÅÒ»¸öÅ£
-Í·ÈËÉíµÄÊØÎÀ£¬×ÐÏ¸µÄ²é¿´×Å¹ýÍùµÄÍö»ê¡£
+    è¿™é‡Œå°±æ˜¯è‘—åçš„é˜´é—´é€šé“ã€Œå¥ˆæ²³æ¡¥ã€ï¼Œä½ èµ°åœ¨è¿™é•¿é•¿çš„çŸ³åˆ¶æ‹±æ¡¥ä¸Š
+é¢ï¼Œè®¸å¤šäº¡é­‚æ­£å“­å“­å•¼å•¼åœ°ä»Žä½ èº«æ—æ“¦èº«è€Œè¿‡ï¼Œæ¡¥çš„å¦ä¸€ç«¯ç«™ç€ä¸€ä¸ªç‰›
+å¤´äººèº«çš„å®ˆå«ï¼Œä»”ç»†çš„æŸ¥çœ‹ç€è¿‡å¾€çš„äº¡é­‚ã€‚
 
 
 LONG NOR );
@@ -25,8 +25,8 @@ LONG NOR );
                 __DIR__"npc/ghost":1,
         ]));
         set("item_desc", ([
-                "north": HIW "\nÄÎºÓÇÅµÄÁíÒ»¶Ë±»ÑÌÎíËùÁýÕÖ£¬·Â·ðÃ»ÓÐ"
-                         "¾¡Í·£¬ÄãÊ²Ã´¶¼¿´²»Çå¡£\n" NOR
+                "north": HIW "\nå¥ˆæ²³æ¡¥çš„å¦ä¸€ç«¯è¢«çƒŸé›¾æ‰€ç¬¼ç½©ï¼Œä»¿ä½›æ²¡æœ‰"
+                         "å°½å¤´ï¼Œä½ ä»€ä¹ˆéƒ½çœ‹ä¸æ¸…ã€‚\n" NOR
         ]));
 
         set("no_sleep_room", 1);
@@ -41,8 +41,8 @@ int valid_leave(object me, string dir)
         if (dir == "north")
         {
                 if (objectp(present("niu tou", environment(me))))
-                        return notify_fail(CYN "Å£Í·¿´ÁËÄãÒ»ÑÛ£¬ºÈµÀ£ºÄã»¹²»¹ö"
-                                           "»ØÈ¥»¹Ñô£¬À´ÕâÀï´ÕÊ²Ã´ÈÈÄÖ£¡\n" NOR);
+                        return notify_fail(CYN "ç‰›å¤´çœ‹äº†ä½ ä¸€çœ¼ï¼Œå–é“ï¼šä½ è¿˜ä¸æ»š"
+                                           "å›žåŽ»è¿˜é˜³ï¼Œæ¥è¿™é‡Œå‡‘ä»€ä¹ˆçƒ­é—¹ï¼\n" NOR);
         }
         return ::valid_leave(me, dir);
 }

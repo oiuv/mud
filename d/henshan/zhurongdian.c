@@ -4,12 +4,12 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ף�ڵ�");
+        set("short", "祝融殿");
         set("long", 
-"ף�ڵ������ʥ�������ף�ڡ�����ʯ��ǽ�����߸�\n������"
-"����հ�ѩ��ΡȻ�����ں�ɽ���������ŵ�ʯ��Ͽ���\n�С�" HIW
-"�����ճ�����������" NOR "����������ԶԶ��ȥ�ַ��ۻ��������"
-"\n���ϻ����С�" HIR "ʥ���ػ�" NOR "����鹶\n");
+"祝融殿，又名老圣殿，祠火神祝融。花岗石砌墙，铁瓦覆\n顶，殿"
+"宇凌空傲雪，巍然屹立在衡山绝顶。殿门的石楹上刻着\n有「" HIW
+"寅宾日出，峻极于天" NOR "」的字样，远远看去字峰雄浑而有力。"
+"\n殿上还立有「" HIR "圣德重华" NOR "」的楣额。\n");
         set("exits", ([
                 "southdown"  : __DIR__"wangritai",
                 "northdown"  : __DIR__"wangyuetai",

@@ -4,12 +4,12 @@ inherit NPC;
 
 void create()
 {
-	set_name("ºÂÁ¬ÌúÊ÷", ({ "haolian tieshu", "tieshu" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("éƒè¿é“æ ‘", ({ "haolian tieshu", "tieshu" }));
+	set("gender", "ç”·æ€§");
 	set("age", random(10) + 20);
 	set("str", 25);
 	set("dex", 16);
-	set("long", "ÕâÊÇÎ÷ÏÄµÄÕ÷¶«´ó½«¾ü£¬ÉùÊÆÏÔºÕ¡£\n");
+	set("long", "è¿™æ˜¯è¥¿å¤çš„å¾ä¸œå¤§å°†å†›ï¼Œå£°åŠ¿æ˜¾èµ«ã€‚\n");
 	set("combat_exp", 300000);
 	set("shen_type", 1);
 	set("attitude", "aggressive");

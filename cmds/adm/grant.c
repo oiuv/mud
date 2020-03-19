@@ -16,7 +16,7 @@ int main(object me, string arg)
         string msg;
 
         if (! is_root(me) && ! SECURITY_D->valid_grant(me, "(admin)"))
-                return notify_fail("ֻ�й���Ա����ʹ����Ȩ���\n");
+                return notify_fail("只有管理员才能使用授权命令。\n");
 
         if (! me->is_admin())
         {
@@ -26,7 +26,7 @@ int main(object me, string arg)
                         break;
 
                 default:
-                        return notify_fail("�㲻��Ϊ���������Ȩ��\n");
+                        return notify_fail("你不能为其他玩家授权。\n");
                 }
         }
 
@@ -35,12 +35,12 @@ int main(object me, string arg)
                 gr = SECURITY_D->query_grant_users();
                 if (! arrayp(gr) || sizeof(gr) < 1)
                 {
-                        write("Ŀǰϵͳ��û���˱��������ʹ�������Ȩ����\n");
+                        write("目前系统中没有人被授予额外使用命令的权利。\n");
                         return 1;
                 }
 
-                msg = "Ŀǰϵͳ�б�������Զ���ʹ��������û��У�\n";
-                msg += implode(gr, "��") + "��\n";
+                msg = "目前系统中被授与可以额外使用命令的用户有：\n";
+                msg += implode(gr, "、") + "。\n";
                 write(msg);
                 return 1;
         }
@@ -57,9 +57,9 @@ int main(object me, string arg)
                 if (opts[i] == "-d") opt_del   = 1; else
                 if (! stringp(user)) user = opts[i]; else
                 if (file_size("/grant/" + opts[i]) < 0)
-                        return notify_fail("��μ�/grant�����"
-                                           "����Ȩ���Ŀǰ��û�� " + opts[i] +
-                                           " �����Ŀ��\n");
+                        return notify_fail("请参见/grant下面的"
+                                           "可授权命令，目前并没有 " + opts[i] +
+                                           " 这个项目。\n");
                 else continue;
 
                 opts[i] = 0;
@@ -67,40 +67,40 @@ int main(object me, string arg)
 
         opts -= ({ 0, "" });
         if (! stringp(user))
-                return notify_fail("��Ҫ��˭��Ȩ��\n");
+                return notify_fail("你要给谁授权？\n");
 
         ob = find_player(user);
 
         if (opt_clear)
         {
-                // ���ĳһ��������е�Ȩ��
-                write("����� " + user + " ���������������ʹ��Ȩ�ޡ�\n");
+                // 清除某一个玩家所有的权限
+                write("清除了 " + user + " 的所有授予的命令使用权限。\n");
                 if (SECURITY_D->remove_grant(user, "*") && objectp(ob))
-                        tell_object(ob, HIG + me->name(1) + "�ջ������������������ʹ��Ȩ�ޡ�\n");
+                        tell_object(ob, HIG + me->name(1) + "收回了所有授予你的命令使用权限。\n");
                 return 1;
         }
 
         if (! sizeof(opts))
         {
-                // ��ʾһ��������е�Ȩ��
+                // 显示一个玩家所有的权限
                 gr = SECURITY_D->query_grant(user);
                 if (! arrayp(gr) || sizeof(gr) < 1)
                 {
-                        write("Ŀǰ " + user + " ��û�б������κ�����ʹ��Ȩ�ޡ�\n");
+                        write("目前 " + user + " 并没有被授予任何命令使用权限。\n");
                         return 1;
                 }
 
-                msg = "Ŀǰ " + user + " ���������ʹ��Ȩ���У�\n";
+                msg = "目前 " + user + " 授予的命令使用权限有：\n";
                 for (i = 0; i < sizeof(gr); i++)
                 {
                         msg += WHT + gr[i] + NOR;
                         if (i < sizeof(gr) - 1)
                         {
-                                msg += "��";
+                                msg += "、";
                                 if ((i + 1) % 8 == 0) msg += "\n";
                         }
                 }
-                msg += "��\n";
+                msg += "。\n";
                 write(msg);
                 return 1; 
         }
@@ -110,29 +110,29 @@ int main(object me, string arg)
                 if (opt_del)
                 {
                         if (! me->is_admin())
-                                message_system(me->name(1) + "�ջ��� " + user +
-                                               " ʹ�� " + opts[i] + " ��Ȩ�ޡ�\n");
-                        write("����� " + user + " ʹ�� " + opts[i] +
-                              " ��Ȩ�ޡ�\n");
+                                message_system(me->name(1) + "收回了 " + user +
+                                               " 使用 " + opts[i] + " 的权限。\n");
+                        write("清除了 " + user + " 使用 " + opts[i] +
+                              " 的权限。\n");
                         if (SECURITY_D->remove_grant(user, opts[i]) && objectp(ob))
                                 tell_object(ob, HIG + me->name(1) +
-                                            "�ջ����� " + opts[i] +
-                                            " ��Ȩ�ޡ�\n");
+                                            "收回了你 " + opts[i] +
+                                            " 的权限。\n");
                 } else
                 {
                         if (! me->is_admin())
-                                message_system(me->name(1) + "���� " + user +
-                                               " ʹ�� " + opts[i] + " ��Ȩ�ޡ�\n");
-                        write("������ " + user + " ʹ�� " + opts[i] +
-                              " ��Ȩ�ޡ�\n");
+                                message_system(me->name(1) + "授予 " + user +
+                                               " 使用 " + opts[i] + " 的权限。\n");
+                        write("授予了 " + user + " 使用 " + opts[i] +
+                              " 的权限。\n");
                         if (SECURITY_D->grant(user, opts[i]) && objectp(ob))
                                 tell_object(ob, HIG + me->name(1) +
-                                            "�������� " + opts[i] +
-                                            " ��Ȩ�ޡ�\n");
+                                            "授予了你 " + opts[i] +
+                                            " 的权限。\n");
                 }
         }
 
-        // ������Ȩ��Ϣ
+        // 保存授权信息
         SECURITY_D->save();
 
 	return 1;
@@ -141,24 +141,24 @@ int main(object me, string arg)
 int help (object me)
 {
         write(@HELP
-ָ���ʽ: grant [-d | -c] <���> <����> <����> ....
+指令格式: grant [-d | -c] <玩家> <命令> <命令> ....
 
-��һ�������Ȩʹ��ĳЩ�����Ȼ������ұ����ܹ����е���Щ��
-��ſ��ԣ����Ⲣ�������е����������Ȩ�ģ�������Բμ�Ŀ¼
-/grant������ļ���
+给一个玩家授权使用某些命令。当然，该玩家必须能够呼叫到这些命
+令才可以，另外并不是所有的命令都可以授权的，具体可以参见目录
+/grant下面的文件。
 
-ʹ�� -d ��������ȥ��һ����Ҷ�ĳЩ�����ʹ��Ȩ�ޣ�ʹ�� -c ��
-����������һ����������Ѿ������ʹ��Ȩ�ޡ�
+使用 -d 参数可以去掉一个玩家对某些命令的使用权限，使用 -c 参
+数则可以清除一个玩家所有已经授予的使用权限。
 
-�������<���>���ⲻ���κ����������ѡ�����������ʾ�����Ŀ
-ǰ����Ȩ״����
+如果除了<玩家>以外不加任何命令参数和选项参数，则显示该玩家目
+前的授权状况。
 
-���û���κβ���������ʵ��ǰϵͳ�б���Ȩ����ʹ���ߡ�����Բ�
-ѯ /grant Ŀ¼�µ��ļ��˽�����Щ�������ͨ����Ȩʹ�á�ע�⣺
-��Ȩֻ���ø�ʹ���߿���ʹ�ø�������Ǿ����ܷ�ʹ�û�Ҫ������
-�����ڵ�λ�á�
+如果没有任何参数，则现实当前系统中被授权过的使用者。你可以查
+询 /grant 目录下的文件了解有那些命令可以通过授权使用。注意：
+授权只是让该使用者可以使用该命令，但是究竟能否使用还要看该命
+令所在的位置。
 
-�����������Ȩ����Ϣ��enable
+该命令可以授权的信息：enable
 
 HELP );
         return 1;

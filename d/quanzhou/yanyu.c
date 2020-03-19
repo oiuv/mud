@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "����¥");
+	set("short", "烟雨楼");
 	set("long", @LONG
-����¥�����Ϻ����ĵ�һ��С���ϡ��Ϻ����겻�ϵ�ˮ������
-���ֵ��������ɵġ�¥���Ǽҷ��ꡣ
-��������װ��¥�ݡ�������¥��
+烟雨楼建在南湖中心的一个小岛上。南湖终年不断的水气把它
+笼罩得迷迷蒙蒙的。楼内是家饭店。
+店内正在装修楼梯。请勿上楼。
 LONG );
 	set("exits", ([
                 "up"    : __DIR__"yanyu2",

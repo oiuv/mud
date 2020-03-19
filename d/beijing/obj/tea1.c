@@ -3,19 +3,19 @@ inherit F_LIQUID;
 
 void create()
 {
-	set_name("¸ÇÍë²è", ({"gaiwan tea", "tea"}));
+	set_name("ç›–ç¢—èŒ¶", ({"gaiwan tea", "tea"}));
 	set_weight(50);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»¸öÀ¶±ß´Ö´Å´óÍë£¬ÀïÃæÊ¢ÂúÁË²èË®¡£\n");
-		set("unit", "¸ö");
+		set("long", "ä¸€ä¸ªè“è¾¹ç²—ç£å¤§ç¢—ï¼Œé‡Œé¢ç››æ»¡äº†èŒ¶æ°´ã€‚\n");
+		set("unit", "ä¸ª");
 		set("value", 2);
         set("max_liquid", 4);
     }
     set("liquid", ([
         "type": "tea",
-        "name": "²èË®",
+        "name": "èŒ¶æ°´",
         "remaining": 4,
         "drunk_supply": 0,
     ]));

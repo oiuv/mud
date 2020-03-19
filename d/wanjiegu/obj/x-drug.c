@@ -4,13 +4,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name("ÒõÑôºÏºÍÉ¢", ({ "x-drug" }) );
+        set_name("é˜´é˜³åˆå’Œæ•£", ({ "x-drug" }) );
         set_weight(80);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»ÖÖÇ¿ÁÒµÄ´ºÒ©¡£\n");
-                set("unit", "°ü");
+                set("long", "ä¸€ç§å¼ºçƒˆçš„æ˜¥è¯ã€‚\n");
+                set("unit", "åŒ…");
                 set("value", 0);
         }
 }

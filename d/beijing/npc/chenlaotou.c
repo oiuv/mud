@@ -5,13 +5,13 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("³ÂÀÏÍ·", ({ "chen laotou", "chen", "laotou" }) );
-         set("title", "¿ÍµêÀÏ°å");
-         set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
-        set("gender", "ÄĞĞÔ" );
+        set_name("é™ˆè€å¤´", ({ "chen laotou", "chen", "laotou" }) );
+         set("title", "å®¢åº—è€æ¿");
+         set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
+        set("gender", "ç”·æ€§" );
         set("age", 32);
         set("long",
-              "Ò»¸öÄê¹ıÁùÑ®µÄĞ¡ÀÏÍ·£¬Ëû¾ÍÊÇÕâ¼ÒĞ¡¿ÍµêµÄÀÏ°å¡£\n");
+              "ä¸€ä¸ªå¹´è¿‡å…­æ—¬çš„å°è€å¤´ï¼Œä»–å°±æ˜¯è¿™å®¶å°å®¢åº—çš„è€æ¿ã€‚\n");
         set("shen_type", 1);
         set("combat_exp", 3000);
         set("str", 10);
@@ -23,8 +23,8 @@ void create()
         set_skill("unarmed",10);
         set("chat_chance", 10);
         set("chat_msg", ({
-                CYN "³ÂÀÏÍ·Ò»±ßºß×ÅĞ¡µ÷Ò»±ßÄÃ×ÅÄ¨²¼´òÕûÎÀÉú¡£\n" NOR,
-                CYN "³ÂÀÏÍ·Ò»¸öÈËàÖ¹¾µÀ£º×À×ÓÒ²¸Ã»»µÃÁË¡£\n" NOR,
+                CYN "é™ˆè€å¤´ä¸€è¾¹å“¼ç€å°è°ƒä¸€è¾¹æ‹¿ç€æŠ¹å¸ƒæ‰“æ•´å«ç”Ÿã€‚\n" NOR,
+                CYN "é™ˆè€å¤´ä¸€ä¸ªäººå˜€å’•é“ï¼šæ¡Œå­ä¹Ÿè¯¥æ¢å¾—äº†ã€‚\n" NOR,
         }) );
 
         setup();
@@ -50,12 +50,12 @@ void greeting(object ob)
         switch( random(2) )
         {
         case 0:
-                say( CYN "³ÂÀÏÍ·¿àĞ¦×Å¶ÔÄãËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob)
-                   + CYN + "£¬ÕæÊÇ¶Ô²»×¡£¬Ğ¡µêÒÑ¾­¿ÍÂúÁË¡£\n" NOR);
+                say( CYN "é™ˆè€å¤´è‹¦ç¬‘ç€å¯¹ä½ è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob)
+                   + CYN + "ï¼ŒçœŸæ˜¯å¯¹ä¸ä½ï¼Œå°åº—å·²ç»å®¢æ»¡äº†ã€‚\n" NOR);
                 break;
         case 1:
-                say( CYN "³ÂÀÏÍ·ÓÃ²±×ÓÉÏµÄÃ«½íÄ¨ÁËÄ¨ÊÖ£¬ÎŞÄÎµÄËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob)
-                   + CYN + "£¬Õæ²»ÇÉ£¬Ğ¡µêÒÑ¾­¿ÍÂúÁË¡£\n" NOR);
+                say( CYN "é™ˆè€å¤´ç”¨è„–å­ä¸Šçš„æ¯›å·¾æŠ¹äº†æŠ¹æ‰‹ï¼Œæ— å¥ˆçš„è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob)
+                   + CYN + "ï¼ŒçœŸä¸å·§ï¼Œå°åº—å·²ç»å®¢æ»¡äº†ã€‚\n" NOR);
                 break;
         }
 }

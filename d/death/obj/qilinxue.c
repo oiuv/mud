@@ -1,4 +1,4 @@
-// boots.c ÷è÷ëÑ¥
+// boots.c éº’éºŸé´
  
 #include <armor.h>
 #include <ansi.h>
@@ -7,14 +7,14 @@ inherit BOOTS;
  
 void create()
 {
-        set_name(HIR "÷è÷ëÑ¥" NOR, ({ "qilin xue", "xue", "boots" }) );
+        set_name(HIR "éº’éºŸé´" NOR, ({ "qilin xue", "xue", "boots" }) );
 	set_weight(800);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
 		set("material", "leather");
-		set("unit", "Ë«");
-		set("long", HIR "ÕâÊÇÒ»Ë«ÓÃÉÏ÷è÷ëÆ¤×÷µÄÆ¤Ñ¥£¬¾İËµ¿ÉÒÔ¸°ÌÀµ¸»ğ¡£ÓÃÒÔ±£»¤×ã²¿¡£\n" NOR);
+		set("unit", "åŒ");
+		set("long", HIR "è¿™æ˜¯ä¸€åŒç”¨ä¸Šéº’éºŸçš®ä½œçš„çš®é´ï¼Œæ®è¯´å¯ä»¥èµ´æ±¤è¹ˆç«ã€‚ç”¨ä»¥ä¿æŠ¤è¶³éƒ¨ã€‚\n" NOR);
 		set("value", 100000);
 		set("armor_prop/dodge", 80);
 	}

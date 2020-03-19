@@ -1,20 +1,20 @@
-// liangong.c Á·¹¦·¿
+// liangong.c ç»ƒåŠŸæˆ¿
 
 inherit ROOM;
 
 void create()
 {
-        set("short", "Á·¹¦·¿");
+        set("short", "ç»ƒåŠŸæˆ¿");
         set("long", @LONG
-ÕâÀïÊÇÁ·¹¦·¿£¬ÎİÖĞÁ¢×ÅÒ»Ğ©Á·ÎäÕß³£ÓÃµÄÄ¾ÈË¡£¶«ÃæËÆºõ»¹ÓĞ
-Ò»¼ä·¿×Ó¡£
+è¿™é‡Œæ˜¯ç»ƒåŠŸæˆ¿ï¼Œå±‹ä¸­ç«‹ç€ä¸€äº›ç»ƒæ­¦è€…å¸¸ç”¨çš„æœ¨äººã€‚ä¸œé¢ä¼¼ä¹è¿˜æœ‰
+ä¸€é—´æˆ¿å­ã€‚
 LONG );
         set("exits", ([
                 "east" : __DIR__"liangonge",
                 "west" : __DIR__"houyuan",
 		"south": __DIR__"liangongs",
         ]));
-        set("for_family", "¹ØÍâºú¼Ò");
+        set("for_family", "å…³å¤–èƒ¡å®¶");
         setup();
 	replace_program(ROOM);
 }

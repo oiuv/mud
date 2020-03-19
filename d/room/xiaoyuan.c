@@ -3,21 +3,21 @@
 inherit ROOM;
 
 STATIC_VAR_TAG mapping room_type = ([
-        "dule"    : "���־�",
-        "caihong" : "�ʺ��",
-        "panlong" : "������",
+        "dule"    : "独乐居",
+        "caihong" : "彩虹居",
+        "panlong" : "盘龙居",
 ]);
 
 void create()
 {
 //      object ob;
 
-	set("short", "СԺ");
+	set("short", "小院");
 	set("long", @LONG
-������һ�������Ժ�ӣ������ڷ���ľ��ש�ߡ�Ժ������
-һ���ˣ�����Ʈ�����ľ��ڽ�֮�硣����Χ�ż������ӣ�ר��
-��־������ʦ���Ρ�Ժ�ǵ�һ�����Ϲ���һ�����ӣ����飺��
-�����ַ��ݣ������߾�����³��Ǣ̸��
+这里是一个不大的院子，到处摆放着木料砖瓦。院中坐着
+一个人，丰神飘洒，颇具宗匠之风。四周围着几个弟子，专心
+致志的在老师听课。院角的一棵树上挂着一个牌子，上书：代
+建各种房屋，有意者敬请与鲁班洽谈。
 LONG);
 	set("exits", ([
 		"west"  : "/d/shaolin/yidao2",

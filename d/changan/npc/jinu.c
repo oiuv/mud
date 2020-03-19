@@ -7,8 +7,8 @@ inherit NPC;
 
 void create()
 {
-	set_name("¼ËÅ®", ({ "ji nu" }) );
-	set("gender", "Å®ĞÔ" );
+	set_name("å¦“å¥³", ({ "ji nu" }) );
+	set("gender", "å¥³æ€§" );
 	set("age", 25);
 	set("str", 10);
 	set("per", 30);

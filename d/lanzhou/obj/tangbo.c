@@ -1,17 +1,17 @@
-// tangbo.c ÌÀ°ü
+// tangbo.c æ±¤åŒ…
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-	set_name("ÌÀ°ü", ({"tangbo"}));
+	set_name("æ±¤åŒ…", ({"tangbo"}));
 	set_weight(80);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»¸öÏãÅçÅçµÄÏÊÈâÌÀ°ü¡£\n");
-		set("unit", "¸ö");
+		set("long", "ä¸€ä¸ªé¦™å–·å–·çš„é²œè‚‰æ±¤åŒ…ã€‚\n");
+		set("unit", "ä¸ª");
 		set("value", 50);
 		set("food_remaining", 3);
 		set("food_supply", 20);

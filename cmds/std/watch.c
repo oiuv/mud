@@ -39,7 +39,7 @@ int look_room(object me, object env)
         string str, *dirs;
 
         if( !env ) {
-                write("ÄãµÄËÄÖÜ»ÒÃÉÃÉµØÒ»Æ¬£¬Ê²Ã´Ò²Ã»ÓĞ¡£\n");
+                write("ä½ çš„å››å‘¨ç°è’™è’™åœ°ä¸€ç‰‡ï¼Œä»€ä¹ˆä¹Ÿæ²¡æœ‰ã€‚\n");
                 return 1;
         }
         str = sprintf( HIC + "%s" + NOR + " - %s\n    %s%s",
@@ -55,12 +55,12 @@ int look_room(object me, object env)
                                 dirs[i] = 0;
                 dirs -= ({ 0 });
                 if( sizeof(dirs)==0 )
-                        str += "    ÕâÀïÃ»ÓĞÈÎºÎÃ÷ÏÔµÄ³öÂ·¡£\n";
+                        str += "    è¿™é‡Œæ²¡æœ‰ä»»ä½•æ˜æ˜¾çš„å‡ºè·¯ã€‚\n";
                 else if( sizeof(dirs)==1 )
-                        str += "    ÕâÀïÎ¨Ò»µÄ³ö¿ÚÊÇ " + BOLD + dirs[0] + NOR + "¡£\n";
+                        str += "    è¿™é‡Œå”¯ä¸€çš„å‡ºå£æ˜¯ " + BOLD + dirs[0] + NOR + "ã€‚\n";
                 else
-                        str += sprintf("    ÕâÀïÃ÷ÏÔµÄ³ö¿ÚÊÇ " + BOLD + "%s" + NOR + " ºÍ " + BOLD + "%s" + NOR + "¡£\n",
-                                implode(dirs[0..sizeof(dirs)-2], "¡¢"), dirs[sizeof(dirs)-1]);
+                        str += sprintf("    è¿™é‡Œæ˜æ˜¾çš„å‡ºå£æ˜¯ " + BOLD + "%s" + NOR + " å’Œ " + BOLD + "%s" + NOR + "ã€‚\n",
+                                implode(dirs[0..sizeof(dirs)-2], "ã€"), dirs[sizeof(dirs)-1]);
         }
 //      str += env->door_description();
 
@@ -84,7 +84,7 @@ int look_item(object me, object obj)
         inv = all_inventory(obj);
         if( sizeof(inv) ) {
                 inv = map_array(inv, "inventory_look", this_object() );
-                message("vision", sprintf("ÀïÃæÓĞ£º\n  %s\n",
+                message("vision", sprintf("é‡Œé¢æœ‰ï¼š\n  %s\n",
                         implode(inv, "\n  ") ), me);
         }
         return 1;
@@ -108,49 +108,49 @@ int look_living(object me, object obj)
         age = obj->query("age");
 
         if( me!=obj )
-                message("vision", me->name() + "Õı¶¢ÖøÄã¿´£¬²»ÖªµÀ´òĞ©Ê²Ã´Ö÷Òâ¡£\n", obj);
+                message("vision", me->name() + "æ­£ç›¯è‘—ä½ çœ‹ï¼Œä¸çŸ¥é“æ‰“äº›ä»€ä¹ˆä¸»æ„ã€‚\n", obj);
 
         str = obj->long();
 
         pro = (obj==me) ? gender_self(obj->query("gender")) : gender_pronoun(obj->query("gender"));
 
-        if( (string)obj->query("race")=="ÈËÀà"
+        if( (string)obj->query("race")=="äººç±»"
         &&      intp(obj->query("age")) )
-                str += sprintf("%s¿´ÆğÀ´Ô¼%s¶àËê¡£\n", pro, chinese_number(obj->query("age") / 10 * 10));
+                str += sprintf("%sçœ‹èµ·æ¥çº¦%så¤šå²ã€‚\n", pro, chinese_number(obj->query("age") / 10 * 10));
         if(age > 70 ) per = per/4;
         if(age > 60 ) per = per/3;
         if(age > 50 ) per = per/2;
-        if ((string) obj->query("gender") == "ÄĞĞÔ" || (string) obj->query("gender") == "ÎŞĞÔ") {
-                if (per >= 30) str +=pro+ "³¤µÃÍğÈçÓñÊ÷ÁÙ·ç£¬·çÁ÷ÙÃÙÎ£¬ÕæÕıµÄÃÀÄĞ×Ó£¡\n";
+        if ((string) obj->query("gender") == "ç”·æ€§" || (string) obj->query("gender") == "æ— æ€§") {
+                if (per >= 30) str +=pro+ "é•¿å¾—å®›å¦‚ç‰æ ‘ä¸´é£ï¼Œé£æµå€œå‚¥ï¼ŒçœŸæ­£çš„ç¾ç”·å­ï¼\n";
                 if ((per >= 27) && (per < 30))
-                        str += pro+"Ó¢¿¡äìÈ÷£¬Ã²ËÆÅË°²¡£\n";
+                        str += pro+"è‹±ä¿Šæ½‡æ´’ï¼Œè²Œä¼¼æ½˜å®‰ã€‚\n";
                 if ((per >= 24) && (per < 27))
-                        str += pro+"ÏàÃ²Ó¢¿¡£¬ÒÇ±íÌÃÌÃ¡£\n";
+                        str += pro+"ç›¸è²Œè‹±ä¿Šï¼Œä»ªè¡¨å ‚å ‚ã€‚\n";
                 if ((per >= 21) && (per < 24))
-                        str += pro+"Îå¹Ù¶ËÕı¡£\n";
+                        str += pro+"äº”å®˜ç«¯æ­£ã€‚\n";
                 if ((per >= 18) && (per < 21))
-                        str += pro+"ÏàÃ²´Ö¿õÓĞµãÍşÃÍ¡£\n";
+                        str += pro+"ç›¸è²Œç²—æ—·æœ‰ç‚¹å¨çŒ›ã€‚\n";
                 if ((per >= 15) && (per < 18))
-                        str += pro+"ÏàÃ²Æ½Æ½¡£\n";
+                        str += pro+"ç›¸è²Œå¹³å¹³ã€‚\n";
                 if (per <= 15)
-                        str += pro+"³¤µÃ...ÓĞµã¶Ô²»×¡±ğÈË¡£\n";
+                        str += pro+"é•¿å¾—...æœ‰ç‚¹å¯¹ä¸ä½åˆ«äººã€‚\n";
         }
 
         else {
                 if (per = 30)
-                        str += pro+"ÓĞÇã¹úÇã³ÇÖ®Ã²£¬ÈİÉ«ÃÀÛ¼¾øÂ×£¬¿°³ÆÈË¼äÏÉ×Ó£¡\n";
+                        str += pro+"æœ‰å€¾å›½å€¾åŸä¹‹è²Œï¼Œå®¹è‰²ç¾å¥‚ç»ä¼¦ï¼Œå ªç§°äººé—´ä»™å­ï¼\n";
                 if ((per >= 27) && (per < 30))
-                        str += pro+"ÓĞ³ÁÓãÂäÑãÖ®Èİ£¬±ÜÔÂĞß»¨Ö®Ã²£¡\n";
+                        str += pro+"æœ‰æ²‰é±¼è½é›ä¹‹å®¹ï¼Œé¿æœˆç¾èŠ±ä¹‹è²Œï¼\n";
                 if ((per >= 24) && (per < 27))
-                        str += pro+"·çÇéÍòÖÖ£¬³ş³ş¶¯ÈË£¡\n";
+                        str += pro+"é£æƒ…ä¸‡ç§ï¼Œæ¥šæ¥šåŠ¨äººï¼\n";
                 if ((per >= 21) && (per < 24))
-                        str += pro+"ÆøÖÊ¸ßÑÅ£¬Ã²ÃÀÈç»¨£¡\n";
+                        str += pro+"æ°”è´¨é«˜é›…ï¼Œè²Œç¾å¦‚èŠ±ï¼\n";
                 if ((per >= 18) && (per < 21))
-                        str += pro+"ÏàÃ²Æ½Æ½£¬»¹¿´µÃ¹ıÈ¥¡£\n";
+                        str += pro+"ç›¸è²Œå¹³å¹³ï¼Œè¿˜çœ‹å¾—è¿‡å»ã€‚\n";
                 if ((per >= 15) && (per <18))
-                        str += pro+"µÄÏàÃ²Âï...ÂíÂí»¢»¢°É¡£\n";
+                        str += pro+"çš„ç›¸è²Œå˜›...é©¬é©¬è™è™å§ã€‚\n";
                 if (per < 15)
-                        str += "ß×£¬"+pro+"³¤µÃºÍÎŞÑÎÓĞµãÏàËÆÒ®¡£\n";
+                        str += "å’¦ï¼Œ"+pro+"é•¿å¾—å’Œæ— ç›æœ‰ç‚¹ç›¸ä¼¼è€¶ã€‚\n";
              }
         // If we both has family, check if we have any relations.
         if( obj!=me
@@ -160,31 +160,31 @@ int look_living(object me, object obj)
 
                 if( fam["generation"]==my_fam["generation"] ) {
 
-                        if( (string)obj->query("gender") == "ÄĞĞÔ" ||
-                                (string)obj->query("gender") == "ÎŞĞÔ")
-                                str += sprintf( pro + "ÊÇÄãµÄ%s%s¡£\n",
-                                        my_fam["master_id"] == fam["master_id"]? "": "Í¬ÃÅ",
-                                        my_fam["enter_time"] > fam["enter_time"] ? "Ê¦ĞÖ": "Ê¦µÜ");
+                        if( (string)obj->query("gender") == "ç”·æ€§" ||
+                                (string)obj->query("gender") == "æ— æ€§")
+                                str += sprintf( pro + "æ˜¯ä½ çš„%s%sã€‚\n",
+                                        my_fam["master_id"] == fam["master_id"]? "": "åŒé—¨",
+                                        my_fam["enter_time"] > fam["enter_time"] ? "å¸ˆå…„": "å¸ˆå¼Ÿ");
                         else
-                                str += sprintf( pro + "ÊÇÄãµÄ%s%s¡£\n",
-                                        my_fam["master_id"] == fam["master_id"]? "": "Í¬ÃÅ",
-                                        my_fam["enter_time"] > fam["enter_time"] ? "Ê¦½ã": "Ê¦ÃÃ");
+                                str += sprintf( pro + "æ˜¯ä½ çš„%s%sã€‚\n",
+                                        my_fam["master_id"] == fam["master_id"]? "": "åŒé—¨",
+                                        my_fam["enter_time"] > fam["enter_time"] ? "å¸ˆå§": "å¸ˆå¦¹");
                 } else if( fam["generation"] < my_fam["generation"] ) {
                         if( my_fam["master_id"] == obj->query("id") )
-                                str += pro + "ÊÇÄãµÄÊ¦¸¸¡£\n";
+                                str += pro + "æ˜¯ä½ çš„å¸ˆçˆ¶ã€‚\n";
                         else if( my_fam["generation"] - fam["generation"] > 1 )
-                                str += pro + "ÊÇÄãµÄÍ¬ÃÅ³¤±²¡£\n";
+                                str += pro + "æ˜¯ä½ çš„åŒé—¨é•¿è¾ˆã€‚\n";
                         else if( fam["enter_time"] < my_fam["enter_time"] )
-                                str += pro + "ÊÇÄãµÄÊ¦²®¡£\n";
+                                str += pro + "æ˜¯ä½ çš„å¸ˆä¼¯ã€‚\n";
                         else
-                                str += pro + "ÊÇÄãµÄÊ¦Êå¡£\n";
+                                str += pro + "æ˜¯ä½ çš„å¸ˆå”ã€‚\n";
                 } else {
                         if( fam["generation"] - my_fam["generation"] > 1 )
-                                str += pro + "ÊÇÄãµÄÍ¬ÃÅÍí±²¡£\n";
+                                str += pro + "æ˜¯ä½ çš„åŒé—¨æ™šè¾ˆã€‚\n";
                         else if( fam["master_id"] == me->query("id") )
-                                str += pro + "ÊÇÄãµÄµÜ×Ó¡£\n";
+                                str += pro + "æ˜¯ä½ çš„å¼Ÿå­ã€‚\n";
                         else
-                                str += pro + "ÊÇÄãµÄÊ¦Ö¶¡£\n";
+                                str += pro + "æ˜¯ä½ çš„å¸ˆä¾„ã€‚\n";
                 }
         }
 
@@ -196,7 +196,7 @@ int look_living(object me, object obj)
                 inv = map_array(inv, "inventory_look", this_object(), obj->is_corpse()? 0 : 1 );
                 inv -= ({ 0 });
                 if( sizeof(inv) )
-                        str += sprintf( obj->is_corpse() ? "%sµÄÒÅÎïÓĞ£º\n%s\n": "%sÉíÉÏ´øÖø£º\n%s\n",
+                        str += sprintf( obj->is_corpse() ? "%sçš„é—ç‰©æœ‰ï¼š\n%s\n": "%sèº«ä¸Šå¸¦è‘—ï¼š\n%s\n",
                                 pro, implode(inv, "\n") );
         }
 
@@ -207,7 +207,7 @@ int look_living(object me, object obj)
         if( obj!=me
         &&      living(obj)
         &&      random((int)obj->query("shen")) < 0 - (int)me->query("int") * 10 ) {
-                write( obj->name() + "Í»È»×ª¹ıÍ·À´µÉÄãÒ»ÑÛ¡£\n");
+                write( obj->name() + "çªç„¶è½¬è¿‡å¤´æ¥çªä½ ä¸€çœ¼ã€‚\n");
                 COMBAT_D->auto_fight(obj, me, "berserk");
         }
 */
@@ -216,7 +216,7 @@ int look_living(object me, object obj)
         && (((me_shen - obj_shen) > ((int)obj->query("neili") * 20))
         || ((obj_shen - me_shen) > ((int)obj->query("neili") * 20))))
         {
-                write( obj->name() + "Í»È»×ª¹ıÍ·À´µÉÄãÒ»ÑÛ¡£\n");
+                write( obj->name() + "çªç„¶è½¬è¿‡å¤´æ¥çªä½ ä¸€çœ¼ã€‚\n");
                 if(obj->query("age") > 15 && me->query("age") > 15)
                         COMBAT_D->auto_fight(obj, me, "berserk");
         }
@@ -230,7 +230,7 @@ string inventory_look(object obj, int flag)
 
         str = obj->short();
         if( obj->query("equipped") )
-                str = HIC "  ¡õ" NOR + str;
+                str = HIC "  â–¡" NOR + str;
         else if( !flag )
                 str = "    " + str;
         else
@@ -245,7 +245,7 @@ int look_room_item(object me, string arg)
         mapping item, exits;
 
         if( !objectp(env = environment(me)) )
-                return notify_fail("ÕâÀïÖ»ÓĞ»ÒÃÉÃÉµØÒ»Æ¬£¬Ê²Ã´Ò²Ã»ÓĞ¡£\n");
+                return notify_fail("è¿™é‡Œåªæœ‰ç°è’™è’™åœ°ä¸€ç‰‡ï¼Œä»€ä¹ˆä¹Ÿæ²¡æœ‰ã€‚\n");
         if( mapp(item = env->query("item_desc")) && !undefinedp(item[arg]) ) {
                 if( stringp(item[arg]) )
                         write(item[arg]);
@@ -263,15 +263,15 @@ int look_room_item(object me, string arg)
                 }
                 return 1;
         }
-        return notify_fail("ÄãÒª¿´Ê²Ã´£¿\n");
+        return notify_fail("ä½ è¦çœ‹ä»€ä¹ˆï¼Ÿ\n");
 }
 
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: look [<ÎïÆ·>|<ÉúÎï>|<·½Ïò>]
+æŒ‡ä»¤æ ¼å¼: look [<ç‰©å“>|<ç”Ÿç‰©>|<æ–¹å‘>]
 
-Õâ¸öÖ¸ÁîÈÃÄã²é¿´ÄãËùÔÚµÄ»·¾³¡¢Ä³¼şÎïÆ·¡¢ÉúÎï¡¢»òÊÇ·½Ïò¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ æŸ¥çœ‹ä½ æ‰€åœ¨çš„ç¯å¢ƒã€æŸä»¶ç‰©å“ã€ç”Ÿç‰©ã€æˆ–æ˜¯æ–¹å‘ã€‚
 
 HELP
 );

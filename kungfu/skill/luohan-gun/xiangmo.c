@@ -1,4 +1,4 @@
-// xiangmo.c ÂŞºº½µÄ§£­£­Ê®°ËÂŞºº¹÷
+// xiangmo.c ç½—æ±‰é™é­”ï¼ï¼åå…«ç½—æ±‰æ£
 
 #include <ansi.h>
 #include <combat.h>
@@ -15,26 +15,26 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
         
         //if ( userp(me) && !me->query("can_perform/luohan-gun/xiangmo"))
-        //        return notify_fail("ÄãÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâ¸ö¹¦ÄÜ£¡\n");
+        //        return notify_fail("ä½ ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ä¸ªåŠŸèƒ½ï¼\n");
         
         if (! objectp(weapon = me->query_temp("weapon")) ||  
                         (string)weapon->query("skill_type") != "club")  
-                 return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô¡£\n");
+                 return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ã€‚\n");
         
         if (! target || ! me->is_fighting(target))
-                return notify_fail("¡¸ÂŞºº½µÄ§¡¹Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("ã€Œç½—æ±‰é™é­”ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_skill("luohan-gun", 1) < 80) 
-        return notify_fail("ÄãµÄÂŞºº¹÷·¨²»¹»æµÊì£¬ÏÖÔÚ»¹ÎŞ·¨Ê¹ÓÃ¡¸ÂŞºº½µÄ§¡¹¡£\n");
+        return notify_fail("ä½ çš„ç½—æ±‰æ£æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œç°åœ¨è¿˜æ— æ³•ä½¿ç”¨ã€Œç½—æ±‰é™é­”ã€ã€‚\n");
                                 
         if ((int)me->query("neili") < 150)
-        return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÎŞ·¨ÔËÓÃ¡¸ÂŞºº½µÄ§¡¹¡£\n");
+        return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•è¿ç”¨ã€Œç½—æ±‰é™é­”ã€ã€‚\n");
                 
         if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIY "$N" HIY "àËµÄÒ»Éù£¬Ò»¹÷Æ½Æ½³¯$n"
-              HIY "É¨³ö£¬ÕĞÊ½ËäÈ»¼òµ¥£¬µ«ÊÇÈ´Ò²ÊÇÁ¦µÀ¼«ÖØ¡£\n" NOR;
+        msg = HIY "$N" HIY "å—¨çš„ä¸€å£°ï¼Œä¸€æ£å¹³å¹³æœ$n"
+              HIY "æ‰«å‡ºï¼Œæ‹›å¼è™½ç„¶ç®€å•ï¼Œä½†æ˜¯å´ä¹Ÿæ˜¯åŠ›é“æé‡ã€‚\n" NOR;
 
         ap = me->query_skill("club");
         dp = target->query_skill("parry");
@@ -43,13 +43,13 @@ int perform(object me, object target)
                 damage = 100 + ap / 5 + random(ap / 5);
                 me->add("neili", -50);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 30,
-                                           HIR "Ö»¼û$n" HIR "Ò»¸öÕĞ¼ÜÊ§Îó£¬µÇÊ±"
-                                           "±»Õâ¹÷´òÁË¸öÕı×Å£¬ÃÆºßÒ»Éù£¬ÍËÁËÒ»²½¡£\n" NOR);
+                                           HIR "åªè§$n" HIR "ä¸€ä¸ªæ‹›æ¶å¤±è¯¯ï¼Œç™»æ—¶"
+                                           "è¢«è¿™æ£æ‰“äº†ä¸ªæ­£ç€ï¼Œé—·å“¼ä¸€å£°ï¼Œé€€äº†ä¸€æ­¥ã€‚\n" NOR);
                 me->start_busy(2);
         } else 
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "ÇáÇáÒ»¸ñ£¬¼Ü×¡ÁË$P"
-                       CYN "µÄ¹÷ÊÆ¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "è½»è½»ä¸€æ ¼ï¼Œæ¶ä½äº†$P"
+                       CYN "çš„æ£åŠ¿ã€‚\n" NOR;
                 me->add("neili", -50);
                 me->start_busy(3);
         }

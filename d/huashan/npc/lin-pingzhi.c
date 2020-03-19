@@ -4,11 +4,11 @@ inherit NPC;
 #include <ansi.h>
 void create()
 {
-        set_name("ÁÖÆ½Ö®", ({ "lin pingzhi","lin","pingzhi"}));
-        set("gender", "ÄÐÐÔ");
+        set_name("æž—å¹³ä¹‹", ({ "lin pingzhi","lin","pingzhi"}));
+        set("gender", "ç”·æ€§");
         set("age", 18);
-        set("long", "ÁÖÆ½Ö®ÊÇÔÀ²»Èº×îÐ¡µÄÒ»¸öµÜ×Ó£¬"
-                    "Ò²ÊÇËûµÄ¶«´²¿ìÐö¡£\n");
+        set("long", "æž—å¹³ä¹‹æ˜¯å²³ä¸ç¾¤æœ€å°çš„ä¸€ä¸ªå¼Ÿå­ï¼Œ"
+                    "ä¹Ÿæ˜¯ä»–çš„ä¸œåºŠå¿«å©¿ã€‚\n");
         set("attitude", "peaceful");
 
         set("str", 26);
@@ -51,7 +51,7 @@ void create()
         map_skill("unarmed", "huashan-quanfa");
         map_skill("dodge", "feiyan-huixiang");
 
-        create_family("»ªÉ½ÅÉ", 14, "µÜ×Ó");
+        create_family("åŽå±±æ´¾", 14, "å¼Ÿå­");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();
@@ -66,7 +66,7 @@ void die()
         if( objectp(killer = query_last_damage_from()) &&
 	    userp(killer) )
 	{
-             	message_vision("$NµÃµ½Ò»±¾±ÙÐ°½£Æ×¡£\n",killer);
+             	message_vision("$Nå¾—åˆ°ä¸€æœ¬è¾Ÿé‚ªå‰‘è°±ã€‚\n",killer);
             	book=new("/clone/book/pixie_book");
              	book->move(killer);
        	}

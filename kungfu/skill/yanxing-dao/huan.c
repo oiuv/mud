@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define HUAN "¡¸" HIY "ÎÞÐÎ»ÃÓ°" NOR "¡¹"
+#define HUAN "ã€Œ" HIY "æ— å½¢å¹»å½±" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -13,35 +13,35 @@ int perform(object me, object target)
         int i;
 
         if (userp(me) && ! me->query("can_perform/yanxing-dao/huan"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(HUAN "Ö»ÄÜÔÚÕ½¶·ÖÐ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(HUAN "åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "blade")
-                return notify_fail("ÄãµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" HUAN "¡£\n");
+                return notify_fail("ä½ çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" HUAN "ã€‚\n");
 
         if ((int)me->query_skill("yanxing-dao", 1) < 60 )
-                return notify_fail("ÄãÑãÐÐµ¶·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" HUAN "¡£\n");
+                return notify_fail("ä½ é›è¡Œåˆ€æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" HUAN "ã€‚\n");
 
         if ((int)me->query_skill("force") < 120 )
-                return notify_fail(RED"ÄãÄÚ¹¦»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹" HUAN "¡£\n");
+                return notify_fail(RED"ä½ å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HUAN "ã€‚\n");
 
         if (me->query_skill_mapped("blade") != "yanxing-dao")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢ÑãÐÐµ¶·¨£¬ÄÑÒÔÊ©Õ¹" HUAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘é›è¡Œåˆ€æ³•ï¼Œéš¾ä»¥æ–½å±•" HUAN "ã€‚\n");
 
         if ((int)me->query("neili") < 80)
-                return notify_fail(HIC"ÄãÏÖÔÚÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" HUAN "¡£\n");
+                return notify_fail(HIC"ä½ çŽ°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HUAN "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIC "$N" HIC "´óºÈÒ»Éù£¬È«³¡ËÄ´¦ÓÎ¶¯£¬$n"
-              HIC "Ö»¿´µ½$N" HIC "»¯×öÊýÍÅÉíÓ°£¬ÂþÌìµ¶"
-              HIC "¹âÏ¯¾í¶øÀ´£¡\n"NOR;
+        msg = HIC "$N" HIC "å¤§å–ä¸€å£°ï¼Œå…¨åœºå››å¤„æ¸¸åŠ¨ï¼Œ$n"
+              HIC "åªçœ‹åˆ°$N" HIC "åŒ–åšæ•°å›¢èº«å½±ï¼Œæ¼«å¤©åˆ€"
+              HIC "å…‰å¸­å·è€Œæ¥ï¼\n"NOR;
         message_combatd(msg, me, target);
 
         for (i = 0; i < 5; i++)

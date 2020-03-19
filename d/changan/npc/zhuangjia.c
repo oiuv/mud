@@ -6,10 +6,10 @@ object room = 0;
 
 void create()
 {
-	set_name( "×¯¼Ò", ({ "zhuang jia", "zhuang" }) );
-	set("long", "ÕâÊÇ¶Ä³¡µÄÖ°Òµ¶ÄÍ½£¬÷»×ÓÉÏµÄ¹¦·ò³öÉñÈë»¯¡£\n");
+	set_name( "åº„å®¶", ({ "zhuang jia", "zhuang" }) );
+	set("long", "è¿™æ˜¯èµŒåœºçš„èŒä¸šèµŒå¾’ï¼Œéª°å­ä¸Šçš„åŠŸå¤«å‡ºç¥å…¥åŒ–ã€‚\n");
 	set("attitude", "friendly");
-	set("title", HIR "÷»×ÓÊ¥ÊÖ" NOR);
+	set("title", HIR "éª°å­åœ£æ‰‹" NOR);
         set("force_factor", 30);
         set("max_kee", 3000);
         set("max_sen", 3000);
@@ -24,7 +24,7 @@ void create()
         set("mana", 3000);
 	set("age", 47);
 	set_temp("apply/damage",600);
-        set("gender", "ÄĞĞÔ" );
+        set("gender", "ç”·æ€§" );
 	set("str", 40);
 	set("cor", 35);
 	set("cps", 30);
@@ -61,16 +61,16 @@ void greeting(object ob)
         switch(random(3))
         {
         case 0:
-                say(CYN "×¯¼ÒĞ¦ßäßäµØËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-                    CYN "£¬¹ıÀ´¶ÄÁ½ÊÖ£¬¿´¿´ÔËÆøÈçºÎ£¿\n" NOR);
+                say(CYN "åº„å®¶ç¬‘å’ªå’ªåœ°è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+                    CYN "ï¼Œè¿‡æ¥èµŒä¸¤æ‰‹ï¼Œçœ‹çœ‹è¿æ°”å¦‚ä½•ï¼Ÿ\n" NOR);
                 break;
         case 1:
-                say(CYN "×¯¼Ò»ÎÁË»ÎÊÖÖĞµÄ÷»×Ó£¬½ĞµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-                    CYN "£¬±ğÓÌÔ¥ÁË¡£À´ÏÂÒ»×¢°É£¡\n" NOR);
+                say(CYN "åº„å®¶æ™ƒäº†æ™ƒæ‰‹ä¸­çš„éª°å­ï¼Œå«é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+                    CYN "ï¼Œåˆ«çŠ¹è±«äº†ã€‚æ¥ä¸‹ä¸€æ³¨å§ï¼\n" NOR);
                 break;
         case 2:
-                say(CYN "×¯¼ÒËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-                    CYN "£¬À´£¡À´£¡À´£¡ ÏÈÑºÒ»°Ñ£¡\n" NOR);
+                say(CYN "åº„å®¶è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+                    CYN "ï¼Œæ¥ï¼æ¥ï¼æ¥ï¼ å…ˆæŠ¼ä¸€æŠŠï¼\n" NOR);
                 break;
         }
 }

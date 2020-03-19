@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�鷿");
+        set("short", "书房");
         set("long", @LONG
-���Ǿ���ȵ��鷿��������������ذڷ��Ÿ����鼮����
-��������һ�����л��Ƶ�������һ�ž��µ�ľ�Ρ�
+这是绝情谷的书房，但见四周整齐地摆放着各种书籍。书
+房中央有一个雕有花纹的书桌和一张精致的木椅。
 LONG);
         set("exits", ([
                "east"    : __DIR__"changlang1",

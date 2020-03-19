@@ -5,16 +5,16 @@ inherit CLUB;
 
 void create()
 {
-        set_name(HIC "¶¨º£ÉñÕë¡¤ÆÆ¾ÅÓò" NOR, ({ "po jiuyu", "club", "gun", "shenzhen" }));
+        set_name(HIC "å®šæµ·ç¥é’ˆÂ·ç ´ä¹åŸŸ" NOR, ({ "po jiuyu", "club", "gun", "shenzhen" }));
         set_weight(20000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ö§");
+                set("unit", "æ”¯");
                 set("value", 3400000);
                 set("material", "steel");
-                set("long", HIW "\n¶¨º£ÉñÕë¡¤ÆÆ¾ÅÓòÄË¾Åñ·ÆßÓüÉñ±øÖ®Ò»¡£\n" NOR);
-                set("wield_msg", HIR "$NÇáÇá¶¶³ö$n" HIR "£¬É²Ê±À×ÉùºäÃù£¬Ò»¹ÉÉ±ÆøÖ±Äô¾ÅÏö¡£\n" NOR);
+                set("long", HIW "\nå®šæµ·ç¥é’ˆÂ·ç ´ä¹åŸŸä¹ƒä¹ç©¹ä¸ƒç‹±ç¥å…µä¹‹ä¸€ã€‚\n" NOR);
+                set("wield_msg", HIR "$Nè½»è½»æŠ–å‡º$n" HIR "ï¼Œåˆ¹æ—¶é›·å£°è½°é¸£ï¼Œä¸€è‚¡æ€æ°”ç›´è‚ä¹éœ„ã€‚\n" NOR);
         }
         init_club(220);
         setup();

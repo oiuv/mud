@@ -6,13 +6,13 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("ÉÌ±¦Õğ", ({"shang baozhen", "shang", "baozhen"}));
-        set("gender", "ÄĞĞÔ");
-        set("title", "ÉÌ¼Ò±¤ÉÙÖ÷");
+        set_name("å•†å®éœ‡", ({"shang baozhen", "shang", "baozhen"}));
+        set("gender", "ç”·æ€§");
+        set("title", "å•†å®¶å ¡å°‘ä¸»");
         set("age", 17);
         set("long", @LONG
-Õâ±ãÊÇÉÌ¼Ò±¤µÄÉÙÖ÷ÉÌ±¦Õğ£¬Ö»¼ûËûÒÂ×Å»ªÀö£¬
-ÍğÈ»Ò»¸±¸»¼Ò¹«×ÓµÄÄ£Ñù¡£
+è¿™ä¾¿æ˜¯å•†å®¶å ¡çš„å°‘ä¸»å•†å®éœ‡ï¼Œåªè§ä»–è¡£ç€åä¸½ï¼Œ
+å®›ç„¶ä¸€å‰¯å¯Œå®¶å…¬å­çš„æ¨¡æ ·ã€‚
 LONG);
         set("attitude", "peaceful");
         set("shen_type", -1);
@@ -72,14 +72,14 @@ LONG);
         }));
 
         set("guarder", ([
-                "refuse_other": CYN "$N" CYN "¶Ô$n" CYN "ÀäºÈµÀ£º"
-                                "Äã¸øÎÒÕ¾×¡£¡ÎÒÃÇÉÌ¼Ò±¤ÆñÊÇÓÉµÃÍâ"
-                                "ÈËËæ±ã×ß¶¯µØ·½£¿" NOR,
-                "refuse_carry": CYN "$N" CYN "¶Ô$n" CYN "ºÈµÀ£ºÄã"
-                                "±³ÉÏ±³µÄÊÇÊ²Ã´ÈË£¿¸øÎÒ·ÅÏÂÀ´£¡" NOR,
+                "refuse_other": CYN "$N" CYN "å¯¹$n" CYN "å†·å–é“ï¼š"
+                                "ä½ ç»™æˆ‘ç«™ä½ï¼æˆ‘ä»¬å•†å®¶å ¡å²‚æ˜¯ç”±å¾—å¤–"
+                                "äººéšä¾¿èµ°åŠ¨åœ°æ–¹ï¼Ÿ" NOR,
+                "refuse_carry": CYN "$N" CYN "å¯¹$n" CYN "å–é“ï¼šä½ "
+                                "èƒŒä¸ŠèƒŒçš„æ˜¯ä»€ä¹ˆäººï¼Ÿç»™æˆ‘æ”¾ä¸‹æ¥ï¼" NOR,
         ]));
 
-        create_family("ÉÌ¼Ò±¤", 4, "ÉÙÖ÷");
+        create_family("å•†å®¶å ¡", 4, "å°‘ä¸»");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -100,5 +100,5 @@ LONG);
 void attempt_apprentice(object ob)
 {
         command("shake");
-        command("say ÄãÈ¥ÕÒÎÒµùµù»òÊÇÄïÇ×ºÃÁË£¬ÎÒ×Ô¼ºµÄÎä¹¦¶¼Ã»Á·ºÃÄØ¡£");
+        command("say ä½ å»æ‰¾æˆ‘çˆ¹çˆ¹æˆ–æ˜¯å¨˜äº²å¥½äº†ï¼Œæˆ‘è‡ªå·±çš„æ­¦åŠŸéƒ½æ²¡ç»ƒå¥½å‘¢ã€‚");
 }

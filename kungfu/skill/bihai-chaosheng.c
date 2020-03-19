@@ -9,10 +9,10 @@ int valid_enable(string usage) { return usage == "chuixiao-jifa"; }
 int valid_learn(object me)
 {
         if (me->query_skill("chuixiao-jifa", 1) < 100)
-                return notify_fail("ÄãµÄ´µÏô¼¼·¨Ë®Æ½²»¹»£¬»¹ÊÇÏÈÁ·ºÃÔÙËµ°É£¡\n");
+                return notify_fail("ä½ çš„å¹è§æŠ€æ³•æ°´å¹³ä¸å¤Ÿï¼Œè¿˜æ˜¯å…ˆç»ƒå¥½å†è¯´å§ï¼\n");
 
         if (me->query_skill("chuixiao-jifa", 1) < me->query_skill("bihai-chaosheng", 1))
-                return notify_fail("ÄãµÄ´µÏô¼¼·¨Ë®Æ½ÓÐÏÞ£¬ÎÞ·¨Áì»á¸ü¾«ÃîµÄ±Ìº£³±ÉúÇú¡£\n");
+                return notify_fail("ä½ çš„å¹è§æŠ€æ³•æ°´å¹³æœ‰é™ï¼Œæ— æ³•é¢†ä¼šæ›´ç²¾å¦™çš„ç¢§æµ·æ½®ç”Ÿæ›²ã€‚\n");
 
         return 1;
 }
@@ -23,13 +23,13 @@ int practice_skill(object me)
 
         if (! objectp(ob = me->query_temp("handing")) ||
             ! ob->valid_as_xiao())
-                return notify_fail("²»ÄÃ¸ùóïÔÚÊÖÉÏ£¬ÄãÔõÃ´Á·Ï°£¿\n");
+                return notify_fail("ä¸æ‹¿æ ¹ç®«åœ¨æ‰‹ä¸Šï¼Œä½ æ€Žä¹ˆç»ƒä¹ ï¼Ÿ\n");
 
         if ((int)me->query("jing") < 80)
-                return notify_fail("ÄãµÄ¾«Éñ²»¹»ºÃ£¬Ã»·¨Á·Ï°ÁË¡£\n");
+                return notify_fail("ä½ çš„ç²¾ç¥žä¸å¤Ÿå¥½ï¼Œæ²¡æ³•ç»ƒä¹ äº†ã€‚\n");
 
         if ((int)me->query("qi") < 30)
-                return notify_fail("ÄãÏÖÔÚ¿Ú¸ÉÉàÔï£¬ÊµÔÚÊÇÌ«ÀÛÁË¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨å£å¹²èˆŒç‡¥ï¼Œå®žåœ¨æ˜¯å¤ªç´¯äº†ã€‚\n");
 
         me->receive_damage("jing", 45);
         me->receive_damage("qi", 20);
@@ -62,7 +62,7 @@ void do_effect(object me)
                 if (! obs[i]->is_character() || obs[i] == me || ! living(obs[i]))
                         continue;
 
-                // ±»ËÀÍö±£»¤µÄÍæ¼Ò²»ÊÜÉËº¦
+                // è¢«æ­»äº¡ä¿æŠ¤çš„çŽ©å®¶ä¸å—ä¼¤å®³
                 if ((int)obs[i]->query_condition("die_guard"))
                         continue;
 
@@ -72,14 +72,14 @@ void do_effect(object me)
 
                 if (lvl + random(lvl) < obs[i]->query_skill("force"))
                 {
-                        tell_object(obs[i], HIM "ÄãÌýÁËÐÄÖÐ²»½ûÎ¢Î¢Ò»¶¯£¬·¢ÏÖÕâÇú×ÓÆÄÓÐ°ÂÃîÖ®´¦¡£\n" NOR);
+                        tell_object(obs[i], HIM "ä½ å¬äº†å¿ƒä¸­ä¸ç¦å¾®å¾®ä¸€åŠ¨ï¼Œå‘çŽ°è¿™æ›²å­é¢‡æœ‰å¥¥å¦™ä¹‹å¤„ã€‚\n" NOR);
                         continue;
                 }
 
                 damage = me->query("max_neili") - obs[i]->query("max_neili");
                 if (damage < 500)
                 {
-                        tell_object(obs[i], HIM "ÄãºöÈ»¾õµÃÒ»ÕóÃÔÂÒ£¬Á¬Ã¦ÔËÁËÒ»¿ÚÆø£¬²ÅÇåÐÑ¹ýÀ´¡£\n" NOR);
+                        tell_object(obs[i], HIM "ä½ å¿½ç„¶è§‰å¾—ä¸€é˜µè¿·ä¹±ï¼Œè¿žå¿™è¿äº†ä¸€å£æ°”ï¼Œæ‰æ¸…é†’è¿‡æ¥ã€‚\n" NOR);
                         continue;
                 }
 
@@ -90,6 +90,6 @@ void do_effect(object me)
                 obs[i]->receive_damage("jing", damage, me);
                 obs[i]->receive_wound("jing", damage / 3, me);
                 
-                tell_object(obs[i], HIM "ÄãÖ»¾õµÃÐÄÃÔÉñÂÒ£¬ÈÌ²»×¡ÒªôæôæÆðÎè¡­¡­\n" NOR);
+                tell_object(obs[i], HIM "ä½ åªè§‰å¾—å¿ƒè¿·ç¥žä¹±ï¼Œå¿ä¸ä½è¦ç¿©ç¿©èµ·èˆžâ€¦â€¦\n" NOR);
         }
 }

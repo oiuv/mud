@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "´óµÀ");
+        set("short", "å¤§é“");
         set("long", @LONG
-ÕâÊÇÒ»Ìõ¿íÀ«±ÊÖ±µÄ¹ÙµÀ£¬×ã¿ÉÈÝµÃÏÂÊ®Âí²¢³Û¡£Íù¶«Í¨
-ÏòÖ¬·ÛÖ®¶¼µÄÑïÖÝ£¬ÕÛÏòÎ÷ÄÏÔòÍ¨ÍùÎ÷ÄÏÖØÕò¾£ÖÞ¡£
+è¿™æ˜¯ä¸€æ¡å®½é˜”ç¬”ç›´çš„å®˜é“ï¼Œè¶³å¯å®¹å¾—ä¸‹åé©¬å¹¶é©°ã€‚å¾€ä¸œé€š
+å‘è„‚ç²‰ä¹‹éƒ½çš„æ‰¬å·žï¼ŒæŠ˜å‘è¥¿å—åˆ™é€šå¾€è¥¿å—é‡é•‡è†æ´²ã€‚
 LONG);
         set("exits", ([
                 "northeast" : "/d/city/ximenroad",

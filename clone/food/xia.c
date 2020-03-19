@@ -1,17 +1,17 @@
-// xia.c ¿¾Ïº
+// xia.c çƒ¤è™¾
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-	set_name("¿¾Ïº", ({"kao xia", "xia"}));
+	set_name("çƒ¤è™¾", ({"kao xia", "xia"}));
 	set_weight(100);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»Ö»ºìÍ¨Í¨£¬ÏãÅçÅçµÄ¿¾Ïº¡£\n");
-		set("unit", "Ö»");
+		set("long", "ä¸€åªçº¢é€šé€šï¼Œé¦™å–·å–·çš„çƒ¤è™¾ã€‚\n");
+		set("unit", "åª");
 		set("food_remaining", 4);
 		set("food_supply", 10);
 	}

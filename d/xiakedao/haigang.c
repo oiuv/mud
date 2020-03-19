@@ -7,11 +7,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "Óæ¸Û");
+	set("short", "æ¸”æ¸¯");
 	set("long", @LONG
-ÕâÀïÊÇ¸öÐ¡Ð¡Óæ¸Û¡£ÄÏÃæº£ÃæÆ¯¸¡×Å¼¸ËÒÐ¡´¬£¬Ì§ÑÛÍû£¬º£ÌìÏà
-Á¬£¬ÎÞ±ßÎÞ¼Ê¡£º£Å¸ÂÓ¹ýÀË¼â£¬ÓÆÓÆôæÈ»¡£ÓÐ¼¸¸öÓæ·òÀÁÑóÑóµÄ´ôÔÚ
-º£±ß£¬¸½½üÍ£²´ÁËÒ»Ð©Ð¡´¬(boat)¡£
+è¿™é‡Œæ˜¯ä¸ªå°å°æ¸”æ¸¯ã€‚å—é¢æµ·é¢æ¼‚æµ®ç€å‡ è‰˜å°èˆ¹ï¼ŒæŠ¬çœ¼æœ›ï¼Œæµ·å¤©ç›¸
+è¿žï¼Œæ— è¾¹æ— é™…ã€‚æµ·é¸¥æŽ è¿‡æµªå°–ï¼Œæ‚ æ‚ ç¿©ç„¶ã€‚æœ‰å‡ ä¸ªæ¸”å¤«æ‡’æ´‹æ´‹çš„å‘†åœ¨
+æµ·è¾¹ï¼Œé™„è¿‘åœæ³Šäº†ä¸€äº›å°èˆ¹(boat)ã€‚
 LONG );
         set("outdoors", "nanhai");
 
@@ -24,7 +24,7 @@ LONG );
 	]));
 
         set("item_desc", ([
-                "boat" : "ÕâËÒ´¬¿Éµ½ÏÀ¿Íµº¡£\n",
+                "boat" : "è¿™è‰˜èˆ¹å¯åˆ°ä¾ å®¢å²›ã€‚\n",
         ]));
 
         set("no_fight", 1);
@@ -43,22 +43,22 @@ int do_enter(string arg)
 //      string dir;
 
         if (arg != "boat")
-                return notify_fail("ÄãÒªÈ¥ÄÄ¶ù£¿\n" );
+                return notify_fail("ä½ è¦åŽ»å“ªå„¿ï¼Ÿ\n" );
 
         ob = this_player();
 
         if (! lingpai = present("shangfa ling", ob))
-                return notify_fail(HIC "´¬·òËµµÀ£º¡°ÄãÃ»ÓÐÉÍÉÆ·£¶ñÁî£¬²»ÄÜµ½ÏÀ¿ÍµºÈ¥£¡\n" NOR);
+                return notify_fail(HIC "èˆ¹å¤«è¯´é“ï¼šâ€œä½ æ²¡æœ‰èµå–„ç½šæ¶ä»¤ï¼Œä¸èƒ½åˆ°ä¾ å®¢å²›åŽ»ï¼\n" NOR);
 
-        message_vision(HIG "´¬·òµãÁËµãÍ·µÀ£º¡°¼ÈÈ»¸óÏÂÓÐÉÍÉÆ·£¶ñÁî£¬ÎÒ¾ÍËÍÄãµ½ÏÀ¿ÍµºÈ¥£¡¡±\n" NOR, ob);
+        message_vision(HIG "èˆ¹å¤«ç‚¹äº†ç‚¹å¤´é“ï¼šâ€œæ—¢ç„¶é˜ä¸‹æœ‰èµå–„ç½šæ¶ä»¤ï¼Œæˆ‘å°±é€ä½ åˆ°ä¾ å®¢å²›åŽ»ï¼â€\n" NOR, ob);
         
         destruct(lingpai);
 
-        message_vision("´¬·òÒ»¼ûÓÐÈËÉÏ´¬£¬Ã¦½ÐÁËÒ»Éù£º¿ª´¬à¶£¡\n", ob);
-        message_vision("´¬·òÉýÆð·«£¬´¬¾ÍÏòÄÏ·½º½ÐÐ¡£\n", ob);
+        message_vision("èˆ¹å¤«ä¸€è§æœ‰äººä¸Šèˆ¹ï¼Œå¿™å«äº†ä¸€å£°ï¼šå¼€èˆ¹å–½ï¼\n", ob);
+        message_vision("èˆ¹å¤«å‡èµ·å¸†ï¼Œèˆ¹å°±å‘å—æ–¹èˆªè¡Œã€‚\n", ob);
         
         ob->move("/d/xiakedao/duchuan");
-        tell_object(ob, BLU "ÄãÔÚº£ÉÏº½ÐÐÁËÒ»ÕûÌì.......\n" NOR ) ;
+        tell_object(ob, BLU "ä½ åœ¨æµ·ä¸Šèˆªè¡Œäº†ä¸€æ•´å¤©.......\n" NOR ) ;
         call_out("home", 7, ob);
         return 1;
 }
@@ -68,8 +68,8 @@ void home(object ob)
         if (! objectp(ob))
                 return;
 
-        tell_object(ob, "´ó´¬ÖÕÓÚµÖ´ïÁËÄÏº£°¶±ß¡£Äã×ßÏÂ´¬À´¡£\n");
+        tell_object(ob, "å¤§èˆ¹ç»ˆäºŽæŠµè¾¾äº†å—æµ·å²¸è¾¹ã€‚ä½ èµ°ä¸‹èˆ¹æ¥ã€‚\n");
         ob->move (__DIR__"haitan");
-        message("vision", ob->name() + "ÏÂÁËÐ¡ÖÛ£¬×ßÁË¹ýÀ´¡£\n",
+        message("vision", ob->name() + "ä¸‹äº†å°èˆŸï¼Œèµ°äº†è¿‡æ¥ã€‚\n",
                 environment(ob), ob);
 }

@@ -6,7 +6,7 @@ inherit F_CLEAN_UP;
 #include <ansi.h>
 #include <command.h>
 #define SCALE   (1.0/10.0)
-#define STATUS  "ÏµÍ³º¯Êı¿â¸ÄĞ´ÖĞ"
+#define STATUS  "ç³»ç»Ÿå‡½æ•°åº“æ”¹å†™ä¸­"
 
 string memory_expression(int m);
 string dotime();
@@ -22,24 +22,24 @@ int main(object me)
 
         if (time() - me->query_temp("scan_time") < 10
            && ! wizardp(me))
-                return notify_fail("µÈµÈ£¬ÏµÍ³´­ÆøÖĞ¡­¡­\n");
+                return notify_fail("ç­‰ç­‰ï¼Œç³»ç»Ÿå–˜æ°”ä¸­â€¦â€¦\n");
 
         r = rusage();
         value = SCALE * (r["utime"] + r["stime"]) / uptime();
 
-        write(NOR + WHT "\n\t\t         .__________ Ïµ Í³ ×Ê Ñ¶ __________.\n");
-        write(NOR + WHT "\t\t ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n");
-        write(NOR + WHT "\t\t Mud µÄÊ¶±ğÃû³Æ£º  " + MUD_NAME + HIW + "£¨" + MUD_ZONE + "£©\n");
-        write(NOR + WHT "\t\t Çı¶¯ÏµÍ³µÄ°æ±¾£º  " + __VERSION__ + "\n");
-        write(NOR + WHT "\t\t ÏµÍ³º¯Êı¿â°æ±¾£º  YH Mudlib Ver 2018\n");
-        printf(NOR + WHT "\t\t CPU Ê¹ÓÃ°Ù·Ö±È£º  %f %% ±»Õâ¸ö Mud Ê¹ÓÃÖĞ\n", value );
-        write(NOR + WHT "\t\t CPU µÄ¸ºµ£×´¿ö£º  " + query_load_average() + "\n");
-        printf(NOR + WHT "\t\t ¹²Ê¹ÓÃµÄ¼ÇÒäÌå£º  %s bytes\n", memory_expression(memory_info()) );
-        write(NOR + WHT "\t\t ÏßÉÏÊ¹ÓÃÕß×ÜÊı£º  " + sizeof( users() ) + "  ¸öÈËÔÚÏßÉÏ\n");
-        write(NOR + WHT "\t\t ×¢²áÊ¹ÓÃÕß×ÜÊı£º  " + count_ppls() + "  ¸öÈËÔÚ±¾ Mud ×¢²á\n");
-        write(NOR + WHT "\t\t ÔØÈëµÄÎï¼ş×ÜÊı£º  " + sizeof( objects() ) + " ¸öÎï¼ş\n");
-        write(NOR + WHT "\t\t Á¬ĞøÖ´ĞĞµÄÊ±¼ä£º  " + dotime() + "\n");
-        write(NOR + WHT "\t\t Mud ÏÖÔÚµÄ×´Ì¬£º  " + STATUS + "\n\n" NOR);
+        write(NOR + WHT "\n\t\t         .__________ ç³» ç»Ÿ èµ„ è®¯ __________.\n");
+        write(NOR + WHT "\t\t â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n");
+        write(NOR + WHT "\t\t Mud çš„è¯†åˆ«åç§°ï¼š  " + MUD_NAME + HIW + "ï¼ˆ" + MUD_ZONE + "ï¼‰\n");
+        write(NOR + WHT "\t\t é©±åŠ¨ç³»ç»Ÿçš„ç‰ˆæœ¬ï¼š  " + __VERSION__ + "\n");
+        write(NOR + WHT "\t\t ç³»ç»Ÿå‡½æ•°åº“ç‰ˆæœ¬ï¼š  YH Mudlib Ver 2018\n");
+        printf(NOR + WHT "\t\t CPU ä½¿ç”¨ç™¾åˆ†æ¯”ï¼š  %f %% è¢«è¿™ä¸ª Mud ä½¿ç”¨ä¸­\n", value );
+        write(NOR + WHT "\t\t CPU çš„è´Ÿæ‹…çŠ¶å†µï¼š  " + query_load_average() + "\n");
+        printf(NOR + WHT "\t\t å…±ä½¿ç”¨çš„è®°å¿†ä½“ï¼š  %s bytes\n", memory_expression(memory_info()) );
+        write(NOR + WHT "\t\t çº¿ä¸Šä½¿ç”¨è€…æ€»æ•°ï¼š  " + sizeof( users() ) + "  ä¸ªäººåœ¨çº¿ä¸Š\n");
+        write(NOR + WHT "\t\t æ³¨å†Œä½¿ç”¨è€…æ€»æ•°ï¼š  " + count_ppls() + "  ä¸ªäººåœ¨æœ¬ Mud æ³¨å†Œ\n");
+        write(NOR + WHT "\t\t è½½å…¥çš„ç‰©ä»¶æ€»æ•°ï¼š  " + sizeof( objects() ) + " ä¸ªç‰©ä»¶\n");
+        write(NOR + WHT "\t\t è¿ç»­æ‰§è¡Œçš„æ—¶é—´ï¼š  " + dotime() + "\n");
+        write(NOR + WHT "\t\t Mud ç°åœ¨çš„çŠ¶æ€ï¼š  " + STATUS + "\n\n" NOR);
 
         me->set_temp("scan_time", time());
 
@@ -84,12 +84,12 @@ string dotime()
         h = t % 24;             t /= 24;
         d = t;
 
-        if (d) time = chinese_number(d) + "Ìì";
+        if (d) time = chinese_number(d) + "å¤©";
         else time = "";
 
-        if (h) time += chinese_number(h) + "Ğ¡Ê±";
-        if (m) time += chinese_number(m) + "·Ö";
-        time += chinese_number(s) + "Ãë\n";
+        if (h) time += chinese_number(h) + "å°æ—¶";
+        if (m) time += chinese_number(m) + "åˆ†";
+        time += chinese_number(s) + "ç§’\n";
 
         return time;
 }
@@ -97,9 +97,9 @@ string dotime()
 int help() {
 
    write(@HELP
-Ö¸Áî¸ñÊ½£ºmudinfo
+æŒ‡ä»¤æ ¼å¼ï¼šmudinfo
 
-Õâ¸öÖ¸Áî½«»áÏÔÊ¾ÓĞ¹ØÕâ¸ö Mud µÄÒ»Ğ©ÏµÍ³×ÊÑ¶¡£
+è¿™ä¸ªæŒ‡ä»¤å°†ä¼šæ˜¾ç¤ºæœ‰å…³è¿™ä¸ª Mud çš„ä¸€äº›ç³»ç»Ÿèµ„è®¯ã€‚
 
 HELP
         );

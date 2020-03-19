@@ -1,13 +1,13 @@
-// jiading.c ¼Ò¶¡
+// jiading.c å®¶ä¸
 
 inherit NPC;
 
 void create()
 {
-	set_name("¼Ò¶¡", ({ "jia ding", "jia" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("å®¶ä¸", ({ "jia ding", "jia" }));
+	set("gender", "ç”·æ€§");
 	set("age", 35);
-	set("long", "·ğÉ½·ïÀÏÒ¯¸®ÉÏµÄ¼Ò¶¡¡£Õ¼ÊÆÆÛÈË£¬ºáĞĞ°ÔµÀ¡£\n");
+	set("long", "ä½›å±±å‡¤è€çˆ·åºœä¸Šçš„å®¶ä¸ã€‚å åŠ¿æ¬ºäººï¼Œæ¨ªè¡Œéœ¸é“ã€‚\n");
 	set("combat_exp", 4000);
         set_skill("dodge", 20);
         set_skill("unarmed", 20);

@@ -4,14 +4,14 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIG "Ê¥µ®ºº±¤" NOR, ({ "christmas bao", "bao", "christmas" }) );
+        set_name(HIG "åœ£è¯æ±‰å ¡" NOR, ({ "christmas bao", "bao", "christmas" }) );
         set_weight(300);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIW " ÉÏÃæĞ´×Å¡¸" HIY "Merry Christmas£¡×££ºÊ¥µ®¿ìÀÖ£¡" HIW"¡¹¡£\n" NOR);
+                set("long", HIW " ä¸Šé¢å†™ç€ã€Œ" HIY "Merry Christmasï¼ç¥ï¼šåœ£è¯å¿«ä¹ï¼" HIW"ã€ã€‚\n" NOR);
                 set("value", 1);
-                set("unit", "¿é");
+                set("unit", "å—");
                 set("only_do_effect", 1);
         }
 }
@@ -26,11 +26,11 @@ int do_effect(object me)
 
         if (me->query("eat_christmas_gift/y2002"))
         {
-              message_vision(HIY "$N" HIY "¹ş¹şÒ»Ğ¦£¬½«Õû¸öºº±¤Ò»ÆğÍÌÁË£¬µ«ÊÇÃ»Ê²Ã´×÷ÓÃ£¡\n" NOR, me);
+              message_vision(HIY "$N" HIY "å“ˆå“ˆä¸€ç¬‘ï¼Œå°†æ•´ä¸ªæ±‰å ¡ä¸€èµ·åäº†ï¼Œä½†æ˜¯æ²¡ä»€ä¹ˆä½œç”¨ï¼\n" NOR, me);
               destruct(this_object());
               return 1;
         }
-       	message_vision(HIY "$N" HIY "¹ş¹şÒ»Ğ¦£¬½«Õû¸öºº±¤Ò»ÆğÍÌÁË¡£\n" NOR, me);
+       	message_vision(HIY "$N" HIY "å“ˆå“ˆä¸€ç¬‘ï¼Œå°†æ•´ä¸ªæ±‰å ¡ä¸€èµ·åäº†ã€‚\n" NOR, me);
 
         me->set("eat_christmas_gift/y2002", 1);
        	me->add("combat_exp", 50000);
@@ -53,7 +53,7 @@ int do_effect(object me)
        	if (me->can_improve_skill("martial-cognize"))
                	me->improve_skill("martial-cognize", 1500000);
 
-        message_vision(HIC "$N" HIC "Äã»ñµÃÁËÎåÍòµã¾­ÑéºÍÒ»ÍòµãÇ±ÄÜ¡£\n" NOR, me);
+        message_vision(HIC "$N" HIC "ä½ è·å¾—äº†äº”ä¸‡ç‚¹ç»éªŒå’Œä¸€ä¸‡ç‚¹æ½œèƒ½ã€‚\n" NOR, me);
 
         destruct(this_object());
         return 1;

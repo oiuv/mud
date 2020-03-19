@@ -1,49 +1,49 @@
-// bingcan-duzhang.c  ±ù²Ï¶¾ÕÆ
+// bingcan-duzhang.c  å†°èš•æ¯’æŒ
 
 #include <ansi.h>
 
 inherit SKILL;
 
 mapping *action = ({
-([      "action": "$NÁ³ÉÏÂ¶³ö¹îÒìµÄĞ¦Èİ£¬Ë«ÕÆĞ¯Âúº®Ëª£¬ºáÉ¨$n",
+([      "action": "$Nè„¸ä¸Šéœ²å‡ºè¯¡å¼‚çš„ç¬‘å®¹ï¼ŒåŒæŒæºæ»¡å¯’éœœï¼Œæ¨ªæ‰«$n",
         "dodge" : -30,
         "attack": 79,
         "parry" : -37,
         "dmage" : 52,
         "force" : 430,
-        "damage_type": "ğöÉË"
+        "damage_type": "ç˜€ä¼¤"
 ]),
-([      "action": "$NÍ»È»ÉíĞÎĞı×ªÆğÀ´ÆËÏò$n£¬Ë«ÕÆ·ÉÎè×ÅÅÄÏò$nµÄ$l",
+([      "action": "$Nçªç„¶èº«å½¢æ—‹è½¬èµ·æ¥æ‰‘å‘$nï¼ŒåŒæŒé£èˆç€æ‹å‘$nçš„$l",
         "dodge" : -22,
         "attack": 96,
         "parry" : -34,
         "dmage" : 67,
         "force" : 490,
-        "damage_type": "ğöÉË"
+        "damage_type": "ç˜€ä¼¤"
 ]),
-([      "action": "$N½«±ù²Ïº®¶¾ÔËÖÁÓÒÊÖ£¬Òõ¶¾ÎŞ±ÈµØÅÄÏò$nµÄ$l",
+([      "action": "$Nå°†å†°èš•å¯’æ¯’è¿è‡³å³æ‰‹ï¼Œé˜´æ¯’æ— æ¯”åœ°æ‹å‘$nçš„$l",
         "dodge" : -20,
         "attack": 113,
         "parry" : 10,
         "dmage" : 82,
         "force" : 530,
-        "damage_type": "ğöÉË"
+        "damage_type": "ç˜€ä¼¤"
 ]),
-([      "action": "$N¹îÒìµÄÒ»Ğ¦£¬Ë«ÕÆ´ø×ÅÁèÀ÷µÄº®ÆøÅÄÏò$nµÄ$l",
+([      "action": "$Nè¯¡å¼‚çš„ä¸€ç¬‘ï¼ŒåŒæŒå¸¦ç€å‡Œå‰çš„å¯’æ°”æ‹å‘$nçš„$l",
         "dodge" : 28,
         "attack": 139,
         "parry" : 36,
         "dmage" : 95,
         "force" : 580,
-        "damage_type": "ğöÉË"
+        "damage_type": "ç˜€ä¼¤"
 ]),
-([      "action": "$NÑöÌìÒ»Éù³¤Ğ¥£¬¾Û¼¯È«ÉíµÄÁ¦Á¿»÷Ïò$n",
+([      "action": "$Nä»°å¤©ä¸€å£°é•¿å•¸ï¼Œèšé›†å…¨èº«çš„åŠ›é‡å‡»å‘$n",
         "dodge" : 27,
         "attack": 161,
         "parry" : 21,
         "dmage" : 105,
         "force" : 640,
-        "damage_type": "ğöÉË"
+        "damage_type": "ç˜€ä¼¤"
 ]),
 });
 
@@ -52,19 +52,19 @@ int valid_enable(string usage) { return usage=="strike" || usage=="parry"; }
 int valid_learn(object me)
 {
         if ((int)me->query_skill("yijinjing", 1) < 0)
-                return notify_fail("ÄãËùĞŞµÄÄÚ¹¦ÎŞ·¨Á·±ù²Ï¶¾ÕÆ¡£\n");
+                return notify_fail("ä½ æ‰€ä¿®çš„å†…åŠŸæ— æ³•ç»ƒå†°èš•æ¯’æŒã€‚\n");
 
         if ((int)me->query_skill("force") < 200)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¬ÎŞ·¨Á·±ù²Ï¶¾ÕÆ¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œæ— æ³•ç»ƒå†°èš•æ¯’æŒã€‚\n");
 
         if ((int)me->query("max_neili") < 3000)
-                return notify_fail("ÄãµÄÄÚÁ¦Ì«Èõ£¬ÎŞ·¨Á·±ù²Ï¶¾ÕÆ¡£");
+                return notify_fail("ä½ çš„å†…åŠ›å¤ªå¼±ï¼Œæ— æ³•ç»ƒå†°èš•æ¯’æŒã€‚");
 
         if ((int)me->query_skill("strike", 1) < (int)me->query_skill("bingcan-duzhang", 1))
-                return notify_fail("ÄãµÄ»ù±¾ÕÆ·¨Ë®Æ½ÓĞÏŞ£¬ÎŞ·¨Áì»á¸ü¸ßÉîµÄ±ù²Ï¶¾ÕÆ¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬æŒæ³•æ°´å¹³æœ‰é™ï¼Œæ— æ³•é¢†ä¼šæ›´é«˜æ·±çš„å†°èš•æ¯’æŒã€‚\n");
 
         if ((int)me->query_skill("yijinjing", 1) < (int)me->query_skill("bingcan-duzhang", 1))
-                return notify_fail("ÄãµÄÒ×½î¾­Éñ¹¦Ë®Æ½ÓĞÏŞ£¬ÎŞ·¨Áì»á¸ü¸ßÉîµÄ±ù²Ï¶¾ÕÆ¡£\n");
+                return notify_fail("ä½ çš„æ˜“ç­‹ç»ç¥åŠŸæ°´å¹³æœ‰é™ï¼Œæ— æ³•é¢†ä¼šæ›´é«˜æ·±çš„å†°èš•æ¯’æŒã€‚\n");
 
         return 1;
 }
@@ -89,10 +89,10 @@ mapping query_action(object me, object weapon)
 int practice_skill(object me)
 {
         if ((int)me->query("qi") < 40)
-                return notify_fail("ÄãµÄÌåÁ¦Ì«µÍÁË¡£\n");
+                return notify_fail("ä½ çš„ä½“åŠ›å¤ªä½äº†ã€‚\n");
 
         if ((int)me->query("neili") < 30)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»Á·±ù²Ï¶¾ÕÆ¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿç»ƒå†°èš•æ¯’æŒã€‚\n");
 
         if (me->query_skill("bingcan-duzhang", 1) < 50)
                 me->receive_damage("qi", 100);
@@ -119,7 +119,7 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
                                  "id"    : me->query("id"),
                                  "duration" : lvl / 100 + random(lvl / 10) ])))
         {
-                return HIW "$n" HIW "Ö»¸ĞÒ»Õó¼«º®´ÓĞÄµ×ÉıÆğ£¬¿´À´ÊÇÖĞÁË$N" HIW "ÕÆÉÏµÄ±ù²Ïº®¶¾¡£\n" NOR;
+                return HIW "$n" HIW "åªæ„Ÿä¸€é˜µæå¯’ä»å¿ƒåº•å‡èµ·ï¼Œçœ‹æ¥æ˜¯ä¸­äº†$N" HIW "æŒä¸Šçš„å†°èš•å¯’æ¯’ã€‚\n" NOR;
         }
 }
 

@@ -1,4 +1,4 @@
-/* mashao.c ÂíÉÚ */
+/* mashao.c é©¬å“¨ */
 
 #include <ansi.h>
 
@@ -6,12 +6,12 @@ inherit __DIR__"whistle";
 
 void create()
 {
-    set_name( HIG "ÂíÉÚ" NOR, ({ "ma shao", "shao" }) );
+    set_name( HIG "é©¬å“¨" NOR, ({ "ma shao", "shao" }) );
     if ( clonep() )
         set_default_object( __FILE__ );
     else {
-        set( "unit", "¸ö" );
-        set( "long", "ÕâÊÇÒ»¸öÖñ×ÓÖÆ³ÉµÄÂíÉÚ£¬ÉÏÃæÓĞÕòÔ¶ïÚ¾ÖµÄ±êÖ¾¡£\n" );
+        set( "unit", "ä¸ª" );
+        set( "long", "è¿™æ˜¯ä¸€ä¸ªç«¹å­åˆ¶æˆçš„é©¬å“¨ï¼Œä¸Šé¢æœ‰é•‡è¿œé•–å±€çš„æ ‡å¿—ã€‚\n" );
         set( "family", 1 );
         set( "whistle", 5 );
     }

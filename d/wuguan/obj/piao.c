@@ -4,17 +4,17 @@ inherit HAMMER;
 
 void create()
 {
-        set_name(HIG "Ë®Æ°" NOR, ({ "shui piao", "shui", "piao" }));
+        set_name(HIG "æ°´ç“¢" NOR, ({ "shui piao", "shui", "piao" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "°Ñ");
-                set("long", HIG "ÕâÊÇÒ»¸öÓÃÀÏºùÂ«Åü¿ª×ö³ÉµÄÆ°£¬ÆÕÍ¨°ÙĞÕµÄÈÕ³£ÎñÅ©ÓÃÆ·¡£\n" NOR);
+                set("unit", "æŠŠ");
+                set("long", HIG "è¿™æ˜¯ä¸€ä¸ªç”¨è€è‘«èŠ¦åŠˆå¼€åšæˆçš„ç“¢ï¼Œæ™®é€šç™¾å§“çš„æ—¥å¸¸åŠ¡å†œç”¨å“ã€‚\n" NOR);
                 set("value", 10);
                 set("material", "steel");
-                set("wield_msg", HIG "$N" HIG "ÄÃ³öÒ»¸öË®Æ°ÎÕÔÚÊÖÖĞ¡£\n" NOR);
-                set("unwield_msg", HIG "$N" HIG "½«ÊÖÖĞµÄË®Æ°²åÔÚÑüÉÏ¡£\n" NOR);
+                set("wield_msg", HIG "$N" HIG "æ‹¿å‡ºä¸€ä¸ªæ°´ç“¢æ¡åœ¨æ‰‹ä¸­ã€‚\n" NOR);
+                set("unwield_msg", HIG "$N" HIG "å°†æ‰‹ä¸­çš„æ°´ç“¢æ’åœ¨è…°ä¸Šã€‚\n" NOR);
         }
         init_hammer(4);
         setup();

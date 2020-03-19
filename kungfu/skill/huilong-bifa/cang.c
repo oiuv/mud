@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define CANG "¡¸" HIY "ÕÆ²ØÁú" NOR "¡¹"
+#define CANG "ã€Œ" HIY "æŒè—é¾™" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -15,29 +15,29 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (userp(me) && ! me->query("can_perform/huilong-bifa/cang"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(CANG "Ö»ÄÜÔÚÕ½¶·ÖĞ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(CANG "åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(anqi = me->query_temp("handing")) ||
             (string)anqi->query("skill_type") != "throwing")
-                return notify_fail("ÄãÏÖÔÚÊÖÖĞ²¢Ã»ÓĞÄÃ×Å°µÆ÷¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ‰‹ä¸­å¹¶æ²¡æœ‰æ‹¿ç€æš—å™¨ã€‚\n");
 
         if ((int)me->query_skill("huilong-bifa", 1) < 120)
-                return notify_fail("ÄãµÄ»ØÁúèµ·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+                return notify_fail("ä½ çš„å›é¾™ç’§æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
         if ((int)me->query_skill("force") < 150)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
         if ((int)me->query("neili") < 150)
-                return notify_fail("ÄãÄÚÁ¦²»¹»ÁË¡£\n");
+                return notify_fail("ä½ å†…åŠ›ä¸å¤Ÿäº†ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIY "$N" HIY "Ò»ÉùÇáºÈ£¬µ¥ÊÖÒ»Ñï£¬Ğäµ×¶ÙÊ±±Å³öÒ»¹ÉÆø¾¢£¬ĞäÖĞ" +
-              anqi->query("name") + NOR + HIY "±ãÈçòÔÁú°ãÉäÏò$n" HIY "£¡\n"
+        msg = HIY "$N" HIY "ä¸€å£°è½»å–ï¼Œå•æ‰‹ä¸€æ‰¬ï¼Œè¢–åº•é¡¿æ—¶è¿¸å‡ºä¸€è‚¡æ°”åŠ²ï¼Œè¢–ä¸­" +
+              anqi->query("name") + NOR + HIY "ä¾¿å¦‚è›Ÿé¾™èˆ¬å°„å‘$n" HIY "ï¼\n"
               NOR;
 
         ap = me->query_skill("force") + me->query_skill("throwing");
@@ -49,20 +49,20 @@ int perform(object me, object target)
                 damage = ap / 2 + random(ap / 2);
                 me->add("neili", -100);
                 msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 40,
-                                           HIR "$n" HIR "Ö»¾õ¾¢·çÏ®Ìå£¬µÍÍ·¼ä£¬·¢"
-                                           "ÏÖ" + anqi->query("name") + NOR + HIR
-                                           "Õı¶Ë¶Ë²åÔÚ×Ô¼ºĞØ¿Ú£¬¶ÙÊ±¾ªÅ­½»¼¯£¬Å»"
-                                           "³öÒ»¿ÚÏÊÑª¡£\n" NOR);
+                                           HIR "$n" HIR "åªè§‰åŠ²é£è¢­ä½“ï¼Œä½å¤´é—´ï¼Œå‘"
+                                           "ç°" + anqi->query("name") + NOR + HIR
+                                           "æ­£ç«¯ç«¯æ’åœ¨è‡ªå·±èƒ¸å£ï¼Œé¡¿æ—¶æƒŠæ€’äº¤é›†ï¼Œå‘•"
+                                           "å‡ºä¸€å£é²œè¡€ã€‚\n" NOR);
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P" CYN "µÄÆóÍ¼£¬·É"
-                       "ÉíÒ»Ô¾¶øÆğ£¬¶ã±Ü¿ªÀ´¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P" CYN "çš„ä¼å›¾ï¼Œé£"
+                       "èº«ä¸€è·ƒè€Œèµ·ï¼Œèº²é¿å¼€æ¥ã€‚\n" NOR;
         }
 
         if (anqi->query("id") == "huilong bi")
         {
-                msg += HIC "ö®Ê±È´¼û»ØÁúèµÁè¿ÕÒ»¸öÅÌĞı£¬ÓÖ·É»Øµ½$N"
-                       HIC "ÊÖÖĞ¡£\n" NOR;
+                msg += HIC "éœæ—¶å´è§å›é¾™ç’§å‡Œç©ºä¸€ä¸ªç›˜æ—‹ï¼Œåˆé£å›åˆ°$N"
+                       HIC "æ‰‹ä¸­ã€‚\n" NOR;
         }
         message_combatd(msg, me, target);
 

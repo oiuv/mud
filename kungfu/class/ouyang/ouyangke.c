@@ -15,11 +15,11 @@ mixed ask_shenshe();
 void create()
 {
 	seteuid(getuid());
-	set_name("Å·Ñô¿Ë", ({ "ouyang ke", "ouyang", "ke" }));
-	set("long", "ËûÒ»ÉíÆ®ÒİµÄ°×É«³¤ÉÀ£¬ÊÖÒ¡ÕÛÉÈ£¬·çÁ÷ÈåÑÅ¡£\n");
-	set("title", "°×ÍÕÉ½ÉÙ×¯Ö÷");
-	set("nickname", HIM "ÓñÃæÉßĞÄ" NOR);
-	set("gender", "ÄĞĞÔ");
+	set_name("æ¬§é˜³å…‹", ({ "ouyang ke", "ouyang", "ke" }));
+	set("long", "ä»–ä¸€èº«é£˜é€¸çš„ç™½è‰²é•¿è¡«ï¼Œæ‰‹æ‘‡æŠ˜æ‰‡ï¼Œé£æµå„’é›…ã€‚\n");
+	set("title", "ç™½é©¼å±±å°‘åº„ä¸»");
+	set("nickname", HIM "ç‰é¢è›‡å¿ƒ" NOR);
+	set("gender", "ç”·æ€§");
 	set("age", 27);
 	set("attitude", "friendly");
 	set("shen_type", -1);
@@ -68,16 +68,16 @@ void create()
         prepare_skill("finger", "shedu-qiqiao");
         prepare_skill("cuff", "lingshe-quan");
 
-        create_family("Å·ÑôÊÀ¼Ò", 6, "´«ÈË");
+        create_family("æ¬§é˜³ä¸–å®¶", 6, "ä¼ äºº");
 
 	set("chat_chance", 2);
 	set("chat_msg", ({
-		CYN "Å·Ñô¿Ë°ÑÖ½ÉÈÒ»Õ¹£¬×ª¹ıÉíÈ¥£¬ÉîÒ÷µÀ£ººìÑÕÖª¼º×îÄÑµÃ¡­¡­\n" NOR,
+		CYN "æ¬§é˜³å…‹æŠŠçº¸æ‰‡ä¸€å±•ï¼Œè½¬è¿‡èº«å»ï¼Œæ·±åŸé“ï¼šçº¢é¢œçŸ¥å·±æœ€éš¾å¾—â€¦â€¦\n" NOR,
 	}) );
 
         set("inquiry", ([
-                "ÒıÂ·ÉñÉß" : (: ask_shenshe :),
-                "ÉñÉß"     : (: ask_shenshe :),
+                "å¼•è·¯ç¥è›‡" : (: ask_shenshe :),
+                "ç¥è›‡"     : (: ask_shenshe :),
         ]));
 
         set_temp("shenshe_count", 5);
@@ -104,21 +104,21 @@ void greeting(object ob)
 {
 	if (!ob || environment(ob) != environment()) return;
 
-        if (check_family(ob, "Å·ÑôÊÀ¼Ò"))
+        if (check_family(ob, "æ¬§é˜³ä¸–å®¶"))
         {
                 command("nod " + ob->query("id"));
                 return;
         }
 
-	if ((string)ob->query("gender") == "Å®ĞÔ")
+	if ((string)ob->query("gender") == "å¥³æ€§")
 	{
                 if (ob->query("per") < 22)
                         return;
 
-                if (ob->query("sex/Å·Ñô¿Ë"))
+                if (ob->query("sex/æ¬§é˜³å…‹"))
                 {
                         command("kiss " + ob->query("id"));
-                        command("say ÔõÃ´Ñù£¬Òª²»ÒªÔÙÀ´¼¸´Î£¿");
+                        command("say æ€ä¹ˆæ ·ï¼Œè¦ä¸è¦å†æ¥å‡ æ¬¡ï¼Ÿ");
                 } else
         	switch(random(3))
         	{
@@ -129,42 +129,42 @@ void greeting(object ob)
      
 	}
 	else
-           say(CYN "Å·Ñô¿ËÌ¾ÁËÒ»¿ÚÆøËµ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-               CYN "£¬ÄãÒªÊÇÄÜ¸øÎÒÅªÒ»¸öÅ®ÈËÀ´¾ÍºÃÁË¡£\n" NOR);
+           say(CYN "æ¬§é˜³å…‹å¹äº†ä¸€å£æ°”è¯´ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+               CYN "ï¼Œä½ è¦æ˜¯èƒ½ç»™æˆ‘å¼„ä¸€ä¸ªå¥³äººæ¥å°±å¥½äº†ã€‚\n" NOR);
 	return;
 }
 
 void attempt_apprentice(object ob)
 {
-	if ((string)ob->query("gender") == "Å®ĞÔ" &&
-            (string)ob->query("born_family") != "Å·ÑôÊÀ¼Ò")
+	if ((string)ob->query("gender") == "å¥³æ€§" &&
+            (string)ob->query("born_family") != "æ¬§é˜³ä¸–å®¶")
         {
-		message_vision(CYN "Å·Ñô¿Ë¶¯ÇéµØËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-		               CYN "ÕæÄËÎÒµÄºìÑÕÖª¼º£¬¿É\nÏ§¼Ò¹æËùÏŞ£¬²»ÄÜ´«ÄãÎä¹¦£¬Äã»¹"
-                               "ÊÇ×öÎÒµÄĞ¡æª°É¡£\n" NOR, ob);
+		message_vision(CYN "æ¬§é˜³å…‹åŠ¨æƒ…åœ°è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+		               CYN "çœŸä¹ƒæˆ‘çš„çº¢é¢œçŸ¥å·±ï¼Œå¯\næƒœå®¶è§„æ‰€é™ï¼Œä¸èƒ½ä¼ ä½ æ­¦åŠŸï¼Œä½ è¿˜"
+                               "æ˜¯åšæˆ‘çš„å°å¦¾å§ã€‚\n" NOR, ob);
                 return;
         }
 
         if (! permit_recruit(ob))
                 return;
 
-        message_vision("$NµÀ£ººÃ... ºÜºÃ£¡\n", this_object());
+        message_vision("$Né“ï¼šå¥½... å¾ˆå¥½ï¼\n", this_object());
 	command("recruit " + ob->query("id"));
         if (! ob->query("special/shenshe"))
         {
-                command("say Äã»¹²»»áÊ¹ÓÃÒıÂ·ÉñÉß°É£¿ÎÒ¸æËßÄã¿Ú¾÷£¬Äã¿É²»ÒªÍü¼ÇÁË£¡");
-                command("whisper " + ob->query("id") + " ¿Ú¾÷ÊÇ£º@#$%^&*£¬Äã"
-                        "ÄÃ×ÅÒıÂ·ÉñÉßµ½ÁËÎ÷ÓòÉ³Ä®¾Í¿ÉÒÔÈÃÉñÉß´øÄã»Ø¼ÒÁË£¡");
+                command("say ä½ è¿˜ä¸ä¼šä½¿ç”¨å¼•è·¯ç¥è›‡å§ï¼Ÿæˆ‘å‘Šè¯‰ä½ å£è¯€ï¼Œä½ å¯ä¸è¦å¿˜è®°äº†ï¼");
+                command("whisper " + ob->query("id") + " å£è¯€æ˜¯ï¼š@#$%^&*ï¼Œä½ "
+                        "æ‹¿ç€å¼•è·¯ç¥è›‡åˆ°äº†è¥¿åŸŸæ²™æ¼ å°±å¯ä»¥è®©ç¥è›‡å¸¦ä½ å›å®¶äº†ï¼");
                 ob->set("special/shenshe", 1);
         }
 }
 
 int accept_fight(object ob)
 {
-	if ((string)ob->query("gender") == "Å®ĞÔ")
+	if ((string)ob->query("gender") == "å¥³æ€§")
 	{
-		message_vision(CYN "Å·Ñô¿Ë°Ú°ÚÊÖËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-		               CYN "£¬ÎÒÔõÄÜÆÛ¸ºÅ®º¢×ÓÄØ£¡\n" NOR, ob);
+		message_vision(CYN "æ¬§é˜³å…‹æ‘†æ‘†æ‰‹è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+		               CYN "ï¼Œæˆ‘æ€èƒ½æ¬ºè´Ÿå¥³å­©å­å‘¢ï¼\n" NOR, ob);
 		return 0;
         }
 
@@ -180,45 +180,45 @@ int accept_object(object who, object ob)
 	if (! objectp(ob)) return 0;
 	
 	if (! present(ob, who))
-                return notify_fail("ÄãÃ»ÓĞÕâ¼ş¶«Î÷¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰è¿™ä»¶ä¸œè¥¿ã€‚\n");
 
-	if (! ob->is_character() || (string)ob->query("gender") != "Å®ĞÔ")
+	if (! ob->is_character() || (string)ob->query("gender") != "å¥³æ€§")
 	{
-              	command("say ÎÒÅ·Ñô¿Ë²»ĞèÒªÕâ¼ş¶«Î÷¡£");
+              	command("say æˆ‘æ¬§é˜³å…‹ä¸éœ€è¦è¿™ä»¶ä¸œè¥¿ã€‚");
                 return 0;
         }
 
 	if (ob->is_corpse())
 	{
 		command("slap " + who->query("id"));
-		command("say ºÃÂïÄã£¬¾ÓÈ»ÄÃ¾ßÊ¬ÌåÀ´ºıÅªÎÒ£¬ÕÒ»ŞÆø°¡£¿");
+		command("say å¥½å˜›ä½ ï¼Œå±…ç„¶æ‹¿å…·å°¸ä½“æ¥ç³Šå¼„æˆ‘ï¼Œæ‰¾æ™¦æ°”å•Šï¼Ÿ");
 		return 0;
 	}
 
-        if ((string)ob->query("born_family") == "Å·ÑôÊÀ¼Ò")
+        if ((string)ob->query("born_family") == "æ¬§é˜³ä¸–å®¶")
         {
                 command("kick " + who->query("id"));
                 command("slap " + who->query("id"));
-                command("say ÎÒ¿¿£¡Äãµ¨×Ó¿ÉÕæ²»Ğ¡£¬Á¬ÎÒµÄ°ûÃÃÄãÒ²¸ÒÆÛ¸º£¿");
+                command("say æˆ‘é ï¼ä½ èƒ†å­å¯çœŸä¸å°ï¼Œè¿æˆ‘çš„èƒå¦¹ä½ ä¹Ÿæ•¢æ¬ºè´Ÿï¼Ÿ");
                 return 1;
         }
 
-	if (environment(this_object())->query("short") == "Àö´ºÔº")
+	if (environment(this_object())->query("short") == "ä¸½æ˜¥é™¢")
 	{
-               	command("say ÎÒÒÑ¾­ÓĞÅ®ÈËÁË£¬Äã¸ÄÌìÔÙËÍÀ´°É¡£");
+               	command("say æˆ‘å·²ç»æœ‰å¥³äººäº†ï¼Œä½ æ”¹å¤©å†é€æ¥å§ã€‚");
                 return 0;
         }
 
 	if ((int)ob->query("age") <18)
 	{
                 command("fear");
-                command("say Î´³ÉÄêÉÙÅ®ÎÒÔõ¸ÒÒª£¡");
+                command("say æœªæˆå¹´å°‘å¥³æˆ‘æ€æ•¢è¦ï¼");
                 return 0;
         }
 
         if ((int)ob->query("age") > 29)
 	{
-        	command("say ÕâÖÖÀÏ¹Å¶­»¹ÊÇÁô¸øÄã×Ô¼º°É£¡");
+        	command("say è¿™ç§è€å¤è‘£è¿˜æ˜¯ç•™ç»™ä½ è‡ªå·±å§ï¼");
                 return 0;
         }
 
@@ -228,31 +228,31 @@ int accept_object(object who, object ob)
                 // 5 + 2 :: because times & first will occupy two item
                 if (sizeof(ob->query("sex")) > 4 + 2 )
                 {
-                        command("say ¿¿£¡ÕâÖÖÅ®ÈËÈË¾¡¿É·ò£¬ÎÒÅ·Ñô¿Ë¿É²»ÏëÒª¡£");
+                        command("say é ï¼è¿™ç§å¥³äººäººå°½å¯å¤«ï¼Œæˆ‘æ¬§é˜³å…‹å¯ä¸æƒ³è¦ã€‚");
                         return 0;
                 }
 
                 if (ob->query("per") < 25)
                 {
                         command("shrug");
-                        command("say Õâ¡­¡­ÕâÖÖ»õÉ«Ò²Î´Ãâ²îÁËµã£¬Äã"
-				"Ò²ÕÒ¸öÆ¯ÁÁĞ©µÄ°¡¡£");
+                        command("say è¿™â€¦â€¦è¿™ç§è´§è‰²ä¹Ÿæœªå…å·®äº†ç‚¹ï¼Œä½ "
+				"ä¹Ÿæ‰¾ä¸ªæ¼‚äº®äº›çš„å•Šã€‚");
                         return 0;
                 }
 
                 addition += ob->query("per");
                 if ((int) ob->query("sex/times") == 0)
                 {
-                        command("say ÍÛ£¬Õâ»¹ÊÇ¸ö´¦Å®£¬ÔõÃ´Ò²µÃ¶à¸ø"
-			        "ÄãµãĞÁ¿à·Ñ£¡");
+                        command("say å“‡ï¼Œè¿™è¿˜æ˜¯ä¸ªå¤„å¥³ï¼Œæ€ä¹ˆä¹Ÿå¾—å¤šç»™"
+			        "ä½ ç‚¹è¾›è‹¦è´¹ï¼");
                         addition += 30;
                 }
         }
 
-        if (ob->query("sex/Å·Ñô¿Ë") >= 3)
+        if (ob->query("sex/æ¬§é˜³å…‹") >= 3)
         {
                 command("shake");
-                command("say ÕâÅ®ÈËÎÒÒÑ¾­ÍæÄåÁË£¬Äã×Ô¸öÁô×Å°É¡£");
+                command("say è¿™å¥³äººæˆ‘å·²ç»ç©è…»äº†ï¼Œä½ è‡ªä¸ªç•™ç€å§ã€‚");
                 return 0;
         }
 
@@ -263,43 +263,43 @@ int accept_object(object who, object ob)
 		who->add("can_learn/lingshe-quan/count", 1 + random(5));
 		if (who->query("can_learn/lingshe-quan/count") > 10)
 		{
-			tell_object(who, HIC "\n¼ÈÈ»Äã°ïÁËÎÒÕâÃ´¶à´Î,¾Í´«ÊÚÄã¼¸ÊÖÎä¹¦°É¡£\n" NOR);
+			tell_object(who, HIC "\næ—¢ç„¶ä½ å¸®äº†æˆ‘è¿™ä¹ˆå¤šæ¬¡,å°±ä¼ æˆä½ å‡ æ‰‹æ­¦åŠŸå§ã€‚\n" NOR);
 			who->set("can_learn/lingshe-quan/ke", 1);
 		}
 
-        message_vision(HIC "$n" HIC "°Ñ" + ob->name() + HIC "½»¸øÁË$N"
-                       HIC "¡£\n\n" NOR, this_object(), who);
+        message_vision(HIC "$n" HIC "æŠŠ" + ob->name() + HIC "äº¤ç»™äº†$N"
+                       HIC "ã€‚\n\n" NOR, this_object(), who);
 
-        message_vision(HIY "$N" HIY "Ò»°Ñ°Ñ" + ob->name() + HIY "À¿ÔÚ"
-                       "»³Àï£¬¶Ô$n" HIY "Ëµ£ºÕâµãÒø×ÓÊÇÄãµÄĞÁ¿à·Ñ£¬ÔÛ"
-                       "»ØÍ·¼û¡£\nËµÍê£¬¾ÍĞ¯×Å" + ob->name() + HIY "Íù"
-                       "Àö´ºÔº±¼È¥¡£\n" NOR, this_object(), who);
+        message_vision(HIY "$N" HIY "ä¸€æŠŠæŠŠ" + ob->name() + HIY "æ½åœ¨"
+                       "æ€€é‡Œï¼Œå¯¹$n" HIY "è¯´ï¼šè¿™ç‚¹é“¶å­æ˜¯ä½ çš„è¾›è‹¦è´¹ï¼Œå’±"
+                       "å›å¤´è§ã€‚\nè¯´å®Œï¼Œå°±æºç€" + ob->name() + HIY "å¾€"
+                       "ä¸½æ˜¥é™¢å¥”å»ã€‚\n" NOR, this_object(), who);
 
         ob->move("/d/city/lichunyuan");
         move("/d/city/lichunyuan");
 
-        message_vision("$N±§×Å»èÃÔ²»ĞÑµÄ$n×ßÁË½øÀ´¡£\n", this_object(), ob);
+        message_vision("$NæŠ±ç€æ˜è¿·ä¸é†’çš„$nèµ°äº†è¿›æ¥ã€‚\n", this_object(), ob);
 
-        ob->add("sex/Å·Ñô¿Ë", 1);
+        ob->add("sex/æ¬§é˜³å…‹", 1);
         ob->add("sex/times",  1);
         if (ob->query("sex/times") == 1)
-                ob->set("sex/first", "Å·Ñô¿Ë");
+                ob->set("sex/first", "æ¬§é˜³å…‹");
 
         ob->revive();
-        tell_object(ob, HIY "Äã¸Õ¸ÕÕõ¿ªÑÛ¾¦£¬È´·¢ÏÖÒ»¸öÈË"
-		        "Õı±§×ÅÄã£¬Äã´ó½ĞÒ»Éù£¬¼¸ºõÔÎÁË¹ıÈ¥¡£\n\n" NOR);
+        tell_object(ob, HIY "ä½ åˆšåˆšæŒ£å¼€çœ¼ç›ï¼Œå´å‘ç°ä¸€ä¸ªäºº"
+		        "æ­£æŠ±ç€ä½ ï¼Œä½ å¤§å«ä¸€å£°ï¼Œå‡ ä¹æ™•äº†è¿‡å»ã€‚\n\n" NOR);
         command("kiss " + ob->query("id"));
-        command("say ÎûÎû£¬Äã»ÅÊ²Ã´Ã´Âï£¬¿ÉÊÇ" + who->name() + "°ÑÄãËÍ¹ıÀ´µÄ°¡¡£");
-        shout(sprintf(HIW "\n%s(%s)´óÉùº°µÀ£º¾ÈÃü°¡¡­¡­¾È¡­¾ÈÃü¡­¡­¡­\n\n" NOR,
+        command("say å˜»å˜»ï¼Œä½ æ…Œä»€ä¹ˆä¹ˆå˜›ï¼Œå¯æ˜¯" + who->name() + "æŠŠä½ é€è¿‡æ¥çš„å•Šã€‚");
+        shout(sprintf(HIW "\n%s(%s)å¤§å£°å–Šé“ï¼šæ•‘å‘½å•Šâ€¦â€¦æ•‘â€¦æ•‘å‘½â€¦â€¦â€¦\n\n" NOR,
                       ob->name() + HIW, ob->query("id")));
 
         if (! userp(ob))
         {
                 ob->set("chat_chance", 15);
-                ob->set("chat_msg", ({CYN + ob->name() + CYN "²»×¡µÄ³éÆü¡£\n" NOR,
-                                      CYN + ob->name() + CYN "ÎØÑÊµÀ£º" + this_object()->name() +
-                                      CYN "£¬Ëû¡­Ëû¡­ËûÕâ¸ö»µ¶«Î÷¡£\n" NOR,
-                                      CYN + ob->name() + CYN "¿ŞÁËÆğÀ´£ºÎÒ²»Ïë»îÁË£¡\n" NOR,
+                ob->set("chat_msg", ({CYN + ob->name() + CYN "ä¸ä½çš„æŠ½æ³£ã€‚\n" NOR,
+                                      CYN + ob->name() + CYN "å‘œå’½é“ï¼š" + this_object()->name() +
+                                      CYN "ï¼Œä»–â€¦ä»–â€¦ä»–è¿™ä¸ªåä¸œè¥¿ã€‚\n" NOR,
+                                      CYN + ob->name() + CYN "å“­äº†èµ·æ¥ï¼šæˆ‘ä¸æƒ³æ´»äº†ï¼\n" NOR,
                 }) );
         }
 
@@ -321,9 +321,9 @@ void do_back()
                 return;
         }
 
-        message_vision(HIW "$N" HIW "ÇáÒ¡ÓğÉÈ£¬Æ®È»¶øÈ¥¡£\n" NOR, this_object());
+        message_vision(HIW "$N" HIW "è½»æ‘‡ç¾½æ‰‡ï¼Œé£˜ç„¶è€Œå»ã€‚\n" NOR, this_object());
         move(query("startroom"));
-        message_vision(HIW "$N" HIW "ÇáÒ¡ÓğÉÈ£¬Ê©Ê©È»µÄ×ßÁË¹ıÀ´¡£\n" NOR, this_object());
+        message_vision(HIW "$N" HIW "è½»æ‘‡ç¾½æ‰‡ï¼Œæ–½æ–½ç„¶çš„èµ°äº†è¿‡æ¥ã€‚\n" NOR, this_object());
 }
 
 mixed ask_shenshe()
@@ -333,35 +333,35 @@ mixed ask_shenshe()
 
         me = this_player();
         if (me->query("family/family_name") != query("family/family_name"))
-                return "¹ş¹ş£¬ÄãÏòÎÒ´òÌıÕâ¸ö¸ÉÊ²Ã´£¿";
+                return "å“ˆå“ˆï¼Œä½ å‘æˆ‘æ‰“å¬è¿™ä¸ªå¹²ä»€ä¹ˆï¼Ÿ";
 
         if (time() - me->query_temp("ask_shenshe") < 900)
-                return "ÎÒ²»ÊÇ¸Õ¸Õ¸øÄãÒ»ÌõÂğ£¿ÄãÔõÃ´»¹Òª£¿";
+                return "æˆ‘ä¸æ˜¯åˆšåˆšç»™ä½ ä¸€æ¡å—ï¼Ÿä½ æ€ä¹ˆè¿˜è¦ï¼Ÿ";
 
         if (query_temp("shenshe_count") < 1)
-                return "Ã»ÁË£¬ÎÒÓÖ²»ÊÇÂôÕâ¸öµÄ£¬ÄÄÀï´øµÃÁËÕâÃ´¶à£¿";
+                return "æ²¡äº†ï¼Œæˆ‘åˆä¸æ˜¯å–è¿™ä¸ªçš„ï¼Œå“ªé‡Œå¸¦å¾—äº†è¿™ä¹ˆå¤šï¼Ÿ";
 
         me->set_temp("ask_shenshe", time());
 
         add_temp("shenshe_count", -1);
         ob = new("/d/baituo/obj/shenshe");
-        message_vision(HIC "$N" HIC "¿´¿´ËÄÖÜ£¬Ãş³öÒ»Ñù¶«Î÷µİ¸ø$n"
-                       HIC "¡£\n" NOR, this_object(), me);
+        message_vision(HIC "$N" HIC "çœ‹çœ‹å››å‘¨ï¼Œæ‘¸å‡ºä¸€æ ·ä¸œè¥¿é€’ç»™$n"
+                       HIC "ã€‚\n" NOR, this_object(), me);
         ob->move(me, 1);
-        return "àÅ£¬Äã¿ÉµÃÊÕºÃÁË£¡±ğµ½´¦ÂÒ·Å¡£";
+        return "å—¯ï¼Œä½ å¯å¾—æ”¶å¥½äº†ï¼åˆ«åˆ°å¤„ä¹±æ”¾ã€‚";
 }
 
 int recognize_apprentice(object me, string skill)
 {
         if (! me->query("can_learn/lingshe-quan/ke"))
         {
-                command("say ¸ÉÂï£¿Ã»°İÊ¦¾ÍÏëÏò±¾ÉÙÒ¯Ñ§¶«Î÷£¿");
+                command("say å¹²å˜›ï¼Ÿæ²¡æ‹œå¸ˆå°±æƒ³å‘æœ¬å°‘çˆ·å­¦ä¸œè¥¿ï¼Ÿ");
                 return 0;
         }
 
         if (skill != "lingshe-quan")
         {
-                command("say ÎÒ¿ÉÃ»´ğÓ¦½ÌÄãÆäËûÎä¹¦¡£");
+                command("say æˆ‘å¯æ²¡ç­”åº”æ•™ä½ å…¶ä»–æ­¦åŠŸã€‚");
                 return 0;
         }
         return 1;

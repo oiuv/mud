@@ -6,14 +6,14 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("Ê©ÁîÍş", ({ "shi lingwei", "shi", "lingwei" }));
+        set_name("æ–½ä»¤å¨", ({ "shi lingwei", "shi", "lingwei" }));
         set("long",
-                "Ëû¾ÍÊÇÒş¾Ó½­ºşÊıÄêµÄÎåÂ·ÉñÊ©ÁîÍş£¬ÏÖÔÚÔÚÃ·×¯µ±¹Ü¼Ò¡£\n"
+                "ä»–å°±æ˜¯éšå±…æ±Ÿæ¹–æ•°å¹´çš„äº”è·¯ç¥æ–½ä»¤å¨ï¼Œç°åœ¨åœ¨æ¢…åº„å½“ç®¡å®¶ã€‚\n"
         );
 
-        set("gender", "ÄĞĞÔ");
-        set("nickname", HIR "ÎåÂ·Éñ" NOR);
-        set("title", "Ã·×¯ÆÍ´Ó");
+        set("gender", "ç”·æ€§");
+        set("nickname", HIR "äº”è·¯ç¥" NOR);
+        set("title", "æ¢…åº„ä»†ä»");
         set("attitude", "friendly");
 
         set("age", 30);
@@ -59,14 +59,14 @@ void create()
         }));
 
         set("guarder", ([
-                "refuse_other": CYN "$N" CYN "¶Ô$n" CYN "ÖåÃ¼µÀ£º"
-                                "¸øÎÒÕ¾×¡£¬Ç°ÃæÊÇ´ó×¯Ö÷¾²ĞŞÖ®µØ£¬"
-                                "ÈÎºÎÈË²»µÃ´òÈÅ£¡" NOR,
-                "refuse_carry": CYN "$N" CYN "¶Ô$n" CYN "ºÈµÀ£ºÄã"
-                                "±³ÉÏ±³µÄÊÇÊ²Ã´ÈË£¿" NOR,
+                "refuse_other": CYN "$N" CYN "å¯¹$n" CYN "çš±çœ‰é“ï¼š"
+                                "ç»™æˆ‘ç«™ä½ï¼Œå‰é¢æ˜¯å¤§åº„ä¸»é™ä¿®ä¹‹åœ°ï¼Œ"
+                                "ä»»ä½•äººä¸å¾—æ‰“æ‰°ï¼" NOR,
+                "refuse_carry": CYN "$N" CYN "å¯¹$n" CYN "å–é“ï¼šä½ "
+                                "èƒŒä¸ŠèƒŒçš„æ˜¯ä»€ä¹ˆäººï¼Ÿ" NOR,
         ]));
 
-        create_family("Ã·×¯", 2, "ÆÍ´Ó");
+        create_family("æ¢…åº„", 2, "ä»†ä»");
 
         set("chat_chance_combat", 100);
         set("chat_msg_combat", ({
@@ -87,7 +87,7 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        message_vision(CYN "$N" CYN "Ò¡ÁËÒ¡Í·£¬¶Ô$n" CYN "µÀ£ºÎÒ"
-                       "²»ÊÕÍ½£¬ÄãÈôÒª°İÊ¦£¬È¥ÕÒ¶¡ĞÖºÃÁË¡£\n" NOR,
+        message_vision(CYN "$N" CYN "æ‘‡äº†æ‘‡å¤´ï¼Œå¯¹$n" CYN "é“ï¼šæˆ‘"
+                       "ä¸æ”¶å¾’ï¼Œä½ è‹¥è¦æ‹œå¸ˆï¼Œå»æ‰¾ä¸å…„å¥½äº†ã€‚\n" NOR,
                        this_object(), ob);
 }

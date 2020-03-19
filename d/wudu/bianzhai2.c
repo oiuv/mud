@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��կ����");
+        set("short", "边寨风情");
         set("long", @LONG
-���������置�ؽ磬ֻ����ɽ��ˮ�㣬�羰����ԭ����ͬ����
-����·�ϣ���ʱ������������Ů��·����Ұ���ظ����裬��ʱ������
-���泩����Ը���ϴ��硣
+这里已是苗疆地界，只觉得山清水秀，风景与中原大不相同。你
+走在路上，不时会碰到少男少女在路边田野里载歌载舞，顿时觉得心
+情舒畅，但愿终老此乡。
 LONG);
         set("outdoors", "wudujiao");
 

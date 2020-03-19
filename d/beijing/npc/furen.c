@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-	set_name("ׯ����", ({ "san furen", "san","furen"}));
-	set("title", "ׯ����������" );
-	set("nickname", HIW "δ����" NOR);
-	set("long",  "\nֻ����ԼĪ��ʮ�������,ȫ������,��ʩ֬��,��ɫ�԰�.\n");
-	set("gender", "Ů��");
+	set_name("庄夫人", ({ "san furen", "san","furen"}));
+	set("title", "庄家三少奶奶" );
+	set("nickname", HIW "未亡人" NOR);
+	set("long",  "\n只见她约莫二十六七年纪,全身缟素,不施脂粉,脸色苍白.\n");
+	set("gender", "女性");
 	set("age", 25);
 	set("attitude", "peaceful");
 	set("shen_type", 1);
@@ -39,10 +39,10 @@ void create()
 	set_temp("apply/attack", 35);
 	set_temp("apply/damage", 35);
         set("inquiry", ([
-		"����"  : "�������ҼҵĴ���ˡ�",
-		"��֮��": "��һ��Ҫ���������������",
-		"����"  : "��������ɲ�һ�㣬�������ҵĺ�Ѿ��˫����",
-		"˫��"  : "��СѾͷ�����Ҷ��꣬����Ҳ���׵���",
+		"鳌拜"  : "鳌拜是我家的大仇人。",
+		"吴之荣": "我一定要手刃了这个奸贼。",
+		"礼物"  : "这样礼物可不一般，她就是我的好丫环双儿。",
+		"双儿"  : "这小丫头跟随我多年，做事也还妥当。",
 	]) );
 	setup();
 	carry_object("/clone/misc/cloth")->wear();
@@ -66,8 +66,8 @@ void greeting(object ob)
 	if (! ob || environment(ob) != environment() || ! living(ob))
 		return;
 
-	say( "ׯ����˵�����ܾ�û�������ˣ���λ" + RANK_D->query_respect(ob) +
-             "����֪�����๫��������\n");
+	say( "庄夫人说道：很久没有人来了，这位" + RANK_D->query_respect(ob) +
+             "，可知道我相公的下落吗？\n");
 }
 
 int accept_object(object me, object ob)
@@ -79,8 +79,8 @@ int accept_object(object me, object ob)
 	{
 		i = (int)me->query("weiwang");
 
-		message_vision("\nׯ���˴�ϲ������������ȥ�ɣ�"
-			       "�벻����Ҳ�н��죡\n", me);
+		message_vision("\n庄夫人大喜道：狗贼，死去吧！"
+			       "想不到你也有今天！\n", me);
 		ob->move(environment());
         	ob->die();
 
@@ -88,24 +88,24 @@ int accept_object(object me, object ob)
 		{
 			i += 10;
 			me->set("weiwang", i);
-			message_vision(HIC "\n$N�Ľ�����������ˣ�\n" NOR, me);
+			message_vision(HIC "\n$N的江湖威望提高了！\n" NOR, me);
 			return -1;
 		}
 
-	 	message_vision("\nׯ���˶�$N˵������λ" +
+	 	message_vision("\n庄夫人对$N说道：这位" +
 			       RANK_D->query_respect(me) +
-			       "����˴����£����ʵ��֪����Ϊ����\n"
-	 		       "ׯ����΢һ��˼�����������Ͷ���һ�����"
-			       "������ȴ���ҡ�\n", me);
+			       "，如此大恩大德，妾身实不知何以为报。\n"
+	 		       "庄夫人微一沉思，道：我想送恩公一件礼物，"
+			       "务请勿却是幸。\n", me);
         } else
-	if ( (string)ob->query("name") == "��ʷ����" || 
-	     (string)ob->query("name") == "ׯ�ʳ�" )
+	if ( (string)ob->query("name") == "明史辑略" || 
+	     (string)ob->query("name") == "庄允城" )
 	{
-	 	message_vision("\nׯ����˵������λ" +
-			       RANK_D->query_respect(me)+"����л�ˣ�\n", me);
+	 	message_vision("\n庄夫人说道：这位" +
+			       RANK_D->query_respect(me)+"，多谢了！\n", me);
 
-	 	message_vision("ׯ���˸�̾����������Ҫ�ܰ����ҵ���֮����"
-			       "�����ͺ��ˡ�\n", me);
+	 	message_vision("庄夫人感叹道：唉！你要能帮我找到吴之荣这"
+			       "狗贼就好了。\n", me);
         }		
  	return 1;
 }

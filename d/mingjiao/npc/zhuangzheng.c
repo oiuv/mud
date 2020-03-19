@@ -6,14 +6,14 @@ inherit F_UNIQUE;
 
 void create()
 {
-        set_name("×¯ï£", ({ "zhuang zheng", "zhuang", "zheng", }));
+        set_name("åº„é“®", ({ "zhuang zheng", "zhuang", "zheng", }));
 	set("long",
-        "ËûÊÇÒ»Î»¸ß´ó¿ıÎ°µÄÖĞÄêÄĞ×Ó£¬Éí´©Ò»¼ş°×²¼³¤ÅÛ¡£\n"
-        "ËûÌìÉúÉñÁ¦£¬ÊÖÖĞµÄÁ½Í·ÀÇÑÀ°ôÓĞÍò·ò²»µ±Ö®ÓÂ£¬ÕæÊÇÒ»ÌõÍş·çÁİÁİµÄºº×Ó¡£\n"
+        "ä»–æ˜¯ä¸€ä½é«˜å¤§é­ä¼Ÿçš„ä¸­å¹´ç”·å­ï¼Œèº«ç©¿ä¸€ä»¶ç™½å¸ƒé•¿è¢ã€‚\n"
+        "ä»–å¤©ç”Ÿç¥åŠ›ï¼Œæ‰‹ä¸­çš„ä¸¤å¤´ç‹¼ç‰™æ£’æœ‰ä¸‡å¤«ä¸å½“ä¹‹å‹‡ï¼ŒçœŸæ˜¯ä¸€æ¡å¨é£å‡›å‡›çš„æ±‰å­ã€‚\n"
 	);
 
-        set("title", HIG "Ã÷½Ì" HIW "Èñ½ğÆì" NOR "ÕÆÆìÊ¹");
-	set("gender", "ÄĞĞÔ");
+        set("title", HIG "æ˜æ•™" HIW "é”é‡‘æ——" NOR "æŒæ——ä½¿");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
         set("class", "fighter");
 
@@ -47,7 +47,7 @@ void create()
 	map_skill("parry", "jingang-quan");
 
 	prepare_skill("cuff", "jingang-quan");
-        create_family("Ã÷½Ì", 3, "Èñ½ğÆìÕÆÆìÊ¹");
+        create_family("æ˜æ•™", 3, "é”é‡‘æ——æŒæ——ä½¿");
 
 	setup();
 

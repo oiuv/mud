@@ -5,20 +5,20 @@ inherit BLADE;
 
 void create()
 {
-        set_name(HIC "ÀäÔÂ±¦µ¶" NOR, ({ "lengyue baodao", "lengyue", "baodao", "dao", "blade" }) );
+        set_name(HIC "å†·æœˆå®åˆ€" NOR, ({ "lengyue baodao", "lengyue", "baodao", "dao", "blade" }) );
         set_weight(6200);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", HIC "ÕâÊÇÒ»±úÐÎÈçÀäÔÂµÄ±¦µ¶£¬Õû¸öµ¶ÉíÀäÆøÉ­É­£¬ÈñÀûÎÞ±È¡£\n" NOR);
-                set("unit", "±ú");
+                set("long", HIC "è¿™æ˜¯ä¸€æŸ„å½¢å¦‚å†·æœˆçš„å®åˆ€ï¼Œæ•´ä¸ªåˆ€èº«å†·æ°”æ£®æ£®ï¼Œé”åˆ©æ— æ¯”ã€‚\n" NOR);
+                set("unit", "æŸ„");
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "steel");
-                set("wield_msg", HIC "$N" HIC "³é³ö±úÐÎÈçÀäÔÂµÄ³¤µ¶£¬¶ÙÊ±Ö»¾õº®Æø±Æ"
-                                 "ÈË£¬µ¶¹âÈçË®£¬Á÷×ª²»¶¨¡£\n" NOR);
-                set("unwield_msg", HIC "$N" HIC "µ¯µ¶ÇåÐ¥£¬ÐÄÖÐ¸Ð¿®£¬½«ÀäÔÂ±¦µ¶²å»Ø"
-                                 "µ¶ÇÊ¡£\n" NOR);
+                set("wield_msg", HIC "$N" HIC "æŠ½å‡ºæŸ„å½¢å¦‚å†·æœˆçš„é•¿åˆ€ï¼Œé¡¿æ—¶åªè§‰å¯’æ°”é€¼"
+                                 "äººï¼Œåˆ€å…‰å¦‚æ°´ï¼Œæµè½¬ä¸å®šã€‚\n" NOR);
+                set("unwield_msg", HIC "$N" HIC "å¼¹åˆ€æ¸…å•¸ï¼Œå¿ƒä¸­æ„Ÿæ…¨ï¼Œå°†å†·æœˆå®åˆ€æ’å›ž"
+                                 "åˆ€éž˜ã€‚\n" NOR);
                 set("stable", 100);
         }
         init_blade(160);
@@ -38,15 +38,15 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         case 0:
                 if (! victim->is_busy())
                 victim->start_busy(me->query_skill("blade") / 12 + 2);
-                return HIC "$N" HIC "Ò»Éù´óºÈ£¬ÊÖÖÐÀäÔÂ±¦µ¶Ò»Õñ£¬¶ÙÊ±ÑúÆðÒ»²ã²¨À½£¬±Æ"
-                       "µÃ$n" HIC "Á¬Á¬ºóÍË£¡\n" NOR;
+                return HIC "$N" HIC "ä¸€å£°å¤§å–ï¼Œæ‰‹ä¸­å†·æœˆå®åˆ€ä¸€æŒ¯ï¼Œé¡¿æ—¶æ¼¾èµ·ä¸€å±‚æ³¢æ¾œï¼Œé€¼"
+                       "å¾—$n" HIC "è¿žè¿žåŽé€€ï¼\n" NOR;
 
         case 1:
                 n = me->query_skill("blade");
                 victim->receive_damage("qi", n, me);
                 victim->receive_wound("qi", n, me);
-                return HIC "$N" HIC "½«ÊÖÖÐÀäÔÂ±¦µ¶ÆÆ¿Õ»®³ö£¬ö®Ê±¾¹ÏÆÆðÇ§²ãµ¶Ã¢£¬º®Æø"
-                       "±ÆÈË£¬$n" HIC "È«Éí²»ÓÉµÃÒ»²ü£¡\n" NOR;
+                return HIC "$N" HIC "å°†æ‰‹ä¸­å†·æœˆå®åˆ€ç ´ç©ºåˆ’å‡ºï¼ŒéœŽæ—¶ç«ŸæŽ€èµ·åƒå±‚åˆ€èŠ’ï¼Œå¯’æ°”"
+                       "é€¼äººï¼Œ$n" HIC "å…¨èº«ä¸ç”±å¾—ä¸€é¢¤ï¼\n" NOR;
         }
         return damage_bonus;
 }

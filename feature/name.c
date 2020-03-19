@@ -19,7 +19,7 @@ varargs void set_name(string name, string *id)
                         fullname += query("purename");
 
                 if (fullname == "")
-                        fullname = "ÎÞÃûÊÏ";
+                        fullname = "æ— åæ°";
 
                 set("name", fullname);
         } else
@@ -96,7 +96,7 @@ varargs string long(int raw)
 		str = mask[sizeof(mask)-1];
 	else
         if (! stringp(str = query("long")))
-		str = short(raw) + "¡£\n";
+		str = short(raw) + "ã€‚\n";
 
 	if (stringp(extra = this_object()->extra_long()))
 		str += extra;

@@ -5,17 +5,17 @@ inherit NPC;
 #include <ansi.h>
 void create()
 {
-	set_name("É³Í¨Ìì", ({ "sha tongtian", "sha", "tongtian" }));
-	set("gender", "ÄĞĞÔ");
-	set("title", HIY"»ÆºÓ°ï°ïÖ÷"NOR);
-	set("nickname", HIC"¹íÃÅÁúÍõ"NOR);
+	set_name("æ²™é€šå¤©", ({ "sha tongtian", "sha", "tongtian" }));
+	set("gender", "ç”·æ€§");
+	set("title", HIY"é»„æ²³å¸®å¸®ä¸»"NOR);
+	set("nickname", HIC"é¬¼é—¨é¾™ç‹"NOR);
 	set("age", 43);
 	set("str", 25);
 	set("dex", 16);
 	set("per", 12);
-	set("long", "É³Í¨ÌìÊÇ¸öÍº×Ó£¬Í·ÉÏÓÍ¹â¹âµØÃ»°ë¸ùÍ··¢£¬Ë«Ä¿²¼ÂúºìË¿£¬ÑÛ
-ÖéÍ»³ö£¬Éú¾ÍÒ»¸±ÒìÏà¡£ĞÔ×Ó±©Ôê£¬Îä¹¦È´ÊÇ³öÆæµØ¸ß£¬½­ºşÉÏ
-ÎŞÈË²»Ïş¡£\n");
+	set("long", "æ²™é€šå¤©æ˜¯ä¸ªç§ƒå­ï¼Œå¤´ä¸Šæ²¹å…‰å…‰åœ°æ²¡åŠæ ¹å¤´å‘ï¼ŒåŒç›®å¸ƒæ»¡çº¢ä¸ï¼Œçœ¼
+ç çªå‡ºï¼Œç”Ÿå°±ä¸€å‰¯å¼‚ç›¸ã€‚æ€§å­æš´èºï¼Œæ­¦åŠŸå´æ˜¯å‡ºå¥‡åœ°é«˜ï¼Œæ±Ÿæ¹–ä¸Š
+æ— äººä¸æ™“ã€‚\n");
 	set("combat_exp", 200000);
 	set("shen_type", -1);
 	set("attitude", "peaceful");

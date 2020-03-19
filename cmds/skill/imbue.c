@@ -12,37 +12,37 @@ int main(object me, string arg)
 	object obj, dest;
 
 	if (! arg)
-                return notify_fail("ÄãÒªÍùÊ²Ã´µÀ¾ßÉÏ½þÈëÆäËûÎïÆ·£¿\n");
+                return notify_fail("ä½ è¦å¾€ä»€ä¹ˆé“å…·ä¸Šæµ¸å…¥å…¶ä»–ç‰©å“ï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("ÏÈÃ¦ÍêÁËÄãµÄÊÂÇéÔÙ×öÕâ¼þÊÂÇé°É£¡\n");
+                return notify_fail("å…ˆå¿™å®Œäº†ä½ çš„äº‹æƒ…å†åšè¿™ä»¶äº‹æƒ…å§ï¼\n");
 
         if (me->is_fighting())
-                return notify_fail("ÄãÏÖÔÚÕýÔÚ´ò¼Ü£¬Ã»Ê±¼ä×öÕâÐ©ÊÂÇé¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ­£åœ¨æ‰“æž¶ï¼Œæ²¡æ—¶é—´åšè¿™äº›äº‹æƒ…ã€‚\n");
 
         if (sscanf(arg, "%s with %s", item, imbue) != 2 &&
             sscanf(arg, "%s in %s", imbue, item) != 2)
-                return notify_fail("ÄãÒªÍùÕâÉÏÃæ½þÈëÊ²Ã´ÎïÆ·£¿\n");
+                return notify_fail("ä½ è¦å¾€è¿™ä¸Šé¢æµ¸å…¥ä»€ä¹ˆç‰©å“ï¼Ÿ\n");
 
 	if (! objectp(obj = present(imbue, me)))
-		return notify_fail("ÄãÉíÉÏÃ»ÓÐÕâÑù¶«Î÷¿ÉÒÔÓÃÀ´½þÈë¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿å¯ä»¥ç”¨æ¥æµ¸å…¥ã€‚\n");
 
 	if (! objectp(dest = present(item, me)))
-		return notify_fail("ÄãÉíÉÏÃ»ÓÐÕâÑùµÀ¾ß¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·é“å…·ã€‚\n");
 
-        notify_fail("ÄãÎÞ·¨°Ñ" + obj->name() + "½þÈë" +
-                    dest->name() + "¡£\n");
+        notify_fail("ä½ æ— æ³•æŠŠ" + obj->name() + "æµ¸å…¥" +
+                    dest->name() + "ã€‚\n");
 	return dest->do_imbue(me, obj);
 }
 
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : imbue <ÌØÊâÎïÆ·> in <µÀ¾ß>
-           imbue <µÀ¾ß> with <ÌØÊâÎïÆ·>
+æŒ‡ä»¤æ ¼å¼ : imbue <ç‰¹æ®Šç‰©å“> in <é“å…·>
+           imbue <é“å…·> with <ç‰¹æ®Šç‰©å“>
 
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã½«Ä³ÑùÌØÊâÎïÆ·½þÈëÁíÍâÒ»ÖÖµÀ¾ßÖÐ£¬ÒÔ¶ÍÁ¶ÄÇÖÖ
-µÀ¾ß»òÊÇ·¢»ÓËüµÄÍþÁ¦¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ å°†æŸæ ·ç‰¹æ®Šç‰©å“æµ¸å…¥å¦å¤–ä¸€ç§é“å…·ä¸­ï¼Œä»¥é”»ç‚¼é‚£ç§
+é“å…·æˆ–æ˜¯å‘æŒ¥å®ƒçš„å¨åŠ›ã€‚
 HELP
     );
     return 1;

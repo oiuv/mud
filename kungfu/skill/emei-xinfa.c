@@ -1,4 +1,4 @@
-// emei-xinfa.c 峨嵋心法
+// emei-xinfa.c 宄ㄥ祴蹇冩硶
 #include <ansi.h>
 inherit FORCE;
 
@@ -18,7 +18,7 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-        return notify_fail("峨嵋心法只能用学(learn)的来增加熟练度。\n");
+        return notify_fail("宄ㄥ祴蹇冩硶鍙兘鐢ㄥ(learn)鐨勬潵澧炲姞鐔熺粌搴︺�俓n");
 }
 
 string exert_function_file(string func)

@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("ÏôÈº", ({ "xiao qun"}) );
-        set("gender", "ÄĞĞÔ");
+        set_name("è§ç¾¤", ({ "xiao qun"}) );
+        set("gender", "ç”·æ€§");
         set("age", 30);
         set("combat_exp", 200000);
-	set("title", "ÓùÁÖ¾üÍ³Áì");
+	set("title", "å¾¡æ—å†›ç»Ÿé¢†");
         set("attitude", "friendly");
 	set("per", 25);
         set("str", 35);
@@ -32,6 +32,6 @@ void create()
 
 int accept_fight(object me)
 {
-        command("say ÎÒ¹óÎªÓùÁÖ¾üÍ³Áì£¬ÆñÄÜÓëÄãÒ»°ã¼ûÊ¶£¡");
+        command("say æˆ‘è´µä¸ºå¾¡æ—å†›ç»Ÿé¢†ï¼Œå²‚èƒ½ä¸ä½ ä¸€èˆ¬è§è¯†ï¼");
         return 0;
 }

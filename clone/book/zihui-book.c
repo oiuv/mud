@@ -1,4 +1,4 @@
-// zihui-book.c ×Ï»ÕĞÄ·¨
+// zihui-book.c ç´«å¾½å¿ƒæ³•
 
 #include <ansi.h>
 
@@ -6,15 +6,15 @@ inherit BOOK;
 
 void create()
 {
-        set_name(MAG "×Ï»ÕĞÄ·¨" NOR, ({ "zihui book", "zihui", "book" }));
+        set_name(MAG "ç´«å¾½å¿ƒæ³•" NOR, ({ "zihui book", "zihui", "book" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("unit", "±¾");
+                set("unit", "æœ¬");
                 set("no_sell", 1);
-                set("long", "ÕâÊÇÒ»±¾¼ÇÔØÁËÄ½Èİ¼Ò×Ï»ÕĞÄ·¨µÄÃØ¼®¡£\n");
+                set("long", "è¿™æ˜¯ä¸€æœ¬è®°è½½äº†æ…•å®¹å®¶ç´«å¾½å¿ƒæ³•çš„ç§˜ç±ã€‚\n");
                 set("value", 1000);
                 set("material", "paper");
                 set("skill", ([

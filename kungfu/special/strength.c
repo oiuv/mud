@@ -1,14 +1,14 @@
-// strength.c ÷è÷ëÑª±Û
+// strength.c éº’éºŸè¡€è‡‚
 // Created by Vin 1/9/2001
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return HIR "÷è÷ëÑª±Û" NOR; }
+string name() { return HIR "éº’éºŸè¡€è‡‚" NOR; }
 
 int perform(object me, string skill)
 {
-        return notify_fail("ÕâÏî¼¼ÄÜÄÜ¹»Ê¹ÄãëöÁ¦¸ü¸ß£¬²»ĞèÒªÔËÓÃ¡£\n");
+        return notify_fail("è¿™é¡¹æŠ€èƒ½èƒ½å¤Ÿä½¿ä½ è†‚åŠ›æ›´é«˜ï¼Œä¸éœ€è¦è¿ç”¨ã€‚\n");
 }
 

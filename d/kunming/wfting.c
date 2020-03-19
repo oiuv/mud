@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����ͤ");
+        set("short", "望峰亭");
         set("long", @LONG
-������ʯ����ߵ�һ���壬������һСͤ���治֪������
-�ν�������ģ����ۿ�ȥ��ֻ������ʯ��������һʱ���۾���
-�����ˡ�
+这里是石林最高的一座峰，峰上有一小亭，真不知道是如
+何建造出来的，放眼看去，只见四面石峰林立，一时间眼睛都
+看花了。
 LONG);
         set("outdoors", "kunming");
         set("exits", ([                

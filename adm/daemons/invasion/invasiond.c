@@ -1,4 +1,4 @@
-//  ¡¾Ð¦Ì¸ÌìÏÂ¡¿°¡À²[Opop]£ºÓ¢¡¢¶í¡¢µÂ¡¢ÈÕ¡¢Òâ¡¢·¨¡¢ÃÀ¡¢°Â
+//  ã€ç¬‘è°ˆå¤©ä¸‹ã€‘å•Šå•¦[Opop]ï¼šè‹±ã€ä¿„ã€å¾·ã€æ—¥ã€æ„ã€æ³•ã€ç¾Žã€å¥¥
 
 inherit F_DBASE;
 
@@ -10,7 +10,7 @@ inherit F_DBASE;
 void create()
 {
         seteuid(getuid());
-        set("name", HIG "ÍâµÐÈëÇÖÈÎÎñÖ÷ÎÄ¼þ" NOR);
+        set("name", HIG "å¤–æ•Œå…¥ä¾µä»»åŠ¡ä¸»æ–‡ä»¶" NOR);
         set("id", "invasion");
         call_out("main", 600);
 }
@@ -20,10 +20,10 @@ void main()
 {
    int i,lvl;
 
-   message( "invasion", HIR"¡¾ÍâµÐÈëÇÖ¡¿" BLINK
-            "¾¯±¨£¡¾¯±¨£¡°Ë¹úÁª¾ü¹¥Èë±±¾©ÁË£¡\n" NOR
-            HIR"¡¾ÍâµÐÈëÇÖ¡¿"NOR HIY"Çë¸÷Î»´óÏºËÙÖÁ±±¾©µÖÓùÍâµÐ£¡"+
-            "´ò¿ªwaidiÆµµÀ¿É»ñÖªÕ½¿ö¡£\n"NOR, users() );
+   message( "invasion", HIR"ã€å¤–æ•Œå…¥ä¾µã€‘" BLINK
+            "è­¦æŠ¥ï¼è­¦æŠ¥ï¼å…«å›½è”å†›æ”»å…¥åŒ—äº¬äº†ï¼\n" NOR
+            HIR"ã€å¤–æ•Œå…¥ä¾µã€‘"NOR HIY"è¯·å„ä½å¤§è™¾é€Ÿè‡³åŒ—äº¬æŠµå¾¡å¤–æ•Œï¼"+
+            "æ‰“å¼€waidié¢‘é“å¯èŽ·çŸ¥æˆ˜å†µã€‚\n"NOR, users() );
    this_object()->delete("record");
    this_object()->set("record/born_time",time());
 
@@ -50,8 +50,8 @@ object create_invader(int lvl, int number)
 
         string *n, *place, nation, locate;
 
-        n = ({ "ÈÕ±¾", "ÈÕ±¾", "Ó¢¹ú", "¶íÂÞË¹", "µÂ¹ú", "·¨¹ú", "ÃÀ¹ú",
-               "°ÂÐÙµÛ¹ú", "Òâ´óÀû"});  
+        n = ({ "æ—¥æœ¬", "æ—¥æœ¬", "è‹±å›½", "ä¿„ç½—æ–¯", "å¾·å›½", "æ³•å›½", "ç¾Žå›½",
+               "å¥¥åŒˆå¸å›½", "æ„å¤§åˆ©"});  
   
         place = ({"/d/beijing/tiananmen", "/d/beijing/dianmen",
                   "/d/beijing/huangling", "/d/beijing/wenmiao",
@@ -64,20 +64,20 @@ object create_invader(int lvl, int number)
 
         switch (nation)
         {
-        case "ÈÕ±¾":
+        case "æ—¥æœ¬":
                 ob = new(INVADE_NPC + "/japanese");
                 NPC_D->generate_jp_name(ob);
                 break;
-        case "Ó¢¹ú":
-        case "ÃÀ¹ú":
+        case "è‹±å›½":
+        case "ç¾Žå›½":
                 ob = new(INVADE_NPC + "/english");
                 NPC_D->generate_e_name(ob);
                 break;
-        case "·¨¹ú":
-        case "µÂ¹ú":
-        case "¶íÂÞË¹":
-        case "Òâ´óÀû":
-        case "°ÂÐÙµÛ¹ú":
+        case "æ³•å›½":
+        case "å¾·å›½":
+        case "ä¿„ç½—æ–¯":
+        case "æ„å¤§åˆ©":
+        case "å¥¥åŒˆå¸å›½":
                 ob = new(INVADE_NPC + "/european");
                 NPC_D->generate_e_name(ob);
                 break;
@@ -90,7 +90,7 @@ object create_invader(int lvl, int number)
         call_other(__FILE__, "set_invader_skill",ob, lvl);
         ob->move(locate);
         if ( objectp(locate) )
-        tell_room(locate,ob->query("name") + "É±ÁË¹ýÀ´¡£\n");
+        tell_room(locate,ob->query("name") + "æ€äº†è¿‡æ¥ã€‚\n");
 }
 
 
@@ -110,39 +110,39 @@ void set_invader_skill(object ob, int lvl)
          case 1 :
                       sk_lvl = 180 + random(10);
                       qi = 10000;
-                      rank = HIW"¹ÍÓ¶±ø"NOR;
+                      rank = HIW"é›‡ä½£å…µ"NOR;
                       break;
          case 2 :
                       sk_lvl = 300 + random(50);
                       qi = 15000;
-                      rank = HIB"Ð¡Í·Ä¿"NOR;
+                      rank = HIB"å°å¤´ç›®"NOR;
                       break;
          case 3 :
                       sk_lvl = 400 + random(50);
-                      rank = HIC"´óÍ·Ä¿"NOR;
+                      rank = HIC"å¤§å¤´ç›®"NOR;
                       qi = 18000;                 
                       break;
          case 4 :
                       sk_lvl = 450 + random(50);
                       qi = 20000;
-                      rank = YEL"¸±Ë¾Áî"NOR;                
+                      rank = YEL"å‰¯å¸ä»¤"NOR;                
                       break;
          case 5 :
                       sk_lvl = 500 + random(50);
-                      rank = HIR"×ÜË¾Áî"NOR;
+                      rank = HIR"æ€»å¸ä»¤"NOR;
                       qi = 30000;             
                       break;
         }
 
-        ob->set("title", HIY + "°Ë¹úÁª¾ü"NOR + rank + NOR);
-        ob->set("nickname",HIW + ob->query("nation") + "¹ÍÓ¶¾ü"NOR);
+        ob->set("title", HIY + "å…«å›½è”å†›"NOR + rank + NOR);
+        ob->set("nickname",HIW + ob->query("nation") + "é›‡ä½£å†›"NOR);
         ob->set("lvl",lvl);
         ob->set("rank",rank);
         ob->set("kind","invader");
 
         exp = sk_lvl * sk_lvl * sk_lvl / 10 + random( 1000 * lvl );
         ob->set("combat_exp", exp);
-        //ÉèÖÃskill
+        //è®¾ç½®skill
         if (! ob->query_skills())
                 return;
 
@@ -175,9 +175,9 @@ void set_invader_skill(object ob, int lvl)
 void set_reward()
 {
    this_object()->set("record/all_killed",1);
-   message( "invasion", HIR"¡¾ÍâµÐÈëÇÖ¡¿"NOR HIG"´óÄÚ×Ü¹Ü[Danei zongguan]:Ê¥Ö¼µ½£¡\n"NOR
-         HIY"                   ·îÌì³ÐÔË£¬»ÊµÛÚ¯Ô»£º\n"
-            "           ±¾´ÎÈëÇÖÖ®ÍâµÐ±»ÎÒ·½ÒåÊ¿È«¼ß£¬»ÊÉÏÁúÑÕ´óÀÖ£¬\n"
-            "           ½ñÌØÃüËùÓÐ¿¹»÷ÍâµÐÓÐ¹¦Õß½ø¹¬ÁìÉÍ¡£\n"
-            "                                ÇÕ´Ë£¡\n" NOR,users());
+   message( "invasion", HIR"ã€å¤–æ•Œå…¥ä¾µã€‘"NOR HIG"å¤§å†…æ€»ç®¡[Danei zongguan]:åœ£æ—¨åˆ°ï¼\n"NOR
+         HIY"                   å¥‰å¤©æ‰¿è¿ï¼Œçš‡å¸è¯æ›°ï¼š\n"
+            "           æœ¬æ¬¡å…¥ä¾µä¹‹å¤–æ•Œè¢«æˆ‘æ–¹ä¹‰å£«å…¨æ­¼ï¼Œçš‡ä¸Šé¾™é¢œå¤§ä¹ï¼Œ\n"
+            "           ä»Šç‰¹å‘½æ‰€æœ‰æŠ—å‡»å¤–æ•Œæœ‰åŠŸè€…è¿›å®«é¢†èµã€‚\n"
+            "                                é’¦æ­¤ï¼\n" NOR,users());
 }

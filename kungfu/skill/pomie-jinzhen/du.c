@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define DU "¡¸" YEL "½ðÕë¶É½Ù" NOR "¡¹"
+#define DU "ã€Œ" YEL "é‡‘é’ˆæ¸¡åŠ«" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -19,33 +19,33 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (userp(me) && ! me->query("can_perform/pomie-jinzhen/du"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(DU "Ö»ÄÜÔÚÕ½¶·ÖÐ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(DU "åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("handing"))
            || (string)weapon->query("skill_type") != "throwing")
-                return notify_fail("ÄãÏÖÔÚÊÖÖÐ²¢Ã»ÓÐÄÃ×Å°µÆ÷¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ‰‹ä¸­å¹¶æ²¡æœ‰æ‹¿ç€æš—å™¨ã€‚\n");
 
         if (weapon->query_amount() < 30)
-                return notify_fail("ÄãÖÁÉÙÒªÄÃÓÐ¶þÊ®Ã¶°µÆ÷²ÅÄÜÊ©Õ¹" DU "¡£\n");
+                return notify_fail("ä½ è‡³å°‘è¦æ‹¿æœ‰äºŒåæžšæš—å™¨æ‰èƒ½æ–½å±•" DU "ã€‚\n");
 
         if ((skill = me->query_skill("pomie-jinzhen", 1)) < 150)
-                return notify_fail("ÄãµÄÆÆÃð½ðÕë²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" DU "¡£\n");
+                return notify_fail("ä½ çš„ç ´ç­é‡‘é’ˆä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" DU "ã€‚\n");
 
         if ((int)me->query_skill("force") < 200)
-                return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹" DU "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" DU "ã€‚\n");
 
         if ((int)me->query("neili") < 150)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" DU "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" DU "ã€‚\n");
 
         if (! living(target))
-               return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+               return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = YEL "Ö»¼û$N" YEL "ÓÒÊÖÒ»Ñï£¬Ê©³ö¡¸" HIR "½ðÕë¶É½Ù" NOR +
-              YEL "¡¹£¬ÊÖÖÐ" + weapon->name() + YEL "Èç¼±·ç±©Óê°ãÏò$n"
-              YEL "ÉäÈ¥£¡\n" NOR;
+        msg = YEL "åªè§$N" YEL "å³æ‰‹ä¸€æ‰¬ï¼Œæ–½å‡ºã€Œ" HIR "é‡‘é’ˆæ¸¡åŠ«" NOR +
+              YEL "ã€ï¼Œæ‰‹ä¸­" + weapon->name() + YEL "å¦‚æ€¥é£Žæš´é›¨èˆ¬å‘$n"
+              YEL "å°„åŽ»ï¼\n" NOR;
 
         my_exp = me->query("combat_exp") + skill * skill / 10 * skill;
         ob_exp = target->query("combat_exp");
@@ -58,9 +58,9 @@ int perform(object me, object target)
                 if (random(my_exp / 4) > ob_exp) n += 4 + random(8);
                 if (weapon->query_amount() < n) n = weapon->query_amount();
 
-                msg += HIR "ö®Ê±¼äÒ»Æ¬½ðÃ¢ÁýÕÖ$n" HIR "ËÄ·½£¬ÌýµÃÒ»Éù"
-                       "²Ò½Ð£¬" + chinese_number(n) + "ÖùÏÊÑª·É½¦¶ø³ö"
-                       "¡£\n" NOR;
+                msg += HIR "éœŽæ—¶é—´ä¸€ç‰‡é‡‘èŠ’ç¬¼ç½©$n" HIR "å››æ–¹ï¼Œå¬å¾—ä¸€å£°"
+                       "æƒ¨å«ï¼Œ" + chinese_number(n) + "æŸ±é²œè¡€é£žæº…è€Œå‡º"
+                       "ã€‚\n" NOR;
 
                 target->receive_damage("qi", skill + random(skill), me);
                 target->receive_wound("qi", skill / 2 + random(skill / 2), me);
@@ -76,8 +76,8 @@ int perform(object me, object target)
                 message_combatd(msg, me, target);
         } else
         {
-                msg += CYN "¿ÉÊÇ$n" CYN "Ë¿ºÁ²»¸Ò´óÒâ£¬µ±¼´×óÉÁÓÒ"
-                       "±Ü£¬¶ã¿ªÁËËùÓÐµÄ°µÆ÷¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$n" CYN "ä¸æ¯«ä¸æ•¢å¤§æ„ï¼Œå½“å³å·¦é—ªå³"
+                       "é¿ï¼Œèº²å¼€äº†æ‰€æœ‰çš„æš—å™¨ã€‚\n" NOR;
                 message_combatd(msg, me, target);
         }
         weapon->set_amount(0);

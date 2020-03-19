@@ -4,18 +4,18 @@ inherit ITEM;
 
 void create()
 {
-        set_name(NOR + YEL "ÎÚ½ğ¿ó" NOR, ({"wujin kuang", "wujin", "kuang"}));
+        set_name(NOR + YEL "ä¹Œé‡‘çŸ¿" NOR, ({"wujin kuang", "wujin", "kuang"}));
         set_weight(1800);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", YEL "ÕâÊÇÒ»¿é¼«Îªº±¼ûµÄÎÚ½ğ¿óÊ¯£¬¼áÈçĞşÌú£¬Õä¹óÎŞ±È¡£\n" NOR);
-                set("unit", "¿é");
+                set("long", YEL "è¿™æ˜¯ä¸€å—æä¸ºç½•è§çš„ä¹Œé‡‘çŸ¿çŸ³ï¼Œåšå¦‚ç„é“ï¼Œçè´µæ— æ¯”ã€‚\n" NOR);
+                set("unit", "å—");
                 set("value", 8000);
                 set("item_origin", 1);
                 set("material_attrib", "stone");
-                set("material_name", NOR + YEL "ÎÚ½ğ¿ó" NOR);
-                set("can_make", ({ "½£", "µ¶", "´¸", "¶Ì±ø", "óï" }));
+                set("material_name", NOR + YEL "ä¹Œé‡‘çŸ¿" NOR);
+                set("can_make", ({ "å‰‘", "åˆ€", "é”¤", "çŸ­å…µ", "ç®«" }));
                 set("power_point", 50);
         }
 }

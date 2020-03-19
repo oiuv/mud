@@ -3,17 +3,17 @@ inherit BOOK;
 
 void create()
 {
-        set_name(HIC "¡¸ºÓÍ¼¡¹" NOR, ({ "he tu", "he", "tu" }));
+        set_name(HIC "ã€Œæ²³å›¾ã€" NOR, ({ "he tu", "he", "tu" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
-                set("long", HIY "ÕâÊÇÒ»±¾ÓÃ±¡¾îĞ´³ÉµÄÊé¡£ÉÏÊé¶ş×Ö¹Å×­¡¸"
-                            HIC "ºÓÍ¼" HIY "¡¹¡£ÊéÆ¤ÒÑÈ»\n·º»Æ£¬¿´À´ÒÑ¾­"
-                            "±£´æºÜ¾ÃÁË¡£\n" NOR);
+                set("unit", "æœ¬");
+                set("long", HIY "è¿™æ˜¯ä¸€æœ¬ç”¨è–„ç»¢å†™æˆçš„ä¹¦ã€‚ä¸Šä¹¦äºŒå­—å¤ç¯†ã€Œ"
+                            HIC "æ²³å›¾" HIY "ã€ã€‚ä¹¦çš®å·²ç„¶\næ³›é»„ï¼Œçœ‹æ¥å·²ç»"
+                            "ä¿å­˜å¾ˆä¹…äº†ã€‚\n" NOR);
                 set("value", 1);
-                set("no_sell", "àÅ£¿ÄãÄÃµÄÕâÊÇÉ¶ÆÆÍæÒâ£¿");
+                set("no_sell", "å—¯ï¼Ÿä½ æ‹¿çš„è¿™æ˜¯å•¥ç ´ç©æ„ï¼Ÿ");
                 set("material", "silk");
                 set("skill", ([
                         "name" : "count",

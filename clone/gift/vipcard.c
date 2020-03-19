@@ -3,14 +3,14 @@ inherit "/clone/fam/gift/gift";
 
 void create()
 {
-        set_name(HIY "»áÔ±½ğ¿¨" NOR, ({ "huiyuan card", "card", "huiyuan"}));
+        set_name(HIY "ä¼šå‘˜é‡‘å¡" NOR, ({ "huiyuan card", "card", "huiyuan"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIW "Ò»ÕÅ¾«ÖÂµÄ¿¨Æ¬,½öVIP»áÔ±ÓµÓĞ,³ÖÕâÕÅ¿¨Æ¬"
-                                  "¿ÉÒÔ×ÔÓÉ³öÈë\n¡¾»áÔ±·şÎñÖĞĞÄ¡¿²¢ÇÒ¿ÉÒÔ"
-                                "µÃµ½Ïà¹ØµÄ·şÎñ¡£\n" NOR);
-                set("base_unit", "ÕÅ");
+                set("long", HIW "ä¸€å¼ ç²¾è‡´çš„å¡ç‰‡,ä»…VIPä¼šå‘˜æ‹¥æœ‰,æŒè¿™å¼ å¡ç‰‡"
+                                  "å¯ä»¥è‡ªç”±å‡ºå…¥\nã€ä¼šå‘˜æœåŠ¡ä¸­å¿ƒã€‘å¹¶ä¸”å¯ä»¥"
+                                "å¾—åˆ°ç›¸å…³çš„æœåŠ¡ã€‚\n" NOR);
+                set("base_unit", "å¼ ");
                 set("base_value", 10);
                 set("base_weight", 50);
         }

@@ -4,14 +4,14 @@ inherit ITEM;
 inherit F_FOOD;
 void create()
 {
-        set_name(YEL"½Ğ»¯Í¯¼¦"NOR, ({"chicken"}));
+        set_name(YEL"å«åŒ–ç«¥é¸¡"NOR, ({"chicken"}));
         set_weight(200);
         if (clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("long", "Ò»Ö»±»¿¾µÃÁ÷ÓÍ£¬ÏãÎ¶ÆË±ÇµÄ½Ğ»¯¼¦¡£\n");
-                set("unit", "Ö»");
+                set("long", "ä¸€åªè¢«çƒ¤å¾—æµæ²¹ï¼Œé¦™å‘³æ‰‘é¼»çš„å«åŒ–é¸¡ã€‚\n");
+                set("unit", "åª");
                 set("value", 120);
                 set("food_remaining", 1);
                 set("food_supply", 100);

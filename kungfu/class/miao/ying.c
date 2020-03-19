@@ -4,16 +4,16 @@ inherit NPC;
 
 void create()
 {
-        set_name("ïñÕ×Ó¢", ({ "zhong zhaoying", "zhong", "zhaoying", "ying" }));
+        set_name("é”ºå…†è‹±", ({ "zhong zhaoying", "zhong", "zhaoying", "ying" }));
         set("long", @LONG
-ÕâÈËÊÇïñÊÏÈıĞÛµÄÀÏ¶şïñÕ×Ó¢¡£Ö»¼ûËûÉí´©°×
-É«´ÖÂé²¼ÒÂ·ş£¬°×Ã±°×Ğ¬£¬ÒÂ·ş±ßÉÏÂ¶×ÅÃ«Í·£¬
-¾¹ÊÇ¸ÕËÀÁË¸¸Ä¸µÄĞ¢×Ó·şÉ«£¬Á³É«²Ò°×£¬±Ç×Ó
-ÓÖ±âÓÖ´ó£¬±Ç¿×³¯Ìì£¬Áô×ÅºÚºú×Ó¡£
+è¿™äººæ˜¯é”ºæ°ä¸‰é›„çš„è€äºŒé”ºå…†è‹±ã€‚åªè§ä»–èº«ç©¿ç™½
+è‰²ç²—éº»å¸ƒè¡£æœï¼Œç™½å¸½ç™½é‹ï¼Œè¡£æœè¾¹ä¸Šéœ²ç€æ¯›å¤´ï¼Œ
+ç«Ÿæ˜¯åˆšæ­»äº†çˆ¶æ¯çš„å­å­æœè‰²ï¼Œè„¸è‰²æƒ¨ç™½ï¼Œé¼»å­
+åˆæ‰åˆå¤§ï¼Œé¼»å­”æœå¤©ï¼Œç•™ç€é»‘èƒ¡å­ã€‚
 LONG );
-        set("nickname", HIR "ïñÊÏÈıĞÛ" NOR);
-        set("title", "¶õ±±ïñÊÏĞÖµÜ");
-        set("gender", "ÄĞĞÔ");
+        set("nickname", HIR "é”ºæ°ä¸‰é›„" NOR);
+        set("title", "é„‚åŒ—é”ºæ°å…„å¼Ÿ");
+        set("gender", "ç”·æ€§");
         set("age", 43);
         set("attitude", "peaceful");
         set("str", 23);
@@ -51,7 +51,7 @@ LONG );
 
         prepare_skill("cuff", "yanqing-quan");
 
-        create_family("¶õ±±ïñÊÏ", 6, "´«ÈË");
+        create_family("é„‚åŒ—é”ºæ°", 6, "ä¼ äºº");
 
         setup();
 
@@ -63,5 +63,5 @@ LONG );
 void attempt_apprentice(object ob)
 {
         command("hmm");
-        command("say ×ß¿ª£¬ÎÒ²»ÊÕÍ½¡£");
+        command("say èµ°å¼€ï¼Œæˆ‘ä¸æ”¶å¾’ã€‚");
 }

@@ -5,12 +5,12 @@ inherit BUILD_ROOM;
 
 void create()
 {
-	set("short", "ÇàÊ¯¹ÙµÀ");
+	set("short", "é’çŸ³å®˜é“");
 	set("long", @LONG
-Äã×ßÔÚÒ»ÌõÇàÊ¯´óµÀÉÏ£¬ÈËÀ´ÈËÍù·Ç³£·±Ã¦£¬²»Ê±µØÓÐÈË
-Æï×ÅÂí´Ò´Ò¶ø¹ý¡£´óµÀÁ½ÅÔÓÐÒ»Ð©Ð¡»õÌ¯£¬ËÆºõÊÇÒ»´¦¼¯ÊÐ¡£
-¶«Ãæ¾ÍÊÇËÕÖÝ³ÇÁË¡£ËäÈ»ÊÇ³ÇÍâ£¬µ«ÊÇ¾°É«ÒËÈË£¬¾ø¶ÔÊÇÒ»¸ö
-ºÃ×¡´¦¡£
+ä½ èµ°åœ¨ä¸€æ¡é’çŸ³å¤§é“ä¸Šï¼Œäººæ¥äººå¾€éžå¸¸ç¹å¿™ï¼Œä¸æ—¶åœ°æœ‰äºº
+éª‘ç€é©¬åŒ†åŒ†è€Œè¿‡ã€‚å¤§é“ä¸¤æ—æœ‰ä¸€äº›å°è´§æ‘Šï¼Œä¼¼ä¹Žæ˜¯ä¸€å¤„é›†å¸‚ã€‚
+ä¸œé¢å°±æ˜¯è‹å·žåŸŽäº†ã€‚è™½ç„¶æ˜¯åŸŽå¤–ï¼Œä½†æ˜¯æ™¯è‰²å®œäººï¼Œç»å¯¹æ˜¯ä¸€ä¸ª
+å¥½ä½å¤„ã€‚
 LONG );
 	set("outdoors", "suzhou");
 	set("exits", ([

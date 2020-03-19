@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ʯ��");
+        set("short", "石洞");
         set("long", @LONG
-����һ��ʯ�������ܵ��Ű�յ�͵ƣ�ʹ����������ǳ�������ɽ
-����֧·���࣬���ҪС�ģ����ߴ���·��
+这是一个石洞，四周点着八盏油灯，使得整个房间非常明亮。山
+洞中支路甚多，你可要小心，别走错了路。
 LONG );
         set("exits", ([
                 "east" : __FILE__,

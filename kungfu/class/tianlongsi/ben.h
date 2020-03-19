@@ -10,8 +10,8 @@ int accept_hit(object ob)
         if (! objectp(kr = present("ku rong")))
                 return 1;
 
-        command("say ¿İÈÙ´óÊ¦£¡Õâ" + RANK_D->query_rude(ob) +
-                "´òÉÏÃÅÀ´ÁË£¡");
+        command("say æ¯è£å¤§å¸ˆï¼è¿™" + RANK_D->query_rude(ob) +
+                "æ‰“ä¸Šé—¨æ¥äº†ï¼");
         kr->start_fight(ob);
     	return 1;
 }
@@ -26,14 +26,14 @@ int accept_kill(object ob)
         if (! objectp(kr = present("ku rong")))
                 return 1;
 
-        command("say ¿İÈÙ´óÊ¦£¡Õâ" + RANK_D->query_rude(ob) +
-                "ÍıÍ¼ĞĞĞ×£¬Ç¿ÇÀ½£Æ×£¡");
+        command("say æ¯è£å¤§å¸ˆï¼è¿™" + RANK_D->query_rude(ob) +
+                "å¦„å›¾è¡Œå‡¶ï¼Œå¼ºæŠ¢å‰‘è°±ï¼");
         kr->start_fight(ob);
         return 1;
 }
 
 int accept_fight(object ob)
 {
-        command("say ÉÆÔÕ£¡ÉÆÔÕ£¡Ê©Ö÷ºÎ³ö´ËÑÔ£¿");
+        command("say å–„å“‰ï¼å–„å“‰ï¼æ–½ä¸»ä½•å‡ºæ­¤è¨€ï¼Ÿ");
     	return 0;
 }

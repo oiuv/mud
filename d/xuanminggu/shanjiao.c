@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "��ڤ��ɽ��");
+	set("short", "玄冥峰山脚");
 	set("long", @LONG
-������ڤ��ɽ�ţ�����ǰ�߾�����ڤ���ˡ�������ľ���̣��̲���
-����ɽ��Ұ�����ⱼ�ܡ�
+这是玄冥峰山脚，再往前走就是玄冥谷了。四周树木葱绿，绿草深
+长。山鸡野兔肆意奔跑。
 LONG );
 	set("exits", ([
 		"eastdown"  : __DIR__"xiaolu1",

@@ -29,12 +29,12 @@ void rehash(string dir)
         i = sizeof(cmds);
         cmdlist = allocate_mapping(i);
 
-        // È¡ËùÓĞÃüÁî
+        // å–æ‰€æœ‰å‘½ä»¤
         while (i--)
                 if (sscanf(cmds[i], "%s.c", cmds[i]))
                         cmdlist[cmds[i]] = dir + cmds[i] + ".c";
 
-        // È¡ËùÓĞÃüÁîµÄ±ğÃû
+        // å–æ‰€æœ‰å‘½ä»¤çš„åˆ«å
         i = sizeof(cmds);
         while (i--)
                 if (sscanf(cmds[i], "%s.alias", cmds[i]))

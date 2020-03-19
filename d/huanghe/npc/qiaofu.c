@@ -5,13 +5,13 @@ inherit NPC;
 
 void create()
 {
-	set_name("éÔ·ò", ({ "qiao fu","fu" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("æ¨µå¤«", ({ "qiao fu","fu" }));
+	set("gender", "ç”·æ€§");
 	set("age", 52);
 	set("str", 25);
 	set("dex", 16);
 	set("per", 21);
-	set("long", "ÕâÊÇÒ»¸ö¾«×³ÀÏºº¡£\n");
+	set("long", "è¿™æ˜¯ä¸€ä¸ªç²¾å£®è€æ±‰ã€‚\n");
 	set("combat_exp", 5000);
 	set("shen_type", 1);
 	set("attitude", "peaceful");

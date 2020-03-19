@@ -11,21 +11,21 @@ int exert(object me, object target)
         int skill;
 
         if (target != me)
-                return notify_fail("��ֻ�����嶷���������Լ���ս������\n");
+                return notify_fail("你只能用五斗米神功提升自己的战斗力。\n");
 
         if ((int)me->query("neili") < 100)
-                return notify_fail("������������ˡ�");
+                return notify_fail("你的内力不够了。");
 
         if ((int)me->query_temp("powerup"))
-                return notify_fail("���Ѿ����˹����ˡ�\n");
+                return notify_fail("你已经在运功中了。\n");
 
         skill = me->query_skill("wudoumi-shengong", 1);
 
         me->add("neili", -100);
         me->receive_damage("qi", 0);
 
-        message_combatd(HIR "$N" HIR "üͷ΢�壬��������һ��������ʱ��ɫ"
-                        "��죬����Ҫ����Ѫһ�㡣\n" NOR, me);
+        message_combatd(HIR "$N" HIR "眉头微皱，深深吸进一口气，霎时面色"
+                        "赤红，便似要渗出血一般。\n" NOR, me);
 
         me->add_temp("apply/attack", skill / 3);
         me->add_temp("apply/defense", skill / 3);
@@ -46,6 +46,6 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/attack", -amount);
                 me->add_temp("apply/defense", -amount);
                 me->delete_temp("powerup");
-                tell_object(me, "����嶷����������ϣ��������ջص��\n");
+                tell_object(me, "你的五斗米神功运行完毕，将内力收回丹田。\n");
         }
 }

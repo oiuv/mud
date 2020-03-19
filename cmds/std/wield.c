@@ -9,7 +9,7 @@ int main(object me, string arg)
 	object ob, *inv;
 	int i, count;
 
-	if (! arg) return notify_fail("ÄãÒª×°±¸Ê²Ã´ÎäÆ÷£¿\n");
+	if (! arg) return notify_fail("ä½ è¦è£…å¤‡ä»€ä¹ˆæ­¦å™¨ï¼Ÿ\n");
 
 	if (arg == "all")
         {
@@ -24,7 +24,7 @@ int main(object me, string arg)
 	}
 
 	if (! objectp(ob = present(arg, me)))
-		return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
 	if (ob->query("equipped"))
 	{
@@ -40,7 +40,7 @@ int main(object me, string arg)
 			}
 		}
 		if (! count)
-			return notify_fail("ÄãÒÑ¾­×°±¸×ÅÁË¡£\n");
+			return notify_fail("ä½ å·²ç»è£…å¤‡ç€äº†ã€‚\n");
 		return 1;
 	}
 
@@ -54,7 +54,7 @@ int do_wield(object me, object ob)
 	if (ob->wield())
         {
 		if (! stringp(str = ob->query("wield_msg")))
-			str = "$N×°±¸$n×÷ÎäÆ÷¡£\n";
+			str = "$Nè£…å¤‡$nä½œæ­¦å™¨ã€‚\n";
 		message_vision(str, me, ob);
 		return 1;
 	} else
@@ -64,9 +64,9 @@ int do_wield(object me, object ob)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½£ºwield <×°±¸Ãû³Æ>
+æŒ‡ä»¤æ ¼å¼ï¼šwield <è£…å¤‡åç§°>
  
-Õâ¸öÖ¸ÁîÈÃÄã×°±¸Ä³¼şÎïÆ·×÷ÎäÆ÷, Äã±ØĞèÒªÓµÓĞÕâÑùÎïÆ·.
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ è£…å¤‡æŸä»¶ç‰©å“ä½œæ­¦å™¨, ä½ å¿…éœ€è¦æ‹¥æœ‰è¿™æ ·ç‰©å“.
  
 HELP );
     return 1;

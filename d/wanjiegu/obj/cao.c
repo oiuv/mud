@@ -4,16 +4,16 @@ inherit ITEM;
 
 void create()
 {
-        set_name("Ò©²İ", ({ "cao" }) );
+        set_name("è¯è‰", ({ "cao" }) );
         set_weight(500);
         set_max_encumbrance(8000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¶Ñ");
+                set("unit", "å †");
                 set("no_shown",1);
                 set("no_get",1);
-                set("long", "ÕâÊÇÒ»¶ÑÒ©²İ¡£\n");
+                set("long", "è¿™æ˜¯ä¸€å †è¯è‰ã€‚\n");
                 set("value", 1);
         }
 }

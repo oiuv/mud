@@ -6,15 +6,15 @@ inherit CLUB;
 
 void create()
 {
-        set_name(HIY"ÈçÒâÅÌÁú¹÷"NOR, ({ "panlong gun","gun", "panlong" }) );
+        set_name(HIY"å¦‚æ„ç›˜é¾™æ£"NOR, ({ "panlong gun","gun", "panlong" }) );
         set_weight(8000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
+                set("unit", "æ ¹");
                 set("value", 250000);
                 set("material", "steel");
-                set("long", "Ò»¸ù³Áµéµéµñ×ÅÅÌÁúµÄ³¤¹÷¡£\n");
+                set("long", "ä¸€æ ¹æ²‰ç”¸ç”¸é›•ç€ç›˜é¾™çš„é•¿æ£ã€‚\n");
         }
         init_club(50);
         setup();

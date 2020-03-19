@@ -1,17 +1,17 @@
-// tofu.c ¶¹¸¯
+// tofu.c è±†è…
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-	set_name("ôä´ä¶¹¸¯", ({"doufu", "tofu"}));
+	set_name("ç¿¡ç¿ è±†è…", ({"doufu", "tofu"}));
 	set_weight(40);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»¿éË®ÁéÁéµÄ´ó¶¹¸¯£¬ÄÛµÄÁîÈË²»½ûÏëµ½°¢ÇìÉ©µÄÁ³µ°¶ù¡£\n");
-		set("unit", "¿é");
+		set("long", "ä¸€å—æ°´çµçµçš„å¤§è±†è…ï¼Œå«©çš„ä»¤äººä¸ç¦æƒ³åˆ°é˜¿åº†å«‚çš„è„¸è›‹å„¿ã€‚\n");
+		set("unit", "å—");
 		set("value", 40);
 		set("food_remaining", 1);
 		set("food_supply", 50);

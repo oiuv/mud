@@ -58,11 +58,11 @@ void print()
 	int i;
 	if (! sizeof(Sites))
 	{
-		write("现在没有禁止任何IP上本站点。\n");
+		write("鐜板湪娌℃湁绂佹浠讳綍IP涓婃湰绔欑偣銆俓n");
 		return;
 	}
 
-	write("以下是禁止上本站点的IP地址列表。\n");
+	write("浠ヤ笅鏄姝笂鏈珯鐐圭殑IP鍦板潃鍒楄〃銆俓n");
 	for (i = 0; i < sizeof(Sites); i++)
 		write(Sites[i] + "\n");
 }

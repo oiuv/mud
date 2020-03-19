@@ -47,10 +47,10 @@ int main(object me, string arg)
         }
 
         if (! valid_verb[verb])
-                return notify_fail("¶Ô²»Æð£¬²»ÄÜÊ¹ÓÃÕâÖÖ·½Ê½·¢²¼ÐÅÏ¢¡£\n");
+                return notify_fail("å¯¹ä¸èµ·ï¼Œä¸èƒ½ä½¿ç”¨è¿™ç§æ–¹å¼å‘å¸ƒä¿¡æ¯ã€‚\n");
 
         if ((valid_verb[verb] & NEED_OPP) && ! opp)
-                return notify_fail("Äã±ØÐëÖ¸Ã÷¶ÔÏó²ÅÄÜ·¢³öÐÅÏ¢¡£\n");
+                return notify_fail("ä½ å¿…é¡»æŒ‡æ˜Žå¯¹è±¡æ‰èƒ½å‘å‡ºä¿¡æ¯ã€‚\n");
 
         me->edit(bind((: call_other, __FILE__, "done", me, verb, opp :), me));
 	return 1;
@@ -75,7 +75,7 @@ void done(object me, string verb, string opp, string msg)
         m = strlen(msg);
         if (m > 4096 || m > 256 && (att & LIMIT_LONG))
         {
-                tell_object(me, "ÄãÅªµÃÕâÃ´³¤¸ÉÊ²Ã´°¡£¿\n");
+                tell_object(me, "ä½ å¼„å¾—è¿™ä¹ˆé•¿å¹²ä»€ä¹ˆå•Šï¼Ÿ\n");
                 return;
         }
 
@@ -91,7 +91,7 @@ void done(object me, string verb, string opp, string msg)
                 me->add("jing", -n);
         } else
         {
-                tell_object(me, "ÄãÄ¿Ç°µÄÄÚÁ¦ºÍ¾«²»ÔÊÐíÄãÕâÃ´×ö¡£\n");
+                tell_object(me, "ä½ ç›®å‰çš„å†…åŠ›å’Œç²¾ä¸å…è®¸ä½ è¿™ä¹ˆåšã€‚\n");
                 return;
         }
 
@@ -120,12 +120,12 @@ void done(object me, string verb, string opp, string msg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½£º to say | tell | chat | rumor ... [sb]
+æŒ‡ä»¤æ ¼å¼ï¼š to say | tell | chat | rumor ... [sb]
 
-Õâ¸öÖ¸ÁîÈÃÄã·¢²¼ÐÅÏ¢µÄÊ±ºò¿ÉÒÔ·¢²¼¶àÐÐ£¬µ«ÊÇÊ¹ÓÃ¶úÓï
-(whisper)·½Ê½¡£ Íæ¼Ò·¢²¼µÄÐÅÏ¢»áÔÚÃ¿ÐÐÇ°Ãæ×Ô¶¯¼ÓÉÏÒ»
-¸ö¿Õ¸ñ¡£¶ÔÓÚtellÃüÁî£¬±ØÐëÖ¸¶¨¶ÔÏó¡£ÁíÍâ×¢ÒâµÄÊÇ£ºÒ»
-´Î¿ÉÒÔÌùµÄÐÐÊýÊÜÍæ¼ÒÄÚÁ¦ºÍ¾«µÄÏÞÖÆ¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ å‘å¸ƒä¿¡æ¯çš„æ—¶å€™å¯ä»¥å‘å¸ƒå¤šè¡Œï¼Œä½†æ˜¯ä½¿ç”¨è€³è¯­
+(whisper)æ–¹å¼ã€‚ çŽ©å®¶å‘å¸ƒçš„ä¿¡æ¯ä¼šåœ¨æ¯è¡Œå‰é¢è‡ªåŠ¨åŠ ä¸Šä¸€
+ä¸ªç©ºæ ¼ã€‚å¯¹äºŽtellå‘½ä»¤ï¼Œå¿…é¡»æŒ‡å®šå¯¹è±¡ã€‚å¦å¤–æ³¨æ„çš„æ˜¯ï¼šä¸€
+æ¬¡å¯ä»¥è´´çš„è¡Œæ•°å—çŽ©å®¶å†…åŠ›å’Œç²¾çš„é™åˆ¶ã€‚
 HELP );
 	return 1;
 }

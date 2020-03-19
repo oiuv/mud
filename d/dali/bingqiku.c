@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short","±øÆ÷·¿");
+	set("short","å…µå™¨æˆ¿");
 	set("long",@LONG
-ÕâÀïÊÇÕòÄÏÍõ¸®µÄ±øÆ÷·¿£¬ËÄÖÜ·ÅÕâ¼¸¸ö±øÆ÷¼Ü£¬ÉÏÃæ
-ÊÇÍõ¸®¼ÒÈËµÜ×ÓÆ½Ê±Á·½£ÓÃµÄÖñ½£¡£
+è¿™é‡Œæ˜¯é•‡å—çŽ‹åºœçš„å…µå™¨æˆ¿ï¼Œå››å‘¨æ”¾è¿™å‡ ä¸ªå…µå™¨æž¶ï¼Œä¸Šé¢
+æ˜¯çŽ‹åºœå®¶äººå¼Ÿå­å¹³æ—¶ç»ƒå‰‘ç”¨çš„ç«¹å‰‘ã€‚
 LONG);
 	set("objects", ([
             	"/clone/weapon/zhujian" : 4,

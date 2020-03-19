@@ -1,4 +1,4 @@
-// chan.c Çï·ç³¾·¨ ²ø×Ö¾÷
+// chan.c ç§‹é£Žå°˜æ³• ç¼ å­—è¯€
 
 #include <ansi.h>
 
@@ -11,31 +11,31 @@ int perform(object me, object target)
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("Ç£ÖÆ¹¥»÷Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ç‰µåˆ¶æ”»å‡»åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if ((int)me->query("neili") < 200)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼\n");
 
 	if ((int)me->query_skill("qiufeng-chenfa", 1) < 80)
-		return notify_fail("ÄãÇï·ç³¾·¨µÄÐÞÎª²»¹»£¬²»ÄÜÊ¹ÓÃ²ø×Ö¾÷£¡\n");
+		return notify_fail("ä½ ç§‹é£Žå°˜æ³•çš„ä¿®ä¸ºä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨ç¼ å­—è¯€ï¼\n");
 
 	if (target->is_busy())
-		return notify_fail(target->name() + "Ä¿Ç°Õý×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É¡£\n");
+		return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = CYN "$N" CYN "Ê¹³öÇï·ç³¾·¨¡¸²ø¡¹×Ö¾÷£¬·÷³¾Á¬»ÓÆóÍ¼°Ñ$n"
-              CYN "µÄÈ«Éí²ø×¡¡£\n" NOR;
+	msg = CYN "$N" CYN "ä½¿å‡ºç§‹é£Žå°˜æ³•ã€Œç¼ ã€å­—è¯€ï¼Œæ‹‚å°˜è¿žæŒ¥ä¼å›¾æŠŠ$n"
+              CYN "çš„å…¨èº«ç¼ ä½ã€‚\n" NOR;
 
 	me->start_busy(random(1));
 	if (random(me->query("combat_exp")) > (int)target->query("combat_exp") / 2)
         {
-		msg += CYN "½á¹û$p" CYN "±»$P" CYN "¹¥ÁË¸ö´ëÊÖ²»¼°¡£\n" NOR;
+		msg += CYN "ç»“æžœ$p" CYN "è¢«$P" CYN "æ”»äº†ä¸ªæŽªæ‰‹ä¸åŠã€‚\n" NOR;
 		target->start_busy( (int)me->query_skill("whip") / 28 + 2);
 	} else
         {
-		msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P" CYN "µÄÆóÍ¼£¬²¢Ã»ÓÐÉÏµ±¡£\n" NOR;
+		msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P" CYN "çš„ä¼å›¾ï¼Œå¹¶æ²¡æœ‰ä¸Šå½“ã€‚\n" NOR;
 		me->start_busy(4);
 	}
 	message_combatd(msg, me, target);

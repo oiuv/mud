@@ -1,4 +1,4 @@
-// jue.c Îå¾ø½£
+// jue.c äº”ç»å‰‘
 
 #include <ansi.h>
 #include <skill.h>
@@ -14,7 +14,7 @@ int perform(object me, object target)
         int i;
 
         if (userp(me) && ! me->query("can_perform/duanjia-sword/jue"))
-                return notify_fail("ÄãÏÖÔÚ»¹²»»áÊ¹ÓÃÎå¾ø½££¡\n");
+                return notify_fail("ä½ ç°åœ¨è¿˜ä¸ä¼šä½¿ç”¨äº”ç»å‰‘ï¼\n");
  
         if (! target)
         {
@@ -23,27 +23,27 @@ int perform(object me, object target)
         }
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("¶Î¼ÒÎå¾ø½£Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("æ®µå®¶äº”ç»å‰‘åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "sword" &&
             (string)weapon->query("skill_type") != "staff")
-		return notify_fail("Äã±ØĞë³Ö½£»òÕÈ²ÅÄÜÊ©Õ¹¶Î¼ÒÎå¾ø½££¡\n");
+		return notify_fail("ä½ å¿…é¡»æŒå‰‘æˆ–æ–æ‰èƒ½æ–½å±•æ®µå®¶äº”ç»å‰‘ï¼\n");
 
 	if ((int)me->query("neili") < 150)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼\n");
 
 	if ((int)me->query_skill("force") < 100)
-		return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¡\n");
+		return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼\n");
 
 	if ((int)me->query_skill("duanjia-sword", 1) < 100)
-		return notify_fail("ÄãµÄ¶Î¼Ò½£·¨»¹²»µ½¼Ò£¬ÎŞ·¨Ê¹ÓÃÎå¾ø½££¡\n");
+		return notify_fail("ä½ çš„æ®µå®¶å‰‘æ³•è¿˜ä¸åˆ°å®¶ï¼Œæ— æ³•ä½¿ç”¨äº”ç»å‰‘ï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIY "$N" HIY "ÉîÎüÒ»¿ÚÆø£¬½ÅÏÂ²½²½½ø»÷£¬ÎÈÖØÖ®¼«£¬ÊÖÖĞµÄ" +
-              weapon->name() + HIY "Ê¹µÃÓÌÈç·ÉÁúÒ»°ã£¬²øÈÆÏò$n" HIY "£¡\n" NOR;
+	msg = HIY "$N" HIY "æ·±å¸ä¸€å£æ°”ï¼Œè„šä¸‹æ­¥æ­¥è¿›å‡»ï¼Œç¨³é‡ä¹‹æï¼Œæ‰‹ä¸­çš„" +
+              weapon->name() + HIY "ä½¿å¾—çŠ¹å¦‚é£é¾™ä¸€èˆ¬ï¼Œç¼ ç»•å‘$n" HIY "ï¼\n" NOR;
 	message_combatd(msg, me, target);
 	me->add("neili", -100);
 

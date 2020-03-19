@@ -4,14 +4,14 @@ inherit ITEM;
 
 void create()
 {
-        set_name(GRN "Ë®Ôå" NOR, ({ "shui zao", "shui", "zao"}));
+        set_name(GRN "æ°´è—»" NOR, ({ "shui zao", "shui", "zao"}));
         set_weight(700);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIG "Ò»´ÔÉú³¤ÔÚ±ÌË®º®Ì¶ÀïµÄÄÍº®Ë®Ôå¡£\n" NOR);
-                set("unit", "´Ô");
+                set("long", HIG "ä¸€ä¸›ç”Ÿé•¿åœ¨ç¢§æ°´å¯’æ½­é‡Œçš„è€å¯’æ°´è—»ã€‚\n" NOR);
+                set("unit", "ä¸›");
                 set("value", 0);
-                set("no_get", "ÄãÊÔ×Å°ÎÁËÒ»ÏÂ£¬½á¹ûËü¸ùÉîµÙ¹Ì£¬Äã¾ÓÈ»Ã»°Î¶¯¡£\n");
+                set("no_get", "ä½ è¯•ç€æ‹”äº†ä¸€ä¸‹ï¼Œç»“æœå®ƒæ ¹æ·±è’‚å›ºï¼Œä½ å±…ç„¶æ²¡æ‹”åŠ¨ã€‚\n");
         }
 }

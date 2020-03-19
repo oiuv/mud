@@ -1,4 +1,4 @@
-// shier.c Ê³¶ü
+// shier.c é£Ÿé¥µ
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name("Ê³¶ü", ({ "shi er", "shi", "er" }));
+        set_name("é£Ÿé¥µ", ({ "shi er", "shi", "er" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "ÕâÊÇÁÔÈË³£ÓÃµÄÓÕ¶ü¡£\n");
-                set("base_unit", "¿é");
+                set("long", "è¿™æ˜¯çŒäººå¸¸ç”¨çš„è¯±é¥µã€‚\n");
+                set("base_unit", "å—");
                 set("base_weight", 50);
                 set("base_value", 10);
-                set("no_sell", "¸ÉÉ¶£¿ÎÒÓÖ²»´òÁÔ£¬ÒªÕâĞ©ÀÌ×Ó×öÉõ£¿");
-                set("unit", "Ğ©");
+                set("no_sell", "å¹²å•¥ï¼Ÿæˆ‘åˆä¸æ‰“çŒï¼Œè¦è¿™äº›æå­åšç”šï¼Ÿ");
+                set("unit", "äº›");
         }
         set_amount(1);
         setup();

@@ -1,4 +1,4 @@
-// swmuding.c ÉñÄ¾Íõ¶¦
+// swmuding.c ç¥æœ¨ç‹é¼
 
 #include <ansi.h>
 
@@ -22,12 +22,12 @@ void create()
           "bingcan":500,
     ]);
     setInsects(insects);
-    set_name(YEL "ÉñÄ¾Íõ¶¦" NOR, ({"shenmu wangding", "mu ding", "muding", "ding"}));
+    set_name(YEL "ç¥æœ¨ç‹é¼" NOR, ({"shenmu wangding", "mu ding", "muding", "ding"}));
     set_weight(1200);
     set("long", @LONG
-Ò»Ö»»Æ²Ó²ÓµÄÄ¾ÖÆµÄ¶¦£¬¿´ÉÏÈ¥¸Ğ¾õÓĞĞ©¹îÃØ£¬Ï¸ÎÅÏÂÈ´ÓĞÒ»¹ÉĞÈÎ¶¼ĞÔÓÔÚÏãÎ¶ÖĞ¡£
+ä¸€åªé»„ç¿ç¿çš„æœ¨åˆ¶çš„é¼ï¼Œçœ‹ä¸Šå»æ„Ÿè§‰æœ‰äº›è¯¡ç§˜ï¼Œç»†é—»ä¸‹å´æœ‰ä¸€è‚¡è…¥å‘³å¤¹æ‚åœ¨é¦™å‘³ä¸­ã€‚
 LONG );
-    set("unit", "Ö»");
+    set("unit", "åª");
     set("value", 50000);
     set("no_sell", 1);
     set_max_encumbrance(1000);

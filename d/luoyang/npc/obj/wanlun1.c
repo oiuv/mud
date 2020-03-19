@@ -5,12 +5,12 @@ inherit WRISTS;
 
 void create()
 {
-        set_name(HIY "½Ê½ðÍóÂÖ" NOR, ({ "jiaojin wanlun", "wanlun"}) );
+        set_name(HIY "ç»žé‡‘è…•è½®" NOR, ({ "jiaojin wanlun", "wanlun"}) );
         set_weight(20000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¶Ô");
+                set("unit", "å¯¹");
                 set("value", 220000);
                 set("material", "leather");
                 set("armor_prop/armor", 60);

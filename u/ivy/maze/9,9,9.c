@@ -2,8 +2,8 @@ inherit ROOM;
 
 private void create()
 {
-    set("short", "心魔幻境");
-    set("long", "这里有一个闪闪发光的传送门，好像可以离开幻境。\n");
+    set("short", "蹇冮瓟骞诲");
+    set("long", "杩欓噷鏈変竴涓棯闂彂鍏夌殑浼犻�侀棬锛屽ソ鍍忓彲浠ョ寮�骞诲銆俓n");
     set("exits", ([
         "enter" : "/d/city/guangchang",
         "east" : __DIR__ "10,9,9",

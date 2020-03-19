@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�չ��Ҵ���");
+        set("short", "闭关室大门");
         set("long", @LONG
-���Ǳչ����ϱߣ�������һ�ȴ��ű���ͨ���չ��ҡ�����
-������ɽͯ�ѱչ������ĵط�������ɽͯ����ȥ֮��������
-�㽫�˴�Ų������÷������Ľ��þ�ס��
+这是闭关室南边，北面有一扇大门便是通往闭关室。那里
+本是天山童姥闭关修练的地方，至天山童姥仙去之后，虚竹子
+便将此处挪出，让梅兰竹菊四姐妹居住。
 LONG);
         set("outdoors", "lingjiu");
         set("exits", ([

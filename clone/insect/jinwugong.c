@@ -1,4 +1,4 @@
-// jinwugong.c ½ğòÚò¼
+// jinwugong.c é‡‘èœˆèš£
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit POISON_INSECT;
 
 void create()
 {
-	set_name("½ğòÚò¼", ({ "jin wu gong" }) );
+	set_name("é‡‘èœˆèš£", ({ "jin wu gong" }) );
         set_weight(100);
-	set("race", "Ò°ÊŞ");
+	set("race", "é‡å…½");
 	set("age", 2);
-	set("long", "Ò»Ö»½ğ²Ó²ÓµÄòÚò¼£¬ºÜÊÇÆ¯ÁÁ¡£\n");
+	set("long", "ä¸€åªé‡‘ç¿ç¿çš„èœˆèš£ï¼Œå¾ˆæ˜¯æ¼‚äº®ã€‚\n");
 	set("attitude", "peaceful");
 	set("str", 20);
 	set("con", 20);
-        set("unit", "Ö»");
-	set("limbs", ({ "Í·²¿", "ÉíÌå" }) );
+        set("unit", "åª");
+	set("limbs", ({ "å¤´éƒ¨", "èº«ä½“" }) );
 	set("verbs", ({ "bite" }) );
 
         set("insect_poison", ([

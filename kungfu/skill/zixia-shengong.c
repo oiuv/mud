@@ -1,4 +1,4 @@
-// zixia-shengong.c ×ÏÏ¼Éñ¹¦
+// zixia-shengong.c ç´«éœžç¥žåŠŸ
 // By Hop
 
 inherit FORCE;
@@ -26,19 +26,19 @@ int query_neili_improve(object me)
 
 int valid_learn(object me)
 {
-	//if (me->query("gender") == "ÎÞÐÔ" &&
+	//if (me->query("gender") == "æ— æ€§" &&
 	//    (int)me->query_skill("zixia-shengong", 1) > 49)
-	//	return notify_fail("ÄãÎÞ¸ùÎÞÐÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄ×ÏÏ¼Éñ¹¦¡£\n");
+	//	return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„ç´«éœžç¥žåŠŸã€‚\n");
 
 	if ((int)me->query_skill("force", 1) < 60)
-		return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ðºò»¹²»¹»£¬»¹²»ÄÜÑ§Ï°×ÏÏ¼Éñ¹¦¡£\n");
+		return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™è¿˜ä¸å¤Ÿï¼Œè¿˜ä¸èƒ½å­¦ä¹ ç´«éœžç¥žåŠŸã€‚\n");
 
 	return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-	return notify_fail("×ÏÏ¼Éñ¹¦Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+	return notify_fail("ç´«éœžç¥žåŠŸåªèƒ½ç”¨å­¦(learn)çš„æ¥å¢žåŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 int difficult_level(object me)

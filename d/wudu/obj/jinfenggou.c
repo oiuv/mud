@@ -3,17 +3,17 @@ inherit SWORD;
 #include <ansi.h>
 void create()
 {
-        set_name(HIY "½ğòÚ¹³" NOR, ({ "jinwu gou", "gou", "jinwu" }));
+        set_name(HIY "é‡‘èœˆé’©" NOR, ({ "jinwu gou", "gou", "jinwu" }));
         set_weight(5000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
-                set("long", "Ò»±ú½ğ¹âÉÁÉÁµÄ¹³×Ó£¬¶¥¶ËºÃËÆÒ»Ö»ÉßÍ·¡£\n");
+                set("unit", "æŸ„");
+                set("long", "ä¸€æŸ„é‡‘å…‰é—ªé—ªçš„é’©å­ï¼Œé¡¶ç«¯å¥½ä¼¼ä¸€åªè›‡å¤´ã€‚\n");
                 set("value", 10000);
                 set("material", "steel");
-                set("wield_msg", "$N¡¸à§¡¹µÄÒ»Éù³é³öÒ»±ú$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»ØÇÊÖĞ¡£\n");
+                set("wield_msg", "$Nã€Œå”°ã€çš„ä¸€å£°æŠ½å‡ºä¸€æŸ„$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›é˜ä¸­ã€‚\n");
         }
         init_sword(200);
         setup();

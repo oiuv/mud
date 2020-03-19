@@ -7,15 +7,15 @@ inherit NPC;
 
 void create()
 {
-	set_name("¸ßÉ½Íõ", ({ "gao shanwang", "gao", "shanwang", }));
+	set_name("é«˜å±±ç‹", ({ "gao shanwang", "gao", "shanwang", }));
 	set("long",
-        "ËûÊÇÒ»Î»Éí¿íÌåÅÖµÄÀÏÕß£¬Éí´©Ò»¼ş°×²¼³¤ÅÛ¡£\n"
-        "ËûÕıĞ¦ÎûÎûµØ¿´×ÅÄã£¬ºÃÏó¶ÔÄãÆÄÓĞºÃ¸Ğ¡£\n"
+        "ä»–æ˜¯ä¸€ä½èº«å®½ä½“èƒ–çš„è€è€…ï¼Œèº«ç©¿ä¸€ä»¶ç™½å¸ƒé•¿è¢ã€‚\n"
+        "ä»–æ­£ç¬‘å˜»å˜»åœ°çœ‹ç€ä½ ï¼Œå¥½è±¡å¯¹ä½ é¢‡æœ‰å¥½æ„Ÿã€‚\n"
 	);
 
-    	set("title",HIG "Ã÷½Ì" HIW "°×»¢Ì³" NOR "Ì³Ö÷");
+    	set("title",HIG "æ˜æ•™" HIW "ç™½è™å›" NOR "å›ä¸»");
 
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set("attitude", "friendly");
 
     	set("age", 51);
@@ -51,7 +51,7 @@ void create()
 	map_skill("sword", "damo-jian");
 
 	prepare_skill("finger", "nianhua-zhi");
-        create_family("Ã÷½Ì", 4, "°×»¢Ì³Ì³Ö÷");
+        create_family("æ˜æ•™", 4, "ç™½è™å›å›ä¸»");
 
 	setup();
 

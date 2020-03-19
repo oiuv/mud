@@ -4,11 +4,11 @@
 inherit ROOM;
 void create()
 {
-	set("short", "������");
+	set("short", "建福宫");
 	set("long", @LONG
-�������ɳ����˹ۣ������������˷��¹�Ҳ���ഫ����������
-�����޵��ڴˡ�Ժ����ľ��ɽ���໥��ӳ����Χ��ľ�Դ䣬Ũ���
-�գ��������ˣ�ʮ����ˬ������Ҳ����ɽ����㡣
+建福宫旧称丈人观，以其座落丈人峰下故也。相传五岳丈人宁
+封子修道于此。院内树木假山，相互掩映；周围林木苍翠，浓荫蔽
+日，炎夏来此，十分凉爽。这里也是上山的起点。
 LONG );
 	set("exits", ([
 		"south"     : __DIR__"xiaoqiao",

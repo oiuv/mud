@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIG "ÌìÏãÓñÂ¶" NOR, ({ "tianxiang yulu", "tianxiang", "yulu" }));
+        set_name(HIG "å¤©é¦™çŽ‰éœ²" NOR, ({ "tianxiang yulu", "tianxiang", "yulu" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Æ¿");
-                set("long", HIG "²É×ÔÁéÉ½£¬Ç§ÄêÀ´ÒÔÁéÖ¥ÎªÄ¸£¬²»¶ÏµÄ"
-                            "ÎüÈ¡×ÅÈÕ¾«ÔÂ»ª¡£\n" NOR);
+                set("unit", "ç“¶");
+                set("long", HIG "é‡‡è‡ªçµå±±ï¼Œåƒå¹´æ¥ä»¥çµèŠä¸ºæ¯ï¼Œä¸æ–­çš„"
+                            "å¸å–ç€æ—¥ç²¾æœˆåŽã€‚\n" NOR);
                 set("value", 30000);
         }
         setup();
@@ -32,22 +32,22 @@ int do_drink(string arg)
         un = query("unit");
 
         if (! arg || ! id(arg))
-                return notify_fail("ÄãÒªºÈÊ²Ã´¶«Î÷£¿\n");
+                return notify_fail("ä½ è¦å–ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
         if (me->is_busy())
-                return notify_fail("¼±Ê²Ã´£¬Ð¡ÐÄ±ðÒ­×ÅÁË¡£\n");
+                return notify_fail("æ€¥ä»€ä¹ˆï¼Œå°å¿ƒåˆ«å™Žç€äº†ã€‚\n");
 
         if ((int)me->query_condition("pill_drug") > 0)
         {
-                write("Äã¾õµÃÏÖÔÚÄÚÏ¢Î´¶¨£¬¾­ÂöÒþÒþ»¹ÄÜ¸Ðµ½ÕæÆø³åµ´£¬²»"
-                      "¸ÒÃ³È»·þÊ³¡£\n");
+                write("ä½ è§‰å¾—çŽ°åœ¨å†…æ¯æœªå®šï¼Œç»è„‰éšéšè¿˜èƒ½æ„Ÿåˆ°çœŸæ°”å†²è¡ï¼Œä¸"
+                      "æ•¢è´¸ç„¶æœé£Ÿã€‚\n");
                 return 1;
         }
 
         me->apply_condition("pill_drug", 4000);
 
-        message_vision(HIY "$N" HIY "ºÈÏÂÒ»" + un + na + HIY "£¬Á³É«Ò»±ä£¬ËÆ"
-                       "ºõ¾«ÉñÁËÐí¶à¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "å–ä¸‹ä¸€" + un + na + HIY "ï¼Œè„¸è‰²ä¸€å˜ï¼Œä¼¼"
+                       "ä¹Žç²¾ç¥žäº†è®¸å¤šã€‚\n" NOR, me);
 
         mapsk = me->query_skill_mapped("dodge");
 
@@ -60,9 +60,9 @@ int do_drink(string arg)
         	if (stringp(mapsk) && me->can_improve_skill(mapsk))
                 	me->improve_skill(mapsk, 20000);
 
-        	tell_object(me, HIG "ÄãÖ»¾õ»ëÉíÉÏÏÂÆ®Æ®ÓûÏÉ£¬±ãËÆ»ñµÃÁËÖØÉúÒ»°ã¡£\n" NOR);
+        	tell_object(me, HIG "ä½ åªè§‰æµ‘èº«ä¸Šä¸‹é£˜é£˜æ¬²ä»™ï¼Œä¾¿ä¼¼èŽ·å¾—äº†é‡ç”Ÿä¸€èˆ¬ã€‚\n" NOR);
 	} else
-        	tell_object(me, HIY "Äã¸Ðµ½ÁéÌ¨´¦Ò»Õó¿ÕÃ÷£¬¾«Á¦µÃµ½ÁËÍêÈ«µÄ²¹³ä¡£\n" NOR);
+        	tell_object(me, HIY "ä½ æ„Ÿåˆ°çµå°å¤„ä¸€é˜µç©ºæ˜Žï¼Œç²¾åŠ›å¾—åˆ°äº†å®Œå…¨çš„è¡¥å……ã€‚\n" NOR);
 
         me->improve_jingli(100 + random(101));
 

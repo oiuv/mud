@@ -4,16 +4,16 @@ inherit BOOK;
 
 void create()
 {
-        set_name(GRN "Öñ¼ò" NOR, ({ "zhu jian", "zhu", "jian" }));
+        set_name(GRN "ç«¹ç®€" NOR, ({ "zhu jian", "zhu", "jian" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "¾í");
-                set("long", GRN "Ò»¾í·Ç³£³Â¾ÉµÄÖñ¼ò£¬µ«±£´æµÃÉĞËãÍêºÃ£¬Öñ¼òÉÏÃÜ"
-                            "ÃÜÂéÂéĞ´\nÂúÁËĞ¡×Ö£¬Ò²²»ÖªÊÇÊ²Ã´ÄÚÈİ¡£\n" NOR);
+                set("unit", "å·");
+                set("long", GRN "ä¸€å·éå¸¸é™ˆæ—§çš„ç«¹ç®€ï¼Œä½†ä¿å­˜å¾—å°šç®—å®Œå¥½ï¼Œç«¹ç®€ä¸Šå¯†"
+                            "å¯†éº»éº»å†™\næ»¡äº†å°å­—ï¼Œä¹Ÿä¸çŸ¥æ˜¯ä»€ä¹ˆå†…å®¹ã€‚\n" NOR);
                 set("value", 1);
-                set("no_sell", "¿ìÄÃ×ß£¬Ê²Ã´ÆÆÍæÒâ£¿");
+                set("no_sell", "å¿«æ‹¿èµ°ï¼Œä»€ä¹ˆç ´ç©æ„ï¼Ÿ");
                 set("material", "bamboo");
                 set("skill", ([
                         "name" : "leiting-fu",

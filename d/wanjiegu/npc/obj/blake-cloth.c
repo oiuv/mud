@@ -6,19 +6,19 @@ inherit EQUIP;
 
 void create()
 {
-        set_name( BLK "ºÚÉ«¾¢×°" NOR, ({ "cloth" }) );
+        set_name( BLK "é»‘è‰²åŠ²è£…" NOR, ({ "cloth" }) );
         set_weight(700);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼ş");
+                set("unit", "ä»¶");
                 set("value", 500);
                 set("material", "cloth");
                 set("armor_type", "cloth");
                 set("armor_prop/personality", 1);
                 set("armor_prop/armor", 2);
-                set("wear_msg","$N´©ÉÏÒ»¼ş$n¡£\n");
-                set("remove_msg","$½«$nÍÑÁËÏÂÀ´¡£\n");
+                set("wear_msg","$Nç©¿ä¸Šä¸€ä»¶$nã€‚\n");
+                set("remove_msg","$å°†$nè„±äº†ä¸‹æ¥ã€‚\n");
         }
 }
 

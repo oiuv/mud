@@ -1,5 +1,5 @@
 // wudoumi-fanshi.c
-// Îå¶·Ã×Éñ¹¦·´ÊÉ
+// äº”æ–—ç±³ç¥åŠŸåå™¬
 
 #include <ansi.h>
 inherit F_CLEAN_UP;
@@ -12,10 +12,10 @@ int dispel(object me, object ob, int duration)
 
         if (me != ob)
         {
-                tell_object(ob, "Äã·¢¾õ" + me->name() + "µÄÄÚÁ¦Ô´Ô´Ó¿½ø£¬Ê¹µ¤"
-                            "Ìï´¦È¼ÉÕµÃ¸üÎªÀ÷º¦£¬±ãÈçÉíÏİºéÂ¯£¬ÑÛÇ°µÇÊ±Ò»ºÚ¡£\n");
-                tell_object(me, "ÄãÊÔÍ¼°ïÖú" + ob->name() + "»¯½âÒìÖÖÕæÆø£¬È´"
-                            "·¢ÏÖ¶Ô·½ÕæÆø±ãËÆºéÂ¯±¬ÁÑ£¬²»ÓÉ´ó¾ª£¬Á¬Ã¦×¡ÊÖ¡£\n");
+                tell_object(ob, "ä½ å‘è§‰" + me->name() + "çš„å†…åŠ›æºæºæ¶Œè¿›ï¼Œä½¿ä¸¹"
+                            "ç”°å¤„ç‡ƒçƒ§å¾—æ›´ä¸ºå‰å®³ï¼Œä¾¿å¦‚èº«é™·æ´ªç‚‰ï¼Œçœ¼å‰ç™»æ—¶ä¸€é»‘ã€‚\n");
+                tell_object(me, "ä½ è¯•å›¾å¸®åŠ©" + ob->name() + "åŒ–è§£å¼‚ç§çœŸæ°”ï¼Œå´"
+                            "å‘ç°å¯¹æ–¹çœŸæ°”ä¾¿ä¼¼æ´ªç‚‰çˆ†è£‚ï¼Œä¸ç”±å¤§æƒŠï¼Œè¿å¿™ä½æ‰‹ã€‚\n");
 
                 if (living(ob))
                         ob->unconcious();
@@ -31,8 +31,8 @@ int dispel(object me, object ob, int duration)
            && me->query_skill_mapped("force") != "emei-jiuyang"
            && me->query_skill_mapped("force") != "jiuyang-shengong")
         {
-                tell_object(me, "Äã¾õµÃÈ«ÉíÕæÆøÓÌÈçºéÂ¯±¬ÁÑ£¬ÄÚÏ¢"
-                                "¸ù±¾ÎŞ·¨Äı¾Û¡£\n");
+                tell_object(me, "ä½ è§‰å¾—å…¨èº«çœŸæ°”çŠ¹å¦‚æ´ªç‚‰çˆ†è£‚ï¼Œå†…æ¯"
+                                "æ ¹æœ¬æ— æ³•å‡èšã€‚\n");
                 return -1;
         }
 
@@ -42,8 +42,8 @@ int dispel(object me, object ob, int duration)
         else
                 me->apply_condition("wudoumi-fanshi", n);
 
-        tell_object(me, "ÄãÄ¬Ä¬µÄÔËÓÃ" + to_chinese(f) + "»¯½âÌåÄÚ"
-                        "µÄÒìÖÖÕæÆø¡£\n");
+        tell_object(me, "ä½ é»˜é»˜çš„è¿ç”¨" + to_chinese(f) + "åŒ–è§£ä½“å†…"
+                        "çš„å¼‚ç§çœŸæ°”ã€‚\n");
 
         return 1;
 }
@@ -54,7 +54,7 @@ int update_condition(object me, int duration)
 
 	if (! living(me) && (me->query("eff_qi") < 20 || me->query("eff_jing") < 10))
   {
-    me->set_temp("ĞŞÏ°Îå¶·Ã×Éñ¹¦²»É÷£¬±»ÄÚÁ¦·´ÊÉÍÂÑª¶øÍö");
+    me->set_temp("ä¿®ä¹ äº”æ–—ç±³ç¥åŠŸä¸æ…ï¼Œè¢«å†…åŠ›åå™¬åè¡€è€Œäº¡");
 		me->die();
 		return 0;
 	} else {
@@ -64,10 +64,10 @@ int update_condition(object me, int duration)
     if (me->query("max_neili"))
             me->add("max_neili", -1);
 
-		tell_object(me, HIR "Äã¾õµÃµ¤Ìï´¦ÈçÍ¬»ğÉÕ£¬È«ÉíÕæÆø¹Äµ´"
-                                "²»Ö¹£¬±ãËÆÒªÆÆÌå¶ø³öÒ»°ã¡£\n" NOR);
-		message("vision", HIR + me->name() + HIR "Á³É«³àºì£¬Ğë·¢"
-                                  "½¹¾í£¬È«ÉíÉ¢·¢×Å¹ö¹öÈÈÆø£¬²»×¡µÄ²ü¶¶¡£\n",
+		tell_object(me, HIR "ä½ è§‰å¾—ä¸¹ç”°å¤„å¦‚åŒç«çƒ§ï¼Œå…¨èº«çœŸæ°”é¼“è¡"
+                                "ä¸æ­¢ï¼Œä¾¿ä¼¼è¦ç ´ä½“è€Œå‡ºä¸€èˆ¬ã€‚\n" NOR);
+		message("vision", HIR + me->name() + HIR "è„¸è‰²èµ¤çº¢ï¼Œé¡»å‘"
+                                  "ç„¦å·ï¼Œå…¨èº«æ•£å‘ç€æ»šæ»šçƒ­æ°”ï¼Œä¸ä½çš„é¢¤æŠ–ã€‚\n",
 			          environment(me), me);
 	}
 

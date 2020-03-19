@@ -3,11 +3,11 @@ inherit RIVER;
 
 void create()
 {
-        set ("short", "ÌÒ»¨½­¶«°¶");
+        set ("short", "æ¡ƒèŠ±æ±Ÿä¸œå²¸");
         set ("long", @LONG
-ÕâÀïÊÇÌÒ»¨½­ (river)±ß£¬½­Ë®Çå³º£¬Ë®Á÷Æ½»º£¬Á½°¶¶¼
-ÊÇÎÞ±ßµÄÌÒÊ÷£¬²»¶ÏÓÐÌÒ»¨Ëæ·çÆ®Èë½­ÖÐ£¬Ëæ²¨ÖðÁ÷¡£½­±ßÍ£
-²´×ÅÒ»Ìõ¶É´¬¡£
+è¿™é‡Œæ˜¯æ¡ƒèŠ±æ±Ÿ (river)è¾¹ï¼Œæ±Ÿæ°´æ¸…æ¾ˆï¼Œæ°´æµå¹³ç¼“ï¼Œä¸¤å²¸éƒ½
+æ˜¯æ— è¾¹çš„æ¡ƒæ ‘ï¼Œä¸æ–­æœ‰æ¡ƒèŠ±éšé£Žé£˜å…¥æ±Ÿä¸­ï¼Œéšæ³¢é€æµã€‚æ±Ÿè¾¹åœ
+æ³Šç€ä¸€æ¡æ¸¡èˆ¹ã€‚
 LONG);
         set("arrive_room", "/d/wudu/jiang1");
         set("exits", ([

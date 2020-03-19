@@ -5,16 +5,16 @@ inherit MEDICAL_BOOK;
 
 void create()
 {
-        set_name(WHT "¡¸Îäµ±Ò©Àí¡¹" NOR, ({ "wudang yaoli", "yaoli", "book", "shu" }));
+        set_name(WHT "ã€Œæ­¦å½“è¯ç†ã€" NOR, ({ "wudang yaoli", "yaoli", "book", "shu" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
-                set("long", WHT "Ò»±¾³Â¾ÉµÄÊé²á£¬·âÃæÓÃ²İÊéĞ´ÓĞ¡¸Îäµ±Ò©Àí¡¹ËÄ×Ö¡£\n\n" NOR);
+                set("unit", "æœ¬");
+                set("long", WHT "ä¸€æœ¬é™ˆæ—§çš„ä¹¦å†Œï¼Œå°é¢ç”¨è‰ä¹¦å†™æœ‰ã€Œæ­¦å½“è¯ç†ã€å››å­—ã€‚\n\n" NOR);
                 set("material", "paper");
                 set("value", 1);
-                set("no_sell", "ºÙ£¬Õâ±¾ÆÆÊéÒ²ÄÜÂôÇ®£¿");
+                set("no_sell", "å˜¿ï¼Œè¿™æœ¬ç ´ä¹¦ä¹Ÿèƒ½å–é’±ï¼Ÿ");
                 set("skill", ([
                         "name" : "wudang-yaoli",
                         "jing_cost" : 40,
@@ -24,15 +24,15 @@ void create()
                 ]));
 
                 set("can_make", ([
-                        "liuhe"    : 80,         // ÁùºÏ·µ¾«É¢
-                        "qingxin"  : 100,        // ÇåĞÄ¶¨ÉñÉ¢
-                        "zhending" : 150,        // ¹ÌÔªÕò¶¨É¢
-                        "dieda"    : 80,         // µø´òÉËÓú¸à
-                        "huojin"   : 100,        // »î½îÊæÑªÍè
-                        "tongmai"  : 150,        // ¹áÆøÍ¨Âöµ¤
-                        "jiedu"    : 100,        // Å£»Æ½â¶¾Íè
-                        "baihu"    : 200,        // °×»¢¶áÃüµ¤
-                        "baola"    : 220,        // Èı»Æ±¦À°µ¤
+                        "liuhe"    : 80,         // å…­åˆè¿”ç²¾æ•£
+                        "qingxin"  : 100,        // æ¸…å¿ƒå®šç¥æ•£
+                        "zhending" : 150,        // å›ºå…ƒé•‡å®šæ•£
+                        "dieda"    : 80,         // è·Œæ‰“ä¼¤æ„ˆè†
+                        "huojin"   : 100,        // æ´»ç­‹èˆ’è¡€ä¸¸
+                        "tongmai"  : 150,        // è´¯æ°”é€šè„‰ä¸¹
+                        "jiedu"    : 100,        // ç‰›é»„è§£æ¯’ä¸¸
+                        "baihu"    : 200,        // ç™½è™å¤ºå‘½ä¸¹
+                        "baola"    : 220,        // ä¸‰é»„å®è…Šä¸¹
                 ]));
         }
         setup();

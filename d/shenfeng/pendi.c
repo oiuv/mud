@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "���");
+	set("short", "盆地");
 	set("long", @LONG
-��ط��Ǹ���أ����ܸ�ɽ���������·��겻�֣�ǧ����
-֮�����������ã�ʵ�Ǻ������ţ���·ֻ����ذ׹ǣ���ǹ
-��ꪣ������Ҷ������е�·Ҳ�����Թ��������ۻ����ҡ�
+这地方是个盆地，四周高山拱卫，以致风雨不侵，千百年
+之物仍能如此完好，实是罕见罕闻，沿路只见遍地白骨，刀枪
+剑戟，到处乱丢。城中道路也是如迷宫，令人眼花缭乱。
 LONG);
         set("outdoors", "shenfeng");
 

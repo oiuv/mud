@@ -18,5 +18,5 @@ int valid_force(string force)
 
 int practice_skill(object me)
 {
-            return notify_fail("慕容心法只能用学(learn)的来增加熟练度。\n");
+            return notify_fail("鎱曞蹇冩硶鍙兘鐢ㄥ(learn)鐨勬潵澧炲姞鐔熺粌搴︺�俓n");
 }

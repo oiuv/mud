@@ -1,4 +1,4 @@
-// zuoxiang.c ���������᷿
+// zuoxiang.c 盘龙居左厢房
 
 #include <room.h>
 
@@ -7,15 +7,15 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "���᷿");
+	set("short", "左厢房");
 	set("long", @LONG
-���������ӵ����᷿���ǿ��˾�ס�ĵط���
+这是盘龙居的左厢房，是客人居住的地方。
 LONG );
 
-	set("default_long", "����ROOM_NAME�����᷿���ǿ��˾�ס�ĵط�����" /* EXAMPLE */
-                            "Ȼ�����ݻ���ȴҲ���õ÷ǳ����ʡ�һ�Ŵ���" /* EXAMPLE */
-                            "��ɾ���û�ж������ƣ�����������ʵ��ʹ" /* EXAMPLE */
-                            "���ڹ���ǡ���ô���" );                    /* EXAMPLE */
+	set("default_long", "这是ROOM_NAME的左厢房，是客人居住的地方。虽" /* EXAMPLE */
+                            "然不算奢华，却也布置得非常舒适。一张床整" /* EXAMPLE */
+                            "齐干净，没有多少折纹，而窗帘厚大结实，使" /* EXAMPLE */
+                            "屋内光线恰到好处。" );                    /* EXAMPLE */
                                                                        /* EXAMPLE */
 
 	set("exits", ([
@@ -26,7 +26,7 @@ LONG );
         set("no_fight", 1);
         set("outdoors", "OUTDOORS");
 
-        create_door("west", "ľ��", "east", DOOR_CLOSED);
+        create_door("west", "木门", "east", DOOR_CLOSED);
 
 //**    set("room_owner", "ROOM_OWNER");
 //**    set("room_name", "ROOM_NAME");

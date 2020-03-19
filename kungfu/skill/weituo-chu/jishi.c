@@ -9,36 +9,36 @@ int perform(object me, object target)
         int damage, club;
         
         if (userp(me) && !me->query("can_perform/weituo-chu/jishi"))
-                return notify_fail("Äã»¹²»»áÊ¹ÓÃ¡¸¼´ÊÀ¼´¿Õ¡¹!\n");
+                return notify_fail("ä½ è¿˜ä¸ä¼šä½¿ç”¨ã€Œå³ä¸–å³ç©ºã€!\n");
 
         if( !target && me->is_fighting() ) target = offensive_target(me);
 
         if( !target
         ||  !target->is_character()
         ||  !me->is_fighting(target) )
-                return notify_fail("¡¸¼´ÊÀ¼´¿Õ¡¹Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("ã€Œå³ä¸–å³ç©ºã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if( !objectp(weapon = me->query_temp("weapon")) 
            || weapon->query("skill_type") != "staff" )
-                return notify_fail("ÄãÊÖÖĞÎŞèÆ£¬ÔõÄÜÔËÓÃ¡¸¼´ÊÀ¼´¿Õ¡¹£¿£¡\n");
+                return notify_fail("ä½ æ‰‹ä¸­æ— æµï¼Œæ€èƒ½è¿ç”¨ã€Œå³ä¸–å³ç©ºã€ï¼Ÿï¼\n");
 
         if( me->query_temp("sl_leidong") )
-                return notify_fail("Äã¸ÕÊ¹Íê¡¸¼´ÊÀ¼´¿Õ¡¹£¬Ä¿Ç°ÆøÑª·­Ó¿£¬ÎŞ·¨ÔÙ´ÎÔËÓÃ£¡\n");
+                return notify_fail("ä½ åˆšä½¿å®Œã€Œå³ä¸–å³ç©ºã€ï¼Œç›®å‰æ°”è¡€ç¿»æ¶Œï¼Œæ— æ³•å†æ¬¡è¿ç”¨ï¼\n");
         
         if( (int)me->query_skill("weituo-chu", 1) < 120)
-                return notify_fail("ÄãÎ¤ÍÓèÆĞŞÎª»¹²»¹»£¬»¹Î´ÄÜÊ¹ÓÃ¡¸¼´ÊÀ¼´¿Õ¡¹£¡\n");
+                return notify_fail("ä½ éŸ¦é™€æµä¿®ä¸ºè¿˜ä¸å¤Ÿï¼Œè¿˜æœªèƒ½ä½¿ç”¨ã€Œå³ä¸–å³ç©ºã€ï¼\n");
 
         if( me->query_skill("force", 1) < 120 )
-                return notify_fail("ÄãµÄÄÚ¹¦ĞŞÎª»ğºòÎ´µ½£¬Ê©Õ¹Ö»»áÉË¼°×ÔÉí£¡\n");                             
+                return notify_fail("ä½ çš„å†…åŠŸä¿®ä¸ºç«å€™æœªåˆ°ï¼Œæ–½å±•åªä¼šä¼¤åŠè‡ªèº«ï¼\n");                             
       
         if( me->query("max_neili") <= 1500 )
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»×ã£¬¾¢Á¦²»×ãÒÔÊ©Õ¹¡¸¼´ÊÀ¼´¿Õ¡¹£¡\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼ŒåŠ²åŠ›ä¸è¶³ä»¥æ–½å±•ã€Œå³ä¸–å³ç©ºã€ï¼\n");
 
         if( me->query("neili") <= 600 )
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬¾¢Á¦²»×ãÒÔÊ©Õ¹¡¸¼´ÊÀ¼´¿Õ¡¹£¡\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼ŒåŠ²åŠ›ä¸è¶³ä»¥æ–½å±•ã€Œå³ä¸–å³ç©ºã€ï¼\n");
 
-        message_vision(BLU "\nÍ»È»$N´óºÈÒ»Éù£º¡¸¼´ÊÀ¼´¿Õ¡¹£¬ÃæÉ«à§µÄ±äµÃÍ¨ºì£¬Ğë·¢½Ô·É£¬ÕæÆøÈÜÈë" + 
-                           weapon->name() + BLU "µ±ÖĞ£¬¡°ÎË¡±µÄÒ»Éù£¬·¢³ö" HIW " ÉÁÉÁ¹âÁÁ " BLU "£¡\n " NOR, me);
+        message_vision(BLU "\nçªç„¶$Nå¤§å–ä¸€å£°ï¼šã€Œå³ä¸–å³ç©ºã€ï¼Œé¢è‰²å”°çš„å˜å¾—é€šçº¢ï¼Œé¡»å‘çš†é£ï¼ŒçœŸæ°”æº¶å…¥" + 
+                           weapon->name() + BLU "å½“ä¸­ï¼Œâ€œå—¡â€çš„ä¸€å£°ï¼Œå‘å‡º" HIW " é—ªé—ªå…‰äº® " BLU "ï¼\n " NOR, me);
         
         damage = me->query_skill("weituo-chu", 1) + me->query_skill("buddhism",1);
         damage /= 6;
@@ -59,7 +59,7 @@ int perform(object me, object target)
         
         call_out("remove_effect1", club/2, me, weapon, damage);
         call_out("remove_effect2", club * 2/3, me);
-        me->start_perform(club * 2 / 6, "¡¸¼´ÊÀ¼´¿Õ¡¹");
+        me->start_perform(club * 2 / 6, "ã€Œå³ä¸–å³ç©ºã€");
 
         return 1;
 }
@@ -74,13 +74,13 @@ void remove_effect1(object me, object weapon, int damage)
                 return;
         }
         me->add_temp("apply/damage", -damage);
-        message_vision(HIY "\n$NÒ»Ì×¡¸¼´ÊÀ¼´¿Õ¡¹Ê¹Íê£¬ÊÖÖĞ"NOR + weapon->name() + HIY"ÉÏµÄ¹âÃ¢½¥½¥Ò²ÏûÊ§ÁË¡£\n"NOR, me);                
+        message_vision(HIY "\n$Nä¸€å¥—ã€Œå³ä¸–å³ç©ºã€ä½¿å®Œï¼Œæ‰‹ä¸­"NOR + weapon->name() + HIY"ä¸Šçš„å…‰èŠ’æ¸æ¸ä¹Ÿæ¶ˆå¤±äº†ã€‚\n"NOR, me);                
 }
 
 void remove_effect2(object me)
 {
         if (!me) return;
         me->delete_temp("sl_leidong");
-        tell_object(me, HIG "\n Äã¾­¹ıÒ»¶ÎÊ±¼äµ÷ÆøÑøÏ¢£¬ÓÖ¿ÉÒÔÊ¹ÓÃ¡¸¼´ÊÀ¼´¿Õ¡¹ÁË¡£\n"NOR); 
+        tell_object(me, HIG "\n ä½ ç»è¿‡ä¸€æ®µæ—¶é—´è°ƒæ°”å…»æ¯ï¼Œåˆå¯ä»¥ä½¿ç”¨ã€Œå³ä¸–å³ç©ºã€äº†ã€‚\n"NOR); 
 }
 

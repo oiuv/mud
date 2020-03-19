@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-  set("short","�ص���ͷ");
+  set("short","秘道尽头");
   set("long", @LONG
-�����ǰ��һ������ǰ���Ǳ��ж��죬ǰ������������԰��
-��֪��ʲô�ط���\n"
+你忽觉前方一亮，身前真是别有洞天，前方好想有作花园。
+不知是什么地方。\n"
 LONG );
   set("exits",([
       "north"     : __DIR__"xiaohuayuan",

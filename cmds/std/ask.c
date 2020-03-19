@@ -7,13 +7,13 @@ inherit F_CLEAN_UP;
 string query_inquiry(object me, object ob);
 
 string *msg_dunno = ({
-	CYN "$n" CYN "Ò¡Ò¡Í·£¬ËµµÀ£º¡°Ã»ÌıËµ¹ı£¬Ã»ÌıËµ¹ı¡£¡±\n" NOR,
-	CYN "$n" CYN "ÒÉ»óµØ¿´×Å$N" CYN "£¬Ò¡ÁËÒ¡Í·¡£\n" NOR,
-	CYN "$n" CYN "Õö´óÑÛ¾¦Íû×Å$N" CYN "£¬ÏÔÈ»²»ÖªµÀ$P" CYN "ÔÚËµÊ²Ã´¡£\n" NOR,
-	CYN "$n" CYN "ËÊÁËËÊ¼ç£¬ºÜ±§Ç¸µØËµ£º¡°¶Ô²»Æğ£¬ÎŞ¿É·î¸æ¡£¡±\n" NOR,
-	CYN "$n" CYN "ËµµÀ£º¡°àÅ¡­¡­ÕâÎÒ¿É²»Çå³ş£¬Äã×îºÃÎÊÎÊ±ğÈË°É¡£¡±\n" NOR,
-	CYN "$n" CYN "ÏëÁËÒ»»á¶ù£¬ËµµÀ£º¡°¶Ô²»Æğ£¬ÄãÎÊµÄÊÂÎÒÊµÔÚÃ»ÓĞÓ¡Ïó¡£¡±\n" NOR,
-	CYN "$n" CYN "¿´×Å$N" CYN "£¬ÖåÁËÖåÃ¼Í·£¬ËµµÀ£º¡°ÎÒ´ÓÃ»ÌıËµ¹ıÕâÊÂ£¬ÄãÈ¥ÎÊ±ğÈË°É¡£¡±\n" NOR,
+	CYN "$n" CYN "æ‘‡æ‘‡å¤´ï¼Œè¯´é“ï¼šâ€œæ²¡å¬è¯´è¿‡ï¼Œæ²¡å¬è¯´è¿‡ã€‚â€\n" NOR,
+	CYN "$n" CYN "ç–‘æƒ‘åœ°çœ‹ç€$N" CYN "ï¼Œæ‘‡äº†æ‘‡å¤´ã€‚\n" NOR,
+	CYN "$n" CYN "çå¤§çœ¼ç›æœ›ç€$N" CYN "ï¼Œæ˜¾ç„¶ä¸çŸ¥é“$P" CYN "åœ¨è¯´ä»€ä¹ˆã€‚\n" NOR,
+	CYN "$n" CYN "è€¸äº†è€¸è‚©ï¼Œå¾ˆæŠ±æ­‰åœ°è¯´ï¼šâ€œå¯¹ä¸èµ·ï¼Œæ— å¯å¥‰å‘Šã€‚â€\n" NOR,
+	CYN "$n" CYN "è¯´é“ï¼šâ€œå—¯â€¦â€¦è¿™æˆ‘å¯ä¸æ¸…æ¥šï¼Œä½ æœ€å¥½é—®é—®åˆ«äººå§ã€‚â€\n" NOR,
+	CYN "$n" CYN "æƒ³äº†ä¸€ä¼šå„¿ï¼Œè¯´é“ï¼šâ€œå¯¹ä¸èµ·ï¼Œä½ é—®çš„äº‹æˆ‘å®åœ¨æ²¡æœ‰å°è±¡ã€‚â€\n" NOR,
+	CYN "$n" CYN "çœ‹ç€$N" CYN "ï¼Œçš±äº†çš±çœ‰å¤´ï¼Œè¯´é“ï¼šâ€œæˆ‘ä»æ²¡å¬è¯´è¿‡è¿™äº‹ï¼Œä½ å»é—®åˆ«äººå§ã€‚â€\n" NOR,
 });
 
 int main(object me, string arg)
@@ -27,11 +27,11 @@ int main(object me, string arg)
         seteuid(getuid());
 
         if (! arg)
-                return notify_fail("ÄãÒªÎÊË­Ê²Ã´ÊÂ£¿\n");
+                return notify_fail("ä½ è¦é—®è°ä»€ä¹ˆäº‹ï¼Ÿ\n");
 
         if (sscanf(arg, "%s about %s", dest, topic) != 2 &&
             sscanf(arg, "%s %s", dest, topic) != 2)
-                return notify_fail("ÄãÒªÎÊË­Ê²Ã´ÊÂ£¿\n");
+                return notify_fail("ä½ è¦é—®è°ä»€ä¹ˆäº‹ï¼Ÿ\n");
 
         env = environment(me);
         if (info = env->query("no_say"))
@@ -42,49 +42,49 @@ int main(object me, string arg)
                         return 1;
                 }
 
-                write("Õâ¸öµØ·½²»ÄÜ½²»°¡£\n");
+                write("è¿™ä¸ªåœ°æ–¹ä¸èƒ½è®²è¯ã€‚\n");
                 return 1;
         }
 
         if (! objectp(ob = present(dest, env)))
-                return notify_fail("ÕâÀïÃ»ÓĞÕâ¸öÈË¡£\n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™ä¸ªäººã€‚\n");
 
         if (me->ban_say(1) && playerp(ob))
                 return 0;
 
         if (! ob->is_character())
         {
-                message_vision("$N¶Ô×Å$n×ÔÑÔ×ÔÓï....\n", me, ob);
+                message_vision("$Nå¯¹ç€$nè‡ªè¨€è‡ªè¯­....\n", me, ob);
                 return 1;
         }
 
         if (ob == me)
         {
-                message_vision("$N×Ô¼º×ÔÑÔ×ÔÓï¡£\n", me);
+                message_vision("$Nè‡ªå·±è‡ªè¨€è‡ªè¯­ã€‚\n", me);
                 return 1;
         }
 
         if (me->query("jing") < 30 && ! playerp(ob) && ! me->is_ghost())
         {
-                write("ÄãÏÖÔÚµÄ¾«Éñ²»Ì«ºÃ£¬Ã»·¨ºÍ±ğÈËÌ×´É¡£\n");
+                write("ä½ ç°åœ¨çš„ç²¾ç¥ä¸å¤ªå¥½ï¼Œæ²¡æ³•å’Œåˆ«äººå¥—ç“·ã€‚\n");
                 return 1;
         }
 
         if (! ob->query("can_speak"))
         {
-                message_vision(CYN "$N" CYN "Ïò$n" CYN 
-                               "´òÌıÓĞ¹Ø¡º" HIG + topic + NOR CYN "¡»"
-                               "µÄÏûÏ¢£¬µ«ÊÇ$pÏÔÈ»Ìı²»¶®ÈË»°¡£\n" NOR, me, ob);
+                message_vision(CYN "$N" CYN "å‘$n" CYN 
+                               "æ‰“å¬æœ‰å…³ã€" HIG + topic + NOR CYN "ã€"
+                               "çš„æ¶ˆæ¯ï¼Œä½†æ˜¯$pæ˜¾ç„¶å¬ä¸æ‡‚äººè¯ã€‚\n" NOR, me, ob);
                 return 1;
         }
 
         if (! INQUIRY_D->parse_inquiry(me, ob, topic))
-                message_vision(CYN "$N" CYN "Ïò$n" CYN "´òÌıÓĞ¹Ø¡º" HIG +
-                               topic + NOR CYN "¡»µÄÏûÏ¢¡£\n" NOR, me, ob);
+                message_vision(CYN "$N" CYN "å‘$n" CYN "æ‰“å¬æœ‰å…³ã€" HIG +
+                               topic + NOR CYN "ã€çš„æ¶ˆæ¯ã€‚\n" NOR, me, ob);
 
         if (! living(ob))
         {
-                message_vision("µ«ÊÇºÜÏÔÈ»µÄ£¬$nÏÖÔÚµÄ×´¿öÃ»ÓĞ°ì·¨¸ø$NÈÎºÎ´ğ¸²¡£\n",
+                message_vision("ä½†æ˜¯å¾ˆæ˜¾ç„¶çš„ï¼Œ$nç°åœ¨çš„çŠ¶å†µæ²¡æœ‰åŠæ³•ç»™$Nä»»ä½•ç­”è¦†ã€‚\n",
                         me, ob);
                 return 1;
         }
@@ -101,7 +101,7 @@ int main(object me, string arg)
         {
                 if (stringp(msg))
                 {
-                        message_vision(CYN "$NËµµÀ£º" + msg + "\n" NOR, ob);
+                        message_vision(CYN "$Nè¯´é“ï¼š" + msg + "\n" NOR, ob);
                         return 1;
                 }
         } else
@@ -115,7 +115,7 @@ int main(object me, string arg)
         return 1;
 }
 
-// ´Ó npc ÉíÉÏ¶ÁÈ¡ inquiry
+// ä» npc èº«ä¸Šè¯»å– inquiry
 string query_inquiry(object me, object ob)
 {
         int i = 0;
@@ -128,32 +128,32 @@ string query_inquiry(object me, object ob)
                 for (i = 0; i < sizeof(indexs); i++)
                 {
                         //str += HIB + indexs[i] + " " NOR;
-                        str += HIY "  µÚ" + chinese_number(i+1) + "Ìõ£º" HIG + indexs[i] + "\n" NOR;
+                        str += HIY "  ç¬¬" + chinese_number(i+1) + "æ¡ï¼š" HIG + indexs[i] + "\n" NOR;
                 }
-                str = "ÓĞ¹ØÓÚ\n" + str + "ÕâĞ©ÊÂÇé£¬ÄãÈôÏëÖªµÀµÄ»°¿ÉÒÔÎÊÎÒ£¡";    
-                tell_room(environment(me), CYN + ob->name() + "ÔÚ" + me->name() + "¶ú±ßĞ¡ÉùµØËµÁËĞ©»°¡£\n" NOR, ({ me, ob }));
-                tell_object( me, GRN + ob->name() + "ÔÚÄãµÄ¶ú±ßÇÄÉùËµµÀ£º" + str + "\n" NOR);
+                str = "æœ‰å…³äº\n" + str + "è¿™äº›äº‹æƒ…ï¼Œä½ è‹¥æƒ³çŸ¥é“çš„è¯å¯ä»¥é—®æˆ‘ï¼";    
+                tell_room(environment(me), CYN + ob->name() + "åœ¨" + me->name() + "è€³è¾¹å°å£°åœ°è¯´äº†äº›è¯ã€‚\n" NOR, ({ me, ob }));
+                tell_object( me, GRN + ob->name() + "åœ¨ä½ çš„è€³è¾¹æ‚„å£°è¯´é“ï¼š" + str + "\n" NOR);
                 return "\n";
         }
-        tell_object( me, ob->name(1) + "¶ÔÄãËµµÀ£ºÊµÔÚÊÇ¶Ô²»Æğ£¬ÎÒÊ²Ã´Ò²²»ÖªµÀÑ½£¡\n");
+        tell_object( me, ob->name(1) + "å¯¹ä½ è¯´é“ï¼šå®åœ¨æ˜¯å¯¹ä¸èµ·ï¼Œæˆ‘ä»€ä¹ˆä¹Ÿä¸çŸ¥é“å‘€ï¼\n");
         return "\n";
 }
 
 int help(object me)
 {
         write( @HELP
-Ö¸Áî¸ñÊ½: ask <someone> about <something>
+æŒ‡ä»¤æ ¼å¼: ask <someone> about <something>
 
-Õâ¸öÖ¸ÁîÔÚ½âÃÕÊ±ºÜÖØÒª, Í¨³£±ØĞë½åÓÉ´ËÒ»Ö¸Áî²ÅÄÜ
-»ñµÃ½øÒ»²½µÄ×ÊÑ¶¡£
-Ô¤ÉèµÄÑ¯ÎÊÖ÷Ìâ:
+è¿™ä¸ªæŒ‡ä»¤åœ¨è§£è°œæ—¶å¾ˆé‡è¦, é€šå¸¸å¿…é¡»è—‰ç”±æ­¤ä¸€æŒ‡ä»¤æ‰èƒ½
+è·å¾—è¿›ä¸€æ­¥çš„èµ„è®¯ã€‚
+é¢„è®¾çš„è¯¢é—®ä¸»é¢˜:
         here
         name
         all
         clue
         rumor
 
-ÆäÖĞµÄabout¿ÉÒÔÊ¡ÂÔ¡£
+å…¶ä¸­çš„aboutå¯ä»¥çœç•¥ã€‚
 HELP );
         return 1;
 }

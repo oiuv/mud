@@ -98,21 +98,21 @@ void event_midnight()
         switch (m * 100 + d)
         {
         case  321:
-                msg = HIG "´ºÌìÖÕÓÚµ½ÁË£¬¾­¹ıÁËÂş³¤µÄ¶¬¼¾£¬ÍòÎï¿ªÊ¼¸´ËÕ¡£\n" NOR;
+                msg = HIG "æ˜¥å¤©ç»ˆäºåˆ°äº†ï¼Œç»è¿‡äº†æ¼«é•¿çš„å†¬å­£ï¼Œä¸‡ç‰©å¼€å§‹å¤è‹ã€‚\n" NOR;
                 break;
         case  622:
-                msg = HIR "ÏÄÌìÀ´ÁÙÁË£¬ÌìÆøÔ½À´Ô½ÈÈ£¬ËùÓĞµÄÉúÎï¶¼Òì³£»îÔ¾¡£\n" NOR;
+                msg = HIR "å¤å¤©æ¥ä¸´äº†ï¼Œå¤©æ°”è¶Šæ¥è¶Šçƒ­ï¼Œæ‰€æœ‰çš„ç”Ÿç‰©éƒ½å¼‚å¸¸æ´»è·ƒã€‚\n" NOR;
                 break;
         case  923:
-                msg = HIY "ÒÑÈ»ÊÇÇïÌìÁË£¬´óµØÒ»Æ¬½ğ»Æ£¬ÕıÊÇÊÕ»ñµÄÊ±ÆÚ¡£\n" NOR;
+                msg = HIY "å·²ç„¶æ˜¯ç§‹å¤©äº†ï¼Œå¤§åœ°ä¸€ç‰‡é‡‘é»„ï¼Œæ­£æ˜¯æ”¶è·çš„æ—¶æœŸã€‚\n" NOR;
                 break;
         case 1222:
-                msg = HIW "À´×Ô±±·½µÄº®Á÷É¨¹ı´óµØ£¬ÍòÎïÓÖ¿ªÊ¼ÁË¼Å¾²µÄĞİÃß¡£\n" NOR;
+                msg = HIW "æ¥è‡ªåŒ—æ–¹çš„å¯’æµæ‰«è¿‡å¤§åœ°ï¼Œä¸‡ç‰©åˆå¼€å§‹äº†å¯‚é™çš„ä¼‘çœ ã€‚\n" NOR;
                 break;
         }
 
         if (msg)
-                message("vision", HIC "¡¾¼¾½ÚÌìÊ±¡¿" + msg,
+                message("vision", HIC "ã€å­£èŠ‚å¤©æ—¶ã€‘" + msg,
 		        msg, all_interactive());
 
         switch(m)
@@ -200,22 +200,22 @@ void event_noon()
         {
         case 3: case 4: case 5:
                 ill = "ill_kesou";
-                msg = HIG + "ºöÈ»ºíÍ·Ò»ÕóºÛÑ÷£¬Äã¸Ğ¾õËÆºõÒª¿ÈËÔÁË¡£\n" + NOR;
+                msg = HIG + "å¿½ç„¶å–‰å¤´ä¸€é˜µç—•ç—’ï¼Œä½ æ„Ÿè§‰ä¼¼ä¹è¦å’³å—½äº†ã€‚\n" + NOR;
                 ic  = 5;
                 break;
         case 6: case 7: case 8:
                 ill = "ill_zhongshu";
-                msg = HIG+"Í»È»ÄãĞØÒÜÖ®¼äÒ»Õó·­ÌÚ£¬ÄãÖĞÊîÁË¡£\n" + NOR;
+                msg = HIG+"çªç„¶ä½ èƒ¸è‡†ä¹‹é—´ä¸€é˜µç¿»è…¾ï¼Œä½ ä¸­æš‘äº†ã€‚\n" + NOR;
                 ic  = 5;
                 break;
         case 9: case 10: case 11:
                 ill = "ill_shanghan";
-                msg = HIG+"¶¸µÄÄã´òÁË¸öÀäÕ½£¬Í·»è³Á³ÁµÄ£¬ÄãµÃÉËº®²¡ÁË¡£\n"+NOR;
+                msg = HIG+"é™¡çš„ä½ æ‰“äº†ä¸ªå†·æˆ˜ï¼Œå¤´æ˜æ²‰æ²‰çš„ï¼Œä½ å¾—ä¼¤å¯’ç—…äº†ã€‚\n"+NOR;
                 ic  = 5;
                 break;
         case 12: case 1: case 2:
                 ill = "ill_dongshang";
-                msg = HIG+"ÄãÖ«ÌåÄ©¶ËÒ»Õó½©Ö±£¬¿´À´Äã±»¶³ÉËÁË¡£\n"+NOR;
+                msg = HIG+"ä½ è‚¢ä½“æœ«ç«¯ä¸€é˜µåƒµç›´ï¼Œçœ‹æ¥ä½ è¢«å†»ä¼¤äº†ã€‚\n"+NOR;
                 ic  = 0;
                 break;
         }
@@ -223,7 +223,7 @@ void event_noon()
         if (random(4) == 0)
         {
                 ill = "ill_fashao";
-                msg = HIG+"ÄãÅ¼¸Ğ·çº®£¬¾¹¶ø·¢ÆğÉÕÀ´¡£\n"+NOR;
+                msg = HIG+"ä½ å¶æ„Ÿé£å¯’ï¼Œç«Ÿè€Œå‘èµ·çƒ§æ¥ã€‚\n"+NOR;
         }
 
         ob = users();
@@ -259,17 +259,17 @@ void event_noon()
 string outdoor_room_description()
 {
         return color_filter(day_phase[current_day_phase]["outcolor"] + "    " +
-                            day_phase[current_day_phase]["desc_msg"] + "¡£\n");
+                            day_phase[current_day_phase]["desc_msg"] + "ã€‚\n");
 }
 
 string game_time()
 {
         mixed *lt;
-        string *ms = ({ "¶¬", "´º", "ÏÄ", "Çï", });
+        string *ms = ({ "å†¬", "æ˜¥", "å¤", "ç§‹", });
 
         lt = query_localtime(time());
 
-        return sprintf("%sÄê%s%sÔÂ%sÈÕ%sÊ±", 
+        return sprintf("%så¹´%s%sæœˆ%sæ—¥%sæ—¶", 
                        chinese_number(lt[LT_YEAR]),
                        ms[((lt[LT_MON]) % 12) / 3],
                        chinese_number(lt[LT_MON]),

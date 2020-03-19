@@ -1,4 +1,4 @@
-// hui.c ¸òó¡¹¦»ØÏ¢
+// hui.c è›¤èŸ†åŠŸå›æ¯
 
 #include <ansi.h>
 
@@ -12,9 +12,9 @@ int exert(object me, object target)
         string msg;
 
         if (! (skill = me->query_temp("hmg_dzjm")))
-                return notify_fail("Äã²¢Ã»ÓĞµ¹×ª¾­Âö°¡¡£\n");
+                return notify_fail("ä½ å¹¶æ²¡æœ‰å€’è½¬ç»è„‰å•Šã€‚\n");
 
-        msg = HIB "$N" HIB "»º»ºÍÂ³öÒ»¿ÚÆø£¬Á³É«±äÁË±ä£¬ÒõÑô²»¶¨¡£\n" NOR;
+        msg = HIB "$N" HIB "ç¼“ç¼“åå‡ºä¸€å£æ°”ï¼Œè„¸è‰²å˜äº†å˜ï¼Œé˜´é˜³ä¸å®šã€‚\n" NOR;
         message_combatd(msg, me);
 
         me->add_temp("apply/dodge", -skill / 3);

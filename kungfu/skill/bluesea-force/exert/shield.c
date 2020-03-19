@@ -1,4 +1,4 @@
-// shield.c 护体神功
+// shield.c 鎶や綋绁炲姛
 //
 
 #include <ansi.h>
@@ -12,23 +12,23 @@ int exert(object me, object target)
 	int skill;
 
 	if (target != me)
-		return notify_fail("你只能用南海玄功来提升自己的防御力。\n");
+		return notify_fail("浣犲彧鑳界敤鍗楁捣鐜勫姛鏉ユ彁鍗囪嚜宸辩殑闃插尽鍔涖�俓n");
 
 	if ((int)me->query("neili") < 100)
-		return notify_fail("你的内力不够。\n");
+		return notify_fail("浣犵殑鍐呭姏涓嶅銆俓n");
 
 	if ((int)me->query_skill("bluesea-force", 1) < 50)
-		return notify_fail("你的南海玄功修为不够。\n");
+		return notify_fail("浣犵殑鍗楁捣鐜勫姛淇负涓嶅銆俓n");
 
 	if ((int)me->query_temp("shield"))
-		return notify_fail("你已经在运功中了。\n");
+		return notify_fail("浣犲凡缁忓湪杩愬姛涓簡銆俓n");
 
 	skill = me->query_skill("force");
 	me->add("neili", -100);
 	me->receive_damage("qi", 0);
 
-	message_combatd(HIW "$N" HIW "冷哼一声，默运玄功，运"
-                        "用罡气护住了全身。\n" NOR, me);
+	message_combatd(HIW "$N" HIW "鍐峰摷涓�澹帮紝榛樿繍鐜勫姛锛岃繍"
+                        "鐢ㄧ健姘旀姢浣忎簡鍏ㄨ韩銆俓n" NOR, me);
 
 	me->add_temp("apply/armor", skill / 2);
 	me->set_temp("shield", 1);
@@ -46,6 +46,6 @@ void remove_effect(object me, int amount)
         {
         	me->add_temp("apply/armor", -amount);
         	me->delete_temp("shield");
-        	tell_object(me, "你的南海玄功运行完毕，将内力收回丹田。\n");
+        	tell_object(me, "浣犵殑鍗楁捣鐜勫姛杩愯瀹屾瘯锛屽皢鍐呭姏鏀跺洖涓圭敯銆俓n");
         }
 }

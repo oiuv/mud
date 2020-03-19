@@ -1,15 +1,15 @@
-// shanshen.c ÀÏÉ½Èş
+// shanshen.c è€å±±å
 
 inherit ITEM;
 
 void create()
 {
-	set_name("ÀÏÉ½Èş", ({"laoshan shen", "shen"}));
+	set_name("è€å±±å", ({"laoshan shen", "shen"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Öê");
-		set("long", "ÕâÊÇÒ»ÖêÕ´ÂúÉ½ÄàµÄ³¤°×ÀÏÉ½Èş¡£\n");
+		set("unit", "æ ª");
+		set("long", "è¿™æ˜¯ä¸€æ ªæ²¾æ»¡å±±æ³¥çš„é•¿ç™½è€å±±åã€‚\n");
 		set("value", 10000);
                 set("only_do_effect", 1);
 	}
@@ -19,7 +19,7 @@ void create()
 int do_effect(object me)
 {
 	this_player()->add("eff_qi", 200);
-	message_vision("$N³ÔÏÂÒ»ÖêÀÏÉ½Èş£¬Ö»¾õµÃ»ëÉíÒ»¹ÉÈÈÆø¶µµ×Ã°ÁËÉÏÀ´£¡\n", me);
+	message_vision("$Nåƒä¸‹ä¸€æ ªè€å±±åï¼Œåªè§‰å¾—æµ‘èº«ä¸€è‚¡çƒ­æ°”å…œåº•å†’äº†ä¸Šæ¥ï¼\n", me);
 	destruct(this_object());
 	return 1;
 }

@@ -1,4 +1,4 @@
-// fuling.c ÜòÜß
+// fuling.c èŒ¯è‹“
 // By Lgg,1998.10
 
 #include <ansi.h>
@@ -7,13 +7,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(YEL"ÜòÜß"NOR, ({"fu ling"}));
+        set_name(YEL"èŒ¯è‹“"NOR, ({"fu ling"}));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¿é");
-                set("long", "ÕâÊÇÒ»¿é³ÉĞÍµÄÜòÜß£¬¿´À´¿ÉÒÔÈëÒ©¡£\n");
+                set("unit", "å—");
+                set("long", "è¿™æ˜¯ä¸€å—æˆå‹çš„èŒ¯è‹“ï¼Œçœ‹æ¥å¯ä»¥å…¥è¯ã€‚\n");
                 set("only_do_effect", 1);
         }
 
@@ -22,7 +22,7 @@ void create()
 
 int do_effect(object me)
 {
-        write("ÄãÈı¿ÚÁ½¿Ú°ÑÜòÜß³ÔÁËÏÂÈ¥¡£\n");
+        write("ä½ ä¸‰å£ä¸¤å£æŠŠèŒ¯è‹“åƒäº†ä¸‹å»ã€‚\n");
         destruct(this_object());
         return 1;
 }

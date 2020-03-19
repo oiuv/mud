@@ -1,5 +1,5 @@
 // auctiond.c
-// ÅÄÂôÏµÍ³
+// æ‹å–ç³»ç»Ÿ
 // Written by jjgod for hell. 01/10/01.
 
 // #pragma optimize
@@ -26,8 +26,8 @@ void create()
         
         seteuid(getuid());
         
-        set("channel_id", "ÅÄÂôÊ¦[Auctioneer]");
-        CHANNEL_D->do_channel(this_object(), "sys", "ÅÄÂô¾«ÁéÒÑ¾­Æô¶¯¡£");
+        set("channel_id", "æ‹å–å¸ˆ[Auctioneer]");
+        CHANNEL_D->do_channel(this_object(), "sys", "æ‹å–ç²¾çµå·²ç»å¯åŠ¨ã€‚");
 
         my = query_entire_dbase();
         auction_info = ([ ]);
@@ -74,7 +74,7 @@ void heart_beat()
                         {
                                 if (! objectp(ob))
                                 {
-                                        message_auction(sprintf("%s(%s)µÄ%sÎŞÈË¾º¼Û£¬È¡ÏûÅÄÂô¡£",
+                                        message_auction(sprintf("%s(%s)çš„%sæ— äººç«ä»·ï¼Œå–æ¶ˆæ‹å–ã€‚",
                                                                 me->name(), id[i],
                                                                 filter_color(obj->short())));
                                         map_delete(auction_info, id[i]);
@@ -83,7 +83,7 @@ void heart_beat()
                                 else
                                 {
                                         money = auction_info[id[i]]["value"];
-                                        message_auction(sprintf("%s(%s)µÄ%sÓë%s³É½»ÁË¡£",
+                                        message_auction(sprintf("%s(%s)çš„%sä¸%sæˆäº¤äº†ã€‚",
                                                                 me->name(), id[i],
                                                                 filter_color(obj->short()),
                                                                 ob->name()));
@@ -92,9 +92,9 @@ void heart_beat()
                                         {
                                         case 0:
                                         case 2:
-                                                tell_object(me, "µ«ÊÇ" + ob->name() + "¸¶²»ÆğÇ®"
-                                                                "£¬Ö»ºÃ×÷°Õ¡£\n");
-                                                tell_object(ob, "µ«ÊÇÄã¸¶²»ÆğÇ®£¬Ö»ºÃ×÷°Õ¡£\n");
+                                                tell_object(me, "ä½†æ˜¯" + ob->name() + "ä»˜ä¸èµ·é’±"
+                                                                "ï¼Œåªå¥½ä½œç½¢ã€‚\n");
+                                                tell_object(ob, "ä½†æ˜¯ä½ ä»˜ä¸èµ·é’±ï¼Œåªå¥½ä½œç½¢ã€‚\n");
                                                 map_delete(auction_info, id[i]);
                                                 continue;
                                         default:
@@ -102,17 +102,17 @@ void heart_beat()
                                                 {
                                                 case 0:
                                                 case 2:
-                                                        tell_object(ob, "µ«ÊÇ" + me->name() + "¸¶²»ÆğÓ¶½ğ"
-                                                                        "£¬Ö»ºÃ×÷°Õ¡£\n");
-                                                        tell_object(me, "µ«ÊÇÄã¸¶²»ÆğÓ¶½ğ£¬Ö»ºÃ×÷°Õ¡£\n");
+                                                        tell_object(ob, "ä½†æ˜¯" + me->name() + "ä»˜ä¸èµ·ä½£é‡‘"
+                                                                        "ï¼Œåªå¥½ä½œç½¢ã€‚\n");
+                                                        tell_object(me, "ä½†æ˜¯ä½ ä»˜ä¸èµ·ä½£é‡‘ï¼Œåªå¥½ä½œç½¢ã€‚\n");
                                                         map_delete(auction_info, id[i]);
                                                         continue;
                                                 default:
-                                                        // ½»Ò×Íê³É
-                                                        tell_object(ob, "ÄãÊÕµ½ÁË" + me->name() + "ËÍÀ´µÄ" +
-                                                                        obj->short() + "¡£\n");
-                                                        tell_object(me, "Äã°Ñ" + obj->short() + "½»ÈË´ø¸ø"
-                                                                        "ÁË" + ob->name() + "¡£\n");
+                                                        // äº¤æ˜“å®Œæˆ
+                                                        tell_object(ob, "ä½ æ”¶åˆ°äº†" + me->name() + "é€æ¥çš„" +
+                                                                        obj->short() + "ã€‚\n");
+                                                        tell_object(me, "ä½ æŠŠ" + obj->short() + "äº¤äººå¸¦ç»™"
+                                                                        "äº†" + ob->name() + "ã€‚\n");
                                                         MONEY_D->pay_player(me, money);
                                                         map_delete(auction_info, id[i]);
                                                         obj->move(ob);
@@ -123,7 +123,7 @@ void heart_beat()
                         }
                         auction_info[id[i]]["state"] += 1;
                         auction_info[id[i]]["time"] = time();
-                        message_auction(sprintf("%s(%s)µÄ%s£¬%sµÚ%s´Î¡£",
+                        message_auction(sprintf("%s(%s)çš„%sï¼Œ%sç¬¬%sæ¬¡ã€‚",
                                                 me->name(), id[i],
                                                 filter_color(obj->short()),
                                                 MONEY_D->money_str(auction_info[id[i]]["value"]),
@@ -132,7 +132,7 @@ void heart_beat()
         }
 }
 
-// Ìí¼ÓÒ»¸öÅÄÂôÆ·
+// æ·»åŠ ä¸€ä¸ªæ‹å–å“
 public void add_auction(object me, object ob, int money)
 {
         mapping my;
@@ -144,8 +144,8 @@ public void add_auction(object me, object ob, int money)
 
         if (mapp(auction_info[id]))
         {
-                tell_object(me, "ÄãÕıÔÚÅÄÂô±ğµÄ¶«Î÷£¬²»ÄÜÌí¼ÓĞÂµÄÅÄÂôÆ·"
-                                "¡£\n");
+                tell_object(me, "ä½ æ­£åœ¨æ‹å–åˆ«çš„ä¸œè¥¿ï¼Œä¸èƒ½æ·»åŠ æ–°çš„æ‹å–å“"
+                                "ã€‚\n");
                 return;
         }
         if (stringp(msg = check_auction(ob)))
@@ -155,7 +155,7 @@ public void add_auction(object me, object ob, int money)
         }
         if (! me->can_afford(money * lot_percent))
         {
-                tell_object(me, "Äã¸¶²»ÆğÓ¶½ğÑ½¡£\n");
+                tell_object(me, "ä½ ä»˜ä¸èµ·ä½£é‡‘å‘€ã€‚\n");
                 return;
         }
         
@@ -164,41 +164,41 @@ public void add_auction(object me, object ob, int money)
                               "value" : money,
                               "lot"   : money * lot_percent,
                               "state" : 1, ]);
-        tell_object(me, "Äã¿ªÊ¼ÅÄÂô" + ob->short() + NOR "£¬Ä¿Ç°" + 
+        tell_object(me, "ä½ å¼€å§‹æ‹å–" + ob->short() + NOR "ï¼Œç›®å‰" + 
                         (strlen(msg = MONEY_D->money_str(money * lot_percent)) ?
-                        "ÄãĞèÒª¸¶³ö" + msg : "²»ĞèÒª¸¶³ö") + "Ó¶½ğ¡£\n");
-        message_auction(sprintf("%s(%s)ÅÄÂô%s£¬%sµÚÒ»´Î¡£", me->name(),
+                        "ä½ éœ€è¦ä»˜å‡º" + msg : "ä¸éœ€è¦ä»˜å‡º") + "ä½£é‡‘ã€‚\n");
+        message_auction(sprintf("%s(%s)æ‹å–%sï¼Œ%sç¬¬ä¸€æ¬¡ã€‚", me->name(),
                                 id, filter_color(ob->short()),
                                 MONEY_D->money_str(money), ));
         return;
 }
 
-// ¼ì²âÅÄÂôÎïÆ·
+// æ£€æµ‹æ‹å–ç‰©å“
 private string check_auction(object ob)
 {
         string msg;
 
         if (! ob->query("value") && ! ob->query("base_value"))
-                return "ÕâÍæÒâ¶ù¿É²»ÖµÇ®ÄÄ¡£\n";
+                return "è¿™ç©æ„å„¿å¯ä¸å€¼é’±å“ªã€‚\n";
 
         if (ob->query("no_sell") || ob->query("no_drop"))
         {
                 if (stringp(msg = ob->query("no_sell")))
                         return msg;
-                return "Õâ¸ö¶«Î÷¿É²»ÄÜÂôÁË¡£\n";
+                return "è¿™ä¸ªä¸œè¥¿å¯ä¸èƒ½å–äº†ã€‚\n";
         }
 
         if (ob->is_character())
-                return "ÕâÄãÒ²ÄÃÀ´ÅÄÂô£¿\n";
+                return "è¿™ä½ ä¹Ÿæ‹¿æ¥æ‹å–ï¼Ÿ\n";
 
         if (ob->query("money_id"))
-                return "ÄãÃ»ÓÃ¹ıÇ®°¡£¿\n";
+                return "ä½ æ²¡ç”¨è¿‡é’±å•Šï¼Ÿ\n";
 
         if (ob->query("food_supply"))
-                return "³ÔµÄºÈµÄµÈÂô³öÈ¥¶¼âÈÁË¡£\n";
+                return "åƒçš„å–çš„ç­‰å–å‡ºå»éƒ½é¦Šäº†ã€‚\n";
 }
 
-// È¡ÏûÅÄÂôÎïÆ·
+// å–æ¶ˆæ‹å–ç‰©å“
 public void cancel_auction(object me)
 {
         mapping my;
@@ -211,22 +211,22 @@ public void cancel_auction(object me)
 
         if (! mapp(auction_info[id]))
         {
-                tell_object(me, "ÄãÃ»ÓĞÔÚÅÄÂôÈÎºÎ¶«Î÷¡£\n");
+                tell_object(me, "ä½ æ²¡æœ‰åœ¨æ‹å–ä»»ä½•ä¸œè¥¿ã€‚\n");
                 return;
         }
 
         if (objectp(ob = auction_info[id]["goods"]))
                 name = filter_color(ob->short());
-        else name = "ÅÄÂôÆ·";
+        else name = "æ‹å–å“";
 
-        tell_object(me, "ÄãÈ¡ÏûÁËÅÄÂô¡£\n");        
-        message_auction(sprintf("%s(%s)È¡ÏûÁËÅÄÂô%sµÄ%s¡£", me->name(), id,
+        tell_object(me, "ä½ å–æ¶ˆäº†æ‹å–ã€‚\n");        
+        message_auction(sprintf("%s(%s)å–æ¶ˆäº†æ‹å–%sçš„%sã€‚", me->name(), id,
                                 gender_pronoun(me->query("gender")), name, ));
         map_delete(auction_info, id);
         return;
 }
 
-// ²é¿´ÅÄÂôÎïÆ·
+// æŸ¥çœ‹æ‹å–ç‰©å“
 public string check_auction_info()
 {
         mapping my;
@@ -238,13 +238,13 @@ public string check_auction_info()
         my = query_entire_dbase();
         
         if (! mapp(auction_info) || ! sizeof(auction_info))
-                msg = "Ä¿Ç°Ã»ÓĞÈÎºÎÕıÔÚÅÄÂôµÄÎïÆ·¡£\n";
+                msg = "ç›®å‰æ²¡æœ‰ä»»ä½•æ­£åœ¨æ‹å–çš„ç‰©å“ã€‚\n";
 
         else
         {
-                msg = "Ä¿Ç°ÕıÔÚÅÄÂôµÄÎïÆ·ÓĞÒÔÏÂÕâĞ©£º\n";
-                msg += HIC "¡Ô" HIY "©¤Íæ¼Ò©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤ÎïÆ·©¤©¤©¤©¤©¤©¤©¤©¤©¤"
-                       "©¤©¤©¤¾º¼ÛÕß©¤©¤©¤©¤©¤©¤©¤¼Û¸ñ©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
+                msg = "ç›®å‰æ­£åœ¨æ‹å–çš„ç‰©å“æœ‰ä»¥ä¸‹è¿™äº›ï¼š\n";
+                msg += HIC "â‰¡" HIY "â”€ç©å®¶â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ç‰©å“â”€â”€â”€â”€â”€â”€â”€â”€â”€"
+                       "â”€â”€â”€ç«ä»·è€…â”€â”€â”€â”€â”€â”€â”€ä»·æ ¼â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
                 
                 id = keys(auction_info);
                 for (i = 0; i < sizeof(id); i++)
@@ -262,7 +262,7 @@ public string check_auction_info()
                         
                         if (! stringp(auction_info[id[i]]["now"]) || 
                             ! objectp(find_player(auction_info[id[i]]["now"])))
-                                name = "ÎŞ";
+                                name = "æ— ";
                         else name = find_player(auction_info[id[i]]["now"])->name() +
                                     "(" + find_player(auction_info[id[i]]["now"])->query("id") +
                                     ")";
@@ -274,15 +274,15 @@ public string check_auction_info()
                                        name, 
                                        MONEY_D->money_str(auction_info[id[i]]["value"]));
                 }
-                msg += HIC "¡Ô" HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤"
-                       "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤" HIC "¡Ô\n" NOR;
-                msg += sprintf("Ä¿Ç°¹²ÓĞ%s¼şÅÄÂôÆ·¡£\n", chinese_number(sizeof(auction_info)));
-                if (! sizeof(auction_info)) msg = "Ä¿Ç°Ã»ÓĞÈÎºÎÕıÔÚÅÄÂôµÄÎïÆ·¡£\n";
+                msg += HIC "â‰¡" HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€"
+                       "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€" HIC "â‰¡\n" NOR;
+                msg += sprintf("ç›®å‰å…±æœ‰%sä»¶æ‹å–å“ã€‚\n", chinese_number(sizeof(auction_info)));
+                if (! sizeof(auction_info)) msg = "ç›®å‰æ²¡æœ‰ä»»ä½•æ­£åœ¨æ‹å–çš„ç‰©å“ã€‚\n";
         }
         return msg;
 }
 
-// ²ÎÓë¾º¼Û
+// å‚ä¸ç«ä»·
 public void join_auction(object me, string name, int money)
 {
         mapping my;
@@ -293,34 +293,34 @@ public void join_auction(object me, string name, int money)
 
         if (! mapp(auction_info[name]))
         {
-                tell_object(me, "Õâ¸öÈËÃ»ÓĞÔÚÅÄÂôÊ²Ã´¶«Î÷¡£\n");
+                tell_object(me, "è¿™ä¸ªäººæ²¡æœ‰åœ¨æ‹å–ä»€ä¹ˆä¸œè¥¿ã€‚\n");
                 return;
         }
         if (! objectp(ob = find_player(name)))
         {
-                tell_object(me, "Õâ¸öÈËÒÑ¾­²»ÔÚÏßÁËÒ®¡£\n");
+                tell_object(me, "è¿™ä¸ªäººå·²ç»ä¸åœ¨çº¿äº†è€¶ã€‚\n");
                 map_delete(auction_info, name);
                 return;
         }
         if (! objectp(obj = auction_info[name]["goods"]))
         {
-                tell_object(me, "Õâ¸öÈËÏÖÔÚÒÑ¾­Ã»ÓĞÕâ¸ö¶«Î÷ÁËÒ®¡£\n");
+                tell_object(me, "è¿™ä¸ªäººç°åœ¨å·²ç»æ²¡æœ‰è¿™ä¸ªä¸œè¥¿äº†è€¶ã€‚\n");
                 map_delete(auction_info, name);
                 return;
         }
         if (money <= auction_info[name]["value"])
         {
-                tell_object(me, "Õâ¸ö¼ÛÈË¼Ò¿ÖÅÂ²»»áÒª¡£\n");
+                tell_object(me, "è¿™ä¸ªä»·äººå®¶ææ€•ä¸ä¼šè¦ã€‚\n");
                 return;
         }
         if (stringp(auction_info[name]["now"]) &&
             auction_info[name]["now"] == me->query("id"))
         {
-                tell_object(me, "ºÃÏñÉÏ´Î³ö¼ÛµÄ¾ÍÊÇÄã°É¡£\n");
+                tell_object(me, "å¥½åƒä¸Šæ¬¡å‡ºä»·çš„å°±æ˜¯ä½ å§ã€‚\n");
                 return;
         }
 
-        message_auction(sprintf("%s(%s)¹ºÂò%s(%s)µÄ%s£¬%sµÚÒ»´Î¡£",
+        message_auction(sprintf("%s(%s)è´­ä¹°%s(%s)çš„%sï¼Œ%sç¬¬ä¸€æ¬¡ã€‚",
                                 me->name(), me->query("id"), ob->name(),
                                 name, filter_color(obj->short()), 
                                 MONEY_D->money_str(money)));
@@ -333,7 +333,7 @@ public void join_auction(object me, string name, int money)
         return;
 }
 
-// ·¢ËÍÅÄÂôĞÅÏ¢
+// å‘é€æ‹å–ä¿¡æ¯
 private void message_auction(string msg)
 {
         CHANNEL_D->do_channel(this_object(), "bill", msg);

@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "²İµØ");
+        set("short", "è‰åœ°");
         set("long", @LONG
-ÕâÊÇÒ»´óÆ¬²İµØ£¬Ç°ÃæÒ»ÅÅËÉÊ÷µ²×¡ÁËÈ¥Â·¡£Ö»¼ûÒ»Öê´óËÉÉÏ
-Ï÷ÏÂÁËÕÉĞí³¤¡¢³ßĞí¿íµÄÒ»Æ¬£¬Æá×Å°×Æá£¬Ğ´×Å¾Å¸ö´ó×Ö£¬¡°ĞÕ¶Î
-ÕßÈë´Ë¹ÈÉ±ÎŞÉâ¡±¡£Ê÷ÉÏ¹Ò×ÅÒ»¸öÌú´¸¡£
+è¿™æ˜¯ä¸€å¤§ç‰‡è‰åœ°ï¼Œå‰é¢ä¸€æ’æ¾æ ‘æŒ¡ä½äº†å»è·¯ã€‚åªè§ä¸€æ ªå¤§æ¾ä¸Š
+å‰Šä¸‹äº†ä¸ˆè®¸é•¿ã€å°ºè®¸å®½çš„ä¸€ç‰‡ï¼Œæ¼†ç€ç™½æ¼†ï¼Œå†™ç€ä¹ä¸ªå¤§å­—ï¼Œâ€œå§“æ®µ
+è€…å…¥æ­¤è°·æ€æ— èµ¦â€ã€‚æ ‘ä¸ŠæŒ‚ç€ä¸€ä¸ªé“é”¤ã€‚
 LONG
         );
         set("outdoors", "wanjiegu");
@@ -18,8 +18,8 @@ LONG
         set("no_clean_up", 0);
 
         set("item_desc", ([ /* sizeof() == 2 */
-            "Ìú´¸" : "Ò»¸öÌú´¸£¬¿ÉÒÔÓÃÀ´ÇÃ(knock)¶«Î÷¡£\n",
-            "hammer" : "Ò»¸öÌú´¸£¬¿ÉÒÔÓÃÀ´ÇÃ(knock)¶«Î÷¡£\n",
+            "é“é”¤" : "ä¸€ä¸ªé“é”¤ï¼Œå¯ä»¥ç”¨æ¥æ•²(knock)ä¸œè¥¿ã€‚\n",
+            "hammer" : "ä¸€ä¸ªé“é”¤ï¼Œå¯ä»¥ç”¨æ¥æ•²(knock)ä¸œè¥¿ã€‚\n",
         ]));
 
         setup();
@@ -33,11 +33,11 @@ void init()
 int do_knock(string arg)
 {
         if( !arg ) return 0;
-        if( arg != "¶Î" && arg != "duan" ) return 0;
-        if( arg == "¶Î" || arg == "duan" ) {
-        message_vision("$NÄÃÆğÌú´¸ÔÚµÚ¶ş¸ö×Ö¡°¶Î¡±ÉÏÇÃÁËÒ»ÏÂ¡£\n", this_player());
-        message_vision("Ö»ÌıÀïÃæÓĞÈËÓ¦ÁËÒ»Éù£¬¡°À´ÁË£¡¡±\n", this_player() );
-        message_vision("ÓĞÈË´ÓÀïÃæ½«ÃÅ´ò¿ªÁË¡£\n", this_player() );
+        if( arg != "æ®µ" && arg != "duan" ) return 0;
+        if( arg == "æ®µ" || arg == "duan" ) {
+        message_vision("$Næ‹¿èµ·é“é”¤åœ¨ç¬¬äºŒä¸ªå­—â€œæ®µâ€ä¸Šæ•²äº†ä¸€ä¸‹ã€‚\n", this_player());
+        message_vision("åªå¬é‡Œé¢æœ‰äººåº”äº†ä¸€å£°ï¼Œâ€œæ¥äº†ï¼â€\n", this_player() );
+        message_vision("æœ‰äººä»é‡Œé¢å°†é—¨æ‰“å¼€äº†ã€‚\n", this_player() );
         set("exits/north", __DIR__"xiaoting");
         call_out("close_passage", 10);
         return 1;
@@ -50,5 +50,5 @@ void close_passage()
 
         if( !query("exits/north") ) return;
         delete("exits/north");
-        message("vision","ÃÅ±»ÈË¹ØÉÏÁË¡£\n", this_object() );
+        message("vision","é—¨è¢«äººå…³ä¸Šäº†ã€‚\n", this_object() );
 }

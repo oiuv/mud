@@ -5,13 +5,13 @@ inherit THROWING;
 
 void create()
 {
-        set_name(CYN "∆Â◊”" NOR, ({ "qi zi", "qi", "zi" }) );
+        set_name(CYN "Ê£ãÂ≠ê" NOR, ({ "qi zi", "qi", "zi" }) );
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "–©");
+                set("unit", "‰∫õ");
                 set("value", 0);
-                set("base_unit", "ø≈");
+                set("base_unit", "È¢ó");
                 set("base_weight", 1);
                 set("base_value", 0);
                 set("material", "iron");

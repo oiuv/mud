@@ -15,20 +15,20 @@ int main(object me, string arg)
 
         skill = me->query_skill_mapped("cooking");
         if (! skill)
-                return notify_fail("«Îœ»º§∑¢ƒ„“™ π”√µƒ≤À“’°£\n");
+                return notify_fail("ËØ∑ÂÖàÊøÄÂèë‰Ω†Ë¶Å‰ΩøÁî®ÁöÑËèúËâ∫„ÄÇ\n");
 
         menu = SKILL_D(skill)->query_menu(me);
         if (! arg)
         {
                 if (! menu || sizeof(menu) < 1)
                 {
-                        write("ƒ„≤ªª·¿˚”√" + to_chinese(skill) +
-                        "◊ˆ»Œ∫Œ≤ÀÎ»°£\n");
+                        write("‰Ω†‰∏ç‰ºöÂà©Áî®" + to_chinese(skill) +
+                        "ÂÅö‰ªª‰ΩïËèúËÇ¥„ÄÇ\n");
                         return 1;
                 }
 
-                msg = "ƒ„œ÷‘⁄ π”√" + to_chinese(skill) + "ª·◊ˆ" +
-                      implode(keys(menu), "°¢") + "’‚–©≤ÀÎ»°£";
+                msg = "‰Ω†Áé∞Âú®‰ΩøÁî®" + to_chinese(skill) + "‰ºöÂÅö" +
+                      implode(keys(menu), "„ÄÅ") + "Ëøô‰∫õËèúËÇ¥„ÄÇ";
                 write(sort_string(msg, 64));
                 return 1;
         }
@@ -36,7 +36,7 @@ int main(object me, string arg)
         if (! objectp(cailiao = present("cai liao", me)) ||
 	    cailiao->query_amount() < 1)
         {
-                write("ƒ„œ÷‘⁄ ÷Õ∑√ª”–≤À¡œ£¨√ª∑®◊ˆ≤À°£\n");
+                write("‰Ω†Áé∞Âú®ÊâãÂ§¥Ê≤°ÊúâËèúÊñôÔºåÊ≤°Ê≥ïÂÅöËèú„ÄÇ\n");
                 return 1;
         }
 
@@ -45,25 +45,25 @@ int main(object me, string arg)
             ! sizeof(menu_list = filter_array(keys(menu),
                                         (: member_array($(arg), $(menu)[$1]) != -1 :))))
         {
-                write("ƒ„œ÷‘⁄ªπ≤ª÷™µ¿‘ı√¥◊ˆ°∫" HIG + arg + NOR
-                      "°ª’‚Œ∂≤À°£\n");
+                write("‰Ω†Áé∞Âú®Ëøò‰∏çÁü•ÈÅìÊÄé‰πàÂÅö„Äé" HIG + arg + NOR
+                      "„ÄèËøôÂë≥Ëèú„ÄÇ\n");
                 return 1;
         }
         if (menu_list) arg = menu_list[0];
 
         if ((int)me->query_skill(skill, 1) < 50)
         {
-                write("ƒ„’‚µ„" + to_chinese(skill) + "ªπ «≤ª“™¿À∑—≤À¡œ¡À°£\n");
+                write("‰Ω†ËøôÁÇπ" + to_chinese(skill) + "ËøòÊòØ‰∏çË¶ÅÊµ™Ë¥πËèúÊñô‰∫Ü„ÄÇ\n");
                 return 1;
         }
 
-        message_vision("$NæÌ∆–‰◊”£¨‘À”√π¯≤˘∆∞≈Ë°¢Ω¥”Õ≤Ë"
-                       "¥◊£¨æ´–ƒµ˜÷∆≥ˆ“ª∑›" + arg + "¿¥°£\n", me);
+        message_vision("$NÂç∑Ëµ∑Ë¢ñÂ≠êÔºåËøêÁî®ÈîÖÈì≤Áì¢ÁõÜ„ÄÅÈÖ±Ê≤πËå∂"
+                       "ÈÜãÔºåÁ≤æÂøÉË∞ÉÂà∂Âá∫‰∏Ä‰ªΩ" + arg + "Êù•„ÄÇ\n", me);
         cailiao->add_amount(-1);
         ob = new("/clone/food/dish");
         ob->set_name(arg, menu[arg] + ({ "dish" }));
-        ob->set("long", "“ª∑›”…" + me->name(1) + "æ´–ƒ≈Î÷∆µƒ" +
-                        ob->name() + "°£\n");
+        ob->set("long", "‰∏Ä‰ªΩÁî±" + me->name(1) + "Á≤æÂøÉÁÉπÂà∂ÁöÑ" +
+                        ob->name() + "„ÄÇ\n");
         ob->set("skill", skill);
         ob->set("level", (int)me->query_skill(skill, 1));
         ob->set("by", me->query("id"));
@@ -74,7 +74,7 @@ int main(object me, string arg)
 int help(object me)
 {
 write(@HELP
-÷∏¡Ó∏Ò Ω : cook [<≤ÀÎ»√˚≥∆>]
+Êåá‰ª§Ê†ºÂºè : cook [<ËèúËÇ¥ÂêçÁß∞>]
 
 HELP );
     return 1;

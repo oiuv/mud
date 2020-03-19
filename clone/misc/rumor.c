@@ -10,12 +10,12 @@ void setup()
 
 void create()
 {
-        set_name(HIM "Ò¥ÑÔÉú³ÉÆ÷" NOR, ({"rumor generator", "rumor"}));
+        set_name(HIM "è°£è¨€ç”Ÿæˆå™¨" NOR, ({"rumor generator", "rumor"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¼Ü");
-                set("long", "ÕâÊÇÒ»¼Ü¿´ÆğÀ´¹Ö¹ÖµÄÒÇÆ÷£¬Í¿µÃÎåÑÕÁùÉ«£¬×¨¹©¸÷Àà³¤ÉàÈËÊ¿ÔìÒ¥Ê¹ÓÃ¡£\n");
+                set("unit", "æ¶");
+                set("long", "è¿™æ˜¯ä¸€æ¶çœ‹èµ·æ¥æ€ªæ€ªçš„ä»ªå™¨ï¼Œæ¶‚å¾—äº”é¢œå…­è‰²ï¼Œä¸“ä¾›å„ç±»é•¿èˆŒäººå£«é€ è°£ä½¿ç”¨ã€‚\n");
                 set("value", 1);
                 set("no_sell", 1);
         }

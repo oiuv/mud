@@ -15,11 +15,11 @@ int main(object me, string arg)
         mapping cm;
 
         cm = CPU_D->query_entire_dbase();
-        msg  = "×î½üÒ»¶ÎÊ±¼äÏµÍ³Ê¹ÓÃCPUµÄÇé¿öÍ³¼Æ£º\n";
-        msg += "ÏµÍ³Ìá¹©CPU×ÊÔ´µÄÂú×ã¶È£º" + fs(cm["last_0"]["supplied"]) +
-              "  ÓÎÏ·¶ÔCPUµÄÕ¼ÓÃÂÊ£º" + fc(cm["last_0"]["cost"]) + "¡£\n";
+        msg  = "æœ€è¿‘ä¸€æ®µæ—¶é—´ç³»ç»Ÿä½¿ç”¨CPUçš„æƒ…å†µç»Ÿè®¡ï¼š\n";
+        msg += "ç³»ç»Ÿæä¾›CPUèµ„æºçš„æ»¡è¶³åº¦ï¼š" + fs(cm["last_0"]["supplied"]) +
+              "  æ¸¸æˆå¯¹CPUçš„å ç”¨ç‡ï¼š" + fc(cm["last_0"]["cost"]) + "ã€‚\n";
 
-        msg += sprintf("Ç°Ò»Ğ©Ê±¼äCPUµÄÂú×ã¶ÈºÍÕ¼ÓÃÂÊ£º%s/%s  %s/%s  %s/%s  %s/%s¡£\n",
+        msg += sprintf("å‰ä¸€äº›æ—¶é—´CPUçš„æ»¡è¶³åº¦å’Œå ç”¨ç‡ï¼š%s/%s  %s/%s  %s/%s  %s/%sã€‚\n",
                        fs(cm["last_1"]["supplied"]), fc(cm["last_1"]["cost"]),
                        fs(cm["last_2"]["supplied"]), fc(cm["last_2"]["cost"]),
                        fs(cm["last_3"]["supplied"]), fc(cm["last_3"]["cost"]),
@@ -31,9 +31,9 @@ int main(object me, string arg)
 int help(object me)
 {
   write(@HELP
-Ö¸Áî¸ñÊ½ : system
+æŒ‡ä»¤æ ¼å¼ : system
  
-Õâ¸öÖ¸Áî¿ÉÒÔÏÔÊ¾³öÄ¿Ç°ÓÎÏ·Ê¹ÓÃÏµÍ³×ÊÔ´µÄ×´¿ö.
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥æ˜¾ç¤ºå‡ºç›®å‰æ¸¸æˆä½¿ç”¨ç³»ç»Ÿèµ„æºçš„çŠ¶å†µ.
  
 HELP );
     return 1;

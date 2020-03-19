@@ -3,13 +3,13 @@ inherit BOOK;
 
 void create()
 {
-        set_name(YEL "¡¸»ªÙ¢ÄÚÕÑÍ¼¡¹" NOR, ({ "medical book3", "medical", "book3" }));
+        set_name(YEL "ã€Œåä½—å†…æ˜­å›¾ã€" NOR, ({ "medical book3", "medical", "book3" }));
         set_weight(500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±¾");
-                set("long", YEL "ÉñÒ½»ªÙ¢ËùÖøµÄÒ½Êé£¬ÄÚº¬Ğí¶àÒ½Ñ§ÃØÒª¡£\n" NOR);
+                set("unit", "æœ¬");
+                set("long", YEL "ç¥åŒ»åä½—æ‰€è‘—çš„åŒ»ä¹¦ï¼Œå†…å«è®¸å¤šåŒ»å­¦ç§˜è¦ã€‚\n" NOR);
                 set("value", 30000);
                 set("material", "paper");
                 set("skill",

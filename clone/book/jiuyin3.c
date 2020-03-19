@@ -5,13 +5,13 @@ inherit F_UNIQUE;
  
 void create()
 {
-        set_name("¡¸¾ÅÒõÕæ¾­¡¹²Ğ±¾", ({ "jiuyin zhenjing3" }));
+        set_name("ã€Œä¹é˜´çœŸç»ã€æ®‹æœ¬", ({ "jiuyin zhenjing3" }));
         set_weight(400);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±¾");
-                set("long", "ÕâÊÇÒ»±¾ÊÖ³­±¾£¬ÉÏÃæ¼ÇÂ¼ÁËÒ»Ğ©Îä¹¦ÃØ¾÷¡£\n");
+                set("unit", "æœ¬");
+                set("long", "è¿™æ˜¯ä¸€æœ¬æ‰‹æŠ„æœ¬ï¼Œä¸Šé¢è®°å½•äº†ä¸€äº›æ­¦åŠŸç§˜è¯€ã€‚\n");
                 set("value", 0);
                 set("material", "paper");
                 set("skill", ([

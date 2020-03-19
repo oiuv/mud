@@ -10,13 +10,13 @@ void init()
 
 void create()
 {
-        set_name("Ìİ×Ó", ({"ti zi", "ti"}));
+        set_name("æ¢¯å­", ({"ti zi", "ti"}));
         set_weight(200000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»¼Ü³¤Ìİ£¬¿¿ÔÚÊé¼ÜµÄÅÔ±ß¡£\n");
-                set("unit", "¼Ü");
+                set("long", "ä¸€æ¶é•¿æ¢¯ï¼Œé åœ¨ä¹¦æ¶çš„æ—è¾¹ã€‚\n");
+                set("unit", "æ¶");
                 set("material", "wood");
         }
         setup();
@@ -26,16 +26,16 @@ int do_climb(string arg)
 {
         object me = this_player();
         if (!id(arg))
-                return notify_fail("ÄãÒªÍùÄÄ¶ùÅÀ£¿\n");
-        if (this_player()->query_temp("marks/Ìø1") ) {
-                       write("ÄãÔõÃ´ÅÀ¸öÃ»ÍêÃ»ÁË£¿\n");
+                return notify_fail("ä½ è¦å¾€å“ªå„¿çˆ¬ï¼Ÿ\n");
+        if (this_player()->query_temp("marks/è·³1") ) {
+                       write("ä½ æ€ä¹ˆçˆ¬ä¸ªæ²¡å®Œæ²¡äº†ï¼Ÿ\n");
                         return 1;
         }
         else {
-               message("vision",this_player()->name() + "ÅÀÉÏÌİ×Ó¡£\n",
+               message("vision",this_player()->name() + "çˆ¬ä¸Šæ¢¯å­ã€‚\n",
                         environment(me), ({me}) );
-               write("ÄãÅÀÉÏÌİ×Ó¡£\n");
-                this_player()->set_temp("marks/Ìø1", 1);
+               write("ä½ çˆ¬ä¸Šæ¢¯å­ã€‚\n");
+                this_player()->set_temp("marks/è·³1", 1);
         return 1;
         }
 }

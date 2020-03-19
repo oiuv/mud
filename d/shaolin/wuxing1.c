@@ -9,12 +9,12 @@ string* dirs = ({"east", "south", "west", "north"});
 
 void create()
 {
-	set("short", HIG "ÎåĞĞ¶´" NOR);
+	set("short", HIG "äº”è¡Œæ´" NOR);
 	set("long", HIG @LONG
-ÕâÊÇÎåĞĞ¶´¡£ÕâÀïµØÃæÏà¶Ô±È½Ï¸ÉÔïĞ©£¬ËÄ±ÚÓÉ¿íºñµÄÄ¾°å
-ÑÏÑÏÊµÊµµÄµØ·âÁËÆğÀ´£¬ßµÉÏÈ¥·¢³ö³ÁÃÆµÄóÆóÆÉù£¬¿´À´²»ÊÇÊµ
-ĞÄµÄ¾ÍÊÇÓĞ¼¸³ßºñ£¬Ã»ÓĞ¸«ÔäµÈÀûÆ÷ĞİÏëÅü¿ªËüÃÇ¡£²»¹ıÄã»¹ÊÇ
-ÏëÏÂÊÖÊÔÒ»ÊÔ£¬Ï£ÍûÄÜ´ÓÕâÀï´ò¿ªÈ±¿Ú¡£
+è¿™æ˜¯äº”è¡Œæ´ã€‚è¿™é‡Œåœ°é¢ç›¸å¯¹æ¯”è¾ƒå¹²ç‡¥äº›ï¼Œå››å£ç”±å®½åšçš„æœ¨æ¿
+ä¸¥ä¸¥å®å®çš„åœ°å°äº†èµ·æ¥ï¼Œå©ä¸Šå»å‘å‡ºæ²‰é—·çš„ç¬ƒç¬ƒå£°ï¼Œçœ‹æ¥ä¸æ˜¯å®
+å¿ƒçš„å°±æ˜¯æœ‰å‡ å°ºåšï¼Œæ²¡æœ‰æ–§å‡¿ç­‰åˆ©å™¨ä¼‘æƒ³åŠˆå¼€å®ƒä»¬ã€‚ä¸è¿‡ä½ è¿˜æ˜¯
+æƒ³ä¸‹æ‰‹è¯•ä¸€è¯•ï¼Œå¸Œæœ›èƒ½ä»è¿™é‡Œæ‰“å¼€ç¼ºå£ã€‚
 LONG
 NOR	);
 	set("exits", ([
@@ -31,11 +31,11 @@ int check_out(object me)
 {
 	int metal, wood, water, fire, earth;
 
-	metal = me->query_temp("wuxing/½ğ");
-	wood = me->query_temp("wuxing/Ä¾");
-	water = me->query_temp("wuxing/Ë®");
-	fire = me->query_temp("wuxing/»ğ");
-	earth = me->query_temp("wuxing/ÍÁ");
+	metal = me->query_temp("wuxing/é‡‘");
+	wood = me->query_temp("wuxing/æœ¨");
+	water = me->query_temp("wuxing/æ°´");
+	fire = me->query_temp("wuxing/ç«");
+	earth = me->query_temp("wuxing/åœŸ");
 
 	if ( metal > 0 &&
 		metal == wood && metal == water &&
@@ -56,19 +56,19 @@ int valid_leave(object me, string dir)
 	{
 		if (dir == "south")
 		{
-//			write("*Ä¾Éú»ğ*\n");
-			count = me->query_temp("wuxing/»ğ");
+//			write("*æœ¨ç”Ÿç«*\n");
+			count = me->query_temp("wuxing/ç«");
 			count++;
-			me->set_temp("wuxing/»ğ", count);
+			me->set_temp("wuxing/ç«", count);
 			if (check_out(me))
-				return notify_fail("ÄãË³ÀûµØ×ß³öÁËÎåĞĞÃÔ¹¬¡£\n");
+				return notify_fail("ä½ é¡ºåˆ©åœ°èµ°å‡ºäº†äº”è¡Œè¿·å®«ã€‚\n");
 		}
 		else if (dir == "west")
 		{
-//			write("*Ä¾¿ËÍÁ*\n");
+//			write("*æœ¨å…‹åœŸ*\n");
 			me->delete_temp("wuxing");
 			me->move(__DIR__"jianyu1");
-			return notify_fail("Äãµô½ø»ú¹Ø£¬ÂäÈëÉ®¼à¡£\n");
+			return notify_fail("ä½ æ‰è¿›æœºå…³ï¼Œè½å…¥åƒ§ç›‘ã€‚\n");
 		}
 	}
 	return ::valid_leave(me, dir);

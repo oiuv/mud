@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "蜂屋");
         set("long", @LONG
-������С��Ůι��ѵ�����ķ��ݣ��ݽ��Ϲ��źܶ����
-���εķ䳲����δ���ţ����ŵõ�һ����۵����㡣
+这里是小龙女喂养训练玉蜂的蜂屋，屋角上挂着很多个六
+角形的蜂巢，还未进门，就闻得到一阵蜂蜜的甜香。
 LONG
         );
 

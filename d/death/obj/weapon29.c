@@ -5,12 +5,12 @@ inherit WHIP;
 
 void create()
 {
-        set_name(RED "÷è÷ë±Þ" NOR, ({ "qilin bian", "qilin", "bian", "whip" }) );
+        set_name(RED "éº’éºŸéž­" NOR, ({ "qilin bian", "qilin", "bian", "whip" }) );
         set_weight(4000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
+                set("unit", "æ ¹");
                 set("value", 650000);
                 set("material", "steel");
         }

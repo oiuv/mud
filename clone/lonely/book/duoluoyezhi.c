@@ -4,14 +4,14 @@ inherit BOOK;
 
 void create()
 {
-        set_name(HIR "¡¸¶àÂŞÒ¶Ö¸¡¹" NOR, ({ "duoluoye zhi", "duoluoye", "zhi", "book" }));
+        set_name(HIR "ã€Œå¤šç½—å¶æŒ‡ã€" NOR, ({ "duoluoye zhi", "duoluoye", "zhi", "book" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
-                set("long", HIY "ÕâÊÇÒ»±¾±¡±¡µÄÊé²á£¬ÊéÆ¤¿´ÉÏÈ¥ºÜĞÂ£¬ÏñÊÇ"
-                            "ÖØĞÂ³­Ğ´µÄ£¬·âÃæÉÏĞ´×Å¡¸¶àÂŞÒ¶Ö¸¡¹ËÄ¸ö×Ö¡£\n" NOR);
+                set("unit", "æœ¬");
+                set("long", HIY "è¿™æ˜¯ä¸€æœ¬è–„è–„çš„ä¹¦å†Œï¼Œä¹¦çš®çœ‹ä¸Šå»å¾ˆæ–°ï¼Œåƒæ˜¯"
+                            "é‡æ–°æŠ„å†™çš„ï¼Œå°é¢ä¸Šå†™ç€ã€Œå¤šç½—å¶æŒ‡ã€å››ä¸ªå­—ã€‚\n" NOR);
                 set("value", 1);
                 set("no_sell", 1);
                 set("material", "paper");

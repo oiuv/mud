@@ -7,7 +7,7 @@ string look_door(string dir);
 
 void create()
 {
-    set("short", "�ͱ�");
+    set("short", "峭壁");
     set("exits", ([
         "hole1":__DIR__ "lockroom1",
         "hole2":__DIR__ "lockroom2",
@@ -19,14 +19,14 @@ void create()
     ]));
 
     set("long", @LONG
-���������ͱڣ�ֻ��ǰ����Ȼ��һ��ɽ�������Ǳ�һ���޴��
-ʯ�ţ�door����ס�ˣ�ʯ����ȴ����������״���ػ�棨huoju��,
-ϸ��ʯ����Χ��ֻ�������������˹�����Сɽ����
+四周悬崖峭壁，只见前方隐然是一个山洞，但是被一个巨大的
+石门（door）封住了，石门上却插着六把形状奇特火炬（huoju）,
+细看石门周围，只见有六个像是人工开凿小山洞。
 LONG);
 
     set("item_desc", ([
         "door"  : (: look_door :),
-        "huoju" : HIR "��Щ��濴������֣��ƺ�������ʲô���أ�\n" NOR,
+        "huoju" : HIR "这些火炬看来很奇怪，似乎连接着什么机关！\n" NOR,
     ]));
 
     set("no_clean_up", 0);
@@ -47,36 +47,36 @@ string look_door(string dir)
     string opened, msg, temp;
 
     mapping change_num = ([
-        "1":"һ",
-        "2":"��",
-        "3":"��",
-        "4":"��",
-        "5":"��",
-        "6":"��",
+        "1":"一",
+        "2":"二",
+        "3":"三",
+        "4":"四",
+        "5":"五",
+        "6":"六",
     ]);
 
     ob = find_object(TSROB);
 
     if (!objectp(ob))
-        return "TSR ���������������ʦ��ϵ��\n";
+        return "TSR 物件出错，请与巫师联系！\n";
 
     opened = ob->query("lock/opened");
 
     if (opened == "" || !stringp(opened))
-        return "ֻ��ʯ�Ž��գ�����������ѻ�棨huoju��������Ϩ���ˣ�\n";
+        return "只见石门紧闭，上面插着六把火炬（huoju），但都熄灭了！\n";
 
     if (ob->query("lock/unlocked") && sizeof(opened) == 6)
-        return NOR + WHT "\nֻ��ʯ��������£����ѻ���յ�������һ�����¶�˳�����\n" NOR;
+        return NOR + WHT "\n只见石门陷入地下，六把火炬烧得正旺！一个入口露了出来。\n" NOR;
 
-    msg = HIC "ֻ��ʯ�Ž��գ���";
+    msg = HIC "只见石门紧闭，第";
     for (n = 0; n < sizeof(opened); n++)
     {
         temp = opened[n..n];
         msg += change_num[temp];
         if (n < sizeof(opened) - 1)
-            msg += "��";
+            msg += "、";
     }
-    msg += "�ѻ��ȼ���ţ�\n" NOR;
+    msg += "把火炬燃烧着！\n" NOR;
 
     return msg;
 }

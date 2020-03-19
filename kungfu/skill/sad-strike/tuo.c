@@ -1,11 +1,11 @@
 // tuo.c
-// Ñî¹ı¾öÕ½½ğÂÖ·¨ÍõÊ±ËùÊ©Õ¹µÄ¾ö¶¨Ê¤¸º
-// µÄÒ»ÕĞ¡£
+// æ¨è¿‡å†³æˆ˜é‡‘è½®æ³•ç‹æ—¶æ‰€æ–½å±•çš„å†³å®šèƒœè´Ÿ
+// çš„ä¸€æ‹›ã€‚
 
 #include <ansi.h>
 #include <combat.h>
 
-#define TUO "¡¸" HIM "ÍÏÄà´øË®" NOR "¡¹"
+#define TUO "ã€Œ" HIM "æ‹–æ³¥å¸¦æ°´" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -18,36 +18,36 @@ int perform(object me, object target)
         string couple;
 
         if (userp(me) && ! me->query("can_perform/sad-strike/tuo"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(TUO "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(TUO "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query("static/marry") > 1)
-                return notify_fail("Äã¸ĞÇéÔçÒÑ²»´¿£¬ÄÄÀï»¹ÄÜÁìÂÔµ½ÄÇÖÖ÷öÈ»Ïú»êµÄ¸Ğ¾õ£¿\n");
+                return notify_fail("ä½ æ„Ÿæƒ…æ—©å·²ä¸çº¯ï¼Œå“ªé‡Œè¿˜èƒ½é¢†ç•¥åˆ°é‚£ç§é»¯ç„¶é”€é­‚çš„æ„Ÿè§‰ï¼Ÿ\n");
 
         if ((int)me->query_skill("force") < 360)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¬Ê¹²»³ö" TUO "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œä½¿ä¸å‡º" TUO "ã€‚\n");
 
         if ((int)me->query_skill("sad-strike", 1) < 180)
-                return notify_fail("ÄãµÄ÷öÈ»Ïú»êÕÆ²»¹»ÊìÁ·£¬²»»áÊ¹ÓÃ" TUO "¡£\n");
+                return notify_fail("ä½ çš„é»¯ç„¶é”€é­‚æŒä¸å¤Ÿç†Ÿç»ƒï¼Œä¸ä¼šä½¿ç”¨" TUO "ã€‚\n");
 
         if ((int)me->query("neili") < 500)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎŞ·¨Ê¹ÓÃ" TUO "¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•ä½¿ç”¨" TUO "ã€‚\n");
 
         if (me->query_skill_prepared("unarmed") != "sad-strike")
-                return notify_fail("ÄãÃ»ÓĞ×¼±¸÷öÈ»Ïú»êÕÆ£¬ÎŞ·¨Ê¹ÓÃ" TUO "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡é»¯ç„¶é”€é­‚æŒï¼Œæ— æ³•ä½¿ç”¨" TUO "ã€‚\n");
 
         if (! stringp(couple = me->query("couple/id")))
-                return notify_fail("ÄãÃ»ÓĞÆŞ×Ó£¬Ìå»á²»µ½ÕâÖÖÍòÄî¾ã»ÒµÄ¸Ğ¾õ¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å¦»å­ï¼Œä½“ä¼šä¸åˆ°è¿™ç§ä¸‡å¿µä¿±ç°çš„æ„Ÿè§‰ã€‚\n");
 
         if (time() - me->query_temp("last_perform/sad-strike/tuo") < 60)
-                return notify_fail("Äã¸Õ¸ÕÊ©Õ¹Íê" TUO "£¬ÏÖÔÚĞÄÇéÃ»ÓĞÄÇÃ´ÓôÃÆÁË¡£\n");
+                return notify_fail("ä½ åˆšåˆšæ–½å±•å®Œ" TUO "ï¼Œç°åœ¨å¿ƒæƒ…æ²¡æœ‰é‚£ä¹ˆéƒé—·äº†ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         effqi = me->query("eff_qi");
         maxqi = me->query("max_qi");
@@ -58,29 +58,29 @@ int perform(object me, object target)
 
         if (random(5) == 1 && me->query("max_neili") > 5000)
         {
-                msg = HIR "\n$N" HIR "ĞÄÏÂÍòÄî¾ã»Ò£¬ÆàÈ»¼ä»ØÏëµ½×Ô¼ºµÄÆŞ×Ó" HIW
-                      + me->query("couple/name") + HIR "£¬" HIR "ĞÄÖĞ°µµÀ£º¡°±ğÁË£¡"
-                      "Äã×Ô¼º±£ÖØ¡£¡±µ±ÏÂÊ§»êÂäÆÇ£¬ËæÊÖÒ»ÕĞ£¬Ç¡ºÃÊ¹³öÁË÷ö"
-                      "È»Ïú»êÕÆÖĞµÄ¡¸ÍÏÄà´øË®¡¹¡£\n" NOR;
+                msg = HIR "\n$N" HIR "å¿ƒä¸‹ä¸‡å¿µä¿±ç°ï¼Œå‡„ç„¶é—´å›æƒ³åˆ°è‡ªå·±çš„å¦»å­" HIW
+                      + me->query("couple/name") + HIR "ï¼Œ" HIR "å¿ƒä¸­æš—é“ï¼šâ€œåˆ«äº†ï¼"
+                      "ä½ è‡ªå·±ä¿é‡ã€‚â€å½“ä¸‹å¤±é­‚è½é­„ï¼Œéšæ‰‹ä¸€æ‹›ï¼Œæ°å¥½ä½¿å‡ºäº†é»¯"
+                      "ç„¶é”€é­‚æŒä¸­çš„ã€Œæ‹–æ³¥å¸¦æ°´ã€ã€‚\n" NOR;
                 ap += ap * 10 / 100;
         } else
         {
-                msg = HIM "\nÖ»¼û$N" HIM "Ã»¾«´ò²ÉµÄ»ÓĞä¾í³ö£¬ÃæÎŞ±íÇé£¬ËæÒâÅÄ³öÒ»ÕÆ£¬ÕıÊÇ"
-                      "÷öÈ»Ïú»êÕÆÖĞµÄ¡¸ÍÏÄà´øË®¡¹¡£\n"NOR;
+                msg = HIM "\nåªè§$N" HIM "æ²¡ç²¾æ‰“é‡‡çš„æŒ¥è¢–å·å‡ºï¼Œé¢æ— è¡¨æƒ…ï¼Œéšæ„æ‹å‡ºä¸€æŒï¼Œæ­£æ˜¯"
+                      "é»¯ç„¶é”€é­‚æŒä¸­çš„ã€Œæ‹–æ³¥å¸¦æ°´ã€ã€‚\n"NOR;
         }
         if (ap * 3 / 5 + random(ap) > dp)
         { 
                 damage = ap + random(ap / 2);
                 me->add("neili", -400);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 120,
-                                           HIR "Ö»Ìı$n" HIR "Ò»ÉùÃÆºß£¬¡°àÛ¡±µÄÒ»"
-                                           "Éù£¬ÕâÒ»ÕÆÕıºÃ»÷ÔÚ$p" HIR "¼çÍ·¡£ "
+                                           HIR "åªå¬$n" HIR "ä¸€å£°é—·å“¼ï¼Œâ€œå™—â€çš„ä¸€"
+                                           "å£°ï¼Œè¿™ä¸€æŒæ­£å¥½å‡»åœ¨$p" HIR "è‚©å¤´ã€‚ "
                                            NOR);
                 me->set_temp("last_perform/sad-strike/tuo", time());
         } else
         {
                 me->add("neili", -200);
-                msg += HIC "¿ÉÊÇ$p" HIC "Ğ¡ĞÄÓ¦¸¶¡¢·ÜÁ¦ÕĞ¼Ü£¬µ²¿ªÁËÕâÒ»ÕĞ¡£\n"
+                msg += HIC "å¯æ˜¯$p" HIC "å°å¿ƒåº”ä»˜ã€å¥‹åŠ›æ‹›æ¶ï¼ŒæŒ¡å¼€äº†è¿™ä¸€æ‹›ã€‚\n"
                        NOR;
         }
         message_sort(msg, me, target);

@@ -5,18 +5,18 @@ inherit CLUB;
 
 void create()
 {
-	set_name(HIY "ÊìÍ­¹÷" NOR, ({"shutong gun", "shutong", "gun", "club"}));
+	set_name(HIY "ç†Ÿé“œæ£" NOR, ({"shutong gun", "shutong", "gun", "club"}));
 	set_weight(2000);
 
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¸Ë");
-		set("long", HIY "Ò»¸ËÊ®·ÖÁé±ãµÄÊìÍ­¹÷¡£\n" NOR);
+		set("unit", "æ†");
+		set("long", HIY "ä¸€æ†ååˆ†çµä¾¿çš„ç†Ÿé“œæ£ã€‚\n" NOR);
 		set("value", 1000);
 		set("material", "steel");
-		set("wield_msg", HIY "$N" HIY "»ØÊÖ´ÓÉíºó³é³öÒ»¸ËÊìÍ­¹÷¡£\n" NOR);
-		set("unwield_msg", HIY "$N" HIY "ÊÖÍùºóÒ»¿Û£¬°ÑÊìÍ­¹÷·ÅÔÚÉíºó¡£\n" NOR);
+		set("wield_msg", HIY "$N" HIY "å›æ‰‹ä»èº«åæŠ½å‡ºä¸€æ†ç†Ÿé“œæ£ã€‚\n" NOR);
+		set("unwield_msg", HIY "$N" HIY "æ‰‹å¾€åä¸€æ‰£ï¼ŒæŠŠç†Ÿé“œæ£æ”¾åœ¨èº«åã€‚\n" NOR);
 	}
 	init_club(60);
 	setup();

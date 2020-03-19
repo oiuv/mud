@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ɽ��");
+	set("short", "山洞");
 	set("long", @LONG
-ɽ�����ƺ���ɲ⣬�����ϵ��ż�յ�������յö���һ�ɹ�
-����������Ȼ�е�ʮ�ֳ�ʪ���ɶ��ڸ����ʵ������ƽ����
+山洞中似乎深不可测，洞壁上点着几盏松明，照得洞内一派光
+亮。洞内虽然感到十分潮湿，可洞壁干燥坚实，大异平常。
 LONG );
 	set("exits", ([
 		"north" :__DIR__"tohtq5",

@@ -3,13 +3,13 @@
 
 void create()
 {
-        set_name(HIY "Èý»Æ±¦À°µ¤" NOR, ({"baola dan", "dan"}));
+        set_name(HIY "ä¸‰é»„å®è…Šä¸¹" NOR, ({"baola dan", "dan"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIY "ÕâÊÇÒ»Á£»ÆÉ«µÄÒ©Íè£¬ÓÃÅ£»Æ¸¨ÒÔÔ­ÁÏÖÆ³É£¬¾ßÓÐ²»"
-                            "´íµÄ½â¶¾Ð§¹û¡£\n" NOR);
-                set("base_unit", "Á£");
+                set("long", HIY "è¿™æ˜¯ä¸€ç²’é»„è‰²çš„è¯ä¸¸ï¼Œç”¨ç‰›é»„è¾…ä»¥åŽŸæ–™åˆ¶æˆï¼Œå…·æœ‰ä¸"
+                            "é”™çš„è§£æ¯’æ•ˆæžœã€‚\n" NOR);
+                set("base_unit", "ç²’");
                 set("base_value", 5000);
                 set("base_weight", 55);
                 set("only_do_effect", 1);
@@ -36,22 +36,22 @@ int do_effect(object me)
 {
         if (time() - me->query_temp("last_eat/jiedu") < 20)
         {
-                write("Äã¸Õ·þÓÃ¹ýÒ©£¬ÐèÒ©ÐÔ·¢»ÓÍêÐ§ÓÃÒÔºó²ÅÄÜ¼ÌÐø·þÓÃ¡£\n");
+                write("ä½ åˆšæœç”¨è¿‡è¯ï¼Œéœ€è¯æ€§å‘æŒ¥å®Œæ•ˆç”¨ä»¥åŽæ‰èƒ½ç»§ç»­æœç”¨ã€‚\n");
                 return 1;
         }
 
         if (! me->query_skill_mapped("force"))
         {
-                write("ÄãÃ»ÓÐ¼¤·¢ÈÎºÎÄÚ¹¦£¬ÔõÃ´·¢»ÓÒ©Á¦½øÐÐÇý¶¾£¿\n");
+                write("ä½ æ²¡æœ‰æ¿€å‘ä»»ä½•å†…åŠŸï¼Œæ€Žä¹ˆå‘æŒ¥è¯åŠ›è¿›è¡Œé©±æ¯’ï¼Ÿ\n");
                 return 1;
         }
 
         me->set_temp("last_eat/jiedu", time());
 
-        message_vision(HIY "$N" HIY "°µ°µÔËÁËÒ»¿ÚÆø£¬·þÏÂÁË" + name() +
-                       HIY "£¬ÅÌÏ¥×øÏÂ£¬¿ªÊ¼ÔË¹¦±Æ¶¾¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "æš—æš—è¿äº†ä¸€å£æ°”ï¼Œæœä¸‹äº†" + name() +
+                       HIY "ï¼Œç›˜è†åä¸‹ï¼Œå¼€å§‹è¿åŠŸé€¼æ¯’ã€‚\n" NOR, me);
 
-        // ÔË¹¦Çý¶¾
+        // è¿åŠŸé©±æ¯’
         me->add_temp("apply/dispel_poison", 100);
         SKILL_D("force")->exert_function(me, "dispel");
         me->add_temp("apply/dispel_poison", -100);

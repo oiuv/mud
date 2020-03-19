@@ -16,23 +16,23 @@ int main(object me, string arg)
 
         seteuid(geteuid(me));
 	if (file_size(dir) != -2)
-                return notify_fail("ц╩спуБ╦Жд©б╪║ё\n");
+                return notify_fail("Ф╡║Ф°┴Х©≥Д╦╙Г⌡╝Е╫∙Ц─┌\n");
 
         if (! MASTER_OB->valid_read(dir, me, "cd"))
-                return notify_fail("дЦц╩спх╗оч╥цнй╦цд©б╪║ё\n");
+                return notify_fail("Д╫═Ф╡║Ф°┴Ф²┐И≥░Х╝©И≈╝Х╞╔Г⌡╝Е╫∙Ц─┌\n");
 
 	if(dir[strlen(dir)-1]!='/') dir += "/";
 	me->set("cwd", dir);
-	write("╣╠г╟д©б╪╠Д╦Эн╙ё╨" + dir + "\n");
+	write("Е╫⌠Е┴█Г⌡╝Е╫∙Е▐≤Ф⌡╢Д╦╨О╪ " + dir + "\n");
 	return 1;	
 }
 
 int help(object me)
 {
 	write(@HELP
-ж╦аН╦Яй╫ : cd <всд©б╪цШ>, cd .. , and cd
+Ф▄┤Д╩╓Ф═╪Е╪▐ : cd <Е╜░Г⌡╝Е╫∙Е░█>, cd .. , and cd
 
-╫╚д©г╟╡н©╪╣дд©б╪рфжаж╦╤╗╣двсд©б╪╩Р╩ь╣╫иор╩жВд©б╪; рЮ©иж╠╫с╩ь╣╫вт╪╨╧╓вВд©б╪║ё
+Е╟├Г⌡╝Е┴█Е▐┌Х─┐Г └Г⌡╝Е╫∙Г╖╩Х┤ЁФ▄┤Е╝ Г └Е╜░Г⌡╝Е╫∙Ф┬√Е⌡·Е┬╟Д╦┼Д╦─Д╦╩Г⌡╝Е╫∙; Д╨╕Е▐╞Г⌡╢Ф▌╔Е⌡·Е┬╟Х┤╙Е╥╠Е╥╔Д╫°Г⌡╝Е╫∙Ц─┌
 HELP );
 	return 1;
 }

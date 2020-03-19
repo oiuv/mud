@@ -9,10 +9,10 @@ int main(object me, string arg)
 	int i;
 	int count;
 
-	if( !arg ) return notify_fail("ÄãÒª·ÅÏÂÊ²Ã´£¿\n");
+	if( !arg ) return notify_fail("ä½ è¦æ”¾ä¸‹ä»€ä¹ˆï¼Ÿ\n");
 
 	if( !objectp(ob = present(arg, me)) )
-		return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
 	if( (string)ob->query("equipped")!="wielded" ) {
 		inv = all_inventory(me);
@@ -29,12 +29,12 @@ int main(object me, string arg)
 		}
 
 		if( !count )
-			return notify_fail("Äã²¢Ã»ÓĞ×°±¸ÕâÑù¶«Î÷×÷ÎªÎäÆ÷¡£\n");
+			return notify_fail("ä½ å¹¶æ²¡æœ‰è£…å¤‡è¿™æ ·ä¸œè¥¿ä½œä¸ºæ­¦å™¨ã€‚\n");
 	}
 
 	if( ob->unequip() ) {
 		if( !stringp(str = ob->query("unwield_msg")) )
-			str = "$N·ÅÏÂÊÖÖĞµÄ$n¡£\n";
+			str = "$Næ”¾ä¸‹æ‰‹ä¸­çš„$nã€‚\n";
 		message_vision(str, me, ob);
 		return 1;
 	} else
@@ -44,9 +44,9 @@ int main(object me, string arg)
 int help(object me)
 {
   write(@HELP
-Ö¸Áî¸ñÊ½ : unwield <ÎïÆ·Ãû>
+æŒ‡ä»¤æ ¼å¼ : unwield <ç‰©å“å>
  
-Õâ¸öÖ¸ÁîÈÃÄã·ÅÏÂÊÖÖĞµÄÎäÆ÷¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ æ”¾ä¸‹æ‰‹ä¸­çš„æ­¦å™¨ã€‚
  
 HELP
     );

@@ -16,7 +16,7 @@ void create()
         name += last_words[random(sizeof(last_words))];
         
         set_name(name, ({ "ghost"}) );
-        set("gender", "Å®ÐÔ" );        
+        set("gender", "å¥³æ€§" );        
         set("age",40);
         set("str", 30);
         set("int", 20);
@@ -82,7 +82,7 @@ void invocation(object target)
         string msg, dodge_skill;
         object me = this_object();
         
-        msg = BLU "\n$NÉí×Ó¶×ÏÂ£¬×óÕÆÆ½ÍÆ¶ø³ö£¬Ê¹µÄÕýÊÇ$NÉúÆ½×îµÃÒâµÄ¡¸¸òó¡¹¦¡¹¾øÕÐ£¬ÕÆ·çÖ±±Æ$n¶øÈ¥£¡\n"NOR;        
+        msg = BLU "\n$Nèº«å­è¹²ä¸‹ï¼Œå·¦æŽŒå¹³æŽ¨è€Œå‡ºï¼Œä½¿çš„æ­£æ˜¯$Nç”Ÿå¹³æœ€å¾—æ„çš„ã€Œè›¤èŸ†åŠŸã€ç»æ‹›ï¼ŒæŽŒé£Žç›´é€¼$nè€ŒåŽ»ï¼\n"NOR;        
         me->set_temp("hmg_hama", 1);
         
         ap = me->query_skill("force") * 3 / 2 +  
@@ -102,14 +102,14 @@ void invocation(object target)
                         damage += random(damage);
                 target->receive_damage("qi", damage, me);
                 target->receive_wound("qi", damage/2, me);
-                msg += COMBAT_D->damage_msg(damage, "ÄÚÉË");
+                msg += COMBAT_D->damage_msg(damage, "å†…ä¼¤");
                 call_out("perform2", 0, me, target, p);    
         } else 
         {
                 me->start_busy(2);
                 target->start_busy(1);
                 me->add("neili", -100);
-                tell_object(target, HIY"Äãµ«¾õÒ»¹ÉÎ¢·çÆËÃæ¶øÀ´£¬·çÊÆËäÈ»²»¾¢£¬È»ÒÑ±ÆµÃ×Ô¼ººôÎü²»³©£¬ÖªµÀ²»Ãî£¬Á¬Ã¦Ô¾¿ªÊý³ß¡£\n" NOR);
+                tell_object(target, HIY"ä½ ä½†è§‰ä¸€è‚¡å¾®é£Žæ‰‘é¢è€Œæ¥ï¼Œé£ŽåŠ¿è™½ç„¶ä¸åŠ²ï¼Œç„¶å·²é€¼å¾—è‡ªå·±å‘¼å¸ä¸ç•…ï¼ŒçŸ¥é“ä¸å¦™ï¼Œè¿žå¿™è·ƒå¼€æ•°å°ºã€‚\n" NOR);
                 dodge_skill = target->query_skill_mapped("dodge");
                 if( !dodge_skill ) dodge_skill = "dodge";
                 msg += SKILL_D(dodge_skill)->query_dodge_msg(target, 1);
@@ -124,7 +124,7 @@ int perform2(object me, object target, int p)
         string msg, dodge_skill;
 
 
-        msg = BLU "\n$N×óÕÆ¾¢Á¦Î´Ïû£¬ÓÒÕÆÒ²¸ú×ÅÍÆ³ö£¬¹¦Á¦Ïàµþ£¬¡¸¸òó¡¹¦¡¹ÕÆ·çÅÅÉ½µ¹º£°ãÓ¿Ïò$n£¡\n"NOR;   
+        msg = BLU "\n$Nå·¦æŽŒåŠ²åŠ›æœªæ¶ˆï¼Œå³æŽŒä¹Ÿè·Ÿç€æŽ¨å‡ºï¼ŒåŠŸåŠ›ç›¸å ï¼Œã€Œè›¤èŸ†åŠŸã€æŽŒé£ŽæŽ’å±±å€’æµ·èˆ¬æ¶Œå‘$nï¼\n"NOR;   
              
         ap = me->query_skill("force") * 3 / 2 +  
              me->query_skill("martial-cognize", 1); 
@@ -141,14 +141,14 @@ int perform2(object me, object target, int p)
                         damage += random(damage);
                 target->receive_damage("qi", damage, me);
                 target->receive_wound("qi", damage/2, me);
-                msg += COMBAT_D->damage_msg(damage, "ÄÚÉË");       
+                msg += COMBAT_D->damage_msg(damage, "å†…ä¼¤");       
                 call_out("perform3", 0, me, target, p);  
         } 
         else 
         {
                 me->start_busy(4);
                 me->add("neili", -200);
-                tell_object(target, HIY"Äã´­Ï¢Î´¶¨£¬ÓÖ¾õÒ»¹É¾¢·çÆËÃæ¶øÀ´£¬Á¬Ã¦Ô¾¿ªÊý³ß£¬ÀÇ±·µØ±Ü¿ª¡£\n" NOR);
+                tell_object(target, HIY"ä½ å–˜æ¯æœªå®šï¼Œåˆè§‰ä¸€è‚¡åŠ²é£Žæ‰‘é¢è€Œæ¥ï¼Œè¿žå¿™è·ƒå¼€æ•°å°ºï¼Œç‹¼ç‹ˆåœ°é¿å¼€ã€‚\n" NOR);
                 dodge_skill = target->query_skill_mapped("dodge");
                 if( !dodge_skill ) dodge_skill = "dodge";
                 msg += SKILL_D(dodge_skill)->query_dodge_msg(target, 1);
@@ -163,7 +163,7 @@ int perform3(object me, object target, int p)
         string msg, dodge_skill;
   
 
-        msg = BLU "\n$NË«ÍÈÒ»µÇ£¬Ë«ÕÆÏà²¢ÏòÇ°ÃÍÁ¦ÍÆ³ö£¬$nÁ¬Í¬ÉíÇ°·½Ô²ÈýÕÉÈ«ÔÚ¡¸¸òó¡¹¦¡¹¾¢Á¦ÁýÕÖÖ®ÏÂ£¡\n"NOR;   
+        msg = BLU "\n$NåŒè…¿ä¸€ç™»ï¼ŒåŒæŽŒç›¸å¹¶å‘å‰çŒ›åŠ›æŽ¨å‡ºï¼Œ$nè¿žåŒèº«å‰æ–¹åœ†ä¸‰ä¸ˆå…¨åœ¨ã€Œè›¤èŸ†åŠŸã€åŠ²åŠ›ç¬¼ç½©ä¹‹ä¸‹ï¼\n"NOR;   
              
         ap = me->query_skill("force") * 3 / 2 +  
              me->query_skill("martial-cognize", 1); 
@@ -179,12 +179,12 @@ int perform3(object me, object target, int p)
                 if(me->query("neili") > target->query("neili")*2 ) damage += random(damage);
                 target->receive_damage("qi", damage, me);
                 target->receive_wound("qi", damage/2, me);
-                msg += COMBAT_D->damage_msg(damage, "ðöÉË");
+                msg += COMBAT_D->damage_msg(damage, "ç˜€ä¼¤");
         } else 
         {
                 me->add("neili", -300);
                 target->add("jingli", -100);
-                tell_object(target, HIY"ÄãÓÃ¾¡È«ÉíÁ¦Á¿ÏòÓÒÒ»×ÝÒ»¹ö£¬Ò¡Ò¡Óûµ¹µØÕ¾ÁËÆðÀ´£¬µ«×ÜËã¶ã¿ªÁËÕâÖÂÃüµÄÒ»»÷£¡\n" NOR);
+                tell_object(target, HIY"ä½ ç”¨å°½å…¨èº«åŠ›é‡å‘å³ä¸€çºµä¸€æ»šï¼Œæ‘‡æ‘‡æ¬²å€’åœ°ç«™äº†èµ·æ¥ï¼Œä½†æ€»ç®—èº²å¼€äº†è¿™è‡´å‘½çš„ä¸€å‡»ï¼\n" NOR);
                 dodge_skill = target->query_skill_mapped("dodge");
                 if( !dodge_skill ) dodge_skill = "dodge";
                 msg += SKILL_D(dodge_skill)->query_dodge_msg(target, 1);

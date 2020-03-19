@@ -1,4 +1,4 @@
-// wugong.c òÚò¼
+// wugong.c èœˆèš£
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit POISON_INSECT;
 
 void create()
 {
-	set_name("òÚò¼", ({ "wu gong" }) );
+	set_name("èœˆèš£", ({ "wu gong" }) );
         set_weight(100);
-	set("race", "Ò°ÊŞ");
+	set("race", "é‡å…½");
 	set("age", 2);
-	set("long", "Ò»Ö»òÚò¼¡£\n");
+	set("long", "ä¸€åªèœˆèš£ã€‚\n");
 	set("attitude", "peaceful");
 	set("str", 20);
 	set("con", 20);
-        set("unit", "Ö»");
-	set("limbs", ({ "Í·²¿", "ÉíÌå" }) );
+        set("unit", "åª");
+	set("limbs", ({ "å¤´éƒ¨", "èº«ä½“" }) );
 	set("verbs", ({ "bite" }) );
 
         set("insect_poison", ([

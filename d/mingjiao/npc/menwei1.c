@@ -6,11 +6,11 @@ inherit F_GUARDER;
 
 void create()
 {
-	set_name("´óºº", ({ "da han","han" }) );
-	set("gender", "ÄĞĞÔ" );
+	set_name("å¤§æ±‰", ({ "da han","han" }) );
+	set("gender", "ç”·æ€§" );
 
 	set("age", 35);
-	set("long", "Ã÷½ÌµÄÊØÃÅÎäÊ¿£¬ÊÇÁÒ»ğÆìÊôÏÂ¡£\n");
+	set("long", "æ˜æ•™çš„å®ˆé—¨æ­¦å£«ï¼Œæ˜¯çƒˆç«æ——å±ä¸‹ã€‚\n");
 	set("shen_type",1);
 	set("combat_exp", 20000);
 

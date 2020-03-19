@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIC "ôä´ä±ÇÑÌºø" NOR, ({ "biyan hu", "biyan", "biyan"}) );
+        set_name(HIC "ç¿¡ç¿ é¼»çƒŸå£¶" NOR, ({ "biyan hu", "biyan", "biyan"}) );
         set_weight(5000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ö»");
-                set("long", HIC "ÌÕ´ÉÉÕµÃ±ãÈçôä´äÒ»°ã£¬ÒÔ´ËÌÕ´ÉËùÖÆµÄ±ÇÑÌºø¡£\n" NOR);
+                set("unit", "åª");
+                set("long", HIC "é™¶ç“·çƒ§å¾—ä¾¿å¦‚ç¿¡ç¿ ä¸€èˆ¬ï¼Œä»¥æ­¤é™¶ç“·æ‰€åˆ¶çš„é¼»çƒŸå£¶ã€‚\n" NOR);
                 set("value", 1500);
         }
 }

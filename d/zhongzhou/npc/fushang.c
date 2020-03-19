@@ -1,10 +1,10 @@
 inherit NPC;
 void create()
 {
-        set_name("¸»ÉÌ",({"fu shang","fu","shang"}));
-        set("gender", "ÄĞĞÔ");
+        set_name("å¯Œå•†",({"fu shang","fu","shang"}));
+        set("gender", "ç”·æ€§");
         set("age", 35);
-        set("long", "ÖĞÖİ±¾µØµÄ±©·¢»§¡£\n");
+        set("long", "ä¸­å·æœ¬åœ°çš„æš´å‘æˆ·ã€‚\n");
         set("combat_exp", 3600);
         
         set_skill("unarmed", 20);

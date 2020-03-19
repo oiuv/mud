@@ -2,16 +2,16 @@ inherit NPC;
 
 void create()
 {
-    set_name("ºï×Ó", ({ "monkey" }) );
-    set("gender", "ĞÛĞÔ");
-    set("race", "Ò°ÊŞ");
+    set_name("çŒ´å­", ({ "monkey" }) );
+    set("gender", "é›„æ€§");
+    set("race", "é‡å…½");
     set("age", 5);
     set("long",
-        "ÕâÖ»ºï×ÓÔÚÔÚÌÒÊ÷¼äÌøÉÏÌøÏÂ£¬»¹²»Ê±½ò½òÓĞÎ¶µØ¿Ğ¼¸¿Ú×ÅÃÛÌÒ¡£\n");
+        "è¿™åªçŒ´å­åœ¨åœ¨æ¡ƒæ ‘é—´è·³ä¸Šè·³ä¸‹ï¼Œè¿˜ä¸æ—¶æ´¥æ´¥æœ‰å‘³åœ°å•ƒå‡ å£ç€èœœæ¡ƒã€‚\n");
     set("combat_exp", 5000);
     set("shen_type", -1);
     set("attitude", "peaceful");
-    set("limbs", ({ "ºï×ì", "Ç°×¦", "ºó×¦", "Î²°Í" }) );
+    set("limbs", ({ "çŒ´å˜´", "å‰çˆª", "åçˆª", "å°¾å·´" }) );
     set("verbs", ({ "bite", "claw" }) );
 
     set("water", 200);

@@ -56,13 +56,13 @@ nomask int command_hook(string arg)
         para = para["env"];
         if (mapp(para) && para["pure_say"] && ! me->is_direct_command())
         {
-                // ²»ÊÇ×ö¶¯×÷£¬¶øÊÇËµ»°
+                // ä¸æ˜¯åšåŠ¨ä½œï¼Œè€Œæ˜¯è¯´è¯
                 if (stringp(file = find_command("say")) &&
                     call_other(file, "main", me, me->query_orginal_input()))
-                        // Ö´ÐÐÍê±ÏËµ»°µÄ¶¯×÷
+                        // æ‰§è¡Œå®Œæ¯•è¯´è¯çš„åŠ¨ä½œ
                         return 1;
                 else
-                        // ÎÞ·¨Ëµ»°
+                        // æ— æ³•è¯´è¯
                         return 0;
         }
 
@@ -76,16 +76,16 @@ nomask int command_hook(string arg)
                 ; else
         if (me->is_in_prison())
         {
-                return notify_fail("Óü×äºÈµÀ£ºÄãÀÏÀÏÊµÊµµÄ´ô×Å±ð¶¯£¡" +
+                return notify_fail("ç‹±å’å–é“ï¼šä½ è€è€å®žå®žçš„å‘†ç€åˆ«åŠ¨ï¼" +
                         appromix_time(me->query_time_to_leave(), 1) +
-                        "·ÅÄã³öÈ¥£¡\n");
+                        "æ”¾ä½ å‡ºåŽ»ï¼\n");
         } else
         if (EMOTE_D->do_emote(me, verb, arg))
                 ; else
         if (CHANNEL_D->do_channel(me, verb, arg))
                 ; else
         if (mapp(para) && para["auto_say"] &&
-            query_fail_msg() == "Ê²Ã´£¿\n" &&
+            query_fail_msg() == "ä»€ä¹ˆï¼Ÿ\n" &&
             stringp(file = find_command("say")) &&
             ! me->is_direct_command() &&
             call_other(file, "main", me, me->query_orginal_input()))

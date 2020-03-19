@@ -6,13 +6,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name("½ğïÎ»¨", ({ "jinlou hua", "hua" }));
+        set_name("é‡‘é•‚èŠ±", ({ "jinlou hua", "hua" }));
         set_weight(400);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¶ä");
-                set("long", "ÕâÊÇÒ»ÕÅÓÃ½ğ²­µñ¿ÌµÄ»¨£¬èòèòÈçÉú¡£\n");
+                set("unit", "æœµ");
+                set("long", "è¿™æ˜¯ä¸€å¼ ç”¨é‡‘ç®”é›•åˆ»çš„èŠ±ï¼Œæ ©æ ©å¦‚ç”Ÿã€‚\n");
                 set("value", 12000);
                 set("material", "gold");
         }

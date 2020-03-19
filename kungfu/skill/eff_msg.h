@@ -1,6 +1,6 @@
 /*
 
-ÔÚÏàÓ¦µÄ perform ÎÄ¼þÀï¼ÓÉÏ£º
+åœ¨ç›¸åº”çš„ perform æ–‡ä»¶é‡ŒåŠ ä¸Šï¼š
 
 #include "/kungfu/skill/eff_msg.h";
 
@@ -13,14 +13,14 @@
 
 string eff_status_msg(int ratio)
 {
-        if (ratio==100) return HIG "¿´ÆðÀ´³äÂú»îÁ¦£¬Ò»µãÒ²²»ÀÛ¡£" NOR;
-        if (ratio > 95) return HIG "ËÆºõÓÐÐ©Æ£±¹£¬µ«ÊÇÈÔÈ»Ê®·ÖÓÐ»îÁ¦¡£" NOR;
-        if (ratio > 90) return HIY "¿´ÆðÀ´¿ÉÄÜÓÐÐ©ÀÛÁË¡£" NOR;
-        if (ratio > 80) return HIY "¶¯×÷ËÆºõÓÐµã²»Ì«Áé¹â£¬µ«ÈÔÈ»ÓÐÌõ²»ÎÉ¡£" NOR;
-        if (ratio > 65) return HIY "Æø´­ÐêÐê£¬¿´ÆðÀ´×´¿ö²¢²»Ì«ºÃ¡£" NOR;
-        if (ratio > 50) return HIR "ËÆºõÊ®·ÖÆ£±¹£¬¿´À´ÐèÒªºÃºÃÐÝÏ¢ÁË¡£" NOR;
-        if (ratio > 40) return HIR "ÕÐ¼ÜÒÑÈ»É¢ÂÒ£¬ÕýÃãÁ¦Ö§³ÅÖø²»µ¹ÏÂÈ¥¡£" NOR;
-        if (ratio > 30) return HIR "¿´ÆðÀ´ÒÑ¾­Á¦²»´ÓÐÄÁË¡£" NOR;
-        if (ratio > 15) return RED "ÍáÍáÐ±Ð±µØÕ¾¶¼Õ¾Á¢²»ÎÈ£¬ÑÛ¿´¾ÍÒªµ¹µØ¡£" NOR;
-        return RED "ÒÑ¾­ÏÝÈë°ë»èÃÔ×´Ì¬£¬ËæÊ±¶¼¿ÉÄÜË¤µ¹ÔÎÈ¥¡£" NOR;
+        if (ratio==100) return HIG "çœ‹èµ·æ¥å……æ»¡æ´»åŠ›ï¼Œä¸€ç‚¹ä¹Ÿä¸ç´¯ã€‚" NOR;
+        if (ratio > 95) return HIG "ä¼¼ä¹Žæœ‰äº›ç–²æƒ«ï¼Œä½†æ˜¯ä»ç„¶ååˆ†æœ‰æ´»åŠ›ã€‚" NOR;
+        if (ratio > 90) return HIY "çœ‹èµ·æ¥å¯èƒ½æœ‰äº›ç´¯äº†ã€‚" NOR;
+        if (ratio > 80) return HIY "åŠ¨ä½œä¼¼ä¹Žæœ‰ç‚¹ä¸å¤ªçµå…‰ï¼Œä½†ä»ç„¶æœ‰æ¡ä¸ç´Šã€‚" NOR;
+        if (ratio > 65) return HIY "æ°”å–˜å˜˜å˜˜ï¼Œçœ‹èµ·æ¥çŠ¶å†µå¹¶ä¸å¤ªå¥½ã€‚" NOR;
+        if (ratio > 50) return HIR "ä¼¼ä¹Žååˆ†ç–²æƒ«ï¼Œçœ‹æ¥éœ€è¦å¥½å¥½ä¼‘æ¯äº†ã€‚" NOR;
+        if (ratio > 40) return HIR "æ‹›æž¶å·²ç„¶æ•£ä¹±ï¼Œæ­£å‹‰åŠ›æ”¯æ’‘è‘—ä¸å€’ä¸‹åŽ»ã€‚" NOR;
+        if (ratio > 30) return HIR "çœ‹èµ·æ¥å·²ç»åŠ›ä¸ä»Žå¿ƒäº†ã€‚" NOR;
+        if (ratio > 15) return RED "æ­ªæ­ªæ–œæ–œåœ°ç«™éƒ½ç«™ç«‹ä¸ç¨³ï¼Œçœ¼çœ‹å°±è¦å€’åœ°ã€‚" NOR;
+        return RED "å·²ç»é™·å…¥åŠæ˜è¿·çŠ¶æ€ï¼Œéšæ—¶éƒ½å¯èƒ½æ‘”å€’æ™•åŽ»ã€‚" NOR;
 }

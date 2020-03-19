@@ -6,11 +6,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("½£¿Í", ({ "jian ke","ke" }) );
-        set("gender", "ÄĞĞÔ");
+        set_name("å‰‘å®¢", ({ "jian ke","ke" }) );
+        set("gender", "ç”·æ€§");
         set("age", 45);
         set("long",
-                "ÕâÊÇÎ»ÖĞÄêÎäÈË£¬¼ç±³³¤½££¬³¤³¤µÄ½£ËëËæ·çÆ®Ñï£¬¿´À´ËÆºõÉí»³¾øÒÕ¡£\n");
+                "è¿™æ˜¯ä½ä¸­å¹´æ­¦äººï¼Œè‚©èƒŒé•¿å‰‘ï¼Œé•¿é•¿çš„å‰‘ç©—éšé£é£˜æ‰¬ï¼Œçœ‹æ¥ä¼¼ä¹èº«æ€€ç»è‰ºã€‚\n");
         set("combat_exp", 20000);
         set("shen_type", -1);
         set("attitude", "heroism");
@@ -42,7 +42,7 @@ void init()
         mengzhu = ob->query("winner");
 
         if( this_player()->query("id") == mengzhu ) {
-                message_vision(HIY "½£¿ÍÏò$N¹ªÉíÎªÀñ£¬ËµµÀ£ºÃËÖ÷ÄúÀÏÈË¼ÒºÃ£¡\n" NOR, 
+                message_vision(HIY "å‰‘å®¢å‘$Nèº¬èº«ä¸ºç¤¼ï¼Œè¯´é“ï¼šç›Ÿä¸»æ‚¨è€äººå®¶å¥½ï¼\n" NOR, 
                 this_player());
         }       
 }

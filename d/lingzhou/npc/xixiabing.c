@@ -5,12 +5,12 @@ inherit NPC;
 
 void create()
 {
-	set_name("Î÷ÏÄ±ø", ({ "xixia bing", "bing" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("è¥¿å¤å…µ", ({ "xixia bing", "bing" }));
+	set("gender", "ç”·æ€§");
 	set("age", random(10) + 20);
 	set("str", 25);
 	set("dex", 16);
-	set("long", "ÕâÊÇÃû¿ıÎäµÄÎ÷ÏÄ±ø£¬ÉíÅû¸Ö¼×£¬ÊÖÖ´³¤Ç¹¡£\n");
+	set("long", "è¿™æ˜¯åé­æ­¦çš„è¥¿å¤å…µï¼Œèº«æŠ«é’¢ç”²ï¼Œæ‰‹æ‰§é•¿æªã€‚\n");
 	set("combat_exp", 12000);
 	set("shen_type", 1);
 	set("attitude", "peaceful");

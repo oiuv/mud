@@ -1,4 +1,4 @@
-// fei.c ·ÉÏÉÊõ
+// fei.c é£ä»™æœ¯
 
 #include <ansi.h>
 #include <skill.h>
@@ -15,7 +15,7 @@ int perform(object me, object target)
         int i;
 
         if (userp(me) && ! me->query("can_perform/shedao-qigong/fei"))
-                return notify_fail("ÄãÏÖÔÚ»¹²»»áÊ¹ÓÃ·ÉÏÉÊõ£¡\n");
+                return notify_fail("ä½ ç°åœ¨è¿˜ä¸ä¼šä½¿ç”¨é£ä»™æœ¯ï¼\n");
  
         if (! target)
         {
@@ -24,40 +24,40 @@ int perform(object me, object target)
         }
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("Éßµº·ÉÏÉÊõÖ»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("è›‡å²›é£ä»™æœ¯åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "sword" &&
             (string)weapon->query("skill_type") != "staff")
-		return notify_fail("Äã±ØĞë³Ö½£»òÕÈ²ÅÄÜÊ©Õ¹Éßµº·ÉÏÉÊõ£¡\n");
+		return notify_fail("ä½ å¿…é¡»æŒå‰‘æˆ–æ–æ‰èƒ½æ–½å±•è›‡å²›é£ä»™æœ¯ï¼\n");
 
 	if ((int)me->query("neili") < 150)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼\n");
 
 	if ((int)me->query_skill("force") < 100)
-		return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¡\n");
+		return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼\n");
 
 	if ((int)me->query_skill("shedao-qigong", 1) < 100)
-		return notify_fail("ÄãµÄÉßµºÆæ¹¦µÄĞŞÎª·¨»¹²»µ½¼Ò£¬ÎŞ·¨Ê¹ÓÃ·ÉÏÉÊõ£¡\n");
+		return notify_fail("ä½ çš„è›‡å²›å¥‡åŠŸçš„ä¿®ä¸ºæ³•è¿˜ä¸åˆ°å®¶ï¼Œæ— æ³•ä½¿ç”¨é£ä»™æœ¯ï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         switch (random(3))
         {
         case 0:
-	        msg = HIY "$N" HIY "¹Ö½ĞÒ»Éù£¬ÊÖÖĞµÄ" + weapon->name() +
-                      HIY "Ò»»Î£¬»¯×÷ÊıµÀ¹âÓ°·ÉÏò$n" HIY "£¡\n" NOR;
+	        msg = HIY "$N" HIY "æ€ªå«ä¸€å£°ï¼Œæ‰‹ä¸­çš„" + weapon->name() +
+                      HIY "ä¸€æ™ƒï¼ŒåŒ–ä½œæ•°é“å…‰å½±é£å‘$n" HIY "ï¼\n" NOR;
                 break;
 
         case 1:
-                msg = HIY "$N" HIY "¿ÚÖĞÄîÄîÓĞ´Ê£¬ÊÖÖĞµÄ" + weapon->name() +
-                      HIY "Ô½Ê¹Ô½¿ì£¬½¥½¥ĞÎ³ÉÒ»ÍÅ¹âÃ¢£¬ÁıÕÖÁË$n" HIY "£¡\n" NOR;
+                msg = HIY "$N" HIY "å£ä¸­å¿µå¿µæœ‰è¯ï¼Œæ‰‹ä¸­çš„" + weapon->name() +
+                      HIY "è¶Šä½¿è¶Šå¿«ï¼Œæ¸æ¸å½¢æˆä¸€å›¢å…‰èŠ’ï¼Œç¬¼ç½©äº†$n" HIY "ï¼\n" NOR;
                 break;
 
         default:
-                msg = HIY "$N" HIY "¹ÖĞ¦Á½Éù£¬ÆÛÉí½üÀ´£¬²½·¨¼«Æä¹ÖÒì£¬ÊÖÖĞµÄ" +
-                      weapon->name() + HIY "ºöÈ»»÷³ö£¬Ò»Á¬ÊıÕĞ±ÆÏò$n" HIY "£¡\n" NOR;
+                msg = HIY "$N" HIY "æ€ªç¬‘ä¸¤å£°ï¼Œæ¬ºèº«è¿‘æ¥ï¼Œæ­¥æ³•æå…¶æ€ªå¼‚ï¼Œæ‰‹ä¸­çš„" +
+                      weapon->name() + HIY "å¿½ç„¶å‡»å‡ºï¼Œä¸€è¿æ•°æ‹›é€¼å‘$n" HIY "ï¼\n" NOR;
                 break;
         }
 

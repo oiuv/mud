@@ -5,17 +5,17 @@ inherit AXE;
 
 void create()
 {
-	set_name("´ó¸«Í·", ({ "futou", "da futou" }));
+	set_name("å¤§æ–§å¤´", ({ "futou", "da futou" }));
 	set_weight(7000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±ú");
-		set("long", "ÕâÊÇÒ»°Ñ¿³²ñµÄ´ó¸«Í·¡£\n");
+		set("unit", "æŸ„");
+		set("long", "è¿™æ˜¯ä¸€æŠŠç æŸ´çš„å¤§æ–§å¤´ã€‚\n");
 		set("value", 1000);
 		set("material", "steel");
-		set("wield_msg", "$N¡¸à§¡¹µÄÒ»Éù³é³öÒ»±ú$nÎÕÔÚÊÖÖĞ¡£\n");
-		set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»ØºóÑü¡£\n");
+		set("wield_msg", "$Nã€Œå”°ã€çš„ä¸€å£°æŠ½å‡ºä¸€æŸ„$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+		set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›åè…°ã€‚\n");
 	}
 	init_axe(5);
 	setup();

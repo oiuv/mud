@@ -7,11 +7,11 @@ inherit F_SSERVER;
 int exert(object me, object target)
 {
         if (me->query("max_neili") < 1)
-                return notify_fail("ÄãÒÑ¾­½«ÄÚÁ¦É¢¾¡£¬Ã»Ê²Ã´±ØÒªÔÙÉ¢¹¦ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»å°†å†…åŠ›æ•£å°½ï¼Œæ²¡ä»€ä¹ˆå¿…è¦å†æ•£åŠŸäº†ã€‚\n");
 
-        tell_object(target, HIY "ÄãÄ¬Ä¬µÄ°´ÕÕÎüÐÇ´ó·¨µÄ¾÷ÇÏ½«ÄÚÁ¦É¢ÈëÆæ¾­°ËÂö¡£\n" NOR);
-        message("vision", HIY + me->name() + "ºôÎü³ÁÖØ£¬È´ÓÖ²»ÏñÊÜÉËµÄÑù"
-                          "×Ó£¬²»ÖªµÀÔÚÐÞÁ¶Ê²Ã´À÷º¦µÄ¹¦·ò¡£\n" NOR,
+        tell_object(target, HIY "ä½ é»˜é»˜çš„æŒ‰ç…§å¸æ˜Ÿå¤§æ³•çš„è¯€çªå°†å†…åŠ›æ•£å…¥å¥‡ç»å…«è„‰ã€‚\n" NOR);
+        message("vision", HIY + me->name() + "å‘¼å¸æ²‰é‡ï¼Œå´åˆä¸åƒå—ä¼¤çš„æ ·"
+                          "å­ï¼Œä¸çŸ¥é“åœ¨ä¿®ç‚¼ä»€ä¹ˆåŽ‰å®³çš„åŠŸå¤«ã€‚\n" NOR,
                 environment(me), ({ me }));
 
         me->start_busy(1);

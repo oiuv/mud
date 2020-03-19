@@ -5,10 +5,10 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÃÉÃæÈË", ({ "mengmian ren", "ren" }));
+	set_name("è’™é¢äºº", ({ "mengmian ren", "ren" }));
 	set("long", 
-		"Ò»¸öÃÉ×ÅÃæ²¿£¬Éí´©ºÚÉ«Ò¹ÐÐÒÂ·þµÄÉñÃØÈË¡£\n");
-	set("gender", "ÄÐÐÔ");
+		"ä¸€ä¸ªè’™ç€é¢éƒ¨ï¼Œèº«ç©¿é»‘è‰²å¤œè¡Œè¡£æœçš„ç¥žç§˜äººã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 25);
 	set("attitude", "peaceful");
 	set("class", "fighter");
@@ -37,7 +37,7 @@ void create()
 	map_skill("dodge", "feiyan-zoubi");
 	map_skill("force", "xiaoyao-xinfa");
 
-	create_family("åÐÒ£ÅÉ", 5, "µÜ×Ó");
+	create_family("é€é¥æ´¾", 5, "å¼Ÿå­");
 	setup();
 	
 	carry_object(__DIR__"obj/blade")->wield();

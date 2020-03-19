@@ -1,16 +1,16 @@
-// pian.c Æ«½«
+// pian.c åå°†
 
 inherit NPC;
 
 
 void create()
 {
-	set_name("Æ«½«", ({ "pian jiang", "pian", "jiang" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("åå°†", ({ "pian jiang", "pian", "jiang" }));
+	set("gender", "ç”·æ€§");
 	set("age", random(10) + 30);
 	set("str", 25);
 	set("dex", 16);
-	set("long", "ÕâÊÇÒ»¸ö´óËÎ½«Áì£¬ÂúÁ³Õ÷³¾¡£\n");
+	set("long", "è¿™æ˜¯ä¸€ä¸ªå¤§å®‹å°†é¢†ï¼Œæ»¡è„¸å¾å°˜ã€‚\n");
 	set("combat_exp", 75000);
 	set("shen_type", 1);
 	set("attitude", "peaceful");

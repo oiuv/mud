@@ -1,14 +1,14 @@
-// shitong.c ÊÌÍ¯
+// shitong.c ä¾ç«¥
 
 inherit NPC;
 
 void create()
 {
-        set_name("ÊÌÍ¯", ({"shi tong", "tong"}));
+        set_name("ä¾ç«¥", ({"shi tong", "tong"}));
         set("age", 8);
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("long",
-"ÕâÊÇÒ»¸öÌÒ»¨µºÊÔ½£Í¤µÄÊÌÍ¯¡£\n");
+"è¿™æ˜¯ä¸€ä¸ªæ¡ƒèŠ±å²›è¯•å‰‘äº­çš„ä¾ç«¥ã€‚\n");
         set("attitude", "peaceful");
         set("str", 24);
         set("dex", 16);

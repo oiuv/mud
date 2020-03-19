@@ -7,12 +7,12 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ÃùÉ³ÖÞ");
+	set("short", "é¸£æ²™æ´²");
 	set("long", @LONG
-ÃùÉ³ÖÞ¾ÍÔÚÇàÍ­Ï¿µÄÉÏÓÎ£¬¸½½ü¾ÍÊÇÁ¬ÌìµÄÉ³Çð£¬ÕâÀïÕýºÃ´¦ÔÚ
-·ç¿Ú£¬Ç¿¾¢µÄÎ÷±±·ç´µµÄ»ÆÉ³ÂþÌìºá·É¡¢ÎËÎË×÷Ïì£¬ÃùÉ³ÖÞÓÉ´ËµÃÃû£¬
-Ò»×ßµ½ÕâÀïÄã¾Í¾õµÃÍ¸Ìå±ùÁ¹£¬·ÉÉ³´òÔÚÄãÁ³ÉÏÉúÌÛÉúÌÛ£¬ÈÃÄãÕö²»
-¿ªÑÛ¾¦¡£
+é¸£æ²™æ´²å°±åœ¨é’é“œå³¡çš„ä¸Šæ¸¸ï¼Œé™„è¿‘å°±æ˜¯è¿žå¤©çš„æ²™ä¸˜ï¼Œè¿™é‡Œæ­£å¥½å¤„åœ¨
+é£Žå£ï¼Œå¼ºåŠ²çš„è¥¿åŒ—é£Žå¹çš„é»„æ²™æ¼«å¤©æ¨ªé£žã€å—¡å—¡ä½œå“ï¼Œé¸£æ²™æ´²ç”±æ­¤å¾—åï¼Œ
+ä¸€èµ°åˆ°è¿™é‡Œä½ å°±è§‰å¾—é€ä½“å†°å‡‰ï¼Œé£žæ²™æ‰“åœ¨ä½ è„¸ä¸Šç”Ÿç–¼ç”Ÿç–¼ï¼Œè®©ä½ çä¸
+å¼€çœ¼ç›ã€‚
 LONG	);
 	set("exits", ([
 		"northeast" : __DIR__"qingtongxia",

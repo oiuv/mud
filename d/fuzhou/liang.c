@@ -5,9 +5,9 @@ inherit ROOM;
 
 void create()
 { 
-       set("short", "����");
+       set("short", "房梁");
        set("long", @LONG
-���ڲ񷿵ķ��������¹��ƣ���Χȫ����Щ��ľͷ��ש�ߡ�
+你在柴房的房梁上四下观瞧，周围全都是些烂木头破砖瓦。
 LONG );
         set("exits", ([
                 "down" : __DIR__"mishi",
@@ -39,13 +39,13 @@ void init()
                 me->add("combat_exp", exp);
                 me->add("potential", pot);
                 me->add("score", sc);
-                tell_object(me, HIY "\n���Ծ�Ϸ�������ʱ����һ�����İڷ����С�\n\n"
-                                NOR + HIW "��ɹ����ҵ��˿������䣡\n" NOR + HIC
-                                "ͨ����ε�������������" + chinese_number(exp) +
-                                "�㾭�顢" + chinese_number(pot) + "��Ǳ\n���Լ�"
-                                + chinese_number(sc) + "�㽭��������\n\n" NOR);
+                tell_object(me, HIY "\n你刚跃上房梁，顿时发现一件袈裟摆放其中。\n\n"
+                                NOR + HIW "你成功的找到了葵花宝典！\n" NOR + HIC
+                                "通过这次的历练，你获得了" + chinese_number(exp) +
+                                "点经验、" + chinese_number(pot) + "点潜\n能以及"
+                                + chinese_number(sc) + "点江湖阅历。\n\n" NOR);
                 me->set("skybook/xiaoao/baodian", 1);
         } else
-                tell_object(me, HIY "\n���Ծ�Ϸ�������ʱ����һ�����İڷ����С�\n\n" NOR);
+                tell_object(me, HIY "\n你刚跃上房梁，顿时发现一件袈裟摆放其中。\n\n" NOR);
 }
 

@@ -4,16 +4,16 @@ inherit BOOK;
 
 void create()
 {
-	set_name("²¯¾í", ({ "bo juan", "bo", "juan" }));
+	set_name("å¸›å·", ({ "bo juan", "bo", "juan" }));
 	set_weight(50);
 	set("no_sell", 1);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¾í");
+		set("unit", "å·");
 		set("long",
-			"ÕâÊÇÒ»¾í²¯¾í£¬ÀïÃæÐ´×Å £º\n"
-			"×¯×Ó¡°åÐÒ£ÓÎ¡±ÓÐÔÆ£ºÇî·¢Ö®±±ÓÐÚ¤º£Õß£¬Ìì³ØÒ²¡£ÓÐÓãÑÉ£¬Æä¹ãÊýÇ§Àï¡£¡£¡£¡£\n");
+			"è¿™æ˜¯ä¸€å·å¸›å·ï¼Œé‡Œé¢å†™ç€ ï¼š\n"
+			"åº„å­â€œé€é¥æ¸¸â€æœ‰äº‘ï¼šç©·å‘ä¹‹åŒ—æœ‰å†¥æµ·è€…ï¼Œå¤©æ± ä¹Ÿã€‚æœ‰é±¼ç„‰ï¼Œå…¶å¹¿æ•°åƒé‡Œã€‚ã€‚ã€‚ã€‚\n");
 		set("value", 500);
 		set("material", "silk");
 		set("skill", ([
@@ -41,23 +41,23 @@ int do_study(string arg)
 	object me = this_player();
 
 	if (! id(arg))
-		return notify_fail("ÄãÒª¶ÁÊ²Ã´£¿\n");
+		return notify_fail("ä½ è¦è¯»ä»€ä¹ˆï¼Ÿ\n");
 
 	if (me->is_busy())
-		return notify_fail("ÄãÏÖÔÚÕýÃ¦×ÅÄØ¡£\n");
+		return notify_fail("ä½ çŽ°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
  
 	if (me->is_fighter())
-		return notify_fail("Õ½¶·ÖÐÎÞ·¨ÔÄ¶ÁÐÂÖª£¡\n");
+		return notify_fail("æˆ˜æ–—ä¸­æ— æ³•é˜…è¯»æ–°çŸ¥ï¼\n");
 
 	if (me->query("jing") < 20)
-		return notify_fail("ÄãÏÖÔÚ¾«Á¦²»×ã£¬ÐÝÏ¢Ò»ÏÂÔÙ¶Á°É¡£\n");
+		return notify_fail("ä½ çŽ°åœ¨ç²¾åŠ›ä¸è¶³ï¼Œä¼‘æ¯ä¸€ä¸‹å†è¯»å§ã€‚\n");
 
 	if ((int)me->query_skill("beiming-shengong", 1) >= 20 &&
 	    (int)me->query_skill("beiming-shengong", 1) <= 50 )
 	{
 		me->receive_damage("jing", 20 + random(20));
 		me->improve_skill("beiming-shengong", 1 + random(me->query("int")));
-		message_vision("$NÕýÔÚ×¨ÐÄÑÐ¶Á±±Ú¤Éñ¹¦ÐÄ·¨¡£\n", me);
+		message_vision("$Næ­£åœ¨ä¸“å¿ƒç ”è¯»åŒ—å†¥ç¥žåŠŸå¿ƒæ³•ã€‚\n", me);
 		return 1;
 	}
 	return 0;

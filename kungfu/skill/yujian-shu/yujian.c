@@ -13,30 +13,30 @@ int perform(object me, object target)
         if (! target) target = me->select_opponent();
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail("Óù½£·ÉÉıÖ»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("å¾¡å‰‘é£å‡åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if( me->query_temp("jueji/sword/feisheng") )
-                return notify_fail( WHT "ÄãÎŞ·¨Á¬ĞøÊ¹ÓÃ¡¸Óù½£·ÉÉı¡¹¾ø¼¼£¡\n" NOR );
+                return notify_fail( WHT "ä½ æ— æ³•è¿ç»­ä½¿ç”¨ã€Œå¾¡å‰‘é£å‡ã€ç»æŠ€ï¼\n" NOR );
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ã€‚\n");
 
         if ((int)me->query_skill("sword", 1) < 400)
-                return notify_fail("ÄãµÄ½£·¨ÉĞ´ï²»µ½¡¸Óù½£·ÉÉı¡¹µÄ¾³½ç¡£\n");
+                return notify_fail("ä½ çš„å‰‘æ³•å°šè¾¾ä¸åˆ°ã€Œå¾¡å‰‘é£å‡ã€çš„å¢ƒç•Œã€‚\n");
 
         if ((int)me->query_skill("force") < 400)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºòÉĞ´ï²»µ½¡¸Óù½£·ÉÉı¡¹µÄ¾³½ç¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™å°šè¾¾ä¸åˆ°ã€Œå¾¡å‰‘é£å‡ã€çš„å¢ƒç•Œã€‚\n");
 
         if ((int)me->query("max_neili") < 5000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎªÌ«Èõ£¬ÎŞ·¨Áé»îµÄÓù¼İÄÚÁ¦¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºå¤ªå¼±ï¼Œæ— æ³•çµæ´»çš„å¾¡é©¾å†…åŠ›ã€‚\n");
 
         if ((int)me->query("neili") < 1500)
-                return notify_fail("ÄãÏÖÔÚÄÚÁ¦²»¹»¡£\n");
+                return notify_fail("ä½ ç°åœ¨å†…åŠ›ä¸å¤Ÿã€‚\n");
 
-        msg = HIW "\n$N" HIW "Ò»Éù¾ŞºÈ£¬¾ÛÆøÈëÍó£¬Ö»ÌıÆÆ¿ÕÉùÒ»Ïì£¬ÊÖÖĞ"
-             + weapon->name() + HIW "Ğ¯×ÅÒşÒş·çÀ×Ö®¾¢Ïò$n" HIW "ÅìÅÈ¹á"
-              "\n³ö£¬¼²ÈôµçÉÁ£¬ÊÆÈçÀ×öª¡£\n" NOR;
+        msg = HIW "\n$N" HIW "ä¸€å£°å·¨å–ï¼Œèšæ°”å…¥è…•ï¼Œåªå¬ç ´ç©ºå£°ä¸€å“ï¼Œæ‰‹ä¸­"
+             + weapon->name() + HIW "æºç€éšéšé£é›·ä¹‹åŠ²å‘$n" HIW "æ¾æ¹ƒè´¯"
+              "\nå‡ºï¼Œç–¾è‹¥ç”µé—ªï¼ŒåŠ¿å¦‚é›·éœ†ã€‚\n" NOR;
 
         damage = (int)me->query_skill("sword", 1) +
                  (int)me->query_skill("force", 1) +
@@ -53,15 +53,15 @@ int perform(object me, object target)
         {
                 me->add("neili", -1000);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 20,
-                                           HIR "$n" HIR "¿´µ½$N" HIR "ÕâÆø°ÎÇ§¾ûµÄÒ»»÷£¬¾¹²»"
-                                           "ÖªÈçºÎÕĞ¼Ü£¬µÇÊ±ÊÜÁËÖØ´´£¡\n" NOR);
+                                           HIR "$n" HIR "çœ‹åˆ°$N" HIR "è¿™æ°”æ‹”åƒé’§çš„ä¸€å‡»ï¼Œç«Ÿä¸"
+                                           "çŸ¥å¦‚ä½•æ‹›æ¶ï¼Œç™»æ—¶å—äº†é‡åˆ›ï¼\n" NOR);
                 message_vision(msg, me, target);
                 remove_call_out("perform2");
                 call_out("perform2", 2, me);
                 return 1;
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P" CYN "µÄÆóÍ¼£¬Ğ±Ô¾±Ü¿ª¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P" CYN "çš„ä¼å›¾ï¼Œæ–œè·ƒé¿å¼€ã€‚\n" NOR;
                 message_vision(msg, me, target);
                 me->add("neili", -100);
                 remove_call_out("perform2");
@@ -83,8 +83,8 @@ int perform2(object me, object target)
 
         if (! target || ! me->is_fighting(target))
         {
-                write(HIW "ÄãÔË×ªÄÚÁ¦£¬ÑöÌìÒ»ÉùÇåĞ¥£¬½£ÔÚ¿ÕÖĞÅÌĞıÁËÒ»È¦£¬ÓÖ"
-                      "·É»ØÁËÄãµÄÊÖÖĞ¡£\n" NOR);
+                write(HIW "ä½ è¿è½¬å†…åŠ›ï¼Œä»°å¤©ä¸€å£°æ¸…å•¸ï¼Œå‰‘åœ¨ç©ºä¸­ç›˜æ—‹äº†ä¸€åœˆï¼Œåˆ"
+                      "é£å›äº†ä½ çš„æ‰‹ä¸­ã€‚\n" NOR);
                 call_out("end_perform2", 1, me, weapon, damage); 
                 return 1;
         }
@@ -92,20 +92,20 @@ int perform2(object me, object target)
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
         {
-                write(HIW "ÄãÍ£Ö¹Ê¹ÓÃ¡¸Óù½£·ÉÉı¡¹¾ø¼¼¡£\n" NOR);
+                write(HIW "ä½ åœæ­¢ä½¿ç”¨ã€Œå¾¡å‰‘é£å‡ã€ç»æŠ€ã€‚\n" NOR);
                 call_out("end_perform2", 30, me, weapon, damage); 
                 return 1;
         }
 
         if ((int)me->query("neili") < 150)
         {
-                write(HIW "Äã½£ÖÁÖĞÍ¾£¬¿ÉÔõÄÎÄÚÏ¢²»×ã£¬Ö»ºÃÍ£Ö¹Óù½£¡£\n" NOR);
+                write(HIW "ä½ å‰‘è‡³ä¸­é€”ï¼Œå¯æ€å¥ˆå†…æ¯ä¸è¶³ï¼Œåªå¥½åœæ­¢å¾¡å‰‘ã€‚\n" NOR);
                 call_out("end_perform2", 30, me, weapon, damage); 
                 return 1;
         }
 
-        msg = HIW "\n$N" HIW "ÊÖÖĞÓù½£Áè¼İÈç·É£¬ÍğÈôÓÎÁú£¬Áé×ªÇ§±ä£¬Ò»µÀµÀ"
-                  "ÁèÀ÷½£Æø¼²Éä¶ø³ö¡£\n" NOR;
+        msg = HIW "\n$N" HIW "æ‰‹ä¸­å¾¡å‰‘å‡Œé©¾å¦‚é£ï¼Œå®›è‹¥æ¸¸é¾™ï¼Œçµè½¬åƒå˜ï¼Œä¸€é“é“"
+                  "å‡Œå‰å‰‘æ°”ç–¾å°„è€Œå‡ºã€‚\n" NOR;
 
         if (random(me->query_skill("force")) > target->query_skill("force") / 2)
         {
@@ -118,16 +118,16 @@ int perform2(object me, object target)
 
                 me->add("neili", -100);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 20,
-                                           HIR "Ö»Ìı¡¸àÍÀ²¡¹Ò»Éù£¬" HIW "ÎŞĞÎ½£Æø" NOR +
-                                           HIR "¾¹ÔÚ$n" HIR "ÉÏÉí´Ì³öÒ»¸öÑª¶´£¬Êı¹ÉÑªÖù"
-                                           "¼²Éä¶ø³ö£¡\n" NOR);
+                                           HIR "åªå¬ã€Œå—¤å•¦ã€ä¸€å£°ï¼Œ" HIW "æ— å½¢å‰‘æ°”" NOR +
+                                           HIR "ç«Ÿåœ¨$n" HIR "ä¸Šèº«åˆºå‡ºä¸€ä¸ªè¡€æ´ï¼Œæ•°è‚¡è¡€æŸ±"
+                                           "ç–¾å°„è€Œå‡ºï¼\n" NOR);
                 message_vision(msg, me, target);
                 remove_call_out("perform2");
                 call_out("perform2", 4, me);
                 return 1;
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P" CYN "µÄÆóÍ¼£¬Ğ±Ô¾±Ü¿ª¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P" CYN "çš„ä¼å›¾ï¼Œæ–œè·ƒé¿å¼€ã€‚\n" NOR;
                 message_vision(msg, me, target);
                 me->add("neili", -100);
                 remove_call_out("perform2");
@@ -144,8 +144,8 @@ void end_perform2(object me)
         if (! me) return;
         if (! me->query_temp("jueji/sword/feisheng")) return;
         me->delete_temp("jueji/sword/feisheng");
-        tell_object(me, HIW "\nÄã¾­¹ıµ÷ÆøÑøÏ¢£¬ÓÖ¿ÉÒÔ¼ÌĞøÊ¹ÓÃ¡¸"
-                        "Óù½£·ÉÉı¡¹ÁË¡£\n" NOR); 
+        tell_object(me, HIW "\nä½ ç»è¿‡è°ƒæ°”å…»æ¯ï¼Œåˆå¯ä»¥ç»§ç»­ä½¿ç”¨ã€Œ"
+                        "å¾¡å‰‘é£å‡ã€äº†ã€‚\n" NOR); 
 }
 
 

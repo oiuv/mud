@@ -5,12 +5,12 @@ inherit DAGGER;
 
 void create()
 {
-        set_name(HIB "¶¾ç±×Ó" NOR, ({ "duling dagger", "dagger", "duling" }) );
+        set_name(HIB "æ¯’ç»«å­" NOR, ({ "duling dagger", "dagger", "duling" }) );
         set_weight(4000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
+                set("unit", "æŸ„");
                 set("value", 2500000);
                 set("material", "steel");
         }

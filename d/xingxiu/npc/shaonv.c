@@ -3,13 +3,13 @@ inherit NPC;
 
 void create()
 {
-        set_name("Î¬Îá¶ûÉÙÅ®", ({ "shao nv", "shao", "nv" }) );
-        set("gender", "Å®ĞÔ" );
+        set_name("ç»´å¾å°”å°‘å¥³", ({ "shao nv", "shao", "nv" }) );
+        set("gender", "å¥³æ€§" );
         set("age", 19);
-        set("long", "ÕâÎ»Ğ¡¹ÃÄïÒ»±ßÃ¦ÀïÃ¦Íâ£¬»¹ºÍ¿ÍÈËÓĞËµÓĞĞ¦¡£\n");
+        set("long", "è¿™ä½å°å§‘å¨˜ä¸€è¾¹å¿™é‡Œå¿™å¤–ï¼Œè¿˜å’Œå®¢äººæœ‰è¯´æœ‰ç¬‘ã€‚\n");
         set("combat_exp", 100);
         set("attitude", "friendly");
-        set("rank_info/respect", "Ğ¡¹ÃÄï");
+        set("rank_info/respect", "å°å§‘å¨˜");
         setup();
 }
 
@@ -31,12 +31,12 @@ void greeting(object ob)
         switch(random(2))
         {
         case 0:
-                say(CYN "Î¬Îá¶ûÉÙÅ®ËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-                    CYN "£¬½øÀ´ºÈ±­ÄÌ²è£¬ĞªĞªÍÈ°É¡£\n" NOR);
+                say(CYN "ç»´å¾å°”å°‘å¥³è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+                    CYN "ï¼Œè¿›æ¥å–æ¯å¥¶èŒ¶ï¼Œæ­‡æ­‡è…¿å§ã€‚\n" NOR);
                 break;
         case 1:
-                say(CYN "Î¬Îá¶ûÉÙÅ®ËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) +
-                    CYN "£¬¿ìÇë½øÀ´¡£\n" NOR);
+                say(CYN "ç»´å¾å°”å°‘å¥³è¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) +
+                    CYN "ï¼Œå¿«è¯·è¿›æ¥ã€‚\n" NOR);
                 break;
         }
 }
@@ -46,7 +46,7 @@ int accept_object(object who, object ob)
 
         if (ob->query("money_id") && ob->value() >= 5000)
         {
-                tell_object(who, CYN "Î¬Îá¶ûÉÙÅ®Ã¦ËµµÀ£º¶àĞ»ÄúÀ²£¡ÇëÉÏÂ¥ĞªÏ¢°É¡£\n" NOR);
+                tell_object(who, CYN "ç»´å¾å°”å°‘å¥³å¿™è¯´é“ï¼šå¤šè°¢æ‚¨å•¦ï¼è¯·ä¸Šæ¥¼æ­‡æ¯å§ã€‚\n" NOR);
 
                 who->set_temp("rent_paid",1);
 

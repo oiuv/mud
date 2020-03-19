@@ -4,12 +4,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name("ÈË²Î", ({"renshen", "shen"}));
+	set_name("äººå‚", ({"renshen", "shen"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¿Ã");
-		set("long", "ÕâÊÇÒ»¿Ã³õ¾ßÈËĞÎµÄÀÏÉ½²Î¡£\n");
+		set("unit", "æ£µ");
+		set("long", "è¿™æ˜¯ä¸€æ£µåˆå…·äººå½¢çš„è€å±±å‚ã€‚\n");
 		set("value", 10000);
                 set("only_do_effect", 1);
 	}
@@ -22,7 +22,7 @@ int do_effect(object me)
         if (me->query("max_neili") > me->query_neili_limit())
                 me->set("max_neili", me->query_neili_limit());
 
-	message_vision("$N³ÔÏÂÒ»¿ÃÀÏÉ½²Î£¬¶ÙÊ±¼ä¾õµÃÈ«Éí³äÂúÁË»îÁ¦£¡\n", me);
+	message_vision("$Nåƒä¸‹ä¸€æ£µè€å±±å‚ï¼Œé¡¿æ—¶é—´è§‰å¾—å…¨èº«å……æ»¡äº†æ´»åŠ›ï¼\n", me);
 	destruct(this_object());
 	return 1;
 }

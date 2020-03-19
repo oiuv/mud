@@ -1,16 +1,16 @@
-// ÔÆÁú¾­
+// äº‘é¾™ç»
 
 inherit BOOK;
 
 void create()
 {
-	set_name("ÔÆÁú¾­", ({ "shu", "book" }));
+	set_name("äº‘é¾™ç»", ({ "shu", "book" }));
 	set_weight(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±¾");
-		set("long", "ÕâÊÇÒ»²áÔÆÁú¾­,·âÆ¤ÉÏÒ»Ìõ³¤ÁúÔÚÔÆÖĞÈôÒşÈôÏÖ¡£\n");
+		set("unit", "æœ¬");
+		set("long", "è¿™æ˜¯ä¸€å†Œäº‘é¾™ç»,å°çš®ä¸Šä¸€æ¡é•¿é¾™åœ¨äº‘ä¸­è‹¥éšè‹¥ç°ã€‚\n");
 		set("value", 1000);
 		set("material", "paper");
 		set("skill", ([

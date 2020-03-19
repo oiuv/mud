@@ -3,12 +3,12 @@ inherit ROOM;
 
 void create()
 {
-    set("short", "±ù¶´");
+    set("short", "å†°æ´");
     set("long", @LONG
-Éß£¡Ò»Ìõ×ãÓĞË®Í°´ÖµÄ°×Éß£¬ÕıºáÎÔÔÚ±ù¶´ÕıÖĞ£¬Íû¼ûÓĞÈË
-½øÀ´£¬ºôµØÒ»ÉùÖ±Á¢ÆğÀ´£¬ÍÂ³öÑªºìµÄĞÅ×Ó£¬¾¶Ö±ÆËÁË¹ıÀ´¡£´ø
-¹ıÀ´Ò»¹ÉĞÈ³ôµÄÎ¶µÀ¡£ÅÔ±ßÒ»Ãæ±ù±ÚºÜ±¡£¬ÒşÔ¼¿É¼ûÀïÃæÓĞÊ²Ã´
-¶«Î÷¡£
+è›‡ï¼ä¸€æ¡è¶³æœ‰æ°´æ¡¶ç²—çš„ç™½è›‡ï¼Œæ­£æ¨ªå§åœ¨å†°æ´æ­£ä¸­ï¼Œæœ›è§æœ‰äºº
+è¿›æ¥ï¼Œå‘¼åœ°ä¸€å£°ç›´ç«‹èµ·æ¥ï¼Œåå‡ºè¡€çº¢çš„ä¿¡å­ï¼Œå¾„ç›´æ‰‘äº†è¿‡æ¥ã€‚å¸¦
+è¿‡æ¥ä¸€è‚¡è…¥è‡­çš„å‘³é“ã€‚æ—è¾¹ä¸€é¢å†°å£å¾ˆè–„ï¼Œéšçº¦å¯è§é‡Œé¢æœ‰ä»€ä¹ˆ
+ä¸œè¥¿ã€‚
 LONG);
     set("exits", ([
         "out" : __DIR__ "wave2",
@@ -29,16 +29,16 @@ int do_break(string arg)
     object me;
     me = this_player();
 
-    message_vision(HIW "$N" HIW "×ßµ½±ù±ÚÇ°£¬ÔË¾¢Ïò±ù±ÚºäÈ¥£¡\n" NOR, me);
+    message_vision(HIW "$N" HIW "èµ°åˆ°å†°å£å‰ï¼Œè¿åŠ²å‘å†°å£è½°å»ï¼\n" NOR, me);
 
     if (me->query("neili") < 2000)
     {
-        message_vision(HIR "½á¹ûÖ»ÌıÒ»ÉùÃÆºß£¬$N" HIR "±»±ù±ÚµÄº®Æø»ØÇÖ¾­Âö£¬ÑÛÇ°Ò»ºÚ¡­¡­\n" NOR, me);
+        message_vision(HIR "ç»“æœåªå¬ä¸€å£°é—·å“¼ï¼Œ$N" HIR "è¢«å†°å£çš„å¯’æ°”å›ä¾µç»è„‰ï¼Œçœ¼å‰ä¸€é»‘â€¦â€¦\n" NOR, me);
         me->set("neili", 0);
         me->unconcious();
         return 1;
     }
-    message_vision(HIY "$N" HIY "Ö»ÌıÒ»ÉùºäÏì£¬±ù±Ú±»ºä´©ÁË£¬Â¶³öÒ»¸öĞ¡¶´À´¡£\n" NOR, me);
+    message_vision(HIY "$N" HIY "åªå¬ä¸€å£°è½°å“ï¼Œå†°å£è¢«è½°ç©¿äº†ï¼Œéœ²å‡ºä¸€ä¸ªå°æ´æ¥ã€‚\n" NOR, me);
     set("exits/enter", __DIR__ "yudong");
     me->set("neili", 0);
     remove_call_out("close");
@@ -54,14 +54,14 @@ void close_out()
 
 void close(object room)
 {
-    message("vision", HIW "Ò»¹Éº®Æø×Ô¶´ÖĞÃ°³ö£¬½«¶´¿ÚÓÖ¶³ÁË¸öÑÏÑÏÊµÊµ¡£\n" NOR, room);
+    message("vision", HIW "ä¸€è‚¡å¯’æ°”è‡ªæ´ä¸­å†’å‡ºï¼Œå°†æ´å£åˆå†»äº†ä¸ªä¸¥ä¸¥å®å®ã€‚\n" NOR, room);
     room->delete ("exits/enter");
 }
 
 int valid_leave(object me, string dir)
 {
     if (objectp(present("xuanbing chimang", environment(me))))
-        return notify_fail(HIY "ÄãÕıÓûÀë¿ª´ËµØ£¬È´Ö»¼û" NOR + HIW "Ğş±ù" NOR +
-                           HIR "³à" NOR + HIW "òş" NOR + HIY "Ò»¸öÅÌĞı£¬¶ÙÊ±½«È¥Â·ÍêÈ«·âËø¡£\n" NOR);
+        return notify_fail(HIY "ä½ æ­£æ¬²ç¦»å¼€æ­¤åœ°ï¼Œå´åªè§" NOR + HIW "ç„å†°" NOR +
+                           HIR "èµ¤" NOR + HIW "èŸ’" NOR + HIY "ä¸€ä¸ªç›˜æ—‹ï¼Œé¡¿æ—¶å°†å»è·¯å®Œå…¨å°é”ã€‚\n" NOR);
     return ::valid_leave(me);
 }

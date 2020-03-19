@@ -8,13 +8,13 @@ int main(object me, string arg)
                 return 0;
 
 	if (! arg)
-		return notify_fail("Ö¸Áî¸ñÊ½£ºrehash <Â·¾¶>\n");
+		return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šrehash <è·¯å¾„>\n");
 
 	if (arg[strlen(arg) - 1] != '/' ) arg += "/";
 	if (file_size(arg) != -2)
-		return notify_fail("Ã»ÓĞÕâ¸öÄ¿Â¼£¡\n");
+		return notify_fail("æ²¡æœ‰è¿™ä¸ªç›®å½•ï¼\n");
 
-	write("¸üĞÂÖ¸Áî±í£º" + arg + "\n");
+	write("æ›´æ–°æŒ‡ä»¤è¡¨ï¼š" + arg + "\n");
 	COMMAND_D->rehash(arg);
 	return 1;
 }
@@ -22,10 +22,10 @@ int main(object me, string arg)
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½£ºrehash <Ä¿Â¼Ãû³Æ>
+æŒ‡ä»¤æ ¼å¼ï¼šrehash <ç›®å½•åç§°>
 
-Õâ¸öÖ¸Áî»á¸üĞÂÏµÍ³ÄÚ²¿µÄÖ¸Áî±í£¬Èç¹ûÄãĞÂÔö»òÉ¾³ıÁËÄ³¸öÄ¿Â¼ÏÂ
-µÄÖ¸Áî£¬±ØĞëÓÃÕâ¸öÖ¸Áî¸üĞÂ¸ÃÄ¿Â¼²ÅÄÜÊ¹ÓÃ¡£
+è¿™ä¸ªæŒ‡ä»¤ä¼šæ›´æ–°ç³»ç»Ÿå†…éƒ¨çš„æŒ‡ä»¤è¡¨ï¼Œå¦‚æœä½ æ–°å¢æˆ–åˆ é™¤äº†æŸä¸ªç›®å½•ä¸‹
+çš„æŒ‡ä»¤ï¼Œå¿…é¡»ç”¨è¿™ä¸ªæŒ‡ä»¤æ›´æ–°è¯¥ç›®å½•æ‰èƒ½ä½¿ç”¨ã€‚
 HELP );
 	return 1;
 }

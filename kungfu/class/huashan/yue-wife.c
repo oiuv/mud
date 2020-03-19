@@ -1,5 +1,5 @@
 // yue-wife.c    changed by cocacola on 2.19.1997 Just for adding Chushi
-// ÔÀ·òÈË
+// å²³å¤«äºº
 // modify by rcwiz 2003
 
 inherit NPC;
@@ -9,13 +9,13 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ÔÀ·òÈË", ({ "yue wife", "ning", "ning zhongze" }) );
-        set("nickname", "ÊçÅ®½£");
-        set("gender", "Å®ĞÔ");
+        set_name("å²³å¤«äºº", ({ "yue wife", "ning", "ning zhongze" }) );
+        set("nickname", "æ·‘å¥³å‰‘");
+        set("gender", "å¥³æ€§");
         set("class", "swordsman");
         set("age", 50);
-        set("long", "ÔÀ·òÈËÔ­ĞÕÄş£¬¹ëÃûÄşÖĞÔò£¬"
-                    "ÊÇÔÀ²»ÈºµÄÊ¦ÃÃ£¬Ò²ÊÇËûµÄÆŞ×Ó¡£\n");
+        set("long", "å²³å¤«äººåŸå§“å®ï¼Œé—ºåå®ä¸­åˆ™ï¼Œ"
+                    "æ˜¯å²³ä¸ç¾¤çš„å¸ˆå¦¹ï¼Œä¹Ÿæ˜¯ä»–çš„å¦»å­ã€‚\n");
         set("attitude", "peaceful");
         set("shen_type", 1);
 
@@ -71,7 +71,7 @@ void create()
         set_temp("apply/unarmed_damage", 150);
         set_temp("apply/armor", 200);
 
-        create_family("»ªÉ½ÅÉ", 13, "ÕÆÃÅ·òÈË");
+        create_family("åå±±æ´¾", 13, "æŒé—¨å¤«äºº");
 
 	set("chat_chance_combat", 120);
 	set("chat_msg_combat", ({
@@ -92,11 +92,11 @@ void attempt_apprentice(object ob)
 {
         if( query("apprentice_available") ) {
                 if( find_call_out("do_recruit") != -1 )
-                        command("say ÂıÖø£¬Ò»¸öÒ»¸öÀ´¡£");
+                        command("say æ…¢è‘—ï¼Œä¸€ä¸ªä¸€ä¸ªæ¥ã€‚");
                 else
                         call_out("do_recruit", 2, ob);
         } else {
-                command("say ½ñÌìºÃÀÛÓ´¡£");
+                command("say ä»Šå¤©å¥½ç´¯å“Ÿã€‚");
         }
 }
 
@@ -105,31 +105,31 @@ void do_recruit(object ob)
         if (! permit_recruit(ob))
                 return;
 
-        if ((string)ob->query("gender") != "Å®ĞÔ")
+        if ((string)ob->query("gender") != "å¥³æ€§")
 	{
-                command("say ÕâÎ»"+RANK_D->query_respect(ob) + "Äã»¹ÊÇÕÒÎÒÊ¦¸çÈ¥°É.");
+                command("say è¿™ä½"+RANK_D->query_respect(ob) + "ä½ è¿˜æ˜¯æ‰¾æˆ‘å¸ˆå“¥å»å§.");
                 return;
         }
 
         if (ob->query("shen") < 20000)
         {
-                command("say ÄãĞĞÏÀÕÌÒåµÄÊÂ»¹×öµÃ²»¹»£¬ÎÒ»¹²»ÄÜÊÕÄã£¡");
+                command("say ä½ è¡Œä¾ ä»—ä¹‰çš„äº‹è¿˜åšå¾—ä¸å¤Ÿï¼Œæˆ‘è¿˜ä¸èƒ½æ”¶ä½ ï¼");
                 return;
         }
  
         if (ob->query_skill("huashan-xinfa", 1) < 140)
         {
-                command("say ÎÒ»ªÉ½ÅÉÒÔĞŞÆøÎªÖ÷£¬ÄãÁ¬±¾ÃÅĞÄ·¨¶¼»¹²»ÊìÁ·£¬ÎÒ²»ÄÜÊÕÄã£¡");
+                command("say æˆ‘åå±±æ´¾ä»¥ä¿®æ°”ä¸ºä¸»ï¼Œä½ è¿æœ¬é—¨å¿ƒæ³•éƒ½è¿˜ä¸ç†Ÿç»ƒï¼Œæˆ‘ä¸èƒ½æ”¶ä½ ï¼");
                 return;
         }
       
         if (ob->query_skill("huashan-jian", 1) < 140)
         {
-                command("say Äã»ªÉ½½£·¨»¹²»¹»ÊìÁ·£¬ÏÂÈ¥¶àÁ·Ï°Á·Ï°ÔÙÀ´ÕÒÎÒ°É£¡");
+                command("say ä½ åå±±å‰‘æ³•è¿˜ä¸å¤Ÿç†Ÿç»ƒï¼Œä¸‹å»å¤šç»ƒä¹ ç»ƒä¹ å†æ¥æ‰¾æˆ‘å§ï¼");
                 return;
         }        
 
-        command("say Î¢Ğ¦µÀ£ººÃ£¬ºÃ£¬Ö»ÒªÄãÓÃĞÄÑ§£¬ËûÈÕ±ØÓĞ³É¾Í¡£");
+        command("say å¾®ç¬‘é“ï¼šå¥½ï¼Œå¥½ï¼Œåªè¦ä½ ç”¨å¿ƒå­¦ï¼Œä»–æ—¥å¿…æœ‰æˆå°±ã€‚");
         command("recruit " + ob->query("id") );
 }
 
@@ -149,16 +149,16 @@ int accept_ask(object me, string topic)
 {
         switch (topic)
         {
-        case "ÀúÁ·" :
-        case "ÀúÁ¶" :
-        case "¶ÍÁ¶" :
+        case "å†ç»ƒ" :
+        case "å†ç‚¼" :
+        case "é”»ç‚¼" :
                 return QUEST_D->accept_ask(this_object(), me, topic);
                 break;
 
-        case "ÄşÊÏÒ»½£" :
+        case "å®æ°ä¸€å‰‘" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/shunv-jian/ning",
-                           "name"    : "ÄşÊÏÒ»½£",
+                           "name"    : "å®æ°ä¸€å‰‘",
                            "sk1"     : "shunv-jian",
                            "lv1"     : 100,
                            "sk2"     : "force",

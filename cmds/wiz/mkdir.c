@@ -20,16 +20,16 @@ int main(object me, string arg)
 	if (mkdir(dir))
 		write("Ok.\n");
 	else
-		write("ÄãÃ»ÓĞÔÚÕâÀï½¨×ÓÄ¿Â¼µÄÈ¨Àû¡£\n");
+		write("ä½ æ²¡æœ‰åœ¨è¿™é‡Œå»ºå­ç›®å½•çš„æƒåˆ©ã€‚\n");
 	return 1;	
 }
 
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : mkdir <×ÓÄ¿Â¼Ãû>
+æŒ‡ä»¤æ ¼å¼ : mkdir <å­ç›®å½•å>
 
-½¨Á¢Ò»¸ö×ÓÄ¿Â¼¡£
+å»ºç«‹ä¸€ä¸ªå­ç›®å½•ã€‚
 
 see also: rm
 HELP );

@@ -3,10 +3,10 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("Àî¹Ü¼Ò", ({ "li guanjia", "li", "guanjia" }));
-        set("gender", "ÄĞĞÔ" );
+        set_name("æç®¡å®¶", ({ "li guanjia", "li", "guanjia" }));
+        set("gender", "ç”·æ€§" );
         set("age", 25);
-        set("long", "ÕâÊÇ¸öºÍ°ª¿ÉÇ×µÄ´ó¹Ü¼Ò¡£\n");
+        set("long", "è¿™æ˜¯ä¸ªå’Œè”¼å¯äº²çš„å¤§ç®¡å®¶ã€‚\n");
         set("attitude", "friendly");
         set("shen_type", -1);
         set("class", "fighter");
@@ -38,7 +38,7 @@ void create()
         map_skill("parry", "changquan");
         map_skill("unarmed", "changquan");
 
-        create_family("Å·ÑôÊÀ¼Ò", 0, "¹Ü¼Ò");
+        create_family("æ¬§é˜³ä¸–å®¶", 0, "ç®¡å®¶");
 
         set("coagents", ({
             ([ "startroom" : "/d/baituo/dating",
@@ -50,13 +50,13 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        if (ob->query("born_family") != "Å·ÑôÊÀ¼Ò")
+        if (ob->query("born_family") != "æ¬§é˜³ä¸–å®¶")
         {
                 command("shake");
-                command("say ÄãÊÇÄÄÀïÀ´µÄ£¿¾ÓÈ»¸ÒÀ´°×ÍÕÉ½ÌíÂÒ£¿");
+                command("say ä½ æ˜¯å“ªé‡Œæ¥çš„ï¼Ÿå±…ç„¶æ•¢æ¥ç™½é©¼å±±æ·»ä¹±ï¼Ÿ");
                 return;
         }
 
-        command("say ºÇºÇ£¬ÎÒ²»ÊÕÍ½£¬È¥ÕÒÅ·Ñô×¯Ö÷°É¡£");
+        command("say å‘µå‘µï¼Œæˆ‘ä¸æ”¶å¾’ï¼Œå»æ‰¾æ¬§é˜³åº„ä¸»å§ã€‚");
         return;
 }

@@ -4,12 +4,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name("Ñ©²ÎÓñó¸µ¤", ({"yuchan dan", "dan"}));
+	set_name("é›ªå‚ç‰èŸ¾ä¸¹", ({"yuchan dan", "dan"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Íè");
-		set("long", "\nÕâÊÇ¸ßÀö½ø¹±µÄÁéÒ©£¬·şºó½â¶¾ÁÆÉË£¬ÁéÑé·Ç·²¡£\n");
+		set("unit", "ä¸¸");
+		set("long", "\nè¿™æ˜¯é«˜ä¸½è¿›è´¡çš„çµè¯ï¼Œæœåè§£æ¯’ç–—ä¼¤ï¼ŒçµéªŒéå‡¡ã€‚\n");
 		set("value", 10000);
                 set("only_do_effect", 1);
 	}
@@ -20,8 +20,8 @@ int do_effect(object me)
 {
         if (me->query("max_neili") < me->query_neili_limit())
                 me->add("max_neili", 1);
-	message_vision("$N³ÔÏÂÒ»Á£Ñ©²ÎÓñó¸µ¤£¬Ö»¾õÒ»¹ÉºÆµ´ÕæÆøÖ±Ó¿"
-                       "ÉÏÀ´£¬¼±Ã¦ÅÌÏ¥¶ø×ø£¬±ÕÄ¿ÔË¹¦...\n" , me);
+	message_vision("$Nåƒä¸‹ä¸€ç²’é›ªå‚ç‰èŸ¾ä¸¹ï¼Œåªè§‰ä¸€è‚¡æµ©è¡çœŸæ°”ç›´æ¶Œ"
+                       "ä¸Šæ¥ï¼Œæ€¥å¿™ç›˜è†è€Œåï¼Œé—­ç›®è¿åŠŸ...\n" , me);
 	destruct(this_object());
 	return 1;
 }

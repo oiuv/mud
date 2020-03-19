@@ -3,11 +3,11 @@
 inherit ITEM;
 
 string *names = ({
-HIW "Ã·»¨" NOR,
-HIM "Ã·»¨" NOR,
-HIC "Ã·»¨" NOR,
-HIY "Ã·»¨" NOR,
-HIR "Ã·»¨" NOR,
+HIW "æ¢…èŠ±" NOR,
+HIM "æ¢…èŠ±" NOR,
+HIC "æ¢…èŠ±" NOR,
+HIY "æ¢…èŠ±" NOR,
+HIR "æ¢…èŠ±" NOR,
 });
 
 void create()
@@ -18,8 +18,8 @@ void create()
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¶ä");
-                set("long", "Ò»¶ä¸Õ¸Õ´ÓÊ÷ÉÏÆ®ÂäµÄÃ·»¨¡£\n");
+                set("unit", "æœµ");
+                set("long", "ä¸€æœµåˆšåˆšä»æ ‘ä¸Šé£˜è½çš„æ¢…èŠ±ã€‚\n");
                 set("value", 0);
                 set("material", "plant");
                 set_weight(1);

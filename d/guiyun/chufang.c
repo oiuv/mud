@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "³ø·¿");
+	set("short", "å¨æˆ¿");
 	set("long", @LONG
-ÕâÀïÊÇ¹éÔÆ×¯³ø·¿£¬Ò»¸öÏçÏÂ¸¾ÈËÕıÔÚÔî±ßÃ¦À´Ã¦È¥£¬¿´
-À´Ëı¾ÍÊÇÕâÀïµÄ³øÄïÁË¡£Äã¿ÉÒÔÕÒ³øÄïÒª(serve)Ğ©³ÔµÄ¡£
+è¿™é‡Œæ˜¯å½’äº‘åº„å¨æˆ¿ï¼Œä¸€ä¸ªä¹¡ä¸‹å¦‡äººæ­£åœ¨ç¶è¾¹å¿™æ¥å¿™å»ï¼Œçœ‹
+æ¥å¥¹å°±æ˜¯è¿™é‡Œçš„å¨å¨˜äº†ã€‚ä½ å¯ä»¥æ‰¾å¨å¨˜è¦(serve)äº›åƒçš„ã€‚
 LONG);
 	set("resource/water", 1);
 	set("exits", ([
@@ -26,18 +26,18 @@ int do_serve()
 	object me, food, water;
 	me = this_player();
 
-	if (me->query("family/family_name") != "ÌÒ»¨µº")
-		return notify_fail(CYN "³øÄïµÀ£ºÄã²»ÊÇÌÒ»¨µºµÜ×Ó£¬²»"
-                                   "ÄÜÄÃÈ¡Ê³Îï¡£\n" NOR);
+	if (me->query("family/family_name") != "æ¡ƒèŠ±å²›")
+		return notify_fail(CYN "å¨å¨˜é“ï¼šä½ ä¸æ˜¯æ¡ƒèŠ±å²›å¼Ÿå­ï¼Œä¸"
+                                   "èƒ½æ‹¿å–é£Ÿç‰©ã€‚\n" NOR);
 
         if (present("zongzi", me) || present("tea", me))
-		return notify_fail(CYN "³øÄïµÀ£º³ÔÍêÁËÔÙÄÃ£¬±ğÀË·ÑÊ³"
-                                   "Îï¡£\n" NOR);
+		return notify_fail(CYN "å¨å¨˜é“ï¼šåƒå®Œäº†å†æ‹¿ï¼Œåˆ«æµªè´¹é£Ÿ"
+                                   "ç‰©ã€‚\n" NOR);
 
 	if (query("ricewater") > 0)
 	{
-		message_vision(CYN "³øÄïÁ¬Éù´ğÓ¦£¬µİ¸ø$N" CYN "Ò»±­Ïã"
-                               "²èºÍÒ»¸öôÕ×Ó¡£\n" NOR, me);
+		message_vision(CYN "å¨å¨˜è¿å£°ç­”åº”ï¼Œé€’ç»™$N" CYN "ä¸€æ¯é¦™"
+                               "èŒ¶å’Œä¸€ä¸ªç²½å­ã€‚\n" NOR, me);
 
 		food = new(__DIR__"obj/zongzi");
 		water = new("/d/wudang/obj/xiangcha");
@@ -46,7 +46,7 @@ int do_serve()
 		add("ricewater", -1);
 	}
 	else
-		message_vision(CYN "³øÄï¶Ô$N" CYN "Ç¸ÉùµÀ£ºàË£¬³ÔµÄºÈ"
-                               "µÄ¶¼Ã»ÁË¡£\n" NOR, me);
+		message_vision(CYN "å¨å¨˜å¯¹$N" CYN "æ­‰å£°é“ï¼šå—¨ï¼Œåƒçš„å–"
+                               "çš„éƒ½æ²¡äº†ã€‚\n" NOR, me);
 	return 1;
 }

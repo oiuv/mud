@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ºñÍÁÆìÃÅ");
+	set("short", "åŽšåœŸæ——é—¨");
 	set("long", @LONG
-ÕâÊÇºñÍÁÆìµÄ¶´ÃÅ£¬ÃÅ¶´Àï½ø½ø³ö³öµÄºñÍÁÆìÖÚ£¬ÉíÉÏ¹ÒÂúÁË
-ÇÂ£¬²ù£¬¶Ìµ¶£¬Ë­Ò²²»ÀíÄã¡£ÃÅ±ßÁ½Ãæ¶Ì¸ËÏâ»Æ±ß·ÉÁúÆì£¬Ðå×Åºñ
-ÍÁ¶þ×Ö¡£
+è¿™æ˜¯åŽšåœŸæ——çš„æ´žé—¨ï¼Œé—¨æ´žé‡Œè¿›è¿›å‡ºå‡ºçš„åŽšåœŸæ——ä¼—ï¼Œèº«ä¸ŠæŒ‚æ»¡äº†
+é”¹ï¼Œé“²ï¼ŒçŸ­åˆ€ï¼Œè°ä¹Ÿä¸ç†ä½ ã€‚é—¨è¾¹ä¸¤é¢çŸ­æ†é•¶é»„è¾¹é£žé¾™æ——ï¼Œç»£ç€åŽš
+åœŸäºŒå­—ã€‚
 LONG );
 	set("exits", ([
 		"enter" : __DIR__"htqdating",

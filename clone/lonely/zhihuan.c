@@ -5,22 +5,22 @@ inherit HANDS;
 
 void create()
 {
-        set_name(HIM "åĞÒ£ÉñÏÉ»·" NOR, ({ "shenxian huan" , "xiaoyao" , "shenxian", "huan" }) );
+        set_name(HIM "é€é¥ç¥ä»™ç¯" NOR, ({ "shenxian huan" , "xiaoyao" , "shenxian", "huan" }) );
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "Ã¶");
-                set("long", HIM "É¢·¢×Å¹ÅÆÓ¹âÔóµÄÓñ°ßÖ¸£¬Õâ±ãÊÇåĞÒ£ÕÆÃÅÈËĞÅÎïåĞÒ£ÉñÏÉ»·¡£\n" NOR);
+                set("unit", "æš");
+                set("long", HIM "æ•£å‘ç€å¤æœ´å…‰æ³½çš„ç‰æ–‘æŒ‡ï¼Œè¿™ä¾¿æ˜¯é€é¥æŒé—¨äººä¿¡ç‰©é€é¥ç¥ä»™ç¯ã€‚\n" NOR);
                 set("value", 800000);
-                set("no_sell", "¡­àÅ¡­Õâ¶«Î÷ÕäÊÇ¹»Õä¹ó£¬¿ÉÊÇÄê´ú¾ÃÔ¶£¬ÎÒÄÑÒÔ¹À¼Û¡£");
+                set("no_sell", "â€¦å—¯â€¦è¿™ä¸œè¥¿çæ˜¯å¤Ÿçè´µï¼Œå¯æ˜¯å¹´ä»£ä¹…è¿œï¼Œæˆ‘éš¾ä»¥ä¼°ä»·ã€‚");
                 set("material", "steel");
                 set("armor_prop/armor", 30);
         	set("armor_prop/hand", 50);
         	set("armor_prop/strike", 50);
         	set("armor_prop/unarmed_damage", 100);
-	        set("wear_msg", HIM "$N" HIM "Î¢Î¢Ò»Ğ¦£¬ÇáÇá´÷ÉÏÒ»Ã¶Óñ°ßÖ¸£¬¶ÙÊ±Ö¸¼â¹â»ªËÄÉä¡£\n" NOR);
-        	set("remove_msg", HIM "$N" HIM "½«åĞÒ£ÉñÏÉ»·´ÓÖ¸¼âÈ¡ÁËÏÂÀ´¡£\n" NOR);
+	        set("wear_msg", HIM "$N" HIM "å¾®å¾®ä¸€ç¬‘ï¼Œè½»è½»æˆ´ä¸Šä¸€æšç‰æ–‘æŒ‡ï¼Œé¡¿æ—¶æŒ‡å°–å…‰åå››å°„ã€‚\n" NOR);
+        	set("remove_msg", HIM "$N" HIM "å°†é€é¥ç¥ä»™ç¯ä»æŒ‡å°–å–äº†ä¸‹æ¥ã€‚\n" NOR);
                 set("stable", 100);
         }
         setup();

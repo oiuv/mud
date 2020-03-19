@@ -7,15 +7,15 @@ inherit ITEM;
 
 void create()
 {
-    set_name(HIY "ÎäÁÖÍâ´«" NOR, ({"heros book", "book"}));
+    set_name(HIY "æ­¦æ—å¤–ä¼ " NOR, ({"heros book", "book"}));
     set_weight(200);
     if (clonep())
         set_default_object(__FILE__);
     else
     {
-        set("long", HIY "Ò»±¾²»ÖªµÀÉ¶²ÄÁÏÖÆ³ÉµÄÊé£¬ÉÏÊé¡¾ÎäÁÖÍâ´«¡¿ËÄ¸ö´ó×Ö¡£\n" NOR
-                    HIC "Õâ±¾ÊéÊÇÎäÁÖÉú´æÖ¸ÄÏ£¬½¨ÒéÄã×ĞÏ¸ÔÄ¶Á£¨read book£©¡£\n" NOR);
-        set("unit", "±¾");
+        set("long", HIY "ä¸€æœ¬ä¸çŸ¥é“å•¥ææ–™åˆ¶æˆçš„ä¹¦ï¼Œä¸Šä¹¦ã€æ­¦æ—å¤–ä¼ ã€‘å››ä¸ªå¤§å­—ã€‚\n" NOR
+                    HIC "è¿™æœ¬ä¹¦æ˜¯æ­¦æ—ç”Ÿå­˜æŒ‡å—ï¼Œå»ºè®®ä½ ä»”ç»†é˜…è¯»ï¼ˆread bookï¼‰ã€‚\n" NOR);
+        set("unit", "æœ¬");
         //set("value", 5000);
         set("material", "paper");
     }

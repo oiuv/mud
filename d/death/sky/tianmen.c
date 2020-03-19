@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", HIW "��ͨ���š�" NOR);
+        set("short", HIW "【通天门】" NOR);
         set("long", HIW @LONG
-�����������������ããһƬ�ƺ�����ǰһ����ΰ�ĳ����Ĵ�
-�ţ����ŵ�������������һλ���ӣ��ƺ�����ĵ����������⡣
+你来到这里，发现这里茫茫一片云海。眼前一座宏伟的敞开的大
+门，大门的柱子旁依偎着一位男子，似乎对你的到来毫不在意。
 LONG NOR );
         set("exits", ([
                 "enter" : __DIR__"sky1",

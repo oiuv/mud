@@ -3,10 +3,10 @@ void init();
 
 void create()
 {
-	set("short", "�ֿ�");
+	set("short", "仓库");
 	set("long", @LONG
-������һ�������Ĳֿ⣬�������Ƽҵĸ����������
-����һ�ֿ⡣�������Ǳ��˹������������ġ�
+这里是一间黑黝黝的仓库，堆满了唐家的各种杂物，塞了
+满满一仓库。看来你是被人拐卖到这里来的。
 LONG );
 	set("valid_startroom", "1");
 	set("no_fight", 1);

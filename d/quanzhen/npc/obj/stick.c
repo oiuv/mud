@@ -6,17 +6,17 @@ inherit STAFF;
 
 void create()
 {
-        set_name("ÊÖÕÈ", ({ "walking stick", "stick" }) );
+        set_name("æ‰‹æ–", ({ "walking stick", "stick" }) );
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", "ÕâÊÇÒ»¸ùÅÀÉ½ÓÃµÄÊÖÕÈ¡£\n");
+                set("unit", "æ ¹");
+                set("long", "è¿™æ˜¯ä¸€æ ¹çˆ¬å±±ç”¨çš„æ‰‹æ–ã€‚\n");
                 set("value", 100);
                 set("material", "wood");
-                set("wield_msg", "$NÄÃ³öÒ»¸ù$n£¬ÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N·ÅÏÂÊÖÖĞµÄ$n¡£\n");
+                set("wield_msg", "$Næ‹¿å‡ºä¸€æ ¹$nï¼Œæ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Næ”¾ä¸‹æ‰‹ä¸­çš„$nã€‚\n");
         }
 
         init_staff(5);

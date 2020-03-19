@@ -2,7 +2,7 @@
 
 #include <ansi.h>
 
-#define SYNTAX	"Ö¸Áî¸ñÊ½£ºpurge <Ê¹ÓÃÕßĞÕÃû> because <Ô­Òò>\n"
+#define SYNTAX	"æŒ‡ä»¤æ ¼å¼ï¼špurge <ä½¿ç”¨è€…å§“å> because <åŸå› >\n"
 
 inherit F_CLEAN_UP;
 
@@ -24,21 +24,21 @@ int main(object me, string arg)
 		return notify_fail(SYNTAX);
 
         if (wiz_level(me) <= wiz_level(name) && ! is_root(me))
-                return notify_fail("ÄãÃ»ÓĞÈ¨ÏŞÉ¾³ıÕâ¸öÈËÎï¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æƒé™åˆ é™¤è¿™ä¸ªäººç‰©ã€‚\n");
 
 	seteuid(getuid());
 	if (file_size(DATA_DIR + "login/" + name[0..0] + "/" + name + __SAVE_EXTENSION__) < 0)
-		return notify_fail("Ã»ÓĞÕâÎ»Ê¹ÓÃÕß¡£\n");
+		return notify_fail("æ²¡æœ‰è¿™ä½ä½¿ç”¨è€…ã€‚\n");
 
         if (ob = find_player(name))
-                CHANNEL_D->do_channel(this_object(), "rumor", "Ê¹ÓÃÕß" +
-                                      ob->query("name") + "±»" +
-                                      me->query("name") + "É¾³ıÁË¡£");
+                CHANNEL_D->do_channel(this_object(), "rumor", "ä½¿ç”¨è€…" +
+                                      ob->query("name") + "è¢«" +
+                                      me->query("name") + "åˆ é™¤äº†ã€‚");
 
         // remove the user from disk
         UPDATE_D->remove_user(name);
 
-	tell_object(me, "Ê¹ÓÃÕß " + capitalize(name) + " É¾³ıµôÁË¡£\n");
+	tell_object(me, "ä½¿ç”¨è€… " + capitalize(name) + " åˆ é™¤æ‰äº†ã€‚\n");
 	log_file("static/purge", sprintf("%s %s purged %s because %s.\n",
 		 log_time(), geteuid(this_player(1)), name, reason));
 
@@ -48,9 +48,9 @@ int main(object me, string arg)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½£ºpurge <Ê¹ÓÃÕßĞÕÃû> because <Ô­Òò>
+æŒ‡ä»¤æ ¼å¼ï¼špurge <ä½¿ç”¨è€…å§“å> because <åŸå› >
 
-Çå³ıÒ»¸öÊ¹ÓÃÕß»òÇå³ı³¬¹ıÒ»¶¨ÌìÊı²»ÔøÉÏÏßµØÊ¹ÓÃÕß¡£
+æ¸…é™¤ä¸€ä¸ªä½¿ç”¨è€…æˆ–æ¸…é™¤è¶…è¿‡ä¸€å®šå¤©æ•°ä¸æ›¾ä¸Šçº¿åœ°ä½¿ç”¨è€…ã€‚
 HELP );
     return 1;
 }

@@ -3,11 +3,11 @@ inherit NPC;
 
 void create()
 {
-	set_name("¸êÊ²¹ş", ({ "ge shiha"}));
-	set("gender", "ÄĞĞÔ");
+	set_name("æˆˆä»€å“ˆ", ({ "ge shiha"}));
+	set("gender", "ç”·æ€§");
 	set("age", 25);
 
-	set("long", "Ò»¸ö¸ß´óÍşÃÍµÄºº×Ó£¬ÊÇ¾¸º£ºîÊ©ÀÅ´óÈËµÄÇ×±ø¸êÊ²¹ş¡£\n");
+	set("long", "ä¸€ä¸ªé«˜å¤§å¨çŒ›çš„æ±‰å­ï¼Œæ˜¯é–æµ·ä¾¯æ–½ç…å¤§äººçš„äº²å…µæˆˆä»€å“ˆã€‚\n");
 	set("combat_exp", 17500);
 	set("shen_type", 1);
         set_skill("unarmed", 50);

@@ -8,29 +8,29 @@ inherit POISON;
 
 string name() { return "freezingbc"; }
 
-string chinese_name() { return "±ù²Ïº®¶¾"; }
+string chinese_name() { return "å†°èš•å¯’æ¯’"; }
 
 string update_msg_others()
 {
     switch (random(3))
     {
     case 0:
-        return HIW "$N" HIW "µÄÉí×ÓÍ»È»Ò»»Î£¬Á³É«±äµÃ²Ô°×£¬ÑÀ³Ý²»×¡µÄ´ò²ü¡£\n" NOR;
+        return HIW "$N" HIW "çš„èº«å­çªç„¶ä¸€æ™ƒï¼Œè„¸è‰²å˜å¾—è‹ç™½ï¼Œç‰™é½¿ä¸ä½çš„æ‰“é¢¤ã€‚\n" NOR;
 
     case 1:
-        return HIW "$N" HIW "Î¢Î¢ºßÁËÒ»Éù£¬ÏÔÊÇÍ´¿àÒì³£¡£\n" NOR;
+        return HIW "$N" HIW "å¾®å¾®å“¼äº†ä¸€å£°ï¼Œæ˜¾æ˜¯ç—›è‹¦å¼‚å¸¸ã€‚\n" NOR;
 
     default:
-        return HIW "$N" HIW "ÉëÒ÷ÁËÒ»ÏÂ£¬Á³ÉÏÓÌÈçÃÉÉÏÒ»²ã°×Ëª¡£\n" NOR;
+        return HIW "$N" HIW "å‘»åŸäº†ä¸€ä¸‹ï¼Œè„¸ä¸ŠçŠ¹å¦‚è’™ä¸Šä¸€å±‚ç™½éœœã€‚\n" NOR;
     }
 }
 
 string update_msg_self()
 {
-    return HIG "ºöÈ»»ëÉíÒ»Õóº®Àä£¬»ëÉí¼¸ºõ¶³½©£¡\n" NOR;
+    return HIG "å¿½ç„¶æµ‘èº«ä¸€é˜µå¯’å†·ï¼Œæµ‘èº«å‡ ä¹Žå†»åƒµï¼\n" NOR;
 }
 
 string die_reason(string reason)
 {
-    return "º®¶¾·¢×÷£¬¶³½©µ¹±Ð";
+    return "å¯’æ¯’å‘ä½œï¼Œå†»åƒµå€’æ¯™";
 }

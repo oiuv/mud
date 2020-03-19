@@ -4,16 +4,16 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name("ÌúÆ÷", ({ "metalware", "tie qi", "metal" }));
+        set_name("é“å™¨", ({ "metalware", "tie qi", "metal" }));
         if(clonep())
                 set_default_object(__FILE__);
         else
         {
-                set("long", "ÕâÊÇÒ»°ÑÌúÖÆµÄ¼Ò¾ß¡£\n");
-                set("base_unit", "°Ñ");
+                set("long", "è¿™æ˜¯ä¸€æŠŠé“åˆ¶çš„å®¶å…·ã€‚\n");
+                set("base_unit", "æŠŠ");
                 set("base_weight", 15000);
                 set("no_sell", 1);
-                set("unit", "Ğ©");
+                set("unit", "äº›");
         }
 
         set_amount(1);

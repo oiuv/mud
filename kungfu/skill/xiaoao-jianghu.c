@@ -11,11 +11,11 @@ int valid_learn(object me)
 {
         if (me->query_skill("tanqin-jifa", 1) < 50 &&
             me->query_skill("chuixiao-jifa", 1) < 50)
-                return notify_fail("ÄãµÄ´µÏôºÍµ¯ÇÙµÄ¼¼·¨Ë®Æ½¶¼Ì«²î£¬»¹ÊÇÏÈÁ·ºÃÔÙËµ°É£¡\n");
+                return notify_fail("ä½ çš„å¹è§å’Œå¼¹ç´çš„æŠ€æ³•æ°´å¹³éƒ½å¤ªå·®ï¼Œè¿˜æ˜¯å…ˆç»ƒå¥½å†è¯´å§ï¼\n");
 
         if (me->query_skill("tanqin-jifa", 1) < me->query_skill("qingxin-pushan", 1) &&
             me->query_skill("cuhixiao-jifa", 1) < me->query_skill("qingxin-pushan", 1))
-                return notify_fail("ÔÚÕÆÎÕ¸üæµÊìµÄ´µÏô¼¼·¨»òµ¯ÇÙ¼¼·¨Ö®Ç°£¬ÄãÎŞ·¨Áì»á¸ü¾«ÃîµÄĞ¦°Á½­ºşÇú¡£\n");
+                return notify_fail("åœ¨æŒæ¡æ›´å¨´ç†Ÿçš„å¹è§æŠ€æ³•æˆ–å¼¹ç´æŠ€æ³•ä¹‹å‰ï¼Œä½ æ— æ³•é¢†ä¼šæ›´ç²¾å¦™çš„ç¬‘å‚²æ±Ÿæ¹–æ›²ã€‚\n");
 
         return 1;
 }
@@ -27,13 +27,13 @@ int practice_skill(object me)
         if (! objectp(ob = me->query_temp("handing")) ||
             ! ob->valid_as_qin() &&
             ! ob->valid_as_xiao())
-                return notify_fail("ÄãÊÖÉÏ¼´Ã»ÓĞóï£¬Ò²Ã»ÓĞÇÙ£¬ÔõÃ´Á·Ï°£¿\n");
+                return notify_fail("ä½ æ‰‹ä¸Šå³æ²¡æœ‰ç®«ï¼Œä¹Ÿæ²¡æœ‰ç´ï¼Œæ€ä¹ˆç»ƒä¹ ï¼Ÿ\n");
 
         if ((int)me->query("jing") < 100)
-                return notify_fail("ÄãµÄ¾«Éñ²»¹»ºÃ£¬Ã»·¨Á·Ï°ÁË¡£\n");
+                return notify_fail("ä½ çš„ç²¾ç¥ä¸å¤Ÿå¥½ï¼Œæ²¡æ³•ç»ƒä¹ äº†ã€‚\n");
 
         if ((int)me->query("qi") < 50)
-                return notify_fail("ÄãÏÖÔÚÊµÔÚÊÇÌ«ÀÛÁË£¬Á·²»¶¯ÁË¡£\n");
+                return notify_fail("ä½ ç°åœ¨å®åœ¨æ˜¯å¤ªç´¯äº†ï¼Œç»ƒä¸åŠ¨äº†ã€‚\n");
 
         me->receive_damage("jing", 60);
         me->receive_damage("qi", 40);
@@ -84,11 +84,11 @@ void do_effect(object me)
                         ob->set_temp(type, time());
                         ob->set_temp("xajh/player", me->query("id"));
                         ob->set_temp("xajh/player_name", me->name());
-                        message("visoin", HIG "ÄãÌıÁË" + me->name() +
-                                HIG "µÄÇú×Ó£¬¾õµÃ·Ç³£µÄ¿¶¿®ºÀÂõ¡£\n" NOR, ob);
+                        message("visoin", HIG "ä½ å¬äº†" + me->name() +
+                                HIG "çš„æ›²å­ï¼Œè§‰å¾—éå¸¸çš„æ…·æ…¨è±ªè¿ˆã€‚\n" NOR, ob);
                 } else
                 {
-                        // Ë«ÈËºÏ×à
+                        // åŒäººåˆå¥
                         amount = lvl;
                         if (amount > ob->query_skill("force"))
                                 amount = ob->query_skill("force");
@@ -100,9 +100,9 @@ void do_effect(object me)
                         ob->set_temp("xajh/powerup", 1);
                 
                         call_out("remove_effect", lvl / 2, ob, amount);
-                        message("vision", HIG "ÄãÌıÁË" + me->name() +
-                                HIG "ºÍ" + ob->query_temp("xajh/player_name") +
-                                "ºÏ×àµÄĞ¦°Á½­ºş£¬Ö»¾õµÃĞÄ³±ÅìÅÈ£¬³äÂúÁËÁ¦Á¿¡£\n" NOR, ob);
+                        message("vision", HIG "ä½ å¬äº†" + me->name() +
+                                HIG "å’Œ" + ob->query_temp("xajh/player_name") +
+                                "åˆå¥çš„ç¬‘å‚²æ±Ÿæ¹–ï¼Œåªè§‰å¾—å¿ƒæ½®æ¾æ¹ƒï¼Œå……æ»¡äº†åŠ›é‡ã€‚\n" NOR, ob);
                         ob->delete_temp("xajh/player");
                         ob->delete_temp("xajh/player_name");
                 }
@@ -118,6 +118,6 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/attack", -amount);
                 me->add_temp("apply/dodge", -amount);
                 me->delete_temp("xajh/powerup");
-                tell_object(me, "ÄãµÄĞÄÇé½¥½¥µÄÆ½Ï¢ÏÂÀ´¡£\n");
+                tell_object(me, "ä½ çš„å¿ƒæƒ…æ¸æ¸çš„å¹³æ¯ä¸‹æ¥ã€‚\n");
         }
 }

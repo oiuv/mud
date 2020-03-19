@@ -4,12 +4,12 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÎÚÒÄÀÏ¼ÀË¾", ({ "lao jisi", "lao", "jisi" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("ä¹Œå¤·è€ç¥­å¸", ({ "lao jisi", "lao", "jisi" }));
+	set("gender", "ç”·æ€§");
 	set("age", random(10) + 60);
 	set("str", 25);
 	set("dex", 16);
-	set("long", "Ò»¸öÎÚÒÄ×åµÄ¼ÀË¾£¬ÉíÅûÎÚÒÄ´ó÷â£¬´÷×ÅÆÄ¶à½ğÒøÊÎÎï£¬ÏÔÊ¾ÆäµØÎ»²»·²¡£\n");
+	set("long", "ä¸€ä¸ªä¹Œå¤·æ—çš„ç¥­å¸ï¼Œèº«æŠ«ä¹Œå¤·å¤§éº¾ï¼Œæˆ´ç€é¢‡å¤šé‡‘é“¶é¥°ç‰©ï¼Œæ˜¾ç¤ºå…¶åœ°ä½ä¸å‡¡ã€‚\n");
 	set("combat_exp", 3000);
 	set("shen_type", 1);
 	set("attitude", "peaceful");

@@ -2,12 +2,12 @@
 
 void create()
 {
-        set_name(NOR + CYN "Éßµ¨" NOR, ({ "she dan", "she", "dan", "herb_shedan" }));
+        set_name(NOR + CYN "è›‡èƒ†" NOR, ({ "she dan", "she", "dan", "herb_shedan" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + CYN "ÕâÊÇÒ»¿ÅĞÂÏÊµÄÉßµ¨£¬ÆÄ¾ßÒ©Á¦¡£\n" NOR);
-                set("base_unit", "¿Å");
+                set("long", NOR + CYN "è¿™æ˜¯ä¸€é¢—æ–°é²œçš„è›‡èƒ†ï¼Œé¢‡å…·è¯åŠ›ã€‚\n" NOR);
+                set("base_unit", "é¢—");
                 set("base_value", 1200);
                 set("base_weight", 50);
                 set("only_do_effect", 1);
@@ -17,8 +17,8 @@ void create()
 
 int do_effect(object me)
 {
-        message_vision(HIG "$N" HIG "Ò»Ñö²±£¬½«" + name() +
-                       HIG "Õû¸öÍÌÏÂ£¬ßÆÁËßÆ×ì¡£\n" NOR, me);
+        message_vision(HIG "$N" HIG "ä¸€ä»°è„–ï¼Œå°†" + name() +
+                       HIG "æ•´ä¸ªåä¸‹ï¼Œå’‚äº†å’‚å˜´ã€‚\n" NOR, me);
 
         add_amount(-1);
 

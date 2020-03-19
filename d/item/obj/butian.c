@@ -1,4 +1,4 @@
-// butian.c ²¹ÌìÊ¯
+// butian.c è¡¥å¤©çŸ³
 
 #include <ansi.h>
 
@@ -6,19 +6,19 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIM "²¹ÌìÊ¯" NOR, ({"magic stone", "butian shi", "shi"}));
+	set_name(HIM "è¡¥å¤©çŸ³" NOR, ({"magic stone", "butian shi", "shi"}));
 	set_weight(6000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "´«ËµÕâÊÇÅ®æ´²¹ÌìÊ£ÏÂµÄÎå²ÊÊ¯£¬²»ÖªÊÇÕæÊÇ¼Ù¡£\n");
-		set("unit", "¿é");
+		set("long", "ä¼ è¯´è¿™æ˜¯å¥³å¨²è¡¥å¤©å‰©ä¸‹çš„äº”å½©çŸ³ï¼Œä¸çŸ¥æ˜¯çœŸæ˜¯å‡ã€‚\n");
+		set("unit", "å—");
 		set("value", 10000);
                 set("item_origin", 1);
                 set("material_attrib", "magic stone");
-                set("material_name", HIM "ÉñÌú" NOR);
+                set("material_name", HIM "ç¥é“" NOR);
                 set("can_make", "all");
-		set("not_make", ({ "Õ½ÒÂ", "Ñü´ø" }));
+		set("not_make", ({ "æˆ˜è¡£", "è…°å¸¦" }));
                 set("power_point", 100);
 	}
 }

@@ -4,14 +4,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name("½ğ¹ê", ({ "jin gui", "gui" }));
+	set_name("é‡‘é¾Ÿ", ({ "jin gui", "gui" }));
 	set_weight(12000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ö»");
-                set("no_sell", "Õâ...ÕâÊÇÊ²Ã´¶«Î÷£¿ÎÒ¿É²»¸ÒÒª¡£\n");
-		set("long", "Ò»Ö»Ë¶´óÎŞ±ÈµÄ´¿½ğÖÆ³ÉµÄ¹êÏñ£¬¹óÖØÎŞ±È¡£\n");
+		set("unit", "åª");
+                set("no_sell", "è¿™...è¿™æ˜¯ä»€ä¹ˆä¸œè¥¿ï¼Ÿæˆ‘å¯ä¸æ•¢è¦ã€‚\n");
+		set("long", "ä¸€åªç¡•å¤§æ— æ¯”çš„çº¯é‡‘åˆ¶æˆçš„é¾Ÿåƒï¼Œè´µé‡æ— æ¯”ã€‚\n");
 		set("value", 1);
 		set("material", "gold");
 	}

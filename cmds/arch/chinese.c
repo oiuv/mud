@@ -40,11 +40,11 @@ int main( object me, string arg )
 int help()
 {
         write(@HELP
-²éÑ¯¡¢ÉèÖÃÎä¹¦ÖĞÎÄÃû³Æ£¬»òÉ¾³ıÖ¸¶¨Îä¹¦µÄÖĞÎÄÃû³Æ¡£
-Ö¸Áî¸ñÊ½£ºchinese <Ó¢ÎÄ>
-      »ò  chinese <Ó¢ÎÄ> to <ÖĞÎÄ>
-      »ò  chinese -d <Ó¢ÎÄ>
-      Èç£ºchinese literate to ¶ÁÊéĞ´×Ö
+æŸ¥è¯¢ã€è®¾ç½®æ­¦åŠŸä¸­æ–‡åç§°ï¼Œæˆ–åˆ é™¤æŒ‡å®šæ­¦åŠŸçš„ä¸­æ–‡åç§°ã€‚
+æŒ‡ä»¤æ ¼å¼ï¼šchinese <è‹±æ–‡>
+      æˆ–  chinese <è‹±æ–‡> to <ä¸­æ–‡>
+      æˆ–  chinese -d <è‹±æ–‡>
+      å¦‚ï¼šchinese literate to è¯»ä¹¦å†™å­—
 HELP );
     return 1 ;
 }

@@ -10,8 +10,8 @@ int main(object me, string arg)
 
         if (me->query("doing") == "scheme")
         {
-                // Ö´ÐÐ¼Æ»®ÖÐ£¬ÖÕÖ¹
-                write("Äã¾ö¶¨ÖÐÖ¹¼Æ»®¡£\n");
+                // æ‰§è¡Œè®¡åˆ’ä¸­ï¼Œç»ˆæ­¢
+                write("ä½ å†³å®šä¸­æ­¢è®¡åˆ’ã€‚\n");
                 SCHEME_CMD->cancel_schedule(me);
                 if (! me->is_busy())
                         return 1;
@@ -25,14 +25,14 @@ int main(object me, string arg)
 
 	if (me->is_busy() && me->is_fighting())
         {
-                return notify_fail(HIW "ÄãÏÖÔÚÃ¦µÃÍ£²»ÏÂÀ´¡£\n" NOR);
+                return notify_fail(HIW "ä½ çŽ°åœ¨å¿™å¾—åœä¸ä¸‹æ¥ã€‚\n" NOR);
         } else
 
 	if (me->is_fighting())
         {
                 me->remove_all_enemy(0);
-                message_vision(HIC "$N" HIC "ÉíÐÐÏòºóÒ»Ô¾£¬Ìø³ö"
-                               "Õ½È¦²»´òÁË¡£\n" NOR, me); 
+                message_vision(HIC "$N" HIC "èº«è¡Œå‘åŽä¸€è·ƒï¼Œè·³å‡º"
+                               "æˆ˜åœˆä¸æ‰“äº†ã€‚\n" NOR, me); 
                 if (objectp(ob = me->query_competitor()) &&
                     ! ob->is_fighting(me))
                 {
@@ -43,9 +43,9 @@ int main(object me, string arg)
         } else
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÍ£²»ÏÂÀ´¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨åœä¸ä¸‹æ¥ã€‚\n");
         else
-                return notify_fail("ÄãÏÖÔÚ²»Ã¦¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨ä¸å¿™ã€‚\n");
 
         return 1;
 }
@@ -53,16 +53,16 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : halt
+æŒ‡ä»¤æ ¼å¼ : halt
 
-ÖÐÖ¹ÄãÄ¿Ç°ÕýÔÚ×öµÄÊÂÇé£¬±ÈÈç´ò×ø¡¢ÍÂÄÉ»òÕßÊÇÄ³Ð©¹¤×÷¡£Èç¹û
-ÄãºÍ±ðÈËÕýÔÚ¶¯ÊÖ£¬ÔòÕâÌõÃüÁî»áÈÃÄãÍ£ÊÖ£¬µ±È»Ç°ÌáÊÇ¶Ô·½²¢²»
-ÏëÉ±ËÀÄã£¬·ñÔòÊ¹ÓÃÕâÌõÃüÁîÃ»ÓÐÐ§¹û¡£
+ä¸­æ­¢ä½ ç›®å‰æ­£åœ¨åšçš„äº‹æƒ…ï¼Œæ¯”å¦‚æ‰“åã€åçº³æˆ–è€…æ˜¯æŸäº›å·¥ä½œã€‚å¦‚æžœ
+ä½ å’Œåˆ«äººæ­£åœ¨åŠ¨æ‰‹ï¼Œåˆ™è¿™æ¡å‘½ä»¤ä¼šè®©ä½ åœæ‰‹ï¼Œå½“ç„¶å‰ææ˜¯å¯¹æ–¹å¹¶ä¸
+æƒ³æ€æ­»ä½ ï¼Œå¦åˆ™ä½¿ç”¨è¿™æ¡å‘½ä»¤æ²¡æœ‰æ•ˆæžœã€‚
 
-Èç¹ûÄãÕýÔÚºÍÈË±ÈÎä»òÊÇ½ÓÊÜÌôÕ½¶øÇÒ²¢²»ÊÇ¼ûÉúËÀ·½Ê½£¬Ôò¸ÃÃü
-Áî¼´×÷ÎªÈÏÊä´¦Àí¡£
+å¦‚æžœä½ æ­£åœ¨å’Œäººæ¯”æ­¦æˆ–æ˜¯æŽ¥å—æŒ‘æˆ˜è€Œä¸”å¹¶ä¸æ˜¯è§ç”Ÿæ­»æ–¹å¼ï¼Œåˆ™è¯¥å‘½
+ä»¤å³ä½œä¸ºè®¤è¾“å¤„ç†ã€‚
 
-ÆäËûÏà¹ØÖ¸Áî: accept, fight, hit
+å…¶ä»–ç›¸å…³æŒ‡ä»¤: accept, fight, hit
 
 HELP );
         return 1;

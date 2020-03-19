@@ -7,13 +7,13 @@ inherit BOOTS;
 
 void create()
 {
-        set_name( HIW "ÏÉÂÄ" NOR, ({ "shoes", "xian lv" }) );
+        set_name( HIW "ä»™å±¥" NOR, ({ "shoes", "xian lv" }) );
         set_weight(10);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ë«");
-                set("long", "Ò»Ë«ÏÉÈË²Å´©µÄĞ¬£¬¿´ÆğÀ´ÆÕÆÕÍ¨Í¨µÄ¡£\n");
+                set("unit", "åŒ");
+                set("long", "ä¸€åŒä»™äººæ‰ç©¿çš„é‹ï¼Œçœ‹èµ·æ¥æ™®æ™®é€šé€šçš„ã€‚\n");
                 set("value", 1);
                 set("armor_prop/armor", 1);
                 set("material", "boots");

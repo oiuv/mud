@@ -5,11 +5,11 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("Àî°¢ÆÅ", ({ "li apo", "li", "apo" }));
+        set_name("æé˜¿å©†", ({ "li apo", "li", "apo" }));
         set("str", 18);
-        set("gender", "Å®ĞÔ");
+        set("gender", "å¥³æ€§");
         set("age", 58);
-        set("long", "Àî°¢ÆÅÔÚÑïÖİ»îÁË¼¸Ê®Äê£¬¾Í¿¿×ß½Ö´®ÏïÂô¾»²Ë¹ıÈÕ×Ó¡£\n");
+        set("long", "æé˜¿å©†åœ¨æ‰¬å·æ´»äº†å‡ åå¹´ï¼Œå°±é èµ°è¡—ä¸²å··å–å‡€èœè¿‡æ—¥å­ã€‚\n");
         set("combat_exp", 250);
         set("attitude", "friendly");
         set("vendor_goods", ({
@@ -22,8 +22,8 @@ void create()
         if (! clonep(this_object()))
         {
                 move("/d/city/guangchang");
-                message_vision(CYN "\n$N" CYN "¹­×ÅÑü×ßÁË¹ıÀ´£¬¿´ÁË¿´ËÄ"
-                               "ÖÜ£¬¿ÈËÔÁËÁ½Éù¡£\n" NOR, this_object());
+                message_vision(CYN "\n$N" CYN "å¼“ç€è…°èµ°äº†è¿‡æ¥ï¼Œçœ‹äº†çœ‹å››"
+                               "å‘¨ï¼Œå’³å—½äº†ä¸¤å£°ã€‚\n" NOR, this_object());
                 set("startroom", "/d/city/guangchang");
 
                 set("chat_chance", 40);

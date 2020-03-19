@@ -4,9 +4,9 @@ inherit NPC;
 
 void create()
 {
-        set_name("ËïÍòÄê", ({"sun wannian", "sun", "wannian"}));
-        set("long", "ËûÊÇÁèÏü³ÇµÚÁù´úµÜ×ÓËïÍòÄê£¬ÉúµÃâ¯Í·ÊóÄ¿¡£\n"
-                    "ÒòÎªÆ·ĞĞ²»¶Ë£¬±»¹ØÔÚÕâÀïË¼¹ı¡£\n");
+        set_name("å­™ä¸‡å¹´", ({"sun wannian", "sun", "wannian"}));
+        set("long", "ä»–æ˜¯å‡Œå®µåŸç¬¬å…­ä»£å¼Ÿå­å­™ä¸‡å¹´ï¼Œç”Ÿå¾—çå¤´é¼ ç›®ã€‚\n"
+                    "å› ä¸ºå“è¡Œä¸ç«¯ï¼Œè¢«å…³åœ¨è¿™é‡Œæ€è¿‡ã€‚\n");
         set("age", 24);
         set("attitude", "peaceful");
 
@@ -47,7 +47,7 @@ void create()
         prepare_skill("strike", "piaoxu-zhang");
         prepare_skill("cuff", "lingxiao-quan");
 
-        create_family("ÁèÏö³Ç", 6, "µÜ×Ó");
+        create_family("å‡Œéœ„åŸ", 6, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -63,5 +63,5 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        command("say °İÄãÄÌÄÌµÄĞÛ£¬Ã»¿´¼ûÀÏ×Ó±»¹ØÔÚÕâÀïµÄÂğ£¿");
+        command("say æ‹œä½ å¥¶å¥¶çš„é›„ï¼Œæ²¡çœ‹è§è€å­è¢«å…³åœ¨è¿™é‡Œçš„å—ï¼Ÿ");
 }

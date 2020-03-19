@@ -8,10 +8,10 @@ void skill_improved(object me)
 int valid_learn(object me)
 {
         if ((int)me->query_skill("literate", 1) < 100)
-                return notify_fail("你连读书写字都没学好，怎么学习日语？\n");
+                return notify_fail("浣犺繛璇讳功鍐欏瓧閮芥病瀛﹀ソ锛屾�庝箞瀛︿範鏃ヨ锛焅n");
 
         if ((int)me->query_skill("literate", 1) < (int)me->query_skill("japanese", 1))
-                return notify_fail("你的读书写字水平有限，无法掌握更深奥的日语。\n");
+                return notify_fail("浣犵殑璇讳功鍐欏瓧姘村钩鏈夐檺锛屾棤娉曟帉鎻℃洿娣卞ゥ鐨勬棩璇�俓n");
 
         return 1;
 

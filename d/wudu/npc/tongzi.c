@@ -1,13 +1,13 @@
-// tongzi.c ½õÒÂÍ¯×Ó
+// tongzi.c é”¦è¡£ç«¥å­
 
 inherit NPC;
 
 void create()
 {
-        set_name("½õÒÂÍ¯×Ó", ({ "tong zi", "tong" }));
+        set_name("é”¦è¡£ç«¥å­", ({ "tong zi", "tong" }));
         set("age", 15);
-        set("gender", "ÄĞĞÔ");
-        set("long", "Ò»¸öÃ¼ÇåÄ¿ĞãµÄÍ¯×Ó£¬±ğ¿´ËûÄê¼Í²»´ó£¬ÒÑÉîµÃÎå¶¾½ÌÕæ´«¡£\n");
+        set("gender", "ç”·æ€§");
+        set("long", "ä¸€ä¸ªçœ‰æ¸…ç›®ç§€çš„ç«¥å­ï¼Œåˆ«çœ‹ä»–å¹´çºªä¸å¤§ï¼Œå·²æ·±å¾—äº”æ¯’æ•™çœŸä¼ ã€‚\n");
         set("attitude", "peaceful");
        set("max_qi",600);
         set("str", 25);

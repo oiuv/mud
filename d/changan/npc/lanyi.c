@@ -7,14 +7,14 @@ inherit NPC;
 
 void create()
 {
-	set_name(HIB "À¶ÒÂ" NOR, ({ "lan yi" }) );
-	set("title", CYN "ÈºÓñ°Ë½¿" NOR);
-	set("gender", "Å®ĞÔ" );
+	set_name(HIB "è“è¡£" NOR, ({ "lan yi" }) );
+	set("title", CYN "ç¾¤ç‰å…«å¨‡" NOR);
+	set("gender", "å¥³æ€§" );
 	set("age", 22);
 	set("str", 30);
 	set("per", 40);
 	set("long", @LONG
-Ò»¸öÈ«ÉíÉÏÏÂ´©×Å·Û×°£¬ÁìÂ¶ËÖĞØµÄÃÀÅ®£®
+ä¸€ä¸ªå…¨èº«ä¸Šä¸‹ç©¿ç€ç²‰è£…ï¼Œé¢†éœ²é…¥èƒ¸çš„ç¾å¥³ï¼
 LONG);
 	set("combat_exp", 10);
 	set("attitude", "friendly");

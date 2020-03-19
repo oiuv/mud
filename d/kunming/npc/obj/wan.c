@@ -1,4 +1,4 @@
-// dawancha.c ´Ö´Å´óÍë
+// dawancha.c ç²—ç£å¤§ç¢—
 // By Marz 03/29/96
 
 inherit ITEM;
@@ -6,13 +6,13 @@ inherit F_LIQUID;
 
 void create()
 {
-	set_name("´óÍë²è", ({"wan", "da wan","ci wan"}));
+	set_name("å¤§ç¢—èŒ¶", ({"wan", "da wan","ci wan"}));
 	set_weight(50);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»¸ö´Ö´Å´óÍë¡£\n");
-		set("unit", "¸ö");
+		set("long", "ä¸€ä¸ªç²—ç£å¤§ç¢—ã€‚\n");
+		set("unit", "ä¸ª");
 		set("value", 0);
         set("max_liquid", 4);
     }
@@ -21,7 +21,7 @@ void create()
     // we set it to contain tea at the beginning
     set("liquid", ([
         "type": "tea",
-        "name": "²èË®",
+        "name": "èŒ¶æ°´",
         "remaining": 4,
         "drunk_supply": 0,
     ]));

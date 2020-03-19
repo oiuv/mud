@@ -1,10 +1,10 @@
 // paper.c
 //
-// Ö½ÕÅ¿ÉÒÔÓÃÀ´×÷»­£¬»­ºÃÒÔºó¿ÉÒÔ×÷ÎªautoloadÎïÆ·ÔØÈë¡£
-// ±£´æµÄ±ØÒªĞÅÏ¢£º
-// draw/type    Í¼»­µÄÀàĞÍ
-// draw/content Í¼»­µÄÃèÊö
-// draw/info    Í¼»­µÄ¸½¼ÓĞÅÏ¢
+// çº¸å¼ å¯ä»¥ç”¨æ¥ä½œç”»ï¼Œç”»å¥½ä»¥åå¯ä»¥ä½œä¸ºautoloadç‰©å“è½½å…¥ã€‚
+// ä¿å­˜çš„å¿…è¦ä¿¡æ¯ï¼š
+// draw/type    å›¾ç”»çš„ç±»å‹
+// draw/content å›¾ç”»çš„æè¿°
+// draw/info    å›¾ç”»çš„é™„åŠ ä¿¡æ¯
 
 #include <ansi.h>
 #include <command.h>
@@ -13,14 +13,14 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIW "Ö½ÕÅ" NOR, ({ "paper", "paper of drawing" }));
+        set_name(HIW "çº¸å¼ " NOR, ({ "paper", "paper of drawing" }));
         set_weight(10);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "ÕÅ");
-                set("long", HIW "ÕâÊÇÒ»ÕÅÉÏµÈĞûÖ½£¬Äã¿ÉÒÔÔÚÉÏÃæ»­"
-                            "(draw)µã¶«Î÷¡£\n" NOR);
+                set("unit", "å¼ ");
+                set("long", HIW "è¿™æ˜¯ä¸€å¼ ä¸Šç­‰å®£çº¸ï¼Œä½ å¯ä»¥åœ¨ä¸Šé¢ç”»"
+                            "(draw)ç‚¹ä¸œè¥¿ã€‚\n" NOR);
                 set("material", "paper");
                 set("can_draw", 1);
         }
@@ -39,144 +39,144 @@ int do_draw(string arg)
         int lvl;
 
         if (! arg)
-                return notify_fail("ÄãÏë»­Ê²Ã´£¿´òËã»­(draw here)ÕâÀï"
-                                   "µÄ·ç¾°Ã´£¿\n");
+                return notify_fail("ä½ æƒ³ç”»ä»€ä¹ˆï¼Ÿæ‰“ç®—ç”»(draw here)è¿™é‡Œ"
+                                   "çš„é£æ™¯ä¹ˆï¼Ÿ\n");
 
         me = this_player();
         lvl = me->query_skill("drawing", 1);
         if (arg != "here" && ! objectp(ob = present(arg, environment(me))))
-                return notify_fail("ÕâÀïÃ»ÓĞÄãÏëÒª»­µÄ¶«Î÷¡£\n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰ä½ æƒ³è¦ç”»çš„ä¸œè¥¿ã€‚\n");
 
         if (query("draw"))
-                return notify_fail("ÕâÕÅÖ½ÒÑ¾­»­ÁË¶«Î÷£¬Èç¹ûÏëÔÙ»­ĞèÒª"
-                                   "ÏÈÄ¨È¥(clear)¡£\n");
+                return notify_fail("è¿™å¼ çº¸å·²ç»ç”»äº†ä¸œè¥¿ï¼Œå¦‚æœæƒ³å†ç”»éœ€è¦"
+                                   "å…ˆæŠ¹å»(clear)ã€‚\n");
 
-        message("vision", me->name() + "ÄÃ³öÒ»Ö§±Ê£¬ÔÚÖ½ÉÏ²»Öª"
-                "µÀ»­ÁËĞ©Ê²Ã´¡£\n", environment(me), ({ me }));
+        message("vision", me->name() + "æ‹¿å‡ºä¸€æ”¯ç¬”ï¼Œåœ¨çº¸ä¸Šä¸çŸ¥"
+                "é“ç”»äº†äº›ä»€ä¹ˆã€‚\n", environment(me), ({ me }));
 
         if (arg == "here")
         {
-                tell_object(me, "ÄãÄÃ³öÒ»Ö§±Ê£¬×ĞÏ¸µÄÁÙÄ¡ÕâÀïµÄ·ç¾°¡£\n");
+                tell_object(me, "ä½ æ‹¿å‡ºä¸€æ”¯ç¬”ï¼Œä»”ç»†çš„ä¸´æ‘¹è¿™é‡Œçš„é£æ™¯ã€‚\n");
                 if (lvl < 30)
                 {
-                        tell_object(me, "¿ÉÊÇÄãµÄ»­»­¼¼ÇÉÊµÔÚÊÇÌ«²îÁË£¬"
-                                        "ÎŞ´ÓÂä±Ê£¬Ö»ºÃºúÂÒÍ¿Ä¨Ò»Õó¡£\n");
-                        set("draw/content", "ÉÏÃæÂÒÆß°ËÔãµÄ¿´²»³ö»­µÄÊÇ"
-                                            "Ê²Ã´¡£\n");
+                        tell_object(me, "å¯æ˜¯ä½ çš„ç”»ç”»æŠ€å·§å®åœ¨æ˜¯å¤ªå·®äº†ï¼Œ"
+                                        "æ— ä»è½ç¬”ï¼Œåªå¥½èƒ¡ä¹±æ¶‚æŠ¹ä¸€é˜µã€‚\n");
+                        set("draw/content", "ä¸Šé¢ä¹±ä¸ƒå…«ç³Ÿçš„çœ‹ä¸å‡ºç”»çš„æ˜¯"
+                                            "ä»€ä¹ˆã€‚\n");
                         set("draw/info", "unknow");
                 } else
                 if (lvl < 80)
                 {
-                        tell_object(me, "ËäÈ»ÄãµÄ»­»­¼¼ÇÉ²»ÔõÃ´Ñù£¬µ«ÊÇ"
-                                        "ºÃÔÚÑ§¹ıÒ»µã£¬ÃãÇ¿»­µÃ¡£\n");
-                        set("draw/content", "ÉÏÃæ»­µÄËäÈ»ÓĞĞ©ÁèÂÒ£¬µ«ÊÇ"
-                            "»¹ÄÜ¿´µÃ³öÊÇ" + environment(me)->short() +
-                            "µÄ·ç¾°¡£\n");
+                        tell_object(me, "è™½ç„¶ä½ çš„ç”»ç”»æŠ€å·§ä¸æ€ä¹ˆæ ·ï¼Œä½†æ˜¯"
+                                        "å¥½åœ¨å­¦è¿‡ä¸€ç‚¹ï¼Œå‹‰å¼ºç”»å¾—ã€‚\n");
+                        set("draw/content", "ä¸Šé¢ç”»çš„è™½ç„¶æœ‰äº›å‡Œä¹±ï¼Œä½†æ˜¯"
+                            "è¿˜èƒ½çœ‹å¾—å‡ºæ˜¯" + environment(me)->short() +
+                            "çš„é£æ™¯ã€‚\n");
                         set("draw/info", base_name(environment(me)));
                 } else
                 {
-                        tell_object(me, "ÄãËæÒâ»ÓÈ÷£¬·ç¾°µÇÊ±Æ®È»Ô¾ÔÚÖ½"
-                                        "ÉÏ¡£\n");
-                        set("draw/content", "ÉÏÃæ»­µÄÊÇ" + environment(me)->short() +
-                            "µÄ·ç¾°£¬¼«Îª´«Éñ£¬ÍğÈôÇ×ÁÙ¡£\n");
+                        tell_object(me, "ä½ éšæ„æŒ¥æ´’ï¼Œé£æ™¯ç™»æ—¶é£˜ç„¶è·ƒåœ¨çº¸"
+                                        "ä¸Šã€‚\n");
+                        set("draw/content", "ä¸Šé¢ç”»çš„æ˜¯" + environment(me)->short() +
+                            "çš„é£æ™¯ï¼Œæä¸ºä¼ ç¥ï¼Œå®›è‹¥äº²ä¸´ã€‚\n");
                         set("draw/info", base_name(environment(me)));
                 }                
 
-                set("draw/type", "·ç¾°");
+                set("draw/type", "é£æ™¯");
         } else
         if (ob->is_character())
         {
                 if (ob != me)
                 {
-                        message("vision", me->name() + "²»×¡µÄ´òÁ¿" + ob->name() +
-                                "£¬ÊÖÏÂ²»ÖªµÀÔÚ»­Ğ©Ê²Ã´¶«Î÷¡£\n",
+                        message("vision", me->name() + "ä¸ä½çš„æ‰“é‡" + ob->name() +
+                                "ï¼Œæ‰‹ä¸‹ä¸çŸ¥é“åœ¨ç”»äº›ä»€ä¹ˆä¸œè¥¿ã€‚\n",
                                 me, ob);
-                        tell_object(me, "ÄãÄÃ³öÒ»Ö§±Ê£¬×ĞÏ¸µÄÁÙÄ¡" + ob->name() + "¡£\n");
+                        tell_object(me, "ä½ æ‹¿å‡ºä¸€æ”¯ç¬”ï¼Œä»”ç»†çš„ä¸´æ‘¹" + ob->name() + "ã€‚\n");
                 } else
                 {
                         command("consider");
-                        tell_object(me, "ÄãÄÃ³öÒ»Ö§±Ê£¬×ĞÏ¸µÄ°´ÕÕ¼ÇÒäÖĞµÄÑù×ÓÃè»æ×Ô¼º¡£\n");
+                        tell_object(me, "ä½ æ‹¿å‡ºä¸€æ”¯ç¬”ï¼Œä»”ç»†çš„æŒ‰ç…§è®°å¿†ä¸­çš„æ ·å­æç»˜è‡ªå·±ã€‚\n");
                 }
                 if (lvl < 30)
                 {
-                        tell_object(me, "¿ÉÊÇÄãµÄ»­»­¼¼ÇÉÊµÔÚÊÇÌ«²îÁË£¬"
-                                        "ÎŞ´ÓÂä±Ê£¬Ö»ºÃºúÂÒÍ¿Ä¨Ò»Õó¡£\n");
-                        set("draw/content", "ÉÏÃæÂÒÆß°ËÔãµÄ¿´²»³ö»­µÄÊÇ"
-                                            "Ê²Ã´¡£\n");
+                        tell_object(me, "å¯æ˜¯ä½ çš„ç”»ç”»æŠ€å·§å®åœ¨æ˜¯å¤ªå·®äº†ï¼Œ"
+                                        "æ— ä»è½ç¬”ï¼Œåªå¥½èƒ¡ä¹±æ¶‚æŠ¹ä¸€é˜µã€‚\n");
+                        set("draw/content", "ä¸Šé¢ä¹±ä¸ƒå…«ç³Ÿçš„çœ‹ä¸å‡ºç”»çš„æ˜¯"
+                                            "ä»€ä¹ˆã€‚\n");
                         set("draw/info", "unknow");
                 } else
                 if (lvl < 80)
                 {
-                        tell_object(me, "ËäÈ»ÄãµÄ»­»­¼¼ÇÉ²»ÔõÃ´Ñù£¬µ«ÊÇ"
-                                        "ºÃÔÚÑ§¹ıÒ»µã£¬ÃãÇ¿»­µÃ¡£\n");
-                        set("draw/content", "ÉÏÃæ»­µÄËäÈ»ÓĞĞ©ÁèÂÒ£¬µ«ÊÇ"
-                            "»¹ÄÜ¿´µÃ³öÊÇ" + ob->name() + "£¬ÓĞµãÉñËÆ¡£\n");
+                        tell_object(me, "è™½ç„¶ä½ çš„ç”»ç”»æŠ€å·§ä¸æ€ä¹ˆæ ·ï¼Œä½†æ˜¯"
+                                        "å¥½åœ¨å­¦è¿‡ä¸€ç‚¹ï¼Œå‹‰å¼ºç”»å¾—ã€‚\n");
+                        set("draw/content", "ä¸Šé¢ç”»çš„è™½ç„¶æœ‰äº›å‡Œä¹±ï¼Œä½†æ˜¯"
+                            "è¿˜èƒ½çœ‹å¾—å‡ºæ˜¯" + ob->name() + "ï¼Œæœ‰ç‚¹ç¥ä¼¼ã€‚\n");
                         set("draw/info", ob->query("id"));
                 } else
                 {
                         string msg;
                         object cloth;
 
-                        tell_object(me, "ÄãËæÒâ»ÓÈ÷£¬" + ob->name() +
-                                        "µÇÊ±Æ®È»Ô¾ÔÚÖ½ÉÏ¡£\n");
-                        msg = "Ì¯¿´Ö½À´£¬";
+                        tell_object(me, "ä½ éšæ„æŒ¥æ´’ï¼Œ" + ob->name() +
+                                        "ç™»æ—¶é£˜ç„¶è·ƒåœ¨çº¸ä¸Šã€‚\n");
+                        msg = "æ‘Šçœ‹çº¸æ¥ï¼Œ";
                         if (userp(ob))
                         {
                                 cloth = ob->query_temp("armor/cloth");
-                                if (ob->query("gender") == "Å®ĞÔ")
+                                if (ob->query("gender") == "å¥³æ€§")
                                 {
                                         if (cloth)
-                                                msg += "Ö»¼ûÉÏÃæÒ»ÃûÅ®×ÓÉí×Å" + cloth->name() + "£¬";
+                                                msg += "åªè§ä¸Šé¢ä¸€åå¥³å­èº«ç€" + cloth->name() + "ï¼Œ";
                                         else
-                                                msg += "Ö»¼ûÉÏÃæÒ»ÃûÅ®×ÓÒ»Ë¿²»¹Ò¡¢Î´×Å´çÂÆ£¬";
+                                                msg += "åªè§ä¸Šé¢ä¸€åå¥³å­ä¸€ä¸ä¸æŒ‚ã€æœªç€å¯¸ç¼•ï¼Œ";
                                 } else
                                 {
                                         if (cloth)
-                                                msg += "Ö»¼ûÉÏÃæÒ»ÃûÄĞ×ÓÉí×Å" + cloth->name() + "£¬";
+                                                msg += "åªè§ä¸Šé¢ä¸€åç”·å­èº«ç€" + cloth->name() + "ï¼Œ";
                                         else
-                                                msg += "Ö»¼ûÉÏÃæÒ»ÃûÄĞ×ÓÌ¹ĞØÂ¶Èé£¬³àÉíÂãÌå£¬";
+                                                msg += "åªè§ä¸Šé¢ä¸€åç”·å­å¦èƒ¸éœ²ä¹³ï¼Œèµ¤èº«è£¸ä½“ï¼Œ";
                                 }
                                 msg += LOOK_CMD->description(ob);
                         }
-                        msg += "Ô­À´ÉÏÃæ»­µÄÊÇ" + ob->name() +
-                            "£¬¹ûÈ»´«ÉñÖ®ÖÁ£¬Êü¼¸ÆÆÖ½¶ø³ö¡£\n";
+                        msg += "åŸæ¥ä¸Šé¢ç”»çš„æ˜¯" + ob->name() +
+                            "ï¼Œæœç„¶ä¼ ç¥ä¹‹è‡³ï¼Œåº¶å‡ ç ´çº¸è€Œå‡ºã€‚\n";
                         set("draw/content", msg);
                         set("draw/info", ob->query("id"));
                 }                
 
-                set("draw/type", "ÈËÎï");
+                set("draw/type", "äººç‰©");
         } else
         {
-                tell_object(me, "ÄãÄÃ³öÒ»Ö§±Ê£¬×ĞÏ¸µÄÁÙÄ¡" + ob->name() + "¡£\n");
+                tell_object(me, "ä½ æ‹¿å‡ºä¸€æ”¯ç¬”ï¼Œä»”ç»†çš„ä¸´æ‘¹" + ob->name() + "ã€‚\n");
                 if (lvl < 30)
                 {
-                        tell_object(me, "¿ÉÊÇÄãµÄ»­»­¼¼ÇÉÊµÔÚÊÇÌ«²îÁË£¬"
-                                        "ÎŞ´ÓÂä±Ê£¬Ö»ºÃºúÂÒÍ¿Ä¨Ò»Õó¡£\n");
-                        set("draw/content", "ÉÏÃæÂÒÆß°ËÔãµÄ¿´²»³ö»­µÄÊÇ"
-                                            "Ê²Ã´¡£\n");
+                        tell_object(me, "å¯æ˜¯ä½ çš„ç”»ç”»æŠ€å·§å®åœ¨æ˜¯å¤ªå·®äº†ï¼Œ"
+                                        "æ— ä»è½ç¬”ï¼Œåªå¥½èƒ¡ä¹±æ¶‚æŠ¹ä¸€é˜µã€‚\n");
+                        set("draw/content", "ä¸Šé¢ä¹±ä¸ƒå…«ç³Ÿçš„çœ‹ä¸å‡ºç”»çš„æ˜¯"
+                                            "ä»€ä¹ˆã€‚\n");
                         set("draw/info", "unknow");
                 } else
                 if (lvl < 80)
                 {
-                        tell_object(me, "ËäÈ»ÄãµÄ»­»­¼¼ÇÉ²»ÔõÃ´Ñù£¬µ«ÊÇ"
-                                        "ºÃÔÚÑ§¹ıÒ»µã£¬ÃãÇ¿»­µÃ¡£\n");
-                        set("draw/content", "ÉÏÃæ»­µÄËäÈ»ÓĞĞ©ÁèÂÒ£¬µ«ÊÇ"
-                            "»¹ÄÜ¿´µÃ³öÊÇ" + ob->name() + "£¬ÓĞµãÉñËÆ¡£\n");
+                        tell_object(me, "è™½ç„¶ä½ çš„ç”»ç”»æŠ€å·§ä¸æ€ä¹ˆæ ·ï¼Œä½†æ˜¯"
+                                        "å¥½åœ¨å­¦è¿‡ä¸€ç‚¹ï¼Œå‹‰å¼ºç”»å¾—ã€‚\n");
+                        set("draw/content", "ä¸Šé¢ç”»çš„è™½ç„¶æœ‰äº›å‡Œä¹±ï¼Œä½†æ˜¯"
+                            "è¿˜èƒ½çœ‹å¾—å‡ºæ˜¯" + ob->name() + "ï¼Œæœ‰ç‚¹ç¥ä¼¼ã€‚\n");
                         set("draw/info", ob->query("id"));
                 } else
                 {
                         string msg;
                         //object cloth;
 
-                        tell_object(me, "ÄãËæÒâ»ÓÈ÷£¬" + me->name() +
-                                        "µÇÊ±Æ®È»Ô¾ÔÚÖ½ÉÏ¡£\n");
-                        msg = "ÉÏÃæ»­µÄÊÇ" + ob->name() +
-                            "£¬±ÆÕæÖ®¼«¡£\n";
+                        tell_object(me, "ä½ éšæ„æŒ¥æ´’ï¼Œ" + me->name() +
+                                        "ç™»æ—¶é£˜ç„¶è·ƒåœ¨çº¸ä¸Šã€‚\n");
+                        msg = "ä¸Šé¢ç”»çš„æ˜¯" + ob->name() +
+                            "ï¼Œé€¼çœŸä¹‹æã€‚\n";
                         set("draw/content", msg);
                         set("draw/info", ob->query("id"));
                 }                
 
-                set("draw/type", "ÎïÆ·");
+                set("draw/type", "ç‰©å“");
         }
 
         set("no_sell", 1);
@@ -190,15 +190,15 @@ int do_clear(string arg)
         object me = this_player();
 
         if (! arg || ! id(arg))
-                return notify_fail("ÄãÒª²Á¸É¾»Ê²Ã´¶«Î÷£¿\n");
+                return notify_fail("ä½ è¦æ“¦å¹²å‡€ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
         if (! query("draw/type"))
         {
-                write ("ÉÏÃæ¸É¸É¾»¾»µÄÊ²Ã´Ò²Ã»ÓĞ£¬²»ÓÃÔÙ²ÁÁË¡£\n");
+                write ("ä¸Šé¢å¹²å¹²å‡€å‡€çš„ä»€ä¹ˆä¹Ÿæ²¡æœ‰ï¼Œä¸ç”¨å†æ“¦äº†ã€‚\n");
                 return 1;
         }
 
-        message_vision("$NÇáÇáµÄ½«Ö½²åÄ¨¸É¾»¡£\n", me);
+        message_vision("$Nè½»è½»çš„å°†çº¸æ’æŠ¹å¹²å‡€ã€‚\n", me);
         delete("draw");
         delete("no_sell");
         delete("value");

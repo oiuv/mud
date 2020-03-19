@@ -5,12 +5,12 @@ inherit F_UNIQUE;
 
 void create()
 {
-        set_name("����", ({ "zhao min", "min", "zhao"}));
-        set("title", HIY "��Ԫ��������" NOR);
+        set_name("赵敏", ({ "zhao min", "min", "zhao"}));
+        set("title", HIY "大元绍敏郡主" NOR);
         set("long",
-"��������ϼ����ɫ������ʮ������֮�У�����������Ӣ�������ֺ�̬��ͬ
-ʱӺ�ݻ�������һ������֮�£�������Ȼ�𾴣����ұ��ӡ�\n");
-        set("gender", "Ů��");
+"她脸泛红霞，容色丽都。十分美丽之中，更带着三分英气，三分豪态，同
+时雍容华贵，自有一副端严之致，令人肃然起敬，不敢逼视。\n");
+        set("gender", "女性");
         set("age", 15);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -47,8 +47,8 @@ void create()
         map_skill("unarmed", "changquan");
 
         set("inquiry", ([
-                "���޼�" : "�Ź���Զ�����أ���֪�������ɺã����䴺�������к��£�",
-                "���콣" : "����Ϊ�����������ô������Ҫ��",
+                "张无忌" : "张公子远在昆仑，不知他近来可好？秋冷春寒，可有寒衣？",
+                "倚天剑" : "倚天为天下神兵，怎么，你想要？",
         ]));
 
         setup();
@@ -77,8 +77,8 @@ int do_yun(string arg)
 
         if (arg == "roar" )
         {
-                message_vision(CYN "\n�����ȵ����޳����ӣ���������ɲ���"
-                               "�����\n" NOR, obj);
+                message_vision(CYN "\n赵敏喝道：无耻贼子，在我这儿由不得"
+                               "你猖狂！\n" NOR, obj);
                 return 1;
         }
         return 0;
@@ -97,10 +97,10 @@ int do_get(string arg)
         obj = this_object();
         if (where == "shelf")
         {
-                message_vision(CYN "\n�����ȵ����޳����ӣ��ݵ�������\n"
+                message_vision(CYN "\n赵敏喝道：无耻贼子，休得无理！\n"
                                NOR, obj);
-                message_vision(CYN "��������������������Ҫ��õ�����"
-                               "��Ҳ���ԣ��������ȵñ�Ӯ(bi)�ҵ����£�"
+                message_vision(CYN "赵敏轻声哼了声，道：要想得到倚天"
+                               "剑也可以，但是首先得比赢(bi)我的手下！"
                                "\n" NOR, obj);
                 return 1;
         }
@@ -109,25 +109,25 @@ int do_get(string arg)
 
 int accept_fight(object who)
 {
-        command("say �۸�һ����СŮ����ʲô��Ҫ�Ⱥ��ҵ����±�(bi)��");
+        command("say 欺负一个弱小女子算什么，要比和我的手下比(bi)。");
         return 0;
 }
 
 int accept_hit(object who)
 {
-        command("say �۸�һ����СŮ����ʲô��Ҫ�Ⱥ��ҵ����±�(bi)��");
+        command("say 欺负一个弱小女子算什么，要比和我的手下比(bi)。");
         return 0;
 }
 
 int accept_kill(object who)
 {
-        command("say �۸�һ����СŮ����ʲô��Ҫ�Ⱥ��ҵ����±�(bi)��");
-        return notify_fail("ɲ�Ǽ�������޴����֡�\n");
+        command("say 欺负一个弱小女子算什么，要比和我的手下比(bi)。");
+        return notify_fail("刹那间你觉得无从下手。\n");
 }
 
 int accept_ansuan(object who)
 {
-        return notify_fail("����밵�㣬����ֻ��¥����Ӱ�ζ����������������\n");
+        return notify_fail("你刚想暗算，可是只见楼上人影晃动，根本看不清楚。\n");
 }
 
 void receive_damage(string type, int n)
@@ -148,14 +148,14 @@ void greeting(object ob)
         if (! userp(ob))
         return;
 
-        tell_object(ob, HIW "��һ��¥����ֻ��һλ������Ů�������ã�������ϼ����"
-                        "ɫ������ʮ������\n֮�У�����������Ӣ�������ֺ�̬��ͬʱ"
-                        "Ӻ�ݻ�������һ������֮�£���\n����Ȼ�𾴣����ұ��ӡ�"
-                        "��Ů���Ե�վ�ż��ˣ����Ÿ��죬���Ӽ��˵���̬\n�����ȿ�"
-                        "������һ�������ָ��֡����ð���һ������ĺ�ľ�ƽ��ܣ���"
-                        "����\n�����һ�������������Ľ����Ϻ�Ȼд�š�" NOR + HIY
-                        "����" NOR + HIW "�����֡�\n" NOR);
+        tell_object(ob, HIW "你一上楼来，只见一位明艳少女正座中堂，脸泛红霞，容"
+                        "色丽都。十分美丽\n之中，更带着三分英气，三分豪态，同时"
+                        "雍容华贵，自有一副端严之致，令\n人肃然起敬，不敢逼视。"
+                        "少女身旁地站着几人，衣着各异，但从几人的神态\n和气度看"
+                        "来，无一不是武林高手。中堂摆着一个名贵的红木制剑架，剑"
+                        "架上\n横放着一柄长剑，长剑的剑鞘上赫然写着“" NOR + HIY
+                        "倚天" NOR + HIW "”二字。\n" NOR);
 
         command("yi");
-        command("say �ߣ����������������ҵ��˻��治�٣�");
+        command("say 哼，今天来我这里添乱的人还真不少！");
 }

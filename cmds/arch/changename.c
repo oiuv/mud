@@ -16,9 +16,9 @@ int main(object me, string arg)
                 return 0;
 
         if (! arg)
-                return notify_fail("ÄãÒªĞŞ¸ÄÄÄÒ»¸öÍæ¼ÒµÄÖĞÎÄÃû×Ö£¿\n");
+                return notify_fail("ä½ è¦ä¿®æ”¹å“ªä¸€ä¸ªç©å®¶çš„ä¸­æ–‡åå­—ï¼Ÿ\n");
 
-        // Ç¿ÖÆĞŞ¸ÄÃû×ÖµÄ±êÖ¾
+        // å¼ºåˆ¶ä¿®æ”¹åå­—çš„æ ‡å¿—
         opt_force = 0;
         opts = explode(arg, " ");
         for (i = 0; i < sizeof(opts); i++)
@@ -30,7 +30,7 @@ int main(object me, string arg)
                 }
         }
 
-        // ÅĞ¶ÏÍê±ÏÑ¡ÏîÒÔºóÖØĞÂÅĞ¶Ï²ÎÊı
+        // åˆ¤æ–­å®Œæ¯•é€‰é¡¹ä»¥åé‡æ–°åˆ¤æ–­å‚æ•°
         opts -= ({ 0 });
         arg = implode(opts, " ");
 
@@ -38,7 +38,7 @@ int main(object me, string arg)
         {
 		ob = find_player(id);
 		if (! objectp(ob))
-			return notify_fail("Õâ¸öÍæ¼Ò²»ÔÚÏßÉÏ¡£\n");
+			return notify_fail("è¿™ä¸ªç©å®¶ä¸åœ¨çº¿ä¸Šã€‚\n");
 
                 if (! LOGIN_D->check_legal_name(new_name, 8))
                         return 0;
@@ -48,23 +48,23 @@ int main(object me, string arg)
                 {
                         write(result);
                         if (opt_force)
-                                write("ÏµÍ³Ç¿ÖÆĞŞ¸ÄÁË " + id + " µÄÃû×Ö¡£\n");
+                                write("ç³»ç»Ÿå¼ºåˆ¶ä¿®æ”¹äº† " + id + " çš„åå­—ã€‚\n");
                 }
                 else
-                        write("³É¹¦µÄĞŞ¸Ä¸ÄÁË " + id + " µÄÃû×Ö¡£\n");
+                        write("æˆåŠŸçš„ä¿®æ”¹æ”¹äº† " + id + " çš„åå­—ã€‚\n");
                 return 1;
 	} else
-		return notify_fail("¸ñÊ½£ºchangename [-f] <Íæ¼ÒID> <ĞÂÃû×Ö>\n");
+		return notify_fail("æ ¼å¼ï¼šchangename [-f] <ç©å®¶ID> <æ–°åå­—>\n");
 }
 
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : changename [-f] <Íæ¼ÒID> <ĞÂÃû×Ö>
+æŒ‡ä»¤æ ¼å¼ : changename [-f] <ç©å®¶ID> <æ–°åå­—>
  
-¸ü¸ÄÍæ¼ÒµÄÖĞÎÄÃû×Ö£¬ÒòÎªËùÓĞÍæ¼ÒµÄÖĞÎÄÃû×Ö¶¼¼ÇÂ¼ÔÚÏµÍ³ÖĞ£¬Ëù
-ÒÔÈç¹ûÖ±½ÓĞŞ¸Ä½«»áÔì³ÉÊı¾İ²»Ò»ÖÂ¡£Èç¹û²ÉÓÃÁË-f²ÎÊı£¬ÔòÏµÍ³»á
-Ç¿ÖÆĞŞ¸ÄÃû×Ö¶ø²»¹Ë¼°Ô­ÏÈÊÇ·ñÓĞÖØÃû»òÊÇÏà½üµÄÃû×Ö¡£
+æ›´æ”¹ç©å®¶çš„ä¸­æ–‡åå­—ï¼Œå› ä¸ºæ‰€æœ‰ç©å®¶çš„ä¸­æ–‡åå­—éƒ½è®°å½•åœ¨ç³»ç»Ÿä¸­ï¼Œæ‰€
+ä»¥å¦‚æœç›´æ¥ä¿®æ”¹å°†ä¼šé€ æˆæ•°æ®ä¸ä¸€è‡´ã€‚å¦‚æœé‡‡ç”¨äº†-få‚æ•°ï¼Œåˆ™ç³»ç»Ÿä¼š
+å¼ºåˆ¶ä¿®æ”¹åå­—è€Œä¸é¡¾åŠåŸå…ˆæ˜¯å¦æœ‰é‡åæˆ–æ˜¯ç›¸è¿‘çš„åå­—ã€‚
 
 HELP );
     return 1;

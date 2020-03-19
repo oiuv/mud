@@ -6,12 +6,12 @@ inherit NPC;
 
 void create()
 {
-	set_name("ºìÃ«¹í", ({ "hongmao gui", "gui"}));
-	set("gender", "ÄĞĞÔ");
+	set_name("çº¢æ¯›é¬¼", ({ "hongmao gui", "gui"}));
+	set("gender", "ç”·æ€§");
 	set("age", random(10) + 30);
 	set("str", 25);
 	set("dex", 16);
-	set("long", "ÈëÇÖÎÒÌì³¯±¦µºÌ¨ÍåµÄºÉÀ¼ºìÃ«¹í¡£ËûÊÖÉÏ¶Ë×ÅÒ»Ö§»ğÇ¹£¬Ç¹¿Ú»¹Ã°×ÅÇàÑÌ¡£\n");
+	set("long", "å…¥ä¾µæˆ‘å¤©æœå®å²›å°æ¹¾çš„è·å…°çº¢æ¯›é¬¼ã€‚ä»–æ‰‹ä¸Šç«¯ç€ä¸€æ”¯ç«æªï¼Œæªå£è¿˜å†’ç€é’çƒŸã€‚\n");
 	set("combat_exp", 25000);
 	set("shen_type", 1);
 	set("attitude", "peaceful");
@@ -47,9 +47,9 @@ void greeting(object ob)
         if (stringp(startroom = query("startroom")) &&
             find_object(startroom) == environment())
         {
-                say("ºìÃ«¹íÌ§ÊÖ¾ÍÊÇÒ»Ç¹£¬¡°Åé¡±µÄÒ»ÍÅ»ğÑæ´ÓÇ¹¿Ú´Ü³ö¡£\n");
-                tell_object(ob, HIR "Äã¶ã±Ü²»¼°£¬Ö»¾õµÃÉË¿ÚÒ»Í´¡£\n" NOR);
+                say("çº¢æ¯›é¬¼æŠ¬æ‰‹å°±æ˜¯ä¸€æªï¼Œâ€œç °â€çš„ä¸€å›¢ç«ç„°ä»æªå£çªœå‡ºã€‚\n");
+                tell_object(ob, HIR "ä½ èº²é¿ä¸åŠï¼Œåªè§‰å¾—ä¼¤å£ä¸€ç—›ã€‚\n" NOR);
                 ob->receive_wound("qi", 90);
         } else
-	        say("ºìÃ«¹íµÉ×ÅÄã£¬¿´ÁË°ëÌì¡£\n");
+	        say("çº¢æ¯›é¬¼çªç€ä½ ï¼Œçœ‹äº†åŠå¤©ã€‚\n");
 }

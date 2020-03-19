@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define HUA "¡¸" HIW "Ò»Æø»¯ÈıÇå" NOR "¡¹"
+#define HUA "ã€Œ" HIW "ä¸€æ°”åŒ–ä¸‰æ¸…" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -19,48 +19,48 @@ int perform(object me, object target)
 		martial = "sword";
 
         if (userp(me) && ! me->query("can_perform/quanzhen-jian/hua"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(HUA "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(HUA "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if ((int)me->query_skill("quanzhen-jian", 1) < 200)
-                return notify_fail("ÄãÈ«Õæ½£·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ å…¨çœŸå‰‘æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if ((int)me->query_skill("xiantian-gong", 1) < 100)
-                return notify_fail("ÄãµÄÏÈÌì¹¦²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ çš„å…ˆå¤©åŠŸä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if (me->query_skill_mapped("sword") != "quanzhen-jian")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢È«Õæ½£·¨£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å…¨çœŸå‰‘æ³•ï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if (me->query_skill_mapped("force") != "xiantian-gong")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢ÏÈÌì¹¦£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å…ˆå¤©åŠŸï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if ((int)me->query("max_neili") < 4500)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if ((int)me->query("neili") < 500)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" HUA "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" HUA "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "Ò»Éù³¤Ò÷£¬½«ÄÚÁ¦È«È»ÔËµ½½£ÉÏ£¬" + weapon->name() +
-              HIW "½£¼¹¶ÙÊ±" HIM "×ÏÃ¢" HIW "ÉÁÒ«£¬»¯×÷ÊıµÀ½£Æø¾¢±Æ$n"
-              HIW "¡£\n" NOR;
+        msg = HIW "$N" HIW "ä¸€å£°é•¿åŸï¼Œå°†å†…åŠ›å…¨ç„¶è¿åˆ°å‰‘ä¸Šï¼Œ" + weapon->name() +
+              HIW "å‰‘è„Šé¡¿æ—¶" HIM "ç´«èŠ’" HIW "é—ªè€€ï¼ŒåŒ–ä½œæ•°é“å‰‘æ°”åŠ²é€¼$n"
+              HIW "ã€‚\n" NOR;
 			  
 		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
 		lvl = lvl * 4 / 5;
 		ks = keys(me->query_skills(martial));
 		improve = 0;
 		n = 0;
-		//×î¶à¸øÓè5¸ö¼¼ÄÜµÄ¼Ó³É
+		//æœ€å¤šç»™äºˆ5ä¸ªæŠ€èƒ½çš„åŠ æˆ
 		for (m = 0; m < sizeof(ks); m++)
 		{
 			if (SKILL_D(ks[m])->valid_enable(martial))
@@ -86,16 +86,16 @@ int perform(object me, object target)
         {
                 damage = ap / 2 + random(ap);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 100,
-                                           HIR "¶ÙÊ±Ö»Ìı$n" HIR "Ò»Éù²Ò½Ğ£¬½£Æø¼°"
-                                           "Éí£¬ÉíÉÏ½ÓÁ¬Éä³öÊıµÀÑªÖù¡£\n" NOR);
+                                           HIR "é¡¿æ—¶åªå¬$n" HIR "ä¸€å£°æƒ¨å«ï¼Œå‰‘æ°”åŠ"
+                                           "èº«ï¼Œèº«ä¸Šæ¥è¿å°„å‡ºæ•°é“è¡€æŸ±ã€‚\n" NOR);
                 message_combatd(msg, me, target);
 
                 if (ap / 2 + random(ap) > dp)
                 {
                         count = me->query_skill("xiantian-gong", 1) / 2;
                         me->add_temp("apply/attack", count);
-                        message_combatd(HIY "$N" HIY "¼û$n" HIY "ÔÚÕâÒ»»÷Ö®ÏÂÆÆ"
-                                        "ÕÀµü³ö£¬¶ÙÊ±ÉíĞÎÇ°Ô¾£¬à§à§à§ÓÖÊÇÈı½£¡£"
+                        message_combatd(HIY "$N" HIY "è§$n" HIY "åœ¨è¿™ä¸€å‡»ä¹‹ä¸‹ç ´"
+                                        "ç»½è¿­å‡ºï¼Œé¡¿æ—¶èº«å½¢å‰è·ƒï¼Œå”°å”°å”°åˆæ˜¯ä¸‰å‰‘ã€‚"
                                         "\n" NOR, me, target);
 
 	        	for (i = 0; i < 3; i++)
@@ -109,7 +109,7 @@ int perform(object me, object target)
         } else
         {
                 me->start_busy(2);
-                msg += CYN "¿ÉÊÇ$n" CYN "¿´ÆÆÁË$N" CYN "µÄÆóÍ¼£¬Ğ±Ô¾±Ü¿ª¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$n" CYN "çœ‹ç ´äº†$N" CYN "çš„ä¼å›¾ï¼Œæ–œè·ƒé¿å¼€ã€‚\n" NOR;
                 message_combatd(msg, me, target);
         }
 

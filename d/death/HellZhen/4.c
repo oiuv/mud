@@ -16,7 +16,7 @@ void create()
         name += last_words[random(sizeof(last_words))];
         
         set_name(name, ({ "ghost"}) );
-        set("gender", "ÄĞĞÔ" );        
+        set("gender", "ç”·æ€§" );        
         set("age",40);
         set("str", 30);
         set("int", 20);
@@ -89,8 +89,8 @@ void invocation(object target)
         int ap, dp, damage;
         string msg;
                 
-        msg = HIY "$N" HIY "Ò»ÉùÇåĞ¥£¬½£·¨ºö±ä£¬ÊÖÖĞ³¤½£" + HIY
-              "ÇáÇá»®³ö£¬´ø³öÒ»ÌõÎŞ±ÈÑ¤ÀöµÄ½£Ã¢£¬Ò£Ö¸$n" HIY "¶øÈ¥¡£\n" NOR;
+        msg = HIY "$N" HIY "ä¸€å£°æ¸…å•¸ï¼Œå‰‘æ³•å¿½å˜ï¼Œæ‰‹ä¸­é•¿å‰‘" + HIY
+              "è½»è½»åˆ’å‡ºï¼Œå¸¦å‡ºä¸€æ¡æ— æ¯”ç»šä¸½çš„å‰‘èŠ’ï¼Œé¥æŒ‡$n" HIY "è€Œå»ã€‚\n" NOR;
               
         ap = me->query_skill("sword") * 3 / 2 + me->query_skill("martial-cognize", 1);
         dp = target->query_skill("parry") + target->query_skill("martial-cognize", 1);
@@ -101,15 +101,15 @@ void invocation(object target)
                 me->add("neili", -150);
                 
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 45,
-                                           HIR "$n" HIR "¶ÙÊ±Ä¿µÉ¿Ú´ô£¬Ò»¸ö²»É÷£¬±»$N"
-                                           HIR "¾«ÃîµÄ½£ÕĞ´ÌÖĞ£¬ÏÊÑª·É½¦£¡\n" NOR);
+                                           HIR "$n" HIR "é¡¿æ—¶ç›®çªå£å‘†ï¼Œä¸€ä¸ªä¸æ…ï¼Œè¢«$N"
+                                           HIR "ç²¾å¦™çš„å‰‘æ‹›åˆºä¸­ï¼Œé²œè¡€é£æº…ï¼\n" NOR);
                 me->start_busy(2);
         } else
         {
                 me->add("neili", -60);
                 
-                msg += CYN "¿ÉÊÇ$p" CYN "²¢²»»ÅÂÒ£¬ÊÕÁ²ĞÄÉñ£¬ÇáÇá¸ñµ²¿ªÁË$P"
-                       CYN "µÄ½£ÕĞ¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "å¹¶ä¸æ…Œä¹±ï¼Œæ”¶æ•›å¿ƒç¥ï¼Œè½»è½»æ ¼æŒ¡å¼€äº†$P"
+                       CYN "çš„å‰‘æ‹›ã€‚\n" NOR;
                 me->start_busy(3);
         }
         message_combatd(msg, me, target);

@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short","Ã÷½ÌµØµÀ");
+        set("short","æ˜Žæ•™åœ°é“");
         set("long", @LONG
-ÕâÀïÊÇÃ÷½ÌµÄµØµÀ£¬Ö»¼ûÇ°·½Ò»ÌõÍäÍäÇúÇúµÄµÀÂ·²»ÖªµÀÍ¨ÍùºÎ
-·½¡£ÄãÖ»ÓÐÊÔ×ß£¨zou£©ÏÂÈ¥¿´¿´¡£
+è¿™é‡Œæ˜¯æ˜Žæ•™çš„åœ°é“ï¼Œåªè§å‰æ–¹ä¸€æ¡å¼¯å¼¯æ›²æ›²çš„é“è·¯ä¸çŸ¥é“é€šå¾€ä½•
+æ–¹ã€‚ä½ åªæœ‰è¯•èµ°ï¼ˆzouï¼‰ä¸‹åŽ»çœ‹çœ‹ã€‚
 LONG );
         set("exits",([
             "out"    : __DIR__"neishi",
@@ -28,9 +28,9 @@ int do_zou(string arg)
         object me = this_player();
  
         if (me->is_busy() || me->is_fighting())
-             return notify_fail("Äã»¹ÊÇÃ¦ÍêÁËÔÙËµ°É£¡\n");
+             return notify_fail("ä½ è¿˜æ˜¯å¿™å®Œäº†å†è¯´å§ï¼\n");
 
-        message_vision(HIY "$N" HIY "¿ì²½ÏòÇ°×ßÈ¥ ¡­¡­\n" NOR, me);
+        message_vision(HIY "$N" HIY "å¿«æ­¥å‘å‰èµ°åŽ» â€¦â€¦\n" NOR, me);
 
         me->move("/d/lanzhou/guangchang");
 

@@ -5,12 +5,12 @@ inherit DAGGER;
 
 void create()
 {
-        set_name(HIG "ÇàÑôÉñØ°" NOR, ({ "qingyang dagger", "dagger", "qingyang" }) );
+        set_name(HIG "é’é˜³ç¥åŒ•" NOR, ({ "qingyang dagger", "dagger", "qingyang" }) );
         set_weight(4000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
+                set("unit", "æŸ„");
                 set("value", 3000000);
                 set("material", "steel");
         }

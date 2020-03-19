@@ -3,8 +3,8 @@ inherit SNAKE;
 
 void create()
 {
-        set_name(NOR + GRN "竹叶青蛇" NOR, ({ "qing she", "qing", "she" }));
-        set("long", GRN "这是一只让人看了起鸡皮疙瘩的竹叶青蛇。\n" NOR);
+        set_name(NOR + GRN "绔瑰彾闈掕泧" NOR, ({ "qing she", "qing", "she" }));
+        set("long", GRN "杩欐槸涓�鍙浜虹湅浜嗚捣楦＄毊鐤欑槱鐨勭鍙堕潚铔囥�俓n" NOR);
 
         set("age", 1);
         set("str", 15);

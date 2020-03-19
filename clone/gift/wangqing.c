@@ -1,4 +1,4 @@
-// wangqing.c ÍüÇéÏÉµ¤
+// wangqing.c å¿˜æƒ…ä»™ä¸¹
 
 #include <ansi.h>
 
@@ -6,15 +6,15 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIG "ÍüÇéÏÉµ¤" NOR, ({ "wangqing xiandan", "xiandan", "dan" }));
+        set_name(HIG "å¿˜æƒ…ä»™ä¸¹" NOR, ({ "wangqing xiandan", "xiandan", "dan" }));
         set_weight(200);
         if( clonep() )
             set_default_object(__FILE__);
         else {
-            set("long", HIG "Ò»Á£¾§Ó¨ÌŞÍ¸µÄÏÉµ¤£¬´«ËµÊÇÌ«ÉÏÀÏ¾ı"
-                        "¾«ĞÄÁ¶ÖÆµÄÁéµ¤ÃîÒ©¡£\n" NOR);
+            set("long", HIG "ä¸€ç²’æ™¶è¹å‰”é€çš„ä»™ä¸¹ï¼Œä¼ è¯´æ˜¯å¤ªä¸Šè€å›"
+                        "ç²¾å¿ƒç‚¼åˆ¶çš„çµä¸¹å¦™è¯ã€‚\n" NOR);
             set("value", 100000000);
-            set("unit", "Á£");
+            set("unit", "ç²’");
             set("only_do_effect", 1);
         }
 }
@@ -23,18 +23,18 @@ int do_effect(object me)
 {
         int effect;
 
-        log_file("static/using", sprintf("%s(%s) eat ÍüÇéÏÉµ¤ at %s.\n",
+        log_file("static/using", sprintf("%s(%s) eat å¿˜æƒ…ä»™ä¸¹ at %s.\n",
                  me->name(1), me->query("id"), ctime(time())));
 
         effect = 0;
-        message_vision("$NÒ»Ñö²±£¬ÍÌÏÂÁËÒ»¿Å" + this_object()->name() +
-                       "¡£\n", me);
+        message_vision("$Nä¸€ä»°è„–ï¼Œåä¸‹äº†ä¸€é¢—" + this_object()->name() +
+                       "ã€‚\n", me);
 
         if (me->query_skill("literate", 1)
            || me->query("learned_literate"))
         {
                 effect++;
-                write(HIC "ÎËµÄÒ»Éù£¬Äã¸Ğ¾õ×Ô¼º´óÄÔÒ»Æ¬¿Õ°×¡£\n" NOR);
+                write(HIC "å—¡çš„ä¸€å£°ï¼Œä½ æ„Ÿè§‰è‡ªå·±å¤§è„‘ä¸€ç‰‡ç©ºç™½ã€‚\n" NOR);
                 me->delete_skill("literate");
                 me->delete_skill("calligraphy");
                 me->delete_skill("japanese");
@@ -51,7 +51,7 @@ int do_effect(object me)
         }
 
         if (! effect)
-                tell_object(me, "²»¹ıÄã¾õµÃºÃÏñÃ»Ê²Ã´×÷ÓÃ¡£\n");
+                tell_object(me, "ä¸è¿‡ä½ è§‰å¾—å¥½åƒæ²¡ä»€ä¹ˆä½œç”¨ã€‚\n");
 
         destruct(this_object());
         return 1;

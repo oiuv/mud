@@ -8,24 +8,24 @@ inherit POISON;
 
 string name() { return "corpse_poison"; }
 
-string chinese_name() { return "¸¯Ê¬¶¾"; }
+string chinese_name() { return "è…å°¸æ¯’"; }
 
 string update_msg_others()
 {
-    return WHT "$N" WHT "È«ÉíÉÏÏÂÌÊ×Å»ÆË®£¬²»×¡µÄË»º¿£¬É¢·¢³öÕóÕó¼«ÄÑÎÅµÄ¶ñ³ô¡£\n" NOR;
+    return WHT "$N" WHT "å…¨èº«ä¸Šä¸‹æ·Œç€é»„æ°´ï¼Œä¸ä½çš„å˜¶åšï¼Œæ•£å‘å‡ºé˜µé˜µæéš¾é—»çš„æ¶è‡­ã€‚\n" NOR;
 }
 
 string update_msg_self()
 {
-    return WHT "ÄãÖ»¾õÈ«Éí¼¡·ô±ãËÆ¸¯ÀÃÁËÒ»°ã£¬É¢·¢³öÒ»¹É¼«ÄÑÎÅµÄ¶ñ³ô¡£\n" NOR;
+    return WHT "ä½ åªè§‰å…¨èº«è‚Œè‚¤ä¾¿ä¼¼è…çƒ‚äº†ä¸€èˆ¬ï¼Œæ•£å‘å‡ºä¸€è‚¡æéš¾é—»çš„æ¶è‡­ã€‚\n" NOR;
 }
 
 string die_msg_others()
 {
-    return WHT "$N" WHT "Ë»º¿ÁË¼¸Éù£¬¾ÍÔÙÃ»°ëµã¶¯¾²£¬È«ÉíÉ¢·¢³öÒ»¹É¶ñ³ô¡£\n" NOR;
+    return WHT "$N" WHT "å˜¶åšäº†å‡ å£°ï¼Œå°±å†æ²¡åŠç‚¹åŠ¨é™ï¼Œå…¨èº«æ•£å‘å‡ºä¸€è‚¡æ¶è‡­ã€‚\n" NOR;
 }
 
 string die_reason(string reason)
 {
-    return "¸¯Ê¬¶¾·¢×÷ÉíÍöÁË";
+    return "è…å°¸æ¯’å‘ä½œèº«äº¡äº†";
 }

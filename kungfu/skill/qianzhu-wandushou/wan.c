@@ -17,46 +17,46 @@ int perform(object me, object target)
         }
 
         if (userp(me) && ! me->query("can_perform/qianzhu-wandushou/wan"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! me->is_fighting(target))
-                return notify_fail("¡¸Íò¹ÆÊÉÌì¡¹Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("ã€Œä¸‡è›Šå™¬å¤©ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
-		//ÔÎµ¹ºó²»¿ÉÒÔÔÙ³öpfm by over 20180129
+		//æ™•å€’åŽä¸å¯ä»¥å†å‡ºpfm by over 20180129
 		if (! living(target))
-				return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+				return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         if (me->query_skill_prepared("hand") != "qianzhu-wandushou")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸Ê¹ÓÃÇ§ÖëÍò¶¾ÊÖ£¬ÎÞ·¨Ê©Õ¹Íò¹ÆÊÉÌì¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ä½¿ç”¨åƒè››ä¸‡æ¯’æ‰‹ï¼Œæ— æ³•æ–½å±•ä¸‡è›Šå™¬å¤©ã€‚\n");
 
         skill = me->query_skill("qianzhu-wandushou", 1);
 		poison = me->query_skill("poison");
 
         if (skill < 220)
-                return notify_fail("ÄãµÄÇ§ÖëÍò¶¾ÊÖÐÞÎªÓÐÏÞ£¬ÎÞ·¨Ê©Õ¹Íò¹ÆÊÉÌì¡£\n");
+                return notify_fail("ä½ çš„åƒè››ä¸‡æ¯’æ‰‹ä¿®ä¸ºæœ‰é™ï¼Œæ— æ³•æ–½å±•ä¸‡è›Šå™¬å¤©ã€‚\n");
 
         if (me->query_skill("force") < 300)
-                return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»¹»£¬ÄÑÒÔÊ©Õ¹Íò¹ÆÊÉÌì¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•ä¸‡è›Šå™¬å¤©ã€‚\n");
 
         if (me->query("max_neili") < 3500)
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎªÃ»ÓÐ´ïµ½ÄÇ¸ö¾³½ç£¬ÎÞ·¨ÔË×ªÄÚÁ¦Ê©Õ¹Íò¹ÆÊÉÌì¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºæ²¡æœ‰è¾¾åˆ°é‚£ä¸ªå¢ƒç•Œï¼Œæ— æ³•è¿è½¬å†…åŠ›æ–½å±•ä¸‡è›Šå™¬å¤©ã€‚\n");
 
         if (me->query("neili") < 500)
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÏÖÔÚÎÞ·¨Ê©Õ¹Íò¹ÆÊÉÌì¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼ŒçŽ°åœ¨æ— æ³•æ–½å±•ä¸‡è›Šå™¬å¤©ã€‚\n");
 
         if (me->query_temp("weapon"))
-                return notify_fail("Äã±ØÐëÊÇ¿ÕÊÖ²ÅÄÜÊ©Õ¹Íò¹ÆÊÉÌì¡£\n");
+                return notify_fail("ä½ å¿…é¡»æ˜¯ç©ºæ‰‹æ‰èƒ½æ–½å±•ä¸‡è›Šå™¬å¤©ã€‚\n");
 
-        msg = RED "\n$N" RED "ÑöÌìÒ»Éù³¤Ð¥£¬Ç¿´ßÄÚ¾¢£¬È«Éí"
-              "¾¹¸¡ÏÖ³öÒþÒþ±ÌÂÌÖ®É«¡£ºÈµÀ£º¡°Íò¹ÆÊÉÌì¡±,Ë«"
-              "ÕÆÃÍ\nÈ»ÅÄ³ö£¬µÇÊ±»Ã³öÂþÌì±ÌÂÌÉ«ÕÆÓ°£¬¶¾ÆøÃÖ"
-              "Âþ£¬ÁýÕÖ$n" RED "È«Éí£¡\n\n" NOR;
+        msg = RED "\n$N" RED "ä»°å¤©ä¸€å£°é•¿å•¸ï¼Œå¼ºå‚¬å†…åŠ²ï¼Œå…¨èº«"
+              "ç«Ÿæµ®çŽ°å‡ºéšéšç¢§ç»¿ä¹‹è‰²ã€‚å–é“ï¼šâ€œä¸‡è›Šå™¬å¤©â€,åŒ"
+              "æŽŒçŒ›\nç„¶æ‹å‡ºï¼Œç™»æ—¶å¹»å‡ºæ¼«å¤©ç¢§ç»¿è‰²æŽŒå½±ï¼Œæ¯’æ°”å¼¥"
+              "æ¼«ï¼Œç¬¼ç½©$n" RED "å…¨èº«ï¼\n\n" NOR;
 
         message_combatd(msg, me, target);
         delta = skill / 6;
 		count = 0;
         me->add("neili", -300);
-		if (me->query("family/family_name") == "Îå¶¾½Ì")
+		if (me->query("family/family_name") == "äº”æ¯’æ•™")
 			count = (int)(poison / 50) * 3;
         target->add_temp("apply/parry", -delta);
         target->add_temp("apply/dodge", -delta);

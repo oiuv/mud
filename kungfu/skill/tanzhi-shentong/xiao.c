@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define XIAO "¡¸" HIG "Ð¥²×º£" NOR "¡¹"
+#define XIAO "ã€Œ" HIG "å•¸æ²§æµ·" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -12,39 +12,39 @@ int perform(object me, object target)
         string msg;
 
         if (userp(me) && ! me->query("can_perform/tanzhi-shentong/xiao"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(XIAO "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(XIAO "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(XIAO "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(XIAO "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if ((int)me->query_skill("tanzhi-shentong", 1) < 200)
-                return notify_fail("ÄãµÄµ¯Ö¸ÉñÍ¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" XIAO "¡£\n");
+                return notify_fail("ä½ çš„å¼¹æŒ‡ç¥žé€šä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" XIAO "ã€‚\n");
 
         if ((int)me->query_skill("jingluo-xue", 1) < 200)
-                return notify_fail("Äã¶Ô¾­ÂçÑ§µÄÁË½â²»¹»£¬ÄÑÒÔÊ©Õ¹" XIAO "¡£\n");
+                return notify_fail("ä½ å¯¹ç»ç»œå­¦çš„äº†è§£ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" XIAO "ã€‚\n");
  
         if (me->query_skill_mapped("finger") != "tanzhi-shentong")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢µ¯Ö¸ÉñÍ¨£¬ÄÑÒÔÊ©Õ¹" XIAO "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å¼¹æŒ‡ç¥žé€šï¼Œéš¾ä»¥æ–½å±•" XIAO "ã€‚\n");
 
         if (me->query_skill_prepared("finger") != "tanzhi-shentong")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸µ¯Ö¸ÉñÍ¨£¬ÄÑÒÔÊ©Õ¹" XIAO "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡å¼¹æŒ‡ç¥žé€šï¼Œéš¾ä»¥æ–½å±•" XIAO "ã€‚\n");
 
         if (me->query("max_neili") < 3000)
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎª²»×ã£¬ÄÑÒÔÊ©Õ¹" XIAO "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" XIAO "ã€‚\n");
 
         if (me->query("neili") < 800)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" XIAO "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" XIAO "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIG "Í»È»¼ä$N" HIG "Ö¸·æÒ»×ª£¬Á¦¾ÛÖ¸¼â¡°àÍ¡±µÄµ¯³öÒ»µÀ×ÏÃ¢£¬Ö±Ï®$n"
-              HIG "Æøº£´óÑ¨¡£\n" NOR;
+        msg = HIG "çªç„¶é—´$N" HIG "æŒ‡é”‹ä¸€è½¬ï¼ŒåŠ›èšæŒ‡å°–â€œå—¤â€çš„å¼¹å‡ºä¸€é“ç´«èŠ’ï¼Œç›´è¢­$n"
+              HIG "æ°”æµ·å¤§ç©´ã€‚\n" NOR;
 
         ap = me->query_skill("finger");
         dp = target->query_skill("force");
@@ -61,13 +61,13 @@ int perform(object me, object target)
 	        if (target->query("neili") < 0)
                         target->set("neili", 0);
 
-                msg += HIR "$n" HIR "Ö»¾õ$N" HIR "Ö¸·çÏ®Ìå£¬Ëæ¼´ÉÏÌåÒ»"
-                       "Õó±ùÁ¹£¬¶Ù¸ÐÕæÆø»ÁÉ¢¼¸ÓûÔÎØÊ¡£\n" NOR;
+                msg += HIR "$n" HIR "åªè§‰$N" HIR "æŒ‡é£Žè¢­ä½“ï¼Œéšå³ä¸Šä½“ä¸€"
+                       "é˜µå†°å‡‰ï¼Œé¡¿æ„ŸçœŸæ°”æ¶£æ•£å‡ æ¬²æ™•åŽ¥ã€‚\n" NOR;
                 me->start_busy(3);
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "·ÀÊØÑÏÃÜ£¬½ôÊØÃÅ»§£¬¶ÙÊ±Áî$P"
-                       CYN "µÄ¹¥ÊÆ»¯ÎªÎÚÓÐ¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "é˜²å®ˆä¸¥å¯†ï¼Œç´§å®ˆé—¨æˆ·ï¼Œé¡¿æ—¶ä»¤$P"
+                       CYN "çš„æ”»åŠ¿åŒ–ä¸ºä¹Œæœ‰ã€‚\n" NOR;
                 me->start_busy(4);
         }
         message_combatd(msg, me, target);

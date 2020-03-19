@@ -2,12 +2,12 @@ inherit ITEM;
 
 void create()
 {
-set_name("²ĞÆÆÒ©·½", ({"yaofang"}));
+set_name("æ®‹ç ´è¯æ–¹", ({"yaofang"}));
         set_weight(100);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-set("unit", "ÕÅ");
+set("unit", "å¼ ");
 set("material", "paper");
         }
 setup();

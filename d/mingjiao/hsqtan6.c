@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "��̶");
+	set("short", "深潭");
 	set("long", @LONG
-�����ˮֻ���������վ��ˮ�У��Ըо�����ӽ�������
-���ò�ɢ��
+这里的水只有齐腰深，但站在水中，仍感觉寒意从脚下漫起，
+经久不散。
 LONG );
 	set("exits", ([
 		"up"   : __DIR__"hsqmen",

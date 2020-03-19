@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "���Ĺ㳡");
+        set("short", "中心广场");
         set("long", @LONG
-�������书������Ĺ㳡���书���Ǹ�С��ֻ��������
-�ֱַ��Ƕ��֣����֣��Ͻֺͱ��֣����������ϡ��ߵ�����
-·�ϵ����˶���Щ�������㶼�ͺ������ع���Ϊ��
+这里是武功镇的中心广场，武功镇是个小镇，只有四条大
+街分别是东街，西街，南街和北街，都在这里汇合。走到这里
+路上的行人多了些，见了你都和和气气地拱手为礼。
 LONG);
         set("outdoors", "wugong");
         set("exits", ([

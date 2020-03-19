@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "Á·¹¦·¿");
+        set("short", "ç»ƒåŠŸæˆ¿");
         set("long", @LONG
-ÕâÀïÊÇÁ·¹¦·¿£¬µØÏÂÁèÂÒµØ·Å×Å¼¸¸öÆÑÍÅ£¬¼¸Î»Îäµ±µÜ×Ó
-ÕýÅÌÏ¥×øÔÚÉÏÃæ´ò×ø¡£
+è¿™é‡Œæ˜¯ç»ƒåŠŸæˆ¿ï¼Œåœ°ä¸‹å‡Œä¹±åœ°æ”¾ç€å‡ ä¸ªè’²å›¢ï¼Œå‡ ä½æ­¦å½“å¼Ÿå­
+æ­£ç›˜è†ååœ¨ä¸Šé¢æ‰“åã€‚
 LONG);
         set("exits", ([
                 "west" : __DIR__"donglang2",

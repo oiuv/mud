@@ -1,5 +1,5 @@
-// by naihe 200?.??.??   ²»¼ÇµÃÊ²Ã´Ê±ºòĞ´µÄÁË
-// ÓĞÊ±ºò¿ÉÒÔÌæ´ú notify_fail() £¬ÔÚÒ»Ğ© add_action() º¯ÊıÀï return errs() ¿ÉÒÔ½ûÖ¹¼ÌĞøÖ´ĞĞ¡£
+// by naihe 200?.??.??   ä¸è®°å¾—ä»€ä¹ˆæ—¶å€™å†™çš„äº†
+// æœ‰æ—¶å€™å¯ä»¥æ›¿ä»£ notify_fail() ï¼Œåœ¨ä¸€äº› add_action() å‡½æ•°é‡Œ return errs() å¯ä»¥ç¦æ­¢ç»§ç»­æ‰§è¡Œã€‚
 varargs int errs(string msg, object who)
 {
         if( !msg )

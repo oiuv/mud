@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define TUN "¡¸" HIR "È¼Ä¾ÕæÑæ" NOR "¡¹"
+#define TUN "ã€Œ" HIR "ç‡ƒæœ¨çœŸç„°" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -15,30 +15,30 @@ int perform(object me, object target)
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "blade")
-                return notify_fail(TUN "Äã±ØĞëÓÃµ¶·¨Ê©Õ¹¡£\n");
+                return notify_fail(TUN "ä½ å¿…é¡»ç”¨åˆ€æ³•æ–½å±•ã€‚\n");
 
         if (me->query_temp("zhen_yan"))
-                return notify_fail(TUN "ÎŞ·¨Á¬ĞøÊ©Õ¹¡£\n");
+                return notify_fail(TUN "æ— æ³•è¿ç»­æ–½å±•ã€‚\n");
 
         if ((int)me->query_skill("ranmu-daofa", 1) < 180)
-                return notify_fail("ÄãµÄÈ¼Ä¾µ¶·¨ĞŞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" TUN "¡£\n");
+                return notify_fail("ä½ çš„ç‡ƒæœ¨åˆ€æ³•ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" TUN "ã€‚\n");
 
         if (me->query("max_neili") < 2500)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»×ã£¬ÄÑÒÔÊ©Õ¹" TUN "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" TUN "ã€‚\n");
 
         if ((me->query_skill_mapped("force") != "hunyuan-yiqi") && (me->query_skill_mapped("force") != "yijinjing") && (me->query_skill_mapped("force") != "luohan-fumogong"))
-                return notify_fail("ÄãÏÖÔÚÃ»ÓĞ¼¤·¢ÉÙÁÖÄÚ¹¦ÎªÄÚ¹¦£¬ÄÑÒÔÊ©Õ¹" TUN "¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ²¡æœ‰æ¿€å‘å°‘æ—å†…åŠŸä¸ºå†…åŠŸï¼Œéš¾ä»¥æ–½å±•" TUN "ã€‚\n");
         if (me->query_skill_mapped("blade") != "ranmu-daofa")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢È¼Ä¾µ¶·¨Îªµ¶·¨£¬ÄÑÒÔÊ©Õ¹" TUN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ç‡ƒæœ¨åˆ€æ³•ä¸ºåˆ€æ³•ï¼Œéš¾ä»¥æ–½å±•" TUN "ã€‚\n");
 
         if (me->query("neili") < 500)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" TUN "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" TUN "ã€‚\n");
 
 
-        msg = HIY "$N" HIY "Ë«ÊÖ³Öµ¶£¬¶ÔÌìÅØÏø£¬ËùÊ©ÕıÊÇÈ¼Ä¾µ¶·¨¾øÑ§¡¸"
-              HIR "È¼Ä¾ÕæÑæ" HIY "¡¹¡£ö®Ê±ºôĞ¥Éù´ó×÷£¬µ«¼ûÒ»¹ÉÅìÅÈÎŞ±ÈµÄî¸¾¢"
+        msg = HIY "$N" HIY "åŒæ‰‹æŒåˆ€ï¼Œå¯¹å¤©å’†å“®ï¼Œæ‰€æ–½æ­£æ˜¯ç‡ƒæœ¨åˆ€æ³•ç»å­¦ã€Œ"
+              HIR "ç‡ƒæœ¨çœŸç„°" HIY "ã€ã€‚éœæ—¶å‘¼å•¸å£°å¤§ä½œï¼Œä½†è§ä¸€è‚¡æ¾æ¹ƒæ— æ¯”çš„ç½¡åŠ²"
 
-              "×Ô$N" HIY "µ¶¼âÓ¿³ö£¬ÔÆ¹áÏò$N" HIY "¶øÈ¥¡£\n" NOR;
+              "è‡ª$N" HIY "åˆ€å°–æ¶Œå‡ºï¼Œäº‘è´¯å‘$N" HIY "è€Œå»ã€‚\n" NOR;
         message_sort(msg, me);
         if (me->is_fighting())
                 me->start_busy(2);
@@ -61,6 +61,6 @@ void remove_effect(object me, int skill)
                 me->add_temp("apply/damage", -(skill / 4));
                 me->delete_temp("zhen_yan");
 
-                tell_object(me, "Äã¾­¹ıµ÷ÆøÑøÏ¢£¬ÓÖ¿ÉÒÔ¼ÌĞøÊ©Õ¹¡¸" HIR "È¼Ä¾ÕæÑæ" NOR "¡¹ÁË¡£\n");
+                tell_object(me, "ä½ ç»è¿‡è°ƒæ°”å…»æ¯ï¼Œåˆå¯ä»¥ç»§ç»­æ–½å±•ã€Œ" HIR "ç‡ƒæœ¨çœŸç„°" NOR "ã€äº†ã€‚\n");
         }
 }

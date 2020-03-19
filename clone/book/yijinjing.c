@@ -10,14 +10,14 @@ int need_exp();
 
 void create()
 {
-        set_name(YEL "Ò×½î¾­" NOR, ({ "yijin jing", "jing", "book" }));
+        set_name(YEL "æ˜“ç­‹ç»" NOR, ({ "yijin jing", "jing", "book" }));
         set_weight(300);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¾í");
-                set("long", "ÕâÊÇÒ»¾í¹ÅÆÓË¿Ö¯¾­Öá£¬¿´À´ºÜÓĞÄêÔÂÁË£¬ÉÏÃæÎÄ×Ö¹Å¹Ö£¬²»ÖªÄãÊ¶
-Ò²²»Ê¶¡£\n");
+                set("unit", "å·");
+                set("long", "è¿™æ˜¯ä¸€å·å¤æœ´ä¸ç»‡ç»è½´ï¼Œçœ‹æ¥å¾ˆæœ‰å¹´æœˆäº†ï¼Œä¸Šé¢æ–‡å­—å¤æ€ªï¼Œä¸çŸ¥ä½ è¯†
+ä¹Ÿä¸è¯†ã€‚\n");
                 set("value", 10);
                 set("material", "silk");
                 set("skill", ([

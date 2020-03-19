@@ -5,17 +5,17 @@ int main(object me)
         if (! SECURITY_D->valid_grant(me, "(wizard)"))
                 return 0;
 
-	write("ÄãµÄ User ID = " + getuid(this_player()) + "\n" );
-	write("ÄãµÄ Effective User ID = " + geteuid(this_player()) + "\n" );
+	write("ä½ çš„ User ID = " + getuid(this_player()) + "\n" );
+	write("ä½ çš„ Effective User ID = " + geteuid(this_player()) + "\n" );
 	return 1;
 }
 
 int help (object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : whoami 
+æŒ‡ä»¤æ ¼å¼ : whoami 
 
-Show ³öÄãµÄ User ID ¼° Effective User ID ¡£
+Show å‡ºä½ çš„ User ID åŠ Effective User ID ã€‚
 HELP
      );
     return 1;

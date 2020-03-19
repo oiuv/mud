@@ -3,8 +3,8 @@ inherit NPC;
 
 void create()
 {
-        set_name("µÜ×Ó", ({ "di zi", "di", "zi" }) );
-        set("gender", "ÄÐÐÔ");
+        set_name("å¼Ÿå­", ({ "di zi", "di", "zi" }) );
+        set("gender", "ç”·æ€§");
         set("age", 23);
         set("attitude", "peaceful");
         set("per", 14);
@@ -35,7 +35,7 @@ void create()
         map_skill("dodge", "jueqing-shenfa");
         map_skill("force", "jueqing-xinfa");
 
-        create_family("¾øÇé¹È", 5, "ÄÐµÜ×Ó");
+        create_family("ç»æƒ…è°·", 5, "ç”·å¼Ÿå­");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();

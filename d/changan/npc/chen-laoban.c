@@ -6,11 +6,11 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("³ÂÀÏ°å", ({ "chen laoban", "chen","laoban" }));
-        set("title", "Ê×ÊÎµêÀÏ°å");
-        set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
+        set_name("é™ˆè€æ¿", ({ "chen laoban", "chen","laoban" }));
+        set("title", "é¦–é¥°åº—è€æ¿");
+        set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
         set("shop_id", ({"laoban"}));
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("shen_type", 1);
         set("age", 43);
         set("combat_exp", 100000);

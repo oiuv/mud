@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define WAN "¡¸" HIW "ÍòÄî¾ã»Ò" NOR "¡¹"
+#define WAN "ã€Œ" HIW "ä¸‡å¿µä¿±ç°" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -11,59 +11,59 @@ int perform(object me, object target)
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/jueqing-zhang/wan"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(WAN "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(WAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail(WAN "Ö»ÄÜ¿ÕÊÖÊ©Õ¹¡£\n");
+                return notify_fail(WAN "åªèƒ½ç©ºæ‰‹æ–½å±•ã€‚\n");
 
         if (target->is_busy())
-                return notify_fail(target->name() + "Ä¿Ç°Õý×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É¡£\n");
+                return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ã€‚\n");
 
         if ((int)me->query_skill("jueqing-zhang", 1) < 100)
-                return notify_fail("Äã¾øÇéÕÆ²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" WAN "¡£\n");
+                return notify_fail("ä½ ç»æƒ…æŽŒä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" WAN "ã€‚\n");
 
         if (me->query_skill_mapped("strike") != "jueqing-zhang")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢¾øÇéÕÆ£¬ÄÑÒÔÊ©Õ¹" WAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ç»æƒ…æŽŒï¼Œéš¾ä»¥æ–½å±•" WAN "ã€‚\n");
 
         if (me->query_skill_prepared("strike") != "jueqing-zhang")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸¾øÇéÕÆ£¬ÄÑÒÔÊ©Õ¹" WAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ç»æƒ…æŽŒï¼Œéš¾ä»¥æ–½å±•" WAN "ã€‚\n");
 
         if (me->query_skill("dodge") < 150)
-                return notify_fail("ÄãµÄÇá¹¦ÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" WAN "¡£\n");
+                return notify_fail("ä½ çš„è½»åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" WAN "ã€‚\n");
 
         if ((int)me->query("neili") < 200)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" WAN "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" WAN "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         ap = me->query_skill("jueqing-zhang", 1) +
              me->query_skill("dodge", 1) / 2;
 
         dp = target->query_skill("dodge");
 
-        msg = HIC "\n$N" HIC "Ò»Éù³¤Ð¥£¬ÉùÒôÕð¶úÓûÁû£¬±¯Í´Óû¾ø£¬¶Ù"
-              "¸ÐÍòÄî¾ã»Ò£¬ÃÍÈ»¼äË«ÕÆ·è¿ñ°ãµÄÅÄÏò$n£¬¿´ËÆÔÓÂÒÎÞÕÂ£¬"
-              "µ«ÄÚÖÐÈ´Òþ²ØÎÞÏÞÉ±»ú¡£\n" NOR;
+        msg = HIC "\n$N" HIC "ä¸€å£°é•¿å•¸ï¼Œå£°éŸ³éœ‡è€³æ¬²è‹ï¼Œæ‚²ç—›æ¬²ç»ï¼Œé¡¿"
+              "æ„Ÿä¸‡å¿µä¿±ç°ï¼ŒçŒ›ç„¶é—´åŒæŽŒç–¯ç‹‚èˆ¬çš„æ‹å‘$nï¼Œçœ‹ä¼¼æ‚ä¹±æ— ç« ï¼Œ"
+              "ä½†å†…ä¸­å´éšè—æ— é™æ€æœºã€‚\n" NOR;
         message_sort(msg, me, target);
         
         if (random(ap) > dp / 2)
         {
-		msg = HIR "$n" HIR "ÐÄÉñ¾åÁÑ£¬Ò»Ê±¼ä¾¹ÎÞ´ÓÓ¦¶Ô£¬"
-                      "¾¹±»À§ÔÚ$N" HIR "µÄÕÆ·çÖ®ÖÐ¡£\n" NOR;
+		msg = HIR "$n" HIR "å¿ƒç¥žæƒ§è£‚ï¼Œä¸€æ—¶é—´ç«Ÿæ— ä»Žåº”å¯¹ï¼Œ"
+                      "ç«Ÿè¢«å›°åœ¨$N" HIR "çš„æŽŒé£Žä¹‹ä¸­ã€‚\n" NOR;
 
                 target->start_busy(ap / 40 + 1);
                	me->start_busy(1);
                 me->add("neili", -80);
         } else
         {
-                msg = CYN "$n" CYN "¿´ÆÆ$N" CYN "ºÁÎÞ¹¥»÷Ö®Òâ£¬ÓÚ"
-                      "ÊÇ´óµ¨·´¹¥£¬½«$N" CYN "ÕâÕÐ¾¡Êý»¯½â¡£\n" NOR;
+                msg = CYN "$n" CYN "çœ‹ç ´$N" CYN "æ¯«æ— æ”»å‡»ä¹‹æ„ï¼ŒäºŽ"
+                      "æ˜¯å¤§èƒ†åæ”»ï¼Œå°†$N" CYN "è¿™æ‹›å°½æ•°åŒ–è§£ã€‚\n" NOR;
 
                 me->start_busy(2);
                 me->add("neili", -30);

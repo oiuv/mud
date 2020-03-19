@@ -1,4 +1,4 @@
-// shenliwan.c ÉñÁ¦Íè
+// shenliwan.c ç¥åŠ›ä¸¸
 
 #include <ansi.h>
 
@@ -6,33 +6,33 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIC "ÉñÁ¦ÏÉµ¤" NOR, ({ "shenli xiandan", "shenli", "xiandan"}) );
+	set_name(HIC "ç¥åŠ›ä»™ä¸¹" NOR, ({ "shenli xiandan", "shenli", "xiandan"}) );
 	set_weight(200);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("long", HIC "Ò»¿ÅÔ°Ô°µÄÏÉµ¤£¬¾İËµ³ÔÁË¿ÉÒÔÔöÇ¿ëöÁ¦¡£\n" NOR);
+		set("long", HIC "ä¸€é¢—å›­å›­çš„ä»™ä¸¹ï¼Œæ®è¯´åƒäº†å¯ä»¥å¢å¼ºè†‚åŠ›ã€‚\n" NOR);
 		set("value", 10000);
-		set("unit", "¿Å");
+		set("unit", "é¢—");
 		set("only_do_effect", 1);
 	}
 }
 
 int do_effect(object me)
 {
-        message_vision("$NÒ»Ñö²±£¬ÍÌÏÂÁËÒ»¿Å" + this_object()->name() +
-                       "¡£\n", me);
+        message_vision("$Nä¸€ä»°è„–ï¼Œåä¸‹äº†ä¸€é¢—" + this_object()->name() +
+                       "ã€‚\n", me);
         if (me->query("gift/xiandan/str") >= 5)
         {
-                message_vision("$NÕ£Õ£ÑÛ¡£\n", me);
-                tell_object(me, "Äã¾õµÃÕâÒ©Ã»É¶Î¶µÀ£¬»¹²»Èç»¨ÉúºÃ³Ô¡£\n");
+                message_vision("$Nçœ¨çœ¨çœ¼ã€‚\n", me);
+                tell_object(me, "ä½ è§‰å¾—è¿™è¯æ²¡å•¥å‘³é“ï¼Œè¿˜ä¸å¦‚èŠ±ç”Ÿå¥½åƒã€‚\n");
         } else
         if (random(5) == 0)
         {
-                tell_object(me, "²»¹ıÄã¾õµÃºÃÏñÃ»Ê²Ã´×÷ÓÃ¡£\n");
+                tell_object(me, "ä¸è¿‡ä½ è§‰å¾—å¥½åƒæ²¡ä»€ä¹ˆä½œç”¨ã€‚\n");
         } else
         {
-                tell_object(me, HIR "Äã¾õµÃË«±Û¼¸ºõ±¬ÁÑ£¬³äÂúÁËÁ¦Á¿¡£\n" NOR);
+                tell_object(me, HIR "ä½ è§‰å¾—åŒè‡‚å‡ ä¹çˆ†è£‚ï¼Œå……æ»¡äº†åŠ›é‡ã€‚\n" NOR);
                 me->add("str", 1);
         }
 

@@ -1,4 +1,4 @@
-// head.c ÄÔ´ü
+// head.c è„‘è¢‹
 
 #include <ansi.h>
 
@@ -12,17 +12,17 @@ int is_head() { return 1; }
 
 void create()
 {
-        set_name(NOR + RED "Í·Â­" NOR, ({ "head" }));
+        set_name(NOR + RED "å¤´é¢…" NOR, ({ "head" }));
         set_weight(1500);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¿Å");
+                set("unit", "é¢—");
                 set("value", 1);
-                set("no_sell", "ÎÒµÄÌì¡­Õâ¡­ÕâÄãÒ²ÄÃÀ´Âô¡­¹Ù¡­¹Ù¸®ÄØ£¿");
+                set("no_sell", "æˆ‘çš„å¤©â€¦è¿™â€¦è¿™ä½ ä¹Ÿæ‹¿æ¥å–â€¦å®˜â€¦å®˜åºœå‘¢ï¼Ÿ");
                 set("food_supply", 10);
                 set("food_remaining", 4);
-                set("long", RED "ÕâÊÇÒ»¿ÅÏÊÑªÁÜÁÜµÄÊ×¼¶£¬ÏÊÑªÕı»º»ºÉø³ö¡£\n" NOR);
+                set("long", RED "è¿™æ˜¯ä¸€é¢—é²œè¡€æ·‹æ·‹çš„é¦–çº§ï¼Œé²œè¡€æ­£ç¼“ç¼“æ¸—å‡ºã€‚\n" NOR);
         }
 }
 
@@ -39,19 +39,19 @@ int set_from(object owner)
 
         if (! stringp(owner->query("victim_name")))
         {
-                set("name", "¸¯ÀÃµÄÈËÍ·");
-                owner->set("name", "¸¯ÀÃµÄÎŞÍ·Ê¬Ìå");
+                set("name", "è…çƒ‚çš„äººå¤´");
+                owner->set("name", "è…çƒ‚çš„æ— å¤´å°¸ä½“");
         } else
         {
-                set("name", owner->query("victim_name") + "µÄÈËÍ·");
-                owner->set("name", "ÎŞÍ·Ê¬Ìå");
+                set("name", owner->query("victim_name") + "çš„äººå¤´");
+                owner->set("name", "æ— å¤´å°¸ä½“");
         }
 
         if (owner->query_temp("clawed_by_jiuyin"))
         {
                 set_temp("clawed_by_jiuyin", 1);
                 set("long", query("long") +
-                            "ÉÏÃæºÕÈ»ÓĞÎå¸öĞ¡¶´£¬ÉìÊÖÒ»Ì½£¬¸ÕºÃ¿ÉÒÔ²åÈë¡£\n");
+                            "ä¸Šé¢èµ«ç„¶æœ‰äº”ä¸ªå°æ´ï¼Œä¼¸æ‰‹ä¸€æ¢ï¼Œåˆšå¥½å¯ä»¥æ’å…¥ã€‚\n");
         }
 
         set_name(NOR + RED + query("name") + NOR, ({ "head" }));
@@ -68,9 +68,9 @@ int do_cut(object me, string part)
 
 int finish_eat()
 {
-        set_name(NOR + WHT "÷¼÷ÃÍ·" NOR, ({ "bone" }));
+        set_name(NOR + WHT "éª·é«…å¤´" NOR, ({ "bone" }));
         set_weight(150);
-        set("long", WHT "ÕâÊÇÒ»¸ö°×É­É­µÄ÷¼÷ÃÍ·¡£\n" NOR);
+        set("long", WHT "è¿™æ˜¯ä¸€ä¸ªç™½æ£®æ£®çš„éª·é«…å¤´ã€‚\n" NOR);
         return 1;
 }
 

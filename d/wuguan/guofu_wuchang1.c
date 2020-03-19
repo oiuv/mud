@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�����䳡");
+	set("short", "西练武场");
 	set("long", @LONG
-���Ǽ���ķ��ӣ�ʮ�ֿ����������������ﺹ��䤱���
-�����Ź��򣬵�����һЩ�����õĹ��ߡ�
+这是间大大的房子，十分宽阔，不少人在这里汗流浃背的
+苦练着功夫，地上有一些练武用的工具。
 LONG);
         set("no_fight", 1);
         set("can_dazuo", 1);

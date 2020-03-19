@@ -2,10 +2,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("½ÌÁ·", ({ "jiao lian", "jiao", "lian" }));
-        set("gender", "ÄĞĞÔ" );
+        set_name("æ•™ç»ƒ", ({ "jiao lian", "jiao", "lian" }));
+        set("gender", "ç”·æ€§" );
         set("age", 25);
-        set("long", "ÕâÊÇ¸öºÍ°ª¿ÉÇ×µÄ½ÌÁ·¡£\n");
+        set("long", "è¿™æ˜¯ä¸ªå’Œè”¼å¯äº²çš„æ•™ç»ƒã€‚\n");
         set("attitude", "friendly");
         set("shen_type", -1);
 
@@ -33,26 +33,26 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        if (ob->query("born_family") != "Å·ÑôÊÀ¼Ò")
+        if (ob->query("born_family") != "æ¬§é˜³ä¸–å®¶")
         {
                 command("shake");
-                command("say ÄÄÀïÀ´µÄ¼Ò»ï£¿¾ÓÈ»¸ÒÀ´°×ÍÕÉ½ÌíÂÒ£¿");
+                command("say å“ªé‡Œæ¥çš„å®¶ä¼™ï¼Ÿå±…ç„¶æ•¢æ¥ç™½é©¼å±±æ·»ä¹±ï¼Ÿ");
                 return;
         }
 
-        command("say ºÇºÇ£¬ÎÒ²»ÊÕÍ½£¬È¥ÕÒÅ·Ñô×¯Ö÷°É¡£\n");
+        command("say å‘µå‘µï¼Œæˆ‘ä¸æ”¶å¾’ï¼Œå»æ‰¾æ¬§é˜³åº„ä¸»å§ã€‚\n");
         return;
 }
 
 int accept_fight(object ob)
 {
-        if (ob->query("born_family") != "Å·ÑôÊÀ¼Ò")
+        if (ob->query("born_family") != "æ¬§é˜³ä¸–å®¶")
         {
                 command("shake");
-                command("say ÄÄÀïÀ´µÄ¼Ò»ï¾ÓÈ»¸ÒÀ´°×ÍÕÉ½ÌíÂÒ£¿");
+                command("say å“ªé‡Œæ¥çš„å®¶ä¼™å±…ç„¶æ•¢æ¥ç™½é©¼å±±æ·»ä¹±ï¼Ÿ");
                 return 0;
         }
 
-        command("say Õâ¸ö¡­Äã»¹ÊÇ×Ô¼ºÈ¥Á·Ï°°É¡£");
+        command("say è¿™ä¸ªâ€¦ä½ è¿˜æ˜¯è‡ªå·±å»ç»ƒä¹ å§ã€‚");
         return 1;
 }

@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-	set_name("´ö×åÊ×Áì", ({ "daizu shouling", "shouling" }));
+	set_name("å‚£æ—é¦–é¢†", ({ "daizu shouling", "shouling" }));
 	set("age", 42);
-	set("title", "ºéÔ´¶´¶´Ö÷");
-	set("gender", "ÄĞĞÔ");
-	set("long", "ÕâÊÇÒ»¸öÉí¹ü»¢Æ¤µÄ¸ß´óÄĞĞÔ¡£\n");
+	set("title", "æ´ªæºæ´æ´ä¸»");
+	set("gender", "ç”·æ€§");
+	set("long", "è¿™æ˜¯ä¸€ä¸ªèº«è£¹è™çš®çš„é«˜å¤§ç”·æ€§ã€‚\n");
 	set("attitude", "peaceful");
 
 	set("str", 34);

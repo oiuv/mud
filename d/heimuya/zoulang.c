@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "����");
+        set("short", "走廊");
         set("long", @LONG
-���ǳɵµ��ڵ�һ��ľ�Ƶ����ȣ����������ǹ⻬����
-�����ȱ�������һ����Ⱦ���㲻ʱ�ܹ����������ɵµ����Ů
-�ڴ��߶���æµ����ͣ��
+这是成德殿内的一条木制的走廊，红漆地面很是光滑，整
+个走廊被打整得一尘不染。你不时能够看到几个成德殿的侍女
+在此走动，忙碌个不停。
 LONG);
         set("exits", ([
                 "north"  : __DIR__"huoting",

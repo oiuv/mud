@@ -5,13 +5,13 @@ inherit F_FOOD;
 
 void create()
 {
-	set_name("¹ıÇÅÃ×Ïß", ({"guoqiao mixian", "mixian"}));
+	set_name("è¿‡æ¡¥ç±³çº¿", ({"guoqiao mixian", "mixian"}));
 	set_weight(80);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "ÕâÊÇÒ»ÍëÈÈÆøÌÚÌÚµÄÓÍ½şµÄÃ×·Û£¬ÕıÊÇ´óÀíÃû²Ë¹ıÇÅÃ×Ïß¡£\n");
-		set("unit", "Íë");
+		set("long", "è¿™æ˜¯ä¸€ç¢—çƒ­æ°”è…¾è…¾çš„æ²¹æµ¸çš„ç±³ç²‰ï¼Œæ­£æ˜¯å¤§ç†åèœè¿‡æ¡¥ç±³çº¿ã€‚\n");
+		set("unit", "ç¢—");
 		set("value", 80);
 		set("food_remaining", 10);
 		set("food_supply", 20);

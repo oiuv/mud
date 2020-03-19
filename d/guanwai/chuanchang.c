@@ -3,12 +3,12 @@ inherit RIVER;
 
 void create()
 {
-        set("short", "����");
+        set("short", "船厂");
         set("long", @LONG
-�����ǹ��򴬳���������λ�ڹ����ƽԭ�в���һ������
-��С�򣬴��������ϡ������������Ը�ǽ�������ڼ��ء�����
-���ɻ���������գ��˱��ұ�����Ҫ�ء��ɻ��� (river)�ڶ�
-��ʱ�����ͨ�У����ﻯ����ֻ���Ҵ��Ұ�æ�ˡ�
+这里是古镇船厂。船厂是位于关外大平原中部的一个古老
+的小镇，此镇西、南、北、三面是以高墙垒筑利于坚守。东面
+临松花江天成天险，乃兵家必争的要地。松花江 (river)在冬
+春时结冰可通行，夏秋化冻你只好找船家帮忙了。
 LONG);
         set("arrive_room", "/d/guanwai/damenkan");
         set("exits", ([

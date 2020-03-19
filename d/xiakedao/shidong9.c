@@ -1,14 +1,14 @@
-// shidong9.c Ê¯¶´
+// shidong9.c çŸ³æ´ž
 
 inherit ROOM;
 
 void create()
 {
-        set("short", "Ê¯¶´");
+        set("short", "çŸ³æ´ž");
         set("long", @LONG
-ÕâÊÇÒ»¸öºÜÐ¡µÄÊ¯¶´£¬Á½±ßµã×ÅºìÖò£¬¹âÏßËä°µ£¬È´Ò²ÄÜ±çµÃ
-³ö·½Ïò¡£×ß×Å×ß×Å£¬ÄãÒþÔ¼¿´¼ûÔÚÇ°ÃæÓÐÒ»¸öÉíÓ°£¬Ö»¼ûËûÉí´©Çà
-É«³¤ÉÀ£¬ÑÛÊÓÇ°·½£¬Ò»¸±Î¨ÎÒ¶À×ðµÄÑù×Ó¡£
+è¿™æ˜¯ä¸€ä¸ªå¾ˆå°çš„çŸ³æ´žï¼Œä¸¤è¾¹ç‚¹ç€çº¢çƒ›ï¼Œå…‰çº¿è™½æš—ï¼Œå´ä¹Ÿèƒ½è¾©å¾—
+å‡ºæ–¹å‘ã€‚èµ°ç€èµ°ç€ï¼Œä½ éšçº¦çœ‹è§åœ¨å‰é¢æœ‰ä¸€ä¸ªèº«å½±ï¼Œåªè§ä»–èº«ç©¿é’
+è‰²é•¿è¡«ï¼Œçœ¼è§†å‰æ–¹ï¼Œä¸€å‰¯å”¯æˆ‘ç‹¬å°Šçš„æ ·å­ã€‚
 LONG );
         set("exits", ([
                 "west" : __DIR__"shidong10",

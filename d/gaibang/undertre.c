@@ -4,11 +4,11 @@ string look_map();
 
 void create()
 {
-        set("short", "Ê÷¶´ÏÂ");
+        set("short", "æ ‘æ´ä¸‹");
         set("long", @LONG
-ÕâÊÇÀÏ»±Ê÷µ×²¿£¬ËÄÖÜ¹âÏß»è°µ£¬ÈËÓ°»Î»Î£¬ËÆºõÓĞ¼¸¸ö
-ºÚ°µµÄ¶´¿ÚÔÚÄãÉí±ß£¬Í¨ÏòËÄÃæ°Ë·½¡£Ò»Î»ÀÏÆòØ¤´óßÖßÖµØ×ø
-ÔÚÕıÖĞµÄµØÉÏ¡£Ç½±ÚÉÏ»­×Å·ù´Ö²ÚµÄÂ·Ïß(map)²İÍ¼¡£
+è¿™æ˜¯è€æ§æ ‘åº•éƒ¨ï¼Œå››å‘¨å…‰çº¿æ˜æš—ï¼Œäººå½±æ™ƒæ™ƒï¼Œä¼¼ä¹æœ‰å‡ ä¸ª
+é»‘æš—çš„æ´å£åœ¨ä½ èº«è¾¹ï¼Œé€šå‘å››é¢å…«æ–¹ã€‚ä¸€ä½è€ä¹ä¸å¤§å’§å’§åœ°å
+åœ¨æ­£ä¸­çš„åœ°ä¸Šã€‚å¢™å£ä¸Šç”»ç€å¹…ç²—ç³™çš„è·¯çº¿(map)è‰å›¾ã€‚
 LONG);
         set("exits", ([
                 "up"   : __DIR__"inhole",
@@ -42,107 +42,107 @@ int do_goto(string arg)
         object me = this_player();
         string room, name;
 
-        if (me->query("family/family_name") != "Ø¤°ï")
-                return notify_fail(HIR "\nÄã³¯ÃÜµÀ×ßÈ¥£¬Í»ÎÅÒ»¹É¶ñ³ô"
-                                   "´Ó¶´ÄÚ´«³ö£¬Ê¹ÄãÁ¬Ã¦Ö¹²½¡£\n" NOR);
+        if (me->query("family/family_name") != "ä¸å¸®")
+                return notify_fail(HIR "\nä½ æœå¯†é“èµ°å»ï¼Œçªé—»ä¸€è‚¡æ¶è‡­"
+                                   "ä»æ´å†…ä¼ å‡ºï¼Œä½¿ä½ è¿å¿™æ­¢æ­¥ã€‚\n" NOR);
 
         if (! arg || arg == "")
-                return notify_fail("ÄãÒªÈ¥ÄÄÀï£¿\n");
+                return notify_fail("ä½ è¦å»å“ªé‡Œï¼Ÿ\n");
 
         switch (arg)
         {
-        case "¸£Öİ" :
+        case "ç¦å·" :
         case "fuzhou" :
                 room = "/d/fuzhou/yushan";
-                name = "¸£Öİ";
+                name = "ç¦å·";
                 break;
 
-        case "ÏåÑô" :
+        case "è¥„é˜³" :
         case "xiangyang" :
                 room = "/d/xiangyang/xiaorong1";
-                name = "ÏåÑô";
+                name = "è¥„é˜³";
                 break;
 
-        case "ËÕÖİ" :
+        case "è‹å·" :
         case "suzhou" :
                 room = "/d/suzhou/chitang";
-                name = "ËÕÖİ";
+                name = "è‹å·";
                 break;
 
-        case "º¼Öİ" :
+        case "æ­å·" :
         case "hangzhou" :
                 room = "/d/hangzhou/yuhuangshan";
-                name = "º¼Öİ";
+                name = "æ­å·";
                 break;
 
-        case "³É¶¼" :
+        case "æˆéƒ½" :
         case "chengdu" :
                 room = "/d/city3/wuhouci";
-                name = "³É¶¼";
+                name = "æˆéƒ½";
                 break;
 
-        case "¾£Öİ" :
+        case "è†å·" :
         case "jingzhou" :
                 room = "/d/jingzhou/xxend";
-                name = "¾£Öİ";
+                name = "è†å·";
                 break;
 
-        case "ÄÏÑô" :
+        case "å—é˜³" :
         case "nanyang" :
                 room = "/d/shaolin/ruzhou";
-                name = "ÄÏÑô";
+                name = "å—é˜³";
                 break;
 
-        case "·ğÉ½" :
+        case "ä½›å±±" :
         case "foshan" :
                 room = "/d/foshan/youtiaopu";
-                name = "·ğÉ½";
+                name = "ä½›å±±";
                 break;
 
-        case "´óÀí" :
+        case "å¤§ç†" :
         case "dali" :
                 room = "/d/dali/dahejieeast";
-                name = "´óÀí";
+                name = "å¤§ç†";
                 break;
 
-        case "ºâÑô" :
+        case "è¡¡é˜³" :
         case "hengyang" :
                 room = "/d/henshan/hengyang1";
-                name = "ºâÑô";
+                name = "è¡¡é˜³";
                 break;
 
-        case "³¤°²" :
+        case "é•¿å®‰" :
         case "changan" :
                 room = "/d/changan/minju3";
-                name = "³¤°²";
+                name = "é•¿å®‰";
                 break;
 
-        case "±±¾©" :
+        case "åŒ—äº¬" :
         case "beijing" :
                 room = "/d/beijing/minju_y";
-                name = "±±¾©";
+                name = "åŒ—äº¬";
                 break;
 
-        case "¿ª·â" :
+        case "å¼€å°" :
         case "kaifeng" :
                 room = "/d/kaifeng/jiaomen";
-                name = "¿ª·â";
+                name = "å¼€å°";
                 break;
 
-        case "ÖĞÖİ" :
+        case "ä¸­å·" :
         case "zhongzhou" :
                 room = "/d/zhongzhou/inpomiao";
-                name = "ÖĞÖİ";
+                name = "ä¸­å·";
                 break;
 
-        case "ÂåÑô" :
+        case "æ´›é˜³" :
         case "luoyang" :
                 room = "/d/luoyang/nantou";
-                name = "ÂåÑô";
+                name = "æ´›é˜³";
                 break;
 
         default:
-                return notify_fail("Ã»ÓĞÍ¨ÏòÄÇ¸ö·½ÏòµÄÃÜµÀ¡£\n");
+                return notify_fail("æ²¡æœ‰é€šå‘é‚£ä¸ªæ–¹å‘çš„å¯†é“ã€‚\n");
                 break;
         }
         arrive = find_object(room);
@@ -150,7 +150,7 @@ int do_goto(string arg)
         if (! arrive)
                 arrive = load_object(room);
 
-        message_vision("$NËÊÁËËÊ¼ç£¬³¯" + name + "ÃÜµÀÄÚ×ßÈ¥¡£\n", me);
+        message_vision("$Nè€¸äº†è€¸è‚©ï¼Œæœ" + name + "å¯†é“å†…èµ°å»ã€‚\n", me);
 
         midao = new(__DIR__"midao");
         me->move(midao);
@@ -162,24 +162,24 @@ int do_goto(string arg)
 
 void arrival(object me, object boat, object arrive)
 {
-        tell_object(me, HIY "\nÄãÔÚÆáºÚµÄÃÜµÀÖĞ´©Ëó×Å£¬Í»È»"
-                        "ÑÛÇ°Ò»ÁÁ¡£\n\n" NOR);
+        tell_object(me, HIY "\nä½ åœ¨æ¼†é»‘çš„å¯†é“ä¸­ç©¿æ¢­ç€ï¼Œçªç„¶"
+                        "çœ¼å‰ä¸€äº®ã€‚\n\n" NOR);
         me->move(arrive);
 }
 
 string look_map()
 {
         return WHT "\n"
-"·²Ø¤°ï°ïÖÚ¾ù¿ÉÍ¨¹ıÃÜµÀÖ±´ïÒÔÏÂ³ÇÊĞ£º\n" HIY
-"©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR
-" ³¤°²(changan)         ÂåÑô(luoyang)\n"
-" ´óÀí(dali)            ±±¾©(beijing)\n"
-" º¼Öİ(hangzhou)        ¿ª·â(kaifeng)\n"
-" ËÕÖİ(suzhou)          ºâÑô(hengyang)\n"
-" ÏåÑô(xiangyang)       ¸£Öİ(fuzhou)\n"
-" ³É¶¼(chengdu)         ¾£Öİ(jingzhou)\n"
-" ÄÏÑô(nanyang)         ·ğÉ½(foshan)\n"
-" ÖĞÖİ(zhongzhou)\n" HIY
-"©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR + WHT
-"¼´À´¼´×ß(" HIY "goto" NOR + WHT ")ÎŞĞèµÈ´ı£¬½öÏŞØ¤°ï°ïÖÚ¡£\n" NOR;
+"å‡¡ä¸å¸®å¸®ä¼—å‡å¯é€šè¿‡å¯†é“ç›´è¾¾ä»¥ä¸‹åŸå¸‚ï¼š\n" HIY
+"â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR
+" é•¿å®‰(changan)         æ´›é˜³(luoyang)\n"
+" å¤§ç†(dali)            åŒ—äº¬(beijing)\n"
+" æ­å·(hangzhou)        å¼€å°(kaifeng)\n"
+" è‹å·(suzhou)          è¡¡é˜³(hengyang)\n"
+" è¥„é˜³(xiangyang)       ç¦å·(fuzhou)\n"
+" æˆéƒ½(chengdu)         è†å·(jingzhou)\n"
+" å—é˜³(nanyang)         ä½›å±±(foshan)\n"
+" ä¸­å·(zhongzhou)\n" HIY
+"â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR + WHT
+"å³æ¥å³èµ°(" HIY "goto" NOR + WHT ")æ— éœ€ç­‰å¾…ï¼Œä»…é™ä¸å¸®å¸®ä¼—ã€‚\n" NOR;
 }

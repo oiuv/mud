@@ -1,23 +1,23 @@
-//Ç¬À¤Ê¯-Á¶ÖÆÈçÒâÇ¬À¤´üµÄ²ÄÁÏ
+//ä¹¾å¤çŸ³-ç‚¼åˆ¶å¦‚æ„ä¹¾å¤è¢‹çš„ææ–™
 #include <ansi.h>
 
 inherit ITEM;
 
 void create()
 {
-        set_name(HIG "Ç¬" HIY "À¤" HIW "Ê¯" NOR, ({"qiankun stone", "qiankun", "stone", "shi"}));
+        set_name(HIG "ä¹¾" HIY "å¤" HIW "çŸ³" NOR, ({"qiankun stone", "qiankun", "stone", "shi"}));
         set_weight(3000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIW "ÕâÊÇÒ»¿é¾§Ó¨ÌŞÍ¸µÄ±¦Ê¯£¬Ê¯Ãæ¹â»ª"
-                            "Á÷×ª£¬±ãËÆ»îÎïÒ»°ã¡£\n" NOR);
-                set("unit", "¿é");
+                set("long", HIW "è¿™æ˜¯ä¸€å—æ™¶è¹å‰”é€çš„å®çŸ³ï¼ŒçŸ³é¢å…‰å"
+                            "æµè½¬ï¼Œä¾¿ä¼¼æ´»ç‰©ä¸€èˆ¬ã€‚\n" NOR);
+                set("unit", "å—");
                 set("value", 30000);
                 set("item_origin", 1);
                 set("material_attrib", "stone");
-                set("material_name", HIG "Ç¬" HIY "À¤" HIW "Ê¯" NOR);
-                set("can_make", ({ "ÈçÒâÇ¬À¤´ü" }));
+                set("material_name", HIG "ä¹¾" HIY "å¤" HIW "çŸ³" NOR);
+                set("can_make", ({ "å¦‚æ„ä¹¾å¤è¢‹" }));
                 set("power_point", 100);
         }
 }

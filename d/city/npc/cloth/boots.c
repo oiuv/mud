@@ -4,19 +4,19 @@ inherit EQUIP;
 
 void create()
 {
-        set_name(YEL "ÑòÆ¤Ñ¥" NOR, ({ "yangpi xue", "yangpi", "xue" }) );
+        set_name(YEL "ç¾Šçš®é´" NOR, ({ "yangpi xue", "yangpi", "xue" }) );
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ë«");
+                set("unit", "åŒ");
                 set("value", 800);
                 set("material", "leather");
                 set("armor_type", "feet");
                 set("armor_prop/armor", 2);
                 set("armor_prop/dodge", 2);
-                set("wear_msg","$N´©ÉÏÒ»Ë«$n¡£\n");
-                set("remove_msg","$N½«$nÍÑÁËÏÂÀ´¡£\n");
+                set("wear_msg","$Nç©¿ä¸Šä¸€åŒ$nã€‚\n");
+                set("remove_msg","$Nå°†$nè„±äº†ä¸‹æ¥ã€‚\n");
 
         }
 

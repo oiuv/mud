@@ -1,16 +1,16 @@
 #include <ansi.h>
 
 inherit NPC;
-string *names = ({"´òÉ¨Âí·¿", "¾âÄ¾Í·", "Åü²ñ", "½½²ËµØ", "³ú²Ý" });
+string *names = ({"æ‰“æ‰«é©¬æˆ¿", "é”¯æœ¨å¤´", "åŠˆæŸ´", "æµ‡èœåœ°", "é”„è‰" });
 string ask_job();
 
 void create()
 {
-        set_name("Ò®ÂÉÆë", ({ "yelv qi", "yelv", "qi" }));
-        set("title", "È«Õæ½ÌµÚ¶þ´úµÜ×Ó");
-        set("nickname", HIY "Ø¤°ï°ïÖ÷" NOR);
-        set("long", "Ò®ÂÉÆëÊÇ¹ù¾¸ºÍ»ÆÈØµÄ´óÅ®Ðö£¬¹ùÜ½µÄÕÉ·ò¡£\n");
-        set("gender", "ÄÐÐÔ");
+        set_name("è€¶å¾‹é½", ({ "yelv qi", "yelv", "qi" }));
+        set("title", "å…¨çœŸæ•™ç¬¬äºŒä»£å¼Ÿå­");
+        set("nickname", HIY "ä¸å¸®å¸®ä¸»" NOR);
+        set("long", "è€¶å¾‹é½æ˜¯éƒ­é–å’Œé»„è“‰çš„å¤§å¥³å©¿ï¼Œéƒ­èŠ™çš„ä¸ˆå¤«ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 35);
         set("str", 35);
         set("dex", 30);
@@ -54,12 +54,12 @@ void create()
 
         prepare_skill("unarmed", "kongming-quan");
 
-        create_family("¹ù¸®", 2, "Å®Ðö");
+        create_family("éƒ­åºœ", 2, "å¥³å©¿");
 
         set("inquiry", ([
              "job"  : (: ask_job :),
-             "¹¤×÷" : (: ask_job :),
-             "¹¤¾ß" : "ÄãÈ¥ÎïÆ··¿ÕÒÀÏÀîÒª°É¡£",
+             "å·¥ä½œ" : (: ask_job :),
+             "å·¥å…·" : "ä½ åŽ»ç‰©å“æˆ¿æ‰¾è€æŽè¦å§ã€‚",
         ]));
 
         set("chat_chance_combat", 120);
@@ -88,8 +88,8 @@ void init()
           && ob->query("combat_exp") < 40000)
 	{
        		command("nod " + ob->query("id"));
-        	command("say ÏÖÔÚ¹ù¸®ÄÚÕýÈ±ÈËÊÖ£¬Äã¿ÉÒÔÕÒÎÒÁì¹¤×÷(" HIY
-               		"ask yelv qi about ¹¤×÷" NOR + CYN ")À´×ö¡£" NOR);
+        	command("say çŽ°åœ¨éƒ­åºœå†…æ­£ç¼ºäººæ‰‹ï¼Œä½ å¯ä»¥æ‰¾æˆ‘é¢†å·¥ä½œ(" HIY
+               		"ask yelv qi about å·¥ä½œ" NOR + CYN ")æ¥åšã€‚" NOR);
 	}
      	add_action("do_task", "task");
 }
@@ -105,18 +105,18 @@ string ask_job()
         target = names[random(sizeof(names))];
 
         if (ob->query_temp("job_name"))
-		return "Äã²»ÊÇÒÑ¾­ÁìÁË¹¤×÷Âð£¿»¹²»¿ìÈ¥×ö¡£";
+		return "ä½ ä¸æ˜¯å·²ç»é¢†äº†å·¥ä½œå—ï¼Ÿè¿˜ä¸å¿«åŽ»åšã€‚";
 
         if (ob->query("combat_exp") >= 40000)
-             	return "Äã¹¦·òÒÑ¾­×ã¹»´³µ´½­ºþ£¬ÕâÀïÃ»ÓÐÊ²Ã´ÊÊºÏÄãµÄ¹¤×÷ÁË¡£";
+             	return "ä½ åŠŸå¤«å·²ç»è¶³å¤Ÿé—¯è¡æ±Ÿæ¹–ï¼Œè¿™é‡Œæ²¡æœ‰ä»€ä¹ˆé€‚åˆä½ çš„å·¥ä½œäº†ã€‚";
 
         if (ob->query("mark/guofu_out"))
-             	return "Äã²»ÊÇÒÑ¾­Íâ³ö´³µ´ÁËÂð£¬ÔõÃ´ÓÖ»ØÀ´ÁË£¿";
+             	return "ä½ ä¸æ˜¯å·²ç»å¤–å‡ºé—¯è¡äº†å—ï¼Œæ€Žä¹ˆåˆå›žæ¥äº†ï¼Ÿ";
 
         ob->set_temp("job_name", target);
         ob->apply_condition("wuguan_job", random(3) + 4);
-        return "¡­àÅ¡­ÄãÏÈµ½ÎïÆ··¿Áì¹¤¾ß£¬È»ºóÈ¥ºóÔº¡¸" HIY + target + NOR
-               + CYN "¡¹°É¡£\n" NOR;
+        return "â€¦å—¯â€¦ä½ å…ˆåˆ°ç‰©å“æˆ¿é¢†å·¥å…·ï¼Œç„¶åŽåŽ»åŽé™¢ã€Œ" HIY + target + NOR
+               + CYN "ã€å§ã€‚\n" NOR;
 }
 
 int do_task(string arg)
@@ -126,39 +126,39 @@ int do_task(string arg)
 
         ob = this_player();
         me = this_object();
-        exp = 50 + random(20);//2015Äê3ÔÂ28ÈÕ
-        pot = 25 + random(10);//½±ÀøÔö¼Ó
+        exp = 50 + random(20);//2015å¹´3æœˆ28æ—¥
+        pot = 25 + random(10);//å¥–åŠ±å¢žåŠ 
 
         if (! arg || arg != "ok")
 		return 0;
 
         if (! ob->query_temp("job_name"))
-		return notify_fail(CYN "Ò®ÂÉÆëÖåÃ¼µÀ£ºÎÒÃ»¸øÄã¹¤×÷£¬Ôõ"
-                                   "Ã´ÅÜÀ´¸²ÃüÁË£¿\n" NOR);
+		return notify_fail(CYN "è€¶å¾‹é½çš±çœ‰é“ï¼šæˆ‘æ²¡ç»™ä½ å·¥ä½œï¼Œæ€Ž"
+                                   "ä¹ˆè·‘æ¥è¦†å‘½äº†ï¼Ÿ\n" NOR);
 
-        if (! (ob->query_temp("mark/ÅüÍêÁË")
-           || ob->query_temp("mark/½½ÍêÁË")
-           || ob->query_temp("mark/³úÍêÁË")
-           || ob->query_temp("mark/¾âÍêÁË")
-           || ob->query_temp("mark/É¨ÍêÁË")
-           || ob->query_temp("mark/ÌôÍêÁË")))
-                return notify_fail(CYN "Ò®ÂÉÆëÖåÃ¼µÀ£ºÎÒÈÃÄã¸ÉµÄÊÂ¶¼¸É"
-                                   "ÍêÁËÂð£¿\n" NOR);
+        if (! (ob->query_temp("mark/åŠˆå®Œäº†")
+           || ob->query_temp("mark/æµ‡å®Œäº†")
+           || ob->query_temp("mark/é”„å®Œäº†")
+           || ob->query_temp("mark/é”¯å®Œäº†")
+           || ob->query_temp("mark/æ‰«å®Œäº†")
+           || ob->query_temp("mark/æŒ‘å®Œäº†")))
+                return notify_fail(CYN "è€¶å¾‹é½çš±çœ‰é“ï¼šæˆ‘è®©ä½ å¹²çš„äº‹éƒ½å¹²"
+                                   "å®Œäº†å—ï¼Ÿ\n" NOR);
 
         if (interactive(ob)
         && (int)ob->query_condition("wuguan_job"))
 	{
               command("hmm " + ob->query("id"));
-              return notify_fail(CYN "Ò®ÂÉÆëÖåÃ¼µÀ£ºÔõÃ´ÕâÃ´¿ì£¬ÊÇ²»ÊÇ"
-                                 "Ã»×öÍê°¡£¬·Ô¸ÀÄã»ØÀ´ÁËÂð£¿\n" NOR);
+              return notify_fail(CYN "è€¶å¾‹é½çš±çœ‰é“ï¼šæ€Žä¹ˆè¿™ä¹ˆå¿«ï¼Œæ˜¯ä¸æ˜¯"
+                                 "æ²¡åšå®Œå•Šï¼Œå©å’ä½ å›žæ¥äº†å—ï¼Ÿ\n" NOR);
         }
 
-        if (! ob->query_temp("mark/»¹ÁË"))
-		return notify_fail(CYN "Ò®ÂÉÆëµÀ£º¡­àÅ¡­Äã»¹ÊÇÏÈ°Ñ¹¤¾ß"
-                                   "»¹ÁË""ÔÙËµ°É¡£\n" NOR);
+        if (! ob->query_temp("mark/è¿˜äº†"))
+		return notify_fail(CYN "è€¶å¾‹é½é“ï¼šâ€¦å—¯â€¦ä½ è¿˜æ˜¯å…ˆæŠŠå·¥å…·"
+                                   "è¿˜äº†""å†è¯´å§ã€‚\n" NOR);
 
         command("smile " + ob->query("id"));
-        command("say ¸ÉµÃ²»´í£¬ÕâÊÇ¸øÄãµÄ½±ÉÍ¡£");
+        command("say å¹²å¾—ä¸é”™ï¼Œè¿™æ˜¯ç»™ä½ çš„å¥–èµã€‚");
 
         obj = new("/clone/money/silver");
         obj->set_amount(1 + random(5));
@@ -166,13 +166,13 @@ int do_task(string arg)
         command("give " + ob->query("id") + " silver");
 
         if (ob->query("potential") > ob->query_potential_limit()) 
-            pot = 5;		//¼ÓÇ¿½±Àø£¬°ïÖúÐÂÊÖ³É³¤£¨2015Äê4ÔÂ10ÈÕ£©
+            pot = 5;		//åŠ å¼ºå¥–åŠ±ï¼Œå¸®åŠ©æ–°æ‰‹æˆé•¿ï¼ˆ2015å¹´4æœˆ10æ—¥ï¼‰
 
         ob->add("combat_exp", exp);
         ob->improve_potential(pot);
 
-        tell_object(ob, HIC "Äã»ñµÃÁË" + chinese_number(exp) + "µã"
-                        "¾­ÑéºÍ" + chinese_number(pot) + "µãÇ±ÄÜ¡£"
+        tell_object(ob, HIC "ä½ èŽ·å¾—äº†" + chinese_number(exp) + "ç‚¹"
+                        "ç»éªŒå’Œ" + chinese_number(pot) + "ç‚¹æ½œèƒ½ã€‚"
                         "\n" NOR);
         ob->delete_temp("job_name");
         ob->delete_temp("mark");

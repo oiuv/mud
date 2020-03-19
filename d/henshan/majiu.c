@@ -3,12 +3,12 @@ inherit TRANS_ROOM;
 
 void create()
 {
-      set("short","Âí¾Ç");
+      set("short","é©¬åŽ©");
       set("long",@LONG
-ÕâÊÇºâÑô³ÇÄÏµÄÂí¾Ç£¬³£Äê¹©Ó¦ÐÂÏÊ²ÝÁÏ¡£ºâÑôµØÏÁÈËÏ¡
-À´ÍùÐÐÈËÒ²ºÜÉÙ¡£´ÓÕâÀï¿ÉÒÔ³ËÂí³µµ½¸½½üµÄ³ÇÊÐ£¬Âí¾ÇÓêéÜ
-ÏÂµÄÀÃÄ¾ÖùÉÏ¶¤×ÅÒ»¿éÆÆÄ¾ÅÆ(paizi)¡£ Âí¾ÇÖÐ¶Ñ·ÅÖø¼¸¶Ñ²Ý
-ÁÏ£¬ÕýÖÐÓÐÒ»¿Úãï²Û¡£
+è¿™æ˜¯è¡¡é˜³åŸŽå—çš„é©¬åŽ©ï¼Œå¸¸å¹´ä¾›åº”æ–°é²œè‰æ–™ã€‚è¡¡é˜³åœ°ç‹­äººç¨€
+æ¥å¾€è¡Œäººä¹Ÿå¾ˆå°‘ã€‚ä»Žè¿™é‡Œå¯ä»¥ä¹˜é©¬è½¦åˆ°é™„è¿‘çš„åŸŽå¸‚ï¼Œé©¬åŽ©é›¨æª
+ä¸‹çš„çƒ‚æœ¨æŸ±ä¸Šé’‰ç€ä¸€å—ç ´æœ¨ç‰Œ(paizi)ã€‚ é©¬åŽ©ä¸­å †æ”¾è‘—å‡ å †è‰
+æ–™ï¼Œæ­£ä¸­æœ‰ä¸€å£æ³”æ§½ã€‚
 LONG);
         set("outdoors", "henshan");
         set("no_fight", 1);

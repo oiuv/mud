@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "������");
+        set("short", "黄泥岭");
         set("long", @LONG
-һ������·�������������ܷǳ��İ�����ż���ſ���Щ���˴ҴҶ�����
-�ϱ��ֱ�����ɽ��·��
+一条黄土路弯弯曲曲，四周非常的安静。偶而才看见些游人匆匆而过。
+南北分别是下山的路。
 LONG);
         set("exits", ([
                 "southdown"   : __DIR__"maojiabu",

@@ -1,4 +1,4 @@
-// xiaoshu.c ÏûÊîÍè
+// xiaoshu.c æ¶ˆæš‘ä¸¸
 
 inherit ITEM;
 
@@ -6,12 +6,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIY"ÏûÊîÍè"NOR, ({"xiaoshu wan", "xiaoshuwan"}));
+	set_name(HIY"æ¶ˆæš‘ä¸¸"NOR, ({"xiaoshu wan", "xiaoshuwan"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "°ü");
-		set("long", "ÕâÊÇÒ»°üÖÎÁÆÖĞÊîµÄÒ©£¬Á¢¿Ì¼ûĞ§¡£\n");
+		set("unit", "åŒ…");
+		set("long", "è¿™æ˜¯ä¸€åŒ…æ²»ç–—ä¸­æš‘çš„è¯ï¼Œç«‹åˆ»è§æ•ˆã€‚\n");
 		set("value", 600);
 		set("only_do_effect", 1);
 	}
@@ -22,11 +22,11 @@ int do_effect(object me)
 {
 	if (!me->query_condition("ill_zhongshu"))
 	{
-		write("ÄãÏÖÔÚÓÖÃ»ÓĞÖĞÊî£¬±ğÂÒ³ÔÒ©¡£\n");
+		write("ä½ ç°åœ¨åˆæ²¡æœ‰ä¸­æš‘ï¼Œåˆ«ä¹±åƒè¯ã€‚\n");
 		return 1;
 	} else {
 		me->clear_condition("ill_zhongshu");
-		message_vision("$N³ÔÏÂÒ»°üÏûÊîÍè£¬¿´ÆğÀ´¾«Éñ¶àÁË¡£\n", me);
+		message_vision("$Nåƒä¸‹ä¸€åŒ…æ¶ˆæš‘ä¸¸ï¼Œçœ‹èµ·æ¥ç²¾ç¥å¤šäº†ã€‚\n", me);
 		me->start_busy(2);
 		destruct(this_object());
 		return 1;

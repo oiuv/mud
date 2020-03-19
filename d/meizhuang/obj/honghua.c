@@ -3,15 +3,15 @@ inherit ITEM;
 
 void create()
 {
-        set_name("ÎÞÓÇºì»¨", ({ "wuyou honghua" , "honghua" }) );
+        set_name("æ— å¿§çº¢èŠ±", ({ "wuyou honghua" , "honghua" }) );
         set_weight(5);
         set_max_encumbrance(80);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¶ä");
+                set("unit", "æœµ");
                 set("prep", "on");
-                set("long", "Ò»¶äÏÊºìµÄ»¨¡£\n");
+                set("long", "ä¸€æœµé²œçº¢çš„èŠ±ã€‚\n");
                 set("value", 1);
         }
 }

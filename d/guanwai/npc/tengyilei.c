@@ -5,12 +5,12 @@ inherit NPC;
 
 void create()
 {
-        set_name("ëøÒ»À×", ({ "teng yilei", "teng" }));
+        set_name("æ»•ä¸€é›·", ({ "teng yilei", "teng" }));
         set("long",@LONG
-ËûÊÇ¹ØÍâÁùÄ§ÖĞµÄ´óÄ§ëøÒ»À×¡£ÊÖÖĞÒ»Ö»¶À½ÅÍ­ÈË£¬¿´À´´óÊÇ²»Çá¡£
+ä»–æ˜¯å…³å¤–å…­é­”ä¸­çš„å¤§é­”æ»•ä¸€é›·ã€‚æ‰‹ä¸­ä¸€åªç‹¬è„šé“œäººï¼Œçœ‹æ¥å¤§æ˜¯ä¸è½»ã€‚
 LONG );
-        set("nickname", HIY "¹ØÍâ´óÄ§" NOR);
-        set("gender", "ÄĞĞÔ");
+        set("nickname", HIY "å…³å¤–å¤§é­”" NOR);
+        set("gender", "ç”·æ€§");
         set("age", 46);
         set("attitude", "peaceful");
         set("shen_type", -1);

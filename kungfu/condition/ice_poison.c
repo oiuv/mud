@@ -8,14 +8,14 @@ inherit POISON;
 
 string name() { return "ice_poison"; }
 
-string chinese_name() { return "寒冰掌毒"; }
+string chinese_name() { return "瀵掑啺鎺屾瘨"; }
 
 string update_msg_others()
 {
-       return HIB "$N的身子突然晃了两晃，牙关格格地响了起来。\n" NOR;
+       return HIB "$N鐨勮韩瀛愮獊鐒舵檭浜嗕袱鏅冿紝鐗欏叧鏍兼牸鍦板搷浜嗚捣鏉ャ�俓n" NOR;
 }
 
 string update_msg_self()
 {
-        return HIB "忽然一阵奇寒从丹田升起，沁入四肢百骸，你中的寒冰绵掌之毒发作了！\n" NOR;
+        return HIB "蹇界劧涓�闃靛瀵掍粠涓圭敯鍗囪捣锛屾瞾鍏ュ洓鑲㈢櫨楠革紝浣犱腑鐨勫瘨鍐扮坏鎺屼箣姣掑彂浣滀簡锛乗n" NOR;
 }

@@ -1,4 +1,4 @@
-// meng.c °²½¡¸Õ
+// meng.c å®‰å¥åˆš
 
 #include <ansi.h>
 
@@ -7,11 +7,11 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("°²½¡¸Õ", ({ "an jiangang", "an","jiangang" }));
-	set("nickname", HIY "¶À½Ç»¢" NOR);
+	set_name("å®‰å¥åˆš", ({ "an jiangang", "an","jiangang" }));
+	set("nickname", HIY "ç‹¬è§’è™" NOR);
 	set("long", 
-"ËûÊÇÌúµ¨ÖÜÖÙÓ¢µÄ¶şµÜ×Ó£¬¶ÔÊ¦¸¸Ê¼ÖÕÖÒĞÄ²»¶ş¡£\n");
-	set("gender", "ÄĞĞÔ");
+"ä»–æ˜¯é“èƒ†å‘¨ä»²è‹±çš„äºŒå¼Ÿå­ï¼Œå¯¹å¸ˆçˆ¶å§‹ç»ˆå¿ å¿ƒä¸äºŒã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("class", "fighter");
 	set("age", 25);
 	set("attitude", "friendly");
@@ -46,7 +46,7 @@ void create()
 	map_skill("parry", "jingang-quan");
 
 	set("env/wimpy", 20);
-	create_family("ÉÙÁÖÅÉ", 52, "Ë×¼ÒµÜ×Ó");
+	create_family("å°‘æ—æ´¾", 52, "ä¿—å®¶å¼Ÿå­");
  	setup();
 	carry_object("/clone/misc/cloth")->wear();
 	carry_object(__DIR__"obj/tiedan")->wield();

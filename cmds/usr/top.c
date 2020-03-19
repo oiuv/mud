@@ -22,25 +22,25 @@ int main(string arg)
 
     me = this_player();
 
-    // ·ÀÖ¹ÏµÍ³×ÊÔ´ÏûºÄ¹ý´ó£¬ÏÞÊ±ä¯ÀÀ¡£
+    // é˜²æ­¢ç³»ç»Ÿèµ„æºæ¶ˆè€—è¿‡å¤§ï¼Œé™æ—¶æµè§ˆã€‚
     if (!wizardp(me) && time() - me->query_temp("last_view") < 60)
-        return notify_fail(HIW "\nÍ»È»¼äÓ¢ÐÛ±ÚÉÏÒ»µÀ¹â»ªÉÁ¹ý£¬Ê¹Äã"
-                               "ÄÑÒÔ±æÇå±ÚÉÏµÄ×Ö¼£¡£\n" NOR);
+        return notify_fail(HIW "\nçªç„¶é—´è‹±é›„å£ä¸Šä¸€é“å…‰åŽé—ªè¿‡ï¼Œä½¿ä½ "
+                               "éš¾ä»¥è¾¨æ¸…å£ä¸Šçš„å­—è¿¹ã€‚\n" NOR);
 
     ob = filter_array(objects(), (: userp($1) && !wizardp($1) :));
     list = sort_array(ob, (: top_list :));
 
-    msg = HIW "\n            ©³©¥©¥¡º" HIG " Ó¢ ÐÛ ±Ú " HIW "¡»©¥©¥©·\n";
-    msg += "©³©¥©¥©¥©Ó©¥©ß©¥©¥©¥©¥©¥©¥©¥©¥©Ó©¥©¥©ß©¥©Ó©¥©¥©¥©¥©·\n";
-    msg += "©§ " HIG "ÅÅÐÐ" HIW " ©¦    " HIG "ÐÕ        Ãû" HIW
-           "    ©¦ " HIG "ÃÅ  ÅÉ" HIW " ©¦ " HIG "ÆÀ  ¼Û" HIW " ©§\n";
-    msg += "©Ä©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ø©¤©¤©¤©¤©Ì\n";
+    msg = HIW "\n            â”â”â”ã€Ž" HIG " è‹± é›„ å£ " HIW "ã€â”â”â”“\n";
+    msg += "â”â”â”â”â”¯â”â”»â”â”â”â”â”â”â”â”â”¯â”â”â”»â”â”¯â”â”â”â”â”“\n";
+    msg += "â”ƒ " HIG "æŽ’è¡Œ" HIW " â”‚    " HIG "å§“        å" HIW
+           "    â”‚ " HIG "é—¨  æ´¾" HIW " â”‚ " HIG "è¯„  ä»·" HIW " â”ƒ\n";
+    msg += "â” â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”´â”€â”€â”€â”€â”¨\n";
 
     for (i = 0; i < 10; i++)
     {
         if (i >= sizeof(list) || list[i]->query("id") == 0 || get_score(list[i]) < 10) //ivy
         {
-            msg += HIW "©§        ÔÝÊ±¿ÕÈ±              ÎÞ             -  ©§\n" NOR;
+            msg += HIW "â”ƒ        æš‚æ—¶ç©ºç¼º              æ—              -  â”ƒ\n" NOR;
             continue;
         }
         if (list[i]->query("name") == me->query("name"))
@@ -49,11 +49,11 @@ int main(string arg)
             zhuans = "*";
         else
             zhuans = "";
-        msg += sprintf(HIW "©§" HIG "  %-5s %-22s%-10s %5d  " HIW "©§\n" NOR,
+        msg += sprintf(HIW "â”ƒ" HIG "  %-5s %-22s%-10s %5d  " HIW "â”ƒ\n" NOR,
                        chinese_number(i + 1),
                        list[i]->query("name") + "(" +
                            capitalize(list[i]->query("id")) + ")" + zhuans,
-                       list[i]->query("family") ? list[i]->query("family/family_name") : "½­ºþÀËÈË",
+                       list[i]->query("family") ? list[i]->query("family/family_name") : "æ±Ÿæ¹–æµªäºº",
                        get_score(list[i]));
     }
     if (index == 0)
@@ -66,17 +66,17 @@ int main(string arg)
             }
         }
 
-    msg += HIW "©»©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¿\n" NOR;
-    msg += HIG + NATURE_D->game_time() + "¼Ç¡£\n" NOR;
-    msg += WHT "Ó¢ÐÛ±ÚÏÂÃæÓÐÒ»ÐÐÐ¡×Ö¿Ì×Å£º" + me->query("name") + "£¬Ä¿Ç°ÆÀ¼Û " +
+    msg += HIW "â”—â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”›\n" NOR;
+    msg += HIG + NATURE_D->game_time() + "è®°ã€‚\n" NOR;
+    msg += WHT "è‹±é›„å£ä¸‹é¢æœ‰ä¸€è¡Œå°å­—åˆ»ç€ï¼š" + me->query("name") + "ï¼Œç›®å‰è¯„ä»· " +
            get_score(me);
     if (index)
     {
-        msg += "£¬ÅÅÐÐµÚ" + chinese_number(index) + "¡£\n" NOR;
+        msg += "ï¼ŒæŽ’è¡Œç¬¬" + chinese_number(index) + "ã€‚\n" NOR;
     }
     else
     {
-        msg += "¡£\n" NOR;
+        msg += "ã€‚\n" NOR;
     }
 
     write(msg);
@@ -104,7 +104,7 @@ int get_score(object ob)
     reset_eval_cost();
 
     /*
-        //È¡Ïû¼¼ÄÜµÄ¼Ó·ÖÈ¨ÖØ£¬Ê¹ÆÀ·Ö¸ü¼ÓºÏÀí²¢¼õÇáÏµÍ³¸ºµ£
+        //å–æ¶ˆæŠ€èƒ½çš„åŠ åˆ†æƒé‡ï¼Œä½¿è¯„åˆ†æ›´åŠ åˆç†å¹¶å‡è½»ç³»ç»Ÿè´Ÿæ‹…
         skills = ob->query_skills();
 
         if (! sizeof(skills))
@@ -117,7 +117,7 @@ int get_score(object ob)
         }
         score = tlvl / 15;
         */
-    //ÆÀ·ÖÔö¼Ódodge,parry,force,martial-cognize
+    //è¯„åˆ†å¢žåŠ dodge,parry,force,martial-cognize
     tlvl = (int)ob->query_skill("force", 1) + (int)ob->query_skill("dodge", 1) + (int)ob->query_skill("parry", 1) + (int)ob->query_skill("martial-cognize", 1);
     score = tlvl;
     score += ob->query("max_neili") / 30;

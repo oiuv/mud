@@ -1,4 +1,4 @@
-//Room: stone ÁìÎòĞşÌú½£·¨µÄµØ·½
+//Room: stone é¢†æ‚Ÿç„é“å‰‘æ³•çš„åœ°æ–¹
 //Modify by Rcwiz for hero.cd
 
 #include <ansi.h>
@@ -7,15 +7,15 @@ inherit ROOM;
 
 void create()
 {
-        set("short","¾ŞÊ¯ÉÏ");
+        set("short","å·¨çŸ³ä¸Š");
         set("long",@LONG
-ÕâÀïÊÇ»ªÉ½ÆÙ²¼ÏÂµÄÒ»¿éÌìÈ»¾Ş´óÊ¯Í·ÉÏ£¬ÖÜÎ§¾¡ÊÇÍÄ¼±µÄË®Á÷£¬ĞÚ
-Ó¿µÄ¸ßÉ½ºéË®£¨hongshui£©ÇãĞ¹¶øÏÂÅÄ´òÔÚÄãÉíÉÏ¡£
+è¿™é‡Œæ˜¯åå±±ç€‘å¸ƒä¸‹çš„ä¸€å—å¤©ç„¶å·¨å¤§çŸ³å¤´ä¸Šï¼Œå‘¨å›´å°½æ˜¯æ¹æ€¥çš„æ°´æµï¼Œæ±¹
+æ¶Œçš„é«˜å±±æ´ªæ°´ï¼ˆhongshuiï¼‰å€¾æ³„è€Œä¸‹æ‹æ‰“åœ¨ä½ èº«ä¸Šã€‚
 LONG);
         set("outdoors", "huashan");
         set("can_practice_xiantie-jian", 1);
         set("item_desc", ([
-                "hongshui" : HIW "ºéË®ĞÚÓ¿ÎŞ±È£¬ÄãÖ»¾õËæÊ±ÓĞ¿ÉÄÜ±»ºéË®³åµ½Ë®ÖĞ¡£\n" NOR,
+                "hongshui" : HIW "æ´ªæ°´æ±¹æ¶Œæ— æ¯”ï¼Œä½ åªè§‰éšæ—¶æœ‰å¯èƒ½è¢«æ´ªæ°´å†²åˆ°æ°´ä¸­ã€‚\n" NOR,
         ]));
         setup();
 }
@@ -30,9 +30,9 @@ int do_jump()
         object me = this_player();
 
         if (me->is_busy() || me->is_fighting())
-              return notify_fail("ÄãÃ¦ÍêÁËÔÙËµ°É£¡\n");
+              return notify_fail("ä½ å¿™å®Œäº†å†è¯´å§ï¼\n");
 
-        message_vision(HIG "$N" HIG "×İÉíÌøÉÏÆÙ²¼ ¡­¡­\n", me);
+        message_vision(HIG "$N" HIG "çºµèº«è·³ä¸Šç€‘å¸ƒ â€¦â€¦\n", me);
 
         me->move(__DIR__"shanhongpb");
 

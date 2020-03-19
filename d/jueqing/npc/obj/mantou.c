@@ -5,12 +5,12 @@ inherit F_FOOD;
 
 void create()
 {
-        set_name(HIW "ÂøÍ·" NOR, ({ "man tou", "man","tou" }));
+        set_name(HIW "é¦’å¤´" NOR, ({ "man tou", "man","tou" }));
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»¸öÂøÍ·¡£\n");
-                set("unit", "¸ö");
+                set("long", "ä¸€ä¸ªé¦’å¤´ã€‚\n");
+                set("unit", "ä¸ª");
                 set("value", 40);
                 set("food_remaining", 4);
                 set("food_supply", 15);

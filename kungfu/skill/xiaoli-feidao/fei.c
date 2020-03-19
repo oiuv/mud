@@ -15,23 +15,23 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail("Ğ¡Àî·Éµ¶Ö»ÄÜÔÚÕ½¶·ÖĞ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("å°æé£åˆ€åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("handing")) ||
             (string)weapon->query("skill_type") != "throwing")
-                return notify_fail("ÄãÏÖÔÚÊÖÖĞ²¢Ã»ÓĞÄÃ×Å·Éµ¶¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ‰‹ä¸­å¹¶æ²¡æœ‰æ‹¿ç€é£åˆ€ã€‚\n");
 
         if ((skill = me->query_skill("xiaoli-feidao", 1)) < 100)
-                return notify_fail("ÄãµÄĞ¡Àî·Éµ¶²»¹»æµÊì¡£\n");
+                return notify_fail("ä½ çš„å°æé£åˆ€ä¸å¤Ÿå¨´ç†Ÿã€‚\n");
 
         if ((int)me->query("neili") < 100)
-                return notify_fail("ÄãÄÚÁ¦²»¹»ÁË¡£\n");
+                return notify_fail("ä½ å†…åŠ›ä¸å¤Ÿäº†ã€‚\n");
 
         me->add("neili", -50);
         weapon->add_amount(-1);
 
-        msg= HIW "ºöÈ»¼äÖ»¼û$N" HIW "ÊÖÖĞº®¹âÒ»ÉÁ£¬ÕıÊÇĞ¡Àî·Éµ¶£¬ÀıÎŞĞé·¢£¡\n\n"
-             NOR + HIR "Ò»¹ÉÏÊÑª´Ó$n" HIR "ÑÊºíÖĞÅç³ö¡­¡­\n" NOR;
+        msg= HIW "å¿½ç„¶é—´åªè§$N" HIW "æ‰‹ä¸­å¯’å…‰ä¸€é—ªï¼Œæ­£æ˜¯å°æé£åˆ€ï¼Œä¾‹æ— è™šå‘ï¼\n\n"
+             NOR + HIR "ä¸€è‚¡é²œè¡€ä»$n" HIR "å’½å–‰ä¸­å–·å‡ºâ€¦â€¦\n" NOR;
         message_combatd(msg, me, target);
 
 

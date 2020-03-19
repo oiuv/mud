@@ -1,17 +1,17 @@
-// bocai-fentiao.c ÃÛÖ­ÌğÅº
+// bocai-fentiao.c èœœæ±ç”œè—•
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-	set_name("ÃÜÖ­ÌğÅº", ({"mizhi tianou", "tianou"}));
+	set_name("å¯†æ±ç”œè—•", ({"mizhi tianou", "tianou"}));
 	set_weight(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»ÅèÏãÌğÈíÅ´£¬É«Ôó·ÛºìµÄÃÛÖ­ÌğÅº¡£\n");
-		set("unit", "Åè");
+		set("long", "ä¸€ç›†é¦™ç”œè½¯ç³¯ï¼Œè‰²æ³½ç²‰çº¢çš„èœœæ±ç”œè—•ã€‚\n");
+		set("unit", "ç›†");
 		set("value", 150);
 		set("food_remaining", 4);
 		set("food_supply", 40);

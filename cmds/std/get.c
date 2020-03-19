@@ -17,26 +17,26 @@ int main(object me, string arg)
         string msg;
         int i, amount;
 
-        if (! arg) return notify_fail("ÄãÒª¼ñÆğÊ²÷á¶«Î÷£¿\n");
+        if (! arg) return notify_fail("ä½ è¦æ¡èµ·ä»€éº½ä¸œè¥¿ï¼Ÿ\n");
 
         // Check if a container is specified.
         if (sscanf(arg, "%s from %s", arg, from) == 2)
         {
                 env = present(from, me);
                 if (! env) env = present(from, environment(me));
-                if (! env) return notify_fail("ÄãÕÒ²»µ½ " + from + " ÕâÑù¶«Î÷¡£\n");
-                if (me == env) return notify_fail("Ã«²¡£¡ÄãÒªËÑ×Ô¼ºµÄÉí£¿\n");
+                if (! env) return notify_fail("ä½ æ‰¾ä¸åˆ° " + from + " è¿™æ ·ä¸œè¥¿ã€‚\n");
+                if (me == env) return notify_fail("æ¯›ç—…ï¼ä½ è¦æœè‡ªå·±çš„èº«ï¼Ÿ\n");
                 if (env->query("no_get_from") || living(env))
                 {
 			if (! wizardp(me))
-				return notify_fail("Äã²»ÄÜËÑÉí¡£\n");
+				return notify_fail("ä½ ä¸èƒ½æœèº«ã€‚\n");
 
                         if (wiz_level(me) <= wiz_level(env) &&
                             ! MASTER_OB->valid_write(base_name(env), me, "get"))
-                                return notify_fail("ÄãµÄÎ×Ê¦µÈ¼¶±ØĞë±È¶Ô·½¸ß²ÅÄÜËÑÉí¡£\n");
+                                return notify_fail("ä½ çš„å·«å¸ˆç­‰çº§å¿…é¡»æ¯”å¯¹æ–¹é«˜æ‰èƒ½æœèº«ã€‚\n");
 
                         if (wiz_level(me) < 3)
-                                return notify_fail("ÄãµÄÎ×Ê¦µÈ¼¶²»¹»ËÑÉí¡£\n");
+                                return notify_fail("ä½ çš„å·«å¸ˆç­‰çº§ä¸å¤Ÿæœèº«ã€‚\n");
 
                         if (! me->is_admin())
                         {
@@ -47,14 +47,14 @@ int main(object me, string arg)
 
                                 case "noneuser":
                                         if (playerp(env))
-                                                return notify_fail("Äã²»ÄÜËÑÍæ¼Ò¿ØÖÆÈËÎïµÄÉí¡£\n");
+                                                return notify_fail("ä½ ä¸èƒ½æœç©å®¶æ§åˆ¶äººç‰©çš„èº«ã€‚\n");
 
                                 case "user":
                                         if (! playerp(env))
-                                                return notify_fail("Äã²»ÄÜËÑ·ÇÍæ¼Ò¿ØÖÆÈËÎïµÄÉí¡£\n");
+                                                return notify_fail("ä½ ä¸èƒ½æœéç©å®¶æ§åˆ¶äººç‰©çš„èº«ã€‚\n");
 
                                 default:
-                                        return notify_fail("Äã²»ÄÜËÑÉí¡£\n");
+                                        return notify_fail("ä½ ä¸èƒ½æœèº«ã€‚\n");
                                 }
                         }
                 }
@@ -64,16 +64,16 @@ int main(object me, string arg)
         if (sscanf(arg, "%d %s", amount, item) == 2)
         {
                 if (! objectp(obj = present(item, env)))
-                        return notify_fail("ÕâÀïÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+                        return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
                 if (!obj->query_amount())
-                        return notify_fail( obj->name() + "²»ÄÜ±»·Ö¿ªÄÃ×ß¡£\n");
+                        return notify_fail( obj->name() + "ä¸èƒ½è¢«åˆ†å¼€æ‹¿èµ°ã€‚\n");
 
                 if (amount < 1)
-                        return notify_fail("¶«Î÷µÄ¸öÊıÖÁÉÙÊÇÒ»¸ö¡£\n");
+                        return notify_fail("ä¸œè¥¿çš„ä¸ªæ•°è‡³å°‘æ˜¯ä¸€ä¸ªã€‚\n");
 
                 if (amount > obj->query_amount())
-                        return notify_fail("ÕâÀïÃ»ÓĞÄÇ÷á¶àµÄ" + obj->name() + "¡£\n");
+                        return notify_fail("è¿™é‡Œæ²¡æœ‰é‚£éº½å¤šçš„" + obj->name() + "ã€‚\n");
 
                 else if (amount == (int)obj->query_amount())
                 {
@@ -102,10 +102,10 @@ int main(object me, string arg)
                 object my_env;
 
                 if (me->is_fighting())
-                        return notify_fail("Äã»¹ÔÚÕ½¶·ÖĞ£¡Ö»ÄÜÒ»´ÎÄÃÒ»Ñù¡£\n");
+                        return notify_fail("ä½ è¿˜åœ¨æˆ˜æ–—ä¸­ï¼åªèƒ½ä¸€æ¬¡æ‹¿ä¸€æ ·ã€‚\n");
 
                 if (! env->query_max_encumbrance())
-                        return notify_fail("ÄÇ²»ÊÇÈİÆ÷¡£\n");
+                        return notify_fail("é‚£ä¸æ˜¯å®¹å™¨ã€‚\n");
 
                 my_env = environment(me);
                 inv = all_inventory(env);
@@ -119,27 +119,27 @@ int main(object me, string arg)
                 }
                 if (! amount)
 		{
-                        write("ÄãÊ²Ã´¶¼Ã»ÓĞ¼ğÆğÀ´¡£\n");
+                        write("ä½ ä»€ä¹ˆéƒ½æ²¡æœ‰æ‹£èµ·æ¥ã€‚\n");
 			return 1;
 		}
 
                 if (env->is_character())
-                        msg = me->name() + "´Ó" + env->name() + "ÉíÉÏËÑ³öÁËÒ»¶Ñ¶«Î÷¡£\n";
+                        msg = me->name() + "ä»" + env->name() + "èº«ä¸Šæœå‡ºäº†ä¸€å †ä¸œè¥¿ã€‚\n";
                 else
                 if (env == my_env)
-                        msg = me->name() + "°ÑµØÉÏµÄ¶«Î÷¶¼¼ğÁËÆğÀ´¡£\n";
+                        msg = me->name() + "æŠŠåœ°ä¸Šçš„ä¸œè¥¿éƒ½æ‹£äº†èµ·æ¥ã€‚\n";
                 else
-                        msg = me->name() + "°Ñ" + env->name() + "ÀïÃæµÄ¶«Î÷¶¼ÄÃÁË³öÀ´¡£\n";
+                        msg = me->name() + "æŠŠ" + env->name() + "é‡Œé¢çš„ä¸œè¥¿éƒ½æ‹¿äº†å‡ºæ¥ã€‚\n";
                 message("vision", msg, environment(me), ({ me }));
-                write("¼ñºÃÁË¡£\n");
+                write("æ¡å¥½äº†ã€‚\n");
                 return 1;
         }
 
         if (! objectp(obj = present(arg, env)) || living(obj))
-                return notify_fail("Äã¸½½üÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+                return notify_fail("ä½ é™„è¿‘æ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
         if (info = obj->query("no_get"))
-                return notify_fail(stringp(info) ? info : "Õâ¸ö¶«Î÷ÄÃ²»ÆğÀ´¡£\n");
+                return notify_fail(stringp(info) ? info : "è¿™ä¸ªä¸œè¥¿æ‹¿ä¸èµ·æ¥ã€‚\n");
 
         // get object when fighting costs time
         if (me->is_fighting() && ! me->is_busy()) me->start_busy(1);
@@ -165,12 +165,12 @@ int do_get(object me, object obj, int raw)
                                                living($1) && ($1 != $2) :), me);
                 if (sizeof(guard))
                         return notify_fail( guard[0]->name() 
-                                + "ÕıÊØÔÚ" + obj->name() + "Ò»ÅÔ£¬·ÀÖ¹ÈÎºÎÈËÄÃ×ß¡£\n");
+                                + "æ­£å®ˆåœ¨" + obj->name() + "ä¸€æ—ï¼Œé˜²æ­¢ä»»ä½•äººæ‹¿èµ°ã€‚\n");
         }
 
         if (obj->query("equipped")) equipped = 1;
         if (sizeof(all_inventory(me)) >= MAX_ITEM_CARRIED)
-                return notify_fail("ÄãÉíÉÏµÄ¶«Î÷ÊµÔÚÊÇÌ«¶àÁË£¬Ã»·¨ÔÙÄÃ¶«Î÷ÁË¡£\n");
+                return notify_fail("ä½ èº«ä¸Šçš„ä¸œè¥¿å®åœ¨æ˜¯å¤ªå¤šäº†ï¼Œæ²¡æ³•å†æ‹¿ä¸œè¥¿äº†ã€‚\n");
 
         if (obj->move(me))
         {
@@ -178,9 +178,9 @@ int do_get(object me, object obj, int raw)
 		{
 			object cloth;
 			int iknow;
-                        message_vision("$N½«$n·öÁËÆğÀ´±³ÔÚ±³ÉÏ¡£\n", me, obj);
+                        message_vision("$Nå°†$næ‰¶äº†èµ·æ¥èƒŒåœ¨èƒŒä¸Šã€‚\n", me, obj);
 			cloth = obj->query_temp("armor/cloth");
-			iknow = me->query("name") + "µÄÊ¬Ìå" == obj->name();
+			iknow = me->query("name") + "çš„å°¸ä½“" == obj->name();
 			if (cloth)
 			{
 				// is the cloth daub with poison ?
@@ -192,16 +192,16 @@ int do_get(object me, object obj, int raw)
 			}
                 } else
                 {
-                        msg = sprintf("$N%sÒ»%s%s¡£\n",
-                                (! old_env || old_env == environment(me)) ? "¼ñÆğ" :
-                                old_env->is_character() ?  "´Ó" + old_env->name() + "ÉíÉÏ" + (equipped ? "³ıÏÂ" : "ËÑ³ö") :
-                                old_env->is_tree() ? "´Ó" + old_env->name() +"ÉÏÕªÏÂ" :
-                                                     "´Ó" + old_env->name() + "ÖĞÄÃ³ö",
+                        msg = sprintf("$N%sä¸€%s%sã€‚\n",
+                                (! old_env || old_env == environment(me)) ? "æ¡èµ·" :
+                                old_env->is_character() ?  "ä»" + old_env->name() + "èº«ä¸Š" + (equipped ? "é™¤ä¸‹" : "æœå‡º") :
+                                old_env->is_tree() ? "ä»" + old_env->name() +"ä¸Šæ‘˜ä¸‹" :
+                                                     "ä»" + old_env->name() + "ä¸­æ‹¿å‡º",
                                 obj->query("unit"), obj->name());
                         if (! raw)
                                 message_vision(msg, me);
                         else
-                                write(replace_string(msg, "$N", "Äã"));
+                                write(replace_string(msg, "$N", "ä½ "));
                 }
                 return 1;
         }
@@ -211,11 +211,11 @@ int do_get(object me, object obj, int raw)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : get <ÎïÆ·Ãû³Æ> | all [from <ÈİÆ÷Ãû>]
+æŒ‡ä»¤æ ¼å¼ : get <ç‰©å“åç§°> | all [from <å®¹å™¨å>]
  
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã¼ñÆğµØÉÏ»òÈİÆ÷ÄÚµÄÄ³ÑùÎïÆ·.
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ æ¡èµ·åœ°ä¸Šæˆ–å®¹å™¨å†…çš„æŸæ ·ç‰©å“.
  
-¸ÃÃüÁîÔÚ¿ÉÒÔ±»ÊÚÈ¨Ê¹ÓÃµÄĞÅÏ¢°üÀ¨£ºnoneuser¡¢user¡¢all¡£
+è¯¥å‘½ä»¤åœ¨å¯ä»¥è¢«æˆæƒä½¿ç”¨çš„ä¿¡æ¯åŒ…æ‹¬ï¼šnoneuserã€userã€allã€‚
 HELP );
     return 1;
 }

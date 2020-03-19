@@ -4,13 +4,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name( "À¯Öò", ({ "zhu", "lazhu" }) );
+        set_name( "èœ¡çƒ›", ({ "zhu", "lazhu" }) );
         set_weight(10);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ö»");
-                set("long", "ÕâÊÇÒ»Ö»ÆÕÍ¨µÄÀ¯Öò£¬ÉÏÃæïÎ×ÅÒ»Ğ©»¨ÎÆ£¬»¹±È½Ï¾«ÖÂ¡£\n");
+                set("unit", "åª");
+                set("long", "è¿™æ˜¯ä¸€åªæ™®é€šçš„èœ¡çƒ›ï¼Œä¸Šé¢é•‚ç€ä¸€äº›èŠ±çº¹ï¼Œè¿˜æ¯”è¾ƒç²¾è‡´ã€‚\n");
         }
         setup();
 }
@@ -22,6 +22,6 @@ void init()
 
 void dest()
 {
-        write("ÑÛÇ°Öò¹âÒ»ÉÁ£¬²»ºÃ£¬À¯ÖòÏ¨ÃğÁË¡£\n");
+        write("çœ¼å‰çƒ›å…‰ä¸€é—ªï¼Œä¸å¥½ï¼Œèœ¡çƒ›ç†„ç­äº†ã€‚\n");
         destruct(this_object());
 }

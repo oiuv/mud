@@ -1,17 +1,17 @@
-// tianmo_book.c  ÌìÄ§¾÷
+// tianmo_book.c  å¤©é­”è¯€
 #include <ansi.h>
 inherit BOOK;
 
 void create()
 {
-        set_name(HIR"ÌìÄ§¾÷"NOR, ({ "tianmo jue" , "jue" }));
+        set_name(HIR"å¤©é­”è¯€"NOR, ({ "tianmo jue" , "jue" }));
         set_weight(600);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("treasure",1);set("unit", "±¾");
+                set("treasure",1);set("unit", "æœ¬");
                 set("long",
-                        "ÕâÊÇÒ»±¾±¡±¡µÄ²áÒ³¡£\n");
+                        "è¿™æ˜¯ä¸€æœ¬è–„è–„çš„å†Œé¡µã€‚\n");
                 set("value", 1000);
                 set("material", "paper");
                 set("skill", ([

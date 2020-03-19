@@ -1,4 +1,4 @@
-// woshi.c ÅÌÁú¾ÓÎÔÊÒ
+// woshi.c ç›˜é¾™å±…å§å®¤
 
 #include <room.h>
 
@@ -7,17 +7,17 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "ÎÔÊÒ");
+	set("short", "å§å®¤");
 	set("long", @LONG
-ÕâÊÇÖ÷ÈËµÄÎÔÊÒ£¬ÊÕÊ°µÃ¾®¾®ÓÐÌõ¡£ÄÏ´°ÏÂÊÇÒ»ÕÅ´ó´²£¬´²±ßÓÐÒ»¸ö
-¹ñ×Ó¡£ÍÆ¿ª´°»§¿ÉÒÔ¿´µ½ÏÂÃæµÄ»¨Ô°£¬»¹¿ÉÐáµ½ÕóÕó»¨Ïã£¬·Ç³£ã«Òâ¡£Ô¶
-´¦ÊÇÒ»´óÆ¬ÖñÁÖ¡£
+è¿™æ˜¯ä¸»äººçš„å§å®¤ï¼Œæ”¶æ‹¾å¾—äº•äº•æœ‰æ¡ã€‚å—çª—ä¸‹æ˜¯ä¸€å¼ å¤§åºŠï¼ŒåºŠè¾¹æœ‰ä¸€ä¸ª
+æŸœå­ã€‚æŽ¨å¼€çª—æˆ·å¯ä»¥çœ‹åˆ°ä¸‹é¢çš„èŠ±å›­ï¼Œè¿˜å¯å—…åˆ°é˜µé˜µèŠ±é¦™ï¼Œéžå¸¸æƒ¬æ„ã€‚è¿œ
+å¤„æ˜¯ä¸€å¤§ç‰‡ç«¹æž—ã€‚
 LONG );
 
-	set("default_long", "ÕâÊÇÖ÷ÈËµÄÎÔÊÒ£¬ÊÕÊ°µÃ¾®¾®ÓÐÌõ¡£ÄÏ´°ÏÂÊÇ" /* EXAMPLE */
-                            "Ò»ÕÅ´ó´²£¬´²±ßÓÐÒ»¸ö¹ñ×Ó¡£ÍÆ¿ª´°»§¿ÉÒÔ¿´" /* EXAMPLE */
-                            "µ½ÏÂÃæµÄ»¨Ô°£¬»¹¿ÉÐáµ½ÕóÕó»¨Ïã£¬·Ç³£ã«Òâ" /* EXAMPLE */
-                            "¡£Ô¶´¦ÊÇÒ»´óÆ¬ÖñÁÖ¡£");                   /* EXAMPLE */
+	set("default_long", "è¿™æ˜¯ä¸»äººçš„å§å®¤ï¼Œæ”¶æ‹¾å¾—äº•äº•æœ‰æ¡ã€‚å—çª—ä¸‹æ˜¯" /* EXAMPLE */
+                            "ä¸€å¼ å¤§åºŠï¼ŒåºŠè¾¹æœ‰ä¸€ä¸ªæŸœå­ã€‚æŽ¨å¼€çª—æˆ·å¯ä»¥çœ‹" /* EXAMPLE */
+                            "åˆ°ä¸‹é¢çš„èŠ±å›­ï¼Œè¿˜å¯å—…åˆ°é˜µé˜µèŠ±é¦™ï¼Œéžå¸¸æƒ¬æ„" /* EXAMPLE */
+                            "ã€‚è¿œå¤„æ˜¯ä¸€å¤§ç‰‡ç«¹æž—ã€‚");                   /* EXAMPLE */
                                                                        /* EXAMPLE */
 
         set("exits", ([

@@ -7,15 +7,15 @@ inherit F_FOOD;
 
 void create()
 {
-        string name =HIY "ÂÞººöêÓã" NOR;
+        string name =HIY "ç½—æ±‰é²«é±¼" NOR;
   	set_name(name, ({"luohan jiyu", "jiyu", "yu"}));
   	set_weight(300);
   	if (clonep())
     		set_default_object(__FILE__);
   	else 
 	{
-    		set("long", "Ò»ÅÌÁîÈË´¹ÏÑµÄ"+name+"¡£\n");
-    		set("unit", "ÅÌ");
+    		set("long", "ä¸€ç›˜ä»¤äººåž‚æ¶Žçš„"+name+"ã€‚\n");
+    		set("unit", "ç›˜");
     		set("value", 1000);
     		set("food_remaining", 10);
     		set("food_supply", 30);

@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ÑÃÃÅÕıÌü");
+	set("short", "è¡™é—¨æ­£å…");
 	set("long", @LONG
-Ö»¼ûÌÃÉÏ¶«Î÷ÓĞÁ½¸ùéº×¡£¬¹Ò×ÅÒ»·ù¶ÔÁª£¬µ«ÊÇÄãÎŞĞÄÏ¸
-¿´¡£ÕıÇ½ÉÏĞü¹ÒÒ»¸öºáØÒ£¬ÉÏÊé¡°Ã÷¾µ¸ßĞü¡±ËÄ¸ö½ğ¹âÉÁÉÁµÄ
-´ó×Ö¡£Öª¸®Õı×øÔÚÎÄ°¸ºóÅúÔÄÎÄÊé£¬Ê¦Ò¯ËæÊÌÔÚºó¡£
+åªè§å ‚ä¸Šä¸œè¥¿æœ‰ä¸¤æ ¹æ¥¹ä½ï¼ŒæŒ‚ç€ä¸€å¹…å¯¹è”ï¼Œä½†æ˜¯ä½ æ— å¿ƒç»†
+çœ‹ã€‚æ­£å¢™ä¸Šæ‚¬æŒ‚ä¸€ä¸ªæ¨ªåŒ¾ï¼Œä¸Šä¹¦â€œæ˜é•œé«˜æ‚¬â€å››ä¸ªé‡‘å…‰é—ªé—ªçš„
+å¤§å­—ã€‚çŸ¥åºœæ­£ååœ¨æ–‡æ¡ˆåæ‰¹é˜…æ–‡ä¹¦ï¼Œå¸ˆçˆ·éšä¾åœ¨åã€‚
 LONG);
 	set("exits", ([
 		"north" : __DIR__"jzyamen",
@@ -20,7 +20,7 @@ LONG);
 		
 	]));
 
-        create_door("east", "ÌúÃÅ", "west", DOOR_CLOSED);
+        create_door("east", "é“é—¨", "west", DOOR_CLOSED);
 	setup();
 	// replace_program(ROOM);
 }
@@ -29,6 +29,6 @@ int valid_leave(object me, string dir)
 {
 	if (! wizardp(me) && objectp(present("ling tuisi", environment(me))) && 
 		dir == "east")
-		return notify_fail("Áèº²ÁÖµ²×¡ÁËÄã£ºÇëÎğÈëÀÎ·¿¡£\n");
+		return notify_fail("å‡Œç¿°æ—æŒ¡ä½äº†ä½ ï¼šè¯·å‹¿å…¥ç‰¢æˆ¿ã€‚\n");
 	return ::valid_leave(me, dir);
 }

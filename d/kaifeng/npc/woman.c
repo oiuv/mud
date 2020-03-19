@@ -1,9 +1,9 @@
 inherit NPC;
 void create()
 {
-	set_name("Ì¤Çà¸¾ÈË",({"woman"}));
-        set("gender", "Å®ĞÔ");
-	set("long", "´ºÌì³öÀ´ÓÎÀÀµÄ¸¾ÈË¡£\n");
+	set_name("è¸é’å¦‡äºº",({"woman"}));
+        set("gender", "å¥³æ€§");
+	set("long", "æ˜¥å¤©å‡ºæ¥æ¸¸è§ˆçš„å¦‡äººã€‚\n");
    	set("combat_exp", 5000);
    
 	set("age",34);

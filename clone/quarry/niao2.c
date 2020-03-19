@@ -3,8 +3,8 @@ inherit QUARRY;
 
 void create()
 {
-	set_name(NOR + CYN "麻雀" NOR, ({ "ma que", "ma", "que" }));
-	set("long", CYN "这是一只小麻雀，在田地间跳上跳下。\n" NOR);
+	set_name(NOR + CYN "楹婚泙" NOR, ({ "ma que", "ma", "que" }));
+	set("long", CYN "杩欐槸涓�鍙皬楹婚泙锛屽湪鐢板湴闂磋烦涓婅烦涓嬨�俓n" NOR);
         set("no_auto_kill", 1);
         set("aves", 1);
 

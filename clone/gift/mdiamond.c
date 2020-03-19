@@ -1,4 +1,4 @@
-// mdiamond.c ÉñÖ®×êÊ¯
+// mdiamond.c ç¥ä¹‹é’»çŸ³
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,23 +7,23 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIW "ÉñÖ®×êÊ¯" NOR, ({ "magic diamond" }) );
+	set_name(HIW "ç¥ä¹‹é’»çŸ³" NOR, ({ "magic diamond" }) );
 	set_weight(50);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-                set("long", HIW "Ò»¿Å»À·¢×ÅÆæÒìµÄ¹â²ÊµÄ×êÊ¯£¬"
-                    "¸øÈËÒÔ²»Í¬Ñ°³£µÄ¸Ğ¾õ¡£\n" NOR);
+                set("long", HIW "ä¸€é¢—ç„•å‘ç€å¥‡å¼‚çš„å…‰å½©çš„é’»çŸ³ï¼Œ"
+                    "ç»™äººä»¥ä¸åŒå¯»å¸¸çš„æ„Ÿè§‰ã€‚\n" NOR);
                 set("value", 200000);
-		        set("unit", "¿Å");
+		        set("unit", "é¢—");
                 set("can_be_enchased", 1);
                 set("magic/type", "lighting");
                 set("magic/power", 15 + random(16));
                 set("armor_prop/per", 8);
-                set("wear_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´÷ÔÚÍ·ÉÏ¡£\n" NOR);
-                set("remove_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n" NOR);
+                set("wear_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "æˆ´åœ¨å¤´ä¸Šã€‚\n" NOR);
+                set("remove_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "ä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n" NOR);
 	}
         setup();
 }

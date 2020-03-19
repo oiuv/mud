@@ -13,9 +13,9 @@ void auto_relaim();
 void create()
 {
         seteuid(ROOT_UID);
-        set("name", HIR "ÏµÍ³¾«Áé" NOR);
-        set("channel_id", "ÄÚ´æ¾«Áé");
-        CHANNEL_D->do_channel( this_object(), "sys", "ÄÚ´æ¾«ÁéÒÑ¾­Æô¶¯¡£");
+        set("name", HIR "ç³»ç»Ÿç²¾çµ" NOR);
+        set("channel_id", "å†…å­˜ç²¾çµ");
+        CHANNEL_D->do_channel( this_object(), "sys", "å†…å­˜ç²¾çµå·²ç»å¯åŠ¨ã€‚");
         call_out("auto_relaim", 40);
 }
 
@@ -32,7 +32,7 @@ void auto_relaim()
 
         if (i = reclaim_objects())
 	        CHANNEL_D->do_channel( this_object(), "sys",
-		        sprintf("ÏµÍ³×Ô¶¯Çå³ı %d ¸ö±äÁ¿¡£", i));
+		        sprintf("ç³»ç»Ÿè‡ªåŠ¨æ¸…é™¤ %d ä¸ªå˜é‡ã€‚", i));
 
         remove_call_out("auto_relaim");
         call_out("auto_relaim", 600);

@@ -8,7 +8,7 @@ inherit F_CLEAN_UP;
 
 int is_scborn() { return 1; }
 
-string name() { return HIC "Í¨»ÛÉñÑÛ" NOR; }
+string name() { return HIC "é€šæ…§ç¥çœ¼" NOR; }
 
 int perform(object me, string skill, string arg)
 {
@@ -17,20 +17,20 @@ int perform(object me, string skill, string arg)
         object ob;
 
         if (me->query("neili") < 500)
-        	  return notify_fail("ÄãÄÚÁ¦²»×ã£¬ÎŞ·¨ÔËÓÃÍ¨»ÛÉñÑÛ£¡\n");
+        	  return notify_fail("ä½ å†…åŠ›ä¸è¶³ï¼Œæ— æ³•è¿ç”¨é€šæ…§ç¥çœ¼ï¼\n");
 
         if (me->is_busy()) 
-        	  return notify_fail("µÈÄãÃ¦ÍêÔÙËµ°É£¡\n");
+        	  return notify_fail("ç­‰ä½ å¿™å®Œå†è¯´å§ï¼\n");
 	        
         if (! objectp(ob = present(arg, environment(me))))
-                return notify_fail("ÕâÀïÃ»ÓĞÕâ¸öÈË£¡¿ÉÄÜÊÇÄãµÄ¸ñÊ½ÓĞ´íÎó£¡\n"
-                                   "¸ñÊ½ £º special shenyan <¶ÔÏóid> \n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™ä¸ªäººï¼å¯èƒ½æ˜¯ä½ çš„æ ¼å¼æœ‰é”™è¯¯ï¼\n"
+                                   "æ ¼å¼ ï¼š special shenyan <å¯¹è±¡id> \n");
 
 	if (ob->query_temp("apply/invisible"))
-                return notify_fail("ÕâÀïÃ»ÓĞÕâ¸öÈË£¡¿ÉÄÜÊÇÄãµÄ¸ñÊ½ÓĞ´íÎó£¡\n"
-                                   "¸ñÊ½ £º special shenyan <¶ÔÏóid> \n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™ä¸ªäººï¼å¯èƒ½æ˜¯ä½ çš„æ ¼å¼æœ‰é”™è¯¯ï¼\n"
+                                   "æ ¼å¼ ï¼š special shenyan <å¯¹è±¡id> \n");
                                    		
-        write(HIW "ÄãÊ©Õ¹³öÍ¨»ÛÉñÑÛÖ®Êõ ¡­¡­\n" NOR, me);
+        write(HIW "ä½ æ–½å±•å‡ºé€šæ…§ç¥çœ¼ä¹‹æœ¯ â€¦â€¦\n" NOR, me);
 	
         me->add("neili", -400);
         me->start_busy(2);

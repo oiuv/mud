@@ -111,7 +111,7 @@ void incoming_request(mapping info)
 				"@@@" + DNS_MUDLIST_A + bits[i]+ "@@@\n");
 	}
 
-        // Í¬Ê±·¢²¼±¾Õ¾µãĞÅÏ¢
+        // åŒæ—¶å‘å¸ƒæœ¬ç«™ç‚¹ä¿¡æ¯
 	DNS_MASTER->send_udp(info["HOSTADDRESS"], info["PORTUDP"],
 		"@@@" + DNS_PING_A + (string)DNS_MASTER->start_message() + "@@@\n");
 }

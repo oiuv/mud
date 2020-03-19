@@ -3,12 +3,12 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÊñµÀ");
+        set("short", "èœ€é“");
         set("long", @LONG
-Äã×ßÔÚÒÔÏÕÖø³ÆÌìÏÂµÄÊñµÀÉÏ£¬µÀÂ·ÓÉ¶«ÉÏÉ½£¬Òì³£ÄÑÐÐ¡£
-ÓÉÎ÷¶øÏÂ£¬È»¶øÉÏÉ½ÈÝÒ×ÏÂÉ½ÄÑ£¬Ò²²»¼ûµÃºÃ×ß£¬×ÜÖ®×ßÔÚÕâ
-ÑùµÄÂ·ÉÏ·ÇÒª¸ñÍâÐ¡ÐÄ£¬ÓÃ¾¡È«ÉíÆøÁ¦²ÅÐÐ¡£²»¶àÒ»»á¶ù£¬Äã
-¾Í¾õµÃ½îÆ£Á¦¾¡ÁË¡£
+ä½ èµ°åœ¨ä»¥é™©è‘—ç§°å¤©ä¸‹çš„èœ€é“ä¸Šï¼Œé“è·¯ç”±ä¸œä¸Šå±±ï¼Œå¼‚å¸¸éš¾è¡Œã€‚
+ç”±è¥¿è€Œä¸‹ï¼Œç„¶è€Œä¸Šå±±å®¹æ˜“ä¸‹å±±éš¾ï¼Œä¹Ÿä¸è§å¾—å¥½èµ°ï¼Œæ€»ä¹‹èµ°åœ¨è¿™
+æ ·çš„è·¯ä¸Šéžè¦æ ¼å¤–å°å¿ƒï¼Œç”¨å°½å…¨èº«æ°”åŠ›æ‰è¡Œã€‚ä¸å¤šä¸€ä¼šå„¿ï¼Œä½ 
+å°±è§‰å¾—ç­‹ç–²åŠ›å°½äº†ã€‚
 LONG);
         set("exits", ([
   		"westup" :  __DIR__"shudao17",
@@ -27,5 +27,5 @@ int init()
 	me = this_player();
 	i = (int)me->query("max_qi") / 10;
 	me->receive_damage("qi", i);
-	tell_object(me, HIR "Äã·ÑÁ¦µÄ×ßÔÚÊñµÀÉÏ£¬ÀÛµÄÆø´­ÓõÓõ¡£\n" NOR);
+	tell_object(me, HIR "ä½ è´¹åŠ›çš„èµ°åœ¨èœ€é“ä¸Šï¼Œç´¯çš„æ°”å–˜ååã€‚\n" NOR);
 }

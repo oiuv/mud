@@ -13,7 +13,7 @@ int main(object me, string arg)
 
         if (arg == "?")
         {
-                write("ÌØÊâ¹¦ÄÜ£ºSHUTDOWN¡¢ADMIN¡£\n");
+                write("ç‰¹æ®ŠåŠŸèƒ½ï¼šSHUTDOWNã€ADMINã€‚\n");
                 return 1;
         }
 
@@ -21,13 +21,13 @@ int main(object me, string arg)
         {
         	if (! SECURITY_D->valid_grant(me, "(admin)"))
                 {
-        		write("ÄãÃ»ÓĞÈ¨ÏŞĞŞ¸Ä±ğÈËµÄ¿ÚÁî¡£\n");
+        		write("ä½ æ²¡æœ‰æƒé™ä¿®æ”¹åˆ«äººçš„å£ä»¤ã€‚\n");
                         return 1;
                 }
 
                 if (wiz_level(me) < wiz_level(arg))
                 {
-                        write("ÄãÃ»ÓĞÈ¨ÏŞĞŞ¸ÄÕâ¸öÈËµÄ¿ÚÁî¡£\n");
+                        write("ä½ æ²¡æœ‰æƒé™ä¿®æ”¹è¿™ä¸ªäººçš„å£ä»¤ã€‚\n");
                         return 1;
                 }
 
@@ -40,7 +40,7 @@ int main(object me, string arg)
                         if (! ob->restore())
                         {
                                 destruct(ob);
-                                return notify_fail("Ã»ÓĞÕâ¸öÍæ¼Ò¡£\n");
+                                return notify_fail("æ²¡æœ‰è¿™ä¸ªç©å®¶ã€‚\n");
                         }
                         ob->set_temp("create_temp", 1);
                 } else
@@ -55,24 +55,24 @@ int main(object me, string arg)
                                 if (! ob->restore())
                                 {
                                         destruct(ob);
-                		        return notify_fail("Õâ¸öÈËÎïÈ±ÉÙÁ¬½ÓĞÅÏ¢£¬ÇëÖØĞÂLOGIN¡£\n");
+                		        return notify_fail("è¿™ä¸ªäººç‰©ç¼ºå°‘è¿æ¥ä¿¡æ¯ï¼Œè¯·é‡æ–°LOGINã€‚\n");
                                 }
                                 ob->set_temp("create_temp", 1);
                         }
                 }
 
-	        write("ÇëÊäÈë(" + ob->query("id") + ")µÄĞÂ¹ÜÀíÃÜÂë£º");
+	        write("è¯·è¾“å…¥(" + ob->query("id") + ")çš„æ–°ç®¡ç†å¯†ç ï¼š");
         	input_to("get_new_ad_pass", 1, ob);
                 return 1;
         }
 
 	ob = me->query_temp("link_ob");
 	if (! ob)
-		return notify_fail("ÄãµÄÈËÎïÈ±ÉÙÁ¬½ÓĞÅÏ¢£¬ÇëÖØĞÂLOGIN¡£\n");
+		return notify_fail("ä½ çš„äººç‰©ç¼ºå°‘è¿æ¥ä¿¡æ¯ï¼Œè¯·é‡æ–°LOGINã€‚\n");
 
 	while (ob && ob->is_character()) ob = ob->query_temp("link_ob");
 
-	write("ÎªÁË°²È«Æğ¼û£¬ÇëÏÈÊäÈëÄú¹ÜÀíÃÜÂë£º");
+	write("ä¸ºäº†å®‰å…¨èµ·è§ï¼Œè¯·å…ˆè¾“å…¥æ‚¨ç®¡ç†å¯†ç ï¼š");
 	input_to("get_old_pass", 1, ob);
 	return 1;
 }
@@ -83,7 +83,7 @@ private void get_old_pass(string pass, object ob)
 
         if (! objectp(ob))
         {
-                write("ÎŞ·¨ÕÒµ½Á¬½Ó¶ÔÏó£¬´Ë´Î²Ù×÷ÖĞÖ¹ÁË¡£\n");
+                write("æ— æ³•æ‰¾åˆ°è¿æ¥å¯¹è±¡ï¼Œæ­¤æ¬¡æ“ä½œä¸­æ­¢äº†ã€‚\n");
                 return;
         }
 
@@ -91,14 +91,14 @@ private void get_old_pass(string pass, object ob)
 	old_pass = ob->query("ad_password");
 	if (! stringp(old_pass) || crypt(pass, old_pass) != old_pass)
 	{
-		write(HIR "ÃÜÂë´íÎó£¡Çë×¢Òâ£ºÄãĞèÒªÊäÈëµÄÊÇ¹ÜÀíÃÜÂë¡£\n" NOR);
+		write(HIR "å¯†ç é”™è¯¯ï¼è¯·æ³¨æ„ï¼šä½ éœ€è¦è¾“å…¥çš„æ˜¯ç®¡ç†å¯†ç ã€‚\n" NOR);
 		return;
 	}
-        write("ÇëÑ¡ÔñÄãÏÂÒ»²½²Ù×÷£º\n"
-              "1. ĞŞ¸Ä¹ÜÀíÃÜÂë\n"
-              "2. ĞŞ¸ÄÆÕÍ¨ÃÜÂë\n"
-              "3. ²»ĞŞ¸Ä¡£\n"
-              "ÄãÑ¡Ôñ(Èç¹ûÄã²»·½±ãÊäÈëÊı×Ö£¬¿ÉÒÔÊäÈëselect1¡¢select2)£º");
+        write("è¯·é€‰æ‹©ä½ ä¸‹ä¸€æ­¥æ“ä½œï¼š\n"
+              "1. ä¿®æ”¹ç®¡ç†å¯†ç \n"
+              "2. ä¿®æ”¹æ™®é€šå¯†ç \n"
+              "3. ä¸ä¿®æ”¹ã€‚\n"
+              "ä½ é€‰æ‹©(å¦‚æœä½ ä¸æ–¹ä¾¿è¾“å…¥æ•°å­—ï¼Œå¯ä»¥è¾“å…¥select1ã€select2)ï¼š");
         
         input_to("select_fun", ob);
 }
@@ -107,7 +107,7 @@ private void select_fun(string fun, object ob)
 {
         if (! objectp(ob))
         {
-                write("ÎŞ·¨ÕÒµ½Á¬½Ó¶ÔÏó£¬´Ë´Î²Ù×÷ÖĞÖ¹ÁË¡£\n");
+                write("æ— æ³•æ‰¾åˆ°è¿æ¥å¯¹è±¡ï¼Œæ­¤æ¬¡æ“ä½œä¸­æ­¢äº†ã€‚\n");
                 return;
         }
 
@@ -115,23 +115,23 @@ private void select_fun(string fun, object ob)
         {
         case "1":
         case "select1":
-                write("ÇëÄãÊäÈëĞÂµÄ¹ÜÀíÃÜÂë£º");
+                write("è¯·ä½ è¾“å…¥æ–°çš„ç®¡ç†å¯†ç ï¼š");
                 input_to("get_new_ad_pass", 1, ob);
                 return;
 
         case "2":
         case "select2":
-                write("ÇëÄãÊäÈëĞÂµÄÆÕÍ¨ÃÜÂë£º");
+                write("è¯·ä½ è¾“å…¥æ–°çš„æ™®é€šå¯†ç ï¼š");
                 input_to("get_new_pass", 1, ob);
                 return;
 
         case "":
         case "3":
-                write("²Ù×÷Íê±Ï¡£\n");
+                write("æ“ä½œå®Œæ¯•ã€‚\n");
                 return;
 
         default:
-                write("Ã»ÓĞÕâÏî¹¦ÄÜ¡£\n");
+                write("æ²¡æœ‰è¿™é¡¹åŠŸèƒ½ã€‚\n");
                 return;
         }
 }
@@ -147,19 +147,19 @@ private void get_new_pass(string pass, object ob)
 
         if (! objectp(ob))
         {
-                write("ÎŞ·¨ÕÒµ½Á¬½Ó¶ÔÏó£¬´Ë´Î²Ù×÷ÖĞÖ¹ÁË¡£\n");
+                write("æ— æ³•æ‰¾åˆ°è¿æ¥å¯¹è±¡ï¼Œæ­¤æ¬¡æ“ä½œä¸­æ­¢äº†ã€‚\n");
                 return;
         }
 
         if (pass == "")
         {
-                write("²Ù×÷È¡ÏûÁË¡£\n");
+                write("æ“ä½œå–æ¶ˆäº†ã€‚\n");
                 return;
         }
 
         if (strlen(pass) < 3)
         {
-                write("¶Ô²»Æğ£¬ÄãµÄÆÕÍ¨ÃÜÂë³¤¶È±ØĞë´óÓÚÈıÎ»£¬ÇëÖØĞÂÊäÈë£º");
+                write("å¯¹ä¸èµ·ï¼Œä½ çš„æ™®é€šå¯†ç é•¿åº¦å¿…é¡»å¤§äºä¸‰ä½ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š");
                 input_to("get_new_pass", 1, ob);
                 return;
         }
@@ -167,13 +167,13 @@ private void get_new_pass(string pass, object ob)
         old_pass = ob->query("ad_password");
         if (stringp(old_pass) && crypt(pass, old_pass) == old_pass)
         {
-                write(HIR "\nÎªÁË°²È«Æğ¼û£¬ÆÕÍ¨ÃÜÂëºÍ¹ÜÀíÃÜÂë²»ÄÜÒ»Ñù¡£\n\n" NOR);
-                write("ÇëÖØĞÂÊäÈëÄãµÄÆÕÍ¨ÃÜÂë£º");
+                write(HIR "\nä¸ºäº†å®‰å…¨èµ·è§ï¼Œæ™®é€šå¯†ç å’Œç®¡ç†å¯†ç ä¸èƒ½ä¸€æ ·ã€‚\n\n" NOR);
+                write("è¯·é‡æ–°è¾“å…¥ä½ çš„æ™®é€šå¯†ç ï¼š");
                 input_to("get_new_pass", 1, ob);
                 return;
         }
 
-	write("\nÇëÔÙÊäÈëÒ»´ÎĞÂµÄÆÕÍ¨ÃÜÂë£º");
+	write("\nè¯·å†è¾“å…¥ä¸€æ¬¡æ–°çš„æ™®é€šå¯†ç ï¼š");
 	input_to("confirm_new_pass", 1, ob, crypt(pass, 0));
 }
 
@@ -186,14 +186,14 @@ private void confirm_new_pass(string pass, object ob, string new_pass)
 
         if (! objectp(ob))
         {
-                write("ÎŞ·¨ÕÒµ½Á¬½Ó¶ÔÏó£¬´Ë´Î²Ù×÷ÖĞÖ¹ÁË¡£\n");
+                write("æ— æ³•æ‰¾åˆ°è¿æ¥å¯¹è±¡ï¼Œæ­¤æ¬¡æ“ä½œä¸­æ­¢äº†ã€‚\n");
                 return;
         }
 
 	write("\n");
 	if (crypt(pass, new_pass) != new_pass)
 	{
-		write("¶Ô²»Æğ£¬ÄúÁ½´ÎÊäÈëµÄ²¢²»ÏàÍ¬£¬ÇëÖØĞÂÊäÈëÄãµÄÆÕÍ¨ÃÜÂë£º");
+		write("å¯¹ä¸èµ·ï¼Œæ‚¨ä¸¤æ¬¡è¾“å…¥çš„å¹¶ä¸ç›¸åŒï¼Œè¯·é‡æ–°è¾“å…¥ä½ çš„æ™®é€šå¯†ç ï¼š");
                 input_to("get_new_pass", 1, ob);
                 return;
 	}
@@ -201,7 +201,7 @@ private void confirm_new_pass(string pass, object ob, string new_pass)
 	seteuid(getuid());
 	if (! ob->set("password", new_pass))
 	{
-		write("ÆÕÍ¨ÃÜÂë±ä¸üÊ§°Ü£¡\n");
+		write("æ™®é€šå¯†ç å˜æ›´å¤±è´¥ï¼\n");
 		return;
 	}
 
@@ -215,7 +215,7 @@ private void confirm_new_pass(string pass, object ob, string new_pass)
 							  : 0,
                                           ctime(time())));
 
-        write("ÆÕÍ¨ÃÜÂë±ä¸ü³É¹¦¡£\n");
+        write("æ™®é€šå¯†ç å˜æ›´æˆåŠŸã€‚\n");
 }
 
 private void get_new_ad_pass(string pass, object ob)
@@ -224,20 +224,20 @@ private void get_new_ad_pass(string pass, object ob)
 
         if (! objectp(ob))
         {
-                write("ÎŞ·¨ÕÒµ½Á¬½Ó¶ÔÏó£¬´Ë´Î²Ù×÷ÖĞÖ¹ÁË¡£\n");
+                write("æ— æ³•æ‰¾åˆ°è¿æ¥å¯¹è±¡ï¼Œæ­¤æ¬¡æ“ä½œä¸­æ­¢äº†ã€‚\n");
                 return;
         }
 
         if (pass == "")
         {
-                write("²Ù×÷È¡ÏûÁË¡£\n");
+                write("æ“ä½œå–æ¶ˆäº†ã€‚\n");
                 return;
         }
 
         if (strlen(pass) < 5)
         {
-                write(HIR "\n¶Ô²»Æğ£¬ÎªÁË°²È«Æğ¼û£¬ÄãµÄÆÕÍ¨ÃÜÂë³¤¶È±ØĞë´óÓÚÎåÎ»¡£\n\n" NOR);
-                write("ÇëÖØĞÂÊäÈëĞÂµÄ¹ÜÀíÃÜÂë£º");
+                write(HIR "\nå¯¹ä¸èµ·ï¼Œä¸ºäº†å®‰å…¨èµ·è§ï¼Œä½ çš„æ™®é€šå¯†ç é•¿åº¦å¿…é¡»å¤§äºäº”ä½ã€‚\n\n" NOR);
+                write("è¯·é‡æ–°è¾“å…¥æ–°çš„ç®¡ç†å¯†ç ï¼š");
                 input_to("get_new_ad_pass", 1, ob);
                 return;
         }
@@ -245,13 +245,13 @@ private void get_new_ad_pass(string pass, object ob)
         old_pass = ob->query("password");
         if (stringp(old_pass) && crypt(pass, old_pass) == old_pass)
         {
-                write(HIR "\nÎªÁË°²È«Æğ¼û£¬¹ÜÀíÃÜÂëºÍÆÕÍ¨ÃÜÂë²»ÄÜÒ»Ñù¡£\n\n" NOR);
-                write("ÇëÖØĞÂÊäÈëÄãµÄ¹ÜÀíÃÜÂë£º");
+                write(HIR "\nä¸ºäº†å®‰å…¨èµ·è§ï¼Œç®¡ç†å¯†ç å’Œæ™®é€šå¯†ç ä¸èƒ½ä¸€æ ·ã€‚\n\n" NOR);
+                write("è¯·é‡æ–°è¾“å…¥ä½ çš„ç®¡ç†å¯†ç ï¼š");
                 input_to("get_new_ad_pass", 1, ob);
                 return;
         }
 
-	write("\nÇëÔÙÊäÈëÒ»´ÎĞÂµÄ¹ÜÀíÃÜÂë£º");
+	write("\nè¯·å†è¾“å…¥ä¸€æ¬¡æ–°çš„ç®¡ç†å¯†ç ï¼š");
 	input_to("confirm_new_ad_pass", 1, ob, crypt(pass, 0));
 }
 
@@ -264,14 +264,14 @@ private void confirm_new_ad_pass(string pass, object ob, string new_pass)
 
         if (! objectp(ob))
         {
-                write("ÎŞ·¨ÕÒµ½Á¬½Ó¶ÔÏó£¬´Ë´Î²Ù×÷ÖĞÖ¹ÁË¡£\n");
+                write("æ— æ³•æ‰¾åˆ°è¿æ¥å¯¹è±¡ï¼Œæ­¤æ¬¡æ“ä½œä¸­æ­¢äº†ã€‚\n");
                 return;
         }
 
 	write("\n");
 	if (crypt(pass, new_pass) != new_pass)
 	{
-		write("¶Ô²»Æğ£¬ÄúÁ½´ÎÊäÈëµÄ²¢²»ÏàÍ¬£¬ÇëÖØĞÂÊäÈëÄãµÄ¹ÜÀíÃÜÂë£º");
+		write("å¯¹ä¸èµ·ï¼Œæ‚¨ä¸¤æ¬¡è¾“å…¥çš„å¹¶ä¸ç›¸åŒï¼Œè¯·é‡æ–°è¾“å…¥ä½ çš„ç®¡ç†å¯†ç ï¼š");
                 input_to("get_new_ad_pass", 1, ob);
 		return;
 	}
@@ -279,7 +279,7 @@ private void confirm_new_ad_pass(string pass, object ob, string new_pass)
 	seteuid(getuid());
 	if (! ob->set("ad_password", new_pass))
 	{
-		write("¹ÜÀíÃÜÂë±ä¸üÊ§°Ü£¡\n");
+		write("ç®¡ç†å¯†ç å˜æ›´å¤±è´¥ï¼\n");
 		return;
 	}
 
@@ -293,32 +293,32 @@ private void confirm_new_ad_pass(string pass, object ob, string new_pass)
 							  : 0,
                                           ctime(time())));
 
-        // ²éÕÒ²¢·¢ËÍmail
+        // æŸ¥æ‰¾å¹¶å‘é€mail
         if (geteuid(me) == ob->query("id"))
         {
-                // ÊÇ±¾ÈËÔÚĞŞ¸Ä
-                write("¹ÜÀíÃÜÂë±ä¸ü³É¹¦¡£\n");
+                // æ˜¯æœ¬äººåœ¨ä¿®æ”¹
+                write("ç®¡ç†å¯†ç å˜æ›´æˆåŠŸã€‚\n");
                 return;
         } else
         {
-                // ÊÇÆäËûÈËĞŞ¸Ä
+                // æ˜¯å…¶ä»–äººä¿®æ”¹
                 ob->set("password", "55AA");
-                write("Çå³ıÓÃ»§Ô­ÓĞµÄÆÕÍ¨ÃÜÂë¡£\n");
+                write("æ¸…é™¤ç”¨æˆ·åŸæœ‰çš„æ™®é€šå¯†ç ã€‚\n");
                 ob->save();
         }
 /*
         body = LOGIN_D->make_body(ob);
         {
-                // ·¢ËÍmail
+                // å‘é€mail
                 body->restore();
                 email = body->query("email");
                 destruct(body);
                 msg = @LONG
 Hello, %id.
 
-¸ĞĞ»Äú²ÎÓëÍøÂçÓÎÏ·%MUD_NAME£¬ÄúËùÊ¹ÓÃµÄÕËºÅ(%id)µÄ¹ÜÀíÃÜÂëÏÖ
-ÒÑ¾­±»%meĞŞ¸Ä³ÉÎª%passwd£¬ÏÂ´ÎµÇÂ¼µÄÊ±ºòÇëÄúÊ¹ÓÃĞÂµÄ¹ÜÀíÃÜÂë
-µÇÂ¼£¬²¢ÖØĞÂÉèÖÃµÇÂ¼Ê¹ÓÃµÄÆÕÍ¨ÃÜÂë¡£¶Ô´ËÔì³ÉµÄ²»±ã¾´ÇëÔ­ÁÂ¡£
+æ„Ÿè°¢æ‚¨å‚ä¸ç½‘ç»œæ¸¸æˆ%MUD_NAMEï¼Œæ‚¨æ‰€ä½¿ç”¨çš„è´¦å·(%id)çš„ç®¡ç†å¯†ç ç°
+å·²ç»è¢«%meä¿®æ”¹æˆä¸º%passwdï¼Œä¸‹æ¬¡ç™»å½•çš„æ—¶å€™è¯·æ‚¨ä½¿ç”¨æ–°çš„ç®¡ç†å¯†ç 
+ç™»å½•ï¼Œå¹¶é‡æ–°è®¾ç½®ç™»å½•ä½¿ç”¨çš„æ™®é€šå¯†ç ã€‚å¯¹æ­¤é€ æˆçš„ä¸ä¾¿æ•¬è¯·åŸè°…ã€‚
 
                              %data
 LONG ;
@@ -330,7 +330,7 @@ LONG ;
                 MAIL_D->queue_mail(me, 0, email, "Password chanaged", msg);
         }
 */
-        write("Äã³É¹¦µÄĞŞ¸ÄÁËÓÃ»§(" + ob->query("id") + ")µÄ¹ÜÀíÃÜÂë¡£\n");
+        write("ä½ æˆåŠŸçš„ä¿®æ”¹äº†ç”¨æˆ·(" + ob->query("id") + ")çš„ç®¡ç†å¯†ç ã€‚\n");
 
         if (ob->query_temp("create_temp"))
                 destruct(ob);
@@ -339,11 +339,11 @@ LONG ;
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : passwd <Íæ¼Ò>
+æŒ‡ä»¤æ ¼å¼ : passwd <ç©å®¶>
  
-Õâ¸öÖ¸Áî¿ÉÒÔĞŞ¸ÄÄãµÄÈËÎïÃÜÂë¡£Èç¹ûÊÇÎ×Ê¦£¬¿ÉÒÔÊ¹ÓÃÕâ¸öÃüÁîÀ´
-ĞŞ¸ÄËûÈËµÄ¹ÜÀíÃÜÂë£¬ĞŞ¸ÄÒÔºóÏµÍ³»á×Ô¶¯·¢ĞÅµ½Íæ¼ÒËù×¢²áĞÅÏäÍ¨
-ÖªĞÂµÄ¹ÜÀíÃÜÂë¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥ä¿®æ”¹ä½ çš„äººç‰©å¯†ç ã€‚å¦‚æœæ˜¯å·«å¸ˆï¼Œå¯ä»¥ä½¿ç”¨è¿™ä¸ªå‘½ä»¤æ¥
+ä¿®æ”¹ä»–äººçš„ç®¡ç†å¯†ç ï¼Œä¿®æ”¹ä»¥åç³»ç»Ÿä¼šè‡ªåŠ¨å‘ä¿¡åˆ°ç©å®¶æ‰€æ³¨å†Œä¿¡ç®±é€š
+çŸ¥æ–°çš„ç®¡ç†å¯†ç ã€‚
 
 HELP );
         return 1;

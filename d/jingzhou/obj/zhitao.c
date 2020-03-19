@@ -1,4 +1,4 @@
-// zhitao.c Ö¸Ì×
+// zhitao.c æŒ‡å¥—
 
 #include <armor.h>
 
@@ -6,13 +6,13 @@ inherit HANDS;
 
 void create()
 {
-        set_name( "Ö¸Ì×", ({ "finger", "zhitao" }) );
+        set_name( "æŒ‡å¥—", ({ "finger", "zhitao" }) );
         set_weight(500);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸±");
-                set("long", "ÕâÊÇÎå¸ö»·»·ÏàÁ´µÄÌúÖ¸Ì×£¬Ç°¶Ë·æÀûÈçÈĞ£¬¼È¿É°µ²ØÕÆÖĞÉËÈË£¬ÓÖ¿É±£»¤Ö¸¹Ø½Ú¡£\n");
+                set("unit", "å‰¯");
+                set("long", "è¿™æ˜¯äº”ä¸ªç¯ç¯ç›¸é“¾çš„é“æŒ‡å¥—ï¼Œå‰ç«¯é”‹åˆ©å¦‚åˆƒï¼Œæ—¢å¯æš—è—æŒä¸­ä¼¤äººï¼Œåˆå¯ä¿æŠ¤æŒ‡å…³èŠ‚ã€‚\n");
                 set("value", 6000);
                 set("material", "steel");
                 set("armor_prop/armor", 5); 

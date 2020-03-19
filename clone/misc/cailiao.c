@@ -6,12 +6,12 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name("²ËÁÏ", ({ "cai liao", "liao" }));
+        set_name("èœæ–™", ({ "cai liao", "liao" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "×ö²ËµÄÔ­ÁÏ£¬Çà²ËÂÜ²·¡¢¼¦Ñ¼ÓãÈâ¡£\n");
-                set("base_unit", "·İ");
+                set("long", "åšèœçš„åŸæ–™ï¼Œé’èœèåœã€é¸¡é¸­é±¼è‚‰ã€‚\n");
+                set("base_unit", "ä»½");
                 set("base_value", 50);
 		set("base_weight", 80);
         }

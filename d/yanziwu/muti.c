@@ -4,11 +4,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ľ��");
+        set("short", "木梯");
         set("long",@LONG
-����һ������֦�ܳɵ�ľ�ݣ�������ͨ��ˮ�档��������
-����֦��һֻС�� "ɯɯ��ɯ��ɯɯ��ɯ" �Ľ�������������
-����һ�����ϱ�ͨ���롣
+这是一座松树枝架成的木梯，垂下来通往水面。忽听得旁
+边柳枝上一只小鸟 "莎莎都莎，莎莎都莎" 的叫了起来，把你
+吓了一跳。南边通向船坞。
 LONG );
         set("outdoors", "yanziwu");
         set("exits", ([

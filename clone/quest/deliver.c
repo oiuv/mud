@@ -1,4 +1,4 @@
-// Íæ¼ÒÈÎÎñ£ºdeliver.c
+// ç©å®¶ä»»åŠ¡ï¼šdeliver.c
 
 #include <ansi.h>
 #include <quest.h>
@@ -22,15 +22,15 @@ inherit QUEST_OB;
 int npc_accept_object(object me, object who, object ob);
 mixed ask_for_qob(object npc2, object qob, string qob_name);
 
-// ÈÎÎñ¶ÔÏó´´½¨
+// ä»»åŠ¡å¯¹è±¡åˆ›å»º
 void create()
 {
     setup();
 }
 
-// Æô¶¯Ò»¸öÈÎÎñ
-// ×Ô¶¯Éú³ÉÁ½¸öÈËÎïºÍÁ½¸öµØµã£¬ÊäÈëÒ»ÖÖÎïÆ·½øĞĞËÍ»õ£¬
-// ÕÒµ½µÚÒ»¸öÈË½Óµ½ÎïÆ·£¬È»ºóËÍ¸øµÚ¶ş¸öÈËÁìÈ¡½±Àø¡£
+// å¯åŠ¨ä¸€ä¸ªä»»åŠ¡
+// è‡ªåŠ¨ç”Ÿæˆä¸¤ä¸ªäººç‰©å’Œä¸¤ä¸ªåœ°ç‚¹ï¼Œè¾“å…¥ä¸€ç§ç‰©å“è¿›è¡Œé€è´§ï¼Œ
+// æ‰¾åˆ°ç¬¬ä¸€ä¸ªäººæ¥åˆ°ç‰©å“ï¼Œç„¶åé€ç»™ç¬¬äºŒä¸ªäººé¢†å–å¥–åŠ±ã€‚
 void init_quest(string qob_name, int amount)
 {
     string name;
@@ -43,35 +43,35 @@ void init_quest(string qob_name, int amount)
     {
         if (objectp(qob->query_temp("quest_ob")))
         {
-            // ¸ÃÎïÆ·ÒÑ¾­´æÔÚ²¢ÓÃÓÚÆäËûÈÎÎñ£¬Õâ¸öÈÎÎñ²»ÄÜ½øĞĞ
+            // è¯¥ç‰©å“å·²ç»å­˜åœ¨å¹¶ç”¨äºå…¶ä»–ä»»åŠ¡ï¼Œè¿™ä¸ªä»»åŠ¡ä¸èƒ½è¿›è¡Œ
             destruct(this_object());
             return;
         }
     }
     else
-        // Éú³ÉÈÎÎñÎïÆ·
+        // ç”Ÿæˆä»»åŠ¡ç‰©å“
         qob = load_object(qob_name);
 
-    // ¼ÇÂ¼¸ÃÎïÆ·µÄÈÎÎñÊôĞÔ
+    // è®°å½•è¯¥ç‰©å“çš„ä»»åŠ¡å±æ€§
     qob->set_temp("quest_ob", this_object());
     qob->set_amount(amount);
 
-    // Éú³ÉÈÎÎñµÄÃû×Ö
-    name = "ÔËËÍ" + filter_color(qob->name());
+    // ç”Ÿæˆä»»åŠ¡çš„åå­—
+    name = "è¿é€" + filter_color(qob->name());
     set_name(name);
 
-    // ²úÉúÁ½¸öËæ»úµØµã
-    place1 = NPC_D->random_place(({"Î÷Óò"}));
-    place2 = NPC_D->random_place(({"Î÷Óò", place1}));
+    // äº§ç”Ÿä¸¤ä¸ªéšæœºåœ°ç‚¹
+    place1 = NPC_D->random_place(({"è¥¿åŸŸ"}));
+    place2 = NPC_D->random_place(({"è¥¿åŸŸ", place1}));
 
-    // ²úÉúÁ½¸öËæ»úÈËÎï
+    // äº§ç”Ÿä¸¤ä¸ªéšæœºäººç‰©
     npc1 = new (CLASS_D("generate") + "/questnpc");
     npc2 = new (CLASS_D("generate") + "/questnpc");
 
     npc1->set_temp("quest_ob", this_object());
     npc2->set_temp("quest_ob", this_object());
 
-    // ¼ÇÂ¼ÕâĞ©ÈËÎï¡¢µØµãºÍÎïÆ·ĞÅÏ¢
+    // è®°å½•è¿™äº›äººç‰©ã€åœ°ç‚¹å’Œç‰©å“ä¿¡æ¯
     my = query_entire_dbase();
 
     QOB = qob;
@@ -88,51 +88,51 @@ void init_quest(string qob_name, int amount)
     NPC2_ID = npc2->query("id");
     AMOUNT = amount;
 
-    // ÎïÆ·³ĞÔØ£¬±£Ö¤ËÍ»õµÄNPCÄÃµÃ¶¯×ã¹»µÄÖØÁ¿
+    // ç‰©å“æ‰¿è½½ï¼Œä¿è¯é€è´§çš„NPCæ‹¿å¾—åŠ¨è¶³å¤Ÿçš„é‡é‡
     npc2->set_max_encumbrance(1000000);
     qob->move(npc2);
 
-    // ÈËÎï³öÏÖ
+    // äººç‰©å‡ºç°
     NPC_D->place_npc(npc1, 0, ({place1}));
     NPC_D->place_npc(npc2, 0, ({place2}));
 
-    // ÉèÖÃ¶Ô»°ĞÅÏ¢
+    // è®¾ç½®å¯¹è¯ä¿¡æ¯
     npc1->set("inquiry", ([
-                  name:"°¡£¿ÄãÊÇËÍËüÀ´µÄ£¿¿ì¸øÎÒ¡£",
-              QOB_NAME:"ÄÇĞ©»õÎïÑ½£¬ÎÒÕâÀïµÄÉúÒâÕı¼±ĞèÄØ£¡",
-                QOB_ID:"ÄÇĞ©»õÎïÑ½£¬ÎÒÕâÀïµÄÉúÒâÕı¼±ĞèÄØ£¡",
-             NPC1_NAME:"ÄÇÕıÊÇ±¾ÈË°¡£¡",
-               NPC1_ID:"ÄÇÕıÊÇ±¾ÈË°¡£¡",
-             NPC2_NAME:"ÊÇÑ½£¬¾ÍÊÇËû´ğÓ¦ÅÉÈËËÍÀ´µÄ£¡",
-               NPC2_ID:"ÊÇÑ½£¬¾ÍÊÇËû´ğÓ¦ÅÉÈËËÍÀ´µÄ£¡",
+                  name:"å•Šï¼Ÿä½ æ˜¯é€å®ƒæ¥çš„ï¼Ÿå¿«ç»™æˆ‘ã€‚",
+              QOB_NAME:"é‚£äº›è´§ç‰©å‘€ï¼Œæˆ‘è¿™é‡Œçš„ç”Ÿæ„æ­£æ€¥éœ€å‘¢ï¼",
+                QOB_ID:"é‚£äº›è´§ç‰©å‘€ï¼Œæˆ‘è¿™é‡Œçš„ç”Ÿæ„æ­£æ€¥éœ€å‘¢ï¼",
+             NPC1_NAME:"é‚£æ­£æ˜¯æœ¬äººå•Šï¼",
+               NPC1_ID:"é‚£æ­£æ˜¯æœ¬äººå•Šï¼",
+             NPC2_NAME:"æ˜¯å‘€ï¼Œå°±æ˜¯ä»–ç­”åº”æ´¾äººé€æ¥çš„ï¼",
+               NPC2_ID:"æ˜¯å‘€ï¼Œå°±æ˜¯ä»–ç­”åº”æ´¾äººé€æ¥çš„ï¼",
     ]));
 
     npc2->set("inquiry", ([
-                  name:"Ã»´í£¬ÄãÔ¸ÒâÈ¥°ïÎÒËÍÕâÅú»õ£¡",
+                  name:"æ²¡é”™ï¼Œä½ æ„¿æ„å»å¸®æˆ‘é€è¿™æ‰¹è´§ï¼",
               QOB_NAME:(: ask_for_qob, npc2, qob, qob->name() :),
                 QOB_ID:(: ask_for_qob, npc2, qob, qob->name() :),
-             NPC1_NAME:"ÕâÅú»õ¾ÍÊÇÒªËÍ¸øËûµÄÑ½£¡",
-               NPC1_ID:"ÕâÅú»õ¾ÍÊÇÒªËÍ¸øËûµÄÑ½£¡",
-             NPC2_NAME:"ÕıÊÇÔÚÏÂ£¬ÓĞºÎ¹ó¸É£¿",
-               NPC2_ID:"ÕıÊÇÔÚÏÂ£¬ÓĞºÎ¹ó¸É£¿",
+             NPC1_NAME:"è¿™æ‰¹è´§å°±æ˜¯è¦é€ç»™ä»–çš„å‘€ï¼",
+               NPC1_ID:"è¿™æ‰¹è´§å°±æ˜¯è¦é€ç»™ä»–çš„å‘€ï¼",
+             NPC2_NAME:"æ­£æ˜¯åœ¨ä¸‹ï¼Œæœ‰ä½•è´µå¹²ï¼Ÿ",
+               NPC2_ID:"æ­£æ˜¯åœ¨ä¸‹ï¼Œæœ‰ä½•è´µå¹²ï¼Ÿ",
     ]));
 
-    // ÉèÖÃ½ÓÊÕÎïÆ·µÄĞÅÏ¢£ºÓÉÓÚNPC´æÔÚµÄÊ±ºò¸ÃÈÎÎñ¶ÔÏó±Ø
-    // ¶¨»á´æÔÚ£¨ÒòÎªÈÎÎñÎö¹¹µÄÊ±ºò»áÇå³ıNPC£©£¬ËùÒÔ¿ÉÒÔ
-    // ÈÃNPCÒıÓÃ±¾µØµÄ"npc_accept_object"º¯Êı¡£
+    // è®¾ç½®æ¥æ”¶ç‰©å“çš„ä¿¡æ¯ï¼šç”±äºNPCå­˜åœ¨çš„æ—¶å€™è¯¥ä»»åŠ¡å¯¹è±¡å¿…
+    // å®šä¼šå­˜åœ¨ï¼ˆå› ä¸ºä»»åŠ¡ææ„çš„æ—¶å€™ä¼šæ¸…é™¤NPCï¼‰ï¼Œæ‰€ä»¥å¯ä»¥
+    // è®©NPCå¼•ç”¨æœ¬åœ°çš„"npc_accept_object"å‡½æ•°ã€‚
     npc1->set_temp("override/accept_object", (: npc_accept_object :));
 
-    // ÇĞ»»µ½Õı³£×´Ì¬
+    // åˆ‡æ¢åˆ°æ­£å¸¸çŠ¶æ€
     change_status(QUEST_READY);
 
-    // ÉèÖÃÈÎÎñ×î³¤´æ»îÊ±¼ä£º30·ÖÖÓ
+    // è®¾ç½®ä»»åŠ¡æœ€é•¿å­˜æ´»æ—¶é—´ï¼š30åˆ†é’Ÿ
     set("live_time", 1200);
 
-    // µÇ¼ÇÒ¥ÑÔÏûÏ¢
+    // ç™»è®°è°£è¨€æ¶ˆæ¯
     register_information();
 }
 
-// ÈÎÎñÖÕÖ¹
+// ä»»åŠ¡ç»ˆæ­¢
 void cancel_quest()
 {
     mapping my = query_entire_dbase();
@@ -149,7 +149,7 @@ void cancel_quest()
     if (objectp(QOB))
         destruct(QOB);
 
-    // ÈÎÎñÏûÍö
+    // ä»»åŠ¡æ¶ˆäº¡
     ::cancel_quest();
 }
 
@@ -161,17 +161,17 @@ mixed ask_for_qob(object npc2, object qob, string qob_name)
 
     me = this_player();
 
-    message_vision(CYN "$N" CYN "¶Ô$n" CYN "ËµµÀ£ºÕâ" + qob_name +
-                       CYN "Äú¾Í½»¸øÎÒ°ïÄúÔËËÍ°É£¬ÔÛ°üÄú×¼Ê±ËÍµ½£¡\n" NOR,
+    message_vision(CYN "$N" CYN "å¯¹$n" CYN "è¯´é“ï¼šè¿™" + qob_name +
+                       CYN "æ‚¨å°±äº¤ç»™æˆ‘å¸®æ‚¨è¿é€å§ï¼Œå’±åŒ…æ‚¨å‡†æ—¶é€åˆ°ï¼\n" NOR,
                    me, npc2);
 
-    tell_object(me, HIC "ÄãÈÃ" + npc2->name() + HIC "½«" + qob_name +
-                        HIC "½»ÍĞ¸øÄãÔËËÍ¡£\n" NOR);
+    tell_object(me, HIC "ä½ è®©" + npc2->name() + HIC "å°†" + qob_name +
+                        HIC "äº¤æ‰˜ç»™ä½ è¿é€ã€‚\n" NOR);
 
     if (me->query("score") < 1000)
     {
-        message_vision(CYN "$N" CYN "ÃĞ×ÅÑÛ¾¦Æ³ÁË$n" CYN "Ò»ÑÛ£¬ºß"
-                           "ÁËÒ»ÉùµÀ£ºÕâÅú»õ¸øÄã£¿ÎÒ¿É²»·ÅĞÄ¡£¡±\n" NOR,
+        message_vision(CYN "$N" CYN "çœ¯ç€çœ¼ç›ç¥äº†$n" CYN "ä¸€çœ¼ï¼Œå“¼"
+                           "äº†ä¸€å£°é“ï¼šè¿™æ‰¹è´§ç»™ä½ ï¼Ÿæˆ‘å¯ä¸æ”¾å¿ƒã€‚â€\n" NOR,
                        npc2, me);
         return 1;
     }
@@ -181,104 +181,104 @@ mixed ask_for_qob(object npc2, object qob, string qob_name)
         if (me->query_encumbrance() + qob->weight() / qob->query_amount() <
             me->query_max_encumbrance())
         {
-            message_vision(CYN "$N" CYN "´òÁ¿ÁË$n" CYN "°ëÌì£¬"
-                               "µãµãÍ·µÀ£ººÃ°É£¬ÕâÅú»õ¿ÉÊÇ·Ç³£ÖØÒª"
-                               "µÄ£¬ÄãÒ»¶¨Òª×¼Ê±ËÍµ½°¡¡£\n" NOR,
+            message_vision(CYN "$N" CYN "æ‰“é‡äº†$n" CYN "åŠå¤©ï¼Œ"
+                               "ç‚¹ç‚¹å¤´é“ï¼šå¥½å§ï¼Œè¿™æ‰¹è´§å¯æ˜¯éå¸¸é‡è¦"
+                               "çš„ï¼Œä½ ä¸€å®šè¦å‡†æ—¶é€åˆ°å•Šã€‚\n" NOR,
                            npc2, me);
 
-            tell_object(me, HIY + npc2->name() + HIY "°ÑÒ»" +
+            tell_object(me, HIY + npc2->name() + HIY "æŠŠä¸€" +
                                 qob->query("base_unit") + qob_name +
-                                HIY "½»¸øÁËÄãÍĞÔË¡£\n" NOR);
+                                HIY "äº¤ç»™äº†ä½ æ‰˜è¿ã€‚\n" NOR);
 
             ob = new (base_name(qob));
             qob->add_amount(-1);
             if (!objectp(ob))
-                tell_object(me, CYN + npc2->name() + CYN "Í»È»Á³É«Ò»±ä£¬´ó½ĞµÀ£ºÎÒµÄ" +
-                                    qob_name + CYN "ÄØ£¿ÔõÃ´²»¼ûÁË£¿\n" NOR);
+                tell_object(me, CYN + npc2->name() + CYN "çªç„¶è„¸è‰²ä¸€å˜ï¼Œå¤§å«é“ï¼šæˆ‘çš„" +
+                                    qob_name + CYN "å‘¢ï¼Ÿæ€ä¹ˆä¸è§äº†ï¼Ÿ\n" NOR);
             ob->move(me, 1);
         }
         else
         {
-            message_vision(CYN "$N" CYN "ÃĞ×ÅÑÛ¾¦Æ³ÁË$n" CYN "Ò»"
-                               "ÑÛ£¬Ì¾ÁË¿ÚÆøµÀ£º" + RANK_D->query_respect(me) +
-                               CYN "£¬ÕâÅú»õÄãÔËµÃÁËÃ´£¿\n" NOR, npc2, me);
+            message_vision(CYN "$N" CYN "çœ¯ç€çœ¼ç›ç¥äº†$n" CYN "ä¸€"
+                               "çœ¼ï¼Œå¹äº†å£æ°”é“ï¼š" + RANK_D->query_respect(me) +
+                               CYN "ï¼Œè¿™æ‰¹è´§ä½ è¿å¾—äº†ä¹ˆï¼Ÿ\n" NOR, npc2, me);
         }
     }
     else
-        message_vision(CYN "$N" CYN "Î¢Ğ¦×Å¶Ô$n" CYN "Ëµ£º²»ÓÃÀÍ·³ÄãÁË£¬ÕâÅú" +
-                           qob_name + CYN "ÒÑ¾­ÓĞÈËËÍÈ¥ÁË¡£\n" NOR, npc2, me);
+        message_vision(CYN "$N" CYN "å¾®ç¬‘ç€å¯¹$n" CYN "è¯´ï¼šä¸ç”¨åŠ³çƒ¦ä½ äº†ï¼Œè¿™æ‰¹" +
+                           qob_name + CYN "å·²ç»æœ‰äººé€å»äº†ã€‚\n" NOR, npc2, me);
 
     return 1;
 }
 
-// Ñ¯ÎÊNPC1 - ½ÓÊÕ»õÎïµÄÈË
+// è¯¢é—®NPC1 - æ¥æ”¶è´§ç‰©çš„äºº
 string ask_npc1(object knower, object me)
 {
     mapping my = query_entire_dbase();
 
     if (!objectp(NPC1))
-        return CYN "°¦£¬ÔõÃ´" HIY + NPC1_NAME + NOR CYN "ºÃ¶Ë¶ËµÄ£¬" HIY + QOB_NAME + NOR CYN "Ã»ÄÃµ½£¬·´¶ø¶ªÁËÃü£¬ÕæÊÇ¿ÉÁ¯¡£" NOR;
+        return CYN "å”‰ï¼Œæ€ä¹ˆ" HIY + NPC1_NAME + NOR CYN "å¥½ç«¯ç«¯çš„ï¼Œ" HIY + QOB_NAME + NOR CYN "æ²¡æ‹¿åˆ°ï¼Œåè€Œä¸¢äº†å‘½ï¼ŒçœŸæ˜¯å¯æ€œã€‚" NOR;
 
-    return CYN "Å¶£¬ËûÑ½£¬¾İËµÕıÔÚ" + PLACE1 + "£¬µÈÈË¸øËûËÍÈ¥Ò»Åú" +
-           HIY + QOB_NAME + NOR CYN "ÄØ£¡" NOR;
+    return CYN "å“¦ï¼Œä»–å‘€ï¼Œæ®è¯´æ­£åœ¨" + PLACE1 + "ï¼Œç­‰äººç»™ä»–é€å»ä¸€æ‰¹" +
+           HIY + QOB_NAME + NOR CYN "å‘¢ï¼" NOR;
 }
 
-// Ñ¯ÎÊNPC2 - ³ÖÓĞÎïÆ·µÄÈË
+// è¯¢é—®NPC2 - æŒæœ‰ç‰©å“çš„äºº
 string ask_npc2(object knower, object me)
 {
     mapping my = query_entire_dbase();
 
     if (!objectp(NPC2))
-        return CYN "ÌıÈËËµ" HIY + NPC2_NAME + NOR CYN "¾ÓÈ»±»ÈËÉ±ÁË£¬Ò²²»ÖªµÀÈÇÁËÄÄÃÅ×ÓµÄ»ö£¡" NOR;
+        return CYN "å¬äººè¯´" HIY + NPC2_NAME + NOR CYN "å±…ç„¶è¢«äººæ€äº†ï¼Œä¹Ÿä¸çŸ¥é“æƒ¹äº†å“ªé—¨å­çš„ç¥¸ï¼" NOR;
 
     if (me->query("score") < 500)
         call_out("do_whisper", 1, knower, me);
 
-    return CYN "Å¶£¬ËûÑ½£¬¾İËµÕıÔÚ" + PLACE2 + "£¬¼±×ÅµÈÈË°ïËûËÍ»õÄØ£¡" NOR;
+    return CYN "å“¦ï¼Œä»–å‘€ï¼Œæ®è¯´æ­£åœ¨" + PLACE2 + "ï¼Œæ€¥ç€ç­‰äººå¸®ä»–é€è´§å‘¢ï¼" NOR;
 }
 
-// Í¨ÖªÍæ¼Ò
+// é€šçŸ¥ç©å®¶
 void do_whisper(object knower, object me)
 {
     if (!can_talk_with(knower, me))
         return;
 
-    tell_object(me, WHT + knower->name() + WHT "ÇÄÇÄµÄºÍÄãËµ£º¡°¿ÉÏ§ÄãµÄ½­ºşÔÄÀúÌ«µÍÁË£¬Ëû²»»á¸øÄãÔË¡£¡±\n");
-    message("vision", knower->name() + "ÔÚ" + me->name() + "µÄ¶ú±ßÇÄÇÄµÄËµÁËĞ©Ê²Ã´¡£\n", environment(me), ({me}));
+    tell_object(me, WHT + knower->name() + WHT "æ‚„æ‚„çš„å’Œä½ è¯´ï¼šâ€œå¯æƒœä½ çš„æ±Ÿæ¹–é˜…å†å¤ªä½äº†ï¼Œä»–ä¸ä¼šç»™ä½ è¿ã€‚â€\n");
+    message("vision", knower->name() + "åœ¨" + me->name() + "çš„è€³è¾¹æ‚„æ‚„çš„è¯´äº†äº›ä»€ä¹ˆã€‚\n", environment(me), ({me}));
 }
 
-// Ñ¯ÎÊQOB - ÎïÆ·µÄĞÅÏ¢
+// è¯¢é—®QOB - ç‰©å“çš„ä¿¡æ¯
 string ask_qob(object knower, object me)
 {
     mapping my = query_entire_dbase();
 
     if (!objectp(QOB))
-        return CYN "ÄÑ²»³ÉÒÑ¾­¸øÉ½Ôô½ØÈ¥ÁË£¿¾ÓÈ»Ã»ÈËÖªµÀÄÇ" HIY +
-               QOB_NAME + NOR CYN "µÄÏÂÂäÁË¡£" NOR;
+        return CYN "éš¾ä¸æˆå·²ç»ç»™å±±è´¼æˆªå»äº†ï¼Ÿå±…ç„¶æ²¡äººçŸ¥é“é‚£" HIY +
+               QOB_NAME + NOR CYN "çš„ä¸‹è½äº†ã€‚" NOR;
 
-    return CYN "Õâ" HIY + QOB_NAME + NOR CYN + "Ñ½£¬²»¹ıÊÇºÜÆÕÍ¨µÄÒ»Åú»õÎï¶øÒÑÂï£¡" NOR;
+    return CYN "è¿™" HIY + QOB_NAME + NOR CYN + "å‘€ï¼Œä¸è¿‡æ˜¯å¾ˆæ™®é€šçš„ä¸€æ‰¹è´§ç‰©è€Œå·²å˜›ï¼" NOR;
 }
 
-// ÈÎÎñ½éÉÜ
+// ä»»åŠ¡ä»‹ç»
 string query_introduce(object knower)
 {
     mapping my = query_entire_dbase();
 
-    return CYN "ÌıËµ" HIY + NPC2_NAME + NOR CYN "¼±Ğè½«Ò»Åú" +
-           HIY + QOB_NAME + NOR CYN "ËÍµ½" HIY + NPC1_NAME + NOR CYN "ÄÇ¶ù£¬ÄãÓĞÃ»ÓĞĞËÈ¤£¿" NOR;
+    return CYN "å¬è¯´" HIY + NPC2_NAME + NOR CYN "æ€¥éœ€å°†ä¸€æ‰¹" +
+           HIY + QOB_NAME + NOR CYN "é€åˆ°" HIY + NPC1_NAME + NOR CYN "é‚£å„¿ï¼Œä½ æœ‰æ²¡æœ‰å…´è¶£ï¼Ÿ" NOR;
 }
 
-// ÈÎÎñÌáÊ¾
+// ä»»åŠ¡æç¤º
 string query_prompt()
 {
     switch (random(3))
     {
     case 0:
-        return CYN "µ¹ÊÇ×î½üÌıÀ´ÍùµÄÉÌÈËËµÆğ¡º" HIY + name() + NOR CYN "¡»µÄÊÂÀ´¡£";
+        return CYN "å€’æ˜¯æœ€è¿‘å¬æ¥å¾€çš„å•†äººè¯´èµ·ã€" HIY + name() + NOR CYN "ã€çš„äº‹æ¥ã€‚";
     case 1:
-        return "Ò²Ã»Ê²Ã´´óÊÂ£¬Ö»ÊÇÌıËµ¹ı¡º" HIY + name() + NOR CYN "¡»µÄÊÂ°ÕÁË¡£";
+        return "ä¹Ÿæ²¡ä»€ä¹ˆå¤§äº‹ï¼Œåªæ˜¯å¬è¯´è¿‡ã€" HIY + name() + NOR CYN "ã€çš„äº‹ç½¢äº†ã€‚";
     default:
-        return "Ç°Á½Ìì»¹ÌıÈË¼ÒËµÆğ¡º" HIY + name() + NOR CYN "¡»µÄÊÂÄØ¡£";
+        return "å‰ä¸¤å¤©è¿˜å¬äººå®¶è¯´èµ·ã€" HIY + name() + NOR CYN "ã€çš„äº‹å‘¢ã€‚";
     }
 }
 
@@ -293,14 +293,14 @@ int npc_accept_object(object me, object who, object ob)
 
     if (ob->is_character() || ob->is_item_make())
     {
-        message_vision(CYN "$N" CYN "µÉ×Å$n" CYN "£¬Ê¹¾¢µÄÒ¡×ÅÍ·µÀ£ºÎÒÒªÕâ¸ÉÊ²Ã´£¿\n" NOR,
+        message_vision(CYN "$N" CYN "çªç€$n" CYN "ï¼Œä½¿åŠ²çš„æ‘‡ç€å¤´é“ï¼šæˆ‘è¦è¿™å¹²ä»€ä¹ˆï¼Ÿ\n" NOR,
                        me, who);
         return 0;
     }
 
     if (ob->query("id") != QOB_ID)
     {
-        message_vision(CYN "$N" CYN "µÉ×Å$n" CYN "£¬Ê¹¾¢µÄÒ¡×ÅÍ·µÀ£ºÎÒÒªÕâ¸ÉÊ²Ã´£¿\n" NOR,
+        message_vision(CYN "$N" CYN "çªç€$n" CYN "ï¼Œä½¿åŠ²çš„æ‘‡ç€å¤´é“ï¼šæˆ‘è¦è¿™å¹²ä»€ä¹ˆï¼Ÿ\n" NOR,
                        me, who);
         return 0;
     }
@@ -310,7 +310,7 @@ int npc_accept_object(object me, object who, object ob)
 
     AMOUNT -= ob->query_amount();
 
-    message_vision(CYN "$N" CYN "¿´ÁË¿´" + ob->name() + CYN "£¬¶Ô$n" CYN "µÀ£º»¹²»´í£¬ĞÁ¿àÄãÁË¡£ÕâµãÒø×ÓÄãÊÕÏÂ°É¡£\n" NOR,
+    message_vision(CYN "$N" CYN "çœ‹äº†çœ‹" + ob->name() + CYN "ï¼Œå¯¹$n" CYN "é“ï¼šè¿˜ä¸é”™ï¼Œè¾›è‹¦ä½ äº†ã€‚è¿™ç‚¹é“¶å­ä½ æ”¶ä¸‹å§ã€‚\n" NOR,
                    me, who);
 
     reward = new ("/clone/money/silver");
@@ -320,22 +320,22 @@ int npc_accept_object(object me, object who, object ob)
     remove_call_out("do_notice");
     if (AMOUNT < 1)
     {
-        // ËùÓĞµÄÎïÆ·È«²¿½ÓÊÕÍêÁË£¬×¼±¸½áÊøÈÎÎñ
-        message_vision(CYN "$N" CYN "Ä¨ÁËÄ¨Í·ÉÏµÄº¹£¬µÀ£º×ÜËãÈ«ÔËµ½ÁË£¬ÕâÊÂ¿ÉÕæ¹»ÂŞàÂµÄ¡£\n" NOR,
+        // æ‰€æœ‰çš„ç‰©å“å…¨éƒ¨æ¥æ”¶å®Œäº†ï¼Œå‡†å¤‡ç»“æŸä»»åŠ¡
+        message_vision(CYN "$N" CYN "æŠ¹äº†æŠ¹å¤´ä¸Šçš„æ±—ï¼Œé“ï¼šæ€»ç®—å…¨è¿åˆ°äº†ï¼Œè¿™äº‹å¯çœŸå¤Ÿç½—å—¦çš„ã€‚\n" NOR,
                        me);
 
         CHANNEL_D->do_channel(find_object(QUEST_D), "rumor",
-                              "ÌıËµ" + who->name(1) + "(" +
-                                  who->query("id") + ")Ìæ" +
-                                  me->name() + HIM "°²È«ËÍµ½ÁË" +
-                                  "Ò»Åú" + ob->name() + HIM "¡£" NOR);
+                              "å¬è¯´" + who->name(1) + "(" +
+                                  who->query("id") + ")æ›¿" +
+                                  me->name() + HIM "å®‰å…¨é€åˆ°äº†" +
+                                  "ä¸€æ‰¹" + ob->name() + HIM "ã€‚" NOR);
         call_out("do_finish", 4);
         change_status("stopping");
     }
     else
         call_out("do_notice", 1 + random(3), me, who, ob);
 
-    // ½±Àø
+    // å¥–åŠ±
     exp = 50 + random(50);
     exp *= ob->query_amount();
     pot = 20 + random(20);
@@ -345,14 +345,14 @@ int npc_accept_object(object me, object who, object ob)
     /*
     if (who->query("combat_exp") > 200000)
     {
-        // ¾­ÑéÌ«¸ß£¬Ï÷Èõ½±Àø
+        // ç»éªŒå¤ªé«˜ï¼Œå‰Šå¼±å¥–åŠ±
         exp = exp / 2 + 1;
         pot = pot / 2 + 1;
         score = score / 2 + 1;
 
         if (who->query("combat_exp") > 400000)
         {
-            // ÔÙ´ÎÏ÷Èõ½±Àø
+            // å†æ¬¡å‰Šå¼±å¥–åŠ±
             exp = exp / 2 + 1;
             pot = pot / 2 + 1;
             score = score / 2 + 1;
@@ -362,7 +362,7 @@ int npc_accept_object(object me, object who, object ob)
 
     if (who->query("combat_exp") > 1000000)
     {
-        // ÔÙ´ÎÏ÷Èõ½±Àø
+        // å†æ¬¡å‰Šå¼±å¥–åŠ±
         exp = exp / 2 + 1;
         pot = pot / 2 + 1;
         score = score / 2 + 1;
@@ -370,7 +370,7 @@ int npc_accept_object(object me, object who, object ob)
 
     if (mapp(b = query("bonus/" + who->query("id"))))
     {
-        // ÕıÔÚ½±Àø¸ÃÈËÖĞ
+        // æ­£åœ¨å¥–åŠ±è¯¥äººä¸­
         b["exp"] += exp;
         b["pot"] += pot;
         b["score"] += score;
@@ -381,7 +381,7 @@ int npc_accept_object(object me, object who, object ob)
                "exp":exp,
                "pot":pot,
              "score":score,
-            "prompt":"¾­¹ıÕâ´Î°ïÖú" + me->name() + "ÔËËÍ" + ob->name() + "µÄÊÂÇé",
+            "prompt":"ç»è¿‡è¿™æ¬¡å¸®åŠ©" + me->name() + "è¿é€" + ob->name() + "çš„äº‹æƒ…",
         ]);
         set("bonus/" + who->query("id"), b);
         call_out("do_bonus", 2 + random(2), who->query("id"), who);
@@ -398,12 +398,12 @@ private void do_notice(object me, object who, object ob)
     if (!can_talk_with(me, who))
         return;
 
-    message_vision(CYN "$N" CYN "µãÁËµã»õ£¬ÓÖ¶Ô$n" CYN "µÀ£ºÎÒ»¹ĞèÒª" +
+    message_vision(CYN "$N" CYN "ç‚¹äº†ç‚¹è´§ï¼Œåˆå¯¹$n" CYN "é“ï¼šæˆ‘è¿˜éœ€è¦" +
                        chinese_number(AMOUNT) + QOB_UNIT + QOB_NAME +
-                       CYN "²Å¹»¡£\n" NOR, me, who);
+                       CYN "æ‰å¤Ÿã€‚\n" NOR, me, who);
 }
 
-// ×¼±¸Íê³ÉÈÎÎñ
+// å‡†å¤‡å®Œæˆä»»åŠ¡
 private void do_finish()
 {
     if (sizeof(query("bonus")) > 0)
@@ -412,11 +412,11 @@ private void do_finish()
         return;
     }
 
-    // ¸ÃÈÎÎñÒÑ¾­Íê³É
+    // è¯¥ä»»åŠ¡å·²ç»å®Œæˆ
     cancel_quest();
 }
 
-// ¸øÄ³ÈË½±Àø
+// ç»™æŸäººå¥–åŠ±
 private void do_bonus(string who_id, object who)
 {
     mapping b;
@@ -430,21 +430,21 @@ private void do_bonus(string who_id, object who)
     GIFT_D->bonus(who, b);
 }
 
-// Õâ¸öÏûÏ¢ÄÜ¹»±»É¢²¼Âğ£¿
+// è¿™ä¸ªæ¶ˆæ¯èƒ½å¤Ÿè¢«æ•£å¸ƒå—ï¼Ÿ
 int can_rumor_by(object knower)
 {
-    // 20%µÄ¼¸ÂÊ±»É¢²¼
+    // 20%çš„å‡ ç‡è¢«æ•£å¸ƒ
     return (random(10) < 2);
     //return 0;
 }
 
-// µÇ¼Ç¸ÃÈÎÎñµÄÏûÏ¢
+// ç™»è®°è¯¥ä»»åŠ¡çš„æ¶ˆæ¯
 void register_information()
 {
     mapping my = query_entire_dbase();
 
     if (!clonep() || !mapp(my))
-        // ²»ÊÇÈÎÎñ£¬ËùÒÔ²»µÇ¼Ç
+        // ä¸æ˜¯ä»»åŠ¡ï¼Œæ‰€ä»¥ä¸ç™»è®°
         return;
 
     set_information(NPC1_NAME, (: ask_npc1 :));

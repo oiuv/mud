@@ -3,18 +3,18 @@ inherit STAFF;
 
 void create()
 {
-        set_name("ÌúÁéÅÆ", ({ "tie lingpai", "tie", "lingpai" }));
+        set_name("é“çµç‰Œ", ({ "tie lingpai", "tie", "lingpai" }));
         set_weight(2000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸±");
-                set("long", "ÕâÊÇÒ»¸±¾«Ìú´òÖıµÄÌúÁéÅÆ¡£\n");
+                set("unit", "å‰¯");
+                set("long", "è¿™æ˜¯ä¸€å‰¯ç²¾é“æ‰“é“¸çš„é“çµç‰Œã€‚\n");
                 set("value", 800);
                 set("rigidity", 100);
                 set("material", "steel");
-                set("wield_msg", "$N³é³öÒ»¸±$nÎÕÔÚÊÖÖĞ¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»ØÑü¼ä¡£\n");
+                set("wield_msg", "$NæŠ½å‡ºä¸€å‰¯$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›è…°é—´ã€‚\n");
         }
         init_staff(35);
         setup();

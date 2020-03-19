@@ -2,12 +2,12 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ʯ��");
+	set("short", "石阶");
 	set("long", @LONG
-��������ɽ��´������ɽɽ�š�һ��������ʯ����ͬ������
-���Ѷ��ϣ�ֱû�ƶˡ���ɽȺ���������ɫ��ɽ�����˸������
-����С֮�⡣�����м���������С���������ƺ�������������
-Щʲô��
+这里是嵩山南麓的少室山山脚。一条长长的石阶如同巨龙般
+蜿蜒而上，直没云端。嵩山群峰壁立，翠色满山，令人俯仰间顿
+生渺小之意。边上有几个叫卖的小贩和挑夫，似乎在嚷嚷着争吵
+些什么。
 LONG );
 	set("exits", ([
 		"east"    : "/d/songshan/taishique",

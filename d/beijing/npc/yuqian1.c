@@ -6,10 +6,10 @@ mixed ask_reward();
 
 void create()
 {
-	set_name("ÓùÇ°ÊÌÎÀ", ({ "shi wei", "shi", "wei" }));
+	set_name("å¾¡å‰ä¾å«", ({ "shi wei", "shi", "wei" }));
 	set("age", 32);
-	set("gender", "ÄÐÐÔ");
-	set("long", "ÓùÇ°ÊÌÎÀ¸ö¸ö¶¼ÊÇÊÇ×Ï½û³ÇÖÐµÄºÃÊÖ£¬Ç§Íò±ðÈ¥ÕÐÈÇ¡£\n");
+	set("gender", "ç”·æ€§");
+	set("long", "å¾¡å‰ä¾å«ä¸ªä¸ªéƒ½æ˜¯æ˜¯ç´«ç¦åŸŽä¸­çš„å¥½æ‰‹ï¼Œåƒä¸‡åˆ«åŽ»æ‹›æƒ¹ã€‚\n");
 	set("attitude", "peaceful");
 
 	set("str", 30);
@@ -29,12 +29,12 @@ void create()
 
     set("chat_chance_combat", 10);
 	set("chat_msg_combat", ({
-		"ÓùÇ°ÊÌÎÀºÈµÀ£ºÍöÃü¿ñÍ½£¬¾©³ÇÖ®ÖÐ£¬ÆñµÃÓÉÄã²þ¿ñ£¿\n",
+		"å¾¡å‰ä¾å«å–é“ï¼šäº¡å‘½ç‹‚å¾’ï¼Œäº¬åŸŽä¹‹ä¸­ï¼Œå²‚å¾—ç”±ä½ çŒ–ç‹‚ï¼Ÿ\n",
 	}));
     set("inquiry", ([
-           	"ÉÍ´Í" : (: ask_reward :),
-           	"ÇëÉÍ" : (: ask_reward :),
-           	"ÁìÉÍ" : (: ask_reward :),
+           	"èµèµ" : (: ask_reward :),
+           	"è¯·èµ" : (: ask_reward :),
+           	"é¢†èµ" : (: ask_reward :),
             "reward" : (: ask_reward :),
         ]));
 	setup();
@@ -55,7 +55,7 @@ void init()
 
 int accept_fight(object me)
 {
-	command("say Õâ¿ÉÊÇÄã»îÄåÁË×ÔÕÒµÄ£¬ÐÝµÃ¹ÖÎÒÎÞÇé¡£\n");
+	command("say è¿™å¯æ˜¯ä½ æ´»è…»äº†è‡ªæ‰¾çš„ï¼Œä¼‘å¾—æ€ªæˆ‘æ— æƒ…ã€‚\n");
 	me->apply_condition("killer", 500);
 	kill_ob(me);
 	return 1;
@@ -70,25 +70,25 @@ mixed ask_reward()
         if (me->query_condition("killer")) return 1;
 
         if ( ! find_object(INVASIOND) || ! INVASIOND->query("record") )
-           return command("say Èç½ñ²¢ÎÞ°Ë¹úÁª¾üÈëÇÖÑ½£¡");
+           return command("say å¦‚ä»Šå¹¶æ— å…«å›½è”å†›å…¥ä¾µå‘€ï¼");
         if ( ! INVASIOND->query("record/all_killed") )
-           return command("say Ê¥ÉÏ²¢Î´¶÷×¼ÉÍ´Í£¬¶ûµÈËÙËÙÀëÈ¥£¡");
+           return command("say åœ£ä¸Šå¹¶æœªæ©å‡†èµèµï¼Œå°”ç­‰é€Ÿé€Ÿç¦»åŽ»ï¼");
         if ( me->query("waidi/born_time") != INVASIOND->query("record/born_time"))
-           return command("say ÄãµÄÉÍ´ÍÒÑ¾­¹ýÆÚÁË£¡");
+           return command("say ä½ çš„èµèµå·²ç»è¿‡æœŸäº†ï¼");
         if ( environment(me) == find_object("/d/beijing/hg") )
-           return command("say Äã¿ì¿ìÏò»ÊÉÏÁìÉÍ°É£¡");
+           return command("say ä½ å¿«å¿«å‘çš‡ä¸Šé¢†èµå§ï¼");
 
-        command("say °¡£¬Ô­À´ÊÇ¿¹»÷°Ë¹úÁª¾üµÄÒåÊ¿£¬¿ìÇë¿ìÇë£¡");
-        command("say ÔÚÏÂÕâ±ã´øÄãÈë¹¬Ãæ¼ûÊ¥ÉÏ£¡");
-        message_vision(HIW "\n$N" HIW "´ó²½µØ×ß½ø»Ê¹¬´óµî£¬$n"
-                       HIW "½ôËæÆäºó¡£\n\n" NOR, this_object(), me);
+        command("say å•Šï¼ŒåŽŸæ¥æ˜¯æŠ—å‡»å…«å›½è”å†›çš„ä¹‰å£«ï¼Œå¿«è¯·å¿«è¯·ï¼");
+        command("say åœ¨ä¸‹è¿™ä¾¿å¸¦ä½ å…¥å®«é¢è§åœ£ä¸Šï¼");
+        message_vision(HIW "\n$N" HIW "å¤§æ­¥åœ°èµ°è¿›çš‡å®«å¤§æ®¿ï¼Œ$n"
+                       HIW "ç´§éšå…¶åŽã€‚\n\n" NOR, this_object(), me);
         me->move("/d/beijing/hg");
         this_object()->move("/d/beijing/hg");
-        command("say ºÃÁË£¬ÎÒ´øÄãµ½´óµîÁË£¬Äã¿ÉÒÔÃæ¼ûÊ¥ÉÏÁìÉÍÁË¡£");
-        message_vision("$NÍ·Ò²²»»ØµØÀëÈ¥ÁË¡£\n", this_object());
+        command("say å¥½äº†ï¼Œæˆ‘å¸¦ä½ åˆ°å¤§æ®¿äº†ï¼Œä½ å¯ä»¥é¢è§åœ£ä¸Šé¢†èµäº†ã€‚");
+        message_vision("$Nå¤´ä¹Ÿä¸å›žåœ°ç¦»åŽ»äº†ã€‚\n", this_object());
 
         this_object()->move(query("startroom"));
-        message_vision("$N¼±´Ò´ÒµÄ×ßÁË¹ýÀ´¡£\n", this_object());
+        message_vision("$Næ€¥åŒ†åŒ†çš„èµ°äº†è¿‡æ¥ã€‚\n", this_object());
         return 1;
 
 }
@@ -103,10 +103,10 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÓùÇ°ÊÌÎÀ", ({ "shi wei", "shi", "wei" }));
+	set_name("å¾¡å‰ä¾å«", ({ "shi wei", "shi", "wei" }));
 	set("age", 32);
-	set("gender", "ÄÐÐÔ");
-	set("long", "ÓùÇ°ÊÌÎÀ¸ö¸ö¶¼ÊÇÊÇ×Ï½û³ÇÖÐµÄºÃÊÖ£¬Ç§Íò±ðÈ¥ÕÐÈÇ¡£\n");
+	set("gender", "ç”·æ€§");
+	set("long", "å¾¡å‰ä¾å«ä¸ªä¸ªéƒ½æ˜¯æ˜¯ç´«ç¦åŸŽä¸­çš„å¥½æ‰‹ï¼Œåƒä¸‡åˆ«åŽ»æ‹›æƒ¹ã€‚\n");
 	set("attitude", "peaceful");
 
 	set("str", 30);
@@ -126,7 +126,7 @@ void create()
 
        set("chat_chance_combat", 10);
 	set("chat_msg_combat", ({
-		"ÓùÇ°ÊÌÎÀºÈµÀ£ºÍöÃü¿ñÍ½£¬¾©³ÇÖ®ÖÐ£¬ÆñµÃÓÉÄã²þ¿ñ£¿\n",
+		"å¾¡å‰ä¾å«å–é“ï¼šäº¡å‘½ç‹‚å¾’ï¼Œäº¬åŸŽä¹‹ä¸­ï¼Œå²‚å¾—ç”±ä½ çŒ–ç‹‚ï¼Ÿ\n",
 	}));
 	setup();
 	carry_object("/d/beijing/npc/obj/sword4")->wield();
@@ -146,7 +146,7 @@ void init()
 
 int accept_fight(object me)
 {
-	command("say Õâ¿ÉÊÇÄã»îÄåÁË×ÔÕÒµÄ£¬ÐÝµÃ¹ÖÎÒÎÞÇé¡£\n");
+	command("say è¿™å¯æ˜¯ä½ æ´»è…»äº†è‡ªæ‰¾çš„ï¼Œä¼‘å¾—æ€ªæˆ‘æ— æƒ…ã€‚\n");
 	me->apply_condition("killer", 500);
 	kill_ob(me);
 	return 1;

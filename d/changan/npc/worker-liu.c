@@ -4,19 +4,19 @@ inherit NPC;
 
 #include <ansi.h>
 
-// ½ÓÊÕµÄ»õÎï
+// æŽ¥æ”¶çš„è´§ç‰©
 #define CHECK_GOODS     "cuprum_ore"
 
 void create()
 {
-	set_name("Áõ¹¤½³", ({ "liu gongjiang", "liu", "worker" }) );
-	set("title", HIY "Ìì¹ú´ó½³" NOR);
-	set("gender", "ÄÐÐÔ" );
+	set_name("åˆ˜å·¥åŒ ", ({ "liu gongjiang", "liu", "worker" }) );
+	set("title", HIY "å¤©å›½å¤§åŒ " NOR);
+	set("gender", "ç”·æ€§" );
 	set("age", 52);
 	set("str", 33);
 	set("long", @LONG
-Ò»¸öºÁ²»ÆðÑÛµÄÀÏ½³ÈË£¬µ«ÊÇÈ´ÓÐ×ÅÄÑÒÔÑÔÓ÷µÄÍþÑÏ¡£´ÓÅÔ±ßÑ§Í½¹¤
-ÈËÃÇµÄÑÛÉñÖÐÄã¸Ð¾õËû²»ÊÇÒ»°ãµÄÈËÎï¡£
+ä¸€ä¸ªæ¯«ä¸èµ·çœ¼çš„è€åŒ äººï¼Œä½†æ˜¯å´æœ‰ç€éš¾ä»¥è¨€å–»çš„å¨ä¸¥ã€‚ä»Žæ—è¾¹å­¦å¾’å·¥
+äººä»¬çš„çœ¼ç¥žä¸­ä½ æ„Ÿè§‰ä»–ä¸æ˜¯ä¸€èˆ¬çš„äººç‰©ã€‚
 LONG);
 	set("attitude", "friendly");
 
@@ -39,19 +39,19 @@ int filter_ob(object ob)
 
         owner = ob->query_owner();
         if (! objectp(owner))
-                // ¸Ã³µÎÞÖ÷
+                // è¯¥è½¦æ— ä¸»
                 return 0;
 
         if (environment(owner) != environment())
-                // Ö÷ÈË²»ÔÚ
+                // ä¸»äººä¸åœ¨
                 return 0;
 
         if (ob->query_temp("goods/id") != CHECK_GOODS)
-                // Ã»ÓÐ×°ÔØÍ­¿óÊ¯
+                // æ²¡æœ‰è£…è½½é“œçŸ¿çŸ³
                 return 0;
 
         if (ob->query_temp("goods/amount") < 1)
-                // Ã»ÓÐ»õ
+                // æ²¡æœ‰è´§
                 return 0;
 
         return 1;
@@ -74,52 +74,52 @@ void heart_beat()
 
         if (! stringp(startroom = query("startroom")) ||
             find_object(startroom) != environment())
-                // ²»ÔÚ³öÉúµØµã
+                // ä¸åœ¨å‡ºç”Ÿåœ°ç‚¹
                 return;
 
         obs = all_inventory(environment());
         obs = filter_array(obs, (: filter_ob :));
         if (sizeof(obs) < 1)
         {
-                // Ã»ÓÐµ½´ïºÏÊÊµÄ³µÁ¾£¬Í£Ö¹ÐÄÌø
+                // æ²¡æœ‰åˆ°è¾¾åˆé€‚çš„è½¦è¾†ï¼Œåœæ­¢å¿ƒè·³
                 set_heart_beat(0);
                 return;
         }
 
-        // µ½´ïÁËºÏÊÊµÄ³µÁ¾
+        // åˆ°è¾¾äº†åˆé€‚çš„è½¦è¾†
         ob = obs[0];
         owner = ob->query_owner();
-        message_vision("$N¿´µ½$nÑº»õ¶øÀ´£¬Á¬Á¬µãÍ·µÀ£º¡°ºÜ"
-                       "ºÃ£¡ºÜºÃ£¡¾ÍÐ¶µ½ÕâÀï°É£¡¡±\n",
+        message_vision("$Nçœ‹åˆ°$næŠ¼è´§è€Œæ¥ï¼Œè¿žè¿žç‚¹å¤´é“ï¼šâ€œå¾ˆ"
+                       "å¥½ï¼å¾ˆå¥½ï¼å°±å¸åˆ°è¿™é‡Œå§ï¼â€\n",
                        this_object(), owner);
-        tell_object(owner, "ÄãÐ¶ÏÂ" + ob->query_temp("goods/name") +
-                    "£¬½«" + ob->name() + "½»¸øÑ§Í½À­×ß¡£\n");
+        tell_object(owner, "ä½ å¸ä¸‹" + ob->query_temp("goods/name") +
+                    "ï¼Œå°†" + ob->name() + "äº¤ç»™å­¦å¾’æ‹‰èµ°ã€‚\n");
 
-        // Ð¶ÏÂÍ­¿óÊ¯
+        // å¸ä¸‹é“œçŸ¿çŸ³
         goods = ob->query_temp("goods");
         amount = goods["amount"];
         environment()->improve_product_amount(goods["id"], amount);
 
-        // ¸øÓë½±Àø
+        // ç»™ä¸Žå¥–åŠ±
         MONEY_D->pay_player(owner, amount * 10);
-        tell_object(owner, "ÄãÁìµ½ÁËÒ»Ð©¹¤Ç®¡£\n");
+        tell_object(owner, "ä½ é¢†åˆ°äº†ä¸€äº›å·¥é’±ã€‚\n");
         if (ob->query_temp("job/owner") == owner)
         {
-                // Õâ¸öÊÇ±¾ÈËÁìµÄ¹¤×÷£¬»ñµÃ½±Àø
-                // ½±ÀøÔö¼Ó10±¶£¨2015Äê4ÔÂ25ÈÕ£©
+                // è¿™ä¸ªæ˜¯æœ¬äººé¢†çš„å·¥ä½œï¼ŒèŽ·å¾—å¥–åŠ±
+                // å¥–åŠ±å¢žåŠ 10å€ï¼ˆ2015å¹´4æœˆ25æ—¥ï¼‰
                 GIFT_D->bonus(owner, ([ "exp" : 150 + random(50),
                                         "pot" : 100 + random(50),
                                         "score" : 30 + random(10),
-                                        "prompt" : "Í¨¹ýÕâ´ÎÑºËÍ" + goods["name"] + HIG ]));
+                                        "prompt" : "é€šè¿‡è¿™æ¬¡æŠ¼é€" + goods["name"] + HIG ]));
 
-                // È¥µôÎÒ×öÕâ¸ö¹¤×÷µÄÐÅÏ¢
+                // åŽ»æŽ‰æˆ‘åšè¿™ä¸ªå·¥ä½œçš„ä¿¡æ¯
                 owner->delete("job/" + ob->query_temp("job/info"));
         }
         destruct(ob);
 
         if (sizeof(obs) < 2)
         {
-                // ÒÑ¾­´¦ÀíÍê±Ï£¬Ã»ÓÐÐÂµÄ³µÁ¾µ½´ï£¬Í£Ö¹ÐÄÌø
+                // å·²ç»å¤„ç†å®Œæ¯•ï¼Œæ²¡æœ‰æ–°çš„è½¦è¾†åˆ°è¾¾ï¼Œåœæ­¢å¿ƒè·³
                 set_heart_beat(0);
         }
 }

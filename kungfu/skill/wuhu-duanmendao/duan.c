@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define DUAN "¡¸" HIW "¶Ï×Ö¾÷" NOR "¡¹"
+#define DUAN "ã€Œ" HIW "æ–­å­—è¯€" NOR "ã€"
 
 inherit F_SSERVER;
  
@@ -13,31 +13,31 @@ int perform(object me, object target)
 	int i, num, exp;
  
     if (userp(me) && ! me->query("can_perform/wuhu-duanmendao/duan"))
-			return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+			return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
     if (! target) target = offensive_target(me);
 
     if (! target || ! me->is_fighting(target))
-			return notify_fail(DUAN "Ö»ÄÜÔÚÕ½¶·ÖÐ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+			return notify_fail(DUAN "åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "blade")
-			return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" DUAN "¡£\n");
+			return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" DUAN "ã€‚\n");
 
 	if ((int)me->query("neili") < 200)
-			return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" DUAN "¡£\n");
+			return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" DUAN "ã€‚\n");
 
 	if ((int)me->query_skill("wuhu-duanmendao", 1) < 50)
-			return notify_fail("ÄãµÄÎå»¢¶ÏÃÅµ¶»¹²»µ½¼Ò£¬ÄÑÒÔÊ©Õ¹" DUAN "¡£\n");
+			return notify_fail("ä½ çš„äº”è™Žæ–­é—¨åˆ€è¿˜ä¸åˆ°å®¶ï¼Œéš¾ä»¥æ–½å±•" DUAN "ã€‚\n");
 
     if (me->query_skill_mapped("blade") != "wuhu-duanmendao")
-			return notify_fail("ÄãÃ»ÓÐ¼¤·¢Îå»¢¶ÏÃÅµ¶£¬ÄÑÒÔÊ©Õ¹" DUAN "¡£\n");
+			return notify_fail("ä½ æ²¡æœ‰æ¿€å‘äº”è™Žæ–­é—¨åˆ€ï¼Œéš¾ä»¥æ–½å±•" DUAN "ã€‚\n");
 
     if (! living(target))
-			return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+			return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIW "$N" HIW "ÃÍÈ»·üµØ£¬Ê¹³öÎå»¢¶ÏÃÅµ¶¡¸¶Ï¡¹×Ö¾ö£¬¶ÙÊ±Ò»Æ¬°×¹â"
-              "ÏòÇ°Ö±¹ö¶øÈ¥£¡\n" NOR;
+	msg = HIW "$N" HIW "çŒ›ç„¶ä¼åœ°ï¼Œä½¿å‡ºäº”è™Žæ–­é—¨åˆ€ã€Œæ–­ã€å­—å†³ï¼Œé¡¿æ—¶ä¸€ç‰‡ç™½å…‰"
+              "å‘å‰ç›´æ»šè€ŒåŽ»ï¼\n" NOR;
 	message_combatd(msg, me);
 
 	me->clean_up_enemy();
@@ -73,7 +73,7 @@ int perform(object me, object target)
 			me->add_temp("apply/attack", ap / 2);
 			me->add_temp("apply/parry", ap / 2);
 			me->add_temp("apply/damage", ap / 2);
-			message_combatd(HIW  "$N´Ó×óÃæÅü³öµÚËÄµ¶£¡\n" NOR, me, target); 
+			message_combatd(HIW  "$Nä»Žå·¦é¢åŠˆå‡ºç¬¬å››åˆ€ï¼\n" NOR, me, target); 
 			COMBAT_D->do_attack(me, ob, me->query_temp("weapon"));
 			me->add_temp("apply/attack", -ap / 2);
 			me->add_temp("apply/parry", -ap / 2);
@@ -84,7 +84,7 @@ int perform(object me, object target)
 				me->add_temp("apply/attack", ap);
 				me->add_temp("apply/parry", ap);
 				me->add_temp("apply/damage", ap);
-				message_combatd(RED  "$N´ÓÓÒÃæÅü³öµÚÎåµ¶£¡\n" NOR, me, target); 
+				message_combatd(RED  "$Nä»Žå³é¢åŠˆå‡ºç¬¬äº”åˆ€ï¼\n" NOR, me, target); 
 				COMBAT_D->do_attack(me, ob, me->query_temp("weapon"));
 				me->add_temp("apply/attack", -ap);
 				me->add_temp("apply/parry", -ap);

@@ -29,19 +29,19 @@ string query_msg_log() { return msg_log; }
 
 mapping channels = ([
        "sys":([
-                 "msg_speak":HIR "¡¾ÏµÍ³±¨¸æ¡¿%s£º%s\n" NOR,
-                 "msg_emote":HIR "¡¾ÏµÍ³±¨¸æ¡¿%s" NOR,
+                 "msg_speak":HIR "ã€ç³»ç»ŸæŠ¥å‘Šã€‘%sï¼š%s\n" NOR,
+                 "msg_emote":HIR "ã€ç³»ç»ŸæŠ¥å‘Šã€‘%s" NOR,
                  "msg_color":HIR,
                       "only":"wiz",
-                      "name":"ÏµÍ³",
+                      "name":"ç³»ç»Ÿ",
                   "omit_log":1,
             ]),
 
        "wiz":([
-                        "msg_speak":HIY "¡¾Î×Ê¦ÆµµÀ¡¿%s£º%s\n" NOR,
-                        "msg_emote":HIY "¡¾Î×Ê¦ÆµµÀ¡¿%s" NOR,
+                        "msg_speak":HIY "ã€å·«å¸ˆé¢‘é“ã€‘%sï¼š%s\n" NOR,
+                        "msg_emote":HIY "ã€å·«å¸ˆé¢‘é“ã€‘%s" NOR,
                         "msg_color":HIY,
-                             "name":"Î×Ê¦",
+                             "name":"å·«å¸ˆ",
                              "only":"wiz",
                          "intermud":GCHANNEL,
                    "intermud_emote":1,
@@ -53,55 +53,55 @@ mapping channels = ([
 
      // 97-10-18 this channel add for display debug message by ken@XAJH
      "debug":([
-                 "msg_speak":HIW "¡¾µ÷ÊÔÐÅÏ¢¡¿%s£º%s\n" NOR,
-                 "msg_emote":HIW "¡¾µ÷ÊÔÐÅÏ¢¡¿%s" NOR,
+                 "msg_speak":HIW "ã€è°ƒè¯•ä¿¡æ¯ã€‘%sï¼š%s\n" NOR,
+                 "msg_emote":HIW "ã€è°ƒè¯•ä¿¡æ¯ã€‘%s" NOR,
                  "msg_color":HIW,
-                      "name":"µ÷ÊÔ",
+                      "name":"è°ƒè¯•",
                       "only":"wiz",
                   "omit_log":1,
             ]),
 
      "inter":([
-                 "msg_speak":HIG "¡¾Í¬ÃË½»Ì¸¡¿%s£º%s\n" NOR,
-                 "msg_emote":HIG "¡¾Í¬ÃË½»Ì¸¡¿%s" NOR,
+                 "msg_speak":HIG "ã€åŒç›Ÿäº¤è°ˆã€‘%sï¼š%s\n" NOR,
+                 "msg_emote":HIG "ã€åŒç›Ÿäº¤è°ˆã€‘%s" NOR,
                  "msg_color":HIG,
                       "only":"league",
                   "name_raw":1,
-                      "name":"Í¬ÃË",
+                      "name":"åŒç›Ÿ",
                   "omit_log":1,
             ]),
 
       "chat":([
-                 "msg_speak":HIC "¡¾¶«À­Î÷³¶¡¿%s£º%s\n" NOR,
-                 "msg_emote":HIC "¡¾¶«À­Î÷³¶¡¿%s" NOR,
+                 "msg_speak":HIC "ã€ä¸œæ‹‰è¥¿æ‰¯ã€‘%sï¼š%s\n" NOR,
+                 "msg_emote":HIC "ã€ä¸œæ‹‰è¥¿æ‰¯ã€‘%s" NOR,
                  "msg_color":HIC,
-                      "name":"ÏÐÁÄ",
+                      "name":"é—²èŠ",
             ]),
 
         "ic":([
-                        "msg_speak":HIC "¡¾ÒìÓò´«ÎÅ¡¿%s£º%s\n" NOR,
-                        "msg_emote":HIC "¡¾ÒìÓò´«ÎÅ¡¿%s" NOR,
+                        "msg_speak":HIC "ã€å¼‚åŸŸä¼ é—»ã€‘%sï¼š%s\n" NOR,
+                        "msg_emote":HIC "ã€å¼‚åŸŸä¼ é—»ã€‘%s" NOR,
                         "msg_color":HIC,
                          "intermud":GCHANNEL,
                    "intermud_emote":1,
                  "intermud_channel":"ic",
-                             "name":"ÒìÓò",
+                             "name":"å¼‚åŸŸ",
                            "filter":(: $1["MUDLIB"] == MUDLIB_NAME :)
             ]),
 
       "bill":([
-                 "msg_speak":HIY "¡¾×ªÊÖ½»Ò×¡¿%s£º%s\n" NOR,
+                 "msg_speak":HIY "ã€è½¬æ‰‹äº¤æ˜“ã€‘%sï¼š%s\n" NOR,
                  "msg_color":HIY,
-                      "name":"½»Ò×",
+                      "name":"äº¤æ˜“",
                   "name_raw":1,
                   "omit_log":1,
             ]),
 
      "ultra":([
-                        "msg_speak":HIW "¡¾´ó ×Ú Ê¦¡¿%s£º%s\n" NOR,
-                        "msg_emote":HIW "¡¾´ó ×Ú Ê¦¡¿%s" NOR,
+                        "msg_speak":HIW "ã€å¤§ å®— å¸ˆã€‘%sï¼š%s\n" NOR,
+                        "msg_emote":HIW "ã€å¤§ å®— å¸ˆã€‘%s" NOR,
                         "msg_color":HIW,
-                             "name":"´ó×ÚÊ¦",
+                             "name":"å¤§å®—å¸ˆ",
                          "intermud":GCHANNEL,
                    "intermud_emote":1,
                  "intermud_channel":"rultra",
@@ -109,55 +109,55 @@ mapping channels = ([
             ]),
 
      "shout":([
-                 "msg_speak":HIW "%s×ÝÉù³¤Ð¥£º%s\n" NOR,
+                 "msg_speak":HIW "%sçºµå£°é•¿å•¸ï¼š%s\n" NOR,
             ]),
 
      "rumor":([
-                 "msg_speak":HIM "¡¾Ò¥ÑÔËÄÆð¡¿%s£º%s\n" NOR,
-                 "msg_emote":HIM "¡¾Ò¥ÑÔËÄÆð¡¿%s" NOR,
+                 "msg_speak":HIM "ã€è°£è¨€å››èµ·ã€‘%sï¼š%s\n" NOR,
+                 "msg_emote":HIM "ã€è°£è¨€å››èµ·ã€‘%s" NOR,
                  "msg_color":HIM,
-                      "name":"Ò¥ÑÔ",
-                 "anonymous":"Ä³ÈË",
+                      "name":"è°£è¨€",
+                 "anonymous":"æŸäºº",
             ]),
 
       "sing":([
-                 "msg_speak":HIG "¡¾ÐÄ¸®ÀÖóÏ¡¿%s³ªµÀ£º%s......\n" NOR,
-                 "msg_emote":HIG "¡¾ÐÄ¸®ÀÖóÏ¡¿%s" NOR,
+                 "msg_speak":HIG "ã€å¿ƒåºœä¹ç¬™ã€‘%så”±é“ï¼š%s......\n" NOR,
+                 "msg_emote":HIG "ã€å¿ƒåºœä¹ç¬™ã€‘%s" NOR,
                  "msg_color":HIG,
-                      "name":"¸è³ª",
+                      "name":"æ­Œå”±",
             ]),
 
      "party":([
-                 "msg_speak":HIG "¡¾±¾°ï»°Óï¡¿%s£º%s\n" NOR,
-                 "msg_emote":HIG "¡¾±¾°ï»°Óï¡¿%s" NOR,
+                 "msg_speak":HIG "ã€æœ¬å¸®è¯è¯­ã€‘%sï¼š%s\n" NOR,
+                 "msg_emote":HIG "ã€æœ¬å¸®è¯è¯­ã€‘%s" NOR,
                  "msg_color":HIG,
                       "only":"party",
-                      "name":"°ïÅÉ",
+                      "name":"å¸®æ´¾",
                   "omit_log":1,
             ]),
 
     "family":([
-                 "msg_speak":HIG "¡¾Í¬ÃÅ»°Óï¡¿%s£º%s\n" NOR,
-                 "msg_emote":HIG "¡¾Í¬ÃÅ»°Óï¡¿%s" NOR,
+                 "msg_speak":HIG "ã€åŒé—¨è¯è¯­ã€‘%sï¼š%s\n" NOR,
+                 "msg_emote":HIG "ã€åŒé—¨è¯è¯­ã€‘%s" NOR,
                  "msg_color":HIG,
                       "only":"family",
-                      "name":"Í¬ÃÅ",
+                      "name":"åŒé—¨",
                   "omit_log":1,
             ]),
 
     "rultra":([
-                  "msg_speak":WHT "¡¾ÈûÍâ×ÚÊ¦¡¿%s£º%s\n" NOR,
-                  "msg_emote":WHT "¡¾ÈûÍâ×ÚÊ¦¡¿%s" NOR,
+                  "msg_speak":WHT "ã€å¡žå¤–å®—å¸ˆã€‘%sï¼š%s\n" NOR,
+                  "msg_emote":WHT "ã€å¡žå¤–å®—å¸ˆã€‘%s" NOR,
                   "msg_color":WHT,
-                       "name":"ÈûÍâ×ÚÊ¦",
+                       "name":"å¡žå¤–å®—å¸ˆ",
                  "for_listen":1,
             ]),
 
      "waidi":([
-                 "msg_speak":HIW "¡¾ÍâµÐÈëÇÖ¡¿%s£º%s\n" NOR,
-                 "msg_emote":HIW "¡¾ÍâµÐÈëÇÖ¡¿%s" NOR,
+                 "msg_speak":HIW "ã€å¤–æ•Œå…¥ä¾µã€‘%sï¼š%s\n" NOR,
+                 "msg_emote":HIW "ã€å¤–æ•Œå…¥ä¾µã€‘%s" NOR,
                  "msg_color":HIW,
-                      "name":"ÍâµÐÈëÇÖ",
+                      "name":"å¤–æ•Œå…¥ä¾µ",
                   "omit_log":1,
             ]),
 ]);
@@ -166,10 +166,10 @@ void create()
 {
     // This is required to pass intermud access check.
     seteuid(getuid());
-    set("channel_id", "ÆµµÀ¾«Áé");
+    set("channel_id", "é¢‘é“ç²¾çµ");
 }
 
-// ¼ÇÂ¼ÆµµÀÏûÏ¢µÄÈÕÖ¾
+// è®°å½•é¢‘é“æ¶ˆæ¯çš„æ—¥å¿—
 void channel_log(string msg, string verb, object user)
 {
     string lfn;
@@ -201,7 +201,7 @@ void channel_log(string msg, string verb, object user)
     }
 }
 
-// ½ÓÊÕREMOTE_Q·µ»ØÀ´µÄÐÅÏ¢²¢ÏÔÊ¾Ö®
+// æŽ¥æ”¶REMOTE_Qè¿”å›žæ¥çš„ä¿¡æ¯å¹¶æ˜¾ç¤ºä¹‹
 void do_remote_channel(object me, string verb, string arg)
 {
     object *obs;
@@ -219,7 +219,7 @@ void do_remote_channel(object me, string verb, string arg)
     message("channel:" + verb, msg, obs);
     channel_log(msg, verb, me);
 
-    // Ïò¸÷¸öÕ¾µã·¢ËÍEMOTEÐÅÏ¢
+    // å‘å„ä¸ªç«™ç‚¹å‘é€EMOTEä¿¡æ¯
     channels[verb]["intermud"]->send_msg(channels[verb]["intermud_channel"],
                                          me->query("id"), me->name(1),
                                          arg, 1,
@@ -253,25 +253,25 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         return 0;
 
     if (me->is_chatter())
-        return notify_fail("ÁÄÌì»êÆÇÄ¿Ç°²»ÄÜÊ¹ÓÃ¸÷ÖÖÆµµÀ¡£\n");
+        return notify_fail("èŠå¤©é­‚é­„ç›®å‰ä¸èƒ½ä½¿ç”¨å„ç§é¢‘é“ã€‚\n");
 
     is_player = playerp(me);
     if (is_player && !wizardp(me))
     {
         if (!me->query("registered"))
-            return notify_fail("Äã±ØÐëÔÚ×¢²áÒÔºó²ÅÄÜ¹»Ê¹ÓÃ¸÷ÖÖÆµµÀ¡£\n");
+            return notify_fail("ä½ å¿…é¡»åœ¨æ³¨å†Œä»¥åŽæ‰èƒ½å¤Ÿä½¿ç”¨å„ç§é¢‘é“ã€‚\n");
         /*
                 if (me->query("mud_age") < 1800)
-                        return notify_fail("Äã±ØÐëÔÚÍê³É×¢²áÈýÊ®·ÖÖÓÒÔºó²ÅÄÜÊ¹ÓÃÆµµÀ£¬Õâ¶Î"
-                                           "Ê±¼äÄÚÇëÏÈÔÄ¶Á°ïÖú(help newbie)¡£\n");
+                        return notify_fail("ä½ å¿…é¡»åœ¨å®Œæˆæ³¨å†Œä¸‰ååˆ†é’Ÿä»¥åŽæ‰èƒ½ä½¿ç”¨é¢‘é“ï¼Œè¿™æ®µ"
+                                           "æ—¶é—´å†…è¯·å…ˆé˜…è¯»å¸®åŠ©(help newbie)ã€‚\n");
         */
         if (verb == "ic" && me->query("age") < 18)
-            return notify_fail("Äã±ØÐë³ÉÄêÒÔºó²ÅÄÜÊ¹ÓÃ" + channels[verb]["name"] +
-                               "ÆµµÀ¡£\n");
+            return notify_fail("ä½ å¿…é¡»æˆå¹´ä»¥åŽæ‰èƒ½ä½¿ç”¨" + channels[verb]["name"] +
+                               "é¢‘é“ã€‚\n");
 
         if (verb == "rumor" && me->query("age") < 30)
-            return notify_fail("µÈÄãÈýÊ®ËêÒÔºóÔÙÊ¹ÓÃ" + channels[verb]["name"] +
-                               "ÆµµÀ°É¡£\n");
+            return notify_fail("ç­‰ä½ ä¸‰åå²ä»¥åŽå†ä½¿ç”¨" + channels[verb]["name"] +
+                               "é¢‘é“å§ã€‚\n");
     }
 
     // now we can be sure it's indeed a channel message:
@@ -284,8 +284,8 @@ varargs int do_channel(object me, string verb, string arg, int emote)
             verb = "ultra";
     }
     else if (is_player && verb == "ultra")
-        return notify_fail("µÈÄã³ÉÁË´ó×ÚÊ¦ÔÙ"
-                           "Ê¹ÓÃÕâ¸öÆµµÀ°É£¡\n");
+        return notify_fail("ç­‰ä½ æˆäº†å¤§å®—å¸ˆå†"
+                           "ä½¿ç”¨è¿™ä¸ªé¢‘é“å§ï¼\n");
 
     // player broadcasting need consume jing
     if (userp(me) && !wizardp(me) && verb == "rumor" &&
@@ -293,19 +293,19 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         if (me->query("jing") > 50)
             me->add("jing", -random(36));
         else
-            return notify_fail("ÄãÒÑ¾­Ã»Á¦ÆøÉ¢²¥Ò¥ÑÔÁË£¡\n");
+            return notify_fail("ä½ å·²ç»æ²¡åŠ›æ°”æ•£æ’­è°£è¨€äº†ï¼\n");
 
     if (userp(me) && me->ban_say(1))
         return 0;
 
     // check if rumor or chat is blocked
     if (me->query("chblk_on"))
-        return notify_fail("ÄãµÄÆµµÀ±»¹Ø±ÕÁË£¡\n");
+        return notify_fail("ä½ çš„é¢‘é“è¢«å…³é—­äº†ï¼\n");
 
     if (me->query("doing") == "scheme")
     {
         if (me->query("jing") < 100)
-            return notify_fail("ÄãÏÖÔÚµÄ¾«Éñ²»¼Ã£¬µÈÒ»»á¶ù°É¡£\n");
+            return notify_fail("ä½ çŽ°åœ¨çš„ç²¾ç¥žä¸æµŽï¼Œç­‰ä¸€ä¼šå„¿å§ã€‚\n");
         me->add("jing", -50);
     }
 
@@ -314,8 +314,8 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         if (time() - me->query_temp("last_use_channel") < 4)
         {
             if (me->query_temp("last_message") == arg)
-                return notify_fail("²»ÒªÔÚ¶ÌÆÚÄÚÊ¹ÓÃÆµµÀ"
-                                   "·¢²¼ÖØ¸´µÄÐÅÏ¢¡£\n");
+                return notify_fail("ä¸è¦åœ¨çŸ­æœŸå†…ä½¿ç”¨é¢‘é“"
+                                   "å‘å¸ƒé‡å¤çš„ä¿¡æ¯ã€‚\n");
             me->set_temp("last_message", arg);
         }
         else
@@ -338,7 +338,7 @@ varargs int do_channel(object me, string verb, string arg, int emote)
 
         case "party":
             if (!(party = me->query("party/party_name")))
-                return notify_fail("Äã»¹ÊÇÏÈ¼ÓÈëÒ»¸ö°ïÅÉÔÙËµ°É¡£\n");
+                return notify_fail("ä½ è¿˜æ˜¯å…ˆåŠ å…¥ä¸€ä¸ªå¸®æ´¾å†è¯´å§ã€‚\n");
 
             if (strlen(party) == 6)
             {
@@ -346,15 +346,15 @@ varargs int do_channel(object me, string verb, string arg, int emote)
                         party[2..3] + " " +
                         party[4..5];
             }
-            channels[verb]["msg_speak"] = HIG "¡¾" + party +
-                                          "¡¿%s£º%s\n" NOR;
-            channels[verb]["msg_emote"] = HIG "¡¾" + party +
-                                          "¡¿%s" NOR;
+            channels[verb]["msg_speak"] = HIG "ã€" + party +
+                                          "ã€‘%sï¼š%s\n" NOR;
+            channels[verb]["msg_emote"] = HIG "ã€" + party +
+                                          "ã€‘%s" NOR;
             break;
 
         case "family":
             if (!(family = me->query("family/family_name")))
-                return notify_fail("Äã»¹ÊÇÏÈ¼ÓÈëÒ»¸öÃÅÅÉÔÙËµ°É¡£\n");
+                return notify_fail("ä½ è¿˜æ˜¯å…ˆåŠ å…¥ä¸€ä¸ªé—¨æ´¾å†è¯´å§ã€‚\n");
 
             if (strlen(family) == 6)
             {
@@ -362,35 +362,35 @@ varargs int do_channel(object me, string verb, string arg, int emote)
                          family[2..3] + " " +
                          family[4..5];
             }
-            channels[verb]["msg_speak"] = HIG "¡¾" + family +
-                                          "¡¿%s£º%s\n" NOR;
-            channels[verb]["msg_emote"] = HIG "¡¾" + family +
-                                          "¡¿%s" NOR;
+            channels[verb]["msg_speak"] = HIG "ã€" + family +
+                                          "ã€‘%sï¼š%s\n" NOR;
+            channels[verb]["msg_emote"] = HIG "ã€" + family +
+                                          "ã€‘%s" NOR;
             break;
 
         case "league":
             if (!(fname = me->query("league/league_name")))
-                return notify_fail("Äã»¹ÊÇÏÈºÍ±ðÈË½áÒåÍ¬ÃËÔÙËµ°É¡£\n");
+                return notify_fail("ä½ è¿˜æ˜¯å…ˆå’Œåˆ«äººç»“ä¹‰åŒç›Ÿå†è¯´å§ã€‚\n");
 
             switch (strlen(fname))
             {
             case 4:
-                fname = "¡¾ " + fname[0..1] + "  " + fname[2..3] + " ¡¿";
+                fname = "ã€ " + fname[0..1] + "  " + fname[2..3] + " ã€‘";
                 break;
 
             case 6:
-                fname = "¡¾ " + fname + " ¡¿";
+                fname = "ã€ " + fname + " ã€‘";
                 break;
 
             case 8:
-                fname = "¡¾" + fname + "¡¿";
+                fname = "ã€" + fname + "ã€‘";
                 break;
 
             case 10:
-                fname = "¡¾" + fname[0..7] + "¡¿";
+                fname = "ã€" + fname[0..7] + "ã€‘";
                 break;
             }
-            channels[verb]["msg_speak"] = HIG + fname + "%s£º%s\n" NOR;
+            channels[verb]["msg_speak"] = HIG + fname + "%sï¼š%s\n" NOR;
             channels[verb]["msg_emote"] = HIG + fname + "%s" NOR;
             break;
         }
@@ -399,19 +399,19 @@ varargs int do_channel(object me, string verb, string arg, int emote)
     if (verb == "shout")
     {
         if (!arg)
-            return notify_fail("ÄãÏëÒª´ó½ÐÊ²Ã´£¿\n");
+            return notify_fail("ä½ æƒ³è¦å¤§å«ä»€ä¹ˆï¼Ÿ\n");
 
         if (!wizardp(me) && userp(me))
         {
             if (me->query("neili") < 500)
-                return notify_fail("ÄãµÄÄÚÁ¦Ì«²î£¬ÎÞ·¨º°³öÄÇÃ´´óµÄÉùÒô¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›å¤ªå·®ï¼Œæ— æ³•å–Šå‡ºé‚£ä¹ˆå¤§çš„å£°éŸ³ã€‚\n");
 
             me->add("neili", -(random(200) + 300));
         }
 
-        msg = HIW + me->name(1) + "×ÝÉù³¤Ð¥£º" + arg + "\n" + NOR;
+        msg = HIW + me->name(1) + "çºµå£°é•¿å•¸ï¼š" + arg + "\n" + NOR;
         shout(msg);
-        write(HIW + "Äã×ÝÉù³¤Ð¥£º" + arg + "\n" + NOR);
+        write(HIW + "ä½ çºµå£°é•¿å•¸ï¼š" + arg + "\n" + NOR);
         channel_log(msg, verb, me);
         return 1;
     }
@@ -422,17 +422,17 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         if (!pointerp(tuned_ch = me->query("channels")))
         {
             me->set("channels", ({verb}));
-            write("Äã´ò¿ªÁË" + channels[verb]["name"] + "ÆµµÀ¡£\n");
+            write("ä½ æ‰“å¼€äº†" + channels[verb]["name"] + "é¢‘é“ã€‚\n");
         }
         else if (member_array(verb, tuned_ch) == -1)
         {
             me->set("channels", tuned_ch + ({verb}));
-            write("Äã´ò¿ªÁË" + channels[verb]["name"] + "ÆµµÀ¡£\n");
+            write("ä½ æ‰“å¼€äº†" + channels[verb]["name"] + "é¢‘é“ã€‚\n");
         }
 
         if (channels[verb]["for_listen"])
         {
-            write("Õâ¸öÆµµÀÖ»ÄÜÓÃÀ´ÌýÈ¡±ðÈËµÄ½»Ì¸¡£\n");
+            write("è¿™ä¸ªé¢‘é“åªèƒ½ç”¨æ¥å¬å–åˆ«äººçš„äº¤è°ˆã€‚\n");
             return 1;
         }
     }
@@ -443,7 +443,7 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         string vb, emote_arg, mud;
 
         if (undefinedp(channels[verb]["msg_emote"]))
-            return notify_fail("Õâ¸öÆµµÀ²»Ö§³Ö±íÇé¶¯´Ê¡£\n");
+            return notify_fail("è¿™ä¸ªé¢‘é“ä¸æ”¯æŒè¡¨æƒ…åŠ¨è¯ã€‚\n");
 
         if (sscanf(arg, "%s %s", vb, emote_arg) != 2)
         {
@@ -458,7 +458,7 @@ varargs int do_channel(object me, string verb, string arg, int emote)
                 htonn(mud) != mud_nname())
             {
                 REMOTE_Q->send_remote_q(mud, verb, me->query("id"), emote_arg, vb);
-                write("ÍøÂ·Ñ¶Ï¢ÒÑËÍ³ö£¬ÇëÉÔºò¡£\n");
+                write("ç½‘è·¯è®¯æ¯å·²é€å‡ºï¼Œè¯·ç¨å€™ã€‚\n");
                 return 1;
             }
 
@@ -494,7 +494,7 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         who = channels[verb]["anonymous"];
         if (userp(me))
         {
-            msg = sprintf("%s(%s)ÕýÔÚÏò%sÆµµÀ·¢³öÐÅÏ¢¡£",
+            msg = sprintf("%s(%s)æ­£åœ¨å‘%sé¢‘é“å‘å‡ºä¿¡æ¯ã€‚",
                           me->query("name"), me->query("id"), verb);
             do_channel(this_object(), "sys", msg);
             SPECIAL_NPC->receive_report(me, verb);

@@ -5,10 +5,10 @@ inherit F_DEALER;
 
 void create()
 {
-  	set_name("Î×ÅÊ±ù", ({ "wu panbing", "wu", "panbing"}));
-  	set("gender","ÄĞĞÔ");
+  	set_name("å·«æ”€å†°", ({ "wu panbing", "wu", "panbing"}));
+  	set("gender","ç”·æ€§");
 	set("age", 56);
-	set("title", "Ò©ÆÌÀÏ°å");
+	set("title", "è¯é“ºè€æ¿");
 	set("combat_exp", 6000);
 	set_skill("unarmed", 40);
 	set_skill("parry", 40);
@@ -16,9 +16,9 @@ void create()
 	set_skill("literate", 20);
 	set("chat_chance", 5);
 	set("chat_msg", ({
-		CYN "Î×ÅÊ±ùÄÃ±Ê¸ËÇÃÁËÇÃÄÔ´ü£¬Ò»¸±»ĞÈ»´óÎòµÄÄ£Ñù¡£\n" NOR,
-		CYN "Î×ÅÊ±ùÊ¹¾¢·­¶¯×ÅÈı³ßºñµÄÕÊ±¾¡£\n" NOR,
-		CYN "Î×ÅÊ±ùµÀ£ºÖĞÒ½Ö®ÖĞ£¬ÒªÊı±¾²İ¸ÙÄ¿ÎªÒ»¾øÁË¡£\n" NOR,
+		CYN "å·«æ”€å†°æ‹¿ç¬”æ†æ•²äº†æ•²è„‘è¢‹ï¼Œä¸€å‰¯æç„¶å¤§æ‚Ÿçš„æ¨¡æ ·ã€‚\n" NOR,
+		CYN "å·«æ”€å†°ä½¿åŠ²ç¿»åŠ¨ç€ä¸‰å°ºåšçš„å¸æœ¬ã€‚\n" NOR,
+		CYN "å·«æ”€å†°é“ï¼šä¸­åŒ»ä¹‹ä¸­ï¼Œè¦æ•°æœ¬è‰çº²ç›®ä¸ºä¸€ç»äº†ã€‚\n" NOR,
 	}));
 	setup();
 	carry_object("/clone/misc/cloth")->wear();

@@ -3,16 +3,16 @@ inherit ROOM;
 
 void create()
 {
-      	set("short", "ÄÏ¼ä²ÙÁ··¿");
+      	set("short", "å—é—´æ“ç»ƒæˆ¿");
       	set("long", @LONG
-ÕâÀï°ÚÂúÁË´óµ¶³¤½£¡¢É³´ü°óÍÈµÈ£¬ÊÇÎäµ±µÜ×ÓÈÕ³£Á·¹¦
-µÄµØ·½¡£
+è¿™é‡Œæ‘†æ»¡äº†å¤§åˆ€é•¿å‰‘ã€æ²™è¢‹ç»‘è…¿ç­‰ï¼Œæ˜¯æ­¦å½“å¼Ÿå­æ—¥å¸¸ç»ƒåŠŸ
+çš„åœ°æ–¹ã€‚
 LONG);
 
       	set("exits", ([
             	"north"   : __DIR__"caolianfang",
       	]));
-      	set("for_family", "Îäµ±ÅÉ");
+      	set("for_family", "æ­¦å½“æ´¾");
       	setup();
       	replace_program(ROOM);
 }

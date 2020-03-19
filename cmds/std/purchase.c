@@ -29,13 +29,13 @@ int main(object me, string arg)
         string money;
 
         if (! arg)
-                return notify_fail("Äã´òËã¹ºÂòÊ²Ã´£¿\n");
+                return notify_fail("ä½ æ‰“ç®—è´­ä¹°ä»€ä¹ˆï¼Ÿ\n");
 
         if (sscanf(arg, "%s from %s with %d %s", item, from, count, money) == 4)
                 return do_purchase(me, from, item, count, money);
 
         if (sscanf(arg, "%*s from %*s") == 2)
-                return notify_fail("Äã´òËã»¨¶àÉÙÇ®£¿\n");
+                return notify_fail("ä½ æ‰“ç®—èŠ±å¤šå°‘é’±ï¼Ÿ\n");
 
         if (arg == "cancel")
         {
@@ -43,33 +43,33 @@ int main(object me, string arg)
                 object target_ob;
 
                 if (! stringp(target = me->query_temp("pending/purchase")))
-                        return notify_fail("ÄãÏÖÔÚ²¢Ã»ÓÐ´òËãºÍ±ðÈË¹ºÂòÊ²Ã´°¡£¡\n");
+                        return notify_fail("ä½ çŽ°åœ¨å¹¶æ²¡æœ‰æ‰“ç®—å’Œåˆ«äººè´­ä¹°ä»€ä¹ˆå•Šï¼\n");
 
                 if (objectp(target_ob = present(target, environment(me))))
                         tell_object(target_ob,
-                                    YEL + me->name(1) + "´òÏûÏòÄã¹ºÂò¶«Î÷µÄÄîÍ·¡£\n" NOR);
-                tell_object(me, YEL "Äã´òÏûÁË½»Ò×µÄÄîÍ·¡£\n" NOR);
+                                    YEL + me->name(1) + "æ‰“æ¶ˆå‘ä½ è´­ä¹°ä¸œè¥¿çš„å¿µå¤´ã€‚\n" NOR);
+                tell_object(me, YEL "ä½ æ‰“æ¶ˆäº†äº¤æ˜“çš„å¿µå¤´ã€‚\n" NOR);
                 me->delete_temp("pending/purchase");
                 me->delete_temp("pending/info");
                 return 1;
         }
 
         if (me->query("doing") != "scheme")
-                return notify_fail("Ö»ÓÐÔÚ¼Æ»®ÖÐ²ÅÄÜÊ¹ÓÃÕâÌõÃüÁî¹ºÂòµÀ¾ß¡£\n");
+                return notify_fail("åªæœ‰åœ¨è®¡åˆ’ä¸­æ‰èƒ½ä½¿ç”¨è¿™æ¡å‘½ä»¤è´­ä¹°é“å…·ã€‚\n");
 
         if (undefinedp(item = items[arg]))
-                return notify_fail("ÏÖÔÚÃ»·¨¹ºÂòÕâÖÖµÀ¾ß¡£\n");
+                return notify_fail("çŽ°åœ¨æ²¡æ³•è´­ä¹°è¿™ç§é“å…·ã€‚\n");
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕýÃ¦£¬Ã»¿Õ¹ºÂòµÀ¾ß¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ­£å¿™ï¼Œæ²¡ç©ºè´­ä¹°é“å…·ã€‚\n");
 
         if (MONEY_D->player_pay(me, 10000 + item->value()) != 1)
-                return notify_fail("ÄãÉíÉÏµÄÇ®²»¹»£¬Ã»·¨ÍÐÈË¹ºÂòµÀ¾ß¡£\n");
+                return notify_fail("ä½ èº«ä¸Šçš„é’±ä¸å¤Ÿï¼Œæ²¡æ³•æ‰˜äººè´­ä¹°é“å…·ã€‚\n");
 
         ob = new(item);
-        message_vision("$NÕÒÁËÒ»¸ö´òÔÓµÄ£¬ÈÃËû°ïÖúÄã¹ºÂò" + item->name() + "¡£\n", me);
+        message_vision("$Næ‰¾äº†ä¸€ä¸ªæ‰“æ‚çš„ï¼Œè®©ä»–å¸®åŠ©ä½ è´­ä¹°" + item->name() + "ã€‚\n", me);
         ob->move(me, 1);
-        write("Äã³É¹¦µÄÂòµ½ÁËÒ»" + ob->query("unit") + item->name() + "¡£\n");
+        write("ä½ æˆåŠŸçš„ä¹°åˆ°äº†ä¸€" + ob->query("unit") + item->name() + "ã€‚\n");
         me->start_busy(20);
         return 1;
 }
@@ -89,33 +89,33 @@ int do_purchase(object me, string from, string item, int count, string money)
 
         from_ob = present(from, environment(me));
         if (! objectp(from_ob))
-                return notify_fail("ÕâÀïÃ»ÓÐÕâ¸öÈË¡£\n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™ä¸ªäººã€‚\n");
 
         if (from_ob == me)
-                return notify_fail("×óÊÖºÍÓÒÊÖ×öÉúÒâ£¿ºÃÖ÷Òâ£¬²»¹ýÕâ°ï²»ÁËÄãÁ·×óÓÒ»¥²«¡£\n");
+                return notify_fail("å·¦æ‰‹å’Œå³æ‰‹åšç”Ÿæ„ï¼Ÿå¥½ä¸»æ„ï¼Œä¸è¿‡è¿™å¸®ä¸äº†ä½ ç»ƒå·¦å³äº’æã€‚\n");
 
         if (! playerp(from_ob))
-                return notify_fail("ÈË¼ÒËÆºõÀÁµÃÀíÄã¡£\n");
+                return notify_fail("äººå®¶ä¼¼ä¹Žæ‡’å¾—ç†ä½ ã€‚\n");
 
         if (! interactive(from_ob))
-                return notify_fail("ÈË¼ÒÏÖÔÚÃ»·¨ºÍÄã´ð»°¡£\n");
+                return notify_fail("äººå®¶çŽ°åœ¨æ²¡æ³•å’Œä½ ç­”è¯ã€‚\n");
 
         if (me->query_temp("pending/purchase") == from_ob->query("id"))
-                return notify_fail("ÄãÏÖÔÚµÈ±ðÈË»Ø»°ÄØ¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨ç­‰åˆ«äººå›žè¯å‘¢ã€‚\n");
 
         item_ob = from_ob->query_temp("handing");
         if (! objectp(item_ob) || (item != "?" && ! item_ob->id(item)))
-                return notify_fail("ÈË¼Ò²¢Ã»ÓÐÁÁ³öÀ´ÕâÑù¶«Î÷¡£\n");
+                return notify_fail("äººå®¶å¹¶æ²¡æœ‰äº®å‡ºæ¥è¿™æ ·ä¸œè¥¿ã€‚\n");
 
         if (item_ob->is_item_make())
-                return notify_fail("Õâ¿ÉÊÇ±ðÈËÁ¶ÖÆµÄÎïÆ·£¬²»Ì«Í×°É¡£\n");
+                return notify_fail("è¿™å¯æ˜¯åˆ«äººç‚¼åˆ¶çš„ç‰©å“ï¼Œä¸å¤ªå¦¥å§ã€‚\n");
 
         if (item_ob->query("money_id"))
-                return notify_fail("Ç®ÄãÒ²ÏëÂò£¿\n");
+                return notify_fail("é’±ä½ ä¹Ÿæƒ³ä¹°ï¼Ÿ\n");
 
         if (amount < 1)
-                return notify_fail("ÄãÏëÂò¶àÉÙ" + item_ob->query("units") +
-                                   item_ob->name() + "£¿\n");
+                return notify_fail("ä½ æƒ³ä¹°å¤šå°‘" + item_ob->query("units") +
+                                   item_ob->name() + "ï¼Ÿ\n");
 
         if (! undefinedp(total = item_ob->query_amount()))
                 combined = 1;
@@ -131,28 +131,28 @@ int do_purchase(object me, string from, string item, int count, string money)
         }
 
         if (amount > total)
-                return notify_fail("ÈË¼ÒÉíÉÏÃ»ÓÐÄÇÃ´¶à" + item_ob->name() + "°¡£¡\n");
+                return notify_fail("äººå®¶èº«ä¸Šæ²¡æœ‰é‚£ä¹ˆå¤š" + item_ob->name() + "å•Šï¼\n");
 
         if (count < 1)
-                return notify_fail("ÄãÒª³ö¶àÉÙÇ®£¿\n");
+                return notify_fail("ä½ è¦å‡ºå¤šå°‘é’±ï¼Ÿ\n");
 
         money_ob = present(money, me);
         if (! objectp(money_ob))
-                return notify_fail("ÄãÉíÉÏ²¢Ã»ÓÐÕâÖÖÇ®°¡¡£\n");
+                return notify_fail("ä½ èº«ä¸Šå¹¶æ²¡æœ‰è¿™ç§é’±å•Šã€‚\n");
 
         if (! money_ob->query("money_id"))
-                return notify_fail("ÄãÏë×Ô¼ºÓ¡³®Æ±£¿\n");
+                return notify_fail("ä½ æƒ³è‡ªå·±å°é’žç¥¨ï¼Ÿ\n");
 
         if (count > money_ob->query_amount())
-                return notify_fail("ÄãÉíÉÏÃ»ÄÇÃ´¶à" + money_ob->name() + "¡£\n");
+                return notify_fail("ä½ èº«ä¸Šæ²¡é‚£ä¹ˆå¤š" + money_ob->name() + "ã€‚\n");
 
-        message_vision("$NÏëÓÃ" + chinese_number(count) +
+        message_vision("$Næƒ³ç”¨" + chinese_number(count) +
                     money_ob->query("base_unit") + money_ob->name() +
-                    "Ïò$n¹ºÂò" + chinese_number(amount) +
+                    "å‘$nè´­ä¹°" + chinese_number(amount) +
                     (combined ? item_ob->query("base_unit") : item_ob->query("unit")) +
-                    item_ob->name() + "¡£\n" NOR, me, from_ob);
-        tell_object(from_ob, YEL "ÄãÍ¬Òâ(right)»¹ÊÇ²»Í¬Òâ(refuse)" + me->name(1) +
-                             YEL "(" + me->query("id") + YEL ")µÄÒªÇó£¿\n" NOR);
+                    item_ob->name() + "ã€‚\n" NOR, me, from_ob);
+        tell_object(from_ob, YEL "ä½ åŒæ„(right)è¿˜æ˜¯ä¸åŒæ„(refuse)" + me->name(1) +
+                             YEL "(" + me->query("id") + YEL ")çš„è¦æ±‚ï¼Ÿ\n" NOR);
         from_ob->set_temp("pending/answer/" + me->query("id") + "/right",
                           bind((: call_other, __FILE__, "do_right", from_ob, me :), from_ob));
         from_ob->set_temp("pending/answer/" + me->query("id") + "/refuse",
@@ -163,21 +163,21 @@ int do_purchase(object me, string from, string item, int count, string money)
                         "amount" : amount,
                         "money"  : money,
                         "count"  : count ]));
-        tell_object(me, YEL + "ÄãÏò" + from_ob->name(1) + "Ìá³öÁËÒªÇó¡£\n" NOR);
+        tell_object(me, YEL + "ä½ å‘" + from_ob->name(1) + "æå‡ºäº†è¦æ±‚ã€‚\n" NOR);
         return 1;
 }
 
 int do_refuse(object me, object ob)
 {
         if (! objectp(ob))
-                return notify_fail("ÕâÀïÃ»ÓÐÈËµÈÄã»Ø»°ÁË¡£\n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰äººç­‰ä½ å›žè¯äº†ã€‚\n");
 
         if (ob->query_temp("pending/purchase") != me->query("id"))
-                return notify_fail("ÈË¼ÒÒÑ¾­²»´òËãºÍÄã×öÂòÂôÁË¡£\n");
+                return notify_fail("äººå®¶å·²ç»ä¸æ‰“ç®—å’Œä½ åšä¹°å–äº†ã€‚\n");
 
         ob->delete_temp("pending/purchase");
-        tell_object(ob, me->name(1) + "¶ÔÄãµÀ£º¡°ÄãÏëÂò£¬ÎÒµ¹²»ÏëÂô£¬ËãÁË°É¡£¡±\n");
-        tell_object(me, "Äã¾Ü¾øÁË" + ob->name(1) + "µÄÒªÇó¡£\n");
+        tell_object(ob, me->name(1) + "å¯¹ä½ é“ï¼šâ€œä½ æƒ³ä¹°ï¼Œæˆ‘å€’ä¸æƒ³å–ï¼Œç®—äº†å§ã€‚â€\n");
+        tell_object(me, "ä½ æ‹’ç»äº†" + ob->name(1) + "çš„è¦æ±‚ã€‚\n");
         return 1;
 }
 
@@ -195,10 +195,10 @@ int do_right(object me, object ob)
         object  temp_ob;
 
         if (! objectp(ob))
-                return notify_fail("ÕâÀïÃ»ÓÐÈËµÈÄã»Ø»°ÁË¡£\n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰äººç­‰ä½ å›žè¯äº†ã€‚\n");
 
         if (ob->query_temp("pending/purchase") != me->query("id"))
-                return notify_fail("ÈË¼ÒÒÑ¾­²»´òËãºÍÄã×öÂòÂôÁË¡£\n");
+                return notify_fail("äººå®¶å·²ç»ä¸æ‰“ç®—å’Œä½ åšä¹°å–äº†ã€‚\n");
 
         item   = ob->query_temp("pending/purchase_info/item");
         amount = ob->query_temp("pending/purchase_info/amount");
@@ -209,8 +209,8 @@ int do_right(object me, object ob)
 
         if (! stringp(item))
         {
-                tell_object(me, "ÄãÏÖÔÚÃ»ÓÐÈË¼Ò¸ÐÐËÈ¤µÄ¶«Î÷ÁË¡£\n");
-                tell_object(ob, "ÈË¼ÒÏÖÔÚÒÑ¾­Ã»ÓÐÄã¸ÐÐËÈ¤µÄ¶«Î÷ÁË¡£\n");
+                tell_object(me, "ä½ çŽ°åœ¨æ²¡æœ‰äººå®¶æ„Ÿå…´è¶£çš„ä¸œè¥¿äº†ã€‚\n");
+                tell_object(ob, "äººå®¶çŽ°åœ¨å·²ç»æ²¡æœ‰ä½ æ„Ÿå…´è¶£çš„ä¸œè¥¿äº†ã€‚\n");
                 return 1;
         }
 
@@ -220,20 +220,20 @@ int do_right(object me, object ob)
 
         if (base_name(item_ob) != item)
         {
-                tell_object(me, "ÄãÏÖÔÚÃ»ÓÐÈË¼Ò¸ÐÐËÈ¤µÄ¶«Î÷ÁË¡£\n");
-                tell_object(ob, "ÈË¼ÒÏÖÔÚÒÑ¾­Ã»ÓÐÄã¸ÐÐËÈ¤µÄ¶«Î÷ÁË¡£\n");
+                tell_object(me, "ä½ çŽ°åœ¨æ²¡æœ‰äººå®¶æ„Ÿå…´è¶£çš„ä¸œè¥¿äº†ã€‚\n");
+                tell_object(ob, "äººå®¶çŽ°åœ¨å·²ç»æ²¡æœ‰ä½ æ„Ÿå…´è¶£çš„ä¸œè¥¿äº†ã€‚\n");
                 return 1;
         }
 
         if (item_ob->query("money_id"))
-                return notify_fail("Ç®ÄãÒ²ÏëÂô£¿\n");
+                return notify_fail("é’±ä½ ä¹Ÿæƒ³å–ï¼Ÿ\n");
 
         if (amount < 1)
         {
-                tell_object(me, "Äã²»ÖªµÀÈË¼Ò¾¿¾¹Âò¶àÉÙ" +
-                                item_ob->name() + "¡£\n");
-                tell_object(ob, "ÈË¼Ò²»Çå³þÄã¾¿¾¹ÒªÂò¶àÉÙ" +
-                                item_ob->name() + "¡£\n");
+                tell_object(me, "ä½ ä¸çŸ¥é“äººå®¶ç©¶ç«Ÿä¹°å¤šå°‘" +
+                                item_ob->name() + "ã€‚\n");
+                tell_object(ob, "äººå®¶ä¸æ¸…æ¥šä½ ç©¶ç«Ÿè¦ä¹°å¤šå°‘" +
+                                item_ob->name() + "ã€‚\n");
                 return 1;
         }
 
@@ -252,40 +252,40 @@ int do_right(object me, object ob)
 
         if (amount > total)
         {
-                tell_object(me, "ÄãÏÖÔÚÉíÉÏÃ»ÓÐÄÇÃ´¶à" + item_ob->name() + "ÁË¡£\n");
-                tell_object(ob, "ÈË¼ÒÏÖÔÚÉíÉÏÃ»ÓÐÄÇÃ´¶à" + item_ob->name() + "ÁË¡£\n");
+                tell_object(me, "ä½ çŽ°åœ¨èº«ä¸Šæ²¡æœ‰é‚£ä¹ˆå¤š" + item_ob->name() + "äº†ã€‚\n");
+                tell_object(ob, "äººå®¶çŽ°åœ¨èº«ä¸Šæ²¡æœ‰é‚£ä¹ˆå¤š" + item_ob->name() + "äº†ã€‚\n");
                 return 1;
         }
 
         if (count < 1)
         {
-                tell_object(me, "Äã²»ÖªµÀÈË¼ÒÏëÒª³ö¶àÉÙÇ®¡£\n");
-                tell_object(ob, "ÈË¼Ò²»ÖªµÀÄãÏëÒª³ö¶àÉÙÇ®¡£\n");
+                tell_object(me, "ä½ ä¸çŸ¥é“äººå®¶æƒ³è¦å‡ºå¤šå°‘é’±ã€‚\n");
+                tell_object(ob, "äººå®¶ä¸çŸ¥é“ä½ æƒ³è¦å‡ºå¤šå°‘é’±ã€‚\n");
                 return 1;
         }
 
         if (! stringp(money) || ! objectp(money_ob = present(money, ob)) ||
             ! money_ob->query("money_id") || count > money_ob->query_amount())
         {
-                tell_object(me, "ÈË¼ÒÏÖÔÚÉíÉÏÃ»ÓÐÇ®ÁË¡£\n");
-                tell_object(ob, "ÈË¼ÒÍ¬ÒâÁË£¬¿ÉÊÇÄãÏÖÔÚÉíÉÏÃ»ÓÐÇ®ÁË¡£\n");
+                tell_object(me, "äººå®¶çŽ°åœ¨èº«ä¸Šæ²¡æœ‰é’±äº†ã€‚\n");
+                tell_object(ob, "äººå®¶åŒæ„äº†ï¼Œå¯æ˜¯ä½ çŽ°åœ¨èº«ä¸Šæ²¡æœ‰é’±äº†ã€‚\n");
                 return 1;
         }
 
         if (money_ob->query("base_weight") * count +
             me->query_encumbrance() > me->query_max_encumbrance())
         {
-                tell_object(me, "ÄãÏÖÔÚ½Ó²»ÏÂÕâÃ´¶à" + money_ob->name() + "¡£\n");
-                tell_object(ob, "ÈË¼ÒÏÖÔÚ½Ó²»ÏÂÄãÕâÃ´¶à" + money_ob->name() + "¡£\n");
+                tell_object(me, "ä½ çŽ°åœ¨æŽ¥ä¸ä¸‹è¿™ä¹ˆå¤š" + money_ob->name() + "ã€‚\n");
+                tell_object(ob, "äººå®¶çŽ°åœ¨æŽ¥ä¸ä¸‹ä½ è¿™ä¹ˆå¤š" + money_ob->name() + "ã€‚\n");
                 return 1;
         }
 
-        tell_object(me, "ÄãÍ¬ÒâÁË" + ob->name(1) + "µÄÒªÇó¡£\n");
-        tell_object(ob, me->name(1) + "Í¬ÒâÁËÄãµÄÒªÇó¡£\n");
-        message_vision("$N½Ó¹ýÁË$nµÄ" + money_ob->name() + "£¬°Ñ" +
-                       item_ob->name() + "µÝ¸øÁË$n¡£\n", me, ob);
+        tell_object(me, "ä½ åŒæ„äº†" + ob->name(1) + "çš„è¦æ±‚ã€‚\n");
+        tell_object(ob, me->name(1) + "åŒæ„äº†ä½ çš„è¦æ±‚ã€‚\n");
+        message_vision("$NæŽ¥è¿‡äº†$nçš„" + money_ob->name() + "ï¼ŒæŠŠ" +
+                       item_ob->name() + "é€’ç»™äº†$nã€‚\n", me, ob);
 
-        // ¶Ô·½Ö§¸¶Ç®
+        // å¯¹æ–¹æ”¯ä»˜é’±
         if (count == money_ob->query_amount())
                 money_ob->move(me, 1);
         else
@@ -296,7 +296,7 @@ int do_right(object me, object ob)
                 temp_ob->move(me, 1);
         }
 
-        // ±¾·½Ìá¹©ÎïÆ·
+        // æœ¬æ–¹æä¾›ç‰©å“
         if (combined)
         {
                 if (amount == item_ob->query_amount())
@@ -320,17 +320,17 @@ int do_right(object me, object ob)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : purchase [ÊýÁ¿] <Ãû×Ö> [from <Íæ¼Ò> with <ÊýÁ¿> <»õ±Ò>]
+æŒ‡ä»¤æ ¼å¼ : purchase [æ•°é‡] <åå­—> [from <çŽ©å®¶> with <æ•°é‡> <è´§å¸>]
            purchase cancel
 
-ÔÚÄãÖ´ÐÐ¼Æ»®µÄ¹ý³ÌÖÐ£¬Äã¿ÉÒÔÍ¨¹ýÕâÌõÖ¸ÁîÀ´¹ºÂòÄãÐèÒªµÄ¸÷ÖÖÎä
-Æ÷µÀ¾ß£¬À´Âú×ãÄã¼Æ»®µÄÐèÒª¡£
+åœ¨ä½ æ‰§è¡Œè®¡åˆ’çš„è¿‡ç¨‹ä¸­ï¼Œä½ å¯ä»¥é€šè¿‡è¿™æ¡æŒ‡ä»¤æ¥è´­ä¹°ä½ éœ€è¦çš„å„ç§æ­¦
+å™¨é“å…·ï¼Œæ¥æ»¡è¶³ä½ è®¡åˆ’çš„éœ€è¦ã€‚
 
-ÁíÍâ£¬ÄãÒ²¿ÉÒÔÊ¹ÓÃÕâ¸öÃüÁî£¬Ê¹ÓÃ»õ±ÒÇó¹ºÁíÍâÒ»¸öÍæ¼ÒÉíÉÏµÄÎï
-Æ·¡£Õâ¸öÎïÆ·±ØÐëÊÇ¶Ô·½ÁÁ³öÀ´µÄ£¬¼´ÄÃ(hand)ÔÚÊÖÀïµÄ¡£Èç¹ûÄãÊä
-ÈëµÄÃû×ÖÊÇ £¿ Ôò±íÊ¾¹ºÂò¶Ô·½ÊÖÀïµÄ¶«Î÷£¬ÎªÁË±£ÏÕÆð¼û£¬ÊäÈëÓ¢
-ÎÄ´úºÅ¸üºÃÒ»Ð©¡£Èç¹ûÄãÌá³öÒªÇóÒÔºóºó»ÚÁË£¬¿ÉÒÔÊäÈë cancel ²Î
-Êý´òÏûÕâ¸öÄîÍ·¡£
+å¦å¤–ï¼Œä½ ä¹Ÿå¯ä»¥ä½¿ç”¨è¿™ä¸ªå‘½ä»¤ï¼Œä½¿ç”¨è´§å¸æ±‚è´­å¦å¤–ä¸€ä¸ªçŽ©å®¶èº«ä¸Šçš„ç‰©
+å“ã€‚è¿™ä¸ªç‰©å“å¿…é¡»æ˜¯å¯¹æ–¹äº®å‡ºæ¥çš„ï¼Œå³æ‹¿(hand)åœ¨æ‰‹é‡Œçš„ã€‚å¦‚æžœä½ è¾“
+å…¥çš„åå­—æ˜¯ ï¼Ÿ åˆ™è¡¨ç¤ºè´­ä¹°å¯¹æ–¹æ‰‹é‡Œçš„ä¸œè¥¿ï¼Œä¸ºäº†ä¿é™©èµ·è§ï¼Œè¾“å…¥è‹±
+æ–‡ä»£å·æ›´å¥½ä¸€äº›ã€‚å¦‚æžœä½ æå‡ºè¦æ±‚ä»¥åŽåŽæ‚”äº†ï¼Œå¯ä»¥è¾“å…¥ cancel å‚
+æ•°æ‰“æ¶ˆè¿™ä¸ªå¿µå¤´ã€‚
 
 see also : scheme
 

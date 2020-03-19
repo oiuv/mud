@@ -3,8 +3,8 @@ inherit QUARRY;
 
 void create()
 {
-	set_name(HIW "麋鹿" NOR, ({ "mi lu", "mi", "lu" }));
-	set("long", HIW "这是一只行动敏捷的麋鹿。\n" NOR);
+	set_name(HIW "楹嬮箍" NOR, ({ "mi lu", "mi", "lu" }));
+	set("long", HIW "杩欐槸涓�鍙鍔ㄦ晱鎹风殑楹嬮箍銆俓n" NOR);
         set("no_auto_kill", 1);
 
 	set("age", 3);

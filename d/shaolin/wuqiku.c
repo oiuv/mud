@@ -6,20 +6,20 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ÎäÆ÷¿â");
+	set("short", "æ­¦å™¨åº“");
 	set("long", @LONG
-ÉÙÁÖËÂµÄÎäÆ÷¿â¿É³ÆÌìÏÂµÚÒ»£¬Ê®°Ë°ã±øÆ÷£¬ÕâÀï¿ÉÎ½Ó¦ÓÐ
-¾¡ÓÐ¡£ËÄÃæÒ»Íû£¬ÁîÄã¶Ù¸ÐÑÛ»¨çÔÂÒ¡£Ç½ÉÏÆöÁËÒ»¸ö¸öÐ¡¸ñ×Ó£¬
-Ã¿¸ö¶¼²åÂúÁË¸÷ÖÖ¸÷ÑùµÄ±øÆ÷¡£Ç½½ÇÒ»¸ö½¡×³µÄÉ®ÈËÕýÆ¹Æ¹ÅÒ
-ÅÒµØÔÚ´òÔìÒ»¸ùìøÕÈ¡£ÁíÒ»Î»»ÒÒÂÉ®ÈËÕýÔÚÇ½½Ç·÷ÊÃÒ»°Ñ½äµ¶¡£
-¿´µ½Äã½øÀ´£¬Ëû»º»ºÆðÉí£¬ÏòÄãÓ­ÁË¹ýÀ´¡£
+å°‘æž—å¯ºçš„æ­¦å™¨åº“å¯ç§°å¤©ä¸‹ç¬¬ä¸€ï¼Œåå…«èˆ¬å…µå™¨ï¼Œè¿™é‡Œå¯è°“åº”æœ‰
+å°½æœ‰ã€‚å››é¢ä¸€æœ›ï¼Œä»¤ä½ é¡¿æ„Ÿçœ¼èŠ±ç¼­ä¹±ã€‚å¢™ä¸Šç Œäº†ä¸€ä¸ªä¸ªå°æ ¼å­ï¼Œ
+æ¯ä¸ªéƒ½æ’æ»¡äº†å„ç§å„æ ·çš„å…µå™¨ã€‚å¢™è§’ä¸€ä¸ªå¥å£®çš„åƒ§äººæ­£ä¹’ä¹’ä¹“
+ä¹“åœ°åœ¨æ‰“é€ ä¸€æ ¹ç¦…æ–ã€‚å¦ä¸€ä½ç°è¡£åƒ§äººæ­£åœ¨å¢™è§’æ‹‚æ‹­ä¸€æŠŠæˆ’åˆ€ã€‚
+çœ‹åˆ°ä½ è¿›æ¥ï¼Œä»–ç¼“ç¼“èµ·èº«ï¼Œå‘ä½ è¿Žäº†è¿‡æ¥ã€‚
 LONG );
 	set("exits", ([
 		"west" : __DIR__"zhulin2",
 		"north" : __DIR__"fangjuku",
 	]));
 
-	create_door("west","Ä¾ÃÅ","east",DOOR_CLOSED);
+	create_door("west","æœ¨é—¨","east",DOOR_CLOSED);
 	set("objects",([
 		CLASS_D("shaolin") + "/dao-chen" : 1,
 		__DIR__"npc/datie-seng" : 1,

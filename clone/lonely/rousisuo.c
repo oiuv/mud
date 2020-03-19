@@ -5,18 +5,18 @@ inherit WHIP;
 
 void create()
 {
-        set_name(HIW "ÈáË¿Ë÷" NOR,({ "rousi suo", "suo", "rousi" }) );
+        set_name(HIW "æŸ”ä¸ç´¢" NOR,({ "rousi suo", "suo", "rousi" }) );
         set_weight(1300);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", HIW "Ò»¸ù·Ç³£ÈáÈíµÄÏ¸Ë¿£¬ÄËÌì²ÏË¿ËùÖ¯£¬ÊÇÐÇËÞÈý±¦Ö®Ò»¡£\n" NOR);
-                set("unit", "¸ù");
+                set("long", HIW "ä¸€æ ¹éžå¸¸æŸ”è½¯çš„ç»†ä¸ï¼Œä¹ƒå¤©èš•ä¸æ‰€ç»‡ï¼Œæ˜¯æ˜Ÿå®¿ä¸‰å®ä¹‹ä¸€ã€‚\n" NOR);
+                set("unit", "æ ¹");
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "steel");
-                set("wield_msg", HIW "$N" HIW "ÊÖ±ÛÒ»»Ó£¬ÈáË¿Ë÷ÓÌÈçÁéÉß£¬òêÑÑ¶ø³ö¡£\n" NOR); 
-                set("unwield_msg", HIW "$NÊÖ±ÛÒ»°Ú£¬ÈáË¿Ë÷ÔçÒÑ¾­»Øµ½»³ÖÐ£¬Òø¹â½¥½¥É¢È¥£¬ÌìµØÒ»Æ¬»è°µ¡£\n" NOR);
+                set("wield_msg", HIW "$N" HIW "æ‰‹è‡‚ä¸€æŒ¥ï¼ŒæŸ”ä¸ç´¢çŠ¹å¦‚çµè›‡ï¼Œèœ¿èœ’è€Œå‡ºã€‚\n" NOR); 
+                set("unwield_msg", HIW "$Næ‰‹è‡‚ä¸€æ‘†ï¼ŒæŸ”ä¸ç´¢æ—©å·²ç»å›žåˆ°æ€€ä¸­ï¼Œé“¶å…‰æ¸æ¸æ•£åŽ»ï¼Œå¤©åœ°ä¸€ç‰‡æ˜æš—ã€‚\n" NOR);
                 set("stable", 100);
         }
         init_whip(100);
@@ -36,15 +36,15 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         case 0:
                 if (! victim->is_busy())
                 victim->start_busy(me->query_skill("whip") / 10 + 2);
-                return HIY "$N" HIY "Å­ºÈÒ»Éù£¬" HIW "ÈáË¿Ë÷" HIY "ÓÌÈçÁéÉßÒ»°ã£¬òêÑÑÓÎ¶¯£¬¾¹"
-                       "½«$n" HIY "ÁýÕÖÔÚÒø¹â»ÃÓ°Ö®ÏÂ¡£\n" NOR;
+                return HIY "$N" HIY "æ€’å–ä¸€å£°ï¼Œ" HIW "æŸ”ä¸ç´¢" HIY "çŠ¹å¦‚çµè›‡ä¸€èˆ¬ï¼Œèœ¿èœ’æ¸¸åŠ¨ï¼Œç«Ÿ"
+                       "å°†$n" HIY "ç¬¼ç½©åœ¨é“¶å…‰å¹»å½±ä¹‹ä¸‹ã€‚\n" NOR;
 
         case 1:
                 n = me->query_skill("whip");
                 victim->receive_damage("qi", n * 3 / 4, me);
                 victim->receive_wound("qi", n * 3 / 4, me);
-                return  HIW "$N" HIW "·ÉÉí¶øÆð£¬ÈáË¿Ë÷×ÔÌì¶øÏÂ£¬Ê±Èô¾ªºè£¬Ê±ÈôÓÎÁú£¬¾¹¹¥Ïò$n" HIW 
-                        "ÖÜÉí¸÷´¦´óÑ¨£¡\n" NOR;
+                return  HIW "$N" HIW "é£žèº«è€Œèµ·ï¼ŒæŸ”ä¸ç´¢è‡ªå¤©è€Œä¸‹ï¼Œæ—¶è‹¥æƒŠé¸¿ï¼Œæ—¶è‹¥æ¸¸é¾™ï¼Œç«Ÿæ”»å‘$n" HIW 
+                        "å‘¨èº«å„å¤„å¤§ç©´ï¼\n" NOR;
 
         }
         return damage_bonus;

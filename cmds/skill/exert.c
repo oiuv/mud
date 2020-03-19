@@ -11,22 +11,22 @@ int main(object me, string arg)
 	seteuid(getuid());
 
 	if (me->is_busy())
-		return notify_fail("( ����һ��������û����ɣ�����ʩ���ڹ���)\n");
+		return notify_fail("( 你上一个动作还没有完成，不能施用内功。)\n");
 
 	if (! arg)
-		return notify_fail("��Ҫ���ڹ���ʲô��\n");
+		return notify_fail("你要用内功做什么？\n");
 
         if (me->query_temp("no_exert") || me->query_condition("exert_drug"))
-		return notify_fail(HIR "��ֻ������Ϣһ�����ң������޷�������Ϣ��\n" NOR);
+		return notify_fail(HIR "你只觉得内息一阵紊乱，根本无法控制内息。\n" NOR);
 
 	if (stringp(force = me->query_skill_mapped("force")))
         {
-        	notify_fail("���޷�˳������ת��Ϣ��\n");
+        	notify_fail("你无法顺利的运转内息。\n");
 
         	if (SKILL_D(force)->do_effect(me))
                 	return 0;
 
-		notify_fail("����ѧ���ڹ���û�����ֹ��ܡ�\n");
+		notify_fail("你所学的内功中没有这种功能。\n");
 		if (SKILL_D(force)->exert_function(me, arg))
                 {
 			if (random(120) < (int)me->query_skill("force"))
@@ -41,23 +41,23 @@ int main(object me, string arg)
 		return 0;
 	}
 
-	return notify_fail("�������� enable ָ��ѡ����Ҫʹ�õ��ڹ���\n");
+	return notify_fail("你请先用 enable 指令选择你要使用的内功。\n");
 }
 
 int help (object me)
 {
         write(@HELP
-ָ���ʽ��exert|yun <��������> [<ʩ�ö���>]
+指令格式：exert|yun <功能名称> [<施用对象>]
 
-����������һЩ���칦�ܣ������Ҫָ��<��������>��<ʩ�ö���>����п��ޡ�
-����ʹ��ĳһ���ڹ������칦��֮ǰ����������� enable ָ����ָ����Ҫʹ��
-���ڹ���
+用内力进行一些特异功能，你必需要指定<功能名称>，<施用对象>则可有可无。
+在你使用某一种内功的特异功能之前，你必须先用 enable 指令来指定你要使用
+的内功。
 
-��ο� help force �ɵ�֪һЩ�󲿷��ڹ����еĹ��ܣ����������õ��ڹ�����
-��û�иù��ܣ���һ�Ի�ο�����˵����֪��
+请参考 help force 可得知一些大部分内功都有的功能，至于你所用的内功到底
+有没有该功能，试一试或参考其他说明便知。
 
-ע�������ı��Լ����ڹ�����ԭ�����������������ֱ��ת����ȥ������
-    �ӣ���ʼ��
+注：如果你改变自己的内功，你原本蓄积的内力并不能直接转换过去，必须
+    从０开始。
 
 HELP );
         return 1;

@@ -1,4 +1,4 @@
-// qingyangzi.c  Çàê–×Ó
+// qingyangzi.c  é’é™½å­
 // Written by Vin  2002/4/28
 
 #include <ansi.h>
@@ -7,28 +7,28 @@ inherit NPC;
 int ask_me();
 int tattoo(object me);
 
-mapping body_type = ([ "Á³²¿" : ({ "face" }),
-                       "ĞØ¿Ú" : ({ "chest" }),
-                       "ºó±³" : ({ "back" }),
-                       "ÍÎ²¿" : ({ "buttock" }),
-                       "×ó±Û" : ({ "leftarm" }),
-                       "ÓÒ±Û" : ({ "rightarm" }), ]);
+mapping body_type = ([ "è„¸éƒ¨" : ({ "face" }),
+                       "èƒ¸å£" : ({ "chest" }),
+                       "åèƒŒ" : ({ "back" }),
+                       "è‡€éƒ¨" : ({ "buttock" }),
+                       "å·¦è‡‚" : ({ "leftarm" }),
+                       "å³è‡‚" : ({ "rightarm" }), ]);
 
 void create()
 {
-        set_name("Çàê–×Ó", ({ "qingyang zi", "qingyang", "zi" }));
-        set("long", "Ëû±ãÊÇÌìÏÂµÚÒ»´ÌÇàÊ¦Çàê–×Ó¡£\n" );
+        set_name("é’é™½å­", ({ "qingyang zi", "qingyang", "zi" }));
+        set("long", "ä»–ä¾¿æ˜¯å¤©ä¸‹ç¬¬ä¸€åˆºé’å¸ˆé’é™½å­ã€‚\n" );
 
-        set("nickname", HIB "´ÌÇàÊ¦" NOR);
-        set("gender", "ÄĞĞÔ");
+        set("nickname", HIB "åˆºé’å¸ˆ" NOR);
+        set("gender", "ç”·æ€§");
         set("attitude", "friendly");
         set("age", 325);
         set("shen_type", 0);
         set("str", 500);
 
         set("inquiry", ([
-                "´ÌÇà" : (: ask_me :),
-                "ÎÆÉí" : (: ask_me :),
+                "åˆºé’" : (: ask_me :),
+                "çº¹èº«" : (: ask_me :),
         ]));
 
         setup();
@@ -36,8 +36,8 @@ void create()
         if (! clonep(this_object()))
         {
                 move("/d/luoyang/suanming");
-                message_vision(CYN "\n$N" CYN "×ßÁË¹ıÀ´£¬»·¹ËËÄÖÜ£¬ÓÄ"
-                               "ÓÄÒ»Éù³¤Ì¾¡£\n" NOR, this_object());
+                message_vision(CYN "\n$N" CYN "èµ°äº†è¿‡æ¥ï¼Œç¯é¡¾å››å‘¨ï¼Œå¹½"
+                               "å¹½ä¸€å£°é•¿å¹ã€‚\n" NOR, this_object());
                 set("startroom", "/d/luoyang/suanming");
         }
 
@@ -50,8 +50,8 @@ void init()
 {
         add_action("do_show", "show");
         add_action("do_answer", "answer");
-        // ´ÌÇà¹ı³ÌÖĞ½ûÖ¹²é¿´×ÔÉí×´Ì¬£¬ÎªÊ²Ã´ÒªÕâÑùÄØ£¿ÒòÎª
-        // Êµ¼ÊÊı¾İÒÑ¾­ÔÚ½øĞĞÍæ¼ÒËù¿´µ½µÄ´ÌÇà¹ı³ÌÇ°±ãÉèÖÃÁË¡£
+        // åˆºé’è¿‡ç¨‹ä¸­ç¦æ­¢æŸ¥çœ‹è‡ªèº«çŠ¶æ€ï¼Œä¸ºä»€ä¹ˆè¦è¿™æ ·å‘¢ï¼Ÿå› ä¸º
+        // å®é™…æ•°æ®å·²ç»åœ¨è¿›è¡Œç©å®¶æ‰€çœ‹åˆ°çš„åˆºé’è¿‡ç¨‹å‰ä¾¿è®¾ç½®äº†ã€‚
         add_action("do_check", "hp");
         add_action("do_check", "score");
         add_action("do_check", "special");
@@ -63,8 +63,8 @@ int do_check()
 
         if (me->query_temp("item/status") == "waiting")
         {
-                message_vision(CYN "$N" CYN "¶Ô$n" CYN "ºÈµÀ£º±ğÂÒ"
-                               "¶¯£¡»¹Ã»´ÌÍê£¬Äãºï¼±Ê²Ã´£¿\n" NOR,
+                message_vision(CYN "$N" CYN "å¯¹$n" CYN "å–é“ï¼šåˆ«ä¹±"
+                               "åŠ¨ï¼è¿˜æ²¡åˆºå®Œï¼Œä½ çŒ´æ€¥ä»€ä¹ˆï¼Ÿ\n" NOR,
                                this_object(), me);
                 return 1;
         }
@@ -78,65 +78,65 @@ int do_show(string arg)
 
         me = this_player();
         if (! arg)
-                return notify_fail("ÄãÏëÒªÁÁ³öÊ²Ã´¶«Î÷£¿\n");
+                return notify_fail("ä½ æƒ³è¦äº®å‡ºä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
         mat = arg;
 
         if (! objectp(ob = present(mat, me)))
-                return notify_fail("ÄãÉíÉÏËÆºõÃ»ÓĞÕâÖÖ¶«Î÷¡£\n");
+                return notify_fail("ä½ èº«ä¸Šä¼¼ä¹æ²¡æœ‰è¿™ç§ä¸œè¥¿ã€‚\n");
 
         status = query_temp("item/status");
 
         if (status == "look_working")
         {
-                message_vision(CYN "$N" CYN "Í·Ò²²»Ì§£¬¶Ô$n" CYN "ËµµÀ£º"
-                               "ÎÒÕâÕıÃ¦£¬ÄãµÄÊÂµÈ»áÔÙËµ¡£\n" NOR,
+                message_vision(CYN "$N" CYN "å¤´ä¹Ÿä¸æŠ¬ï¼Œå¯¹$n" CYN "è¯´é“ï¼š"
+                               "æˆ‘è¿™æ­£å¿™ï¼Œä½ çš„äº‹ç­‰ä¼šå†è¯´ã€‚\n" NOR,
                                this_object(), me);
                 return 1;
         }
 
         if (! ob->query("can_tattoo"))
         {
-                message_vision(CYN "$N" CYN "Ã¼Í·Ò»Öå£¬¶Ô$n" CYN "ËµµÀ£º"
-                               "ÎÒÖ»¶ÔÍ¼ÌÚ¸ĞĞËÈ¤£¬Ã»ÊÂ±ğÀ´·³ÎÒ¡£\n" NOR,
+                message_vision(CYN "$N" CYN "çœ‰å¤´ä¸€çš±ï¼Œå¯¹$n" CYN "è¯´é“ï¼š"
+                               "æˆ‘åªå¯¹å›¾è…¾æ„Ÿå…´è¶£ï¼Œæ²¡äº‹åˆ«æ¥çƒ¦æˆ‘ã€‚\n" NOR,
                                this_object(), me);
                 return 1;
         }
 
         if (ob->query("value") >= 12000)
-                msg = sprintf(CYN "$N" CYN "½Ó¹ı$n" CYN "ÄÃ³öµÄÍ¼Ñù£¬ÄıÊÓÁ¼¾Ã"
-                              "Ö®ºó£¬ÓÄÓÄÒ»Éù³¤Ì¾¡£\n" NOR);
+                msg = sprintf(CYN "$N" CYN "æ¥è¿‡$n" CYN "æ‹¿å‡ºçš„å›¾æ ·ï¼Œå‡è§†è‰¯ä¹…"
+                              "ä¹‹åï¼Œå¹½å¹½ä¸€å£°é•¿å¹ã€‚\n" NOR);
         else
         if (ob->query("value") >= 5000)
-                msg = sprintf(CYN "$N" CYN "½Ó¹ı$n" CYN "ÄÃ³öµÄÍ¼Ñù£¬¿´ÁËÒ»»á"
-                              "£¬Á³ÉÏÂ¶³öÔŞĞíµÄÉñÉ«¡£\n" NOR);
+                msg = sprintf(CYN "$N" CYN "æ¥è¿‡$n" CYN "æ‹¿å‡ºçš„å›¾æ ·ï¼Œçœ‹äº†ä¸€ä¼š"
+                              "ï¼Œè„¸ä¸Šéœ²å‡ºèµè®¸çš„ç¥è‰²ã€‚\n" NOR);
         else
         if (ob->query("value") >= 2000)
-                msg = sprintf(CYN "$N" CYN "½Ó¹ı$n" CYN "ÄÃ³öµÄÍ¼Ñù£¬ÖåÁËÖåÃ¼"
-                              "£¬ËÆºõÏëËµĞ©Ê²Ã´¡£\n" NOR);
+                msg = sprintf(CYN "$N" CYN "æ¥è¿‡$n" CYN "æ‹¿å‡ºçš„å›¾æ ·ï¼Œçš±äº†çš±çœ‰"
+                              "ï¼Œä¼¼ä¹æƒ³è¯´äº›ä»€ä¹ˆã€‚\n" NOR);
         else
-                msg = sprintf(CYN "$N" CYN "Íû×Å$n" CYN "µİÀ´µÄÍ¼Ñù£¬ÀäĞ¦Ò»Éù"
-                              "£¬Á³ÉÏÂ¶³ö²»Ğ¼µÄÉñÉ«¡£\n" NOR);
+                msg = sprintf(CYN "$N" CYN "æœ›ç€$n" CYN "é€’æ¥çš„å›¾æ ·ï¼Œå†·ç¬‘ä¸€å£°"
+                              "ï¼Œè„¸ä¸Šéœ²å‡ºä¸å±‘çš„ç¥è‰²ã€‚\n" NOR);
 
         value = ob->query("value") / 50 + 20;
-        msg += sprintf(CYN "$N" CYN "µãÁËµãÍ·µÀ£ºÕâÑùµÄ´ÌÇàĞèÒª»Æ½ğ%sÁ½£¬Äã×Ô"
-                       "¼ºÕå×Ã°É¡£\n" NOR, chinese_number(value));
+        msg += sprintf(CYN "$N" CYN "ç‚¹äº†ç‚¹å¤´é“ï¼šè¿™æ ·çš„åˆºé’éœ€è¦é»„é‡‘%sä¸¤ï¼Œä½ è‡ª"
+                       "å·±æ–Ÿé…Œå§ã€‚\n" NOR, chinese_number(value));
         message_vision(msg, this_object(), me);
 
         return 1;
 }
 
-// ·¢³öÌáÊ¾ĞÅÏ¢
+// å‘å‡ºæç¤ºä¿¡æ¯
 int ask_me()
 {
-        message_sort(CYN "$N" CYN "Ì§Í·¿´ÁË¿´$n" CYN "£¬µãÍ·µÀ£ºÏÈ°ÑÄã´òËãÎÆ"
-                     "´ÌµÄÍ¼ÌÚÄÃ¸øÎÒ¿´(" HIY "show" NOR + CYN ")¿´£¬ÈÃÎÒ¹ÀËã"
-                     "Ò»ÏÂ¼ÛÇ®£¬Èç¹û¾õµÃºÏÊÊ¾Í½»Ç®¡£\n" NOR, this_object(),
+        message_sort(CYN "$N" CYN "æŠ¬å¤´çœ‹äº†çœ‹$n" CYN "ï¼Œç‚¹å¤´é“ï¼šå…ˆæŠŠä½ æ‰“ç®—çº¹"
+                     "åˆºçš„å›¾è…¾æ‹¿ç»™æˆ‘çœ‹(" HIY "show" NOR + CYN ")çœ‹ï¼Œè®©æˆ‘ä¼°ç®—"
+                     "ä¸€ä¸‹ä»·é’±ï¼Œå¦‚æœè§‰å¾—åˆé€‚å°±äº¤é’±ã€‚\n" NOR, this_object(),
                      this_player());
         return 1;
 }
 
-// ½ÓÊÜ¶¨½ğ
+// æ¥å—å®šé‡‘
 int accept_object(object me, object ob)
 {
         string status;
@@ -145,8 +145,8 @@ int accept_object(object me, object ob)
         status = query_temp("item/status");
         if (status == "look_working")
         {
-                message_vision(CYN "$N" CYN "Í·Ò²²»Ì§£¬¶Ô$n" CYN "ËµµÀ£º"
-                               "ÎÒÕâÕıÃ¦£¬ÄãµÄÊÂµÈ»áÔÙËµ¡£\n" NOR,
+                message_vision(CYN "$N" CYN "å¤´ä¹Ÿä¸æŠ¬ï¼Œå¯¹$n" CYN "è¯´é“ï¼š"
+                               "æˆ‘è¿™æ­£å¿™ï¼Œä½ çš„äº‹ç­‰ä¼šå†è¯´ã€‚\n" NOR,
                                this_object(), me);
                 return 0;
         }
@@ -155,12 +155,12 @@ int accept_object(object me, object ob)
         {
                 if (query_temp("item/player_id") == me->query("id"))
                 {
-                        command("say Äã¸øÎÒÌÉºÃ£¬±ğÂÒ¶¯¡£");
+                        command("say ä½ ç»™æˆ‘èººå¥½ï¼Œåˆ«ä¹±åŠ¨ã€‚");
                         return 0;
                 }
 
-                message_vision(CYN "$N" CYN "Í·Ò²²»Ì§£¬¶Ô$n" CYN "ËµµÀ£º"
-                               "ÎÒÕâÕıÃ¦£¬ÄãµÄÊÂµÈ»áÔÙËµ¡£\n" NOR,
+                message_vision(CYN "$N" CYN "å¤´ä¹Ÿä¸æŠ¬ï¼Œå¯¹$n" CYN "è¯´é“ï¼š"
+                               "æˆ‘è¿™æ­£å¿™ï¼Œä½ çš„äº‹ç­‰ä¼šå†è¯´ã€‚\n" NOR,
                                this_object(), me);
                 return 0;
         }
@@ -169,13 +169,13 @@ int accept_object(object me, object ob)
         {
                 if (query_temp("item/player_id") != me->query("id"))
                 {
-                        command("say Ã»¼ûÎÒÕıÃ¦Ã´£¬»¹À´ÌíÊ²Ã´ÂÒ£¡");
+                        command("say æ²¡è§æˆ‘æ­£å¿™ä¹ˆï¼Œè¿˜æ¥æ·»ä»€ä¹ˆä¹±ï¼");
                         return 0;
                 }
 
                 if (! ob->query("money_id"))
                 {
-                        command("say ÎÒÈÃÄã½»Ç®£¬Äã¸øÎÒÕâ¸ö¸ÉÂï£¿");
+                        command("say æˆ‘è®©ä½ äº¤é’±ï¼Œä½ ç»™æˆ‘è¿™ä¸ªå¹²å˜›ï¼Ÿ");
                         return 0;
                 }
         }
@@ -196,8 +196,8 @@ int accept_object(object me, object ob)
 
                 if (! sizeof(types))
                 {
-               	        message_vision(CYN "$N" CYN "¶Ô$n" CYN "ÀäĞ¦µÀ£ºÄãÈ«"
-               	                       "ÉíÒÑ¾­ÎÆµÃ¸ú¹íÒ»ÑùÁË£¬»¹ÏÓ²»¹»Ã´£¿\n"
+               	        message_vision(CYN "$N" CYN "å¯¹$n" CYN "å†·ç¬‘é“ï¼šä½ å…¨"
+               	                       "èº«å·²ç»çº¹å¾—è·Ÿé¬¼ä¸€æ ·äº†ï¼Œè¿˜å«Œä¸å¤Ÿä¹ˆï¼Ÿ\n"
                	                       NOR, this_object(), me);
                         return 0;
                 }
@@ -212,7 +212,7 @@ int accept_object(object me, object ob)
                 if (stringp(p))
                         types = ({ p });
 
-                // È·ÈÏ¸ÃIDÊÇ·ñÓĞµØ·½ÒÑ¾­±»´ÌÇà
+                // ç¡®è®¤è¯¥IDæ˜¯å¦æœ‰åœ°æ–¹å·²ç»è¢«åˆºé’
                 p = me->query("tattoo/tattoo");
                 if (arrayp(p))
                         types -= p;
@@ -222,16 +222,16 @@ int accept_object(object me, object ob)
 
                 if (! sizeof(types))
                 {
-                        message_vision(CYN "$N" CYN "Ò¡ÁËÒ¡Í·µÀ£ºÕâ¸öÍ¼"
-                                       "ÌÚ²¢²»ÊÊºÏÎÆµ½ÄãÊ£ÏÂµÄ²¿Î»ÉÏ¡£\n"
+                        message_vision(CYN "$N" CYN "æ‘‡äº†æ‘‡å¤´é“ï¼šè¿™ä¸ªå›¾"
+                                       "è…¾å¹¶ä¸é€‚åˆçº¹åˆ°ä½ å‰©ä¸‹çš„éƒ¨ä½ä¸Šã€‚\n"
                                        NOR, this_object(), me);
                         return 0;
                 }
 
-                // ¼ÆËã´ÌÇàËù»¨·ÑµÄ¼ÛÖµ
+                // è®¡ç®—åˆºé’æ‰€èŠ±è´¹çš„ä»·å€¼
                 val = ob->query("value") / 50 + 20;
-                message_vision(CYN "$N" CYN "µãÁËµãÍ·µÀ£ºÕâÑùµÄ´ÌÇàĞèÒª»Æ½ğ" +
-                               chinese_number(val) + "Á½£¬ÄãÏÖÔÚ¾Í¸¶Ç®°É¡£\n"
+                message_vision(CYN "$N" CYN "ç‚¹äº†ç‚¹å¤´é“ï¼šè¿™æ ·çš„åˆºé’éœ€è¦é»„é‡‘" +
+                               chinese_number(val) + "ä¸¤ï¼Œä½ ç°åœ¨å°±ä»˜é’±å§ã€‚\n"
                                NOR, this_object(), me);
                 val *= 10000;
                 ob->set("item/value", val);
@@ -254,24 +254,24 @@ int accept_object(object me, object ob)
 
                 if (me->query_temp("item/status") == "answer_type")
                 {
-                        message_vision(CYN "$N" CYN "Ò¡Ò¡Í·£¬¶Ô$n" CYN "µÀ£º±ğ¼±"
-                                       "×Å¸øÇ®£¬ÏÈËµËµÄãÒª¸ÉÊ²Ã´£¿\n" NOR,
+                        message_vision(CYN "$N" CYN "æ‘‡æ‘‡å¤´ï¼Œå¯¹$n" CYN "é“ï¼šåˆ«æ€¥"
+                                       "ç€ç»™é’±ï¼Œå…ˆè¯´è¯´ä½ è¦å¹²ä»€ä¹ˆï¼Ÿ\n" NOR,
                                        this_object(), me);
                         return 0;
                 }
 
                 if (me->query_temp("item/status") != "item_gived")
                 {
-                        message_vision(CYN "$N" CYN "°Ñ$n" CYN "µİ¹ıÈ¥µÄ" + ob->name() +
-                                       CYN "ÍÆÁË»ØÀ´£¬Ò¡Í·µÀ£ºÎŞ¹¦²»ÊÜÂ»¡£\n" NOR,
+                        message_vision(CYN "$N" CYN "æŠŠ$n" CYN "é€’è¿‡å»çš„" + ob->name() +
+                                       CYN "æ¨äº†å›æ¥ï¼Œæ‘‡å¤´é“ï¼šæ— åŠŸä¸å—ç¦„ã€‚\n" NOR,
                                        this_object(), me);
                         return 0;
                 }
 
                 if (ob->value() < me->query_temp("item/value"))
                 {
-                        message_vision(CYN "$N" CYN "ÀäĞ¦µÀ£º½­ºşÉÏË­²»ÖªµÀÎÒÇà"
-                                       "ê–×ÓËµÒ»²»¶ş£¬ÄÑµÀÄÜÎªÄãÆÆÀı£¿\n" NOR,
+                        message_vision(CYN "$N" CYN "å†·ç¬‘é“ï¼šæ±Ÿæ¹–ä¸Šè°ä¸çŸ¥é“æˆ‘é’"
+                                       "é™½å­è¯´ä¸€ä¸äºŒï¼Œéš¾é“èƒ½ä¸ºä½ ç ´ä¾‹ï¼Ÿ\n" NOR,
                                        this_object(), me);
                         return 0;
                 }
@@ -287,7 +287,7 @@ int accept_object(object me, object ob)
                 if (stringp(p))
                         types = ({ p });
 
-                // È·ÈÏ¸ÃIDÊÇ·ñÓĞµØ·½ÒÑ¾­±»´ÌÇà
+                // ç¡®è®¤è¯¥IDæ˜¯å¦æœ‰åœ°æ–¹å·²ç»è¢«åˆºé’
                 p = me->query("tattoo/tattoo");
                 if (arrayp(p))
                         types -= p;
@@ -297,8 +297,8 @@ int accept_object(object me, object ob)
 
                 if (! sizeof(types))
                 {
-                        message_vision(CYN "$N" CYN "Ò¡ÁËÒ¡Í·µÀ£ºÕâ¸ö´Ì"
-                                       "Çà²»ÊÊºÏÎÆµ½ÄãÊ£ÏÂµÄ²¿Î»¡£\n" NOR,
+                        message_vision(CYN "$N" CYN "æ‘‡äº†æ‘‡å¤´é“ï¼šè¿™ä¸ªåˆº"
+                                       "é’ä¸é€‚åˆçº¹åˆ°ä½ å‰©ä¸‹çš„éƒ¨ä½ã€‚\n" NOR,
                                        this_object(), me);
                         return 0;
                 }
@@ -308,18 +308,18 @@ int accept_object(object me, object ob)
 
                 ob->move(this_object());
 
-                message_vision(CYN "$N" CYN "¶Ô$n" CYN "ËµµÀ£ºÄã´òËãÔÚÊ²"
-                               "Ã´µØ·½´ÌÇà£¿Çë¸æËß(" HIY "answer" NOR +
-                               CYN ")ÎÒ¾ßÌå²¿Î»¡£\n" NOR, this_object(), me);
-                tell_object(me, HIC "Äã»¹¿ÉÒÔÔÚ" HIY + implode(types, "¡¢" )
-                                + HIC "ÉÏ´ÌÇà¡£\n" NOR);
+                message_vision(CYN "$N" CYN "å¯¹$n" CYN "è¯´é“ï¼šä½ æ‰“ç®—åœ¨ä»€"
+                               "ä¹ˆåœ°æ–¹åˆºé’ï¼Ÿè¯·å‘Šè¯‰(" HIY "answer" NOR +
+                               CYN ")æˆ‘å…·ä½“éƒ¨ä½ã€‚\n" NOR, this_object(), me);
+                tell_object(me, HIC "ä½ è¿˜å¯ä»¥åœ¨" HIY + implode(types, "ã€" )
+                                + HIC "ä¸Šåˆºé’ã€‚\n" NOR);
 
                 me->set_temp("item/status", "answer_type");
                 return -1;
         }
 
-        message_vision(CYN "Çàê–×Ó¶Ô$N" CYN "ÖåÃ¼µÀ£ººÃÏóÓĞµãÎÊÌâ£¬ÄãÈÃÎ×"
-                       "Ê¦À´°ïÄã¿´¿´¡£\n" NOR, me);
+        message_vision(CYN "é’é™½å­å¯¹$N" CYN "çš±çœ‰é“ï¼šå¥½è±¡æœ‰ç‚¹é—®é¢˜ï¼Œä½ è®©å·«"
+                       "å¸ˆæ¥å¸®ä½ çœ‹çœ‹ã€‚\n" NOR, me);
         return 0;
 }
 
@@ -335,17 +335,17 @@ int do_answer(string arg)
                 return 0;
 
         if (! arg)
-                return notify_fail("ÄãÒª»Ø´ğÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦å›ç­”ä»€ä¹ˆï¼Ÿ\n");
 
-        message_vision(CYN "$n" CYN "Íá×ÅÍ·ÏëÁËÒ»»á£¬¶Ô$N" CYN "µÀ£ºÄÇ"
-                       "¾ÍÀÍ¼İÄã°Ñ´ÌÇàÎÆÔÚÎÒµÄ" + arg + "ÉÏ°É£¡\n" NOR,
+        message_vision(CYN "$n" CYN "æ­ªç€å¤´æƒ³äº†ä¸€ä¼šï¼Œå¯¹$N" CYN "é“ï¼šé‚£"
+                       "å°±åŠ³é©¾ä½ æŠŠåˆºé’çº¹åœ¨æˆ‘çš„" + arg + "ä¸Šå§ï¼\n" NOR,
                        this_object(), me);
 
         if (member_array(arg, query_temp("item/types")) == -1 ||
             undefinedp(body_type[arg]))
         {
-                message_vision(CYN "$N" CYN "¿´ÁË¿´$n" CYN "£¬±ÉÒÄµÄÀä"
-                               "Ğ¦ÁËÒ»Éù¡£\n" NOR, this_object(), me);
+                message_vision(CYN "$N" CYN "çœ‹äº†çœ‹$n" CYN "ï¼Œé„™å¤·çš„å†·"
+                               "ç¬‘äº†ä¸€å£°ã€‚\n" NOR, this_object(), me);
                 return 1;
         }
 
@@ -357,14 +357,14 @@ int do_answer(string arg)
 
         ob = query_temp("item/accept");
 
-        message_sort(HIC "\n$N" CYN "µãÁËµãÍ·£¬¶Ô$n" CYN "ËµµÀ£ºÎÒÃÇ"
-                     "Õâ¾Í¿ªÊ¼°É£¬ÄãÌÉµ½ÄÇ±ßµÄ´²ÉÏÈ¥£¬±ğÂÒ¶¯¡£$N"
-                     HIC "ËµÍê±ã×ª¹ıÉíÈ¥£¬ËæÊÖ½«" + ob->name() + HIC
-                     "½şÈëÉíºóµÄË®Åè£¬´ı" + ob->name() + HIC "ÍêÈ«Êª"
-                     "Í¸ºó£¬ÔÙĞ¡ĞÄÒíÒíµØ´ÓË®ÖĞÈ¡³ö£¬ÇáÇáÃÉÔÚ$n" HIC
-                     "µÄ" + arg + "Ö®ÉÏ¡£\n\n" NOR, this_object(), me);
+        message_sort(HIC "\n$N" CYN "ç‚¹äº†ç‚¹å¤´ï¼Œå¯¹$n" CYN "è¯´é“ï¼šæˆ‘ä»¬"
+                     "è¿™å°±å¼€å§‹å§ï¼Œä½ èººåˆ°é‚£è¾¹çš„åºŠä¸Šå»ï¼Œåˆ«ä¹±åŠ¨ã€‚$N"
+                     HIC "è¯´å®Œä¾¿è½¬è¿‡èº«å»ï¼Œéšæ‰‹å°†" + ob->name() + HIC
+                     "æµ¸å…¥èº«åçš„æ°´ç›†ï¼Œå¾…" + ob->name() + HIC "å®Œå…¨æ¹¿"
+                     "é€åï¼Œå†å°å¿ƒç¿¼ç¿¼åœ°ä»æ°´ä¸­å–å‡ºï¼Œè½»è½»è’™åœ¨$n" HIC
+                     "çš„" + arg + "ä¹‹ä¸Šã€‚\n\n" NOR, this_object(), me);
 
-        // ÎªÒÑ¾­´ÌÁËÇàµÄ²¿Î»¼ÇºÅ
+        // ä¸ºå·²ç»åˆºäº†é’çš„éƒ¨ä½è®°å·
         tattooed = me->query("tattoo/tattoo");
 
         if (! arrayp(tattooed))
@@ -374,24 +374,24 @@ int do_answer(string arg)
         tattooed += ({ arg });
         me->set("tattoo/tattoo", tattooed);
 
-        // Ôö¼Ó²»Í¬²¿Î»µÄ´ÌÇàÃèÊö
+        // å¢åŠ ä¸åŒéƒ¨ä½çš„åˆºé’æè¿°
         tlong = ob->query("tattoo_long");
 
         switch (arg)
         {
-        case "Á³²¿":
+        case "è„¸éƒ¨":
                 me->set("tattoo/face_long", tlong);
                 break;
-        case "ĞØ¿Ú":
+        case "èƒ¸å£":
                 me->set("tattoo/chest_long", tlong);
                 break;
-        case "ºó±³":
+        case "åèƒŒ":
                 me->set("tattoo/back_long", tlong);
                 break;
-        case "×ó±Û":
+        case "å·¦è‡‚":
                 me->set("tattoo/leftarm_long", tlong);
                 break;
-        case "ÓÒ±Û":
+        case "å³è‡‚":
                 me->set("tattoo/rightarm_long", tlong);
                 break;
         default:
@@ -399,7 +399,7 @@ int do_answer(string arg)
                 break;
         }
 
-        // Ôö¼ÓÍ¼ÌÚÌá¹©µÄºóÌìÊôĞÔ¼ÇºÅ
+        // å¢åŠ å›¾è…¾æä¾›çš„åå¤©å±æ€§è®°å·
         if (ob->query("tattoo_str"))
                 me->add("tattoo/tattoo_str", ob->query("tattoo_str"));
 
@@ -415,7 +415,7 @@ int do_answer(string arg)
         if (ob->query("tattoo_per"))
                 me->add("tattoo/tattoo_per", ob->query("tattoo_per"));
 
-        // Ôö¼ÓÍ¼ÌÚÌá¹©µÄÌØÊâ¼¼ÄÜ
+        // å¢åŠ å›¾è…¾æä¾›çš„ç‰¹æ®ŠæŠ€èƒ½
         special = ob->query("tattoo_special");
         if (special)
         {
@@ -423,7 +423,7 @@ int do_answer(string arg)
                 me->set("tattoo/special/" + special, 1);
         }
 
-        // Ö´ĞĞ´ÌÇàµÄ¹ı³ÌÃèÊö
+        // æ‰§è¡Œåˆºé’çš„è¿‡ç¨‹æè¿°
         me->start_busy(bind((: call_other, __FILE__, "tattoo" :), me));
 
         remove_call_out("time_out");
@@ -444,49 +444,49 @@ int tattoo(object me)
         switch (me->query_temp("tattoo/step"))
         {
         case 1:
-                msg = "Çàê–×Ó×ß½øÄÚÌÃ£¬¶Ë³öÒ»¸öÌ´Ä¾³ÁÏãºĞ£¬ÇáÇáÄé³öÒ»¸ùÒøÕë¡£";
+                msg = "é’é™½å­èµ°è¿›å†…å ‚ï¼Œç«¯å‡ºä¸€ä¸ªæª€æœ¨æ²‰é¦™ç›’ï¼Œè½»è½»æ‹ˆå‡ºä¸€æ ¹é“¶é’ˆã€‚";
                 break;
         case 2:
-                msg = "½Ó×ÅÇàê–×Ó½«$NµÄÉíÌå°Ú·Å¶ËÕı£¬ÔÙÑØ×ÅÍ¼ÌÚÖĞµÄÎÆÑùÊ©Õë¡£";
+                msg = "æ¥ç€é’é™½å­å°†$Nçš„èº«ä½“æ‘†æ”¾ç«¯æ­£ï¼Œå†æ²¿ç€å›¾è…¾ä¸­çš„çº¹æ ·æ–½é’ˆã€‚";
                 break;
         case 3:
-                msg = "Ö»¼ûÇàê–×ÓÕÆ³öÈç·ç£¬Ã¿Ò»Õë½ÔÊÇÒ»Õ´¼´¹ı£¬À´È¥¼«ÎªÑ¸½İ¡£";
+                msg = "åªè§é’é™½å­æŒå‡ºå¦‚é£ï¼Œæ¯ä¸€é’ˆçš†æ˜¯ä¸€æ²¾å³è¿‡ï¼Œæ¥å»æä¸ºè¿…æ·ã€‚";
                 break;
         case 4:
-                msg = "²»¶àÊ±£¬ÎÆÑùµÄÂÖÀªÒÑ±»Çàê–×Ó¹´ÀÕ³öÀ´£¬ºÍÍ¼ÌÚ·ÖºÁ²»²î¡£";
+                msg = "ä¸å¤šæ—¶ï¼Œçº¹æ ·çš„è½®å»“å·²è¢«é’é™½å­å‹¾å‹’å‡ºæ¥ï¼Œå’Œå›¾è…¾åˆ†æ¯«ä¸å·®ã€‚";
                 break;
         case 5:
-                msg = "ÓÖÒ»»á£¬$N´ÌÇàÉÏµÄÎÆÑù½¥½¥ÇåÎúÁËÆğÀ´£¬Óë¼¡·ôÈÚÎªÒ»Ìå¡£";
+                msg = "åˆä¸€ä¼šï¼Œ$Nåˆºé’ä¸Šçš„çº¹æ ·æ¸æ¸æ¸…æ™°äº†èµ·æ¥ï¼Œä¸è‚Œè‚¤èä¸ºä¸€ä½“ã€‚";
                 break;
         case 6:
-                msg = "Äã²»½û¸ĞÌ¾Çàê–×ÓµÄÕë·¨¾«Ææ£¬´ÌÏÂÇ§¶àÕë¾¹²»¼ûÓĞÑªÓ¿³ö¡£";
+                msg = "ä½ ä¸ç¦æ„Ÿå¹é’é™½å­çš„é’ˆæ³•ç²¾å¥‡ï¼Œåˆºä¸‹åƒå¤šé’ˆç«Ÿä¸è§æœ‰è¡€æ¶Œå‡ºã€‚";
                 break;
         case 7:
-                msg = "Çàê–×Ó½Ó×Å´ÓºĞ×ÓÀïÈ¡³öÊ®°ËÉ«´ÉÆ¿£¬·ÖÈ¡·ÛÄ©·ÅÈëÉ«ÅÌÖĞ¡£";
+                msg = "é’é™½å­æ¥ç€ä»ç›’å­é‡Œå–å‡ºåå…«è‰²ç“·ç“¶ï¼Œåˆ†å–ç²‰æœ«æ”¾å…¥è‰²ç›˜ä¸­ã€‚";
                 break;
         case 8:
-                msg = "Çàê–×ÓÓÃÖ¸¼×¼âÇáÇáÌô³ö¸÷É«·ÛÄ©£¬ÔÙ·Ö±ğµ¯Èë$N´ÌÇàÖ®ÉÏ¡£";
+                msg = "é’é™½å­ç”¨æŒ‡ç”²å°–è½»è½»æŒ‘å‡ºå„è‰²ç²‰æœ«ï¼Œå†åˆ†åˆ«å¼¹å…¥$Nåˆºé’ä¹‹ä¸Šã€‚";
                 break;
         case 9:
-                msg = "¹ıµÃÁ¼¾Ã£¬µ¯ÔÚ´ÌÇàÉÏµÄ¸÷É«·ÛÄ©ÒÑ¾­½¥½¥ÉøÈëÁË$NµÄ¼¡·ô¡£";
+                msg = "è¿‡å¾—è‰¯ä¹…ï¼Œå¼¹åœ¨åˆºé’ä¸Šçš„å„è‰²ç²‰æœ«å·²ç»æ¸æ¸æ¸—å…¥äº†$Nçš„è‚Œè‚¤ã€‚";
                 break;
         case 10:
-                msg = "´ÌÇàÉÏµÄÑÕÉ«ÂıÂıÏÔÂ¶ÁË³öÀ´£¬É«²ÊÃ÷ÑŞ£¬ÓëÍ¼ÌÚ¸üÎŞ¶şÖÂ¡£";
+                msg = "åˆºé’ä¸Šçš„é¢œè‰²æ…¢æ…¢æ˜¾éœ²äº†å‡ºæ¥ï¼Œè‰²å½©æ˜è‰³ï¼Œä¸å›¾è…¾æ›´æ— äºŒè‡´ã€‚";
                 break;
         case 11:
-                msg = "Ö»¼û´ÌÇàÉÏµÄÎÆÑù¾«µñÏ¸×Á£¬èòèòÈçÉú£¬ËÆÒª³å¹ØÓû³öÒ»°ã¡£";
+                msg = "åªè§åˆºé’ä¸Šçš„çº¹æ ·ç²¾é›•ç»†ç¢ï¼Œæ ©æ ©å¦‚ç”Ÿï¼Œä¼¼è¦å†²å…³æ¬²å‡ºä¸€èˆ¬ã€‚";
                 break;
         case 12:
-                msg = "Çàê–×ÓÄıÊÓĞí¾Ã£¬µãÁËµãÍ·£¬ÇáÇá·÷È¥ÁË´ÌÇàÉÏÊ£ÓàµÄ·ÛÄ©¡£";
+                msg = "é’é™½å­å‡è§†è®¸ä¹…ï¼Œç‚¹äº†ç‚¹å¤´ï¼Œè½»è½»æ‹‚å»äº†åˆºé’ä¸Šå‰©ä½™çš„ç²‰æœ«ã€‚";
                 break;
         default:
-                msg = "Çàê–×Ó¶Ô$NËµµÀ£ºÍ¼ÌÚÉÏµÄÎÆÑùÒÑ¾­¶¼°ïÄã´ÌºÃÁË£¬ÆğÉí°É¡£";
+                msg = "é’é™½å­å¯¹$Nè¯´é“ï¼šå›¾è…¾ä¸Šçš„çº¹æ ·å·²ç»éƒ½å¸®ä½ åˆºå¥½äº†ï¼Œèµ·èº«å§ã€‚";
                 finish = 1;
                 break;
         }
         msg += "\n";
 
-        msg = replace_string(msg, "$N", "Äã");
+        msg = replace_string(msg, "$N", "ä½ ");
         msg = replace_string(msg, "$n", name());
         message("vision", HIG + msg + NOR, me);
 
@@ -495,15 +495,15 @@ int tattoo(object me)
                 if (objectp(ob = present("qingyang zi", environment(me))))
                 {
                         ob->delete_temp("item");
-                        message_vision(HIC "\n$N" HIC "¶Ô$n" HIC "ËµµÀ£º"
-                                       "Ç®ÎÒÊÕÁË£¬´ÌÇàÔò°ïÄãÎÆÁË£¬´Ó´ËÄã"
-                                       "ÎÒÁ½ÎŞÏàÇ·¡£\n" NOR, ob, me);
+                        message_vision(HIC "\n$N" HIC "å¯¹$n" HIC "è¯´é“ï¼š"
+                                       "é’±æˆ‘æ”¶äº†ï¼Œåˆºé’åˆ™å¸®ä½ çº¹äº†ï¼Œä»æ­¤ä½ "
+                                       "æˆ‘ä¸¤æ— ç›¸æ¬ ã€‚\n" NOR, ob, me);
                 }
 
                 me->delete_temp("item");
                 me->delete_temp("tattoo/step");
-                tell_object(me, HIY "\n´ÌÇà½áÊøºó£¬Äã¸Ğµ½ÉíÌåËÆºõÓĞÁËÄ³"
-                                "ÖÖÆæÌØµÄ±ä»¯¡£\n" NOR);
+                tell_object(me, HIY "\nåˆºé’ç»“æŸåï¼Œä½ æ„Ÿåˆ°èº«ä½“ä¼¼ä¹æœ‰äº†æŸ"
+                                "ç§å¥‡ç‰¹çš„å˜åŒ–ã€‚\n" NOR);
                 return 0;
         }
         me->add_temp("tattoo/step", 1);
@@ -522,11 +522,11 @@ void time_out(object me, object ob)
 
         if (! objectp(me) || environment(me) != environment())
         {
-                command("say Ææ¹Ö£¬¸Õ²ÅÄÇÎ»¿ÍÈËÄØ£¿ÔõÃ´Õâ¾Í×ßÁË£¿\n");
+                command("say å¥‡æ€ªï¼Œåˆšæ‰é‚£ä½å®¢äººå‘¢ï¼Ÿæ€ä¹ˆè¿™å°±èµ°äº†ï¼Ÿ\n");
                 at_present = 0;
         } else
         {
-                command("say ÄãÂıÂıÓÌÔ¥°É£¬ÎÒ¿É²»ÄÜ¸úÄãºÄ×Å£¡ÏëºÃÔÙÀ´°É£¡");
+                command("say ä½ æ…¢æ…¢çŠ¹è±«å§ï¼Œæˆ‘å¯ä¸èƒ½è·Ÿä½ è€—ç€ï¼æƒ³å¥½å†æ¥å§ï¼");
                 at_present = 1;
         }
 

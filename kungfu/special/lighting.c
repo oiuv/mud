@@ -1,4 +1,4 @@
-// lighting.c Á¬ËøÉÁµç
+// lighting.c è¿é”é—ªç”µ
 // Created by Vin 8/5/2002
 
 #include <ansi.h>
@@ -7,9 +7,9 @@
 inherit F_CLEAN_UP;
 inherit F_SSERVER;
 
-string name() { return HIW "ßBæiéWëŠ" NOR; }
+string name() { return HIW "é€£é–é–ƒé›»" NOR; }
 
-#define LIGHTING "¡¸" HIW "ßBæiéWëŠ" NOR "¡¹"
+#define LIGHTING "ã€Œ" HIW "é€£é–é–ƒé›»" NOR "ã€"
 
 int perform(object me, object target)
 {
@@ -17,22 +17,22 @@ int perform(object me, object target)
         int damage;
 
         if (! wizardp(me) && me->query("id") != "ivy")
-                return notify_fail(LIGHTING "Ö»ÄÜÓÉÎ×Ê¦Ê©Õ¹¡£\n");
+                return notify_fail(LIGHTING "åªèƒ½ç”±å·«å¸ˆæ–½å±•ã€‚\n");
 
         if (! me->is_fighting())
-                return notify_fail(LIGHTING "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(LIGHTING "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         target = me->select_opponent();
 
         if (! target || ! target->is_character()
            || target->query("not_living"))
-                return notify_fail("Äã´òËã¶ÔË­Ê©Õ¹" LIGHTING  "£¿\n");
+                return notify_fail("ä½ æ‰“ç®—å¯¹è°æ–½å±•" LIGHTING  "ï¼Ÿ\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = WHT "$N" WHT "Ê©Õ¹·¨Ğg¡¸" HIW "ßBæiéWëŠ" NOR +
-              WHT "¡¹£¬¸ßÂ•ÄîÕbµÀ£º±ÈµÏÄ·¡¤†ÌØÃÉ¡¤Ì©Àï°¢ÆÕ¡¤°£¿Ø¡£\n" NOR;
+        msg = WHT "$N" WHT "æ–½å±•æ³•è¡“ã€Œ" HIW "é€£é–é–ƒé›»" NOR +
+              WHT "ã€ï¼Œé«˜è²å¿µèª¦é“ï¼šæ¯”è¿ªå§†Â·äºç‰¹è’™Â·æ³°é‡Œé˜¿æ™®Â·åŸƒæ§ã€‚\n" NOR;
 
         me->start_busy(1);
 
@@ -43,12 +43,12 @@ int perform(object me, object target)
                 target->receive_wound("qi", damage, me);
                 target->receive_wound("jing", damage / 2, me);
 
-                msg += HIW "ö®•rÖ»ÒŠ”µµÀéWëŠÄÌì¶ø½µ£¬±M”µÅüÔÚ$n"
-                       HIW "ÉíÉÏ£¬Ö±ÅüµÃ$n" HIW "Æß¸[ÉúŸŸ¡¢ÑªÈâËÄR¡£\n" NOR;
+                msg += HIW "éœæ™‚åªè¦‹æ•¸é“é–ƒé›»å¾å¤©è€Œé™ï¼Œç›¡æ•¸åŠˆåœ¨$n"
+                       HIW "èº«ä¸Šï¼Œç›´åŠˆå¾—$n" HIW "ä¸ƒç«…ç”Ÿç…™ã€è¡€è‚‰å››æ¿ºã€‚\n" NOR;
         } else
         {
-                msg += HIW "ö®•rÖ»ÒŠ”µµÀéWëŠÄÌì¶ø½µ£¬±M”µÅüÔÚ$n"
-                       HIW "ÉíÉÏ£¬ÇàŸŸÉ¢ß^£¬$n" HIW "…sÊÇÒ»ücÊÂÇéÒ²›]ÓĞ¡£\n" NOR;
+                msg += HIW "éœæ™‚åªè¦‹æ•¸é“é–ƒé›»å¾å¤©è€Œé™ï¼Œç›¡æ•¸åŠˆåœ¨$n"
+                       HIW "èº«ä¸Šï¼Œé’ç…™æ•£éï¼Œ$n" HIW "å»æ˜¯ä¸€é»äº‹æƒ…ä¹Ÿæ²’æœ‰ã€‚\n" NOR;
         }
         message_combatd(msg, me, target);
         me->want_kill(target);

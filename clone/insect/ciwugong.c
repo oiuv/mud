@@ -1,4 +1,4 @@
-// ciwugong.c ³à°ßòÚò¼
+// ciwugong.c èµ¤æ–‘èœˆèš£
 
 #include <ansi.h>
 
@@ -6,16 +6,16 @@ inherit POISON_INSECT;
 
 void create()
 {
-	set_name(RED "³à°ßòÚò¼" NOR, ({ "chiban wu gong", "wugong" }) );
+	set_name(RED "èµ¤æ–‘èœˆèš£" NOR, ({ "chiban wu gong", "wugong" }) );
         set_weight(120);
-	set("race", "Ò°ÊŞ");
+	set("race", "é‡å…½");
 	set("age", 3);
-	set("long", "Ò»Ö»³¤ÂúÁËºìÉ«°ßµãµÄòÚò¼£¬ºÜÊÇ¹ÖÒì¡£\n");
+	set("long", "ä¸€åªé•¿æ»¡äº†çº¢è‰²æ–‘ç‚¹çš„èœˆèš£ï¼Œå¾ˆæ˜¯æ€ªå¼‚ã€‚\n");
 	set("attitude", "peaceful");
 	set("str", 22);
 	set("con", 25);
-        set("unit", "Ö»");
-	set("limbs", ({ "Í·²¿", "ÉíÌå" }) );
+        set("unit", "åª");
+	set("limbs", ({ "å¤´éƒ¨", "èº«ä½“" }) );
 	set("verbs", ({ "bite" }) );
 
         set("insect_poison", ([

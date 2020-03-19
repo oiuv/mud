@@ -1,6 +1,6 @@
 #include <ansi.h>
 
-#define FU "¡¸" HIW "¸¿×Ö¾÷" NOR "¡¹"
+#define FU "ã€Œ" HIW "ç¼šå­—è¯€" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -10,46 +10,46 @@ int perform(object me, object target)
         string msg;
 
         if (userp(me) && ! me->query("can_perform/jiandun-zhusuo/fu"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(FU "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(FU "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (target->is_busy())
-                return notify_fail(target->name() + "Ä¿Ç°Õı×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É¡£\n");
+                return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             weapon->query("skill_type") != "whip")
-                return notify_fail("ÄãµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" FU "¡£\n");
+                return notify_fail("ä½ çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" FU "ã€‚\n");
 
         if (me->query_skill("jiandun-zhusuo", 1) < 50)
-                return notify_fail("ÄãµÄ½£¶ÜÖéË÷¼¶±ğ²»¹»£¬ÄÑÒÔÊ©Õ¹" FU "¡£\n");
+                return notify_fail("ä½ çš„å‰‘ç›¾ç ç´¢çº§åˆ«ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" FU "ã€‚\n");
 
         if (me->query("neili") < 50)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" FU "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" FU "ã€‚\n");
 
         if (me->query_skill_mapped("whip") != "jiandun-zhusuo")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢½£¶ÜÖéË÷£¬ÄÑÒÔÊ©Õ¹" FU "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å‰‘ç›¾ç ç´¢ï¼Œéš¾ä»¥æ–½å±•" FU "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIW "$N" HIW "ÓÒÊÖÒ»Ñï£¬ÊÖÖĞ" + weapon->name() +
-              HIW "¶ÙÊ±»ØĞı·ÉÎè¶øÖÁ£¬ÓØ»ØÅÌÈÆÏò$n" HIW "£¡\n";
+        msg = HIW "$N" HIW "å³æ‰‹ä¸€æ‰¬ï¼Œæ‰‹ä¸­" + weapon->name() +
+              HIW "é¡¿æ—¶å›æ—‹é£èˆè€Œè‡³ï¼Œè¿‚å›ç›˜ç»•å‘$n" HIW "ï¼\n";
 
         me->start_busy(1);
 
         if (random((int)me->query_skill("jiandun-zhusuo", 1)) > (int)target->query_skill("parry", 1) / 2)
         {
-                msg += HIR "$n" HIR "Ö»¾õÈ«ÉíÒ»½ô£¬ÒÑ±»" + weapon->name() +
-                       HIR "ÀÎÀÎ¸¿×¡£¬¶¯µ¯²»µÃ£¡\n" NOR;
+                msg += HIR "$n" HIR "åªè§‰å…¨èº«ä¸€ç´§ï¼Œå·²è¢«" + weapon->name() +
+                       HIR "ç‰¢ç‰¢ç¼šä½ï¼ŒåŠ¨å¼¹ä¸å¾—ï¼\n" NOR;
                 target->start_busy((int)me->query_skill("jiandun-zhusuo") / 20 + 1);
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P"
-                       CYN "µÄÆóÍ¼£¬Ğ±Ìø¶ãÉÁ¿ªÀ´¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P"
+                       CYN "çš„ä¼å›¾ï¼Œæ–œè·³èº²é—ªå¼€æ¥ã€‚\n" NOR;
         }
         message_combatd(msg, me, target);
 

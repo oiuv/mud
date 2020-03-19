@@ -1,4 +1,4 @@
-// beidou.c  ±±¶·ÆßÐÇ½£
+// beidou.c  åŒ—æ–—ä¸ƒæ˜Ÿå‰‘
 
 #include <ansi.h>
 
@@ -17,29 +17,29 @@ int perform(object me, object target)
         }
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("¡¸±±¶·ÆßÐÇ½£¡¹Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ã€ŒåŒ—æ–—ä¸ƒæ˜Ÿå‰‘ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "sword")
-		return notify_fail("Ê©Õ¹¡¸±±¶·ÆßÐÇ½£¡¹ÊÖÖÐ±ØÐëÄÃ×ÅÒ»°Ñ½££¡\n");
+		return notify_fail("æ–½å±•ã€ŒåŒ—æ–—ä¸ƒæ˜Ÿå‰‘ã€æ‰‹ä¸­å¿…é¡»æ‹¿ç€ä¸€æŠŠå‰‘ï¼\n");
 
 	if ((int)me->query("neili") < 220)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎÞ·¨Ê©Õ¹¡¸±±¶·ÆßÐÇ½£¡¹£¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•ã€ŒåŒ—æ–—ä¸ƒæ˜Ÿå‰‘ã€ï¼\n");
 
 	if ((int)me->query_skill("force") < 150)
-		return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»¹»£¬ÎÞ·¨Ê©Õ¹¡¸±±¶·ÆßÐÇ½£¡¹£¡\n");
+		return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•ã€ŒåŒ—æ–—ä¸ƒæ˜Ÿå‰‘ã€ï¼\n");
 
 	if ((int)me->query_skill("sword") < 150)
-		return notify_fail("ÄãµÄÄ½ÈÝ½£·¨»¹²»µ½¼Ò£¬ÎÞ·¨Ê¹ÓÃ¾ø¼¼¡¸±±¶·ÆßÐÇ½£¡¹£¡\n");
+		return notify_fail("ä½ çš„æ…•å®¹å‰‘æ³•è¿˜ä¸åˆ°å®¶ï¼Œæ— æ³•ä½¿ç”¨ç»æŠ€ã€ŒåŒ—æ–—ä¸ƒæ˜Ÿå‰‘ã€ï¼\n");
 
         if (me->query_skill_mapped("sword") != "murong-sword")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢Ä½ÈÝ½£·¨£¬ÎÞ·¨Ê¹ÓÃ¡¸±±¶·ÆßÐÇ½£¡¹£¡\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘æ…•å®¹å‰‘æ³•ï¼Œæ— æ³•ä½¿ç”¨ã€ŒåŒ—æ–—ä¸ƒæ˜Ÿå‰‘ã€ï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIM "$N" HIM "Ê¹³öÄ½ÈÝ¼Ò¾ø¼¼¡¸±±¶·ÆßÐÇ½£¡¹£¬ÊÖÖÐ" + weapon->name() +
-              HIM "°µºÏ±±¶·ÆßÐÇ·½Î»£¬ºöÉìºöËõ£¬±ä»¯Äª²â£¡\n" NOR;
+	msg = HIM "$N" HIM "ä½¿å‡ºæ…•å®¹å®¶ç»æŠ€ã€ŒåŒ—æ–—ä¸ƒæ˜Ÿå‰‘ã€ï¼Œæ‰‹ä¸­" + weapon->name() +
+              HIM "æš—åˆåŒ—æ–—ä¸ƒæ˜Ÿæ–¹ä½ï¼Œå¿½ä¼¸å¿½ç¼©ï¼Œå˜åŒ–èŽ«æµ‹ï¼\n" NOR;
 
 	message_combatd(msg, me);
 	me->add("neili", -140);

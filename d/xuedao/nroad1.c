@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ɽ·");
+        set("short", "山路");
         set("long", @LONG
-����һ����᫵�ɽ·�����ӵ�������Ͳ�������ȥ�ˡ�ɽ
-·�����Ӳݴ�����·��ʼԽ��Խ���ߡ�ɽ·Խ��Խխ��������
-����ǰ���ֳַ��˼�����·��
+这是一条崎岖的山路，马队到了这里就不能在上去了。山
+路两旁杂草从生，路开始越来越难走。山路越走越窄，能隐隐
+望见前方又分出了几条叉路。
 LONG);
         set("exits", ([
                 "west"  : __DIR__"nroad2",

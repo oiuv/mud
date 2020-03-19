@@ -1,4 +1,4 @@
-// zheng.c Û›
+// zheng.c Á≠ù
 
 int play_zheng(string arg)
 {

@@ -10,22 +10,22 @@ int exert(object me, object target)
         int skill;
 
         if (target != me)
-                return notify_fail("你只能用圣火神功来提升自己的防御力。\n");
+                return notify_fail("浣犲彧鑳界敤鍦ｇ伀绁炲姛鏉ユ彁鍗囪嚜宸辩殑闃插尽鍔涖�俓n");
 
         if ((int)me->query("neili") < 100)
-                return notify_fail("你的真气不够。\n");
+                return notify_fail("浣犵殑鐪熸皵涓嶅銆俓n");
 
         if ((int)me->query_skill("shenghuo-shengong", 1) < 40)
-                return notify_fail("你的圣火神功等级不够。\n");
+                return notify_fail("浣犵殑鍦ｇ伀绁炲姛绛夌骇涓嶅銆俓n");
 
         if ((int)me->query_temp("shield"))
-                return notify_fail("你已经在运功中了。\n");
+                return notify_fail("浣犲凡缁忓湪杩愬姛涓簡銆俓n");
 
         skill = me->query_skill("shenghuo-shengong", 1);
         me->add("neili", -100);
         me->receive_damage("qi", 0);
 
-        message_combatd(HIG "$N" HIG "默念圣火神功口诀，一股真气流至奇经八脉，护住全身。\n" NOR, me);
+        message_combatd(HIG "$N" HIG "榛樺康鍦ｇ伀绁炲姛鍙ｈ瘈锛屼竴鑲＄湡姘旀祦鑷冲缁忓叓鑴夛紝鎶や綇鍏ㄨ韩銆俓n" NOR, me);
 
         me->add_temp("apply/armor", skill / 2);
         me->set_temp("shield", 1);
@@ -43,7 +43,7 @@ void remove_effect(object me, int amount)
         {
                 me->add_temp("apply/armor", -amount);
                 me->delete_temp("shield");
-                tell_object(me, "你的圣火神功运行完毕，将内力收回丹田。\n");
+                tell_object(me, "浣犵殑鍦ｇ伀绁炲姛杩愯瀹屾瘯锛屽皢鍐呭姏鏀跺洖涓圭敯銆俓n");
         }
 }
 

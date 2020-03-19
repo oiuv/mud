@@ -5,12 +5,12 @@ inherit BLADE;
 
 void create()
 {
-        set_name(HIB "ÇàÁúÑÀ" NOR, ({ "qinglong ya", "qinglong", "ya", "blade", "dao" }) );
+        set_name(HIB "é’é¾™ç‰™" NOR, ({ "qinglong ya", "qinglong", "ya", "blade", "dao" }) );
         set_weight(4000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±ú");
+                set("unit", "æŸ„");
                 set("value", 580000);
                 set("material", "steel");
         }

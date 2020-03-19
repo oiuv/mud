@@ -4,10 +4,10 @@ inherit BULLETIN_BOARD;
 
 void create()
 {
-	set_name("ÁéğÕ¹¬µÜ×ÓÁôÑÔ°å", ({ "board" }) );
+	set_name("çµé¹«å®«å¼Ÿå­ç•™è¨€æ¿", ({ "board" }) );
 	set("location", "/d/lingjiu/dating");
 	set("board_id", "lingjiu_b");
-	set("long", "ÕâÊÇÒ»¸ö¹©ÁéğÕ¹¬µÜ×Ó½»Á÷µÄÁôÑÔ°å¡£\n" );
+	set("long", "è¿™æ˜¯ä¸€ä¸ªä¾›çµé¹«å®«å¼Ÿå­äº¤æµçš„ç•™è¨€æ¿ã€‚\n" );
 	setup();
 	set("capacity", 100);
 	replace_program(BULLETIN_BOARD);

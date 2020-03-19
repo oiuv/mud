@@ -5,17 +5,17 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIB"¡¼"HIY+"°Ù±äÉñÍ¨"HIB+"¡½"NOR, ({"book","shu"}));
+        set_name(HIB"ã€–"HIY+"ç™¾å˜ç¥é€š"HIB+"ã€—"NOR, ({"book","shu"}));
         set_weight(600);
         if (clonep())
         	set_default_object(__FILE__);
         else 
 	{
-        	set("unit", "±¾");
+        	set("unit", "æœ¬");
         	set("value", 1000);
         	set("material", "paper");
 		set("long",
-		"Ò»±¾¿ÉÒÔÑ§Ï°Ò×ÈİÊõµÄÊé¡£\n");
+		"ä¸€æœ¬å¯ä»¥å­¦ä¹ æ˜“å®¹æœ¯çš„ä¹¦ã€‚\n");
         	set("value", 100);
                 set("skill", ([
                 	"name" : "pretending",

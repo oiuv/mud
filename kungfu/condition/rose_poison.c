@@ -8,14 +8,14 @@ inherit POISON;
 
 string name() { return "rose_poison"; }
 
-string chinese_name() { return "»ğÃµ¹å¶¾"; }
+string chinese_name() { return "ç«ç«ç‘°æ¯’"; }
 
 string update_msg_others()
 {
-       return "$N´òÁË¸öº®Õ½£¬¶¶ÁË¼¸¶¶¡£\n";
+       return "$Næ‰“äº†ä¸ªå¯’æˆ˜ï¼ŒæŠ–äº†å‡ æŠ–ã€‚\n";
 }
 
 string update_msg_self()
 {
-        return HIG "ÄãÖĞµÄ" HIR "£Û»ğÃµ¹å¶¾£İ" HIG "·¢×÷ÁË£¡\n";
+        return HIG "ä½ ä¸­çš„" HIR "ï¼»ç«ç«ç‘°æ¯’ï¼½" HIG "å‘ä½œäº†ï¼\n";
 }

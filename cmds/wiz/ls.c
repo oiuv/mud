@@ -37,7 +37,7 @@ int main(object me, string arg)
 	dir = resolve_path(me->query("cwd"), arg);
 
         if (me != this_player(1))
-                return notify_fail("���ǵ�ǰʹ���߽��в�����\n");
+                return notify_fail("不是当前使用者进行操作。\n");
 
         seteuid(getuid());
 	if (file_size(dir) == -2 && dir[strlen(dir) - 1] != '/') dir += "/";
@@ -64,9 +64,9 @@ int main(object me, string arg)
 	if (! sizeof(file))
 	{
                 if (file_size(dir) == -2)
-                        return notify_fail(sprintf("Ŀ¼(%s)�ǿյġ�\n", dir));
+                        return notify_fail(sprintf("目录(%s)是空的。\n", dir));
 		else
-		        return notify_fail(sprintf("û�����Ŀ¼(%s)��\n", dir));
+		        return notify_fail(sprintf("没有这个目录(%s)。\n", dir));
 	}
 
         file = filter_array(file, (: filter_list :), path, me);
@@ -80,11 +80,11 @@ int main(object me, string arg)
 		if (strlen(file[i][0])>w) w = strlen(file[i][0]) + 1;
                 file[i] += ({ MASTER_OB->valid_write(path + file[i][0], me, "ls") });
 	}
-	result = "Ŀ¼��" + path + "\n";
+	result = "目录：" + path + "\n";
 
 	if (! sizeof(file))
         {
-                write(sprintf("%s    û���κε�����\n\n", result));
+                write(sprintf("%s    没有任何档案。\n\n", result));
                 return 1;
         }
 
@@ -135,17 +135,17 @@ int sort_list(mixed ob1, mixed ob2)
 int help(object me)
 {
 	write(@HELP
-ָ���ʽ: ls [-l] [<·����>]
+指令格式: ls [-l] [<路径名>]
 
-�г�Ŀ¼�����е���Ŀ¼������, ���û��ָ��Ŀ¼, ���г�����Ŀ¼
-�����ݣ����г��ĵ����У���ɫ�Ĵ���·�������Ѿ�����������Ӧ��
-�ļ�������ɫ�Ĵ�����ͨ���ļ�����ɫ���ʾ��Ը�Ŀ¼���ļ�û��д
-��Ȩ�ޡ�-l���������г���ϸ���ϡ�
+列出目录下所有的子目录及档案, 如果没有指定目录, 则列出所在目录
+的内容，所列出的档案中，白色的代表路径或是已经载入的物件对应的
+文件，正常色的代表普通的文件。红色则表示你对该目录或文件没有写
+入权限。-l参数可以列出详细资料。
 
-����:
-'ls /' ���г�����λ춸�Ŀ¼�µĵ�������Ŀ¼��
-'ls /adm/*.c -l' ����г�/adm/Ŀ¼����������.c��β���ļ�����ϸ
-�����б���
+范例:
+'ls /' 会列出所有位於根目录下的档案及子目录。
+'ls /adm/*.c -l' 则会列出/adm/目录下面所有以.c结尾的文件的详细
+资料列表。
 
 HELP );
 	return 1;

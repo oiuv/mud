@@ -32,7 +32,7 @@ int main(object me, string arg)
                 return 0;
 
         if (! is_root(me) && ! SECURITY_D->valid_grant(me, "(admin)"))
-                return notify_fail("ÄãÃ»ÓĞÈ¨ÏŞ·ÃÎÊ°²È«ÏµÍ³¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æƒé™è®¿é—®å®‰å…¨ç³»ç»Ÿã€‚\n");
 
 	seteuid(geteuid(me));
         dtr = SECURITY_D->query_security("default_trusted_read");
@@ -49,34 +49,34 @@ int main(object me, string arg)
         cew = SECURITY_D->query_security("exclude_write");
 	if (! arg)
         {
-                msg = "Ä¿Ç°ÎÄ¼ş¹ØÓÚ°²È«µÄÅäÖÃĞÅÏ¢(ÇàÉ«±íÊ¾È±Ê¡ÅäÖÃ)£º\n";
-                msg += HIR + title("¶ÁÈ¡½ûÖ¹") + NOR;
+                msg = "ç›®å‰æ–‡ä»¶å…³äºå®‰å…¨çš„é…ç½®ä¿¡æ¯(é’è‰²è¡¨ç¤ºç¼ºçœé…ç½®)ï¼š\n";
+                msg += HIR + title("è¯»å–ç¦æ­¢") + NOR;
                 msg += auth_msg(cer, der, 0, 0);
-                msg += HIC + title("¶ÁÈ¡Ğí¿É") + NOR;
+                msg += HIC + title("è¯»å–è®¸å¯") + NOR;
                 msg += auth_msg(ctr, dtr, 0, 0);
-                msg += HIR + title("Ğ´Èë½ûÖ¹") + NOR;
+                msg += HIR + title("å†™å…¥ç¦æ­¢") + NOR;
                 msg += auth_msg(cew, dew, 0, 0);
-                msg += HIC + title("Ğ´ÈëĞí¿É") + NOR;
+                msg += HIC + title("å†™å…¥è®¸å¯") + NOR;
                 msg += auth_msg(ctw, dtw, 0, 0);
                 write(msg);
                 return 1;
         } else
         if (arg == "read")
         {
-                msg = "Ä¿Ç°ÎÄ¼ş¹ØÓÚ°²È«µÄÅäÖÃĞÅÏ¢ÖĞ¶ÁÈ¡µÄÉèÖÃ(ÇàÉ«±íÊ¾È±Ê¡ÅäÖÃ)£º\n";
-                msg += HIR + title("¶ÁÈ¡½ûÖ¹") + NOR;
+                msg = "ç›®å‰æ–‡ä»¶å…³äºå®‰å…¨çš„é…ç½®ä¿¡æ¯ä¸­è¯»å–çš„è®¾ç½®(é’è‰²è¡¨ç¤ºç¼ºçœé…ç½®)ï¼š\n";
+                msg += HIR + title("è¯»å–ç¦æ­¢") + NOR;
                 msg += auth_msg(cer, der, 0, 0);
-                msg += HIC + title("¶ÁÈ¡Ğí¿É") + NOR;
+                msg += HIC + title("è¯»å–è®¸å¯") + NOR;
                 msg += auth_msg(ctr, dtr, 0, 0);
                 write(msg);
                 return 1;
         } else
         if (arg == "write")
         {
-                msg = "Ä¿Ç°ÎÄ¼ş¹ØÓÚ°²È«µÄÅäÖÃĞÅÏ¢ÖĞĞ´ÈëµÄÉèÖÃ(ÇàÉ«±íÊ¾È±Ê¡ÅäÖÃ)£º\n";
-                msg += HIR + title("Ğ´Èë½ûÖ¹") + NOR;
+                msg = "ç›®å‰æ–‡ä»¶å…³äºå®‰å…¨çš„é…ç½®ä¿¡æ¯ä¸­å†™å…¥çš„è®¾ç½®(é’è‰²è¡¨ç¤ºç¼ºçœé…ç½®)ï¼š\n";
+                msg += HIR + title("å†™å…¥ç¦æ­¢") + NOR;
                 msg += auth_msg(cew, dew, 0, 0);
-                msg += HIC + title("Ğ´ÈëĞí¿É") + NOR;
+                msg += HIC + title("å†™å…¥è®¸å¯") + NOR;
                 msg += auth_msg(ctw, dtw, 0, 0);
                 write(msg);
                 return 1;
@@ -105,7 +105,7 @@ int main(object me, string arg)
                 SECURITY_D->set_security("extend_exclude_write", eew);
                 reset_security();
 
-                write("Çå³ıÁË¸ÃÓÃ»§ËùÓĞµÄ·ÃÎÊĞÅÏ¢£¬²ÉÓÃÈ±Ê¡ÅäÖÃ¡£\n");
+                write("æ¸…é™¤äº†è¯¥ç”¨æˆ·æ‰€æœ‰çš„è®¿é—®ä¿¡æ¯ï¼Œé‡‡ç”¨ç¼ºçœé…ç½®ã€‚\n");
                 return 1;
         }
 
@@ -127,15 +127,15 @@ int main(object me, string arg)
 
         if (! dir)
         {
-                msg = "Ä¿Ç°¹ØÓÚ" CYN + euid + status +
-		      NOR "µÄÈ¨ÏŞ(ÇàÉ«±íÊ¾È±Ê¡ÅäÖÃ)£º\n";
-                msg += HIR + title("¶ÁÈ¡½ûÖ¹") + NOR;
+                msg = "ç›®å‰å…³äº" CYN + euid + status +
+		      NOR "çš„æƒé™(é’è‰²è¡¨ç¤ºç¼ºçœé…ç½®)ï¼š\n";
+                msg += HIR + title("è¯»å–ç¦æ­¢") + NOR;
                 msg += auth_msg(cer, der, euid, status);
-                msg += HIC + title("¶ÁÈ¡Ğí¿É") + NOR;
+                msg += HIC + title("è¯»å–è®¸å¯") + NOR;
                 msg += auth_msg(ctw, dtw, euid, status);
-                msg += HIR + title("Ğ´Èë½ûÖ¹") + NOR;
+                msg += HIR + title("å†™å…¥ç¦æ­¢") + NOR;
                 msg += auth_msg(cew, dew, euid, status);
-                msg += HIC + title("Ğ´ÈëĞí¿É") + NOR;
+                msg += HIC + title("å†™å…¥è®¸å¯") + NOR;
                 msg += auth_msg(ctw, dtw, euid, status);
                 write(msg);     
                 return 1;
@@ -143,17 +143,17 @@ int main(object me, string arg)
 
         if (! para)
         {
-                msg = CYN + euid + status + NOR "¶Ôµµ°¸("
-		      YEL + dir + NOR ")µÄÈ¨ÏŞ£º";
+                msg = CYN + euid + status + NOR "å¯¹æ¡£æ¡ˆ("
+		      YEL + dir + NOR ")çš„æƒé™ï¼š";
                 if (SECURITY_D->valid_read(dir, euid == "Every" ? status : euid, "ls"))
-                        msg += WHT "¿É¶Á " NOR;
+                        msg += WHT "å¯è¯» " NOR;
                 else
-                        msg += HIR "½ûÖ¹¶ÁÈ¡ " NOR;
+                        msg += HIR "ç¦æ­¢è¯»å– " NOR;
 
                 if (SECURITY_D->valid_write(dir, euid == "Every" ? status : euid, "ls"))
-                        msg += WHT "¿ÉĞ´\n";
+                        msg += WHT "å¯å†™\n";
                 else
-                        msg += HIR "½ûÖ¹Ğ´Èë\n";
+                        msg += HIR "ç¦æ­¢å†™å…¥\n";
                 write(msg);
                 return 1;
         }
@@ -164,15 +164,15 @@ int main(object me, string arg)
         case "not_read":
                 if (in_map(usr, dtr, dir))
                 {
-                        write("È±Ê¡ÅäÖÃÖĞ<¿ÉÒÔ¶ÁÈ¡¹æÔò>ÖĞÒÑ¾­°üº¬ÁË¶Ô"
-                              "¸ÃÓÃ»§(×é)¶ÔÄ¿Â¼µÄ·ÃÎÊÈ¨ÏŞËµÃ÷¡£\n");
+                        write("ç¼ºçœé…ç½®ä¸­<å¯ä»¥è¯»å–è§„åˆ™>ä¸­å·²ç»åŒ…å«äº†å¯¹"
+                              "è¯¥ç”¨æˆ·(ç»„)å¯¹ç›®å½•çš„è®¿é—®æƒé™è¯´æ˜ã€‚\n");
                         break;
                 }
 
                 if (in_map(usr, der, dir))
                 {
-                        write("È±Ê¡ÅäÖÃÖĞ<½ûÖ¹¶ÁÈ¡¹æÔò>ÖĞÒÑ¾­°üº¬ÁË¶Ô"
-                              "¸ÃÓÃ»§(×é)¶ÔÄ¿Â¼µÄ·ÃÎÊÈ¨ÏŞËµÃ÷¡£\n");
+                        write("ç¼ºçœé…ç½®ä¸­<ç¦æ­¢è¯»å–è§„åˆ™>ä¸­å·²ç»åŒ…å«äº†å¯¹"
+                              "è¯¥ç”¨æˆ·(ç»„)å¯¹ç›®å½•çš„è®¿é—®æƒé™è¯´æ˜ã€‚\n");
                         break;
                 }
 
@@ -189,22 +189,22 @@ int main(object me, string arg)
                 SECURITY_D->set_security("extend_trusted_read", etr);
                 SECURITY_D->set_security("extend_exclude_read", eer);
                 reset_security();
-                write("³É¹¦µÄĞŞ¸ÄÁË " CYN + usr + NOR " ¶ÔÄ¿Â¼ " WHT + dir + NOR " µÄ¶ÁÈ¡È¨ÏŞ¡£\n");
+                write("æˆåŠŸçš„ä¿®æ”¹äº† " CYN + usr + NOR " å¯¹ç›®å½• " WHT + dir + NOR " çš„è¯»å–æƒé™ã€‚\n");
                 break;
 
         case "can_write":
         case "not_write":
                 if (in_map(usr, dtw, dir))
                 {
-                        write("È±Ê¡ÅäÖÃÖĞ<¿ÉÒÔĞ´Èë¹æÔò>ÖĞÒÑ¾­°üº¬ÁË¶Ô"
-                              "¸ÃÓÃ»§(×é)¶ÔÄ¿Â¼µÄ·ÃÎÊÈ¨ÏŞËµÃ÷¡£\n");
+                        write("ç¼ºçœé…ç½®ä¸­<å¯ä»¥å†™å…¥è§„åˆ™>ä¸­å·²ç»åŒ…å«äº†å¯¹"
+                              "è¯¥ç”¨æˆ·(ç»„)å¯¹ç›®å½•çš„è®¿é—®æƒé™è¯´æ˜ã€‚\n");
                         return 1;
                 }
         
                 if (in_map(usr, dew, dir))
                 {
-                        write("È±Ê¡ÅäÖÃÖĞ<½ûÖ¹Ğ´Èë¹æÔò>ÖĞÒÑ¾­°üº¬ÁË¶Ô"
-                              "¸ÃÓÃ»§(×é)¶ÔÄ¿Â¼µÄ·ÃÎÊÈ¨ÏŞËµÃ÷¡£\n");
+                        write("ç¼ºçœé…ç½®ä¸­<ç¦æ­¢å†™å…¥è§„åˆ™>ä¸­å·²ç»åŒ…å«äº†å¯¹"
+                              "è¯¥ç”¨æˆ·(ç»„)å¯¹ç›®å½•çš„è®¿é—®æƒé™è¯´æ˜ã€‚\n");
                         return 1;
                 }
 
@@ -221,7 +221,7 @@ int main(object me, string arg)
                 SECURITY_D->set_security("extend_trusted_write", etw);
                 SECURITY_D->set_security("extend_exclude_write", eew);
                 reset_security();
-                write("³É¹¦µÄĞŞ¸ÄÁË " CYN + usr + NOR " ¶ÔÄ¿Â¼ " WHT + dir + NOR " µÄĞ´ÈëÈ¨ÏŞ¡£\n");
+                write("æˆåŠŸçš„ä¿®æ”¹äº† " CYN + usr + NOR " å¯¹ç›®å½• " WHT + dir + NOR " çš„å†™å…¥æƒé™ã€‚\n");
                 break;
 
         case "unknow":
@@ -235,7 +235,7 @@ int main(object me, string arg)
                 flag |= remove_from_map(usr, eew, dir);
                 if (! flag)
                 {
-                        write("Ô­ÏÈÃ»ÓĞ¹ØÓÚ¸ÃÓÃ»§(×é)¶ÔÄ¿Â¼µÄ·ÃÎÊÈ¨ÏŞÉèÖÃ¡£\n");
+                        write("åŸå…ˆæ²¡æœ‰å…³äºè¯¥ç”¨æˆ·(ç»„)å¯¹ç›®å½•çš„è®¿é—®æƒé™è®¾ç½®ã€‚\n");
                         break;
                 }
 
@@ -244,12 +244,12 @@ int main(object me, string arg)
                 SECURITY_D->set_security("extend_trusted_write", etw);
                 SECURITY_D->set_security("extend_exclude_write", eew);
                 reset_security();
-                write("³É¹¦µÄÈ¡ÏûÁË " CYN + usr + NOR " ¶ÔÄ¿Â¼ " WHT + dir + NOR " µÄ·ÃÎÊÈ¨ÏŞ¡£\n");
+                write("æˆåŠŸçš„å–æ¶ˆäº† " CYN + usr + NOR " å¯¹ç›®å½• " WHT + dir + NOR " çš„è®¿é—®æƒé™ã€‚\n");
                 break;
                 
         default:
-                write ("È¨ÏŞ²ÎÊı±ØĞëÎª can_read¡¢not_read¡¢can_write¡¢"
-                       "not_write¡¢unknow ÖĞµÄÒ»ÖÖ¡£\n");
+                write ("æƒé™å‚æ•°å¿…é¡»ä¸º can_readã€not_readã€can_writeã€"
+                       "not_writeã€unknow ä¸­çš„ä¸€ç§ã€‚\n");
                 break;
         }
 
@@ -258,8 +258,8 @@ int main(object me, string arg)
 
 string title(string t)
 {
-        return "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤ " + t +
-               " ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n";
+        return "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ " + t +
+               " â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
 }
 
 string auth_msg(mapping ruler, mapping default_ruler, string euid, string status)
@@ -303,7 +303,7 @@ string auth_msg(mapping ruler, mapping default_ruler, string euid, string status
                 if (line) msg += line + "\n";
         }
         if (msg == "")
-                msg = WHT "Ã»ÓĞÏŞÖÆ¡£\n" NOR;
+                msg = WHT "æ²¡æœ‰é™åˆ¶ã€‚\n" NOR;
         else
                 msg += NOR;
         return msg;
@@ -384,24 +384,24 @@ void reset_security()
 int help(object me)
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : auth
+æŒ‡ä»¤æ ¼å¼ : auth
            auth read | write
            auth <user> | <wizhood> -clear
            auth <user> | <wizhood> [ <directory> [ can_read | not_read | can_write | not_write | unknow ] ]
 
-Õâ¸öÃüÁîÓÃÀ´²éÑ¯»òÉèÖÃÎ×Ê¦µÄÈ¨ÏŞ¡£ Èç¹ûÖ¸Ã÷ read | write  ±íÃ÷²éÑ¯
-¶ÁÈ¡»òÊÇĞ´ÈëµÄÈ¨ÏŞĞÅÏ¢¡£
+è¿™ä¸ªå‘½ä»¤ç”¨æ¥æŸ¥è¯¢æˆ–è®¾ç½®å·«å¸ˆçš„æƒé™ã€‚ å¦‚æœæŒ‡æ˜ read | write  è¡¨æ˜æŸ¥è¯¢
+è¯»å–æˆ–æ˜¯å†™å…¥çš„æƒé™ä¿¡æ¯ã€‚
 
-Èç¹ûÖ¸¶¨Ò»¸öÓÃ»§»òÊÇ×é£¬±íÊ¾²éÑ¯»òÊÇÉèÖÃ¸ÃÓÃ»§(×é)µÄ°²È«È¨ÏŞ£¬Èç¹û
-Ê¹ÓÃÁË²ÎÊı -clear ±íÊ¾ÒªÇå³ı¸ÃÓÃ»§»òÊÇ×éµÄµÄËùÓĞÈ¨ÏŞ¡£Èç¹ûÖ¸Ã÷ÁËÄ¿
-Â¼ÔòÉèÖÃ¸ÃÓÃ»§(×é)¶ÔÄ¿Â¼µÄ·ÃÎÊÈ¨ÏŞ¡£ÆäÖĞ unknow ±íÊ¾²»Õë¶Ô¸ÃÄ¿Â¼½ø
-ĞĞÉèÖÃ£¬¼´¼Ì³ĞÉÏ¼¶Ä¿Â¼µÄÈ¨ÏŞ¡£
+å¦‚æœæŒ‡å®šä¸€ä¸ªç”¨æˆ·æˆ–æ˜¯ç»„ï¼Œè¡¨ç¤ºæŸ¥è¯¢æˆ–æ˜¯è®¾ç½®è¯¥ç”¨æˆ·(ç»„)çš„å®‰å…¨æƒé™ï¼Œå¦‚æœ
+ä½¿ç”¨äº†å‚æ•° -clear è¡¨ç¤ºè¦æ¸…é™¤è¯¥ç”¨æˆ·æˆ–æ˜¯ç»„çš„çš„æ‰€æœ‰æƒé™ã€‚å¦‚æœæŒ‡æ˜äº†ç›®
+å½•åˆ™è®¾ç½®è¯¥ç”¨æˆ·(ç»„)å¯¹ç›®å½•çš„è®¿é—®æƒé™ã€‚å…¶ä¸­ unknow è¡¨ç¤ºä¸é’ˆå¯¹è¯¥ç›®å½•è¿›
+è¡Œè®¾ç½®ï¼Œå³ç»§æ‰¿ä¸Šçº§ç›®å½•çš„æƒé™ã€‚
 
-×¢Òâ£ºËùÓĞÅäÖÃĞÅÏ¢µÄĞŞ¸Ä¾ù²»ÄÜÎ¥·´È±Ê¡ÅäÖÃ£¬¼´Èç¹ûÈ±Ê¡ÅäÖÃÖ¸Ã÷Ä³¸ö
-ÓÃ»§(×é)²»ÄÜ»òÊÇ¿ÉÒÔ·ÃÎÊÄ³¸öÄ¿Â¼£¬Äã²»ÄÜÔÙÖØĞÂÉèÖÃ¡£µ±È»£¬È±Ê¡ÅäÖÃ
-Èç¹ûÖ¸Ã÷µÄÊÇ×é£¬Äã¿ÉÒÔ¶ÔÓÃ»§ÔÚ½øĞĞÅäÖÃ¡£±ÈÈç£º
-È±Ê¡ÅäÖÃ£º(arch)²»ÄÜ·ÃÎÊ/backup/
-Äã¿ÉÒÔÉèÖÃ test ÓÃ»§·ÃÎÊ/backup/
+æ³¨æ„ï¼šæ‰€æœ‰é…ç½®ä¿¡æ¯çš„ä¿®æ”¹å‡ä¸èƒ½è¿åç¼ºçœé…ç½®ï¼Œå³å¦‚æœç¼ºçœé…ç½®æŒ‡æ˜æŸä¸ª
+ç”¨æˆ·(ç»„)ä¸èƒ½æˆ–æ˜¯å¯ä»¥è®¿é—®æŸä¸ªç›®å½•ï¼Œä½ ä¸èƒ½å†é‡æ–°è®¾ç½®ã€‚å½“ç„¶ï¼Œç¼ºçœé…ç½®
+å¦‚æœæŒ‡æ˜çš„æ˜¯ç»„ï¼Œä½ å¯ä»¥å¯¹ç”¨æˆ·åœ¨è¿›è¡Œé…ç½®ã€‚æ¯”å¦‚ï¼š
+ç¼ºçœé…ç½®ï¼š(arch)ä¸èƒ½è®¿é—®/backup/
+ä½ å¯ä»¥è®¾ç½® test ç”¨æˆ·è®¿é—®/backup/
 
 HELP
     );

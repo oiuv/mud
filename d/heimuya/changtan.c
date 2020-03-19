@@ -3,12 +3,12 @@ inherit RIVER;
 
 void create()
 {
-        set("short", "��̲");
+        set("short", "长滩");
         set("long", @LONG
-��Ƭ��̲��ʱ�����½̽��ڳ˴�������̲ͷ����һ������
-�̵����ġ�����Ľ� (river)�ϻ��ż���������̵�С������
-���Ĵ�ֻ�ܶ࣬���ǲ�û�д���������ͣ����Ҫ���԰�ֻ�п�
-���½��Լ��Ĵ�ֻ�ˡ�
+这片长滩不时有日月教教众乘船往来，滩头插着一面日月
+教的旗帜。对面的江 (river)上划着几艘日月神教的小船，外
+来的船只很多，但是并没有船敢在这里停留，要过对岸只有靠
+日月教自己的船只了。
 LONG);
         set("arrive_room", "/d/heimuya/xingxingtan");
         set("exits", ([

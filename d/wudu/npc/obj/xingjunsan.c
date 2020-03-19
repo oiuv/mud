@@ -3,10 +3,10 @@ inherit ITEM;
 
 void create()
 {
-        set_name(NOR + YEL "Öî¸ğĞĞ¾üÉ¢" NOR, ({ "xingjun san", "xingjun", "san" }));
-        set("unit", "°ü");
-        set("long", NOR + YEL "ÕâÊÇÒ»°üÔ¤·ÀÕÎÆøµÄÒ©É¢£¬´øÔÚÉíÉÏ¿ÉÒÔÔ¤·ÀÕÎÆø¡£\n" NOR);
-        set("no_sell", "ÕâÊÇÉ¶ÆÆÍæÒâ¶ù£¿Ò²ÏëÂôÇ®£¿");
+        set_name(NOR + YEL "è¯¸è‘›è¡Œå†›æ•£" NOR, ({ "xingjun san", "xingjun", "san" }));
+        set("unit", "åŒ…");
+        set("long", NOR + YEL "è¿™æ˜¯ä¸€åŒ…é¢„é˜²ç˜´æ°”çš„è¯æ•£ï¼Œå¸¦åœ¨èº«ä¸Šå¯ä»¥é¢„é˜²ç˜´æ°”ã€‚\n" NOR);
+        set("no_sell", "è¿™æ˜¯å•¥ç ´ç©æ„å„¿ï¼Ÿä¹Ÿæƒ³å–é’±ï¼Ÿ");
         set("value", 1);
         set_weight(200);
         setup();

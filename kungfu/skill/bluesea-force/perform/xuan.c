@@ -1,4 +1,4 @@
-// yong.c Ğş»ÆÁ¬»·ÕÆ
+// yong.c ç„é»„è¿ç¯æŒ
 
 #include <ansi.h>
 
@@ -18,37 +18,37 @@ int perform(object me, object target)
         }
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("Ğş»ÆÁ¬»·ÕÆÖ»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ç„é»„è¿ç¯æŒåªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
  
 	if (me->query("neili") < 200)
-		return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎŞ·¨Ê©Õ¹Ğş»ÆÁ¬»·ÕÆ£¡\n");
+		return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•ç„é»„è¿ç¯æŒï¼\n");
 
 	if ((lvl = me->query_skill("bluesea-force", 1)) < 150)
-		return notify_fail("ÄãµÄÄÏº£Ğş¹¦»ğºò²»¹»£¬ÎŞ·¨Ê©Õ¹Ğş»ÆÁ¬»·ÕÆ£¡\n");
+		return notify_fail("ä½ çš„å—æµ·ç„åŠŸç«å€™ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•ç„é»„è¿ç¯æŒï¼\n");
 
         if (me->query_skill_mapped("strike") != "bluesea-force")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢ÄÏº£Ğş¹¦ÎªÕÆ·¨£¬ÎŞ·¨Ê©Õ¹Ğş»ÆÁ¬»·ÕÆ£¡\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘å—æµ·ç„åŠŸä¸ºæŒæ³•ï¼Œæ— æ³•æ–½å±•ç„é»„è¿ç¯æŒï¼\n");
 
         if (me->query_skill_prepared("strike") != "bluesea-force")
-                return notify_fail("ÄãÃ»ÓĞ×¼±¸ºÃÊ¹ÓÃÄÏº£Ğş¹¦£¬ÎŞ·¨Ê©Õ¹Ğş»ÆÁ¬»·ÕÆ£¡\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡å¥½ä½¿ç”¨å—æµ·ç„åŠŸï¼Œæ— æ³•æ–½å±•ç„é»„è¿ç¯æŒï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIC "$N" HIC "ÇáÇá»®ÁË¸öÈ¦×Ó£¬ÉíĞÎºöÈ»±ä¿ì£¬ºÏÊıÕĞÎªÒ»»÷¹¥Ïò$n"
-              HIC "£¡\n" NOR;
+	msg = HIC "$N" HIC "è½»è½»åˆ’äº†ä¸ªåœˆå­ï¼Œèº«å½¢å¿½ç„¶å˜å¿«ï¼Œåˆæ•°æ‹›ä¸ºä¸€å‡»æ”»å‘$n"
+              HIC "ï¼\n" NOR;
         i = 5;
         if (lvl / 2 + random(lvl) > (int)target->query_skill("force") * 2 / 3)
         {
-                msg += HIY "ÄÚÁ¦¼¤µ´Ö®ÏÂ£¬$n" HIY "µÇÊ±¾õµÃºôÎü"
-                       "²»³©£¬»ëÉíÓĞÈçÖØÑ¹£¬Íò·ÖÄÑÊÜ£¬Ö»¼û$N"
-                       HIY "Ò»ÕÆ½ÓÒ»ÕÆµÄ¹¥µ½£¬ÓĞÈçº£ÀË¡£\n" NOR;
+                msg += HIY "å†…åŠ›æ¿€è¡ä¹‹ä¸‹ï¼Œ$n" HIY "ç™»æ—¶è§‰å¾—å‘¼å¸"
+                       "ä¸ç•…ï¼Œæµ‘èº«æœ‰å¦‚é‡å‹ï¼Œä¸‡åˆ†éš¾å—ï¼Œåªè§$N"
+                       HIY "ä¸€æŒæ¥ä¸€æŒçš„æ”»åˆ°ï¼Œæœ‰å¦‚æµ·æµªã€‚\n" NOR;
                 count = me->query_skill("bluesea-force", 1) / 5;
                 me->add_temp("apply/attack", count);
                 i += random(5);
         } else
         {
-                msg += CYN "$n" CYN "¼ûÀ´ÕÆÆæ¿ì£¬Ö»ºÃÕñ×÷¾«ÉñÃãÁ¦µÖµ²¡£\n" NOR;
+                msg += CYN "$n" CYN "è§æ¥æŒå¥‡å¿«ï¼Œåªå¥½æŒ¯ä½œç²¾ç¥å‹‰åŠ›æŠµæŒ¡ã€‚\n" NOR;
                 count = 0;
         }
 

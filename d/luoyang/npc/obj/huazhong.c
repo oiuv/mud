@@ -5,13 +5,13 @@ inherit F_FOOD;
 
 void create()
 {
-        set_name(YEL "»¨ÖÖ" NOR, ({"hua zhong", "hua", "zhong"}));
+        set_name(YEL "èŠ±ç§" NOR, ({"hua zhong", "hua", "zhong"}));
         set_weight(100);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»Ã¶ÎÞ·¨È·¶¨Æ·ÖÖµÄ»¨ÖÖ¡£\n");
-                set("unit", "Ö»");
+                set("long", "ä¸€æžšæ— æ³•ç¡®å®šå“ç§çš„èŠ±ç§ã€‚\n");
+                set("unit", "åª");
                 set("value", 1);
                 set("food_remaining", 1);
                 set("food_supply", 10);
@@ -31,33 +31,33 @@ int do_zhonghua()
         ob = this_object();
         where = environment(me);
 
-        if ((string)where->query("short") != "ÃçÔ°")
-                return notify_fail("ÕâÀïËÆºõ²»ÊÊºÏÖÖ»¨°É£¿\n");
+        if ((string)where->query("short") != "è‹—å›­")
+                return notify_fail("è¿™é‡Œä¼¼ä¹Žä¸é€‚åˆç§èŠ±å§ï¼Ÿ\n");
 
         if (me->query("combat_exp") < 5000)
         {
-                tell_object(me, "ÄãµÄ¾­ÑéÉÐÇ³£¬»¹ÊÇÏÈµ½´¦¶à×ß¶¯×ß¶¯°É¡£\n");
+                tell_object(me, "ä½ çš„ç»éªŒå°šæµ…ï¼Œè¿˜æ˜¯å…ˆåˆ°å¤„å¤šèµ°åŠ¨èµ°åŠ¨å§ã€‚\n");
                 return 1;
         }
 
         if (me->query("combat_exp") > 30000)
         {
-                tell_object(me, "ÒÔÄãµÄÉí·Ý´ó¸Å²»ÊÊºÏÖÖ»¨ÁË°É¡£\n");
+                tell_object(me, "ä»¥ä½ çš„èº«ä»½å¤§æ¦‚ä¸é€‚åˆç§èŠ±äº†å§ã€‚\n");
                 return 1;
         }
 
         if (me->query_temp("zhonghua") == 1)
         {
-                tell_object(me, "ÖÖ×ÓÒÑ¾­²¥ÖÖÁË£¬ÏÖÔÚ¸ÃÅàÓý"
-                                HIY "(peiyu)" NOR "»¨ÖÖÁË¡£"
+                tell_object(me, "ç§å­å·²ç»æ’­ç§äº†ï¼ŒçŽ°åœ¨è¯¥åŸ¹è‚²"
+                                HIY "(peiyu)" NOR "èŠ±ç§äº†ã€‚"
                                 "\n");
                 return 1;
         }
 
-        message_vision(HIC "$N" HIC "ÓÃÊÖÔÚµØÉÏÍÚÁËÒ»¸öÐ¡"
-                       "¿Ó£¬°Ñ»¨ÖÖ·ÅÁË½øÈ¥¡£\n" NOR, me);
-        tell_object(me, "ÖÖ×ÓÒÑ¾­²¥ÖÖÁË£¬ÏÖÔÚ¸ÃÅàÓý" HIY
-                        "(peiyu)" NOR "»¨ÖÖÁË¡£\n");
+        message_vision(HIC "$N" HIC "ç”¨æ‰‹åœ¨åœ°ä¸ŠæŒ–äº†ä¸€ä¸ªå°"
+                       "å‘ï¼ŒæŠŠèŠ±ç§æ”¾äº†è¿›åŽ»ã€‚\n" NOR, me);
+        tell_object(me, "ç§å­å·²ç»æ’­ç§äº†ï¼ŒçŽ°åœ¨è¯¥åŸ¹è‚²" HIY
+                        "(peiyu)" NOR "èŠ±ç§äº†ã€‚\n");
         me->add_temp("zhonghua", 1);
         destruct(ob);
         me->add("jing", -50);

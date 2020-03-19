@@ -3,11 +3,11 @@
 inherit ROOM;
 void create ()
 {
-        set ("short", "¶«°²µÀ¿Ú");
+        set ("short", "ä¸œå®‰é“å£");
         set ("long", @LONG
-³¤°²³Ç×Ô¹ÅÊÇ·±»ªÊ¤µØ£¬ÎªÊý´ú»Ê³¯½¨¶¼Ö®µØ£¬ÓÖÎªÑÎÉÌ´ó¼ÖËù¾Û
-¼¯£¬Òó¸»¼×ÓÚÌìÏÂ¡£¶«°²µÀ¿ÚÊÇÒ»¸öËÄÍ¨°Ë´ïµÄÂ·¿Ú£¬Î÷·½ÓÐÒ»Ìõ´óÂ·
-Í¨Íù·ëÚ¼µÀ£¬¶«ÃæÊÇ³¤°²¶«³ÇÃÅ£¬ÄÏ±±·½ÏòÊÇÁ¬µÂ´óµÀ¡£ 
+é•¿å®‰åŸŽè‡ªå¤æ˜¯ç¹åŽèƒœåœ°ï¼Œä¸ºæ•°ä»£çš‡æœå»ºéƒ½ä¹‹åœ°ï¼Œåˆä¸ºç›å•†å¤§è´¾æ‰€èš
+é›†ï¼Œæ®·å¯Œç”²äºŽå¤©ä¸‹ã€‚ä¸œå®‰é“å£æ˜¯ä¸€ä¸ªå››é€šå…«è¾¾çš„è·¯å£ï¼Œè¥¿æ–¹æœ‰ä¸€æ¡å¤§è·¯
+é€šå¾€å†¯è¯©é“ï¼Œä¸œé¢æ˜¯é•¿å®‰ä¸œåŸŽé—¨ï¼Œå—åŒ—æ–¹å‘æ˜¯è¿žå¾·å¤§é“ã€‚ 
 LONG);
         set("exits",([//sizeof() == 5
         	"south" : __DIR__"liande-dadao4",

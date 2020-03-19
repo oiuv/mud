@@ -1,4 +1,4 @@
-// Íæ¼ÒÈÎÎñÊØ»¤½ø³Ì£ºsearch.c
+// ç©å®¶ä»»åŠ¡å®ˆæŠ¤è¿›ç¨‹ï¼šsearch.c
 
 #include <ansi.h>
 
@@ -25,8 +25,8 @@ string *lost_objs = ({
     "/clone/questob/zizhubi",
 });
 
-// ½ÓÊÜ¹©Ó¦µÄNPC£ºÒªÇóÕâĞ©ÈË±ØĞëÔÚÖ¸¶¨µÄ³¡¾°£¬ËùÒÔÕâÀïÖ¸Ã÷µÄ
-// ÊÇ³¡¾°ºÍNPCµÄID¡£
+// æ¥å—ä¾›åº”çš„NPCï¼šè¦æ±‚è¿™äº›äººå¿…é¡»åœ¨æŒ‡å®šçš„åœºæ™¯ï¼Œæ‰€ä»¥è¿™é‡ŒæŒ‡æ˜çš„
+// æ˜¯åœºæ™¯å’ŒNPCçš„IDã€‚
 mapping rcv_npcs = ([
               "/d/city/duchang":"pang tongtuo",
               "/d/city/houyuan":"cui yuanwai",
@@ -238,7 +238,7 @@ mapping rcv_npcs = ([
 
 void startup();
 
-// ÈÎÎñ¶ÔÏó´´½¨
+// ä»»åŠ¡å¯¹è±¡åˆ›å»º
 void create()
 {
     seteuid(getuid());
@@ -258,14 +258,14 @@ void start_quest()
     object *obs;
     string zone, *files;
 
-    // Ñ¡ÔñÒ»¸öĞÂµÄµØµã(Ä¿Ç°Ã»ÓĞEXPLOREÈÎÎñµÄ)
+    // é€‰æ‹©ä¸€ä¸ªæ–°çš„åœ°ç‚¹(ç›®å‰æ²¡æœ‰EXPLOREä»»åŠ¡çš„)
     env_rooms = keys(rcv_npcs);
     obs = children("/clone/quest/explore");
     if (arrayp(obs) && sizeof(obs) > 0)
         env_rooms -= obs->query("quest_position");
 
     if (sizeof(env_rooms) < 1)
-        // ÎŞ·¨ÕÒµ½ÕâÑùµÄµØµã
+        // æ— æ³•æ‰¾åˆ°è¿™æ ·çš„åœ°ç‚¹
         return;
 
     room = env_rooms[random(sizeof(env_rooms))];
@@ -275,39 +275,39 @@ void start_quest()
     if (!objectp(env))
         return;
 
-    // Ñ¡Ôñ¸ÃµØµãÖĞµÄÈË
+    // é€‰æ‹©è¯¥åœ°ç‚¹ä¸­çš„äºº
     if (!objectp(npc = present(rcv_npcs[room], env)) ||
         npc->query("startroom") != base_name(env))
-        // ÎŞ·¨ÕÒµ½¸ÃµØµãÖĞºÏÊÊµÄNPCÀ´½ÓÊÕ
+        // æ— æ³•æ‰¾åˆ°è¯¥åœ°ç‚¹ä¸­åˆé€‚çš„NPCæ¥æ¥æ”¶
         return;
 
-    // ÅÉÉúÆäËüµÄÈÎÎñ¶ÔÏó£º±ØĞëÓĞ¿ÉÓÃÎïÆ·£¬µ±Ç°ÈÎÎñ < 5
+    // æ´¾ç”Ÿå…¶å®ƒçš„ä»»åŠ¡å¯¹è±¡ï¼šå¿…é¡»æœ‰å¯ç”¨ç‰©å“ï¼Œå½“å‰ä»»åŠ¡ < 5
     ob_names = filter_array(lost_objs, (: !find_object($1) || !$1->query_temp("quest_ob") :));
     if (sizeof(ob_names) < 1)
         return;
 
-    // ÏµÍ³ÖĞ×î¶à15¸öÑ°ÕÒÎïÆ·µÄÈÎÎñ
+    // ç³»ç»Ÿä¸­æœ€å¤š15ä¸ªå¯»æ‰¾ç‰©å“çš„ä»»åŠ¡
     if (sizeof(children("/clone/quest/explore")) > 15)
         return;
 
-    // Ñ°ÕÒÒ»¸ö·ÅÖÃ±¦ÎïµÄµØµã
+    // å¯»æ‰¾ä¸€ä¸ªæ”¾ç½®å®ç‰©çš„åœ°ç‚¹
     if (sscanf(file_name(environment(npc)), "/d/%s/%*s", zone) == 2)
         zone = "/d/" + zone + "/";
     else
     {
-        // ±ØĞëÓĞÒ»¸öÔÚ/dÏÂÃæµÄµØµã
+        // å¿…é¡»æœ‰ä¸€ä¸ªåœ¨/dä¸‹é¢çš„åœ°ç‚¹
         return;
     }
     files = get_dir(zone + "*.c");
 
-    // ³õÊ¼»¯ÈÎÎñµÄÒ»Ğ©ĞÅÏ¢£¨Æô¶¯µØµã£©
+    // åˆå§‹åŒ–ä»»åŠ¡çš„ä¸€äº›ä¿¡æ¯ï¼ˆå¯åŠ¨åœ°ç‚¹ï¼‰
     qob_name = ob_names[random(sizeof(ob_names))];
     qob = new ("/clone/quest/explore");
     qob->set("quest_position", room);
 
-    // ½»ÓÉÈÎÎñ×Ô¼º½øĞĞ³õÊ¼»¯
+    // äº¤ç”±ä»»åŠ¡è‡ªå·±è¿›è¡Œåˆå§‹åŒ–
     qob->init_quest(npc, qob_name, zone, files);
-    CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "½ø³Ì(EXPLORE)" HIR "ÀûÓÃ" + qob_name->name() + HIR "ºÍ" + npc->name() + HIR "´´½¨ÁËÒ»¸öÈÎÎñ¡£");
+    CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "è¿›ç¨‹(EXPLORE)" HIR "åˆ©ç”¨" + qob_name->name() + HIR "å’Œ" + npc->name() + HIR "åˆ›å»ºäº†ä¸€ä¸ªä»»åŠ¡ã€‚");
 }
 
 private void heart_beat()
@@ -315,27 +315,27 @@ private void heart_beat()
     if (!find_object(QUEST_D))
         return;
 
-    // Èç¹û¿ÉÒÔ£¬Ã¿´ÎĞÄÌø(4·ÖÖÓ)²úÉú3¸öQUEST
+    // å¦‚æœå¯ä»¥ï¼Œæ¯æ¬¡å¿ƒè·³(4åˆ†é’Ÿ)äº§ç”Ÿ3ä¸ªQUEST
     start_quest();
     start_quest();
     start_quest();
 }
 
-// ÈÎÎñÊØ»¤½ø³Ì»½ĞÑÕâ¸ö½ø³Ì
+// ä»»åŠ¡å®ˆæŠ¤è¿›ç¨‹å”¤é†’è¿™ä¸ªè¿›ç¨‹
 void startup()
 {
-    // Æô¶¯
+    // å¯åŠ¨
     if (!find_object(QUEST_D))
         return;
 
     if (!query_heart_beat())
-        CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "½ø³Ì(EXPLORE)Æô¶¯ÁË¡£");
+        CHANNEL_D->do_channel(find_object(QUEST_D), "sys", "è¿›ç¨‹(EXPLORE)å¯åŠ¨äº†ã€‚");
 
-    // Æ½¾ùÃ¿ËÄ·ÖÖÓ²úÉúÒ»¸öÈÎÎñ
+    // å¹³å‡æ¯å››åˆ†é’Ÿäº§ç”Ÿä¸€ä¸ªä»»åŠ¡
     set_heart_beat(110 + random(20));
 }
 
-// Í£Ö¹Õâ¸öÈÎÎñ½ø³Ì
+// åœæ­¢è¿™ä¸ªä»»åŠ¡è¿›ç¨‹
 void stop()
 {
     set_heart_beat(0);

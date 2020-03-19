@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-	set_name( "ÉÌ½£ÃùÇ×±ÊÊéĞÅ",({ "sjm letter","letter" }));
+	set_name( "å•†å‰‘é¸£äº²ç¬”ä¹¦ä¿¡",({ "sjm letter","letter" }));
 	set_weight(200);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "·â");
-		set("long","ÕâÊÇÉÌ½£ÃùµÄÇ×±ÊÊéĞÅ£¬ÉÏÊé¡¸×ğÊ¦ÍõÎ¬ÑïÇ×Æô¡¹¡£\n");
+		set("unit", "å°");
+		set("long","è¿™æ˜¯å•†å‰‘é¸£çš„äº²ç¬”ä¹¦ä¿¡ï¼Œä¸Šä¹¦ã€Œå°Šå¸ˆç‹ç»´æ‰¬äº²å¯ã€ã€‚\n");
 		set("value", 100);
                 set("no_sell", 1);
 		set("material", "paper");

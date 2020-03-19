@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "¶ÀÄ¾ÇÅ");
+        set("short", "ç‹¬æœ¨æ¡¥");
         set("long", @LONG
-ËÄÏÂÎŞÉù£¬ÑöÊÓ²ÔÌì£¬×¢ÊÓÑ©°×µÄÉ½·å£¬ÁîÈË²»¾õâëÈ»¶ø
-·¢Ë¼¹ÅÖ®ÓÄÇé¡£ÍùÇ°Ö»¼ûÒ»µÀ·ÉÑÒ£¬ÏÂÁÙ¾øÑÂ£¬Ö»ÓĞÒ»ÌõÏÁÕ­
-µÄ¶ÀÄ¾ÇÅ(bridge)Í¨´ï¶ÔÑÂ£¬Î£ÇÅÔÚ¹È·çÖĞ²»Í£µØ¶¶¶¯¡£
+å››ä¸‹æ— å£°ï¼Œä»°è§†è‹å¤©ï¼Œæ³¨è§†é›ªç™½çš„å±±å³°ï¼Œä»¤äººä¸è§‰æ€†ç„¶è€Œ
+å‘æ€å¤ä¹‹å¹½æƒ…ã€‚å¾€å‰åªè§ä¸€é“é£å²©ï¼Œä¸‹ä¸´ç»å´–ï¼Œåªæœ‰ä¸€æ¡ç‹­çª„
+çš„ç‹¬æœ¨æ¡¥(bridge)é€šè¾¾å¯¹å´–ï¼Œå±æ¡¥åœ¨è°·é£ä¸­ä¸åœåœ°æŠ–åŠ¨ã€‚
 LONG);
         set("outdoors", "shenfeng");
 
@@ -15,8 +15,8 @@ LONG);
                 "south" : __DIR__"xiaojing",
         ]));
         set("item_desc",([
-                "bridge" : YEL "ÕâÊÇÒ»Ìõ¿íÔ¼Æß´çµÄ¶ÀÄ¾ÇÅ£¬¿´À´Ö»"
-                           "ÄÜ×ß(zou)¹ıÒ»ÈË¡£\n" NOR,
+                "bridge" : YEL "è¿™æ˜¯ä¸€æ¡å®½çº¦ä¸ƒå¯¸çš„ç‹¬æœ¨æ¡¥ï¼Œçœ‹æ¥åª"
+                           "èƒ½èµ°(zou)è¿‡ä¸€äººã€‚\n" NOR,
         ]));
 
         setup();
@@ -32,24 +32,24 @@ int do_zou(string arg)
         object me = this_player(), room;
 
         if (! arg || arg != "bridge")
-                return notify_fail("ÄãÒª×ßÊ²Ã´£¿\n");
+                return notify_fail("ä½ è¦èµ°ä»€ä¹ˆï¼Ÿ\n");
 
         if (me->query_skill("dodge", 1) < 100)
-                return notify_fail(HIY "\nÄãÕ½Õ½¾¤¾¤µØÏòÇ°Âõ³öÁ½"
-                                   "²½£¬¿ÉÍ»È»¼ä¹È·ç¹Î¹ı£¬Î£ÇÅÒ»"
-                                   "Õó¿ñ\n²ü£¬ÏÅµÃÄã¸ÏÃ¦ÊÕ»ØÁË½Å"
-                                   "²½¡£\n" NOR);
+                return notify_fail(HIY "\nä½ æˆ˜æˆ˜å…¢å…¢åœ°å‘å‰è¿ˆå‡ºä¸¤"
+                                   "æ­¥ï¼Œå¯çªç„¶é—´è°·é£åˆ®è¿‡ï¼Œå±æ¡¥ä¸€"
+                                   "é˜µç‹‚\né¢¤ï¼Œå“å¾—ä½ èµ¶å¿™æ”¶å›äº†è„š"
+                                   "æ­¥ã€‚\n" NOR);
 
         if (! (room = find_object(__DIR__"bridge2")))
                 room = load_object(__DIR__"bridge2");
 
         if (! objectp(room))
-                return notify_fail(HIW "Äã´ó½ĞµÀ£ºBUG£¡BUG£¡\n" NOR);
+                return notify_fail(HIW "ä½ å¤§å«é“ï¼šBUGï¼BUGï¼\n" NOR);
 
-        message_vision(HIW "\nÖ»¼û$N" HIW "ÇáÇáÔ¾ÉÏ¶ÀÄ¾ÇÅ£¬Æ®È»¶ø"
-                       "È¥¡£\n" NOR, me);
+        message_vision(HIW "\nåªè§$N" HIW "è½»è½»è·ƒä¸Šç‹¬æœ¨æ¡¥ï¼Œé£˜ç„¶è€Œ"
+                       "å»ã€‚\n" NOR, me);
         me->move(room);
-        message_vision(HIW "$N" HIW "´Ó¶ÀÄ¾ÇÅÉÏÆ®È»¶øÏÂ£¬À´µ½ÁËÉ½"
-                       "·åµÄ¶ÔÃæ¡£\n" NOR, me);
+        message_vision(HIW "$N" HIW "ä»ç‹¬æœ¨æ¡¥ä¸Šé£˜ç„¶è€Œä¸‹ï¼Œæ¥åˆ°äº†å±±"
+                       "å³°çš„å¯¹é¢ã€‚\n" NOR, me);
         return 1;
 }

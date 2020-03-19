@@ -1,4 +1,4 @@
-// murongfu.c ƒΩ»›∏¥
+// murongfu.c ÊÖïÂÆπÂ§ç
 
 #include <ansi.h>
 #include "murong.h"
@@ -10,14 +10,14 @@ inherit F_COAGENT;
 
 void create()
 {
-	set_name("ƒΩ»›∏¥", ({ "murong fu", "murong", "fu" }));
+	set_name("ÊÖïÂÆπÂ§ç", ({ "murong fu", "murong", "fu" }));
 	set("long", @LONG
-À˚ «π√À’ƒΩ»›µƒ¥´»À£¨ «ƒΩ»›≤©÷Æ◊”£¨À˘ŒΩƒœƒΩ»›°¢±±««∑Â°£
-¥À»À’˝ «∫Õ««∑Â∆Î√˚µƒƒΩ»›º“∏ﬂ ÷°£À˚»›√≤ø°—≈£¨∑Á∂»π˝»À£¨
-µƒ»∑∑«—∞≥£»Àø…±»°£
+‰ªñÊòØÂßëËãèÊÖïÂÆπÁöÑ‰º†‰∫∫ÔºåÊòØÊÖïÂÆπÂçö‰πãÂ≠êÔºåÊâÄË∞ìÂçóÊÖïÂÆπ„ÄÅÂåó‰πîÂ≥∞„ÄÇ
+Ê≠§‰∫∫Ê≠£ÊòØÂíå‰πîÂ≥∞ÈΩêÂêçÁöÑÊÖïÂÆπÂÆ∂È´òÊâã„ÄÇ‰ªñÂÆπË≤å‰øäÈõÖÔºåÈ£éÂ∫¶Ëøá‰∫∫Ôºå
+ÁöÑÁ°ÆÈùûÂØªÂ∏∏‰∫∫ÂèØÊØî„ÄÇ
 LONG );
-	set("titile", "π√À’ƒΩ»›");
-	set("gender", "ƒ––‘");
+	set("titile", "ÂßëËãèÊÖïÂÆπ");
+	set("gender", "Áî∑ÊÄß");
 	set("age", 25);
 	set("shen_type",-1);
 	set("attitude", "peaceful");
@@ -70,7 +70,7 @@ LONG );
 		(: perform_action, "cuff.zhai" :),
 	}));
 
-	create_family("ƒΩ»› ¿º“", 16, "¥´»À");
+	create_family("ÊÖïÂÆπ‰∏ñÂÆ∂", 16, "‰º†‰∫∫");
 
 	set("coagents", ({
                 ([ "startroom" : "/d/yanziwu/canheju",
@@ -90,44 +90,44 @@ void attempt_apprentice(object ob)
 
         if ((int)ob->query("shen") > 0)
         {
-                command("say Œ“ƒΩ»› ¿º“œÚ¿¥≤ª∫Õƒ„√«’‚–©À˘ŒΩ’˝µ¿»À øΩªÕ˘°£");
-                command("say ƒ„ªπ ««Îªÿ∞…£°");
+                command("say ÊàëÊÖïÂÆπ‰∏ñÂÆ∂ÂêëÊù•‰∏çÂíå‰Ω†‰ª¨Ëøô‰∫õÊâÄË∞ìÊ≠£ÈÅì‰∫∫Â£´‰∫§ÂæÄ„ÄÇ");
+                command("say ‰Ω†ËøòÊòØËØ∑ÂõûÂêßÔºÅ");
                 return;
         }
 
 
         command("nod");
-        command("say ΩÒ»’Œ“æÕ‘›«“ ’œ¬ƒ„£¨»’∫Û∂®–ÎøÃø‡¡∑Œ‰£¨π‚∏¥¥Û—‡°£");
+        command("say ‰ªäÊó•ÊàëÂ∞±ÊöÇ‰∏îÊî∂‰∏ã‰Ω†ÔºåÊó•ÂêéÂÆöÈ°ªÂàªËã¶ÁªÉÊ≠¶ÔºåÂÖâÂ§çÂ§ßÁáï„ÄÇ");
         command("recruit " + ob->query("id"));
 }
 int accept_ask(object me, string topic)
 {
         switch (topic)
         {
-        case "’™–« Ω" :
+        case "ÊëòÊòüÂºè" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/qixing-quan/zhai",
-                           "name"    : "’™–« Ω",
+                           "name"    : "ÊëòÊòüÂºè",
                            "sk1"     : "qixing-quan",
                            "lv1"     : 40,
                            "gongxian": 140,
                            "shen"    : -4000, ]));
                 break;
 
-        case "Ω£◊™∆ﬂ–«" :
+        case "ÂâëËΩ¨‰∏ÉÊòü" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/murong-jian/xing",
-                           "name"    : "Ω£◊™∆ﬂ–«",
+                           "name"    : "ÂâëËΩ¨‰∏ÉÊòü",
                            "sk1"     : "murong-jian",
                            "lv1"     :  40,
                            "gongxian":  200,
                            "shen"    : -6000, ]));
                 break;
 
-        case "∑Á”ÍΩªº”" :
+        case "È£éÈõ®‰∫§Âä†" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/longcheng-shendao/feng",
-                           "name"    : "∑Á”ÍΩªº”",
+                           "name"    : "È£éÈõ®‰∫§Âä†",
                            "sk1"     : "longcheng-shendao",
                            "lv1"     : 80,
                            "force"   : 90,

@@ -6,11 +6,11 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("ÌìÉ½Í¯ÀÑ", ({ "tonglao", "lao" }));
+	set_name("å¤©å±±ç«¥å§¥", ({ "tonglao", "lao" }));
 	set("long", @LONG
-Ëı¿´ÉÏÈ¥Ö»ÊÇÒ»¸öĞ¡Ğ¡µÄº¢Í¯£¬¿ÉÊÇÏàÃ²ÒÑÈ»¼«ÀÏ¡£
+å¥¹çœ‹ä¸Šå»åªæ˜¯ä¸€ä¸ªå°å°çš„å­©ç«¥ï¼Œå¯æ˜¯ç›¸è²Œå·²ç„¶æè€ã€‚
 LONG );
-	set("gender", "Å®ĞÔ");
+	set("gender", "å¥³æ€§");
 	set("age", 96);
 	set("attitude", "peaceful");
 
@@ -57,7 +57,7 @@ LONG );
                 (: exert_function, "recover" :),
         }));
 
-	create_family("ÁéğÕ¹¬", 0, "Ö÷ÈË");
+	create_family("çµé¹«å®«", 0, "ä¸»äºº");
 	setup();
 	carry_object("/d/lingjiu/obj/changpao")->wear();
 }

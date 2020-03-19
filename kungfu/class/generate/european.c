@@ -1,4 +1,4 @@
-// european.c Î÷ÑóÈË
+// european.c è¥¿æ´‹äºº
 
 #include <ansi.h>
 
@@ -6,9 +6,9 @@ inherit CHALLENGER;
 
 void create()
 {
-        set_name("Î÷ÑóÈË", ({ "european" }));
-        set("long", "Ò»¸öÎ÷ÑóÈË¡£\n");
-        set("gender", "ÄÐÐÔ");
+        set_name("è¥¿æ´‹äºº", ({ "european" }));
+        set("long", "ä¸€ä¸ªè¥¿æ´‹äººã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 20);
         set("str", 20);
         set("int", 20);
@@ -39,7 +39,7 @@ void create()
         map_skill("dodge", "xiyang-boji");
         map_skill("parry", "xiyang-jian");
 
-        set("rank_info/rude", "ºìÃ«¹í");
+        set("rank_info/rude", "çº¢æ¯›é¬¼");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -58,36 +58,36 @@ void create()
 string challenge()
 {
         set("opinion/msg", ({
-                (random(2) ? "´ËÈËÀ´×Ô¾ÝËµÊÇ±È¶íÂÞË¹µÄÄªË¹¿Æ»¹ÒªÒ£Ô¶µÄÎ÷·½¡£"
-                           : "ÕâÊÇÎ÷ÑóÎäÊ¿£¬ºÍÎÒÃÇÖÐÍÁÈË´ó²»Ò»Ñù¡£"),
-                (random(2) ? "ÊÇ°¡£¬Ò£Ô¶µÄµØ·½£¬Îä¼¼Ò²ÊÇÆÄÎªÆæÌØ¡£"
-                           : "àÅ£¬Î÷Ñó½£ÊõÊÊÒË´Ì»÷£¬²»¹ý²¢²»ÉÆÓÚÅü¿³¡£"),
-                (random(2) ? "´ÓÈç´ËÒ£Ô¶µÄµØ·½¸ÏÀ´£¬Ò²ÕæÊÇ¹»ÄÑÎªËûµÄÁË£¡"
-                           : "Î÷Ñó½£Êõ¹ÌÈ»×¢ÖØÊµÕ½Ð§¹û£¬²»¹ýÈÔÈ»Ëã²»µÃÊÇÉÏ³Ë½£Êõ¡£"),
+                (random(2) ? "æ­¤äººæ¥è‡ªæ®è¯´æ˜¯æ¯”ä¿„ç½—æ–¯çš„èŽ«æ–¯ç§‘è¿˜è¦é¥è¿œçš„è¥¿æ–¹ã€‚"
+                           : "è¿™æ˜¯è¥¿æ´‹æ­¦å£«ï¼Œå’Œæˆ‘ä»¬ä¸­åœŸäººå¤§ä¸ä¸€æ ·ã€‚"),
+                (random(2) ? "æ˜¯å•Šï¼Œé¥è¿œçš„åœ°æ–¹ï¼Œæ­¦æŠ€ä¹Ÿæ˜¯é¢‡ä¸ºå¥‡ç‰¹ã€‚"
+                           : "å—¯ï¼Œè¥¿æ´‹å‰‘æœ¯é€‚å®œåˆºå‡»ï¼Œä¸è¿‡å¹¶ä¸å–„äºŽåŠˆç ã€‚"),
+                (random(2) ? "ä»Žå¦‚æ­¤é¥è¿œçš„åœ°æ–¹èµ¶æ¥ï¼Œä¹ŸçœŸæ˜¯å¤Ÿéš¾ä¸ºä»–çš„äº†ï¼"
+                           : "è¥¿æ´‹å‰‘æœ¯å›ºç„¶æ³¨é‡å®žæˆ˜æ•ˆæžœï¼Œä¸è¿‡ä»ç„¶ç®—ä¸å¾—æ˜¯ä¸Šä¹˜å‰‘æœ¯ã€‚"),
         }));
 
         command(random(2) ? "haha" : "killair");
         switch (random(2))
         {
         case 0:
-                return "ÎÒÀ´×Ô" + query("nation") + "£¬ÌýËµÄãÃÇÖÐÔ­"
-                        "ÎäÊõ¸ßÃ÷£¬ÌØµØÇ°À´ÇÐ´èÇÐ´è£¡";
+                return "æˆ‘æ¥è‡ª" + query("nation") + "ï¼Œå¬è¯´ä½ ä»¬ä¸­åŽŸ"
+                        "æ­¦æœ¯é«˜æ˜Žï¼Œç‰¹åœ°å‰æ¥åˆ‡ç£‹åˆ‡ç£‹ï¼";
 
         default:
-                return "ÎÒÊÇ" + query("nation") + "µÄ" + name() + "£¬ÄãÃÇÖÐ"
-                       "Ô­ÓÐÃ»ÓÐÈËÔ¸ÒâºÍÎÒ±ÈÊÔÒ»ÏÂÎäÒÕ£¿";
+                return "æˆ‘æ˜¯" + query("nation") + "çš„" + name() + "ï¼Œä½ ä»¬ä¸­"
+                       "åŽŸæœ‰æ²¡æœ‰äººæ„¿æ„å’Œæˆ‘æ¯”è¯•ä¸€ä¸‹æ­¦è‰ºï¼Ÿ";
         }
 }
 
 void unconcious()
 {
-        command("chat °¡£¡ÔõÃ´¡­¡­ÔõÃ´ÕâÃ´À÷º¦£¿");
+        command("chat å•Šï¼æ€Žä¹ˆâ€¦â€¦æ€Žä¹ˆè¿™ä¹ˆåŽ‰å®³ï¼Ÿ");
         die();
 }
 
 void competition_with(object ob)
 {
-        command("say ºÃ°É£¡ÎÒÃÇ¾Í·Ö¸ö¸ßµÍ¿´¿´£¡\n");
+        command("say å¥½å§ï¼æˆ‘ä»¬å°±åˆ†ä¸ªé«˜ä½Žçœ‹çœ‹ï¼\n");
         ::competition_with(ob);
 }
 
@@ -102,8 +102,8 @@ void lost()
         object ob;
 
         ob = new(ob_list[random(sizeof(ob_list))]);
-        message_vision(HIY "$N" HIY "Éí×ÓÒ»ÍË£¬µôÏÂÒ»" + ob->query("unit") +
-                       ob->name() + HIY "¡£\n\n" NOR, this_object());
+        message_vision(HIY "$N" HIY "èº«å­ä¸€é€€ï¼ŒæŽ‰ä¸‹ä¸€" + ob->query("unit") +
+                       ob->name() + HIY "ã€‚\n\n" NOR, this_object());
 
         ob->move(environment());
         ::lost();

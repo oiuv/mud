@@ -15,7 +15,7 @@ int wear()
 
         // Does the consistence valid ?
         if (query("consistence") < 1)
-                return notify_fail(this_object()->name() + "ÏÖÔÚËğ»µÌ«ÑÏÖØÁË£¬²»ÄÜ¼ÌĞø´©´÷ÁË¡£\n");
+                return notify_fail(this_object()->name() + "ç°åœ¨æŸåå¤ªä¸¥é‡äº†ï¼Œä¸èƒ½ç»§ç»­ç©¿æˆ´äº†ã€‚\n");
 
 	// If already worn, just recognize it.
 	if (query("equipped")) return 1;
@@ -27,10 +27,10 @@ int wear()
 	// Check if we have "armor_prop" defined.
 	if (! mapp(armor_prop = query("armor_prop")) ||
             ! stringp(type = query("armor_type")))
-		return notify_fail("ÄãÖ»ÄÜ´©´÷¿Éµ±×÷»¤¾ßµÄ¶«Î÷¡£\n");
+		return notify_fail("ä½ åªèƒ½ç©¿æˆ´å¯å½“ä½œæŠ¤å…·çš„ä¸œè¥¿ã€‚\n");
 
 	if (owner->query_temp("armor/" + type))
-		return notify_fail("ÄãÒÑ¾­´©´÷ÁËÍ¬ÀàĞÍµÄ»¤¾ßÁË¡£\n");
+		return notify_fail("ä½ å·²ç»ç©¿æˆ´äº†åŒç±»å‹çš„æŠ¤å…·äº†ã€‚\n");
 
 	owner->set_temp("armor/" + type, this_object());
 	apply = keys(armor_prop);
@@ -60,7 +60,7 @@ int wield()
 
         // Does the consistence valid ?
         if (query("consistence") < 1)
-                return notify_fail(this_object()->name() + "ÏÖÔÚËğ»µÌ«ÑÏÖØÁË£¬²»ÄÜ¼ÌĞø×°±¸ÁË¡£\n");
+                return notify_fail(this_object()->name() + "ç°åœ¨æŸåå¤ªä¸¥é‡äº†ï¼Œä¸èƒ½ç»§ç»­è£…å¤‡äº†ã€‚\n");
 
 	// If already wielded, just recognize it.
 	if (query("equipped")) return 1;
@@ -72,7 +72,7 @@ int wield()
                 if (stringp(no_wield))
                         return notify_fail(no_wield);
                 else
-                        return notify_fail("ÕâÑù¶«Î÷ÎŞ·¨×°±¸¡£");
+                        return notify_fail("è¿™æ ·ä¸œè¥¿æ— æ³•è£…å¤‡ã€‚");
         }
 
         // If handing it now, stop handing
@@ -82,7 +82,7 @@ int wield()
 	// Check if we have "weapon_prop" defined.
 	if (! mapp(weapon_prop = query("weapon_prop")) ||
             ! stringp(query("skill_type")))
-		return notify_fail("ÄãÖ»ÄÜ×°±¸¿Éµ±×÷ÎäÆ÷µÄ¶«Î÷¡£\n");
+		return notify_fail("ä½ åªèƒ½è£…å¤‡å¯å½“ä½œæ­¦å™¨çš„ä¸œè¥¿ã€‚\n");
 
 	flag = query("flag");
 
@@ -91,7 +91,7 @@ int wield()
 		if(owner->query_temp("secondary_weapon") ||
 		   owner->query_temp("weapon") ||
                    owner->query_temp("handing"))
-			return notify_fail("Äã±ØĞë¿Õ³öË«ÊÖ²ÅÄÜ×°±¸¸ÃÎäÆ÷¡£\n");
+			return notify_fail("ä½ å¿…é¡»ç©ºå‡ºåŒæ‰‹æ‰èƒ½è£…å¤‡è¯¥æ­¦å™¨ã€‚\n");
 		owner->set_temp("weapon", this_object());
 	} else
 	{
@@ -115,11 +115,11 @@ int wield()
 
 			// We need unwield our old weapon before we can use this one.
 			} else 
-				return notify_fail("Äã±ØĞëÏÈ·ÅÏÂÄãÄ¿Ç°×°±¸µÄÎäÆ÷¡£\n");
+				return notify_fail("ä½ å¿…é¡»å…ˆæ”¾ä¸‹ä½ ç›®å‰è£…å¤‡çš„æ­¦å™¨ã€‚\n");
 
 		// We have both hands wearing something.
 		} else
-			return notify_fail("Äã±ØĞë¿Õ³öÒ»Ö»ÊÖÀ´Ê¹ÓÃÎäÆ÷¡£\n");
+			return notify_fail("ä½ å¿…é¡»ç©ºå‡ºä¸€åªæ‰‹æ¥ä½¿ç”¨æ­¦å™¨ã€‚\n");
 	}
 
         // add by doing to discard the secondary_weapon's prop
@@ -145,7 +145,7 @@ int unequip()
 		return 0;
 
 	if (! stringp(equipped = query("equipped")))
-		return notify_fail("ÄãÄ¿Ç°²¢Ã»ÓĞ×°±¸ÕâÑù¶«Î÷¡£\n");
+		return notify_fail("ä½ ç›®å‰å¹¶æ²¡æœ‰è£…å¤‡è¿™æ ·ä¸œè¥¿ã€‚\n");
 
 	if (equipped == "wielded")
 	{

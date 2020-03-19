@@ -7,21 +7,21 @@ inherit STAFF;
 
 void create()
 {
-        set_name(HIW"ÁéÉßÕÈ"NOR, ({ "lingshe zhang", "staff", "shezhang", "zhang"}));
+        set_name(HIW"çµè›‡æ–"NOR, ({ "lingshe zhang", "staff", "shezhang", "zhang"}));
         set_weight(4000);  //***** ADDED BY SCATTER *****                 set("wposition", "/d/baituo/obj/lingshezhang.c");
 //***** END OF ADDING ***** 
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", "Ò»¸ùÍäÍäÇúÇúµÄºÚÉ«´ÖÕÈ£¬ËÆÊÇ¸ÖÌúËùÖÆ£¬\n"+
-		"ÕÈÍ·Öý×Å¸öÁÑ¿Ú¶øÐ¦µÄÈËÍ·£¬ÈËÍ·¿ÚÖÐÂ¶³ö¼âÀûÑ©°×µÄÑÀ³Ý£¬\n"+
-		"Ä£ÑùÉõÊÇÕøÄü¹îÒì£¬¸üÆæµÄÊÇÕÈÉÏÅÌ×ÅÁ½ÌõÒøÁÛÉÁÉÁµÄÐ¡Éß£¬²»×¡µÄòêÑÑÉÏÏÂ¡£\n");
+                set("unit", "æ ¹");
+                set("long", "ä¸€æ ¹å¼¯å¼¯æ›²æ›²çš„é»‘è‰²ç²—æ–ï¼Œä¼¼æ˜¯é’¢é“æ‰€åˆ¶ï¼Œ\n"+
+		"æ–å¤´é“¸ç€ä¸ªè£‚å£è€Œç¬‘çš„äººå¤´ï¼Œäººå¤´å£ä¸­éœ²å‡ºå°–åˆ©é›ªç™½çš„ç‰™é½¿ï¼Œ\n"+
+		"æ¨¡æ ·ç”šæ˜¯ç‹°ç‹žè¯¡å¼‚ï¼Œæ›´å¥‡çš„æ˜¯æ–ä¸Šç›˜ç€ä¸¤æ¡é“¶é³žé—ªé—ªçš„å°è›‡ï¼Œä¸ä½çš„èœ¿èœ’ä¸Šä¸‹ã€‚\n");
                 set("value", 1);
                 set("material", "steel");
-                set("snake_type","ÁéÉß");
-                set("wield_msg", "$N³é³öÒ»¸ù$nÎÕÔÚÊÖÖÐ£¬ÕÈ¶ËµÄÒøÉßßÚßÚ×öÏì¡£\n");
-                set("unwield_msg", "$N½«ÊÖÖÐµÄ$n·ÅÁËÏÂÀ´¡£\n");
+                set("snake_type","çµè›‡");
+                set("wield_msg", "$NæŠ½å‡ºä¸€æ ¹$næ¡åœ¨æ‰‹ä¸­ï¼Œæ–ç«¯çš„é“¶è›‡å‘²å‘²åšå“ã€‚\n");
+                set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ”¾äº†ä¸‹æ¥ã€‚\n");
 		            set("poison_applied", 50);
         }
         init_staff(180);
@@ -39,20 +39,20 @@ int convert(string arg)
         object ob;
 
         if (arg!="shezhang" && arg!="staff" && arg!="zhang") return 0;
-        if (me->query("family/family_name") != "Å·ÑôÊÀ¼Ò") 
-                return notify_fail("Äã²»ÄÜ»¯ÕÈÎªÉß¡£\n");
+        if (me->query("family/family_name") != "æ¬§é˜³ä¸–å®¶") 
+                return notify_fail("ä½ ä¸èƒ½åŒ–æ–ä¸ºè›‡ã€‚\n");
         if ((int)me->query("jing") < 100)
-                return notify_fail("ÄãµÄ¾«Á¦²»¹»¡£\n");
+                return notify_fail("ä½ çš„ç²¾åŠ›ä¸å¤Ÿã€‚\n");
 	if (!present("lingshe zhang", me)) 
-		return notify_fail("ÄãÉíÉÏÃ»ÓÐÁéÉßÕÈ¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰çµè›‡æ–ã€‚\n");
 
         if (me->query_skill("training",1) < 70+random(70)) {
-        message_vision("$NÊÖÎÕÁéÉßÕÈÊÖÎè×ãµ¸£¬ºÃÏñ·¢·èÒ»°ã¡£\n"
+        message_vision("$Næ‰‹æ¡çµè›‡æ–æ‰‹èˆžè¶³è¹ˆï¼Œå¥½åƒå‘ç–¯ä¸€èˆ¬ã€‚\n"
                 ,me);
 		me->receive_damage("jing", 95);
                 return 1;
         }
-        message_vision("$NÊÖÎÕÁéÉßÕÈÊÖÎè×ãµ¸£¬ÃÍµØÍùµØÉÏÒ»Ë¤£¬½«ÉßÕÈ»¯ÎªÒ»ÌõÁéÉß¡£\n",
+        message_vision("$Næ‰‹æ¡çµè›‡æ–æ‰‹èˆžè¶³è¹ˆï¼ŒçŒ›åœ°å¾€åœ°ä¸Šä¸€æ‘”ï¼Œå°†è›‡æ–åŒ–ä¸ºä¸€æ¡çµè›‡ã€‚\n",
                 me,);
         ob = new("/d/baituo/npc/lingshe");
         ob->move(environment(me));

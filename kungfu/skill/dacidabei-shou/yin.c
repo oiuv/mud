@@ -12,33 +12,33 @@ int perform(object me, object target)
 
 
       if (me->query_skill("buddhism", 1) < 200)
-           return notify_fail("ÄãµÄ·ð·¨ÐÞÎª²»×ã£¬ÎÞ·¨Ê©Õ¹¸Ã¾øÕÐ£¡\n");
+           return notify_fail("ä½ çš„ä½›æ³•ä¿®ä¸ºä¸è¶³ï¼Œæ— æ³•æ–½å±•è¯¥ç»æ‹›ï¼\n");
       
       if( !target ) target = offensive_target(me);
      
       if( !target || !me->is_fighting(target) || !living(target) )
-           return notify_fail("¡¸´óÊÖÓ¡¡¹Ö»ÄÜÔÚÕ½¶·ÖÐ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");        
+           return notify_fail("ã€Œå¤§æ‰‹å°ã€åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");        
       
       if( (int)me->query_skill("dacidabei-shou",1) < 180 )
-           return notify_fail("ÄãµÄ´ó´È´ó±¯ÊÖ²»¹»æµÊì£¬²»»áÊ¹ÓÃ¡¸´óÊÖÓ¡¡¹£¡\n");
+           return notify_fail("ä½ çš„å¤§æ…ˆå¤§æ‚²æ‰‹ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ã€Œå¤§æ‰‹å°ã€ï¼\n");
       
       if( (int)me->query_skill("hand",1) < 180 )
-           return notify_fail("ÄãµÄ»ù±¾ÊÖ·¨²»¹»æµÊì£¬²»»áÊ¹ÓÃ¡¸´óÊÖÓ¡¡¹£¡\n");
+           return notify_fail("ä½ çš„åŸºæœ¬æ‰‹æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ã€Œå¤§æ‰‹å°ã€ï¼\n");
 
       if( (int)me->query_str() < 35 )
-           return notify_fail("ÄãµÄ±ÛÁ¦²»¹»Ç¿£¬²»ÄÜÊ¹ÓÃ¡¸´óÊÖÓ¡¡¹£¡\n");
+           return notify_fail("ä½ çš„è‡‚åŠ›ä¸å¤Ÿå¼ºï¼Œä¸èƒ½ä½¿ç”¨ã€Œå¤§æ‰‹å°ã€ï¼\n");
       
       if( (int)me->query("max_neili") < 2000 )
-           return notify_fail("ÄãµÄÄÚÁ¦Ì«Èõ£¬²»ÄÜÊ¹ÓÃ¡¸´óÊÖÓ¡¡¹£¡\n");
+           return notify_fail("ä½ çš„å†…åŠ›å¤ªå¼±ï¼Œä¸èƒ½ä½¿ç”¨ã€Œå¤§æ‰‹å°ã€ï¼\n");
       
       if( (int)me->query("neili") < 800 )
-           return notify_fail("ÄãµÄÄÚÁ¦Ì«ÉÙÁË£¬ÎÞ·¨Ê¹ÓÃ³ö¡¸´óÊÖÓ¡¡¹£¡\n");   
+           return notify_fail("ä½ çš„å†…åŠ›å¤ªå°‘äº†ï¼Œæ— æ³•ä½¿ç”¨å‡ºã€Œå¤§æ‰‹å°ã€ï¼\n");   
        
       if (me->query_skill_prepared("hand") != "dacidabei-shou")
-           return notify_fail("Äã»¹Ã»ÓÐ×¼±¸´ó´È´ó±¯ÊÖ£¬ÎÞ·¨Ê©Õ¹¡¸´óÊÖÓ¡¡¹£¡\n");   
+           return notify_fail("ä½ è¿˜æ²¡æœ‰å‡†å¤‡å¤§æ…ˆå¤§æ‚²æ‰‹ï¼Œæ— æ³•æ–½å±•ã€Œå¤§æ‰‹å°ã€ï¼\n");   
           
       if( objectp(me->query_temp("weapon")) )
-           return notify_fail("Äã±ØÐë¿ÕÊÖÊ¹ÓÃ¡¸´óÊÖÓ¡¡¹£¡\n");                                                                              
+           return notify_fail("ä½ å¿…é¡»ç©ºæ‰‹ä½¿ç”¨ã€Œå¤§æ‰‹å°ã€ï¼\n");                                                                              
       jiali = me->query("jiali")+1;
       attack = me->query("combat_exp")/1000;
       attack += me->query_skill("hand");
@@ -50,23 +50,23 @@ int perform(object me, object target)
       
       damage = me->query_skill("dacidabei-shou", 1)/40 * jiali;
       
-      message_vision(HIR "\n$NÍ»È»ÃæÉ«Í¨ºì£¬µÍÉùÄ¬Äîìø×ÚÕæÑÔ£¬Ë«±Û¹Ç½ÚÒ»Õó±¬Ïì£¬ÃÍÈ»"
-                     "ÌÚ¿Õ¶øÆð£¬ÉìÊÖÏò$nÐØÇ°°´È¥£¬ºÃÒ»Ê½¡¸´óÊÖÓ¡¡¹£¡\n"NOR,me,target);
+      message_vision(HIR "\n$Nçªç„¶é¢è‰²é€šçº¢ï¼Œä½Žå£°é»˜å¿µç¦…å®—çœŸè¨€ï¼ŒåŒè‡‚éª¨èŠ‚ä¸€é˜µçˆ†å“ï¼ŒçŒ›ç„¶"
+                     "è…¾ç©ºè€Œèµ·ï¼Œä¼¸æ‰‹å‘$nèƒ¸å‰æŒ‰åŽ»ï¼Œå¥½ä¸€å¼ã€Œå¤§æ‰‹å°ã€ï¼\n"NOR,me,target);
  
       if( attack > defense ) { 
          if( objectp(armor = target->query_temp("armor/cloth"))
             && armor->query("armor_prop/armor") < 200
             && damage > 500){
-                        message_vision(HIY"Ö»¼ûÕâ¶·´óµÄÊÖÓ¡ÕýºÃÓ¡ÔÚ$NµÄ$n"HIY"ÉÏ£¬Ô½±äÔ½"
-                                       "´ó£¬¾¹½«ËüÕðµÃ·ÛËé£¬ÁÑ³ÉÒ»¿é¿éµôÔÚµØÉÏ£¡\n"NOR, target, armor);
+                        message_vision(HIY"åªè§è¿™æ–—å¤§çš„æ‰‹å°æ­£å¥½å°åœ¨$Nçš„$n"HIY"ä¸Šï¼Œè¶Šå˜è¶Š"
+                                       "å¤§ï¼Œç«Ÿå°†å®ƒéœ‡å¾—ç²‰ç¢Žï¼Œè£‚æˆä¸€å—å—æŽ‰åœ¨åœ°ä¸Šï¼\n"NOR, target, armor);
                         armor->unequip();
                         armor->move(environment(target));
-                        armor->set("name", "ÆÆËéµÄ" + armor->query("name"));    
+                        armor->set("name", "ç ´ç¢Žçš„" + armor->query("name"));    
                         armor->set("value", 0);
                         armor->set("armor_prop/armor", 0);
                         target->reset_action();
                         }
-         tell_object(target, RED"ÄãÖ»¾õµÃ»ôµÄÐØ¿ÚÒ»Õó¾çÍ´£¬ÒÑ¾­±»ÅÄÖÐÁËÇ°ÐØ£¡\n"NOR);
+         tell_object(target, RED"ä½ åªè§‰å¾—éœçš„èƒ¸å£ä¸€é˜µå‰§ç—›ï¼Œå·²ç»è¢«æ‹ä¸­äº†å‰èƒ¸ï¼\n"NOR);
          target->receive_damage("qi", damage,  me);
          target->receive_wound("qi", damage/3, me);
          p = (int)target->query("qi")*100/(int)target->query("max_qi");

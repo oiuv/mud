@@ -1,4 +1,4 @@
-// jinyantu.c ½ğÑãÍ¼Æ×
+// jinyantu.c é‡‘é›å›¾è°±
 // By Lgg,1998.9
 
 #include <ansi.h>
@@ -7,14 +7,14 @@ inherit F_UNIQUE;
 
 void create()
 {
-        set_name(HIC"½ğÑãÍ¼Æ×" NOR, ({ "jinyan tu","tu", }));
+        set_name(HIC"é‡‘é›å›¾è°±" NOR, ({ "jinyan tu","tu", }));
         set_weight(800);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-             set("unit", "±¾");
+             set("unit", "æœ¬");
              set("long",
-        "ÕâÊÇ±¾ºÜÆÕÍ¨µÄÊé£¬ÊéÀïÃæºÃÏóÓĞÒ»Ğ©Ğ¡ÈË·ÉÎèµÄÍ¼ĞÎ¡£\n",
+        "è¿™æ˜¯æœ¬å¾ˆæ™®é€šçš„ä¹¦ï¼Œä¹¦é‡Œé¢å¥½è±¡æœ‰ä¸€äº›å°äººé£èˆçš„å›¾å½¢ã€‚\n",
          );
          set("material", "paper");
          set("skill", ([

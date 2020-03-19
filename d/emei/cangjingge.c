@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�ؾ���");
+        set("short", "藏经阁");
         set("long", @LONG
-С��¥�ϱ��Ƕ����ɵĲؾ����ˡ����ﶼ���������飬��
-���������ܡ����������Ŵ����ӣ����Ϸ��˼����𾭡��и�
-Сʦ̫�����򾲵�ʦ̫���顣
+小阁楼上便是峨嵋派的藏经阁了。这里都是密密麻麻，高
+及顶棚的书架。窗口下有张大桌子，桌上放了几本佛经。有个
+小师太正在向静道师太借书。
 LONG);
         set("objects", ([
                 CLASS_D("emei") + "/dao" : 1,

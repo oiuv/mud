@@ -2,10 +2,10 @@
 inherit NPC;
 void create()
 {
-        set_name("����", ({ "jiao zhong", "jiao", "zhong" }));
-        set("long", "һ����ӥ�̵Ľ��ڣ����л�����һ����졣\n");
+        set_name("教众", ({ "jiao zhong", "jiao", "zhong" }));
+        set("long", "一个天鹰教的教众，手中挥舞着一面大旗。\n");
         set("attitude", "heroism");
-        set("title", HIW "��ӥ������̳" NOR);
+        set("title", HIW "天鹰教玄武坛" NOR);
 
         set("combat_exp", 200000+random(200000));
 

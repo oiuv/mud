@@ -1,13 +1,13 @@
-// girldizi.c Å®µÜ×Ó
+// girldizi.c å¥³å¼Ÿå­
 
 inherit NPC;
 
 void create()
 {
-        set_name("Å®µÜ×Ó", ({ "dizi","nu dizi"}));
+        set_name("å¥³å¼Ÿå­", ({ "dizi","nu dizi"}));
         set("long",
-                "ËýÊÇ¶ëáÒÅÉµÄµÚÎå´úË×¼ÒµÜ×Ó¡£\n");
-        set("gender", "Å®ÐÔ");
+                "å¥¹æ˜¯å³¨åµ‹æ´¾çš„ç¬¬äº”ä»£ä¿—å®¶å¼Ÿå­ã€‚\n");
+        set("gender", "å¥³æ€§");
         set("age", 15);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -33,7 +33,7 @@ void create()
         set_temp("apply/defense", 15);
         set_temp("apply/damage", 5);
 
-        create_family("¶ëáÒÅÉ", 5, "µÜ×Ó");
+        create_family("å³¨åµ‹æ´¾", 5, "å¼Ÿå­");
 
         setup();
         carry_object("/clone/weapon/changjian")->wield();

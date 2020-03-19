@@ -1,4 +1,4 @@
-// Ë«½£ºÍ±Ú
+// åŒå‰‘å’Œå£
 
 #include <ansi.h>
 #include <skill.h>
@@ -18,39 +18,39 @@ int perform(object leader, object target)
 
         member = leader->query_team();
         if (sizeof(member) != 2)
-                return notify_fail("·´Á½ÒÇµ¶¹²ÐèÁ½ÈË£¬ÉÙÒ»¸ö¶àÒ»¸ö¶¼²»ÐÐ¡£\n");
+                return notify_fail("åä¸¤ä»ªåˆ€å…±éœ€ä¸¤äººï¼Œå°‘ä¸€ä¸ªå¤šä¸€ä¸ªéƒ½ä¸è¡Œã€‚\n");
 
         j = sizeof (member);
         for (i = 0; i < j; i++)
         {
                 ob=member[i];
                 if (! ob|| ! living(ob) || ! ob->is_character())
-                        return notify_fail("ÄãÏëºÍË­Í¬Ê¹·´Á½ÒÇµ¶£¿\n");
+                        return notify_fail("ä½ æƒ³å’Œè°åŒä½¿åä¸¤ä»ªåˆ€ï¼Ÿ\n");
 
                 if (ob->query_temp("array/name"))
-                        return notify_fail("ËûÒÑ¾­ÔÚµ¶ÕóÖÐÁË¡£\n");
+                        return notify_fail("ä»–å·²ç»åœ¨åˆ€é˜µä¸­äº†ã€‚\n");
 
                 if (environment(leader) != environment(ob))
-                        return notify_fail("ÈËÊý²»¹»Á½ÈË¡£\n");
+                        return notify_fail("äººæ•°ä¸å¤Ÿä¸¤äººã€‚\n");
 
                 if (!ob->query_skill("fanliangyi-dao",1))
-                        return notify_fail(ob->name() + "»¹²»»á·´Á½ÒÇµ¶·¨¡£\n");
+                        return notify_fail(ob->name() + "è¿˜ä¸ä¼šåä¸¤ä»ªåˆ€æ³•ã€‚\n");
 
                 if (ob->is_ghost())
-                        return notify_fail("Ö»ÓÐÑô¼äµÄÈË²ÅÄÜ×éµ¶Õó¡£\n");
+                        return notify_fail("åªæœ‰é˜³é—´çš„äººæ‰èƒ½ç»„åˆ€é˜µã€‚\n");
 
                 if ((int)ob->query("max_neili") < 50)
-                        return notify_fail(ob->query("name")+"µÄÄÚÁ¦²»¹»¡£\n");
+                        return notify_fail(ob->query("name")+"çš„å†…åŠ›ä¸å¤Ÿã€‚\n");
 
                 if (! (weapon = ob->query_temp("weapon")) ||
                     (string)weapon->query("skill_type") != "blade")
-                        return notify_fail(ob->query("name") + "±ØÐëÄÃ°Ñµ¶×öÎäÆ÷¡£\n");
+                        return notify_fail(ob->query("name") + "å¿…é¡»æ‹¿æŠŠåˆ€åšæ­¦å™¨ã€‚\n");
 
                 if ((int)ob->query_skill("fanliangyi-dao",1) < 30)
-                        return notify_fail(ob->query("name") + "µÄ·´Á½ÒÇµ¶·¨»¹²»¹»ÊìÁ·¡£\n");
+                        return notify_fail(ob->query("name") + "çš„åä¸¤ä»ªåˆ€æ³•è¿˜ä¸å¤Ÿç†Ÿç»ƒã€‚\n");
 
                 if ((string)ob->query_skill_mapped("blade") != "fanliangyi-dao")
-                        return notify_fail(ob->query("name") + "±ØÐëÊ¹ÓÃ·´Á½ÒÇµ¶·¨¡£\n");
+                        return notify_fail(ob->query("name") + "å¿…é¡»ä½¿ç”¨åä¸¤ä»ªåˆ€æ³•ã€‚\n");
         }
 
 //get the average array skill of the team
@@ -92,8 +92,8 @@ int perform(object leader, object target)
                 ob->add_temp("apply/damage", n);
                 ob->add_temp("apply/armor", n);
         }
-        message_combatd(HIG "$N" HIG "ÂÊÁì$n" HIG "Õ¾¶¨Á½ÒÇ·½Î»£¬¶ÙÊ±Á½"
-                        "ÈËÖ®¼äÏÔµÃ»ëÈ»Ìì³É¡¢ºÁÎÞÆÆÕÀ¡£\n" NOR, leader);
+        message_combatd(HIG "$N" HIG "çŽ‡é¢†$n" HIG "ç«™å®šä¸¤ä»ªæ–¹ä½ï¼Œé¡¿æ—¶ä¸¤"
+                        "äººä¹‹é—´æ˜¾å¾—æµ‘ç„¶å¤©æˆã€æ¯«æ— ç ´ç»½ã€‚\n" NOR, leader);
         return 1;
 }
 
@@ -113,7 +113,7 @@ int dismiss_array(object person)
                 ob->add_temp("apply/damage", -n);
                 ob->add_temp("apply/defense", -n);
                 ob->add_temp("apply/armor", -n);
-                tell_object(ob, "µ¶Õó½âÉ¢ÁË\n");
+                tell_object(ob, "åˆ€é˜µè§£æ•£äº†\n");
         }
 }
 

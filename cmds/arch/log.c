@@ -19,7 +19,7 @@ int main(object me, string arg)
                 return 0;
 
         if (! arg || arg == "")
-                return notify_fail("ÇëÄãÖ¸Ã÷Ò»¸öÍæ¼Ò¡£\n");
+                return notify_fail("è¯·ä½ æŒ‡æ˜Žä¸€ä¸ªçŽ©å®¶ã€‚\n");
 
 	seteuid(getuid());
         if (arg == "?")
@@ -37,11 +37,11 @@ int main(object me, string arg)
 
                                 if (! flag)
                                 {
-                                        msg +=HIW "\nÄ¿Ç°¼ÇÂ¼µÄÇé¿öÈçÏÂ£º\n"
-                                              HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR;
+                                        msg +=HIW "\nç›®å‰è®°å½•çš„æƒ…å†µå¦‚ä¸‹ï¼š\n"
+                                              HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR;
                                         flag = 1;
                                 }
-                                msg += sprintf("%s%-14s  Ä¿Ç°±»  %-14s ¼ÇÂ¼ÈÕÖ¾¡£\n" NOR,
+                                msg += sprintf("%s%-14s  ç›®å‰è¢«  %-14s è®°å½•æ—¥å¿—ã€‚\n" NOR,
                                         (wizhood(me) == "(player)") ? CYN : HIY,
                                         ks[i], log[ks[i]]);
                         }
@@ -56,8 +56,8 @@ int main(object me, string arg)
 
                         if (! flag)
                         {
-                                msg += HIW "\nÄ¿Ç°ÕýÔÚ¼ÇÂ¼µÄÊ¹ÓÃÕßÇé¿öÈçÏÂ£º\n"
-                                       HIY "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n" NOR;
+                                msg += HIW "\nç›®å‰æ­£åœ¨è®°å½•çš„ä½¿ç”¨è€…æƒ…å†µå¦‚ä¸‹ï¼š\n"
+                                       HIY "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n" NOR;
                                 flag = 1;
                         }
 
@@ -65,11 +65,11 @@ int main(object me, string arg)
                         msg += sprintf("%s%-20s  " HIC "%-10s  %s\n" NOR,
                                        wizardp(obs[i]) ? HIY : CYN,
                                        nid,
-                                       environment(obs[i]) ? environment(obs[i])->short() : "Î´ÖªµØµã",
-                                       interactive(obs[i]) ? HIG + query_ip_name(obs[i]) : HIR "¶ÏÏß");
+                                       environment(obs[i]) ? environment(obs[i])->short() : "æœªçŸ¥åœ°ç‚¹",
+                                       interactive(obs[i]) ? HIG + query_ip_name(obs[i]) : HIR "æ–­çº¿");
                 }
                 if (! flag)
-                        msg += "Ä¿Ç°Ã»ÓÐÔÚÏßÍæ¼Ò±»¼ÇÂ¼ÈÕÖ¾¡£\n";
+                        msg += "ç›®å‰æ²¡æœ‰åœ¨çº¿çŽ©å®¶è¢«è®°å½•æ—¥å¿—ã€‚\n";
                 else
                         msg += "\n";
                 write(msg);
@@ -77,17 +77,17 @@ int main(object me, string arg)
         }
 
         if (file_size(DATA_DIR + "login/" + arg[0..0] + "/" + arg + __SAVE_EXTENSION__) < 0)
-                return notify_fail("ß×... Ã»ÓÐÕâ¸öÍæ¼Ò°¡£¡\n");
+                return notify_fail("å’¦... æ²¡æœ‰è¿™ä¸ªçŽ©å®¶å•Šï¼\n");
 
         if (wiz_level(me) < wiz_level(arg))
-                return notify_fail("Äã²»ÄÜÎª×Ô¼ºÈ¨ÏÞ¸ßµÄÈË¼ÍÂ¼ÈÕÖ¾¡£\n");
+                return notify_fail("ä½ ä¸èƒ½ä¸ºè‡ªå·±æƒé™é«˜çš„äººçºªå½•æ—¥å¿—ã€‚\n");
 
         if (wizhood(arg) == "(admin)" && ! me->is_admin())
-                return notify_fail("Äã²»ÄÜ¼ÇÂ¼ÌìÉñµÄÈÕÖ¾¡£\n");
+                return notify_fail("ä½ ä¸èƒ½è®°å½•å¤©ç¥žçš„æ—¥å¿—ã€‚\n");
 
         if (EXAMINE_D->start_log_player(arg, me->query("id")))
         {
-	        write("¿ªÊ¼¼ÇÂ¼(" + arg + ")µÄÈÕÖ¾¡£\n");
+	        write("å¼€å§‹è®°å½•(" + arg + ")çš„æ—¥å¿—ã€‚\n");
                 return 1;
         }
 
@@ -97,13 +97,13 @@ int main(object me, string arg)
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: log <player> | ?
+æŒ‡ä»¤æ ¼å¼: log <player> | ?
  
-¼ÇÂ¼ <player> µÄÈÕÖ¾£¬ÈÕÖ¾ÎÄ¼þÉú³ÉÔÚ /log/user/player ÏÂÃæ¡£
-Èç¹ûÃ»ÓÐÉùÃ÷Í£Ö¹¼ÇÂ¼¸ÃÍæ¼ÒµÄÈÕÖ¾£¬ÏµÍ³½«Ò»Ö±¼ÇÂ¼ÏÂÈ¥£¬¼´Ê¹
-ÍË³öºóÖØÐÂÁ¬Ïß½øÈëÒ²²»»áÍ£Ö¹¡£
+è®°å½• <player> çš„æ—¥å¿—ï¼Œæ—¥å¿—æ–‡ä»¶ç”Ÿæˆåœ¨ /log/user/player ä¸‹é¢ã€‚
+å¦‚æžœæ²¡æœ‰å£°æ˜Žåœæ­¢è®°å½•è¯¥çŽ©å®¶çš„æ—¥å¿—ï¼Œç³»ç»Ÿå°†ä¸€ç›´è®°å½•ä¸‹åŽ»ï¼Œå³ä½¿
+é€€å‡ºåŽé‡æ–°è¿žçº¿è¿›å…¥ä¹Ÿä¸ä¼šåœæ­¢ã€‚
 
-Èç¹ûÊäÈë ? ×÷Îª²ÎÊý£¬ÁÐ³öµ±Ç°¼ÇÂ¼µÄÇé¿ö¡£
+å¦‚æžœè¾“å…¥ ? ä½œä¸ºå‚æ•°ï¼Œåˆ—å‡ºå½“å‰è®°å½•çš„æƒ…å†µã€‚
  
 HELP );
         return 1;

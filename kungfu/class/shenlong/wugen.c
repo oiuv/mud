@@ -7,11 +7,11 @@ inherit F_GUARDER;
 
 void create()
 {
-	set_name("ÎŞ¸ùµÀ³¤", ( { "wugen daozhang", "wugen","daozhang" }) );
-	set("title", HIY"ÉñÁú½Ì"HIR"³àÁúÊ¹"NOR);
-	set("gender", "ÄĞĞÔ" );
+	set_name("æ— æ ¹é“é•¿", ( { "wugen daozhang", "wugen","daozhang" }) );
+	set("title", HIY"ç¥é¾™æ•™"HIR"èµ¤é¾™ä½¿"NOR);
+	set("gender", "ç”·æ€§" );
 	set("age", 55);
-	set("long", "ÕâÊÇ¸öÎåÊ®À´ËêµÄºÚĞëµÀ³¤£¬ÏàÃ²ÍşÎä£¬ÑÛÖĞÂÔ´øÉ±Æø¡£\n");
+	set("long", "è¿™æ˜¯ä¸ªäº”åæ¥å²çš„é»‘é¡»é“é•¿ï¼Œç›¸è²Œå¨æ­¦ï¼Œçœ¼ä¸­ç•¥å¸¦æ€æ°”ã€‚\n");
 
 	set("str", 30);
 	set("int", 25);
@@ -53,14 +53,14 @@ void create()
 
         prepare_skill("strike", "huashan-zhangfa");
 
-	create_family("ÉñÁú½Ì", 0, "³¤ÀÏ");
+	create_family("ç¥é¾™æ•™", 0, "é•¿è€");
 
 	set("inquiry", ([
-		"ÉñÁú½Ì" : "Ò»°ãÈËÊÇÈë²»ÁËÎÒÉñÁú½ÌµÄ(join shenlongjiao).\n",
-		"ºé°²Í¨" : "½ÌÖ÷Æ¢Æø²»ºÃ,ÒªÌÖËû»¶ĞÄ²ÅºÃ¡£\n",
-		"½ÌÖ÷"   : "½ÌÖ÷Æ¢Æø²»ºÃ,ÒªÌÖËû»¶ĞÄ²ÅºÃ¡£\n",
-		"Èë½Ì"   : "Ò»°ãÈËÊÇÈë²»ÁËÎÒÉñÁú½ÌµÄ(join shenlongjiao).\n",
-		"¿ÚºÅ"   : "ÍòÄê²»ÀÏ£¡ÓÀÏíÏÉ¸££¡ÊÙÓëÌìÆë£¡ÎÄÎäÈÊÊ¥£¡\n",
+		"ç¥é¾™æ•™" : "ä¸€èˆ¬äººæ˜¯å…¥ä¸äº†æˆ‘ç¥é¾™æ•™çš„(join shenlongjiao).\n",
+		"æ´ªå®‰é€š" : "æ•™ä¸»è„¾æ°”ä¸å¥½,è¦è®¨ä»–æ¬¢å¿ƒæ‰å¥½ã€‚\n",
+		"æ•™ä¸»"   : "æ•™ä¸»è„¾æ°”ä¸å¥½,è¦è®¨ä»–æ¬¢å¿ƒæ‰å¥½ã€‚\n",
+		"å…¥æ•™"   : "ä¸€èˆ¬äººæ˜¯å…¥ä¸äº†æˆ‘ç¥é¾™æ•™çš„(join shenlongjiao).\n",
+		"å£å·"   : "ä¸‡å¹´ä¸è€ï¼æ°¸äº«ä»™ç¦ï¼å¯¿ä¸å¤©é½ï¼æ–‡æ­¦ä»åœ£ï¼\n",
 	]));
 
         set("coagents", ({
@@ -99,7 +99,7 @@ void greeting(object ob)
 
 void attempt_apprentice(object ob)
 {
-        command("say Æ¶µÀ²»ÊÕÍ½£¡");
+        command("say è´«é“ä¸æ”¶å¾’ï¼");
 	return;
 }
 

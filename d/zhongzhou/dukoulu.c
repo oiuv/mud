@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�ɿ�·");
+        set("short", "渡口路");
         set("long", @LONG
-����������ͨ�����ݳǵĴ�������Ƕɿڡ�ͨ���ɿڿ�
-�Ե��ｭ�������ݣ����������ϱ���Ҫ����
+这里向南是通往中州城的大道，向北是渡口。通过渡口可
+以到达江北的扬州，这是连接南北的要道。
 LONG);
         set("no_clean_up", 0);
         set("exits", ([

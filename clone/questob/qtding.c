@@ -6,13 +6,13 @@ inherit ITEM;
 
 void create()
 {
-	set_name("ÇàÍ­¶¦", ({ "qingtong ding", "ding" }));
+	set_name("é’é“œé¼", ({ "qingtong ding", "ding" }));
 	set_weight(1500);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ö»");
-		set("long", "ÕâÊÇÒ»Ö»¹Å´úµÄÇàÍ­¶¦£¬ÉÏÃæµñ×Å¾«ÃÀµÄ»¨ÎÆ¡£\n");
+		set("unit", "åª");
+		set("long", "è¿™æ˜¯ä¸€åªå¤ä»£çš„é’é“œé¼ï¼Œä¸Šé¢é›•ç€ç²¾ç¾çš„èŠ±çº¹ã€‚\n");
 		set("value", 10000);
 		set("material", "copper");
 	}

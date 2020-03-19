@@ -1,4 +1,4 @@
-// bibo-shengong.c ±Ì²¨Éñ¹¦
+// bibo-shengong.c ç¢§æ³¢ç¥žåŠŸ
 // By Jungu
 
 inherit FORCE;
@@ -23,20 +23,20 @@ int valid_learn(object me)
 {
 	int lvl = (int)me->query_skill("bibo-shengong", 1);
 
-	if (me->query("gender") == "ÎÞÐÔ" && lvl > 49)
-		return notify_fail("ÄãÎÞ¸ùÎÞÐÔ£¬ÒõÑô²»µ÷£¬ÄÑ"
-                                   "ÒÔÁì»á¸ßÉîµÄ±Ì²¨Éñ¹¦¡£\n");
+	if (me->query("gender") == "æ— æ€§" && lvl > 49)
+		return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾"
+                                   "ä»¥é¢†ä¼šé«˜æ·±çš„ç¢§æ³¢ç¥žåŠŸã€‚\n");
 
         if (me->query_skill("chuixiao-jifa", 1) < 100)
-                return notify_fail("ÄãÃ»ÓÐ¾«Í¨´µóï¼¼·¨£¬ÎÞ·¨"
-                                   "Áì»á±Ì²¨Éñ¹¦µÄ°ÂÃØ¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰ç²¾é€šå¹ç®«æŠ€æ³•ï¼Œæ— æ³•"
+                                   "é¢†ä¼šç¢§æ³¢ç¥žåŠŸçš„å¥¥ç§˜ã€‚\n");
 
 	return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-    return notify_fail("±Ì²¨Éñ¹¦Ö»ÄÜÓÃÑ§µÄ£¬»òÊÇ´ÓÔËÓÃ(exert)ÖÐÔö¼ÓÊìÁ·¶È¡£\n");
+    return notify_fail("ç¢§æ³¢ç¥žåŠŸåªèƒ½ç”¨å­¦çš„ï¼Œæˆ–æ˜¯ä»Žè¿ç”¨(exert)ä¸­å¢žåŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)

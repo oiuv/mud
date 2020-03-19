@@ -4,12 +4,12 @@ inherit NPC;
 
 void create()
 {
-        set_name("À®Âï", ({"lama", "la ma"}));
+        set_name("å–‡å˜›", ({"lama", "la ma"}));
         set("long",
-        "ÕâÊÇÒ»¸ö¸ß´óÀ®Âï£¬Á½±Û´Ö×³£¬°òÀ«ÑüÔ²£¬ËÆºõ²»ÊÇÖÐÍÁÈËÊ¿¡£\n"
+        "è¿™æ˜¯ä¸€ä¸ªé«˜å¤§å–‡å˜›ï¼Œä¸¤è‡‚ç²—å£®ï¼Œè†€é˜”è…°åœ†ï¼Œä¼¼ä¹Žä¸æ˜¯ä¸­åœŸäººå£«ã€‚\n"
         );
 
-        set("gender", "ÄÐÐÔ");
+        set("gender", "ç”·æ€§");
         set("attitude", "aggressive");
         set("class", "bonze");
 
@@ -53,7 +53,7 @@ void greeting(object ob)
 
         if (userp(ob) && !environment(ob)->query("no_fight"))
         {
-                command("say ÄãÊÇË­£¬¾ÓÈ»¸ÒÆÆ»µ´óÒ¯µÄºÃÊÂ£¬²»Ïë»îÁËÊÇ²»ÊÇ£¿£¡");
+                command("say ä½ æ˜¯è°ï¼Œå±…ç„¶æ•¢ç ´åå¤§çˆ·çš„å¥½äº‹ï¼Œä¸æƒ³æ´»äº†æ˜¯ä¸æ˜¯ï¼Ÿï¼");
                 kill_ob(ob);
         }       
 }

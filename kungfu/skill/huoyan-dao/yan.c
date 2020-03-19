@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define YAN "¡¸" HIR "Ììå¾ÉñÑ×" NOR "¡¹"
+#define YAN "ã€Œ" HIR "å¤©å¯°ç¥žç‚Ž" NOR "ã€"
 
 inherit F_SSERVER; 
  
@@ -11,40 +11,40 @@ int perform(object me, object target)
 	string msg;
  
         if (userp(me) && ! me->query("can_perform/huoyan-dao/yan"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me); 
         
         if (! target || ! me->is_fighting(target)) 
-                return notify_fail(YAN "Ö»ÄÜÔÚÕ½¶·ÖÐ¶Ô¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(YAN "åªèƒ½åœ¨æˆ˜æ–—ä¸­å¯¹å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
          
         if (me->query_temp("weapon") || 
             me->query_temp("secondary_weapon")) 
-                return notify_fail("Äã±ØÐë¿ÕÊÖ²ÅÄÜÊ©Õ¹" YAN "¡£\n");
+                return notify_fail("ä½ å¿…é¡»ç©ºæ‰‹æ‰èƒ½æ–½å±•" YAN "ã€‚\n");
          
         if (me->query_skill("force") < 200) 
-                return notify_fail("ÄãµÄÄÚ¹¦µÄÐÞÎª²»¹»£¬ÎÞ·¨Ê©Õ¹" YAN "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸçš„ä¿®ä¸ºä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" YAN "ã€‚\n");
         
         if (me->query_skill("huoyan-dao", 1) < 150) 
-                return notify_fail("ÄãµÄ»ðÑæµ¶ÐÞÎª²»¹»£¬ÎÞ·¨Ê©Õ¹" YAN "¡£\n");
+                return notify_fail("ä½ çš„ç«ç„°åˆ€ä¿®ä¸ºä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" YAN "ã€‚\n");
          
         if (me->query("neili") < 600 || me->query("max_neili") < 2000) 
-                return notify_fail("ÄãµÄÕæÆø²»¹»£¬ÎÞ·¨Ê©Õ¹" YAN "¡£\n");
+                return notify_fail("ä½ çš„çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" YAN "ã€‚\n");
 
         if (me->query_skill_mapped("strike") != "huoyan-dao") 
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢»ðÑæµ¶£¬ÎÞ·¨Ê©Õ¹" YAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ç«ç„°åˆ€ï¼Œæ— æ³•æ–½å±•" YAN "ã€‚\n");
 
         if (me->query_skill_prepared("strike") != "huoyan-dao")
-                return notify_fail("ÄãÃ»ÓÐ×¼±¸»ðÑæµ¶£¬ÎÞ·¨Ê©Õ¹" YAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰å‡†å¤‡ç«ç„°åˆ€ï¼Œæ— æ³•æ–½å±•" YAN "ã€‚\n");
 
         if (me->query_skill_prepared("hand") == "dashou-yin")
-                return notify_fail("Ê©Õ¹" YAN "Ê±»ðÑæµ¶²»ÒËºÍÃÜ×Ú´óÊÖÓ¡»¥±³£¡\n");
+                return notify_fail("æ–½å±•" YAN "æ—¶ç«ç„°åˆ€ä¸å®œå’Œå¯†å®—å¤§æ‰‹å°äº’èƒŒï¼\n");
 
         if (! living(target))
-               return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+               return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIR "$N" HIR "Ò»ÉùÅ­º¿£¬¿ñ´ßÕæÆø×¢Èëµ¥ÕÆ£¬ÕÆÔµ¶ÙÊ±ÌÚÆðÒ»µÀÁÒÑ×£¬½Ó¶þÁ¬Èý³¯$n"
-              HIR "ÅüÈ¥¡£\n" NOR;
+	msg = HIR "$N" HIR "ä¸€å£°æ€’åšŽï¼Œç‹‚å‚¬çœŸæ°”æ³¨å…¥å•æŽŒï¼ŒæŽŒç¼˜é¡¿æ—¶è…¾èµ·ä¸€é“çƒˆç‚Žï¼ŒæŽ¥äºŒè¿žä¸‰æœ$n"
+              HIR "åŠˆåŽ»ã€‚\n" NOR;
         message_combatd(msg, me, target);
 
 	me->add("neili", -500);
@@ -64,7 +64,7 @@ int perform(object me, object target)
         me->add_temp("apply/attack", 10);
 	COMBAT_D->do_attack(me, target, weapon, 0);
 
-        // Ïû³ý¹¥»÷ÐÞÕý
+        // æ¶ˆé™¤æ”»å‡»ä¿®æ­£
         me->add_temp("apply/attack", -50);
 
 	me->start_busy(3 + random(2));

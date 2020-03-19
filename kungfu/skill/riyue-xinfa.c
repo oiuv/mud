@@ -1,4 +1,4 @@
-// riyue-xinfa.c 日月心法
+// riyue-xinfa.c 鏃ユ湀蹇冩硶
 
 inherit FORCE;
 
@@ -21,7 +21,7 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-            return notify_fail("日月心法只能用学(learn)的来增加熟练度。\n");
+            return notify_fail("鏃ユ湀蹇冩硶鍙兘鐢ㄥ(learn)鐨勬潵澧炲姞鐔熺粌搴︺�俓n");
 }
 
 string exert_function_file(string func)

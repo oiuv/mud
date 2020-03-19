@@ -1,4 +1,4 @@
-// longxiang.c ÁúÏó°ãÈô¹¦
+// longxiang.c é¾™è±¡èˆ¬è‹¥åŠŸ
 //
 
 #include <ansi.h>
@@ -19,11 +19,11 @@ void skill_improved(object me)
 
         lvl = me->query_skill("longxiang", 1);
         if (lvl % 30 == 0)
-                write(HIY "ÄãĞŞÁ¶³ÉÁËµÚ" + chinese_number(lvl / 30 + 1) +
-                      "²ãÁúÏó°ãÈô¹¦£¡\n" NOR);
+                write(HIY "ä½ ä¿®ç‚¼æˆäº†ç¬¬" + chinese_number(lvl / 30 + 1) +
+                      "å±‚é¾™è±¡èˆ¬è‹¥åŠŸï¼\n" NOR);
         else
-                write(HIR "ÄãµÄµÚ" + chinese_number(lvl / 30 + 1) +
-                      "²ãÁúÏó°ãÈô¹¦ÓÖÔö½øÁËÒ»²ã¡£\n" NOR);
+                write(HIR "ä½ çš„ç¬¬" + chinese_number(lvl / 30 + 1) +
+                      "å±‚é¾™è±¡èˆ¬è‹¥åŠŸåˆå¢è¿›äº†ä¸€å±‚ã€‚\n" NOR);
 }
 
 int query_neili_improve(object me)
@@ -37,20 +37,20 @@ int query_neili_improve(object me)
 int valid_learn(object me)
 {
         if ((int)me->query_skill("force", 1) < 70)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ğºò»¹²»¹»¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™è¿˜ä¸å¤Ÿã€‚\n");
 
-        if (me->query("gender") == "ÎŞĞÔ" && (int)me->query_skill("longxiang", 1) > 49)
-                return notify_fail("ÄãÎŞ¸ùÎŞĞÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄÁúÏó°ãÈô¹¦¡£\n");
+        if (me->query("gender") == "æ— æ€§" && (int)me->query_skill("longxiang", 1) > 49)
+                return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„é¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
         if (me->query("str") < 30)
-                return notify_fail("ÄãÏÈÌìëöÁ¦²»×ã£¬ÎŞ·¨Ñ§Ï°¸ÕÃÍµÄÁúÏó°ãÈô¹¦¡£\n");
+                return notify_fail("ä½ å…ˆå¤©è†‚åŠ›ä¸è¶³ï¼Œæ— æ³•å­¦ä¹ åˆšçŒ›çš„é¾™è±¡èˆ¬è‹¥åŠŸã€‚\n");
 
         return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("ÁúÏó°ãÈô¹¦Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("é¾™è±¡èˆ¬è‹¥åŠŸåªèƒ½ç”¨å­¦(learn)çš„æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)
@@ -65,11 +65,11 @@ int difficult_level()
 
         if (me = this_player())
         {
-                // ÓĞĞ¡ÎŞÏà¹¦£¿ÄÑÒÔÑ§Ï°¡£
+                // æœ‰å°æ— ç›¸åŠŸï¼Ÿéš¾ä»¥å­¦ä¹ ã€‚
                 if (lvl = me->query_skill("xiaowuxiang", 1))
                         return 3000;
 
-                // ÓĞ¾ÅÑôÉñ¹¦£¿½ÏÄÑÑ§Ï°¡£
+                // æœ‰ä¹é˜³ç¥åŠŸï¼Ÿè¾ƒéš¾å­¦ä¹ ã€‚
                 if (lvl = me->query_skill("jiuyang-shengong", 1))
                         return 1000;
         }

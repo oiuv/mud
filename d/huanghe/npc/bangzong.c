@@ -5,14 +5,14 @@ inherit NPC;
 #include <ansi.h>
 void create()
 {
-	set_name("´óºº", ({ "da han", "han" }));
-	set("gender", "ÄĞĞÔ");
-	set("title", HIY"»ÆºÓ°ï°ïÖÚ"NOR);
+	set_name("å¤§æ±‰", ({ "da han", "han" }));
+	set("gender", "ç”·æ€§");
+	set("title", HIY"é»„æ²³å¸®å¸®ä¼—"NOR);
 	set("age", 22);
 	set("str", 25);
 	set("per", 15);
 	set("dex", 16);
-	set("long", "Ò»ÃûÉí²Ä¸ß´óµÄ×³ºº£¬ÂúÁ³É±Æø£¬Ò»¸¶Ğ×Éñ¶ñÉ·µÄÄ£Ñù¡£\n");
+	set("long", "ä¸€åèº«æé«˜å¤§çš„å£®æ±‰ï¼Œæ»¡è„¸æ€æ°”ï¼Œä¸€ä»˜å‡¶ç¥æ¶ç…çš„æ¨¡æ ·ã€‚\n");
 	set("combat_exp", 2000);
 	set("shen_type", -1);
 	set("attitude", "peaceful");

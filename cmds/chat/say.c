@@ -11,13 +11,13 @@ int main(object me, mapping info)
         string msg;
 
         if (! objectp(env = environment(me)) || env == find_object(VOID_OB))
-                return MESSAGE_D->error_msg("ÄãÏÖÔÚÔÚçÎç¿µÄĞé¿ÕÖĞ£¬Ã»"
-                                            "ÓĞÈËÌıµÃµ½ÄãËµµÄ»°¡£\n");
+                return MESSAGE_D->error_msg("ä½ ç°åœ¨åœ¨ç¼¥ç¼ˆçš„è™šç©ºä¸­ï¼Œæ²¡"
+                                            "æœ‰äººå¬å¾—åˆ°ä½ è¯´çš„è¯ã€‚\n");
 
         if (! stringp(msg = info[MESSAGE]))
-                return MESSAGE_D->error_msg("ÄãÒªËµÊ²Ã´»°£¿\n");
+                return MESSAGE_D->error_msg("ä½ è¦è¯´ä»€ä¹ˆè¯ï¼Ÿ\n");
 
-        message_vision(CYN "$N" CYN "ËµµÀ£º" + msg + "\n" NOR, me);
+        message_vision(CYN "$N" CYN "è¯´é“ï¼š" + msg + "\n" NOR, me);
         return 1;
 }
 

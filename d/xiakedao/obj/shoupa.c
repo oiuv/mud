@@ -6,13 +6,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name( "ÊÖÅÁ", ({ "shou pa"}));
+        set_name( "æ‰‹å¸•", ({ "shou pa"}));
         set_weight(300);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ö");
-                set("long", "ÕâÊÇÒ»¸öÆ¯ÁÁµÄÊÖÅÁ¡£\n");
+                set("unit", "ä¸ª");
+                set("long", "è¿™æ˜¯ä¸€ä¸ªæ¼‚äº®çš„æ‰‹å¸•ã€‚\n");
                 set("value", 50);
                 set("material", "cloth");
                 set("female_only", 1);

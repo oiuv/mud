@@ -1,4 +1,4 @@
-// leidong À×¶¯¾ÅÌì
+// leidong é›·åŠ¨ä¹å¤©
 // by winder 98.12
 // modify by rcwiz 2003
 
@@ -6,7 +6,7 @@
 
 inherit F_CLEAN_UP;
 
-#define LEI "¡¸" HIM "À×¶¯¾ÅÌì" NOR "¡¹"
+#define LEI "ã€Œ" HIM "é›·åŠ¨ä¹å¤©" NOR "ã€"
 
 void remove_effect(object me, int amount);
 
@@ -16,23 +16,23 @@ int perform(object me)
 
 
         if (userp(me) && ! me->query("can_perform/poyu-quan/lei"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if ((int)me->query_temp("lei"))
-		return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖĞÁË¡£\n");
+		return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 
 	if ((int)me->query("neili") < 500)
-		return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»¹»¡£\n");
+		return notify_fail("ä½ ç°åœ¨çš„çœŸæ°”ä¸å¤Ÿã€‚\n");
 
 	//skill = me->query_skill("cuff");
 	skill = (int)me->query_skill("poyu-quan",1);
 
 	if (skill < 120)
-		return notify_fail("ÄãµÄÅüÊ¯ÆÆÓñÈ­ĞŞÎª²»¹»£¬ÎŞ·¨Ê©Õ¹" LEI "\n");
+		return notify_fail("ä½ çš„åŠˆçŸ³ç ´ç‰æ‹³ä¿®ä¸ºä¸å¤Ÿï¼Œæ— æ³•æ–½å±•" LEI "\n");
 
 	me->add("neili", -400);
-	message_combatd(HIM "$N" HIM "ÉîÉîÎüÁËÒ»¿ÚÆø£¬Á³ÉÏ¶ÙÊ±"
-                        "×ÏÆø´óÊ¢£¬³öÊÖÔ½À´Ô½ÖØ£¡\n" NOR, me);
+	message_combatd(HIM "$N" HIM "æ·±æ·±å¸äº†ä¸€å£æ°”ï¼Œè„¸ä¸Šé¡¿æ—¶"
+                        "ç´«æ°”å¤§ç››ï¼Œå‡ºæ‰‹è¶Šæ¥è¶Šé‡ï¼\n" NOR, me);
 
 	//count = skill / 10;
 	count = skill / 6;
@@ -55,6 +55,6 @@ void remove_effect(object me, int amount)
 		me->add_temp("str", -amount);
 		me->add_temp("dex", -amount);
 		me->delete_temp("lei");
-		tell_object(me, CYN "ÄãµÄÀ×¶¯¾ÅÌìÔËĞĞÍê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n" NOR);
+		tell_object(me, CYN "ä½ çš„é›·åŠ¨ä¹å¤©è¿è¡Œå®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›ä¸¹ç”°ã€‚\n" NOR);
 	}
 }

@@ -5,17 +5,17 @@ inherit HAMMER;
 
 void create()
 {
-	set_name( HIY "½ğÂÖ" NOR,({ "jin lun" ,"lun" ,"jinlun" }));
+	set_name( HIY "é‡‘è½®" NOR,({ "jin lun" ,"lun" ,"jinlun" }));
 	set_weight(5000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "°Ñ");
-                set("long",HIY"ÕâÊÇÒ»±ú½ğ¹âÉÁÉÁµÄ·¨ÂÖ¡£\n" NOR);
+		set("unit", "æŠŠ");
+                set("long",HIY"è¿™æ˜¯ä¸€æŸ„é‡‘å…‰é—ªé—ªçš„æ³•è½®ã€‚\n" NOR);
 		set("value", 10000);
 		set("material", "gold");
-		set("wield_msg", "$N¡¸à§¡¹µÄÒ»Éù³é³öÒ»±ú$nÎÕÔÚÊÖÖĞ¡£\n");
-		set("unwield_msg","$N½«ÊÖÖĞµÄ$n·Å»ØÑü¼ä¡£\n");
+		set("wield_msg", "$Nã€Œå”°ã€çš„ä¸€å£°æŠ½å‡ºä¸€æŸ„$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+		set("unwield_msg","$Nå°†æ‰‹ä¸­çš„$næ”¾å›è…°é—´ã€‚\n");
                 set("stable", 50);
 	}
 	init_hammer(75);

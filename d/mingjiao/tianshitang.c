@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "������");
+        set("short", "天市堂");
         set("long", @LONG
-��һ�������̵������ã���ʱ�е�һ����ɱ֮�������ڳ��붼ʮ��
-С�ģ�Ω�־�����������ľ�������������ԫ�������������ԫ̧�ۿ�
-�˿��㣬һ�ź���͵���ȴ���������ľ�������
+你一进入明教的天市堂，顿时感到一鼓肃杀之气。教众出入都十分
+小心，惟恐惊动了坐在油木桌后的堂主李天垣。见你进来李天垣抬眼看
+了看你，一张很柔和的脸却立马让你心惊肉跳。
 LONG );
         set("exits", ([
                 "west"  : __DIR__"tianweitang",

@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�͵��¥");
+	set("short", "客店二楼");
 	set("long", @LONG
-����һ��ܴ�Ŀͷ�������ʮ�ּ�ª����ǽ����ʮ����С
-ľ�������ٿ��������¶��ԣ������Ӷ��Ǻ����Ĵ���������
-���Ŵ��ǿյģ���������ŵ����˹�ȥ��
+这是一间很大的客房，陈设十分简陋。靠墙放了十几张小
+木床，不少客人正和衣而卧，满屋子都是呼呼的打酣声。西边
+有张床是空的，你蹑手蹑脚地走了过去。
 LONG );
 	set("sleep_room", 1);
 	set("no_fight", 1);

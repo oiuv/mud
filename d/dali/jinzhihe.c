@@ -2,15 +2,15 @@ inherit ROOM;
 
 void create()
 {
-	set("short","��֭����");
+	set("short","金汁河畔");
 	set("long",@LONG
-����λ����֭���ϣ�ԭ������һ���ز��£������Ժ��ϡ�Ψ��һ��
-ʯ�̾���(jingzhuang)�������С��˴�Ϊ��׶״���߲�ʯ�񡣸�Լ����ߣ�
-����Ϊ�˽��ε���ʯ�����Ͽ��������������֮���н�ʯ�����Ǳ���֮��
-�ܣ������ϲ�֮��ʯ��
+这里位处金汁河畔，原本建有一座地藏寺，如今寺院早废。唯有一座
+石刻经幢(jingzhuang)半埋土中。此幢为方锥状，七层石雕。高约丈五尺，
+基座为八角形的磐石，边上刻有莲花；层与层之间有界石。即是本层之盖
+檐，又是上层之基石。
 LONG);
 	set("item_desc", ([
-                "jingzhuang" : "���Ǹ�ϡ����������ȥ����Ҳ������\n",
+                "jingzhuang" : "这是个稀世经幢，进去看看也不坏。\n",
 	]));
 	set("exits", ([
                 "east"  : __DIR__"yanchi1",

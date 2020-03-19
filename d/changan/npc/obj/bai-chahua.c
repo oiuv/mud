@@ -7,20 +7,20 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIW "°×²è»¨" NOR, ({ "bai chahua", "chahua" }));
+	set_name(HIW "ç™½èŒ¶èŠ±" NOR, ({ "bai chahua", "chahua" }));
 	set_weight(10);
 	if (clonep())
 		set_default_object(__FILE__);
 	else 
 	{
-		set("long", "±ùÇåÓñ½àµÄ°×²è»¨¡£\n");
-		set("unit", "¶ä");
+		set("long", "å†°æ¸…ç‰æ´çš„ç™½èŒ¶èŠ±ã€‚\n");
+		set("unit", "æœµ");
 		set("value", 6);
 		set("material", "plant");
 		set("armor_prop/armor", 0);
 		set("armor_prop/personality", 3);
-		set("wear_msg", "$NÇáÇáµØ°ÑÒ»¶ä$n´÷ÔÚÍ·ÉÏ¡£\n");
-		set("unwield_msg", "$NÇáÇáµØ°Ñ$n´ÓÍ·ÉÏ³ıÁËÏÂÀ´¡£\n");
+		set("wear_msg", "$Nè½»è½»åœ°æŠŠä¸€æœµ$næˆ´åœ¨å¤´ä¸Šã€‚\n");
+		set("unwield_msg", "$Nè½»è½»åœ°æŠŠ$nä»å¤´ä¸Šé™¤äº†ä¸‹æ¥ã€‚\n");
 
 	}
 	setup();

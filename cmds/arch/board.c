@@ -22,7 +22,7 @@ int main(object me, string arg)
         i = sizeof(file);
         if (! i)
         {
-                write("Ä¿Ç°Ã»ÓĞÈÎºÎÁôÑÔ°æ¡£\n");
+                write("ç›®å‰æ²¡æœ‰ä»»ä½•ç•™è¨€ç‰ˆã€‚\n");
                 return 1;
         }
 
@@ -31,16 +31,16 @@ int main(object me, string arg)
                 sscanf(arg, "%d", j);
                 j--;
                 if (j < 0 || j >= i)
-                        return notify_fail("Ã»ÓĞÕâ¸öÁôÑÔ°å¡£\n");
+                        return notify_fail("æ²¡æœ‰è¿™ä¸ªç•™è¨€æ¿ã€‚\n");
 
                 return me->force_me("goto " + file[j]->query("location"));
         }
 
-        msg = "Ä¿Ç°" + LOCAL_MUD_NAME() + "µÄÁôÑÔ°æÓĞÒÔÏÂÕâĞ©£º\n";
+        msg = "ç›®å‰" + LOCAL_MUD_NAME() + "çš„ç•™è¨€ç‰ˆæœ‰ä»¥ä¸‹è¿™äº›ï¼š\n";
         for (j = 0; j < i; j++)
                 msg += sprintf(HIY "%2d" NOR ". %s\n", j + 1, file[j]->short());
 
-        msg += "ÓÃ board n È¥¿´ÄãÏë¿´µÄÁôÑÔ°å¡£\n";
+        msg += "ç”¨ board n å»çœ‹ä½ æƒ³çœ‹çš„ç•™è¨€æ¿ã€‚\n";
         write(msg);
         return 1;
 }

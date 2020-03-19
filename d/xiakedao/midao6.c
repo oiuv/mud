@@ -1,4 +1,4 @@
-// midao6.c ʯ��
+// midao6.c 石洞
 
 inherit ROOM;
 
@@ -12,11 +12,11 @@ string* books = ({
 
 void create()
 {
-        set("short", "ʯ��");
+        set("short", "石洞");
         set("long", @LONG
-����һ��ʯ�������Ϻ�ʯ�����ǻҳ������ó��þ�û�������˿�
-���ʯ����һ����ܣ�����Ҳ���ǻҳ�������һЩ�ƾɵ��鼮��ǽ��
-��һ��ʯ������Ȼ���࣬ȴҲ����Ϣ��
+这是一个石洞，地上和石壁满是灰尘，看得出好久没人来过了靠
+左侧石壁是一排书架，上面也满是灰尘，还有一些破旧的书籍。墙角
+有一张石床。虽然很脏，却也能休息。
 LONG );
         set("exits", ([
                 "west" : __DIR__"midao7",

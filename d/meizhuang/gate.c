@@ -3,12 +3,12 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "Ã·×¯´óÃÅ");
+        set("short", "æ¢…åº„å¤§é—¨");
         set("long", @LONG
-×ß¹ıÒ»´óÆ¬Ã·ÁÖ£¬×ßÉÏÒ»ÌõÇàÊ¯°å´óÂ·£¬À´µ½Ò»×ùÖìÃÅ°×Ç½µÄ´ó
-×¯ÔºÍâ£¬ĞĞµ½½ü´¦£¬¼û´óÃÅÍâĞ´×Å¡°Ã·×¯¡±Á½¸ö´ó×Ö£¬ÅÔ±ßÊğ×Å¡°Óİ
-ÔÊÎÄÌâ¡±ËÄ×Ö¡£ÄÇÓİÔÊÎÄÊÇÄÏËÎÆÆ½ğµÄ´ó¹¦³¼£¬Õâ¼¸¸ö×ÖÈåÑÅÖ®ÖĞÍ¸
-×Å²ª²ªÓ¢Æø¡£
+èµ°è¿‡ä¸€å¤§ç‰‡æ¢…æ—ï¼Œèµ°ä¸Šä¸€æ¡é’çŸ³æ¿å¤§è·¯ï¼Œæ¥åˆ°ä¸€åº§æœ±é—¨ç™½å¢™çš„å¤§
+åº„é™¢å¤–ï¼Œè¡Œåˆ°è¿‘å¤„ï¼Œè§å¤§é—¨å¤–å†™ç€â€œæ¢…åº„â€ä¸¤ä¸ªå¤§å­—ï¼Œæ—è¾¹ç½²ç€â€œè™
+å…æ–‡é¢˜â€å››å­—ã€‚é‚£è™å…æ–‡æ˜¯å—å®‹ç ´é‡‘çš„å¤§åŠŸè‡£ï¼Œè¿™å‡ ä¸ªå­—å„’é›…ä¹‹ä¸­é€
+ç€å‹ƒå‹ƒè‹±æ°”ã€‚
 LONG
         );
         set("outdoors", "meizhuang");
@@ -30,18 +30,18 @@ int do_knock(string arg)
         object room, me = this_player();
 
         if (query("exits/north"))
-                return notify_fail("ÃÅÒÑ¾­ÊÇ¿ª×ÅµÄ£¬²»ÓÃÔÙ·ÑÁ¦È¥ÇÃÁË£¡\n");
+                return notify_fail("é—¨å·²ç»æ˜¯å¼€ç€çš„ï¼Œä¸ç”¨å†è´¹åŠ›å»æ•²äº†ï¼\n");
 
         if (arg == "4")
         {
-                message_vision(HIC "$N" HIC "×ßÉÏÇ°È¥½«ÃÅÉÏÍ­»·ÇÃÁËËÄÏÂ¡£\n" NOR, me);
+                message_vision(HIC "$N" HIC "èµ°ä¸Šå‰å»å°†é—¨ä¸Šé“œç¯æ•²äº†å››ä¸‹ã€‚\n" NOR, me);
                 me->set_temp("step", 1);
                 return 1;
         }
 
         if (arg == "2")
         {
-                message_vision(HIC "$N" HIC "×ßÉÏÇ°È¥½«ÃÅÉÏÍ­»·ÇÃÁËÁ½ÏÂ¡£\n" NOR, me);
+                message_vision(HIC "$N" HIC "èµ°ä¸Šå‰å»å°†é—¨ä¸Šé“œç¯æ•²äº†ä¸¤ä¸‹ã€‚\n" NOR, me);
                 if (me->query_temp("step") == 1)
                         me->set_temp("step", 2);
                 else
@@ -51,7 +51,7 @@ int do_knock(string arg)
 
         if (arg == "5")
         {
-                message_vision(HIC "$N" HIC "×ßÉÏÇ°È¥½«ÃÅÉÏÍ­»·ÇÃÁËÎåÏÂ¡£\n" NOR, me);
+                message_vision(HIC "$N" HIC "èµ°ä¸Šå‰å»å°†é—¨ä¸Šé“œç¯æ•²äº†äº”ä¸‹ã€‚\n" NOR, me);
                 if (me->query_temp("step") == 2)
                         me->set_temp("step", 3);
                 else
@@ -61,20 +61,20 @@ int do_knock(string arg)
 
         if (arg == "3")
         {
-                message_vision(HIC "$N" HIC "×ßÉÏÇ°È¥½«ÃÅÉÏÍ­»·ÇÃÁËÈıÏÂ¡£\n" NOR, me);
+                message_vision(HIC "$N" HIC "èµ°ä¸Šå‰å»å°†é—¨ä¸Šé“œç¯æ•²äº†ä¸‰ä¸‹ã€‚\n" NOR, me);
                 if (me->query_temp("step") == 3)
                 {
                         me->set_temp("step", 0);
                         set("exits/north", __DIR__"tianjing");
-                        message("vision", HIY "Äã¾²¾²µÄµÈºò£¬¹ıÁË°ëÉÎ£¬´óÃÅÖÕÓÚ»º»º"
-                                          "µÄ´ò¿ªÁË¡£\n" NOR, this_object() );
+                        message("vision", HIY "ä½ é™é™çš„ç­‰å€™ï¼Œè¿‡äº†åŠæ™Œï¼Œå¤§é—¨ç»ˆäºç¼“ç¼“"
+                                          "çš„æ‰“å¼€äº†ã€‚\n" NOR, this_object() );
 
                         if (! (room = find_object(__DIR__"tianjing")))
                                 room = load_object(__DIR__"tianjing");
 
                         room->set("exits/south", __FILE__);
-                        message("vision", HIY "Ã·×¯´óÃÅÉÏµÄÍ­»·ÓĞ½Ú×àµØÏìÁË"
-                                "ËÄÉù£¬´óÃÅ¸ø´ò¿ªÁË¡£\n" NOR, room );
+                        message("vision", HIY "æ¢…åº„å¤§é—¨ä¸Šçš„é“œç¯æœ‰èŠ‚å¥åœ°å“äº†"
+                                "å››å£°ï¼Œå¤§é—¨ç»™æ‰“å¼€äº†ã€‚\n" NOR, room );
                         remove_call_out("close_passage");
                         call_out("close_passage", 10);
                 } else
@@ -83,7 +83,7 @@ int do_knock(string arg)
                 }
                 return 1;
         }
-        message_vision(HIC "$N" HIC "×ßÉÏÇ°È¥½«ÃÅÉÏÍ­»·ÇÃÁË¼¸ÏÂ¡£\n" NOR, me);
+        message_vision(HIC "$N" HIC "èµ°ä¸Šå‰å»å°†é—¨ä¸Šé“œç¯æ•²äº†å‡ ä¸‹ã€‚\n" NOR, me);
         return 1;
 }
 
@@ -94,13 +94,13 @@ void close_passage()
         if (! query("exits/north"))
                 return;
 
-        message("vision", HIY "Ö»Ìı¡°¸Â¸Â¸Â¡±¼¸Éù£¬Ã·×¯ÄÚµÄ»¤Ôº½«´óÃÅ"
-                "ÇáÇá¹ØÉÏÁË¡£\n" NOR, this_object());
+        message("vision", HIY "åªå¬â€œå˜å˜å˜â€å‡ å£°ï¼Œæ¢…åº„å†…çš„æŠ¤é™¢å°†å¤§é—¨"
+                "è½»è½»å…³ä¸Šäº†ã€‚\n" NOR, this_object());
 
         if (room = find_object(__DIR__"tianjing"))
         {
                 room->delete("exits/south");
-                message("vision", "´óÃÅ±»»¤ÔºÇáÇá¹ØÉÏÁË¡£\n", room );
+                message("vision", "å¤§é—¨è¢«æŠ¤é™¢è½»è½»å…³ä¸Šäº†ã€‚\n", room );
         }
         delete("exits/north");
 }

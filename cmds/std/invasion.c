@@ -1,4 +1,4 @@
-// ²éÑ¯ÍâµÐÈëÇÖÈÎÎñÇé¿öµÄÖ¸Áî
+// æŸ¥è¯¢å¤–æ•Œå…¥ä¾µä»»åŠ¡æƒ…å†µçš„æŒ‡ä»¤
 
 #include <ansi.h>
 #define INVASIOND "/adm/daemons/invasion/invasiond"
@@ -16,12 +16,12 @@ int main(object me)
 
      if ( ! find_object(INVASIOND) || ! INVASIOND->query("record") )
      {
-        write("ÏÖÔÚÃ»ÓÐÈëÇÖµÄÍâµÐ¡£\n");
+        write("çŽ°åœ¨æ²¡æœ‰å…¥ä¾µçš„å¤–æ•Œã€‚\n");
         return 1;
      }
 
-     write(HIW"Ä¿Ç°¿¹»÷°Ë¹úÁª¾üÈëÇÖÕ½¿ö£º\n"NOR);
-     write(HIM"±àºÅ      µÈ¼¶         ÐÕÃû                ×´Ì¬     É±µÐÓ¢ÐÛ\n"NOR);
+     write(HIW"ç›®å‰æŠ—å‡»å…«å›½è”å†›å…¥ä¾µæˆ˜å†µï¼š\n"NOR);
+     write(HIM"ç¼–å·      ç­‰çº§         å§“å                çŠ¶æ€     æ€æ•Œè‹±é›„\n"NOR);
 
      for(i=0; i< TOTAL_INVADER; i++)
      {
@@ -29,10 +29,10 @@ int main(object me)
         name = INVASIOND->query("record/" + i + "/name");
         if  ( INVASIOND->query("record/" + i + "/exist") == 1 )
         {
-           exist = HIG"Î´ËÀ"NOR + "   ";
+           exist = HIG"æœªæ­»"NOR + "   ";
         }  else
         {
-           exist = HIR"ÒÑËÀ"NOR + "   ";
+           exist = HIR"å·²æ­»"NOR + "   ";
         }
 
         killer = INVASIOND->query("record/" + i + "/killer");
@@ -54,14 +54,14 @@ int main(object me)
      write (msg);
      time = ( TURN - time() + INVASIOND->query("record/born_time") ) / 60;
      if ( time < 0 ) time = 0;
-     write(HIC"Ä¿Ç°¾àÀëÏÂÒ»´ÎÍâµÐÈëÇÖ»¹ÓÐ" + time + "·ÖÖÓ¡£\n");
+     write(HIC"ç›®å‰è·ç¦»ä¸‹ä¸€æ¬¡å¤–æ•Œå…¥ä¾µè¿˜æœ‰" + time + "åˆ†é’Ÿã€‚\n");
      return 1;
 }
 
 int help(object me)
 {
         write(@HELP
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã²éÑ¯°Ë¹úÁª¾üÈëÇÖÈÎÎñµÄÇé¿ö¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ æŸ¥è¯¢å…«å›½è”å†›å…¥ä¾µä»»åŠ¡çš„æƒ…å†µã€‚
 
 HELP);
         return 1;

@@ -5,17 +5,17 @@ inherit DAGGER;
 
 void create()
 {
-	set_name("·ÖË®´Ì", ({ "fenshui ci", "ci" }));
+	set_name("åˆ†æ°´åˆº", ({ "fenshui ci", "ci" }));
 	set_weight(7000);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±ú");
-		set("long", "ÕâÊÇÒ»Ö»Ë®ÖĞ·ÖË®¶ëáÒ´Ì¡£\n");
+		set("unit", "æŸ„");
+		set("long", "è¿™æ˜¯ä¸€åªæ°´ä¸­åˆ†æ°´å³¨åµ‹åˆºã€‚\n");
 		set("value", 1000);
 		set("material", "steel");
-		set("wield_msg", "$N¡¸à§¡¹µÄÒ»Éù³é³öÒ»Ö»$nÎÕÔÚÊÖÖĞ¡£\n");
-		set("unwield_msg", "$N½«ÊÖÖĞµÄ$n²å»ØĞäÖĞ¡£\n");
+		set("wield_msg", "$Nã€Œå”°ã€çš„ä¸€å£°æŠ½å‡ºä¸€åª$næ¡åœ¨æ‰‹ä¸­ã€‚\n");
+		set("unwield_msg", "$Nå°†æ‰‹ä¸­çš„$næ’å›è¢–ä¸­ã€‚\n");
 	}
 	init_dagger(5);
 	setup();

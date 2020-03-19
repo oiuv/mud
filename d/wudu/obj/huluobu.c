@@ -1,16 +1,16 @@
-// huluobu.c ºúÂá²·
+// huluobu.c èƒ¡ç®©åœ
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-        set_name("ºúÂá²·¸É", ({"hu luobu", "luobu"}));
+        set_name("èƒ¡ç®©åœå¹²", ({"hu luobu", "luobu"}));
         set_weight(80);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "Ò»¿éÁÀ¸ÉÁËµÄºúÂá²·¸É£¬±È½Ï·½±ã´¢²Ø¡£\n");
-                set("unit", "¿é");
+                set("long", "ä¸€å—æ™¾å¹²äº†çš„èƒ¡ç®©åœå¹²ï¼Œæ¯”è¾ƒæ–¹ä¾¿å‚¨è—ã€‚\n");
+                set("unit", "å—");
                 set("value", 20);
                 set("food_remaining", 3);
                 set("food_supply", 20);

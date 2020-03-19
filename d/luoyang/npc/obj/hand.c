@@ -7,14 +7,14 @@ inherit HANDS;
 
 void create()
 {
-	set_name( HIY "»Æ½ğÊÖÕÆ" NOR, ({ "gold hand", "hand" }) );
+	set_name( HIY "é»„é‡‘æ‰‹æŒ" NOR, ({ "gold hand", "hand" }) );
 	set_weight(2000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
 		set("material", "steel");
-		set("unit", "¿é");
-		set("long", "ÕâÊÇÒ»¿é»Æ½ğÖÆ³ÉµÄÕÆÌ×£¬¿ÉÒÔ¼ÓÇ¿È­·¨¡¢ÕÆ·¨ºÍÈ­½ÅµÄÉËº¦Á¦¡£\n");
+		set("unit", "å—");
+		set("long", "è¿™æ˜¯ä¸€å—é»„é‡‘åˆ¶æˆçš„æŒå¥—ï¼Œå¯ä»¥åŠ å¼ºæ‹³æ³•ã€æŒæ³•å’Œæ‹³è„šçš„ä¼¤å®³åŠ›ã€‚\n");
 		set("value", 200000);
               set("armor_prop/strike", 10);              
               set("armor_prop/unarmed_damage", 50); 

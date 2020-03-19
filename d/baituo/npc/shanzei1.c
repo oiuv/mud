@@ -2,10 +2,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ğ¡É½Ôô", ({ "xiao shanzei", "xiao", "shanzei" }));
-        set("gender", "ÄĞĞÔ" );
+        set_name("å°å±±è´¼", ({ "xiao shanzei", "xiao", "shanzei" }));
+        set("gender", "ç”·æ€§" );
         set("age", 12);
-        set("long", "ÕâÊÇ¸öÉĞÎ´³ÉÄêµÄĞ¡É½Ôô¡£\n");
+        set("long", "è¿™æ˜¯ä¸ªå°šæœªæˆå¹´çš„å°å±±è´¼ã€‚\n");
         set("attitude", "friendly");
         set("shen_type", -1);
 

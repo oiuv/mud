@@ -3,20 +3,20 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "С����");
+        set("short", "小树林");
         set("long", @LONG
-�������У���ֻ����������һ�ɵ������̣����ż����
-���㣬�������������һȺ���ɫ���۷��������Է�����ȥ��
-ֻ��һ��ʯ��(shibei)���ڵ��ۨ洦��������һ��յء�����
-������ï�ܵ����֡�
+走在林中，你只闻铮铮琴声，一股淡淡白烟，带着极甜的
+花香，自密林深处传出。一群乳白色的蜜蜂在你身旁飞来飞去。
+只见一块石碑(shibei)立在当眼ㄦ处。往东是一块空地。其它
+方向尽是茂密的树林。
 LONG
         );
         set("outdoors", "quanzhen");
         set("item_desc", ([
                 "shibei" : HIC
 "
-                        ���Ϲ�Ĺ��
-                        ����ֹ����
+                        终南古墓，
+                        外人止步。
 
 \n" NOR,
         ]));

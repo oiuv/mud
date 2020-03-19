@@ -5,9 +5,9 @@ void setup()
 {}
 void create()
 {
-      set_name(YEL "ÈËÅ¼" NOR, ({"renou"}));
-      set("unit", "¿é");
-      set("long", "Ò»¿éÎ´Íê¹¤µÄÄ¾Å¼£¬µ«ÒÑ¾­¿ÉÒÔ±æÈÏ³öÊÇ¸öÅ®×ÓµÄµñÏñ¡£\n");
+      set_name(YEL "äººå¶" NOR, ({"renou"}));
+      set("unit", "å—");
+      set("long", "ä¸€å—æœªå®Œå·¥çš„æœ¨å¶ï¼Œä½†å·²ç»å¯ä»¥è¾¨è®¤å‡ºæ˜¯ä¸ªå¥³å­çš„é›•åƒã€‚\n");
       set("value", 0);
       set_weight(200);
         

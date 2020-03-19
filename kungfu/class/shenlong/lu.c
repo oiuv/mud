@@ -8,12 +8,12 @@ string ask_me();
 
 void create()
 {
-	set_name("Â½¸ßÐù", ({ "lu gaoxuan", "lu" ,"gaoxuan"}));
-	set("title", HIY"ÉñÁú½Ì"NOR"¾üÊ¦");
-	set("nickname",HIC "Éñ»úÃîËã" NOR);
-	set("long", "ËûÌìÍ¥±¥Âú£¬µØÀ«·½Ô²£¬ÈÝÃ²ÆÄÎªÓ¢¿¡¡£\nÈ»¶øÂúÃæ³îÈÝ£¬Ç¡"
-	            "ËÆÇê¿Ì¼ä±ãÓÐÉ±ÉíÖ®»öÒ»°ã¡£\n");
-	set("gender", "ÄÐÐÔ");
+	set_name("é™†é«˜è½©", ({ "lu gaoxuan", "lu" ,"gaoxuan"}));
+	set("title", HIY"ç¥žé¾™æ•™"NOR"å†›å¸ˆ");
+	set("nickname",HIC "ç¥žæœºå¦™ç®—" NOR);
+	set("long", "ä»–å¤©åº­é¥±æ»¡ï¼Œåœ°é˜”æ–¹åœ†ï¼Œå®¹è²Œé¢‡ä¸ºè‹±ä¿Šã€‚\nç„¶è€Œæ»¡é¢æ„å®¹ï¼Œæ°"
+	            "ä¼¼é¡·åˆ»é—´ä¾¿æœ‰æ€èº«ä¹‹ç¥¸ä¸€èˆ¬ã€‚\n");
+	set("gender", "ç”·æ€§");
 	set("age", 37);
 
 	set("str", 24);
@@ -51,18 +51,18 @@ void create()
         map_skill("staff", "shedao-qigong");
 	prepare_skill("hand", "shenlong-bashi");
 
-	create_family("ÉñÁú½Ì", 0, "ÏÐÉ¢½ÌÖÚ");
+	create_family("ç¥žé¾™æ•™", 0, "é—²æ•£æ•™ä¼—");
 
 	set_temp("apply/damage", 60);
 	set("book_count", 1);
 
         set("inquiry", ([
-		"ÉñÁú½Ì" : "Ò»°ãÈËÊÇÈë²»ÁËÎÒÉñÁú½ÌµÄ(join shenlongjiao).\n",
-		"Èë½Ì"   : "Ò»°ãÈËÊÇÈë²»ÁËÎÒÉñÁú½ÌµÄ(join shenlongjiao).\n",
-		"ºé°²Í¨" : "½ÌÖ÷Æ¢Æø²»ºÃ,ÒªÌÖËû»¶ÐÄ²ÅºÃ¡£\n",
-		"½ÌÖ÷"   : "½ÌÖ÷Æ¢Æø²»ºÃ,ÒªÌÖËû»¶ÐÄ²ÅºÃ¡£\n",
-		"¿ÚºÅ"   : "ÍòÄê²»ÀÏ£¡ÓÀÏíÏÉ¸££¡ÊÙÓëÌìÆë£¡ÎÄÎäÈÊÊ¥£¡",
-		"ÃØ¼®"   : (: ask_me :),
+		"ç¥žé¾™æ•™" : "ä¸€èˆ¬äººæ˜¯å…¥ä¸äº†æˆ‘ç¥žé¾™æ•™çš„(join shenlongjiao).\n",
+		"å…¥æ•™"   : "ä¸€èˆ¬äººæ˜¯å…¥ä¸äº†æˆ‘ç¥žé¾™æ•™çš„(join shenlongjiao).\n",
+		"æ´ªå®‰é€š" : "æ•™ä¸»è„¾æ°”ä¸å¥½,è¦è®¨ä»–æ¬¢å¿ƒæ‰å¥½ã€‚\n",
+		"æ•™ä¸»"   : "æ•™ä¸»è„¾æ°”ä¸å¥½,è¦è®¨ä»–æ¬¢å¿ƒæ‰å¥½ã€‚\n",
+		"å£å·"   : "ä¸‡å¹´ä¸è€ï¼æ°¸äº«ä»™ç¦ï¼å¯¿ä¸Žå¤©é½ï¼æ–‡æ­¦ä»åœ£ï¼",
+		"ç§˜ç±"   : (: ask_me :),
 	]) );
 	setup();
 	carry_object("/clone/misc/cloth")->wear();
@@ -95,7 +95,7 @@ void greeting(object ob)
 void attempt_apprentice(object ob)
 {
 	command("sigh");
-        command("say ÀÏ·òÃ¦µÃºÜ£¬ÏÖ²»ÊÕÍ½¡£");
+        command("say è€å¤«å¿™å¾—å¾ˆï¼ŒçŽ°ä¸æ”¶å¾’ã€‚");
 }
 
 string ask_me()
@@ -103,12 +103,12 @@ string ask_me()
 	mapping fam; 
 	object ob;
 	
-	if (!(fam = this_player()->query("family")) || fam["family_name"] != "ÉñÁú½Ì")
+	if (!(fam = this_player()->query("family")) || fam["family_name"] != "ç¥žé¾™æ•™")
 		return RANK_D->query_respect(this_player()) + 
-		"Óë±¾½ÌËØÎÞÀ´Íù£¬²»Öª´Ë»°´ÓºÎÌ¸Æð£¿";
+		"ä¸Žæœ¬æ•™ç´ æ— æ¥å¾€ï¼Œä¸çŸ¥æ­¤è¯ä»Žä½•è°ˆèµ·ï¼Ÿ";
 
 	if (query("book_count") < 1)
-		return "ÄãÀ´ÍíÁË£¬±¾½ÌµÄÃØ¼®²»ÔÚ´Ë´¦¡£";
+		return "ä½ æ¥æ™šäº†ï¼Œæœ¬æ•™çš„ç§˜ç±ä¸åœ¨æ­¤å¤„ã€‚";
 
 	add("book_count", -1);
 
@@ -116,6 +116,6 @@ string ask_me()
 	else ob = new("/clone/book/bufa");
 
 	ob->move(this_player());
-	return "ºÃ°É£¬Õâ±¾¡¸"+ob->query("name")+"¡¹ÄãÄÃ»ØÈ¥ºÃºÃ×êÑÐ¡£";
+	return "å¥½å§ï¼Œè¿™æœ¬ã€Œ"+ob->query("name")+"ã€ä½ æ‹¿å›žåŽ»å¥½å¥½é’»ç ”ã€‚";
 }
 

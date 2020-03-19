@@ -7,13 +7,13 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("Íõ³Ï", ({ "wang cheng", "wang", "cheng"}));
-        set("title", "ÈÕÔÂÉñ½Ì·çÀ×ÆìÖ÷");
+        set_name("ç‹è¯š", ({ "wang cheng", "wang", "cheng"}));
+        set("title", "æ—¥æœˆç¥æ•™é£é›·æ——ä¸»");
         set("long", @LONG
-ÕâÊÇÈÕÔÂÉñ½Ì·çÀ×ÆìÖ÷Íõ³Ï£¬´ËÈËÉí²Ä°«ÅÖ£¬
-ÂúÁ³¶ÑĞ¦£¬ÆäÊµÎªÈËÊ®·Öºİ¶¾¡£
+è¿™æ˜¯æ—¥æœˆç¥æ•™é£é›·æ——ä¸»ç‹è¯šï¼Œæ­¤äººèº«æçŸ®èƒ–ï¼Œ
+æ»¡è„¸å †ç¬‘ï¼Œå…¶å®ä¸ºäººååˆ†ç‹ æ¯’ã€‚
 LONG);
-        set("gender", "ÄĞĞÔ" );
+        set("gender", "ç”·æ€§" );
         set("class", "scholar");
         set("age", 32);
         set("attitude", "peaceful");
@@ -61,15 +61,15 @@ LONG);
         }));
 
         set("guarder", ([
-                "refuse_other": CYN "$N" CYN "¶Ô$n" CYN "ÖåÃ¼µÀ£º"
-                                "ÎÒ²»¹ÜÄãÊÇÔõÃ´ÉÏÀ´µÄ£¬ÕâºÚÄ¾ÑÂÆñ"
-                                "ÊÇ×ÔÓÉ½ø³öÖ®µØ£¿" NOR,
-                "refuse_carry": CYN "$N" CYN "¶Ô$n" CYN "ºÈµÀ£ºÄã"
-                                "±³ÉÏ±³µÄÊÇÊ²Ã´ÈË£¿»¹²»¿ì¿ì¸øÎÒ·Å"
-                                "ÏÂ£¡" NOR,
+                "refuse_other": CYN "$N" CYN "å¯¹$n" CYN "çš±çœ‰é“ï¼š"
+                                "æˆ‘ä¸ç®¡ä½ æ˜¯æ€ä¹ˆä¸Šæ¥çš„ï¼Œè¿™é»‘æœ¨å´–å²‚"
+                                "æ˜¯è‡ªç”±è¿›å‡ºä¹‹åœ°ï¼Ÿ" NOR,
+                "refuse_carry": CYN "$N" CYN "å¯¹$n" CYN "å–é“ï¼šä½ "
+                                "èƒŒä¸ŠèƒŒçš„æ˜¯ä»€ä¹ˆäººï¼Ÿè¿˜ä¸å¿«å¿«ç»™æˆ‘æ”¾"
+                                "ä¸‹ï¼" NOR,
         ]));
 
-        create_family("ÈÕÔÂÉñ½Ì", 14, "ÆìÖ÷");
+        create_family("æ—¥æœˆç¥æ•™", 14, "æ——ä¸»");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -89,5 +89,5 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-     	command("say ÎÒ²»ÊÕÍ½£¬ÄãÈ¥ÕÒ½ÌÄÚµÄÆäÓà³¤ÀÏºÃÁË¡£");
+     	command("say æˆ‘ä¸æ”¶å¾’ï¼Œä½ å»æ‰¾æ•™å†…çš„å…¶ä½™é•¿è€å¥½äº†ã€‚");
 }

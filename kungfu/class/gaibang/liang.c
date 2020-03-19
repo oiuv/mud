@@ -9,15 +9,15 @@ inherit F_COAGENT;
 
 void create()
 {
-        set_name("Áº³¤ÀÏ", ({ "liang zhanglao", "liang", "zhanglao" }));
+        set_name("æ¢é•¿è€", ({ "liang zhanglao", "liang", "zhanglao" }));
         set("long", @LONG
-Áº³¤ÀÏÊÇØ¤°ï³öµÀ×î¾Ã£¬Îä¹¦×î¸ßµÄ³¤ÀÏ£¬ÔÚ
-ÎäÁÖÖĞÏíÃûÒÑ¾Ã¡£Ø¤°ïÎä¹¦ÏòÀ´½ÏÇ¿£¬½üÀ´Áº
-³¤ÀÏÒ»Á¦Õû¶Ù£¬¸üÊÇÕôÕôÈÕÉÏ¡£
+æ¢é•¿è€æ˜¯ä¸å¸®å‡ºé“æœ€ä¹…ï¼Œæ­¦åŠŸæœ€é«˜çš„é•¿è€ï¼Œåœ¨
+æ­¦æ—ä¸­äº«åå·²ä¹…ã€‚ä¸å¸®æ­¦åŠŸå‘æ¥è¾ƒå¼ºï¼Œè¿‘æ¥æ¢
+é•¿è€ä¸€åŠ›æ•´é¡¿ï¼Œæ›´æ˜¯è’¸è’¸æ—¥ä¸Šã€‚
 LONG);
-        set("nickname", HIR "´«¹¦³¤ÀÏ" NOR);
-        set("title", "Ø¤°ï¾Å´ü³¤ÀÏ");
-        set("gender", "ÄĞĞÔ");
+        set("nickname", HIR "ä¼ åŠŸé•¿è€" NOR);
+        set("title", "ä¸å¸®ä¹è¢‹é•¿è€");
+        set("gender", "ç”·æ€§");
         set("age", 48);
         set("attitude", "peaceful");
         set("class", "beggar");
@@ -65,7 +65,7 @@ LONG);
         prepare_skill("strike", "tongchui-zhang");
         prepare_skill("unarmed", "jueming-tui");
 
-        create_family("Ø¤°ï", 18, "³¤ÀÏ");
+        create_family("ä¸å¸®", 18, "é•¿è€");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -91,5 +91,5 @@ void attempt_apprentice(object ob)
                 return;
 
         command("hmm");
-        command("say ÀÏ·òÖ»¸ºÔğ¸øµÍ´üµÜ×Ó´«¹¦£¬²¢²»ÊÕÍ½¡£");
+        command("say è€å¤«åªè´Ÿè´£ç»™ä½è¢‹å¼Ÿå­ä¼ åŠŸï¼Œå¹¶ä¸æ”¶å¾’ã€‚");
 }

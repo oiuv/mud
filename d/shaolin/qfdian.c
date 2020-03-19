@@ -6,12 +6,12 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ǧ���");
+	set("short", "千佛殿");
 	set("long", @LONG
-����ǧ���������������ȣ��߱����硣���﹩�����
-����𣬼��а��������Ľ�գ���ٰ��ޣ���ǧ���У�ʮһ���ף�
-ʮ��٤�����Լ����������������ĵȡ�ֱ�������ۻ����ҡ�����
-�е�Сľ�š�
+这是千佛殿。大殿入口是朱红格扇，七宝玲珑。内里供奉的西
+天诸佛，计有八菩萨，四金刚，五百阿罗，三千揭谛，十一大曜，
+十八伽蓝，以及众优婆塞，优婆夷等。直看得你眼花缭乱。边上
+有道小木门。
 LONG );
 	set("exits", ([
 		"southdown" : __DIR__"guangchang5",
@@ -20,7 +20,7 @@ LONG );
 	set("objects",([
 		CLASS_D("shaolin") + "/qing-guan" : 1,
 	]));
-	create_door("north","ľ��","south",DOOR_CLOSED);
+	create_door("north","木门","south",DOOR_CLOSED);
 //	set("no_clean_up", 0);
 	setup();
 	replace_program(ROOM);

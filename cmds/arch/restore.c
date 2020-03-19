@@ -26,7 +26,7 @@ int main(object me, string arg)
 
         if (BACKUP_D->is_backuping())
         {
-                write("ע�⣺�Զ��������Ͼ�Ҫ��ʼ���������ڲ���ִ�лָ�������\n");
+                write("注意：自动备份马上就要开始工作，现在不能执行恢复操作。\n");
                 return 1;
         }
 
@@ -34,7 +34,7 @@ int main(object me, string arg)
                 return help(me);
 
         if (sscanf(arg, "-c %s", arg) || sscanf(arg, "%s -c", arg))
-                // ���������Ժ������Ҫ������
+                // 调入该玩家以后清除必要的数据
                 clear_flag = 1;
         else
                 clear_flag = 0;
@@ -58,7 +58,7 @@ int main(object me, string arg)
 
         if (day < -1 || day > 7)
         {
-                write("û�����������������\n");
+                write("没有这个备份数据区。\n");
                 return 1;
         }
 
@@ -80,17 +80,17 @@ int main(object me, string arg)
         flogin = "login/" + user[0..0] + "/" + user + __SAVE_EXTENSION__;
         fuser  = "user/"  + user[0..0] + "/" + user + __SAVE_EXTENSION__;
 
-        msg = HIM "��ʼ�ָ����(" + user + ")�ı������ݡ�\n\n" NOR;
+        msg = HIM "开始恢复玩家(" + user + ")的备份数据。\n\n" NOR;
         // check the backup data
         if (file_size(dir + flogin) < 0)
         {
-                write(sprintf("%sȱ���ļ���%s���޷��ָ���\n", msg, dir + flogin));
+                write(sprintf("%s缺少文件：%s，无法恢复。\n", msg, dir + flogin));
                 return 1;
         }
 
         if (file_size(dir + fuser) < 0)
         {
-                write(sprintf("%sȱ���ļ���%s���޷��ָ���\n", msg, dir + fuser));
+                write(sprintf("%s缺少文件：%s，无法恢复。\n", msg, dir + fuser));
                 return 1;
         }
 
@@ -100,13 +100,13 @@ int main(object me, string arg)
         {
                 if (dir == TEMP_DIR)
                 {
-                        msg += "�ָ��������ݴ����е����ݡ�\n";
+                        msg += "恢复保存在暂存区中的数据。\n";
                 } else
                 if (file_size(TEMP_DIR + flogin) >= 0 ||
                     file_size(TEMP_DIR + fuser) >= 0)
                 {
-                        msg += "�����ݴ���(/temp/)�����Ѿ���������"
-                               "�����ݣ���˱��β����ݴ档\n";
+                        msg += "由于暂存区(/temp/)下面已经存放了玩家"
+                               "的数据，因此本次不作暂存。\n";
                 } else
                 {
                         // move current user's data to /temp/
@@ -114,19 +114,19 @@ int main(object me, string arg)
                         assure_file(TEMP_DIR + fuser);
                         cp(DATA_DIR + flogin, TEMP_DIR + flogin);
                         cp(DATA_DIR + fuser,  TEMP_DIR + fuser);
-                        msg += "���Ŀǰ��������ʱ���浽�ݴ���(/temp/)�¡�\n";
+                        msg += "玩家目前的数据暂时保存到暂存区(/temp/)下。\n";
                 }
                 rm(DATA_DIR + flogin);
                 rm(DATA_DIR + fuser);
-                msg += "ɾ�����Ŀǰ�ĵ�����\n";
+                msg += "删除玩家目前的档案。\n";
         }
 
         // after remove, if the data existed ?
         if (file_size(DATA_DIR + flogin) >= 0 ||
             file_size(DATA_DIR + fuser) >= 0)
         {
-                write(sprintf("%sû���ܹ��ɹ���ɾ��������ڵĵ���(%s)��(%s)��\n"
-                       "���Ȳ�֤Ȼ����ִ�б��ݲ�����\n",
+                write(sprintf("%s没有能够成功的删除玩家现在的档案(%s)和(%s)。\n"
+                       "请先查证然后再执行备份操作。\n",
                        msg, DATA_DIR + flogin, DATA_DIR + fuser));
                 return 1;
         }
@@ -136,17 +136,17 @@ int main(object me, string arg)
         assure_file(DATA_DIR + fuser);
         cp(dir + flogin, DATA_DIR + flogin);
         cp(dir + fuser,  DATA_DIR + fuser);
-        msg += sprintf("��(%s)�и�����ҵĵ������ݡ�\n", dir);
+        msg += sprintf("从(%s)中复制玩家的档案数据。\n", dir);
 
         // success ?
         if (file_size(DATA_DIR + flogin) < 0 ||
             file_size(DATA_DIR + fuser) < 0)
         {
-                write(sprintf("%sû���ܹ��ɹ��Ĵ�(%s)�и�����ҵĵ�����\n",
+                write(sprintf("%s没有能够成功的从(%s)中复制玩家的档案。\n",
                        msg, dir));
                 return 1;
         }
-        msg += sprintf("�������Ƴɹ���\n");
+        msg += sprintf("档案复制成功。\n");
         log_file("backup", sprintf("user %s has been restore by %s from %s.\n",
                                    user, geteuid(me), dir));
 
@@ -159,19 +159,19 @@ int main(object me, string arg)
                 {
                         if (clear_flag)
                         {
-                                tell_object(me, HIG "��������" + ob->name(1) + "��ĳЩ������ݡ�\n" NOR);
+                                tell_object(me, HIG "清除了玩家" + ob->name(1) + "的某些相关数据。\n" NOR);
                                 clear_user_data(ob);
                         }
                 } else
-                        tell_object(me, HIG "�޷��������ҡ�\n" NOR);
+                        tell_object(me, HIG "无法载入该玩家。\n" NOR);
                 return 1;
         }
 
         // restore the object
-        tell_object(ob, HIM "\n�Ӵ���������������ݣ����������á�\n" NOR);
+        tell_object(ob, HIM "\n从磁盘中载入你的数据，并重新设置。\n" NOR);
         if (! ob->restore())
         {
-                write(sprintf("%s���û��޷���ȡ���ݵ����ݡ�\n", msg));
+                write(sprintf("%s该用户无法读取备份的数据。\n", msg));
                 return 1;
         }
         if (objectp(link_ob = ob->query_temp("link_ob")))
@@ -184,8 +184,8 @@ int main(object me, string arg)
         ob->setup();
         if (! environment(ob))
         {
-                tell_object(ob, HIC "\n���������������Ļ�������������"
-                                "Ҫ�ƶ�����ʦ����ҡ�\n" NOR);
+                tell_object(ob, HIC "\n由于你现在所处的环境不正常，需"
+                                "要移动到巫师会客室。\n" NOR);
                 ob->move("/d/wizard/guest_room");
                 ob->set("startroom", "/d/wizard/guest_room");
         }
@@ -201,13 +201,13 @@ int main(object me, string arg)
         // force show
         ob->write_prompt();
         tell_object(ob, HIY "check backup data now\n" +
-                        HIC "������Ŀǰ��״���Ƿ���ȷ��\n" NOR);
+                        HIC "请检查你目前的状况是否正确。\n" NOR);
         if (ob != me)
-                tell_object(me, HIC "\n����Ѿ��������á�\n\n" NOR);
+                tell_object(me, HIC "\n玩家已经重新设置。\n\n" NOR);
 
         if (clear_flag)
         {
-                write(HIG "��������" + ob->name(1) + "��ĳЩ������ݡ�\n" NOR);
+                write(HIG "清除了玩家" + ob->name(1) + "的某些相关数据。\n" NOR);
                 clear_user_data(ob);
         }
 	return 1;
@@ -276,31 +276,31 @@ private void clear_user_data(object ob)
 int help(object me)
 {
 write(@HELP
-ָ���ʽ��restore [-c] <���ID> from <last | 1..7 | temp | dump>
+指令格式：restore [-c] <玩家ID> from <last | 1..7 | temp | dump>
 
-�ӱ������ָ�һ����ҵ����ݡ����� last ��Ч�ڣ�����ʾ�����һ
-�εı����лָ���������ݻָ�ʱ����ǰ�����ݽ������浽һ���ݴ�
-��(����ݴ�����)���������һָ��ı��ݲ����⣬���Դ� temp ��
-�ָ�����ҵ����ݻָ�ʱ�������������ϣ���ִ�� restore ������
-�����Ҵ�ʱ���ݲ�����������û�л�������û�� setup�������¸�
-����ҡ������Ҳ������ϣ���������Զ�����ҵ�����Ϸ�����㴦
-����ϱ�Ҫ�������Ժ���Խ�������߳�(kickout)��Ϸ��
+从备份区恢复一个玩家的数据。其中 last 等效于１，表示从最近一
+次的备份中恢复。玩家数据恢复时，当前的数据将被保存到一个暂存
+区(如果暂存区空)，如果对玩家恢复的备份不满意，可以从 temp 中
+恢复。玩家的数据恢复时，如果玩家在线上，将执行 restore 操作，
+如果玩家此时数据不正常：包括没有环境或是没有 setup，将重新更
+新玩家。如果玩家不在线上，该命令会自动将玩家调入游戏。当你处
+理完毕必要的数据以后可以将该玩家踢出(kickout)游戏。
 
-ִ����ָ������Ժ�Ӧ�ý���ҵ����ݴ��ݴ������������
+执行玩恢复操作以后应该将玩家的数据从暂存区中清除掉。
 
-ϵͳ SHUTDOWN ���߱����Ժ����еĴ������ݰ���������ݽ�����
-�浽 dump Ŀ¼�У�����Ϊ�˷�ֹϵͳ���������Ժ���ֹ��ϵ�����
-���ܵ���ʧ�����Ҳ���Դ� dump �лָ����ݡ�
+系统 SHUTDOWN 或者崩溃以后，所有的存盘数据包括玩家数据将被保
+存到 dump 目录中，这是为了防止系统重新启动以后出现故障导致数
+据受到损失，因此也可以从 dump 中恢复数据。
 
-ʹ�� -c ���������ڻָ���������Ժ���������������Ե����ݡ�
-���������Щ��ɱ�Ժ�ָ�����Ҷ��Եģ�����������ɱ�������е�
-��������ݶ��ᱻ������ָ��Ժ�Ӧ�����������������Щ���ݣ���
-�����ݲ�һ�¡�
+使用 -c 参数可以在恢复玩家数据以后清除玩家所有相关性的数据。
+这是针对那些自杀以后恢复得玩家而言的，由于他们自杀所以所有的
+相关性数据都会被清除，恢复以后应该清除他们自身的这些数据，避
+免数据不一致。
 
-ע�⣺�ڱ���ϵͳ��һ�������ʾ�Ժ�һֱ��������ϵĹ����У���
-��ִ���йػָ�������ݵĲ�����
+注意：在备份系统第一次提出提示以后一直到备份完毕的过程中，不
+能执行有关恢复玩家数据的操作。
 
-���ָ�cleartemp, clear
+相关指令：cleartemp, clear
 HELP );
     return 1;
 }

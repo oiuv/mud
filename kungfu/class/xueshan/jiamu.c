@@ -7,14 +7,14 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("¼ÎÄ¾»î·ğ", ({ "jiamu huofo", "huofo", "jiamu" }));
+        set_name("å˜‰æœ¨æ´»ä½›", ({ "jiamu huofo", "huofo", "jiamu" }));
         set("long", @LONG
-¼ÎÄ¾»î·ğÊÇ´óÂÖËÂÓĞµÀµÄ¸ßÉ®£¬¶Ô·ğ·¨ÓĞ¾«Éî
-µÄÑĞ¾¿¡£ËûÉí´©Ò»¼ş»ÆÉ«ôÂôÄ£¬Í·´øÉ®Ã±¡£Ä¿
-¹âÈçµç£¬ËÆºõÉí»³¾ø¼¼¡£
+å˜‰æœ¨æ´»ä½›æ˜¯å¤§è½®å¯ºæœ‰é“çš„é«˜åƒ§ï¼Œå¯¹ä½›æ³•æœ‰ç²¾æ·±
+çš„ç ”ç©¶ã€‚ä»–èº«ç©¿ä¸€ä»¶é»„è‰²è¢ˆè£Ÿï¼Œå¤´å¸¦åƒ§å¸½ã€‚ç›®
+å…‰å¦‚ç”µï¼Œä¼¼ä¹èº«æ€€ç»æŠ€ã€‚
 LONG); 
-        set("title", "´óÂÖËÂ»î·ğ"); 
-        set("gender", "ÄĞĞÔ");
+        set("title", "å¤§è½®å¯ºæ´»ä½›"); 
+        set("gender", "ç”·æ€§");
         set("class", "bonze");
         set("age", 38);
         set("attitude", "peaceful");
@@ -66,11 +66,11 @@ LONG);
                 (: exert_function, "recover" :),
         }));
 
-        create_family("´óÂÖËÂ", 2, "µÜ×Ó");
+        create_family("å¤§è½®å¯º", 2, "å¼Ÿå­");
 
         set("inquiry",([
-                "Ìê¶È" : (: ask_for_join :),
-                "³ö¼Ò" : (: ask_for_join :),
+                "å‰ƒåº¦" : (: ask_for_join :),
+                "å‡ºå®¶" : (: ask_for_join :),
         ]));
 
         setup(); 
@@ -84,5 +84,5 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-        command("say Æ¶É®Ö»ÑĞ·ğ·¨£¬²¢²»ÊÕÍ½¡£");
+        command("say è´«åƒ§åªç ”ä½›æ³•ï¼Œå¹¶ä¸æ”¶å¾’ã€‚");
 }

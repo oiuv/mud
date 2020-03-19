@@ -5,11 +5,11 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ÕÅÖ¾¹â", ({ "zhang zhiguang", "zhang", "zhiguang" }));
-        set("gender", "ÄÐÐÔ");
+        set_name("å¼ å¿—å…‰", ({ "zhang zhiguang", "zhang", "zhiguang" }));
+        set("gender", "ç”·æ€§");
         set("age", 24);
         set("class", "taoist");
-        set("long", "Ëû¾ÍÊÇÈ«Õæ½ÌµÚÈý´úµÜ×ÓÖÐµÄºÃÊÖ£¬Ì·´¦¶ËµÄµÜ×Ó¡£\n");
+        set("long", "ä»–å°±æ˜¯å…¨çœŸæ•™ç¬¬ä¸‰ä»£å¼Ÿå­ä¸­çš„å¥½æ‰‹ï¼Œè°­å¤„ç«¯çš„å¼Ÿå­ã€‚\n");
         set("attitude", "friendly");
         set("shen_type", 1);
         set("str", 26);
@@ -45,7 +45,7 @@ void create()
 
         prepare_skill("strike", "chongyang-shenzhang");
 
-        create_family("È«Õæ½Ì", 3, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 3, "å¼Ÿå­");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -64,6 +64,6 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-        command("say ºÃ°É£¬ÎÒ¾ÍÊÕÏÂÄãÕâ¸öÍ½µÜ¡£");
+        command("say å¥½å§ï¼Œæˆ‘å°±æ”¶ä¸‹ä½ è¿™ä¸ªå¾’å¼Ÿã€‚");
         command("recruit " + ob->query("id"));
 }

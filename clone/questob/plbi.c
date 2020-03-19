@@ -4,14 +4,14 @@ inherit ITEM;
 
 void create()
 {
-	set_name("ÅÌÁú±Ú", ({ "panlong bi", "bi" }));
+	set_name("ç›˜é¾™å£", ({ "panlong bi", "bi" }));
 	set_weight(600);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¿é");
-                set("no_sell", "Õâ...ÕâÊÇÊ²Ã´¶«Î÷£¿ÎÒ¿É²»¸ÒÒª¡£\n");
-		set("long", "Ò»¿éÓñèµ£¬ÉÏÃæÓ¡×ÅÒ»ÌõÁú£¬È´ÊÇÌìÈ»ĞÎ³É£¬Ãî²»¿ÉÑÔ¡£\n");
+		set("unit", "å—");
+                set("no_sell", "è¿™...è¿™æ˜¯ä»€ä¹ˆä¸œè¥¿ï¼Ÿæˆ‘å¯ä¸æ•¢è¦ã€‚\n");
+		set("long", "ä¸€å—ç‰ç’§ï¼Œä¸Šé¢å°ç€ä¸€æ¡é¾™ï¼Œå´æ˜¯å¤©ç„¶å½¢æˆï¼Œå¦™ä¸å¯è¨€ã€‚\n");
 		set("value", 1);
 		set("material", "jade");
 	}

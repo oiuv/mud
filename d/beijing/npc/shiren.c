@@ -2,8 +2,8 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ê«ÈË", ({ "shi ren", "shi", "ren" }) );
-        set("gender", "ÄÐÐÔ" );
+        set_name("è¯—äºº", ({ "shi ren", "shi", "ren" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 43);
 
         set("shen_type", 1);

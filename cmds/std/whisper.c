@@ -12,16 +12,16 @@ int main(object me, string arg)
         mixed info;
 
 	if (! arg || sscanf(arg, "%s %s", dest, msg) != 2)
-		return notify_fail("��Ҫ��˭����Щʲô��\n");
+		return notify_fail("你要对谁耳语些什么？\n");
 
         env = environment(me);
 	ob = present(dest, env);
 
 	if (! ob || ! ob->is_character())
-		return notify_fail("��Ҫ��˭���\n");
+		return notify_fail("你要对谁耳语？\n");
 
         if (ob == me)
-		return notify_fail("���޷�����յ��Լ��Ķ�����˵����\n");
+		return notify_fail("你无法将嘴凑到自己的耳朵旁说话。\n");
 
         if (me->ban_say(1))
                 return 0;
@@ -34,34 +34,34 @@ int main(object me, string arg)
                         return 1;
                 }
 
-                write("����ط����ܽ�����\n");
+                write("这个地方不能讲话。\n");
                 return 1;
         }
 
         if (me->query("doing") == "scheme")
         {
                 if (me->query("jing") < 100)
-                        return notify_fail("�����ڵľ��񲻼ã���һ����ɡ�\n");
+                        return notify_fail("你现在的精神不济，等一会儿吧。\n");
                 me->add("jing", -50);
         }
 
-	write(WHT "����" + ob->name() + WHT "�Ķ�������˵����" +
+	write(WHT "你在" + ob->name() + WHT "的耳边悄声说道：" +
 	      msg + "\n" NOR);
-	tell_room(environment(me), me->name() + "��" + ob->name()
-		+ "����С����˵��Щ����\n", ({ me, ob }));
+	tell_room(environment(me), me->name() + "在" + ob->name()
+		+ "耳边小声地说了些话。\n", ({ me, ob }));
 	if (! userp(ob)) ob->relay_whisper(me, msg);
 	else
 		tell_object(ob, WHT + me->name() +
-				WHT "����Ķ�������˵����" + msg + "\n" NOR);
+				WHT "在你的耳边悄声说道：" + msg + "\n" NOR);
 	return 1;
 }
 
 int help(object me)
 {
 	write( @TEXT
-ָ���ʽ��whisper <ĳ��> <ѶϢ>
+指令格式：whisper <某人> <讯息>
 
-���ָ�����������ͬһ�����е��˶������ NPC ���ڡ�
+这个指令可以用来和同一房间中的人耳语，包括 NPC 在内。
 TEXT );
 	return 1;
 }

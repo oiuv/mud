@@ -15,29 +15,29 @@ int perform(object me)
         if (jing_cost < 30) jing_cost = 30;
 
         if (environment(me)->query("no_fight") && me->query("doing") != "scheme")
-                return notify_fail("ÕâÀïÌ«àĞÔÓ£¬Äã²»ÄÜ¾²ÏÂĞÄÀ´ÑİÁ·¡£\n");
+                return notify_fail("è¿™é‡Œå¤ªå˜ˆæ‚ï¼Œä½ ä¸èƒ½é™ä¸‹å¿ƒæ¥æ¼”ç»ƒã€‚\n");
 
         if (me->is_fighting())
-                return notify_fail("¡¸×Ü¾÷Ê½¡¹²»ÄÜÔÚÕ½¶·ÖĞÑİÁ·¡£\n");
+                return notify_fail("ã€Œæ€»è¯€å¼ã€ä¸èƒ½åœ¨æˆ˜æ–—ä¸­æ¼”ç»ƒã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-                return notify_fail("Äã±ØĞëÏÈÈ¥ÕÒÒ»°Ñ½£¡£\n");
+                return notify_fail("ä½ å¿…é¡»å…ˆå»æ‰¾ä¸€æŠŠå‰‘ã€‚\n");
 
         if (! skill || skill < 20)
-                return notify_fail("ÄãµÄ¶À¹Â¾Å½£µÈ¼¶²»¹», ²»ÄÜÑİÁ·¡¸×Ü¾÷Ê½¡¹£¡\n");
+                return notify_fail("ä½ çš„ç‹¬å­¤ä¹å‰‘ç­‰çº§ä¸å¤Ÿ, ä¸èƒ½æ¼”ç»ƒã€Œæ€»è¯€å¼ã€ï¼\n");
 
         if (me->query("neili") < 50)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬Ã»ÓĞÁ¦ÆøÑİÁ·¡¸×Ü¾÷Ê½¡¹£¡\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œæ²¡æœ‰åŠ›æ°”æ¼”ç»ƒã€Œæ€»è¯€å¼ã€ï¼\n");
 
         if (me->query("jing") < -jing_cost)
-                return notify_fail("ÄãÏÖÔÚÌ«ÀÛÁË£¬ÎŞ·¨¼¯ÖĞ¾«ÉñÑİÁ·¡¸×Ü¾÷Ê½¡¹£¡\n");
+                return notify_fail("ä½ ç°åœ¨å¤ªç´¯äº†ï¼Œæ— æ³•é›†ä¸­ç²¾ç¥æ¼”ç»ƒã€Œæ€»è¯€å¼ã€ï¼\n");
 
         if (! me->can_improve_skill("lonely-sword"))
-                return notify_fail("ÄãµÄÊµÕ½¾­Ñé²»¹»£¬ÎŞ·¨Ìå»á¡¸×Ü¾÷Ê½¡¹£¡\n");
+                return notify_fail("ä½ çš„å®æˆ˜ç»éªŒä¸å¤Ÿï¼Œæ— æ³•ä½“ä¼šã€Œæ€»è¯€å¼ã€ï¼\n");
 
-        msg = HIG "$N" HIG "Ê¹³ö¶À¹Â¾Å½£Ö®¡¸×Ü¾÷Ê½¡¹£¬½«ÊÖÖĞ" +
-              weapon->name() + HIG "ËæÒâ»ÓÎè»÷´Ì¡£\n" NOR;
+        msg = HIG "$N" HIG "ä½¿å‡ºç‹¬å­¤ä¹å‰‘ä¹‹ã€Œæ€»è¯€å¼ã€ï¼Œå°†æ‰‹ä¸­" +
+              weapon->name() + HIG "éšæ„æŒ¥èˆå‡»åˆºã€‚\n" NOR;
         message_combatd(msg, me);
 
         me->add("neili", -40 - random(10));
@@ -45,7 +45,7 @@ int perform(object me)
 
         improve = 1 + random(me->query("int"));
 
-        tell_object(me, MAG "ÄãµÄ¡¸»ù±¾½£·¨¡¹ºÍ¡¸¶À¹Â¾Å½£¡¹½ø²½ÁË£¡\n" NOR);
+        tell_object(me, MAG "ä½ çš„ã€ŒåŸºæœ¬å‰‘æ³•ã€å’Œã€Œç‹¬å­¤ä¹å‰‘ã€è¿›æ­¥äº†ï¼\n" NOR);
         me->improve_skill("sword", improve / 2);
         me->improve_skill("lonely-sword", improve);
         me->start_busy(random(3));

@@ -1,35 +1,35 @@
 // power.c
-// ĞÂÔöÄÚ¹¦ÔË¹¦Ğ§¹û£¬ÌáÉıÎäÑ§×÷ÓÃ
+// æ–°å¢å†…åŠŸè¿åŠŸæ•ˆæœï¼Œæå‡æ­¦å­¦ä½œç”¨
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
 mapping valid_types = ([
-		"force":        "ÄÚ¹¦",
-        "unarmed":      "È­½Å",
-        "sword":        "½£·¨",
-        "blade":        "µ¶·¨",
-        "staff":        "ÕÈ·¨",
-        "hammer":       "´¸·¨",
-        "club" :        "¹÷·¨",
-        "throwing":     "°µÆ÷",
-        "parry":        "ÕĞ¼Ü",
-        "dodge":        "Çá¹¦",
-        "magic":        "·¨Êõ",
-        "whip":         "±Ş·¨",
-        "dagger":       "¶Ì±ø",
-        "finger":       "Ö¸·¨",
-        "hand":         "ÊÖ·¨",
-        "cuff":         "È­·¨",
-        "claw":         "×¦·¨",
-        "strike":       "ÕÆ·¨",
-        "medical":      "Ò½Êõ",
-        "poison":       "¶¾¼¼",
-        "cooking":      "³øÒÕ",
-        "chuixiao-jifa" : "´µÏô",
-        "guzheng-jifa"  : "¹Åóİ",
-        "tanqin-jifa"   : "µ¯ÇÙ",
+		"force":        "å†…åŠŸ",
+        "unarmed":      "æ‹³è„š",
+        "sword":        "å‰‘æ³•",
+        "blade":        "åˆ€æ³•",
+        "staff":        "æ–æ³•",
+        "hammer":       "é”¤æ³•",
+        "club" :        "æ£æ³•",
+        "throwing":     "æš—å™¨",
+        "parry":        "æ‹›æ¶",
+        "dodge":        "è½»åŠŸ",
+        "magic":        "æ³•æœ¯",
+        "whip":         "é­æ³•",
+        "dagger":       "çŸ­å…µ",
+        "finger":       "æŒ‡æ³•",
+        "hand":         "æ‰‹æ³•",
+        "cuff":         "æ‹³æ³•",
+        "claw":         "çˆªæ³•",
+        "strike":       "æŒæ³•",
+        "medical":      "åŒ»æœ¯",
+        "poison":       "æ¯’æŠ€",
+        "cooking":      "å¨è‰º",
+        "chuixiao-jifa" : "å¹è§",
+        "guzheng-jifa"  : "å¤ç­",
+        "tanqin-jifa"   : "å¼¹ç´",
 ]);
 
 int exert(object me, object target)
@@ -47,19 +47,19 @@ int exert(object me, object target)
 	map = me->query_skill_map();
 
 	if (target != me)
-		return notify_fail("ÄãÖ»ÄÜÌáÉı×Ô¼ºµÄÕ½¶·Á¦¡£\n");
+		return notify_fail("ä½ åªèƒ½æå‡è‡ªå·±çš„æˆ˜æ–—åŠ›ã€‚\n");
 
 	if ((int)me->query("neili") < 100)
-		return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¡\n");
+		return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼\n");
 
 	if ((int)me->query_temp("power"))
-		return notify_fail("ÄãÒÑ¾­ÔÚÔË¹¦ÖĞÁË¡£\n");
+		return notify_fail("ä½ å·²ç»åœ¨è¿åŠŸä¸­äº†ã€‚\n");
 	
 	if ((int)me->query_skill("force") < 200)
-		return notify_fail("ÄãµÄÄÚ¹¦ĞŞÎª²»¹»,ÎŞ·¨ÌáÉı×Ô¼ºµÄ¹¦Á¦¡£\n");
+		return notify_fail("ä½ çš„å†…åŠŸä¿®ä¸ºä¸å¤Ÿ,æ— æ³•æå‡è‡ªå·±çš„åŠŸåŠ›ã€‚\n");
 
 	if (skill < 120)
-		return notify_fail("ÄãµÄÎäÑ§ĞŞÑø²»¹»,ÎŞ·¨ÌáÉı×Ô¼ºµÄ¹¦Á¦¡£\n");
+		return notify_fail("ä½ çš„æ­¦å­¦ä¿®å…»ä¸å¤Ÿ,æ— æ³•æå‡è‡ªå·±çš„åŠŸåŠ›ã€‚\n");
 	
 	for (i = 0; i < sizeof(skills); i++)
     {
@@ -78,8 +78,8 @@ int exert(object me, object target)
 
 	me->set("neili", 0);
 	
-	message_combatd(HIY "$N" HIY "×İÉù³¤Ğ¦£¬µ¤ÌïÖĞÄÚÁ¦¼¤µ´£¬"
-                        "ÒÂ½ÇÇÄÈ»ÑïÆğ£¬ËÆºõÒª³Ë·ç¶øÈ¥£¬Æ®Æ®ÓûÏÉ£¡\n" NOR, me);
+	message_combatd(HIY "$N" HIY "çºµå£°é•¿ç¬‘ï¼Œä¸¹ç”°ä¸­å†…åŠ›æ¿€è¡ï¼Œ"
+                        "è¡£è§’æ‚„ç„¶æ‰¬èµ·ï¼Œä¼¼ä¹è¦ä¹˜é£è€Œå»ï¼Œé£˜é£˜æ¬²ä»™ï¼\n" NOR, me);
 
 	me->add_temp("apply/" + sk, skill / 5);
 	

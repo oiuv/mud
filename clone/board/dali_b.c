@@ -4,10 +4,10 @@ inherit BULLETIN_BOARD;
 
 void create()
 {
-	set_name("´óÀí¶Î¸®ÁôÑÔ°å", ({ "board" }) );
+	set_name("å¤§ç†æ®µåºœç•™è¨€æ¿", ({ "board" }) );
 	set("location", "/d/dali/wangfugate");
 	set("board_id", "dali_b");
-	set("long", "ÕâÊÇÒ»¸ö¹©´óÀí¶Î¸®ÃÅÏÂ½»Á÷µÄÁôÑÔ°å¡£\n" );
+	set("long", "è¿™æ˜¯ä¸€ä¸ªä¾›å¤§ç†æ®µåºœé—¨ä¸‹äº¤æµçš„ç•™è¨€æ¿ã€‚\n" );
 	setup();
 	set("capacity", 100);
 	replace_program(BULLETIN_BOARD);

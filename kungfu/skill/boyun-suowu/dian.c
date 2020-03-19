@@ -4,7 +4,7 @@ inherit F_SSERVER;
 
 string name()
 {
-	return("ÔÆÎí°µµã");
+	return("äº‘é›¾æš—ç‚¹");
 }
 
 int perform( object me, object target )
@@ -19,24 +19,24 @@ int perform( object me, object target )
 	}
 
 	if ( me->query_temp( "weapon" ) )
-		return(notify_fail( "ÄãÖ»ÄÜ¿ÕÊÖÊ¹ÓÃ¡¸ÔÆÎí°µµã¡¹¡£\n" ) );
+		return(notify_fail( "ä½ åªèƒ½ç©ºæ‰‹ä½¿ç”¨ã€Œäº‘é›¾æš—ç‚¹ã€ã€‚\n" ) );
 
 	if ( !me->is_fighting( target ) )
-		return(notify_fail( "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n" ) );
+		return(notify_fail( "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n" ) );
 
 	if ( (int) me->query_skill( "boyun-suowu", 1 ) < 100 )
-		return(notify_fail( "ÄãµÄ¡¸²¦ÔÆËøÎí¡¹²»¹»æµÊì£¬²»ÄÜÊ¹ÓÃ¡¸ÔÆÎí°µµã¡¹¡£\n" ) );
+		return(notify_fail( "ä½ çš„ã€Œæ‹¨äº‘é”é›¾ã€ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸èƒ½ä½¿ç”¨ã€Œäº‘é›¾æš—ç‚¹ã€ã€‚\n" ) );
 
 	if ( (int) me->query_skill( "biyun-xinfa", 1 ) < 100 )
-		return(notify_fail( "ÄãµÄ±ÌÔÆÐÄ·¨²»¹»ÊìÁ·£¡\n" ) );
+		return(notify_fail( "ä½ çš„ç¢§äº‘å¿ƒæ³•ä¸å¤Ÿç†Ÿç»ƒï¼\n" ) );
 
 	if ( me->query( "neili" ) < 800 )
-		return(notify_fail( "ÄãµÄÄÚÁ¦²»¹»¡£\n" ) );
+		return(notify_fail( "ä½ çš„å†…åŠ›ä¸å¤Ÿã€‚\n" ) );
 
 	ap	= me->query_skill( "hand" ) + me->query_dex() * 10;
 	dp	= target->query_skill( "dodge" ) + target->query_dex() * 10;
 
-	msg = HIG "$NÊÖÍóÒ»·­£¬ÐÅÊÖÒ»¸öÄé»¨¾÷£¬ÄÚÁ¦°µÍÂ£¬¡°àÍ¡±µÄÒ»Éù£¬ÆÆ¿Õ¶øÈ¥!\n"NOR;
+	msg = HIG "$Næ‰‹è…•ä¸€ç¿»ï¼Œä¿¡æ‰‹ä¸€ä¸ªæ‹ˆèŠ±è¯€ï¼Œå†…åŠ›æš—åï¼Œâ€œå—¤â€çš„ä¸€å£°ï¼Œç ´ç©ºè€ŒåŽ»!\n"NOR;
 
 	message_combatd( msg, me, target );
 
@@ -46,9 +46,9 @@ int perform( object me, object target )
 	{
 		if ( !target->is_busy() )
 			target->start_busy( ap / 100 + 2 );
-		msg = HIC "$nÈ«Éí¶Ù¾õÒ»Âé£¬ËÆºõ²»ÄÜ¶¯µ¯¡£\n"NOR;
+		msg = HIC "$nå…¨èº«é¡¿è§‰ä¸€éº»ï¼Œä¼¼ä¹Žä¸èƒ½åŠ¨å¼¹ã€‚\n"NOR;
 	}else
-		msg = HIM "Ö»¼û$n²àÉíÒ»ÈÃ£¬Ò»Õó·çÉù£¬ÆÆ¿Õ¶ø¹ý£¡\n"NOR;
+		msg = HIM "åªè§$nä¾§èº«ä¸€è®©ï¼Œä¸€é˜µé£Žå£°ï¼Œç ´ç©ºè€Œè¿‡ï¼\n"NOR;
 	message_combatd( msg, me, target );
 
 	return(1);

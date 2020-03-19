@@ -6,12 +6,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIC "ôä´äÀ¼" NOR, ({"feicui lan", "feicui", "lan"}));
+	set_name(HIC "ç¿¡ç¿ å…°" NOR, ({"feicui lan", "feicui", "lan"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-        	set("unit", "¶ä");
-		set("long", "ÕâÊÇÒ»¶äÇ§ÄêÄÑµÃÒ»¼ûµÄôä´äÀ¼£¬¾İËµÄÜ½â°Ù¶¾¡£\n");
+        	set("unit", "æœµ");
+		set("long", "è¿™æ˜¯ä¸€æœµåƒå¹´éš¾å¾—ä¸€è§çš„ç¿¡ç¿ å…°ï¼Œæ®è¯´èƒ½è§£ç™¾æ¯’ã€‚\n");
         	set("value", 1000000);
 		set("only_do_effect", 1);
 	}
@@ -25,9 +25,9 @@ int do_effect(object me)
 	me->set("jing", me->query("max_jing"));
 	me->set("eff_qi", me->query("max_qi"));
 	me->set("qi", me->query("max_qi"));
-        message_vision("$N°Ñ" + name() + "ÈÓ½ø×ìÀï£¬¼¸ÏÂ¾ÍÍÌÁËÏÂÈ¥¡£\n", me);
-	tell_object(me, HIG "\nÄãÖ»¾õÒ»¹ÉÇåÏãÇßÈëĞÄ·Î£¬¶ÙÊ±ÁéÌ¨Ò»Æ¬"
-		        "¿ÕÃ÷£¬ÉñÒâÇåË¬£¡\n" NOR);
+        message_vision("$NæŠŠ" + name() + "æ‰”è¿›å˜´é‡Œï¼Œå‡ ä¸‹å°±åäº†ä¸‹å»ã€‚\n", me);
+	tell_object(me, HIG "\nä½ åªè§‰ä¸€è‚¡æ¸…é¦™æ²å…¥å¿ƒè‚ºï¼Œé¡¿æ—¶çµå°ä¸€ç‰‡"
+		        "ç©ºæ˜ï¼Œç¥æ„æ¸…çˆ½ï¼\n" NOR);
 	destruct(this_object());
 	return 1;
 }

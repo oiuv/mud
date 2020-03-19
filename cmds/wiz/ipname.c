@@ -1,4 +1,4 @@
-// ²éÑ¯ÔÚÏßplayerµÄipµØÃû£¬ĞèIP_D½ø³ÌºÍIPÊı¾İ¿â
+// æŸ¥è¯¢åœ¨çº¿playerçš„ipåœ°åï¼Œéœ€IP_Dè¿›ç¨‹å’ŒIPæ•°æ®åº“
 #include <ansi.h>
 int help(object me);
 int main(object me, string name)
@@ -8,10 +8,10 @@ int main(object me, string name)
         if( !name ) return help(me);
         seteuid(getuid());
         if( !ob = find_player(name) )
-              return notify_fail("Ã»ÓĞÕâ¸öÍæ¼Ò¡£\n");
+              return notify_fail("æ²¡æœ‰è¿™ä¸ªç©å®¶ã€‚\n");
         ip = query_ip_number(ob);
-        write("\n" + HIY+ob->name(1) + NOR + "IP×´Ì¬ÈçÏÂ£º\n"NOR);
-        write(HIY+"IPµØÖ·£º" + HIR + ip + NOR + "¡ª¡ª" + HIG + IP_D->seek_ip_address(ip) + "\n");
+        write("\n" + HIY+ob->name(1) + NOR + "IPçŠ¶æ€å¦‚ä¸‹ï¼š\n"NOR);
+        write(HIY+"IPåœ°å€ï¼š" + HIR + ip + NOR + "â€”â€”" + HIG + IP_D->seek_ip_address(ip) + "\n");
         write("\n");
         return 1;
 }
@@ -19,8 +19,8 @@ int main(object me, string name)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½£ºipname <id>
-²ì¿´Ä³¸öÍæ¼ÒIPµØÖ·ÒÔ¼°ÏêÏ¸µØµã¡£
+æŒ‡ä»¤æ ¼å¼ï¼šipname <id>
+å¯Ÿçœ‹æŸä¸ªç©å®¶IPåœ°å€ä»¥åŠè¯¦ç»†åœ°ç‚¹ã€‚
 HELP
         );
     return 1;

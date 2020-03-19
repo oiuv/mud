@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ʯ��");
+	set("short", "石阶");
 	set("long", @LONG
-ֻ��һ��ʯ���������£���ʧ��ŨŨ�ĺڰ��С�ʯ���ϳ�������ɫ����
-̦���������š�Զ���ڰ��ľ�ͷ�ƺ��е��ƵĹ�����
+只见一排石阶盘旋而下，消失在浓浓的黑暗中。石阶上长满的绿色的青
+苔，滑不留脚。远处黑暗的尽头似乎有点昏黄的光亮。
 LONG	);
 	set("exits", ([ /* sizeof() == 2 */
 "out" : __DIR__"wmfeng",

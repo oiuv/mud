@@ -16,7 +16,7 @@ void create()
         name += last_words[random(sizeof(last_words))];
         
         set_name(name, ({ "ghost"}) );
-        set("gender", "Ů��" );        
+        set("gender", "女性" );        
         set("age",40);
         set("str", 30);
         set("int", 20);
@@ -80,19 +80,19 @@ void invocation(object target)
         ap = me->query_skill("blade") * 3 / 2 + me->query_skill("martial-cognize", 1);
         dp = target->query_skill("dodge") + target->query_skill("martial-cognize", 1);
              
-        msg = HIY "$N" HIY "��Ȼʩ����" HIR "��Ѫ��" HIY "�������иֵ�"
-              HIY "�����ޱ�ɱ�⣬Я�ŷ���֮����$n" HIY "��ն��ȥ��\n" NOR;
+        msg = HIY "$N" HIY "陡然施出「" HIR "噬血穹苍" HIY "」，手中钢刀"
+              HIY "腾起无边杀意，携着风雷之势向$n" HIY "劈斩而去！\n" NOR;
 
         if (ap + random(ap) > dp)
         {
                 damage = ap / 2 + random(ap);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 75,
-                                           HIR "$n" HIR "ֻ����ǰһ��Ѫ����������"
-                                           "���ѱ�$N" HIR "��һ�����˸����С�\n" NOR);
+                                           HIR "$n" HIR "只觉眼前一蓬血雨喷洒而出"
+                                           "，已被$N" HIR "这一刀劈了个正中。\n" NOR);
         } else
         {
-                msg += CYN "$p" CYN "ֻ��$P" CYN "������ӿ�����Եֵ�����"
-                       "����������Ծ�����ߡ�\n" NOR;
+                msg += CYN "$p" CYN "只见$P" CYN "来势汹涌，难以抵挡，当"
+                       "即飞身朝后跃出数尺。\n" NOR;
         }
         message_combatd(msg, me, target);            
         destruct(me);

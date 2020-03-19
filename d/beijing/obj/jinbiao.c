@@ -6,16 +6,16 @@ inherit THROWING;
 
 void create()
 {
-	set_name(HIY"½ğïÚ"NOR, ({"jinbiao", "biao" }));
+	set_name(HIY"é‡‘é•–"NOR, ({"jinbiao", "biao" }));
 	if( clonep() )
 		set_default_object(__FILE__);
 	else
 	{
-     		set("long", "ÕâÊÇÒ»°ÑÓÃ´¿½ğ´òÔì³ÉµÄ·ÉïÚ£¬¼Û¸ñ°º¹ó£¬ÉÁÉÁ·¢¹â¡£\n");
-		set("unit", "Ğ©");
+     		set("long", "è¿™æ˜¯ä¸€æŠŠç”¨çº¯é‡‘æ‰“é€ æˆçš„é£é•–ï¼Œä»·æ ¼æ˜‚è´µï¼Œé—ªé—ªå‘å…‰ã€‚\n");
+		set("unit", "äº›");
            	set("base_value", 200);
 		set("material", "gold");
-         	set("base_unit", "Ã¶");
+         	set("base_unit", "æš");
 		set("base_weight", 50); 
 	}	
        set_amount(1);

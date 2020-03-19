@@ -5,10 +5,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "Ê¯½×");
+	set("short", "çŸ³é˜¶");
 	set("long", @LONG
-ÕâÊÇµÇÏò³ÇÍ·µÄÊ¯½×£¬ÒòÎª³ÇÇ½ºÜ¸ß£¬ËùÒÔºÜ¶¸¡£Ê¯½×Á½
-²àÓĞ¿É¹©À­³µÉÏÏÂµÄĞ±ÆÂµÀ¡£
+è¿™æ˜¯ç™»å‘åŸå¤´çš„çŸ³é˜¶ï¼Œå› ä¸ºåŸå¢™å¾ˆé«˜ï¼Œæ‰€ä»¥å¾ˆé™¡ã€‚çŸ³é˜¶ä¸¤
+ä¾§æœ‰å¯ä¾›æ‹‰è½¦ä¸Šä¸‹çš„æ–œå¡é“ã€‚
 LONG );
         set("outdoors", "xiangyang");
 	set("exits", ([
@@ -34,7 +34,7 @@ int valid_leave(object me, string dir)
                 } else
                 {
                         me->set("qi", 0);
-                        return notify_fail("ÄãÌ«ÀÛÁË£¬»¹ÊÇĞİÏ¢Ò»»á¶ù°É¡£\n");
+                        return notify_fail("ä½ å¤ªç´¯äº†ï¼Œè¿˜æ˜¯ä¼‘æ¯ä¸€ä¼šå„¿å§ã€‚\n");
                 }
 	}
 	return 1;

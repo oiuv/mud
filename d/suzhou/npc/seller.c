@@ -5,11 +5,11 @@ inherit F_VENDOR;
 
 void create()
 {
-	set_name("Ğ¡··", ({ "seller" }) );
-	set("gender", "ÄĞĞÔ" );
+	set_name("å°è´©", ({ "seller" }) );
+	set("gender", "ç”·æ€§" );
 	set("age", 32);
 	set("long",
-		"ÕâÎ»Ğ¡··×ÓÕıĞ¦ßäßäµØÀ´»ØÃ¦Öø£¬»¹²»Ê±ÕĞºô¹ıÍùµÄ¿ÍÈË½øÀ´¡£\n");
+		"è¿™ä½å°è´©å­æ­£ç¬‘å’ªå’ªåœ°æ¥å›å¿™è‘—ï¼Œè¿˜ä¸æ—¶æ‹›å‘¼è¿‡å¾€çš„å®¢äººè¿›æ¥ã€‚\n");
 	set("combat_exp", 300);
         set("str", 17);
         set("dex", 20);
@@ -41,7 +41,7 @@ void init()
 void greeting(object ob)
 {
 	if( !ob || environment(ob) != environment() ) return;
-	say( "Ğ¡··×ÓĞ¦ºÇºÇËµµÀ£ºÕâÎ»" + RANK_D->query_respect(ob) + "£¬ÄúÏëÒªµãÊ²Ã´£¿\n");
+	say( "å°è´©å­ç¬‘å‘µå‘µè¯´é“ï¼šè¿™ä½" + RANK_D->query_respect(ob) + "ï¼Œæ‚¨æƒ³è¦ç‚¹ä»€ä¹ˆï¼Ÿ\n");
 	return;
 }
 

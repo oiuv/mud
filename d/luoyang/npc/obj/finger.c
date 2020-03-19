@@ -1,4 +1,4 @@
-// zhitao.c Ö¸Ì×
+// zhitao.c æŒ‡å¥—
 
 #include <armor.h>
 #include <ansi.h>
@@ -7,13 +7,13 @@ inherit HANDS;
 
 void create()
 {
-	set_name( HIY"»Æ½ğÖ¸Ì×"NOR, ({ "gold finger", "finger", "zhitao" }) );
+	set_name( HIY"é»„é‡‘æŒ‡å¥—"NOR, ({ "gold finger", "finger", "zhitao" }) );
 	set_weight(2000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¸±");
-		set("long", "ÕâÊÇÎå¸ö»·»·ÏàÁ´µÄ»Æ½ğÖ¸Ì×£¬¿ÉÒÔ¼ÓÇ¿Ö¸·¨¡¢ÊÖ·¨ºÍ×¦·¨µÄÉËº¦Á¦¡£\n");
+		set("unit", "å‰¯");
+		set("long", "è¿™æ˜¯äº”ä¸ªç¯ç¯ç›¸é“¾çš„é»„é‡‘æŒ‡å¥—ï¼Œå¯ä»¥åŠ å¼ºæŒ‡æ³•ã€æ‰‹æ³•å’Œçˆªæ³•çš„ä¼¤å®³åŠ›ã€‚\n");
 		set("value", 200000);
 		set("material", "steel");		
               set("armor_prop/finger", 10);              

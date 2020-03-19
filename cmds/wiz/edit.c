@@ -9,7 +9,7 @@ int main(object me, string file)
                 return 0;
 
         if (! file)
-                return notify_fail("Ö¸Áî¸ñÊ½£ºedit <µµÃû>\n");
+                return notify_fail("æŒ‡ä»¤æ ¼å¼ï¼šedit <æ¡£å>\n");
 
         if (! me->is_admin())
         {
@@ -19,12 +19,12 @@ int main(object me, string file)
                         break;
 
                 default:
-                        return notify_fail("Äã²»ÄÜ±à¼­Õâ¸öÎÄ¼ş¡£\n");
+                        return notify_fail("ä½ ä¸èƒ½ç¼–è¾‘è¿™ä¸ªæ–‡ä»¶ã€‚\n");
                 }
         }
 
         if (in_edit(me))
-                return notify_fail("ÄãÒÑ¾­ÔÚÊ¹ÓÃ±à¼­Æ÷ÁË¡£\n");
+                return notify_fail("ä½ å·²ç»åœ¨ä½¿ç”¨ç¼–è¾‘å™¨äº†ã€‚\n");
 
         seteuid(geteuid(me));
         file = resolve_path(me->query("cwd"), file);
@@ -40,11 +40,11 @@ int main(object me, string file)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : edit <µµÃû>, edit here
+æŒ‡ä»¤æ ¼å¼ : edit <æ¡£å>, edit here
 
-ÀûÓÃ´ËÒ»Ö¸Áî¿ÉÖ±½ÓÔÚÏßÉÏ±à¼­µµ°¸¡£
+åˆ©ç”¨æ­¤ä¸€æŒ‡ä»¤å¯ç›´æ¥åœ¨çº¿ä¸Šç¼–è¾‘æ¡£æ¡ˆã€‚
 
-¸ÃÃüÁîÔÚ¿ÉÒÔ±»ÊÚÈ¨Ê¹ÓÃµÄĞÅÏ¢°üÀ¨£ºenable¡£
+è¯¥å‘½ä»¤åœ¨å¯ä»¥è¢«æˆæƒä½¿ç”¨çš„ä¿¡æ¯åŒ…æ‹¬ï¼šenableã€‚
 HELP );
         return 1;
 }

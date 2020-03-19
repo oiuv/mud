@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-      set("short","����");
+      set("short","密林");
       set("long",@LONG
-���Ǻ�ɭɭ��һƬ���֣��ľ���죬Ũ�����ա���������
-�Ǳ����£������ּ�������һ�����
+这是黑森森的一片密林，楠木参天，浓阴蔽日。这里西上
+是报国寺，东边林间隐藏着一座庙宇。
 LONG);
       set("exits", ([
           "eastdown"  : __DIR__"fhs",

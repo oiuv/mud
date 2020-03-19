@@ -7,40 +7,40 @@ int exert(object me, object target)
         string force;
 
         if (! target || target == me)
-                return notify_fail("ÄãÒªÓÃÕæÆøÎªË­ÁÆÉË£¿\n");
+                return notify_fail("ä½ è¦ç”¨çœŸæ°”ä¸ºè°ç–—ä¼¤ï¼Ÿ\n");
 
         if (me->is_fighting() || target->is_fighting())
-                return notify_fail("Õ½¶·ÖÐÎÞ·¨ÔË¹¦ÁÆÉË£¡\n");
+                return notify_fail("æˆ˜æ–—ä¸­æ— æ³•è¿åŠŸç–—ä¼¤ï¼\n");
 
         if (target->query("not_living"))
-                return notify_fail("Äã²»ÄÜ¸ø" + target->name() + "ÁÆÉË¡£\n");
+                return notify_fail("ä½ ä¸èƒ½ç»™" + target->name() + "ç–—ä¼¤ã€‚\n");
 
         force = me->query_skill_mapped("force");
         if (! force)
-                return notify_fail("Äã±ØÐë¼¤·¢Ò»ÖÖÄÚ¹¦²ÅÄÜÌæÈËÁÆÉË¡£\n");
+                return notify_fail("ä½ å¿…é¡»æ¿€å‘ä¸€ç§å†…åŠŸæ‰èƒ½æ›¿äººç–—ä¼¤ã€‚\n");
 
         if ((int)me->query_skill(force,1) < 50)
-                return notify_fail("ÄãµÄ" + to_chinese(force) + "µÈ¼¶²»¹»¡£\n");
+                return notify_fail("ä½ çš„" + to_chinese(force) + "ç­‰çº§ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query("max_neili") < 300)
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎª²»¹»¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸å¤Ÿã€‚\n");
 
         if ((int)me->query("neili") < 150)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»¹»¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸å¤Ÿã€‚\n");
 
         if ((int)target->query("eff_qi") >= (int)target->query("max_qi"))
                 return notify_fail( target->name() +
-                        "ÏÖÔÚÃ»ÓÐÊÜÉË£¬²»ÐèÒªÄãÔË¹¦ÖÎÁÆ£¡\n");
+                        "çŽ°åœ¨æ²¡æœ‰å—ä¼¤ï¼Œä¸éœ€è¦ä½ è¿åŠŸæ²»ç–—ï¼\n");
 
         if ((int)target->query("eff_qi") < (int)target->query("max_qi") / 5)
                 return notify_fail( target->name() +
-                        "ÒÑ¾­ÊÜÉË¹ýÖØ£¬¾­ÊÜ²»ÆðÄãµÄÕæÆøÕðµ´£¡\n");
+                        "å·²ç»å—ä¼¤è¿‡é‡ï¼Œç»å—ä¸èµ·ä½ çš„çœŸæ°”éœ‡è¡ï¼\n");
 
         message_vision(
-                HIY "$N×øÁËÏÂÀ´ÔËÆð" + to_chinese(force) +
-                "£¬½«ÊÖÕÆÌùÔÚ$n±³ÐÄ£¬»º»ºµØ½«ÕæÆøÊäÈë$nÌåÄÚ....\n"
-                HIW "¹ýÁË²»¾Ã£¬$N¶îÍ·ÉÏÃ°³ö¶¹´óµÄº¹Öé£¬$nÍÂ³öÒ»"
-                "¿ÚðöÑª£¬Á³É«¿´ÆðÀ´ºìÈó¶àÁË¡£\n" NOR,
+                HIY "$Nåäº†ä¸‹æ¥è¿èµ·" + to_chinese(force) +
+                "ï¼Œå°†æ‰‹æŽŒè´´åœ¨$nèƒŒå¿ƒï¼Œç¼“ç¼“åœ°å°†çœŸæ°”è¾“å…¥$nä½“å†…....\n"
+                HIW "è¿‡äº†ä¸ä¹…ï¼Œ$Né¢å¤´ä¸Šå†’å‡ºè±†å¤§çš„æ±—ç ï¼Œ$nåå‡ºä¸€"
+                "å£ç˜€è¡€ï¼Œè„¸è‰²çœ‹èµ·æ¥çº¢æ¶¦å¤šäº†ã€‚\n" NOR,
                 me, target );
 
         target->receive_curing("qi", 10 + (int)me->query_skill("force") / 2);

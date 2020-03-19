@@ -19,7 +19,7 @@ int valid_force(string force)
 }
 
 mapping *action = ({
-([      "action":"$NÄ¬×ÔÔË¹¦£¬ÒÀÕÕÒ×½î¶Í¹ÇµÄ¿Ú¾÷½«ÄÚÏ¢ÔÚÖÜÉí¾­ÂöÖÐÓÎ×ßÁËÒ»±é"
+([      "action":"$Né»˜è‡ªè¿åŠŸï¼Œä¾ç…§æ˜“ç­‹é”»éª¨çš„å£è¯€å°†å†…æ¯åœ¨å‘¨èº«ç»è„‰ä¸­æ¸¸èµ°äº†ä¸€é"
 ]),
 });
 
@@ -31,32 +31,32 @@ mapping query_action(object me, object weapon)
 
 int valid_learn(object me)
 {
-        if (me->query("gender") == "ÎÞÐÔ" && (int)me->query_skill("yijin-duangu", 1) > 49)
-                return notify_fail("ÄãÎÞ¸ùÎÞÐÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄÒ×½î¶Í¹ÇÄÚ¹¦¡£\n");
+        if (me->query("gender") == "æ— æ€§" && (int)me->query_skill("yijin-duangu", 1) > 49)
+                return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„æ˜“ç­‹é”»éª¨å†…åŠŸã€‚\n");
 
-        if (me->query("character") == "ÐÄºÝÊÖÀ±" && (int)me->query("yijin-duangu", 1) > 199)
-                return notify_fail("Õâ¾ÅÒõÕæ¾­ÖÐËù¼ÇÔØµÄÒ×½î¶Í¹ÇÕý´ó»Öºë£¬Æø¶ÈÙ²È»£¬ÒÀÕÕ"
-                                   "ÄãÐÄºÝÊÖÀ±µÄÌìÐÔËÆºõÖ»ÄÜÑ§µ½ÕâÖÖ³Ì¶È¡£\n");
+        if (me->query("character") == "å¿ƒç‹ æ‰‹è¾£" && (int)me->query("yijin-duangu", 1) > 199)
+                return notify_fail("è¿™ä¹é˜´çœŸç»ä¸­æ‰€è®°è½½çš„æ˜“ç­‹é”»éª¨æ­£å¤§æ¢å¼˜ï¼Œæ°”åº¦ä¿¨ç„¶ï¼Œä¾ç…§"
+                                   "ä½ å¿ƒç‹ æ‰‹è¾£çš„å¤©æ€§ä¼¼ä¹Žåªèƒ½å­¦åˆ°è¿™ç§ç¨‹åº¦ã€‚\n");
 
-        if (me->query("character") == "½Æ÷ï¶à±ä" && (int)me->query("yijin-duangu", 1) > 169)
-                return notify_fail("Õâ¾ÅÒõÕæ¾­ÖÐËù¼ÇÔØµÄÒ×½î¶Í¹ÇÕý´ó»Öºë£¬Æø¶ÈÙ²È»£¬ÒÀÕÕ"
-                                   "Äã½Æ÷ï¶à±äµÄÌìÐÔËÆºõÖ»ÄÜÑ§µ½ÕâÖÖ³Ì¶È¡£\n");
+        if (me->query("character") == "ç‹¡é» å¤šå˜" && (int)me->query("yijin-duangu", 1) > 169)
+                return notify_fail("è¿™ä¹é˜´çœŸç»ä¸­æ‰€è®°è½½çš„æ˜“ç­‹é”»éª¨æ­£å¤§æ¢å¼˜ï¼Œæ°”åº¦ä¿¨ç„¶ï¼Œä¾ç…§"
+                                   "ä½ ç‹¡é» å¤šå˜çš„å¤©æ€§ä¼¼ä¹Žåªèƒ½å­¦åˆ°è¿™ç§ç¨‹åº¦ã€‚\n");
 
-        if (me->query("character") == "ÒõÏÕ¼éÕ©" && (int)me->query("yijin-duangu", 1) > 139)
-                return notify_fail("Õâ¾ÅÒõÕæ¾­ÖÐËù¼ÇÔØµÄÒ×½î¶Í¹ÇÕý´ó»Öºë£¬Æø¶ÈÙ²È»£¬ÒÀÕÕ"
-                                   "ÄãÒõÏÕ¼éÕ©µÄÌìÐÔËÆºõÖ»ÄÜÑ§µ½ÕâÖÖ³Ì¶È¡£\n");
+        if (me->query("character") == "é˜´é™©å¥¸è¯ˆ" && (int)me->query("yijin-duangu", 1) > 139)
+                return notify_fail("è¿™ä¹é˜´çœŸç»ä¸­æ‰€è®°è½½çš„æ˜“ç­‹é”»éª¨æ­£å¤§æ¢å¼˜ï¼Œæ°”åº¦ä¿¨ç„¶ï¼Œä¾ç…§"
+                                   "ä½ é˜´é™©å¥¸è¯ˆçš„å¤©æ€§ä¼¼ä¹Žåªèƒ½å­¦åˆ°è¿™ç§ç¨‹åº¦ã€‚\n");
           if (me->query("con") < 30)
-                  return notify_fail("Äã¾õµÃ×Ô¼ºÏÈÌì¸ù¹Ç²»×ã£¬Ò»Ê±ÄÑÒÔÐÞÁ¶¡£\n");
+                  return notify_fail("ä½ è§‰å¾—è‡ªå·±å…ˆå¤©æ ¹éª¨ä¸è¶³ï¼Œä¸€æ—¶éš¾ä»¥ä¿®ç‚¼ã€‚\n");
 
         if ((int)me->query_skill("force", 1) < 100)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ðºò»¹²»¹»£¬»¹²»ÄÜÑ§Ï°Ò×½î¶Í¹ÇÄÚ¹¦¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™è¿˜ä¸å¤Ÿï¼Œè¿˜ä¸èƒ½å­¦ä¹ æ˜“ç­‹é”»éª¨å†…åŠŸã€‚\n");
 
         return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("Ò×½î¶Í¹ÇÄÚ¹¦Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("æ˜“ç­‹é”»éª¨å†…åŠŸåªèƒ½ç”¨å­¦(learn)çš„æ¥å¢žåŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)

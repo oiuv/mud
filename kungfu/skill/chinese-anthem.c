@@ -1,4 +1,4 @@
-// chinese-anthem.c ÒåÓÂ¾ü½øĞĞÇú
+// chinese-anthem.c ä¹‰å‹‡å†›è¿›è¡Œæ›²
 
 #include <ansi.h>
 
@@ -20,10 +20,10 @@ int practice_skill(object me)
         // object ob;
 
         if ((int)me->query("jing") < 80)
-                return notify_fail("ÄãµÄ¾«Éñ²»¹»ºÃ£¬Ã»·¨Á·Ï°ÁË¡£\n");
+                return notify_fail("ä½ çš„ç²¾ç¥ä¸å¤Ÿå¥½ï¼Œæ²¡æ³•ç»ƒä¹ äº†ã€‚\n");
 
         if ((int)me->query("qi") < 70)
-                return notify_fail("ÄãÏÖÔÚÊµÔÚÊÇÌ«ÀÛÁË¡£\n");
+                return notify_fail("ä½ ç°åœ¨å®åœ¨æ˜¯å¤ªç´¯äº†ã€‚\n");
 
         me->receive_damage("jing", 50);
         me->receive_damage("qi", 50);
@@ -54,25 +54,25 @@ void do_effect(object me)
 			continue;
 
                 if (obs[i]->is_fighting() && (target = obs[i]->query_competitor()) &&
-                    target->query("nation") == "ÈÕ±¾")
+                    target->query("nation") == "æ—¥æœ¬")
                 {
                         attacker = obs[i];
                         break;
                 }
 	}
 
-        message("vision", HIY "ÄãÌıÁËÕâÊ×¿¶¿®¼¤°ºµÄ¹ú¸è£¬²»½û¼¤"
-                "¶¯Íò·Ö£¬Ëµ²»³öµÄĞË·Ü¡£\n" NOR, obs, ({ me }));
-        tell_object(me, HIY "ÄãÑİ×àÍêÁËÕâÊ×¿¶¿®¼¤°ºµÄ¹ú¸è£¬²»½û¼¤"
-                "¶¯Íò·Ö£¬Ëµ²»³öµÄĞË·Ü¡£\n" NOR);
+        message("vision", HIY "ä½ å¬äº†è¿™é¦–æ…·æ…¨æ¿€æ˜‚çš„å›½æ­Œï¼Œä¸ç¦æ¿€"
+                "åŠ¨ä¸‡åˆ†ï¼Œè¯´ä¸å‡ºçš„å…´å¥‹ã€‚\n" NOR, obs, ({ me }));
+        tell_object(me, HIY "ä½ æ¼”å¥å®Œäº†è¿™é¦–æ…·æ…¨æ¿€æ˜‚çš„å›½æ­Œï¼Œä¸ç¦æ¿€"
+                "åŠ¨ä¸‡åˆ†ï¼Œè¯´ä¸å‡ºçš„å…´å¥‹ã€‚\n" NOR);
         if (attacker)
         {
-                if (attacker->query("gender") == "Å®ĞÔ")
-                        msg = HIR "\nÒ»Ê±¼ä$N" HIR "²»¾õÊÇĞÄ³±ÅìÅÈ£¬²»ÄÜ"
-                              "×ÔÒÑ£¬ĞÓÄ¿Ô²Õö£¬¿ÚÖĞÒ»Éù½¿ºÈ£º¡°ÙÁÔô£¡ÊÜËÀ°É£¡¡±\n" NOR;
+                if (attacker->query("gender") == "å¥³æ€§")
+                        msg = HIR "\nä¸€æ—¶é—´$N" HIR "ä¸è§‰æ˜¯å¿ƒæ½®æ¾æ¹ƒï¼Œä¸èƒ½"
+                              "è‡ªå·²ï¼Œæç›®åœ†çï¼Œå£ä¸­ä¸€å£°å¨‡å–ï¼šâ€œå€­è´¼ï¼å—æ­»å§ï¼â€\n" NOR;
                 else
-                        msg = HIR "\nÒ»Ê±¼ä$N" HIR "²»¾õÊÇÈÈÑª·ĞÌÚ£¬¶Ô$n"
-                              HIR "´óºÈµÀ£º¡°¶«ÑóÙÁÔô£¬»¹²»ÊÜËÀ£¿¡±\n" NOR;
+                        msg = HIR "\nä¸€æ—¶é—´$N" HIR "ä¸è§‰æ˜¯çƒ­è¡€æ²¸è…¾ï¼Œå¯¹$n"
+                              HIR "å¤§å–é“ï¼šâ€œä¸œæ´‹å€­è´¼ï¼Œè¿˜ä¸å—æ­»ï¼Ÿâ€\n" NOR;
                 message_vision(msg, attacker, target);
 
                 i = (lvl - 200) / 10;

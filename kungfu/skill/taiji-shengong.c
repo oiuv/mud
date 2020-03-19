@@ -22,26 +22,26 @@ int query_neili_improve(object me)
 
 int valid_learn(object me)
 {
-        if (me->query("gender") == "ÎŞĞÔ"
+        if (me->query("gender") == "æ— æ€§"
            && (int)me->query_skill("taiji-shengong", 1) > 19)
-                return notify_fail("ÄãÎŞ¸ùÎŞĞÔ£¬ÒõÑô²»µ÷£¬ÄÑÒÔÁì»á¸ßÉîµÄÌ«¼«Éñ¹¦¡£\n");
+                return notify_fail("ä½ æ— æ ¹æ— æ€§ï¼Œé˜´é˜³ä¸è°ƒï¼Œéš¾ä»¥é¢†ä¼šé«˜æ·±çš„å¤ªæç¥åŠŸã€‚\n");
 
         if ((int)me->query_skill("force", 1) < 100)
-                return notify_fail("ÄãµÄ»ù±¾ÄÚ¹¦»ğºò»¹²»¹»¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å†…åŠŸç«å€™è¿˜ä¸å¤Ÿã€‚\n");
 
         if ((int)me->query_skill("taoism", 1) < 100)
-                return notify_fail("Äã¶ÔµÀ¼ÒĞÄ·¨ÁìÎòµÄÌ«Ç³£¬ÎŞ·¨Àí½âÌ«¼«Éñ¹¦¡£\n");
+                return notify_fail("ä½ å¯¹é“å®¶å¿ƒæ³•é¢†æ‚Ÿçš„å¤ªæµ…ï¼Œæ— æ³•ç†è§£å¤ªæç¥åŠŸã€‚\n");
 
         if (me->query_skill("taoism", 1) < 320
            && me->query_skill("taoism", 1) < me->query_skill("taiji-shengong", 1))
-                return notify_fail("Äã¶ÔµÀÑ§ĞÄ·¨µÄÀí½â²»¹»£¬ÄÑÒÔ¶ÍÁ¶¸üÉîºñµÄÌ«¼«Éñ¹¦¡£\n");
+                return notify_fail("ä½ å¯¹é“å­¦å¿ƒæ³•çš„ç†è§£ä¸å¤Ÿï¼Œéš¾ä»¥é”»ç‚¼æ›´æ·±åšçš„å¤ªæç¥åŠŸã€‚\n");
 
         return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-        return notify_fail("Ì«¼«Éñ¹¦Ö»ÄÜÓÃÑ§(learn)µÄÀ´Ôö¼ÓÊìÁ·¶È¡£\n");
+        return notify_fail("å¤ªæç¥åŠŸåªèƒ½ç”¨å­¦(learn)çš„æ¥å¢åŠ ç†Ÿç»ƒåº¦ã€‚\n");
 }
 
 string exert_function_file(string func)

@@ -5,11 +5,11 @@ inherit F_VENDOR;
 
 void create()
 {
-	set_name("Ğ¡··", ({ "seller" }) );
-	set("gender", "ÄĞĞÔ" );
+	set_name("å°è´©", ({ "seller" }) );
+	set("gender", "ç”·æ€§" );
 	set("age", 32);
 	set("long",
-		"ÕâÊÇ¸öĞ¡··£¬±ğ¿´Ëû³¤µÄÀÏÀÏÊµÊµ£¬¿ÉÄã±ğÏë´ÓËûÄÇ¶ùÌÍ±ãÒË¡£\n");
+		"è¿™æ˜¯ä¸ªå°è´©ï¼Œåˆ«çœ‹ä»–é•¿çš„è€è€å®å®ï¼Œå¯ä½ åˆ«æƒ³ä»ä»–é‚£å„¿æä¾¿å®œã€‚\n");
 	set("combat_exp", 300);
         set("str", 17);
         set("dex", 20);
@@ -17,7 +17,7 @@ void create()
         set("int", 22);
 	set("attitude", "friendly");
 	set("inquiry", ([
-		"´óÁ¦Íè" : "¿´ÄãÒ²ÊÇÕıÈË¾ı×Ó£¬ÔõÃ´ÎÊÕâ¸ö£¿\n",
+		"å¤§åŠ›ä¸¸" : "çœ‹ä½ ä¹Ÿæ˜¯æ­£äººå›å­ï¼Œæ€ä¹ˆé—®è¿™ä¸ªï¼Ÿ\n",
 	]) );
 	set("vendor_goods", ({
 		"/d/village/npc/obj/bottle",
@@ -42,7 +42,7 @@ void init()
 }
 void greeting(object ob)
 {
-        if (ob->query("gender")!="Å®ĞÔ")
-                say("Ğ¡··ßººÈµÀ£º´óÁ¦Íè£¬´óÁ¦Íè£¬Ò»Ò¹¹ÜË¯°Ù¹ÃÄï£¡\n");
+        if (ob->query("gender")!="å¥³æ€§")
+                say("å°è´©å†å–é“ï¼šå¤§åŠ›ä¸¸ï¼Œå¤§åŠ›ä¸¸ï¼Œä¸€å¤œç®¡ç¡ç™¾å§‘å¨˜ï¼\n");
         return;
 }

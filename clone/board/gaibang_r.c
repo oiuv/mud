@@ -4,10 +4,10 @@ inherit BULLETIN_BOARD;
 
 void create()
 {
-	set_name("½­ºþÈËÎïÕì²â±¨¸æ", ({ "report" }) );
+	set_name("æ±Ÿæ¹–äººç‰©ä¾¦æµ‹æŠ¥å‘Š", ({ "report" }) );
 	set("location", "/d/gaibang/undertre");
 	set("board_id", "gaibang_r");
-	set("long", "ÕâÊÇÒ»¸ö¹©Ø¤°ïµÜ×Ó½»Á÷ÐÅÏ¢µÄÁôÑÔ°å¡£\n" );
+	set("long", "è¿™æ˜¯ä¸€ä¸ªä¾›ä¸å¸®å¼Ÿå­äº¤æµä¿¡æ¯çš„ç•™è¨€æ¿ã€‚\n" );
 	setup();
 	set("capacity", 100);
 	replace_program(BULLETIN_BOARD);

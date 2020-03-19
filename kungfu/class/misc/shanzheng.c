@@ -1,4 +1,4 @@
-// shanzheng.c µ¥Õı
+// shanzheng.c å•æ­£
 
 #include <ansi.h>
 #include <quest.h>
@@ -7,14 +7,14 @@ inherit NPC;
 
 void create()
 {
-        set_name("µ¥Õı", ({ "shan zheng", "shan" }));
+        set_name("å•æ­£", ({ "shan zheng", "shan" }));
 
-        set("gender", "ÄĞĞÔ");
+        set("gender", "ç”·æ€§");
         set("age", 62);
-        set("long", "ËûÌåÌ¬¿ıÎà£¬ÏàÃ²ÍşÑÏ£¬³¤µÄÒ»¸±Í¯ÑÕº×·¢¡£\n");
+        set("long", "ä»–ä½“æ€é­æ¢§ï¼Œç›¸è²Œå¨ä¸¥ï¼Œé•¿çš„ä¸€å‰¯ç«¥é¢œé¹¤å‘ã€‚\n");
         set("attitude", "peaceful");
-        set("title", "Ì©É½µ¥¼Ò±¤");
-        set("nickname", HIR "ÌúÃæÅĞ¹Ù" NOR);
+        set("title", "æ³°å±±å•å®¶å ¡");
+        set("nickname", HIR "é“é¢åˆ¤å®˜" NOR);
 
         set("str", 35);
         set("int", 36);
@@ -30,10 +30,10 @@ void create()
         }));
 
         set("inquiry", ([
-                "ÌúÃæÅĞ¹Ù" : "ÕâÊÇ½­ºşºÃÓÑ¸øÔÚÏÂµÄ³ÆºÅ£¬¼ûĞ¦ÁË¡£",
-                "µ¥Õı" : "Ã»´í£¬¾ÍÊÇÎÒÁË£¬ÔõÃ´£¬ÕÒÎÒÓĞÊÂ£¿",
-                "Éó°¸" : "ÄÄÀïµÄ°¸×Ó£¿",
-                "ÅĞ°¸" : "ÄÄÀïµÄ°¸×Ó£¿",
+                "é“é¢åˆ¤å®˜" : "è¿™æ˜¯æ±Ÿæ¹–å¥½å‹ç»™åœ¨ä¸‹çš„ç§°å·ï¼Œè§ç¬‘äº†ã€‚",
+                "å•æ­£" : "æ²¡é”™ï¼Œå°±æ˜¯æˆ‘äº†ï¼Œæ€ä¹ˆï¼Œæ‰¾æˆ‘æœ‰äº‹ï¼Ÿ",
+                "å®¡æ¡ˆ" : "å“ªé‡Œçš„æ¡ˆå­ï¼Ÿ",
+                "åˆ¤æ¡ˆ" : "å“ªé‡Œçš„æ¡ˆå­ï¼Ÿ",
         ]));
 
         set("shen_type", 1);
@@ -74,8 +74,8 @@ void create()
         if (! clonep(this_object()))
         {
                 move("/d/taishan/daizong");
-                message_vision(CYN "\n$N" CYN "×ßÁË¹ıÀ´£¬»·¹ËËÄÖÜ£¬Ò»Éù"
-                               "³¤Ì¾¡£\n" NOR, this_object());
+                message_vision(CYN "\n$N" CYN "èµ°äº†è¿‡æ¥ï¼Œç¯é¡¾å››å‘¨ï¼Œä¸€å£°"
+                               "é•¿å¹ã€‚\n" NOR, this_object());
                 set("startroom", "/d/taishan/daizong");
         }
         carry_object("/clone/weapon/gangdao")->wield();
@@ -86,12 +86,12 @@ varargs int move(mixed dest, int raw)
 {
         int r;
 
-        // Ö´ĞĞÔ­±¾µÄMOVEº¯Êı
+        // æ‰§è¡ŒåŸæœ¬çš„MOVEå‡½æ•°
         r = ::move(dest, raw);
 
         if (objectp(query_temp("run_ob")))
         {
-                // ÕıÔÚÖ´ĞĞÈÎÎñ£¬²ì¿´ÊÇ·ñµ½ÁËµØµã
+                // æ­£åœ¨æ‰§è¡Œä»»åŠ¡ï¼Œå¯Ÿçœ‹æ˜¯å¦åˆ°äº†åœ°ç‚¹
                 remove_call_out("give_intercession");
                 call_out("give_intercession", 2);
         }
@@ -110,68 +110,68 @@ mixed accept_ask(object who, string topic)
         if (sizeof(obs) > 0)
         {
                 if (who->query("weiwang") < 5000)
-                        return "ÄãËãÄÄÒ»ºÅÈËÎï£¬¾ÓÈ»Ò²¹ÜÆğ½­ºşÉÏµÄÊÂÇéÀ´ÁË£¿";
+                        return "ä½ ç®—å“ªä¸€å·äººç‰©ï¼Œå±…ç„¶ä¹Ÿç®¡èµ·æ±Ÿæ¹–ä¸Šçš„äº‹æƒ…æ¥äº†ï¼Ÿ";
 
                 follow = query_leader();
 
                 if (objectp(follow)
                    && environment(follow) == environment(this_object()))
                 {
-                        // ÕıÔÚ¸úËæÁíÍâÒ»¸öÈË£¬²ì¿´µ±Ç°Ö´ĞĞ
-                        // µÄÈÎÎñ¡£
+                        // æ­£åœ¨è·Ÿéšå¦å¤–ä¸€ä¸ªäººï¼Œå¯Ÿçœ‹å½“å‰æ‰§è¡Œ
+                        // çš„ä»»åŠ¡ã€‚
                         run_ob = query_temp("run_ob");
 
                         if (follow == who)
                         {
-                                // ¸úËæµÄ¾ÍÊÇÄ¿Ç°·¢ÎÊµÄÈË
+                                // è·Ÿéšçš„å°±æ˜¯ç›®å‰å‘é—®çš„äºº
                                 if (! objectp(run_ob))
                                 {
-                                        // ÓÉÓÚÔ­ÏÈµÄÊÂÇéÈ¡ÏûÁË£¬ËùÒÔ
-                                        // ¿ÉÒÔ¸ü»»Ò»¼şÊÂÇé
+                                        // ç”±äºåŸå…ˆçš„äº‹æƒ…å–æ¶ˆäº†ï¼Œæ‰€ä»¥
+                                        // å¯ä»¥æ›´æ¢ä¸€ä»¶äº‹æƒ…
                                         set_temp("run_ob", obs[0]);
 
-                                        // È¡Ïû·µ»Ø»òÊÇµ÷½âµÄ¶¨Ê±ºô½Ğ
+                                        // å–æ¶ˆè¿”å›æˆ–æ˜¯è°ƒè§£çš„å®šæ—¶å‘¼å«
                                         remove_call_out("do_back");
                                         remove_call_out("give_intersession");
 
-                                        // ËÄ·ÖÖÓÒÔºó½â³ı¸úËæ×´Ì¬
+                                        // å››åˆ†é’Ÿä»¥åè§£é™¤è·ŸéšçŠ¶æ€
                                         remove_call_out("cancel_follow");
                                         call_out("cancel_follow", 240);
-                                        return "ºÃ°É£¬¸Õ²ÅÄÇ¼şÊÂÇéÌıËµÒ²ÁËÁË£¬ÔÛÃÇ¾Í»»»»°É£¡";
+                                        return "å¥½å§ï¼Œåˆšæ‰é‚£ä»¶äº‹æƒ…å¬è¯´ä¹Ÿäº†äº†ï¼Œå’±ä»¬å°±æ¢æ¢å§ï¼";
                                 }
 
-                                // ¸úËæµÄ¾ÍÊÇ·¢»°µÄÈË
-                                return "ÔÛÃÇ¿ì×ß°É£¡²»ÊÇÒª°ì" +
-                                       run_ob->name() + "Ã´£¿±ğÄ¥²äÁË¡£";
+                                // è·Ÿéšçš„å°±æ˜¯å‘è¯çš„äºº
+                                return "å’±ä»¬å¿«èµ°å§ï¼ä¸æ˜¯è¦åŠ" +
+                                       run_ob->name() + "ä¹ˆï¼Ÿåˆ«ç£¨è¹­äº†ã€‚";
                         }
 
                         if (run_ob == obs[0])
-                                // ÆäËûÈËÑ¯ÎÊÏàÍ¬µÄÊÂÇé
-                                return "ÎÒÏÖÔÚÕıÊÇºÍ" + follow->name() +
-                                       "È¥°ìÕâ¼şÊÂµÄ£¬²»ÀÍÄã·ÑĞÄÁË¡£";
+                                // å…¶ä»–äººè¯¢é—®ç›¸åŒçš„äº‹æƒ…
+                                return "æˆ‘ç°åœ¨æ­£æ˜¯å’Œ" + follow->name() +
+                                       "å»åŠè¿™ä»¶äº‹çš„ï¼Œä¸åŠ³ä½ è´¹å¿ƒäº†ã€‚";
 
                         if (objectp(run_ob))
-                                // ÆäËûÈËÑ¯ÎÊ²»Í¬µÄÊÂÇé
-                                return "ÎÒÏÖÔÚÒªºÍ" + follow->name() +
-                                       "È¥°ì" + run_ob->name() + "£¬ÄãÏÈµÈµÈ°É¡£";
+                                // å…¶ä»–äººè¯¢é—®ä¸åŒçš„äº‹æƒ…
+                                return "æˆ‘ç°åœ¨è¦å’Œ" + follow->name() +
+                                       "å»åŠ" + run_ob->name() + "ï¼Œä½ å…ˆç­‰ç­‰å§ã€‚";
 
-                        message_vision(CYN "$N" CYN "»ØÍ·¶Ô$n" CYN "µÀ£ºÎÒÌıËµÄãÄÇ¼şÊÂÇé"
-                                       "ÒÑ¾­ÁËÁË£¬ÎÒÏÈ×ßÁË¡£\n" NOR, this_object(), follow);
+                        message_vision(CYN "$N" CYN "å›å¤´å¯¹$n" CYN "é“ï¼šæˆ‘å¬è¯´ä½ é‚£ä»¶äº‹æƒ…"
+                                       "å·²ç»äº†äº†ï¼Œæˆ‘å…ˆèµ°äº†ã€‚\n" NOR, this_object(), follow);
                 }
 
-                // ÎÒÏÖÔÚÃ»ÓĞ¸úË­ÈË
-                message_vision(CYN "$N" CYN "µãµãÍ·£¬¶Ô$n" CYN "µÀ£ºÕâÊÂÎÒÒ²"
-                               "ÂÔÓĞ¶úÎÅ£¬¾ÍºÍÄã×ßÒ»ÌË°É£¡\n" NOR,
+                // æˆ‘ç°åœ¨æ²¡æœ‰è·Ÿè°äºº
+                message_vision(CYN "$N" CYN "ç‚¹ç‚¹å¤´ï¼Œå¯¹$n" CYN "é“ï¼šè¿™äº‹æˆ‘ä¹Ÿ"
+                               "ç•¥æœ‰è€³é—»ï¼Œå°±å’Œä½ èµ°ä¸€è¶Ÿå§ï¼\n" NOR,
                                this_object(), who);
 
                 set_temp("run_ob", obs[0]);
                 command("follow " + who->query("id"));
 
-                // È¡Ïû·µ»Ø»òÊÇµ÷½âµÄ¶¨Ê±ºô½Ğ
+                // å–æ¶ˆè¿”å›æˆ–æ˜¯è°ƒè§£çš„å®šæ—¶å‘¼å«
                 remove_call_out("do_back");
                 remove_call_out("give_intersession");
 
-                // ËÄ·ÖÖÓÒÔºó½â³ı¸úËæ×´Ì¬
+                // å››åˆ†é’Ÿä»¥åè§£é™¤è·ŸéšçŠ¶æ€
                 remove_call_out("cancel_follow");
                 call_out("cancel_follow", 240);
                 return 1;
@@ -180,17 +180,17 @@ mixed accept_ask(object who, string topic)
         switch (random(3))
         {
         case 0:
-                return "ÒªÊÇÌıËµÄÄ¶ùÓĞ²»¹«Ö®ÊÂ£¬¾¡¿ÉÒÔ¸æËßÎÒ£¬"
-                       "²»¹ıÄãËµµÄÕâ¸öÎÒÊµÔÚ²»Ì«Çå³ş¡£";
+                return "è¦æ˜¯å¬è¯´å“ªå„¿æœ‰ä¸å…¬ä¹‹äº‹ï¼Œå°½å¯ä»¥å‘Šè¯‰æˆ‘ï¼Œ"
+                       "ä¸è¿‡ä½ è¯´çš„è¿™ä¸ªæˆ‘å®åœ¨ä¸å¤ªæ¸…æ¥šã€‚";
         case 1:
-                return RANK_D->query_respect(who) + "£¬ÄãËµµÄ"
-                       "Õâ¸öÊÂÎÒ²»Ì«Çå³ş°¡¡£";
+                return RANK_D->query_respect(who) + "ï¼Œä½ è¯´çš„"
+                       "è¿™ä¸ªäº‹æˆ‘ä¸å¤ªæ¸…æ¥šå•Šã€‚";
         default:
-                return "ÎÒÖ»°ïÈË¶Ï°¸ÅÅÓÇ£¬ÄãËµµÄÕâ¸ö¾¿¾¹ÊÇÉ¶ÊÂÇé£¿";
+                return "æˆ‘åªå¸®äººæ–­æ¡ˆæ’å¿§ï¼Œä½ è¯´çš„è¿™ä¸ªç©¶ç«Ÿæ˜¯å•¥äº‹æƒ…ï¼Ÿ";
         }
 }
 
-// ÅĞ¶ÏÊÇ·ñÓĞÈËĞèÒªµ÷½â
+// åˆ¤æ–­æ˜¯å¦æœ‰äººéœ€è¦è°ƒè§£
 void give_intercession()
 {
         object run_ob;
@@ -202,7 +202,7 @@ void give_intercession()
 //      string msg;
 
         if (! objectp(run_ob = query_temp("run_ob")))
-                // ÏÖÔÚÃ»ÓĞµ÷½âÈÎÎñ
+                // ç°åœ¨æ²¡æœ‰è°ƒè§£ä»»åŠ¡
                 return;
 
         npc1 = run_ob->query("npc1");
@@ -211,15 +211,15 @@ void give_intercession()
         npc2_present =  (objectp(npc2) && environment(npc2) == environment());
                 
         if (! npc1_present || ! npc2_present)
-                // Õâ¸ö³¡¾°Ã»ÓĞĞèÒªµ÷½âµÄÈË
+                // è¿™ä¸ªåœºæ™¯æ²¡æœ‰éœ€è¦è°ƒè§£çš„äºº
                 return;
 
         if (! npc1_present)
         {
-                // Ö»ÓĞNPC2
-                message_vision(CYN "$N" CYN "¿´ÁË¿´ËÄÖÜ£¬Ò¡Í·µÀ£ºÖ»ÓĞ" +
-                               npc2->name() + CYN "Ò»¸öÈËÁË£¬»¹µ÷½âÊ²Ã´"
-                               "£¿ÎÒ»¹ÊÇ×ß°É£¡\n" NOR, this_object());
+                // åªæœ‰NPC2
+                message_vision(CYN "$N" CYN "çœ‹äº†çœ‹å››å‘¨ï¼Œæ‘‡å¤´é“ï¼šåªæœ‰" +
+                               npc2->name() + CYN "ä¸€ä¸ªäººäº†ï¼Œè¿˜è°ƒè§£ä»€ä¹ˆ"
+                               "ï¼Ÿæˆ‘è¿˜æ˜¯èµ°å§ï¼\n" NOR, this_object());
                 set_leader(0);
                 call_out("do_back", 1);
                 return;
@@ -227,28 +227,28 @@ void give_intercession()
 
         if (! npc2_present)
         {
-                // Ö»ÓĞNPC1
-                message_vision(CYN "$N" CYN "¿´ÁË¿´ËÄÖÜ£¬Ò¡Í·µÀ£ºÖ»ÓĞ" +
-                               npc1->name() + CYN "Ò»¸öÈËÁË£¬»¹µ÷½âÊ²Ã´"
-                               "£¿ÎÒ»¹ÊÇ×ß°É£¡\n" NOR, this_object());
+                // åªæœ‰NPC1
+                message_vision(CYN "$N" CYN "çœ‹äº†çœ‹å››å‘¨ï¼Œæ‘‡å¤´é“ï¼šåªæœ‰" +
+                               npc1->name() + CYN "ä¸€ä¸ªäººäº†ï¼Œè¿˜è°ƒè§£ä»€ä¹ˆ"
+                               "ï¼Ÿæˆ‘è¿˜æ˜¯èµ°å§ï¼\n" NOR, this_object());
                 set_leader(0);
                 call_out("do_back", 1);
                 return;
         }
 
         me = query_leader();
-        message("vision", HIC + sort_msg(name() + "¿´ÁË¿´" + npc1->name() +
-                          HIC "ºÍ" + npc2->name() + HIC "£¬Ò¡Ò¡Í·£¬ºÈµÀ£º´ó"
-                          "¼Ò¶¼ÊÇÎäÁÖÈËÊ¿¡£ºÎ¿àÎªÁËĞ©Ğ¡ÊÂÕùÖ´²»Ğİ£¿Ã»µÃÊ§ÁË"
-                          "ÑÕÃæ£¡\n" NOR), environment());
+        message("vision", HIC + sort_msg(name() + "çœ‹äº†çœ‹" + npc1->name() +
+                          HIC "å’Œ" + npc2->name() + HIC "ï¼Œæ‘‡æ‘‡å¤´ï¼Œå–é“ï¼šå¤§"
+                          "å®¶éƒ½æ˜¯æ­¦æ—äººå£«ã€‚ä½•è‹¦ä¸ºäº†äº›å°äº‹äº‰æ‰§ä¸ä¼‘ï¼Ÿæ²¡å¾—å¤±äº†"
+                          "é¢œé¢ï¼\n" NOR), environment());
 
-        message("vision", HIY "\n" + name() + HIY "¿ªÊ¼È°Ëµµ÷½â¶şÈË£¬Á½ÈËÌı"
-                          "ºóÁ¬Á¬µãÍ·£¬¸÷×ÔÊÕÁ²£¬²»¸Ò·ÅËÁ¡£\n" NOR,
+        message("vision", HIY "\n" + name() + HIY "å¼€å§‹åŠè¯´è°ƒè§£äºŒäººï¼Œä¸¤äººå¬"
+                          "åè¿è¿ç‚¹å¤´ï¼Œå„è‡ªæ”¶æ•›ï¼Œä¸æ•¢æ”¾è‚†ã€‚\n" NOR,
                           environment());
         if (objectp(me))
         {
-                tell_object(me, WHT "ÄãÌıÁË" + name() + WHT "µ÷½âµÄ»°Óï£¬Éõ"
-                                "ÊÇµÃÀí£¬ÑÛ¼ûÁ½ÈËĞÄ·ş¿Ú·ş£¬²»ÓÉµÃ°µ×ÔĞÀÎ¿¡£"
+                tell_object(me, WHT "ä½ å¬äº†" + name() + WHT "è°ƒè§£çš„è¯è¯­ï¼Œç”š"
+                                "æ˜¯å¾—ç†ï¼Œçœ¼è§ä¸¤äººå¿ƒæœå£æœï¼Œä¸ç”±å¾—æš—è‡ªæ¬£æ…°ã€‚"
                                 "\n\n" NOR);
 
                 percent = 30000 * 100 / (random(me->query("weiwang") + 1) + 30000);
@@ -257,15 +257,15 @@ void give_intercession()
                                      "score" : 10 + random(10),
                                      "weiwang" : 10 + random(20),
                                      "percent" : percent,
-                                     "prompt"  : "Í¨¹ıÕâ´ÎÎªÈËµ÷½â¾À·×" ]));
+                                     "prompt"  : "é€šè¿‡è¿™æ¬¡ä¸ºäººè°ƒè§£çº çº·" ]));
 /*
-                CHANNEL_D->do_channel(this_object(), "rumor", "ÌıËµ" + 
+                CHANNEL_D->do_channel(this_object(), "rumor", "å¬è¯´" + 
                                       me->name(1) + "(" + me->query("id") +
-                                      ")Çëµ½ÌúÃæÅĞ¹Ù" + name() + HIM "Îª" +
-                                      npc1->name() + HIM "ºÍ" + npc2->name() +
-                                      HIM "³É¹¦µÄµ÷½âÁË¾À·×¡£" NOR);
+                                      ")è¯·åˆ°é“é¢åˆ¤å®˜" + name() + HIM "ä¸º" +
+                                      npc1->name() + HIM "å’Œ" + npc2->name() +
+                                      HIM "æˆåŠŸçš„è°ƒè§£äº†çº çº·ã€‚" NOR);
 */
-                // ±»ÁĞÎªÃÅÅÉÖĞ¶ÏµÄ×ÔÓÉÈÎÎñ
+                // è¢«åˆ—ä¸ºé—¨æ´¾ä¸­æ–­çš„è‡ªç”±ä»»åŠ¡
                 if (me->query("quest/freequest") > 0)
                         GIFT_D->delay_freequest_bonus(me);
         }
@@ -277,30 +277,30 @@ void give_intercession()
         call_out("do_back", 2);
 }
 
-// Í£Ö¹¸ú×Ù
+// åœæ­¢è·Ÿè¸ª
 void cancel_follow()
 {
         object ob;
 
-        // È¥µôÕıÔÚ×öµÄÈÎÎñĞÅÏ¢
+        // å»æ‰æ­£åœ¨åšçš„ä»»åŠ¡ä¿¡æ¯
         delete_temp("run_ob");
 
-        // ÏÖÔÚÃ»ÓĞÁìÂ·µÄ£¿Ö±½Ó·µ»Ø
+        // ç°åœ¨æ²¡æœ‰é¢†è·¯çš„ï¼Ÿç›´æ¥è¿”å›
         if (! objectp(ob = query_leader()))
         {
                 call_out("do_back", 1);
                 return;
         }
 
-        // ²»ÔÙ¸úËæ
+        // ä¸å†è·Ÿéš
         set_leader(0);
-        message_vision(CYN "$N" CYN "Ì¾µÀ£ºÎÒ¿´ÄãÒ²ÊÇÃÔÃÔºıºıµÄ£¬Ëã"
-                       "ÁË£¬ÎÒ»¹ÊÇÏÈ×ßÁË°É£¡ÒÔºóÓĞÊÂÔÙËµ£¡\n" NOR,
+        message_vision(CYN "$N" CYN "å¹é“ï¼šæˆ‘çœ‹ä½ ä¹Ÿæ˜¯è¿·è¿·ç³Šç³Šçš„ï¼Œç®—"
+                       "äº†ï¼Œæˆ‘è¿˜æ˜¯å…ˆèµ°äº†å§ï¼ä»¥åæœ‰äº‹å†è¯´ï¼\n" NOR,
                        this_object());
         call_out("do_back", 1);
 }
 
-// ·µ»Ø
+// è¿”å›
 void do_back()
 {
         string startroom;
@@ -316,17 +316,17 @@ void do_back()
 
         if (is_fighting())
         {
-                message_vision(CYN "$N" CYN "ºöÈ»°ÕÊÖ£¬µÀ£ºÀÏ·ò²»ÄÜ·îÅã"
-                               "ÁË£¬×ßÁË£¡\n\n" HIC "$N" HIC "»°Òô¸ÕÂä£¬"
-                               "¾Í¼±¼±Ã¦Ã¦µÄ×ßÁË£¬Äã²»ÓÉµÄÒ»ã¶Éñ¡£\n" NOR,
+                message_vision(CYN "$N" CYN "å¿½ç„¶ç½¢æ‰‹ï¼Œé“ï¼šè€å¤«ä¸èƒ½å¥‰é™ª"
+                               "äº†ï¼Œèµ°äº†ï¼\n\n" HIC "$N" HIC "è¯éŸ³åˆšè½ï¼Œ"
+                               "å°±æ€¥æ€¥å¿™å¿™çš„èµ°äº†ï¼Œä½ ä¸ç”±çš„ä¸€æ„£ç¥ã€‚\n" NOR,
                                this_object());
         } else
-                message_vision(HIC "$N" HIC "Ì¾ÁË¿ÚÆø£¬Í·Ò²²»»ØµÄ×ßÁË¡£"
+                message_vision(HIC "$N" HIC "å¹äº†å£æ°”ï¼Œå¤´ä¹Ÿä¸å›çš„èµ°äº†ã€‚"
                                "\n" NOR, this_object());
 
-        // ·µ»Ø¹ÊµØ
+        // è¿”å›æ•…åœ°
         move(startroom);
-        message("vision", name() + "¸ÏÁË¹ıÀ´¡£\n", environment());
+        message("vision", name() + "èµ¶äº†è¿‡æ¥ã€‚\n", environment());
 }
 
 void unconcious()
@@ -351,15 +351,15 @@ void die()
         my["qi"]       = my["eff_qi"];
         my["neili"]    = my["max_neili"] * 2;
 
-        message_vision(HIW "\n$N" HIW "Å»³öÒ»¿ÚÏÊÑª£¬ºÈµ½£ººÃ£¬ÓĞÖÖ£¡ÔÛÃÇ"
-                       "¸ÄÈÕÔÙÀ´ĞğĞğ£¡\n\n" NOR, this_object());
-        message("vision", name() + "·ÉÉíÒ»×İ£¬¶ÙÊ±±ã²»¼ûÁË×ÙÓ°¡£\n",
+        message_vision(HIW "\n$N" HIW "å‘•å‡ºä¸€å£é²œè¡€ï¼Œå–åˆ°ï¼šå¥½ï¼Œæœ‰ç§ï¼å’±ä»¬"
+                       "æ”¹æ—¥å†æ¥å™å™ï¼\n\n" NOR, this_object());
+        message("vision", name() + "é£èº«ä¸€çºµï¼Œé¡¿æ—¶ä¾¿ä¸è§äº†è¸ªå½±ã€‚\n",
                           environment());
 
         if (find_object(query("startroom")) != environment())
         {
                 move(startroom);
-                message("vision", name() + "¸ÏÁË¹ıÀ´¡£\n", environment());
+                message("vision", name() + "èµ¶äº†è¿‡æ¥ã€‚\n", environment());
         } else
                 destruct(this_object());
 }

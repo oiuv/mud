@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÌË×ÓÊÖ", ({ "tangzi shou","shou" }) );
-	set("gender", "ÄĞĞÔ");
+	set_name("è¶Ÿå­æ‰‹", ({ "tangzi shou","shou" }) );
+	set("gender", "ç”·æ€§");
 	set("age", 30);
 	set("long",
-		"ÕâÊÇ¸öïÚ¾ÖÌË×ÓÊÖ£¬³¤µÃ»¢±³ĞÜÑü£¬Ò»ÉíºáÁ·¹¦·ò¡£\n");
+		"è¿™æ˜¯ä¸ªé•–å±€è¶Ÿå­æ‰‹ï¼Œé•¿å¾—è™èƒŒç†Šè…°ï¼Œä¸€èº«æ¨ªç»ƒåŠŸå¤«ã€‚\n");
 	set("combat_exp", 10000);
         set("shen_type", -1);
 	set("attitude", "peaceful");
@@ -18,7 +18,7 @@ void create()
 
 	set("chat_chance", 5);
 	set("chat_msg", ({
-		"ÌË×ÓÊÖÒ»Éù´óº°: ÎÒ¡«¡«Îä¡«¡«Î¬¡«¡«Ñï¡«¡«£¡\n",
+		"è¶Ÿå­æ‰‹ä¸€å£°å¤§å–Š: æˆ‘ï½ï½æ­¦ï½ï½ç»´ï½ï½æ‰¬ï½ï½ï¼\n",
 		(: random_move :)
 	}) );
 

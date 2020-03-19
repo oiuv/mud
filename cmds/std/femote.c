@@ -26,7 +26,7 @@ int main(object me, string arg)
 
         if (time() - me->query_temp("scan_time") < 20 &&
 	    ! wizardp(me))
-                return notify_fail("µÈµÈ£¬ÏµÍ³´­ÆøÖÐ......\n");
+                return notify_fail("ç­‰ç­‰ï¼Œç³»ç»Ÿå–˜æ°”ä¸­......\n");
 
         syntax = replace_string(arg, "%", "");
         l = -1;
@@ -47,35 +47,35 @@ int main(object me, string arg)
                         msg = emote[loop[j]];
                         if (msg && sscanf(msg, syntax))
                         {
-                                result += sprintf(HIR "%s\n"+NOR+"¶¯×÷: %s\n", e, msg);
+                                result += sprintf(HIR "%s\n"+NOR+"åŠ¨ä½œ: %s\n", e, msg);
                                 count++;
 				if (count > 200)
-					return notify_fail("²éÕÒµ½µÄ·ûºÏÌõ¼þ"
-						"µÄ emote Ì«¶à£¬ÇëÖØÐÂÖ¸¶¨¹Ø"
-						"¼ü×Ö½øÐÐËÑË÷¡£\n");
+					return notify_fail("æŸ¥æ‰¾åˆ°çš„ç¬¦åˆæ¡ä»¶"
+						"çš„ emote å¤ªå¤šï¼Œè¯·é‡æ–°æŒ‡å®šå…³"
+						"é”®å­—è¿›è¡Œæœç´¢ã€‚\n");
                         }
                 }
         }
 
         if (result == "")
-                return notify_fail(LOCAL_MUD_NAME() + "ÖÐÎÞ·ûºÏ²éÑ¯Ìõ¼þµÄ emote¡£\n");
+                return notify_fail(LOCAL_MUD_NAME() + "ä¸­æ— ç¬¦åˆæŸ¥è¯¢æ¡ä»¶çš„ emoteã€‚\n");
         else
-                result = "\n²éÑ¯½á¹û"
+                result = "\næŸ¥è¯¢ç»“æžœ"
                          "\n------------------------------------------------------------\n"
                                 + result;
-        result = replace_string(result, "$n", "Ä³ÈË");
+        result = replace_string(result, "$n", "æŸäºº");
         result = replace_string(result, "$N", me->name(1));
-        result = replace_string(result, "$P", "Äã");
-        result = replace_string(result, "$p", "(Ëû/Ëý)");
+        result = replace_string(result, "$P", "ä½ ");
+        result = replace_string(result, "$p", "(ä»–/å¥¹)");
         result = replace_string(result, "$S", RANK_D->query_self(me));
         result = replace_string(result, "$s", RANK_D->query_self_rude(me));
-        result = replace_string(result, "$R", "×³Ê¿");
-        result = replace_string(result, "$r", "³ôÔô");
-        result = replace_string(result, "$C", "ÓÞÐÖÎÒ");
-        result = replace_string(result, "$c", "¸ç¸ç");
+        result = replace_string(result, "$R", "å£®å£«");
+        result = replace_string(result, "$r", "è‡­è´¼");
+        result = replace_string(result, "$C", "æ„šå…„æˆ‘");
+        result = replace_string(result, "$c", "å“¥å“¥");
 
         result += "------------------------------------------------------------\n";
-        result += sprintf("ÔÚ%sÖÐ£¬°üº¬¡°%s¡±µÄ emote ¹²ÓÐ %d ¸ö¡£\n",
+        result += sprintf("åœ¨%sä¸­ï¼ŒåŒ…å«â€œ%sâ€çš„ emote å…±æœ‰ %d ä¸ªã€‚\n",
                           LOCAL_MUD_NAME(), arg, count);
         me->set_temp("scan_time",time());
         me->start_more(result);
@@ -85,16 +85,16 @@ int main(object me, string arg)
 int help(object me)
 {
   	write(@HELP
-Ö¸Áî¸ñÊ½ : femote ¹Ø¼ü×Ö
-¹¦ÄÜ£ºÁÐ³öÄ¿Ç°ËùÓÐº¬Ö¸¶¨¹Ø¼ü×ÖµÄ emote¡£±ÈÈç£º
+æŒ‡ä»¤æ ¼å¼ : femote å…³é”®å­—
+åŠŸèƒ½ï¼šåˆ—å‡ºç›®å‰æ‰€æœ‰å«æŒ‡å®šå…³é”®å­—çš„ emoteã€‚æ¯”å¦‚ï¼š
 
-femote *·ÉÆðÒ»½Å£¬ÕýºÃÌßÖÐ*µÄ* 
-»òÕß
-femote ·ÉÆð
+femote *é£žèµ·ä¸€è„šï¼Œæ­£å¥½è¸¢ä¸­*çš„* 
+æˆ–è€…
+femote é£žèµ·
 
-Ö»ÒªÆ¥Åäµ½ÁËfemoteÖ¸¶¨µÄ¹Ø¼ü×Ö£¬¼´·µ»ØÒ»¸ö½á¹û¡£Èç¹ûÔÚÆ¥ÅäµÄ
-×Ö·û´®ÖÐÊ¹ÓÃÁË"*"£¬ ¿ÉÒÔÆ¥ÅäÈÎºÎµ¥´Ê¡£²éÕÒµÄÊ±ºòËùÓÐµÄÐÕÃûÓ¦
-¸Ã×ª»»³É"*"¡£
+åªè¦åŒ¹é…åˆ°äº†femoteæŒ‡å®šçš„å…³é”®å­—ï¼Œå³è¿”å›žä¸€ä¸ªç»“æžœã€‚å¦‚æžœåœ¨åŒ¹é…çš„
+å­—ç¬¦ä¸²ä¸­ä½¿ç”¨äº†"*"ï¼Œ å¯ä»¥åŒ¹é…ä»»ä½•å•è¯ã€‚æŸ¥æ‰¾çš„æ—¶å€™æ‰€æœ‰çš„å§“ååº”
+è¯¥è½¬æ¢æˆ"*"ã€‚
 
 Dean, ken@XAJH
 HELP );

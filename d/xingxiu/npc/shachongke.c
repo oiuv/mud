@@ -2,12 +2,12 @@ inherit ITEM;
 
 void create()
 {
-        set_name("É³³æ¿Ç", ({"shachong ke", "ke"}));
+        set_name("æ²™è™«å£³", ({"shachong ke", "ke"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ö»");
-                set("long", "ÕâÊÇÒ»Ö»É³³æµÄ¸É¿Ç£¬ÊÇÖÆ±¸¶¾Ò©µÄÔ­ÁÏ¡£\n");
+                set("unit", "åª");
+                set("long", "è¿™æ˜¯ä¸€åªæ²™è™«çš„å¹²å£³ï¼Œæ˜¯åˆ¶å¤‡æ¯’è¯çš„åŸæ–™ã€‚\n");
                 set("value", 300);
         }
 

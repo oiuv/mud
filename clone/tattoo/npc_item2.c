@@ -5,17 +5,17 @@ inherit PIN;
 
 void create()
 {
-        set_name(HIY "½ğÕë" NOR, ({ "jin zhen", "jin", "zhen", "pin" }));
+        set_name(HIY "é‡‘é’ˆ" NOR, ({ "jin zhen", "jin", "zhen", "pin" }));
         set_weight(24);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", HIY "ÖıÔì¼«Îª¾«Ï¸µÄ½ğÕë£¬ÓĞ×Å¸÷ÖÖÓÃÍ¾¡£\n" NOR);
+                set("unit", "æ ¹");
+                set("long", HIY "é“¸é€ æä¸ºç²¾ç»†çš„é‡‘é’ˆï¼Œæœ‰ç€å„ç§ç”¨é€”ã€‚\n" NOR);
                 set("value", 120);
                 set("material", "silver");
-                set("wield_msg", HIY "$NÊÖÒ»¶¶£¬ÁÁ³öÒ»¸ù$n¡£\n" NOR);
-                set("unwield_msg", HIY "$NÊÕÆğÁË$n¡£\n" NOR);
+                set("wield_msg", HIY "$Næ‰‹ä¸€æŠ–ï¼Œäº®å‡ºä¸€æ ¹$nã€‚\n" NOR);
+                set("unwield_msg", HIY "$Næ”¶èµ·äº†$nã€‚\n" NOR);
         }
 
         init_pin(20);

@@ -5,23 +5,23 @@ inherit STAFF;
 
 void create()
 {
-        set_name(NOR + WHT "¾Å»·ÎıÕÈ" NOR, ({ "jiuhuan xizhang", "jiuhuan",
+        set_name(NOR + WHT "ä¹ç¯é”¡æ–" NOR, ({ "jiuhuan xizhang", "jiuhuan",
                                               "xizhang", "zhang" }) );
         set_weight(8000);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", NOR + WHT "ÕâÊÇÒ»¸ùÍ¨ÌåÆáºÚµÄÎıÕÈ£¬ÈëÊÖ¼«Îª³Á"
-                            "ÖØ£¬·Ç³£¼áÈÍ£¬ÄËÉÙÁÖ\nËÂÀú´úÏà´«µÄÊ¥Îï¡£ÓĞÔÆ"
-                            "£ºÍ­ÏâÌúÔì¾ÅÁ¬»·£¬¾Å½ÚÏÉÌÙÓÀ×¤ÑÕ¡£\n" NOR);
-                set("unit", "¸ù");
+                set("long", NOR + WHT "è¿™æ˜¯ä¸€æ ¹é€šä½“æ¼†é»‘çš„é”¡æ–ï¼Œå…¥æ‰‹æä¸ºæ²‰"
+                            "é‡ï¼Œéå¸¸åšéŸ§ï¼Œä¹ƒå°‘æ—\nå¯ºå†ä»£ç›¸ä¼ çš„åœ£ç‰©ã€‚æœ‰äº‘"
+                            "ï¼šé“œé•¶é“é€ ä¹è¿ç¯ï¼Œä¹èŠ‚ä»™è—¤æ°¸é©»é¢œã€‚\n" NOR);
+                set("unit", "æ ¹");
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "steel");
-                set("wield_msg", HIW "$N" HIW "È¡³ö¾Å»·ÎıÕÈÎÕÓÚÊÖÖĞ£¬ö®Ê±"
-                                 "½ğ²¨µ´Ñú£¬ÓĞÈôÆß·ğËæÉí¡£\n" NOR);
-                set("unwield_msg", HIW "$N" WHT "Î¢Î¢Ò»Ğ¦£¬½«ÊÖÖĞµÄ¾Å»·Îı"
-                                 "ÕÈ·Å»Ø°üÄÒ¡£\n" NOR);
+                set("wield_msg", HIW "$N" HIW "å–å‡ºä¹ç¯é”¡æ–æ¡äºæ‰‹ä¸­ï¼Œéœæ—¶"
+                                 "é‡‘æ³¢è¡æ¼¾ï¼Œæœ‰è‹¥ä¸ƒä½›éšèº«ã€‚\n" NOR);
+                set("unwield_msg", HIW "$N" WHT "å¾®å¾®ä¸€ç¬‘ï¼Œå°†æ‰‹ä¸­çš„ä¹ç¯é”¡"
+                                 "æ–æ”¾å›åŒ…å›Šã€‚\n" NOR);
                 set("stable", 100);
         }
         init_staff(180);

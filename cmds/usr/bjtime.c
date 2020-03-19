@@ -7,7 +7,7 @@ inherit F_CLEAN_UP;
 int main( object me, string arg )
 {
 	int day, day1, day2, month, *date;
-	write( sprintf( "ÏÖÔÚµÄÊ±¼äÊÇ±±¾©Ê±¼ä " + ctime( time() ) + "¡£\n" ) );
+	write( sprintf( "ç°åœ¨çš„æ—¶é—´æ˜¯åŒ—äº¬æ—¶é—´ " + ctime( time() ) + "ã€‚\n" ) );
 	date	= localtime( time() );
 	month	= date[4] + 1;
 	day		= date[3];
@@ -17,17 +17,17 @@ int main( object me, string arg )
 	if ( month == FETEMONTH )
 	{
 		if ( day1 > 1 )
-			write( sprintf( BBLU HIR "\n\t\t¾àÀë" HIY + FETEDAY + HIR "»¹ÓĞ" HIY "%s" HIR "Ìì£¡\t\t\n" NOR,
+			write( sprintf( BBLU HIR "\n\t\tè·ç¦»" HIY + FETEDAY + HIR "è¿˜æœ‰" HIY "%s" HIR "å¤©ï¼\t\t\n" NOR,
 					chinese_number( BEGIN_DAY - day - 1) ) );
 		else if ( day1 == 1 )
-			write( sprintf( BBLU HIR "\n\t\tÃ÷ÌìÊÇ" HIY + FETEDAY + HIR "£¡\t\t\n\n" NOR ) );
+			write( sprintf( BBLU HIR "\n\t\tæ˜å¤©æ˜¯" HIY + FETEDAY + HIR "ï¼\t\t\n\n" NOR ) );
 		else if ( day1 == 0 )
-			write( sprintf( BBLU HIY "\n\t\t½ñÌìÊÇ" + FETEDAY + "£¡\t\t\n\n" NOR ) );
+			write( sprintf( BBLU HIY "\n\t\tä»Šå¤©æ˜¯" + FETEDAY + "ï¼\t\t\n\n" NOR ) );
 		else if ( day2 > 0 )
-			write( sprintf( BBLU HIR "\n\t\t¾àÀë" HIY + FETEDAY + HIR "½áÊø»¹ÓĞ" HIY "%s" HIR "Ìì£¡\t\t\n" NOR,
+			write( sprintf( BBLU HIR "\n\t\tè·ç¦»" HIY + FETEDAY + HIR "ç»“æŸè¿˜æœ‰" HIY "%s" HIR "å¤©ï¼\t\t\n" NOR,
 					chinese_number( END_DAY - day ) ) );
 		else if ( day2 == 0 )
-			write( sprintf( BBLU HIR "\n\t\t½ñÌìÊÇ" HIY + FETEDAY + HIR "×îºóÒ»Ìì£¡\t\t\n" NOR ) );
+			write( sprintf( BBLU HIR "\n\t\tä»Šå¤©æ˜¯" HIY + FETEDAY + HIR "æœ€åä¸€å¤©ï¼\t\t\n" NOR ) );
 	}
 	return(1);
 }
@@ -35,9 +35,9 @@ int main( object me, string arg )
 int help(object me)
 {
      write(@HELP
-Ö¸Áî¸ñÊ½: time
+æŒ‡ä»¤æ ¼å¼: time
 
-Õâ¸öÖ¸Áî¸æËßÄãÏÖÊµÊÀ½çÖĞÏÖÔÚµÄÊ±¼ä¡£
+è¿™ä¸ªæŒ‡ä»¤å‘Šè¯‰ä½ ç°å®ä¸–ç•Œä¸­ç°åœ¨çš„æ—¶é—´ã€‚
 
 HELP);
     return 1;

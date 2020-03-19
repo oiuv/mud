@@ -4,12 +4,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name("¸¹Éßµ¨", ({"fushe dan", "dan"}));
+	set_name("è…¹è›‡èƒ†", ({"fushe dan", "dan"}));
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-        	set("unit", "Ã¶");
-		set("long", "ÕâÊÇÒ»Ã¶»ðºìµÄ¸¹Éßµ¨¡£\n");
+        	set("unit", "æžš");
+		set("long", "è¿™æ˜¯ä¸€æžšç«çº¢çš„è…¹è›‡èƒ†ã€‚\n");
 		set("value", 500);
 		set("only_do_effect", 1);
 	}
@@ -18,7 +18,7 @@ void create()
 
 int do_effect(object me)
 {
-	message_vision("$NÒ»¿Ú¾Í°Ñ$nÍÌÁËÏÂÈ¥¡£\n",
+	message_vision("$Nä¸€å£å°±æŠŠ$nåžäº†ä¸‹åŽ»ã€‚\n",
 		       me, this_object());
 	destruct(this_object());
         me->unconcious();

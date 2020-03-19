@@ -1,4 +1,4 @@
-// dizi3.c µÜ×Ó
+// dizi3.c å¼Ÿå­
 
 #include <ansi.h>
 
@@ -7,10 +7,10 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("ÇàÒÂµÜ×Ó", ({ "di zi", "di", "zi" }));
-        set("long", "ÕâÊÇÈýÊ®¶àËêµÄ×³ºº£¬°ò´óÑüÔ²£¬ÊÇµºÖ÷´ÓÖÐÔ­ÕÐÄ¼À´µÄ¡£\n");
+        set_name("é’è¡£å¼Ÿå­", ({ "di zi", "di", "zi" }));
+        set("long", "è¿™æ˜¯ä¸‰åå¤šå²çš„å£®æ±‰ï¼Œè†€å¤§è…°åœ†ï¼Œæ˜¯å²›ä¸»ä»Žä¸­åŽŸæ‹›å‹Ÿæ¥çš„ã€‚\n");
 
-        set("gender", "ÄÐÐÔ");
+        set("gender", "ç”·æ€§");
         set("age", 30);
         set("shen_type",1);
         set("attitude", "peaceful");
@@ -36,7 +36,7 @@ void create()
         set_skill("parry", 70);
         set_skill("hand", 70);
         set_skill("staff", 50);
-        create_family("ÏÀ¿Íµº", 0, "µÜ×Ó");
+        create_family("ä¾ å®¢å²›", 0, "å¼Ÿå­");
 
         setup();
         carry_object(__DIR__"obj/bcloth")->wear();
@@ -63,7 +63,7 @@ void greeting(object ob)
                 || environment() != room)
                 return;
 
-        message_vision("ÏÀ¿ÍµºµÜ×ÓËµµÀ£º¶´ÄÚÓÐ¶þÊ®ËÄ×ùÊ¯ÊÒ£¬¸÷Î»¿ÉÇëËæÒâÀ´È¥È¡ÓÃ£¬¿´µÃ
-ÑáÁË£¬¿Éµ½¶´ÍâÉ¢ÐÄ£¬Ò»Ó¦ÒûÊ³£¬Ê¯ÊÒÄÚ¾ùÓÐÖÃ±¸£¬¸÷Î»ËæÒâÈ¡ÓÃ£¬²»
-±Ø¿ÍÆø¡£\n", this_object());
+        message_vision("ä¾ å®¢å²›å¼Ÿå­è¯´é“ï¼šæ´žå†…æœ‰äºŒåå››åº§çŸ³å®¤ï¼Œå„ä½å¯è¯·éšæ„æ¥åŽ»å–ç”¨ï¼Œçœ‹å¾—
+åŽŒäº†ï¼Œå¯åˆ°æ´žå¤–æ•£å¿ƒï¼Œä¸€åº”é¥®é£Ÿï¼ŒçŸ³å®¤å†…å‡æœ‰ç½®å¤‡ï¼Œå„ä½éšæ„å–ç”¨ï¼Œä¸
+å¿…å®¢æ°”ã€‚\n", this_object());
 }

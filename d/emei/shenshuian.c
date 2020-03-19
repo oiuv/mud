@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-      set("short", "��ˮ��");
+      set("short", "神水庵");
       set("long", @LONG
-��ˮ��λ�ڱ��Ʒ��£���ǰ�д��ʯ����ҺȪ��Ȫ��ʯ��
-�峺�ޱȣ����겻�ԡ�һ��������������ٲ��䣬������Χ
-�ߴ�ʮ���ɡ��Ա��и����֣��ɴ������з��¶��´����
+神水庵位于宝掌峰下，庵前有大峨石和玉液泉，泉出石下
+清澈无比，终年不涸。一株大海棠树已是数百苍龄，抱可数围
+高达十余丈。旁边有福寿庵；由此西上中峰寺东下纯阳殿。
 LONG);
       set("exits", ([
           "eastdown"  : __DIR__"chunyangdian",

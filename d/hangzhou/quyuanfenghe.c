@@ -4,11 +4,11 @@
 inherit ROOM;
 void create()
 {
-        set("short", "ÇúÔº·çºÉ");
+        set("short", "æ›²é™¢é£Žè·");
         set("long", @LONG
-×ß½øÍ¤Ôº£¬Ö»¼ûÁÙºþÒ»×ùÐ¡é¿¡£ÖùÉÏÓÐÒ»¶ÔÁª(duilian)¡£ ÒÀé¿
-¹Ûºþ£¬Ö»¼ûºÉ»¨Âúºþ£¬ÜúºÉÉî´¦£¬ÏãÔ¶ÒæÇå¡£ÑîÍòÀïÔøÓÐÌâÓ½¡°±Ï¾¹
-Î÷ºþÁùÔÂÖÐ£¬·ç¹â²»ÓëËÄÊ±Í¬¡£½ÓÌìÁ«Ò¶ÎÞÇî±Ì£¬Ó³ÈÕºÉ»¨±ðÑùºì¡±¡£
+èµ°è¿›äº­é™¢ï¼Œåªè§ä¸´æ¹–ä¸€åº§å°æ¦­ã€‚æŸ±ä¸Šæœ‰ä¸€å¯¹è”(duilian)ã€‚ ä¾æ¦­
+è§‚æ¹–ï¼Œåªè§è·èŠ±æ»¡æ¹–ï¼ŒèŒ­è·æ·±å¤„ï¼Œé¦™è¿œç›Šæ¸…ã€‚æ¨ä¸‡é‡Œæ›¾æœ‰é¢˜å’â€œæ¯•ç«Ÿ
+è¥¿æ¹–å…­æœˆä¸­ï¼Œé£Žå…‰ä¸ä¸Žå››æ—¶åŒã€‚æŽ¥å¤©èŽ²å¶æ— ç©·ç¢§ï¼Œæ˜ æ—¥è·èŠ±åˆ«æ ·çº¢â€ã€‚
 LONG);
         set("exits", ([
             "out"    : __DIR__"quyuanbei",
@@ -16,13 +16,13 @@ LONG);
         set("item_desc", ([
             "duilian" :
 "\n
-        Éí              ÑÛ
-        ÔÚ              Ã÷
-        ºÉ              Ð¡
-        Ïã              ¸ó
-        Ë®              ¸¡
-        Ó°              ÑÌ
-        ÖÐ              ´ä\n",
+        èº«              çœ¼
+        åœ¨              æ˜Ž
+        è·              å°
+        é¦™              é˜
+        æ°´              æµ®
+        å½±              çƒŸ
+        ä¸­              ç¿ \n",
         ]));
         set("no_clean_up", 0);
         set("outdoors", "hangzhou");

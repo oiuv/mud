@@ -10,16 +10,16 @@ int main(object me, string arg)
         int pts;
 
         if ((max = me->query_max_craze()) < 1)
-                return notify_fail("ÄãµÄÐÔ¸ñ²»ºÏ£¬²»ÉÆ·¢×÷¡£\n");
+                return notify_fail("ä½ çš„æ€§æ ¼ä¸åˆï¼Œä¸å–„å‘ä½œã€‚\n");
 
         if (me->query_con() < 35 && me->query_str() < 35)
-                return notify_fail("ÄãµÄÉíÌåËØÖÊ»¹²»¹»ºÃ£¬Ã³È»·¢×÷ÓÐÉËÉíÌå¡£\n");
+                return notify_fail("ä½ çš„èº«ä½“ç´ è´¨è¿˜ä¸å¤Ÿå¥½ï¼Œè´¸ç„¶å‘ä½œæœ‰ä¼¤èº«ä½“ã€‚\n");
 
         if (me->query("neili") < 1000)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»³äÅæ£¬ÄÑÒÔ¿ØÖÆ×Ô¼ºµÄÇéÐ÷¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿå……æ²›ï¼Œéš¾ä»¥æŽ§åˆ¶è‡ªå·±çš„æƒ…ç»ªã€‚\n");
 
-        message_vision(HIR "$N" HIR "ºÙÈ»ÀäÐ¦£¬¹Ø½Ú¿¦À²¿¦À²"
-                       "µÄÏì¸ö²»Í££¬Ò»¹Éº·ÆøÓÍÈ»¶øÆð¡£\n" NOR, me);
+        message_vision(HIR "$N" HIR "å˜¿ç„¶å†·ç¬‘ï¼Œå…³èŠ‚å–€å•¦å–€å•¦"
+                       "çš„å“ä¸ªä¸åœï¼Œä¸€è‚¡æ‚æ°”æ²¹ç„¶è€Œèµ·ã€‚\n" NOR, me);
 
         pts = max * random(me->query_skill("force") + 500) / 1000;
         me->improve_craze(pts);
@@ -32,11 +32,11 @@ int main(object me, string arg)
 int help (object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½: berserk|baofa
+æŒ‡ä»¤æ ¼å¼: berserk|baofa
  
-Õâ¸öÖ¸ÁîÈÃÄãÔËÓÃÄÚ¹¦¿ØÖÆÇéÐ÷£¬´óÐÐ·¢×÷£¬»ýÐî×Ô¼ºµÄ·ßÅ­¡£²»¹ý
-ÉúÆø¶Ô×Ô¼ºÃ»ÓÐºÃ´¦£¬Ã¿´Î·¢×÷¶¼»áÈÃ×Ô¼ºµÄÆøÊÜµ½ËðÊ§¡£ÔÚÉíÌå²»
-Ö§µÄÊ±ºò·¢Å­Ð¡ÐÄÔÎØÊ¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ è¿ç”¨å†…åŠŸæŽ§åˆ¶æƒ…ç»ªï¼Œå¤§è¡Œå‘ä½œï¼Œç§¯è“„è‡ªå·±çš„æ„¤æ€’ã€‚ä¸è¿‡
+ç”Ÿæ°”å¯¹è‡ªå·±æ²¡æœ‰å¥½å¤„ï¼Œæ¯æ¬¡å‘ä½œéƒ½ä¼šè®©è‡ªå·±çš„æ°”å—åˆ°æŸå¤±ã€‚åœ¨èº«ä½“ä¸
+æ”¯çš„æ—¶å€™å‘æ€’å°å¿ƒæ™•åŽ¥ã€‚
 
 HELP
         );

@@ -1,4 +1,4 @@
-// fushang-neigong 扶桑内功
+// fushang-neigong 鎵舵鍐呭姛
 // By Hop
 
 inherit FORCE;
@@ -16,14 +16,14 @@ int query_neili_improve(object me)
 int valid_learn(object me)
 {
 	if ((int)me->query_skill("force", 1) < 50)
-		return notify_fail("你的基本内功火候还不够，还不能学习扶桑内功。\n");
+		return notify_fail("浣犵殑鍩烘湰鍐呭姛鐏�欒繕涓嶅锛岃繕涓嶈兘瀛︿範鎵舵鍐呭姛銆俓n");
 
 	return ::valid_learn(me);
 }
 
 int practice_skill(object me)
 {
-	return notify_fail("扶桑内功只能用学(learn)的来增加熟练度。\n");
+	return notify_fail("鎵舵鍐呭姛鍙兘鐢ㄥ(learn)鐨勬潵澧炲姞鐔熺粌搴︺�俓n");
 }
 
 string exert_function_file(string func)

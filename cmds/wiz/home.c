@@ -10,7 +10,7 @@ int main(object me, string arg)
                 return 0;
 
 	if (file_size(user_path(geteuid(me)) + "workroom.c") <= 0)
-		return notify_fail("ÄãÃ»ÓĞ×Ô¼ºµÄ¹¤×÷ÊÒ¡£\n");
+		return notify_fail("ä½ æ²¡æœ‰è‡ªå·±çš„å·¥ä½œå®¤ã€‚\n");
 
 	if (stringp(msg = me->query("env/msg_home")))
 		message_vision(msg + "\n", me);
@@ -22,10 +22,10 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½ : home
+æŒ‡ä»¤æ ¼å¼ : home
 
-ÀûÓÃ´ËÒ»Ö¸Áî¿ÉÖ±½Ó»Øµ½×Ô¼ºµÄ¹¤×÷ÊÒ¡£
-Èç¹ûÄãÓĞ 'msg_home' Õâ¸öÉè¶¨, ÔòÔÚ³¡µÄÈË¶¼»á¿´µ½ÄÇ¸öÑ¶Ï¢.
+åˆ©ç”¨æ­¤ä¸€æŒ‡ä»¤å¯ç›´æ¥å›åˆ°è‡ªå·±çš„å·¥ä½œå®¤ã€‚
+å¦‚æœä½ æœ‰ 'msg_home' è¿™ä¸ªè®¾å®š, åˆ™åœ¨åœºçš„äººéƒ½ä¼šçœ‹åˆ°é‚£ä¸ªè®¯æ¯.
 HELP );
     return 1;
 }

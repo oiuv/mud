@@ -1,14 +1,14 @@
-// might.c 狂暴铁拳
+// might.c 鐙傛毚閾佹嫵
 // Created by Vin 25/5/2002
 
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
-string name() { return CYN "狂暴铁拳" NOR; }
+string name() { return CYN "鐙傛毚閾佹嫵" NOR; }
 
 int perform(object me, string skill)
 {
-        return notify_fail("这项技能能够增加你的加力上限，不需要运用。\n");
+        return notify_fail("杩欓」鎶�鑳借兘澶熷鍔犱綘鐨勫姞鍔涗笂闄愶紝涓嶉渶瑕佽繍鐢ㄣ�俓n");
 }
 

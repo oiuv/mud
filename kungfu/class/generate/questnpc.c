@@ -10,7 +10,7 @@ void create()
         int lvl;
 
         ::create();
-	set("gender", "ÄĞĞÔ" );
+	set("gender", "ç”·æ€§" );
 	set("age", 30 + random(30));
 	set("long", "");
 	set("attitude", "friendly");
@@ -24,7 +24,7 @@ void create()
         lvl = 3 + random(4);
         NPC_D->init_npc_skill(this_object(), lvl);
 
-        // ³õÊ¼»¯NPCµÄÄÜÁ¦
+        // åˆå§‹åŒ–NPCçš„èƒ½åŠ›
 	my = query_entire_dbase();
         my["max_qi"] = 1000 + lvl * 300 + random(500);
         my["max_jing"] = my["max_qi"] / 2;
@@ -38,21 +38,21 @@ void create()
 
 int accept_fight(object ob)
 {
-        command("say àÅ£¿ÄãÊÇÊ²Ã´ÈË£¿ÎÒÃ»ÓĞĞËÈ¤ºÍÄã½ÏÁ¿¡£");
+        command("say å—¯ï¼Ÿä½ æ˜¯ä»€ä¹ˆäººï¼Ÿæˆ‘æ²¡æœ‰å…´è¶£å’Œä½ è¾ƒé‡ã€‚");
         return 0;
 }
 
 int accept_hit(object ob)
 {
-        message_vision("$NÁ³É«Ò»±ä£¬²¢Ã»ÓĞÀí»á$n£¬×ªÉí¼±¼±Ã¦Ã¦"
-                       "µÄÁï×ßÁË¡£\n", this_object(), ob);
+        message_vision("$Nè„¸è‰²ä¸€å˜ï¼Œå¹¶æ²¡æœ‰ç†ä¼š$nï¼Œè½¬èº«æ€¥æ€¥å¿™å¿™"
+                       "çš„æºœèµ°äº†ã€‚\n", this_object(), ob);
         NPC_D->random_move(this_object());
         return -1;
 }
 
 int accept_kill(object ob)
 {
-	command("say ÆñÓĞ´ËÀí£¡¾ÓÈ»ÆÛ¸ºµ½ÎÒµÄÍ·ÉÏÁË£¡");
+	command("say å²‚æœ‰æ­¤ç†ï¼å±…ç„¶æ¬ºè´Ÿåˆ°æˆ‘çš„å¤´ä¸Šäº†ï¼");
 	command("yun powerup");
 	return 1;
 }
@@ -72,13 +72,13 @@ void remove()
 
         if (! living(this_object()))
         {
-                message_vision("Â·¹ıÁ½¸öÈË£¬¿´µ½»èÃÔ²»ĞÑµÄ$N"
-                               "£¬Ì¾¿ÚÆø£¬°Ñ$P¼Ü×ßÁË¡£\n",
+                message_vision("è·¯è¿‡ä¸¤ä¸ªäººï¼Œçœ‹åˆ°æ˜è¿·ä¸é†’çš„$N"
+                               "ï¼Œå¹å£æ°”ï¼ŒæŠŠ$Pæ¶èµ°äº†ã€‚\n",
                                this_object());
                 return;
         }
 
-        message_vision("$N¿´ÁË¿´ËÄÖÜ£¬¼±¼±Ã¦Ã¦µÄ×ßÁË¡£\n",
+        message_vision("$Nçœ‹äº†çœ‹å››å‘¨ï¼Œæ€¥æ€¥å¿™å¿™çš„èµ°äº†ã€‚\n",
                        this_object());
 
         ::remove();

@@ -1,20 +1,20 @@
-// hanxin.c ÊéĞÅ
+// hanxin.c ä¹¦ä¿¡
 
 inherit ITEM;
 
 void create()
 {
-        set_name("ÊéĞÅ", ({"shu xin", "shuxin", "xin"}));
+        set_name("ä¹¦ä¿¡", ({"shu xin", "shuxin", "xin"}));
         set_weight(100);
         set("value",1);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-    		set("unit", "·â");
-            	set("long","ÕâÊÇÒ»·âÕòÔ¶ïÚ¾Ö×ÜïÚÍ·ÍõÎ¬ÑïĞ´¸øÂåÑôº«¼Òº«ÎÄ³å´óÒ¯µÄÊéĞÅ¡£\n");
-		set("header", "º«ÎÄ³å´óÒ¯Ç×Æô");
+    		set("unit", "å°");
+            	set("long","è¿™æ˜¯ä¸€å°é•‡è¿œé•–å±€æ€»é•–å¤´ç‹ç»´æ‰¬å†™ç»™æ´›é˜³éŸ©å®¶éŸ©æ–‡å†²å¤§çˆ·çš„ä¹¦ä¿¡ã€‚\n");
+		set("header", "éŸ©æ–‡å†²å¤§çˆ·äº²å¯");
 		set("no_sell", 1);
-		set("no_get", "ÕâÊÇ±ğÈËµÄĞÅ£¬ÔõÃ´¿ÉÒÔÄÃ£¿\n");
+		set("no_get", "è¿™æ˜¯åˆ«äººçš„ä¿¡ï¼Œæ€ä¹ˆå¯ä»¥æ‹¿ï¼Ÿ\n");
 		set("no_put", 1);
                 set("material", "paper");
         }

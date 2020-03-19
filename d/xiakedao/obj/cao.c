@@ -6,12 +6,12 @@ inherit ITEM;
 
 void create()
 {
-        set_name("¸¯ĞÄ²İ", ({"fuxin cao", "cao"}));
+        set_name("è…å¿ƒè‰", ({"fuxin cao", "cao"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "¸ù");
-                set("long", "ÕâÊÇÒ»¶äÎŞ¸ùĞ¡²İ£¬³¤µÃºÜĞ¡£¬È´¸øÈËÒ»ÖÖĞÀĞÀÏòÈÙµÄ¸Ğ¾õ¡£\n");
+                set("unit", "æ ¹");
+                set("long", "è¿™æ˜¯ä¸€æœµæ— æ ¹å°è‰ï¼Œé•¿å¾—å¾ˆå°ï¼Œå´ç»™äººä¸€ç§æ¬£æ¬£å‘è£çš„æ„Ÿè§‰ã€‚\n");
                 set("only_do_effect", 1);
         }
 
@@ -20,8 +20,8 @@ void create()
 
 int do_effect(object me)
 {
-        message_vision(HIG "$N" HIG "³ÔÏÂÒ»Öê¸¯ĞÄ²İ£¬¶Ù"
-                       "È»¼äÓĞµã¶Ç×ÓÌÛ...¸Ï½ôÈ¥²ŞËù£¡\n" NOR, this_player());
+        message_vision(HIG "$N" HIG "åƒä¸‹ä¸€æ ªè…å¿ƒè‰ï¼Œé¡¿"
+                       "ç„¶é—´æœ‰ç‚¹è‚šå­ç–¼...èµ¶ç´§å»å•æ‰€ï¼\n" NOR, this_player());
         destruct(this_object());
         return 1;
 }

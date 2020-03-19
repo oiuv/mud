@@ -90,7 +90,7 @@ int main(object me, string arg)
         }
         else
         {
-            write("Ã»ÄÜÕÒµ½°ïÖúÖ÷Ìâ¡£\n");
+            write("æ²¡èƒ½æ‰¾åˆ°å¸®åŠ©ä¸»é¢˜ã€‚\n");
         }
         return 1;
     }
@@ -104,14 +104,14 @@ int main(object me, string arg)
 
         if (!objectp(here = environment(me)))
         {
-            write("Ã»ÓĞ¹ØÓÚÕâÀïµÄ°ïÖúĞÅÏ¢¡£\n");
+            write("æ²¡æœ‰å…³äºè¿™é‡Œçš„å¸®åŠ©ä¿¡æ¯ã€‚\n");
             return 1;
         }
 
         here_name = base_name(here);
         if (sscanf(here_name, "/d/%s/", here_name) != 1)
         {
-            write("Ã»ÓĞ¹ØÓÚÕâÀïµÄ°ïÖúĞÅÏ¢¡£\n");
+            write("æ²¡æœ‰å…³äºè¿™é‡Œçš„å¸®åŠ©ä¿¡æ¯ã€‚\n");
             return 1;
         }
 
@@ -134,7 +134,7 @@ int main(object me, string arg)
 
         if (!(the_file = here_map[here_name]))
         {
-            write("Ã»ÓĞ¹ØÓÚÕâÀïµÄ°ïÖúĞÅÏ¢¡£\n");
+            write("æ²¡æœ‰å…³äºè¿™é‡Œçš„å¸®åŠ©ä¿¡æ¯ã€‚\n");
             return 1;
         }
 
@@ -142,7 +142,7 @@ int main(object me, string arg)
 
         if (file_size(the_file) <= 0)
         {
-            write("Ã»ÓĞ¹ØÓÚÕâÀïµÄ°ïÖúĞÅÏ¢¡£\n");
+            write("æ²¡æœ‰å…³äºè¿™é‡Œçš„å¸®åŠ©ä¿¡æ¯ã€‚\n");
             return 1;
         }
 
@@ -168,7 +168,7 @@ int main(object me, string arg)
     // Else, try if a command name is specified.
     if (stringp(file = me->find_command(arg)))
     {
-        notify_fail("ÓĞÕâ¸öÖ¸Áî´æÔÚ£¬µ«ÊÇ²¢Ã»ÓĞÏêÏ¸µÄËµÃ÷ÎÄ¼ş¡£\n");
+        notify_fail("æœ‰è¿™ä¸ªæŒ‡ä»¤å­˜åœ¨ï¼Œä½†æ˜¯å¹¶æ²¡æœ‰è¯¦ç»†çš„è¯´æ˜æ–‡ä»¶ã€‚\n");
         return file->help(me);
     }
 
@@ -188,17 +188,17 @@ int main(object me, string arg)
             }
     }
 
-    return notify_fail("Ã»ÓĞÕë¶ÔÕâÏîÖ÷ÌâµÄËµÃ÷ÎÄ¼ş¡£\n");
+    return notify_fail("æ²¡æœ‰é’ˆå¯¹è¿™é¡¹ä¸»é¢˜çš„è¯´æ˜æ–‡ä»¶ã€‚\n");
 }
 
 int help(object me)
 {
     write(@HELP
-Ö¸Áî¸ñÊ½£ºhelp <Ö÷Ìâ>              ÀıÈç£º> help cmds
-          help <º¯ÊıÃû³Æ>()        ÀıÈç£º> help call_out()
+æŒ‡ä»¤æ ¼å¼ï¼šhelp <ä¸»é¢˜>              ä¾‹å¦‚ï¼š> help cmds
+          help <å‡½æ•°åç§°>()        ä¾‹å¦‚ï¼š> help call_out()
 
-Õâ¸öÖ¸ÁîÌá¹©ÄãÕë¶ÔÄ³Ò»Ö÷ÌâµÄÏêÏ¸ËµÃ÷ÎÄ¼ş£¬ÈôÊÇ²»Ö¸¶¨Ö÷Ìâ£¬ÔòÌá¹©ÄãÓĞ¹Ø
-Ö÷ÌâµÄÎÄ¼ş¡£
+è¿™ä¸ªæŒ‡ä»¤æä¾›ä½ é’ˆå¯¹æŸä¸€ä¸»é¢˜çš„è¯¦ç»†è¯´æ˜æ–‡ä»¶ï¼Œè‹¥æ˜¯ä¸æŒ‡å®šä¸»é¢˜ï¼Œåˆ™æä¾›ä½ æœ‰å…³
+ä¸»é¢˜çš„æ–‡ä»¶ã€‚
 HELP
     );
     return 1;

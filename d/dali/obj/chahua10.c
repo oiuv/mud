@@ -5,20 +5,20 @@ inherit HEAD;
 
 void create()
 {
-        set_name(HIB"ÑÛ"HIW"¶ùÃÄ"NOR, ({"cha hua", "hua"}));
+        set_name(HIB"çœ¼"HIW"å„¿åªš"NOR, ({"cha hua", "hua"}));
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "¶ä");
+                set("unit", "æœµ");
                 set("long",
-"Ò»Öê²è»¨£¬°×É«»¨°êÉÏÓĞÁ½¸öéÏé­ºË¶ùºÚ°ß¡£\n");
+"ä¸€æ ªèŒ¶èŠ±ï¼Œç™½è‰²èŠ±ç“£ä¸Šæœ‰ä¸¤ä¸ªæ©„æ¦„æ ¸å„¿é»‘æ–‘ã€‚\n");
                 set("value", 50);
                 set("material", "plant");
                 set_weight(10);
                 set("armor_prop/armor", 0);
                 set("armor_prop/personality", 3);
-                set("wear_msg", "$NÇáÇáµØ°ÑÒ»¶ä$n´÷ÔÚÍ·ÉÏ¡£\n");
-                set("unequip_msg", "$NÇáÇáµØ°Ñ$n´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n");
+                set("wear_msg", "$Nè½»è½»åœ°æŠŠä¸€æœµ$næˆ´åœ¨å¤´ä¸Šã€‚\n");
+                set("unequip_msg", "$Nè½»è½»åœ°æŠŠ$nä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n");
         }
         setup();
 }

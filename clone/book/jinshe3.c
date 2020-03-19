@@ -10,16 +10,16 @@ void setup()
 
 void create()
 {
-        set_name(YEL"¡¸½ğÉßÃØÜ¸¡¹"NOR"ÏÂ²á", ({ "jinshe book3","book3", }));
+        set_name(YEL"ã€Œé‡‘è›‡ç§˜èŠ¨ã€"NOR"ä¸‹å†Œ", ({ "jinshe book3","book3", }));
         set_weight(500);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "±¾");
+                set("unit", "æœ¬");
                 set("material", "paper");
                 set("long",
-        "ÕâÊÇÒ»±¾ÓÃ±¡Ö½Ğ´³ÉµÄÊé¡£ÉÏÊé£º¡¸½ğÉßÃØÜ¸¡¹¡£\n"
-        "ÊéÆ¤·º»Æ£¬¿´À´ÒÑ¾­±£´æºÜ¾ÃÁË¡£\n", );
+        "è¿™æ˜¯ä¸€æœ¬ç”¨è–„çº¸å†™æˆçš„ä¹¦ã€‚ä¸Šä¹¦ï¼šã€Œé‡‘è›‡ç§˜èŠ¨ã€ã€‚\n"
+        "ä¹¦çš®æ³›é»„ï¼Œçœ‹æ¥å·²ç»ä¿å­˜å¾ˆä¹…äº†ã€‚\n", );
                 set("skill", ([
                         "name"        : "jinshe-zhang",
                         "exp_required":	100000,

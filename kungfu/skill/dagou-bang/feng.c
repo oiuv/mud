@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define FENG "¡¸" HIG "·â×Ö¾÷" NOR "¡¹"
+#define FENG "ã€Œ" HIG "å°å­—è¯€" NOR "ã€"
 
 inherit F_CLEAN_UP;
 inherit F_SSERVER;
@@ -13,36 +13,36 @@ int perform(object me, object target)
         int skill;
 
         if (userp(me) && ! me->query("can_perform/dagou-bang/feng"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         if ((int)me->query_temp("feng_zijue"))
-                return notify_fail("ÄãÏÖÔÚÕýÔÚÊ©Õ¹" FENG "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨æ­£åœ¨æ–½å±•" FENG "ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "staff")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" FENG "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" FENG "ã€‚\n");
 
         skill = me->query_skill("dagou-bang", 1);
 
         if (skill < 120)
-		return notify_fail("Äã´ò¹·°ô·¨²»¹»æµÊì£¬ÄÑÒÔÊ©Õ¹" FENG "¡£\n");
+		return notify_fail("ä½ æ‰“ç‹—æ£’æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œéš¾ä»¥æ–½å±•" FENG "ã€‚\n");
 
         if (me->query_skill_mapped("staff") != "dagou-bang")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢´ò¹·°ô·¨£¬ÄÑÒÔÊ©Õ¹" FENG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘æ‰“ç‹—æ£’æ³•ï¼Œéš¾ä»¥æ–½å±•" FENG "ã€‚\n");
 
 	if ((int)me->query_skill("force") < 180)
-		return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»×ã£¬ÄÑÒÔÊ©Õ¹" FENG "¡£\n");
+		return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" FENG "ã€‚\n");
 
         if (me->query("neili") < 200)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»¹»£¬ÄÑÒÔÊ©Õ¹" FENG "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" FENG "ã€‚\n");
 
         wp = weapon->name();
 
-        message_combatd(HIG "$N" HIG "Ê¹³ö´ò¹·°ô·¨¡¸" HIY "·â"
-                        HIG "¡¹×Ö¾÷£¬ÊÖÖÐ" + wp + HIG "¼²ËÙÎè"
-                        "¶¯£¬»Ã³öÐíÐí°ôÓ°»¤×¡ÖÜÉí¡£\n" NOR, me);
+        message_combatd(HIG "$N" HIG "ä½¿å‡ºæ‰“ç‹—æ£’æ³•ã€Œ" HIY "å°"
+                        HIG "ã€å­—è¯€ï¼Œæ‰‹ä¸­" + wp + HIG "ç–¾é€Ÿèˆž"
+                        "åŠ¨ï¼Œå¹»å‡ºè®¸è®¸æ£’å½±æŠ¤ä½å‘¨èº«ã€‚\n" NOR, me);
 
         me->add("neili", -150);
         me->add_temp("apply/parry", skill / 3);
@@ -63,6 +63,6 @@ void remove_effect(object me, int amount)
         {
                 me->add_temp("apply/parry", -amount);
                 me->delete_temp("feng_zijue");
-                tell_object(me, "ÄãµÄ" FENG "Ê©Õ¹Íê±Ï£¬½«ÄÚÁ¦ÊÕ»Øµ¤Ìï¡£\n");
+                tell_object(me, "ä½ çš„" FENG "æ–½å±•å®Œæ¯•ï¼Œå°†å†…åŠ›æ”¶å›žä¸¹ç”°ã€‚\n");
         }
 }

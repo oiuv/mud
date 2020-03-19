@@ -5,12 +5,12 @@ string ask_me();
 
 void create()
 {
-        set_name("³ö³¾×Ó", ({ "chuchen zi", "chuchen" }));
-        set("nickname", "ĞÇËŞÅÉ°ËÊ¦ĞÖ");
+        set_name("å‡ºå°˜å­", ({ "chuchen zi", "chuchen" }));
+        set("nickname", "æ˜Ÿå®¿æ´¾å…«å¸ˆå…„");
         set("long", 
-                "Ëû¾ÍÊÇ¶¡´ºÇïµÄ°ËµÜ×Ó³ö³¾×Ó¡£\n"
-                "ËûÉí²Å°«ÅÖ£¬¿ÉÊÖÖĞÎÕµÄ¸ÖÕÈÓÖ³¤ÓÖÖØ¡£\n");
-        set("gender", "ÄĞĞÔ");
+                "ä»–å°±æ˜¯ä¸æ˜¥ç§‹çš„å…«å¼Ÿå­å‡ºå°˜å­ã€‚\n"
+                "ä»–èº«æ‰çŸ®èƒ–ï¼Œå¯æ‰‹ä¸­æ¡çš„é’¢æ–åˆé•¿åˆé‡ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 25);
         set("attitude", "peaceful");
         set("shen_type", -1);
@@ -48,7 +48,7 @@ void create()
         prepare_skill("strike", "chousui-zhang");
         prepare_skill("claw", "sanyin-wugongzhao");
 
-        create_family("ĞÇËŞÅÉ", 2, "µÜ×Ó");
+        create_family("æ˜Ÿå®¿æ´¾", 2, "å¼Ÿå­");
 
         set("coagents", ({
                 ([ "startroom" : "/d/xingxiu/riyuedong",
@@ -62,5 +62,5 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        command("say ÀÏÏÉ»¹Ã»ÔÊĞíÎÒÊÕÍ½ÄØ¡£");
+        command("say è€ä»™è¿˜æ²¡å…è®¸æˆ‘æ”¶å¾’å‘¢ã€‚");
 }

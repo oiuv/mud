@@ -3,11 +3,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("¹Ù±ø", ({ "guan bing", "guan", "bing" }));
+        set_name("å®˜å…µ", ({ "guan bing", "guan", "bing" }));
         set("age", 22);
-        set("gender", "ÄĞĞÔ");
-        set("long", "ËäÈ»¹Ù±øµÄÎäÒÕ²»ÄÜºÍÎäÁÖÈËÊ¿Ïà±È£¬¿É"
-                    "ÊÇËûÃÇ½²¾¿µÄÊÇÈË¶àÁ¦Á¿´ó¡£\n");
+        set("gender", "ç”·æ€§");
+        set("long", "è™½ç„¶å®˜å…µçš„æ­¦è‰ºä¸èƒ½å’Œæ­¦æ—äººå£«ç›¸æ¯”ï¼Œå¯"
+                    "æ˜¯ä»–ä»¬è®²ç©¶çš„æ˜¯äººå¤šåŠ›é‡å¤§ã€‚\n");
         set("attitude", "peaceful");
 
         set("str", 24);
@@ -27,8 +27,8 @@ void create()
 
         set("chat_chance_combat", 10);
         set("chat_msg_combat", ({
-                CYN "¹Ù±øºÈµÀ£º´óµ¨µóÃñ£¬¾¹¸ÒÔì·´²»³É£¿\n" NOR,
-                CYN "¹Ù±øºÈµÀ£ºÅÜµÃÁËºÍÉĞÅÜ²»ÁËÃí£¬Äã»¹ÊÇ¿ì¿ìÊøÊÖ¾ÍÇÜ£¡\n" NOR,
+                CYN "å®˜å…µå–é“ï¼šå¤§èƒ†åˆæ°‘ï¼Œç«Ÿæ•¢é€ åä¸æˆï¼Ÿ\n" NOR,
+                CYN "å®˜å…µå–é“ï¼šè·‘å¾—äº†å’Œå°šè·‘ä¸äº†åº™ï¼Œä½ è¿˜æ˜¯å¿«å¿«æŸæ‰‹å°±æ“’ï¼\n" NOR,
         }));
         setup();
         carry_object("/clone/weapon/blade")->wield();
@@ -52,7 +52,7 @@ void init()
 
 int accept_fight(object me)
 {
-        command("say ´óÒ¯ÎÒÕıÏëÕÒÈËÉ±ÄÅ£¬½ñÌìËãÄãµ¹Ã¹¡£\n");
+        command("say å¤§çˆ·æˆ‘æ­£æƒ³æ‰¾äººæ€å‘ï¼Œä»Šå¤©ç®—ä½ å€’éœ‰ã€‚\n");
         kill_ob(me);
         return 1;
 }

@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "����¥");
+	set("short", "西城楼");
 	set("long", @LONG
-�������ѵ������ݵ������š��߸ߵĳ�¥����ȥ�᲻�ɴݡ�
-������һ¥�ݿ����ϳ�¥�Ķ��㡣��˵�����سǵĽ����书��
-�ף���ȴ�ܺñ��䡣
+不觉你已到了中州的西城门。高高的城楼看上去坚不可摧。
+西面有一楼梯可以上城楼的二层。据说这里守城的将军武功不
+俗，而却很好比武。
 LONG);
 	set("no_clean_up", 0);
 	set("exits", ([

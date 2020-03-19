@@ -23,12 +23,12 @@ int main(object me, string arg)
         if (arg && sscanf(arg, "out %s", arg) == 1)
         {
                 if (! me->is_brother(arg))
-                        return notify_fail("ÄãÏÖÔÚÃ»ÓĞÕâ¸ö½á°İĞÖµÜ°¡¡£\n");
+                        return notify_fail("ä½ ç°åœ¨æ²¡æœ‰è¿™ä¸ªç»“æ‹œå…„å¼Ÿå•Šã€‚\n");
 
                 if (me->query_temp("pending/brother_out") != arg)
                 {
-                        write("ÄãÈ·¶¨ÒªºÍÕâÎ»ÅóÓÑ(" + arg + ")¸îÅÛ¶ÏÒåÂğ£¿\n"
-                              YEL "Èç¹ûÄãÈ·¶¨£¬ÇëÔÙÊäÈëÒ»´ÎÕâÌõÃüÁî¡£\n" NOR);
+                        write("ä½ ç¡®å®šè¦å’Œè¿™ä½æœ‹å‹(" + arg + ")å‰²è¢æ–­ä¹‰å—ï¼Ÿ\n"
+                              YEL "å¦‚æœä½ ç¡®å®šï¼Œè¯·å†è¾“å…¥ä¸€æ¬¡è¿™æ¡å‘½ä»¤ã€‚\n" NOR);
                         me->set_temp("pending/brother_out", arg);
                         return 1;
                 }
@@ -38,17 +38,17 @@ int main(object me, string arg)
                     environment(ob) == environment(me))
                 {
                         // is the brother at present now?
-                        message_vision("$NÒ»ÉùÌ¾Ï¢£¬¿´×Å$n£¬¾ø¾öµÀ£º¡°" + ob->name(1) +
-                                       "²»±Ø¶àËµ£¬´Ó½ñÍùºó£¬ÄãºÍÎÒÔÙÒ²Ã»ÓĞ°ëµã¹ØÏµÁË£¡¡±\n",
+                        message_vision("$Nä¸€å£°å¹æ¯ï¼Œçœ‹ç€$nï¼Œç»å†³é“ï¼šâ€œ" + ob->name(1) +
+                                       "ä¸å¿…å¤šè¯´ï¼Œä»ä»Šå¾€åï¼Œä½ å’Œæˆ‘å†ä¹Ÿæ²¡æœ‰åŠç‚¹å…³ç³»äº†ï¼â€\n",
                                        me, ob);
                 }
 
                 nid = me->query("brothers/" + arg) + "(" + arg + ")";
-                write("ÄãºÍ" + nid + "¶Ï¾øÁË¹ØÏµ¡£\n");
+                write("ä½ å’Œ" + nid + "æ–­ç»äº†å…³ç³»ã€‚\n");
                 id = me->query("id");
                 CHANNEL_D->do_channel(this_object(), "rumor",
-                        "ÌıËµ" + me->name(1) + "(" + id + ")"
-                        "ºÍ" + nid + "¸îÅÛ¶ÏÒå£¬¶Ï¾øÁËÀ´Íù¡£");
+                        "å¬è¯´" + me->name(1) + "(" + id + ")"
+                        "å’Œ" + nid + "å‰²è¢æ–­ä¹‰ï¼Œæ–­ç»äº†æ¥å¾€ã€‚");
 
                 // remove the brother's association
                 UPDATE_D->clear_user_data(id, "brothers:" + arg);
@@ -59,19 +59,19 @@ int main(object me, string arg)
         if (! arg || ! wizardp(me))
         {
                 who = me;
-                pro = "Äã";
+                pro = "ä½ ";
         } else
         {
                 if (! objectp(who = find_player(arg)))
-                        return notify_fail("Ã»ÓĞÕÒµ½Õâ¸öÍæ¼Ò¡£\n");
+                        return notify_fail("æ²¡æœ‰æ‰¾åˆ°è¿™ä¸ªç©å®¶ã€‚\n");
                 else
                         pro = who->name(1);
         }
 
 	if (! mapp(bro = who->query("brothers")) || sizeof(bro) < 1)
-                return notify_fail(pro + "ÏÖÔÚ»¹Ã»ÓĞ½áÒåµÄĞÖµÜÃÇ¡£\n");
+                return notify_fail(pro + "ç°åœ¨è¿˜æ²¡æœ‰ç»“ä¹‰çš„å…„å¼Ÿä»¬ã€‚\n");
 
-        msg = pro + "ÏÖÔÚ" + LOCAL_MUD_NAME() + "µÄ½áÒåĞÖµÜ¶¼ÓĞ£º\n\n";
+        msg = pro + "ç°åœ¨" + LOCAL_MUD_NAME() + "çš„ç»“ä¹‰å…„å¼Ÿéƒ½æœ‰ï¼š\n\n";
         ids = keys(bro);
         ids = sort_array(ids, (: sort_brothers :));
         foreach (id in ids)
@@ -79,15 +79,15 @@ int main(object me, string arg)
                 nid = (string) bro[id] + "(" + id + ")";
                 msg += sprintf(WHT "%-14s  ", nid);
                 if (objectp(ob = find_player(id)))
-                        msg += sprintf(HIY "ÔÚÏß   "
-                                       NOR WHT "¾­Ñé£º" HIC "%-9d "
-                                       NOR WHT "ÔÄÀú£º" HIW "%-8d "
-                                       NOR WHT "ÍşÍû£º" HIY "%-8d\n" NOR,
+                        msg += sprintf(HIY "åœ¨çº¿   "
+                                       NOR WHT "ç»éªŒï¼š" HIC "%-9d "
+                                       NOR WHT "é˜…å†ï¼š" HIW "%-8d "
+                                       NOR WHT "å¨æœ›ï¼š" HIY "%-8d\n" NOR,
                                        ob->query("combat_exp"),
                                        ob->query("score"),
                                        ob->query("weiwang"));
                 else
-                        msg += HIR "²»ÔÚÏß\n" NOR;
+                        msg += HIR "ä¸åœ¨çº¿\n" NOR;
         }
         write(msg);
 
@@ -115,12 +115,12 @@ int sort_brothers(string id1, string id2)
 int help(object me)
 {
    	write( @HELP
-Ö¸Áî¸ñÊ½: brothers ÎŞ²ÎÊı | out <sb>
+æŒ‡ä»¤æ ¼å¼: brothers æ— å‚æ•° | out <sb>
 
-²é¿´×Ô¼ºÏÖÔÚµÄ½áÒåĞÖµÜÃÇ¡£Èç¹ûÊ¹ÓÃ brothers out <sb> ¿ÉÒÔ½â
-³ı½áÒå¹ØÏµ¡£
+æŸ¥çœ‹è‡ªå·±ç°åœ¨çš„ç»“ä¹‰å…„å¼Ÿä»¬ã€‚å¦‚æœä½¿ç”¨ brothers out <sb> å¯ä»¥è§£
+é™¤ç»“ä¹‰å…³ç³»ã€‚
 
-see also£ºswear
+see alsoï¼šswear
 HELP );
    	return 1;
 }

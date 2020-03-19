@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ÉÌ¼Ò±¤´óÃÅ");
+	set("short", "å•†å®¶å ¡å¤§é—¨");
 	set("long", @LONG
-Ò»×ù¾Ş´óµÄÕ¬ÔºÓ³ÈëÄãµÄÑÛÁ±£¬Õı¶Ô×ÅÄãµÄÊÇÒ»ÉÈÖìÆáÍ­¶¤
-µÄ´óÃÅ£¬ËÄÖÜÊÇ½üÕÉ¸ßµÄÎ§Ç½¡£´óÃÅµÄÉÏ·½ºá×ÅÒ»¿éØÒ£¬ØÒÉÏĞ´
-×Å¡¸ÉÌ¼Ò±¤¡¹Èı¸ö´ó×Ö¡£
+ä¸€åº§å·¨å¤§çš„å®…é™¢æ˜ å…¥ä½ çš„çœ¼å¸˜ï¼Œæ­£å¯¹ç€ä½ çš„æ˜¯ä¸€æ‰‡æœ±æ¼†é“œé’‰
+çš„å¤§é—¨ï¼Œå››å‘¨æ˜¯è¿‘ä¸ˆé«˜çš„å›´å¢™ã€‚å¤§é—¨çš„ä¸Šæ–¹æ¨ªç€ä¸€å—åŒ¾ï¼ŒåŒ¾ä¸Šå†™
+ç€ã€Œå•†å®¶å ¡ã€ä¸‰ä¸ªå¤§å­—ã€‚
 LONG);
 	set("exits", ([
 		"north"  : __DIR__"shang_qgc",
@@ -26,7 +26,7 @@ int valid_leave(object me, string dir)
 
         if (dir != "north"
            || ! objectp(zhen = present("shang baozhen", this_object()))
-           || (me->query("born_family") == "É½¶«ÉÌ¼Ò"
+           || (me->query("born_family") == "å±±ä¸œå•†å®¶"
            && ! me->query("family/family_name")))
                 return ::valid_leave(me, dir);
 

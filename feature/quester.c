@@ -1,14 +1,14 @@
-// quester.c 接收请求任务
+// quester.c 鎺ユ敹璇锋眰浠诲姟
 
 int is_quester() { return 1; }
 
-// 请求任务
+// 璇锋眰浠诲姟
 int ask_quest(object who)
 {
         return QUEST_D->ask_quest(this_object(), who);
 }
 
-// 取消任务
+// 鍙栨秷浠诲姟
 int cancel_quest(object who)
 {
         return QUEST_D->cancel_quest(this_object(), who);

@@ -4,10 +4,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ɽ·");
+        set("short", "山路");
         set("long", @LONG
-����һ��ֱͨ������ɽ·������Զ����ȺɽΡ�룬����Ʈ�죬
-����ǰ��Զ����Ҫ������ɽ֮���ˡ��������ȥ��ԭ��·��
+这是一条直通西方的山路，向西远望，群山巍峨，云雾飘渺，
+再往前不远，就要进入深山之中了。东面就是去中原的路。
 LONG);
 	set("exits",([
 	      "west" : __DIR__"westroad2",

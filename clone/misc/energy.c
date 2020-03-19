@@ -5,12 +5,12 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIY "ÄÜÁ¿Ê¯" NOR, ({"energy stone", "stone"}));
+        set_name(HIY "èƒ½é‡çŸ³" NOR, ({"energy stone", "stone"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIW "Ò»¿é¾«¹âÉÁÉÁµÄÄÜÁ¿Ê¯¡£\n" NOR);
-                set("unit", "¿é");
+                set("long", HIW "ä¸€å—ç²¾å…‰é—ªé—ªçš„èƒ½é‡çŸ³ã€‚\n" NOR);
+                set("unit", "å—");
                 set("value", 50000);
                 set("weight", 40);
                 set("only_do_effect", 1);
@@ -24,14 +24,14 @@ int do_effect(object me)
 
         if (! me->is_magic_beast())
         {
-                write("Äã·èÁË°¡£¬ÄÜÁ¿Ê¯Ò²ÄÜ³ÔÂğ£¿\n");
+                write("ä½ ç–¯äº†å•Šï¼Œèƒ½é‡çŸ³ä¹Ÿèƒ½åƒå—ï¼Ÿ\n");
                 return 1;
         }
 
         me->set("food", 8*me->max_food_capacity());
         me->set("water",8*me->max_water_capacity());
         // me->start_busy(1);
-        message_vision(HIR "$N" HIR "³ÔÏÂÁËÒ»¿éÄÜÁ¿Ê¯£¬¶ÙÊ±È«Éí·ºÆğºì¹â£¡\n"NOR,me);
+        message_vision(HIR "$N" HIR "åƒä¸‹äº†ä¸€å—èƒ½é‡çŸ³ï¼Œé¡¿æ—¶å…¨èº«æ³›èµ·çº¢å…‰ï¼\n"NOR,me);
 
         destruct(this_object());
 

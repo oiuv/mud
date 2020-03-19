@@ -1,4 +1,4 @@
-//hanxing-bada.c 寒星八打
+//hanxing-bada.c 瀵掓槦鍏墦
 
 inherit SKILL;
 
@@ -7,10 +7,10 @@ int valid_learn(object me)
         // object ob;
 
         if ((int)me->query("max_neili") < 200)
-                return notify_fail("你的内力不够，没有办法练寒星八打。\n");
+                return notify_fail("浣犵殑鍐呭姏涓嶅锛屾病鏈夊姙娉曠粌瀵掓槦鍏墦銆俓n");
 
         if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("hanxing-bada", 1))
-                return notify_fail("你的基本暗器水平有限，无法领悟更高深的寒星八打术。\n");
+                return notify_fail("浣犵殑鍩烘湰鏆楀櫒姘村钩鏈夐檺锛屾棤娉曢鎮熸洿楂樻繁鐨勫瘨鏄熷叓鎵撴湳銆俓n");
 
         return 1;
 }
@@ -23,10 +23,10 @@ int valid_enable(string usage)
 int practice_skill(object me)
 {
         if ((int)me->query("qi") < 50)
-                return notify_fail("你的体力不足，无法练习寒星八打。\n");
+                return notify_fail("浣犵殑浣撳姏涓嶈冻锛屾棤娉曠粌涔犲瘨鏄熷叓鎵撱�俓n");
 
         if ((int)me->query("neili") < 50)
-                return notify_fail("你的内力不够，没有办法练习寒星八打。\n");
+                return notify_fail("浣犵殑鍐呭姏涓嶅锛屾病鏈夊姙娉曠粌涔犲瘨鏄熷叓鎵撱�俓n");
 
         me->receive_damage("qi", 40);
         me->add("neili", -45);

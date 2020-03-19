@@ -1,5 +1,5 @@
-//TASKÎïÆ·
-//Ï¹Èı±¿ÖÆ×÷
+//TASKç‰©å“
+//çä¸‰ç¬¨åˆ¶ä½œ
 
 
 #include <ansi.h>
@@ -11,13 +11,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIR "ÌìµØ»áÁîÅÆ" NOR, ({ "lingpai"}));
+        set_name(HIR "å¤©åœ°ä¼šä»¤ç‰Œ" NOR, ({ "lingpai"}));
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "¸ö");
+                set("unit", "ä¸ª");
                 set("owner_id", "chen jinnan");
-                set("owner", "³Â½üÄÏ");
+                set("owner", "é™ˆè¿‘å—");
 
                 set("value",10);
                 set("no_sell",1);
@@ -47,8 +47,8 @@ int do_give(string arg)
 
 string long()
 {
-        return "ÕâÊÇ" + query("owner") + "µÄ" + query("name") +
-               "(" + query("id") + ")¡£\n";
+        return "è¿™æ˜¯" + query("owner") + "çš„" + query("name") +
+               "(" + query("id") + ")ã€‚\n";
 
 }
 

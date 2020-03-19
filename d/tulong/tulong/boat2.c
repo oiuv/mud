@@ -3,9 +3,9 @@ inherit ROOM;
 
 void create()
 {
-        set("short","´¬ÉÏ");
+        set("short","èˆ¹ä¸Š");
         set("long", @LONG
-ÕâĞ©´ó´¬£¬ÏëÊÇ¾Ş¾¨°ï¡¢º£É³ÅÉÒ»¸ÉÈËµÄ×ù´¬¡£
+è¿™äº›å¤§èˆ¹ï¼Œæƒ³æ˜¯å·¨é²¸å¸®ã€æµ·æ²™æ´¾ä¸€å¹²äººçš„åº§èˆ¹ã€‚
 LONG );
         set("exits",([
                 "northup":"/d/tulong/tulong/daobian",
@@ -26,13 +26,13 @@ void init()
 int do_break(string arg)
 {
         object me=this_player(),inv;
-        if (arg!="boat" && arg!="´¬") return notify_fail("ÄãÒª´òËéÊ²Ã´£¿\n");
+        if (arg!="boat" && arg!="èˆ¹") return notify_fail("ä½ è¦æ‰“ç¢ä»€ä¹ˆï¼Ÿ\n");
         inv=present("stone",me);
-        if (query("dao")) return notify_fail("´¬ÉÏµÄÎ¦¸ËÔç¾Íµ¹ÁË£¬»¹ÔÒÊ²Ã´£¿\n");
-        if (!objectp(inv)) return notify_fail("Äã×¼±¸ÄÃÊ²Ã´ÔÒ´¬Ñ½£¿\n");
+        if (query("dao")) return notify_fail("èˆ¹ä¸Šçš„æ¡…æ†æ—©å°±å€’äº†ï¼Œè¿˜ç ¸ä»€ä¹ˆï¼Ÿ\n");
+        if (!objectp(inv)) return notify_fail("ä½ å‡†å¤‡æ‹¿ä»€ä¹ˆç ¸èˆ¹å‘€ï¼Ÿ\n");
         else 
         {
-        message_vision("$N¾ÙÆğÊÖÖĞ"+inv->query("name")+"£¬Ïò´¬ÉÏµÄÎ¦¸ËÔÒÈ¥¡£\n",me);
+        message_vision("$Nä¸¾èµ·æ‰‹ä¸­"+inv->query("name")+"ï¼Œå‘èˆ¹ä¸Šçš„æ¡…æ†ç ¸å»ã€‚\n",me);
         remove_call_out("do_dao");
         call_out("do_dao",3,me);
         return 1;
@@ -41,9 +41,9 @@ int do_break(string arg)
 
 int do_dao(object me)
 {
-        message_vision( WHT "\nÖ»ÌıµÃ¿¦À®¡¢¿¦À®Ö®Éù²»¾ø£¬ËÊÁ¢µÄ´¬Î¦Ò»¸ù¸ùµ¹½«ÏÂÀ´¡£\nÅéàØÖ®Éù²»¾ø£¬Çê¿ÌÖ®¼ä£¬ÖÚÎ¦¸Ë»òµ¹»òĞ±£¬ÎŞÒ»µÃÃâ¡£\n" NOR,me);
+        message_vision( WHT "\nåªå¬å¾—å–€å–‡ã€å–€å–‡ä¹‹å£°ä¸ç»ï¼Œè€¸ç«‹çš„èˆ¹æ¡…ä¸€æ ¹æ ¹å€’å°†ä¸‹æ¥ã€‚\nç °å˜­ä¹‹å£°ä¸ç»ï¼Œé¡·åˆ»ä¹‹é—´ï¼Œä¼—æ¡…æ†æˆ–å€’æˆ–æ–œï¼Œæ— ä¸€å¾—å…ã€‚\n" NOR,me);
         set("dao",1);
-        set("long","ÕâĞ©´ó´¬£¬ÏëÊÇ¾Ş¾¨°ï¡¢º£É³ÅÉÒ»¸ÉÈËµÄ×ù´¬¡£Ö»ÊÇÎ¦¸Ë¶¼±»ÔÒ¶ÏÁË¡£\n");
+        set("long","è¿™äº›å¤§èˆ¹ï¼Œæƒ³æ˜¯å·¨é²¸å¸®ã€æµ·æ²™æ´¾ä¸€å¹²äººçš„åº§èˆ¹ã€‚åªæ˜¯æ¡…æ†éƒ½è¢«ç ¸æ–­äº†ã€‚\n");
         me->set_temp("dao",1);
         return 1;
 }

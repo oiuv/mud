@@ -1,4 +1,4 @@
-// jade.c ôä´ä
+// jade.c ç¿¡ç¿ 
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,19 +7,19 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIG "ôä´ä" NOR, ({ "jade" }) );
+	set_name(HIG "ç¿¡ç¿ " NOR, ({ "jade" }) );
 	set_weight(30);
 	if( clonep() )
 		set_default_object(__FILE__);
         else {
-	        set("long", HIG "Ò»¿é±ÌÍ¸ÓûµÎµÄôä´ä¡£\n" NOR);
+	        set("long", HIG "ä¸€å—ç¢§é€æ¬²æ»´çš„ç¿¡ç¿ ã€‚\n" NOR);
                 set("value", 50000);
-		set("unit", "¿é");
+		set("unit", "å—");
                 set("armor_prop/per", 5);
-                set("wear_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´÷ÔÚÍ·ÉÏ¡£\n" NOR);
-                set("remove_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n" NOR);
+                set("wear_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "æˆ´åœ¨å¤´ä¸Šã€‚\n" NOR);
+                set("remove_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "ä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n" NOR);
 	}
         setup();
 }

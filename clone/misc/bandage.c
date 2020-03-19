@@ -5,13 +5,13 @@ inherit F_EQUIP;
 
 void create()
 {
-    set_name("²¼Ìõ", ({"cloth piece", "cloth", "piece"}));
+    set_name("å¸ƒæ¡", ({"cloth piece", "cloth", "piece"}));
     set_weight(200);
     if (clonep())
         set_default_object(__FILE__);
     else
     {
-        set("unit", "Ìõ");
+        set("unit", "æ¡");
         set("material", "cloth");
         set("armor_type", "bandage");
         set("armor_prop/attack", -10);
@@ -32,10 +32,10 @@ int do_bandage(string arg)
     object ob;
 
     if ((int)query("blood_soaked") >= 2)
-        return notify_fail(name() + "ÒÑ¾­±»ÏÊÑª½şÍ¸£¬²»ÄÜÔÙÓÃÁË¡£\n");
+        return notify_fail(name() + "å·²ç»è¢«é²œè¡€æµ¸é€ï¼Œä¸èƒ½å†ç”¨äº†ã€‚\n");
 
     if (query("equipped"))
-        return notify_fail(name() + "ÒÑ¾­¹üÔÚÄãµÄÉË¿ÚÉÏÁË£¬Èç¹ûÄãÒªÓÃÀ´°üÔú±ğÈË£¬ÇëÄãÏÈ°ÑËü³ıÏÂÀ´¡£\n");
+        return notify_fail(name() + "å·²ç»è£¹åœ¨ä½ çš„ä¼¤å£ä¸Šäº†ï¼Œå¦‚æœä½ è¦ç”¨æ¥åŒ…æ‰åˆ«äººï¼Œè¯·ä½ å…ˆæŠŠå®ƒé™¤ä¸‹æ¥ã€‚\n");
 
     if (!arg)
         ob = this_player();
@@ -43,25 +43,25 @@ int do_bandage(string arg)
     {
         ob = present(arg, environment(this_player()));
         if (!ob || !userp(ob))
-            return notify_fail("ÄãÒªÌæË­¹üÉË£¿\n");
+            return notify_fail("ä½ è¦æ›¿è°è£¹ä¼¤ï¼Ÿ\n");
     }
 
     if (this_player()->is_fighting() || ob->is_fighting())
-        return notify_fail("Õ½¶·ÖĞ²»ÄÜ¹üÉË¡£\n");
+        return notify_fail("æˆ˜æ–—ä¸­ä¸èƒ½è£¹ä¼¤ã€‚\n");
 
     if ((int)ob->query("eff_qi") == (int)ob->query("max_qi"))
-        return notify_fail((ob == this_player() ? "Äã" : ob->name()) + "²¢Ã»ÓĞÊÜµ½ÈÎºÎÍâÉË¡£\n");
+        return notify_fail((ob == this_player() ? "ä½ " : ob->name()) + "å¹¶æ²¡æœ‰å—åˆ°ä»»ä½•å¤–ä¼¤ã€‚\n");
 
     if (ob->query_temp("armor/bandage"))
-        return notify_fail(ob->name() + "ÉíÉÏµÄÉËÒÑ¾­¹üÖøÆäËû¶«Î÷ÁË¡£\n");
+        return notify_fail(ob->name() + "èº«ä¸Šçš„ä¼¤å·²ç»è£¹è‘—å…¶ä»–ä¸œè¥¿äº†ã€‚\n");
 
     if (!move(ob))
         return 0;
 
     if (ob == this_player())
-        message_vision("$NÓÃ" + name() + "Ìæ×Ô¼º¹üÉË¡£\n", this_player());
+        message_vision("$Nç”¨" + name() + "æ›¿è‡ªå·±è£¹ä¼¤ã€‚\n", this_player());
     else
-        message_vision("$NÓÃ" + name() + "Ìæ$n¹üÉË¡£\n", this_player(), ob);
+        message_vision("$Nç”¨" + name() + "æ›¿$nè£¹ä¼¤ã€‚\n", this_player(), ob);
 
     ::wear();
     ob->apply_condition("bandaged", 40);

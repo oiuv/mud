@@ -2,10 +2,10 @@ inherit NPC;
 
 void create()
 {
-        set_name("·¥Ä¾µÀ³¤", ({ "famu daozhang", "famu" }));
+        set_name("ä¼æœ¨é“é•¿", ({ "famu daozhang", "famu" }));
         set("long", 
-                "ËûÊÇÎäµ±É½µÄ·¥Ä¾µÀ³¤, ×¨ÎªÃíÖÐÌá¹©Ä¾²Ä¡£\n");
-        set("gender", "ÄÐÐÔ");
+                "ä»–æ˜¯æ­¦å½“å±±çš„ä¼æœ¨é“é•¿, ä¸“ä¸ºåº™ä¸­æä¾›æœ¨æã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 30);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -38,7 +38,7 @@ void create()
 
         prepare_skill("strike", "wudang-zhang");
 
-        create_family("Îäµ±ÅÉ", 4, "µÜ×Ó");
+        create_family("æ­¦å½“æ´¾", 4, "å¼Ÿå­");
 
         setup();
         carry_object("/clone/weapon/gangdao")->wield();

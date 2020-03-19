@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ɽ��");
+	set("short", "山道");
 	set("long", @LONG
-��������ɽɽ�������ɴ�أ�ɽ�������ʱ��Ʈ�������
-ͨ����ĸʯ��������«���ٲ���
+你走在嵩山山道，青松翠柏，山风岚雾，时来飘荡。左边
+通往启母石，右手是芦岩瀑布。
 LONG );
 	set("exits", ([
 		"southdown" : __DIR__"dadian",

@@ -11,7 +11,7 @@ void create()
 	mapping my;
 
         ::create();
-	set("gender", "ÄÐÐÔ" );
+	set("gender", "ç”·æ€§" );
 	set("age", 30 + random(30));
 	set("long", "");
 	set("attitude", "friendly");
@@ -24,7 +24,7 @@ void create()
 
         NPC_D->init_npc_skill(this_object(), 1);
 
-        // ³õÊ¼»¯NPCµÄÄÜÁ¦
+        // åˆå§‹åŒ–NPCçš„èƒ½åŠ›
 	my = query_entire_dbase();
         my["max_qi"] = 500;
         my["max_jing"] = 250;
@@ -38,15 +38,15 @@ void create()
 
 int accept_fight(object ob)
 {
-        command("say ÎÒÃ»ÓÐÐËÈ¤ºÍÄã½ÏÁ¿£¬Äã¿ì¹ö¿ª¡£");
+        command("say æˆ‘æ²¡æœ‰å…´è¶£å’Œä½ è¾ƒé‡ï¼Œä½ å¿«æ»šå¼€ã€‚");
         return 0;
 }
 
 int accept_hit(object ob)
 {
-        message_vision(HIW "$N" HIW "Á³É«Ò»±ä£¬ÉÁ¹ýÒ»µÀÉ±Æø¡£Å­"
-                       "ºÈµÀ£ººÃÒ»¸ö" + RANK_D->query_rude(ob) +
-                       "£¬À´°É£¡\n" NOR, this_object());
+        message_vision(HIW "$N" HIW "è„¸è‰²ä¸€å˜ï¼Œé—ªè¿‡ä¸€é“æ€æ°”ã€‚æ€’"
+                       "å–é“ï¼šå¥½ä¸€ä¸ª" + RANK_D->query_rude(ob) +
+                       "ï¼Œæ¥å§ï¼\n" NOR, this_object());
         kill_ob(ob);
         return 1;
 }
@@ -61,12 +61,12 @@ int accept_kill(object ob)
 
 int accept_ansuan(object ob)
 {
-        return notify_fail("ÄÇÈË¾¯ÌèÐÔºÃ¸ß£¬ÄãÄÑÒÔÏÂÊÖ¡£\n");
+        return notify_fail("é‚£äººè­¦æƒ•æ€§å¥½é«˜ï¼Œä½ éš¾ä»¥ä¸‹æ‰‹ã€‚\n");
 }
 
 int accept_touxi(object ob)
 {
-        return notify_fail("ÄÇÈË¾¯ÌèÐÔºÃ¸ß£¬ÄãÄÑÒÔÏÂÊÖ¡£\n");
+        return notify_fail("é‚£äººè­¦æƒ•æ€§å¥½é«˜ï¼Œä½ éš¾ä»¥ä¸‹æ‰‹ã€‚\n");
 }
 
 void random_move()
@@ -84,13 +84,13 @@ void remove()
 
         if (! living(this_object()))
         {
-                message_vision("Â·¹ýÁ½¸öÈË£¬¿´µ½»èÃÔ²»ÐÑµÄ$N"
-                               "£¬Ì¾¿ÚÆø£¬°Ñ$P¼Ü×ßÁË¡£\n",
+                message_vision("è·¯è¿‡ä¸¤ä¸ªäººï¼Œçœ‹åˆ°æ˜è¿·ä¸é†’çš„$N"
+                               "ï¼Œå¹å£æ°”ï¼ŒæŠŠ$Pæž¶èµ°äº†ã€‚\n",
                                this_object());
                 return;
         }
 
-        message_vision("$N¿´ÁË¿´ËÄÖÜ£¬¼±¼±Ã¦Ã¦µÄ×ßÁË¡£\n",
+        message_vision("$Nçœ‹äº†çœ‹å››å‘¨ï¼Œæ€¥æ€¥å¿™å¿™çš„èµ°äº†ã€‚\n",
                        this_object());
 
         ::remove();
@@ -106,31 +106,31 @@ void die(object killer)
         {
                 if (query("shen_type") == 1)
                 {
-                        GIFT_D->delay_bonus(ob, ([ "prompt" : "ÄãÓÖ×öÁË¼þ²»ÒåÖ®ÊÂ",
+                        GIFT_D->delay_bonus(ob, ([ "prompt" : "ä½ åˆåšäº†ä»¶ä¸ä¹‰ä¹‹äº‹",
                                                    "shen"   : -random(100) - 100,
                                                    "score"  : random(5) + 5,
                                                    "weiwang": random(3) + 2, ]));
 /*
-                        CHANNEL_D->do_channel(this_object(), "rumor", "ÌýËµ" +
+                        CHANNEL_D->do_channel(this_object(), "rumor", "å¬è¯´" +
                                               ob->name(1) + "(" + ob->query("id") +
-                                              ")ÔÚ" + environment()->short() + HIM
-                                              "É±º¦ÁË" + name() + "£¬Îª³¯Í¢³ýÈ¥Ò»"
-                                              "ÐÄ¸¹Ö®»¼¡£" NOR);*/
+                                              ")åœ¨" + environment()->short() + HIM
+                                              "æ€å®³äº†" + name() + "ï¼Œä¸ºæœå»·é™¤åŽ»ä¸€"
+                                              "å¿ƒè…¹ä¹‹æ‚£ã€‚" NOR);*/
                 } else
                 {
-                        GIFT_D->delay_bonus(ob, ([ "prompt" : "ÄãÓÖ×öÁË¼þÏÀÒåÖ®ÊÂ",
+                        GIFT_D->delay_bonus(ob, ([ "prompt" : "ä½ åˆåšäº†ä»¶ä¾ ä¹‰ä¹‹äº‹",
                                                    "shen"   : random(100) + 100,
                                                    "score"  : random(5) + 5,
                                                    "weiwang": random(3) + 2, ]));
 /*
-                        CHANNEL_D->do_channel(this_object(), "rumor", "ÌýËµ" +
+                        CHANNEL_D->do_channel(this_object(), "rumor", "å¬è¯´" +
                                               ob->name(1) + "(" + ob->query("id") +
-                                              ")ÔÚ" + environment()->short() + HIM
-                                              "»÷±ÐÁË" + name() + "£¬ÎªÖÜÎ§°ÙÐÕ³ý"
-                                              "È¥ÁËÒ»º¦¡£" NOR);*/
+                                              ")åœ¨" + environment()->short() + HIM
+                                              "å‡»æ¯™äº†" + name() + "ï¼Œä¸ºå‘¨å›´ç™¾å§“é™¤"
+                                              "åŽ»äº†ä¸€å®³ã€‚" NOR);*/
                 }
 
-                // ±»ÁÐÎªÃÅÅÉÖÐ¶ÏµÄ×ÔÓÉÈÎÎñ
+                // è¢«åˆ—ä¸ºé—¨æ´¾ä¸­æ–­çš„è‡ªç”±ä»»åŠ¡
                 if (ob->query("quest/freequest") > 0)
                         GIFT_D->delay_freequest_bonus(ob);
         }

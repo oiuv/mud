@@ -7,18 +7,18 @@ inherit STAFF;
 
 void create()
 {
-	set_name("ºÉÀ¼»ğÇ¹", ({"helan huoqiang", "huoqiang"}));
+	set_name("è·å…°ç«æª", ({"helan huoqiang", "huoqiang"}));
 	set_weight(5000);
 
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "Ö§");
-		set("long", "Ò»Ö§ºÉÀ¼»ğÇ¹¡£¿ÉÏ§Ö»ÄÜ·ÅÒ»Ç¹¡£\n");
+		set("unit", "æ”¯");
+		set("long", "ä¸€æ”¯è·å…°ç«æªã€‚å¯æƒœåªèƒ½æ”¾ä¸€æªã€‚\n");
 		set("value", 10000);
 		set("material", "bamboo");
-		set("wield_msg", "$N³é³öÒ»Ö§ÎÚÓÍµÄÄ¾±ú»ğÇ¹ÎÕÔÚÊÖÖĞ¡£\n");
-		set("unwield_msg", "$N°ÑÊÖÖĞµÄ»ğÇ¹±³»Ø±³ÉÏ¡£\n");
+		set("wield_msg", "$NæŠ½å‡ºä¸€æ”¯ä¹Œæ²¹çš„æœ¨æŸ„ç«æªæ¡åœ¨æ‰‹ä¸­ã€‚\n");
+		set("unwield_msg", "$NæŠŠæ‰‹ä¸­çš„ç«æªèƒŒå›èƒŒä¸Šã€‚\n");
 	}
 	init_staff(30);
 	setup();

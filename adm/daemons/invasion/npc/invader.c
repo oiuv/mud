@@ -16,7 +16,7 @@ void init()
         query("lvl") >= 4 &&
         time() - query_temp("last_chat") > 60)
     {
-        command("waidi ÎÒÏÖÔÚÕ¼ÁìÁË" NOR HIM + environment(ob)->query("short") + NOR HIW "£¬»ï¼ÇÃÇÎÒÃÇ¼ÌĞøÉ±Ñ½£¡" NOR);
+        command("waidi æˆ‘ç°åœ¨å é¢†äº†" NOR HIM + environment(ob)->query("short") + NOR HIW "ï¼Œä¼™è®°ä»¬æˆ‘ä»¬ç»§ç»­æ€å‘€ï¼" NOR);
         set_temp("last_chat", time());
         add_temp("total_chat", 1);
     }
@@ -24,7 +24,7 @@ void init()
 
 int accept_fight(object ob)
 {
-    command("say ¶«ÑÇ²¡·òÒ²À´²ş¿ñ£¬Äã»îµÃ²»ÄÍ·³ÁË£¡");
+    command("say ä¸œäºšç—…å¤«ä¹Ÿæ¥çŒ–ç‹‚ï¼Œä½ æ´»å¾—ä¸è€çƒ¦äº†ï¼");
     if (!is_fighting())
         this_object()->set("now_killing", ob->query("id"));
     if (!is_busy())
@@ -35,7 +35,7 @@ int accept_fight(object ob)
 
 int accept_hit(object ob)
 {
-    command("say ¶«ÑÇ²¡·òÒ²À´²ş¿ñ£¬Äã»îµÃ²»ÄÍ·³ÁË£¡");
+    command("say ä¸œäºšç—…å¤«ä¹Ÿæ¥çŒ–ç‹‚ï¼Œä½ æ´»å¾—ä¸è€çƒ¦äº†ï¼");
     if (!is_busy())
         exert_function("powerup");
     if (!is_fighting())
@@ -46,7 +46,7 @@ int accept_hit(object ob)
 
 int accept_touxi(object ob)
 {
-    command("say ¾ÓÈ»ÍµÏ®ÎÒ£¬ÖĞ¹úÈËÕæÃ»ÈË¸ñ£¡");
+    command("say å±…ç„¶å·è¢­æˆ‘ï¼Œä¸­å›½äººçœŸæ²¡äººæ ¼ï¼");
     if (!is_fighting())
         this_object()->set("now_killing", ob->query("id"));
     if (!is_busy())
@@ -57,7 +57,7 @@ int accept_touxi(object ob)
 
 int accept_kill(object ob)
 {
-    command("say ºß£¡ÎÒÕıÏëÉ±¼¸¸öÖĞ¹úÈËÄØ£¡");
+    command("say å“¼ï¼æˆ‘æ­£æƒ³æ€å‡ ä¸ªä¸­å›½äººå‘¢ï¼");
     if (!is_fighting())
         this_object()->set("now_killing", ob->query("id"));
     if (!is_busy())
@@ -76,21 +76,21 @@ void die()
     int exp, pot, tihui, weiwang, score, div;
 
     ob = find_player(this_object()->query("now_killing"));
-    if (this_object()->query("nation") == "ÈÕ±¾")
+    if (this_object()->query("nation") == "æ—¥æœ¬")
     {
-        command("waidi °Ë¸ñÑ½Â·£¬ÎÒËÀ²»î¨Ä¿£¡");
+        command("waidi å…«æ ¼å‘€è·¯ï¼Œæˆ‘æ­»ä¸ç‘ç›®ï¼");
     }
-    else if (this_object()->query("nation") == "Ó¢¹ú" || this_object()->query("nation") == "ÃÀ¹ú")
+    else if (this_object()->query("nation") == "è‹±å›½" || this_object()->query("nation") == "ç¾å›½")
     {
         command("waidi Oh,Shit! I don't want to die!");
     }
     else if (random(2) == 0)
     {
-        command("waidi Ìì°¡£¬ÎÒÀ´ÖĞ¹ú±¾ÊÇÎªÁË·¢²Æ£¬Ïë²»µ½½ñÌìÃüÉ¥ÓÚ´Ë£¬ÎØÎØÎØ!");
+        command("waidi å¤©å•Šï¼Œæˆ‘æ¥ä¸­å›½æœ¬æ˜¯ä¸ºäº†å‘è´¢ï¼Œæƒ³ä¸åˆ°ä»Šå¤©å‘½ä¸§äºæ­¤ï¼Œå‘œå‘œå‘œ!");
     }
     else
     {
-        command("waidi ÉÏµÛ°¡£¬Çë½ÓÄÉÎÒÕâ¸öÓĞ×ïµÄÁé»ê°É!");
+        command("waidi ä¸Šå¸å•Šï¼Œè¯·æ¥çº³æˆ‘è¿™ä¸ªæœ‰ç½ªçš„çµé­‚å§!");
     }
 
     if (ob)
@@ -144,10 +144,10 @@ void die()
         ob->add("weiwang", weiwang);
         ob->add("score", score);
 
-        tell_object(ob, HIW "\nÄã¸ÉµôÁËÒ»Ãû°Ë¹úÁª¾üµÄ" NOR + query("rank") + "¡£\n" + HIG "Äã»ñµÃÁË" NOR HIR + chinese_number(exp) +
-                            HIG "µã¾­Ñé£¬" NOR HIW + chinese_number(pot) + NOR HIG "µãÇ±ÄÜÒÔ¼°" HIY +
-                            chinese_number(tihui) + HIG "µãÊµÕ½Ìå»á¡£\n" NOR +
-                            HIC "½­ºşÔÄÀúÒÔ¼°ÍşÍûÒ²¶¼ÓĞÁË²»Í¬³Ì¶ÈµÄÌá¸ß¡£\n" NOR);
+        tell_object(ob, HIW "\nä½ å¹²æ‰äº†ä¸€åå…«å›½è”å†›çš„" NOR + query("rank") + "ã€‚\n" + HIG "ä½ è·å¾—äº†" NOR HIR + chinese_number(exp) +
+                            HIG "ç‚¹ç»éªŒï¼Œ" NOR HIW + chinese_number(pot) + NOR HIG "ç‚¹æ½œèƒ½ä»¥åŠ" HIY +
+                            chinese_number(tihui) + HIG "ç‚¹å®æˆ˜ä½“ä¼šã€‚\n" NOR +
+                            HIC "æ±Ÿæ¹–é˜…å†ä»¥åŠå¨æœ›ä¹Ÿéƒ½æœ‰äº†ä¸åŒç¨‹åº¦çš„æé«˜ã€‚\n" NOR);
         if (ob->query("waidi/born_time") != this_object()->query("born_time"))
         {
             ob->delete ("waidi");
@@ -171,10 +171,10 @@ void die()
                        "(" + ob1->query("id") + ")");
     INVASIOND->add("record/total_killed", 1);
     CHANNEL_D->do_channel(ob1, "waidi",
-                          "¸÷Î»¹úÈË£¬ÎÒÔÚ" NOR
+                          "å„ä½å›½äººï¼Œæˆ‘åœ¨" NOR
                                   HIY +
-                              environment()->query("short") + NOR HIR "»÷±ĞÁË" +
-                              query("title") + NOR HIG + query("name") + NOR HIW "¡£\n" NOR);
+                              environment()->query("short") + NOR HIR "å‡»æ¯™äº†" +
+                              query("title") + NOR HIG + query("name") + NOR HIW "ã€‚\n" NOR);
     if (INVASIOND->query("record/total_killed") >= TOTAL_INVADER)
         INVASIOND->set_reward();
     ::die();
@@ -190,8 +190,8 @@ int do_leave()
     {
         if (time() - query("born_time") > 600)
         {
-            command("say ¿´À´Õ½ÕùÒÑ¾­½áÊøÁË£¬ÎÒ»¹ÊÇ»Ø¹ú°É¡£");
-            message_vision("$N¼±¼±Ã¦Ã¦µÄ×ßÁË¡£\n", this_object());
+            command("say çœ‹æ¥æˆ˜äº‰å·²ç»ç»“æŸäº†ï¼Œæˆ‘è¿˜æ˜¯å›å›½å§ã€‚");
+            message_vision("$Næ€¥æ€¥å¿™å¿™çš„èµ°äº†ã€‚\n", this_object());
             INVASIOND->set("record/" + this_object()->query("number") + "/exist", 0);
             destruct(this_object());
             return 0;

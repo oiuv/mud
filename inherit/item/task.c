@@ -19,16 +19,16 @@ string extra_long()
 {
         string str;
         
-        str =  "\nÎïÆ·ÀàĞÍ : ÈÎÎñÎïÆ·\n";
-        str += sprintf("¹¥    »÷ : %d\n", query("weapon_prop/damage"));
-        str += sprintf("ÖØ    Á¿ : %d\n", this_object()->query_weight());
-        str += sprintf("É±    Â¾ : %d\n", query("combat/PKS"));
-        // str += sprintf("Ê¹ÓÃ·½Ê½ : ÊäÈëÖ¸Áî wield %s ×°±¸¡£\n", query("id"));
-        str += sprintf("                  ÊäÈëÖ¸Áî unwield %s Ğ¶ÏÂ¡£\n", query("id"));
+        str =  "\nç‰©å“ç±»å‹ : ä»»åŠ¡ç‰©å“\n";
+        str += sprintf("æ”»    å‡» : %d\n", query("weapon_prop/damage"));
+        str += sprintf("é‡    é‡ : %d\n", this_object()->query_weight());
+        str += sprintf("æ€    æˆ® : %d\n", query("combat/PKS"));
+        // str += sprintf("ä½¿ç”¨æ–¹å¼ : è¾“å…¥æŒ‡ä»¤ wield %s è£…å¤‡ã€‚\n", query("id"));
+        str += sprintf("                  è¾“å…¥æŒ‡ä»¤ unwield %s å¸ä¸‹ã€‚\n", query("id"));
         if (this_object()->query_autoload())
-                str += "ÏÂÏß¶ªÊ§ : ·ñ\n";
+                str += "ä¸‹çº¿ä¸¢å¤± : å¦\n";
         else
-                str += "ÏÂÏß¶ªÊ§ : ÊÇ\n";
+                str += "ä¸‹çº¿ä¸¢å¤± : æ˜¯\n";
         return str;
 }
 */

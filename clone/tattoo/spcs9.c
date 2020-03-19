@@ -3,14 +3,14 @@ inherit ITEM;
 
 void create()
 {
-        set_name(NOR + WHT "ÑòÆ¤ËéÆ¬" NOR, ({ "sui pian9", "suipian9", "pian9" }));
+        set_name(NOR + WHT "ç¾Šçš®ç¢ç‰‡" NOR, ({ "sui pian9", "suipian9", "pian9" }));
         set_weight(300);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", NOR + WHT "ÕâÊÇÒ»¿éÑòÆ¤ËéÆ¬£¬ÉÏÃæ»æÓĞ²ĞÈ±²»È«"
-                            "µÄ¾ÅÒÇÌì×ğÎÆÑù¡£\n" NOR);
-                set("unit", "¿é");
+                set("long", NOR + WHT "è¿™æ˜¯ä¸€å—ç¾Šçš®ç¢ç‰‡ï¼Œä¸Šé¢ç»˜æœ‰æ®‹ç¼ºä¸å…¨"
+                            "çš„ä¹ä»ªå¤©å°Šçº¹æ ·ã€‚\n" NOR);
+                set("unit", "å—");
                 set("value", 10);
                 set("material", "paper");
         }

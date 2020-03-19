@@ -1,4 +1,4 @@
-// necromancy.c ½µ·ü·¨
+// necromancy.c é™ä¼æ³•
 // by Java
 
 inherit SKILL;
@@ -7,13 +7,13 @@ int valid_learn(object me)
 {
     if( (int)me->query_skill("longxiang",1) <
         (int)me->query_skill("necromancy",1) )
-      return notify_fail("ÄãµÄÁúÏà°ãÈô¹¦Ì«µÍÁË£¬ÎŞ·¨ĞŞÁ¶¸ü¸ßÉîµÄ½µ·ü·¨¡£\n");
+      return notify_fail("ä½ çš„é¾™ç›¸èˆ¬è‹¥åŠŸå¤ªä½äº†ï¼Œæ— æ³•ä¿®ç‚¼æ›´é«˜æ·±çš„é™ä¼æ³•ã€‚\n");
 
     return 1;
 }
 
 int practice_skill(object me)
 {
-    return notify_fail("½µ·ü·¨Ö»ÄÜ¿¿Ñ§(learn)À´Ìá¸ß¡£\n");
+    return notify_fail("é™ä¼æ³•åªèƒ½é å­¦(learn)æ¥æé«˜ã€‚\n");
 }
 

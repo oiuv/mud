@@ -2,11 +2,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("¼ÆÀÏÈË", ({ "ji laoren", "ji" , "laoren" }));
-        set("gender", "ÄĞĞÔ");
+        set_name("è®¡è€äºº", ({ "ji laoren", "ji" , "laoren" }));
+        set("gender", "ç”·æ€§");
         set("age", 70);
-        set("long", "ËûÂúÍ·°×·¢£¬¾¹ÎŞÒ»¸ùÊÇºÚµÄ¡£Éí²ÄÉõÊÇ¸ß´ó£¬Ö»\n"
-                    "ÊÇ¹­ÑüÇú±³Ë¥ÀÏÒÑ¼«¡£\n");
+        set("long", "ä»–æ»¡å¤´ç™½å‘ï¼Œç«Ÿæ— ä¸€æ ¹æ˜¯é»‘çš„ã€‚èº«æç”šæ˜¯é«˜å¤§ï¼Œåª\n"
+                    "æ˜¯å¼“è…°æ›²èƒŒè¡°è€å·²æã€‚\n");
         set("attitude", "friendly");
         set("combat_exp", 10000);
         set("shen_type", 1);
@@ -27,7 +27,7 @@ void create()
         set_temp("apply/defense", 20);
         set_temp("apply/damage", 15);
         set("inquiry", ([
-                "ÀîÎÄĞã" : "Õâº¢×ÓÕæÊÇÃü¿à¡£",
+                "ææ–‡ç§€" : "è¿™å­©å­çœŸæ˜¯å‘½è‹¦ã€‚",
         ]));
 
         setup();

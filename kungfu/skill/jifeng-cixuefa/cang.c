@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define CANG "¡¸" HIW "ÌìÐ«²ØÕë" NOR "¡¹"
+#define CANG "ã€Œ" HIW "å¤©èŽè—é’ˆ" NOR "ã€"
 
 inherit F_SSERVER;
  
@@ -12,7 +12,7 @@ int perform(object me, object target)
         int skill, i;
 
         if (userp(me) && ! me->query("can_perform/jifeng-cixuefa/cang"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
  
         if (! target)
         {
@@ -21,36 +21,36 @@ int perform(object me, object target)
         }
 
         if (! me->is_fighting(target))
-                return notify_fail(CANG "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(CANG "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         weapon = me->query_temp("weapon");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "dagger")
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
         skill = me->query_skill("jifeng-cixuefa", 1);
 
         if (me->query_skill("force") < 120)
-                return notify_fail("ÄãµÄÄÚ¹¦ÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
         if (me->query_skill("dodge") < 120)
-                return notify_fail("ÄãµÄÇá¹¦ÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+                return notify_fail("ä½ çš„è½»åŠŸä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
         if (skill < 100)
-                return notify_fail("ÄãµÄ¼²·ç´ÌÑ¨·¨ÐÞÎªÓÐÏÞ£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+                return notify_fail("ä½ çš„ç–¾é£Žåˆºç©´æ³•ä¿®ä¸ºæœ‰é™ï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
         if (me->query("neili") < 200)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
         if (me->query_skill_mapped("dagger") != "jifeng-cixuefa")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢¼²·ç´ÌÑ¨·¨£¬ÄÑÒÔÊ©Õ¹" CANG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘ç–¾é£Žåˆºç©´æ³•ï¼Œéš¾ä»¥æ–½å±•" CANG "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIY "$N" HIY "Ò»Éùß³ºÈ£¬ÊÖÖÐ" + weapon->name() + HIY "Á¬»·Îå´Ì£¬ÕÐÊý"
-              "²ã³ö²»Çî£¬ÉÁµç°ã³¯$n" HIY "ÉäÈ¥£¡\n" NOR;
+        msg = HIY "$N" HIY "ä¸€å£°å±å–ï¼Œæ‰‹ä¸­" + weapon->name() + HIY "è¿žçŽ¯äº”åˆºï¼Œæ‹›æ•°"
+              "å±‚å‡ºä¸ç©·ï¼Œé—ªç”µèˆ¬æœ$n" HIY "å°„åŽ»ï¼\n" NOR;
         message_combatd(msg, me, target);
         me->add("neili", -80);
 

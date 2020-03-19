@@ -1,4 +1,4 @@
-// chuanfu.c ´¬·ò
+// chuanfu.c èˆ¹å¤«
 
 #include <ansi.h>
 
@@ -6,11 +6,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("´¬·ò", ({ "chuan fu", "fu" }));
-        set("gender", "ÄÐÐÔ");
+        set_name("èˆ¹å¤«", ({ "chuan fu", "fu" }));
+        set("gender", "ç”·æ€§");
         set("age", 36);
-        set("long", "ÕâÊÇÒ»¸öËÉ»¨½­ÉÏµÄ´¬·ò¡£±¥¾­·çËªµÄÁ³ÉÏ"
-                    "Í¸³ö¶«±±ÈËµÄºÀË¬¡£\n");
+        set("long", "è¿™æ˜¯ä¸€ä¸ªæ¾èŠ±æ±Ÿä¸Šçš„èˆ¹å¤«ã€‚é¥±ç»é£Žéœœçš„è„¸ä¸Š"
+                    "é€å‡ºä¸œåŒ—äººçš„è±ªçˆ½ã€‚\n");
 
         set("combat_exp", 10000);
         set("shen_type", 1);
@@ -32,20 +32,20 @@ int accept_object(object who, object ob)
 
         if (ob->query("money_id") && ob->value() >= 100)
         {
-                message_vision("´¬·ò¶Ô$NËµ£ººÃ£¡¼ÈÈ»ÕâÎ»" + RANK_D->query_respect(who) +
-                               "Òª¹ý½­£¬\nÄÇÎÒ¾ÍËÍÄãÉÏÕâÌõ´¬°É£¡\n" , who);
-                message_vision("´¬·òÈÃ´ó¼ÒÉÏÁË´¬£¬Ò»Éù¡¸ÆðÃª¡¹´¬¾ÍÕÅ·«Àë°¶ÁË......\n", who);
+                message_vision("èˆ¹å¤«å¯¹$Nè¯´ï¼šå¥½ï¼æ—¢ç„¶è¿™ä½" + RANK_D->query_respect(who) +
+                               "è¦è¿‡æ±Ÿï¼Œ\né‚£æˆ‘å°±é€ä½ ä¸Šè¿™æ¡èˆ¹å§ï¼\n" , who);
+                message_vision("èˆ¹å¤«è®©å¤§å®¶ä¸Šäº†èˆ¹ï¼Œä¸€å£°ã€Œèµ·é”šã€èˆ¹å°±å¼ å¸†ç¦»å²¸äº†......\n", who);
                 obs = all_inventory(environment());
                 obs = filter_array(obs, (: $1 == $(who) || $1->is_character() &&
                                            $1->query_leader() == $(who) :));
                 obs->move("/d/guanwai/songhuajiang");
-                message("vision", BLU "ÄãÔÚ½­ÉÏÒ»Â·Æ¯Á÷.......\n" NOR, obs);
+                message("vision", BLU "ä½ åœ¨æ±Ÿä¸Šä¸€è·¯æ¼‚æµ.......\n" NOR, obs);
                 call_out("goto_songhua", 10, obs);
                 destruct(ob);
        	        return -1;
         } else  
         {
-	        message_vision("´¬·òÖåÃ¼¶Ô$NËµ£º¾ÍÕâµã£¿ÔõÃ´Ò²µÃÒ»Á½Òø×Ó°É£¡\n", who);
+	        message_vision("èˆ¹å¤«çš±çœ‰å¯¹$Nè¯´ï¼šå°±è¿™ç‚¹ï¼Ÿæ€Žä¹ˆä¹Ÿå¾—ä¸€ä¸¤é“¶å­å§ï¼\n", who);
 	        return 0;
         }
 }
@@ -53,7 +53,7 @@ int accept_object(object who, object ob)
 void goto_songhua(object *obs)
 {
         obs -= ({ 0 });
-        message("vision", "\n´¬ºÜ¿ìÍ£¿¿±Ë°¶¡£ÄãÌ§½Å¿ç³ö´¬À´¡£\n\n", obs);
+        message("vision", "\nèˆ¹å¾ˆå¿«åœé å½¼å²¸ã€‚ä½ æŠ¬è„šè·¨å‡ºèˆ¹æ¥ã€‚\n\n", obs);
         obs->move("/d/guanwai/damenkan");
 }
 

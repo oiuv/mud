@@ -7,14 +7,14 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIY "¾Å×ª½ğµ¤" NOR, ({ "jiuzhuan jindan", "dan" }) );
+        set_name(HIY "ä¹è½¬é‡‘ä¸¹" NOR, ({ "jiuzhuan jindan", "dan" }) );
         set_weight(200);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("long", HIY "Ò»¿Å½ğÉ«µÄÏÉµ¤£¬´«ËµÊÇÌ«ÉÏÀÏ¾ı"
-                            "¾«ĞÄĞŞÁ¶µÄÁéµ¤ÃîÒ©¡£\n" NOR);
-                set("unit", "¿Å");
+                set("long", HIY "ä¸€é¢—é‡‘è‰²çš„ä»™ä¸¹ï¼Œä¼ è¯´æ˜¯å¤ªä¸Šè€å›"
+                            "ç²¾å¿ƒä¿®ç‚¼çš„çµä¸¹å¦™è¯ã€‚\n" NOR);
+                set("unit", "é¢—");
                 set("only_do_effect", 1);
         }
 }

@@ -9,9 +9,9 @@ inherit F_CLEAN_UP;
 void create()
 {
     seteuid(getuid());
-    set("name", "ÀëÏßÖ¸Áî");
+    set("name", "ç¦»çº¿æŒ‡ä»¤");
     set("id", "quit");
-    set("channel_id", "ÀëÏß¾«Áé");
+    set("channel_id", "ç¦»çº¿ç²¾çµ");
 }
 
 int main(object me, string arg)
@@ -20,22 +20,22 @@ int main(object me, string arg)
     object *inv, link_ob;
 
     if (LOGIN_D->get_madlock())
-        return notify_fail("Ê±¿ÕÒÑ¾­·â±Õ£¬Ã»ÓĞÈËÄÜ¹»ÍË³öÕâ¸öÊ±¿ÕÁË¡£\n");
+        return notify_fail("æ—¶ç©ºå·²ç»å°é—­ï¼Œæ²¡æœ‰äººèƒ½å¤Ÿé€€å‡ºè¿™ä¸ªæ—¶ç©ºäº†ã€‚\n");
 
     if (me->is_busy() && !me->query("doing"))
-        return notify_fail("ÄãÏÖÔÚÕıÃ¦×Å×öÆäËûÊÂ£¬²»ÄÜÍË³öÓÎÏ·£¡\n");
+        return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€åšå…¶ä»–äº‹ï¼Œä¸èƒ½é€€å‡ºæ¸¸æˆï¼\n");
 
     if (me->is_fighting())
-        return notify_fail("ÄãÏÖÔÚÕıÔÚ´ò¼Ü£¬ÔõÃ´ÄÜËµ×ß¾Í×ß£¿\n");
+        return notify_fail("ä½ ç°åœ¨æ­£åœ¨æ‰“æ¶ï¼Œæ€ä¹ˆèƒ½è¯´èµ°å°±èµ°ï¼Ÿ\n");
 
     if (me->query_competitor())
-        return notify_fail("ºÃ¼Ò»ï£¬ÄãÕıÔÚºÍÈË±ÈÎä£¬ÔõÃ´ÄÜ¿ªÁï£¿\n");
+        return notify_fail("å¥½å®¶ä¼™ï¼Œä½ æ­£åœ¨å’Œäººæ¯”æ­¦ï¼Œæ€ä¹ˆèƒ½å¼€æºœï¼Ÿ\n");
 
     if (me->dps_count() > 0)
-        return notify_fail("ºÃ¼Ò»ï£¬Äã´òÔÎÁË±ğÈË¾ÍÏë¿ªÁï£¿\n");
+        return notify_fail("å¥½å®¶ä¼™ï¼Œä½ æ‰“æ™•äº†åˆ«äººå°±æƒ³å¼€æºœï¼Ÿ\n");
 
     if (me->over_encumbranced())
-        return notify_fail("ÄãÉíÉÏ±³µÄ¶«Î÷Ì«¶àÁË£¬ÎŞ·¨Àë¿ªÕâ¸öÊÀ½ç¡£\n");
+        return notify_fail("ä½ èº«ä¸ŠèƒŒçš„ä¸œè¥¿å¤ªå¤šäº†ï¼Œæ— æ³•ç¦»å¼€è¿™ä¸ªä¸–ç•Œã€‚\n");
 
     if (me->run_override("quit"))
         return 1;
@@ -48,8 +48,8 @@ int main(object me, string arg)
         // Are we possessing in others body ?
         if (link_ob->is_character())
         {
-            write("ÄãµÄ»êÆÇ»Øµ½" + link_ob->name(1) + "µÄÉíÉÏ¡£\n");
-            me->delete_temp("link_ob"); //É¾³ı¸½Éí¶ÔÏóµÄlink_ob£¬±ÜÃâkickoutÊ±°Ñ×Ô¼ºÒ²ÌßÏÂÏß¡£
+            write("ä½ çš„é­‚é­„å›åˆ°" + link_ob->name(1) + "çš„èº«ä¸Šã€‚\n");
+            me->delete_temp("link_ob"); //åˆ é™¤é™„èº«å¯¹è±¡çš„link_obï¼Œé¿å…kickoutæ—¶æŠŠè‡ªå·±ä¹Ÿè¸¢ä¸‹çº¿ã€‚
             exec(link_ob, me);
             link_ob->setup();
             link_ob->write_prompt();
@@ -71,8 +71,8 @@ int main(object me, string arg)
         if (!interactive(me))
             return 1;
 
-        write("ÄãÔİÊ±ÀëÏß£¬ÈËÎï²»ÍË³ö...\n");
-        message("vision", me->name() + "ÀëÏßÁË¡£\n", environment(me), ({me}));
+        write("ä½ æš‚æ—¶ç¦»çº¿ï¼Œäººç‰©ä¸é€€å‡º...\n");
+        message("vision", me->name() + "ç¦»çº¿äº†ã€‚\n", environment(me), ({me}));
         me->save();
         link_ob = new (LOGIN_OB);
         exec(link_ob, me);
@@ -95,19 +95,19 @@ int main(object me, string arg)
             if (!inv[i]->query_autoload() && !inv[i]->query("equipped") && !inv[i]->is_depot_ob())
                 flag += DROP_CMD->do_drop(me, inv[i], 1);
         if (flag)
-            message("vision", me->name() + "½«ÉíÉÏµÄ¶«Î÷¶¼¶ªÁËÏÂÀ´¡£\n",
+            message("vision", me->name() + "å°†èº«ä¸Šçš„ä¸œè¥¿éƒ½ä¸¢äº†ä¸‹æ¥ã€‚\n",
                     environment(me), ({me}));
     }
 
-    write("»¶Ó­ÏÂ´ÎÔÙÀ´£¡\n");
+    write("æ¬¢è¿ä¸‹æ¬¡å†æ¥ï¼\n");
     me->set("last_on", time());
     if (environment(me))
     {
-        message("vision", me->name() + "Àë¿ªÓÎÏ·¡£\n",
+        message("vision", me->name() + "ç¦»å¼€æ¸¸æˆã€‚\n",
                 environment(me), ({me}));
     }
 
-    CHANNEL_D->do_channel(this_object(), "sys", me->name() + "(" + me->query("id") + ")Àë¿ªÓÎÏ·ÁË¡£");
+    CHANNEL_D->do_channel(this_object(), "sys", me->name() + "(" + me->query("id") + ")ç¦»å¼€æ¸¸æˆäº†ã€‚");
 
     me->save();
     me->set_magic_move();
@@ -119,7 +119,7 @@ int main(object me, string arg)
 int force_quit(object me)
 {
     if (previous_object() != me || !playerp(me))
-        return notify_fail("Äã²»ÄÜ´İ»ÙÕâ¸ö¶ÔÏó¡£\n");
+        return notify_fail("ä½ ä¸èƒ½æ‘§æ¯è¿™ä¸ªå¯¹è±¡ã€‚\n");
 
     seteuid(getuid());
     me->save();
@@ -132,9 +132,9 @@ int force_quit(object me)
 int help(object me)
 {
     write(@HELP
-Ö¸Áî¸ñÊ½ : quit | exit
+æŒ‡ä»¤æ ¼å¼ : quit | exit
 
-µ±Äã(Äã)ÏëÔİÊ±Àë¿ªÊ±, ¿ÉÀûÓÃ´ËÒ»Ö¸Áî¡£
+å½“ä½ (ä½ )æƒ³æš‚æ—¶ç¦»å¼€æ—¶, å¯åˆ©ç”¨æ­¤ä¸€æŒ‡ä»¤ã€‚
 HELP );
     return 1;
 }

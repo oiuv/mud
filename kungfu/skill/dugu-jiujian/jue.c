@@ -1,6 +1,6 @@
 #include <ansi.h>
 
-#define JUE "¡¸" HIC "×Ü¾÷Ê½" NOR "¡¹"
+#define JUE "ã€Œ" HIC "æ€»è¯€å¼" NOR "ã€"
 
 inherit F_SSERVER;
 
@@ -14,39 +14,39 @@ int perform(object me)
         skill = me->query_skill("dugu-jiujian", 1);
 
         if (skill < 60)
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         jing_cost = 80 - (int)me->query("int");
         if (jing_cost < 30) jing_cost = 30;
 
         if (environment(me)->query("no_fight") && me->query("doing") != "scheme")
-                return notify_fail("ÄãÖÜÎ§¹ıÓÚàĞÔÓ£¬ÄÑÒÔÑİÁ·" JUE "¡£\n");
+                return notify_fail("ä½ å‘¨å›´è¿‡äºå˜ˆæ‚ï¼Œéš¾ä»¥æ¼”ç»ƒ" JUE "ã€‚\n");
 
         if (me->is_fighting())
-                return notify_fail(JUE "²»ÄÜÔÚÕ½¶·ÖĞÑİÁ·¡£\n");
+                return notify_fail(JUE "ä¸èƒ½åœ¨æˆ˜æ–—ä¸­æ¼”ç»ƒã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÑİÁ·" JUE "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ¼”ç»ƒ" JUE "ã€‚\n");
 
         if (! skill || skill < 60)
-                return notify_fail("ÄãµÄ¶À¹Â¾Å½£µÈ¼¶²»¹»£¬ÄÑÒÔÑİÁ·" JUE "¡£\n");
+                return notify_fail("ä½ çš„ç‹¬å­¤ä¹å‰‘ç­‰çº§ä¸å¤Ÿï¼Œéš¾ä»¥æ¼”ç»ƒ" JUE "ã€‚\n");
 
         if (me->query_skill("sword", 1) < skill)
-                return notify_fail("ÄãµÄ»ù±¾½£·¨µÈ¼¶ÓĞÏŞ£¬ÄÑÒÔÑİÁ·" JUE "¡£\n");
+                return notify_fail("ä½ çš„åŸºæœ¬å‰‘æ³•ç­‰çº§æœ‰é™ï¼Œéš¾ä»¥æ¼”ç»ƒ" JUE "ã€‚\n");
 
         if (me->query("neili") < 85)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»×ã£¬ÄÑÒÔÑİÁ·" JUE "¡£\n");
+                return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ¼”ç»ƒ" JUE "ã€‚\n");
 
         if (me->query("jing") < -jing_cost)
-                return notify_fail("ÄãÏÖÔÚ¾«Éñ²»¼Ñ£¬ÄÑÒÔÑİÁ·" JUE "¡£\n");
+                return notify_fail("ä½ ç°åœ¨ç²¾ç¥ä¸ä½³ï¼Œéš¾ä»¥æ¼”ç»ƒ" JUE "ã€‚\n");
 
         if (! me->can_improve_skill("dugu-jiujian"))
-                return notify_fail("ÄãÊµÕ½¾­Ñé²»×ã£¬ÄÑÒÔÑİÁ·" JUE "¡£\n");
+                return notify_fail("ä½ å®æˆ˜ç»éªŒä¸è¶³ï¼Œéš¾ä»¥æ¼”ç»ƒ" JUE "ã€‚\n");
 
-        msg = HIC "$N" HIC "Ê¹³ö¶À¹Â¾Å½£Ö®¡¸" HIW "×Ü¾÷Ê½"
-              HIC "¡¹£¬½«ÊÖÖĞ" + weapon->name() + HIC "Ëæ"
-              "Òâ»ÓÎè»÷´Ì¡£\n" NOR;
+        msg = HIC "$N" HIC "ä½¿å‡ºç‹¬å­¤ä¹å‰‘ä¹‹ã€Œ" HIW "æ€»è¯€å¼"
+              HIC "ã€ï¼Œå°†æ‰‹ä¸­" + weapon->name() + HIC "éš"
+              "æ„æŒ¥èˆå‡»åˆºã€‚\n" NOR;
         message_combatd(msg, me);
 
         me->add("neili", -50 - random(30));
@@ -54,8 +54,8 @@ int perform(object me)
 
         improve = 10 + random(me->query("int")) / 2;
 
-        tell_object(me, HIY "Äã¶Ô¡¸»ù±¾½£·¨¡¹ºÍ¡¸¶À¹Â¾Å½£¡¹"
-                        "ÓĞÁËĞÂµÄÁìÎò¡£\n" NOR);
+        tell_object(me, HIY "ä½ å¯¹ã€ŒåŸºæœ¬å‰‘æ³•ã€å’Œã€Œç‹¬å­¤ä¹å‰‘ã€"
+                        "æœ‰äº†æ–°çš„é¢†æ‚Ÿã€‚\n" NOR);
         me->improve_skill("sword", improve);
         me->improve_skill("dugu-jiujian", improve);
         me->start_busy(random(3));

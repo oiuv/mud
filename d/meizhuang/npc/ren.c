@@ -8,13 +8,13 @@ int ask_bijian();
 
 void create()
 {
-        set_name("ÈÎÎÒÐÐ", ({ "ren woxing", "ren","woxing" }));
-        set("title", HIR "ÈÕÔÂÉñ½ÌÉÏÈÎ½ÌÖ÷" NOR);
-        set("long", "Õâ±ãÊÇÈÕÔÂÉñ½ÌÉÏÈÎ½ÌÖ÷ÈÎÎÒÐÐ¡£Ö»¼û\n"
-                    "ËûÒ»ÕÅ³¤³¤µÄÁ³¿×£¬Á³É«Ñ©°×£¬¸üÎÞ°ë\n"
-                    "·ÖÑªÉ«¡£ËûÃ¼Ä¿ÇåÐã£¬Éí²ÄÉõ¸ß£¬Ò»Í·\n"
-                    "ºÚ·¢£¬´©µÄÊÇÒ»Ï®ÇàÉÀ¡£\n");
-        set("gender", "ÄÐÐÔ");
+        set_name("ä»»æˆ‘è¡Œ", ({ "ren woxing", "ren","woxing" }));
+        set("title", HIR "æ—¥æœˆç¥žæ•™ä¸Šä»»æ•™ä¸»" NOR);
+        set("long", "è¿™ä¾¿æ˜¯æ—¥æœˆç¥žæ•™ä¸Šä»»æ•™ä¸»ä»»æˆ‘è¡Œã€‚åªè§\n"
+                    "ä»–ä¸€å¼ é•¿é•¿çš„è„¸å­”ï¼Œè„¸è‰²é›ªç™½ï¼Œæ›´æ— åŠ\n"
+                    "åˆ†è¡€è‰²ã€‚ä»–çœ‰ç›®æ¸…ç§€ï¼Œèº«æç”šé«˜ï¼Œä¸€å¤´\n"
+                    "é»‘å‘ï¼Œç©¿çš„æ˜¯ä¸€è¢­é’è¡«ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("class", "scholar");
         set("age", 55);
         set("attitude", "friendly");
@@ -59,9 +59,9 @@ void create()
         map_skill("parry", "taiji-jian");
 
         set("inquiry", ([
-                "±È½£" :  (: ask_bijian :),
-                "½£·¨" :  (: ask_bijian :),
-                "ºÚÄ¾Áî" : "ÒªÄÃºÚÄ¾Áî£¿ÀÏ·òÏëÏÈ¿´¿´ÄãµÄ½£·¨£¡\n",
+                "æ¯”å‰‘" :  (: ask_bijian :),
+                "å‰‘æ³•" :  (: ask_bijian :),
+                "é»‘æœ¨ä»¤" : "è¦æ‹¿é»‘æœ¨ä»¤ï¼Ÿè€å¤«æƒ³å…ˆçœ‹çœ‹ä½ çš„å‰‘æ³•ï¼\n",
         ]) );
         setup();
         carry_object("/d/wudang/obj/bluecloth")->wear();
@@ -75,46 +75,46 @@ int ask_bijian()
 
         if (me->query_temp("want_bijian")) 
         {
-                command("say ÄãÕâÈËÕâÃ´ÄÇÃ´²»Ë¬¿ì£¿Òª±È¾Í¸Ï½ô¿ªÊ¼°É£¡");
+                command("say ä½ è¿™äººè¿™ä¹ˆé‚£ä¹ˆä¸çˆ½å¿«ï¼Ÿè¦æ¯”å°±èµ¶ç´§å¼€å§‹å§ï¼");
                         return 1;
         }
 
         if (me->query("skybook/xiaoao/bijian")) 
         {
-                command("say ÎÒÃÇÒÑ¾­±ÈÊÔ¹ýÁË£¬Ã»±ØÒªÔÙÕ½Ò»³¡¡£");
+                command("say æˆ‘ä»¬å·²ç»æ¯”è¯•è¿‡äº†ï¼Œæ²¡å¿…è¦å†æˆ˜ä¸€åœºã€‚");
                         return 1;
         }
 
         if (me->query_temp("bijian_fail")) 
         {
-                command("say ÄãÒÑ¾­ÊäÁË£¬ÔÙ±ÈÏÂÈ¥Ò²Ã»Ê²Ã´½á¹û¡£");
+                command("say ä½ å·²ç»è¾“äº†ï¼Œå†æ¯”ä¸‹åŽ»ä¹Ÿæ²¡ä»€ä¹ˆç»“æžœã€‚");
                         return 1;
         }
 
         if (me->query("combat_exp") < 1500000)
         {
                 command("heng");
-                command("say Äã»¹²»ÅäºÍÎÒ±È½££¡");
+                command("say ä½ è¿˜ä¸é…å’Œæˆ‘æ¯”å‰‘ï¼");
                         return 1;
         }
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
         {
-                command("say Äã²»ÄÃ½£ÎÒ»¹ºÍÄã±ÈÊ²Ã´£¿");
+                command("say ä½ ä¸æ‹¿å‰‘æˆ‘è¿˜å’Œä½ æ¯”ä»€ä¹ˆï¼Ÿ");
                         return 1;
         }
 
-        message_vision(CYN "$N" CYN "¹ªÉíËµµÀ£ºÍí±²½ñÈÕÓÐÐÒ°Ý¼û"
-                       "ÈÎÀÏÇ°±²£¬»¹Íû¶à¼ÓÖ¸½Ì¡£\n$n" CYN "Ð¦µÀ"
-                       "£º²»ÓÃ¿ÍÆø£¬ÄãÀ´½âÎÒ¼ÅÄ¯£¬¿É¶àÐ»ÄãÀ²¡£"
+        message_vision(CYN "$N" CYN "èº¬èº«è¯´é“ï¼šæ™šè¾ˆä»Šæ—¥æœ‰å¹¸æ‹œè§"
+                       "ä»»è€å‰è¾ˆï¼Œè¿˜æœ›å¤šåŠ æŒ‡æ•™ã€‚\n$n" CYN "ç¬‘é“"
+                       "ï¼šä¸ç”¨å®¢æ°”ï¼Œä½ æ¥è§£æˆ‘å¯‚å¯žï¼Œå¯å¤šè°¢ä½ å•¦ã€‚"
                        "\n" NOR, me, ob );
 
-        message_vision(CYN "$N" CYN "Î¢Ð¦µÀ£º²»¸Ò£¬»¹ÇëÀÏÇ°±²´Í"
-                       "½Ì£¡\n$n" CYN "µãÁËµãÍ·£¬ËµµÀ£ºÎÒÖ»Ïë"
-                       "ÇÆÇÆÄãµÄ½£·¨£¬²¢·ÇÕæµÄ¹ýÕÐ£¬ÔÙËµ£¬ÎÒÒ²Î´"
-                       "±ØÄÜÊ¤µÃÁËÄã¡£\n" NOR, me, ob);
-        tell_object(me, HIR "ÄãÔ¸ÒâºÍ(accept)ÈÎÎÒÐÐ¿ªÊ¼±È½£Âð£¿\n" NOR);
+        message_vision(CYN "$N" CYN "å¾®ç¬‘é“ï¼šä¸æ•¢ï¼Œè¿˜è¯·è€å‰è¾ˆèµ"
+                       "æ•™ï¼\n$n" CYN "ç‚¹äº†ç‚¹å¤´ï¼Œè¯´é“ï¼šæˆ‘åªæƒ³"
+                       "çž§çž§ä½ çš„å‰‘æ³•ï¼Œå¹¶éžçœŸçš„è¿‡æ‹›ï¼Œå†è¯´ï¼Œæˆ‘ä¹Ÿæœª"
+                       "å¿…èƒ½èƒœå¾—äº†ä½ ã€‚\n" NOR, me, ob);
+        tell_object(me, HIR "ä½ æ„¿æ„å’Œ(accept)ä»»æˆ‘è¡Œå¼€å§‹æ¯”å‰‘å—ï¼Ÿ\n" NOR);
         me->set_temp("want_bijian", 1);
         add_action("do_accept", "accept");
         return 1;
@@ -132,97 +132,97 @@ int do_accept()
 	        if (! objectp(weapon = me->query_temp("weapon")) ||
   	           (string)weapon->query("skill_type") != "sword")
   	        {
-        	        command("say ËûÄÌÄÌµÄ£¬Äã°Ñ½£È¡ÁËÕâËãÊ²Ã´ÒâË¼£¿");
+        	        command("say ä»–å¥¶å¥¶çš„ï¼Œä½ æŠŠå‰‘å–äº†è¿™ç®—ä»€ä¹ˆæ„æ€ï¼Ÿ");
                         return 1;
   	        }
 
-                say (CYN "\nÈÎÎÒÐÐ¹þ¹þÒ»Ð¦£¬ËµµÀ£ºÄÇÎÒ¾Í¿ªÊ¼½øÕÐÁË¡£\n" NOR + HIW
-                     "\nÖ»¼ûÈÎÎÒÐÐËµ°ÕÉíÐÎÒ»Õ¹£¬Ò»µÀ½£¹âÓÉËû´¦ÁèÀ÷ÉÁ³ö¡£\n" NOR,
+                say (CYN "\nä»»æˆ‘è¡Œå“ˆå“ˆä¸€ç¬‘ï¼Œè¯´é“ï¼šé‚£æˆ‘å°±å¼€å§‹è¿›æ‹›äº†ã€‚\n" NOR + HIW
+                     "\nåªè§ä»»æˆ‘è¡Œè¯´ç½¢èº«å½¢ä¸€å±•ï¼Œä¸€é“å‰‘å…‰ç”±ä»–å¤„å‡ŒåŽ‰é—ªå‡ºã€‚\n" NOR,
                      me, ob);
 
-                say (HIW "\nÈÎÎÒÐÐ´óºÈÒ»Éù£º¿´ºÃÁË£¬ÎÒÕâµÚÒ»ÕÐÄËÉÙÁÖÅÉ´ïÄ¦½£·¨"
-                         "£¡\n" NOR);
+                say (HIW "\nä»»æˆ‘è¡Œå¤§å–ä¸€å£°ï¼šçœ‹å¥½äº†ï¼Œæˆ‘è¿™ç¬¬ä¸€æ‹›ä¹ƒå°‘æž—æ´¾è¾¾æ‘©å‰‘æ³•"
+                         "ï¼\n" NOR);
                 COMBAT_D->do_attack(ob, me, query_temp("weapon"));
                 if ((int)me->query("qi") < eff || ! present(me, environment()))
                 {
-                        say(CYN "ÈÎÎÒÐÐÌ¾ÁË¿ÚÆø£¬ËµµÀ£º²ÅÒ»ÕÐ¡£\n" NOR);
+                        say(CYN "ä»»æˆ‘è¡Œå¹äº†å£æ°”ï¼Œè¯´é“ï¼šæ‰ä¸€æ‹›ã€‚\n" NOR);
                         me->delete_temp("want_bijian", 1);
                         me->set_temp("bijian_fail", 1);
                         return 1;
                 }
 
                 command("enable sword taiji-jian");
-                say(HIW "\nÈÎÎÒÐÐ´óºÈÒ»Éù£ºµÚ¶þÕÐ£¡Îäµ±ÅÉÌ«¼«½£·¨£¡\n" NOR);
+                say(HIW "\nä»»æˆ‘è¡Œå¤§å–ä¸€å£°ï¼šç¬¬äºŒæ‹›ï¼æ­¦å½“æ´¾å¤ªæžå‰‘æ³•ï¼\n" NOR);
                 COMBAT_D->do_attack(ob, me, query_temp("weapon"));
                 if ((int)me->query("qi") < eff || ! present(me, environment()))
                 {
-                        say(CYN "ÈÎÎÒÐÐÌ¾ÁË¿ÚÆø£¬ËµµÀ£º²ÅÁ½ÕÐ¡£\n" NOR);
+                        say(CYN "ä»»æˆ‘è¡Œå¹äº†å£æ°”ï¼Œè¯´é“ï¼šæ‰ä¸¤æ‹›ã€‚\n" NOR);
                         me->delete_temp("want_bijian", 1);
                         me->set_temp("bijian_fail", 1);
                         return 1;
                 }
 
                 command("enable sword huifeng-jian");
-                say(HIW "\nÈÎÎÒÐÐ´óºÈÒ»Éù£ºµÚÈýÕÐ£¡¶ëáÒÅÉ»Ø·ç·÷Áø½£·¨£¡\n" NOR);
+                say(HIW "\nä»»æˆ‘è¡Œå¤§å–ä¸€å£°ï¼šç¬¬ä¸‰æ‹›ï¼å³¨åµ‹æ´¾å›žé£Žæ‹‚æŸ³å‰‘æ³•ï¼\n" NOR);
                 COMBAT_D->do_attack(ob, me, query_temp("weapon"));
                 if ((int)me->query("qi") < eff || ! present(me, environment()))
                 {
-                        say(CYN "ÈÎÎÒÐÐÌ¾ÁË¿ÚÆø£¬ËµµÀ£º²ÅÈýÕÐ¡£\n" NOR);
+                        say(CYN "ä»»æˆ‘è¡Œå¹äº†å£æ°”ï¼Œè¯´é“ï¼šæ‰ä¸‰æ‹›ã€‚\n" NOR);
                         me->delete_temp("want_bijian", 1);
                         me->set_temp("bijian_fail", 1);
                         return 1;
                 }
 
                 command("enable sword songshan-sword");
-                say(HIW "\nÈÎÎÒÐÐ´óºÈÒ»Éù£ºµÚËÄÕÐ£¡áÔÉ½½£·¨Ö®ÌìÍâÓñÁú£¡\n" NOR);
+                say(HIW "\nä»»æˆ‘è¡Œå¤§å–ä¸€å£°ï¼šç¬¬å››æ‹›ï¼åµ©å±±å‰‘æ³•ä¹‹å¤©å¤–çŽ‰é¾™ï¼\n" NOR);
                 COMBAT_D->do_attack(ob, me, query_temp("weapon"));
                 if ((int)me->query("qi") < eff || ! present(me, environment()))
                 {
-                        say(CYN "ÈÎÎÒÐÐÌ¾ÁË¿ÚÆø£¬ËµµÀ£º²ÅËÄÕÐ¡£\n" NOR);
+                        say(CYN "ä»»æˆ‘è¡Œå¹äº†å£æ°”ï¼Œè¯´é“ï¼šæ‰å››æ‹›ã€‚\n" NOR);
                         me->delete_temp("want_bijian", 1);
                         me->set_temp("bijian_fail", 1);
                         return 1;
                 }
 
                 command("enable sword taishan-sword");
-                say(HIW "\nÈÎÎÒÐÐ´óºÈÒ»Éù£ºµÚÎåÕÐ£¡Ì©É½ÅÉÊ®°ËÅÌ½£·¨£¡\n" NOR);
+                say(HIW "\nä»»æˆ‘è¡Œå¤§å–ä¸€å£°ï¼šç¬¬äº”æ‹›ï¼æ³°å±±æ´¾åå…«ç›˜å‰‘æ³•ï¼\n" NOR);
                 COMBAT_D->do_attack(ob, me, query_temp("weapon"));
                 if ((int)me->query("qi") < eff || ! present(me, environment()))
                 {
-                        say(CYN "ÈÎÎÒÐÐÌ¾ÁË¿ÚÆø£¬ËµµÀ£º²ÅÎåÕÐ¡£\n" NOR);
+                        say(CYN "ä»»æˆ‘è¡Œå¹äº†å£æ°”ï¼Œè¯´é“ï¼šæ‰äº”æ‹›ã€‚\n" NOR);
                         me->delete_temp("want_bijian", 1);
                         me->set_temp("bijian_fail", 1);
                         return 1;
                 }
 
                 command("enable sword huashan-jian");
-                say(HIW "\nÈÎÎÒÐÐ´óºÈÒ»Éù£ºµÚÁùÕÐ£¡»ªÉ½½£×Ú¶áÃüÁ¬»·ÈýÏÉ½££¡\n" NOR);
+                say(HIW "\nä»»æˆ‘è¡Œå¤§å–ä¸€å£°ï¼šç¬¬å…­æ‹›ï¼åŽå±±å‰‘å®—å¤ºå‘½è¿žçŽ¯ä¸‰ä»™å‰‘ï¼\n" NOR);
                 COMBAT_D->do_attack(ob, me, query_temp("weapon"));
                 if ((int)me->query("qi") < eff || ! present(me, environment()))
                 {
-                        say(CYN "ÈÎÎÒÐÐÌ¾ÁË¿ÚÆø£¬ËµµÀ£º²ÅÁùÕÐ¡£\n" NOR);
+                        say(CYN "ä»»æˆ‘è¡Œå¹äº†å£æ°”ï¼Œè¯´é“ï¼šæ‰å…­æ‹›ã€‚\n" NOR);
                         me->delete_temp("want_bijian", 1);
                         me->set_temp("bijian_fail", 1);
                         return 1;
                 }
 
                 command("enable sword hengshan-sword");
-                say(HIW "\nÈÎÎÒÐÐ´óºÈÒ»Éù£ºµÚÆßÕÐ£¡ºâÉ½½£·¨Ö®Ò»½£Âä¾ÅÑã£¡\n" NOR);
+                say(HIW "\nä»»æˆ‘è¡Œå¤§å–ä¸€å£°ï¼šç¬¬ä¸ƒæ‹›ï¼è¡¡å±±å‰‘æ³•ä¹‹ä¸€å‰‘è½ä¹é›ï¼\n" NOR);
                 COMBAT_D->do_attack(ob, me, query_temp("weapon"));
                 if ((int)me->query("qi") < eff || ! present(me, environment()))
                 {
-                        say(CYN "ÈÎÎÒÐÐÌ¾ÁË¿ÚÆø£¬ËµµÀ£º²ÅÆßÕÐ¡£\n" NOR);
+                        say(CYN "ä»»æˆ‘è¡Œå¹äº†å£æ°”ï¼Œè¯´é“ï¼šæ‰ä¸ƒæ‹›ã€‚\n" NOR);
                         me->delete_temp("want_bijian", 1);
                         me->set_temp("bijian_fail", 1);
                         return 1;
                 }
 
                 command("enable sword hengshan-jian");
-                say(HIW "\nÈÎÎÒÐÐ´óºÈÒ»Éù£ºÐ¡ÐÄÁË£¬ÎÒÕâ×îºóÒ»ÕÐÄËºãÉ½ÅÉÍò»¨½£·¨£¡\n" NOR);
+                say(HIW "\nä»»æˆ‘è¡Œå¤§å–ä¸€å£°ï¼šå°å¿ƒäº†ï¼Œæˆ‘è¿™æœ€åŽä¸€æ‹›ä¹ƒæ’å±±æ´¾ä¸‡èŠ±å‰‘æ³•ï¼\n" NOR);
                 COMBAT_D->do_attack(ob, me, query_temp("weapon"));
                 if ((int)me->query("qi") < eff || ! present(me, environment()))
                 {
-                        say(CYN "ÈÎÎÒÐÐÌ¾ÁË¿ÚÆø£¬ËµµÀ£º»¹ÊÇÃ»¹ýµÚ°ËÕÐ¡£\n" NOR);
+                        say(CYN "ä»»æˆ‘è¡Œå¹äº†å£æ°”ï¼Œè¯´é“ï¼šè¿˜æ˜¯æ²¡è¿‡ç¬¬å…«æ‹›ã€‚\n" NOR);
                         me->delete_temp("want_bijian", 1);
                         me->set_temp("bijian_fail", 1);
                         return 1;
@@ -230,14 +230,14 @@ int do_accept()
 
                 obj = new("/d/heimuya/obj/heimu-ling");
                 obj->move(me);
-                say(CYN "\nÈÎÎÒÐÐ¹þ¹þ´óÐ¦ËµµÀ£º¸óÏÂ¹ûÈ»ÎäÒÕ³¬Èº£¬ÔÙÀ´½ÓÎÒÕâÂ·½£·¨£¡\n\n" NOR);
+                say(CYN "\nä»»æˆ‘è¡Œå“ˆå“ˆå¤§ç¬‘è¯´é“ï¼šé˜ä¸‹æžœç„¶æ­¦è‰ºè¶…ç¾¤ï¼Œå†æ¥æŽ¥æˆ‘è¿™è·¯å‰‘æ³•ï¼\n\n" NOR);
 
-                message_vision(HIR "ËµÍêÈÎÎÒÐÐÒ»Éù³¤Ð¥£¬Ä¾½£Ù¿µØÅü³ö¡£$N" HIR "µ±¼´Ð±½£"
-                               "´Ì³ö£¬±ÆµÃËûÊÕ½£»Øµ²¡£ÈÎ\nÎÒÐÐÁ¬Á¬ºôºÈ£¬¾¹ËÆ·¢·èÒ»°ã¡£ºô"
-                               "ºÈÔ½¼±£¬³ö½£Ò²ÊÇÔ½¿ì¡£$N" HIR "¾õµÃÃ¿Ò»Éù¶ÏºÈ\n¶¼ÁîËûË«"
-                               "¶úÎËÎË×÷Ïì£¬ÐÄ·³ÒâÂÒ¡£Í»È»Ö®¼ä£¬ÈÎÎÒÐÐÊ¯ÆÆÌì¾ª°ãÒ»Éù¿ñÐ¥"
-                               "¡£$N" HIR "\n¶úÖÐÎËµÄÒ»Ïì£¬¶ú¹Ä¶¼ËÆÕðÆÆ£¬ÄÔÖÐÒ»ÕóÔÎÑ££¬µÇ"
-                               "Ê±ÈËÊÂ²»Öª£¬»èµ¹ÔÚµØ¡­¡­\n" NOR, me, ob );
+                message_vision(HIR "è¯´å®Œä»»æˆ‘è¡Œä¸€å£°é•¿å•¸ï¼Œæœ¨å‰‘å€åœ°åŠˆå‡ºã€‚$N" HIR "å½“å³æ–œå‰‘"
+                               "åˆºå‡ºï¼Œé€¼å¾—ä»–æ”¶å‰‘å›žæŒ¡ã€‚ä»»\næˆ‘è¡Œè¿žè¿žå‘¼å–ï¼Œç«Ÿä¼¼å‘ç–¯ä¸€èˆ¬ã€‚å‘¼"
+                               "å–è¶Šæ€¥ï¼Œå‡ºå‰‘ä¹Ÿæ˜¯è¶Šå¿«ã€‚$N" HIR "è§‰å¾—æ¯ä¸€å£°æ–­å–\néƒ½ä»¤ä»–åŒ"
+                               "è€³å—¡å—¡ä½œå“ï¼Œå¿ƒçƒ¦æ„ä¹±ã€‚çªç„¶ä¹‹é—´ï¼Œä»»æˆ‘è¡ŒçŸ³ç ´å¤©æƒŠèˆ¬ä¸€å£°ç‹‚å•¸"
+                               "ã€‚$N" HIR "\nè€³ä¸­å—¡çš„ä¸€å“ï¼Œè€³é¼“éƒ½ä¼¼éœ‡ç ´ï¼Œè„‘ä¸­ä¸€é˜µæ™•çœ©ï¼Œç™»"
+                               "æ—¶äººäº‹ä¸çŸ¥ï¼Œæ˜å€’åœ¨åœ°â€¦â€¦\n" NOR, me, ob );
                 me->delete_temp("want_bijian", 1);
                 me->set("skybook/xiaoao/bijian", 1);
                 me->unconcious();

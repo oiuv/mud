@@ -10,11 +10,11 @@ int do_kneel();
 
 void create()
 {
-        set_name("����", ({ "shan yong", "shan", "yong" }));
+        set_name("善勇", ({ "shan yong", "shan", "yong" }));
         set("long", @LONG
-һ�����ֵ�����ɮ�ˣ����Ц�ݣ�ȴ����Ц��ص����¡�
+一个胖胖的西藏僧人，面带笑容，却常干笑里藏刀的事。
 LONG);
-        set("gender", "����");
+        set("gender", "男性");
         set("age", 35);
         set("attitude", "peaceful");
         set("shen_type", -1);
@@ -63,11 +63,11 @@ LONG);
         }) );
 
         set("inquiry",([
-                "���" : (: ask_for_join :),
-                "����" : (: ask_for_join :),
+                "剃度" : (: ask_for_join :),
+                "出家" : (: ask_for_join :),
         ]));
 
-        create_family("Ѫ����", 5, "����");
+        create_family("血刀门", 5, "弟子");
         set("class", "bonze");
 
         setup();
@@ -86,23 +86,23 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-        if ((string)ob->query("gender") == "Ů��")
+        if ((string)ob->query("gender") == "女性")
         {
-                command("say �Ҳ���Ůͽ�ܡ�\n");
+                command("say 我不收女徒弟。\n");
                 return;
         }
 
-        if ((string)ob->query("gender") != "����")
+        if ((string)ob->query("gender") != "男性")
         {
-                command("say ��������Ц�ˣ����ǸϿ�ع�ȥ�ź���ϰɡ�\n");
+                command("say 公公别开玩笑了，还是赶快回宫去伺候皇上吧。\n");
                 return;
         }
 
         if (ob->query("class") != "bonze")
         {
                 ob->set_temp("pending/join_bonze", 1);
-                command("say �㲻�ǳ����ˣ�����Ѫ�����ǲ��������ġ������"
-                        "����Ҫ���ң��͹��°�(" HIY "kneel" NOR + CYN ")��" NOR);
+                command("say 你不是出家人，我们血刀门是不会收留的。如果你"
+                        "决定要出家，就跪下吧(" HIY "kneel" NOR + CYN ")。" NOR);
                 return;
         }
 
@@ -116,16 +116,16 @@ string ask_for_join()
         me = this_player();
 
         if ((string)me->query("class") == "bonze")
-                return "�����ӷ�����ͬ�ǳ����ˣ��ιʸ�ƶɮ�������Ц��\n";
+                return "阿弥陀佛！你我同是出家人，何故跟贫僧开这等玩笑？\n";
 
-        if ((string)me->query("gender") == "Ů��")
-                return "ʩ��������������ǿ�ϲ�ɺأ���ϧ���²���Ůͽ��\n";
+        if ((string)me->query("gender") == "女性")
+                return "施主若真心向佛，真是可喜可贺，可惜本寺不收女徒。\n";
 
-        if ((string)me->query("gender") != "����")
-                return "��������Ц�ˣ����ǸϿ�ع�ȥ�ź���ϰɡ�\n";
+        if ((string)me->query("gender") != "男性")
+                return "公公别开玩笑了，还是赶快回宫去伺候皇上吧。\n";
 
         me->set_temp("pending/join_bonze", 1);
-        return "�����ӷ����գ����գ�ʩ������������ҷ������(kneel)�ܽ䡣\n";
+        return "阿弥陀佛！善哉！善哉！施主若真心皈依我佛，请跪下(kneel)受戒。\n";
 }
 
 int do_kneel()
@@ -133,11 +133,11 @@ int do_kneel()
         object me = this_player();
 
         if (! me->query_temp("pending/join_bonze"))
-                return notify_fail("����˰�㣬���û�����㡣\n");
+                return notify_fail("你跪了半点，结果没人理你。\n");
 
-        message_vision(HIY "$N" HIY "˫�ֺ�ʮ�����������ع���������\n\n"
-                       "$n" HIY "������ƣ���$N" HIY "ͷ�������Ħ���˼�"
-                       "�£���$N" HIY "��ͷ��������ȥ��\n\n" NOR, me,
+        message_vision(HIY "$N" HIY "双手合十，恭恭敬敬地跪了下来。\n\n"
+                       "$n" HIY "伸出手掌，在$N" HIY "头顶轻轻地摩挲了几"
+                       "下，将$N" HIY "的头发尽数剃去。\n\n" NOR, me,
                        this_object());
 
         command("ke");

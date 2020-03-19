@@ -1,4 +1,4 @@
-// chan.c ÈÕÔÂ±Ş·¨¡¸²øÈÆ¡¹¾÷
+// chan.c æ—¥æœˆé­æ³•ã€Œç¼ ç»•ã€è¯€
 
 #include <ansi.h>
 #include <combat.h>
@@ -14,38 +14,38 @@ int perform(object me, object target)
         if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail("Ç£ÖÆ¹¥»÷Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail("ç‰µåˆ¶æ”»å‡»åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (target->is_busy())
-                return notify_fail(target->name() + "Ä¿Ç°Õı×Ô¹Ë²»Ï¾£¬·Åµ¨¹¥»÷°É£¡\n");
+                return notify_fail(target->name() + "ç›®å‰æ­£è‡ªé¡¾ä¸æš‡ï¼Œæ”¾èƒ†æ”»å‡»å§ï¼\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "whip")
-		return notify_fail("ÄãÃ»ÓĞÄÃ×Å±Ş×Ó¡£\n");
+		return notify_fail("ä½ æ²¡æœ‰æ‹¿ç€é­å­ã€‚\n");
 
         if (me->query("neili") < 80)
-                return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬ÎŞ·¨Ê©Õ¹¡¸²øÈÆ¡¹¾÷£¡\n");
+                return notify_fail("ä½ ç°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œæ— æ³•æ–½å±•ã€Œç¼ ç»•ã€è¯€ï¼\n");
 
         if (me->query_skill_mapped("whip") != "riyue-bian")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢ÈÕÔÂ±Ş·¨£¬ÎŞ·¨Ê©Õ¹¡¸²øÈÆ¡¹¾÷£¡\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘æ—¥æœˆé­æ³•ï¼Œæ— æ³•æ–½å±•ã€Œç¼ ç»•ã€è¯€ï¼\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIC "$N" HIC "Ê¹³öÈÕÔÂ±Ş·¨¡¸²øÈÆ¡¹¾÷£¬Á¬»ÓÊı±ŞÆóÍ¼°Ñ$n"
-              HIC "µÄÈ«Éí²øÈÆÆğÀ´¡£\n";
+        msg = HIC "$N" HIC "ä½¿å‡ºæ—¥æœˆé­æ³•ã€Œç¼ ç»•ã€è¯€ï¼Œè¿æŒ¥æ•°é­ä¼å›¾æŠŠ$n"
+              HIC "çš„å…¨èº«ç¼ ç»•èµ·æ¥ã€‚\n";
 
         ap = me->query_skill("whip");
         dp = target->query_skill("parry");
         if (ap / 2 + random(ap) > dp)
         {
-                msg += HIR "½á¹û$p" HIR "±»$P" HIR "¹¥ÁË¸ö´ëÊÖ²»¼°£¡\n" NOR;
+                msg += HIR "ç»“æœ$p" HIR "è¢«$P" HIR "æ”»äº†ä¸ªæªæ‰‹ä¸åŠï¼\n" NOR;
         target->start_busy((int)me->query_skill("riyue-bian", 1) / 20 + 2);
         me->start_busy(1);
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P"
-                       CYN "µÄÆóÍ¼£¬Ğ¡ĞÄÓ¦¶Ô£¬²¢Ã»ÓĞÉÏµ±¡£\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P"
+                       CYN "çš„ä¼å›¾ï¼Œå°å¿ƒåº”å¯¹ï¼Œå¹¶æ²¡æœ‰ä¸Šå½“ã€‚\n" NOR;
                 me->start_busy(2);
         }
         message_combatd(msg, me, target);

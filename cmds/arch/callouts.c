@@ -11,7 +11,7 @@ int main(object me, string arg)
         if (! SECURITY_D->valid_grant(me, "(arch)"))
                 return 0;
 
-	output = sprintf("%-45s %-20s %5s %s\n", "Îï¼ş", "º¯Êı", "ÑÓ³ÙÊ±¼ä", "²ÎÊı"); 
+	output = sprintf("%-45s %-20s %5s %s\n", "ç‰©ä»¶", "å‡½æ•°", "å»¶è¿Ÿæ—¶é—´", "å‚æ•°"); 
 	if (arg && arg != "")
 		info = filter_array(call_out_info(), (: $1[1]==$2 :), arg);
 	else
@@ -28,9 +28,9 @@ int main(object me, string arg)
 int help()
 {
 	write(@LONG
-Ö¸Áî¸ñÊ½£ºcallouts [<º¯ÊıÃû³Æ>]
+æŒ‡ä»¤æ ¼å¼ï¼šcallouts [<å‡½æ•°åç§°>]
 
-ÁĞ³öÏµÍ³ÖĞËùÓĞµÄ¶¨Ê±Æ÷¡£
+åˆ—å‡ºç³»ç»Ÿä¸­æ‰€æœ‰çš„å®šæ—¶å™¨ã€‚
 
 LONG );
 	return 1;

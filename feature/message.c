@@ -157,7 +157,7 @@ void receive_message(string msgclass, string msg)
 				if (! environment() || ! environment()->query("outdoors"))
                                 {
                                         if (query("env/look_window"))
-                                                msg = HIG "¡¾´°Íâ¾°Ïó¡¿" +
+                                                msg = HIG "ã€çª—å¤–æ™¯è±¡ã€‘" +
 						      NOR + msg;
                                         else
 					        return;
@@ -209,7 +209,7 @@ void write_prompt()
 {
 	if (sizeof(msg_buffer))
         {
-		receive(BOLD "[ÊäÈëÊ±Ôİ´æÑ¶Ï¢]\n" NOR);
+		receive(BOLD "[è¾“å…¥æ—¶æš‚å­˜è®¯æ¯]\n" NOR);
 		for(int i = 0; i < sizeof(msg_buffer); i++)
 			receive(msg_buffer[i]);
 		msg_buffer = ({});
@@ -219,7 +219,7 @@ void write_prompt()
                 return;
 
         if (this_object()->is_attach_system())
-                receive(HIR "Ö´ĞĞÖĞ" HIY "> " NOR);
+                receive(HIR "æ‰§è¡Œä¸­" HIY "> " NOR);
         else
                 receive(ESC "[256D" + prompt());
 

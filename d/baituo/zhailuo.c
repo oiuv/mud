@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "Сլ��");
+        set("short", "小宅落");
         set("long", @LONG
-������һ����Ӱ��涵ľ��׵�Сլ�䣬���з���һ���ں�
-�����Ĵ�ˮ�ס�����ɽ�ϳ����ѩ����������˼���һ������
-����������������ѩˮ�������е�ˮ��������
+这里是一个树影婆娑的静谧的小宅落，当中放着一口乌黑
+发亮的大水缸。白驼山上常年积雪，这里的主人架起一条长长
+的竹渠，把清凉的雪水引到家中的水缸里来。
 LONG);
         set("exits", ([
                 "west" : __DIR__"liangong",

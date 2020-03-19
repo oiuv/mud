@@ -13,8 +13,8 @@ int main(object me, string arg)
                 return 0;
                 
         if (! arg)  
-                return notify_fail("ÅÉËÍÀñÎï¸ø¾­Ñé³¬¹ı5ÍòµÄÔÚÏßÍæ¼Ò¡£\n\n"
-				                   "ÃüÁî¸ñÊ½£º gift </Â·¾¶/Ä¿±êÎÄ¼şÃû> [ÊıÁ¿]\n\n"); 
+                return notify_fail("æ´¾é€ç¤¼ç‰©ç»™ç»éªŒè¶…è¿‡5ä¸‡çš„åœ¨çº¿ç©å®¶ã€‚\n\n"
+				                   "å‘½ä»¤æ ¼å¼ï¼š gift </è·¯å¾„/ç›®æ ‡æ–‡ä»¶å> [æ•°é‡]\n\n"); 
     
         if (sscanf(arg, "%s %d", target, count) != 2) 
                 target = arg;   
@@ -24,7 +24,7 @@ int main(object me, string arg)
         gift_file = target; 
         
         if (file_size(gift_file) == -1)
-                return notify_fail("Â·¾¶²»ÕıÈ·£¬ÄúËùÖ¸¶¨µÄÀñÎïÎŞ·¨ÕÒµ½¡£\n");
+                return notify_fail("è·¯å¾„ä¸æ­£ç¡®ï¼Œæ‚¨æ‰€æŒ‡å®šçš„ç¤¼ç‰©æ— æ³•æ‰¾åˆ°ã€‚\n");
         
         seteuid(getuid());
 
@@ -38,13 +38,13 @@ int main(object me, string arg)
                 {
                         num++ ;
                         ob -> move(player); 
-                        tell_object(player, HIW "\n\nºöÈ»´Ó¼«¸ß¼«Ô¶µÄÌì¿ÕÖĞ¼«ËÙ½µÏÂÒ»Ö»»ëÉíÁÒÑæµÄ"HIR"»ğ·ï"HIW"£¬ÖÜÉíÉÁÒ«Æß²Ê¹âÃ¢¡£\n" NOR);
-                        tell_object(player, HIC "Ëü×¦ÏÂËÆºõ×¥×ÅÊ²Ã´¶«Î÷£¬Í»È»"HIR"»ğ·ï"HIC"ËÉ¿ª½Å×¦£¬ÓĞ¸ö¶«Î÷Ö±ÏòÄãµôÂäÏÂÀ´¡£\n" NOR);
-                        tell_object(player, HIG "ÄãÃÍÒ»ÌáÆø×İÉíÒ»Ô¾ÕÉ¸ß½«´ËÎï×¥ÔÚÊÖÖĞ£¬ÓÖäìÈ÷µÄÆ®ÂäµØÃæ¡£\n\n" NOR);
+                        tell_object(player, HIW "\n\nå¿½ç„¶ä»æé«˜æè¿œçš„å¤©ç©ºä¸­æé€Ÿé™ä¸‹ä¸€åªæµ‘èº«çƒˆç„°çš„"HIR"ç«å‡¤"HIW"ï¼Œå‘¨èº«é—ªè€€ä¸ƒå½©å…‰èŠ’ã€‚\n" NOR);
+                        tell_object(player, HIC "å®ƒçˆªä¸‹ä¼¼ä¹æŠ“ç€ä»€ä¹ˆä¸œè¥¿ï¼Œçªç„¶"HIR"ç«å‡¤"HIC"æ¾å¼€è„šçˆªï¼Œæœ‰ä¸ªä¸œè¥¿ç›´å‘ä½ æ‰è½ä¸‹æ¥ã€‚\n" NOR);
+                        tell_object(player, HIG "ä½ çŒ›ä¸€ææ°”çºµèº«ä¸€è·ƒä¸ˆé«˜å°†æ­¤ç‰©æŠ“åœ¨æ‰‹ä¸­ï¼Œåˆæ½‡æ´’çš„é£˜è½åœ°é¢ã€‚\n\n" NOR);
                 }
         }
-        //str = sprintf("¹²ÓĞ %d Î»Íæ¼ÒµÃµ½ÁË%s¡£\n\n", sizeof(users()), target->query("name"));    
-        str = sprintf("¹²ÓĞ %d Î»Íæ¼ÒµÃµ½ÁË%s¡£\n\n", num, target->query("name"));    
+        //str = sprintf("å…±æœ‰ %d ä½ç©å®¶å¾—åˆ°äº†%sã€‚\n\n", sizeof(users()), target->query("name"));    
+        str = sprintf("å…±æœ‰ %d ä½ç©å®¶å¾—åˆ°äº†%sã€‚\n\n", num, target->query("name"));    
         me->start_more(str);
         return 1;
 }
@@ -52,9 +52,9 @@ int main(object me, string arg)
 int help(object me)
 {
         write(@HELP
-Ö¸Áî¸ñÊ½£ºgiveall ÀñÆ·Â·¾¶ [ÊıÁ¿]
+æŒ‡ä»¤æ ¼å¼ï¼šgiveall ç¤¼å“è·¯å¾„ [æ•°é‡]
 
-¸øÔÚÏßµÄËùÓĞÍæ¼Ò·¢·ÅÀñÆ·¡£
+ç»™åœ¨çº¿çš„æ‰€æœ‰ç©å®¶å‘æ”¾ç¤¼å“ã€‚
 HELP
         );
         return 1;

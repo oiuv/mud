@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-	set_name("ÄĞº¢",({ "boy" }) );
-        set("gender", "ÄĞĞÔ" );
+	set_name("ç”·å­©",({ "boy" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 13);
         set("long", 
-"ÕâÊÇ¸ö³ÇÀïµÄÉÙÄê¡£\n");
+"è¿™æ˜¯ä¸ªåŸé‡Œçš„å°‘å¹´ã€‚\n");
 
         set("str", 17);
         set("dex", 16);

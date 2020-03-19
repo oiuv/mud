@@ -1,17 +1,17 @@
-// yuchi.c Óã³á
+// yuchi.c é±¼ç¿…
 
 inherit ITEM;
 inherit F_FOOD;
 
 void create()
 {
-        set_name("Óã³á", ({"yu chi", "yu"}));
+        set_name("é±¼ç¿…", ({"yu chi", "yu"}));
         set_weight(80);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "ÉÏµÈÓã³á,Î¶µÀÏÊÃÀ.ÆäÊµÒ²¾ÍÄÇÃ´»ØÊÂ.\n");
-                set("unit", "µú");
+                set("long", "ä¸Šç­‰é±¼ç¿…,å‘³é“é²œç¾.å…¶å®ä¹Ÿå°±é‚£ä¹ˆå›äº‹.\n");
+                set("unit", "ç¢Ÿ");
                 set("value", 100);
                 set("food_remaining", 1);
                 set("food_supply", 1);

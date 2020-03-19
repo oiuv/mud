@@ -5,14 +5,14 @@ int ask_weiwang();
 
 void create()
 {
-	set_name("ÕÅµÂ¹ó", ({ "zhang degui", "zhang", "dedui" }));
-	set("title", "µ±ÆÌÀÏ°å");
+	set_name("å¼ å¾·è´µ", ({ "zhang degui", "zhang", "dedui" }));
+	set("title", "å½“é“ºè€æ¿");
 	set("shen_type", 1);
 
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set_max_encumbrance(100000000);
 	set("age", 35);
-	set("long","\nÒ»¸öÈıÊ®¶àËêµÄÄĞ×Ó£¬Éí²Ä¸ÉÊİ£¬¿´ÆğÀ´Ê®·Ö¾«Ã÷ÄÜ¸É¡£\n");
+	set("long","\nä¸€ä¸ªä¸‰åå¤šå²çš„ç”·å­ï¼Œèº«æå¹²ç˜¦ï¼Œçœ‹èµ·æ¥ååˆ†ç²¾æ˜èƒ½å¹²ã€‚\n");
 	set("no_get_from", 1);
 
 	set_skill("unarmed", 60);

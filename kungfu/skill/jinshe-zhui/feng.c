@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define FENG "¡¸" HIR "½ØÂö·âÑ¨" NOR "¡¹"
+#define FENG "ã€Œ" HIR "æˆªè„‰å°ç©´" NOR "ã€"
 
 inherit F_SSERVER;
  
@@ -24,28 +24,28 @@ int perform(object me)
 		}
 				
 		if (me->query_temp("jinshe/feng"))
-		return notify_fail("Äã²ÅÓÃ¹ý½ØÂö·âÑ¨£¬Ã»·¨½Ó×Å¾Í³öÕÐ¡£\n");
+		return notify_fail("ä½ æ‰ç”¨è¿‡æˆªè„‰å°ç©´ï¼Œæ²¡æ³•æŽ¥ç€å°±å‡ºæ‹›ã€‚\n");
 
 		if (! target) target = offensive_target(me);
 		if (! target ||	! me->is_fighting(target))
-		return notify_fail("½ØÂö·âÑ¨Ö»ÄÜÔÚÕ½¶·ÖÐÊ¹ÓÃ¡£\n");
+		return notify_fail("æˆªè„‰å°ç©´åªèƒ½åœ¨æˆ˜æ–—ä¸­ä½¿ç”¨ã€‚\n");
 
 		if (me->query_skill("force") < 150)
-                return notify_fail("ÄãµÄÄÚ¹¦µÄÐÞÎª²»¹»£¬ÄÑÒÔÊ©Õ¹" FENG "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸçš„ä¿®ä¸ºä¸å¤Ÿï¼Œéš¾ä»¥æ–½å±•" FENG "ã€‚\n");
 
         if (skill < 100)
-                return notify_fail("ÄãµÄ½ðÉß×¶·¨ÐÞÎªÓÐÏÞ£¬ÄÑÒÔÊ©Õ¹" FENG "¡£\n");
+                return notify_fail("ä½ çš„é‡‘è›‡é”¥æ³•ä¿®ä¸ºæœ‰é™ï¼Œéš¾ä»¥æ–½å±•" FENG "ã€‚\n");
 
         if (me->query("neili") < 500)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" FENG "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" FENG "ã€‚\n");
 
         if (me->query_skill_mapped("throwing") != "jinshe-zhui")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢½ðÉß×¶·¨£¬ÄÑÒÔÊ©Õ¹" FENG "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘é‡‘è›‡é”¥æ³•ï¼Œéš¾ä»¥æ–½å±•" FENG "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIR "$N" HIR "·ÉÉíÒ»Ô¾¶øÆð£¬ÌùÖÁ$n" HIR "¸úÇ°£¬µãÏò$n" HIR "ÒªÑ¨£¡\n" NOR;
+        msg = HIR "$N" HIR "é£žèº«ä¸€è·ƒè€Œèµ·ï¼Œè´´è‡³$n" HIR "è·Ÿå‰ï¼Œç‚¹å‘$n" HIR "è¦ç©´ï¼\n" NOR;
 
         ap = me->query_skill("throwing");
         dp = target->query_skill("force");
@@ -53,8 +53,8 @@ int perform(object me)
         if (ap / 2 + random(ap) > dp)
         {
 			
-			msg += HIR "$p" HIR "Î¢Î¢Ò»Àã£¬ÒÑ±»$N" HIR 
-				"µãÖÐÒªÑ¨£¬¶ÙÊ±Ì±ÈíÎÞÁ¦£¬»º»ºÌ±µ¹¡£\n" NOR;
+			msg += HIR "$p" HIR "å¾®å¾®ä¸€æ¥žï¼Œå·²è¢«$N" HIR 
+				"ç‚¹ä¸­è¦ç©´ï¼Œé¡¿æ—¶ç˜«è½¯æ— åŠ›ï¼Œç¼“ç¼“ç˜«å€’ã€‚\n" NOR;
 				me->add("neili", -200);
                 me->start_busy(1);
 				me->set_temp("jinshe/feng", 1);
@@ -89,8 +89,8 @@ int perform(object me)
 				
         } else
         {
-                msg += CYN "¿ÉÊÇ$p" CYN "µÄ¿´ÆÆÁË$P" CYN
-                       "µÄÕÐÊ½£¬ÇÉÃîµÄÒ»Ò»²ð½â£¬Ã»Â¶°ëµãÆÆÕÀ£¡\n" NOR;
+                msg += CYN "å¯æ˜¯$p" CYN "çš„çœ‹ç ´äº†$P" CYN
+                       "çš„æ‹›å¼ï¼Œå·§å¦™çš„ä¸€ä¸€æ‹†è§£ï¼Œæ²¡éœ²åŠç‚¹ç ´ç»½ï¼\n" NOR;
                 me->add("neili", -50);
                 me->start_busy(3);
         }

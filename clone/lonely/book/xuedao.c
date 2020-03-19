@@ -4,16 +4,16 @@ inherit BOOK;
 
 void create()
 {
-        set_name(HIR "¡¸Ñªµ¶¾­¡¹" NOR, ({ "xuedao jing", "xuedao", "jing", "book" }));
+        set_name(HIR "ã€Œè¡€åˆ€ç»ã€" NOR, ({ "xuedao jing", "xuedao", "jing", "book" }));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±¾");
-                set("long", HIR "ÕâÊÇÒ»±¾±¡±¡µÄÊé²á£¬·âÃæÉÏ»íÈ»Ğ´×Å¡¸Ñª"
-                            "µ¶¾­¡¹Èı¸ö´ó×Ö¡£\n" NOR);
+                set("unit", "æœ¬");
+                set("long", HIR "è¿™æ˜¯ä¸€æœ¬è–„è–„çš„ä¹¦å†Œï¼Œå°é¢ä¸Šè±ç„¶å†™ç€ã€Œè¡€"
+                            "åˆ€ç»ã€ä¸‰ä¸ªå¤§å­—ã€‚\n" NOR);
                 set("value", 1);
-                set("no_sell", "Ñª¡­Ñªµ¶¡­¾­£¿Õâ¡­¸Ã²»»áÊÇÑªµ¶ÃÅµÄ¶«Î÷°É£¿");
+                set("no_sell", "è¡€â€¦è¡€åˆ€â€¦ç»ï¼Ÿè¿™â€¦è¯¥ä¸ä¼šæ˜¯è¡€åˆ€é—¨çš„ä¸œè¥¿å§ï¼Ÿ");
                 set("material", "paper");
                 set("skill", ([
                         "name" : "xuedao-dafa",

@@ -4,14 +4,14 @@ inherit ROOM;
 
 void create()
 {
-        set("short", NOR + RED "´óÔæÊ÷ÉÏ" NOR);
+        set("short", NOR + RED "å¤§æ£æ ‘ä¸Š" NOR);
         set("long", @LONG
-ÕâÀïÊÇÔæÊ÷¶¥£¬ËÄÏÂÍûÈ¥£¬Í»È»¸Ğ¾õÒ»ÕóÑ£ÔÎ£¬Ô­À´ÕâÀï
-ÀëµØÃæÒÑÓĞ°ÙÀ´ÕÌ¸ßÁË¡£Ì§Í·Ò»¿´£¬ÃÍÈ»¼äÄãÑÛ¹âÒ»ÉÁ£¬·¢ÏÖ
-ÉÏÃæ¾¹ÓĞÒ»¸ùÊ÷ÌÙ(teng)´¹ÏÂ¡£
+è¿™é‡Œæ˜¯æ£æ ‘é¡¶ï¼Œå››ä¸‹æœ›å»ï¼Œçªç„¶æ„Ÿè§‰ä¸€é˜µçœ©æ™•ï¼ŒåŸæ¥è¿™é‡Œ
+ç¦»åœ°é¢å·²æœ‰ç™¾æ¥ä»—é«˜äº†ã€‚æŠ¬å¤´ä¸€çœ‹ï¼ŒçŒ›ç„¶é—´ä½ çœ¼å…‰ä¸€é—ªï¼Œå‘ç°
+ä¸Šé¢ç«Ÿæœ‰ä¸€æ ¹æ ‘è—¤(teng)å‚ä¸‹ã€‚
 LONG);
         set("item_desc", ([
-              "teng" : HIG "\n¿´À´¿ÉÒÔ½èÕâ¸ùÊ÷ÌÙÅÀ(climb)³öÊ¯¿ß¡£\n" NOR,
+              "teng" : HIG "\nçœ‹æ¥å¯ä»¥å€Ÿè¿™æ ¹æ ‘è—¤çˆ¬(climb)å‡ºçŸ³çªŸã€‚\n" NOR,
         ]));
         set("exits", ([
               "down"  :  __DIR__"ontree2",
@@ -34,18 +34,18 @@ int do_climb(string arg)
         object ob;
 
         if (! arg || arg != "teng" )
-                return notify_fail("ÄãÒªÍùÄÄ¶ùÅÀ£¿\n");
+                return notify_fail("ä½ è¦å¾€å“ªå„¿çˆ¬ï¼Ÿ\n");
 
         if (! ob = find_object(__DIR__"ligui"))
                 ob = load_object(__DIR__"ligui");
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕıÃ¦×ÅÄØ£¡\n");
+                return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ï¼\n");
 
         if (me->is_fighting())
-                return notify_fail("Äã»¹ÊÇÏÈ°ÑÄãÃæÇ°Õâ¸ö¼Ò»ï½â¾öÁËÔÙËµ¡£\n");
+                return notify_fail("ä½ è¿˜æ˜¯å…ˆæŠŠä½ é¢å‰è¿™ä¸ªå®¶ä¼™è§£å†³äº†å†è¯´ã€‚\n");
 
-        message_vision(HIY "$NË³×ÅÊ÷ÌÙÏòÉÏÅÀÈ¥¡­\n" NOR, me);
+        message_vision(HIY "$Né¡ºç€æ ‘è—¤å‘ä¸Šçˆ¬å»â€¦\n" NOR, me);
 
         me->move(ob);
 
@@ -56,7 +56,7 @@ int do_climb(string arg)
 int valid_leave(object me, string dir)
 {
         if (dir != "down")
-                 write(HIC "ÕâÀïÀëµØÃæÌ«¸ß£¬¿´À´ÄãÖ»ÓĞÌøÏÂÈ¥ÁË¡£\n" NOR);
+                 write(HIC "è¿™é‡Œç¦»åœ°é¢å¤ªé«˜ï¼Œçœ‹æ¥ä½ åªæœ‰è·³ä¸‹å»äº†ã€‚\n" NOR);
 
         return 1;
 }

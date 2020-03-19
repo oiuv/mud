@@ -9,15 +9,15 @@ mixed  ask_txbw();
 
 void create()
 {
-        set_name(WHT "Ê¹Õß" NOR, ({"shi zhe", "shi"}));
-        set("long", "ÌìÏÂ²¼Îä¸ºÔğÈË¡£\n");
-		set("title", YEL "ÌìÏÂ²¼Îä" NOR );
-        set("gender", "ÄĞĞÔ");
+        set_name(WHT "ä½¿è€…" NOR, ({"shi zhe", "shi"}));
+        set("long", "å¤©ä¸‹å¸ƒæ­¦è´Ÿè´£äººã€‚\n");
+		set("title", YEL "å¤©ä¸‹å¸ƒæ­¦" NOR );
+        set("gender", "ç”·æ€§");
         set("age", 45);
 
         set("inquiry", ([
-                "ÌìÏÂ²¼Îä" : (: show_all :),
-                "Ñ§¼¼ÄÜ"     : (: show_all :),
+                "å¤©ä¸‹å¸ƒæ­¦" : (: show_all :),
+                "å­¦æŠ€èƒ½"     : (: show_all :),
         ]));
 		
         setup();
@@ -32,21 +32,21 @@ mixed show_all()
 {
         object me = this_player();
 
-        tell_object(me, "Äã¿ÉÒÔÔÚÕâÀïÑ§Ï°ÌìÏÂÎäÁÖ¸÷ÃÅÅÉµÄÈëÃÅÎä¹¦£¬µ«ĞèÒªÖ§¸¶Ğ¡Ğ¡µÄ·ÑÓÃ£¬Ö±½Ó¿Û´æ¿î(5000 gold)¡£\n"
-						"¸ñÊ½£ºtxbw <¼¼ÄÜÃû³Æ>, ¾ÙÀı£ºtxbw shaolin-shenfa\n\n"
-							"Çá¹¦(dodge)  £ºÉÙÁÖÉí·¨(shaolin-shenfa), ºâÉ½Éí·¨(henshan-shenfa)\n"
-							"×¦·¨(claw)   £ºĞ¡ÇÜÄÃÊÖ(xiao-qinna),     »¢×¥¾ø»§ÊÖ(huzhua-shou)\n"
-							"ÊÖ·¨(hand)   £ºÇàÔÆÊÖ(qingyun-shou),     ÈıÒõÊÖ(sanyin-shou),       ÃÜ×Ú´óÊÖÓ¡(dashou-yin)\n"
-							"È­·¨(cuff)   £º°ËØÔÈ­·¨(bagua-quan),     áÔÉ½È­·¨(songshan-quan),   ÆßĞÇÈ­·¨(qixing-quan)\n"
-							"Ö¸·¨(finger) £º²×ÀËÖ¸·¨(canglang-zhi),   ÖÕÄÏÖ¸·¨(zhongnan-zhi),    Ììî¸Ö¸Ñ¨·¨(tiangang-zhi)\n"
-							"ÕÆ·¨(strike) £º¾øÇéÕÆ(jueqing-zhang),    »ªÉ½ÕÆ·¨(huashan-zhangfa), Åùö¨±¼À×ÕÆ(benlei-zhang)\n"
-							"È­½Å(unarmed)£ºÆÆ±®ÍÈ(pobei-tui),        ÃÀÅ®È­·¨(meinv-quan)\n"
-							"±Ş·¨(whip)   £º²ø»êË÷(chanhun-suo),      Ğ«Î²±Ş(xiewei-bian)\n"
-							"¹÷·¨(club)   £º²ÉÑà¹¦(caiyan-gong),      ½ğÔ³¹÷·¨(jinyuan-gun)\n"
-							"ÕÈ·¨(staff)  £ºÒøº÷ÕÈ·¨(yinhu-zhang),    ÁéÉßÕÈ·¨(lingshe-zhangfa)\n"
-							"µ¶·¨(blade)  £ºÌúÑªµ¶·¨(tiexue-dao),     ´³Íõµ¶·¨(chuangwang-dao)\n"
-							"´¸·¨(hammer) £º·çÀ×ÅÌ·¨(fenglei-panfa),  ÎŞÉÏ´óÁ¦èÆ(dali-chu)\n"
-							"¶Ì±ø(dagger) £ºº×ĞÎ±Ê·¨(hexing-bifa),    ÇåÁ¹´òÑ¨·¨(qingliang-daxuefa)\n\n");
+        tell_object(me, "ä½ å¯ä»¥åœ¨è¿™é‡Œå­¦ä¹ å¤©ä¸‹æ­¦æ—å„é—¨æ´¾çš„å…¥é—¨æ­¦åŠŸï¼Œä½†éœ€è¦æ”¯ä»˜å°å°çš„è´¹ç”¨ï¼Œç›´æ¥æ‰£å­˜æ¬¾(5000 gold)ã€‚\n"
+						"æ ¼å¼ï¼štxbw <æŠ€èƒ½åç§°>, ä¸¾ä¾‹ï¼štxbw shaolin-shenfa\n\n"
+							"è½»åŠŸ(dodge)  ï¼šå°‘æ—èº«æ³•(shaolin-shenfa), è¡¡å±±èº«æ³•(henshan-shenfa)\n"
+							"çˆªæ³•(claw)   ï¼šå°æ“’æ‹¿æ‰‹(xiao-qinna),     è™æŠ“ç»æˆ·æ‰‹(huzhua-shou)\n"
+							"æ‰‹æ³•(hand)   ï¼šé’äº‘æ‰‹(qingyun-shou),     ä¸‰é˜´æ‰‹(sanyin-shou),       å¯†å®—å¤§æ‰‹å°(dashou-yin)\n"
+							"æ‹³æ³•(cuff)   ï¼šå…«å¦æ‹³æ³•(bagua-quan),     åµ©å±±æ‹³æ³•(songshan-quan),   ä¸ƒæ˜Ÿæ‹³æ³•(qixing-quan)\n"
+							"æŒ‡æ³•(finger) ï¼šæ²§æµªæŒ‡æ³•(canglang-zhi),   ç»ˆå—æŒ‡æ³•(zhongnan-zhi),    å¤©ç½¡æŒ‡ç©´æ³•(tiangang-zhi)\n"
+							"æŒæ³•(strike) ï¼šç»æƒ…æŒ(jueqing-zhang),    åå±±æŒæ³•(huashan-zhangfa), éœ¹é›³å¥”é›·æŒ(benlei-zhang)\n"
+							"æ‹³è„š(unarmed)ï¼šç ´ç¢‘è…¿(pobei-tui),        ç¾å¥³æ‹³æ³•(meinv-quan)\n"
+							"é­æ³•(whip)   ï¼šç¼ é­‚ç´¢(chanhun-suo),      èå°¾é­(xiewei-bian)\n"
+							"æ£æ³•(club)   ï¼šé‡‡ç‡•åŠŸ(caiyan-gong),      é‡‘çŒ¿æ£æ³•(jinyuan-gun)\n"
+							"æ–æ³•(staff)  ï¼šé“¶ç‘šæ–æ³•(yinhu-zhang),    çµè›‡æ–æ³•(lingshe-zhangfa)\n"
+							"åˆ€æ³•(blade)  ï¼šé“è¡€åˆ€æ³•(tiexue-dao),     é—¯ç‹åˆ€æ³•(chuangwang-dao)\n"
+							"é”¤æ³•(hammer) ï¼šé£é›·ç›˜æ³•(fenglei-panfa),  æ— ä¸Šå¤§åŠ›æµ(dali-chu)\n"
+							"çŸ­å…µ(dagger) ï¼šé¹¤å½¢ç¬”æ³•(hexing-bifa),    æ¸…å‡‰æ‰“ç©´æ³•(qingliang-daxuefa)\n\n");
         
         return 1;
 }
@@ -92,25 +92,25 @@ int do_txbw(string arg)
 		
 	if (! arg)
         {
-                write("¸ñÊ½£ºtxbw <¼¼ÄÜÃû³Æ>, ¾ÙÀı£ºtxbw shaolin-shenfa\n");
+                write("æ ¼å¼ï¼štxbw <æŠ€èƒ½åç§°>, ä¸¾ä¾‹ï¼štxbw shaolin-shenfa\n");
                 return 1;
         }
 		
 	if (sscanf(arg, "%s", skill) != 1)
         {
-                write("¸ñÊ½£ºtxbw <¼¼ÄÜÃû³Æ>, ¾ÙÀı£ºtxbw shaolin-shenfa\n");
+                write("æ ¼å¼ï¼štxbw <æŠ€èƒ½åç§°>, ä¸¾ä¾‹ï¼štxbw shaolin-shenfa\n");
                 return 1;
         }
 	
 	if ((int)me->query("combat_exp") < 800000)
         {
-                write("ÄãµÄÊµÕ½¾­Ñé²»×ã£¬»¹ÊÇÒª¶àÅ¬Á¦Á·¹¦¡£\n");
+                write("ä½ çš„å®æˆ˜ç»éªŒä¸è¶³ï¼Œè¿˜æ˜¯è¦å¤šåŠªåŠ›ç»ƒåŠŸã€‚\n");
                 return 1;
         }
 
     if ((int)me->query("balance") < 5000 * 100 * 100)//5000gold
         {
-                write("ÄãµÄ´æ¿î²»×ã¡£\n");
+                write("ä½ çš„å­˜æ¬¾ä¸è¶³ã€‚\n");
                 return 1;
         }
 		
@@ -120,7 +120,7 @@ int do_txbw(string arg)
 		{
 			if (me->query_skill(skill_list[i], 1) > 0)
 			{
-				write("Õâ¸ö¼¼ÄÜÄãÒÑ¾­ÕÆÎÕ£¬²»ÒªÔÙÀË·Ñ½ğÇ®ÁË£¡\n");
+				write("è¿™ä¸ªæŠ€èƒ½ä½ å·²ç»æŒæ¡ï¼Œä¸è¦å†æµªè´¹é‡‘é’±äº†ï¼\n");
 				return 1;
 			}
 			else
@@ -136,7 +136,7 @@ int do_txbw(string arg)
 	
 	if (n > 0)
 		{
-                write("¿´Çå³şÁË£¬ÕâÀïÃ»ÓĞÄãÒªÑ§µÄ¼¼ÄÜ£¡\n");
+                write("çœ‹æ¸…æ¥šäº†ï¼Œè¿™é‡Œæ²¡æœ‰ä½ è¦å­¦çš„æŠ€èƒ½ï¼\n");
                 return 1;
         }
 }

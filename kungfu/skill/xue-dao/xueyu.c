@@ -1,4 +1,4 @@
-// xueyu.c ÑªÓê
+// xueyu.c è¡€é›¨
 
 #include <ansi.h>
 
@@ -17,29 +17,29 @@ int perform(object me, object target)
 	        target = me->select_opponent();
         }
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("¡¸ÑªÓê¡¹Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ã€Œè¡€é›¨ã€åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (! objectp(weapon = me->query_temp("weapon")) ||
 	    (string)weapon->query("skill_type") != "blade")
-		return notify_fail("ÄãÊ¹ÓÃµÄÎäÆ÷²»¶Ô¡£\n");
+		return notify_fail("ä½ ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ã€‚\n");
 		
 	if ((int)me->query_skill("xue-dao", 1) < 70)
-		return notify_fail("ÄãµÄÑªµ¶µ¶·¨²»¹»æµÊì£¬²»»áÊ¹ÓÃ¡¸ÑªÓê¡¹¡£\n");
+		return notify_fail("ä½ çš„è¡€åˆ€åˆ€æ³•ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ã€Œè¡€é›¨ã€ã€‚\n");
 	                        
 	if ((int)me->query_skill("force") < 120)
-		return notify_fail("ÄãµÄÄÚ¹¦ÐÞÎª²»¹»¸ß¡£\n");
+		return notify_fail("ä½ çš„å†…åŠŸä¿®ä¸ºä¸å¤Ÿé«˜ã€‚\n");
 			
 	if ((int)me->query("neili") < 100)
-		return notify_fail("ÄãÏÖÔÚÕæÆø²»¹»£¬²»ÄÜÊ¹ÓÃ¡¸ÑªÓê¡¹¡£\n");
+		return notify_fail("ä½ çŽ°åœ¨çœŸæ°”ä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨ã€Œè¡€é›¨ã€ã€‚\n");
 
         if (me->query_skill_mapped("blade") != "xue-dao")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢Ñªµ¶µ¶·¨£¬²»ÄÜÊ¹ÓÃ¡¸ÑªÓê¡¹¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘è¡€åˆ€åˆ€æ³•ï¼Œä¸èƒ½ä½¿ç”¨ã€Œè¡€é›¨ã€ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = HIR "$N" HIR "àÁÄ¿´óºÈ£¬ÊÖÍóÒ»¶¶£¬" + weapon->name() +
-              HIR "ÈçÉÁµçÒ»°ã¿³Ïò$n" HIR "£¡\n"NOR;
+	msg = HIR "$N" HIR "å—”ç›®å¤§å–ï¼Œæ‰‹è…•ä¸€æŠ–ï¼Œ" + weapon->name() +
+              HIR "å¦‚é—ªç”µä¸€èˆ¬ç å‘$n" HIR "ï¼\n"NOR;
 
 	message_combatd(msg, me, target);
 	me->add("neili", -100);

@@ -4,11 +4,11 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ê©´÷×Ó", ({ "shi daizi", "shi", "daizi" }) );
-        set("gender", "ÄĞĞÔ");
+        set_name("æ–½æˆ´å­", ({ "shi daizi", "shi", "daizi" }) );
+        set("gender", "ç”·æ€§");
         set("age", 22);
         set("long",
-                "Ê©´÷×ÓÊÇÔÀ²»ÈºµÄµÚËÄÎ»µÜ×Ó¡£\n");
+                "æ–½æˆ´å­æ˜¯å²³ä¸ç¾¤çš„ç¬¬å››ä½å¼Ÿå­ã€‚\n");
         set("attitude", "peaceful");
         set("str", 26);
         set("con", 30);
@@ -50,7 +50,7 @@ void create()
         map_skill("unarmed", "huashan-quanfa");
         map_skill("dodge", "feiyan-huixiang");
 
-        create_family("»ªÉ½ÅÉ", 14, "µÜ×Ó");
+        create_family("åå±±æ´¾", 14, "å¼Ÿå­");
 
         setup();
 

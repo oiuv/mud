@@ -7,12 +7,12 @@ inherit F_GUARDER;
 
 void create()
 {
-        set_name("Ñî³ÉÐ­", ({ "yang chengxie", "yang", "chengxie"}));
-        set("title", "ºì»¨»á°Ëµ±¼Ò");
-        set("nickname", WHT "ÌúËþ" NOR);
-        set("long", "Ëû¾ÍÊÇÑî³ÉÐ­£¬Ö»¼ûËûÓÖ·ÊÓÖ¸ß£¬ÊÖÖ´¸Ö±Þ£¬\n"
-                    "±ÞÉíÉõÊÇ´ÖÖØ£¬¿´Ä£ÑùÉÙËµÒ²ÓÐÈýÊ®À´½ï¡£\n");
-        set("gender", "ÄÐÐÔ");
+        set_name("æ¨æˆå", ({ "yang chengxie", "yang", "chengxie"}));
+        set("title", "çº¢èŠ±ä¼šå…«å½“å®¶");
+        set("nickname", WHT "é“å¡”" NOR);
+        set("long", "ä»–å°±æ˜¯æ¨æˆåï¼Œåªè§ä»–åˆè‚¥åˆé«˜ï¼Œæ‰‹æ‰§é’¢éž­ï¼Œ\n"
+                    "éž­èº«ç”šæ˜¯ç²—é‡ï¼Œçœ‹æ¨¡æ ·å°‘è¯´ä¹Ÿæœ‰ä¸‰åæ¥æ–¤ã€‚\n");
+        set("gender", "ç”·æ€§");
         set("age", 28);
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -58,14 +58,14 @@ void create()
         }));
 
         set("guarder", ([
-                "refuse_other": CYN "$N" CYN "¶Ô$n" CYN "ÀäºÈµÀ£º"
-                                "Äã¸øÎÒÕ¾×¡£¡ÎÒÃÇºì»¨»áÆñÊÇÓÉµÃÍâ"
-                                "ÈËËæ±ã×ß¶¯µØ·½£¿" NOR,
-                "refuse_carry": CYN "$N" CYN "¶Ô$n" CYN "ºÈµÀ£ºÄã"
-                                "±³ÉÏ±³µÄÊÇÊ²Ã´ÈË£¿¸øÎÒ·ÅÏÂÀ´£¡" NOR,
+                "refuse_other": CYN "$N" CYN "å¯¹$n" CYN "å†·å–é“ï¼š"
+                                "ä½ ç»™æˆ‘ç«™ä½ï¼æˆ‘ä»¬çº¢èŠ±ä¼šå²‚æ˜¯ç”±å¾—å¤–"
+                                "äººéšä¾¿èµ°åŠ¨åœ°æ–¹ï¼Ÿ" NOR,
+                "refuse_carry": CYN "$N" CYN "å¯¹$n" CYN "å–é“ï¼šä½ "
+                                "èƒŒä¸ŠèƒŒçš„æ˜¯ä»€ä¹ˆäººï¼Ÿç»™æˆ‘æ”¾ä¸‹æ¥ï¼" NOR,
         ]));
 
-        create_family("ºì»¨»á", 4, "¶þµ±¼Ò");
+        create_family("çº¢èŠ±ä¼š", 4, "äºŒå½“å®¶");
 
         set("chat_chance_combat", 100);
         set("chat_msg_combat", ({
@@ -86,12 +86,12 @@ void attempt_apprentice(object me)
 
         if ((int)me->query("shen") < -1000)
         {
-                command("say ÎÒºì»¨»á²»ÊÕ²»ÒåÖ®ÈË£¬Äã»¹ÊÇ×ß°É¡£");
+                command("say æˆ‘çº¢èŠ±ä¼šä¸æ”¶ä¸ä¹‰ä¹‹äººï¼Œä½ è¿˜æ˜¯èµ°å§ã€‚");
                 return;
         }
 
         command("nod");
-        command("say àÅ¡£ÄÇÄãÒÔºó¸ú×ÅÎÒºÃÁË¡£");
+        command("say å—¯ã€‚é‚£ä½ ä»¥åŽè·Ÿç€æˆ‘å¥½äº†ã€‚");
         command("recruit " + me->query("id"));
 }
 
@@ -109,8 +109,8 @@ void hit_ob(object me, object ob, int damage_bonus)
 
         if (guard1 && ! guard1->is_fighting())
         {
-                message_vision (HIW "\n½¯ËÄ¸ù´óÅ­£¬ºÈµÀ£º¾ÓÈ»ÆÛµ½ÎÒÃÇºì»¨»á"
-                                "Í·ÉÏÀ´ÁË£¬´ó¼Ò²¢¼ç×ÓÉÏ£¡\n\n" NOR, guard1);
+                message_vision (HIW "\nè’‹å››æ ¹å¤§æ€’ï¼Œå–é“ï¼šå±…ç„¶æ¬ºåˆ°æˆ‘ä»¬çº¢èŠ±ä¼š"
+                                "å¤´ä¸Šæ¥äº†ï¼Œå¤§å®¶å¹¶è‚©å­ä¸Šï¼\n\n" NOR, guard1);
                 guard1->kill_ob(ob);
         }
 
@@ -142,8 +142,8 @@ void kill_ob(object ob)
 
         if (guard1 && ! guard1->is_fighting())
         {
-                message_vision (HIW "\n½¯ËÄ¸ù´óÅ­£¬ºÈµÀ£º¾ÓÈ»ÆÛµ½ÎÒÃÇºì»¨»á"
-                                "Í·ÉÏÀ´ÁË£¬´ó¼Ò²¢¼ç×ÓÉÏ£¡\n\n" NOR, guard1);
+                message_vision (HIW "\nè’‹å››æ ¹å¤§æ€’ï¼Œå–é“ï¼šå±…ç„¶æ¬ºåˆ°æˆ‘ä»¬çº¢èŠ±ä¼š"
+                                "å¤´ä¸Šæ¥äº†ï¼Œå¤§å®¶å¹¶è‚©å­ä¸Šï¼\n\n" NOR, guard1);
                 guard1->kill_ob(ob);
         }
 

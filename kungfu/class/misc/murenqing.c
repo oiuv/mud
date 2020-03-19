@@ -6,10 +6,10 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("ÄÂÈËÇå", ({ "mu renqing", "mu", "renqing" }));
-	set("title", HIY "È­½£ÎŞË«" NOR);
+	set_name("ç©†äººæ¸…", ({ "mu renqing", "mu", "renqing" }));
+	set("title", HIY "æ‹³å‰‘æ— åŒ" NOR);
 
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set("attitude", "peaceful");
 	set("shen_type", 1);
 
@@ -54,7 +54,7 @@ void create()
 	map_skill("sword", "huashan-jian");
 	map_skill("strike", "hunyuan-zhang");
 
-	create_family("»ªÉ½ÅÉ", 18, "µÜ×Ó");
+	create_family("åå±±æ´¾", 18, "å¼Ÿå­");
 
 	set("chat_chance_combat", 120);
 	set("chat_msg_combat", ({

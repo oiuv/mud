@@ -11,14 +11,14 @@ inherit F_COAGENT;
 
 void create()
 {
-	set_name("“ÛÃÏ’˝", ({"yin tianzheng", "yin", "tianzheng", }));
+	set_name("ÊÆ∑Â§©Ê≠£", ({"yin tianzheng", "yin", "tianzheng", }));
 	set("long",
-        "À˚ «“ªŒª…Ì≤ƒø˝Œ‡µƒÕ∫¿œ’ﬂ£¨…Ì¥©“ªº˛∞◊…´≥§≈€°£\n"
-        "À˚≥§√º §—©£¨¥πœ¬—€Ω«£¨±«◊”π≥«˙£¨”Ã»Á”•◊Ï°£\n"
+        "‰ªñÊòØ‰∏Ä‰ΩçË∫´ÊùêÈ≠ÅÊ¢ßÁöÑÁßÉËÄÅËÄÖÔºåË∫´Á©ø‰∏Ä‰ª∂ÁôΩËâ≤ÈïøË¢ç„ÄÇ\n"
+        "‰ªñÈïøÁúâËÉúÈõ™ÔºåÂûÇ‰∏ãÁúºËßíÔºåÈºªÂ≠êÈí©Êõ≤ÔºåÁäπÂ¶ÇÈπ∞Âò¥„ÄÇ\n"
 	);
                                                           
-	set("title",HIR "√˜ΩÃ" HIW "∞◊√º”•Õı" NOR);
-	set("gender", "ƒ––‘");
+	set("title",HIR "ÊòéÊïô" HIW "ÁôΩÁúâÈπ∞Áéã" NOR);
+	set("gender", "Áî∑ÊÄß");
 	set("attitude", "peaceful");
 
 	set("age", 72);
@@ -67,7 +67,7 @@ void create()
 		(: command("perform strike.jue") :),
 		(: command("perform finger.feng") :),
 	}) );
-	create_family("√˜ΩÃ", 36, "µ‹◊”");
+	create_family("ÊòéÊïô", 36, "ÂºüÂ≠ê");
 
         set_temp("apply/attack", 150);
         set_temp("apply/damage", 150);
@@ -97,24 +97,24 @@ void attempt_apprentice(object ob)
 
         if ((int)ob->query("shen") < 60000)
         {
-                command("say ƒ„––œ¿’Ã“Âµƒ ¬◊ˆµ√ªπ≤ªπª£¨ªπ ««Îªÿ∞…°£");
+                command("say ‰Ω†Ë°å‰æ†‰ªó‰πâÁöÑ‰∫ãÂÅöÂæóËøò‰∏çÂ§üÔºåËøòÊòØËØ∑ÂõûÂêß„ÄÇ");
                 return;
         }
       
         if (ob->query_skill("shenghuo-xinfa", 1) < 180)
         {       
-                command("say ƒ„ •ª–ƒ∑®≤ªπªÊµ Ï£¨ªπ «œ¬»•∂‡¡∑œ∞“ªœ¬∞…£°");
+                command("say ‰Ω†Âú£ÁÅ´ÂøÉÊ≥ï‰∏çÂ§üÂ®¥ÁÜüÔºåËøòÊòØ‰∏ãÂéªÂ§öÁªÉ‰π†‰∏Ä‰∏ãÂêßÔºÅ");
                 return ;
         }
 
         if (ob->query("combat_exp") <450000)
         {
-                command("say ƒ„Ω≠∫˛æ≠—È≤ª◊„£¨ªπ «∂‡ƒ•¡∑“ªœ¬∞…£°");
+                command("say ‰Ω†Ê±üÊπñÁªèÈ™å‰∏çË∂≥ÔºåËøòÊòØÂ§öÁ£®ÁªÉ‰∏Ä‰∏ãÂêßÔºÅ");
                 return;
         }
 
         command("nod");
-        command("say ∫√£¨∫√£¨ΩÒ»’Œ“æÕ ’ƒ„Œ™µ‹◊”°£");
+        command("say Â•ΩÔºåÂ•ΩÔºå‰ªäÊó•ÊàëÂ∞±Êî∂‰Ω†‰∏∫ÂºüÂ≠ê„ÄÇ");
         command("recruit " + ob->query("id"));
 }
 
@@ -123,10 +123,10 @@ int accept_ask(object me, string topic)
         switch (topic)
         {
 
-        case "∑‚…±" :
+        case "Â∞ÅÊùÄ" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/tougu-zhen/feng",
-                           "name"    : "∑‚…±",
+                           "name"    : "Â∞ÅÊùÄ",
                            "sk1"     : "tougu-zhen",
                            "lv1"     : 100,
                            "force"   : 260,
@@ -135,10 +135,10 @@ int accept_ask(object me, string topic)
                            "shen"    : 68000, ]));
                 break;
 
-        case "æ¯…±" :
+        case "ÁªùÊùÄ" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/yinfeng-dao/jue",
-                           "name"    : "æ¯…±",
+                           "name"    : "ÁªùÊùÄ",
                            "sk1"     : "yinfeng-dao",
                            "lv1"     : 140,
                            "force"   : 260,

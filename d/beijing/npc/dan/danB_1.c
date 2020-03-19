@@ -4,11 +4,11 @@ inherit COMBINED_ITEM;
 
 void create()
 {
-        set_name(YEL"Ð¡»¹µ¤"NOR, ({"xiaohuan dan", "dan"}));
+        set_name(YEL"å°è¿˜ä¸¹"NOR, ({"xiaohuan dan", "dan"}));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("base_unit", "Á£");
+                set("base_unit", "ç²’");
                 set("base_value", 50);
                 set("only_do_effect", 1);
         }
@@ -22,20 +22,20 @@ int do_effect(object me)
 
         if (time() - me->query_temp("last_eat/dan(B)") < 10)
         {
-                write("Äã¸Õ·þÓÃ¹ýÒ©£¬ÐèÒ©ÐÔ·¢»ÓÍêÐ§ÓÃÒÔºó²ÅÄÜ¼ÌÐø·þÓÃ¡£\n");
+                write("ä½ åˆšæœç”¨è¿‡è¯ï¼Œéœ€è¯æ€§å‘æŒ¥å®Œæ•ˆç”¨ä»¥åŽæ‰èƒ½ç»§ç»­æœç”¨ã€‚\n");
                 return 1;
         }
 
         my = me->query_entire_dbase();
         if (my["qi"] == my["max_qi"])
         {
-                write("ÄãÏÖÔÚÌåÁ¦³äÅæ£¬ÎÞÐè·þÓÃ" + name() + "¡£\n");
+                write("ä½ çŽ°åœ¨ä½“åŠ›å……æ²›ï¼Œæ— éœ€æœç”¨" + name() + "ã€‚\n");
                 return 1;
         }
 
         me->set_temp("last_eat/dan(B)", time());
 
-        message_vision(YEL "$N³ÔÏÂÒ»Á£Ð¡»¹µ¤£¬¸Ðµ½ÄÚÏ¢µÃµ½ÁËµ÷Õû¡£\n" NOR, me);
+        message_vision(YEL "$Nåƒä¸‹ä¸€ç²’å°è¿˜ä¸¹ï¼Œæ„Ÿåˆ°å†…æ¯å¾—åˆ°äº†è°ƒæ•´ã€‚\n" NOR, me);
         me->receive_curing("qi", 100);
         me->receive_heal("qi", 100);
 

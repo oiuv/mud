@@ -6,20 +6,20 @@ inherit BOOK;
 
 void create()
 {
-    set_name( "µÀµÂ¾­¡¸µÚÊ®ÁùÕÂ¡¹", ({ "jing", "daode jing" }));
+    set_name( "é“å¾·ç»ã€Œç¬¬åå…­ç« ã€", ({ "jing", "daode jing" }));
     set_weight(200);
     if( clonep() )
         set_default_object(__FILE__);
     else {
-        set("unit", "±¾");
+        set("unit", "æœ¬");
         set("long",
             CYN "\n"
-            "\n\t\t\tµÚÊ®Áù\n\n"
-            "\tÖÂÐé¼«£¬ÊØ¾²óÆ¡£\n"
-            "\tÍòÎï²¢×÷£¬ÎáÒÔ¹Û¸´¡£\n"
-            "\t·òÎïÜ¿Ü¿£¬¸÷¸´¹éÆä¸ù¡£¹é¸ùÔ»¾²£¬¾²Ô»¸´Ãü¡£¸´ÃüÔ»³££¬Öª³£\n"
-            "Ô»Ã÷¡£²»Öª³££¬Íý×÷Ð×¡£\n"
-            "\tÖª³£ÈÝ£¬ÈÝÄË¹«£¬¹«ÄËÈ«£¬È«ÄËÌì£¬ÌìÄËµÀ£¬µÀÄË¾Ã£¬Ã»Éí²»´ù¡£\n"
+            "\n\t\t\tç¬¬åå…­\n\n"
+            "\tè‡´è™šæžï¼Œå®ˆé™ç¬ƒã€‚\n"
+            "\tä¸‡ç‰©å¹¶ä½œï¼Œå¾ä»¥è§‚å¤ã€‚\n"
+            "\tå¤«ç‰©èŠ¸èŠ¸ï¼Œå„å¤å½’å…¶æ ¹ã€‚å½’æ ¹æ›°é™ï¼Œé™æ›°å¤å‘½ã€‚å¤å‘½æ›°å¸¸ï¼ŒçŸ¥å¸¸\n"
+            "æ›°æ˜Žã€‚ä¸çŸ¥å¸¸ï¼Œå¦„ä½œå‡¶ã€‚\n"
+            "\tçŸ¥å¸¸å®¹ï¼Œå®¹ä¹ƒå…¬ï¼Œå…¬ä¹ƒå…¨ï¼Œå…¨ä¹ƒå¤©ï¼Œå¤©ä¹ƒé“ï¼Œé“ä¹ƒä¹…ï¼Œæ²¡èº«ä¸æ®†ã€‚\n"
             "\n"NOR
         );
         set("value", 500);

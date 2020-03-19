@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <combat.h>
 
-#define LIAN "¡¸" HIW "ÎåÂÖÁ¬×ª" NOR "¡¹"
+#define LIAN "ã€Œ" HIW "äº”è½®è¿žè½¬" NOR "ã€"
 
 inherit F_SSERVER;
  
@@ -12,40 +12,40 @@ int perform(object me, object target)
         int i, count;
 
         if (userp(me) && ! me->query("can_perform/riyue-lun/lian"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖÐÃ»ÓÐÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
 	if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
-                return notify_fail(LIAN "Ö»ÄÜ¶ÔÕ½¶·ÖÐµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(LIAN "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon"))
            || (string)weapon->query("skill_type") != "hammer")
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÎäÆ÷²»¶Ô£¬ÄÑÒÔÊ©Õ¹" LIAN "¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„æ­¦å™¨ä¸å¯¹ï¼Œéš¾ä»¥æ–½å±•" LIAN "ã€‚\n");
 
         if (me->query_skill_mapped("hammer") != "riyue-lun")
-                return notify_fail("ÄãÃ»ÓÐ¼¤·¢ÈÕÔÂÂÖ·¨£¬ÄÑÒÔÊ©Õ¹" LIAN "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘æ—¥æœˆè½®æ³•ï¼Œéš¾ä»¥æ–½å±•" LIAN "ã€‚\n");
 
         if ((int)me->query_skill("riyue-lun", 1) < 150)
-                return notify_fail("ÄãÈÕÔÂÂÖ·¨»ðºò²»×ã£¬ÄÑÒÔÊ©Õ¹" LIAN "¡£\n");
+                return notify_fail("ä½ æ—¥æœˆè½®æ³•ç«å€™ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" LIAN "ã€‚\n");
 
         if ((int)me->query_skill("force") < 250)
-                return notify_fail("ÄãµÄÄÚ¹¦»ðºò²»×ã£¬ÄÑÒÔÊ©Õ¹" LIAN "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" LIAN "ã€‚\n");
 
         if ((int)me->query("max_neili") < 3000)
-                return notify_fail("ÄãµÄÄÚÁ¦ÐÞÎª²»×ã£¬ÄÑÒÔÊ©Õ¹" LIAN "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" LIAN "ã€‚\n");
 
         if ((int)me->query("neili") < 500)
-                return notify_fail("ÄãÏÖÔÚµÄÕæÆø²»×ã£¬ÄÑÒÔÊ©Õ¹" LIAN "¡£\n");
+                return notify_fail("ä½ çŽ°åœ¨çš„çœŸæ°”ä¸è¶³ï¼Œéš¾ä»¥æ–½å±•" LIAN "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
         wp = weapon->name();
 
-        msg = HIY "$N" HIY "àÁÄ¿´óºÈ£¬Ê©Õ¹³öÈÕÔÂÂÖ·¨¡¸" HIW "ÎåÂÖÁ¬×ª"
-              HIY "¡¹Éñ¼¼£¬ÝëµØ½«ÊÖÖÐ" + wp + HIY "·ÉÖÀ\n¶ø³ö£¬»Ã×÷Êý"
-              "µÀ¹âÃ¢£¬Ïà»¥ÅÌÐý×ÅÑ¹Ïò$n" HIY "£¬ÕÐÊõÉ·Îª¾«Ææ£¡\n" NOR;
+        msg = HIY "$N" HIY "å—”ç›®å¤§å–ï¼Œæ–½å±•å‡ºæ—¥æœˆè½®æ³•ã€Œ" HIW "äº”è½®è¿žè½¬"
+              HIY "ã€ç¥žæŠ€ï¼Œè“¦åœ°å°†æ‰‹ä¸­" + wp + HIY "é£žæŽ·\nè€Œå‡ºï¼Œå¹»ä½œæ•°"
+              "é“å…‰èŠ’ï¼Œç›¸äº’ç›˜æ—‹ç€åŽ‹å‘$n" HIY "ï¼Œæ‹›æœ¯ç…žä¸ºç²¾å¥‡ï¼\n" NOR;
         message_combatd(msg, me, target);
 
         if ((int)me->query_skill("longxiang-gong", 1) < 90)
@@ -67,29 +67,29 @@ int perform(object me, object target)
                         switch (i)
                         {
                         case 0:
-                                msg = WHT "Í»È»¼äÎýÂÖ´ÓÈÕÔÂ½ðÂÖÖÐ·ÖÀë"
-                                      "¿ªÀ´£¬»¯×÷Ò»µÀ»ÒÃ¢³¯$n" WHT "ÔÒ"
-                                      "È¥¡£\n" NOR;
+                                msg = WHT "çªç„¶é—´é”¡è½®ä»Žæ—¥æœˆé‡‘è½®ä¸­åˆ†ç¦»"
+                                      "å¼€æ¥ï¼ŒåŒ–ä½œä¸€é“ç°èŠ’æœ$n" WHT "ç ¸"
+                                      "åŽ»ã€‚\n" NOR;
                                 break;
                         case 1:
-                                msg = HIR "Í»È»¼äÌúÂÖ´ÓÈÕÔÂ½ðÂÖÖÐ·ÖÀë"
-                                      "¿ªÀ´£¬»¯×÷Ò»µÀºìÃ¢³¯$n" HIR "ÔÒ"
-                                      "È¥¡£\n" NOR;
+                                msg = HIR "çªç„¶é—´é“è½®ä»Žæ—¥æœˆé‡‘è½®ä¸­åˆ†ç¦»"
+                                      "å¼€æ¥ï¼ŒåŒ–ä½œä¸€é“çº¢èŠ’æœ$n" HIR "ç ¸"
+                                      "åŽ»ã€‚\n" NOR;
                                 break;
                         case 2:
-                                msg = YEL "Í»È»¼äÍ­ÂÖ´ÓÈÕÔÂ½ðÂÖÖÐ·ÖÀë"
-                                      "¿ªÀ´£¬»¯×÷Ò»µÀ»ÆÃ¢³¯$n" YEL "ÔÒ"
-                                      "È¥¡£\n" NOR;
+                                msg = YEL "çªç„¶é—´é“œè½®ä»Žæ—¥æœˆé‡‘è½®ä¸­åˆ†ç¦»"
+                                      "å¼€æ¥ï¼ŒåŒ–ä½œä¸€é“é»„èŠ’æœ$n" YEL "ç ¸"
+                                      "åŽ»ã€‚\n" NOR;
                                 break;
                         case 3:
-                                msg = HIW "Í»È»¼äÒøÂÖ´ÓÈÕÔÂ½ðÂÖÖÐ·ÖÀë"
-                                      "¿ªÀ´£¬»¯×÷Ò»µÀÒøÃ¢³¯$n" HIW "ÔÒ"
-                                      "È¥¡£\n" NOR;
+                                msg = HIW "çªç„¶é—´é“¶è½®ä»Žæ—¥æœˆé‡‘è½®ä¸­åˆ†ç¦»"
+                                      "å¼€æ¥ï¼ŒåŒ–ä½œä¸€é“é“¶èŠ’æœ$n" HIW "ç ¸"
+                                      "åŽ»ã€‚\n" NOR;
                                 break;
                         default:
-                                msg = HIY "Í»È»¼ä½ðÂÖ´ÓÈÕÔÂ½ðÂÖÖÐ·ÖÀë"
-                                      "¿ªÀ´£¬»¯×÷Ò»µÀ½ðÃ¢³¯$n" HIY "ÔÒ"
-                                      "È¥¡£\n" NOR;
+                                msg = HIY "çªç„¶é—´é‡‘è½®ä»Žæ—¥æœˆé‡‘è½®ä¸­åˆ†ç¦»"
+                                      "å¼€æ¥ï¼ŒåŒ–ä½œä¸€é“é‡‘èŠ’æœ$n" HIY "ç ¸"
+                                      "åŽ»ã€‚\n" NOR;
                                 break;
                         }
                         message_combatd(msg, me, target);

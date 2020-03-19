@@ -1,13 +1,13 @@
-// youke.c ÓÎ¿Í
+// youke.c æ¸¸å®¢
 
 inherit NPC;
 
 void create()
 {
-	set_name("ÓÎ¿Í", ({ "youke" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("æ¸¸å®¢", ({ "youke" }));
+	set("gender", "ç”·æ€§");
 	set("age", 20 + random(30));
-	set("long", "Ò»¸öÔ¶µÀÀ´µÄºº×åÓÎ¿Í£¬·ç³¾ÆÍÆÍ£¬µ«ÏÔÈ»ÎªÑÛÇ°ÃÀ¾°Ëù¶¯£¬ĞË¸ß²ÊÁÒ¡£\n");
+	set("long", "ä¸€ä¸ªè¿œé“æ¥çš„æ±‰æ—æ¸¸å®¢ï¼Œé£å°˜ä»†ä»†ï¼Œä½†æ˜¾ç„¶ä¸ºçœ¼å‰ç¾æ™¯æ‰€åŠ¨ï¼Œå…´é«˜å½©çƒˆã€‚\n");
 	set_skill("unarmed", 20);
 	set_skill("dodge", 20);
 	set("apply/attack", 15);

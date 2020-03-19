@@ -1,12 +1,12 @@
-// midao7.c ÃÜµÀ
+// midao7.c å¯†é“
 
 inherit ROOM;
 
 void create()
 {
-        set("short", "ÃØÃÜÍ¨µÀ");
+        set("short", "ç§˜å¯†é€šé“");
         set("long", @LONG
-ÕâÊÇÒ»¸öÊ¯ÊÒ£¬µØÉÏºÍ½ÇÂä¶¼ÊÇ»Ò³¾£¬´ó¸ÅºÃ¾ÃÃ»ÈËÀ´¹ıÁË¡£
+è¿™æ˜¯ä¸€ä¸ªçŸ³å®¤ï¼Œåœ°ä¸Šå’Œè§’è½éƒ½æ˜¯ç°å°˜ï¼Œå¤§æ¦‚å¥½ä¹…æ²¡äººæ¥è¿‡äº†ã€‚
 LONG );
        set("exits", ([
                "east"    : __DIR__"midao6",
@@ -20,7 +20,7 @@ LONG );
 int valid_leave(object me,string dir)
 {
         if (dir == "out")
-                tell_object(me,"Äã×ß³öÁËÃØÃÜÍ¨µÀ£¬ÉñÃØµØ³öÏÖÔÚ´óÌüÖ®ÖĞ¡£\n");
+                tell_object(me,"ä½ èµ°å‡ºäº†ç§˜å¯†é€šé“ï¼Œç¥ç§˜åœ°å‡ºç°åœ¨å¤§å…ä¹‹ä¸­ã€‚\n");
 
         return ::valid_leave(me,dir);
 }

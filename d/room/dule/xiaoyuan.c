@@ -1,15 +1,15 @@
-// xiaoyuan.c ���־�СԺ
+// xiaoyuan.c 独乐居小院
 
 //** inherit PRIVATE_ROOM;
 inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "СԺ");             /* EXAMPLE */
-//**    set("short", "ROOM_NAMEСԺ");
+	set("short", "小院");             /* EXAMPLE */
+//**    set("short", "ROOM_NAME小院");
 	set("long", @LONG
-������һ�������Ժ�ӣ����������˼���������������ɢɢ��һЩ��
-��ҶƬ��Ժ�����ڣ�����Ժ�Ӿ���һ��С�ݣ��ǳ����¡�
+这里是一个不大的院子，角落里栽了几棵树，地上零零散散有一些碎
+落叶片。院门虚掩，穿过院子就是一个小屋，非常精致。
 LONG );
 
 //**    set("room_key", "ROOM_KEY");

@@ -1,4 +1,4 @@
-// diamond.c ×êÊ¯
+// diamond.c é’»çŸ³
 
 #include <ansi.h>
 #include <armor.h>
@@ -7,19 +7,19 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIW "×êÊ¯" NOR, ({ "diamond" }) );
+	set_name(HIW "é’»çŸ³" NOR, ({ "diamond" }) );
 	set_weight(30);
 	if( clonep() )
 		set_default_object(__FILE__);
         else {
-	        set("long", HIW "Ò»Á£¾«¹âÉÁÉÁµÄ×êÊ¯¡£\n" NOR);
+	        set("long", HIW "ä¸€ç²’ç²¾å…‰é—ªé—ªçš„é’»çŸ³ã€‚\n" NOR);
                 set("value", 50000);
-		set("unit", "Á£");
+		set("unit", "ç²’");
                 set("armor_prop/per", 5);
-                set("wear_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´÷ÔÚÍ·ÉÏ¡£\n" NOR);
-                set("remove_msg", HIC "$N" HIC "ÇáÇáµØ°Ñ$n"
-                    HIC "´ÓÍ·ÉÏÕªÁËÏÂÀ´¡£\n" NOR);
+                set("wear_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "æˆ´åœ¨å¤´ä¸Šã€‚\n" NOR);
+                set("remove_msg", HIC "$N" HIC "è½»è½»åœ°æŠŠ$n"
+                    HIC "ä»å¤´ä¸Šæ‘˜äº†ä¸‹æ¥ã€‚\n" NOR);
 	}
         setup();
 }

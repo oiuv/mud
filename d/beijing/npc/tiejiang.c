@@ -3,11 +3,11 @@ inherit "/inherit/char/smith.c";
 
 void create()
 {
-        set_name("Ìú½³", ({ "tie jiang", "tie", "jiang" }) );
-        set("gender", "ÄĞĞÔ" );
+        set_name("é“åŒ ", ({ "tie jiang", "tie", "jiang" }) );
+        set("gender", "ç”·æ€§" );
         set("age", 37);
         set("long",
-                "Ò»¸öÆ¤·ô÷îºÚµÄÖĞÄê´òÌú½³¡£\n");
+                "ä¸€ä¸ªçš®è‚¤é»é»‘çš„ä¸­å¹´æ‰“é“åŒ ã€‚\n");
         set("shen_type", 1);
         set("combat_exp", 20000);
         set("str", 20);
@@ -19,7 +19,7 @@ void create()
         set_skill("unarmed", 20);
         set("chat_chance", 1);
         set("chat_msg", ({
-                CYN "Ìú½³²ÁÁË²Áº¹£¬ÓÖ¼ÌĞøÂôÁ¦µÄ´ò×ÅÌú¡£\n" NOR,
+                CYN "é“åŒ æ“¦äº†æ“¦æ±—ï¼Œåˆç»§ç»­å–åŠ›çš„æ‰“ç€é“ã€‚\n" NOR,
         }) );       
 
         setup();

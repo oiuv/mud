@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ǰ��");
+	set("short", "前厅");
         set("long",@long
-�����������������ܴ��ߣ�ʮ�ֵļ���׳�������ڰڼ���
-�߱����Σ�һ�Ű������������ǽӴ����˵ĵط�������Ͷ���
-Ҳ�ǿ�����������ЪϢ������һ������ͨ����档
+这里是座大厅，高檐大瓦，十分的简朴壮阔，厅内摆几张
+高背方椅，一张八仙桌，看来是接待客人的地方，西面和东面
+也是客厅，供客人歇息，南面一条长廊通向后面。
 long);
         set("exits",([
 		"north" : __DIR__"pingfeng",

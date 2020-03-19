@@ -1,4 +1,4 @@
-// qiuhang.c Çñº½ 
+// qiuhang.c é‚±èˆª 
 
 #include <ansi.h>
 
@@ -7,16 +7,16 @@ inherit F_DEALER;
 
 void create()
 {
-	set_name("Çñº½", ({ "qiu hang", "qiu" }));
-	set("title", "µ±ÆÌÀÏ°å");
-	set("nickname", "ÀÏ»¬Í·");
+	set_name("é‚±èˆª", ({ "qiu hang", "qiu" }));
+	set("title", "å½“é“ºè€æ¿");
+	set("nickname", "è€æ»‘å¤´");
 	set("shen_type", 0);
 
-	set("gender", "ÄĞĞÔ");
+	set("gender", "ç”·æ€§");
 	set_max_encumbrance(100000000);
 	set("age", 55);
 	set("str", 100);
-	set("long", "Ò»¸öÀÏ¼éÉÌ£¬ÄãÒª±»Ô×ÁË£¡\n");
+	set("long", "ä¸€ä¸ªè€å¥¸å•†ï¼Œä½ è¦è¢«å®°äº†ï¼\n");
 	set("no_get_from", 1);
 
 	set_skill("unarmed", 60);
@@ -42,6 +42,6 @@ void init()
 
 void die()
 {
-	message_vision("\n$NËÀÁË¡£\n", this_object());
+	message_vision("\n$Næ­»äº†ã€‚\n", this_object());
 	destruct(this_object());
 }

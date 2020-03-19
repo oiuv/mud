@@ -1,17 +1,17 @@
-//wuxingfu.c ÎåĞĞµÜ×Ó·ş
+//wuxingfu.c äº”è¡Œå¼Ÿå­æœ
 #include <armor.h>
 inherit CLOTH;
 
 void create()
 {
-        set_name("ÎåĞĞ·ş", ({ "wuxingfu" }));
-        set("long", "ÕâÊÇÎåĞĞµÜ×ÓÁ·¹¦·ş¡£\n");
+        set_name("äº”è¡Œæœ", ({ "wuxingfu" }));
+        set("long", "è¿™æ˜¯äº”è¡Œå¼Ÿå­ç»ƒåŠŸæœã€‚\n");
         set_weight(2000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
                 set("material", "cloth");
-                set("unit", "¼ş");
+                set("unit", "ä»¶");
                 set("value", 200);
                 set("armor_prop/armor", 50);
         }

@@ -11,11 +11,11 @@ string* books = ({
 
 void create()
 {
-        set("short", "�鷿");
+        set("short", "书房");
         set("long", @LONG
-�������鷿����ǽ��һ����ܣ������˵������ָ������ɵ��书
-�ܽ塣ʯ���м����ʯ���ͼ���ʯ�ʣ����͵���ľ����������������
-���顣
+这里是书房，靠墙是一排书架，摆满了当今武林各个门派的武功
+密藉。石洞中间放着石桌和几个石凳，侠客岛龙木二岛主常常在这里
+读书。
 LONG );
         set("exits", ([
                 "west" : __DIR__"dating"

@@ -5,12 +5,12 @@ int do_lianzhi(string arg);
 
 void create()
 {
-        set("short", "Á·¶¾ÊÒ");
+        set("short", "ç»ƒæ¯’å®¤");
         set("long", @LONG
-ÕâÀïÊÇÎå¶¾½ÌµÜ×Ó×¨ÃÅµÄÁ·¶¾ÊÒ£¬¿ÉÒÔÔÚÕâÀïÁ·ÖÆ¸÷ÖÖ¶¾
-Ò©£¬°¸ÉÏ°Ú×Å¸÷Ê½¸÷ÑùµÄÆ÷¾ß¡£ÎİÄÚÕıÖĞ·Å×ÅÒ»¸öÒ»ÈË¶à¸ßµÄ
-µ¤Â¯£¬Â¯»ğÕıÍú£¬ÓĞ¸öºÚÊİµÄµÀÈËÕıÊÖ³ÖÌÒÄ¾½£ÈÆÂ¯¼²×ß£¬×ì
-ÀïÄÅÄÅ×ÔÓï²»ÖªÔÚÄîĞ©Ê²Ã´¡£
+è¿™é‡Œæ˜¯äº”æ¯’æ•™å¼Ÿå­ä¸“é—¨çš„ç»ƒæ¯’å®¤ï¼Œå¯ä»¥åœ¨è¿™é‡Œç»ƒåˆ¶å„ç§æ¯’
+è¯ï¼Œæ¡ˆä¸Šæ‘†ç€å„å¼å„æ ·çš„å™¨å…·ã€‚å±‹å†…æ­£ä¸­æ”¾ç€ä¸€ä¸ªä¸€äººå¤šé«˜çš„
+ä¸¹ç‚‰ï¼Œç‚‰ç«æ­£æ—ºï¼Œæœ‰ä¸ªé»‘ç˜¦çš„é“äººæ­£æ‰‹æŒæ¡ƒæœ¨å‰‘ç»•ç‚‰ç–¾èµ°ï¼Œå˜´
+é‡Œå‘å‘è‡ªè¯­ä¸çŸ¥åœ¨å¿µäº›ä»€ä¹ˆã€‚
 LONG);
         set("no_fight", 1);
         set("exits", ([
@@ -32,32 +32,32 @@ int do_lianzhi (string arg)
         object /*ob,*/ me = this_player();
         int time = 15 + random(15);
 
-        if (me->query("family/family_name") != "Îå¶¾½Ì")
-                return notify_fail("Äã²»ÖªµÀ¸ÃÈçºÎÏÂÊÖ¡£\n");
+        if (me->query("family/family_name") != "äº”æ¯’æ•™")
+                return notify_fail("ä½ ä¸çŸ¥é“è¯¥å¦‚ä½•ä¸‹æ‰‹ã€‚\n");
 
         if (me->query_temp("liandu/wudu"))
-                return notify_fail("ÄãÏÖÔÚÕıÁ¶×ÅÄØ£¬ÇĞÎğ·ÖĞÄ¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£ç‚¼ç€å‘¢ï¼Œåˆ‡å‹¿åˆ†å¿ƒã€‚\n");
 
         if (me->is_busy())
-                return notify_fail("ÄãÏÖÔÚÕıÃ¦×ÅÄØ¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ­£å¿™ç€å‘¢ã€‚\n");
 
         if (me->query_skill("wudu-qishu", 1) < 60 )
-                return notify_fail("ÄãµÄÎå¶¾ÆæÊõ²»¹»æµÊì£¬ÎŞ·¨Á¶¶¾¡£\n");
+                return notify_fail("ä½ çš„äº”æ¯’å¥‡æœ¯ä¸å¤Ÿå¨´ç†Ÿï¼Œæ— æ³•ç‚¼æ¯’ã€‚\n");
 
         if (me->query("jing") < 80 || me->query("qi") < 80)
-                return notify_fail("ÄãÏÖÔÚµÄ¾«Éñ×´¿ö²»¼Ñ£¬ÎŞ·¨Á¶¶¾¡£\n");
+                return notify_fail("ä½ ç°åœ¨çš„ç²¾ç¥çŠ¶å†µä¸ä½³ï¼Œæ— æ³•ç‚¼æ¯’ã€‚\n");
 
         if (arg != "heding hong" && arg != "furou gao" &&
             arg != "kongque dan" && arg != "chixie fen" &&
             arg != "wusheng san" && arg != "duanchang san")
-	        return notify_fail("ÄãÒªÁ¶ÖÆÊ²Ã´¶¾Ò©£¿\n");
+	        return notify_fail("ä½ è¦ç‚¼åˆ¶ä»€ä¹ˆæ¯’è¯ï¼Ÿ\n");
 
         if (arg == "heding hong")
         {
                 if (! present("du nang", me)
                    || ! present("shexin zi", me)
                    || ! present("qianri zui", me))
-                        return notify_fail("ÄãÉíÉÏµÄÔ­ÁÏ²»Æë£¬ÎŞ·¨Á¶¶¾¡£\n");
+                        return notify_fail("ä½ èº«ä¸Šçš„åŸæ–™ä¸é½ï¼Œæ— æ³•ç‚¼æ¯’ã€‚\n");
 
                 destruct(present("du nang", me));
                 destruct(present("shexin zi", me));
@@ -70,7 +70,7 @@ int do_lianzhi (string arg)
                 if (! present("du nang", me)
                    || ! present("fugu cao", me)
                    || ! present("chuanxin lian", me))
-                        return notify_fail("ÄãÉíÉÏµÄÔ­ÁÏ²»Æë£¬ÎŞ·¨Á¶¶¾¡£\n");
+                        return notify_fail("ä½ èº«ä¸Šçš„åŸæ–™ä¸é½ï¼Œæ— æ³•ç‚¼æ¯’ã€‚\n");
 
                 destruct(present("du nang", me));
                 destruct(present("fugu cao", me));
@@ -83,7 +83,7 @@ int do_lianzhi (string arg)
                 if (! present("du nang", me)
                    || ! present("fugu cao", me)
                    || ! present("qianri zui", me))
-                        return notify_fail("ÄãÉíÉÏµÄÔ­ÁÏ²»Æë£¬ÎŞ·¨Á¶¶¾¡£\n");
+                        return notify_fail("ä½ èº«ä¸Šçš„åŸæ–™ä¸é½ï¼Œæ— æ³•ç‚¼æ¯’ã€‚\n");
 
                 destruct(present("du nang", me));
                 destruct(present("fugu cao", me));
@@ -96,7 +96,7 @@ int do_lianzhi (string arg)
                 if (! present("du nang", me)
                    || ! present("shexin zi", me)
                    || ! present("duanchang cao", me))
-                        return notify_fail("ÄãÉíÉÏµÄÔ­ÁÏ²»Æë£¬ÎŞ·¨Á¶¶¾¡£\n");
+                        return notify_fail("ä½ èº«ä¸Šçš„åŸæ–™ä¸é½ï¼Œæ— æ³•ç‚¼æ¯’ã€‚\n");
 
                 destruct(present("du nang", me));
                 destruct(present("shexin zi", me));
@@ -109,7 +109,7 @@ int do_lianzhi (string arg)
                 if (! present("du nang", me)
                    || ! present("duanchang cao", me)
                    || ! present("chuanxin lian", me))
-                        return notify_fail("ÄãÉíÉÏµÄÔ­ÁÏ²»Æë£¬ÎŞ·¨Á¶¶¾¡£\n");
+                        return notify_fail("ä½ èº«ä¸Šçš„åŸæ–™ä¸é½ï¼Œæ— æ³•ç‚¼æ¯’ã€‚\n");
 
                 destruct(present("du nang", me));
                 destruct(present("duanchang cao", me));
@@ -126,7 +126,7 @@ int do_lianzhi (string arg)
                    || ! present("chixie fen", me)
                    || ! present("kongque dan", me)
                    || ! present("jinshe duye", me))
-                        return notify_fail("ÄãÉíÉÏµÄÔ­ÁÏ²»Æë£¬ÎŞ·¨Á¶¶¾¡£\n");
+                        return notify_fail("ä½ èº«ä¸Šçš„åŸæ–™ä¸é½ï¼Œæ— æ³•ç‚¼æ¯’ã€‚\n");
 
                 destruct(present("du nang", me));
                 destruct(present("heding hong", me));
@@ -138,8 +138,8 @@ int do_lianzhi (string arg)
                 me->set_temp("liandu/wudu", "wushengsan");
         }
 
-        message_vision (HIR "\n$N" HIR "½«ÉíÉÏµÄÒ©Æ·Í¶Èëµ¤Â¯£¬°´ÕÕÃØ·¨Ğ¡ĞÄ"
-                        "Á¶ÖÆÆğÀ´¡£\n\n" NOR, me);
+        message_vision (HIR "\n$N" HIR "å°†èº«ä¸Šçš„è¯å“æŠ•å…¥ä¸¹ç‚‰ï¼ŒæŒ‰ç…§ç§˜æ³•å°å¿ƒ"
+                        "ç‚¼åˆ¶èµ·æ¥ã€‚\n\n" NOR, me);
         me->start_call_out((: call_other, __FILE__, "liandu", me :), time);
         me->start_busy(time / 2 + 1);
         return 1;
@@ -169,12 +169,12 @@ void liandu(object me)
         if (random(skill) < 50 && random(3) == 1) 
         {
                 me->delete_temp("liandu/wudu");
-                message_vision(HIR "\nÍ»È»¼äÒ»¹ÉĞÈ¶ñµÄ½¹³ôÖÁ$N" HIR "ÉíÅÔ´«"
-                               "À´£¬¿´À´ÊÇÁ¶¶¾Ê§°ÜÁË¡£\n"NOR,me);
+                message_vision(HIR "\nçªç„¶é—´ä¸€è‚¡è…¥æ¶çš„ç„¦è‡­è‡³$N" HIR "èº«æ—ä¼ "
+                               "æ¥ï¼Œçœ‹æ¥æ˜¯ç‚¼æ¯’å¤±è´¥äº†ã€‚\n"NOR,me);
         } else
         {
-                message_vision(HIW "\nÂ¯¶¥°×Îí½¥½¥×ªµ­£¬´«³öÕó´Ì±ÇµÄĞÈÎ¶£¬$N"
-                               HIW "Á¬Ã¦Ğ¡ĞÄÒíÒíµØ½«Ò©·ÛÈ¡³ö¡£\n" NOR, me);
+                message_vision(HIW "\nç‚‰é¡¶ç™½é›¾æ¸æ¸è½¬æ·¡ï¼Œä¼ å‡ºé˜µåˆºé¼»çš„è…¥å‘³ï¼Œ$N"
+                               HIW "è¿å¿™å°å¿ƒç¿¼ç¿¼åœ°å°†è¯ç²‰å–å‡ºã€‚\n" NOR, me);
 
                 if (me->query_temp("liandu/wudu") == "hedinghong")
 		{
@@ -182,11 +182,11 @@ void liandu(object me)
 		        ob->set("poison", ([
         		        "level" : lvl,
                 		"id"    : me->query("id"),
-                		"name"  : "º×¶¥ºì¾ç¶¾",
+                		"name"  : "é¹¤é¡¶çº¢å‰§æ¯’",
                 		"duration" : 15,
 	        	]));
-                        tell_object(me, HIY "ÄãÁ¶³ÉÁË¡¸" + NOR + ob->name()
-                                        + NOR + HIY "¡¹¡£\n" NOR);
+                        tell_object(me, HIY "ä½ ç‚¼æˆäº†ã€Œ" + NOR + ob->name()
+                                        + NOR + HIY "ã€ã€‚\n" NOR);
 		} else
 
                 if (me->query_temp("liandu/wudu") == "furougao")
@@ -195,11 +195,11 @@ void liandu(object me)
 		        ob->set("poison", ([
         		        "level" : lvl,
                 		"id"    : me->query("id"),
-                		"name"  : "¸¯Èâ¸à¾ç¶¾",
+                		"name"  : "è…è‚‰è†å‰§æ¯’",
                 		"duration" : 15,
 	        	]));
-                        tell_object(me, HIY "ÄãÁ¶³ÉÁË¡¸" + NOR + ob->name()
-                                        + NOR + HIY "¡¹¡£\n" NOR);
+                        tell_object(me, HIY "ä½ ç‚¼æˆäº†ã€Œ" + NOR + ob->name()
+                                        + NOR + HIY "ã€ã€‚\n" NOR);
 		} else
 
                 if (me->query_temp("liandu/wudu") == "kongquedan")
@@ -208,11 +208,11 @@ void liandu(object me)
 		        ob->set("poison", ([
         		        "level" : lvl,
                 		"id"    : me->query("id"),
-                		"name"  : "¿×È¸µ¨¾ç¶¾",
+                		"name"  : "å­”é›€èƒ†å‰§æ¯’",
                 		"duration" : 15,
 	        	]));
-                        tell_object(me, HIY "ÄãÁ¶³ÉÁË¡¸" + NOR + ob->name()
-                                        + NOR + HIY "¡¹¡£\n" NOR);
+                        tell_object(me, HIY "ä½ ç‚¼æˆäº†ã€Œ" + NOR + ob->name()
+                                        + NOR + HIY "ã€ã€‚\n" NOR);
 		} else
 
                 if (me->query_temp("liandu/wudu") == "chixiefen")
@@ -221,11 +221,11 @@ void liandu(object me)
 		        ob->set("poison", ([
         		        "level" : lvl,
                 		"id"    : me->query("id"),
-                		"name"  : "³àĞ«·Û¾ç¶¾",
+                		"name"  : "èµ¤èç²‰å‰§æ¯’",
                 		"duration" : 15,
 	        	]));
-                        tell_object(me, HIY "ÄãÁ¶³ÉÁË¡¸" + NOR + ob->name()
-                                        + NOR + HIY "¡¹¡£\n" NOR);
+                        tell_object(me, HIY "ä½ ç‚¼æˆäº†ã€Œ" + NOR + ob->name()
+                                        + NOR + HIY "ã€ã€‚\n" NOR);
 		} else
 
                 if (me->query_temp("liandu/wudu") == "duanchangsan")
@@ -234,11 +234,11 @@ void liandu(object me)
 		        ob->set("poison", ([
         		        "level" : lvl,
                 		"id"    : me->query("id"),
-                		"name"  : "¶Ï³¦É¢¾ç¶¾",
+                		"name"  : "æ–­è‚ æ•£å‰§æ¯’",
                 		"duration" : 15,
 	        	]));
-                        tell_object(me, HIY "ÄãÁ¶³ÉÁË¡¸" + NOR + ob->name()
-                                        + NOR + HIY "¡¹¡£\n" NOR);
+                        tell_object(me, HIY "ä½ ç‚¼æˆäº†ã€Œ" + NOR + ob->name()
+                                        + NOR + HIY "ã€ã€‚\n" NOR);
 		} else
                 if (me->query_temp("liandu/wudu") == "wushengsan")
 		{
@@ -246,11 +246,11 @@ void liandu(object me)
 		        ob->set("poison", ([
         		        "level" : lvl + 20,
                 		"id"    : me->query("id"),
-                		"name"  : "ÎåÊ¥É¢¾ç¶¾",
+                		"name"  : "äº”åœ£æ•£å‰§æ¯’",
                 		"duration" : 25,
 	        	]));
-                        tell_object(me, HIY "ÄãÁ¶³ÉÁËÎå¶¾½Ì¶ÀÃÅÃØÒ©¡¸" + NOR
-                                        + ob->name() + NOR + HIY "¡¹¡£\n" NOR);
+                        tell_object(me, HIY "ä½ ç‚¼æˆäº†äº”æ¯’æ•™ç‹¬é—¨ç§˜è¯ã€Œ" + NOR
+                                        + ob->name() + NOR + HIY "ã€ã€‚\n" NOR);
 
         		if (me->query("potential") >
                            me->query_potential_limit()) 
@@ -260,10 +260,10 @@ void liandu(object me)
 	                me->add("score", sco);
 		        me->improve_potential(pot);
 
-                        tell_object(me, HIC "Äã»ñµÃÁË" + chinese_number(exp)
-                                        + "µã¾­Ñé¡¢" + chinese_number(pot) +
-                                        "µãÇ±ÄÜÒÔ¼°" + chinese_number(sco) +
-                                        "µã½­ºşÔÄÀú¡£\n" NOR); 
+                        tell_object(me, HIC "ä½ è·å¾—äº†" + chinese_number(exp)
+                                        + "ç‚¹ç»éªŒã€" + chinese_number(pot) +
+                                        "ç‚¹æ½œèƒ½ä»¥åŠ" + chinese_number(sco) +
+                                        "ç‚¹æ±Ÿæ¹–é˜…å†ã€‚\n" NOR); 
 		}
 
                 ob->move(me);
@@ -273,7 +273,7 @@ void liandu(object me)
                 if (me->can_improve_skill("wudu-qishu"))
                 	me->improve_skill("wudu-qishu", 50 + me->query("int"));
 
-                tell_object(me, HIC "Á¶¶¾¹ı³ÌÖĞÄãµÄ¡¸»ù±¾¶¾¼¼¡¹ºÍ¡¸Îå¶¾ÆæÊõ¡¹"
-                                "Ìá¸ßÁË£¡\n\n" NOR);
+                tell_object(me, HIC "ç‚¼æ¯’è¿‡ç¨‹ä¸­ä½ çš„ã€ŒåŸºæœ¬æ¯’æŠ€ã€å’Œã€Œäº”æ¯’å¥‡æœ¯ã€"
+                                "æé«˜äº†ï¼\n\n" NOR);
         }
 }

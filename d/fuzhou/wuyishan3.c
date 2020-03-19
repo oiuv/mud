@@ -5,11 +5,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "���η�");
+	set("short", "天游峰");
 	set("long", @LONG
-���η�Ϊ���ĵ�һʤ�أ�ɽ�ƶ��ͣ�ʯ����ɽ���䣬��Ϊ��
-����ɽ��ΡȻ�������Ƕ�Զ��������ɽȫ�������۵ס�ֻ������
-��Ůңң������ĬĬ���顣
+天游峰为武夷第一胜地，山势陡峭，石阶因山而凿，极为险
+峻，山峰巍然屹立，登顶远眺，武夷山全景尽收眼底。只见大王
+玉女遥遥相望，默默伤情。
 LONG );
 	set("exits", ([
 		"southdown" : __DIR__"wuyishan5",

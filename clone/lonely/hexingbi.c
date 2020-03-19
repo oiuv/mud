@@ -5,18 +5,18 @@ inherit DAGGER;
 
 void create()
 {
-        set_name(HIR "º×ĞÎ±Ê" NOR,({ "hexing bi", "hexing", "bi" }) );
+        set_name(HIR "é¹¤å½¢ç¬”" NOR,({ "hexing bi", "hexing", "bi" }) );
         set_weight(800);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", HIR "Ò»Ö§Í¨ÌåºìÉ«µÄÃ«±Ê£¬³Êº×ĞÎ£¬¿´ÉÏÈ¥ÊÇ¼şÀûÆ÷¡£\n" NOR);
-                set("unit", "Ö§");
+                set("long", HIR "ä¸€æ”¯é€šä½“çº¢è‰²çš„æ¯›ç¬”ï¼Œå‘ˆé¹¤å½¢ï¼Œçœ‹ä¸Šå»æ˜¯ä»¶åˆ©å™¨ã€‚\n" NOR);
+                set("unit", "æ”¯");
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "steel");
-                set("wield_msg", HIR "$N" HIR "´ÓÑü¼äÈ¡³öÒ»Ö§º×ĞÎ±ÊÄÃÔÚÊÖÖĞ¡£\n" NOR);
-                set("unwield_msg", HIR "$N" HIR "Ò»ÉùÇáºß£¬½«ÊÖÖĞº×ĞÎ±Ê·Å»ØÑü¼ä¡£\n" NOR);
+                set("wield_msg", HIR "$N" HIR "ä»è…°é—´å–å‡ºä¸€æ”¯é¹¤å½¢ç¬”æ‹¿åœ¨æ‰‹ä¸­ã€‚\n" NOR);
+                set("unwield_msg", HIR "$N" HIR "ä¸€å£°è½»å“¼ï¼Œå°†æ‰‹ä¸­é¹¤å½¢ç¬”æ”¾å›è…°é—´ã€‚\n" NOR);
                 set("stable", 100);
         }
         init_dagger(100);
@@ -37,13 +37,13 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         case 0:
                 if (! victim->is_busy())
                 victim->start_busy(me->query_skill("dagger") / 10 + 2);
-                return HIR "$N" HIR "ÊÖÖĞº×ĞÎ±Ê¼±ËÙ×ª¶¯£¬½«$n" HIR "ÍÅÍÅÎ§×¡£¡\n" NOR;
+                return HIR "$N" HIR "æ‰‹ä¸­é¹¤å½¢ç¬”æ€¥é€Ÿè½¬åŠ¨ï¼Œå°†$n" HIR "å›¢å›¢å›´ä½ï¼\n" NOR;
 
         case 1:
                 n = me->query_skill("dagger");
                 victim->receive_damage("qi", n * 3 / 5, me);
                 victim->receive_wound("qi", n * 3 / 5, me);
-                return HIR "$N" HIR "Ò»ÉùÅ­ºÈ£¬ÊÖÖĞº×ĞÎ±ÊÃÍµØÁ¬Ğø´ÌÏò$n" HIR "£¡\n" NOR;
+                return HIR "$N" HIR "ä¸€å£°æ€’å–ï¼Œæ‰‹ä¸­é¹¤å½¢ç¬”çŒ›åœ°è¿ç»­åˆºå‘$n" HIR "ï¼\n" NOR;
         }
         return damage_bonus;
 }

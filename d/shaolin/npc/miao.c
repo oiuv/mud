@@ -1,4 +1,4 @@
-// miao.c ÃçÈË·ï
+// miao.c è‹—äººå‡¤
 
 #include <ansi.h>
 
@@ -10,13 +10,13 @@ string ask_hujia_book();
 
 void create()
 {
-        set_name("ÃçÈË·ï", ({ "miao renfeng", "miao" }));
-        set("gender", "ÄĞĞÔ");
-        set("nickname", YEL "½ğÃæ·ğ" NOR);
+        set_name("è‹—äººå‡¤", ({ "miao renfeng", "miao" }));
+        set("gender", "ç”·æ€§");
+        set("nickname", YEL "é‡‘é¢ä½›" NOR);
         set("age", 37);
         set("long", @LONG
-Ëû¿´ÉÏÈ¥Á³É«Í¸»Æ£¬ËÆºõÃÉÁËÒ»²ãµ­µ­µÄ½ğÖ½¡£Éí²Ä¸ß´ó¿ıÎà£¬È·
-ÊÇÈ«È»²»ĞŞÆª·ù£¬ÁîÈË³ÆÆæ¡£
+ä»–çœ‹ä¸Šå»è„¸è‰²é€é»„ï¼Œä¼¼ä¹è’™äº†ä¸€å±‚æ·¡æ·¡çš„é‡‘çº¸ã€‚èº«æé«˜å¤§é­æ¢§ï¼Œç¡®
+æ˜¯å…¨ç„¶ä¸ä¿®ç¯‡å¹…ï¼Œä»¤äººç§°å¥‡ã€‚
 LONG );
         set("attitude", "peaceful");
         set("str", 32);
@@ -52,8 +52,8 @@ LONG );
         prepare_skill("strike", "tianchang-zhang");
 
         set("inquiry", ([
-                "ºúÒ»µ¶": (: ask_me :),
-                "´ò±éÌìÏÂÎŞµĞÊÖ" : "Õâ»°ËµËµ¶øÒÑ£¬ÆñÄÜµ±Õæ£¿",
+                "èƒ¡ä¸€åˆ€": (: ask_me :),
+                "æ‰“éå¤©ä¸‹æ— æ•Œæ‰‹" : "è¿™è¯è¯´è¯´è€Œå·²ï¼Œå²‚èƒ½å½“çœŸï¼Ÿ",
         ]));
 
         setup();
@@ -66,30 +66,30 @@ string ask_me()
         object /*ob,*/ me;
 
         me = this_player();
-        if (me->query("family/family_name") != "¹ØÍâºú¼Ò")
-                return "ÕâÈËÕæÊÇÒ»Ìõºº×Ó£¡¿ÉÏ§°¡¿ÉÏ§£¡\n";
+        if (me->query("family/family_name") != "å…³å¤–èƒ¡å®¶")
+                return "è¿™äººçœŸæ˜¯ä¸€æ¡æ±‰å­ï¼å¯æƒœå•Šå¯æƒœï¼\n";
 
-        return "µ±Äê²»ĞÒÖĞÁË¼éÈË¶¾¼ÆÉËÁËËû£¬ÁîÈËÒÅº¶ÖÕÉú£¡Äã¼ÈÈ»ÊÇ"
-               "ºú¼ÒµÄºóÈË£¬¿É¶ÔÎÒÃç¼Ò½£·¨¸ĞĞËÈ¤£¿";
+        return "å½“å¹´ä¸å¹¸ä¸­äº†å¥¸äººæ¯’è®¡ä¼¤äº†ä»–ï¼Œä»¤äººé—æ†¾ç»ˆç”Ÿï¼ä½ æ—¢ç„¶æ˜¯"
+               "èƒ¡å®¶çš„åäººï¼Œå¯å¯¹æˆ‘è‹—å®¶å‰‘æ³•æ„Ÿå…´è¶£ï¼Ÿ";
 }
 
 int recognize_apprentice(object ob, string skill)
 {
-        if (ob->query("family/family_name") != "¹ØÍâºú¼Ò")
+        if (ob->query("family/family_name") != "å…³å¤–èƒ¡å®¶")
         {
-                command("say ÄãÕâËãÊÇÊ²Ã´ÒâË¼£¿ÒªÊÇ±È»®¾Í·ÅÂí¹ıÀ´£¡");
+                command("say ä½ è¿™ç®—æ˜¯ä»€ä¹ˆæ„æ€ï¼Ÿè¦æ˜¯æ¯”åˆ’å°±æ”¾é©¬è¿‡æ¥ï¼");
                 return -1;
         }
 
         if (skill != "miaojia-jian" && skill != "sword")
         {
-                command("say ÎÒÖ»´«Äã½£·¨£¬ÄãÈç¹û²»¸ĞĞËÈ¤¾Í²»ÒªÀË·ÑÊ±¼äÁË¡£");
+                command("say æˆ‘åªä¼ ä½ å‰‘æ³•ï¼Œä½ å¦‚æœä¸æ„Ÿå…´è¶£å°±ä¸è¦æµªè´¹æ—¶é—´äº†ã€‚");
                 return -1;
         }
 
         if (! ob->query_temp("can_learn/miao"))
         {
-                command("say ºÃ£¡Äã¼ÈÈ»¸ĞĞËÈ¤£¬ÄÇ¾ÍÒª¿´×ĞÏ¸ÁË£¡");
+                command("say å¥½ï¼ä½ æ—¢ç„¶æ„Ÿå…´è¶£ï¼Œé‚£å°±è¦çœ‹ä»”ç»†äº†ï¼");
                 ob->set_temp("can_learn/huyizhi", 1);
         }
 

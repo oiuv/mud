@@ -19,7 +19,7 @@ int clean_up()
     if (interactive(this_object())) return 1;
 
     if (this_object()->query_temp("quest_ob"))
-        // 正在为QUEST服务
+        // 姝ｅ湪涓篞UEST鏈嶅姟
         return 1;
 
     // If we are contained in something, let environment do the clean

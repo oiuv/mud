@@ -27,9 +27,9 @@ varargs int receive_damage(string type, int damage, object who)
 {
         int val;
 
-        if (damage < 0) error("F_DAMAGE: ÉËº¦ÖµÎª¸ºÖµ¡£\n");
+        if (damage < 0) error("F_DAMAGE: ä¼¤å®³å€¼ä¸ºè´Ÿå€¼ã€‚\n");
         if (type != "jing" && type != "qi")
-                error("F_DAMAGE: ÉËº¦ÖÖÀà´íÎó(Ö»ÄÜÊÇ jing ºÍ qi ÆäÖĞÒ»ÖÖ)¡£\n");
+                error("F_DAMAGE: ä¼¤å®³ç§ç±»é”™è¯¯(åªèƒ½æ˜¯ jing å’Œ qi å…¶ä¸­ä¸€ç§)ã€‚\n");
 
         if (who != last_damage_from)
         {
@@ -54,9 +54,9 @@ varargs int receive_wound(string type, int damage, object who)
 {
         int val;
 
-        if (damage < 0) error("F_DAMAGE: ÉËº¦ÖµÎª¸ºÖµ¡£\n");
+        if (damage < 0) error("F_DAMAGE: ä¼¤å®³å€¼ä¸ºè´Ÿå€¼ã€‚\n");
         if (type != "jing" && type != "qi")
-                error("F_DAMAGE: ÉËº¦ÖÖÀà´íÎó(Ö»ÄÜÊÇ jing ºÍ qi ÆäÖĞÒ»ÖÖ)¡£\n");
+                error("F_DAMAGE: ä¼¤å®³ç§ç±»é”™è¯¯(åªèƒ½æ˜¯ jing å’Œ qi å…¶ä¸­ä¸€ç§)ã€‚\n");
 
         if (who != last_damage_from)
         {
@@ -87,9 +87,9 @@ int receive_heal(string type, int heal)
 {
         int val;
 
-        if (heal < 0) error("F_DAMAGE: »Ö¸´ÖµÎª¸ºÖµ¡£\n");
+        if (heal < 0) error("F_DAMAGE: æ¢å¤å€¼ä¸ºè´Ÿå€¼ã€‚\n");
         if (type != "jing" && type != "qi")
-                error("F_DAMAGE: »Ö¸´ÖÖÀà´íÎó(Ö»ÄÜÊÇ jing ºÍ qi ÆäÖĞÒ»ÖÖ)¡£\n");
+                error("F_DAMAGE: æ¢å¤ç§ç±»é”™è¯¯(åªèƒ½æ˜¯ jing å’Œ qi å…¶ä¸­ä¸€ç§)ã€‚\n");
 
         val = (int)query(type) + heal;
 
@@ -104,9 +104,9 @@ int receive_curing(string type, int heal)
 {
         int max, val;
 
-        if (heal < 0) error("F_DAMAGE: »Ö¸´ÖµÎª¸ºÖµ¡£\n");
+        if (heal < 0) error("F_DAMAGE: æ¢å¤å€¼ä¸ºè´Ÿå€¼ã€‚\n");
         if (type != "jing" && type != "qi")
-                error("F_DAMAGE: »Ö¸´ÖÖÀà´íÎó(Ö»ÄÜÊÇ jing ºÍ qi ÆäÖĞÒ»ÖÖ)¡£\n");
+                error("F_DAMAGE: æ¢å¤ç§ç±»é”™è¯¯(åªèƒ½æ˜¯ jing å’Œ qi å…¶ä¸­ä¸€ç§)ã€‚\n");
 
         val = (int)query("eff_" + type);
         max = (int)query("max_" + type);
@@ -204,7 +204,7 @@ void unconcious()
         {
 //              object *dp;
 
-                // Èç¹û´ËÈËÓĞÖ÷£¬ÔòËãÖ÷ÈË´òÔÎµÄ
+                // å¦‚æœæ­¤äººæœ‰ä¸»ï¼Œåˆ™ç®—ä¸»äººæ‰“æ™•çš„
                 if (objectp(defeated_by->query_temp("owner")))
                 {
                         defeated_by = defeated_by->query_temp("owner");
@@ -231,15 +231,15 @@ void unconcious()
         // notice the write_prompt function: do not show prompt
         me->clear_written();
 
-        message("vision", HIR "\nÄãµÄÑÛÇ°Ò»ºÚ£¬½ÓÖøÊ²Ã´Ò²²»ÖªµÀÁË....\n\n" NOR,
+        message("vision", HIR "\nä½ çš„çœ¼å‰ä¸€é»‘ï¼Œæ¥è‘—ä»€ä¹ˆä¹Ÿä¸çŸ¥é“äº†....\n\n" NOR,
                 me);
         
-        me->disable_player(" <»èÃÔ²»ĞÑ>");
+        me->disable_player(" <æ˜è¿·ä¸é†’>");
         me->delete_temp("sleeped");
          
         if (objectp(riding = me->query_temp("is_riding")))
         {
-                message_vision("$NÒ»Í·´Ó$nÉÏÃæÔÔÁËÏÂÀ´£¡\n",
+                message_vision("$Nä¸€å¤´ä»$nä¸Šé¢æ ½äº†ä¸‹æ¥ï¼\n",
                               me, riding);
                 me->delete_temp("is_riding");
                 riding->delete_temp("is_rided_by");
@@ -289,7 +289,7 @@ varargs void revive(int quiet)
                 defeated_by = 0;
                 defeated_by_who = 0;
                 COMBAT_D->announce(this_object(), "revive");
-                message("vision", HIY "\nÂıÂıµØÄãÖÕÓÚÓÖÓĞÁËÖª¾õ....\n\n" NOR,
+                message("vision", HIY "\næ…¢æ…¢åœ°ä½ ç»ˆäºåˆæœ‰äº†çŸ¥è§‰....\n\n" NOR,
                         me);
         }
 
@@ -363,7 +363,7 @@ varargs void die(object killer)
 
         if (objectp(riding = me->query_temp("is_riding")))
         {
-                message_vision("$NÒ»Í·´Ó$nÉÏÃæÔÔÁËÏÂÀ´£¡\n",
+                message_vision("$Nä¸€å¤´ä»$nä¸Šé¢æ ½äº†ä¸‹æ¥ï¼\n",
                                me, riding);
                 me->delete_temp("is_riding");
                 riding->delete_temp("is_rided_by");
@@ -379,15 +379,15 @@ varargs void die(object killer)
                     (dob_name != killer_name || dob != killer))
                 {
                         // set the die reason
-                        set_temp("die_reason", "±»" +
-                                 dob_name + "´òÔÎÒÔºó£¬±»" +
-                                 (dob_name == killer_name ? "ÁíÒ»¸ö" : "") +
-                                 killer_name + "³Ã»úÉ±µôÁË");
+                        set_temp("die_reason", "è¢«" +
+                                 dob_name + "æ‰“æ™•ä»¥åï¼Œè¢«" +
+                                 (dob_name == killer_name ? "å¦ä¸€ä¸ª" : "") +
+                                 killer_name + "è¶æœºæ€æ‰äº†");
                 } else
                 if (userp(me) && killer_name && ! killer)
                 {
-                        set_temp("die_reason", "±»" + killer_name +
-                                               HIM "É±º¦ÁË");
+                        set_temp("die_reason", "è¢«" + killer_name +
+                                               HIM "æ€å®³äº†");
                 }
         }
 
@@ -450,17 +450,17 @@ int max_food_capacity()
 
         f = query("str") * 10 + 100;
 
-        // ÎŞ×ÖÌìÊéÔö¼ÓÊ³ÎïÉÏÏŞ
+        // æ— å­—å¤©ä¹¦å¢åŠ é£Ÿç‰©ä¸Šé™
         if (query("skybook/item/tianshu2"))
                 f += 300;
 
-        // ÷Ò÷Ñ×ªÊÀÔö¼ÓÊ³ÎïÉÏÏŞ
+        // é¥•é¤®è½¬ä¸–å¢åŠ é£Ÿç‰©ä¸Šé™
         if (query("special_skill/greedy"))
                 f += 500;
                 
-//ÒòÒÑ¿ª·ÅÎŞ×ÖÌìÊéºÏ³É£¬¹Ê×ªÊÀ¼Ó³ÉÈ¡Ïû by Ğ½ÓĞËùÊô
+//å› å·²å¼€æ”¾æ— å­—å¤©ä¹¦åˆæˆï¼Œæ•…è½¬ä¸–åŠ æˆå–æ¶ˆ by è–ªæœ‰æ‰€å±
  /*  
-        //×ªÊÀÔö¼ÓÊ³ÎïÉÏÏŞ by Ğ½ÓĞËùÊô
+        //è½¬ä¸–å¢åŠ é£Ÿç‰©ä¸Šé™ by è–ªæœ‰æ‰€å±
         if (query("reborn"))
                 f += f * 50 / 100;
 */
@@ -473,17 +473,17 @@ int max_water_capacity()
 
         w = query("str") * 10 + 100;
 
-        // ÎŞ×ÖÌìÊéÔö¼ÓÒûË®ÉÏÏŞ
+        // æ— å­—å¤©ä¹¦å¢åŠ é¥®æ°´ä¸Šé™
         if (query("skybook/item/tianshu2"))
                 w += 300;
 
-        // ÷Ò÷Ñ×ªÊÀÔö¼ÓÒûË®ÉÏÏŞ
+        // é¥•é¤®è½¬ä¸–å¢åŠ é¥®æ°´ä¸Šé™
         if (query("special_skill/greedy"))
                 w += 500;
                 
-//ÒòÒÑ¿ª·ÅÎŞ×ÖÌìÊéºÏ³É£¬¹Ê×ªÊÀ¼Ó³ÉÈ¡Ïû by Ğ½ÓĞËùÊô                
+//å› å·²å¼€æ”¾æ— å­—å¤©ä¹¦åˆæˆï¼Œæ•…è½¬ä¸–åŠ æˆå–æ¶ˆ by è–ªæœ‰æ‰€å±                
 /*
-        //×ªÊÀÔö¼ÓÒûË®ÉÏÏŞ by Ğ½ÓĞËùÊô
+        //è½¬ä¸–å¢åŠ é¥®æ°´ä¸Šé™ by è–ªæœ‰æ‰€å±
         if (query("reborn"))
                 w += w * 50 / 100;
 */                
@@ -532,7 +532,7 @@ int heal_up()
                 {
                         if (my["jing"] * 100 / my["max_jing"] < 50)
                         {
-                                tell_object(me, "Äã¾õµÃÌ«ÀÛÁË£¬ĞèÒª·ÅËÉ·ÅËÉÁË¡£\n");
+                                tell_object(me, "ä½ è§‰å¾—å¤ªç´¯äº†ï¼Œéœ€è¦æ”¾æ¾æ”¾æ¾äº†ã€‚\n");
                                 command("guard cancel");
                                 return update_flag;
                         }
@@ -541,16 +541,16 @@ int heal_up()
 
                         switch (random(8))
                         {
-                        case 0: message_vision("$N½ôÕÅµÄ¶¢×ÅËÄÖÜÀ´ÍùµÄĞĞÈË¡£\n", me);
+                        case 0: message_vision("$Nç´§å¼ çš„ç›¯ç€å››å‘¨æ¥å¾€çš„è¡Œäººã€‚\n", me);
                                 break;
 
-                        case 1: message_vision("$N´òÁË¸ö¹şÇ·£¬Ëæ¼´Õñ×÷¾«Éñ¼ÌĞø¹Û²ì¸½½üÇé¿ö¡£\n", me);
+                        case 1: message_vision("$Næ‰“äº†ä¸ªå“ˆæ¬ ï¼Œéšå³æŒ¯ä½œç²¾ç¥ç»§ç»­è§‚å¯Ÿé™„è¿‘æƒ…å†µã€‚\n", me);
                                 break;
 
-                        case 2: message_vision("$N×ó³ò³ò£¬ÓÒ¿´¿´£¬²»·Å¹ıÒ»¸ö¿ÉÒÉµÄÈËÎï¡£\n", me);
+                        case 2: message_vision("$Nå·¦ç…ç…ï¼Œå³çœ‹çœ‹ï¼Œä¸æ”¾è¿‡ä¸€ä¸ªå¯ç–‘çš„äººç‰©ã€‚\n", me);
                                 break;
 
-                        case 3: message_vision("$N´òÆğ¾«ÉñÏ¸Ï¸µÄ¹Û²ìÖÜÎ§¡£\n", me);
+                        case 3: message_vision("$Næ‰“èµ·ç²¾ç¥ç»†ç»†çš„è§‚å¯Ÿå‘¨å›´ã€‚\n", me);
                                 break;
                         }
                         update_flag++;

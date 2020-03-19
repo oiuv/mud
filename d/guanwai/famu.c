@@ -12,12 +12,12 @@ int halt_working(object me, object who, int silent);
 
 void create()
 {
-	set("short", "·¥Ä¾³¡");
+	set("short", "ä¼æœ¨åœº");
 	set("long", @LONG
-ÕâÀïÊÇÂ¹Ãù·åÎ÷ÆÂÏÂµÄÒ»Æ¬É­ÁÖ£¬³¤×ÅĞí¶à°ÙÄêµÄ²ÎÌì´ó
-Ê÷£¬±ÊÖ±Í¦°Î£¬¶¼ÊÇÉÏºÃµÄÄ¾²Ä£¬Ğí¶àÈËÔÚÕâÀï¿³·¥(famu)Ä¾ÁÏ£¬
-È»ºóÔËµ½ÖĞÔ­¹©´ï¹Ù¹óÈËÃÇ½¨ÖşºÀÕ¬¡£ÕâÀïµØ´¦ÉîÉ½ÀÏÁÖ£¬Ê±³£
-ÓĞĞ×ÃÍµÄÒ°ÊŞ³öÃ»¡£
+è¿™é‡Œæ˜¯é¹¿é¸£å³°è¥¿å¡ä¸‹çš„ä¸€ç‰‡æ£®æ—ï¼Œé•¿ç€è®¸å¤šç™¾å¹´çš„å‚å¤©å¤§
+æ ‘ï¼Œç¬”ç›´æŒºæ‹”ï¼Œéƒ½æ˜¯ä¸Šå¥½çš„æœ¨æï¼Œè®¸å¤šäººåœ¨è¿™é‡Œç ä¼(famu)æœ¨æ–™ï¼Œ
+ç„¶åè¿åˆ°ä¸­åŸä¾›è¾¾å®˜è´µäººä»¬å»ºç­‘è±ªå®…ã€‚è¿™é‡Œåœ°å¤„æ·±å±±è€æ—ï¼Œæ—¶å¸¸
+æœ‰å‡¶çŒ›çš„é‡å…½å‡ºæ²¡ã€‚
 LONG);
 	set("exits", ([
 		"southup" : __DIR__"luming",
@@ -26,7 +26,7 @@ LONG);
 	setup();
 }
 /*
-//È¡Ïû·¥Ä¾job
+//å–æ¶ˆä¼æœ¨job
 void init()
 {
         add_action("do_famu", "famu");
@@ -75,7 +75,7 @@ void call_beast()
                 break;
         }
 
-        message("vision", "É½ÛêÀïÃæÍ»È»´®³ö" + chinese_number(n) +
+        message("vision", "å±±å³é‡Œé¢çªç„¶ä¸²å‡º" + chinese_number(n) +
                 beast->query("unit") + beast->name() +
                 "\n", this_object());
         while (n--)
@@ -95,24 +95,24 @@ int do_famu(string arg)
         me = this_player();
 
         if (! arg || sscanf(arg, "with %s", arg) != 1)
-                return notify_fail("ÄãÒªºÍË­Ò»Æğ·¥Ä¾(famu with <sb>)£¿\n");
+                return notify_fail("ä½ è¦å’Œè°ä¸€èµ·ä¼æœ¨(famu with <sb>)ï¼Ÿ\n");
 
         ob = present(arg, this_object());
         if (! ob)
-                return notify_fail("ÕâÀïÃ»ÓĞÕâ¸öÈË¿ÉÒÔºÍÄãÒ»Æğ·¥Ä¾¡£\n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™ä¸ªäººå¯ä»¥å’Œä½ ä¸€èµ·ä¼æœ¨ã€‚\n");
 
         if (me == ob)
-                return notify_fail("ÄãÊÇ²»ÊÇ´óÄÔ½øË®...ĞèÒªĞŞÀí£¿\n");
+                return notify_fail("ä½ æ˜¯ä¸æ˜¯å¤§è„‘è¿›æ°´...éœ€è¦ä¿®ç†ï¼Ÿ\n");
 
         if (! living(ob))
-                return notify_fail("ÄãÔõÃ´Ò²µÃµÈÈË¼ÒĞÑ¹ıÀ´ÔÙËµ°É£¿\n");
+                return notify_fail("ä½ æ€ä¹ˆä¹Ÿå¾—ç­‰äººå®¶é†’è¿‡æ¥å†è¯´å§ï¼Ÿ\n");
 
         if (ob->query_temp("job/famu"))
         {
                 if (! ob->is_busy())
                         ob->delete_temp("job/famu");
                 else
-                        return notify_fail("ÈË¼ÒÏÖÔÚÕıÔÚ·¥Ä¾ÄØ¡£\n");
+                        return notify_fail("äººå®¶ç°åœ¨æ­£åœ¨ä¼æœ¨å‘¢ã€‚\n");
         }
 
         if (me->query_temp("job/famu"))
@@ -120,32 +120,32 @@ int do_famu(string arg)
                 if (! me->is_busy())
                         me->delete_temp("job/famu");
                 else
-                        return notify_fail("ÄãÏÖÔÚ²»ÊÇÕıÔÚ·¥Ä¾Âï£¿\n");
+                        return notify_fail("ä½ ç°åœ¨ä¸æ˜¯æ­£åœ¨ä¼æœ¨å˜›ï¼Ÿ\n");
         }
 
         if (ob->is_fighting())
-                return notify_fail("ÈË¼ÒÏÖÔÚÕıÔÚ´ò¼Ü£¬ÄÇÓĞ¹¦·òÀíÄã£¿\n");
+                return notify_fail("äººå®¶ç°åœ¨æ­£åœ¨æ‰“æ¶ï¼Œé‚£æœ‰åŠŸå¤«ç†ä½ ï¼Ÿ\n");
 
         if (me->is_fighting())
-                return notify_fail("Äã»¹ÊÇ´òÍêÁË¼ÜÔÙËµ°É¡£\n");
+                return notify_fail("ä½ è¿˜æ˜¯æ‰“å®Œäº†æ¶å†è¯´å§ã€‚\n");
 
         if (ob->is_busy())
-                return notify_fail("ÈË¼ÒÏÖÔÚÕıÃ¦£¬Ã»¹¦·òÀíÄã¡£\n");
+                return notify_fail("äººå®¶ç°åœ¨æ­£å¿™ï¼Œæ²¡åŠŸå¤«ç†ä½ ã€‚\n");
 
         if (me->is_busy())
-                return notify_fail("Äã»¹ÊÇµÈÓĞ¿ÕÁËÔÙËµ°É¡£\n");
+                return notify_fail("ä½ è¿˜æ˜¯ç­‰æœ‰ç©ºäº†å†è¯´å§ã€‚\n");
 
         if (ob->query("qi") < 200)
-                return notify_fail("ÈË¼ÒÆøÁ¦²»¼Ó£¬»¹ÊÇËãÁË°É¡£\n");
+                return notify_fail("äººå®¶æ°”åŠ›ä¸åŠ ï¼Œè¿˜æ˜¯ç®—äº†å§ã€‚\n");
 
         if (me->query("qi") < 200)
-                return notify_fail("ÄãÏÖÔÚÆøÏ¢²»¹»£¬»¹ÊÇÑø×ãÁËÁ¦ÆøÔÙËµ°É¡£\n");
+                return notify_fail("ä½ ç°åœ¨æ°”æ¯ä¸å¤Ÿï¼Œè¿˜æ˜¯å…»è¶³äº†åŠ›æ°”å†è¯´å§ã€‚\n");
 
         if (ob->query_str() < 30)
-                return notify_fail("¿´ÈË¼ÒÄÇ¸±Ä£Ñù²»ÏñÊÇÄÜ¸ÉÕâÖÖÖØ»îµÄÈË¡£\n");
+                return notify_fail("çœ‹äººå®¶é‚£å‰¯æ¨¡æ ·ä¸åƒæ˜¯èƒ½å¹²è¿™ç§é‡æ´»çš„äººã€‚\n");
 
         if (me->query_str() < 30)
-                return notify_fail("ÄãµÄëöÁ¦²»¹»£¬¸É²»ÁËÕâÖÖÖØ»î¡£\n");
+                return notify_fail("ä½ çš„è†‚åŠ›ä¸å¤Ÿï¼Œå¹²ä¸äº†è¿™ç§é‡æ´»ã€‚\n");
 
         if (ob->query_temp("pending/job_coagent") == me)
         {
@@ -156,17 +156,17 @@ int do_famu(string arg)
         if (objectp(old = me->query_temp("pending/job_coagent")))
         {
                 if (old == ob)
-                        return notify_fail("ÄãÒÑ¾­Ïò±ğÈËÌá³öÒªÇóÁË£¬¿ÉÊÇÈË¼Ò»¹Ã»ÓĞ´ğÓ¦¡£\n");
+                        return notify_fail("ä½ å·²ç»å‘åˆ«äººæå‡ºè¦æ±‚äº†ï¼Œå¯æ˜¯äººå®¶è¿˜æ²¡æœ‰ç­”åº”ã€‚\n");
 
-                tell_object(old, me->name() + "¸Ä±äÁËÖ÷Òâ²»ÏëºÍÄãÒ»Í¬·¥Ä¾ÁË¡£\n");
-                tell_object(me, "Äã¸Ä±äÁËÖ÷Òâ²»ÏëºÍ" + old->name() + "Ò»Í¬·¥Ä¾ÁË¡£\n");
+                tell_object(old, me->name() + "æ”¹å˜äº†ä¸»æ„ä¸æƒ³å’Œä½ ä¸€åŒä¼æœ¨äº†ã€‚\n");
+                tell_object(me, "ä½ æ”¹å˜äº†ä¸»æ„ä¸æƒ³å’Œ" + old->name() + "ä¸€åŒä¼æœ¨äº†ã€‚\n");
         }
 
         me->set_temp("pending/job_coagent", ob);
-        message_vision("$N¶Ô$nÈÈÇéµÀ£º¡°À´°É£¬" + RANK_D->query_respect(ob) +
-                       "£¬ÔÛÃÇÒ»Í¬·¥Ä¾ÈçºÎ£¿¡±\n", me, ob);
-        tell_object(ob, YEL + me->name() + "ÑûÇëÄãÒ»Í¬·¥Ä¾£¬ÄãÈç¹û"
-                    "Ô¸Òâ¾ÍÒ»Æğ¸É(famu with " + me->query("id") + ")°É¡£\n" NOR);
+        message_vision("$Nå¯¹$nçƒ­æƒ…é“ï¼šâ€œæ¥å§ï¼Œ" + RANK_D->query_respect(ob) +
+                       "ï¼Œå’±ä»¬ä¸€åŒä¼æœ¨å¦‚ä½•ï¼Ÿâ€\n", me, ob);
+        tell_object(ob, YEL + me->name() + "é‚€è¯·ä½ ä¸€åŒä¼æœ¨ï¼Œä½ å¦‚æœ"
+                    "æ„¿æ„å°±ä¸€èµ·å¹²(famu with " + me->query("id") + ")å§ã€‚\n" NOR);
         return 1;
 }
 
@@ -185,11 +185,11 @@ int start_work(object me, object ob)
         }
 
         if (! objectp(hand) || ! hand->is_saw())
-                return notify_fail("ÄãÃÇÁ©Ë­¶¼Ã»ÓĞÄÃ¾â£¬ÔõÃ´·¥Ä¾£¿\n");
+                return notify_fail("ä½ ä»¬ä¿©è°éƒ½æ²¡æœ‰æ‹¿é”¯ï¼Œæ€ä¹ˆä¼æœ¨ï¼Ÿ\n");
 
         if ((! objectp(weapon = me->query_temp("weapon")) || weapon->query("skill_type") != "axe") &&
             (! objectp(weapon = ob->query_temp("weapon")) || weapon->query("skill_type") != "axe"))
-                return notify_fail("ÄãÃÇÃ»ÓĞ¸«Í·£¬Õâ»î¸É²»Íê°¡£¡\n");
+                return notify_fail("ä½ ä»¬æ²¡æœ‰æ–§å¤´ï¼Œè¿™æ´»å¹²ä¸å®Œå•Šï¼\n");
 
         me->set_temp("job/famu", 1);
         me->set_temp("job/step", 1);
@@ -199,8 +199,8 @@ int start_work(object me, object ob)
         ob->set_temp("job/coagent", me);
 	me->start_busy((: working :), (: halt_working :));
 	ob->start_busy((: coagent :), (: halt_working :));
-        tell_object(me, "ÄãºÍ" + ob->name() + "¿ªÊ¼·¥Ä¾¡£\n");
-        tell_object(ob, "ÄãºÍ" + me->name() + "¿ªÊ¼·¥Ä¾¡£\n");
+        tell_object(me, "ä½ å’Œ" + ob->name() + "å¼€å§‹ä¼æœ¨ã€‚\n");
+        tell_object(ob, "ä½ å’Œ" + me->name() + "å¼€å§‹ä¼æœ¨ã€‚\n");
         return 1;
 }
 
@@ -216,7 +216,7 @@ private varargs int end_working(object me, object passive)
         me->delete_temp("job");
         if (objectp(passive))
         {
-                message_vision("$n²»¸ÉÁË£¬$NÒ²Ö»ºÃ¸ú×ÅÍ£ÏÂÊÖÀ´¡£\n",
+                message_vision("$nä¸å¹²äº†ï¼Œ$Nä¹Ÿåªå¥½è·Ÿç€åœä¸‹æ‰‹æ¥ã€‚\n",
                                me, passive);
         }
         if (coagent) end_working(coagent, me);
@@ -239,7 +239,7 @@ int working(object me)
 
         if (! objectp(coagent = me->query_temp("job/coagent")))
         {
-                message_vision("°ïÃ¦µÄÈË×ßÁË£¬$NÖ»ºÃÍ£ÊÖ²»¸ÉÁË¡£\n", me);
+                message_vision("å¸®å¿™çš„äººèµ°äº†ï¼Œ$Nåªå¥½åœæ‰‹ä¸å¹²äº†ã€‚\n", me);
                 return end_working(me);
         }
 
@@ -251,7 +251,7 @@ int working(object me)
         ob = me->query_temp("handing");
         if (! objectp(ob) || ! ob->is_saw())
         {
-                message_vision("¾âÃ»ÁË£¬$NÍ£ÊÖ²»¸ÉÁË¡£\n", me);
+                message_vision("é”¯æ²¡äº†ï¼Œ$Nåœæ‰‹ä¸å¹²äº†ã€‚\n", me);
                 return end_working(me);
         }
 
@@ -260,62 +260,62 @@ int working(object me)
         {
         case 1:
                 me->receive_damage("qi", 20);
-                msg = "$NËÄÖÜ¿´¿´£¬Ñ¡ÖĞÁËÒ»¿ÅÉÏºÃµÄËÉÊ÷¡£";
+                msg = "$Nå››å‘¨çœ‹çœ‹ï¼Œé€‰ä¸­äº†ä¸€é¢—ä¸Šå¥½çš„æ¾æ ‘ã€‚";
                 break;
         case 2:
                 me->receive_damage("qi", 20);
-                msg = "$NºÍ$n×ßµ½ËÉÊ÷ÅÔ£¬µàÁ¿ÁËÒ»ÏÂ£¬È»ºó³­Æğ" + ob->name() +
-                      "¿ªÊ¼À¹ÑüÀ­¾â¡£";
+                msg = "$Nå’Œ$nèµ°åˆ°æ¾æ ‘æ—ï¼Œæ‚é‡äº†ä¸€ä¸‹ï¼Œç„¶åæŠ„èµ·" + ob->name() +
+                      "å¼€å§‹æ‹¦è…°æ‹‰é”¯ã€‚";
                 break;
         case 3:
                 me->receive_damage("qi", 30);
-                msg = "¡°Ö¨¸ÂÖ¨¸Â¡±£¬Ä¾Ğ¼·ÉÑï£¬µØÉÏÈ÷ÁË²»ÉÙÄ¾Ğ¼¡£";
+                msg = "â€œå±å˜å±å˜â€ï¼Œæœ¨å±‘é£æ‰¬ï¼Œåœ°ä¸Šæ´’äº†ä¸å°‘æœ¨å±‘ã€‚";
                 break;
         case 4:
                 me->receive_damage("qi", 30);
-                msg = "¡°¸ÂÖ¨¸ÂÖ¨¡±£¬$NºÍ$n·ÜÁ¦À­¾â¡£";
+                msg = "â€œå˜å±å˜å±â€ï¼Œ$Nå’Œ$nå¥‹åŠ›æ‹‰é”¯ã€‚";
                 break;
         case 5:
                 me->receive_damage("qi", 30);
-                msg = "¡°Ö¨¸ÂÖ¨¸Â¡±£¬µØÉÏµÄÄ¾Ğ¼ÊÇÔ½À´Ô½¶à£¬¾âÒ²Ô½À´Ô½Éî¡£";
+                msg = "â€œå±å˜å±å˜â€ï¼Œåœ°ä¸Šçš„æœ¨å±‘æ˜¯è¶Šæ¥è¶Šå¤šï¼Œé”¯ä¹Ÿè¶Šæ¥è¶Šæ·±ã€‚";
                 break;
         case 6:
                 me->receive_damage("qi", 30);
-                msg = "¡°¸ÂÖ¨¸ÂÖ¨¡±£¬$NºÍ$n·ÜÁ¦À­¾â¡£";
+                msg = "â€œå˜å±å˜å±â€ï¼Œ$Nå’Œ$nå¥‹åŠ›æ‹‰é”¯ã€‚";
                 break;
         case 7:
                 me->receive_damage("qi", 30);
-                msg = "¡°Ö¨¸ÂÖ¨¸Â¡±£¬ºöÈ»¡°¿¦À­¡±µÄÒ»Éù£¬ËÉÊ÷ÓĞĞ©Ò¡»Î¡£";
+                msg = "â€œå±å˜å±å˜â€ï¼Œå¿½ç„¶â€œå–€æ‹‰â€çš„ä¸€å£°ï¼Œæ¾æ ‘æœ‰äº›æ‘‡æ™ƒã€‚";
                 break;
         case 8:
                 if (objectp(weapon = me->query_temp("weapon")) &&
                     weapon->query("skill_type") == "axe")
                 {
-                        msg = "$N°Ú°ÚÊÖ£¬ÈÃ$n·öºÃËÉÊ÷£¬ÉÏÈ¥¾ÍÊÇ¡°ßÑßÑßÑ¡±µÄ¿³¡£";
+                        msg = "$Næ‘†æ‘†æ‰‹ï¼Œè®©$næ‰¶å¥½æ¾æ ‘ï¼Œä¸Šå»å°±æ˜¯â€œå“å“å“â€çš„ç ã€‚";
                         break;
                 }
                 if (objectp(weapon = coagent->query_temp("weapon")) &&
                     weapon->query("skill_type") == "axe")
                 {
-                        msg = "$n°Ú°ÚÊÖ£¬ÈÃ$N·öºÃËÉÊ÷£¬ÉÏÈ¥¾ÍÊÇ¡°ßÑßÑßÑ¡±µÄ¿³¡£";
+                        msg = "$næ‘†æ‘†æ‰‹ï¼Œè®©$Næ‰¶å¥½æ¾æ ‘ï¼Œä¸Šå»å°±æ˜¯â€œå“å“å“â€çš„ç ã€‚";
                         break;
                 }
                 
-                message_vision("¾âµ½Õâ¸ö·İÉÏ£¬È´Ã»ÕÒµ½¸«Í·£¬$NºÍ$n"
-                               "µÉµÉÑÛ¾¦£¬Ö»ºÃÍ£ÊÖ¡£\n", me, coagent);
+                message_vision("é”¯åˆ°è¿™ä¸ªä»½ä¸Šï¼Œå´æ²¡æ‰¾åˆ°æ–§å¤´ï¼Œ$Nå’Œ$n"
+                               "çªçªçœ¼ç›ï¼Œåªå¥½åœæ‰‹ã€‚\n", me, coagent);
                 return end_working(me);
         default:
-                msg = "´óÊ÷¡°Ö¨Ñ½Ö¨Ñ½¡±µÄµ½ÁËÏÂÀ´£¬$NºÍ$nÁ¬Ã¦ÉÁ¿ª¡£";
+                msg = "å¤§æ ‘â€œå±å‘€å±å‘€â€çš„åˆ°äº†ä¸‹æ¥ï¼Œ$Nå’Œ$nè¿å¿™é—ªå¼€ã€‚";
                 finish = 1;
                 break;
         }
         msg += "\n";
 
         // send message out
-        gmsg = replace_string(msg, "$N", "Äã");
+        gmsg = replace_string(msg, "$N", "ä½ ");
         gmsg = replace_string(gmsg, "$n", coagent->name());
         tell_object(me, gmsg);
-        gmsg = replace_string(msg, "$n", "Äã");
+        gmsg = replace_string(msg, "$n", "ä½ ");
         gmsg = replace_string(gmsg, "$N", me->name());
         tell_object(coagent, gmsg);
 
@@ -330,35 +330,35 @@ int working(object me)
 
                 if (me->query_dex() / 2 + random(me->query_dex() / 3) < 12)
                 {
-                        message_vision("´óÊ÷ºäÈ»µ¹µØ£¬$N»¹ÊÇ²îÁËÒ»²½£¬½á"
-                                       "¹û¡°Å¾¡±µÄÒ»ÏÂ°Ñ$NÑ¹ÁË¸öÑÏÑÏÊµÊµ¡£\n", me);
+                        message_vision("å¤§æ ‘è½°ç„¶å€’åœ°ï¼Œ$Nè¿˜æ˜¯å·®äº†ä¸€æ­¥ï¼Œç»“"
+                                       "æœâ€œå•ªâ€çš„ä¸€ä¸‹æŠŠ$Nå‹äº†ä¸ªä¸¥ä¸¥å®å®ã€‚\n", me);
                         me->unconcious();
                 } else
                 if (coagent->query_dex() / 2 + random(coagent->query_dex() / 3) < 12)
                 {
-                        message_vision("´óÊ÷ºäÈ»µ¹µØ£¬$N»¹ÊÇ²îÁËÒ»²½£¬½á"
-                                       "¹û¡°Å¾¡±µÄÒ»ÏÂ°Ñ$NÑ¹ÁË¸öÑÏÑÏÊµÊµ¡£\n", coagent);
+                        message_vision("å¤§æ ‘è½°ç„¶å€’åœ°ï¼Œ$Nè¿˜æ˜¯å·®äº†ä¸€æ­¥ï¼Œç»“"
+                                       "æœâ€œå•ªâ€çš„ä¸€ä¸‹æŠŠ$Nå‹äº†ä¸ªä¸¥ä¸¥å®å®ã€‚\n", coagent);
                         coagent->unconcious();
                 } else
                 {
-                        message_vision("´óÊ÷ºäÈ»µ¹µØ£¬$NºÍ$nÄ¨ÁËÄ¨Í·"
-                                       "ÉÏµÄº¹£¬ÏàÊÓÒ»Ğ¦¡£\n", me, coagent);
+                        message_vision("å¤§æ ‘è½°ç„¶å€’åœ°ï¼Œ$Nå’Œ$næŠ¹äº†æŠ¹å¤´"
+                                       "ä¸Šçš„æ±—ï¼Œç›¸è§†ä¸€ç¬‘ã€‚\n", me, coagent);
 
                         if (wood->move(me))
                         {
-                                message_vision(HIC "$N" HIC "¡°àË¡±µÄÒ»Éù£¬ÔÚ$n" HIC
-                                               "µÄ°ïÖúÏÂ°Ñ" + wood->name() + HIC
-                                               "¿¸ÁËÆğÀ´¡£\n" NOR, me, coagent);
+                                message_vision(HIC "$N" HIC "â€œå—¨â€çš„ä¸€å£°ï¼Œåœ¨$n" HIC
+                                               "çš„å¸®åŠ©ä¸‹æŠŠ" + wood->name() + HIC
+                                               "æ‰›äº†èµ·æ¥ã€‚\n" NOR, me, coagent);
                         } else
                         if (wood->move(coagent))
                         {
-                                message_vision(HIC "$n" HIC "¡°àË¡±µÄÒ»Éù£¬ÔÚ$N" HIC
-                                               "µÄ°ïÖúÏÂ°Ñ" + wood->name() + HIC
-                                               "¿¸ÁËÆğÀ´¡£\n" NOR, me, coagent);
+                                message_vision(HIC "$n" HIC "â€œå—¨â€çš„ä¸€å£°ï¼Œåœ¨$N" HIC
+                                               "çš„å¸®åŠ©ä¸‹æŠŠ" + wood->name() + HIC
+                                               "æ‰›äº†èµ·æ¥ã€‚\n" NOR, me, coagent);
                         } else
                         {
-                                message_vision("$NºÍ$nÉÏÈ¥µàÁËµàÄ¾ÁÏ£¬¶¼¾õµÃÌ«"
-                                               "ÖØ£¬Ö»ºÃÏÈ·ÅÔÚµØÉÏ¡£\n",
+                                message_vision("$Nå’Œ$nä¸Šå»æ‚äº†æ‚æœ¨æ–™ï¼Œéƒ½è§‰å¾—å¤ª"
+                                               "é‡ï¼Œåªå¥½å…ˆæ”¾åœ¨åœ°ä¸Šã€‚\n",
                                                me, coagent);
                         }
                 }
@@ -366,16 +366,16 @@ int working(object me)
                 if (me->query("combat_exp") >= 100000 &&
                     me->query("combat_exp") < 800000)
                 {
-                        // bonus to me »ù´¡Ôö¼ÓÎå±¶
+                        // bonus to me åŸºç¡€å¢åŠ äº”å€
                         b = 75 + random(10);
                         me->add("combat_exp", b);
                         me->improve_potential((b + 10) / 3);
                         me->improve_skill("force", (b + 3) / 4);
-                        tell_object(me, HIC "\nÍ¨¹ıÕâ´Î¶ÍÁ¶£¬Äã¶ÔÎäÑ§µÄÀí½âÓÖ½øÒ»²½£¬»ñµÃÁË" +
+                        tell_object(me, HIC "\né€šè¿‡è¿™æ¬¡é”»ç‚¼ï¼Œä½ å¯¹æ­¦å­¦çš„ç†è§£åˆè¿›ä¸€æ­¥ï¼Œè·å¾—äº†" +
                                     chinese_number(b) +
-                                    "µã¾­ÑéºÍ" +
+                                    "ç‚¹ç»éªŒå’Œ" +
                                     chinese_number((b + 10) / 3) +
-                                    "µãÇ±ÄÜ¡£\n\n" NOR);
+                                    "ç‚¹æ½œèƒ½ã€‚\n\n" NOR);
                 }
 
                 if (coagent->query("combat_exp") >= 100000 &&
@@ -386,11 +386,11 @@ int working(object me)
                         coagent->add("combat_exp", b);
                         coagent->improve_potential((b + 10) / 3);
                         coagent->improve_skill("force", (b + 3) / 4);
-                        tell_object(coagent, HIC "\nÍ¨¹ıÕâ´Î¶ÍÁ¶£¬Äã¶ÔÎäÑ§µÄÀí½âÓÖ½øÒ»²½£¬»ñµÃÁË" +
+                        tell_object(coagent, HIC "\né€šè¿‡è¿™æ¬¡é”»ç‚¼ï¼Œä½ å¯¹æ­¦å­¦çš„ç†è§£åˆè¿›ä¸€æ­¥ï¼Œè·å¾—äº†" +
                                     chinese_number(b) +
-                                    "µã¾­ÑéºÍ" +
+                                    "ç‚¹ç»éªŒå’Œ" +
                                     chinese_number((b + 10) / 3) +
-                                    "µãÇ±ÄÜ¡£\n\n" NOR);
+                                    "ç‚¹æ½œèƒ½ã€‚\n\n" NOR);
                 }
 
                 return 0;
@@ -411,8 +411,8 @@ int halt_working(object me, object who, int silent)
                 return 1;
 
         if (! silent)
-                message_vision("$NÌ¾ÁË¿ÚÆø£¬µÀ£º¡°ÀÛËÀÁË£¬ÎÒ"
-                               "µÃÏÈÈàÈà¼ç£¡¡±\n", me);
+                message_vision("$Nå¹äº†å£æ°”ï¼Œé“ï¼šâ€œç´¯æ­»äº†ï¼Œæˆ‘"
+                               "å¾—å…ˆæ‰æ‰è‚©ï¼â€\n", me);
         end_working(me);
         return 1;
 }

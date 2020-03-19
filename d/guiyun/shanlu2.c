@@ -5,10 +5,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "ɽ·");
+	set("short", "山路");
 	set("long", @LONG
-������һƬũ���Զ����һЩ��ׯ�������������𡣴�ׯ��Χ
-��һ������أ�������һЩ���ڸ�����ũ�ˡ�
+这里是一片农田。不远处有一些村庄，炊烟袅袅升起。村庄周围
+是一块块的田地，田里有一些正在耕作的农人。
 LONG );
         set("outdoors", "guiyun");
 	set("exits", ([

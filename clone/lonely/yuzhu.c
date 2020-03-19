@@ -5,21 +5,21 @@ inherit STAFF;
 
 void create()
 {
-        set_name(HIG "ÓñÖñÕÈ" NOR, ({ "yuzhu zhang", "yuzhu", "zhang" }));
+        set_name(HIG "ç‰ç«¹æ–" NOR, ({ "yuzhu zhang", "yuzhu", "zhang" }));
         set_weight(26000);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", HIG "ÕâÊÇÒ»¸ùÂÌÓñËùÖÆµÄÕÈ£¬ÄËÊÇØ¤°ïÀú´úÏà"
-                            "´«µÄ°ïÖ÷ĞÅÎï¡£\n" NOR);
-                set("unit", "¸ù");
+                set("long", HIG "è¿™æ˜¯ä¸€æ ¹ç»¿ç‰æ‰€åˆ¶çš„æ–ï¼Œä¹ƒæ˜¯ä¸å¸®å†ä»£ç›¸"
+                            "ä¼ çš„å¸®ä¸»ä¿¡ç‰©ã€‚\n" NOR);
+                set("unit", "æ ¹");
                 set("value", 800000);
-                set("no_sell", "ÕâÊÇÉ¶£¿ÄÃÀ´É¹ÒÂ·şµÄ£¿\n");
+                set("no_sell", "è¿™æ˜¯å•¥ï¼Ÿæ‹¿æ¥æ™’è¡£æœçš„ï¼Ÿ\n");
                 set("material", "steel");
-                set("wield_msg", HIG "$N" HIG "´Ó±³ºó³é³öÒ»¸ùÂÌÓñËùÖÆ"
-                                 "µÄÊÖÕÈ£¬Áè¿ÕÎèÁË¸öÈ¦×Ó¡£\n" NOR);
-                set("unwield_msg", HIG "$N" HIG "Î¢Î¢Ò»Ğ¦£¬½«ÊÖÖĞµÄÓñ"
-                                 "ÖñÕÈ²å»Ø±³ºó¡£\n" NOR);
+                set("wield_msg", HIG "$N" HIG "ä»èƒŒåæŠ½å‡ºä¸€æ ¹ç»¿ç‰æ‰€åˆ¶"
+                                 "çš„æ‰‹æ–ï¼Œå‡Œç©ºèˆäº†ä¸ªåœˆå­ã€‚\n" NOR);
+                set("unwield_msg", HIG "$N" HIG "å¾®å¾®ä¸€ç¬‘ï¼Œå°†æ‰‹ä¸­çš„ç‰"
+                                 "ç«¹æ–æ’å›èƒŒåã€‚\n" NOR);
                 set("stable", 100);
         }
         init_staff(180);
@@ -41,8 +41,8 @@ mixed hit_ob(object me, object victim, int damage_bonus)
                 n = me->query_skill("staff");
                 victim->receive_damage("qi", n, me);
                 victim->receive_wound("qi", n, me);
-                return HIG "$N" HIG "½«ÊÖÖĞÓñÖñÕÈÒ»Õñ£¬µÇÊ±»Ã³ö²ã²ãÕÈÓ°£¬Ïò±Æ$n"
-                       HIG "¶øÈ¥£¡\n" NOR;
+                return HIG "$N" HIG "å°†æ‰‹ä¸­ç‰ç«¹æ–ä¸€æŒ¯ï¼Œç™»æ—¶å¹»å‡ºå±‚å±‚æ–å½±ï¼Œå‘é€¼$n"
+                       HIG "è€Œå»ï¼\n" NOR;
         }
         return damage_bonus;
 }

@@ -5,19 +5,19 @@ inherit XSWORD;
 
 void create()
 {
-        set_name(NOR + GRN "ÂÌÓñ¶´óï" NOR, ({"lvyu dongxiao", "lvyu", "dongxiao", "xiao"}));
+        set_name(NOR + GRN "ç»¿ç‰æ´ç®«" NOR, ({"lvyu dongxiao", "lvyu", "dongxiao", "xiao"}));
         set_weight(500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "Ö§");
-                set("long", GRN "Ò»Ö§ÂÌÓñ×ö³ÉµÄ¶´óï£¬¿´ÉÏÈ¥¾§Ó¨ÎÂÈó¡£ÎäÁÖ"
-                            "ÖĞÈË¾­³£ÒÔÏô´ú½£¡£\n" NOR);
+                set("unit", "æ”¯");
+                set("long", GRN "ä¸€æ”¯ç»¿ç‰åšæˆçš„æ´ç®«ï¼Œçœ‹ä¸Šå»æ™¶è¹æ¸©æ¶¦ã€‚æ­¦æ—"
+                            "ä¸­äººç»å¸¸ä»¥è§ä»£å‰‘ã€‚\n" NOR);
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "stone");
-                set("wield_msg", GRN "$N" GRN "´óĞäÒ»»Ó£¬ÊÖÖĞÒÑ¶àÁËÒ»Ö§¾§Ó¨ÎÂÈóµÄÂÌÓñ¶´Ïô¡£\n" NOR);
-                set("unwield_msg", GRN "$N" GRN "ÊÖÖĞÂÌÓñ¶´óïÒ»×ª£¬Õ£ÑÛ¼äÒÑÈ»²»¼ûÓ°×Ù¡£\n" NOR);
+                set("wield_msg", GRN "$N" GRN "å¤§è¢–ä¸€æŒ¥ï¼Œæ‰‹ä¸­å·²å¤šäº†ä¸€æ”¯æ™¶è¹æ¸©æ¶¦çš„ç»¿ç‰æ´è§ã€‚\n" NOR);
+                set("unwield_msg", GRN "$N" GRN "æ‰‹ä¸­ç»¿ç‰æ´ç®«ä¸€è½¬ï¼Œçœ¨çœ¼é—´å·²ç„¶ä¸è§å½±è¸ªã€‚\n" NOR);
                 set("stable", 100);
         }
         init_xsword(100);

@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��ʯ̲");
+        set("short", "乱石滩");
         set("long", @LONG
-�����ʯ������·�������ߣ���С�ľ�Ҫˤ������������
-��Ƭʯ̲�����ǳ������ߡ�
+这里怪石林立，路极不好走，不小心就要摔个跟斗，过了
+这片石滩，就是长江岸边。
 LONG);
         set("outdoors", "jingzhou");
 

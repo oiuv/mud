@@ -3,11 +3,11 @@ inherit ROOM;
 
 void create()
 {
-    	set("short", "²ñ·¿");
+    	set("short", "æŸ´æˆ¿");
     	set("long", @LONG
-Õâ¼äÎÝÀï¶£¶£ßÑßÑµÄ£¬Äã½øÎÝÄÚ×ÐÏ¸Ò»¿´£¬¼¸¸öÈËÔÚÅü²ñ
-»ð£¬ÎÝ×ÓÌØ±ð´ó£¬ÎÝ×ÓÒ»±ß¶ÑÂúÁËÒÑ¾­¾â¶ÌµÄÄ¾Í·£¬µ«ÁíÒ»±ß
-ÅüºÃµÄ²ñ»ðÈ´Ã»ÓÐ¶àÉÙ¡£
+è¿™é—´å±‹é‡Œå®å®å“å“çš„ï¼Œä½ è¿›å±‹å†…ä»”ç»†ä¸€çœ‹ï¼Œå‡ ä¸ªäººåœ¨åŠˆæŸ´
+ç«ï¼Œå±‹å­ç‰¹åˆ«å¤§ï¼Œå±‹å­ä¸€è¾¹å †æ»¡äº†å·²ç»é”¯çŸ­çš„æœ¨å¤´ï¼Œä½†å¦ä¸€è¾¹
+åŠˆå¥½çš„æŸ´ç«å´æ²¡æœ‰å¤šå°‘ã€‚
 LONG);
         set("no_fight", 1);
         set("exits", ([
@@ -33,26 +33,26 @@ int do_pi(string arg)
 
         me = this_player();
 
-        if (me->query_temp("mark/ÅüÍêÁË"))
-            	return notify_fail(CYN "²ñ·¿¹ÜÊÂÈÂÈÂµÀ£ºÎ¹Î¹Î¹£¬ÈÃÄãÈ¥¸²Ãü£¬»¹Áô"
-                                   "ÔÚÕâÀï¸ÉÂï£¿\n" NOR);
+        if (me->query_temp("mark/åŠˆå®Œäº†"))
+            	return notify_fail(CYN "æŸ´æˆ¿ç®¡äº‹åš·åš·é“ï¼šå–‚å–‚å–‚ï¼Œè®©ä½ åŽ»è¦†å‘½ï¼Œè¿˜ç•™"
+                                   "åœ¨è¿™é‡Œå¹²å˜›ï¼Ÿ\n" NOR);
 
-        if (me->query_temp("job_name") != "Åü²ñ") 
-            	return notify_fail(CYN "²ñ·¿¹ÜÊÂ¶ÔÄãºÈµÀ£ºÃ»ÊÂÄãÏ¹ÕÛÌÚÊ²Ã´£¿\n" NOR);
+        if (me->query_temp("job_name") != "åŠˆæŸ´") 
+            	return notify_fail(CYN "æŸ´æˆ¿ç®¡äº‹å¯¹ä½ å–é“ï¼šæ²¡äº‹ä½ çžŽæŠ˜è…¾ä»€ä¹ˆï¼Ÿ\n" NOR);
 
         if (me->is_busy())
-		return notify_fail("ÄãÏÖÔÚÕýÃ¦×ÅÄØ£¡\n");
+		return notify_fail("ä½ çŽ°åœ¨æ­£å¿™ç€å‘¢ï¼\n");
 
         if (me->is_fighting())
-		return notify_fail("ÄãÕýÔÚÕ½¶·ÖÐ£¬ÎÞ·¨×¨ÐÄ¸É»î£¡\n");
+		return notify_fail("ä½ æ­£åœ¨æˆ˜æ–—ä¸­ï¼Œæ— æ³•ä¸“å¿ƒå¹²æ´»ï¼\n");
 
         if (! objectp(weapon = me->query_temp("weapon"))
            || weapon->query("id")!= "chai dao")
-                return notify_fail(CYN "²ñ·¿¹ÜÊÂ¼¥Ð¦µÀ£ºÄã×¼±¸ÓÃÊ²Ã´À´Åü²ñÑ½£¬ÓÃ"
-                                   "ÊÖÂð£¿\n" NOR);
+                return notify_fail(CYN "æŸ´æˆ¿ç®¡äº‹è®¥ç¬‘é“ï¼šä½ å‡†å¤‡ç”¨ä»€ä¹ˆæ¥åŠˆæŸ´å‘€ï¼Œç”¨"
+                                   "æ‰‹å—ï¼Ÿ\n" NOR);
 
         if (! arg || arg != "chai" )
-		return notify_fail("ÄãÒªÅüÊ²Ã´£¿\n");
+		return notify_fail("ä½ è¦åŠˆä»€ä¹ˆï¼Ÿ\n");
 
         costj = random((int)me->query("con") / 3) + 1;
         costq = random((int)me->query("str") / 3) + 1;
@@ -60,8 +60,8 @@ int do_pi(string arg)
         if ((int)me->query("jing") < costj
 	   || (int)me->query("qi") < costq)
 	{
-                message_vision(HIR "\n$N" HIR "ÊÖÒ»Íá£¬Ò»²»Ð¡ÐÄ²ñµ¶¾¹È»ÅüÔÚ×Ô¼º"
-                               "µÄÍÈÉÏ¡£\n" NOR, me);
+                message_vision(HIR "\n$N" HIR "æ‰‹ä¸€æ­ªï¼Œä¸€ä¸å°å¿ƒæŸ´åˆ€ç«Ÿç„¶åŠˆåœ¨è‡ªå·±"
+                               "çš„è…¿ä¸Šã€‚\n" NOR, me);
                 me->unconcious();
                 return 1;
         }
@@ -71,25 +71,25 @@ int do_pi(string arg)
         me->start_busy(1 + random(2));
 
         if (! (int)me->query_condition("wuguan_job")
-           && (int)me->query_temp("mark/Åü") > 10 + random(10)
+           && (int)me->query_temp("mark/åŠˆ") > 10 + random(10)
            && present("chaifang guanshi", environment(me)))
 	{
-                me->set_temp("mark/ÅüÍêÁË", 1);
-                message_vision(CYN "\n²ñ·¿¹ÜÊÂ¶Ô$N" CYN "Ëµ£º¸ÉµÄ²»´í£¬ºÃÁË£¬Äã¿É"
-                               "ÒÔÈ¥ÏòÒ®ÂÉ´óÒ¯¸²Ãü(" HIY "task ok" NOR + CYN ")ÁË"
-                               "¡£\n" NOR, me);
+                me->set_temp("mark/åŠˆå®Œäº†", 1);
+                message_vision(CYN "\næŸ´æˆ¿ç®¡äº‹å¯¹$N" CYN "è¯´ï¼šå¹²çš„ä¸é”™ï¼Œå¥½äº†ï¼Œä½ å¯"
+                               "ä»¥åŽ»å‘è€¶å¾‹å¤§çˆ·è¦†å‘½(" HIY "task ok" NOR + CYN ")äº†"
+                               "ã€‚\n" NOR, me);
                 return 1;
         }
 
-        message_vision(HIW "$N" HIW "°ÚÕýÒ»¿éÄ¾Í·£¬Ò»µ¶ÅüÈ¥£¬½«Ä¾Í·ÅüÎªÁ½Æ¬¡£\n" NOR, me);
-        me->add_temp("mark/Åü", 1);
-		//¼¼ÄÜÉÏÏÞÓÉ50¡ü70£¬ÌáÉýËÙ¶ÈÔö¼Ó3±¶
+        message_vision(HIW "$N" HIW "æ‘†æ­£ä¸€å—æœ¨å¤´ï¼Œä¸€åˆ€åŠˆåŽ»ï¼Œå°†æœ¨å¤´åŠˆä¸ºä¸¤ç‰‡ã€‚\n" NOR, me);
+        me->add_temp("mark/åŠˆ", 1);
+		//æŠ€èƒ½ä¸Šé™ç”±50â†‘70ï¼Œæå‡é€Ÿåº¦å¢žåŠ 3å€
         if ((int)me->query_skill("blade", 1) < 75
            && (int)me->query_skill("strike", 1) < 75
            && me->can_improve_skill("blade")
            && me->can_improve_skill("strike"))
 	{  
-                write(HIC "ÄãÔÚÅü²ñ¹ý³ÌÖÐ¶ÔÓÚµ¶·¨¼°ÕÆ·¨ÓÐÐ©Ìå»á¡£\n" NOR);
+                write(HIC "ä½ åœ¨åŠˆæŸ´è¿‡ç¨‹ä¸­å¯¹äºŽåˆ€æ³•åŠæŽŒæ³•æœ‰äº›ä½“ä¼šã€‚\n" NOR);
                 me->improve_skill("blade", (int)(me->query("int") / 2));
                 me->improve_skill("strike", (int)(me->query("int") / 2));
         }

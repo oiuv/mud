@@ -5,8 +5,8 @@ inherit NPC;
 
 void create()
 {
-        set_name("Íò´óÆ½", ({ "wan daping", "daping", "wan" }) );
-        set("gender", "ÄÐÐÔ");
+        set_name("ä¸‡å¤§å¹³", ({ "wan daping", "daping", "wan" }) );
+        set("gender", "ç”·æ€§");
         set("class", "swordsman");
         set("age", 25);
         set("attitude", "peaceful");
@@ -37,7 +37,7 @@ void create()
         map_skill("parry", "songshan-sword");
         map_skill("dodge", "lingxu-bu");
 
-        create_family("áÔÉ½ÅÉ", 14, "µÜ×Ó");
+        create_family("åµ©å±±æ´¾", 14, "å¼Ÿå­");
         setup();
 
         carry_object("/clone/weapon/changjian")->wield();

@@ -1,4 +1,4 @@
-// jitui.c ¼¦ÍÈ
+// jitui.c é¸¡è…¿
 
 #include <weapon.h>
 
@@ -6,14 +6,14 @@ inherit HAMMER;
 
 void create()
 {
-	set_name("¿ĞµÃ¾«¹âµÄ¼¦ÍÈ¹ÇÍ·", ({ "bone" }));
+	set_name("å•ƒå¾—ç²¾å…‰çš„é¸¡è…¿éª¨å¤´", ({ "bone" }));
 	set_weight(150);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("long", "Ò»¸ù¿ĞµÃ¾«¹âµÄ¼¦ÍÈ¹ÇÍ·¡£\n");
-		set("unit", "¸ù");
-		set("wield_msg", "$N×¥ÆğÒ»¸ù$n£¬ÎÕÔÚÊÖÖĞµ±ÎäÆ÷¡£\n");
+		set("long", "ä¸€æ ¹å•ƒå¾—ç²¾å…‰çš„é¸¡è…¿éª¨å¤´ã€‚\n");
+		set("unit", "æ ¹");
+		set("wield_msg", "$NæŠ“èµ·ä¸€æ ¹$nï¼Œæ¡åœ¨æ‰‹ä¸­å½“æ­¦å™¨ã€‚\n");
 		set("material", "bone");
 	}
 	init_hammer(1);

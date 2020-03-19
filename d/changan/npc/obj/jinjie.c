@@ -6,13 +6,13 @@ inherit HANDS;
 
 void create()
 {
-        set_name("½ð½äÖ¸", ({ "jin jie", "jinjie", "ring" }));
+        set_name("é‡‘æˆ’æŒ‡", ({ "jin jie", "jinjie", "ring" }));
         set("weight", 400);
         if (clonep())
         	set_default_object(__FILE__);
         else
 	{
-        	set("unit", "¸ö");
+        	set("unit", "ä¸ª");
         	set("value", 10000);
         	set("material", "gold");
         	set("armor_prop/armor", 1);

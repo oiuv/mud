@@ -5,13 +5,13 @@ inherit HEAD;
 
 void create()
 {
-	set_name(MAG "×ÏÌ´·ğ´®" NOR,({"fo chuan"}));
+	set_name(MAG "ç´«æª€ä½›ä¸²" NOR,({"fo chuan"}));
         set_weight(1000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
 		set("material", "wood");
-                set("unit", "Ìõ");
+                set("unit", "æ¡");
 		set("armor_prop/armor",10);
         }
         setup();

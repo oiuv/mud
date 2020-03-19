@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "��ׯ");
+        set("short", "郭庄");
         set("long", @LONG
-ׯ԰�Ĵ������ǡ���ׯ���������֡����ɫ�Ĵ��Ž�����
-���ţ����澲���ĵ�һ��������û�С�
+庄园的大匾上是「郭庄」两个大字。朱红色的大门紧紧关
+闭着，里面静悄悄的一点声音都没有。
 LONG);
         set("exits", ([
                 "east" : __DIR__"dadao1",

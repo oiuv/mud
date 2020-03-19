@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ɽ·");
+        set("short", "山路");
         set("long", @LONG
-�����������С·�ϣ�������;ɽ����Ӱ��������У���ʯ�߲���
-�����е��ػ��泩�����볤�Ӵ˵ء����ϱ㵽�������ã����¾͵���
-������
+走在这弯弯的小路上，看着沿途山峰云影，松竹青葱，岩石斑驳。
+不禁感到胸怀舒畅，颇想长居此地。西上便到了上天竺，东下就到了
+龙井。
 LONG);
         set("exits", ([
             "west"   : __DIR__"faxisi",

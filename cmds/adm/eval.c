@@ -22,9 +22,9 @@ int help(object me)
         return 0;
 
     write(@HELP
-ж╦аН╦Яй╫ : eval <lpc code>
+Ф▄┤Д╩╓Ф═╪Е╪▐ : eval <lpc code>
 
-╡Бйтв╗сцё╛гКохй╣ож╧╕дэ╨Сткпп║ё
+Ф╣▀Х╞∙Д╦⌠Г■╗О╪▄Х╞╥Е┘┬Е╝·Г▌╟Е┼÷Х┐╫Е░▌Х©░Х║▄Ц─┌
 
 HELP);
 

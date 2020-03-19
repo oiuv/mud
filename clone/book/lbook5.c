@@ -2,10 +2,10 @@
 inherit BOOK;
 
 string* titles = ({
-        YEL "¡¸×ÓÕÅĞÄµÃ¡¹" NOR,
-        YEL "¡¸×ÓÂ·ĞÄµÃ¡¹" NOR,
-        YEL "¡¸×Ó¹±ĞÄµÃ¡¹" NOR,
-        YEL "¡¸×ÓÏÄĞÄµÃ¡¹" NOR,
+        YEL "ã€Œå­å¼ å¿ƒå¾—ã€" NOR,
+        YEL "ã€Œå­è·¯å¿ƒå¾—ã€" NOR,
+        YEL "ã€Œå­è´¡å¿ƒå¾—ã€" NOR,
+        YEL "ã€Œå­å¤å¿ƒå¾—ã€" NOR,
 
 });
 
@@ -19,10 +19,10 @@ void create()
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("unit", "±¾");
-                set("long", YEL "ÕâÊÇÒ»²á¹ÅÊé£¬·âÆ¤ÉÏĞ´×ÅĞÄµÃÑ§ËµËÄ¸ö×Ö¡£\n");
+                set("unit", "æœ¬");
+                set("long", YEL "è¿™æ˜¯ä¸€å†Œå¤ä¹¦ï¼Œå°çš®ä¸Šå†™ç€å¿ƒå¾—å­¦è¯´å››ä¸ªå­—ã€‚\n");
                 set("value", 2500);
-                set("no_sell", "Õâ¡­ÕâÖµÊ²Ã´Ç®£¿\n");
+                set("no_sell", "è¿™â€¦è¿™å€¼ä»€ä¹ˆé’±ï¼Ÿ\n");
                 set("material", "paper");
                 set("skill", ([
                 	"name" : "literate",

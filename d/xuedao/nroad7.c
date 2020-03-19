@@ -2,9 +2,9 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "É½Â·");
+        set("short", "å±±è·¯");
         set("long", @LONG
-Äã×ßÔÚÒ»É½Â·ÉÏ£¬ËÄÖÜÓĞÒ»×ù×ùĞ¡É½Çğ¡£
+ä½ èµ°åœ¨ä¸€å±±è·¯ä¸Šï¼Œå››å‘¨æœ‰ä¸€åº§åº§å°å±±ä¸˜ã€‚
 LONG );
         set("exits", ([
                 "eastdown" : "/d/xueshan/shanjiao",

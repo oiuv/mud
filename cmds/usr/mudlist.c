@@ -23,7 +23,7 @@ int main(object me, string arg)
     int uc;
 
     if (!find_object(DNS_MASTER))
-        return notify_fail("ÍøÂç¾«Áé²¢Ã»ÓĞ±»ÔØÈë£¬ÇëÏÈ½«ÍøÂ·¾«ÁéÔØÈë¡£\n");
+        return notify_fail("ç½‘ç»œç²¾çµå¹¶æ²¡æœ‰è¢«è½½å…¥ï¼Œè¯·å…ˆå°†ç½‘è·¯ç²¾çµè½½å…¥ã€‚\n");
 
     //	Obtain mapping containing mud data
     mud_list = (mapping)DNS_MASTER->query_muds();
@@ -32,7 +32,7 @@ int main(object me, string arg)
     mud_svc = DNS_MASTER->query_svc() + ([Mud_name():0]);
 
     if (!mud_list)
-        return notify_fail(LOCAL_MUD_NAME() + "Ä¿Ç°²¢Ã»ÓĞ¸úÍøÂ·ÉÏÆäËû Mud È¡µÃÁªÏµ¡£\n");
+        return notify_fail(LOCAL_MUD_NAME() + "ç›®å‰å¹¶æ²¡æœ‰è·Ÿç½‘è·¯ä¸Šå…¶ä»– Mud å–å¾—è”ç³»ã€‚\n");
 
     // Get list of all mud names within name server
     muds = keys(mud_list) - ({"DEFAULT"});
@@ -62,13 +62,13 @@ int main(object me, string arg)
         muds = filter_array(muds, (: sscanf($1, $(arg) + "%*s") :));
 
     if (!sizeof(muds))
-        return notify_fail("Ä¿Ç°±¾Õ¾²¢Ã»ÓĞºÍÕâ¸ö MUD È¡µÃÈÎºÎÁªÏµ¡£\n");
+        return notify_fail("ç›®å‰æœ¬ç«™å¹¶æ²¡æœ‰å’Œè¿™ä¸ª MUD å–å¾—ä»»ä½•è”ç³»ã€‚\n");
 
     //	Place mudlist into alphabetical format
     muds = sort_array(muds, 1);
 
-    output = WHT BBLU " Mud          ÖĞÎÄÃû³Æ            ¹ú¼ÊÍøÂ·Î»Ö·     ¶Ë¿Ú  ÈËÊı \n" NOR
-                      "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n";
+    output = WHT BBLU " Mud          ä¸­æ–‡åç§°            å›½é™…ç½‘è·¯ä½å€     ç«¯å£  äººæ•° \n" NOR
+                      "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
 
     //      Count for users
     uc = 0;
@@ -81,14 +81,14 @@ int main(object me, string arg)
             continue;
 
         if (!stringp(name = mud_list[mudn]["MUDNAME"]))
-            name = "Î´ÖªÃû³Æ";
+            name = "æœªçŸ¥åç§°";
 
         // filter some ... strange ansi
         name = replace_string(name, ESC "[0;37;0m", "");
         name = replace_string(name, ESC "[2;17m", "");
         name = filter_color(name);
 
-        // ĞŞÕı³¤¶È
+        // ä¿®æ­£é•¿åº¦
         vis_mudn = filter_color(mudn);
         if (strlen(vis_mudn) > 12)
             vis_mudn = vis_mudn[0..11];
@@ -105,17 +105,17 @@ int main(object me, string arg)
                           upper_case(vis_mudn), name,
                           mud_list[mudn]["HOSTADDRESS"],
                           mud_list[mudn]["PORT"] != "" ? mud_list[mudn]["PORT"] : __PORT__,
-                          mud_list[mudn][DNS_NO_CONTACT] > MAX_RETRYS ? "Ê§È¥ÁªÏµ"
+                          mud_list[mudn][DNS_NO_CONTACT] > MAX_RETRYS ? "å¤±å»è”ç³»"
                                                                       : mud_list[mudn]["USERS"]);
 
-        // ÀÛ¼ÆÍæ¼ÒÊıÁ¿
+        // ç´¯è®¡ç©å®¶æ•°é‡
         if (mud_list[mudn][DNS_NO_CONTACT] <= MAX_RETRYS)
             uc += atoi(mud_list[mudn]["USERS"]);
     }
-    output += "©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤\n";
+    output += "â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n";
 
     if (!arg || arg == "sites")
-        output += "±¾ÄàÌ¶¹²ÓĞ " CYN + uc + NOR " Î»Íæ¼ÒÔÚÓÎÏ·ÖĞ¡£\n";
+        output += "æœ¬æ³¥æ½­å…±æœ‰ " CYN + uc + NOR " ä½ç©å®¶åœ¨æ¸¸æˆä¸­ã€‚\n";
 
     if (objectp(me))
         me->start_more(output);
@@ -128,14 +128,14 @@ int main(object me, string arg)
 int help()
 {
 	write(@HELP
-Ö¸Áî¸ñÊ½ : mudlist <MUDÃû×Ö> | all | sites
+æŒ‡ä»¤æ ¼å¼ : mudlist <MUDåå­—> | all | sites
 
-Õâ¸öÖ¸ÁîÈÃÄãÁĞ³öÄ¿Ç°¸úÕâ¸ö Mud È¡µÃÁªÏµÖĞµÄÆäËû Mud¡£
+è¿™ä¸ªæŒ‡ä»¤è®©ä½ åˆ—å‡ºç›®å‰è·Ÿè¿™ä¸ª Mud å–å¾—è”ç³»ä¸­çš„å…¶ä»– Mudã€‚
 
-Èç¹û²»¼Ó²ÎÊıÔòÁĞ³ö¸Ã Mud ËùÓĞÕıÊ½·ÖÕ¾¡£
-Ê¹ÓÃ all ²ÎÊı±íÊ¾ÁĞ³öËùÓĞµÄ Mud ÓÎÏ·¡£
-Ê¹ÓÃ sites ²ÎÊı±íÊ¾ÁĞ³ö¸Ã Mud µÄËùÓĞ·ÖÕ¾¡£
-Èç¹û²»ÊÇÒÔÉÏ²ÎÊı£¬ÔòÁĞ³öÒÔ <MUDÃû×Ö> ¿ªÍ·µÄÕ¾µã¡£
+å¦‚æœä¸åŠ å‚æ•°åˆ™åˆ—å‡ºè¯¥ Mud æ‰€æœ‰æ­£å¼åˆ†ç«™ã€‚
+ä½¿ç”¨ all å‚æ•°è¡¨ç¤ºåˆ—å‡ºæ‰€æœ‰çš„ Mud æ¸¸æˆã€‚
+ä½¿ç”¨ sites å‚æ•°è¡¨ç¤ºåˆ—å‡ºè¯¥ Mud çš„æ‰€æœ‰åˆ†ç«™ã€‚
+å¦‚æœä¸æ˜¯ä»¥ä¸Šå‚æ•°ï¼Œåˆ™åˆ—å‡ºä»¥ <MUDåå­—> å¼€å¤´çš„ç«™ç‚¹ã€‚
 HELP );
 	return 1;
 }

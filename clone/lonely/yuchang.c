@@ -5,21 +5,21 @@ inherit DAGGER;
 
 void create()
 {
-        set_name(NOR + WHT "Óã³¦½£" NOR, ({"yuchang jian", "yuchang", "jian", "dagger"}));
+        set_name(NOR + WHT "é±¼è‚ å‰‘" NOR, ({"yuchang jian", "yuchang", "jian", "dagger"}));
         set_weight(2500);
         if (clonep())
                 destruct(this_object());
         else {
-                set("unit", "±ú");
-                set("long", WHT "Ò»±ú¹ÅÆÓ³ÁÖØµÄ¶ÌØ°Ê×£¬Ø°¼¹ÉÏ¿ÌÓĞ¡¸" HIY "Óã³¦"
-                            NOR + WHT "¡¹¶ş×Ö¡£\n" NOR);
+                set("unit", "æŸ„");
+                set("long", WHT "ä¸€æŸ„å¤æœ´æ²‰é‡çš„çŸ­åŒ•é¦–ï¼ŒåŒ•è„Šä¸Šåˆ»æœ‰ã€Œ" HIY "é±¼è‚ "
+                            NOR + WHT "ã€äºŒå­—ã€‚\n" NOR);
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "steel");
-                set("wield_msg", WHT "$N" WHT "´Ó¶µÀïÌÍ³öÒ»±úØ°Ê×£¬¿ÕÆøÖĞ¶ÙÊ±Çß"
-                                 "³öÒ»Ë¿º®Æø¡£\n" NOR);
-                set("unwield_msg", WHT "$N" WHT "ÊÖÖĞµÄÓã³¦½£Ò»×ª£¬Õ£ÑÛ¼äÒÑÈ»²»"
-                                 "¼ûÓ°×Ù¡£\n" NOR);
+                set("wield_msg", WHT "$N" WHT "ä»å…œé‡Œæå‡ºä¸€æŸ„åŒ•é¦–ï¼Œç©ºæ°”ä¸­é¡¿æ—¶æ²"
+                                 "å‡ºä¸€ä¸å¯’æ°”ã€‚\n" NOR);
+                set("unwield_msg", WHT "$N" WHT "æ‰‹ä¸­çš„é±¼è‚ å‰‘ä¸€è½¬ï¼Œçœ¨çœ¼é—´å·²ç„¶ä¸"
+                                 "è§å½±è¸ªã€‚\n" NOR);
                 set("stable", 100);
         }
         init_dagger(140);

@@ -4,11 +4,11 @@
 inherit ROOM;
 void create()
 {
-        set("short", "ÔÀÀÈ");
+        set("short", "å²³å»Š");
         set("long", @LONG
-ÔÀÍõÃíµÄØÒÉÏÊÇ¡°ÐÄÕÑÌìÈÕ¡±ËÄ¸ö´ó×Ö¡£²½Èë´óµî£¬ÕýÖÐÊÇÔÀ·É
-µÄËÜÏñ£¬ÉíááµÄØÒÉÏÌâ×Å¡°»¹ÎÒºÓÉ½¡±¡£±±±ßµÄÃÅÍ¨ÏòÔÀ·Ø£¬ÍùÄÏÊÇ
-³öÈ¥µÄÂ·¡£
+å²³çŽ‹åº™çš„åŒ¾ä¸Šæ˜¯â€œå¿ƒæ˜­å¤©æ—¥â€å››ä¸ªå¤§å­—ã€‚æ­¥å…¥å¤§æ®¿ï¼Œæ­£ä¸­æ˜¯å²³é£ž
+çš„å¡‘åƒï¼Œèº«å¾Œçš„åŒ¾ä¸Šé¢˜ç€â€œè¿˜æˆ‘æ²³å±±â€ã€‚åŒ—è¾¹çš„é—¨é€šå‘å²³åŸï¼Œå¾€å—æ˜¯
+å‡ºåŽ»çš„è·¯ã€‚
 LONG);
         set("exits", ([
             "north"     : __DIR__"yuefen",

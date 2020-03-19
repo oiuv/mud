@@ -256,11 +256,11 @@ int can_improve_skill(string skill)
         switch (SKILL_D(skill)->type())
         {
         case "knowledge":
-                // ÖªÊ¶Àà¼¼ÄÜ
+                // çŸ¥è¯†ç±»æŠ€èƒ½
                 return 1;
 
         case "technic":
-                // ¼¼ÊõÀà¼¼ÄÜ
+                // æŠ€æœ¯ç±»æŠ€èƒ½
                 return 1;
 
         case "martial":
@@ -328,8 +328,8 @@ varargs void improve_skill(string skill, int amount, int weak_mode)
         {
 		skills[skill]++;
 		learned[skill] = 0;
-		tell_object(this_object(), HIC "ÄãµÄ¡¸" + to_chinese(skill) +
-			    "¡¹½ø²½ÁË£¡\n" NOR);
+		tell_object(this_object(), HIC "ä½ çš„ã€Œ" + to_chinese(skill) +
+			    "ã€è¿›æ­¥äº†ï¼\n" NOR);
 		SKILL_D(skill)->skill_improved(this_object());
 	}
 }

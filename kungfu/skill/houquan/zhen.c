@@ -1,4 +1,4 @@
-// zhen.c ºïÈ­¡¸Õğ¡¹×Ö¾÷
+// zhen.c çŒ´æ‹³ã€Œéœ‡ã€å­—è¯€
 
 #include <ansi.h>
 #include <combat.h>
@@ -13,22 +13,22 @@ int perform(object me, object target)
 	if (! target) target = offensive_target(me);
 
 	if (! target || ! me->is_fighting(target))
-		return notify_fail("Éñ¹¦ÕğµĞÖ»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+		return notify_fail("ç¥åŠŸéœ‡æ•Œåªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
 	if (objectp(me->query_temp("weapon")))
-		return notify_fail("Äã±ØĞë¿ÕÊÖ²ÅÄÜÊ¹ÓÃ¡¸Õğ¡¹×Ö¾÷£¡\n");		
+		return notify_fail("ä½ å¿…é¡»ç©ºæ‰‹æ‰èƒ½ä½¿ç”¨ã€Œéœ‡ã€å­—è¯€ï¼\n");		
 		
         if ((int)me->query_skill("houquan", 1) < 50)
-		return notify_fail("ÄãµÄºïÈ­²»¹»æµÊì£¬²»»áÊ¹ÓÃ¡¸Õğ¡¹×Ö¾÷¡£\n");
+		return notify_fail("ä½ çš„çŒ´æ‹³ä¸å¤Ÿå¨´ç†Ÿï¼Œä¸ä¼šä½¿ç”¨ã€Œéœ‡ã€å­—è¯€ã€‚\n");
 	                        
         if ((int)me->query("neili", 1) < 100)
-		return notify_fail("ÄãÏÖÔÚÕæÆøÌ«Èõ£¬²»ÄÜÊ¹ÓÃ¡¸Õğ¡¹×Ö¾÷¡£\n");
+		return notify_fail("ä½ ç°åœ¨çœŸæ°”å¤ªå¼±ï¼Œä¸èƒ½ä½¿ç”¨ã€Œéœ‡ã€å­—è¯€ã€‚\n");
 
        if (! living(target))
-              return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+              return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-	msg = CYN "$N" CYN "Ä¬ÔËÉñ¹¦£¬Ê¹³öºïÈ­¡¸Õğ¡¹×Ö¾÷£¬ÆóÍ¼ÒÔÄÚÁ¦ÕğÉË$n"
-              CYN "¡£\n" NOR;
+	msg = CYN "$N" CYN "é»˜è¿ç¥åŠŸï¼Œä½¿å‡ºçŒ´æ‹³ã€Œéœ‡ã€å­—è¯€ï¼Œä¼å›¾ä»¥å†…åŠ›éœ‡ä¼¤$n"
+              CYN "ã€‚\n" NOR;
 	me->add("neili", -80);
 
 	if (random(me->query_skill("force")) > target->query_skill("force") / 2)
@@ -39,12 +39,12 @@ int perform(object me, object target)
 		damage = (int)me->query_skill("force", 1);
                 damage = damage / 3 + random(damage / 3);
 
-                msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 30, "ÄÚÉË:?");
+                msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 30, "å†…ä¼¤:?");
 	} else 
 	{
 		me->start_busy(3);
-		msg += CYN "¿ÉÊÇ$p" CYN "¿´ÆÆÁË$P"
-                       CYN "µÄÆóÍ¼£¬²¢Ã»ÓĞÉÏµ±¡£\n" NOR;
+		msg += CYN "å¯æ˜¯$p" CYN "çœ‹ç ´äº†$P"
+                       CYN "çš„ä¼å›¾ï¼Œå¹¶æ²¡æœ‰ä¸Šå½“ã€‚\n" NOR;
 	}
 	message_combatd(msg, me, target);
 	return 1;

@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�������");
+	set("short", "春来茶馆");
 	set("long", @LONG
-���߽������ŵ�һ�ɲ���������Ƣ������Ϊ֮һˬ������
-������һ���ſ��������˿��ˣ������̸Ц����ͷ�Ӷ�����
-Ҫ����������ƹʺ�ҥ�ԣ������Ǹ������ڡ�
+你走进来就闻到一股茶香沁入心脾，精神为之一爽。几张
+八仙桌一字排开，坐满了客人，或高声谈笑，或交头接耳。你
+要想打听江湖掌故和谣言，这里是个好所在。
 LONG );
 	set("resource/water", 1);
 	set("exits", ([

@@ -2,11 +2,11 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "�¶�Ȫ");
+        set("short", "月儿泉");
         set("long", @LONG
-�����������֮�⣬��ɳĮ�о�Ȼ��Ȫˮ��һ���峺��Ȫ
-ˮ�γ�һ����������״����������¶�Ȫ��������һƬ�ͱڶ�
-�ߴ������˵����졣
+出乎你的意料之外，在沙漠中竟然有泉水。一泓清澈的泉
+水形成一个月牙的形状，因而得名月儿泉。南面是一片峭壁东
+边传来嗡嗡的声响。
 LONG );
         set("resource/water", 1);
         set("exits", ([

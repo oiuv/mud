@@ -6,34 +6,34 @@ void fresh(object ob);
 
 void create()
 {
-        set("short", "¶Ä³¡");
+        set("short", "èµŒåœº");
         set("long", @LONG
-ÕâÀïÊÇ¶Ä´óĞ¡µÄ·¿¼ä£¬ËÄÖÜµÄ¶Ä·¿Àï´«³öÀ´ßºÎåºÈÁùµÄ¶Ä
-²©Éù¡£Õâ¸ö¶Ä³¡¹æÄ£ËäËã²»ÉÏºÜ´ó£¬µ«¶ÄµÄÖÖÀàÈ´ºÜÆëÈ«£¬·ş
-ÎñÒ²·Ç³£ÖÜµ½¡£ÕâÀïµÄÇ½ÉÏ¹Ò×ÅÒ»¿éÅÆ×Ó(paizi)¡£
+è¿™é‡Œæ˜¯èµŒå¤§å°çš„æˆ¿é—´ï¼Œå››å‘¨çš„èµŒæˆ¿é‡Œä¼ å‡ºæ¥å†äº”å–å…­çš„èµŒ
+åšå£°ã€‚è¿™ä¸ªèµŒåœºè§„æ¨¡è™½ç®—ä¸ä¸Šå¾ˆå¤§ï¼Œä½†èµŒçš„ç§ç±»å´å¾ˆé½å…¨ï¼Œæœ
+åŠ¡ä¹Ÿéå¸¸å‘¨åˆ°ã€‚è¿™é‡Œçš„å¢™ä¸ŠæŒ‚ç€ä¸€å—ç‰Œå­(paizi)ã€‚
 LONG);
         set("item_desc", ([
-                "paizi" : WHT "\n\n        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n"
-                              "        ¡ù                          ¡ù\n"
-                              "        ¡ù         " NOR + HIW "¶Ä²©¹æÔò" NOR + WHT "         ¡ù\n"
-                              "        ¡ù                          ¡ù\n"
-                              "        ¡ù      ÓÃÈıÁ£É«×ÓÈöÔÚÒ»Ö»  ¡ù\n"
-                              "        ¡ù  ÍëÀï£¬É«×ÓµãÊı×ÜºÍÔÚËÄ  ¡ù\n"
-                              "        ¡ù  ÖÁÊ®¼äÎªĞ¡£¬Ê®Ò»ÖÁÊ®Æß  ¡ù\n"
-                              "        ¡ù  Îª´ó¡£ÈçÈıÁ£É«×ÓµãÊıÏà  ¡ù\n"
-                              "        ¡ù  Í¬£¬Ôò´óĞ¡Í¨³Ô¡£¿ª´óÅâ  ¡ù\n"
-                              "        ¡ù  ´ó¿ªĞ¡ÅâĞ¡£¬ÅâÂÊÒ»¡£½Ó  ¡ù\n"
-                              "        ¡ù  ÊÜ¸÷ÖÖ»õ±ÒÎª¶Ä×¢¡£ÏŞ¶î  ¡ù\n"
-                              "        ¡ù  ÎªÎåÊ®µ½Îå°Ù¡£          ¡ù\n"
-                              "        ¡ù                          ¡ù\n"
-                              "        ¡ù  " NOR + HIW "¿ª¶Ä" NOR + WHT "£º                  ¡ù\n"
-                              "        ¡ù                          ¡ù\n"
-                              "        ¡ù          " NOR + HIY "big" NOR + WHT "             ¡ù\n"
-                              "        ¡ù   " NOR + HIY "gamble" NOR + HIW "  |" NOR + HIY "  ÊıÁ¿  »õ±Ò" NOR + WHT "  ¡ù\n"
-                              "        ¡ù         " NOR + HIY "small" NOR + WHT "            ¡ù\n"
-                              "        ¡ù                          ¡ù\n"
-                              "        ¡ù                          ¡ù\n"
-                              "        ¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù¡ù\n\n\n" NOR,
+                "paizi" : WHT "\n\n        â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n"
+                              "        â€»                          â€»\n"
+                              "        â€»         " NOR + HIW "èµŒåšè§„åˆ™" NOR + WHT "         â€»\n"
+                              "        â€»                          â€»\n"
+                              "        â€»      ç”¨ä¸‰ç²’è‰²å­æ’’åœ¨ä¸€åª  â€»\n"
+                              "        â€»  ç¢—é‡Œï¼Œè‰²å­ç‚¹æ•°æ€»å’Œåœ¨å››  â€»\n"
+                              "        â€»  è‡³åé—´ä¸ºå°ï¼Œåä¸€è‡³åä¸ƒ  â€»\n"
+                              "        â€»  ä¸ºå¤§ã€‚å¦‚ä¸‰ç²’è‰²å­ç‚¹æ•°ç›¸  â€»\n"
+                              "        â€»  åŒï¼Œåˆ™å¤§å°é€šåƒã€‚å¼€å¤§èµ”  â€»\n"
+                              "        â€»  å¤§å¼€å°èµ”å°ï¼Œèµ”ç‡ä¸€ã€‚æ¥  â€»\n"
+                              "        â€»  å—å„ç§è´§å¸ä¸ºèµŒæ³¨ã€‚é™é¢  â€»\n"
+                              "        â€»  ä¸ºäº”ååˆ°äº”ç™¾ã€‚          â€»\n"
+                              "        â€»                          â€»\n"
+                              "        â€»  " NOR + HIW "å¼€èµŒ" NOR + WHT "ï¼š                  â€»\n"
+                              "        â€»                          â€»\n"
+                              "        â€»          " NOR + HIY "big" NOR + WHT "             â€»\n"
+                              "        â€»   " NOR + HIY "gamble" NOR + HIW "  |" NOR + HIY "  æ•°é‡  è´§å¸" NOR + WHT "  â€»\n"
+                              "        â€»         " NOR + HIY "small" NOR + WHT "            â€»\n"
+                              "        â€»                          â€»\n"
+                              "        â€»                          â€»\n"
+                              "        â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»â€»\n\n\n" NOR,
         ]));
         set("exits", ([
                 "east" : __DIR__"duchang",
@@ -66,31 +66,31 @@ int do_gamble(string arg)
         me = this_player();
 
         if (me->query_temp("casino/mark"))
-                return notify_fail(CYN "¶Ä¿Í½ĞµÀ£º¸ÉÂï£¿¸ÉÂï£¿ÏÖÔÚ»¹Ã»ÂÖµ½ÄãÄØ¡£\n" NOR);
+                return notify_fail(CYN "èµŒå®¢å«é“ï¼šå¹²å˜›ï¼Ÿå¹²å˜›ï¼Ÿç°åœ¨è¿˜æ²¡è½®åˆ°ä½ å‘¢ã€‚\n" NOR);
 
         if (! arg || sscanf(arg, "%s %d %s", wtype1, wager, wtype2) != 3)
-                return notify_fail(CYN "¶Ä¿Í¼¥Ğ¦µÀ£ºÄÄÀïÓĞÄãÄÇÑù¶ÄÇ®µÄ£¿\n" NOR);
+                return notify_fail(CYN "èµŒå®¢è®¥ç¬‘é“ï¼šå“ªé‡Œæœ‰ä½ é‚£æ ·èµŒé’±çš„ï¼Ÿ\n" NOR);
 
         mtype = present(wtype2 + "_money", me);
 
         if (! mtype)
-		return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÖÖ»õ±Ò¡£\n");
+		return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™ç§è´§å¸ã€‚\n");
 
         if (wager < 1)
-		return notify_fail("ÄãÒªÑ¹¶àÉÙ°¡£¿\n");
+		return notify_fail("ä½ è¦å‹å¤šå°‘å•Šï¼Ÿ\n");
 
         if ((int)mtype->query_amount() < wager)
-                return notify_fail("ÄãÉíÉÏÃ»ÓĞÄÇÃ´¶à" + mtype->query("name") + "¡£\n");
+                return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰é‚£ä¹ˆå¤š" + mtype->query("name") + "ã€‚\n");
 
         if (wager > 50)
-		return notify_fail(CYN "×¯¼ÒÖåÃ¼µÀ£ºÔõÃ´ÄÇÃ´¶àÁãÁãËéËé£¿È¥»»³ÉÕûµÄÔÙÀ´¡£\n" NOR);
+		return notify_fail(CYN "åº„å®¶çš±çœ‰é“ï¼šæ€ä¹ˆé‚£ä¹ˆå¤šé›¶é›¶ç¢ç¢ï¼Ÿå»æ¢æˆæ•´çš„å†æ¥ã€‚\n" NOR);
 
         if (wager * (mtype->query("base_value")) < min
            || wager * (mtype->query("base_value")) > max)
-        	return notify_fail("ÄãµÄ¶Ä×¢²»ÔÚÏŞ¶îÖ®ÄÚ¡£\n");
+        	return notify_fail("ä½ çš„èµŒæ³¨ä¸åœ¨é™é¢ä¹‹å†…ã€‚\n");
 
         if ((wtype1 != "big") && (wtype1 != "small") )
-                return notify_fail("ÄãÒª¶Ä´ó»¹ÊÇ¶ÄĞ¡£¿\n");
+                return notify_fail("ä½ è¦èµŒå¤§è¿˜æ˜¯èµŒå°ï¼Ÿ\n");
 
         me->set_temp("gamb_t",(me->query_temp("gamb_t") +1));
 
@@ -98,26 +98,26 @@ int do_gamble(string arg)
         {
                 call_out("fresh", 300, me);
                 me->set_temp("casino/mark", 1);
-                return notify_fail(CYN "¶Ä¿Í½ĞµÀ£ºÕâÎ»" + RANK_D->query_respect(me) +
-                                   CYN "£¬Äã¶ÄÁËÄÇÃ´¾Ã£¬Ò²¸Ã»»ÈËÁË°É£¿\n" NOR);
+                return notify_fail(CYN "èµŒå®¢å«é“ï¼šè¿™ä½" + RANK_D->query_respect(me) +
+                                   CYN "ï¼Œä½ èµŒäº†é‚£ä¹ˆä¹…ï¼Œä¹Ÿè¯¥æ¢äººäº†å§ï¼Ÿ\n" NOR);
         }
 
         a = random(6) + 1;
         b = random(6) + 1;
         c = random(6) + 1;
 
-        message_vision(HIW "\n×¯¼ÒºÈµÀ£º¿ª£¡" + chinese_number(a) + "¡¢"
-                       + chinese_number(b) + "¡¢" + chinese_number(c) +
-                       "£¬", me);
+        message_vision(HIW "\nåº„å®¶å–é“ï¼šå¼€ï¼" + chinese_number(a) + "ã€"
+                       + chinese_number(b) + "ã€" + chinese_number(c) +
+                       "ï¼Œ", me);
 
         if ((a == b) && (b == c) )
-                message_vision("´óĞ¡Í¨É±¡£\n\n" NOR, me);
+                message_vision("å¤§å°é€šæ€ã€‚\n\n" NOR, me);
 
         else if ((a + b + c) > 10)
-                message_vision("³ÔĞ¡Åâ´ó¡£\n\n" NOR, me);
+                message_vision("åƒå°èµ”å¤§ã€‚\n\n" NOR, me);
 
         else if ((a + b + c) < 11)
-                message_vision("³Ô´óÅâĞ¡¡£\n\n" NOR, me);
+                message_vision("åƒå¤§èµ”å°ã€‚\n\n" NOR, me);
 
         if (((a == b) && (b == c))
            || ((a + b + c) > 10 && (wtype1 == "small"))
@@ -126,16 +126,16 @@ int do_gamble(string arg)
 
         if ( status == "lose")
 	{
-        	message_vision(me->query("name") + "ÊäÁË" + chinese_number(wager) +
+        	message_vision(me->query("name") + "è¾“äº†" + chinese_number(wager) +
                                mtype->query("base_unit") + mtype->query("name") +
-                               "¡£\n", me);
+                               "ã€‚\n", me);
                 mtype->set_amount((int)mtype->query_amount() - wager);
                 mtype->move(me, 1);
         } else
 	{
-       		message_vision(me->query("name") + "Ó®ÁË" + chinese_number(wager) +
+       		message_vision(me->query("name") + "èµ¢äº†" + chinese_number(wager) +
                                mtype->query("base_unit") + mtype->query("name") +
-                               "¡£\n", me);
+                               "ã€‚\n", me);
                 mtype->set_amount((int)mtype->query_amount() + wager);
                 mtype->move(me, 1);
         }

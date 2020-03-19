@@ -15,7 +15,7 @@ int main(object me,string arg)
          if (!SECURITY_D->valid_grant(me, "(wizard)")) 
                  return 0; 
         if( me!=this_player(1) ||wiz_level(me) <wiz_level(status) )
-                return notify_fail("你没有权力使用这个指令。\n");
+                return notify_fail("浣犳病鏈夋潈鍔涗娇鐢ㄨ繖涓寚浠ゃ�俓n");
         if(arg)
                 return help(me);
         return check_multilogin();
@@ -58,7 +58,7 @@ private int check_multilogin()
         }
         for (i=0;i<s1;i++)
                 multy[i]=multy[i]-({0});
-        printf(BBLU HIW"%s\t\t%s    %s\t\t\t\t\n" NOR,"IP 地址","人数", "人物标识ID");
+        printf(BBLU HIW"%s\t\t%s    %s\t\t\t\t\n" NOR,"IP 鍦板潃","浜烘暟", "浜虹墿鏍囪瘑ID");
         write ("----------------------------------------------------------------\n");
         for (i=0;i<s1;i++) {
                 printf("%s\t%d\t",ip_addr[i],count[i]);
@@ -67,7 +67,7 @@ private int check_multilogin()
                 printf("\n");
         }
         write ("----------------------------------------------------------------\n");
-        printf ("现在共有"+ HIC +"%s"+ NOR +"个玩家，" + HIC "%s" + NOR + "个不同的IP地址。\n",
+        printf ("鐜板湪鍏辨湁"+ HIC +"%s"+ NOR +"涓帺瀹讹紝" + HIC "%s" + NOR + "涓笉鍚岀殑IP鍦板潃銆俓n",
                 chinese_number(s), chinese_number(s1));
 
         return 1;
@@ -77,9 +77,9 @@ int help(object me)
 {
         write(@TEXT
 
-指令格式：ip
+鎸囦护鏍煎紡锛歩p
 
-这个指令是让你检查目前游戏中共有多少个相同的IP
+杩欎釜鎸囦护鏄浣犳鏌ョ洰鍓嶆父鎴忎腑鍏辨湁澶氬皯涓浉鍚岀殑IP
 
 TEXT);
         return 1;

@@ -4,9 +4,9 @@ inherit F_MASTER;
 #include <ansi.h>
 void create()
 {
-        set_name("Áõ·òÈË", ({ "liu furen", "furen" }) );
-        set("gender", "Å®ĞÔ");
-        set("long", "ËıÊÇÁõÕı·çµÄ·òÈË¡£");
+        set_name("åˆ˜å¤«äºº", ({ "liu furen", "furen" }) );
+        set("gender", "å¥³æ€§");
+        set("long", "å¥¹æ˜¯åˆ˜æ­£é£çš„å¤«äººã€‚");
         set("age", 42);
         set("attitude", "peaceful");
         set("per", 23);

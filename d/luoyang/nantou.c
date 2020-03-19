@@ -2,10 +2,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "�ϳǸ�");
+	set("short", "南城根");
 	set("long", @LONG
-�����������ڳ���ǽ�š��������壬����û���˻�����������ǰ
-���˸ߴ�ĳ�ǽ�����صĳ������Ӳݾ�ʲôҲû���ˡ�
+这里是洛阳内城南墙脚。很是冷清，几乎没有人会来这里，你的面前
+除了高大的城墙，满地的尘土和杂草就什么也没有了。
 LONG);
         set("outdoors", "luoyang");
         set("no_clean_up", 0);

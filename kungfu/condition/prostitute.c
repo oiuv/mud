@@ -8,8 +8,8 @@ int update_condition(object me, int duration)
    if (duration < 1) return 0;
    if (file_name(environment(me))!="/d/city/lichunyuan2")
    {
-   tell_object(me,HIY"Àö´ºÔº¹ê¹«³öÏÖÔÚÄãÉí±ß£ºÄãÄÜÅÜÄÄÀïÈ¥£¡¿ì»ØÈ¥½Ó¿Í£¡\n"NOR);
-      message_vision(CYN"Àö´ºÔº¹ê¹«Í»È»³öÏÖ£¬²»ÓÉ·ÖËµ£¬À­ÁË$N¾Í×ß¡£\n"NOR,me);
+   tell_object(me,HIY"ä¸½æ˜¥é™¢é¾Ÿå…¬å‡ºçŽ°åœ¨ä½ èº«è¾¹ï¼šä½ èƒ½è·‘å“ªé‡ŒåŽ»ï¼å¿«å›žåŽ»æŽ¥å®¢ï¼\n"NOR);
+      message_vision(CYN"ä¸½æ˜¥é™¢é¾Ÿå…¬çªç„¶å‡ºçŽ°ï¼Œä¸ç”±åˆ†è¯´ï¼Œæ‹‰äº†$Nå°±èµ°ã€‚\n"NOR,me);
       me->move("/d/city/lichunyuan2");
    }
    me->apply_condition("prostitute", duration - 1);

@@ -2,12 +2,12 @@ inherit NPC;
 
 void create()
 {
-        set_name("Ğ¡µÀÍ¯", ({ "xiao daotong", "xiao", "daotong" }));
-        set("gender", "ÄĞĞÔ");
+        set_name("å°é“ç«¥", ({ "xiao daotong", "xiao", "daotong" }));
+        set("gender", "ç”·æ€§");
         set("class", "taoist");
         set("age", 14);
-        set("long", "ÕâÊÇÒ»Î»Ğ¡µÀÍ¯£¬¿´À´Äê¼Í²»´ó£¬Á³ÉÏÖÉÆø\n"
-                    "ÓÌ´æ£¬ÕûÌìĞ¦ÎûÎûµÄÎŞÓÇÎŞÂÇ¡£\n");
+        set("long", "è¿™æ˜¯ä¸€ä½å°é“ç«¥ï¼Œçœ‹æ¥å¹´çºªä¸å¤§ï¼Œè„¸ä¸Šç¨šæ°”\n"
+                    "çŠ¹å­˜ï¼Œæ•´å¤©ç¬‘å˜»å˜»çš„æ— å¿§æ— è™‘ã€‚\n");
         set("attitude", "friendly");
 
         set("str", 20);
@@ -24,7 +24,7 @@ void create()
         set("jiali", 0);
         set("combat_exp", 2000);
 
-        create_family("È«Õæ½Ì", 5, "µÜ×Ó");
+        create_family("å…¨çœŸæ•™", 5, "å¼Ÿå­");
 
         setup();
 

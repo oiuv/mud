@@ -2,14 +2,14 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "ÊéÔºÊé¿â");
+        set("short", "ä¹¦é™¢ä¹¦åº“");
         set("long", @LONG
-ÕâÀïÊÇÊéÔºµÄÍ¼Êé¹Ý£¬´°Ã÷¼¸¾»£¬Ò»³¾²»È¾¡£±ÚÉÏµÄÊé¼Ü
-¶ÑÂúÏÀ¿ÍÐÐµÄÏÈÏÍÃÇµÄÎÄÑ¡£¬¼ÇÂ¼ÁËÏÀ¿ÍÐÐµÄ·ç·çÓêÓêºÍÎÞÊý
-ÆàÍñµÄ¡¢Ò£Ô¶Ä¥Ãð²»È¥µÄ´«Ëµ¡£
+è¿™é‡Œæ˜¯ä¹¦é™¢çš„å›¾ä¹¦é¦†ï¼Œçª—æ˜Žå‡ å‡€ï¼Œä¸€å°˜ä¸æŸ“ã€‚å£ä¸Šçš„ä¹¦æž¶
+å †æ»¡ä¾ å®¢è¡Œçš„å…ˆè´¤ä»¬çš„æ–‡é€‰ï¼Œè®°å½•äº†ä¾ å®¢è¡Œçš„é£Žé£Žé›¨é›¨å’Œæ— æ•°
+å‡„å©‰çš„ã€é¥è¿œç£¨ç­ä¸åŽ»çš„ä¼ è¯´ã€‚
 LONG);
         set("item_desc", ([
-            "shelf" : "´Ë´¦ÒÑ¾­±»ÑÃÃÅ²é·âÁË¡£\n",
+            "shelf" : "æ­¤å¤„å·²ç»è¢«è¡™é—¨æŸ¥å°äº†ã€‚\n",
         ]));
         set("exits", ([
             "down" : __DIR__"shuyuan",

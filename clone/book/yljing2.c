@@ -1,16 +1,16 @@
-// ÔÆÁú¾­
+// äº‘é¾™ç»
 
 inherit BOOK;
 
 void create()
 {
-	set_name("ÔÆÁú¾­¡¸ÏÂ¾í¡¹", ({ "jing", "yunlong jing" }));
+	set_name("äº‘é¾™ç»ã€Œä¸‹å·ã€", ({ "jing", "yunlong jing" }));
 	set_weight(200);
 	if (clonep())
 		set_default_object(__FILE__);
 	else {
-		set("unit", "±¾");
-		set("long", "\nÕâÊÇÒ»²áÔÆÁú¾­¡¸ÏÂ¾í¡¹£¬·âÆ¤ÉÏÒ»Ìõ³¤ÁúÔÚÔÆÖĞÈôÒşÈôÏÖ¡£\n");
+		set("unit", "æœ¬");
+		set("long", "\nè¿™æ˜¯ä¸€å†Œäº‘é¾™ç»ã€Œä¸‹å·ã€ï¼Œå°çš®ä¸Šä¸€æ¡é•¿é¾™åœ¨äº‘ä¸­è‹¥éšè‹¥ç°ã€‚\n");
 		set("value", 1000);
 		set("material", "paper");
 		set("skill", ([

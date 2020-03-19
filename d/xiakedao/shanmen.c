@@ -1,15 +1,15 @@
-// shanmen.c É½ÃÅ
+// shanmen.c å±±é—¨
 
 inherit ROOM;
 
 void create()
 {
-        set("short", "É½ÃÅ");
+        set("short", "å±±é—¨");
         set("long", @LONG
-ÄãµÄÃæÇ°ÊÇÒ»×ùÁÖÄ¾·±Ã¯µÄ¸ßÉ½£¬¼¸×ùÉ½·åÔÚÔÆÎíÖÐÒþÔ¼¿É¼û£¬
-Ò»ÌõÉ½¾¶ÏòÉ½ÉÏÑÓÉì£¬²»Ê±ÓÐ¼¸¸ö½­ºþºÃºº´ÓÄãÉí±ß×ß¹ý£¬ËûÃÇ¶¼ÊÇ
-µ½ÏÀ¿ÍµºÀ´×¨ÑÐÎä¹¦µÄ¡£Ê¯±ÚÉÏ¿Ì×ÅÈý¸ö´ó×Ö "ÏÀ¿Íµº" £¬Õâ¾ÍÊÇ½­
-ºþÉÏ´«ÎÅµÄÏÀ¿Íµº¡£
+ä½ çš„é¢å‰æ˜¯ä¸€åº§æž—æœ¨ç¹èŒ‚çš„é«˜å±±ï¼Œå‡ åº§å±±å³°åœ¨äº‘é›¾ä¸­éšçº¦å¯è§ï¼Œ
+ä¸€æ¡å±±å¾„å‘å±±ä¸Šå»¶ä¼¸ï¼Œä¸æ—¶æœ‰å‡ ä¸ªæ±Ÿæ¹–å¥½æ±‰ä»Žä½ èº«è¾¹èµ°è¿‡ï¼Œä»–ä»¬éƒ½æ˜¯
+åˆ°ä¾ å®¢å²›æ¥ä¸“ç ”æ­¦åŠŸçš„ã€‚çŸ³å£ä¸Šåˆ»ç€ä¸‰ä¸ªå¤§å­— "ä¾ å®¢å²›" ï¼Œè¿™å°±æ˜¯æ±Ÿ
+æ¹–ä¸Šä¼ é—»çš„ä¾ å®¢å²›ã€‚
 LONG );
         set("outdoors", "xiakedao");
         set("exits", ([

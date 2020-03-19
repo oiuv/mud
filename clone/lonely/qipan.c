@@ -5,20 +5,20 @@ inherit HAMMER;
 
 void create()
 {
-        set_name(NOR + WHT "ĞşÌúÆåÅÌ" NOR,({ "xuantie qipan", "xuantie", "qipan", "pan" }) );
+        set_name(NOR + WHT "ç„é“æ£‹ç›˜" NOR,({ "xuantie qipan", "xuantie", "qipan", "pan" }) );
         set_weight(30000);
         if (clonep())
                 destruct(this_object());
         else {
-                set("long", WHT "Ò»¸öºÚ÷î÷îµÄÆåÅÌ£¬¿´ÆğÀ´ºÁ²»ÆğÑÛ¡£ÌáÔÚÊÖÖĞ¸Ğ¾õ·Ç³£µÄ³Á\n"
-                            "ÖØ£¬×ĞÏ¸Ò»¿´£¬Õû¸öÆåÅÌ¾¹È»ÊÇÓÃĞşÌúÖı³É¡£\n" NOR);
-                set("unit", "±ú");
+                set("long", WHT "ä¸€ä¸ªé»‘é»é»çš„æ£‹ç›˜ï¼Œçœ‹èµ·æ¥æ¯«ä¸èµ·çœ¼ã€‚æåœ¨æ‰‹ä¸­æ„Ÿè§‰éå¸¸çš„æ²‰\n"
+                            "é‡ï¼Œä»”ç»†ä¸€çœ‹ï¼Œæ•´ä¸ªæ£‹ç›˜ç«Ÿç„¶æ˜¯ç”¨ç„é“é“¸æˆã€‚\n" NOR);
+                set("unit", "æŸ„");
                 set("value", 800000);
                 set("no_sell", 1);
                 set("material", "steel");
-                set("wield_msg", WHT "$N" WHT "´Ó±³ºóÈ¡³öÒ»¸öºÚ÷î÷îµÄÆåÅÌ¸ß¾ÙÔÚÊÖÖĞ£¬ö®"
-                                 "Ê±¿ÕÆøÖĞ¾¹ÇßÈëÒ»Õóº®Æø¡£\n" NOR);
-                set("unwield_msg", WHT "$N" WHT "¹ş¹şÒ»Ğ¦£¬½«ÊÖÖĞµÄĞşÌúÆåÅÌÊÕ»Ø¡£\n" NOR);
+                set("wield_msg", WHT "$N" WHT "ä»èƒŒåå–å‡ºä¸€ä¸ªé»‘é»é»çš„æ£‹ç›˜é«˜ä¸¾åœ¨æ‰‹ä¸­ï¼Œéœ"
+                                 "æ—¶ç©ºæ°”ä¸­ç«Ÿæ²å…¥ä¸€é˜µå¯’æ°”ã€‚\n" NOR);
+                set("unwield_msg", WHT "$N" WHT "å“ˆå“ˆä¸€ç¬‘ï¼Œå°†æ‰‹ä¸­çš„ç„é“æ£‹ç›˜æ”¶å›ã€‚\n" NOR);
                 set("stable", 100);
         }
         init_hammer(160);
@@ -39,15 +39,15 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         case 0:
                 if (! victim->is_busy())
                 victim->start_busy(me->query_skill("hammer") / 10 + 2);
-                return WHT "$N" WHT "¿çÇ°Ò»²½£¬ÊÖÖĞĞşÌúÆåÅÌÅäºÏ·çÀ×ÅÌ·¨Ò»ÕóÂÒÎè£¬$n" WHT "Ö»"
-                       "¾õµÃÑÛ»¨çÔÂÒ£¬²»ÓÉĞÄÉúÎ·¾å£¡\n" NOR;
+                return WHT "$N" WHT "è·¨å‰ä¸€æ­¥ï¼Œæ‰‹ä¸­ç„é“æ£‹ç›˜é…åˆé£é›·ç›˜æ³•ä¸€é˜µä¹±èˆï¼Œ$n" WHT "åª"
+                       "è§‰å¾—çœ¼èŠ±ç¼­ä¹±ï¼Œä¸ç”±å¿ƒç”Ÿç•æƒ§ï¼\n" NOR;
 
         case 1:
                 n = me->query_skill("hammer");
                 victim->receive_damage("qi", n * 3 / 4, me);
                 victim->receive_wound("qi", n * 3 / 4, me);
-                return WHT "$N" WHT "ÃÍµÄÒ»Éù±¬ºÈ£¬ÊÖÖĞĞşÌúÆåÅÌ¾¹È»»Ã×÷Ò»µÀ³¤ºçÏò$n" WHT "¹á"
-                       "È¥£¡\n" NOR;
+                return WHT "$N" WHT "çŒ›çš„ä¸€å£°çˆ†å–ï¼Œæ‰‹ä¸­ç„é“æ£‹ç›˜ç«Ÿç„¶å¹»ä½œä¸€é“é•¿è™¹å‘$n" WHT "è´¯"
+                       "å»ï¼\n" NOR;
         }
         return damage_bonus;
 }

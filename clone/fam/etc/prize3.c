@@ -3,13 +3,13 @@ inherit ITEM;
 
 void create()
 {
-        set_name(HIR "³àıˆÖ®Í«" NOR, ({ "dragon eye", "dragon", "eye" }));
+        set_name(HIR "èµ¤é¾ä¹‹ç³" NOR, ({ "dragon eye", "dragon", "eye" }));
         set_weight(1000);
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIR "‚÷ÕhÖĞ³àıˆµÄÑÛÖé£¬ËÆºõ¿ÉÒÔ·şÓÃ¡£\n" NOR);
-                set("unit", "îw");
+                set("long", HIR "å‚³èª¬ä¸­èµ¤é¾çš„çœ¼ç ï¼Œä¼¼ä¹å¯ä»¥æœç”¨ã€‚\n" NOR);
+                set("unit", "é¡†");
                 set("value", 500000);
                 set("only_do_effect", 1);
         }
@@ -27,15 +27,15 @@ int do_effect(object me)
 
         if ((int)me->query_condition("pill_drug") > 0)
         {
-                write("Äã¾õµÃÏÖÔÚÄÚÏ¢Î´¶¨£¬¾­ÂöÒşÒş»¹ÄÜ¸Ğµ½Õæ"
-                      "Æø³åµ´£¬²»¸ÒÃ³È»·şÊ³¡£\n");
+                write("ä½ è§‰å¾—ç°åœ¨å†…æ¯æœªå®šï¼Œç»è„‰éšéšè¿˜èƒ½æ„Ÿåˆ°çœŸ"
+                      "æ°”å†²è¡ï¼Œä¸æ•¢è´¸ç„¶æœé£Ÿã€‚\n");
                 return 1;
         }
 
         me->apply_condition("pill_drug", 3000);
 
-        message_vision(HIY "$N" HIY "ÍÌÏÂÒ»" + un + na + HIY "£¬Á³É«Ò»±ä£¬ËÆ"
-                       "ºõ¾«ÉñÁËĞí¶à¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "åä¸‹ä¸€" + un + na + HIY "ï¼Œè„¸è‰²ä¸€å˜ï¼Œä¼¼"
+                       "ä¹ç²¾ç¥äº†è®¸å¤šã€‚\n" NOR, me);
 
         mapsk = me->query_skill_mapped("force");
 
@@ -48,9 +48,9 @@ int do_effect(object me)
                 if (stringp(mapsk) && me->can_improve_skill(mapsk))
                         me->improve_skill(mapsk, 20000);
 
-                tell_object(me, HIM "ÄãÖ»¾õÒ»¹ÉÅ¯ÆøÉ¢²¼È«Éí£¬Ëµ²»³öµÄÊæ·şÊÜÓÃ¡£\n" NOR);
+                tell_object(me, HIM "ä½ åªè§‰ä¸€è‚¡æš–æ°”æ•£å¸ƒå…¨èº«ï¼Œè¯´ä¸å‡ºçš„èˆ’æœå—ç”¨ã€‚\n" NOR);
         } else
-                tell_object(me, HIY "ÄãÖ»¾õÒ»¹ÉÈÈÁ÷Ó¿ÉÏ£¬ÄÚÏ¢µÃµ½ÁËÍêÈ«µÄ²¹³ä¡£\n" NOR);
+                tell_object(me, HIY "ä½ åªè§‰ä¸€è‚¡çƒ­æµæ¶Œä¸Šï¼Œå†…æ¯å¾—åˆ°äº†å®Œå…¨çš„è¡¥å……ã€‚\n" NOR);
 
         if (me->query("neili") < me->query("max_neili"))
                 my["neili"]  = my["max_neili"];

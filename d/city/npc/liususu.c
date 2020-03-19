@@ -4,19 +4,19 @@ inherit F_DEALER;
 
 void create()
 {
-        set_name("ÁõËØËØ", ({ "liu susu", "liu", "susu" }));
-        set("long", "ËıÊÇÒ»¸öÇåĞãËØÑÅµÄËÕÖİÅ®×Ó£¬ºóÀ´×ªµ½ÑïÖİÀ´×öÉúÒâ¡£\n");
-        set("gender", "Å®ĞÔ");
+        set_name("åˆ˜ç´ ç´ ", ({ "liu susu", "liu", "susu" }));
+        set("long", "å¥¹æ˜¯ä¸€ä¸ªæ¸…ç§€ç´ é›…çš„è‹å·å¥³å­ï¼Œåæ¥è½¬åˆ°æ‰¬å·æ¥åšç”Ÿæ„ã€‚\n");
+        set("gender", "å¥³æ€§");
         set("age", 18);
         set("per", 28);
-        set("title", "Î÷»¨ÉÈ×¯ÀÏ°å");
-        set("nickname", HIC "ÇáÂŞĞ¡ÉÈ" NOR);
+        set("title", "è¥¿èŠ±æ‰‡åº„è€æ¿");
+        set("nickname", HIC "è½»ç½—å°æ‰‡" NOR);
         set("attitude", "friendly");
 
         set("chat_chance", 1);
         set("chat_msg", ({
-                CYN "ÁõËØËØµÀ£ºÖĞ»ªÉÈÎÄ»¯ÀúÊ·ÓÆ¾Ã£¬ÉÈÆ·ÉÈÑù¸ü"
-                "ÊÇ·±¶à£¬Ó¦¸ÃºÃºÃ¹â´ó¡£\n" NOR
+                CYN "åˆ˜ç´ ç´ é“ï¼šä¸­åæ‰‡æ–‡åŒ–å†å²æ‚ ä¹…ï¼Œæ‰‡å“æ‰‡æ ·æ›´"
+                "æ˜¯ç¹å¤šï¼Œåº”è¯¥å¥½å¥½å…‰å¤§ã€‚\n" NOR
         }));
 
         set("vendor_goods", ({

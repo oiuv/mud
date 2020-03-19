@@ -8,11 +8,11 @@ int is_chat_room()
 
 void create()
 {
-    set("short", "�͵�跿");
+    set("short", "客店茶房");
     set("long", @LONG
-���������ݿ�ջ�Ĳ�԰���������������µ��˶���������
-���С�������ڿ����м䣬æ����ͣ����������С��Ҳϲ��
-���������Ҷ��ۻ��
+这里是扬州客栈的茶园，有许多无所事事的人都爱呆在这
+里，店小二穿梭在客人中间，忙个不停。许多商人小贩也喜欢
+在这里向大家兜售货物。
 LONG);
     set("no_fight", 1);
     set("can_trade", 1);

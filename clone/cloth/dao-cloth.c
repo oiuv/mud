@@ -1,4 +1,4 @@
-// dao-cloth.c ÇàÉ«µÀÅÛ
+// dao-cloth.c é’è‰²é“è¢
 
 #include <armor.h>
 #include <ansi.h>
@@ -7,14 +7,14 @@ inherit CLOTH;
 
 void create()
 {
-	set_name(HIC"ÇàÉ«µÀÅÛ"NOR, ({"pao", "cloth", "dao pao"}) );
+	set_name(HIC"é’è‰²é“è¢"NOR, ({"pao", "cloth", "dao pao"}) );
 	set_weight(3000);
 	if( clonep() )
 		set_default_object(__FILE__);
 	else {
-		set("unit", "¼ş");
+		set("unit", "ä»¶");
 		set("value", 0);
-		set("long", "Ò»¼şÆÕÆÕÍ¨Í¨µÄÇà²¼µÀÅÛ¡£\n");
+		set("long", "ä¸€ä»¶æ™®æ™®é€šé€šçš„é’å¸ƒé“è¢ã€‚\n");
 		set("material", "cloth");
 		set("armor_prop/armor", 2);
 	}

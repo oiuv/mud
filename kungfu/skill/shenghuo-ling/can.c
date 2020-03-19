@@ -3,7 +3,7 @@
 
 inherit F_SSERVER;
 
-#define CANXUE "¡¸" HIR "²ĞÑªÁî" NOR "¡¹"
+#define CANXUE "ã€Œ" HIR "æ®‹è¡€ä»¤" NOR "ã€"
 
 int perform(object me, object target)
 {
@@ -26,51 +26,51 @@ int perform(object me, object target)
         }
 
         if (userp(me) && ! me->query("can_perform/shenghuo-ling/can"))
-                return notify_fail("ÄãËùÊ¹ÓÃµÄÍâ¹¦ÖĞÃ»ÓĞÕâÖÖ¹¦ÄÜ¡£\n");
+                return notify_fail("ä½ æ‰€ä½¿ç”¨çš„å¤–åŠŸä¸­æ²¡æœ‰è¿™ç§åŠŸèƒ½ã€‚\n");
 
         if (! target) target = offensive_target(me);
 
         skill = me->query_skill("shenghuo-ling", 1);
 
         if (! (me->is_fighting()))
-                return notify_fail(CANXUE "Ö»ÄÜ¶ÔÕ½¶·ÖĞµÄ¶ÔÊÖÊ¹ÓÃ¡£\n");
+                return notify_fail(CANXUE "åªèƒ½å¯¹æˆ˜æ–—ä¸­çš„å¯¹æ‰‹ä½¿ç”¨ã€‚\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-                return notify_fail("ÄãÊ¹ÓÃµÄ±øÆ÷²»¶Ô£¬²»ÄÜÊ¹ÓÃÊ¥»ğÁî·¨Ö®"
-                                   CANXUE "¡£\n");
+                return notify_fail("ä½ ä½¿ç”¨çš„å…µå™¨ä¸å¯¹ï¼Œä¸èƒ½ä½¿ç”¨åœ£ç«ä»¤æ³•ä¹‹"
+                                   CANXUE "ã€‚\n");
 
         if (skill < 220)
-                return notify_fail("ÄãµÄÊ¥»ğÁî·¨µÈ¼¶²»¹», ²»ÄÜÊ¹ÓÃÊ¥»ğÁî"
-                                   "·¨Ö®" CANXUE "¡£\n");
+                return notify_fail("ä½ çš„åœ£ç«ä»¤æ³•ç­‰çº§ä¸å¤Ÿ, ä¸èƒ½ä½¿ç”¨åœ£ç«ä»¤"
+                                   "æ³•ä¹‹" CANXUE "ã€‚\n");
 
         if (me->query_skill("force") < 350)
-                return notify_fail("ÄãµÄÄÚ¹¦»ğºò²»¹»£¬²»ÄÜÊ¹ÓÃÊ¥»ğÁî·¨Ö®"
-                                   CANXUE "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠŸç«å€™ä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨åœ£ç«ä»¤æ³•ä¹‹"
+                                   CANXUE "ã€‚\n");
 
         if (me->query("max_neili") < 5000)
-                return notify_fail("ÄãµÄÄÚÁ¦ĞŞÎª²»×ã£¬²»ÄÜÊ¹ÓÃÊ¥»ğÁî·¨Ö®"
-                                   CANXUE "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¿®ä¸ºä¸è¶³ï¼Œä¸èƒ½ä½¿ç”¨åœ£ç«ä»¤æ³•ä¹‹"
+                                   CANXUE "ã€‚\n");
 
         if (me->query("neili") < 400)
-                return notify_fail("ÄãµÄÄÚÁ¦²»¹»£¬²»ÄÜÊ¹ÓÃÊ¥»ğÁî·¨Ö®" CANXUE "¡£\n");
+                return notify_fail("ä½ çš„å†…åŠ›ä¸å¤Ÿï¼Œä¸èƒ½ä½¿ç”¨åœ£ç«ä»¤æ³•ä¹‹" CANXUE "ã€‚\n");
 
         if (me->query_skill_mapped("sword") != "shenghuo-ling")
-                return notify_fail("ÄãÃ»ÓĞ¼¤·¢Ê¥»ğÁî·¨£¬ÎŞ·¨Ê¹ÓÃ" CANXUE "¡£\n");
+                return notify_fail("ä½ æ²¡æœ‰æ¿€å‘åœ£ç«ä»¤æ³•ï¼Œæ— æ³•ä½¿ç”¨" CANXUE "ã€‚\n");
 
         if (! living(target))
-                return notify_fail("¶Ô·½¶¼ÒÑ¾­ÕâÑùÁË£¬ÓÃ²»×ÅÕâÃ´·ÑÁ¦°É£¿\n");
+                return notify_fail("å¯¹æ–¹éƒ½å·²ç»è¿™æ ·äº†ï¼Œç”¨ä¸ç€è¿™ä¹ˆè´¹åŠ›å§ï¼Ÿ\n");
 
-        msg = HIR "$N" HIR "Ò»Éù³¤Ğ¥£¬ÊÖÖĞ" + weapon->name() +
-              HIR "Ò»×ª£¬ÕĞÊı¶ÙÊ±±äµÃ¹îÒìÎŞ±È£¬´ÓÒâÏë²»µ½µÄ·½"
-              "Î»¹¥Ïò$n" HIR "£¡\n" NOR;
+        msg = HIR "$N" HIR "ä¸€å£°é•¿å•¸ï¼Œæ‰‹ä¸­" + weapon->name() +
+              HIR "ä¸€è½¬ï¼Œæ‹›æ•°é¡¿æ—¶å˜å¾—è¯¡å¼‚æ— æ¯”ï¼Œä»æ„æƒ³ä¸åˆ°çš„æ–¹"
+              "ä½æ”»å‘$n" HIR "ï¼\n" NOR;
 			  
 		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
 		lvl = lvl * 4 / 5;
 		ks = keys(me->query_skills(martial));
 		improve = 0;
 		n = 0;
-		//×î¶à¸øÓè5¸ö¼¼ÄÜµÄ¼Ó³É
+		//æœ€å¤šç»™äºˆ5ä¸ªæŠ€èƒ½çš„åŠ æˆ
 		for (m = 0; m < sizeof(ks); m++)
 		{
 			if (SKILL_D(ks[m])->valid_enable(martial))
@@ -84,19 +84,19 @@ int perform(object me, object target)
 		
 		improve = improve * 5 / 100 / lvl;
 
-        // ÅäºÏÊ¥»ğÁî·¨±¾Éí¾ß±¸µÄ max_hit´øÀ´¶îÍâµÄÉËº¦¡£
-        // Ô­ÖøÖĞ¸ÃÁî·¨ÄËºÜÄÑ¿´Í¸µÄÕĞÊı£¬ËùÒÔ³öÏÖÔö¼Ó¹¥
-        // »÷µÄĞ§ÂÊ·Ç³£´ó¡£
+        // é…åˆåœ£ç«ä»¤æ³•æœ¬èº«å…·å¤‡çš„ max_hitå¸¦æ¥é¢å¤–çš„ä¼¤å®³ã€‚
+        // åŸè‘—ä¸­è¯¥ä»¤æ³•ä¹ƒå¾ˆéš¾çœ‹é€çš„æ‹›æ•°ï¼Œæ‰€ä»¥å‡ºç°å¢åŠ æ”»
+        // å‡»çš„æ•ˆç‡éå¸¸å¤§ã€‚
         if (random(me->query_skill("sword")) > target->query_skill("parry") / 3)
         {
-                msg += HIR "$n" HIR "ÍêÈ«ÎŞ·¨¿´Í¸$N" HIR "ÕĞÖĞĞéÊµ£¬²»ÓÉµÃĞÄ"
-                       "Éú¾åÒâ£¬ÕĞÊ½Ò»ÖÍ£¬µÇÊ±ÆÆÕÀ°Ù³ö¡£\n" NOR;
+                msg += HIR "$n" HIR "å®Œå…¨æ— æ³•çœ‹é€$N" HIR "æ‹›ä¸­è™šå®ï¼Œä¸ç”±å¾—å¿ƒ"
+                       "ç”Ÿæƒ§æ„ï¼Œæ‹›å¼ä¸€æ»ï¼Œç™»æ—¶ç ´ç»½ç™¾å‡ºã€‚\n" NOR;
                 count = me->query_skill("shenghuo-ling", 1) / 6;
                 me->add_temp("shenghuo-ling/max_hit", 1);
         } else
         {
-                msg += HIY "$n" HIY "¼û$N" HIY "À´ÊÆĞÚÓ¿£¬ĞÄµ×Ò»¾ª£¬´òÆğ¾«"
-                       "ÉñĞ¡ĞÄ½ÓÕĞ¡£\n" NOR;
+                msg += HIY "$n" HIY "è§$N" HIY "æ¥åŠ¿æ±¹æ¶Œï¼Œå¿ƒåº•ä¸€æƒŠï¼Œæ‰“èµ·ç²¾"
+                       "ç¥å°å¿ƒæ¥æ‹›ã€‚\n" NOR;
                 count = 0;
         }
 

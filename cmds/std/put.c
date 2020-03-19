@@ -11,34 +11,34 @@ int main(object me, string arg)
         object obj, dest, *inv, obj2;
         int i, amount;
 
-        if (! arg) return notify_fail("ÄãÒª½«Ê²Ã´¶«Î÷·Å½øÄÄÀï£¿\n");
+        if (! arg) return notify_fail("ä½ è¦å°†ä»€ä¹ˆä¸œè¥¿æ”¾è¿›å“ªé‡Œï¼Ÿ\n");
 
         if (sscanf(arg, "%s in %s", item, target) != 2)
-                return notify_fail("ÄãÒª·ÅÊ²Ã´¶«Î÷£¿\n");
+                return notify_fail("ä½ è¦æ”¾ä»€ä¹ˆä¸œè¥¿ï¼Ÿ\n");
 
         dest = present(target, me);
         if (! dest || living(dest))
                 dest = present(target, environment(me));
 
         if (! dest || living(dest))
-                return notify_fail("ÕâÀïÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+                return notify_fail("è¿™é‡Œæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
         if (dest->query("no_get_from"))
-                return notify_fail("»¹ÊÇ²»Òª´òÈÅÈË¼ÒÁË¡£\n");
+                return notify_fail("è¿˜æ˜¯ä¸è¦æ‰“æ‰°äººå®¶äº†ã€‚\n");
 
         if (sscanf(item, "%d %s", amount, item) == 2)
         {
                 if (! objectp(obj = present(item, me)))
-                        return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+                        return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
 
                 if (! obj->query_amount())
-                        return notify_fail( obj->name() + "²»ÄÜ±»·Ö¿ª¡£\n");
+                        return notify_fail( obj->name() + "ä¸èƒ½è¢«åˆ†å¼€ã€‚\n");
 
                 if (amount < 1)
-                        return notify_fail("¶«Î÷µÄÊıÁ¿ÖÁÉÙÊÇÒ»¸ö¡£\n");
+                        return notify_fail("ä¸œè¥¿çš„æ•°é‡è‡³å°‘æ˜¯ä¸€ä¸ªã€‚\n");
 
                 if (amount > obj->query_amount())
-                        return notify_fail("ÄãÃ»ÓĞÄÇÃ´¶àµÄ" + obj->name() + "¡£\n");
+                        return notify_fail("ä½ æ²¡æœ‰é‚£ä¹ˆå¤šçš„" + obj->name() + "ã€‚\n");
                 else
                 if (amount == (int) obj->query_amount())
                         return do_put(me, obj, dest);
@@ -62,7 +62,7 @@ int main(object me, string arg)
         }
 
         if (! objectp(obj = present(item, me)))
-                return notify_fail("ÄãÉíÉÏÃ»ÓĞÕâÑù¶«Î÷¡£\n");
+                return notify_fail("ä½ èº«ä¸Šæ²¡æœ‰è¿™æ ·ä¸œè¥¿ã€‚\n");
         return do_put(me, obj, dest);
 }
 
@@ -72,20 +72,20 @@ int do_put(object me, object obj, object dest)
 
         if (dest->is_depot_ob())
         {
-                tell_object(me, "´æ¶«Î÷µ½" + dest->name() + "µÄ¿ì½İ·½Ê½£ºstore ÎïÆ·ID¡£\n");
+                tell_object(me, "å­˜ä¸œè¥¿åˆ°" + dest->name() + "çš„å¿«æ·æ–¹å¼ï¼šstore ç‰©å“IDã€‚\n");
                 return 1;
         }
 
         if (! dest->is_container() && ! dest->is_character())
         {
-                tell_object(me, dest->name() + "²»ÊÇÈİÆ÷£¬Äã²»ÄÜ°Ñ¶«Î÷·Å½øÈ¥¡£\n");
+                tell_object(me, dest->name() + "ä¸æ˜¯å®¹å™¨ï¼Œä½ ä¸èƒ½æŠŠä¸œè¥¿æ”¾è¿›å»ã€‚\n");
                 return 1;
         }
 
         if (sizeof(all_inventory(dest)) >= MAX_ITEM_CARRIED)
         {
-                tell_object(me, dest->name() + "ÀïÃæµÄ¶«Î÷ÊµÔÚ"
-                            "ÊÇÌ«¶àÁË£¬ÄãÃ»·¨ÔÙ·Å¶«Î÷ÁË¡£\n");
+                tell_object(me, dest->name() + "é‡Œé¢çš„ä¸œè¥¿å®åœ¨"
+                            "æ˜¯å¤ªå¤šäº†ï¼Œä½ æ²¡æ³•å†æ”¾ä¸œè¥¿äº†ã€‚\n");
                 return 1;
         }
 
@@ -94,39 +94,39 @@ int do_put(object me, object obj, object dest)
                 if (stringp(msg))
                         tell_object(me, msg);
                 else
-                        tell_object(me, "Õâ¸ö¶«Î÷²»ÒªÂÒ·Å¡£\n");
+                        tell_object(me, "è¿™ä¸ªä¸œè¥¿ä¸è¦ä¹±æ”¾ã€‚\n");
                 return 1;
         }
 
         if (obj->is_corpse())
         {
-                tell_object(me, "ÄãÎŞ·¨°Ñ" + obj->name() + "Èû½øÈ¥¡£\n");
+                tell_object(me, "ä½ æ— æ³•æŠŠ" + obj->name() + "å¡è¿›å»ã€‚\n");
                 return 1;
         }
 
         if (userp(obj))
         {
-                tell_object(me, "ÄãÎŞ·¨°Ñ" + obj->name() + "Èû½øÈ¥¡£\n");
+                tell_object(me, "ä½ æ— æ³•æŠŠ" + obj->name() + "å¡è¿›å»ã€‚\n");
                 return 1;
         }
 
         if (obj == dest)
         {
-                tell_object(me, "àÅ... ×Ô¼ºÌ××Ô¼º£¬ÄãµÄÏë·¨±È½ÏÓĞÈ¤¡£\n");
+                tell_object(me, "å—¯... è‡ªå·±å¥—è‡ªå·±ï¼Œä½ çš„æƒ³æ³•æ¯”è¾ƒæœ‰è¶£ã€‚\n");
                 return 1;
         }
 
         if (obj->move(dest))
         {
-                message_vision(sprintf("$N½«Ò»%s%s·Å½ø%s¡£\n",
+                message_vision(sprintf("$Nå°†ä¸€%s%sæ”¾è¿›%sã€‚\n",
                                obj->query("unit"), obj->name(),
                                dest->name()), me);
                 return 1;
         }
 
-        // ·Å»Øµ½ÎÒµÄÉíÉÏÀ´
+        // æ”¾å›åˆ°æˆ‘çš„èº«ä¸Šæ¥
         if (! environment(obj))
-                // ÕâÊÇ·ÖÀëµÄÎïÆ·£¬Ã»ÓĞ·ÖÀë³É¹¦
+                // è¿™æ˜¯åˆ†ç¦»çš„ç‰©å“ï¼Œæ²¡æœ‰åˆ†ç¦»æˆåŠŸ
                 obj->move(me, 1);
 
         return 0;
@@ -135,9 +135,9 @@ int do_put(object me, object obj, object dest)
 int help(object me)
 {
 write(@HELP
-Ö¸Áî¸ñÊ½ : put <ÎïÆ·Ãû³Æ> in <Ä³ÈİÆ÷>
+æŒ‡ä»¤æ ¼å¼ : put <ç‰©å“åç§°> in <æŸå®¹å™¨>
  
-Õâ¸öÖ¸Áî¿ÉÒÔÈÃÄã½«Ä³ÑùÎïÆ··Å½øÒ»¸öÈİÆ÷£¬µ±È»£¬Ê×ÏÈÄãÒªÓµÓĞÕâÑùÎïÆ·¡£
+è¿™ä¸ªæŒ‡ä»¤å¯ä»¥è®©ä½ å°†æŸæ ·ç‰©å“æ”¾è¿›ä¸€ä¸ªå®¹å™¨ï¼Œå½“ç„¶ï¼Œé¦–å…ˆä½ è¦æ‹¥æœ‰è¿™æ ·ç‰©å“ã€‚
  
 HELP
     );

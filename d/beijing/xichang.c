@@ -3,10 +3,10 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "Î÷³§");
+	set("short", "è¥¿åŽ‚");
 	set("long", @LONG
-ÕâÀï¾ÍÊÇ¾©³ÇµÄÌØÎñ»ú¹¹¡ª¡ªÎ÷³§¡£´óÌüÄÚºÜÊÇ¿íÀ«£¬ÕâÀï¾¯±¸ÉîÑÏ£¬´©
-×ÅÖÆ·þµÄÎ÷³§¹Ù±øºÍÌ«¼àÔÚÕâÀïÀ´»Ø×ß¶¯¡£¿´À´ÕâÀï²»ÒË¾ÃÁô£¬¸Ï¿ìÀë¿ªÎªÃî¡£
+è¿™é‡Œå°±æ˜¯äº¬åŸŽçš„ç‰¹åŠ¡æœºæž„â€”â€”è¥¿åŽ‚ã€‚å¤§åŽ…å†…å¾ˆæ˜¯å®½é˜”ï¼Œè¿™é‡Œè­¦å¤‡æ·±ä¸¥ï¼Œç©¿
+ç€åˆ¶æœçš„è¥¿åŽ‚å®˜å…µå’Œå¤ªç›‘åœ¨è¿™é‡Œæ¥å›žèµ°åŠ¨ã€‚çœ‹æ¥è¿™é‡Œä¸å®œä¹…ç•™ï¼Œèµ¶å¿«ç¦»å¼€ä¸ºå¦™ã€‚
 LONG NOR);
 	set("exits", ([
 		"north" : __DIR__"xichang_men",

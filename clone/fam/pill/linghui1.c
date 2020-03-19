@@ -3,12 +3,12 @@
 
 void create()
 {
-        set_name(HIY "ê»Ìì¹û" NOR, ({ "haotian guo", "haotian", "guo" }));
+        set_name(HIY "æ˜Šå¤©æžœ" NOR, ({ "haotian guo", "haotian", "guo" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIY "ÕâÊÇÒ»Ã¶½ð»ÆÉ«µÄ¹ûÊµ£¬·þÓÃºóÄÜÔö¼ÓÈËµÄÁé»Û¡£\n" NOR);
-                set("base_unit", "Ã¶");
+                set("long", HIY "è¿™æ˜¯ä¸€æžšé‡‘é»„è‰²çš„æžœå®žï¼Œæœç”¨åŽèƒ½å¢žåŠ äººçš„çµæ…§ã€‚\n" NOR);
+                set("base_unit", "æžš");
                 set("base_value", 6000);
                 set("base_weight", 80);
                 set("only_do_effect", 1);
@@ -26,13 +26,13 @@ int do_effect(object me)
 
         if (time() - me->query_temp("last_eat/dan(linghui)") < 100)
         {
-                write("Äã¸Õ·þÓÃ¹ýÒ©£¬ÐèÒ©ÐÔ·¢»ÓÍêÐ§ÓÃÒÔºó²ÅÄÜ¼ÌÐø·þÓÃ¡£\n");
+                write("ä½ åˆšæœç”¨è¿‡è¯ï¼Œéœ€è¯æ€§å‘æŒ¥å®Œæ•ˆç”¨ä»¥åŽæ‰èƒ½ç»§ç»­æœç”¨ã€‚\n");
                 return 1;
         }
         me->set_temp("last_eat/dan(linghui)", time());
 
-        message_vision(HIY "$N" HIY "Ò»Ñö²±£¬ÍÌÏÂÁËÒ»" + un + na +
-                       HIY "¡£\n" NOR, me);
+        message_vision(HIY "$N" HIY "ä¸€ä»°è„–ï¼Œåžä¸‹äº†ä¸€" + un + na +
+                       HIY "ã€‚\n" NOR, me);
         me->add("magic_points", 5 + random(6));
 
         me->start_busy(3);

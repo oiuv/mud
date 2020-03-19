@@ -1,8 +1,8 @@
 inherit NPC;
 void create()
 {
-	set_name("ÖÇ·¨³¤ÀÏ", ({"zhifa zhanglao", "zhanglao"}));
-        set("gender", "ÄĞĞÔ");
+	set_name("æ™ºæ³•é•¿è€", ({"zhifa zhanglao", "zhanglao"}));
+        set("gender", "ç”·æ€§");
         set("attitude", "aggressive");
         set("class", "bonze");
 

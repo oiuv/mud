@@ -5,11 +5,11 @@ inherit F_VENDOR;
 
 void create()
 {
-        set_name("Öé±¦ÉÌ", ({ "zhubao shang", "zhubao", "shang" }));
-        set("nickname", HIC "ÏûÏ¢ÁéÍ¨" NOR);
-        set("gender", "ÄĞĞÔ" );
+        set_name("ç å®å•†", ({ "zhubao shang", "zhubao", "shang" }));
+        set("nickname", HIC "æ¶ˆæ¯çµé€š" NOR);
+        set("gender", "ç”·æ€§" );
         set("age", 32);
-        set("long", "ÕâÊÇÒ»¸öÀ´×ÔÎ÷ÓòµÄÖé±¦ÉÌÈË¡£\n");
+        set("long", "è¿™æ˜¯ä¸€ä¸ªæ¥è‡ªè¥¿åŸŸçš„ç å®å•†äººã€‚\n");
         set("combat_exp", 300);
         set("str", 17);
         set("dex", 20);

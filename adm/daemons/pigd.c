@@ -1,4 +1,4 @@
-// pigd.c ¹°Öí Daemon
+// pigd.c æ‹±çŒª Daemon
 
 // #pragma optimize
 
@@ -6,11 +6,11 @@
 inherit F_DBASE;
 
 string *suit_char = ({ "S", "H", "D", "C" });
-string *suit_str = ({ "ºÚÌÒ", "ºìĞÄ", "·½¿é", "Ã·»¨" });
+string *suit_str = ({ "é»‘æ¡ƒ", "çº¢å¿ƒ", "æ–¹å—", "æ¢…èŠ±" });
 string *rank_char = ({ "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A" });
-string *rank_str = ({ "£²", "£³", "£´", "£µ", "£¶", "£·", "£¸", "£¹", "¢º", "£Ê", "£Ñ", "£Ë", "£Á" });
+string *rank_str = ({ "ï¼’", "ï¼“", "ï¼”", "ï¼•", "ï¼–", "ï¼—", "ï¼˜", "ï¼™", "â’‘", "ï¼ª", "ï¼±", "ï¼«", "ï¼¡" });
 string *seat_char = ({ "N", "W", "S", "E" });
-string *seat_str = ({ "±±", "Î÷", "ÄÏ", "¶«" });
+string *seat_str = ({ "åŒ—", "è¥¿", "å—", "ä¸œ" });
 int *heart_score = ({ 0, 0, 0, -10, -10, -10, -10, -10, -10, -20, -30, -40, -50 });
 
 int is_validcard(string str)
@@ -70,13 +70,13 @@ string refresh(int *cl, int b, int e)
 		return output;
 	if (cl[b] < 0 || cl[e] > 51)
 		return output;
-	output = sprintf("%18s%s£º", "", suit_str[ls = ns = SUIT(cl[b])]);
+	output = sprintf("%18s%sï¼š", "", suit_str[ls = ns = SUIT(cl[b])]);
 	for (i = b; i <= e; i++) {
 		ns = SUIT(cl[i]);
 		if (ls == ns) 
 			output += rank_str[RANK(cl[i])] + " ";
 		else {
-			output = sprintf("%s\n%18s%s£º", output, "",
+			output = sprintf("%s\n%18s%sï¼š", output, "",
 					suit_str[ls = ns]);
 			output += rank_str[RANK(cl[i])] + " ";
 		}

@@ -4,13 +4,13 @@ inherit CLOTH;
 
 void create()
 {
-        set_name("»¤ĞÄ¾µ", ({ "huxin jing", "mirror","huxinjing",  "jing", "huxin", "waist" }) );
+        set_name("æŠ¤å¿ƒé•œ", ({ "huxin jing", "mirror","huxinjing",  "jing", "huxin", "waist" }) );
         set_weight(1000);
         if( clonep() )
                 set_default_object(__FILE__);
         else {
-                set("unit", "Ãæ");
-                set("long", "Ò»Ãæ»ÆÍ­×öµÄ»¤ĞÄ¾µ¡£\n");
+                set("unit", "é¢");
+                set("long", "ä¸€é¢é»„é“œåšçš„æŠ¤å¿ƒé•œã€‚\n");
                 set("material", "copper");
                 set("value", 0);
                 set("armor_prop/armor", 5);

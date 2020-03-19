@@ -1,16 +1,16 @@
-// pi.c ñÔ½«
+// pi.c è£¨å°†
 
 inherit NPC;
 
 
 void create()
 {
-	set_name("ñÔ½«", ({ "pi jiang", "pi", "jiang" }));
-	set("gender", "ÄĞĞÔ");
+	set_name("è£¨å°†", ({ "pi jiang", "pi", "jiang" }));
+	set("gender", "ç”·æ€§");
 	set("age", random(10) + 30);
 	set("str", 25);
 	set("dex", 16);
-	set("long", "ÕâÊÇÒ»¸ö´óËÎÄêÇá½«Áì£¬ÂúÁ³Õ÷³¾¡£\n");
+	set("long", "è¿™æ˜¯ä¸€ä¸ªå¤§å®‹å¹´è½»å°†é¢†ï¼Œæ»¡è„¸å¾å°˜ã€‚\n");
 	set("combat_exp", 45000);
 	set("shen_type", 1);
 	set("attitude", "peaceful");

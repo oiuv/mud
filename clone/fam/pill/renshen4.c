@@ -3,20 +3,20 @@ inherit __DIR__"pill";
 
 void create()
 {
-        set_name(HIR "Ç§Äê²ÎĞÄµ¤" NOR, ({ "shenxin dan", "shenxin", "dan" }));
+        set_name(HIR "åƒå¹´å‚å¿ƒä¸¹" NOR, ({ "shenxin dan", "shenxin", "dan" }));
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", HIR "ÓÉÇ§ÄêÈË²Î»ìºÏÊıÖÖÕä¹óÒ©²ÄËùÁ¶ÖÆµÄÁéÒ©¡£\n" NOR);
-                set("base_unit", "¿Å");
+                set("long", HIR "ç”±åƒå¹´äººå‚æ··åˆæ•°ç§çè´µè¯ææ‰€ç‚¼åˆ¶çš„çµè¯ã€‚\n" NOR);
+                set("base_unit", "é¢—");
                 set("base_value", 30000);
                 set("base_weight", 100);
                 set("only_do_effect", 1);
                 set("pill_skill", "force");
                 set("pill_point", 40000);
                 set("force_point", 100);
-                set("pill_msg1", HIR "ÄãÖ»¾õÒ»¹ÉÅ¯ÆøÉ¢²¼È«Éí£¬Ëµ²»³öµÄÊæ·şÊÜÓÃ¡£\n" NOR);
-                set("pill_msg2", HIY "ÄãÖ»¾õÒ»¹ÉÈÈÁ÷Ó¿ÉÏ£¬ÄÚÏ¢µÃµ½ÁËÍêÈ«µÄ²¹³ä¡£\n" NOR);
+                set("pill_msg1", HIR "ä½ åªè§‰ä¸€è‚¡æš–æ°”æ•£å¸ƒå…¨èº«ï¼Œè¯´ä¸å‡ºçš„èˆ’æœå—ç”¨ã€‚\n" NOR);
+                set("pill_msg2", HIY "ä½ åªè§‰ä¸€è‚¡çƒ­æµæ¶Œä¸Šï¼Œå†…æ¯å¾—åˆ°äº†å®Œå…¨çš„è¡¥å……ã€‚\n" NOR);
         }
         setup();
 }

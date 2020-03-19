@@ -24,7 +24,7 @@ int main(object user, mapping info)
                 return 0;
 
         if (! info[ARG])
-                return MESSAGE_D->error_msg("参数不全。\n");
+                return MESSAGE_D->error_msg("鍙傛暟涓嶅叏銆俓n");
 
         // I must be careful here, If some error occur to stop
         // running, the user may be ...
@@ -52,11 +52,11 @@ int main(object user, mapping info)
         }
 
         if (! result)
-                MESSAGE_D->error_msg("不能执行设置参数的要求。\n");
+                MESSAGE_D->error_msg("涓嶈兘鎵ц璁剧疆鍙傛暟鐨勮姹傘�俓n");
         else
         {
                 MESSAGE_D->send_env(user, chg);
-                MESSAGE_D->tell_user(user, FUN_NOTICE, "你的配置信息成功的更新了。\n");
+                MESSAGE_D->tell_user(user, FUN_NOTICE, "浣犵殑閰嶇疆淇℃伅鎴愬姛鐨勬洿鏂颁簡銆俓n");
         }
 
         return result;
