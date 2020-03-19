@@ -1,43 +1,43 @@
-# ·¢²¼°æ±¾µÄ·þÎñÆ÷µØÖ·(local±íÊ¾±¾µØ)
+# å‘å¸ƒç‰ˆæœ¬çš„æœåŠ¡å™¨åœ°å€(localè¡¨ç¤ºæœ¬åœ°)
 release server : local
 
-# °æ±¾·þÎñÆ÷½ÓÊÕµÄ¿Í»§¶ËµØÖ·
+# ç‰ˆæœ¬æœåŠ¡å™¨æŽ¥æ”¶çš„å®¢æˆ·ç«¯åœ°å€
 & 127.0.0.1 : valid
 
-# ±¾µØÄÜ¹»½ÓÄÉµÄ×î´óÓÃ»§ÊýÄ¿
+# æœ¬åœ°èƒ½å¤ŸæŽ¥çº³çš„æœ€å¤§ç”¨æˆ·æ•°ç›®
 max users : 500
 
-# ±¾µØÏÞÖÆÎ×Ê¦µÇÂ¼µÄµÈ¼¶
+# æœ¬åœ°é™åˆ¶å·«å¸ˆç™»å½•çš„ç­‰çº§
 wiz lock : 0
 
-# INTERNET»¥Á¬ÍøÂçÖÐMUDµÄÃû×Ö
+# INTERNETäº’è¿žç½‘ç»œä¸­MUDçš„åå­—
 internet mud name : mud.ren
 # my_ip : 118.190.104.241
 
 # MUDOS
 & mudos : FluffOS v2019
 
-# ±àÂë·½Ê½
+# ç¼–ç æ–¹å¼
 encoding : GB
 
-# SMTP·þÎñÆ÷µØÖ·/¶Ë¿ÚºÅ
+# SMTPæœåŠ¡å™¨åœ°å€/ç«¯å£å·
 smtp server : smtp.qq.com 25
 
-# SMTP·þÎñÆ÷µÄÃû×Ö
+# SMTPæœåŠ¡å™¨çš„åå­—
 smtp domain : smtp
 
-# ÏµÍ³Ê¹ÓÃSMTP·þÎñÆ÷Ê±ÌîÐ´µÄ·¢ËÍÕß
+# ç³»ç»Ÿä½¿ç”¨SMTPæœåŠ¡å™¨æ—¶å¡«å†™çš„å‘é€è€…
 smtp sender : i@mud.ren
 
-# ºÍ±¾ÏµÍ³ÏàÁªÏµµÄMUD·þÎñÆ÷
-# mudlist1 : 115.28.10.92 5555                #Ñ×»Æ
-# mudlist2 : 117.27.131.36 4000               #Ð¦°Á½­ºþ2
-# mudlist3 : 112.126.83.105 5555              #½­ÄÏÏÀ¿ÍÐÐ
-# mudlist4 : 59.175.137.62 8000               #ÑýÉñÖ®Õù
-# mudlist5 : 221.238.143.29 6666              #Î÷ÓÎ¼Ç
+# å’Œæœ¬ç³»ç»Ÿç›¸è”ç³»çš„MUDæœåŠ¡å™¨
+# mudlist1 : 115.28.10.92 5555                #ç‚Žé»„
+# mudlist2 : 117.27.131.36 4000               #ç¬‘å‚²æ±Ÿæ¹–2
+# mudlist3 : 112.126.83.105 5555              #æ±Ÿå—ä¾ å®¢è¡Œ
+# mudlist4 : 59.175.137.62 8000               #å¦–ç¥žä¹‹äº‰
+# mudlist5 : 221.238.143.29 6666              #è¥¿æ¸¸è®°
 
-# ÓÎÏ··þÎñÇøÓò
-zone : ÔÆ¶Ë
+# æ¸¸æˆæœåŠ¡åŒºåŸŸ
+zone : äº‘ç«¯
 
-# Íæ¼ÒÊý¾Ý´íÎóÊ±ÊÇ·ñÒªÇóÖØÐÂ´´½¨Íæ¼Ò
+# çŽ©å®¶æ•°æ®é”™è¯¯æ—¶æ˜¯å¦è¦æ±‚é‡æ–°åˆ›å»ºçŽ©å®¶
 ask_recreate : 0
