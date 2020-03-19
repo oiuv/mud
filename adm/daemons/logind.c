@@ -200,9 +200,11 @@ private void get_passwd(string pass, object ob)
 
     my_pass = ob->query("password");
     ad_pass = ob->query("ad_password");
-    if (! stringp(my_pass) || crypt(pass, my_pass) != my_pass)
+    // if (!stringp(my_pass) || crypt(pass, my_pass) != my_pass)
+    if (!stringp(my_pass) || (crypt(pass, my_pass) != my_pass && oldcrypt(pass, my_pass) != my_pass))
     {
-        if (! stringp(ad_pass) || crypt(pass, ad_pass) != ad_pass)
+        // if (!stringp(ad_pass) || crypt(pass, ad_pass) != ad_pass)
+        if (!stringp(ad_pass) || (crypt(pass, ad_pass) != ad_pass && oldcrypt(pass, ad_pass) != ad_pass))
         {
             write("密码错误！\n");
             destruct(ob);
@@ -480,7 +482,7 @@ private void get_name(string arg, object ob)
     if (! stringp(fname)) fname = "";
     fname += arg;
 
-    if (strlen(fname) < 4)
+    if (strlen(fname) < 2)
     {
         write("对不起，你的中文名字（姓和名的组合）至少要有两个汉字。\n");
         write("\n请重新输入您中文" HIG "姓氏" NOR "：");
@@ -1100,7 +1102,7 @@ int check_legal_name(string name, int maxlen)
         return 0;
     }
 
-    if ((strlen(name) < 2) || (strlen(name) > maxlen))
+    if ((strlen(name) < 1) || (strlen(name) > maxlen))
     {
         write(WHT "对不起，你的中文姓名不能太长。\n" NOR);
         return 0;

@@ -43,7 +43,7 @@ public void remove_name(string name, string id)
         string old;
         string *ms;
 
-        if (! stringp(name) || strlen(name) < 2 ||
+        if (! stringp(name) || strlen(name) < 1 ||
             undefinedp(old = query(PATH(name))))
                 return;
 
@@ -67,7 +67,7 @@ public void map_name(string name, string id)
         string old;
         string *ms;
 
-        if (! stringp(name) || strlen(name) < 2)
+        if (! stringp(name) || strlen(name) < 1)
                 return;
 
         if (! stringp(old = query(PATH(name))))
@@ -91,7 +91,7 @@ public string who_is(string name)
 {
         string id;
 
-        if (! stringp(name) || strlen(name) < 2 ||
+        if (! stringp(name) || strlen(name) < 1 ||
             ! stringp(id = query(PATH(name))))
                 return "没有人叫这个名字。\n";
 
@@ -167,7 +167,7 @@ public string invalid_new_name(string name)
         int i;
         int l;
 
-        if (! stringp(name) || strlen(name) < 2)
+        if (! stringp(name) || strlen(name) < 1)
                 return "不能使用空名字。\n";
 
         if (member_array(name, family_name) != -1)
@@ -179,7 +179,7 @@ public string invalid_new_name(string name)
         if (id = query(PATH(name)))
                 return "这个名字和 " + id + " 的名字重复了。\n";
 
-        if (strlen(name) < 4)
+        if (strlen(name) < 2)
                 return 0;
 
         l = strlen(name);
@@ -220,7 +220,7 @@ public varargs string change_name(object me, string new_name, int force)
                 dbase = me->query_entire_dbase();
                 dbase["name"] = new_name;
         }
-        
+
         map_name(me->name(1), me->query("id"));
         return result;
 }
