@@ -49,7 +49,7 @@ void init()
       command("say 尔等来此何为？");
       add_action("do_answer","answer");
     }
-}            
+}
 
 
 mixed ask_reward()
@@ -84,7 +84,7 @@ mixed ask_reward()
                "宽容","忍让","谅解","谦卑","豪杰","无畏","攀登","探索","实践",
                "求实","活跃","毅力","坚毅","谨慎","图强","公正","严明","诚信",
                "求精","国富","民强","君子","杀敌","保家","为国","忠君","爱民",
-               "扶弱","济贫","开拓","进取","求实","奋进","仁义","礼智","善德", 
+               "扶弱","济贫","开拓","进取","求实","奋进","仁义","礼智","善德",
                "立志","忠孝","敬老","爱幼","助人", });
         word = w[random(sizeof(w))];
 
@@ -100,7 +100,7 @@ mixed ask_reward()
         if ( ! INVASIOND->query("record/all_killed") )
            return command("say 朕并未恩准赏赐，尔等速速离去！");
         if ( me->query("waidi/born_time") != INVASIOND->query("record/born_time"))
-           return command("say 尔之赏赐已过期了！"); 
+           return command("say 尔之赏赐已过期了！");
 
 
         command("say 原来是抗击八国联军的义士，不错不错！");
@@ -110,10 +110,10 @@ mixed ask_reward()
         command("say 你看看朕写的这两个是什么字？(可用answer xxx 作答)");
         me->set("waidi/word",word);
         if ( random(2) == 1 )
-        word = word[0..1] + space[0..0] + word[2..3]; 
-        write(TEXT2PIC_D->Display(word) + "\n");
+        word = word[0..1] + space[0..0] + word[2..3];
+        write(bitmap_font(word) + "\n");
         return 1;
-}             
+}
 
 mixed do_answer(string arg)
 {
@@ -125,7 +125,7 @@ mixed do_answer(string arg)
                 "/clone/fam/pill/linghui1",
                 "/clone/fam/pill/linghui1",
                 "/clone/fam/pill/linghui1",
-                "/clone/fam/pill/linghui1",              
+                "/clone/fam/pill/linghui1",
                 "/clone/fam/pill/full1",
                 "/clone/fam/pill/full1",
                 "/clone/fam/pill/full1",
@@ -140,7 +140,7 @@ mixed do_answer(string arg)
                 "/clone/fam/etc/va4",
                 "/clone/fam/etc/va5",
                 "/clone/fam/etc/va6",
-        }); 
+        });
 
     me = this_player();
 

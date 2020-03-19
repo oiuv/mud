@@ -80,7 +80,6 @@
 #define WEAPON_D        "/adm/daemons/weapond"
 #define IP_D            "/adm/daemons/ipd"
 #define TASK_D          "/adm/daemons/taskd"
-#define TEXT2PIC_D      "/adm/daemons/text2pic_d"
 // #define RZR_NPCD        "/adm/daemons/rzr_d"
 // #define TIME_D          "/adm/daemons/timed"
 // #define MAIL_D          "/adm/daemons/maild"

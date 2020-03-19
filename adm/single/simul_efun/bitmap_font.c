@@ -5,21 +5,21 @@ Author: xuefeng@mud.ren
 Version: v1.1
 Date: 2020-02-20
 Description:
-    display ASCII and chinese with bitmap font for mudos and fluffos v2017
+    display ASCII and chinese with bitmap font
 *****************************************************************************/
 // 字体文件(请根据需要修改路径)
 #define HZK "/adm/etc/fonts/HZK"
 #define ASC "/adm/etc/fonts/ASC"
 // 默认前景字符
-#define DEFAULT_FILL "●"
+#define DEFAULT_FILL "8"
 // 默认背景字符
-#define DEFAULT_BG "--"
+#define DEFAULT_BG "-"
 // 默认前景颜色
 #define DEFAULT_FCOLOR ""
 // 默认背景颜色
 #define DEFAULT_BGCOLOR ""
 // 默认点阵大小
-#define AUTO_SIZE 16
+#define AUTO_SIZE 12
 /**
  * 字符、字号、内容填充、背景填充、前景色、背景色
  */
@@ -27,7 +27,7 @@ varargs string bitmap_font(string str, int size, string fill, string bg, string 
 {
     int offset, fontsize, scale;
     int *mask = ({0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1});
-    buffer char;
+    buffer char, bstr = string_encode(str, "GBK");
     string file, *out;
     // 当前可用字库16x12、16x14、16x16
     if (member_array(size, ({12, 14, 16, 32})) < 0)
@@ -57,14 +57,14 @@ varargs string bitmap_font(string str, int size, string fill, string bg, string 
     else
         file = HZK + size;
 
-    for (int k = 0; k < sizeof(str); k++)
+    for (int k = 0; k < sizeof(bstr); k++)
     {
-        if (mask[0] & str[k])
+        if (mask[0] & bstr[k])
         {
             // 区码：汉字的第一个字节-0xA0
             // 位码：汉字的第二个字节-0xA0
             // offset = (94 * (区码 - 1) + (位码 - 1)) * fontsize;
-            offset = fontsize * ((str[k] - 0xA1) * 94 + str[k+1] - 0xA1);
+            offset = fontsize * ((bstr[k] - 0xA1) * 94 + bstr[k+1] - 0xA1);
             char = read_buffer(file, offset, fontsize);
             scale = fontsize / size;
             k++;
@@ -72,7 +72,7 @@ varargs string bitmap_font(string str, int size, string fill, string bg, string 
         else
         {
             // 英文每个字符占1字节
-            offset = str[k] * size;
+            offset = bstr[k] * size;
             char = read_buffer(ASC + size, offset, size);
             scale = 1;
         }
