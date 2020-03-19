@@ -97,7 +97,7 @@ void logon(object ob)
         else ppl_cnt++;
     }
 
-#if 1
+#if 0
     if (iplimit > 9)
     {
         write("对不起，" + LOCAL_MUD_NAME() + "限制相同ip多重登录。\n");
