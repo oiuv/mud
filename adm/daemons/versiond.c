@@ -75,7 +75,7 @@ STATIC_VAR_TAG string *release_src = ({ "/clone/misc/wedding-ring.c",
                                 "/d/room/%*s" });
 
 // 保存二进制代码的路径
-STATIC_VAR_TAG string bin_path;
+STATIC_VAR_TAG string bin_path = "/binaries/";
 
 // 各地连接的信息
 STATIC_VAR_TAG mapping socket_info;
@@ -166,7 +166,6 @@ void create()
         restore();
 
         // 初始化一些信息
-        bin_path = get_config(__SAVE_BINARIES_DIR__);
         set("channel_id", "版本精灵");
 
         // 还没有检查版本
@@ -419,10 +418,6 @@ int build_path(string path)
 
         if (file_size(path) == -1)
                 return notify_fail("没有对应这个路径名的文件或是路径，不能进入版本。\n");
-
-        bin_path = get_config(__SAVE_BINARIES_DIR__);
-        if (path[0..strlen(bin_path) - 1] == bin_path)
-                return notify_fail("二进制文件不需要进入版本。\n");
 
         // 判断现在的状态
         if (arrayp(total_build))

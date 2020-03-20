@@ -101,10 +101,10 @@ int main(object me, string arg)
         if (stringp(mud_list[mudn]["ZONE"]))
             name += "(" + mud_list[mudn]["ZONE"] + ")";
 
-        output += sprintf(" %-13s%-20s%-17s%-6O%-4s \n" NOR,
+        output += sprintf(" %-13s%-20s%-17s%-6s%-4s \n" NOR,
                           upper_case(vis_mudn), name,
                           mud_list[mudn]["HOSTADDRESS"],
-                          mud_list[mudn]["PORT"] != "" ? mud_list[mudn]["PORT"] : __PORT__,
+                          mud_list[mudn]["PORT"],
                           mud_list[mudn][DNS_NO_CONTACT] > MAX_RETRYS ? "失去联系"
                                                                       : mud_list[mudn]["USERS"]);
 

@@ -99,7 +99,7 @@ int main(object me, string arg)
 
     msg = "";
     msg += "Mud 名称：\t\t" + get_config(__MUD_NAME__) + "\n";
-    msg += "网路地址名称伺服器埠号：" + get_config(__ADDR_SERVER_IP__) + "\n";
+    msg += "网路地址名称伺服器埠号：" + get_config(__MUD_IP__) + "\n";
     msg += "Mudlib 路径：\t\t" + get_config(__MUD_LIB_DIR__) + "\n";
     msg += "MudOS 执行档路径：\t" + get_config(__BIN_DIR__) + "\n\n";
 

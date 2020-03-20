@@ -83,7 +83,7 @@ int main(object me, string arg)
                         HIC "【升级所需】 " NOR + WHT " %d\n", lv, need);
 
         sp += sprintf(HIC "【最大加怒】 " NOR + WHT " %-21d"
-                        HIC "【最大加力】 " NOR + WHT " %d\n", mn ? mn : "---", ml);
+                        HIC "【最大加力】 " NOR + WHT " %d\n", mn, ml);
 
         sp += sprintf(HIW "【死亡保护】 " NOR + " %-21s",
                 ! ob->query("skybook/guard/death") ? CYN "無保護" NOR :
@@ -251,7 +251,7 @@ int main(object me, string arg)
                                     me->query("jianu"));
     } else
     {
-            sp += HIC "【 平 和 】   ─────────            ";
+            sp += HIC "【 平 和 】   ---------            ";
     }
     sp += sprintf(HIW "【 经 验 】  " HIC "%d\n", my["combat_exp"]);
     sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;

@@ -9,10 +9,14 @@
 
 #include "master/valid.c"
 
-object connect()
+object connect(int port)
 {
     object login_ob;
     mixed err;
+    if (port == 5555)
+    {
+        set_encoding("GBK");
+    }
 
     err = catch(login_ob = new(LOGIN_OB));
 
