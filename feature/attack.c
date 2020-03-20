@@ -14,11 +14,11 @@ string *killer = ({ });
 string *want_kills = ({ });
 
 void   meet(string str, object ob);
-STATIC_VAR_TAG object *enemy = ({});
-STATIC_VAR_TAG mixed  next_action = 0;
-STATIC_VAR_TAG mixed  default_object = 0;
-STATIC_VAR_TAG string default_function =0;
-STATIC_VAR_TAG object competitor = 0;
+nosave object *enemy = ({});
+nosave mixed  next_action = 0;
+nosave mixed  default_object = 0;
+nosave string default_function =0;
+nosave object competitor = 0;
 
 // prototypes
 
@@ -113,7 +113,7 @@ void fight_ob(object ob)
 
 // This function starts killing between this_object() and ob
 void kill_ob(object ob)
-{       
+{
         object *guarded;
         object me;
 	object env;
@@ -129,7 +129,7 @@ void kill_ob(object ob)
 	    env->query("no_fight"))
         	return;
 
-        guarded = ob->query_temp("guarded");  
+        guarded = ob->query_temp("guarded");
 	if (! guarded) guarded = ({ });
         if (member_array(me, guarded) != -1)
         {
@@ -146,7 +146,7 @@ void kill_ob(object ob)
 	}
 
         foreach (gob in guarded)
-        { 
+        {
 		if (! gob || gob == me ||
 		    environment(gob) != environment())
 			continue;
@@ -213,7 +213,7 @@ void want_kill(object ob)
 	    string ob_id;
 
         if (! userp(ob)) return;
-        
+
         if (! arrayp(want_kills)) want_kills = ({ });
 
 	    ob_id = ob->query("id");
@@ -306,7 +306,7 @@ void remove_all_enemy(int force)
                 }
         }
 
-		
+
         enemy -= ({ 0 });
 }
 
@@ -414,7 +414,7 @@ void reset_action()
 
         me = this_object();
         prepare = query_skill_prepare();
-        
+
         if (ob = query_temp("weapon"))
         {
                 type = ob->query("skill_type");
@@ -427,7 +427,7 @@ void reset_action()
         }
         else if (! prepare || sizeof(prepare) == 0) type = "unarmed";
         else if (sizeof(prepare) == 1) type = (keys(prepare))[0];
-        else if (sizeof(prepare) == 2) 
+        else if (sizeof(prepare) == 2)
                 type = (keys(prepare))[query_temp("action_flag")];
 
         if (stringp(skill = query_skill_mapped(type)) &&
@@ -526,7 +526,7 @@ void init()
         {
                 COMBAT_D->auto_fight(me, ob, "aggressive");
                 return;
-        }               
+        }
 
         return;
-}   
+}

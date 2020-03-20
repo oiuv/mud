@@ -1,5 +1,5 @@
 /* <SecCrypt CPL V3R05> */
-// This wizard command produces a printout of an object's  
+// This wizard command produces a printout of an object's
 // stored data set.
 // modify by Server Sun Sep 24 1995
 // updated by doing
@@ -58,12 +58,12 @@ int main(object me, string arg)
                 if (! ob) ob = present(arg, me);
                 if (! ob) return notify_fail("Data: 无法找到此物件: " + arg + "。\n");
         }
-  
+
         list = ob->query_entire_dbase();
         tlist = ob->query_entire_temp_dbase();
         if (! mapp(list) && ! mapp(tlist))
       	        return  notify_fail("Data:  此物件并没有任何的资料。\n");
-  
+
         if (mapp(list) && sizeof(list))
         {
       	        klist = keys(list);
@@ -75,30 +75,30 @@ int main(object me, string arg)
         	tlist2 = keys(tlist);
       	        tlist2 = sort_array(tlist2, "sort_keys", this_object());
         }
-  
+
         if (! klist || ! sizeof(klist))
                 return  notify_fail("Data: 此物件并没有储存任何资料。\n");
-  
+
         if (! spec || spec == "-d")
         {
                 text = "Object: " + base_name(ob) + ".c\n";
-  
+
                 for (loop = 0; loop < sizeof(klist); loop++)
-                {  
+                {
                         if (strlen(klist[loop]) > 7)
                                 text += klist[loop] + "\t: ";
                         else    text += klist[loop] + "\t\t: ";
-  
+
                         text += sprintf("%O \n", list[klist[loop]]);
                 }
                 text += "\n总共有 " + sizeof(klist) + " 个储存的资料。\n\n";
         }
         else text = "";
-  
+
         if (! spec || spec == "-t")
         {
                 text += "TEMP DATA :\n\n";
-  
+
                 for (loop = 0; loop < sizeof(tlist2); loop++)
                 {
                         if (strlen(tlist2[loop]) > 7)
@@ -106,24 +106,24 @@ int main(object me, string arg)
                         else    text += tlist2[loop] + "\t\t:  ";
                         text += sprintf("%O \n", tlist[tlist2[loop]]);
                 }
-  
+
                 text += "\n总共有 " + sizeof(tlist2) + " 个暂存的资料。\n\n";
         }
-  
+
         me->start_more(text);
         return 1;
 }
 
 // This function is used to sort the key array.
-  
-STATIC_FUNC_TAG int sort_keys(string one, string two)
+
+protected int sort_keys(string one, string two)
 {
         return strcmp(one, two);
 }
-  
+
 // This function strips out the secured props from the data array.
-STATIC_FUNC_TAG int filter_props(string prop, object target)
-{  
+protected int filter_props(string prop, object target)
+{
         return  1;
 }
 

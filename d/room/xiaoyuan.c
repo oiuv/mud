@@ -2,7 +2,7 @@
 
 inherit ROOM;
 
-STATIC_VAR_TAG mapping room_type = ([
+nosave mapping room_type = ([
         "dule"    : "独乐居",
         "caihong" : "彩虹居",
         "panlong" : "盘龙居",

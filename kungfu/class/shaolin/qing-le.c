@@ -6,7 +6,7 @@ inherit NPC;
 string ask_me_1();
 string ask_me_2();
 
-STATIC_VAR_TAG string *check_skill = ({
+nosave string *check_skill = ({
         "buddhism",
         "dodge",
         "shaolin-shenfa",
@@ -78,34 +78,34 @@ void create()
 
 string ask_me_1()
 {
-	mapping fam, skl; 
+	mapping fam, skl;
 	object ob;
 	string *sname;
 	int i;
-	
+
 	if (!(fam = this_player()->query("family")) || fam["family_name"] != "少林派")
-		return RANK_D->query_respect(this_player()) + 
+		return RANK_D->query_respect(this_player()) +
 		"与本派素无来往，不知此话从何谈起？";
 
         if ( (int)this_player()->query("guilty") > 0 )
-		return RANK_D->query_respect(this_player()) + 
+		return RANK_D->query_respect(this_player()) +
 		"你累犯数戒，身带重罪，我如何能给你这手谕！";
 
         if ( (int)this_player()->query_int() < 30 )
-		return RANK_D->query_respect(this_player()) + 
+		return RANK_D->query_respect(this_player()) +
 		"资质不够，不能进入藏经楼。";
 
 	skl = this_player()->query_skills();
 	sname  = sort_array( keys(skl), (: strcmp :) );
 
 	for(i=0; i<sizeof(check_skill); i++) {
-		if (skl[check_skill[i]] < 100) 
-		        return RANK_D->query_respect(this_player()) + 
+		if (skl[check_skill[i]] < 100)
+		        return RANK_D->query_respect(this_player()) +
 		               "功力不够，不够资格领取手谕。";
 	}
 
         if ( (int)this_player()->query_skill("buddhism",1) < 150 )
-		return RANK_D->query_respect(this_player()) + 
+		return RANK_D->query_respect(this_player()) +
 		"想学习上乘武功，先要以高深佛法化解它们的戾气，否则后悔无及。";
 
 	ob = new("/d/shaolin/obj/allow-letter");
@@ -118,20 +118,20 @@ string ask_me_1()
 
 string ask_me_2()
 {
-	mapping fam; 
+	mapping fam;
 	object ob;
 	object me;
 	int i, n, lvl;
 
 	me = this_player();
 	if (!(fam = me->query("family")) || fam["family_name"] != "少林派")
-		return RANK_D->query_respect(me) + 
+		return RANK_D->query_respect(me) +
 		"与本派素无来往，不知此话从何谈起？";
 
 	n = fam["generation"];
 	n = 41 - n;
 	lvl = n * 20 + 30;
-	
+
 	for(i=0; i< sizeof(check_skill); i++) {
 		if (me->query_skill(check_skill[i], 1) < lvl)
 		return RANK_D->query_respect(me) +

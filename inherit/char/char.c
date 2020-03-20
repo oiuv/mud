@@ -36,9 +36,9 @@ inherit F_TEAM;
 #define SCHEME_CMD "/cmds/usr/scheme"
 
 // Use a tick with longer period than heart beat to save cpu's work
-STATIC_VAR_TAG int next_beat;
-STATIC_VAR_TAG int keep_beat_flag = 0;
-STATIC_VAR_TAG string short_desc = 0;
+nosave int next_beat;
+nosave int keep_beat_flag = 0;
+nosave string short_desc = 0;
 
 void create()
 {

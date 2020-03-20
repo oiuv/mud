@@ -2,13 +2,13 @@
 
 #include <ansi.h>
 
-STATIC_VAR_TAG string char_id;
-STATIC_VAR_TAG string char_name;
+nosave string char_id;
+nosave string char_name;
 
 object select_character();
 int give_gift();
 
-STATIC_VAR_TAG mixed *story = ({
+nosave mixed *story = ({
     "三军蜿蜒而行。",
     "“嗯？那写了什么？”",
     "小兵：报告军师，上面写着“落鸡坡”三个字。",

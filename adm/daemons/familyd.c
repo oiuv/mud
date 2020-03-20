@@ -57,7 +57,7 @@ mapping family_fame = ([
 
 
 // 门派ID对应的门派名字
-STATIC_VAR_TAG mapping family_name = ([
+nosave mapping family_name = ([
         "dalunsi"  : "大轮寺",
         "duan"     : "段氏皇族",
         "emei"     : "峨嵋派",

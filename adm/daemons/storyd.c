@@ -7,11 +7,11 @@ inherit F_DBASE;
 // 每 20 天刷新故事
 #define REFRESH_TIME 20 * 86400
 
-STATIC_VAR_TAG string *story_name;
+nosave string *story_name;
 
-STATIC_VAR_TAG object running_story;
-STATIC_VAR_TAG mapping history;
-STATIC_VAR_TAG int step;
+nosave object running_story;
+nosave mapping history;
+nosave int step;
 int filter_listener(object ob);
 
 private void init_story();

@@ -5,8 +5,8 @@
 
 inherit F_DBASE;
 
-STATIC_VAR_TAG string *event_name;      // 系统中所有的事件
-STATIC_VAR_TAG mapping event_list;      // 待触发的事件
+nosave string *event_name;      // 系统中所有的事件
+nosave mapping event_list;      // 待触发的事件
 
 void collect_all_event();
 
@@ -83,7 +83,7 @@ int at_when(int year, int month, int day, int hour, mixed para)
 
 // 登记在一段时间以后启动事件
 // 如果传入的参数是负数，则标志了一个绝对的时间
-// 比如：Y = 0 month = 0 day = 1 hour = -5 表示明天5点钟 
+// 比如：Y = 0 month = 0 day = 1 hour = -5 表示明天5点钟
 int at_after(int year, int month, int day, int hour, mixed para)
 {
         mixed *lt;

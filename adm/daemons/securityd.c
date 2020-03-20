@@ -26,15 +26,15 @@ string query_save_file()
 // wizardp() and interactive() efun.
 // The parenthesis is nessessary to prevend players naming themself "admin"
 // to hack the security system.
-// 
+//
 // 01/14/95 Annihilator - wiz_status are defined outside this daemon in the
 //                        WIZLIST file.
 // Modified by Xiang for XKX
 // Updated by DOing Lu for ULTRA HELL
 
-private STATIC_VAR_TAG mapping wiz_status = ([ ]);
+private nosave mapping wiz_status = ([ ]);
 
-private STATIC_VAR_TAG string *wiz_levels = ({
+private nosave string *wiz_levels = ({
 	"(player)",
 	"(immortal)",
 	"(apprentice)",
@@ -43,19 +43,19 @@ private STATIC_VAR_TAG string *wiz_levels = ({
 	"(admin)"
 });
 
-private STATIC_VAR_TAG int seq = 0;
+private nosave int seq = 0;
 
 // A valid write attempt must pass 2 checks: your uid or status must not be
-// "excluded" and must be "trusted" on that directory in order to write in 
+// "excluded" and must be "trusted" on that directory in order to write in
 // that directory. The directories containing the file is searched backward
 // from the current directory to root. And exclude is checked prior than
 // trusted.
 
 // ultra rules
-private STATIC_VAR_TAG mapping trusted_read;
-private STATIC_VAR_TAG mapping exclude_read;
-private STATIC_VAR_TAG mapping trusted_write;
-private STATIC_VAR_TAG mapping exclude_write;
+private nosave mapping trusted_read;
+private nosave mapping exclude_read;
+private nosave mapping trusted_write;
+private nosave mapping exclude_write;
 
 // extend rules save in diskette
 private mapping extend_trusted_read;
@@ -125,7 +125,7 @@ int restore()
 
                         for (i = 0; i < strlen(item) && i < 32; i++)
                                 sum[i] = ((sum[i] - 48 + item[i]) & 0x7F) + 48;
-        
+
                         for (i = 0; i < strlen(val) && i < 32; i++)
                                 sum[i] = ((sum[i] - 48 + val[i]) & 0x7F) + 48;
                 }
@@ -343,7 +343,7 @@ string *query_wizlist() { return keys(wiz_status); }
 string get_status(mixed ob)
 {
 	string euid;
-	
+
 	if (objectp(ob))
         {
 		euid = geteuid(ob);
@@ -372,7 +372,7 @@ int set_status(mixed ob, string status)
 	if (objectp(ob))        uid = getuid(ob);
 	else if (stringp(ob))   uid = ob;
 	else return 0;
-	
+
 	if (wizhood(ob) == status)
 		return 1;
 	if (status == "(player)")

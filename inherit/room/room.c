@@ -14,12 +14,12 @@
 inherit F_DBASE;
 inherit F_CLEAN_UP;
 
-STATIC_VAR_TAG mapping doors;
+nosave mapping doors;
 
 #if ENABLE_OPTIMIZE
-STATIC_VAR_TAG string s_long;
-STATIC_VAR_TAG string s_short;
-STATIC_VAR_TAG mixed s_fight;
+nosave string s_long;
+nosave string s_short;
+nosave mixed s_fight;
 #endif
 
 int query_max_encumbrance()

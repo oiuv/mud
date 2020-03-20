@@ -7,7 +7,7 @@ inherit F_CLEAN_UP;
 
 string fname(object ob);
 
-STATIC_VAR_TAG object run_user = 0;
+nosave object run_user = 0;
 
 int main(object me, string arg)
 {
@@ -34,7 +34,7 @@ int main(object me, string arg)
 
         seteuid(getuid());
         if (member_array('.', arg) != -1)
-        {                
+        {
                 address = arg;
         } else
         {

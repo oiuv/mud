@@ -5,7 +5,7 @@ inherit ITEM;
 inherit F_CUTABLE;
 
 int decayed;
-STATIC_VAR_TAG int not_cut = 0;
+nosave int not_cut = 0;
 
 void create()
 {
@@ -101,7 +101,7 @@ void create()
         	set("unit", "具" );
                 set("main_part_level", 0);
         }
-        
+
 	set("long", "这是一具无名尸体。\n");
 	decayed = 0;
         if( clonep(this_object()) ) call_out("decay", 60, 1);
@@ -204,7 +204,7 @@ int make_corpse(object victim, object killer)
                 + "然而，" + gender_pronoun(victim->query("gender"))
                 + "已经死了，只剩下一具尸体静静地躺在这里。\n");
         set("class", victim->query("class"));
-        set("age", victim->query("age")); 
+        set("age", victim->query("age"));
         set("gender", victim->query("gender"));
         set("victim_name", victim->name(1));
         set_weight(victim->query_weight());
@@ -237,7 +237,7 @@ int make_corpse(object victim, object killer)
                 // can not cut can_speak object
                 not_cut = 1;
         }
- 
+
         if (victim->query("class") == "bonze")
                 set("no_cut/hair", "它没有头发啊，等它再长出来好像来不及了。\n");
 
@@ -275,7 +275,7 @@ int make_corpse(object victim, object killer)
                                         inv[i]->move(environment(victim));
                         } else
                                 inv[i]->move(this_object());
-                } 
+                }
         }
         return 1;
 }

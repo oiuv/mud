@@ -73,8 +73,8 @@ void create()
 }
 
 // message after damage info
-STATIC_VAR_TAG string foo_before_hit = 0;
-STATIC_VAR_TAG string foo_after_hit = 0;
+nosave string foo_before_hit = 0;
+nosave string foo_after_hit = 0;
 
 void set_bhinfo(string msg)
 {

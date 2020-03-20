@@ -6,7 +6,7 @@ mixed random_gift();
 
 inherit F_CLEAN_UP;
 
-STATIC_VAR_TAG mixed *story = ({
+nosave mixed *story = ({
     "电母：这...这是啥？",
     "雷公：怎么了你？",
     "电母杏目圆睁：岂有此理！快说，你背地里都瞒着我干些什么？",

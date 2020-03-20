@@ -12,9 +12,9 @@
 
 inherit F_DBASE;
 
-STATIC_VAR_TAG int wiz_lock_level = 0;
+nosave int wiz_lock_level = 0;
 
-STATIC_VAR_TAG string *movie;
+nosave string *movie;
 
 string *banned_name = ({
     "你", "我", "他", "她", "它",

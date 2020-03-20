@@ -10,7 +10,7 @@
 #define GAME_TIME(t)            (t - 971000000)
 #define DATE_SCALE              365
 
-STATIC_VAR_TAG int current_day_phase = -1;
+nosave int current_day_phase = -1;
 mapping *day_phase;
 
 mapping *read_table(string file);
@@ -269,7 +269,7 @@ string game_time()
 
         lt = query_localtime(time());
 
-        return sprintf("%s年%s%s月%s日%s时", 
+        return sprintf("%s年%s%s月%s日%s时",
                        chinese_number(lt[LT_YEAR]),
                        ms[((lt[LT_MON]) % 12) / 3],
                        chinese_number(lt[LT_MON]),

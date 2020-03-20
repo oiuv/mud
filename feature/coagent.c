@@ -3,7 +3,7 @@
 #include <ansi.h>
 #include <dbase.h>
 
-STATIC_VAR_TAG int helping = 0;
+nosave int helping = 0;
 
 int is_coagent() { return 1; }
 
@@ -32,7 +32,7 @@ int start_help(object env, object helper, object ob)
 
                 message_vision(HIC + me->name() + "微微一愣，似乎听到了什么，"
                                "双足一点，扑了出去。\n" NOR, me);
-    
+
                 me->move(env);
                 if (objectp(helper))
                 {

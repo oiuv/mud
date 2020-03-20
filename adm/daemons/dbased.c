@@ -20,10 +20,10 @@ mapping save_dbase;
 // 调用函数announec_all_save_object时候的标志
 #define ONLY_SAVE               0
 #define DESTRUCT_OBJECT         1
-STATIC_VAR_TAG  int save_flag = ONLY_SAVE;
+nosave  int save_flag = ONLY_SAVE;
 
 // 内部调用的函数
-STATIC_FUNC_TAG int announce_all_save_object(int destruct_flag);
+protected int announce_all_save_object(int destruct_flag);
 
 // 提供给外部的函数
 mixed   query_data();
@@ -68,7 +68,7 @@ void mud_shutdown()
 }
 
 // 通知所有的需要保存数据的对象
-STATIC_FUNC_TAG int announce_all_save_object(int destruct_flag)
+protected int announce_all_save_object(int destruct_flag)
 {
         object ob;
         string *e;
@@ -131,7 +131,7 @@ int cleanup_all_save_object(int raw)
 }
 
 // 心跳函数，自动保存所有的数据
-STATIC_FUNC_TAG int heart_beat()
+protected int heart_beat()
 {
         set_heart_beat(900 + random(20));
         announce_all_save_object(ONLY_SAVE);

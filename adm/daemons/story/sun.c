@@ -6,7 +6,7 @@ inherit F_CLEAN_UP;
 
 mixed random_gift();
 
-STATIC_VAR_TAG mixed *story = ({
+nosave mixed *story = ({
     "后羿：哪里跑！",
     "金乌：糟糕，这下避无可避，该怎么办？",
     "后羿：看箭！",

@@ -4,7 +4,7 @@ int give_gift();
 
 inherit F_CLEAN_UP;
 
-STATIC_VAR_TAG mixed *story = ({
+nosave mixed *story = ({
     "两个童子拼命的煽火，只见炼丹炉中的火愈来愈旺。",
     "太上老君口中念念有词：疾！",
     "两个童子连忙开炉，一颗亮晶晶的仙丹腾空而起。",

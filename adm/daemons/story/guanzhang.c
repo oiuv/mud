@@ -4,7 +4,7 @@ int give_gift();
 
 inherit F_CLEAN_UP;
 
-STATIC_VAR_TAG mixed *story = ({
+nosave mixed *story = ({
     "关羽：听说三弟你在长板桥一下子吓跑了几十万大军，好厉害啊。",
     "张飞：那是自然，我吃了赐元丹，功力是更胜往昔！",
     "关羽：啧啧，真不错，三弟还有没有？",

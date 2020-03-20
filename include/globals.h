@@ -5,13 +5,8 @@
 #define GLOBALS_H
 
 #ifndef __SENSIBLE_MODIFIERS__
-// mudos use this
-#define STATIC_FUNC_TAG static
-#define STATIC_VAR_TAG  static
-#else
-// fluffos use this
-#define STATIC_FUNC_TAG private
-#define STATIC_VAR_TAG  nosave
+#define protected static
+#define nosave static
 #endif
 
 // Important directories

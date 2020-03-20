@@ -8,7 +8,7 @@
 inherit F_SAVE;
 inherit F_DBASE;
 
-STATIC_VAR_TAG string *family_name = ({ "东方", "独孤", "慕容", "欧阳", "司马",
+nosave string *family_name = ({ "东方", "独孤", "慕容", "欧阳", "司马",
                                 "西门", "尉迟", "长孙", "诸葛", "上官",
                                 "夏候", "闻人", "皇甫", "澹台", "公治",
                                 "淳于", "申屠", "公孙", "公羊", "轩辕",

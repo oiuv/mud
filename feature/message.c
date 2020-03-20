@@ -6,8 +6,8 @@
 
 #define MAX_MSG_BUFFER 500
 
-STATIC_VAR_TAG string *msg_buffer = ({});
-STATIC_VAR_TAG int written = 0;
+nosave string *msg_buffer = ({});
+nosave int written = 0;
 
 // status of written
 #define NONE                    0
@@ -19,8 +19,8 @@ STATIC_VAR_TAG int written = 0;
 // will call the function enable_message_log() or call the
 // function disable_message_log() to stop it. If the flag
 // has been set, after I call the receive_message to send
-// message to this object, I will call the function 
-STATIC_VAR_TAG string log_in = 0;
+// message to this object, I will call the function
+nosave string log_in = 0;
 
 // Should I be log ?
 int is_loging_now()
@@ -73,7 +73,7 @@ void log_message(string msg)
 }
 
 // What's about flag variable: written ?
-// After I written a prompt ">" on the screen, mabye the 
+// After I written a prompt ">" on the screen, mabye the
 // user has not input command but receive message. So the
 // screen may be show as "> YOU ARE RECEIVE MESSAGE"
 // that's bad! On this case, I want clear the "> ", so I
@@ -234,7 +234,7 @@ void receive_snoop(string msg)
 		// Don't snoop prompt
 		return;
 
-        msg = replace_string(msg, ESC "[1A", ""); 
+        msg = replace_string(msg, ESC "[1A", "");
         msg = replace_string(msg, NOR, NOR BBLU WHT);
         //msg = replace_string(msg, ESC "[K", NOR ESC "[K" BBLU WHT);
         msg = BBLU WHT + msg + NOR + " " + ESC "[1D";

@@ -15,10 +15,10 @@
 inherit F_SAVE;
 
 // some constatns
-STATIC_VAR_TAG string *c_digit = ({ "零","十","百","千","万","亿","兆" });
-STATIC_VAR_TAG string *c_num = ({"零","一","二","三","四","五","六","七","八","九","十"});
-STATIC_VAR_TAG string *sym_tian = ({ "甲","乙","丙","丁","戊","己","庚","辛","壬","癸" });
-STATIC_VAR_TAG string *sym_di = ({ "子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥" });
+nosave string *c_digit = ({ "零","十","百","千","万","亿","兆" });
+nosave string *c_num = ({"零","一","二","三","四","五","六","七","八","九","十"});
+nosave string *sym_tian = ({ "甲","乙","丙","丁","戊","己","庚","辛","壬","癸" });
+nosave string *sym_di = ({ "子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥" });
 
 mapping dict = ([]);
 
@@ -62,7 +62,7 @@ string chinese_number(int i)
 			return c_num[i / 100] + c_digit[2] +
 			c_num[1] + chinese_number(i % 100);
 		else
-			return c_num[i / 100] + c_digit[2] + 
+			return c_num[i / 100] + c_digit[2] +
 			chinese_number(i % 100);
 	}
 	if (i < 10000)
@@ -72,7 +72,7 @@ string chinese_number(int i)
 		else if (i % 1000 < 100)
 			return c_num[i / 1000] + c_digit[3] +
 			c_num[0] + chinese_number(i % 1000);
-		else 
+		else
 			return c_num[i / 1000] + c_digit[3] +
 			chinese_number(i % 1000);
 	}
@@ -94,7 +94,7 @@ string chinese_number(int i)
 		else if (i % 100000000 < 1000000)
 			return chinese_number(i / 100000000) + c_digit[5] +
 			c_num[0] + chinese_number(i % 100000000);
-		else 
+		else
 			return chinese_number(i / 100000000) + c_digit[5] +
 			chinese_number(i % 100000000);
 	}
@@ -151,10 +151,10 @@ void dump_translate()
 {
 	string *k, str;
 	int i;
-	
+
 	str = "";
 	k = keys(dict);
-	for (i = 0; i < sizeof(k); i++) 
+	for (i = 0; i < sizeof(k); i++)
 		str += sprintf("%-30s %s\n", k[i], dict[k[i]]);
 	write_file("/CHINESE_DUMP", str);
 }
@@ -171,8 +171,8 @@ string chinese_date(int date, int year)
                 chinese_number(local[LT_MON] + 1),
                 chinese_number(local[LT_MDAY] + (local[LT_HOUR] > 23 ? 1 : 0)),
                 sym_di[((local[LT_HOUR] + 1) % 24) / 2],
-              //chinese_number((local[LT_MIN]+1) % 2 * 2 + local[LT_MIN] / 30 + 1) 
-                chinese_number(local[LT_MIN] / 15 + 1 + (((local[LT_HOUR] + 1) % 24) % 2) * 4) 
+              //chinese_number((local[LT_MIN]+1) % 2 * 2 + local[LT_MIN] / 30 + 1)
+                chinese_number(local[LT_MIN] / 15 + 1 + (((local[LT_HOUR] + 1) % 24) % 2) * 4)
 				);
 }
 

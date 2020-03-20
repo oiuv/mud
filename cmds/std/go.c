@@ -27,7 +27,7 @@ mapping default_dirs = ([
         "out":          "外面",
 ]);
 
-STATIC_VAR_TAG  mapping empty_mapping = ([ ]);
+nosave  mapping empty_mapping = ([ ]);
 
 void create() { seteuid(getuid()); }
 
@@ -325,7 +325,7 @@ void do_flee(object me)
         main(me, directions[random(sizeof(directions))]);
 }
 
-STATIC_VAR_TAG mapping r_dirs = ([
+nosave mapping r_dirs = ([
         "north":        "south",
         "south":        "north",
         "east":         "west",
@@ -365,9 +365,9 @@ int help(object me)
 {
         write(@HELP
 指令格式 : go <方向>
- 
+
 让你往指定的方向移动。
- 
+
 HELP );
         return 1;
 }

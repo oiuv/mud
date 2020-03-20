@@ -10,7 +10,7 @@ inherit F_DBASE;
 #define PK_ROOM         "/d/pk/turen"
 
 // the state of daemon
-STATIC_VAR_TAG int state;
+nosave int state;
 
 #define SLEEPING        0
 #define GET_READY       1
@@ -18,11 +18,11 @@ STATIC_VAR_TAG int state;
 
 #define GET_READY_TIME  180
 
-STATIC_VAR_TAG object *total = ({ });
-STATIC_VAR_TAG int ready_time = 0;
+nosave object *total = ({ });
+nosave int ready_time = 0;
 
 // 四次比赛列表
-STATIC_VAR_TAG mapping *tlist = ({
+nosave mapping *tlist = ({
 ([      "name" : "屠人热身赛",
         "time" : ({ 2200, 2210, }),
         "exp"  : ({ 1000, 500000 }),
@@ -45,7 +45,7 @@ STATIC_VAR_TAG mapping *tlist = ({
 ])
 });
 
-STATIC_VAR_TAG int selected;
+nosave int selected;
 
 private void change_state(int new_state);
 private void init_player(object me);

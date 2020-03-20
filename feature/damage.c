@@ -9,10 +9,10 @@
 #include <action.h>
 #include <condition.h>
 
-STATIC_VAR_TAG object last_damage_from = 0;
-STATIC_VAR_TAG string last_damage_name = 0;
-STATIC_VAR_TAG object defeated_by      = 0;
-STATIC_VAR_TAG string defeated_by_who  = 0;
+nosave object last_damage_from = 0;
+nosave string last_damage_name = 0;
+nosave object defeated_by      = 0;
+nosave string defeated_by_who  = 0;
 
 object query_last_damage_from() { return last_damage_from; }
 string query_last_damage_name() { return last_damage_name; }
@@ -233,10 +233,10 @@ void unconcious()
 
         message("vision", HIR "\n你的眼前一黑，接著什么也不知道了....\n\n" NOR,
                 me);
-        
+
         me->disable_player(" <昏迷不醒>");
         me->delete_temp("sleeped");
-         
+
         if (objectp(riding = me->query_temp("is_riding")))
         {
                 message_vision("$N一头从$n上面栽了下来！\n",
@@ -311,7 +311,7 @@ varargs void die(object killer)
         int direct_die;
 //      int i;
 
-        me = this_object();       
+        me = this_object();
         me->delete_temp("sleeped");
         me->delete("last_sleep");
 
@@ -457,9 +457,9 @@ int max_food_capacity()
         // 饕餮转世增加食物上限
         if (query("special_skill/greedy"))
                 f += 500;
-                
+
 //因已开放无字天书合成，故转世加成取消 by 薪有所属
- /*  
+ /*
         //转世增加食物上限 by 薪有所属
         if (query("reborn"))
                 f += f * 50 / 100;
@@ -480,13 +480,13 @@ int max_water_capacity()
         // 饕餮转世增加饮水上限
         if (query("special_skill/greedy"))
                 w += 500;
-                
-//因已开放无字天书合成，故转世加成取消 by 薪有所属                
+
+//因已开放无字天书合成，故转世加成取消 by 薪有所属
 /*
         //转世增加饮水上限 by 薪有所属
         if (query("reborn"))
                 w += w * 50 / 100;
-*/                
+*/
         return w;
 }
 
@@ -601,7 +601,7 @@ int heal_up()
                         if (my["neili"] > my["max_neili"])
                                 my["neili"] = my["max_neili"];
                         update_flag++;
-                } 
+                }
 
         }
         return update_flag;

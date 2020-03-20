@@ -23,13 +23,13 @@ int is_item_make() { return 1; }
 #define MAX_LEVEL       LEVEL9
 #define ULTRA_LEVEL     (LEVEL9 + 1)
 
-STATIC_VAR_TAG int *levels = ({ LEVEL1, LEVEL2, LEVEL3, LEVEL4,
+nosave int *levels = ({ LEVEL1, LEVEL2, LEVEL3, LEVEL4,
                         LEVEL5, LEVEL6, LEVEL7, LEVEL8,
                         LEVEL9 });
 
-STATIC_VAR_TAG int performing  = 0;
-STATIC_VAR_TAG int attack_lvl  = 0;
-STATIC_VAR_TAG int defense_lvl = 0;
+nosave int performing  = 0;
+nosave int attack_lvl  = 0;
+nosave int defense_lvl = 0;
 
 int is_stay_in_room() { return attack_lvl >= ULTRA_LEVEL; }
 
@@ -347,7 +347,7 @@ mixed save_dbase_data()
         data = ([ "combat" : query("combat"),
                   "owner"  : query("owner"),
                   "magic"  : query("magic"),
-                  "consistence" : query("consistence"), 
+                  "consistence" : query("consistence"),
                   "bless"       : query("bless"),
                   "stable"      : query("stable")]);
 

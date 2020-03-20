@@ -9,8 +9,8 @@ inherit F_DBASE;
 inherit F_MOVE;
 inherit F_NAME;
 
-STATIC_VAR_TAG string s_name;
-STATIC_VAR_TAG string s_id;
+nosave string s_name;
+nosave string s_id;
 
 void setup()
 {
@@ -28,7 +28,7 @@ string short()
 {
         string colorname;
 
-        if (! stringp(colorname = this_object()->query("colorname"))) 
+        if (! stringp(colorname = this_object()->query("colorname")))
                 return s_name + "(" + s_id + ")";
         else
                 return colorname + "(" + s_id + ")";
@@ -100,4 +100,3 @@ string type()
                 return "任务物品";
         return "杂物";
 }
-

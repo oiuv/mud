@@ -4,7 +4,7 @@ string give_gift();
 
 inherit F_CLEAN_UP;
 
-STATIC_VAR_TAG mixed *story = ({
+nosave mixed *story = ({
     "玉皇大帝：老君，你那儿有没有治笨病的药？",
     "太上老君：有，有，我这儿新研制了一种仙丹，可以使人变聪明。",
     "玉皇大帝大喜道：好，快给我两颗。",

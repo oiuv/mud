@@ -7,7 +7,7 @@ inherit F_SAVE;
 
 #define WAIT_HEART_BEAT  2
 
-STATIC_VAR_TAG int serial = 0;
+nosave int serial = 0;
 
 void heart_beat();
 

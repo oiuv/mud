@@ -8,7 +8,7 @@ inherit F_DBASE;
 
 #define BACKUP_DATE     15               // the oldest's backup (days) 保留半个月内的备份
 
-STATIC_VAR_TAG int state;
+nosave int state;
 
 #define SLEEPING        0
 #define GET_READY       1
@@ -18,8 +18,8 @@ STATIC_VAR_TAG int state;
 #define CMD_RM          "/cmds/wiz/rm"
 #define CMD_CP          "/cmds/wiz/cp"
 
-STATIC_VAR_TAG int *tlist = ({ 0, 550, 559, 600 });
-STATIC_VAR_TAG int *hlist = ({ 45, 1, 1, 1 });
+nosave int *tlist = ({ 0, 550, 559, 600 });
+nosave int *hlist = ({ 45, 1, 1, 1 });
 
 // 通知一次准备的时间：凌晨5:50分
 // 通知再次准备的时间：凌晨5:59分

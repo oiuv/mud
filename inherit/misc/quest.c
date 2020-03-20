@@ -7,8 +7,8 @@ inherit F_DBASE;
 
 mixed quest_name;
 
-STATIC_VAR_TAG int destructing;         // 析构对象时候的标志
-STATIC_VAR_TAG string status;           // 任务对象的状态
+nosave int destructing;         // 析构对象时候的标志
+nosave string status;           // 任务对象的状态
 
 int is_quest() { return clonep(this_object()); }
 

@@ -60,7 +60,7 @@ private string *list_nodes;
 // Used for debugging
 #ifdef DEBUG
 #define debug(x) if (monitor) message("diagnostic", (x), monitor)
-STATIC_VAR_TAG object monitor = 0;
+nosave object monitor = 0;
 #else
 #define debug(x)
 #endif
@@ -356,7 +356,7 @@ void do_pings()
     i = sizeof(mud_names);
     while (i--)
     {
-        // a STATIC_VAR_TAG mud
+        // a nosave mud
         if (undefinedp(mud_svc[mud_names[i]]))
             continue;
 
@@ -609,7 +609,7 @@ int query_service_method(string mud, string service)
     if (undefinedp(muds[mud]))
         return SVC_UNKNOWN;
 
-    // if we have an entry, but no service entry, it is a STATIC_VAR_TAG mud
+    // if we have an entry, but no service entry, it is a nosave mud
     if (undefinedp(mud_svc[mud]))
         return SVC_TCP | SVC_NO_UDP | SVC_KNOWN;
 

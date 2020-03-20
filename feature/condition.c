@@ -6,8 +6,8 @@
 #include <condition.h>
 #include <dbase.h>
 
-STATIC_VAR_TAG string last_applyer_name;
-STATIC_VAR_TAG string last_applyer_id;
+nosave string last_applyer_name;
+nosave string last_applyer_id;
 
 mapping cond_applyer;
 mapping conditions;
@@ -146,7 +146,7 @@ nomask int update_condition()
 
 // apply_condition()
 //
-// This function applies the specific condition to the character. Note we 
+// This function applies the specific condition to the character. Note we
 // don't check if the condition already exist before setting condition info.
 // It is condition giver's reponsibility to check if the condition should
 // override the old one if same condition already exists.(Use query_condition
@@ -251,7 +251,7 @@ nomask int affect_by(string cnd, mixed para)
 			this_object(), CONDITION_D(cnd), para));
                 return 0;
 	}
-	
+
 //转世特技诸邪辟易
  if (this_object()->query("special_skill/piyi"))
         {

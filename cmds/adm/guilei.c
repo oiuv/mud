@@ -7,7 +7,7 @@ inherit F_CLEAN_UP;
 
 int guilei_dir(object me, string dir, string type, int continueable, int *total);
 int guilei_file(object me, string file, string type);
-STATIC_VAR_TAG int all_num;	//判断多少文件给归类
+nosave int all_num;	//判断多少文件给归类
 
 int main(object me, string arg)
 {
@@ -23,7 +23,7 @@ int main(object me, string arg)
         write("文件归类。");
 
         continueable = 1;
- 	if (!arg || !(sscanf(arg,"%s %s",dir,type) == 2)) 
+ 	if (!arg || !(sscanf(arg,"%s %s",dir,type) == 2))
                 return notify_fail("格式：guilei <路径> room|npc \n");
 
        	dir = resolve_path(me->query("cwd"), dir);
@@ -118,7 +118,7 @@ int guilei_dir(object me, string dir, string type, int continueable, int *total)
                 // continue to compile next file
 	}
         write(HIC "\n整理了目录" + dir + "下的" + HIW + filecount + HIC +
-              "个文件。\n检查了其中" + HIW + compcount + HIC + 
+              "个文件。\n检查了其中" + HIW + compcount + HIC +
               "个档案。\n归类了其中" + HIW + all_num + HIC + "个档案。\n" + NOR );
 
 	i = sizeof(file);
@@ -150,14 +150,14 @@ int guilei_file(object me, string file, string type)
                 return 1;
 
         write (".");
-        
+
         //归类房间文件
         if (type == "room")
         {
                 document = read_file(file);
                 if (! document) return 0;
                 is_ok = strsrch(document, "inherit ROOM", 1);
-                
+
                 if (is_ok >= 0)
                 {
                         all_num ++;
@@ -183,10 +183,10 @@ int guilei_file(object me, string file, string type)
                                 the_name = the_object->name(1);
                                 the_id = the_object->query("id");
                                 log_file("static/room", sprintf("%s|%s|%s|%s|%s\n",
-                                        file, 
-                                        file_name, 
-                                        the_object, 
-                                        the_name, 
+                                        file,
+                                        file_name,
+                                        the_object,
+                                        the_name,
                                         the_id,
                                 ));
                         }
@@ -198,7 +198,7 @@ int guilei_file(object me, string file, string type)
                 document = read_file(file);
                 if (!document) return 0;
                 is_ok = strsrch(document,"inherit NPC",1);
-                
+
                 if (is_ok > 0) {
                         all_num ++;
                         obj = new(file);
@@ -227,7 +227,7 @@ int guilei_file(object me, string file, string type)
                                 for (i = 0; i < sizeof(inv); i++)
                                 {
                                         log_file("static/npc_obj", sprintf("%s|%s.c|%s|%s\n",
-                                                file, 
+                                                file,
                                                 base_name(inv[i]),
                                                 inv[i]->query("id"),
                                                 inv[i]->name(1)
@@ -241,9 +241,9 @@ int guilei_file(object me, string file, string type)
                         for (i = 0; i < sizeof(ob_list); i++) {
                                 the_object = ob_list[i] + ".c";
                                 log_file("static/npc_obj", sprintf("%s|%s|%s|%s\n",
-                                        file, 
+                                        file,
                                         the_object,
-                                        the_object->query("id"), 
+                                        the_object->query("id"),
                                         the_object->name(1)
                                 ));
                         }
@@ -278,7 +278,7 @@ int help (object me)
 {
         write(@HELP
 指令格式: guilei <路径|文件名> <room|npc|obj>
- 
+
 这个指令让你指定对一个文件或者一个目录下的房间、人物、物品的
 属性进行归类。
 room参数表示归类房间文件，信息包括文件名、房间名、房间里的物

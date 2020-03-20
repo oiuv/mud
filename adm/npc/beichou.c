@@ -4,7 +4,7 @@ inherit NPC;
 inherit F_DEALER;
 inherit F_UNIQUE;
 
-STATIC_VAR_TAG object *receiver;
+nosave object *receiver;
 
 object *query_receiver() { return receiver; }
 

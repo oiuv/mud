@@ -2,14 +2,14 @@
 
 #include <ansi.h>
 
-STATIC_VAR_TAG string char_id;
-STATIC_VAR_TAG string char_name;
-STATIC_VAR_TAG string family_name;
+nosave string char_id;
+nosave string char_name;
+nosave string family_name;
 
 int give_gift();
 object select_character();
 
-STATIC_VAR_TAG mixed *story = ({
+nosave mixed *story = ({
     "谢逊：成昆！休走，今天我就和你做一了段！",
     "成昆：他奶奶的，今天遇到这瞎子，算我倒霉到家了。",
     "杨逍：成昆，你作恶多端，害死阳教主，今天还想跑么？",

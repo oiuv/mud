@@ -6,7 +6,7 @@
 #include <ansi.h>
 inherit ITEM;
 
-STATIC_VAR_TAG int used = 0;
+nosave int used = 0;
 void delete_benefit(object me);
 void decay();
 int cure_ob(string);

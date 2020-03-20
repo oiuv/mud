@@ -2,7 +2,7 @@
 
 #include "name.h"
 
-STATIC_VAR_TAG mapping ma_sname_i = ([
+nosave mapping ma_sname_i = ([
         "萨"   : "sa",
         "拉"   : "la",
         "阿"   : "a",
@@ -16,7 +16,7 @@ STATIC_VAR_TAG mapping ma_sname_i = ([
         "腾格" : "tengge",
         "佛答" : "foda",
         "西戈" : "sige",
-        "沙戈" : "shage", 
+        "沙戈" : "shage",
         "帕鲁" : "palu",
         "科纳" : "kena",
         "摩利" : "moli",
@@ -27,7 +27,7 @@ STATIC_VAR_TAG mapping ma_sname_i = ([
         "曼克雅" : "mankeya",
 ]);
 
-STATIC_VAR_TAG mapping ma_pname_i = ([
+nosave mapping ma_pname_i = ([
         "牟禄" : "molu",
         "摩克" : "moke",
         "曼都" : "mandu",
@@ -64,9 +64,8 @@ void generate_in_name(object ob)
         sname = ks[random(sizeof(ks))];
         pname = kp[random(sizeof(kp))];
         id1 = ma_sname_i[sname];
-        id2 = ma_pname_i[pname];        
+        id2 = ma_pname_i[pname];
         name = sname + pname;
 
         if (ob) ob->set_name(name, ({ id1 + " " + id2, id1, id2 }));
 }
-

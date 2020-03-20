@@ -8,7 +8,7 @@ inherit F_DBASE;
 inherit F_MOVE;
 inherit F_NAME;
 
-STATIC_VAR_TAG int amount;
+nosave int amount;
 
 void setup()
 {

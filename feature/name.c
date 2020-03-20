@@ -4,7 +4,7 @@
 #include <dbase.h>
 #include <condition.h>
 
-STATIC_VAR_TAG string *my_id;
+nosave string *my_id;
 
 varargs void set_name(string name, string *id)
 {
@@ -57,7 +57,7 @@ string *parse_command_id_list()
 {
 	string *applied_id;
 
-	if( pointerp(applied_id = query_temp("apply/id")) 
+	if( pointerp(applied_id = query_temp("apply/id"))
 	&&	sizeof(applied_id) )
 		return applied_id;
 	else
@@ -67,7 +67,7 @@ string *parse_command_id_list()
 varargs string name(int raw)
 {
 	string str, *mask;
-	
+
 	if (! raw && sizeof(mask = query_temp("apply/name")))
 		return mask[sizeof(mask)-1];
 	else
@@ -82,7 +82,7 @@ varargs string name(int raw)
 varargs string short(int raw)
 {
 	string str;
-	
+
 	if (raw || ! stringp(str = query("short")))
 		str = name(raw) + "(" + capitalize(query("id")) + ")";
         return str;
@@ -91,7 +91,7 @@ varargs string short(int raw)
 varargs string long(int raw)
 {
 	string str, extra, *mask;
-	
+
 	if (! raw && sizeof(mask = query_temp("apply/long")))
 		str = mask[sizeof(mask)-1];
 	else

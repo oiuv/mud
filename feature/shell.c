@@ -9,8 +9,8 @@
 
 #include <shell.h>
 
-STATIC_VAR_TAG int count = 0;
-STATIC_VAR_TAG mapping vars = ([ ]);
+nosave int count = 0;
+nosave mapping vars = ([ ]);
 
 int delete_var(string prop)
 {
@@ -192,5 +192,3 @@ string parse_shell(string arg)
         }
         return arg;
 }
-
-

@@ -13,9 +13,9 @@ inherit F_COMMAND;
 
 #define CHAT_LOOK_CMD   "/cmds/chat/look"
 
-STATIC_VAR_TAG string record_string = 0;
-STATIC_VAR_TAG string command_result = 0;
-STATIC_VAR_TAG function done_input = 0;
+nosave string record_string = 0;
+nosave string command_result = 0;
+nosave function done_input = 0;
 
 int is_character() { return clonep(); }
 int is_chatter() { return clonep(); }

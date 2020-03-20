@@ -2,13 +2,13 @@
 
 #include <ansi.h>
 
-STATIC_VAR_TAG string char_id;
-STATIC_VAR_TAG string char_name;
+nosave string char_id;
+nosave string char_name;
 
 object select_character();
 int give_gift();
 
-STATIC_VAR_TAG mixed *story = ({
+nosave mixed *story = ({
     "大旱，民饥。",
     "流民如潮。",
     "$N架起大锅，在路边舍粥。",

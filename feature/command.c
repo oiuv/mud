@@ -11,7 +11,7 @@
 
 // Let command path be static, thus we can make sure no one can get command
 // path directly from restore_object().
-STATIC_VAR_TAG string *path;
+nosave string *path;
 
 // Leave this to allow other objects can search your commands such as
 // help, which...
@@ -122,7 +122,7 @@ int force_me(string cmd)
         return ret;
 }
 
-STATIC_VAR_TAG int enabled = 0;
+nosave int enabled = 0;
 
 nomask void enable_player()
 {

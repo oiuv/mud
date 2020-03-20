@@ -44,7 +44,7 @@ mixed compile_object(string file)
 }
 
 // This is called when there is a driver segmentation fault or a bus error,
-// etc.  As it's STATIC_VAR_TAG it can't be called by anything but the driver (and
+// etc.  As it's nosave it can't be called by anything but the driver (and
 // master).
 void crash(string error, object command_giver, object current_object)
 {
@@ -118,8 +118,8 @@ void crash(string error, object command_giver, object current_object)
 // Description:     reads in a file, ignoring lines that begin with '#'
 // Arguements:      file: a string that shows what file to read in.
 // Return:          Array of nonblank lines that don't begin with '#'
-// Note:            must be declared STATIC_VAR_TAG (else a security hole)
-STATIC_FUNC_TAG string *update_file(string file)
+// Note:            must be declared nosave (else a security hole)
+protected string *update_file(string file)
 {
     string *list;
     string str;

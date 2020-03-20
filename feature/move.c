@@ -7,10 +7,10 @@
 #include <dbase.h>
 #include <command.h>
 
-STATIC_VAR_TAG int weight = 0;
-STATIC_VAR_TAG int encumb = 0, max_encumb = 0;
-STATIC_VAR_TAG int magic_move = 0;
-STATIC_VAR_TAG int in_temp =0;
+nosave int weight = 0;
+nosave int encumb = 0, max_encumb = 0;
+nosave int magic_move = 0;
+nosave int in_temp =0;
 
 nomask int query_encumbrance() { return encumb; }
 nomask int over_encumbranced() { return encumb > max_encumb; }

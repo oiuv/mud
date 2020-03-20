@@ -6,7 +6,7 @@ inherit F_CLEAN_UP;
 
 mixed random_gift();
 
-STATIC_VAR_TAG mixed *story = ({
+nosave mixed *story = ({
     "红孩儿：菩萨！大事不好了！唐僧他们又惹祸了。",
     "观音：哦？他们现在应该在五庄观，出了什么事？",
     "红孩儿：他…他们在五庄观里偷吃了镇元大仙的人参果！",

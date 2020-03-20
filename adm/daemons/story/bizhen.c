@@ -2,13 +2,13 @@
 
 #include <ansi.h>
 
-STATIC_VAR_TAG string char_id;
-STATIC_VAR_TAG string char_name;
+nosave string char_id;
+nosave string char_name;
 
 int give_gift();
 object select_character();
 
-STATIC_VAR_TAG mixed *story = ({
+nosave mixed *story = ({
     "只听那那黑衣高个儿怒喝：“吴道通，你是决计不交出来的啦？”",
     "吴道通哼了一声，双手分执铁钳两股，竟将铁钳拆了开来，变成了一对判官笔。",
     "吴道通大喝一声，冲如人群。双笔使开，招招取人穴道，以一敌三，仍然占到了上风。",

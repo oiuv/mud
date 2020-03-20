@@ -10,23 +10,23 @@ inherit F_AUTOLOAD;
 inherit F_SAVE;
 
 // 分站使用
-STATIC_VAR_TAG int admin_flag = 0; // 是否是特殊的管理员？
+nosave int admin_flag = 0; // 是否是特殊的管理员？
 
 // 数据是否完整？
-STATIC_VAR_TAG int user_cracked = 0; // RESTORE 时检查数据并设置该标志
+nosave int user_cracked = 0; // RESTORE 时检查数据并设置该标志
 
-STATIC_VAR_TAG int net_dead;         // 标志：是否断开了连接
-STATIC_VAR_TAG int last_age_set = 0; // 上一次更新AGE的时间
-STATIC_VAR_TAG int user_say = 0;     // 一定时间以内玩家做的say-action
-STATIC_VAR_TAG int user_command = 0; // 一定时间以内玩家发送的命令
-STATIC_VAR_TAG int attach_flag = 0;  // 是否正在和系统联络
+nosave int net_dead;         // 标志：是否断开了连接
+nosave int last_age_set = 0; // 上一次更新AGE的时间
+nosave int user_say = 0;     // 一定时间以内玩家做的say-action
+nosave int user_command = 0; // 一定时间以内玩家发送的命令
+nosave int attach_flag = 0;  // 是否正在和系统联络
 int at_time = 0;                     // 在什么时间计算的
 int ban_to = 0;                      // 在什么时间解禁玩家
 string ban_say_msg = "";             // 禁止说话的消息
 
-STATIC_VAR_TAG string my_defeater_id; // 上一次打晕你的人ID
-STATIC_VAR_TAG string my_killer_id;   // 上一次杀你的人的ID
-STATIC_VAR_TAG int craze = 0;         // 愤怒
+nosave string my_defeater_id; // 上一次打晕你的人ID
+nosave string my_killer_id;   // 上一次杀你的人的ID
+nosave int craze = 0;         // 愤怒
 
 #define DEFAULT_PRISON "/d/register/prison"
 

@@ -5,7 +5,7 @@
 
 inherit ROOM;
 
-varargs STATIC_FUNC_TAG void
+varargs protected void
 create_food(string nmstr, string* idlist, string longstr)
 {
         object obj;
@@ -19,7 +19,7 @@ create_food(string nmstr, string* idlist, string longstr)
         obj->move(this_object());
 }
 
-varargs STATIC_FUNC_TAG void
+varargs protected void
 create_water(string nmstr, string* idlist, string cup, string longstr)
 {
         object obj;
@@ -34,7 +34,7 @@ create_water(string nmstr, string* idlist, string cup, string longstr)
         obj->move(this_object());
 }
 
-varargs STATIC_FUNC_TAG void
+varargs protected void
 create_wine(string nmstr, string* idlist, string cup, string longstr)
 {
         object obj;
@@ -203,5 +203,3 @@ int valid_leave(object me, string dir)
                 return 1;
         return notify_fail(RED + "先用 order end 结束后再走.\n" + NOR);
 }
-
-

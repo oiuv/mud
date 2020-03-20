@@ -61,12 +61,12 @@
 #define UDP_PORT 3160
 #define CLIENT_VERSION "mwp 1.2"
 
-STATIC_VAR_TAG string mwhod_addr;
-STATIC_VAR_TAG string mudname;
-STATIC_VAR_TAG string keepalive_message;
-STATIC_VAR_TAG string boot_message;
-STATIC_VAR_TAG string comments;
-STATIC_VAR_TAG int socket;
+nosave string mwhod_addr;
+nosave string mudname;
+nosave string keepalive_message;
+nosave string boot_message;
+nosave string comments;
+nosave int socket;
 
 void log_info(string error)
 {

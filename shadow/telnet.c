@@ -5,10 +5,10 @@
 
 inherit F_SHADOW;
 
-STATIC_VAR_TAG string from_user;        // 用户发送来的信息
-STATIC_VAR_TAG int fd;                  // 连接远端机器的套接字
-STATIC_VAR_TAG string dest_addr;        // 连接远端机器的地址
-STATIC_VAR_TAG int port;                // 连接远端机器的端口号
+nosave string from_user;        // 用户发送来的信息
+nosave int fd;                  // 连接远端机器的套接字
+nosave string dest_addr;        // 连接远端机器的地址
+nosave int port;                // 连接远端机器的端口号
 
 #define MAX_PENDING_INPUT               16384
 
@@ -159,7 +159,7 @@ void telnet_resolve_callback(string address, string resolved, int key)
                         message("telnet", "SOCKET 初始化错误。\n", sob);
                         break;
                 }
-        
+
                 ret = socket_connect(fd, full_addr,
                                      "telnet_read_callback",
                                      "telnet_write_callback");
@@ -168,7 +168,7 @@ void telnet_resolve_callback(string address, string resolved, int key)
                         message("telnet", "网络连接错误。\n", sob);
                         break;
                 }
-        
+
                 message("telnet", "正在连接" + address +
                                   "(" + full_addr + ")...\n", sob);
                 return;

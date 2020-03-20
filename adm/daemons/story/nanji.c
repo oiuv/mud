@@ -4,7 +4,7 @@ string give_gift();
 
 inherit F_CLEAN_UP;
 
-STATIC_VAR_TAG mixed *story = ({
+nosave mixed *story = ({
     "赤脚大仙：南极仙翁！您生日好。",
     "南极仙翁：呵呵，你好，你好。",
     "赤脚大仙：喏，这是我给你的礼物。",

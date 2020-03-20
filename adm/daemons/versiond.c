@@ -61,37 +61,37 @@ inherit F_SAVE;
 #define VERSION_PORT    12
 
 // 不需要构造的目录
-STATIC_VAR_TAG string *exclude_dir = ({ "/adm/etc", "/adm/log", "/adm/daemons", "/.git", "/.vscode",
+nosave string *exclude_dir = ({ "/adm/etc", "/adm/log", "/adm/daemons", "/.git", "/.vscode",
                                 "/data", "/backup", "/log", "/dump", "/temp", "/binaries", VERSION_DIR,
                                 "/clone", "/include", "/help", "/d", "/cmds", "/feature", "/kungfu", "/inherit", "/b", "/shadow",
                                 "/doc", "/grant", "/u", });
 // 额外需要构造的文件
-STATIC_VAR_TAG string *include_dir = ({ "/data/e2c_dict.o", "/data/emoted.o", "/data/newsd.o",
+nosave string *include_dir = ({ "/data/e2c_dict.o", "/data/emoted.o", "/data/newsd.o",
                                 "/adm/etc/quest", "/adm/etc/preload" });
 
 // 需要发布C源程序的目录
-STATIC_VAR_TAG string *release_src = ({ "/clone/misc/wedding-ring.c",
+nosave string *release_src = ({ "/clone/misc/wedding-ring.c",
                                 "/clone/misc/depot_ob.c",
                                 "/d/room/%*s" });
 
 // 保存二进制代码的路径
-STATIC_VAR_TAG string bin_path = "/binaries/";
+nosave string bin_path = "/binaries/";
 
 // 各地连接的信息
-STATIC_VAR_TAG mapping socket_info;
+nosave mapping socket_info;
 
 // 客户端的连接信息
-STATIC_VAR_TAG mixed *client_info = 0;
+nosave mixed *client_info = 0;
 
 // 版本通讯的SOCKET
-STATIC_VAR_TAG int vfd;
-STATIC_VAR_TAG int version_ok;
+nosave int vfd;
+nosave int version_ok;
 
 // build_version整理版本时使用的变量
-STATIC_VAR_TAG int total_error;
-STATIC_VAR_TAG int total_count;
-STATIC_VAR_TAG int total_finish;
-STATIC_VAR_TAG mixed *total_build;
+nosave int total_error;
+nosave int total_count;
+nosave int total_finish;
+nosave mixed *total_build;
 
 // 手工获得文件列表
 string *fetch_file_list = 0;
@@ -1376,7 +1376,7 @@ void syn_load_file(string file, int ver)
         syn_get_file(file);
 }
 
-STATIC_VAR_TAG int d = 0;
+nosave int d = 0;
 
 // 检查某一个路径
 private void syn_load_version(string path, mapping store)

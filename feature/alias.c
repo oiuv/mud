@@ -13,8 +13,8 @@
 mapping alias;
 
 // 记录用户输入的信息变量
-STATIC_VAR_TAG string *history, last_input, orginal_input;
-STATIC_VAR_TAG int direct_command;
+nosave string *history, last_input, orginal_input;
+nosave int direct_command;
 
 // 最后的输入命令(已经经过ALIAS处理)
 string query_last_input() { return last_input; }
@@ -30,7 +30,7 @@ string process_input(string str)
 	string *args, cmd, argstr;
         object me;
 	int i, j;
-	
+
         me = this_object();
 	notify_fail("什么？\n");
         clear_written();
@@ -45,7 +45,7 @@ string process_input(string str)
         } else
                 direct_command = 0;
         orginal_input = str;
-	
+
         // attach system ?
         if (me->is_attach_system())
         {
@@ -77,7 +77,7 @@ string process_input(string str)
                                        "霎时间乌云密布！一道" HIY "闪电"
 				       HIC "从天而降！\n"
                                        NOR, me);
-			me->unconcious();				
+			me->unconcious();
 
                         // 恢复晕倒前的qi/jing
 			set("qi", cq);

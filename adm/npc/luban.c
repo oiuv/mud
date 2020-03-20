@@ -112,7 +112,7 @@ inherit	F_SAVE;
 
 // 注意：由于鲁班是一个需要保存数据的NPC，在改动鲁班的文件后可能会发生一些问题，这时可以
 // 将他的存盘文件删除。
-STATIC_VAR_TAG mapping *room_example = ({
+nosave mapping *room_example = ({
 ([	"name"	   : "独乐居",
 	"type"	   : "dule",
 	"value"	   : 20000000,
@@ -161,7 +161,7 @@ STATIC_VAR_TAG mapping *room_example = ({
 
 #define	WIZLEVEL	4	// 能够处理表单的巫师等级
 
-STATIC_VAR_TAG string *ban_room_id = ({
+nosave string *ban_room_id = ({
         "north",
         "south",
         "east",
@@ -340,7 +340,7 @@ LONG
 		"镶嵌技艺": (: ask_certosina :),
 		"certosina": (: ask_certosina :),
 	]));
-	
+
 	set_skill("literate",  120);            // 读书写字
 	set_skill("drawing",   500);            // 绘画技巧
 	set_skill("certosina", 500);            // 镶嵌技艺
@@ -365,7 +365,7 @@ void remove()
 void init()
 {
 	object me;
-	
+
 	::init();
 
 	if (interactive(me = this_player()))
@@ -504,7 +504,7 @@ int accept_object(object me, object ob)
                         me->delete_temp("ask_for_key");
                         return 0;
                 }
-                        
+
                 if (ob->value() >= 50000)
                 {
                         message_vision("鲁班道：好！不过钥匙换了以后，"
@@ -528,7 +528,7 @@ int accept_object(object me, object ob)
 	                        message_vision("鲁班拿出一把钥匙，递给"
                                                "$N道：诺！钥匙配好了，"
                                                "你把它收好！\n", me);
-                                ko->move(me);                                
+                                ko->move(me);
                                 destruct(ob);
                                 return 1;
                         }
@@ -592,7 +592,7 @@ int accept_object(object me, object ob)
                 }
 
 		message_vision("鲁班接过图纸看了看，对$N笑道："
-                               "画的还行，马马虎虎吧。\n", me);			
+                               "画的还行，马马虎虎吧。\n", me);
 
 		build = get_object(ob->query("draw/info"));
 		if (! objectp(build))
@@ -666,7 +666,7 @@ int accept_object(object me, object ob)
 
 	// 看看是否够手续费
 	if (ob->query("money_id") || ob->id("fee free card"))
-	{		
+	{
 		if (me->query_temp("contract/luban/questing") != "quest_desc")
 		{
 			message_vision("鲁班微微一笑，对$N道：干什么这"
@@ -680,7 +680,7 @@ int accept_object(object me, object ob)
                                        "，我也不打折扣。\n", me);
 			return 0;
 		}
-		
+
 		//增加手续费上限判断，防止自动批准后玩家误把8万gold当手续费造成大量损失 by 薪有所属
 		if (ob->value() > 100000)
 		{
@@ -689,7 +689,7 @@ int accept_object(object me, object ob)
                      "再多我可不敢收。\n", me);
 			return 0;
 		}
-		
+
 		message_vision("鲁班接过" + ob->name() + "，在手中掂了"
                                "掂，满意的对$N说道：很好，我就给你记录"
                                "在案，若是有了消息，一定通知你。\n", me);
@@ -983,7 +983,7 @@ private int ask_rebuild()
 		message_vision("鲁班摇摇头，对$N说：你还没有房子呢，"
                                "谈什么重建！\n", me);
 		return 1;
-	}	
+	}
 	message_vision("鲁班叹了口气，对$N说：你若是要重建，就先把房"
                        "拆了吧！\n", me);
 	return 1;
@@ -1444,7 +1444,7 @@ private int decide_withdraw()
 	me = this_player();
 	if (! me->query_temp("decide_withdraw"))
                 return 0;
-	
+
 	me->delete_temp("decide_withdraw");
 	delete("form/" + me->query("id"));
 	save();
@@ -1486,7 +1486,7 @@ int demolish_room(object me)
                 write ("你没有权利拆毁房屋。\n");
                 return 0;
         }
-            
+
 	if (! mapp(me->query("private_room")))
 	{
 		write("数据错误，无法继续执行！\n");
@@ -1831,7 +1831,7 @@ private int quest_info(object me)
                        me->query_temp("contract/luban/room/name") +
                        "这种样式的。\n", me);
 	// 显示房屋样式信息
-	
+
 	luban_say(@INFORMATION
 你可以为你的房间添加你喜欢的描述，格式是：desc 房间名称 描述。当
 然你也可以使用原有的描述，如果你想看看你输入的情况，可以用show来察看。
@@ -1897,7 +1897,7 @@ private int check_id(object me, string arg)
 	luban_say("你想要哪种样式的住房(answer type)? 若是不太清楚，你"
                   "可以到附近的小院一观。\n");
         promote_type(me);
-	me->set_temp("contract/luban/questing","quest_type");	
+	me->set_temp("contract/luban/questing","quest_type");
 	return 1;
 }
 
@@ -1970,7 +1970,7 @@ private int check_legal_id(string roomid, string position)
 	int i;
 
 	i = strlen(roomid);
-	
+
 	if( (strlen(roomid) < 3) || (strlen(roomid) > 10 ) ) {
 		write("对不起，你房屋的代号必须是 3 到 10 个英文字母。\n");
 		return 0;
@@ -2156,7 +2156,7 @@ private int modify_desc_in_form(string player_id, string room_name, string desc)
 				write("你重新描述了" + ob->query("short") + "。\n");
 			}
 			return 1;
-		}		
+		}
 	}
 	write("没有找到" + room_name + "，所以没有修改描述信息。请查证再修改描述信息。\n");
 	return 0;
@@ -2409,7 +2409,7 @@ private int do_agree(string arg)
 		write("usage: agree playerid\n");
                 return 1;
         }
-	
+
 	if (query("form/" + arg + "/status") == "同意")
 	{
 		write("此表单已经被批准了。\n");
@@ -2706,7 +2706,7 @@ private void create_room(object me)
 		long_flag = 0;
 		enter_receive = 0;
 		filename = to_player(player_id, filesp[names[i]]);
-		dstfile = "// File(" + to_player(player_id, filesp[names[i]]) + ")" + 
+		dstfile = "// File(" + to_player(player_id, filesp[names[i]]) + ")" +
 			  " of " + player_id + "'s room\n// Create by LUBAN written by Doing Lu\n";
 		for (k = 0; k < sizeof(content); k++)
 		{
@@ -2761,10 +2761,10 @@ private void create_room(object me)
 			// 添加该语句
 			if (content[k] == "")
 				enter_receive ++;
-			else 
+			else
 				enter_receive = 0;
 			if (enter_receive > 1) continue;
-		
+
 			dstfile += content[k] + "\n";
 		}
 		if (long_flag)
@@ -2831,7 +2831,7 @@ private void create_room(object me)
 
 	// 创建玩家房屋的钥匙文件
 	filename = file_dir(player_id) + "key.c";
-	dstfile = "// File(" + filename + ")" + 
+	dstfile = "// File(" + filename + ")" +
 		  " of " + player_id + "'s key\n// Create by LUBAN written by Doing Lu\n";
 	dstfile += @KEY
 

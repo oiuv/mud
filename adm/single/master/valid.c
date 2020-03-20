@@ -1,8 +1,8 @@
-/** 
+/**
  * 权限控制apply方法
  * 返回１为允许，返回０为拒绝
  */
-STATIC_VAR_TAG int DEBUG = 0;
+nosave int DEBUG = 0;
 
 // controls the use of the bind() efun
 int valid_bind(object binder, object old_owner, object new_owner)
@@ -160,7 +160,7 @@ int valid_write(string file, mixed user, string func)
 /**
  * 以下apply已失效
  */
- 
+
 // valid_asm: controls whether or not an LPC->C compiled object can use asm {}
 int valid_asm(string file)
 {

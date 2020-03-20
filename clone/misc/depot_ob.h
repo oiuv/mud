@@ -1,5 +1,5 @@
 // 如意乾坤袋(Written by Lonely@chinamud.cn)
-// Modified by Ivy@mud.ren 
+// Modified by Ivy@mud.ren
 
 #include <ansi.h>
 #include <config.h>
@@ -18,7 +18,7 @@ class store {
       //string *ids;
         int amount;
 }
-STATIC_VAR_TAG class store *all = ({});
+nosave class store *all = ({});
 
 void create()
 {
@@ -41,7 +41,7 @@ void create()
 string short()
 {
     if(this_player())
-         return HIC + this_player()->query("name") + HIW "的" HIM "如意" HIG "乾" HIY "坤" HIB "袋" NOR "(Ruyi Dai)"; 
+         return HIC + this_player()->query("name") + HIW "的" HIM "如意" HIG "乾" HIY "坤" HIB "袋" NOR "(Ruyi Dai)";
 }
 */
 string extra_long()
@@ -433,7 +433,7 @@ int receive_dbase_data(mixed data)
                 return 0;
 
         n = sizeof(data);
-        for( i=0; i<n; i++ ) 
+        for( i=0; i<n; i++ )
         {
                 item = new(class store);
                 item->name = data["item" + i]["name"];
@@ -455,14 +455,14 @@ mixed save_dbase_data()
         if( sizeof(all) > 0 )
         {
                 n = sizeof(all);
-                for( i=0; i<n; i++ ) 
+                for( i=0; i<n; i++ )
                 {
                         list = ([]);
                         list["name"] = all[i]->name;
                         list["id"] = all[i]->id;
                         list["file"] = all[i]->file;
                         list["amount"] = all[i]->amount;
-                        data += ([ "item" + i :list]); 
+                        data += ([ "item" + i :list]);
                 }
         }
         return data;

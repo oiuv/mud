@@ -78,7 +78,7 @@ int process_list(string idx, mapping info)
 	// if we have an entry, we update it, otherwise we add the new entry
 	old = DNS_MASTER->query_mud_info(name);
 
-	// if it is a STATIC_VAR_TAG mud we delete the entry
+	// if it is a nosave mud we delete the entry
 	if (! DNS_MASTER->dns_mudp(name)) old = 0;
 
 	if (! old) DNS_MASTER->set_mud_info(name, newm);
