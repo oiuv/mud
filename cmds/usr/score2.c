@@ -60,7 +60,7 @@ int main(object me, string arg)
                 return notify_fail("无法察看" + ob->name(1) + "的状态。\n");
 
         line = (ob == me ? "你" : ob->name()) + "的状态属性如下：\n";
-        line += HIC "≡" HIY "──────────────────────────" HIC "≡\n" NOR;
+        line += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
         line += sprintf( BOLD " %s" NOR "%s\n", RANK_D->query_rank(ob), ob->short(1) );
 
         if (playerp(ob))
@@ -119,7 +119,7 @@ int main(object me, string arg)
         else
         line += sprintf(WHT "  这是一%s%s岁的%s%s，%s生。\n",
                 ob->query("unit"),
-                chinese_number(ob->query("age")), 
+                chinese_number(ob->query("age")),
                 ob->query("gender"),
                 ob->query("race"),
                 CHINESE_D->chinese_date(((int)ob->query("birthday") - 7358400) * 60));
@@ -174,7 +174,7 @@ int main(object me, string arg)
                         } else
                                 line += HIC "  你的伴侣是" + ob->query("couple/name") + "(" +
                                         ob->query("couple/id") + ")。\n" NOR;
-        
+
                         if (! (int)ob->query("sex/times"))
                         {
                                 if (ob->query("gender") == "女性")
@@ -211,7 +211,7 @@ int main(object me, string arg)
 
                 if (! prepare) prepare = ([]);
                 sk = keys(prepare);
-        
+
                 if (sizeof(sk) == 0)
                         skill_type = "unarmed";
                 else
@@ -232,8 +232,8 @@ int main(object me, string arg)
 
         //if (wizardp(me))
         if (playerp(ob))
-        
-        {       
+
+        {
    line += CYN"-"NOR+YEL"-"NOR
            +CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR
            +CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR
@@ -243,7 +243,7 @@ int main(object me, string arg)
            +CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR
            +CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR
            +CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR
-           +CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR"\n" NOR; 
+           +CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR+CYN"-"NOR+YEL"-"NOR"\n" NOR;
            line += sprintf(WHT "  战斗攻击： " HIW "%8d" NOR WHT "\t\t  战斗防御： " HIW "%8d\n" NOR,
            attack_points/100 + 1, (dodge_points + (weapon? parry_points: (parry_points/10)))/100 + 1,);
             line += sprintf(WHT "  战斗伤害： " HIW "%8d" NOR WHT "\t\t  战斗保护： " HIW "%8d\n" NOR,
@@ -455,7 +455,7 @@ int main(object me, string arg)
                         my["magic_points"] < 100 ? HIY : HIM,
                        (my["magic_points"] - my["magic_learned"]));
 
-        line += HIC "≡" HIY "──────────────────────YHWH──" HIC "≡\n" NOR;
+        line += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
         write(line);
         return 1;
 }

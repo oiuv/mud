@@ -28,10 +28,10 @@ int main(object me)
         value = SCALE * (r["utime"] + r["stime"]) / uptime();
 
         write(NOR + WHT "\n\t\t         .__________ 系 统 资 讯 __________.\n");
-        write(NOR + WHT "\t\t ──────────────────────────\n");
+        write(NOR + WHT "\t\t ---------------------------------------------------\n");
         write(NOR + WHT "\t\t Mud 的识别名称：  " + MUD_NAME + HIW + "（" + MUD_ZONE + "）\n");
         write(NOR + WHT "\t\t 驱动系统的版本：  " + __VERSION__ + "\n");
-        write(NOR + WHT "\t\t 系统函数库版本：  YH Mudlib Ver 2018\n");
+        write(NOR + WHT "\t\t 系统函数库版本：  YH Mudlib Ver utf-8\n");
         printf(NOR + WHT "\t\t CPU 使用百分比：  %f %% 被这个 Mud 使用中\n", value );
         write(NOR + WHT "\t\t CPU 的负担状况：  " + query_load_average() + "\n");
         printf(NOR + WHT "\t\t 共使用的记忆体：  %s bytes\n", memory_expression(memory_info()) );

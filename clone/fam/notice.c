@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 #include <mudlib.h>
 
 inherit ITEM;
@@ -49,11 +49,11 @@ int do_view(string arg)
         ob = filter_array(objects(), (: userp($1) && ! wizardp($1) :));
         list = sort_array(ob, (: top_list :));
 
-        msg =  HIW "\n            ┏━━『" HIG " 英 雄 壁 " HIW "』━━┓\n";
-        msg += "┏━━━┯━┻━━━━━━━━┯━━┻━┯━━━━┓\n";
-        msg += "┃ " HIG "排行" HIW " │    " HIG "姓        名" HIW
-               "    │ " HIG "门  派" HIW " │ " HIG "评  价" HIW " ┃\n";
-        msg += "┠───┴──────────┴────┴────┨\n";
+        msg = HIW "\n               ┏━━『" HIG " 英 雄 壁 " HIW "』━━┓\n";
+        msg += "┏------------------------------------------------┓\n";
+        msg += "┃ " HIG " 排 行 " HIW " │    " HIG "姓        名" HIW
+                "    │ " HIG "门  派" HIW " │ " HIG "评  价" HIW " ┃\n";
+        msg += "┠------------------------------------------------┨\n";
 
         for (i = 0; i < 10; i++)
         {
@@ -70,7 +70,7 @@ int do_view(string arg)
                         list[i]->query("family/family_name") : "江湖浪人",
                         get_score(list[i]));
         }
-        msg += HIW "┗━━━━━━━━━━━━━━━━━━━━━━━━┛\n" NOR;
+        msg += HIW "┗------------------------------------------------┛\n" NOR;
         msg += HIG + NATURE_D->game_time() + "记。\n" NOR;
         msg += WHT "英雄壁下面有一行小字刻着：" + me->query("name") + "，目前评价：" +
                get_score(me) + "。\n\n" NOR;
@@ -98,13 +98,13 @@ int get_score(object ob)
 //      mapping skills;
 
         reset_eval_cost();
-        
+
         /*
         //取消技能的加分权重，使评分更加合理并减轻系统负担
         skills = ob->query_skills();
 
         if (! sizeof(skills))
-                return 1; 
+                return 1;
 
         ski  = keys(skills);
         for(i = 0; i < sizeof(ski); i++)

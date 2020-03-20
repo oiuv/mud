@@ -214,7 +214,7 @@ mixed main(object me, string arg, int remote)
                 return 1;
         }
 
-        str += NOR"\n"HIC"≡" + HIY"─────────────────────────────────────"HIC"≡\n"NOR;
+        str += NOR"\n"HIC"≡" + HIY "----------------------------------------------------------------" HIC"≡\n"NOR;
 
         if (opt_sort)
                 list = sort_array(ob, (: sort_user_by_name :), opt_sort);
@@ -237,7 +237,7 @@ mixed main(object me, string arg, int remote)
                 string fam_name;
                 object cob;
                 mixed val;
-                
+
                 for (i = 0; i < sizeof(ob); i++)
                 {
                         cob = ob[i];
@@ -283,7 +283,7 @@ mixed main(object me, string arg, int remote)
                                 str,
                                 RANK_D->query_rank(list[i]),
                                 PREFIX(list[i]),
-                                stringp(league_name) ? HIG + "「" + league_name + "」" + 
+                                stringp(league_name) ? HIG + "「" + league_name + "」" +
                                 NOR + list[i]->short(1) : list[i]->short(1));
                 }
         } else
@@ -308,7 +308,7 @@ mixed main(object me, string arg, int remote)
                 if (ppl_cnt % 3) str += "\n";
         }
 
-        str += HIC"≡"+HIY"─────────────────────────────────────"HIC"≡\n"NOR;
+        str += HIC"≡"+HIY "----------------------------------------------------------------" HIC"≡\n"NOR;
         str = sprintf("%s共有 %s 位使用者连线中，系统负担：%s\n "
                       HIG "*" NOR " 表示发呆中，" HIC "~" NOR " 表示聊天中，"
                       HIR "#" NOR " 表示断线中，"HIY"@" NOR" 表示离线修炼中。\n",
@@ -329,7 +329,7 @@ int sort_user_by_name(object ob1, object ob2, int d)
 	if (wizardp(ob1) && ! wizardp(ob2)) return -1;
 	if (wizardp(ob2) && ! wizardp(ob1)) return 1;
 	if (wizardp(ob1) && wizardp(ob2))
-		return (int)SECURITY_D->get_wiz_level(ob2) 
+		return (int)SECURITY_D->get_wiz_level(ob2)
 			- (int)SECURITY_D->get_wiz_level(ob1);
 
         return strcmp(ob2->query("id"), ob1->query("id")) * d;
