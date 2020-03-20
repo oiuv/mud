@@ -28,138 +28,138 @@ nosave int log_from;
 string query_msg_log() { return msg_log; }
 
 mapping channels = ([
-       "sys":([
-                 "msg_speak":HIR "【系统报告】%s：%s\n" NOR,
-                 "msg_emote":HIR "【系统报告】%s" NOR,
-                 "msg_color":HIR,
-                      "only":"wiz",
-                      "name":"系统",
-                  "omit_log":1,
-            ]),
+    "sys":([
+        "msg_speak" :   HIR "【系统报告】%s：%s\n" NOR,
+        "msg_emote" :   HIR "【系统报告】%s" NOR,
+        "msg_color" :   HIR,
+        "only"      :   "wiz",
+        "name"      :   "系统",
+        "omit_log"  :   1,
+    ]),
 
-       "wiz":([
-                        "msg_speak":HIY "【巫师频道】%s：%s\n" NOR,
-                        "msg_emote":HIY "【巫师频道】%s" NOR,
-                        "msg_color":HIY,
-                             "name":"巫师",
-                             "only":"wiz",
-                         "intermud":GCHANNEL,
-                   "intermud_emote":1,
-                 "intermud_channel":"wiz",
-                     "omit_address":0,
-                         "omit_log":1,
-                           "filter":(: $1["MUDLIB"] == MUDLIB_NAME :)
-            ]),
+    "wiz":([
+        "msg_speak"         :   HIY "【巫师频道】%s：%s\n" NOR,
+        "msg_emote"         :   HIY "【巫师频道】%s" NOR,
+        "msg_color"         :   HIY,
+        "name"              :   "巫师",
+        "only"              :   "wiz",
+        "intermud"          :   GCHANNEL,
+        "intermud_emote"    :   1,
+        "intermud_channel"  :   "wiz",
+        "omit_address"      :   0,
+        "omit_log"          :   1,
+        "filter"            :   (: $1["MUDLIB"] == MUDLIB_NAME :)
+    ]),
 
-     // 97-10-18 this channel add for display debug message by ken@XAJH
-     "debug":([
-                 "msg_speak":HIW "【调试信息】%s：%s\n" NOR,
-                 "msg_emote":HIW "【调试信息】%s" NOR,
-                 "msg_color":HIW,
-                      "name":"调试",
-                      "only":"wiz",
-                  "omit_log":1,
-            ]),
+    // 97-10-18 this channel add for display debug message by ken@XAJH
+    "debug":([
+        "msg_speak" :   HIW "【调试信息】%s：%s\n" NOR,
+        "msg_emote" :   HIW "【调试信息】%s" NOR,
+        "msg_color" :   HIW,
+        "name"      :   "调试",
+        "only"      :   "wiz",
+        "omit_log"  :   1,
+    ]),
 
-     "inter":([
-                 "msg_speak":HIG "【同盟交谈】%s：%s\n" NOR,
-                 "msg_emote":HIG "【同盟交谈】%s" NOR,
-                 "msg_color":HIG,
-                      "only":"league",
-                  "name_raw":1,
-                      "name":"同盟",
-                  "omit_log":1,
-            ]),
+    "inter":([
+        "msg_speak" :   HIG "【同盟交谈】%s：%s\n" NOR,
+        "msg_emote" :   HIG "【同盟交谈】%s" NOR,
+        "msg_color" :   HIG,
+        "only"      :   "league",
+        "name_raw"  :   1,
+        "name"      :   "同盟",
+        "omit_log"  :   1,
+    ]),
 
-      "chat":([
-                 "msg_speak":HIC "【东拉西扯】%s：%s\n" NOR,
-                 "msg_emote":HIC "【东拉西扯】%s" NOR,
-                 "msg_color":HIC,
-                      "name":"闲聊",
-            ]),
+    "chat":([
+        "msg_speak" :   HIC "【东拉西扯】%s：%s\n" NOR,
+        "msg_emote" :   HIC "【东拉西扯】%s" NOR,
+        "msg_color" :   HIC,
+        "name"      :   "闲聊",
+    ]),
 
-        "ic":([
-                        "msg_speak":HIC "【异域传闻】%s：%s\n" NOR,
-                        "msg_emote":HIC "【异域传闻】%s" NOR,
-                        "msg_color":HIC,
-                         "intermud":GCHANNEL,
-                   "intermud_emote":1,
-                 "intermud_channel":"ic",
-                             "name":"异域",
-                           "filter":(: $1["MUDLIB"] == MUDLIB_NAME :)
-            ]),
+    "ic":([
+        "msg_speak"         :   HIC "【异域传闻】%s：%s\n" NOR,
+        "msg_emote"         :   HIC "【异域传闻】%s" NOR,
+        "msg_color"         :   HIC,
+        "intermud"          :   GCHANNEL,
+        "intermud_emote"    :   1,
+        "intermud_channel"  :   "ic",
+        "name"              :   "异域",
+        "filter"            :   (: $1["MUDLIB"] == MUDLIB_NAME :)
+    ]),
 
-      "bill":([
-                 "msg_speak":HIY "【转手交易】%s：%s\n" NOR,
-                 "msg_color":HIY,
-                      "name":"交易",
-                  "name_raw":1,
-                  "omit_log":1,
-            ]),
+    "bill":([
+        "msg_speak" :   HIY "【转手交易】%s：%s\n" NOR,
+        "msg_color" :   HIY,
+        "name"      :   "交易",
+        "name_raw"  :   1,
+        "omit_log"  :   1,
+    ]),
 
-     "ultra":([
-                        "msg_speak":HIW "【大 宗 师】%s：%s\n" NOR,
-                        "msg_emote":HIW "【大 宗 师】%s" NOR,
-                        "msg_color":HIW,
-                             "name":"大宗师",
-                         "intermud":GCHANNEL,
-                   "intermud_emote":1,
-                 "intermud_channel":"rultra",
-                           "filter":(: $1["MUDLIB"] == MUDLIB_NAME :)
-            ]),
+    "ultra":([
+        "msg_speak"         :   HIW "【大 宗 师】%s：%s\n" NOR,
+        "msg_emote"         :   HIW "【大 宗 师】%s" NOR,
+        "msg_color"         :   HIW,
+        "name"              :   "大宗师",
+        "intermud"          :   GCHANNEL,
+        "intermud_emote"    :   1,
+        "intermud_channel"  :   "rultra",
+        "filter"            :   (: $1["MUDLIB"] == MUDLIB_NAME :)
+    ]),
 
-     "shout":([
-                 "msg_speak":HIW "%s纵声长啸：%s\n" NOR,
-            ]),
+    "shout":([
+        "msg_speak" :   HIW "%s纵声长啸：%s\n" NOR,
+    ]),
 
-     "rumor":([
-                 "msg_speak":HIM "【谣言四起】%s：%s\n" NOR,
-                 "msg_emote":HIM "【谣言四起】%s" NOR,
-                 "msg_color":HIM,
-                      "name":"谣言",
-                 "anonymous":"某人",
-            ]),
+    "rumor":([
+        "msg_speak" :   HIM "【谣言四起】%s：%s\n" NOR,
+        "msg_emote" :   HIM "【谣言四起】%s" NOR,
+        "msg_color" :   HIM,
+        "name"      :   "谣言",
+        "anonymous" :   "某人",
+    ]),
 
-      "sing":([
-                 "msg_speak":HIG "【心府乐笙】%s唱道：%s......\n" NOR,
-                 "msg_emote":HIG "【心府乐笙】%s" NOR,
-                 "msg_color":HIG,
-                      "name":"歌唱",
-            ]),
+    "sing":([
+        "msg_speak" :   HIG "【心府乐笙】%s唱道：%s......\n" NOR,
+        "msg_emote" :   HIG "【心府乐笙】%s" NOR,
+        "msg_color" :   HIG,
+        "name"      :   "歌唱",
+    ]),
 
-     "party":([
-                 "msg_speak":HIG "【本帮话语】%s：%s\n" NOR,
-                 "msg_emote":HIG "【本帮话语】%s" NOR,
-                 "msg_color":HIG,
-                      "only":"party",
-                      "name":"帮派",
-                  "omit_log":1,
-            ]),
+    "party":([
+        "msg_speak" :   HIG "【本帮话语】%s：%s\n" NOR,
+        "msg_emote" :   HIG "【本帮话语】%s" NOR,
+        "msg_color" :   HIG,
+        "only"      :   "party",
+        "name"      :   "帮派",
+        "omit_log"  :   1,
+    ]),
 
     "family":([
-                 "msg_speak":HIG "【同门话语】%s：%s\n" NOR,
-                 "msg_emote":HIG "【同门话语】%s" NOR,
-                 "msg_color":HIG,
-                      "only":"family",
-                      "name":"同门",
-                  "omit_log":1,
-            ]),
+        "msg_speak" :   HIG "【同门话语】%s：%s\n" NOR,
+        "msg_emote" :   HIG "【同门话语】%s" NOR,
+        "msg_color" :   HIG,
+            "only"  :   "family",
+            "name"  :   "同门",
+        "omit_log"  :   1,
+    ]),
 
     "rultra":([
-                  "msg_speak":WHT "【塞外宗师】%s：%s\n" NOR,
-                  "msg_emote":WHT "【塞外宗师】%s" NOR,
-                  "msg_color":WHT,
-                       "name":"塞外宗师",
-                 "for_listen":1,
-            ]),
+        "msg_speak"     :   WHT "【塞外宗师】%s：%s\n" NOR,
+        "msg_emote"     :   WHT "【塞外宗师】%s" NOR,
+        "msg_color"     :   WHT,
+        "name"          :   "塞外宗师",
+        "for_listen"    :   1,
+    ]),
 
-     "waidi":([
-                 "msg_speak":HIW "【外敌入侵】%s：%s\n" NOR,
-                 "msg_emote":HIW "【外敌入侵】%s" NOR,
-                 "msg_color":HIW,
-                      "name":"外敌入侵",
-                  "omit_log":1,
-            ]),
+    "waidi":([
+        "msg_speak" :   HIW "【外敌入侵】%s：%s\n" NOR,
+        "msg_emote" :   HIW "【外敌入侵】%s" NOR,
+        "msg_color" :   HIW,
+            "name"  :   "外敌入侵",
+        "omit_log"  :   1,
+    ]),
 ]);
 
 void create()
@@ -261,9 +261,9 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         if (!me->query("registered"))
             return notify_fail("你必须在注册以后才能够使用各种频道。\n");
         /*
-                if (me->query("mud_age") < 1800)
-                        return notify_fail("你必须在完成注册三十分钟以后才能使用频道，这段"
-                                           "时间内请先阅读帮助(help newbie)。\n");
+        if (me->query("mud_age") < 1800)
+            return notify_fail("你必须在完成注册三十分钟以后才能使用频道，这段"
+                               "时间内请先阅读帮助(help newbie)。\n");
         */
         if (verb == "ic" && me->query("age") < 18)
             return notify_fail("你必须成年以后才能使用" + channels[verb]["name"] +
@@ -284,8 +284,7 @@ varargs int do_channel(object me, string verb, string arg, int emote)
             verb = "ultra";
     }
     else if (is_player && verb == "ultra")
-        return notify_fail("等你成了大宗师再"
-                           "使用这个频道吧！\n");
+        return notify_fail("等你成了大宗师再使用这个频道吧！\n");
 
     // player broadcasting need consume jing
     if (userp(me) && !wizardp(me) && verb == "rumor" &&
