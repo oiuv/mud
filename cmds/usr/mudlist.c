@@ -68,7 +68,7 @@ int main(object me, string arg)
     muds = sort_array(muds, 1);
 
     output = WHT BBLU " Mud          中文名称            国际网路位址     端口  人数 \n" NOR
-                      "───────────────────────────────\n";
+                      "--------------------------------------------------------------\n";
 
     //      Count for users
     uc = 0;
@@ -101,7 +101,7 @@ int main(object me, string arg)
         if (stringp(mud_list[mudn]["ZONE"]))
             name += "(" + mud_list[mudn]["ZONE"] + ")";
 
-        output += sprintf(" %-13s%-20s%-17s%-6s%-4s \n" NOR,
+        output += sprintf(" %-13s%-20s%-17s%-6s%-5s" NOR + "\n",
                           upper_case(vis_mudn), name,
                           mud_list[mudn]["HOSTADDRESS"],
                           mud_list[mudn]["PORT"],
@@ -112,7 +112,7 @@ int main(object me, string arg)
         if (mud_list[mudn][DNS_NO_CONTACT] <= MAX_RETRYS)
             uc += atoi(mud_list[mudn]["USERS"]);
     }
-    output += "───────────────────────────────\n";
+    output += "--------------------------------------------------------------\n";
 
     if (!arg || arg == "sites")
         output += "本泥潭共有 " CYN + uc + NOR " 位玩家在游戏中。\n";
