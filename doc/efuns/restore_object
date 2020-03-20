@@ -1,0 +1,24 @@
+
+     rrrreeeessssttttoooorrrreeee____oooobbbbjjjjeeeecccctttt((((3333))))      MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))       rrrreeeessssttttoooorrrreeee____oooobbbbjjjjeeeecccctttt((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          restore_object() - restore values of variables from a file
+          into an object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int restore_object( string name, int flag );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Restore values of variables for current object from file
+          `name'. If the optional second argument is 1, then all of
+          the non-static variables are not zeroed out prior to restore
+          (normally, they are).
+
+          In the case of an error, the affected variable will be left
+          untouched and an error given.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          save_object(3)
+
+     Page 1                                          (printed 3/16/95)
+

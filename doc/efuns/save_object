@@ -1,0 +1,26 @@
+
+     ssssaaaavvvveeee____oooobbbbjjjjeeeecccctttt((((3333))))         MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))          ssssaaaavvvveeee____oooobbbbjjjjeeeecccctttt((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          save_object() - save the values of variables in an object
+          into a file
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int save_object( string name, int flag );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Save all values of non-static variables in this object in
+          the file `name'.  valid_write() in the master object
+          determines whether this is allowed.  If the optional second
+          argument is 1, then variables that are zero (0) are also
+          saved (normally, they aren't).  Object variables always save
+          as 0.
+
+     RRRREEEETTTTUUUURRRRNNNN VVVVAAAALLLLUUUUEEEE
+          save_object() returns 1 for success, 0 for failure.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          restore_object(3)
+
+     Page 1                                          (printed 3/16/95)
+

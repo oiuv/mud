@@ -1,0 +1,37 @@
+
+     uuuunnnniiiiqqqquuuueeee____aaaarrrrrrrraaaayyyy((((3333))))        MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))         uuuunnnniiiiqqqquuuueeee____aaaarrrrrrrraaaayyyy((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          unique_array() - partitions an array of objects into groups
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          mixed unique_array( object *obarr, string separator, void |
+          mixed skip ); mixed unique_array( mixed *arr, function f,
+          void | mixed skip );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Groups objects together for which the `separator' function
+          returns the same value. `obarr' should be an array of
+          objects, other types are ignored.  The `separator' function
+          is called only once in each object in `obarr'.  THe optional
+          `skip' parameter enables a pre-filter on `obarr', skipping
+          elements which match `skip'.  The second form works a bit
+          differently.  each element of the array is passed to f and
+          the elements are partitioned based on the return value of f.
+          In particular, the array does not need to be composed of
+          objects.
+
+     RRRREEEETTTTUUUURRRRNNNN VVVVAAAALLLLUUUUEEEE
+          The return value is an array of arrays of objects on the
+          form:
+
+               ({
+                   ({Same1:1, Same1:2, Same1:3, .... Same1:N }),
+                   ({Same2:1, Same2:2, Same2:3, .... Same2:N }),
+                   ({Same3:1, Same3:2, Same3:3, .... Same3:N }),
+                                 ....
+                   ({SameM:1, SameM:2, SameM:3, .... SameM:N }),
+               })
+
+     Page 1                                          (printed 3/16/95)
+

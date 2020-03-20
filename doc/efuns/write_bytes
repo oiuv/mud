@@ -1,0 +1,20 @@
+
+     wwwwrrrriiiitttteeee____bbbbyyyytttteeeessss((((3333))))         MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))          wwwwrrrriiiitttteeee____bbbbyyyytttteeeessss((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          write_bytes() - writes a contiguous series of bytes to a
+          file
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int write_bytes( string path, int start, string series );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          This function writes the bytes in 'series' into the file
+          named by 'path' beginning at byte # 'start'.  It returns
+          zero (0) upon failure, 1 otherwise.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          write_file(3), read_bytes(3)
+
+     Page 1                                          (printed 3/16/95)
+

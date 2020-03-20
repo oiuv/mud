@@ -1,0 +1,19 @@
+
+     sssshhhhaaaaddddoooowwwwpppp3333((((5555 SSSSeeeepppp 1111999999994444))))LLLLPPPPCCCC LLLLiiiibbbbrrrraaaarrrryyyy FFFFuuuunnnnccccttttiiiioooonnnnssss ((((MMMMuuuuddddOOOOSSSS))))sssshhhhaaaaddddoooowwwwpppp3333((((5555 SSSSeeeepppp 1111999999994444))))
+
+     NNNNAAAAMMMMEEEE
+          shadowp() - determine whether or not a given object it
+          shadowing another
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          object shadowp( object ob );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Returns the object that `ob' is shadowing, or zero (0) if it
+          is not shadowing any object.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          shadow(3), objectp(3), query_shadowing(3), valid_shadow(4)
+
+     Page 1                                          (printed 3/16/95)
+

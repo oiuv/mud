@@ -1,0 +1,20 @@
+
+     ddddiiiissssaaaabbbblllleeee____ccccoooommmmmmmmaaaannnnddddssss((((3333))))    MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))     ddddiiiissssaaaabbbblllleeee____ccccoooommmmmmmmaaaannnnddddssss((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          disable_commands() - makes a living object non-living
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int disable_commands( void );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Makes a living object non-living, that is, add_actions have
+          no effects, livingp returns false, and, if the object is
+          interactive, disallows the user to type in commands other
+          than for an input_to.  disable_commands always returns 0.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          enable_commands(3)
+
+     Page 1                                          (printed 3/16/95)
+

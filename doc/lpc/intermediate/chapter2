@@ -1,0 +1,223 @@
+Intermediate LPC
+Descartes of Borg
+Novermber 1993
+
+                         Chapter 2: The LPMud Driver
+
+2.1 Review of Basic Driver/Mudlib Interaction
+In the LPC Basics textbook, you learned a lot about the way the mudlib
+works, specifically in relation to objects you code in order to build your
+realm.  Not much was discussed about the interaction between the
+mudlib and the driver.  You should know, however, that the driver
+does the following:
+1) When an object is first loaded into memory, the driver will call
+create() in native muds and reset() in compat muds.  A creator
+uses create() or reset() to give initial values to the object.
+2) At an interval setup by the game administrator, the driver calls the
+function reset().  This allows the object to regenerate monsters and
+such.  Notice that in a compat mud, the same function is used to set up
+initial values as is used to reset the room.
+3) Any time a living object comes in contact with an object of any sort,
+the driver calls init() in the newly encountered object.  This allows
+newly encountered objects to give living objects commands to execute
+through the add_action() efun, as well as perform other actions which
+should happen whenever a living thing encounters a given object.
+4) The driver defines a set of functions known as efuns which are
+available to all objects in the game.  Examples of commonly used efuns
+are: this_player(), this_object(), write(), say(), etc.
+
+2.2 The Driver Cycle
+The driver is a C program which runs the game.  Its basic functions are
+to accept connections from the outside world so people can login,
+interpret the LPC code which defines LPC objects and how they
+function in the game, and accept user input and call the appropriate LPC
+functions which match the event.  In its most simplest essence, it is an
+unending loop.
+
+Once the game has booted up and is properly functioning (the boot up
+process will be discussed in a future, advanced LPC textbook), the
+driver enters a loop which does not terminate until the shutdown() efun
+is legally called or a bug causes the driver program to crash.  First off,
+the driver handles any new incoming connections and passes control of
+the connection to a login object.  After that, the driver puts together a
+table of commands which have been entered by users since the last cycle
+of the driver.  After the command table is assembled, all messages
+scheduled to be sent to the connection from the last driver cycle are sent
+out to the user.  At this point, the driver goes through the table of
+commands to be executed and executes each set of commands each
+object has stored there.  The driver ends its cycle by calling the function
+heart_beat() in every object with a heart_beat() set and finally
+performing all pending call outs.  This chapter will not deal with the
+handling of connections, but instead will focus on how the driver
+handles user commands and heartbeats and call outs.
+
+2.3 User Commands
+As noted in section 1.2, the driver stores a list of commands for each
+user to be executed each cycle.  The commands list has the name of the
+living object performing the command, the object which gave the living
+object that command, and the function which is to be executed in order
+to perform the command.  The driver refers to the object which typed in
+the command as the command giver.  It is the command giver which
+gets returned as this_player() in most cases.
+
+The driver starts at the top of the list of living objects with pending
+commands, and successively performs each command it typed by calling
+the function associated with the command and passing any arguments
+the command giver gave as arguments to the function.  As the driver
+starts with the commands issued by a new living object, the command
+giver variable is changed to be equal to the new living object, so that
+during the sequence of functions initiated by that command, the efun
+this_player() returns the object which issued the command.
+
+Let's look at the command buffer for an example player.  Since the
+execution of his last command, Bozo has typed "north" and "tell
+descartes when is the next reboot".  The command "north" is associated
+with the function "Do_Move()" in the room Bozo is in (the command
+"north" is automatically setup by the SetExits() efun in that room).  The
+command "tell" is not specifically listed as a command for the player,
+however, in the player object there is a function called "cmd_hook()"
+which is associated with the command "", which matches any possible
+user input.
+
+Once the driver gets down to Bozo, the command giver variable is set to
+the object which is Bozo.  Then, seeing Bozo typed "north" and the
+function "north" is associated with, the driver calls Bozo's_Room-
+>Do_Move(0).  An argument of 0 is passed to the function since Bozo
+only typed the command "north" with no arguments.  The room
+naturally calls some functions it needs, all the while such that the efun
+this_player() returns the object which is Bozo.  Eventually, the room
+object will call eventMoveLiving() in Bozo, which in turn calls the
+move_object() efun.  This efun is responsible for changing an object's
+environment.
+
+When the environment of an object changes, the commands available to
+it from objects in its previous environment as well as from its previous
+environment are removed from the object.  Once that is done, the driver
+calls the efun init() in the new environment as well as in each object in
+the new environment.  During each of these calls to init(), the object
+Bozo is still the command giver.  Thus all add_action() efuns from this
+move will apply to Bozo.  Once all those calls are done, control passes
+back from the move_object() efun to the eventMoveLiving() lfun in Bozo. 
+eventMoveLiving() returns control back to Do_Move() in the old room,
+which returns 1 to signify to the driver that the command action was
+successful.  If the Do_Move() function had returned 0 for some reason,
+the driver would have written "What?" (or whatever your driver's
+default bad command message is) to Bozo.
+
+Once the first command returns 1, the driver proceeds on to Bozo's
+second command, following much the same structure.  Note that with
+"tell descartes when is the next reboot", the driver passes "descartes
+when is the next reboot" to the function associated with tell.  That
+function in turn has to decide what to do with that argument.  After that
+command returns either 1 or 0, the driver then proceeds on to the next
+living object with commands pending, and so on until all living objects
+with pending commands have had their commands performed.
+
+2.4 The Efuns set_heart_beat() and call_out()
+Once all commands are performed for objects with commands pending,
+the driver then proceeds to call the heart_beat() function in all objects
+listed with the driver as having heartbeats.  Whenever an object calls the
+efun set_heart_beat() with a non-zero argument (depending on your
+driver, what non-zero number may be important, but in most cases you
+call it with the int 1).  The efun set_heart_beat() adds the object which
+calls set_heart_beat() to the list of objects with heartbeats.  If you call it
+with an argument of 0, then it removes the object from the list of objects
+with heartbeats.
+
+The most common use for heartbeats in the mudlib is to heal players and
+monsters and perform combat.  Once the driver has finished dealing with
+the command list, it goes through the heartbeat list calling heart_beat() in
+each object in the list.  So for a player, for example, the driver will call
+heart_beat() in the player which will:
+1) age the player
+2) heal the player according to a heal rate
+3) check to see if there are any hunted, hunting, or attacking objects
+around
+4) perform an attack if step 3 returns true.
+5) any other things which need to happen automatically roughly every
+second
+
+Note that the more objects which have heartbeats, the more processing
+which has to happen every cycle the mud is up.  Objects with heartbeats
+are thus known as the major hog of CPU time on muds.  
+
+The call_out() efun is used to perform timed function calls which do not
+need to happen as often as heartbeats, or which just happen once.  Call
+outs let you specify the function in an object you want called.  The
+general formula for call outs is:
+call_out(func, time, args);
+The third argument specifying arguments is optional.  The first argument
+is a string representing the name of the function to be called.  The second
+argument is how many seconds should pass before the function gets
+called.
+
+Practically speaking, when an object calls call_out(), it is added to a list
+of objects with pending call outs with the amount of time of the call out
+and the name of the function to be called.  Each cycle of the driver, the
+time is counted down until it becomes time for the function to be called. 
+When the time comes, the driver removes the object from the list of
+objects with pending call outs and performs the call to the call out
+function, passing any special args originally specified by the call out
+function.
+
+If you want a to remove a pending call before it occurs, you need to use
+the remove_call_out() efun, passing the name of the function being
+called out.  The driver will remove the next pending call out to that
+function.  This means you may have some ambiguity if more than one
+call out is pending for the same function.
+
+In order to make a call out cyclical, you must reissue the call_out() efun
+in the function you called out, since the driver automatically removes the
+function from the call out table when a call out is performed.  Example:
+
+void foo() { call_out("hello", 10); }
+
+void hello() { call_out("hello", 10); }
+
+will set up hello() to be called every 10 seconds after foo() is first called. 
+There are several things to be careful about here.  First, you must watch
+to make sure you do not structure your call outs to be recursive in any
+unintended fashion.  Second, compare what a set_heart_beat() does
+when compared directly to what call_out() does.
+
+set_heart_beat():
+a) Adds this_object() to a table listing objects with heartbeats.
+b) The function heart_beat() in this_object() gets called every single
+driver cycle.
+
+call_out():
+a) Adds this_object(), the name of a function in this_object(), a time
+delay, and a set of arguments to a table listing functions with pending
+call outs.  
+b) The function named is called only once, and that call comes after the
+specified delay.
+
+As you can see, there is a much greater memory overhead associated
+with call outs for part (a), yet that there is a much greater CPU overhead
+associated with heartbeats as shown in part (b), assuming that the delay
+for the call out is greater than a single driver cycle. 
+
+Clearly, you do not want to be issuing 1 second call outs, for then you
+get the worst of both worlds.  Similarly, you do not want to be having
+heart beats in objects that can perform the same functions with call outs
+of a greater duration than 1 second.  I personally have heard much talk
+about at what point you should use a call out over a heartbeat.  What I
+have mostly heard is that for single calls or for cycles of a duration
+greater than 10 seconds, it is best to use a call out.  For repetitive calls of
+durations less than 10 seconds, you are better off using heartbeats.  I do
+not know if this is true, but I do not think following this can do any
+harm.
+
+2.5 Summary
+Basic to a more in depth understanding of LPC is and understanding of
+the way in which the driver interacts with the mudlib.  You should now
+understand the order in which the driver performs functions, as well as a
+more detailed knowledge of the efuns this_player(), add_action(), and
+move_object() and the lfun init().  In addition to this building upon
+knowledge you got from the LPC Basics textbook, this chapter has
+introduced call outs and heartbeats and the manner in which the driver
+handles them.  You should now have a basic understanding of call outs
+and heartbeats such that you can experiment with them in your realm
+code.
+
+Copyright (c) George Reese 1993

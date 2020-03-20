@@ -1,0 +1,75 @@
+Heredoc is a way to format text and is part of the preprocessor.
+This facility makes it easier to format text for help messages, room
+descriptions, etc.
+
+<pre>
+    Syntax 1:   @marker
+                  <... text block ...>
+                marker
+</pre>
+
+<pre>    
+    Syntax 2:   @@marker
+                  <... text block ...>
+                marker
+</pre>
+
+Notes:
+<pre>
+    @   - produces a string suitable for write()
+
+    @@  - produces an array of strings, suitable for the body pager
+</pre>
+
+These are used by prepending '@' (or '@@') before an end marker word.  This
+is followed by your formatted text, as you would have it appear to the user.
+The text block is terminated by the end marker word, without the '@'
+(or '@@').  With '@', the text block is processed as if it were a single
+string surrounded by quotes and '\n' (newlines) in between the lines.
+With '@@', the text block is processed as it were an array of strings,
+with each line being a string surrounded by quotes.
+
+<pre>
+Example 1:
+
+        int help() {
+            write( @ENDHELP
+        This is the help text.
+        It's hopelessly inadequate.
+        ENDHELP
+              );
+            return 1;
+        }
+
+</pre>
+    Is equivalent to:
+
+<pre>
+        int help() {
+            write( "This is the help text\nIt's hopelessly inadequate.\n" );
+            return 1;
+        }
+</pre>
+
+Example 2:
+
+<pre>
+        int help() {
+            this_player()->more( @@ENDHELP
+        This is the help text.
+        It's hopelessly inadequate.
+        ENDHELP
+              , 1);
+            return 1;
+        }
+</pre>
+
+    Is equivalent to:
+
+<pre>
+        int help() {
+            this_player()->more( ({ "This is the help text.",
+                  "It's hopelessly inadequate." }), 1);
+            return 1;
+        }
+</pre>

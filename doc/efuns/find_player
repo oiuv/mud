@@ -1,0 +1,19 @@
+
+     ffffiiiinnnndddd____ppppllllaaaayyyyeeeerrrr((((3333))))         MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))          ffffiiiinnnndddd____ppppllllaaaayyyyeeeerrrr((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          find_player() - find a player by name
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          object find_player( string str );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Similar to find_living(), but only searches through objects
+          that are interactive, or were once interactive.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          lower_case(3), find_living(3), livings(3), users(3),
+          set_living_name(3)
+
+     Page 1                                          (printed 3/16/95)
+

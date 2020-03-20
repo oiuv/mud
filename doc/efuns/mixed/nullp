@@ -1,0 +1,7 @@
+nullp - determine whether or not a given variable is null
+
+int nullp( mixed arg );
+
+Exactly the same as undefinedp().  Exists for compatibility.
+
+ Tim Hollebeek  Beek@ZorkMUD, Lima Bean, IdeaExchange, and elsewhere

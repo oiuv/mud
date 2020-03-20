@@ -1,0 +1,23 @@
+
+     eeeexxxxppppllllooooddddeeee((((3333))))             MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))              eeeexxxxppppllllooooddddeeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          explode() - break up a string
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          string *explode( string str, string del );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          explode() returns an array of strings, created when the
+          string <str> is split into pieces as divided by the
+          delimiter <del>.
+
+     EEEEXXXXAAAAMMMMPPPPLLLLEEEE
+          explode(str," ") will return as an array all of the words
+          (separated by spaces) in the string <str>.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          sscanf(3), extract(3), replace_string(3), strsrch(3)
+
+     Page 1                                          (printed 3/16/95)
+

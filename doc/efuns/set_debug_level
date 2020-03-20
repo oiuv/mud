@@ -1,0 +1,25 @@
+
+     sssseeeetttt____ddddeeeebbbbuuuugggg____lllleeeevvvveeeellll((((3333))))     MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))      sssseeeetttt____ddddeeeebbbbuuuugggg____lllleeeevvvveeeellll((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          set_debug_level() - sets the debug level used by the
+          driver's debug() macro
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void set_debug_level( int level );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          This efun is only available when the driver is compiled with
+          -DDEBUG_MACRO.  The purpose of this efun is to allow the
+          amount and type of debugging information produced to be
+          controlled from within the mud (while the driver is
+          running).
+
+          For more information, read the file debug.h which is
+          included with the driver source.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          set_malloc_mask(3)
+
+     Page 1                                          (printed 3/16/95)
+

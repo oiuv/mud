@@ -1,0 +1,25 @@
+
+     dddduuuummmmpppp____pppprrrroooogggg((((3333))))           MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))            dddduuuummmmpppp____pppprrrroooogggg((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          dump_prog() - dump/disassemble an LPC object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void dump_prog( object ob, int flags default: 0, string file
+          );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          dump_prog() dumps information about the program of `obj' to
+          a file, `file', or "/PROG_DUMP" if `file' is not given.  If
+          the current object does not have write access to the file,
+          it fails.
+
+          Flags can be a combination of the following values:  1 -
+          include a disassembly of the i-code 2 - include line number
+          information
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          debug_info(3), dumpallobj(3)
+
+     Page 1                                          (printed 3/16/95)
+

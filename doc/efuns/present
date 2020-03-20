@@ -1,0 +1,26 @@
+
+     pppprrrreeeesssseeeennnntttt((((3333))))             MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))              pppprrrreeeesssseeeennnntttt((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          present() - find an object by id
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          object present( mixed str, object ob );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          If an object that identifies to the name `str' is present,
+          then return it.
+
+          `str' can also be an object, in which case the test is much
+          faster and easier.
+
+          If `ob' is given, then the search is done in the inventory
+          of `ob', otherwise the object is searched for in the
+          inventory of the current object, and in the inventory of the
+          environment of the current object.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          move_object(3), environment(3)
+
+     Page 1                                          (printed 3/16/95)
+

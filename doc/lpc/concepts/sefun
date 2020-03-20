@@ -1,0 +1,8 @@
+sefuns are functions available to all objects on the
+mud. Any object may need to tell to a player, so a convenient
+tell_player() sefun is made available as a global function to
+all objects, in the form of a sefun, or "simulated efun", which
+is in LPC rather than compiled code in the driver.
+sefuns are kept in /secure/sefun.
+
+See also: efun, efuns, sefuns, lfun, lfuns, showfuns, findfun

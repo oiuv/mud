@@ -1,0 +1,22 @@
+
+     mmmmaaaattttcccchhhh____ppppaaaatttthhhh((((3333))))          MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))           mmmmaaaattttcccchhhh____ppppaaaatttthhhh((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          match_path() - search a mapping for a path
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          mixed match_path( mapping m, string str );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          match_path() searches a mapping for a path.  Each key is
+          assumed to be a string.  The value is completely arbitrary.
+          The efun finds the largest matching path in the mapping.
+          Keys ended in '/' are assumed to match paths with character
+          that follow the '/', i.e. / is a wildcard for anything below
+          this directory.
+
+     AAAAUUUUTTTTHHHHOOOORRRR
+          Cygnus
+
+     Page 1                                          (printed 3/16/95)
+

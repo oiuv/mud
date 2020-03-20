@@ -1,0 +1,26 @@
+
+     cccclllloooonnnneeeepppp((((3333))))              MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))               cccclllloooonnnneeeepppp((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          clonep() - determine whether or not a given variable points
+          to a cloned object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int clonep( void | mixed arg );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Returns true (1) iff the argument is objectp() and the
+          O_CLONE flag is set.  The driver sets the O_CLONE flag for
+          those objects created via new(3) (clone_object(3)).  The
+          clonep() efun will not return true when called on objects
+          that are the master copy (those that are loaded via
+          call_other(3)).  Note that if clonep() returns true, then
+          file_name() will return a string containing a '#'.  clonep()
+          defaults to this_object().
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          virtualp(3), userp(3), wizardp(3), objectp(3), new(3),
+          clone_object(3), call_other(3), file_name(3)
+
+     Page 1                                          (printed 3/16/95)
+

@@ -1,0 +1,102 @@
+
+     sssspppprrrriiiinnnnttttffff((((3333))))             MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))              sssspppprrrriiiinnnnttttffff((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          printf, sprintf - formatted output conversion
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void printf( string format, ... );
+          string sprintf( string format, ... );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          An implementation of (s)printf() for LPC, with quite a few
+          extensions Implemented by Lynscar (Sean A Reith).
+
+          This version supports the following as modifiers:
+
+          " "     pad positive integers with a space.
+
+          "+"     pad positive integers with a plus sign.
+
+          "-"     left adjusted within field size.
+                  NB: std (s)printf() defaults to right justification,
+                  which is unnatural in the context of a mainly string
+                  based language but has been retained for
+                  "compatability".
+
+          "|"     centered within field size.
+
+          "="     column mode if strings are greater than field size.
+                  This is only meaningful with strings, all other
+                  types ignore this. Columns are auto-magically word
+                  wrapped.
+
+          "#"     table mode, print a list of '\n' separated 'words'
+                  in a table within the field size.  only meaningful
+                  with strings.
+
+          n       specifies the field size, a '*' specifies to use the
+                  corresponding arg as the field size.  If n is
+                  prepended with a zero, then is padded zeros, else it
+                  is padded with spaces (or specified pad string).
+
+          "."n    precision of n, simple strings truncate after this
+                  (if precision is greater than field size, then field
+                  size = precision), tables use precision to specify
+                  the number of columns (if precision not specified
+                  then tables calculate a best fit), all other types
+                  ignore this.
+
+          ":"n    n specifies the fs _and_ the precision, if n is
+                  prepended by a zero then it is padded with zeros
+                  instead of spaces.
+
+     Page 1                                          (printed 3/16/95)
+
+     sssspppprrrriiiinnnnttttffff((((3333))))             MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))              sssspppprrrriiiinnnnttttffff((((3333))))
+
+          "@"     the argument is an array.  the corresponding
+                  format_info (minus the "@") is applyed to each
+                  element of the array.
+
+          "'X'"   The char(s) between the single-quotes are used to
+                  pad to field size (defaults to space) (if both a
+                  zero (in front of field size) and a pad string are
+                  specified, the one specified second overrules).
+                  NOTE:  to include "'" in the pad string, you must
+                  use "\'" (as the backslash has to be escaped past
+                  the interpreter), similarly, to include "
+
+          The following are the possible type specifiers.
+
+          %       in which case no arguments are interpreted, and a
+                  "%" is inserted, and all modifiers are ignored.
+
+          O       the argument is an LPC datatype.
+
+          s       the argument is a string.
+
+          d, i    the integer arg is printed in decimal.
+
+          c       the integer arg is to be printed as a character.
+
+          o       the integer arg is printed in octal.
+
+          x       the integer arg is printed in hex.
+
+          X       the integer arg is printed in hex (with A-F in
+                  capitals).
+
+          f       floating point number
+
+     RRRREEEETTTTUUUURRRRNNNN VVVVAAAALLLLUUUUEEEESSSS
+          sprintf() returns the formatted string.
+
+     AAAAUUUUTTTTHHHHOOOORRRR
+          Sean A. Reith (Lynscar)
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          sscanf(3)
+
+     Page 2                                          (printed 3/16/95)
+

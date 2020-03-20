@@ -1,0 +1,29 @@
+
+     eeeennnnaaaabbbblllleeee____wwwwiiiizzzzaaaarrrrdddd((((3333))))       MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))        eeeennnnaaaabbbblllleeee____wwwwiiiizzzzaaaarrrrdddd((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          enable_wizard() - give wizard priveleges to an object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void enable_wizard( void );
+
+     DDDDEEEESSSSRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Any interactive object that calls enable_wizard() will cause
+          wizardp() to return true if called on that object.
+          enable_wizard() gives three privileges to the interactive
+          object in question:
+
+          1.   ability to use restricted modes of ed when the
+               RESTRICTED_ED option is compiled into the driver.
+
+          2.   privilege of receiving descriptive runtime error
+               messages.
+
+          3.   privilege of using the trace(3) and traceprefix(3)
+               efuns.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          disable_wizard(3), wizardp(3)
+
+     Page 1                                          (printed 3/16/95)
+

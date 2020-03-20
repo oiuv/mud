@@ -1,0 +1,45 @@
+
+     eeeedddd((((3333))))                  MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))                   eeeedddd((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          ed() - edit a file
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void ed( string file, string exit_fn, int restricted );
+          void ed( string file, string write_fn, string exit_fn, int restricted );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          This efun is only available if __OLD_ED__ is defined.
+
+          This is a funny function. It will start a local editor on an
+          optional file.  This editor is almost UNIX ed compatible.
+          When in the editor type 'h' for help.
+
+          The <write_fn> function allows the mudlib to handle file
+          locks and administrative logging of files modified.  When
+          the editor writes to a file, the driver will callback the
+          <write_fn> function twice.  The first time, the function is
+          called before the write takes place -- <flag> will be 0.  If
+          the function returns TRUE, the write will continue,
+          otherwise it will abort.  The second time, the function is
+          called after the write has completed -- <flag> will be non-
+          zero.  This callback function should have the form:
+
+               int write_fn(string fname, int flag)
+
+          When the editor is exited, the driver will callback the
+          <exit_fn> function.  This function allows the mudlib to
+          clean up.  This callback function has the form:
+
+               void exit_fn()
+
+          The optional <restricted> flag limits the editor's
+          capabilities, such as inserting a file, and saving using an
+          alternate file name.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          regexp(3), valid_read(4), valid_write(4),
+          get_save_file_name(4)
+
+     Page 1                                          (printed 3/16/95)
+

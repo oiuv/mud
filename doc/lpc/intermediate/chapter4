@@ -1,0 +1,182 @@
+Intermediate LPC
+Descartes of Borg
+November 1993
+
+                       Chapter 4: The LPC Pre-Compiler
+
+4.1 Review
+The previous chapter was quite heavy, so now I will slow down a bit so
+you can digest and play with mappings and arrays by taking on the
+rather simple topic of the LPC pre-compiler.  By this point, however,
+you should well understand how the driver interacts with the mudlib and
+be able to code objects which use call outs and heart beats.  In addition,
+you should be coding simple objects which use mappings and arrays,
+noting how these data types perform in objects.  It is also a good idea to
+start looking in detail at the actual mudlib code that makes up your mud. 
+See if you understand everything which is going on in your mudlibs
+room and monster codes.  For things you do not understand, ask the
+people on your mud designated to answer creator coding questions.
+
+Pre-compiler is actually a bit of a misnomer since LPC code is never
+truly compiled.  Although this is changing with prototypes of newer
+LPC drivers, LPC drivers interpret the LPC code written by creators
+rather than compile it into binary format.  Nevertheless, the LPC pre-
+compiler functions still perform much like pre-compilers for compiled
+languages in that pre-compiler directives are interpreted before the driver
+even starts to look at object code. 
+
+4.2 Pre-compiler Directives
+If you do not know what a pre-compiler is, you really do not need to
+worry.  With respect to LPC, it is basically a process which happens
+before the driver begins to interpret LPC code which allows you to
+perform actions upon the entire code found in your file.  Since the code
+is not yet interpreted, the pre-compiler process is involved before the file
+exists as an object and before any LPC functions or instructions are ever
+examined.  The pre-compiler is thus working at the file level, meaning
+that it does not deal with any code in inherited files.
+
+The pre-compiler searches a file sent to it for pre-compiler directives. 
+These are little instructions in the file meant only for the pre-compiler
+and are not really part of the LPC language.  A pre-compiler directive is
+any line in a file beginning with a pound (#) sign.  Pre-compiler
+directives are generally used to construct what the final code of a file will
+look at.  The most common pre-compiler directives are:
+
+#define
+#undefine
+#include
+#ifdef
+#ifndef
+#if
+#elseif
+#else
+#endif
+#pragma
+
+Most realm coders on muds use exclusively the directives #define and
+#include.  The other directives you may see often and should understand
+what they mean even if you never use them.
+
+The first pair of directives are:
+#define
+#undefine
+
+The #define directive sets up a set of characters which will be replaced
+any where they exist in the code at precompiler time with their definition. 
+For example, take:
+
+#define OB_USER "/std/user"
+
+This directive has the pre-compiler search the entire file for instances of
+OB_USER.  Everywhere it sees OB_USER, it replaces with "/std/user". 
+Note that it does not make OB_USER a variable in the code.  The LPC
+interpreter never sees the OB_USER label.  As stated above, the pre-
+compiler is a process which takes place before code interpretation.  So
+what you wrote as:
+
+#define OB_USER "/std/user"
+
+void create() {
+    if(!file_exists(OB_USER+".c")) write("Merde! No user file!");
+    else write("Good! User file still exists!");
+}
+
+would arrive at the LPC interpreter as:
+
+void create() {
+    if(!file_exists("/std/user"+".c")) write("Merde! No user file!");
+    else write("Good! User file still exists!");
+}
+
+Simply put, #define just literally replaces the defined label with whatever
+follows it.  You may also use #define in a special instance where no
+value follows.  This is called a binary definition.  For example:
+
+#define __NIGHTMARE
+
+exists in the config file for the Nightmare Mudlib.  This allows for pre-
+compiler tests which will be described later in the chapter.
+
+The other pre-compiler directive you are likely to use often is #include. 
+As the name implies, #include includes the contents of another file right
+into the file being pre-compiled at the point in the file where the directive
+is placed.  Files made for inclusion into other files are often called header
+files.  They sometimes contain things like #define directives used by
+multiple files and function declarations for the file.  The traditional file
+extension to header files is .h.
+
+Include directives follow one of 2 syntax's:
+
+#include <filename>
+#include "filename"
+
+If you give the absolute name of the file, then which syntax you use is
+irrelevant.  How you enclose the file name determines how the pre-
+compiler searches for the header files.  The pre-compiler first searches in
+system include directories for files enclosed in <>.  For files enclosed in
+"", the pre-compiler begins its search in the same directory as the file
+going through the pre-compiler.  Either way, the pre-compiler will
+search the system include directories and the directory of the file for the
+header file before giving up.  The syntax simply determines the order.
+
+The simplest pre-compiler directive is the #pragma directive.  It is
+doubtful you will ever use this one.  Basically, you follow the directive
+with some keyword which is meaningful to your driver.  The only
+keyword I have ever seen is strict_types, which simply lets the driver
+know you want this file interpreted with strict data typing.  I doubt you
+will ever need to use this, and you may never even see it.  I just included
+it in the list in the event you do see it so you do not think it is doing
+anything truly meaningful.
+
+The final group of pre-compiler directives are the conditional pre-
+compiler directives.  They allow you to pre-compile the file one way
+given the truth value of an expression, otherwise pre-compile the file
+another way.  This is mostly useful for making code portable among
+mudlibs, since putting the m_delete() efun in code on a MudOS mud
+would normally cause an error, for example.  So you might write the
+following:
+
+#ifdef  MUDOS
+    map_delete(map, key);
+#else
+    map = m_delete(map, key);
+#endif
+
+which after being passed through the pre-compiler will appear to the
+interpreter as:
+
+    map_delete(map, key);   
+
+on a MudOS mud, and:
+  
+    map = m_delete(map, key);
+
+on other muds.  The interpreter never sees the function call that would
+cause it to spam out in error. 
+
+Notice that my example made use of a binary definition as described
+above.  Binary definitions allow you to pass certain code to the
+interpreter based on what driver or mudlib you are using, among other
+conditions.
+
+4.3 Summary
+The pre-compiler is a useful LPC tool for maintaining modularity among
+your programs.  When you have values that might be subject to change,
+but are used widely throughout your files, you might stick all of those
+values in a header file as #define statements so that any need to make a
+future change will cause you to need to change just the #define directive. 
+A very good example of where this would be useful would be a header
+file called money.h  which includes the directive:
+#define HARD_CURRENCIES ({ "gold", "platinum", "silver",
+"electrum", "copper" })
+so that if ever you wanted to add a new hard currency, you only need
+change this directive in order to update all files needing to know what the
+hard currencies are.
+
+The LPC pre-compiler also allows you to write code which can be
+ported without change among different mudlibs and drivers.  Finally,
+you should be aware that the pre-compiler only accepts lines ending in
+carriage returns.  If you want a multiple line pre-compiler directive, you
+need to end each incomplete line with a backslash(\).
+
+Copyright (c) George Reese 1993

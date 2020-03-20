@@ -1,0 +1,181 @@
+Intermediate LPC
+Descartes of Borg
+November 1993
+
+                     Chapter 5: Advanced String Handling
+
+5.1 What a String Is
+The LPC Basics textbook taught strings as simple data types.  LPC
+generally deals with strings in such a matter.  The underlying driver
+program, however, is written in C, which has no string data type.  The
+driver in fact sees strings as a complex data type made up of an array of
+characters, a simple C data type.  LPC, on the other hand does not
+recognize a character data type (there may actually be a driver or two out
+there which do recognize the character as a data type, but in general not). 
+The net effect is that there are some array-like things you can do with
+strings that you cannot do with other LPC data types.
+
+The first efun regarding strings you should learn is the strlen() efun. 
+This efun returns the length in characters of an LPC string, and is thus
+the string equivalent to sizeof() for arrays.  Just from the behaviour of
+this efun, you can see that the driver treats a string as if it were made up
+of smaller elements.  In this chapter, you will learn how to deal with
+strings on a more basic level, as characters and sub strings.
+
+5.2 Strings as Character Arrays
+You can do nearly anything with strings that you can do with arrays,
+except assign values on a character basis.  At the most basic, you can
+actually refer to character constants by enclosing them in '' (single
+quotes).  'a' and "a" are therefore very different things in LPC.  'a'
+represents a character which cannot be used in assignment statements or
+any other operations except comparison evaluations.  "a" on the other
+hand is a string made up of a single character.  You can add and subtract
+other strings to it and assign it as a value to a variable.
+
+With string variables, you can access the individual characters to run
+comparisons against character constants using exactly the same syntax
+that is used with arrays.  In other words, the statement:
+    if(str[2] == 'a')
+is a valid LPC statement comparing the second character in the str string
+to the character 'a'.  You have to be very careful that you are not
+comparing elements of arrays to characters, nor are you comparing
+characters of strings to strings.
+
+LPC also allows you to access several characters together using LPC's
+range operator ..:
+    if(str[0..1] == "ab")
+In other words, you can look for the string which is formed by the
+characters 0 through 1 in the string str.  As with arrays, you must be
+careful when using indexing or range operators so that you do not try to
+reference an index number larger than the last index.  Doing so will
+result in an error.
+
+Now you can see a couple of similarities between strings and arrays:
+1) You may index on both to access the values of individual elements.
+	a) The individual elements of strings are characters
+	b) The individual elements of arrays match the data type of the
+array.
+2) You may operate on a range of values
+	a) Ex: "abcdef"[1..3] is the string "bcd"
+	b) Ex: ({ 1, 2, 3, 4, 5 })[1..3] is the int array ({ 2, 3, 4 })
+
+And of course, you should always keep in mind the fundamental
+difference: a string is not made up of a more fundamental LPC data type. 
+In other words, you may not act on the individual characters by
+assigning them values.
+
+5.3 The Efun sscanf()
+You cannot do any decent string handling in LPC without using
+sscanf().  Without it, you are left trying to play with the full strings
+passed by command statements to the command functions.  In other
+words, you could not handle a command like: "give sword to leo", since
+you would have no way of separating "sword to leo" into its constituent
+parts.  Commands such as these therefore use this efun in order to use
+commands with multiple arguments or to make commands more
+"English-like".
+
+Most people find the manual entries for sscanf() to be rather difficult
+reading.  The function does not lend itself well to the format used by
+manual entries.  As I said above, the function is used to take a string and
+break it into usable parts.  Technically it is supposed to take a string and
+scan it into one or more variables of varying types.  Take the example
+above:
+
+int give(string str) {
+    string what, whom;
+
+    if(!str) return notify_fail("Give what to whom?\n");
+    if(sscanf(str, "%s to %s", what, whom) != 2) 
+      return notify_fail("Give what to whom?\n");
+    ... rest of give code ...
+}
+
+The efun sscanf() takes three or more arguments.  The first argument is
+the string you want scanned.  The second argument is called a control
+string.  The control string is a model which demonstrates in what form
+the original string is written, and how it should be divided up.  The rest
+of the arguments are variables to which you will assign values based
+upon the control string.
+
+The control string is made up of three different types of elements: 1)
+constants, 2) variable arguments to be scanned, and 3) variable
+arguments to be discarded.  You must have as many of the variable
+arguments in sscanf() as you have elements of type 2 in your control
+string.  In the above example, the control string was "%s to %s", which
+is a three element control string made up of one constant part (" to "),
+and two variable arguments to be scanned ("%s").  There were no
+variables to be discarded.
+
+The control string basically indicates that the function should find the
+string " to " in the string str.  Whatever comes before that constant will
+be placed into the first variable argument as a string.  The same thing
+will happen to whatever comes after the constant.
+
+Variable elements are noted by a "%" sign followed by a code for
+decoding them.  If the variable element is to be discarded, the "%" sign
+is followed by the "*" as well as the code for decoding the variable. 
+Common codes for variable element decoding are "s" for strings and "d"
+for integers.  In addition, your mudlib may support other conversion
+codes, such as "f" for float.  So in the two examples above, the "%s" in
+the control string indicates that whatever lies in the original string in the
+corresponding place will be scanned into a new variable as a string.
+
+A simple exercise.  How would you turn the string "145" into an
+integer?
+
+Answer:
+int x;
+sscanf("145", "%d", x);
+
+After the sscanf() function, x will equal the integer 145.
+
+Whenever you scan a string against a control string, the function
+searches the original string for the first instance of the first constant in
+the original string.  For example, if your string is "magic attack 100" and
+you have the following:
+int improve(string str) {
+    string skill;
+    int x;
+
+    if(sscanf(str, "%s %d", skill, x) != 2) return 0;
+    ...
+}
+you would find that you have come up with the wrong return value for
+sscanf() (more on the return values later).  The control string, "%s %d",
+is made up of to variables to be scanned and one constant.  The constant
+is " ".  So the function searches the original string for the first instance
+of " ", placing whatever comes before the " " into skill, and trying to
+place whatever comes after the " " into x.  This separates "magic attack
+100" into the components "magic" and "attack 100".  The function,
+however, cannot make heads or tales of "attack 100" as an integer, so it
+returns 1, meaning that 1 variable value was successfully scanned
+("magic" into skill).
+
+Perhaps you guessed from the above examples, but the efun sscanf()
+returns an int, which is the number of variables into which values from
+the original string were successfully scanned.  Some examples with
+return values for you to examine:
+
+sscanf("swo  rd descartes", "%s to %s", str1, str2)           return: 0
+sscanf("swo  rd descartes", "%s %s", str1, str2)              return: 2
+sscanf("200 gold to descartes", "%d %s to %s", x, str1, str2) return: 3
+sscanf("200 gold to descartes", "%d %*s to %s", x, str1)      return: 2
+where x is an int and str1 and str2 are string
+
+5.4 Summary
+LPC strings can be thought of as arrays of characters, yet always
+keeping in mind that LPC does not have the character data type (with
+most, but not all drivers).  Since the character is not a true LPC data
+type, you cannot act upon individual characters in an LPC string in the
+same manner you would act upon different data types.  Noticing the
+intimate relationship between strings and arrays nevertheless makes it
+easier to understand such concepts as the range operator and indexing on
+strings.
+
+There are efuns other than sscanf() which involve advanced string
+handling, however, they are not needed nearly as often.  You should
+check on your mud for man or help files on the efuns: explode(),
+implode(), replace_string(), sprintf().  All of these are very valuable
+tools, especially if you intend to do coding at the mudlib level.
+
+Copyright (c) George Reese 1993

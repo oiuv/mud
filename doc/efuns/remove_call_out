@@ -1,0 +1,20 @@
+
+     rrrreeeemmmmoooovvvveeee____ccccaaaallllllll____oooouuuutttt((((3333))))     MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))      rrrreeeemmmmoooovvvveeee____ccccaaaallllllll____oooouuuutttt((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          remove_call_out() - remove a pending call_out
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int remove_call_out( string fun );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Remove next pending call out for function `fun' in the
+          current object.  The return value is the time remaining
+          before the callback is to be called.  The returned value is
+          -1 if there were no call out pending to this function.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          call_out(3), call_out_info(3).
+
+     Page 1                                          (printed 3/16/95)
+

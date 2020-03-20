@@ -1,0 +1,15 @@
+set_bit - set a bit in a bitstring 
+string set_bit( string str, int n ); 
+
+Return the new string where bit 'n' is set in string 'str'. Note that the old string 'str' is not modified. 
+
+The maximum value of 'n' is limited by the value of the 'maximum bits in a bitfield' entry in the driver config file. 
+
+The new string will automatically be extended if needed. 
+
+Bits are packed 6 per byte in printable strings. 
+
+See also: clear_bit , test_bit 
+
+Tim Hollebeek 
+Beek @ZorkMUD, Lima Bean, IdeaExchange, TMI-2, and elsewhere 

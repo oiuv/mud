@@ -1,0 +1,13 @@
+time - return the number of seconds since January 1 1970
+
+int time( void );
+
+Return the number of seconds since midnight (GMT) January 1, 1970.
+
+See also:
+ ctime,
+ localtime,
+ time_expression,
+ uptime
+
+ Tim Hollebeek  Beek@ZorkMUD, Lima Bean, IdeaExchange, and elsewhere

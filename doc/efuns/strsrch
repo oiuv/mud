@@ -1,0 +1,28 @@
+
+     ssssttttrrrrssssrrrrcccchhhh((((3333))))             MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))              ssssttttrrrrssssrrrrcccchhhh((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          strsrch() - search for substrings in a string
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int strsrch( string str, string substr | int char,
+                       int flag );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          strsrch() searches for the first occurance of the string
+          `substr' in the string `str'.  The last occurance of
+          `substr' can be found by passing `-1' as the 3rd argument
+          (which is optional).  If the second argument is an integer,
+          that character is found (a la C's strchr()/strrchr().)  The
+          empty string or null value cannot be searched for.
+
+     RRRREEEETTTTUUUURRRRNNNN VVVVAAAALLLLUUUUEEEE
+          The integer offset of the first (last) match is returned.
+          -1 is returned if there was no match, or an error occurred
+          (bad args, etc).
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          explode(3), sscanf(3), replace_string(3), regexp(3)
+
+     Page 1                                          (printed 3/16/95)
+

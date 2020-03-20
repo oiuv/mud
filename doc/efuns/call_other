@@ -1,0 +1,49 @@
+
+     ccccaaaallllllll____ooootttthhhheeeerrrr((((3333))))          MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))           ccccaaaallllllll____ooootttthhhheeeerrrr((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          call_other() - call a function in another object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          unknown call_other( object ob | object *obs,
+                              string func | mixed *args, ... );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Calls a function in another object, with [optional]
+          argument(s).  The return value is returned from the other
+          object, so it cannot be known at compile time and may need
+          to be cast if using type checking.  The function named
+          `func' will be called in `ob', with arguments 3, 4, etc
+          given as arguments 1, 2, etc to `func' in `ob'.  call_other
+          will return the return value of `func'.  If the first
+          argument is an array instead of an object, then the call
+          will be done in all elements of that array (all elements
+          should be of type object), and an array of returns will be
+          returned.  If argument 2 is an array instead of a string,
+          then the first element in the array should be a string, the
+          function to call, and all other elements will be passed to
+          the function in the order they appear in the array.
+
+          There is a much more attractive way to do call_others:
+
+               object ob | object *obs -> func ( ... );
+
+          ie,
+
+               call_other(ob, "query", "name");
+
+          could be written as:
+
+               ob->query("name");
+
+          Using an array as second argument, the same call could be
+          written:
+
+               call_other(ob, ({ "query", "name" }));
+
+          An example of using an array as the first argument:
+
+               users()->quit();
+
+     Page 1                                          (printed 3/16/95)
+

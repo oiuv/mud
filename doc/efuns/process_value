@@ -1,0 +1,33 @@
+
+     pppprrrroooocccceeeessssssss____vvvvaaaalllluuuueeee((((3333))))       MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))        pppprrrroooocccceeeessssssss____vvvvaaaalllluuuueeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          process_value() - give a value from a described function
+          call
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          mixed process_value( string calldescription );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Get the replacement of one syntactic pattern. The pattern is
+          on the form:
+
+                  "function[:filename][|arg1|arg2....|argN]"
+
+          The returned value can be of any type.
+
+          Note that both object and arguments are marked optional with
+          the brackets and that the brackets are not included in the
+          actual pattern.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          process_string(3)
+
+     CCCCAAAAVVVVEEEEAAAATTTT
+          This is usually used to support 'value by function call' in
+          the mudlib.  It is wise to set the effuserid of the object
+          to 0 before using process_value as any function in any
+          object can be called with almost any arguments.
+
+     Page 1                                          (printed 3/16/95)
+

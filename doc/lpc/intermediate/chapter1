@@ -1,0 +1,143 @@
+Intermediate LPC
+Descartes of Borg
+Novermber 1993
+
+                         Chapter 1: Introduction
+
+1.1 LPC Basics
+Anyone reading this textbook should either have read the textbook LPC
+Basics or be familiar enough with mud realm coding such that not only are
+they capable of building rooms and other such objects involved in area
+coding, but they also have a good idea of what is going on when the code
+they write is executing.  If you do not feel you are at this point, then go
+back and read LPC Basics before continuing.  If you do so, you will find
+that what you read here will be much more meaningful to you.
+
+1.2 Goals of This Textbook
+The introductory textbook was meant to take people new to LPC from
+knowing nothing to being able to code a nice realm on any LPMud.  There
+is naturally much more to LPC and to LPMud building, however, than
+building rooms, armours, monsters, and weapons.  As you get into more
+complicated concepts like guilds, or desire to do more involved things with
+your realm, you will find the concepts detailed in LPC Basics to be lacking
+in support for these projects.  Intermediate LPC is designed to take you
+beyond the simple realm building process into a full knowledge of LPC for
+functioning as a realm builder on an LPMud.  The task of mudlib building
+itself is left to a later text.  After reading this textbook and working through
+it by experimenting with actual code, the reader should be able to code game
+objects to fit any design or idea they have in mind, so long as I have been
+successful.
+
+1.3 An Overview
+What more is there?  Well many of you are quite aware that LPC supports
+mappings and arrays and have been asking me why those were not detailed
+in LPC Basics.  I felt that those concepts were beyond the scope of what I
+was trying to do with that textbook and were more fitting to this textbook. 
+But new tools are all fine and dandy, what matters, however, is what you
+can do with those tools.  The goal of LPC Basics was to get you to building
+quality LPMud realms.  Mappings and arrays are not necessary to do that. 
+The goal of this book is to allow you to code any idea you might want to
+code in your area.  That ability requires the knowledge of mappings and
+arrays.
+
+Any idea you want to code in an LPMud is possible.  LPC is a language
+which is amazingly well suited to this task.  All that prevents you from
+coding your ideas is your knowledge of LPC or an inadequate mudlib or
+your mud’s theme or administrative policies.  This textbook cannot make
+the mudlib you are working with any better, and it cannot change the mud
+theme or the mud’s administrative policies.  Never once think that LPC is
+incapable of doing what you want to do.  If your idea is prevented by
+administrative policies or themes, then it is simply not an idea for your
+current mud.  If the mudlib is inadequate, talk to the people in charge of
+your mudlib about what can be done at the mudlib level to facilitate it.  You
+would be surprised by what is actually in the mudlib you did not know
+about.  More important, after reading this textbook, you should be able to
+read all of the mudlib code in your mud’s mudlib and understand what is
+going on at each line in the mudlib code.  You may not as yet be able to
+reproduce that code on your own, but at least you can understand what is
+going on at the mudlib level.
+
+This textbook starts out with a discussion about what the LPMud driver is
+doing.  One nice thing about this textbook, in general it is completely driver
+and mudlib independent (excepting for the Dworkin Game Driver).  The
+chapter on the game driver does not get into actual implementation, but
+instead deals with what all game drivers basically do in order to run the
+mud.
+
+Next I discuss those magic topics everyone wants to know more about,
+arrays and mappings.  Mappings may be simultaneously the easiest and
+most difficult data type to understand.  Since they are sort of complex arrays
+in a loose sense, you really need to understand arrays before discussing
+them.  All the same, once you understand them, they are much easier than
+arrays to use in real situations.  At any rate, spend most of your time
+working with that chapter, because it is probably the most difficult, yet most
+useful chapter in the book.
+
+After that follows a brief chapter on the LPC pre-compiler, a tool you can
+use for sorting out how your code will look before it gets sent to the
+compiler.  Despite my horrid intro to it here, this chapter is perhaps the
+easiest chapter in the textbook.  I put it after the mappings and arrays
+chapter for exactly that reason.
+
+Strings are re-introduced next, going into more detail with how you can do
+such things as advanced command handling by breaking up strings.  Once
+you understand arrays fairly well, this chapter should be really simple.
+
+The next chapter is the second most important in the book.  It may be the
+most important if you ever intend to go beyond the intermediate stage and
+dive into mudlib coding.  That chapter involves the complex ideas behind
+LPC inheritance.  Since the goal of this textbook is not to teach mudlib
+programming, the chapter is not a detailed discussion on object oriented
+programming.  Understanding this chapter, however, will give you some
+good insights into what is involved with object oriented programming, as
+well as allow you to build more complex objects by overriding functions
+and defining your own base classes.
+
+Finally, the textbook ends with a simple discussion of code debugging. 
+This is not an essential chapter, but instead it is meant as more of an
+auxiliary supplement to what the knowledge you have accumulated so far.
+
+1.4 Not Appearing in This Textbook
+Perhaps what might appear to some as the most glaring omission of this
+textbook is largely a political omission, shadows.  Never have I ever
+encountered an example of where a shadow was either the best or most
+effecient manner of doing anything.  It does not follow from that, however,
+that there are no uses for shadows.  My reasoning for omitting shadows
+from this textbook is that the learner is best served by learning the concepts
+in this textbook first and having spent time with them before dealing with
+the subject of shadows.  In that way, I feel the person learning LPC will be
+better capable of judging the merits of using a shadow down the road.  I
+will discuss shadows in a future textbook.
+
+If you are someone who uses shadows some or a lot, please do not take the
+above paragraph as a personal attack.  There may be some perfectly valid
+uses for shadows somewhere which I have yet to encounter.  Nevertheless,
+they are not the ideal way to accomplish any given task, and therefore they
+are not considered for the purposes of this textbook an intermediate coding
+tool.
+
+I have also omitted discussions of security and object oriented
+programming.  Both are quite obviously mudlib issues.  Many people,
+however, might take exception with my leaving out a discussion of object
+oriented programming.  I chose to leave that for a later text, since most area
+builders code for the creativity, not for the computer science theory.  In both
+the intermediate and beginner textbooks, I have chosen only to discuss
+theory where it is directly applicable to practical LPC programming.  For
+people who are starting out green in LPC and want to code the next great
+mudlib, perhaps theory would be more useful.  But for the purposes of this
+book, a discussion of object oriented programming is simply a snoozer.  I
+do plan to get heavy into theory with the next textbook.
+
+1.5 Summary
+LPC is not difficult to learn.  It is a language which, although pathetic
+compared to any other language for performing most computer language
+tasks, is incredibly powerful and unequalled for the tasks of building an
+area in MUD type games.  For the beginner, it allows you to easily jump in
+and code useful objects without even knowing what you are doing.  For the
+intermediate person, it allows you to turn any idea you have into textual
+virtual reality.  And for the advanced person, it’s object oriented features
+can allow you to build one of the most popular games on the internet.  What
+you can do is simply limited by how much you know.  And learning more
+does not require a computer science degree.
+
+Copyright (c) George Reese 1993

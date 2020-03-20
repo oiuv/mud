@@ -1,0 +1,31 @@
+
+     tttthhhhrrrroooowwww((((3333))))               MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))                tttthhhhrrrroooowwww((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          throw() - forces an error to occur in an object.
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void throw(mixed);
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          The throw() efun may be used to force an error to occur in
+          an object.  When used in conjunction, throw() and catch()
+          allow the programmer to choose what error message is
+          displayed when a runtime error occurs.  When throw() is
+          used, it should be used in conjunction with the catch(3)
+          efun.  Here is a typical usage:
+
+             string err;
+             int rc;
+
+             err = catch(rc = ob->move(dest));
+             if (err) {
+                  throw("move.c: ob->move(dest): " + err + "\n");
+                  return;
+             }
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          catch(3), error(3), error_handler(4)
+
+     Page 1                                          (printed 3/16/95)
+

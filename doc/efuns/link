@@ -1,0 +1,24 @@
+
+     lllliiiinnnnkkkk((((3333))))                MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))                 lllliiiinnnnkkkk((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          link() - link a file to another
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void link( string original, string reference );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Creates a link <reference> to the file <original>.  This
+          efun causes valid_link(original, reference) to be called in
+          the master object.  If valid_link() returns 0, the link()
+          call fails.  If valid_link() returns 1 then the link()
+          suceeds iff rename() would succeed if called with the same
+          arguments.
+
+          Note: This efun creates a hard link, not a symbolic one.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          rm(3), rmdir(3), rename(3), mkdir(3), cp(3)
+
+     Page 1                                          (printed 3/16/95)
+

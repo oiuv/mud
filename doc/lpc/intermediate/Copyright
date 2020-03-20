@@ -1,0 +1,62 @@
+                      Intermediate LPC first edition
+
+Copyright (c) 1993 George Reese
+All rights to this text are retained by the author.
+
+
+Permission is granted to distrubute and display the contents of this
+document in full so long as the following conditions are met:
+1) No payment may be received for the redistribution or display of this text,
+except to cover the costs for distribution media and and shipping and/or
+transmission charges.
+2) The textbook must be distributed or displayed in its entirety in its original
+form.  Changes may only be made to private, individual copies, except as
+outlined below.
+
+Acceptable changes are defined as the following:
+1) Format changes, such as changing from WordPerfect to Word 
+2) Medium changes, such as from electronic copy to paper
+3) Content changes are only acceptable under the following circumstances:
+	a) In electronic media: none of the original text may be ommitted. 
+        You may add comments
+	as you feel necessary, so long as comments are enclosed in <* *>
+        and are accompanied by
+	the game name or real name of the author of the comments
+	b) In hard copy: none of the original text may be omitted, but it may
+        be struck out so long
+	as the content of the original text is visible.  Comments may be made
+        in any form so long 
+	as they are made in handwriting and they are signed by the author. 
+        Comments which are typed or printed must be made in accordance with the
+        format for electronic media.
+
+Practically speaking, this is what I mean:
+First, I wrote this mostly for mud admins to put onto their muds for learning
+coders to read as they are learning to build realms.  I did not do this for
+someone else to make a buck.  So if you charge money for redistributing it
+or allowing someone else to see it, you are in violation of this copyright. 
+Unless you are simply charging for what it cost you to print up a copy or
+what the diskettes and postage cost to mail it.
+Second, I wrote this textbook, and I should receive credit/blame for what I
+say, and others should receive credit/blame for what they say.  For example,
+if I said something completely wrong, and you simply corrected it, I would
+be getting credit for something I did not do.  Yet, if you comment according
+to the outline above, you will be properly credited for your comments. 
+More important to me, however, is the practical effect of having hundreds of
+copies of this textbook everywhere.  If you change something I had right
+without noting it as a comment, I will be blamed for spreading
+misinformation.  This problem is only compunded if the text is redistributed. 
+So I prefer my words to remain my own.  But, when I make mistakes, or if
+something I say does not fit your driver/mudlib, please comment it so people
+will know.  In addition, having the comments side-by-side allows people to
+see other ideas, like how another driver might handle something.
+
+
+I want to please note again, you may display this on your mud (like in /doc). 
+You do not need to
+mail me for permission.  I would not mind email, since it is nice to know
+people are using it, but that is not required.  Also, if you really feel I have
+done such a wonderful job that you should pay money to use this, then give
+$5 to your local ASPCA (or international equivalent).
+
+See the file titled Contents for a full list of textbook chapters.

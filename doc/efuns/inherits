@@ -1,0 +1,19 @@
+
+     iiiinnnnhhhheeeerrrriiiittttssss((((3333))))            MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))             iiiinnnnhhhheeeerrrriiiittttssss((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          inherits() - determine if an object inherits a given file
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int inherits( string file, object obj );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          inherits() returns 0 if obj does not inherit file, 1 if it
+          inherits the most recent copy of file, and 2 if it inherits
+          an old copy of file.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          deep_inherit_list(3), inherit_list(3)
+
+     Page 1                                          (printed 3/16/95)
+

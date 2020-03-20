@@ -1,0 +1,46 @@
+
+     llllooooccccaaaallllttttiiiimmmmeeee((((3333))))           MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))            llllooooccccaaaallllttttiiiimmmmeeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          localtime() - convert to local time
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          #include <localtime.h>
+
+          mixed *localtime( int time );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          localtime() converts a time value (as returned by time())
+          into an array of values which represents the time locally.
+          In the past time() was used to get the time in GMT (UTC),
+          and then local definitions were used to determine the local
+          offset from GMT.  This roundabout approach is no longer
+          necessary.  localtime() returns the seconds, minutes and
+          hours, the day, month and year, day of the week, day of the
+          year, the name of the local timezone and how far the MUD is
+          from GMT.  This information is retrieved directly from the
+          operating system and made available to the driver without
+          the use of MUD-specific configuration files.
+
+          localtime() returns an array containing the values specified
+          above.  The index for each value is defined symbolically in
+          localtime.h.  The following table summarizes the array
+          returned by localtime().
+
+               int  LT_SEC         Seconds after the minute (0..59)
+               int  LT_MIN         Minutes after the hour (0..59)
+               int  LT_HOUR        Hour since midnight (0..23)
+               int  LT_MDAY        Day of the month (1..31)
+               int  LT_MON         Months since January (0..11)
+               int  LT_YEAR        Year (guarenteed to be >= 1900)
+               int  LT_WDAY        Days since Sunday (0..6)
+               int  LT_YDAY        Days since January 1 (0..365)
+               int  LT_GMTOFF Seconds after GMT (UTC)
+               string    LT_ZONE        Timezone name
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          ctime(3), time(3), time_expression(3), uptime(3),
+          /include/localtime.h
+
+     Page 1                                          (printed 3/16/95)
+

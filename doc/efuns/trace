@@ -1,0 +1,38 @@
+
+     ttttrrrraaaacccceeee((((3333))))               MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))                ttttrrrraaaacccceeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          trace() - sets trace flags and returns the old ones.
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int trace( int traceflags );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Sets the trace flags and returns the old trace flags.  When
+          tracing is on a lot of information is printed during
+          execution.
+
+          The trace bits are:
+
+          Trace all function calls to lfuns.
+
+          Trace all calls to "call_other".
+
+          Trace all function returns.
+
+          Print arguments at function calls and return values.
+
+     output!).
+          Print all executed stack machine instructions (produces a lot of
+
+          Enable trace in heart beat functions.
+
+          Trace calls to apply.
+
+          Show object name in tracing.
+
+      SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          traceprefix(3)
+
+     Page 1                                          (printed 3/16/95)
+

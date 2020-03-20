@@ -1,0 +1,276 @@
+Intermediate LPC
+Descartes of Borg
+November 1993
+
+                       Chapter 6: Intermediate Inheritance
+
+6.1 Basics of Inheritance
+In the textbook LPC Basics, you learned how it is the mudlib maintains
+consistency amoung mud objects through inheritance.  Inheritance
+allows the mud administrators to code the basic functions and such that
+all mudlib objects, or all mudlib objects of a certain type must have so
+that you can concentrate on creating the functions which make these
+objects different.  When you build a room, or a weapon, or a monster,
+you are taking a set of functions already written for you and inheriting
+them into your object.  In this way, all objects on the mud can count on
+other objects to behave in a certain manner.  For instance, player objects
+can rely on the fact that all room objects will have a function in them
+called GetLong() which describes the room.  Inheritance thus keeps
+you from having to worry about what the function GetLong() should
+look like.
+
+Naturally, this textbook tries to go beyond this fundamental knowledge
+of inheritance to give the coder a better undertstanding of how
+inheritance works in LPC programming.  Without getting into detail that
+the advanced domain coder/beginner mudlib coder simply does not yet
+need, this chapter will try to explain exactly what happens when you
+inherit an object.
+
+6.2 Cloning and Inheritance
+Whenever a file is referenced for the first time as an object (as opposed
+to reading the contents of the file), the game tries to load the file into
+memory and create an object.  If the object is successfully loaded into
+memory, it becomes as master copy.  Master copies of objects may be
+cloned but not used as actual game objects.  The master copy is used to
+support any clone objects in the game.
+
+The master copy is the source of one of the controversies of mud LPC
+coding, that is whether to clone or inherit.  With rooms, there is no
+question of what you wish to do, since there should only be one instance
+of each room object in the game.  So you generally use inheritance in
+creating rooms.  Many mud administrators, including myself, however
+encourage creators to clone the standard monster object and configure it
+from inside room objects instead of keeping monsters in separate files
+which inherit the standard monster object.
+
+As I stated above, each time a file is referenced to create an object, a
+master copy is loaded into memory.  When you do something like:
+void reset() {
+    object ob;
+    ob = new("/std/monster");
+      /* clone_object("/std/monster") some places */
+    ob->SetKeyName("foo monster");
+    ...  rest of monster config code followed by moving
+it to the room ...
+}
+the driver searches to see if their is a master object called "/std/monster". 
+If not, it creates one.  If it does exist, or after it has been created, the
+driver then creates a clone object called "/std/monster#<number>".  If
+this is the first time "/std/monster" is being referenced, in effect, two
+objects are being created: the master object and the cloned instance.
+
+On the other hand, let's say you did all your configuring in the create()
+of a special monster file which inherits "/std/monster".  Instead of
+cloning the standard monster object from your room, you clone your
+monster file.  If the standard monster has not been loaded, it gets loaded
+since your monster inherits it.  In addition, a master copy of your file
+gets loaded into memory.  Finally, a clone of your monster is created
+and moved into the room, for a total of three objects added to the game. 
+Note that you cannot make use of the master copy easily to get around
+this.  If, for example, you were to do:
+    "/realms/descartes/my_monster"->eventMove(this_object());
+instead of
+    new("/realms/descartes/my_monster")->eventMove(this_object());
+you would not be able to modify the file "my_monster.c" and update it,
+since the update command destroys the current master version of an
+object.  On some mudlibs it also loads the new version into memory. 
+Imagine the look on a player's face when their monster disappears in
+mid-combat cause you updated the file!
+
+Cloning is therefore a useful too when you plan on doing just that-
+cloning.  If you are doing nothing special to a monster which cannot be
+done through a few call others, then you will save the mud from getting
+loaded with useless master copies.  Inheritance, however, is useful if
+you plan to add functionality to an object (write your own functions) or
+if you have a single configuration that gets used over and over again
+(you have an army of orc guards all the same, so you write a special orc
+file and clone it).
+
+6.3 Inside Inheritance
+When objects A and B inherit object C, all three objects have their own
+set of data sharing one set of function definitions from object C.  In
+addition, A and B will have separate functions definitions which were
+entered separately into their code.  For the sake of example throughout
+the rest of the chapter, we will use the following code.  Do not be
+disturbed if, at this point, some of the code makes no sense:
+
+STD_ITEM C
+private string name, cap_name, short, long;
+private int setup;
+
+void SetKeyName(string str)
+nomask string GetKeyName();
+private int query_setup();
+static void unsetup();
+void SetShort(string str);
+string GetShort();
+void SetLong(string str);
+string GetLong();
+
+
+void SetKeyName(string str) { 
+    if(!query_setup()) {
+        name = str;
+    setup = 1;
+}
+
+nomask string GetKeyName() { return name; }
+
+private query_setup() { return setup; }
+
+static void unsetup() { setup = 0; }
+
+string GetName() {
+    return (name ? capitalize(name) : ""); }
+}
+
+void SetShort(string str) { short = str; }
+
+string GetShort() { return short; }
+
+void SetLong(string str) { long = str; }
+
+string GetLong() { return str; }
+
+void create() { seteuid(getuid()); }
+
+STD_ITEM B
+inherit "/std/objectc";
+
+private int wc;
+
+void set_wc(int wc);
+int query_wc();
+int wieldweapon(string str);
+
+void create() { ::create(); }
+
+void init() {
+    if(environment(this_object()) == this_player())
+      add_action("wieldweapon", "wield");
+}
+
+void set_wc(int x) { wc = x; }
+
+int query_wc() { return wc; }
+
+int wieldweapon(string str) {
+    ... code for wielding the weapon ...
+}
+
+STD_ITEM A
+inherit "/std/objectc";
+
+int ghost;
+
+void create() { ::create(); }
+
+void change_name(string str) {
+    if(!((int)this_object()->is_player())) unsetup();
+    SetKeyName(str);
+}
+
+string GetName() {
+    if(ghost) return "A ghost";
+    else return ::GetName();
+}
+
+As you can see, object C is inherited both by object A and object B. 
+Object C is a representation of a much oversimplified base object, with B
+being an equally oversimplified weapon and A being an equally
+simplified living object.  Only one copy of each function is retained in
+memory, even though we have here three objects using the functions. 
+There are of course, three instances of the variables from Object C in
+memory, with one instance of the variables of Object A and Object B in
+memory.  Each object thus gets its own data.  
+
+6.4 Function and Variable Labels
+Notice that many of the functions above are proceeded with labels which
+have not yet appeared in either this text or the beginner text, the labels
+static, private, and nomask.  These labels define special priveledges
+which an object may have to its data and member functions.  Functions
+you have used up to this point have the default label public.  This is
+default to such a degree, some drivers do not support the labeling.
+
+A public variable is available to any object down the inheritance tree
+from the object in which the variable is declared.  Public variables in
+object C may be accessed by both objects A and B.  Similarly, public
+functions may be called by any object down the inheritance tree from the
+object in which they are declared. 
+
+The opposite of public is of course private.  A private variable or
+function may only be referenced from inside the object which declares it. 
+If object A or B tried to make any reference to any of the variables in
+object C, an error would result, since the variables are said to be out of
+scope, or not available to inheriting classes due to their private labels. 
+Functions, however, provide a unique challenge which variables do not. 
+External objects in LPC have the ability to call functions in other objects
+through call others.  The private label does not protect against call
+others.
+
+To protect against call others, functions use the label static.  A function
+which is static may only be called from inside the complete object or
+from the game driver.  By complete object, I mean object A can call
+static functions in the object C it inherits.  The static only protects against
+external call others.  In addition, this_object()->foo() is considered an
+internal call as far as the static label goes.
+
+Since variables cannot be referenced externally, there is no need for an
+equivalent label for them.  Somewhere along the line, someone decided
+to muddy up the waters and use the static label with variables to have a
+completely separate meaning.  What is even more maddening is that this
+label has nothing to do with what it means in the C programming
+language.  A static variable is simply a variable that does not get saved to
+file through the efun save_object() and does not get restored through
+restore_object().  Go figure.
+
+In general, it is good practice to have private variables with public
+functions, using query_*() functions to access the values of inherited
+variables, and set_*(), add_*(), and other such functions to change
+those values.  In realm coding this is not something one really has to
+worry a lot about.  As a matter of fact, in realm coding you do not have
+to know much of anything which is in this chapter.  To be come a really
+good realm coder, however, you have to be able to read the mudlib
+code.  And mudlib code is full of these labels.  So you should work
+around with these labels until you can read code and understand why it
+is written that way and what it means to objects which inherit the code.
+
+The final label is nomask, and it deals with a property of inheritance
+which allows you to rewrite functions which have already been defined. 
+For example, you can see above that object A rewrote the function
+GetName().  A rewrite of  function is called overriding the
+function.  The most common override of a function would be in a case
+like this, where a condition peculiar to our object (object A) needs to
+happen on a call ot the function under certain circumstances.  Putting test
+code into object C just so object A can be a ghost is plain silly.  So
+instead, we override GetName() in object A, testing to see if the
+object is a ghost.  If so, we change what happens when another object
+queries for the cap name.  If it is not a ghost, then we want the regular
+object behaviour to happen.  We therefore use the scope resolution
+operator (::) to call the inherited version of the GetName()
+function and return its value.
+
+A nomask function is one which cannot be overridden either through
+inheritance or through shadowing.  Shadowing is a sort of backwards
+inheritance which will be detailed in the advanced LPC textbook.  In the
+example above, neither object A nor object B (nor any other object for
+that matter) can override GetKeyName().  Since we want to use
+GetKeyName() as a unique identifier of objects, we don't want people
+faking us through shadowing or inheritance.  The function therefore gets
+the nomask label.
+
+6.5 Summary
+Through inheritance, a coder may make user of functions defined in
+other objects in order to reduce the tedium of producing masses of
+similar objects and to increase the consistency of object behaviour across
+mudlib objects.  LPC inheritance allows objects maximum priveledges in
+defining how their data can be accessed by external objects as well as
+objects inheriting them.  This data security is maintained through the
+keywords, nomask, private, and static.
+
+In addition, a coder is able to change the functionality of non-protected
+functions by overriding them.  Even in the process of overriding a
+function, however, an object may access the original function through
+the scope resolution operator.
+
+Copyright (c) George Reese 1993

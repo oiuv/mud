@@ -1,0 +1,35 @@
+
+     nnnnoooottttiiiiffffyyyy____ffffaaaaiiiillll((((3333))))         MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))          nnnnoooottttiiiiffffyyyy____ffffaaaaiiiillll((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          int notify_fail( string | function str );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Store `str' as the error message to be returned instead of
+          the default message `What?'.  The message will be displayed
+          if a 0 is returned from an action setup via add_action().
+          This is the preferred way to display error messages since it
+          allows other objects a chance to respond to the same verb
+          (command).  Do not use write() to display the error message
+          since this will require you to return a 1 (unless you want
+          to see the result of the write() in addition to the 'What?'
+          message).  However, if you do return a 1, then no other
+          objects will get a chance to respond to the user command.
+
+          If a function is passed instead of a string, the function is
+          called instead of printing a message.  If the function
+          returns a string, that string is used as the failure
+          message.  Also, this_player() is set correctly, so write()
+          can be used.
+
+          If "notify_fail()" is called more than once, only the last
+          call will have an effect.
+
+          The idea behind this function is to allow better error
+          messages than `What?'.
+
+     RRRREEEETTTTUUUURRRRNNNN VVVVAAAALLLLUUUUEEEE
+          notify_fail() always returns 0.
+
+     Page 1                                          (printed 3/16/95)
+

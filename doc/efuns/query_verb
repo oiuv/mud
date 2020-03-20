@@ -1,0 +1,22 @@
+
+     qqqquuuueeeerrrryyyy____vvvveeeerrrrbbbb((((3333))))          MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))           qqqquuuueeeerrrryyyy____vvvveeeerrrrbbbb((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          query_verb() - return the name of the command currently
+          being executed
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          string query_verb( void );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Give the name of the current command, or 0 if not executing
+          from a command.  This function is useful when several
+          commands (verbs) may cause the same function to execute and
+          it is necessary to determine which verb it was that invoked
+          the function.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          add_action(3)
+
+     Page 1                                          (printed 3/16/95)
+

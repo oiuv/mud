@@ -1,0 +1,60 @@
+                      Dead Souls and Mappings
+ 
+A mapping is an organization of data that makes it possible to associate
+data elements together in a human-understandable way.
+
+For a builder with no coding experience, mappings can be a challenge to
+understand. However, you must grasp at least the very basics of this data type in order to be an effective builder.
+
+The Dead Souls mudlib has three kinds of objects that normally have other
+objects inside of them: NPC's, rooms, and containers. When the mud loads
+one of these, often they are intended to have stuff inside them already, such
+as a teasure chest with jewels, an orc with an axe, or a room with an orc
+guarding a treasure chest.
+
+In such a circumstance, each of these objects is loaded from a file that 
+contains information about the contents of the object. This is called the
+object's inventory, and it is determined by the SetInventory directive in that
+file.
+
+An example of a room's SetInventory directive might look a little like this:
+
+SetInventory( ([
+       "/domains/town/npc/fighter" : 1,
+       "/domains/town/npc/orc" : "growl",
+       "/domains/town/obj/chest" : 1,
+  ]) );
+
+You can tell it's a mapping right away from the square brackets: [ ].
+
+What this mapping does is identify a fighter, orc, and chest as objects to
+be put into the room when it is loaded. If we wanted 2 fighters, we would have
+put a 2 instead of a 1 there.
+
+What the "growl" value does is provide that orc with a command to perform 
+when it appears. You could just have a number there, to specify the number
+of orcs desired.
+
+That's it. It's that simple. A mapping consists of pairs of data, separated
+by a colon (the : symbol).  The part to the left is called a key, and the
+part to the right is called the value.
+
+A mapping can contain more than one of these pairs, each separated from
+the other by a comma.
+
+As a non-coding builder, what you need to know is that when the creation system
+asks you for a key, it is possible for keys to have multiple values, like
+this:
+
+({"room","here","area"}) : "This area looks very nice."
+
+In this example, the mapping element is part of the SetItems directive.
+
+When you modify a room's description items, you will be asked to enter keys until you are
+done. This allows you to enter multiple words that respond in the same
+way. For example, "examine wall" and "examine concrete wall" should both
+provide the same description.
+
+However, in the case of inventory, only one key is valid, so make sure you
+only enter one.
+

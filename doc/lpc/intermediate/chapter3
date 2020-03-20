@@ -1,0 +1,476 @@
+Intermediate LPC
+Descartes of Borg
+November 1993
+
+                        Chapter 3: Complex Data Types
+
+3.1 Simple Data Types
+In the textbook LPC Basics, you learned about the common, basic LPC
+data types: int, string, object, void.  Most important you learned that
+many operations and functions behave differently based on the data type
+of the variables upon which they are operating.  Some operators and
+functions will even give errors if you use them with the wrong data
+types.  For example, "a"+"b" is handled much differently than 1+1. 
+When you ass "a"+"b", you are adding "b" onto the end of "a" to get
+"ab".  On the other hand, when you add 1+1, you do not get 11, you get
+2 as you would expect.
+
+I refer to these data types as simple data types, because they atomic in
+that they cannot be broken down into smaller component data types. 
+The object data type is a sort of exception, but you really cannot refer
+individually to the components which make it up, so I refer to it as a
+simple data type.
+
+This chapter introduces the concept of the complex data type, a data type
+which is made up of units of simple data types.  LPC has two common
+complex data types, both kinds of arrays.  First, there is the traditional
+array which stores values in consecutive elements accessed by a number
+representing which element they are stored in.  Second is an associative
+array called a mapping.  A mapping associates to values together to
+allow a more natural access to data.
+
+3.2 The Values NULL and 0
+Before getting fully into arrays, there first should be a full understanding
+of the concept of NULL versus the concept of 0.  In LPC, a null value is
+represented by the integer 0.  Although the integer 0 and NULL are often
+freely interchangeable, this interchangeability often leads to some great
+confusion when you get into the realm of complex data types.  You may
+have even encountered such confusion while using strings.
+
+0 represents a value which for integers means the value you add to
+another value yet still retain the value added.  This for any addition
+operation on any data type, the ZERO value for that data type is the value
+that you can add to any other value and get the original value.  Thus:   A
+plus ZERO equals A where A is some value of a given data type and
+ZERO is the ZERO value for that data type.  This is not any sort of
+official mathematical definition.  There exists one, but I am not a
+mathematician, so I have no idea what the term is.  Thus for integers, 0
+is the ZERO value since 1 + 0 equals 1.
+
+NULL, on the other hand, is the absence of any value or meaning.  The
+LPC driver will interpret NULL as an integer 0 if it can make sense of it
+in that context.  In any context besides integer addition, A plus NULL
+causes an error.  NULL causes an error because adding valueless fields
+in other data types to those data types makes no sense.
+
+Looking at this from another point of view, we can get the ZERO value
+for strings by knowing what added to "a" will give us "a" as a result. 
+The answer is not 0, but instead "".  With integers, interchanging NULL
+and 0 was acceptable since 0 represents no value with respect to the
+integer data type.  This interchangeability is not true for other data types,
+since their ZERO values do not represent no value.  Namely, ""
+represents a string of no length and is very different from 0.  
+
+When you first declare any variable of any type, it has no value.  Any
+data type except integers therefore must be initialized somehow before
+you perform any operation on it.  Generally, initialization is done in the
+create() function for global variables, or at the top of the local function
+for local variables by assigning them some value, often the ZERO value
+for that data type.  For example, in the following code I want to build a
+string with random words:
+
+string build_nonsense() {
+    string str;
+    int i;
+
+    str = ""; /* Here str is initialized to the string
+ZERO value */
+    for(i=0; i<6; i++) {
+        switch(random(3)+1) {
+            case 1: str += "bing"; break;
+            case 2: str += "borg"; break;
+            case 3: str += "foo"; break;
+        }
+        if(i==5) str += ".\n";
+        else str += " ";
+    }
+    return capitalize(str);
+}
+
+If we had not initialized the variable str, an error would have resulted
+from trying to add a string to a NULL value.  Instead, this code first
+initializes str to the ZERO value for strings, "".  After that, it enters a
+loop which makes 6 cycles, each time randomly adding one of three
+possible words to the string.  For all words except the last, an additional
+blank character is added.  For the last word, a period and a return
+character are added.  The function then exits the loop, capitalizes the
+nonsense string, then exits.
+
+3.3 Arrays in LPC
+An array is a powerful complex data type of LPC which allows you to
+access multiple values through a single variable.  For instance,
+Nightmare has an indefinite number of currencies in which players may
+do business.  Only five of those currencies, however, can be considered
+hard currencies.  A hard currency for the sake of this example is a
+currency which is readily exchangeable for any other hard currency,
+whereas a soft currency may only be bought, but not sold.  In the bank,
+there is a list of hard currencies to allow bank keepers to know which
+currencies are in fact hard currencies.  With simple data types, we would
+have to perform the following nasty operation for every exchange
+transaction:
+
+int exchange(string str) {
+    string from, to;
+    int amt;
+
+    if(!str) return 0;
+    if(sscanf(str, "%d %s for %s", amt, from, to) != 3)
+      return 0;
+    if(from != "platinum" && from != "gold" && from !=
+      "silver" &&
+      from != "electrum" && from != "copper") {
+        notify_fail("We do not buy soft currencies!\n");
+        return 0;
+    }
+    ...
+}
+
+With five hard currencies, we have a rather simple example.  After all it
+took only two lines of code to represent the if statement which filtered
+out bad currencies.  But what if you had to check against all the names
+which cannot be used to make characters in the game?  There might be
+100 of those; would you want to write a 100 part if statement?
+What if you wanted to add a currency to the list of hard currencies?  That
+means you would have to change every check in the game for hard
+currencies to add one more part to the if clauses.  Arrays allow you
+simple access to groups of related data so that you do not have to deal
+with each individual value every time you want to perform a group
+operation.
+
+As a constant, an array might look like this:
+    ({ "platinum", "gold", "silver", "electrum", "copper" })
+which is an array of type string.  Individual data values in arrays are
+called elements, or sometimes members.  In code, just as constant
+strings are represented by surrounding them with "", constant arrays are
+represented by being surrounded by ({ }), with individual elements of
+the array being separated by a ,.
+
+You may have arrays of any LPC data type, simple or complex.  Arrays
+made up of mixes of values are called arrays of mixed type.  In most
+LPC drivers, you declare an array using a throw-back to C language
+syntax for arrays.  This syntax is often confusing for LPC coders
+because the syntax has a meaning in C that simply does not translate into
+LPC.  Nevertheless, if we wanted an array of type string, we would
+declare it in the following manner:
+
+string *arr;
+
+In other words, the data type of the elements it will contain followed by
+a space and an asterisk.  Remember, however, that this newly declared
+string array has a NULL value in it at the time of declaration.
+
+3.4 Using Arrays
+You now should understand how to declare and recognize an array in
+code.  In order to understand how they work in code, let's review the
+bank code, this time using arrays:
+
+string *hard_currencies;
+
+int exchange(string str) {
+    string from, to;
+    int amt;
+
+    if(!str) return 0;
+    if(sscanf(str, "%d %s for %s", amt, from, to) != 3)
+return 0;
+    if(member_array(from, hard_currencies) == -1) {
+        notify_fail("We do not buy soft currencies!\n");
+        return 0;
+    }
+    ...
+}
+
+This code assumes hard_currencies is a global variable and is initialized
+in create() as:
+    hard_currencies = ({ "platinum", "gold", "electrum", "silver",
+   "copper" });
+Ideally, you would have hard currencies as a #define in a header file for
+all objects to use, but #define is a topic for a later chapter.
+
+Once you know what the member_array() efun does, this method
+certainly is much easier to read as well as is much more efficient and
+easier to code.  In fact, you can probably guess what the
+member_array() efun does:  It tells you if a given value is a member of
+the array in question.  Specifically here, we want to know if the currency
+the player is trying to sell is an element in the hard_curencies array. 
+What might be confusing to you is, not only does member_array() tell us
+if the value is an element in the array, but it in fact tells us which element
+of the array the value is.
+
+How does it tell you which element?  It is easier to understand arrays if
+you think of the array variable as holding a number.  In the value above,
+for the sake of argument, we will say that hard_currencies holds the
+value 179000.  This value tells the driver where to look for the array
+hard_currencies represents.  Thus, hard_currencies points to a place
+where the array values may be found.  When someone is talking about
+the first element of the array, they want the element located at 179000. 
+When the object needs the value of the second element of the array, it
+looks at 179000 + one value, then 179000 plus two values for the third,
+and so on.  We can therefore access individual elements of an array by
+their index, which is the number of values beyond the starting point of
+the array we need to look to find the value.  For the array
+hard_currencies array:
+"platinum" has an index of 0.
+"gold" has an index of 1.
+"electrum" has an index of 2.
+"silver" has an index of 3.
+"copper" has an index of 4.
+
+The efun member_array() thus returns the index of the element being
+tested if it is in the array, or -1 if it is not in the array.  In order to
+reference an individual element in an array, you use its index number in
+the following manner:
+array_name[index_no]
+Example:
+hard_currencies[3]
+where hard_currencies[3] would refer to "silver".
+
+So, you now should now several ways in which arrays appear either as
+a whole or as individual elements.  As a whole, you refer to an array
+variable by its name and an array constant by enclosing the array in ({ })
+and separating elements by ,.  Individually, you refer to array variables
+by the array name followed by the element's index number enclosed in
+[], and to array constants in the same way you would refer to simple data
+types of the same type as the constant.  Examples:
+
+Whole arrays:
+variable:  arr
+constant: ({ "platinum", "gold", "electrum", "silver", "copper" })
+
+Individual members of arrays:
+variable: arr[2]
+constant: "electrum"
+
+You can use these means of reference to do all the things you are used to
+doing with other data types.  You can assign values, use the values in
+operations, pass the values as parameters to functions, and use the
+values as return types.  It is important to remember that when you are
+treating an element alone as an individual, the individual element is not
+itself an array (unless you are dealing with an array of arrays).  In the
+example above, the individual elements are strings.  So that:
+    str = arr[3] + " and " + arr[1];
+will create str to equal "silver and gold".  Although this seems simple
+enough, many people new to arrays start to run into trouble when trying
+to add elements to an array.  When you are treating an array as a whole
+and you wish to add a new element to it, you must do it by adding
+another array.
+
+Note the following example:
+string str1, str2;
+string *arr;
+
+str1 = "hi";
+str2 = "bye";
+/* str1 + str2 equals "hibye" */
+arr = ({ str1 }) + ({ str2 });
+/* arr is equal to ({ str1, str2 }) */
+Before going any further, I have to note that this example gives an
+extremely horrible way of building an array.  You should set it: arr = ({
+str1, str2 }).  The point of the example, however, is that you must add
+like types together.  If you try adding an element to an array as the data
+type it is, you will get an error.  Instead you have to treat it as an array of
+a single element.
+
+3.5 Mappings
+One of the major advances made in LPMuds since they were created is
+the mapping data type.  People alternately refer to them as associative
+arrays.  Practically speaking, a mapping allows you freedom from the
+association of a numerical index to a value which arrays require. 
+Instead, mappings allow you to associate values with indices which
+actually have meaning to you, much like a relational database.
+
+In an array of 5 elements, you access those values solely by their integer
+indices which cover the range 0 to 4.  Imagine going back to the example
+of money again.  Players have money of different amounts and different
+types.  In the player object, you need a way to store the types of money
+that exist as well as relate them to the amount of that currency type the
+player has.  The best way to do this with arrays would have been to
+store an array of strings representing money types and an array of
+integers representing values in the player object.  This would result in
+CPU-eating ugly code like this:
+
+int query_money(string type) {
+    int i;
+
+    i = member_array(type, currencies);
+    if(i>-1 && i < sizeof(amounts))  /* sizeof efun
+returns # of elements */
+        return amounts[i];
+    else return 0;
+}
+
+And that is a simple query function.  Look at an add function:
+
+void add_money(string type, int amt) {
+    string *tmp1;
+    int * tmp2;
+    int i, x, j, maxj;
+    
+    i = member_array(type, currencies);
+    if(i >= sizeof(amounts)) /*  corrupt data, we are in
+      a bad way */
+        return;
+    else if(i== -1) {
+        currencies += ({ type });
+        amounts += ({ amt });
+        return;
+    }
+    else {
+        amounts[i] += amt;
+        if(amounts[i] < 1) {
+            tmp1 = allocate(sizeof(currencies)-1);
+            tmp2 = allocate(sizeof(amounts)-1);
+            for(j=0, x =0, maxj=sizeof(tmp1); j < maxj;
+              j++) {
+                if(j==i) x = 1;
+                tmp1[j] = currencies[j+x];
+                tmp2[j] = amounts[j+x];
+            }
+            currencies = tmp1;
+            amounts = tmp2;
+        }
+    }
+}
+
+That is really some nasty code to perform the rather simple concept of
+adding some money.  First, we figure out if the player has any of that
+kind of money, and if so, which element of the currencies array it is. 
+After that, we have to check to see that the integrity of the currency data
+has been maintained.  If the index of the type in the currencies array is
+greater than the highest index of the amounts array, then we have a
+problem since the indices are our only way of relating the two arrays. 
+Once we know our data is in tact, if the currency type is not currently
+held by the player, we simply tack on the type as a new element to the
+currencies array and the amount as a new element to the amounts array. 
+Finally, if it is a currency the player currently has, we just add the
+amount to the corresponding index in the amounts array.  If the money
+gets below 1, meaning having no money of that type, we want to clear
+the currency out of memory.
+
+Subtracting an element from an array is no simple matter.  Take, for
+example, the result of the following:
+
+string *arr;
+
+arr = ({ "a", "b", "a" });
+arr -= ({ arr[2] });
+
+What do you think the final value of arr is? Well, it is:
+    ({ "b", "a" })
+Subtracting arr[2] from the original array does not remove the third
+element from the array.  Instead, it subtracts the value of the third
+element of the array from the array.  And array subtraction removes the
+first instance of the value from the array.  Since we do not want to be
+forced on counting on the elements of the array as being unique, we are
+forced to go through some somersaults to remove the correct element
+from both arrays in order to maintain the correspondence of the indices
+in the two arrays.
+
+Mappings provide a better way.  They allow you to directly associate the
+money type with its value.  Some people think of mappings as arrays
+where you are not restricted to integers as indices.  Truth is, mappings
+are an entirely different concept in storing aggregate information.  Arrays
+force you to choose an index which is meaningful to the machine for
+locating the appropriate data.  The indices tell the machine how many
+elements beyond the first value the value you desire can be found.  With
+mappings, you choose indices which are meaningful to you without
+worrying about how that machine locates and stores it.
+
+You may recognize mappings in the following forms:
+
+constant values:
+whole: ([ index:value, index:value ]) Ex: ([ "gold":10, "silver":20 ])
+element:  10
+
+variable values:
+whole:    map   (where map is the name of a mapping variable)
+element: map["gold"]
+
+So now my monetary functions would look like:
+
+int query_money(string type) { return money[type]; }
+
+void add_money(string type, int amt) {
+    if(!money[type]) money[type] = amt;
+    else money[type] += amt;
+    if(money[type] < 1)
+      map_delete(money, type);          /* this is for
+          MudOS */
+            ...OR... 
+            money = m_delete(money, type)  /* for some
+          LPMud 3.* varieties */
+            ... OR... 
+         m_delete(money, type);    /* for other LPMud 3.*
+          varieties */
+}
+
+Please notice first that the efuns for clearing a mapping element from the
+mapping vary from driver to driver.  Check with your driver's
+documentation for the exact name an syntax of the relevant efun.
+
+As you can see immediately, you do not need to check the integrity of
+your data since the values which interest you are inextricably bound to
+one another in the mapping.  Secondly, getting rid of useless values is a
+simple efun call rather than a tricky, CPU-eating loop.  Finally, the
+query function is made up solely of a return instruction. 
+
+You must declare and initialize any mapping before using it. 
+Declarations look like:
+mapping map;
+Whereas common initializations look like:
+map = ([]);
+map = allocate_mapping(10)   ...OR...   map = m_allocate(10);
+map = ([ "gold": 20, "silver": 15 ]);
+
+As with other data types, there are rules defining how they work in
+common operations like addition and subtraction:
+    ([ "gold":20, "silver":30 ]) + ([ "electrum":5 ]) 
+gives:
+    (["gold":20, "silver":30, "electrum":5])   
+Although my demonstration shows a continuity of order, there is in fact
+no guarantee of the order in which elements of mappings will stored. 
+Equivalence tests among mappings are therefore not a good thing.
+
+3.6 Summary
+Mappings and arrays can be built as complex as you need them to be. 
+You can have an array of mappings of arrays.  Such a thing would be
+declared like this:
+
+mapping *map_of_arrs;
+which might look like:
+({ ([ ind1: ({ valA1, valA2}), ind2: ({valB1, valB2}) ]), ([ indX:
+({valX1,valX2}) ]) })
+
+Mappings may use any data type as an index, including objects. 
+Mapping indices are often referred to as keys as well, a term from
+databases.  Always keep in mind that with any non-integer data type,
+you must first initialize a variable before making use of it in common
+operations such as addition and subtraction.  In spite of the ease and
+dynamics added to LPC coding by mappings and arrays, errors caused
+by failing to initialize their values can be the most maddening experience
+for people new to these data types.  I would venture that a very high
+percentage of all errors people experimenting with mappings and arrays
+for the first time encounter are one of three error messages:
+	Indexing on illegal type.
+	Illegal index.
+	Bad argument 1 to (+ += - -=) /* insert your favourite operator */
+Error messages 1 and 3 are darn near almost always caused by a failure
+to initialize the array or mapping in question.  Error message 2 is caused
+generally when you are trying to use an index in an initialized array
+which does not exist.  Also, for arrays, often people new to arrays will
+get error message 3 because they try to add a single element to an array
+by adding the initial array to the single element value instead of adding
+an array of the single element to the initial array.  Remember, add only
+arrays to arrays.
+
+At this point, you should feel comfortable enough with mappings and
+arrays to play with them.  Expect to encounter the above error messages
+a lot when first playing with these.  The key to success with mappings is
+in debugging all of these errors and seeing exactly what causes wholes
+in your programming which allow you to try to work with uninitialized
+mappings and arrays.  Finally, go back through the basic room code and
+look at things like the SetExits() (or the equivalent on your mudlib)
+function.  Chances are it makes use of mappings.  In some instances, it
+will use arrays as well for compatibility with mudlib.n.
+
+Copyright (c) George Reese 1993

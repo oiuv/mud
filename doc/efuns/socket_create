@@ -1,0 +1,72 @@
+
+     ssssoooocccckkkkeeeetttt____ccccrrrreeeeaaaatttteeee((((3333))))       MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))        ssssoooocccckkkkeeeetttt____ccccrrrreeeeaaaatttteeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          socket_create() - create an efun socket
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          #include <socket_err.h>
+
+          int socket_create( int mode, string read_callback,
+                             void | string close_callback );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          socket_create() creates an efun socket. mode determines
+          which type of socket is created. Currently supported socket
+          modes are:
+
+          MUD         for sending LPC data types using TCP protocol.
+
+          STREAM      for sending raw data using TCP protocol.
+
+          DATAGRAM    for using UDP protocol.
+
+          The argument read_callback is the name of a function for the
+          driver to call when the socket gets data from its peer. The
+          read callback should follow this format:
+
+               void read_callback(int fd, mixed message)
+
+          Where fd is the socket which received the data, and message
+          is the data which was received.
+
+          The argument close_callback is the name of a function for
+          the driver to call if the socket closes unexpectedly, i.e.
+          not as the result of a socket_close(3) call. The close
+          callback should follow this format:
+
+               void close_callback(int fd)
+
+          Where fd is the socket which has closed.  NOTE:
+          close_callback is not used with DATAGRAM mode sockets.
+
+     RRRREEEETTTTUUUURRRRNNNN VVVVAAAALLLLUUUUEEEESSSS
+          socket_create() returns:
+
+               a non-negative descriptor on success.
+
+               a negative value indicated below on error.
+
+     EEEERRRRRRRROOOORRRRSSSS
+          EEMODENOTSUPP  Socket mode not supported.
+
+     Page 1                                          (printed 3/16/95)
+
+     ssssoooocccckkkkeeeetttt____ccccrrrreeeeaaaatttteeee((((3333))))       MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))        ssssoooocccckkkkeeeetttt____ccccrrrreeeeaaaatttteeee((((3333))))
+
+          EESOCKET       Problem creating socket.
+
+          EESETSOCKOPT   Problem with setsockopt.
+
+          EENONBLOCK     Problem setting non-blocking mode.
+
+          EENOSOCKS      No more available efun sockets.
+
+          EESECURITY     Security violation attempted.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          socket_accept(3), socket_bind(3), socket_close(3),
+          socket_connect(3), socket_listen(3), socket_write(3)
+
+     Page 2                                          (printed 3/16/95)
+

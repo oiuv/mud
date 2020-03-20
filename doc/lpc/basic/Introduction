@@ -1,0 +1,104 @@
+                             LPC Basics
+                     Written by Descartes of Borg
+                            23 april 1993
+ 
+ 
+                            INTRODUCTION
+               This manual, how to use it, and its terms
+ 
+I have seen a lot of requests lately on USENET for LPC manuals.  In addition,
+the immortals on my mud have been telling how good the building documentation
+of Nightmare is, but that there was just no adequate explanation of the
+LPC programming language.  So I decided to try my hand at writing a manual.
+Some things you should keep in mind.
+LPC is a very easy programming language to learn, and it has real
+value in that place most of us know as the real world.  I began playing
+muds in 1991, and in the space of a month created an unimpressive area
+and musician's guild on the original Bates College MUD called Orlith.
+After that, I moved to Los Angeles for a year and had no contact with
+mudding or computers.  In June of 1992, I was back on the internet and
+a wizard of Igor.  In September of 1992 I began coding the Nightmare
+mudlib for our use, and then later decided to distribute it due to there
+not being any mudlibs for MudOS at the time that a person could just throw
+up a running mud with (now, that of course is not the case :)).
+So, I have been doing serious coding for less than a year.  As a
+Philosophy major in a world of Computer Science majors, I just want to
+make clear that it is not at all required that you have ever done anything
+with your computer than log into a mud in order for you to really come
+to understand LPC coding.  This manual makes the following assumptions:
+Someone has taught you basic UNIX commands like ls, cd, mkdir, mv, rm, etc.
+You know how to enter your mud's editor and write a file.  No other
+assumptions are made.  If you know C, you are handicapped in that LPC
+looks a lot like C, but it is not C.  Your preconceptions about
+modular programming development will be a hinderence you will have to
+overcome.  If you have never heard of the C programming language (like
+me in May of 1991), then you are only missing an understanding of the
+simple constructs of C like the flow of program execution and logical
+operators and such.  So a C guru has no real advantage over you, since
+what they know from C which is applicable to LPC is easy to pick up.
+The stuff they know about C which makes them a guru is irrelevant to
+LPC.
+ 
+The chapters of this manual are meant to be read in order.  Starting with
+the introduction, going sequentially through the chapter numbers as
+ordered in the contents file.  Each chapter begins with a paragraph or
+two explaining what you should have come to understand by that point
+in your studies.  After those introductory paragraphs, the chapter then
+begins to discuss its subject matter in nauseating detail.  At the end
+of the chapter is a briefly worded summary of what you should understand
+from that chapter if I have been successful.  Following that may or may
+not be some sidenotes relevant to the subject at hand, but not necessary
+to its understanding.
+ 
+If at any time you get to a chapter intro, and you have read the preceeding
+chapters thoroughly and you do not understand what it says you should
+understand by that point, please mail me!  Clearly, I have failed at that
+point and I need to know where it is I have gone wrong so I can revise
+it properly.  Similarly, if you do not understand what the chapter summary
+says you should, please mail me.  If your mumud is on the MudOS intermud
+system, mail descartes@nightmare.  Otherwise mail borg@hebron.connected.com.
+ 
+Some basic terms this manual uses:
+driver-
+This is the C program which is the game.  It accepts incoming sockets
+(links to other computers), interprets LPC code defined by the mudlib,
+keeps mud objects in memory, makes periodic attempts to clean unused
+mud objects from memory, makes periodic calls to objects, and so on.
+ 
+mudlib-
+LPC code which defines the world in which you are in.  The driver of itself
+is not a game.  It is just a program which allows the creation of a
+multi-user environment.  In some sense, the driver is like an LPC
+compiler, and the mudlib is like a compiler's library (a very loose
+analogy).  The mudlib defines basic objects which will likely be used
+over and over again by people creating in the mud world.  Examples of
+such objects are /std/room (or /room/room), /std/user.c (or /obj/player.c),
+and so on.
+ 
+area or castle:
+Specific creator coded objects which often use a feature of LPC called
+inheritance to make use of the properties of basic mudlib objects and
+turn them into specific objects to be used by players in the game
+ 
+object:
+a room, a weapon, a monster, a player, a bag, etc.  More importantly,
+every individual file with a .c extension is an object.  Objects are
+used in different ways.  Objects like /std/living.c are inherited by
+objects like monster.c and user.c.  Others are cloned, which means a
+duplicate of that code is loaded into memory.  And still others are
+simply loaded into memory to be referenced by other objects.
+ 
+native and compat:
+these two terms refer to two popular flavours of drivers.  Native mode
+mudlibs make use of on the design of LPMud driver 3.0 and later.  You may
+have a 3.0 driver however, but have a 2.4.5 style mudlib.  This is what
+is meant by compat mode.  Mudlibs which are native mode are any for
+MudOS, CD, and LPMud mudlibs that
+are listed as native.  Compat mudlibs are any LPMud mudlib before 3.0 and
+those which are 3.* compat mudlibs.  I believe Amylaar's is compat.
+
+Good Luck!
+George Reese
+(Descartes of Borg)
+12 july 1993
+borg@hebron.connected.com

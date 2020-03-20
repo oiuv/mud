@@ -1,0 +1,19 @@
+
+     ggggeeeetttt____ccccoooonnnnffffiiiigggg((((3333))))          MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))           ggggeeeetttt____ccccoooonnnnffffiiiigggg((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          get_config() - query various driver config settings
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          string | int get_config( int );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          This efun is used to query the driver's various config
+          settings.  Please refer to the "runtime_config.h" include
+          file for a list of currently recognized options.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          /include/runtime_config.h
+
+     Page 1                                          (printed 3/16/95)
+

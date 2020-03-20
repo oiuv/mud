@@ -1,0 +1,9 @@
+lfuns are functions specific to library objects. A shirt,
+for example, has functions that a sword may not need, so
+the LIB_ARMOR and LIB_WEAPON files contain their own functions,
+not shared by other files (it's more complicated than this,
+but that's the idea). These functions are library
+functions, or lfuns. Typically they are found in the objects
+defined by the files in /lib.
+
+See also: efun, efuns, sefun, sefuns, lfuns, showfuns, findfun

@@ -1,0 +1,18 @@
+
+     ttttoooo____ffffllllooooaaaatttt((((3333))))            MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))             ttttoooo____ffffllllooooaaaatttt((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          to_float - convert an int to a float
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          float to_float( int i );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          The to_float() call returns the number of type `float' that
+          is equivalent to the int `i'.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          to_int(3), read_buffer(3), sprintf(3), sscanf(3)
+
+     Page 1                                          (printed 3/16/95)
+

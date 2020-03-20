@@ -1,0 +1,40 @@
+
+     mmmmaaaapppp____ddddeeeelllleeeetttteeee((((3333))))          MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))           mmmmaaaapppp____ddddeeeelllleeeetttteeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          map_delete() - remove a (key, value) pair from a mapping
+          based on the key
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void map_delete( mapping m, mixed element );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          map_delete removes the (key, value) from the mapping m that
+          has key equal to element.
+
+          For example, given:
+
+               mapping names;
+
+               names = ([]);
+               names["truilkan"] = "john";
+               names["wayfarer"] = "erik";
+               names["jacques"] = "dwayne";
+
+          Then:
+
+               map_delete(names,"truilkan");
+
+          causes the mapping 'names' to be equal to:
+
+               (["wayfarer" : "erik", "jacques" : "dwayne"])
+
+          keys(names) will not contain "truilkan" after
+          map_delete(names,"truilkan") is called [unless ("truilkan",
+          *) is subsequently added back to the mapping].
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          allocate_mapping(3)
+
+     Page 1                                          (printed 3/16/95)
+

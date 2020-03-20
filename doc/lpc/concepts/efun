@@ -1,0 +1,9 @@
+efuns are functions available to all objects on the
+mud. Any object may need to know what time() it is, so rather
+than have a time() function in every file that needs it, which
+could be many, there is a time() function built into the
+game that any object can use. An efun is built into the
+driver, so there is no LPC code to look at. Because they
+are compiled code, they tend to be very fast.
+
+See also: efuns, sefun, sefuns, lfun, lfuns, showfuns, findfun

@@ -1,0 +1,43 @@
+
+     ssssoooocccckkkkeeeetttt____aaaaccccqqqquuuuiiiirrrreeee((((3333))))      MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))       ssssoooocccckkkkeeeetttt____aaaaccccqqqquuuuiiiirrrreeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          socket_acquire() - assume ownership of a socket
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          #include <socket_err.h>
+
+          int socket_acquire( int socket, string read_callback,
+                              string write_callback,
+                              string close_callback );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          socket_acquire() is called to complete the handshake begun
+          by socket_release() for transferring ownership (and control)
+          of a socket to a new object.  socket_release() calls the
+          release callback function within the new owner object to
+          notify the object that it wishes to pass control of the
+          socket on.  It is the responsibility of the new owner socket
+          to decide whether it wishes to accept the socket.  It it
+          does, then socket_acquire() is called to complete the
+          transfer.  If not, then the callback simply returns without
+          completing the handshake.
+
+          In the former case the handshake is completed and the new
+          object becomes the socket owner.  The read, write and close
+          callback function parameters refer to functions within the
+          new object.  These are specified so that the MudOS driver
+          will know which functions to call within the new object.
+          Decling to acquire the socket will cause socket_release() to
+          return EESOCKNOTRLSD so the owner can perform appropriate
+          clean-up.
+
+          socket_acquire() may only be called within the context of
+          thr release callback function and only with the socket
+          specified.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          socket_release(3)
+
+     Page 1                                          (printed 3/16/95)
+

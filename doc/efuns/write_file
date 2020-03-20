@@ -1,0 +1,19 @@
+
+     wwwwrrrriiiitttteeee____ffffiiiilllleeee((((3333))))          MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))           wwwwrrrriiiitttteeee____ffffiiiilllleeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          write_file() - appends a string to a file
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          int write_file( string file, string str, int flag );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Append the string `str' into the file `file'. Returns 0 or 1
+          for failure or success.  If flag is 1, write_file overwrites
+          instead of appending.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          read_file(3), write_buffer(3), file_size(3)
+
+     Page 1                                          (printed 3/16/95)
+

@@ -1,0 +1,49 @@
+
+     aaaauuuutttthhhhoooorrrr____ssssttttaaaattttssss((((3333))))        MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))         aaaauuuutttthhhhoooorrrr____ssssttttaaaattttssss((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          domain_stats() - returns statistics gathered on domains
+          author_stats() - returns statistics gathered on authors
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          mapping domain_stats( string domain | void );
+          mapping author_stats( string domain | void );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Both domain_stats() and author_stats() return information
+          stored in a mapping.  If no argument is specified, then
+          information is returned on all domains (or on all authors)
+          with one map entry per domain or author.  If an argument is
+          specified, then a map is returned that corresponds to that
+          domain or author with keys: moves, cost, errors,
+          heart_beats, worth, array_size, and objects.  Each of these
+          map to integer values.  Moves is the number of objects that
+          have moved into objects in the given domain.  Cost is the
+          number of evaluations (eval_cost) accumulated by objects
+          with the given domain (or author).  Errors is the number of
+          errors incurred by objects with the given domain.
+          Heart_beats is the number of heartbeat calls made on objects
+          having the given domain.  Worth is the value maintained by
+          the add_worth(3) efunction (this is usually used to keep
+          track of how much money a given wizard has given out vs.
+          taken in).  Array_size is the size (in bytes) of the arrays
+          allocated by the domain.  Objects is the number of objects
+          created by the given domain.  When called with no arguments,
+          the returned mapping has a form like this:
+
+               ([ domain0 : info0, domain1 : info1, ... ])
+
+          while info0 has the form:
+
+               ([ "moves" : moves, "cost" : cost, "errors" : errors,
+                  "heart_beats" : heart_beats, "worth" : worth,
+                  "array_size" : array_size, "objects" : objects ])
+
+          When called with an argument, the returned mapping will have
+          the form of info0.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          domain_file(4), author_file(4), set_author(3)
+
+     Page 1                                          (printed 3/16/95)
+

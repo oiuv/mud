@@ -1,0 +1,38 @@
+
+     eeeeaaaacccchhhh((((3333))))                MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))                 eeeeaaaacccchhhh((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          each() - iterate over the (key, value) pairs in a mapping
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          mixed *each( mapping m, int reset );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          The (key, value) pairs in a mapping may be iterated over
+          using the each() efun.  each() returns the (key, value)
+          pairs in the same order as keys() and values() do.  each()
+          returns a null vector when the end of the mapping is
+          reached.  The next access to each() (after receiving the
+          null vector) will start over at the beginning of the map.
+          The current position in the map always resets to the
+          beginning when a different object accesses the map via
+          each().  Given the singlethreaded nature of MudOS, this
+          doesn't present a problem (and in fact makes sure that an
+          object can't leave the current position in an in-between
+          state).  If the optional second argument is given as 1, then
+          each()'s position in mapping `m' is reset to the beginning.
+
+          For example:
+
+               mixed *pair;
+
+               while ((pair = each(x)) != ({})) {
+                 write("key   = " + pair[0] + "\n");
+                 write("value = " + pair[1] + "\n");
+               }
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          keys(3), values(3)
+
+     Page 1                                          (printed 3/16/95)
+

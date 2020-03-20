@@ -1,0 +1,21 @@
+
+     ggggeeeennnneeeerrrraaaatttteeee____ssssoooouuuurrrrcccceeee((((3333))))     MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))      ggggeeeennnneeeerrrraaaatttteeee____ssssoooouuuurrrrcccceeee((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          generate_source() - generates the C code corresponding to a
+          give object
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void generate_source( string file, void | string out_file );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          generate_source() calls the LPC->C compiler to generate the
+          source code for a given object.  If no output file is
+          specified, the output is saved in the SAVE_BINARIES
+          directory.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          valid_asm(4), valid_compile_to_c(4)
+
+     Page 1                                          (printed 3/16/95)
+

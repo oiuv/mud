@@ -1,0 +1,20 @@
+
+     ddddeeeessssttttrrrruuuucccctttt((((3333))))            MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))             ddddeeeessssttttrrrruuuucccctttt((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          destruct() - remove an object from the games
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void destruct( object ob );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          Completely destroy and remove object `ob'. After the call to
+          destruct(), no global variables will exist any longer, only
+          locals, and arguments.  If `ob' is this_object(), execution
+          will continue, but it is best to return a value immediately.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          clone_object(3), new(3), destruct_env_of(4), move(4)
+
+     Page 1                                          (printed 3/16/95)
+

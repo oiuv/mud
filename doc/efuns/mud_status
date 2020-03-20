@@ -1,0 +1,21 @@
+
+     mmmmuuuudddd____ssssttttaaaattttuuuussss((((3333))))          MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))           mmmmuuuudddd____ssssttttaaaattttuuuussss((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          mud_status() - report various driver and mudlib statistics
+
+     SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+          void mud_status( int extra );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          This function writes driver and mudlib statistics to the
+          caller's screen.  If extra is non-zero, then additional
+          information will be written.  This function replaces the
+          hardcoded 'status' and 'status tables' commands in vanilla
+          3.1.2.
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          debug_info(3), dumpallobj(3), memory_info(3), uptime(3)
+
+     Page 1                                          (printed 3/16/95)
+

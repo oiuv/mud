@@ -1,0 +1,32 @@
+
+     kkkkeeeeyyyyssss((((3333))))                MMMMuuuuddddOOOOSSSS ((((5555 SSSSeeeepppp 1111999999994444))))                 kkkkeeeeyyyyssss((((3333))))
+
+     NNNNAAAAMMMMEEEE
+          keys() - return an array of the keys from the (key, value)
+          pairs in a mapping
+
+     SSSSYYYYNNNNOOOOPPPPSSSSYYYYSSSS
+          mixed *keys( mapping m );
+
+     DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+          keys() returns an array of keys (indices) corresponding to
+          the keys in the (key, value) pairs stored in the mapping m.
+
+          For example, if:
+
+               mapping m;
+               m = (["hp" : 35, "sp" : 42, "mass" : 100]);
+
+          then
+
+               keys(m) == ({"hp", "sp", "mass"})
+
+          Note: the keys will not be returned in any apparent order.
+          However, they will be returned in the same order as the
+          corresponding values (returned by the values() efun).
+
+     SSSSEEEEEEEE AAAALLLLSSSSOOOO
+          values(3), each(3)
+
+     Page 1                                          (printed 3/16/95)
+
