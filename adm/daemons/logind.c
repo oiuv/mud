@@ -1070,7 +1070,7 @@ int check_legal_id(string id)
 
     i = strlen(id);
 
-    if ((strlen(id) < 3) || (strlen(id) > 10))
+    if ((i < 3) || (i > 10))
     {
         write(WHT "\n对不起，你的英文名字必须是" HIY " 3 " NOR +
               WHT "到" HIY " 10 " NOR + WHT "个英文字母。\n" NOR);
@@ -1102,7 +1102,7 @@ int check_legal_name(string name, int maxlen)
         return 0;
     }
 
-    if ((strlen(name) < 1) || (strlen(name) > maxlen))
+    if ((i < 1) || (i > maxlen))
     {
         write(WHT "对不起，你的中文姓名不能太长。\n" NOR);
         return 0;

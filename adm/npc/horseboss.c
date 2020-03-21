@@ -155,7 +155,7 @@ int check_legal_id(string id)
 
     i = strlen(id);
 
-    if ((strlen(id) < 3) || (strlen(id) > 20))
+    if ((i < 3) || (i > 20))
     {
         write("对不起，英文 id 必须是 3 到 20 个英文字母。\n");
         return 0;
@@ -202,8 +202,8 @@ int check_legal_name(string name, int max_len)
     int i;
     // string  *legalname; // not implemented..may add later
 
-    i = strlen(name);
-    if ((strlen(name) < 2) || (strlen(name) > max_len ))
+    i = strwidth(name);
+    if ((i < 2) || (i > max_len ))
     {
         write(sprintf("对不起，坐骑中文字必须是 1 到 %d 个中文字。\n",
                 max_len / 2));

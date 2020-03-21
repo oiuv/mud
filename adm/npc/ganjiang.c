@@ -531,7 +531,7 @@ int do_name(string arg)
         return 1;
     }
 
-    if (strlen(filter_color(sname)) < 4)
+    if (strwidth(filter_color(sname)) < 4)
     {
         command("say 我说你这名字起得也太短了吧，至少两个汉字！");
         return 1;
@@ -589,7 +589,7 @@ int do_desc(string arg)
     arg = replace_string(arg, "$N", me->name(1));
 
     chk = filter_color(arg);
-    if (strlen(chk) >= 2 && chk[0..1] == "你" || strsrch(chk, "\\n你") != -1)
+    if (strwidth(chk) >= 2 && chk[0..0] == "你" || strsrch(chk, "\\n你") != -1)
         return notify_fail("对不起，描述不能以“你”字打头。\n");
 
     chk = replace_string(chk, " ", "");
@@ -636,7 +636,7 @@ int do_wieldmsg(string arg)
         return 1;
 
     chk = filter_color(arg);
-    if (strlen(chk) >= 2 && chk[0..1] == "你" || strsrch(chk, "\\n你") != -1)
+    if (strwidth(chk) >= 2 && chk[0..0] == "你" || strsrch(chk, "\\n你") != -1)
         return notify_fail("对不起，描述不能以“你”字打头。\n");
 
     chk = replace_string(chk, " ", "");
@@ -687,7 +687,7 @@ int do_unwield(string arg)
         return 1;
 
     chk = filter_color(arg);
-    if (strlen(chk) >= 2 && chk[0..1] == "你" || strsrch(chk, "\\n你") != -1)
+    if (strwidth(chk) >= 2 && chk[0..0] == "你" || strsrch(chk, "\\n你") != -1)
         return notify_fail("对不起，描述不能以“你”字打头。\n");
 
     chk = replace_string(chk, " ", "");
@@ -712,20 +712,7 @@ int do_unwield(string arg)
 // 判断是否是合法的汉字
 private int legal_chinese(string str)
 {
-    int i;
-
-    if (strlen(str) < 2)
-        return 0;
-
-    for (i = 0; i < strlen(str); i++)
-    {
-        if (str[i] < 161 || str[i] == 255)
-            return 0;
-        if ((!(i % 2)) && str[i] >= 248)
-            return 0;
-    }
-
-    return 1;
+    return is_chinese(str);
 }
 
 // 转换字符串中的颜色标志

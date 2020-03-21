@@ -4,7 +4,7 @@
 string *select_a(mapping p, string except)
 {
         int i;
-        int r;  
+        int r;
         int total;
         string *kp;
 
@@ -24,7 +24,7 @@ string *select_a(mapping p, string except)
                         break;
         }
         r &= 0xFFFE;
-        return ({ kp[i], p[kp[i]][r..r+1] });
+        return ({ kp[i], p[kp[i]][r..r] });
 }
 
 #endif

@@ -143,7 +143,7 @@ int save()
 int restore()
 {
     int res;
-    string sec_id;
+    // string sec_id;
 
     res = ::restore();
 /*

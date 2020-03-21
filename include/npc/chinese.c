@@ -199,7 +199,7 @@ mapping cn_pname1 = ([
         "lang" : "朗浪廊琅阆莨",
         "li"   : "历离里理利立力丽礼黎栗荔沥栎璃",
         "lin"  : "临霖林",
-        "ma"   : "马犸", 
+        "ma"   : "马犸",
         "mao"  : "贸冒貌冒懋矛卯瑁",
         "miao" : "淼渺邈",
         "nan"  : "楠南腩赧",
@@ -261,7 +261,7 @@ mapping cn_pname2 = ([
         "li"   : "丽黎莉俪麗",
         "lian" : "恋莲",
         "lin"  : "魿琳",
-        "lu"   : "露璐", 
+        "lu"   : "露璐",
         "man"  : "曼漫嫚",
         "mei"  : "美梅媚莓",
         "meng" : "梦萌",
@@ -315,7 +315,7 @@ void generate_cn_name(object ob)
         id2 = pname;
         pname = cn_pname[pname];
         pname = pname[(random(sizeof(pname)) & 0xFFFE)..<1];
-        pname = pname[0..1];
+        pname = pname[0..0];
         if (random(3) == 0)
         {
                 for (;;)
@@ -327,11 +327,10 @@ void generate_cn_name(object ob)
                 id2 += pname2;
                 pname2 = cn_pname[pname2];
                 pname2 = pname2[(random(sizeof(pname2)) & 0xFFFE)..<1];
-                pname2 = pname2[0..1];
+                pname2 = pname2[0..0];
         } else
                 pname2 = "";
 
         if (ob) ob->set_name(sname + pname + pname2,
                              ({ id1 + " " + id2, id1, id2 }));
 }
-
