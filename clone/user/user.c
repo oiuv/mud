@@ -146,6 +146,7 @@ int restore()
     string sec_id;
 
     res = ::restore();
+/*
     if (res)
     {
         if (stringp(sec_id = query("sec_id")))
@@ -168,7 +169,7 @@ int restore()
         // 数据完整
         user_cracked = 0;
     }
-
+*/
     return res;
 }
 
