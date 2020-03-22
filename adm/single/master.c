@@ -43,6 +43,53 @@ mixed compile_object(string file)
         return 0;
 }
 
+// Function name:       epilog
+// Return:              List of files to preload
+string *epilog(int load_empty)
+{
+    string *items;
+
+    items = read_lines(CONFIG_DIR + "preload");
+    return items;
+}
+
+// preload an object
+void preload(string file)
+{
+    if (objectp(find_object(file)))
+        return;
+
+    if (file_size(file + ".c") == -1)
+        return;
+
+    catch(load_object(file));
+}
+
+string get_root_uid()
+{
+    return ROOT_UID;
+}
+
+string get_bb_uid()
+{
+    return BACKBONE_UID;
+}
+
+string creator_file(string str)
+{
+    return (string)call_other(SIMUL_EFUN_OB, "creator_file", str);
+}
+
+string domain_file(string str)
+{
+    return (string)call_other(SIMUL_EFUN_OB, "domain_file", str);
+}
+
+string author_file(string str)
+{
+    return (string)call_other(SIMUL_EFUN_OB, "author_file", str);
+}
+
 // This is called when there is a driver segmentation fault or a bus error,
 // etc.  As it's nosave it can't be called by anything but the driver (and
 // master).
@@ -114,141 +161,6 @@ void crash(string error, object command_giver, object current_object)
 #endif
 }
 
-// Function name:   update_file
-// Description:     reads in a file, ignoring lines that begin with '#'
-// Arguements:      file: a string that shows what file to read in.
-// Return:          Array of nonblank lines that don't begin with '#'
-// Note:            must be declared nosave (else a security hole)
-protected string *update_file(string file)
-{
-    string *list;
-    string str;
-    int i;
-
-    str = read_file(file);
-    if (!str)
-        return ({});
-
-    list = explode(str, "\n");
-    for (i = 0; i < sizeof(list); i++)
-        if (list[i][0] == '#')
-            list[i] = 0;
-
-    list -= ({ 0 });
-    return list;
-}
-
-// Function name:       epilog
-// Return:              List of files to preload
-string *epilog(int load_empty)
-{
-    string *items;
-
-    items = update_file(CONFIG_DIR + "preload");
-    return items;
-}
-
-// preload an object
-void preload(string file)
-{
-    if (objectp(find_object(file)))
-        return;
-
-    if (file_size(file + ".c") == -1)
-        return;
-
-    catch(load_object(file));
-}
-
-// Write an error message into a log file. The error occured in the object
-// 'file', giving the error message 'message'.
-void log_error(string file, string message)
-{
-    //if (this_player(1)) efun::write("\n编译时段错误：" + message); else
-    //if (this_player()) tell_object(this_player(), "\n编译时段错误：" + message);
-
-    efun::write_file(LOG_DIR + "log", message);
-}
-
-// save_ed_setup and restore_ed_setup are called by the ed to maintain
-// individual options settings. These functions are located in the master
-// object so that the local admins can decide what strategy they want to use.
-int save_ed_setup(object who, int code)
-{
-    string file;
-
-    if (! intp(code))
-        return 0;
-
-    file = user_path(getuid(who)) + ".edrc";
-    rm(file);
-    return write_file(file, code + "");
-}
-
-// Retrieve the ed setup. No meaning to defend this file read from
-// unauthorized access.
-int retrieve_ed_setup(object who)
-{
-    string file;
-        int code;
-
-    file = user_path(getuid(who)) + ".edrc";
-    if (file_size(file) <= 0)
-        return 0;
-
-    sscanf(read_file(file), "%d", code);
-    return code;
-}
-
-// When an object is destructed, this function is called with every
-// item in that room.  We get the chance to save users from being destructed.
-void destruct_env_of(object ob)
-{
-    if (! userp(ob)) return;
-    tell_object(ob, "你所存在的空间被毁灭了。\n");
-    ob->move(VOID_OB);
-}
-
-// make_path_absolute: This is called by the driver to resolve path names in ed.
-string make_path_absolute(string file)
-{
-    file = resolve_path((string)this_player()->query("cwd"), file);
-    return file;
-}
-
-// called if a user connection is broken while in the editor; allows
-// the mudlib to save the changes in an alternate file without modifying
-// the original
-string get_save_file_name(string fname)
-{
-    return fname + "." + time();
-}
-
-string get_root_uid()
-{
-    return ROOT_UID;
-}
-
-string get_bb_uid()
-{
-    return BACKBONE_UID;
-}
-
-string creator_file(string str)
-{
-    return (string)call_other(SIMUL_EFUN_OB, "creator_file", str);
-}
-
-string domain_file(string str)
-{
-    return (string)call_other(SIMUL_EFUN_OB, "domain_file", str);
-}
-
-string author_file(string str)
-{
-    return (string)call_other(SIMUL_EFUN_OB, "author_file", str);
-}
-
 // simulate the old behavior of the driver
 string standard_trace(mapping error, int caught)
 {
@@ -308,18 +220,31 @@ string standard_trace(mapping error, int caught)
 }
 
 // The mudlib runtime error handler.
-string error_handler(mapping error, int caught)
+void error_handler(mapping error, int caught)
 {
+    string trace = standard_trace(error, caught);
     if (this_player(1))
     {
         this_player(1)->set_temp("error", error);
-        tell_object(this_player(1), standard_trace(error, caught));
-    } else
-    if (this_player())
-        tell_object(this_player(), standard_trace(error, caught));
+        tell_object(this_player(1), trace);
+    }
+    else if (this_player())
+        tell_object(this_player(), trace);
 
+    trace += "[" + ctime() + "]";
+    trace += sprintf("\n%O\n", error);
     // whatever we return goes to the debug.log
-    return standard_trace(error, caught);
+    efun::write_file(LOG_DIR + "error_handler", trace);
+}
+
+// Write an error message into a log file. The error occured in the object
+// 'file', giving the error message 'message'.
+void log_error(string file, string message)
+{
+    //if (this_player(1)) efun::write("\n编译时段错误：" + message); else
+    //if (this_player()) tell_object(this_player(), "\n编译时段错误：" + message);
+
+    efun::write_file(LOG_DIR + "log_error", message);
 }
 
 string object_name(object ob)
@@ -330,6 +255,71 @@ string object_name(object ob)
 void create()
 {
     debug_message("master_ob loaded successfully.");
+}
+
+// driver 启动测试: -fdebug
+void flag(string str) {
+    switch (str) {
+        case "debug":
+            DEBUG = 1;
+            break;
+        default:
+            write("[MASTER_OB]->flag():The only supproted flag is 'debug', got '" + str + "'.\n");
+    }
+}
+
+// When an object is destructed, this function is called with every
+// item in that room.  We get the chance to save users from being destructed.
+void destruct_env_of(object ob)
+{
+    if (! userp(ob)) return;
+    tell_object(ob, "你所存在的空间被毁灭了。\n");
+    ob->move(VOID_OB);
+}
+
+// save_ed_setup and restore_ed_setup are called by the ed to maintain
+// individual options settings. These functions are located in the master
+// object so that the local admins can decide what strategy they want to use.
+int save_ed_setup(object who, int code)
+{
+    string file;
+
+    if (! intp(code))
+        return 0;
+
+    file = user_path(getuid(who)) + ".edrc";
+    rm(file);
+    return write_file(file, code + "");
+}
+
+// Retrieve the ed setup. No meaning to defend this file read from
+// unauthorized access.
+int retrieve_ed_setup(object who)
+{
+    string file;
+        int code;
+
+    file = user_path(getuid(who)) + ".edrc";
+    if (file_size(file) <= 0)
+        return 0;
+
+    sscanf(read_file(file), "%d", code);
+    return code;
+}
+
+// make_path_absolute: This is called by the driver to resolve path names in ed.
+string make_path_absolute(string file)
+{
+    file = resolve_path((string)this_player()->query("cwd"), file);
+    return file;
+}
+
+// called if a user connection is broken while in the editor; allows
+// the mudlib to save the changes in an alternate file without modifying
+// the original
+string get_save_file_name(string fname)
+{
+    return fname + "." + time();
 }
 
 void check_daemons()
@@ -368,15 +358,4 @@ int direct_run_binary(string file)
     // 没有找到CONFIG_D && VERSION_D，不编译，直接运行
     // BIN代码。
     return 1;
-}
-
-// driver 启动测试: -fdebug
-void flag(string str) {
-    switch (str) {
-        case "debug":
-            DEBUG = 1;
-            break;
-        default:
-            write("[MASTER_OB]->flag():The only supproted flag is 'debug', got '" + str + "'.\n");
-    }
 }

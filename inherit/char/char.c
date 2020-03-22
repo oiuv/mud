@@ -34,6 +34,7 @@ inherit F_SHELL;
 inherit F_TEAM;
 
 #define SCHEME_CMD "/cmds/usr/scheme"
+#define NOTICE "/help/notice"
 
 // Use a tick with longer period than heart beat to save cpu's work
 nosave int next_beat;
@@ -210,7 +211,7 @@ void heart_beat()
         {
             string msg;
 
-            msg = HIY "【江湖公告】" NOR + WHT "欢迎加入官方游戏QQ群：9783836。\n" NOR;
+            msg = HIY + element_of(read_lines(NOTICE)) + NOR "\n";
 
             if (!me->save())
                 msg = HIR "【数据保护】由于数据异常，您的档案本次存盘失败。\n" NOR;

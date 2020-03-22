@@ -3,16 +3,16 @@
 
 void cat(string file)
 {
-        if (previous_object())
-                seteuid(geteuid(previous_object()));
-        else
-                seteuid(ROOT_UID);
+    if (previous_object())
+        seteuid(geteuid(previous_object()));
+    else
+        seteuid(ROOT_UID);
     write(read_file(file));
 }
 
 void log_file(string file, string text)
 {
-        seteuid(ROOT_UID);
+    seteuid(ROOT_UID);
     write_file(LOG_DIR + file, text);
 }
 
@@ -26,37 +26,51 @@ void assure_file(string file)
     seteuid(ROOT_UID);
     dir = explode(file, "/");
 
-        if (file[strlen(file) - 1] != '/')
-                // the file is refer to a file, not directory
-            dir = dir[0..sizeof(dir)-2];
+    if (file[strlen(file) - 1] != '/')
+        // the file is refer to a file, not directory
+        dir = dir[0..sizeof(dir)-2];
 
     path = "/";
     for (i = 0; i < sizeof(dir); i++)
-        {
+    {
         path += dir[i];
         mkdir(path);
         path += "/";
     }
 
-        dir = 0;
+    dir = 0;
 }
 
-string base_name(object ob)
+// Function name:   read_lines
+// Description:     reads in a file, ignoring lines that begin with '#'
+// Arguements:      file: a string that shows what file to read in.
+// Return:          Array of nonblank lines that don't begin with '#'
+// Note:            must be declared nosave (else a security hole)
+string *read_lines(string file)
 {
-    string file;
+    string *list;
+    string str;
+    int i;
 
-    if (sscanf(file_name(ob), "%s#%*d", file) == 2)
-        return file;
-    else
-        return file_name(ob);
+    str = read_file(file);
+    if (!str)
+        return ({});
+
+    list = explode(str, "\n");
+    for (i = 0; i < sizeof(list); i++)
+        if (list[i][0] == '#')
+            list[i] = 0;
+
+    list -= ({ 0 });
+    return list;
 }
 
 string color_filter(string content)
 {
-        if (! content)
-                return "";
+    if (! content)
+        return "";
 
-        // Foreground color
+    // Foreground color
     content = replace_string(content, "$BLK$", BLK);
     content = replace_string(content, "$RED$", RED);
     content = replace_string(content, "$GRN$", GRN);
@@ -74,7 +88,7 @@ string color_filter(string content)
     content = replace_string(content, "$HIW$", HIW);
     content = replace_string(content, "$NOR$", NOR);
 
-        // Background color
+    // Background color
     content = replace_string(content, "$BBLK$", BBLK);
     content = replace_string(content, "$BRED$", BRED);
     content = replace_string(content, "$BGRN$", BGRN);
@@ -95,17 +109,17 @@ string color_filter(string content)
     content = replace_string(content, "$HIREV$", HIREV);
     content = replace_string(content, "$BOLD$", BOLD);
 
-        return content;
+    return content;
 }
 
 void color_cat(string file)
 {
-        if (previous_object())
-                seteuid(geteuid(previous_object()));
-        else
-                seteuid(ROOT_UID);
+    if (previous_object())
+        seteuid(geteuid(previous_object()));
+    else
+        seteuid(ROOT_UID);
 
-        write(color_filter(read_file(file)));
+    write(color_filter(read_file(file)));
 }
 
 string remove_ansi(string content)
@@ -120,24 +134,7 @@ void ansi(string file)
 
 int file_lines(string file)
 {
-#ifdef DOING_IMPROVED
-        return efun::file_lines(file);
-#else
-        int i;
-        int jmp;
-
-        i = 65536;
-        jmp = i / 2;
-
-        while (jmp)
-        {
-                if (read_file(file, i, 1)) i += jmp; else
-                                           i -= jmp;
-                jmp /= 2;
-        }
-
-        return i - 1;
-#endif
+    return efun::file_length(file);
 }
 
 int file_exists(string file)
