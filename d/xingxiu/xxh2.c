@@ -22,7 +22,7 @@ LONG);
         set("item_desc", ([
                 "duilian" : (: look_duilian :),
         ]));
-        
+
         set("objects", ([
                  "/kungfu/class/xingxiu/dizi" : 4,
         ]));
@@ -36,21 +36,21 @@ string look_duilian()
 {
         return
         RED "\n"
-        "        ※※※※※※※            ※※※※※※※\n"
-        "        ※※※※※※※            ※※※※※※※\n"
-        "        ※※      ※※            ※※      ※※\n"
-        "        ※※" NOR + HIW "　星　" NOR + RED "※※            ※※" NOR + HIW "  日  " NOR + RED "※※\n"
-        "        ※※　 　 ※※            ※※      ※※\n"
-        "        ※※" NOR + HIW "  宿  " NOR + RED "※※            ※※" NOR + HIW "  月  " NOR + RED "※※\n"
-        "        ※※      ※※            ※※      ※※\n"
-        "        ※※" NOR + HIW "  海  " NOR + RED "※※            ※※" NOR + HIW "  洞  " NOR + RED "※※\n"
-        "        ※※      ※※            ※※      ※※\n"
-        "        ※※" NOR + HIW "  福  " NOR + RED "※※            ※※" NOR + HIW "  洞  " NOR + RED "※※\n"
-        "        ※※      ※※            ※※      ※※\n"
-        "        ※※" NOR + HIW "  地  " NOR + RED "※※            ※※" NOR + HIW "  天  " NOR + RED "※※\n"
-        "        ※※    　※※            ※※      ※※\n"
-        "        ※※※※※※※            ※※※※※※※\n"
-        "        ※※※※※※※            ※※※※※※※\n\n\n" NOR;
+        "        ##############            ##############\n"
+        "        ##############            ##############\n"
+        "        ####      ####            ####      ####\n"
+        "        ####" NOR + HIW "　星　" NOR + RED "####            ####" NOR + HIW "  日  " NOR + RED "####\n"
+        "        ####　 　 ####            ####      ####\n"
+        "        ####" NOR + HIW "  宿  " NOR + RED "####            ####" NOR + HIW "  月  " NOR + RED "####\n"
+        "        ####      ####            ####      ####\n"
+        "        ####" NOR + HIW "  海  " NOR + RED "####            ####" NOR + HIW "  洞  " NOR + RED "####\n"
+        "        ####      ####            ####      ####\n"
+        "        ####" NOR + HIW "  福  " NOR + RED "####            ####" NOR + HIW "  洞  " NOR + RED "####\n"
+        "        ####      ####            ####      ####\n"
+        "        ####" NOR + HIW "  地  " NOR + RED "####            ####" NOR + HIW "  天  " NOR + RED "####\n"
+        "        ####    　####            ####      ####\n"
+        "        ##############            ##############\n"
+        "        ##############            ##############\n\n\n" NOR;
 }
 
 int valid_leave(object me, string dir)
@@ -62,7 +62,7 @@ int valid_leave(object me, string dir)
 
         if (dir == "north")
                 return guarder->permit_pass(me, dir);
-        
+
 
         return 1;
 }

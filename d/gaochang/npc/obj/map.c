@@ -10,15 +10,14 @@ void create()
         else {
                 set("unit", "张");
                 set("long", WHT "\n这是一张高昌迷宫地图，依照图示，按以下方位即可进入。\n\n" HIW
-                            "※※※※※※※※※※※※※※※※※※※※※※※\n"
-                            "※※※" NOR + HIR "东" NOR + HIW "※" NOR + HIR "东" NOR + HIW
-                            "※" NOR + HIR "南" NOR + HIW "※" NOR + HIR "东" NOR + HIW "※"
-                            NOR + HIR "北" NOR + HIW "※" NOR + HIR "北" NOR + HIW "※" NOR +
-                            HIR "东" NOR + HIW "※" NOR + HIR "东" NOR + HIW "※" NOR + HIR
-                            "南" NOR + HIW "※※※\n"
-                            "※※※※※※※※※※※※※※※※※※※※※※※\n\n" NOR);
+                            "##==========================================##\n"
+                            "## ###" NOR + HIR "东" NOR + HIW "##" NOR + HIR "东" NOR + HIW
+                            "##" NOR + HIR "南" NOR + HIW "##" NOR + HIR "东" NOR + HIW "##"
+                            NOR + HIR "北" NOR + HIW "##" NOR + HIR "北" NOR + HIW "##" NOR +
+                            HIR "东" NOR + HIW "##" NOR + HIR "东" NOR + HIW "##" NOR + HIR
+                            "南" NOR + HIW "######\n"
+                            "##==========================================##\n\n" NOR);
                 set("value", 500);
                 set("material", "paper");
         }
 }
-

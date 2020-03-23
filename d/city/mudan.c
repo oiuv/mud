@@ -60,34 +60,34 @@ void create()
 生辉，桌上铺着份菜单(menu)。
 ");
         set("exits", ([
-            	"north" : __DIR__"zxlpath",
+                    "north" : __DIR__"zxlpath",
         ]));
         set("no_sleep_room",1);
 
         set("item_desc", ([
-                "menu" :  WHT "\n\n        ※※※※※※※※※※※※※※※\n"
-                              "        ※                          ※\n"
-                              "        ※         " NOR + HIR "承办酒席" NOR + WHT "         ※\n"
-                              "        ※                          ※\n"
-                              "        ※  " NOR + HIW "祝寿宴" NOR + WHT "：" NOR + HIY "order birthday" NOR + WHT "  ※\n"
-                              "        ※                          ※\n"
-                              "        ※                " NOR + YEL "二两黄金" NOR + WHT "  ※\n"
-                              "        ※                          ※\n"
-                              "        ※  " NOR + HIW "订婚宴" NOR + WHT "：" NOR + HIY "order marry" NOR + WHT "     ※\n"
-                              "        ※                          ※\n"
-                              "        ※                " NOR + YEL "三两黄金" NOR + WHT "  ※\n"
-                              "        ※                          ※\n"
-                              "        ※  " NOR + HIW "群豪宴" NOR + WHT "：" NOR + HIY "order player" NOR + WHT "    ※\n"
-                              "        ※                          ※\n"
-                              "        ※                " NOR + YEL "五两黄金" NOR + WHT "  ※\n"
-                              "        ※                          ※\n"
-                              "        ※  " NOR + HIW "结  束" NOR + WHT "：" NOR + HIY "order end" NOR + WHT "       ※\n"
-                              "        ※                          ※\n"
-                              "        ※                          ※\n"
-                              "        ※                          ※\n"
-                              "        ※※※※※※※※※※※※※※※\n\n\n" NOR,
+                "menu" :  WHT "\n\n        ##==========================##\n"
+                              "        ##                          ##\n"
+                              "        ##         " NOR + HIR "承办酒席" NOR + WHT "         ##\n"
+                              "        ##                          ##\n"
+                              "        ##  " NOR + HIW "祝寿宴" NOR + WHT "：" NOR + HIY "order birthday" NOR + WHT "  ##\n"
+                              "        ##                          ##\n"
+                              "        ##                " NOR + YEL "二两黄金" NOR + WHT "  ##\n"
+                              "        ##                          ##\n"
+                              "        ##  " NOR + HIW "订婚宴" NOR + WHT "：" NOR + HIY "order marry" NOR + WHT "     ##\n"
+                              "        ##                          ##\n"
+                              "        ##                " NOR + YEL "三两黄金" NOR + WHT "  ##\n"
+                              "        ##                          ##\n"
+                              "        ##  " NOR + HIW "群豪宴" NOR + WHT "：" NOR + HIY "order player" NOR + WHT "    ##\n"
+                              "        ##                          ##\n"
+                              "        ##                " NOR + YEL "五两黄金" NOR + WHT "  ##\n"
+                              "        ##                          ##\n"
+                              "        ##  " NOR + HIW "结  束" NOR + WHT "：" NOR + HIY "order end" NOR + WHT "       ##\n"
+                              "        ##                          ##\n"
+                              "        ##                          ##\n"
+                              "        ##                          ##\n"
+                              "        ##==========================##\n\n\n" NOR,
         ]));
-	set("no_clean_up", 0);
+        set("no_clean_up", 0);
         setup();
         set("no_user", 1);
 }
@@ -99,7 +99,7 @@ void init()
         add_action("do_order", "order");
         add_action("do_broadcast", "broadcast");
         if (query("order_owner"))
-	{
+        {
                 me = this_player();
                 me->set("food", me->query("food") / 2);
                 me->set("water", me->query("water") / 2);
@@ -120,15 +120,15 @@ int do_broadcast(string arg)
         type = query("order_type");
 
         if (type == "marry")
-	{
+        {
                 mesg = me->name() + "现在在醉仙楼牡丹厅举行订婚酒宴。\n\n";
         } else
-	if (type == "birthday")
-	{
+        if (type == "birthday")
+        {
                 mesg = me->name() + "现在在醉仙楼牡丹厅举行生辰寿宴。\n\n";
         } else
-	if (type == "player")
-	{
+        if (type == "player")
+        {
                 mesg = me->name() + "现在在醉仙楼牡丹厅宴请各路英雄豪杰。\n\n";
         }
         message("channel:chat", HIW "【江湖通告】" + mesg + NOR, users());
@@ -148,7 +148,7 @@ int do_order(string arg)
         if (mesg
            && (arg == "end")
            && (mesg == me->query("id")))
-	{
+        {
                 mesg = "牡丹厅的宴会结束了。\n\n";
                 message("channel:chat", HIW "【江湖通告】" + mesg + NOR, users());
 
@@ -157,7 +157,7 @@ int do_order(string arg)
                 oblist = all_inventory(env);
 
                 for(idx = 0; idx<sizeof(oblist); idx++)
-		{
+                {
                         if (! objectp(oblist[idx]))
                                 continue;
                         if (userp(oblist[idx]))
@@ -168,10 +168,10 @@ int do_order(string arg)
         }
         if (mesg)
                 return notify_fail("这里已经被人包租了。\n");
-	        notify_fail("你没有足够的钱或零钱不够。\n");
+                notify_fail("你没有足够的钱或零钱不够。\n");
 
         if (arg == "marry")
-	{
+        {
                 mesg = me->name() + "现在在醉仙楼牡丹厅举行订婚酒宴。\n\n";
 
                 if (me->can_afford(30000) == 0)
@@ -203,8 +203,8 @@ int do_order(string arg)
                 create_food(HIY "粉蒸肉" NOR, ({ "meat" }));
                 create_food(YEL "家常豆腐" NOR, ({ "bean curd" }));
         } else
-	if (arg == "birthday")
-	{
+        if (arg == "birthday")
+        {
                 mesg = me->name() + "现在在醉仙楼牡丹厅举行生辰寿宴。\n\n";
 
                 if (me->can_afford(20000) == 0)
@@ -233,8 +233,8 @@ int do_order(string arg)
                 create_food(YEL "粉蒸肉" NOR, ({ "meat" }));
                 create_food(HIW "四喜豆腐" NOR, ({ "bean curd" }));
         } else
-	if (arg == "player")
-	{
+        if (arg == "player")
+        {
                 mesg = me->name() + "现在在醉仙楼牡丹厅宴请各路英雄豪杰。\n\n";
 
                 if (me->can_afford(50000) == 0)
@@ -278,7 +278,7 @@ int do_order(string arg)
                 create_food(HIY "东北水饺" NOR, ({ "dumpling" }));
         }
         else
-	{
+        {
                 return notify_fail("你要定什么酒席?\n");
         }
         message("channel:chat", HIW "\n【江湖通告】" + mesg + NOR, users());

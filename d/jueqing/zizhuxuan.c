@@ -37,16 +37,16 @@ string look_ge()
 {
         return HIC "\n但见亭阁掩映于翠竹之下，之上立有一横匾，上书："
                HIG "\n\n"
-        "\t\t※※※※※※※        \n"
-        "\t\t※※※※※※※        \n"
-        "\t\t※※      ※※        \n"
-        "\t\t※※" NOR + MAG "　紫 " HIG " ※※\n" HIG    
-        "\t\t※※　 　 ※※        \n" HIG 
-        "\t\t※※" NOR + MAG "　竹 " HIG " ※※\n" HIG    
-        "\t\t※※　 　 ※※        \n" HIG
-        "\t\t※※" NOR + MAG "　轩 " HIG " ※※\n" HIG
-        "\t\t※※      ※※\n"     
-        "\t\t※※※※※※※\n" HIG
-        "\t\t※※※※※※※\n\n" NOR;
+        "\t\t##############        \n"
+        "\t\t##############        \n"
+        "\t\t####      ####        \n"
+        "\t\t####" NOR + MAG "　紫 " HIG " ####\n" HIG
+        "\t\t####　 　 ####        \n" HIG
+        "\t\t####" NOR + MAG "　竹 " HIG " ####\n" HIG
+        "\t\t####　 　 ####        \n" HIG
+        "\t\t####" NOR + MAG "　轩 " HIG " ####\n" HIG
+        "\t\t####      ####\n"
+        "\t\t##############\n" HIG
+        "\t\t##############\n\n" NOR;
 
 }

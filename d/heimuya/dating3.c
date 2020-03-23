@@ -14,13 +14,13 @@ LONG);
             	"north" : __DIR__"qinggate",
         ]));
         set("item_desc", ([
-                "bian" : WHT "\n\n        ※※※※※※※※※※※※※※\n"
-                              "        ※                        ※\n"
-                              "        ※   " HIG "长虹贯日  青龙飞天" NOR + WHT "   ※\n"
-                              "        ※                        ※\n"
-                              "        ※   " HIG "千秋万载  一统江湖" NOR + WHT "   ※\n"
-                              "        ※                        ※\n"
-                              "        ※※※※※※※※※※※※※※\n\n\n" NOR,
+                "bian" : WHT "\n\n        ##========================##\n"
+                              "        ##                        ##\n"
+                              "        ##   " HIG "长虹贯日  青龙飞天" NOR + WHT "   ##\n"
+                              "        ##                        ##\n"
+                              "        ##   " HIG "千秋万载  一统江湖" NOR + WHT "   ##\n"
+                              "        ##                        ##\n"
+                              "        ##========================##\n\n\n" NOR,
         ]) );
         set("objects",([
                 __DIR__"npc/dizi5" : 4,

@@ -14,23 +14,23 @@ LONG);
         set("no_beg",1);
         set("exits", ([
                 "east" : __DIR__"wendingnan1",
-                 
+
         ]));
         set("item_desc", ([
-                "paizi" : WHT "\n\n        ※※※※※※※※※※※\n"
-                              "        ※                  ※\n"
-                              "        ※     公平交易     ※\n"
-                              "        ※                  ※\n"
-                              "        ※  " NOR + HIW "存钱" NOR + WHT "： " NOR + HIY "deposit" NOR + WHT "  ※\n"
-                              "        ※                  ※\n"
-                              "        ※  " NOR + HIW "取钱" NOR + WHT "： " NOR + HIY "withdraw" NOR + WHT " ※\n"
-                              "        ※                  ※\n"
-                              "        ※  " NOR + HIW "兑换" NOR + WHT "： " NOR + HIY "convert" NOR + WHT "  ※\n"
-                              "        ※                  ※\n"
-                              "        ※  " NOR + HIW "查帐" NOR + WHT "： " NOR + HIY "check" NOR + WHT "    ※\n"
-                              "        ※                  ※\n"
-                              "        ※                  ※\n"
-                              "        ※※※※※※※※※※※\n\n\n" NOR,
+                "paizi" : WHT "\n\n        ######################\n"
+                              "        ##                  ##\n"
+                              "        ##     公平交易     ##\n"
+                              "        ##                  ##\n"
+                              "        ##  " NOR + HIW "存钱" NOR + WHT "： " NOR + HIY "deposit" NOR + WHT "  ##\n"
+                              "        ##                  ##\n"
+                              "        ##  " NOR + HIW "取钱" NOR + WHT "： " NOR + HIY "withdraw" NOR + WHT " ##\n"
+                              "        ##                  ##\n"
+                              "        ##  " NOR + HIW "兑换" NOR + WHT "： " NOR + HIY "convert" NOR + WHT "  ##\n"
+                              "        ##                  ##\n"
+                              "        ##  " NOR + HIW "查帐" NOR + WHT "： " NOR + HIY "check" NOR + WHT "    ##\n"
+                              "        ##                  ##\n"
+                              "        ##                  ##\n"
+                              "        ######################\n\n\n" NOR,
         ]));
 
         set("objects" , ([
@@ -40,4 +40,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

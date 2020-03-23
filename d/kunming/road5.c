@@ -10,16 +10,16 @@ void create()
 LONG);
         set("outdoors", "kunming");
         set("exits", ([
-                "south" : __DIR__"qiao", 
-                "north" :__DIR__"road4",                
+                "south" : __DIR__"qiao",
+                "north" :__DIR__"road4",
         ]));
         set("item_desc", ([
-                "bei" : WHT "\n\n\n            ※※※※※※※※※※※※※※※※\n"
-                        "            ※                            ※\n"
-                        "            ※" NOR + HIW "     通      天      河" NOR +
-                        WHT "     ※\n"
-                        "            ※                            ※\n"
-                        "            ※※※※※※※※※※※※※※※※\n\n\n" NOR,
+                "bei" : WHT "\n\n\n            ################################\n"
+                        "            ##                            ##\n"
+                        "            ##" NOR + HIW "     通      天      河" NOR +
+                        WHT "     ##\n"
+                        "            ##                            ##\n"
+                        "            ################################\n\n\n" NOR,
         ]));
         set("objects", ([
                 "/d/beijing/npc/tiaofu" : 2,

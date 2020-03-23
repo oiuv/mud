@@ -33,7 +33,7 @@ LONG);
 }
 
 void init()
-{       
+{
         add_action("do_jump", ({ "tiao", "jump" }));
 }
 
@@ -48,8 +48,8 @@ int do_jump(string arg)
                 return notify_fail("你现在正忙着呢！\n");
 
         if (me->is_fighting())
-                return notify_fail("你还是先把你面前这个家伙解决了再说。\n"); 
-        
+                return notify_fail("你还是先把你面前这个家伙解决了再说。\n");
+
         if (! me->query_temp("marks/跳"))
         {
                 write(HIR "你真的要跳下" HIW "断肠崖" HIR "吗，如果确定"
@@ -60,7 +60,7 @@ int do_jump(string arg)
                 return 1;
         }
 
-        write(HIG "\n你鼓起勇气，纵身一跃跳下" HIW "断肠崖" HIG "…\n" NOR);   
+        write(HIG "\n你鼓起勇气，纵身一跃跳下" HIW "断肠崖" HIG "…\n" NOR);
         write(HIR "\n你只觉得耳边风声萧萧，浑身使不处半点力气，一颗心都提到\n"
               "了喉咙上。但见万千景致飞快地向上飞去，而感觉自己却越落\n越快"
               "，想不到这断肠崖竟如此之高。\n" NOR);
@@ -75,34 +75,34 @@ string look_zi()
 {
         return
         HIC "\n"
-        "\t※※※※※※※        ※※※※※※※\n"
-        "\t※※※※※※※        ※※※※※※※\n"
-        "\t※※      ※※        ※※      ※※\n"
-        "\t※※" NOR + HIR "　十　" HIC "※※        ※※" NOR + HIR "  夫  " HIC "※※\n"
-        "\t※※　 　 ※※        ※※      ※※\n"
-        "\t※※" NOR + HIR "　六　" HIC "※※        ※※" NOR + HIR "  妻  " HIC "※※\n"
-        "\t※※　 　 ※※        ※※      ※※\n"
-        "\t※※" NOR + HIR "　年　" HIC "※※        ※※" NOR + HIR "  情  " HIC "※※\n"
-        "\t※※　 　 ※※        ※※      ※※\n"
-        "\t※※" NOR + HIR "　后　" HIC "※※        ※※" NOR + HIR "  深  " HIC "※※\n"
-        "\t※※　 　 ※※        ※※      ※※\n"
-        "\t※※" HIR "　在　" HIC "※※        ※※" HIR "  莫  " HIC "※※\n"
-        "\t※※　 　 ※※        ※※      ※※\n"
-        "\t※※" HIR "　此　" HIC "※※        ※※" HIR "  失  " HIC "※※\n"
-        "\t※※　 　 ※※        ※※      ※※\n"
-        "\t※※" HIR "　相　" HIC "※※        ※※" HIR "  信  " HIC "※※\n"
-        "\t※※　 　 ※※        ※※      ※※\n"
-        "\t※※" HIR "　聚　" HIC "※※        ※※" HIR "  约  " HIC "※※\n"
-        "\t※※　 　 ※※        ※※      ※※\n" 
-        "\t※※※※※※※        ※※※※※※※\n"
-        "\t※※※※※※※        ※※※※※※※\n\n" NOR;
+        "\t##############        ##############\n"
+        "\t##############        ##############\n"
+        "\t####      ####        ####      ####\n"
+        "\t####" NOR + HIR "　十　" HIC "####        ####" NOR + HIR "  夫  " HIC "####\n"
+        "\t####　 　 ####        ####      ####\n"
+        "\t####" NOR + HIR "　六　" HIC "####        ####" NOR + HIR "  妻  " HIC "####\n"
+        "\t####　 　 ####        ####      ####\n"
+        "\t####" NOR + HIR "　年　" HIC "####        ####" NOR + HIR "  情  " HIC "####\n"
+        "\t####　 　 ####        ####      ####\n"
+        "\t####" NOR + HIR "　后　" HIC "####        ####" NOR + HIR "  深  " HIC "####\n"
+        "\t####　 　 ####        ####      ####\n"
+        "\t####" HIR "　在　" HIC "####        ####" HIR "  莫  " HIC "####\n"
+        "\t####　 　 ####        ####      ####\n"
+        "\t####" HIR "　此　" HIC "####        ####" HIR "  失  " HIC "####\n"
+        "\t####　 　 ####        ####      ####\n"
+        "\t####" HIR "　相　" HIC "####        ####" HIR "  信  " HIC "####\n"
+        "\t####　 　 ####        ####      ####\n"
+        "\t####" HIR "　聚　" HIC "####        ####" HIR "  约  " HIC "####\n"
+        "\t####　 　 ####        ####      ####\n"
+        "\t##############        ##############\n"
+        "\t##############        ##############\n\n" NOR;
 }
 
 int tell_player()
-{  
+{
        object me = this_player();
        object ob;
-     
+
        if (! ob = find_object(__DIR__"underya"))
                ob = load_object(__DIR__"underya");
 

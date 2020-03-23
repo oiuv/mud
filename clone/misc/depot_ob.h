@@ -195,8 +195,7 @@ int do_store(string arg)
         inv = all_inventory(me);
         inv -= ({ this_object() });
         inv -= ({ 0 });
-        inv = filter_array(inv, (: $1->query_autoload() && !$1->is_item_make() &&
-                                !$1->query("equipped") && !$1->query("money_id") :));
+        inv = filter_array(inv, (: !$1->is_item_make() && !$1->query("equipped") && !$1->query("money_id") :));
         n = sizeof(inv);
         if( n > 100 )
         {

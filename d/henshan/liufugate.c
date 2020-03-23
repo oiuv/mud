@@ -9,16 +9,8 @@ void create()
         set("long",
 "这里是刘府大门。刘府的主人，就是衡山派中的仅次于掌\n门人莫大先生"
 "的第二号人物刘正风刘老爷子。今天兴许刘府有\n事吧，大门(gate)紧闭，管"
-"家家丁也异样紧张，莫非今天出了\n什么事情。\n\n" HIR
-"     ||                                        ||\n"
-"  ┏≡≡┓" HIW "   ※※※※※※※※※※※※※※" HIR "   ┏≡≡┓\n"
-"  {------}" HIW "   ※                        ※" HIR "   {------}\n"
-"  ┗≡≡┛" HIW "   ※       " HIY "刘      府" HIW "       ※" HIR "   ┗≡≡┛\n"
-"   │││" HIW "    ※                        ※" HIR "    │││\n"
-"   │││" HIW "    ※※※※※※※※※※※※※※" HIR "    │││\n"
-"   │││                                    │││\n\n"
-
-); 
+"家家丁也异样紧张，莫非今天出了\n什么事情。\n"
+);
         set("exits", ([
                 "south"  : __DIR__"hengyang1",
         ]));
@@ -30,7 +22,7 @@ void create()
         set("objects", ([
                 __DIR__"npc/haoke"    : 4,
                 __DIR__"npc/jian-ke" : 2,
-        ]));  
+        ]));
 
         setup();
 }
@@ -60,10 +52,10 @@ int do_push(string arg)
     object /*weapon,*/me = this_player();
 //  mapping fam;
 
-    if ( !me->query_temp("marks")) 
+    if ( !me->query_temp("marks"))
               return notify_fail("门关得牢牢的，急切打不开！\n");
 
-    if ( !arg || arg != "gate" ) 
+    if ( !arg || arg != "gate" )
               return notify_fail("这是干嘛？\n");
 
     message_vision(HIY "$N走到门前，把门随便一推，居然就推开了大门！\n\n"NOR,me);
@@ -77,7 +69,7 @@ int do_push(string arg)
 }
 void close_out()
 {
-    if (query("exits/enter")) 
+    if (query("exits/enter"))
               delete("exits/enter");
 }
 

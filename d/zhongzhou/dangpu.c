@@ -14,18 +14,18 @@ LONG);
         set("no_steal", 1);
         set("no_beg", 1);
         set("item_desc", ([
-                "paizi" : WHT "\n\n        ※※※※※※※※※※※\n"
-                              "        ※                  ※\n"
-                              "        ※     公平交易     ※\n"
-                              "        ※                  ※\n"
-                              "        ※  " NOR + HIW "卖出" NOR + WHT "：   " NOR + HIY "sell" NOR + WHT "   ※\n"
-                              "        ※                  ※\n"
-                              "        ※  " NOR + HIW "买进" NOR + WHT "：   " NOR + HIY "buy" NOR + WHT "    ※\n"
-                              "        ※                  ※\n"
-                              "        ※  " NOR + HIW "估价" NOR + WHT "：   " NOR + HIY "value" NOR + WHT "  ※\n"
-                              "        ※                  ※\n"
-                              "        ※                  ※\n"
-                              "        ※※※※※※※※※※※\n\n\n" NOR,
+                "paizi" : WHT "\n\n        ######################\n"
+                              "        ##                  ##\n"
+                              "        ##     公平交易     ##\n"
+                              "        ##                  ##\n"
+                              "        ##  " NOR + HIW "卖出" NOR + WHT "：   " NOR + HIY "sell" NOR + WHT "   ##\n"
+                              "        ##                  ##\n"
+                              "        ##  " NOR + HIW "买进" NOR + WHT "：   " NOR + HIY "buy" NOR + WHT "    ##\n"
+                              "        ##                  ##\n"
+                              "        ##  " NOR + HIW "估价" NOR + WHT "：   " NOR + HIY "value" NOR + WHT "  ##\n"
+                              "        ##                  ##\n"
+                              "        ##                  ##\n"
+                              "        ######################\n\n\n" NOR,
         ]));
 
 

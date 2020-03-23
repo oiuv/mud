@@ -126,7 +126,6 @@ int save()
         sizeof(me->query("can_whistle"))))
     {
         me->set("startroom", base_name(environment(me)));
-        write("当你下次连线进来时，会从这里开始。\n");
     }
 
     if (query_temp("user_setup"))

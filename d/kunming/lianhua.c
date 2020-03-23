@@ -12,27 +12,27 @@ void create()
 LONG);
         set("outdoors", "kunming");
 
-        set("exits", ([                
+        set("exits", ([
                 "southdown" : __DIR__"shilin2",
                 "up" : __DIR__"wfting",
         ]));
 
         set("item_desc", ([
-                     "zi" : WHT "\n         ※※※※ \n"
-                             "         ※    ※ \n"
-                             "         ※ 天 ※ \n"
-                             "         ※    ※ \n"
-                             "         ※ 下 ※ \n"
-                             "         ※    ※ \n"
-                             "         ※ 第 ※ \n"
-                             "         ※    ※ \n"
-                             "         ※ 一 ※ \n"
-                             "         ※    ※ \n"
-                             "         ※ 奇 ※ \n"
-                             "         ※    ※ \n"
-                             "         ※ 观 ※ \n"
-                             "         ※    ※ \n"
-                             "         ※※※※ \n\n\n" NOR,
+                     "zi" : WHT "\n         ######## \n"
+                             "         ##    ## \n"
+                             "         ## 天 ## \n"
+                             "         ##    ## \n"
+                             "         ## 下 ## \n"
+                             "         ##    ## \n"
+                             "         ## 第 ## \n"
+                             "         ##    ## \n"
+                             "         ## 一 ## \n"
+                             "         ##    ## \n"
+                             "         ## 奇 ## \n"
+                             "         ##    ## \n"
+                             "         ## 观 ## \n"
+                             "         ##    ## \n"
+                             "         ######## \n\n\n" NOR,
 
                      "shi" : HIR "\n\n\n            攀登直欲夺天工\n\n"
                              "            一顶凌云挈众峰\n\n"
