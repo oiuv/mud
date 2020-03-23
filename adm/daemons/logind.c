@@ -450,7 +450,7 @@ private void get_surname(string arg, object ob)
 {
     if (arg && strlen(arg) > 0)
     {
-        if (! check_legal_name(arg, 4))
+        if (! check_legal_name(arg, 2))
         {
             write("您的中文" HIG "姓氏" NOR "(不要超过两个汉字)：");
             input_to("get_surname", ob);
@@ -470,7 +470,7 @@ private void get_name(string arg, object ob)
     string fname;
     string result;
 
-    if (! check_legal_name(arg, 4))
+    if (! check_legal_name(arg, 2))
     {
         write("您的中文" HIY "名字" NOR "(不要超过两个汉字)：");
         input_to("get_name", ob);

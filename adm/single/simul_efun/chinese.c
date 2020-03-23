@@ -29,7 +29,7 @@ int is_chinese(string str)
     if (!str)
         return 0;
 
-    str = remove_ansi(str);
+    str = filter_ansi(str);
 
     return pcre_match(str, "^\\p{Han}+$");
 }

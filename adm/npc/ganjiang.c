@@ -1,5 +1,4 @@
 // ganjiang.c  干将
-// Written by Doing Lu  1998/11/2
 
 // 干将负责炼道具的场景，但是不接受玩家的物品，玩家如果炼制
 // 道具应该和莫邪打交道。如果 player 在莫邪那里将一切手续办
@@ -55,16 +54,16 @@ void create()
     set("str", 1000);
 
     set("inquiry", ([
-            "炼制":(: ask_me :),
-            "铸造":(: ask_me :),
-            "原料":"炼剑就得有原料，一分钱，一分货，好原料就能出好东西。\n",
-            "定金":"定金少得很，才五两黄金，要交定金请交给莫邪。\n",
-            "价格":"一分钱一分货......",
-            "销毁":"那就...退回(discard)来吧...",
-            "退货":"那就...退回(discard)来吧...",
-            "规则":(: show_order :),
-            "方法":(: show_order :),
-            "order":(: show_order :),
+        "炼制":(: ask_me :),
+        "铸造":(: ask_me :),
+        "原料":"炼剑就得有原料，一分钱，一分货，好原料就能出好东西。\n",
+        "定金":"定金少得很，才五两黄金，要交定金请交给莫邪。\n",
+        "价格":"一分钱一分货......",
+        "销毁":"那就...退回(discard)来吧...",
+        "退货":"那就...退回(discard)来吧...",
+        "规则":(: show_order :),
+        "方法":(: show_order :),
+        "order":(: show_order :),
     ]));
 
     setup();
@@ -402,9 +401,7 @@ void waiting(object me, object ob, object moye)
 
     if (!objectp(me))
     {
-        message_vision("$N叹了口气说道：怎么这走了，算了算"
-                       "了，去吧！\n",
-                       this_object());
+        message_vision("$N叹了口气说道：怎么这走了，算了算了，去吧！\n", this_object());
         if (objectp(moye))
             moye->delete_temp("item");
 
@@ -431,27 +428,22 @@ void waiting(object me, object ob, object moye)
             return;
         if (environment(me) == environment())
         {
-            message_vision("$N皱了皱眉头说道：这人怎么这么"
-                           "磨蹭，算了，不要就不要吧！\n",
-                           this_object());
+            message_vision("$N皱了皱眉头说道：这人怎么这么磨蹭，算了，不要就不要吧！\n", this_object());
             return;
         }
-        message_vision("$N皱了皱眉头对$n说道：你这人怎么这么"
-                       "磨蹭，不要就算了，恕不退款！\n",
+        message_vision("$N皱了皱眉头对$n说道：你这人怎么这么磨蹭，不要就算了，恕不退款！\n",
                        this_object(), me);
         return;
     }
 
     if (environment(me) != environment())
     {
-        message_vision("$N疑惑地说道：人怎么跑掉了？算了，再等"
-                       "他一会吧。\n",
+        message_vision("$N疑惑地说道：人怎么跑掉了？算了，再等他一会吧。\n",
                        this_object());
     }
     else if (!in_input(me))
     {
-        message_vision(HIR "$N" HIR "催$n" HIR
-                           "道：快点，快点，别磨蹭，否则我可就不做了。\n" NOR,
+        message_vision(HIR "$N" HIR "催$n" HIR "道：快点，快点，别磨蹭，否则我可就不做了。\n" NOR,
                        this_object(), me);
     }
 
@@ -482,7 +474,7 @@ int do_name(string arg)
 {
     object me;
     object ob;
-    //      string pname;
+    // string pname;
     string sname, sid;
 
     me = this_player();
@@ -969,7 +961,7 @@ private string create_file(object item_temp)
           ":" + item_temp->query("item/owner_id") + ") " + filename +
           "\n// Written by GAN JIANG(Doing Lu 1998/11/2)\t" + ctime(time()) + "\n";
     info = item_temp->query("item");
-    ih = up_case(info["stype"]);
+    ih = upper_case(info["stype"]);
     if (info["type"] == "weapon")
     {
         // 生成武器道具文件

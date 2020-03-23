@@ -138,7 +138,7 @@ void get_gender(string arg, object ob)
         input_to( (: get_gender :), ob );
         return;
     }
-    ob->set_temp("pet/pet_gender", gender ? "男性" : "女性");
+    ob->set_temp("pet/pet_gender", gender ? "雄性" : "雌性");
 
     write("\n");
     write("现在你可以设定英文 id ，英文 id 会自动加上后缀id(ma)。\n");

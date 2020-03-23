@@ -158,7 +158,7 @@ void get_gender(string arg, object ob)
                 input_to( (: get_gender :), ob );
                 return;
         }
-        ob->set_temp("beast/beast_gender", n ? "男性" : "女性");
+        ob->set_temp("beast/beast_gender", n ? "雄性" : "雌性");
 
         write("\n");
 

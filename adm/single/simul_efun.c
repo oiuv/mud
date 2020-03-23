@@ -3,6 +3,7 @@
 
 #include <ansi.h>
 
+#include "simul_efun/ansi.c"
 #include "simul_efun/atoi.c"
 #include "simul_efun/bitmap_font.c"
 #include "simul_efun/file.c"
