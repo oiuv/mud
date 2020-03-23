@@ -12,4 +12,6 @@
 
  * 5555 端口为GBK编码
  * 6666 端口为UTF-8编码
- * 8888 端口为WEBSOCKET
+ * 8000 端口为WEBSOCKET访问
+
+游戏体验：http://mud.ren:8000/
