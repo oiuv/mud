@@ -758,7 +758,7 @@ private void init_new_player(object user)
 
 varargs void enter_world(object ob, object user, int silent)
 {
-    object cloth, shoe/*, room*/, login_ob;
+    object cloth, shoe;
     string startroom;
     string ipname;
     // int new_mail_n;
@@ -791,8 +791,8 @@ varargs void enter_world(object ob, object user, int silent)
 
     // In case of new player, we save them here right aftre setup
     // compeleted.
-    user->save();
     user->set("last_save", time());
+    user->save();
     ob->save();
 
     // check the user
@@ -843,7 +843,8 @@ varargs void enter_world(object ob, object user, int silent)
         catch(cloth->wear());
         shoe->move(user);
         catch(shoe->wear());
-    } else
+    }
+    else
     {
         if (user->query("gender") == "女性")
         {
@@ -880,10 +881,11 @@ varargs void enter_world(object ob, object user, int silent)
         if (! user->query("registered") ||
             ! stringp(user->query("character")))
         {
-          if (user->is_ghost())
-            user->reincarnate();
+            if (user->is_ghost())
+                user->reincarnate();
             user->set("startroom", REGISTER_ROOM);
-        } else if (! stringp(user->query("born")))
+        }
+        else if (! stringp(user->query("born")))
         {
             if (user->is_ghost())
                 user->reincarnate();
@@ -910,26 +912,22 @@ varargs void enter_world(object ob, object user, int silent)
             "连线进入这个世界。\n", ({user}));
     }
 
-    login_ob = new(LOGIN_OB);
-    login_ob->set("id", user->query("id"));
-    login_ob->restore();
-    if (login_ob->query("registered"))
+    if (ob->query("registered"))
     {
-        if (! intp(login_ob->query("login_times")))
+        if (!(ob->query("login_times")))
         {
             write(NOR "\n你是第一次光临" + LOCAL_MUD_NAME() + "。\n");
-            login_ob->set("login_times", 1);
+            ob->set("login_times", 1);
             // show rules
-        } else
+        }
+        else
         {
-            login_ob->add("login_times", 1);
-            write("\n你上次光临" + LOCAL_MUD_NAME() + "是 " + HIG +
-                    ctime(login_ob->query("last_on")) + NOR + " 从 " + HIR +
-                    login_ob->query("last_from") + NOR + " 连接的。\n");
+            ob->add("login_times", 1);
+            write(NOR "\n你是第 " + ob->query("login_times") + " 次光临" + LOCAL_MUD_NAME() + "。\n");
+            write("\n你上次是 " + HIG + ctime(ob->query("last_on")) + NOR + " 从 " + HIR +
+                    ob->query("last_from") + NOR + " 连接的。\n");
         }
     }
-
-    destruct(login_ob);
 
     // 检查同盟情况
     "/cmds/usr/league"->main(this_player(), "check");

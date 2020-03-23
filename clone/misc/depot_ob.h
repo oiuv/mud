@@ -428,10 +428,10 @@ int hide_anywhere(object me)
 int receive_dbase_data(mixed data)
 {
     if( !mapp(data) || sizeof(data) < 1 )
-            return 0;
+        return 0;
 
     if( data["all"] )
-            all = data["all"];
+        all = data["all"];
 
     return 1;
 }
@@ -443,7 +443,7 @@ mixed save_dbase_data()
     data = ([]);
 
     if( sizeof(all) > 0 )
-            data += ([ "all" : all ]);
+        data += ([ "all" : all ]);
 
     return data;
 }
@@ -459,7 +459,7 @@ int receive_dbase_data(mixed data)
         return 0;
 
     n = sizeof(data);
-    for( i=0; i<n; i++ )
+    for (i = 0; i < n; i++)
     {
         item = new(class store);
         item->name = data["item" + i]["name"];
