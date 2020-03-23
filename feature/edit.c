@@ -3,7 +3,7 @@
 int edit(function callback)
 {
 	write("结束离开用 '.'，取消输入用 '~q'，使用内建列编辑器用 '~e'。\n");
-	write("—————————————————————————————\n");
+	write("----------------------------------------------------------\n");
 	input_to("input_line", "", callback);
 	return 1;
 }

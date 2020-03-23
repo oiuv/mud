@@ -2,8 +2,8 @@
 #include <ansi.h>
 int help(object me);
 int main(object me, string name)
-{       
-        object ob; 
+{
+        object ob;
         string ip;
         if( !name ) return help(me);
         seteuid(getuid());
@@ -11,7 +11,7 @@ int main(object me, string name)
               return notify_fail("没有这个玩家。\n");
         ip = query_ip_number(ob);
         write("\n" + HIY+ob->name(1) + NOR + "IP状态如下：\n"NOR);
-        write(HIY+"IP地址：" + HIR + ip + NOR + "——" + HIG + IP_D->seek_ip_address(ip) + "\n");
+        write(HIY+"IP地址：" + HIR + ip + NOR + "----" + HIG + IP_D->seek_ip_address(ip) + "\n");
         write("\n");
         return 1;
 }
@@ -25,4 +25,3 @@ HELP
         );
     return 1;
 }
-

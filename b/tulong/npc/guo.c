@@ -113,7 +113,7 @@ int begin(object me)
         COMBAT_D->do_attack(ob, me, query_temp("weapon"));
 
         message_vision(HIC "\n$N" HIC "喝道：第三拳来了！这式叫做「"
-                       HIY "横扫千军—直摧万马" HIC "」！\n" NOR, ob);
+                       HIY "横扫千军--直摧万马" HIC "」！\n" NOR, ob);
 
         this_object()->add_temp("apply/attack", 300);
         this_object()->add_temp("apply/unarmed_damage", 300);

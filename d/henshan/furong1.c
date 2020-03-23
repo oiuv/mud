@@ -15,14 +15,14 @@ void create()
 的主人已经很久没有来了。想到这里不禁苍凉之意顿起：「芙
 蓉花开时，不见主人归」。
 LONG);
-   
+
         set("exits",([
                 "out" : __DIR__"furong",
-        ]));	
+        ]));
 
         set("item_desc",([
-	        "wall"  : (: look_wall :),
-	        "net"   : (: look_net :),
+                "wall"  : (: look_wall :),
+                "net"   : (: look_net :),
 
                 "dong"  : HIY "阳光从洞外射进来，四周怪石(stone)突出，似乎可"
                           "以从这里爬(climb)上去。\n" NOR,
@@ -31,10 +31,10 @@ LONG);
         ]));
 
         setup();
-}	
+}
 
 void init()
-{       
+{
         add_action("do_pull", "pull");
         add_action("do_think", "think");
         add_action("do_climb", "climb");
@@ -43,11 +43,11 @@ void init()
 int do_pull(string arg)
 {
         object here;
- 
+
         if (! here = find_object(__DIR__"furong1"))
                 here = load_object(__DIR__"furong1");
 
-       	if (! arg || arg != "net")
+               if (! arg || arg != "net")
         {
                 write("你要拉什么？\n");
                 return 1;
@@ -56,9 +56,9 @@ int do_pull(string arg)
         if (here->query_temp("marks/拉"))
         {
                 write("蜘蛛网已经被拉破了。\n");
-                return 1;	
+                return 1;
         }
-    
+
         write(HIC "\n你把蜘蛛网拉了下来。\n" NOR);
         here->set_temp("marks/拉", 1);
 
@@ -74,9 +74,9 @@ int do_think(string arg)
                 here = load_object(__DIR__"furong1");
 
         if (me->query("special_skill/clever"))
-		add = me->query_int() * 5;
+                add = me->query_int() * 5;
         else
-		add = me->query_int() * 3;
+                add = me->query_int() * 3;
 
         if (! here->query_temp("marks/拉"))
                 return notify_fail("什么？\n");
@@ -125,29 +125,29 @@ string look_wall()
 
         if (here->query_temp("marks/拉"))
         {
-        	message_sort(HIG "\n你走到石壁前，抹去上面多年来积蓄的灰"
+                message_sort(HIG "\n你走到石壁前，抹去上面多年来积蓄的灰"
                              "尘，发现上面所刻的竟是一套剑法。这些全部都"
                              "是用利器所刻，当可见当初刻绘之人功力深厚，"
                              "用心良苦。你不禁对这位前辈心生敬仰之情。只"
                              "见壁上全是一个个小人，每个人都使出不同的招"
                              "式，剑法精妙令人折服。\n" NOR, me);
 
-		write(WHT @TEXT
+                write(WHT @TEXT
 
-  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  ┏--------------------------------------------------------┓
   ┃                                                 ****** ┃
-  ┃   ●>        ●       ●        ●       ●     * 芙 * ┃
-  ┃   \ __    ━v|\     \//>━    \//\__   ━v|^    * 蓉 * ┃
-  ┃   /<        /<       /> 	    />        /<     * 剑 * ┃
-  ┃						     * 法 * ┃
-  ┃					             ****** ┃
-  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-							     
+  ┃   ●>         ●        ●          ●        ●     * 芙 * ┃
+  ┃   \ __    --v|\     \//>--    \//\__   --v|^    * 蓉 * ┃
+  ┃   /<        /<       />         />        /<    * 剑 * ┃
+  ┃                                                 * 法 * ┃
+  ┃                                                 ****** ┃
+  ┗--------------------------------------------------------┛
+
 TEXT NOR);
-	        return "\n";
+                return "\n";
          }
 
-	 msg = WHT "\n石壁上面布满了蜘蛛网(net)，显然很久没有人来过这里"
+         msg = WHT "\n石壁上面布满了蜘蛛网(net)，显然很久没有人来过这里"
                "了。\n看到此处，你心中悲凉之意顿起！\n" NOR;
 
          return msg;
@@ -173,15 +173,15 @@ string look_net()
 }
 
 int do_climb(string arg)
-{	
-	object me = this_player();
+{
+        object me = this_player();
 
-  	if (! arg || arg != "stone")
-		return notify_fail("你想爬什么？\n");
+          if (! arg || arg != "stone")
+                return notify_fail("你想爬什么？\n");
 
-	write(HIG "\n你踩着洞中突出的石头上，很快爬出了洞口。\n\n" NOR);
+        write(HIG "\n你踩着洞中突出的石头上，很快爬出了洞口。\n\n" NOR);
 
-	me->move(__DIR__"furongfeng");
-	   
-	return 1;
+        me->move(__DIR__"furongfeng");
+
+        return 1;
 }

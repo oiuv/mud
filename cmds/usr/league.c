@@ -110,17 +110,17 @@ int main(object me, string arg)
         case "join":
                 if (! stringp(me->query_temp("wait_reply")))
                         return notify_fail("现在没有同盟邀请你加入！\n");
-                
+
                 ob = find_living(me->query_temp("wait_reply"));
                 if (! objectp(ob))
                 {
                         me->delete_temp("wait_reply");
                         return notify_fail("刚才邀请你的人已经不在线上了！\n");
- 
-                }               
+
+                }
 
                 me->set_temp("wait_join", 1);
-                
+
                 add_member(ob, me->query("id"));
                 me->delete_temp("wait_reply");
                 me->delete_temp("wait_join");
@@ -136,16 +136,16 @@ int main(object me, string arg)
                 if (me->query("id") != me->query("league/leader_id"))
                         return notify_fail("只有同盟领袖才能使用该指令！\n");
 
-                if (! arg || 
-                    ! intp(lvl) || 
-                    lvl < 0 || 
-                    lvl > 4)return notify_fail("指令格式： league grant [id] [权限等级(0—4)]。\n");
-             
+                if (! arg ||
+                    ! intp(lvl) ||
+                    lvl < 0 ||
+                    lvl > 4)return notify_fail("指令格式： league grant [id] [权限等级(0--4)]。\n");
+
                 ob = find_living(arg);
 
                 if (! objectp(ob))
                         return notify_fail("这个用户目前没有登陆！\n");
-         
+
                 if (me->query("league/league_name") != ob->query("league/league_name"))
                         return notify_fail("看清楚了，他不是你的成员！\n");
 
@@ -160,7 +160,7 @@ int main(object me, string arg)
                            HIG + lvls[lvlold] + "→" + lvls[lvl] + "\n" NOR);
 
                 return 1;
-                                
+
         case "kick":
                 if (! stringp(fname = me->query("league/league_name")))
                         return notify_fail("你现在还没有和任何人结义成盟呢。\n");
@@ -174,9 +174,9 @@ int main(object me, string arg)
 
                 if (me->query("league/leader_id") == arg)
                         return notify_fail("好啊，连领袖都敢踢？\n");
-                                     
+
                 return remove_member(me, arg);
-                                
+
         case "top":
                 return "/cmds/usr/top"->main(me, "league");
 
@@ -203,17 +203,17 @@ int main(object me, string arg)
                          write("no_kill    == " + me->query("league/set/no_kill") + "\n");
                          write("weiwang    == " + me->query("league/set/weiwang") + "％\n");
 
-                         return 1; 
+                         return 1;
                 }
                 sscanf(arg, "%s %d", arg, lvl);
-                if (arg != "no_kill" 
+                if (arg != "no_kill"
                     && arg != "weiwang"
                     && arg != "follow")
                 {
                          write("指令格式：league set <参数> <变量> 。\n");
                          write("变量    ：no_kill   <1>不参与同盟战斗。\n");
                          write("                    <0>参与同盟战斗。\n");
-                         write("          weiwang   <0—100> 获得威望时分将威望的 weiwang % 分给同盟。\n\n");
+                         write("          weiwang   <0--100> 获得威望时分将威望的 weiwang % 分给同盟。\n\n");
 
                          return 1;
 
@@ -221,13 +221,13 @@ int main(object me, string arg)
 
                 if (lvl <= 0)lvl = 0;
                 if (lvl >= 100)lvl = 100;
-                
+
                 me->set("league/set/" + arg, lvl);
                 write(HIG "OK！\n" NOR);
-                
+
                 return 1;
-          
-        case "title": 
+
+        case "title":
                 if (! stringp(fname = me->query("league/league_name")))
                         return notify_fail("你现在还没有和任何人结义成盟呢。\n");
 
@@ -242,9 +242,9 @@ int main(object me, string arg)
                         write("指令格式：league title <权限等级(1-4)> <封号> .\n");
                         return 1;
                 }
-                
+
                 write("制作中 ...\n");
-                return 1;                
+                return 1;
         case "out":
                 if (! stringp(fname = me->query("league/league_name")))
                         return notify_fail("你现在还没有和任何人结义成盟呢。\n");
@@ -254,7 +254,7 @@ int main(object me, string arg)
                         // 同盟的声望下降
                         if (me->query("weiwang") < LEAGUE_D->query_league_fame(fname) / 10)
                                   LEAGUE_D->add_league_fame(fname, -1 * LEAGUE_D->query_league_fame(fname) / 10);
-                        else 
+                        else
                                   LEAGUE_D->add_league_fame(fname, -1 * me->query("weiwang"));
                         CHANNEL_D->do_channel(this_object(), "rumor",
                                 "听说" + me->name(1) + "(" + me->query("id") +
@@ -480,7 +480,7 @@ int show_league_info(object me, string arg)
                                        ob->query("weiwang"));
                        if (lvl = ob->query("league/grant"))
                                msg += HIG + lvls[lvl] + "\n" NOR;
-                       else    
+                       else
                                msg += "\n";
                 }
                 else
@@ -568,7 +568,7 @@ int add_member(object me, string arg)
         if (! member->query_temp("wait_join"))
         {
               write(HIG "信息已发出，正等待对方回应！\n" NOR);
-              tell_object(member, "\n" + HIY + me->name() + "(" + me->query("id") + ")邀请你加入 「" 
+              tell_object(member, "\n" + HIY + me->name() + "(" + me->query("id") + ")邀请你加入 「"
                           HIG +  me->query("league/league_name") + HIY " 」"
                           "，如果你愿意请输入： league join 。\n");
 
@@ -577,19 +577,19 @@ int add_member(object me, string arg)
               return 1;
 
         }
-       
+
         if (LEAGUE_D->add_member_into_league(me->query("league/league_name"), arg, me))
         {
-              CHANNEL_D->do_channel( this_object(), "rumor", "听说" + member->name() + "(" + 
+              CHANNEL_D->do_channel( this_object(), "rumor", "听说" + member->name() + "(" +
                                      member->query("id") + ")加入了 「" HIC + me->query("league/league_name") +
                                      HIM " 」。\n" NOR);
               me->delete_temp("wait_reply");
-              me->delete_temp("wait_join"); 
+              me->delete_temp("wait_join");
               LEAGUE_D->add_league_fame(me, member->query("weiwang"));
         }
 
         return 1;
-       
+
 }
 
 // 开除一个成员
@@ -600,7 +600,7 @@ int remove_member(object me, string arg)
 
         if (! arg)
               return notify_fail("你要开除哪个成员？\n");
-        
+
         if (arg == me->query("id"))
               return notify_fail("这样的话你还不如解散同盟算了！\n");
 
@@ -608,11 +608,11 @@ int remove_member(object me, string arg)
 
         if (member_array(arg, member) == -1)
               return notify_fail("你所在同盟中没有这号人！\n");
-         
+
         LEAGUE_D->remove_member_from_league(me->query("league/league_name"), arg, 1);
 
         return 1;
-      
+
 }
 
 
@@ -649,13 +649,13 @@ int sort_member(string id1, string id2)
         return 1;
 }
 
-// league kill 
+// league kill
 int league_kill(object me, string arg)
 {
         // league kill 命令使用的标志
         int kill_flag;
         int want_kill_flag;
-        
+
         object lob, obj, env;
         object *l;
 
@@ -665,7 +665,7 @@ int league_kill(object me, string arg)
 
         if (env->query("no_fight"))
                 return notify_fail("这里不能战斗。\n");
-        
+
         league_name = me->query("league/league_name");
 
         if (! arg || ! objectp(obj = present(arg, env)))
@@ -674,7 +674,7 @@ int league_kill(object me, string arg)
         if (! obj->is_character() || obj->is_corpse())
                 return notify_fail("看清楚了，那不是活人！\n");
 
-        l = all_inventory(env);       
+        l = all_inventory(env);
 
         foreach (lob in l)
         {
@@ -731,7 +731,7 @@ int league_kill(object me, string arg)
 
                 // 重新取队伍的人员 - 因为队伍中晕倒的成员
                 // 没有包含在 l 数组中。
-                l = all_inventory(env);       
+                l = all_inventory(env);
                 foreach (lob in l)
                 {
                        if (! objectp(lob) ||
@@ -739,7 +739,7 @@ int league_kill(object me, string arg)
                            lob->query("doing") ||
                            lob->query("league/league_name") != league_name ||
                            lob->query("id") == me->query("id"))l -= ({ obj });
-              
+
                 }
 
                 all_team = l;
@@ -799,7 +799,7 @@ int help(object me)
    	write(@HELP
 
 指令格式: league info [玩家] | hatred [玩家] | member [同盟名字] | top
-          
+
 查看目前你结义的同盟的各种信息，其中：
 
 info     ：查看同盟中的人物，成员状态，声望。
@@ -815,8 +815,8 @@ kill     ：号召同一房间的成员攻击某一目标（计划中的玩家�
 grant    ：修改成员权限。
            格式： league grant [id] [0-4]
                   0 ：取消该成员所有权限。
-                  1 ：league add [] 权限。 
-                  2 ：league kill [] 权限。 
+                  1 ：league add [] 权限。
+                  2 ：league kill [] 权限。
                   3 ：league kick [] 权限。
                   4 ：待扩展。
             注：权限是从0到4递增，比如赋予了某人（league grant who 3）的权限，
@@ -827,10 +827,10 @@ set      ： 参数设置。
             格式：league set <参数>  <变量> 。
                   league set          ：显示当前设置。
                   league set no_kill  ：不参与同盟战斗（不响应任何人号召league kill）。
-                  league set weiwang  ：每次获取威望的时候将分给同盟 weiwang％　的威望。             
+                  league set weiwang  ：每次获取威望的时候将分给同盟 weiwang％　的威望。
 
 巫师可以查看各个同盟的信息，只需要在命令后面加上同盟的名字或
-是同盟中的玩家。另外巫师或者该同盟领袖可以使用 league dismiss 
+是同盟中的玩家。另外巫师或者该同盟领袖可以使用 league dismiss
 命令强行解散一个同盟。
 
 see also: team (团体同盟)

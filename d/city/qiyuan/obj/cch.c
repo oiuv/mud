@@ -423,7 +423,7 @@ void create()
 }
 void init() {
 init_tab();
-        add_action("do_move","move");   
+        add_action("do_move","move");
         add_action("do_toss","toss");
         add_action("do_reset","reset");
         add_action("do_save","csave");
@@ -434,13 +434,13 @@ init_tab();
 }
 
 string query_save_file()
-{ 
+{
 if( bb == 1 )
-return DATA_DIR + "cchess/" 
-+ this_player()->query("id")[0..0] 
-+ "/" + this_player()->query("id"); 
+return DATA_DIR + "cchess/"
++ this_player()->query("id")[0..0]
++ "/" + this_player()->query("id");
 else
-return DATA_DIR + "cchess/cchess"; 
+return DATA_DIR + "cchess/cchess";
 }
 
 int init_tab() {
@@ -452,7 +452,7 @@ int init_tab() {
 int do_move(string arg) {
         int sROW,sCOL,tROW,tCOL,i,ii,x,y,tem,tem1,tem2,tem3,tem4;
         string msg,msg1;
-object ob,me; 
+object ob,me;
 ob = this_object();
 me = this_player();
 msg1 = "";
@@ -504,7 +504,7 @@ if( ob->query("round") == 1 && cc != 2 )
                 return notify_fail("你拿错棋子了吧！\n");
 
 
-//车 
+//车
 if( che == 1 ){
 if( tCOL != sCOL && sROW != tROW )
 return notify_fail("这个棋子只能走直线。\n");
@@ -547,11 +547,11 @@ if( tCOL < (sCOL - 4) || tCOL > (sCOL + 4) ||
 tROW < (sROW - 4) || tROW > (sROW + 4 ) )
 return notify_fail("这个棋子不能移动到那个地方。\n");
 
-if( (tCOL == sCOL - 2 || tCOL == sCOL + 2) && 
+if( (tCOL == sCOL - 2 || tCOL == sCOL + 2) &&
 (tROW != sROW - 4 && tROW != sROW + 4) )
 return notify_fail("这个棋子不能移动到那个地方。\n");
 
-if( (tCOL == sCOL - 4 || tCOL == sCOL + 4) && 
+if( (tCOL == sCOL - 4 || tCOL == sCOL + 4) &&
 (tROW != sROW - 2 && tROW != sROW + 2) )
 return notify_fail("这个棋子不能移动到那个地方。\n");
 
@@ -572,7 +572,7 @@ if( che == 3 ){
 if( tCOL == sCOL || sROW == tROW )
 return notify_fail("相不能走直线。\n");
 
-if( (tROW != sROW-4 && tROW != sROW+4) || (tCOL != sCOL-4 
+if( (tROW != sROW-4 && tROW != sROW+4) || (tCOL != sCOL-4
 && tCOL != sCOL+4) )
 return notify_fail("这个棋子不能移动到那个地方。\n");
 
@@ -601,7 +601,7 @@ if( che == 4 ){
 if( tCOL == sCOL || sROW == tROW )
 return notify_fail("仕不能走直线。\n");
 
-if( (tROW != sROW-2 && tROW != sROW+2) || (tCOL != sCOL-2 
+if( (tROW != sROW-2 && tROW != sROW+2) || (tCOL != sCOL-2
 && tCOL != sCOL+2) )
 return notify_fail("这个棋子不能移动到那个地方。\n");
 
@@ -734,8 +734,8 @@ ob->set("over",this_player()->name());
 TABLE[table[tROW]][tCOL][2] = TABLE[table[sROW]][sCOL][2];
 TABLE[table[tROW]][tCOL][3] = TABLE[table[sROW]][sCOL][3];
         TABLE[table[sROW]][sCOL][1] = "  ";
-TABLE[table[sROW]][sCOL][2] = 0; 
-TABLE[table[sROW]][sCOL][3] = 0; 
+TABLE[table[sROW]][sCOL][2] = 0;
+TABLE[table[sROW]][sCOL][3] = 0;
 
 tem4 = 0;
         for( y=0;y<6;y++ ){
@@ -766,12 +766,12 @@ if( tem == tem1 ){
 for (i=tem3+2;i<tem2;i++){
 if( i%2!=0) continue;
 if( TABLE[table[i]][tem][1] != "  " )
-tem4 = 1; 
+tem4 = 1;
 }
 if( tem4 == 0 ){
         msg1 += (sprintf(HIY"%s赢得了这场比赛的胜利。\n"NOR,
 ob->query("name1") == me->name()?ob->query("name2"):
-ob->query("name1")) ); 
+ob->query("name1")) );
 ob->set("over", ob->query("name1") == me->name()?ob->query("name2"):
 ob->query("name1") );
 }
@@ -789,7 +789,7 @@ else
                                         chinese_number(10-(sCOL/2+1)),
                                         chinese_number(10-(tCOL/2+1)) );
 
-        else 
+        else
 if( cc1 == 2 )
                 if( sROW>tROW )
                         msg = sprintf("『%s』%s进%s",
@@ -802,7 +802,7 @@ TABLE[table[tROW]][tCOL][1],
                                                 chinese_number(sCOL/2+1),
                                                 sCOL==tCOL?chinese_number( (tROW-sROW)/2 ):chinese_number(tCOL/2+1) );
 
-else 
+else
                 if( tROW>sROW )
                         msg = sprintf("『%s』%s进%s",
 TABLE[table[tROW]][tCOL][1],
@@ -820,7 +820,7 @@ chinese_number(10-(sCOL/2+1)),
 do_check();
 
 if( aa == 4 ){
-aaa += msg+"\n"; 
+aaa += msg+"\n";
 aa = 0;
 } else {
 aaa += msg+" ";
@@ -1031,7 +1031,7 @@ TABLE[table[tem1+2]][tem][3] != TABLE[table[tem1]][tem][3] )
 check = 1;
 
 if( tem1 > 9 )
-if( TABLE[table[tem1-2]][tem][2] == 7 && 
+if( TABLE[table[tem1-2]][tem][2] == 7 &&
 TABLE[table[tem1-2]][tem][3] != TABLE[table[tem1]][tem][3] )
 check = 1;
 
@@ -1113,22 +1113,22 @@ tem3 += 1;
 if( tem1 > 1 ){
 if( TABLE[table[tem1-2]][tem-2][2] == 0 ){
 if( tem1 > 2 )
-if( TABLE[table[tem1-4]][tem-2][2] == 2 && 
+if( TABLE[table[tem1-4]][tem-2][2] == 2 &&
 TABLE[table[tem1-4]][tem-2][3] != TABLE[table[tem1]][tem][3] )
 check = 1;
 
-if( TABLE[table[tem1-2]][tem-4][2] == 2 && TABLE[table[tem1-2]][tem-4][3] != 
+if( TABLE[table[tem1-2]][tem-4][2] == 2 && TABLE[table[tem1-2]][tem-4][3] !=
 TABLE[table[tem1]][tem][3] )
 check = 1;
 }
 
 if( TABLE[table[tem1-2]][tem+2][2] == 0 ){
 if( tem1 > 2 )
-if( TABLE[table[tem1-4]][tem+2][2] == 2 && 
+if( TABLE[table[tem1-4]][tem+2][2] == 2 &&
 TABLE[table[tem1-4]][tem+2][3] != TABLE[table[tem1]][tem][3] )
 check = 1;
 
-if( TABLE[table[tem1-2]][tem+4][2] == 2 && TABLE[table[tem1-2]][tem+4][3] != 
+if( TABLE[table[tem1-2]][tem+4][2] == 2 && TABLE[table[tem1-2]][tem+4][3] !=
 TABLE[table[tem1]][tem][3] )
 check = 1;
 }
@@ -1137,22 +1137,22 @@ check = 1;
 if( tem1 < 17 ){
 if( TABLE[table[tem1+2]][tem-2][2] == 0 ){
 if( tem1 < 16 )
-if( TABLE[table[tem1+4]][tem-2][2] == 2 && 
+if( TABLE[table[tem1+4]][tem-2][2] == 2 &&
 TABLE[table[tem1+4]][tem-2][3] != TABLE[table[tem1]][tem][3] )
 check = 1;
 
-if( TABLE[table[tem1+2]][tem-4][2] == 2 && TABLE[table[tem1+2]][tem-4][3] != 
+if( TABLE[table[tem1+2]][tem-4][2] == 2 && TABLE[table[tem1+2]][tem-4][3] !=
 TABLE[table[tem1]][tem][3] )
 check = 1;
 }
 
 if( TABLE[table[tem1+2]][tem+2][2] == 0 ){
 if( tem1 < 16 )
-if( TABLE[table[tem1+4]][tem+2][2] == 2 && 
+if( TABLE[table[tem1+4]][tem+2][2] == 2 &&
 TABLE[table[tem1+4]][tem+2][3] != TABLE[table[tem1]][tem][3] )
 check = 1;
 
-if( TABLE[table[tem1+2]][tem+4][2] == 2 && TABLE[table[tem1+2]][tem+4][3] != 
+if( TABLE[table[tem1+2]][tem+4][2] == 2 && TABLE[table[tem1+2]][tem+4][3] !=
 TABLE[table[tem1]][tem][3] )
 check = 1;
 }
@@ -1174,13 +1174,13 @@ int do_deploy()
 object me,ob;
 me = this_player();
 ob = this_object();
-bb = 1; 
+bb = 1;
 
 if( ob->query("id1") )
-if( (present(ob->query("id1"),environment(ob))) || 
+if( (present(ob->query("id1"),environment(ob))) ||
 (present(ob->query("id2"),environment(ob))) )
 if( me->name() != ob->query("name1") && me->name() != ob->query("name2") && !ob->query("over") )
-return notify_fail("比赛还在进行中，你不能乱动棋盘！\n"); 
+return notify_fail("比赛还在进行中，你不能乱动棋盘！\n");
 
 if( !restore() ) return notify_fail("你目前没有纪录的残局。\n");
 
@@ -1196,13 +1196,13 @@ ob = this_object();
 me = this_player();
 
 if( me->name() != ob->query("name1") && me->name() != ob->query("name2") )
-return notify_fail("你并没有在下棋。\n"); 
+return notify_fail("你并没有在下棋。\n");
 
 if( ob->query("over") )
-return notify_fail("这盘棋已经结束了。\n"); 
+return notify_fail("这盘棋已经结束了。\n");
 
 if( bche == "" && rche == "" )
-return notify_fail("这样就认输了?\n"); 
+return notify_fail("这样就认输了?\n");
 
 message_vision(HIW"$N长叹一声“...我输了！...”\n"NOR,this_player());
 ob->set("over", ob->query("name1") == me->name()?ob->query("name2"):
@@ -1215,9 +1215,9 @@ int do_help(string arg)
 {
 if( arg == "cchess" ){
 write(sprintf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
-"———————————————————————————",
-"中国象棋（cchess）",  
-"———————————————————————————",
+"------------------------------------------------------",
+"中国象棋（cchess）",
+"------------------------------------------------------",
 "下子   ：move <横座标> <纵座标> to <横座标> <纵座标>",
 "重下      ：reset",
 "读出残局  ：deploy",
@@ -1225,7 +1225,7 @@ write(sprintf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
 "掷骰      ：toss",
 "回顾      ：review",
 "认输   ：lose",)
-); 
+);
 return 1;
 }
 }
@@ -1244,10 +1244,10 @@ ob = this_object();
 bb = 0;
 
 if( ob->query("id2") )
-if( (present(ob->query("id1"),environment(ob))) || 
+if( (present(ob->query("id1"),environment(ob))) ||
 (present(ob->query("id2"),environment(ob))) )
 if( me->name() != ob->query("name1") && me->name() != ob->query("name2") && !ob->query("over") )
-return notify_fail("比赛还在进行中，你不能乱动棋盘！\n"); 
+return notify_fail("比赛还在进行中，你不能乱动棋盘！\n");
 if( restore() ){
 setup();
         message_vision( "$N把棋盘重新摆好了。\n",this_player());
@@ -1255,4 +1255,3 @@ setup();
 
 return 1;
 }
-

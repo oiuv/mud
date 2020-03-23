@@ -6,7 +6,7 @@ void create()
         set_name("天神", ({ "tian shen", "tian", "shen" }) );
         set("gender", "男性" );
         set("age", 2100);
-        set("long", HIC "他就是跟随泥潭世界大boss——高处不胜寒的仆人，如今成了天神。\n" NOR);
+        set("long", HIC "他就是跟随泥潭世界大boss----高处不胜寒的仆人，如今成了天神。\n" NOR);
         set("attitude", "friendly");
         set("max_jing", 25000);
         set("max_qi", 25000);
@@ -21,7 +21,7 @@ void create()
         set("dex", 50);
         set("combat_exp", 60000000);
         //set("level", 100);
-                
+
         set_skill("unarmed", 800);
         set_skill("sword", 800);
         set_skill("blade", 800);
@@ -57,17 +57,16 @@ void create()
                 (: exert_function, "sword.wanli" :),
                 (: exert_function, "sword.yuce" :),
         }) );
-        
+
         setup();
 
-        set_temp("apply/damage", 200); 
-        set_temp("apply/unarmed_damage", 200); 
-        set_temp("apply/armor", 400); 
-                
+        set_temp("apply/damage", 200);
+        set_temp("apply/unarmed_damage", 200);
+        set_temp("apply/armor", 400);
+
         carry_object("/clone/cloth/cloth")->wear();
         carry_object("/clone/weapon/changjian")->wield();
-        
-        create_family("人神魔三界", 2, "天界总管");
-        set("title", HIW "天界总管" NOR);        
-}
 
+        create_family("人神魔三界", 2, "天界总管");
+        set("title", HIW "天界总管" NOR);
+}

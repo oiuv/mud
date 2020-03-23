@@ -142,7 +142,7 @@ void attempt_apprentice(object me)
                 command("hmm");
                 command("say 原来是东方教主的弟子，收你…这个倒没什么问题。");
                 command("say 但是在收你之前，我得先考察一下你的能力。");
-                me->set("move_party/日月神教—梅庄", 1);
+                me->set("move_party/日月神教--梅庄", 1);
         }
 
         if ((int)me->query("combat_exp") < 400000)
@@ -174,9 +174,9 @@ void attempt_apprentice(object me)
         command("say 我就收下你了，不过千万别招惹是非，给我梅庄添乱。");
         command("recruit " + me->query("id"));
 
-        if (me->query("move_party/日月神教—梅庄"))
+        if (me->query("move_party/日月神教--梅庄"))
         {
-                me->delete("move_party/日月神教—梅庄", 1);
+                me->delete("move_party/日月神教--梅庄", 1);
                 command("say 现在你成为我梅庄中人，望你专心练武，别再去过问教中事物。");
         }
 }
@@ -442,7 +442,7 @@ mixed ask_riyue()
 
         me->set_skill("qixian-wuxingjian", 10);
 		me->set("can_learn/meizhuang", 1);
-		
+
 		if (me->query("gongxian") > 10000 &&
 			me->query("balance") > 100000000)
 		{
@@ -456,9 +456,9 @@ mixed ask_riyue()
         tell_object(me, HIG "你学会了七弦无形剑！\n" NOR);
 
         command("say 下去好好练习吧。");
-  
-        return 1;    
-    
+
+        return 1;
+
 }
 
 int accept_object(object me, object ob)

@@ -1,4 +1,4 @@
-// story:bizhen 玄铁令——学习碧针清掌
+// story:bizhen 玄铁令----学习碧针清掌
 
 #include <ansi.h>
 

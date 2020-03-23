@@ -105,7 +105,7 @@ void crash(string error, object command_giver, object current_object)
     mixed cmds;
     int i;
 
-    efun::shout("系统核心发出一声惨叫：哇—哩—咧—\n");
+    efun::shout("系统核心发出一声惨叫：哇--哩--咧--\n");
     efun::shout("系统核心告诉你：要当机了，自己保重吧！\n");
     log_file("static/CRASHES", MUD_NAME + " crashed on: " + ctime(time()) +
              ", error: " + error + "\n");

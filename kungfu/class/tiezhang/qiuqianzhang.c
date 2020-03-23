@@ -19,7 +19,7 @@ void create()
         set("con", 26);
         set("dex", 25);
         set("env/wimpy", 70);
-       
+
         set("max_qi", 1500);
         set("max_jing", 1500);
         set("neili", 2000);
@@ -66,7 +66,7 @@ void create()
                 (: exert_function, "recover" :),
         }) );
 
-        
+
         set("inquiry", ([
                 "name" : "记得先父曾给我起过一个名，叫甚么‘千丈’。我念着不好听，也就难得用它。\n",
                 "here" : "这里就是铁掌帮的总坛所在，你如没事，不要四处乱走，免招杀身之祸！！！\n",
@@ -100,7 +100,7 @@ void attempt_apprentice(object me)
                 command("say 我道是谁，原来是三妹的弟子，我们本来就是一家人。");
                 command("sigh");
                 command("say 这个事情我做不了主，你还是去找二弟吧。");
-                me->set("move_party/绝情谷—铁掌帮", 1);
+                me->set("move_party/绝情谷--铁掌帮", 1);
                 return;
         }
 

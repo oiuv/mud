@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ITEM;
 
 void setup()
@@ -17,7 +17,7 @@ void create()
         else {
                 set("unit", "个");
                 set("long", CYN "一个浑圆的暗色球体，通体透明。这便是传说\n"
-                            "中的魔教至宝——魔尊舍利。相传其中蕴藏着\n"
+                            "中的魔教至宝----魔尊舍利。相传其中蕴藏着\n"
                             "无比巨大的能量，武功高强者可以吸取(xi)其\n"
                             "中的能量来增强功力。\n" NOR);
                 set("value", 1000000);
@@ -141,7 +141,7 @@ void xiqu7(string arg)
                 me->add("potential", pot);
                 me->add("max_neili", li1);
                 me->add("max_jingli", li2);
-                if (me->query("potential") > me->query_potential_limit()) 
+                if (me->query("potential") > me->query_potential_limit())
                 me->set("potential", me->query_potential_limit());
 
                 tell_object(me, HIY "你感到魔尊舍利中的能量源源不绝的流"
@@ -159,7 +159,7 @@ void xiqu7(string arg)
 
                 max = me->max_food_capacity();
                 me->set("food", max);
-                max = me->max_water_capacity();  
+                max = me->max_water_capacity();
                 me->set("water", max);
                 me->clear_condition();
                 me->set("power/魔尊舍利", 1);
@@ -175,7 +175,7 @@ void xiqu7(string arg)
                                "量的冲击，顿时全身筋脉尽断，鲜血狂喷，身"
                                "体被炸了个粉碎。\n" NOR, me);
                 me->set_temp("die_reason", "妄图吸取魔尊舍利，结果全身筋脉尽断而亡。");
-                me->die(); 
+                me->die();
         }
         message_vision (WHT "\n魔尊舍利上的光华渐渐消逝，变成了一"
                         "堆粉末。\n" NOR, me);

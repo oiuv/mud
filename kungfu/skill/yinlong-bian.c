@@ -1,4 +1,4 @@
-//yinlong-bian.c 《九阴真经》——九阴神功——银龙鞭法
+//yinlong-bian.c 《九阴真经》----九阴神功----银龙鞭法
 //Edit By Vin On 13/2/2001
 
 #include <ansi.h>

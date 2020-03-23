@@ -27,7 +27,7 @@ int main(object me, string str)
         ob_list = wiz_ob + ob_list;
 
         str = HIG "线  上  玩  家              精          气         神      内力       经验值  潜能\n" NOR
-              WHT "—————————————————————————————————————————\n" NOR;
+              WHT "----------------------------------------------------------------------------------\n" NOR;
         i = 0;
         foreach (ob in ob_list)
         {
@@ -53,7 +53,7 @@ int main(object me, string str)
                 if (i++ >= 200) break;
         }
 
-        str += WHT "—————————————————————————————————————————\n" NOR +
+        str += WHT "----------------------------------------------------------------------------------\n" NOR +
                sprintf("%s共有 %d 位使用者连线中。\n", LOCAL_MUD_NAME(), sizeof(ob_list));
 
         me->start_more(str);

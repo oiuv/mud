@@ -80,7 +80,7 @@ LONG);
         }) );
 
         setup();
-                
+
         carry_object("clone/misc/cloth")->wear();
         carry_object("/clone/weapon/changjian")->wield();
 }
@@ -97,7 +97,7 @@ void attempt_apprentice(object me)
                 command("yi");
                 command("say 我道是谁，原来是东方教主的弟子。");
                 command("say 这件事我不便插手，你去找我大哥、二哥好了。");
-                me->set("move_party/日月神教—梅庄", 1);
+                me->set("move_party/日月神教--梅庄", 1);
                 return;
         }
 
@@ -191,7 +191,7 @@ mixed ask_riyue()
 
         me->set_skill("pomopima-jian", 10);
 		me->set("can_learn/meizhuang", 1);
-		
+
 		if (me->query("gongxian") > 10000 &&
 			me->query("balance") > 100000000)
 		{
@@ -203,7 +203,7 @@ mixed ask_riyue()
         tell_object(me, HIG "你学会了泼墨披麻剑！\n" NOR);
 
         command("say 下去好好练习吧。");
-  
-        return 1;    
-    
+
+        return 1;
+
 }

@@ -21,7 +21,7 @@ void create()
         set("int", 30);
         set("con", 30);
         set("dex", 30);
-       
+
         set("qi", 6000);
         set("max_qi", 6000);
         set("jing", 3000);
@@ -106,7 +106,7 @@ void attempt_apprentice(object me)
                 command("nod");
                 command("say 原来是三妹的后裔，这样也好，我们本来就是一家人。且让"
                 "我先看看你的能力。\n");
-                me->set("move_party/绝情谷—铁掌帮", 1);
+                me->set("move_party/绝情谷--铁掌帮", 1);
         }
 
         if ((int)me->query("shen") > -60000)
@@ -140,7 +140,7 @@ void attempt_apprentice(object me)
         command("say 我就收下你了，希望你苦练铁掌神功，将之发扬光大。");
         command("recruit " + me->query("id"));
 /*
-        if ( me->query("move_party/绝情谷—铁掌帮") &&
+        if ( me->query("move_party/绝情谷--铁掌帮") &&
              me->query("surname") == "公孙" )
         {
                 name = me->query("name");
@@ -150,15 +150,15 @@ void attempt_apprentice(object me)
 
                 me->set("surname", "裘");
                 me->set("name", new_name);
-                me->delete("move_party/绝情谷—铁掌帮", 1);
+                me->delete("move_party/绝情谷--铁掌帮", 1);
 
                 command("say 公孙止那老家伙不是个东西，你以后还是跟你娘亲姓为好。");
                 command("say 从今以后你就叫作" + new_name + "吧。");
         }
 */
-       if ( me->query("move_party/绝情谷—铁掌帮"))
+       if ( me->query("move_party/绝情谷--铁掌帮"))
         {
-                me->delete("move_party/绝情谷—铁掌帮", 1);
+                me->delete("move_party/绝情谷--铁掌帮", 1);
                 command("say 公孙止那老家伙不是个东西，你以后还是跟我学习铁掌帮的功夫吧。");
         }
 }
@@ -178,7 +178,7 @@ int accept_ask(object me, string topic)
                         ([ "perform" : "can_perform/tie-zhang/lei",
                            "name"    : "掌心雷",
                            "msg1"    : HIY "$N" HIY "投以赞许的"
-                                       "一笑，说道：“看好了！”" 
+                                       "一笑，说道：“看好了！”"
                                        "随即只见$N" HIY "猛催内"
                                        "力，双掌登时变得火红，你"
                                        "正惊诧之际$N" HIY "双掌幻"
@@ -204,10 +204,10 @@ int accept_ask(object me, string topic)
                                        "一声怒喝，体内所积存数十载"
                                        "的天雷真气澎湃而发，衣衫鼓"
                                        "动，双臂陡然暴长数尺。只听"
-                                       "四周破空之声骤然响之，$N" HIY 
+                                       "四周破空之声骤然响之，$N" HIY
                                        "双掌幻出漫天掌影，铺天盖地向"
                                        "四面八方云涌而出，当真气势磅"
-                                       "礴，无与伦比！", 
+                                       "礴，无与伦比！",
                            "sk1"     : "tie-zhang",
                            "lv1"     : 200,
                            "force"   : 300,
@@ -294,4 +294,3 @@ void unconcious()
 {
         die();
 }
-

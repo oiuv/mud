@@ -18,7 +18,7 @@ void create()
         set("int", 25);
         set("con", 25);
         set("dex", 25);
-       
+
         set("qi", 3500);
         set("max_qi", 3500);
         set("jing", 2000);
@@ -95,7 +95,7 @@ void attempt_apprentice(object me)
                 command("consider");
                 command("say 这个事情我做不了主，你还是直接去找帮主吧。");
 
-                me->set("move_party/绝情谷—铁掌帮", 1);
+                me->set("move_party/绝情谷--铁掌帮", 1);
                 return;
         }
 
@@ -139,11 +139,11 @@ void init()
 
         ob = this_player();
         me = this_object();
-        
-        if (interactive(ob) 
+
+        if (interactive(ob)
             && ! environment(ob)->query("no_fight")
             && ! present("tiezhang ling", ob)
-            && ! ob->query("move_party/绝情谷—铁掌帮", 1)
+            && ! ob->query("move_party/绝情谷--铁掌帮", 1)
             && ( (fam = ob->query("family"))
             && fam["family_name"] != "铁掌帮" ) )
         {
@@ -160,7 +160,7 @@ void init()
                         remove_call_out("hiting_ob");
                         call_out("hiting_ob", 1, ob);
                 }
-        }       
+        }
 }
 
 int hiting_ob(object ob)

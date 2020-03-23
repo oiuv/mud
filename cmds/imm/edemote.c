@@ -38,7 +38,7 @@ int main(object me, string arg)
         }
 
         write(sprintf("上次修改：%s(%s)\n", emote["updated"], ctime(emote["time"])));
-        write(sprintf("—————————————————————\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
+        write(sprintf("------------------------------------------\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
                 emote["myself"], emote["others"], emote["myself_self"],
                 emote["others_self"], emote["myself_target"], emote["target"],
                 emote["others_target"]));
@@ -69,7 +69,7 @@ int main(object me, string arg)
     write("  $c  对别人的呢称。\n");
     write("  $R  对别人的尊称。\n");
     write("  $r  对别人的粗鲁称呼。\n");
-    write("————————————————————————————————————\n");
+    write("------------------------------------------------------------------------\n");
     write("不指定对象使用这个 emote 时，你自己看到的讯息：\n->");
     input_to("get_msg_myself", emote, arg);
     return 1;

@@ -6,7 +6,7 @@ void create()
         set_name("高处不胜寒", ({ "gaochu busheng han", "gaochu", "han", "lonely" }) );
         set("gender", "男性" );
         set("age", 2100);
-        set("long", HIC "他就是泥潭世界的大boss——高处不胜寒。\n" NOR);
+        set("long", HIC "他就是泥潭世界的大boss----高处不胜寒。\n" NOR);
         set("attitude", "friendly");
         set("max_jing", 25000);
         set("max_qi", 25000);
@@ -23,9 +23,9 @@ void create()
         //set("level", 999);
 
         set("inquiry", ([
-                "精元丹" : "精元丹我的确有，不过赠给有能力之人，你先露一手给我瞧瞧。\n",                
+                "精元丹" : "精元丹我的确有，不过赠给有能力之人，你先露一手给我瞧瞧。\n",
         ]));
-                
+
         set_skill("unarmed", 999);
         set_skill("sword", 999);
         set_skill("blade", 999);
@@ -62,18 +62,18 @@ void create()
                 (: exert_function, "sword.wanli" :),
                 (: exert_function, "sword.yuce" :),
         }) );
-        
+
         setup();
 
-        set_temp("apply/damage", 300); 
-        set_temp("apply/unarmed_damage", 300); 
-        set_temp("apply/armor", 600); 
-                
+        set_temp("apply/damage", 300);
+        set_temp("apply/unarmed_damage", 300);
+        set_temp("apply/armor", 600);
+
         carry_object("/clone/cloth/cloth")->wear();
         carry_object("/clone/weapon/zhujian")->wield();
-        
+
         create_family("人神魔三界", 1, "三界之主");
-        set("title", HIR "三界之主" NOR);        
+        set("title", HIR "三界之主" NOR);
 }
 
 void init()
@@ -128,8 +128,8 @@ void lost()
         command("say 厉害，厉害。既然你胜过了我，这个精元丹就拿去吧。");
         command("give jingyuan dan to " + me->query("id"));
         me->set("SkyPass", 1);
-        message_vision(HIR "只见一道红光照着你，将你带回阎罗殿。\n" NOR, 
-                       this_object(), me);        
+        message_vision(HIR "只见一道红光照着你，将你带回阎罗殿。\n" NOR,
+                       this_object(), me);
         me->move("/d/death/yanluodian");
         ::lost();
 }
@@ -144,8 +144,8 @@ void win()
                 return;
         }
         command("say 就你这点水平也想闯天界十二重天？下去练练再来吧。");
-        message_vision(HIR "只见一道红光照着你，将你带回阎罗殿。\n" NOR, 
-                       this_object(), me);        
+        message_vision(HIR "只见一道红光照着你，将你带回阎罗殿。\n" NOR,
+                       this_object(), me);
         me->move("/d/death/yanluodian");
         ::win();
 }

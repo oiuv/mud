@@ -6,7 +6,7 @@ void create()
         set_name("归钟", ({ "gui zhong", "gui" }));
         set("title", "归辛树之子");
         set("long", "一个痨病鬼，不住的咳嗽，神情却又犹如小孩子一\n"
-                    "般，他便是归辛树之子—归钟，从小便体弱多病。\n");
+                    "般，他便是归辛树之子--归钟，从小便体弱多病。\n");
         set("gender", "男性");
         set("age", 34);
         set("attitude", "peaceful");
@@ -16,7 +16,7 @@ void create()
         set("con", 20);
         set("dex", 20);
         set("per", 10);
-        
+
         set("qi", 2000);
         set("max_qi", 2000);
         set("jing", 1000);
@@ -51,7 +51,7 @@ void create()
         set("chat_msg", ({
                 CYN "归钟轻轻地咳嗽了几声。\n" NOR,
                 CYN "归钟咳嗽了几声，一张脸涨得通红。\n" NOR,
-        }) );       
+        }) );
 
 
         create_family("华山派", 32, "弟子");

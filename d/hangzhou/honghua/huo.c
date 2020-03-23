@@ -26,7 +26,7 @@ LONG);
         set("int", 30);
         set("con", 30);
         set("dex", 30);
-        
+
         set("max_qi", 2800);
         set("max_jing", 1500);
         set("neili", 2500);
@@ -102,7 +102,7 @@ mixed ask_skill1()
                        HIC "短剑" NOR + HIY "，突然圈转，一"
                        "招之中另蕴涵三招，招式繁复狠辣，剑"
                        "招虚虚\n实实，正是三分剑术的独得之秘"
-                       "——「海市蜃楼」。\n" NOR,
+                       "----「海市蜃楼」。\n" NOR,
                        me, this_object());
         command("nod");
         command("say 你可明白了？");
@@ -138,4 +138,3 @@ void unconcious()
 {
         die();
 }
-

@@ -97,7 +97,7 @@ void attempt_apprentice(object me)
                 command("ah");
                 command("say 原来是东方教主的弟子，兴会，兴会！");
                 command("say 这件事非同小可，我做不了主，你还是去找几位庄主吧。");
-                me->set("move_party/日月神教—梅庄", 1);
+                me->set("move_party/日月神教--梅庄", 1);
                 return;
         }
 

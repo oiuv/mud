@@ -16,7 +16,7 @@ string who_play;		// 正在出牌的人
 
 // 牌容器
 int remain;				// 所剩的牌数量
-mixed pai_on_desk;		// 可以使用的牌		
+mixed pai_on_desk;		// 可以使用的牌
 mapping player_hand;	// 玩家手上的牌
 
 // 计数器
@@ -67,7 +67,7 @@ int c21(mixed* inv)
 			j = (j>10?10:j);
 		sum+=j;
 	}
-			
+
 	for(;sum>21&&temp>0;temp--)
 		sum -= 10;
 
@@ -79,7 +79,7 @@ void reset_pai()
 	// 重置牌（牌盒，玩家的牌)
 	int i;
 	string* key;
-	
+
 	for(i=0;i<MAX_PAI;i++)
 		pai_on_desk[i]=i;
 	remain=MAX_PAI;
@@ -99,7 +99,7 @@ int reset_all()
 	has_start = 0;
 	if(sizeof(player)!=0)
 		msg(this_player(),0,"$N重新置牌了。\n");
-	
+
 	player = ([]);
 	player_hand = ([]);
 
@@ -134,13 +134,13 @@ void init()
 	add_action("do_restart", "restart");	// 重新游戏
 	add_action("do_join", "join");			// 加入牌局
 	add_action("do_start", "start");		// 开始游戏
-	
+
 	add_action("do_xipai", "xipai");		// 洗牌
 	add_action("do_view", "view");			// 看牌
-		
+
 	add_action("do_nextone", "next");		// 催促下一个
 	add_action("do_pass", "pass");			// 不要牌
-	
+
 	// 扩展指令
 	add_action("do_chupai", "play");		// 玩
 	add_action("do_daopai", "daopai");		// 倒牌
@@ -162,7 +162,7 @@ int do_reset(string arg)
 	}
 	if(!this_object()->id(arg))
 		return 0;
-		
+
 	return reset_all();
 }
 
@@ -195,7 +195,7 @@ int do_join(string arg)
 		return notify_fail("牌局已经开始，不能加入了。\n");
 	if(is_playing(me))
 		return notify_fail("你已经参加了。\n");
-	
+
 	// add player
 	player[me->query("id")]="yes";
 	player_hand[me->query("id")]=allocate(MAX_PAI);
@@ -207,7 +207,7 @@ int do_start(string arg)
 {
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩，开始什么啊！\n");
-	
+
 	if(has_start)
 		return notify_fail("牌局已经开始了。\n");
 
@@ -225,11 +225,11 @@ int do_xipai(string arg)
 
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩，洗什么牌啊！\n");
-	
+
 	pai = pai_on_desk;
 	sum = remain;
 	rand = sum;
-	
+
 	for(i=0;i<sum;i++)
 	{
 		which = random(rand);
@@ -248,7 +248,7 @@ int do_chupai(string arg)
 	mixed* inv;
 //	string cmd;
 	object ob;
-		
+
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩啊！\n");
 
@@ -259,7 +259,7 @@ int do_chupai(string arg)
 		return notify_fail("还没有轮到到你啊。\n");
 
 	done = 0;
-		
+
 	if((id = pick_out())==-1)
 		return 0;
 
@@ -273,14 +273,14 @@ int do_chupai(string arg)
 	// check is over 21,if over pass
 	inv = player_hand[this_player()->query("id")];
 	sum = c21(inv);
-			
+
 	msg(this_player(),0,"$N手上有"HIY+sum+"点"NOR"了。\n");
 	if(sum>21)
 	{
 		do_pass(HIR"爆了！！！"NOR"\n");
 		return 1;
 	}
-	
+
 	ob = get_player(player[who_play]);
 	if(ob)
 	{
@@ -299,11 +299,11 @@ int do_view(string arg)
 		arg = this_player()->query("id");
 	else
 		hand_name = arg;
-	
+
 	pai = player_hand[arg];
 	if(pai==0)
 		return notify_fail("牌局没有这个玩家。\n");
-	
+
 	if(hand_name)
 		write(hand_name+"：");
 	write(view_pai(arg)+"\n");
@@ -319,9 +319,9 @@ string extra_long()
 
 	me = this_player();
 	idx = keys(player);
-	
+
 	r = sprintf("牌盒里面有%d张牌\n",remain);
-	
+
 	if(sizeof(player)>0)
 	{
 		r+="******************************************\n";
@@ -340,7 +340,7 @@ string extra_long()
 int pick_out()
 {
 	int s,id;
-		
+
 	if(remain>0)
 	{
 		remain--;
@@ -360,7 +360,7 @@ int pick_in(string to, int card)
 {
 	int s;
 	mixed* pai;
-		
+
 	pai = player_hand[to];
 	s = pai[0];
 	s++;
@@ -387,7 +387,7 @@ int is_playing(object ob)
 }
 
 int sizeof_pai(mixed* p)
-{	
+{
 	return p==0?0:p[0];
 }
 
@@ -401,7 +401,7 @@ string view_pai(string which)
 
 	if(pai==0)
 		return 0;
- 
+
 	if(sizeof_pai(pai)==0)
 		return "没有牌";
 
@@ -427,7 +427,7 @@ int do_nextone(string arg)
 
 	id = who_play;
 	ob = get_player(id);
-	
+
 	if(ob==0)
 		return msg(0,0,"有玩家缺场了，请重新开始游戏(reset pai)。\n");
 
@@ -463,7 +463,7 @@ int do_pass(string arg)
 		if(player[key[i]]==old)
 			player[key[i]] = player[old];
 	player[old] = "";
-				
+
 	if(player[who_play] == "")
 	{
 		msg(0,0,"大家都不要了。\n");
@@ -548,7 +548,7 @@ int do_showc(string arg)
 	int i;
 
 	idx = keys(counter);
-	
+
 	r = "计数表(Scoreboard)\n－－－－－－－－－－－－－－－－－\nID　　　　　　　　分数\n－－－－－－－－－－－－－－－－－\n";
 	for(i=0;i<sizeof(idx);i++)
 		r = sprintf("%s%-14s%10d\n", r,idx[i],counter[idx[i]]);
@@ -566,7 +566,7 @@ void press_counter(string id,int num)
 int do_daopai(string arg)
 {
 	int i,id;
-	
+
 	if(!is_playing(this_player()))
 		return notify_fail("你都不玩，搞什么啊！\n");
 
@@ -632,7 +632,7 @@ int sort_21(string str1, string str2)
 
 	sscanf(str1,"%s:%d",temp,c1);
 	sscanf(str2,"%s:%d",temp,c2);
-	
+
 	if(c1==c2)
 		return 0;
 
@@ -661,9 +661,9 @@ void finish_21()
 		str = key[i];
 		inv2[i] = str + ":" + c21(player_hand[str]);
 	}
-		
+
 	inv = sort_array(inv2,"sort_21",this_object());
-	
+
 	lpoint = -1;
 	r = "结果\n－－－－－－－－－－－－－－－－－\nID　　　　　　　　点数       得分\n－－－－－－－－－－－－－－－－－\n";
 	for(i=0;i<sizeof(inv);i++)
@@ -688,7 +688,7 @@ void finish_21()
 	}
 	r += "－－－－－－－－－－－－－－－－－\n\n";
 	msg(0,0,r);
-	
+
 	reset_pai();
 	restore_player_data();
 	msg(0,0,"请各位重新洗牌(xipai)开始新的一局。\n");
@@ -698,36 +698,36 @@ int do_help(string arg)
 {
 	this_player()->start_more( @HELP
 玩21点牌桌使用方法:
-——[开始游戏]———————————————
+----[开始游戏]------------------------------
 帮助命令：helppai
 加入命令：join　　　　　加入游戏
 开始命令：start 　　　　开始以后不能再加入
 重置命令：reset pai 　　结束游戏
 
-——[游戏命令]———————————————
+----[游戏命令]------------------------------
 重新游戏：restart
 　　摸牌：play　　　　　进行游戏
 不再要牌: pass
 
-——[其它命令]———————————————
+----[其它命令]------------------------------
 洗牌命令：xipai
 看牌命令：view [玩家ID] 观察玩家手上的牌
 催促命令：next　　　　　催促正在出牌的人
 
-——[计数牌使用]——————————————
+----[计数牌使用]----------------------------
 显示: showc
 重置: reset counter
 
 
 
 
-——[游戏规则]———————————————
+----[游戏规则]------------------------------
 游戏开始以后，每人轮流摸牌直到不摸为止。
 最后根据每人手上的点数决定胜负。
 点数 > 21 为输，点数<21的时候点数大者胜。
 J，Q，k为10点，A可以为1点或者为11点。
 
-——————————————————————
+--------------------------------------------
 			make by 猫部猫(Catyboy) v1.0
 HELP
 	);

@@ -73,7 +73,7 @@ int main(object me, string arg)
         if (env->query("exits/" + arg))
         {
                 if (env->query("no_fight"))
-                        return notify_fail("这里不准战斗——也不准堵住别人去路！\n");
+                        return notify_fail("这里不准战斗----也不准堵住别人去路！\n");
                 if (me->query("jing") * 100 / me->query("max_jing") < 75)
                         return notify_fail("你现在无法集中精神守卫这个方向。\n");
                 me->set_temp("guardfor", arg);

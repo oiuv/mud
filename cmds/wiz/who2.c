@@ -30,7 +30,7 @@ int main(object me, string str)
 
         i = 0;
         str = HIG" 玩家    年龄 存款       地址               所在       程序       \n" NOR
-              WHT "—————————————————————————————————————\n" NOR;
+              WHT "--------------------------------------------------------------------------\n" NOR;
         foreach (ob in ob_list)
         {
                 dbase = ob->query_entire_dbase();
@@ -49,7 +49,7 @@ int main(object me, string str)
                 if (i++ >= 200)
                         break;
         }
-        str += NOR WHT "—————————————————————————————————————\n";
+        str += NOR WHT "--------------------------------------------------------------------------\n";
         str = sprintf("%s共有 %d 位使用者连线中。\n" NOR, str, sizeof(ob_list));
 
         me->start_more(str);

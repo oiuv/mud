@@ -1,4 +1,4 @@
-//cuixin-zhang.c 《九阴真经》——九阴神功——催心掌
+//cuixin-zhang.c 《九阴真经》----九阴神功----催心掌
 //Edit By Vin On 13/2/2001
 
 #include <ansi.h>
@@ -162,4 +162,3 @@ string perform_action_file(string action)
 {
         return __DIR__"cuixin-zhang/" + action;
 }
-

@@ -22,7 +22,7 @@ LONG);
         set("int", 30);
         set("con", 30);
         set("dex", 30);
-       
+
         set("qi", 6000);
         set("max_qi", 6000);
         set("jing", 3000);
@@ -127,7 +127,7 @@ void attempt_apprentice(object me)
         command("say 我就收下你了，希望你苦练铁掌神功，将之发扬光大。");
         command("recruit " + me->query("id"));
 
-        //if ( me->query("move_party/绝情谷—铁掌帮") &&
+        //if ( me->query("move_party/绝情谷--铁掌帮") &&
             // me->query("surname") == "公孙" )
         if (me->query("surname") == "公孙" )
         {
@@ -138,7 +138,7 @@ void attempt_apprentice(object me)
 
                 me->set("surname", "裘");
                 me->set("name", new_name);
-                //me->delete("move_party/绝情谷—铁掌帮", 1);
+                //me->delete("move_party/绝情谷--铁掌帮", 1);
 
                 command("say 公孙止那老家伙不是个东西，你以后还是跟你娘亲姓为好。");
                 command("say 从今以后你就叫作" + new_name + "吧。");
@@ -231,4 +231,3 @@ void unconcious()
 {
         die();
 }
-

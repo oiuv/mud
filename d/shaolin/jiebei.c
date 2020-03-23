@@ -9,7 +9,7 @@ void create()
 {
 	set("short", "界碑");
 	set("long", @LONG
-界碑——未连接好的区域(jiebei)。
+界碑----未连接好的区域(jiebei)。
 LONG
 	);
 
@@ -28,6 +28,5 @@ LONG
 
 string look_jiebei()
 {
-	return "由此往前，通向山顶。道路尚未修好。\n—时空书于侠客行\n";
+	return "由此往前，通向山顶。道路尚未修好。\n--时空书于侠客行\n";
 }
-

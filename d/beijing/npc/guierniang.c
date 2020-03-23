@@ -5,9 +5,9 @@ void create()
 {
 	set_name("归二娘", ({ "gui erniang", "gui" }));
 	set("title", "华山派三十二代高手");
-	set("long", 
+	set("long",
 "一个年迈的老妇，头发半白，但看起来却是精神抖擞，\n"
-"脾气相当的火暴。他便是神拳无敌归心树的内人——归\n"
+"脾气相当的火暴。他便是神拳无敌归心树的内人----归\n"
 "二娘。\n");
 	set("gender", "女性");
 	set("age", 68);
@@ -18,7 +18,7 @@ void create()
 	set("con", 30);
 	set("dex", 30);
 	set("per", 20);
-	
+
 	set("qi", 2500);
 	set("max_qi", 2500);
 	set("jing", 1500);
@@ -54,7 +54,7 @@ void create()
        set("chat_chance", 2);
        set("chat_msg", ({
                 "归二娘望了归钟一眼，深深的叹了口气。\n",
-        }) );       
+        }) );
 
 
 	create_family("华山派", 32, "弟子");

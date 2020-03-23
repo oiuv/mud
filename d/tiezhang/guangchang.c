@@ -42,7 +42,7 @@ int valid_leave(object me, string dir)
         {
                 if ( (string)me->query("family/family_name") != "铁掌帮"
                    & objectp(present("feng yong", environment(me)))
-                   & ! me->query("move_party/绝情谷—铁掌帮", 1) )
+                   & ! me->query("move_party/绝情谷--铁掌帮", 1) )
                         return notify_fail(CYN "冯勇身形一晃，忽然挡住你，厉声说道：这位" +
                                            RANK_D->query_respect(me) + CYN "不是本帮弟子，"
                                            "休得在本帮乱闯。\n" NOR);
