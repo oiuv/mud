@@ -117,15 +117,16 @@ int save()
 {
     int res;
     object me = this_object();
+    object env = environment(me);
 
     if (user_cracked)
         // 数据不完整，不能保存
         return 1;
     // 保存上线地点
-    if(objectp(environment(me)) && (environment(me)->query("valid_startroom") ||
+    if(objectp(env) && !clonep(env) && (env->query("valid_startroom") ||
         sizeof(me->query("can_whistle"))))
     {
-        me->set("startroom", base_name(environment(me)));
+        me->set("startroom", base_name(env));
     }
 
     if (query_temp("user_setup"))
