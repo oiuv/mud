@@ -23,10 +23,10 @@ string *banned_name = ({
 });
 
 string *banned_id = ({
-    "domain", "root", "mudlib", "quit",
-    "arch", "wizard", "apprentice",
-    "immortal", "player", "admin",
-    "all", "none", "cancel",
+    "domain", "root", "mudlib", "noname",
+    "all", "cancel", "new", "quit", "none",
+    "admin", "arch", "wizard", "apprentice",
+    "immortal", "player", "guest"
 });
 
 // 内部调用的函数
@@ -134,7 +134,7 @@ private void get_id(string arg, object ob)
     if (intp(MAX_USERS) && MAX_USERS > 0)
     {
         if ((string)SECURITY_D->get_status(arg) == "(player)" &&
-          sizeof(users()) >= MAX_USERS)
+            sizeof(users()) >= MAX_USERS)
         {
             ppl = find_body(arg);
             // Only allow reconnect an interactive player when MAX_USERS exceeded.
@@ -211,8 +211,7 @@ private void get_passwd(string pass, object ob)
             return;
         }
 
-        write(HIR "\n你采用了管理密码进入游戏，"
-                "因此请你先修改你的普通密码。\n" NOR);
+        write(HIR "\n你采用了管理密码进入游戏，因此请你先修改你的普通密码。\n" NOR);
 
         // 做标记：表示目前流程是修改密码分支。
         ob->set_temp("reset_password", 1);
@@ -243,7 +242,7 @@ private void reset_ad_password(string pass, object ob)
 
     if (strlen(pass) < 5)
     {
-        write("管理密码的长度至少要五个字元，请重设您的管理密码：");
+        write("管理密码的长度至少要五个字符，请重设您的管理密码：");
         input_to("reset_ad_password", 1, ob);
         return;
     }
@@ -320,7 +319,7 @@ private void check_ok(object ob)
                     query_ip_number(ob), ctime(time()) ) );
 
             if (ob->query("last_on") <= time() &&
-              ob->query("last_on") > time() - 20 &&
+              ob->query("last_on") > time() - 30 &&
               ! wiz_level(user))
             {
                 write(WHT "\n你距上次退出只有" HIY + chinese_number(time() - ob->query("last_on")) +
@@ -331,12 +330,10 @@ private void check_ok(object ob)
             }
 
             user->set_temp("logon_time", time());
-            user->set("last_save", time());
             if (err = catch(enter_world(ob, user)))
             {
                 user->set_temp("error", err);
-                msg = HIR "\n你无法进入这个世界，可能你的档"
-                      "案出了一些问题，需要和巫师联系。\n\n" NOR;
+                msg = HIR "\n你无法进入这个世界，可能你的档案出了一些问题，需要和巫师联系。\n\n" NOR;
                 if (mapp(err))
                     msg += MASTER_OB->standard_trace(err, 1);
                 user->set_temp("error_message", msg);
@@ -491,7 +488,7 @@ private void get_name(string arg, object ob)
     }
 
     if (stringp(result = NAME_D->invalid_new_name(fname)) ||
-      stringp(result = NAME_D->invalid_new_name(arg)))
+        stringp(result = NAME_D->invalid_new_name(arg)))
     {
         write("对不起，" + result);
         write("\n请重新输入您中文" HIG "姓氏" NOR "：");
@@ -594,7 +591,7 @@ private void new_password(string pass, object ob)
     }
 
     if (stringp(ad_pass = ob->query("ad_password")) &&
-      crypt(pass, ad_pass) == ad_pass)
+        crypt(pass, ad_pass) == ad_pass)
     {
         write(HIR "为了安全起见，您的管理密码和普通密码不能相同。\n" NOR);
         write("请重新设置您的" HIY "普通密码" NOR "：");
@@ -952,7 +949,7 @@ varargs void enter_world(object ob, object user, int silent)
         }
     }
 
-    tell_object(this_player(), HIG "\n今后请使用" HIY " wenxuan " HIG "命令查阅游戏的文章选集。\n\n");
+    // tell_object(this_player(), HIG "\n今后请使用" HIY " wenxuan " HIG "命令查阅游戏的文章选集。\n\n");
 /*
         // 检查是否有新邮件未读
         new_mail_n = get_info(user->query("id"), "newmail", "", 0);
@@ -1130,37 +1127,4 @@ int set_wizlock(int level)
 
     wiz_lock_level = level;
     return 1;
-}
-
-int can_login(int level)
-{
-    if (level < wiz_lock_level)
-        return 0;
-
-    return 1;
-}
-
-int howmuch_money(object ob)
-{
-    int total;
-    int total2;
-    object gold, silver, coin;
-
-    total = 0;
-    total2 = 0;
-
-    gold = present("gold_money",ob);
-    silver = present("silver_money",ob);
-    coin = present("coin_money",ob);
-
-    if( gold ) total += gold->value();
-    if( silver ) total += silver->value();
-    if( coin ) total += coin->value();
-
-    total2 = (int)ob->query("balance");
-    if (!total2 || total2 < 0) {
-        ob->set("balance", 0);
-    }
-    total=total+total2;
-    return total;
 }

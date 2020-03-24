@@ -23,9 +23,9 @@ int is_item_make() { return 1; }
 #define MAX_LEVEL LEVEL9
 #define ULTRA_LEVEL (LEVEL9 + 1)
 
-nosave int *levels = ({LEVEL1, LEVEL2, LEVEL3, LEVEL4,
-                               LEVEL5, LEVEL6, LEVEL7, LEVEL8,
-                               LEVEL9});
+nosave int *levels = ({ LEVEL1, LEVEL2, LEVEL3, LEVEL4,
+                        LEVEL5, LEVEL6, LEVEL7, LEVEL8,
+                        LEVEL9});
 
 nosave int performing = 0;
 nosave int attack_lvl = 0;
@@ -75,14 +75,13 @@ int weapon_level()
     mapping o;
     string *ks;
     int lvl;
-    int i;
 
     lvl = 0;
     o = query("owner");
     if (mapp(o))
     {
         ks = keys(o);
-        for (i = 0; i < sizeof(ks); i++)
+        for (int i = 0; i < sizeof(ks); i++)
             lvl += o[ks[i]];
     }
 
