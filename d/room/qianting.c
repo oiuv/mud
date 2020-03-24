@@ -7,23 +7,23 @@ void create()
 {
 //**    object ob;
 
-	set("short", "前庭");             /* EXAMPLE */
+        set("short", "前庭");             /* EXAMPLE */
 //**    set("short", "ROOM_NAME前庭");
-	set("long", @LONG
+        set("long", @LONG
 这里似乎非常安静，倒是时不时听见鸟儿唧唧喳喳的叫。院中不少树
 木已然有遮天之势，肃穆非常。
 LONG );
 
-	set("default_long", "这里似乎非常安静，听不到什么声响，到是时不" /* EXAMPLE */
+        set("default_long", "这里似乎非常安静，听不到什么声响，到是时不" /* EXAMPLE */
                             "时听见鸟儿唧唧喳喳的叫。院中不少树木已然有" /* EXAMPLE */
                             "遮天之势，肃穆非常。");                     /* EXAMPLE */
                                                                          /* EXAMPLE */
 
-	set("exits", ([
+        set("exits", ([
                 "south"  : __DIR__"dayuan",
                 "east"   : __DIR__"zuowei",
                 "west"   : __DIR__"youwei",
-	]));
+        ]));
 
 //**    set("objects", ([
 //**            "/d/room/roomnpc/laopu" : 1,

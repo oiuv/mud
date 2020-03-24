@@ -8,11 +8,11 @@ int  accept_object(object who, object ob);
 
 void create()
 {
-	set_name("丫鬟", ({"girl", "ya huan"}) );
-	set("gender", "女性" );
-	set("age", 12 + random(6));
-	set("long", "这是个年龄不大的小姑娘，一脸聪明乖巧。");
-	set("attitude", "friendly");
+        set_name("丫鬟", ({"girl", "ya huan"}) );
+        set("gender", "女性" );
+        set("age", 12 + random(6));
+        set("long", "这是个年龄不大的小姑娘，一脸聪明乖巧。");
+        set("attitude", "friendly");
 
         setup();
 }
@@ -21,18 +21,18 @@ void init()
 {
         object ob;
 
-	::init();
+        ::init();
 
-	if (interactive(ob = this_player()) && !is_fighting())
+        if (interactive(ob = this_player()) && !is_fighting())
         {
-		remove_call_out("greeting");
-		call_out("greeting", 1, ob);
-	}
+                remove_call_out("greeting");
+                call_out("greeting", 1, ob);
+        }
 }
 
 void greeting(object ob)
 {
-	if (! ob || (environment(ob) != environment())) return;
+        if (! ob || (environment(ob) != environment())) return;
 
         if (is_owner(ob))
         {
@@ -46,8 +46,6 @@ void greeting(object ob)
 
 int accept_object(object who, object ob)
 {
-//	object obn;
-
         if (! ob->query("money_id"))
                 return 0;
 
@@ -74,5 +72,5 @@ int accept_object(object who, object ob)
         destruct(ob);
         message_vision(name() + "对$N微微一笑，道：“多谢这位" +
                        RANK_D->query_respect(who) + "啦！”\n", who);
-	return 1;
+        return 1;
 }

@@ -7,20 +7,20 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "走道");
-	set("long", @LONG
+        set("short", "走道");
+        set("long", @LONG
 这是连接正厅和大门的一条走道，两旁都是木制墙板，前面就是
 迎客厅。
 LONG );
 
-	set("default_long", "这是连接正厅和大门的一条走道，两旁都是木" /* EXAMPLE */
+        set("default_long", "这是连接正厅和大门的一条走道，两旁都是木" /* EXAMPLE */
                             "制墙板，前面就是迎客厅。" );              /* EXAMPLE */
                                                                        /* EXAMPLE */
 
-	set("exits", ([
-		"north"  : __DIR__"yingke",
+        set("exits", ([
+                "north"  : __DIR__"yingke",
                 "south"  : __DIR__"qianting",
-	]));
+        ]));
 
         set("gate", "close");
 
@@ -55,7 +55,7 @@ int do_push(string arg)
         me = this_player();
         message("vision",  "你用力推了推大门，就听大门“吱呀呀”的被人推开了。\n",
                            this_object());
-    
+
         room = get_object(__DIR__"qianting");
         message("vision", "大门“吱呀呀”的被人推开了。\n", room);
         set("gate", "open");
@@ -94,4 +94,3 @@ int do_close(string arg, int n)
         room->delete("exits/north");
         return 1;
 }
-

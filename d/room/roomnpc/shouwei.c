@@ -11,10 +11,10 @@ void create()
         ::create();
         set_name(query("name"), ({ query("id"), "shou wei", "guarder" }));
         NPC_D->init_npc_skill(this_object(), 7 + random(2));
-	set("gender", "男性" );
-	set("age", 30 + random(30));
-	set("long", "这是看护庄园的守卫，看上去似乎身怀绝技。\n");
-	set("attitude", "friendly");
+        set("gender", "男性" );
+        set("age", 30 + random(30));
+        set("long", "这是看护庄园的守卫，看上去似乎身怀绝技。\n");
+        set("attitude", "friendly");
 
         set("max_qi", 4800);
         set("eff_qi", 4800);
@@ -36,8 +36,6 @@ void init()
 
 int accept_object(object who, object ob)
 {
-//	object obn;
-
         if (! ob->query("money_id"))
                 return 0;
 
@@ -47,7 +45,7 @@ int accept_object(object who, object ob)
                 destruct(ob);
                 return 1;
         }
-	return 0;
+        return 0;
 }
 
 int accept_hit(object ob)

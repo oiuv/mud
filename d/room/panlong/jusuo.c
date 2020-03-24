@@ -7,21 +7,21 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "居所");
-	set("long", @LONG
+    set("short", "居所");
+    set("long", @LONG
 这就是盘龙居主人休息，读书的地方。楼上就是主人的卧室，西面则
 是书房。
 LONG );
 
-	set("default_long", "这就是ROOM_NAME主人ROOM_OWNER休息、读书的" /* EXAMPLE */
+    set("default_long", "这就是ROOM_NAME主人ROOM_OWNER休息、读书的" /* EXAMPLE */
                             "地方。楼上就是主人的卧室，西面则是书房。");/* EXAMPLE */
                                                                         /* EXAMPLE */
 
-	set("exits", ([
-		"up"   : __DIR__"woshi",
+    set("exits", ([
+        "up"   : __DIR__"woshi",
                 "west" : __DIR__"shufang",
-		"east" : __DIR__"huayuan",  /* EXAMPLE */
-	]));
+        "east" : __DIR__"huayuan",  /* EXAMPLE */
+    ]));
 
         set("no_sleep_room", 1);
         setup();

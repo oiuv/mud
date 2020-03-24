@@ -5,15 +5,15 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "后花园");
-	set("long", @LONG
+        set("short", "后花园");
+        set("long", @LONG
 这是盘龙居的后花园，种着一些采自五湖四海，名山大川的奇花
 异草，美丽非常。主人有时读书练武疲倦了，就到这里稍作休息，观
 赏花草以怡情自乐，或许能突发灵感，有所领悟。西面就是通往主人
 居所的铁门，东面则是一片竹林。
 LONG );
 
-	set("default_long", "这是ROOM_NAME的后花园，种着一些ROOM_OWNER"/* EXAMPLE */
+        set("default_long", "这是ROOM_NAME的后花园，种着一些ROOM_OWNER"/* EXAMPLE */
                             "采自五湖四海、名山大川的奇花异草，美丽非" /* EXAMPLE */
                             "常。ROOM_OWNER有时读书练武疲倦了，就到这" /* EXAMPLE */
                             "里稍作休息，观赏花草以怡情自乐，或许能突" /* EXAMPLE */
@@ -21,11 +21,11 @@ LONG );
                             "铁门，东面则是一片竹林。");               /* EXAMPLE */
                                                                        /* EXAMPLE */
 
-	set("exits", ([
+        set("exits", ([
                 "south"  : __DIR__"houyuan",
                 "east"   : __DIR__"zhulin",
-		"west"   : __DIR__"jusuo",   /* EXAMPLE */
-	]));
+                "west"   : __DIR__"jusuo",   /* EXAMPLE */
+        ]));
 
         set("outdoors", "OUTDOORS");
         set("sleep_room", 1);

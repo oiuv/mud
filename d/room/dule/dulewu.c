@@ -5,18 +5,18 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "小屋");             /* EXAMPLE */
+        set("short", "小屋");             /* EXAMPLE */
 //**    set("short", "ROOM_NAME小屋");
-	set("long", @LONG
+        set("long", @LONG
 屋子不大，靠窗的地方摆了一张床，屋中一张桌，几只椅，非常简单。
 恐怕只有甘于寂寞的人才住得了这种简朴的屋子。
 LONG );
 
-	set("default_long", "屋子不大，靠窗的地方摆了一张床，"   /**/
+        set("default_long", "屋子不大，靠窗的地方摆了一张床，"   /**/
                             "屋中一张桌，几只椅，非常简单。"     /**/
                             "看来主人是一个甘于平淡寂寞的人。"); /**/
                                                                  /**/
-	setup();
+        setup();
 
         set("exits", ([                         /* EXAMPLE */
                 "south" : __DIR__"xiaoyuan",    /* EXAMPLE */

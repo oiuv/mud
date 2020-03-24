@@ -7,14 +7,14 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "卧室");
-	set("long", @LONG
+        set("short", "卧室");
+        set("long", @LONG
 这是主人的卧室，收拾得井井有条。南窗下是一张大床，床边有一个
 柜子。推开窗户可以看到下面的花园，还可嗅到阵阵花香，非常惬意。远
 处是一大片竹林。
 LONG );
 
-	set("default_long", "这是主人的卧室，收拾得井井有条。南窗下是" /* EXAMPLE */
+        set("default_long", "这是主人的卧室，收拾得井井有条。南窗下是" /* EXAMPLE */
                             "一张大床，床边有一个柜子。推开窗户可以看" /* EXAMPLE */
                             "到下面的花园，还可嗅到阵阵花香，非常惬意" /* EXAMPLE */
                             "。远处是一大片竹林。");                   /* EXAMPLE */

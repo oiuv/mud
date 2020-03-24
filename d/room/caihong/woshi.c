@@ -7,20 +7,20 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "卧室");             /* EXAMPLE */
+        set("short", "卧室");             /* EXAMPLE */
 //**    set("short", "ROOM_NAME卧室");
-	set("long", @LONG
+        set("long", @LONG
 这是主人的卧室，收拾得井井有条。南窗下是一张大床，床边有一个
 柜子，还有一个书架。整间屋子虽然朴素，但是可以说是样样俱全，并不
 缺少什么东西。
 LONG );
 
-	set("default_long", "这是主人的卧室，收拾得井井有条。南窗下是"   /* EXAMPLE */
+        set("default_long", "这是主人的卧室，收拾得井井有条。南窗下是"   /* EXAMPLE */
                             "一张大床，床边有一个柜子，还有一个书架，"   /* EXAMPLE */
                             "上面放着一些书。整间屋子布置得非常朴素，"   /* EXAMPLE */
                             "并不奢华。屋门在西首。");                   /* EXAMPLE */
                                                                          /* EXAMPLE */
-	setup();
+        setup();
 
         set("exits", ([
                 "west" : __DIR__"dating",

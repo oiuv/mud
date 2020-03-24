@@ -7,20 +7,20 @@ void create()
 {
 //**    object ob;
 
-	set("short", "右卫舍");             /* EXAMPLE */
+        set("short", "右卫舍");             /* EXAMPLE */
 //**    set("short", "ROOM_NAME右卫舍");
-	set("long", @LONG
+        set("long", @LONG
 这里是右卫舍，是看护大门的家丁放哨的地方。当然现在是空空
 荡荡，没有一个人。
 LONG );
 
-	set("default_long", "这里是右卫舍，是看护ROOM_NAME大门的家丁放" /* EXAMPLE */
+        set("default_long", "这里是右卫舍，是看护ROOM_NAME大门的家丁放" /* EXAMPLE */
                             "哨的地方。");                              /* EXAMPLE */
                                                                         /* EXAMPLE */
 
-	set("exits", ([
+        set("exits", ([
                 "east"   : __DIR__"qianting",
-	]));
+        ]));
 
 //**    set("objects", ([
 //**            "/d/room/roomnpc/shouwei" : 2,

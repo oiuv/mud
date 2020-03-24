@@ -7,19 +7,19 @@ inherit ROOM;                                   /* EXAMPLE */
 
 void create()
 {
-	set("short", "茶室");
-	set("long", @LONG
+        set("short", "茶室");
+        set("long", @LONG
 这是一个玲珑小巧的茶室，很是显得精致。正中有一茶几。
 LONG );
 
-	set("default_long", "是一个玲珑小巧的茶室，很是显得精致。正" /* EXAMPLE */
+        set("default_long", "是一个玲珑小巧的茶室，很是显得精致。正" /* EXAMPLE */
                             "中有一茶几，两旁立着两个妙龄少女，正在" /* EXAMPLE */
                             "听候主人的吩咐(tea)。" );               /* EXAMPLE */
                                                                      /* EXAMPLE */
 
-	set("exits", ([
-		"west"  : __DIR__"yingke",
-	]));
+        set("exits", ([
+                "west"  : __DIR__"yingke",
+        ]));
 
 //**    set("objects", ([
 //**            "/d/room/roomnpc/teagirl" : 2,

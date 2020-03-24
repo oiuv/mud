@@ -74,7 +74,7 @@ int do_show(string arg)
         me = this_player();
         if (! objectp(ob = present(arg, me)))
                 return notify_fail("你身上没有这种东西。\n");
- 
+
         msg = "$N亮出一" + ob->query("unit") + ob->name() + "\n";
         if (! ob->id(environment()->query("room_owner_id") + " pass"))
                 msg += "不过$n理都没有理$n。\n";

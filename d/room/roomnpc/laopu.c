@@ -11,11 +11,11 @@ int  accept_object(object who, object ob);
 
 void create()
 {
-	set_name("扫地老仆", ({"lao pu", "saodi laopu"}) );
-	set("gender", "男性" );
-	set("age", 50 + random(20));
-	set("long", "这是一个扫地的老仆人，不过看上去似乎身怀绝技。\n");
-	set("attitude", "friendly");
+        set_name("扫地老仆", ({"lao pu", "saodi laopu"}) );
+        set("gender", "男性" );
+        set("age", 50 + random(20));
+        set("long", "这是一个扫地的老仆人，不过看上去似乎身怀绝技。\n");
+        set("attitude", "friendly");
 
         set("max_qi", 4000);
         set("max_jing", 2000);
@@ -80,8 +80,6 @@ void do_wield()
 
 int accept_object(object who, object ob)
 {
-//	object obn;
-
         if (! ob->query("money_id"))
                 return 0;
 
@@ -91,7 +89,7 @@ int accept_object(object who, object ob)
                 destruct(ob);
                 return 1;
         }
-	return 0;
+        return 0;
 }
 
 int accept_hit(object ob)

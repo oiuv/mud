@@ -4,30 +4,30 @@
 inherit ROOM;                                   /* EXAMPLE */
 
 string *names = ({
-	"/d/shaolin/obj/mala-doufu",
-	"/d/shaolin/obj/bocai-fentiao",
-	"/d/shaolin/obj/shanhu-baicai",
-	"/d/shaolin/obj/liuli-qiezi",
-	"/d/shaolin/obj/mizhi-tianou",
-	"/d/shaolin/obj/jiaxin-biji",
-	"/d/shaolin/obj/basi-shanyao",
-	"/d/shaolin/obj/furong-huagu",
+    "/d/shaolin/obj/mala-doufu",
+    "/d/shaolin/obj/bocai-fentiao",
+    "/d/shaolin/obj/shanhu-baicai",
+    "/d/shaolin/obj/liuli-qiezi",
+    "/d/shaolin/obj/mizhi-tianou",
+    "/d/shaolin/obj/jiaxin-biji",
+    "/d/shaolin/obj/basi-shanyao",
+    "/d/shaolin/obj/furong-huagu",
 });
 
 void create()
 {
-	set("short", "厨房");
-	set("long", @LONG
+    set("short", "厨房");
+    set("long", @LONG
 此处便是盘龙居的厨房，武功再高终究也不能辟谷，饭总是要吃的。
 LONG );
 
-	set("default_long", "此处便是ROOM_NAME的厨房，只间几个仆人忙来"/* EXAMPLE */
+    set("default_long", "此处便是ROOM_NAME的厨房，只间几个仆人忙来"/* EXAMPLE */
                             "忙去，不得歇息。");                       /* EXAMPLE */
                                                                        /* EXAMPLE */
 
-	set("exits", ([
+    set("exits", ([
                 "east" : __DIR__"houyuan",
-	]));
+    ]));
 
 //**    set("objects", ([
 //**            names[random(sizeof(names))] : 1,
