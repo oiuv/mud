@@ -8,78 +8,42 @@ void create()
 
 // This function is called by master object to return the "virtual" object
 // of <file> when dirver failed to find such a file.
-/*
-object compile_object(string file)
-{
-    string pname = file;
-    object ob;
-
-    while (1)
-    {
-        int idx = strsrch(pname, "/", -1);
-
-        if (idx == -1)
-            return 0;
-
-        if (idx != 0)
-            pname = pname[0..idx - 1];
-
-        if (file_size(pname + ".c") >= 0)
-            if (ob = pname->query_maze_room(file[idx + 1..]))
-            {
-                ob->set_virtual_flag();
-                return ob;
-            }
-        if (!idx)
-            return 0;
-    }
-
-    return 0;
-}
- */
 
 mixed compile_object(string file)
 {
-    string *path, cfile;
+    string virtual;
     object ob;
-    int x, y, z, elements, n;
+    int x, y, z, m, n;
 
-    path = explode(file, "/");
-    n = sizeof(path) - 1;
-    cfile = replace_string(file, "/" + path[n], "");
-
-    if ((elements = sscanf(path[n], "%d,%d,%d", x, y, z)) != 3)
+    n = strsrch(file, "/", -1);
+    if (n < 1)
     {
-        if ((elements = sscanf(path[n], "%d,%d", x, y)) != 2)
-        {
-            // VRM_SERVER 方式生成迷宫
-            string pname = file;
-            while (1)
-            {
-                int idx = strsrch(pname, "/", -1);
+        return 0;
+    }
 
-                if (idx == -1)
-                    return 0;
-                if (idx != 0)
-                    pname = pname[0..idx - 1];
-                if (file_size(pname + ".c") >= 0)
-                    if (ob = pname->query_maze_room(file[idx + 1..]))
-                    {
-                        // ob->set_virtual_flag();
-                        return ob;
-                    }
-                if (!idx)
-                    return 0;
-            }
+    virtual = file[0..n - 1];
+
+    if (file_size(virtual + ".c") < 1)
+    {
+        return 0;
+    }
+
+    if ((m = sscanf(file[n + 1..], "%d,%d,%d", x, y, z)) != 3)
+    {
+        if ((m = sscanf(file[n + 1..], "%d,%d", x, y)) != 2)
+        {
+            return virtual->query_maze_room(file[n + 1..]);
         }
     }
 
-    if (file_size(cfile + ".c") < 1)
-        return 0; // "对象不存在！"
-    if (elements == 2 && !(ob = new (cfile, x, y)))
-        return 0; // "编译失败！"
-    else if (elements == 3 && !(ob = new (cfile, x, y, z)))
-        return 0; // "编译失败！"
+    if (m == 2 && !(ob = new (virtual, x, y)))
+    {
+        return 0;
+    }
+    else if (m == 3 && !(ob = new (virtual, x, y, z)))
+    {
+        return 0;
+    }
 
     return ob;
 }

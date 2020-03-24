@@ -1,45 +1,43 @@
-/************************************************
- * vrm_server.c                                 *
- * 虚拟的随机迷宫创造器 (Virtual Random Maze)     *
- *                                              *
- * by Find.                                     *
- *              网络游戏 天下 MUD.               *
- ************************************************/
-/* 因为为房间继承，建议使用VRM(/inherit/room/vrm) */
-/******************************************************
- * 迷宫是一个游戏里经常要用到的东西，以前的迷宫都需要 *
- * 巫师一个房间一个房间地手工绘制，费时费力，而且一旦 *
- * 被玩家找出正确的线路，迷宫格局被泄漏，迷宫就不称其 *
- * 为迷宫了，所以巫师们都绞尽脑汁把迷宫设计的尽量复杂,*
- * 但再复杂的迷宫早晚也会被找到正确的路线，而且过于复 *
- * 杂难走的迷宫也使玩家感觉过于繁琐，降低乐趣。因此产 *
- * 生此想法。                                     *
- * 随机迷宫的产生算法尽量简单，迷宫的储存尽量节省记忆 *
- * 体，迷宫房间采用虚拟物件，处理灵活，迷宫房间只有在 *
- * 玩家走到时才会装进内存，而且迷宫房间也象普通的ROOM *
- * 一样当一段时间没有被参考到可以销毁节省记忆体，当整 *
- * 个迷宫一段时间没有被参考到可以被完全摧毁，下次再需 *
- * 要的时候会重新建立，又会产生一个新的迷宫。区域巫师 *
- * 写作随机迷宫只需规定一些预设的参数如迷宫的单边长、 *
- * 房间描述、出入口描述，几十个乃至几千个房间、路线时 *
- * 时不同的随机迷宫就建立好了，大大提高了区域写作效率 *
- * 和游戏的可玩性。                                *
- * 此物件目前适合于随机的迷宫，即：迷宫内房间的描述基 *
- * 本相同，比如一片树林、一片坟地等，如要此物件创作完 *
- * 整的随机区域即有一定的情节、一定格局的区域，则需要 *
- * 根据自己的情况规定出迷宫内房间描述的一些规则，使相 *
- * 邻房间的描述变化合理，房间内物件与描述协调。如果愿 *
- * 意巫师可以只制作迷宫间的连接部分，而用几个迷宫组合 *
- * 成一个完全随机的区域，哈，那以后做巫师可轻松多了。 *
- * 目前本游戏使用的迷宫一般为单边长10至40，到底能做多 *
- * 大的迷宫我也不知道，下面对此有一个说明，要根据自己 *
- * 的服务器性能来讲，不过我想最普通的机器制作一个面积 *
- * 为100x100的迷宫应该也是一件轻松的事情。           *
- * 由于采用 virtual object，牵涉到一点安全问题，需要根*
- * 据自己的系统考量调整。                             *
- ******************************************************/
+/*****************************************************************************
+Copyright: 2020, Mud.Ren
+File name: vrm.c
+Author: ＭＵＤ游戏天下
+Description: 虚拟随机迷宫 (Virtual Random Maze)修改版
+Version: v1.1
+*****************************************************************************/
 
-// #pragma optimize
+/******************************************************
+ * 迷宫是一个游戏里经常要用到的东西，以前的迷宫都需要
+ * 巫师一个房间一个房间地手工绘制，费时费力，而且一旦
+ * 被玩家找出正确的线路，迷宫格局被泄漏，迷宫就不称其
+ * 为迷宫了，所以巫师们都绞尽脑汁把迷宫设计的尽量复杂,
+ * 但再复杂的迷宫早晚也会被找到正确的路线，而且过于复
+ * 杂难走的迷宫也使玩家感觉过于繁琐，降低乐趣。因此产
+ * 生此想法。
+ * 随机迷宫的产生算法尽量简单，迷宫的储存尽量节省记忆
+ * 体，迷宫房间采用虚拟物件，处理灵活，迷宫房间只有在
+ * 玩家走到时才会装进内存，而且迷宫房间也象普通的ROOM
+ * 一样当一段时间没有被参考到可以销毁节省记忆体，当整
+ * 个迷宫一段时间没有被参考到可以被完全摧毁，下次再需
+ * 要的时候会重新建立，又会产生一个新的迷宫。区域巫师
+ * 写作随机迷宫只需规定一些预设的参数如迷宫的单边长、
+ * 房间描述、出入口描述，几十个乃至几千个房间、路线时
+ * 时不同的随机迷宫就建立好了，大大提高了区域写作效率
+ * 和游戏的可玩性。
+ * 此物件目前适合于随机的迷宫，即：迷宫内房间的描述基
+ * 本相同，比如一片树林、一片坟地等，如要此物件创作完
+ * 整的随机区域即有一定的情节、一定格局的区域，则需要
+ * 根据自己的情况规定出迷宫内房间描述的一些规则，使相
+ * 邻房间的描述变化合理，房间内物件与描述协调。如果愿
+ * 意巫师可以只制作迷宫间的连接部分，而用几个迷宫组合
+ * 成一个完全随机的区域，哈，那以后做巫师可轻松多了。
+ * 目前本游戏使用的迷宫一般为单边长10至40，到底能做多
+ * 大的迷宫我也不知道，下面对此有一个说明，要根据自己
+ * 的服务器性能来讲，不过我想最普通的机器制作一个面积
+ * 为100x100的迷宫应该也是一件轻松的事情。
+ * 由于采用 virtual object，牵涉到一点安全问题，需要根
+ * 据自己的系统考量调整。
+ ******************************************************/
 
 #define N 8
 #define S 4
@@ -57,35 +55,32 @@
  * 万乃至十几万个房间的迷宫，应将创建工作放置于游戏启
  * 动时做，游戏启动的一段时间（比如20秒）禁止玩家登入。
  * 游戏通过定期重新启动来更新此迷宫。
- * 不知谁会用到这么大的迷宫。。。。。。
+ * 不知谁会用到这么大的迷宫……
  ****************************************************/
 #define MAX_LONG 100
 
-// 只要能与其他房间相连的房间就肯定有一个入口.
-// 而可能的出口有三个.
+// 只要能与其他房间相连的房间就肯定有一个入口.而可能的出口有三个.
 // define 这项规定房间最多只能有两个出口.
 // 也就是对于有三个出口的房间会随机关闭一个.
-// 不会使玩家由于看到四个方向都有出口很烦
-// 降低游戏乐趣。
+// 不会使玩家由于看到四个方向都有出口很烦降低游戏乐趣。
 #define TWO_VALID_LEAVES
-
-inherit F_CLEAN_UP;
 
 class coordinate
 {
     int x;
     int y;
 }
-class coordinate *newpath = ({}), /*待处理队列*/
-    enter,                          /* 入口坐标 */
-    leave;                          /* 出口坐标 */
+
+class coordinate *newpath = ({}), /* 待处理队列 */
+                 enter,           /* 入口坐标 */
+                 leave;           /* 出口坐标 */
 
 private string *valid_dirs = ({"south", "north", "west", "east"});
 private mapping reverse_dir = ([
-    "north":"south",
-    "south":"north",
-     "west":"east",
-     "east":"west",
+    "north" : "south",
+    "south" : "north",
+     "west" : "east",
+     "east" : "west",
 ]);
 
 // 全迷宫出口阵列.
@@ -106,7 +101,9 @@ private string exit_desc; // 迷宫出口的长描述
 private string *maze_room_desc = ({}); // 迷宫房间的长描述
 private string maze_room_short; // 迷宫房间的短描述
 private int is_outdoors = 0; // 迷宫房间是否为户外
+private int maze_map = 0; // 是否绘制迷宫地图
 private string *maze_npcs = ({}); // 迷宫中的怪物
+private mapping extra_info = ([]); // 迷宫额外参数
 /******************* ---- END ---- *********************/
 
 // 建立标记.
@@ -132,7 +129,7 @@ private void paint_vrm_map();
 
 private string mroom_fname(int x, int y)
 {
-    return sprintf("%s/%d/%d", base_name(this_object()), x, y);
+    return sprintf("%s/%d-%d", base_name(this_object()), x, y);
 }
 
 private void refresh_vars() // 重置全域变量.
@@ -159,13 +156,13 @@ private int check_vars()
 
     if (!stringp(entry_dir) || (member_array(entry_dir, valid_dirs) == -1))
         return 0;
-/*
+    /*
     if(!stringp(link_entry_dir) || (member_array(link_entry_dir,valid_dirs) == -1) )
         return 0;
 
     if(!stringp(link_exit_dir) || (member_array(link_exit_dir,valid_dirs) == -1) )
         return 0;
-*/
+    */
     if (!stringp(link_entry_room) || (link_entry_room == ""))
         return 0;
 
@@ -203,7 +200,7 @@ private int random_out(int x, int y, int n) // 选择随机出口函数.
     int *outs = ({}), retn = 0;
     class coordinate temp;
 
-    // The west room is (x-1,y)
+    // The west room is (x - 1, y)
     if (n & W && ((x - 1) >= 0) && !all[x - 1][y])
     {
         temp = new (class coordinate);
@@ -215,7 +212,7 @@ private int random_out(int x, int y, int n) // 选择随机出口函数.
         outs += ({W});
     }
 
-    // The east room is (x+1,y)
+    // The east room is (x + 1, y)
     if (n & E && ((x + 1) < l) && !all[x + 1][y])
     {
         temp = new (class coordinate);
@@ -227,7 +224,7 @@ private int random_out(int x, int y, int n) // 选择随机出口函数.
         outs += ({E});
     }
 
-    // The south room is (x,y-1)
+    // The south room is (x, y - 1)
     if (n & S && ((y - 1) >= 0) && !all[x][y - 1])
     {
         temp = new (class coordinate);
@@ -239,7 +236,7 @@ private int random_out(int x, int y, int n) // 选择随机出口函数.
         outs += ({S});
     }
 
-    // The north room is (x,y+1)
+    // The north room is (x, y + 1)
     if (n & N && ((y + 1) < l) && !all[x][y + 1])
     {
         temp = new (class coordinate);
@@ -281,27 +278,27 @@ private void create_maze()
 
     switch (entry_dir)
     {
-    case "south":
-        // enter 入口坐标.
-        enter->x = to_int(l / 2); // 取中迷宫比较平衡。
-        enter->y = 0;
-        all[enter->x][enter->y] |= S;
-        break;
-    case "north":
-        enter->x = to_int(l / 2);
-        enter->y = l - 1;
-        all[enter->x][enter->y] |= N;
-        break;
-    case "west":
-        enter->y = to_int(l / 2);
-        enter->x = 0;
-        all[enter->x][enter->y] |= W;
-        break;
-    case "east":
-        enter->y = to_int(l / 2);
-        enter->x = l - 1;
-        all[enter->x][enter->y] |= E;
-        break;
+        case "south":
+            // enter 入口坐标.
+            enter->x = to_int(l / 2); // 取中迷宫比较平衡。
+            enter->y = 0;
+            all[enter->x][enter->y] |= S;
+            break;
+        case "north":
+            enter->x = to_int(l / 2);
+            enter->y = l - 1;
+            all[enter->x][enter->y] |= N;
+            break;
+        case "west":
+            enter->y = to_int(l / 2);
+            enter->x = 0;
+            all[enter->x][enter->y] |= W;
+            break;
+        case "east":
+            enter->y = to_int(l / 2);
+            enter->x = l - 1;
+            all[enter->x][enter->y] |= E;
+            break;
     }
 
     // 存入待处理队列.
@@ -346,46 +343,46 @@ private void create_maze()
 
     switch (entry_dir)
     {
-    case "west":
-        for (i = 0; i < l; i++)
-            if (all[l - 1][i])
-            {
-                temp = new (class coordinate);
-                temp->x = l - 1;
-                temp->y = i;
-                valid_leaves += ({temp});
-            }
-        break;
-    case "east":
-        for (i = 0; i < l; i++)
-            if (all[0][i])
-            {
-                temp = new (class coordinate);
-                temp->x = 0;
-                temp->y = i;
-                valid_leaves += ({temp});
-            }
-        break;
-    case "south":
-        for (i = 0; i < l; i++)
-            if (all[i][l - 1])
-            {
-                temp = new (class coordinate);
-                temp->x = i;
-                temp->y = l - 1;
-                valid_leaves += ({temp});
-            }
-        break;
-    case "north":
-        for (i = 0; i < l; i++)
-            if (all[i][0])
-            {
-                temp = new (class coordinate);
-                temp->x = i;
-                temp->y = 0;
-                valid_leaves += ({temp});
-            }
-        break;
+        case "west":
+            for (i = 0; i < l; i++)
+                if (all[l - 1][i])
+                {
+                    temp = new (class coordinate);
+                    temp->x = l - 1;
+                    temp->y = i;
+                    valid_leaves += ({temp});
+                }
+            break;
+        case "east":
+            for (i = 0; i < l; i++)
+                if (all[0][i])
+                {
+                    temp = new (class coordinate);
+                    temp->x = 0;
+                    temp->y = i;
+                    valid_leaves += ({temp});
+                }
+            break;
+        case "south":
+            for (i = 0; i < l; i++)
+                if (all[i][l - 1])
+                {
+                    temp = new (class coordinate);
+                    temp->x = i;
+                    temp->y = l - 1;
+                    valid_leaves += ({temp});
+                }
+            break;
+        case "north":
+            for (i = 0; i < l; i++)
+                if (all[i][0])
+                {
+                    temp = new (class coordinate);
+                    temp->x = i;
+                    temp->y = 0;
+                    valid_leaves += ({temp});
+                }
+            break;
     }
 
     if (!(i = sizeof(valid_leaves))) // 没有出口 须重新建立
@@ -401,18 +398,18 @@ private void create_maze()
 
     switch (entry_dir)
     {
-    case "south":
-        all[leave->x][leave->y] |= N;
-        break;
-    case "north":
-        all[leave->x][leave->y] |= S;
-        break;
-    case "west":
-        all[leave->x][leave->y] |= E;
-        break;
-    case "east":
-        all[leave->x][leave->y] |= W;
-        break;
+        case "south":
+            all[leave->x][leave->y] |= N;
+            break;
+        case "north":
+            all[leave->x][leave->y] |= S;
+            break;
+        case "west":
+            all[leave->x][leave->y] |= E;
+            break;
+        case "east":
+            all[leave->x][leave->y] |= W;
+            break;
     }
 
     // 迷宫创建完毕。
@@ -422,10 +419,11 @@ private void create_maze()
     // 地图文件为同目录下同名的'.map' 文件，
     // 绘制地图也许可利于区域巫师的工作。
     // 如需要可开放物件对于本目录的'写'。
-    //paint_vrm_map();
+    if (maze_map)
+        paint_vrm_map();
 }
 
-private void link_to_west(int x, int y) // The west room is (x-1,y)
+private void link_to_west(int x, int y) // The west room is (x - 1, y)
 {
     class coordinate temp;
     // can't link. 当前房间已经是最西面的房间了.
@@ -437,7 +435,7 @@ private void link_to_west(int x, int y) // The west room is (x-1,y)
     temp->y = y;
 
     // 西面的房间已经于 path 中,或者 已在待处理列表 newpath 中.
-    if (all[temp->x][temp->y] /*|| member_array(temp,newpath)*/)
+    if (all[temp->x][temp->y] /*|| member_array(temp, newpath)*/)
         return;
 
     all[x][y] |= W;
@@ -445,7 +443,7 @@ private void link_to_west(int x, int y) // The west room is (x-1,y)
     newpath += ({temp});
 }
 
-private void link_to_east(int x, int y) // The east room is (x+1,y)
+private void link_to_east(int x, int y) // The east room is (x + 1, y)
 {
     class coordinate temp;
     // can't link. 当前房间已经是最东面的房间了.
@@ -457,7 +455,7 @@ private void link_to_east(int x, int y) // The east room is (x+1,y)
     temp->y = y;
 
     // 东面的房间已经于 path 中,或者 已在待处理列表 newpath 中.
-    if (all[temp->x][temp->y] /*|| member_array(temp,newpath)*/)
+    if (all[temp->x][temp->y] /*|| member_array(temp, newpath)*/)
         return;
 
     all[x][y] |= E;
@@ -465,7 +463,7 @@ private void link_to_east(int x, int y) // The east room is (x+1,y)
     newpath += ({temp});
 }
 
-private void link_to_south(int x, int y) // The south room is (x,y-1)
+private void link_to_south(int x, int y) // The south room is (x, y - 1)
 {
     class coordinate temp;
     // can't link. 当前房间已经是最南端的房间了.
@@ -477,7 +475,7 @@ private void link_to_south(int x, int y) // The south room is (x,y-1)
     temp->y = y - 1;
 
     // 南端的房间已经于 path 中,或者 已在待处理列表 newpath 中.
-    if (all[temp->x][temp->y] /*|| member_array(temp,newpath)*/)
+    if (all[temp->x][temp->y] /*|| member_array(temp, newpath)*/)
         return;
 
     all[x][y] |= S;
@@ -485,7 +483,7 @@ private void link_to_south(int x, int y) // The south room is (x,y-1)
     newpath += ({temp});
 }
 
-private void link_to_north(int x, int y) // The north room is (x,y+1)
+private void link_to_north(int x, int y) // The north room is (x, y + 1)
 {
     class coordinate temp;
     // can't link. 当前房间已经是最北端的房间了.
@@ -497,7 +495,7 @@ private void link_to_north(int x, int y) // The north room is (x,y+1)
     temp->y = y + 1;
 
     // 北端的房间已经于 path 中,或者 已在待处理列表 newpath 中.
-    if (all[temp->x][temp->y] /*|| member_array(temp,newpath)*/)
+    if (all[temp->x][temp->y] /*|| member_array(temp, newpath)*/)
         return;
 
     all[x][y] |= N;
@@ -508,7 +506,8 @@ private void link_to_north(int x, int y) // The north room is (x,y+1)
 // 绘制已建成迷宫的地图.
 private void paint_vrm_map()
 {
-    string hor = "─", ver = "│  ", room = "◎", sroom = "●";
+    // string hor = "─", ver = "│  ", room = "◎", sroom = "●";
+    string hor = "--", ver = "|  ", room = "#", sroom = "x";
     int x, y;
     string output = "", map_file;
 
@@ -535,7 +534,7 @@ private void paint_vrm_map()
             if ((all[x][y]) & S) // have south
                 output += ver;
             else
-                output += "    ";
+                output += "   ";
         }
         output += "\n";
     }
@@ -544,7 +543,7 @@ private void paint_vrm_map()
     write_file(map_file, output, 1);
 }
 
-nomask int clean_up()
+nomask int clean_up(int inherited)
 {
     string fname;
     int x, y;
@@ -574,8 +573,8 @@ nomask int clean_up()
 
     for (x = 0; x < l; x++)
         for (y = 0; y < l; y++)
-            if (objectp(find_object(sprintf("%s/%d/%d", fname, x, y))))
-                maze_objs += ({find_object(sprintf("%s/%d/%d", fname, x, y))});
+            if (objectp(find_object(sprintf("%s/%d-%d", fname, x, y))))
+                maze_objs += ({find_object(sprintf("%s/%d-%d", fname, x, y))});
 
     maze_objs->clean_up();
     maze_objs -= ({0});
@@ -599,12 +598,12 @@ void remove(string euid)
 
     for (x = 0; x < l; x++)
         for (y = 0; y < l; y++)
-            if (objectp(m_room = find_object(sprintf("%s/%d/%d", fname, x, y))))
+            if (objectp(m_room = find_object(sprintf("%s/%d-%d", fname, x, y))))
                 destruct(m_room);
-    if (find_object(sprintf("%s/entry", fname)))
-        destruct(sprintf("%s/entry", fname));
-    if (find_object(sprintf("%s/exit", fname)))
-        destruct(sprintf("%s/exit", fname));
+    if (objectp(m_room = find_object(sprintf("%s/entry", fname))))
+        destruct(m_room);
+    if (objectp(m_room = find_object(sprintf("%s/exit", fname))))
+        destruct(m_room);
 }
 
 /**** 以下是预设迷宫参数的接口函数 ****/
@@ -676,7 +675,7 @@ void set_link_entry_room(string lroom)
     if (!stringp(lroom) || lroom == "")
         return;
 
-    if (file_size(sprintf("%s.c", lroom)) <= 0)
+    if (!objectp(load_object(lroom)))
         return;
 
     link_entry_room = lroom;
@@ -697,7 +696,7 @@ void set_link_exit_room(string lroom)
     if (!stringp(lroom) || lroom == "")
         return;
 
-    if (file_size(sprintf("%s.c", lroom)) <= 0)
+    if (!objectp(load_object(lroom)))
         return;
 
     link_exit_room = lroom;
@@ -784,7 +783,7 @@ void set_maze_npcs(mixed npc)
     if (stringp(npc))
     {
         // 此档案是否存在
-        if (file_size(sprintf("%s.c", npc)) > 0)
+        if (objectp(load_object(npc)))
             maze_npcs = ({npc});
         return;
     }
@@ -795,7 +794,7 @@ void set_maze_npcs(mixed npc)
         {
             if (!stringp(f) || f == "")
                 return;
-            if (file_size(sprintf("%s.c", f)) <= 0)
+            if (!objectp(load_object(f)))
                 return;
         }
         maze_npcs = npc;
@@ -803,6 +802,23 @@ void set_maze_npcs(mixed npc)
     }
 
     return;
+}
+
+// 迷宫房间是否绘制地图
+void set_maze_map(int yes)
+{
+    if (!intp(yes))
+        return;
+
+    if (yes)
+        maze_map = 1;
+}
+
+// 迷宫额外参数
+void set_extra_info(mixed info)
+{
+    if (mapp(info))
+        extra_info = info;
 }
 
 /**** 以上是预设迷宫参数的接口函数 ****/
@@ -833,7 +849,7 @@ nomask object query_maze_room(string str)
         ob = new (f);
         if (!ob)
             return 0;
-        ob->set("virtual_room", 1);
+        ob->set("maze_room", 1);
         ob->set("short", entry_short);
         ob->set("long", entry_desc);
         if (is_outdoors)
@@ -842,7 +858,8 @@ nomask object query_maze_room(string str)
         ob->set(sprintf("exits/%s", reverse_dir[entry_dir]), mroom_fname(enter->x, enter->y));
         if (sizeof(maze_npcs) && (random(100) <= random_rate))
         {
-            ob->set("objects", ([maze_npcs[random(sizeof(maze_npcs))]:1,
+            ob->set("objects", ([
+                maze_npcs[random(sizeof(maze_npcs))] : 1,
             ]));
             ob->setup();
         }
@@ -857,7 +874,7 @@ nomask object query_maze_room(string str)
         if (!ob)
             return 0;
 
-        ob->set("virtual_room", 1);
+        ob->set("maze_room", 1);
         ob->set("short", exit_short);
         ob->set("long", exit_desc);
         if (is_outdoors)
@@ -867,14 +884,15 @@ nomask object query_maze_room(string str)
                 mroom_fname(leave->x, leave->y));
         if (sizeof(maze_npcs) && (random(100) <= random_rate))
         {
-            ob->set("objects", ([maze_npcs[random(sizeof(maze_npcs))]:1,
+            ob->set("objects", ([
+                maze_npcs[random(sizeof(maze_npcs))] : 1,
             ]));
             ob->setup();
         }
         return ob;
     }
 
-    idx = member_array('/', str);
+    idx = member_array('-', str);
     if (idx == -1)
         return 0;
 
@@ -891,12 +909,21 @@ nomask object query_maze_room(string str)
     if (!ob)
         return 0;
 
-    ob->set("virtual_room", 1);
+    ob->set("maze_room", 1);
     ob->set("short", maze_room_short);
     ob->set("long", maze_room_desc[random(sizeof(maze_room_desc))]);
     if (is_outdoors)
         ob->set("outdoors", 1);
-
+    // 迷宫坐标，备用显示
+    ob->set("zone", (["x":x, "y":y]));
+    // 迷宫额外参数
+    if (sizeof(extra_info))
+    {
+        foreach(mixed key, mixed value in extra_info)
+        {
+            ob->set(key, value);
+        }
+    }
     if (exits & W)
         ob->set("exits/west", mroom_fname(x - 1, y));
     if (exits & E)
@@ -915,7 +942,8 @@ nomask object query_maze_room(string str)
 
     if (sizeof(maze_npcs) && (random(100) <= random_rate))
     {
-        ob->set("objects", ([maze_npcs[random(sizeof(maze_npcs))]:1,
+        ob->set("objects", ([
+            maze_npcs[random(sizeof(maze_npcs))] : 1,
         ]));
         ob->setup();
     }

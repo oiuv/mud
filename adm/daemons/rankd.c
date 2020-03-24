@@ -754,7 +754,7 @@ string query_respect(object ob)
         return str;
 
     if ((string)ob->query("id") == "ivy")
-        return "神仙哥哥";
+        return "仙子";
 
     age = ob->query("age");
     switch (ob->query("gender"))

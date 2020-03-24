@@ -1,7 +1,6 @@
 // 地狱迷宫
-// by Lonely
 #include <ansi.h>
-inherit VRM_SERVER;
+inherit VRM;
 
 void create()
 {

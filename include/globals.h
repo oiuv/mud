@@ -123,6 +123,7 @@
 #define PRIVATE_ROOM    "/inherit/room/privateroom"
 #define QUARRY          "/inherit/char/quarry"
 #define ROOM            "/inherit/room/room"
+#define VRM             "/inherit/room/vrm"
 #define RIVER           "/inherit/room/river"
 #define SHAOLIN_SKILL   "/inherit/skill/shaolin"
 #define SHOP            "/inherit/room/shop"
