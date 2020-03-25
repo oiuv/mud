@@ -235,8 +235,8 @@ string desc_of_objects(object *obs)
     if (obs && sizeof(obs) > 0)
     {
         str = "";
-        count   = ([]);
-        unit    = ([]);
+        count = ([]);
+        unit  = ([]);
 
         for (i = 0; i < sizeof(obs); i++)
         {

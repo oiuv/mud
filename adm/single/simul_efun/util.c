@@ -54,8 +54,8 @@ string process_bar(int n)
 string sort_string(string input, int width, int prefix)
 {
     int i;
-    int sl;
-    int len;
+    int sl;  // 字符串长度
+    int len; // 字符串宽度
     int esc;
     string result;
 
@@ -68,13 +68,15 @@ string sort_string(string input, int width, int prefix)
     {
         if (len >= width && input[i] != '\n')
         {
-            int k;
-            k = i;
+            int k = i;
+            // ANSI颜色字符处理
             if (input[i] == 27)
-                while (k < sl && input[k++] != 'm');
+                while (k < sl && input[k++] != 'm')
+                    ;
 
-            switch ((k < sl - 1) ? input[k..k+1] : 0)
+            switch ((k < sl) ? input[k..k] : 0)
             {
+            // 符号不换行
             case "：":
             case "”":
             case "。":
@@ -87,8 +89,8 @@ string sort_string(string input, int width, int prefix)
             case "、":
                 if (k != i)
                 {
-                    result += input[i..k + 1];
-                    i = k + 1;
+                    result += input[i..k];
+                    i = k;
                     continue;
                 }
                 break;
@@ -100,17 +102,18 @@ string sort_string(string input, int width, int prefix)
         }
 
         if (input[i] == 27)
-                esc = 1;
+            esc = 1;
 
-        if (! esc)
+        if (!esc)
         {
+            // 非英文字符
             if (input[i] > 160)
             {
-                result += input[i..i+1];
-                i ++;
+                result += input[i..i];
                 len += 2;
                 continue;
             }
+            // 换行
             if (input[i] == '\n')
             {
                 result += "\n";
@@ -129,9 +132,10 @@ string sort_string(string input, int width, int prefix)
     if (i < sl)
         result += input[i..sl-1];
 
-    if (len) result += "\n";
+    if (len)
+        result += "\n";
 
-        return result;
+    return result;
 }
 
 object get_object(string name)
