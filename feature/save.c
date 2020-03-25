@@ -6,7 +6,7 @@ int save()
 
     if (stringp(file = this_object()->query_save_file()))
     {
-        assure_file(file+ __SAVE_EXTENSION__);
+        assure_file(file + __SAVE_EXTENSION__);
         return save_object(file);
     }
 

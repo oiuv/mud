@@ -188,7 +188,7 @@ int look_room(object me, object env, int brief)
         str = sprintf( HIC + "%s" + NOR + "%s\n    %s%s" + NOR,
                 env->short(),
                 wizardp(me) ? (" - " + file_name(env)) : (virtualp(env) ? " - " + env->coordinate() : ""),
-                long,
+                long, // sort_string(long, 78),
                 env->query("outdoors") ? NATURE_D->outdoor_room_description() : "");
     }
     else
