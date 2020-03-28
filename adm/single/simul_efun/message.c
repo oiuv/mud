@@ -19,7 +19,7 @@ string sort_msg(string input)
         {
                 if (len >= 54 && input[i] != '\n')
                 {
-                        switch (input[i..i+1])
+                        switch (input[i..i])
                         {
                         case "：":
                         case "”":
@@ -46,7 +46,7 @@ string sort_msg(string input)
                 {
                         if (input[i] > 160)
                         {
-                                result += input[i..i+1];
+                                result += input[i..i];
                                 i ++;
                                 len += 2;
                                 continue;
