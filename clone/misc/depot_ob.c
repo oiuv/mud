@@ -1,6 +1,6 @@
 // depot-ob.c
 
-#include "depot_ob.h"
+#include "/clone/misc/depot_ob.h"
 
 string long()
 {
