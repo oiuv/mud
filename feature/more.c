@@ -52,7 +52,7 @@ void more(string cmd, string *text, int line)
 	input_to("more", text, line);
 }
 
-#define MAX_STRING_SIZE                 7000
+#define MAX_STRING_SIZE                 2560
 
 void s_write(string msg)
 {
