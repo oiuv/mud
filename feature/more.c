@@ -7,25 +7,25 @@
 
 void more(string cmd, string *text, int line)
 {
-	int i;
+        int i;
         string show;
 
-	show = ESC + "[256D" + ESC + "[K";
+        show = ESC + "[256D" + ESC + "[K";
         show = ESC + "[1A" + ESC "[256D" + ESC + "[K";
 
-	switch (cmd)
+        switch (cmd)
         {
-	default:
+        default:
                 i = line + LINES_PER_PAGE;
                 if (i >= sizeof(text)) i = sizeof(text) - 1;
                 show += implode(text[line..i], "\n") + "\n";
-		if (i == sizeof(text) - 1)
+                if (i == sizeof(text) - 1)
                 {
                         write(show);
                         return;
                 }
                 line = i + 1;
-		break;
+                break;
 
         case "b":
                 line -= LINES_PER_PAGE * 2;
@@ -41,18 +41,18 @@ void more(string cmd, string *text, int line)
                 line = i + 1;
                 break;
 
-	case "q":
+        case "q":
                 write(show);
-		return;
-	}
-	show += sprintf(NOR WHT "== 未完继续 " HIY "%d%%" NOR
+                return;
+        }
+        show += sprintf(NOR WHT "== 未完继续 " HIY "%d%%" NOR
                         WHT " == (ENTER 继续下一页，q 离开，b 前一页)\n" NOR,
-	                line * 100 / sizeof(text));
+                        line * 100 / sizeof(text));
         write(show);
-	input_to("more", text, line);
+        input_to("more", text, line);
 }
 
-#define MAX_STRING_SIZE                 2560
+#define MAX_STRING_SIZE                 2727
 
 void s_write(string msg)
 {
@@ -92,12 +92,12 @@ void start_more(string msg)
         }
 
         write("\n");
-	more("", explode(msg, "\n"), 0);
+        more("", explode(msg, "\n"), 0);
 }
 
 void more_file(string cmd, string file, int line, int total)
 {
-	int i;
+        int i;
         string show;
         string content;
         string *text;
@@ -105,7 +105,7 @@ void more_file(string cmd, string file, int line, int total)
         int page;
         int not_show;
 
-	show = ESC + "[256D" + ESC + "[K";
+        show = ESC + "[256D" + ESC + "[K";
         show = ESC + "[1A" + ESC "[256D" + ESC + "[K";
 
         page = LINES_PER_PAGE;
@@ -128,25 +128,25 @@ void more_file(string cmd, string file, int line, int total)
         if (sscanf(cmd, "%d", goto_line))
                 ; else
         {
-        	switch (cmd)
+                switch (cmd)
                 {
-		default:
+                default:
                         cmd = "";
-			break;
+                        break;
 
-	        case "b":
-	                goto_line = line - LINES_PER_PAGE * 2;
-	                if (goto_line > 1)
-	                        break;
+                case "b":
+                        goto_line = line - LINES_PER_PAGE * 2;
+                        if (goto_line > 1)
+                                break;
                         // else continue to run selection "t"
                 case "t":
                         goto_line = 1;
                         break;
 
-		case "q":
+                case "q":
                         write(show);
-			return;
-        	}
+                        return;
+                }
         }
 
         if (page > 301)
@@ -191,7 +191,7 @@ void more_file(string cmd, string file, int line, int total)
                 if (cmd != "")
                         show += sprintf(HIW "-------- 从第 %d 行开始 %d 行 --------\n" NOR,
                                         goto_line, page);
-        
+
                 content = read_file(file, line, page);
                 if (! content)
                 {
@@ -204,14 +204,14 @@ void more_file(string cmd, string file, int line, int total)
                         for (i = 0; i < page; i++)
                                 text[i] = sprintf(NOR "%-8d%s", i + line, text[i]);
                         content = implode(text[0..i - 1], "\n") + "\n";
-                
+
                         show += content;
                 }
         }
 
         if (not_show || i > 1)
         {
-	        show += NOR WHT "- 未完(" HIY + total +
+                show += NOR WHT "- 未完(" HIY + total +
                         NOR WHT ") - (回车继续，"
                         HIY "q" NOR WHT " 离开，"
                         HIY "b" NOR WHT " 前一页，"
@@ -220,7 +220,7 @@ void more_file(string cmd, string file, int line, int total)
                         HIY "n" HIC "<num>" NOR WHT
                         "显示接下 " HIC "n" NOR WHT " 行)" NOR;
                 s_write(show);
-	        input_to("more_file", file, line + page, total);
+                input_to("more_file", file, line + page, total);
         } else
         {
                 show += WHT "阅读完毕。\n" NOR;
@@ -236,5 +236,5 @@ void start_more_file(string fn)
                 return;
         }
         write("\n");
-	more_file("t", fn, 1, file_lines(fn));
+        more_file("t", fn, 1, file_lines(fn));
 }
