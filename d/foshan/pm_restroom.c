@@ -107,14 +107,14 @@ int do_look(string arg)
         shop_record = SHOP_D->query_shop();
 
         msg = LOCAL_MUD_NAME() + "店铺拍卖底价表：\n"NOR;
-        msg += HIY "┌─────────────────────────┐\n" NOR;
+        msg += HIY "┌--------------------------------------------------┐\n" NOR;
 
         msg += sprintf(HIY "│" NOR + WHT " %-18s%-18s%-13s" HIY "│\n" NOR,
                        "店铺位置",
                        "店铺名称",
                        "拍卖底价");
 
-        msg += HIY "├─────────────────────────┤\n" NOR;
+        msg += HIY "├--------------------------------------------------┤\n" NOR;
 
         for (i = 0; i < sizeof(shop_record); i++)
         {
@@ -126,7 +126,7 @@ int do_look(string arg)
                                shop_record[i]["id"],
                                shop_record[i]["name"]);
         }
-        msg += HIY "└─────────────────────────┘\n" NOR;
+        msg += HIY "└--------------------------------------------------┘\n" NOR;
         msg += WHT "总共有" + chinese_number(sizeof(shop_record)) +
                WHT "家店铺等待拍卖。\n";
         write(msg);

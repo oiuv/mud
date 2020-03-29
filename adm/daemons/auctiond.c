@@ -23,9 +23,9 @@ private string check_auction(object ob);
 void create()
 {
         mapping my;
-        
+
         seteuid(getuid());
-        
+
         set("channel_id", "拍卖师[Auctioneer]");
         CHANNEL_D->do_channel(this_object(), "sys", "拍卖精灵已经启动。");
 
@@ -44,12 +44,12 @@ void heart_beat()
         object obj;
 
         my = query_entire_dbase();
-        
+
         if (! mapp(auction_info) || ! sizeof(auction_info))
                 return;
 
         id = keys(auction_info);
-        
+
         for (i = 0; i < sizeof(id); i++)
         {
                 if (! objectp(me = find_player(id[i])))
@@ -158,13 +158,13 @@ public void add_auction(object me, object ob, int money)
                 tell_object(me, "你付不起佣金呀。\n");
                 return;
         }
-        
+
         auction_info[id] = ([ "goods" : ob,
                               "time"  : time(),
                               "value" : money,
                               "lot"   : money * lot_percent,
                               "state" : 1, ]);
-        tell_object(me, "你开始拍卖" + ob->short() + NOR "，目前" + 
+        tell_object(me, "你开始拍卖" + ob->short() + NOR "，目前" +
                         (strlen(msg = MONEY_D->money_str(money * lot_percent)) ?
                         "你需要付出" + msg : "不需要付出") + "佣金。\n");
         message_auction(sprintf("%s(%s)拍卖%s，%s第一次。", me->name(),
@@ -219,7 +219,7 @@ public void cancel_auction(object me)
                 name = filter_color(ob->short());
         else name = "拍卖品";
 
-        tell_object(me, "你取消了拍卖。\n");        
+        tell_object(me, "你取消了拍卖。\n");
         message_auction(sprintf("%s(%s)取消了拍卖%s的%s。", me->name(), id,
                                 gender_pronoun(me->query("gender")), name, ));
         map_delete(auction_info, id);
@@ -236,16 +236,16 @@ public string check_auction_info()
         int i;
 
         my = query_entire_dbase();
-        
+
         if (! mapp(auction_info) || ! sizeof(auction_info))
                 msg = "目前没有任何正在拍卖的物品。\n";
 
         else
         {
                 msg = "目前正在拍卖的物品有以下这些：\n";
-                msg += HIC "≡" HIY "─玩家──────────物品─────────"
-                       "───竞价者───────价格──────" HIC "≡\n" NOR;
-                
+                msg += HIC "≡" HIY "--玩家--------------------物品------------------"
+                       "------竞价者--------------价格------------" HIC "≡\n" NOR;
+
                 id = keys(auction_info);
                 for (i = 0; i < sizeof(id); i++)
                 {
@@ -259,8 +259,8 @@ public string check_auction_info()
                                 map_delete(auction_info, id[i]);
                                 continue;
                         }
-                        
-                        if (! stringp(auction_info[id[i]]["now"]) || 
+
+                        if (! stringp(auction_info[id[i]]["now"]) ||
                             ! objectp(find_player(auction_info[id[i]]["now"])))
                                 name = "无";
                         else name = find_player(auction_info[id[i]]["now"])->name() +
@@ -271,11 +271,11 @@ public string check_auction_info()
                                        find_player(id[i])->name() + "(" +
                                        find_player(id[i])->query("id") + ")",
                                        filter_color(ob->short()),
-                                       name, 
+                                       name,
                                        MONEY_D->money_str(auction_info[id[i]]["value"]));
                 }
-                msg += HIC "≡" HIY "──────────────────────────"
-                       "───────────────────" HIC "≡\n" NOR;
+                msg += HIC "≡" HIY "----------------------------------------------------"
+                       "--------------------------------------" HIC "≡\n" NOR;
                 msg += sprintf("目前共有%s件拍卖品。\n", chinese_number(sizeof(auction_info)));
                 if (! sizeof(auction_info)) msg = "目前没有任何正在拍卖的物品。\n";
         }
@@ -322,7 +322,7 @@ public void join_auction(object me, string name, int money)
 
         message_auction(sprintf("%s(%s)购买%s(%s)的%s，%s第一次。",
                                 me->name(), me->query("id"), ob->name(),
-                                name, filter_color(obj->short()), 
+                                name, filter_color(obj->short()),
                                 MONEY_D->money_str(money)));
         auction_info[name]["now"] = me->query("id");
         auction_info[name]["value"] = money;

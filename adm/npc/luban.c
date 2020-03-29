@@ -1744,7 +1744,7 @@ private void show_desc(mixed player, string room_name)
         {
             // 查找用户输入的描述信息
             desc = descsp[names[i]];
-            write(YEL "───────────────────────────────────────\n" NOR);
+            write(YEL "------------------------------------------------------------------------------\n" NOR);
             write(YEL + "关于" + ob->query("short") + "(" + names[i] + ")" + YEL + "的描述：\n" + NOR);
             if (! desc)
             {
@@ -1772,7 +1772,7 @@ private void show_desc(mixed player, string room_name)
         return ;
     }
 
-    write(YEL "───────────────────────────────────────\n" NOR);
+    write(YEL "------------------------------------------------------------------------------\n" NOR);
     write("描述就是上面列出的这些内容。\n");
 
     if (! value)
@@ -2541,7 +2541,7 @@ private void show_old()
             if (! count)
             {
                 write(HIC "以下是玩家提交了很久的表单：\n" + NOR);
-                write(YEL "────────────────────────────────────────\n" NOR);
+                write(YEL "--------------------------------------------------------------------------------\n" NOR);
                 show_brief_title();
             }
             count++;
@@ -2550,7 +2550,7 @@ private void show_old()
     }
     if (count)
     {
-            write(YEL "────────────────────────────────────────\n" NOR);
+            write(YEL "--------------------------------------------------------------------------------\n" NOR);
         write("共有" + ((string) count) + "张比较陈旧的表单。\n");
     } else
                 write("目前没有陈旧的表单。\n");
@@ -2577,7 +2577,7 @@ private void show_brief_list(string info, string msg)
             if (! count)
             {
                 write(msg + "\n");
-                write(YEL "────────────────────────────────────────\n" NOR);
+                write(YEL "--------------------------------------------------------------------------------\n" NOR);
                 show_brief_title();
             }
             count++;
@@ -2586,7 +2586,7 @@ private void show_brief_list(string info, string msg)
     }
     if (count)
     {
-            write(YEL "────────────────────────────────────────\n" NOR);
+            write(YEL "--------------------------------------------------------------------------------\n" NOR);
         write("共有" + ((string) count) + "张表单。\n");
     } else
                 write("目前没有任何符合要求的表单。\n");

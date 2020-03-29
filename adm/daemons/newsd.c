@@ -86,8 +86,8 @@ void show_news(object me, int raw)
         }
 
         msg = WHT "目前武林中的最新消息如下。\n"
-              HIC "≡" HIY "───────────────────"
-              "───────────────────" HIC "≡\n" NOR;
+              HIC "≡" HIY "--------------------------------------"
+              "--------------------------------------" HIC "≡\n" NOR;
         last_time_read = me->query("last_read_news");
         i = sizeof(notes);
         while (i--)
@@ -111,8 +111,8 @@ void show_news(object me, int raw)
                 return;
         }
 
-        msg += HIC "≡" HIY "──────────────────"
-               "────────────────────" HIC "≡\n" NOR;
+        msg += HIC "≡" HIY "------------------------------------"
+               "----------------------------------------" HIC "≡\n" NOR;
 
         me->start_more(msg);
 }
@@ -267,12 +267,12 @@ void do_read(object me, string arg)
                 return;
         }
         num--;
-        me->start_more(sprintf(HIC "≡" HIY "──────────────────"
-                               "────────────────────" HIC "≡\n"
+        me->start_more(sprintf(HIC "≡" HIY "------------------------------------"
+                               "----------------------------------------" HIC "≡\n"
                                NOR " [%d] %-" + (40) +
                                "s %s" WHT "『 " CYN "%s" NOR + WHT " 』\n" HIC "≡"
-                               HIY "───────────────────────"
-                               "───────────────" HIC "≡\n\n" NOR,
+                               HIY "----------------------------------------------"
+                               "------------------------------" HIC "≡\n\n" NOR,
                                num + 1, notes[num]["title"], notes[num]["author"],
                                ctime(notes[num]["time"])[0..9]) + notes[num]["msg"]);
 
@@ -364,8 +364,8 @@ void auto_notice(object me)
         tell_object(me, msg);
         me->start_more(sprintf(" [%d] %-" + (40) +
                                "s %s" WHT "『 " CYN "%s" NOR + WHT " 』\n" HIC "≡"
-                               HIY "───────────────────────"
-                               "───────────────" HIC "≡\n" NOR,
+                               HIY "----------------------------------------------"
+                               "------------------------------" HIC "≡\n" NOR,
                                num + 1, notes[num]["title"], notes[num]["author"],
                                ctime(notes[num]["time"])[0..9]) + notes[num]["msg"]);
 
@@ -420,7 +420,7 @@ void do_search(object me, string arg)
         last_time_read = me->query("last_read_news");
 
         msg = sprintf("根据 " HIY "%s" NOR " 搜索 " HIY "%s" NOR " 得到如下符合条件新闻：\n"
-                      HIC "≡" HIY "───────────────────────────────────────" HIC "≡\n" NOR,
+                      HIC "≡" HIY "------------------------------------------------------------------------------" HIC "≡\n" NOR,
                       arg, theway);
 
         i = sizeof(notes);
@@ -456,7 +456,7 @@ void do_search(object me, string arg)
                 return;
         }
 
-        msg += HIC "≡" HIY "───────────────────────────────────────" HIC "≡\n" NOR;
+        msg += HIC "≡" HIY "------------------------------------------------------------------------------" HIC "≡\n" NOR;
 
         me->start_more(msg);
 }

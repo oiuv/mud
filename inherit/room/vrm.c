@@ -506,7 +506,6 @@ private void link_to_north(int x, int y) // The north room is (x, y + 1)
 // 绘制已建成迷宫的地图.
 private void paint_vrm_map()
 {
-    // string hor = "─", ver = "│  ", room = "◎", sroom = "●";
     string hor = "--", ver = "|  ", room = "#", sroom = "x";
     int x, y;
     string output = "", map_file;

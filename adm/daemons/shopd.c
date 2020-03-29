@@ -489,8 +489,8 @@ public int list_shop(object me)
         object ob, the_shop;
 
         msg = WHT "当前" + LOCAL_MUD_NAME() + "的店铺列表如下：\n" NOR;
-        msg += HIC "≡" HIY "───────────────────────────"
-               "───────" HIC "≡\n" NOR;
+        msg += HIC "≡" HIY "------------------------------------------------------"
+               "--------------" HIC "≡\n" NOR;
         for (i = 0; i < sizeof(all_shop); i++)
         {
                 arg = all_shop[i]["id"];
@@ -522,8 +522,8 @@ public int list_shop(object me)
                                GRN "凤天南(系统)" NOR : NOR + na +
                                "(" + the_shop->query("owner") + ")" NOR,);
         }
-        msg += HIC "≡" HIY "───────────────────────────"
-               "───────" HIC "≡\n" NOR;
+        msg += HIC "≡" HIY "------------------------------------------------------"
+               "--------------" HIC "≡\n" NOR;
         msg += WHT "总共有" + chinese_number(sizeof(all_shop)) + "家店铺。\n" NOR;
         tell_object(me, msg);
         return 1;
@@ -1137,7 +1137,7 @@ public string list_invite(object ob, object me)
                 return "您并没有设定任何的贵宾。\n";
 
         msg = HIC "您所定义的贵宾有以下几位：\n" NOR;
-        msg += HIC "≡" HIY "────────────" HIC "≡\n" NOR;
+        msg += HIC "≡" HIY "------------------------" HIC "≡\n" NOR;
         invite_key = sort_array(keys(invite), 1);
 
         for (i = 0; i < sizeof(invite_key); i++)
@@ -1146,7 +1146,7 @@ public string list_invite(object ob, object me)
                                invite_key[i], chinese_number(invite[invite_key[i]]));
         }
 
-        msg += HIC "≡" HIY "────────────" HIC "≡\n" NOR;
+        msg += HIC "≡" HIY "------------------------" HIC "≡\n" NOR;
         msg += HIC "总共有 " HIY + sizeof(invite) + HIC " 个贵宾。\n" NOR;
         return msg;
 }
@@ -1211,12 +1211,12 @@ public string list_ban(object ob, object me)
                 return msg;
         }
         msg = HIC "您所定义的黑户有如下玩家：\n" NOR;
-        msg += HIC "≡" HIY "────────────" HIC "≡\n" NOR;
+        msg += HIC "≡" HIY "------------------------" HIC "≡\n" NOR;
         for (i = 0;i < sizeof(ban);i++)
         {
                 msg += sprintf(CYN "  %s\n" NOR, ban[i]);
         }
-        msg += HIC "≡" HIY "────────────" HIC "≡\n" NOR;
+        msg += HIC "≡" HIY "------------------------" HIC "≡\n" NOR;
         msg += HIC "总共有 " HIY + sizeof(ban) + HIC " 个黑户。\n" NOR;
         return msg;
 }

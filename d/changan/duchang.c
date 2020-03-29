@@ -13,12 +13,12 @@ int random2 (int i)
         return (random(i)+uptime()) % i;
 }
 
-mapping gutous = ([ 
+mapping gutous = ([
 	"tc" : "头彩",
         "sd" : "双对",
         "qx" : "七星",
         "sx" : "散星",
- ]); 
+ ]);
 
 void create()
 {
@@ -35,7 +35,7 @@ LONG);
         set("item_desc", ([
                 "sign": @TEXT
 赌骰子方法:
-bet <kind> <amount> <money> 
+bet <kind> <amount> <money>
 
 只收现银，概不赊欠。
 
@@ -145,7 +145,7 @@ int valid_leave(object me, string dir)
 {
         if (dir == "south")
         {
-                if (me->query_temp ("gamble_bet/amount") > 0) 
+                if (me->query_temp ("gamble_bet/amount") > 0)
                 message_vision ("$N扔下押骰的钱，不要了。\n",me);
                 me->delete_temp("gamble_bet");
         }
@@ -158,53 +158,53 @@ void display_bet(object room, int i)
         switch (i)
         {
         case 1:
-                str = 
-"┌───┐\n"+
+                str =
+"┌------┐\n"+
 "│　　　│\n"+
 "│　●　│\n"+
 "│　　　│\n"+
-"└───┘\n";
+"└------┘\n";
 
                 break;
         case 2:
-                str = 
-"┌───┐\n"+
+                str =
+"┌------┐\n"+
 "│　　　│\n"+
 "│●　●│\n"+
 "│　　　│\n"+
-"└───┘\n";
+"└------┘\n";
                 break;
         case 3:
                 str =
-"┌───┐\n"+
+"┌------┐\n"+
 "│●　　│\n"+
 "│　●　│\n"+
 "│　　●│\n"+
-"└───┘\n";
+"└------┘\n";
                 break;
         case 4:
-                str = 
-"┌───┐\n"+
+                str =
+"┌------┐\n"+
 "│●　●│\n"+
 "│　　　│\n"+
 "│●　●│\n"+
-"└───┘\n";
+"└------┘\n";
                 break;
         case 5:
                 str =
-"┌───┐\n"+
+"┌------┐\n"+
 "│●　●│\n"+
 "│　●　│\n"+
 "│●　●│\n"+
-"└───┘\n";
+"└------┘\n";
                 break;
         case 6:
-                str = 
-"┌───┐\n"+
+                str =
+"┌------┐\n"+
 "│●　●│\n"+
 "│●　●│\n"+
 "│●　●│\n"+
-"└───┘\n";
+"└------┘\n";
                 break;
         }
         tell_room(room,str);
@@ -237,7 +237,7 @@ void gamble_prepare()
         call_out("gamble_start",24);
         delete_temp("better");
 }
- 
+
 void gamble_start()
 {
         object room = this_object();
@@ -302,14 +302,14 @@ void gamble_finish()
         {
                 total = 12;
                 win = "sd";
-        } else 
+        } else
         {
                 int r = res[0]+res[1];
                 if (r==7)
                 {
                         total = 6;
                         win = "qx";
-                } else if (r==3 || r==5 || r==9 || r==11) 
+                } else if (r==3 || r==5 || r==9 || r==11)
                 {
                         total = 3;
                         win = "sx";
@@ -346,4 +346,3 @@ void gamble_finish()
         tell_room (room,"\n");
         call_out ("gamble_prepare",5);
 }
-

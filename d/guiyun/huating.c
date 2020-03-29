@@ -23,7 +23,7 @@ LONG );
 	set("item_desc", ([
 		"poem" :
 "
-      ┌─┐             ┌─┐
+      ┌--┐             ┌--┐
       │兵│             │  │
       │火│             │  │
       │有│             │  │
@@ -34,7 +34,7 @@ LONG );
       │才│             │  │
       │数│             │  │
       │家│             │  │
-      └─┘             └─┘
+      └--┘             └--┘
 ",
 	]));
 	set("objects", ([
@@ -49,12 +49,12 @@ int valid_leave(object me, string dir)
 	myfam = (mapping)me->query("family");
 
 	if ((!myfam || myfam["family_name"] != "桃花岛") &&
-		(dir == "east" || dir == "west") ) 
+		(dir == "east" || dir == "west") )
 		return notify_fail("归云庄不留外客，你不能住在这里！\n");
-	if (me->query("gender") != "男性" && dir == "east") 
+	if (me->query("gender") != "男性" && dir == "east")
 		return notify_fail("男女有别，请到对面住！\n");
 
-	if (me->query("gender") != "女性" && dir == "west") 
+	if (me->query("gender") != "女性" && dir == "west")
 		return notify_fail("男女有别，请到对面住！\n");
 
 	return ::valid_leave(me, dir);

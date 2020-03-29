@@ -171,7 +171,7 @@ string look_map()
 {
         return WHT "\n"
 "凡丐帮帮众均可通过密道直达以下城市：\n" HIY
-"────────────────────\n" NOR
+"----------------------------------------\n" NOR
 " 长安(changan)         洛阳(luoyang)\n"
 " 大理(dali)            北京(beijing)\n"
 " 杭州(hangzhou)        开封(kaifeng)\n"
@@ -180,6 +180,6 @@ string look_map()
 " 成都(chengdu)         荆州(jingzhou)\n"
 " 南阳(nanyang)         佛山(foshan)\n"
 " 中州(zhongzhou)\n" HIY
-"────────────────────\n" NOR + WHT
+"----------------------------------------\n" NOR + WHT
 "即来即走(" HIY "goto" NOR + WHT ")无需等待，仅限丐帮帮众。\n" NOR;
 }

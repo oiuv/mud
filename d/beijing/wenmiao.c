@@ -78,7 +78,7 @@ int do_pray(string arg)
                 tell_object(me,
 HIW
 "     ┍━━━━━━━━━━━━━━━━━━━━━┑\n"+
-"     ┃  ┌─────────────────┐  ┃\n"+
+"     ┃  ┌----------------------------------┐  ┃\n"+
 "     ┃  │             "YEL"生日快乐"HIW"             │  ┃\n"+
 "     ┃  │                                  │  ┃\n"+
 "     ┃  │             *  *"HIR"r"HIW"*  *            │  ┃\n"+
@@ -96,16 +96,16 @@ HIW
 "     ┃  │               "GRN"/\\\\/\\"HIW"              │  ┃\n"+
 "     ┃  │                                  │  ┃\n"+
 "     ┃  │                  "RED"武林群侠传恭贺"HIW"  │  ┃\n"+
-HIW"     ┃  └─────────────────┘  ┃\n"+
+HIW"     ┃  └----------------------------------┘  ┃\n"+
 "     ┗━━━━━━━━━━━━━━━━━━━━━┛\n" NOR);
                 tell_object(me, HIC "                 你获得过" + chinese_number(sizeof(keys(me->query("birthgift")))) + "次生日祝福\n\n" NOR);
                 me->start_busy(3);
-                return 1; 
+                return 1;
             }
-            if (me->query("potential") > me->query_potential_limit()) 
+            if (me->query("potential") > me->query_potential_limit())
             {
                     tell_object(me, YEL "冥冥之中你感觉自己的祈祷有用，可不知道为什么没有效果。\n" NOR);
-                    return 1; 
+                    return 1;
             }
 
             if (exp >= 800000)
@@ -116,7 +116,7 @@ HIW"     ┃  └─────────────────┘  ┃\n"+
             else
             if (exp >= 100000)
                     pot = age * 50 + random(age) * 10;
-            else   
+            else
                     pot = age * 20;
             if (pot > 8000) pot = 8000;
             me->add("potential", pot);
@@ -127,7 +127,7 @@ HIW"     ┃  └─────────────────┘  ┃\n"+
             tell_object(me,
 HIW
 "     ┍━━━━━━━━━━━━━━━━━━━━━┑\n"+
-"     ┃  ┌─────────────────┐  ┃\n"+
+"     ┃  ┌----------------------------------┐  ┃\n"+
 "     ┃  │             "YEL"生日快乐"HIW"             │  ┃\n"+
 "     ┃  │                                  │  ┃\n"+
 "     ┃  │             *  *"HIR"r"HIW"*  *            │  ┃\n"+
@@ -145,8 +145,8 @@ HIW
 "     ┃  │               "GRN"/\\\\/\\"HIW"              │  ┃\n"+
 "     ┃  │                                  │  ┃\n"+
 "     ┃  │                  "RED"武林群侠传恭贺"HIW"  │  ┃\n"+
-HIW"     ┃  └─────────────────┘  ┃\n"+
-"     ┗━━━━━━━━━━━━━━━━━━━━━┛\n\n" 
+HIW"     ┃  └----------------------------------┘  ┃\n"+
+"     ┗━━━━━━━━━━━━━━━━━━━━━┛\n\n"
 NOR);
             me->start_busy(5);
             return 1;
