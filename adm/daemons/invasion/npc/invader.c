@@ -46,7 +46,7 @@ int accept_hit(object ob)
 
 int accept_touxi(object ob)
 {
-    command("say 居然偷袭我，中国人真没人格！");
+    command("say 居然偷袭我，你找死！");
     if (!is_fighting())
         this_object()->set("now_killing", ob->query("id"));
     if (!is_busy())
@@ -57,7 +57,7 @@ int accept_touxi(object ob)
 
 int accept_kill(object ob)
 {
-    command("say 哼！我正想杀几个中国人呢！");
+    command("say 哼！我正想杀几个人呢！");
     if (!is_fighting())
         this_object()->set("now_killing", ob->query("id"));
     if (!is_busy())
@@ -144,7 +144,7 @@ void die()
         ob->add("weiwang", weiwang);
         ob->add("score", score);
 
-        tell_object(ob, HIW "\n你干掉了一名八国联军的" NOR + query("rank") + "。\n" + HIG "你获得了" NOR HIR + chinese_number(exp) +
+        tell_object(ob, HIW "\n你干掉了一名异族联军的" NOR + query("rank") + "。\n" + HIG "你获得了" NOR HIR + chinese_number(exp) +
                             HIG "点经验，" NOR HIW + chinese_number(pot) + NOR HIG "点潜能以及" HIY +
                             chinese_number(tihui) + HIG "点实战体会。\n" NOR +
                             HIC "江湖阅历以及威望也都有了不同程度的提高。\n" NOR);
@@ -167,14 +167,11 @@ void die()
 
     INVASIOND->set("record/" + query("number") + "/exist", 0);
     INVASIOND->set("record/" + query("number") + "/killer",
-                   ob1->query("name") +
-                       "(" + ob1->query("id") + ")");
+                    ob1->query("name") + "(" + ob1->query("id") + ")");
     INVASIOND->add("record/total_killed", 1);
-    CHANNEL_D->do_channel(ob1, "waidi",
-                          "各位国人，我在" NOR
-                                  HIY +
-                              environment()->query("short") + NOR HIR "击毙了" +
-                              query("title") + NOR HIG + query("name") + NOR HIW "。\n" NOR);
+    CHANNEL_D->do_channel(ob1, "waidi", "各位国人，我在" NOR HIY +
+                            environment()->query("short") + NOR HIR "击毙了" +
+                            query("title") + NOR HIG + query("name") + NOR HIW "。\n" NOR);
     if (INVASIOND->query("record/total_killed") >= TOTAL_INVADER)
         INVASIOND->set_reward();
     ::die();
