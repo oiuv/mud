@@ -339,11 +339,11 @@ varargs int do_channel(object me, string verb, string arg, int emote)
             if (!(party = me->query("party/party_name")))
                 return notify_fail("你还是先加入一个帮派再说吧。\n");
 
-            if (strlen(party) == 6)
+            if (strlen(party) == 3)
             {
-                party = party[0..1] + " " +
-                        party[2..3] + " " +
-                        party[4..5];
+                party = party[0..0] + " " +
+                        party[1..1] + " " +
+                        party[2..2];
             }
             channels[verb]["msg_speak"] = HIG "【" + party +
                                           "】%s：%s\n" NOR;
@@ -355,11 +355,11 @@ varargs int do_channel(object me, string verb, string arg, int emote)
             if (!(family = me->query("family/family_name")))
                 return notify_fail("你还是先加入一个门派再说吧。\n");
 
-            if (strlen(family) == 6)
+            if (strlen(family) == 3)
             {
-                family = family[0..1] + " " +
-                         family[2..3] + " " +
-                         family[4..5];
+                family = family[0..0] + " " +
+                         family[1..1] + " " +
+                         family[2..2];
             }
             channels[verb]["msg_speak"] = HIG "【" + family +
                                           "】%s：%s\n" NOR;
@@ -373,20 +373,20 @@ varargs int do_channel(object me, string verb, string arg, int emote)
 
             switch (strlen(fname))
             {
-            case 4:
-                fname = "【 " + fname[0..1] + "  " + fname[2..3] + " 】";
+            case 2:
+                fname = "【 " + fname[0..0] + "  " + fname[1..1] + " 】";
                 break;
 
-            case 6:
+            case 3:
                 fname = "【 " + fname + " 】";
                 break;
 
-            case 8:
+            case 4:
                 fname = "【" + fname + "】";
                 break;
 
-            case 10:
-                fname = "【" + fname[0..7] + "】";
+            case 5:
+                fname = "【" + fname[0..3] + "】";
                 break;
             }
             channels[verb]["msg_speak"] = HIG + fname + "%s：%s\n" NOR;

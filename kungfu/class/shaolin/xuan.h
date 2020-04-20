@@ -49,7 +49,7 @@ void attempt_apprentice(object ob)
         }
 
         if ((string)ob->query("class") != "bonze" &&
-            ob_fam["family_name"] == "少林派") 
+            ob_fam["family_name"] == "少林派")
         {
                 command("say " + RANK_D->query_respect(ob) +
                         "是俗家弟子，不能在寺内学艺。");
@@ -77,14 +77,16 @@ void attempt_apprentice(object ob)
                 {
                         ob->delete_temp("have_letter");
                         ob->delete_temp("apprentice_ok");
-        
+
                         command("say 是" + ob_fam["master_name"] +
                                 "叫你来找我的吧，哈哈哈！");
                         command("say 贫僧又得一可塑之才，真是可喜可贺！");
 
                         name = ob->query("name");
-                        new_name = "澄" + name[2..3];
+                        new_name = "澄" + name[1..1];
+                        NAME_D->remove_name(ob->query("name"), ob->query("id"));
                         ob->set("name", new_name);
+                        NAME_D->map_name(ob->query("name"), ob->query("id"));
 
                         command("say 从今以后你的法名叫做" + new_name +
                                 "，恭喜你荣升为少林派澄字辈弟子！");

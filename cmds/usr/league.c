@@ -343,7 +343,7 @@ int show_league_hatred(object me, string arg)
 
         count = 0;
         msg = WHT "目前" + fam + "在江湖上的仇敌都有\n" NOR
-              HIY "────────────────\n" NOR;
+              HIY "--------------------------------\n" NOR;
         for (i = 0; i < sizeof(ids) && count < 30; i++)
         {
                 data = hatred[ids[i]];
@@ -356,7 +356,7 @@ int show_league_hatred(object me, string arg)
                                ++count, st, HIR, data[1], NOR);
         }
 
-        msg += HIY "────────────────\n" NOR;
+        msg += HIY "--------------------------------\n" NOR;
         if (i < sizeof(ids))
                 msg += WHT "江湖上的敌人太多，难以尽数。\n" NOR;
         else
@@ -381,7 +381,7 @@ int show_league_member(object me, string arg)
                         return notify_fail("你现在还没有加入任何一个同盟呢。\n");
         }
 
-	if (! arrayp(member = LEAGUE_D->query_members(arg)))
+        if (! arrayp(member = LEAGUE_D->query_members(arg)))
         {
                 write("现在江湖上没有(" + arg + ")这个字号。\n");
                 return 1;
@@ -449,7 +449,7 @@ int show_league_info(object me, string arg)
         else
                 pro = fam;
 
-	if (! arrayp(member = LEAGUE_D->query_members(fam)))
+        if (! arrayp(member = LEAGUE_D->query_members(fam)))
         {
                 write("现在江湖上没有(" + fam + ")这个字号。\n");
                 return 1;
@@ -492,7 +492,7 @@ int show_league_info(object me, string arg)
                        HIY, LEAGUE_D->query_league_fame(fam), NOR);
         write(msg);
 
-	return 1;
+        return 1;
 }
 
 // 解散同盟
@@ -507,7 +507,7 @@ int dismiss_league(object me, string arg)
         if (! arg)
                 return notify_fail("你要解散哪个同盟？\n");
 
-	if (! arrayp(member = LEAGUE_D->query_members(arg)))
+        if (! arrayp(member = LEAGUE_D->query_members(arg)))
         {
                 write("现在江湖上没有(" + arg + ")这个字号。\n");
                 return 1;
@@ -704,18 +704,18 @@ int league_kill(object me, string arg)
                        me, obj);
 
         switch (obj->accept_kill(me))
-	{
-	case 0:
+        {
+        case 0:
                 return (! objectp(obj));
-	case -1:
+        case -1:
                 if (objectp(obj) &&
                     ! me->is_killing(obj->query("id")))
                 {
                         // 因为某种原因战斗没有发生
-		        return 1;
+                        return 1;
                 }
-	default:
-	}
+        default:
+        }
 
         // 战斗已经发生，队伍中所有的人参与战斗
         message("vision", HIR "你和大家一起跟着" + me->name(1) +
@@ -796,7 +796,7 @@ int league_kill(object me, string arg)
 
 int help(object me)
 {
-   	write(@HELP
+           write(@HELP
 
 指令格式: league info [玩家] | hatred [玩家] | member [同盟名字] | top
 
@@ -835,5 +835,5 @@ set      ： 参数设置。
 
 see also: team (团体同盟)
 HELP );
-   	return 1;
+           return 1;
 }

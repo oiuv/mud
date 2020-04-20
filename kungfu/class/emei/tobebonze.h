@@ -6,7 +6,7 @@ string ask_for_join()
         me = this_player();
 
         myfam = (mapping)me->query("family");
-        if (! myfam || (myfam["family_name"] != "峨嵋派")) 
+        if (! myfam || (myfam["family_name"] != "峨嵋派"))
                 return ("施主与我峨嵋派尚无渊源，贫尼不敢给你剃度。");
 
         if ((string)me->query("class") == "bonze")
@@ -37,12 +37,14 @@ int do_kneel()
 
         name = me->query("purename");
         if (! name) name = me->query("name");
-        new_name = prename[random(sizeof(prename))] + name[0..1];
+        new_name = prename[random(sizeof(prename))] + name[0..0];
+        NAME_D->remove_name(me->query("name"), me->query("id"));
+        me->set("name", new_name);
+        NAME_D->map_name(me->query("name"), me->query("id"));
         command("say 从今以后你的法名叫做" + new_name + "。");
         command("nod");
         me->set("marks/old_name", name);
         me->delete_temp("pending/join_bonze");
-        me->set("name", new_name);
         me->set("class", "bonze");
         me->set("K_record", me->query("PKS") + me->query("MKS"));
         me->set("shen_record", me->query("shen"));

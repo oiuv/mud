@@ -57,7 +57,7 @@ void create()
         set_skill("literate", 30);
         set_skill("sword", 30);
         set_skill("qingliang-jian", 30);
-        
+
         map_skill("force", "shaolin-xinfa");
         map_skill("dodge", "shaolin-shenfa");
         map_skill("cuff", "jingang-quan");
@@ -101,9 +101,8 @@ int do_kneel()
 {
         object me = this_player();
 
-        string *prename =
-         ({ "虚", "空", "明", "净" });
-//       ({ "虚", "空", "明", "圆", "净", "悟", "法" });
+        // ({ "虚", "空", "明", "圆", "净", "悟", "法" });
+        string *prename = ({ "虚", "空", "明", "净" });
         string name, new_name;
 
         if( !me->query_temp("pending/join_bonze") )
@@ -114,12 +113,13 @@ int do_kneel()
                 "$n伸出手掌，在$N头顶轻轻地摩挲了几下，将$N的头发尽数剃去。\n\n",
                 me, this_object() );
         name = me->query("name");
-        new_name = prename[random(sizeof(prename))] + name[0..1];
+        new_name = prename[random(sizeof(prename))] + name[0..0];
+        NAME_D->remove_name(me->query("name"), me->query("id"));
+        me->set("name", new_name);
+        NAME_D->map_name(me->query("name"), me->query("id"));
         command("say 从今以后你的法名叫做" + new_name + "。");
         command("smile");
         me->delete_temp("pending/join_bonze");
-
-        me->set("name", new_name);
         me->set("class", "bonze");
         me->set("K_record", me->query("PKS") + me->query("MKS"));
         me->set("shen_record", me->query("shen"));
@@ -144,7 +144,7 @@ void attempt_apprentice(object ob)
                 command ("say 阿弥陀佛！这位公公，你还是回去伺候皇上吧。");
                 return;
         }
-        
+
         if ((string)ob->query("class") != "bonze")
         {
                 command ("say 阿弥陀佛！贫僧就收下你做『俗家弟子』了。");
@@ -152,5 +152,3 @@ void attempt_apprentice(object ob)
         command("say 阿弥陀佛，善哉！善哉！");
         command("recruit " + ob->query("id"));
 }
-
-

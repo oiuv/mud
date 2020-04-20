@@ -50,8 +50,8 @@ void create()
         set_skill("sanscrit", 300);
         set_skill("medical", 300);
         set_skill("jingluo-xue", 300);
-             
-        set_skill("unarmed",320);        
+
+        set_skill("unarmed",320);
         set_skill("blade", 320);
         set_skill("claw", 320);
         set_skill("club", 320);
@@ -94,22 +94,22 @@ void create()
         set_skill("zui-gun", 320);
         set_skill("jiasha-fumogong",320);
 
-        set_skill("xumishan-zhang",320);        
-        set_skill("dacidabei-shou",320);        
-        set_skill("yintuoluo-zhua",280);       
-        set_skill("jimie-zhua",280);       
+        set_skill("xumishan-zhang",320);
+        set_skill("dacidabei-shou",320);
+        set_skill("yintuoluo-zhua",280);
+        set_skill("jimie-zhua",280);
 
-        
+
         set_skill("ranmu-daofa",290);
         set_skill("longxing-jian",290);
 
-      
+
         set_skill("qujing-gunfa",290);
-        set_skill("qixing-gun",290);    
+        set_skill("qixing-gun",290);
         set_skill("shenfeng-bian",280);
         set_skill("qingyun-bian",300);
         set_skill("yiwei-dujiang",300);
-        
+
 
         map_skill("blade", "cibei-dao");
         map_skill("claw", "longzhua-gong");
@@ -159,7 +159,7 @@ void create()
 
 void attempt_apprentice(object ob)
 {
-        object me; 
+        object me;
         mapping ob_fam, my_fam;
         string name, new_name;
 
@@ -244,7 +244,7 @@ void attempt_apprentice(object ob)
 
         command("char 老衲又得一可塑之才，真是大畅老怀 !");
         name = ob->query("name");
-        new_name = "渡" + name[2..3];
+        new_name = "渡" + name[1..1];
         NAME_D->remove_name(ob->query("name"), ob->query("id"));
         ob->set("name", new_name);
         NAME_D->map_name(ob->query("name"), ob->query("id"));
@@ -390,85 +390,85 @@ mixed ask_zhe()
 }
 
 //新增pfm传授
-int accept_ask(object me, string topic)  
+int accept_ask(object me, string topic)
 {
-        switch (topic)  
-        {        
-       
-         case "即世即空" :  
-                return MASTER_D->teach_pfm(me, this_object(),  
-                        ([ "perform" : "can_perform/weituo-chu/jishi",  
-                           "name"    : "即世即空",  
-                           "sk1"     : "weituo-chu",  
-                           "lv1"     : 120,  
-                           "force"   : 180,  
-                           "neili"   : 500,  
-                           "gongxian": 300,  
-                           "shen"    : 5000, ]));  
-                break;  
-        
-         case "金龙疾空" :  
-                return MASTER_D->teach_pfm(me, this_object(),  
-                        ([ "perform" : "can_perform/longxing-jian/kong",  
-                           "name"    : "金龙疾空",  
-                           "sk1"     : "longxing-jian",  
-                           "lv1"     : 160,  
-                           "force"   : 250,  
-                           "neili"   : 1500,  
-                           "gongxian": 600,  
-                           "shen"    : 10000, ]));  
-                break;  
-       
-         
-         case "火麒蚀月" :  
-                return MASTER_D->teach_pfm(me, this_object(),  
-                        ([ "perform" : "can_perform/ranmu-daofa/huo",  
-                           "name"    : "火麒蚀月",  
-                           "sk1"     : "ranmu-daofa",  
-                           "lv1"     : 180,  
-                           "force"   : 300,  
-                           "neili"   : 3000,  
-                           "gongxian": 2500,  
-                           "shen"    : 50000, ]));  
-                break;  
-         
-         
-         case "震雷乾坤" :  
-                return MASTER_D->teach_pfm(me, this_object(),  
-                        ([ "perform" : "can_perform/qujing-gunfa/zhen",  
-                           "name"    : "震雷乾坤",  
-                           "sk1"     : "qujing-gunfa",  
-                           "lv1"     : 200,  
-                           "force"   : 300,  
-                           "neili"   : 3000,  
-                           "gongxian": 2000,  
-                           "shen"    : 50000, ]));  
-                break; 
-                 
-         case "大金刚神通" :  
-                return MASTER_D->teach_pfm(me, this_object(),  
-                        ([ "perform" : "can_perform/jingang-quan/jingang",  
-                           "name"    : "大金刚神通",  
-                           "sk1"     : "jingang-quan",  
-                           "lv1"     : 100,  
-                           "force"   : 100,  
-                           "neili"   : 500,  
-                           "gongxian": 200,  
-                           "shen"    : 10000, ]));  
+        switch (topic)
+        {
+
+         case "即世即空" :
+                return MASTER_D->teach_pfm(me, this_object(),
+                        ([ "perform" : "can_perform/weituo-chu/jishi",
+                           "name"    : "即世即空",
+                           "sk1"     : "weituo-chu",
+                           "lv1"     : 120,
+                           "force"   : 180,
+                           "neili"   : 500,
+                           "gongxian": 300,
+                           "shen"    : 5000, ]));
                 break;
-                
-         case "易筋通脉" :  
-                return MASTER_D->teach_pfm(me, this_object(),  
-                        ([ "perform" : "can_perform/yijinjing/tong",  
-                           "name"    : "易筋通脉",  
-                           "sk1"     : "yijinjing",  
-                           "lv1"     : 100,  
-                           "force"   : 150,  
-                           "neili"   : 1000,  
-                           "gongxian": 500,  
-                           "shen"    : 10000, ]));  
-                break;                            
-        default:  
-                return 0;  
+
+         case "金龙疾空" :
+                return MASTER_D->teach_pfm(me, this_object(),
+                        ([ "perform" : "can_perform/longxing-jian/kong",
+                           "name"    : "金龙疾空",
+                           "sk1"     : "longxing-jian",
+                           "lv1"     : 160,
+                           "force"   : 250,
+                           "neili"   : 1500,
+                           "gongxian": 600,
+                           "shen"    : 10000, ]));
+                break;
+
+
+         case "火麒蚀月" :
+                return MASTER_D->teach_pfm(me, this_object(),
+                        ([ "perform" : "can_perform/ranmu-daofa/huo",
+                           "name"    : "火麒蚀月",
+                           "sk1"     : "ranmu-daofa",
+                           "lv1"     : 180,
+                           "force"   : 300,
+                           "neili"   : 3000,
+                           "gongxian": 2500,
+                           "shen"    : 50000, ]));
+                break;
+
+
+         case "震雷乾坤" :
+                return MASTER_D->teach_pfm(me, this_object(),
+                        ([ "perform" : "can_perform/qujing-gunfa/zhen",
+                           "name"    : "震雷乾坤",
+                           "sk1"     : "qujing-gunfa",
+                           "lv1"     : 200,
+                           "force"   : 300,
+                           "neili"   : 3000,
+                           "gongxian": 2000,
+                           "shen"    : 50000, ]));
+                break;
+
+         case "大金刚神通" :
+                return MASTER_D->teach_pfm(me, this_object(),
+                        ([ "perform" : "can_perform/jingang-quan/jingang",
+                           "name"    : "大金刚神通",
+                           "sk1"     : "jingang-quan",
+                           "lv1"     : 100,
+                           "force"   : 100,
+                           "neili"   : 500,
+                           "gongxian": 200,
+                           "shen"    : 10000, ]));
+                break;
+
+         case "易筋通脉" :
+                return MASTER_D->teach_pfm(me, this_object(),
+                        ([ "perform" : "can_perform/yijinjing/tong",
+                           "name"    : "易筋通脉",
+                           "sk1"     : "yijinjing",
+                           "lv1"     : 100,
+                           "force"   : 150,
+                           "neili"   : 1000,
+                           "gongxian": 500,
+                           "shen"    : 10000, ]));
+                break;
+        default:
+                return 0;
         }
 }

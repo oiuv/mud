@@ -157,7 +157,7 @@ void attempt_apprentice(object ob)
         }
 
         name = ob->query("name");
-        new_name = "静" + name[2..3];
+        new_name = "静" + name[1..1];
         NAME_D->remove_name(ob->query("name"), ob->query("id"));
         ob->set("name", new_name);
         NAME_D->map_name(ob->query("name"), ob->query("id"));

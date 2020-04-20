@@ -9,10 +9,10 @@ mixed ask_skill2();
 
 void create()
 {
-       set_name("风陵师太", ({"fengling shitai", "fengling", "shitai", "feng", "ling"}));
-       set("long", "她就是峨嵋派第二代掌门人风陵师太。\n"
-                   "她面目慈祥，便如寻常老尼一般，浑\n"
-                   "不带一丝尘俗之气。\n");
+        set_name("风陵师太", ({"fengling shitai", "fengling", "shitai", "feng", "ling"}));
+        set("long", "她就是峨嵋派第二代掌门人风陵师太。\n"
+                    "她面目慈祥，便如寻常老尼一般，浑\n"
+                    "不带一丝尘俗之气。\n");
         set("gender", "女性");
         set("age", 62);
         set("attitude", "peaceful");
@@ -131,7 +131,7 @@ void attempt_apprentice(object ob)
         }
 
         name = ob->query("name");
-        new_name = "灭" + name[2..3];
+        new_name = "灭" + name[1..1];
         NAME_D->remove_name(ob->query("name"), ob->query("id"));
         ob->set("name", new_name);
         NAME_D->map_name(ob->query("name"), ob->query("id"));
