@@ -205,10 +205,10 @@ int do_born(string arg)
             if (!sscanf(new_name, dest["surname"] + "%*s"))
                 new_name = dest["surname"] + new_name;
 
-            if (strlen(new_name) > 8)
+            if (strlen(new_name) > 4)
                 return notify_fail("你的名字太长了。\n");
 
-            if (strlen(new_name) < 4)
+            if (strlen(new_name) < 2)
                 return notify_fail("你的名字太短了。\n");
 
             if (!is_chinese(new_name))

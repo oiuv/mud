@@ -51,7 +51,7 @@ int main(object me, string arg)
                                 write("系统强制修改了 " + id + " 的名字。\n");
                 }
                 else
-                        write("成功的修改改了 " + id + " 的名字。\n");
+                        write("成功的修改了 " + id + " 的名字。\n");
                 return 1;
 	} else
 		return notify_fail("格式：changename [-f] <玩家ID> <新名字>\n");
@@ -61,7 +61,7 @@ int help(object me)
 {
 write(@HELP
 指令格式 : changename [-f] <玩家ID> <新名字>
- 
+
 更改玩家的中文名字，因为所有玩家的中文名字都记录在系统中，所
 以如果直接修改将会造成数据不一致。如果采用了-f参数，则系统会
 强制修改名字而不顾及原先是否有重名或是相近的名字。
