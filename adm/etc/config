@@ -18,7 +18,7 @@ internet mud name : mud.ren
 & mudos : FluffOS v2019
 
 # 编码方式
-encoding : GB
+encoding : UTF-8
 
 # SMTP服务器地址/端口号
 smtp server : smtp.qq.com 25
@@ -30,7 +30,7 @@ smtp domain : smtp
 smtp sender : i@mud.ren
 
 # 和本系统相联系的MUD服务器
-# mudlist1 : 115.28.10.92 5555                #炎黄
+mudlist1 : 118.190.104.241 5555               #炎黄
 # mudlist2 : 117.27.131.36 4000               #笑傲江湖2
 # mudlist3 : 112.126.83.105 5555              #江南侠客行
 # mudlist4 : 59.175.137.62 8000               #妖神之争

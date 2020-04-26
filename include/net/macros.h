@@ -17,7 +17,7 @@
 // macros for getting resources
 #define Mud_name() (string)upper_case(ntoh(DNS_MASTER->query_mud_name()))
 #define mud_nname() htonn( Mud_name() )
-#define mud_port() LOCAL_PORT()
+#define mud_port() __PORT__
 #define udp_port() (int)DNS_MASTER->query_udp_port()
 
 // macros for the sequencer
