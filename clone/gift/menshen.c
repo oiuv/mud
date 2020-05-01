@@ -44,16 +44,15 @@ void init()
         message_vision("门神大喝一声：“何方妖孽，也"
                        "敢来此？”说罢手中铜锤一荡，"
                        "将$N一锤打得飞了出去！\n", me);
-        
-        if (me->query("id") != "ivy")
+
+        if (me->query("id") != "mudren")
                  me->move(env->query("startroom"));
 
         else message_vision(HIC "门神见闯了祸，退在一边再也不敢说什么了！\n" NOR, me);
         me->start_busy(3);
-    
-        if (me->query("id") != "ivy")
+
+        if (me->query("id") != "mudren")
                 message("vision", "只听“蓬”一声，" + me->name() +
                         "飞了出来，身上青一块儿紫一块儿的。\n",
                         environment(me), ({ me }));
 }
-

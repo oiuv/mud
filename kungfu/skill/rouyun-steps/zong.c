@@ -24,7 +24,7 @@ int perform(object me, object target)
                         me->move("/d/city/kedian");
                         break;
                 case 2:
-                        me->move("/u/ivy/workroom");
+                        me->move("/u/mudren/workroom");
                         break;
         }
         return 1;

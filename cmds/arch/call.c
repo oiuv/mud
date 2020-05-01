@@ -42,7 +42,7 @@ int main(object me, string arg)
 
 	if (userp(obj) && wiz_level(me) >= wiz_level(obj))
 	{
-                if ((string)me->query("id") != "ivy")
+                if ((string)me->query("id") != "mudren")
                         log_file("static/call_player",
                                  sprintf("%s %-9s call %s(%s)->%s(%s)\n",
 				 log_time(), geteuid(me), obj->name(1),
@@ -69,7 +69,7 @@ int main(object me, string arg)
 
         if (func == "set" && playerp(obj) &&
             sizeof(args) && args[0] == "name" &&
-            (string)me->query("id") != "ivy")
+            (string)me->query("id") != "mudren")
         {
                 write("你无法修改这项参数。\n");
                 return 1;
@@ -82,7 +82,7 @@ int main(object me, string arg)
         e -= eval_cost();
 	for (i = 1; i < sizeof(args); i++)
 		args[i] = sprintf("%O",args[i]);
-	write(sprintf("%O->%s(%s) = %O\nTotal eval cost:%d\n", obj, func, 
+	write(sprintf("%O->%s(%s) = %O\nTotal eval cost:%d\n", obj, func,
 		implode(args[1..sizeof(args)-1], ", "), result, e));
 	return 1;
 }
@@ -91,12 +91,11 @@ int help(object me)
 {
 write(@HELP
 指令格式 : call <物件>-><函数>(<参数>, ...... )
- 
+
 呼叫<物件>里的<函数>并传入相关<参数>.
 
 相关命令：findusr
- 
+
 HELP );
     return 1;
 }
-

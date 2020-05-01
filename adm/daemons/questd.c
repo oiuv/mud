@@ -655,7 +655,7 @@ int ask_quest(object me, object who)
 
     /*
     //测试后门，非测试时注释掉
-    if (who->query("id") == "ivy")
+    if (who->query("id") == "mudren")
     {
         who->move(environment(ob));
         message_vision(CYN "$N" CYN "马不停蹄的赶到$n所在地。\n" NOR, who, ob);

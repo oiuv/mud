@@ -97,7 +97,7 @@ nosave mixed *total_build;
 string *fetch_file_list = 0;
 
 #if 0
-#define DEBUG_LOG(s)       tell_object(find_player("ivy"), s)
+#define DEBUG_LOG(s)       tell_object(find_player("mudren"), s)
 #else
 #define DEBUG_LOG(s)
 #endif

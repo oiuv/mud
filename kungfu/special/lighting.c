@@ -16,7 +16,7 @@ int perform(object me, object target)
         string msg;
         int damage;
 
-        if (! wizardp(me) && me->query("id") != "ivy")
+        if (! wizardp(me) && me->query("id") != "mudren")
                 return notify_fail(LIGHTING "只能由巫师施展。\n");
 
         if (! me->is_fighting())
@@ -37,7 +37,7 @@ int perform(object me, object target)
         me->start_busy(1);
 
         if (wiz_level(target) <= wiz_level(me)
-           && target->query("id") != "ivy")
+           && target->query("id") != "mudren")
         {
                 damage = 8000 + random(8000);
                 target->receive_wound("qi", damage, me);

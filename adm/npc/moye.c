@@ -1,6 +1,6 @@
 // moye.c  莫邪
 // Written by Doing Lu  1998/11/2
-// Ivy 修改增加如意乾坤袋的制作 2015/05/05
+// mudren 修改增加如意乾坤袋的制作 2015/05/05
 
 inherit NPC;
 inherit F_NOCLONE;

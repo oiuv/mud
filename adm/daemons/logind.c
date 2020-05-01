@@ -5,7 +5,7 @@
 #include <login.h>
 #include <config.h>
 #include <getconfig.h>
-//#include "/u/ivy/mail_center/mail.h" // 包含读取邮件信息的函数
+//#include "/u/mudren/mail_center/mail.h" // 包含读取邮件信息的函数
 
 #define MUDLIST_CMD     "/cmds/usr/mudlist"
 #define REBOOT_CMD      "/cmds/arch/reboot"

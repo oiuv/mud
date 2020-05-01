@@ -32,7 +32,7 @@
  * FTPD_TIMEOUT and may manually adjust it up to the limit of MAX_FTPD_IDLE
  */
 #define MAX_FTPD_IDLE 7200
- 
+
 /* HOME_DIR: given a username give the home directory path */
 #define HOME_DIR(name)  user_cwd(name) /* on TMI-2 */
 
@@ -132,7 +132,7 @@
 #undef DEBUG
 
 /* player to whom to "tell" debugging info */
-#define TP_CRE "ivy"
+#define TP_CRE "mudren"
 
 /*
 -----------------------------------------------
@@ -191,4 +191,3 @@
 #endif
 
 #endif /* _FTPDCONF_H */
-

@@ -1,5 +1,5 @@
 // jinshedong.c
-// Modify by Ivy for Heros.YD
+// Modify by mudren for Heros.YD
 
 inherit ROOM;
 #include <ansi.h>
@@ -46,7 +46,7 @@ void create()
               "ya"    : NOR + WHT "悬崖下峭壁高耸，一条青藤（teng）直垂而下。\n" NOR,
               "teng"  : HIG "一根青藤，在半空中摇晃着，可以用他爬（climb）上悬崖。\n" NOR,
               "sword" : (: look_sword :),
-        ]));        
+        ]));
 
         setup();
 }
@@ -72,7 +72,7 @@ int do_wa()
         message_vision(HIC "$N" HIC "使劲地在地上挖，不一会儿挖出一个洞来。\n" NOR, me);
 
         if (environment(ob))
-        {                
+        {
                 me->start_busy(2);
                 return 1;
         }
@@ -88,7 +88,7 @@ int do_wa()
 string look_sword()
 {
         object ob;
-  
+
         if (! ob = find_object(SWORD))
                 ob = load_object(SWORD);
 
@@ -134,13 +134,13 @@ int do_ba(string arg)
                 return notify_fail("你要拔什么？\n");
 
         if (me->query_str() < 35)
-               return notify_fail("你臂力不足，无法将剑拔起。\n");    
+               return notify_fail("你臂力不足，无法将剑拔起。\n");
 
         message_vision(HIG "$N" HIG "用力将剑从地上拔出。\n" NOR, me);
         ob->move(me);
 
         set("long", show);
-        return 1;          
+        return 1;
 }
 
 int do_climb(string arg)
@@ -151,10 +151,10 @@ int do_climb(string arg)
                return notify_fail("等你忙完了再说吧！\n");
 
         message_vision(HIG "$N" HIG "拉着青藤爬上悬崖……\n", me);
-                
+
         me->move("/d/huashan/chaoyang");
 
         me->start_busy(2);
 
-        return 1;          
+        return 1;
 }

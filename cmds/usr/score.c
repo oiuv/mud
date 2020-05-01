@@ -1,5 +1,5 @@
 // score.c
-// Updated by Ivy for heros.YD
+// Updated by mudren for heros.YD
 
 #include <ansi.h>
 #include <combat.h>

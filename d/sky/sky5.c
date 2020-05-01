@@ -49,7 +49,7 @@ int do_move(string arg)
                 message_vision(HIW "\n$N" HIW "顺着云梯轻轻一"
                                "纵，身体便随着气流飘了上去……\n"
                                NOR, this_player());
-                me->move("/u/ivy/workroom");
+                me->move("/u/mudren/workroom");
                 return 1;
         }
         return 0;

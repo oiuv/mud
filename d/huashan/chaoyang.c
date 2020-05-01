@@ -1,9 +1,9 @@
 // chaoyang.c
-// updated by Ivy at 2015年4月16日
+// updated by mudren at 2015年4月16日
 
 inherit ROOM;
 #include <ansi.h>
- 
+
 void create()
 {
         set("short", "朝阳峰");
@@ -28,7 +28,7 @@ LONG );
 
         setup();
 }
- 
+
 void init()
 {
         add_action("do_la", "la");
@@ -54,7 +54,7 @@ int do_la(string arg)
 
         me->start_busy(2);
 
-        return 1;          
+        return 1;
 }
 
 int do_jump(string arg)
@@ -73,22 +73,22 @@ int do_jump(string arg)
                message_vision(HIM "$N" HIM "纵身跳下悬崖 ……\n", me);
 /*
                CHANNEL_D->do_channel(this_object(), "rumor", "听说" + me->name() + HIM "跳"
-                                     "下华山悬崖，自杀生亡。\n" NOR); 
+                                     "下华山悬崖，自杀生亡。\n" NOR);
 */
                me->move("/d/huashan/xuanya");
                me->set_temp("die_reason", "跳下华山悬崖，自杀身亡");
-               me->die(); 
-               return 1;   
+               me->die();
+               return 1;
 
         }
 
         message_vision(HIG "$N" HIG "拉着青藤跳下悬崖……\n", me);
-                
+
         tell_object(me, HIG "猛然间，你发现下面有一个小洞，你猛一弯腰，借力跳了进去。\n" NOR);
 
         me->move("/d/huashan/jinshedong");
         me->delete_temp("la_teng_huashan");
         me->start_busy(2);
 
-        return 1;          
+        return 1;
 }

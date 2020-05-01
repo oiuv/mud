@@ -167,7 +167,7 @@ int guilei_file(object me, string file, string type)
                         if (! mapp(all_obj))
                         {
                                 file->set("objects", ([
-                	                "/u/ivy/no_npc" : 1,
+                	                "/u/mudren/no_npc" : 1,
                                 ]));
                         }
 */

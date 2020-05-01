@@ -18,7 +18,7 @@ int main(object me, string arg)
                 return 0;
 
         //return notify_fail("这是临时命令。\n");
-        if (me->query("id") != "ivy")
+        if (me->query("id") != "mudren")
                 return notify_fail("这是临时命令。\n");
 
         do_sort_players(0);

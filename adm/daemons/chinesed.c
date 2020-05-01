@@ -1,6 +1,6 @@
 // chinesed.c
 // by Annihilator@ES
-// modified by Ivy@Heros.YD
+// modified by mudren@Heros.YD
 
 // #pragma optimize
 // #pragma save_binary

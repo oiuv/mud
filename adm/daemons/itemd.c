@@ -117,7 +117,7 @@ int receive_summon(object me, object item)
     }
     me->add("jingli", -200);
 
-    if (me->query("id") == "ivy")
+    if (me->query("id") == "mudren")
     {
         message_sort(HIM "\n只见四周金光散布，祥云朵朵，远处有凤凰盘绕，麒麟逐戏。耳边"
                          "传来阵阵梵音。$N" HIM "一声长啸，" +

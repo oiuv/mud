@@ -22,7 +22,7 @@ int main(object me, string arg)
            || ! playerp(ob))
 		return notify_fail("你只能改变使用者的权限。\n");
 
-	if ((string)me->query("id") != "ivy"
+	if ((string)me->query("id") != "mudren"
            && wiz_level(me) < wiz_level(new_status))
 		return notify_fail("你没有这种权力。\n");
 

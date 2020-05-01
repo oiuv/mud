@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 void create()
@@ -20,17 +20,17 @@ LONG );
 	set("objects", ([
 		__DIR__"npc/xiaoer2" : 1,
 	]));
- 
+
     set("no_fight", 1);
 	setup();
 	//replace_program(ROOM);
 }
 
-int valid_leave(object me, string dir) 
+int valid_leave(object me, string dir)
 {
         object ob = this_player();
 
-        if (dir == "north" && ob->query("id") != "ivy") 
+        if (dir == "north" && ob->query("id") != "mudren")
                 return notify_fail(HIW "你感觉前方有一种奇异的力场拦住了你的去路。\n" NOR);
 
         return ::valid_leave(me, dir);

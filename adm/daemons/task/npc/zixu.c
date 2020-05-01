@@ -5,7 +5,7 @@
 inherit NPC;
 inherit F_UNIQUE;
 
-#define MAZE "/u/ivy/maze"
+#define MAZE "/u/mudren/maze"
 #define MIRROR "/adm/daemons/task/mirror"
 
 int ask_mirror();

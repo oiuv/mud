@@ -1,5 +1,5 @@
 #include <ansi.h>
-#define INVASIOND "/u/ivy/invasion/invasiond"
+#define INVASIOND "/adm/daemons/invasion/invasiond"
 
 inherit NPC;
 mixed ask_reward();

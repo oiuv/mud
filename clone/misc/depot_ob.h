@@ -1,5 +1,5 @@
 // 如意乾坤袋(Written by Lonely@chinamud.cn)
-// Modified by Ivy@mud.ren
+// Modified by mudren@mud.ren
 
 #include <ansi.h>
 #include <config.h>

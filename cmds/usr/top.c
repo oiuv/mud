@@ -38,7 +38,7 @@ int main(string arg)
 
     for (i = 0; i < 10; i++)
     {
-        if (i >= sizeof(list) || list[i]->query("id") == 0 || get_score(list[i]) < 10) //ivy
+        if (i >= sizeof(list) || list[i]->query("id") == 0 || get_score(list[i]) < 10) //mudren
         {
             msg += HIW "┃        暂时空缺              无             -  ┃\n" NOR;
             continue;

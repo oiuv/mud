@@ -753,7 +753,7 @@ string query_respect(object ob)
     if (stringp(str = ob->query("rank_info/respect")))
         return str;
 
-    if ((string)ob->query("id") == "ivy")
+    if ((string)ob->query("id") == "mudren")
         return "仙子";
 
     age = ob->query("age");
@@ -838,7 +838,7 @@ string query_rude(object ob)
     if (stringp(str = ob->query("rank_info/rude")))
         return str;
 
-    if ((string)ob->query("id") == "ivy")
+    if ((string)ob->query("id") == "mudren")
         return "大神";
 
     age = ob->query("age");
@@ -928,7 +928,7 @@ string query_self(object ob)
     if (stringp(str = ob->query("rank_info/self")))
         return str;
 
-    if ((string)ob->query("id") == "ivy")
+    if ((string)ob->query("id") == "mudren")
         return "我";
 
     age = ob->query("age");
@@ -999,7 +999,7 @@ string query_self_rude(object ob)
     if (stringp(str = ob->query("rank_info/self_rude")))
         return str;
 
-    if ((string)ob->query("id") == "ivy")
+    if ((string)ob->query("id") == "mudren")
         return "本仙";
 
     age = ob->query("age");

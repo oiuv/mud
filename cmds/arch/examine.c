@@ -82,7 +82,7 @@ void search_dir(object me, int raw)
                                 if (! info) continue;
                                 result += ({ info });
                                 count++;
-                        
+
                         }
                 }
                 total += j;
@@ -151,17 +151,17 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
                 {
                         st = stat(DATA_DIR + "login/" + name[0..0] + "/" +
                                   name + __SAVE_EXTENSION__);
-        
+
                         if (! arrayp(st) || sizeof(st) < 3)
                                 // 可能没有这个文件
                                 return sprintf(WHT "无法查阅玩家(%s)的的登录信息。\n" NOR, name);
-        
+
                         // 计算没有上线的时间
                         day = (time() - st[1]) / 86400;
                 } else
                         day = (time() - last_touched) / 86400;
 /*	系统备份自动删除超过一定时间未登录的玩家	*/
-                if (day >= 360 && ! objectp(find_player(name)) && name != "ivy")
+                if (day >= 360 && ! objectp(find_player(name)) && name != "mudren")
                 {
                         log_file("static/purge",
                                  sprintf("%s %s was purged by BACKUP_D\n",
