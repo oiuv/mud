@@ -226,7 +226,8 @@ void write_prompt()
     written = PROMPT_WRITTEN;
 }
 
-#define MAX_STRING_SIZE                 8000
+// 最大8920字节, utf-8 / 3
+#define MAX_STRING_SIZE                 2560
 
 void receive_snoop(string msg)
 {
