@@ -10,14 +10,14 @@ void create()
 LONG);
         set("exits", ([
                 "east" : __DIR__"gebitan5",
-                "west" : __DIR__"shanjiao", 
+                "west" : __DIR__"shanjiao",
                 "north" : __DIR__"gebitan5",
                 "south" : __DIR__"gebitan4",
         ]));
         set("objects", ([
                 "/clone/npc/walker" : 1,
         ]));
-        set("outdoor", "mingjiao");
+        set("outdoors", "mingjiao");
         setup();
         replace_program(ROOM);
 }

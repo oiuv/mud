@@ -17,7 +17,7 @@ LONG );
                 "west"  : __DIR__"shizilu",
         ]));
 
-        set("outdoor", "guanwai");
+        set("outdoors", "guanwai");
         setup();
 }
 

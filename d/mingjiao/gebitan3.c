@@ -12,14 +12,14 @@ void create()
 LONG );
  	set("exits",([
 	    "east" : __DIR__"gebitan2",
-	    "west" : __DIR__"gebitan3",	
+	    "west" : __DIR__"gebitan3",
 	    "north" : __DIR__"gebitan4",
-	    "south" : __DIR__"gebitan3",  				
+	    "south" : __DIR__"gebitan3",
 	]));
 	set("objects",([
 		__DIR__"obj/shigu" : 3,
 	]));
-        set("outdoor", "mingjiao");
+        set("outdoors", "mingjiao");
 	setup();
 }
 
@@ -36,4 +36,3 @@ int valid_leave(object me, string dir)
 	}
 	return ::valid_leave(me, dir);
 }
-

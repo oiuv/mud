@@ -12,11 +12,11 @@ void create()
 LONG );
  	set("exits",([
 	    "east" : __DIR__"gebitan4",
-	    "west" : __DIR__"gebitan4",	
+	    "west" : __DIR__"gebitan4",
 	    "north" : __DIR__"gebitan5",
-	    "south" : __DIR__"gebitan3",  				
+	    "south" : __DIR__"gebitan3",
 	]));
-        set("outdoor", "mingjiao");
+        set("outdoors", "mingjiao");
 	setup();
 	replace_program(ROOM);
 }

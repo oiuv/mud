@@ -14,7 +14,7 @@ LONG);
         set("objects", ([
                 CLASS_D("hu") + "/pingsi" : 1,
         ]));
-        set("outdoor", "guanwai");
+        set("outdoors", "guanwai");
         setup();
 }
 

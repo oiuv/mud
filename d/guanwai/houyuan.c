@@ -15,7 +15,7 @@ LONG );
         "north" : __DIR__"shizilu",
         "west"  : __DIR__"jingxiu",
     ]));
-    set("outdoor", "guanwai");
+    set("outdoors", "guanwai");
     setup();
         replace_program(ROOM);
 }

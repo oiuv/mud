@@ -17,7 +17,7 @@ LONG );
                 "east"  : __DIR__"taxue",
         ]));
 
-        set("outdoor", "guanwai");
+        set("outdoors", "guanwai");
         setup();
         replace_program(ROOM);
 }

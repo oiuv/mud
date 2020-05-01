@@ -13,14 +13,14 @@ void create()
 LONG );
  	set("exits",([
 		      "east" : __DIR__"westroad2",
-		      "west" : __DIR__"gebitan2",	
+		      "west" : __DIR__"gebitan2",
 		      "north" : __DIR__"gebitan1",
-                      "south" : __DIR__"gebitan1",  				
+                      "south" : __DIR__"gebitan1",
 	]));
 	set("objects",([
 		__DIR__"obj/shigu" : 3,
 	]));
-        set("outdoor", "mingjiao");
+        set("outdoors", "mingjiao");
 	setup();
 	replace_program(ROOM);
 }
