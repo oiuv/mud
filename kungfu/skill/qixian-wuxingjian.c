@@ -188,7 +188,7 @@ int valid_learn(object me)
         if ((int)me->query_skill("sword", 1) < (int)me->query_skill("qixian-wuxingjian", 1))
                 return notify_fail("你的基本剑法水平有限，无法领会更高深的七弦无形剑。\n");
 
-        if ((int)me->query_skill("tanqin-jifa", 1) < (int)me->query_skill("qixian-wuxingjian", 1) / 2)
+        if ((int)me->query_skill("tanqin-jifa", 1) < (int)me->query_skill("qixian-wuxingjian", 1) / 3)
                 return notify_fail("你对琴学的了解不够深入，无法领会更高深的七弦无形剑。\n");
 
         return 1;
@@ -330,5 +330,5 @@ void do_effect(object me)
 
 string perform_action_file(string action)
 {
-      return __DIR__"qixian-wuxingjian/" + action;
+        return __DIR__"qixian-wuxingjian/" + action;
 }
