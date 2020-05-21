@@ -404,6 +404,11 @@ void addExit(string dir, string dest)
         exits[dir] = dest;
 }
 
+//replaces the program in this_object()
 void replace_program(string ob)
 {
+    if (replaceable(previous_object()))
+    {
+        efun::replace_program(ob);
+    }
 }
