@@ -364,20 +364,20 @@ void born_player(object me)
         if (me->query("character") != "光明磊落" && me->query("character") != "心狠手辣")
             files -= ({"wrath"});
 
-        // 先天膂力 < 26 不会麒麟血臂
-        if (me->query("str") < 26)
+        // 先天膂力 < 20 不会麒麟血臂
+        if (me->query("str") < 20)
             files -= ({"strength"});
 
-        // 先天悟性 < 26 不会罡睿神慧
-        if (me->query("int") < 26)
+        // 先天悟性 < 20 不会罡睿神慧
+        if (me->query("int") < 20)
             files -= ({"intellect"});
 
-        // 先天根骨 < 26 不会镇蕴七星
-        if (me->query("con") < 26)
+        // 先天根骨 < 20 不会镇蕴七星
+        if (me->query("con") < 20)
             files -= ({"constitution"});
 
-        // 先天身法 < 26 不会玲珑玉躯
-        if (me->query("dex") < 26)
+        // 先天身法 < 20 不会玲珑玉躯
+        if (me->query("dex") < 20)
             files -= ({"dexterity"});
 
         // 先天容貌 < 20 不会天颜永驻
@@ -457,7 +457,7 @@ void zhuan_player(object me)
     me->delete ("brothers"); // 结拜兄弟
     me->delete ("bunch");    // 帮派记录
     me->delete ("league");   // 同盟记录
-    //me->delete("family");  // 门派记录
+    me->delete ("family");   // 门派记录
 
     me->delete ("class");    // 称号记录
     me->delete ("detach");   // 脱离记录
