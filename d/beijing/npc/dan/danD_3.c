@@ -40,7 +40,7 @@ int do_effect(object me)
     me->set_temp("last_eat/dan(D)", time());
 
     message_vision(HIC "$N吃下一粒归元丹，感到内力有所补充。\n" NOR, me);
-    me->add("neili", 500);
+    me->add("neili", 1000);
 
     me->start_busy(3);
 

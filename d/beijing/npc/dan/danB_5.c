@@ -35,11 +35,11 @@ int do_effect(object me)
 
     me->set_temp("last_eat/dan(B)", time());
 
-    message_vision(HIR "$N吃下一粒还魂丹，内息得到了完全的补充。\n" NOR, me);
-    me->receive_curing("qi", 1000);
-    me->receive_heal("qi", 1000);
+    message_vision(HIR "$N吃下一粒还魂丹，内息得到了极大的补充。\n" NOR, me);
+    me->receive_curing("qi", 5000);
+    me->receive_heal("qi", 5000);
 
-    me->start_busy(3);
+    me->start_busy(5);
 
     add_amount(-1);
     if (query_amount() < 1)

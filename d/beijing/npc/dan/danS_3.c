@@ -26,7 +26,7 @@ int do_effect(object me)
 {
     mapping my;
 
-    if (time() - me->query_temp("last_eat/dan(S)") < 30)
+    if (time() - me->query_temp("last_eat/dan(S)") < 20)
     {
         write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
         return 1;
@@ -44,10 +44,10 @@ int do_effect(object me)
                     "感到的经验和潜能有了一定的进展。\n"NOR, me, this_object());
     me->set("jingli", me->query("max_jingli"));
     me->set("neili", me->query("max_neili"));
-    me->add("combat_exp", 600);
-    me->add("potential", 600);
+    me->add("combat_exp", 2000);
+    me->add("potential", 2000);
 
-    me->start_busy(2);
+    me->start_busy(3);
 
     add_amount(-1);
     if (query_amount() < 1)

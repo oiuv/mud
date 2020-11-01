@@ -40,9 +40,9 @@ int do_effect(object me)
     me->set_temp("last_eat/dan(D)", time());
 
     message_vision(RED "$N吃下一粒血麒丹，内力得到了完全的补充。\n" NOR, me);
-    me->add("neili", 1000);
+    me->add("neili", 4000);
 
-    me->start_busy(3);
+    me->start_busy(5);
 
     add_amount(-1);
     if (query_amount() < 1)

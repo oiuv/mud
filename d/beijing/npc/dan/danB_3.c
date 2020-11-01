@@ -36,8 +36,8 @@ int do_effect(object me)
     me->set_temp("last_eat/dan(B)", time());
 
     message_vision(WHT "$N吃下一粒大补丹，感到内息得到了比较大的调整。\n" NOR, me);
-    me->receive_curing("qi", 300);
-    me->receive_heal("qi", 300);
+    me->receive_curing("qi", 800);
+    me->receive_heal("qi", 800);
 
     me->start_busy(3);
 

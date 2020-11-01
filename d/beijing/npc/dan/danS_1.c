@@ -38,7 +38,7 @@ int do_effect(object me)
     my["eff_jing"] = my["max_jing"];
     my["eff_qi"]   = my["max_qi"];
 
-    me->start_busy(6);
+    me->start_busy(5);
 
     add_amount(-1);
     if (query_amount() < 1)

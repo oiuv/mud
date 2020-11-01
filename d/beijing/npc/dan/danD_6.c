@@ -33,7 +33,7 @@ int do_effect(object me)
     message_vision(HIR "$N吃下一粒罗刹无常丹，内力得到了完全的补充。\n" NOR, me);
     me->set("neili", me->query("max_neili"));
 
-    me->start_busy(3);
+    me->start_busy(5);
 
     add_amount(-1);
     if (query_amount() < 1)

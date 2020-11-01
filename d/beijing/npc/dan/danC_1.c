@@ -42,7 +42,7 @@ int do_effect(object me)
     message_vision(HIW "$N吃下一粒小云丹，精神随之一震，精力有所提高。\n" NOR, me);
     me->add("jingli", 100);
 
-    me->start_busy(3);
+    me->start_busy(2);
 
     add_amount(-1);
     if (query_amount() < 1)

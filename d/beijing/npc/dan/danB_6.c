@@ -39,7 +39,7 @@ int do_effect(object me)
     me->set("qi",me->query("max_qi"));
     me->set("eff_qi",me->query("max_qi"));
 
-    me->start_busy(3);
+    me->start_busy(5);
 
     add_amount(-1);
     if (query_amount() < 1)

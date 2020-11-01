@@ -44,10 +44,10 @@ int do_effect(object me)
                     "感到的经验和潜能有了一定的进展。\n"NOR, me, this_object());
     me->set("jingli", me->query("max_jingli"));
     me->set("neili", me->query("max_neili"));
-    me->add("combat_exp", 1000);
-    me->add("potential", 1000);
+    me->add("combat_exp", 4000);
+    me->add("potential", 4000);
 
-    me->start_busy(2);
+    me->start_busy(3);
 
     add_amount(-1);
     if (query_amount() < 1)

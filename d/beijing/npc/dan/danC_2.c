@@ -40,7 +40,7 @@ int do_effect(object me)
     me->set_temp("last_eat/dan(C)", time());
 
     message_vision(HIW "$N吃下一粒大云丹，精神随之一震，精力有所提高。\n" NOR, me);
-    me->add("jingli", 150);
+    me->add("jingli", 250);
 
     me->start_busy(3);
 

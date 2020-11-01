@@ -36,10 +36,10 @@ int do_effect(object me)
     me->set_temp("last_eat/dan(A)", time());
 
     message_vision(HIY "$N吃下一粒九皇补心丹，精神一振，神采奕奕。\n" NOR, me);
-    me->receive_curing("jing", 800);
-    me->receive_heal("jing", 800);
+    me->receive_curing("jing", 3000);
+    me->receive_heal("jing", 3000);
 
-    me->start_busy(3);
+    me->start_busy(5);
 
     add_amount(-1);
     if (query_amount() < 1)

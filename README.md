@@ -22,4 +22,4 @@
 
 注册ID为 `mudren` 的帐号为游戏管理员(admin)。
 
-游戏体验：http://mud.ren:8000/
+游戏体验：http://mud.ren:8888/

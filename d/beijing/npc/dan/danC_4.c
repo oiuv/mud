@@ -40,9 +40,9 @@ int do_effect(object me)
     me->set_temp("last_eat/dan(C)", time());
 
     message_vision(CYN "$N吃下一粒玉泉丹，精神随之一震，精力有所提高。\n" NOR, me);
-    me->add("jingli", 500);
+    me->add("jingli", 1000);
 
-    me->start_busy(3);
+    me->start_busy(4);
 
     add_amount(-1);
     if (query_amount() < 1)

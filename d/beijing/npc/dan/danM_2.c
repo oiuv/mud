@@ -32,8 +32,12 @@ int do_effect(object me)
 
     if (me->improve_neili(2))
         message_vision(WHT "$N" WHT "吃下一粒龟苓丹，感到内力又雄厚了一些。\n" NOR, me);
+    else
+    {
+        tell_object(me, "你感到内息澎湃，难以吸收丹药的效力。\n");
+    }
 
-    me->start_busy(6);
+    me->start_busy(3);
 
     add_amount(-1);
     if (query_amount() < 1)

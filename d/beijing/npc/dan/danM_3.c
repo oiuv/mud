@@ -36,8 +36,14 @@ int do_effect(object me)
 
     me->set_temp("last_eat/dan(M)", time());
 
-    message_vision(HIY "$N" HIY "吃下一粒龙王丹，感到内力又雄厚了一些。\n" NOR, me);
-    me->improve_neili(3);
+    if (me->improve_neili(3))
+        message_vision(HIY "$N" HIY "吃下一粒龙王丹，感到内力又雄厚了一些。\n" NOR, me);
+    else
+    {
+        tell_object(me, "你感到内息澎湃，难以吸收丹药的效力。\n");
+    }
+
+    me->start_busy(3);
 
     add_amount(-1);
     if (query_amount() < 1)

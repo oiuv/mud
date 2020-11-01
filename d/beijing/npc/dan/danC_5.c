@@ -33,7 +33,7 @@ int do_effect(object me)
     message_vision(HIR "$N吃下一粒修罗无常丹，精力得到了完全的调整。\n" NOR, me);
     me->set("jingli",me->query("max_jingli"));
 
-    me->start_busy(3);
+    me->start_busy(5);
 
     add_amount(-1);
     if (query_amount() < 1)

@@ -34,14 +34,14 @@ int do_effect(object me)
     {
         message_vision(HIM "$N" HIM "吃下一粒龙涎丹，脸上闪过一道紫气。\n" NOR, me);
         tell_object(me, "你感到内力又雄厚了一些。\n");
-        me->add("max_neili", 1);
+        // me->add("max_neili", 1);
     } else
     {
         message_vision(HIC "$N" HIC "吃下一粒龙涎丹，脸色变了变，闪过一丝青气。\n" NOR, me);
         tell_object(me, "你感到内息澎湃，难以吸收丹药的效力。\n");
     }
 
-    me->start_busy(6);
+    me->start_busy(3);
 
     add_amount(-1);
     if (query_amount() < 1)
