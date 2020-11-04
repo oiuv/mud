@@ -56,8 +56,8 @@ mixed ask_mine()
 //      object *obs;
 
         me = this_player();
-        if (wizardp(me))
-                return "您老还是别想着深入民间体验生活了吧，这活挺累的。";
+        // if (wizardp(me))
+        //         return "您老还是别想着深入民间体验生活了吧，这活挺累的。";
 
         if (me->query_temp("job/mine"))
                 return "不是让你去采么？你干完了？少在我面前玩花样！";

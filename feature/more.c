@@ -3,7 +3,7 @@
 #include <ansi.h>
 #include <dbase.h>
 
-#define LINES_PER_PAGE          40
+#define LINES_PER_PAGE          30
 
 void more(string cmd, string *text, int line)
 {

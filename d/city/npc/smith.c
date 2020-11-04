@@ -8,7 +8,7 @@ mixed ask_back();
 
 void create()
 {
-        set_name("铁匠", ({ "tie jiang", "tie", "smith" }));
+        set_name("铁匠", ({ "tie jiang", "tie", "tiejiang" }));
         set("title", "铁匠铺老板");
         set("shen_type", 1);
 

@@ -56,8 +56,8 @@ mixed ask_mine()
 //      object *obs;
 
         me = this_player();
-        if (wizardp(me))
-                return "您老还是别想着深入民间体验生活了吧，这活挺累的。";
+        // if (wizardp(me))
+        //         return "您老还是别想着深入民间体验生活了吧，这活挺累的。";
 
         if (me->query_temp("job/move"))
                 return "让你搬的石料你搬了没有？再胡闹我抽死你！";
@@ -101,7 +101,6 @@ int do_mine(string arg)
                 return notify_fail("你又没领活，瞎忙活啥？\n");
 
         me->set_temp("job/step", 1);
-		//说明：wizard做任务会报错
         me->start_busy(bind((: call_other, __FILE__, "working" :), me),
                        bind((: call_other, __FILE__, "halt_working" :), me));
         tell_object(me, "你开始工作。\n");

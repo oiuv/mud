@@ -193,6 +193,14 @@ private void get_id(string arg, object ob)
     input_to("confirm_id", ob);
 }
 
+nomask int matches_password(string str, string password)
+{
+    if (password[0..2] == "$6$")
+        return crypt(str, password) == password;
+    else
+        return oldcrypt(str, password) == password || crypt(str, password) == password;
+}
+
 private void get_passwd(string pass, object ob)
 {
     string ad_pass;
@@ -201,10 +209,10 @@ private void get_passwd(string pass, object ob)
     my_pass = ob->query("password");
     ad_pass = ob->query("ad_password");
     // if (!stringp(my_pass) || crypt(pass, my_pass) != my_pass)
-    if (!stringp(my_pass) || (crypt(pass, my_pass) != my_pass && oldcrypt(pass, my_pass) != my_pass))
+    if (!stringp(my_pass) || !matches_password(pass, my_pass))
     {
         // if (!stringp(ad_pass) || crypt(pass, ad_pass) != ad_pass)
-        if (!stringp(ad_pass) || (crypt(pass, ad_pass) != ad_pass && oldcrypt(pass, ad_pass) != ad_pass))
+        if (!stringp(ad_pass) || !matches_password(pass, ad_pass))
         {
             write("密码错误！\n");
             destruct(ob);

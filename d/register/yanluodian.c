@@ -263,7 +263,7 @@ int do_born(string arg)
     me->set("mud_age", 0);
     me->set("age", 14);
     me->save();
-    HELP_CMD->main(me, "rules");
+    HELP_CMD->main(me, "newbie");
 
     message_vision("$N揉揉眼睛，迷惘的望着这个陌生的世界。\n", me);
 
