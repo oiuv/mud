@@ -25,7 +25,7 @@
 #include <net/macros.h>
 #include <getconfig.h>
 
-#define DEBUG
+// #define DEBUG
 
 // services we always query if we don't know about
 #define STD_SERVICE ({"mail", "finger", "rwho_q", "tell", "gwizmsg"})
@@ -143,6 +143,7 @@ int startup_udp()
         socket_close(socket_id);
         return 0;
     }
+    log(sprintf("UDP services port = %d.\n", query_udp_port()));
     return 1;
 }
 
@@ -157,7 +158,7 @@ void send_udp(string host, int port, string msg)
         return;
 #endif
 
-    debug("DNS: Sending " + msg);
+    // debug_message("DNS: Sending " + msg + "To " + host + ":" + port);
 
     sock = socket_create(DATAGRAM, "read_callback", "close_callback");
     if (sock <= 0)
@@ -178,7 +179,7 @@ void read_callback(int sock, string msg, string addr)
     mapping args;
     int i;
 
-    debug("DNS: Got " + msg);
+    // debug_message("DNS: Got " + msg + "From " + addr);
 
     // get the function from the packet
     if (sscanf(msg, "@@@%s||%s@@@%*s", func, rest) != 3)
@@ -210,6 +211,11 @@ void read_callback(int sock, string msg, string addr)
     {
         // Local is release server, receive all incoming
         // request
+        if (args["ALIAS"] && args["USERS"])
+        {
+            muds[args["ALIAS"]] = args;
+            // debug_message(sprintf("%O", muds));
+        }
     }
     else
     {
@@ -303,7 +309,8 @@ void init_database()
     {
         if (sscanf(list[i], "%s %d", boot_addr, boot_port) != 2)
             continue;
-
+        // 默认UDP端口为游戏端口+1
+        boot_port++;
         send_udp(boot_addr, boot_port, message);
         MUDLIST_Q->send_mudlist_q(boot_addr, boot_port);
     }
@@ -335,6 +342,7 @@ void refresh_database()
     {
         if (sscanf(list[i], "%s %d", boot_addr, boot_port) != 2)
             continue;
+        boot_port++;
         MUDLIST_Q->send_mudlist_q(boot_addr, boot_port);
     }
 }
@@ -851,7 +859,7 @@ void create()
     set("channel_id", "网络精灵");
 
     // find out which port we are on
-    my_port = 4;
+    my_port = mud_port() + 1; // 默认UDP端口为游戏端口+1
 
     // initialise global mud info variables
     muds = allocate_mapping(MUDS_ALLOC);
@@ -879,7 +887,7 @@ void create()
              "DRIVER":MUD_DRIVER,
                "ZONE":CONFIG_D->query_string("zone"),
     ]);
-
+    // debug_message(sprintf("%O", this_host));
     // 设置list_nodes
     list_nodes = ({});
     if (stringp(MUDLIST_DNS1))

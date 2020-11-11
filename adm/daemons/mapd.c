@@ -247,61 +247,61 @@ mixed connect_info = ({
 // 查看某个地点是否被MAPD所知晓
 public int been_known(string outdoors)
 {
-        return stringp(map_short[outdoors]);
+    return stringp(map_short[outdoors]);
 }
 
 // 获得某个户外地点的中文名字
 public string query_map_short(string outdoors)
 {
-        string str;
+    string str;
 
-        if (stringp(str = map_short[outdoors]))
-                return str;
+    if (stringp(str = map_short[outdoors]))
+        return str;
 
-        return "不详地点";
+    return "不详地点";
 }
 
 // 获得所有户外地点的集合
 public string *query_all_map_zone()
 {
-        return keys(map_short);
+    return keys(map_short);
 }
 
 // 获得某个户外地点的地图
 public string query_maps(string outdoors)
 {
-        mixed maps;
-        string file;
-        string map_result;
+    mixed maps;
+    string file;
+    string map_result;
 
-        if (undefinedp(maps = map_to[outdoors]))
-                return "未有详细地图。\n";
+    if (undefinedp(maps = map_to[outdoors]))
+        return "未有详细地图。\n";
 
-        if (stringp(maps))
+    if (stringp(maps))
+    {
+        file = HELP_DIR + maps;
+        map_result = read_file(file);
+        if (!stringp(map_result))
+            map_result = "无法读取地图" + file + "。\n";
+        map_result = color_filter(map_result);
+        return map_result;
+    }
+
+    if (arrayp(maps))
+    {
+        map_result = "";
+        foreach (file in maps)
         {
-                file = HELP_DIR + maps;
-                map_result = read_file(file);
-                if (! stringp(map_result))
-                        map_result = "无法读取地图" + file + "。\n";
-                map_result = color_filter(map_result);
-                return map_result;
+            if (file_size(HELP_DIR + file) > 0)
+                map_result += read_file(HELP_DIR + file);
+            else
+                map_result += "无法读取地图" + file + "。\n";
         }
+        map_result = color_filter(map_result);
+        return map_result;
+    }
 
-        if (arrayp(maps))
-        {
-                map_result = "";
-                foreach (file in maps)
-                {
-                        if (file_size(HELP_DIR + file) > 0)
-                                map_result += read_file(HELP_DIR + file);
-                        else
-                                map_result += "无法读取地图" + file + "。\n";
-                }
-                map_result = color_filter(map_result);
-                return map_result;
-        }
-
-        error("未知错误。\n");
+    error("未知错误。\n");
 }
 
 // 获得地图中某一行的第x开始的n个字符，其中地图行中@打头的字
@@ -312,66 +312,70 @@ public string query_maps(string outdoors)
 // 由于出错的几率相当小，所以姑且不计。
 string get_map_line(string line, int x, int n)
 {
-        string rs;
+    string rs;
 
-        rs = "";
-        if (n == 0)
-                return rs;
-
-        // 找到相应的位置
-        while (x)
-        {
-                if (strlen(line) == 0)
-                        // 字符串长度不够
-                        return rs;
-
-                if (line[0] == '@')
-                {
-                        if (strlen(line) >= 2)
-                                // 去掉@和后续的字符
-                                line = line[2..<1];
-                        else
-                                // 长度不够？返回空字符串
-                                return rs;
-                } else
-                {
-                        // 字符串去掉第一个字符，相当于向右移动
-                        x--;
-                        line = line[1..<1];
-                }
-        }
-
-        // 截取n个字符
-        // 为什么这里用do-while，而不直接用while？这是有原因
-        // 的。
-        rs = "";
-        for (;;)
-        {
-                if (strlen(line) == 0)
-                        // 已经无字符可取
-                        return rs;
-
-                if (line[0] == '@')
-                {
-                        if (strlen(line) >= 2)
-                        {
-                                rs += line[0..1];
-                                line = line[2..<1];
-                        } else
-                        {
-                                rs += line;
-                                return rs;
-                        }
-                } else
-                {
-                        if (n == 0) break; // 结束截取
-                        n--;
-                        rs += line[0..0];
-                        line = line[1..<1];
-                        continue;
-                }
-        }
+    rs = "";
+    if (n == 0)
         return rs;
+
+    // 找到相应的位置
+    while (x)
+    {
+        if (strlen(line) == 0)
+            // 字符串长度不够
+            return rs;
+
+        if (line[0] == '@')
+        {
+            if (strlen(line) >= 2)
+                // 去掉@和后续的字符
+                line = line[2.. < 1];
+            else
+                // 长度不够？返回空字符串
+                return rs;
+        }
+        else
+        {
+            // 字符串去掉第一个字符，相当于向右移动
+            x--;
+            line = line[1.. < 1];
+        }
+    }
+
+    // 截取n个字符
+    // 为什么这里用do-while，而不直接用while？这是有原因
+    // 的。
+    rs = "";
+    for (;;)
+    {
+        if (strlen(line) == 0)
+            // 已经无字符可取
+            return rs;
+
+        if (line[0] == '@')
+        {
+            if (strlen(line) >= 2)
+            {
+                rs += line[0..1];
+                line = line[2.. < 1];
+            }
+            else
+            {
+                rs += line;
+                return rs;
+            }
+        }
+        else
+        {
+            if (n == 0)
+                break; // 结束截取
+            n--;
+            rs += line[0..0];
+            line = line[1.. < 1];
+            continue;
+        }
+    }
+    return rs;
 }
 
 // 为地点标记颜色：名字必须为中文
@@ -381,210 +385,216 @@ string get_map_line(string line, int x, int n)
 // 最后将将所有的标记替换成颜色：@R->WHT @N->NOR
 public string mark_map(string map, string name)
 {
-        string *lines;
-        string temp;
-        string rs;
-        int i;
-        int x, y, xd;           // 比较的地图位置
-        int n;
+    string *lines;
+    string temp;
+    string rs;
+    int i;
+    int x, y, xd; // 比较的地图位置
+    int n;
 
-        // 去除地图的颜色：这样可以准确的判断绝对的坐标
-        map = filter_color(map);
+    // 去除地图的颜色：这样可以准确的判断绝对的坐标
+    map = filter_color(map);
 
-        // 将地图分成行
-        lines = explode(map, "\n");
-        for (i = 0; i < sizeof(lines); i++)
+    // 将地图分成行
+    lines = explode(map, "\n");
+    for (i = 0; i < sizeof(lines); i++)
+    {
+        if (strsrch(lines[i], name[0..0]) == -1)
+            // 本行不存在名称的第一个汉字，继续，继续下一行
+            continue;
+
+        x = 0;
+        temp = replace_string(lines[i], "@R", "");
+        temp = replace_string(temp, "@N", "");
+        while (x < strlen(temp) - 1)
         {
-                if (strsrch(lines[i], name[0..1]) == -1)
-                        // 本行不存在名称的第一个汉字，继续，继续下一行
-                        continue;
+            xd = strsrch(temp[x..< 1], name[0..0]);
+            if (xd == -1)
+                // 本行后续没有名称的第一个汉字，继续下一行
+                break;
 
-                x = 0;
-                temp = replace_string(lines[i], "@R", "");
-                temp = replace_string(temp, "@N", "");
-                while (x < strlen(temp) - 1)
+            // 该行匹配上了第一个汉字：比较后续的汉字，
+            // 首先横向比较，因此不断移动xd，如果横向扫
+            // 描不到，就往纵向比较，变化y。
+            x += xd;
+            y = i;
+            xd = 1;
+            rs = get_map_line(lines[y], 0, x);
+            rs += "@B";
+            rs += get_map_line(lines[y], x, 1);
+            for (n = 1; n < strlen(name); n ++, xd ++)
+            {
+                // 首先横向比较
+                if (x + xd + 1 <= strlen(lines[y]) &&
+                    get_map_line(lines[y], x + xd, 1) == name[n..n])
                 {
-                        xd = strsrch(temp[x..<1], name[0..1]);
-                        if (xd == -1)
-                                // 本行后续没有名称的第一个汉字，继续下一行
-                                break;
-
-                        // 该行匹配上了第一个汉字：比较后续的汉字，
-                        // 首先横向比较，因此不断移动xd，如果横向扫
-                        // 描不到，就往纵向比较，变化y。
-                        x += xd;
-                        y = i;
-                        xd = 2;
-                        rs = get_map_line(lines[y], 0, x);
-                        rs += "@B";
-                        rs += get_map_line(lines[y], x, 2);
-                        for (n = 2; n < strlen(name); n += 2, xd += 2)
-                        {
-                                // 首先横向比较
-                                if (x + xd + 2 <= strlen(lines[y]) &&
-                                    get_map_line(lines[y], x + xd, 2) == name[n..n + 1])
-                                {
-                                        // 横向比较到了，继续横向比较
-                                        rs += name[n..n + 1];
-                                        continue;
-                                }
-
-                                // 横向比较失败了，横向还原对齐，纵向比较
-                                rs += "@E" + get_map_line(lines[y], x + xd, -1);
-                                xd = 0;
-                                y++;
-                                if (y < sizeof(lines) &&
-                                    x + 2 <= strlen(lines[y]) &&
-                                    get_map_line(lines[y], x, 2) == name[n..n + 1])
-                                {
-                                        // 纵向比较到了，继续横向比较
-                                        lines[y - 1] = rs;
-                                        rs = get_map_line(lines[y], 0, x);
-                                        rs += "@B";
-                                        rs += name[n..n + 1];
-                                        continue;
-                                }
-
-                                // 比较失败，不在(x, i)这个位置
-                                y--;
-                                while (y >= i)
-                                {
-                                        // 恢复原先的地图，去掉标记
-                                        lines[y] = replace_string(lines[y], "@B", "");
-                                        lines[y] = replace_string(lines[y], "@E", "");
-                                        y--;
-                                }
-                                break;
-                        }
-
-                        if (n >= strlen(name))
-                        {
-                                // 匹配成功
-                                rs += "@E" + get_map_line(lines[y], x + xd, -1);
-                                lines[y] = rs;
-                                while (y >= i)
-                                {
-                                        // 将标记设置为正常标记
-                                        lines[y] = replace_string(lines[y], "@B", "@R");
-                                        lines[y] = replace_string(lines[y], "@E", "@N");
-                                        y--;
-                                }
-                        }
-
-                        // 移动x，继续匹配
-                        x++;
+                    // 横向比较到了，继续横向比较
+                    rs += name[n..n];
+                    continue;
                 }
-                // 扫描完毕一行，继续扫描下一行
-        }
-        // 处理完毕
 
-        return implode(lines, "\n") + "\n";
+                // 横向比较失败了，横向还原对齐，纵向比较
+                rs += "@E" + get_map_line(lines[y], x + xd, -1);
+                xd = 0;
+                y++;
+                if (y < sizeof(lines) &&
+                    x + 1 <= strlen(lines[y]) &&
+                    get_map_line(lines[y], x, 1) == name[n..n])
+                {
+                    // 纵向比较到了，继续横向比较
+                    lines[y - 1] = rs;
+                    rs = get_map_line(lines[y], 0, x);
+                    rs += "@B";
+                    rs += name[n..n];
+                    continue;
+                }
+
+                // 比较失败，不在(x, i)这个位置
+                y--;
+                while (y >= i)
+                {
+                    // 恢复原先的地图，去掉标记
+                    lines[y] = replace_string(lines[y], "@B", "");
+                    lines[y] = replace_string(lines[y], "@E", "");
+                    y--;
+                }
+                break;
+            }
+
+            if (n >= strlen(name))
+            {
+                // 匹配成功
+                rs += "@E" + get_map_line(lines[y], x + xd, -1);
+                lines[y] = rs;
+                while (y >= i)
+                {
+                    // 将标记设置为正常标记
+                    lines[y] = replace_string(lines[y], "@B", "@R");
+                    lines[y] = replace_string(lines[y], "@E", "@N");
+                    y--;
+                }
+            }
+
+            // 移动x，继续匹配
+            x++;
+        }
+        // 扫描完毕一行，继续扫描下一行
+    }
+    // 处理完毕
+
+    return implode(lines, "\n") + "\n";
 }
 
 // 获得所在某个地点的地图并标记当前所在的位置
 public string marked_map(object env)
 {
-        mixed maps;
-        string file;
-        string outdoors;
-        string map_result;
-        int result_ok;
+    mixed maps;
+    string file;
+    string outdoors;
+    string map_result;
+    int result_ok;
 
-        if (! objectp(env))
-                return "这里无法获得地图。\n";
+    if (!objectp(env))
+        return "这里无法获得地图。\n";
 
-        if (! stringp(outdoors = env->query("outdoors")))
-                return "必须在室外察看所处的具体位置。\n";
+    if (!stringp(outdoors = env->query("outdoors")))
+        return "必须在室外察看所处的具体位置。\n";
 
-        if (undefinedp(maps = map_to[outdoors]))
-                return "未有详细地图。\n";
+    if (undefinedp(maps = map_to[outdoors]))
+        return "未有详细地图。\n";
 
-        if (stringp(maps))
+    if (stringp(maps))
+    {
+        file = HELP_DIR + maps;
+        map_result = read_file(file);
+        if (!stringp(map_result))
+            map_result = "无法读取地图" + file + "。\n";
+        map_result = color_filter(map_result);
+        map_result = mark_map(map_result, env->short());
+    }
+    else if (arrayp(maps))
+    {
+        map_result = "";
+        result_ok = 0;
+        foreach (file in maps)
         {
-                file = HELP_DIR + maps;
-                map_result = read_file(file);
-                if (! stringp(map_result))
-                        map_result = "无法读取地图" + file + "。\n";
-                map_result = color_filter(map_result);
-                map_result = mark_map(map_result, env->short());
-        } else
-        if (arrayp(maps))
+            if (file_size(HELP_DIR + file) > 0)
+                map_result = read_file(HELP_DIR + file);
+            else
+            {
+                map_result = "无法读取地图" + file + "。\n";
+                result_ok = 1;
+                break;
+            }
+
+            map_result = color_filter(map_result);
+            map_result = mark_map(map_result, env->short());
+            if (strsrch(map_result, "@R") != -1)
+            {
+                result_ok = 1;
+                break;
+            }
+        }
+        // 所有的地图都没有变化？取第一个
+        if (!result_ok)
         {
-                map_result = "";
-                result_ok = 0;
-                foreach (file in maps)
-                {
-                        if (file_size(HELP_DIR + file) > 0)
-                                map_result = read_file(HELP_DIR + file);
-                        else
-                        {
-                                map_result = "无法读取地图" + file + "。\n";
-                                result_ok = 1;
-                                break;
-                        }
+            map_result = read_file(HELP_DIR + maps[0]);
+            map_result = color_filter(map_result);
+        }
+    }
+    else
+        error("未知错误。\n");
 
-                        map_result = color_filter(map_result);
-                        map_result = mark_map(map_result, env->short());
-                        if (strsrch(map_result, "@R") != -1)
-                        {
-                                result_ok = 1;
-                                break;
-                        }
-                }
-                // 所有的地图都没有变化？取第一个
-                if (! result_ok)
-                {
-                        map_result = read_file(HELP_DIR + maps[0]);
-                        map_result = color_filter(map_result);
-                }
-        } else
-                error("未知错误。\n");
-
-        map_result = replace_string(map_result, "@R", HIC);
-        map_result = replace_string(map_result, "@N", NOR);
-        return map_result;
+    map_result = replace_string(map_result, "@R", HIC);
+    map_result = replace_string(map_result, "@N", NOR);
+    return map_result;
 }
 
 // 玩家纪录传闻
 public int record_rumor(mixed obs, string topic, mixed event_ob)
 {
-        object ob;
-        string title;
-        int n;
+    object ob;
+    string title;
+    int n;
 
-        if (objectp(obs)) obs = ({ obs }); else
-        if (! arrayp(obs)) return 0;
+    if (objectp(obs))
+        obs = ({obs});
+    else if (!arrayp(obs))
+        return 0;
 
-        if (! stringp(title = event_ob->query_detail(topic)))
-                return 0;
+    if (!stringp(title = event_ob->query_detail(topic)))
+        return 0;
 
-        if (stringp(event_ob)) event_ob = base_name(find_object(event_ob)); else
-                               event_ob = base_name(event_ob);
-        n = 0;
-        foreach (ob in obs)
-        {
-                if (! playerp(ob) || ! ob->query("out_family")) continue;
-                if (ob->query("rumor/" + topic)) continue;
-                ob->set("rumor/" + topic, event_ob);
-                message("vision", "你掏出地图册，翻到最后面，写下了有关『" +
-                                  topic + "』的记录。\n", ob);
-                n++;
-        }
+    if (stringp(event_ob))
+        event_ob = base_name(find_object(event_ob));
+    else
+        event_ob = base_name(event_ob);
+    n = 0;
+    foreach (ob in obs)
+    {
+        if (!playerp(ob) || !ob->query("out_family"))
+            continue;
+        if (ob->query("rumor/" + topic))
+            continue;
+        ob->set("rumor/" + topic, event_ob);
+        message("vision", "你掏出地图册，翻到最后面，写下了有关『" + topic + "』的记录。\n", ob);
+        n++;
+    }
 
-        return n;
+    return n;
 }
 
 // 获得某个交通地点的信息
 public varargs mixed query_trans_info(string to)
 {
-        if (! stringp(to))
-                return map_trans;
+    if (!stringp(to))
+        return map_trans;
 
-        return map_trans[to];
+    return map_trans[to];
 }
 
 // 获得交通连接信息
 public mapping query_connect_info()
 {
-        return connect_info;
+    return connect_info;
 }

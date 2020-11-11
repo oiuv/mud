@@ -8,36 +8,38 @@ release server : local
 max users : 500
 
 # 本地限制巫师登录的等级
-wiz lock : 0
+& wiz lock : 0
 
 # INTERNET互连网络中MUD的名字
 internet mud name : mud.ren
-# my_ip : 118.190.104.241
+
+# INTERNET互连网络中MUD地址
+my_ip : 118.190.104.241
 
 # MUDOS
-& mudos : FluffOS v2019
+mudos : FluffOS v2019
 
 # 编码方式
 encoding : UTF-8
 
 # SMTP服务器地址/端口号
-smtp server : smtp.qq.com 25
+& smtp server : smtp.qq.com 25
 
 # SMTP服务器的名字
-smtp domain : smtp
+& smtp domain : smtp
 
 # 系统使用SMTP服务器时填写的发送者
-smtp sender : i@mud.ren
+& smtp sender : i@mud.ren
 
 # 和本系统相联系的MUD服务器
-mudlist1 : 118.190.104.241 5555               #炎黄
-# mudlist2 : 117.27.131.36 4000               #笑傲江湖2
-# mudlist3 : 112.126.83.105 5555              #江南侠客行
-# mudlist4 : 59.175.137.62 8000               #妖神之争
-# mudlist5 : 221.238.143.29 6666              #西游记
+mudlist1 : 118.190.104.241 5555     #炎黄群侠传
+# mudlist2 : 127.0.0.1 5555         #MUDREN
+# mudlist3 : 61.160.23.27 66        #52mud
+# mudlist4 : 101.132.169.52 8080    #书剑风云
+# mudlist5 : 221.226.96.186 5555    #中华英雄
 
 # 游戏服务区域
-zone : mudRen
+zone : YHMUD
 
 # 玩家数据错误时是否要求重新创建玩家
-ask_recreate : 0
+& ask_recreate : 0
