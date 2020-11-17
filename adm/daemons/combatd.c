@@ -609,7 +609,8 @@ varargs int do_attack(object me, object victim, object weapon, int attack_type)
             {
                 if (my["potential"] < me->query_potential_limit())
                     my["potential"]++;
-                me->improve_skill(attack_skill, 1);
+                if (stringp(attack_skill))
+                    me->improve_skill(attack_skill, 1);
             }
         }
         delta = 0;
