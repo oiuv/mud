@@ -421,7 +421,7 @@
 │   │   ├── tiezhang_b.c
 │   │   ├── towiz_b.c
 │   │   ├── wenxuan_b.c
-│   │   ├── wfoxd_b.c
+│   │   ├── mudren_b.c
 │   │   ├── wiz_b.c
 │   │   ├── wudang_b.c
 │   │   ├── wudao_b.c
@@ -2795,7 +2795,7 @@
 │   │   │   ├── tao6.c
 │   │   │   ├── txbw.c
 │   │   │   ├── wei.c
-│   │   │   ├── wfoxd-mm.c
+│   │   │   ├── mudren-mm.c
 │   │   │   ├── wujiang.c
 │   │   │   ├── xian.c
 │   │   │   ├── xiaoer2.c
@@ -2891,7 +2891,7 @@
 │   │   ├── sproom.c
 │   │   ├── tree.c
 │   │   ├── underlt.c
-│   │   ├── wfoxd.c
+│   │   ├── mudren.c
 │   │   ├── wproom.c
 │   │   ├── wudao1.c
 │   │   ├── wudao2.c

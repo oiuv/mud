@@ -23,4 +23,5 @@
 /adm/daemons/questd
 /adm/daemons/cpud
 /adm/daemons/invasion/invasiond
+/adm/daemons/network/dns_master
 /adm/daemons/task/set_task

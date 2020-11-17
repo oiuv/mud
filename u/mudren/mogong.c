@@ -16,7 +16,7 @@ void create()
 的青年。
 LONG NOR );
     set("exits", ([
-        "down":"/d/city/wfoxd",
+        "down":"/d/city/mudren",
         "up":__DIR__ "workroom",
     ]));
     set("objects",([
@@ -33,11 +33,11 @@ LONG NOR );
 
 void init()
 {
-    add_action("do_sisuo", "yaoskill");
-    add_action("do_ganwu", "yaoexp");
-    add_action("do_get1", "yaomoney");
-    add_action("do_get2", "yaodan");
-    add_action("do_get3", "yaoitem");
+    add_action("do_sisuo", "技能");
+    add_action("do_ganwu", "经验");
+    add_action("do_get1", "金钱");
+    add_action("do_get2", "丹药");
+    add_action("do_get3", "物品");
 }
 
 int do_sisuo(string arg)
