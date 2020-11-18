@@ -1,19 +1,23 @@
 inherit F_CLEAN_UP;
+
 #define unusedvar_log_file "/log/log.var"
+
 string file, *f_line, new_f_line, chk, unusedvar;
 string wfile, *wf_line, lastw;
 string filename, argv_name, c1, c2;
-
 int start, line_n;
+string *leixing = ({"int", "string", "object", "mapping", "mixed", "float", "buffer", "class", "array"});
 
 int check(int s);
 int check1();
-int clean(string line);
+int clean();
 int isdata(string s); //对这一行简单分析,判断是否是数据定义行
 int peidui(string s); //对这一行简单分析,判断([{}])是否残缺
+
 int main(object me, string arg)
 {
     string *founded; //已经出现过的错误
+
     unusedvar = "";
     new_f_line = "";
     if (!arg)
@@ -52,8 +56,8 @@ int main(object me, string arg)
                 unusedvar += chk + "\n";          ////
                 if (!wfile = read_file(filename)) //再读新文件
                 {
-                    write("无法读取该文件：" + filename + "\n");
-                    return 0;
+                    write("无法读取该文件：" + filename + "，可能是临时文件\n");
+                    continue;
                 }
                 wf_line = explode(wfile, "\n"); //wrong file lines
 
@@ -126,9 +130,9 @@ int main(object me, string arg)
     write("ok.check " + unusedvar_log_file + " for examination。\n");
     return 1;
 }
+
 int isdata(string s) //对这一行简单分析,判断是否是数据定义行
 {
-    string chk, *leixing = ({"int", "string", "object", "mapping", "mixed", "float", "buffer"}); //class,array 很少有，定义了不用可能性极小
     int n;
     foreach (chk in leixing)
     {
@@ -137,7 +141,7 @@ int isdata(string s) //对这一行简单分析,判断是否是数据定义行
             if (n != 0 && s[n - 1] != ' ' && s[n - 1] != '\t' && s[n - 1] != ';') // 类型名称前面总得是空白吧
                 return 0;
             n += sizeof(chk);
-            if (s[n] == ' ' || s[n] == '*' || s[n] == '/' || s[n] == '\t') //有些定义数组是在类型后面加*，或某些变量已经注释引起无法确实类型名称
+            if (s[n] == ' ' || s[n] == '*' || s[n] == '/' || s[n] == '\t') //有些定义数组是在类型后面加*，或某些变量已经注释引起无法确定类型名称
                 return 1;
         }
     }
@@ -160,8 +164,8 @@ int check(int s) //对这一行详细分析, 是否有未使用变量并修改
         c2 = wf_line[line_n][start + sizeof(argv_name)..start + sizeof(argv_name)];
         if (member_array(c2, ({" ", ",", ";", "=", "/", "\t"})) == -1) //后面不是空格或逗号或分号，应该不是变量，检查后面可能有这个变量
             return check(start + sizeof(argv_name));
-        while (member_array(c1, ({" ", ",", "*", "/", "\t"})) != -1)
-        { //write("left argv_name is "+argv_name +" c1 is "+c1+"\n");
+        while (member_array(c1, ({" ", ",", "*", "/", "\t"})) != -1) //把左边没有用的这些当成变量的一部分，呆会一起注释掉
+        {                                                            //write("left argv_name is "+argv_name +" c1 is "+c1+"\n");
             if (c1 == "/")
                 break;
             argv_name = c1 + argv_name;
@@ -174,7 +178,7 @@ int check(int s) //对这一行详细分析, 是否有未使用变量并修改
             {                                            //write("right argv_name is "+argv_name +" c2 is "+c2+"\n");
                 if (c2 == ";" || c2 == "/" || c2 == ",") //一定要结束
                 {
-                    if (strsrch(argv_name, ",") == -1) //没有逗号，说明是第一个变量，需要消除后面的，
+                    if (strsrch(argv_name, ",") == -1) //变量左边没有逗号，说明是第一个变量，需要消除后面的，
                         if (c2 == ",")
                             argv_name = argv_name + c2;
                     break;
@@ -188,14 +192,16 @@ int check(int s) //对这一行详细分析, 是否有未使用变量并修改
         if (argv_name[0..0] == " " || argv_name[0..0] == "\t")
             argv_name = argv_name[1..]; //防止已有的注释把/*写在类型后面,导致无法识别类型
         unusedvar += "┣the wrong is " + "@line" + (line_n + 1) + "【" + wf_line[line_n] + "】\n";
-        wf_line[line_n] = wf_line[line_n][0..start - 1] + replace_string(wf_line[line_n][start..], argv_name, "/*" + argv_name + "*/", 1); //注释掉变量
+        //wf_line[line_n]=wf_line[line_n][0..start-1]+replace_string(wf_line[line_n][start..],argv_name,"/*"+argv_name+"*/",1);//注释掉变量
+        wf_line[line_n] = wf_line[line_n][0..start - 1] + replace_string(wf_line[line_n][start..], argv_name, "", 1); //注释掉变量
 
-        clean(wf_line[line_n]);
+        clean();
         return 1;
     }
 
     return 0;
 }
+
 int check1() //检查同目录下、include/net/下是否有这个include文件
 {
     string dir;
@@ -222,34 +228,21 @@ int check1() //检查同目录下、include/net/下是否有这个include文件
     return 1;
 }
 
-int clean(string line) //clean so much *//* together,and type name alone
+int clean() //clean class name alone
 {
-    string f, s1, s2, *fs;
-    wf_line[line_n] = replace_string(wf_line[line_n], "*//*", ""); //clean so much *//* together,00
-    wf_line[line_n] = replace_string(wf_line[line_n], "*/ /*", "");
-    f = wf_line[line_n] + "";
-    f = replace_string(f, "\t", " ");
-    while (sscanf(f, "%s/*%*s*/%s", s1, s2) == 3)
-        f = s1 + " " + s2;
-    sscanf(f, "%s//%*s", f);
-    if (strsrch(f, ";") != -1) //是完整的变量定义一行
+    string class_lonely;
+    wf_line[line_n] = replace_string(wf_line[line_n], "\t", " ");
+
+    //可能有多个不同定义在一行里 int a; string b ; object c; //xxxxx
+    //可能已经注释了a 、b、c，需要清理掉类型名
+    while (strsrch(wf_line[line_n], " ;") > 0)
+        wf_line[line_n] = replace_string(wf_line[line_n], " ;", ";");
+    foreach (class_lonely in leixing)
     {
-        fs = explode(f, " ");
-        fs -= ({"", ";", "{"});
-
-        if (sizeof(fs) < 2)
-        {
-            wf_line[line_n] = replace_string(wf_line[line_n], "/*", "");
-            wf_line[line_n] = replace_string(wf_line[line_n], "*/", "");
-            wf_line[line_n] = replace_string(wf_line[line_n], " ;", ";");
-
-            if (strsrch(wf_line[line_n], "{") != -1)
-                wf_line[line_n] = replace_string(wf_line[line_n], "{", "{ //", 1);
-            else
-                wf_line[line_n] = "//" + wf_line[line_n];
-            wf_line[line_n] = replace_string(wf_line[line_n], "//  ", "//");
-        }
+        wf_line[line_n] = replace_string(wf_line[line_n], class_lonely + ";", "");
+        wf_line[line_n] = replace_string(wf_line[line_n], class_lonely + "*;", "");
     }
+
     unusedvar += "┗the corrected line" + (line_n + 1) + "〖" + wf_line[line_n] + "〗\n";
 }
 

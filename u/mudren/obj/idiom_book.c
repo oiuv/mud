@@ -70,7 +70,7 @@ int do_read(string arg)
 
 void write_data(int fd)
 {
-    socket_write(fd, "GET " + status[fd]["path"] + " HTTP/1.1\nHost: " + status[fd]["host"] + "\n\r\n\r");
+    socket_write(fd, "GET " + status[fd]["path"] + " HTTP/1.0\nHost: " + status[fd]["host"] + "\n\r\n\r");
 }
 
 void receive_data(int fd, mixed result)
