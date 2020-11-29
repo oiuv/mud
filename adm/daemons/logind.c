@@ -23,10 +23,10 @@ string *banned_name = ({
 });
 
 string *banned_id = ({
-    "domain", "root", "mudlib", "noname",
-    "all", "cancel", "new", "quit", "none",
-    "admin", "arch", "wizard", "apprentice",
-    "immortal", "player", "guest"
+    "admin", "all", "api", "arch", "auth",
+    "cancel", "exit", "guest",
+    "name", "new", "none",
+    "quit", "root", "user", "wizard",
 });
 
 // 内部调用的函数
@@ -256,7 +256,7 @@ private void reset_ad_password(string pass, object ob)
     }
 
     my_pass = ob->query("password");
-    if (stringp(my_pass) && crypt(pass, my_pass) == my_pass)
+    if (stringp(my_pass) && matches_password(pass, my_pass))
     {
         write(HIR "为了安全起见，系统要求管理密码的密码和普通密码不能相同。\n\n" NOR);
         write("请重新输入你的管理密码：");
@@ -276,7 +276,7 @@ private void confirm_reset_ad_password(string pass, object ob)
 
     write("\n");
     old_pass = ob->query_temp("ad_password");
-    if (crypt(pass, old_pass) != old_pass)
+    if (!matches_password(pass, old_pass))
     {
         write("您两次输入的管理密码并不一样，请重新设定一次管理密码：");
         input_to("reset_ad_password", 1, ob);
@@ -341,7 +341,7 @@ private void check_ok(object ob)
             if (err = catch(enter_world(ob, user)))
             {
                 user->set_temp("error", err);
-                msg = HIR "\n你无法进入这个世界，可能你的档案出了一些问题，需要和巫师联系。\n\n" NOR;
+                msg = HIR "\n进入这个世界时出了一些问题，需要和巫师联系处理。\n\n" NOR;
                 if (mapp(err))
                     msg += MASTER_OB->standard_trace(err, 1);
                 user->set_temp("error_message", msg);
@@ -571,10 +571,10 @@ private void confirm_ad_password(string pass, object ob)
 
     write("\n");
     old_pass = ob->query_temp("ad_password");
-    if (crypt(pass, old_pass) != old_pass)
+    if (!matches_password(pass, old_pass))
     {
         write(HIR "\n您两次输入的管理密码不同，请重新设定一次"
-              HIW "管理密码" HIR "：\n" NOR);
+              HIW "管理密码" HIR "：" NOR);
         input_to("new_ad_password", 1, ob);
         return;
     }
@@ -599,7 +599,7 @@ private void new_password(string pass, object ob)
     }
 
     if (stringp(ad_pass = ob->query("ad_password")) &&
-        crypt(pass, ad_pass) == ad_pass)
+        matches_password(pass, ad_pass))
     {
         write(HIR "为了安全起见，您的管理密码和普通密码不能相同。\n" NOR);
         write("请重新设置您的" HIY "普通密码" NOR "：");
@@ -619,10 +619,10 @@ private void confirm_password(string pass, object ob)
 
     write("\n");
     old_pass = ob->query_temp("password");
-    if (crypt(pass, old_pass) != old_pass)
+    if (!matches_password(pass, old_pass))
     {
         write(HIR "\n您两次输入的普通密码不同，请重新设定一次"
-              HIY "普通密码" HIR "：\n" NOR);
+              HIY "普通密码" HIR "：" NOR);
         input_to("new_password", 1, ob);
         return;
     }
@@ -637,7 +637,7 @@ private void confirm_password(string pass, object ob)
         check_ok(ob);
         return;
     }
-    ob->set_temp("type", "均衡型"); // 已弃用
+    // ob->set_temp("type", "均衡型"); // 已弃用
     write(WHT "您要扮演男性(" HIY "m" NOR + WHT ")的角色或女性("
         HIY "f" NOR + WHT ")的角色？" NOR);
     input_to("get_gender", ob);
@@ -688,7 +688,7 @@ private void get_gender(string gender, object ob)
     user->set("con", 14);
     user->set("int", 14);
     user->set("per", 20);
-    user->set("type", ob->query_temp("type"));
+    // user->set("type", ob->query_temp("type"));
     user->set("gender", ob->query_temp("gender"));
     ob->set("registered", 0);
     user->set("registered", 0);
@@ -717,8 +717,6 @@ object make_body(object ob)
         return 0;
     }
 
-    seteuid(getuid());
-    // write(RED "测试1：" + getuid() + "\n" NOR);
     user = new(USER_OB);
     if (! user)
     {
@@ -726,12 +724,12 @@ object make_body(object ob)
         write(err+"\n");
         return 0;
     }
+    // 设置玩家对象ID
     seteuid(ob->query("id"));
-    // write(RED "测试2：" + ob->query("id") + "\n" NOR);
     export_uid(user);
     export_uid(ob);
     seteuid(getuid());
-    // write(RED "测试3：" + getuid() + "\n" NOR);
+
     user->set("id", ob->query("id"));
     user->set("surname", ob->query("surname"));
     user->set("purename", ob->query("purename"));
@@ -866,25 +864,21 @@ varargs void enter_world(object ob, object user, int silent)
             shoe->wear();
         }
     }
-    user->set("registered",1);
-    //user->set("born",1);
+
     if (cloth && (! environment(cloth) || ! cloth->query("equipped")))
         destruct(cloth);
 
     if (shoe && (! environment(shoe) || ! shoe->query("equipped")))
         destruct(shoe);
 
+    user->set("registered", 1);
+    // user->set("born",1);
     if (! silent)
     {
-        if (! user->query("registered"))
-            color_cat(UNREG_MOTD);
-        else
-            color_cat(MOTD);
+        color_cat(MOTD);
 
         write("你连线进入" + LOCAL_MUD_NAME() + "。\n\n");
-
-        if (! user->query("registered") ||
-            ! stringp(user->query("character")))
+        if (!stringp(user->query("character")))
         {
             if (user->is_ghost())
                 user->reincarnate();
@@ -921,9 +915,11 @@ varargs void enter_world(object ob, object user, int silent)
     {
         if (!(ob->query("login_times")))
         {
-            write(NOR "\n你是第一次光临" + LOCAL_MUD_NAME() + "。\n");
-            ob->set("login_times", 1);
+            write(NOR "\n欢迎回到" + LOCAL_MUD_NAME() + "。\n");
             // show rules
+            color_cat(UNREG_MOTD);
+            ob->set("login_times", 1);
+            // MYSQL_D->register(ob);
         }
         else
         {
@@ -943,12 +939,12 @@ varargs void enter_world(object ob, object user, int silent)
 
         if (objectp (sob = present(sobs[i], this_player())) )
         {
-            if (sob->query_amount() > 20)
+            if (sob->query_amount() > 99)
                 log_file("warning", this_player()->name() + "(" +
                       this_player()->query("id") + ") has more than" + " " +
                       sob->query_amount() + " "+ sobs[i] + "\n");
 
-            if (sob->query_amount() > 30)
+            if (sob->query_amount() > 999)
             {
                 log_file("logind_throw", this_player()->name() + " had been throwed by 连线精灵。\n");
                 this_player()->get_into_prison(this_object(), 0, 144400);
@@ -957,25 +953,27 @@ varargs void enter_world(object ob, object user, int silent)
         }
     }
 
-    // tell_object(this_player(), HIG "\n今后请使用" HIY " wenxuan " HIG "命令查阅游戏的文章选集。\n\n");
-/*
-        // 检查是否有新邮件未读
-        new_mail_n = get_info(user->query("id"), "newmail", "", 0);
+    if (ob->query("ad_password")[0..2]!= "$6$")
+    {
+        tell_object(this_player(), HBRED "\n你的管理密码没有升级为SHA512加密，为了账号安全请使用" HIY " passwd " NOR HBRED "修改密码。" NOR "\n");
+    }
+    if (ob->query("password")[0..2] != "$6$")
+    {
+        tell_object(this_player(), HBRED "\n你的登录密码没有升级为SHA512加密，为了账号安全请使用" HIY " passwd " NOR HBRED "修改密码。" NOR "\n");
+    }
+    write("\n");
+    /*
+    // 检查是否有新邮件未读
+    new_mail_n = get_info(user->query("id"), "newmail", "", 0);
 
-
-        if (new_mail_n)
-                tell_object(user, HIG"【炎黄邮件系统】：你有 "
-                            HIY + new_mail_n + HIG " 封新邮件，请到邮件中心查阅！\n" NOR);
-*/
+    if (new_mail_n)
+        tell_object(user, HIG"【炎黄邮件系统】：你有 "
+                    HIY + new_mail_n + HIG " 封新邮件，请到邮件中心查阅！\n" NOR);
+    */
     CHANNEL_D->do_channel(this_object(), "sys",
     sprintf("%s(%s)由[%s]连线进入。",
             user->name(), user->query("id"),
             (ipname = query_ip_number(user)) ? ipname : "未知地点"));
-/*
-    sprintf("%s(%s)由%s(%s)连线进入。",
-                user->name(), user->query("id"),
-                (ipname = query_ip_number(user)) ? ipname : "未知地点",IP_D->seek_ip_address(ipname)));
-*/
 
 #if INSTALL_EXAMINE
     EXAMINE_D->examine_player(user);
@@ -1039,7 +1037,7 @@ varargs void reconnect(object ob, object user, int silent)
         }
     }
 
-    tell_object(this_player(), HIG "\n今后请使用" HIY " wenxuan " HIG "命令查阅游戏的文章选集。\n\n");
+    // tell_object(this_player(), HIG "\n今后请使用" HIY " wenxuan " HIG "命令查阅游戏的文章选集。\n\n");
     /*
     // 检查是否有新邮件未读
     new_mail_n = get_info(user->query("id"), "newmail", "", 0);

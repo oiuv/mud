@@ -131,7 +131,7 @@ int startup_udp()
     }
 
     err_no = socket_bind(socket_id, query_udp_port());
-    while (err_no == EEADDRINUSE)
+    while (err_no == EEADDRINUSE && my_port < 9999)
     {
         my_port++;
         err_no = socket_bind(socket_id, query_udp_port());
@@ -173,12 +173,16 @@ void send_udp(string host, int port, string msg)
 // this is called when we receive a udp packet.  We determine which
 // service the packet is for, and send it to the auxiliary daemon of
 // that name
-void read_callback(int sock, string msg, string addr)
+void read_callback(int sock, mixed msg, string addr)
 {
     string func, rest, *bits, name, arg;
     mapping args;
     int i;
 
+    if (bufferp(msg))
+    {
+        msg = string_decode(msg, "gbk");
+    }
     // debug_message("DNS: Got " + msg + "From " + addr);
 
     // get the function from the packet
@@ -209,8 +213,6 @@ void read_callback(int sock, string msg, string addr)
 
     if (VERSION_D->is_release_server())
     {
-        // Local is release server, receive all incoming
-        // request
         if (args["ALIAS"] && args["USERS"])
         {
             muds[args["ALIAS"]] = args;
@@ -262,12 +264,12 @@ string start_message()
 {
     return sprintf("||NAME:%s||VERSION:%s||MUDNAME:%s||DRIVER:%s||USERS:%d"
                    "||MUDLIB:%s||HOST:%s||PORT:%O||ENCODING:%s"
-                   "||PORTUDP:%d||TIME:%s||ZONE:%s",
+                   "||PORTUDP:%d||TIME:%s||ZONE:%s||UPTIME:%d",
                    Mud_name(), MUDLIB_VERSION, LOCAL_MUD_NAME(), MUD_DRIVER,
                    sizeof(filter_array(users(), (: !wizardp($1) || !$1->query("env/invisible") :))),
                    MUDLIB_NAME, query_host_name(),
                    mud_port(), MUD_ENCODING,
-                   query_udp_port(), ctime(time()), CONFIG_D->query_string("zone"));
+                   query_udp_port(), ctime(time()), CONFIG_D->query_string("zone"), uptime());
 }
 
 //	----------------------------------------------------------------------------
@@ -832,8 +834,8 @@ void aux_warning(string warning)
 // This is for internal use
 private void log(string entry)
 {
-    //      string temp;
-    log_file(MY_LOG_FILE, sprintf("%s: %s\n", ctime(time()), entry));
+    // string temp;
+    // log_file(MY_LOG_FILE, sprintf("%s: %s\n", ctime(time()), entry));
 }
 
 // Used to find the ip number of the host we are on
@@ -886,6 +888,7 @@ void create()
                "TIME":ctime(time()),
              "DRIVER":MUD_DRIVER,
                "ZONE":CONFIG_D->query_string("zone"),
+             "UPTIME":sprintf("%d", uptime()),
     ]);
     // debug_message(sprintf("%O", this_host));
     // 设置list_nodes
