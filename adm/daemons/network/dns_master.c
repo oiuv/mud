@@ -180,7 +180,7 @@ void send_udp(string host, int port, mixed msg)
 // that name
 void read_callback(int sock, mixed msg, string addr)
 {
-    string func, rest, *bits, name, arg, *list;
+    string func, rest, *bits, name, arg;
     mapping args;
     int i;
 
@@ -241,16 +241,10 @@ void read_callback(int sock, mixed msg, string addr)
     if (mapp(muds[args["ALIAS"]]))
         muds[args["ALIAS"]][DNS_NO_CONTACT] = 0;
 
-    list = list_nodes;
-    i = sizeof(list);
-    while (i--)
+    // we now execute the function we have received
+    if (file_size(AUX_PATH + func + ".c") > 0)
     {
-        if (strsrch(list[i], addr) > -1)
-            // we now execute the function we have received
-            if (file_size(AUX_PATH + func + ".c") > 0)
-            {
-                (AUX_PATH + func)->incoming_request(args);
-            }
+        (AUX_PATH + func)->incoming_request(args);
     }
 }
 
