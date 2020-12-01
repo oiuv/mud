@@ -18,21 +18,24 @@ inherit F_CLEAN_UP;
 
 void incoming_request(mapping info)
 {
-	object ob;
+    object ob;
 
-	if (! ACCESS_CHECK(previous_object())) return;
+    if (!ACCESS_CHECK(previous_object()))
+        return;
 
-	if (stringp(info["PORTUDP"]) && stringp(info["HOSTADDRESS"]))
-	{
-		if (info["NAME"] == Mud_name())	return ;
-		if (! DNS_MASTER->dns_mudp(info["NAME"]))
-			PING_Q->send_ping_q(info["HOSTADDRESS"], info["PORTUDP"]);
-		if (! (ob = find_player(lower_case(info["ASKWIZ"])))) return;
-		tell_object(ob, info["RWHO"]);
-	}
+    if (stringp(info["PORTUDP"]) && stringp(info["HOSTADDRESS"]))
+    {
+        if (info["NAME"] == Mud_name())
+            return;
+        if (!DNS_MASTER->dns_mudp(info["NAME"]))
+            PING_Q->send_ping_q(info["HOSTADDRESS"], info["PORTUDP"]);
+        if (!(ob = find_player(lower_case(info["ASKWIZ"]))))
+            return;
+        tell_object(ob, info["RWHO"]);
+    }
 }
 
 void create()
 {
-	seteuid(ROOT_UID);
+    seteuid(ROOT_UID);
 }

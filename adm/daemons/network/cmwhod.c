@@ -88,8 +88,7 @@ void send_data(string datagram)
 #endif /* INTERMUD */
 }
 
-string
-header(string op)
+string header(string op)
 {
     return op + TAB + mudname + TAB + PASSWORD;
 }

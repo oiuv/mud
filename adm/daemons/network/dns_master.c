@@ -25,7 +25,7 @@
 #include <net/macros.h>
 #include <getconfig.h>
 
-// #define DEBUG
+#define DEBUG
 
 // services we always query if we don't know about
 #define STD_SERVICE ({"mail", "finger", "rwho_q", "tell", "gwizmsg"})
@@ -131,7 +131,7 @@ int startup_udp()
     }
 
     err_no = socket_bind(socket_id, query_udp_port());
-    while (err_no == EEADDRINUSE && my_port < 9999)
+    while (err_no == EEADDRINUSE)
     {
         my_port++;
         err_no = socket_bind(socket_id, query_udp_port());
@@ -148,7 +148,7 @@ int startup_udp()
 }
 
 // this is the function used by the udp slave daemons to send packets
-void send_udp(string host, int port, string msg)
+void send_udp(string host, int port, mixed msg)
 {
     int sock;
 
@@ -158,14 +158,19 @@ void send_udp(string host, int port, string msg)
         return;
 #endif
 
+#ifdef DEBUG
+    CHANNEL_D->do_channel(this_object(), "debug", sprintf("sending %s to %s:%d ", msg, host, port));
+#endif
     // debug_message("DNS: Sending " + msg + "To " + host + ":" + port);
 
-    sock = socket_create(DATAGRAM, "read_callback", "close_callback");
+    sock = socket_create(DATAGRAM_BINARY, "read_callback", "close_callback");
     if (sock <= 0)
     {
         log("Failed to open socket to " + host + " " + port + "\n");
         return;
     }
+    // 为兼容FluffOS v2017，统一使用GBK编码发送数据
+    msg = string_encode(msg, "GBK");
     socket_write(sock, msg, host + " " + port);
     socket_close(sock);
 }
@@ -183,6 +188,9 @@ void read_callback(int sock, mixed msg, string addr)
     {
         msg = string_decode(msg, "gbk");
     }
+#ifdef DEBUG
+    CHANNEL_D->do_channel(this_object(), "debug", sprintf("receive %s from %s", msg, addr));
+#endif
     // debug_message("DNS: Got " + msg + "From " + addr);
 
     // get the function from the packet
@@ -329,9 +337,6 @@ void refresh_database()
     string *list;
     string boot_addr;
     int boot_port;
-    //	string *mud_names;
-    //      mapping sm;
-    //      string message;
 
     while (find_call_out("refresh_database") != -1)
         remove_call_out("refresh_database");
@@ -344,6 +349,7 @@ void refresh_database()
     {
         if (sscanf(list[i], "%s %d", boot_addr, boot_port) != 2)
             continue;
+        // 默认UDP端口为游戏端口+1
         boot_port++;
         MUDLIST_Q->send_mudlist_q(boot_addr, boot_port);
     }
