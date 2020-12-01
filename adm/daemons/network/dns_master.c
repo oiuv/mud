@@ -159,7 +159,7 @@ void send_udp(string host, int port, mixed msg)
 #endif
 
 #ifdef DEBUG
-    CHANNEL_D->do_channel(this_object(), "debug", sprintf("sending %s to %s:%d ", msg, host, port));
+    CHANNEL_D->do_channel(this_object(), "debug", sprintf("sending %s to %s", msg, host));
 #endif
     // debug_message("DNS: Sending " + msg + "To " + host + ":" + port);
 
@@ -395,8 +395,6 @@ void do_pings()
 void set_mud_info(string name, mapping junk)
 {
     string tcp;
-    //	int new_mud;
-    //	int svc;
 
     if (!(ACCESS_CHECK(previous_object())) &&
         file_name(previous_object())[0..strlen(AUX_PATH)-1] != AUX_PATH)
@@ -644,7 +642,7 @@ int query_service_method(string mud, string service)
 
 mapping query_svc_entry(string mud)
 {
-    //	if (ACCESS_CHECK(previous_object()))
+    // if (ACCESS_CHECK(previous_object()))
     return mud_svc[mud];
 }
 
@@ -674,9 +672,6 @@ mapping current_mud_info()
 
 mapping query_mud_info(string name)
 {
-    //	mapping m;
-    //	string str;
-
     name = htonn(name);
     if (name == mud_nname())
         return current_mud_info();
@@ -693,14 +688,14 @@ int dns_mudp(string name)
 // returns all the muds in the databases
 mapping query_muds()
 {
-    //	if (ACCESS_CHECK(previous_object()))
+    // if (ACCESS_CHECK(previous_object()))
     return muds + ([mud_nname():current_mud_info()]);
 }
 
 // returns the services mapping
 mapping query_svc()
 {
-    //	if (ACCESS_CHECK(previous_object()))
+    // if (ACCESS_CHECK(previous_object()))
     return mud_svc;
 }
 
@@ -793,9 +788,8 @@ void dump_svc_keys()
 
 void set_monitor(object ob)
 {
-    //	string euid;
-
-    /*
+/*
+    string euid;
     euid = geteuid(previous_object());
     if (!euid || !member_group(euid, "admin") && !member_group(euid, "socket"))
         return;
@@ -858,10 +852,6 @@ void resolve_callback(string address, string my_ip, int key)
 // ----------------------------------------------------------------------------
 void create()
 {
-    //	mapping static_db;
-    //	int i;
-    //	string *strs;
-
     restore_euid();
 
     set("channel_id", "网络精灵");
