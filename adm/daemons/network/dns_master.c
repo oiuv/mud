@@ -180,7 +180,7 @@ void send_udp(string host, int port, mixed msg)
 // that name
 void read_callback(int sock, mixed msg, string addr)
 {
-    string func, rest, *bits, name, arg;
+    string func, rest, *bits, name, arg, *list;
     mapping args;
     int i;
 
@@ -241,9 +241,17 @@ void read_callback(int sock, mixed msg, string addr)
     if (mapp(muds[args["ALIAS"]]))
         muds[args["ALIAS"]][DNS_NO_CONTACT] = 0;
 
-    // we now execute the function we have received
-    if (file_size(AUX_PATH + func + ".c") > 0)
-        (AUX_PATH + func)->incoming_request(args);
+    list = list_nodes;
+    i = sizeof(list);
+    while (i--)
+    {
+        if (strsrch(list[i], addr) > -1)
+            // we now execute the function we have received
+            if (file_size(AUX_PATH + func + ".c") > 0)
+            {
+                (AUX_PATH + func)->incoming_request(args);
+            }
+    }
 }
 
 // return the name we'll use on the domain of intermud.
