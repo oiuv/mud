@@ -88,7 +88,7 @@ void send_mudlist_q(string host, string port)
 void incoming_request(mapping info)
 {
     int i;
-    mapping minfo;
+    // mapping minfo;
     string *bits;
 
     if (!ACCESS_CHECK(previous_object()))
@@ -97,12 +97,12 @@ void incoming_request(mapping info)
     // sub-sites dosn't relase mudlist
     if (!VERSION_D->is_release_server())
         return;
-
+    /*
     minfo = DNS_MASTER->query_mud_info(info["NAME"]);
     if (!minfo || !DNS_MASTER->dns_mudp(info["NAME"]) ||
         minfo["HOSTADDRESS"] != info["HOSTADDRESS"])
         PING_Q->send_ping_q(info["HOSTADDRESS"], info["PORTUDP"]);
-
+    */
     if (info["PORTUDP"])
     {
         bits = build_mudlist((mapping)DNS_MASTER->query_muds());
@@ -110,8 +110,9 @@ void incoming_request(mapping info)
             DNS_MASTER->send_udp(info["HOSTADDRESS"], info["PORTUDP"],
                                  "@@@" + DNS_MUDLIST_A + bits[i] + "@@@\n");
     }
-
+    /*
     // 同时发布本站点信息
     DNS_MASTER->send_udp(info["HOSTADDRESS"], info["PORTUDP"],
                          "@@@" + DNS_PING_A + (string)DNS_MASTER->start_message() + "@@@\n");
+    */
 }

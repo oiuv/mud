@@ -218,7 +218,7 @@ void read_callback(int sock, mixed msg, string addr)
     // some muds don 't send their name out in a network friendly form
     if (args["NAME"])
         args["ALIAS"] = htonn(args["NAME"]);
-
+    /*
     if (VERSION_D->is_release_server())
     {
         if (args["ALIAS"] && args["USERS"])
@@ -235,7 +235,7 @@ void read_callback(int sock, mixed msg, string addr)
             sscanf(CONFIG_D->query_string("release server"), addr + " %*s") != 1)
             return;
     }
-
+    */
     // we have received a message from someone, so we clear their
     // no contact count
     if (mapp(muds[args["ALIAS"]]))
@@ -667,8 +667,7 @@ mapping current_mud_info()
     int n;
 
     n = sizeof(filter_array(users(), (: !wizardp($1) || !$1->query("env/invisible") :)));
-    m = this_host + (["TIME":ctime(time()),
-                        "USERS":sprintf("%d", n)]);
+    m = this_host + (["TIME":ctime(time()), "USERS":sprintf("%d", n)]);
     return m;
 }
 
