@@ -291,7 +291,7 @@ void random_place(string msg)
         limit = 1800;
 
         // 减少打听的价格
-        set("ask_cheap", 3);
+        set("ask_cheap", 10);
     }
     set_temp("dest_time", limit + time());
     msg = replace_string(msg, "PLACE", new_place);

@@ -47,7 +47,7 @@ mixed ask_map()
         // 查看那些地方没有绘制
         ks = (string *) MAP_D->query_all_map_zone() - keys(map);
 
-        if (sizeof(ks) < 1)
+        if (sizeof(ks) < 3)
         {
                 n = 0;
                 foreach (str in keys(map))

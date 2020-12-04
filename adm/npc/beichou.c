@@ -369,7 +369,7 @@ int accept_object(object me, object ob)
                 if (va <= 1000)
                         fob->add("ask_cheap", -1);
 
-                else fob->set("ask_cheap", 1000);
+                else fob->set("ask_cheap", 10);
 
                 return 1;
         }
