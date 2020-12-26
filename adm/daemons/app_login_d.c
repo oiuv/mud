@@ -52,6 +52,7 @@ object  make_body(object ob);
 varargs void enter_world(object ob, object user, int silent);
 varargs void reconnect(object ob, object user, int silent);
 nomask int matches_password(string str, string password);
+int check_legal_id(string id);
 int check_legal_name(string arg);
 
 void create()
@@ -489,9 +490,8 @@ varargs void reconnect(object ob, object user, int silent)
 
 private void register(object ob, string id, string pass)
 {
-    if (sizeof(id) < 3)
+    if (!check_legal_id(id))
     {
-        write("@#201@账号长度不得少于3个字符。@\n");
         input_to("login", ob);
         return;
     }
@@ -504,6 +504,12 @@ private void register(object ob, string id, string pass)
     if (sizeof(pass) < 5)
     {
         write("@#201@密码长度不得少于5个字符。@\n");
+        input_to("login", ob);
+        return;
+    }
+    if (file_size(ob->query_save_file() + __SAVE_EXTENSION__) >= 0)
+    {
+        write("@#201@此账号已被注册。@\n");
         input_to("login", ob);
         return;
     }
@@ -615,6 +621,32 @@ private void init_new_player(object user)
     user->set("env/wimpy", 60);
     //设定不自动转宗师频道，防止困扰玩家 by 薪有所属
     user->set("env/no_autoultra", 1);
+}
+
+int check_legal_id(string id)
+{
+    int i;
+    if (member_array(id, banned_id) != -1)
+    {
+        write("@#201@对不起，“" + id + "”这个词有着特殊的含意，不能用做英文名字。@\n");
+        return 0;
+    }
+
+    i = strlen(id);
+
+    if ((i < 3) || (i > 10))
+    {
+        write("@#201@对不起，你的英文名字必须是 3 到 10 个英文字母。@\n");
+        return 0;
+    }
+
+    if (!is_legal_id(id))
+    {
+        write("@#201@对不起，你的英文名字只能用英文字母。@\n" );
+        return 0;
+    }
+
+    return 1;
 }
 
 int check_legal_name(string name)
