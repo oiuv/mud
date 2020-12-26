@@ -333,7 +333,7 @@ void reconnect()
     set_heart_beat(1);
     net_dead = 0;
     remove_call_out("user_dump");
-    tell_object(this_object(), "重新连线完毕。\n");
+    tell_object(this_object(), "@#200@重新连线完毕。@\n");
 }
 
 // skill variable & function

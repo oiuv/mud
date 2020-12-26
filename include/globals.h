@@ -75,9 +75,9 @@
 #define WEAPON_D        "/adm/daemons/weapond"
 #define IP_D            "/adm/daemons/ipd"
 #define TASK_D          "/adm/daemons/taskd"
-// #define RZR_NPCD        "/adm/daemons/rzr_d"
-// #define TIME_D          "/adm/daemons/timed"
-// #define MAIL_D          "/adm/daemons/maild"
+
+#define APP_LOGIN_D     "/adm/daemons/app_login_d"
+
 #define CLASS_D(x)      ("/kungfu/class/" + x)
 #define CONDITION_D(x)  ("/kungfu/condition/" + x)
 #define SKILL_D(x)      ("/kungfu/skill/" + x)

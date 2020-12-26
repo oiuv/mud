@@ -22,10 +22,14 @@ object connect(int port)
 
     if (err)
     {
-        write("现在有人正在修改使用者连线部份的程式，请待会再来。\n");
-        //write(err);
+        write("@#500@" + err +"@\n");
         destruct(this_object());
     }
+    else
+    {
+        write("@#200@服务器连接成功@\n");
+    }
+
     return login_ob;
 }
 

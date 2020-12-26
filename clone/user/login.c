@@ -18,7 +18,8 @@ void logon()
     if (interactive(this_object()))
         set_temp("ip_number", query_ip_number(this_object()));
 
-    LOGIN_D->logon(this_object());
+    // LOGIN_D->logon(this_object());
+    APP_LOGIN_D->logon(this_object());
 }
 
 // Don't destruct(this_object()) in the net_dead() interactive apply or
