@@ -628,7 +628,7 @@ int check_legal_id(string id)
     int i;
     if (member_array(id, banned_id) != -1)
     {
-        write("@#201@对不起，“" + id + "”这个词有着特殊的含意，不能用做英文名字。@\n");
+        write("@#201@对不起，这个词有着特殊的含意，不能用做英文名字。@\n");
         return 0;
     }
 
