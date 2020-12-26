@@ -33,6 +33,7 @@ string *banned_id = ({
 private void get_id(string arg, object ob);
 private void get_passwd(string pass, object ob);
 private void get_ad_passwd(string pass, object ob);
+private void get_character(string type, object ob);
 private void check_ok(object ob);
 private void confirm_id(string yn, object ob);
 private void init_new_player(object user);
@@ -637,9 +638,50 @@ private void confirm_password(string pass, object ob)
         check_ok(ob);
         return;
     }
-    // ob->set_temp("type", "均衡型"); // 已弃用
-    write(WHT "您要扮演男性(" HIY "m" NOR + WHT ")的角色或女性("
-        HIY "f" NOR + WHT ")的角色？" NOR);
+
+    write(WHT "\n请选择在「" HIR "武林群侠传" NOR + WHT "」中您想要"
+            "扮演的角色性格类型：
+┏-----------┳-----------┳-----------┳-----------┓
+┃" HIC " 1 " HIY "光明磊落" NOR + WHT "┃" HIC " 2 " HIC "狡黠多变" NOR +
+ WHT "┃" HIC " 3 " HIR "心狠手辣" NOR + WHT "┃" HIC " 4 " HIM "阴险奸诈"
+ NOR + "┃
+┗-----------┻-----------┻-----------┻-----------┛\n" NOR);
+    write(WHT "输入数字" HIC " 1 " NOR + WHT "—" HIC " 4 " NOR + WHT "：");
+    input_to("get_character", ob);
+}
+
+private void get_character(string type, object ob)
+{
+    int n;
+    sscanf(type, "%d", n);
+
+    if (n < 1 || n > 4)
+    {
+        write(WHT "您只能选择系统所提供的这四种类型，请重新输入：" NOR);
+        input_to("get_character", ob);
+        return;
+    }
+
+    switch (n)
+    {
+    case 1:
+        ob->set_temp("type", "光明磊落");
+        break;
+    case 2:
+        ob->set_temp("type", "狡黠多变");
+        break;
+    case 3:
+        ob->set_temp("type", "心狠手辣");
+        break;
+    case 4:
+        ob->set_temp("type", "阴险奸诈");
+        break;
+    }
+
+    write(WHT "您选择了" HBGRN + ob->query_temp("type") + NOR +
+          WHT "的角色。\n\n" NOR);
+
+    write(WHT "您要扮演男性(" HIY "m" NOR + WHT ")的角色或女性(" HIY "f" NOR + WHT ")的角色？" NOR);
     input_to("get_gender", ob);
 }
 
@@ -688,7 +730,7 @@ private void get_gender(string gender, object ob)
     user->set("con", 14);
     user->set("int", 14);
     user->set("per", 20);
-    // user->set("type", ob->query_temp("type"));
+    user->set("character", ob->query_temp("type"));
     user->set("gender", ob->query_temp("gender"));
     ob->set("registered", 0);
     user->set("registered", 0);

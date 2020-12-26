@@ -53,7 +53,7 @@ void create()
 马面，冥府狱卒，各个威严肃穆。十殿阎罗，尽皆在此，地藏王坐在大
 堂之上，不怒自威，你的腿脚不禁都有些软了。大殿角落有一个石头砌
 成的池子，池中潭水清澈却不见底，不知道它究竟有多深。水池的旁边
-有一个牌子(paizi)，你也许应该仔细看看。
+有一个牌子(paizi)，你也许应该仔细看看(指令：look paizi)。
 
 LONG NOR );
         set("no_fight", 1);
@@ -86,6 +86,7 @@ LONG NOR );
 
         desc += sprintf("%2d. " HIC "%s" NOR "\n", k++, position[i]);
     }
+    desc += HIM "如有疑问请输入" HIY " help " HIM "查询帮助，或输入" HIY " chat " HIM "求助在线玩家。" NOR "\n";
     set("item_desc/paizi", desc);
 
     setup();
