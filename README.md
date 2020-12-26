@@ -2,9 +2,13 @@
 
 炎黄MUD utf-8 版，推荐使用 FluffOS v2019 最新版驱动。
 
+ - 游戏驱动下载地址：https://bbs.mud.ren/threads/4
+
 ## LIB说明
 
-本MUDLIB是在炎黄2003版本的基础上维护开发的，期间经历过众多WIZ维护，LIB代码有大量借鉴国内优秀的LIB，开源在此方便对MUD开发感兴趣的玩家或WIZ。
+本游戏为侠客行类文字MUD游戏，底层为炎黄2003，LIB代码有大量借鉴国内优秀的LIB，开源在此方便对MUD游戏感兴趣的玩家。
+
+![help](help.png "help")
 
 ## 启动说明
 

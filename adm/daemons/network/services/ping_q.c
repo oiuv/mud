@@ -43,8 +43,8 @@ void incoming_request(mapping info)
     if (info["PORTUDP"])
     {
         // check we have an entry for the sender
-        if (!DNS_MASTER->dns_mudp(info["NAME"]))
-            PING_Q->send_ping_q(info["HOSTADDRESS"], info["PORTUDP"]);
+        // if (!DNS_MASTER->dns_mudp(info["NAME"]))
+        //     PING_Q->send_ping_q(info["HOSTADDRESS"], info["PORTUDP"]);
 
         // send a ping answer along with our mud info
         DNS_MASTER->send_udp(info["HOSTADDRESS"], info["PORTUDP"],
