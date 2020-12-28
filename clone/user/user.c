@@ -78,6 +78,12 @@ void terminal_type(string term_type)
     message("system", "终端机型态设定为 " + term_type + "。\n", this_object());
 }
 
+void window_size(int width, int height)
+{
+    set_temp("window_size", ({width, height}));
+    message("system", "终端窗口大小设置为 " + width + " × " + height + "。\n", this_object());
+}
+
 void reset()
 {
     if ((int)query("potential") - (int)query("learned_points") < 100)
