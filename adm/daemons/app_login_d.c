@@ -516,8 +516,8 @@ private void register(object ob, string id, string pass)
 
     ob->set("password", crypt(pass, 0));
     ob->save();
-    write("@#200@账号注册成功!请输入(姓名|性别|性格)创建角色。@\n");
-    input_to("reg_info", ob);
+    write("@#200@账号注册成功!请输入(账号 密码)登录游戏。@\n");
+    input_to("login", ob);
 }
 
 private void reg_info(string info, object ob)
