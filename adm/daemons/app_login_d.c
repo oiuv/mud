@@ -40,6 +40,35 @@ string *banned_id = ({
     "wizard",
 });
 
+nosave mapping born = ([
+    "扬州人氏":"/d/city/kedian",
+    "欧阳世家":([
+        "born":"西域人氏",
+        "surname":"欧阳",
+        "startroom":"/d/baituo/dating",
+    ]),
+    "关外胡家":([
+        "born":"关外人氏",
+        "surname":"胡",
+        "startroom":"/d/guanwai/xiaowu",
+    ]),
+    "中原苗家":([
+        "born":"中原人氏",
+        "surname":"苗",
+        "startroom":"/d/zhongzhou/miaojia_houting",
+    ]),
+    "段氏皇族":([
+        "born":"大理人氏",
+        "surname":"段",
+        "startroom":"/d/dali/wangfugate",
+    ]),
+    "慕容世家":([
+        "born":"江南人氏",
+        "surname":"慕容",
+        "startroom":"/d/yanziwu/cuixia",
+    ]),
+]);
+
 // 内部调用的函数
 private void check_ok(object ob);
 private void login(string arg, object ob);
@@ -341,18 +370,11 @@ varargs void enter_world(object ob, object user, int silent)
     if (shoe && (! environment(shoe) || ! shoe->query("equipped")))
         destruct(shoe);
 
-    // user->set("born",1);
     if (! silent)
     {
         // color_cat(MOTD);
 
         write("@#200@你连线进入" + LOCAL_MUD_NAME() + "。@\n");
-        if (! stringp(user->query("born")))
-        {
-            if (user->is_ghost())
-                user->reincarnate();
-            user->set("startroom", BORN_ROOM);
-        }
 
         if (user->is_in_prison())
             startroom = user->query_prison();
@@ -523,13 +545,15 @@ private void register(object ob, string id, string pass)
 private void reg_info(string info, object ob)
 {
     object user;
-    // debug_message(info);
-    string *data = explode(info, "|");
-    string name, surname, purename, gender, character, result;
+    string name, surname, purename, gender, character, result, gift, tmpborn;
+    int tmpstr, tmpint, tmpcon, tmpdex;
     int size;
-    if (sizeof(data) != 3)
+    mixed dest;
+    string *data = explode(info, "|");
+
+    if (sizeof(data) != 5)
     {
-        write("@#202@角色资料格式错误，正确格式为：姓名|性别|性格@\n");
+        write("@#202@角色资料格式错误，正确格式为：姓名|性别|性格|属性|出生地@\n");
         input_to("reg_info", ob);
         return;
     }
@@ -537,6 +561,8 @@ private void reg_info(string info, object ob)
     name = data[0];
     gender = data[1];
     character = data[2];
+    gift = data[3];
+    tmpborn = data[4];
 
     if (!check_legal_name(name))
     {
@@ -561,6 +587,79 @@ private void reg_info(string info, object ob)
         input_to("reg_info", ob);
         return;
     }
+    if (!gift || sscanf(gift, "%d %d %d %d", tmpstr, tmpint, tmpcon, tmpdex) != 4)
+    {
+        write("@#201@对不起，属性格式为 <膂力> <悟性> <根骨> <身法>@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+    if (tmpstr > 30)
+    {
+        write("@#201@你所选择的膂力参数不能大于30。@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+    if (tmpstr < 10)
+    {
+        write("@#201@你所选择的膂力参数不能小于10。@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+    if (tmpint > 30)
+    {
+        write("@#201@你所选择的悟性参数不能大于30。@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+    if (tmpint < 10)
+    {
+        write("@#201@你所选择的悟性参数不能小于10。@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+    if (tmpcon > 30)
+    {
+        write("@#201@你所选择的根骨参数不能大于30。@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+    if (tmpcon < 10)
+    {
+        write("@#201@你所选择的根骨参数不能小于10。@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+    if (tmpdex > 30)
+    {
+        write("@#201@你所选择的身法参数不能大于30。@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+    if (tmpdex < 10)
+    {
+        write("@#201@你所选择的身法参数不能小于10。@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+    if ((tmpstr + tmpint + tmpcon + tmpdex) != 80)
+    {
+        write("@#201@你所选择的属性总和必须为80。@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+    if (!tmpborn || (!stringp(dest = born[tmpborn]) && !mapp(dest)))
+    {
+        write("@#201@出生地只能为扬州人氏、中原苗家、关外胡家、欧阳世家、慕容世家或段氏皇族。@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+    if (mapp(dest) && stringp(dest["notice"]))
+    {
+        write("@#201@" + dest["notice"] + "@\n");
+        input_to("reg_info", ob);
+        return;
+    }
+
     // 设置姓名
     size = sizeof(name);
     switch (size)
@@ -578,6 +677,7 @@ private void reg_info(string info, object ob)
         purename = name[2..3];
         break;
     }
+    // 最原始的姓名
     ob->set("surname", surname);
     ob->set("purename", purename);
     ob->set("body", USER_OB);
@@ -587,15 +687,42 @@ private void reg_info(string info, object ob)
         destruct(ob);
         return;
     }
-    user->set("str", 14);
-    user->set("dex", 14);
-    user->set("con", 14);
-    user->set("int", 14);
-    user->set("per", 20);
+    // 玩家出生地
+    if (stringp(dest))
+    {
+        user->set("startroom", dest);
+        user->set("born", tmpborn);
+        user->set("born_family", "没有");
+    }
+    else
+    {
+        user->set("startroom", dest["startroom"]);
+        user->set("born", dest["born"]);
+        user->set("born_family", tmpborn);
+
+        if (user->query("surname") != dest["surname"])
+        {
+            // 名字需要变化
+            name = dest["surname"] + user->query("purename");
+            if (stringp(result = NAME_D->invalid_new_name(name)))
+            {
+                write("@#201@对不起，" + result + "@\n");
+                input_to("reg_info", ob);
+                return;
+            }
+            user->set("surname", dest["surname"]);
+            user->set_name();
+        }
+    }
+    // 玩家属性
+    user->set("str", tmpstr);
+    user->set("dex", tmpdex);
+    user->set("con", tmpcon);
+    user->set("int", tmpint);
+    user->set("kar", 5 + random(26));
+    user->set("per", 5 + random(26));
     user->set("character", character);
     user->set("gender", gender);
-    ob->set("registered", 1);
-    user->set("registered", 1);
 
     init_new_player(user);
     enter_world(ob, user);
@@ -606,21 +733,22 @@ private void init_new_player(object user)
     // 初始化必要属性
     user->set("title", "普通百姓");
     user->set("birthday", time());
+    user->set("mud_age", 0);
+    user->set("age", 14);
     user->set("potential", 99);
     user->set("food", (user->query("str") + 10) * 10);
     user->set("water", (user->query("str") + 10) * 10);
     user->set("channels", ({"chat", "rumor", "party",
                             "bill", "sing", "family", "rultra"}));
-
     // 记录名字
     NAME_D->map_name(user->query("name"), user->query("id"));
-
     // 设置必要的环境参数
     user->set("env/auto_regenerate", 1);
     user->set("env/auto_get", 1);
     user->set("env/wimpy", 60);
-    //设定不自动转宗师频道，防止困扰玩家 by 薪有所属
     user->set("env/no_autoultra", 1);
+    // 选择特殊技能
+    UPDATE_D->born_player(user);
 }
 
 int check_legal_id(string id)
