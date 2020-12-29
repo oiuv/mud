@@ -374,7 +374,7 @@ varargs void enter_world(object ob, object user, int silent)
     {
         // color_cat(MOTD);
 
-        write("你连线进入" + LOCAL_MUD_NAME() + "。\n");
+        write("@#200@你连线进入" + LOCAL_MUD_NAME() + "。@\n");
 
         if (user->is_in_prison())
             startroom = user->query_prison();
