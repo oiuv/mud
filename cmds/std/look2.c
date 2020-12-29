@@ -94,23 +94,23 @@ string locate(string file)
         string domain_file;
         string *all_place;
         string the_place;
-        
-       if (sscanf(file, "/f/%*s")) 
+
+       if (sscanf(file, "/f/%*s"))
                return "副本";
 
        domain_file = domain_file(file);
-        
+
         if (! undefinedp(place[domain_file]))
         {
                 all_place = place[domain_file][1];
                 the_place = place[domain_file][0];
-                if (member_array(file, all_place) != -1)                       
+                if (member_array(file, all_place) != -1)
                         return the_place;
         }
-        
+
         if (! undefinedp(region_names[domain_file]))
                 return region_names[domain_file];
-        
+
         return "未知区域";
 }
 
@@ -159,7 +159,7 @@ int main(object me, string arg)
 
                         if (! obj)
                                 return notify_fail("那里没有这样东西。\n");
-                }        
+                }
 
                 if( obj || (obj = present(arg, environment(me))) || (obj = present(arg, me)) )
                 {
@@ -198,7 +198,7 @@ int look_room(object me, object env, int brief)
 
 
         if (mapp(exits = env->query("exits")))
-	{
+    {
                 dirs = keys(exits);
                 for(i=0; i<sizeof(dirs); i++)
                         if ((int)env->query_door(dirs[i], "status") & DOOR_CLOSED )
@@ -208,7 +208,7 @@ int look_room(object me, object env, int brief)
                         str += "    这里没有任何明显的出路。\n";
                 else if (sizeof(dirs) == 1)
                         str += "    这里唯一的出口是 " + BOLD +
-			       dirs[0] + NOR + "。\n";
+                   dirs[0] + NOR + "。\n";
                 else
                         str += sprintf("    这里明显的出口是 " + BOLD + "%s" + NOR + " 和 " + BOLD + "%s" + NOR + "。\n",
                                 implode(dirs[0..sizeof(dirs)-2], "、"), dirs[sizeof(dirs)-1]);
@@ -216,7 +216,7 @@ int look_room(object me, object env, int brief)
 
         str += look_all_inventory_of_room(me, env, RETURN_RESULT);
         tell_object(me, str);
-        
+
         return 1;
 }
 
@@ -236,7 +236,7 @@ string desc_of_objects(object *obs)
                 str = "";
                 count   = ([]);
                 unit    = ([]);
-    
+
                 for (i = 0; i < sizeof(obs); i++)
                 {
                         if (stringp(league_name = obs[i]->query("league/league_name")))
@@ -252,7 +252,7 @@ string desc_of_objects(object *obs)
                         else
                                 count[short_name] += 1;
                 }
-    
+
                 dk = sort_array(keys(count), 1);
                 for (i = 0; i < sizeof(dk); i++)
                 {
@@ -455,7 +455,7 @@ int look_item(object me, object obj)
         apply1 = ({});
         apply2 = ({});
         apply3 = ({});
-                
+
         str = obj->long();
  /*if (obj->query("no_identify"))
         {
@@ -470,7 +470,7 @@ int look_item(object me, object obj)
                 else
                 if (obj->query("armor_type"))
                         applied_prop = obj->query("armor_prop");
-                  /*      
+                  /*
                 if (arrayp(apply1) && sizeof(apply1) > 0) {
                         str += "---------------兵器附加--------------\n";
                         for (i = 0; i<sizeof(apply1); i++)
@@ -500,9 +500,9 @@ int look_item(object me, object obj)
                 }
           if (mapp(obj->query("enchase/spe_data")))
                         special_prop += obj->query("enchase/spe_data");
-                     */   
+                     */
                 if (mapp(applied_prop) && sizeof(applied_prop) > 0)
-                        apply3 = keys(applied_prop);                        
+                        apply3 = keys(applied_prop);
                 if (arrayp(apply3) && sizeof(apply3) > 0)
                 {
                         for (i = 0; i<sizeof(apply3); i++)
@@ -522,14 +522,14 @@ int look_item(object me, object obj)
                                 f = special_prop[apply[i]];
                                 desc = ENCHASE_D->special_desc(apply[i]);
 
-                    		str += sprintf(HIC "%s%10s%-5d\n" NOR, desc,
+                            str += sprintf(HIC "%s%10s%-5d\n" NOR, desc,
                          //                      f > 0 ? "+" : "-", abs(f));
                          f > 0 ? "+" : "-",abs(f));
                         }
                 }
                 str += "\n-------------------------------------\n";
         }
-       
+
         while (mapp(obj->query_temp("daub")))
         {
                 if (! obj->query_temp("daub/poison/remain"))
@@ -801,13 +801,13 @@ int look_living(object me, object obj)
 
         me_shen = (int)me->query("shen");
         if (me != obj)
-	{
+    {
                 message("vision", me->name() + "正盯著你看，不知道在打"
-			"什么主意。\n", obj);
-		message("vision", me->name() + "盯着" + obj->name() +
-			"看了一会儿，不知道在打什么主意。\n", 
-			environment(me), ({ me, obj }));
-	}
+            "什么主意。\n", obj);
+        message("vision", me->name() + "盯着" + obj->name() +
+            "看了一会儿，不知道在打什么主意。\n",
+            environment(me), ({ me, obj }));
+    }
 
         if (stringp(league_name = obj->query("league/league_name")))
         {
@@ -840,87 +840,87 @@ int look_living(object me, object obj)
         if (desc && desc != "")
                 str += pro + desc;
 
-       	// 检查人物的刺青纹身情况
-       	if (obj->is_character()
-       	   && obj->query("tattoo"))
-       	{
-       		str += pro;
+           // 检查人物的刺青纹身情况
+           if (obj->is_character()
+              && obj->query("tattoo"))
+           {
+               str += pro;
 
                 // 检查角色脸部的刺青情况
-       	        if (obj->query("tattoo/face_long"))
-       	        {
-       	                str += "的脸上刺有" +  obj->query("tattoo/face_long") + "。\n";
+                   if (obj->query("tattoo/face_long"))
+                   {
+                           str += "的脸上刺有" +  obj->query("tattoo/face_long") + "。\n";
 
-       	        	if (((obj->query("tattoo/chest_long")
-       	           	   || obj->query("tattoo/back_long"))
-       	           	   && ! objectp(obj->query_temp("armor/cloth")))
-       	           	   || obj->query("tattoo/leftarm_long")
-       	           	   || obj->query("tattoo/rightarm_long"))
-                        	str += pro;
+                       if (((obj->query("tattoo/chest_long")
+                             || obj->query("tattoo/back_long"))
+                             && ! objectp(obj->query_temp("armor/cloth")))
+                             || obj->query("tattoo/leftarm_long")
+                             || obj->query("tattoo/rightarm_long"))
+                            str += pro;
                 }
 
 
                 // 检查躯体前后的刺青情况，如果一样则修正描述
-       	        if ((obj->query("tattoo/chest_long")
-       	           == obj->query("tattoo/back_long"))
-       	           && obj->query("tattoo/chest_long")
-       	           && obj->query("tattoo/back_long")
-       	           && ! objectp(obj->query_temp("armor/cloth")))
-       	        {
-       	                str += "裸露出的胸口和背部都刺有" +
-       	                       obj->query("tattoo/chest_long") + "。\n";
-       	        } else
-       	        {
-       	        	if (obj->query("tattoo/chest_long")
-       	                   && ! objectp(obj->query_temp("armor/cloth")))
-       	                	str += "裸露出的胸口上刺有" +
-       	                               obj->query("tattoo/chest_long") + "。\n";
+                   if ((obj->query("tattoo/chest_long")
+                      == obj->query("tattoo/back_long"))
+                      && obj->query("tattoo/chest_long")
+                      && obj->query("tattoo/back_long")
+                      && ! objectp(obj->query_temp("armor/cloth")))
+                   {
+                           str += "裸露出的胸口和背部都刺有" +
+                                  obj->query("tattoo/chest_long") + "。\n";
+                   } else
+                   {
+                       if (obj->query("tattoo/chest_long")
+                              && ! objectp(obj->query_temp("armor/cloth")))
+                               str += "裸露出的胸口上刺有" +
+                                          obj->query("tattoo/chest_long") + "。\n";
 
-       	        	if (obj->query("tattoo/back_long")
-       	                   && ! objectp(obj->query_temp("armor/cloth")))
-       	        	{
-       	                	if (obj->query("tattoo/chest_long"))
-       	                        	str += "而" + pro + "的背部还刺有" +
-       	                                       obj->query("tattoo/back_long") + "。\n";
-       	                	else
-       	                        	str += "裸露出的背部刺有" +
-       	                                       obj->query("tattoo/back_long") + "。\n";
-       	        	}
-       	        }
+                       if (obj->query("tattoo/back_long")
+                              && ! objectp(obj->query_temp("armor/cloth")))
+                       {
+                               if (obj->query("tattoo/chest_long"))
+                                       str += "而" + pro + "的背部还刺有" +
+                                                  obj->query("tattoo/back_long") + "。\n";
+                               else
+                                       str += "裸露出的背部刺有" +
+                                                  obj->query("tattoo/back_long") + "。\n";
+                       }
+                   }
 
                 // 检查左右手臂的刺青情况，如果一样则修正描述
-       	        if ((obj->query("tattoo/leftarm_long")
-       	           == obj->query("tattoo/rightarm_long"))
-       	           && obj->query("tattoo/leftarm_long")
-       	           && obj->query("tattoo/rightarm_long"))
-       	        {
-       	                str += "结实的双臂上都刺有" +
-       	                       obj->query("tattoo/leftarm_long") + "。\n";
-       	        } else
+                   if ((obj->query("tattoo/leftarm_long")
+                      == obj->query("tattoo/rightarm_long"))
+                      && obj->query("tattoo/leftarm_long")
+                      && obj->query("tattoo/rightarm_long"))
+                   {
+                           str += "结实的双臂上都刺有" +
+                                  obj->query("tattoo/leftarm_long") + "。\n";
+                   } else
                 {
-       	        	if (obj->query("tattoo/leftarm_long"))
-       	                	str += "结实的左臂上刺有" +
-       	                               obj->query("tattoo/leftarm_long");
+                       if (obj->query("tattoo/leftarm_long"))
+                               str += "结实的左臂上刺有" +
+                                          obj->query("tattoo/leftarm_long");
 
-       	        	if (obj->query("tattoo/rightarm_long"))
-       	        	{
-       	                	if (obj->query("tattoo/leftarm_long"))
-       	                        	str += "，而右臂则刺有" +
-       	                                       obj->query("tattoo/rightarm_long") + "。\n";
-       	                	else
-       	                        	str += "结实的右臂上刺有" +
-       	                                       obj->query("tattoo/rightarm_long") + "。\n";
-       	        	} else
-       	        	if (obj->query("tattoo/leftarm_long"))
-       	                	str += "。\n";
-       	        }
-       	}
-		str +=sprintf("%s武功看起来好象", pro);
-		str+=gettof(me,obj);
-		str += sprintf("，");
-		str +=sprintf("出手似乎");
-		str +=getdam(me,obj);
-		str += sprintf("。\n");
+                       if (obj->query("tattoo/rightarm_long"))
+                       {
+                               if (obj->query("tattoo/leftarm_long"))
+                                       str += "，而右臂则刺有" +
+                                                  obj->query("tattoo/rightarm_long") + "。\n";
+                               else
+                                       str += "结实的右臂上刺有" +
+                                                  obj->query("tattoo/rightarm_long") + "。\n";
+                       } else
+                       if (obj->query("tattoo/leftarm_long"))
+                               str += "。\n";
+                   }
+           }
+        str +=sprintf("%s武功看起来好象", pro);
+        str+=gettof(me,obj);
+        str += sprintf("，");
+        str +=sprintf("出手似乎");
+        str +=getdam(me,obj);
+        str += sprintf("。\n");
         //check about wife and husband
         if (obj->query("id")== me->query("couple/id"))
         {
@@ -1049,21 +1049,21 @@ int look_room_item(object me, string arg)
         if (! objectp(env = environment(me)))
                 return notify_fail("这里只有灰蒙蒙地一片，什么也没有。\n");
         if (mapp(item = env->query("item_desc")) && !undefinedp(item[arg]))
-	{
+    {
                 if (stringp(item[arg]))
                         tell_object(me, item[arg]);
                 else
-		if(functionp(item[arg]))
+        if(functionp(item[arg]))
                         tell_object(me, (string)(*item[arg])(me));
 
                 return 1;
         }
         if (mapp(exits = env->query("exits")) && ! undefinedp(exits[arg]))
-	{
+    {
                 if (objectp(env = find_object(exits[arg])))
                         look_room(me, env, 0);
                 else
-		{
+        {
                         call_other(exits[arg], "???");
                         look_room(me, find_object(exits[arg]), 0);
                 }

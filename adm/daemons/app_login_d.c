@@ -282,7 +282,7 @@ varargs void enter_world(object ob, object user, int silent)
 
     if (interactive(ob)) exec(user, ob);
 
-    write("@#200@目前权限：" + wizhood(user) + "@\n");
+    write("目前权限：" + wizhood(user) + "\n");
 
     user->setup();
     if (user->query("age") == 14)
@@ -374,7 +374,7 @@ varargs void enter_world(object ob, object user, int silent)
     {
         // color_cat(MOTD);
 
-        write("@#200@你连线进入" + LOCAL_MUD_NAME() + "。@\n");
+        write("你连线进入" + LOCAL_MUD_NAME() + "。\n");
 
         if (user->is_in_prison())
             startroom = user->query_prison();
@@ -392,15 +392,15 @@ varargs void enter_world(object ob, object user, int silent)
             startroom = START_ROOM;
             user->set("startroom", START_ROOM);
         }
-        tell_room(startroom, "@#200@" + user->query("name") +
-            "连线进入这个世界。@\n", ({user}));
+        tell_room(startroom, user->query("name") +
+            "连线进入这个世界。\n", ({user}));
     }
 
     if (ob->query("registered"))
     {
         if (!(ob->query("login_times")))
         {
-            write(NOR "@#200@欢迎回到" + LOCAL_MUD_NAME() + "。@\n");
+            write(NOR "欢迎回到" + LOCAL_MUD_NAME() + "。\n");
             // show rules
             color_cat(UNREG_MOTD);
             ob->set("login_times", 1);
@@ -409,9 +409,9 @@ varargs void enter_world(object ob, object user, int silent)
         else
         {
             ob->add("login_times", 1);
-            write(NOR "@#200@你是第 " + ob->query("login_times") + " 次光临" + LOCAL_MUD_NAME() + "。@\n");
-            write("@#200@你上次是 " + HIG + ctime(ob->query("last_on")) + NOR + " 从 " + HIR +
-                    ob->query("last_from") + NOR + " 连接的。@\n");
+            write(NOR "你是第 " + ob->query("login_times") + " 次光临" + LOCAL_MUD_NAME() + "。\n");
+            write("你上次是 " + HIG + ctime(ob->query("last_on")) + NOR + " 从 " + HIR +
+                    ob->query("last_from") + NOR + " 连接的。\n");
         }
     }
 
