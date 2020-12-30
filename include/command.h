@@ -18,6 +18,7 @@
 #define GET_CMD         "/cmds/std/get"
 #define GO_CMD          "/cmds/std/go"
 #define HELP_CMD        "/cmds/usr/help"
+#define HP_CMD          "/cmds/usr/hp"
 #define LOOK_CMD        "/cmds/std/app_look"
 #define QUIT_CMD        "/cmds/usr/quit"
 #define REMOVE_CMD      "/cmds/std/remove"

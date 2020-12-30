@@ -11,7 +11,7 @@ int main(object me, string arg)
     object ob;
     mapping my;
     string sp;
-    // int craze;
+    int craze;
 
     seteuid(getuid(me));
 
@@ -208,39 +208,53 @@ int main(object me, string arg)
     if (my["max_jing"] < 1 || my["max_qi"] < 1)
             return notify_fail("无法察看" + ob->name(1) + "的状态。\n");
 
-    sp = "@#hp@";
+    sp = (ob == me ? "你" : ob->name()) + "目前的状态属性如下：\n";
+    sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
 
-    sp += sprintf("精气:%d/%d/%d|精力:%d/%d(+%d)|",
-            my["jing"], my["eff_jing"], my["max_jing"],
-            my["jingli"], my["max_jingli"], my["jiajing"]);
+    sp += sprintf(HIC "【 精 气 】 %s%5d/ %5d %s(%3d%%)"
+                    HIC "    【 精 力 】 %s%5d / %5d (+%d)\n",
+            status_color(my["jing"], my["eff_jing"]), my["jing"], my["eff_jing"],
+            status_color(my["eff_jing"], my["max_jing"]),
+                            my["eff_jing"] * 100 / my["max_jing"],
+            status_color(my["jingli"], my["max_jingli"]), my["jingli"],
+                            my["max_jingli"], my["jiajing"] );
 
-    sp += sprintf("气血:%d/%d/%d|内力:%d/%d(+%d)|",
-            my["qi"], my["eff_qi"], my["max_qi"],
-            my["neili"], my["max_neili"], my["jiali"]);
+    sp += sprintf(HIC "【 气 血 】 %s%5d/ %5d %s(%3d%%)"
+                    HIC "    【 内 力 】 %s%5d / %5d (+%d)\n",
+            status_color(my["qi"], my["eff_qi"]), my["qi"], my["eff_qi"],
+            status_color(my["eff_qi"], my["max_qi"]),
+                            my["eff_qi"] * 100 / my["max_qi"],
+            status_color(my["neili"], my["max_neili"]), my["neili"],
+                            my["max_neili"], my["jiali"] );
 
-    sp += sprintf("食物:%d/%d|潜能:%d|",
+    sp += sprintf(HIW "【 食 物 】 %s%5d/ %5d      " HIW "     【 潜 能 】  %s%d\n",
+            status_color(my["food"], ob->max_food_capacity()),
             my["food"], ob->max_food_capacity(),
+            (int)ob->query("potential") >= (int)ob->query_potential_limit() ? HIM : HIY,
             (int)ob->query("potential") - (int)ob->query("learned_points"));
 
-    sp += sprintf("饮水:%d/%d|体会:%d|",
+    sp += sprintf(HIW "【 饮 水 】 %s%5d/ %5d      " HIW "     【 体 会 】  %s%d\n",
+            status_color(my["water"], ob->max_water_capacity()),
             my["water"], ob->max_water_capacity(),
+            my["experience"] >= ob->query_experience_limit() ? HIM : HIY,
             my["experience"] - my["learned_experience"]);
 
-    // if (craze = me->query_craze())
-    // {
-    //         if (me->is_most_craze())
-    //                 sp += HIR "【 愤 " BLINK "怒" NOR HIR " 】  " +
-    //                         sprintf("%-22s", me->query("character") == "光明磊落" ?
-    //                                         "竖发冲冠" : "怒火中烧");
-    //         else
-    //                 sp += sprintf(HIR "【 愤 怒 】 %5d/ %5d (+%-3d)    ",
-    //                                 craze, me->query_max_craze(),
-    //                                 me->query("jianu"));
-    // } else
-    // {
-    //         sp += HIC "【 平 和 】   ---------            ";
-    // }
-    sp += sprintf("经验:%d@\n", my["combat_exp"]);
+    if (craze = me->query_craze())
+    {
+            if (me->is_most_craze())
+                    sp += HIR "【 愤 " BLINK "怒" NOR HIR " 】  " +
+                            sprintf("%-22s", me->query("character") == "光明磊落" ?
+                                            "竖发冲冠" : "怒火中烧");
+            else
+                    sp += sprintf(HIR "【 愤 怒 】 %5d/ %5d (+%-3d)    ",
+                                    craze, me->query_max_craze(),
+                                    me->query("jianu"));
+    } else
+    {
+            sp += HIC "【 平 和 】   ---------            ";
+    }
+    sp += sprintf(HIW "【 经 验 】  " HIC "%d\n", my["combat_exp"]);
+    sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
     tell_object(me, sp);
     return 1;
 }

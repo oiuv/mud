@@ -1,7 +1,7 @@
 // logind.c
 
 #include <ansi.h>
-// #include <command.h>
+#include <command.h>
 #include <login.h>
 // #include <config.h>
 #include <getconfig.h>
@@ -282,7 +282,7 @@ varargs void enter_world(object ob, object user, int silent)
 
     if (interactive(ob)) exec(user, ob);
 
-    write("目前权限：" + wizhood(user) + "\n");
+    // write("目前权限：" + wizhood(user) + "\n");
 
     user->setup();
     if (user->query("age") == 14)
@@ -373,8 +373,9 @@ varargs void enter_world(object ob, object user, int silent)
     if (! silent)
     {
         // color_cat(MOTD);
-
         write("@#200@你连线进入" + LOCAL_MUD_NAME() + "。@\n");
+        // 向客户端发送玩家状态
+        HP_CMD->main(this_player());
 
         if (user->is_in_prison())
             startroom = user->query_prison();
@@ -416,7 +417,7 @@ varargs void enter_world(object ob, object user, int silent)
     }
 
     // 检查同盟情况
-    "/cmds/usr/league"->main(this_player(), "check");
+    // "/cmds/usr/league"->main(this_player(), "check");
 
     for (i = 0; i < sizeof(sobs); i ++)
     {
@@ -476,7 +477,7 @@ varargs void reconnect(object ob, object user, int silent)
     exec(user, ob);
 
     user->reconnect();
-
+    HP_CMD->main(this_player());
 
     if( !silent && (! wizardp(user) || ! user->query("env/invisible"))) {
         tell_room(environment(user), user->query("name") + "重新连线回到这个世界。\n",
@@ -484,7 +485,7 @@ varargs void reconnect(object ob, object user, int silent)
     }
 
     // 检查同盟情况
-    "/cmds/usr/league"->main(this_player(), "check");
+    // "/cmds/usr/league"->main(this_player(), "check");
 
     for (i = 0; i < sizeof(sobs); i ++)
     {
