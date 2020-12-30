@@ -218,29 +218,41 @@ string desc_of_objects(object *obs)
     string  str;
     mapping count;
     mapping unit;
-    string  short_name;
+    mapping gender;
+    mapping type;
+    string short_name;
     string  *dk;
-    string league_name;
+    // string league_name;
 
     if (obs && sizeof(obs) > 0)
     {
         str = "";
         count = ([]);
         unit  = ([]);
+        gender  = ([]);
+        type = ([]);
 
         for (i = 0; i < sizeof(obs); i++)
         {
-            if (stringp(league_name = obs[i]->query("league/league_name")))
-            {
-                short_name = HIG + "「" + league_name + "」" + NOR + obs[i]->short();
-            }
-            else
-                short_name = obs[i]->short();
+            // if (stringp(league_name = obs[i]->query("league/league_name")))
+            // {
+            //     short_name = HIG + "「" + league_name + "」" + NOR + obs[i]->short();
+            // }
+            // else
+            short_name = obs[i]->short();
 
             if (undefinedp(count[short_name]))
             {
                 count += ([ short_name : 1 ]);
                 unit += ([ short_name : obs[i]->query("unit") ]);
+                if (stringp(obs[i]->query("gender")))
+                {
+                    gender += ([short_name : obs[i]->query("gender")]);
+                }
+                if (stringp(obs[i]->type()))
+                {
+                    type += ([short_name:obs[i]->type()]);
+                }
             }
             else
                 count[short_name] += 1;
@@ -252,7 +264,16 @@ string desc_of_objects(object *obs)
             // str += "  ";
             // if (count[dk[i]] > 1)
             //     str += chinese_number(count[dk[i]]) + unit[dk[i]];
-            str += dk[i] + "#" + count[dk[i]] + "|";
+            if (gender[dk[i]])
+            {
+                str += dk[i] + "@" + gender[dk[i]] + "#" + count[dk[i]] + "|";
+            }
+            else if (type[dk[i]])
+            {
+                str += dk[i] + "@" + type[dk[i]] + "#" + count[dk[i]] + "|";
+            }
+            else
+                str += dk[i] + "#" + count[dk[i]] + "|";
         }
 
         if (str[ < 1] == '|')

@@ -72,8 +72,6 @@ int fire(object me, object ob)
         return 1;
 }
 
-
-
 string type()
 {
         if ( this_object()->is_weapon() )
