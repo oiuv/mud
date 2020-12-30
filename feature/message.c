@@ -94,7 +94,7 @@ string prompt()
         p = HIY "> " NOR;
 
     if (! stringp(prompt = query("env/prompt")))
-        return p;
+        return filter_ansi(p);
 
     switch (prompt)
     {
@@ -125,7 +125,7 @@ string prompt()
         break;
     }
 
-    return p;
+    return filter_ansi(p);
 }
 
 void receive_message(string msgclass, string msg)
