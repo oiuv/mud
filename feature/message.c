@@ -131,18 +131,19 @@ string prompt()
 void receive_message(string msgclass, string msg)
 {
     string subclass, *ch;
+    msg = filter_ansi(msg);
 
-    if (! interactive(this_object()))
+    if (!interactive(this_object()))
     {
         this_object()->relay_message(msgclass, msg);
         return;
     }
 
-        if (msgclass == "telnet")
-        {
-            receive(msg);
-            return;
-        }
+    if (msgclass == "telnet")
+    {
+        receive(msg);
+        return;
+    }
     // debug_message(msgclass);
     // debug_message(msg);
     if (sscanf(msgclass, "%s:%s", subclass, msgclass) == 2)
