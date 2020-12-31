@@ -131,13 +131,14 @@ string prompt()
 void receive_message(string msgclass, string msg)
 {
     string subclass, *ch;
-    msg = filter_ansi(msg);
 
     if (!interactive(this_object()))
     {
-        this_object()->relay_message(msgclass, msg);
+        // this_object()->relay_message(msgclass, msg);
         return;
     }
+    // 清理ANSI颜色
+    msg = filter_ansi(msg);
 
     if (msgclass == "telnet")
     {
@@ -151,9 +152,13 @@ void receive_message(string msgclass, string msg)
         switch(subclass)
         {
             case "channel":
-                if(!pointerp(ch = query("channels"))
-                ||	member_array(msgclass, ch) == -1)
+                if (!pointerp(ch = query("channels")) || member_array(msgclass, ch) == -1)
                     return;
+                else
+                {
+                    msg = "@#channel@" + msg[0..<2] + "@\n";
+                }
+
                 break;
             case "outdoor":
                 if (! environment() || ! environment()->query("outdoors"))
@@ -175,6 +180,13 @@ void receive_message(string msgclass, string msg)
     if (query_temp("block_msg/all") || query_temp("block_msg/" + msgclass))
         return;
 
+    if (msg[0..1] != "@#")
+    {
+        if (msg[ < 1] == '\n')
+            msg = msg[0.. < 2];
+        msg = "@#message@" + msg + "@\n";
+    }
+
     if (in_input(this_object()) || in_edit(this_object()) ||
             this_object()->is_attach_system() && msgclass != "system")
     {
@@ -188,10 +200,14 @@ void receive_message(string msgclass, string msg)
             if (written == COMMAND_RCVD)
             {
                 written = NONE;
-                receive(ESC "[256D" ESC "[K" + msg);
-            } else
-                receive(ESC "[256D" ESC "[K" + msg + prompt());
-        } else
+                // receive(ESC "[256D" ESC "[K" + msg);
+                receive(msg);
+            }
+            else
+                // receive(ESC "[256D" ESC "[K" + msg + prompt());
+                receive(msg + prompt());
+        }
+        else
             receive(msg);
     }
 }
