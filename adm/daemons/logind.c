@@ -122,7 +122,7 @@ void logon(object ob)
 private void get_id(string arg, object ob)
 {
     object ppl;
-    arg = lower_case(arg);
+    arg = trim(lower_case(arg));
 
     if (! check_legal_id(arg))
     {
