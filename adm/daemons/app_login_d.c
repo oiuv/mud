@@ -180,6 +180,7 @@ private void check_ok(object ob)
         {
             object old_link;
             old_link = user->query_temp("link_ob");
+            tell_object(user, "@#403@有人从别处( " + query_ip_number(ob) + " )连线取代你所控制的人物。@\n");
             if (old_link)
             {
                 exec(old_link, user);
