@@ -6,7 +6,7 @@
 
 #include <config.h>
 #include <localtime.h>
-
+#include <runtime_config.h>
 #include "master/valid.c"
 
 object connect(int port)
@@ -245,10 +245,23 @@ void error_handler(mapping error, int caught)
 // 'file', giving the error message 'message'.
 void log_error(string file, string message)
 {
-    //if (this_player(1)) efun::write("\n编译时段错误：" + message); else
-    //if (this_player()) tell_object(this_player(), "\n编译时段错误：" + message);
-
-    efun::write_file(LOG_DIR + "log_error", message);
+    if (strsrch(message, "Warning") == -1)
+    {
+        if (this_player(1))
+        {
+            if (wizardp(this_player(1)))
+                efun::write("编译时段错误：" + message + "\n");
+            else
+                efun::write(get_config(__DEFAULT_ERROR_MESSAGE__) + "\n");
+        }
+        // 记录错误日志
+        efun::write_file(LOG_DIR + "log_error", message);
+    }
+    else
+    {
+        // 记录警告日志
+        efun::write_file(LOG_DIR + "log", message);
+    }
 }
 
 string object_name(object ob)

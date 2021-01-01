@@ -116,7 +116,7 @@ private void login(string arg, object ob)
 {
     string *info, id, pass;
 
-    info = explode(arg, " ");
+    info = explode(trim(arg), " ");
 
     if (sizeof(info) < 2)
     {
