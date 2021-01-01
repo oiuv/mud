@@ -213,7 +213,7 @@ varargs int move(mixed dest, int raw)
         }
         else
         {
-            tell_room(env, "@#move0@" + me->short() + "离开了当前环境@\n",({this_object()}));
+            tell_room(env, "@#move0@" + me->short() + "离开了当前环境@\n", ({this_object()}));
         }
     }
     move_object(ob);

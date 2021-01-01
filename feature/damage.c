@@ -300,7 +300,6 @@ varargs void revive(int quiet)
 varargs void die(object killer)
 {
         object me;
-        object corpse/*, room, obj, *inv*/;
         object riding;
         object dob;
         object ob;
@@ -408,9 +407,7 @@ varargs void die(object killer)
         UPDATE_D->global_destruct_player(tmp_load, 1);
 
         me->add("combat/dietimes", 1);
-
-        if (objectp(corpse = CHAR_D->make_corpse(me, killer)))
-                corpse->move(environment());
+        CHAR_D->make_corpse(me, killer);
 
         defeated_by = 0;
         defeated_by_who = 0;
