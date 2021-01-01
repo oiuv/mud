@@ -205,7 +205,27 @@ varargs int move(mixed dest, int raw)
         ob->add_encumbrance(weight());
 
     // Move & run INIT function
+    if (env)
+    {
+        if (env == this_player())
+        {
+            tell_room(env, "@#move0@" + me->short() + "离开了当前玩家@\n");
+        }
+        else
+        {
+            tell_room(env, "@#move0@" + me->short() + "离开了当前环境@\n",({this_object()}));
+        }
+    }
     move_object(ob);
+
+    if (ob == this_player())
+    {
+        tell_room(ob, "@#move1@" + me->short() + "移动到当前玩家身上@\n");
+    }
+    else
+    {
+        tell_room(ob, "@#move1@" + me->short() + "移动到当前环境@\n", ({this_object()}));
+    }
 
     return 1;
 }

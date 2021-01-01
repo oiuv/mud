@@ -161,13 +161,15 @@ void receive_message(string msgclass, string msg)
 
                 break;
             case "outdoor":
-                if (! environment() || ! environment()->query("outdoors"))
+                msg = "@#nature@" + msg[0.. < 2] + "@\n";
+                if (!environment() || !environment()->query("outdoors"))
                 {
                     if (query("env/look_window"))
                         msg = HIG "【窗外景象】" + NOR + msg;
                     else
                         return;
                 }
+
                 break;
             case "system":
                 break;
