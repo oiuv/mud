@@ -156,7 +156,7 @@ void receive_message(string msgclass, string msg)
                     return;
                 else
                 {
-                    msg = "@#channel@" + msg[0..<2] + "@\n";
+                    msg = "@#" + msgclass + "@" + msg[0.. < 2] + "@\n";
                 }
 
                 break;

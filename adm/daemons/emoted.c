@@ -221,7 +221,7 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
             message("emote", CYN + str + NOR + "\n", environment(me), ({me, target}));
         }
         else
-            return str + "\n";
+            return str + "[" + me->query("id") + " | " + verb + "]\n";
     }
 
     // Let NPC know we are doing emote on him.
