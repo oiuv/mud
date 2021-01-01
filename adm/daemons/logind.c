@@ -75,7 +75,7 @@ void logon(object ob)
     color_cat(WELCOME);
 
     catch(MUDLIST_CMD->main());
-    UPTIME_CMD->main();
+    TIME_CMD->main();
 
     if (! VERSION_D->is_version_ok() && ! VERSION_D->query_temp("operator"))
         write(HIY "现在本站正在同步版本，如果你不是巫师，请稍候再登录。\n\n" NOR);

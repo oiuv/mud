@@ -85,3 +85,30 @@ int can_combine_to(object env)
 
     return 0;
 }
+
+string type()
+{
+    if (this_object()->is_weapon())
+        return "武器";
+    if (this_object()->is_armor())
+        return "防具";
+    if (this_object()->is_food())
+        return "食物";
+    if (this_object()->is_liquid())
+        return "饮具";
+    if (this_object()->is_container())
+        return "容器";
+    if (this_object()->is_book())
+        return "书物";
+    if (this_object()->is_money())
+        return "货币";
+    if (this_object()->is_charm())
+        return "护身符";
+    if (this_object()->is_rune())
+        return "符文";
+    if (this_object()->is_inlaid())
+        return "镶嵌物";
+    if (this_object()->is_task())
+        return "任务物品";
+    return "杂物";
+}

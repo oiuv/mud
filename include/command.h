@@ -24,6 +24,7 @@
 #define REPLY_CMD       "/cmds/std/reply"
 #define SKIP_CMD        "/cmds/usr/skip"
 #define TELL_CMD        "/cmds/std/tell"
+#define TIME_CMD        "/cmds/usr/time"
 #define UPTIME_CMD      "/cmds/usr/uptime"
 #define WEAR_CMD        "/cmds/std/wear"
 #define WHO_CMD         "/cmds/usr/who"
