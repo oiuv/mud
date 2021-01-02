@@ -226,7 +226,7 @@ varargs int move(mixed dest, int raw)
     {
         tell_room(ob, "@#move1@" + me->short() + "移动到当前环境@\n", ({this_object()}));
     }
-
+    // debug_message(sprintf(ctime() + " %s 移动到 %s", me->short(), ob->short()));
     return 1;
 }
 

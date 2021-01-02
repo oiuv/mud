@@ -1,4 +1,5 @@
 // object.c
+#include <ansi.h>
 
 varargs int getoid(object ob)
 {
@@ -110,6 +111,20 @@ void destruct(object ob)
         else
             ob->remove(0);
     }
-    tell_room(environment(ob), "@#destruct@" + ob->short() + "已被系统销毁@\n");
+    else
+    {
+        return;
+    }
+
+    if (environment(ob))
+    {
+        tell_room(environment(ob), "@#destruct@" + ob->short() + "已被系统销毁@\n");
+        // debug_message(sprintf(ctime() + HIR " %s 的 %s 已被系统销毁..." NOR, environment(ob)->short(), ob->short() + HIR));
+    }
+    else
+    {
+        debug_message(sprintf(ctime() + YEL " %s 已被系统销毁..." NOR, ob + YEL));
+    }
+
     efun::destruct(ob);
 }
