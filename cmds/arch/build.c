@@ -7,28 +7,28 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-        if (! SECURITY_D->valid_grant(me, "(arch)"))
-        {
-		write("你没有权限编译" + LOCAL_MUD_NAME() + "的版本。\n");
-                return 1;
-        }
+    if (!SECURITY_D->valid_grant(me, "(arch)"))
+    {
+        write("你没有权限编译" + LOCAL_MUD_NAME() + "的版本。\n");
+        return 1;
+    }
 
-        if (! arg)
-                return notify_fail("指令格式: build <路径名> | version | new | cancel\n");
+    if (!arg)
+        return notify_fail("指令格式: build <路径名> | version | new | cancel\n");
 
-        if (arg == "version")
-                return VERSION_D->generate_version();
+    if (arg == "version")
+        return VERSION_D->generate_version();
 
-        if (arg == "cancel")
-                return VERSION_D->build_cancel();
+    if (arg == "cancel")
+        return VERSION_D->build_cancel();
 
-        if (arg == "new")
-                return VERSION_D->build_new();
+    if (arg == "new")
+        return VERSION_D->build_new();
 
-        if (arg[0] != '/')
-                return notify_fail("你必须输入一个完整的路径名才可以。\n");
+    if (arg[0] != '/')
+        return notify_fail("你必须输入一个完整的路径名才可以。\n");
 
-        return VERSION_D->build_path(arg);
+    return VERSION_D->build_path(arg);
 }
 
 int help (object me)

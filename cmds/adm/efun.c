@@ -1,8 +1,6 @@
 #include <ansi.h>
 inherit F_CLEAN_UP;
 
-void print_r(mixed *arr);
-void debug(string);
 int help();
 
 void create() { seteuid(getuid()); }
@@ -246,52 +244,4 @@ efun测试指令,请使用 efun efun_name args
 HELP
     );
     return 1;
-}
-
-// 数组打印 debug
-varargs void print_r(mixed *arr, int step)
-{
-    int i, j;
-    if (sizeof(arr))
-    {
-        write(YEL "({\n" NOR);
-
-        for (i = 0; i < sizeof(arr); i++)
-        {
-            if (arrayp(arr[i]))
-            {
-                step++;
-                for (j = 0; j < step; j++)
-                {
-                    write("    ");
-                }
-                write(i + " => ");
-                print_r(arr[i], step);
-                step--;
-            }
-            else
-            {
-                for (j = 0; j <= step; j++)
-                {
-                    write("    ");
-                }
-                write(i + " => " + arr[i] + "\n");
-            }
-        }
-
-        for (j = 0; j < step; j++)
-        {
-            write("    ");
-        }
-        write(YEL "})\n" NOR);
-    }
-    else
-    {
-        write(YEL "({ })\n" NOR);
-    }
-}
-
-void debug(string str)
-{
-    write(BRED "Debug:" + str + "\n" NOR);
 }

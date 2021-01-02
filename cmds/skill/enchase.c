@@ -9,33 +9,32 @@ void create() { seteuid(getuid()); }
 
 int main(object me, string arg)
 {
-	string item, tessera;
-	object obj, dest;
+    string item, tessera;
+    object obj, dest;
 
-	if (! arg)
-                return notify_fail("你要往什么道具上镶嵌物品？\n");
+    if (!arg)
+        return notify_fail("你要往什么道具上镶嵌物品？\n");
 
-        if (me->is_busy())
-                return notify_fail("先忙完了你的事情再做这件事情吧！\n");
+    if (me->is_busy())
+        return notify_fail("先忙完了你的事情再做这件事情吧！\n");
 
-        if (me->is_fighting())
-                return notify_fail("你现在正在打架，没时间做这些事情。\n");
+    if (me->is_fighting())
+        return notify_fail("你现在正在打架，没时间做这些事情。\n");
 
-        if (sscanf(arg, "%s with %s", item, tessera) != 2 &&
-            sscanf(arg, "%s in %s", tessera, item) != 2)
-                return notify_fail("你要往这上面镶嵌什么物品？\n");
+    if (sscanf(arg, "%s with %s", item, tessera) != 2 &&
+        sscanf(arg, "%s in %s", tessera, item) != 2)
+        return notify_fail("你要往这上面镶嵌什么物品？\n");
 
-	if (! objectp(obj = present(tessera, me)))
-		return notify_fail("你身上没有这样东西可以用来镶嵌。\n");
+    if (!objectp(obj = present(tessera, me)))
+        return notify_fail("你身上没有这样东西可以用来镶嵌。\n");
 
-	if (! objectp(dest = present(item, me)))
-		return notify_fail("你身上没有这样道具。\n");
+    if (!objectp(dest = present(item, me)))
+        return notify_fail("你身上没有这样道具。\n");
 
-        notify_fail("你无法把" + obj->name() + "镶嵌到" +
-                    dest->name() + "上。\n");
+    notify_fail("你无法把" + obj->name() + "镶嵌到" +
+                dest->name() + "上。\n");
 
-        return ITEM_D->do_enchase(me, dest, obj);
-	
+    return ITEM_D->do_enchase(me, dest, obj);
 }
 
 int help(object me)
@@ -53,7 +52,7 @@ HIC "「可镶嵌物品列表」\n\n"
 "     高级：     碧魄冰晶、幻石、冰火珠、雷神珠　　　　　　　　　　　　　         （修正：50－70）\n"
 "     珍品：　　 神之寒晶·冰、魔之心·魔、火之精灵·火、雷神之瞳·电　　         （修正：90－100）\n\n"
 "「特殊合成物品」\n\n"
-HIW"      「冰属性」\n" 
+HIW"      「冰属性」\n"
 "      （可镶嵌｜50－70）  碧魄冰晶     = 极北寒玉 + 青龙牙 + 如意通天镢 + 五彩玲珑珠 + 神聖血清\n"
 "      （可镶嵌｜90－100） 神之寒晶·冰 = 碧魄冰晶 + 幻地神珠 + 圣杯　+ 乾坤圣水\n\n"
 HIY"      「魔属性」\n"
@@ -66,7 +65,7 @@ HIM"      「电属性」\n"
 "      （可镶嵌｜50－70） 雷神珠        =  青龙牙 + 如意通天镢 + 雷火寒晶 + 五彩玲珑珠 + 神聖血清\n"
 "      （可镶嵌｜90－100）雷神之瞳·电  =  雷神珠 + 如意通天镢　+ 镇龙石 + 幻地神珠 + 乾坤圣水\n\n" NOR;
 
-    
+
     msg += HIC "「特殊属性说明」\n\n";
     msg += "      冰：冷冻攻击  伤害精和气血\n";
     msg += "      电：闪电攻击  伤害内力和气血\n";

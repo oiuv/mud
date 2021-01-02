@@ -47,7 +47,7 @@ int loadall(string dir)
             if ((dir + file)[ < 2.. < 1] == ".c")
             {
                 if (err = catch (load_object(dir + file)))
-                    log_file("loadall", "\n	check :" + dir + file + "\n" + err);
+                    log_file("loadall", "\n    check :" + dir + file + "\n" + err);
             }
         }
     }

@@ -21,7 +21,7 @@ int main(object me, string arg)
                 return 0;
 
         if (! arg)
-	        return notify_fail("指令格式：sameip <使用者姓名> | <IP 地址>\n");
+            return notify_fail("指令格式：sameip <使用者姓名> | <IP 地址>\n");
 
         if (find_call_out("search_dir") != -1)
         {
@@ -137,7 +137,7 @@ void search_dir(int count, string *dir, int i, string address, object me, string
                         }
                 }
                 i++;
-        	message("system", ESC + "[1A" + ESC + "[256D"
+            message("system", ESC + "[1A" + ESC + "[256D"
                                   HIG "进度：" + process_bar(i * 100 / sizeof(dir)) +
                                   "\n" HIR "执行中" NOR "> ", me);
                 call_out("search_dir", 0, count, dir, i, address, me, result);

@@ -15,14 +15,13 @@ public void search_dir(object me, int raw);
 
 int main(object me, string arg)
 {
-//      int i;
         int copy_user;
 
         if (! SECURITY_D->valid_grant(me, "(arch)"))
                 return 0;
 
         if (! arg)
-	        return notify_fail("指令格式：examine [-u] <玩家ID> | -all\n");
+                return notify_fail("指令格式：examine [-u] <玩家ID> | -all\n");
 
         if (! sscanf(arg, "-u %s", arg))
                 copy_user = 0;
@@ -38,7 +37,7 @@ int main(object me, string arg)
                 return 1;
         }
 
-	message_system("系统进行数据处理中，请耐心等候...\n");
+        message_system("系统进行数据处理中，请耐心等候...\n");
         write(HIG "现在系统将检查所有玩家，稍后汇报。\n"
               HIG "进度：" + process_bar(0) + "\n");
         if (me)
@@ -86,7 +85,7 @@ void search_dir(object me, int raw)
                         }
                 }
                 total += j;
-        	message("system", ESC + "[1A" + ESC + "[256D"
+                message("system", ESC + "[1A" + ESC + "[256D"
                                   HIG "进度：" + process_bar((i + 1) * 100 / sizeof(dir)) +
                                   "\n" + (me ? HIR "执行中" NOR "> " : ""),
                                   me ? me : filter_array(all_interactive(), (: wizardp :)));
@@ -141,7 +140,6 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
         object user_ob;
         string result;
         int day;
-//      int age;
         int online;
         mixed *st;
 
@@ -160,7 +158,7 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
                         day = (time() - st[1]) / 86400;
                 } else
                         day = (time() - last_touched) / 86400;
-/*	系统备份自动删除超过一定时间未登录的玩家	*/
+                /*系统备份自动删除超过一定时间未登录的玩
                 if (day >= 360 && ! objectp(find_player(name)) && name != "mudren")
                 {
                         log_file("static/purge",
@@ -169,7 +167,7 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
                         UPDATE_D->remove_user(name);
                         return 0;
                 }
-/*	*/
+                */
                 if (day >= 1)
                         // 这个文件最近没有访问过
                         return 0;
@@ -278,6 +276,11 @@ private string is_illegal(object ob)
 
         if (wizhood(ob) != "(player)")
                 return 0;
+
+        if (strlen(ob->query("name")) == 1)
+        {
+                return HIR "姓名只有一个汉字，需要修复。" NOR;
+        }
 
         if (ob->query_temp("user_setup"))
                 gold = MONEY_D->player_carry(ob);

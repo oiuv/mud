@@ -61,7 +61,7 @@ string *features = ({ "type", "double_attack", "main_skill", "query_description"
 // 表示并列使用的字符
 #define APPOSE_STR      " - "
 // 水平线
-#define HORIZONTAL_STR  HIC "──────────────" "───────────────\n" NOR
+#define HORIZONTAL_STR  HIC "----------------------------" "------------------------------\n" NOR
 
 string sort_result(string str, int prefix);
 string skill_combines(object sk);

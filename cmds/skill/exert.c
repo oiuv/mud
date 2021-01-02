@@ -5,48 +5,48 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-	string force;
-//	int result;
-	
-	seteuid(getuid());
+    string force;
 
-	if (me->is_busy())
-		return notify_fail("( 你上一个动作还没有完成，不能施用内功。)\n");
+    seteuid(getuid());
 
-	if (! arg)
-		return notify_fail("你要用内功做什么？\n");
+    if (me->is_busy())
+        return notify_fail("( 你上一个动作还没有完成，不能施用内功。)\n");
 
-        if (me->query_temp("no_exert") || me->query_condition("exert_drug"))
-		return notify_fail(HIR "你只觉得内息一阵紊乱，根本无法控制内息。\n" NOR);
+    if (!arg)
+        return notify_fail("你要用内功做什么？\n");
 
-	if (stringp(force = me->query_skill_mapped("force")))
+    if (me->query_temp("no_exert") || me->query_condition("exert_drug"))
+        return notify_fail(HIR "你只觉得内息一阵紊乱，根本无法控制内息。\n" NOR);
+
+    if (stringp(force = me->query_skill_mapped("force")))
+    {
+        notify_fail("你无法顺利的运转内息。\n");
+
+        if (SKILL_D(force)->do_effect(me))
+            return 0;
+
+        notify_fail("你所学的内功中没有这种功能。\n");
+        if (SKILL_D(force)->exert_function(me, arg))
         {
-        	notify_fail("你无法顺利的运转内息。\n");
+            if (random(120) < (int)me->query_skill("force"))
+                me->improve_skill(force, 1, 1);
+            return 1;
+        }
+        else if (SKILL_D("force")->exert_function(me, arg))
+        {
+            if (random(120) < (int)me->query_skill("force", 1))
+                me->improve_skill("force", 1, 1);
+            return 1;
+        }
+        return 0;
+    }
 
-        	if (SKILL_D(force)->do_effect(me))
-                	return 0;
-
-		notify_fail("你所学的内功中没有这种功能。\n");
-		if (SKILL_D(force)->exert_function(me, arg))
-                {
-			if (random(120) < (int)me->query_skill("force"))
-				me->improve_skill(force, 1, 1);
-			return 1;
-		} else if (SKILL_D("force")->exert_function(me, arg))
-                {
-			if (random(120) < (int)me->query_skill("force", 1))
-				me->improve_skill("force", 1, 1);
-			return 1;
-		}
-		return 0;
-	}
-
-	return notify_fail("你请先用 enable 指令选择你要使用的内功。\n");
+    return notify_fail("你请先用 enable 指令选择你要使用的内功。\n");
 }
 
 int help (object me)
 {
-        write(@HELP
+    write(@HELP
 指令格式：exert|yun <功能名称> [<施用对象>]
 
 用内力进行一些特异功能，你必需要指定<功能名称>，<施用对象>则可有可无。
@@ -60,5 +60,5 @@ int help (object me)
     从０开始。
 
 HELP );
-        return 1;
+    return 1;
 }

@@ -4,24 +4,24 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-	string msg;
+    string msg;
 
-        if (! SECURITY_D->valid_grant(me, "(wizard)"))
-                return 0;
+    if (!SECURITY_D->valid_grant(me, "(wizard)"))
+        return 0;
 
-	if (file_size(user_path(geteuid(me)) + "workroom.c") <= 0)
-		return notify_fail("你没有自己的工作室。\n");
+    if (file_size(user_path(geteuid(me)) + "workroom.c") <= 0)
+        return notify_fail("你没有自己的工作室。\n");
 
-	if (stringp(msg = me->query("env/msg_home")))
-		message_vision(msg + "\n", me);
+    if (stringp(msg = me->query("env/msg_home")))
+        message_vision(msg + "\n", me);
 
-	me->move("/u/" + geteuid(me) + "/workroom.c");
-	return 1;
+    me->move("/u/" + geteuid(me) + "/workroom.c");
+    return 1;
 }
 
 int help(object me)
 {
-        write(@HELP
+    write(@HELP
 指令格式 : home
 
 利用此一指令可直接回到自己的工作室。

@@ -30,7 +30,7 @@ int main(string arg)
     ob = filter_array(objects(), (: userp($1) && !wizardp($1) :));
     list = sort_array(ob, (: top_list :));
 
-    msg = HIW "\n               ┏━━『" HIG " 英 雄 壁 " HIW "』━━┓\n";
+    msg = HIW "\n               ┏----『" HIG " 英 雄 壁 " HIW "』----┓\n";
     msg += "┏------------------------------------------------┓\n";
     msg += "┃ " HIG " 排 行 " HIW " │    " HIG "姓        名" HIW
            "    │ " HIG "门  派" HIW " │ " HIG "评  价" HIW " ┃\n";
@@ -38,7 +38,7 @@ int main(string arg)
 
     for (i = 0; i < 10; i++)
     {
-        if (i >= sizeof(list) || list[i]->query("id") == 0 || get_score(list[i]) < 10) //mudren
+        if (i >= sizeof(list) || list[i]->query("id") == 0 || get_score(list[i]) < 10) //ivy
         {
             msg += HIW "┃        暂时空缺              无             -  ┃\n" NOR;
             continue;
@@ -104,19 +104,19 @@ int get_score(object ob)
     reset_eval_cost();
 
     /*
-        //取消技能的加分权重，使评分更加合理并减轻系统负担
-        skills = ob->query_skills();
+    //取消技能的加分权重，使评分更加合理并减轻系统负担
+    skills = ob->query_skills();
 
-        if (! sizeof(skills))
-                return 1;
+    if (! sizeof(skills))
+            return 1;
 
-        ski  = keys(skills);
-        for(i = 0; i < sizeof(ski); i++)
-        {
-                tlvl += skills[ski[i]];
-        }
-        score = tlvl / 15;
-        */
+    ski  = keys(skills);
+    for(i = 0; i < sizeof(ski); i++)
+    {
+            tlvl += skills[ski[i]];
+    }
+    score = tlvl / 15;
+    */
     //评分增加dodge,parry,force,martial-cognize
     tlvl = (int)ob->query_skill("force", 1) + (int)ob->query_skill("dodge", 1) + (int)ob->query_skill("parry", 1) + (int)ob->query_skill("martial-cognize", 1);
     score = tlvl;

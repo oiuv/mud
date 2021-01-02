@@ -1,6 +1,6 @@
 inherit F_CLEAN_UP;
 
-#define unusedvar_log_file "/log/log.var"
+#define unusedvar_log_file "/log/var.log"
 
 string file, *f_line, new_f_line, chk, unusedvar;
 string wfile, *wf_line, lastw;
@@ -42,6 +42,12 @@ int main(object me, string arg)
         if (sscanf(chk, "%s line %d: Warning: Unused local variable '%s'", filename, line_n, argv_name) == 3)
         {
             //  unusedvar+=chk+"\n";
+            if (file_size(filename) == -1) //特别的update引起的检查，一般不需要
+            {
+                write(filename + "文件不存在。\n");
+                continue;
+            }
+
             if (member_array(chk, founded) != -1)
                 continue; //this mistake have be treated
             founded += ({chk});
@@ -64,18 +70,17 @@ int main(object me, string arg)
             } //否则接着修改刚才的文件，以免重复打开修改存盘同一文件
             unusedvar += "┏" + filename + " @line=" + line_n + ", Unused variable=" + argv_name + "\n";
 
-            if (line_n >= sizeof(wf_line))
-                line_n = sizeof(wf_line) - 1; // 有些文件行数有问题,\n打断会少一二行
-
-            while (line_n >= 0)
+            while (line_n > 0)
             {
+                line_n--;
+                //write("line_n ="+(line_n+1)+" \n it is "+wf_line[line_n] +"\n");
+
                 if (isdata(wf_line[line_n]))
                 { //write("line_n number=="+(line_n+1)+"    argv_name is "+argv_name +"\n");
                     start = 0;
                     if (check(start)) //找到并修改成功
                         break;
                 }
-                line_n--;
             }
         } //  /d/dntg/sky/stars/23.c line 3: Cannot #include star.c before the end of file
         else if (sscanf(chk, "%s line %d: Cannot #include %s before", filename, line_n, argv_name) == 3)
@@ -102,18 +107,15 @@ int main(object me, string arg)
             } //否则接着修改刚才的文件，以免重复打开修改存盘同一文件
             unusedvar += "┏" + filename + " @line=" + line_n + ", Cannot #include=" + argv_name + "\n";
 
-            if (line_n >= sizeof(wf_line))
-                line_n = sizeof(wf_line) - 1; // 有些文件行数有问题,\n打断会少一二行
-
-            while (line_n >= 0)
+            while (line_n > 0)
             {
+                line_n--;
                 if (strsrch(wf_line[line_n], "<" + argv_name + ">") != -1)
                 { //write("line_n number=="+(line_n+1)+"    argv_name is "+argv_name +"\n");
                     //start=0;
                     check1(); //找到并寻找文件尝试修改
                     break;
                 }
-                line_n--;
             }
         }
         else
@@ -311,6 +313,8 @@ int help(object me)
     已经注释的文件另给一个记录，默认文件名为/log/log.var
 前面是log文件本身，后面是修改情况正常情况开始会形成三行封闭
 的制表符，以方便判断是否注释正确。
+    若代码不能正确处理，请在各个wiz群联系胖得爬不上树的精灵
+虽然我可能也忘了代码。
 
 指令格式：chklog [logfile]
 没有 logfile，则logfile默认为 log/log

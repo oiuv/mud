@@ -13,7 +13,7 @@ int main(object me, string arg)
         if (! SECURITY_D->valid_grant(me, "(arch)"))
                 return 0;
 
-	if (! arg)
+    if (! arg)
                 return notify_fail("你要把谁带出地狱？\n");
 
         if (sscanf(arg, "%s %d", arg, time) != 2)
@@ -42,13 +42,13 @@ int main(object me, string arg)
 
 int help(object me)
 {
-	write(@HELP
+    write(@HELP
 指令格式 : free <玩家ID>
- 
+
 这个指令可以让你把被禁闭的玩家释放出来。
 
 see also : throw
- 
+
 HELP
     );
     return 1;

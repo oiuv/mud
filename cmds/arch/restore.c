@@ -30,7 +30,7 @@ int main(object me, string arg)
                 return 1;
         }
 
-	if (! arg)
+    if (! arg)
                 return help(me);
 
         if (sscanf(arg, "-c %s", arg) || sscanf(arg, "%s -c", arg))
@@ -62,7 +62,7 @@ int main(object me, string arg)
                 return 1;
         }
 
-	seteuid(getuid());
+    seteuid(getuid());
         if (day == -1)
         {
                 // restore from dump
@@ -210,7 +210,7 @@ int main(object me, string arg)
                 write(HIG "清除了玩家" + ob->name(1) + "的某些相关数据。\n" NOR);
                 clear_user_data(ob);
         }
-	return 1;
+    return 1;
 }
 
 // return the directory of the user

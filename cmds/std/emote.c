@@ -3,54 +3,52 @@
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
- 
+
 int main(object me, string str)
 {
-        string prefix;
-        object env;
-        mixed info;
+    string prefix;
+    object env;
+    mixed info;
 
-        if (me->ban_say())
-                return 0;
+    if (me->ban_say())
+        return 0;
 
-        env = environment(me);
-        if (info = env->query("no_say"))
+    env = environment(me);
+    if (info = env->query("no_say"))
+    {
+        if (stringp(info))
         {
-                if (stringp(info))
-                {
-                        write(info);
-                        return 1;
-                }
-
-                write("这个地方不能乱做动作。\n");
-                return 1;
+            write(info);
+            return 1;
         }
 
-        if (me->query("doing") == "scheme")
-        {
-                if (me->query("jing") < 100)
-                        return notify_fail("你现在的精神不济，等一会儿吧。\n");
-                me->add("jing", -50);
-        }
-
-        if (! str)
-        {
-                write(CYN"你看起来表情丰富。\n"NOR);
-                tell_room(env, CYN + (string)me->name()+
-		          "看起来表情丰富。\n" + NOR, me);
-                return 1;
-        }
-
-        prefix = me->query("env/no_prefix") ? "" : "~";
-        write(CYN "你" + str + "\n" NOR);
-        tell_room(env, CYN + prefix + (string)me->name() +
-                  str + "\n" NOR, me);
+        write("这个地方不能乱做动作。\n");
         return 1;
+    }
+
+    if (me->query("doing") == "scheme")
+    {
+        if (me->query("jing") < 100)
+            return notify_fail("你现在的精神不济，等一会儿吧。\n");
+        me->add("jing", -50);
+    }
+
+    if (!str)
+    {
+        write(CYN "你看起来表情丰富。\n" NOR);
+        tell_room(env, CYN + (string)me->name() + "看起来表情丰富。\n" + NOR, me);
+        return 1;
+    }
+
+    prefix = me->query("env/no_prefix") ? "" : "~";
+    write(CYN "你" + str + "\n" NOR);
+    tell_room(env, CYN + prefix + (string)me->name() + str + "\n" NOR, me);
+    return 1;
 }
- 
+
 int help(object me)
 {
-	write(@HELP
+    write(@HELP
 指令格式: emote <动作词>
 
 这个指令可以让你表达一个系统没有预设的动作词, 系统会将你所输入
@@ -65,5 +63,5 @@ int help(object me)
 
 相关指令: semote
 HELP );
-        return 1;
+    return 1;
 }

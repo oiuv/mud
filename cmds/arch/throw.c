@@ -120,7 +120,7 @@ int main(object me, string arg)
         if (! ob->is_in_prison())
                 log_file("static/throw",
                          sprintf("%s %s send into prison by %s because %s.\n",
-		                 log_time(), geteuid(ob), geteuid(this_player(1)), because));
+                         log_time(), geteuid(ob), geteuid(this_player(1)), because));
 
         ob->get_into_prison(me, 0, time);
         UPDATE_D->global_destruct_player(ob, 1);
@@ -129,9 +129,9 @@ int main(object me, string arg)
 
 int help(object me)
 {
-	write(@HELP
+    write(@HELP
 指令格式 : throw <玩家ID> [ <时间> ] because <理由>
- 
+
 这个指令可以让你把某个玩家禁闭一段时间。时间以分钟为单位，可
 以用 h 表示小时，d 表示天，m 表示月份，y 表示年。
 
@@ -143,7 +143,7 @@ int help(object me)
 5. 使用系统错误，档案待查(bug)
 6. 出于维护该玩家档案的目的(main)
 
-see also : free 
+see also : free
 HELP );
         return 1;
 }

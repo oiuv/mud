@@ -59,7 +59,8 @@ int main(object me, string arg)
                 (string)ob->query("family/family_name"))
         {
             message_vision(HIR "$n" HIR "决定判师投入$N" HIR
-                               "门下。\n" NOR + HIC "$n" HIC "跪"
+                               "门下。\n" NOR +
+                               HIC "$n" HIC "跪"
                                "了下来向$N" HIC "恭恭敬敬地磕了四"
                                "个响头，叫道：「师父！」\n" NOR,
                            me, ob);
@@ -74,7 +75,8 @@ int main(object me, string arg)
         else
         {
             message_vision(HIY "$N" HIY "决定收$n" HIY "为弟子"
-                               "。\n" NOR + HIC "$n" HIC "跪了下来"
+                               "。\n" NOR +
+                               HIC "$n" HIC "跪了下来"
                                "向$N" HIC "恭恭敬敬地磕了四个响头，"
                                "叫道：「师父！」\n" NOR,
                            me, ob);
@@ -110,7 +112,7 @@ int main(object me, string arg)
         me->set_temp("pending/recruit", ob);
         message_vision("\n$N想要收$n为弟子。\n", me, ob);
         tell_object(ob, YEL "如果你愿意拜" + me->name() + "为师父，"
-                    "用 apprentice 指令。\n" NOR);
+                                                          "用 apprentice 指令。\n" NOR);
         return 1;
     }
 }

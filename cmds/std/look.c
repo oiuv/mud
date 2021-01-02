@@ -526,12 +526,12 @@ string look_equiped(object me, object obj, string pro)
         {
         case "wielded":
             n++;
-            subs = HIC "  □" NOR + inv[i]->short() + "\n" + subs;
+            subs = HIC "  □ " NOR + inv[i]->short() + "\n" + subs;
             break;
 
         case "worn":
             n++;
-            subs += HIC "  □" NOR + inv[i]->short() + "\n";
+            subs += HIC "  □ " NOR + inv[i]->short() + "\n";
             break;
 
         default:

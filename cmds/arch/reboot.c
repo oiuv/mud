@@ -55,10 +55,10 @@ int main(object me, string arg)
                     ! find_object(SIMUL_EFUN_OB) ||
                     ! find_object(MASTER_OB))
                         shutdown(0);
-                        
-	        if (! is_root(me) )
+
+            if (! is_root(me) )
                 {
-		        write("你没有权限强制停止" + LOCAL_MUD_NAME() + "。\n");
+                write("你没有权限强制停止" + LOCAL_MUD_NAME() + "。\n");
                         return 1;
                 }
 
@@ -67,9 +67,9 @@ int main(object me, string arg)
                 return 1;
         }
 
-	if (wiz_level(me) < 4 && ! flag)
+    if (wiz_level(me) < 4 && ! flag)
         {
-		write("你没有权限重新启动" + LOCAL_MUD_NAME() + "。\n");
+        write("你没有权限重新启动" + LOCAL_MUD_NAME() + "。\n");
                 return 1;
         }
 
@@ -149,37 +149,37 @@ private void heart_beat()
 
 private void reboot_mud()
 {
-	object *user, link_ob;
-	int i;
+    object *user, link_ob;
+    int i;
 
-	message_system("游戏重新启动，请稍候一分钟再 login 。\n");
+    message_system("游戏重新启动，请稍候一分钟再 login 。\n");
 
-	user = users();
-	for (i = 0; i < sizeof(user); i++)
-	{
-		if (! environment(user[i])) continue;
+    user = users();
+    for (i = 0; i < sizeof(user); i++)
+    {
+        if (! environment(user[i])) continue;
                 user[i]->delete("quest");
-		user[i]->save();
-		link_ob = user[i]->query_temp("link_ob");
-		if (objectp(link_ob)) link_ob->save();
-	}
+        user[i]->save();
+        link_ob = user[i]->query_temp("link_ob");
+        if (objectp(link_ob)) link_ob->save();
+    }
 
         // 保存所有的守护进程的数据
         reset_eval_cost();
-	if (find_object(DNS_MASTER)) DNS_MASTER->send_shutdown();
+    if (find_object(DNS_MASTER)) DNS_MASTER->send_shutdown();
         if (find_object(NAME_D))     NAME_D->mud_shutdown();
         if (find_object(FAMILY_D))   FAMILY_D->mud_shutdown();
         if (find_object(CLOSE_D))    CLOSE_D->mud_shutdown();
         if (find_object(DBASE_D))    DBASE_D->mud_shutdown();
 
-	shutdown(0);
+    shutdown(0);
 }
 
 int help (object me)
 {
         write(@HELP
 指令格式: reboot [-f] | soon | after <n> | cancel
- 
+
 重新起动游戏。如果采用 -f 参数，则系统强制启动，而不保存任何
 进度，这是供系统出错时使用的。如果使用了参数soon，则系统将立
 刻重新启动，而使用 after n 则系统将在 n 分钟以后重新启动。
@@ -187,7 +187,7 @@ int help (object me)
 使用了 -f 参数则 soon 和 after 无效。
 
 如果使用了 after 参数，可以使用 cancel 参数中止启动的过程。
- 
+
 HELP );
         return 1;
 }

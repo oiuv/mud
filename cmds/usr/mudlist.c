@@ -25,7 +25,7 @@ int main(object me, string arg)
     if (!find_object(DNS_MASTER))
         return notify_fail("网络精灵并没有被载入，请先将网路精灵载入。\n");
 
-    //	Obtain mapping containing mud data
+    //    Obtain mapping containing mud data
     mud_list = (mapping)DNS_MASTER->query_muds();
 
     // so we recognise ourselves as a DNS mud
@@ -33,7 +33,7 @@ int main(object me, string arg)
 
     if (!mud_list)
         return notify_fail(LOCAL_MUD_NAME() + "目前并没有跟网路上其他 Mud 取得联系。\n");
-
+    // debug_message(sprintf("%O", mud_list));
     // Get list of all mud names within name server
     muds = keys(mud_list) - ({"DEFAULT"});
 
@@ -64,7 +64,7 @@ int main(object me, string arg)
     if (!sizeof(muds))
         return notify_fail("目前本站并没有和这个 MUD 取得任何联系。\n");
 
-    //	Place mudlist into alphabetical format
+    //    Place mudlist into alphabetical format
     muds = sort_array(muds, 1);
 
     output = WHT BBLU " Mud          中文名称            国际网路位址     端口  人数 \n" NOR
@@ -73,7 +73,7 @@ int main(object me, string arg)
     //      Count for users
     uc = 0;
 
-    //	Loop through mud list and store one by one
+    //    Loop through mud list and store one by one
     for (loop = 0, size = sizeof(muds); loop < size; loop++)
     {
         mudn = muds[loop];
@@ -127,7 +127,7 @@ int main(object me, string arg)
 
 int help()
 {
-	write(@HELP
+    write(@HELP
 指令格式 : mudlist <MUD名字> | all | sites
 
 这个指令让你列出目前跟这个 Mud 取得联系中的其他 Mud。
@@ -137,5 +137,5 @@ int help()
 使用 sites 参数表示列出该 Mud 的所有分站。
 如果不是以上参数，则列出以 <MUD名字> 开头的站点。
 HELP );
-	return 1;
+    return 1;
 }

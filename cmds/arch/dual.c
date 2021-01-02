@@ -2,27 +2,25 @@
 // this file does nothing if no shell's enabled.
 int main(object me, string arg, string flag1)
 {
-   int flag;
-   if (! SECURITY_D->valid_grant(me, "(arch)") 
-       && flag1 != "call")
+    int flag;
+    if (!SECURITY_D->valid_grant(me, "(arch)") && flag1 != "call")
         return 0;
-   if (! arg)
-       return notify_fail("错误：缺少代码内容！\n");
+    if (!arg)
+        return notify_fail("错误：缺少代码内容！\n");
 
-   flag = (int)me->query("env/dual_type");
+    flag = (int)me->query("env/dual_type");
 
-   if (flag)
-       return (int)me->evaluate_shell(arg, flag);
+    if (flag)
+        return (int)me->evaluate_shell(arg, flag);
 
-   printf("%O\n", me->evaluate_shell(arg, 0));
+    printf("%O\n", me->evaluate_shell(arg, 0));
 
-   return 1;
-
+    return 1;
 }
 
 int help(object me)
 {
- write(@HELP
+    write(@HELP
 指令格式 : dual [detail]
 
 这个指令可以执行一段单独的LPC代码。
@@ -40,7 +38,6 @@ int help(object me)
 会随机的选择当前房间的一个出口行走。
 
 HELP
-   );
-   return 1;
+    );
+    return 1;
 }
-

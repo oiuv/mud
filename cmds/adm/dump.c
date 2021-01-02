@@ -2,25 +2,26 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me,string arg)
+int main(object me, string arg)
 {
-	seteuid(geteuid(me));
+    seteuid(geteuid(me));
 
-        dumpallobj();
+    dumpallobj();
 
-	return 1;
+    write("dump all obj to OBJ_DUMP...ok\n");
+
+    return 1;
 }
 
 int help(object me)
 {
-	write(@HELP
+    write(@HELP
 指令格式 : dump
- 
-dump the stats of all objects to a file in root dir 
+
+dump the stats of all objects to a file in root dir
 named OBJ_DUMP.
 
 HELP
     );
     return 1;
 }
- 

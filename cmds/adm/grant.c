@@ -8,134 +8,141 @@ void create() { seteuid(getuid()); }
 
 int main(object me, string arg)
 {
-        int opt_clear, opt_del;
-        int i;
-        string *opts, *gr;                
-        string user;
-        object ob;
-        string msg;
+    int opt_clear, opt_del;
+    int i;
+    string *opts, *gr;
+    string user;
+    object ob;
+    string msg;
 
-        if (! is_root(me) && ! SECURITY_D->valid_grant(me, "(admin)"))
-                return notify_fail("只有管理员才能使用授权命令。\n");
+    if (!is_root(me) && !SECURITY_D->valid_grant(me, "(admin)"))
+        return notify_fail("只有管理员才能使用授权命令。\n");
 
-        if (! me->is_admin())
+    if (!me->is_admin())
+    {
+        switch (SECURITY_D->query_site_privilege("grant"))
         {
-                switch (SECURITY_D->query_site_privilege("grant"))
-                {
-                case "enable":
-                        break;
+        case "enable":
+            break;
 
-                default:
-                        return notify_fail("你不能为其他玩家授权。\n");
-                }
+        default:
+            return notify_fail("你不能为其他玩家授权。\n");
+        }
+    }
+
+    if (!arg)
+    {
+        gr = SECURITY_D->query_grant_users();
+        if (!arrayp(gr) || sizeof(gr) < 1)
+        {
+            write("目前系统中没有人被授予额外使用命令的权利。\n");
+            return 1;
         }
 
-        if (! arg)
-        {
-                gr = SECURITY_D->query_grant_users();
-                if (! arrayp(gr) || sizeof(gr) < 1)
-                {
-                        write("目前系统中没有人被授予额外使用命令的权利。\n");
-                        return 1;
-                }
+        msg = "目前系统中被授与可以额外使用命令的用户有：\n";
+        msg += implode(gr, "、") + "。\n";
+        write(msg);
+        return 1;
+    }
 
-                msg = "目前系统中被授与可以额外使用命令的用户有：\n";
-                msg += implode(gr, "、") + "。\n";
-                write(msg);
-                return 1;
+    arg = replace_string(arg, ";", " ");
+    arg = replace_string(arg, ",", " ");
+    opts = explode(arg, " ");
+    for (i = 0; i < sizeof(opts); i++)
+    {
+        if (opts[i] == "")
+            continue;
+
+        if (opts[i] == "-c")
+            opt_clear = 1;
+        else if (opts[i] == "-d")
+            opt_del = 1;
+        else if (!stringp(user))
+            user = opts[i];
+        else if (file_size("/grant/" + opts[i]) < 0)
+            return notify_fail("请参见/grant下面的"
+                               "可授权命令，目前并没有 " +
+                               opts[i] +
+                               " 这个项目。\n");
+        else
+            continue;
+
+        opts[i] = 0;
+    }
+
+    opts -= ({0, ""});
+    if (!stringp(user))
+        return notify_fail("你要给谁授权？\n");
+
+    ob = find_player(user);
+
+    if (opt_clear)
+    {
+        // 清除某一个玩家所有的权限
+        write("清除了 " + user + " 的所有授予的命令使用权限。\n");
+        if (SECURITY_D->remove_grant(user, "*") && objectp(ob))
+            tell_object(ob, HIG + me->name(1) + "收回了所有授予你的命令使用权限。\n");
+        return 1;
+    }
+
+    if (!sizeof(opts))
+    {
+        // 显示一个玩家所有的权限
+        gr = SECURITY_D->query_grant(user);
+        if (!arrayp(gr) || sizeof(gr) < 1)
+        {
+            write("目前 " + user + " 并没有被授予任何命令使用权限。\n");
+            return 1;
         }
 
-        arg = replace_string(arg, ";", " ");
-        arg = replace_string(arg, ",", " ");
-        opts = explode(arg, " ");
-        for (i = 0; i < sizeof(opts); i++)
+        msg = "目前 " + user + " 授予的命令使用权限有：\n";
+        for (i = 0; i < sizeof(gr); i++)
         {
-                if (opts[i] == "")
-                        continue;
-
-                if (opts[i] == "-c") opt_clear = 1; else
-                if (opts[i] == "-d") opt_del   = 1; else
-                if (! stringp(user)) user = opts[i]; else
-                if (file_size("/grant/" + opts[i]) < 0)
-                        return notify_fail("请参见/grant下面的"
-                                           "可授权命令，目前并没有 " + opts[i] +
-                                           " 这个项目。\n");
-                else continue;
-
-                opts[i] = 0;
+            msg += WHT + gr[i] + NOR;
+            if (i < sizeof(gr) - 1)
+            {
+                msg += "、";
+                if ((i + 1) % 8 == 0)
+                    msg += "\n";
+            }
         }
+        msg += "。\n";
+        write(msg);
+        return 1;
+    }
 
-        opts -= ({ 0, "" });
-        if (! stringp(user))
-                return notify_fail("你要给谁授权？\n");
-
-        ob = find_player(user);
-
-        if (opt_clear)
+    for (i = 0; i < sizeof(opts); i++)
+    {
+        if (opt_del)
         {
-                // 清除某一个玩家所有的权限
-                write("清除了 " + user + " 的所有授予的命令使用权限。\n");
-                if (SECURITY_D->remove_grant(user, "*") && objectp(ob))
-                        tell_object(ob, HIG + me->name(1) + "收回了所有授予你的命令使用权限。\n");
-                return 1;
+            if (!me->is_admin())
+                message_system(me->name(1) + "收回了 " + user +
+                               " 使用 " + opts[i] + " 的权限。\n");
+            write("清除了 " + user + " 使用 " + opts[i] +
+                  " 的权限。\n");
+            if (SECURITY_D->remove_grant(user, opts[i]) && objectp(ob))
+                tell_object(ob, HIG + me->name(1) +
+                                    "收回了你 " + opts[i] +
+                                    " 的权限。\n");
         }
-
-        if (! sizeof(opts))
+        else
         {
-                // 显示一个玩家所有的权限
-                gr = SECURITY_D->query_grant(user);
-                if (! arrayp(gr) || sizeof(gr) < 1)
-                {
-                        write("目前 " + user + " 并没有被授予任何命令使用权限。\n");
-                        return 1;
-                }
-
-                msg = "目前 " + user + " 授予的命令使用权限有：\n";
-                for (i = 0; i < sizeof(gr); i++)
-                {
-                        msg += WHT + gr[i] + NOR;
-                        if (i < sizeof(gr) - 1)
-                        {
-                                msg += "、";
-                                if ((i + 1) % 8 == 0) msg += "\n";
-                        }
-                }
-                msg += "。\n";
-                write(msg);
-                return 1; 
+            if (!me->is_admin())
+                message_system(me->name(1) + "授予 " + user +
+                               " 使用 " + opts[i] + " 的权限。\n");
+            write("授予了 " + user + " 使用 " + opts[i] +
+                  " 的权限。\n");
+            if (SECURITY_D->grant(user, opts[i]) && objectp(ob))
+                tell_object(ob, HIG + me->name(1) +
+                                    "授予了你 " + opts[i] +
+                                    " 的权限。\n");
         }
+    }
 
-        for (i = 0; i < sizeof(opts); i++)
-        {
-                if (opt_del)
-                {
-                        if (! me->is_admin())
-                                message_system(me->name(1) + "收回了 " + user +
-                                               " 使用 " + opts[i] + " 的权限。\n");
-                        write("清除了 " + user + " 使用 " + opts[i] +
-                              " 的权限。\n");
-                        if (SECURITY_D->remove_grant(user, opts[i]) && objectp(ob))
-                                tell_object(ob, HIG + me->name(1) +
-                                            "收回了你 " + opts[i] +
-                                            " 的权限。\n");
-                } else
-                {
-                        if (! me->is_admin())
-                                message_system(me->name(1) + "授予 " + user +
-                                               " 使用 " + opts[i] + " 的权限。\n");
-                        write("授予了 " + user + " 使用 " + opts[i] +
-                              " 的权限。\n");
-                        if (SECURITY_D->grant(user, opts[i]) && objectp(ob))
-                                tell_object(ob, HIG + me->name(1) +
-                                            "授予了你 " + opts[i] +
-                                            " 的权限。\n");
-                }
-        }
+    // 保存授权信息
+    SECURITY_D->save();
 
-        // 保存授权信息
-        SECURITY_D->save();
-
-	return 1;
+    return 1;
 }
 
 int help (object me)

@@ -10,9 +10,9 @@ int do_sort_players(int day);
 
 int main(object me, string arg)
 {
-//	string name,reason;
-//	string status;
-//	int day;
+//    string name,reason;
+//    string status;
+//    int day;
 
         if (! SECURITY_D->valid_grant(me, "(arch)"))
                 return 0;
@@ -27,30 +27,30 @@ int main(object me, string arg)
 
 int do_sort_players(int day)
 {
-	int i, j, count, fail, succ;
-	string *dir, *ppls, name;
+    int i, j, count, fail, succ;
+    string *dir, *ppls, name;
         string sdir/*, ufile*/;
-//	mixed info;
+//    mixed info;
         object login_ob, user_ob;
 
-	seteuid(getuid());
-	message("system", "\n--- 整理玩家储存档中，请稍候 ---\n", users());
-	write("处理中：");
-	count = 0;
-	fail = 0;
+    seteuid(getuid());
+    message("system", "\n--- 整理玩家储存档中，请稍候 ---\n", users());
+    write("处理中：");
+    count = 0;
+    fail = 0;
         succ = 0;
-	dir = get_dir(DATA_DIR + "login/");
+    dir = get_dir(DATA_DIR + "login/");
 
         login_ob = new("/clone/user/login");
-	for (i = 0; i < sizeof(dir); i++)
+    for (i = 0; i < sizeof(dir); i++)
         {
-		reset_eval_cost();
-		write("Check: " + dir[i] + "\n");
+        reset_eval_cost();
+        write("Check: " + dir[i] + "\n");
                 sdir = DATA_DIR + "login/" + dir[i] + "/";
-		ppls = get_dir(sdir);
-		for (j = 0; j < sizeof(ppls); j++)
+        ppls = get_dir(sdir);
+        for (j = 0; j < sizeof(ppls); j++)
                 {
-			if (sscanf(ppls[j], "%s.o", name) == 1)
+            if (sscanf(ppls[j], "%s.o", name) == 1)
                         {
                                 count++;
 
@@ -85,11 +85,11 @@ int do_sort_players(int day)
                                 }
                                 destruct(user_ob);
                         }
-		}
-	}
+        }
+    }
         destruct(login_ob);
 
-	write("\n总共有 " + count + " 位使用者。\n");
-	write("为 " + succ + " 个玩家增加了鉴别 ID，另外 " + fail + " 个使用者无法处理。\n");
-	return 1;
+    write("\n总共有 " + count + " 位使用者。\n");
+    write("为 " + succ + " 个玩家增加了鉴别 ID，另外 " + fail + " 个使用者无法处理。\n");
+    return 1;
 }

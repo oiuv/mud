@@ -97,7 +97,7 @@ int main(object me, string arg)
 
 int help(object me)
 {
-write(@HELP
+    write(@HELP
 指令格式 : wash <武器> | <防具> | hand
 
 这个指令可以让你将武器、防具好好冲洗一下，以清除上面的毒。当然没有

@@ -280,7 +280,6 @@ int do_right(object me, object ob)
 int do_refuse(object me, object ob)
 {
     object *t;
-    //      string msg;
 
     if (!ob || environment(ob) != environment(me))
         return notify_fail("可惜啊，人家已经不在这儿了。\n");

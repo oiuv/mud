@@ -11,7 +11,7 @@ int main(object me, string arg)
         object *obs/*, *dst*/;
         object qob;
 
-	seteuid(getuid());
+    seteuid(getuid());
 
         if (! SECURITY_D->valid_grant(me, "(arch)"))
                 return 0;
@@ -61,11 +61,11 @@ int main(object me, string arg)
 
 int help(object me)
 {
-	write(@HELP
+    write(@HELP
 指令格式 : qdel all | <任务名称>
 
 此指令可清除当前系统某一个任务或是所有的任务。
 HELP
-	);
-	return 1;
+    );
+    return 1;
 }

@@ -6,92 +6,98 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-        string msg, msg1, msg2;
-		mixed files;
-        mapping ss;
-        string  skill;
-        object ob;
-        string pro;
-		int i, m;
+    string msg, msg1, msg2;
+    mixed files;
+    mapping ss;
+    string skill;
+    object ob;
+    string pro;
+    int i, m;
 
-        if (wizardp(me) && stringp(arg) &&
-            objectp(ob = find_player(arg)))
-                // 查看其他玩家的特殊技能
-                arg = 0;
-        else
-                ob = me;
+    if (wizardp(me) && stringp(arg) && objectp(ob = find_player(arg)))
+        // 查看其他玩家的特殊技能
+        arg = 0;
+    else
+        ob = me;
 
-        pro = (ob == me) ? "你" : ob->name(1);
+    pro = (ob == me) ? "你" : ob->name(1);
 
-        if (! ob->query("born") && ! ob->query("reborn"))
-                return notify_fail(pro + "还没有出生呐，会什么特技？\n");
+    if (!ob->query("born") && !ob->query("reborn"))
+        return notify_fail(pro + "还没有出生呐，会什么特技？\n");
 
-        if (! mapp(ss = ob->query("special_skill")) ||
-            ! sizeof(ss))
-                return notify_fail(pro + "现在好像什么特技都不会哦。\n");
+    if (!mapp(ss = ob->query("special_skill")) || !sizeof(ss))
+        return notify_fail(pro + "现在好像什么特技都不会哦。\n");
 
-        if (arg && (ob == me))
+    if (arg && (ob == me))
+    {
+        // 有参数，运用特技。
+        if (me->is_busy())
+            return notify_fail("你现在忙着呢，不能使用特技。\n");
+
+        if (sscanf(arg, "%s %s", skill, arg) != 2)
+            skill = arg;
+
+        if (!me->query("special_skill/" + skill))
+            return notify_fail("你不会这种特技啊！\n");
+
+        if (file_size(SPECIAL_D(skill) + ".c") < 0)
+            return notify_fail("好像没有这种特技...\n");
+
+        return SPECIAL_D(skill)->perform(me, skill, arg);
+    }
+
+    files = ({
+        "guibian",
+        "guimai",
+        "jinshen",
+        "piyi",
+        "qinzong",
+        "wuxing",
+        "shenyan",
+        "tiandao",
+    });
+
+    msg = pro + "现在会以下这些特技：\n";
+    msg1 = "";
+    msg2 = "";
+    /*
+    foreach (skill in keys(ss))
+    {
+        if (file_size(SPECIAL_D(skill) + ".c") < 0)
         {
-                // 有参数，运用特技。
-                if (me->is_busy())
-                        return notify_fail("你现在忙着呢，不能使用特技。\n");
-
-                if (sscanf(arg, "%s %s", skill, arg) != 2)
-                        skill = arg;
-
-                if (! me->query("special_skill/" + skill))
-                        return notify_fail("你不会这种特技啊！\n");
-
-                if (file_size(SPECIAL_D(skill) + ".c") < 0)
-                        return notify_fail("好像没有这种特技...\n");
-
-                return SPECIAL_D(skill)->perform(me, skill, arg);
+            write("不存在技能：" + skill + "\n");
+            continue;
         }
-
-		files = ({ "guibian", "guimai", "jinshen", "piyi",
-                   "qinzong", "wuxing", "shenyan", "tiandao",
-                });
-				
-        msg = pro + "现在会以下这些特技：\n";
-		msg1 = "";
-		msg2 = "";
- /*       foreach (skill in keys(ss))
+        msg += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
+    }
+    */
+    foreach (skill in keys(ss))
+    {
+        m = 0;
+        for (i = 0; i < sizeof(files); i++)
         {
-                if (file_size(SPECIAL_D(skill) + ".c") < 0)
-                {
-                        write("不存在技能：" + skill + "\n");
-                        continue;
-                }
-                msg += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
-        }*/
-		foreach (skill in keys(ss))
-		{
-			m = 0;
-			for (i = 0; i < sizeof(files); i++)
-			{
-				if (skill == files[i])
-				{
-					msg2 += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
-					m = 1;
-				}
-				
-			}
-			if (m < 1)
-				msg1 += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
-		}
-		msg += msg1;
-		if (msg2 != "")
-		{
-			msg += HIG " 转 世\n";
-			msg += msg2;
-		}
-        write(msg);
-        return 1;
+            if (skill == files[i])
+            {
+                msg2 += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
+                m = 1;
+            }
+        }
+        if (m < 1)
+            msg1 += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
+    }
+    msg += msg1;
+    if (msg2 != "")
+    {
+        msg += HIG " 转  世\n";
+        msg += msg2;
+    }
+    write(msg);
+    return 1;
 }
 
 int help(object me)
 {
-write(@HELP
+    write(@HELP
 指令格式 : special <skill> | <玩家ID>
 
 使用这条命令可以查看你的特技，如果要运用你的特技，则可以加上

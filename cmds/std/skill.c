@@ -180,7 +180,7 @@ int main(object me, string arg)
 
 int help(object me)
 {
-        write(@HELP
+    write(@HELP
 指令格式：skill  <技能名称> | <技能中文名>
 
 这个指令让你检查指定的某种武功或技能（技能名称可输入中
@@ -190,5 +190,5 @@ int help(object me)
 相关指令：skills
 
 HELP);
-        return 1;
+    return 1;
 }

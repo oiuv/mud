@@ -47,6 +47,7 @@ int main(object me, string arg)
         switch (random(9))
         {
         case 0:
+        case 8:
             tell_object(me, HIR "你又想起了很多温馨"
                                 "的往事，不由得沉浸其中。\n" NOR);
             break;

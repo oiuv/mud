@@ -43,7 +43,7 @@ int main(object me, string arg)
 
 int help(object me)
 {
-	write(@HELP
+    write(@HELP
 指令格式 : fill <容器>
 
 这个指令可以让有水的地方把容器灌满清水。

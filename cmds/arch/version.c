@@ -27,9 +27,9 @@ int main(object me, string arg)
 
         if (arg == "sync" || arg == "SYNC")
         {
-        	if (! SECURITY_D->valid_grant(me, "(arch)"))
+            if (! SECURITY_D->valid_grant(me, "(arch)"))
                 {
-        		write("你没有权限同步" + LOCAL_MUD_NAME() +
+                write("你没有权限同步" + LOCAL_MUD_NAME() +
                               "的版本。\n");
                         return 1;
                 }
@@ -47,9 +47,9 @@ int main(object me, string arg)
 
         if (arg && sscanf(arg, "get %s", arg))
         {
-        	if (! SECURITY_D->valid_grant(me, "(admin)"))
+            if (! SECURITY_D->valid_grant(me, "(admin)"))
                 {
-        		write("你没有权限读取服务器上的文件。\n");
+                write("你没有权限读取服务器上的文件。\n");
                         return 1;
                 }
 
@@ -58,7 +58,7 @@ int main(object me, string arg)
 
         show_version();
 
-	return 1;
+    return 1;
 }
 
 void show_version()
@@ -78,7 +78,7 @@ void show_version()
                 return;
         }
 
-	write(sprintf("%s目前运行的版本是：%O[%s 生成]\n",
+    write(sprintf("%s目前运行的版本是：%O[%s 生成]\n",
                       LOCAL_MUD_NAME(), ver, ctime(ver)));
 }
 
@@ -86,7 +86,7 @@ int help(object me)
 {
         write(@HELP
 指令格式 : version [sync] | get <file>
- 
+
 这个指令会显示游戏目前所用的 MudLib 版本。如果指明了sync参数，
 则系统将尝试同步最新的版本。注意：在运行中同步是不可靠的，因
 为系统不能自动的更新已经载入内存的对象，只有等所有内存中的对
@@ -95,7 +95,7 @@ MUD 或是手工更新(update)那些不同的地方。
 
 使用 version get <file> 可以读取服务器上 /version/  路径下面
 的某个文件。
- 
+
 HELP );
     return 1;
 }

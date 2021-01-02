@@ -12,7 +12,7 @@ int main( object me, string arg )
 
 int help(object me)
 {
-     write(@HELP
+    write(@HELP
 指令格式: time
 
 这个指令告诉你现实世界中现在的时间。

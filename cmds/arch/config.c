@@ -253,7 +253,7 @@ void write_config()
 
 int help(object me)
 {
-write(@HELP
+    write(@HELP
 指令格式 : config [-r | -w] [配置项=值] [-d 配置项]
 
 Show 出本 MUD 的 Startup Configuration 。如果不加参数则同时
@@ -264,5 +264,5 @@ Show 出本 MUD 的 Startup Configuration 。如果不加参数则同时
 -d 可以去掉一个配置项。
 
 HELP );
-     return 1;
+    return 1;
 }

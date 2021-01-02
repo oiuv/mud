@@ -288,7 +288,7 @@ int main(object me, string arg)
     {
         // 好，开始组合信息
         str += "\n\n";
-        //str += HIC "≡" HIY "──────────────────────────" HIC "≡\n" NOR;
+        //str += HIC "≡" HIY "----------------------------------------------------" HIC "≡\n" NOR;
 
         // 将知识类技能得到，并组合其信息
         skill_k = ({ });
@@ -310,7 +310,7 @@ int main(object me, string arg)
 
         // OK! 完毕。
         // 信息尾，结束
-        //str += HIC "≡" HIY "──────────────────────────" HIC "≡\n" NOR;
+        //str += HIC "≡" HIY "----------------------------------------------------" HIC "≡\n" NOR;
     }
     else
     {
@@ -355,7 +355,7 @@ int main(object me, string arg)
     return 1;
 }
 
-#define		COLORS		NOR	// 显示时的主颜色
+#define        COLORS        NOR    // 显示时的主颜色
 
 string get_str( string *ls, string n, mapping skl, mapping lrn, string *mapped )
 {
