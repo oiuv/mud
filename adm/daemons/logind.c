@@ -917,9 +917,17 @@ varargs void enter_world(object ob, object user, int silent)
     // user->set("born",1);
     if (! silent)
     {
-        color_cat(MOTD);
+        string term_type;
 
-        write("你连线进入" + LOCAL_MUD_NAME() + "。\n\n");
+        color_cat(MOTD);
+        write("你连线进入" + LOCAL_MUD_NAME() + "。\n");
+        if (term_type = ob->query_temp("terminal_type"))
+        {
+            write("客户端类型为 " + term_type + "。\n");
+            user->set_temp("terminal_type", term_type);
+        }
+        write("\n");
+
         if (!stringp(user->query("character")))
         {
             if (user->is_ghost())
