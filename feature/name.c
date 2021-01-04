@@ -86,7 +86,14 @@ varargs string short(int raw)
     string str;
 
     if (raw || !stringp(str = query("short")))
-        str = name(raw) + "(" + capitalize(query("id")) + ")";
+    {
+        str = name(raw);
+        if (query("id"))
+        {
+            str += "(" + capitalize(query("id")) + ")";
+        }
+    }
+
     return str;
 }
 

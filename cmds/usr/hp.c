@@ -209,22 +209,22 @@ int main(object me, string arg)
             return notify_fail("无法察看" + ob->name(1) + "的状态。\n");
 
     sp = "@#hp@";
-
+    sp += sprintf("名称:%s|",ob->short());
     sp += sprintf("精气:%d/%d/%d|精力:%d/%d(+%d)|",
-            my["jing"], my["eff_jing"], my["max_jing"],
-            my["jingli"], my["max_jingli"], my["jiajing"]);
+                  my["jing"], my["eff_jing"], my["max_jing"],
+                  my["jingli"], my["max_jingli"], my["jiajing"]);
 
     sp += sprintf("气血:%d/%d/%d|内力:%d/%d(+%d)|",
-            my["qi"], my["eff_qi"], my["max_qi"],
-            my["neili"], my["max_neili"], my["jiali"]);
+                  my["qi"], my["eff_qi"], my["max_qi"],
+                  my["neili"], my["max_neili"], my["jiali"]);
 
     sp += sprintf("食物:%d/%d|潜能:%d|",
-            my["food"], ob->max_food_capacity(),
-            (int)ob->query("potential") - (int)ob->query("learned_points"));
+                  my["food"], ob->max_food_capacity(),
+                  (int)ob->query("potential") - (int)ob->query("learned_points"));
 
     sp += sprintf("饮水:%d/%d|体会:%d|",
-            my["water"], ob->max_water_capacity(),
-            my["experience"] - my["learned_experience"]);
+                  my["water"], ob->max_water_capacity(),
+                  my["experience"] - my["learned_experience"]);
 
     // if (craze = me->query_craze())
     // {

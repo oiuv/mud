@@ -294,7 +294,6 @@ varargs string short(int raw)
     {
         str = query("name") + "(" + query("id") + ")";
         if (!stringp(title = query_temp("title")))
-
             title = query("title");
         /*
         // 显示同盟
@@ -305,14 +304,14 @@ varargs string short(int raw)
                 title += query("title");
         }
         */
-        if (nick = query("nickname"))
+        if (!(nick = query("nickname")))
         {
-            str = "「" + nick + "」" + str;
-            if (title)
-                str = title + str;
+            nick = "null";
         }
-        else if (title)
-            str = title + " " + str;
+        if (!title)
+            title = "null";
+
+        str = title + "「" + nick + "」" + str;
     }
 
     if (!raw)

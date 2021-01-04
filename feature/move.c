@@ -217,7 +217,6 @@ varargs int move(mixed dest, int raw)
         }
     }
     move_object(ob);
-
     if (ob == this_player())
     {
         tell_room(ob, "@#move1@" + me->short() + "移动到当前玩家身上@\n");

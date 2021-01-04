@@ -284,7 +284,7 @@ varargs void enter_world(object ob, object user, int silent)
     if (interactive(ob)) exec(user, ob);
 
     // write("目前权限：" + wizhood(user) + "\n");
-
+    write("@#200@你连线进入" + LOCAL_MUD_NAME() + "。@\n");
     user->setup();
     if (user->query("age") == 14)
     {
@@ -374,7 +374,6 @@ varargs void enter_world(object ob, object user, int silent)
     if (! silent)
     {
         // color_cat(MOTD);
-        write("@#200@你连线进入" + LOCAL_MUD_NAME() + "。@\n");
         // 向客户端发送玩家状态
         HP_CMD->main(this_player());
 
