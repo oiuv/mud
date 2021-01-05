@@ -123,7 +123,7 @@ void destruct(object ob)
     }
     else
     {
-        debug_message(sprintf(ctime() + YEL " %s 已被系统销毁..." NOR, ob + YEL));
+        // debug_message(sprintf(ctime() + YEL " %s 已被系统销毁..." NOR, ob + YEL));
     }
 
     efun::destruct(ob);
