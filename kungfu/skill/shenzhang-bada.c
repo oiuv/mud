@@ -1,7 +1,7 @@
 // shenzhang-bada.c - 神掌八打
-       
+
 inherit SHAOLIN_SKILL;
-        
+
 mapping *action = ({
 ([     "action": "$N一招「横云断峰」左掌佯攻，右掌蓄势击向$n的$l",
        "force" : 120,
@@ -85,65 +85,65 @@ mapping *action = ({
 ]),
 });
 
-int valid_enable(string usage) { return usage == "strike" || usage == "parry"; } 
-     
-int valid_combine(string combo) { return combo == "wuxiang-zhi"; } 
-      
-int valid_learn(object me) 
-{ 
-        if (me->query_temp("weapon") || me->query_temp("secondary_weapon")) 
-                return notify_fail("练神掌八打必须空手。\n"); 
-      
-        if ((int)me->query_skill("force") < 300) 
-                return notify_fail("你的内功火候不够，无法学神掌八打。\n"); 
-     
-        if (me->query("dex") < 26) 
-                return notify_fail("你的先天条件不够，无法学神掌八打。\n");        
-        if ((int)me->query("max_neili") < 3000) 
-                return notify_fail("你的内力太弱，无法练神掌八打。\n"); 
-      
-        if ((int)me->query_skill("strike", 1) < (int)me->query_skill("shenzhang-bada", 1))
-                return notify_fail("你的基本指法水平有限，无法领会更高深的神掌八打。\n"); 
-      
-        return 1; 
-} 
-      
-string query_skill_name(int level) 
-{ 
-        int i; 
-        for (i = sizeof(action) - 1; i >= 0; i--) 
-                if (level >= action[i]["lvl"]) 
-                        return action[i]["skill_name"]; 
-} 
-      
-mapping query_action(object me, object weapon) 
-{ 
-        int i, level; 
-        level = (int) me->query_skill("shenzhang-bada", 1); 
-        for (i = sizeof(action); i > 0; i--) 
-                if (level > action[i-1]["lvl"]) 
-                        return action[NewRandom(i, 20, level/5)]; 
-} 
-      
-int practice_skill(object me) 
-{ 
-        if (me->query_temp("weapon") || 
-            me->query_temp("secondary_weapon")) 
-                return notify_fail("你必须空手练习！\n"); 
-      
-        if ((int)me->query("qi") < 100) 
-                return notify_fail("你的体力太低了。\n"); 
-      
-        if ((int)me->query("neili") < 80) 
-                return notify_fail("你的内力不够练神掌八打。\n"); 
-      
-        me->receive_damage("qi", 90); 
-        me->add("neili", -70); 
-        return 1; 
-} 
-      
-string perform_action_file(string action) 
-{ 
-        return __DIR__"shenzhang-bada/" + action; 
-} 
+int valid_enable(string usage) { return usage == "strike" || usage == "parry"; }
 
+int valid_combine(string combo) { return combo == "wuxiang-zhi"; }
+
+int valid_learn(object me)
+{
+    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+        return notify_fail("练神掌八打必须空手。\n");
+
+    if ((int)me->query_skill("force") < 300)
+        return notify_fail("你的内功火候不够，无法学神掌八打。\n");
+
+    if (me->query("dex") < 26)
+        return notify_fail("你的先天条件不够，无法学神掌八打。\n");
+
+    if ((int)me->query("max_neili") < 3000)
+        return notify_fail("你的内力太弱，无法练神掌八打。\n");
+
+    if ((int)me->query_skill("strike", 1) < (int)me->query_skill("shenzhang-bada", 1))
+        return notify_fail("你的基本掌法水平有限，无法领会更高深的神掌八打。\n");
+
+    return 1;
+}
+
+string query_skill_name(int level)
+{
+    int i;
+    for (i = sizeof(action) - 1; i >= 0; i--)
+        if (level >= action[i]["lvl"])
+            return action[i]["skill_name"];
+}
+
+mapping query_action(object me, object weapon)
+{
+    int i, level;
+    level = (int)me->query_skill("shenzhang-bada", 1);
+    for (i = sizeof(action); i > 0; i--)
+        if (level > action[i - 1]["lvl"])
+            return action[NewRandom(i, 20, level / 5)];
+}
+
+int practice_skill(object me)
+{
+    if (me->query_temp("weapon") ||
+        me->query_temp("secondary_weapon"))
+        return notify_fail("你必须空手练习！\n");
+
+    if ((int)me->query("qi") < 100)
+        return notify_fail("你的体力太低了。\n");
+
+    if ((int)me->query("neili") < 80)
+        return notify_fail("你的内力不够练神掌八打。\n");
+
+    me->receive_damage("qi", 90);
+    me->add("neili", -70);
+    return 1;
+}
+
+string perform_action_file(string action)
+{
+    return __DIR__ "shenzhang-bada/" + action;
+}
