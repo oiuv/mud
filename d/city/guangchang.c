@@ -34,7 +34,7 @@ LONG);
         "/d/beijing/npc/haoke1" : 1,
     ]));
     setup();
-    "/clone/fam/notice"->foo();
+    // "/clone/fam/notice"->foo();
     "/d/city/npc/liapo"->come_here();
 
 }
@@ -51,7 +51,7 @@ int do_enter(string arg)
     me = this_player();
 
     if (! arg || arg == "")
-        return 0;
+        arg = "dong";
 
     if (arg == "dong")
     {
@@ -77,7 +77,7 @@ int do_climb(string arg)
     me = this_player();
 
     if (! arg || arg == "")
-        return 0;
+        arg = "tree";
 
     if (arg == "tree")
     {

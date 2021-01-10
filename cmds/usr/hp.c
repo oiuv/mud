@@ -67,7 +67,7 @@ int main(object me, string arg)
 
         if (need < 1)
             need = 1;
-        sp = "@#hpM@名称:"+ ob->short() + "|";
+        sp = "@#hpM@";
 
         sp += sprintf("精力上限:%d|内力上限:%d|",
                 ob->query_jingli_limit(), ob->query_neili_limit());
@@ -120,7 +120,7 @@ int main(object me, string arg)
         if (my["max_jing"] < 1 || my["max_qi"] < 1)
                 return notify_fail("无法察看" + ob->name(1) + "的状态。\n");
 
-        sp = "@#hpG@名称:" + ob->short() + "|";
+        sp = "@#hpG@";
         // sp += HIY "【 种 类 】 " HIC "『初始』 『先天』 『成功』 『失败』 『故事』 『转世』\n" NOR;
         sp += sprintf("膂力:%d %d %d %d %d %d|",
         ob->query("str") - ob->query("gift/str/succeed") - ob->query("gift/sun"),

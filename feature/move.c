@@ -177,16 +177,6 @@ varargs int move(mixed dest, int raw)
         me->delete_temp("guardfor");
     }
 
-    // If we are players, try look where we are.
-    if (is_char && interactive(me) && // are we linkdead?
-        living(me) &&                 // are we still concious?
-        !raw)
-    {
-        // look before move, because the init may be kick me
-        // to ...
-        LOOK_CMD->look_room(me, ob, query("env/brief"));
-    }
-
     // Enter environment
     if (magic_move && userp(ob))
     {
@@ -226,6 +216,15 @@ varargs int move(mixed dest, int raw)
         tell_room(ob, "@#move1@" + me->short() + "移动到当前环境@\n", ({this_object()}));
     }
     // debug_message(sprintf(ctime() + " %s 移动到 %s", me->short(), ob->short()));
+    // If we are players, try look where we are.
+    if (is_char && interactive(me) && // are we linkdead?
+        living(me) &&                 // are we still concious?
+        !raw)
+    {
+        // look before move, because the init may be kick me
+        // to ...
+        LOOK_CMD->look_room(me, ob, query("env/brief"));
+    }
     return 1;
 }
 
