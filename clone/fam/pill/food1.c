@@ -28,26 +28,26 @@ int do_effect(object me)
 
         message_vision(HIC "$N" HIC "一仰脖，吞下了一" + un + na + HIW "。\n" NOR, me);
 
-	if (me->query("food") < limit1 * 3 || me->query("water") < limit2 * 3)
-	{
-       		tell_object(me, HIY "你只感疲劳一扫而空，再也不觉得饥饿。\n" NOR);
+    if (me->query("food") < limit1 * 3 || me->query("water") < limit2 * 3)
+    {
+               tell_object(me, HIY "你只感疲劳一扫而空，再也不觉得饥饿。\n" NOR);
 
-	        if (me->query("food") < limit1 * 3)
-		        me->set("food", limit1 * 3);
+            if (me->query("food") < limit1 * 3)
+                me->set("food", limit1 * 3);
 
-	        if (me->query("water") < limit2 * 3)
-        		me->set("water", limit2 * 3);
-	} else
-	{
-       		tell_object(me, HIR "你只觉肚子「咕咕咕」叫个不停，随后放了个奇臭"
+            if (me->query("water") < limit2 * 3)
+                me->set("water", limit2 * 3);
+    } else
+    {
+               tell_object(me, HIR "你只觉肚子「咕咕咕」叫个不停，随后放了个奇臭"
                                 "无比的屁。\n" NOR);
 
-	        if (me->query("food") > limit1 / 10)
-		        me->set("food", limit1 / 10);
+            if (me->query("food") > limit1 / 10)
+                me->set("food", limit1 / 10);
 
-	        if (me->query("water") > limit2 / 10)
-        		me->set("water", limit2 / 10);
-	}
+            if (me->query("water") > limit2 / 10)
+                me->set("water", limit2 / 10);
+    }
         me->start_busy(random(1) + 1);
         add_amount(-1);
 

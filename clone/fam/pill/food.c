@@ -19,7 +19,7 @@ void create()
 
 int do_effect(object me)
 {
-	if (me->query("food") >= me->max_food_capacity())
+    if (me->query("food") >= me->max_food_capacity())
         {
                 write("你已经吃太饱了，再也塞不下任何东西了。\n");
                 return 1;
