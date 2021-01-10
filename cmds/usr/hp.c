@@ -67,33 +67,25 @@ int main(object me, string arg)
 
         if (need < 1)
             need = 1;
-        sp = (ob == me ? "你" : ob->name()) + "目前的属性上限如下：\n";
-        sp += HIC "≡" HIY "-------------------------------------------------------" HIC "≡\n" NOR;
+        sp = "@#hpM@名称:"+ ob->short() + "|";
 
-        sp += sprintf(HIC "【精力上限】 " HIG " %-21d"
-                        HIC "【内力上限】 " HIG " %d\n",
+        sp += sprintf("精力上限:%d|内力上限:%d|",
                 ob->query_jingli_limit(), ob->query_neili_limit());
 
-        sp += sprintf(HIC "【潜能上限】 " HIG " %-21d"
-                        HIC "【体会上限】 " HIG " %d\n",
+        sp += sprintf("潜能上限:%d|体会上限:%d|",
                 ob->query_potential_limit() - (int)ob->query("learned_points"),
                 ob->query_experience_limit() - (int)ob->query("learned_experience"));
 
-        sp += sprintf(HIC "【当前等级】 " NOR + WHT " %-21d"
-                        HIC "【升级所需】 " NOR + WHT " %d\n", lv, need);
+        sp += sprintf("当前等级%d|升级所需:%d|", lv, need);
 
-        sp += sprintf(HIC "【最大加怒】 " NOR + WHT " %-21d"
-                        HIC "【最大加力】 " NOR + WHT " %d\n", mn, ml);
+        sp += sprintf("最大加怒:%d|最大加力:%d|", mn, ml);
 
-        sp += sprintf(HIW "【死亡保护】 " NOR + " %-21s",
-                ! ob->query("skybook/guard/death") ? CYN "無保護" NOR :
-                HIY "保護中" NOR);
+        sp += sprintf("死亡保护:%s|",
+                ! ob->query("skybook/guard/death") ? "無保護" : "保護中");
 
-        sp += sprintf(HIW "【杀戮保护】 " NOR + " %s",
-                ! ob->query_condition("die_guard") ? CYN "無保護\n" NOR :
-                HIY "保護中\n" NOR);
+        sp += sprintf("杀戮保护:%s@\n",
+                ! ob->query_condition("die_guard") ? "無保護" : "保護中");
 
-        sp += HIC "≡" HIY "-------------------------------------------------------" HIC "≡\n" NOR;
         tell_object(me, sp);
         return 1;
     }
@@ -128,16 +120,9 @@ int main(object me, string arg)
         if (my["max_jing"] < 1 || my["max_qi"] < 1)
                 return notify_fail("无法察看" + ob->name(1) + "的状态。\n");
 
-        sp = (ob == me ? "你" : ob->name()) + "目前的天赋属性如下：\n";
-        sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
-        sp += HIY "【 种 类 】 " HIC "『初始』 『先天』 『成功』 『失败』"
-                " 『故事』 『转世』\n" NOR;
-        sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
-
-        sp += sprintf(HIW "【 膂 力 】 " NOR + WHT " [%3d]    ["
-                HIG "%3d" NOR + WHT "]    [" HIW "%3d" NOR + WHT "]    ["
-                HIR "%3d" NOR + WHT "]    [" HIM "%3d" NOR + WHT "]    ["
-                HIB "%3d" NOR + WHT "]\n",
+        sp = "@#hpG@名称:" + ob->short() + "|";
+        // sp += HIY "【 种 类 】 " HIC "『初始』 『先天』 『成功』 『失败』 『故事』 『转世』\n" NOR;
+        sp += sprintf("膂力:%d %d %d %d %d %d|",
         ob->query("str") - ob->query("gift/str/succeed") - ob->query("gift/sun"),
         ob->query("str"),
         ob->query("gift/str/succeed"),
@@ -146,10 +131,7 @@ int main(object me, string arg)
         ob->query("reborn/str")),
         //ob->query("tattoo/tattoo_str"));
 
-        sp += sprintf(HIW "【 悟 性 】 " NOR + WHT " [%3d]    ["
-                HIG "%3d" NOR + WHT "]    [" HIW "%3d" NOR + WHT "]    ["
-                HIR "%3d" NOR + WHT "]    [" HIM "%3d" NOR + WHT "]    ["
-                HIB "%3d" NOR + WHT "]\n",
+        sp += sprintf("悟性:%d %d %d %d %d %d|",
         ob->query("int") - ob->query("gift/int/succeed") - ob->query("gift/water"),
         ob->query("int"),
         ob->query("gift/int/succeed"),
@@ -158,10 +140,7 @@ int main(object me, string arg)
         ob->query("reborn/int")),
         //ob->query("tattoo/tattoo_int"));
 
-        sp += sprintf(HIW "【 根 骨 】 " NOR + WHT " [%3d]    ["
-                HIG "%3d" NOR + WHT "]    [" HIW "%3d" NOR + WHT "]    ["
-                HIR "%3d" NOR + WHT "]    [" HIM "%3d" NOR + WHT "]    ["
-                HIB "%3d" NOR + WHT "]\n",
+        sp += sprintf("根骨:%d %d %d %d %d %d|",
         ob->query("con") - ob->query("gift/con/succeed") - ob->query("gift/lighting"),
         ob->query("con"),
         ob->query("gift/con/succeed"),
@@ -170,10 +149,7 @@ int main(object me, string arg)
         ob->query("reborn/con")),
         //ob->query("tattoo/tattoo_con"));
 
-        sp += sprintf(HIW "【 身 法 】 " NOR + WHT " [%3d]    ["
-                HIG "%3d" NOR + WHT "]    [" HIW "%3d" NOR + WHT "]    ["
-                HIR "%3d" NOR + WHT "]    [" HIM "%3d" NOR + WHT "]    ["
-                HIB "%3d" NOR + WHT "]\n",
+        sp += sprintf("身法:%d %d %d %d %d %d@\n",
         ob->query("dex") - ob->query("gift/dex/succeed") - ob->query("gift/feng"),
         ob->query("dex"),
         ob->query("gift/dex/succeed"),
@@ -182,7 +158,6 @@ int main(object me, string arg)
         ob->query("reborn/dex")),
         //ob->query("tattoo/tattoo_dex"));
 
-        sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
         tell_object(me, sp);
         return 1;
     }
