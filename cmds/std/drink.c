@@ -97,10 +97,8 @@ int main(object me, string arg)
 
     if (guard = ob->query_temp("guarded"))
     {
-        guard = filter_array(guard, (
-                                        : objectp($1) && present($1, environment($(me))) &&
-                                              living($1) && ($1 != $(me))
-                                        :));
+        guard = filter_array(guard, (: objectp($1) && present($1, environment($(me))) &&
+                                       living($1) && ($1 != $(me)) :));
         if (sizeof(guard))
             return notify_fail(guard[0]->name() + "正守在" + ob->name() + "一旁，防止任何人拿走。\n");
     }

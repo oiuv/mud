@@ -45,12 +45,8 @@ int main(object me, string arg)
             }
         }
 
-        obs = filter_array(users(), (
-                                        : $1->is_loging_now()
-                                        :));
-        obs = sort_array(obs, (
-                                  : wiz_level($1) - wiz_level($2)
-                                  :));
+        obs = filter_array(users(), (: $1->is_loging_now() :));
+        obs = sort_array(obs, (: wiz_level($1) - wiz_level($2) :));
         flag = 0;
         for (i = 0; i < sizeof(obs); i++)
         {

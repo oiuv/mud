@@ -73,8 +73,7 @@ int main(object me, string arg)
 
     msg = pro + "现在" + LOCAL_MUD_NAME() + "的结义兄弟都有：\n\n";
     ids = keys(bro);
-    ids = sort_array(ids, (
-                              : sort_brothers:));
+    ids = sort_array(ids, (: sort_brothers :));
     foreach (id in ids)
     {
         nid = (string)bro[id] + "(" + id + ")";

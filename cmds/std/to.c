@@ -52,9 +52,7 @@ int main(object me, string arg)
     if ((valid_verb[verb] & NEED_OPP) && !opp)
         return notify_fail("你必须指明对象才能发出信息。\n");
 
-    me->edit(bind((
-                      : call_other, __FILE__, "done", me, verb, opp:),
-                  me));
+    me->edit(bind((: call_other, __FILE__, "done", me, verb, opp :), me));
     return 1;
 }
 

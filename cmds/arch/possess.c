@@ -7,30 +7,28 @@ int main(object me, string arg)
 {
     object ob;
 
-       if (! SECURITY_D->valid_grant(me, "(arch)"))
-              return 0;
+    if (!SECURITY_D->valid_grant(me, "(arch)"))
+        return 0;
 
-    if (! arg)
+    if (!arg)
         return notify_fail("你要附谁的身？\n");
 
-       if (! me->is_admin())
-              return notify_fail("你不能附身。\n");
+    if (!me->is_admin())
+        return notify_fail("你不能附身。\n");
 
     ob = present(arg, environment(me));
 
-    if (! ob || ! living(ob))
+    if (!ob || !living(ob))
         return notify_fail("这里没有这个生物。\n");
-
-/*
+    /*
     if (geteuid(ob) != geteuid(me))
-        return notify_fail(ob->name() + "的 euid 和你不合，无"
-                   "法进行附身。\n");
-*/
-    if ( ob->is_player() && ! ob->is_net_dead())
+        return notify_fail(ob->name() + "的 euid 和你不合，无法进行附身。\n");
+    */
+    if (ob->is_player() && !ob->is_net_dead())
         return notify_fail("你不能附身在线玩家。\n");
 
     if (ob->query_temp("body_ob"))
-        return notify_fail( ob->name() + "已经被人附身过了。\n");
+        return notify_fail(ob->name() + "已经被人附身过了。\n");
 
     message_vision("$N化成一道光芒钻进$n体内。\n", me, ob);
     LOGIN_D->enter_world(me, ob, 1);

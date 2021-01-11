@@ -1,12 +1,15 @@
 #include <ansi.h>
 
-void do_nothing(string nothing);
+void do_nothing(string nothing)
+{
+    return;
+}
 
 int main(object who,string arg)
-{   
+{
     write(REF);
     if(arg=="-l")
-    input_to( (:do_nothing:) );
+    input_to((: do_nothing :));
     return 1;
 }
 
@@ -18,9 +21,4 @@ int help()
 如果有-l这个参数就暂缓屏幕输出。只至按回车健。
 HELP );
     return 1;
-}
-
-void do_nothing(string nothing)
-{
-    return;
 }

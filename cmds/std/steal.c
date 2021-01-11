@@ -87,7 +87,7 @@ int main(object me, string arg)
           HIC "，等待机会下手……\n\n" NOR);
 
     me->set_temp("stealing", 1);
-    me->start_call_out((: call_other, __FILE__, "compelete_steal", me, victim, ob, sp, dp:), 3);
+    me->start_call_out((: call_other, __FILE__, "compelete_steal", me, victim, ob, sp, dp :), 3);
 
     return 1;
 }

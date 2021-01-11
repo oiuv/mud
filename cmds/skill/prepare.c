@@ -52,8 +52,7 @@ int main(object me, string arg)
     if (arg == "?")
     {
         msg = "以下是可以使用特殊拳术技能的种类：\n";
-        skill = sort_array(keys(valid_types), (
-                                                  : strcmp:));
+        skill = sort_array(keys(valid_types), (: strcmp :));
         for (i = 0; i < sizeof(skill); i++)
             msg += sprintf("  %s (%s)\n", valid_types[skill[i]], skill[i]);
         write(msg);

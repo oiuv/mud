@@ -6,95 +6,94 @@
 
 int main(object me, string arg)
 {
-   mixed result;
-   string name, value;
-   int index;
+    mixed result;
+    string name, value;
+    int index;
 
-   if (!arg)
-   {
-       mapping vars;
-       string content;
+    if (!arg)
+    {
+        mapping vars;
+        string content;
 
-      if (!SECURITY_D->valid_grant(me, "(arch)"))
-                return 0;
+        if (!SECURITY_D->valid_grant(me, "(arch)"))
+            return 0;
 
-       vars = me->query_all_vars();
+        vars = me->query_all_vars();
 
-       content = "您当前设置的私有变量有：\n";
+        content = "您当前设置的私有变量有：\n";
 
-       content += sprintf("me\t: %s\t== %O\n", typeof(me), me);
-       content += sprintf("here\t: %s\t== %O\n",
-           typeof(environment(me)), environment(me));
-       foreach(name in keys(vars))
-       {
+        content += sprintf("me\t: %s\t== %O\n", typeof(me), me);
+        content += sprintf("here\t: %s\t== %O\n",
+                           typeof(environment(me)), environment(me));
+        foreach (name in keys(vars))
+        {
 
-           if (undefinedp(vars[name]) || nullp(vars[name]))
-               content += sprintf("%s\t: void\n", name);
-           else
-               content += sprintf("%s\t: %s\t== %O\n", name,
-                 typeof(vars[name]), vars[name]);
-       }
+            if (undefinedp(vars[name]) || nullp(vars[name]))
+                content += sprintf("%s\t: void\n", name);
+            else
+                content += sprintf("%s\t: %s\t== %O\n", name,
+                                   typeof(vars[name]), vars[name]);
+        }
 
-       tell_object(me, content);
-       return 1;
-   }
+        tell_object(me, content);
+        return 1;
+    }
 
-   index = strsrch(arg, '=');
+    index = strsrch(arg, '=');
 
-   if ( index == -1 )
-   {
-       name = arg;
-   } else
-   {
-       name = arg[0..(index-1)];
-       value = arg[(index+1)..<1];
-   }
+    if (index == -1)
+    {
+        name = arg;
+    }
+    else
+    {
+        name = arg[0..(index - 1)];
+        value = arg[(index + 1)..< 1];
+    }
 
-   name = replace_string(name, " ", "");
+    name = replace_string(name, " ", "");
 
-   if ( name == "me" || name == "here" )
-   {
-       return notify_fail("这是系统预定义的私有变量。\n");
-   }
+    if (name == "me" || name == "here")
+    {
+        return notify_fail("这是系统预定义的私有变量。\n");
+    }
 
-   if ( !value )
-   {
-       if (undefinedp(result) || nullp(result))
-           printf("%s\t: void\n", name);
-       else
-           printf("%s\t: %s\t== %O\n", name,
-               typeof(me->query_var(name)), me->query_var(name));
-       return 1;
-   }
+    if (!value)
+    {
+        if (undefinedp(result) || nullp(result))
+            printf("%s\t: void\n", name);
+        else
+            printf("%s\t: %s\t== %O\n", name,
+                   typeof(me->query_var(name)), me->query_var(name));
+        return 1;
+    }
 
-   if ( value == "none" || value == " none"
-     || value == "null" || value == " null" )
-   {
-       me->delete_var(name);
-       printf("Delete var '%s' Ok.\n", name);
+    if (value == "none" || value == " none" || value == "null" || value == " null")
+    {
+        me->delete_var(name);
+        printf("Delete var '%s' Ok.\n", name);
 
+        return 1;
+    }
 
-       return 1;
-   }
+    if (me->query_var_count() >= MAX_VAR_COUNT)
+        return notify_fail("请不要设置过多的私有变量。\n");
 
-   if (me->query_var_count() >= MAX_VAR_COUNT)
-       return notify_fail("请不要设置过多的私有变量。\n");
+    result = me->evaluate_shell(value, 0);
 
-   result = me->evaluate_shell(value, 0);
+    result = me->set_var(name, result);
 
-   result = me->set_var(name, result);
+    if (undefinedp(result) || nullp(result))
+        printf("%s\t: void\n", name);
+    else
+        printf("%s\t: %s\t== %O\n", name, typeof(result), result);
 
-   if (undefinedp(result) || nullp(result))
-       printf("%s\t: void\n", name);
-   else
-       printf("%s\t: %s\t== %O\n", name, typeof(result), result);
-
-   return 1;
+    return 1;
 }
 
 int help(object me)
 {
-   write(@HELP
+    write(@HELP
 指令格式 : var name=value
 
 
@@ -106,7 +105,6 @@ int help(object me)
 系统已预定义变量 me 和 here
 
 HELP
-   );
-   return 1;
+    );
+    return 1;
 }
-

@@ -43,10 +43,8 @@ int main(object me, string arg)
         else
         {
             i = me->query("analecta_last_read/" + year);
-            analectas = sort_array(analectas, (
-                                                  : sort_analectas:));
-            analectas = filter_array(analectas, (
-                                                    : filter_analectas:),
+            analectas = sort_array(analectas, (: sort_analectas :));
+            analectas = filter_array(analectas, (: filter_analectas :),
                                      i);
             if (!sizeof(analectas))
                 info += CYN " 现在 " WHT + year + CYN " 年没有任何"
@@ -217,8 +215,7 @@ string list_analectas(mapping *analectas, int year, object me)
 
     info = "";
     last = me->query("analecta_last_read/" + year);
-    analectas = sort_array(analectas, (
-                                          : sort_analectas:));
+    analectas = sort_array(analectas, (: sort_analectas :));
     for (i = 0; i < sizeof(analectas); i++)
     {
         analecta = analectas[i];

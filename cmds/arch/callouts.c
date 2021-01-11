@@ -13,8 +13,7 @@ int main(object me, string arg)
 
     output = sprintf("%-45s %-20s %5s %s\n", "物件", "函数", "延迟时间", "参数");
     if (arg && arg != "")
-        info = filter_array(call_out_info(), (
-                                                 : $1[1] == $2:),
+        info = filter_array(call_out_info(), (: $1[1] == $2 :),
                             arg);
     else
         info = call_out_info();

@@ -41,7 +41,7 @@ int main(object me, string arg)
     me->set("no_get", 1);
     me->set("no_get_from", 1);
     me->disable_player(" <静坐中>");
-    me->start_call_out(bind((: call_other, __FILE__, "wakeup", me, where:), me),
+    me->start_call_out(bind((: call_other, __FILE__, "wakeup", me, where :), me),
                        random(45) + 1, me, where);
 
     return 1;
