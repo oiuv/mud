@@ -87,6 +87,8 @@ string prompt()
     string prompt, path;
     mixed list;
 
+    return "";
+
     if (arrayp(list = query_temp("tell_list")) &&
         sizeof(list) > 1)
         p = HIG "> " NOR;
@@ -240,7 +242,8 @@ void write_prompt()
     if (this_object()->is_attach_system())
         receive(HIR "执行中" HIY "> " NOR);
     else
-        receive(ESC "[256D" + prompt());
+        // receive(ESC "[256D" + prompt());
+        receive(prompt());
 
     written = PROMPT_WRITTEN;
 }
