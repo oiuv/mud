@@ -72,7 +72,7 @@ int main(object me, string arg)
 
         if (! ob->query("can_speak"))
         {
-                message_vision(CYN "$N" CYN "向$n" CYN 
+                message_vision(CYN "$N" CYN "向$n" CYN
                                "打听有关『" HIG + topic + NOR CYN "』"
                                "的消息，但是$p显然听不懂人话。\n" NOR, me, ob);
                 return 1;
@@ -106,7 +106,7 @@ int main(object me, string arg)
                 }
         } else
         if (topic == "all")
-        {               
+        {
                  query_inquiry(me, ob);
                  return 1;
         } else
@@ -120,23 +120,23 @@ string query_inquiry(object me, object ob)
 {
         int i = 0;
         mapping inq;
-        string str = "", *indexs;
-        
+        string str = "#", *indexs;
+
         if (mapp(inq = ob->query("inquiry")))
         {
                 indexs = keys(inq);
                 for (i = 0; i < sizeof(indexs); i++)
                 {
                         //str += HIB + indexs[i] + " " NOR;
-                        str += HIY "  第" + chinese_number(i+1) + "条：" HIG + indexs[i] + "\n" NOR;
+                        str += indexs[i] + "#";
                 }
-                str = "有关于\n" + str + "这些事情，你若想知道的话可以问我！";    
-                tell_room(environment(me), CYN + ob->name() + "在" + me->name() + "耳边小声地说了些话。\n" NOR, ({ me, ob }));
-                tell_object( me, GRN + ob->name() + "在你的耳边悄声说道：" + str + "\n" NOR);
-                return "\n";
+                // str = "有关于\n" + str + "这些事情，你若想知道的话可以问我！";
+                // tell_room(environment(me), CYN + ob->name() + "在" + me->name() + "耳边小声地说了些话。\n" NOR, ({ me, ob }));
+                // tell_object( me, GRN + ob->name() + "在你的耳边悄声说道：" + str + "\n" NOR);
+                return str;
         }
-        tell_object( me, ob->name(1) + "对你说道：实在是对不起，我什么也不知道呀！\n");
-        return "\n";
+        // tell_object( me, ob->name(1) + "对你说道：实在是对不起，我什么也不知道呀！\n");
+        return "";
 }
 
 int help(object me)
@@ -157,4 +157,3 @@ int help(object me)
 HELP );
         return 1;
 }
-

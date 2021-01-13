@@ -5,11 +5,14 @@
 #include <armor.h>
 #include <combat.h>
 #include <room.h>
+#include <dict.h>
 
 #include <locate.h>
 // flag of func:look_all_inventroy_of_room/ret_str
 #define SHOW_IMMEDIATELY 0
 #define RETURN_RESULT 1
+
+#define ASK_CMD "/cmds/std/ask.c"
 
 int look_room(object me, object env, int brief);
 int look_item(object me, object obj);
@@ -288,16 +291,12 @@ string look_all_inventory_of_room(object me, object env, int ret_str)
     if (desc_of_objects(obs) != "")
         str += "[user:" + filter_ansi(desc_of_objects(obs)) + "]";
 
-    obs = filter_array(inv, (
-                                : $(me) != $1 && !userp($1) && $1->is_character() &&
-                                      $(me)->visible($1)
-                                :));
+    obs = filter_array(inv, (: $(me) != $1 && !userp($1) && $1->is_character() &&
+                               $(me)->visible($1) :));
     if (desc_of_objects(obs) != "")
         str += "[npc:" + filter_ansi(desc_of_objects(obs)) + "]";
 
-    obs = filter_array(inv, (
-                                : !$1->is_character()
-                                :),
+    obs = filter_array(inv, (: !$1->is_character() :),
                        me);
     if (desc_of_objects(obs) != "")
         str += "[item:" + filter_ansi(desc_of_objects(obs)) + "]";
@@ -488,6 +487,72 @@ int look_item(object me, object obj)
     return 1;
 }
 
+string living_cmds(object me, object ob)
+{
+    string str = "@#livingCmds@";
+    string inquiry = ASK_CMD->query_inquiry(me, ob);
+    object env;
+
+    if (me == ob)
+    {
+        return "";
+    }
+
+    if (ob->is_knower())
+    {
+        /* code */
+    }
+
+    if (ob->is_insect())
+    {
+        /* code */
+    }
+
+    if (ob->is_quarry())
+    {
+        /* code */
+    }
+
+    if (ob->is_snake())
+    {
+        /* code */
+    }
+
+    if (ob->is_waiter())
+    {
+        /* code */
+    }
+
+    if (ob->is_worm())
+    {
+        /* code */
+    }
+
+    if (ob->is_quester())
+    {
+        /* code */
+    }
+
+    if (ob->is_dealer())
+    {
+        str += "list:" + dict("list");
+    }
+
+    if (ob->is_banker())
+    {
+        /* code */
+    }
+
+    if (inquiry != "")
+    {
+        str += "ask:" + inquiry + "|";
+    }
+
+    str += "fight:" + dict("fight") + "|kill:" + dict("kill") + "@\n";
+
+    return str;
+}
+
 string look_equiped(object me, object obj, string pro)
 {
     mixed *inv;
@@ -508,12 +573,12 @@ string look_equiped(object me, object obj, string pro)
         {
         case "wielded":
             n++;
-            subs = HIC "  □" NOR + inv[i]->short() + "\n" + subs;
+            subs = HIC "wield:" NOR + inv[i]->short() + "|" + subs;
             break;
 
         case "worn":
             n++;
-            subs += HIC "  □" NOR + inv[i]->short() + "\n";
+            subs += HIC "worn:" NOR + inv[i]->short() + "|";
             break;
 
         default:
@@ -522,7 +587,7 @@ string look_equiped(object me, object obj, string pro)
     }
 
     if (n)
-        str += pro + "装备着：\n" + subs;
+        str += subs;
 
     if (objectp(hob = obj->query_temp("handing")))
     {
@@ -535,12 +600,6 @@ string look_equiped(object me, object obj, string pro)
         str = pro + "手中" + (mad ? "却" : "") + "握着一" +
               (hob->query_amount() ? hob->query("base_unit") : hob->query("unit")) +
               hob->name() + (mad ? "，疯了，一定是疯了！\n" : "。\n") + str;
-    }
-
-    if (playerp(obj) &&
-        !objectp(obj->query_temp("armor/cloth")))
-    {
-        str = pro + "身上没有穿衣服啊！\n" + str;
     }
 
     return "@#livingEquip@" + str + "@\n";
@@ -964,6 +1023,7 @@ int look_living(object me, object obj)
     }
     str += "@\n";
     str += look_equiped(me, obj, pro);
+    str += living_cmds(me, obj);
     message("vision", str, me);
 
     if (obj != me && living(obj) && !me->is_brother(obj) && !obj->query_condition("die_guard") && !me->query_condition("die_guard") && me->query("couple/id") != obj->query("id") && (((me_shen < 0) && (obj_shen > 0)) || ((me_shen > 0) && (obj_shen < 0))) && (((me_shen - obj_shen) > ((int)obj->query("max_neili") * 20)) || ((obj_shen - me_shen) > ((int)obj->query("max_neili") * 20))))
