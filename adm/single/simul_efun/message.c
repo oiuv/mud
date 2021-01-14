@@ -289,10 +289,18 @@ void message_system(string message)
 
 int notify_fail(string msg)
 {
+    msg = filter_ansi(msg);
+
     if (this_player())
     {
         this_player()->set_temp("notify_fail", msg);
-        return efun::notify_fail(ESC "[256D" ESC "[K" + msg);
+        if (msg[0..1] != "@#")
+        {
+            if (msg[ < 1] == '\n')
+                msg = msg[0.. < 2];
+            msg = "@#message@" + msg + "@\n";
+        }
+        return efun::notify_fail(msg);
     }
     else
         return 0;
