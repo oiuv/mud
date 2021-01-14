@@ -22,7 +22,7 @@ long);
 
         set("valid_startroom", 1);
         setup();
-        "/clone/board/kunlun_b"->foo();
+        // "/clone/board/kunlun_b"->foo();
 }
 
 int valid_leave(object me, string dir)
@@ -35,4 +35,3 @@ int valid_leave(object me, string dir)
 
         return ban->permit_pass(me, dir);
 }
-

@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 void init();
@@ -34,7 +34,7 @@ LONG );
     	]));
 
     	setup();
-    	"/clone/board/shaolin_b"->foo();
+    	// "/clone/board/shaolin_b"->foo();
 }
 
 
@@ -157,7 +157,7 @@ int valid_leave(object me, string dir)
         	write(CYN "壮年僧人合十为礼，侧身让开，说道：原来是贵客驾到，请进请进。\n" NOR);
         	return 1;
     	}
-    
+
     	if (me->query("shen") >= 0)
     	{
         	if (me->query("gender") == "女性")

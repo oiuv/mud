@@ -30,7 +30,7 @@ LONG    );
 
         setup();
 
-        "/clone/board/tiezhang_b"->foo();
+        // "/clone/board/tiezhang_b"->foo();
 }
 
 int valid_leave(object me, string dir)

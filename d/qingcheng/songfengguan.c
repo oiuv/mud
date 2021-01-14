@@ -16,9 +16,8 @@ LONG );
 	set("objects", ([
 		__DIR__"npc/hai" : 1,
 	]));
-//	set("no_clean_up", 0);
+	// set("no_clean_up", 0);
 	setup();
-	"/clone/board/qingcheng_b"->foo();
-        replace_program(ROOM);
+	// "/clone/board/qingcheng_b"->foo();
+    replace_program(ROOM);
 }
-

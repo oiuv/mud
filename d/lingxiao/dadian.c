@@ -31,7 +31,7 @@ void create()
         set("no_clean_up", 0);
         set("valid_startroom", 1);
         setup();
-        "/clone/board/lingxiao_b"->foo();
+        // "/clone/board/lingxiao_b"->foo();
 }
 
 string look_duilian()

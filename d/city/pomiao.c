@@ -19,7 +19,7 @@ LONG);
 		CLASS_D("gaibang") + "/peng" : 1,
 	]));
 	setup();
-	"/clone/board/gaibang_b"->foo();
+	// "/clone/board/gaibang_b"->foo();
 }
 
 int valid_leave(object me, string dir)

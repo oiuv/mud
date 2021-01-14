@@ -22,5 +22,5 @@ LONG );
 	]));
 	setup();
 	replace_program(ROOM);
-	"/clone/board/kedian6_b"->foo();
+	// "/clone/board/kedian6_b"->foo();
 }

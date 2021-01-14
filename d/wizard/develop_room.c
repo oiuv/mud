@@ -23,13 +23,12 @@ void create()
 LONG );
 
 	set("exits", ([
-		"southwest": __DIR__"guest_room",               
+		"southwest": __DIR__"guest_room",
         ]));
 
 	set("no_fight", 1);
 
 	setup();
-	"/clone/board/develop_b"->foo();
-        replace_program(ROOM);
+	// "/clone/board/develop_b"->foo();
+    replace_program(ROOM);
 }
-

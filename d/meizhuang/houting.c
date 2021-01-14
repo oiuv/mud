@@ -22,6 +22,6 @@ LONG
         set("no_clean_up", 0);
         set("valid_startroom", 1);
         setup();
-        "/clone/board/meizhuang_b"->foo();
+        // "/clone/board/meizhuang_b"->foo();
         replace_program(ROOM);
 }

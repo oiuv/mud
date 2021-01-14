@@ -1,4 +1,4 @@
-// dating.c 
+// dating.c
 
 #include <ansi.h>
 
@@ -38,7 +38,7 @@ LONG );
 		CLASS_D("shenlong")+"/wugen": 1,
 	]));
 	setup();
-	"/clone/board/shenlong_b"->foo();
+	// "/clone/board/shenlong_b"->foo();
 }
 
 int valid_leave(object me, string dir)

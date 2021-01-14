@@ -17,14 +17,14 @@ void create()
 LONG );
 
 	set("exits", ([
-		"east": __DIR__"hall", 
-                "west": __DIR__"wizard_room",              
+		"east": __DIR__"hall",
+                "west": __DIR__"wizard_room",
         ]));
 
 	set("no_fight", 1);
 
 	setup();
-	"/clone/board/noname_b"->foo();
+	// "/clone/board/noname_b"->foo();
 }
 
 int valid_leave(object me, string dir)
@@ -34,5 +34,3 @@ int valid_leave(object me, string dir)
 
 	return ::valid_leave(me, dir);
 }
-
-

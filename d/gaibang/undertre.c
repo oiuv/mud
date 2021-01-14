@@ -28,7 +28,7 @@ LONG);
                 "/d/gaibang/npc/7dai" : 1,
         ]));
         setup();
-        "/clone/board/gaibang_r"->foo();
+        // "/clone/board/gaibang_r"->foo();
 }
 
 void init()

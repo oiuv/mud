@@ -19,7 +19,7 @@ LONG);
 	]));
 	set("no_fight", 1);
 	setup();
-	"/clone/board/wudao_b"->foo();
-        init_here();
+	// "/clone/board/wudao_b"->foo();
+    init_here();
 	replace_program(__DIR__"underlt");
 }

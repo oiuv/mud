@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 
 inherit ROOM;
 
@@ -22,7 +22,7 @@ LONG);
         set("no_clean_up", 0);
         set("valid_startroom", 1);
         setup();
-        "/clone/board/miao_b"->foo();
+        // "/clone/board/miao_b"->foo();
 }
 
 int valid_leave(object me, string dir)

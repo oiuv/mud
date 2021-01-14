@@ -13,7 +13,7 @@ LONG);
                 "north" : __DIR__"liangong",
                 "southdown" : __DIR__"yuanzi",
         ]));
- 
+
         set("objects",([
                 CLASS_D("ouyang") + "/ouyangfeng" : 1,
                 __DIR__"npc/yahuan" : 2,
@@ -21,6 +21,6 @@ LONG);
 
         setup();
 
-        "/clone/board/baituo_b"->foo();
+        // "/clone/board/baituo_b"->foo();
         replace_program(ROOM);
 }

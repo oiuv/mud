@@ -20,7 +20,5 @@ LONG );
 	setup();
 
 	call_other("/clone/board/wiz_b", "???");
-        replace_program(ROOM);
+    replace_program(ROOM);
 }
-
-

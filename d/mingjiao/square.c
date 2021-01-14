@@ -21,7 +21,7 @@ LONG );
              __DIR__"npc/shuobude"   : 1,
              __DIR__"npc/zhangzhong" : 1,
              __DIR__"npc/pengyingyu" : 1,
-             __DIR__"npc/zhoudian"   : 1, 
+             __DIR__"npc/zhoudian"   : 1,
 
         ]));
 
@@ -31,7 +31,7 @@ LONG );
 
         setup();
 
-        "/clone/board/mingjiao_b"->foo();
+        // "/clone/board/mingjiao_b"->foo();
 }
 
 int valid_leave(object me, string dir)
@@ -49,4 +49,3 @@ int valid_leave(object me, string dir)
 				   "重地，请止步。\n");
         return ::valid_leave(me, dir);
 }
-

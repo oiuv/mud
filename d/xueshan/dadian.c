@@ -21,5 +21,5 @@ LONG);
         setup();
         replace_program(ROOM);
 
-        "/clone/board/xueshan_b"->foo();
+        // "/clone/board/xueshan_b"->foo();
 }

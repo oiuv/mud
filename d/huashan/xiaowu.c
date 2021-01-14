@@ -21,7 +21,7 @@ LONG );
         set("valid_startroom", 1);
 
         setup();
-        "/clone/board/jianzong_b"->foo();
+        // "/clone/board/jianzong_b"->foo();
 }
 
 int valid_leave(object me, string dir)

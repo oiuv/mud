@@ -17,6 +17,6 @@ LONG);
         ]));
         set("valid_startroom", 1);
         setup();
-        "/clone/board/lingjiu_b"->foo();
+        // "/clone/board/lingjiu_b"->foo();
         replace_program(ROOM);
 }

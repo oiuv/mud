@@ -29,7 +29,7 @@ LONG );
 	]));
 
 	setup();
-	"/clone/board/kedian4_b"->foo();
+	// "/clone/board/kedian4_b"->foo();
 }
 
 int valid_leave(object me, string dir)

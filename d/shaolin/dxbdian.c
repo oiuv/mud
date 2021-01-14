@@ -21,7 +21,7 @@ LONG );
 		__DIR__"npc/xiang-ke" : 1,
 	]));
 	setup();
-	"/clone/board/bonze_b"->foo();
+	// "/clone/board/bonze_b"->foo();
 }
 
 void init()
@@ -47,7 +47,7 @@ int do_ketou()
 		return 1;
 	}
 
-	me->add_temp("ketou_times", -1);	
+	me->add_temp("ketou_times", -1);
 
 	message_vision(CYN "$N" CYN "虔诚地跪下来，在如来佛祖面"
                        "前磕头。\n" NOR, me);

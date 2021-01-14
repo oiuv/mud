@@ -19,7 +19,6 @@ LONG );
     ]));
     set("valid_startroom", 1);
     setup();
-    "/clone/board/hu_b"->foo();
+    // "/clone/board/hu_b"->foo();
 
 }
-

@@ -21,7 +21,7 @@ LONG );
                 CLASS_D("wudang") + "/song" : 1
         ]));
         setup();
-        "/clone/board/wudang_b"->foo();
+        // "/clone/board/wudang_b"->foo();
 }
 
 int valid_leave(object me, string dir)

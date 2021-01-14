@@ -29,7 +29,7 @@ LONG);
 
         set("outdoors", "xingxiu");
         setup();
-        "/clone/board/xingxiu_b"->foo();
+        // "/clone/board/xingxiu_b"->foo();
 }
 
 string look_duilian()

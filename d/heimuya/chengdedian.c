@@ -28,7 +28,7 @@ void create()
         __DIR__"npc/dizi" : 4,
     ]));
     setup();
-    "/clone/board/riyue_b"->foo();
+    // "/clone/board/riyue_b"->foo();
 }
 
 int valid_leave(object me, string dir)

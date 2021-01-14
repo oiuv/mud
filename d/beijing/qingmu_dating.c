@@ -15,7 +15,7 @@ LONG );
         "north" : __DIR__"qingmu_fang1",
         ]));
         set("item_desc", ([
-"baimu" : 
+"baimu" :
 HIR "\n  只见白木上写道：天地万有，回复大明。吾人当同生共死，\n"
 "仿桃园故事，约为兄弟，姓洪名金兰，合为一家。拜天为父，\n"
 "拜地为母, 日为兄，月为姊妹，焚香设誓，一雪前耻，顺天\n"
@@ -28,7 +28,7 @@ HIG "门朝大海，三河合水万年流\n" NOR,
                 CLASS_D("yunlong") + "/chen" : 1
         ]));
         setup();
-        "/clone/board/tiandihui_b"->foo();
+        // "/clone/board/tiandihui_b"->foo();
 
         replace_program(ROOM);
 }

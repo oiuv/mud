@@ -17,6 +17,6 @@ LONG);
         ]));
         set("valid_startroom", 1);
         setup();
-        "/clone/board/wuguan_b.c"->foo();
+        // "/clone/board/wuguan_b.c"->foo();
         replace_program(ROOM);
 }

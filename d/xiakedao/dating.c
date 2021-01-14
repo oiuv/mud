@@ -28,7 +28,7 @@ LONG );
         setup();
 
         set("no_fight", 1);
-        "/clone/board/xiake_b"->foo();
+        // "/clone/board/xiake_b"->foo();
 }
 
 void init()

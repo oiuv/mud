@@ -27,7 +27,7 @@ LONG );
 	    "up"    : __DIR__"rongcheng2",
 	]));
 	setup();
-	"/clone/board/kedian5_b"->foo();
+	// "/clone/board/kedian5_b"->foo();
 }
 
 int valid_leave(object me, string dir)

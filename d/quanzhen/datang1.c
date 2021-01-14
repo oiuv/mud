@@ -22,5 +22,5 @@ LONG);
         create_door("west", YEL "包铜大门" NOR, "east", DOOR_CLOSED);
         set("valid_startroom", 1);
         setup();
-        "/clone/board/quanzhen_b"->foo();
+        // "/clone/board/quanzhen_b"->foo();
 }

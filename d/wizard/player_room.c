@@ -19,13 +19,12 @@ void create()
 LONG );
 
 	set("exits", ([
-		"northwest": __DIR__"guest_room",               
-        ]));
+		"northwest": __DIR__"guest_room",
+    ]));
 
 	set("no_fight", 1);
 
 	setup();
-	"/clone/board/heroplayer_b"->foo();
-        replace_program(ROOM);
+	// "/clone/board/heroplayer_b"->foo();
+    replace_program(ROOM);
 }
-

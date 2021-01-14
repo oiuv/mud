@@ -16,6 +16,5 @@ LONG );
 	]));
 	setup();
 	replace_program(ROOM);
-	"/clone/board/songshan_b"->foo();
+	// "/clone/board/songshan_b"->foo();
 }
-

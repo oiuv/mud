@@ -16,13 +16,12 @@ void create()
 LONG );
 
 	set("exits", ([
-		"east"    :  __DIR__"herodoor",           
-        ]));
+		"east"    :  __DIR__"herodoor",
+    ]));
 
 	set("no_fight", 1);
 
 	setup();
-	"/clone/board/wenxuan_b"->foo();
-        replace_program(ROOM);
+	// "/clone/board/wenxuan_b"->foo();
+    replace_program(ROOM);
 }
-

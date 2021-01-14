@@ -22,16 +22,16 @@ LONG
         ]));
 /*
         set("objects", ([
-                CLASS_D("gumu") + "/longnv" : 1,             	
+                CLASS_D("gumu") + "/longnv" : 1,
         ]));
 */
         set("valid_startroom",1);
 
         set("item_desc", ([
-        	"chuang": HIC "这是一张用" HIW "千年寒玉" HIC "雕成的寒玉床。\n" NOR,
+            "chuang": HIC "这是一张用" HIW "千年寒玉" HIC "雕成的寒玉床。\n" NOR,
         ]) );
         setup();
-        "/clone/board/gumu_b"->foo();
+        // "/clone/board/gumu_b"->foo();
 }
 
 void init()
@@ -52,31 +52,31 @@ int do_sleep(string arg)
         }
         if (lvl_force > 100)
         {
-        	if ( me->query("max_neili") < 200 ) //增加内力限制
-        		{
+            if ( me->query("max_neili") < 200 ) //增加内力限制
+                {
                 write(HIR"你现在的内力修为太低无法抵御寒玉床的寒气，去练练再来吧。\n"NOR);
                 return 1;
              }
              /*
-        	if ( me->query("max_neili") > 2000 ) //增加内力限制
+            if ( me->query("max_neili") > 2000 ) //增加内力限制
                 {
                 write(HIR"以你现在的内力修为再躺寒玉床已经没什么用了。\n"NOR);
                 return 1;
                 }
                 */
-                
+
                 if ( me->query("max_neili") > 2000 && me->query("family/family_name") != "古墓派" ) //增加内力限制
                 {
                 write(HIR"以你现在的内力修为再躺寒玉床已经没什么用了。\n"NOR);
                 return 1;
                 } else
-                	
+
                 if ( me->query("max_neili") > 3000) //古墓增加福利 2017-02-20
                 {
                 write(HIR"以你现在的内力修为再躺寒玉床已经没什么用了。\n"NOR);
                 return 1;
                 }
-                
+
                 message_vision(HIC "\n$N" HIC "躺上了寒玉床，开始潜运内功，使内"
                                "息遍行大小周天。\n", this_player());
                 if (random(20) > 10 && (int)me->query("max_neili") < (int)me->query_neili_limit())
@@ -103,4 +103,3 @@ int do_sleep(string arg)
         }
         return 1;
 }
-

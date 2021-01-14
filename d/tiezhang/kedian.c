@@ -26,7 +26,7 @@ LONG
 	]));
 
 	setup();
-	"/clone/board/kedian_b"->foo();
+	// "/clone/board/kedian_b"->foo();
 }
 
 int valid_leave(object me, string dir)

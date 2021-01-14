@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 void create()
@@ -21,7 +21,7 @@ LONG);
         set("no_clean_up", 0);
         set("valid_startroom", 1);
         setup();
-        "/clone/board/shang_b"->foo();
+        // "/clone/board/shang_b"->foo();
 }
 
 
@@ -31,8 +31,8 @@ int valid_leave(object me, string dir)
 //      object ob;
         me = this_player();
 
-        if (dir == "north" || 
-           dir == "east" || 
+        if (dir == "north" ||
+           dir == "east" ||
            dir == "west")
         {
                 if ((string)me->query("family/family_name") != "商家堡" &&

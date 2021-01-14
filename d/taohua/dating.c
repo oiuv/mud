@@ -29,7 +29,7 @@ HIC "           ##############################\n"
 	set("no_beg", "1");
 	setup();
 
-	 "/clone/board/taohua_b"->foo();
+	//  "/clone/board/taohua_b"->foo();
 }
 
 int valid_leave(object me, string dir)

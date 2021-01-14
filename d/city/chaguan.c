@@ -17,5 +17,5 @@ LONG );
 	]));
 	setup();
 	replace_program(ROOM);
-	"/clone/board/player_b"->foo();
+	// "/clone/board/player_b"->foo();
 }

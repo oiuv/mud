@@ -22,7 +22,7 @@ LONG);
         set("no_clean_up", 0);
         set("valid_startroom", 1);
         setup();
-        "/clone/board/honghua_b"->foo();
+        // "/clone/board/honghua_b"->foo();
 }
 
 int valid_leave(object me, string dir)

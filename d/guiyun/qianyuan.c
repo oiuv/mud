@@ -23,7 +23,7 @@ LONG );
         "north" : __DIR__"dating",
     ]));
     setup();
-    "/clone/board/guiyun_b"->foo();
+    // "/clone/board/guiyun_b"->foo();
 }
 
 void init()

@@ -20,6 +20,5 @@ LONG );
 //	set("outdoors", "taishan");
 	set("no_clean_up", 0);
 	setup();
-	"/clone/board/taishan_b"->foo();
+	// "/clone/board/taishan_b"->foo();
 }
-

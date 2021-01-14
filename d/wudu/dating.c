@@ -22,5 +22,5 @@ LONG);
 
         set("valid_startroom", 1);
         setup();
-        "/clone/board/wudu_b"->foo();
+        // "/clone/board/wudu_b"->foo();
 }

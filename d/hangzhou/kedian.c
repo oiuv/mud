@@ -29,18 +29,17 @@ LONG);
         ]));
         set("no_clean_up", 0);
         setup();
-        "/clone/board/kedian7_b"->foo();
+        // "/clone/board/kedian7_b"->foo();
 }
 
 int valid_leave(object me, string dir)
 {
-        if ( !me->query_temp("rent_paid") && dir == "up" )
-     return notify_fail("店小二一下挡在楼梯前，白眼一翻：怎麽着，想白住啊！\n");
+    if (!me->query_temp("rent_paid") && dir == "up")
+        return notify_fail("店小二一下挡在楼梯前，白眼一翻：怎麽着，想白住啊！\n");
 
-        if ( me->query_temp("rent_paid") && dir == "west" )
+    if (me->query_temp("rent_paid") && dir == "west")
         return notify_fail("店小二跑到门边拦住：客官已经付了银子，怎麽不住店就住
 旁人还以为小店伺候不周呢！\n");
 
         return ::valid_leave(me, dir);
 }
-

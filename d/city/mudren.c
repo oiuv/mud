@@ -28,7 +28,7 @@ LONG );
         "up" : "/u/mudren/mogong",
     ]));
     setup();
-    "/clone/board/mudren_b"->foo();
+    // "/clone/board/mudren_b"->foo();
     replace_program(ROOM);
 }
 

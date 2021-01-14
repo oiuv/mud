@@ -31,7 +31,7 @@ LONG );
                 "east"      : __DIR__"majiu",
         ]));
         setup();
-        "/clone/board/kedian3_b"->foo();
+        // "/clone/board/kedian3_b"->foo();
 }
 
 int valid_leave(object me, string dir)
