@@ -201,20 +201,30 @@ varargs int move(mixed dest, int raw)
         {
             tell_room(env, "@#move0@" + me->short() + "离开了当前玩家@\n");
         }
+        else if (living(me))
+        {
+            tell_room(env, "@#move0@" + me->short() + "@" + me->query("gender") + "离开了当前环境@\n", ({this_object()}));
+        }
         else
         {
             tell_room(env, "@#move0@" + me->short() + "离开了当前环境@\n", ({this_object()}));
         }
+
     }
     move_object(ob);
     if (ob == this_player())
     {
         tell_room(ob, "@#move1@" + me->short() + "移动到当前玩家身上@\n");
     }
+    else if (living(me))
+    {
+        tell_room(ob, "@#move1@" + me->short() + "@" + me->query("gender") + "移动到当前环境@\n", ({this_object()}));
+    }
     else
     {
         tell_room(ob, "@#move1@" + me->short() + "移动到当前环境@\n", ({this_object()}));
     }
+
     // debug_message(sprintf(ctime() + " %s 移动到 %s", me->short(), ob->short()));
     // If we are players, try look where we are.
     if (is_char && interactive(me) && // are we linkdead?
