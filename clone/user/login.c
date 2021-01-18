@@ -64,6 +64,7 @@ void receive_message(string type, string str)
 void terminal_type(string term_type)
 {
     set_temp("terminal_type", term_type);
+    debug_message(term_type);
 }
 
 // Protect login object's data against hackers.

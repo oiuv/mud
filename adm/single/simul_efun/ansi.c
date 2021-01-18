@@ -44,6 +44,21 @@ string filter_color(string arg)
     arg = replace_string(arg, NOR, "");
     arg = replace_string(arg, BOLD, "");
     arg = replace_string(arg, BLINK, "");
+    arg = replace_string(arg, BBLK, "");
+    arg = replace_string(arg, BRED, "");
+    arg = replace_string(arg, BGRN, "");
+    arg = replace_string(arg, BYEL, "");
+    arg = replace_string(arg, BBLU, "");
+    arg = replace_string(arg, BMAG, "");
+    arg = replace_string(arg, BCYN, "");
+    arg = replace_string(arg, BWHT, "");
+    arg = replace_string(arg, HBRED, "");
+    arg = replace_string(arg, HBGRN, "");
+    arg = replace_string(arg, HBYEL, "");
+    arg = replace_string(arg, HBBLU, "");
+    arg = replace_string(arg, HBMAG, "");
+    arg = replace_string(arg, HBCYN, "");
+    arg = replace_string(arg, HBWHT, "");
     return arg;
 #endif
 }

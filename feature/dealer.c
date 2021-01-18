@@ -1,12 +1,14 @@
 // dealer.c 商人
 // This is a inheritable object.
 // Each dealer should support buy, sell, list, value 4 commands
-// Updated by Vin for heros.cn 
+// Updated by Vin for heros.cn
 
 #include <ansi.h>
 #include <dbase.h>
 #include <name.h>
 #include <config.h>
+
+int is_dealer() { return 1; }
 
 string is_vendor_good(string arg)
 {
@@ -19,7 +21,7 @@ string is_vendor_good(string arg)
                 goods = keys(goods);
 
         if (arrayp(goods))
-                for (i = 0; i < sizeof(goods); i++) 
+                for (i = 0; i < sizeof(goods); i++)
                 {
                         if (goods[i]->id(arg)) return goods[i];
                         if (filter_color(goods[i]->name(1)) == arg)
@@ -39,7 +41,7 @@ int do_value(string arg)
         {
                 return notify_fail("你要估什么的价？\n");
         }
-        
+
         if (ob->query("money_id"))
         {
                 write(CYN + name() + "道：你没用过钱啊？\n" NOR);
@@ -161,7 +163,7 @@ int do_sell(string arg)
                 return 1;
         }
 
-        if (is_vendor_good(arg) != "") 
+        if (is_vendor_good(arg) != "")
         {
                 write(CYN + name() + "笑道：“我卖给你好不好？”\n" NOR);
                 return 1;
@@ -173,11 +175,11 @@ int do_sell(string arg)
                       "您自己用吧。”\n" NOR);
                 return 1;
         }
-        
+
         if (ob->query("shaolin"))
         {
                 write(CYN + name() + "惊道：“小的胆子很小，可"
-                      "不敢买少林庙产。”\n" NOR); 
+                      "不敢买少林庙产。”\n" NOR);
                 return 1;
         }
 
@@ -273,7 +275,7 @@ int do_list(string arg)
                         unit  += ([ short_name : obs[i]->query(prefix + "unit") ]);
                         price += ([ short_name : obs[i]->query(prefix + "value") ]);
                 }
-    
+
         goods = query("vendor_goods");
         if (arrayp(goods) || mapp(goods))
         {
@@ -306,7 +308,7 @@ int do_list(string arg)
                 }
         }
 
-        msg = this_object()->name() + "目前出售以下物品：\n";
+        msg = "@#Alert@list[";
         dk = sort_array(keys(unit), 1);
         for (i = 0; i < sizeof(dk); i++)
         {
@@ -314,15 +316,12 @@ int do_list(string arg)
                 p = price[dk[i]];
                 if (count[dk[i]] > 0) p = p * 12 / 10;
                 //msg += sprintf("%" + sprintf("%d", (30 + color_len(dk[i]))) +
-                msg += sprintf("%" + sprintf("%d", 30) +
-                               "-s：每%s%s" CYN "(现货%s)\n" NOR, dk[i], unit[dk[i]], MONEY_D->price_str(p),
-                               count[dk[i]] > 0 ? chinese_number(count[dk[i]]) + unit[dk[i]]
-                                                : "大量供应");
+                msg += sprintf("%s:%s|", dk[i], MONEY_D->price_str(p));
         }
 
-        write(msg);
+        write(msg[0.. < 2] + "]@\n");
         return 1;
-}       
+}
 
 int do_buy(string arg)
 {
@@ -338,7 +337,7 @@ int do_buy(string arg)
         object  me;
         mapping room_obmap;
         int i;
-        
+
         if (! arg)
                 return notify_fail("你想买什么？\n");
 
@@ -494,7 +493,7 @@ int do_buy(string arg)
                         message_vision("$N从$n那里买下了" + ob->short() + "。\n",
                                        me, this_object());
                 else
-                        message_vision("$N从$n那里买下了一" + ob->query("unit") + 
+                        message_vision("$N从$n那里买下了一" + ob->query("unit") +
                                        ob->query("name") + "。\n",
                                        me, this_object());
 

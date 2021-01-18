@@ -345,9 +345,9 @@ int look_item(object me, object obj)
     apply1 = ({});
     apply2 = ({});
     apply3 = ({});
-
-    str = "@#itemName@" + obj->name() + "@\n";
-    str += "@#itemText@" + obj->long() + "@\n";
+    str = "@#Alert@";
+    str += "item[Name:" + obj->name() + "|";
+    str += "Text:" + obj->long();
 
     if (mapp(obj->query("weapon_prop")) || mapp(obj->query("armor_prop")))
     {
@@ -372,17 +372,16 @@ int look_item(object me, object obj)
             apply = keys(special_prop);
         if (arrayp(apply) && sizeof(apply) > 0)
         {
-            str += "@#itemProp@---------------附加属性--------------\n";
+            str += "|Prop:";
             for (i = 0; i < sizeof(apply); i++)
             {
                 f = special_prop[apply[i]];
                 desc = ENCHASE_D->special_desc(apply[i]);
 
-                str += sprintf(HIC "%s%10s%-5d\n" NOR, desc,
+                str += sprintf(HIC "%s%s%d" NOR, desc,
                                f > 0 ? "+" : "-", abs(f));
             }
         }
-        str += "-------------------------------------@\n";
     }
 
     while (mapp(obj->query_temp("daub")))
@@ -422,11 +421,17 @@ int look_item(object me, object obj)
     }
 
     if (obj->query("consistence"))
-        str += sprintf("耐久度：" WHT "%d%%\n" NOR, obj->query("consistence"));
+        str += sprintf("|耐久度:" WHT "%d%%" NOR, obj->query("consistence"));
 
     inv = all_inventory(obj);
     if (!sizeof(inv))
     {
+        if (str[<1]=='\n')
+        {
+            str = str[0.. < 2];
+        }
+
+        str += "]@\n";
         message("vision", str, me);
         return 1;
     }
@@ -479,7 +484,7 @@ int look_item(object me, object obj)
             str += chinese_number(count[dk[i]]) + unit[dk[i]];
         str += dk[i] + "\n";
     }
-
+    str += "]@\n";
     if (strlen(str) > 4096)
         me->start_more(str);
     else
@@ -489,13 +494,13 @@ int look_item(object me, object obj)
 
 string living_cmds(object me, object ob)
 {
-    string str = "@#livingCmds@";
+    string str = "cmds[";
     string inquiry = ASK_CMD->query_inquiry(me, ob);
     object env;
 
     if (me == ob)
     {
-        return "";
+        return "]@\n";
     }
 
     if (ob->is_knower())
@@ -548,7 +553,7 @@ string living_cmds(object me, object ob)
         str += "ask:" + inquiry + "|";
     }
 
-    str += "fight:" + dict("fight") + "|kill:" + dict("kill") + "@\n";
+    str += "fight:" + dict("fight") + "|kill:" + dict("kill") + "]]@\n";
 
     return str;
 }
@@ -573,12 +578,12 @@ string look_equiped(object me, object obj, string pro)
         {
         case "wielded":
             n++;
-            subs = HIC "wield:" NOR + inv[i]->short() + "|" + subs;
+            subs = inv[i]->short() + "|" + subs;
             break;
 
         case "worn":
             n++;
-            subs += HIC "worn:" NOR + inv[i]->short() + "|";
+            subs += inv[i]->short() + "|";
             break;
 
         default:
@@ -602,7 +607,7 @@ string look_equiped(object me, object obj, string pro)
               hob->name() + (mad ? "，疯了，一定是疯了！\n" : "。\n") + str;
     }
 
-    return "@#livingEquip@" + str + "@\n";
+    return "Equip:" + str;
 }
 
 string getdam(object me, object obj)
@@ -843,8 +848,8 @@ int look_living(object me, object obj)
                 environment(me), ({me, obj}));
     }
 
-    str = "@#livingName@" + obj->short() + "@\n";
-    str += "@#livingText@" + obj->long();
+    str = "@#Alert@living[Name:" + obj->short() + "|";
+    str += "Text:" + obj->long();
 
     if (me != obj && objectp(obj->query_temp("is_riding")))
         str += sprintf("%s正骑在%s上，低头看着你。\n", pro, obj->query_temp("is_riding")->name());
@@ -1021,7 +1026,7 @@ int look_living(object me, object obj)
                "淬了" + (me == obj ? obj->query_temp("daub/poison/name") : "毒") +
                NOR "。\n";
     }
-    str += "@\n";
+    str += "|";
     str += look_equiped(me, obj, pro);
     str += living_cmds(me, obj);
     message("vision", str, me);
