@@ -10,6 +10,7 @@ mapping dict = ([
     "unwield":"解除",
        "wear":"穿戴",
      "remove":"脱下",
+        "put":"放入",
 
 ]);
 

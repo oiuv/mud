@@ -311,6 +311,27 @@ string look_all_inventory_of_room(object me, object env, int ret_str)
     return "@#mapData@" + str + "@\n";
 }
 
+string actions(object me, object ob)
+{
+    string str = "";
+    mixed *cmds = me->query_commands();
+
+    for (int i = 0; i < sizeof(cmds) - 1; i++)
+    {
+        if (cmds[i][2] == ob)
+        {
+            str += sprintf("%s:%s|", cmds[i][0], dict(cmds[i][0]));
+        }
+    }
+
+    if (sizeof(str) && str[ < 1] == '|')
+    {
+        str = str[0.. < 2];
+    }
+
+    return str;
+}
+
 string item_cmds(object me, object ob)
 {
     string str = "|cmds[";
@@ -358,7 +379,7 @@ string item_cmds(object me, object ob)
         str += "drink:" + dict["drink"] + "|";
     if (ob->is_container())
     {
-        str += "put:" + dict["put"] + "|";
+        str += "get:" + dict["get"] + "|";
     }
     if (ob->is_book())
         str += "read:" + dict["read"] + "|";
@@ -382,10 +403,8 @@ string item_cmds(object me, object ob)
     {
 
     }
-    if (str[<1]=='|')
-    {
-        str = str[0.. < 2];
-    }
+
+    str += actions(me, ob);
 
     str += "]";
 
@@ -429,6 +448,11 @@ int look_item(object me, object obj)
     str = "@#Alert@";
     str += "item[Name:" + obj->short() + "|";
     str += "Text:" + obj->long();
+
+    if (str[ < 1] == '\n')
+    {
+        str = str[0.. < 2];
+    }
 
     if (mapp(obj->query("weapon_prop")) || mapp(obj->query("armor_prop")))
     {
@@ -504,15 +528,12 @@ int look_item(object me, object obj)
     if (obj->query("consistence"))
         str += sprintf("|耐久度:" WHT "%d%%" NOR, obj->query("consistence"));
 
+    // 物品相关指令
+    str += item_cmds(me, obj);
+
     inv = all_inventory(obj);
     if (!sizeof(inv))
     {
-        if (str[<1]=='\n')
-        {
-            str = str[0.. < 2];
-        }
-        // 物品相关指令
-        str += item_cmds(me, obj);
         str += "]@\n";
         message("vision", str, me);
         return 1;
@@ -578,7 +599,7 @@ string living_cmds(object me, object ob)
 {
     string str = "cmds[";
     string inquiry = ASK_CMD->query_inquiry(me, ob);
-    object env;
+    object env = environment(ob);
 
     if (me == ob)
     {
@@ -622,7 +643,7 @@ string living_cmds(object me, object ob)
 
     if (ob->is_dealer())
     {
-        str += "list:" + dict("list");
+        str += "list:" + dict("list") + "|";
     }
 
     if (ob->is_banker())
@@ -635,7 +656,13 @@ string living_cmds(object me, object ob)
         str += "ask:" + inquiry + "|";
     }
 
-    str += "fight:" + dict("fight") + "|kill:" + dict("kill") + "]]@\n";
+    if (!env->query("no_fight"))
+    {
+        str += "fight:" + dict("fight") + "|kill:" + dict("kill") + "|";
+    }
+
+    str += actions(me, ob);
+    str += "]";
 
     return str;
 }
@@ -930,7 +957,8 @@ int look_living(object me, object obj)
                 environment(me), ({me, obj}));
     }
 
-    str = "@#Alert@living[Name:" + obj->short() + "|";
+    str = "@#Alert@living[";
+    str += "Name:" + obj->short() + "|";
     str += "Text:" + obj->long();
 
     if (me != obj && objectp(obj->query_temp("is_riding")))
@@ -1111,6 +1139,8 @@ int look_living(object me, object obj)
     str += "|";
     str += look_equiped(me, obj, pro);
     str += living_cmds(me, obj);
+
+    str += "]@\n";
     message("vision", str, me);
 
     if (obj != me && living(obj) && !me->is_brother(obj) && !obj->query_condition("die_guard") && !me->query_condition("die_guard") && me->query("couple/id") != obj->query("id") && (((me_shen < 0) && (obj_shen > 0)) || ((me_shen > 0) && (obj_shen < 0))) && (((me_shen - obj_shen) > ((int)obj->query("max_neili") * 20)) || ((obj_shen - me_shen) > ((int)obj->query("max_neili") * 20))))
