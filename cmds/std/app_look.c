@@ -311,6 +311,83 @@ string look_all_inventory_of_room(object me, object env, int ret_str)
     return "@#mapData@" + str + "@\n";
 }
 
+string item_cmds(object me, object ob)
+{
+    string str = "|cmds[";
+    object env = environment(ob);
+
+    if (me == env)
+    {
+        str += "drop:" + dict["drop"] + "|";
+        if (ob->is_weapon())
+        {
+            if (ob->query("equipped"))
+            {
+                str += "unwield:" + dict["unwield"] + "|";
+            }
+            else
+            {
+                str += "wield:" + dict["wield"] + "|";
+            }
+        }
+
+        if (ob->is_armor())
+        {
+            if (ob->query("equipped"))
+            {
+                str += "remove:" + dict["remove"] + "|";
+            }
+            else
+            {
+                str += "wear:" + dict["wear"] + "|";
+            }
+        }
+    }
+    else
+    {
+        str += "get:" + dict["get"] + "|";
+    }
+
+    if (ob->is_food())
+        str += "eat:" + dict["eat"] + "|";
+    if (ob->is_liquid())
+        str += "drink:" + dict["drink"] + "|";
+    if (ob->is_container())
+    {
+
+    }
+    if (ob->is_book())
+        str += "read:" + dict["read"] + "|";
+    if (ob->is_money())
+    {
+
+    }
+    if (ob->is_charm())
+    {
+
+    }
+    if (ob->is_rune())
+    {
+
+    }
+    if (ob->is_inlaid())
+    {
+
+    }
+    if (ob->is_task())
+    {
+
+    }
+    if (str[<1]=='|')
+    {
+        str = str[0.. < 2];
+    }
+
+    str += "]";
+
+    return str;
+}
+
 int look_item(object me, object obj)
 {
     object hob;
@@ -430,7 +507,8 @@ int look_item(object me, object obj)
         {
             str = str[0.. < 2];
         }
-
+        // 物品相关指令
+        str += item_cmds(me, obj);
         str += "]@\n";
         message("vision", str, me);
         return 1;
