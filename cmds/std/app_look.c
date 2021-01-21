@@ -368,7 +368,7 @@ string item_cmds(object me, object ob)
             }
         }
     }
-    else if (!ob->query("no_get"))
+    else if (env == environment(me) && !ob->query("no_get"))
     {
         str += "get:" + dict["get"] + "|";
     }
@@ -379,7 +379,7 @@ string item_cmds(object me, object ob)
         str += "drink:" + dict["drink"] + "|";
     if (ob->is_container())
     {
-        str += "get:" + dict["get"] + "|";
+        // str += "get:" + dict["get"] + "|";
     }
     if (ob->is_book())
         str += "read:" + dict["read"] + "|";
