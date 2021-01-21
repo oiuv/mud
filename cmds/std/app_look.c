@@ -318,7 +318,11 @@ string item_cmds(object me, object ob)
 
     if (me == env)
     {
-        str += "drop:" + dict["drop"] + "|";
+        if (!ob->query("no_drop"))
+        {
+            str += "drop:" + dict["drop"] + "|";
+        }
+
         if (ob->is_weapon())
         {
             if (ob->query("equipped"))
@@ -343,7 +347,7 @@ string item_cmds(object me, object ob)
             }
         }
     }
-    else
+    else if (!ob->query("no_get"))
     {
         str += "get:" + dict["get"] + "|";
     }
@@ -354,7 +358,7 @@ string item_cmds(object me, object ob)
         str += "drink:" + dict["drink"] + "|";
     if (ob->is_container())
     {
-
+        str += "put:" + dict["put"] + "|";
     }
     if (ob->is_book())
         str += "read:" + dict["read"] + "|";
@@ -423,7 +427,7 @@ int look_item(object me, object obj)
     apply2 = ({});
     apply3 = ({});
     str = "@#Alert@";
-    str += "item[Name:" + obj->name() + "|";
+    str += "item[Name:" + obj->short() + "|";
     str += "Text:" + obj->long();
 
     if (mapp(obj->query("weapon_prop")) || mapp(obj->query("armor_prop")))
