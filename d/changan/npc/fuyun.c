@@ -48,8 +48,8 @@ void create()
 	set("attitude", "friendly");
 
         set("inquiry", ([
-                "门贡" : (: do_answer :),
-                "贡献" : (: do_answer :),
+                // "门贡" : (: do_answer :),
+                // "贡献" : (: do_answer :),
                 "门派贡献" : (: do_answer :),
         ]));
 

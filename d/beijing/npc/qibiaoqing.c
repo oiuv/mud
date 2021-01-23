@@ -7,7 +7,7 @@ int ask_weiwang();
 void create()
 {
         set_name("祁彪清", ({ "qi biaoqing", "qi" }));
-        set("title", HIR "天地会"HIG"青木堂"NOR"会众"); 
+        set("title", HIR "天地会"HIG"青木堂"NOR"会众");
         set("shen_type", 1);
         set("gender", "男性");
         set("age", 35);
@@ -37,10 +37,10 @@ void create()
         set("inquiry", ([
                 "陈近南" :  "\n想见总舵主可不容易啊。\n",
                 "天地会" :  "\n只要是英雄好汉，都可以入我天地会(join tiandihui)。\n",
-                "加入" :  "\n只要入了我天地会，大家就可以一起反青复明。\n",
+                // "加入" :  "\n只要入了我天地会，大家就可以一起反青复明。\n",
                 "入会" :  "\n只要入了我天地会，大家就可以一起反青复明。\n",
                 "反清复明" : "去屠宰场和棺材店仔细瞧瞧吧！\n",
-                "威望" :  (: ask_weiwang :),
+                // "威望" :  (: ask_weiwang :),
                 "江湖威望" : (: ask_weiwang :),
        ]) );
 
@@ -70,4 +70,3 @@ say("祁彪清又说：杀某些坏人或救某些好人可以提高江湖威望
 return 1;
 }
 #include "/kungfu/class/yunlong/tiandihui.h";
-

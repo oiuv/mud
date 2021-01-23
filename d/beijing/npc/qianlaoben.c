@@ -16,7 +16,7 @@ void create()
         set("dex", 18);
         set("con", 18);
 
-        set("qi", 500); 
+        set("qi", 500);
         set("max_qi", 500);
         set("jing", 100);
         set("max_jing", 100);
@@ -31,9 +31,9 @@ void create()
                 "利息" :  "\n想要利息先入会！\n",
                 "陈近南" :  "\n想见总舵主可没那么容易。\n",
                 "天地会" :  "\n只要是英雄好汉，都可以入我天地会(join tiandihui)。\n",
-                "加入" :  "\n只要入了我天地会，大家就可以一起反青复明。\n",
+                // "加入" :  "\n只要入了我天地会，大家就可以一起反青复明。\n",
                 "入会" :  "\n只要入了我天地会，大家就可以一起反青复明。\n",
-                "威望" :  (: ask_weiwang :),
+                // "威望" :  (: ask_weiwang :),
                 "江湖威望" : (: ask_weiwang :),
        ]) );
 
@@ -60,4 +60,3 @@ int ask_weiwang()
 }
 
 #include "/kungfu/class/yunlong/tiandihui.h"
-

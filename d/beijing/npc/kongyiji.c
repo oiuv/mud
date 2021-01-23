@@ -32,7 +32,7 @@ void create()
         set_skill("unarmed", 10);
 
         set("inquiry", ([
-                "yueyin": (: get_yueyin :),
+                // "yueyin": (: get_yueyin :),
                 "月银": (: get_yueyin :),
         ]) );
 

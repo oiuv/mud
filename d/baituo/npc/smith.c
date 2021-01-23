@@ -23,7 +23,7 @@ void create()
 
         set("inquiry", ([
                 "工作" : (: ask_me :),
-                "job"  : (: ask_me :),
+                // "job"  : (: ask_me :),
         ]));
 
 	setup();

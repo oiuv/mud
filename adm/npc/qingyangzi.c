@@ -28,7 +28,7 @@ void create()
 
         set("inquiry", ([
                 "刺青" : (: ask_me :),
-                "纹身" : (: ask_me :),
+                // "纹身" : (: ask_me :),
         ]));
 
         setup();

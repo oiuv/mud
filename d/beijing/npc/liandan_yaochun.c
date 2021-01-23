@@ -47,15 +47,15 @@ void create()
         set("inquiry", ([
                 "徐天川"  :  "那老猴儿便是我给医治的，怎么你也知道。\n",
                 "炼丹"    : (:do_liandan:),
-                "liandan" : (:do_liandan:),
+                // "liandan" : (:do_liandan:),
                 "quest"   :  "在我这里可以帮着我「" HIR "炼丹" NOR + CYN
                              "」，如果愿意可以向我询问。\n",
-                "job"     :  "在我这里可以帮着我「" HIR "炼丹" NOR + CYN
-                             "」，如果愿意可以向我询问。\n",
+                // "job"     :  "在我这里可以帮着我「" HIR "炼丹" NOR + CYN
+                            //  "」，如果愿意可以向我询问。\n",
                 "药材"    :  "去找我的小童，他会帮你处理。\n",
-                "原料"    :  "去找我的小童，他会帮你处理。\n",
-                "yaocai"  :  "去找我的小童，他会帮你处理。\n",
-                "医术"    : (: ask_me :),
+                // "原料"    :  "去找我的小童，他会帮你处理。\n",
+                // "yaocai"  :  "去找我的小童，他会帮你处理。\n",
+                // "医术"    : (: ask_me :),
                 "炼丹术"  : (: ask_me :),
                 "针灸术"  : (: ask_me :),
                 "本草术理": "掌握本草常识才能领悟高深的本草术理。\n",
@@ -96,15 +96,15 @@ int do_liandan()
                 }
                 message_vision(CYN "姚春对$N" CYN "微笑道：炼丹是个修身养性的"
                                "过程，你能成功，很不错！\n" NOR, me);
-				//奖励增加5倍（2015年4月25日）
+                //奖励增加5倍（2015年4月25日）
                 exp = 8 + random(10);
                 pot = 4 + random(5);
 
                 me->add("combat_exp", exp);
-	        me->improve_potential(pot);
+            me->improve_potential(pot);
 
                 if (me->query("potential") > me->query_potential_limit())
-			pot = 1;
+            pot = 1;
 
                 tell_object(me, HIC "你获得了" + chinese_number(exp) +
                                 "点经验和" + chinese_number(pot) + "点潜能。\n"
@@ -114,7 +114,7 @@ int do_liandan()
                 me->add("over_quest/liandan_quest", 1);
                 return 1;
         } else
-	{
+    {
                 message_vision(CYN "姚春对$N" CYN "点了点头，说道：炼丹是考验"
                                "人的定力修为，心不静则事不成，你去向童子询问「"
                                HIG "药材" NOR + CYN "」吧。\n", me);
@@ -167,12 +167,12 @@ int recognize_apprentice(object me, string skill)
 
         if (skill == "liandan-shu")
         {
-		        if (me->query("over_quest/liandan_quest") < 2000 )
-				{
-						command("say 成为炼丹师需要足够的毅力，你先去炼丹满两千次再来学炼丹术。");
-						return -1;
-				}
-				return 1;
+                if (me->query("over_quest/liandan_quest") < 2000 )
+                {
+                        command("say 成为炼丹师需要足够的毅力，你先去炼丹满两千次再来学炼丹术。");
+                        return -1;
+                }
+                return 1;
         }
 
         if (skill != "medical" &&

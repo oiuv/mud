@@ -39,7 +39,7 @@ LONG);
 
     set("inquiry", ([
         "乾坤宝镜" : (: ask_mirror :),
-        "宝镜" : (: ask_mirror :),
+        // "宝镜" : (: ask_mirror :),
         // "mirror" : (: ask_mirror :),
         "心魔" : (: ask_maze :),
     ]));

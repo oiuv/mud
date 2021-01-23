@@ -32,10 +32,10 @@ void create()
         "御前侍卫喝道：亡命狂徒，京城之中，岂得由你猖狂？\n",
     }));
     set("inquiry", ([
-        "赏赐" : (: ask_reward :),
-        "请赏" : (: ask_reward :),
+        // "赏赐" : (: ask_reward :),
+        // "请赏" : (: ask_reward :),
         "领赏" : (: ask_reward :),
-        "reward" : (: ask_reward :),
+        // "reward" : (: ask_reward :),
     ]));
     setup();
     carry_object("/d/beijing/npc/obj/sword4")->wield();

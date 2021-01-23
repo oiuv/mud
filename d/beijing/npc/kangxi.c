@@ -31,10 +31,10 @@ void create()
     set_temp("apply/armor", 60);
 
     set("inquiry", ([
-        "赏赐" : (: ask_reward :),
-        "请赏" : (: ask_reward :),
+        // "赏赐" : (: ask_reward :),
+        // "请赏" : (: ask_reward :),
         "领赏" : (: ask_reward :),
-        "reward" : (: ask_reward :),
+        // "reward" : (: ask_reward :),
     ]));
     setup();
     carry_object("/d/beijing/npc/obj/longpao")->wear();

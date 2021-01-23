@@ -18,7 +18,7 @@ void create()
 
         set("inquiry",([
                 "自宫"    : (: ask_for_zigong :),
-                "zigong"  : (: ask_for_zigong :),
+                // "zigong"  : (: ask_for_zigong :),
         ]));
 
         set("age", 60);
@@ -110,4 +110,3 @@ int do_decide()
         me->unconcious();
         return 1;
 }
-
