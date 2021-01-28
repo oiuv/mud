@@ -69,11 +69,11 @@ int main(object me, string arg)
 
         if (arg == "?" )
         {
-                msg = "以下是可以使用特殊技能的种类：\n";
+                msg = "@#skillType@";
                 skill = sort_array(keys(valid_types), (: strcmp :) );
                 for (i = 0; i < sizeof(skill); i++)
-                        msg += sprintf("  %s (%s)\n", valid_types[skill[i]], skill[i]);
-                write(msg);
+                        msg += sprintf("%s(%s)|", valid_types[skill[i]], skill[i]);
+                write(msg[0.. < 2] + "@\n");
                 return 1;
         }
 
