@@ -48,7 +48,7 @@ int main(object me, string arg)
                         return notify_fail("你现在没有使用任何特殊技能。\n");
 
                 skill = keys(valid_types);
-                msg = "以下是你目前使用中的特殊技能。\n";
+                msg = "@#skillEnable@";
                 for (i = 0; i < sizeof(skill); i++)
                 {
                         if (undefinedp(map[skill[i]]))
@@ -58,13 +58,12 @@ int main(object me, string arg)
                                 continue;
 
                         modify = me->query_temp("apply/" + skill[i]);
-                        msg += sprintf("  %-20s： %-20s  有效等级：%s%3d\n" NOR,
-                                valid_types[skill[i]] + " (" + skill[i] + ")",
-                                undefinedp(map[skill[i]]) ? "无" : to_chinese(map[skill[i]]),
-                                (modify==0 ? "" : (modify>0 ? HIC : HIR)),
-                                me->query_skill(skill[i]));
+                        msg += sprintf("%s:%s:%d|",
+                                       valid_types[skill[i]] + "(" + skill[i] + ")",
+                                       undefinedp(map[skill[i]]) ? "无" : to_chinese(map[skill[i]]) + "(" + map[skill[i]] + ")",
+                                       me->query_skill(skill[i]));
                 }
-                write(msg);
+                write(msg[0.. < 2] + "@\n");
                 return 1;
         }
 

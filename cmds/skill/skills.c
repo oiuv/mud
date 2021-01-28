@@ -35,6 +35,7 @@ int sort_skill(string sk1, string sk2, mapping spos);
 int filter_for_enable(string skill, string skill1);
 int filter_for_main(string skill, string skill1);
 int filter_for_combine(string skill, string skill1);
+int filter_for_knowledge(string skill);
 
 int main(object me, string arg)
 {
@@ -166,7 +167,7 @@ int main(object me, string arg)
         {
             // skill1 is a basic skill
             sname = filter_array(sname, (: filter_for_enable :), skill1);
-            str += to_chinese(skill1) + "及相关技能";
+            // str += to_chinese(skill1) + "及相关技能";
         }
         else if (SKILL_D(skill1)->main_skill() &&
             member_array(SKILL_D(skill1)->main_skill(), sname) == -1)
@@ -174,13 +175,14 @@ int main(object me, string arg)
             // skill1 is a sub skill
             skill1 = SKILL_D(skill1)->main_skill();
             sname = filter_array(sname, (: filter_for_main :), skill1);
-            str += to_chinese(skill1) + "中的招式";
+            // str += to_chinese(skill1) + "中的招式";
         }
         else
         {
             sname = filter_array(sname, (: filter_for_combine :), skill1);
-            str += to_chinese(skill1) + "和可以激发的基础武技与能够互备的技能";
+            // str += to_chinese(skill1) + "和可以激发的基础武技与能够互备的技能";
         }
+        str += skill1;
     }
     else
         str = "@#skills@";
@@ -300,6 +302,11 @@ int main(object me, string arg)
     str += "@\n";
     tell_object(me, str);
     return 1;
+}
+
+int filter_for_knowledge(string skill)
+{
+    return (SKILL_D(skill)->type() == "knowledge");
 }
 
 int filter_for_enable(string skill, string skill1)
