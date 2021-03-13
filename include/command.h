@@ -1,11 +1,11 @@
 // command.h
 
-#define ADM_PATH ({"/cmds/adm/", "/cmds/arch/", "/cmds/wiz/", "/cmds/imm/", "/cmds/usr/","/cmds/std/", "/cmds/skill/"})
-#define ARC_PATH ({"/cmds/adm/", "/cmds/arch/", "/cmds/wiz/", "/cmds/imm/", "/cmds/usr/","/cmds/std/", "/cmds/skill/"})
-#define WIZ_PATH ({"/cmds/adm/", "/cmds/arch/", "/cmds/wiz/", "/cmds/imm/", "/cmds/usr/","/cmds/std/", "/cmds/skill/"})
-#define APR_PATH ({"/cmds/adm/", "/cmds/arch/", "/cmds/wiz/", "/cmds/imm/", "/cmds/usr/","/cmds/std/", "/cmds/skill/"})
-#define IMM_PATH ({"/cmds/adm/", "/cmds/arch/", "/cmds/wiz/", "/cmds/imm/", "/cmds/usr/","/cmds/std/", "/cmds/skill/"})
-#define PLR_PATH ({"/cmds/adm/", "/cmds/arch/", "/cmds/wiz/", "/cmds/imm/", "/cmds/usr/","/cmds/std/", "/cmds/skill/"})
+#define ADM_PATH ({"/cmds/adm/", "/cmds/arch/", "/cmds/wiz/", "/cmds/imm/", "/cmds/usr/","/cmds/std/", "/cmds/skill/", "/cmds/test/"})
+#define ARC_PATH ({"/cmds/arch/", "/cmds/wiz/", "/cmds/imm/", "/cmds/usr/","/cmds/std/", "/cmds/skill/"})
+#define WIZ_PATH ({"/cmds/wiz/", "/cmds/imm/", "/cmds/usr/","/cmds/std/", "/cmds/skill/"})
+#define APR_PATH ({"/cmds/imm/", "/cmds/usr/","/cmds/std/", "/cmds/skill/"})
+#define IMM_PATH ({"/cmds/imm/", "/cmds/usr/","/cmds/std/", "/cmds/skill/"})
+#define PLR_PATH ({"/cmds/usr/","/cmds/std/", "/cmds/skill/"})
 #define UNR_PATH ({"/cmds/usr/", "/cmds/std/"})
 #define NPC_PATH ({"/cmds/std/", "/cmds/skill/"})
 #define PNE_PATH ({"/cmds/std/", "/cmds/usr/"})
