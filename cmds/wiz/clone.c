@@ -115,20 +115,20 @@ int main(object me, string arg)
         return notify_fail("无法复制不能移动的物件(" + file + ")。\n");
     }
 
-    if (obj->query_amount() != amount)
-    {
-        if (amount > 99)
-            amount = 99;
-        while (--amount > 0)
-        {
-            obj = new (file);
-            if (!objectp(obj))
-                continue;
+    // if (obj->query_amount() != amount)
+    // {
+    //     if (amount > 99)
+    //         amount = 99;
+    //     while (--amount > 0)
+    //     {
+    //         obj = new (file);
+    //         if (!objectp(obj))
+    //             continue;
 
-            if (obj->is_character() || obj->query("no_get") || !obj->move(me))
-                obj->move(environment(me));
-        }
-    }
+    //         if (obj->is_character() || obj->query("no_get") || !obj->move(me))
+    //             obj->move(environment(me));
+    //     }
+    // }
     return 1;
 }
 
