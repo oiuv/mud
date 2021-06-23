@@ -550,7 +550,15 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         message("channel:" + ((verb == "ultra") ? "chat" : verb), msg, obs);
         channel_log(msg, verb, me);
     }
-
+    // 同步聊天消息到QQ群
+    if (verb == "chat")
+    {
+        // 过滤NPC消息
+        if (interactive(me))
+        {
+            "/adm/daemons/qq_d"->send(remove_ansi(msg));
+        }
+    }
     if (!undefinedp(channels[verb]["intermud"]) && me->is_character())
     {
         channels[verb]["intermud"]->send_msg(channels[verb]["intermud_channel"],

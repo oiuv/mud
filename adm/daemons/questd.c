@@ -52,87 +52,212 @@ private void special_bonus(object me, object who, mixed arg)
         "/clone/fam/pill/full1",
         "/clone/fam/pill/linghui1",
         "/clone/fam/pill/linghui2",
+        "/clone/fam/pill/puti1",
+        "/clone/fam/pill/sheli1",
+        "/clone/fam/pill/neili1",
+        "/clone/fam/etc/va1",
+        "/clone/fam/etc/va2",
+        "/clone/fam/etc/va3",
+        "/clone/fam/etc/va4",
+        "/clone/fam/etc/va5",
+        "/clone/fam/etc/va6",
     });
 
     // 完成三十个任务
     string *ob2_list = ({
-        "/clone/fam/pill/full1",
-        "/clone/fam/pill/linghui1",
+        "/clone/fam/pill/puti2",
+        "/clone/fam/pill/sheli2",
         "/clone/fam/pill/linghui2",
+        "/clone/fam/pill/food1",
+        "/clone/fam/pill/neili2",
     });
 
     // 完成五十个任务
     string *ob3_list = ({
-        "/clone/fam/pill/full1",
-        "/clone/fam/pill/linghui1",
-        "/clone/fam/pill/linghui2",
+        "/clone/fam/pill/puti3",
+        "/clone/fam/pill/sheli3",
+        "/clone/gift/cdiamond",
+        "/clone/gift/cagate",
+        "/clone/gift/ccrystal",
+        "/clone/gift/cjade",
     });
 
     // 完成一百个任务
     string *ob4_list = ({
-        "/clone/fam/pill/linghui2",
-        "/clone/fam/pill/linghui1",
-        "/clone/fam/pill/linghui2",
+        "/clone/fam/pill/puti4",
+        "/clone/fam/pill/sheli4",
+        "/clone/fam/gift/str1",
+        "/clone/fam/gift/int1",
+        "/clone/fam/gift/con1",
+        "/clone/fam/gift/dex1",
+        "/clone/fam/item/handan",
+        "/clone/fam/item/bixue",
+        "/clone/fam/item/zijin",
+        "/clone/fam/item/wujin",
+        "/clone/fam/item/taijin",
+        "/clone/fam/pill/renshen1",
+        "/clone/fam/pill/lingzhi1",
+        "/clone/fam/pill/xuelian1",
     });
 
     // 完成两百个任务
     string *ob5_list = ({
-        "/clone/fam/pill/linghui2",
+        "/clone/fam/etc/lv5a",
+        "/clone/fam/etc/lv5b",
+        "/clone/fam/etc/lv5c",
+        "/clone/fam/etc/lv5d",
+        "/clone/fam/etc/lv5e",
+        "/clone/fam/pill/renshen2",
+        "/clone/fam/pill/lingzhi2",
+        "/clone/fam/pill/xuelian2",
     });
 
     // 完成三百个任务
     string *ob6_list = ({
-        "/clone/fam/pill/linghui2",
+        "/clone/fam/gift/str2",
+        "/clone/fam/gift/int2",
+        "/clone/fam/gift/con2",
+        "/clone/fam/gift/dex2",
+        "/clone/fam/pill/renshen3",
+        "/clone/fam/pill/lingzhi3",
+        "/clone/fam/pill/xuelian3",
+        "/clone/fam/item/zhenlong",
+        "/clone/fam/item/jiulei",
     });
 
     // 完成四百个任务
     string *ob7_list = ({
-        "/clone/fam/pill/linghui2",
+        "/clone/tattoo/buttock1",
+        "/clone/tattoo/buttock2",
+        "/clone/tattoo/buttock3",
+        "/clone/tattoo/buttock4",
+        "/clone/tattoo/buttock5",
+        "/clone/tattoo/buttock6",
+        "/clone/tattoo/buttock7",
+        "/clone/tattoo/buttock8",
     });
-/*
+
     // 完成五百个任务
     string *ob8_list = ({
-        "/d/beijing/npc/dan/danA_4.c",
+        "/clone/fam/gift/str2",
+        "/clone/fam/gift/int2",
+        "/clone/fam/gift/con2",
+        "/clone/fam/gift/dex2",
+        "/clone/fam/pill/renshen3",
+        "/clone/fam/pill/lingzhi3",
+        "/clone/fam/pill/xuelian3",
+        "/clone/fam/etc/lv7a",
+        "/clone/fam/etc/lv7b",
+        "/clone/fam/etc/lv7c",
+        "/clone/fam/etc/lv7d",
     });
 
     // 完成六百个任务
     string *ob9_list = ({
-        "/d/beijing/npc/dan/danA_4.c",
+        "/clone/tattoo/body1",
+        "/clone/tattoo/body2",
+        "/clone/tattoo/body3",
+        "/clone/tattoo/body4",
+        "/clone/tattoo/body5",
+        "/clone/tattoo/body6",
+        "/clone/tattoo/body7",
+        "/clone/tattoo/body8",
+        "/clone/tattoo/body9",
+        "/clone/tattoo/body10",
     });
 
     // 完成七百个任务
     string *ob10_list = ({
-        "/d/beijing/npc/dan/danA_4.c",
+        "/clone/fam/pill/yulu",
+        "/clone/fam/pill/dimai",
+        "/clone/fam/pill/renshen4",
+        "/clone/fam/pill/lingzhi4",
+        "/clone/fam/pill/xuelian4",
+        "/clone/fam/item/baxian",
+        "/clone/fam/item/kunlun",
+        "/clone/fam/item/haoyue",
+        "/clone/fam/item/leihuo",
+        "/clone/fam/item/yinzhu",
     });
 
     // 完成八百个任务
     string *ob11_list = ({
-        "/d/beijing/npc/dan/danA_5.c",
+        "/clone/tattoo/spcs1",
+        "/clone/tattoo/spcs2",
+        "/clone/tattoo/spcs3",
+        "/clone/tattoo/spcs4",
+        "/clone/tattoo/spcs5",
+        "/clone/tattoo/spcs6",
+        "/clone/tattoo/spcs7",
+        "/clone/tattoo/spcs8",
+        "/clone/tattoo/spcs9",
+        "/clone/tattoo/spcs10",
     });
 
     // 完成九百个任务
     string *ob12_list = ({
-        "/d/beijing/npc/dan/danA_5.c",
-    });
-*/
-    // 完成一千个任务
-    string *ob13_list = ({
-        "/clone/fam/item/qiankun_stone",
-        "/clone/fam/item/yanluo",
-        "/clone/fam/item/lihuo",
-        "/clone/fam/item/yanluo",
-        "/clone/fam/item/lihuo",
-        "/clone/fam/gift/str3",
-        "/clone/fam/gift/con3",
-        "/clone/fam/gift/int3",
-        "/clone/fam/gift/dex3",
+        "/clone/fam/skpaper/blade1",
+        "/clone/fam/skpaper/claw1",
+        "/clone/fam/skpaper/club1",
+        "/clone/fam/skpaper/cuff1",
+        "/clone/fam/skpaper/dagger1",
+        "/clone/fam/skpaper/finger1",
+        "/clone/fam/skpaper/hammer1",
+        "/clone/fam/skpaper/hand1",
+        "/clone/fam/skpaper/parry1",
+        "/clone/fam/skpaper/staff1",
+        "/clone/fam/skpaper/strike1",
+        "/clone/fam/skpaper/sword1",
+        "/clone/fam/skpaper/throwing1",
+        "/clone/fam/skpaper/unarmed1",
+        "/clone/fam/skpaper/whip1",
     });
 
-    //新增5000万exp且1000任务奖励 by 薪有所属
+    // 完成一千个任务
+    string *ob13_list = ({
+        "/clone/fam/gift/str3",
+        "/clone/fam/gift/int3",
+        "/clone/fam/gift/con3",
+        "/clone/fam/gift/dex3",
+        "/clone/fam/item/yanluo",
+        "/clone/fam/item/lihuo",
+        "/clone/fam/item/qiankun_stone",
+    });
+    // 新增1000万exp且1000任务奖励
     string *ob14_list = ({
+        "/clone/tattoo/spc1",
+        "/clone/tattoo/spc2",
+        "/clone/tattoo/spc3",
+        "/clone/tattoo/spc4",
+        "/clone/tattoo/spc5",
+        "/clone/tattoo/spc6",
+        "/clone/tattoo/spc7",
+        "/clone/tattoo/spc8",
+        "/clone/tattoo/spc9",
+        "/clone/tattoo/spc10",
+    }) + ob13_list;
+
+    // 新增2000万exp且1000任务奖励
+    string *ob15_list = ({
+        "/clone/fam/etc/bipo",
+        "/clone/fam/etc/huanshi",
+        "/clone/fam/etc/binghuozhu",
+        "/clone/fam/etc/leishenzhu",
+        "/clone/fam/item/bless_water",
+        "/clone/tattoo/spc11",
+        "/clone/tattoo/spc12",
+        "/clone/tattoo/spc13",
+    }) + ob14_list;
+    // 增加5000万exp且1000任务奖励
+    string *ob16_list = ({
         "/clone/fam/obj/guo.c",
         "/clone/fam/max/tianshu1",
-    });
+        "/clone/fam/max/tianshu2",
+    }) + ob15_list;
+    // 增加1亿exp且1000任务奖励
+    string *ob17_list = ({
+        "/d/death/obj/tianjing",
+    }) + ob16_list;
 
     string un, gift;
     object ob;
@@ -142,90 +267,89 @@ private void special_bonus(object me, object who, mixed arg)
 
     if (stringp(arg))
         gift = arg;
-
-    else if ((who->query("quest_count") == 1000) && (exp >= 50000000))
-    {
-        gift = ob14_list[random(sizeof(ob14_list))];
-        gongxian = 1000;
-    }
     else if (who->query("quest_count") == 1000)
     {
         gift = ob13_list[random(sizeof(ob13_list))];
         gongxian = 500;
+
+        if (exp >= 10000000)
+        {
+            gift = ob14_list[random(sizeof(ob14_list))];
+        }
+        if (exp >= 20000000)
+        {
+            gift = ob15_list[random(sizeof(ob15_list))];
+        }
+        if (exp >= 50000000)
+        {
+            gift = ob16_list[random(sizeof(ob16_list))];
+        }
+        if (exp >= 100000000)
+        {
+            gift = ob17_list[random(sizeof(ob17_list))];
+        }
     }
-    else
-/*
-    if (who->query("quest_count") == 900)
-    //if ((who->query("quest_count") == 900)&&(exp>=900000))
+    else if ((who->query("quest_count") == 900) && (exp >= 900000))
     {
         gift = ob12_list[random(sizeof(ob12_list))];
-        gongxian = 300;
-    } else
-
-    if (who->query("quest_count") == 800)
-    //if ((who->query("quest_count") == 800)&&(exp>=800000))
+        gongxian = 450;
+    }
+    else if ((who->query("quest_count") == 800) && (exp >= 800000))
     {
         gift = ob11_list[random(sizeof(ob11_list))];
         gongxian = 400;
-    } else
-
-    if (who->query("quest_count") == 700)
-    //if ((who->query("quest_count") == 700)&&(exp>=700000))
+    }
+    else if ((who->query("quest_count") == 700) && (exp >= 700000))
     {
         gift = ob10_list[random(sizeof(ob10_list))];
-        gongxian = 400;
-    } else
-
-    if (who->query("quest_count") == 600)
-    //if ((who->query("quest_count") == 600)&&(exp>=600000))
+        gongxian = 350;
+    }
+    else if ((who->query("quest_count") == 600) && (exp >= 600000))
     {
         gift = ob9_list[random(sizeof(ob9_list))];
-        gongxian = 500;
-    } else
-
-    if (who->query("quest_count") == 500)
-    //if ((who->query("quest_count") == 500)&&(exp>=500000))
+        gongxian = 300;
+    }
+    else if ((who->query("quest_count") == 500) && (exp >= 500000))
     {
         gift = ob8_list[random(sizeof(ob8_list))];
-        gongxian = 300;
-    } else
-*/
-    if (who->query("quest_count") == 400)
+        gongxian = 250;
+    }
+    else if (who->query("quest_count") == 400)
     {
         gift = ob7_list[random(sizeof(ob7_list))];
-        gongxian = 300;
+        gongxian = 200;
     }
     else if (who->query("quest_count") == 300)
     {
         gift = ob6_list[random(sizeof(ob6_list))];
-        gongxian = 200;
+        gongxian = 150;
     }
     else if (who->query("quest_count") == 200)
     {
         gift = ob5_list[random(sizeof(ob5_list))];
-        gongxian = 150;
+        gongxian = 100;
     }
     else if (who->query("quest_count") == 100)
     {
         gift = ob4_list[random(sizeof(ob4_list))];
-        gongxian = 80;
+        gongxian = 50;
     }
     else if (who->query("quest_count") == 50)
     {
         gift = ob3_list[random(sizeof(ob3_list))];
-        gongxian = 30;
+        gongxian = 25;
     }
     else if (who->query("quest_count") == 30)
     {
         gift = ob2_list[random(sizeof(ob2_list))];
-        gongxian = 10;
+        gongxian = 15;
     }
     else
     {
         gift = ob1_list[random(sizeof(ob1_list))];
         gongxian = 1;
     }
-    ob = new(gift);
+    ob = new (gift);
 
     if (ob->query("base_unit"))
         un = ob->query("base_unit");

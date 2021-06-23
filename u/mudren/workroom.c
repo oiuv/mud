@@ -7,7 +7,7 @@ varargs void create(int x, int y, int z)
     set("long", HIW"
     这里是九霄云外，好神奇的地方啊，只看朵朵白云飘，让
 人心旷神怡。\n");
-    setArea(x, y, z, "云端");
+    setArea("云端", x, y, z);
     set("exits", ([
         "north":__DIR__ "workroom/" + x + "," + (y + 1) + "," + z,
         "south":__DIR__ "workroom/" + x + "," + (y - 1) + "," + z,

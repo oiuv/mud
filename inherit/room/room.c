@@ -354,7 +354,7 @@ varargs string long()
 #endif
 
 // 设置环境区域和坐标
-varargs void setArea(int x, int y, int z, string area)
+varargs void setArea(string area, int x, int y, int z)
 {
     set("outdoors", area);
     set("zone", ([

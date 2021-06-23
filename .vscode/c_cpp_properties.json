@@ -10,7 +10,8 @@
             ],
             "defines": [
                 "FLUFFOS",
-                "MUDOS"
+                "MUDOS",
+                "__PACKAGE_DB__"
             ],
             "cStandard": "c89",
             "cppStandard": "c++11",

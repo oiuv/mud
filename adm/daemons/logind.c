@@ -970,6 +970,7 @@ varargs void enter_world(object ob, object user, int silent)
             color_cat(UNREG_MOTD);
             ob->set("login_times", 1);
             // MYSQL_D->register(ob);
+            CHANNEL_D->do_channel(this_object(), "chat", "欢迎新玩家" + user->short() + "来到" + LOCAL_MUD_NAME() + "。");
         }
         else
         {
