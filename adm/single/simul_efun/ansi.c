@@ -23,8 +23,8 @@ int color_len(string str)
 // filter color
 string filter_color(string arg)
 {
-#ifdef DOING_IMPROVED
-        return efun::filter_ansi(arg);
+#ifdef __PACKAGE_ANSI__
+    return efun::remove_ansi(arg);
 #else
     arg = replace_string(arg, BLK, "");
     arg = replace_string(arg, RED, "");
@@ -49,6 +49,11 @@ string filter_color(string arg)
 }
 
 string filter_ansi(string content)
+{
+    return filter_color(content);
+}
+
+string remove_ansi(string content)
 {
     return filter_color(content);
 }

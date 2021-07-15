@@ -2,11 +2,7 @@
 
 string sort_msg(string input)
 {
-#ifdef DOING_IMPROVED
-    return efun::sort_string(input, 60, 0);
-#else
     return SIMUL_EFUN_OB->sort_string(input, 60, 0);
-#endif
 }
 
 varargs void message_vision(string msg, object me, object you)
