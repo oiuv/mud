@@ -321,8 +321,7 @@ void init_database()
     {
         if (sscanf(list[i], "%s %d", boot_addr, boot_port) != 2)
             continue;
-        // 默认UDP端口为游戏端口+1
-        boot_port++;
+
         send_udp(boot_addr, boot_port, message);
         MUDLIST_Q->send_mudlist_q(boot_addr, boot_port);
     }
@@ -351,8 +350,7 @@ void refresh_database()
     {
         if (sscanf(list[i], "%s %d", boot_addr, boot_port) != 2)
             continue;
-        // 默认UDP端口为游戏端口+1
-        boot_port++;
+
         MUDLIST_Q->send_mudlist_q(boot_addr, boot_port);
     }
 }
@@ -844,7 +842,7 @@ void resolve_callback(string address, string my_ip, int key)
 {
     //if (! my_ip) my_ip = "LOCALHOST";
     if (!my_ip)
-        my_ip = "mud.ren";
+        my_ip = address;
     this_host["HOSTADDRESS"] = my_ip;
 }
 
