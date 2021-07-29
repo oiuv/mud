@@ -62,13 +62,13 @@ int main(object me, string arg)
         muds = filter_array(muds, (: sscanf($1, $(arg) + "%*s") :));
 
     if (!sizeof(muds))
-        return notify_fail("目前本站并没有和这个 MUD 取得任何联系。\n");
+        return notify_fail("目前本站并没有和这个 MUD 取得任何联系，你可以使用mudlist all嘗試。\n");
 
     //    Place mudlist into alphabetical format
     muds = sort_array(muds, 1);
 
-    output = WHT BBLU " Mud          中文名称            国际网路位址     端口  人数 \n" NOR
-                      "--------------------------------------------------------------\n";
+    output = WHT BBLU " Mud                 中文名称            国际网路位址     端口  人数 \n" NOR
+                      "---------------------------------------------------------------------\n";
 
     //      Count for users
     uc = 0;
@@ -78,30 +78,36 @@ int main(object me, string arg)
     {
         mudn = muds[loop];
         if (undefinedp(mud_list[mudn]["USERS"]))
-            continue;
+        {
+            // continue;
+            mud_list[mudn]["USERS"] = "未知";
+        }
 
         if (!stringp(name = mud_list[mudn]["MUDNAME"]))
             name = "未知名称";
 
         // filter some ... strange ansi
-        name = replace_string(name, ESC "[0;37;0m", "");
-        name = replace_string(name, ESC "[2;17m", "");
+        // name = replace_string(name, ESC "[0;37;0m", "");
+        // name = replace_string(name, ESC "[2;17m", "");
         name = filter_color(name);
 
         // 修正长度
-        vis_mudn = filter_color(mudn);
-        if (strlen(vis_mudn) > 12)
-            vis_mudn = vis_mudn[0..11];
+        vis_mudn = filter_color(mud_list[mudn]["ALIAS"]);
+        if (strlen(vis_mudn) > 20)
+            vis_mudn = vis_mudn[0..19];
         if (strlen(name) > 20)
             name = name[0..19];
 
         if (mudn == mud_nname())
             output += HIY BRED;
 
+        if (stringp(mud_list[mudn]["LOCATION"]))
+            name += "(" + mud_list[mudn]["LOCATION"] + ")";
+
         if (stringp(mud_list[mudn]["ZONE"]))
             name += "(" + mud_list[mudn]["ZONE"] + ")";
 
-        output += sprintf(" %-13s%-20s%-17s%-6s%-5s" NOR + "\n",
+        output += sprintf(" %-20s%-20s%-17s%-6s%-5s" NOR + "\n",
                           upper_case(vis_mudn), name,
                           mud_list[mudn]["HOSTADDRESS"],
                           mud_list[mudn]["PORT"],
@@ -112,10 +118,10 @@ int main(object me, string arg)
         if (mud_list[mudn][DNS_NO_CONTACT] <= MAX_RETRYS)
             uc += atoi(mud_list[mudn]["USERS"]);
     }
-    output += "--------------------------------------------------------------\n";
+    output += "---------------------------------------------------------------------\n";
 
     if (!arg || arg == "sites")
-        output += "本泥潭共有 " CYN + uc + NOR " 位玩家在游戏中。\n";
+        output += "本泥潭共有 " CYN + uc + NOR " 位玩家在游戏中。（提示："YEL"mudlist all"NOR" 查看遊戲列表）\n";
 
     if (objectp(me))
         me->start_more(output);

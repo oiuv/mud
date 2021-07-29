@@ -38,7 +38,7 @@ string *build_mudlist(mapping muds)
         return ret;
 
     names = keys(svc);
-
+    /*
     // I will only build the information of me & my
     // subsits
     local_mudlib = MUDLIB_NAME;
@@ -46,7 +46,7 @@ string *build_mudlist(mapping muds)
                                     ($1 == INTERMUD_MUD_NAME ||
                                     CONFIG_D->query($(muds)[$1]["HOSTADDRESS"]) == "valid")
                                 :));
-
+    */
     // we want to break the mudlist up into smaller packets
     for (i = 0, pos = 0; i < sizeof(names); i++)
     {

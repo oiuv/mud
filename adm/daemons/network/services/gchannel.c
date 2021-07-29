@@ -79,9 +79,9 @@ void incoming_request(mapping info)
         if (info["NAME"] == Mud_name())
             return;
 
-        minfo = DNS_MASTER->query_mud_info(info["NAME"]);
+        minfo = DNS_MASTER->query_mud_info(info["HOSTADDRESS"] + ":" + info["PORTUDP"]);
         if (!minfo || !strlen(info["USRNAME"]) ||
-            !DNS_MASTER->dns_mudp(info["NAME"]))
+            !DNS_MASTER->dns_mudp(info["HOSTADDRESS"] + ":" + info["PORTUDP"]))
         {
             // We don't accept the message.  But ping them anyway.
             PING_Q->send_ping_q(info["HOSTADDRESS"], info["PORTUDP"]);

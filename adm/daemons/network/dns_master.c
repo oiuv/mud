@@ -180,7 +180,7 @@ void send_udp(string host, int port, mixed msg)
 // that name
 void read_callback(int sock, mixed msg, string addr)
 {
-    string func, rest, *bits, name, arg;
+    string func, rest, *bits, name, arg, port;
     mapping args;
     int i;
 
@@ -202,7 +202,7 @@ void read_callback(int sock, mixed msg, string addr)
     }
 
     // get the address(remove port number)
-    sscanf(addr, "%s %*s", addr);
+    sscanf(addr, "%s %s", addr, port);
 
     // get the arguments to the function
     // these are in the form "<arg>:<value>" and are put into a mapping
@@ -214,6 +214,7 @@ void read_callback(int sock, mixed msg, string addr)
         if (bits[i] && sscanf(bits[i], "%s:%s", name, arg) == 2)
             args[name] = arg;
     args["HOSTADDRESS"] = addr;
+    args["HOSTPORT"] = port;
 
     // some muds don 't send their name out in a network friendly form
     if (args["NAME"])

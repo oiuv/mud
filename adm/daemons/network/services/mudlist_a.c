@@ -61,7 +61,8 @@ int process_list(string idx, mapping info)
         return 0;
 
     // make sure the name is in the proper form
-    name = htonn(newm["NAME"]);
+    // name = htonn(newm["NAME"]);
+    name = newm["HOSTADDRESS"] + ":" + newm["PORTUDP"];
 
     while (name[strlen(name) - 1] == '.')
         name = name[0..strlen(name)-2];
