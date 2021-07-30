@@ -788,7 +788,7 @@ private void init_new_player(object user)
     user->set("food", (user->query("str") + 10) * 10);
     user->set("water", (user->query("str") + 10) * 10);
     user->set("channels", ({ "chat", "rumor", "party",
-         "bill", "sing", "family", "rultra" }));
+         "bill", "sing", "family", "rultra", "ic" }));
 
     // 记录名字
     NAME_D->map_name(user->query("name"), user->query("id"));
@@ -797,7 +797,7 @@ private void init_new_player(object user)
     user->set("env/auto_regenerate", 1);
     user->set("env/auto_get", 1);
     user->set("env/wimpy", 60);
-    //设定不自动转宗师频道，防止困扰玩家 by 薪有所属
+    //设定不自动转宗师频道
     user->set("env/no_autoultra", 1);
 }
 
