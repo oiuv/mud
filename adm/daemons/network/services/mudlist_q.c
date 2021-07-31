@@ -28,7 +28,7 @@ string *build_mudlist(mapping muds)
     mapping svc;
     string *names, *ret;
     mapping cr;
-    string local_mudlib;
+    // string local_mudlib;
     int i, pos;
 
     ret = ({""});
