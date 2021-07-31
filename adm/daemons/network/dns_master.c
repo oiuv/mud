@@ -187,6 +187,12 @@ void read_callback(int sock, mixed msg, string addr)
     if (bufferp(msg))
     {
         msg = string_decode(msg, "gbk");
+        if (strsrch(upper_case(msg), "BIG5") > 0)
+        {
+            // 重新轉碼
+            msg = string_encode(msg, "gbk");
+            msg = string_decode(msg, "big5");
+        }
     }
 #ifdef DEBUG
     CHANNEL_D->do_channel(this_object(), "debug", sprintf("receive %s from %s", msg, addr));

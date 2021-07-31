@@ -3,16 +3,16 @@
 
 #include <getconfig.h>
 
-//  The base distribution mudlib name.  
+//  The base distribution mudlib name.
 
 // MUDLIB information
 #define MUDLIB_NAME             "Heros"
-#define MUDLIB_VERSION_NUMBER	"1.1"
+#define MUDLIB_VERSION_NUMBER	"v2020"
 #define MUDLIB_VERSION		    (MUDLIB_NAME + " " + MUDLIB_VERSION_NUMBER)
 
 #define INTERMUD_MUD_NAME	    ((string) CONFIG_D->query_string("internet mud name"))
 #define CHINESE_MUD_NAME	    LOCAL_MUD_NAME()
-#define MUD_DRIVER              ((string) CONFIG_D->query_string("mudos"))
+#define MUD_DRIVER              __PROJECT_VERSION__
 #define	MUD_ENCODING		    ((string) CONFIG_D->query_string("encoding"))
 #define	MUD_ZONE		        ((string) CONFIG_D->query_string("zone"))
 

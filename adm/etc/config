@@ -20,7 +20,7 @@ my_ip : 118.190.104.241
 mudos : FluffOS v2019
 
 # 编码方式
-encoding : UTF-8
+encoding : UTF-8 & GBK
 
 # SMTP服务器地址/端口号
 & smtp server : smtp.qq.com 25
