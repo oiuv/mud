@@ -208,13 +208,17 @@ void receive_message(string msgclass, string msg)
             {
                 written = NONE;
                 // receive(ESC "[256D" ESC "[K" + msg);
-                receive(msg);
+                // receive(msg);
             }
             else
+            {
                 // receive(ESC "[256D" ESC "[K" + msg + prompt());
-                receive(msg + prompt());
+                // receive(msg + prompt());
+                msg += prompt();
+            }
         }
-        else if (strsrch(msg, "code") < 0)
+
+        if (strsrch(msg, "code") < 0)
         {
             if (msg[<1] == '\n')
             {
