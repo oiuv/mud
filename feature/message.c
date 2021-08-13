@@ -163,7 +163,6 @@ void receive_message(string msgclass, string msg)
 
                 break;
             case "outdoor":
-                msg = "@#nature@" + msg[0.. < 2] + "@\n";
                 if (!environment() || !environment()->query("outdoors"))
                 {
                     if (query("env/look_window"))
@@ -171,7 +170,11 @@ void receive_message(string msgclass, string msg)
                     else
                         return;
                 }
-
+                if (msg[<1] == '\n')
+                {
+                    msg = msg[0..<2];
+                }
+                msg = "{\"code\":20001,\"data\":{\"msg\":\"" + msg + "\"}}\n";
                 break;
             case "system":
                 break;
@@ -211,8 +214,19 @@ void receive_message(string msgclass, string msg)
                 // receive(ESC "[256D" ESC "[K" + msg + prompt());
                 receive(msg + prompt());
         }
+        else if (strsrch(msg, "code") < 0)
+        {
+            if (msg[<1] == '\n')
+            {
+                msg = msg[0..<2];
+            }
+
+            receive("{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\"}}\n");
+        }
         else
+        {
             receive(msg);
+        }
     }
 }
 

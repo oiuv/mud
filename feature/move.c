@@ -214,7 +214,7 @@ varargs int move(mixed dest, int raw)
     move_object(ob);
     if (ob == this_player())
     {
-        tell_room(ob, "{\"code\":2001,\"data\":{\"ob\":\"" + me->short() + "\"}}\n");
+        tell_room(ob, "{\"code\":2001,\"data\":{\"msg\":\"" + me->short() + "\"}}\n");
     }
     else if (living(me))
     {
