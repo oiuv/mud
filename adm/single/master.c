@@ -22,12 +22,12 @@ object connect(int port)
 
     if (err)
     {
-        write("@#500@" + err +"@\n");
+        write("{\"code\":500,\"data\":{\"msg\":\"" + err +"\"}}\n");
         destruct(this_object());
     }
     else
     {
-        write("@#200@服务器连接成功@\n");
+        write("{\"code\":200,\"data\":{\"msg\":\"服务器连接成功\"}}\n");
     }
 
     return login_ob;

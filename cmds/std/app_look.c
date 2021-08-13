@@ -155,8 +155,8 @@ int look_room(object me, object env, int brief)
     if (long[ < 1] == '\n')
         long = long[0.. < 2];
 
-    str = sprintf("@#mapName@%s@\n" + "@#mapText@%s@\n",
-                  filter_ansi(env->short()), filter_ansi(long));
+    str = sprintf("{\"code\":20010,\"data\":{\"name\":\"%s\",\"info\":\"%s\"}}\n",
+                  filter_ansi(env->short()), replace_string(filter_ansi(long),"\n",""));
 
     if (mapp(exits = env->query("exits")))
     {
@@ -169,12 +169,12 @@ int look_room(object me, object env, int brief)
         dirs -= ({0});
         foreach (string dir in dirs)
         {
-            mapexits += "[" + filter_ansi(exits[dir]->query("short")) + "|" + dir + "]";
+            mapexits += dir + ":" + filter_ansi(exits[dir]->query("short")) + " ";
         }
         if (sizeof(dirs) == 0)
-            str += "@#mapExits@null@\n";
+            str += "{\"code\":20011,\"data\":{\"exits\":\"\"}}\n";
         else
-            str += "@#mapExits@" + mapexits + "@\n";
+            str += "{\"code\":20011,\"data\":{\"exits\":\"" + mapexits + "\"}}\n";
     }
     // 获取环境内容物
     str += look_all_inventory_of_room(me, env, RETURN_RESULT);

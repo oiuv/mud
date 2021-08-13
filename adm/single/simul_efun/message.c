@@ -294,12 +294,12 @@ int notify_fail(string msg)
     if (this_player())
     {
         this_player()->set_temp("notify_fail", msg);
-        if (msg[0..1] != "@#")
-        {
-            if (msg[ < 1] == '\n')
-                msg = msg[0.. < 2];
-            msg = "@#message@" + msg + "@\n";
-        }
+        // if (msg[0..1] != "@#")
+        // {
+        //     if (msg[ < 1] == '\n')
+        //         msg = msg[0.. < 2];
+        //     msg = "@#message@" + msg + "@\n";
+        // }
         return efun::notify_fail(msg);
     }
     else

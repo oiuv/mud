@@ -100,7 +100,8 @@ void logon(object ob)
         return;
     }
 
-    write("@#200@请输入(账号 密码)登录游戏或输入(reg 账号 密码)注册账号：@\n");
+    // write("@#200@请输入(账号 密码)登录游戏或输入(reg 账号 密码)注册账号：@\n");
+    write("{\"code\":200,\"data\":{\"msg\":\"请输入(账号 密码)登录游戏或输入(reg 账号 密码)注册账号\"}}\n");
     input_to("login", ob);
 }
 
@@ -284,7 +285,7 @@ varargs void enter_world(object ob, object user, int silent)
     if (interactive(ob)) exec(user, ob);
 
     // write("目前权限：" + wizhood(user) + "\n");
-    write("@#200@你连线进入" + LOCAL_MUD_NAME() + "。@\n");
+    write("{\"code\":201,\"data\":{\"msg\":\"你连线进入" + LOCAL_MUD_NAME() + "。\"}}\n");
     user->setup();
     if (user->query("age") == 14)
     {
@@ -417,7 +418,7 @@ varargs void enter_world(object ob, object user, int silent)
     // 检查同盟情况
     // "/cmds/usr/league"->main(this_player(), "check");
     // 向客户端发送玩家状态
-    HP_CMD->main(this_player());
+    // HP_CMD->main(this_player());
 
     for (i = 0; i < sizeof(sobs); i ++)
     {
@@ -477,7 +478,7 @@ varargs void reconnect(object ob, object user, int silent)
     exec(user, ob);
 
     user->reconnect();
-    HP_CMD->main(this_player());
+    // HP_CMD->main(this_player());
 
     if( !silent && (! wizardp(user) || ! user->query("env/invisible"))) {
         tell_room(environment(user), user->query("name") + "重新连线回到这个世界。\n",
@@ -539,7 +540,7 @@ private void register(object ob, string id, string pass)
 
     ob->set("password", crypt(pass, 0));
     ob->save();
-    write("@#200@账号注册成功!请输入(账号 密码)登录游戏。@\n");
+    write("{\"code\":200,\"data\":{\"msg\":\"账号注册成功!请输入(账号 密码)登录游戏。\"}}\n");
     input_to("login", ob);
 }
 

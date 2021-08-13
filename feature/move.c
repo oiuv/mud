@@ -214,11 +214,11 @@ varargs int move(mixed dest, int raw)
     move_object(ob);
     if (ob == this_player())
     {
-        tell_room(ob, "@#move1@" + me->short() + "移动到当前玩家身上@\n");
+        tell_room(ob, "{\"code\":2001,\"data\":{\"ob\":\"" + me->short() + "\"}}\n");
     }
     else if (living(me))
     {
-        tell_room(ob, "@#move1@" + me->short() + "@" + me->query("gender") + "移动到当前环境@\n", ({this_object()}));
+        tell_room(ob, "{\"code\":2001,\"data\":{\"msg\":\"" + me->short() + "@" + me->query("gender") + "移动到当前环境\"}}\n", ({this_object()}));
     }
     else
     {

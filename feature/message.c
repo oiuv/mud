@@ -158,7 +158,7 @@ void receive_message(string msgclass, string msg)
                     return;
                 else
                 {
-                    msg = "@#channel#" + msgclass + "@" + msg[0.. < 2] + "@\n";
+                    msg = "{\"code\":20020,\"data\":{\"type\":\"" + msgclass + "\",\"msg\":\"" + msg[0.. < 2] + "\"}}\n";
                 }
 
                 break;
@@ -184,12 +184,12 @@ void receive_message(string msgclass, string msg)
     if (query_temp("block_msg/all") || query_temp("block_msg/" + msgclass))
         return;
 
-    if (msg[0..1] != "@#")
-    {
-        if (msg[ < 1] == '\n')
-            msg = msg[0.. < 2];
-        msg = "@#message@" + msg + "@\n";
-    }
+    // if (msg[0..1] != "@#")
+    // {
+    //     if (msg[ < 1] == '\n')
+    //         msg = msg[0.. < 2];
+    //     msg = "@#message@" + msg + "@\n";
+    // }
 
     if (in_input(this_object()) || in_edit(this_object()) ||
             this_object()->is_attach_system() && msgclass != "system")
