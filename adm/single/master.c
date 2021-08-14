@@ -22,12 +22,12 @@ object connect(int port)
 
     if (err)
     {
-        write("{\"code\":500,\"data\":{\"msg\":\"" + err +"\"}}\n");
+        write("{\"code\":500,\"data\":{\"msg\":\"" + err +"\"}}@@\n");
         destruct(this_object());
     }
     else
     {
-        write("{\"code\":200,\"data\":{\"msg\":\"服务器连接成功\"}}\n");
+        write("{\"code\":200,\"data\":{\"msg\":\"服务器连接成功\"}}@@\n");
     }
 
     return login_ob;
@@ -278,7 +278,8 @@ void create()
 void flag(string str) {
     switch (str) {
         case "debug":
-            DEBUG = 1;
+            env("DEBUG", 2);
+            DEBUG = env("DEBUG");
             break;
         default:
             write("[MASTER_OB]->flag():The only supproted flag is 'debug', got '" + str + "'.\n");

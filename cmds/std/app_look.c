@@ -155,7 +155,7 @@ int look_room(object me, object env, int brief)
     if (long[ < 1] == '\n')
         long = long[0.. < 2];
 
-    str = sprintf("{\"code\":20010,\"data\":{\"name\":\"%s\",\"msg\":\"%s\"}}\n",
+    str = sprintf("{\"code\":20010,\"data\":{\"name\":\"%s\",\"msg\":\"%s\"}}@@\n",
                   filter_ansi(env->short()), replace_string(filter_ansi(long),"\n",""));
 
     if (mapp(exits = env->query("exits")))
@@ -169,12 +169,12 @@ int look_room(object me, object env, int brief)
         dirs -= ({0});
         foreach (string dir in dirs)
         {
-            mapexits += dir + ":" + filter_ansi(exits[dir]->query("short")) + " ";
+            mapexits += dir + ":" + filter_ansi(exits[dir]->query("short")) + "\",\"";
         }
         if (sizeof(dirs) == 0)
-            str += "{\"code\":20011,\"data\":{\"msg\":\"\"}}\n";
+            str += "{\"code\":20011,\"data\":{\"msg\":\"\"}}@@\n";
         else
-            str += "{\"code\":20011,\"data\":{\"msg\":\"" + mapexits + "\"}}\n";
+            str += "{\"code\":20011,\"data\":{\"msg\":[\"" + mapexits[0..<4] + "\"]}}@@\n";
     }
     // 获取环境内容物
     str += look_all_inventory_of_room(me, env, RETURN_RESULT);
@@ -182,13 +182,13 @@ int look_room(object me, object env, int brief)
     if (mapp(item_desc = env->query("item_desc")))
     {
         items = keys(item_desc);
-        str += "{\"code\":20012,\"data\":{\"msg\":\"" + implode(items, "|") + "\"}}\n";
+        str += "{\"code\":20012,\"data\":{\"msg\":\"" + implode(items, "|") + "\"}}@@\n";
     }
     // 获取指令列表
     str += "{\"code\":20013,\"data\":{\"msg\":\"";
     for (i = 0; i < sizeof(cmds) - 1; i++)
         str += sprintf("%s:%s ", cmds[i][2]->short(), cmds[i][0]);
-    str = str[0.. < 2] + "\"}}\n";
+    str = str[0.. < 2] + "\"}}@@\n";
 
     tell_object(me, str);
 
@@ -308,7 +308,7 @@ string look_all_inventory_of_room(object me, object env, int ret_str)
         return str;
     }
 
-    return "{\"code\":20014,\"data\":{\"msg\":\"" + str + "\"}}\n";
+    return "{\"code\":20014,\"data\":{\"msg\":\"" + str + "\"}}@@\n";
 }
 
 string actions(object me, object ob)

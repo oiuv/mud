@@ -133,6 +133,10 @@ string prompt()
 void receive_message(string msgclass, string msg)
 {
     string subclass, *ch;
+    if (env("DEBUG"))
+    {
+        debug_message(msgclass + " : " + msg);        /* code */
+    }
 
     if (!interactive(this_object()))
     {
@@ -147,8 +151,7 @@ void receive_message(string msgclass, string msg)
         receive(msg);
         return;
     }
-    // debug_message(msgclass);
-    // debug_message(msg);
+
     if (sscanf(msgclass, "%s:%s", subclass, msgclass) == 2)
     {
         switch(subclass)
@@ -158,7 +161,7 @@ void receive_message(string msgclass, string msg)
                     return;
                 else
                 {
-                    msg = "{\"code\":20020,\"data\":{\"type\":\"" + msgclass + "\",\"msg\":\"" + msg[0.. < 2] + "\"}}\n";
+                    msg = "{\"code\":20020,\"data\":{\"type\":\"" + msgclass + "\",\"msg\":\"" + msg[0.. < 2] + "\"}}@@\n";
                 }
 
                 break;
@@ -174,7 +177,7 @@ void receive_message(string msgclass, string msg)
                 {
                     msg = msg[0..<2];
                 }
-                msg = "{\"code\":20001,\"data\":{\"msg\":\"" + msg + "\"}}\n";
+                msg = "{\"code\":20001,\"data\":{\"msg\":\"" + msg + "\"}}@@\n";
                 break;
             case "system":
                 break;
@@ -187,12 +190,15 @@ void receive_message(string msgclass, string msg)
     if (query_temp("block_msg/all") || query_temp("block_msg/" + msgclass))
         return;
 
-    // if (msg[0..1] != "@#")
-    // {
-    //     if (msg[ < 1] == '\n')
-    //         msg = msg[0.. < 2];
-    //     msg = "@#message@" + msg + "@\n";
-    // }
+    if (strsrch(msg, "code") < 0)
+    {
+        if (msg[<1] == '\n')
+        {
+            msg = msg[0..<2];
+        }
+
+        msg = "{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\"}}@@\n";
+    }
 
     if (in_input(this_object()) || in_edit(this_object()) ||
             this_object()->is_attach_system() && msgclass != "system")
@@ -225,7 +231,7 @@ void receive_message(string msgclass, string msg)
                 msg = msg[0..<2];
             }
 
-            receive("{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\"}}\n");
+            receive("{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\"}}@@\n");
         }
         else
         {

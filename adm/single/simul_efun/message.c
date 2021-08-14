@@ -260,12 +260,17 @@ void shout(string str)
 
 void write(string str)
 {
+    if (env("DEBUG"))
+    {
+        debug_message("ob = " + this_player() + ", write str = " + str);        /* code */
+    }
+
     if (this_player())
         message("write", str, this_player());
     else if (previous_object())
         message("write", str, previous_object());
     else
-        efun::write(str);
+       efun::write(str);
 }
 
 varargs void say(string str, mixed exclude)

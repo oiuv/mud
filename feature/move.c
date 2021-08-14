@@ -199,30 +199,30 @@ varargs int move(mixed dest, int raw)
     {
         if (env == this_player())
         {
-            tell_room(env, "@#move0@" + me->short() + "离开了当前玩家@\n");
+            ; // tell_room(env, "@#move0@" + me->short() + "离开了当前玩家@\n");
         }
         else if (living(me))
         {
-            tell_room(env, "@#move0@" + me->short() + "@" + me->query("gender") + "离开了当前环境@\n", ({this_object()}));
+            tell_room(env, "{\"code\":2003,\"data\":{\"msg\":\"" + me->short() + "\",\"gender\":\"" + me->query("gender") + "\"}}@@\n", ({this_object()}));
         }
         else
         {
-            tell_room(env, "@#move0@" + me->short() + "离开了当前环境@\n", ({this_object()}));
+            tell_room(env, "{\"code\":2004,\"data\":{\"msg\":\"" + me->short() + "\"}}@@\n", ({this_object()}));
         }
 
     }
     move_object(ob);
     if (ob == this_player())
     {
-        tell_room(ob, "{\"code\":2001,\"data\":{\"msg\":\"" + me->short() + "\"}}\n");
+        ; // tell_room(ob, "{\"code\":2001,\"data\":{\"msg\":\"" + me->short() + "\"}}@@\n");
     }
     else if (living(me))
     {
-        tell_room(ob, "{\"code\":2001,\"data\":{\"msg\":\"" + me->short() + "@" + me->query("gender") + "移动到当前环境\"}}\n", ({this_object()}));
+        tell_room(ob, "{\"code\":2001,\"data\":{\"msg\":\"" + me->short() + "\",\"gender\":\"" + me->query("gender") + "\"}}@@\n", ({this_object()}));
     }
     else
     {
-        tell_room(ob, "@#move1@" + me->short() + "移动到当前环境@\n", ({this_object()}));
+        tell_room(ob, "{\"code\":2002,\"data\":{\"msg\":\"" + me->short() + "\"}}@@\n", ({this_object()}));
     }
 
     // debug_message(sprintf(ctime() + " %s 移动到 %s", me->short(), ob->short()));

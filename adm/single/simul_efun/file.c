@@ -58,7 +58,7 @@ string *read_lines(string file)
 
     list = explode(str, "\n");
     for (i = 0; i < sizeof(list); i++)
-        if (list[i][0] == '#')
+        if (list[i][0] == '#' || list[i][0] == ';')
             list[i] = 0;
 
     list -= ({ 0 });
@@ -73,4 +73,22 @@ int file_lines(string file)
 int file_exists(string file)
 {
     return (file_size(file) >= 0);
+}
+
+// 游戏配置内容的读取或设置
+varargs mixed env(string key, mixed value)
+{
+    if (nullp(key))
+    {
+        return ENV_D->query_entire_dbase();
+    }
+
+    if (nullp(value))
+    {
+        return ENV_D->query(key);
+    }
+    else
+    {
+        return ENV_D->set(key, value);
+    }
 }

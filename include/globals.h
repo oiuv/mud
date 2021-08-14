@@ -40,6 +40,7 @@
 #define CPU_D           "/adm/daemons/cpud"
 #define DBASE_D         "/adm/daemons/dbased"
 #define EMOTE_D         "/adm/daemons/emoted"
+#define ENV_D           "/adm/daemons/env_d"
 #define EVENT_D         "/adm/daemons/eventd"
 #define EXAMINE_D       "/adm/daemons/examined"
 #define FAMILY_D        "/adm/daemons/familyd"

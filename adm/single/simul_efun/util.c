@@ -211,26 +211,31 @@ int can_talk_with(object ob1, object ob2)
 // build file crypt key
 string file_crypt(string file)
 {
-#ifdef DOING_IMPROVED
-        return efun::file_crypt(file);
-#else
-        return "1234567890ABCDEF";
-#endif
+    return "1234567890ABCDEF";
 }
 
 // check the file valid
 int file_valid(string file)
 {
-#ifdef DOING_IMPROVED
-    return efun::file_valid(file);
-#else
     return file_size(file) > 0;
-#endif
 }
 
-#ifndef DOING_IMPROVED
 int binary_valid(string file)
 {
     return 1;
 }
-#endif
+
+int is_numeric(string str)
+{
+    int i;
+
+    if (nullp(str) || !str[0])
+        return 0;
+
+    i = strlen(str);
+    while (i--)
+        if (str[i] < '0' || str[i] > '9')
+            return 0;
+
+    return 1;
+}
