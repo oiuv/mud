@@ -3,7 +3,7 @@ inherit ROOM;
 
 void create()
 {
-    set("short", HIG "【武林外传】" NOR+HIW "办公区" NOR );
+    set("short", HIG "武林外传" NOR );
     set("long", @LONG
 武林外传是武林群侠传中为大家提供休闲娱乐服务的组织，这里是办公
 区，现在由管理员秋林拾叶负责，话说在酒楼长租办公区真是够奢侈的，也

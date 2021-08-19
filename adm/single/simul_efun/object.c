@@ -118,7 +118,7 @@ void destruct(object ob)
 
     if (environment(ob))
     {
-        tell_room(environment(ob), "@#destruct@" + ob->short() + "已被系统销毁@\n");
+        tell_room(environment(ob), "{\"code\":2000,\"data\":{\"msg\":\"" + ob->short() + "已被系统销毁\"}}@@\n");
         // debug_message(sprintf(ctime() + HIR " %s 的 %s 已被系统销毁..." NOR, environment(ob)->short(), ob->short() + HIR));
     }
     else

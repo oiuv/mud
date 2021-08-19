@@ -41,7 +41,7 @@ void time_out()
         return;
     }
     if (interactive(this_object()))
-        write("@#1000@您花在连线进入手续的时间太久了，下次想好再来吧。@\n");
+        write("{\"code\":200,\"data\":{\"msg\":\"您花在连线进入手续的时间太久了，下次想好再来吧。\"}}@@\n");
     destruct(this_object());
 }
 

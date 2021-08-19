@@ -95,12 +95,11 @@ void logon(object ob)
 {
     if (BAN_D->is_banned(query_ip_number(ob)) == 1)
     {
-        write("@#403@你的地址在本 MUD 不受欢迎。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"你的地址在本 MUD 不受欢迎。\"}}@@\n");
         destruct(ob);
         return;
     }
 
-    // write("@#200@请输入(账号 密码)登录游戏或输入(reg 账号 密码)注册账号：@\n");
     write("{\"code\":200,\"data\":{\"msg\":\"请输入(账号 密码)登录游戏或输入(reg 账号 密码)注册账号\"}}@@\n");
     input_to("login", ob);
 }
@@ -121,7 +120,7 @@ private void login(string arg, object ob)
 
     if (sizeof(info) < 2)
     {
-        write("{\"code\":206,\"data\":{\"msg\":\"输入错误。\"}}@@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"输入错误。\"}}@@\n");
         input_to("login", ob);
         return;
     }
@@ -164,7 +163,7 @@ private void login(string arg, object ob)
         destruct(ob);
         return;
     }
-    write("{\"code\":203,\"data\":{\"msg\":\"未注册账号，请输入(reg 账号 密码)注册。\"}}@@\n");
+    write("{\"code\":202,\"data\":{\"msg\":\"未注册账号，请输入(reg 账号 密码)注册。\"}}@@\n");
     input_to("login", ob);
     // destruct(ob);
 }
@@ -181,7 +180,7 @@ private void check_ok(object ob)
         {
             object old_link;
             old_link = user->query_temp("link_ob");
-            tell_object(user, "{\"code\":206,\"data\":{\"msg\":\"有人从别处( " + query_ip_number(ob) + " )连线取代你所控制的人物。\"}}@@\n");
+            tell_object(user, "{\"code\":202,\"data\":{\"msg\":\"有人从别处( " + query_ip_number(ob) + " )连线取代你所控制的人物。\"}}@@\n");
             if (old_link)
             {
                 exec(old_link, user);
@@ -218,7 +217,7 @@ private void check_ok(object ob)
         else
         {
             destruct(user);
-            write("{\"code\":202,\"data\":{\"msg\":\"创建你的角色。\"}}@@\n");
+            write("{\"code\":204,\"data\":{\"msg\":\"创建你的角色。\"}}@@\n");
             input_to("reg_info", ob);
         }
     }
@@ -285,7 +284,7 @@ varargs void enter_world(object ob, object user, int silent)
     if (interactive(ob)) exec(user, ob);
 
     // write("目前权限：" + wizhood(user) + "\n");
-    write("{\"code\":2000,\"data\":{\"msg\":\"你连线进入" + LOCAL_MUD_NAME() + "。\"}}@@\n");
+    write("{\"code\":201,\"data\":{\"msg\":\"你连线进入" + LOCAL_MUD_NAME() + "。\"}}@@\n");
     user->setup();
     if (user->query("age") == 14)
     {
@@ -527,20 +526,20 @@ private void register(object ob, string id, string pass)
     }
     if (sizeof(pass) < 5)
     {
-        write("{\"code\":201,\"data\":{\"msg\":\"密码长度不得少于5个字符。\"}}@@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"密码长度不得少于5个字符。\"}}@@\n");
         input_to("login", ob);
         return;
     }
     if (file_size(ob->query_save_file() + __SAVE_EXTENSION__) >= 0)
     {
-        write("{\"code\":201,\"data\":{\"msg\":\"此账号已被注册。\"}}@@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"此账号已被注册。\"}}@@\n");
         input_to("login", ob);
         return;
     }
 
     ob->set("password", crypt(pass, 0));
     ob->save();
-    write("{\"code\":200,\"data\":{\"msg\":\"账号注册成功!请输入(账号 密码)登录游戏。\"}}@@\n");
+    write("{\"code\":204,\"data\":{\"msg\":\"账号注册成功!请输入(账号 密码)登录游戏。\"}}@@\n");
     input_to("login", ob);
 }
 
@@ -555,7 +554,7 @@ private void reg_info(string info, object ob)
 
     if (sizeof(data) != 5)
     {
-        write("@#202@角色资料格式错误，正确格式为：姓名|性别|性格|属性|出生地@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"角色资料格式错误，正确格式为：姓名|性别|性格|属性|出生地\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
@@ -573,91 +572,91 @@ private void reg_info(string info, object ob)
     }
     if (stringp(result = NAME_D->invalid_new_name(name)))
     {
-        write("@#201@对不起，" + result + "@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"对不起，" + result + "\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (member_array(gender, ({"男性", "女性"})) < 0)
     {
-        write("@#201@对不起，性别只能为男性或女性@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"对不起，性别只能为男性或女性\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (member_array(character, ({"光明磊落", "狡黠多变", "心狠手辣", "阴险奸诈"})) < 0)
     {
-        write("@#201@对不起，性格只能为光明磊落、狡黠多变、心狠手辣或阴险奸诈。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"对不起，性格只能为光明磊落、狡黠多变、心狠手辣或阴险奸诈。\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (!gift || sscanf(gift, "%d %d %d %d", tmpstr, tmpint, tmpcon, tmpdex) != 4)
     {
-        write("@#201@对不起，属性格式为 <膂力> <悟性> <根骨> <身法>@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"对不起，属性格式为 <膂力> <悟性> <根骨> <身法>\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (tmpstr > 30)
     {
-        write("@#201@你所选择的膂力参数不能大于30。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"你所选择的膂力参数不能大于30。\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (tmpstr < 10)
     {
-        write("@#201@你所选择的膂力参数不能小于10。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"你所选择的膂力参数不能小于10。\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (tmpint > 30)
     {
-        write("@#201@你所选择的悟性参数不能大于30。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"你所选择的悟性参数不能大于30。\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (tmpint < 10)
     {
-        write("@#201@你所选择的悟性参数不能小于10。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"你所选择的悟性参数不能小于10。\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (tmpcon > 30)
     {
-        write("@#201@你所选择的根骨参数不能大于30。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"你所选择的根骨参数不能大于30。\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (tmpcon < 10)
     {
-        write("@#201@你所选择的根骨参数不能小于10。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"你所选择的根骨参数不能小于10。\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (tmpdex > 30)
     {
-        write("@#201@你所选择的身法参数不能大于30。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"你所选择的身法参数不能大于30。\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (tmpdex < 10)
     {
-        write("@#201@你所选择的身法参数不能小于10。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"你所选择的身法参数不能小于10。\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if ((tmpstr + tmpint + tmpcon + tmpdex) != 80)
     {
-        write("@#201@你所选择的属性总和必须为80。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"你所选择的属性总和必须为80。\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (!tmpborn || (!stringp(dest = born[tmpborn]) && !mapp(dest)))
     {
-        write("@#201@出生地只能为扬州人氏、中原苗家、关外胡家、欧阳世家、慕容世家或段氏皇族。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"出生地只能为扬州人氏、中原苗家、关外胡家、欧阳世家、慕容世家或段氏皇族。\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
     if (mapp(dest) && stringp(dest["notice"]))
     {
-        write("@#201@" + dest["notice"] + "@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"" + dest["notice"] + "\"}}@@\n");
         input_to("reg_info", ob);
         return;
     }
@@ -708,7 +707,7 @@ private void reg_info(string info, object ob)
             name = dest["surname"] + user->query("purename");
             if (stringp(result = NAME_D->invalid_new_name(name)))
             {
-                write("@#201@对不起，" + result + "@\n");
+                write("{\"code\":202,\"data\":{\"msg\":\"" + result + "\"}}@@\n");
                 input_to("reg_info", ob);
                 return;
             }
@@ -758,7 +757,7 @@ int check_legal_id(string id)
     int i;
     if (member_array(id, banned_id) != -1)
     {
-        write("@#201@对不起，这个词有着特殊的含意，不能用做英文名字。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"对不起，这个词有着特殊的含意，不能用做英文名字。\"}}@@\n");
         return 0;
     }
 
@@ -766,13 +765,13 @@ int check_legal_id(string id)
 
     if ((i < 3) || (i > 10))
     {
-        write("@#201@对不起，你的英文名字必须是 3 到 10 个英文字母。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"对不起，你的英文名字必须是 3 到 10 个英文字母。\"}}@@\n");
         return 0;
     }
 
     if (!is_legal_id(id))
     {
-        write("@#201@对不起，你的英文名字只能用英文字母。@\n" );
+        write("{\"code\":202,\"data\":{\"msg\":\"对不起，你的英文名字只能用英文字母。\"}}@@\n");
         return 0;
     }
 
@@ -787,19 +786,19 @@ int check_legal_name(string name)
 
     if (!is_chinese(name))
     {
-        write("@#201@对不起，请您用「中文」取名字。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"对不起，请您用「中文」取名字。\"}}@@\n");
         return 0;
     }
 
     if ((i < 2) || (i > 4))
     {
-        write("@#201@对不起，中文名字只能为2~4个汉字。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"对不起，中文名字只能为2~4个汉字。\"}}@@\n");
         return 0;
     }
 
     if (member_array(name, banned_name) % 2 == 0)
     {
-        write("@#201#对不起，这种姓名会造成其他人的困扰。@\n");
+        write("{\"code\":202,\"data\":{\"msg\":\"对不起，这种姓名会造成其他人的困扰。\"}}@@\n");
         return 0;
     }
 

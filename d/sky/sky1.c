@@ -6,8 +6,6 @@ void create()
         set("short", HIW "【一重天】" NOR);
         set("long", HIW @LONG
 
-                一         重         天
-
     这里一片天际，茫茫云海，四周不见任何事物。远方一重云彩从
 地面升起，架起了一座云梯(yunti)，似乎连接上层的天际…………
 

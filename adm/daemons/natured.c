@@ -101,21 +101,21 @@ void event_midnight()
     switch (m * 100 + d)
     {
     case 321:
-        msg = HIG "春天终于到了，经过了漫长的冬季，万物开始复苏。\n" NOR;
+        msg = HIG "春天终于到了，经过了漫长的冬季，万物开始复苏。" NOR;
         break;
     case 622:
-        msg = HIR "夏天来临了，天气越来越热，所有的生物都异常活跃。\n" NOR;
+        msg = HIR "夏天来临了，天气越来越热，所有的生物都异常活跃。" NOR;
         break;
     case 923:
-        msg = HIY "已然是秋天了，大地一片金黄，正是收获的时期。\n" NOR;
+        msg = HIY "已然是秋天了，大地一片金黄，正是收获的时期。" NOR;
         break;
     case 1222:
-        msg = HIW "来自北方的寒流扫过大地，万物又开始了寂静的休眠。\n" NOR;
+        msg = HIW "来自北方的寒流扫过大地，万物又开始了寂静的休眠。" NOR;
         break;
     }
 
     if (msg)
-        message("vision", "@#nature@【季节天时】" + msg[0.. < 2] + "@\n", all_interactive());
+        message("vision", "{\"code\":20002,\"data\":{\"msg\":\"【季节天时】" + msg + "\"}}@@\n", all_interactive());
 
     switch (m)
     {
