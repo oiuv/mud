@@ -299,12 +299,11 @@ int notify_fail(string msg)
     if (this_player())
     {
         this_player()->set_temp("notify_fail", msg);
-        // if (msg[0..1] != "@#")
-        // {
-        //     if (msg[ < 1] == '\n')
-        //         msg = msg[0.. < 2];
-        //     msg = "@#message@" + msg + "@\n";
-        // }
+        if (strsrch(msg, "code") < 0)
+        {
+            msg = replace_string(msg, "\n", "");
+            msg = "{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\"}}@@\n";
+        }
         return efun::notify_fail(msg);
     }
     else
