@@ -256,7 +256,7 @@ void write_prompt()
 {
     if (sizeof(msg_buffer))
     {
-        receive(BOLD "[输入时暂存讯息]\n" NOR);
+        // receive(BOLD "[输入时暂存讯息]\n" NOR);
         for(int i = 0; i < sizeof(msg_buffer); i++)
             receive(msg_buffer[i]);
         msg_buffer = ({});
