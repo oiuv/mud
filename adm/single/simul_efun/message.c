@@ -302,7 +302,7 @@ int notify_fail(string msg)
         if (strsrch(msg, "code") < 0)
         {
             msg = replace_string(msg, "\n", "");
-            msg = "{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\"}}@@\n";
+            msg = "{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\",\"class\":\"notify_fail\"}}@@\n";
         }
         return efun::notify_fail(msg);
     }

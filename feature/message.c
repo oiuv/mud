@@ -133,6 +133,7 @@ string prompt()
 void receive_message(string msgclass, string msg)
 {
     string subclass, *ch;
+
     if (env("DEBUG"))
     {
         debug_message(msgclass + " : " + msg);        /* code */
@@ -146,6 +147,10 @@ void receive_message(string msgclass, string msg)
     // 清理ANSI颜色
     // msg = filter_ansi(msg);
     // 清理换行
+    // if (msg[<1] == '\n')
+    // {
+    //     msg = msg[0..<2];
+    // }
     msg = replace_string(msg, "\n", "");
 
     if (msgclass == "telnet")
@@ -175,10 +180,7 @@ void receive_message(string msgclass, string msg)
                     else
                         return;
                 }
-                // if (msg[<1] == '\n')
-                // {
-                //     msg = msg[0..<2];
-                // }
+
                 msg = "{\"code\":20001,\"data\":{\"msg\":\"" + msg + "\"}}@@\n";
                 break;
             case "system":
@@ -191,19 +193,17 @@ void receive_message(string msgclass, string msg)
 
     if (query_temp("block_msg/all") || query_temp("block_msg/" + msgclass))
         return;
-
+    // 消息格式封装
     if (strsrch(msg, "code") < 0)
     {
-        // if (msg[<1] == '\n')
-        // {
-        //     msg = msg[0..<2];
-        // }
-
-        msg = "{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\"}}@@\n";
+        // 可增加判断
+        msg = "{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\",\"class\":\"" + msgclass + "\"}}@@\n";
     }
-
+    receive(msg);
+    // 取消暂存消息功能，移动端正常输出
+    /*
     if (in_input(this_object()) || in_edit(this_object()) ||
-            this_object()->is_attach_system() && msgclass != "system")
+        this_object()->is_attach_system() && msgclass != "system")
     {
         if (sizeof(msg_buffer) < MAX_MSG_BUFFER)
             msg_buffer += ({ msg });
@@ -226,20 +226,9 @@ void receive_message(string msgclass, string msg)
             }
         }
 
-        if (strsrch(msg, "code") < 0)
-        {
-            // if (msg[<1] == '\n')
-            // {
-            //     msg = msg[0..<2];
-            // }
-
-            receive("{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\"}}@@\n");
-        }
-        else
-        {
-            receive(msg);
-        }
+        receive(msg);
     }
+    */
 }
 
 void clear_written()
