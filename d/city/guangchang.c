@@ -27,6 +27,8 @@ LONG);
         "south" : __DIR__"nandajie1",
         "west" : __DIR__"xidajie1",
         "north" : __DIR__"beidajie1",
+        "enter": "/d/gaibang/inhole",
+        "up" : __DIR__"tree",
     ]));
 
     set("objects", ([
@@ -41,8 +43,8 @@ LONG);
 
 void init()
 {
-    add_action("do_enter", "enter");
-    add_action("do_climb", "climb");
+    // add_action("do_enter", "enter");
+    // add_action("do_climb", "climb");
 }
 
 int do_enter(string arg)
