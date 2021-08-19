@@ -156,7 +156,7 @@ int look_room(object me, object env, int brief)
         long = long[0.. < 2];
 
     str = sprintf("{\"code\":20010,\"data\":{\"name\":\"%s\",\"msg\":\"%s\"}}@@\n",
-                  filter_ansi(env->short()), replace_string(filter_ansi(long),"\n",""));
+                  filter_ansi(env->short()), replace_string(filter_ansi(long), "\n", ""));
 
     if (mapp(exits = env->query("exits")))
     {

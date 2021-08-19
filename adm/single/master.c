@@ -13,7 +13,7 @@ object connect(int port)
 {
     object login_ob;
     mixed err;
-    if (port == 5555)
+    if (port == 3160)
     {
         set_encoding("GBK");
     }

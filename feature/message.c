@@ -144,7 +144,9 @@ void receive_message(string msgclass, string msg)
         return;
     }
     // 清理ANSI颜色
-    msg = filter_ansi(msg);
+    // msg = filter_ansi(msg);
+    // 清理换行
+    msg = replace_string(msg, "\n", "");
 
     if (msgclass == "telnet")
     {
@@ -173,10 +175,10 @@ void receive_message(string msgclass, string msg)
                     else
                         return;
                 }
-                if (msg[<1] == '\n')
-                {
-                    msg = msg[0..<2];
-                }
+                // if (msg[<1] == '\n')
+                // {
+                //     msg = msg[0..<2];
+                // }
                 msg = "{\"code\":20001,\"data\":{\"msg\":\"" + msg + "\"}}@@\n";
                 break;
             case "system":
@@ -192,10 +194,10 @@ void receive_message(string msgclass, string msg)
 
     if (strsrch(msg, "code") < 0)
     {
-        if (msg[<1] == '\n')
-        {
-            msg = msg[0..<2];
-        }
+        // if (msg[<1] == '\n')
+        // {
+        //     msg = msg[0..<2];
+        // }
 
         msg = "{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\"}}@@\n";
     }
@@ -226,10 +228,10 @@ void receive_message(string msgclass, string msg)
 
         if (strsrch(msg, "code") < 0)
         {
-            if (msg[<1] == '\n')
-            {
-                msg = msg[0..<2];
-            }
+            // if (msg[<1] == '\n')
+            // {
+            //     msg = msg[0..<2];
+            // }
 
             receive("{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\"}}@@\n");
         }

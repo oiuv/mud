@@ -121,7 +121,7 @@ private void login(string arg, object ob)
 
     if (sizeof(info) < 2)
     {
-        write("@#201@输入错误。@\n");
+        write("{\"code\":206,\"data\":{\"msg\":\"输入错误。\"}}@@\n");
         input_to("login", ob);
         return;
     }
@@ -152,7 +152,7 @@ private void login(string arg, object ob)
             string my_pass = ob->query("password");
             if (!matches_password(pass, my_pass))
             {
-                write("@#201@密码错误！@\n");
+                write("{\"code\":202,\"data\":{\"msg\":\"密码错误！\"}}@@\n");
                 input_to("login", ob);
                 return;
             }
@@ -164,7 +164,7 @@ private void login(string arg, object ob)
         destruct(ob);
         return;
     }
-    write("@#203@未注册账号，请输入(reg 账号 密码)注册。@\n");
+    write("{\"code\":203,\"data\":{\"msg\":\"未注册账号，请输入(reg 账号 密码)注册。\"}}@@\n");
     input_to("login", ob);
     // destruct(ob);
 }
@@ -181,7 +181,7 @@ private void check_ok(object ob)
         {
             object old_link;
             old_link = user->query_temp("link_ob");
-            tell_object(user, "@#403@有人从别处( " + query_ip_number(ob) + " )连线取代你所控制的人物。@\n");
+            tell_object(user, "{\"code\":206,\"data\":{\"msg\":\"有人从别处( " + query_ip_number(ob) + " )连线取代你所控制的人物。\"}}@@\n");
             if (old_link)
             {
                 exec(old_link, user);
@@ -218,7 +218,7 @@ private void check_ok(object ob)
         else
         {
             destruct(user);
-            write("@#202@请创建你的角色。@\n");
+            write("{\"code\":202,\"data\":{\"msg\":\"创建你的角色。\"}}@@\n");
             input_to("reg_info", ob);
         }
     }
@@ -527,13 +527,13 @@ private void register(object ob, string id, string pass)
     }
     if (sizeof(pass) < 5)
     {
-        write("@#201@密码长度不得少于5个字符。@\n");
+        write("{\"code\":201,\"data\":{\"msg\":\"密码长度不得少于5个字符。\"}}@@\n");
         input_to("login", ob);
         return;
     }
     if (file_size(ob->query_save_file() + __SAVE_EXTENSION__) >= 0)
     {
-        write("@#201@此账号已被注册。@\n");
+        write("{\"code\":201,\"data\":{\"msg\":\"此账号已被注册。\"}}@@\n");
         input_to("login", ob);
         return;
     }
