@@ -204,6 +204,7 @@ string desc_of_objects(object *obs)
     mapping unit;
     mapping gender;
     mapping type;
+    mapping name;
     string short_name;
     string *dk;
     // string league_name;
@@ -211,10 +212,16 @@ string desc_of_objects(object *obs)
     if (obs && sizeof(obs) > 0)
     {
         str = "";
+        // 数量
         count = ([]);
+        // 单位
         unit = ([]);
+        // 性别
         gender = ([]);
+        // 类型
         type = ([]);
+        // 名称
+        name = ([]);
 
         for (i = 0; i < sizeof(obs); i++)
         {
@@ -232,6 +239,7 @@ string desc_of_objects(object *obs)
                 if (stringp(obs[i]->query("gender")))
                 {
                     gender += ([short_name:obs[i]->query("gender")]);
+                    name += ([short_name:obs[i]->query("name")]);
                 }
                 if (stringp(obs[i]->type()))
                 {
@@ -241,7 +249,7 @@ string desc_of_objects(object *obs)
             else
                 count[short_name] += 1;
         }
-
+        // debug_message(sprintf("%O", gender));
         dk = sort_array(keys(count), 1);
         for (i = 0; i < sizeof(dk); i++)
         {
@@ -250,17 +258,17 @@ string desc_of_objects(object *obs)
             //     str += chinese_number(count[dk[i]]) + unit[dk[i]];
             if (gender[dk[i]])
             {
-                str += dk[i] + "@" + gender[dk[i]] + "#" + count[dk[i]] + "|";
+                str +="[\"" + count[dk[i]] + "\",\"" + name[dk[i]] + "\",\"" + gender[dk[i]] + "\"],";
             }
             else if (type[dk[i]])
             {
-                str += dk[i] + "@" + type[dk[i]] + "#" + count[dk[i]] + "|";
+                str +="[\"" + count[dk[i]] + "\",\"" + dk[i] + "\",\"" + type[dk[i]]+ "\"],";
             }
             else
-                str += dk[i] + "#" + count[dk[i]] + "|";
+                str +="[\"" + count[dk[i]] + "\",\"" + dk[i] + "\"],";
         }
 
-        if (str[ < 1] == '|')
+        if (str[ < 1] == ',')
             str = str[0.. < 2];
 
         return str;
@@ -285,21 +293,19 @@ string look_all_inventory_of_room(object me, object env, int ret_str)
     if (!sizeof(inv))
         return str;
 
-    obs = filter_array(inv, (
-                                : $(me) != $1 && userp($1) && $(me)->visible($1)
-                                :));
+    obs = filter_array(inv, (: $(me) != $1 && userp($1) && $(me)->visible($1) :));
     if (desc_of_objects(obs) != "")
-        str += "[user:" + filter_ansi(desc_of_objects(obs)) + "]";
+        str += "\"user\":[" + filter_ansi(desc_of_objects(obs)) + "],";
 
     obs = filter_array(inv, (: $(me) != $1 && !userp($1) && $1->is_character() &&
                                $(me)->visible($1) :));
     if (desc_of_objects(obs) != "")
-        str += "[npc:" + filter_ansi(desc_of_objects(obs)) + "]";
+        str += "\"npc\":[" + filter_ansi(desc_of_objects(obs)) + "],";
 
     obs = filter_array(inv, (: !$1->is_character() :),
                        me);
     if (desc_of_objects(obs) != "")
-        str += "[item:" + filter_ansi(desc_of_objects(obs)) + "]";
+        str += "\"item\":[" + filter_ansi(desc_of_objects(obs)) + "],";
 
     if (!ret_str)
         tell_object(me, str);
@@ -307,8 +313,10 @@ string look_all_inventory_of_room(object me, object env, int ret_str)
     {
         return str;
     }
+    if (str[ < 1] == ',')
+        str = str[0.. < 2];
 
-    return "{\"code\":20014,\"data\":{\"msg\":\"" + str + "\"}}@@\n";
+    return "{\"code\":20014,\"data\":{" + str + "}}@@\n";
 }
 
 string actions(object me, object ob)

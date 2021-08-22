@@ -145,7 +145,7 @@ void receive_message(string msgclass, string msg)
         return;
     }
     // 清理ANSI颜色
-    // msg = filter_ansi(msg);
+    msg = filter_ansi(msg);
     // 清理换行
     // if (msg[<1] == '\n')
     // {

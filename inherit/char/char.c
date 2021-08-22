@@ -306,10 +306,10 @@ varargs string short(int raw)
         */
         if (!(nick = query("nickname")))
         {
-            nick = "null";
+            nick = "无名之辈";
         }
         if (!title)
-            title = "null";
+            title = "";
 
         str = title + "「" + nick + "」" + str;
     }

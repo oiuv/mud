@@ -1,12 +1,16 @@
-//    File    :  /include/ansi.h
-//    Creator    :  Gothic@TMI-2
-//
-//    The standard set of ANSI codes for mudlib use.
+/***
+ * @Author: 雪风@mud.ren
+ * @Date: 2021-08-19 22:14:16
+ * @LastEditTime: 2021-08-22 19:03:05
+ * @LastEditors: 雪风
+ * @Description: The standard set of ANSI codes for mudlib use.
+ * @ https://bbs.mud.ren
+ */
 
 #ifndef ANSI_H
 #define ANSI_H
 
-#define ESC "ESC"           /* Escape ESC(\e|\033|\x1b) */
+#define ESC "\e"           /* Escape ESC(\e|\033|\x1b) */
 #define CSI ESC + "["        /* Control Sequence Introducer */
 #define SGR(x) CSI + x + "m" /* Set Graphics Rendition */
 
