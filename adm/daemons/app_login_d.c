@@ -163,7 +163,7 @@ private void login(string arg, object ob)
         destruct(ob);
         return;
     }
-    write("{\"code\":202,\"data\":{\"msg\":\"未注册账号，请输入(reg 账号 密码)注册。\"}}@@\n");
+    write("{\"code\":202,\"data\":{\"msg\":\"账号不存在，请先注册。\"}}@@\n");
     input_to("login", ob);
     // destruct(ob);
 }
@@ -539,8 +539,8 @@ private void register(object ob, string id, string pass)
 
     ob->set("password", crypt(pass, 0));
     ob->save();
-    write("{\"code\":204,\"data\":{\"msg\":\"账号注册成功!请输入(账号 密码)登录游戏。\"}}@@\n");
-    input_to("login", ob);
+    write("{\"code\":204,\"data\":{\"msg\":\"账号注册成功!请创建你的角色。\"}}@@\n");
+    input_to("reg_info", ob);
 }
 
 private void reg_info(string info, object ob)
