@@ -316,7 +316,7 @@ string look_all_inventory_of_room(object me, object env, int ret_str)
     if (str[ < 1] == ',')
         str = str[0.. < 2];
 
-    return "{\"code\":20014,\"data\":{" + str + "}}@@\n";
+    return "{\"code\":20014,\"data\":{\"msg\":\"\"," + str + "}}@@\n";
 }
 
 string actions(object me, object ob)

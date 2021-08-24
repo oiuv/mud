@@ -197,7 +197,7 @@ void receive_message(string msgclass, string msg)
     if (strsrch(msg, "code") < 0)
     {
         // 可增加判断
-        msg = "{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\",\"class\":\"" + msgclass + "\"}}@@\n";
+        msg = "{\"code\":20000,\"data\":{\"msg\":\"" + msg + "\",\"type\":\"" + msgclass + "\"}}@@\n";
     }
     receive(msg);
     // 取消暂存消息功能，移动端正常输出
