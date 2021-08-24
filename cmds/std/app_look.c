@@ -239,12 +239,12 @@ string desc_of_objects(object *obs)
                 if (stringp(obs[i]->query("gender")))
                 {
                     gender += ([short_name:obs[i]->query("gender")]);
-                    name += ([short_name:obs[i]->query("name")]);
                 }
                 if (stringp(obs[i]->type()))
                 {
                     type += ([short_name:obs[i]->type()]);
                 }
+                name += ([short_name:obs[i]->query("name")]);
             }
             else
                 count[short_name] += 1;
@@ -262,10 +262,10 @@ string desc_of_objects(object *obs)
             }
             else if (type[dk[i]])
             {
-                str +="[\"" + count[dk[i]] + "\",\"" + dk[i] + "\",\"" + type[dk[i]]+ "\"],";
+                str +="[\"" + count[dk[i]] + "\",\"" + name[dk[i]] + "\",\"" + type[dk[i]]+ "\"],";
             }
             else
-                str +="[\"" + count[dk[i]] + "\",\"" + dk[i] + "\"],";
+                str +="[\"" + count[dk[i]] + "\",\"" + name[dk[i]] + "\"],";
         }
 
         if (str[ < 1] == ',')
