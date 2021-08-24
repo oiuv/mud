@@ -185,10 +185,10 @@ int look_room(object me, object env, int brief)
         str += "{\"code\":20012,\"data\":{\"msg\":\"" + implode(items, "|") + "\"}}@@\n";
     }
     // 获取指令列表
-    str += "{\"code\":20013,\"data\":{\"msg\":\"";
-    for (i = 0; i < sizeof(cmds) - 1; i++)
-        str += sprintf("%s:%s ", cmds[i][2]->short(), cmds[i][0]);
-    str = str[0.. < 2] + "\"}}@@\n";
+    // str += "{\"code\":20013,\"data\":{\"msg\":\"";
+    // for (i = 0; i < sizeof(cmds) - 1; i++)
+    //     str += sprintf("%s:%s ", cmds[i][2]->short(), cmds[i][0]);
+    // str = str[0.. < 2] + "\"}}@@\n";
 
     tell_object(me, str);
 
