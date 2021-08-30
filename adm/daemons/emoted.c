@@ -364,3 +364,13 @@ string *query_all_emote()
 {
     return keys(emote);
 }
+
+mapping data()
+{
+    return emote;
+}
+
+void dump()
+{
+    write_file("/EMOTE_DUMP", json_encode(emote));
+}
