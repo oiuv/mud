@@ -1,6 +1,7 @@
 .DS_Store
 *.log
-*dump
-driver*
-swapfile*
+*.exe
+*_DUMP
+cert.*
+temp
 version

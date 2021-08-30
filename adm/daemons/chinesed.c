@@ -147,16 +147,26 @@ void add_translate(string key, string chn)
 	save();
 }
 
-void dump_translate()
+varargs void dump_translate(int type)
 {
 	string *k, str;
-	int i;
+
+	if (type)
+	{
+		write_file("/CHINESE_DUMP", json_encode(dict));
+		return;
+	}
 
 	str = "";
 	k = keys(dict);
-	for (i = 0; i < sizeof(k); i++)
+	for (int i = 0; i < sizeof(k); i++)
 		str += sprintf("%-30s %s\n", k[i], dict[k[i]]);
 	write_file("/CHINESE_DUMP", str);
+}
+
+mapping data()
+{
+	return dict;
 }
 
 string chinese_date(int date, int year)
