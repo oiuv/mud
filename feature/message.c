@@ -168,7 +168,7 @@ void receive_message(string msgclass, string msg)
                     return;
                 else
                 {
-                    msg = "{\"code\":20020,\"data\":{\"type\":\"" + msgclass + "\",\"msg\":\"" + msg[0.. < 2] + "\"}}@@\n";
+                    msg = "{\"code\":20020,\"data\":{\"type\":\"" + msgclass + "\",\"msg\":\"" + msg + "\"}}@@\n";
                 }
 
                 break;
