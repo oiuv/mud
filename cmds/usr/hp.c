@@ -11,38 +11,36 @@ int main(object me, string arg)
     object ob;
     mapping my;
     string sp;
-    // int craze;
+    int craze;
 
     seteuid(getuid(me));
 
-    if (arg && (arg == "-m"
-        || sscanf(arg, "-m %s", arg)
-        || sscanf(arg, "%s -m", arg)))
+    if (arg && (arg == "-m" || sscanf(arg, "-m %s", arg) || sscanf(arg, "%s -m", arg)))
     {
         int ml, mn;
         int exp, lv, need;
 
         if (arg == "-m")
-                ob = me;
-        else
-        if (wizardp(me))
+            ob = me;
+        else if (wizardp(me))
         {
             ob = present(arg, environment(me));
 
-            if (! ob || ! ob->is_character())
+            if (!ob || !ob->is_character())
                 ob = find_player(arg);
 
-            if (! ob || ! ob->is_character())
+            if (!ob || !ob->is_character())
                 ob = find_living(arg);
 
-            if (! ob || ! ob->is_character())
+            if (!ob || !ob->is_character())
                 return notify_fail("你要察看谁的状态？\n");
-        } else
+        }
+        else
             return notify_fail("只有巫师能察看别人的状态。\n");
 
         my = ob->query_entire_dbase();
 
-        if (userp(ob) && (! stringp(my["born"]) || ! my["born"]))
+        if (userp(ob) && (!stringp(my["born"]) || !my["born"]))
             return notify_fail("还没有出生呐，察看什么？\n");
 
         if (my["max_jing"] < 1 || my["max_qi"] < 1)
@@ -67,155 +65,175 @@ int main(object me, string arg)
 
         if (need < 1)
             need = 1;
-        sp = "@#hpM@";
+        sp = (ob == me ? "你" : ob->name()) + "目前的属性上限如下：\n";
+        sp += HIC "≡" HIY "-------------------------------------------------------" HIC "≡\n" NOR;
 
-        sp += sprintf("精力上限:%d|内力上限:%d|",
-                ob->query_jingli_limit(), ob->query_neili_limit());
+        sp += sprintf(HIC "【精力上限】 " HIG " %-21d" HIC "【内力上限】 " HIG " %d\n",
+                      ob->query_jingli_limit(), ob->query_neili_limit());
 
-        sp += sprintf("潜能上限:%d|体会上限:%d|",
-                ob->query_potential_limit() - (int)ob->query("learned_points"),
-                ob->query_experience_limit() - (int)ob->query("learned_experience"));
+        sp += sprintf(HIC "【潜能上限】 " HIG " %-21d" HIC "【体会上限】 " HIG " %d\n",
+                      ob->query_potential_limit() - (int)ob->query("learned_points"),
+                      ob->query_experience_limit() - (int)ob->query("learned_experience"));
 
-        sp += sprintf("当前等级%d|升级所需:%d|", lv, need);
+        sp += sprintf(HIC "【当前等级】 " NOR + WHT " %-21d" HIC "【升级所需】 " NOR + WHT " %d\n", lv, need);
 
-        sp += sprintf("最大加怒:%d|最大加力:%d|", mn, ml);
+        sp += sprintf(HIC "【最大加怒】 " NOR + WHT " %-21d" HIC "【最大加力】 " NOR + WHT " %d\n", mn, ml);
 
-        sp += sprintf("死亡保护:%s|",
-                ! ob->query("skybook/guard/death") ? "無保護" : "保護中");
+        sp += sprintf(HIW "【死亡保护】 " NOR + " %-21s",
+                      !ob->query("skybook/guard/death") ? CYN "無保護" NOR : HIY "保護中" NOR);
 
-        sp += sprintf("杀戮保护:%s@\n",
-                ! ob->query_condition("die_guard") ? "無保護" : "保護中");
+        sp += sprintf(HIW "【杀戮保护】 " NOR + " %s",
+                      !ob->query_condition("die_guard") ? CYN "無保護\n" NOR : HIY "保護中\n" NOR);
 
+        sp += HIC "≡" HIY "-------------------------------------------------------" HIC "≡\n" NOR;
         tell_object(me, sp);
         return 1;
     }
 
-    if (arg && (arg == "-g"
-        || sscanf(arg, "-g %s", arg)
-        || sscanf(arg, "%s -g", arg)))
+    if (arg && (arg == "-g" || sscanf(arg, "-g %s", arg) || sscanf(arg, "%s -g", arg)))
     {
         if (arg == "-g")
-                ob = me;
-        else
-        if (wizardp(me))
+            ob = me;
+        else if (wizardp(me))
         {
-                ob = present(arg, environment(me));
+            ob = present(arg, environment(me));
 
-                if (! ob || ! ob->is_character())
-                        ob = find_player(arg);
+            if (!ob || !ob->is_character())
+                ob = find_player(arg);
 
-                if (! ob || ! ob->is_character())
-                        ob = find_living(arg);
+            if (!ob || !ob->is_character())
+                ob = find_living(arg);
 
-                if (! ob || ! ob->is_character())
-                        return notify_fail("你要察看谁的状态？\n");
-        } else
-                return notify_fail("只有巫师能察看别人的状态。\n");
+            if (!ob || !ob->is_character())
+                return notify_fail("你要察看谁的状态？\n");
+        }
+        else
+            return notify_fail("只有巫师能察看别人的状态。\n");
 
         my = ob->query_entire_dbase();
 
-        if (userp(ob) && (! stringp(my["born"]) || ! my["born"]))
-                return notify_fail("还没有出生呐，察看什么？\n");
+        if (userp(ob) && (!stringp(my["born"]) || !my["born"]))
+            return notify_fail("还没有出生呐，察看什么？\n");
 
         if (my["max_jing"] < 1 || my["max_qi"] < 1)
-                return notify_fail("无法察看" + ob->name(1) + "的状态。\n");
+            return notify_fail("无法察看" + ob->name(1) + "的状态。\n");
 
-        sp = "@#hpG@";
-        // sp += HIY "【 种 类 】 " HIC "『初始』 『先天』 『成功』 『失败』 『故事』 『转世』\n" NOR;
-        sp += sprintf("膂力:%d %d %d %d %d %d|",
-        ob->query("str") - ob->query("gift/str/succeed") - ob->query("gift/sun"),
-        ob->query("str"),
-        ob->query("gift/str/succeed"),
-        ob->query("gift/str/fail"),
-        ob->query("gift/sun"),
-        ob->query("reborn/str")),
-        //ob->query("tattoo/tattoo_str"));
+        sp = (ob == me ? "你" : ob->name()) + "目前的天赋属性如下：\n";
+        sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
+        sp += HIY "【 种 类 】 " HIC "『初始』 『先天』 『成功』 『失败』"
+                  " 『故事』 『转世』\n" NOR;
+        sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
 
-        sp += sprintf("悟性:%d %d %d %d %d %d|",
-        ob->query("int") - ob->query("gift/int/succeed") - ob->query("gift/water"),
-        ob->query("int"),
-        ob->query("gift/int/succeed"),
-        ob->query("gift/int/fail"),
-        ob->query("gift/water"),
-        ob->query("reborn/int")),
-        //ob->query("tattoo/tattoo_int"));
+        sp += sprintf(HIW "【 膂 力 】 " NOR + WHT " [%3d]    [" HIG "%3d" NOR + WHT "]    [" HIW "%3d" NOR + WHT "]    [" HIR "%3d" NOR + WHT "]    [" HIM "%3d" NOR + WHT "]    [" HIB "%3d" NOR + WHT "]\n",
+                      ob->query("str") - ob->query("gift/str/succeed") - ob->query("gift/sun"),
+                      ob->query("str"),
+                      ob->query("gift/str/succeed"),
+                      ob->query("gift/str/fail"),
+                      ob->query("gift/sun"),
+                      ob->query("reborn/str")),
+            //ob->query("tattoo/tattoo_str"));
 
-        sp += sprintf("根骨:%d %d %d %d %d %d|",
-        ob->query("con") - ob->query("gift/con/succeed") - ob->query("gift/lighting"),
-        ob->query("con"),
-        ob->query("gift/con/succeed"),
-        ob->query("gift/con/fail"),
-        ob->query("gift/lighting"),
-        ob->query("reborn/con")),
-        //ob->query("tattoo/tattoo_con"));
+            sp += sprintf(HIW "【 悟 性 】 " NOR + WHT " [%3d]    [" HIG "%3d" NOR + WHT "]    [" HIW "%3d" NOR + WHT "]    [" HIR "%3d" NOR + WHT "]    [" HIM "%3d" NOR + WHT "]    [" HIB "%3d" NOR + WHT "]\n",
+                          ob->query("int") - ob->query("gift/int/succeed") - ob->query("gift/water"),
+                          ob->query("int"),
+                          ob->query("gift/int/succeed"),
+                          ob->query("gift/int/fail"),
+                          ob->query("gift/water"),
+                          ob->query("reborn/int")),
+            //ob->query("tattoo/tattoo_int"));
 
-        sp += sprintf("身法:%d %d %d %d %d %d@\n",
-        ob->query("dex") - ob->query("gift/dex/succeed") - ob->query("gift/feng"),
-        ob->query("dex"),
-        ob->query("gift/dex/succeed"),
-        ob->query("gift/dex/fail"),
-        ob->query("gift/feng"),
-        ob->query("reborn/dex")),
-        //ob->query("tattoo/tattoo_dex"));
+            sp += sprintf(HIW "【 根 骨 】 " NOR + WHT " [%3d]    [" HIG "%3d" NOR + WHT "]    [" HIW "%3d" NOR + WHT "]    [" HIR "%3d" NOR + WHT "]    [" HIM "%3d" NOR + WHT "]    [" HIB "%3d" NOR + WHT "]\n",
+                          ob->query("con") - ob->query("gift/con/succeed") - ob->query("gift/lighting"),
+                          ob->query("con"),
+                          ob->query("gift/con/succeed"),
+                          ob->query("gift/con/fail"),
+                          ob->query("gift/lighting"),
+                          ob->query("reborn/con")),
+            //ob->query("tattoo/tattoo_con"));
 
+            sp += sprintf(HIW "【 身 法 】 " NOR + WHT " [%3d]    [" HIG "%3d" NOR + WHT "]    [" HIW "%3d" NOR + WHT "]    [" HIR "%3d" NOR + WHT "]    [" HIM "%3d" NOR + WHT "]    [" HIB "%3d" NOR + WHT "]\n",
+                          ob->query("dex") - ob->query("gift/dex/succeed") - ob->query("gift/feng"),
+                          ob->query("dex"),
+                          ob->query("gift/dex/succeed"),
+                          ob->query("gift/dex/fail"),
+                          ob->query("gift/feng"),
+                          ob->query("reborn/dex")),
+            //ob->query("tattoo/tattoo_dex"));
+
+            sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
         tell_object(me, sp);
         return 1;
     }
 
-    if (! arg)
-            ob = me;
-    else
-    if (wizardp(me))
+    if (!arg)
+        ob = me;
+    else if (wizardp(me))
     {
-            ob = present(arg, environment(me));
-            if (! ob || ! ob->is_character()) ob = find_player(arg);
-            if (! ob || ! ob->is_character()) ob = find_living(arg);
-            if (! ob || ! ob->is_character())
-                    return notify_fail("你要察看谁的状态？\n");
-    } else
-            return notify_fail("只有巫师能察看别人的状态。\n");
+        ob = present(arg, environment(me));
+        if (!ob || !ob->is_character())
+            ob = find_player(arg);
+        if (!ob || !ob->is_character())
+            ob = find_living(arg);
+        if (!ob || !ob->is_character())
+            return notify_fail("你要察看谁的状态？\n");
+    }
+    else
+        return notify_fail("只有巫师能察看别人的状态。\n");
 
     my = ob->query_entire_dbase();
 
-    if (userp(ob) && (! stringp(my["born"]) || ! my["born"]))
-            return notify_fail("还没有出生呐，察看什么？\n");
+    if (userp(ob) && (!stringp(my["born"]) || !my["born"]))
+        return notify_fail("还没有出生呐，察看什么？\n");
 
     if (my["max_jing"] < 1 || my["max_qi"] < 1)
-            return notify_fail("无法察看" + ob->name(1) + "的状态。\n");
+        return notify_fail("无法察看" + ob->name(1) + "的状态。\n");
 
-    sp = "@#hp@";
-    sp += sprintf("名称:%s|",ob->short());
-    sp += sprintf("精气:%d/%d/%d|精力:%d/%d(+%d)|",
-                  my["jing"], my["eff_jing"], my["max_jing"],
-                  my["jingli"], my["max_jingli"], my["jiajing"]);
+    sp = (ob == me ? "你" : ob->name()) + "目前的状态属性如下：\n";
+    sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
 
-    sp += sprintf("气血:%d/%d/%d|内力:%d/%d(+%d)|",
-                  my["qi"], my["eff_qi"], my["max_qi"],
-                  my["neili"], my["max_neili"], my["jiali"]);
+    sp += sprintf(HIC "【 精 气 】 %s%5d/ %5d %s(%3d%%)" HIC "    【 精 力 】 %s%5d / %5d (+%d)\n",
+                  status_color(my["jing"], my["eff_jing"]), my["jing"], my["eff_jing"],
+                  status_color(my["eff_jing"], my["max_jing"]),
+                  my["eff_jing"] * 100 / my["max_jing"],
+                  status_color(my["jingli"], my["max_jingli"]), my["jingli"],
+                  my["max_jingli"], my["jiajing"]);
 
-    sp += sprintf("食物:%d/%d|潜能:%d|",
+    sp += sprintf(HIC "【 气 血 】 %s%5d/ %5d %s(%3d%%)" HIC "    【 内 力 】 %s%5d / %5d (+%d)\n",
+                  status_color(my["qi"], my["eff_qi"]), my["qi"], my["eff_qi"],
+                  status_color(my["eff_qi"], my["max_qi"]),
+                  my["eff_qi"] * 100 / my["max_qi"],
+                  status_color(my["neili"], my["max_neili"]), my["neili"],
+                  my["max_neili"], my["jiali"]);
+
+    sp += sprintf(HIW "【 食 物 】 %s%5d/ %5d      " HIW "     【 潜 能 】  %s%d\n",
+                  status_color(my["food"], ob->max_food_capacity()),
                   my["food"], ob->max_food_capacity(),
+                  (int)ob->query("potential") >= (int)ob->query_potential_limit() ? HIM : HIY,
                   (int)ob->query("potential") - (int)ob->query("learned_points"));
 
-    sp += sprintf("饮水:%d/%d|体会:%d|",
+    sp += sprintf(HIW "【 饮 水 】 %s%5d/ %5d      " HIW "     【 体 会 】  %s%d\n",
+                  status_color(my["water"], ob->max_water_capacity()),
                   my["water"], ob->max_water_capacity(),
+                  my["experience"] >= ob->query_experience_limit() ? HIM : HIY,
                   my["experience"] - my["learned_experience"]);
 
-    // if (craze = me->query_craze())
-    // {
-    //         if (me->is_most_craze())
-    //                 sp += HIR "【 愤 " BLINK "怒" NOR HIR " 】  " +
-    //                         sprintf("%-22s", me->query("character") == "光明磊落" ?
-    //                                         "竖发冲冠" : "怒火中烧");
-    //         else
-    //                 sp += sprintf(HIR "【 愤 怒 】 %5d/ %5d (+%-3d)    ",
-    //                                 craze, me->query_max_craze(),
-    //                                 me->query("jianu"));
-    // } else
-    // {
-    //         sp += HIC "【 平 和 】   ---------            ";
-    // }
-    sp += sprintf("经验:%d@\n", my["combat_exp"]);
+    if (craze = me->query_craze())
+    {
+        if (me->is_most_craze())
+            sp += HIR "【 愤 " BLINK "怒" NOR HIR " 】  " +
+                  sprintf("%-22s", me->query("character") == "光明磊落" ? "竖发冲冠" : "怒火中烧");
+        else
+            sp += sprintf(HIR "【 愤 怒 】 %5d/ %5d (+%-3d)    ",
+                          craze, me->query_max_craze(),
+                          me->query("jianu"));
+    }
+    else
+    {
+        sp += HIC "【 平 和 】   ---------            ";
+    }
+    sp += sprintf(HIW "【 经 验 】  " HIC "%d\n", my["combat_exp"]);
+    // sp += sprintf(HIW "【 积 分 】  " HIC "%4d\n", me->query("state/jifen"));
+    sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
     tell_object(me, sp);
     return 1;
 }
@@ -229,11 +247,16 @@ string status_color(int current, int max)
     else
         percent = 100;
 
-    if (percent > 100) return HIC;
-    if (percent >= 90) return HIG;
-    if (percent >= 60) return HIY;
-    if (percent >= 30) return YEL;
-    if (percent >= 10) return HIR;
+    if (percent > 100)
+        return HIC;
+    if (percent >= 90)
+        return HIG;
+    if (percent >= 60)
+        return HIY;
+    if (percent >= 30)
+        return YEL;
+    if (percent >= 10)
+        return HIR;
     return RED;
 }
 

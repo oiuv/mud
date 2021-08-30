@@ -144,7 +144,7 @@ int look_room(object me, object env, int brief)
     mapping exits, item_desc;
     string str, *dirs, *items;
     string long = env->long();
-    mixed *cmds = me->query_commands();
+    // mixed *cmds = me->query_commands();
 
     if (!env)
     {
@@ -942,7 +942,7 @@ int look_living(object me, object obj)
     //mixed *inv;
     mapping my_fam, fam;
     int me_shen, obj_shen;
-    string league_name;
+    // string league_name;
 
     obj_shen = (int)obj->query("shen");
     per = obj->query_per();

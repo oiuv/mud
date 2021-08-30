@@ -23,7 +23,7 @@ mapping global_alias = ([
     "sw":		"go southwest",
     "u":		"go up",
     "d":		"go down",
-    "i":		"inventory",
+    "i":		"app_inventory",
     "tt":		"team talk",
 ]);
 

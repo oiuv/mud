@@ -35,6 +35,7 @@ int sort_skill(string sk1, string sk2, mapping spos);
 int filter_for_enable(string skill, string skill1);
 int filter_for_main(string skill, string skill1);
 int filter_for_combine(string skill, string skill1);
+int filter_for_knowledge(string skill);
 
 int main(object me, string arg)
 {
@@ -157,16 +158,16 @@ int main(object me, string arg)
     // calucate spos to sort
     sname = keys(skl);
 
-    str = (ob == me ? "你" : ob->name()) + "目前所学到的";
     // filter array by skill1
     if (skill1)
     {
+        str = "@#skill@";
         // filter the skill array by skill1
         if (member_array(skill1, valid_types) != -1)
         {
             // skill1 is a basic skill
             sname = filter_array(sname, (: filter_for_enable :), skill1);
-            str += to_chinese(skill1) + "及相关技能";
+            // str += to_chinese(skill1) + "及相关技能";
         }
         else if (SKILL_D(skill1)->main_skill() &&
             member_array(SKILL_D(skill1)->main_skill(), sname) == -1)
@@ -174,16 +175,17 @@ int main(object me, string arg)
             // skill1 is a sub skill
             skill1 = SKILL_D(skill1)->main_skill();
             sname = filter_array(sname, (: filter_for_main :), skill1);
-            str += to_chinese(skill1) + "中的招式";
+            // str += to_chinese(skill1) + "中的招式";
         }
         else
         {
             sname = filter_array(sname, (: filter_for_combine :), skill1);
-            str += to_chinese(skill1) + "和可以激发的基础武技与能够互备的技能";
+            // str += to_chinese(skill1) + "和可以激发的基础武技与能够互备的技能";
         }
+        str += skill1;
     }
     else
-        str += "所有技能";
+        str = "@#skills@";
 
     if (! sizeof(sname))
     {
@@ -261,8 +263,8 @@ int main(object me, string arg)
 
     lrn = ob->query_learned();
     if (! mapp(lrn)) lrn = ([]);
-    str += "\n\n";
-    str += HIC "≡" HIY "------------------------------------------------------------" HIC "≡\n" NOR;
+    // str += "\n\n";
+    // str += HIC "≡" HIY "------------------------------------------------------------" HIC "≡\n" NOR;
 
     for (i = 0; i < sizeof(sname); i++)
     {
@@ -293,16 +295,18 @@ int main(object me, string arg)
         lvl = skl[sname[i]];
         percent = lrn[sname[i]] * 100 / ((lvl + 1) * (lvl + 1) + 1);
         if (percent > 100) percent = 100;
-        str += sprintf("%s%s%s%-40s" NOR WHT " - %4d/%3d%%\n" NOR, skcolor,
-            (lrn[sname[i]] >= (skl[sname[i]]+1) * (skl[sname[i]]+1)) ? HIM : "",
-            (member_array(sname[i], mapped)==-1? "  ": "□ "),
-            skillname + " (" + sname[i] + ")",
-            lvl, percent);
+        str += sprintf("[%s|%s|%d|%d]", skillname, sname[i], lvl, percent);
     }
 
-    str += HIC "≡" HIY "------------------------------------------------------------" HIC "≡\n" NOR;
-    me->start_more(str);
+    // str += HIC "≡" HIY "------------------------------------------------------------" HIC "≡\n" NOR;
+    str += "@\n";
+    tell_object(me, str);
     return 1;
+}
+
+int filter_for_knowledge(string skill)
+{
+    return (SKILL_D(skill)->type() == "knowledge");
 }
 
 int filter_for_enable(string skill, string skill1)
