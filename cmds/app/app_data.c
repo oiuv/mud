@@ -73,7 +73,7 @@ int main(object me, string arg)
         {
                 text = json_encode(tlist);
         }
-
+        text = "{\"code\":20099,\"data\":{\"msg\":" + text + "}}@@\n";
         message("data", text, me);
         return 1;
 }
