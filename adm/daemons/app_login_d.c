@@ -115,7 +115,7 @@ nomask int matches_password(string str, string password)
 private void login(string arg, object ob)
 {
     string *info, id, pass;
-
+    debug_message("[login]:" + ctime() + " | " + query_ip_number(ob) + " | " + arg);
     info = explode(trim(arg), " ");
 
     if (sizeof(info) < 2)
