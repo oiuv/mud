@@ -11,8 +11,8 @@ int main(object me, string arg)
     if (find_object("/dump/tmp_eval_file"))
     destruct(find_object("/dump/tmp_eval_file"));
 
-    write_file("/dump/tmp_eval_file.c","mixed eval() { " + arg + "; }\n");
-    printf("Result = %O\n", "/dump/tmp_eval_file"->eval());
+    write_file("/dump/tmp_eval_file.c","mixed eval(object me) { " + arg + "; }\n");
+    printf("Result = %O\n", "/dump/tmp_eval_file"->eval(me));
     return 1;
 }
 

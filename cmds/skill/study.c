@@ -61,7 +61,7 @@ int main(object me, string arg)
         return notify_fail("你是个文盲，先学点文化(literate)吧。\n");
 
     if (environment(me)->query("no_fight") &&
-        (me->query("doing") != "scheme" || this_player(1)))
+        (me->query("doing") != "scheme" || interactive(me)))
         return notify_fail("你无法在这个地方安心读书。\n");
 
     message("vision", me->name() + "正专心地研读" + ob->name() + "。\n", environment(me), me);
