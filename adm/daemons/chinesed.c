@@ -153,7 +153,7 @@ varargs void dump_translate(int type)
 
 	if (type)
 	{
-		write_file("/CHINESE_DUMP", json_encode(dict));
+		write_file("/CHINESE_DUMP.json", json_encode(dict), 1);
 		return;
 	}
 
@@ -161,7 +161,12 @@ varargs void dump_translate(int type)
 	k = keys(dict);
 	for (int i = 0; i < sizeof(k); i++)
 		str += sprintf("%-30s %s\n", k[i], dict[k[i]]);
-	write_file("/CHINESE_DUMP", str);
+	write_file("/CHINESE_DUMP", str, 1);
+}
+
+void dump()
+{
+	dump_translate(1);
 }
 
 mapping data()

@@ -381,7 +381,7 @@ mapping data()
 
 void dump()
 {
-    write_file("/EMOTE_DUMP", json_encode(emote));
+    write_file("/EMOTE_DUMP.json", json_encode(emote), 1);
 }
 
 // 转为mudcore格式
