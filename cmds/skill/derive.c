@@ -39,7 +39,7 @@ int main(object me, string arg)
         return notify_fail("你现在精神不济，难以抓住实战体会中的秘要！\n");
 
     if (environment(me)->query("no_fight") &&
-        (me->query("doing") != "scheme" || this_player(1)))
+        (me->query("doing") != "scheme" || interactive(1)))
         return notify_fail("你无法在这个地方安心吸收通过实战得到的心得。\n");
 
     if (arg && sscanf(arg, "%d", point) == 1)
