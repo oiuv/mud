@@ -1,9 +1,19 @@
+/*
+ * @Author: 雪风@mud.ren
+ * @Date: 2021-09-09 19:51:19
+ * @LastEditTime: 2021-09-09 19:51:19
+ * @LastEditors: 雪风
+ * @Description: 食物公共接口
+ *  https://bbs.mud.ren
+ */
 // food.c
 
 #include <dbase.h>
 #include <name.h>
 
 mixed func = 0;
+
+int is_food() { return 1; }
 
 void apply_effect(function f)
 {

@@ -1,9 +1,19 @@
+/*
+ * @Author: 雪风@mud.ren
+ * @Date: 2021-09-09 19:51:51
+ * @LastEditTime: 2021-09-09 19:51:51
+ * @LastEditors: 雪风
+ * @Description: 饮水公共接口
+ *  https://bbs.mud.ren
+ */
 // liquid.c
 
 #include <dbase.h>
 #include <name.h>
 
 mixed func = 0;
+
+int is_liquid() { return 1; }
 
 void apply_effect(function f)
 {
