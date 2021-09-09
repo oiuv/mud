@@ -1,3 +1,11 @@
+/*
+ * @Author: 雪风@mud.ren
+ * @Date: 2021-09-09 19:23:48
+ * @LastEditTime: 2021-09-09 19:23:49
+ * @LastEditors: 雪风
+ * @Description: 天山玄铁，可打造多数装备
+ *  https://bbs.mud.ren
+ */
 #include <ansi.h>
 
 inherit ITEM;
@@ -16,7 +24,7 @@ void create()
         set("item_origin", 1);
         set("material_attrib", "stone");
         set("material_name", NOR + CYN "天山玄铁" NOR);
-        set("can_make", ({"all"}));
+        set("can_make", "all");
         set("not_make", ({"战衣", "腰带", "护腕", "靴子"}));
         set("power_point", 100);
     }

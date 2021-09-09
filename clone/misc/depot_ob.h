@@ -297,9 +297,21 @@ int store_item(object me, object ob, int amount)
         return 1;
     }
     */
-    if( ob->query("money_id"))
+    if (ob->query_entire_temp_dbase())
+    {
+        tell_object(me, ob->query("name") + "比较特别，请你自己妥善处理。\n");
+        return 0;
+    }
+
+    if (ob->is_money())
     {
         tell_object(me, "存钱请找钱庄老板存(deposit)。\n");
+        return 1;
+    }
+
+    if (ob->is_food() || ob->is_liquid())
+    {
+        tell_object(me, "食物饮水存到如意乾坤袋后会变质的。\n");
         return 1;
     }
 

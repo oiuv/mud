@@ -38,6 +38,7 @@ void create()
                             "了些什么。\n" NOR);
                 set("no_drop", 1);
                 set("no_sell", 1);
+                set("no_store", 1);
                 set("value", 500);
                 set("material", "cloth");
         }
