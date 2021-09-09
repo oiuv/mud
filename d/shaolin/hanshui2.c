@@ -21,7 +21,7 @@ LONG);
                                 "/clone/fish/caoyu", }));
 
         set("objects", ([
-                __DIR__"npc/chuanfu1" : 1,
+                __DIR__"npc/chuanfu2" : 1,
         ]));
 
         set("outdoors", "nanyang");
