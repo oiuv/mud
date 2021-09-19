@@ -1,8 +1,9 @@
 .DS_Store
-*.ini
+*_DUMP*
 *.log
 *.exe
-*_DUMP
 cert.*
+driver*
+lpcc*
 temp
 version
