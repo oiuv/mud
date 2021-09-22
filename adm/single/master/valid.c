@@ -2,7 +2,7 @@
  * 权限控制apply方法
  * 返回１为允许，返回０为拒绝
  */
-nosave int DEBUG = 0;
+nosave int DEBUG = env("DEBUG");
 
 // controls the use of the bind() efun
 int valid_bind(object binder, object old_owner, object new_owner)
@@ -28,7 +28,7 @@ mixed valid_database(object caller, string func, mixed *info)
         debug_message("([caller : " + file_name(caller) + ", func : " + func + "])");
     }
     if (func == "connect")
-        return "secret"; // mysql数据库密码
+        return env("DB_PASSWORD"); // mysql数据库密码
     else
         return 1;
 }

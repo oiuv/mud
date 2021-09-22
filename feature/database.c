@@ -6,10 +6,10 @@
 #ifdef __PACKAGE_DB__
 
 // 数据库配置
-nosave string db_host = "DB_HOST";
-nosave string db_db = "DB_DATABASE";
-nosave string db_user = "DB_USERNAME";
-nosave int db_type = __DEFAULT_DB__;
+nosave string db_host = env("DB_HOST");
+nosave string db_db = env("DB_DATABASE");
+nosave string db_user = env("DB_USERNAME");
+nosave int db_type = env("DB_TYPE");
 // 数据库查询
 nosave mixed db_handle;
 // 错误消息

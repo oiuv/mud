@@ -278,3 +278,18 @@ varargs void print_r(mixed *arr, int step)
         write(YEL "({ })\n" NOR);
     }
 }
+
+int is_numeric(string str)
+{
+    int i;
+
+    if (nullp(str) || !str[0])
+        return 0;
+
+    i = strlen(str);
+    while (i--)
+        if (str[i] < '0' || str[i] > '9')
+            return 0;
+
+    return 1;
+}
