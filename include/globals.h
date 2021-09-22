@@ -67,6 +67,7 @@
 #define RANK_D          "/adm/daemons/rankd"
 #define SECURITY_D      "/adm/daemons/securityd"
 #define SHOP_D          "/adm/daemons/shopd"
+#define SMS_D           "/adm/daemons/sms_d"
 #define STORY_D         "/adm/daemons/storyd"
 #define ULTRA_D         "/adm/daemons/ultra_questd"
 #define UPDATE_D        "/adm/daemons/updated"
