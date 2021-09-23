@@ -74,24 +74,23 @@ mapping *action = ({
 ]),
 });
 
-        int valid_enable(string usage) { return (usage == "parry"); }
+int valid_enable(string usage) { return (usage == "whip" || usage == "parry"); }
 
 int valid_learn(object me)
 {
         object weapon;
         int lvl = (int)me->query_skill("qingyun-bian", 1);
-        int t = 1; 
-        if( (int)me->query("max_neili") < 500 )
+        int t = 1;
+        if ((int)me->query("max_neili") < 500)
                 return notify_fail("你的内力不足，没有办法练青云鞭法, 多练些内力再来吧。\n");
 
         if ((int)me->query_skill("shaolin-xinfa", 1) < 80)
                 return notify_fail("你的少林心法火候太浅。\n");
 
-        if ( !objectp(weapon = me->query_temp("weapon"))
-                || ( string)weapon->query("skill_type") != "whip" )
+        if (!objectp(weapon = me->query_temp("weapon")) || (string)weapon->query("skill_type") != "whip")
                 return notify_fail("你必须先找一条鞭子才能练鞭法。\n");
 
-         if(lvl<=150)
+        if (lvl <= 150)
         {
                 if (lvl > 10 && (int)me->query("shen") < t * 20)
                         return notify_fail("你的正气太低了。\n");
@@ -107,26 +106,25 @@ int valid_learn(object me)
 string query_skill_name(int level)
 {
         int i;
-        for(i = sizeof(action)-1; i >= 0; i--)
-                if(level >= action[i]["lvl"])
+        for (i = sizeof(action) - 1; i >= 0; i--)
+                if (level >= action[i]["lvl"])
                         return action[i]["skill_name"];
 }
 
 mapping query_action(object me, object weapon)
 {
         int i, level;
-        level   = (int) me->query_skill("qingyun-bian", 1);
-        for(i = sizeof(action); i > 0; i--)
-                if(level > action[i-1]["lvl"])
-                        return action[NewRandom(i, 20, level/5)];
+        level = (int)me->query_skill("qingyun-bian", 1);
+        for (i = sizeof(action); i > 0; i--)
+                if (level > action[i - 1]["lvl"])
+                        return action[NewRandom(i, 20, level / 5)];
 }
 
 int practice_skill(object me)
 {
         object weapon;
 
-        if (!objectp(weapon = me->query_temp("weapon"))
-                || (string)weapon->query("skill_type") != "whip")
+        if (!objectp(weapon = me->query_temp("weapon")) || (string)weapon->query("skill_type") != "whip")
                 return notify_fail("你使用的武器不对。\n");
         if ((int)me->query("qi") < 50)
                 return notify_fail("你的体力不够练青云鞭法。\n");
@@ -136,6 +134,5 @@ int practice_skill(object me)
 
 string perform_action_file(string action)
 {
-                return __DIR__"qingyun-bian/" + action;
+        return __DIR__ "qingyun-bian/" + action;
 }
-
