@@ -13,7 +13,7 @@ void create()
                 "out" : __DIR__"zhuwu",
         ]));
         setup();
-//        (CLASS_D("ultra") + "/shenni")->come_here();
+        // (CLASS_D("ultra") + "/shenni")->come_here();
 }
 
 string long()

@@ -7,12 +7,13 @@ int main(object me, string arg)
 
     /* clean up first */
     if (file_size("/dump/tmp_eval_file.c") != -1)
-    rm ("/dump/tmp_eval_file.c");
+        rm("/dump/tmp_eval_file.c");
     if (find_object("/dump/tmp_eval_file"))
-    destruct(find_object("/dump/tmp_eval_file"));
+        destruct(find_object("/dump/tmp_eval_file"));
 
-    write_file("/dump/tmp_eval_file.c","mixed eval(object me) { " + arg + "; }\n");
+    write_file("/dump/tmp_eval_file.c", "mixed eval(object me) { " + arg + "; }\n");
     printf("Result = %O\n", "/dump/tmp_eval_file"->eval(me));
+
     return 1;
 }
 

@@ -22,17 +22,9 @@ varargs void create(int x, int y, int z)
         set("objects",([
             "/d/city/npc/yanruyu" : 1,
         ]));
+        set("valid_startroom", 1);
+        set("sleep_room", 1);
     }
 
-    /*
-    set("objects",([
-        __DIR__"clone/beast/qilin" : 1,
-    ]));
-    */
-
-    //MOYE->come_here();
-
-    set("valid_startroom", 1);
-    set("sleep_room", 1);
     setup();
 }

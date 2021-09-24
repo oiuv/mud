@@ -12,6 +12,7 @@ void create()
         set("combat_exp", 100);
         set("attitude", "friendly");
         set("rank_info/respect", "小二哥");
+        set("startroom", "/d/city/kedian");
         setup();
         if (clonep()) keep_heart_beat();
 }
@@ -33,12 +34,12 @@ string accept_ask(object me, string topic)
                 return "春来茶馆的老板娘阿庆嫂消息也灵通，那些爷们什么都告诉她，要不你问她去？";
 
         default:
-               return "我那醉仙楼做活的兄弟消息才叫灵通，你去和他聊吧。";
+                return "我那醉仙楼做活的兄弟消息才叫灵通，你去和他聊吧。";
         }
 }
 
 void init()
-{       
+{
         object ob;
 
         ::init();
@@ -49,8 +50,8 @@ void init()
                 call_out("greeting", 1, ob);
         }
         add_action("do_drop", "drop");
-  	add_action("do_exchange", "exchange");
-  	add_action("do_exchange", "duihuan");
+        add_action("do_exchange", "exchange");
+        add_action("do_exchange", "duihuan");
 }
 
 void greeting(object ob)
@@ -71,8 +72,8 @@ void greeting(object ob)
 
 int accept_object(object me, object ob)
 {
-        
-        if (ob->query("money_id") && ob->value() >= 1000) 
+
+        if (ob->query("money_id") && ob->value() >= 1000)
         {
                 tell_object(me, CYN "小二一哈腰，说道：多谢您老，客官请上楼歇息。\n" NOR);
                 me->set_temp("rent_paid",1);
@@ -117,12 +118,12 @@ void heart_beat()
                            && find_object(start_room) == environment())
                                 continue;
 
-		        if ((string)ob->query("id") == "corpse")
-                        	message_vision(HIC "\n$N" HIC "站起身，把$n" HIC "拎到"
+                        if ((string)ob->query("id") == "corpse")
+                                message_vision(HIC "\n$N" HIC "站起身，把$n" HIC "拎到"
                                                "门外，然后又若无其事地走了回来。\n\n"
                                                NOR, this_object(), ob);
-			else
-                        	message_vision(CYN "\n$N" CYN "对$n" CYN "满脸歉然地说"
+                        else
+                                message_vision(CYN "\n$N" CYN "对$n" CYN "满脸歉然地说"
                                                "道：对不住，小店已经满座了。\n" HIC "$n"
                                                HIC "听后一愣，摇了摇头，骂骂咧咧地转身"
                                                "离去。\n" NOR, this_object(), ob);
@@ -163,7 +164,7 @@ int do_drop(string arg)
 
                         me->receive_damage("qi", 1);
                         ob->die();
-	                me->unconcious();
+                        me->unconcious();
                         return 1;
                 }
 
@@ -214,159 +215,159 @@ int do_drop(string arg)
 
 int do_exchange(string arg)
 {
-  	object ob, me = this_player();
+        object ob, me = this_player();
         int bug, bugp;
 
         bug = me->query("bug", 1);
 
         if (! bug)
-    		return notify_fail(CYN "店小二对你冷笑一声，没"
+                return notify_fail(CYN "店小二对你冷笑一声，没"
                                    "理你。\n" NOR);
 
-     	if (! arg)
-    		return notify_fail(CYN "店小二微笑道：你要兑换"
+        if (! arg)
+                return notify_fail(CYN "店小二微笑道：你要兑换"
                                    "什么东西？\n" NOR);
 
-     	if (arg == "血菩提"
+        if (arg == "血菩提"
            || arg == "舍利子"
            || arg == "昊天果"
            || arg == "壮骨粉"
            || arg == "福寿膏"
            || arg == "增慧丹"
            || arg == "神力丸")
-	{
-		bugp = 5;
+        {
+                bugp = 5;
 
-		if (arg == "血菩提")
-			ob = new("/clone/fam/pill/puti1");
+                if (arg == "血菩提")
+                        ob = new("/clone/fam/pill/puti1");
                 else
-		if (arg == "舍利子")
-			ob = new("/clone/fam/pill/sheli1");
+                if (arg == "舍利子")
+                        ob = new("/clone/fam/pill/sheli1");
                 else
-		if (arg == "昊天果")
-			ob = new("/clone/fam/pill/linghui1");
+                if (arg == "昊天果")
+                        ob = new("/clone/fam/pill/linghui1");
                 else
-		if (arg == "壮骨粉")
-			ob = new("/clone/fam/gift/con1");
+                if (arg == "壮骨粉")
+                        ob = new("/clone/fam/gift/con1");
                 else
-		if (arg == "福寿膏")
-			ob = new("/clone/fam/gift/dex1");
+                if (arg == "福寿膏")
+                        ob = new("/clone/fam/gift/dex1");
                 else
-		if (arg == "增慧丹")
-			ob = new("/clone/fam/gift/int1");
+                if (arg == "增慧丹")
+                        ob = new("/clone/fam/gift/int1");
                 else
-			ob = new("/clone/fam/gift/str1");
-	} else
-     	if (arg == "冰菩提"
+                        ob = new("/clone/fam/gift/str1");
+        } else
+        if (arg == "冰菩提"
            || arg == "昊天丹"
            || arg == "帝者舍利")
-	{
-		bugp = 10;
+        {
+                bugp = 10;
 
-		if (arg == "冰菩提")
-			ob = new("/clone/fam/pill/puti3");
+                if (arg == "冰菩提")
+                        ob = new("/clone/fam/pill/puti3");
                 else
-		if (arg == "昊天丹")
-			ob = new("/clone/fam/pill/linghui2");
+                if (arg == "昊天丹")
+                        ob = new("/clone/fam/pill/linghui2");
                 else
-			ob = new("/clone/fam/pill/sheli3");
-	} else
-     	if (arg == "菩提子"
+                        ob = new("/clone/fam/pill/sheli3");
+        } else
+        if (arg == "菩提子"
            || arg == "圣舍利"
            || arg == "百年人参"
            || arg == "百年灵芝"
            || arg == "天山雪莲")
-	{
-		bugp = 20;
+        {
+                bugp = 20;
 
-		if (arg == "菩提子")
-			ob = new("/clone/fam/pill/puti4");
+                if (arg == "菩提子")
+                        ob = new("/clone/fam/pill/puti4");
                 else
-		if (arg == "圣舍利")
-			ob = new("/clone/fam/pill/sheli4");
+                if (arg == "圣舍利")
+                        ob = new("/clone/fam/pill/sheli4");
                 else
-		if (arg == "百年人参")
-			ob = new("/clone/fam/pill/renshen1");
+                if (arg == "百年人参")
+                        ob = new("/clone/fam/pill/renshen1");
                 else
-		if (arg == "百年灵芝")
-			ob = new("/clone/fam/pill/lingzhi1");
+                if (arg == "百年灵芝")
+                        ob = new("/clone/fam/pill/lingzhi1");
                 else
-			ob = new("/clone/fam/pill/xuelian1");
-	} else
-     	if (arg == "百年参心丹"
+                        ob = new("/clone/fam/pill/xuelian1");
+        } else
+        if (arg == "百年参心丹"
            || arg == "天山雪莲膏"
            || arg == "百年灵芝丸"
            || arg == "白虎赐元丹"
            || arg == "青龙炼睿丹"
            || arg == "朱雀玲珑丹"
            || arg == "玄武铸骨丹")
-	{
-		bugp = 30;
+        {
+                bugp = 30;
 
-		if (arg == "百年参心丹")
-			ob = new("/clone/fam/pill/renshen3");
+                if (arg == "百年参心丹")
+                        ob = new("/clone/fam/pill/renshen3");
                 else
-		if (arg == "天山雪莲膏")
-			ob = new("/clone/fam/pill/xuelian3");
+                if (arg == "天山雪莲膏")
+                        ob = new("/clone/fam/pill/xuelian3");
                 else
-		if (arg == "百年灵芝丸")
-			ob = new("/clone/fam/pill/lingzhi3");
+                if (arg == "百年灵芝丸")
+                        ob = new("/clone/fam/pill/lingzhi3");
                 else
-		if (arg == "玄武铸骨丹")
-			ob = new("/clone/fam/gift/con2");
+                if (arg == "玄武铸骨丹")
+                        ob = new("/clone/fam/gift/con2");
                 else
-		if (arg == "朱雀玲珑丹")
-			ob = new("/clone/fam/gift/dex2");
+                if (arg == "朱雀玲珑丹")
+                        ob = new("/clone/fam/gift/dex2");
                 else
-		if (arg == "青龙炼睿丹")
-			ob = new("/clone/fam/gift/int2");
+                if (arg == "青龙炼睿丹")
+                        ob = new("/clone/fam/gift/int2");
                 else
-			ob = new("/clone/fam/gift/str2");
-	} else
-     	if (arg == "千年参心丹"
+                        ob = new("/clone/fam/gift/str2");
+        } else
+        if (arg == "千年参心丹"
            || arg == "千年雪莲丹"
            || arg == "千年灵芝丸"
            || arg == "洗髓再造仙丹"
            || arg == "破阳无极仙丹"
            || arg == "神恩通慧仙丹"
            || arg == "蚩尤诛元仙丹")
-	{
-		bugp = 50;
+        {
+                bugp = 50;
 
-		if (arg == "千年参心丹")
-			ob = new("/clone/fam/pill/renshen4");
+                if (arg == "千年参心丹")
+                        ob = new("/clone/fam/pill/renshen4");
                 else
-		if (arg == "千年雪莲丹")
-			ob = new("/clone/fam/pill/xuelian4");
+                if (arg == "千年雪莲丹")
+                        ob = new("/clone/fam/pill/xuelian4");
                 else
-		if (arg == "千年灵芝丸")
-			ob = new("/clone/fam/pill/lingzhi4");
+                if (arg == "千年灵芝丸")
+                        ob = new("/clone/fam/pill/lingzhi4");
                 else
-		if (arg == "洗髓再造仙丹")
-			ob = new("/clone/fam/gift/con3");
+                if (arg == "洗髓再造仙丹")
+                        ob = new("/clone/fam/gift/con3");
                 else
-		if (arg == "破阳无极仙丹")
-			ob = new("/clone/fam/gift/dex3");
+                if (arg == "破阳无极仙丹")
+                        ob = new("/clone/fam/gift/dex3");
                 else
-		if (arg == "神恩通慧仙丹")
-			ob = new("/clone/fam/gift/int3");
+                if (arg == "神恩通慧仙丹")
+                        ob = new("/clone/fam/gift/int3");
                 else
-			ob = new("/clone/fam/gift/str3");
-	} else
-     	if (arg == "脑白金")
-	{
-		bugp = 100;
-		ob = new("/clone/fam/max/naobaijin");
-	} else
-		return notify_fail(CYN "店小二对你摇摇头道：你只能兑换"
+                        ob = new("/clone/fam/gift/str3");
+        } else
+        if (arg == "脑白金")
+        {
+                bugp = 100;
+                ob = new("/clone/fam/max/naobaijin");
+        } else
+                return notify_fail(CYN "店小二对你摇摇头道：你只能兑换"
                                    "规定范围内的物品。\n" NOR);
 
         if (bug < bugp)
-		return notify_fail(CYN "店小二对你摇摇头道：你的积累分"
+                return notify_fail(CYN "店小二对你摇摇头道：你的积累分"
                                    "数不够，无法兑换此类物品。\n" NOR);
 
         if (! ob)
-		return notify_fail(CYN "店小二一惊，叫道：咦？我的东西"
+                return notify_fail(CYN "店小二一惊，叫道：咦？我的东西"
                                    "…我的东西呢？巫师！巫师！\n" NOR);
         me->add("bug", -bugp);
 
@@ -378,5 +379,5 @@ int do_exchange(string arg)
                               "店小二处领取一%s%s" HIM "。" NOR, me->name(),
                               ob->query("unit"), ob->name()));
 
-    	return 1;
+        return 1;
 }
