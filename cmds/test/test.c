@@ -1,4 +1,6 @@
 #include <ansi.h>
+#include "test.h"
+
 inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
