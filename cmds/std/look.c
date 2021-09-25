@@ -183,7 +183,7 @@ int look_room(object me, object env, int brief)
     if( !brief )
     {
         string long = env->long();
-        if (long[ < 1] != '\n') long += "\n";
+        if (!long || long[ < 1] != '\n') long = long + "\n"; // 防止0报错
 
         str = sprintf( HIC + "%s" + NOR + "%s\n    %s%s" + NOR,
                 env->short(),
