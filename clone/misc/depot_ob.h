@@ -31,7 +31,7 @@ void create()
     set("value",1000);
     set("no_drop", 1);
     set("no_steal", 1);
-    set("no_store", 1);
+    set("no_put", 1);
     set("no_sell", "如意乾坤袋你也舍得卖掉？\n");
     setup();
 
@@ -315,7 +315,7 @@ int store_item(object me, object ob, int amount)
         return 1;
     }
 
-    if( ob->query("no_store") || ob->is_no_clone() || ob->query("no_put"))
+    if(ob->is_no_clone() || ob->query("no_put"))
     {
         tell_object(me, "如意乾坤袋不保存" + ob->query("name") + "，请你自己妥善处理。\n");
         return 0;

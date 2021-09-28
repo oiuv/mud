@@ -18,7 +18,6 @@ void create()
         set("material", "tian jing");
         set("no_sell", 1);
         set("no_put", 1);
-        set("no_store", 1);
         // set("no_give",1);
     }
     setup();
