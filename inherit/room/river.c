@@ -84,7 +84,7 @@ void arrival(object me, object boat, object arrive)
         if (environment(me) != boat)
                 return;
 
-        obs = filter_array(all_inventory(boat), (: $1 == $(me) 
+        obs = filter_array(all_inventory(boat), (: $1 == $(me)
                            || $1->query_leader() == $(me)
                            && ! playerp($1)
                            && ! $1->is_killing($(me)->query("id")) :));
@@ -158,4 +158,9 @@ int do_cross()
                           "逐浪，竟大踏步掠过江来！\n\n" NOR,
                           environment(me), ({ me }));
         return 1;
+}
+
+//replaces the program in this_object()
+void replace_program(string ob)
+{
 }
