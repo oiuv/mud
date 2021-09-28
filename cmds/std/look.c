@@ -211,7 +211,7 @@ int look_room(object me, object env, int brief)
         else if (sizeof(dirs) == 1)
             str += "    这里唯一的出口是 " + BOLD + dirs[0] + NOR + "。\n";
         else
-            str += sprintf("    这里明显的出口是 " + BOLD + "%s" + NOR + " 和 " + BOLD + "%s" + NOR + "。\n",
+            str += sprintf("    这里明显的方向有 " + BOLD + "%s" + NOR + " 和 " + BOLD + "%s" + NOR + "。\n",
                         implode(dirs[0..sizeof(dirs)-2], "、"), dirs[sizeof(dirs)-1]);
     }
 
