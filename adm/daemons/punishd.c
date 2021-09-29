@@ -1,7 +1,7 @@
 // punish the berays user
 #include <ansi.h>
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 inherit F_DBASE;

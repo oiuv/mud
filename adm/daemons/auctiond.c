@@ -2,7 +2,7 @@
 // 拍卖系统
 // Written by jjgod for hell. 01/10/01.
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 #include <ansi.h>

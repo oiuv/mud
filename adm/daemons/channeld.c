@@ -3,7 +3,7 @@
 //          By ken@XAJH & fuyo@XAJH
 // Updated by Doing for HELL
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 #include <ansi.h>

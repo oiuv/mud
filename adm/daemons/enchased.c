@@ -2,7 +2,7 @@
 
 #include <ansi.h>
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 #define NAME    0
@@ -44,7 +44,7 @@ mapping special_data = ([
         "finger"        : "有效指法",
         "claw"          : "有效爪法",
         "warm"          : "保暖能力",
-        	
+
         	/*
         	//留着作相关属性翻译参考
         "max_neili"     : "最大内力上限",
@@ -94,7 +94,7 @@ mapping special_data = ([
         "research_effect"       : "提升研究的效果百分比",
         "practice_effect"       : "提升练习的效果百分比",
         "derive_effect"         : "提升汲取的效果百分比",
-        
+
         "avoid_noperform"       : HIR "回避绝招使用限制机率百分比",         // 终极兵器
         "target_noperform"      : HIB "限制对手使用绝招机率百分比",         // 终极防具
         "add_busy"      : HIR "对手忙乱秒数",                           // 终极兵器

@@ -1,5 +1,5 @@
 //insert.c
-// #pragma optimize
+#pragma optimize
 #include <dbase.h>
 
 inherit F_CLEAN_UP;
@@ -22,7 +22,7 @@ int main(object me, string arg)
 				break;
 			}
 		if( !dir ) return notify_fail("你要插入什么？\n");
-	
+
 		if( environment(me)->insert_card1(dir) ) {
 			message_vision("$N将" + cards[dir]["name"] + "插入。\n", me);
 			return 1;
@@ -36,9 +36,9 @@ int help(object me)
 {
         write(@HELP
 指令格式 : open <door> 或 <方向>
- 
+
 这个指令可以让你打开门.
- 
+
 HELP
     );
     return 1;

@@ -1,6 +1,6 @@
 // aliasd.c
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 mapping global_alias = ([

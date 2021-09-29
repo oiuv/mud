@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <getconfig.h>
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 inherit F_SAVE;

@@ -2,7 +2,7 @@
 // by Annihilator@ES
 // modified by mudren@Heros.YD
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 #include <localtime.h>

@@ -3,7 +3,7 @@
 // by Xiang@XKX (95/12/22)
 // Update by Doing for Hell
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 string money_str(int amount)
@@ -63,7 +63,7 @@ void pay_player(object who, int amount)
 	seteuid(getuid());
         if (amount < 1)
                 amount = 1;
-                
+
         if (v = amount / 10000)
 	{
                 ob = new(GOLD_OB);
@@ -94,26 +94,26 @@ void pay_player(object who, int amount)
 	seteuid(getuid());
         if (amount < 1)
                 amount = 1;
- //设定取钱小于100gold时不自动转cash，取100gold以及以上的钱时才转cash 2016-12-22               
+ //设定取钱小于100gold时不自动转cash，取100gold以及以上的钱时才转cash 2016-12-22
              if (v = amount / 100000 && amount>=1000000)
 	{
                 ob = new(CASH_OB);
                 ob->set_amount(amount / 100000);
                 ob->move(who, 1);
                 amount %= 100000;
-        }        
-                
-//新设定调试代码结束 2016-12-22                
-  /*      
+        }
+
+//新设定调试代码结束 2016-12-22
+  /*
          if (v = amount / 100000)
 	{
                 ob = new(CASH_OB);
                 ob->set_amount(amount / 100000);
                 ob->move(who, 1);
                 amount %= 100000;
-        }        
-                
-    */            
+        }
+
+    */
         if (amount / 10000)
 	{
                 ob = new(GOLD_OB);
@@ -165,7 +165,7 @@ int player_pay(object who, int amount)
 		cc = c_ob->query_amount();
 	else
 		cc = 0;
-	
+
 	v = cc + sc * 100 + gc * 10000;
 	if (amount < 100000 && v < amount)
 	{
@@ -176,7 +176,7 @@ int player_pay(object who, int amount)
 	}
 
 	v += tc * 100000;
-	if (v < amount) 
+	if (v < amount)
 		return 0;
 	else {
 		left = v - amount;
@@ -240,4 +240,3 @@ int player_carry(object ob)
         if (coin_ob)   gold += coin_ob->query_amount() / 10000;
         return gold;
 }
-

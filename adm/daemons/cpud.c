@@ -1,6 +1,6 @@
 // cpud.c
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 inherit F_DBASE;

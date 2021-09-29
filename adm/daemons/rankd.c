@@ -1,6 +1,6 @@
 // rankd.c
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 #include <ansi.h>

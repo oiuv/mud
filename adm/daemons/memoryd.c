@@ -1,4 +1,4 @@
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 inherit F_DBASE;
@@ -21,7 +21,7 @@ void create()
 
 void auto_relaim()
 {
-        int i;      
+        int i;
 	int t;
         string str;
 
@@ -47,5 +47,5 @@ void auto_relaim()
         }
 
         __DIR__"qdeld"->qdel();
-        
+
 }

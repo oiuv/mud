@@ -1,7 +1,7 @@
 // analectad.c
 // Create by jjgod for hell. 2002/01/27.
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 #include <ansi.h>
@@ -169,7 +169,7 @@ int add_analecta(int year, mapping analecta)
         int i;
         string file, info;
         int add_time;
-        
+
         i = random(99999999 - 10000000 + 1) + 10000000;
         file = ANALECTA_DIR + year + "/" + i + ".txt";
 
@@ -186,14 +186,14 @@ int add_analecta(int year, mapping analecta)
                        "file : %s\n"
                        "add_time : %d\n"
                        "content :\n%s",
-                       analecta["subject"], analecta["author_name"], 
+                       analecta["subject"], analecta["author_name"],
                        analecta["author_id"], analecta["time"],
                        analecta["board"], file,
                        add_time, analecta["content"]);
 
         analecta["file"] = file;
         analecta["add_time"] = add_time;
-        
+
         write_file(file, info, 1);
         if (undefinedp(analecta_list[sprintf("%d", year)]))
                 analecta_list[sprintf("%d", year)] = ({ analecta });
@@ -233,7 +233,7 @@ int clear_analecta_list(int year)
 {
         if (undefinedp(analecta_list[sprintf("%d", year)]))
                 return 0;
-                
+
         map_delete(analecta_list, sprintf("%d", year));
         return 1;
 }

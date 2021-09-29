@@ -1,6 +1,6 @@
 // examined.c
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 #include <localtime.h>
@@ -135,7 +135,7 @@ int end_log_player(string id, string euid)
 
         if (euid == ROOT_UID || wizhood(euid) == "(admin)" ||
             stringp(by) && (by == euid || wiz_level(by) <= wiz_level(euid)))
-        {                
+        {
                 delete("log_by/" + id);
                 log_file("static/log_user", sprintf("%s stop log %s on %s\n",
                                                     euid, id, ctime(time())));

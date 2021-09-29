@@ -5,7 +5,7 @@
 #include <ansi.h>
 #include <quest.h>
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 inherit F_DBASE;

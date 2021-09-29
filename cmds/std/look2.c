@@ -1,4 +1,4 @@
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 #include <room.h>

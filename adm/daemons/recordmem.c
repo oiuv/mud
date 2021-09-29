@@ -1,4 +1,4 @@
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 inherit F_DBASE;
@@ -21,7 +21,7 @@ void create()
 void recordmem()
 {
         string memcost, uptime;
-       
+
         remove_call_out("protect");
         call_out("recordmem", 900);
 
@@ -31,7 +31,7 @@ void recordmem()
 
         log_file("meminfo",  sprintf("\n运行时间：%s消耗内存：%s\n",
                                      uptime, memcost) );
-       
+
 }
 
 string memory_expression(int m)

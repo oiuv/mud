@@ -1,4 +1,4 @@
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 inherit F_DBASE;
@@ -36,7 +36,7 @@ void protect()
                 __DIR__"memoryd"->auto_relaim();
 
                 return;
-                
+
         }
 
         obs = keys(total);
@@ -49,7 +49,7 @@ void protect()
                 call_out("protect", 180);
 
                 __DIR__"memoryd"->auto_relaim();
-                
+
                 return;
         }
 

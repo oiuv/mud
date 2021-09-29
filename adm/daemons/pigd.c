@@ -1,6 +1,6 @@
 // pigd.c 拱猪 Daemon
 
-// #pragma optimize
+#pragma optimize
 
 #include <pig.h>
 inherit F_DBASE;
@@ -54,7 +54,7 @@ int is_special(int c)
 {
 	return c == SPIG || c == DSHEEP || c == CTRANS || SUIT(c) == HEART;
 }
-	
+
 string card_str(int c)
 {
 	if (c < 0 || c > 51)
@@ -73,7 +73,7 @@ string refresh(int *cl, int b, int e)
 	output = sprintf("%18s%s：", "", suit_str[ls = ns = SUIT(cl[b])]);
 	for (i = b; i <= e; i++) {
 		ns = SUIT(cl[i]);
-		if (ls == ns) 
+		if (ls == ns)
 			output += rank_str[RANK(cl[i])] + " ";
 		else {
 			output = sprintf("%s\n%18s%s：", output, "",
@@ -104,7 +104,7 @@ int has_card(int *cl, int b, int e, int c)
 void shuffle(int *ol, int *nl, int t)
 {
 	int i, j, k, l;
-	if (sizeof(ol) < 52 || sizeof(nl) < 52) 
+	if (sizeof(ol) < 52 || sizeof(nl) < 52)
 		for (i = 0; i < 52; i++)
 			ol[i] = nl[i] = i;
 	if (t <= 0 || t >= 10) t = 1;
@@ -119,7 +119,7 @@ void shuffle(int *ol, int *nl, int t)
 		for (j = 0; j < 52; j++) ol[j] = nl[j];
 	}
 }
-			
+
 string card_cmp4(mapping cl, int s)
 {
 	int i, bc;
@@ -129,11 +129,11 @@ string card_cmp4(mapping cl, int s)
 	if (sizeof(cl) != 4)
 		return clkeys[0];
 	bc = s * 13;
-	for (i = 0; i < 4; i++) 
+	for (i = 0; i < 4; i++)
 		if (SUIT(cl[clkeys[i]]) == s && cl[clkeys[i]] >= bc)
 			bc = cl[bp = clkeys[i]];
 	return bp;
-}	
+}
 
 string *order_turn(string rw)
 {
@@ -143,7 +143,7 @@ string *order_turn(string rw)
 		return ({ "north", "west", "south", "east" });
 	else if (rw == "west")
 		return ({ "west", "south", "east", "north" });
-	else 
+	else
 		return ({ "south", "east", "north", "west" });
 }
 
@@ -151,7 +151,7 @@ int count_score(int *fcl, int bid_flag) // support for single pig ONLY
 {
 	int i, j, pc, doubler, n_heart, cardj, r;
 	int *cl = ({});
-	
+
 	for (i = 0; i < sizeof(fcl); i++)
 		if (fcl[i] == SPIG || fcl[i] == DSHEEP || fcl[i] == CTRANS ||
 			SUIT(fcl[i]) == HEART)
@@ -159,7 +159,7 @@ int count_score(int *fcl, int bid_flag) // support for single pig ONLY
 	cl = sort_array(cl, 1);
 	pc = sizeof(cl);
 	r = 0;
-	
+
 	if (pc == 16)
 		return 1000;
 	else if (pc == 1 && cl[0] == SPIG) {
@@ -221,4 +221,3 @@ int count_score(int *fcl, int bid_flag) // support for single pig ONLY
 	}
 	return r;
 }
-

@@ -1,7 +1,7 @@
 // itemd.c
 // Update by Vin for Heros.cn
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 #include <ansi.h>

@@ -1,6 +1,6 @@
 
 // created by Rcwiz
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 inherit F_DBASE;
@@ -40,18 +40,17 @@ public int qdel()
         foreach(qob  in obs)
         {
                reset_eval_cost();
-               
+
                t = time() - qob->query("start_time");
                if (t >= 1800)
                {
                      qob->cancel_quest();
                      i ++;
                }
-               
+
         }
 
         CHANNEL_D->do_channel(this_object(), "sys", "系统自动清除 " + i + " 个超过30分钟的任务。");
 
 	return 1;
 }
-

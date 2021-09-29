@@ -1,6 +1,6 @@
 // weapond.c
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 #include <ansi.h>
@@ -84,7 +84,7 @@ varargs mapping query_action()
                         return weapon_actions[verb];
                 else
                         return weapon_actions["hit"];
-        }       
+        }
 }
 
 void throw_weapon(object me, object victim, object weapon, int damage)

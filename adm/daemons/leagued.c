@@ -2,7 +2,7 @@
 
 #include <ansi.h>
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 inherit F_SAVE;
@@ -362,14 +362,14 @@ public void create_league(string fname, int base, object *obs)
                 {
                       leader_id = obs[i]->query("id");
                       leader_name = obs[i]->name();
-                      break;                    
+                      break;
                 }
 
         }
         foreach (ob in obs)
         {
                 league = ([ "time"        : time(),
-                            "league_name" : fname, 
+                            "league_name" : fname,
                             "leader_id"   : leader_id,
                             "leader_name" : leader_name ]);
 
@@ -412,7 +412,7 @@ public void dismiss_league(string fname)
                         ob = find_living(id);
 
                         if (objectp(ob))ob->delete("league");
-                        
+
                         //UPDATE_D->clear_user_data(id, "league");
                 }
         }
@@ -422,7 +422,7 @@ public void dismiss_league(string fname)
 
         CHANNEL_D->do_channel(this_object(), "rumor",
                    "听说 「"HIG + fname + HIM"」 人才凋零，昔日好友尽皆散去，从此江湖再无此字号了。");
-        
+
 }
 
 // 查询同盟中的弟兄
@@ -477,8 +477,8 @@ public int remove_member_from_league(mixed fname, string id, int flag)
                 ob->delete("league");
                 CHANNEL_D->do_channel(this_object(), "rumor",
                         "听说"HIY + ob->name() + HIM"被 「" HIG + fname + HIM "」 开除了。");
-               
-        }        
+
+        }
         else write(HIG "OK！\n");
 
         if (sizeof(member) < 1)
@@ -516,9 +516,9 @@ public int add_member_into_league(string fname, string id, object me)
         save();
 
         ob = find_living(id);
-        
+
         league = ([ "time"        : time(),
-                    "league_name" : fname, 
+                    "league_name" : fname,
                     "leader_id"   : me->query("league/leader_id"),
                     "leader_name" : me->query("league/leader_name") ]);
 
@@ -531,7 +531,7 @@ public int add_member_into_league(string fname, string id, object me)
                   channels += ({ "inter" });
 
         ob->set("channels", channels);
- 
+
         return 1;
 }
 

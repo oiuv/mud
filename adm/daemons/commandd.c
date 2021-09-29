@@ -4,7 +4,7 @@
 // By Annihilator (11/07/94)
 // Update by Doing Lu
 
-// #pragma optimize
+#pragma optimize
 // #pragma save_binary
 
 mapping search = ([ ]);
@@ -72,4 +72,3 @@ string find_command(string verb, string *path)
         }
         return 0;
 }
-
