@@ -15,7 +15,7 @@ int main(object me, string arg)
             write(HIY "你当前绑定的手机号码是：" + phone + "，如需修改请输入：mobile 新号码\n" NOR);
             return 1;
         }
-        write(BRED "你还没有绑定安全手机，请输入“mobile 手机号码”根据提示完成绑定。\n" NOR);
+        write(BRED "你还没有绑定安全手机，请输入“mobile 手机号码”根据提示完成绑定。" NOR "\n");
         return 1;
     }
     // 验证
