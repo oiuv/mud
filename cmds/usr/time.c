@@ -5,79 +5,81 @@ inherit F_CLEAN_UP;
 #include <ansi.h>
 #include <localtime.h>
 
-mapping *lunarfete = ({
-    ([	"month" :  1, "day" :  1, "name" : RED"春节"NOR]),
-    ([	"month" :  1, "day" : 15, "name" : RED"元宵节"NOR]),
-    ([	"month" :  5, "day" :  5, "name" : GRN"端午节"NOR]),
-    ([	"month" :  7, "day" :  7, "name" : CYN"七夕乞巧节"NOR]),
-    ([	"month" :  8, "day" : 15, "name" : CYN"中秋节"NOR]),
-    ([	"month" :  9, "day" :  9, "name" : MAG"重阳节"NOR]),
-    ([	"month" : 12, "day" :  8, "name" : BLU"腊八节"NOR]),
-    ([	"month" : 12, "day" : 23, "name" : RED"小年"NOR]),
-    ([	"month" : 12, "day" : 30, "name" : RED"除夕"NOR]),
+nosave mapping *lunarfete = ({
+    (["month" :  1, "day" :  1, "name" : RED"春节"NOR]),
+    (["month" :  1, "day" : 15, "name" : RED"元宵节"NOR]),
+    (["month" :  5, "day" :  5, "name" : GRN"端午节"NOR]),
+    (["month" :  7, "day" :  7, "name" : CYN"七夕乞巧节"NOR]),
+    (["month" :  8, "day" : 15, "name" : CYN"中秋节"NOR]),
+    (["month" :  9, "day" :  9, "name" : MAG"重阳节"NOR]),
+    (["month" : 12, "day" :  8, "name" : BLU"腊八节"NOR]),
+    (["month" : 12, "day" : 23, "name" : RED"小年"NOR]),
+    (["month" : 12, "day" : 30, "name" : RED"除夕"NOR]),
 });
-mapping *solarfete = ({
-    ([	"month" :  1, "day" :  1, "name" : RED"元旦"NOR]),
-    ([	"month" :  2, "day" : 14, "name" : MAG"情人节"NOR]),
-    ([	"month" :  3, "day" :  5, "name" : RED"学雷锋纪念日"NOR]),
-    ([	"month" :  3, "day" :  8, "name" : YEL"国际妇女节"NOR]),
-    ([	"month" :  3, "day" : 12, "name" : GRN"植树节"NOR]),
-    ([	"month" :  3, "day" : 15, "name" : YEL"消费者权益日"NOR]),
-    ([	"month" :  3, "day" : 23, "name" : YEL"世界气象日"NOR]),
-    ([	"month" :  3, "day" : 31, "name" : YEL"安全教育日"NOR]),
-    ([	"month" :  4, "day" :  1, "name" : GRN"愚人节"NOR]),
-    ([	"month" :  4, "day" :  5, "name" : CYN"清明节"NOR]),
-    ([	"month" :  4, "day" :  6, "name" : RED"厦门大学校庆"NOR]),
-    ([	"month" :  4, "day" :  7, "name" : CYN"世界卫生日"NOR]),
-    ([	"month" :  4, "day" :  9, "name" : CYN"耶酥受难日"NOR]),
-    ([	"month" :  4, "day" : 12, "name" : CYN"复活节星期一"NOR]),
-    ([	"month" :  4, "day" : 22, "name" : CYN"世界地球日"NOR]),
-    ([	"month" :  5, "day" :  1, "name" : WHT"国际劳动节"NOR]),
-    ([	"month" :  5, "day" :  4, "name" : GRN"中国青年节"NOR]),
-    ([	"month" :  5, "day" :  8, "name" : GRN"国际红十字日"NOR]),
-    ([	"month" :  5, "day" : 10, "name" : HIR"母亲节"NOR]),
-    ([	"month" :  5, "day" : 12, "name" : GRN"国际护士节"NOR]),
-    ([	"month" :  5, "day" : 15, "name" : GRN"国际家庭日"NOR]),
-    ([	"month" :  5, "day" : 17, "name" : GRN"世界电信日"NOR]),
-    ([	"month" :  5, "day" : 19, "name" : GRN"全国助残日"NOR]),
-    ([	"month" :  5, "day" : 26, "name" : HIY"佛诞日"NOR]),
-    ([	"month" :  5, "day" : 31, "name" : GRN"世界无烟日"NOR]),
-    ([	"month" :  6, "day" :  1, "name" : MAG"国际儿童节"NOR]),
-    ([	"month" :  6, "day" :  5, "name" : MAG"世界环境节"NOR]),
-    ([	"month" :  6, "day" :  6, "name" : MAG"全国爱眼日"NOR]),
-    ([	"month" :  6, "day" : 21, "name" : HIG"父亲节"NOR]),
-    ([	"month" :  6, "day" : 25, "name" : MAG"全国土地日"NOR]),
-    ([	"month" :  6, "day" : 26, "name" : MAG"国际禁毒日"NOR]),
-    ([	"month" :  7, "day" :  1, "name" : RED"中共建党节"NOR]),
-    ([	"month" :  7, "day" :  1, "name" : HIR"香港回归日"NOR]),
-    ([	"month" :  7, "day" :  1, "name" : HIY"世界建筑日"NOR]),
-    ([	"month" :  7, "day" :  7, "name" : RED"抗战纪念日"NOR]),
-    ([	"month" :  7, "day" : 11, "name" : GRN"世界人口日"NOR]),
-    ([	"month" :  8, "day" :  1, "name" : GRN"建军节"NOR]),
-    ([	"month" :  9, "day" :  8, "name" : YEL"国际扫盲日"NOR]),
-    ([	"month" :  9, "day" :  8, "name" : YEL"国际新闻人团结日"NOR]),
-    ([	"month" :  9, "day" : 10, "name" : YEL"中国教师节"NOR]),
-    ([	"month" :  9, "day" : 16, "name" : HIG"国际和平节"NOR]),
-    ([	"month" :  9, "day" : 20, "name" : YEL"中国爱牙日"NOR]),
-    ([	"month" :  9, "day" : 27, "name" : YEL"世界旅游日"NOR]),
-    ([	"month" : 10, "day" :  1, "name" : RED"中国国庆节"NOR]),
-    ([	"month" : 10, "day" :  1, "name" : RED"世界音乐节"NOR]),
-    ([	"month" : 10, "day" :  5, "name" : RED"世界住房日"NOR]),
-    ([	"month" : 10, "day" :  9, "name" : RED"世界邮政日"NOR]),
-    ([	"month" : 10, "day" : 14, "name" : RED"世界标准日"NOR]),
-    ([	"month" : 10, "day" : 16, "name" : RED"世界粮食日"NOR]),
-    ([	"month" : 10, "day" : 24, "name" : RED"联合国日"NOR]),
-    ([	"month" : 10, "day" : 31, "name" : RED"世界勤俭日"NOR]),
-    ([	"month" : 11, "day" :  1, "name" : HIB"万圣节"NOR]),
-    ([	"month" : 11, "day" : 17, "name" : HIY"国际学生日"NOR]),
-    ([	"month" : 11, "day" : 25, "name" : HIY"感恩节"NOR]),
-    ([	"month" : 12, "day" :  5, "name" : BLU"国际志愿人员日"NOR]),
-    ([	"month" : 12, "day" : 10, "name" : BLU"世界人权日"NOR]),
-    ([	"month" : 12, "day" : 20, "name" : HIG"澳门回归日"NOR]),
-    ([	"month" : 12, "day" : 24, "name" : BLU"圣诞夜"NOR]),
-    ([	"month" : 12, "day" : 25, "name" : BLU"圣诞节"NOR]),
+
+nosave mapping *solarfete = ({
+    (["month" :  1, "day" :  1, "name" : RED"元旦"NOR]),
+    (["month" :  2, "day" : 14, "name" : MAG"情人节"NOR]),
+    (["month" :  3, "day" :  5, "name" : RED"学雷锋纪念日"NOR]),
+    (["month" :  3, "day" :  8, "name" : YEL"国际妇女节"NOR]),
+    (["month" :  3, "day" : 12, "name" : GRN"植树节"NOR]),
+    (["month" :  3, "day" : 15, "name" : YEL"消费者权益日"NOR]),
+    (["month" :  3, "day" : 23, "name" : YEL"世界气象日"NOR]),
+    (["month" :  3, "day" : 31, "name" : YEL"安全教育日"NOR]),
+    (["month" :  4, "day" :  1, "name" : GRN"愚人节"NOR]),
+    (["month" :  4, "day" :  5, "name" : CYN"清明节"NOR]),
+    (["month" :  4, "day" :  6, "name" : RED"厦门大学校庆"NOR]),
+    (["month" :  4, "day" :  7, "name" : CYN"世界卫生日"NOR]),
+    (["month" :  4, "day" :  9, "name" : CYN"耶酥受难日"NOR]),
+    (["month" :  4, "day" : 12, "name" : CYN"复活节星期一"NOR]),
+    (["month" :  4, "day" : 22, "name" : CYN"世界地球日"NOR]),
+    (["month" :  5, "day" :  1, "name" : WHT"国际劳动节"NOR]),
+    (["month" :  5, "day" :  4, "name" : GRN"中国青年节"NOR]),
+    (["month" :  5, "day" :  8, "name" : GRN"国际红十字日"NOR]),
+    (["month" :  5, "day" : 10, "name" : HIR"母亲节"NOR]),
+    (["month" :  5, "day" : 12, "name" : GRN"国际护士节"NOR]),
+    (["month" :  5, "day" : 15, "name" : GRN"国际家庭日"NOR]),
+    (["month" :  5, "day" : 17, "name" : GRN"世界电信日"NOR]),
+    (["month" :  5, "day" : 19, "name" : GRN"全国助残日"NOR]),
+    (["month" :  5, "day" : 26, "name" : HIY"佛诞日"NOR]),
+    (["month" :  5, "day" : 31, "name" : GRN"世界无烟日"NOR]),
+    (["month" :  6, "day" :  1, "name" : MAG"国际儿童节"NOR]),
+    (["month" :  6, "day" :  5, "name" : MAG"世界环境节"NOR]),
+    (["month" :  6, "day" :  6, "name" : MAG"全国爱眼日"NOR]),
+    (["month" :  6, "day" : 21, "name" : HIG"父亲节"NOR]),
+    (["month" :  6, "day" : 25, "name" : MAG"全国土地日"NOR]),
+    (["month" :  6, "day" : 26, "name" : MAG"国际禁毒日"NOR]),
+    (["month" :  7, "day" :  1, "name" : RED"中共建党节"NOR]),
+    (["month" :  7, "day" :  1, "name" : HIR"香港回归日"NOR]),
+    (["month" :  7, "day" :  1, "name" : HIY"世界建筑日"NOR]),
+    (["month" :  7, "day" :  7, "name" : RED"抗战纪念日"NOR]),
+    (["month" :  7, "day" : 11, "name" : GRN"世界人口日"NOR]),
+    (["month" :  8, "day" :  1, "name" : GRN"建军节"NOR]),
+    (["month" :  9, "day" :  8, "name" : YEL"国际扫盲日"NOR]),
+    (["month" :  9, "day" :  8, "name" : YEL"国际新闻人团结日"NOR]),
+    (["month" :  9, "day" : 10, "name" : YEL"中国教师节"NOR]),
+    (["month" :  9, "day" : 16, "name" : HIG"国际和平节"NOR]),
+    (["month" :  9, "day" : 20, "name" : YEL"中国爱牙日"NOR]),
+    (["month" :  9, "day" : 27, "name" : YEL"世界旅游日"NOR]),
+    (["month" : 10, "day" :  1, "name" : RED"中国国庆节"NOR]),
+    (["month" : 10, "day" :  1, "name" : RED"世界音乐节"NOR]),
+    (["month" : 10, "day" :  5, "name" : RED"世界住房日"NOR]),
+    (["month" : 10, "day" :  9, "name" : RED"世界邮政日"NOR]),
+    (["month" : 10, "day" : 14, "name" : RED"世界标准日"NOR]),
+    (["month" : 10, "day" : 16, "name" : RED"世界粮食日"NOR]),
+    (["month" : 10, "day" : 24, "name" : RED"联合国日"NOR]),
+    (["month" : 10, "day" : 31, "name" : RED"世界勤俭日"NOR]),
+    (["month" : 11, "day" :  1, "name" : HIB"万圣节"NOR]),
+    (["month" : 11, "day" : 17, "name" : HIY"国际学生日"NOR]),
+    (["month" : 11, "day" : 25, "name" : HIY"感恩节"NOR]),
+    (["month" : 12, "day" :  5, "name" : BLU"国际志愿人员日"NOR]),
+    (["month" : 12, "day" : 10, "name" : BLU"世界人权日"NOR]),
+    (["month" : 12, "day" : 20, "name" : HIG"澳门回归日"NOR]),
+    (["month" : 12, "day" : 24, "name" : BLU"圣诞夜"NOR]),
+    (["month" : 12, "day" : 25, "name" : BLU"圣诞节"NOR]),
 });
-mixed LunarCal = ({
+
+nosave mixed LunarCal = ({
     ({ 23,  3, 2, 17, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0 }),  /* 1936 */
     ({ 41,  0, 4, 23, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1 }),
     ({ 30,  7, 5, 28, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1 }),
@@ -179,15 +181,16 @@ mixed LunarCal = ({
 #define FIRSTYEAR 1936
 #define LASTYEAR FIRSTYEAR + sizeof(LunarCal) - 1
 
-int *SolarCal = ({ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 });
-mixed SolarDays = ({
+nosave int *SolarCal = ({ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 });
+nosave mixed SolarDays = ({
     ({ 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365, 396 }),
     ({ 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366, 397 })
 });
-int Source, SolarYear, SolarMonth, SolarDate;
-int LunarYear, LunarMonth, LunarDate, Weekday, Gan, Zhi;
+nosave int Source, SolarYear, SolarMonth, SolarDate;
+nosave int LunarYear, LunarMonth, LunarDate, Weekday, Gan, Zhi;
 nosave string *sym_tian = ({"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"});
 nosave string *sym_di = ({"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"});
+
 string lunar(string arg);
 void prepare();
 
@@ -199,9 +202,9 @@ int main(object me, string arg)
 
     if (arg)
     {
-        string yy, mm, dd;
+        int yy, mm, dd;
         sscanf(arg, "%d-%d-%d", yy, mm, dd);
-        write("换算的日期 " + HIC "黄帝历" + lunar(yy + " " + mm + " " + dd + NOR));
+        write("换算的日期 " + HIC "黄帝历" + lunar(yy + " " + mm + " " + dd) + NOR "\n");
         return 1;
     }
     now = localtime(time());
@@ -242,7 +245,7 @@ int main(object me, string arg)
             printf(solarfete[i]["name"] + NOR);
     }
     write("\n");
-    write("现在 农历 日期 " + HIC "黄帝历" + lunar(now[LT_YEAR] + " " + (string)(now[LT_MON] + 1) + " " + now[LT_MDAY]) + NOR);
+    write("现在 农历 日期是：" CYN "黄帝历" + lunar(now[LT_YEAR] + " " + (string)(now[LT_MON] + 1) + " " + now[LT_MDAY]) + NOR);
 
     prepare();
     return 1;
@@ -368,6 +371,22 @@ int CalConv()
     return 0;
 }
 // 限制在1937-2031年
+string to_lunar(string arg)
+{
+    int yy, mm, dd;
+    sscanf(arg, "%d%d%d", yy, mm, dd);
+    if (yy <= 2031 && yy >= 1937 && mm <= 12 && mm >= 1 && dd <= 31 && dd >= 1)
+    {
+        SolarYear = yy;
+        SolarMonth = mm;
+        SolarDate = dd;
+        Source = 0;
+        CalConv();
+    }
+
+    return sprintf("%d-%d-%d", LunarYear, LunarMonth, LunarDate);
+}
+
 string lunar(string arg)
 {
     int yy, mm, dd, i;
