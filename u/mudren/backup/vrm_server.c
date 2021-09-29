@@ -544,7 +544,7 @@ private void paint_vrm_map()
     write_file(map_file, output, 1);
 }
 
-nomask int clean_up()
+nomask int clean_up(int inherited)
 {
     string fname;
     int x, y;

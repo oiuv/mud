@@ -10,29 +10,29 @@ int help(object me);
 
 int main(object me, string arg)
 {
-    object ob, ob1;
+    object ob, env;
     string *vars, id;
 
     if (!wizardp(me))
         return 0;
 
-    if (!arg || arg == "")
+    if (!arg || arg == "me" || arg == "")
         ob = me;
-    else if (sscanf(arg, "%s in %s", arg, id) == 2)
-    {
-        ob1 = present(id, environment(me));
-        if (!ob1)
-            ob1 = present(id, me);
-        if (!ob1)
-            return notify_fail("本地无此生物: " + id + "\n");
-        if (!ob = present(arg, ob1))
-            return notify_fail("该生物身上无此对象: " + arg + "\n");
-    }
     else if (arg == "here")
         ob = environment(me);
+    else if (sscanf(arg, "%s in %s", arg, id) == 2)
+    {
+        env = present(id, environment(me));
+        if (!env)
+            env = present(id, me);
+        if (!env)
+            return notify_fail("当前环境中无法找到对象 " + id + "。\n");
+        if (!ob = present(arg, env))
+            return notify_fail("环境对象 " + id + " 中没有找到对象 " + arg + "。\n");
+    }
     else
     {
-        arg = lower_case(arg);
+        // arg = lower_case(arg);
 
         ob = present(arg, environment(me));
         if (!ob)
@@ -42,11 +42,16 @@ int main(object me, string arg)
         if (!ob)
             ob = present(arg, me);
         if (!ob)
-            return notify_fail("Data: 无法找到此对象: " + arg + "。\n");
+            ob = load_object(arg);
+        if (!ob)
+            return notify_fail("无法找到对象 " + arg + "。\n");
     }
-    if (sizeof(vars = variables(ob)))
-    foreach(string var in vars)
-        printf("%s = %O\n", var, fetch_variable(var, ob));
+    if (sizeof(vars = variables(ob, 1)))
+        foreach (string *var in vars)
+            if (strsrch(var[1], "private") == -1)
+                printf("%s = %O\n", var[0], fetch_variable(var[0], ob));
+            else
+                printf("%s 是 %s 类型变量\n", var[0], var[1]);
 
     return 1;
 }
@@ -57,9 +62,9 @@ int help(object me)
         return 0;
 
     write(@LONG
-指令格式: variables <玩家|对象|here> <in 玩家或生物>
+指令格式: variables <玩家|here|me|对象文件> [in 玩家或生物]
 指令说明:
-    此命令让你可以观看所指定对象的资料，相比 data 指令可以查看更多参数的值。
+    此命令让你可以查看指定对象的详细全局变量资料。
 LONG );
     return  1;
 }

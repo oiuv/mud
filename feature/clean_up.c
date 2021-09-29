@@ -1,42 +1,61 @@
-// test
-// clean_up.c
-// by Annihilator@ES2
-// Adapted for XKX by Xiang (12/15/95)
+/*****************************************************************************
+Copyright: 2021, Mud.Ren
+File name: clean_up.c
+Description: clean_up 功能接口，driver会自动定期执行本apply函数
+Version: v1.1
+*****************************************************************************/
 
-int clean_up()
+#define NEVER_AGAIN 0
+#define AGAIN 1
+
+/* The clean_up() function is called by the driver on a regular basis in
+all objects that have been inactive for the time specified for clean_up()
+in the runtime configuration file.  One flag is passed tothe function,
+specifying whether or not the object has been inheritted by anything.
+If clean_up() returns 0, clean_up() will never be called again on that
+object. If it returns 1, it will be called again when the object remains
+inactive for the specified clean_up() delay. */
+int clean_up(int inherited)
 {
     object *inv;
-    int i;
 
     // log_file("clean_up", sprintf("%-50s - %s", file_name(this_object()), ctime(time()) + "\n"));
+    // 如果被其它对象继承不清除
+    if (inherited)
+        return AGAIN;
 
-    if (! clonep() && this_object()->query("no_clean_up") == 1) return 1;
-
+    // no_clean_up 为 1 的非复制对象不清除
+    if (!clonep() && this_object()->query("no_clean_up") == 1)
+        return AGAIN;
     if (this_object()->query("no_clean_up") > 1)
-        log_file("no_clean_up", base_name(this_object()) + "\tflag ="
-                 "= " + this_object()->query("no_clean_up") + "\n");
+        log_file("no_clean_up", this_object() + "\tno_clean_up = " +
+                                this_object()->query("no_clean_up") + "\n");
 
-    if (interactive(this_object())) return 1;
+    // 在线游戏玩家不清除
+    if (interactive(this_object()))
+        return AGAIN;
 
+    // 正在为QUEST服务
     if (this_object()->query_temp("quest_ob"))
-        // 正在为QUEST服务
-        return 1;
+        return AGAIN;
 
     // If we are contained in something, let environment do the clean
     // up instead of making recursive call. This will prevent clean-up
     // time lag.
-    if (environment()) return 1;
-
+    if (environment())
+        return AGAIN;
+    // 如果环境中有玩家或不允许清除的对象则不清除环境
     inv = all_inventory();
-    for (i = sizeof(inv) - 1; i >= 0; i--)
+    for (int i = sizeof(inv) - 1; i >= 0; i--)
         if (interactive(inv[i]) ||
             inv[i]->query_temp("quest_ob") ||
-            inv[i]->is_stay_in_room()) return 1;
+            inv[i]->is_stay_in_room())
+            return AGAIN;
 
     destruct(this_object());
-    if (objectp(this_object()))
-        log_file("no_destructed", base_name(this_object()) + " flag ="
-                 "= " + this_object()->query("no_clean_up") + "\n");
+    if (objectp(this_object())) // 清除失败记录日志
+        log_file("no_destructed", base_name(this_object()) + " flag = " +
+                                  this_object()->query("no_clean_up") + "\n");
 
-    return 0;
+    return NEVER_AGAIN;
 }

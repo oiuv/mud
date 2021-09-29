@@ -608,7 +608,7 @@ void init()
     add_all_action();
 }
 
-int clean_up()
+int clean_up(int inherited)
 {
     object *obs;
 
