@@ -12,13 +12,12 @@ LONG);
                 "out" : __DIR__"pomiao"
         ]));
 
-	set("objects", ([
-		CLASS_D("gaibang") + "/hong" : 1,
-	]));
+    set("objects", ([
+        CLASS_D("gaibang") + "/hong" : 1,
+    ]));
 
         set("valid_startroom", 1);
         set("sleep_room", 1);
         setup();
         replace_program(ROOM);
 }
-

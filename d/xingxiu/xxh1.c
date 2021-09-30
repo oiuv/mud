@@ -8,9 +8,9 @@ void create()
 分险恶。东面石壁上一道裂缝通到一个山洞。
 LONG);
         set("exits", ([
-             	"north"   : __DIR__"xxh2",
-             	"southup" : __DIR__"tianroad2",
-             	"westup"  : __DIR__"tianroad3",
+                 "north"   : __DIR__"xxh2",
+                 "southup" : __DIR__"tianroad2",
+                 "westup"  : __DIR__"tianroad3",
         ]));
         set("objects", ([
                 CLASS_D("xingxiu") + "/zhaixing" : 1,
@@ -22,5 +22,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-
-

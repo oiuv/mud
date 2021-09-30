@@ -6,10 +6,10 @@
 inherit F_SSERVER;
 
 string final(object me, object target, int ap, int dp);
- 
+
 int perform(object me, object target)
 {
-	object weapon;
+    object weapon;
         string msg;
         int ap, dp;
         int damage;
@@ -19,28 +19,28 @@ int perform(object me, object target)
 
         if (! target)
         {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
+            me->clean_up_enemy();
+            target = me->select_opponent();
         }
 
-	if (! target || ! me->is_fighting(target))
-		return notify_fail(HENG "只能对战斗中的对手使用。\n");
- 
-	if (! objectp(weapon = me->query_temp("weapon")) ||
-	    (string)weapon->query("skill_type") != "blade")
+    if (! target || ! me->is_fighting(target))
+        return notify_fail(HENG "只能对战斗中的对手使用。\n");
+
+    if (! objectp(weapon = me->query_temp("weapon")) ||
+        (string)weapon->query("skill_type") != "blade")
                 return notify_fail("你所使用的武器不对，难以施展" HENG "。\n");
 
-	if ((int)me->query_skill("baisheng-daofa", 1) < 150)
-		return notify_fail("你百胜刀法还不到家，难以施展" HENG "。\n");
+    if ((int)me->query_skill("baisheng-daofa", 1) < 150)
+        return notify_fail("你百胜刀法还不到家，难以施展" HENG "。\n");
 
         if (me->query_skill_mapped("blade") != "baisheng-daofa")
                 return notify_fail("你没有激发百胜刀法，难以施展" HENG "。\n");
 
-	if ((int)me->query_skill("force") < 200)
-		return notify_fail("你的内功火候不够，难以施展" HENG "。\n");
+    if ((int)me->query_skill("force") < 200)
+        return notify_fail("你的内功火候不够，难以施展" HENG "。\n");
 
-	if ((int)me->query("neili") < 500)
-		return notify_fail("你现在的真气不够，难以施展" HENG "。\n");
+    if ((int)me->query("neili") < 500)
+        return notify_fail("你现在的真气不够，难以施展" HENG "。\n");
 
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
@@ -58,21 +58,21 @@ int perform(object me, object target)
         dp = target->query_skill("force") + target->query_str() * 5;
         damage = 0;
         if (ap / 2 + random(ap) > dp)
-	{
-		damage = ap + random(ap / 3);
+    {
+        damage = ap + random(ap / 3);
                 me->add("neili", -350);
-		msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 50,
+        msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 50,
                                            (: final, me, target, ap, dp :));
-		me->start_busy(3);
-	} else 
-	{
-		msg += HIC "$n" HIC "奋力招架，硬生生的挡住了这令天地失色之必杀一击！\n" NOR;
+        me->start_busy(3);
+    } else
+    {
+        msg += HIC "$n" HIC "奋力招架，硬生生的挡住了这令天地失色之必杀一击！\n" NOR;
                 me->add("neili", -150);
-		me->start_busy(4);
-	}
-	message_combatd(msg, me, target);
+        me->start_busy(4);
+    }
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }
 
 string final(object me, object target, int ap, int dp)

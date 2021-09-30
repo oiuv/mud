@@ -12,18 +12,18 @@ int halt_working(object me, object who, int silent);
 
 void create()
 {
-	set("short", "伐木场");
-	set("long", @LONG
+    set("short", "伐木场");
+    set("long", @LONG
 这里是鹿鸣峰西坡下的一片森林，长着许多百年的参天大
 树，笔直挺拔，都是上好的木材，许多人在这里砍伐(famu)木料，
 然后运到中原供达官贵人们建筑豪宅。这里地处深山老林，时常
 有凶猛的野兽出没。
 LONG);
-	set("exits", ([
-		"southup" : __DIR__"luming",
-	]));
-	set("outdoors", "guanwai");
-	setup();
+    set("exits", ([
+        "southup" : __DIR__"luming",
+    ]));
+    set("outdoors", "guanwai");
+    setup();
 }
 /*
 //取消伐木job
@@ -197,8 +197,8 @@ int start_work(object me, object ob)
         ob->set_temp("job/famu", 1);
         ob->set_temp("job/step", 1);
         ob->set_temp("job/coagent", me);
-	me->start_busy((: working :), (: halt_working :));
-	ob->start_busy((: coagent :), (: halt_working :));
+    me->start_busy((: working :), (: halt_working :));
+    ob->start_busy((: coagent :), (: halt_working :));
         tell_object(me, "你和" + ob->name() + "开始伐木。\n");
         tell_object(ob, "你和" + me->name() + "开始伐木。\n");
         return 1;
@@ -300,7 +300,7 @@ int working(object me)
                         msg = "$n摆摆手，让$N扶好松树，上去就是“哐哐哐”的砍。";
                         break;
                 }
-                
+
                 message_vision("锯到这个份上，却没找到斧头，$N和$n"
                                "瞪瞪眼睛，只好停手。\n", me, coagent);
                 return end_working(me);

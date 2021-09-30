@@ -11,14 +11,14 @@ mixed ask_skill3();
 
 void create()
 {
-	set_name("桑三娘", ({ "sang sanniang", "sang", "sanniang"}));
+    set_name("桑三娘", ({ "sang sanniang", "sang", "sanniang"}));
         set("title", "日月神教天香堂长老");
         set("nickname", HIR "掌刑使者" NOR);
         set("long", @LONG
 这是日月神教天香堂香主桑三娘。只见她神情
 古怪，面无丝毫微笑，面容却相当清秀。
 LONG);
-	set("gender", "女性" );
+    set("gender", "女性" );
         set("class", "scholar");
         set("age", 41);
         set("attitude", "friendly");
@@ -27,7 +27,7 @@ LONG);
         set("int", 36);
         set("con", 36);
         set("dex", 36);
-        
+
         set("max_qi", 4000);
         set("max_jing", 3000);
         set("neili", 5400);
@@ -85,13 +85,13 @@ LONG);
 
         set("zhen_count", 3);
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
                 (: perform_action, "hand.po" :),
                 (: perform_action, "throwing.luo" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-	}) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+    }) );
 
         setup();
 
@@ -189,7 +189,7 @@ mixed ask_skill1()
                      "间身形急转，宛若鬼魅，悄然伸出五指朝$N" HIY "胸前"
                      "抓落，$N" HIY "见状大惊失色，连忙腾挪闪躲，可已然"
                      "不及。$n" HIY "五指正好拂在$N" HIY "的胸前。\n\n"
-                     NOR, me, this_object()); 
+                     NOR, me, this_object());
 
         command("haha");
         command("say 这式手法用来暗算或是偷袭再合适不过。");
@@ -235,7 +235,7 @@ mixed ask_skill2()
         message_sort(HIY "\n$n" HIY "阴阴一笑，将$N" HIY "招至跟前，轻"
                      "声在耳旁秘密说了些什么。随后又伸出右手，十指箕张"
                      "，一伸一缩，看样子是一种很特别的暗器法门。\n\n"
-                     NOR, me, this_object()); 
+                     NOR, me, this_object());
 
         command("nod");
         command("say 刚才我说的全是精要，你可要记清楚了。");
@@ -284,7 +284,7 @@ mixed ask_skill3()
         message_sort(HIY "\n$n" HIY "对$N" HIY "点了点头，随即便从$N"
                      HIY "的手中接过匕首，一声叱喝，连环刺出五招，只"
                      "见这五刺连环攻势凌厉之极，招数层出不穷，当真精"
-                     "妙无比。\n\n" NOR, me, this_object()); 
+                     "妙无比。\n\n" NOR, me, this_object());
 
         command("nod");
         command("say 这招的要点不过一个疾字，其实是很简单的招式。");

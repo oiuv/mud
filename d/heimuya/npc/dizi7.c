@@ -54,5 +54,5 @@ void greeting(object ob)
 {
         if (! ob || environment(ob) != environment()) return;
 
-	say(CYN "青旗弟子高声呼喊道：日月神教，文成武德。千秋万载，一统江湖。\n" NOR);
+    say(CYN "青旗弟子高声呼喊道：日月神教，文成武德。千秋万载，一统江湖。\n" NOR);
 }

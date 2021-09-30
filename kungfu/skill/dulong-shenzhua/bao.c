@@ -51,12 +51,12 @@ int perform(object me, object target)
               "双爪犹如蛟龙般将$n" HIC "缠住。\n" NOR;
 
         message_sort(msg, me, target);
-        
+
         if (random(ap) > dp / 2)
         {
-		msg = HIR "$n" HIR "心神惧裂，一时间竟无从应对。\n" NOR;
+        msg = HIR "$n" HIR "心神惧裂，一时间竟无从应对。\n" NOR;
                 target->start_busy(ap / 36 + 1);
-               	me->start_busy(1);
+                   me->start_busy(1);
                 me->add("neili", -160);
         } else
         {

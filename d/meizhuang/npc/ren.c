@@ -23,7 +23,7 @@ void create()
         set("int", 40);
         set("con", 40);
         set("dex", 40);
-        
+
         set("max_qi", 8000);
         set("max_jing", 6000);
         set("neili", 10000);
@@ -73,19 +73,19 @@ int ask_bijian()
         object weapon/*, obj*/;
         object me = this_player(), ob = this_object();
 
-        if (me->query_temp("want_bijian")) 
+        if (me->query_temp("want_bijian"))
         {
                 command("say 你这人这么那么不爽快？要比就赶紧开始吧！");
                         return 1;
         }
 
-        if (me->query("skybook/xiaoao/bijian")) 
+        if (me->query("skybook/xiaoao/bijian"))
         {
                 command("say 我们已经比试过了，没必要再战一场。");
                         return 1;
         }
 
-        if (me->query_temp("bijian_fail")) 
+        if (me->query_temp("bijian_fail"))
         {
                 command("say 你已经输了，再比下去也没什么结果。");
                         return 1;
@@ -129,12 +129,12 @@ int do_accept()
 
         if (me->query_temp("want_bijian"))
         {
-	        if (! objectp(weapon = me->query_temp("weapon")) ||
-  	           (string)weapon->query("skill_type") != "sword")
-  	        {
-        	        command("say 他奶奶的，你把剑取了这算什么意思？");
+            if (! objectp(weapon = me->query_temp("weapon")) ||
+                 (string)weapon->query("skill_type") != "sword")
+              {
+                    command("say 他奶奶的，你把剑取了这算什么意思？");
                         return 1;
-  	        }
+              }
 
                 say (CYN "\n任我行哈哈一笑，说道：那我就开始进招了。\n" NOR + HIW
                      "\n只见任我行说罢身形一展，一道剑光由他处凌厉闪出。\n" NOR,

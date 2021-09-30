@@ -12,7 +12,7 @@ void create()
 {
         seteuid(getuid());
         ::restore();
-	set("channel_id", "检查精灵");
+    set("channel_id", "检查精灵");
 }
 
 string query_save_file()
@@ -27,7 +27,7 @@ void remove()
 
 void examine_player(object ob)
 {
-	int exp;
+    int exp;
         object cash, gold, silver, coin;
         string log_msg;
         int tval;
@@ -38,7 +38,7 @@ void examine_player(object ob)
         gold = present("gold_money", ob);
         silver = present("silver_money", ob);
         coin = present("coin_money", ob);
-	exp = ob->query("combat_exp");
+    exp = ob->query("combat_exp");
 
         tval = 0;
         if (cash) tval = cash->query_amount() * 10;
@@ -79,8 +79,8 @@ string create_log_file(object ob)
         lt = localtime(time());
 
         fn = "user/" + sprintf("%d-%d-%d/", lt[LT_YEAR],
-			       lt[LT_MON] + 1, lt[LT_MDAY]) +
-	     ob->query("id");
+                   lt[LT_MON] + 1, lt[LT_MDAY]) +
+         ob->query("id");
         assure_file(LOG_DIR + fn);
 
         return fn;

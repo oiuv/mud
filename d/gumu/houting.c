@@ -14,13 +14,13 @@ LONG);
         set("exits", ([
                 "north" : __DIR__"zhengting",
         ]));
-        
+
         set("objects", ([
                 CLASS_D("gumu") + "/longnv" : 1,
-                	//杨过从绝情谷转移到古墓与小龙女团聚 by 薪有所属
+                    //杨过从绝情谷转移到古墓与小龙女团聚 by 薪有所属
                 CLASS_D("gumu") + "/yang" : 1,
         ]));
-        
+
         set("item_desc", ([
                 "picture" : WHT "\n画中是一个中年道士的背影，看不出什么相"
                             "貌，画中人一手指\n天，画角题着「" HIR "活死人"

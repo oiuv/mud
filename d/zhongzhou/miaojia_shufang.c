@@ -1,25 +1,25 @@
-#include <ansi.h> 
+#include <ansi.h>
 
 inherit ROOM;
 
 void create()
 {
-	set("short", "书房");
-	set("long", @LONG
+    set("short", "书房");
+    set("long", @LONG
 这里是苗人凤的书房，房间内整整齐齐的堆放着各类书籍。
 书房的中央横放着一张案台，案台上摆着几本摊开的书册，旁
 边还有未燃尽的蜡烛，似乎苗人凤常在这里挑灯夜读。墙壁上
 悬挂着几幅图(tu)画，像是出自苗人凤本人的手笔。
 LONG);
-	set("exits", ([
-  		"north" : __DIR__"miaojia_houting",
-	]));
-	set("no_clean_up", 0);
+    set("exits", ([
+          "north" : __DIR__"miaojia_houting",
+    ]));
+    set("no_clean_up", 0);
         set("item_desc", ([
                 "tu" : HIC "\n只见图画中绘着一些正在打斗的小人，似是"
                        "与掌法有关。\n" NOR,
         ]) );
-	setup();
+    setup();
 }
 
 void init()
@@ -99,7 +99,7 @@ int do_canwu(string arg)
         if (me->is_busy())
                 return notify_fail("你现在正在参悟中。\n");
 
-        if (me->query("potential") < me->query("learned_points") + 10) 
+        if (me->query("potential") < me->query("learned_points") + 10)
                 return notify_fail("你的潜能不够了，参悟不出什么。\n");
 
         if ((int)me->query("jing") < 30)
@@ -116,7 +116,7 @@ int do_canwu(string arg)
                                "尚需进一步的参悟。\n" NOR);
                 return 1;
         } else
-        { 
+        {
                 me->receive_damage("jing", 25);
                 me->add("learned_points", 10);
                 me->start_busy(2);

@@ -18,9 +18,8 @@ void create()
         set("liquid", ([
             "name" : "酸梅汤",
             "remaining" : 8,
-       	    "type" : "water"
+               "type" : "water"
         ]) );
         set("liquid_type", "water");
         setup();
 }
-

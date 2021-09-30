@@ -30,12 +30,12 @@ long);
         set("max_neili", 2800);
         set("jiali", 40);
         set("combat_exp", 400000);
-     
+
         set_skill("force", 150);
         set_skill("poison", 270);
         set_skill("dispel-poison", 270);
-	set_skill("medical", 270);
-	set_skill("yaowang-miaoshu", 270);
+    set_skill("medical", 270);
+    set_skill("yaowang-miaoshu", 270);
 
         set("inquiry",([
                 "胡斐":     "他...他...\n",
@@ -56,8 +56,8 @@ int recognize_apprentice(object me, string skill)
         }
 
         if (skill != "poison" && skill != "dispel-poison" &&
-	    skill != "medical" && skill != "yaowang-miaoshu")
-	    
+        skill != "medical" && skill != "yaowang-miaoshu")
+
         {
                 command("say 我只会毒功和医术，别的我就没法子教你啦！");
                 return -1;

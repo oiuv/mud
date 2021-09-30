@@ -11,18 +11,18 @@ void create()
 女人的娇笑，不时的从房间中传出。
 LONG);
         set("exits", ([ /* sizeof() == 6 */
-        	"north" : __DIR__"qunyuys1",
-        	"south" : __DIR__"qunyuys2",
-        	"west"  : __DIR__"qunyuys3",
-        	"east"  : __DIR__"qunyuys4",
-        	"down"  : __DIR__"qunyulou1",
-        	"up"    : __DIR__"qunyulou3",
+            "north" : __DIR__"qunyuys1",
+            "south" : __DIR__"qunyuys2",
+            "west"  : __DIR__"qunyuys3",
+            "east"  : __DIR__"qunyuys4",
+            "down"  : __DIR__"qunyulou1",
+            "up"    : __DIR__"qunyulou3",
         ]));
-		//if (random(5) > 2)
-		set("objects", ([
-        	__DIR__"npc/fuyun" : 1,
+        //if (random(5) > 2)
+        set("objects", ([
+            __DIR__"npc/fuyun" : 1,
         ]) );
 
-	setup();
+    setup();
         replace_program(ROOM);
 }

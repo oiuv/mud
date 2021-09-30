@@ -6,7 +6,7 @@ void create()
         set("long", @LONG
 这里是五毒教的厨房，平常弟子们饿了可以到这里要 (yao)些食
 物。房中灶火正旺，一个大厨师正忙的满头大汗。屋角放着一个大水
-缸。  
+缸。
 LONG);
 
         set("exits", ([
@@ -19,7 +19,7 @@ LONG);
         ]));
         set("resource", ([
               "water" : 1,
-        ]));   
+        ]));
         setup();
 }
 
@@ -38,8 +38,8 @@ int valid_leave(object who, string dir)
         {
               return notify_fail("你不能把葫芦带走！\n");
               who->move(where);
-              return 1;    
+              return 1;
         } else
 
-	return ::valid_leave();
+    return ::valid_leave();
 }

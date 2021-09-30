@@ -1,5 +1,5 @@
-inherit ROOM; 
- 
+inherit ROOM;
+
 void create ()
 {
   set ("short", "宴厅");
@@ -9,12 +9,12 @@ void create ()
 上露天设宴。
 LONG);
 
-  	set("exits", ([
-  		"east" : __DIR__"kitchen_road1",
-  		"west" : __DIR__"zhengting",
-  		"north" : __DIR__"e_garden",
-	]));
+      set("exits", ([
+          "east" : __DIR__"kitchen_road1",
+          "west" : __DIR__"zhengting",
+          "north" : __DIR__"e_garden",
+    ]));
 
-	setup(); 
-	replace_program(ROOM); 
-} 
+    setup();
+    replace_program(ROOM);
+}

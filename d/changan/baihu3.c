@@ -10,11 +10,11 @@ void create ()
 比肩，笙歌处处。景物之美，直如神仙境地。北面东边传出朗朗的读书
 声，那里是当朝的学府国子监。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 3
-		"north" : __DIR__"guozijian",
-        	"west" : __DIR__"baihu2",
-        	"east" : __DIR__"fengxu1",
+        "north" : __DIR__"guozijian",
+            "west" : __DIR__"baihu2",
+            "east" : __DIR__"fengxu1",
         ]));
 
         set("outdoors", "changan");

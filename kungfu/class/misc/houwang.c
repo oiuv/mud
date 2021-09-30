@@ -34,7 +34,7 @@ void create()
         set_skill("force", 250);
 
         map_skill("cuff", "mizong-houquan");
-        prepare_skill("cuff", "mizong-houquan"); 
+        prepare_skill("cuff", "mizong-houquan");
 
         set_temp("apply/attack",  200);
         set_temp("apply/defense", 300);
@@ -67,20 +67,20 @@ int accept_object(object me, object ob)
                 return 0;
         }
 
-	if (query("food") >= max_food_capacity() - ob->query("food_supply"))
+    if (query("food") >= max_food_capacity() - ob->query("food_supply"))
         {
                 message_vision(CYN "$N" CYN "伸长脖子嗅嗅，摆了摆手"
                                "，打了一个饱嗝。\n" NOR, this_object());
 
-        	if (present("pan tao", this_object()))
-		{
-                	message_vision(CYN "\n$N" CYN "挠了挠头，从身后摸出"
+            if (present("pan tao", this_object()))
+        {
+                    message_vision(CYN "\n$N" CYN "挠了挠头，从身后摸出"
                                        "个水灵灵的大蟠桃，又嗅了嗅。\n" NOR,
                                        this_object());
 
-		        command("give pan tao to " + me->query("id"));
-		        command("hehe");
-		}
+                command("give pan tao to " + me->query("id"));
+                command("hehe");
+        }
                 return 0;
         }
 
@@ -88,9 +88,9 @@ int accept_object(object me, object ob)
                        NOR, this_object(), ob);
 
         // 必须提前转移物件，否则下面的指令无效
-	ob->move(this_object());
+    ob->move(this_object());
 
-      	command("eat " + ob->query("id"));
+          command("eat " + ob->query("id"));
         command("stuff");
         command("shzi");
         return 1;
@@ -155,7 +155,7 @@ void unconcious()
            && random(10) == 1
            && userp(ob))
         {
-	        tell_object(ob, HIW "\n你通过和猴王格斗，突然间灵光一"
+            tell_object(ob, HIW "\n你通过和猴王格斗，突然间灵光一"
                                 "闪，领悟出了猴拳的真诣所在。\n\n" NOR +
                                 HIC "恭喜你练成了「迷踪猴拳」。\n" NOR);
                 ob->set_skill("mizong-houquan", 49);

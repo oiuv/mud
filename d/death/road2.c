@@ -1,9 +1,9 @@
 #include <ansi.h>
 inherit ROOM;
- 
+
 void create()
 {
-	set("short", HIR "【鬼门大道】" NOR);
+    set("short", HIR "【鬼门大道】" NOR);
        set("long", HIR @LONG
 
                     鬼     门     大     道
@@ -14,12 +14,12 @@ void create()
 
 LONG NOR );
         set("exits", ([
-		"north" : "/d/death/road3",
-		"south" : "/d/death/road1",
-	]));
+        "north" : "/d/death/road3",
+        "south" : "/d/death/road1",
+    ]));
 
-	set("no_fight", 1);
-	set("no_sleep_room", 1);
+    set("no_fight", 1);
+    set("no_sleep_room", 1);
 
         setup();
         replace_program(ROOM);

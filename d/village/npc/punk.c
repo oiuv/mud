@@ -14,18 +14,18 @@ void create()
         set_temp("apply/attack", 10);
         set_temp("apply/defense", 10);
         set("combat_exp", 500);
-//	set("shen", -100);
-	set("shen_type", -1);
+//    set("shen", -100);
+    set("shen_type", -1);
         set("str", 25);
         set("dex", 20);
         set("con", 18);
         set("int", 15);
         set("attitude","heroism");
         set("inquiry", ([
-		"王小二" : (: ask_me :),
-		"翠花" : 
-		"翠花是个小寡妇，她家就在打谷场西边。",
-		"鸡" : "鸡是王小二弄来的，味道还真不错。",
+        "王小二" : (: ask_me :),
+        "翠花" :
+        "翠花是个小寡妇，她家就在打谷场西边。",
+        "鸡" : "鸡是王小二弄来的，味道还真不错。",
         ]) );
         setup();
         set("chat_chance", 10);
@@ -45,17 +45,17 @@ void create()
 int ask_me()
 {
         if ( this_player()->query_temp("marks/王") ) {
-	    say("流氓说道：你还有完没完? 问话不要钱啊?\n");
-	}
-	else {
-		say(
-"流氓说道：王小二啊，他不是本村的人，几个月前来才我们这儿。\n" 
+        say("流氓说道：你还有完没完? 问话不要钱啊?\n");
+    }
+    else {
+        say(
+"流氓说道：王小二啊，他不是本村的人，几个月前来才我们这儿。\n"
 "    跟王小二赌钱总是输，我看他有捣鬼。这小子拳脚挺厉害的。\n"
-		);
-		write(
+        );
+        write(
 "流氓悄声跟你说：你要找王小二的麻烦吧? 他就住在财神庙後面，\n"
 "    他在那儿搭了个小棚子。\n");
-		this_player()->set_temp("marks/王", 1);
-	}
-	return 1;
+        this_player()->set_temp("marks/王", 1);
+    }
+    return 1;
 }

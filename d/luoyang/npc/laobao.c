@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit NPC;
 
 void create()
@@ -41,38 +41,38 @@ void init()
 
 void greeting(object me)
 {
-	command("look " + me->query("id"));
+    command("look " + me->query("id"));
 
-    	if (me->query("gender") == "无性")
-    	{
-    		command("say 你当我们春月楼是什么地方？我的姑娘满汉蒙藏"
+        if (me->query("gender") == "无性")
+        {
+            command("say 你当我们春月楼是什么地方？我的姑娘满汉蒙藏"
                         "回都接，就是不伺候太监！");
-        	command("kick " + me->query("id"));
+            command("kick " + me->query("id"));
 
-        	message("vision", me->name() + "被老鸨婆一脚踢出门外。\n",
+            message("vision", me->name() + "被老鸨婆一脚踢出门外。\n",
                                   environment(me), ({me}));
-       		me->move("/d/luoyang/sroad5");
+               me->move("/d/luoyang/sroad5");
 
-       		message("vision", me->name() + "被人从春月楼里踢了出来，"
-                                  "栽倒在地上，磕掉两颗门牙。\n", 
-                		  environment(me), ({me}));
-	} else
-	{
-    		if (me->query("class") == "bonze")
-		{
-       			command("say 呦，" + RANK_D->query_respect(me) 
+               message("vision", me->name() + "被人从春月楼里踢了出来，"
+                                  "栽倒在地上，磕掉两颗门牙。\n",
+                          environment(me), ({me}));
+    } else
+    {
+            if (me->query("class") == "bonze")
+        {
+                   command("say 呦，" + RANK_D->query_respect(me)
                                 + "也来光顾我们春月楼啊。");
-	       		command("say 想当年我接过一个西藏喇嘛，他上床前一"
+                   command("say 想当年我接过一个西藏喇嘛，他上床前一"
                                 "定要念经，一面念经，眼珠子就骨溜溜的瞧着"
-				"我。");
-	    	}
-		if (me->query("gender") == "女性")
-		{
-    		    	command("say 哎呀，这年月大姑娘也逛窑子，成何体统。");
-       			command("sigh");
-       			command("say 可惜我儿子不在，不然让他伺候你。");
-		}
-    		command("say 楼上楼下的姑娘们，客人来了！");
-    	}
-    	return ;
+                "我。");
+            }
+        if (me->query("gender") == "女性")
+        {
+                    command("say 哎呀，这年月大姑娘也逛窑子，成何体统。");
+                   command("sigh");
+                   command("say 可惜我儿子不在，不然让他伺候你。");
+        }
+            command("say 楼上楼下的姑娘们，客人来了！");
+        }
+        return ;
 }

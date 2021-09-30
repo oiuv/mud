@@ -121,8 +121,8 @@ int valid_learn(object me)
         if ((int)me->query_skill("force") < 80)
                 return notify_fail("你的内功火候不够，无法练金蛇游身掌。\n");
 
-	if ((int)me->query_skill("strike", 1) < (int)me->query_skill("jinshe-zhang", 1))
-		return notify_fail("你的基本掌法水平有限，无法领会更高深的金蛇游身掌。\n");
+    if ((int)me->query_skill("strike", 1) < (int)me->query_skill("jinshe-zhang", 1))
+        return notify_fail("你的基本掌法水平有限，无法领会更高深的金蛇游身掌。\n");
 
         return 1;
 }
@@ -148,7 +148,7 @@ int practice_skill(object me)
 }
 
 int effective_level() { return 10;}
- 
+
 string *parry_msg = ({
         "$n使出「粘」字诀，双掌一划，引偏了$N的$w。\n",
 });

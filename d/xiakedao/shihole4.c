@@ -19,5 +19,5 @@ LONG );
                 "west"  : __DIR__"shiroom16",
         ]));
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

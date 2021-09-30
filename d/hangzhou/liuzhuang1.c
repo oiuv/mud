@@ -17,9 +17,8 @@ LONG);
         ]));
         set("objects", ([
                 __DIR__"npc/jiading" : 2,
-//		"/clone/npc/mu-ren" : 3,
+//        "/clone/npc/mu-ren" : 3,
         ]));
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }
-

@@ -10,11 +10,11 @@ void create ()
 门了。因为有它建在这里，所以这里的治安很好，大街上的行人也并不
 用为安全担心。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 3
-		"south" : __DIR__"yamen",
-        	"west" : __DIR__"qinglong2",
-        	"east" : __DIR__"fengxu5",
+        "south" : __DIR__"yamen",
+            "west" : __DIR__"qinglong2",
+            "east" : __DIR__"fengxu5",
         ]));
 
         set("outdoors", "changan");

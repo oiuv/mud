@@ -11,7 +11,7 @@ int perform(object me, object target)
         string msg, wn;
         object weapon;
         int ap, dp;
-  
+
         me = this_player();
 
         if (userp(me) && ! me->query("can_perform/poguang-dao/yang"))
@@ -42,8 +42,8 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         wn = weapon->name();
-                           
-        msg = HIW "\n$N" HIW "一声怒喝，内劲瀑涨，施展出绝招「" HIY "破阳刀" HIW 
+
+        msg = HIW "\n$N" HIW "一声怒喝，内劲瀑涨，施展出绝招「" HIY "破阳刀" HIW
               "」手中" + wn + HIW "出神般的挥舞而出，虽然招式看似简单，但其中却"
               "蕴藏着无穷的威力，有如神助一般。" NOR;
 
@@ -55,24 +55,21 @@ int perform(object me, object target)
         if (ap / 2 + random(ap) > dp)
         {
                 damage = ap + random(ap / 2);
-         	msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 40,
+             msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 40,
                                           HIR "$n" HIR "见$N" HIR "来势凶猛，刀"
-                                          "光闪烁，惊骇间肩膀已中一刀，一股鲜血" 
+                                          "光闪烁，惊骇间肩膀已中一刀，一股鲜血"
                                           "喷涌而出。\n" NOR);
-         	me->start_busy(2 + random(4));
-         	me->add("neili", -200);
+             me->start_busy(2 + random(4));
+             me->add("neili", -200);
         } else
         {
-         	msg = CYN "然而$n" CYN "以快制快，侧身"
+             msg = CYN "然而$n" CYN "以快制快，侧身"
                       "一跳，躲过这招。\n" NOR;
 
-         	me->start_busy(2);
-         	me->add("neili", -180);
+             me->start_busy(2);
+             me->add("neili", -180);
         }
         message_combatd(msg, me, target);
 
         return 1;
 }
-
-
-

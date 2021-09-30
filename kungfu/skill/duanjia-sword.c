@@ -89,7 +89,7 @@ int valid_learn(object me)
         return notify_fail("你的段氏心法火候太浅。\n");
 
     if ((int)me->query_skill("sword", 1) < (int)me->query_skill("duanjia-sword", 1))
-	return notify_fail("你的基本剑法火候不够，无法领会更高深的段家剑法。\n");
+    return notify_fail("你的基本剑法火候不够，无法领会更高深的段家剑法。\n");
 
     return 1;
 }

@@ -21,12 +21,12 @@ void create()
 过，清新的空气中传来几缕淡淡的花香。
 LONG );
         set("exits", ([
-		"east" : __DIR__"kongdi",
+        "east" : __DIR__"kongdi",
         ]));
         set("objects", ([
-		flower() : 1,
-		flower() : 1,
-		flower() : 1,
+        flower() : 1,
+        flower() : 1,
+        flower() : 1,
         ]));
         set("outdoors", "shenlong");
         setup();
@@ -36,9 +36,9 @@ void init()
 {
         object me = this_player();
 
-	if (objectp(present("duanchang hua", environment(me)))) 
-	{
-		me->apply_condition("flower_poison", 30 +
+    if (objectp(present("duanchang hua", environment(me))))
+    {
+        me->apply_condition("flower_poison", 30 +
                                     (int)me->query_condition("flower_poison"));
 
                 write(HIG "你只觉一股淡香袭来,顿时脑中一阵麻木！\n" NOR);
@@ -48,9 +48,9 @@ void init()
 void reset()
 {
         set("objects", ([
-		flower() : 1,
-		flower() : 1,
-		flower() : 1,
+        flower() : 1,
+        flower() : 1,
+        flower() : 1,
         ]));
         ::reset();
 }

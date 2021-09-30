@@ -11,9 +11,9 @@ void create()
 LONG);
         set("outdoors", "shenfeng");
         set("item_desc", ([
-		"gate" : WHT "嵌在神峰山腰的巨大厚重的石门，看起来很难"
+        "gate" : WHT "嵌在神峰山腰的巨大厚重的石门，看起来很难"
                          "推动。\n" NOR,
-		"sand" : HIY "巨大的石门由于时间过长，已被沙子堵得严严"
+        "sand" : HIY "巨大的石门由于时间过长，已被沙子堵得严严"
                          "实实。\n如果要想打开石门，看来非得将这些沙子"
                          "移开才行。\n" NOR,
         ]));
@@ -51,19 +51,19 @@ int do_move(string arg)
         object me = this_player();
 
         if (! arg || arg != "sand")
-	        return notify_fail("你要干什么？\n");
+            return notify_fail("你要干什么？\n");
 
         if (this_object()->query("mark/sand") > 5)
-	        return notify_fail("石门上现在已经没有沙子了。\n");
+            return notify_fail("石门上现在已经没有沙子了。\n");
 
         if (me->is_busy())
-	        return notify_fail("你正忙着呢。\n");
+            return notify_fail("你正忙着呢。\n");
 
         if (this_object()->query("mark/sand") < 5)
-	        message_vision(HIC "$N" HIC "仔细地清除着覆盖在石门周围"
+            message_vision(HIC "$N" HIC "仔细地清除着覆盖在石门周围"
                                "的沙子。\n" NOR, me);
-	else
-	        message_vision(HIC "$N" HIC "终于将覆盖在石门周围的沙子"
+    else
+            message_vision(HIC "$N" HIC "终于将覆盖在石门周围的沙子"
                                "除得干干净净。\n" NOR, me);
         add("mark/sand", 1);
         me->start_busy(2);
@@ -84,13 +84,13 @@ int do_push(string arg)
                        "。\n" NOR, me);
 
         if ((int)me->query_skill("force") < 300
-	   || this_object()->query("mark/sand") < 5
-	   || me->query("neili") < 1500)
-	{
-	        write(HIR "结果「轰」的一声闷响，你被石壁的反弹力震得飞"
+       || this_object()->query("mark/sand") < 5
+       || me->query("neili") < 1500)
+    {
+            write(HIR "结果「轰」的一声闷响，你被石壁的反弹力震得飞"
                       "了出去。\n\n" NOR);
 
-        	message("vision", HIR "却见" + me->name() + HIR "身体猛"
+            message("vision", HIR "却见" + me->name() + HIR "身体猛"
                                   "然一晃，被震得飞了出去，坠到了山脚下"
                                   "。\n\n" NOR, environment(me), ({me}));
 
@@ -104,21 +104,21 @@ int do_push(string arg)
         }
 
         if (! (room = find_object(__DIR__"yongdao1")))
-        	room = load_object(__DIR__"yongdao1");
+            room = load_object(__DIR__"yongdao1");
 
         if (! query("exits/enter"))
-	{
+    {
                 message_vision(HIY "$N" HIY "将石门震到一边，露出一个洞"
                                "口，可是洞内一片漆黑，甚么也瞧不见。\n"
                                NOR, me);
 
-        	set("exits/enter", __DIR__"yongdao1");
-            	room->set("exits/out", __FILE__);
+            set("exits/enter", __DIR__"yongdao1");
+                room->set("exits/out", __FILE__);
                 me->add("neili", -1000);
 
-            	message("vision", HIY "\n只听外面传来一阵移动石门的隆隆"
+                message("vision", HIY "\n只听外面传来一阵移动石门的隆隆"
                                   "的响声。\n" NOR, room);
-            	return 1;
-    	}
+                return 1;
+        }
         return 1;
 }

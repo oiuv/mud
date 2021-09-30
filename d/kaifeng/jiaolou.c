@@ -10,9 +10,9 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"eastdown" : __DIR__"zhuque",
-  		"westdown" : __DIR__"wroad2",
-	]));
+          "eastdown" : __DIR__"zhuque",
+          "westdown" : __DIR__"wroad2",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

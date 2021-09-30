@@ -11,9 +11,9 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"north" : __DIR__"hh_lianwu1",
-  		"south" : __DIR__"hh_qguangchang",
-	]));
+          "north" : __DIR__"hh_lianwu1",
+          "south" : __DIR__"hh_qguangchang",
+    ]));
         set("objects", ([
                 CLASS_D("honghua") + "/yang" : 1,
                 CLASS_D("honghua") + "/jiang" : 1,

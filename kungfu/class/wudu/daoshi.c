@@ -83,9 +83,9 @@ void greeting(object ob)
 {
         if (! ob || environment(ob) != environment() ) return;
         switch(random(3))
-	{
-	case 0:
-        	say(CYN "游方道人嘿嘿一阵奸笑道：这位" + RANK_D->query_respect(ob) +
+        {
+        case 0:
+                say(CYN "游方道人嘿嘿一阵奸笑道：这位" + RANK_D->query_respect(ob) +
                     CYN "，也是来住店的吗？\n" NOR);
                 break;
         case 1:

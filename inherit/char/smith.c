@@ -155,14 +155,14 @@ void reward(object me)
         me->delete_temp("smith/cuihuo");
 
         coin = new("/clone/money/coin");
-		// 奖励增加5倍（2013-12-01 20:18:55）
+                // 奖励增加5倍（2013-12-01 20:18:55）
         coin->set_amount(50 + random(50));
         coin->move(this_object());
         message_vision(CYN "$N" CYN "对$n" CYN "道：干得不坏，这是给"
                        "你的工钱。\n" NOR, this_object(), me);
 
         command("give coin to " + me->query("id"));
-		// 奖励增加5+5倍（2013-12-01 20:18:55）
+                // 奖励增加5+5倍（2013-12-01 20:18:55）
         exp = 20 + random(10);
         pot = 10 + random(10);
 
@@ -170,7 +170,7 @@ void reward(object me)
         me->improve_potential(pot);
 
         if (me->query("potential") > me->query_potential_limit())
-        	pot = 1;
+                pot = 1;
 
         tell_object(me, HIC "你获得了" + chinese_number(exp) +
                         "点经验和" + chinese_number(pot) + "点潜能。"

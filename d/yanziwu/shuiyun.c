@@ -15,9 +15,9 @@ LONG );
             "west" : __DIR__"jiashan",
         ]));
         set("no_clean_up", 0);
-	set("objects", ([
-		CLASS_D("murong") + "/murongfu" : 1,
-	]));
+    set("objects", ([
+        CLASS_D("murong") + "/murongfu" : 1,
+    ]));
         setup();
         replace_program(ROOM);
 }

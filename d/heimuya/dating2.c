@@ -10,8 +10,8 @@ void create()
 景象。堂梁上有一块旧木匾(bian)。
 LONG);
         set("exits", ([
-            	"west" : __DIR__"baistep1",
-            	"east" : __DIR__"baigate",
+                "west" : __DIR__"baistep1",
+                "east" : __DIR__"baigate",
         ]));
         set("item_desc", ([
                 "bian" : WHT "\n\n        ##========================##\n"

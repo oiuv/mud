@@ -22,14 +22,14 @@ int exert(object me, object target)
                 return notify_fail("你已经在运功中了。\n");
 
         skill = me->query_skill("linji-zhuang", 1);
-		skill2 = me->query_skill("mahayana", 1);
+        skill2 = me->query_skill("mahayana", 1);
 
         me->add("neili", -100);
         me->receive_damage("qi", 0);
 
         if (me->query("sex")) di = 0; else di = skill / 2;
         if (di > 100) di = 100;
-		di += skill2 / 10;
+        di += skill2 / 10;
 
         message_combatd(MAG "$N" MAG "微一凝神，运起临济庄，一声娇喝，"
                         "四周的空气仿佛都凝固了！\n" NOR, me);

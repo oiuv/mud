@@ -11,7 +11,7 @@ void create()
 已被坍塌的砖瓦挡住了。
 LONG );
         set("exits", ([
-            	"west" : __DIR__"mishi",
+                "west" : __DIR__"mishi",
         ]));
         set("item_desc", ([
                 "men" : "这扇门已被挡住无法通行，除非你打破(break)它。\n",
@@ -39,7 +39,7 @@ int do_break(string arg)
 
         message_vision(HIY "$N" HIY "走到后门前，拜出骑马蹲裆式，深吸一"
                        "口气，双掌同时拍出。\n" NOR, this_player());
-        
+
         if (n >= 200)
         {
                 message_vision(WHT "只听轰然一声巨响，$N" WHT "把门给震"

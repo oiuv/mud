@@ -8,13 +8,13 @@ void create()
 巨伞，重重叠叠的枝丫，只漏下斑斑点点细碎的日影。林子里
 十分幽静，连鸟雀也少飞来，只偶尔能听到远处的几声鸟鸣。
 long);
-	set("exits",([
-		"north" : __DIR__"houyuan",
-		"east"  : __DIR__"shanlin1",
-		"south" : __DIR__"shanlin" + (random(5) + 1),
-		"west"  : __DIR__"shanlin" + (random(5) + 1),
-	]));
-	set("outdoors", "kunlun");
-	setup();
-	replace_program(ROOM);
+    set("exits",([
+        "north" : __DIR__"houyuan",
+        "east"  : __DIR__"shanlin1",
+        "south" : __DIR__"shanlin" + (random(5) + 1),
+        "west"  : __DIR__"shanlin" + (random(5) + 1),
+    ]));
+    set("outdoors", "kunlun");
+    setup();
+    replace_program(ROOM);
 }

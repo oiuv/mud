@@ -7,12 +7,12 @@ inherit FORCE;
 
 int valid_enable(string usage) { return usage == "force"; }
 
-int valid_force(string force) 
+int valid_force(string force)
 {       return force == "huashan-xinfa" ||
                force == "henshan-xinfa" ||
                force == "songshan-xinfa" ||
                force == "zixia-shengong" ||
-               force == "zhenyue-jue"; 
+               force == "zhenyue-jue";
 }
 
 
@@ -20,14 +20,14 @@ int query_neili_improve(object me)
 {
         int lvl;
         lvl = (int)me->query_skill("hanbing-zhenqi", 1);
-		
-		if ((int)me->query_skill("pixie-jian", 1) > 300)
-		        return lvl * lvl * 15 * 5 / 100 / 200;
-		else
-		if (me->query("con") < 24)
-				return lvl * lvl * 15 * 10 / 100 / 200;
-		else
-				return lvl * lvl * 15 * 18 / 100 / 200;
+
+        if ((int)me->query_skill("pixie-jian", 1) > 300)
+                return lvl * lvl * 15 * 5 / 100 / 200;
+        else
+        if (me->query("con") < 24)
+                return lvl * lvl * 15 * 10 / 100 / 200;
+        else
+                return lvl * lvl * 15 * 18 / 100 / 200;
 }
 
 int valid_learn(object me)
@@ -75,15 +75,15 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
                    || flvl < 100
                    || random(2) != 1)
                         return;
-				//取消武器限制
+                //取消武器限制
                 /*if (me->query_temp("weapon")
                    || me->query_temp("secondary_weapon")
                    || ! me->query_temp("freezing"))
                         return;
 */
-				if (! me->query_temp("freezing"))
+                if (! me->query_temp("freezing"))
                         return;
-					
+
                 if (flvl * 2 + random(lvl) > victim->query_skill("force"))
                 {
                         victim->affect_by("freezing",
@@ -109,7 +109,7 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
 
 int difficult_level(object me)
 {
-  		me = this_player();
+          me = this_player();
 
         if ((int)me->query_skill("pixie-jian", 1) > 300)
                 return 500;
@@ -121,4 +121,3 @@ string exert_function_file(string func)
 {
         return __DIR__"hanbing-zhenqi/" + func;
 }
-

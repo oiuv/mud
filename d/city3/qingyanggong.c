@@ -3,20 +3,20 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "青羊宫");
-	set("long", @LONG
+    set("short", "青羊宫");
+    set("long", @LONG
 青羊宫是天下第一大道观。观中林木婆娑，冠盖亭亭观中
 道士匆匆来去，没人得空理你，更没人接待你。你觉得到一种
 宽松的失落。
 LONG);
-	set("exits", ([
-		"northeast" : __DIR__"westroad1",
-	]));
+    set("exits", ([
+        "northeast" : __DIR__"westroad1",
+    ]));
         set("objects", ([
                 "/clone/npc/walker" : 1,
         ]));
-	set("no_clean_up", 0);
-	setup();
+    set("no_clean_up", 0);
+    setup();
 }
 
 void init()
@@ -40,7 +40,7 @@ void letter(object me)
         if (environment(me) != this_object())
                 return;
 
-        if (! me->query_temp("want_leave")) 
+        if (! me->query_temp("want_leave"))
                 return;
 
         tell_object(me, WHT "  ┏━━━━━━┓\n"
@@ -55,7 +55,7 @@ int do_back()
 {
         object me = this_player();
 
-        if (me->query_temp("want_leave")) 
+        if (me->query_temp("want_leave"))
         {
                 message("vision", HIC "忽然间只见" + me->name() + HIC
                                   "身形一晃，竟没了踪影。\n" NOR,

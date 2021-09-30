@@ -42,11 +42,11 @@ int do_pull(string arg)
 {
         object ob, me= this_player();
 
-	if (arg != "sword")
+    if (arg != "sword")
                 return notify_fail("你要拔什么？\n");
 
-	if (query("sword_count") < 1)
-		return notify_fail("剑好象已经被人拔走了。\n");
+    if (query("sword_count") < 1)
+        return notify_fail("剑好象已经被人拔走了。\n");
 
         if (me->query("neili") < 2000 ||
             me->query_str() < 40)
@@ -63,7 +63,7 @@ int do_pull(string arg)
                                "的一声响，拔了出来，剑柄下果"
                                "然连有剑身。\n", me);
         me->add("neili",-1500);
-		add("sword_count", -1);
+        add("sword_count", -1);
         return 1;
 }
 
@@ -74,7 +74,7 @@ int do_think(string arg)
 
         ob = this_player();
 
-	if (arg != "map")
+    if (arg != "map")
                 return notify_fail("你要琢磨什么？\n");
 
         c_skill = (int)ob->query_skill("jinshe-jian", 1);
@@ -83,23 +83,23 @@ int do_think(string arg)
         {
                 message_vision("$N的实战经验不足，无法领悟"
                                "石壁内容。\n", ob);
-                return 1; 
+                return 1;
         }
 
         if (ob->query("jing") < 20)
         {
                 message_vision("$N太累了，现在无法领悟石壁"
                                "内容。\n", ob);
-                return 1; 
+                return 1;
         }
 
         if (c_skill > 50)
         {
                 message_vision("$N觉得石壁内容太肤浅了。\n", ob);
-                return 1; 
+                return 1;
         }
         if (! SKILL_D("jinshe-jian")->valid_learn(ob))
-               	return 0;
+                   return 0;
         message_vision("$N面对着石壁静思良久，对金蛇剑法似有所悟。\n", ob);
         ob->improve_skill("jinshe-jian", 1 + random(ob->query("int")));
         ob->receive_damage("jing", 15);

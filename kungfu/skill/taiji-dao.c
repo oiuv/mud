@@ -91,7 +91,7 @@ int valid_learn(object me)
                 return notify_fail("你的内功火候太浅。\n");
 
         if ((int)me->query_skill("blade", 1) < (int)me->query_skill("taiji-dao", 1))
-	        return notify_fail("你的基本刀法水平有限，无法领会更高深的太极刀法。\n");
+            return notify_fail("你的基本刀法水平有限，无法领会更高深的太极刀法。\n");
 
         return 1;
 }
@@ -106,11 +106,11 @@ string query_skill_name(int level)
 
 mapping query_action(object me, object weapon)
 {
-	int i, level;
-	level = (int) me->query_skill("taiji-dao", 1);
-	for (i = sizeof(action); i > 0; i--)
-		if (level > action[i-1]["lvl"])
-			return action[NewRandom(i, 20, level/5)];
+    int i, level;
+    level = (int) me->query_skill("taiji-dao", 1);
+    for (i = sizeof(action); i > 0; i--)
+        if (level > action[i-1]["lvl"])
+            return action[NewRandom(i, 20, level/5)];
 }
 
 int practice_skill(object me)

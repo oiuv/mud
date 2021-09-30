@@ -22,7 +22,7 @@ void create()
 
 void load_config()
 {
-	string *tmp, file;
+    string *tmp, file;
         string line;
         string arg, value;
         string last_remember;
@@ -30,14 +30,14 @@ void load_config()
         int len;
         int sys_del;
 
-	file = read_file(CONFIG_FILE);
-	if (! stringp(file)) return;
+    file = read_file(CONFIG_FILE);
+    if (! stringp(file)) return;
 
         // 去掉"\r"保证和MSDOS的文件格式兼容
         file = replace_string(file, "\r", "");
 
         sys_del = 0;
-	tmp = explode(file, "\n");
+    tmp = explode(file, "\n");
         foreach (line in tmp)
         {
                 if (sys_del)

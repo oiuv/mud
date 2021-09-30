@@ -12,33 +12,33 @@ void reset();
 
 void create()
 {
-	set("short", "码头");
-	set("long", @LONG
+    set("short", "码头");
+    set("long", @LONG
 这是一个在江南水乡极常见的码头，由粗糙的大青条石搭成。
 北面似乎有一个极大的庄院。靠岸停有一艘大渔船(ship)，大篷斜
 挂，风帆大张，看那样子不是为了出湖，倒象是征战用的。
 LONG );
         set("outdoors", "guiyun");
 
-	set("item_desc", ([
-		"ship" : "这是太湖水盗劫富济贫的战船。上去(shang ship)就出发。\n",
-	]));
+    set("item_desc", ([
+        "ship" : "这是太湖水盗劫富济贫的战船。上去(shang ship)就出发。\n",
+    ]));
 
-	set("exits", ([
-		"north"     : __DIR__"damen",
-	]));
+    set("exits", ([
+        "north"     : __DIR__"damen",
+    ]));
 
         set("resource/fish", ({ "/clone/fish/liyu",
                                 "/clone/fish/jiyu",
                                 "/clone/fish/qingyu",
                                 "/clone/fish/caoyu", }));
 
-	setup();
+    setup();
 }
 void init()
 {
-	add_action("do_yell", "yell");
-	add_action("do_shang", "shang");
+    add_action("do_yell", "yell");
+    add_action("do_shang", "shang");
         add_action("do_cross", "cross");
 }
 
@@ -56,9 +56,9 @@ void check_trigger()
         if (! (room = find_object(__DIR__"duchuan")))
             room = load_object(__DIR__"duchuan");
         if (room = find_object(__DIR__"duchuan"))
-	{
+    {
             if ((int)room->query("yell_trigger") == 0)
-	    {
+        {
                 room->set("yell_trigger", 1);
                 set("exits/enter", __DIR__"duchuan");
                 room->set("exits/out", __FILE__);
@@ -75,7 +75,7 @@ void check_trigger()
         else
             message("vision", "ERROR: boat not found\n", this_object() );
     }
-    else 
+    else
         message("vision", "岸边一只渡船上的老艄公说道：正等着你呢，上来吧。\n",
                 this_object() );
 }
@@ -122,7 +122,7 @@ void close_passage()
     {
         room->delete("exits/out");
         message("vision","艄公把踏脚板收起来，把扁舟驶向湖心。\n", room);
-        room->delete("yell_trigger"); 
+        room->delete("yell_trigger");
     }
 }
 
@@ -183,7 +183,7 @@ void reset()
 
     ::reset();
     if (room = find_object(__DIR__"duchuan"))
-        room->delete("yell_trigger"); 
+        room->delete("yell_trigger");
 }
 
 int do_shang(string arg)

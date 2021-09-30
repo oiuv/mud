@@ -7,9 +7,9 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-	int damage;
-	string msg;
+    object weapon;
+    int damage;
+    string msg;
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/danding-dao/kou"))
@@ -23,7 +23,7 @@ int perform(object me, object target)
 
         if (! target || ! me->is_fighting(target))
                 return notify_fail(KOU "只能对战斗中的对手使用。\n");
- 
+
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "blade")
                 return notify_fail("你使用的武器不对，难以施展" KOU "。\n");
@@ -43,28 +43,28 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIM "$N" HIM "刀法忽然一变，时而削，时而砍，时而劈，挥舞如风，转瞬"
+    msg = HIM "$N" HIM "刀法忽然一变，时而削，时而砍，时而劈，挥舞如风，转瞬"
               "即至劈向$n" HIM "！\n" NOR;
 
         ap = me->query_skill("blade");
         dp = target->query_skill("parry");
 
         if (ap / 2 + random(ap) > dp)
-	{
-		damage = ap / 2 + random(ap / 2);
+    {
+        damage = ap / 2 + random(ap / 2);
                 me->add("neili", -100);
-		msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 35,
+        msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 35,
                                            HIR "结果$n" HIR "一个不留神，被刀锋扫"
                                            "到，鲜血四溅，痛彻心肺！\n" NOR);
-		me->start_busy(2);
-	} else 
-	{
-		msg += CYN "可是$p" CYN "凝神聚气，护住门户，无论$P"
+        me->start_busy(2);
+    } else
+    {
+        msg += CYN "可是$p" CYN "凝神聚气，护住门户，无论$P"
                        CYN "怎样变招，始终奈何不得。\n" NOR;
                 me->add("neili", -50);
-		me->start_busy(3);
-	}
-	message_combatd(msg, me, target);
+        me->start_busy(3);
+    }
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

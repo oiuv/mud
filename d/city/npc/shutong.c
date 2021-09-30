@@ -38,7 +38,7 @@ void init()
 
 int accept_object(object who, object ob)
 {
-	command("say 先生说了，无功不受禄！我不能要你的东西。");
+    command("say 先生说了，无功不受禄！我不能要你的东西。");
         return 0;
 }
 
@@ -99,7 +99,7 @@ int do_copy(string arg)
         }
 
         me->set_temp("job/step", 1);
-	me->start_busy(bind((: call_other, __FILE__, "working" :), me),
+    me->start_busy(bind((: call_other, __FILE__, "working" :), me),
                        bind((: call_other, __FILE__, "halt_working" :), me));
         tell_object(me, "你开始工作。\n");
         return 1;
@@ -173,9 +173,9 @@ int working(object me)
                 ob->move(me, 1);
         }
 
-	msg = replace_string(msg, "$N", "你");
-	msg = replace_string(msg, "$n", name());
-	tell_object(me, msg);
+    msg = replace_string(msg, "$N", "你");
+    msg = replace_string(msg, "$n", name());
+    tell_object(me, msg);
 
         if (finish)
         {

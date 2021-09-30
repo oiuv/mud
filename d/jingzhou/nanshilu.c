@@ -7,13 +7,12 @@ void create()
 往南去就是长江了。
 LONG);
         set("exits", ([
-  		"north" :__DIR__"jznanmen",
-  		"south" :__DIR__"nanshilu1",
-	]));
+          "north" :__DIR__"jznanmen",
+          "south" :__DIR__"nanshilu1",
+    ]));
         set("no_clean_up", 0);
         set("outdoors", "jingzhou");
 
         setup();
         replace_program(ROOM);
 }
-

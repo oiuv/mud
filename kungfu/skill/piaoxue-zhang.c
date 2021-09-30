@@ -2,7 +2,7 @@
 inherit SKILL;
 
 mapping *action = ({
-([	"action" : "$N划身错步，一式「追风逐电」，双掌内拢外托，同时攻向$n的左肩",
+([    "action" : "$N划身错步，一式「追风逐电」，双掌内拢外托，同时攻向$n的左肩",
         "force"  : 170,
         "attack" : 85,
         "dodge"  : 38,
@@ -12,7 +12,7 @@ mapping *action = ({
         "skill_name" : "追风逐电",
         "damage_type" : "内伤"
 ]),
-([	"action" : "$N一式「云飘四海」，双掌虚虚实实，以迅雷不及掩耳之势劈向$n",
+([    "action" : "$N一式「云飘四海」，双掌虚虚实实，以迅雷不及掩耳之势劈向$n",
         "force"  : 210,
         "attack" : 98,
         "dodge"  : 43,
@@ -22,7 +22,7 @@ mapping *action = ({
         "skill_name" : "云飘四海",
         "damage_type" : "内伤"
 ]),
-([	"action" : "$N使一式「八方云涌」，劲气弥漫，双掌如轮，一环环向$n的后背斫去",
+([    "action" : "$N使一式「八方云涌」，劲气弥漫，双掌如轮，一环环向$n的后背斫去",
         "force"  : 280,
         "attack" : 103,
         "dodge"  : 51,
@@ -32,7 +32,7 @@ mapping *action = ({
         "skill_name" : "八方云涌",
         "damage_type" : "内伤"
 ]),
-([	"action" : "$N一式「龙卷暴伸」，双掌似让非让，似顶非顶，气浪如急流般使$n陷身其中",
+([    "action" : "$N一式「龙卷暴伸」，双掌似让非让，似顶非顶，气浪如急流般使$n陷身其中",
         "force"  : 340,
         "attack" : 125,
         "dodge"  : 65,
@@ -42,7 +42,7 @@ mapping *action = ({
         "skill_name" : "龙卷暴伸",
         "damage_type" : "内伤"
 ]),
-([	"action" : "$N一式「冰封万里」，掌影层层叠叠，飘飘渺渺，凌厉的掌风直涌$n而去",
+([    "action" : "$N一式「冰封万里」，掌影层层叠叠，飘飘渺渺，凌厉的掌风直涌$n而去",
         "force"  : 370,
         "attack" : 131,
         "dodge"  : 68,
@@ -52,7 +52,7 @@ mapping *action = ({
         "skill_name" : "冰封万里",
         "damage_type" : "内伤"
 ]),
-([	"action" : "$N双手变幻，五指轻弹，一招「穹寰飞仙」，力分五路，招划十方笼罩$n",
+([    "action" : "$N双手变幻，五指轻弹，一招「穹寰飞仙」，力分五路，招划十方笼罩$n",
         "force"  : 410,
         "attack" : 145,
         "dodge"  : 73,
@@ -150,7 +150,7 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         if (damage_bonus / 6 > victim->query_con())
         {
                 victim->receive_wound("qi", (damage_bonus - 140) / 3, me);
-                	return HIR "只听$n" HIR "前胸“喀嚓”一声闷响，竟"
+                    return HIR "只听$n" HIR "前胸“喀嚓”一声闷响，竟"
                                "似折断了一跟肋骨。\n" NOR;
         }
 }

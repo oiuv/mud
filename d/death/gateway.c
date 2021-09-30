@@ -3,7 +3,7 @@ inherit ROOM;
 
 void create()
 {
-	set("short", HIR "【酆都城门】" NOR);
+    set("short", HIR "【酆都城门】" NOR);
        set("long", HIR @LONG
 
                     酆     都     城     门
@@ -15,27 +15,26 @@ void create()
 
 
 LONG NOR );
-	set("exits", ([
-		"north" : __DIR__"road1",
-		"south" : __DIR__"gate",
-	]));
-	set("objects", ([
-		__DIR__"npc/hei": 1,
-	]) );
+    set("exits", ([
+        "north" : __DIR__"road1",
+        "south" : __DIR__"gate",
+    ]));
+    set("objects", ([
+        __DIR__"npc/hei": 1,
+    ]) );
 
-	set("no_fight", 1);
-	set("no_sleep_room", 1);
+    set("no_fight", 1);
+    set("no_sleep_room", 1);
 
-	setup();
+    setup();
 }
 
 int valid_leave(object me, string dir)
 {
-	if( wizardp(me) || !userp(me) ) return 1;
+    if( wizardp(me) || !userp(me) ) return 1;
 
-	if (dir == "south") {
-		return notify_fail(HIW "\n一个空洞的声音在你耳边响起……没有回头路了……\n" NOR);
-	}
-	else return 1;
+    if (dir == "south") {
+        return notify_fail(HIW "\n一个空洞的声音在你耳边响起……没有回头路了……\n" NOR);
+    }
+    else return 1;
 }
-

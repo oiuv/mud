@@ -9,13 +9,13 @@ void create()
 十分幽静，连鸟雀也少飞来，只偶尔能听到远处的几声鸟鸣。
 long);
         set("exits",([
-		"west" : __DIR__"shanlin2",
-		"enter" : __DIR__"kuhanlou1",
-		"southeast" : __DIR__"jiuqulang2",
-		"northeast" : __DIR__"shanlin3",
-	]));
+        "west" : __DIR__"shanlin2",
+        "enter" : __DIR__"kuhanlou1",
+        "southeast" : __DIR__"jiuqulang2",
+        "northeast" : __DIR__"shanlin3",
+    ]));
 
-	set("outdoors", "kunlun");
-	setup();
-	replace_program(ROOM);
+    set("outdoors", "kunlun");
+    setup();
+    replace_program(ROOM);
 }

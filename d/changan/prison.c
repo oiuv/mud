@@ -62,6 +62,5 @@ int free_ob(object me)
         message("vision", "两个狱卒架着一脸憔悴的" + me->name() +
                           "走了出来，打开枷锁，哼了一声就回去了。\n",
                           environment(me), ({ me }));
-	return 1;
+    return 1;
 }
-

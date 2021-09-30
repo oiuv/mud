@@ -26,7 +26,7 @@ int perform(object me)
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail(RI "只能空手施展。\n");
-                
+
         if (me->query("max_neili") < 8000)
                 return notify_fail("你的内力的修为不够，现在无法使用" RI "。\n");
 
@@ -92,7 +92,7 @@ int perform(object me)
                         obs[i]->receive_damage("jing", damage / 6, me);
                         obs[i]->receive_wound("jing", damage / 10, me);
 
-	                p = (int)obs[i]->query("qi") * 100 / (int)obs[i]->query("max_qi");
+                    p = (int)obs[i]->query("qi") * 100 / (int)obs[i]->query("max_qi");
 
                         switch (random(5))
                         {
@@ -100,7 +100,7 @@ int perform(object me)
                                 msg = HIR "只听" + obs[i]->name() +
                                       HIR "一声惨嚎，接连退了数步，“"
                                       "哇”的呕出一大口鲜血。\n" NOR;
-			        msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
+                    msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
                                 break;
 
                         case 1:
@@ -108,7 +108,7 @@ int perform(object me)
                                       HIR "向后飞出丈远，重重的跌落在"
                                       "地上，衣衫烧焦，再也没力气站起"
                                       "。\n" NOR;
-			        msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
+                    msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
                                 break;
 
                         case 2:
@@ -116,14 +116,14 @@ int perform(object me)
                                       HIR "跌跌撞撞向后连退数步，伏倒"
                                       "在地。须眉、衣衫都发出一股焦臭"
                                       "。\n" NOR;
-			        msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
+                    msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
                                 break;
 
                         case 3:
                                 msg = HIR "光芒闪过，" + obs[i]->name() +
                                       HIR "却是呆立当场，动也不动，七"
                                       "窍流血，神情扭曲，煞是恐怖。\n" NOR;
-			        msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
+                    msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
                                 break;
 
                         default:
@@ -131,7 +131,7 @@ int perform(object me)
                                       HIR "急忙抽身后退，可只见眼前光"
                                       "芒暴涨，一闪而过。全身已多了数"
                                       "个伤口，鲜血飞溅。\n" NOR;
-			        msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
+                    msg += "( " + obs[i]->name() + eff_status_msg(p) + " )\n\n";
                                 break;
                         }
                         obs[i]->start_busy(1);
@@ -148,9 +148,9 @@ int perform(object me)
                         obs[i]->set("neili", 0);
         }
 
-        if (! flag) 
+        if (! flag)
                 message_vision(HIY "只见光芒顿敛，却没有任何人被$N"
-			       HIY "这招击中。\n\n" NOR, me, 0, obs);
+                   HIY "这招击中。\n\n" NOR, me, 0, obs);
 
         return 1;
 }

@@ -111,25 +111,25 @@ int exert(object me, object target)
                                            "星乱冒，整个头便是要裂开一般。\n" NOR);
 
                         switch (random(3))
-        		{
-        		case 0 :
-                		msg = WHT "突然只见" + ob[i]->name() + WHT "两手"
+                {
+                case 0 :
+                        msg = WHT "突然只见" + ob[i]->name() + WHT "两手"
                                       "抱头，双目凸出，嘴角泛出些许白沫，喉咙咯咯"
                                       "作响。\n" NOR;
-                		break;
+                        break;
 
-		        case 1 :
-                		msg = WHT "顿时听得" + ob[i]->name() + WHT "一声"
+                case 1 :
+                        msg = WHT "顿时听得" + ob[i]->name() + WHT "一声"
                                       "惨叫，两眼发直，全身不住颤抖，蓦地呕出一口"
                                       "鲜血。\n" NOR;
-                		break;
+                        break;
 
-		        default :
-                		msg = WHT "却见" + ob[i]->name() + WHT "竟摔倒在"
+                default :
+                        msg = WHT "却见" + ob[i]->name() + WHT "竟摔倒在"
                                       "地，发出声声哀嚎，双目双耳及鼻孔均渗出丝丝"
                                       "鲜血。\n" NOR;
-                		break;
-        		}
+                        break;
+                }
                         message("vision", msg, environment(ob[i]), ({ob[i]}));
 
                         if ((int)ob[i]->query("jing") < 1

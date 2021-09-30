@@ -10,12 +10,12 @@ int perform(object me, object target)
 //      object weapon;
         int ap, dp, damage;
         string msg;
-		
-		float improve;
-		int lvls, m, n;
-		string martial;
-		string *ks;
-		martial = "unarmed";
+
+        float improve;
+        int lvls, m, n;
+        string martial;
+        string *ks;
+        martial = "unarmed";
 
         if (userp(me) && ! me->query("can_perform/baihua-cuoquan/hong"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -54,29 +54,29 @@ int perform(object me, object target)
 
         msg = HIW "$N" HIW "一声怒嚎，将战神心经提运极至，双拳顿时携着"
               "雷霆万钧之势猛贯向$n" HIW "。\n" NOR;
-			  
-		lvls = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		lvls = lvls * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (m = 0; m < sizeof(ks); m++)
-		{
-			if (SKILL_D(ks[m])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[m], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 4 / 100 / lvls;
-		
-		ap = me->query_skill("unarmed") +
+
+        lvls = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+        lvls = lvls * 4 / 5;
+        ks = keys(me->query_skills(martial));
+        improve = 0;
+        n = 0;
+        //最多给予5个技能的加成
+        for (m = 0; m < sizeof(ks); m++)
+        {
+            if (SKILL_D(ks[m])->valid_enable(martial))
+            {
+                n += 1;
+                improve += (int)me->query_skill(ks[m], 1);
+                if (n > 4 )
+                    break;
+            }
+        }
+
+        improve = improve * 4 / 100 / lvls;
+
+        ap = me->query_skill("unarmed") +
              me->query_skill("force");
-		ap += ap * improve;		
+        ap += ap * improve;
 
         dp = target->query_skill("parry") +
              target->query_skill("dodge");
@@ -86,7 +86,7 @@ int perform(object me, object target)
                 damage = 0;
                 if (me->query("max_neili") > target->query("max_neili") * 2)
                 {
-                	me->start_busy(2);
+                    me->start_busy(2);
                         me->add("neili", -100);
                         msg += HIR "只见$N" HIR "一拳轰至，便将$n" HIR "震得"
                                "心脉俱碎，仰天喷出一口鲜血，软软瘫倒。\n" NOR
@@ -94,15 +94,15 @@ int perform(object me, object target)
                                "可能断气。" NOR ")\n";
                         damage = -1;
                 } else
-		        {
-                	me->start_busy(4);
-                	me->add("neili", -400);
-                	damage = ap * 2 / 3 + random(ap);
-                	msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 150,
-                        	                   HIR "结果$p" HIR "闪避不及，$P" HIR "的"
+                {
+                    me->start_busy(4);
+                    me->add("neili", -400);
+                    damage = ap * 2 / 3 + random(ap);
+                    msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 150,
+                                               HIR "结果$p" HIR "闪避不及，$P" HIR "的"
                                                    "拳力掌劲顿时透体而入，口中鲜血狂喷，连"
                                                    "退数步。\n" NOR);
-		        }
+                }
         } else
         {
                 me->start_busy(5);

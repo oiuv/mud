@@ -179,7 +179,7 @@ int working(object me)
                 // 本地石料增多
                 environment(me)->improve_product_amount("stone",
                                                         15 + (me->query_str() - 30) * 4 + random(8));
-				// 奖励增加5倍
+                // 奖励增加5倍
                 b = 35 + random(20);
                 me->add("combat_exp", b);
                 me->improve_potential((b + 10) / 3);

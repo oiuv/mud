@@ -3,48 +3,48 @@ inherit NPC;
 
 void create()
 {
-	set_name("觉远", ({ "jue yuan", "jue", "yuan" }));
-	set("long", "一位衣着朴素、须发花白的老僧。只见他正挑着一\n"
+    set_name("觉远", ({ "jue yuan", "jue", "yuan" }));
+    set("long", "一位衣着朴素、须发花白的老僧。只见他正挑着一\n"
                     "对大铁桶，比之寻常水桶大了两倍有余，那僧人颈\n"
                     "中、手上、脚上，更绕满了粗大的铁链，行走时铁\n"
                     "链拖地，不停发出声响。这对大铁桶本身只怕便有\n"
                     "二百来斤，桶中装满了水，重量更是惊人。\n" );
-	set("gender", "男性");
-	set("attitude", "friendly");
-	set("class", "bonze");
+    set("gender", "男性");
+    set("attitude", "friendly");
+    set("class", "bonze");
 
-	set("age", 60);
-	set("shen_type", 1);
-	set("str", 32);
-	set("int", 34);
-	set("con", 31);
-	set("dex", 30);
-	set("max_qi", 8000);
-	set("max_jing", 6000);
-	set("neili", 9000);
-	set("max_neili", 9000);
-	set("jiali", 300);
-	set("combat_exp", 5000000);
+    set("age", 60);
+    set("shen_type", 1);
+    set("str", 32);
+    set("int", 34);
+    set("con", 31);
+    set("dex", 30);
+    set("max_qi", 8000);
+    set("max_jing", 6000);
+    set("neili", 9000);
+    set("max_neili", 9000);
+    set("jiali", 300);
+    set("combat_exp", 5000000);
 
-	set_skill("force", 380);
-	set_skill("jiuyang-shengong", 400);
-	set_skill("shaolin-jiuyang", 180);
-	set_skill("wudang-jiuyang", 180);
-	set_skill("emei-jiuyang", 180);
-	set_skill("dodge", 220);
-	set_skill("shaolin-shenfa", 220);
-	set_skill("unarmed", 380);
-	set_skill("parry", 260);
+    set_skill("force", 380);
+    set_skill("jiuyang-shengong", 400);
+    set_skill("shaolin-jiuyang", 180);
+    set_skill("wudang-jiuyang", 180);
+    set_skill("emei-jiuyang", 180);
+    set_skill("dodge", 220);
+    set_skill("shaolin-shenfa", 220);
+    set_skill("unarmed", 380);
+    set_skill("parry", 260);
         set_skill("martial-cognize", 300);
-	set_skill("buddhism", 200);
-	set_skill("literate", 100);
+    set_skill("buddhism", 200);
+    set_skill("literate", 100);
 
-	map_skill("force", "jiuyang-shengong");
-	map_skill("dodge", "shaolin-shenfa");
-	map_skill("unarmed", "jiuyang-shengong");
-	map_skill("parry", "jiuyang-shengong");
+    map_skill("force", "jiuyang-shengong");
+    map_skill("dodge", "shaolin-shenfa");
+    map_skill("unarmed", "jiuyang-shengong");
+    map_skill("parry", "jiuyang-shengong");
 
-	prepare_skill("unarmed", "jiuyang-shengong");
+    prepare_skill("unarmed", "jiuyang-shengong");
 
         set_temp("apply/attack", 150);
         set_temp("apply/defense", 150);
@@ -52,18 +52,18 @@ void create()
         set_temp("apply/damage", 200);
         set_temp("apply/unarmed_damage", 200);
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "unarmed.hun" :),
-		(: perform_action, "unarmed.jiu" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-		(: exert_function, "shield" :),
-	}));
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "unarmed.hun" :),
+        (: perform_action, "unarmed.jiu" :),
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+        (: exert_function, "shield" :),
+    }));
 
-	create_family("少林派", 0, "打杂僧人"); 
+    create_family("少林派", 0, "打杂僧人");
 
-	setup();
+    setup();
 
         carry_object("/d/shaolin/obj/xu-cloth")->wear();
 }

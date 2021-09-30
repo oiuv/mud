@@ -8,9 +8,9 @@ void create()
 行人也不少。西面通向开封，东面是中州府。西面是个叉路口。
 LONG);
         set("exits", ([
-  		"west" : __DIR__"wroad3",
-  		"east":__DIR__"wroad1",
-	]));
+          "west" : __DIR__"wroad3",
+          "east":__DIR__"wroad1",
+    ]));
         set("outdoors", "zhongzhou");
         set("no_clean_up", 0);
 

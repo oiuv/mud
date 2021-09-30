@@ -21,7 +21,7 @@ int perform(object me, object target)
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-		return notify_fail("你使用的武器不对，难以施展" SUO "。\n");
+        return notify_fail("你使用的武器不对，难以施展" SUO "。\n");
 
         if (target->is_busy())
                 return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");
@@ -50,48 +50,48 @@ int perform(object me, object target)
         {
                 wp2 = weapon2->name();
 
-		msg = HIW "\n$N" HIW "剑法陡然变快，施展出「烟云锁身剑」，手中" +
+        msg = HIW "\n$N" HIW "剑法陡然变快，施展出「烟云锁身剑」，手中" +
                       wp + HIW "幻作一道白芒，撩向$n" HIW "所持的" + wp2 + HIW
                       "。" NOR;
 
                 message_sort(msg, me, target);
 
-       		me->start_busy(2);
-       		me->add("neili", -200);
+               me->start_busy(2);
+               me->add("neili", -200);
 
-	        if (random(ap) > dp / 2)
-        	{
-                	msg = HIR "$n" HIR "只见眼前白芒暴涨，登时右手一轻，"
+            if (random(ap) > dp / 2)
+            {
+                    msg = HIR "$n" HIR "只见眼前白芒暴涨，登时右手一轻，"
                               + wp2 + HIR "竟脱手飞出。\n" NOR;
 
-                	target->start_busy(3);
+                    target->start_busy(3);
                         weapon2->move(environment(target));
-        	} else
-		{
-        		msg += CYN "可是$n" CYN "看破$N" CYN "剑法中的虚招，镇"
+            } else
+        {
+                msg += CYN "可是$n" CYN "看破$N" CYN "剑法中的虚招，镇"
                                "定自如，从容应对。\n" NOR;
-        	}
-	} else
-	{
-		msg = HIC "\n$N" HIC "剑法陡然变快，施展出「" HIW "烟云锁身剑"
+            }
+    } else
+    {
+        msg = HIC "\n$N" HIC "剑法陡然变快，施展出「" HIW "烟云锁身剑"
                       HIC "」，手中" + wp + HIC "剑光夺目，欲将$n" HIC "笼罩在"
                       "剑光之中。" NOR;
 
-       		me->start_busy(1);
-        	me->add("neili", -100);
+               me->start_busy(1);
+            me->add("neili", -100);
 
-	        if (random(ap) > dp / 2)
-        	{
-                	msg += HIR "\n$n" HIR "惊慌不定，顿时乱了阵脚，竟被困于$N"
+            if (random(ap) > dp / 2)
+            {
+                    msg += HIR "\n$n" HIR "惊慌不定，顿时乱了阵脚，竟被困于$N"
                                HIR "的剑光当中。" NOR;
 
                         target->start_busy(ap / 25 + 1);
-        	} else
-		{
-        		msg += CYN "\n可是$n" CYN "看破$N" CYN "剑法中的虚招，镇"
+            } else
+        {
+                msg += CYN "\n可是$n" CYN "看破$N" CYN "剑法中的虚招，镇"
                                "定自如，从容应对。" NOR;
-        	}
-	}
+            }
+    }
         message_combatd(msg, me, target);
         return 1;
 }

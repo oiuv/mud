@@ -15,11 +15,10 @@ void create()
                 set_default_object(__FILE__);
         else {
                 set("unit", "件");
-		set("long", "这是一件明黄锦袍。\n");
+        set("long", "这是一件明黄锦袍。\n");
                 set("material", "cloth");
-		set("value", 0);
+        set("value", 0);
                 set("armor_prop/armor", 1);
         }
         setup();
 }
-

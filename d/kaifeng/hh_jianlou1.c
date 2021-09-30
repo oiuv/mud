@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 
 inherit ROOM;
 
@@ -12,9 +12,9 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"south" : __DIR__"hh_xiaojing1",
-  		"up" : __DIR__"hh_jianlou2",
-	]));
+          "south" : __DIR__"hh_xiaojing1",
+          "up" : __DIR__"hh_jianlou2",
+    ]));
         set("objects", ([
                 CLASS_D("honghua") + "/wuchen" : 1,
         ]));

@@ -7,19 +7,19 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-	string msg;
-	int i, ap, dp;
+    object weapon;
+    string msg;
+    int i, ap, dp;
 
         if (userp(me) && ! me->query("can_perform/zhongping-qiang/ding"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
-	if (! target) target = offensive_target(me);
+    if (! target) target = offensive_target(me);
 
-	if (! target || ! me->is_fighting(target))
+    if (! target || ! me->is_fighting(target))
                 return notify_fail(DING "只能对战斗中的对手使用。\n");
 
-	if (! objectp(weapon = me->query_temp("weapon")) ||
+    if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "club")
                 return notify_fail("你所使用的武器不对，难以施展" DING "。\n");
 
@@ -41,33 +41,33 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIY "$N" HIY "身形一转，施出中平枪法绝技「" HIR "定岳七方"
+    msg = HIY "$N" HIY "身形一转，施出中平枪法绝技「" HIR "定岳七方"
               HIY "」，手中" + weapon->name() + HIY "接连七刺，枪枪不离"
              "$n" HIY "要害！\n" NOR;
 
-	ap = me->query_skill("club");
-	dp = target->query_skill("parry");
+    ap = me->query_skill("club");
+    dp = target->query_skill("parry");
 
-	if (ap / 2 + random(ap * 2) > dp)
-	{
-		msg += HIR "$n" HIR "见$N" HIR "攻势凶猛异常，实非"
+    if (ap / 2 + random(ap * 2) > dp)
+    {
+        msg += HIR "$n" HIR "见$N" HIR "攻势凶猛异常，实非"
                        "寻常，不由心生寒意，招架登时散乱。\n" NOR;
         } else
         {
                 msg += HIC "$n" HIC "见$N" HIC "攻势凶猛异常，实非"
                        "寻常，急忙打起精神，小心应付开来。\n" NOR;
         }
-	message_combatd(msg, me, target);
+    message_combatd(msg, me, target);
 
-	me->add("neili", -7 * 20);
+    me->add("neili", -7 * 20);
 
-	for (i = 0; i < 7; i++)
-	{
-		if (! me->is_fighting(target))
-			break;
-		COMBAT_D->do_attack(me, target, weapon, 0);
-	}
-	me->start_busy(1 + random(7));
+    for (i = 0; i < 7; i++)
+    {
+        if (! me->is_fighting(target))
+            break;
+        COMBAT_D->do_attack(me, target, weapon, 0);
+    }
+    me->start_busy(1 + random(7));
 
-	return 1;
+    return 1;
 }

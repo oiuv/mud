@@ -2,8 +2,8 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "洛阳中心广场");
-	set("long", @LONG
+    set("short", "洛阳中心广场");
+    set("long", @LONG
 你脚下站的就是赫赫有名的古都洛阳，虽然国家正处于连年战乱灾荒，
 民不聊生，但是丝毫不能掩饰这里的繁华，一条条宽敞明净的大道，熙熙
 攘攘的人群，热闹的集市，充分展示了这座最古老的城市的生机。街上满
@@ -16,11 +16,11 @@ LONG);
         set("outdoors", "luoyang");
         set("no_clean_up", 0);
         set("exits", ([
-  		"east" : __DIR__"eroad1",
-  		"north" : __DIR__"nroad1",
-  		"south" : __DIR__"sroad1",
-  		"west" : __DIR__"wroad1",
-	]));
+          "east" : __DIR__"eroad1",
+          "north" : __DIR__"nroad1",
+          "south" : __DIR__"sroad1",
+          "west" : __DIR__"wroad1",
+    ]));
         set("objects", ([
                 "/d/taishan/npc/jian-ke" : 1,
                 "/d/beijing/npc/maiyi2" : 1,
@@ -28,6 +28,6 @@ LONG);
                 "/d/beijing/npc/old1" : 1,
                 "/clone/npc/walker" : 1,
         ]));
-	setup();
-	replace_program(ROOM);
+    setup();
+    replace_program(ROOM);
 }

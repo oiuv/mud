@@ -10,15 +10,15 @@ void create()
 五间小房屋，建造在一个不知是小岛还是半岛上。
 LONG );
         set("exits", ([
-		"westdown"  : __DIR__"muti",
-		"east"      : __DIR__"xiaoting",
-		"south"     : __DIR__"neitang",
+        "westdown"  : __DIR__"muti",
+        "east"      : __DIR__"xiaoting",
+        "south"     : __DIR__"neitang",
         ]));
 
-	set("objects", ([
-	 	__DIR__"npc/bao"  : 1,
-		__DIR__"npc/feng" : 1,
-	]));
+    set("objects", ([
+         __DIR__"npc/bao"  : 1,
+        __DIR__"npc/feng" : 1,
+    ]));
 
         setup();
 }
@@ -33,5 +33,3 @@ int valid_leave(object me, string dir)
 
         return guard->permit_pass(me, dir);
 }
-
-

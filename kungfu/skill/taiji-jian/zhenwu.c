@@ -13,12 +13,12 @@ int perform(object me, object target)
         string msg;
         int ap, dp;
         int damage;
-		
-		float improve;
-		int lvl, m, n;
-		string martial;
-		string *ks;
-		martial = "sword";
+
+        float improve;
+        int lvl, m, n;
+        string martial;
+        string *ks;
+        martial = "sword";
 
         if (userp(me) && ! me->query("can_perform/taiji-jian/zhenwu"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -38,7 +38,7 @@ int perform(object me, object target)
         if (me->query("neili") < 200)
                 return notify_fail("你现在真气不够，难以施展" ZHENWU "。\n");
 
-        if (me->query_skill_mapped("sword") != "taiji-jian") 
+        if (me->query_skill_mapped("sword") != "taiji-jian")
                 return notify_fail("你没有激发太极剑法，难以施展" ZHENWU "。\n");
 
         if (! living(target))
@@ -46,30 +46,30 @@ int perform(object me, object target)
 
         msg = HIY "$N" HIY "跨前一步，平平挥出一剑，横扫$n" HIY "而去，毫"
               "无半点花巧可言。\n" NOR;
-			  
-		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		lvl = lvl * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (m = 0; m < sizeof(ks); m++)
-		{
-			if (SKILL_D(ks[m])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[m], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 5 / 100 / lvl;
+
+        lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+        lvl = lvl * 4 / 5;
+        ks = keys(me->query_skills(martial));
+        improve = 0;
+        n = 0;
+        //最多给予5个技能的加成
+        for (m = 0; m < sizeof(ks); m++)
+        {
+            if (SKILL_D(ks[m])->valid_enable(martial))
+            {
+                n += 1;
+                improve += (int)me->query_skill(ks[m], 1);
+                if (n > 4 )
+                    break;
+            }
+        }
+
+        improve = improve * 5 / 100 / lvl;
 
         me->add("neili", -50);
         ap = me->query_skill("sword");
         dp = target->query_skill("parry");
-		ap += ap * improve;
+        ap += ap * improve;
         if (target->is_bad()) ap += ap / 8;
 
         me->start_busy(2);
@@ -97,4 +97,3 @@ string final(object me, object target, int damage)
                 HIR "$n" HIR "顿时惊慌失措，被$P" HIR "这一剑击中要害，鲜血崩流"
                 "，惨不忍睹！\n" NOR;
 }
-

@@ -19,8 +19,8 @@ int perform(object me, object target)
         if (! target || ! me->is_fighting(target))
                 return notify_fail(YOU "只能对战斗中的对手使用。\n");
 
-	if (me->query_temp("weapon"))
-		return notify_fail("你必须空手才能施展" YOU "。\n");
+    if (me->query_temp("weapon"))
+        return notify_fail("你必须空手才能施展" YOU "。\n");
 
         if ((int)me->query_skill("meinv-quan", 1) < 80)
                 return notify_fail("你的美女拳法别不够，不会使用" YOU "。\n");
@@ -53,7 +53,7 @@ int perform(object me, object target)
 
                 me->add("neili", -100);
 
-                msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 45, 
+                msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 45,
                                            HIR "但见$N" HIR "双拳袭来，柔中带刚，迅"
                                            "猛无比，其间仿佛蕴藏着无穷的威力，$n" HIR
                                            "正迟疑间， $N" HIR "却已中拳，闷哼一声，倒"

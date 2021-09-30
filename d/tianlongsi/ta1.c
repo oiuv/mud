@@ -13,12 +13,12 @@ LONG
         set("outdoors", "tianlongsi");
         set("exits", ([
                 "south" : __DIR__"baodian",
-		"east" : __DIR__"wuwoge",
-		"west" : __DIR__"wujingge",
+        "east" : __DIR__"wuwoge",
+        "west" : __DIR__"wujingge",
                 "north" : __DIR__"talin",
-//		"up" :__DIR__"floor1",
+//        "up" :__DIR__"floor1",
         ]));
-	set("objects",([
+    set("objects",([
                 __DIR__"npc/hutaseng1" : 1,
         ]));
 //        set("no_clean_up", 0);

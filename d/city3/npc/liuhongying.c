@@ -17,7 +17,7 @@ void create()
         set_skill("parry", 180);
         set_skill("strike", 180);
         set_skill("sword", 180);
-		set_skill("dagger", 180);
+        set_skill("dagger", 180);
         set_temp("apply/attack", 80);
         set_temp("apply/defense", 80);
         set_temp("apply/damage", 20);

@@ -16,27 +16,27 @@ int p, j;
 
 void create()
 {
-	set_name(HIR "东方不败" NOR, ({ "dongfang bubai", "dongfang", "bubai" }));
-	set("long", " 她就是东方不败，看起来不男不女，样子却甚为妖媚。\n");
-	set("gender", "无性");
-	set("age", 30);
-	set("shen_type", -1);
-	set("str", 51);
-	set("int", 39);
-	set("con", 50);
-	set("dex", 62);
+    set_name(HIR "东方不败" NOR, ({ "dongfang bubai", "dongfang", "bubai" }));
+    set("long", " 她就是东方不败，看起来不男不女，样子却甚为妖媚。\n");
+    set("gender", "无性");
+    set("age", 30);
+    set("shen_type", -1);
+    set("str", 51);
+    set("int", 39);
+    set("con", 50);
+    set("dex", 62);
 
-	set("max_qi", 10000);
-	set("max_jing", 10000);
+    set("max_qi", 10000);
+    set("max_jing", 10000);
   set("max_jingli", 10000);
   set("jingli", 10000);
-	set("max_neili", 12000);
-	set("neili", 12000);
-	set("jiali", 550);
-	set("combat_exp", 5000000);
-	set("score", 1200000);
+    set("max_neili", 12000);
+    set("neili", 12000);
+    set("jiali", 550);
+    set("combat_exp", 5000000);
+    set("score", 1200000);
 
-	set_skill("force", 450);
+    set_skill("force", 450);
   set_skill("parry", 450);
   set_skill("dodge", 450);
   set_skill("sword", 450);
@@ -46,15 +46,15 @@ void create()
   set_skill("kuihua-mogong", 450);
   set_skill("pixie-jian", 450);
 
-	map_skill("force", "kuihua-mogong");
-	map_skill("dodge", "kuihua-mogong");
-	map_skill("unarmed", "kuihua-mogong");
-	map_skill("sword", "kuihua-mogong");
+    map_skill("force", "kuihua-mogong");
+    map_skill("dodge", "kuihua-mogong");
+    map_skill("unarmed", "kuihua-mogong");
+    map_skill("sword", "kuihua-mogong");
   map_skill("parry", "kuihua-mogong");
 
-	prepare_skill("unarmed", "kuihua-mogong");
+    prepare_skill("unarmed", "kuihua-mogong");
 
-	create_family("日月神教", 2, "弟子");
+    create_family("日月神教", 2, "弟子");
 
   set("inquiry", ([
           "杨莲亭"    :    "莲弟 ……\n",
@@ -68,50 +68,50 @@ void create()
 
   ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "dodge.sheng" :),
-		(: perform_action, "sword.bian" :),
-		(: perform_action, "sword.tian" :),
-		(: perform_action, "sword.qiong" :),
-		(: perform_action, "sword.zhenwu" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "dodge.sheng" :),
+        (: perform_action, "sword.bian" :),
+        (: perform_action, "sword.tian" :),
+        (: perform_action, "sword.qiong" :),
+        (: perform_action, "sword.zhenwu" :),
     (: perform_action, "dodge.sheng" :),
     (: perform_action, "unarmed.bian" :),
     (: perform_action, "unarmed.tian" :),
     (: perform_action, "unarmed.qiong" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-		(: exert_function, "shield" :),
-		(: exert_function, "roar" :),
-	}) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+        (: exert_function, "shield" :),
+        (: exert_function, "roar" :),
+    }) );
 
-	setup();
+    setup();
 
   carry_object(__DIR__"zhen")->wield();
-	carry_object(__DIR__"changpao")->wear();
+    carry_object(__DIR__"changpao")->wear();
 }
 
 int recognize_apprentice(object me, string skill)
 {
-		me = this_player();
-		if (me->query("family/family_name") != "日月神教")
+        me = this_player();
+        if (me->query("family/family_name") != "日月神教")
         {
                 command("say 哪里来的狂徒！");
-				me->move("/d/heimuya/up1");
+                me->move("/d/heimuya/up1");
                 return -1;
         }
-		
-		if (me->query("family/master_name") == "任我行")
+
+        if (me->query("family/master_name") == "任我行")
         {
                 command("say 原来是任老头安排过来的奸细！");
-				me->move("/d/heimuya/up1");
+                me->move("/d/heimuya/up1");
                 return -1;
         }
 
         if (skill != "pixie-jian")
         {
                 command("say 没其他的事别来骚扰本姑娘。");
-				me->move("/d/heimuya/up1");
+                me->move("/d/heimuya/up1");
                 return -1;
         }
         return 1;
@@ -131,7 +131,7 @@ mixed ask_kuihua()
         }
         //转世特技六阴鬼脉免除无性限制 by 薪有所属
        if (! me->query("special_skill/guimai"))
-       	{
+           {
         if (me->query("gender") != "无性")
         {
              command("heng");
@@ -249,7 +249,7 @@ mixed ask_skill1()
         object me = this_player();
         //转世特技六阴鬼脉免除无性限制 by 薪有所属
        if (! me->query("special_skill/guimai"))
-       	{
+           {
         if (me->query("gender") != "无性")
         {
                command("heng");
@@ -289,7 +289,7 @@ mixed ask_skill2()
 
 //转世特技六阴鬼脉免除无性限制 by 薪有所属
        if (! me->query("special_skill/guimai"))
-       	{
+           {
         if (me->query("gender") != "无性")
         {
                command("heng");
@@ -332,7 +332,7 @@ mixed ask_skill3()
 
 //转世特技六阴鬼脉免除无性限制 by 薪有所属
        if (! me->query("special_skill/guimai"))
-       	{
+           {
         if (me->query("gender") != "无性")
         {
                command("heng");
@@ -374,7 +374,7 @@ mixed ask_skill4()
 
  //转世特技六阴鬼脉免除无性限制 by 薪有所属
        if (! me->query("special_skill/guimai"))
-       	{
+           {
         if (me->query("gender") != "无性")
         {
                command("heng");
@@ -423,7 +423,7 @@ mixed ask_skill5()
 
  //转世特技六阴鬼脉免除无性限制 by 薪有所属
        if (! me->query("special_skill/guimai"))
-       	{
+           {
         if (me->query("gender") != "无性")
         {
                command("heng");

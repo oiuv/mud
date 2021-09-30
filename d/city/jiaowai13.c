@@ -9,11 +9,10 @@ void create()
 是扬州命案发生最多的地方。鸟兽蛇虫游荡不穷。
 LONG);
         set("outdoors", "city");
-    	set("exits", ([
-        	"south" : __DIR__"jiaowai11",
-        	"east"  : __DIR__"jiaowai12",
-    	]));
-    	setup();
-    	replace_program(ROOM);
+        set("exits", ([
+            "south" : __DIR__"jiaowai11",
+            "east"  : __DIR__"jiaowai12",
+        ]));
+        setup();
+        replace_program(ROOM);
 }
-

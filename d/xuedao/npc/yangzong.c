@@ -48,8 +48,8 @@ void init()
 
 void greeting(object ob)
 {
-	if (! ob) return;
+    if (! ob) return;
 
         say (CYN "央宗合什为礼，说道：阿弭佗佛！" +
-	     RANK_D->query_respect(ob) + CYN "，贫僧这厢有礼了。\n" NOR);
+         RANK_D->query_respect(ob) + CYN "，贫僧这厢有礼了。\n" NOR);
 }

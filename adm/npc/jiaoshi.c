@@ -9,19 +9,19 @@ inherit NPC;
 
 void create()
 {
-	set_name("西洋传教士", ({ "jiao shi", "jiaoshi", "marriage witness" }));
-	set("long", 
-		"他穿着一身的黑色服饰，神色肃穆。\n");
-	set("gender", "男性");
-	set("age", 35);
-	set("combat_exp", 1000);
+    set_name("西洋传教士", ({ "jiao shi", "jiaoshi", "marriage witness" }));
+    set("long",
+        "他穿着一身的黑色服饰，神色肃穆。\n");
+    set("gender", "男性");
+    set("age", 35);
+    set("combat_exp", 1000);
 
         set("inquiry", ([
                 "结婚": "要结婚是吗？大家都是上帝的子女，我可以为你们证婚。",
                 "离婚": "虽然离婚让人感到痛苦，但是也许凑在一起更让人痛苦！",
         ]));
 
-	setup();
+    setup();
         seteuid(getuid());
 }
 
@@ -51,11 +51,11 @@ int do_witness(object me, object ob)
                        (me->query("gender") == "女性" ? "她" : "他") +
                        "结为夫妻吗(right/refuse)？”\n", me, ob);
 
-	ob->set_temp("pending/answer/" + me->query("id") + "/right",
+    ob->set_temp("pending/answer/" + me->query("id") + "/right",
                      bind((: call_other, __FILE__, "do_right", ob, me :), ob));
-	ob->set_temp("pending/answer/" + me->query("id") + "/refuse",
-	             bind((: call_other, __FILE__, "do_refuse", ob, me :), ob));
-	me->set_temp("pending/engage", ob);
+    ob->set_temp("pending/answer/" + me->query("id") + "/refuse",
+                 bind((: call_other, __FILE__, "do_refuse", ob, me :), ob));
+    me->set_temp("pending/engage", ob);
         return 1;
 }
 
@@ -105,16 +105,16 @@ int do_right(object me, object ob)
         ring->move(ob, 1);
         tell_object(ob, HIY "你获得了一个结婚戒指。\n" NOR);
         ob->set("can_summon/" + "wedding ring", fn);
-        
+
         // record
-	me->set("couple/id", ob->query("id"));
-	me->set("couple/name", ob->name(1));
+    me->set("couple/id", ob->query("id"));
+    me->set("couple/name", ob->name(1));
         me->set("couple/witness", name());
-	me->save();
-	ob->set("couple/id", me->query("id"));
-	ob->set("couple/name", me->name(1));
+    me->save();
+    ob->set("couple/id", me->query("id"));
+    ob->set("couple/name", me->name(1));
         ob->set("couple/witness", name());
-	ob->save();
+    ob->save();
         return 1;
 }
 

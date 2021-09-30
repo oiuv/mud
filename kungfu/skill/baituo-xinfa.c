@@ -4,9 +4,9 @@ inherit FORCE;
 
 int valid_enable(string usage) { return usage == "force"; }
 
-int valid_force(string force) 
-{        
-	return force == "hamagong"; 
+int valid_force(string force)
+{
+    return force == "hamagong";
 }
 
 int valid_learn(object me)

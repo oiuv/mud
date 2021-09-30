@@ -1,20 +1,20 @@
-#include <ansi.h> 
+#include <ansi.h>
 
 inherit ROOM;
 
 void create()
 {
-	set("short", "苗家后厅");
-	set("long", @LONG
+    set("short", "苗家后厅");
+    set("long", @LONG
 这里是苗家的后厅，厅内非常的宽敞明亮。正中摆放着张
 八仙桌，四周墙壁上挂着一些字画。只见一个脸色透黄，神情
 严肃的瘦高个子正座中堂，正是「金面佛」苗人凤。
 LONG);
-	set("exits", ([
-  		"west"  : __DIR__"miaojia_zoulang1",
-  		"north" : __DIR__"miaojia_zoulang2",
-  		"south" : __DIR__"miaojia_shufang",
-	]));
+    set("exits", ([
+          "west"  : __DIR__"miaojia_zoulang1",
+          "north" : __DIR__"miaojia_zoulang2",
+          "south" : __DIR__"miaojia_shufang",
+    ]));
         set("objects", ([
                 CLASS_D("miao") + "/miao" : 1,
         ]));

@@ -27,6 +27,5 @@ void create()
 
 void init()
 {
-	add_action("play_qin", "play");
+    add_action("play_qin", "play");
 }
-

@@ -13,7 +13,7 @@ void create()
 人武功一定十分了得。
 LONG );
         set("objects", ([
-        	CLASS_D("huashan")+"/linghu" : 1,
+            CLASS_D("huashan")+"/linghu" : 1,
         ]));
         set("exits", ([ /* sizeof() == 2 */
             "out" : __DIR__"siguoya",

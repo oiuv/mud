@@ -8,7 +8,7 @@ inherit CLOTH;
 
 void create()
 {
-        set_name(GRN"孔雀羽衣"NOR, ({ "feather" }) ); 
+        set_name(GRN"孔雀羽衣"NOR, ({ "feather" }) );
         set("no_drop", "1");
         set("no_get", "1");
         set_weight(600);
@@ -18,12 +18,12 @@ void create()
         else {
                 set("long", "这件孔雀羽衣是用孔雀羽毛织成的。\n");
                 set("unit", "件");
-	        set("value", 5000);
+            set("value", 5000);
                 set("material", "feature");
                 set("armor_prop/personality", 10);
                 set("armor_prop/armor", 10);
                 set("armor_prop/armor_vs_force", 10);
-                set("armor_prop/attack", -2); 
+                set("armor_prop/attack", -2);
         }
         setup();
 }

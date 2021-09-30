@@ -43,7 +43,7 @@ LONG);
         set_skill("dulong-shenzhua", 320);
         set_skill("literate", 260);
         set_skill("martial-cognize", 220);
-        
+
         map_skill("strike", "xuanming-zhang");
         map_skill("force",  "xuanming-shengong");
         map_skill("dodge",  "liuying-bu");
@@ -52,11 +52,11 @@ LONG);
         map_skill("claw", "dulong-shenzhua");
 
         prepare_skill("strike", "xuanming-zhang");
-             
+
         create_family("玄冥谷", 1, "开山祖师");
 
         set("chat_chance_combat", 120);
-        set("chat_msg_combat", ({               
+        set("chat_msg_combat", ({
                 (: perform_action, "strike.ying" :),
                 (: perform_action, "strike.lang" :),
                 (: exert_function, "recover" :),
@@ -65,7 +65,7 @@ LONG);
 
         set("inquiry", ([
                 "鹿杖客"    :   "他是我大徒弟。\n",
-                "鹤笔翁"    :   "他是我小徒弟。\n", 
+                "鹤笔翁"    :   "他是我小徒弟。\n",
         ]));
 
         set_temp("apply/attack", 120);
@@ -87,14 +87,14 @@ void attempt_apprentice(object ob)
         {
                 command("say 哼，我百损道人从不和正道中人交往。");
                 return;
-        }        
-    
+        }
+
         if (ob->query_skill("minggu-xinfa", 1) < 160)
         {
                 command("say 你冥谷心法火候不足，还是跟我徒儿多练习练习吧！");
                 return ;
         }
-        
+
         if (ob->query_skill("strike", 1) < 160)
         {
                 command("say 你基本掌法修为还不够，以后如何学习我玄冥谷绝学玄冥神掌？");
@@ -157,8 +157,8 @@ int accept_ask(object me, string topic)
                            "gongxian": 1200,
                            "shen"    : -68000, ]));
                 break;
-		
-		case "玄冥双行" :
+
+                case "玄冥双行" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/xuanming-zhang/xing",
                            "name"    : "玄冥双行",

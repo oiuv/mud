@@ -13,13 +13,13 @@ LONG );
 
         set("outdoors", "chengdu");
         set("exits", ([
-            	"southeast"  : __DIR__"wangjianglou",
-            	"southwest"  : __DIR__"southroad1",
-            	"north"      : __DIR__"eastroad2",
+                "southeast"  : __DIR__"wangjianglou",
+                "southwest"  : __DIR__"southroad1",
+                "north"      : __DIR__"eastroad2",
         ]));
 
         set("item_desc", ([
-            	"liang" : "房子的门梁垮塌，将门封了个严实。\n"
+                "liang" : "房子的门梁垮塌，将门封了个严实。\n"
         ]) );
 
         set("no_clean_up", 0);
@@ -37,7 +37,7 @@ int do_break(string arg)
         object /*weapon,*/ me = this_player();
 
         if (arg != "liang")
-        	return 0;
+            return 0;
 
         if (query("break"))
                 return notify_fail("房梁已经被震飞，用不着再费力了。\n");

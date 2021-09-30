@@ -25,11 +25,11 @@ void create()
                 set("no_sell", "这…这值什么钱？\n");
                 set("material", "paper");
                 set("skill", ([
-                	"name" : "literate",
-                	"jing_cost"  : 60,
-                	"difficulty" : 60,
-                	"max_skill"  : 199,
-                	"min_skill"  : 150,
+                    "name" : "literate",
+                    "jing_cost"  : 60,
+                    "difficulty" : 60,
+                    "max_skill"  : 199,
+                    "min_skill"  : 150,
                 ]) );
         }
         setup();

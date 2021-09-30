@@ -10,14 +10,14 @@ void create ()
 木大桌，后面坐着知府大人。上有一幅大匾，写着"廉明清正"四个烫金
 大字。桌旁站立着一位老师爷。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
-        	"north" : __DIR__"yamen",
+            "north" : __DIR__"yamen",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 2
-        	__DIR__"npc/zhifu" : 1,
-        	__DIR__"npc/shiye" : 1,
+            __DIR__"npc/zhifu" : 1,
+            __DIR__"npc/shiye" : 1,
         ]));
 
         setup();

@@ -48,7 +48,7 @@ int perform(object me, object target)
         {
                 if (! me->is_fighting(target))
                         break;
-        	COMBAT_D->do_attack(me, target, weapon, 0);
+            COMBAT_D->do_attack(me, target, weapon, 0);
         }
 
         me->add("neili", -80);

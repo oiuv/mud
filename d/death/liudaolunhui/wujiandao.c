@@ -1,5 +1,5 @@
 // Copyright (C) 2003-2004, by Lonely. All rights reserved.
-// This software can not be used, copied, or modified 
+// This software can not be used, copied, or modified
 // in any form without the written permission from authors.
 
 #include <ansi.h>
@@ -42,18 +42,18 @@ int do_say(string arg)
 
         if( ! arg || arg == "" ) return 0;
 
-        if( arg == "潜能无限，精意神通，身居祸福，自我主宰！" 
+        if( arg == "潜能无限，精意神通，身居祸福，自我主宰！"
         &&  (int)query("poem_said") != 1 )
         {
                 message_vision(HIW "\n只听$N" HIW "猛然高声喝道：“潜能无"
-                               "限，精意神通，身居祸福，自我主宰！”\n" NOR + 
+                               "限，精意神通，身居祸福，自我主宰！”\n" NOR +
                                HIR "\n$N" HIR "话音刚"
                                "落，地面突然「轰隆隆」晃动了几下。眼前出"
                                "现了一个镜子。\n\n"
                                NOR, this_player());
                 ob = new("/d/death/obj/wujian");
-                ob->move(this_player(), 1); 
-                message_vision(HIW "突然间电闪雷鸣，宇宙无敌之剑无间闪电伴随着道道闪电穿进$N的怀中！\n", this_player());     
+                ob->move(this_player(), 1);
+                message_vision(HIW "突然间电闪雷鸣，宇宙无敌之剑无间闪电伴随着道道闪电穿进$N的怀中！\n", this_player());
                 this_object()->recreate();
                 set("poem_said", 1);
                 return 1;
@@ -89,21 +89,21 @@ void recreate()
 int do_enter(string arg)
 {
         object me = this_player();
-        
+
         if (! query("poem_said")) return 0;
-       
+
        //新增防止背人转世 2018-10-21
         if (! me->query("HellZhenPass"))
-             	return notify_fail("施主怎么来，还请怎么回去吧 ！\n");
+                 return notify_fail("施主怎么来，还请怎么回去吧 ！\n");
        //新增防止转前临时转换门派 2017-02-21
                 if (me->query_skill("martial-cognize", 1) < 600
-					&& me->query_skill("force") < 800)
-                	return notify_fail("你的武功修为太差，去练练再来吧！\n");
+                    && me->query_skill("force") < 800)
+                    return notify_fail("你的武功修为太差，去练练再来吧！\n");
       //新增防止转前临时脱离转换门派结束
-      
-        if (objectp(present("ghost", environment(me)))) 
+
+        if (objectp(present("ghost", environment(me))))
                 return notify_fail("你还是先解决掉这些亡魂吧！\n");
-              
+
         me->set_temp("entering_world", 1);
         message_vision("$N向着铜镜的方向走去。\n",me);
         call_out("entering_world", 1, me, 0);
@@ -112,7 +112,7 @@ int do_enter(string arg)
 
 void entering_world(object me, int n)
 {
-        object item; 
+        object item;
 
         remove_call_out("entering_world");
 
@@ -123,9 +123,9 @@ void entering_world(object me, int n)
                 me->delete_temp("entering_world");
                 tell_room(environment(me), sprintf(HIY"铜镜中放出一道金光罩向%s，随后%s不见了。\n"NOR,
                           me->name(), me->name()), ({ me }));
-                          
+
                 me->clear_condition();
- 
+
                 foreach (item in all_inventory(me))
                 {
                         message_vision("$N丢下了$n。\n", me, item);
@@ -140,9 +140,9 @@ void entering_world(object me, int n)
 
                 me->move("/d/city/wumiao");
                 me->set("startroom", "/d/city/wumiao");
-                tell_room(environment(me),me->name()+"突然出现在眼前。\n",({me}));                                
+                tell_room(environment(me),me->name()+"突然出现在眼前。\n",({me}));
                 me->save();
-                return;                
+                return;
         }
         else
         {
@@ -156,19 +156,19 @@ int do_smash(string arg)
         object ob, weapon;
         object me = this_player();
 
-        if (! objectp(weapon = me->query_temp("weapon")) || 
+        if (! objectp(weapon = me->query_temp("weapon")) ||
             weapon->query("id") != "wujian shandian")
                 return notify_fail("你没有装备无间闪电，无法使用其 smash 神力！\n");
 
         if (! arg)
                 return notify_fail("指令格式: smash <living>\n");
-        
+
         ob = present(arg, environment(me));
-        if (! ob )        
+        if (! ob )
                 return notify_fail("找不到这个生物。\n");
 
         message_vision(HIM "无间闪电化作无数闪电击向" + ob->query("name") + "...\n\n"
-                       NOR, me);        
+                       NOR, me);
         if (! ob->is_character())
         {
                 message_vision(HIM + ob->name() + HIM "从这个世界上消失了...\n\n"
@@ -176,9 +176,8 @@ int do_smash(string arg)
                 destruct(ob);
                 return 1;
         }
-        
+
         ob->die();
-        
+
         return 1;
 }
-

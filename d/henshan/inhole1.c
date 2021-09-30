@@ -10,13 +10,12 @@ void create()
 光，令人不禁有些心寒。
 LONG);
 
-	set("exits",([
-	      "northwest" : __DIR__"inhole2",
-	      "northeast" : __DIR__"inhole3",		
-	      "out"       : __DIR__"inhole",	      
-	]));	
-	     	
+    set("exits",([
+          "northwest" : __DIR__"inhole2",
+          "northeast" : __DIR__"inhole3",
+          "out"       : __DIR__"inhole",
+    ]));
+
        setup();
        replace_program(ROOM);
 }
-

@@ -10,9 +10,9 @@ void create()
 LONG);
         set("outdoors", "zhongzhou");
         set("exits", ([
-  		"north" : __DIR__"wendingnan4",
-  		"south" : __DIR__"nroad",
-	]));
+          "north" : __DIR__"wendingnan4",
+          "south" : __DIR__"nroad",
+    ]));
         set("objects", ([
                 "/d/kaifeng/npc/guanbing" : 4,
                 "/d/beijing/npc/ducha" : 1,

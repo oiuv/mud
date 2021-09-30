@@ -9,11 +9,11 @@ void create()
 LONG);
         set("outdoors", "heimuya");
         set("exits", ([
-            	"northdown" : __DIR__"xingxingtan",
-            	"south" : __DIR__"shidao1",
+                "northdown" : __DIR__"xingxingtan",
+                "south" : __DIR__"shidao1",
         ]));
         set("objects", ([
-            	__DIR__"npc/dizi3" : 2,
+                __DIR__"npc/dizi3" : 2,
         ]));
         set("no_clean_up", 0);
         setup();

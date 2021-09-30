@@ -9,9 +9,9 @@ void create()
 人闻了头有点发昏。
 LONG);
         set("exits", ([
-  		"east" : __DIR__"wendingnan2",
-  		"down" : __DIR__"yanguan",
-	]));
+          "east" : __DIR__"wendingnan2",
+          "down" : __DIR__"yanguan",
+    ]));
         set("no_clean_up", 0);
 
         setup();

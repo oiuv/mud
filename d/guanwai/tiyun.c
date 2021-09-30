@@ -8,7 +8,7 @@ int i = 0;
 
 string* msg = ({
   HIC "\n突然，一阵洪亮声音从山峰间传来……\n\n" NOR,
-  HIW "神秘高人：“可惜，可惜啊！”\n\n" NOR, 
+  HIW "神秘高人：“可惜，可惜啊！”\n\n" NOR,
   HIY "你不禁心中一惊，暗想：“此人内力惊人，难道是隐居在这山谷中的高人？”\n" NOR,
   HIY "你运起内力大声说道：“敢问前辈为何方高人，为何叹息？”\n\n" NOR,
   HIW "神秘高人道：“阁下可是胡家刀法的传人？”\n\n" NOR,
@@ -28,17 +28,17 @@ string* msg = ({
 
 void create()
 {
-	set("short", "梯云峰");
-	set("long", @LONG
+    set("short", "梯云峰");
+    set("long", @LONG
 玉柱峰北，有一山峰，峰脊出梯河瀑布，远望如腾白如云，纵列如梯，
 故名梯云峰。
 LONG );
-	set("exits", ([
-		"south"      : __DIR__"yuzhu",
-	]));
-	set("no_clean_up", 0);
-	set("outdoors", "guanwai");
-	setup();
+    set("exits", ([
+        "south"      : __DIR__"yuzhu",
+    ]));
+    set("no_clean_up", 0);
+    set("outdoors", "guanwai");
+    setup();
 }
 
 void init()
@@ -55,29 +55,29 @@ int do_yanlian(string arg)
 
        if (me->query_skill("hujia-daofa", 1) >= 250
            && (me->query("character") == "光明磊落"
-		   || me->query("character") == "国士无双")
+           || me->query("character") == "国士无双")
            && !(int)me->query_skill("miaojia-jian", 1)
-           && ( (ob = me->query_temp("weapon")) && ((string)ob->query("skill_type") == "blade" 
-           || (string)ob->query("skill_type") == "sword"))           
+           && ( (ob = me->query_temp("weapon")) && ((string)ob->query("skill_type") == "blade"
+           || (string)ob->query("skill_type") == "sword"))
            && random(10) == 1 && me->query("shen") > 50000)
-      { 
+      {
            if (me->query_temp("learn_now"))return notify_fail("等你忙完了再说。\n");
            me->set_temp("learn_now", 1);
            write("你开始演练刀剑归真。\n");
            write("但是你却发现你连一点苗家剑法都不会，难以继续演练，你长叹一声，心中暗怪命运总捉弄…\n");
            me->start_busy(3);
            remove_call_out("learn_sword");
-           call_out("learn_sword", 3, me);    
+           call_out("learn_sword", 3, me);
       }
       else return 0;
-     
+
       return 1;
 }
 
 int learn_sword(object me)
-{  
+{
      me->start_busy(3);
-   
+
      write(msg[i]);
 
      if (i == sizeof(msg) - 1)
@@ -87,11 +87,10 @@ int learn_sword(object me)
           me->delete_temp("learn_now");
           return 1;
      }
- 
+
      remove_call_out("learn_sword");
      call_out("learn_sword", 3, me);
- 
+
      i ++;
 
 }
-

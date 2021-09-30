@@ -4,15 +4,15 @@ inherit BOOK;
 
 void create()
 {
-	set_name("『星宿毒经〖下册〗』", ({ "du jing2", "book2" }) );
-	set_weight(10);
-	if( clonep() )
-		set_default_object(__FILE__);
-	else {
-		set("unit", "本");
+    set_name("『星宿毒经〖下册〗』", ({ "du jing2", "book2" }) );
+    set_weight(10);
+    if( clonep() )
+        set_default_object(__FILE__);
+    else {
+        set("unit", "本");
                 set("long", "\n                 『星宿毒经〖下册〗』\n\n");
-		set("value", 50);
-		set("material", "paper");
+        set("value", 50);
+        set("material", "paper");
                 set("skill",
                 ([
                         "name":        "poison",    // name of the skill
@@ -23,5 +23,5 @@ void create()
                         "min_skill":    50,         // minimun level required
                 ]) );
         }
-	setup();
+    setup();
 }

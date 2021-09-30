@@ -30,9 +30,9 @@ void create()
         setup();
         set("chat_chance", 10);
         set("chat_msg", ({
-		CYN "钹手敲着铜钹，高声唱道：星～宿～老～仙～威～震～寰～宇。\n" NOR,
-		CYN "钹手敲着铜钹，高声唱道：星～宿～老～仙～德～配～天～地。\n" NOR,
-		CYN "钹手敲着铜钹，高声唱道：星～宿～老～仙～古～今～无～比。\n" NOR,
+        CYN "钹手敲着铜钹，高声唱道：星～宿～老～仙～威～震～寰～宇。\n" NOR,
+        CYN "钹手敲着铜钹，高声唱道：星～宿～老～仙～德～配～天～地。\n" NOR,
+        CYN "钹手敲着铜钹，高声唱道：星～宿～老～仙～古～今～无～比。\n" NOR,
         }));
         carry_object("/clone/cloth/cloth")->wear();
         carry_object("/d/xingxiu/obj/tongbo")->wield();

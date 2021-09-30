@@ -69,20 +69,20 @@ int perform(object me, object target)
         if (ap * 2 / 3 + random(ap) > dp)
 {
         if (me->query("max_neili") / 2 + random(me->query("max_neili") / 2) > target->query("max_neili") * 5/4)
-	{
+    {
                 msg += HIR "$n" HIR "全然无力阻挡，竟被$N"
                        HIR "一下击得飞起，重重的跌落在地上。\n" NOR;
-	        me->add("neili", -100);
+            me->add("neili", -100);
           me->start_busy(1);
 
-	        message_combatd(msg, me, target);
+            message_combatd(msg, me, target);
 
                 target->unconcious();
 
-        	return 1;
-	} else
+            return 1;
+    } else
         {
-        	jia = me->query("jiali");
+            jia = me->query("jiali");
                 damage = ap / 2 + random(jia * 5);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 90,
                                                    HIR "$n" HIR "不及闪避，顿被$N" HIR

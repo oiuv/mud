@@ -22,7 +22,7 @@ void create()
         set("combat_exp", 1000000);
 
         set("inquiry", ([
-             	"玉牌"   : (:ask_pai:),
+                 "玉牌"   : (:ask_pai:),
                 "寒玉牌" : (:ask_pai:),
         ]) );
 
@@ -66,7 +66,7 @@ void create()
         }));
 
         setup();
-        
+
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/cloth/cloth")->wear();
 }
@@ -79,7 +79,7 @@ void attempt_apprentice(object ob)
 string ask_pai()
 {
         object me,ob;
-        me=this_player(); 
+        me=this_player();
 
 
         if (me->query("family/master_id") == "bai zizai")
@@ -106,4 +106,3 @@ string ask_pai()
 
         return "你还是先去努力练练吧。\n";
 }
-

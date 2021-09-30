@@ -1232,9 +1232,9 @@ return 1;
 
 int do_review()
 {
-	write("目前走过的棋子。\n");
-	write(aaa+"\n");
-	return 1;
+    write("目前走过的棋子。\n");
+    write(aaa+"\n");
+    return 1;
 }
 
 int do_reset(){

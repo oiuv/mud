@@ -34,7 +34,7 @@ int do_eat(string arg)
 */
    if (((int)me->query_condition("xx_poison") > 0) ||
         ((me->query("eff_jing") / me->query("max_jing")) < 0.9)) {
-	      this_player()->receive_curing("jing", (int)me->query("max_jing") / 50);
+          this_player()->receive_curing("jing", (int)me->query("max_jing") / 50);
    }
    destruct(this_object());
    return 1;

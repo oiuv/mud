@@ -10,11 +10,11 @@ void create()
 LONG);
         set("exits", ([
                 "east" : __DIR__"huayuan",
-                                 
+
         ]));
 
         set("objects", ([
-	        __DIR__"npc/yahuan" : 2,
+            __DIR__"npc/yahuan" : 2,
         ]));
 
         setup();

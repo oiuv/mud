@@ -12,10 +12,9 @@ void create()
                 set_default_object(__FILE__);
         else {
                 set("unit", "件");
-		set("value" , 1000);
+        set("value" , 1000);
                 set("material", "leather");
                 set("armor_prop/armor", 6);
         }
         setup();
 }
-

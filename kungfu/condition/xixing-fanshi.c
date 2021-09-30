@@ -39,27 +39,27 @@ int dispel(object me, object ob, int duration)
 
 int update_condition(object me, int duration)
 {
-	// int limit;
+    // int limit;
 
-	if (! living(me) && (me->query("eff_qi") < 20 || me->query("eff_jing") < 10))
+    if (! living(me) && (me->query("eff_qi") < 20 || me->query("eff_jing") < 10))
   {
     me->set_temp("因为修习吸星大法不慎，内力反噬吐血身亡了");
-		me->die();
-		return 0;
-	} else {
+        me->die();
+        return 0;
+    } else {
     me->receive_wound("qi", 20);
     me->receive_wound("jing", 10);
     if (me->query("max_neili"))
             me->add("max_neili", -1);
-		tell_object(me, HIR "你觉得丹田内息紊乱之极，浑身忽冷忽"
+        tell_object(me, HIR "你觉得丹田内息紊乱之极，浑身忽冷忽"
                                 "热，四肢百骸内力激荡，几欲晕厥。\n" NOR);
-		message("vision", me->name() + "脸色忽青忽红，四肢不住的颤动。\n",
-		  environment(me), me);
-	}
+        message("vision", me->name() + "脸色忽青忽红，四肢不住的颤动。\n",
+          environment(me), me);
+    }
 
   if (me->query("max_neili") < 1)
           duration = 1;
-	me->apply_condition("xixing-fanshi", duration - 1);
-	if (! duration) return 0;
-	return 1;
+    me->apply_condition("xixing-fanshi", duration - 1);
+    if (! duration) return 0;
+    return 1;
 }

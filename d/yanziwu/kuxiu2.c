@@ -16,5 +16,5 @@ LONG );
         ]));
         set("for_family", "慕容世家");
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

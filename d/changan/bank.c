@@ -14,10 +14,10 @@ void create ()
 块牌子(paizi)。
 LONG);
         set("item_desc", ([
-        	"paizi": 
+            "paizi":
 HIG"本钱庄提供的服务有：\n"NOR
 HIC"--------------------------------\n"NOR
-HIG"check(chazhang)        查帐\n"NOR 
+HIG"check(chazhang)        查帐\n"NOR
 HIC"--------------------------------\n"NOR
 HIG"deposit(cun)           存款\n"NOR
 HIC"--------------------------------\n"NOR
@@ -27,16 +27,16 @@ HIG"convert(duihuan)       兑换钱币\n"NOR
 HIC"--------------------------------\n"NOR
 
         ]) );
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
-        	"south" : __DIR__"qixiang4",
+            "south" : __DIR__"qixiang4",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
-        	__DIR__"npc/tiegongji" : 1,
+            __DIR__"npc/tiegongji" : 1,
         ]));
 
-	set("no_clean_up", 0);
+    set("no_clean_up", 0);
         setup();
         replace_program(ROOM);
 }

@@ -9,7 +9,7 @@ void create()
 乎无法站立。
 LONG);
         set("exits", ([
-            	"eastdown" : __DIR__"tianroad5",
+                "eastdown" : __DIR__"tianroad5",
         ]));
         set("outdoors", "xingxiu");
         setup();

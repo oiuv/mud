@@ -14,13 +14,13 @@ LONG );
                 "down" : __DIR__"cjlou",
         ]));
         set("objects",([
-		CLASS_D("shaolin") + "/hui-zhen" : 1,
-		"/clone/book/wuji1" : 1,
-		"/clone/book/wuji2" : 1,
-		"/clone/book/wuji3" : 1,
-		"/clone/book/wuji4" : 1,
-	]));
-	setup();
+        CLASS_D("shaolin") + "/hui-zhen" : 1,
+        "/clone/book/wuji1" : 1,
+        "/clone/book/wuji2" : 1,
+        "/clone/book/wuji3" : 1,
+        "/clone/book/wuji4" : 1,
+    ]));
+    setup();
 }
 
 int valid_leave(object me, string dir)
@@ -34,9 +34,8 @@ int valid_leave(object me, string dir)
 
         ob = deep_inventory(me);
         for (i = 0; i < sizeof(ob); i++)
-                if (ob[i]->id("shaolin wuji")) 
+                if (ob[i]->id("shaolin wuji"))
                         return notify_fail("慧真说道：武功秘籍只许在藏经阁"
                                            "内研习，不得携带外出！\n");
         return ::valid_leave(me, dir);
 }
-

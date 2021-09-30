@@ -47,18 +47,18 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         if (target->query_temp("block_msg/all"))
-	        return notify_fail("对方现在什么也看不见，放胆攻击吧。\n");
+            return notify_fail("对方现在什么也看不见，放胆攻击吧。\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-	{
+    {
                 msg = HIR "$N" HIR "一声阴笑，揉身而上，左手两指并拢，手臂"
                       "暴长，迅捷异常分刺$n" HIR "的双目！\n" NOR;
         } else
-	{
+    {
                 msg = HIR "$N" HIR "一声阴笑，揉身而上，手中" + weapon->name() +
                       HIR "一振，剑尖一点暴长，分刺$n" HIR "左右双目！\n" NOR;
-	}
+    }
 
         ap = me->query_skill("sword") +
              me->query_skill("dodge");
@@ -106,6 +106,6 @@ void cimu_end(object me, object target)
                                             "鲜血，能看见了。\n" NOR);
                 }
                 target->delete_temp("block_msg/all");
-	}
-	return;
+    }
+    return;
 }

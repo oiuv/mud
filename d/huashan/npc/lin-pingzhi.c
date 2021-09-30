@@ -64,11 +64,11 @@ void die()
         object book;
 
         if( objectp(killer = query_last_damage_from()) &&
-	    userp(killer) )
-	{
-             	message_vision("$N得到一本辟邪剑谱。\n",killer);
-            	book=new("/clone/book/pixie_book");
-             	book->move(killer);
-       	}
-	::die();
+        userp(killer) )
+    {
+                 message_vision("$N得到一本辟邪剑谱。\n",killer);
+                book=new("/clone/book/pixie_book");
+                 book->move(killer);
+           }
+    ::die();
 }

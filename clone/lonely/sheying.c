@@ -81,12 +81,12 @@ int do_shot(string arg)
         me->start_busy(2 + random(2)) ;
 
         if (random(myskill) < tgskill)
-	{
+    {
                 message_vision(HIY "$n" HIY "大叫一声，猛的一个旱地拔葱身行"
                         "冲起数丈来高，躲开了$N" HIY "的毒针！\n\n" NOR,
                         me, target);
-	} else
-	{
+    } else
+    {
                 message_vision(HIR "$n" HIR "躲闪不及，被无数细如牛毛的毒针"
                                "打了一身，不由惨嚎连连！\n\n" NOR, me, target);
 
@@ -101,12 +101,12 @@ int do_shot(string arg)
                 damage = mylev * 4 - (target->query("max_neili") / 10);
                 if (damage < 100 ) damage = 100;
                 if (damage > 800 ) damage = 800;
-                target->receive_wound("qi", damage) ; 
+                target->receive_wound("qi", damage) ;
                 target->start_busy(4);
         }
 
         if (! target->is_killing(me))
-		target->kill_ob(me);
+        target->kill_ob(me);
 
         return 1;
 }

@@ -66,7 +66,7 @@ int perform(object me, object target)
                         while (n-- && me->is_fighting(target))
                         {
                                 if (random(2) && ! target->is_busy())
-					target->start_busy(1);
+                    target->start_busy(1);
                                 COMBAT_D->do_attack(me, target, weapon, 0);
                         }
 

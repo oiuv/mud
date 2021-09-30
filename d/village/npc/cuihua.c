@@ -4,7 +4,7 @@ inherit NPC;
 
 void create()
 {
-	set_name("翠花",({ "cui hua", "hua" }) );
+    set_name("翠花",({ "cui hua", "hua" }) );
         set("gender", "女性" );
         set("age", 25);
         set("long", "这是个打扮很妖艳的少妇，时不时的用眼角向你扫一眼。\n");
@@ -22,4 +22,3 @@ void create()
         setup();
         carry_object(__DIR__"obj/cloth")->wear();
 }
-

@@ -10,17 +10,17 @@ void create ()
 容可鞠地招呼着客人。货栈的墙上贴着一张破旧的告示(gaoshi)。
 LONG);
         set("item_desc", (["gaoshi" : "现在正紧缺人手，急需雇佣一批短工来干活。
-work	开始工作。
+work    开始工作。
 ", ]));
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
                 "west" : __DIR__"yongtai-dadao1",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
                 __DIR__"npc/liang" : 1,
         ]));
-	set("no_fight", 1);
+    set("no_fight", 1);
         setup();
 }
 
@@ -62,4 +62,3 @@ void reset_work(object me)
 {
         me->delete_temp("working_in_huozhan");
 }
-

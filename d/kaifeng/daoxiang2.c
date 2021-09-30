@@ -9,14 +9,14 @@ void create()
 边的位置。边喝酒边看看下面的繁华街景，人生一乐。
 LONG);
         set("objects", ([
-  		__DIR__"npc/gaoyanei" : 1,
-  		__DIR__"npc/luyuhou" : 1,
-	]));
+          __DIR__"npc/gaoyanei" : 1,
+          __DIR__"npc/luyuhou" : 1,
+    ]));
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"down" : __DIR__"daoxiang",
-	]));
+          "down" : __DIR__"daoxiang",
+    ]));
 
         setup();
         replace_program(ROOM);

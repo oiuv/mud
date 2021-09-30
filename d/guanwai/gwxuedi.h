@@ -2,8 +2,8 @@
 
 void init()
 {
-	if (! interactive(this_player()))
-		return;
+    if (! interactive(this_player()))
+        return;
 
         switch (NATURE_D->query_month())
         {
@@ -27,7 +27,7 @@ void do_cold(object me, int scale, int con)
                 con = con / 2 + random(con);
         }
         damage = 35 - (con + me->query_temp("apply/warm") + query_temp("warm"));
-	if (me->query("born") == "关外胡家") damage -= 25;
+    if (me->query("born") == "关外胡家") damage -= 25;
         if (damage < 0) damage = 0;
         if (hour <= 6 || hour >= 18) damage += damage / 2;
         if (hour <= 4 || hour >= 22) damage += damage / 2;
@@ -59,7 +59,7 @@ void do_cold(object me, int scale, int con)
         if (me->query("qi") < 50 && damage > 10)
                 me->apply_condition("ill_dongshang",
                         me->query_condition("ill_dongshang") + 5 + damage / 3);
-	tell_object(me, msg);
+    tell_object(me, msg);
 }
 
 void cold_effect()
@@ -85,8 +85,8 @@ void cold_effect()
 
 int valid_leave(object me, string dir)
 {
-	if (! interactive(me))
-		return ::valid_leave(me, dir);
+    if (! interactive(me))
+        return ::valid_leave(me, dir);
 
         switch (NATURE_D->query_month())
         {
@@ -96,4 +96,3 @@ int valid_leave(object me, string dir)
         }
         return ::valid_leave(me, dir);
 }
-

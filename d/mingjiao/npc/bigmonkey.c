@@ -37,7 +37,7 @@ LONG NOR);
 
 void init()
 {
-	add_action("do_lifeheal", "heal");
+    add_action("do_lifeheal", "heal");
 }
 
 int do_lifeheal(string arg)
@@ -47,25 +47,25 @@ int do_lifeheal(string arg)
 
         if (arg != "bai yuan" && arg != "bai" && arg != "yuan")
         {
-            	write("你要干什么？\n");
-            	return 1;
+                write("你要干什么？\n");
+                return 1;
         }
 
         if (query("bag_count") < 1)
         {
-        	write("大白猿一把跳开，不想让你医治。\n");
-        	return 1;
+            write("大白猿一把跳开，不想让你医治。\n");
+            return 1;
         }
 
         if (me->query_skill("medical", 1) < 100)
         {
-     	       write("你连基本医术都没学好，还谈什么医治。\n");
+                write("你连基本医术都没学好，还谈什么医治。\n");
                return 1;
         }
 
         if (! present("fish bone", me))
         {
-     	       write("你手中医疗器具不够，无法医治。\n");
+                write("你手中医疗器具不够，无法医治。\n");
                return 1;
         }
 
@@ -110,4 +110,3 @@ void unconcious()
 {
         this_object()->die();
 }
-

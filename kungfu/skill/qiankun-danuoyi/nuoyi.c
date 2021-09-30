@@ -6,23 +6,23 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	// object weapon;
+    // object weapon;
   object *obs;
   object der;
-	string msg;
+    string msg;
   int ap, dp;
   int damage;
   int level;
   int i;
 
   me->clean_up_enemy();
-	if (! target) target = offensive_target(me);
+    if (! target) target = offensive_target(me);
 
-	if (! target || ! me->is_fighting(target))
-		return notify_fail("「大挪移」只能对战斗中的对手使用。\n");
+    if (! target || ! me->is_fighting(target))
+        return notify_fail("「大挪移」只能对战斗中的对手使用。\n");
 
-	if ((level = (int)me->query_skill("qiankun-danuoyi", 1)) < 50)
-		return notify_fail("你的乾坤大挪移还没有修炼到第二层，无法施展大挪移。\n");
+    if ((level = (int)me->query_skill("qiankun-danuoyi", 1)) < 50)
+        return notify_fail("你的乾坤大挪移还没有修炼到第二层，无法施展大挪移。\n");
 
         if (me->query("neili") < 400)
                 return notify_fail("你现在真气不够，无法使用「大挪移」。\n");
@@ -30,7 +30,7 @@ int perform(object me, object target)
        if (! living(target))
               return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIM "$N" HIM "招数忽然的一变，摹可明方，内力四处回旋，无形中牵引着$n"
+    msg = HIM "$N" HIM "招数忽然的一变，摹可明方，内力四处回旋，无形中牵引着$n"
               HIM "的招式！\n";
 
         ap = level + me->query_skill("force") * 2 / 3;
@@ -81,7 +81,7 @@ int perform(object me, object target)
                        name + HIG "大吃一惊，招架不迭！" NOR;
         }
 
-	message_combatd(msg, me, target);
+    message_combatd(msg, me, target);
 
         if (der)
         {
@@ -93,5 +93,5 @@ int perform(object me, object target)
                 }
         }
 
-	return 1;
+    return 1;
 }

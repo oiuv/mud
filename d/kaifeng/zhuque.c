@@ -10,13 +10,13 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"south" : __DIR__"road",
-  		"north" : __DIR__"road2",
-  		"westup" : __DIR__"jiaolou",
-  		"eastup" : __DIR__"jiaolou2",
-	]));
+          "south" : __DIR__"road",
+          "north" : __DIR__"road2",
+          "westup" : __DIR__"jiaolou",
+          "eastup" : __DIR__"jiaolou2",
+    ]));
         set("objects", ([
-  		__DIR__"npc/guanbing" : 2,
+          __DIR__"npc/guanbing" : 2,
                 "/clone/npc/walker" : 1,
         ]));
         set("outdoors", "kaifeng");

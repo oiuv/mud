@@ -11,13 +11,13 @@ void create()
 女人的娇笑，不时的从房间中传出。
 LONG);
         set("exits", ([ /* sizeof() == 5 */
-        	"north" : __DIR__"qunyuys5",
-        	"south" : __DIR__"qunyuys6",
-        	"west"  : __DIR__"qunyuys7",
-        	"east"  : __DIR__"qunyuys8",
-        	"down"  : __DIR__"qunyulou2",
+            "north" : __DIR__"qunyuys5",
+            "south" : __DIR__"qunyuys6",
+            "west"  : __DIR__"qunyuys7",
+            "east"  : __DIR__"qunyuys8",
+            "down"  : __DIR__"qunyulou2",
         ]));
 
-	setup();
+    setup();
         replace_program(ROOM);
 }

@@ -18,9 +18,9 @@ void create()
         set("shen_type", 1);
         set_skill("unarmed", 10);
         set("vendor_goods", ({
-        	__DIR__"obj/jiudai",
-         	__DIR__"obj/gourou",
-        	__DIR__"obj/jitui",
+            __DIR__"obj/jiudai",
+             __DIR__"obj/gourou",
+            __DIR__"obj/jitui",
         }));
 
         setup();
@@ -34,10 +34,10 @@ void init()
 
         ::init();
         if (interactive(ob = this_player()) && !is_fighting())
-	{
+    {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
-	}
+    }
         add_action("do_buy", "buy");
         add_action("do_list", "list");
 }

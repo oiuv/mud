@@ -13,18 +13,18 @@ void set_attrib();
 
 void create()
 {
-	set_name(HIG "结婚戒指" NOR, ({ "wedding ring", "ring" }) );
-	set_weight(100);
-	set("material", "gold");
-	set("unit", "只");
-	set("value", 50000);
+    set_name(HIG "结婚戒指" NOR, ({ "wedding ring", "ring" }) );
+    set_weight(100);
+    set("material", "gold");
+    set("unit", "只");
+    set("value", 50000);
         set("no_sell", "这你也要卖？不如把你自己卖了！");
-	set("armor_prop/armor", 20);
-	set("armor_prop/unarmed", 5);
-	set("armor_prop/hand", 5);
-	set("armor_prop/strike", 5);
-	set("armor_prop/claw", 5);
-	set("armor_prop/cuff", 5);
+    set("armor_prop/armor", 20);
+    set("armor_prop/unarmed", 5);
+    set("armor_prop/hand", 5);
+    set("armor_prop/strike", 5);
+    set("armor_prop/claw", 5);
+    set("armor_prop/cuff", 5);
         set("armor_prop/unarmed_damage", 8);
         set("wear_msg", (: do_wear :));
         set("remove_msg", HIG "$N" HIG "把$n" HIG "脱了下来。\n" );

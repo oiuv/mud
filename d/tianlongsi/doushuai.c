@@ -10,11 +10,11 @@ void create()
 LONG );
         set("exits", ([
                 "north" : __DIR__"qingxinge",
-		"south" : __DIR__"banruotai",
-		"northeast" : __DIR__"doumugong",
-		"northwest" : __DIR__"sanwugong",
-	]));
-	set("objects",([
+        "south" : __DIR__"banruotai",
+        "northeast" : __DIR__"doumugong",
+        "northwest" : __DIR__"sanwugong",
+    ]));
+    set("objects",([
                 __DIR__"obj/xianglu" : 1,
         ]));
 //        set("no_clean_up", 0);

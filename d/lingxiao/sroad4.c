@@ -14,8 +14,8 @@ void create()
 LONG);
         set("outdoors", "lingxiao");
         set("exits", ([
-            	"southdown"  : __DIR__"shiya",
-            	"northup"  : __DIR__"sroad5",
+                "southdown"  : __DIR__"shiya",
+                "northup"  : __DIR__"sroad5",
         ]));
         set("no_clean_up", 0);
         setup();

@@ -169,9 +169,9 @@ int valid_learn(object me)
                                    "然觉得眼前一黑，看来是根骨不好，"
                                    "不能勉强修行。\n");
 
-	if (me->query("gender") == "无性" &&
-	    (int)me->query_skill("bluesea-force", 1) > 219)
-		return notify_fail("你无根无性，阴阳不调，难以领会高深的南海玄功。\n");
+    if (me->query("gender") == "无性" &&
+        (int)me->query_skill("bluesea-force", 1) > 219)
+        return notify_fail("你无根无性，阴阳不调，难以领会高深的南海玄功。\n");
 
         level = me->query_skill("bluesea-force", 1);
 
@@ -205,4 +205,3 @@ string exert_function_file(string action)
 {
         return __DIR__"bluesea-force/exert/" + action;
 }
-

@@ -13,12 +13,12 @@ int perform(object me, object target)
         int ap, dp;
         int damage;
         int neili, hit_point, time;
-		
-		float improve;
-		int lvls, m, n;
-		string martial;
-		string *ks;
-		martial = "sword";
+
+        float improve;
+        int lvls, m, n;
+        string martial;
+        string *ks;
+        martial = "sword";
 
         if (userp(me) && ! me->query("can_perform/poyang-jian/long"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -39,7 +39,7 @@ int perform(object me, object target)
                 return notify_fail("你的破阳冷光剑修为不够，难以施展" LONG "。\n");
 
         if ((int)me->query_skill("dodge") < 200)
-                return notify_fail("你的轻功火候不够，难以施展" LONG "。\n"); 
+                return notify_fail("你的轻功火候不够，难以施展" LONG "。\n");
 
         if ((int)me->query("max_neili") < 2700)
                 return notify_fail("你的内力修为不足，难以施展" LONG "。\n");
@@ -52,32 +52,32 @@ int perform(object me, object target)
 
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
-			
-		lvls = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		lvls = lvls * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (m = 0; m < sizeof(ks); m++)
-		{
-			if (SKILL_D(ks[m])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[m], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 5 / 100 / lvls;
-        
+
+        lvls = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+        lvls = lvls * 4 / 5;
+        ks = keys(me->query_skills(martial));
+        improve = 0;
+        n = 0;
+        //最多给予5个技能的加成
+        for (m = 0; m < sizeof(ks); m++)
+        {
+            if (SKILL_D(ks[m])->valid_enable(martial))
+            {
+                n += 1;
+                improve += (int)me->query_skill(ks[m], 1);
+                if (n > 4 )
+                    break;
+            }
+        }
+
+        improve = improve * 5 / 100 / lvls;
+
         if (! me->query("real_perform/poyang-jian/long"))
         {
                 msg = HIY "\n只见$N" HIY "手中" + weapon->name() + HIY
                       "横扫而出，施出绝招「" HIC "天外玉龙" HIY "」，"
                       "剑势纵横，犹如一条长龙蜿蜒而出，刺向$n\n" HIY "。" NOR;
-               
+
                 neili = 220;
                 hit_point = 55;
                 time = 2 + random(2);
@@ -85,10 +85,10 @@ int perform(object me, object target)
 
         else
         {
-                msg = HIW "\n但见$N" HIW "手中" + weapon->name() + HIW 
+                msg = HIW "\n但见$N" HIW "手中" + weapon->name() + HIW
                       "自半空中横过，剑身似曲似直，便如一件活物一般，正"
                       "是破阳冷光剑的精髓「" HIY "天外玉龙" HIW "」，一"
-                      "柄死剑被$N" HIW "使得如灵蛇，如神龙，猛然剑刺向$n\n" 
+                      "柄死剑被$N" HIW "使得如灵蛇，如神龙，猛然剑刺向$n\n"
                       HIW "。" NOR;
 
                 neili = 300;
@@ -100,8 +100,8 @@ int perform(object me, object target)
         ap = me->query_skill("sword");
 
         dp = target->query_skill("parry");
-		
-		ap += ap * improve;
+
+        ap += ap * improve;
 
         if (ap / 2 + random(ap) > dp)
         {
@@ -110,7 +110,7 @@ int perform(object me, object target)
                 me->start_busy(time);
                 msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, hit_point,
                                            HIR "$n" HIR "见此招来势凶猛， 阻挡不"
-                                           "及， 顿时被" + weapon->name() + HIR 
+                                           "及， 顿时被" + weapon->name() + HIR
                                            "所伤，苦不堪言。\n" NOR);
         } else
         {

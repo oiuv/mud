@@ -10,14 +10,14 @@ void create()
 LONG
         );
         set("objects", ([
-  		__DIR__"npc/zhangsan" : 1,
-	]));
+          __DIR__"npc/zhangsan" : 1,
+    ]));
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"south" : __DIR__"caidi5",
-	  	"north" : __DIR__"eroad",
-	]));
+          "south" : __DIR__"caidi5",
+          "north" : __DIR__"eroad",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

@@ -6,8 +6,8 @@ inherit ROOM;
 
 void create()
 {
-	set("short", HIW "英雄圣殿" NOR);
-	set("long", HIY "\n\n"
+    set("short", HIW "英雄圣殿" NOR);
+    set("long", HIY "\n\n"
 "       古   一   惯   白   几   青   是   浪   滚\n"
 "       今   壶   看   发   度   山   非   花   滚\n"
 "       多   浊   秋   渔   夕   依   成   淘   长\n"
@@ -19,16 +19,16 @@ void create()
 "       谈                                        \n"
 "       中                                        \n\n" NOR
 
-       );                
+       );
 
-	set("exits", ([
+    set("exits", ([
              "enter" :  __DIR__"hall",
              "up"    :  "/d/city/wumiao",
                       "west"      :   __DIR__"wenxuan",
         ]));
 
-	set("no_fight", 1);
+    set("no_fight", 1);
 
-	setup();
+    setup();
        replace_program(ROOM);
 }

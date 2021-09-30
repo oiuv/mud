@@ -9,7 +9,7 @@ void create()
 人声鼎沸，原来是一座戏院子。
 LONG);
 
-	set("outdoors", "zhongzhou");
+    set("outdoors", "zhongzhou");
         set("exits", ([
                 "east" : __DIR__"yaopu",
                 "south" : __DIR__"wendingbei1",
@@ -17,7 +17,7 @@ LONG);
                 "north" : __DIR__"wendingbei3",
         ]));
         set("objects", ([
-        	"/d/beijing/npc/shusheng1" : 1,
+            "/d/beijing/npc/shusheng1" : 1,
         ]));
 
         setup();

@@ -31,8 +31,8 @@ void create()
 
 int accept_fight(object me)
 {
-	command("say 这位"+ RANK_D->query_respect(me) +
+    command("say 这位"+ RANK_D->query_respect(me) +
                 "你我无冤无仇，这样又是何必呢？");
-        
-	return 0;
+
+    return 0;
 }

@@ -14,7 +14,7 @@ int valid_enable(string usage)
 
 int valid_learn(object me)
 {
-	return 1;
+    return 1;
 }
 
 string query_dodge_msg(string limb)

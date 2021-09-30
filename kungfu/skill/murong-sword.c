@@ -49,7 +49,7 @@ mapping *action = ({
     "damage_type" : "刺伤"
 ]),
 ([  "action" : "$N一招「一夫当关」，右手$w大开大合，自上而下如雷霆万钧般"
-	       "直向$n的$l劈了下去",
+           "直向$n的$l劈了下去",
     "force"  : 210,
     "attack" : 58,
     "dodge"  : 65,

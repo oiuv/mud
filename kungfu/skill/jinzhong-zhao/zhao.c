@@ -20,7 +20,7 @@ int perform(object me, object target)
         if ((int)me->query_temp("jinzhongzhao"))
                 return notify_fail("你已经运起[金钟罩]作为护体神功了。\n");
 
-	      if ((int)me->query_temp("jingangbuhuai"))
+          if ((int)me->query_temp("jingangbuhuai"))
                 return notify_fail("你已经运起金刚不坏护体神功了。\n");
 
         if ((int)me->query_temp("special/jinshen"))

@@ -12,10 +12,9 @@ LONG);
                 "west" :  __DIR__"shudao19",
                 "eastdown" : __DIR__"shudao17",
         ]));
-        
+
         set("no_clean_up", 0);
         set("outdoors", "chengdu");
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }
-

@@ -4,41 +4,41 @@
 #define SHI "「" HIR "噬血穹苍" NOR "」"
 
 inherit F_SSERVER;
- 
+
 int perform(object me, object target)
 {
-	object weapon;
+    object weapon;
         string msg;
         int ap, dp, damage;
         int i, count;
-		
-		float improve;
-		int lvl, m, n;
-		string martial;
-		string *ks;
-		martial = "blade";
+
+        float improve;
+        int lvl, m, n;
+        string martial;
+        string *ks;
+        martial = "blade";
 
         if (userp(me) && ! me->query("can_perform/xuedao-dafa/shi"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
         if (! target)
         {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
+            me->clean_up_enemy();
+            target = me->select_opponent();
         }
 
-	if (! target || ! me->is_fighting(target))
-		return notify_fail(SHI "只能对战斗中的对手使用。\n");
- 
-	if (! objectp(weapon = me->query_temp("weapon")) ||
-	    (string)weapon->query("skill_type") != "blade")
+    if (! target || ! me->is_fighting(target))
+        return notify_fail(SHI "只能对战斗中的对手使用。\n");
+
+    if (! objectp(weapon = me->query_temp("weapon")) ||
+        (string)weapon->query("skill_type") != "blade")
                 return notify_fail("你使用的武器不对，难以施展" SHI "。\n");
 
-	if ((int)me->query_skill("force") < 250)
-		return notify_fail("你的内功火候不够，难以施展" SHI "。\n");
+    if ((int)me->query_skill("force") < 250)
+        return notify_fail("你的内功火候不够，难以施展" SHI "。\n");
 
-	if ((int)me->query_skill("xuedao-dafa", 1) < 180)
-		return notify_fail("你的血刀大法还不到家，难以施展" SHI "。\n");
+    if ((int)me->query_skill("xuedao-dafa", 1) < 180)
+        return notify_fail("你的血刀大法还不到家，难以施展" SHI "。\n");
 
         if (me->query_skill_mapped("force") != "xuedao-dafa")
                 return notify_fail("你没有激发血刀大法为内功，难以施展" SHI "。\n");
@@ -49,35 +49,35 @@ int perform(object me, object target)
         if ((int)me->query("qi") < 100)
                 return notify_fail("你目前气血翻滚，难以施展" SHI "。\n");
 
-	if ((int)me->query("neili") < 500)
+    if ((int)me->query("neili") < 500)
                 return notify_fail("你目前真气不足，难以施展" SHI "。\n");
 
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
-			
-		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		lvl = lvl * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (m = 0; m < sizeof(ks); m++)
-		{
-			if (SKILL_D(ks[m])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[m], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 4 / 100 / lvl;
+
+        lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+        lvl = lvl * 4 / 5;
+        ks = keys(me->query_skills(martial));
+        improve = 0;
+        n = 0;
+        //最多给予5个技能的加成
+        for (m = 0; m < sizeof(ks); m++)
+        {
+            if (SKILL_D(ks[m])->valid_enable(martial))
+            {
+                n += 1;
+                improve += (int)me->query_skill(ks[m], 1);
+                if (n > 4 )
+                    break;
+            }
+        }
+
+        improve = improve * 4 / 100 / lvl;
 
         ap = me->query_skill("blade") + me->query("str") * 10;
         dp = target->query_skill("dodge") + target->query("dex") * 10;
-		
-		ap += ap * improve;
+
+        ap += ap * improve;
 
         msg = HIY "$N" HIY "陡然施出「" HIR "噬血穹苍" HIY "」，手中" +
               weapon->name() + HIY "腾起无边杀意，携着风雷之势向$n" HIY
@@ -109,7 +109,7 @@ int perform(object me, object target)
                        "惊，连忙奋力招架。\n" NOR;
                 count = 0;
         }
-	message_combatd(msg, me, target);
+    message_combatd(msg, me, target);
 
         me->add_temp("apply/attack", count);
 
@@ -121,11 +121,11 @@ int perform(object me, object target)
                 if (random(3) == 1 && ! target->is_busy())
                         target->start_busy(1);
 
-        	COMBAT_D->do_attack(me, target, weapon, 0);
+            COMBAT_D->do_attack(me, target, weapon, 0);
         }
         me->receive_wound("qi", 80);
         me->add_temp("apply/attack", -count);
-	me->start_busy(2 + random(6));
+    me->start_busy(2 + random(6));
         me->add("neili", -200 - random(200));
-	return 1;
+    return 1;
 }

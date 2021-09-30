@@ -13,7 +13,6 @@ LONG );
         set("objects", ([
                 __DIR__"npc/juyou" : 1,
         ]));
-	setup();
+    setup();
         replace_program(ROOM);
 }
-

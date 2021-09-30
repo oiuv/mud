@@ -155,7 +155,7 @@ TEXT NOR);
 
 string look_net()
 {
-//	object me = this_player();
+//    object me = this_player();
         object here;
         string msg;
 

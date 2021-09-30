@@ -10,12 +10,12 @@ void create ()
 闹，人来人往川流不息。大街的两旁商家云集，大大小小的店铺比邻而
 立。北边是一家钱庄，可以听到叮叮当当的金银声音。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 4
-		"south" : __DIR__"qunyulou",
-        	"north" : __DIR__"bank",
-        	"west" : __DIR__"beian-daokou",
-        	"east" : __DIR__"qixiang5",
+        "south" : __DIR__"qunyulou",
+            "north" : __DIR__"bank",
+            "west" : __DIR__"beian-daokou",
+            "east" : __DIR__"qixiang5",
         ]));
 
         set("outdoors", "changan");

@@ -26,11 +26,11 @@ void init()
 void says(object me)
 {
         string *msgs = ({
-        	"$N绘声绘色地说着书。\n",
-        	"$N滔滔不绝地说着书。\n",
-        	"$N说得眉飞色舞。\n",
-        	"$N说道：“欲知后事如何，且听下回分解。”\n",
-        	"$N端起茶碗喝了几口茶水，又开始接着说书。\n",
+            "$N绘声绘色地说着书。\n",
+            "$N滔滔不绝地说着书。\n",
+            "$N说得眉飞色舞。\n",
+            "$N说道：“欲知后事如何，且听下回分解。”\n",
+            "$N端起茶碗喝了几口茶水，又开始接着说书。\n",
         });
         message_vision (msgs[random(sizeof(msgs))], me);
         remove_call_out("says");

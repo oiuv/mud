@@ -13,12 +13,12 @@ int perform(object me, object target)
         string msg;
         int ap, dp, p;
         int lv, cost_neili;
-		
-		float improve;
-		int lvl, i, n;
-		string martial;
-		string *ks;
-		martial = "hand";
+
+                float improve;
+                int lvl, i, n;
+                string martial;
+                string *ks;
+                martial = "hand";
 
         if (userp(me) && ! me->query("can_perform/zhemei-shou/hua"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -35,7 +35,7 @@ int perform(object me, object target)
                 return notify_fail(HUA "只能空手施展。\n");
 
         if ((int)me->query_skill("beiming-shengong", 1) < 220
-			&& (int)me->query_skill("xiaowuxiang", 1) < 220)
+                        && (int)me->query_skill("xiaowuxiang", 1) < 220)
                 return notify_fail("你的逍遥内功火候不够，难以施展" HUA "。\n");
 
         if (lv = (int)me->query_skill("zhemei-shou", 1) < 220)
@@ -45,7 +45,7 @@ int perform(object me, object target)
                 return notify_fail("你的内力修为不足，难以施展" HUA "。\n");
 
         if (me->query_skill_mapped("force") != "beiming-shengong"
-			&& me->query_skill_mapped("force") != "xiaowuxiang")
+                        && me->query_skill_mapped("force") != "xiaowuxiang")
                 return notify_fail("你没有激发逍遥内功，难以施展" HUA "。\n");
 
         if (me->query_skill_mapped("hand") != "zhemei-shou")
@@ -63,30 +63,30 @@ int perform(object me, object target)
         msg = HIM "$N" HIM "深深吸进一口气，单手挥出，掌缘顿时霞光万道，漾出"
               "七色虹彩向$n" HIM "席卷而至。\n" NOR;
 
-		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		lvl = lvl * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (i = 0; i < sizeof(ks); i++)
-		{
-			if (SKILL_D(ks[i])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[i], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 4 / 100 / lvl;
-			  
+                lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+                lvl = lvl * 4 / 5;
+                ks = keys(me->query_skills(martial));
+                improve = 0;
+                n = 0;
+                //最多给予5个技能的加成
+                for (i = 0; i < sizeof(ks); i++)
+                {
+                        if (SKILL_D(ks[i])->valid_enable(martial))
+                        {
+                                n += 1;
+                                improve += (int)me->query_skill(ks[i], 1);
+                                if (n > 4 )
+                                        break;
+                        }
+                }
+
+                improve = improve * 4 / 100 / lvl;
+
         ap = me->query_skill("dodge") + me->query_skill("hand");
         dp = target->query_skill("dodge") + target->query_skill("parry");
 
-		ap += ap * improve;
-		
+                ap += ap * improve;
+
         if (target->is_bad() || ! userp(target))
                 ap += ap / 10;
 

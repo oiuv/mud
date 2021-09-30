@@ -19,15 +19,14 @@ int valid_learn(object me) { return 1; }
 
 string query_dodge_msg(string limb)
 {
-	return dodge_msg[random(sizeof(dodge_msg))];
+    return dodge_msg[random(sizeof(dodge_msg))];
 }
 
 int practice_skill(object me)
 {
-	if( (int)me->query("qi") < 50 )
-		return notify_fail("你的体力太差了，不能练月隐舞步。\n");
+    if( (int)me->query("qi") < 50 )
+        return notify_fail("你的体力太差了，不能练月隐舞步。\n");
 
-	me->receive_damage("qi", 40);
-	return 1;
+    me->receive_damage("qi", 40);
+    return 1;
 }
-

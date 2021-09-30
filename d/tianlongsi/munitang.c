@@ -9,14 +9,14 @@ void create()
 LONG
         );
         set("exits", ([
-		"north": __DIR__"banruotai",
-	]));
-	set("objects",([
-		CLASS_D("tianlongsi") + "/kurong"   : 1,
-		CLASS_D("tianlongsi") + "/benguan"  : 1,
-		CLASS_D("tianlongsi") + "/benxiang" : 1,
-		CLASS_D("tianlongsi") + "/bencan"   : 1,
-		CLASS_D("tianlongsi") + "/benyin"   : 1,
+        "north": __DIR__"banruotai",
+    ]));
+    set("objects",([
+        CLASS_D("tianlongsi") + "/kurong"   : 1,
+        CLASS_D("tianlongsi") + "/benguan"  : 1,
+        CLASS_D("tianlongsi") + "/benxiang" : 1,
+        CLASS_D("tianlongsi") + "/bencan"   : 1,
+        CLASS_D("tianlongsi") + "/benyin"   : 1,
         ]));
         setup();
 }

@@ -83,12 +83,12 @@ int valid_learn(object me)
 
 int valid_enable(string usage)
 {
-	return usage == "cuff" || usage == "parry";
+    return usage == "cuff" || usage == "parry";
 }
 
 int valid_combine(string combo)
 {
-	return combo == "wuluo-zhang";
+    return combo == "wuluo-zhang";
 }
 
 mapping query_action(object me, object weapon)

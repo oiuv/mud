@@ -1,6 +1,6 @@
 #include <ansi.h>
 inherit SKILL;
- 
+
 mapping *action = ({
 ([      "action": "$N身形稍退，手中$w迎风一抖，朝着$n劈头盖脸地砸将下",
         "dodge" : 31,
@@ -79,7 +79,7 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "parry" || usage == "club";
+    return usage == "parry" || usage == "club";
 }
 
 int valid_learn(object me)

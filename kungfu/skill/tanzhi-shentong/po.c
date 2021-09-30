@@ -57,17 +57,17 @@ int perform(object me, object target)
 
         if (ap / 2 + random(ap) > dp)
         {
-	        me->start_busy(2);
-               	//damage = ap / 2 + random(ap / 3);
-               	damage = ap / 2 + random(ap / 2);
+            me->start_busy(2);
+                   //damage = ap / 2 + random(ap / 3);
+                   damage = ap / 2 + random(ap / 2);
 
                 msg += HIR "只见那" + weapon->query("base_unit") +
                        weapon->name() + HIR "来势迅猛之极，$n" HIR
                        "根本无暇闪避，被这招击个正中！\n" NOR;
 
                 target->receive_wound("qi", damage, me);
-       	        COMBAT_D->clear_ahinfo();
-               	weapon->hit_ob(me, target, me->query("jiali") + 300);
+                   COMBAT_D->clear_ahinfo();
+                   weapon->hit_ob(me, target, me->query("jiali") + 300);
 
                 if ((weapon2 = target->query_temp("weapon"))
                    && ap / 3 + random(ap) > dp)
@@ -79,12 +79,12 @@ int perform(object me, object target)
 
                 p = (int)target->query("qi") * 100 / (int)target->query("max_qi");
                 if (stringp(pmsg = COMBAT_D->query_ahinfo()))
-       	                msg += pmsg;
-               	        msg += "( $n" + eff_status_msg(p) + " )\n";
-               	message_combatd(msg, me, target);
+                           msg += pmsg;
+                           msg += "( $n" + eff_status_msg(p) + " )\n";
+                   message_combatd(msg, me, target);
         } else
         {
-	        me->start_busy(3);
+            me->start_busy(3);
                 msg += CYN "可是$p" CYN "早料得$P" CYN "有此一着，急"
                        "忙飞身跃起，躲闪开来。\n" NOR;
                 message_combatd(msg, me, target);

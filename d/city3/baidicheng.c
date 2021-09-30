@@ -11,9 +11,9 @@ void create()
 像，凭栏怀古，心潮汹涌，令人神怡。
 LONG);
         set("exits", ([
-  		"west" : __DIR__"shudao10",
-		"east" : __DIR__"shudao9",
-  
+          "west" : __DIR__"shudao10",
+        "east" : __DIR__"shudao9",
+
         ]));
         set("objects", ([
                 "/d/beijing/npc/shiren" : 1,
@@ -24,4 +24,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

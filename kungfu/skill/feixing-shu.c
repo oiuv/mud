@@ -17,7 +17,7 @@ string *dodge_msg = ({
 
 int valid_enable(string usage)
 {
-	return usage == "throwing" ||
+    return usage == "throwing" ||
                usage == "dodge";
 }
 

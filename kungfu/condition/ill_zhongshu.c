@@ -14,7 +14,7 @@ int update_condition(object me, int duration)
         if( duration < 1 ) return 0;
 
         message("vision", HIG + me->name() + "头重脚轻，晕晕乎乎抬不"
-		          "起头来，看来是中暑了。\n" NOR,
+                  "起头来，看来是中暑了。\n" NOR,
                 environment(me), me);
 
         if( !living(me) && me->query("qi") < 2 ) {
@@ -24,7 +24,7 @@ int update_condition(object me, int duration)
         }
         else
         tell_object(me, HIB "你觉得胸臆之间一阵翻腾，头重"
-		        "脚轻，脑门发热，看来是中暑了。\n" NOR );
+                "脚轻，脑门发热，看来是中暑了。\n" NOR );
 
         me->receive_wound("qi", 2);
         me->receive_damage("qi", 2);

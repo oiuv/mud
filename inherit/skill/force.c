@@ -117,13 +117,13 @@ int do_effect(object me)
 
        // if ((me->query("reborn") && (int)me->query_skill("buddhism", 1) > 199) || (me->query("family/family_name") == "少林派" && (int)me->query_skill("buddhism", 1) > 299) || (int)me->query_skill("buddhism", 1) > 399)
        if ((me->query("reborn") && ((int)me->query_skill("buddhism", 1) > 299 || (me->query("family/family_name") == "少林派" && (int)me->query_skill("buddhism", 1) > 199))) ||
-       	 (me->query("family/family_name") == "少林派" && (int)me->query_skill("buddhism", 1) > 399) || (int)me->query_skill("buddhism", 1) > 499)
-        { 
-                n = 1; 
-        } else 
-        { 
-                lvl += lvl / 2; 
-        } 
+                (me->query("family/family_name") == "少林派" && (int)me->query_skill("buddhism", 1) > 399) || (int)me->query_skill("buddhism", 1) > 499)
+        {
+                n = 1;
+        } else
+        {
+                lvl += lvl / 2;
+        }
 
 
         if (lvl < n * 9 / 10)
@@ -159,5 +159,3 @@ int do_effect(object me)
         }
         return 0;
 }
-
-

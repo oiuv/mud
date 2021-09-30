@@ -8,24 +8,24 @@ void create()
 处于密林之中所以这里平时很少有人来，但是不知道为什么今
 天这里却有不少人。你看，又一个来了。
 LONG );
-	set("exits", ([
-		"north" : __DIR__"xiaodao3",
-		"south" : __DIR__"xiaodao5",
-		"east"  : __DIR__"xiaodao4",
-		"west"  : __DIR__"xiaodao1",
+    set("exits", ([
+        "north" : __DIR__"xiaodao3",
+        "south" : __DIR__"xiaodao5",
+        "east"  : __DIR__"xiaodao4",
+        "west"  : __DIR__"xiaodao1",
                 "enter" : __DIR__"midao",
-	]));
-	set("outdoors", "xiaoyao");
-	set("objects", ([
-		CLASS_D("xiaoyao") + "/suxingh" : 1,
+    ]));
+    set("outdoors", "xiaoyao");
+    set("objects", ([
+        CLASS_D("xiaoyao") + "/suxingh" : 1,
                 CLASS_D("duan") + "/duanyq" : 1,
                 CLASS_D("duan") + "/duanyu" : 1,
                 __DIR__"npc/wangyuyan" : 1,
-	]));
+    ]));
         set("zhenlong", 1);
-	set("valid_startroom", 1);
-	setup();
-	"/clone/board/xiaoyao_b"->foo();
+    set("valid_startroom", 1);
+    setup();
+    "/clone/board/xiaoyao_b"->foo();
 }
 
 int valid_leave(object me, string dir)

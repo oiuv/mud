@@ -10,8 +10,8 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"east" : __DIR__"hh_zoulang2",
-	]));
+          "east" : __DIR__"hh_zoulang2",
+    ]));
         setup();
         replace_program(ROOM);
 }

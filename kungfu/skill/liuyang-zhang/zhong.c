@@ -27,8 +27,8 @@ int perform(object me, object target)
 
         if (me->query_skill_mapped("strike") != "liuyang-zhang")
                 return notify_fail("你没有激发掌法天山六阳掌，难以施展" ZHONG "。\n");
-			
-		if (me->query_skill_mapped("throwing") != "liuyang-zhang")
+
+        if (me->query_skill_mapped("throwing") != "liuyang-zhang")
                 return notify_fail("你没有激发暗器天山六阳掌，难以施展" ZHONG "。\n");
 
         if (me->query_skill_prepared("strike") != "liuyang-zhang")
@@ -45,7 +45,7 @@ int perform(object me, object target)
 
         ap = me->query_skill("force") + me->query_skill("throwing") + me->query_skill("medical");
         dp = target->query_skill("force") + target->query_skill("medical");
-		flvl = me->query("jiali");
+        flvl = me->query("jiali");
         if (ap / 3 + random(ap) > dp)
         {
                 target->receive_wound("jing", 10 + random(5), me);
@@ -70,4 +70,3 @@ int perform(object me, object target)
 
         return 1;
 }
-

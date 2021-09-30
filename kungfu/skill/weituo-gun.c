@@ -140,5 +140,5 @@ int practice_skill(object me)
 
 string perform_action_file(string action)
 {
-	return __DIR__"weituo-gun/" + action;
+    return __DIR__"weituo-gun/" + action;
 }

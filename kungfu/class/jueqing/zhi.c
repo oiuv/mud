@@ -14,7 +14,7 @@ void create()
         object ob1,ob2;
         set_name("公孙止", ({ "gongsun zhi", "gongsun", "zhi" }));
         set("nickname", HIR "阴阳刃" NOR);
-	set("gender", "男性");
+    set("gender", "男性");
         set("attitude", "peaceful");
         set("shen_type", 0);
         set("age", 40);
@@ -30,19 +30,19 @@ void create()
         set("combat_exp", 3000000);
 
         set_skill("force", 240);
-        set_skill("jueqing-xinfa", 240);   
-	set_skill("fenxin-jue", 240);
+        set_skill("jueqing-xinfa", 240);
+    set_skill("fenxin-jue", 240);
         set_skill("dodge", 240);
         set_skill("jueqing-shenfa", 240);
         set_skill("strike", 240);
         set_skill("jueqing-zhang", 240);
         set_skill("guhong-zhang", 240);
-        set_skill("cuff", 240);   
+        set_skill("cuff", 240);
         set_skill("pokong-quan", 240);
         set_skill("medical", 240);
         set_skill("jueqing-yaoli", 240);
         set_skill("sword", 260);
-        set_skill("yinyang-ren", 260); 
+        set_skill("yinyang-ren", 260);
         set_skill("zilei-jian", 260);
         set_skill("guxing-jian", 260);
         set_skill("blade", 260);
@@ -64,7 +64,7 @@ void create()
         map_skill("parry", "jueqing-yaoli");
 
         prepare_skill("strike", "jueqing-zhang");
-             
+
         create_family("绝情谷", 4, "谷主");
 
         set("chat_chance_combat", 120);
@@ -72,7 +72,7 @@ void create()
                 (: perform_action, "sword.huan" :),
                 (: perform_action, "sword.heng" :),
                 (: perform_action, "strike.hun" :),
-		(: perform_action, "strike.wan" :),
+        (: perform_action, "strike.wan" :),
                 (: exert_function, "recover" :),
                 (: exert_function, "powerup" :),
         }));
@@ -111,7 +111,7 @@ void create()
                         ob2->move(this_object());
                         ob2->wield();
                 }
-	}
+    }
         carry_object("/clone/cloth/cloth")->wear();
 }
 
@@ -141,18 +141,18 @@ void attempt_apprentice(object ob)
         }
 
         if ((int)ob->query_skill("jueqing-xinfa", 1) < 120)
-        {       
+        {
                 command("say 我绝情谷武功讲究心神合一，最重视基本心法。");
                 command("say 你的绝情心法还不够熟练，下去练练再来吧。");
                 return;
         }
-   
+
         if ((int)ob->query_skill("dodge") < 180)
         {
                 command("say 我绝情谷武功需配合灵动的身法。");
                 command("say 你是否还应该在轻功修为上多下点功夫？");
                 return;
-        } 
+        }
 
         command("nod");
         command("say 念你还是个可造之才，今日我就收下你吧。");

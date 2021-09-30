@@ -7,7 +7,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-        // object weapon; 
+        // object weapon;
         string msg;
         int ap, dp;
         int damage;
@@ -57,7 +57,7 @@ int perform(object me, object target)
                 msg += HIR "只见$p" HIR "一声惨叫，已被点中胸口要穴，"
                        "$p" HIR "只觉得胸口气血汹涌，全身气血"
                        "倒流，哇的一声吐出一口鲜血，苦不堪言！\n" NOR;
-		msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 60);
+        msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 60);
         } else
         {
                 me->add("neili", -100);

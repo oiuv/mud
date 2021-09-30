@@ -11,14 +11,14 @@ void create ()
 诱人的珠光宝气，很多妇人路过这里都不免要往里瞧一瞧。南方通向永
 泰大道。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
-        	"east" : __DIR__"qixiang1",
-        	"north" : __DIR__"zhubaohang",
-        	"south" : __DIR__"yongtai-dadao1"
+            "east" : __DIR__"qixiang1",
+            "north" : __DIR__"zhubaohang",
+            "south" : __DIR__"yongtai-dadao1"
         ]));
 
-        set("outdoors", "changan");  
+        set("outdoors", "changan");
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

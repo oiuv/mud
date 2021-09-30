@@ -106,6 +106,5 @@ int free_ob(object me)
         me->move(startroom);
         message("vision", "一阵诡秘的烟雾过后，只见" + me->name() +
                           "直挺挺的躺在地上。\n", environment(me), ({ me }));
-	return 1;
+    return 1;
 }
-

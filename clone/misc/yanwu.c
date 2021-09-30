@@ -15,7 +15,7 @@ void create()
                 set("long", "一颗特制的烟雾弹。它可以用(apply)来制造混乱，趁机逃走。\n");
                 set("unit", "个");
                 set("value", 10000);
-		set("no_sell", 1);
+        set("no_sell", 1);
                 set("can_apply_for_wimpy", 1);
         }
         setup();
@@ -63,10 +63,10 @@ int apply_for_wimpy(object me)
 
         me->set_temp("no_follow",1);
         tell_room(environment(me), HIM "\n地面突然腾出一股桃红色的"
-				   "烟雾，大家什么也看不见，陷入"
-				   "混乱之中。\n" NOR);
+                   "烟雾，大家什么也看不见，陷入"
+                   "混乱之中。\n" NOR);
 
-	me->set_temp("success_flee", "你借着混乱成功的逃走了。\n");
+    me->set_temp("success_flee", "你借着混乱成功的逃走了。\n");
         GO_CMD->do_flee(me);
         destruct(this_object());
         return 1;

@@ -9,9 +9,9 @@ void create()
 湖。大道伸向东和西南两边，往北是另一条大道。
 LONG);
         set("exits", ([
-            	"north"     : __DIR__"dadao3",
-            	"south" : __DIR__"road18",
-            	"east"      : __DIR__"road20",
+                "north"     : __DIR__"dadao3",
+                "south" : __DIR__"road18",
+                "east"      : __DIR__"road20",
         ]));
         set("objects" , ([
                 __DIR__"npc/dao-ke"  :1,

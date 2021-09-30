@@ -7,53 +7,53 @@ inherit ITEM;
 
 int has_start;
 
-mixed wake_point;			// 出机点数
+mixed wake_point;            // 出机点数
 
-int cur_player;				// 当前的玩家ID
-int cur_se;					// 当前色子数目
-mixed *cur_qi;				// 当前移动的棋子
-mixed shadow_qi;			// 当前移动的棋子的影子
-int has_jump;				// 曾经跳跃过
+int cur_player;                // 当前的玩家ID
+int cur_se;                    // 当前色子数目
+mixed *cur_qi;                // 当前移动的棋子
+mixed shadow_qi;            // 当前移动的棋子的影子
+int has_jump;                // 曾经跳跃过
 
-mixed player;				// 2 or 4个玩家 [{ id,id,id,id }]
+mixed player;                // 2 or 4个玩家 [{ id,id,id,id }]
 
-#define QI_SLEEP	0
-#define QI_WAIT		1
-#define QI_WALK		2
-#define QI_END		3
-#define QI_BACK		4
-#define QI_MOVE		10
+#define QI_SLEEP    0
+#define QI_WAIT        1
+#define QI_WALK        2
+#define QI_END        3
+#define QI_BACK        4
+#define QI_MOVE        10
 
-#define QI_FLAG		0
-#define QI_X		1
-#define QI_Y		2
-#define QI_PLAYER	3
-#define QI_ID		4
-#define QI_MAX		5
-mixed qizi;					// 棋子
+#define QI_FLAG        0
+#define QI_X        1
+#define QI_Y        2
+#define QI_PLAYER    3
+#define QI_ID        4
+#define QI_MAX        5
+mixed qizi;                    // 棋子
                             // ({棋子状态，棋子位置X，棋子位置Y,player,qi_id})
 
-mixed player_start =		// 玩家的起点
+mixed player_start =        // 玩家的起点
 ({
     ({14,10}),({4,14}),({0,4}),({10,0})
 });
-mixed player_ready =		// 玩家的出机位置
+mixed player_ready =        // 玩家的出机位置
 ({
     ({ ({14,12}),({13,12}),({12,12}),({11,12}) }),
     ({ ({2,14}),({2,13}),({2,12}),({2,11}) }),
     ({ ({0,2}),({1,2}),({2,2}),({3,2}) }),
     ({ ({12,0}),({12,1}),({12,2}),({12,3}) }),
 });
-mixed super_hit =			// 超级跳跃的攻击点
+mixed super_hit =            // 超级跳跃的攻击点
 ({
     ({3,7}),({7,3}),({11,7}),({7,11})
 });
 
 
-mixed qi_view =					// 玩家的棋子的外观
+mixed qi_view =                    // 玩家的棋子的外观
 ({
-    ({"１","２","３","４"}),	// 其他人看的棋子
-    ({"Ａ","Ｂ","Ｃ","Ｄ"}),	// 当前活动的棋子
+    ({"１","２","３","４"}),    // 其他人看的棋子
+    ({"Ａ","Ｂ","Ｃ","Ｄ"}),    // 当前活动的棋子
 });
 
 mixed clr =
@@ -65,26 +65,26 @@ mixed bkclr =
     "",HBRED,HBMAG,HBBLU,HBGRN
 });
 
-#define P_LEFT	1			// 路径
-#define P_RIGHT	2
-#define P_UP	4
-#define P_DOWN	8
+#define P_LEFT    1            // 路径
+#define P_RIGHT    2
+#define P_UP    4
+#define P_DOWN    8
 
-#define B_NORMAL	0
-#define B_GATE		1		// 完成的道门
-#define B_ROAD		2		// 完成的道
-#define B_SJUMP		3		// 超级跳跃
-#define B_END		4		// 结束
-#define B_STOP		5		// 停机场
-#define B_READY		6		// 出机场
+#define B_NORMAL    0
+#define B_GATE        1        // 完成的道门
+#define B_ROAD        2        // 完成的道
+#define B_SJUMP        3        // 超级跳跃
+#define B_END        4        // 结束
+#define B_STOP        5        // 停机场
+#define B_READY        6        // 出机场
 
-#define BD_COLOR	0
-#define BD_PATH		1
-#define BD_FLAG		2
-#define BD_PLAYER	3
-#define BD_QI		4
+#define BD_COLOR    0
+#define BD_PATH        1
+#define BD_FLAG        2
+#define BD_PLAYER    3
+#define BD_QI        4
 
-mixed board =				// ({属性，路径，标志，玩家号，棋子号})
+mixed board =                // ({属性，路径，标志，玩家号，棋子号})
 ({
 ({ ({3,0,5,0,0 }),({3,0,5,0,0 }),      0       ,      0       ,({1,2,0,0,0 }),({2,2,0,0,0 }),({3,2,0,0,0 }),({4,2,1,0,0 }),({1,2,0,0,0 }),({2,2,0,0,0 }),({3,8,0,0,0 }),      0       ,({4,0,6,0,0 }),({4,0,5,0,0 }),({4,0,5,0,0 }),}),
 ({ ({3,0,5,0,0 }),({3,0,5,0,0 }),      0       ,      0       ,({4,4,0,0,0 }),      0       ,      0       ,({4,8,2,0,0 }),      0       ,      0       ,({4,8,0,0,0 }),      0       ,({4,0,6,0,0 }),({4,0,5,0,0 }),({4,0,5,0,0 }),}),
@@ -103,7 +103,7 @@ mixed board =				// ({属性，路径，标志，玩家号，棋子号})
 ({ ({2,0,5,0,0 }),({2,0,5,0,0 }),({2,0,6,0,0 }),      0       ,({1,4,0,0,0 }),({4,1,0,0,0 }),({3,1,0,0,0 }),({2,1,1,0,0 }),({1,1,0,0,0 }),({4,1,0,0,0 }),({3,1,0,0,0 }),      0       ,      0       ,({1,0,5,0,0 }),({1,0,5,0,0 }),}),
 });
 
-mixed board_view =				// 棋盘视图 红黄蓝绿
+mixed board_view =                // 棋盘视图 红黄蓝绿
 ({
     ({ HBWHT HIB "●" NOR,HBWHT HIB "●" NOR,"　","　"    ,HIR "●" NOR,HIY "●" NOR,HIB "●" NOR,HIG "◆" NOR,HIR "●" NOR,HIY "●" NOR,HIB "●" NOR,    "←","　",HBWHT HIG "●" NOR,HBWHT HIG "●" NOR, }),
     ({ HBWHT HIB "●" NOR,HBWHT HIB "●" NOR,"　","　"    ,HIG "●" NOR,    "　"    ,    "　"    ,HIG "●" NOR,    "　"    ,    "　"    ,HIG "●" NOR,    "　","　",HBWHT HIG "●" NOR,HBWHT HIG "●" NOR, }),
@@ -190,19 +190,19 @@ int return_base(int pl_num,int qi_num)
 int reset_game(int all)
 {
     int i,j;
-//	string* idx;
-//	object ob;
+//    string* idx;
+//    object ob;
 
     if(all)has_start = 0;
     cur_player = 0;
     if(all)player = ({0,0,0,0});
     if(all)wake_point = ({6});
-    qizi = allocate(4);					// 4副棋子
+    qizi = allocate(4);                    // 4副棋子
     for(i=0;i<4;i++)
     {
-        qizi[i] = allocate(4);			// 4个棋子/1副
+        qizi[i] = allocate(4);            // 4个棋子/1副
         for(j=0;j<4;j++)
-            qizi[i][j] = ({0,0,0,i+1,j+1});	// 5个状态/1个棋子
+            qizi[i][j] = ({0,0,0,i+1,j+1});    // 5个状态/1个棋子
     }
 
     for(i=0;i<15;i++)
@@ -446,15 +446,15 @@ void init()
 {
         add_action("do_help","helpqi");                 // 帮助
 
-    add_action("do_reset","reset");			// 重置游戏
-    add_action("do_start","start");			// 重新开始
-    add_action("do_join","join");			// 加入游戏
+    add_action("do_reset","reset");            // 重置游戏
+    add_action("do_start","start");            // 重新开始
+    add_action("do_join","join");            // 加入游戏
 
-    add_action("do_toss","toss");			// 摇色子
-    add_action("do_view","view");			// 查看情况
-    add_action("do_move","move");			// 移动
+    add_action("do_toss","toss");            // 摇色子
+    add_action("do_view","view");            // 查看情况
+    add_action("do_move","move");            // 移动
 
-    add_action("do_next","next");			// 催促
+    add_action("do_next","next");            // 催促
 }
 
 void show_se(int se)
@@ -617,9 +617,9 @@ int do_toss(string arg)
 string extra_long()
 {
     object me;
-//	object who;
+//    object who;
     string r/*,r2*/;
-//	int i;
+//    int i;
 
     me = this_player();
     r = "\n"+build_qi(me);
@@ -786,7 +786,7 @@ int reach(mixed* qi)
                 return 1;
             }
             break;
-        case B_SJUMP:		// 超级跳跃
+        case B_SJUMP:        // 超级跳跃
             if(qi[QI_PLAYER] == ge[BD_COLOR] && !has_jump)
             {
                 msg(get_cur_player(),0,HIY "\n$N的飞机进行超级跳跃！\n");
@@ -801,7 +801,7 @@ int reach(mixed* qi)
                 return 1;
             }
             break;
-        case B_END:			// 结束
+        case B_END:            // 结束
             msg(get_cur_player(),0,"$N的一架飞机到终点了。\n");
             return_base(qi[QI_PLAYER],qi[QI_ID]);
             qi[QI_FLAG] = QI_END;

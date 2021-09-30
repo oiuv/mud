@@ -12,7 +12,7 @@ string *dodge_msg = ({
 
 int valid_enable(string usage)
 {
-	return usage == "dodge" || usage == "move";
+    return usage == "dodge" || usage == "move";
 }
 
 int valid_learn(object me) { return 1; }

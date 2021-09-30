@@ -2,11 +2,11 @@
 
 varargs int getoid(object ob)
 {
-	int id;
+    int id;
 
-	if (!ob) ob = previous_object();
-	sscanf(file_name(ob), "%*s#%d", id);
-	return id;
+    if (!ob) ob = previous_object();
+    sscanf(file_name(ob), "%*s#%d", id);
+    return id;
 }
 
 // Get the owner of a file.  Used by log_error() in master.c.
@@ -28,31 +28,31 @@ string file_owner(string file)
 // domain_file should return the domain associated with a given file.
 string domain_file(string file)
 {
-	string domain;
+    string domain;
 
-	if (sscanf(file, "/d/%s/%*s", domain))
-		return domain;
+    if (sscanf(file, "/d/%s/%*s", domain))
+        return domain;
 
-	return ROOT_UID;
+    return ROOT_UID;
 }
 
 // creator_file should return the name of the creator of a specific file.
 string creator_file(string file)
 {
-	string *path;
+    string *path;
 
-	path = explode(file, "/") - ({ 0 });
-	switch (path[0])
+    path = explode(file, "/") - ({ 0 });
+    switch (path[0])
         {
-		case "adm":
-			if (file == SIMUL_EFUN_OB) return "MudOS";
-			else return ROOT_UID;
-		case "cmds":
+        case "adm":
+            if (file == SIMUL_EFUN_OB) return "MudOS";
+            else return ROOT_UID;
+        case "cmds":
                 case "shadow":
-			return ROOT_UID;
-		case "u":
-			if (sizeof(path) >= 3) return path[1];
-		case "d":
+            return ROOT_UID;
+        case "u":
+            if (sizeof(path) >= 3) return path[1];
+        case "d":
                         return "Domain";
                 case "clone":
                         return "Clone";
@@ -62,19 +62,19 @@ string creator_file(string file)
                         return "Kungfu";
                 case "inherit":
                         return "Inherit";
-		default:
-			return "Unknow";
-	}
+        default:
+            return "Unknow";
+    }
 }
 
 // author_file should return the name of the author of a specific file.
 string author_file(string file)
 {
-	string name;
+    string name;
 
-	if (sscanf(file, "/u/%*s/%s/%*s", name))
-		return name;
-	return ROOT_UID;
+    if (sscanf(file, "/u/%*s/%s/%*s", name))
+        return name;
+    return ROOT_UID;
 }
 
 // check the object's euid wheter is root
@@ -99,11 +99,11 @@ int is_root(mixed ob)
 // simul efun:destruct
 void destruct(object ob)
 {
-	if (ob)
+    if (ob)
         {
-		if (previous_object()) ob->remove(geteuid(previous_object()));
-		else ob->remove(0);
-	}
+        if (previous_object()) ob->remove(geteuid(previous_object()));
+        else ob->remove(0);
+    }
 
         efun::destruct(ob);
 }

@@ -9,13 +9,13 @@ void create()
 师旷常在此吹奏古乐，故名『吹台』。
 LONG);
         set("objects", ([
-  		__DIR__"npc/woman" : 1,
-	]));
+          __DIR__"npc/woman" : 1,
+    ]));
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"shulin",
-  		"eastup" : __DIR__"yuwangmiao",
-	]));
+          "west" : __DIR__"shulin",
+          "eastup" : __DIR__"yuwangmiao",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

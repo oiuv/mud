@@ -11,7 +11,7 @@ int perform(object me, object target)
 {
         string msg;
         int ap, dp;
-		int damage;
+        int damage;
 
         if (userp(me) && ! me->query("can_perform/tanzhi-shentong/ding"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -26,7 +26,7 @@ int perform(object me, object target)
 
         //if (target->is_busy())
         //        return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");
-		if (target->query_temp("no_perform"))
+        if (target->query_temp("no_perform"))
                 return notify_fail("对方现在已经无法控制真气，放胆攻击吧。\n");
 
         if ((int)me->query_skill("tanzhi-shentong", 1) < 120)
@@ -62,8 +62,8 @@ int perform(object me, object target)
                         HIR "指气射中，全身酸软无力，呆立当场。\n" NOR;
                 target->start_busy(ap / 30 + 2);
 */
-				damage = ap / 4 + random(ap / 2);
-				msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 0, (: final, me, target, 0 :));
+                damage = ap / 4 + random(ap / 2);
+                msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 0, (: final, me, target, 0 :));
                 me->start_busy(2);
                 me->add("neili", -200);
 
@@ -72,10 +72,10 @@ int perform(object me, object target)
                 msg += CYN "可是$p" CYN "看破了$P" CYN
                        "的企图，轻轻一跃，跳了开去。\n" NOR;
                 me->start_busy(1);
-				me->add("neili", -150);
+                me->add("neili", -150);
         }
         message_combatd(msg, me, target);
-		return 1;
+        return 1;
 }
 
 string final(object me, object target)
@@ -101,6 +101,6 @@ void ding_end(object me, object target)
                                             "慢慢平静了下来。\n" NOR);
                 }
                 target->delete_temp("no_perform");
-	}
-	return;
+    }
+    return;
 }

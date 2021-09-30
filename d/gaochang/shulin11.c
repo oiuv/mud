@@ -26,20 +26,19 @@ void init()
         object me = this_player();
 
         if (userp(me) && random(2) == 0)
-	{
-        	message_vision(HIR "\n$N" HIR "一不小心触动了机关，顿时只听得头"
+    {
+            message_vision(HIR "\n$N" HIR "一不小心触动了机关，顿时只听得头"
                                "上一阵巨响，一块巨石当头落下。\n$N" HIR "一声惨"
                                "叫，痛得几乎失去了知觉……\n" NOR, me);
-        	if ((int)me->query("eff_qi") < 80)
-		{
+            if ((int)me->query("eff_qi") < 80)
+        {
                         me->set_temp("die_reason", "被巨石砸死了");
-			me->die();
-		} else
-		{
-	                me->receive_wound("qi", 80);
-			me->unconcious();
-		}
-	}
+            me->die();
+        } else
+        {
+                    me->receive_wound("qi", 80);
+            me->unconcious();
+        }
+    }
         return 0;
 }
-

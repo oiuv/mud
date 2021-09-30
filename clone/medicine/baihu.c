@@ -59,11 +59,11 @@ int do_effect(object me)
         my["eff_qi"] = my["max_qi"];
         my["qi"] = my["max_qi"];
 
-	me->start_busy(2);
+    me->start_busy(2);
 
         add_amount(-1);
         if (query_amount() < 1)
                 destruct(this_object());
 
-	return 1;
+    return 1;
 }

@@ -6,12 +6,12 @@ int valid_enable(string usage) { return usage == "force"; }
 
 int valid_force(string force)
 {
-	return force=="shenlong-xinfa";
+    return force=="shenlong-xinfa";
 }
 
 int valid_learn(object me)
 {
-	return ::valid_learn(me);
+    return ::valid_learn(me);
 }
 
 int practice_skill(object me)

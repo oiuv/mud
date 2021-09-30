@@ -11,9 +11,9 @@ LONG
         );
         set("no_clean_up", 0);
         set("exits", ([
-  		"north" : __DIR__"caidi5",
-  		"east" : __DIR__"fenjiao",
-	]));
+          "north" : __DIR__"caidi5",
+          "east" : __DIR__"fenjiao",
+    ]));
 
         setup();
         replace_program(ROOM);

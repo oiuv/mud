@@ -25,9 +25,9 @@ mapping special_data = ([
         "str"   : "后天臂力",
         "con"   : "后天根骨",
         "dex"   : "后天身法",
-        	*/
-        	//新增 by 薪有所属 统一为四字风格，看着整齐。后续如果有新属性随时补充更新。
-        	//附加属性有这个但实际query_per()中此属性无效，故定义为无效容貌
+            */
+            //新增 by 薪有所属 统一为四字风格，看着整齐。后续如果有新属性随时补充更新。
+            //附加属性有这个但实际query_per()中此属性无效，故定义为无效容貌
         "personality"   : "无效容貌",
         "attack"        : "战斗攻击",
         "defense"       : "战斗防御",
@@ -45,8 +45,8 @@ mapping special_data = ([
         "claw"          : "有效爪法",
         "warm"          : "保暖能力",
 
-        	/*
-        	//留着作相关属性翻译参考
+            /*
+            //留着作相关属性翻译参考
         "max_neili"     : "最大内力上限",
         "max_jingli"    : "最大精力上限",
         "max_qi"        : "最大气血上限",
@@ -105,7 +105,7 @@ mapping special_data = ([
         "add_skilllevel": HIR "提升所有技能等级",                           // 终极兵器
         "add_damage"    : HIR "追加最终伤害百分比",                         // 终极兵器
         "reduce_damage" : HIB "化解最终伤害百分比",                         // 终极防具
-        	*/
+            */
 ]);
 
 string special_desc(string arg)

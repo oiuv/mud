@@ -10,7 +10,7 @@ string *name_words = ({ "顺","昌","振","发","财","俊","彦","良","志","�
                         "金","辉","长","盛","胜","进","安","福","同","满","富","万","龙","隆",
                         "祥","栋","国","亿","寿","思","霖","雷","鹏","平","轼","甫","维","龄",
                         "桥","溪","声","谷","山","舟","岩","泉","游","逊", });
-        
+
 void create()
 {
         string name;
@@ -27,7 +27,7 @@ void create()
         set("attitude", "heroism");
         set("str", 25);
         set("max_qi", 1000);
-	set("max_jing", 1000);
+    set("max_jing", 1000);
         set("neili", 500);
         set("max_neili", 500);
         set("jiali", 30);
@@ -35,7 +35,7 @@ void create()
         set_skill("unarmed", 100);
         set_skill("parry", 100);
         set_skill("dodge", 100);
-	set_skill("force", 100);
+    set_skill("force", 100);
         setup();
 
         carry_object(__DIR__"obj/blade")->wield();

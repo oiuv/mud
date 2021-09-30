@@ -5,7 +5,7 @@ inherit ROOM;
 void create()
 {
         set("short", "广场");
-	set("long", @LONG
+    set("long", @LONG
 这里是华山派在山顶开辟的一块平台，平时聚会的时候使用。虽然不
 大却很平整。东北通向练武场，那里是华山弟子练习功夫的地方，人来人
 往，热闹非凡。西面有个小店。通常有许多华山派弟子在此买些物品。北
@@ -13,7 +13,7 @@ void create()
 上。
 LONG );
         set("exits", ([ /* sizeof() == 2 */
-	    "northeast" : __DIR__"wuchang1",
+        "northeast" : __DIR__"wuchang1",
             "northwest" : __DIR__"chaopath1",
             "south"     : __DIR__"yunu",
             "north"     : __DIR__"qunxianguan",

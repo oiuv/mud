@@ -10,14 +10,14 @@ void create()
 高。两边是十八罗汉。
 LONG);
         set("objects", ([
-  		__DIR__"npc/obj/rulaixiang" : 1,
-	]));
+          __DIR__"npc/obj/rulaixiang" : 1,
+    ]));
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"south" : __DIR__"zhongyuan",
-  		"north" : __DIR__"houyuan",
-	]));
+          "south" : __DIR__"zhongyuan",
+          "north" : __DIR__"houyuan",
+    ]));
 
         setup();
         replace_program(ROOM);

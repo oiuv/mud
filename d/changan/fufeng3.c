@@ -10,11 +10,11 @@ void create ()
 比肩，笙歌处处。景物之美，直如神仙境地。西面有一条大路通往长安
 城的西城门。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 3
-		"north" : __DIR__"fufeng2",
-        	"south" : __DIR__"fufeng4",
-        	"west" : __DIR__"xian-dadao",
+        "north" : __DIR__"fufeng2",
+            "south" : __DIR__"fufeng4",
+            "west" : __DIR__"xian-dadao",
         ]));
 
         set("outdoors", "changan");

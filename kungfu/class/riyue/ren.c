@@ -18,7 +18,7 @@ void create()
         set_name("任我行", ({ "ren woxing", "ren", "woxing" }));
         set("nickname", HIW "我行我素" NOR);
         set("title", "日月神教教主");
-        set("long", @LONG 
+        set("long", @LONG
 这便是日月神教上任教主任我行。只见他一张
 长长的脸孔雪白，更无半分血色。他眉目清秀，
 身材甚高，一头黑发，穿的是一袭青衫。
@@ -32,7 +32,7 @@ LONG);
         set("int", 40);
         set("con", 40);
         set("dex", 40);
-        
+
         set("max_qi", 7000);
         set("max_jing", 5000);
         set("neili", 9000);
@@ -108,17 +108,17 @@ LONG);
                 "反璞归真" : (: ask_skill5 :),
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "sword.gui" :),
-		(: perform_action, "sword.xuan" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "sword.gui" :),
+        (: perform_action, "sword.xuan" :),
                 (: perform_action, "strike.zhuo" :),
                 (: perform_action, "strike.yu" :),
                 (: perform_action, "strike.zhen" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-		(: exert_function, "suck" :),
-	}) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+        (: exert_function, "suck" :),
+    }) );
 
         setup();
         carry_object("/d/heimuya/npc/obj/zaohong")->wear();
@@ -142,12 +142,12 @@ void attempt_apprentice(object ob)
                 return;
         }
 
-	if (ob->query_int() < 34)
-	{
-		command("hmm");
-		command("say 你悟性那么差，怎么领会我的武功？");
-		return;
-	}
+    if (ob->query_int() < 34)
+    {
+        command("hmm");
+        command("say 你悟性那么差，怎么领会我的武功？");
+        return;
+    }
 
         if (ob->query_skill("tianhuan-shenjue", 1) < 150
            && ob->query_skill("riyue-xinfa", 1) < 150)
@@ -174,7 +174,7 @@ mixed try_to_learn_xixingdafa()
         if (ob->query_skill("force", 1) > 180)
         {
                 command("say 你此时的功力已颇为深厚，今日我就传你吸星大法。");
-	        command("whisper " + ob->query("id") + " 压抑内力反噬的口诀"
+            command("whisper " + ob->query("id") + " 压抑内力反噬的口诀"
                         "是%X&$&$%$$#$#，可记好了。");
                 ob->set("can_learn/xixing-dafa/ren", 1);
                 return 0;
@@ -212,7 +212,7 @@ mixed ask_skill1()
 
         message_sort(HIY "\n$n" HIY "点了点头，随即便将$N" HIY "招至身边"
                      "，在耳旁低声细说良久，$N" HIY "听后会心的一笑，看来"
-                     "大有所悟。\n\n" NOR, me, this_object()); 
+                     "大有所悟。\n\n" NOR, me, this_object());
 
         command("nod2");
         command("say 刚才我说的全是此招的精要，可要记牢了。");

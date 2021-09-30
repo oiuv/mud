@@ -30,7 +30,7 @@ int exert(object me, object target)
            (string)weapon->query("skill_type") == "blade" &&
            me->query_skill_mapped("blade") == "xuedao-dafa")
         {
-        	message_combatd(HIR "$N" HIR "嗔目狞笑，手中" + weapon->name() +
+            message_combatd(HIR "$N" HIR "嗔目狞笑，手中" + weapon->name() +
                                 HIR "顿时漾起一道血光，漫起无边杀意。\n" NOR, me);
         }
 
@@ -42,7 +42,7 @@ int exert(object me, object target)
         me->start_call_out((: call_other, __FILE__, "remove_effect",
                               me, skill / 3, skill / 3 :), skill);
         if (me->is_fighting())
-        	me->start_busy(1 + random(3));
+            me->start_busy(1 + random(3));
 
         return 1;
 }

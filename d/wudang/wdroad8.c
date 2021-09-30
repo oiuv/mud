@@ -13,9 +13,8 @@ LONG);
                 "west"      : __DIR__"sanbuguan",
         ]));
         set("objects", ([
-		__DIR__"obj/shitou":1,
+        __DIR__"obj/shitou":1,
         ]));
         setup();
         replace_program(ROOM);
 }
-

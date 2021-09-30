@@ -10,21 +10,21 @@ int do_answer();
 
 void create()
 {
-	set_name("戚长发", ({ "qi changfa","changfa", "qi" }));
-	set("title", HIB"奇货商人"NOR);
+    set_name("戚长发", ({ "qi changfa","changfa", "qi" }));
+    set("title", HIB"奇货商人"NOR);
   set("nickname", HIR "宰人不用刀，" HIC "愿" HIR "者上钩" NOR);
-	set("gender", "男性");
-	set("age", 48);
-	set("str", 100);
-	set("long",
-		"戚老板最近暴发横财，所谓是三年不开张，开张管三年。\n");
-	set_skill("unarmed", 50);
-	set_skill("dodge", 50);
-	set_skill("higgling", 500);
-	set_temp("apply/damage", 15);
+    set("gender", "男性");
+    set("age", 48);
+    set("str", 100);
+    set("long",
+        "戚老板最近暴发横财，所谓是三年不开张，开张管三年。\n");
+    set_skill("unarmed", 50);
+    set_skill("dodge", 50);
+    set_skill("higgling", 500);
+    set_temp("apply/damage", 15);
 
-	set("combat_exp", 800000);
-	set("attitude", "friendly");
+    set("combat_exp", 800000);
+    set("attitude", "friendly");
 
         set("inquiry", ([
                 "宝物" : (: do_answer :),
@@ -32,36 +32,36 @@ void create()
                 "我的钱" : "什么你的钱，地上的就是我的！",
                 "马哨" : "我这的马哨可要比镇远镖局的质量更好哦。",
                 "东西" : "扔掉就没了！嘿嘿。",
-		            "天王保命丹" : "卖！卖！二百两黄金一粒！",
-		            "翡翠兰" : "可治百毒啊！有气就能活！",
-		            "朱睛冰蟾" : "虽然不象翡翠兰那样可起死回生，但是能解百毒！",
+                    "天王保命丹" : "卖！卖！二百两黄金一粒！",
+                    "翡翠兰" : "可治百毒啊！有气就能活！",
+                    "朱睛冰蟾" : "虽然不象翡翠兰那样可起死回生，但是能解百毒！",
         ]));
 //售价100gold以上的五折 2017-02-20
-	set("vendor_goods", ([
-		"/d/shenlong/obj/hua4"    : 2000000,
-		"/clone/misc/zhujingchan" : 500000,
-		"/clone/fam/gift/str2"    : 5000000,
-		"/clone/fam/gift/int2"    : 5000000,
-		"/clone/fam/gift/con2"    : 5000000,
-		"/clone/fam/gift/dex2"    : 5000000,
+    set("vendor_goods", ([
+        "/d/shenlong/obj/hua4"    : 2000000,
+        "/clone/misc/zhujingchan" : 500000,
+        "/clone/fam/gift/str2"    : 5000000,
+        "/clone/fam/gift/int2"    : 5000000,
+        "/clone/fam/gift/con2"    : 5000000,
+        "/clone/fam/gift/dex2"    : 5000000,
     "/clone/fam/gift/kardan"  : 1000000,
     "/clone/fam/gift/perwan"  : 1000000,
     "/clone/medicine/baoming" : 1000000,
-    	//售价100gold以下的不变
+        //售价100gold以下的不变
     "/clone/book/tianmo_book" : 200000,
     "/clone/book/zhengqi_book": 200000,
     "/clone/weapon/goldbow3": 200000,
-		"/clone/misc/whistle": 200000,
-	]));
+        "/clone/misc/whistle": 200000,
+    ]));
 
-	setup();
-	set_max_encumbrance(100000000);
+    setup();
+    set_max_encumbrance(100000000);
 }
 
 void init()
 {
         add_action("do_buy", "buy");
-	add_action("do_list", "list");
+    add_action("do_list", "list");
         add_action("do_drop", "drop");
         //add_action("do_look", ({"guankan", "kan"}));
 }

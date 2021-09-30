@@ -6,7 +6,7 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("童百熊", ({ "tong baixiong", "tong", "baixiong"}) );
+    set_name("童百熊", ({ "tong baixiong", "tong", "baixiong"}) );
         set("nickname", HIR "赤胆忠心" NOR );
         set("title", "日月神教风雷堂长老");
         set("long", @LONG
@@ -23,7 +23,7 @@ LONG);
         set("int", 36);
         set("con", 36);
         set("dex", 36);
-        
+
         set("max_qi", 5400);
         set("max_jing", 4000);
         set("neili", 7000);
@@ -66,14 +66,14 @@ LONG);
         set_temp("apply/unarmed_damage", 100);
         set_temp("apply/armor", 200);
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "hammer.kai" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "hammer.kai" :),
                 (: perform_action, "cuff.tong" :),
                 (: perform_action, "claw.duan" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-	}) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+    }) );
 
         setup();
 
@@ -86,5 +86,5 @@ void attempt_apprentice(object ob)
         if (! permit_recruit(ob))
                 return;
 
-     	command("say 老夫年岁已大，不再收徒，你去找其他长老好了。");
+         command("say 老夫年岁已大，不再收徒，你去找其他长老好了。");
 }

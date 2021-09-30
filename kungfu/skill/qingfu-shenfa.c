@@ -7,15 +7,15 @@
 inherit SKILL;
 
 string *dodge_msg = ({
-	"只见$n一招「福满乾坤」，身形陡然纵起，躲过了$N这一招。\n",
-	"$n一式「五蝠献寿」，身形晃动，向一旁飘出，避开了$N这一招。。\n"
-	"$n使出「洞天福地」，一个空心筋斗向后翻出，避开了$N的凌厉攻势。\n",
-	"$n一招「云龙百蝠」，身随意转，$N只觉眼前一花，$n已绕至$N的身后。\n",
+    "只见$n一招「福满乾坤」，身形陡然纵起，躲过了$N这一招。\n",
+    "$n一式「五蝠献寿」，身形晃动，向一旁飘出，避开了$N这一招。。\n"
+    "$n使出「洞天福地」，一个空心筋斗向后翻出，避开了$N的凌厉攻势。\n",
+    "$n一招「云龙百蝠」，身随意转，$N只觉眼前一花，$n已绕至$N的身后。\n",
 });
 
 int valid_enable(string usage)
 {
-	return (usage == "dodge") || (usage == "move");
+    return (usage == "dodge") || (usage == "move");
 }
 
 int valid_learn(object me)
@@ -73,7 +73,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
                 {
                 case 0:
                         result += (["msg" : HIG "只见$n" HIG "长啸一声犹如一只蝙"
-                                            "蝠一样纵身而起，于半空倒立，$N" HIG 
+                                            "蝠一样纵身而起，于半空倒立，$N" HIG
                                             "这招却扑了个空。\n" NOR]);
                         break;
 
@@ -116,4 +116,3 @@ int practice_skill(object me)
         me->add("neili", -55);
         return 1;
 }
-

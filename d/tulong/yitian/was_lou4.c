@@ -8,7 +8,7 @@ void create()
 这里是万安寺四楼的大厅，相当的宽敞。一个明艳少女正座中堂，少女前方
 有一块巨大的红木制武器架，左右站满了亲兵，排场很是气派。
 LONG );
-        set("exits", ([ 
+        set("exits", ([
                 "down" : "/d/tulong/yitian/was_lou3",
         ]));
         set("objects", ([
@@ -23,9 +23,8 @@ LONG );
 
         setup();
 
-	con = present( "shelf", this_object());
-	item = new("/d/tulong/obj/yitianjian");
+    con = present( "shelf", this_object());
+    item = new("/d/tulong/obj/yitianjian");
 
-	item->move(con);
+    item->move(con);
 }
-

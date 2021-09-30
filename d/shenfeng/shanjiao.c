@@ -18,7 +18,7 @@ LONG);
 
         set("exits", ([
                 "south" : __DIR__"pendi",
-	]));
+    ]));
         setup();
 }
 
@@ -32,7 +32,7 @@ int do_climb(string arg)
         object me = this_player();
 
         if (! arg || arg != "up")
-		return notify_fail("你要往哪个方向爬？\n");
+        return notify_fail("你要往哪个方向爬？\n");
 
         message("vision", HIW "只见" + me->name() + HIW "战战兢兢地往神"
                           "峰上爬去。\n" NOR, environment(me), ({me}));

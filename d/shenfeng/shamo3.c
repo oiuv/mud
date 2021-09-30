@@ -14,8 +14,8 @@ LONG);
         set("exits", ([
                 "east" : __DIR__"shamo2",
                 "west" : __DIR__"lvzhou",
-	]));
-        setup();        
+    ]));
+        setup();
 }
 
 void init()
@@ -31,11 +31,11 @@ int kill_user(object me)
         object ob;
 
         if (! me || environment(me) != this_object())
-		return 1;
+        return 1;
 
         if (! present("tu ying", this_object()))
         {
-    		message("vision", HIR "\n突然间，只见一个黑影从天"
+            message("vision", HIR "\n突然间，只见一个黑影从天"
                                   "而降。\n" NOR, this_object());
 
                 ob = new("clone/quarry/ying");

@@ -8,7 +8,7 @@ void create()
         if (clonep())
                 set_default_object(__FILE__);
         else {
-         	set("long", YEL "埋藏于极地中心的乌炭，可炼化世间万物。\n" NOR);
+             set("long", YEL "埋藏于极地中心的乌炭，可炼化世间万物。\n" NOR);
                 set("unit", "块");
                 set("value", 15000);
         }
@@ -19,4 +19,3 @@ int query_autoload()
 {
         return 1;
 }
-

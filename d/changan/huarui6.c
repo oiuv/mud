@@ -12,12 +12,12 @@ void create ()
 味。
 LONG
         );
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 4
-		"south" : __DIR__"minju6",
-        	"north" : __DIR__"tuchangguan",
-        	"west" : __DIR__"huarui5",
-        	"east" : __DIR__"liande-nankou",
+        "south" : __DIR__"minju6",
+            "north" : __DIR__"tuchangguan",
+            "west" : __DIR__"huarui5",
+            "east" : __DIR__"liande-nankou",
         ]));
 
         set("outdoors", "changan");

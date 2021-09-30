@@ -26,9 +26,9 @@ void create()
         set("shen_type", 1);
 
         set_skill("cuff", 60);
-        set_skill("songshan-quan", 60); 
-        set_skill("strike", 60);    
-        set_skill("songshan-zhang", 60); 
+        set_skill("songshan-quan", 60);
+        set_skill("strike", 60);
+        set_skill("songshan-zhang", 60);
         set_skill("sword", 80);
         set_skill("songshan-jian", 80);
         set_skill("force", 80);
@@ -56,7 +56,7 @@ void create()
         set("chat_msg_combat", ({
                 (: perform_action, "sword.meng" :),
                 (: perform_action, "strike.po" :),
-		(: perform_action, "cuff.chui" :),
+                (: perform_action, "cuff.chui" :),
                 (: exert_function, "recover" :),
         }));
 

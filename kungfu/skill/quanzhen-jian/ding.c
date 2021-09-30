@@ -45,8 +45,8 @@ int perform(object me, object target)
         if (random(me->query_skill("force")) > target->query_skill("force") / 2)
         {
                 damage = (int)me->query_skill("quanzhen-jian", 1) +
-		         (int)me->query_skill("force", 1) +
-			 (int)me->query_skill("xiantian-gong", 1);
+                 (int)me->query_skill("force", 1) +
+             (int)me->query_skill("xiantian-gong", 1);
 
                 damage = damage + random(damage / 3);
 

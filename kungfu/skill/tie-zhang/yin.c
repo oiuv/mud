@@ -13,12 +13,12 @@ int perform(object me, object target)
         string msg;
         int ap, dp, dd;
         int damage;
-		
-		float improve;
-		int lvl, i, n;
-		string martial;
-		string *ks;
-		martial = "strike";
+
+        float improve;
+        int lvl, i, n;
+        string martial;
+        string *ks;
+        martial = "strike";
 
         if (userp(me) && ! me->query("can_perform/tie-zhang/yin"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -54,32 +54,32 @@ int perform(object me, object target)
 
         msg = HIW "$N" HIW "施出铁掌绝技「" HIR "阴阳磨"
               HIW "」，左掌不着半点力道，携着阴寒劲向$n"
-              HIW "拂去。\n" NOR;  
+              HIW "拂去。\n" NOR;
 
         ap = me->query_skill("strike") + me->query("str") * 5;
         dp = target->query_skill("parry") + target->query("con") * 5;
         dd = target->query_skill("dodge") + target->query("dex") * 5;
-		
-		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		lvl = lvl * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (i = 0; i < sizeof(ks); i++)
-		{
-			if (SKILL_D(ks[i])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[i], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 4 / 100 / lvl;
-		
-		ap += ap * improve;
+
+        lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+        lvl = lvl * 4 / 5;
+        ks = keys(me->query_skills(martial));
+        improve = 0;
+        n = 0;
+        //最多给予5个技能的加成
+        for (i = 0; i < sizeof(ks); i++)
+        {
+            if (SKILL_D(ks[i])->valid_enable(martial))
+            {
+                n += 1;
+                improve += (int)me->query_skill(ks[i], 1);
+                if (n > 4 )
+                    break;
+            }
+        }
+
+        improve = improve * 4 / 100 / lvl;
+
+        ap += ap * improve;
 
         if (ap / 2 + random(ap) > dp)
         {
@@ -93,7 +93,7 @@ int perform(object me, object target)
         }
 
         msg += HIR "\n紧接着$N" HIR "右掌一振，掌风过处，竟席"
-               "卷起一股热浪，向$n" HIR "胸前猛然拍落。\n" NOR;  
+               "卷起一股热浪，向$n" HIR "胸前猛然拍落。\n" NOR;
 
         if (ap / 2 + random(ap) > dd)
         {

@@ -6,17 +6,17 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("卫四娘", ({"wei siniang", "wei", "siniang"}));
-	set("long", "她昆仑派第五代弟子，容颜俏丽，身材丰满，举\n"
+    set_name("卫四娘", ({"wei siniang", "wei", "siniang"}));
+    set("long", "她昆仑派第五代弟子，容颜俏丽，身材丰满，举\n"
                     "手投足间带着点挑逗之意。\n");
         set("nickname", HIY "闪电娘娘" NOR);
-	set("gender", "女性");
-	set("age", 38);
-	set("attitude", "heroism");
-	set("str", 25);
-	set("int", 25);
-	set("con", 25);
-	set("dex", 25);
+    set("gender", "女性");
+    set("age", 38);
+    set("attitude", "heroism");
+    set("str", 25);
+    set("int", 25);
+    set("con", 25);
+    set("dex", 25);
         set("max_qi", 2000);
         set("max_jing", 1500);
         set("neili", 3000);
@@ -58,7 +58,7 @@ void create()
         prepare_skill("strike", "kunlun-zhang");
         prepare_skill("cuff", "zhentian-quan");
 
-	create_family("昆仑派", 5, "弟子");
+    create_family("昆仑派", 5, "弟子");
 
         set("chat_chance_combat", 100);
         set("chat_msg_combat", ({
@@ -69,7 +69,7 @@ void create()
 
         }) );
 
-	setup();
+    setup();
         carry_object("/d/kunlun/obj/sword")->wield();
         carry_object("/d/kunlun/obj/pao3")->wear();
 }

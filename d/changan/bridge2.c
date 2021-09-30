@@ -11,15 +11,15 @@ void create ()
 见底、蜿蜒地川流的小河，河水有时撞在石上，发出淙淙的流水声，悦
 耳动听。桥北通向故皇宫，南面是青龙街。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 2
-		"south" : __DIR__"qinglong2",
-        	"north" : __DIR__"huanggong",
+        "south" : __DIR__"qinglong2",
+            "north" : __DIR__"huanggong",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
-        	__DIR__"npc/yulinjun" : 2,
-        	__DIR__"npc/tongling2" : 1,
+            __DIR__"npc/yulinjun" : 2,
+            __DIR__"npc/tongling2" : 1,
         ]));
 
         set("outdoors", "changan");

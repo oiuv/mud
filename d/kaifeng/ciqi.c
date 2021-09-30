@@ -10,13 +10,13 @@ void create()
 LONG
         );
         set("objects", ([
-  		__DIR__"npc/liuzhanggui" : 1,
-	]));
+          __DIR__"npc/liuzhanggui" : 1,
+    ]));
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"road3",
-	]));
+          "west" : __DIR__"road3",
+    ]));
 
         setup();
         replace_program(ROOM);

@@ -14,17 +14,17 @@ void create()
 来是当年吴国为了抵御曹操而修的锁江链。
 LONG);
         set("outdoors", "jingzhou");
-	set("item_desc", ([
-		"tiesuo" : WHT "只见一条条铁锁链横在江中，多年江水冲"
+    set("item_desc", ([
+        "tiesuo" : WHT "只见一条条铁锁链横在江中，多年江水冲"
                            "击依然不朽。\n" NOR,
         ]));
         set("exits", ([
                 "east" : __DIR__"chibi5",
-		            
+
         ]));
         set("objects", ([
                 "/d/beijing/npc/shiren" : 1,
         ]));
         setup();
         replace_program(ROOM);
-} 
+}

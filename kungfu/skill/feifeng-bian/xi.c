@@ -16,8 +16,8 @@ int perform(object me, object target)
 
         if (! target)
         {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
+            me->clean_up_enemy();
+            target = me->select_opponent();
         }
 
         if (! target || ! me->is_fighting(target))
@@ -27,18 +27,18 @@ int perform(object me, object target)
             (string)weapon->query("skill_type") != "whip")
                 return notify_fail("你使用的武器不对，难以施展" XI "。\n");
 
-	if ((int)me->query_skill("feifeng-bian", 1) < 120)
-		return notify_fail("你的飞凤鞭法法不够娴熟，难以施展" XI "。\n");
+    if ((int)me->query_skill("feifeng-bian", 1) < 120)
+        return notify_fail("你的飞凤鞭法法不够娴熟，难以施展" XI "。\n");
 
         if (me->query_skill_mapped("whip") != "feifeng-bian")
                 return notify_fail("你现在没有激发飞凤鞭法，难以施展" XI "。\n");
 
-	if ((int)me->query_skill("force") < 150)
-		return notify_fail("你的内功修为不够，难以施展" XI "。\n");
+    if ((int)me->query_skill("force") < 150)
+        return notify_fail("你的内功修为不够，难以施展" XI "。\n");
 
-	if ((int)me->query("neili") < 300)
-		return notify_fail("你现在的真气不够，难以施展" XI "。\n");
-	
+    if ((int)me->query("neili") < 300)
+        return notify_fail("你现在的真气不够，难以施展" XI "。\n");
+
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 

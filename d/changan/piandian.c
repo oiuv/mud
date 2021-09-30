@@ -14,12 +14,12 @@ void create ()
 LONG);
 
         set("exits", ([
-        	"east"    : __DIR__"baodian",
+            "east"    : __DIR__"baodian",
         ]));
 
         set("objects", ([
-        	__DIR__"npc/jingxuan" : 1,
-        	__DIR__"npc/jingming" : 1,
+            __DIR__"npc/jingxuan" : 1,
+            __DIR__"npc/jingming" : 1,
         ]));
 
         setup();

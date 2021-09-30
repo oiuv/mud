@@ -2,7 +2,7 @@ inherit NPC;
 
 void create()
 {
-	set_name("刘财主", ({"liu caizhu", "liu", "caizhu"}));
+    set_name("刘财主", ({"liu caizhu", "liu", "caizhu"}));
         set("long", "开封府中的富户。\n" );
         set("gender", "男性");
         set("attitude", "peace");

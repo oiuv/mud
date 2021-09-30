@@ -12,12 +12,11 @@ LONG);
            "east"      : __DIR__"daziling",
            "northdown" : __DIR__"zhandao",
         ]));
-	set("objects", ([
-		__DIR__"npc/zhi" : 1,
-	]));
+    set("objects", ([
+        __DIR__"npc/zhi" : 1,
+    ]));
         set("outdoors", "hengshan");
 //        set("no_clean_up", 0);
         setup();
         replace_program(ROOM);
 }
-

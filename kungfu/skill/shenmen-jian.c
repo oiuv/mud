@@ -60,7 +60,7 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "sword" || usage == "parry";
+    return usage == "sword" || usage == "parry";
 }
 
 int valid_learn(object me)
@@ -79,7 +79,7 @@ int valid_learn(object me)
 
 mapping query_action(object me, object weapon)
 {
-        int i, level;  
+        int i, level;
         level = (int) me->query_skill("shenmen-jian", 1);
         for (i = sizeof(action); i > 0; i--)
                 if (level > action[i-1]["lvl"])
@@ -133,4 +133,3 @@ string perform_action_file(string action)
 {
         return __DIR__"shenmen-jian/" + action;
 }
-

@@ -10,12 +10,12 @@ void create()
 家死人。
 LONG );
     set("exits", ([
-	"east" : __DIR__"zhuang5",
+    "east" : __DIR__"zhuang5",
     ]));
     set("objects", ([
-	"/d/shenlong/npc/dizi": 1,
+    "/d/shenlong/npc/dizi": 1,
     ]));
     set("outdoors", "beijing");
     setup();
-    replace_program(ROOM); 
+    replace_program(ROOM);
 }

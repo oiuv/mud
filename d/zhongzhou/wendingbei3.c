@@ -10,7 +10,7 @@ void create()
 眼睛。门口还有一只大鼓，原来这就是中州的县衙门。
 LONG);
 
-	set("outdoors", "zhongzhou");
+    set("outdoors", "zhongzhou");
         set("exits", ([
                 "east" : __DIR__"xunbu",
                 "south" : __DIR__"wendingbei2",
@@ -19,8 +19,8 @@ LONG);
         ]));
 
         set("objects",([
-	        "/d/beijing/npc/old1" : 1,
-	        "/d/beijing/npc/old2" : 1,
+            "/d/beijing/npc/old1" : 1,
+            "/d/beijing/npc/old2" : 1,
         ]));
 
         setup();

@@ -69,7 +69,7 @@ void create()
         set_skill("huashan-zhang", 240);
         set_skill("hunyuan-zhang", 240);
         set_skill("huashan-shenfa", 240);
-        set_skill("pixie-jian", 240); 
+        set_skill("pixie-jian", 240);
         set_skill("martial-cognize", 200);
 
         map_skill("sword", "pixie-jian");
@@ -97,22 +97,22 @@ void create()
 
         create_family("华山派", 13, "掌门");
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "sword.duo" :),
-		(: perform_action, "sword.pi" :),
-		(: perform_action, "sword.gui" :),
-		(: perform_action, "strike.wuji" :),
-		(: perform_action, "cuff.lei" :),
-		(: perform_action, "cuff.po" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "sword.duo" :),
+        (: perform_action, "sword.pi" :),
+        (: perform_action, "sword.gui" :),
+        (: perform_action, "strike.wuji" :),
+        (: perform_action, "cuff.lei" :),
+        (: perform_action, "cuff.po" :),
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
                 (: check_weapon :),
-	}));             
+    }));
 
         setup();
 
-	set("book_count", 1);
+    set("book_count", 1);
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/cloth/cloth")->wear();
         carry_object("/clone/misc/pin");
@@ -127,9 +127,9 @@ void check_weapon()
         set("chat_msg_combat", ({
                 (: exert_function, "recover" :),
                 (: exert_function, "powerup" :),
-		(: perform_action, "sword.duo" :),
-		(: perform_action, "sword.pi" :),
-		(: perform_action, "sword.gui" :),
+        (: perform_action, "sword.duo" :),
+        (: perform_action, "sword.pi" :),
+        (: perform_action, "sword.gui" :),
         }));
         set("chat_chance", 120);
         set("chat_msg", ({
@@ -145,9 +145,9 @@ void unwield_weapon()
         set("chat_msg_combat", ({
                 (: exert_function, "powerup" :),
                 (: exert_function, "recover" :),
-		(: perform_action, "sword.cimu" :),
-		(: perform_action, "sword.pi" :),
-		(: perform_action, "sword.gui" :),
+        (: perform_action, "sword.cimu" :),
+        (: perform_action, "sword.pi" :),
+        (: perform_action, "sword.gui" :),
                 (: check_weapon :),
         }));
 }
@@ -168,7 +168,7 @@ void do_recruit(object ob)
 {
         if( !permit_recruit(ob) )
                 return;
-        
+
         if (ob->query("gender") == "女性")
         {
                 command("say 我不收女徒弟，你还是去找我师妹吧！");
@@ -180,23 +180,23 @@ void do_recruit(object ob)
                 command("say 你行侠仗义的事还做得不够，我还不能收你！");
                 return;
         }
- 
+
         if (ob->query_skill("huashan-xinfa", 1) < 140)
         {
                 command("say 我华山派以修气为主，你连本门心法都还不熟练，我不能收你！");
                 return;
         }
-      
+
         if (ob->query_skill("huashan-jian", 1) < 140)
         {
                 command("say 你华山剑法还不够熟练，下去多练习练习再来找我吧！");
                 return;
         }
-        
+
         command("say 好，好，好，很好。");
         command("say 今日我便收下你了，以后定要多行侠仗义，光大我华山派！");
-        command("recruit " + ob->query("id") );        
-        
+        command("recruit " + ob->query("id") );
+
 }
 
 int recruit_apprentice(object ob)
@@ -207,86 +207,86 @@ int recruit_apprentice(object ob)
 
 void reset()
 {
-	set("book_count", 1);
+    set("book_count", 1);
         set("apprentice_available", 3);
 }
 
 int do_xunshan()
 {
         object me = this_player();
-      	string date;
+          string date;
 
-    	date = NATURE_D->game_time();
-	sscanf(date, "%s日%*s刻", date);
+        date = NATURE_D->game_time();
+    sscanf(date, "%s日%*s刻", date);
 
         if (me->query_temp("xunshan"))
         {
                if (!me->query_temp("xunshan/chaoyang"))
                {
-                      	message_vision("$N对着$n说：你朝阳峰没去看看？"
+                          message_vision("$N对着$n说：你朝阳峰没去看看？"
                                        "这算巡的什么山？\n", this_object(), me);
                         return 1;
                }
                if (!me->query_temp("xunshan/lianhua"))
                {
-                      	message_vision("$N对着$n说：你莲花峰没去看看？"
+                          message_vision("$N对着$n说：你莲花峰没去看看？"
                                        "这算巡的什么山？\n", this_object(), me);
-                      	return 1;
+                          return 1;
                }
                if (!me->query_temp("xunshan/yuntai"))
                {
-                      	message_vision("$N对着$n说：你云台峰没去看看？这算"
+                          message_vision("$N对着$n说：你云台峰没去看看？这算"
                                        "巡的什么山？\n", this_object(), me);
-                      	return 1;
+                          return 1;
                }
                if (!me->query_temp("xunshan/sheshen"))
                {
-                      	message_vision("$N对着$n说：你怎么没去舍身崖？这算"
+                          message_vision("$N对着$n说：你怎么没去舍身崖？这算"
                                        "巡的什么山？\n", this_object(), me);
-                      	return 1;
+                          return 1;
                }
                if (!me->query_temp("xunshan/siguo"))
                {
-                      	message_vision("$N对着$n说：你到了思过崖去了？这算"
+                          message_vision("$N对着$n说：你到了思过崖去了？这算"
                                        "巡的什么山？\n", this_object(), me);
-                      	return 1;
+                          return 1;
                }
                if (!me->query_temp("xunshan/yunu"))
                {
-                      	message_vision("$N对着$n说：你到玉女峰后面华山小筑"
+                          message_vision("$N对着$n说：你到玉女峰后面华山小筑"
                                        "去看过了？这算巡的什么山？\n",
                                        this_object(), me);
-                      	return 1;
-               	}
-               	message_vision("$N对着$n说：不错，辛苦了。你这就去"
+                          return 1;
+                   }
+                   message_vision("$N对着$n说：不错，辛苦了。你这就去"
                                "休息去吧。\n", this_object(), me);
-               	me->delete_temp("xunshan");                      
-               	me->add("combat_exp", 100 + random(100));
-               	return 1;
+                   me->delete_temp("xunshan");
+                   me->add("combat_exp", 100 + random(100));
+                   return 1;
         }
         else
         {
                if (query("xunshan") == date)
                {
-                      	message_vision("$N对着$n说：今天已经有人巡山"
+                          message_vision("$N对着$n说：今天已经有人巡山"
                                      "去了。你明天再来吧。\n", this_object(), me);
-                      	return 1;
+                          return 1;
                }
                if( me->query("family/family_name") != "华山派")
                {
-                      	message_vision("$N对着$n大喝一声：本派弟子才能"
+                          message_vision("$N对着$n大喝一声：本派弟子才能"
                                      "巡山。你是哪来的奸细？\n", this_object(), me);
-                      	return 1;
+                          return 1;
                }
                else
                {
-                      	set("xunshan", date);
-                      	message_vision("$N对着$n说：本派弟子例当巡山。你，很好，很"
+                          set("xunshan", date);
+                          message_vision("$N对着$n说：本派弟子例当巡山。你，很好，很"
                                        "好！今天就去巡山吧。\n",
-				       this_object(), me);
-                      	me->set_temp("xunshan/start", 1);
-                      	me->set_temp("xunshan/time", time());
-                      	return 1;
+                       this_object(), me);
+                          me->set_temp("xunshan/start", 1);
+                          me->set_temp("xunshan/time", time());
+                          return 1;
                }
         }
 }

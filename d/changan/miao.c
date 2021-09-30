@@ -12,10 +12,10 @@ void create ()
 塑的像？青面潦牙，眼睛瞪得像两枚铜铃，而且还熠熠发光。
 LONG);
         set("exits", ([
-        	"west"   : __DIR__"yongtai-dadao4",
+            "west"   : __DIR__"yongtai-dadao4",
         ]));
         set("objects", ([
-        	__DIR__"npc/keeper"   : 1,
+            __DIR__"npc/keeper"   : 1,
         ]));
 
         setup();

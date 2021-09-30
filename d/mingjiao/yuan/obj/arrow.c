@@ -23,7 +23,7 @@ void create()
                 set("wound_percent", 80);
         }
         set_amount(10);
-	init_throwing(200);
+    init_throwing(200);
         setup();
 
         set("no_wield", "这不是用来装备的。\n");

@@ -4,12 +4,12 @@
 
 int dispel()
 {
-	return 0;
+    return 0;
 }
 
 int update_condition(object me, int duration)
 {
-	if (duration < 1) return 0;
-	me->apply_condition("putizi_drug", duration - 1);
-	return 1;
+    if (duration < 1) return 0;
+    me->apply_condition("putizi_drug", duration - 1);
+    return 1;
 }

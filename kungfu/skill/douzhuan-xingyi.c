@@ -40,7 +40,7 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-	return notify_fail("斗转星移只能用学(learn)的来增加熟练度。\n");
+    return notify_fail("斗转星移只能用学(learn)的来增加熟练度。\n");
 }
 
 mixed valid_damage(object ob, object me, int damage, object weapon)
@@ -57,9 +57,9 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
         mp = ob->query_skill("count", 1);
         ap = ob->query_skill("force", 1) + mp;
         dp = me->query_skill("parry", 1);
- 
+
         lvl = me->query_skill("douzhuan-xingyi", 1);
-      
+
         // 特殊反伤害几率
         if (lvl > 200)ran = 30;
         if (lvl > 240)ran = 25;
@@ -99,16 +99,16 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
                       msg += HIC "$n" HIC "眼见$P来势汹涌，不敢"
                              "大意，施出浑身解数化解开来。\n" NOR;
                 }
-                
+
                 message_sort(msg, me, ob);
 
                 result = ([ "damage" : -damage ]);
                 result += ([ "msg" : msg ]);
 
                 return result;
-                
+
         } else
-           
+
         if (ap / 2 + random(ap) < dp)
         {
                 result = ([ "damage" : -damage ]);

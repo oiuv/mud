@@ -2,7 +2,7 @@ inherit ROOM;
 
 void create()
 {
-  
+
         set("short", "墓室");
         set("long", @LONG
 这是一间宽敞的墓室。墓室顶上有一颗特别大的明珠闪闪
@@ -21,19 +21,19 @@ LONG);
                         "/clone/fam/item/haoyue" : 1,
                         "/clone/fam/etc/lv5b" : 1,
                 ]));
-	else
+    else
         if (random(100) > 98)
                 set("objects", ([
                         "/clone/money/gold" : 5,
                         "/clone/fam/etc/lv5a" : 1,
                 ]));
-	else
+    else
         if (random(100) > 97)
                 set("objects", ([
                         "/clone/money/gold" : 5,
                         "/clone/fam/etc/lv5d" : 1,
                 ]));
-	else
+    else
         if (random(10) > 8)
                 set("objects", ([
                         "/clone/money/gold" : 1,

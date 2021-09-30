@@ -10,14 +10,14 @@ void create()
 LONG);
 
         set("objects", ([
-  		__DIR__"npc/obj/chaihe1" : 1,
-	]));
+          __DIR__"npc/obj/chaihe1" : 1,
+    ]));
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"south" : __DIR__"zoulang2",
-  		"east" : __DIR__"caidi3",
-	]));
+          "south" : __DIR__"zoulang2",
+          "east" : __DIR__"caidi3",
+    ]));
 
         setup();
         replace_program(ROOM);

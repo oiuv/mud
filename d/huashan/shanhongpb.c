@@ -35,7 +35,7 @@ void init()
 
 string look_hongshui()
 {
-	return @DESC
+    return @DESC
 这是一股奔腾不息的洪水，水中隐隐有个东西在发光，但你定睛
 仔细一看，发现那只不过是水面反射的日光罢了。顺着洪水俯视，
 只见瀑布底矗立着一块天然的巨石（stone）， 这个瀑布似乎可
@@ -49,10 +49,10 @@ int do_jump(string arg)
 
         if (me->is_busy() || me->is_fighting())
               return notify_fail("你忙完了再说吧！\n");
-    
+
         if (! arg || arg != "stone")
               return notify_fail("你要往哪儿跳？\n");
- 
+
         if (me->query_skill("dodge") < 240)
               return notify_fail("你看了看，觉得自己轻功修为有限，不敢贸然跳下。\n");
 
@@ -65,7 +65,7 @@ int do_jump(string arg)
 
 int do_cross()
 {
-        object me;       
+        object me;
         object cloth;
 
         me = this_player();

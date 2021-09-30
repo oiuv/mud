@@ -25,12 +25,12 @@ void create()
                 "疗伤" : "疗…疗什么伤？我逍遥派医术深博，学好了自己给自己疗。\n",
         ]));
 
-	set("max_qi", 3000);
-	set("max_jing", 3000);
-	set("neili", 3500);
-	set("max_neili", 3500);
-	set("jiali", 100);
-	set("combat_exp", 1000000);
+        set("max_qi", 3000);
+        set("max_jing", 3000);
+        set("neili", 3500);
+        set("max_neili", 3500);
+        set("jiali", 100);
+        set("combat_exp", 1000000);
 
         set_skill("force", 160);
         set_skill("xiaoyao-xinfa", 160);
@@ -48,12 +48,12 @@ void create()
         set_skill("literate", 120);
         set_skill("martial-cognize", 140);
 
-	map_skill("force", "xiaoyao-xinfa");
-	map_skill("dodge", "feiyan-zoubi");
-	map_skill("hand", "qingyun-shou");
-	map_skill("strike", "panyang-zhang");
-	map_skill("parry", "panyang-zhang");
-	map_skill("blade", "ruyi-dao");
+        map_skill("force", "xiaoyao-xinfa");
+        map_skill("dodge", "feiyan-zoubi");
+        map_skill("hand", "qingyun-shou");
+        map_skill("strike", "panyang-zhang");
+        map_skill("parry", "panyang-zhang");
+        map_skill("blade", "ruyi-dao");
         map_skill("medical", "xiaoyao-qixue");
 
         prepare_skill("hand", "qingyun-shou");

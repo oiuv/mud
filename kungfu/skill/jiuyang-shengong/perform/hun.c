@@ -1,6 +1,6 @@
 #include <ansi.h>
 #include <combat.h>
- 
+
 inherit F_SSERVER;
 
 #define HUN "「" HIR "混沌一阳" NOR "」"
@@ -22,7 +22,7 @@ int perform(object me, object target)
 
         if (! target || ! me->is_fighting(target))
                 return notify_fail(HUN "只能对战斗中的对手使用。\n");
- 
+
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail(HUN "只能空手施展。\n");
 
@@ -40,13 +40,13 @@ int perform(object me, object target)
 
         if (me->query("neili") < 300)
                 return notify_fail("你的内力不够，难以施展" HUN "。\n");
- 
+
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         msg = HIR "$N" HIR "跨前一步，双手回圈，颇得太极之意。掌心顿时闪"
               "出一个气团，向$n" HIR "电射而去。\n" NOR;
- 
+
         ap = me->query_skill("jiuyang-shengong", 1) * 2 + me->query("con") * 10 +
              me->query_skill("martial-cognize", 1);
         dp = target->query_skill("force") + target->query("con") * 10 +
@@ -58,11 +58,11 @@ int perform(object me, object target)
         {
                 msg += HIY "然而$n" HIY "全力抵挡，终于将$N" HIY
                        "发出的气团拨开。\n" NOR;
-	        me->start_busy(3);
+            me->start_busy(3);
         } else
         {
                 me->add("neili", -200);
-	        me->start_busy(1);
+            me->start_busy(1);
                 damage = ap / 2 + random(ap / 2);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 50,
                                            HIR "$n" HIR "急忙抽身后退，可是气团射"

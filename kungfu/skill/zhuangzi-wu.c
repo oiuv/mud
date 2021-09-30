@@ -14,8 +14,8 @@ string *dodge_msg = ({
         "$n往前一迈，忽然后退，恰恰避开$N这一招，有惊无险。\n",
 });
 
-int valid_enable(string usage) 
-{ 
+int valid_enable(string usage)
+{
         return usage == "dodge";
 }
 
@@ -25,9 +25,9 @@ int valid_learn(object me)
 
         lvl = me->query_skill("zhuangzi-wu", 1);
         if (lvl > 300) lvl = 300;
-		
-		if (me->query("family/family_name") == "红花会")
-			lvl -= 60;
+
+        if (me->query("family/family_name") == "红花会")
+            lvl -= 60;
 
         if (me->query("dex") < 26)
                 return notify_fail("你先天身法太差，无法学习庄子舞。\n");
@@ -133,7 +133,7 @@ int query_effect_dodge(object attacker, object me)
 int practice_skill(object me)
 {
         if (me->query_skill("zhuangzi-wu", 1) < 180
-	   && me->query("family/family_name") != "红花会")
+       && me->query("family/family_name") != "红花会")
                 return notify_fail("你对庄子舞了解不够，还不足以自行锻炼。\n");
 
         if ((int)me->query("qi") < 70)

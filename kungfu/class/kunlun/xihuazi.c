@@ -7,15 +7,15 @@ inherit F_GUARDER;
 
 void create()
 {
-	set_name("西华子", ({"xi huazi", "xi", "huazi"}));
-	set("long", "他是昆仑派第五代弟子，满腮虬髯，性子十分暴躁。\n");
-	set("gender", "男性");
-	set("age", 38);
-	set("attitude", "heroism");
-	set("str", 25);
-	set("int", 25);
-	set("con", 25);
-	set("dex", 25);
+    set_name("西华子", ({"xi huazi", "xi", "huazi"}));
+    set("long", "他是昆仑派第五代弟子，满腮虬髯，性子十分暴躁。\n");
+    set("gender", "男性");
+    set("age", 38);
+    set("attitude", "heroism");
+    set("str", 25);
+    set("int", 25);
+    set("con", 25);
+    set("dex", 25);
         set("max_qi", 2000);
         set("max_jing", 1500);
         set("neili", 3000);
@@ -70,7 +70,7 @@ void create()
                                 "背上背的是什么人？给我放下来！" NOR,
         ]));
 
-	create_family("昆仑派", 5, "弟子");
+    create_family("昆仑派", 5, "弟子");
 
         set("chat_chance_combat", 100);
         set("chat_msg_combat", ({
@@ -81,7 +81,7 @@ void create()
 
         }) );
 
-	setup();
+    setup();
         carry_object("/d/kunlun/obj/sword")->wield();
         carry_object("/d/kunlun/obj/pao3")->wear();
 }

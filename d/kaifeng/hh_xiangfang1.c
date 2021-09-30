@@ -10,8 +10,8 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"east" : __DIR__"hh_zoulang6",
-	]));
+          "east" : __DIR__"hh_zoulang6",
+    ]));
         set("no_fight",1);
         set("no_steal",1);
         set("sleep_room",1);

@@ -6,16 +6,16 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIR "核子飞弹" NOR, ({ "nucleus bomb" }));
-	set_weight(100);
-	if( clonep() )
-		set_default_object(__FILE__);
-	else {
+    set_name(HIR "核子飞弹" NOR, ({ "nucleus bomb" }));
+    set_weight(100);
+    if( clonep() )
+        set_default_object(__FILE__);
+    else {
                 set("long", "这是高科技产品，是" RED "血滴子" NOR "的2000版本。\n");
                 set("value", 50000);
                 set("no_sell", 1);
                 set("unit", "枚");
-	}
+    }
 }
 
 void init()
@@ -45,7 +45,7 @@ int do_launch(string arg)
                 return notify_fail("你先瞄准(aim)好再发射！\n");
 
         if (! objectp(ob = find_player(user)) ||
-	    ! me->visible(ob))
+        ! me->visible(ob))
                 return notify_fail("你要炸的玩家现在好像不在线上。\n");
 
         message_vision(HIM "$N掏出一个" + name() + HIM "，喃喃自"
@@ -91,7 +91,7 @@ int do_aim(string arg)
         me = this_player();
 
         if (! arg || ! objectp(ob = find_player(arg)) ||
-	    ! me->visible(ob))
+        ! me->visible(ob))
                 return notify_fail("你要瞄准哪个玩家？\n");
 
         if (me->is_busy())

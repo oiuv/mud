@@ -42,21 +42,21 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-        ap = me->query_skill("strike"); 
+        ap = me->query_skill("strike");
 
         dp = target->query_skill("dodge");
 
         msg = HIC "\n$N" HIC "长啸一声，施出绝招「" HIW "如影相随" HIC "」，"
               "双掌不断翻腾，掌风中透出阵阵阴寒之气，将$n" HIC "笼罩。\n" NOR;
         message_sort(msg, me, target);
-        
+
         if (ap * 2 / 3 + random(ap) > dp)
         {
-		msg = HIR "$n" HIR "顿觉寒气避人，一时间无从应对，"
+        msg = HIR "$n" HIR "顿觉寒气避人，一时间无从应对，"
                       "竟被困在$N" HIR "的掌风之中。\n" NOR;
 
                 target->start_busy(1 + ap / 18);
-               	me->start_busy(1);
+                   me->start_busy(1);
                 me->add("neili", -180);
         } else
         {

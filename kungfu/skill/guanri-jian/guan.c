@@ -74,9 +74,9 @@ int perform(object me, object target)
                         "连出九剑。\n" NOR, me, target);
 
         for (i = 0; i < 9; i++)
-      	{
-               	if (! me->is_fighting(target))
-               	        break;
+          {
+                   if (! me->is_fighting(target))
+                           break;
 
                 COMBAT_D->do_attack(me, target, weapon, 0);
         }

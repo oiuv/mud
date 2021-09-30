@@ -10,17 +10,17 @@ inherit STAFF;
 
 void create()
 {
-	set_name(HIG + PARTY + "权杖" NOR, ({ "mace" }) );
-	set_weight(30);
-	if (clonep())
-		set_default_object(__FILE__);
+    set_name(HIG + PARTY + "权杖" NOR, ({ "mace" }) );
+    set_weight(30);
+    if (clonep())
+        set_default_object(__FILE__);
         else {
                 set("long", HIG "一根晶莹剔透的权杖，好像是丐帮的玉竹杖哦！\n"
                                 "你仔细一看，不是，原来是冒牌货，是" + PARTY + "的权杖。\n"
                                 "帮主通过它发号司令，邀请(author)他人入帮或是开除(expell)不听话的人。\n" NOR);
                 set("value", 1);
                 set("no_sell", "这是什么垃圾？\n");
-        	set("unit", "根");
+            set("unit", "根");
                 set("wield_msg", HIG "$N" HIG "亮出一个晶莹剔透的小棍棍，神气"
                                  "活现的喝道：“还不拜见...本...帮主？”\n" NOR);
                 set("unwield_msg", HIG "$N" HIG "鬼鬼祟祟的把权杖收好。\n" NOR);
@@ -113,11 +113,11 @@ int do_author(string arg)
 
         message_vision("$N高举权杖，问道：“" + ob->name(1) + "，你可愿意入我" +
                        PARTY + "？”\n", me);
-	ob->set_temp("pending/answer/" + me->query("id") + "/right",
+    ob->set_temp("pending/answer/" + me->query("id") + "/right",
                      (: call_other, __FILE__, "do_right", ob, me :));
-	ob->set_temp("pending/answer/" + me->query("id") + "/refuse",
-	             (: call_other, __FILE__, "do_refuse", ob, me :));
-	me->set_temp("pending/author", ob);
+    ob->set_temp("pending/answer/" + me->query("id") + "/refuse",
+                 (: call_other, __FILE__, "do_refuse", ob, me :));
+    me->set_temp("pending/author", ob);
         tell_object(ob, YEL + me->name(1) + "想收你入" + PARTY + "，你同意不同意(right/refuse)？\n" NOR);
         return 1;
 }
@@ -147,7 +147,7 @@ int do_expell(string arg)
                        "！你屡犯帮规，今日革你出帮，滚吧！”\n", me);
         ob->delete("party");
 
-	CHANNEL_D->do_channel(this_object(), "rumor",
+    CHANNEL_D->do_channel(this_object(), "rumor",
                               "听说" + ob->name(1) + "被" + me->name(1) +
                               "开除出" + PARTY + "了。");
         return 1;
@@ -155,36 +155,36 @@ int do_expell(string arg)
 
 int do_right(object me, object ob)
 {
-	if (! ob || environment(ob) != environment(me))
-		return notify_fail("可惜啊，人家已经不在这儿了。\n");
+    if (! ob || environment(ob) != environment(me))
+        return notify_fail("可惜啊，人家已经不在这儿了。\n");
 
-	if (! living(ob))
-		return notify_fail("人家现在听不到你说的话，还是算了吧。\n");
+    if (! living(ob))
+        return notify_fail("人家现在听不到你说的话，还是算了吧。\n");
 
-	if (ob->query_temp("pending/author") != me)
-		return notify_fail("人家现在已经不打算收你了。\n");
+    if (ob->query_temp("pending/author") != me)
+        return notify_fail("人家现在已经不打算收你了。\n");
 
         ob->delete_temp("pending/author");
 
         message_vision("$N拼命点头，像小鸡啄米一样，忙道：“好！好！好！”\n", me);
 
         me->set("party/party_name", PARTY);
-	CHANNEL_D->do_channel(this_object(), "rumor",
+    CHANNEL_D->do_channel(this_object(), "rumor",
                               "听说" + ob->name(1) + "收" + me->name(1) +
                               "入了" + PARTY + "。");
-	return 1;
+    return 1;
 }
 
 int do_refuse(object me, object ob)
 {
-	if (! ob || environment(ob) != environment(me))
-		return notify_fail("可惜啊，人家已经不在这儿了。\n");
+    if (! ob || environment(ob) != environment(me))
+        return notify_fail("可惜啊，人家已经不在这儿了。\n");
 
-	if (! living(ob))
-		return notify_fail("人家现在听不到你说的话，还是算了吧。\n");
+    if (! living(ob))
+        return notify_fail("人家现在听不到你说的话，还是算了吧。\n");
 
-	if (ob->query_temp("pending/author") != me)
-		return notify_fail("人家现在已经不打算收你了。\n");
+    if (ob->query_temp("pending/author") != me)
+        return notify_fail("人家现在已经不打算收你了。\n");
 
         ob->delete_temp("pending/author");
         message_vision("$N一脚把$n踢开，喝道：“滚！一边玩去！”\n",

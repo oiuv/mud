@@ -24,7 +24,7 @@ int dispel(object me, object ob, int duration)
         }
 
         if (me->query_skill_mapped("force") != "yijinjing"
-        	 && me->query_skill_mapped("force") != "yijin-duangu"
+             && me->query_skill_mapped("force") != "yijin-duangu"
            && me->query_skill_mapped("force") != "jiuyin-shengong"
            && me->query_skill_mapped("force") != "shaolin-jiuyang"
            && me->query_skill_mapped("force") != "wudang-jiuyang"
@@ -50,34 +50,34 @@ int dispel(object me, object ob, int duration)
 
 int update_condition(object me, int duration)
 {
-	// int limit;
+    // int limit;
 
-	if (! living(me) && (me->query("eff_qi") < 20 || me->query("eff_jing") < 10))
+    if (! living(me) && (me->query("eff_qi") < 20 || me->query("eff_jing") < 10))
   {
     me->set_temp("修习五斗米神功不慎，被内力反噬吐血而亡");
-		me->die();
-		return 0;
-	} else {
+        me->die();
+        return 0;
+    } else {
     me->receive_wound("qi", 20);
     me->receive_wound("jing", 10);
 
     if (me->query("max_neili"))
             me->add("max_neili", -1);
 
-		tell_object(me, HIR "你觉得丹田处如同火烧，全身真气鼓荡"
+        tell_object(me, HIR "你觉得丹田处如同火烧，全身真气鼓荡"
                                 "不止，便似要破体而出一般。\n" NOR);
-		message("vision", HIR + me->name() + HIR "脸色赤红，须发"
+        message("vision", HIR + me->name() + HIR "脸色赤红，须发"
                                   "焦卷，全身散发着滚滚热气，不住的颤抖。\n",
-			          environment(me), me);
-	}
+                      environment(me), me);
+    }
 
   if (me->query("max_neili") < 1)
           me->set("max_neili", 0);
 
-	me->apply_condition("wudoumi-fanshi", duration - 1);
+    me->apply_condition("wudoumi-fanshi", duration - 1);
 
-	if (! duration)
+    if (! duration)
           return 0;
 
-	return 1;
+    return 1;
 }

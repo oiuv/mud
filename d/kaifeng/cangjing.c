@@ -9,15 +9,15 @@ void create()
 去，到处是高低的书架，
 LONG);
         set("objects", ([
-  		__DIR__"npc/zhifa" : 1,
-	]));
+          __DIR__"npc/zhifa" : 1,
+    ]));
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"houyuan",
-  		"up" : __DIR__"cangjing2",
-  		"east" : __DIR__"xiaoyuan",
-	]));
+          "west" : __DIR__"houyuan",
+          "up" : __DIR__"cangjing2",
+          "east" : __DIR__"xiaoyuan",
+    ]));
 
         setup();
         replace_program(ROOM);

@@ -1,29 +1,29 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 int exercise_improve();
-	
+
 void create()
 {
         set("short", "玄冰室");
-	set("long", @LONG
+    set("long", @LONG
 这是昔日天山童姥修练内功的地方。屋子正中有一块千年
 玄冰 (ice)，冰上冒出丝丝寒气，屋里因此寒气逼人，你不由
 得打了一个寒颤。
 LONG);
         set("exits", ([
-		"east" : __DIR__"changl13",
+        "east" : __DIR__"changl13",
         ]));
 
-	set("item_desc", ([
-	        "ice" : HIW "\n这是一块采自天山之巅的千"
+    set("item_desc", ([
+            "ice" : HIW "\n这是一块采自天山之巅的千"
                         "年玄冰，奇寒无比。\n\n" NOR,
-	]));
+    ]));
 
         set("exercise_improve", (: exercise_improve :));
 
-	setup();
-	//replace_program(ROOM);
+    setup();
+    //replace_program(ROOM);
 }
 
 int exercise_improve()

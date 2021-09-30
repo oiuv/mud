@@ -13,12 +13,12 @@ void init()
                 message("vision", HIR "\n突然间，只见几条黑影向你扑"
                                   "了过来。\n" NOR, this_object());
 
-	        for (i = 0; i < 5; i++)
-        	{
-	                ob = new("clone/quarry/lang2");
-        	        ob->move(this_object());
-                	ob->kill_ob(me);
-        	}
+            for (i = 0; i < 5; i++)
+            {
+                    ob = new("clone/quarry/lang2");
+                    ob->move(this_object());
+                    ob->kill_ob(me);
+            }
         }
 }
 

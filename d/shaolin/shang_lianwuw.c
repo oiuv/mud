@@ -1,10 +1,10 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 void create()
 {
-	set("short", "练武场");
-	set("long", @LONG
+    set("short", "练武场");
+    set("long", @LONG
 这是商家堡的练武场，空阔的场地上铺满了细细的黄土，正
 好适合演武。四面有几个商家堡的弟子正在练武。场地边上挂着
 几个大沙袋(shadai)，不知有什么用处。
@@ -13,10 +13,10 @@ LONG);
                 "shadai" : WHT "几个沉重的沙袋，可以试着打打(jida)看。\n" NOR,
         ]));
 
-	set("exits", ([
-		"east"  : __DIR__"shang_qgc",
-	]));
-	setup();
+    set("exits", ([
+        "east"  : __DIR__"shang_qgc",
+    ]));
+    setup();
 }
 
 void init()

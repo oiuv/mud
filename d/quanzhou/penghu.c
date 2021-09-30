@@ -6,23 +6,23 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "澎湖岛");
-	set("long", @LONG
+    set("short", "澎湖岛");
+    set("long", @LONG
 澎湖为台湾属岛，海峡中砥，台岛屏障。马公港内多
 为本地渔民，早晚劳作，与世无争。
     港内有舟(zhou)船(chuan) 往返大陆台岛，冲波激浪
 中，自有渔家滋味。
 LONG );
-	set("item_desc", ([
+    set("item_desc", ([
                 "chuan" : "一条大海船。出远海没这样的船可不行。\n",
                 "zhou"  : "一条水军战舟，前往台湾，还得靠它。\n",
-	]));
-	set("objects", ([
-		__DIR__"npc/liu": 1,
-		"/d/city/npc/bing" : 4,
-	]));
-	set("outdoors", "quanzhou");
-	setup();
+    ]));
+    set("objects", ([
+        __DIR__"npc/liu": 1,
+        "/d/city/npc/bing" : 4,
+    ]));
+    set("outdoors", "quanzhou");
+    setup();
 }
 
 void init()

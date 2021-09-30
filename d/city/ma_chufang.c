@@ -16,7 +16,7 @@ LONG);
         set("objects", ([
                 "/d/wudu/obj/ganchai" : 2,
         ]));
-	setup();
+    setup();
 }
 
 void init()
@@ -40,7 +40,7 @@ void letter(object me)
         if (environment(me) != this_object())
                 return;
 
-        if (! me->query_temp("want_back_wudu")) 
+        if (! me->query_temp("want_back_wudu"))
                 return;
 
         tell_object(me, WHT "  ┏━━━━━━┓\n"
@@ -55,7 +55,7 @@ int do_back()
 {
         object me = this_player();
 
-        if (me->query_temp("want_back_wudu")) 
+        if (me->query_temp("want_back_wudu"))
         {
                 message("vision", HIC "忽然间只见" + me->name() +
                                   HIC "身形一晃，竟没了踪影。\n" NOR,

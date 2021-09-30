@@ -19,5 +19,5 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-	return notify_fail("奇门五行能靠学(learn)来提高。\n");
+    return notify_fail("奇门五行能靠学(learn)来提高。\n");
 }

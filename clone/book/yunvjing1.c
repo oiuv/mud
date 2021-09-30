@@ -24,7 +24,7 @@ void create()
                         "jing_cost":  40,
                         "difficulty": 30,
                         "max_skill":  60,
-			"min_skill":  30,
+            "min_skill":  30,
                 ]) );
         }
 }

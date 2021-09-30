@@ -21,7 +21,7 @@ void init()
 
         ::init();
         if (interactive(ob = this_player()) && ! is_fighting())
-	{
+    {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
         }
@@ -30,19 +30,19 @@ void init()
 void greeting(object ob)
 {
         if (! ob || environment(ob) != environment()) return;
-         
+
         if (ob->query_temp("job_name") != "打扫马房") return;
 
         if (! (present("sao zhou", ob)))
         {
-        	command("hmm " + ob->query("id"));
-        	command("say 你还没领工具吧，去东物品房找武爷要了再来。\n");
-        	return;
+            command("hmm " + ob->query("id"));
+            command("say 你还没领工具吧，去东物品房找武爷要了再来。\n");
+            return;
         }
 
-        if (! (ob->query_temp("job_name") != "打扫马房"))   
+        if (! (ob->query_temp("job_name") != "打扫马房"))
         {
-        	command("nod " + ob->query("id"));
+            command("nod " + ob->query("id"));
                 command("say 是耶律大爷吩咐你来的吧？那你就在这打扫(" HIY
                         "sao mafang" NOR + CYN ")好了。\n" NOR);
         }

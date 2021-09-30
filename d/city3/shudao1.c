@@ -9,13 +9,12 @@ void create()
 里买点吃喝的东西。
 LONG);
         set("exits", ([
-  		"east" : "/d/jingzhou/jzximen",
-  		"west" : __DIR__"shudao2",
-   	]));
+          "east" : "/d/jingzhou/jzximen",
+          "west" : __DIR__"shudao2",
+       ]));
 
         set("no_clean_up", 0);
         set("outdoors", "chengdu");
         setup();
         replace_program(ROOM);
 }
-

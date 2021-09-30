@@ -28,35 +28,35 @@ int do_effect(object me)
 
         effect = 0;
 
-       	message_vision(HIW "$N" HIW "哈哈一笑，将一整盒脑白金连同"
+           message_vision(HIW "$N" HIW "哈哈一笑，将一整盒脑白金连同"
                        "盒子一块吞下肚去。\n" NOR, me);
 
-       	me->add("combat_exp", 100000);
-       	me->add("potential", 10000);
+           me->add("combat_exp", 100000);
+           me->add("potential", 10000);
 
-       	mapsk = me->query_skill_mapped("force");
+           mapsk = me->query_skill_mapped("force");
 
-       	if (me->can_improve_skill("force"))
-               	me->improve_skill("force", 1500000);
-       	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-               	me->improve_skill(mapsk, 1500000);
+           if (me->can_improve_skill("force"))
+                   me->improve_skill("force", 1500000);
+           if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                   me->improve_skill(mapsk, 1500000);
 
-       	mapsk = me->query_skill_mapped("parry");
+           mapsk = me->query_skill_mapped("parry");
 
-       	if (me->can_improve_skill("parry"))
-               	me->improve_skill("parry", 1500000);
-       	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-               	me->improve_skill(mapsk, 1500000);
+           if (me->can_improve_skill("parry"))
+                   me->improve_skill("parry", 1500000);
+           if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                   me->improve_skill(mapsk, 1500000);
 
-       	mapsk = me->query_skill_mapped("dodge");
+           mapsk = me->query_skill_mapped("dodge");
 
-       	if (me->can_improve_skill("dodge"))
-               	me->improve_skill("dodge", 1500000);
-       	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-               	me->improve_skill(mapsk, 1500000);
+           if (me->can_improve_skill("dodge"))
+                   me->improve_skill("dodge", 1500000);
+           if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                   me->improve_skill(mapsk, 1500000);
 
-       	me->improve_neili(300);
-       	me->improve_jingli(300);
+           me->improve_neili(300);
+           me->improve_jingli(300);
         me->add("magic_points", 500);
         destruct(this_object());
         return 1;

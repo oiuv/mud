@@ -11,10 +11,10 @@ void create ()
 车运来的。水果店女老板张兰香正热情的招呼着客人。
 LONG);
         set("exits", ([
-        	"north"   : __DIR__"qixiang2",
+            "north"   : __DIR__"qixiang2",
         ]));
         set("objects", ([
-        	__DIR__"npc/lanxiang"   : 1,
+            __DIR__"npc/lanxiang"   : 1,
         ]));
 
         setup();

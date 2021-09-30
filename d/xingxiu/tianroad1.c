@@ -9,8 +9,8 @@ void create()
 下山。北边传来阵阵猛兽的啸声。
 LONG);
         set("exits", ([
-            	"eastdown" : __DIR__"shanjiao",
-            	"north" : __DIR__"tianroad2",
+                "eastdown" : __DIR__"shanjiao",
+                "north" : __DIR__"tianroad2",
         ]));
         set("objects", ([
                 __DIR__"npc/herdsman" : 1,
@@ -18,4 +18,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

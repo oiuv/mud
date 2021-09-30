@@ -29,7 +29,7 @@ LONG );
              "/d/hangzhou/npc/yuenv" : 1,
         ]));
 
-    	set("no_clean_up", 0);
+        set("no_clean_up", 0);
         setup();
 }
 

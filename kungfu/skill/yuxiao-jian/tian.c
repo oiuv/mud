@@ -16,11 +16,11 @@ int perform(object me)
 
         if (! target)
         {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
+            me->clean_up_enemy();
+            target = me->select_opponent();
         }
 
-	if (! target || ! me->is_fighting(target))
+    if (! target || ! me->is_fighting(target))
                 return notify_fail(TIAN "只能对战斗中的对手使用。\n");
 
         if (! objectp(weapon = me->query_temp("weapon")) ||

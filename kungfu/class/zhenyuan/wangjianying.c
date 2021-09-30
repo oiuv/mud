@@ -9,17 +9,17 @@ mixed ask_skill2();
 
 void create()
 {
-	set_name("王剑英", ({ "wang jianying", "wang", "jianying" }));
+        set_name("王剑英", ({ "wang jianying", "wang", "jianying" }));
         set("long", @LONG
 他是镇远镖局总镖头王维扬的大儿子，看上去红
 光满面，气宇轩昂，神态自若，便知他内力深厚，
 除了他父亲，俨然便是当世八卦门第一高手，八
 卦门掌门的继承人。
 LONG );
-	set("title", "当世八卦门第一高手");
-  	set("gender", "男性");
-  	set("age", 48);
-	set("class", "fighter");
+        set("title", "当世八卦门第一高手");
+        set("gender", "男性");
+        set("age", 48);
+        set("class", "fighter");
         set("attitude", "peaceful");
         set("str", 35);
         set("int", 35);
@@ -33,43 +33,43 @@ LONG );
         set("jiali", 150);
         set("combat_exp", 2500000);
 
-  	set_skill("parry", 160);
-  	set_skill("wai-bagua", 160);
-  	set_skill("force", 180);
-  	set_skill("nei-bagua", 180);
-  	set_skill("bagua-xinfa", 160);
-  	set_skill("dodge", 160);
-  	set_skill("bagua-bu", 160);
-  	set_skill("blade", 180);
-  	set_skill("bagua-dao", 180);
-  	set_skill("kuimang-dao", 160);
-  	set_skill("strike", 160);
-  	set_skill("bagua-zhang", 160);
-  	set_skill("bazhen-zhang", 160);
-  	set_skill("cuff", 160);
-  	set_skill("bagua-quan", 160);
-  	set_skill("throwing", 160);
-  	set_skill("bagua-biao", 160);
-  	set_skill("literate", 140);
-  	set_skill("martial-cognize", 160);
+          set_skill("parry", 160);
+          set_skill("wai-bagua", 160);
+          set_skill("force", 180);
+          set_skill("nei-bagua", 180);
+          set_skill("bagua-xinfa", 160);
+          set_skill("dodge", 160);
+          set_skill("bagua-bu", 160);
+          set_skill("blade", 180);
+          set_skill("bagua-dao", 180);
+          set_skill("kuimang-dao", 160);
+          set_skill("strike", 160);
+          set_skill("bagua-zhang", 160);
+          set_skill("bazhen-zhang", 160);
+          set_skill("cuff", 160);
+          set_skill("bagua-quan", 160);
+          set_skill("throwing", 160);
+          set_skill("bagua-biao", 160);
+          set_skill("literate", 140);
+          set_skill("martial-cognize", 160);
 
         set("no_teach", ([
                 "nei-bagua" : "内八卦神功必须由我父亲亲自传授。",
                 "bagua-dao" : "八卦刀法向来便是由我父亲亲自教授。",
         ]));
 
-	map_skill("blade", "bagua-dao");
-	map_skill("dodge", "bagua-bu");
-	map_skill("force", "nei-bagua");
-	map_skill("strike", "bagua-zhang");
-	map_skill("cuff", "bagua-quan");
-	map_skill("parry", "wai-bagua");
-	map_skill("throwing", "bagua-biao");
+        map_skill("blade", "bagua-dao");
+        map_skill("dodge", "bagua-bu");
+        map_skill("force", "nei-bagua");
+        map_skill("strike", "bagua-zhang");
+        map_skill("cuff", "bagua-quan");
+        map_skill("parry", "wai-bagua");
+        map_skill("throwing", "bagua-biao");
 
         prepare_skill("cuff", "bagua-quan");
         prepare_skill("strike", "bagua-zhang");
 
-  	create_family("八卦门", 2, "高手");
+          create_family("八卦门", 2, "高手");
 
         set("inquiry", ([
                 "掌中夹镖" : (: ask_skill1 :),
@@ -89,10 +89,10 @@ LONG );
                 (: exert_function, "powerup" :),
         }) );
 
-  	setup();
+          setup();
 
         carry_object("/clone/weapon/gangdao")->wield();
-  	carry_object("/clone/misc/cloth")->wear();
+          carry_object("/clone/misc/cloth")->wear();
         set_temp("handing", carry_object("/d/beijing/npc/obj/jinbiao"));
 
 }
@@ -102,11 +102,11 @@ void attempt_apprentice(object me)
         if (! permit_recruit(me))
                 return;
 
-	if (me->query("combat_exp") < 100000)
-    	{
-      		command("say 你的江湖经验太差了，还是在镖局里再摸爬滚打一段时间吧！");
-      		return;
-    	}
+        if (me->query("combat_exp") < 100000)
+            {
+                      command("say 你的江湖经验太差了，还是在镖局里再摸爬滚打一段时间吧！");
+                      return;
+            }
 
         if (me->query_skill("bagua-xinfa", 1) < 80)
         {
@@ -114,8 +114,8 @@ void attempt_apprentice(object me)
                 return;
         }
 
-  	command("nod");
-  	command("say 既然如此，我就收下你。");
+          command("nod");
+          command("say 既然如此，我就收下你。");
         command("recruit " + me->query("id"));
         if ((string)me->query("class") != "fighter")
                 me->set("class", "fighter");

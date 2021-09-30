@@ -7,17 +7,17 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-	string msg, wp;
+    object weapon;
+    string msg, wp;
         int ap, dp, damage;
 
         if (userp(me) && ! me->query("can_perform/dali-chu/hong"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
-	if (! target ) target = offensive_target(me);
+    if (! target ) target = offensive_target(me);
 
-	if (! target || ! me->is_fighting(target))
-		return notify_fail(HONG "只能对战斗中的对手使用。\n");
+    if (! target || ! me->is_fighting(target))
+        return notify_fail(HONG "只能对战斗中的对手使用。\n");
 
         if (! objectp(weapon = me->query_temp("weapon"))
            || (string)weapon->query("skill_type") != "hammer")
@@ -43,30 +43,30 @@ int perform(object me, object target)
 
         wp = weapon->name();
 
-	msg = HIR "$N" HIR "舞动手中" + wp + HIR "，一招「" HIY "轰雷万钧"
+    msg = HIR "$N" HIR "舞动手中" + wp + HIR "，一招「" HIY "轰雷万钧"
               HIR "」挟着震天撞击之声朝$n" HIR "当头砸下！\n" NOR;
 
-	ap = me->query_skill("hammer");
-	dp = target->query_skill("force");
+    ap = me->query_skill("hammer");
+    dp = target->query_skill("force");
 
-	if (ap / 2 + random(ap) > dp)
-	{
-		me->add("neili", -150);
-		damage = ap / 3 + random(ap / 2);
+    if (ap / 2 + random(ap) > dp)
+    {
+        me->add("neili", -150);
+        damage = ap / 3 + random(ap / 2);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 55,
                                            HIR "$n" HIR "见$N" HIR "来势汹涌，心"
                                            "知不妙，可已然不及躲避，被这锤击中胸"
                                            "口，吐血连连。\n" NOR);
-		me->start_busy(3);
+        me->start_busy(3);
 
-	} else
-	{
-		msg += CYN "可是$p" CYN "早知$P"
-		       CYN "有此一着，当即巧妙招架，格挡开来。\n"NOR;
-		me->add("neili", -100);
-		me->start_busy(3);
-	}
-	message_combatd(msg, me, target);
+    } else
+    {
+        msg += CYN "可是$p" CYN "早知$P"
+               CYN "有此一着，当即巧妙招架，格挡开来。\n"NOR;
+        me->add("neili", -100);
+        me->start_busy(3);
+    }
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

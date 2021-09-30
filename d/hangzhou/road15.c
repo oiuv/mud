@@ -10,10 +10,10 @@ void create()
 慈寺。
 LONG);
         set("exits", ([
-            	"north" : __DIR__"road14",
-            	"south" : __DIR__"yuhuangsj",
-            	"west"      : __DIR__"road16",
-            	"east"      : __DIR__"jingcisi",
+                "north" : __DIR__"road14",
+                "south" : __DIR__"yuhuangsj",
+                "west"      : __DIR__"road16",
+                "east"      : __DIR__"jingcisi",
         ]));
         set("no_clean_up", 0);
         set("outdoors", "hangzhou");

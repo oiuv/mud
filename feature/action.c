@@ -10,9 +10,9 @@ varargs void start_busy(mixed new_busy, mixed new_interrupt)
         int hubo;
         object me;
 
-	if (! new_busy) return;
-	if (! intp(new_busy) && ! functionp(new_busy))
-		error("action: Invalid busy action type.\n");
+    if (! new_busy) return;
+    if (! intp(new_busy) && ! functionp(new_busy))
+        error("action: Invalid busy action type.\n");
 
         if (! objectp(me = this_object())) return;
         if (intp(new_busy))
@@ -30,11 +30,11 @@ varargs void start_busy(mixed new_busy, mixed new_interrupt)
                         new_busy--;
         }
 
-	busy = new_busy;
-	if (! intp(new_interrupt) && ! functionp(new_interrupt))
-		error("action: Invalid busy action interrupt handler type.\n");
-	interrupt = new_interrupt;
-	set_heart_beat(1);
+    busy = new_busy;
+    if (! intp(new_interrupt) && ! functionp(new_interrupt))
+        error("action: Invalid busy action interrupt handler type.\n");
+    interrupt = new_interrupt;
+    set_heart_beat(1);
 }
 
 nomask mixed query_busy() { return busy; }
@@ -44,23 +44,23 @@ nomask int is_busy() { return busy != 0; }
 // doing something else.
 void continue_action()
 {
-	if (intp(busy) && (busy > 0))
-	{
-		busy--;
-		return;
-	} else
-	if (functionp(busy))
-	{
-		if (! evaluate(busy, this_object()))
-		{
-			busy = 0;
-			interrupt = 0;
-		}
-	} else
-	{
-		busy = 0;
-		interrupt = 0;
-	}
+    if (intp(busy) && (busy > 0))
+    {
+        busy--;
+        return;
+    } else
+    if (functionp(busy))
+    {
+        if (! evaluate(busy, this_object()))
+        {
+            busy = 0;
+            interrupt = 0;
+        }
+    } else
+    {
+        busy = 0;
+        interrupt = 0;
+    }
 }
 
 void interrupt_me(object who, string how)
@@ -70,25 +70,25 @@ void interrupt_me(object who, string how)
         bak = busy;
         busy = 0;
 
-	if (! bak) return;
+    if (! bak) return;
 
-	if (intp(bak) && intp(interrupt))
-	{
-		if (bak < interrupt || who != this_object())
+    if (intp(bak) && intp(interrupt))
+    {
+        if (bak < interrupt || who != this_object())
                         return;
-	} else
+    } else
         if (functionp(interrupt))
-	{
-		if (evaluate(interrupt, this_object(), who, how))
-		{
-			bak = 0;
-			interrupt = 0;
-		}
-	} else
-	{
-		bak =0;
-		interrupt = 0;
-	}
+    {
+        if (evaluate(interrupt, this_object(), who, how))
+        {
+            bak = 0;
+            interrupt = 0;
+        }
+    } else
+    {
+        bak =0;
+        interrupt = 0;
+    }
 
         busy = bak;
 }
@@ -111,8 +111,8 @@ int start_call_out(function fun, int delay)
                 // bind the function, then the player doesn't
                 // occur error when the function's owner be
                 // destructed.
-	        call_out("eval_function", delay, bind(fun, this_object()));
-	return 1;
+            call_out("eval_function", delay, bind(fun, this_object()));
+    return 1;
 }
 
 protected void eval_function(function fun) { evaluate(fun); }
@@ -122,9 +122,9 @@ protected void eval_function(function fun) { evaluate(fun); }
 // It also cause a security problem, so I must check here
 nomask int set_override(string index, function fun)
 {
-	if (! previous_object() ||
-	    geteuid(previous_object()) != ROOT_UID)
-		return 0;
+    if (! previous_object() ||
+        geteuid(previous_object()) != ROOT_UID)
+        return 0;
 
         if (! override)
                 override = ([ ]);
@@ -136,8 +136,8 @@ nomask int set_override(string index, function fun)
 // only root & (admin) can called me
 nomask mixed query_override(string index)
 {
-	if (! is_root(previous_object()))
-		return 0;
+    if (! is_root(previous_object()))
+        return 0;
 
         if (! index) return override;
         if (! override) return 0;

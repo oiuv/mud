@@ -3,15 +3,15 @@ inherit ITEM;
 
 void create()
 {
-	set_name(NOR + WHT "商令" NOR, ({ "shang ling", "shang", "ling" }));
-	set_weight(1);
-	if (clonep())
-	set("long", NOR + WHT "这是一张红底金边的通商令，由闯王军颁发。\n" NOR);
-	set("unit", "张");
-	set("value", 5);
-	set("material", "paper");
-	set("no_sell", "这年头，你把吃饭的家伙也拿来卖钱？");
-	setup();
+    set_name(NOR + WHT "商令" NOR, ({ "shang ling", "shang", "ling" }));
+    set_weight(1);
+    if (clonep())
+    set("long", NOR + WHT "这是一张红底金边的通商令，由闯王军颁发。\n" NOR);
+    set("unit", "张");
+    set("value", 5);
+    set("material", "paper");
+    set("no_sell", "这年头，你把吃饭的家伙也拿来卖钱？");
+    setup();
 }
 
 void init()
@@ -44,7 +44,7 @@ int do_stock(string arg)
         i = sizeof(args = explode(arg, " "));
 
         i--;
-        if (! sscanf(args[i], "%d", amount)) 
+        if (! sscanf(args[i], "%d", amount))
                 amount = 0;
         else
                 arg = replace_string(arg, " " + amount, "");
@@ -79,7 +79,7 @@ int do_stock(string arg)
                 value = goods->query("value");
 
         if (amount)
-        { 
+        {
                 value = amount * value;
                 beishu = chinese_number((string)amount) + "倍价";
         } else
@@ -109,7 +109,7 @@ int do_unstock(string arg)
         int i/*, amount, value*/, have_it = 0;
         mapping all_goods;
         string *goods_key/*, beishu*/;
-        
+
         me = this_player();
 
         if (! me->query("is_vendor"))
@@ -137,7 +137,7 @@ int do_unstock(string arg)
                         have_it = 1;
         }
 
-        if (have_it) 
+        if (have_it)
         {
                 map_delete(all_goods, base_name(goods));
                 message_vision(HIW "$N" HIW "将" + goods->name(1) +
@@ -152,4 +152,4 @@ int do_unstock(string arg)
 int query_autoload()
 {
         return 1;
-} 
+}

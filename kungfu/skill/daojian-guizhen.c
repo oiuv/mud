@@ -115,7 +115,7 @@ int get_finish(object me)
                                 "难以演练。\n");
                 return 0;
         }
-        
+
         //添加国士无双效果 by 薪有所属
         if (me->query("character") != "光明磊落" && me->query("character") != "国士无双")
         {
@@ -180,7 +180,7 @@ mapping query_sub_skills()
 
 int valid_enable(string usage)
 {
-	return usage == "sword" || usage == "blade" || usage == "parry";
+    return usage == "sword" || usage == "blade" || usage == "parry";
 }
 
 int valid_learn(object me)
@@ -289,6 +289,5 @@ mixed hit_ob(object me, object victim, int damage_bonus)
 
 string perform_action_file(string action)
 {
-        return __DIR__"daojian-guizhen/" + action; 
+        return __DIR__"daojian-guizhen/" + action;
 }
-

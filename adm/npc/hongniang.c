@@ -9,20 +9,20 @@ inherit NPC;
 
 void create()
 {
-	set_name("红娘", ({ "hong niang", "hongniang", "marriage witness" }));
-	set("long", 
-		"她是一个长得很好看的小姑娘，忽闪忽"
+    set_name("红娘", ({ "hong niang", "hongniang", "marriage witness" }));
+    set("long",
+        "她是一个长得很好看的小姑娘，忽闪忽"
                 "闪的大眼睛透着一丝狡黠。\n");
-	set("gender", "女性");
-	set("age", 18);
-	set("combat_exp", 1000);
+    set("gender", "女性");
+    set("age", 18);
+    set("combat_exp", 1000);
 
         set("inquiry", ([
                 "结婚": "要结婚？我可以为你们做媒啊，你们人都来齐了么？",
                 "离婚": "结婚找我，离婚我也帮忙，不过可以慎重哦。一日夫妻百日恩嘛！",
         ]));
 
-	setup();
+    setup();
         seteuid(getuid());
 }
 
@@ -51,13 +51,13 @@ int do_witness(object me, object ob)
                        "促成良缘是天大的美事！我" + name() + "最愿意了，问题是这位" +
                        RANK_D->query_respect(ob) + "也愿意吗？”\n\n", me);
 
-	tell_object(ob, YEL + name() + "悄声问你：" + me->name(1) +
+    tell_object(ob, YEL + name() + "悄声问你：" + me->name(1) +
                         "在向你求婚呢，你答应(right)还是不答应(refuse)？\n" NOR);
-	ob->set_temp("pending/answer/" + me->query("id") + "/right",
+    ob->set_temp("pending/answer/" + me->query("id") + "/right",
                      bind((: call_other, __FILE__, "do_right", ob, me :), ob));
-	ob->set_temp("pending/answer/" + me->query("id") + "/refuse",
-	             bind((: call_other, __FILE__, "do_refuse", ob, me :), ob));
-	me->set_temp("pending/engage", ob);
+    ob->set_temp("pending/answer/" + me->query("id") + "/refuse",
+                 bind((: call_other, __FILE__, "do_refuse", ob, me :), ob));
+    me->set_temp("pending/engage", ob);
         return 1;
 }
 
@@ -110,16 +110,16 @@ int do_right(object me, object ob)
         ring->move(ob, 1);
         tell_object(ob, HIY "你获得了一个结婚戒指。\n" NOR);
         ob->set("can_summon/" + "wedding ring", fn);
-        
+
         // record
-	me->set("couple/id", ob->query("id"));
-	me->set("couple/name", ob->name(1));
+    me->set("couple/id", ob->query("id"));
+    me->set("couple/name", ob->name(1));
         me->set("couple/witness", name());
-	me->save();
-	ob->set("couple/id", me->query("id"));
-	ob->set("couple/name", me->name(1));
+    me->save();
+    ob->set("couple/id", me->query("id"));
+    ob->set("couple/name", me->name(1));
         ob->set("couple/witness", name());
-	ob->save();
+    ob->save();
         return 1;
 }
 

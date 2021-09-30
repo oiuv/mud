@@ -10,20 +10,20 @@ mixed ask_skill2();
 
 void create()
 {
-	set_name("班淑娴", ({ "ban shuxian", "ban", "shuxian" }));
-	set("title", "昆仑派掌门夫人");
+    set_name("班淑娴", ({ "ban shuxian", "ban", "shuxian" }));
+    set("title", "昆仑派掌门夫人");
         set("long", @LONG
 她就是昆仑派第四代掌门铁琴先生何太冲的夫
 人班淑娴。只见她身材高大，头发花白，双目
 含威。眉心间聚有煞气。
 LONG);
-	set("gender", "女性");
-	set("age", 46);
-	set("attitude", "heroism");
-	set("str", 25);
-	set("int", 25);
-	set("con", 25);
-	set("dex", 25);
+    set("gender", "女性");
+    set("age", 46);
+    set("attitude", "heroism");
+    set("str", 25);
+    set("int", 25);
+    set("con", 25);
+    set("dex", 25);
         set("max_qi", 4800);
         set("max_jing", 2800);
         set("neili", 5500);
@@ -102,7 +102,7 @@ LONG);
 
         }) );
 
-	setup();
+    setup();
 
         carry_object("clone/weapon/changjian")->wield();
         carry_object("clone/misc/cloth")->wear();
@@ -127,11 +127,11 @@ void attempt_apprentice(object me)
 
         if ((int)me->query_skill("kunlun-xinfa", 1) < 80)
         {
-		command("say 你对本门的内功心法所知尚浅，练习高了再来找我吧。");
-		return;
-	}
+        command("say 你对本门的内功心法所知尚浅，练习高了再来找我吧。");
+        return;
+    }
 
-	command("say 好吧，以后你就跟我吧，你须得安心学艺，不可乱来。");
+    command("say 好吧，以后你就跟我吧，你须得安心学艺，不可乱来。");
         command("recruit " + me->query("id"));
 }
 
@@ -228,4 +228,3 @@ mixed ask_skill2()
 
         return 1;
 }
-

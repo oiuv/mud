@@ -3,20 +3,20 @@ inherit ROOM;
 
 void create()
 {
-      	set("short","小树林");
-      	set("long",@LONG
+          set("short","小树林");
+          set("long",@LONG
 这是峨嵋山金顶华藏庵外的一片小树林。北边是峨嵋派女
 弟子们的寝宫的窗户，窗下好像蹲着一个人。
 LONG);
-      	set("objects", ([
-           	__DIR__"npc/songqingshu" : 1,
-      	]));
-      	set("outdoors", "emei");
-      	set("exits",([
-          	"northwest" : __DIR__"xiaoshulin3", 
-          	"north"     : __DIR__"qinggong", 
-      	]));
-      	setup();
+          set("objects", ([
+               __DIR__"npc/songqingshu" : 1,
+          ]));
+          set("outdoors", "emei");
+          set("exits",([
+              "northwest" : __DIR__"xiaoshulin3",
+              "north"     : __DIR__"qinggong",
+          ]));
+          setup();
 }
 
 int valid_leave(object me, string dir)

@@ -42,7 +42,7 @@ void create()
 }
 
 mixed ask_caiyao()
-{  
+{
         object me = this_player();
 
         switch (me->query_temp("caiyao"))
@@ -88,28 +88,28 @@ int accept_object(object me, object ob)
         {
                 command("say 我什么时候叫你拿这个给我的？");
         } else
-	if (me->query_temp("caiyao") == 1)
+    if (me->query_temp("caiyao") == 1)
         {
                 command("say 是谁帮你找的东西来敷衍我，别以为我小就好骗。");
         } else
-	if (strsrch(ob->query("name"), "不知名草药") < 0) 
+    if (strsrch(ob->query("name"), "不知名草药") < 0)
         {
                 command("say 你欺我小啊？拿这种东西骗我。\n");
         } else
-	{
+    {
                 command("say 好吧，让我来给你加工。");
                 command("say 你现在直接去丹房炼丹（liandan）就行了。");
                 me->delete_temp("caiyao");
                 me->set_temp("liandan", 2);
-				//奖励增加5倍（2015年4月25日）
+                //奖励增加5倍（2015年4月25日）
                 exp = 2 + random(2);
                 pot = 1 + random(2);
 
                 me->add("combat_exp", exp);
                 me->improve_potential(pot);
 
-                if (me->query("potential") > me->query_potential_limit()) 
-			pot = 1;
+                if (me->query("potential") > me->query_potential_limit())
+            pot = 1;
 
                 tell_object(me, HIC "你获得了" + chinese_number(exp) +
                                 "点经验和" + chinese_number(pot) + "点潜能。\n"
@@ -119,4 +119,3 @@ int accept_object(object me, object ob)
         }
         return 0;
 }
-

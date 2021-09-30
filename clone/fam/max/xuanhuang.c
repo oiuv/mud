@@ -33,41 +33,41 @@ int do_effect(object me)
 
         if (me->query("skybook/item/xuanhuang"))
         {
-	        message_vision(HIR "$N" HIR "一仰脖，吞下了一颗玄黄紫箐丹，却听$P"
+            message_vision(HIR "$N" HIR "一仰脖，吞下了一颗玄黄紫箐丹，却听$P"
                                HIR "一声尖哮，喷出一口鲜血，仰面便倒。\n" NOR, me);
 
                 me->set_temp("die_reason", "贪吃玄黄紫箐丹，结果弄得全身筋脉尽断"
                                            "而亡");
-                me->die(); 
+                me->die();
         } else
-	{
-        	message_vision(HIW "$N" HIW "一仰脖，吞下了一颗玄黄紫箐丹，只见$P"
+    {
+            message_vision(HIW "$N" HIW "一仰脖，吞下了一颗玄黄紫箐丹，只见$P"
                                HIW "浑身一颤，七窍都冒出白烟来。\n" NOR, me);
 
-        	me->add("combat_exp", 100000 + random(50000));
-        	me->add("potential", 10000);
+            me->add("combat_exp", 100000 + random(50000));
+            me->add("potential", 10000);
 
-        	mapsk = me->query_skill_mapped("force");
-        	if (me->can_improve_skill("force"))
-                	me->improve_skill("force", 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
+            mapsk = me->query_skill_mapped("force");
+            if (me->can_improve_skill("force"))
+                    me->improve_skill("force", 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
 
-        	mapsk = me->query_skill_mapped("parry");
-        	if (me->can_improve_skill("parry"))
-                	me->improve_skill("parry", 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
+            mapsk = me->query_skill_mapped("parry");
+            if (me->can_improve_skill("parry"))
+                    me->improve_skill("parry", 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
 
-        	mapsk = me->query_skill_mapped("dodge");
-        	if (me->can_improve_skill("dodge"))
-                	me->improve_skill("dodge", 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
+            mapsk = me->query_skill_mapped("dodge");
+            if (me->can_improve_skill("dodge"))
+                    me->improve_skill("dodge", 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
 
-        	me->improve_neili(500);
-        	me->set("skybook/item/xuanhuang", 1);
-	}
+            me->improve_neili(500);
+            me->set("skybook/item/xuanhuang", 1);
+    }
         destruct(this_object());
         return 1;
 }

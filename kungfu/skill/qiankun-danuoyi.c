@@ -23,8 +23,8 @@ string *pfail_msg = ({
         "$n双手回圈，$N只觉得前面好象有一堵墙，猛然警醒，聚力于一点，力攻对方。\n",
 });
 
-int valid_enable(string usage) 
-{ 
+int valid_enable(string usage)
+{
         return usage == "parry";
 }
 
@@ -48,26 +48,26 @@ int valid_learn(object me)
 
         layer = (int)me->query_skill("qiankun-danuoyi", 1) / 50;
         if (layer > 7) layer = 7;
-		
-		if (me->query("family/family_name") == "明教")
-			layer = 1;
 
-		//if (me->query("int") < 36 )
-		if (me->query("int") < 29 + layer )
+        if (me->query("family/family_name") == "明教")
+            layer = 1;
+
+        //if (me->query("int") < 36 )
+        if (me->query("int") < 29 + layer )
                 return notify_fail("你觉得乾坤大挪移实在是深奥无比，全然无法理解。\n");
 
         //if (me->query("int") < 32 + layer )
         //      return notify_fail("你觉得第" + chinese_number(layer) +
         //                          "层乾坤大挪移实在是深奥无比，全然无法理解。\n");
 
-		//if (me->query("int") < 43 + layer - (int)me->query_skill("force")/50)
-		if (me->query("int") < 39 + layer - (int)me->query_skill("force")/50
-			&& me->query("family/family_name") != "明教")
+        //if (me->query("int") < 43 + layer - (int)me->query_skill("force")/50)
+        if (me->query("int") < 39 + layer - (int)me->query_skill("force")/50
+            && me->query("family/family_name") != "明教")
                 return notify_fail("你觉乾坤大挪移实在是深奥无比，全然无法理解。\n");
 
         if ((int)me->query("max_neili") < 5000)
                 return notify_fail("你的内力修为太差，无法修炼乾坤大挪移。\n");
-        
+
         if ((int)me->query_skill("force") < 450)
                 return notify_fail("你的内功火候不够，无法修炼乾坤大挪移。\n");
 
@@ -113,31 +113,31 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
            && mp < 100)
         {
                 if (objectp(weapon = ob->query_temp("weapon")))
-		{
-			wn = weapon->query("skill_type");
-			na = ob->query_skill_mapped(wn);
-		} else
+        {
+            wn = weapon->query("skill_type");
+            na = ob->query_skill_mapped(wn);
+        } else
 
-		if (ob->query_skill_prepared("finger"))
-			na = ob->query_skill_mapped("finger");
-		else
+        if (ob->query_skill_prepared("finger"))
+            na = ob->query_skill_mapped("finger");
+        else
 
-		if (ob->query_skill_prepared("strike"))
-			na = ob->query_skill_mapped("strike");
-		else
+        if (ob->query_skill_prepared("strike"))
+            na = ob->query_skill_mapped("strike");
+        else
 
-		if (ob->query_skill_prepared("claw"))
-			na = ob->query_skill_mapped("claw");
-		else
+        if (ob->query_skill_prepared("claw"))
+            na = ob->query_skill_mapped("claw");
+        else
 
-		if (ob->query_skill_prepared("cuff"))
-			na = ob->query_skill_mapped("cuff");
-		else
+        if (ob->query_skill_prepared("cuff"))
+            na = ob->query_skill_mapped("cuff");
+        else
 
-		if (ob->query_skill_prepared("hand"))
-			na = ob->query_skill_mapped("hand");
-		else
-			na = ob->query_skill_mapped("unarmed");
+        if (ob->query_skill_prepared("hand"))
+            na = ob->query_skill_mapped("hand");
+        else
+            na = ob->query_skill_mapped("unarmed");
 
                 msg = HIM "\n$N" HIM "一招攻出，却见$n" HIM "迎身而"
                       "上，冷笑道：「区区" + CHINESE_D->chinese(na) +
@@ -283,18 +283,18 @@ void nuoyi(object ob, object me)
 int query_effect_parry(object attacker, object me)
 {
     int lvl;
-	lvl = me->query_skill("qiankun-danuoyi", 1);
-	
-	if (me->query("family/family_name") == "明教")
-	{
+    lvl = me->query_skill("qiankun-danuoyi", 1);
+
+    if (me->query("family/family_name") == "明教")
+    {
         if (lvl < 80)  return 0;
         if (lvl < 200) return 40;
         if (lvl < 280) return 60;
         if (lvl < 350) return 80;
         return 100;
-	}
-	else
-		return 0;
+    }
+    else
+        return 0;
 }
 
 int practice_skill(object me)

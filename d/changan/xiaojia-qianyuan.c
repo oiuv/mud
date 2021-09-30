@@ -9,12 +9,12 @@ void create ()
 头高大的石狮子。门上挂着两个灯笼，赫然写着大大的“萧”字。
 LONG);
         set("exits", ([
-        	"west" : __DIR__"liande-dadao5",
-        	"east" : __DIR__"xiaojiadt",
+            "west" : __DIR__"liande-dadao5",
+            "east" : __DIR__"xiaojiadt",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
-        	__DIR__"npc/guanjia" : 1,
+            __DIR__"npc/guanjia" : 1,
         ]));
 
         set("outdoors", "changan");

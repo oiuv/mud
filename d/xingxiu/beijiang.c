@@ -9,7 +9,7 @@ void create()
 鼎沸，好像在举行什么比赛。东面有家院落，院门口有棵大树。
 北边是一家马厩。
 LONG);
-        set("exits", ([ 
+        set("exits", ([
             "west"      : __DIR__"store",
             "east"      : __DIR__"house",
             "north"     : __DIR__"majiu",
@@ -19,10 +19,9 @@ LONG);
 
         set("objects", ([
                 __DIR__"npc/woman": 2,
-	]));
+    ]));
 
         set("outdoors", "xingxiu");
         setup();
         replace_program(ROOM);
 }
-

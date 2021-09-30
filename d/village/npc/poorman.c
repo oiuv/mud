@@ -10,8 +10,8 @@ void create()
         set("long", "一个骨瘦如柴，满脸菜色的穷汉。\n");
         set("attitude", "friendly");
         set("combat_exp", 250);
-//	set("shen", 50);
-	set("shen_type", 1);
+//    set("shen", 50);
+    set("shen_type", 1);
         set("str", 20);
         set("dex", 18);
         set("con", 17);
@@ -25,4 +25,3 @@ void create()
         }) );
         carry_object(__DIR__"obj/cloth")->wear();
 }
-

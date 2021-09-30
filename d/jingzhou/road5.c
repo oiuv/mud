@@ -9,12 +9,11 @@ void create()
 的声音，风吹树页的声音，如同一首大自然的乐曲，美妙动听。
 LONG);
         set("exits", ([
-  		"northeast" : __DIR__"qingshan1",
-  		"west" : __DIR__"road6",
-	]));
+          "northeast" : __DIR__"qingshan1",
+          "west" : __DIR__"road6",
+    ]));
         set("no_clean_up", 0);
         set("outdoors", "jingzhou");
         setup();
         replace_program(ROOM);
 }
-

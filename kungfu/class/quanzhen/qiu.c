@@ -103,7 +103,7 @@ LONG);
 }
 
 void init()
-{       
+{
         object ob;
 
         ::init();
@@ -157,8 +157,8 @@ void check_body()
                        HIR "，喝道：天杀的贼子！今天你我就拼个鱼死"
                        "网破！\n\n" NOR, me);
 
-	me->set("max_neili", 6500);  // 提升同归剑法绝招的命中率
-	me->set("neili", 6500);
+    me->set("max_neili", 6500);  // 提升同归剑法绝招的命中率
+    me->set("neili", 6500);
 
         command("jifa sword tonggui-jian");
         set("chat_msg_combat", ({
@@ -238,7 +238,7 @@ mixed ask_skill1()
                      "！必要时和敌人同归于尽，宁为玉碎，不为瓦全！”说罢$n"
                      HIY "便从怀中轻轻取出了一本剑谱，指着其中一段对$N" HIY
                      "细说良久，$N" HIY "一边听一边点头。\n\n" NOR, me,
-                     this_object()); 
+                     this_object());
 
         command("nod");
         command("say 虽说是舍生成仁，但不至万不得已，也莫要轻易使用。");

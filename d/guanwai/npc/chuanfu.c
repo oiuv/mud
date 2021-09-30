@@ -15,14 +15,14 @@ void create()
         set("combat_exp", 10000);
         set("shen_type", 1);
 
-	set("eff_qi",800);
-	set("qi", 800);
+    set("eff_qi",800);
+    set("qi", 800);
         set("max_neili", 100);
         set("neili", 100);
         set("jiali", 10);
 
         setup();
-	carry_object("/clone/misc/cloth")->wear();
+    carry_object("/clone/misc/cloth")->wear();
 }
 
 int accept_object(object who, object ob)
@@ -42,11 +42,11 @@ int accept_object(object who, object ob)
                 message("vision", BLU "你在江上一路漂流.......\n" NOR, obs);
                 call_out("goto_songhua", 10, obs);
                 destruct(ob);
-       	        return -1;
-        } else  
+                   return -1;
+        } else
         {
-	        message_vision("船夫皱眉对$N说：就这点？怎么也得一两银子吧！\n", who);
-	        return 0;
+            message_vision("船夫皱眉对$N说：就这点？怎么也得一两银子吧！\n", who);
+            return 0;
         }
 }
 

@@ -84,7 +84,7 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "hammer" || usage == "parry";
+    return usage == "hammer" || usage == "parry";
 }
 
 int valid_learn(object me)
@@ -125,7 +125,7 @@ int practice_skill(object me)
 {
         object weapon;
 
-        if (! objectp(weapon = me->query_temp("weapon")) || 
+        if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "hammer")
                 return notify_fail("你使用的武器不对。\n");
 

@@ -14,12 +14,11 @@ LONG);
                 "/d/beijing/npc/ducha" : 1,
         ]));
         set("exits", ([
-        	"east" : __DIR__"guandao3",
-        	"west" : __DIR__"dongdajie2",
+            "east" : __DIR__"guandao3",
+            "west" : __DIR__"dongdajie2",
         ]));
         set("outdoors", "jingzhou");
 
         setup();
         replace_program(ROOM);
 }
-

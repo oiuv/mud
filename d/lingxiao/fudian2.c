@@ -9,8 +9,8 @@ void create()
 不太平，麻烦事情也挺多的，还是少理为妙。
 LONG);
         set("exits",([
-            	"east"  : __DIR__"lianwu2",
-            	"west"  : __DIR__"dadian",
+                "east"  : __DIR__"lianwu2",
+                "west"  : __DIR__"dadian",
         ]));
         set("objects", ([
                __DIR__"npc/dizi" : 3,
@@ -19,4 +19,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

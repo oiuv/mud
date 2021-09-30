@@ -6,29 +6,29 @@
 inherit F_SSERVER;
 
 #define QIONG "「" HIR "无穷无尽" NOR "」"
- 
+
 int perform(object me, object target)
 {
-	string msg;
+    string msg;
         int ap, dp, ap1, dp1, damage;
         object weapon;
 
         if (userp(me) && ! me->query("can_perform/kuihua-mogong/qiong"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
-	if (! target) target = offensive_target(me);
+    if (! target) target = offensive_target(me);
 
-	if (! target || ! me->is_fighting(target))
-	        return notify_fail(QIONG "只能在战斗中对对手使用。\n");
+    if (! target || ! me->is_fighting(target))
+            return notify_fail(QIONG "只能在战斗中对对手使用。\n");
 
-	if (me->query_skill("kuihua-mogong", 1) < 250)
-		return notify_fail("你的葵花魔功还不够娴熟，不能使用" QIONG "！\n");
+    if (me->query_skill("kuihua-mogong", 1) < 250)
+        return notify_fail("你的葵花魔功还不够娴熟，不能使用" QIONG "！\n");
 
         if ((int)me->query("max_neili") < 3800)
                 return notify_fail("你的内力修为不足，难以施展" QIONG "。\n");
 
-	if (me->query("neili") < 200)
-		return notify_fail("你的真气不够，无法施展" QIONG "\n");
+    if (me->query("neili") < 200)
+        return notify_fail("你的真气不够，无法施展" QIONG "\n");
 
         if (weapon = me->query_temp("weapon"))
         {
@@ -54,11 +54,11 @@ int perform(object me, object target)
         msg = HIR "\n$N" HIR "尖啸一声，猛然进步欺前，一招竟直袭$n" HIR "要害，速度之快，令"
               "人见所未见，闻所未闻。\n" NOR;
 
-	me->want_kill(target);
+    me->want_kill(target);
         ap = me->query_skill("kuihua-mogong", 1);
         dp = target->query("combat_exp") / 10000;
-	me->add("neili", -60);
-	me->start_busy(1 + random(2));
+    me->add("neili", -60);
+    me->start_busy(1 + random(2));
 
         if (dp >= 100) // 对百万经验以上无效，但是仍然受到伤害
         {
@@ -96,5 +96,5 @@ int perform(object me, object target)
 
         message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

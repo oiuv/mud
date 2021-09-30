@@ -17,9 +17,9 @@ LONG
         );
         set("exits", ([
                 "south" : __DIR__"tinglang1",
-		]));
+        ]));
         set("item_desc", ([
-				"desk" : "一张制作精良的檀香木书桌.\n",
+                "desk" : "一张制作精良的檀香木书桌.\n",
         ]));
         set("objects", ([
 //        __DIR__"npc/kangxi" : 1,
@@ -39,7 +39,7 @@ int do_press(string arg)
         {
                 message_vision("你轻轻一按桌角,突然墙上书架列开一道暗门.\n", this_player());
                 set("exits/enter", __DIR__"mishi");
-				remove_call_out("close");
+                remove_call_out("close");
                 call_out("close", 1, this_object());
                 return 1;
         }

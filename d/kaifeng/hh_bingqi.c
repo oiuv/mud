@@ -10,8 +10,8 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"east" : __DIR__"hh_guangchang",
-	]));
+          "east" : __DIR__"hh_guangchang",
+    ]));
         set("objects", ([
                 "/clone/weapon/changjian" : 2,
                 "/clone/weapon/gangdao" : 2,

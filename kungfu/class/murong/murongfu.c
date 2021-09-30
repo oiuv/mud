@@ -10,77 +10,77 @@ inherit F_COAGENT;
 
 void create()
 {
-	set_name("慕容复", ({ "murong fu", "murong", "fu" }));
-	set("long", @LONG
+    set_name("慕容复", ({ "murong fu", "murong", "fu" }));
+    set("long", @LONG
 他是姑苏慕容的传人，是慕容博之子，所谓南慕容、北乔峰。
 此人正是和乔峰齐名的慕容家高手。他容貌俊雅，风度过人，
 的确非寻常人可比。
 LONG );
-	set("titile", "姑苏慕容");
-	set("gender", "男性");
-	set("age", 25);
-	set("shen_type",-1);
-	set("attitude", "peaceful");
+    set("titile", "姑苏慕容");
+    set("gender", "男性");
+    set("age", 25);
+    set("shen_type",-1);
+    set("attitude", "peaceful");
 
-	set("str", 27);
-	set("int", 29);
-	set("con", 31);
-	set("dex", 28);
+    set("str", 27);
+    set("int", 29);
+    set("con", 31);
+    set("dex", 28);
         set("per", 28);
 
-	set("qi", 4100);
-	set("max_qi", 4100);
-	set("jing", 2100);
-	set("max_jing", 2100);
-	set("neili", 4900);
-	set("max_neili", 4900);
-	set("jiali", 80);
+    set("qi", 4100);
+    set("max_qi", 4100);
+    set("jing", 2100);
+    set("max_jing", 2100);
+    set("neili", 4900);
+    set("max_neili", 4900);
+    set("jiali", 80);
 
-	set("combat_exp", 1750000);
+    set("combat_exp", 1750000);
 
-	set_skill("force", 180);
-	set_skill("literate", 140);
-	set_skill("cuff", 180);
-	set_skill("sword", 180);
-	set_skill("blade", 180);
-	set_skill("dodge", 180);
-	set_skill("parry", 200);
-	set_skill("murong-xinfa", 180);
-	set_skill("douzhuan-xingyi", 200);
-	set_skill("beidou-xianzong", 180);
-	set_skill("qixing-quan", 180);
-	set_skill("murong-jian", 180);
+    set_skill("force", 180);
+    set_skill("literate", 140);
+    set_skill("cuff", 180);
+    set_skill("sword", 180);
+    set_skill("blade", 180);
+    set_skill("dodge", 180);
+    set_skill("parry", 200);
+    set_skill("murong-xinfa", 180);
+    set_skill("douzhuan-xingyi", 200);
+    set_skill("beidou-xianzong", 180);
+    set_skill("qixing-quan", 180);
+    set_skill("murong-jian", 180);
     set_skill("martial-cognize", 140);
     set_skill("longcheng-shendao", 180);
 
-	map_skill("force", "murong-xinfa");
-	map_skill("dodge", "beidou-xianzong");
-	map_skill("cuff",  "qixing-quan");
-	map_skill("parry", "douzhuan-xingyi");
-	map_skill("sword", "murong-jian");
-	map_skill("blade", "longcheng-shendao");
+    map_skill("force", "murong-xinfa");
+    map_skill("dodge", "beidou-xianzong");
+    map_skill("cuff",  "qixing-quan");
+    map_skill("parry", "douzhuan-xingyi");
+    map_skill("sword", "murong-jian");
+    map_skill("blade", "longcheng-shendao");
 
         prepare_skill("cuff", "qixing-quan");
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: exert_function, "recover" :),
-		(: perform_action, "parry.yi" :),
-		(: perform_action, "blade.feng" :),
-		(: perform_action, "cuff.zhai" :),
-	}));
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: exert_function, "recover" :),
+        (: perform_action, "parry.yi" :),
+        (: perform_action, "blade.feng" :),
+        (: perform_action, "cuff.zhai" :),
+    }));
 
-	create_family("慕容世家", 16, "传人");
+    create_family("慕容世家", 16, "传人");
 
-	set("coagents", ({
+    set("coagents", ({
                 ([ "startroom" : "/d/yanziwu/canheju",
                    "id"        : "murong bo" ]),
         }));
 
-	setup();
+    setup();
         carry_object("/clone/weapon/gangdao")->wield();
-	carry_object("/clone/misc/cloth")->wear();
-	add_money("silver", 200);
+    carry_object("/clone/misc/cloth")->wear();
+    add_money("silver", 200);
 }
 
 void attempt_apprentice(object ob)
@@ -144,4 +144,3 @@ void unconcious()
 {
         die();
 }
-

@@ -33,13 +33,13 @@ int exert(object me, object target)
         {
              me->add_temp("apply/armor", skill);
              me->set_temp("shield", 1);
-			 me->start_call_out((: call_other, __FILE__, "remove_effect", me, skill :), skill);
+             me->start_call_out((: call_other, __FILE__, "remove_effect", me, skill :), skill);
         }
         else
         {
              me->add_temp("apply/armor", skill / 2);
              me->set_temp("shield", 1);
-			 me->start_call_out((: call_other, __FILE__, "remove_effect", me, skill / 2 :), skill);
+             me->start_call_out((: call_other, __FILE__, "remove_effect", me, skill / 2 :), skill);
         }
 
         if (me->is_fighting()) me->start_busy(2);
@@ -55,6 +55,5 @@ void remove_effect(object me, int amount)
                 me->delete_temp("shield");
                 tell_object(me, "你的太玄功运行完毕，将内力收回丹田。\n");
         }
-       
-}
 
+}

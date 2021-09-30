@@ -9,36 +9,36 @@ void remove_effect(object me, int a_amount, int d_amount);
 
 int perform(object me, object target)
 {
-	object weapon;
+    object weapon;
   int damage;
-	// int skill;
-	string msg;
+    // int skill;
+    string msg;
 
-	if (! target) target = offensive_target(me);
+    if (! target) target = offensive_target(me);
 
-	if (! target || ! me->is_fighting(target))
-		return notify_fail("无双无对只能对战斗中的对手使用。\n");
+    if (! target || ! me->is_fighting(target))
+        return notify_fail("无双无对只能对战斗中的对手使用。\n");
 
-	if (! objectp(weapon = me->query_temp("weapon")) ||
+    if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-		return notify_fail("你使用的武器不对。\n");
+        return notify_fail("你使用的武器不对。\n");
 
-	if ((int)me->query_skill("yunu-sword", 1) < 80)
-		return notify_fail("你的玉女金针十三剑不够娴熟，不会使用「无双无对」。\n");
+    if ((int)me->query_skill("yunu-sword", 1) < 80)
+        return notify_fail("你的玉女金针十三剑不够娴熟，不会使用「无双无对」。\n");
 
-	if ((int)me->query_skill("force") < 120)
-		return notify_fail("你的内功不够娴熟，不会使用「无双无对」。\n");
+    if ((int)me->query_skill("force") < 120)
+        return notify_fail("你的内功不够娴熟，不会使用「无双无对」。\n");
 
-	if ((int)me->query("neili") < 300)
-		return notify_fail("你的内力不够。\n");
+    if ((int)me->query("neili") < 300)
+        return notify_fail("你的内力不够。\n");
 
-	if ((int)me->query_temp("hsj_wu"))
-		return notify_fail("你已经在运功中了。\n");
+    if ((int)me->query_temp("hsj_wu"))
+        return notify_fail("你已经在运功中了。\n");
 
        if (! living(target))
               return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIY "$N" HIY "双手握起" + weapon->name() + HIY
+    msg = HIY "$N" HIY "双手握起" + weapon->name() + HIY
               "，剑芒暴长，一式「无双无对」，驭剑猛烈绝伦地往$n"
               HIY "冲刺！\n"NOR;
 
@@ -60,5 +60,5 @@ int perform(object me, object target)
         }
 
         message_combatd(msg, me, target);
-	return 1;
+    return 1;
 }

@@ -61,7 +61,7 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "finger" || usage == "parry";
+    return usage == "finger" || usage == "parry";
 }
 
 int valid_combine(string combo)

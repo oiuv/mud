@@ -173,19 +173,19 @@ int accept_object(object who, object ob)
 
         if (query("jinshe_count") < 1)
         {
-              	command("sigh");
-              	command("say 本来我该谢你点什么的，可手头实在拿不出东西来。");
-              	return 1;
-	} else
-	{
-        	obn = new("/d/wudu/obj/jinsheduye");
-        	obn->move(who);
-        	add("jinshe_count", -1);
+                      command("sigh");
+                      command("say 本来我该谢你点什么的，可手头实在拿不出东西来。");
+                      return 1;
+        } else
+        {
+                obn = new("/d/wudu/obj/jinsheduye");
+                obn->move(who);
+                add("jinshe_count", -1);
                 command("say 本长老不能白收你的东西，这是一瓶金蛇毒液，送给你吧。");
-        	message_vision("$N拿出" YEL "金蛇毒液" NOR "(jinshe duye)给$n。\n",
+                message_vision("$N拿出" YEL "金蛇毒液" NOR "(jinshe duye)给$n。\n",
                                this_object(), who);
-              	return 1;
-	}
+                      return 1;
+        }
 }
 
 mixed ask_skill1()

@@ -61,15 +61,15 @@ int perform(object me, object target)
         if (ap / 2 + random(ap) > dp)
         {
                 if (target->query_temp("shield"))
-		{
-                	shd = target->query_temp("apply/armor");
+        {
+                    shd = target->query_temp("apply/armor");
 
-                	target->add_temp("apply/armor", -shd);
-                	target->delete_temp("shield");
+                    target->add_temp("apply/armor", -shd);
+                    target->delete_temp("shield");
 
-                	msg += HIW "$N" HIW "罡气涌至，竟然激起层层气浪，顿时将$n"
+                    msg += HIW "$N" HIW "罡气涌至，竟然激起层层气浪，顿时将$n"
                                HIW "的护体真气摧毁得荡然无存！\n" NOR;
-		}
+        }
                 jia = me->query("jiali");
                 damage = ap / 2 + random(jia * 5);
 

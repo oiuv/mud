@@ -58,11 +58,11 @@ int do_effect(object me)
         my = me->query_entire_dbase();
         my["neili"] = my["max_neili"];
 
-	me->start_busy(3);
+    me->start_busy(3);
 
         add_amount(-1);
         if (query_amount() < 1)
                 destruct(this_object());
 
-	return 1;
+    return 1;
 }

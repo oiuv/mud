@@ -8,9 +8,9 @@ void create()
         if (clonep())
                 set_default_object(__FILE__);
         else {
-        	set("unit", "捆");
-        	set("long", WHT "这是一捆木柴。\n" NOR);
-        	set("value", 10);
+            set("unit", "捆");
+            set("long", WHT "这是一捆木柴。\n" NOR);
+            set("value", 10);
                 set("material", "wood");
         }
 }

@@ -58,11 +58,11 @@ int do_effect(object me)
         me->receive_curing("qi", 350);
         me->receive_heal("qi", 350);
 
-	me->start_busy(1);
+    me->start_busy(1);
 
         add_amount(-1);
         if (query_amount() < 1)
                 destruct(this_object());
 
-	return 1;
+    return 1;
 }

@@ -2,8 +2,8 @@ inherit ROOM;
 
 void create()
 {
-  	set("short", "失足岩");
-  	set("long", @LONG
+      set("short", "失足岩");
+      set("long", @LONG
 这是通向灵鹫宫的必经之路，山道被一块如鹰喙突出的巨
 岩截断，巨岩光可鉴人，只有中间凿出了一条窄窄的石阶通向
 山道的那一头。你小心翼翼地试着踏了上去。失足岩的右侧是

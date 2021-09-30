@@ -24,12 +24,12 @@ void create()
         set("con", 30);
         set("dex", 28);
 
-	set("max_qi", 1800);
-	set("max_jing", 1400);
-	set("neili", 2200);
-	set("max_neili", 2200);
-	set("jiali", 70);
-	set("combat_exp", 500000);
+        set("max_qi", 1800);
+        set("max_jing", 1400);
+        set("neili", 2200);
+        set("max_neili", 2200);
+        set("jiali", 70);
+        set("combat_exp", 500000);
 
         set_skill("force", 120);
         set_skill("xiaoyao-xinfa", 120);
@@ -46,12 +46,12 @@ void create()
         set_skill("qimen-wuxing", 180);
         set_skill("martial-cognize", 100);
 
-	map_skill("force", "xiaoyao-xinfa");
-	map_skill("dodge", "feiyan-zoubi");
-	map_skill("hand", "qingyun-shou");
-	map_skill("strike", "panyang-zhang");
-	map_skill("parry", "ruyi-dao");
-	map_skill("blade", "ruyi-dao");
+        map_skill("force", "xiaoyao-xinfa");
+        map_skill("dodge", "feiyan-zoubi");
+        map_skill("hand", "qingyun-shou");
+        map_skill("strike", "panyang-zhang");
+        map_skill("parry", "ruyi-dao");
+        map_skill("blade", "ruyi-dao");
 
         prepare_skill("hand", "qingyun-shou");
         prepare_skill("strike", "panyang-zhang");
@@ -65,9 +65,9 @@ void create()
                 set("bagua_count", 1);
 
         if (random(4) > 2)
-        	set("xiang_count", 1);
+                set("xiang_count", 1);
 
-	create_family("逍遥派", 3, "弟子");
+        create_family("逍遥派", 3, "弟子");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({

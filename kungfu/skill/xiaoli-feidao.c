@@ -10,8 +10,8 @@ int valid_learn(object me)
         if ((int)me->query_skill("force") < 200)
                 return notify_fail("你的内功火候不够，没有办法练小李飞刀。\n");
 
-	if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("xiaoli-feidao", 1))
-		return notify_fail("你的基本暗器水平有限，无法领会更高深的小李飞刀。\n");
+    if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("xiaoli-feidao", 1))
+        return notify_fail("你的基本暗器水平有限，无法领会更高深的小李飞刀。\n");
 
         return 1;
 }

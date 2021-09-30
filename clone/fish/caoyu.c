@@ -12,9 +12,9 @@ void create()
                 set_default_object(__FILE__);
         else
         {
-	        set("long", "一条活蹦乱跳的草鱼。\n");
+            set("long", "一条活蹦乱跳的草鱼。\n");
                 set("unit", "条");
         }
 
-	setup();
+    setup();
 }

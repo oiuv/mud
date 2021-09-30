@@ -14,9 +14,9 @@ LONG );
                 "south" : __DIR__"talin",
                 "north" : "/d/dali/hongsheng",
         ]));
-	set("item_desc",([
-		"duilian" : "\n    心性无染本自圆成　但离妄缘即如如佛\n\n",
-	]));	
+    set("item_desc",([
+        "duilian" : "\n    心性无染本自圆成　但离妄缘即如如佛\n\n",
+    ]));
         set("objects",([
                 "/d/wudang/npc/guest" : 1,
         ]));

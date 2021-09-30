@@ -16,7 +16,7 @@ int perform(object me, object target)
                 return notify_fail("蛤蟆功" ZHEN "只能对战斗中的对手使用。\n");
 
         skill = me->query_skill("hamagong", 1);
-		poison = me->query_skill("poison", 1);
+        poison = me->query_skill("poison", 1);
 
         if (skill < 240)
                 return notify_fail("你的蛤蟆功修为不够精深，不能使用" ZHEN "！\n");
@@ -46,21 +46,21 @@ int perform(object me, object target)
         ap = me->query_skill("force");
         dp = (target->query_skill("force") + target->query_skill("parry") + target->query_skill("dodge") + target->query_skill("yiyang-zhi") ) / 3;
 
-		damage = ap;
-		
-		if(skill > 500)
-			damage += poison;
-		else
-			damage += poison * skill / 500;
+        damage = ap;
 
-		if(me->query_temp("reverse"))
-		        hamagong_effect = (int)(skill / 20);
-		else
-			    hamagong_effect = (int)(skill / 30);
+        if(skill > 500)
+            damage += poison;
+        else
+            damage += poison * skill / 500;
+
+        if(me->query_temp("reverse"))
+                hamagong_effect = (int)(skill / 20);
+        else
+                hamagong_effect = (int)(skill / 30);
 
         if (ap * 2 / 3 + random(ap) > dp)
         {
-			    damage += random(damage / 2);
+                damage += random(damage / 2);
                 msg = COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 50 + random(hamagong_effect),
                                            HIR "$n" HIR "不料$N会使出如此诡异招式，慌忙伸掌抵挡，"
                                                "结果$N蛤蟆功内劲不断袭入，$n全身顿时感到一阵撕裂般的痛苦。\n" NOR);
@@ -72,10 +72,10 @@ int perform(object me, object target)
 
         msg = HIB "$N左掌劲力未消，右掌也跟着推出，功力相叠，" ZHEN "掌风排山倒海般涌向$n！\n"NOR;
         message_combatd(msg, me, target);
-	   
+
         if (ap * 3 / 5 + random(ap) > dp)
         {
-			    damage += random(damage / 2);
+                damage += random(damage / 2);
                 msg = COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 60 + random(hamagong_effect),
                                            HIR "$n" HIR "只觉此招，阴柔无比，诡异莫测，"
                                                "心中一惊，却猛然间觉得一股阴风透骨而过。\n" NOR);
@@ -90,7 +90,7 @@ int perform(object me, object target)
 
          if (ap * 11 / 20 + random(ap) > dp)
         {
-			    damage += random(damage);
+                damage += random(damage);
                 msg = COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 70 + random(hamagong_effect),
                                            HIR "$n" HIR "全然无力阻挡，竟被$N" HIY "双掌击得飞起，重重的跌落在地上。\n" NOR);
         }else
@@ -104,4 +104,3 @@ int perform(object me, object target)
 
         return 1;
 }
-

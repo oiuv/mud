@@ -4,15 +4,15 @@ void create()
 {
         set_name("老鸨婆", ({ "laobao po", "laobao", "po" }) );
         set("gender", "女性" );
-	 set("title", "怡红院老板娘");
+     set("title", "怡红院老板娘");
         set("age", 42);
-        set("long", 
+        set("long",
             "\n这老鸨婆虽是徐娘半老，但仍风韵尤存，只不过脸上的粉太厚了。\n");
         set("str", 25);
         set("dex", 25);
         set("con", 25);
         set("int", 25);
-	 set("no_get", "1");
+     set("no_get", "1");
         set("shen_type", -1);
 
         set("combat_exp", 25000);
@@ -48,13 +48,13 @@ void greeting(object me)
        message("vision", me->name() +"被老鸨婆一脚踢出门外。\n",
                 environment(me), ({me}));
        me->move("/d/beijing/wang_8");
-       message("vision", me->name() +"被人从怡红院里踢了出来，栽倒在地上，磕掉两颗门牙。\n", 
+       message("vision", me->name() +"被人从怡红院里踢了出来，栽倒在地上，磕掉两颗门牙。\n",
                 environment(me), ({me}));
 
     }
     else {
     if (me->query("class") =="bonze") {
-       command("say 呦，" + RANK_D->query_respect(me) 
+       command("say 呦，" + RANK_D->query_respect(me)
                 +"也来光顾我们怡红院啊。");
        command("say 想当年我接过一个西藏喇嘛，他上床前一定要念经，一面念经，眼珠子就骨溜溜的瞧着我。");
     }
@@ -67,4 +67,3 @@ void greeting(object me)
     }
     return ;
 }
-

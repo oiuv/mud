@@ -32,7 +32,7 @@ mapping region_names = ([
         "kunming"  : "昆明境内",
         "meizhuang": "梅庄",
         "mingjiao" : "明教境内",
-        "pk"	   : "屠人场",
+        "pk"       : "屠人场",
         "qingcheng": "青城山境内",
         "quanzhen" : "全真派境内",
         "shaolin"  : "少林寺境内",

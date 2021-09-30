@@ -27,7 +27,7 @@ void create()
         set("shen_type", 1);
 
         set_skill("cuff", 160);
-        set_skill("strike", 160);       
+        set_skill("strike", 160);
         set_skill("sword", 160);
         set_skill("force", 160);
         set_skill("parry", 140);
@@ -54,7 +54,7 @@ void create()
         set("chat_msg_combat", ({
                 (: perform_action, "sword.wan" :),
                 (: perform_action, "strike.qian" :),
-		(: perform_action, "cuff.chui" :),
+                (: perform_action, "cuff.chui" :),
                 (: exert_function, "recover" :),
         }));
         setup();
@@ -81,17 +81,17 @@ void attempt_apprentice(object ob)
         }
 
         if ((int)ob->query_skill("songshan-jian", 1) < 40)
-        {       
+        {
                 command("hmm");
                 command("say 你嵩山剑法练成这样，平时都干什么去了？");
                 return;
         }
-   
+
         if ((int)ob->query_skill("force") < 80)
         {
                 command("say 你的内功心法太差，又能跟我学什么？");
                 return;
-        } 
+        }
 
         command("nod");
         command("say 我收下你便是，日后将我嵩山发扬光大。");
@@ -133,4 +133,3 @@ void unconcious()
 {
         die();
 }
-

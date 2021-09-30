@@ -16,9 +16,9 @@ LONG);
         ]));
 
         if (random(10) > 5)
-	        set("objects", ([
-        	         CLASS_D("huashan") + "/feng" : 1,
-        	]));
+            set("objects", ([
+                     CLASS_D("huashan") + "/feng" : 1,
+            ]));
 
         set("outdoors", "huashan");
         setup();

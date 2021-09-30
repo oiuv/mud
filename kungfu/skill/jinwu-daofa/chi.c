@@ -32,7 +32,7 @@ int perform(object me, object target)
         if (me->query("neili") < 200)
                 return notify_fail("你现在真气不够，无法施展" CHI "。\n");
 
-        if (me->query_skill_mapped("blade") != "jinwu-daofa") 
+        if (me->query_skill_mapped("blade") != "jinwu-daofa")
                 return notify_fail("你没有激发金乌刀法，无法施展" CHI "。\n");
 
         if (! living(target))
@@ -49,13 +49,13 @@ int perform(object me, object target)
         if (objectp(weapon2 = target->query_temp("weapon"))
            && (string)weapon2->query("skill_type") == "sword"
            && target->query_skill_mapped("sword") == "xueshan-jian")
-	{
+    {
                 msg += HIY "$n" HIY "慌忙中忙以雪山剑法作出抵挡，哪知$N"
                        HIY "刀法竟似雪山剑法克星般，" + weapon->name() +
                        HIY "焰芒霎时\n又暴涨数倍，完全封锁$n" HIY "的所"
                        "有剑招！\n" NOR;
-		ap += ap / 2;
-	}
+        ap += ap / 2;
+    }
 
         me->start_busy(3);
         if (ap / 2 + random(ap) > dp)
@@ -78,4 +78,3 @@ string final(object me, object target, int damage)
         return  HIR "只听$n" HIR "一声惨叫，被这一刀劈个正中，伤口"
                 "深可见骨，鲜血四处飞溅。\n" NOR;
 }
-

@@ -44,7 +44,7 @@ int perform(object me, object target)
                 me->add("neili", -125);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 35,
                                            HIR "$p" HIR "左遮右挡，却没能挡住$P" HIR "这看似无赖"
-		                           "的招数，结果被$P" HIR "重重的击中，哇的吐了一口鲜血。\n" NOR);
+                                   "的招数，结果被$P" HIR "重重的击中，哇的吐了一口鲜血。\n" NOR);
         } else
         {
                 msg += CYN "可是$p" CYN "看破了$P" CYN "的企图，巧妙的挡住了$P"

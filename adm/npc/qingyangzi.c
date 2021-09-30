@@ -196,9 +196,9 @@ int accept_object(object me, object ob)
 
                 if (! sizeof(types))
                 {
-               	        message_vision(CYN "$N" CYN "对$n" CYN "冷笑道：你全"
-               	                       "身已经纹得跟鬼一样了，还嫌不够么？\n"
-               	                       NOR, this_object(), me);
+                           message_vision(CYN "$N" CYN "对$n" CYN "冷笑道：你全"
+                                          "身已经纹得跟鬼一样了，还嫌不够么？\n"
+                                          NOR, this_object(), me);
                         return 0;
                 }
 

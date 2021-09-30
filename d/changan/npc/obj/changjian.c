@@ -1,4 +1,4 @@
-//changjian.c 
+//changjian.c
 
 #include <weapon.h>
 
@@ -8,7 +8,7 @@ void create()
 {
         set_name("长剑", ({"sword", "changjian", "jian", "sword"}));
         set_weight(5000);
-	if (clonep())
+    if (clonep())
                 set_default_object(__FILE__);
         else
         {
@@ -17,9 +17,9 @@ void create()
                 set("value", 200);
                 set("material", "steel");
                 set("wield_msg", "$N「唰」的一声抽出一柄$n握在手中。\n");
-        	set("unwield_msg", "$N将手中的$n插回剑鞘。\n");
+            set("unwield_msg", "$N将手中的$n插回剑鞘。\n");
         }
 
-	init_sword(25);
-	setup();
+    init_sword(25);
+    setup();
 }

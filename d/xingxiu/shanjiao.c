@@ -28,8 +28,8 @@ LONG);
 
 int valid_leave(object me, string dir)
 {
-	if (! userp(me) && dir == "southwest")
-		return 0;
+    if (! userp(me) && dir == "southwest")
+        return 0;
 
-	return ::valid_leave(me, dir);
+    return ::valid_leave(me, dir);
 }

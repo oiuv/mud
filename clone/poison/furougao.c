@@ -11,7 +11,7 @@ void create()
                 set("unit", "盒");
                 set("long", HIM "这是一盒五彩斑斓的剧毒药膏，可杀人于无形。\n" NOR);
                 set("value", 50);
-		set("poison_type", "poison");
+        set("poison_type", "poison");
                 set("can_pour", 1);
                 set("can_daub", 1);
                 set("can_drug", 1);
@@ -22,7 +22,7 @@ void create()
                         "duration": 15,
                 ]));
                 set("no_sell", 1);
-		set("only_do_effect", 1);
+        set("only_do_effect", 1);
         }
         setup();
 }

@@ -8,8 +8,8 @@ mapping *action = ({
 ([      "name"  : "有凤来仪",
         "action": "$N使一招「有凤来仪」，手中$w剑光暴长，向$n的$l刺去",
         "force" : 70,
-		"attack": 10,
-		"parry" : 5,
+        "attack": 10,
+        "parry" : 5,
         "dodge" : 10,
         "damage": 30,
         "lvl"   : 0,
@@ -18,8 +18,8 @@ mapping *action = ({
 ([      "name"  : "无边落木",
         "action": "$N剑随身转，一招「无边落木」罩向$n的$l",
         "force" : 120,
-		"attack": 20,
-		"parry" : 15,
+        "attack": 20,
+        "parry" : 15,
         "dodge" : 20,
         "damage": 40,
         "lvl"   : 20,
@@ -28,8 +28,8 @@ mapping *action = ({
 ([      "name"  : "鸿飞冥冥",
         "action": "$N舞动$w，一招「鸿飞冥冥」挟著无数剑光刺向$n的$l",
         "force" : 160,
-		"attack": 25,
-		"parry" : 20,
+        "attack": 25,
+        "parry" : 20,
         "dodge" : 30,
         "damage": 45,
         "lvl"   : 40,
@@ -38,8 +38,8 @@ mapping *action = ({
 ([      "name"  : "平沙落雁",
         "action": "$N手中$w龙吟一声，祭出「平沙落雁」往$n的$l刺出数剑",
         "force" : 190,
-		"attack": 30,
-		"parry" : 28,
+        "attack": 30,
+        "parry" : 28,
         "dodge" : 35,
         "damage": 50,
         "lvl"   : 60,
@@ -48,8 +48,8 @@ mapping *action = ({
 ([      "name"  : "金玉满堂",
         "action": "$N手中$w剑光暴长，一招「金玉满堂」往$n$l刺去",
         "force" : 220,
-		"attack": 40,
-		"parry" : 33,
+        "attack": 40,
+        "parry" : 33,
         "dodge" : 40,
         "damage": 55,
         "lvl"   : 80,
@@ -58,8 +58,8 @@ mapping *action = ({
 ([      "name"  : "白虹贯日",
         "action": "$N手中$w化成一道光弧，直指$n$l，一招「白虹贯日」发出虎哮龙吟刺去",
         "force" : 260,
-		"attack": 50,
-		"parry" : 40,
+        "attack": 50,
+        "parry" : 40,
         "dodge" : -20,
         "damage": 90,
         "lvl"   : 100,
@@ -89,7 +89,7 @@ int valid_learn(object me)
         return notify_fail("你必须先找一把剑才能学习剑法。\n");
 
     if (me->query_skill("sword", 1) < me->query_skill("huashan-jian", 1))
-	return notify_fail("你的基本剑法火候有限，无法领会更高深的华山剑法。\n");
+    return notify_fail("你的基本剑法火候有限，无法领会更高深的华山剑法。\n");
 
     return 1;
 }
@@ -110,7 +110,7 @@ string query_skill_name(int level)
 mapping query_action(object me, object weapon)
 {
         int i, level;
-	level = (int) me->query_skill("huashan-jian", 1);
+    level = (int) me->query_skill("huashan-jian", 1);
         for (i = sizeof(action); i > 0; i--)
                 if (level > action[i-1]["lvl"])
                         return action[NewRandom(i, 20, level/5)];
@@ -120,7 +120,7 @@ int practice_skill(object me)
 {
     if ((int)me->query("qi") < 60)
         return notify_fail("你的体力太低，没有办法练习华山剑法。\n");
-                
+
     if ((int)me->query("neili") < 40)
         return notify_fail("你的内力不够，没有办法练习华山剑法。\n");
 
@@ -140,25 +140,25 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         object weapon = me->query_temp("weapon");
 
         lvlh = me->query_skill("huashan-jian", 1);
-		lvlk = me->query_skill("kuangfeng-jian", 1);
-		lvlz = me->query_skill("zixia-shengong", 1);
+        lvlk = me->query_skill("kuangfeng-jian", 1);
+        lvlz = me->query_skill("zixia-shengong", 1);
 
         if (damage_bonus < 100
            || lvlh < 300
-		   || lvlk < 300
-		   || lvlz < 300
+           || lvlk < 300
+           || lvlz < 300
            || random(2)
            || me->query("neili") < 500
-           || me->query_skill_mapped("sword") != "huashan-jian" 
-		   || me->query_skill_mapped("parry") != "kuangfeng-jian" 
-		   || me->query_skill_mapped("force") != "zixia-shengong" )
-      		return damage_bonus / 4;
+           || me->query_skill_mapped("sword") != "huashan-jian"
+           || me->query_skill_mapped("parry") != "kuangfeng-jian"
+           || me->query_skill_mapped("force") != "zixia-shengong" )
+              return damage_bonus / 4;
 
         if (random(lvlh / 2) + random(lvlk / 2) + random(lvlz / 2) > victim->query_skill("force", 1))
         {
                 me->add("neili", -60);
                 victim->receive_wound("qi", damage_bonus * 4 / 5, me);
-      
+
                 return HIW "$N" HIW "手中" + weapon->name() + MAG "突然紫色剑气迸发,疾如闪电"
                        "向$n" MAG "冲去。\n" NOR;
          }

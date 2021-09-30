@@ -97,29 +97,29 @@ Ok, so let's start off by creating a MUD mode socket.  We can write an
 object to do this:
 
 <pre>
-	#include "socket.h"
+    #include "socket.h"
 
-	void
-	create()
-	{
-		int s;
+    void
+    create()
+    {
+        int s;
 
-		s = socket_create(MUD, "close_callback");
-		if (s < 0) {
-			write("socket_create: " + socket_error(s) + "\n");
-			return;
-		}
+        s = socket_create(MUD, "close_callback");
+        if (s < 0) {
+            write("socket_create: " + socket_error(s) + "\n");
+            return;
+        }
 
-		write("Created socket descriptor " + s + "\n");
+        write("Created socket descriptor " + s + "\n");
 
-		socket_close(s);
-	}
+        socket_close(s);
+    }
 
-	void
-	close_callback(int s)
-	{
-		write("socket " + s + " has closed\n");
-	}
+    void
+    close_callback(int s)
+    {
+        write("socket " + s + " has closed\n");
+    }
 </pre>
 
 Let's analyze this object to see how a socket is created.  Be forewarned,
@@ -236,16 +236,16 @@ code to the example above.  First let's declare a new integer variable
 called error, which is used to hold the return value from socket_bind().
 
 <pre>
-	int error;
+    int error;
 
 // Now let's add a call to socket_bind():
 
-	error = socket_bind(s, 12345);
-	if (error != EESUCCESS) {
-		write("socket_bind: " + socket_error(error) + "\n");
-		socket_close(s);
-		return;
-	}
+    error = socket_bind(s, 12345);
+    if (error != EESUCCESS) {
+        write("socket_bind: " + socket_error(error) + "\n");
+        socket_close(s);
+        return;
+    }
 </pre>
 
 This should be added above socket_close(s).  What does it do?  Well
@@ -326,10 +326,10 @@ owner object.  If they are not the same, then the socket efun call is
 aborted.  Thus, heinous code like:
 
 <pre>
-	int s;
+    int s;
 
-	for (s = 0; s < 100; s++)
-		socket_close(s);
+    for (s = 0; s < 100; s++)
+        socket_close(s);
 </pre>
 
 will not succeed in closing all sockets on the MUD.  It will close all
@@ -366,12 +366,12 @@ The following code starts listening for connection requests on a socket
 that has been created and bound to a port.
 
 <pre>
-	error = socket_listen(s, "listen_callback");
-	if (error != EESUCCESS) {
-		write("socket_listen: " + socket_error(error) + "\n");
-		socket_close(s);
-		return;
-	}
+    error = socket_listen(s, "listen_callback");
+    if (error != EESUCCESS) {
+        write("socket_listen: " + socket_error(error) + "\n");
+        socket_close(s);
+        return;
+    }
 </pre>
 
 It is really just more of the same code, right?  We call the socket_listen()
@@ -454,15 +454,15 @@ the second argument appear?  Let's assume we wanted to connect to
 eng3.sequent.com port 12345.  We would write the following additional code:
 
 <pre>
-	string address;
+    string address;
 
-	address = "138.95.19.14 12345";
-	error = socket_connect(s, address, "read_callback", "write_callback");
-	if (error != EESUCCESS) {
-		write("socket_connect: " + socket_error(error) + "\n");
-		socket_close(s);
-		return;
-	}
+    address = "138.95.19.14 12345";
+    error = socket_connect(s, address, "read_callback", "write_callback");
+    if (error != EESUCCESS) {
+        write("socket_connect: " + socket_error(error) + "\n");
+        socket_close(s);
+        return;
+    }
 </pre>
 
 Notice the address variable.  It is a string and we asssign it the
@@ -536,17 +536,17 @@ above, we always accept incoming connection requests.  The following
 code accepts an incoming connection request:
 
 <pre>
-	void
-	listen_callback(int s)
-	{
-		int ns;
+    void
+    listen_callback(int s)
+    {
+        int ns;
 
-		ns = socket_accept(s, "read_callback", "write_callback");
-		if (ns < 0 && ns != EENOSOCKS) {
-			write("socket_connect: " + socket_error(error) + "\n");
-			return;
-		}
-	}
+        ns = socket_accept(s, "read_callback", "write_callback");
+        if (ns < 0 && ns != EENOSOCKS) {
+            write("socket_connect: " + socket_error(error) + "\n");
+            return;
+        }
+    }
 </pre>
 
 Okay, we know what s is, right?  It was passed as an argument to us.
@@ -710,14 +710,14 @@ client and server use the same socket efuns in the same way.
 So let's do it, let's send a number in MUD mode.
 
 <pre>
-	error = socket_write(s, 0);
+    error = socket_write(s, 0);
 </pre>
 
 Incredibly enough that's all it takes to send the LPC integer 0 to
 the other MUD.  One could do:
 
 <pre>
-	error = socket_write(s, "Hello you other MUD1");
+    error = socket_write(s, "Hello you other MUD1");
 </pre>
 
 to send a hello message as a string to the other MUD.  In fact in MUD mode
@@ -729,11 +729,11 @@ efuns?  The read callback function is called when the network delivers to
 the data to the socket.  For example:
 
 <pre>
-	void
-	read_callback(int s, mixed message)
-	{
-		write("Received " + message + "\n");
-	}
+    void
+    read_callback(int s, mixed message)
+    {
+        write("Received " + message + "\n");
+    }
 </pre>
 
 would write the receive data!  The read callback then is used by MudOS

@@ -234,27 +234,27 @@ private void in_server()
                             "in_read_callback",
                             "in_close_callback" );
 
-	if (vfd < 0)
+    if (vfd < 0)
         {
                 log_file("version", sprintf("%s Failed to create socket.\n", log_time()));
-		return;
-	}
+        return;
+    }
 
         // 然后绑定SOCKET
         port = get_config(__MUD_PORT__) + VERSION_PORT;
-	if (socket_bind(vfd, port) < 0)
+    if (socket_bind(vfd, port) < 0)
         {
-		log_file("version", sprintf("%s Failed to bind socket.\n", log_time()));
-		socket_close(vfd);
-		return;
-	}
+        log_file("version", sprintf("%s Failed to bind socket.\n", log_time()));
+        socket_close(vfd);
+        return;
+    }
 
         // 最后监听
-	if (socket_listen(vfd, "in_listen_callback" ) < 0)
+    if (socket_listen(vfd, "in_listen_callback" ) < 0)
         {
-		log_file("version", sprintf("%s Failed to listen to socket.\n", log_time()));
-		return;
-	}
+        log_file("version", sprintf("%s Failed to listen to socket.\n", log_time()));
+        return;
+    }
 
         // 初始化连接信息
         socket_info = ([ ]);
@@ -831,12 +831,12 @@ private int connect_server()
                             "syn_read_callback",
                             "syn_close_callback" );
 
-	if (vfd < 0)
+    if (vfd < 0)
         {
                 log_file("version", sprintf("%s Failed to create socket.\n",
                                             log_time()));
-		return notify_fail("无法创建SOCKET.\n");
-	}
+        return notify_fail("无法创建SOCKET.\n");
+    }
 
         // 初始化客户端信息
         client_info = allocate(7);
@@ -1704,15 +1704,15 @@ private void debug_info(string msg)
 // 版本发布站监听来自分站的请求
 private void in_listen_callback(int fd)
 {
-	int new_fd;
+    int new_fd;
         string address;
         string ip;
         int port;
 
-	if ((new_fd = socket_accept(fd, "in_read_callback",
+    if ((new_fd = socket_accept(fd, "in_read_callback",
                                         "in_write_callback")) < 0)
                 // 没有成功的接收这个连接请求
-		return;
+        return;
 
         address = socket_address(new_fd);
         if (! stringp(address) || sscanf(address, "%s %d", ip, port) != 2 ||
@@ -1726,25 +1726,25 @@ private void in_listen_callback(int fd)
         sys_info(sprintf("站点 %s 连接版本开始同步版本。", ip));
 
         socket_info[new_fd] = allocate(7);
-	socket_info[new_fd][STATUS] = STATUS_LOGIN;
+    socket_info[new_fd][STATUS] = STATUS_LOGIN;
         socket_info[new_fd][CMD_BUFFER] = "";
         socket_info[new_fd][CMD_QUEUE] = ({ });
         socket_info[new_fd][PENDING_WRITE] = ({ });
 
         // 更新状态
         socket_info[new_fd][STATUS] = STATUS_WAIT_COMMAND;
-	in_write_callback(new_fd);
+    in_write_callback(new_fd);
 }
 
 // 接受信息
 private void in_read_callback(int fd, mixed mess)
 {
         int cc;
-	string *cmds;
+    string *cmds;
         mixed  prefix;
         string str;
 
-	if (! arrayp(socket_info[fd]))
+    if (! arrayp(socket_info[fd]))
                 return;
 
         if (stringp(mess))
@@ -1759,13 +1759,13 @@ private void in_read_callback(int fd, mixed mess)
 
         if (! str) return;
 
-	str = replace_string( str, "\r", "");
+    str = replace_string( str, "\r", "");
         if (stringp(prefix = socket_info[fd][CMD_BUFFER]))
                 str = (string) prefix + str + "\n";
         else
                 str += "\n";
 
-	cmds = explode(str, "\n");
+    cmds = explode(str, "\n");
         socket_info[fd][CMD_BUFFER] = cmds[sizeof(cmds) - 1];
 
         if (sizeof(cmds) > 1)
@@ -1792,7 +1792,7 @@ private void in_write_callback(int fd)
                 reset_eval_cost();
 
                 // 已经处理完了？
-        	if (! arrayp(socket_info[fd]))
+            if (! arrayp(socket_info[fd]))
                         // 是，这个不需要继续处理了
                         return;
 

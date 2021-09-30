@@ -12,13 +12,13 @@ void create()
 璃窗格透入，微风轻拂，缕缕幽香，沁人心脾。
 LONG);
         set("exits", ([ /* sizeof() == 2 */
-        	"north" : __DIR__"qunyulou",
-        	"up"   : __DIR__"qunyulou2",
+            "north" : __DIR__"qunyulou",
+            "up"   : __DIR__"qunyulou2",
         ]));
         set("objects", ([
-        	__DIR__"npc/lingfeixue" : 1,
+            __DIR__"npc/lingfeixue" : 1,
         ]) );
 
-	setup();
+    setup();
         replace_program(ROOM);
 }

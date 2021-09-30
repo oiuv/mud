@@ -10,7 +10,7 @@ mapping *action = ({
         "parry"  : 20,
         "attack" : 10,
         "damage" : 20,
-	"lvl"    : 0,
+    "lvl"    : 0,
         "damage_type" : "刺伤",
         "skill_name"  : "芙蓉花开"
 ]),
@@ -21,7 +21,7 @@ mapping *action = ({
         "parry"  :  40,
         "attack" :  24,
         "damage" :  35,
-	"lvl"    :  25,
+    "lvl"    :  25,
         "damage_type" : "刺伤",
         "skill_name"  : "花开花谢"
 ]),
@@ -32,19 +32,19 @@ mapping *action = ({
         "parry"  : 40,
         "attack" : 30,
         "damage" : 40,
-	"lvl"    : 50,
+    "lvl"    : 50,
         "damage_type" : "刺伤",
         "skill_name"  : "泉鸣芙蓉"
 ]),
 ([
         "action" : "$N手中$w倏地刺出，剑势穿插迂回，如梦如幻，正是一招「花香四溢」，向\n"
                    "$n$l刺去",
-        "force"  : 120, 
+        "force"  : 120,
         "dodge"  : 50,
         "parry"  : 42,
         "attack" : 35,
         "damage" : 48,
-	"lvl"    : 75,
+    "lvl"    : 75,
         "damage_type" : "刺伤",
         "skill_name"  : "花香四溢"
 ]),
@@ -56,7 +56,7 @@ mapping *action = ({
         "parry"  : 60,
         "attack" : 55,
         "damage" : 60,
-	"lvl"    : 100,
+    "lvl"    : 100,
         "damage_type" : "刺伤",
         "skill_name"  : "借花献佛"
 ]),
@@ -67,7 +67,7 @@ mapping *action = ({
         "parry"  : 68,
         "attack" : 65,
         "damage" : 70,
-	"lvl"    : 120,
+    "lvl"    : 120,
         "damage_type" : "刺伤",
         "skill_name"  : "芙蓉出水"
 ]),
@@ -75,31 +75,31 @@ mapping *action = ({
 
 string main_skill()
 {
-	return "wushen-jian";
+    return "wushen-jian";
 }
 
 int valid_learn(object me)
 {
-    	object ob; 
+        object ob;
 
         if (me->query_skill("wushen-jian", 1) > 0)
                 return notify_fail("你已演练合成了衡山五神剑，不必再单独学习。\n");
 
-    	if (! (ob = me->query_temp("weapon"))
+        if (! (ob = me->query_temp("weapon"))
            || (string)ob->query("skill_type") != "sword")
-        	return notify_fail("你必须先找一把剑才能练剑法。\n");
+            return notify_fail("你必须先找一把剑才能练剑法。\n");
 
         if ((int)me->query("max_neili") < 300)
-        	return notify_fail("你的内力不够，没有办法练芙蓉剑法。\n");
+            return notify_fail("你的内力不够，没有办法练芙蓉剑法。\n");
 
         if ((int)me->query_skill("force") < 100)
                 return notify_fail("你的内功火候太浅。\n");
 
         if ((int)me->query_skill("sword", 1) < 60)
-           	return notify_fail("你的基本剑法火候不够，无法学习芙蓉剑法。\n");
+               return notify_fail("你的基本剑法火候不够，无法学习芙蓉剑法。\n");
 
         if (me->query_skill("sword", 1) < me->query_skill("furong-jian", 1))
-		return notify_fail("你的基本剑法火候有限，无法领会更高深的芙蓉剑法。\n");
+        return notify_fail("你的基本剑法火候有限，无法领会更高深的芙蓉剑法。\n");
 
         return 1;
 }
@@ -119,7 +119,7 @@ string query_skill_name(int level)
 
 mapping query_action(object me, object weapon)
 {
-	int i, level;
+    int i, level;
 
         level = (int) me->query_skill("furong-jian", 1);
         for (i = sizeof(action); i > 0; i--)
@@ -136,10 +136,10 @@ int practice_skill(object me)
                 return notify_fail("你使用的武器不对。\n");
 
        if((int)me->query("neili") < 60 )
-        	   return notify_fail("你的内力不足，没有办法练习芙蓉剑法。\n");
+               return notify_fail("你的内力不足，没有办法练习芙蓉剑法。\n");
 
        if ((int)me->query("qi") < 65)
-        	   return notify_fail("你的体力不够练芙蓉剑法。\n");
+               return notify_fail("你的体力不够练芙蓉剑法。\n");
 
        me->receive_damage("qi", 40);
        me->add("neili", -50);
@@ -150,4 +150,3 @@ string perform_action_file(string action)
 {
         return __DIR__"furong-jian/" + action;
 }
-

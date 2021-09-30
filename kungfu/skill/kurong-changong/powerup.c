@@ -23,19 +23,19 @@ int exert(object me, object target)
 
         // 亦枯亦荣
         if ((int)me->query_skill("kurong-changong", 1) > 250)
-	        message_combatd(HIG "$N" HIG "运起枯荣禅功，全身皮肤竟变得一半犹"
+            message_combatd(HIG "$N" HIG "运起枯荣禅功，全身皮肤竟变得一半犹"
                                 "如婴儿，另一半却似干皱的树皮。\n" NOR, me);
         // 全荣
         else if ((int)me->query_skill("kurong-changong", 1) > 200)
-	        message_combatd(HIC "$N" HIC "暗自凝神，运起枯荣禅功，全身皮肤竟"
+            message_combatd(HIC "$N" HIC "暗自凝神，运起枯荣禅功，全身皮肤竟"
                                 "变得犹如婴儿般光滑亮泽。\n" NOR, me);
         // 全枯
         else if ((int)me->query_skill("kurong-changong", 1) > 150)
-	        message_combatd(YEL "$N" YEL "暗自凝神，运起枯荣禅功，全身皮肤竟"
+            message_combatd(YEL "$N" YEL "暗自凝神，运起枯荣禅功，全身皮肤竟"
                                 "变得犹如树皮般干皱苍老。\n" NOR, me);
         // 半枯半荣
         else
-	        message_combatd(HIY "$N" HIY "暗自凝神，运起枯荣禅功，真气顿时游"
+            message_combatd(HIY "$N" HIY "暗自凝神，运起枯荣禅功，真气顿时游"
                                 "遍全身。\n" NOR, me);
 
         me->add_temp("apply/attack", skill / 3);

@@ -12,8 +12,8 @@ string description();
 void create()
 {
         set_name(DEFAULT_NAMR, ({ "ya huan" }));
-	set("age", 12 + random(8));
-	set("attitude", "friendly");
+    set("age", 12 + random(8));
+    set("attitude", "friendly");
         set("gender", "女性");
 
         set("max_qi", 1000);
@@ -22,11 +22,11 @@ void create()
         set("per", 20);
         set("str", 15);
 
-	set("long", "她是一个小丫鬟。\n" + description());
+    set("long", "她是一个小丫鬟。\n" + description());
 
         setup();
 
-        carry_object("/clone/cloth/female" + (random(8) + 1) + "-cloth.c")->wear();        
+        carry_object("/clone/cloth/female" + (random(8) + 1) + "-cloth.c")->wear();
         carry_object("/clone/cloth/female-shoe.c")->wear();
 
         if (clonep()) keep_heart_beat();
@@ -133,35 +133,35 @@ int do_nick(string arg)
         if (! arg)
                 return notify_fail("你要给" + name() + "一个什么昵称？\n");
 
-	if (arg == "none")
-	{
-		delete("nickname");
-		write("你把" + name() + "的绰号取消了。\n");
-		return 1;
-	}
+    if (arg == "none")
+    {
+        delete("nickname");
+        write("你把" + name() + "的绰号取消了。\n");
+        return 1;
+    }
 
-	if (strlen(arg) > 80)
-		return notify_fail("你的绰号占用的资源过多，请重新设置。\n");
+    if (strlen(arg) > 80)
+        return notify_fail("你的绰号占用的资源过多，请重新设置。\n");
 
-	arg = replace_string(arg, "$BLK$", BLK);
-	arg = replace_string(arg, "$RED$", RED);
-	arg = replace_string(arg, "$GRN$", GRN);
-	arg = replace_string(arg, "$YEL$", YEL);
-	arg = replace_string(arg, "$BLU$", BLU);
-	arg = replace_string(arg, "$MAG$", MAG);
-	arg = replace_string(arg, "$CYN$", CYN);
-	arg = replace_string(arg, "$WHT$", WHT);
-	arg = replace_string(arg, "$HIR$", HIR);
-	arg = replace_string(arg, "$HIG$", HIG);
-	arg = replace_string(arg, "$HIY$", HIY);
-	arg = replace_string(arg, "$HIB$", HIB);
-	arg = replace_string(arg, "$HIM$", HIM);
-	arg = replace_string(arg, "$HIC$", HIC);
-	arg = replace_string(arg, "$HIW$", HIW);
-	arg = replace_string(arg, "$NOR$", NOR);
+    arg = replace_string(arg, "$BLK$", BLK);
+    arg = replace_string(arg, "$RED$", RED);
+    arg = replace_string(arg, "$GRN$", GRN);
+    arg = replace_string(arg, "$YEL$", YEL);
+    arg = replace_string(arg, "$BLU$", BLU);
+    arg = replace_string(arg, "$MAG$", MAG);
+    arg = replace_string(arg, "$CYN$", CYN);
+    arg = replace_string(arg, "$WHT$", WHT);
+    arg = replace_string(arg, "$HIR$", HIR);
+    arg = replace_string(arg, "$HIG$", HIG);
+    arg = replace_string(arg, "$HIY$", HIY);
+    arg = replace_string(arg, "$HIB$", HIB);
+    arg = replace_string(arg, "$HIM$", HIM);
+    arg = replace_string(arg, "$HIC$", HIC);
+    arg = replace_string(arg, "$HIW$", HIW);
+    arg = replace_string(arg, "$NOR$", NOR);
 
         if (strlen(filter_color(arg)) > 30)
-		return notify_fail("你想的这个绰号太长了，想一个短一点的、响亮一点的。\n");
+        return notify_fail("你想的这个绰号太长了，想一个短一点的、响亮一点的。\n");
 
         set("nickname", arg + NOR);
         write("你为" + name() + "选了一个绰号。\n");
@@ -247,7 +247,7 @@ mixed accept_ask(object who, string topic)
                 if (who->query("id") == owner->query("couple/id"))
                 {
                         message_vision("$N盈盈对着$n道了一个万福。\n",
-                                       me, who);        
+                                       me, who);
                         return 1;
                 }
 
@@ -430,7 +430,7 @@ int accept_kill(object ob)
         message_vision("$N连忙往后避去，委屈的冲$n喊道：“这位" +
                        RANK_D->query_respect(ob) +"，你认错人了吧！”\n",
                        me, ob);
-	return -1;
+    return -1;
 }
 
 void relay_emote(object me, string arg)

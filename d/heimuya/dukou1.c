@@ -18,10 +18,10 @@ LONG);
                                 "/clone/fish/jiyu",
                                 "/clone/fish/qingyu",
                                 "/clone/fish/caoyu",
-	}));
+    }));
 
-    	set("no_clean_up", 0);
-    	set("outdoors", "heimuya");
+        set("no_clean_up", 0);
+        set("outdoors", "heimuya");
         setup();
         replace_program(RIVER);
 }

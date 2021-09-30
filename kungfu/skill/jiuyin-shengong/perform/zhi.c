@@ -47,9 +47,9 @@ int perform(object me, object target)
         me->add("neili", -100);
 
         ap = me->query_skill("unarmed");
-		if(ap < me->query_skill("finger"))
-			ap = me->query_skill("finger");
-		ap += me->query_skill("martial-cognize", 1);
+        if(ap < me->query_skill("finger"))
+            ap = me->query_skill("finger");
+        ap += me->query_skill("martial-cognize", 1);
         dp = target->query_skill("parry") + target->query_skill("martial-cognize", 1);
 
         msg = HIY "$N" HIY "出手成指，随意点戳，似乎看尽了$n"
@@ -65,7 +65,7 @@ int perform(object me, object target)
                         while (n-- && me->is_fighting(target))
                         {
                                 if (random(2) && ! target->is_busy())
-                                	target->start_busy(1);
+                                    target->start_busy(1);
 
                                 COMBAT_D->do_attack(me, target, 0, 0);
                         }
@@ -88,8 +88,8 @@ int perform(object me, object target)
                 } else
                 {
                         msg += HIY "$n" HIY "不及多想，连忙抵挡，全然无法反击。\n" NOR;
-			                  if (! target->is_busy())
-                        	 target->start_busy(4 + random(skill / 30));
+                              if (! target->is_busy())
+                             target->start_busy(4 + random(skill / 30));
                 }
         } else
         {

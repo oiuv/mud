@@ -6,16 +6,16 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIW "洗髓仙丹" NOR, ({ "xisui xiandan", "xisui", "xiandan" }) );
-	set_weight(200);
-	if( clonep() )
-		set_default_object(__FILE__);
-	else {
-		set("long", HIW "一颗晶莹剔透的丹药，不知道有什么用处。\n" NOR);
-		set("value", 10000);
-		set("unit", "颗");
-		set("only_do_effect", 1);
-	}
+    set_name(HIW "洗髓仙丹" NOR, ({ "xisui xiandan", "xisui", "xiandan" }) );
+    set_weight(200);
+    if( clonep() )
+        set_default_object(__FILE__);
+    else {
+        set("long", HIW "一颗晶莹剔透的丹药，不知道有什么用处。\n" NOR);
+        set("value", 10000);
+        set("unit", "颗");
+        set("only_do_effect", 1);
+    }
 }
 
 int do_effect(object me)
@@ -43,4 +43,3 @@ int do_effect(object me)
         destruct(this_object());
         return 1;
 }
-

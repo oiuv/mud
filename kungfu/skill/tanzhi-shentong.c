@@ -1,7 +1,7 @@
 #include <ansi.h>
 inherit SKILL;
 
-string *xue_name = ({ 
+string *xue_name = ({
 "劳宫穴", "膻中穴", "曲池穴", "关元穴", "曲骨穴", "中极穴", "承浆穴", "天突穴", "百会穴",
 "幽门穴", "章门穴", "大横穴", "紫宫穴", "冷渊穴", "天井穴", "极泉穴", "清灵穴", "至阳穴", });
 
@@ -129,16 +129,16 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
 
         if (ap / 2 + random(ap) < dp)
         {
-                
-             
+
+
                         result = ([ "damage": -damage ]);
 
                         result += (["msg" : HIG "$n" HIG "不理会$N" HIG "的攻势，"
                                     "随意弹出一指，指劲正指向$N" HIG "招式中的破绽。\n" NOR]);
-            
+
                         if (! ob->is_busy())
                         ob->start_busy(1);
-             
+
              return result;
         }
 }
@@ -164,8 +164,8 @@ mixed hit_ob(object me, object victim, int damage_bonus)
 
         if (damage_bonus < 150
            || me->query("neili") < 800
-	   || me->query_skill("tanzhi-shentong", 1) < 100
-	   || me->query_skill("jingluo-xue", 1) < 100
+       || me->query_skill("tanzhi-shentong", 1) < 100
+       || me->query_skill("jingluo-xue", 1) < 100
            || victim->is_busy())
                 return 0;
 

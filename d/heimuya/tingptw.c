@@ -1,5 +1,5 @@
 inherit ROOM;
- 
+
 void create()
 {
         set("short", "天香堂偏厅");
@@ -9,7 +9,7 @@ void create()
 幅字画。
 LONG);
         set("exits", ([
-            	"east"   : __DIR__"tian1",
+                "east"   : __DIR__"tian1",
         ]));
         setup();
         replace_program(ROOM);

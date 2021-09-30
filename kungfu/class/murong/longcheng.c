@@ -9,29 +9,29 @@ mixed try_learn_sk();
 
 void create()
 {
-	set_name("慕容龙城", ({ "murong longcheng", "murong", "longcheng" }));
-	set("long", @LONG
+    set_name("慕容龙城", ({ "murong longcheng", "murong", "longcheng" }));
+    set("long", @LONG
 他是姑苏慕容的传人，一手创造了绝世武功斗转星移，从而
 使慕容家跻身为武林世家地位。
 LONG );
-	set("gender", "男性");
-	set("age", 54);
-	set("attitude", "peaceful");
+    set("gender", "男性");
+    set("age", 54);
+    set("attitude", "peaceful");
 
-	set("str", 32);
-	set("int", 39);
-	set("con", 33);
-	set("dex", 34);
+    set("str", 32);
+    set("int", 39);
+    set("con", 33);
+    set("dex", 34);
 
-	set("qi", 6000);
-	set("max_qi", 6000);
-	set("jing", 3000);
-	set("max_jing", 3000);
-	set("neili", 7200);
-	set("max_neili", 7200);
-	set("jiali", 90);
+    set("qi", 6000);
+    set("max_qi", 6000);
+    set("jing", 3000);
+    set("max_jing", 3000);
+    set("neili", 7200);
+    set("max_neili", 7200);
+    set("jiali", 90);
 
-	set("combat_exp", 2700000);
+    set("combat_exp", 2700000);
 
         set_skill("force", 200);
         set_skill("literate", 150);
@@ -51,13 +51,13 @@ LONG );
         set_skill("murong-sword", 200);
         set_skill("longcheng-shendao", 200);
 
-	map_skill("force", "zihui-xinfa");
-	map_skill("dodge", "beidou-xianzong");
-	map_skill("cuff",  "qixing-quan");
-	map_skill("parry", "douzhuan-xingyi");
+    map_skill("force", "zihui-xinfa");
+    map_skill("dodge", "beidou-xianzong");
+    map_skill("cuff",  "qixing-quan");
+    map_skill("parry", "douzhuan-xingyi");
         map_skill("finger", "canhe-zhi");
-	map_skill("sword", "murong-sword");
-	map_skill("blade", "longcheng-shendao");
+    map_skill("sword", "murong-sword");
+    map_skill("blade", "longcheng-shendao");
 
         prepare_skill("finger", "canhe-zhi");
         prepare_skill("cuff", "qixing-quan");
@@ -68,16 +68,16 @@ LONG );
                 "风雨交加": (: ask_me :),
         ]));
 
-	create_family("慕容世家", 12, "传人");
+    create_family("慕容世家", 12, "传人");
         set("chat_chance", 1);
         set("chat_msg",({
                 "慕容龙城低头不语。\n",
         }));
 
-	setup();
+    setup();
         carry_object("/clone/weapon/gangdao")->wield();
-	carry_object("/clone/misc/cloth")->wear();
-	add_money("silver", 10);
+    carry_object("/clone/misc/cloth")->wear();
+    add_money("silver", 10);
 }
 
 void attempt_apprentice(object ob)

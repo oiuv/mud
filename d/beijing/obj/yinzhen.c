@@ -17,7 +17,7 @@ void create()
                             "刺穴疗伤之用。能运用这种银针的医者多为旷世\n"
                             "神医，并有深厚的内功。你可以试着用它来针灸"
                             "(zhenjiu)疗伤。\n" NOR);
-                set("value", 0);              
+                set("value", 0);
                 set("yingdu", 50);
                 set("base_unit", "枚");
                 set("base_weight", 10);
@@ -51,8 +51,8 @@ int do_heal(string arg)
         if (! arg || ! objectp(ob = present(arg, environment(me))))
                 return notify_fail("你想对谁施行针灸术？\n");
 
-        if (! ob->is_character() || ob->query("not_living")) 
-                return notify_fail("看清楚了，那不是活人！\n"); 
+        if (! ob->is_character() || ob->query("not_living"))
+                return notify_fail("看清楚了，那不是活人！\n");
 
         if (! living(ob))
                 return notify_fail("你还是等他醒了之后再治疗吧。\n");
@@ -75,7 +75,7 @@ int do_heal(string arg)
                         tell_object(me, YEL "你不能为玩家针灸。\n" NOR);
                         return 1;
                 }
-        }                       
+        }
 
         if (me->is_busy())
                 return notify_fail("你现在正忙着呢。\n");
@@ -90,7 +90,7 @@ int do_heal(string arg)
                 return notify_fail("人家内功深厚，不指望你替他疗伤。\n");
 
         if ((ob->query("max_qi") * 5 / 100 > ob->query("eff_qi")))
-                return notify_fail("现在此人受伤过重，施行针灸太危险了！\n");   
+                return notify_fail("现在此人受伤过重，施行针灸太危险了！\n");
 
         if (ob->query("max_qi") == ob->query("eff_qi"))
         {
@@ -124,7 +124,7 @@ int do_heal(string arg)
 
         if (random(120) > (int)me->query_skill("zhenjiu-shu", 1))
         {
-                damage = 1 + random(ob->query("max_qi") / 2);                
+                damage = 1 + random(ob->query("max_qi") / 2);
                 i = ob->query("max_qi") * 10 / damage;
 
                 if (i > 100)
@@ -140,7 +140,7 @@ int do_heal(string arg)
                                 + s + RED "「哇」的喷出了一口鲜血！" NOR;
                 }
 
-                ob->receive_wound("qi", damage);                
+                ob->receive_wound("qi", damage);
                 damage = i;
         } else
         {
@@ -151,8 +151,8 @@ int do_heal(string arg)
 
                 if (me != ob && me->query("combat_exp") < 2000000)
                 {
-                        exp = 100 + random(50);		//基础奖励增加十倍	2015年4月18日
-                        pot = 200 + random(100);		//基础奖励增加四十倍
+                        exp = 100 + random(50);        //基础奖励增加十倍    2015年4月18日
+                        pot = 200 + random(100);        //基础奖励增加四十倍
 
                         me->add("combat_exp", exp);
                         me->add("potential", pot);
@@ -172,7 +172,7 @@ int do_heal(string arg)
         }
 
         msg += "\n";
-        
+
         if (me == ob)
                 message_vision(msg, me);
         else
@@ -213,7 +213,7 @@ int do_heal(string arg)
                                 }
                         }
                 }
-                
+
         }
 
         return 1;

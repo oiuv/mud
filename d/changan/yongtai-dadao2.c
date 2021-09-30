@@ -12,8 +12,8 @@ void create ()
 阵阴冷冷的寒气，不知道是什么地方。
 LONG);
         set("exits",([//sizeof() == 2
-        	"south" : __DIR__"yongtai-dadao3",
-        	"north" : __DIR__"yongtai-dadao1",
+            "south" : __DIR__"yongtai-dadao3",
+            "north" : __DIR__"yongtai-dadao1",
                 "east"  : "/d/pk/entry",
         ]));
 

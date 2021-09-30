@@ -3,16 +3,16 @@ inherit QUARRY;
 
 void create()
 {
-	set_name(NOR + WHT "山羊" NOR, ({ "shan yang", "shan", "yang" }));
-	set("long", WHT "这是一头短角山羊。\n" NOR);
+    set_name(NOR + WHT "山羊" NOR, ({ "shan yang", "shan", "yang" }));
+    set("long", WHT "这是一头短角山羊。\n" NOR);
         set("no_auto_kill", 1);
 
-	set("age", 1);
-	set("str", 8);
-	set("dex", 25);
-	set("max_qi", 400);
-	set("max_jing", 400);
-	set("combat_exp", 3000);
+    set("age", 1);
+    set("str", 8);
+    set("dex", 25);
+    set("max_qi", 400);
+    set("max_jing", 400);
+    set("combat_exp", 3000);
 
         set("power", 7);
         set("item1", __DIR__"item/yangrou");
@@ -25,5 +25,5 @@ void create()
         set_temp("apply/unarmed_damage", 30);
         set_temp("apply/armor", 30);
 
-	setup();
+    setup();
 }

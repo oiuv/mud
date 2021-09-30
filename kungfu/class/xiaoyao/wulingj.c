@@ -19,12 +19,12 @@ void create()
         set("con", 25);
         set("dex", 25);
 
-	set("max_qi", 2400);
-	set("max_jing", 2400);
-	set("neili", 3000);
-	set("max_neili", 3000);
-	set("jiali", 100);
-	set("combat_exp", 1200000);
+        set("max_qi", 2400);
+        set("max_jing", 2400);
+        set("neili", 3000);
+        set("max_neili", 3000);
+        set("jiali", 100);
+        set("combat_exp", 1200000);
 
         set_skill("force", 140);
         set_skill("xiaoyao-xinfa", 140);
@@ -41,12 +41,12 @@ void create()
         set_skill("literate", 140);
         set_skill("martial-cognize", 120);
 
-	map_skill("force", "xiaoyao-xinfa");
-	map_skill("dodge", "feiyan-zoubi");
-	map_skill("hand", "qingyun-shou");
-	map_skill("strike", "panyang-zhang");
-	map_skill("parry", "panyang-zhang");
-	map_skill("blade", "ruyi-dao");
+        map_skill("force", "xiaoyao-xinfa");
+        map_skill("dodge", "feiyan-zoubi");
+        map_skill("hand", "qingyun-shou");
+        map_skill("strike", "panyang-zhang");
+        map_skill("parry", "panyang-zhang");
+        map_skill("blade", "ruyi-dao");
 
         prepare_skill("hand", "qingyun-shou");
         prepare_skill("strike", "panyang-zhang");

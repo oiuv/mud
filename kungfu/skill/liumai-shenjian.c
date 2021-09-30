@@ -3,7 +3,7 @@ inherit SKILL;
 
 mapping *action = ({
 ([      "name":   "少商剑",
-	"action": "$N双手拇指同时捺出，嗤嗤两声急响，「" HIW "少商剑" NOR "」有如石破"
+    "action": "$N双手拇指同时捺出，嗤嗤两声急响，「" HIW "少商剑" NOR "」有如石破"
                   "天惊、风雨大至",
         "force" : 460,
         "attack": 240,
@@ -237,7 +237,7 @@ mapping *action = ({
 
 string main_skill()
 {
-	return "liumai-shenjian";
+    return "liumai-shenjian";
 }
 
 mapping sub_skills = ([
@@ -256,11 +256,11 @@ int get_ready(object me)
 
 int get_finish(object me)
 {
-		if (!me->query("reborn"))
-		{
-				tell_object(me, "你还没有转世，不能演练六脉神剑。\n");
+        if (!me->query("reborn"))
+        {
+                tell_object(me, "你还没有转世，不能演练六脉神剑。\n");
                 return 0;
-		}
+        }
         if (me->query("int") < 36)
         {
                 tell_object(me, "你演练完毕，只感六种剑法毫无牵连，看来依你的悟性，无"
@@ -308,17 +308,17 @@ int get_finish(object me)
                 tell_object(me, "你觉得真气不继，无法融会贯通六剑。\n");
                 return 0;
         }
-   
+
         if ((int)me->query_skill("martial-cognize", 1) < 250)
         {
                 tell_object(me, "你演练完毕，发现如果武学修养更上一层应该更有所帮助。\n");
-                return 0;           
+                return 0;
         }
 
         if ((int)me->query_skill("force", 1) < 300)
         {
                 tell_object(me, "你演练完毕，发现自己内功根基太差，无法再继续演练下去。\n");
-                return 0;           
+                return 0;
         }
 
         if (random(10) > 7)
@@ -340,12 +340,12 @@ mapping query_sub_skills()
 
 int valid_enable(string usage)
 {
-	return usage == "finger" || usage == "parry";
+    return usage == "finger" || usage == "parry";
 }
 
 int double_attack()
 {
-	return 1;
+    return 1;
 }
 
 int valid_learn(object me)
@@ -416,9 +416,9 @@ mixed hit_ob(object me, object victim, int damage_bonus, int i, int attack_time)
         // string name;
 
         if (userp(me))
-        	attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 50);
-	else
-        	attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 25);
+            attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 50);
+    else
+            attack_time = (int)(me->query_skill("liumai-shenjian", 1) / 25);
 
         // 放宽NPC的攻击力度
         if (userp(me) && attack_time > 6)
@@ -432,33 +432,33 @@ mixed hit_ob(object me, object victim, int damage_bonus, int i, int attack_time)
            && me->query_skill("martial-cognize", 1) >= 220
            && me->query_skill("liumai-shenjian", 1) >= 180
            && me->query_skill("jingluo-xue", 1) >= 200)
-	{
-	        if (userp(me) && random(3) != 1)
-			        return 0;
+    {
+            if (userp(me) && random(3) != 1)
+                    return 0;
 
-        	// 避免在使用Pfm时讯息重复
-        	if (userp(me) && ! me->query_temp("liumai-shenjian/hit_msg"))
-                	message_vision(HIW "\n霎时间$N" HIW "只觉思绪狂涌，六脉剑谱中"
+            // 避免在使用Pfm时讯息重复
+            if (userp(me) && ! me->query_temp("liumai-shenjian/hit_msg"))
+                    message_vision(HIW "\n霎时间$N" HIW "只觉思绪狂涌，六脉剑谱中"
                                        "的六路剑法交替展现，登时十指纷弹，此去彼来，连"
                                        "绵无尽。\n" NOR, me, victim);
 
-	        if (userp(me))
-	        	me->start_busy(1 + random(attack_time));
-		    else
-	        	me->start_busy(1);
+            if (userp(me))
+                me->start_busy(1 + random(attack_time));
+            else
+                me->start_busy(1);
 
-       		me->add("neili", -attack_time * 50);
+               me->add("neili", -attack_time * 50);
 
-        	for (i = 0; i < attack_time; i++)
-        	{
-                	if (! me->is_fighting(victim))
-                        	break;
-                	COMBAT_D->do_attack(me, victim, 0, 0);
-        	}
-	}
+            for (i = 0; i < attack_time; i++)
+            {
+                    if (! me->is_fighting(victim))
+                            break;
+                    COMBAT_D->do_attack(me, victim, 0, 0);
+            }
+    }
 
            if (damage_bonus / 5 > victim->query_dex()
-	       && damage_bonus > 150
+           && damage_bonus > 150
            && me->query("neili") > 200
            && me->query_skill("martial-cognize", 1) >= 220
            && me->query_skill("liumai-shenjian", 1) >= 160
@@ -485,42 +485,42 @@ mapping query_action(object me, object weapon)
                 me->add("neili", -300);
                 return ([       "action": "$N纵身前扑，双手拇指同时按出一记「" HIR "少商剑" NOR
                                           "」，两道无形剑气破空而出逼向$n",
-        		                "attack": 300,
+                                "attack": 300,
                                 "dodge" : 200,
                                 "parry" : 200,
                                 "damage": 300,
                                 "force" : 600,
                                 "weapon" : HIR "破体无形剑气" NOR,
                                 "damage_type": "刺伤"
-		        ]);
+                ]);
         } else
         if (random(15) == 1 && me->query("neili") > 600)
         {
                 me->add("neili", -300);
                 return ([       "action": "$N双手手指急速弹动，顿时「" HIR "商阳剑" NOR "」和「"
                                           HIR "中冲剑" NOR "」两路剑法齐施，剑气源源不断涌向$n",
-        		                "attack": 300,
+                                "attack": 300,
                                 "dodge" : 200,
                                 "parry" : 200,
                                 "damage": 300,
                                 "force" : 600,
                                 "weapon" : HIR "破体无形剑气" NOR,
                                 "damage_type": "刺伤"
-		        ]);
+                ]);
         } else
         if (random(15) == 1 && me->query("neili") > 1000)
         {
                 me->add("neili", -300);
                 return ([       "action": "$N内息急转，不断催动真气，「" HIR "六脉神剑" NOR "」"
                                           "奥妙无方，剑气破空之声骤响，尽数袭向$n",
-        		                "attack": 300,
+                                "attack": 300,
                                 "dodge" : 200,
                                 "parry" : 200,
                                 "damage": 300,
                                 "force" : 600,
                                 "weapon" : HIR "破体无形剑气" NOR,
                                 "damage_type": "刺伤"
-		        ]);
+                ]);
         }
         return action[random(sizeof(action))];
 }

@@ -377,19 +377,19 @@ mixed hit_ob(object me, object victim)
         time = me->query_temp("combat_time");
 
         if(time > 10 && random(5) && ! me->query_temp("action_flag"))
-	 {
-		message_vision(RED "太极蓄力，借力打力。\n" NOR, me);
-		me->set_temp("action_flag", 1);
-	 	me->add_temp("apply/attack", time * 10);
-		me->add_temp("apply/parry", time * 10);
-	 	me->add_temp("apply/unarmed_damage", time * 3);
-	 	COMBAT_D->do_attack(me, victim, me->query_temp("weapon"), random(2)?10:30);
-	 	me->add_temp("apply/attack", -time * 10);
-		me->add_temp("apply/parry", -time * 10);
-	 	me->add_temp("apply/unarmed_damage", -time * 3);
-	 	me->delete_temp("action_flag");
-	 	return;
-	 }
+     {
+        message_vision(RED "太极蓄力，借力打力。\n" NOR, me);
+        me->set_temp("action_flag", 1);
+         me->add_temp("apply/attack", time * 10);
+        me->add_temp("apply/parry", time * 10);
+         me->add_temp("apply/unarmed_damage", time * 3);
+         COMBAT_D->do_attack(me, victim, me->query_temp("weapon"), random(2)?10:30);
+         me->add_temp("apply/attack", -time * 10);
+        me->add_temp("apply/parry", -time * 10);
+         me->add_temp("apply/unarmed_damage", -time * 3);
+         me->delete_temp("action_flag");
+         return;
+     }
 }
 
 int query_effect_parry(object attacker, object me)

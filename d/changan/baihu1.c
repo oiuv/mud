@@ -10,18 +10,17 @@ void create ()
 比肩，笙歌处处。景物之美，直如神仙境地。西边是扶风道。北面
 则是阴森森的大牢，有几个狱卒百无聊赖的呆在门口。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 2
-        	"west" : __DIR__"fufeng1",
-        	"east" : __DIR__"baihu2",
+            "west" : __DIR__"fufeng1",
+            "east" : __DIR__"baihu2",
         ]));
 
-	set("objects", ([
-		"/clone/npc/xunbu" : 2,
-	]));
+    set("objects", ([
+        "/clone/npc/xunbu" : 2,
+    ]));
         set("outdoors", "changan");
-	set("no_fight", 1);
+    set("no_fight", 1);
         setup();
         replace_program(ROOM);
 }
-

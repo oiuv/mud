@@ -441,17 +441,17 @@ mixed ask_riyue()
         command("say 恩，那好吧，我就教你七弦无形剑。");
 
         me->set_skill("qixian-wuxingjian", 10);
-		me->set("can_learn/meizhuang", 1);
+        me->set("can_learn/meizhuang", 1);
 
-		if (me->query("gongxian") > 10000 &&
-			me->query("balance") > 100000000)
-		{
-			me->add("gongxian", -10000);
-			me->add("balance", -100000000);
-			me->set("can_perform/qixian-wuxingjian/yin", 1);
-			me->set("can_perform/qixian-wuxingjian/shan", 1);
-			me->set("can_perform/qixian-wuxingjian/zhu", 1);
-		}
+        if (me->query("gongxian") > 10000 &&
+            me->query("balance") > 100000000)
+        {
+            me->add("gongxian", -10000);
+            me->add("balance", -100000000);
+            me->set("can_perform/qixian-wuxingjian/yin", 1);
+            me->set("can_perform/qixian-wuxingjian/shan", 1);
+            me->set("can_perform/qixian-wuxingjian/zhu", 1);
+        }
 
         tell_object(me, HIG "你学会了七弦无形剑！\n" NOR);
 

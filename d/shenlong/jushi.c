@@ -10,7 +10,7 @@ void create()
 副水墨画，没有什么特别出奇之处。
 LONG );
     set("exits", ([
-	"east" : __DIR__"zhulin",
+    "east" : __DIR__"zhulin",
     ]));
 
     set("objects",([
@@ -21,4 +21,3 @@ LONG );
     setup();
     replace_program(ROOM);
 }
-

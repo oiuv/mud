@@ -9,13 +9,13 @@ void create()
 LONG );
         set("outdoors", "heimuya");
         set("exits", ([
-            	"north" : __DIR__"road2",
-            	"south" : __DIR__"road4",
-            	"west"  : __DIR__"linjxd1",
-            	"east"  : __DIR__"tianroad1",
+                "north" : __DIR__"road2",
+                "south" : __DIR__"road4",
+                "west"  : __DIR__"linjxd1",
+                "east"  : __DIR__"tianroad1",
         ]));
         set("objects", ([
-           	__DIR__"npc/laozhe" : 1 ,
+               __DIR__"npc/laozhe" : 1 ,
         ]));
         setup();
         replace_program(ROOM);

@@ -11,7 +11,7 @@ void create()
         set("age", 33);
 
         set("combat_exp", 400);
-	set("attitude", "friendly");
+    set("attitude", "friendly");
         set("vendor_goods",({
                    "/clone/weapon/tudao",
                    "/clone/weapon/dagger",
@@ -19,9 +19,9 @@ void create()
                    "/clone/weapon/gangdao",
         }));
 
-	setup();
+    setup();
 
-	carry_object("/clone/misc/cloth")->wear();
+    carry_object("/clone/misc/cloth")->wear();
 }
 
 void init()

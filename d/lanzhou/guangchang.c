@@ -26,8 +26,8 @@ LONG);
         set("objects", ([
                 "/d/beijing/npc/maiyi2" : 1,
                 "/d/beijing/npc/haoke1" : 2,
-        	__DIR__"npc/liumangtou" : 1,    
-        	__DIR__"npc/xiaofan" : 1,
+            __DIR__"npc/liumangtou" : 1,
+            __DIR__"npc/xiaofan" : 1,
                 "/clone/npc/walker" : 1,
         ]));
         setup();
@@ -45,7 +45,7 @@ int do_zuan(string arg)
 
        if (me->is_busy() || me->is_fighting())
               return notify_fail("等你忙完了再说吧！\n");
- 
+
        if (me->query("family/family_name") != "明教")
               return notify_fail("什么？\n");
 

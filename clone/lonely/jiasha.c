@@ -52,10 +52,10 @@ int do_force(string arg)
                 return notify_fail("你打算往哪里注入内力？\n");
 
         if (me->is_fighting())
-                return notify_fail("你现在正在打架，哪有时间忙这个？\n"); 
+                return notify_fail("你现在正在打架，哪有时间忙这个？\n");
 
         if (me->is_busy())
-                return notify_fail("你现在正忙着呢。\n"); 
+                return notify_fail("你现在正忙着呢。\n");
 
         if (query("equipped"))
                 return notify_fail("你必须先将" + name() + "脱下。\n");
@@ -89,12 +89,12 @@ int do_force(string arg)
 mixed valid_damage(object ob, object me, int damage)
 {
         if (query("force") > 0)
-	{
+    {
                 add("force", -1);
                 return ([ "damage" : -damage,
                           "msg" : HIY "霎时只见" + name() + HIY "上一道光华闪"
                                   "过，竟然将$N" HIY "这一招化于无形。\n" NOR ]);
-	}
+    }
 }
 
 // 进行保存数据的接口函数
@@ -119,4 +119,3 @@ int receive_dbase_data(mixed data)
         }
         return 1;
 }
-

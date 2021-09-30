@@ -83,9 +83,9 @@ void create()
         set("chat_chance_combat", 40);
         set("chat_msg_combat", ({
                 (: perform_action, "blade.huan" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-		(: exert_function, "shield" :),
+                (: exert_function, "recover" :),
+                (: exert_function, "powerup" :),
+                (: exert_function, "shield" :),
         }) );
 
         setup();

@@ -5,10 +5,10 @@
 
 inherit F_SSERVER;
 
-string *xue_name = ({ 
+string *xue_name = ({
 "劳宫穴", "膻中穴", "曲池穴", "关元穴", "曲骨穴", "中极穴",
 "承浆穴", "天突穴", "百会穴", "幽门穴", "章门穴", "大横穴",
-"紫宫穴", "冷渊穴", "天井穴", "极泉穴", "清灵穴", "至阳穴", }); 
+"紫宫穴", "冷渊穴", "天井穴", "极泉穴", "清灵穴", "至阳穴", });
 
 int perform(object me, object target)
 {
@@ -16,12 +16,12 @@ int perform(object me, object target)
         string msg, wp;
         object weapon;
         int ap, dp;
-		
-		float improve;
-		int lvl, m, n;
-		string martial;
-		string *ks;
-		martial = "finger";
+
+        float improve;
+        int lvl, m, n;
+        string martial;
+        string *ks;
+        martial = "finger";
 
         if (userp(me) && ! me->query("can_perform/yiyang-zhi/die"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -30,7 +30,7 @@ int perform(object me, object target)
 
         if (! target || ! me->is_fighting(target))
                 return notify_fail(DIE "只能对战斗中的对手使用。\n");
- 
+
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail(DIE "只能空手施展。\n");
 
@@ -59,31 +59,31 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		lvl = lvl * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (m = 0; m < sizeof(ks); m++)
-		{
-			if (SKILL_D(ks[m])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[m], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 5 / 100 / lvl;
+        lvl = lvl * 4 / 5;
+        ks = keys(me->query_skills(martial));
+        improve = 0;
+        n = 0;
+        //最多给予5个技能的加成
+        for (m = 0; m < sizeof(ks); m++)
+        {
+            if (SKILL_D(ks[m])->valid_enable(martial))
+            {
+                n += 1;
+                improve += (int)me->query_skill(ks[m], 1);
+                if (n > 4 )
+                    break;
+            }
+        }
+
+        improve = improve * 5 / 100 / lvl;
 
         ap = me->query_skill("finger");
         dp = target->query_skill("parry");
-		
-		ap += ap * improve;
-		damage = ap + random(ap);
-		
-		msg = HIW "突然间";
+
+        ap += ap * improve;
+        damage = ap + random(ap);
+
+        msg = HIW "突然间";
 
         if (objectp(weapon = target->query_temp("weapon")))
         {
@@ -94,7 +94,7 @@ int perform(object me, object target)
 
                 ap = me->query_skill("finger");
                 dp = target->query_skill("force");
-				ap += ap * improve;
+                ap += ap * improve;
 
                 if (ap / 3 + random(ap) > dp)
                 {
@@ -121,7 +121,7 @@ int perform(object me, object target)
                                            HIR "，全身真气逆流而上，登时呕出一大"
                                            "口鲜血。\n" NOR);
 
-		target->add_temp("yiyang-zhi/die", 1);
+        target->add_temp("yiyang-zhi/die", 1);
         } else
         {
                 msg += CYN "可是$p" CYN "镇定自如，全力化解了$P"
@@ -130,7 +130,7 @@ int perform(object me, object target)
 
         ap = me->query_skill("finger");
         dp = target->query_skill("dodge");
-		ap += ap * improve;
+        ap += ap * improve;
 
         msg += "\n" HIW "接着$N" HIW "踏前一步，体内真气迸发，隔空一指劲点$n" HIW
                "而去，指气纵横，嗤然作响！\n" NOR;
@@ -142,7 +142,7 @@ int perform(object me, object target)
                                            HIR "，全身真气逆流而上，登时呕出一大"
                                            "口鲜血。\n" NOR);
 
-		target->add_temp("yiyang-zhi/die", 1);
+        target->add_temp("yiyang-zhi/die", 1);
         } else
         {
                 msg += CYN "可是$p" CYN "镇定自如，全力化解了$P"
@@ -151,7 +151,7 @@ int perform(object me, object target)
 
         ap = me->query_skill("finger");
         dp = target->query_skill("force");
-		ap += ap * improve;
+        ap += ap * improve;
 
         msg += "\n" HIW "最后$N" HIW "一声猛喝，单指“嗤”的一声点出，纯阳指力同"
                "时笼罩$n" HIW "全身诸多要穴！\n" NOR;
@@ -163,7 +163,7 @@ int perform(object me, object target)
                                            HIR "，全身真气逆流而上，登时呕出一大"
                                            "口鲜血。\n" NOR);
 
-		target->add_temp("yiyang-zhi/die", 1);
+        target->add_temp("yiyang-zhi/die", 1);
         } else
         {
                 msg += CYN "可是$p" CYN "镇定自如，全力化解了$P"
@@ -175,12 +175,12 @@ int perform(object me, object target)
         {
                 msg += HIY "\n$n" HIY "被$N" HIY "三指连中，全身真气涣"
                        "散，宛如黄河决堤，内力登时狂泻而出。\n\n" NOR;
-		target->set("neili", 0);
+        target->set("neili", 0);
         }
         //me->start_busy(4 + random(4));
         me->start_busy(3 + random(3));
         me->add("neili", -400);
-		target->delete_temp("yiyang-zhi/die");
+        target->delete_temp("yiyang-zhi/die");
         message_combatd(msg, me, target);
 
         if (! target->query("neili"))

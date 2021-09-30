@@ -12,15 +12,15 @@ void create ()
 LONG);
         //set("item_desc", ([" *** " : " *** ", ]));
 
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
-        	"south" : __DIR__"baihu3",
+            "south" : __DIR__"baihu3",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
-        	__DIR__"npc/xueshi" : 1,
-	]));
-              
+            __DIR__"npc/xueshi" : 1,
+    ]));
+
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

@@ -35,17 +35,17 @@ void create()
         set("env/wimpy", 100);
         set("chat_chance", 30);
         set("chat_msg", ({
-		(: command("eat1") :),
-		(: command("goeat") :),
-		(: command("mapi1") :),
-		(: command("drinkcup") :),
-		(: command("ugly") :),
-		(: command("mapi") :),
-		(: command("slogan2") :),
-		(: command("zzz") :),
-		(: command("lazy") :),
-		(: command("slogan") :),
-		(: drool :),
+        (: command("eat1") :),
+        (: command("goeat") :),
+        (: command("mapi1") :),
+        (: command("drinkcup") :),
+        (: command("ugly") :),
+        (: command("mapi") :),
+        (: command("slogan2") :),
+        (: command("zzz") :),
+        (: command("lazy") :),
+        (: command("slogan") :),
+        (: drool :),
                 (: drool :),
                 (: drool :),
                 (: drool :),
@@ -118,23 +118,23 @@ void relay_emote(object ob, string verb)
                         command("say 为什麽踢我？会痛耶！");
                         break;
                 }
-	case "hug":
-	case "kiss":
-	case "mo":
-	case "18mo":
-	case "nocloth":
-	if ( (string) ob -> query ("gender") == "男性" ||
+    case "hug":
+    case "kiss":
+    case "mo":
+    case "18mo":
+    case "nocloth":
+    if ( (string) ob -> query ("gender") == "男性" ||
              (string) ob -> query ("gender") == "无性" )
-	{
-		command ("chat 这算啥，"+ ob->query("name") + "！我就喜欢这个调调儿！\n") ;
-		command("chat 谁想得到这" + RANK_D->query_rude(ob)+"，竟然有龙阳之好。\n");
-	}
-	else
-	{
-		command("giggle");
-		command("chat 想不到"+ ob->query("name") +"自动把豆腐送上来了。再开心没有了！");
-	}
-		message_vision("$N摇了摇头，对$n幽幽叹道：唉，你这又是何苦呢?\n",this_object(), this_player());
+    {
+        command ("chat 这算啥，"+ ob->query("name") + "！我就喜欢这个调调儿！\n") ;
+        command("chat 谁想得到这" + RANK_D->query_rude(ob)+"，竟然有龙阳之好。\n");
+    }
+    else
+    {
+        command("giggle");
+        command("chat 想不到"+ ob->query("name") +"自动把豆腐送上来了。再开心没有了！");
+    }
+        message_vision("$N摇了摇头，对$n幽幽叹道：唉，你这又是何苦呢?\n",this_object(), this_player());
         default:
                 if( random(10)<5 )
                         command(verb + " " + ob->query("id"));

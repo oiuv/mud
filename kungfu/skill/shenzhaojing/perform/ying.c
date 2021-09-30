@@ -54,11 +54,11 @@ int perform(object me, object target)
 
         me->start_busy(3);
         if (ap / 2 + random(ap) > dp)
-        { 
+        {
                 damage = ap + random(ap / 2);
                 me->add("neili", -400);
                 target->affect_by("shenzhao", ([
-                	"level" : me->query("jiali") + random(me->query("jiali")),
+                    "level" : me->query("jiali") + random(me->query("jiali")),
                         "id"    : me->query("id"),
                         "duration" : lvl / 50 + random(lvl / 20) ]));
                         msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK,

@@ -89,7 +89,7 @@ void create()
                     "小昭低声吟道：秘笈兵书此中藏 不识张郎是张郎\n",
         }) );
 
-	set("coagents", ({
+    set("coagents", ({
                 ([ "startroom" : "/d/mingjiao/dadian",
                    "id"        : "zhang wuji" ]),
         }));
@@ -133,8 +133,8 @@ int ask_ge()
 
 int ask_qiankun()
 {
-    	command("say 自上代教主阳顶天离奇失踪，乾坤大挪移心法"
-		"已经失落很久了。\n");
-	command("say 后来张公子才在密道里面找了回来。\n");
+        command("say 自上代教主阳顶天离奇失踪，乾坤大挪移心法"
+        "已经失落很久了。\n");
+    command("say 后来张公子才在密道里面找了回来。\n");
         return 1;
 }

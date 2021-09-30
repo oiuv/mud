@@ -10,8 +10,8 @@ void create()
 凉，渺无人烟。
 LONG);
         set("exits", ([
-  		"westup" : __DIR__"shudao15",
-  		"east" : __DIR__"shudao13",
+          "westup" : __DIR__"shudao15",
+          "east" : __DIR__"shudao13",
         ]));
         set("no_clean_up", 0);
         set("outdoors", "chengdu");
@@ -19,4 +19,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

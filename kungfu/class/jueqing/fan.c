@@ -8,7 +8,7 @@ inherit F_GUARDER;
 void create()
 {
         set_name("樊一翁", ({ "fan yiweng", "fan", "yiweng" }));
-	set("gender", "男性");
+    set("gender", "男性");
         set("shen_type", 0);
         set("age", 60);
         set("str", 38);
@@ -23,7 +23,7 @@ void create()
         set("combat_exp", 2200000);
 
         set_skill("force", 180);
-        set_skill("jueqing-xinfa", 180);   
+        set_skill("jueqing-xinfa", 180);
         set_skill("dodge", 180);
         set_skill("jueqing-shenfa", 180);
         set_skill("staff", 180);
@@ -42,7 +42,7 @@ void create()
         set_skill("parry", 180);
         set_skill("literate", 160);
         set_skill("martial-cognize", 160);
-        
+
         map_skill("staff",  "poshui-zhang");
         map_skill("sword",  "guxing-jian");
         map_skill("strike", "guhong-zhang");
@@ -52,7 +52,7 @@ void create()
         map_skill("parry",  "poshui-zhang");
 
         prepare_skill("strike", "jueqing-zhang");
-             
+
         create_family("绝情谷", 5, "弟子");
 
         set("chat_chance_combat", 120);
@@ -67,7 +67,7 @@ void create()
         set_temp("apply/unarmed_damage", 60);
         set_temp("apply/armor", 60);
 
-	set("coagents", ({
+    set("coagents", ({
                 ([ "startroom" : "/d/jueqing/zizhuxuan",
                    "id"        : "gongsun zhi" ]),
         }));

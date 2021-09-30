@@ -11,17 +11,17 @@ void create()
 一位师太打听有关出家的事。一个十来岁的小师太正在忙前忙
 后招待客人。南边有扇窗子(chuang)。
 LONG);
-      	set("objects", ([
-           	CLASS_D("emei") + "/wenqing" : 1,
-      	]));
-      	set("item_desc", ([
-          	"chuang" : "窗外可以看到峨眉山的秀丽山景。\n",
-    	]));
+          set("objects", ([
+               CLASS_D("emei") + "/wenqing" : 1,
+          ]));
+          set("item_desc", ([
+              "chuang" : "窗外可以看到峨眉山的秀丽山景。\n",
+        ]));
 
-	set("exits",([
-        	"east"   : __DIR__"hcazhengdian", 
-      	]));
-      	setup();
+    set("exits",([
+            "east"   : __DIR__"hcazhengdian",
+          ]));
+          setup();
 }
 
 void init()

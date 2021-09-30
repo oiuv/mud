@@ -133,16 +133,16 @@ LONG);
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
-	        (: perform_action, "blade.xian" :),
-	        (: perform_action, "blade.zhui" :),
-	        (: perform_action, "blade.cang" :),
-	        (: perform_action, "cuff.kuai" :),
-	        (: perform_action, "strike.jian" :),
-	        (: perform_action, "dodge.fei" :),
-	        (: perform_action, "throwing.shan" :),
-	        (: perform_action, "throwing.xing" :),
-	        (: exert_function, "recover" :),
-	        (: exert_function, "powerup" :),
+            (: perform_action, "blade.xian" :),
+            (: perform_action, "blade.zhui" :),
+            (: perform_action, "blade.cang" :),
+            (: perform_action, "cuff.kuai" :),
+            (: perform_action, "strike.jian" :),
+            (: perform_action, "dodge.fei" :),
+            (: perform_action, "throwing.shan" :),
+            (: perform_action, "throwing.xing" :),
+            (: exert_function, "recover" :),
+            (: exert_function, "powerup" :),
         }));
 
         set_temp("apply/damage", 100);

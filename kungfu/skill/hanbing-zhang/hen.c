@@ -44,18 +44,18 @@ int perform(object me, object target)
 
         dp = target->query_skill("dodge");
 
-        msg = HIC "\n$N" HIC "怒喝一声，施出绝招「" HIG "踏雪无痕" HIC 
+        msg = HIC "\n$N" HIC "怒喝一声，施出绝招「" HIG "踏雪无痕" HIC
               "」刹时间，寒意袭卷漫天，但见$N" HIC "双掌连续反转，不断"
               "拍向$n" HIC "，竟将$n" HIC "困在掌风之下。\n" NOR;
         message_sort(msg, me, target);
-        
+
         if (random(ap) > dp / 2)
         {
-		msg = HIR "$n" HIR "心中一惊，一时间竟无从应对，"
+        msg = HIR "$n" HIR "心中一惊，一时间竟无从应对，"
                       "竟被困在$N" HIR "的掌风之中。\n" NOR;
 
                 target->start_busy(ap / 40 + 2);
-               	me->start_busy(1);
+                   me->start_busy(1);
                 me->add("neili", -100);
         } else
         {

@@ -9,12 +9,12 @@ void create()
 铜盔之类的东西胡乱扔在地上，看上去很杂乱。
 LONG);
         set("objects", ([
-  		__DIR__"npc/smith" : 1,
-	]));
+          __DIR__"npc/smith" : 1,
+    ]));
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"wendingnan2",
-	]));
+          "west" : __DIR__"wendingnan2",
+    ]));
 
         setup();
         replace_program(ROOM);

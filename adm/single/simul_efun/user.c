@@ -2,7 +2,7 @@
 
 int playerp(object ob)
 {
-	return ob->is_player();
+    return ob->is_player();
 }
 
 int ultrap(object ob)
@@ -48,13 +48,13 @@ object find_player(string id)
         {
         case 0:
                 return 0;
-	case 1:
+    case 1:
                 return ob[0];
-	default:
-		log_file("log", sprintf("error find %d players(%s)\n",
-			                sizeof(ob), id));
-		error("The player(" + id + ") has existed in the world.\n");
-		return ob[0];
+    default:
+        log_file("log", sprintf("error find %d players(%s)\n",
+                            sizeof(ob), id));
+        error("The player(" + id + ") has existed in the world.\n");
+        return ob[0];
         }
 
         // more than one players' id are the same? I will destruct them
@@ -72,7 +72,7 @@ object find_player(string id)
         i = sizeof(ob);
         switch (i = sizeof(ob))
         {
-	default:
+    default:
                 // aha, I have not idea to select out the real user
         case 1:
                 return ob[0];
@@ -80,4 +80,3 @@ object find_player(string id)
                 return 0;
         }
 }
-

@@ -98,15 +98,15 @@ int dispel(object me, object ob, int duration)
 
 int update_condition(object me, int duration)
 {
-	// int limit;
+    // int limit;
 
-	if (! living(me) && (me->query("eff_qi") < 20
+    if (! living(me) && (me->query("eff_qi") < 20
     || me->query("eff_jing") < 10))
   {
         me->set_temp("贪饮玄冰碧火酒，内息紊乱而亡");
         me->die();
         return 0;
-	} else {
+    } else {
         me->receive_wound("qi", 20);
         me->receive_wound("jing", 10);
 
@@ -140,15 +140,15 @@ int update_condition(object me, int duration)
                         NOR, environment(me), me);
                 break;
         }
-	}
+    }
 
         if (me->query("max_neili") < 1)
                 me->set("max_neili", 0);
 
-	me->apply_condition("xuanbing-jiu", duration - 1);
+    me->apply_condition("xuanbing-jiu", duration - 1);
 
-	if (! duration)
+    if (! duration)
                 return 0;
 
-	return 1;
+    return 1;
 }

@@ -1,4 +1,4 @@
-// masterd.c 
+// masterd.c
 // Written by Vin for Heros.cn 2002/07/13.
 
 #include <ansi.h>
@@ -142,7 +142,7 @@ public mixed teach_pfm(object who, object ob, mapping b)
                                "不能传给你。";
         }
 
-        // 判断特定的武功需求，其中 sk1 应为主 skills 
+        // 判断特定的武功需求，其中 sk1 应为主 skills
         if (stringp(sk1 = b["sk1"]) && intp(lv1 = b["lv1"]))
         {
                 if (who->query_skill(sk1, 1) <= 0)
@@ -460,14 +460,14 @@ public mixed give_item(object who, object ob, mapping b)
         }
 
         // 寻找该物件的所有者
-	owner = environment(obj);
+    owner = environment(obj);
         while (owner)
-	{
+    {
                 if (owner->is_character() || ! environment(owner))
                         break;
 
-		owner = environment(owner);
-	}
+        owner = environment(owner);
+    }
 
         if (owner == who)
                 return "那" + obj->query("unit") + obj->name() +

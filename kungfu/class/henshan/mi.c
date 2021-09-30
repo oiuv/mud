@@ -26,13 +26,13 @@ void create()
         set("combat_exp", 200000);
 
         set_skill("force", 100);
-        set_skill("henshan-xinfa", 100);   
+        set_skill("henshan-xinfa", 100);
         set_skill("dodge", 80);
         set_skill("henshan-shenfa", 80);
         set_skill("cuff", 80);
         set_skill("henshan-quan", 80);
         set_skill("strike", 80);
-        set_skill("biluo-zhang", 80); 
+        set_skill("biluo-zhang", 80);
         set_skill("sword", 100);
         set_skill("henshan-jian", 100);
         set_skill("parry", 80);
@@ -57,8 +57,8 @@ void create()
                 (: perform_action, "cuff.riyue" :),
                 (: exert_function, "recover" :),
         }));
-     
-	set("coagents", ({
+
+    set("coagents", ({
                 ([ "startroom" : "/d/henshan/zhurongfeng",
                    "id"        : "mo da" ]),
         }));
@@ -76,10 +76,10 @@ void attempt_apprentice(object ob)
                 return;
 
         if ((string)ob->query("family/master_id") == "xiang danian")
-	{
-		command("say 你既已拜我向师兄为师，我也不便收你为徒。");
-		return;
-	}
+    {
+        command("say 你既已拜我向师兄为师，我也不便收你为徒。");
+        return;
+    }
 
         if ((int)ob->query("shen") < 0)
         {

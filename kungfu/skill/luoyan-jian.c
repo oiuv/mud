@@ -8,7 +8,7 @@ mapping *action = ({
         "parry"  : 25,
         "attack" : 10,
         "damage" : 12,
-	"lvl"    : 0,
+    "lvl"    : 0,
         "damage_type" : "刺伤",
         "skill_name"  : "回剑式",
 ]),
@@ -18,7 +18,7 @@ mapping *action = ({
         "parry"  : 28,
         "attack" : 12,
         "damage" : 15,
-	"lvl"    : 25,
+    "lvl"    : 25,
         "damage_type" : "刺伤",
         "skill_name"  : "拂风式",
 ]),
@@ -28,17 +28,17 @@ mapping *action = ({
         "parry"  : 31,
         "attack" : 13,
         "damage" : 18,
-	"lvl"    : 50,
+    "lvl"    : 50,
         "damage_type" : "刺伤",
         "skill_name"  : "落剑式",
 ]),
 ([      "action" : "$N腾空而起，一招「雁翔式」来势又准又快，手中$w已到$n$l",
-        "force"  : 93, 
+        "force"  : 93,
         "dodge"  : 25,
         "parry"  : 35,
         "attack" : 15,
         "damage" : 20,
-	"lvl"    : 75,
+    "lvl"    : 75,
         "damage_type" : "刺伤",
         "skill_name"  : "雁翔式",
 ]),
@@ -48,7 +48,7 @@ mapping *action = ({
         "parry"  : 38,
         "attack" : 18,
         "damage" : 23,
-	"lvl"    : 100,
+    "lvl"    : 100,
         "damage_type" : "刺伤",
         "skill_name"  : "平剑式",
 ]),
@@ -58,7 +58,7 @@ mapping *action = ({
         "parry"  : 40,
         "attack" : 20,
         "damage" : 25,
-	"lvl"    : 120,
+    "lvl"    : 120,
         "damage_type" : "刺伤",
         "skill_name"  : "凝剑式",
 ]),
@@ -82,7 +82,7 @@ int valid_learn(object me)
                 return notify_fail("你的基本剑法火候不够，无法学习回风落雁剑。\n");
 
         if (me->query_skill("sword", 1) < me->query_skill("luoyan-jian", 1))
-		return notify_fail("你的基本剑法火候有限，无法领会更高深的回风落雁剑。\n");
+        return notify_fail("你的基本剑法火候有限，无法领会更高深的回风落雁剑。\n");
 
         return 1;
 }
@@ -102,7 +102,7 @@ string query_skill_name(int level)
 
 mapping query_action(object me, object weapon)
 {
-	int i, level;
+    int i, level;
 
         level = (int) me->query_skill("luoyan-jian", 1);
         for (i = sizeof(action); i > 0; i--)
@@ -119,10 +119,10 @@ int practice_skill(object me)
                 return notify_fail("你使用的武器不对。\n");
 
        if((int)me->query("neili") < 30 )
-        	   return notify_fail("你的内力不足，没有办法练习回风落雁剑。\n");
+               return notify_fail("你的内力不足，没有办法练习回风落雁剑。\n");
 
        if ((int)me->query("qi") < 35)
-        	   return notify_fail("你的体力不够练回风落雁剑。\n");
+               return notify_fail("你的体力不够练回风落雁剑。\n");
 
        me->receive_damage("qi", 40);
        me->add("neili", -50);
@@ -133,4 +133,3 @@ string perform_action_file(string action)
 {
         return __DIR__"luoyan-jian/" + action;
 }
-

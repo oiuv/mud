@@ -57,12 +57,12 @@ int perform(object me, object target)
                                            HIR "$n" HIR "勘破不透掌中虚实，$N" HIR
                                            "双掌正中$p" HIR "前胸，“喀嚓喀嚓”接"
                                            "连断了数根肋骨。\n" NOR);
-	        message_combatd(msg, me, target);
+            message_combatd(msg, me, target);
         } else
         {
                 msg += CYN "$n" CYN "见$N" CYN "这掌来势非凡，不敢"
                        "轻易招架，当即飞身纵跃闪开。\n" NOR;
-	        message_combatd(msg, me, target);
+            message_combatd(msg, me, target);
         }
 
         for (i = 0; i < 4; i++)
@@ -71,7 +71,7 @@ int perform(object me, object target)
                         break;
                 if (random(3) == 1 && ! target->is_busy())
                         target->start_busy(1);
-        	COMBAT_D->do_attack(me, target, 0, 0);
+            COMBAT_D->do_attack(me, target, 0, 0);
         }
         me->add("neili", -300);
         me->start_busy(4 + random(3));

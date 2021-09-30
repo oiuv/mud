@@ -12,7 +12,7 @@ LONG);
         set("arrive_room", "/d/yanziwu/hupan");
         set("exits", ([
                 "east"      : __DIR__"pindi",
-	        "northdown" : __DIR__"muti",
+            "northdown" : __DIR__"muti",
         ]));
         set("resource/fish", ({ "/clone/fish/liyu",
                                 "/clone/fish/jiyu",

@@ -30,28 +30,28 @@ int do_effect(object me)
               destruct(this_object());
               return 1;
         }
-       	message_vision(HIY "$N" HIY "哈哈一笑，将整个汉堡一起吞了。\n" NOR, me);
+           message_vision(HIY "$N" HIY "哈哈一笑，将整个汉堡一起吞了。\n" NOR, me);
 
         me->set("eat_christmas_gift/y2002", 1);
-       	me->add("combat_exp", 50000);
-       	me->add("potential", 10000);
+           me->add("combat_exp", 50000);
+           me->add("potential", 10000);
 
-       	mapsk = me->query_skill_mapped("force");
+           mapsk = me->query_skill_mapped("force");
 
-       	if (me->can_improve_skill("force"))
-               	me->improve_skill("force", 1500000);
-       	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-               	me->improve_skill(mapsk, 1500000);
+           if (me->can_improve_skill("force"))
+                   me->improve_skill("force", 1500000);
+           if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                   me->improve_skill(mapsk, 1500000);
 
-       	mapsk = me->query_skill_mapped("parry");
+           mapsk = me->query_skill_mapped("parry");
 
-       	if (me->can_improve_skill("parry"))
-               	me->improve_skill("parry", 1500000);
-       	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-               	me->improve_skill(mapsk, 1500000);
+           if (me->can_improve_skill("parry"))
+                   me->improve_skill("parry", 1500000);
+           if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                   me->improve_skill(mapsk, 1500000);
 
-       	if (me->can_improve_skill("martial-cognize"))
-               	me->improve_skill("martial-cognize", 1500000);
+           if (me->can_improve_skill("martial-cognize"))
+                   me->improve_skill("martial-cognize", 1500000);
 
         message_vision(HIC "$N" HIC "你获得了五万点经验和一万点潜能。\n" NOR, me);
 

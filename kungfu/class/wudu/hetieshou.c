@@ -132,8 +132,8 @@ LONG);
                 "千蛛万毒手"   : (: ask_skill6 :),
         ]));
 
-	if (clonep())
-	{
+        if (clonep())
+        {
                 ob = find_object(ZHUSUO);
                 ob2 = find_object(SHEYING);
 
@@ -148,13 +148,13 @@ LONG);
                         if (! ob) ob = load_object(JINWUGOU);
                         if (! environment(ob))
                         {
-	                        ob->move(this_object());
-        	                ob->wield();
+                                ob->move(this_object());
+                                ob->wield();
                         } else
                         {
-                        	ob = new("/clone/weapon/changbian");
-                        	ob->move(this_object());
-                       		ob->wield();
+                                ob = new("/clone/weapon/changbian");
+                                ob->move(this_object());
+                                       ob->wield();
                         }
                 }
                 if (! ob2) ob2 = load_object(SHEYING);
@@ -451,7 +451,7 @@ mixed ask_skill1()
 
         message_sort(HIY "\n$n" HIY "点了点头，从腰间取下长索，手腕轻轻一抖，顿"
                      "时鞭影重重，完全笼罩$N" HIY "的四周，直看得$N" HIY "目瞪口"
-                     "呆。\n\n" NOR, me, this_object()); 
+                     "呆。\n\n" NOR, me, this_object());
 
         command("nod");
         command("say 这一招便是软红蛛索绝技盘鹰诀，你可看明白了？");
@@ -763,7 +763,7 @@ mixed ask_skill6()
 
         if (me->query("combat_exp") < 1000000)
                 return "你现在经验太浅，何必来这凑热闹？";
-        
+
         if (me->query("score") < 100000)
                 return "你的江湖阅历还不够，以后再来找我吧。";
 
@@ -789,4 +789,3 @@ void unconcious()
 {
         die();
 }
-

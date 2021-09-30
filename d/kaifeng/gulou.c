@@ -10,8 +10,8 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"qianyuan",
-	]));
+          "west" : __DIR__"qianyuan",
+    ]));
 
         setup();
         replace_program(ROOM);

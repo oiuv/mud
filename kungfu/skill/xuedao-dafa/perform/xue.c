@@ -7,8 +7,8 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-	string msg;
+    object weapon;
+    string msg;
         int ap, dp, damage;
 
         if (userp(me) && ! me->query("can_perform/xuedao-dafa/xue"))
@@ -22,7 +22,7 @@ int perform(object me, object target)
 
         if (! target || ! me->is_fighting(target))
                 return notify_fail(XUE "只能对战斗中的对手使用。\n");
- 
+
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "blade")
                 return notify_fail("你使用的武器不对，难以施展" XUE "。\n");

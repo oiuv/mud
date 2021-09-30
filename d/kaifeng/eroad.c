@@ -10,9 +10,9 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"south" : __DIR__"jiaomen",
-  		"north" : __DIR__"eroad1",
-	]));
+          "south" : __DIR__"jiaomen",
+          "north" : __DIR__"eroad1",
+    ]));
 
         set("outdoors", "kaifeng");
 

@@ -20,7 +20,7 @@ void create()
         set("age", 65);
 
         set("int", 38);
-        
+
         set("qi", 1000);
         set("max_qi", 1000);
         set("jing", 1000);
@@ -58,12 +58,12 @@ void create()
                 HERB("heshouwu"),       // 何首乌
                 HERB("honghua"),        // 红花
                 HERB("huangqi"),        // 黄芪
-				HERB("hugu"),			// 虎骨
+                HERB("hugu"),            // 虎骨
                 HERB("juhua"),          // 菊花
                 HERB("lanhua"),         // 兰花
                 HERB("lingxian"),       // 灵仙
                 HERB("lingzhi"),        // 灵芝
-				HERB("lurong"),		// 鹿茸
+                HERB("lurong"),        // 鹿茸
                 HERB("mahuang"),        // 麻黄
                 HERB("moyao"),          // 没药
                 HERB("niuhuang"),       // 牛黄
@@ -84,7 +84,7 @@ void create()
                 HERB("wulingzhi"),      // 五灵脂
                 HERB("xiefen"),         // 蝎粉
                 HERB("xijiao"),         // 犀角
-				HERB("xiongdan"),		// 熊胆
+                HERB("xiongdan"),        // 熊胆
                 HERB("xionghuang"),     // 雄黄
                 HERB("xuejie"),         // 血竭
                 HERB("xuelian"),        // 雪莲
@@ -214,7 +214,7 @@ int working(object me)
 
                 me->delete_temp("job/peiyao");
                 me->delete_temp("job/step");
-				// 奖励增加5+5倍
+                // 奖励增加5+5倍
                 b = 30 + random(20);
                 me->add("combat_exp", b);
                 me->improve_potential(b);
@@ -236,7 +236,7 @@ int working(object me)
                                         "点经验和潜能。\n\n" NOR);
                 }
 
-                if (random(200) == 1)		//机率增加5倍（2015年4月5日）
+                if (random(200) == 1)        //机率增加5倍（2015年4月5日）
                 {
                         msg = HIW "\n$n" HIW "对$N" HIW "嘿嘿一笑，道：干得不"
                               "赖，有点意思，这个丹玉磨就算是我送给你的礼物吧"

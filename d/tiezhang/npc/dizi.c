@@ -13,7 +13,7 @@ void create()
 
         set("gender", "男性");
         set("attitude", "peaceful");
-        
+
         set("age", 35);
         set("shen_type", 0);
         set("str", 25);
@@ -36,14 +36,14 @@ void create()
 //        set_skill("banruo-zhang", 50);待加
         set_skill("parry", 50);
         set_skill("blade", 50);
-        
+
         map_skill("force", "shenhuo-shengong");
         map_skill("dodge", "tiyunzong");
         map_skill("parry", "cibei-dao");
         map_skill("blade", "cibei-dao");
         setup();
 
-	carry_object(__DIR__"obj/black-cloth")->wear();
+    carry_object(__DIR__"obj/black-cloth")->wear();
 }
 
 void init()
@@ -55,10 +55,10 @@ void init()
 
         ob = this_player();
         me = this_object();
-        
-        if (interactive(ob) 
+
+        if (interactive(ob)
         && !environment(ob)->query("no_fight")
-        && !present("tieyan ling", ob) 
+        && !present("tieyan ling", ob)
         && ( (fam = ob->query("family")) && fam["family_name"] != "明教" ) )
         {
                 if( !ob->query_temp("warned") ) {
@@ -68,41 +68,41 @@ void init()
                 }
                   else if( ob->query_temp("stay") < 3 ) ob->add_temp("stay", 1);
                 else {
-                	command("say 大胆狂徒，竟敢闯到明教来撒野！！！\n");
-			remove_call_out("hiting_ob");
-                     	call_out("hiting_ob", 1, ob);
-		}
-        }       
+                    command("say 大胆狂徒，竟敢闯到明教来撒野！！！\n");
+            remove_call_out("hiting_ob");
+                         call_out("hiting_ob", 1, ob);
+        }
+        }
 }
 int hiting_ob(object ob)
 {
-	object me;
-	me=this_object();
-	me->set_leader(ob);
-	ob->kill_ob(me);
+    object me;
+    me=this_object();
+    me->set_leader(ob);
+    ob->kill_ob(me);
         me->fight_ob(ob);
-	remove_call_out("moving_ob");
-	call_out("moving_ob",1,ob);
+    remove_call_out("moving_ob");
+    call_out("moving_ob",1,ob);
 }
 int moving_ob(object ob)
 {
-	ob = this_player();
-	if (!living(ob)){
+    ob = this_player();
+    if (!living(ob)){
         switch( random(3) ) {
-	case 0:
-	     	command("say 哼，看你以后还敢不敢乱闯光明顶！！！");
-	break;
-	case 1:
-		command("say 交给冷大人处理吧，关他一年半月的。");
-	break;
-	case 2:
-		command("nod");
-	break;
-	}
-	ob->move("/u/qingyun/mingjiao/jianyu");            
-	}
-	else {
-	remove_call_out("hiting_ob");
-	call_out("hiting_ob",1,ob);
-	}
+    case 0:
+             command("say 哼，看你以后还敢不敢乱闯光明顶！！！");
+    break;
+    case 1:
+        command("say 交给冷大人处理吧，关他一年半月的。");
+    break;
+    case 2:
+        command("nod");
+    break;
+    }
+    ob->move("/u/qingyun/mingjiao/jianyu");
+    }
+    else {
+    remove_call_out("hiting_ob");
+    call_out("hiting_ob",1,ob);
+    }
 }

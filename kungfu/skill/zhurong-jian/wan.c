@@ -43,10 +43,10 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         wn = weapon->name();
-                            
+
         msg = HIM "\n$N" HIM "剑招突变，将真气注入剑身，剑体顿时变得通红，一式「"
               HIR "万剑焚云" HIM "」使出，霎时呼啸声大作，手中" + wn + HIM "化做"
-              "千万柄利刃，笼罩$n" HIM "周身。" NOR; 
+              "千万柄利刃，笼罩$n" HIM "周身。" NOR;
 
         message_sort(msg, me, target);
 
@@ -55,20 +55,20 @@ int perform(object me, object target)
 
         if (random(ap) > dp / 2)
         {
-         	damage = ap / 2 + random(ap);
-         	damage += random(damage / 3);
+             damage = ap / 2 + random(ap);
+             damage += random(damage / 3);
 
                 msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 55,
                                           (: final, me, target, damage :));
                 me->start_busy(3);
-         	me->add("neili", -200);
+             me->add("neili", -200);
         } else
         {
-         	msg = CYN "$n" CYN "眼剑" +wn + CYN"已至，强自镇定，"
+             msg = CYN "$n" CYN "眼剑" +wn + CYN"已至，强自镇定，"
                       "侧身躲过，但对$N" CYN "这招仍是心有余悸。\n" NOR;
 
-       		me->start_busy(4);
-         	me->add("neili", -100);
+               me->start_busy(4);
+             me->add("neili", -100);
         }
         message_combatd(msg, me, target);
 

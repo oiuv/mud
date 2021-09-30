@@ -11,7 +11,7 @@ inherit F_QUESTER;
 
 void create()
 {
-    
+
     set_name("张无忌", ({ "zhang wuji", "zhang", "wuji" }));
 
     set("long", @LONG
@@ -42,7 +42,7 @@ LONG );
 
     set("combat_exp", 5000000);
     set("score", 455000);
-    
+
     set_skill("force", 360);
     set_skill("unarmed", 340);
     set_skill("dodge", 340);
@@ -71,25 +71,25 @@ LONG );
     prepare_skill("cuff", "qishang-quan");
 
     set("no_teach", ([
-	  "jiuyang-shengong"  : "这个我可不能传你。",
-	  "taiji-jian"        : "你还是找我太师父吧！",
-	  "taiji-quan"        : "你还是找我太师父吧！",
-	  "qishang-quan"      : "想学七伤拳你还是找我义父谢逊吧！",
-	  	//张无忌传授乾坤大挪移，只是给乾坤大挪移一个明教出身，其实没什么用。
-	  //"qiankun-danuoyi"   : "乾坤大挪移只有明教教主方能修炼，难道你想做教主？",
+      "jiuyang-shengong"  : "这个我可不能传你。",
+      "taiji-jian"        : "你还是找我太师父吧！",
+      "taiji-quan"        : "你还是找我太师父吧！",
+      "qishang-quan"      : "想学七伤拳你还是找我义父谢逊吧！",
+          //张无忌传授乾坤大挪移，只是给乾坤大挪移一个明教出身，其实没什么用。
+      //"qiankun-danuoyi"   : "乾坤大挪移只有明教教主方能修炼，难道你想做教主？",
     ]));
 
-    set("chat_chance_combat", 120); 
+    set("chat_chance_combat", 120);
     set("chat_msg_combat", ({
-	(: command("perform sword.hua") :),
-	(: command("perform sword.xi") :),
-	(: command("perform sword.lian") :),
-	(: command("perform sword.can") :),
-	(: command("perform cuff.shang") :),
-	(: command("perform cuff.fei") :),
-	(: command("yun shield") :),
-	(: command("yun powerup") :),
-	(: command("yun recover") :),
+    (: command("perform sword.hua") :),
+    (: command("perform sword.xi") :),
+    (: command("perform sword.lian") :),
+    (: command("perform sword.can") :),
+    (: command("perform cuff.shang") :),
+    (: command("perform cuff.fei") :),
+    (: command("yun shield") :),
+    (: command("yun powerup") :),
+    (: command("yun recover") :),
     }) );
 
     set("inquiry",([
@@ -126,19 +126,19 @@ void attempt_apprentice(object ob)
                 command("say 你行侠仗义的事做得还不够，还是请回吧。");
                 return;
         }
-      
+
         if (ob->query_skill("shenghuo-xinfa", 1) < 180)
-        {       
+        {
                 command("say 你圣火心法不够娴熟，还是下去多练习一下吧！");
                 return ;
         }
 
         if (ob->query_skill("force", 1) < 180)
-        {       
+        {
                 command("say 你基本内功火候不够，怎么学我明教的圣火神功！");
                 return ;
         }
-     
+
         if (ob->query("combat_exp") < 800000)
         {
                 command("say 你江湖经验还不够，下去多磨练一下吧！");
@@ -282,6 +282,3 @@ void unconcious()
 {
         die();
 }
-
-
-

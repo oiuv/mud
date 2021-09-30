@@ -1,5 +1,5 @@
 inherit ROOM;
- 
+
 void create()
 {
         set("short", "圣姑堂");
@@ -9,11 +9,11 @@ void create()
 可方物，含笑不怒而威。
 LONG );
         set("exits", ([
-            	"east" : __DIR__"chitang",
+                "east" : __DIR__"chitang",
         ]));
         set("objects", ([
                 CLASS_D("riyue") + "/ying" : 1,
-        ]));       
+        ]));
         setup();
         replace_program(ROOM);
 }

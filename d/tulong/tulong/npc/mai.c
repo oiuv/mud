@@ -12,14 +12,14 @@ void create()
         set("age", 47);
         set("combat_exp", 800000);
         set("max_neili", 1500+random(1000));
- 
+
         set_skill("unarmed", 100+random(50));
         set_skill("parry", 100+random(50));
         set_skill("dodge", 100+random(50));
         set_skill("force", 100+random(50));
 
-        set("max_qi", 2500+random(1000)); 
-        set("max_jing", 2500+random(1000)); 
+        set("max_qi", 2500+random(1000));
+        set("max_jing", 2500+random(1000));
 
 
         setup();
@@ -42,7 +42,7 @@ int accept_hit(object who)
 int accept_kill(object who)
 {
         command("say 怎么，想得屠龙刀就非得要行凶不成？");
-	return 1;
+    return 1;
 }
 
 int accept_ansuan(object who)
@@ -53,7 +53,7 @@ int accept_ansuan(object who)
 int begin()
 {
         object me=this_player();
-        if (objectp(present("yuan guangbo",environment()))) 
+        if (objectp(present("yuan guangbo",environment())))
         return 0;
 
         command("nod");
@@ -110,10 +110,10 @@ int do_get(string arg)
         object obj/*,env,ding*/;
         string what,where;
 
-        if(!arg) 
+        if(!arg)
         return 0;
 
-        if (objectp(obj=present("yuan guangbo",environment()))) 
+        if (objectp(obj=present("yuan guangbo",environment())))
         return 0;
 
         if(sscanf(arg,"%s from %s",what, where) !=2)

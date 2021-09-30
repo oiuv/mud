@@ -15,7 +15,7 @@ void create()
                 set("unit", "张");
                 set("long", HIY "这是一张金铜所铸，盘龙雕纹，制作非常精细的长弓。\n" NOR);
                 set("no_sell", "我的天…郡王府的东西你也敢拿来卖？");
-		set("value", 80000);
+        set("value", 80000);
                 set("power", 250000);   // 攻击威力
                 set("accuracy", 120);   // 准确度120%
         }

@@ -6,33 +6,33 @@ void random_move();
 
 void create()
 {
-	mapping my;
+    mapping my;
         int lvl;
 
         ::create();
-	set("gender", "男性" );
-	set("age", 30 + random(30));
-	set("long", "");
-	set("attitude", "friendly");
+    set("gender", "男性" );
+    set("age", 30 + random(30));
+    set("long", "");
+    set("attitude", "friendly");
         set("chat_chance", 30);
         set("chat_msg", ({ (: random_move :) }));
         set("scale", 150);
-	set_temp("apply/armor", 100);
-	set_temp("apply/damage", 50);
-	set_temp("born_time", time());
+    set_temp("apply/armor", 100);
+    set_temp("apply/damage", 50);
+    set_temp("born_time", time());
 
         lvl = 3 + random(4);
         NPC_D->init_npc_skill(this_object(), lvl);
 
         // 初始化NPC的能力
-	my = query_entire_dbase();
+    my = query_entire_dbase();
         my["max_qi"] = 1000 + lvl * 300 + random(500);
         my["max_jing"] = my["max_qi"] / 2;
         my["max_neili"] = 1000 + lvl * 500 + random(500);
-	my["eff_jing"] = my["max_jing"];
-	my["jing"] = my["max_jing"];
-	my["eff_qi"] = my["max_qi"];
-	my["qi"] = my["max_qi"];
+    my["eff_jing"] = my["max_jing"];
+    my["jing"] = my["max_jing"];
+    my["eff_qi"] = my["max_qi"];
+    my["qi"] = my["max_qi"];
         my["neili"] = my["max_neili"] * 2;
 }
 
@@ -52,9 +52,9 @@ int accept_hit(object ob)
 
 int accept_kill(object ob)
 {
-	command("say 岂有此理！居然欺负到我的头上了！");
-	command("yun powerup");
-	return 1;
+    command("say 岂有此理！居然欺负到我的头上了！");
+    command("yun powerup");
+    return 1;
 }
 
 void random_move()

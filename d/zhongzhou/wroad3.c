@@ -8,9 +8,9 @@ void create()
 往北岳恒山。不少游人顺着这条路往山上去。
 LONG);
         set("exits", ([
-  		"west" : "/d/kaifeng/tokaifeng",
-  		"east" : __DIR__"wroad2",
-	]));
+          "west" : "/d/kaifeng/tokaifeng",
+          "east" : __DIR__"wroad2",
+    ]));
         set("outdoors", "zhongzhou");
 
         setup();

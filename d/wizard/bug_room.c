@@ -9,11 +9,11 @@ int is_chat_room() { return 1; }
 
 void create()
 {
-	set("short", HIC "BUG留言室" NOR);
-	set("long", @LONG
+    set("short", HIC "BUG留言室" NOR);
+    set("long", @LONG
 这里是巫师处理玩家提出的bug的地方，为便于巫师统一管
 理和玩家参看巫师解决后的反馈， 这里只能发表(post)有关游
-戏bug问题，以供巫师解决。不能发表非该主题以外的闲杂话题， 
+戏bug问题，以供巫师解决。不能发表非该主题以外的闲杂话题，
 如果发现经多次提醒仍然继续者，将一律删除其档案。如果您有
 其他问题请您到「英雄圣殿」(help herohall) 相应的地方发表，
 这样便于巫师和玩家交流，也便于统一管理，提高效率！玩家可
@@ -25,14 +25,13 @@ void create()
                                   ==武林群侠传全体巫师==
 LONG );
 
-	set("exits", ([
-		"west": __DIR__"guest_room",               
+    set("exits", ([
+        "west": __DIR__"guest_room",
         ]));
 
-	set("no_fight", 1);
+    set("no_fight", 1);
 
-	setup();
-	"/clone/board/bug_b"->foo();
+    setup();
+    "/clone/board/bug_b"->foo();
         replace_program(ROOM);
 }
-

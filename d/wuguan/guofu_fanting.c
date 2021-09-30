@@ -14,8 +14,8 @@ LONG);
         ]));
 
         set("objects", ([
-          	__DIR__"npc/chushi" : 1,
-        ]));       
+              __DIR__"npc/chushi" : 1,
+        ]));
         set("no_fight", 1);
         setup();
 }
@@ -24,13 +24,13 @@ int valid_leave(object me, string dir)
 {
         if ((dir == "east")
            && present("chu shi", environment(me)))
-	{
-	        if (present("tea", me))
-              		return notify_fail(CYN "厨师拦住你道：你还是先把茶"
+    {
+            if (present("tea", me))
+                      return notify_fail(CYN "厨师拦住你道：你还是先把茶"
                                            "喝完再走吧。\n" NOR);
 
-	        if (present("rice", me))
-              		return notify_fail(CYN "厨师拦住你道：你还是先把饭"
+            if (present("rice", me))
+                      return notify_fail(CYN "厨师拦住你道：你还是先把饭"
                                            "吃完再走吧。\n" NOR);
 
         }

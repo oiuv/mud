@@ -11,8 +11,7 @@ void create()
         else {
                 set("unit", "封");
                 set("long","这是一封由方丈签发的手谕，凭此可自由进入藏经阁二楼研习上乘武功。\n");
-		set("no_drop", "这样东西不能离开你。\n");
+        set("no_drop", "这样东西不能离开你。\n");
                 set("material", "paper");
         }
 }
-

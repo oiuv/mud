@@ -60,7 +60,7 @@ int perform(object me, object target)
         if (ap / 2 + random(ap) > dp)
         {
                 target->start_busy(2 + random(3));
-	        me->start_busy(2);
+            me->start_busy(2);
                 damage = (int)me->query_skill("force") + (int)me->query_skill("strike");
                 damage = damage / 4;
                 damage += random(damage);
@@ -69,11 +69,11 @@ int perform(object me, object target)
                                            HIR "$n" HIR "大吃一惊，登时接连中掌，"
                                            "狂喷出一口鲜血，身子急转个不停。\n" NOR);
         } else
-	{
-	        me->start_busy(3);
+    {
+            me->start_busy(3);
                 msg += HIC "可是$p" HIC "看破了$P" HIC "的企图，连消带打，避开了$P"
                        HIC "这一击。\n"NOR;
-	}
+    }
         message_vision(msg, me, target);
         return 1;
 }

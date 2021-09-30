@@ -3,8 +3,8 @@ inherit TRANS_ROOM;
 
 void create()
 {
-	set("short", "马厩");
-	set("long", @LONG
+    set("short", "马厩");
+    set("long", @LONG
 这里是北大街的马厩，常年供应新鲜草料。苏州民风淳朴
 马夫们会把马牵到马厩好生照看，将它们喂饱饮足，再洗刷得
 干乾净净，一直伺候到客人上路。马厩雨檐下的烂木柱上钉着
@@ -12,7 +12,7 @@ void create()
 LONG);
       set("outdoors", "suzhou");
       set("exits", ([
-		"west" : __DIR__"kedian",
+        "west" : __DIR__"kedian",
                 "up"   : "/clone/shop/suzhou_shop",
       ]));
       set("no_fight", 1);

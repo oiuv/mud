@@ -238,11 +238,11 @@ mixed ask_dao()
 
     if (query("count") > 0)
     {
-    	ob = new("/d/lingjiu/npc/obj/yuping");
-    	ob->move(this_object());
-    	command("say 另外，这刀身涂抹的是我独门秘药，这瓶解药你也拿着，"
+        ob = new("/d/lingjiu/npc/obj/yuping");
+        ob->move(this_object());
+        command("say 另外，这刀身涂抹的是我独门秘药，这瓶解药你也拿着，"
                 "以备不时之需。");
-    	command("give yu ping to " + me->query("id"));
+        command("give yu ping to " + me->query("id"));
         add("count", -1);
     }
     return 1;

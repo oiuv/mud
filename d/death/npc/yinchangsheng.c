@@ -7,7 +7,7 @@ void create()
 {
         set_name("阴长生", ({ "yin changsheng", "yin", "changsheng" }));
         set("title", HIR "冥府地藏王殿前" NOR);
-	set("nickname", HIB "阴王" NOR);
+    set("nickname", HIB "阴王" NOR);
         set("shen_type", 1);
 
         set("gender", "男性");
@@ -30,7 +30,7 @@ void create()
         set("vendor_goods", ({
                 "/d/death/obj/armor1",
         }));
-        
+
         setup();
         carry_object(__DIR__"obj/cloth5")->wear();
 }

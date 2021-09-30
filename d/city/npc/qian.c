@@ -25,7 +25,7 @@ void create()
         set("env/wimpy", 50);
         set("chat_chance", 1);
         set("chat_msg", ({
-        	CYN "钱眼开骄傲的说道：本银号已经有上百年的历史，在江南可以说是第一家。\n" NOR,
+            CYN "钱眼开骄傲的说道：本银号已经有上百年的历史，在江南可以说是第一家。\n" NOR,
                 CYN "钱眼开笑着说道：在本店存钱无利息，取钱也不收手续费，客官您看着办吧。\n" NOR
         }));
         set_skill("unarmed", 50);

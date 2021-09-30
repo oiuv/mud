@@ -5,11 +5,11 @@ string ask_me();
 
 void create()
 {
-	set_name("赫尔苏", ({ "he ersu", "he", "ersu", "heersu" }));
-	set("long", "他是一个老参客，可是一贫如洗。\n");
-	set("title", WHT "参客" NOR);
-	set("nickname", HIC "消息灵通" NOR);
-	set("age", 65);
+    set_name("赫尔苏", ({ "he ersu", "he", "ersu", "heersu" }));
+    set("long", "他是一个老参客，可是一贫如洗。\n");
+    set("title", WHT "参客" NOR);
+    set("nickname", HIC "消息灵通" NOR);
+    set("age", 65);
         set("combat_exp", 300);
         set("str", 30);
         set("dex", 30);
@@ -17,16 +17,16 @@ void create()
         set("int", 30);
         set("attitude", "friendly");
         set("inquiry", ([
-		"人参" : (: ask_me :),
-		"山参" : (: ask_me :),
+        "人参" : (: ask_me :),
+        "山参" : (: ask_me :),
         ]));
 
         if (random(10) > 5)
                 set("count", 1);
 
         setup();
-	carry_object("/d/city/obj/cloth")->wear();
-	carry_object("/d/quanzhen/npc/obj/stick")->wield();
+    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/quanzhen/npc/obj/stick")->wield();
 }
 
 string ask_me()

@@ -1,6 +1,6 @@
 inherit ROOM;
 
-#include <ansi.h> 
+#include <ansi.h>
 
 int do_take(string arg);
 
@@ -15,17 +15,17 @@ LONG);
         set("outdoors", "lingxiao");
         set("exits", ([
             "east"  : __DIR__"iceroad3",
-        ])); 
+        ]));
         set("objects", ([
                 __DIR__"npc/dizi" : 1,
-        ])); 
+        ]));
 
         set("item_desc", ([
-        	"che": "一台以上好的红杉木所制的冰车，是凌霄弟子下山之用。\n"
+            "che": "一台以上好的红杉木所制的冰车，是凌霄弟子下山之用。\n"
         ]) );
         setup();
 }
-  
+
 void init()
 {
         add_action("do_take", "take");
@@ -59,4 +59,3 @@ int do_take(string arg)
 
         return 1;
 }
-

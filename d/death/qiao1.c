@@ -37,7 +37,7 @@ int valid_leave(object me, string dir)
         if (dir == "north")
         {
                 if (! me->query_temp("last_eat/mengpo_tang")
-					&& me->query_skill("force") < 500
+                    && me->query_skill("force") < 500
                    && objectp(present("meng po", environment(me))) )
                         return notify_fail(CYN "孟婆说道：这位" +
                                            RANK_D->query_respect(me) +

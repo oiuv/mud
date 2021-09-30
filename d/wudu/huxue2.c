@@ -17,7 +17,7 @@ LONG);
                 "/clone/quarry/laohu" : 1,
         ]));
         set("item_desc", ([
-            	"bone"  : "一具人类的遗骨，下面似乎压着什么东西，你可以仔细搜索(sousuo)一下。\n",
+                "bone"  : "一具人类的遗骨，下面似乎压着什么东西，你可以仔细搜索(sousuo)一下。\n",
         ]) );
 
         setup();
@@ -34,12 +34,12 @@ void init()
 int do_search(string arg)
 {
         object me = this_player();
-        object ob; 
+        object ob;
         if ((! arg) || ! ((arg == "bone") || (arg == "遗骨")))
                 return notify_fail("你要搜索什么？\n");
 
         message_vision(HIR "\n$N" HIR "轻轻拨动那堆白骨。\n\n" NOR, me);
- 
+
         if(query("not_tongpai"))
         {
                 message("vission", HIR "只听呼啦一声，从里面窜出来一只大老鼠。\n" NOR, me);
@@ -59,5 +59,4 @@ int regenerate()
 {
         set("not_tongpai", 0);
         return 1;
-} 
-
+}

@@ -2,9 +2,9 @@
 
 int permit_recruit(object ob)
 {
-	command("say 对不起，我云龙门不对外收徒。");
+    command("say 对不起，我云龙门不对外收徒。");
         return 0;
-        
+
         if (ob->query("detach/云龙门") || ob->query("betrayer/云龙门"))
         {
                 command("say 你当年既然离开云龙门们，就不必回来了！");

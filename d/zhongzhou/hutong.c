@@ -6,11 +6,11 @@ void create()
         set("long", @LONG
 这里是一条小胡同，就在白天这里也是昏暗不堪。
 LONG);
-	set("outdoors", "zhongzhou");
+    set("outdoors", "zhongzhou");
 
         set("exits", ([
                 "southwest" : __DIR__"wendingnan3",
-                "northeast" : __DIR__"hutong1",                  
+                "northeast" : __DIR__"hutong1",
         ]));
 
         setup();

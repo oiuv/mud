@@ -10,8 +10,8 @@ void create()
 人烟，你还是加快步子走吧。
 LONG);
         set("exits", ([
-  		"east" : __DIR__"shudao11",
-  		"west" : __DIR__"shudao13",
+          "east" : __DIR__"shudao11",
+          "west" : __DIR__"shudao13",
         ]));
         set("no_clean_up", 0);
         set("outdoors", "chengdu");
@@ -19,4 +19,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

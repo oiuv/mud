@@ -25,7 +25,7 @@ int perform(object me, string skill)
         me->set_temp("special_skill/agile", 1);
         me->add_temp("apply/dodge", count);
         me->start_call_out((: call_other, __FILE__, "remove_effect", me,
-			      count :), 60 + random(30));
+                  count :), 60 + random(30));
 
         return 1;
 }

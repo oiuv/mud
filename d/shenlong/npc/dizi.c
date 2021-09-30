@@ -6,32 +6,32 @@ inherit NPC;
 
 void create()
 {
-	set_name("弟子", ({"dizi"}));
-	set("title", HIY"神龙教"NOR);
-	set("long",
-	        "这是一个神龙教弟子，混身透着一股邪气。\n"
-	);
+    set_name("弟子", ({"dizi"}));
+    set("title", HIY"神龙教"NOR);
+    set("long",
+            "这是一个神龙教弟子，混身透着一股邪气。\n"
+    );
 
-	set("gender", "男性");
-	set("attitude", "peaceful");
+    set("gender", "男性");
+    set("attitude", "peaceful");
 
-	set("age", 20 + random(30));
-	set("shen_type", -1);
-	set("str", 25 + random(10));
-	set("dex", 25 + random(10));
-	set("max_qi", 200);
-	set("max_jing", 150);
-	set("neili", 200);
-	set("max_neili", 200);
-	set("jiaji", 5 + random(5));
-	set("combat_exp", 10000 + random(10000));
+    set("age", 20 + random(30));
+    set("shen_type", -1);
+    set("str", 25 + random(10));
+    set("dex", 25 + random(10));
+    set("max_qi", 200);
+    set("max_jing", 150);
+    set("neili", 200);
+    set("max_neili", 200);
+    set("jiaji", 5 + random(5));
+    set("combat_exp", 10000 + random(10000));
 
-	set_skill("force", 40);
-	set_skill("dodge", 40);
-	set_skill("unarmed", 40);
-	set_skill("parry", 40);
-	set_skill("sword", 50);
-	set_skill("blade", 50);
+    set_skill("force", 40);
+    set_skill("dodge", 40);
+    set_skill("unarmed", 40);
+    set_skill("parry", 40);
+    set_skill("sword", 50);
+    set_skill("blade", 50);
         set("chat_chance", 3);
         set("chat_msg", ({
 "年轻弟子忽然高声叫道：教主宝训，时刻在心，建功克敌，无事不成！\n",
@@ -41,10 +41,10 @@ void create()
 "年轻弟子齐声叫道：教主永享仙福，寿与天齐！\n",
         }) );
 
-	setup();
+    setup();
         carry_object("/d/shenlong/obj/xionghuang")->wield();
-	carry_object("/clone/weapon/changjian")->wield();
-	carry_object("/clone/misc/cloth")->wear();
+    carry_object("/clone/weapon/changjian")->wield();
+    carry_object("/clone/misc/cloth")->wear();
 }
 
 #include "sldizi.h"

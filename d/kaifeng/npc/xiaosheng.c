@@ -1,14 +1,14 @@
 inherit NPC;
 void create()
 {
-   	set_name("小生",({"xiao sheng", "xiao", "sheng"}));
-	set("gender","女性");
-   	set("long", "戏剧中的一个脚色。\n");
+       set_name("小生",({"xiao sheng", "xiao", "sheng"}));
+    set("gender","女性");
+       set("long", "戏剧中的一个脚色。\n");
         set("age", 25);
         set("combat_exp", 7000);
         set("shen_type", 1);
         set("attitude", "peaceful");
-        
+
         set_skill("unarmed", 40);
         set_skill("dodge", 40);
         set_temp("apply/attack", 20);

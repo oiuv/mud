@@ -12,9 +12,9 @@ void create()
                 set_default_object(__FILE__);
         else
         {
-	        set("long", "一只威武的大龙虾。\n");
+            set("long", "一只威武的大龙虾。\n");
                 set("unit", "只");
         }
 
-	setup();
+    setup();
 }

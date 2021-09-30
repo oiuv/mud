@@ -12,8 +12,8 @@ void create()
 LONG);
         set("outdoors", "lingxiao");
         set("exits",([
-            	"southdown"  : __DIR__"sroad2",
-            	"eastup"  : __DIR__"shiya",
+                "southdown"  : __DIR__"sroad2",
+                "eastup"  : __DIR__"shiya",
         ]));
         set("objects", ([
                 CLASS_D("lingxiao") + "/huyanwanshan" : 1,
@@ -22,4 +22,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

@@ -62,7 +62,7 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "sword" || usage == "parry";
+    return usage == "sword" || usage == "parry";
 }
 
 int valid_learn(object me)
@@ -110,12 +110,12 @@ int practice_skill(object me)
 {
         object weapon;
         object env;
-        
+
         env = environment(me);
         if (! env->query("can_practice_xiantie-jian"))
                 return notify_fail("你拿起剑挥舞了半天，只觉得此处不适合练习玄铁剑法。\n");
-       
-        if (!objectp(weapon = me->query_temp("weapon")) || 
+
+        if (!objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword" ||
             weapon->query("id") != "xuantie jian")
                 return notify_fail("你使用的武器不对。\n");
@@ -146,13 +146,13 @@ mixed hit_ob(object me, object victim, int damage_bonus)
            || random(2)
            || me->query("neili") < 500
            || me->query_skill_mapped("sword") != "xuantie-jian" )
-      		return damage_bonus / 4;
+              return damage_bonus / 4;
 
         if (lvl / 2 + random(lvl) > victim->query_skill("parry", 1))
         {
                 me->add("neili", -120);
                 victim->receive_wound("qi", damage_bonus * 4 / 5, me);
-      
+
                 return HIW "$N" HIW "手中" + weapon->name() + HIW "犹如神助，从天而下，威不"
                        "可挡地劈向$n" HIW "，气势恢弘之极。\n" NOR;
          }

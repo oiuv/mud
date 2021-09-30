@@ -26,16 +26,16 @@ int permit_pass(object ob, string dir)
         war_fam = (string) ob->query("fam_info/family");
         if (war_fam == my_fam)
         {
-				message_vision(CYN "$N" CYN "看到$n" CYN "攻打到门派核心地带来了，顿时"
-							   "大惊，仓皇失措，不知如何应对。\n" NOR,
-							   this_object(), ob);
+                message_vision(CYN "$N" CYN "看到$n" CYN "攻打到门派核心地带来了，顿时"
+                               "大惊，仓皇失措，不知如何应对。\n" NOR,
+                               this_object(), ob);
                 return 1;
         }
 */
         if (born_fam == my_fam && fam_name && fam_name != my_fam)
         {
-	        if (stringp(msg = this_object()->query("guarder/refuse_home")))
-	                message_vision(msg + "\n", this_object(), ob);
+            if (stringp(msg = this_object()->query("guarder/refuse_home")))
+                    message_vision(msg + "\n", this_object(), ob);
                 else
                         message_vision(CYN "$N" CYN "冷冷地看了看$n" CYN "，道：你"
                                        "既然已经入了" + fam_name + CYN "，还来我们"
@@ -46,9 +46,9 @@ int permit_pass(object ob, string dir)
 
         if (my_fam != fam_name && my_fam != born_fam)
         {
-	        if (stringp(msg = this_object()->query("guarder/refuse_other")))
-	                message_vision(msg + "\n", this_object(), ob);
-	        else
+            if (stringp(msg = this_object()->query("guarder/refuse_other")))
+                    message_vision(msg + "\n", this_object(), ob);
+            else
                         message_vision(CYN "$N" CYN "伸手拦住$n" CYN "道：对不起，"
                                        "不是我们" + my_fam + CYN "的人不得入内！\n"
                                        NOR, this_object(), ob);
@@ -61,9 +61,9 @@ int permit_pass(object ob, string dir)
                 if (! userp(inv[i])) continue;
                 if ((string) inv[i]->query("family/family_name") != fam_name)
                 {
-	                if (stringp(msg = this_object()->query("guarder/refuse_carry")))
-	                        message_vision(msg + "\n", this_object(), ob);
-	                else
+                    if (stringp(msg = this_object()->query("guarder/refuse_carry")))
+                            message_vision(msg + "\n", this_object(), ob);
+                    else
                                 message_vision(CYN "$N" CYN "对$n" CYN "喝道：你背"
                                                "的是谁？还不快快放下！\n" NOR,
                                                this_object(), ob);
@@ -96,12 +96,12 @@ void kill_enemy(object ob)
 
         if (base_name(environment(me)) != (string)me->query("startroom"))
                 return;
-		//门派浩劫
+        //门派浩劫
 /*
         if ((string) ob->query("fam_info/family") == (string) me->query("family/family_name"))
         {
-				message_vision(random(2) ? HIY "\n$N" HIW "大声喊道：大家快来帮忙啊！\n\n" NOR :
-										   HIR "\n$N" HIW "喝道：不好！敌人打上门来了！\n\n" NOR, me);
+                message_vision(random(2) ? HIY "\n$N" HIW "大声喊道：大家快来帮忙啊！\n\n" NOR :
+                                           HIR "\n$N" HIW "喝道：不好！敌人打上门来了！\n\n" NOR, me);
                 return;
         }
 */
@@ -170,11 +170,11 @@ int check_enemy(object ob, string type)
                 break;
 
         case "fight":
-		if (ob->is_apprentice_of(me))
-			message_vision(CYN "$N" CYN "一瞪$n" CYN "，怒道：你给"
+        if (ob->is_apprentice_of(me))
+            message_vision(CYN "$N" CYN "一瞪$n" CYN "，怒道：你给"
                                        "我好好练功去！\n" NOR, me, ob);
-		else
-                	message_vision(CYN "$N" CYN "对$n" CYN "摇摇头道：找你"
+        else
+                    message_vision(CYN "$N" CYN "对$n" CYN "摇摇头道：找你"
                                        "的师傅比划去。\n\n" NOR, me, ob);
                 return 0;
         }

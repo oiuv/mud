@@ -18,7 +18,7 @@ LONG );
         ]) );
         set("no_clean_up", 0);
         setup();
-		//replace_program(ROOM);
+        //replace_program(ROOM);
 }
 
 void init()
@@ -41,7 +41,7 @@ int do_move(string arg)
                 return 1;
         }
         message_vision(HIC "$N" HIC "站在石前，双掌发力推动巨石，只听得巨石"
-                       "吱吱连声，缓缓\n向后移去，现出一个山洞来。\n" NOR, 
+                       "吱吱连声，缓缓\n向后移去，现出一个山洞来。\n" NOR,
                        this_player());
         set("exits/north", __DIR__"shandong");
         remove_call_out("close");

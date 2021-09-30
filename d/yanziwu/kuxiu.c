@@ -13,11 +13,10 @@ LONG );
         set("outdoors", "yanziwu");
         set("exits", ([
                 "west" : __DIR__"shijian",
-		"east":  __DIR__"kuxiu2",
+        "east":  __DIR__"kuxiu2",
         ]));
 
         set("for_family", "慕容世家");
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }
-

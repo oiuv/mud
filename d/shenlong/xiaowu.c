@@ -2,10 +2,10 @@
 
 inherit ROOM;
 string* books = ({
-	"/clone/book/book-bamboo",
-	"/clone/book/book-paper",
-	"/clone/book/book-stone",
-	"/clone/book/book-iron",
+    "/clone/book/book-bamboo",
+    "/clone/book/book-paper",
+    "/clone/book/book-stone",
+    "/clone/book/book-iron",
 });
 
 
@@ -20,17 +20,15 @@ LONG
     );
 
     set("exits", ([
-	"south" : __DIR__"caodi",
+    "south" : __DIR__"caodi",
 
     ]));
     set("objects", ([
-		CLASS_D("shenlong")+"/lu": 1,
-		books[random(sizeof(books))] : 1,
-		books[random(sizeof(books))] : 1,
+        CLASS_D("shenlong")+"/lu": 1,
+        books[random(sizeof(books))] : 1,
+        books[random(sizeof(books))] : 1,
     ]));
     set("outdoors", "shenlong");
     setup();
-   replace_program(ROOM); 
+   replace_program(ROOM);
 }
-
-

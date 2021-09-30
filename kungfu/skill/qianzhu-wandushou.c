@@ -161,11 +161,11 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
 
         if (flvl * 2 + random(lvl) > victim->query_skill("force"))
         {
-				victim->affect_by("qianzhu_wandushou",
+                victim->affect_by("qianzhu_wandushou",
                               ([ "level" : flvl + random(flvl),
                                  "id"    : me->query("id"),
                                  "duration" : lvl / 50 + random(lvl / 20) ]));
-        
+
                 return HIB "$n" HIB "忽然感到一股莫名的恶心，毒气攻心，全身顿时瘫软。\n" NOR;
         }
 }

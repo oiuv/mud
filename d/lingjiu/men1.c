@@ -8,9 +8,9 @@ void create()
 便是囚室。
 LONG);
         set("exits", ([
-		"west" : __DIR__"qiushi",
-		"east" : __DIR__"changl11",
+        "west" : __DIR__"qiushi",
+        "east" : __DIR__"changl11",
         ]));
-	setup();
+    setup();
         replace_program(ROOM);
 }

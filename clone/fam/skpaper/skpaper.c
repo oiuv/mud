@@ -49,7 +49,7 @@ string long()
 int do_read(string arg)
 {
         object me = this_player();
-        //mapping my = me->query_entire_dbase();	//Warning: Unused local variable
+        //mapping my = me->query_entire_dbase();    //Warning: Unused local variable
 
         int na = this_object()->name();
         string booksk = this_object()->query("skill_type");
@@ -97,4 +97,3 @@ int query_autoload()
 {
         return 1;
 }
-

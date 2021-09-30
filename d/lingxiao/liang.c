@@ -1,6 +1,6 @@
 inherit ROOM;
 
-#include <ansi.h> 
+#include <ansi.h>
 
 void create()
 {
@@ -9,12 +9,12 @@ void create()
 这是梁自进的房间，他生性单纯，与廖自励正好相反。他从
 小就在凌霄城中练功习武，连大雪山也未下过一步，所以他的武
 功在五代弟子中，是仅次于白自在的。他的房间朴素自然，仅有
-一床一桌。除此之外，别无他物。 
+一床一桌。除此之外，别无他物。
 LONG);
         set("exits", ([
-            	"north"  : __DIR__"zoulang3", 
+                "north"  : __DIR__"zoulang3",
         ]));
-        set("objects", ([  
+        set("objects", ([
                 __DIR__"npc/liang" : 1,
         ]));
         set("no_clean_up", 0);
@@ -22,4 +22,3 @@ LONG);
         replace_program(ROOM);
 
 }
-

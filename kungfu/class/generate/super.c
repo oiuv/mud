@@ -16,8 +16,8 @@ private void from_hubo();
 
 function *init_family = ({ (: from_jiuyin :),   (: from_jiuyang :),   (: from_liumai :),
                            (: from_taixuan :),   (: from_jiujian :),   (: from_kuihua :),
-                           (: from_pixie :),      (: from_jiuyin1 :),   (: from_xianglong :), 
-                           (: from_lingbo :),	(: from_hubo :), });
+                           (: from_pixie :),      (: from_jiuyin1 :),   (: from_xianglong :),
+                           (: from_lingbo :),    (: from_hubo :), });
 void create()
 {
         NPC_D->generate_cn_name(this_object());
@@ -29,7 +29,7 @@ void create()
         set("con", 20);
         set("dex", 20);
 
-        // the follow 5 setting has no use      
+        // the follow 5 setting has no use
         set("max_qi", 100);
         set("max_jing", 100);
         set("neili", 100);
@@ -59,7 +59,7 @@ private void from_jiuyin()
         set_skill("cuff", 1);
         set_skill("claw", 1);
         set_skill("unarmed", 1);
-		set_skill("whip", 1);
+        set_skill("whip", 1);
         set_skill("literate", 1);
         set_skill("martial-cognize", 1);
         set_skill("taoism", 1);
@@ -68,13 +68,13 @@ private void from_jiuyin()
         map_skill("force", "jiuyin-shengong");
         map_skill("dodge", "jiuyin-shengong");
         map_skill("strike", "jiuyin-shengong");
-		map_skill("unarmed", "jiuyin-shengong");
-		map_skill("hand", "jiuyin-shengong");
-		map_skill("cuff", "jiuyin-shengong");
-		map_skill("claw", "jiuyin-shengong");
+        map_skill("unarmed", "jiuyin-shengong");
+        map_skill("hand", "jiuyin-shengong");
+        map_skill("cuff", "jiuyin-shengong");
+        map_skill("claw", "jiuyin-shengong");
         map_skill("whip", "jiuyin-shengong");
         map_skill("unarmed", "jiuyin-shengong");
-		
+
         prepare_skill("unarmed", "jiuyin-shengong");
 
         set("chat_chance_combat", 80);
@@ -112,7 +112,7 @@ private void from_jiuyang()
         set_skill("unarmed", 1);
         set_skill("literate", 1);
         set_skill("martial-cognize", 1);
-        
+
         map_skill("parry", "jiuyang-shengong");
         map_skill("force", "jiuyang-shengong");
         map_skill("dodge", "zhuangzi-wu");
@@ -121,7 +121,7 @@ private void from_jiuyang()
         map_skill("unarmed", "jiuyang-shengong");
 
         prepare_skill("unarmed", "jiuyang-shengong");
-        
+
         set("chat_chance_combat", 100);
         set("chat_msg_combat", ({
                 (: perform_action, "sword.po" :),
@@ -129,7 +129,7 @@ private void from_jiuyang()
                 (: perform_action, "unarmed.hun" :),
                 (: perform_action, "unarmed.jiu" :),
                 (: exert_function, "powerup" :),
-				(: exert_function, "shield" :),
+                (: exert_function, "shield" :),
                 (: exert_function, "recover" :),
         }) );
 
@@ -158,15 +158,15 @@ private void from_liumai()
         map_skill("force", "kurong-changong");
         map_skill("dodge", "tiannan-bu");
         map_skill("finger", "liumai-shenjian");
-        
+
         prepare_skill("finger", "liumai-shenjian");
-        
+
         set("chat_chance_combat", 100);
         set("chat_msg_combat", ({
                 (: perform_action, "finger.qi" :),
                 (: perform_action, "finger.six" :),
-				(: perform_action, "finger.zong" :),
-				(: exert_function, "powerup" :),
+                (: perform_action, "finger.zong" :),
+                (: exert_function, "powerup" :),
                 (: exert_function, "recover" :),
         }) );
 
@@ -178,7 +178,7 @@ private void from_liumai()
 private void from_taixuan()
 {
         set("scale", 130);
-        
+
         set_skill("force", 1);
         set_skill("parry", 1);
         set_skill("dodge", 1);
@@ -193,18 +193,18 @@ private void from_taixuan()
         map_skill("dodge", "taixuan-gong");
         map_skill("unarmed", "taixuan-gong");
         map_skill("sword", "taixuan-gong");
-        
+
         prepare_skill("unarmed", "taixuan-gong");
 
         set("chat_chance_combat", 100);
         set("chat_msg_combat", ({
                 (: perform_action, "unarmed.xuan" :),
-				(: perform_action, "unarmed.hun" :),
-				(: perform_action, "unarmed.po" :),
+                (: perform_action, "unarmed.hun" :),
+                (: perform_action, "unarmed.po" :),
                 (: perform_action, "sword.jing" :),
                 (: perform_action, "sword.xuan" :),
                 (: exert_function, "powerup" :),
-				(: exert_function, "shield" :),
+                (: exert_function, "shield" :),
                 (: exert_function, "recover" :),
         }) );
 
@@ -225,7 +225,7 @@ private void from_jiujian()
         set_skill("dodge", 1);
         set_skill("cuff", 1);
         set_skill("poyu-quan", 1);
-		set_skill("huashan-shenfa", 1);
+        set_skill("huashan-shenfa", 1);
         set_skill("dugu-jiujian", 1);
         set_skill("zixia-shengong", 1);
         set_skill("literate", 1);
@@ -269,7 +269,7 @@ private void from_kuihua()
         set_skill("kuihua-mogong", 1);
         set_skill("literate", 1);
         set_skill("martial-cognize", 1);
-		
+
         map_skill("force", "kuihua-mogong");
         map_skill("dodge", "kuihua-mogong");
         map_skill("parry", "kuihua-mogong");
@@ -279,16 +279,16 @@ private void from_kuihua()
         prepare_skill("unarmed" , "kuihua-mogong");
 
         set("chat_chance_combat", 80);
-		set("chat_msg_combat", ({
-				(: perform_action, "sword.bian" :),
-				(: perform_action, "sword.qiong" :),
-				(: perform_action, "sword.sheng" :),
-				(: perform_action, "sword.tian" :),
-				(: perform_action, "sword.wswd" :),
-				(: exert_function, "powerup" :),
-				(: exert_function, "shield" :),
-				(: exert_function, "recover" :),
-		}));
+        set("chat_msg_combat", ({
+                (: perform_action, "sword.bian" :),
+                (: perform_action, "sword.qiong" :),
+                (: perform_action, "sword.sheng" :),
+                (: perform_action, "sword.tian" :),
+                (: perform_action, "sword.wswd" :),
+                (: exert_function, "powerup" :),
+                (: exert_function, "shield" :),
+                (: exert_function, "recover" :),
+        }));
 
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/misc/cloth")->wear();
@@ -332,7 +332,7 @@ private void from_jiuyin1()
         set("chat_msg_combat", ({
                 (: exert_function, "recover" :),
                 (: exert_function, "powerup" :),
-				(: exert_function, "shield" :),
+                (: exert_function, "shield" :),
                 (: perform_action, "strike.cui" :),
                 (: perform_action, "claw.duo" :),
                 (: perform_action, "claw.zhua" :),
@@ -364,9 +364,9 @@ private void from_xianglong()
         map_skill("dodge", "feiyan-zoubi");
         map_skill("strike", "xianglong-zhang");
         map_skill("parry", "xianglong-zhang");
-        
+
         prepare_skill("strike", "xianglong-zhang");
-        
+
         set("chat_chance_combat", 80);
         set("chat_msg_combat", ({
                 (: perform_action, "strike.hui" :),
@@ -382,17 +382,17 @@ private void from_xianglong()
 private void from_pixie()
 {
         set("scale", 135);
-		set("gender", "无性" );
-		set("from", ({
+        set("gender", "无性" );
+        set("from", ({
                 "据说此人是嵩山的长老。",
         }));
-		
+
         set_skill("force", 1);
         set_skill("hanbing-zhenqi", 1);
         set_skill("pixie-jian", 1);
-		set_skill("feiyan-zoubi", 1);
+        set_skill("feiyan-zoubi", 1);
         set_skill("dodge", 1);
-		set_skill("unarmed", 1);
+        set_skill("unarmed", 1);
         set_skill("sword", 1);
         set_skill("parry", 1);
         set_skill("literate", 1);
@@ -400,86 +400,86 @@ private void from_pixie()
 
         map_skill("force", "zixia-shengong");
         map_skill("dodge", "pixie-jian");
-		map_skill("sword", "pixie-jian");
+        map_skill("sword", "pixie-jian");
         map_skill("unarmed", "pixie-jian");
         map_skill("parry", "pixie-jian");
-        
+
         prepare_skill("unarmed","pixie-jian");
-		
+
         set("chat_chance_combat", 80);
         set("chat_msg_combat", ({
                 (: perform_action, "unarmed.gui" :),
                 //(: perform_action, "sword.duo" :),
-				(: perform_action, "sword.gui" :),
-				(: perform_action, "sword.pi" :),
-				(: exert_function, "recover" :),
+                (: perform_action, "sword.gui" :),
+                (: perform_action, "sword.pi" :),
+                (: exert_function, "recover" :),
                 (: exert_function, "powerup" :),
-				(: exert_function, "freezing" :),
+                (: exert_function, "freezing" :),
         }));
 
-		carry_object("/clone/weapon/changjian")->wield();
+        carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/misc/cloth")->wear();
 }
 
 private void from_lingbo()
 {
         set("scale", 135);
-		set("from", ({
+        set("from", ({
                 "据说此人是逍遥的长老。",
         }));
-		
+
         set_skill("force", 1);
         set_skill("dodge", 1);
-		set_skill("hand", 1);
+        set_skill("hand", 1);
         set_skill("strike", 1);
         set_skill("parry", 1);
-		set_skill("liuyang-zhang", 1);
-		set_skill("zhemei-shou", 1);
-		set_skill("beiming-shengong", 1);
-		set_skill("lingbo-weibu", 1);
+        set_skill("liuyang-zhang", 1);
+        set_skill("zhemei-shou", 1);
+        set_skill("beiming-shengong", 1);
+        set_skill("lingbo-weibu", 1);
         set_skill("literate", 1);
         set_skill("martial-cognize", 1);
 
         map_skill("force", "beiming-shengong");
         map_skill("dodge", "lingbo-weibu");
-		map_skill("strike", "liuyang-zhang");
+        map_skill("strike", "liuyang-zhang");
         map_skill("hand", "zhemei-shou");
-		map_skill("parry", "zhemei-shou");
-        
+        map_skill("parry", "zhemei-shou");
+
         prepare_skill("hand","zhemei-shou");
-		prepare_skill("strike","liuyang-zhang");
-		
+        prepare_skill("strike","liuyang-zhang");
+
         set("chat_chance_combat", 80);
         set("chat_msg_combat", ({
                 (: perform_action, "strike.po" :),
                 (: perform_action, "strike.zhong" :),
-				(: perform_action, "hand.hai" :),
-				(: perform_action, "hand.hua" :),
-				(: perform_action, "hand.zhe" :),
-				(: exert_function, "recover" :),
+                (: perform_action, "hand.hai" :),
+                (: perform_action, "hand.hua" :),
+                (: perform_action, "hand.zhe" :),
+                (: exert_function, "recover" :),
                 (: exert_function, "powerup" :),
-				(: exert_function, "shield" :),
+                (: exert_function, "shield" :),
         }));
 
-		carry_object("/clone/weapon/changjian")->wield();
+        carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/misc/cloth")->wear();
 }
 
 private void from_hubo()
 {
         set("scale", 135);
-		set("from", ({
+        set("from", ({
                 "据说此人是全真的长老。",
         }));
-		
+
         set_skill("force", 1);
         set_skill("yijin-duangu", 1);
         set_skill("shexing-lifan", 1);
-		set_skill("jinguan-yusuo", 1);
-		set_skill("kongming-quan", 1);
-		set_skill("jinguan-yusuo", 1);
+        set_skill("jinguan-yusuo", 1);
+        set_skill("kongming-quan", 1);
+        set_skill("jinguan-yusuo", 1);
         set_skill("dodge", 1);
-		set_skill("unarmed", 1);
+        set_skill("unarmed", 1);
         set_skill("parry", 1);
         set_skill("literate", 1);
         set_skill("martial-cognize", 1);
@@ -488,9 +488,9 @@ private void from_hubo()
         map_skill("dodge", "shexing-lifan");
         map_skill("parry", "jinguan-yusuo");
         map_skill("unarmed", "kongming-quan");
-        
+
         prepare_skill("unarmed", "kongming-quan");
-		
+
         set("chat_chance_combat", 80);
         set("chat_msg_combat", ({
                 (: command("perform unarmed.ruo and unarmed.kong") :),
@@ -501,5 +501,5 @@ private void from_hubo()
                 (: exert_function, "powerup" :),
         }));
 
-		carry_object("/clone/misc/cloth")->wear();
+        carry_object("/clone/misc/cloth")->wear();
 }

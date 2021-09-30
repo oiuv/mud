@@ -15,22 +15,22 @@ LONG );
             "west"  : __DIR__"bozhou",
         ]));
 
-	set("objects", ([
-	 	__DIR__"npc/gongye"  : 1,
-	]));
+    set("objects", ([
+         __DIR__"npc/gongye"  : 1,
+    ]));
 
         setup();
 }
 
 int valid_leave(object me, string dir)
 {
-	object guarder;
+    object guarder;
 
-	if (dir != "east")
-		return 1;
+    if (dir != "east")
+        return 1;
 
-	if (guarder = present("gongye qian", this_object()))
-		return guarder->permit_pass(me, dir);
+    if (guarder = present("gongye qian", this_object()))
+        return guarder->permit_pass(me, dir);
 
-	return 1;
+    return 1;
 }

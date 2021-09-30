@@ -11,15 +11,15 @@ void create()
 LONG
         );
         set("exits", ([
-  		"north" : __DIR__"chufang2",
-  		"west" : __DIR__"zhongyuan",
-	]));
+          "north" : __DIR__"chufang2",
+          "west" : __DIR__"zhongyuan",
+    ]));
 
         set("no_clean_up", 0);
         set("objects", ([
-  		__DIR__"npc/liucaizhu" : 1,
-  		__DIR__"npc/kong" : 1,
-	]));
+          __DIR__"npc/liucaizhu" : 1,
+          __DIR__"npc/kong" : 1,
+    ]));
 
         setup();
         replace_program(ROOM);

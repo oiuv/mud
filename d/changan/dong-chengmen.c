@@ -12,12 +12,12 @@ void create ()
 气昂扬。
 LONG);
         set("exits", ([
-        	"east"  :  __DIR__"road4",
-        	"west" : __DIR__"dongan-daokou",
+            "east"  :  __DIR__"road4",
+            "west" : __DIR__"dongan-daokou",
         ]));
         set("objects", ([
-        	__DIR__"npc/wujiang" : 1,
-        	__DIR__"npc/guanbing" : 2,
+            __DIR__"npc/wujiang" : 1,
+            __DIR__"npc/guanbing" : 2,
                 "/clone/npc/walker" : 1,
         ]));
 

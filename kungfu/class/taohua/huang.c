@@ -154,24 +154,24 @@ void create()
                 "碧波神功"   : "…唉…我桃花岛的内功何等厉害，可惜…",
                 "九花玉露丸" : "这个东西难制得紧，你好好学学桃花药理，以后自己制吧。",
                 "无常丹"     : "…嗯…等你学通了桃花药理的奥妙，自己慢慢制吧。",
-				//新增可学阴阳八卦
-				"阴阳八卦"   : (: try_to_learn_count :),
+                                //新增可学阴阳八卦
+                                "阴阳八卦"   : (: try_to_learn_count :),
         ]));
 
         create_family("桃花岛", 1, "岛主");
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "sword.bihai" :),
-		(: perform_action, "sword.qing" :),
-		(: perform_action, "sword.tian" :),
-		(: perform_action, "finger.ding" :),
-		(: perform_action, "finger.xiao" :),
-		(: perform_action, "finger.po" :),
-		(: perform_action, "finger.zhuan" :),
-		(: exert_function, "powerup" :),
-		(: exert_function, "recover" :),
-	}));
+        set("chat_chance_combat", 120);
+        set("chat_msg_combat", ({
+                (: perform_action, "sword.bihai" :),
+                (: perform_action, "sword.qing" :),
+                (: perform_action, "sword.tian" :),
+                (: perform_action, "finger.ding" :),
+                (: perform_action, "finger.xiao" :),
+                (: perform_action, "finger.po" :),
+                (: perform_action, "finger.zhuan" :),
+                (: exert_function, "powerup" :),
+                (: exert_function, "recover" :),
+        }));
         set_temp("apply/damage", 100);
         set_temp("apply/unarmed_damage", 100);
         set_temp("apply/armor", 200);
@@ -205,15 +205,15 @@ void attempt_apprentice(object ob)
         if (ob->query_int() < 25)
         {
                 command("say 我不收资质差的弟子，您请回吧！");
-		return;
+                return;
         }
 
         if ((int)ob->query ("shen") < -10000
            || (int)ob->query ("shen") > 10000)
         {
                 command("say 我不与成名人物打交道，您请回吧！");
-		return;
-	}
+                return;
+        }
 
         if (ob->query("combat_exp") < 400000)
         {
@@ -232,7 +232,7 @@ void attempt_apprentice(object ob)
                 }
 
                 master = app[random(sizeof(app))];
-                
+
                 command("say 嗯…念你长途跋涉赶来拜师，老夫就收你入桃花岛。");
                 command("say 不过你武学方面成就有限，还是先跟我弟子" + master + "学习吧。");
                 ob->set_temp("taohua/master", master);
@@ -299,7 +299,7 @@ mixed try_to_learn_bibo()
                 return 0;
 
         if (ob->query_skill("bihai-chaosheng", 1) >= 120
-	   && ob->query_skill("chuixiao-jifa", 1) >= 120)
+           && ob->query_skill("chuixiao-jifa", 1) >= 120)
         {
                 command("sigh");
                 command("say 想不到你萧技居然已达此境界，今日老夫"
@@ -318,9 +318,9 @@ mixed try_to_learn_tanzhi()
                 return 0;
 
         if (ob->query_skill("qimen-wuxing", 1) >= 120
-	   && ob->query_skill("jingluo-xue", 1) >= 120
-	   && ob->query_skill("finger", 1) >= 120
-	   && ob->query_skill("throwing", 1) >= 120)
+           && ob->query_skill("jingluo-xue", 1) >= 120
+           && ob->query_skill("finger", 1) >= 120
+           && ob->query_skill("throwing", 1) >= 120)
         {
                 command("nod2");
                 command("say 看来你武功已有了一定的根基，今日老夫"
@@ -363,7 +363,7 @@ mixed ask_skill1()
                      "见来势平平，并不见奇，哪知在作出抵挡的一瞬间才发觉$n" HIY
                      "掌力犹如黄河决堤般汹涌而入，$N" HIY "顿时再也把持不住，被"
                      "那掌力带得接连旋转了数圈，好不容易才停了下来。\n\n" NOR,
-                     me, this_object()); 
+                     me, this_object());
 
         command("say 好了，你下去吧。");
         tell_object(me, HIC "你学会了「奇门五转」。\n" NOR);
@@ -409,7 +409,7 @@ mixed ask_skill2()
 
         message_sort(HIY "\n$n" HIY "微微点了点头，反手轻轻伸出三指，婉转如一朵"
                      "盛开的兰花，对准$N" HIY "的几处穴道虚击数下。\n\n" NOR,
-                     me, this_object()); 
+                     me, this_object());
 
         command("say 看懂了么？");
         tell_object(me, HIC "你学会了「兰花拂穴」。\n" NOR);
@@ -452,7 +452,7 @@ mixed ask_skill3()
 
         message_sort(HIY "\n$n" HIY "一声长叹，伸手将$N" HIY "招至他身旁，低声"
                      "在$N" HIY "耳边细说良久。$N" HIY "一边听一边点头，看来对"
-                     "$n" HIY "的教导大有所悟。\n\n" NOR, me, this_object()); 
+                     "$n" HIY "的教导大有所悟。\n\n" NOR, me, this_object());
 
         command("say 唉…你自己下去练吧。");
         tell_object(me, HIC "你学会了「影落飞花」。\n" NOR);
@@ -539,7 +539,7 @@ mixed ask_skill5()
 
         message_sort(HIY "\n$n" HIY "举头望天，若有所思，随手搭在$N" HIY "的肩"
                      "头，$N" HIY "忽然发现内力源源而逝，不由大惊！\n\n" NOR,
-                     me, this_object()); 
+                     me, this_object());
 
         command("sigh");
         command("say 你懂了么？");
@@ -568,8 +568,8 @@ mixed ask_skill6()
                 return "你不是我们桃花岛的人，打听老夫的武功有何企图？";
 
         if (me->query_skill("yuxiao-jian", 1) < 1
-	   && me->query_skill("bibo-shengong", 1) < 1
-	   && me->query_skill("bihai-chaosheng", 1) < 1)
+           && me->query_skill("bibo-shengong", 1) < 1
+           && me->query_skill("bihai-chaosheng", 1) < 1)
                 return "你玉箫剑法、碧波神功、碧海潮生曲一样都没学，捣什么乱？";
 
         if (me->query("gongxian") < 1000)
@@ -594,7 +594,7 @@ mixed ask_skill6()
                      "时至最后，却听那箫声愈来愈细，几乎难以听闻，便尤如大海潮退"
                      "后水平如镜一般，但海底却又是暗流湍急，汹涌澎湃。直待$n" HIY
                      "这首碧海潮生曲奏完，却发现$N" HIY "早已陶醉在这箫声之中，完"
-                     "全无法自拔。\n\n" NOR, me, this_object()); 
+                     "全无法自拔。\n\n" NOR, me, this_object());
 
         command("nod");
         command("say 你下去练吧。");
@@ -650,7 +650,7 @@ mixed ask_skill7()
                      "轻伸出两指，合指轻弹，顿时只听“飕”的一声，一缕若有若无"
                      "的罡气已至$n" HIY "指尖射出，朝$N" HIY "电射而去。$N" HIY
                      "顿觉胁下一麻，已被$n" HIY "的指气射中，全身酸软无力，呆立"
-                     "当场。\n\n" NOR, me, this_object()); 
+                     "当场。\n\n" NOR, me, this_object());
 
         command("say 招式便是如此，你站在这里琢磨一下吧。");
         tell_object(me, HIC "你学会了「定昆仑」。\n" NOR);
@@ -700,7 +700,7 @@ mixed ask_skill8()
 
         message_sort(HIY "\n$n" HIY "一声长叹，伸手将$N" HIY "招至他身旁，低声"
                      "在$N" HIY "耳边细说良久。$N" HIY "一边听一边点头，看来对"
-                     "$n" HIY "的教导大有所悟。\n\n" NOR, me, this_object()); 
+                     "$n" HIY "的教导大有所悟。\n\n" NOR, me, this_object());
 
         command("nod2");
         command("say …嗯…你自己练去吧。");
@@ -752,7 +752,7 @@ mixed ask_skill9()
                      "上拈下一片花瓣，$N" HIY "正感纳闷，忽闻破空声大作，那片"
                      "花瓣已由$n" HIY "指尖疾弹而出，顿时只听噗嗤一声，已没入"
                      "$N" HIY "身前的青石砖内，石面仅留下一个小孔。\n\n" NOR,
-                     me, this_object()); 
+                     me, this_object());
 
         command("haha");
         tell_object(me, HIC "你学会了「破九域」。\n" NOR);
@@ -806,7 +806,7 @@ mixed ask_skill10()
                      "$n" HIY "说完哈哈一笑，将$N" HIY "招至身旁，低声细说讲解"
                      "良久，全是$N" HIY "平生从未涉入的境界，$N" HIY "一边听一"
                      "边点头，看来对$n" HIY "的教导大有所悟。\n\n" NOR,
-                     me, this_object()); 
+                     me, this_object());
 
         command("haha");
         command("say 能传授的我都已传授了，日后就自己努力吧。");
@@ -1095,8 +1095,8 @@ mixed ask_zhi()
         }
 
         if (me->query_skill("finger", 1) < 200)
-               return "你基本指法不够娴熟，我不能传你这招！";        
- 
+               return "你基本指法不够娴熟，我不能传你这招！";
+
         if (me->query_skill("force", 1) < 240)
                return "你内功修为不够，我不能传你这招！";
 
@@ -1107,10 +1107,10 @@ mixed ask_zhi()
                return "你内力修为不足，我还不能传你绝招！";
 
         command("haha");
-        command("say 既然这样，我就传你绝招，你可看好了！");      
+        command("say 既然这样，我就传你绝招，你可看好了！");
         message_sort(HIM "黄药师出手成指，随意点戳，$N" HIM "只觉指法精妙绝伦，见"
                      "所未见，闻所未闻，霎那间$N" HIM "已眼花缭乱 ……\n" NOR, me);
-        
+
         command("haha");
 
         command("say 明白了吗？");
@@ -1123,7 +1123,7 @@ mixed ask_zhi()
 
         me->set("can_perform/jiuyin-shengong/zhi", 1);
         tell_object(me, HIG "你学会了「九阴神指」！\n" NOR);
-       
+
         return 1;
 }
 
@@ -1148,8 +1148,8 @@ mixed ask_shou()
         }
 
         if (me->query_skill("hand", 1) < 200)
-               return "你基本手法不够娴熟，我不能传你这招！";        
- 
+               return "你基本手法不够娴熟，我不能传你这招！";
+
         if (me->query_skill("force", 1) < 240)
                return "你内功修为不够，我不能传你这招！";
 
@@ -1160,11 +1160,11 @@ mixed ask_shou()
                return "你内力修为不足，我还不能传你绝招！";
 
         command("haha");
-        command("say 既然这样，我就传你绝招，你可看好了！");      
+        command("say 既然这样，我就传你绝招，你可看好了！");
         message_sort(HIM "黄药师“哈”的一声吐出了一口气，手式奇特，软绵绵的奔向$N"
                      HIM "的要穴！眼见$N" HIM "已无从躲闪，黄药师却突然收招，$N" HIM
                      "惊魂未定，长舒了一口气！\n" NOR, me);
-        
+
         command("haha");
 
         command("say 明白了吗？");
@@ -1177,7 +1177,7 @@ mixed ask_shou()
 
         me->set("can_perform/jiuyin-shengong/shou", 1);
         tell_object(me, HIG "你学会了「九阴神手」！\n" NOR);
-       
+
         return 1;
 }
 
@@ -1202,8 +1202,8 @@ mixed ask_zhang()
         }
 
         if (me->query_skill("strike", 1) < 220)
-               return "你基本掌法不够娴熟，我不能传你这招！";        
- 
+               return "你基本掌法不够娴熟，我不能传你这招！";
+
         if (me->query_skill("force", 1) < 240)
                return "你内功修为不够，我不能传你这招！";
 
@@ -1214,11 +1214,11 @@ mixed ask_zhang()
                return "你内力修为不足，我还不能传你绝招！";
 
         command("haha");
-        command("say 既然这样，我就传你绝招，你可看好了！");      
+        command("say 既然这样，我就传你绝招，你可看好了！");
         message_sort(HIM "双掌一错，幻化出无数掌影，层层叠荡拍向虚空，掌法精妙，气势恢弘，$N"
                      HIM "已看得目瞪口呆！\n" NOR, me);
 
-        
+
         command("haha");
 
         command("say 明白了吗？");
@@ -1231,31 +1231,31 @@ mixed ask_zhang()
 
         me->set("can_perform/jiuyin-shengong/zhang", 1);
         tell_object(me, HIG "你学会了「九阴神掌」！\n" NOR);
-       
+
         return 1;
 }
 
-int accept_object(object me, object ob) 
+int accept_object(object me, object ob)
 {
-            int r; 
-            if (r = ::accept_object(me, ob)) 
-                     return r; 
+            int r;
+            if (r = ::accept_object(me, ob))
+                     return r;
 
           if (base_name(ob) != "/clone/lonely/book/zhenjing1")
-          
-        {
-               command("say 你给我这种东西干什么？");               
-               return 0;
-        } 
 
-        command("heihei");        
-        command("say 好吧，既然这样，我就传你九阴神功绝招，你可以随时来问我！"); 
+        {
+               command("say 你给我这种东西干什么？");
+               return 0;
+        }
+
+        command("heihei");
+        command("say 好吧，既然这样，我就传你九阴神功绝招，你可以随时来问我！");
         destruct(ob);
         me->set("can_learn/jiuyin-shengong/zhi", 1);
         me->set("can_learn/jiuyin-shengong/zhang", 1);
         me->set("can_learn/jiuyin-shengong/shou", 1);
- 
-        return 1;        
+
+        return 1;
 }
 
 void unconcious()

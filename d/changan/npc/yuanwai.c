@@ -26,7 +26,7 @@ void create()
         set_skill("dodge", 50);
         set_skill("parry", 50);
         set_skill("force", 50);
-          
+
         setup();
         carry_object(__DIR__"obj/choupao")->wear();
 }
@@ -46,11 +46,11 @@ int accept_object (object who, object ob)
                 return 0;
 
         if (ob->query("id") == "xin")
-	{
+    {
                 remove_call_out("read_letter");
                 call_out("read_letter",3,me,who,ob);
                 return 1;
-	}
+    }
         return 0;
 }
 
@@ -92,35 +92,35 @@ void send_to_fight (object me, object who)
 
 void check_daughter(object me)
 {
-  	object room = environment(me);
-  	object xiangxiang = present("xiangxiang", room);
-  	object who;
-  	object yupei;
-  	reset_eval_cost();
-  	if (room->query("short") != "萧家大厅")
-    	        return;
+      object room = environment(me);
+      object xiangxiang = present("xiangxiang", room);
+      object who;
+      object yupei;
+      reset_eval_cost();
+      if (room->query("short") != "萧家大厅")
+                return;
 
-  	if (! xiangxiang || ! xiangxiang->query("leader"))
-    	        return;
-  	if (! (who = present(xiangxiang->query("leader"), room)))
-    	        return;
-  	if (! (yupei = present("yu pei", who)))
-    	        return;
-  	xiangxiang->set_leader(0);
-  	xiangxiang->set_temp("no_return", 0);
-  	remove_call_out ("cry_daughter");
-  	call_out("cry_daughter",2,me,xiangxiang,who);
-  	remove_call_out ("announce_success");
-  	call_out("announce_success",4,me,who);
+      if (! xiangxiang || ! xiangxiang->query("leader"))
+                return;
+      if (! (who = present(xiangxiang->query("leader"), room)))
+                return;
+      if (! (yupei = present("yu pei", who)))
+                return;
+      xiangxiang->set_leader(0);
+      xiangxiang->set_temp("no_return", 0);
+      remove_call_out ("cry_daughter");
+      call_out("cry_daughter",2,me,xiangxiang,who);
+      remove_call_out ("announce_success");
+      call_out("announce_success",4,me,who);
 }
 
 void cry_daughter(object me, object xiangxiang, object who, object yupei)
 {
 //      object book;
         message_vision("$N见了$n一愣，然后老泪纵横地将$n拉过去。\n",
-                       me, xiangxiang); 
+                       me, xiangxiang);
         destruct(xiangxiang);
-      
+
         yupei = present("yu pei",who);
         yupei->move(me);
         destruct(yupei);

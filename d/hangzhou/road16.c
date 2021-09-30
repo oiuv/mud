@@ -8,12 +8,12 @@ void create()
 湖。北边可上雷峰。
 LONG);
         set("exits", ([
-            	"northup" : __DIR__"xizhaoshan",
-            	"east"    : __DIR__"road15",
-            	"west"    : __DIR__"road20",
+                "northup" : __DIR__"xizhaoshan",
+                "east"    : __DIR__"road15",
+                "west"    : __DIR__"road20",
         ]));
         set("objects", ([
-		__DIR__"npc/baizhen" : 1,
+        __DIR__"npc/baizhen" : 1,
         ]));
 
         set("outdoors", "hangzhou");

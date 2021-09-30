@@ -37,8 +37,8 @@ void init()
         room = load_object("/b/tulong/huichang");
         ding = present("ding", room);
 
-        if (objectp(ding)) 
-        	dao = present("tulong dao", ding);
+        if (objectp(ding))
+            dao = present("tulong dao", ding);
 
         if (objectp(dao))
         {
@@ -53,15 +53,15 @@ void init()
                    && ! me->query_temp("to_wang")
                    && me->query("combat_exp") > 1000000
                    && me->query("weiwang") > 100000)
-		{
-              	        tell_object(me, CYN "\n白龟寿对你说道：此次我天鹰教得到了屠"
+        {
+                          tell_object(me, CYN "\n白龟寿对你说道：此次我天鹰教得到了屠"
                                         "龙宝刀，这位武林同\n道可愿意参加扬刀立威大"
                                         "会，选出此刀该为何人所有？\n" NOR);
                         tell_object(me, HIR "\n你愿意参加(" HIY "accept" HIR ")王盘"
                                         "山岛扬刀立威大会吗？\n" NOR);
-                	me->set_temp("to_wang", 1);
-                	add_action("do_accept", "accept");
-		}
+                    me->set_temp("to_wang", 1);
+                    add_action("do_accept", "accept");
+        }
         }
 }
 
@@ -81,7 +81,7 @@ int do_accept()
 
         tell_object(me, HIR "你决定去参加扬刀立威大会。\n\n" NOR);
 
-       	bai->set_temp("go", 1);
+           bai->set_temp("go", 1);
         me->start_busy(15);
 
         remove_call_out("moveto");

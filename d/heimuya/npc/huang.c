@@ -5,9 +5,9 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("黄伯流", ({ "huang boliu", "huang", "boliu"}));
-	set("title", "黄河帮帮主");
-	set("nickname", HIW "银髯蛟" NOR);
+    set_name("黄伯流", ({ "huang boliu", "huang", "boliu"}));
+    set("title", "黄河帮帮主");
+    set("nickname", HIW "银髯蛟" NOR);
         set("long", @LONG
 这便是日月神教黄河帮帮主黄伯流，他看上去
 已经甚为苍老了，但是双目精光四射，银髯飘
@@ -22,7 +22,7 @@ LONG);
         set("int", 36);
         set("con", 36);
         set("dex", 36);
-        
+
         set("max_qi", 4000);
         set("max_jing", 3000);
         set("neili", 5500);
@@ -61,14 +61,14 @@ LONG);
 
         create_family("黄河帮", 7, "帮主");
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "blade.kou" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "blade.kou" :),
                 (: perform_action, "cuff.tong" :),
                 (: perform_action, "claw.duan" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-	}) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+    }) );
 
         setup();
 
@@ -78,6 +78,5 @@ LONG);
 
 void attempt_apprentice(object ob)
 {
-     	command("say 我不收徒。");
+         command("say 我不收徒。");
 }
-

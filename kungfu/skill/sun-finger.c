@@ -3,9 +3,9 @@
 
 inherit SKILL;
 
-string *xue_name = ({ 
+string *xue_name = ({
 "劳宫穴", "膻中穴", "曲池穴", "关元穴", "曲骨穴", "中极穴", "承浆穴", "天突穴", "百会穴",
-"幽门穴", "章门穴", "大横穴", "紫宫穴", "冷渊穴", "天井穴", "极泉穴", "清灵穴", "至阳穴", }); 
+"幽门穴", "章门穴", "大横穴", "紫宫穴", "冷渊穴", "天井穴", "极泉穴", "清灵穴", "至阳穴", });
 
 mapping *action_finger = ({
 ([      "action" : "$N右手食指微点，出招「晓天初阳」，一股雄浑的一阳指力射向$n，出手沉稳，招数正大",
@@ -181,15 +181,15 @@ mapping *action_staff = ({
 ]),
 });
 */
-int valid_enable(string usage) 
-{  
-	return usage == "finger" || usage == "parry"/* || usage == "staff"*/; 
+int valid_enable(string usage)
+{
+    return usage == "finger" || usage == "parry"/* || usage == "staff"*/;
 }
 
 int valid_learn(object me)
 {
-	if ((string)me->query("gender") != "男性") 
-        	return notify_fail("一阳指乃是纯阳玄功，你如何可以修习？\n");
+    if ((string)me->query("gender") != "男性")
+            return notify_fail("一阳指乃是纯阳玄功，你如何可以修习？\n");
 
         if ((int)me->query("str") < 34)
                 return notify_fail("你的先天膂力孱弱，无法领会一阳指。\n");
@@ -229,15 +229,15 @@ mapping query_action(object me, object weapon)
         level = (int) me->query_skill("sun-finger", 1);
 
         //if ( ! weapon)
-        //{                
+        //{
              for(i = sizeof(action_finger); i > 0; i--)
                      if(level >= action_finger[i-1]["lvl"])
                              return action_finger[NewRandom(i, 20, level/5)];
-        //}        
+        //}
         /*else
              for(i = sizeof(action_staff); i > 0; i--)
                      if(level > action_staff[i-1]["lvl"])
-                             return action_staff[NewRandom(i, 20, level/5)];      */  
+                             return action_staff[NewRandom(i, 20, level/5)];      */
 }
 
 int practice_skill(object me)
@@ -255,51 +255,51 @@ int practice_skill(object me)
 
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-      	string name/*, weapon*/;
-      	name = xue_name[random(sizeof(xue_name))];
+          string name/*, weapon*/;
+          name = xue_name[random(sizeof(xue_name))];
 
-      	if (victim->is_busy())
-            	return 0;
+          if (victim->is_busy())
+                return 0;
 
-      	if (damage_bonus < 150)
-            	return 0;
+          if (damage_bonus < 150)
+                return 0;
 
-      	//if (! objectp(weapon = me->query_temp("weapon")))
-      	//{
-            	if ((me->query("neili") > 300)
-               	   && me->query_skill("sun-finger", 1) > 100
-               	   && ! victim->is_busy())
-            	{
-	          	victim->start_busy(2);
-                  	me->add("neili", -50);
-                  	victim->receive_wound("qi", (damage_bonus - 100) / 3, me);
+          //if (! objectp(weapon = me->query_temp("weapon")))
+          //{
+                if ((me->query("neili") > 300)
+                      && me->query_skill("sun-finger", 1) > 100
+                      && ! victim->is_busy())
+                {
+                  victim->start_busy(2);
+                      me->add("neili", -50);
+                      victim->receive_wound("qi", (damage_bonus - 100) / 3, me);
 
-			if (victim->query("neili") <= (damage_bonus / 4 + 50))
-	                	victim->set("neili", 0);
-                  	else
-                        	victim->add("neili", -damage_bonus / 4);
+            if (victim->query("neili") <= (damage_bonus / 4 + 50))
+                        victim->set("neili", 0);
+                      else
+                            victim->add("neili", -damage_bonus / 4);
 
-		              	return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "凌空一指点中" NOR +
+                          return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "凌空一指点中" NOR +
                                        HIY + name + NOR + HIR "，真气不由得一滞。\n" NOR;
-            	} 
-      	/*} else
-      	{
-            	if ((me->query("neili") > 300)
+                }
+          /*} else
+          {
+                if ((me->query("neili") > 300)
                    && me->query_skill("sun-finger", 1) > 100
                    && ! victim->is_busy())
-	    	{
-	        	victim->start_busy(2);
-                	me->add("neili", -50);
-                  	victim->receive_wound("qi", (damage_bonus - 120) / 3, me);
+            {
+                victim->start_busy(2);
+                    me->add("neili", -50);
+                      victim->receive_wound("qi", (damage_bonus - 120) / 3, me);
 
-	                return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "杖端发出的气劲刺中" NOR +
+                    return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "杖端发出的气劲刺中" NOR +
                                HIY + name + NOR +HIR "，真气不由得一滞。\n" NOR;
-            	}   
-      	}*/
- 
+                }
+          }*/
+
 }
 
 string perform_action_file(string action)
 {
-      	return __DIR__"sun-finger/" + action;
+          return __DIR__"sun-finger/" + action;
 }

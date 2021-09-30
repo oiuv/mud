@@ -13,7 +13,7 @@ int valid_force(string force)
 
 int valid_learn(object me)
 {
-	    return ::valid_learn(me);
+        return ::valid_learn(me);
 }
 
 int practice_skill(object me)

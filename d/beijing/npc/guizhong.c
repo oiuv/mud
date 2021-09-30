@@ -67,16 +67,16 @@ void create()
 
 void kill_ob (object ob)
 {
-  	object me = this_object();
-  	object where = environment (me);
-  	object guard = present ("gui erniang", where);
+      object me = this_object();
+      object where = environment (me);
+      object guard = present ("gui erniang", where);
 
-  	set_temp("my_killer",ob);
-  	::kill_ob(ob);
-  	if (guard && !guard->is_fighting())
-   	{
-        	message_vision (HIR "$N" HIR "大怒：阁下欺人太"
+      set_temp("my_killer",ob);
+      ::kill_ob(ob);
+      if (guard && !guard->is_fighting())
+       {
+            message_vision (HIR "$N" HIR "大怒：阁下欺人太"
                                 "甚，别怪我无情！\n" NOR, guard);
-        	guard->kill_ob(ob);
-   	}
+            guard->kill_ob(ob);
+       }
 }

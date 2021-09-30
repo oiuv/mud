@@ -9,7 +9,7 @@ void create()
 且洞中十分干燥，星宿派把这里改造成了一个仓库。
 LONG );
         set("exits", ([
-            	"out" : __DIR__"xxroad5",
+                "out" : __DIR__"xxroad5",
         ]));
         set("objects", ([
                 __DIR__"obj/hulu" : 2,
@@ -18,7 +18,7 @@ LONG );
                 __DIR__"obj/shoutao" : 1 + random(2),
                 "/clone/misc/muding" : 2 + random(2),
                 "/clone/book/dujing_1"  : random(2),
-                
+
         ]));
         set("outdoors", "xingxiu");
 

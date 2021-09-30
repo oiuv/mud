@@ -11,16 +11,16 @@ void create ()
 来，只是懒洋洋的向你打了个招呼。看起来这里的生意并不怎么好。
 LONG);
         //set("item_desc", ([" *** " : " *** ", ]));
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
-        	"north" : __DIR__"yongtai-nankou",
+            "north" : __DIR__"yongtai-nankou",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
-        	__DIR__"npc/huoji" : 1,
+            __DIR__"npc/huoji" : 1,
         ]));
 
-	set("no_clean_up", 0);
+    set("no_clean_up", 0);
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

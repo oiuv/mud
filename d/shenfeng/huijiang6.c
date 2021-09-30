@@ -11,7 +11,7 @@ void create()
 LONG);
         set("outdoors", "shenfeng");
         set("exits", ([
-            	"north" : __DIR__"huijiang3",
+                "north" : __DIR__"huijiang3",
         ]));
         set("objects", ([
                 __DIR__"npc/ji"  : 1,

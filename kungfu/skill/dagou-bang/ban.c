@@ -7,8 +7,8 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-	string msg;
+    object weapon;
+    string msg;
         int ap, dp, damage, level;
 
         if (userp(me) && ! me->query("can_perform/dagou-bang/ban"))
@@ -19,20 +19,20 @@ int perform(object me, object target)
         if (! target || ! me->is_fighting(target))
                 return notify_fail(BAN "只能对战斗中的对手使用。\n");
 
-	if (! objectp(weapon = me->query_temp("weapon")) ||
-	    (string)weapon->query("skill_type") != "staff")
+    if (! objectp(weapon = me->query_temp("weapon")) ||
+        (string)weapon->query("skill_type") != "staff")
                 return notify_fail("你使用的武器不对，难以施展" BAN "。\n");
 
         level = me->query_skill("dagou-bang", 1);
 
         if (level < 180)
-		return notify_fail("你打狗棒法不够娴熟，难以施展" BAN "。\n");
+        return notify_fail("你打狗棒法不够娴熟，难以施展" BAN "。\n");
 
         if (me->query_skill_mapped("staff") != "dagou-bang")
                 return notify_fail("你没有激发打狗棒法，难以施展" BAN "。\n");
 
-	if ((int)me->query_skill("force") < 240)
-		return notify_fail("你的内功火候不足，难以施展" BAN "。\n");
+    if ((int)me->query_skill("force") < 240)
+        return notify_fail("你的内功火候不足，难以施展" BAN "。\n");
 
         if (me->query("neili") < 300)
                 return notify_fail("你现在的真气不够，难以施展" BAN "。\n");
@@ -40,7 +40,7 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIG "$N" HIG "使出打狗棒法「" NOR + WHT "绊"
+    msg = HIG "$N" HIG "使出打狗棒法「" NOR + WHT "绊"
               HIG "」字诀，手中" + weapon->query("name") +
               HIG "左封右逼，缓缓朝$n" HIG "挑去。\n" NOR;
 
@@ -85,5 +85,5 @@ int perform(object me, object target)
         }
         message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

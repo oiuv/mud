@@ -407,7 +407,7 @@ int restore()
 // 保存数据
 int save()
 {
-    //	int res;
+    //    int res;
 
     if (base_name(this_object()) + ".c" == __FILE__)
         return 0;

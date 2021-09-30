@@ -104,29 +104,29 @@ int do_du(string arg)
         }
 
         if (skill == "yijin-duangu" || skill == "易筋锻骨")
-		skill = "yijin-duangu";
+        skill = "yijin-duangu";
         else
 
         if (skill == "shexing-lifan" || skill == "蛇行狸翻")
-		skill = "shexing-lifan";
+        skill = "shexing-lifan";
         else
 
         if (skill == "dafumo-quan" || skill == "大伏魔拳")
-		skill = "dafumo-quan";
+        skill = "dafumo-quan";
 
         if (! SKILL_D(skill)->valid_learn(me))
-               	return 0;
+                   return 0;
 
         if (! me->can_improve_skill(skill))
-       	{
-               	write("你的实战经验不足，再怎么读也没用。\n");
-               	return 1;
-       	}
+           {
+                   write("你的实战经验不足，再怎么读也没用。\n");
+                   return 1;
+           }
 
         lv = me->query_skill(skill, 1);
 
         if (lv >= 180)
-	{
+    {
                 write("你研读了一会儿，但是发现上面所说的对你而言都太浅了。\n");
                 return 1;
         }

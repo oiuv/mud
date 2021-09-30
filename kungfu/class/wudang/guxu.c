@@ -19,7 +19,7 @@ void create()
         set("int", 25);
         set("con", 26);
         set("dex", 23);
-        
+
         set("max_qi", 3000);
         set("max_jing", 1800);
         set("neili", 3200);
@@ -55,14 +55,14 @@ void create()
         set("class", "taoist");
 
         set("inquiry", ([
-        	"道德经" : (: ask_me :),
+                "道德经" : (: ask_me :),
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "sword.sheng" :),
-		(: exert_function, "recover" :),
-	}) );
+        set("chat_chance_combat", 120);
+        set("chat_msg_combat", ({
+                (: perform_action, "sword.sheng" :),
+                (: exert_function, "recover" :),
+        }) );
 
         set("book_count", 1);
 
@@ -90,12 +90,12 @@ void attempt_apprentice(object ob)
 string ask_me()
 {
         object me;
-        mapping fam; 
+        mapping fam;
         object ob;
 
         me = this_player();
 
-        if (!(fam = me->query("family")) 
+        if (!(fam = me->query("family"))
             || fam["family_name"] != "武当派")
         {
                 return RANK_D->query_respect(me) + "与本派素无"

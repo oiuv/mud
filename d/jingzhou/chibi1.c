@@ -11,8 +11,8 @@ LONG);
 
         set("exits", ([
                 "northup" : __DIR__"qingshan",
-		"southdown" : __DIR__"chibi2",
+        "southdown" : __DIR__"chibi2",
         ]));
         setup();
         replace_program(ROOM);
-} 
+}

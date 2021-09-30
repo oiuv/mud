@@ -5,21 +5,21 @@ void create()
 {
         set_name(HIW "「古乐器篇」" NOR, ({ "yueqi book", "yueqi", "book" }));
         set_weight(200);
-	if (clonep())
-		set_default_object(__FILE__);
-	else {
+    if (clonep())
+        set_default_object(__FILE__);
+    else {
                 set("unit", "本");
-		set("long", HIW "记载着古代乐器的笔记，你闲着没事儿"
+        set("long", HIW "记载着古代乐器的笔记，你闲着没事儿"
                             "可以看看(read)。\n" NOR);
-		set("value", 50);
-		set("material", "paper");
-	}
-	setup();
+        set("value", 50);
+        set("material", "paper");
+    }
+    setup();
 }
 
 void init()
 {
-	add_action("do_read", "read");
+    add_action("do_read", "read");
 
 }
 

@@ -9,13 +9,13 @@ void create()
         set("attitude", "peaceful");
         set("class", "bonze");
         set("age", 20+random(10));
-	set("combat_exp", 25000);
+    set("combat_exp", 25000);
         set("shen_type", 1);
         set("per", 30);
         set("max_qi", 500);
         set("max_jing", 300);
-	set("neili", 300);
-	set("jiali", 5);
+    set("neili", 300);
+    set("jiali", 5);
         set_skill("force", 15+random(20));
         set_skill("unarmed", 15+random(20));
         set_skill("dodge", 15+random(20));
@@ -31,7 +31,7 @@ void init()
         object ob;
 
         ::init();
-        if (interactive(ob = this_player()) && ! is_fighting()) 
+        if (interactive(ob = this_player()) && ! is_fighting())
         {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);

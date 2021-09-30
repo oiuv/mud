@@ -41,7 +41,7 @@ void create()
 
         setup();
 
-	set("can_supply", 15);
+    set("can_supply", 15);
 }
 
 void init()
@@ -51,7 +51,7 @@ void init()
         ::init();
 
         if (interactive(ob = this_player()) && !is_fighting())
-	{
+    {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
         }
@@ -77,13 +77,13 @@ void serve_tea(object who)
 
         if (! objectp(room = environment())) return;
 
-	if (query("can_supply") < 1)
-	{
-		message_vision("素素抱歉的对$N道：现在暂时没有了，过会"
-			       "儿再来吧。\n", who);
-		return;
-	}
-	add("can_supply", -1);
+    if (query("can_supply") < 1)
+    {
+        message_vision("素素抱歉的对$N道：现在暂时没有了，过会"
+                   "儿再来吧。\n", who);
+        return;
+    }
+    add("can_supply", -1);
         obn = new("/d/yanziwu/obj/cha");
         obn->move(room);
         message_vision("素素拿出一个小茶壶，沏上一杯香浓的碧螺春．\n",who);
@@ -97,5 +97,5 @@ void serve_tea(object who)
 
 void reset()
 {
-	set("can_supply", 15);
+    set("can_supply", 15);
 }

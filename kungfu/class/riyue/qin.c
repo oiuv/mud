@@ -14,7 +14,7 @@ void create()
 这是日月神教青旗旗主秦伟邦，三十多岁年纪
 便已被提拔为旗主，可谓功劳不小。
 LONG);
-	set("gender", "男性" );
+    set("gender", "男性" );
         set("class", "scholar");
         set("age", 32);
         set("attitude", "peaceful");
@@ -23,7 +23,7 @@ LONG);
         set("int", 36);
         set("con", 36);
         set("dex", 36);
-        
+
         set("max_qi", 3400);
         set("max_jing", 2200);
         set("neili", 3600);
@@ -62,13 +62,13 @@ LONG);
                 "环环相扣" : (: ask_skill1 :),
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "blade.kou" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "blade.kou" :),
                 (: perform_action, "cuff.tong" :),
                 (: perform_action, "claw.duan" :),
-		(: exert_function, "recover" :),
-	}) );
+        (: exert_function, "recover" :),
+    }) );
         setup();
 
         carry_object("/d/heimuya/npc/obj/jinpao")->wear();

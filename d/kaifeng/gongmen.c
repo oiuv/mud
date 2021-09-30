@@ -11,9 +11,9 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"southup" : __DIR__"8bao",
-  		"northdown" : __DIR__"road",
-	]));
+          "southup" : __DIR__"8bao",
+          "northdown" : __DIR__"road",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

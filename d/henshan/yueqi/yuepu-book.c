@@ -6,21 +6,21 @@ void create()
         set_name(HIW "「古乐谱篇」" NOR, ({ "yuepu book", "yuepu", "book" }));
         set_weight(200);
 
-	if (clonep())
-		set_default_object(__FILE__);
-	else {
+    if (clonep())
+        set_default_object(__FILE__);
+    else {
                 set("unit", "本");
                 set("long", HIW "记载着古代乐谱的笔记，你闲着没事儿"
                             "可以看看(read)。\n" NOR);
                 set("value", 50);
-		set("material", "paper");
-	}
-	setup();
+        set("material", "paper");
+    }
+    setup();
 }
 
 void init()
 {
-	add_action("do_read", "read");
+    add_action("do_read", "read");
 
 }
 
@@ -29,7 +29,7 @@ int do_read(string arg)
         if (arg == "yuepu book" || arg == "yuepu" || arg == "book")
                 return notify_fail(WHT "\n"
 "---------------------------------------------------\n\n"
-"		   中国古乐谱介绍\n\n"
+"           中国古乐谱介绍\n\n"
 "                       文王操\n\n"
 "    汉初《韩诗外传》记孔子向师襄学奏此曲。琴曲中讲\n"
 "述了周文王在渭水之滨访子牙的故事，后世传有《文王思\n"
@@ -41,7 +41,7 @@ int do_read(string arg)
 "                       关雎\n\n"
 "    关雎为《诗经》第一篇，孔子称赞它“乐而不淫，哀\n"
 "而不伤”。现存琴谱多为无词曲。\n\n"
-"   		        鹿鸣\n\n"
+"                   鹿鸣\n\n"
 "    鹿鸣为《诗经·小雅》首篇。原为周朝宴乐群臣嘉宾\n"
 "所用。为汉代仅存雅歌四篇之一。蔡邕《琴赋》以及《琴\n"
 "操》均有此曲目。据说，由汉未杜夔传至魏左延年，晋荀\n"
@@ -52,7 +52,7 @@ int do_read(string arg)
 "                       湘妃怨\n\n"
 "    琴歌。传说尧的两个女儿娥皇、女英嫁给舜。舜死后，\n"
 "两人十分悲痛，后人据此作歌，表现对亲人的思念之意。\n\n"
-"	                广陵散\n\n"
+"                    广陵散\n\n"
 "    广陵散又名广陵止息。现存的琴谱最早见于《神奇秘\n"
 "谱》，又见于《西麓堂琴谱》，各谱均有“取韩”，“投\n"
 "剑”等分段标题，因此，近人认为它源于为《琴操》所载\n"
@@ -61,7 +61,7 @@ int do_read(string arg)
 "绝矣！”后由有心人记谱而流传至今。于是，广陵散因嵇\n"
 "康而闻名于世。明宋濂跋《太古遗音》则谓“其声忿怒噪\n"
 "急，不可为训”。现存曲谱共四十五段。\n\n"
-"		       高山流水\n\n"
+"               高山流水\n\n"
 "    内容根据《吕氏春秋》中伯牙在鼓琴的故事。伯牙在\n"
 "琴中先表现高山，又表现流水，他的知音好友钟子期都能\n"
 "深刻领会。表明音乐可以独立进行艺术创造，不必借助文\n"

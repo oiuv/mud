@@ -9,27 +9,27 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
+    object weapon;
         int level;
-	string msg;
+    string msg;
 
-	if (! target) target = offensive_target(me);
+    if (! target) target = offensive_target(me);
 
         if (userp(me) && ! me->query("can_perform/huashan-jian/jie"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
-	if (! target || ! me->is_fighting(target))
-		return notify_fail(JIE "只能对战斗中的对手使用。\n");
+    if (! target || ! me->is_fighting(target))
+        return notify_fail(JIE "只能对战斗中的对手使用。\n");
 
-	if (! objectp(weapon = me->query_temp("weapon")) ||
+    if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
-		return notify_fail("你使用的武器不对。\n");
+        return notify_fail("你使用的武器不对。\n");
 
-	if (target->is_busy())
-		return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧！\n");
-		
-	if ((level = me->query_skill("huashan-jian", 1)) < 30)
-		return notify_fail("你的华山剑法不够娴熟，无法施展" JIE " 。\n");
+    if (target->is_busy())
+        return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧！\n");
+
+    if ((level = me->query_skill("huashan-jian", 1)) < 30)
+        return notify_fail("你的华山剑法不够娴熟，无法施展" JIE " 。\n");
 
         if (me->query_skill_mapped("sword") != "huashan-jian")
                 return notify_fail("你没有激发华山剑法，无法施展" JIE "。\n");
@@ -46,15 +46,15 @@ int perform(object me, object target)
               "然扑向$n" HIW "！\n" NOR;
 
         me->add("neili", -50);
-	if (random(level) > (int)target->query_skill("parry", 1) / 2)
+    if (random(level) > (int)target->query_skill("parry", 1) / 2)
         {
-		msg += HIR "结果$p" HIR "瘁不及防，连连倒退"
+        msg += HIR "结果$p" HIR "瘁不及防，连连倒退"
                        "几步，一时间无法回手！\n" NOR;
-		target->start_busy(level / 22 + 2);
-	} else
+        target->start_busy(level / 22 + 2);
+    } else
         {
                 if (objectp(weapon = target->query_temp("weapon")))
-        		msg += CYN "但是$p" CYN "识破了$P" CYN "的用意，"
+                msg += CYN "但是$p" CYN "识破了$P" CYN "的用意，"
                                "自顾将手中的" + weapon->name() +
                                CYN "舞成一团光花，$P"
                                CYN "一怔之下再也攻不进去。\n" NOR;
@@ -62,9 +62,9 @@ int perform(object me, object target)
                         msg += CYN "但是$p" CYN "双手戳点刺拍，将$P"
                                CYN "的来招一一架开。\n" NOR;
 
-		me->start_busy(1);
-	}
-	message_sort(msg, me, target);
+        me->start_busy(1);
+    }
+    message_sort(msg, me, target);
 
-	return 1;
+    return 1;
 }

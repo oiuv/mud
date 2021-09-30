@@ -11,7 +11,7 @@ void create()
 成，十数支松明照得这里通明透亮。
 LONG );
         set("objects", ([
-           	CLASS_D("wudang") +"/xiaosong": 1,
+               CLASS_D("wudang") +"/xiaosong": 1,
         ]));
 
         set("exits", ([
@@ -26,17 +26,17 @@ LONG );
 
 int valid_leave(object me, string dir)
 {
-    	if (dir == "up")
-    	{
-       		if (me->query_skill("taiji-shengong", 1) < 80)
-              		return notify_fail(HIY "你试着推了推顶上的砖盖，触"
+        if (dir == "up")
+        {
+               if (me->query_skill("taiji-shengong", 1) < 80)
+                      return notify_fail(HIY "你试着推了推顶上的砖盖，触"
                                            "手冰凉，纹丝不动。\n" NOR);
 
-          	message_sort(HIY "\n$N" HIY "全身运足太极神功，拔身错步，嘿地"
+              message_sort(HIY "\n$N" HIY "全身运足太极神功，拔身错步，嘿地"
                              "一声，举起双掌向上猛击。只见一股白气自$N" HIY
                              "掌心而出，迅猛无比地击中顶上的砖盖。克剌剌一"
                              "声巨响，砖盖被震成无数小碎片四散飘飞。露出一"
                              "个向上的洞口来。\n\n" NOR, me );
-     	}
-     	return ::valid_leave(me, dir);
+         }
+         return ::valid_leave(me, dir);
 }

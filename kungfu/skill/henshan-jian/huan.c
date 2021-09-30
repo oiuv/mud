@@ -11,7 +11,7 @@ int perform(object me, object target)
         string msg, wn;
         object weapon;
         int ap, dp;
-  
+
         me = this_player();
 
         if (userp(me) && ! me->query("can_perform/henshan-jian/huan"))
@@ -42,7 +42,7 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         wn = weapon->name();
-                           
+
         msg = HIC "\n$N" HIC "将真气运于剑身，身法陡然加快，手中" + wn +
               HIC "剑随人动，霎那间剑光四散，如梦如幻，像有无数柄" + wn +
               HIC "一齐袭向$n" HIC "。" NOR;
@@ -55,24 +55,21 @@ int perform(object me, object target)
         if (ap / 2 + random(ap) > dp)
         {
                 damage = ap / 3 + random(ap / 2);
-         	msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 10,
+             msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 10,
                                           HIR "$n" HIR "看得眼花缭乱，却分不清"
                                           "剑的来路，肩膀已被" + wn + HIR "刺出"
                                           "一个窟窿。\n" NOR);
-         	me->start_busy(2);
-         	me->add("neili", -50);
+             me->start_busy(2);
+             me->add("neili", -50);
         } else
         {
-         	msg = CYN "然而$n" CYN "并未受幻象所困，侧身一跳"
+             msg = CYN "然而$n" CYN "并未受幻象所困，侧身一跳"
                       "躲过$N" CYN "这一剑。\n" NOR;
 
-         	me->start_busy(2);
-         	me->add("neili", -30);
+             me->start_busy(2);
+             me->add("neili", -30);
         }
         message_combatd(msg, me, target);
 
         return 1;
 }
-
-
-

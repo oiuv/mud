@@ -1,14 +1,14 @@
 #include <ansi.h>
 inherit ROOM;
- 
+
 int do_stuff(object ob);
- 
+
 void create()
 {
         set("short", HIB "【小店】" NOR);
         set("long", HIB @LONG
 
-                      小                店  
+                      小                店
 
     你一进来就发现屋里异常的温暖，墙角壁炉里微弱的火光将你的影
 子投射在对面的墙上。几个人影围在炉旁不知在讨论些什麽。屋内有几
@@ -20,10 +20,10 @@ LONG NOR );
         set("exits", ([
                  "east" : "/d/death/road1",
         ]));
- 
-	set("objects", ([
-		__DIR__"npc/ghost": 1,
-	]) );
+
+    set("objects", ([
+        __DIR__"npc/ghost": 1,
+    ]) );
 
         set("item_desc", ([
                 "shadows" : @SHADOWS
@@ -33,9 +33,9 @@ LONG NOR );
 你一眼, 你愣住了... 那人... 那人......... 居然长得跟你一模一样!
 SHADOWS
         ]) );
-        
+
         set("no_fight", 1);
-	set("no_sleep_room", 1);
+    set("no_sleep_room", 1);
 
         setup();
 }
@@ -44,26 +44,26 @@ void init()
 {
         add_action("redirect_ask", "ask");
 }
- 
+
 int redirect_ask(string str)
 {
         object ob;
         string name, tmp1, tmp2;
-        
+
         ob = this_player();
         name = (string)ob->query("id");
-        
+
         // if (! str || ! ob->is_ghost()) return 0;
         if (!str ) return 0;
         if (sscanf(str,"%s about %s",tmp1, tmp2) == 2) {
-                if (tmp1 == name && tmp2 =="回家") 
+                if (tmp1 == name && tmp2 =="回家")
                         return do_stuff(ob);
                         else return 0;
         }
         else return 0;
         return 0;
 }
- 
+
 int do_stuff(object ob)
 {
         write("你走上前去, 低声的向那个长得跟你一样的人询问回家的事.\n");
@@ -81,4 +81,3 @@ int do_stuff(object ob)
                 "很久了，只是你一直没发觉。\n", environment(ob), ob);
         return 1;
 }
-

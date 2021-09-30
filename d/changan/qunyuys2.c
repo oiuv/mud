@@ -12,12 +12,12 @@ void create()
 花拖鞋，一对男的，一对女的，并排而置。
 LONG);
         set("exits", ([ /* sizeof() == 1 */
-        	"north" : __DIR__"qunyulou2",
+            "north" : __DIR__"qunyulou2",
         ]));
         set("objects", ([
-        	__DIR__"npc/luyi" : 1,
+            __DIR__"npc/luyi" : 1,
         ]) );
 
-	setup();
+    setup();
         replace_program(ROOM);
 }

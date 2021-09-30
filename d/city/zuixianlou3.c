@@ -23,5 +23,5 @@ LONG);
                 "down" : __DIR__"zuixianlou2",
         ]));
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

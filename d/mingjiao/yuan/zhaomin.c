@@ -46,11 +46,11 @@ void create()
         map_skill("parry", "liangyi-jian");
         map_skill("sword", "liangyi-jian");
         map_skill("unarmed", "changquan");
-	set_temp("is_riding", HIM"紫骝马"NOR);
-	set("chat_chance", 30);
-	set("chat_msg", ({
-		(: random_move :)
-	}) );
+    set_temp("is_riding", HIM"紫骝马"NOR);
+    set("chat_chance", 30);
+    set("chat_msg", ({
+        (: random_move :)
+    }) );
         set("inquiry", ([
             "张无忌" :  "张公子远在昆仑，不知他近来可好？秋冷春寒，可有寒衣？\n",
             "倚天剑" :  "倚天为天下神兵。\n",

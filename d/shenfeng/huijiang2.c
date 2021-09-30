@@ -11,8 +11,8 @@ LONG);
         set("outdoors", "shenfeng");
 
         set("exits", ([
-            	"northup" : __DIR__"huijiang1",
-            	"southdown" : __DIR__"huijiang3",
+                "northup" : __DIR__"huijiang1",
+                "southdown" : __DIR__"huijiang3",
         ]));
         set("objects", ([
                 __DIR__"npc/hasake"  : 1,

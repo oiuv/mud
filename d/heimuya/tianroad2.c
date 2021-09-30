@@ -10,8 +10,8 @@ void create()
 LONG);
         set("outdoors", "heimuya");
         set("exits", ([
-            	"south" : __DIR__"tiangate",
-            	"west" : __DIR__"tianroad1",
+                "south" : __DIR__"tiangate",
+                "west" : __DIR__"tianroad1",
         ]));
         setup();
         replace_program(ROOM);

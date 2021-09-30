@@ -611,17 +611,17 @@ void skill_improved(object me)
            && ! me->query("can_learn/dugu-jiujian/nothing"))
         {
                 if (me->add("can_perform/dugu/qi", random(i)) < 100)
-		{
+        {
                         tell_object(me, HIC "你对独孤九剑「" HIW "破气式"
                                         HIC "」有了新的领悟。\n" NOR);
                 } else
-		{
+        {
                         tell_object(me, HIC "你通晓了独孤九剑「" HIW "破"
                                         "气式" HIC "」的奥秘。\n" NOR);
                         me->improve_skill("martial-cognize", 1500000);
                         me->improve_skill("martial-cognize", 1500000);
                         me->improve_skill("martial-cognize", 1500000);
-		}
+        }
         }
 
         if (lvl > 150
@@ -629,17 +629,17 @@ void skill_improved(object me)
            && ! me->query("can_learn/dugu-jiujian/nothing"))
         {
                 if (me->add("can_perform/dugu/po", random(i)) < 100)
-		{
+        {
                         tell_object(me, HIC "你对独孤九剑「" HIR "总破式"
                                         HIC "」有了新的领悟。\n" NOR);
                 } else
-		{
+        {
                         tell_object(me, HIC "你通晓了独孤九剑「" HIR "总"
                                         "破式" HIC "」的奥秘。\n" NOR);
                         me->improve_skill("martial-cognize", 1500000);
                         me->improve_skill("martial-cognize", 1500000);
                         me->improve_skill("martial-cognize", 1500000);
-		}
+        }
         }
 
 

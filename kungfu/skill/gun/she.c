@@ -7,19 +7,19 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-	string msg;
-	int i;
+    object weapon;
+    string msg;
+    int i;
 
         if (userp(me) && ! me->query("can_perform/gun/she"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
-	if (! target) target = offensive_target(me);
+    if (! target) target = offensive_target(me);
 
-	if (! target || ! me->is_fighting(target))
+    if (! target || ! me->is_fighting(target))
                 return notify_fail(SHE "只能对战斗中的对手使用。\n");
 
-	if (! objectp(weapon = me->query_temp("weapon")) ||
+    if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "hammer")
                 return notify_fail("你使用的武器不对，难以施展" SHE "。\n");
 

@@ -53,12 +53,12 @@ int perform(object me, object target)
                                            HIR "结果$p" HIR "一声惨嚎，没能招架住$P"
                                            HIR "凌厉的攻势，被抓得皮肉分离，鲜血飞溅！\n" NOR);
                 me->add("neili", -200);
-        	me->add("shen", -3000);
+            me->add("shen", -3000);
         } else
         {
                 me->start_busy(3);
-	        me->add("neili", -100);
-        	me->add("shen", -3000);
+            me->add("neili", -100);
+            me->add("shen", -3000);
                 msg += CYN "可是$p" CYN "看破了$N"
                        CYN "的企图，躲开了这招杀着。\n" NOR;
         }
@@ -66,4 +66,3 @@ int perform(object me, object target)
 
         return 1;
 }
-

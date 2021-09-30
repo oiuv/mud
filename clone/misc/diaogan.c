@@ -9,31 +9,31 @@ void init()
         if (interactive(this_player()) &&
             environment() == this_player())
         {
-	        add_action("do_fish", "fish");
-	        add_action("do_draw", "draw");
+            add_action("do_fish", "fish");
+            add_action("do_draw", "draw");
         }
 }
 
 void create()
 {
-	set_name(HIG "钓竿" NOR, ({ "diao gan", "gan" }));
-	if (clonep())
-		set_default_object(__FILE__);
-	else
+    set_name(HIG "钓竿" NOR, ({ "diao gan", "gan" }));
+    if (clonep())
+        set_default_object(__FILE__);
+    else
         {
-		set("unit", "根");
-		set("long", "这是一根钓鱼者常用的钓竿，常用它来钓鱼(fish)。\n");
-		set("value", 2000);
-	}
+        set("unit", "根");
+        set("long", "这是一根钓鱼者常用的钓竿，常用它来钓鱼(fish)。\n");
+        set("value", 2000);
+    }
 
-	setup();
+    setup();
 }
 
 int do_fish()
 {
         object yr;
 //      object ob;
-	object me = this_player();
+    object me = this_player();
 
         if (! arrayp(environment(me)->query("resource/fish")))
                 return notify_fail("这里看不出有鱼的样子。\n");
@@ -104,7 +104,7 @@ int finishing(object me)
                         if (random(3)) return 1;
                         tell_object(me, random(2) ? "水面波澜不惊，没有什么变化。\n"
                                                   : "微风青青的吹，水面荡起一层层细浪，就是没有鱼上钩。\n");
-			break;
+            break;
                 }
                 message_vision("忽然$N的浮子震动了一下。\n", me);
                 stage = 1;

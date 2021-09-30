@@ -19,62 +19,62 @@ mixed ask_skill3();
 
 void create()
 {
-	set_name("欧阳锋", ({ "ouyang feng", "ouyang", "feng" }));
-	set("long", "他就是白驼山庄主，号称“西毒”的欧阳锋。脸型瘦削，\n"
-		    "身形剽悍，虽然受到郭靖欺骗误学习了「九阴真经」而走\n"
+    set_name("欧阳锋", ({ "ouyang feng", "ouyang", "feng" }));
+    set("long", "他就是白驼山庄主，号称“西毒”的欧阳锋。脸型瘦削，\n"
+            "身形剽悍，虽然受到郭靖欺骗误学习了「九阴真经」而走\n"
                     "火入魔，一度变得精神错乱，但是现在已然恢复，功力犹\n"
                     "胜往昔。\n");
-	set("title", "白驼山庄主");
-	set("gender", "男性");
-	set("age", 53);
-	set("nickname", HIR "西毒" NOR);
-	set("shen_type",-1);
-	set("attitude", "peaceful");
+    set("title", "白驼山庄主");
+    set("gender", "男性");
+    set("age", 53);
+    set("nickname", HIR "西毒" NOR);
+    set("shen_type",-1);
+    set("attitude", "peaceful");
 
-	set("str", 32);
-	set("int", 34);
-	set("con", 34);
-	set("dex", 32);
+    set("str", 32);
+    set("int", 34);
+    set("con", 34);
+    set("dex", 32);
 
-	set("qi", 6000);
-	set("max_qi", 6000);
-	set("jing", 3000);
-	set("max_jing", 3000);
-	set("neili", 7300);
-	set("max_neili", 7300);
-	set("jiali", 120);
+    set("qi", 6000);
+    set("max_qi", 6000);
+    set("jing", 3000);
+    set("max_jing", 3000);
+    set("neili", 7300);
+    set("max_neili", 7300);
+    set("jiali", 120);
 
-	set("combat_exp", 2500000);
+    set("combat_exp", 2500000);
 
-	set_skill("force", 350);
-	set_skill("strike", 350);
-	set_skill("dodge", 350);
-	set_skill("parry", 350);
-	set_skill("cuff", 350);
+    set_skill("force", 350);
+    set_skill("strike", 350);
+    set_skill("dodge", 350);
+    set_skill("parry", 350);
+    set_skill("cuff", 350);
   set_skill("finger", 350);
-	set_skill("staff", 350);
-	set_skill("training", 400);
+    set_skill("staff", 350);
+    set_skill("training", 400);
   set_skill("poison", 400);
   set_skill("shedu-qiqiao", 350);
-	set_skill("hamagong", 350);
-	set_skill("baituo-xinfa", 350);
-	set_skill("chanchu-bufa", 350);
-	set_skill("lingshe-quan", 350);
-	set_skill("lingshe-zhangfa", 350);
-	set_skill("baibian-daxue", 350);
+    set_skill("hamagong", 350);
+    set_skill("baituo-xinfa", 350);
+    set_skill("chanchu-bufa", 350);
+    set_skill("lingshe-quan", 350);
+    set_skill("lingshe-zhangfa", 350);
+    set_skill("baibian-daxue", 350);
   set_skill("guzheng-jifa", 400);
   set_skill("xiyu-tiezheng", 400);
   set_skill("wushe-qu", 400);
   set_skill("literate", 300);
-	set_skill("medical", 350);
-	set_skill("baituo-michuan", 350);
+    set_skill("medical", 350);
+    set_skill("baituo-michuan", 350);
 
-	map_skill("force", "hamagong");
-	map_skill("dodge", "chanchu-bufa");
-	map_skill("strike", "hamagong");
-	map_skill("cuff",  "lingshe-quan");
-	map_skill("parry", "lingshe-zhangfa");
-	map_skill("staff", "lingshe-zhangfa");
+    map_skill("force", "hamagong");
+    map_skill("dodge", "chanchu-bufa");
+    map_skill("strike", "hamagong");
+    map_skill("cuff",  "lingshe-quan");
+    map_skill("parry", "lingshe-zhangfa");
+    map_skill("staff", "lingshe-zhangfa");
         map_skill("finger", "shedu-qiqiao");
         map_skill("poison", "shedu-qiqiao");
         map_skill("guzheng-jifa", "xiyu-tiezheng");
@@ -82,7 +82,7 @@ void create()
         prepare_skill("finger", "shedu-qiqiao");
         prepare_skill("cuff", "lingshe-quan");
 
-	create_family("欧阳世家", 5, "掌门");
+    create_family("欧阳世家", 5, "掌门");
         set("chat_chance", 2);
         set("chat_msg",({
                 "欧阳锋自言自语道：何日我欧阳氏才能重霸江湖呢…\n",
@@ -90,23 +90,23 @@ void create()
                 "欧阳锋道：江湖险恶，困难重重哪！\n",
         }));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "staff.chan" :),
-		(: perform_action, "staff.qianshe" :),
-		(: perform_action, "staff.wuji" :),
-		(: perform_action, "strike.zhen" :),
-		(: perform_action, "cuff.rou" :),
-		(: exert_function, "powerup" :),
-		(: exert_function, "recover" :),
-	}));
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "staff.chan" :),
+        (: perform_action, "staff.qianshe" :),
+        (: perform_action, "staff.wuji" :),
+        (: perform_action, "strike.zhen" :),
+        (: perform_action, "cuff.rou" :),
+        (: exert_function, "powerup" :),
+        (: exert_function, "recover" :),
+    }));
 
-        set("inquiry", ([              
-		            "筝谱"   : (: ask_music_book :),
-		            "古筝技法": (: ask_music_book :),
-		            "灵蛇杖" : (: ask_zhang :),
-		            "横行无忌": (: ask_skill1 :),
-		            "千蛇出洞": (: ask_skill2 :),
+        set("inquiry", ([
+                    "筝谱"   : (: ask_music_book :),
+                    "古筝技法": (: ask_music_book :),
+                    "灵蛇杖" : (: ask_zhang :),
+                    "横行无忌": (: ask_skill1 :),
+                    "千蛇出洞": (: ask_skill2 :),
                 "千蛇万噬": (: ask_skill3 :),
         ]));
 
@@ -116,13 +116,13 @@ void create()
         set_temp("apply/unarmed_damage", 100);
         set_temp("apply/armor", 200);
 
-	set("music_book", 1);
+    set("music_book", 1);
 
-	setup();
-	carry_object("/d/baituo/obj/shezhang")->wield();
-	carry_object("/clone/misc/cloth")->wear();
+    setup();
+    carry_object("/d/baituo/obj/shezhang")->wield();
+    carry_object("/clone/misc/cloth")->wear();
         carry_object("d/baituo/obj/tiezheng");
-	add_money("silver", 50);
+    add_money("silver", 50);
 }
 
 int recognize_apprentice(object me, string skill)
@@ -151,7 +151,7 @@ void attempt_apprentice(object ob)
                         command("pat " + ob->query("id"));
 
                 command("say 你的经验还不够，先和我的侄儿欧阳克学习武功吧。");
-	        return ;
+            return ;
         }
 
         command("sigh");
@@ -164,35 +164,35 @@ void attempt_apprentice(object ob)
 
 mixed ask_skill1()
 {
-        object me; 
-        me = this_player(); 
+        object me;
+        me = this_player();
 
-        if (me->query("can_perform/lingshe-zhangfa/wuji")) 
-                return "你还不快去练功去？好好把我们欧阳家发扬光大！"; 
+        if (me->query("can_perform/lingshe-zhangfa/wuji"))
+                return "你还不快去练功去？好好把我们欧阳家发扬光大！";
 
-        if (me->query("family/family_name") != query("family/family_name"))   
+        if (me->query("family/family_name") != query("family/family_name"))
                 return ("哪来的野小子敢在这里撒野！\n");
-                
+
         if (me->query("gongxian") < 500)
                 return "你为我欧阳家效力还不够，这招我先不忙传你。";
 
-        if (me->query_skill("lingshe-zhangfa", 1) < 100) 
-                return ("你的杖法还不到家，学不了「横行无忌」！\n"); 
+        if (me->query_skill("lingshe-zhangfa", 1) < 100)
+                return ("你的杖法还不到家，学不了「横行无忌」！\n");
 
-        command("say 好吧，你看好了。");  
-        tell_object(me, HIR"欧阳峰将「横行无忌」演练了一遍，你心里默默暗记，心中惊叹不已。\n"NOR);  
-        if (me->can_improve_skill("staff")) 
-                me->improve_skill("staff", 1500000); 
-        if (me->can_improve_skill("staff")) 
-                me->improve_skill("staff", 1500000); 
-        if (me->can_improve_skill("lingshe-zhangfa")) 
-                me->improve_skill("lingshe-zhangfa", 1500000); 
-        if (me->can_improve_skill("lingshe-zhangfa")) 
-                me->improve_skill("lingshe-zhangfa", 1500000); 
-        me->improve_skill("martial-cognize", 1500000); 
+        command("say 好吧，你看好了。");
+        tell_object(me, HIR"欧阳峰将「横行无忌」演练了一遍，你心里默默暗记，心中惊叹不已。\n"NOR);
+        if (me->can_improve_skill("staff"))
+                me->improve_skill("staff", 1500000);
+        if (me->can_improve_skill("staff"))
+                me->improve_skill("staff", 1500000);
+        if (me->can_improve_skill("lingshe-zhangfa"))
+                me->improve_skill("lingshe-zhangfa", 1500000);
+        if (me->can_improve_skill("lingshe-zhangfa"))
+                me->improve_skill("lingshe-zhangfa", 1500000);
+        me->improve_skill("martial-cognize", 1500000);
         me->set("can_perform/lingshe-zhangfa/wuji", 1);
         me->add("gongxian",-500);
-        return 1;   
+        return 1;
 }
 
 mixed ask_skill2()
@@ -208,7 +208,7 @@ mixed ask_skill2()
 
         if (me->query("shen") > -40000)
                 return "你这人手段不够狠毒，我现在还不能传你绝招！";
-                
+
                 if (me->query("gongxian") < 800)
                 return "你为我欧阳家效力还不够，这招我先不忙传你。";
 
@@ -222,15 +222,15 @@ mixed ask_skill2()
         command("heihei");
         command("say 我演示的这么清楚，你看懂了没有？");
         tell_object(me, HIG "你学会了千蛇出洞。\n" NOR);
-        if (me->can_improve_skill("staff")) 
-                me->improve_skill("staff", 1500000); 
-        if (me->can_improve_skill("staff")) 
-                me->improve_skill("staff", 1500000); 
-        if (me->can_improve_skill("lingshe-zhangfa")) 
-                me->improve_skill("lingshe-zhangfa", 1500000); 
-        if (me->can_improve_skill("lingshe-zhangfa")) 
-                me->improve_skill("lingshe-zhangfa", 1500000); 
-        me->improve_skill("martial-cognize", 1500000); 
+        if (me->can_improve_skill("staff"))
+                me->improve_skill("staff", 1500000);
+        if (me->can_improve_skill("staff"))
+                me->improve_skill("staff", 1500000);
+        if (me->can_improve_skill("lingshe-zhangfa"))
+                me->improve_skill("lingshe-zhangfa", 1500000);
+        if (me->can_improve_skill("lingshe-zhangfa"))
+                me->improve_skill("lingshe-zhangfa", 1500000);
+        me->improve_skill("martial-cognize", 1500000);
         me->set("can_perform/lingshe-zhangfa/qianshe", 1);
         me->add("gongxian",-800);
         return 1;
@@ -249,7 +249,7 @@ mixed ask_skill3()
 
         if (me->query("shen") > -120000)
                 return "你行事还不够狠毒，学不会这招「千蛇万噬」！";
-                
+
                 if (me->query("gongxian") < 1000)
                 return "你为我欧阳家效力还不够，这招我先不忙传你。";
 
@@ -264,15 +264,15 @@ mixed ask_skill3()
         command("smile");
         command("say 你可明白了？");
         tell_object(me, HIG "你学会了千蛇万噬。\n" NOR);
-        if (me->can_improve_skill("staff")) 
-                me->improve_skill("staff", 1500000); 
-        if (me->can_improve_skill("staff")) 
-                me->improve_skill("staff", 1500000); 
-        if (me->can_improve_skill("lingshe-zhangfa")) 
-                me->improve_skill("lingshe-zhangfa", 1500000); 
-        if (me->can_improve_skill("lingshe-zhangfa")) 
-                me->improve_skill("lingshe-zhangfa", 1500000); 
-        me->improve_skill("martial-cognize", 1500000); 
+        if (me->can_improve_skill("staff"))
+                me->improve_skill("staff", 1500000);
+        if (me->can_improve_skill("staff"))
+                me->improve_skill("staff", 1500000);
+        if (me->can_improve_skill("lingshe-zhangfa"))
+                me->improve_skill("lingshe-zhangfa", 1500000);
+        if (me->can_improve_skill("lingshe-zhangfa"))
+                me->improve_skill("lingshe-zhangfa", 1500000);
+        me->improve_skill("martial-cognize", 1500000);
         me->set("can_perform/lingshe-zhangfa/wanshi", 1);
         me->add("gongxian",1000);
         return 1;

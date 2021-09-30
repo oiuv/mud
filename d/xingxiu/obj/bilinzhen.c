@@ -17,9 +17,9 @@ void create()
                 set("base_value", 0);
                 set("material", "iron");
                 set("long", HIG "碧磷针是星宿派使用的，暗器，常常"
-			    "淬毒。针长寸许，发出诡异的光。\n" NOR);
+                "淬毒。针长寸许，发出诡异的光。\n" NOR);
                 set("wield_msg", HIC "$N迅速地从身上摸出一些碧磷针，捏"
-		                 "在手中就待发出！\n" NOR);
+                         "在手中就待发出！\n" NOR);
                 set("unwield_msg", HIC "$N将手里剩下的碧磷针一抖就不见了"
                                    "。\n"NOR);
         }

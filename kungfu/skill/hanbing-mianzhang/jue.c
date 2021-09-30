@@ -43,35 +43,35 @@ int perform(object me, object target)
         msg = HIC "\n$N" HIC "双掌陡然连续拍出，掌风阴寒无比，一招"
               "「" HIG "连绵不绝" HIC "」，已连连罩向$n" HIC "。\n" NOR;
         message_sort(msg, me, target);
-		
-		if (ap / 2 + random(ap) > dp)
-			count = ap / 2;
-		else
-			count = 0;
-	
-	    attack_time += 3 + random(ap / 40);
+
+        if (ap / 2 + random(ap) > dp)
+            count = ap / 2;
+        else
+            count = 0;
+
+        attack_time += 3 + random(ap / 40);
 
         if (attack_time > 7)
                 attack_time = 7;
 
-	me->add("neili", -attack_time * 30);
+    me->add("neili", -attack_time * 30);
         //me->add_temp("apply/attack", 10);
-		me->add_temp("apply/attack", count); 
-	me->add_temp("apply/damage", count / 2);
+        me->add_temp("apply/attack", count);
+    me->add_temp("apply/damage", count / 2);
 
-	for (i = 0; i < attack_time; i++)
-	{
-		if (! me->is_fighting(target))
-			break;
-                if (! target->is_busy() && random(3) == 1) 
+    for (i = 0; i < attack_time; i++)
+    {
+        if (! me->is_fighting(target))
+            break;
+                if (! target->is_busy() && random(3) == 1)
                         target->start_busy(1);
 
                 COMBAT_D->do_attack(me, target, 0, 0);
-	}
-	me->start_busy(1 + random(attack_time));
+    }
+    me->start_busy(1 + random(attack_time));
         //me->add_temp("apply/attack", -10);
-		me->add_temp("apply/attack", -count); 
-	me->add_temp("apply/damage", -count / 2);
+        me->add_temp("apply/attack", -count);
+    me->add_temp("apply/damage", -count / 2);
 
-	return 1;
+    return 1;
 }

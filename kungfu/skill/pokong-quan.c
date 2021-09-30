@@ -5,7 +5,7 @@ mapping *action = ({
 ([      "action" : "$N使一招「空空如也」，左手斜出，一拳向$n的$l打去",
         "force"  : 10,
         "dodge"  : 30,
-        "parry"  : 25,       
+        "parry"  : 25,
         "lvl"    : 0,
         "damage_type" : "瘀伤",
         "skill_name"  : "空空如也",
@@ -13,7 +13,7 @@ mapping *action = ({
 ([      "action" : "$N使一招「长空无限」，右手挥出，劈向$n的$l",
         "force" : 25,
         "dodge" : 48,
-        "parry" : 30,        
+        "parry" : 30,
         "lvl"   : 10,
         "damage_type" : "瘀伤",
         "skill_name"  : "长空无限",
@@ -21,15 +21,15 @@ mapping *action = ({
 ([      "action" : "$N双手回撤，忽地反转，一式「天下大乱」，击向$n的$l",
         "force"  : 35,
         "dodge"  : 50,
-        "parry"  : 45,        
+        "parry"  : 45,
         "lvl"    : 20,
         "damage_type" : "瘀伤",
-        "skill_name"  : "天下大乱", 
+        "skill_name"  : "天下大乱",
 ]),
 ([      "action" : "$N双手分开，左右齐出，一招「力破千军」，分击$n的面门和$l",
         "force" : 42,
         "dodge" : 44,
-        "parry" : 71,      
+        "parry" : 71,
         "lvl"   : 30,
         "damage_type" : "瘀伤",
          "skill_name" : "力破千军",
@@ -37,7 +37,7 @@ mapping *action = ({
 ([      "action" : "$N单脚踏出，屈身向前，一式「无声无息」，击向$n$l",
         "force"  : 50,
         "dodge"  : 55,
-        "parry"  : 60,       
+        "parry"  : 60,
         "lvl"    : 42,
         "damage_type" : "瘀伤",
         "skill_name"  : "无声无息",
@@ -45,7 +45,7 @@ mapping *action = ({
 ([      "action" : "$N双手猛然回收，突然右拳直出，一式「鹰击长空」向$n的$l打去",
         "force"  : 60,
         "dodge"  : 60,
-        "parry"  : 62,        
+        "parry"  : 62,
         "lvl"    : 55,
         "damage_type" : "瘀伤",
         "skill_name"  : "鹰击长空",
@@ -53,7 +53,7 @@ mapping *action = ({
 ([      "action" : "$N快步向前，一招「空玄来风」，左拳直击$n$l",
         "force"  : 70,
         "dodge"  : 54,
-        "parry"  : 71,     
+        "parry"  : 71,
         "lvl"    : 65,
         "damage_type" : "瘀伤",
         "skill_name"  : "空玄来风",
@@ -61,7 +61,7 @@ mapping *action = ({
 ([      "action" : "$N拳风凌厉，拳速猛然变快，一式「长吟破空」双拳已到$n$l",
         "force"  : 80,
         "dodge"  : 76,
-        "parry"  : 80,       
+        "parry"  : 80,
         "lvl"    : 80,
         "damage_type" : "瘀伤",
         "skill_name"  : "长吟破空",
@@ -70,7 +70,7 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "cuff" || usage == "parry";
+    return usage == "cuff" || usage == "parry";
 }
 
 int valid_combine(string combo)

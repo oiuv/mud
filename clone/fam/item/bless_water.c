@@ -6,17 +6,17 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIW "乾坤圣水" NOR, ({ "bless water", "water" }) );
-	set_weight(30);
+    set_name(HIW "乾坤圣水" NOR, ({ "bless water", "water" }) );
+    set_weight(30);
 
-	if (clonep())
-		set_default_object(__FILE__);
+    if (clonep())
+        set_default_object(__FILE__);
         else {
                 set("long", HIW "一瓶莹剔透圣水，散射出绚目的光彩。\n"
                             "他可以用来圣化（bless）兵器或防具。\n" NOR);
                 set("value", 1);
                 set("no_sell", 1);
-        	set("unit", "瓶");
+            set("unit", "瓶");
         }
 
         setup();
@@ -46,7 +46,7 @@ int do_bless(string arg)
 
         if (! ob->is_item_make())
                 return notify_fail("你只能圣化自造兵器或防具！\n");
-        
+
         if (! stringp(ob->item_owner()) ||
               ob->item_owner() != me->query("id"))
                 return notify_fail("你只能圣化自己的兵器或防具！\n");

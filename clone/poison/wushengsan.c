@@ -11,7 +11,7 @@ void create()
                 set("unit", "盒");
                 set("long", HIW "这便是五毒教的独门秘药五圣散，可置人于死地。\n" NOR);
                 set("value", 50);
-		set("poison_type", "poison");
+        set("poison_type", "poison");
                 set("can_pour", 1);
                 set("can_daub", 1);
                 set("can_drug", 1);
@@ -22,7 +22,7 @@ void create()
                         "duration": 20,
                 ]));
                 set("no_sell", 1);
-		set("only_do_effect", 1);
+        set("only_do_effect", 1);
         }
         setup();
 }

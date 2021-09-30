@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 
 inherit ROOM;
 
@@ -41,9 +41,9 @@ int valid_leave (object who, string dir)
                                 who->start_busy(1, 1);
                                 return notify_fail(HIR "你禁不住踉跄了几下，两腿突然"
                                                    "一软。\n\n" NOR);
-                        } 
+                        }
                 }
-        	return 1;
+            return 1;
         }
 }
 
@@ -57,4 +57,3 @@ void fall_down1 (object who, object where)
 {
         this_player()->unconcious();
 }
-

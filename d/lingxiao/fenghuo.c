@@ -10,7 +10,7 @@ void create()
 窗外，正牙关紧咬,似有无限恨事。
 LONG);
         set("exits", ([
-            	"west" : __DIR__"houyuan2",
+                "west" : __DIR__"houyuan2",
         ]));
         set("objects", ([
                 __DIR__"npc/feng" : 1,

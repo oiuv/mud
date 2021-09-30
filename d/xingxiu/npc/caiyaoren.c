@@ -25,6 +25,5 @@ void create()
         carry_object("/d/xingxiu/obj/yaochu")->wield();
 
         if (random(10) > 8)
-        	carry_object("/clone/fam/pill/xuelian1");
+            carry_object("/clone/fam/pill/xuelian1");
 }
-

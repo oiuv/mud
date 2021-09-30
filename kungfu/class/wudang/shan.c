@@ -9,7 +9,7 @@ mixed ask_me();
 
 void create()
 {
-        set_name("张翠山", ({ "zhang cuishan", "zhang", "cuishan" }));  
+        set_name("张翠山", ({ "zhang cuishan", "zhang", "cuishan" }));
         set("nickname", HIC "武当五侠" NOR);
         set("long", "他就是张三丰的五弟子、武当七侠之中的张翠山。\n"
                     "身穿一件干干净净的白色道袍。\n");
@@ -73,9 +73,9 @@ void create()
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
                 (: perform_action, "strike.zheng" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-		(: exert_function, "shield" :),
+                (: exert_function, "recover" :),
+                (: exert_function, "powerup" :),
+                (: exert_function, "shield" :),
         }) );
 
         set("coagents", ({
@@ -94,7 +94,7 @@ void init()
 
         ::init();
         if (interactive(ob = this_player()) && ! is_fighting())
-	{
+        {
                 remove_call_out("greeting");
                 call_out("greeting", 2, ob);
         }

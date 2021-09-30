@@ -12,17 +12,17 @@ void create ()
 LONG);
         /*
         set("item_desc", ([
-        	"gaoshi": ""
+            "gaoshi": ""
         ]) );
         */
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 2
-        	"south" : __DIR__"yamen-datang",
-        	"north" : __DIR__"qinglong3",
+            "south" : __DIR__"yamen-datang",
+            "north" : __DIR__"qinglong3",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
-        	__DIR__"npc/yayi" : 4,
+            __DIR__"npc/yayi" : 4,
         ]));
 
         setup();

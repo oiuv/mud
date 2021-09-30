@@ -49,7 +49,7 @@ int perform(object me, object target)
                        "不清真伪，只得拼命运动抵挡。\n" NOR;
                 count = lvl / 10;
                 me->add_temp("apply/attack", count);
-				me->add_temp("apply/unarmed_damage", count / 2);
+                me->add_temp("apply/unarmed_damage", count / 2);
         } else
         {
                 msg += HIC "可是$n" HIC "凝神顿气，奋力抵挡，丝"
@@ -66,6 +66,6 @@ int perform(object me, object target)
         }
         me->start_busy(1 + random(5));
         me->add_temp("apply/attack", -count);
-		me->add_temp("apply/unarmed_damage", -count / 2);
+        me->add_temp("apply/unarmed_damage", -count / 2);
         return 1;
 }

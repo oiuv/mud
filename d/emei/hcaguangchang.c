@@ -9,22 +9,22 @@ void create()
 台上，红烛高烧，香烟飘绕。广场上几个小师太正在练功。自
 此左右各有一条走廊通向后殿。
 LONG);
-      	set("objects", ([
-           	CLASS_D("emei") + "/xu" : 1,
-      	]));
+          set("objects", ([
+               CLASS_D("emei") + "/xu" : 1,
+          ]));
 
-      	set("outdoors", "emei");
+          set("outdoors", "emei");
 
-      	set("exits", ([
-          	"north" : __DIR__"hcazhengdian", 
-          	"south" : __DIR__"hcadadian", 
-          	"west"  : __DIR__"hcawest1", 
-          	"east"  : __DIR__"hcaeast1", 
-      	]));
+          set("exits", ([
+              "north" : __DIR__"hcazhengdian",
+              "south" : __DIR__"hcadadian",
+              "west"  : __DIR__"hcawest1",
+              "east"  : __DIR__"hcaeast1",
+          ]));
 
-      	set("valid_startroom", 1);
+          set("valid_startroom", 1);
 
-      	setup();
-      	replace_program(ROOM);
-      	"/clone/board/emei_b"->foo();
+          setup();
+          replace_program(ROOM);
+          "/clone/board/emei_b"->foo();
 }

@@ -7,12 +7,12 @@ inherit CLASS_D("generate") + "/chinese";
 void create()
 {
         ::create();
-	set("gender", "男性" );
-	set("age", 15 + random(20));
-	set("long", "");
-	set("attitude", "friendly");
+    set("gender", "男性" );
+    set("age", 15 + random(20));
+    set("long", "");
+    set("attitude", "friendly");
         set("chat_chance_combat", 120);
-	set_temp("apply/damage", 15);
+    set_temp("apply/damage", 15);
 }
 
 void init_man(mapping p)
@@ -26,7 +26,7 @@ void init_man(mapping p)
         my["jingli"] = my["max_jingli"] = p["neili"] / 4;
         my["jiali"] = query_skill("force") / 2;
 
-	set_temp("apply/armor", 100);
+    set_temp("apply/armor", 100);
 }
 
 void kill_ob(object ob)
@@ -69,7 +69,7 @@ int accept_kill(object ob)
 
         message_vision("$N一声冷笑，道：“岂有此理！接招吧！”\n",
                        this_object());
-	return 1;
+    return 1;
 }
 
 void destruct_by_owner()

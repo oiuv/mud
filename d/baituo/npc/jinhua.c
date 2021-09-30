@@ -59,10 +59,10 @@ int accept_object(object who, object ob)
         object obn;
 
         if (! who || environment(who) != environment())
-		return 0;
+        return 0;
 
         if (! objectp(ob))
-		return 0;
+        return 0;
 
         if (! present(ob, who))
                 return notify_fail("你没有这件东西。\n");

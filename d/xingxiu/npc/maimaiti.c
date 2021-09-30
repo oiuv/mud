@@ -37,7 +37,7 @@ void init()
         add_action("do_buy", "buy");
         add_action("do_list", "list");
         if (interactive(ob = this_player()) && ! is_fighting())
-	{
+    {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
         }
@@ -55,4 +55,3 @@ void greeting(object ob)
                         break;
         }
 }
-

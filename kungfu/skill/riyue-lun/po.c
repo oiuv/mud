@@ -7,23 +7,23 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-	string msg, wp;
+    object weapon;
+    string msg, wp;
     int ap, dp, damage;
-	
-		float improve;
-		int lvl, i, n;
-		string martial;
-		string *ks;
-		martial = "hammer";
+
+        float improve;
+        int lvl, i, n;
+        string martial;
+        string *ks;
+        martial = "hammer";
 
         if (userp(me) && ! me->query("can_perform/riyue-lun/po"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
-		if (! target ) target = offensive_target(me);
+        if (! target ) target = offensive_target(me);
 
-		if (! target || ! me->is_fighting(target))
-				return notify_fail(PO "只能对战斗中的对手使用。\n");
+        if (! target || ! me->is_fighting(target))
+                return notify_fail(PO "只能对战斗中的对手使用。\n");
 
         if ((int)me->query_temp("yuan_man"))
                 return notify_fail("你现在无暇施展" PO "。\n");
@@ -55,51 +55,51 @@ int perform(object me, object target)
 
         wp = weapon->name();
 
-	msg = HIY "$N" HIY "单手高举" + wp + HIY "奋力朝$n" HIY "砸下，气"
+    msg = HIY "$N" HIY "单手高举" + wp + HIY "奋力朝$n" HIY "砸下，气"
               "浪迭起，全然把$n" HIY "卷在其中！\n" NOR;
 
-	lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-	lvl = lvl * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (i = 0; i < sizeof(ks); i++)
-		{
-			if (SKILL_D(ks[i])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[i], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 4 / 100 / lvl;
-			  
-	ap = me->query_skill("force") + me->query("str") * 10;
-	dp = target->query_skill("force") + target->query("con") * 10;
-	
-	ap += ap * improve;
+    lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+    lvl = lvl * 4 / 5;
+        ks = keys(me->query_skills(martial));
+        improve = 0;
+        n = 0;
+        //最多给予5个技能的加成
+        for (i = 0; i < sizeof(ks); i++)
+        {
+            if (SKILL_D(ks[i])->valid_enable(martial))
+            {
+                n += 1;
+                improve += (int)me->query_skill(ks[i], 1);
+                if (n > 4 )
+                    break;
+            }
+        }
 
-	if (ap / 2 + random(ap) > dp)
-	{
-		me->add("neili", -300);
-		damage = ap / 2 + random(ap / 2);
+        improve = improve * 4 / 100 / lvl;
+
+    ap = me->query_skill("force") + me->query("str") * 10;
+    dp = target->query_skill("force") + target->query("con") * 10;
+
+    ap += ap * improve;
+
+    if (ap / 2 + random(ap) > dp)
+    {
+        me->add("neili", -300);
+        damage = ap / 2 + random(ap / 2);
                 msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 50,
                                            HIR "$n" HIR "被$N" HIR "这强悍无比的"
                                            "内劲冲击得左摇右晃，接连中招，狂喷鲜"
                                            "血。\n" NOR);
-		me->start_busy(3);
+        me->start_busy(3);
 
-	} else
-	{
-		msg += CYN "却见$p" CYN "浑不在意，轻轻一闪就躲过了$P"
-		       CYN "的凶悍招数。\n"NOR;
-		me->add("neili", -150);
-		me->start_busy(2);
-	}
-	message_combatd(msg, me, target);
+    } else
+    {
+        msg += CYN "却见$p" CYN "浑不在意，轻轻一闪就躲过了$P"
+               CYN "的凶悍招数。\n"NOR;
+        me->add("neili", -150);
+        me->start_busy(2);
+    }
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

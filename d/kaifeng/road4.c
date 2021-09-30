@@ -10,9 +10,9 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"southdown" : __DIR__"road3",
-  		"northdown" : __DIR__"road5",
-	]));
+          "southdown" : __DIR__"road3",
+          "northdown" : __DIR__"road5",
+    ]));
         set("objects", ([
                 CLASS_D("honghua") + "/lu" : 1,
                 "/clone/npc/walker" : 1,

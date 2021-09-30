@@ -6,16 +6,16 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIR "无名仙丹" NOR, ({ "unknow xiandan", "unknow", "xiandan"}));
-	set_weight(200);
-	if( clonep() )
-		set_default_object(__FILE__);
-	else {
-		set("long", HIR "一颗园园的火红仙丹，不知道有什么用处。\n" NOR);
-		set("value", 10000);
-		set("unit", "颗");
-		set("only_do_effect", 1);
-	}
+    set_name(HIR "无名仙丹" NOR, ({ "unknow xiandan", "unknow", "xiandan"}));
+    set_weight(200);
+    if( clonep() )
+        set_default_object(__FILE__);
+    else {
+        set("long", HIR "一颗园园的火红仙丹，不知道有什么用处。\n" NOR);
+        set("value", 10000);
+        set("unit", "颗");
+        set("only_do_effect", 1);
+    }
 }
 
 int do_effect(object me)
@@ -33,12 +33,12 @@ int do_effect(object me)
         } else
         {
                 tell_object(me, HIM "霎时间你觉得腿骨欲裂，一时疼痛难"
-			    "忍，晕了过去。\n" NOR);
+                "忍，晕了过去。\n" NOR);
                 me->add("dex", 1);
                 me->unconcious();
         }
 
         me->add("gift/xiandan/dex", 1);
         destruct(this_object());
-	return 1;
+    return 1;
 }

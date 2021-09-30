@@ -172,8 +172,8 @@ int do_push(string arg)
 
         if (objectp(room))
         {
-    	        if ((int)room->query_temp("person_inside") <= 0)
-    	        {
+                if ((int)room->query_temp("person_inside") <= 0)
+                {
                         room->delete_temp("person_inside");
                         set("exits/south", __DIR__"xiuxishi");
                         message_vision("$N轻轻地把门推开。\n", this_player());
@@ -226,16 +226,16 @@ int valid_leave(object me, string dir)
 int force_open(object room)
 {
         if (! objectp(room)) return 0;
-    	if ((int)room->query_temp("person_inside")<=0) return 0;
+        if ((int)room->query_temp("person_inside")<=0) return 0;
 
         room->delete_temp("person_inside");
-    	set("exits/north", __DIR__"xiuxishi");
-    	room->set("exits/south", __FILE__);
-    	message("vision", "外面突然响起粗重的脚步声，由远而近，到门前停了下来．．．\n"
-        		  "几个弟子一下子把门打开，伸个头进来，骂骂咧咧道：什么鸟人\n"
-			  "在里面磨磨蹭蹭的？\n", room);
-    	remove_call_out("close_men");
-    	call_out("close_men", 10);
+        set("exits/north", __DIR__"xiuxishi");
+        room->set("exits/south", __FILE__);
+        message("vision", "外面突然响起粗重的脚步声，由远而近，到门前停了下来．．．\n"
+                  "几个弟子一下子把门打开，伸个头进来，骂骂咧咧道：什么鸟人\n"
+              "在里面磨磨蹭蹭的？\n", room);
+        remove_call_out("close_men");
+        call_out("close_men", 10);
 
-    	return 1;
+        return 1;
 }

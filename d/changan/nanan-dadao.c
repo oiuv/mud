@@ -10,10 +10,10 @@ void create ()
 来的旅客和商人。南安大道再向南就是长安城的南城门，往北是故皇宫
 的青龙街。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 2
-		"south" : __DIR__"nanan-daokou",
-        	"north" : __DIR__"qinglong2",
+        "south" : __DIR__"nanan-daokou",
+            "north" : __DIR__"qinglong2",
                 "east"  : __DIR__"gongbu",
         ]));
 

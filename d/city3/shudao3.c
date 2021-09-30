@@ -10,9 +10,9 @@ void create()
 才是归途。
 LONG);
         set("exits", ([
-  		"northeast" :  __DIR__"shudao2",
-  		"west" : __DIR__"shudao4",
-   	]));
+          "northeast" :  __DIR__"shudao2",
+          "west" : __DIR__"shudao4",
+       ]));
         set("no_clean_up", 0);
         set("outdoors", "chengdu");
 

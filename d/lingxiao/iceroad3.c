@@ -10,10 +10,10 @@ void create()
 LONG);
         set("outdoors", "lingxiao");
         set("exits", ([
-            	"south" : __DIR__"iceroad2",
-            	"north" : __DIR__"meiroad1",
-            	"west"  : __DIR__"car",
-            	"east"  : __DIR__"jianyuting",
+                "south" : __DIR__"iceroad2",
+                "north" : __DIR__"meiroad1",
+                "west"  : __DIR__"car",
+                "east"  : __DIR__"jianyuting",
         ]));
         set("objects", ([
                 __DIR__"npc/dizi" : 2,
@@ -21,4 +21,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

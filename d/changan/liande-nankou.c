@@ -10,14 +10,14 @@ void create ()
 笼，每当暮色降临，这里灯火通明。南面有一家小酒馆，里面隐隐传来
 划拳行令的声音。北方通向连德大道。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 3
-        	"west" : __DIR__"huarui6",
-        	"north" : __DIR__"liande-dadao5",
-        	"south" : __DIR__"xiaojiuguan"
+            "west" : __DIR__"huarui6",
+            "north" : __DIR__"liande-dadao5",
+            "south" : __DIR__"xiaojiuguan"
         ]));
 
-        set("outdoors", "changan");  
+        set("outdoors", "changan");
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

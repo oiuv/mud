@@ -50,14 +50,14 @@ string ask_me()
         object me = this_player();
 
         if (query("count") < 1)
-	{
+    {
                 return "实在对不住，现在我手里也没货了。\n";
         } else
         if (me->query_temp("tmark/药"))
-	{
+    {
                 return "我走南闯北，没见过你这么罗嗦的人。\n";
         } else
-	{
+    {
                 me->set_temp("tmark/药", 1);
                 return "我到极北森林中采药，还真遇到了一些好药材，要买得先交钱。\n";
         }
@@ -68,28 +68,28 @@ int accept_object(object who, object ob)
         object obj;
 
         if (! ob->query("money_id"))
-	{
+    {
                 write(CYN "小贩诧异地说道：你给我这个干什么？\n" NOR);
                 return 0;
-	}
+    }
 
         if (query("count") < 1)
-	{
+    {
                 write(CYN "小贩抱歉地说道：实在对不住，现在我手里也没货了？\n" NOR);
                 return 0;
-	}
+    }
 
         if (! who->query_temp("tmark/药"))
-	{
+    {
                 write(CYN "小贩疑惑地说道：我又不是乞丐，你没事给我钱干嘛？\n" NOR);
                 return 0;
-	}
+    }
 
         if (ob->value() < 10000)
-	{
+    {
                 write(CYN "小贩阴笑着说道：嘿嘿，给我这么多钱哪。\n" NOR);
                 return 0;
-	}
+    }
 
         obj = new(__DIR__"obj/shouwu");
         obj->move(this_object());

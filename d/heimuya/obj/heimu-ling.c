@@ -12,7 +12,7 @@ void create()
                 set("unit", "面");
                 set("long","这是一块是块枯焦的黑色木头，长约半尺，上
 面雕刻有花纹文字，看来十分诡异。\n");
-//		set("no_drop", "这样东西不能离开你。\n");
+//        set("no_drop", "这样东西不能离开你。\n");
                 set("material", "wood");
         }
 }

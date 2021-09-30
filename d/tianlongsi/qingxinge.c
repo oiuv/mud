@@ -9,13 +9,13 @@ void create()
 LONG
         );
         set("exits", ([
-		"south": __DIR__"doushuai",
+        "south": __DIR__"doushuai",
                 "north" : __DIR__"wuwujing",
-	]));
-	set("objects",([
+    ]));
+    set("objects",([
                 __DIR__"npc/xiaoshami" : 2,
         ]));
-	set("sleep_room", 1);
+    set("sleep_room", 1);
         set("no_fight",1);
         set("no_steal",1);
         set("no_clean_up", 0);

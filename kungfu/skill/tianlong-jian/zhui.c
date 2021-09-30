@@ -49,7 +49,7 @@ int perform(object me, object target)
         ap = me->query_skill("sword");
         dp = target->query_skill("parry");
 
-	damage = ap / 3 + random(ap / 2);
+    damage = ap / 3 + random(ap / 2);
 
         msg = HIM "$N" HIM "一声清啸，手中" + weapon->name() + HIM "急速旋转，剑尖"
               "作锥，剑身顿时腾起一股旋风，向$n" HIM "钻去。\n" NOR;
@@ -75,9 +75,9 @@ int perform(object me, object target)
                                            "，胸口便喷出一股血柱！\n" NOR);
         } else
         {
-        	msg += CYN "可是$n" CYN "凝神聚气，飞身一跃而起，避开了$N"
+            msg += CYN "可是$n" CYN "凝神聚气，飞身一跃而起，避开了$N"
                        CYN "的杀着。\n" NOR;
-	}
+    }
         me->start_busy(2 + random(3));
         me->add("neili", -350);
         message_combatd(msg, me, target);

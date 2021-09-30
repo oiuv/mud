@@ -10,8 +10,8 @@ LONG);
         set("outdoors", "jingzhou");
         set("exits", ([
                 "northup" : __DIR__"chibi3",
-		"west" : __DIR__"chibi5",                
+        "west" : __DIR__"chibi5",
         ]));
         setup();
         replace_program(ROOM);
-} 
+}

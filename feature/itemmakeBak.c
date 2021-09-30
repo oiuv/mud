@@ -11,15 +11,15 @@ inherit F_NOCLONE;
 
 int is_item_make() { return 1; }
 
-#define	LEVEL1		5
-#define	LEVEL2		10
-#define	LEVEL3		30
-#define	LEVEL4		100
-#define	LEVEL5		300
-#define	LEVEL6		1000
-#define	LEVEL7		3000
-#define	LEVEL8		10000
-#define	LEVEL9		50000
+#define    LEVEL1        5
+#define    LEVEL2        10
+#define    LEVEL3        30
+#define    LEVEL4        100
+#define    LEVEL5        300
+#define    LEVEL6        1000
+#define    LEVEL7        3000
+#define    LEVEL8        10000
+#define    LEVEL9        50000
 #define MAX_LEVEL       LEVEL9
 #define ULTRA_LEVEL     (LEVEL9 + 1)
 
@@ -58,7 +58,7 @@ int is_not_belong_me(object me)
 {
         string user;
 
-	user = query("user");
+    user = query("user");
         if (! user || ! sscanf(user, "%*s(" + me->query("id") + ")"))
                 return 1;
 
@@ -425,12 +425,12 @@ int restore()
 // 保存数据
 int save()
 {
-//	int res;
+//    int res;
 
         if (base_name(this_object()) + ".c" == __FILE__)
                 return 0;
 
-	return ::save();
+    return ::save();
 }
 
 // 9/10级兵器攻击对手
@@ -441,7 +441,7 @@ mixed weapon_hit_ob(object me, object victim, int damage_bonus)
 //      int damage;
 
         if (attack_lvl < MAX_LEVEL ||
-	    query("owner/" + me->query("id")) < MAX_LEVEL * 80)
+        query("owner/" + me->query("id")) < MAX_LEVEL * 80)
                 return;
 
         if (attack_lvl >= ULTRA_LEVEL &&
@@ -459,13 +459,13 @@ mixed weapon_hit_ob(object me, object victim, int damage_bonus)
 // 杀了人以后的奖励
 void killer_reward(object me, object victim)
 {
-	ITEM_D->killer_reward(me, victim, this_object());
+    ITEM_D->killer_reward(me, victim, this_object());
 }
 
 // 呼唤物品
 int receive_summon(object me)
 {
-	return ITEM_D->receive_summon(me, this_object());
+    return ITEM_D->receive_summon(me, this_object());
 }
 
 // 隐藏物品
@@ -489,7 +489,7 @@ int receive_miss(object me)
                 return 0;
         }
 
-	return ITEM_D->receive_miss(me, this_object());
+    return ITEM_D->receive_miss(me, this_object());
 }
 
 // 插在地上

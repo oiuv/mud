@@ -5,7 +5,7 @@ inherit HEAD;
 
 void create()
 {
-	set_name(HIB"蕙兰花"NOR, ({"flower", "hua"}));
+    set_name(HIB"蕙兰花"NOR, ({"flower", "hua"}));
         if( clonep() )
                 set_default_object(__FILE__);
         else {

@@ -8,17 +8,17 @@ int filter_user(object ob);
 
 void create()
 {
-	set_name(HIG "矿泉水" NOR, ({ "water" }));
-	set_weight(100);
-	if( clonep() )
-		set_default_object(__FILE__);
-	else {
+    set_name(HIG "矿泉水" NOR, ({ "water" }));
+    set_weight(100);
+    if( clonep() )
+        set_default_object(__FILE__);
+    else {
                 set("long", "这是一瓶矿泉水，可以治疗口干舌"
                             "燥，遭受飞弹袭击以后感觉格外良好。\n");
                 set("value", 8000);
                 set("no_sell", 1);
                 set("unit", "瓶");
-	}
+    }
 }
 
 void init()

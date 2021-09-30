@@ -20,9 +20,9 @@ LONG  );
             "south": __DIR__"shuwu",
         ]));
 
-	set("objects", ([
-		CLASS_D("murong") + "/murongbo" : 1,
-	]));
+    set("objects", ([
+        CLASS_D("murong") + "/murongbo" : 1,
+    ]));
         setup();
-	"/clone/board/murong_b"->foo();
+    "/clone/board/murong_b"->foo();
 }

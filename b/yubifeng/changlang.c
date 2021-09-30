@@ -11,7 +11,7 @@ LONG
         );
         set("exits", ([ /* sizeof() == 4 */
             "north" : __DIR__"dating",
-	    "out"   : __DIR__"damen"
+        "out"   : __DIR__"damen"
         ]));
         set("no_clean_up", 0);
 

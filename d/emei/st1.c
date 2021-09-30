@@ -19,18 +19,18 @@ LONG);
 
 void init()
 {
-    	add_action("do_wang", "wang");
+        add_action("do_wang", "wang");
 }
 
 int do_wang()
 {
-    	object ob = this_player();
+        object ob = this_player();
 
-    	message_vision(HIC "\n$N" HIC "极目四望，发现还是有出路的，于"
+        message_vision(HIC "\n$N" HIC "极目四望，发现还是有出路的，于"
                        "是求生试探之心大动。\n"NOR, ob);
 
-    	switch (random(4))
-    	{
+        switch (random(4))
+        {
         case 0 : set("exits/east", __DIR__"st1"); break;
         case 1 : set("exits/east", __DIR__"st2"); break;
         case 2 : set("exits/east", __DIR__"st1"); break;
@@ -64,15 +64,15 @@ int do_wang()
 
 void close_out()
 {
-    	if (query("exits/east"))
-		delete("exits/east");
+        if (query("exits/east"))
+        delete("exits/east");
 
-    	if (query("exits/west"))
-		delete("exits/west");
+        if (query("exits/west"))
+        delete("exits/west");
 
-    	if (query("exits/south"))
-		delete("exits/south");
+        if (query("exits/south"))
+        delete("exits/south");
 
-    	if (query("exits/north"))
-		delete("exits/north");
+        if (query("exits/north"))
+        delete("exits/north");
 }

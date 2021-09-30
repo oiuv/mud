@@ -61,10 +61,10 @@ int cure_ob(object me)
     tell_object(me, MAG "你张口轻轻一咬，蛇胆外皮便即破裂，登觉满口苦汁，腥极苦极，几乎要呕将出来。\n" + "可稍过片刻，你只觉呼吸顺畅，耳清目明，精神爽利，力气大增。\n" NOR);
 
     message("vision", MAG + me->name() + "吞下一颗蟒蛇胆，精神大旺，尤胜平时。\n" NOR, environment(me), ({me}));
-    //	me->start_call_out( (: call_other, __FILE__, "delete_benefit", me :), 800);
+    //    me->start_call_out( (: call_other, __FILE__, "delete_benefit", me :), 800);
     used = 1;
-    //	remove_call_out("decay");
-    //	move(VOID_OB);
+    //    remove_call_out("decay");
+    //    move(VOID_OB);
     destruct(this_object());
     return 1;
 }

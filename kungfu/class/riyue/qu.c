@@ -10,12 +10,12 @@ inherit F_COAGENT;
 void create()
 {
         object ob;
-	set_name("曲洋", ({ "qu yang", "qu", "yang"}));
+    set_name("曲洋", ({ "qu yang", "qu", "yang"}));
         set("title", "日月神教前辈长老");
-	set("gender", "男性" );
-	set("age", 45);
-	set("long", "他就是日月神教十大长老之一，琴技天下无双。\n" );
-	set("attitude", "friendly");
+    set("gender", "男性" );
+    set("age", 45);
+    set("long", "他就是日月神教十大长老之一，琴技天下无双。\n" );
+    set("attitude", "friendly");
 
         set("max_qi", 5400);
         set("max_jing", 4000);
@@ -41,10 +41,10 @@ void create()
         set_skill("jinyuan-gun", 220);
         set_skill("martial-cognize", 220);
         set_skill("literate", 180);
-	set_skill("chuixiao-jifa", 320);
-	set_skill("xiaoao-jianghu", 320);
+    set_skill("chuixiao-jifa", 320);
+    set_skill("xiaoao-jianghu", 320);
 
-	map_skill("chuixiao-jifa", "xiaoao-jianghu");
+    map_skill("chuixiao-jifa", "xiaoao-jianghu");
         map_skill("dodge", "juechen-shenfa");
         map_skill("force", "tianhuan-shenjue");
         map_skill("hammer", "pangu-qishi");
@@ -56,7 +56,7 @@ void create()
         prepare_skill("claw", "poyue-zhao");
         prepare_skill("cuff", "zhenyu-quan");
 
-	create_family("日月神教", 12, "长老");
+    create_family("日月神教", 12, "长老");
 
         set("coagents", ({
                 ([ "startroom" : "/d/henshan/furongfeng",
@@ -75,7 +75,7 @@ void create()
                 (: exert_function, "powerup" :),
         }));
 
-	setup();
+    setup();
 
         if (clonep())
         {

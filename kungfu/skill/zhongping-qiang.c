@@ -45,7 +45,7 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "club" || usage == "parry";
+    return usage == "club" || usage == "parry";
 }
 
 int valid_learn(object me)

@@ -9,10 +9,10 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	//object weapon;
-	string msg;
+    //object weapon;
+    string msg;
         int ap, dp;
-		int damage;
+        int damage;
         if (userp(me) && ! me->query("can_perform/yiyang-zhi/dian"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
@@ -47,39 +47,39 @@ int perform(object me, object target)
 
         //if (target->is_busy())
         //        return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");
-		if (target->query_temp("no_perform"))
+        if (target->query_temp("no_perform"))
                 return notify_fail("对方现在已经无法控制真气，放胆攻击吧。\n");
 
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIR "$N" HIR "凝聚一阳指诀功力，陡然点出一指，变化多端，巧逼$n"
+    msg = HIR "$N" HIR "凝聚一阳指诀功力，陡然点出一指，变化多端，巧逼$n"
               HIR "诸处大穴。\n" NOR;
 
         ap = me->query_skill("finger");
         dp = target->query_skill("parry");
 
-	if (ap / 2 + random(ap) > dp)
+    if (ap / 2 + random(ap) > dp)
         {
-/*		msg += HIR "结果$p" HIR "被$P" HIR "逼得招"
+/*        msg += HIR "结果$p" HIR "被$P" HIR "逼得招"
                        "架不迭，一时无法反击！\n" NOR;
-		target->start_busy((int)me->query_skill("finger") / 20 + 2);
+        target->start_busy((int)me->query_skill("finger") / 20 + 2);
 */
-		damage = ap / 4 + random(ap / 2);
+        damage = ap / 4 + random(ap / 2);
         msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 0, (: final, me, target, 0 :));
         me->start_busy(2);
         me->add("neili", -200);
 
-	} else
+    } else
         {
-		msg += CYN "可是$p" CYN "看破了$P" CYN "的变化，"
+        msg += CYN "可是$p" CYN "看破了$P" CYN "的变化，"
                        "小心招架，挡住了$P" CYN "的进击。\n" NOR;
-		me->start_busy(1);
-		me->add("neili", -100);
-	}
+        me->start_busy(1);
+        me->add("neili", -100);
+    }
 
-	message_combatd(msg, me, target);
-	return 1;
+    message_combatd(msg, me, target);
+    return 1;
 }
 
 string final(object me, object target)
@@ -105,6 +105,6 @@ void dian_end(object me, object target)
                                             "慢慢平静了下来。\n" NOR);
                 }
                 target->delete_temp("no_perform");
-	}
-	return;
+    }
+    return;
 }

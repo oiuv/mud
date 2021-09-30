@@ -6,7 +6,7 @@
 #include <combat.h>
 
 inherit F_SSERVER;
- 
+
 int perform(object me, object target)
 {
         mapping p;
@@ -16,8 +16,8 @@ int perform(object me, object target)
         int exp;
         int lvl;
 //      int sk;
-		int sk_lvl;
- 
+        int sk_lvl;
+
         if (! target)
                 return notify_fail("你要取哪条蛇的毒液练药？\n");
 
@@ -52,7 +52,7 @@ int perform(object me, object target)
         amount = p["level"] * p["remain"];
         if (amount > lvl)
                 amount = lvl;
-        
+
         if (! amount)
         {
                 msg += WHT "$N" WHT "挤了半天，结果啥也没有挤出来，算是白忙活了。\n\n" NOR;
@@ -77,8 +77,8 @@ int perform(object me, object target)
         message_vision(msg, me);
         tell_object(me, HIC "你炼制了一颗蛇毒药丸。\n" NOR);
 
-		sk_lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		
+        sk_lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+
         // improve skill
         exp = lvl;
         //me->improve_skill("poison", exp + random(exp));

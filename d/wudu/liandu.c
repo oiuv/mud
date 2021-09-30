@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 int do_lianzhi(string arg);
@@ -50,7 +50,7 @@ int do_lianzhi (string arg)
         if (arg != "heding hong" && arg != "furou gao" &&
             arg != "kongque dan" && arg != "chixie fen" &&
             arg != "wusheng san" && arg != "duanchang san")
-	        return notify_fail("你要炼制什么毒药？\n");
+            return notify_fail("你要炼制什么毒药？\n");
 
         if (arg == "heding hong")
         {
@@ -166,7 +166,7 @@ void liandu(object me)
         me->receive_damage("jing", 50 + random(30));
         me->receive_damage("qi", 50 + random(30));
 
-        if (random(skill) < 50 && random(3) == 1) 
+        if (random(skill) < 50 && random(3) == 1)
         {
                 me->delete_temp("liandu/wudu");
                 message_vision(HIR "\n突然间一股腥恶的焦臭至$N" HIR "身旁传"
@@ -177,101 +177,101 @@ void liandu(object me)
                                HIW "连忙小心翼翼地将药粉取出。\n" NOR, me);
 
                 if (me->query_temp("liandu/wudu") == "hedinghong")
-		{
-	                ob = new("/clone/poison/hedinghong");
-		        ob->set("poison", ([
-        		        "level" : lvl,
-                		"id"    : me->query("id"),
-                		"name"  : "鹤顶红剧毒",
-                		"duration" : 15,
-	        	]));
+        {
+                    ob = new("/clone/poison/hedinghong");
+                ob->set("poison", ([
+                        "level" : lvl,
+                        "id"    : me->query("id"),
+                        "name"  : "鹤顶红剧毒",
+                        "duration" : 15,
+                ]));
                         tell_object(me, HIY "你炼成了「" + NOR + ob->name()
                                         + NOR + HIY "」。\n" NOR);
-		} else
+        } else
 
                 if (me->query_temp("liandu/wudu") == "furougao")
-		{
-	                ob = new("/clone/poison/furougao");
-		        ob->set("poison", ([
-        		        "level" : lvl,
-                		"id"    : me->query("id"),
-                		"name"  : "腐肉膏剧毒",
-                		"duration" : 15,
-	        	]));
+        {
+                    ob = new("/clone/poison/furougao");
+                ob->set("poison", ([
+                        "level" : lvl,
+                        "id"    : me->query("id"),
+                        "name"  : "腐肉膏剧毒",
+                        "duration" : 15,
+                ]));
                         tell_object(me, HIY "你炼成了「" + NOR + ob->name()
                                         + NOR + HIY "」。\n" NOR);
-		} else
+        } else
 
                 if (me->query_temp("liandu/wudu") == "kongquedan")
-		{
-	                ob = new("/clone/poison/kongquedan");
-		        ob->set("poison", ([
-        		        "level" : lvl,
-                		"id"    : me->query("id"),
-                		"name"  : "孔雀胆剧毒",
-                		"duration" : 15,
-	        	]));
+        {
+                    ob = new("/clone/poison/kongquedan");
+                ob->set("poison", ([
+                        "level" : lvl,
+                        "id"    : me->query("id"),
+                        "name"  : "孔雀胆剧毒",
+                        "duration" : 15,
+                ]));
                         tell_object(me, HIY "你炼成了「" + NOR + ob->name()
                                         + NOR + HIY "」。\n" NOR);
-		} else
+        } else
 
                 if (me->query_temp("liandu/wudu") == "chixiefen")
-		{
-	                ob = new("/clone/poison/chixiefen");
-		        ob->set("poison", ([
-        		        "level" : lvl,
-                		"id"    : me->query("id"),
-                		"name"  : "赤蝎粉剧毒",
-                		"duration" : 15,
-	        	]));
+        {
+                    ob = new("/clone/poison/chixiefen");
+                ob->set("poison", ([
+                        "level" : lvl,
+                        "id"    : me->query("id"),
+                        "name"  : "赤蝎粉剧毒",
+                        "duration" : 15,
+                ]));
                         tell_object(me, HIY "你炼成了「" + NOR + ob->name()
                                         + NOR + HIY "」。\n" NOR);
-		} else
+        } else
 
                 if (me->query_temp("liandu/wudu") == "duanchangsan")
-		{
-	                ob = new("/clone/poison/duanchangsan");
-		        ob->set("poison", ([
-        		        "level" : lvl,
-                		"id"    : me->query("id"),
-                		"name"  : "断肠散剧毒",
-                		"duration" : 15,
-	        	]));
+        {
+                    ob = new("/clone/poison/duanchangsan");
+                ob->set("poison", ([
+                        "level" : lvl,
+                        "id"    : me->query("id"),
+                        "name"  : "断肠散剧毒",
+                        "duration" : 15,
+                ]));
                         tell_object(me, HIY "你炼成了「" + NOR + ob->name()
                                         + NOR + HIY "」。\n" NOR);
-		} else
+        } else
                 if (me->query_temp("liandu/wudu") == "wushengsan")
-		{
-	                ob = new("/clone/poison/wushengsan");
-		        ob->set("poison", ([
-        		        "level" : lvl + 20,
-                		"id"    : me->query("id"),
-                		"name"  : "五圣散剧毒",
-                		"duration" : 25,
-	        	]));
+        {
+                    ob = new("/clone/poison/wushengsan");
+                ob->set("poison", ([
+                        "level" : lvl + 20,
+                        "id"    : me->query("id"),
+                        "name"  : "五圣散剧毒",
+                        "duration" : 25,
+                ]));
                         tell_object(me, HIY "你炼成了五毒教独门秘药「" + NOR
                                         + ob->name() + NOR + HIY "」。\n" NOR);
 
-        		if (me->query("potential") >
-                           me->query_potential_limit()) 
-                		pot = 1;
+                if (me->query("potential") >
+                           me->query_potential_limit())
+                        pot = 1;
 
-	                me->add("combat_exp", exp);
-	                me->add("score", sco);
-		        me->improve_potential(pot);
+                    me->add("combat_exp", exp);
+                    me->add("score", sco);
+                me->improve_potential(pot);
 
                         tell_object(me, HIC "你获得了" + chinese_number(exp)
                                         + "点经验、" + chinese_number(pot) +
                                         "点潜能以及" + chinese_number(sco) +
-                                        "点江湖阅历。\n" NOR); 
-		}
+                                        "点江湖阅历。\n" NOR);
+        }
 
                 ob->move(me);
                 me->delete_temp("liandu/wudu");
 
                 me->improve_skill("poison", 50 + me->query("int"));
                 if (me->can_improve_skill("wudu-qishu"))
-                	me->improve_skill("wudu-qishu", 50 + me->query("int"));
+                    me->improve_skill("wudu-qishu", 50 + me->query("int"));
 
                 tell_object(me, HIC "炼毒过程中你的「基本毒技」和「五毒奇术」"
                                 "提高了！\n\n" NOR);

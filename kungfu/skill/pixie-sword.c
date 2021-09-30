@@ -50,7 +50,7 @@ int valid_learn(object me)
         return notify_fail("你的内力不够，没有办法练辟邪剑法。\n");
 
     if ((int)me->query_skill("sword", 1) < (int)me->query_skill("pixie-sword", 1))
-	return notify_fail("你的基本剑法水平有限，无法领会更高深的辟邪剑法。\n");
+    return notify_fail("你的基本剑法水平有限，无法领会更高深的辟邪剑法。\n");
 
     return 1;
 }
@@ -75,7 +75,7 @@ int practice_skill(object me)
 
     if ((int)me->query("qi") < 30)
        return notify_fail("你的体力太低了，没有办法练习辟邪剑法！\n");
-        
+
     if ((int)me->query("neili") < 5)
        return notify_fail("你的内力不够，没有办法练习辟邪剑法！\n");
 

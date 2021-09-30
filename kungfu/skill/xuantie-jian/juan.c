@@ -36,18 +36,18 @@ int perform(object me, object target)
 
         if (me->query_skill_mapped("sword") != "xuantie-jian")
                 return notify_fail("你没有激发玄铁剑法，不能施展" JUAN "。\n");
-			
-		if (target->is_busy())
-				return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");
+
+        if (target->is_busy())
+                return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");
 
         if (! living(target))
               return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         msg = HIY "$N一抖手中的" + weapon->name() + HIY "，自下而上的朝$n"
-			  HIY "卷了过去，曲曲折折，变化无常！\n" NOR;
+              HIY "卷了过去，曲曲折折，变化无常！\n" NOR;
 
-		ap = me->query_skill("sword");
-		dp = target->query_skill("dodge");
+        ap = me->query_skill("sword");
+        dp = target->query_skill("dodge");
         if (random(ap) > dp / 2)
         {
                 target->start_busy(ap / 20 + 2);
@@ -57,8 +57,8 @@ int perform(object me, object target)
         {
                 msg += CYN "可是$p" CYN "看破了$P" CYN "的企图，斜跃避开了$P"
                        CYN "的攻击。\n"NOR;
-		me->add("neili", -25);
-        	me->start_busy(2);
+        me->add("neili", -25);
+            me->start_busy(2);
         }
         message_combatd(msg, me, target);
 

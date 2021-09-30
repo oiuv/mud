@@ -10,9 +10,9 @@ void create()
 出去，满城秋色俱在眼前。
 LONG);
         set("exits", ([ /* sizeof() == 1 */
-        	"west" : __DIR__"fengxu4",
+            "west" : __DIR__"fengxu4",
         ]));
 
-	setup();
+    setup();
         replace_program(ROOM);
 }

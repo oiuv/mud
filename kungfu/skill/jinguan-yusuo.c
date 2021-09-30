@@ -14,7 +14,7 @@ string query_parry_msg(object weapon)
 
 int valid_enable(string usage)
 {
-	return usage == "parry";
+    return usage == "parry";
 }
 
 int valid_learn(object me)

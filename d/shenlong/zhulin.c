@@ -11,11 +11,10 @@ void create()
 LONG );
 
         set("exits", ([
-	        "east" : __DIR__"dating",
-	        "west" : __DIR__"jushi",
+            "east" : __DIR__"dating",
+            "west" : __DIR__"jushi",
         ]));
         set("outdoors", "shenlong");
         setup();
         replace_program(ROOM);
 }
-

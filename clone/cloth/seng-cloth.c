@@ -14,11 +14,10 @@ void create()
                 set_default_object(__FILE__);
         else {
                 set("unit", "件");
-		set("long", "一件出家人常穿的灰布袈裟。\n");
-		set("value", 0);
+        set("long", "一件出家人常穿的灰布袈裟。\n");
+        set("value", 0);
                 set("material", "cloth");
                 set("armor_prop/armor", 8);
         }
         setup();
 }
-

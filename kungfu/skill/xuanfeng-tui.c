@@ -91,32 +91,32 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "unarmed" ||  usage == "parry" ||  usage == "dodge";
+    return usage == "unarmed" ||  usage == "parry" ||  usage == "dodge";
 }
 
 int valid_combine(string combo)
 {
-	return combo == "pikong-zhang";
+    return combo == "pikong-zhang";
 }
 
 int valid_learn(object me)
 {
-    	if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-        	return notify_fail("学习旋风扫叶腿必须空手。\n");
+        if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+            return notify_fail("学习旋风扫叶腿必须空手。\n");
 
-    	if ((int)me->query_skill("force") < 100)
-        	return notify_fail("你的内功火候不够，无法学旋风扫叶腿。\n");
+        if ((int)me->query_skill("force") < 100)
+            return notify_fail("你的内功火候不够，无法学旋风扫叶腿。\n");
 
-    	if ((int)me->query("max_neili") < 800)
-        	return notify_fail("你的内力太弱，无法练旋风扫叶腿。\n");
+        if ((int)me->query("max_neili") < 800)
+            return notify_fail("你的内力太弱，无法练旋风扫叶腿。\n");
 
-    	if ((int)me->query_skill("unarmed", 1) < (int)me->query_skill("xuanfeng-tui", 1))
-        	return notify_fail("你的基本拳脚水平有限，无法领会更高深的旋风扫叶腿。\n");
+        if ((int)me->query_skill("unarmed", 1) < (int)me->query_skill("xuanfeng-tui", 1))
+            return notify_fail("你的基本拳脚水平有限，无法领会更高深的旋风扫叶腿。\n");
 
         if ((int)me->query_skill("dodge", 1) < (int)me->query_skill("xuanfeng-tui", 1))
                 return notify_fail("你的基本轻功水平有限，无法领会更高深的旋风扫叶腿。\n");
 
-    	return 1;
+        return 1;
 }
 
 string query_skill_name(int level)
@@ -143,18 +143,18 @@ string query_dodge_msg(string limb)
 
 int practice_skill(object me)
 {
-    	if ((int)me->query("qi") < 60)
-       		return notify_fail("你的体力太低了。\n");
+        if ((int)me->query("qi") < 60)
+               return notify_fail("你的体力太低了。\n");
 
-    	if ((int)me->query("neili") < 60)
-       		return notify_fail("你的内力不够练旋风扫叶腿。\n");
+        if ((int)me->query("neili") < 60)
+               return notify_fail("你的内力不够练旋风扫叶腿。\n");
 
-    	me->receive_damage("qi", 45);
-    	me->add("neili", -51);
-    	return 1;
+        me->receive_damage("qi", 45);
+        me->add("neili", -51);
+        return 1;
 }
 
 string perform_action_file(string action)
 {
-    	return __DIR__"xuanfeng-tui/" + action;
+        return __DIR__"xuanfeng-tui/" + action;
 }

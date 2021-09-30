@@ -24,7 +24,7 @@ int exert(object me, object target)
                         "个身体竟呈现出古铜色的光泽。\n" NOR, me);
         me->add_temp("apply/attack", skill / 3);
         me->add_temp("apply/defense", skill / 3);
-		me->add_temp("apply/unarmed_damage", skill / 6);
+        me->add_temp("apply/unarmed_damage", skill / 6);
         me->set_temp("powerup", 1);
 
         me->start_call_out((:call_other, __FILE__, "remove_effect", me, skill / 3 :), skill);
@@ -38,7 +38,7 @@ void remove_effect(object me, int amount)
         {
                 me->add_temp("apply/attack", -amount);
                 me->add_temp("apply/defense", -amount);
-				me->add_temp("apply/unarmed_damage", -amount / 2);
+                me->add_temp("apply/unarmed_damage", -amount / 2);
                 me->delete_temp("powerup");
                 tell_object(me, "你的天雷神功运行完毕，将内力收回丹田。\n");
         }

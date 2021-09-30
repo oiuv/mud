@@ -8,11 +8,11 @@ void create()
 在亭里歇脚。东北边是一条青石大道，往西是上山的路。
 LONG);
         set("exits", ([
-            	"north" : __DIR__"road15",
-            	"westup"    : __DIR__"shanlu7",
+                "north" : __DIR__"road15",
+                "westup"    : __DIR__"shanlu7",
         ]));
         set("objects", ([
-            	__DIR__"npc/honghua1" : 2,
+                __DIR__"npc/honghua1" : 2,
         ]));
         set("outdoors", "hangzhou");
         setup();

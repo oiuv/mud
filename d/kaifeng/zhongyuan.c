@@ -11,15 +11,15 @@ void create()
 LONG
         );
         set("objects", ([
-  		__DIR__"npc/obj/tiefutu" : 1,
-	]));
+          __DIR__"npc/obj/tiefutu" : 1,
+    ]));
         set("no_clean_up", 0);
         set("exits", ([
-  		"south" : __DIR__"tianwang",
-  		"north" : __DIR__"daxiong",
-  		"east" : __DIR__"chufang",
-  		"west" : __DIR__"yushi",
-	]));
+          "south" : __DIR__"tianwang",
+          "north" : __DIR__"daxiong",
+          "east" : __DIR__"chufang",
+          "west" : __DIR__"yushi",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

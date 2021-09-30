@@ -10,13 +10,13 @@ void create ()
 廊道相连，如两边飞出雁翼。两个副殿，以左翼殿和右翼殿为名。
 LONG);
         set("exits", ([
-        	"south"   : __DIR__"bridge2",
-        	"north"   : __DIR__"bridge1",
-        	"east"   : __DIR__"fudian1",
-        	"west"   : __DIR__"fudian2",
+            "south"   : __DIR__"bridge2",
+            "north"   : __DIR__"bridge1",
+            "east"   : __DIR__"fudian1",
+            "west"   : __DIR__"fudian2",
         ]));
         set("objects", ([
-        	__DIR__"npc/shiwei" : 4,
+            __DIR__"npc/shiwei" : 4,
         ]));
 
         setup();

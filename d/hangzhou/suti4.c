@@ -9,11 +9,11 @@ void create()
 面是望山桥。东面一片梅林，林后似乎有座院落，但看不真切。
 LONG);
         set("exits", ([
-            	"north" : __DIR__"suti3",
-            	"south" : __DIR__"suti5",
+                "north" : __DIR__"suti3",
+                "south" : __DIR__"suti5",
         ]));
         set("objects", ([
-            	__DIR__"npc/liyuanzhi" : 1,
+                __DIR__"npc/liyuanzhi" : 1,
         ]));
         set("outdoors", "hangzhou");
         setup();

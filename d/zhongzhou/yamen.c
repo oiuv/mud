@@ -11,11 +11,11 @@ LONG);
         set("exits", ([
                 "east" : __DIR__"wendingbei3",
                 "west" : __DIR__"zoulang",
-                
+
         ]));
 
         set("objects", ([
-	        __DIR__"npc/yayi" : 2,
+            __DIR__"npc/yayi" : 2,
         ]));
 
         setup();

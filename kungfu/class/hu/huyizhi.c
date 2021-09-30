@@ -67,12 +67,12 @@ LONG);
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
-	        (: perform_action, "blade.heng" :),
-	        (: perform_action, "cuff.kuai" :),
-	        (: perform_action, "strike.jian" :),
-	        (: perform_action, "dodge.fei" :),
-	        (: exert_function, "recover" :),
-	        (: exert_function, "powerup" :),
+            (: perform_action, "blade.heng" :),
+            (: perform_action, "cuff.kuai" :),
+            (: perform_action, "strike.jian" :),
+            (: perform_action, "dodge.fei" :),
+            (: exert_function, "recover" :),
+            (: exert_function, "powerup" :),
         }));
 
         setup();

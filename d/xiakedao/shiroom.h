@@ -42,7 +42,7 @@ int do_study(string arg)
         } else
                 write("你潜心琢磨上面的笔划，全然没有想它是什么含义。\n");
 
-	return 1;
+    return 1;
 }
 
 void init()

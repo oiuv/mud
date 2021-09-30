@@ -9,7 +9,7 @@ void create()
 知是用什么材料做的，走在上面毫无声息，你只感到脚下软软
 的，非常舒服。
 LONG);
-	set("exits",([
+    set("exits",([
                 "east" : __DIR__"changl14",
                 "west" : __DIR__"changl13",
                 "south" : __DIR__"changl3",

@@ -11,8 +11,8 @@ LONG
         );
         set("no_clean_up", 0);
         set("exits", ([
-		  "north" : __DIR__"zoulang2",
-		  "east" : __DIR__"caidi4",
+          "north" : __DIR__"zoulang2",
+          "east" : __DIR__"caidi4",
         ]));
         set("outdoors", "kaifeng");
 

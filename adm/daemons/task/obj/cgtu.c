@@ -28,7 +28,7 @@ void create()
 
 void init()
 {
-	add_action("do_give","give");
+    add_action("do_give","give");
 }
 
 
@@ -36,10 +36,10 @@ int do_give(string arg)
 
 {
 
-	object me,ob;
+    object me,ob;
 
-	ob = this_object();
-	me = this_player();
+    ob = this_object();
+    me = this_player();
 
     return call_other(SET_TASK, "do_return", ob, me, arg);
 
@@ -53,4 +53,3 @@ string long()
                "(" + query("id") + ")。\n";
 
 }
-

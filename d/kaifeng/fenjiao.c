@@ -9,14 +9,14 @@ void create()
 你还是赶快走开些吧，不小心会掉下去的。
 LONG);
         set("objects", ([
-  		__DIR__"npc/popi" : 1,
-  		__DIR__"npc/wulai" : 1,
-	]));
+          __DIR__"npc/popi" : 1,
+          __DIR__"npc/wulai" : 1,
+    ]));
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"maofang",
-  		"north" : __DIR__"kongdi",
-	]));
+          "west" : __DIR__"maofang",
+          "north" : __DIR__"kongdi",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

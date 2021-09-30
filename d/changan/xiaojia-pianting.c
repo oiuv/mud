@@ -10,11 +10,11 @@ void create ()
 什么大事。
 LONG);
         set("exits", ([
-        	"south" : __DIR__"xiaojiadt",
+            "south" : __DIR__"xiaojiadt",
         ]));
 
         set("objects", ([
-        	__DIR__"npc/yahuan" : 1,
+            __DIR__"npc/yahuan" : 1,
         ]));
 
         setup();

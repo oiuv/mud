@@ -17,8 +17,8 @@ void create()
         set("attitude", "friendly");
         set("per",25);
         set("vendor_goods", ({
-        	__DIR__"obj/book_blade",
-       	 	__DIR__"obj/book_unarmed",
+            __DIR__"obj/book_blade",
+                __DIR__"obj/book_unarmed",
         }));
 
         setup();
@@ -29,13 +29,13 @@ void init()
 {
         object ob;
         ::init();
-        if (interactive(ob = this_player()) && ! is_fighting()) 
+        if (interactive(ob = this_player()) && ! is_fighting())
         {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
         }
         add_action("do_buy", "buy");
-	add_action("do_list", "list"); 	
+    add_action("do_list", "list");
 }
 
 void greeting(object ob)

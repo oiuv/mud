@@ -25,11 +25,11 @@ void create()
         set_skill("parry", 40);
         set_skill("dodge", 40);
         set("vendor_goods", ({
-        	__DIR__"obj/yinjie",
-        	__DIR__"obj/zuanjie",
-        	__DIR__"obj/baojie",
-        	__DIR__"obj/jinjie",
-        	__DIR__"obj/baijie",
+            __DIR__"obj/yinjie",
+            __DIR__"obj/zuanjie",
+            __DIR__"obj/baojie",
+            __DIR__"obj/jinjie",
+            __DIR__"obj/baijie",
         }));
 
         setup();
@@ -40,5 +40,5 @@ void init()
 {
         ::init();
         add_action("do_buy", "buy");
-	add_action("do_list", "list");
+    add_action("do_list", "list");
 }

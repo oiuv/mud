@@ -58,7 +58,7 @@ int accept_hit(object who)
 int accept_kill(object who)
 {
         command("say 怎么，要行凶么？在这里恐怕由不得你！");
-	return 1;
+    return 1;
 }
 
 int accept_ansuan(object who)
@@ -75,4 +75,3 @@ void receive_wound(string type, int n)
 {
         return;
 }
-

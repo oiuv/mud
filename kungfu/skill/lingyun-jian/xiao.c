@@ -11,7 +11,7 @@ int perform(object me, object target)
         string msg, wn;
         object weapon;
         int ap, dp;
-  
+
         me = this_player();
 
         if (userp(me) && ! me->query("can_perform/lingyun-jian/xiao"))
@@ -42,7 +42,7 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         wn = weapon->name();
-                           
+
         msg = HIW "\n$N" HIW "长叹一声，语调宛然，忽然右手斜指长"
               "空，手中" + wn + HIW "寒光闪闪，猛然间使出绝"
               "招「" HIY "剑气冲霄" HIW "」，刹时间剑风凌厉"
@@ -56,24 +56,21 @@ int perform(object me, object target)
         if (ap / 2 + random(ap) > dp)
         {
                 damage = ap + random(ap / 2);
-         	msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 40,
-                                          HIR "$n" HIR "只见一道金光闪过，心中" 
-                                          "惊骇不已，但鲜血已从$n胸口喷出。\n" 
+             msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 40,
+                                          HIR "$n" HIR "只见一道金光闪过，心中"
+                                          "惊骇不已，但鲜血已从$n胸口喷出。\n"
                                           NOR);
-         	me->start_busy(2 + random(4));
-         	me->add("neili", -200);
+             me->start_busy(2 + random(4));
+             me->add("neili", -200);
         } else
         {
-         	msg = CYN "然而$n" CYN "眼明手快，侧身一跳"
+             msg = CYN "然而$n" CYN "眼明手快，侧身一跳"
                       "躲过$N" CYN "这一剑。\n" NOR;
 
-         	me->start_busy(2);
-         	me->add("neili", -180);
+             me->start_busy(2);
+             me->add("neili", -180);
         }
         message_vision(msg, me, target);
 
         return 1;
 }
-
-
-

@@ -10,11 +10,11 @@ void create()
 众，赤裸着上身，胸前佩着一朵大红花，神情严肃。
 LONG);
         set("exits", ([
-  		"west" : __DIR__"hh_zoulang4",
-  		"east" : __DIR__"hh_zoulang5",
-  		"north" : __DIR__"hh_houting",
-  		"south" : __DIR__"hh_qianting",
-	]));
+          "west" : __DIR__"hh_zoulang4",
+          "east" : __DIR__"hh_zoulang5",
+          "north" : __DIR__"hh_houting",
+          "south" : __DIR__"hh_qianting",
+    ]));
         set("objects", ([
                 CLASS_D("honghua") + "/wen" : 1,
                 __DIR__"npc/honghua1" : 4,

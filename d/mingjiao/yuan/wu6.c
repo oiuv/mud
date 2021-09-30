@@ -38,7 +38,7 @@ void create()
         setup();
 
         carry_object("/clone/misc/cloth")->wear();
-	set_temp("is_riding", BLK "雪蹄马" NOR);
+    set_temp("is_riding", BLK "雪蹄马" NOR);
         set_temp("handing", carry_object(__DIR__"obj/arrow"));
         add_money("silver", 10);
 }

@@ -11,8 +11,8 @@ LONG);
 
         set("exits", ([
                 "east" : __DIR__"xiyuan1",
-                        
-	]));
+
+    ]));
         set("objects", ([
                 "/d/beijing/npc/xizi1" : 2,
                 "/d/beijing/npc/xizi2" : 1,

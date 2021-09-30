@@ -65,7 +65,7 @@ LONG);
         set("inquiry", ([
                 "史松"   : "谁杀了史松这奸贼，我可以帮他提高江湖威望。",
                 //"断字诀" : "我总得留两手吧？",
-				"断字诀" : (: ask_skill1 :),
+                "断字诀" : (: ask_skill1 :),
         ]));
 
         set("chat_chance", 2);
@@ -97,7 +97,7 @@ int accept_object(object me, object ob)
 
         exp = 1000 + random(300);
         pot = 500 + random(250);
-        sc = 5 + random(25);	//奖励增加
+        sc = 5 + random(25);    //奖励增加
 
         if (base_name(ob) != HEILONG)
         {
@@ -107,26 +107,26 @@ int accept_object(object me, object ob)
 
         if (me->query("combat_exp") > 10000)
         {
-        	if (! (int)me->query("skybook/luding/mao"))
-        	{
-                	me->add("combat_exp", exp);
-                	me->add("potential", pot);
-                	me->add("score", sc);
-                	tell_object(me, HIW "\n\n你成功的帮助茅十八弄到了黑龙鞭！\n" NOR +
+            if (! (int)me->query("skybook/luding/mao"))
+            {
+                    me->add("combat_exp", exp);
+                    me->add("potential", pot);
+                    me->add("score", sc);
+                    tell_object(me, HIW "\n\n你成功的帮助茅十八弄到了黑龙鞭！\n" NOR +
                                         HIC "通过这次的历练，你获得了" + chinese_number(exp) +
                                         "点经验、" + chinese_number(pot) + "点潜能以及" +
-                                	chinese_number(sc) + "点江湖阅历。\n\n" NOR);
-                	me->set("skybook/luding/mao", 1);
-                	me->set("can_learn/wuhu-duanmendao/mao", 1);
-		}
+                                    chinese_number(sc) + "点江湖阅历。\n\n" NOR);
+                    me->set("skybook/luding/mao", 1);
+                    me->set("can_learn/wuhu-duanmendao/mao", 1);
+        }
                 command("haha");
                 command("say 多谢，多谢。那个狗腿子俺早就想除去了。");
                 command("say 俺这有一套五虎断门刀，你如果有意，倒是可以看看。\n");
         } else
-	{
+    {
                 command("pat " + me->query("id"));
                 command("say 要不是你的江湖经验太浅，俺真想教你点东西。");
-	}
+    }
         destruct(ob);
         return 1;
 }
@@ -175,8 +175,8 @@ mixed ask_skill1()
                      "好了！”说完$n" HIY "一声断喝，猛然伏地，手中钢刀，"
                      "携着开天辟地之势连出数刀，气势恢弘之极，顿时一片白"
                      "光向前直滚而去！真可谓是惊天地，泣鬼神，直把$N" HIY
-                     "看得目瞪口呆。\n\n" NOR, me, this_object()); 
-					 
+                     "看得目瞪口呆。\n\n" NOR, me, this_object());
+
         command("nod2");
         command("say 招式便是如此，你自己下去练吧。");
         tell_object(me, HIC "你学会了「断」字决。\n" NOR);

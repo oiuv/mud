@@ -4,17 +4,17 @@
 #define LIAN "「" HIW "五轮连转" NOR "」"
 
 inherit F_SSERVER;
- 
+
 int perform(object me, object target)
 {
-	object weapon;
-	string wp, msg;
+    object weapon;
+    string wp, msg;
         int i, count;
 
         if (userp(me) && ! me->query("can_perform/riyue-lun/lian"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
-	if (! target) target = offensive_target(me);
+    if (! target) target = offensive_target(me);
 
         if (! target || ! me->is_fighting(target))
                 return notify_fail(LIAN "只能对战斗中的对手使用。\n");
@@ -97,9 +97,9 @@ int perform(object me, object target)
                 } else
                         COMBAT_D->do_attack(me, target, weapon, 0);
         }
-	me->add("neili", -250);
+    me->add("neili", -250);
         me->add_temp("apply/attack", -count);
         me->add_temp("apply/damage", -count * 2 / 3);
-	me->start_busy(1 + random(5));
-	return 1;
+    me->start_busy(1 + random(5));
+    return 1;
 }

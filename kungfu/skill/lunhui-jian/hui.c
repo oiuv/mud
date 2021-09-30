@@ -321,7 +321,7 @@ string attack5(object me, object target, int damage)
         if (! target->query_condition("poison"))
         {
                 target->affect_by("poison",
-                	([ "level"    : damage * 2,
+                    ([ "level"    : damage * 2,
                            "name"     : "炼狱寒焰",
                            "id"       : me->query("id"),
                            "duration" : damage / 20 ]));

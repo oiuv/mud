@@ -30,13 +30,13 @@ LONG);
 
 
         set("objects", ([
-  		__DIR__"npc/zhousongtian" : 1,
-  		__DIR__"npc/yitai" : 1,
-	]));
+          __DIR__"npc/zhousongtian" : 1,
+          __DIR__"npc/yitai" : 1,
+    ]));
 
         set("exits", ([
-  		"north" : __DIR__"yanling",
-	]));
+          "north" : __DIR__"yanling",
+    ]));
 
         setup();
         replace_program(ROOM);

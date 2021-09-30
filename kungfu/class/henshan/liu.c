@@ -40,15 +40,15 @@ void create()
         set_skill("zigai-jian", 240);
         set_skill("furong-jian", 240);
         set_skill("shilin-jian", 240);
-	set_skill("luoyan-jian", 240);
+    set_skill("luoyan-jian", 240);
         set_skill("strike", 220);
         set_skill("biluo-zhang", 220);
         set_skill("liuyun-zhang" , 220);
         set_skill("parry", 220);
         set_skill("literate", 260);
-	set_skill("tanqin-jifa", 280);
+    set_skill("tanqin-jifa", 280);
         set_skill("xiaoao-jianghu", 280);
-	set_skill("guangling-san", 280);
+    set_skill("guangling-san", 280);
         set_skill("martial-cognize", 220);
 
         map_skill("strike", "liuyun-zhang");
@@ -57,27 +57,27 @@ void create()
         map_skill("force", "zhenyue-jue");
         map_skill("dodge", "henshan-shenfa");
         map_skill("parry", "luoyan-jian");
-	map_skill("tanqin-jifa", "xiaoao-jianghu");
-	map_skill("tanqin-jifa", "xiaoao-jianghu");
+    map_skill("tanqin-jifa", "xiaoao-jianghu");
+    map_skill("tanqin-jifa", "xiaoao-jianghu");
 
         prepare_skill("strike", "liuyun-zhang");
-             
+
         create_family("衡山派", 13, "名宿");
 
-	set("no_teach", ([
-		"liuyun-zhang" : "这流云掌向来只由掌门人亲授，你还是找我师兄传授吧！",
-		"shilin-jian"  : "石廪剑法向来只由掌门人亲授，你还是找我师兄传授吧！",
+    set("no_teach", ([
+        "liuyun-zhang" : "这流云掌向来只由掌门人亲授，你还是找我师兄传授吧！",
+        "shilin-jian"  : "石廪剑法向来只由掌门人亲授，你还是找我师兄传授吧！",
         ]));
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
                 (: perform_action, "sword.luo" :),
                 (: perform_action, "strike.pai" :),
-		(: perform_action, "strike.ying" :),
+        (: perform_action, "strike.ying" :),
                 (: exert_function, "recover" :),
                 (: exert_function, "powerup" :),
         }));
-     
+
         set("coagents", ({
                 ([ "startroom" : "/d/henshan/furongfeng",
                    "id"        : "qu yang" ]),
@@ -108,32 +108,32 @@ void attempt_apprentice(object ob)
                 return;
         }
 
-	if ((int)ob->query("combat_exp") < 200000)
-	{
-		command("say 你现在经验尚浅，还是多在江湖上走走吧。");
-		return;
-	}
+    if ((int)ob->query("combat_exp") < 200000)
+    {
+        command("say 你现在经验尚浅，还是多在江湖上走走吧。");
+        return;
+    }
 
         if ((int)ob->query_skill("henshan-jian", 1) < 120)
-	{	
-		command("say 我衡山乃五岳剑派之一，最为重视剑法。");
-		command("say 你的衡山剑法还不够熟练，下去练练再来吧。");
-        	return;
+    {
+        command("say 我衡山乃五岳剑派之一，最为重视剑法。");
+        command("say 你的衡山剑法还不够熟练，下去练练再来吧。");
+            return;
         }
-   
-        if ((int)ob->query_skill("force") < 150)
-	{
-		command("say 我衡山剑派虽善用剑，但内功却是御剑之本。");
-		command("say 你是否还应该在内功心法上多下点功夫？");
-		return;
- 	} 
 
-	command("haha");
+        if ((int)ob->query_skill("force") < 150)
+    {
+        command("say 我衡山剑派虽善用剑，但内功却是御剑之本。");
+        command("say 你是否还应该在内功心法上多下点功夫？");
+        return;
+     }
+
+    command("haha");
         command("say 孺子可教，孺子可教。今日我就收下你吧。");
         command("say 你以后定要勤练武，多行善，扬我衡山派雄风。");
         command("recruit " + ob->query("id"));
 }
- 
+
 int accept_ask(object me, string topic)
 {
         switch (topic)

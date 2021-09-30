@@ -9,12 +9,12 @@ void create()
 的人，也都要到这庙来烧香。毕竟关帝又被称为武圣。
 LONG);
         set("objects", ([
-  		__DIR__"npc/obj/guanyu" : 1,
-	]));
+          __DIR__"npc/obj/guanyu" : 1,
+    ]));
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"paifang",
-	]));
+          "west" : __DIR__"paifang",
+    ]));
 
         setup();
         replace_program(ROOM);

@@ -12,8 +12,8 @@ LONG);
                 "east"  : __DIR__"shanlu4",
         ]));
         set("objects", ([
-            	__DIR__"npc/guest" : 2,
-            	__DIR__"npc/seng" : 1,
+                __DIR__"npc/guest" : 2,
+                __DIR__"npc/seng" : 1,
         ]));
         set("outdoors", "hangzhou");
         setup();

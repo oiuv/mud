@@ -10,11 +10,11 @@ void create ()
 比肩，笙歌处处。景物之美，直如神仙境地。西面是青龙街，东面是长
 安城的巡捕房。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 3
-		"north" : __DIR__"fengxu4",
-        	"west" : __DIR__"qinglong3",
-        	"east" : __DIR__"xunbufang",
+        "north" : __DIR__"fengxu4",
+            "west" : __DIR__"qinglong3",
+            "east" : __DIR__"xunbufang",
         ]));
 
         set("outdoors", "changan");

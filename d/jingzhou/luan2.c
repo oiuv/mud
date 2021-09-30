@@ -5,22 +5,22 @@ string look_bei();
 
 void create()
 {
-	set("short", "乱坟岗");
-	set("long", @LONG
+    set("short", "乱坟岗");
+    set("long", @LONG
 这里是一处乱坟岗，到处长满了过人高的长草，听说这里
 经常闹鬼，所以没人敢来。一阵冷风刮来，吓的你根根体毛竖
 起。前方好像有一座新坟，坟上立有一块碑(bei)。
 LONG);
 
-	set("exits", ([
-		"west" : __DIR__"luan",
+    set("exits", ([
+        "west" : __DIR__"luan",
         ]));
 
-	set("item_desc", ([
+    set("item_desc", ([
                 "bei" : (: look_bei :),
-	]));
+    ]));
 set("outdoors", "jingzhou");
-	setup();
+    setup();
 }
 
 string look_bei()
@@ -59,7 +59,7 @@ int do_move(string arg)
         object me;
         me = this_player();
 
-        if (! arg || arg != "bei") 
+        if (! arg || arg != "bei")
                 return notify_fail("你要推什么？\n");
 
         if ((int)me->query_str() < 30)

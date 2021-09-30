@@ -16,7 +16,7 @@ LONG);
 
         set("objects" , ([
                 __DIR__"npc/huogong" : 1,
-		"/d/wudu/obj/ganchai" : 2,
+        "/d/wudu/obj/ganchai" : 2,
         ]));
 
         setup();

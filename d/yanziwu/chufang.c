@@ -13,7 +13,7 @@ LONG );
         set("objects",([
              __DIR__"npc/nanpu" : 1,
         ]));
-	set("resource/water", 1);
+    set("resource/water", 1);
         setup();
         replace_program(ROOM);
 }

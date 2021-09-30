@@ -47,8 +47,8 @@ void create()
 
 int ask_pixie()
 {
-	message("vision", HIR "林震南大怒道：你竟敢窥视我林家辟邪剑谱！今日就让你见识"
+    message("vision", HIR "林震南大怒道：你竟敢窥视我林家辟邪剑谱！今日就让你见识"
                           "见识！\n" NOR, environment(), this_object() );
-	kill_ob(this_player());
-	return 1;
+    kill_ob(this_player());
+    return 1;
 }

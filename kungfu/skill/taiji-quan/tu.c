@@ -16,12 +16,12 @@ int perform(object me)
         int flag;
         int i;
         int p;
-		
-		float improve;
-		int lvl, m, n;
-		string martial;
-		string *ks;
-		martial = "unarmed";
+
+        float improve;
+        int lvl, m, n;
+        string martial;
+        string *ks;
+        martial = "unarmed";
 
         if (userp(me) && me->query("can_perform/taiji-quan/tu") < 10)
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -60,25 +60,25 @@ int perform(object me)
         msg = HIM "$N" HIM "淡然一笑，双手轻轻划了数个圈子，顿时四周的气"
               "流波动，源源不断的被牵引进来。\n\n" NOR;
         message_combatd(msg, me);
-		
-		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		lvl = lvl * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (m = 0; m < sizeof(ks); m++)
-		{
-			if (SKILL_D(ks[m])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[m], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 4 / 100 / lvl;
+
+        lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+        lvl = lvl * 4 / 5;
+        ks = keys(me->query_skills(martial));
+        improve = 0;
+        n = 0;
+        //最多给予5个技能的加成
+        for (m = 0; m < sizeof(ks); m++)
+        {
+            if (SKILL_D(ks[m])->valid_enable(martial))
+            {
+                n += 1;
+                improve += (int)me->query_skill(ks[m], 1);
+                if (n > 4 )
+                    break;
+            }
+        }
+
+        improve = improve * 4 / 100 / lvl;
 
         me->add("neili", -1000);
         me->add("jingli", -1000);
@@ -86,7 +86,7 @@ int perform(object me)
         ap = me->query_skill("taoism", 1) +
              me->query_skill("taiji-quan", 1) +
              me->query_skill("taiji-shengong", 1);
-		ap += ap * improve;
+        ap += ap * improve;
         obs = me->query_enemy();
         for (flag = 0, i = 0; i < sizeof(obs); i++)
         {
@@ -158,9 +158,9 @@ int perform(object me)
                         obs[i]->set("neili", 0);
         }
 
-        if (! flag) 
+        if (! flag)
                 message_vision(HIM "然而没有任何人受了$N"
-			       HIM "的影响。\n\n" NOR, me, 0, obs);
+                   HIM "的影响。\n\n" NOR, me, 0, obs);
 
         return 1;
 }

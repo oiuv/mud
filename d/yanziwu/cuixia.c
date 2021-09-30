@@ -10,15 +10,15 @@ void create()
 穿堂，不知通向什么地方。
 LONG );
         set("exits",([
-		"west" : __DIR__"xiaoting",
-		"east" : __DIR__"zhulin1",
-		"south": __DIR__"chuantang",
+        "west" : __DIR__"xiaoting",
+        "east" : __DIR__"zhulin1",
+        "south": __DIR__"chuantang",
         ]));
 
         set("objects",([
                 __DIR__"npc/azhu" : 1,
-		__DIR__"npc/deng" : 1,
-	]));
+        __DIR__"npc/deng" : 1,
+    ]));
 
         set("valid_startroom", 1);
         setup();
@@ -26,13 +26,13 @@ LONG );
 
 int valid_leave(object me, string dir)
 {
-	object guarder;
+    object guarder;
 
-	if (dir != "east")
-		return 1;
+    if (dir != "east")
+        return 1;
 
-	if (guarder = present("deng baichuan", this_object()))
-		return guarder->permit_pass(me, dir);
+    if (guarder = present("deng baichuan", this_object()))
+        return guarder->permit_pass(me, dir);
 
-	return 1;
+    return 1;
 }

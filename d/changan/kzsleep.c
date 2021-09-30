@@ -14,10 +14,10 @@ void create()
 LONG
         );
         set("item_desc", ([ /* sizeof() == 1 */
-        	"bed" : HIW "一张白色的软榻，看上去极为精致。\n" NOR,
+            "bed" : HIW "一张白色的软榻，看上去极为精致。\n" NOR,
         ]));
         set("exits", ([
-        	"down" : __DIR__"kezhan",
+            "down" : __DIR__"kezhan",
         ]));
 
         set("no_fight", 1);

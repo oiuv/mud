@@ -11,12 +11,11 @@ void create()
                 set_default_object(__FILE__);
         else {
                 set("unit", "件");
-		set("long", "一件清新可人的湖绿长裙。\n");
+        set("long", "一件清新可人的湖绿长裙。\n");
                 set("material", "cloth");
                 set("value", 0);
                 set("armor_prop/armor", 3);
-		set("female_only", 1);
+        set("female_only", 1);
         }
         setup();
 }
-

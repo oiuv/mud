@@ -9,12 +9,12 @@ void create()
 模样。一边的柱子旁打了个地铺，靠墙摆着几个水罐。
 LONG);
         set("objects", ([
-  		__DIR__"npc/oldseng" : 1,
-	]));
+          __DIR__"npc/oldseng" : 1,
+    ]));
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"kongdi",
-	]));
+          "west" : __DIR__"kongdi",
+    ]));
 
         setup();
         replace_program(ROOM);

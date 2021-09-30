@@ -10,11 +10,11 @@ void create()
 LONG);
 
       set("exits", ([
-          	"down" : __DIR__"wuguan",
+              "down" : __DIR__"wuguan",
       ]));
 
       set("objects", ([
-          	"/clone/npc/tong-ren" : 1,
+              "/clone/npc/tong-ren" : 1,
       ]));
 
       setup();

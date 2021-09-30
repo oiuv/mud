@@ -11,11 +11,11 @@ program, however, is written in C, which has no string data type.  The
 driver in fact sees strings as a complex data type made up of an array of
 characters, a simple C data type.  LPC, on the other hand does not
 recognize a character data type (there may actually be a driver or two out
-there which do recognize the character as a data type, but in general not). 
+there which do recognize the character as a data type, but in general not).
 The net effect is that there are some array-like things you can do with
 strings that you cannot do with other LPC data types.
 
-The first efun regarding strings you should learn is the strlen() efun. 
+The first efun regarding strings you should learn is the strlen() efun.
 This efun returns the length in characters of an LPC string, and is thus
 the string equivalent to sizeof() for arrays.  Just from the behaviour of
 this efun, you can see that the driver treats a string as if it were made up
@@ -52,15 +52,15 @@ result in an error.
 
 Now you can see a couple of similarities between strings and arrays:
 1) You may index on both to access the values of individual elements.
-	a) The individual elements of strings are characters
-	b) The individual elements of arrays match the data type of the
+    a) The individual elements of strings are characters
+    b) The individual elements of arrays match the data type of the
 array.
 2) You may operate on a range of values
-	a) Ex: "abcdef"[1..3] is the string "bcd"
-	b) Ex: ({ 1, 2, 3, 4, 5 })[1..3] is the int array ({ 2, 3, 4 })
+    a) Ex: "abcdef"[1..3] is the string "bcd"
+    b) Ex: ({ 1, 2, 3, 4, 5 })[1..3] is the int array ({ 2, 3, 4 })
 
 And of course, you should always keep in mind the fundamental
-difference: a string is not made up of a more fundamental LPC data type. 
+difference: a string is not made up of a more fundamental LPC data type.
 In other words, you may not act on the individual characters by
 assigning them values.
 
@@ -85,7 +85,7 @@ int give(string str) {
     string what, whom;
 
     if(!str) return notify_fail("Give what to whom?\n");
-    if(sscanf(str, "%s to %s", what, whom) != 2) 
+    if(sscanf(str, "%s to %s", what, whom) != 2)
       return notify_fail("Give what to whom?\n");
     ... rest of give code ...
 }
@@ -113,7 +113,7 @@ will happen to whatever comes after the constant.
 
 Variable elements are noted by a "%" sign followed by a code for
 decoding them.  If the variable element is to be discarded, the "%" sign
-is followed by the "*" as well as the code for decoding the variable. 
+is followed by the "*" as well as the code for decoding the variable.
 Common codes for variable element decoding are "s" for strings and "d"
 for integers.  In addition, your mudlib may support other conversion
 codes, such as "f" for float.  So in the two examples above, the "%s" in

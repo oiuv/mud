@@ -11,7 +11,7 @@ LONG );
         set("outdoors", "tianlongsi");
         set("exits", ([
                 "north" : __DIR__"ta1",
-	]));
+    ]));
         setup();
         replace_program(ROOM);
 }

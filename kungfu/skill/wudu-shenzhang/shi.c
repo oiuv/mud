@@ -41,28 +41,28 @@ int perform(object me, object target)
 
         ap = me->query_skill("strike");
         dp = target->query_skill("force");
-		count = 0;
-		
-		if (target->query("shen") > 0)
-		{
-			count += 20;
-			ap += ap * 10 / 100;
-		}		
-	
-		if (target->query("gender") != "女性")
-		{
-			count += 30;
-			ap += ap * 15 / 100;
-		}
-		
+        count = 0;
+
+        if (target->query("shen") > 0)
+        {
+            count += 20;
+            ap += ap * 10 / 100;
+        }
+
+        if (target->query("gender") != "女性")
+        {
+            count += 30;
+            ap += ap * 15 / 100;
+        }
+
         if (ap / 2 + random(ap) > dp)
         {
 
                 damage = ap + random(ap);
-				damage += damage * count / 100;
+                damage += damage * count / 100;
                 msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 70 + count,
                                           (: final, me, target, damage :));
-				me->add("neili", -count);
+                me->add("neili", -count);
                 me->start_busy(1 + random(3));
         } else
         {
@@ -78,20 +78,20 @@ int perform(object me, object target)
 string final(object me, object target, int damage)
 {
         int ap;
-		int count = 0;
+        int count = 0;
         ap = me->query_skill("strike");
-        
-		if (target->query("shen") > 0)
-		{
-			count += 20;
-			ap += ap * 10 / 100;
-		}		
-	
-		if (target->query("gender") != "女性")
-		{
-			count += 30;
-			ap += ap * 15 / 100;
-		}
+
+        if (target->query("shen") > 0)
+        {
+            count += 20;
+            ap += ap * 10 / 100;
+        }
+
+        if (target->query("gender") != "女性")
+        {
+            count += 30;
+            ap += ap * 15 / 100;
+        }
 
         target->affect_by("wudu_shenzhang",
                 ([ "level" : me->query("jiali") + random(me->query("jiali")) + count,

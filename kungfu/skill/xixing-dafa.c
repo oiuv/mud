@@ -4,7 +4,7 @@ inherit FORCE;
 
 int valid_enable(string usage)
 {
-	return usage == "force";
+    return usage == "force";
 }
 
 int valid_force(string force)

@@ -8,31 +8,31 @@ void random_move();
 
 void create()
 {
-	mapping my;
+    mapping my;
 
         ::create();
-	set("gender", "男性" );
-	set("age", 30 + random(30));
-	set("long", "");
-	set("attitude", "friendly");
+    set("gender", "男性" );
+    set("age", 30 + random(30));
+    set("long", "");
+    set("attitude", "friendly");
         set("chat_chance", 30);
         set("chat_msg", ({ (: random_move :) }));
         set("scale", 150);
-	set_temp("apply/armor", 30);
-	set_temp("apply/damage", 20);
-	set_temp("born_time", time());
+    set_temp("apply/armor", 30);
+    set_temp("apply/damage", 20);
+    set_temp("born_time", time());
 
         NPC_D->init_npc_skill(this_object(), 1);
 
         // 初始化NPC的能力
-	my = query_entire_dbase();
+    my = query_entire_dbase();
         my["max_qi"] = 500;
         my["max_jing"] = 250;
         my["max_neili"] = 800;
-	my["eff_jing"] = my["max_jing"];
-	my["jing"] = my["max_jing"];
-	my["eff_qi"] = my["max_qi"];
-	my["qi"] = my["max_qi"];
+    my["eff_jing"] = my["max_jing"];
+    my["jing"] = my["max_jing"];
+    my["eff_qi"] = my["max_qi"];
+    my["qi"] = my["max_qi"];
         my["neili"] = my["max_neili"] * 2;
 }
 

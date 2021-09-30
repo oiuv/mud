@@ -6,19 +6,19 @@ inherit NPC;
 
 void create()
 {
-	set_name("乾隆皇帝", ({ "qianlong", "emperor"}) );
-	set("title", "清高宗");
-	set("gender", "男性");
-	set("age", 43);
-	set("per", 24);
-	set("long",
+    set_name("乾隆皇帝", ({ "qianlong", "emperor"}) );
+    set("title", "清高宗");
+    set("gender", "男性");
+    set("age", 43);
+    set("per", 24);
+    set("long",
 "乾隆皇帝姓爱新觉罗，名弘历，是大清入关后第四位在位皇帝，生平
 号称有十大武功，自称“十全老人”。\n");
-	set("combat_exp", 500);
-	set("attitude", "piece");
-	setup();
+    set("combat_exp", 500);
+    set("attitude", "piece");
+    setup();
         carry_object("/clone/misc/cloth")->wear();
-	add_money("silver", 30);
+    add_money("silver", 30);
 }
 
 void init()
@@ -28,7 +28,7 @@ void init()
 
 int do_kneel()
 {
-//	int i;
+//    int i;
         object chen, me = this_player();
 
         if (objectp(chen = present("chen jialuo", environment(me))))

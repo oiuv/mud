@@ -4,7 +4,7 @@
 inherit F_SSERVER;
 
 #define TONG "「" HIW "大海捞针" NOR "」"
- 
+
 int perform(object me, object target)
 {
         object weapon;
@@ -16,12 +16,12 @@ int perform(object me, object target)
 
         if (! target)
         {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
+            me->clean_up_enemy();
+            target = me->select_opponent();
         }
 
-	if (! target || ! me->is_fighting(target))
-		return notify_fail(TONG "只能对战斗中的对手使用。\n");
+    if (! target || ! me->is_fighting(target))
+        return notify_fail(TONG "只能对战斗中的对手使用。\n");
 
         if (! objectp(weapon = me->query_temp("weapon"))
            || (string)weapon->query("skill_type") != "staff")
@@ -60,7 +60,7 @@ int perform(object me, object target)
                                            "听「嘭」地一声，已被$N" HIR "击中肩膀。\n" NOR);
                 me->start_busy(3);
                 me->add("neili", -180);
-        } else 
+        } else
         {
                 msg = CYN "可是$n" CYN "奋力招架，左闪右避，好不容"
                        "易抵挡住了$N" CYN "的攻击。\n" NOR;

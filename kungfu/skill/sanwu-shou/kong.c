@@ -41,31 +41,31 @@ int perform(object me, object target)
 
         ap = me->query_skill("whip");
         dp = target->query_skill("parry");
-		count = 0;
-		
-		if (target->query("shen") > 0)
-		{
-			count += 20;
-			ap += ap * 10 / 100;
-		}		
-	
-		if (target->query("gender") != "女性")
-		{
-			count += 30;
-			ap += ap * 15 / 100;
-		}
-				
-	
+        count = 0;
+
+        if (target->query("shen") > 0)
+        {
+            count += 20;
+            ap += ap * 10 / 100;
+        }
+
+        if (target->query("gender") != "女性")
+        {
+            count += 30;
+            ap += ap * 15 / 100;
+        }
+
+
         msg = HIY "\n$N" HIY "一声长啸，内劲暴涨，施出绝招「" HIW "无孔"
               "不入" HIY "」手中" + weapon->name() + HIY "哧哧作响，龙"
-              "吟不定，$N" HIY "猛然腾空而起，挥舞着手中的" + weapon->name() + 
+              "吟不定，$N" HIY "猛然腾空而起，挥舞着手中的" + weapon->name() +
               HIY "，凌空直下，涌向$n" HIY "。\n" NOR;
-        message_sort(msg, me, target); 
+        message_sort(msg, me, target);
 
         if (ap / 2 + random(ap) > dp)
         {
                 damage = ap + random(ap);
-				damage += damage * count / 100;
+                damage += damage * count / 100;
                 msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 60 + count,
                                            HIR "但见$N" HIR "攻势如洪，气势磅礴，"
                                            "$n" HIR "心中略微一惊，惨叫一声，顿"

@@ -11,7 +11,7 @@ void create()
                 set("unit", "瓶");
                 set("long", HIB "这是一瓶墨绿色的剧毒粉末，可杀人于无形。\n" NOR);
                 set("value", 50);
-		set("poison_type", "poison");
+        set("poison_type", "poison");
                 set("can_pour", 1);
                 set("can_daub", 1);
                 set("can_drug", 1);
@@ -22,7 +22,7 @@ void create()
                         "duration": 15,
                 ]));
                 set("no_sell", 1);
-		set("only_do_effect", 1);
+        set("only_do_effect", 1);
         }
         setup();
 }

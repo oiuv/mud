@@ -11,12 +11,12 @@ void create ()
 烟袅袅飘来青柴的香味。不远处传来家家户户舂米的声音，还有大户人
 家榨香油的醇香味。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 4
-		"south" : __DIR__"minju4",
-        	"north" : __DIR__"xiaojinghu",
-        	"west" : __DIR__"nanan-daokou",
-        	"east" : __DIR__"huarui5",
+        "south" : __DIR__"minju4",
+            "north" : __DIR__"xiaojinghu",
+            "west" : __DIR__"nanan-daokou",
+            "east" : __DIR__"huarui5",
         ]));
 
         set("outdoors", "changan");

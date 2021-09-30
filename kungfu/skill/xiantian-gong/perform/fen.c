@@ -57,22 +57,22 @@ int perform(object me, object target)
                 damage = 0;
                 if (me->query("max_neili") > target->query("max_neili") * 2)
                 {
-                	me->start_busy(2);
+                    me->start_busy(2);
                         msg += HIR "$n" HIR "正直诧异间，$N" HIR "一掌已正中$p"
                                HIR "脑门，先天真气登时贯脑而入。\n" NOR "( $n"
                                RED "受伤过重，已经有如风中残烛，随时都可能断气"
                                "。" NOR ")\n";
                         damage = -1;
                 } else
-		{
-                	me->start_busy(3);
-                	damage = ap / 2 + random(ap);
-                	me->add("neili", -500);
-                	msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 90,
-                        	                   HIR "结果$N" HIR "这掌正中$n" HIR "胸"
+        {
+                    me->start_busy(3);
+                    damage = ap / 2 + random(ap);
+                    me->add("neili", -500);
+                    msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 90,
+                                               HIR "结果$N" HIR "这掌正中$n" HIR "胸"
                                                    "口，先天真气登时透体而入，接连喷出数"
                                                    "口鲜血。\n" NOR);
-		}
+        }
         } else
         {
                 me->start_busy(4);

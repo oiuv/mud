@@ -14,45 +14,45 @@ void create()
 LONG);
         set("title", "缥缈缝灵鹫宫");
         set("nickname", HIR "朱天部首领" NOR);
-	set("gender", "女性");
+    set("gender", "女性");
         set("age", 56);
-	set("attitude", "peaceful");
-	set("str", 30);
-	set("int", 30);
-	set("con", 30);
-	set("dex", 30);
+    set("attitude", "peaceful");
+    set("str", 30);
+    set("int", 30);
+    set("con", 30);
+    set("dex", 30);
 
-	set("qi", 3000);
-	set("max_qi", 3000);
-	set("jing", 2000);
-	set("max_jing", 2000);
-	set("neili", 3400);
-	set("max_neili", 3400);
-	set("jiali", 100);
+    set("qi", 3000);
+    set("max_qi", 3000);
+    set("jing", 2000);
+    set("max_jing", 2000);
+    set("neili", 3400);
+    set("max_neili", 3400);
+    set("jiali", 100);
 
-	set("combat_exp", 1000000);
-	set("score", 3000);
-	set_skill("force", 140);
-	set_skill("lingjiu-xinfa", 140);
-	set_skill("dodge", 160);
-	set_skill("yueying-wubu", 160);
-	set_skill("parry", 140);
-	set_skill("strike", 140);
-	set_skill("piaomiao-zhang", 140);
-	set_skill("sword", 160);
- 	set_skill("tianyu-qijian", 160);
+    set("combat_exp", 1000000);
+    set("score", 3000);
+    set_skill("force", 140);
+    set_skill("lingjiu-xinfa", 140);
+    set_skill("dodge", 160);
+    set_skill("yueying-wubu", 160);
+    set_skill("parry", 140);
+    set_skill("strike", 140);
+    set_skill("piaomiao-zhang", 140);
+    set_skill("sword", 160);
+     set_skill("tianyu-qijian", 160);
         set_skill("literate", 180);
         set_skill("martial-cognize", 120);
 
-	map_skill("force", "lingjiu-xinfa");
-	map_skill("strike","piaomiao-zhang");
-	map_skill("dodge", "yueying-wubu");
-	map_skill("parry", "liuyang-zhang");
-	map_skill("sword", "tianyu-qijian");
+    map_skill("force", "lingjiu-xinfa");
+    map_skill("strike","piaomiao-zhang");
+    map_skill("dodge", "yueying-wubu");
+    map_skill("parry", "liuyang-zhang");
+    map_skill("sword", "tianyu-qijian");
 
-	prepare_skill("strike", "piaomiao-zhang");
+    prepare_skill("strike", "piaomiao-zhang");
 
-	create_family("灵鹫宫", 2, "首领");
+    create_family("灵鹫宫", 2, "首领");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -61,12 +61,12 @@ LONG);
                 (: perform_action, "sword.huan" :),
         }));
 
-	setup();
+    setup();
 
-	carry_object("/d/lingjiu/obj/qingyi")->wear();
+    carry_object("/d/lingjiu/obj/qingyi")->wear();
         carry_object("/d/lingjiu/obj/doupeng")->wear();
-	carry_object("/clone/weapon/changjian")->wield();
-	add_money("silver", 15);
+    carry_object("/clone/weapon/changjian")->wield();
+    add_money("silver", 15);
 }
 
 void attempt_apprentice(object ob)
@@ -88,7 +88,7 @@ void attempt_apprentice(object ob)
                 return;
         }
 
-        if ((int)ob->query_skill("lingjiu-xinfa", 1) < 40) 
+        if ((int)ob->query_skill("lingjiu-xinfa", 1) < 40)
         {
                 command("say 你把本门的心法炼好了再来找我。");
                 return;

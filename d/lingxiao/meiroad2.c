@@ -1,10 +1,10 @@
 inherit ROOM;
-#include <ansi.h> 
+#include <ansi.h>
 
 void create()
 {
         set("short","梅道");
-        set("long",@LONG 
+        set("long",@LONG
 这也是一条充满梅花清香的小道。与殿外不同的是，这儿
 种满了梅树，而且全是如鲜血般灿烂的红梅，花瓣片片飘落到
 洁白的雪地上，就如一个温婉和顺的美人，在给自己的心上人
@@ -13,8 +13,8 @@ void create()
 LONG);
         set("outdoors", "lingxiao");
         set("exits", ([
-            	"west"  : __DIR__"stone",
-            	"east"  : __DIR__"meiroad1",
+                "west"  : __DIR__"stone",
+                "east"  : __DIR__"meiroad1",
         ]));
         set("objects", ([
                 "/clone/quarry/he2" : 1,

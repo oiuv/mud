@@ -107,6 +107,6 @@ void poyuan_end(object me, object target)
                                             "慢慢平静了下来。\n" NOR);
                 }
                 target->delete_temp("no_perform");
-	}
-	return;
+    }
+    return;
 }

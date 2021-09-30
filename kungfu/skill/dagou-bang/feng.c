@@ -20,20 +20,20 @@ int perform(object me, object target)
         if ((int)me->query_temp("feng_zijue"))
                 return notify_fail("你现在正在施展" FENG "。\n");
 
-	if (! objectp(weapon = me->query_temp("weapon")) ||
-	    (string)weapon->query("skill_type") != "staff")
+    if (! objectp(weapon = me->query_temp("weapon")) ||
+        (string)weapon->query("skill_type") != "staff")
                 return notify_fail("你使用的武器不对，难以施展" FENG "。\n");
 
         skill = me->query_skill("dagou-bang", 1);
 
         if (skill < 120)
-		return notify_fail("你打狗棒法不够娴熟，难以施展" FENG "。\n");
+        return notify_fail("你打狗棒法不够娴熟，难以施展" FENG "。\n");
 
         if (me->query_skill_mapped("staff") != "dagou-bang")
                 return notify_fail("你没有激发打狗棒法，难以施展" FENG "。\n");
 
-	if ((int)me->query_skill("force") < 180)
-		return notify_fail("你的内功火候不足，难以施展" FENG "。\n");
+    if ((int)me->query_skill("force") < 180)
+        return notify_fail("你的内功火候不足，难以施展" FENG "。\n");
 
         if (me->query("neili") < 200)
                 return notify_fail("你现在的真气不够，难以施展" FENG "。\n");

@@ -10,8 +10,8 @@ LONG);
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"wendingnan4",
-	]));
+          "west" : __DIR__"wendingnan4",
+    ]));
 
         setup();
         replace_program(ROOM);

@@ -36,12 +36,12 @@ void recordmem()
 
 string memory_expression(int m)
 {
-	float mem;
+    float mem;
 
-	mem = m;
-	if (mem < 1024 ) return m + "";
-	if (mem < 1024*1024)
-		return sprintf("%.2f K", (float)mem / 1024);
+    mem = m;
+    if (mem < 1024 ) return m + "";
+    if (mem < 1024*1024)
+        return sprintf("%.2f K", (float)mem / 1024);
 
-	return sprintf("%.3f M", (float)mem / (1024*1024));
+    return sprintf("%.3f M", (float)mem / (1024*1024));
 }

@@ -10,10 +10,10 @@ void create ()
 来的旅客和商人。西安大道再向西就是长安城的永泰道口、西城门，往
 东是故皇宫的扶风道。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 2
-		"east" : __DIR__"fufeng3",
-        	"west" : __DIR__"xian-daokou",
+        "east" : __DIR__"fufeng3",
+            "west" : __DIR__"xian-daokou",
         ]));
 
         set("outdoors", "changan");

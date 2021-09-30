@@ -32,7 +32,7 @@ int practice_skill(object me)
         object cailiao;
 
         if (! objectp(cailiao = present("cai liao", me)) ||
-	    cailiao->query_amount() < 1)
+        cailiao->query_amount() < 1)
                 return notify_fail("你身上没有菜料了。\n");
 
         if ((int)me->query("qi") < 50)
@@ -43,8 +43,7 @@ int practice_skill(object me)
 
         me->receive_damage("qi", 40);
         me->receive_jing("jing", 40);
-	cailiao->add_amount(-1);
+    cailiao->add_amount(-1);
 
         return 1;
 }
-

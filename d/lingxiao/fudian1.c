@@ -9,8 +9,8 @@ void create()
 派解决的，往往就在副殿商议。
 LONG);
         set("exits",([
-            	"west"  : __DIR__"lianwu1",
-            	"east"  : __DIR__"dadian",
+                "west"  : __DIR__"lianwu1",
+                "east"  : __DIR__"dadian",
         ]));
         set("objects", ([
                __DIR__"npc/dizi" : 2,
@@ -19,4 +19,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

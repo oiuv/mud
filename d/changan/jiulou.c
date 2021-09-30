@@ -12,11 +12,11 @@ void create()
 狂草书成，笔力雄劲，灵动欲飞。
 LONG);
         set("exits", ([
-        	"south" : __DIR__"qixiang1",
-        	"up" : __DIR__"jiulou2",
+            "south" : __DIR__"qixiang1",
+            "up" : __DIR__"jiulou2",
         ]));
         set("objects", ([
-        	__DIR__"npc/xiaoer2" : 1,
+            __DIR__"npc/xiaoer2" : 1,
         ]));
 
         setup();

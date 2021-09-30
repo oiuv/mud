@@ -2,7 +2,7 @@ inherit FORCE;
 
 int valid_enable(string usage)
 {
-	return usage == "force";
+    return usage == "force";
 }
 
 int valid_force(string force)
@@ -10,15 +10,15 @@ int valid_force(string force)
                force == "henshan-xinfa" ||
                force == "songshan-xinfa" ||
                force == "hanbing-zhenqi" ||
-               force == "zixia-shengong"; 
+               force == "zixia-shengong";
 }
 
 int query_neili_improve(object me)
 {
-    	int lvl;
+        int lvl;
 
-    	lvl = (int)me->query_skill("zhenyue-jue", 1);
-   	return lvl * lvl * 15 * 10 / 100 / 200;
+        lvl = (int)me->query_skill("zhenyue-jue", 1);
+       return lvl * lvl * 15 * 10 / 100 / 200;
 }
 
 int valid_learn(object me)
@@ -27,7 +27,7 @@ int valid_learn(object me)
                 return notify_fail("你无根无性，阴阳不调，难以领会高深的镇岳诀。\n");
 
         if ((int)me->query_skill("force", 1) < 70)
-            	return notify_fail("你的基本内功火候还不够。\n");
+                return notify_fail("你的基本内功火候还不够。\n");
 
         return ::valid_learn(me);
 }

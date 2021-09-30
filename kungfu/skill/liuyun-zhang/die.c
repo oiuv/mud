@@ -54,11 +54,11 @@ int perform(object me, object target)
 
         if (random(ap) > dp / 2)
         {
-		msg = HIY "$n" HIY "只见$N" HIY "双掌飘忽不定，毫"
+        msg = HIY "$n" HIY "只见$N" HIY "双掌飘忽不定，毫"
                       "无破绽，竟被困在$N" HIY "的掌风之中。\n" NOR;
 
                 target->start_busy(ap / 45 + 1);
-               	me->start_busy(1);
+                   me->start_busy(1);
                 me->add("neili", -80);
         } else
         {

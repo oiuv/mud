@@ -9,8 +9,8 @@ void create()
 LONG);
         set("outdoors", "heimuya");
         set("exits", ([
-            	"south" : __DIR__"road1",
-            	"east" : __DIR__"pingdingzhou",
+                "south" : __DIR__"road1",
+                "east" : __DIR__"pingdingzhou",
         ]));
         set("objects", ([
                 "/d/beijing/npc/tiaofu" : 1,

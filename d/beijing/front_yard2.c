@@ -1,41 +1,41 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 void create ()
 {
-  	set ("short", "练武场");
-  	set ("long", @LONG
+      set ("short", "练武场");
+      set ("long", @LONG
 空阔的场地上铺满了细细的黄土，正好适合演武。四面有几个镖局的镖师
 正在练武。练武场的中心竖着几根木桩(muzhuang)，木桩周围还挖了若干个大
 沙坑 (shakeng)。西面是一间厢房，镖局的客人可以去休息。场地东边有个兵
 器架。
 LONG);
 
-  	set("item_desc", ([
-  		"shakeng"  : WHT "沙坑里有些家将在练习轻功，你也可"
+      set("item_desc", ([
+          "shakeng"  : WHT "沙坑里有些家将在练习轻功，你也可"
                              "以跳(tiao)下去试试。\n" NOR,
-  		"muzhuang" : WHT "几根木桩上有不少击打(jida)过的痕"
+          "muzhuang" : WHT "几根木桩上有不少击打(jida)过的痕"
                              "迹。\n" NOR,
-	]));
+    ]));
 
-  	set("exits", ([
-  		"north" : __DIR__"zhengting.c",
-  		"west" : __DIR__"bedroom",
-  		"south" : __DIR__"front_yard",
-  		"east" : __DIR__"bingqi",
-	]));
+      set("exits", ([
+          "north" : __DIR__"zhengting.c",
+          "west" : __DIR__"bedroom",
+          "south" : __DIR__"front_yard",
+          "east" : __DIR__"bingqi",
+    ]));
 
-  	set("objects", ([
+      set("objects", ([
                CLASS_D("zhenyuan") + "/daiyongming" : 1,
         ]));
 
-  	setup();
+      setup();
 }
 
 void init()
 {
-  	add_action("do_jida", "jida");
-  	add_action("do_tiao", "tiao");
+      add_action("do_jida", "jida");
+      add_action("do_tiao", "tiao");
 }
 
 int do_jida(string arg)

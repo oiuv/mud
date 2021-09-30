@@ -13,7 +13,7 @@ LONG);
                "south" : __DIR__"guofu_shilu-4",
         ]));
         set("objects", ([
-           	__DIR__"npc/puren1" : 1,
+               __DIR__"npc/puren1" : 1,
         ]));
         set("outdoors", "wuguan");
         setup();

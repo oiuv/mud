@@ -10,14 +10,14 @@ void create()
 称八宝佛像。
 LONG);
         set("objects", ([
-		__DIR__"npc/jiansi" : 1,
-		__DIR__"npc/obj/milexiang" : 1,
-	]));
+        __DIR__"npc/jiansi" : 1,
+        __DIR__"npc/obj/milexiang" : 1,
+    ]));
 
         set("exits", ([
-		"south" : __DIR__"houyuan",
-		"northdown" : __DIR__"gongmen",
-	]));
+        "south" : __DIR__"houyuan",
+        "northdown" : __DIR__"gongmen",
+    ]));
         set("no_clean_up", 0);
 
         setup();

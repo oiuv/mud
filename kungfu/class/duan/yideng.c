@@ -9,34 +9,34 @@ mixed ask_skill2();
 
 void create()
 {
-    	set_name("一灯大师", ({ "yideng dashi", "yideng", "dashi" }));
-    	set("long", @LONG
+        set_name("一灯大师", ({ "yideng dashi", "yideng", "dashi" }));
+        set("long", @LONG
 一灯大师乃江湖中人称“东邪西毒，南帝北丐”中
 的南帝段皇爷，当年凭着段氏“一阳指”而独步武
 林，罕逢敌手。但却在中年时因一段悲情而出家为
 僧，之后大彻大悟，成为一位得道高僧。
 LONG );
-    	set("title", "大理国退位皇帝");
-    	set("nickname", HIY "南帝" NOR);
-    	set("gender", "男性");
-    	set("age", 71);
-	set("shen_type", 1);
-    	set("attitude", "friendly");
+        set("title", "大理国退位皇帝");
+        set("nickname", HIY "南帝" NOR);
+        set("gender", "男性");
+        set("age", 71);
+    set("shen_type", 1);
+        set("attitude", "friendly");
 
-    	set("str", 33);
-    	set("int", 35);
-    	set("con", 38);
-    	set("dex", 33);
+        set("str", 33);
+        set("int", 35);
+        set("con", 38);
+        set("dex", 33);
 
-    	set("qi", 6500);
-    	set("max_qi", 6500);
-    	set("jing", 5000);
-    	set("max_jing", 5000);
-    	set("neili", 8000);
-    	set("max_neili", 8000);
-    	set("jiali", 200);
-    	set("combat_exp", 4000000);
-    	set("score", 500000);
+        set("qi", 6500);
+        set("max_qi", 6500);
+        set("jing", 5000);
+        set("max_jing", 5000);
+        set("neili", 8000);
+        set("max_neili", 8000);
+        set("jiali", 200);
+        set("combat_exp", 4000000);
+        set("score", 500000);
 
         set_skill("force", 340);
         set_skill("xiantian-gong", 240);
@@ -84,25 +84,25 @@ LONG );
                 (: exert_function, "powerup" :),
         }));
 
-    	set("inquiry",([
-          	"王重阳"   : "中神通王重阳名动江湖，老衲很是佩服。",
-          	"瑛姑"     : "那是老衲出家前的一段孽缘，不提也罢。",
-          	"老顽童"   : "呵呵，那人武功高强，可是心机却如顽童一般。",
-          	"周伯通"   : "呵呵，那人武功高强，可是心机却如顽童一般。",
-          	"郭靖"     : "哦，那个憨小子心地善良，忠厚老实，没黄蓉一定要吃亏。",
-         	"黄蓉"     : "是郭靖那憨小子的伴侣吧，人倒很是机灵。",
-          	"知识"     : "我可以传授你禅宗心法和梵文，其它的找你的师父学习吧。",
-          	"传授"     : "我可以传授你禅宗心法和梵文，其它的找你的师父学习吧。",
-          	"阳关三叠" : (: ask_skill1 :),
+        set("inquiry",([
+              "王重阳"   : "中神通王重阳名动江湖，老衲很是佩服。",
+              "瑛姑"     : "那是老衲出家前的一段孽缘，不提也罢。",
+              "老顽童"   : "呵呵，那人武功高强，可是心机却如顽童一般。",
+              "周伯通"   : "呵呵，那人武功高强，可是心机却如顽童一般。",
+              "郭靖"     : "哦，那个憨小子心地善良，忠厚老实，没黄蓉一定要吃亏。",
+             "黄蓉"     : "是郭靖那憨小子的伴侣吧，人倒很是机灵。",
+              "知识"     : "我可以传授你禅宗心法和梵文，其它的找你的师父学习吧。",
+              "传授"     : "我可以传授你禅宗心法和梵文，其它的找你的师父学习吧。",
+              "阳关三叠" : (: ask_skill1 :),
             "先天功乾阳剑气" : (: ask_skill2 :),//新增 by 薪有所属
-    	]));
+        ]));
 
         set_temp("apply/damage", 100);
         set_temp("apply/unarmed_damage", 100);
         set_temp("apply/armor", 200);
 
-    	setup();
-    	carry_object("/clone/cloth/seng-cloth")->wear();
+        setup();
+        carry_object("/clone/cloth/seng-cloth")->wear();
 }
 
 void init()
@@ -208,7 +208,7 @@ mixed ask_skill1()
         message_sort(HIY "\n$n" HIY "凝视了$N" HIY "好一会儿，随即点了点"
                      "头，将$N" HIY "招至身边，在耳旁低声细说良久，$N" HIY
                      "听后会心的一笑，看来对$n" HIY "的教导大有所悟。\n\n"
-                     NOR, me, this_object()); 
+                     NOR, me, this_object());
 
         command("buddhi");
         command("say 老衲已将此绝技传授给你，切记莫走进邪魔歪道！");
@@ -271,16 +271,16 @@ mixed ask_skill2()
 
         if (me->query("max_neili") < 5000 )
                 return "你的内力修为还不够，练高点再来吧。";
-                
+
         if (me->query("gongxian") < 3000)
-        	      return "你的贡献值不够，这招先不忙传你。";
+                  return "你的贡献值不够，这招先不忙传你。";
 
         if (me->query_skill("xiantian-gong", 1) < 280)
                 return "你的先天功功力还不够，练高了再说吧。";
-                
+
         if (me->query_skill("yiyang-zhi", 1) < 280)
                 return "你的一阳指诀修为还不够，练高了再说吧。";
-                
+
         if (me->query_skill("jingluo-xue", 1) < 200)
                 return "你对经络学的了解还不透彻，研究透了再来找我吧。";
 

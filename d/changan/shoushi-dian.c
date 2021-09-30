@@ -11,12 +11,12 @@ void create()
 乱，首饰店的老板正在查点货物。
 LONG);
         set("exits", ([ /* sizeof() == 1 */
-        	"south" : __DIR__"qixiang5",
+            "south" : __DIR__"qixiang5",
         ]));
         set("objects", ([
-        	__DIR__"npc/chen-laoban" : 1,
+            __DIR__"npc/chen-laoban" : 1,
         ]) );
 
-	setup();
+    setup();
         replace_program(ROOM);
 }

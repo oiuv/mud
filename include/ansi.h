@@ -1,8 +1,8 @@
 
-//	File	:  /include/ansi.h
-//	Creator	:  Gothic@TMI-2
+//    File    :  /include/ansi.h
+//    Creator    :  Gothic@TMI-2
 //
-//	The standard set of ANSI codes for mudlib use.
+//    The standard set of ANSI codes for mudlib use.
 
 #ifndef ANSI_H
 #define ANSI_H

@@ -14,8 +14,8 @@ LONG);
                "east" : __DIR__"shulin2",
                "west" : __DIR__"shulin2",
         ]));
-	set("outdoors", "xiaoyao");
-	set("no_clean_up", 0);
-	setup();
-	replace_program(ROOM);
+    set("outdoors", "xiaoyao");
+    set("no_clean_up", 0);
+    setup();
+    replace_program(ROOM);
 }

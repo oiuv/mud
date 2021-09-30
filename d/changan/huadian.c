@@ -11,15 +11,15 @@ void create ()
 多城中的小伙子都喜欢在这儿逗留，想挑选一些美丽的鲜花送给心上的
 姑娘。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
                 "south" : __DIR__"huarui3",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
                 __DIR__"npc/girl" : 1,
         ]));
 
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

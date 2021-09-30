@@ -6,16 +6,16 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("高则成", ({"gao zecheng", "gao", "zecheng"}));
-	set("long", "他穿青色长袍，背上斜插长剑，二十八九岁年纪。\n"
+    set_name("高则成", ({"gao zecheng", "gao", "zecheng"}));
+    set("long", "他穿青色长袍，背上斜插长剑，二十八九岁年纪。\n"
                     "脸罩寒霜，一副要惹事生非的模样。\n");
-	set("gender", "男性");
-	set("age", 28);
-	set("attitude", "heroism");
-	set("str", 25);
-	set("int", 25);
-	set("con", 25);
-	set("dex", 25);
+    set("gender", "男性");
+    set("age", 28);
+    set("attitude", "heroism");
+    set("str", 25);
+    set("int", 25);
+    set("con", 25);
+    set("dex", 25);
         set("max_qi", 1000);
         set("max_jing", 800);
         set("neili", 2000);
@@ -50,7 +50,7 @@ void create()
         prepare_skill("strike", "kunlun-zhang");
         prepare_skill("cuff", "zhentian-quan");
 
-	create_family("昆仑派", 5, "弟子");
+    create_family("昆仑派", 5, "弟子");
 
         set("chat_chance_combat", 100);
         set("chat_msg_combat", ({
@@ -61,7 +61,7 @@ void create()
 
         }) );
 
-	setup();
+    setup();
         carry_object("/d/kunlun/obj/sword")->wield();
         carry_object("/d/kunlun/obj/pao3")->wear();
 }

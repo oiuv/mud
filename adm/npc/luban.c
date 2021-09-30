@@ -99,8 +99,8 @@
 
 #include <ansi.h>
 
-inherit	NPC;
-inherit	F_SAVE;
+inherit    NPC;
+inherit    F_SAVE;
 
 // 这里记录了各种样式房屋
 // 这里是一个mapping数组，其中每一个mapping指明了一种型号的房屋。 每一个mapping中有三个
@@ -113,26 +113,26 @@ inherit	F_SAVE;
 // 注意：由于鲁班是一个需要保存数据的NPC，在改动鲁班的文件后可能会发生一些问题，这时可以
 // 将他的存盘文件删除。
 nosave mapping *room_example = ({
-([	"name"	   : "独乐居",
-    "type"	   : "dule",
-    "value"	   : 20000000,
-    "files"	   : ([	"xiaoyuan" : "/d/room/dule/xiaoyuan.c",
+([    "name"       : "独乐居",
+    "type"       : "dule",
+    "value"       : 20000000,
+    "files"       : ([    "xiaoyuan" : "/d/room/dule/xiaoyuan.c",
             "xiaowu"   : "/d/room/dule/dulewu.c" ,
              ]),
 ]),
-([	"name"	   : "彩虹居",
-    "type"	   : "caihong",
-    "value"	   : 70000000,
-    "files"	   : ([ "xiaoyuan" : "/d/room/caihong/xiaoyuan.c",
+([    "name"       : "彩虹居",
+    "type"       : "caihong",
+    "value"       : 70000000,
+    "files"       : ([ "xiaoyuan" : "/d/room/caihong/xiaoyuan.c",
             "dating"   : "/d/room/caihong/dating.c",
             "houyuan"  : "/d/room/caihong/houyuan.c",
             "woshi"    : "/d/room/caihong/woshi.c",
              ]),
 ]),
-([	"name"	   : "盘龙居",
-    "type"	   : "panlong",
-    "value"	   : 800000000,
-    "files"	   : ([ "dayuan"   : "/d/room/panlong/dayuan.c",
+([    "name"       : "盘龙居",
+    "type"       : "panlong",
+    "value"       : 800000000,
+    "files"       : ([ "dayuan"   : "/d/room/panlong/dayuan.c",
                         "qianting" : "/d/room/panlong/qianting.c",
                         "zuowei"   : "/d/room/panlong/zuowei.c",
                         "youwei"   : "/d/room/panlong/youwei.c",
@@ -159,7 +159,7 @@ nosave mapping *room_example = ({
 
 });
 
-#define	WIZLEVEL	4	// 能够处理表单的巫师等级
+#define    WIZLEVEL    4    // 能够处理表单的巫师等级
 
 nosave string *ban_room_id = ({
         "north",
@@ -185,70 +185,70 @@ nosave string *ban_room_id = ({
 });
 
 // 内部函数
-private int	ask_me();
-private int	ask_paper();
-private int	ask_drawing();
-private int	ask_certosina();
-private int	ask_demolish();
-private int	ask_rebuild();
-private int	ask_modify();
-private int	ask_key();
-private int	ask_desc();
-private int	recognize_apprentice(object me);
-private int	accept_object(object me, object ob);
+private int    ask_me();
+private int    ask_paper();
+private int    ask_drawing();
+private int    ask_certosina();
+private int    ask_demolish();
+private int    ask_rebuild();
+private int    ask_modify();
+private int    ask_key();
+private int    ask_desc();
+private int    recognize_apprentice(object me);
+private int    accept_object(object me, object ob);
 private void    tell_user_status(object me);
-private void	luban_say(string msg);
-private void	user_say(string msg);
-private int	do_answer(string arg);
-private int	do_stop();
-private int	do_desc(string arg);
-private int	do_show(string arg);
-private int	do_changename(string arg);
-private int	do_changeid(string arg);
-private int	do_changetype(string arg);
-private int	do_changedesc(string arg);
-private int	do_finish();
-private int	do_withdraw();
-private int	decide_withdraw();
-private int	do_destory();
-private void	show_desc(mixed player, string arg);
+private void    luban_say(string msg);
+private void    user_say(string msg);
+private int    do_answer(string arg);
+private int    do_stop();
+private int    do_desc(string arg);
+private int    do_show(string arg);
+private int    do_changename(string arg);
+private int    do_changeid(string arg);
+private int    do_changetype(string arg);
+private int    do_changedesc(string arg);
+private int    do_finish();
+private int    do_withdraw();
+private int    decide_withdraw();
+private int    do_destory();
+private void    show_desc(mixed player, string arg);
 private void    promote_type(object me);
-private int	quest_user(object me);
-private int	quest_info(object me);
-private int	check_name(object me, string arg);
-private int	check_id(object me, string arg);
-private int	check_type(object me, string arg);
-private int	check_legal_name(string name, string position);
-private int	check_legal_id(string name, string position);
-private mixed	check_legal_type(string type);
-private string	obey_description(string desc);
-private object	get_object(string file_name);
-private int	record_desc(object me, string room_name, string desc);
-private void	record_contract(object me);
-private int	modify_desc_in_form(string player_id, string room_name, string desc);
-private string	sort_desc(mixed me, string desc);
+private int    quest_user(object me);
+private int    quest_info(object me);
+private int    check_name(object me, string arg);
+private int    check_id(object me, string arg);
+private int    check_type(object me, string arg);
+private int    check_legal_name(string name, string position);
+private int    check_legal_id(string name, string position);
+private mixed    check_legal_type(string type);
+private string    obey_description(string desc);
+private object    get_object(string file_name);
+private int    record_desc(object me, string room_name, string desc);
+private void    record_contract(object me);
+private int    modify_desc_in_form(string player_id, string room_name, string desc);
+private string    sort_desc(mixed me, string desc);
 
 // 巫师使用的管理命令相关的函数
-private void	show_brief(string player_id);
-private int	exist_form();
+private void    show_brief(string player_id);
+private int    exist_form();
 private int     do_help(string arg);
-private int	do_list(string arg);
-private int	do_type(string arg);
-private int	do_agree(string arg);
-private int	do_reject(string arg);
-private int	do_delete(string arg);
-private void	show_apply();
-private void	show_agree();
-private void	show_reject();
-private void	show_old();
+private int    do_list(string arg);
+private int    do_type(string arg);
+private int    do_agree(string arg);
+private int    do_reject(string arg);
+private int    do_delete(string arg);
+private void    show_apply();
+private void    show_agree();
+private void    show_reject();
+private void    show_old();
 private void    show_all();
-private void	show_brief_title();
-private void	show_brief_list(string info, string msg);
+private void    show_brief_title();
+private void    show_brief_list(string info, string msg);
 
 // 生成/拆毁房屋的相关函数
 private string  file_dir(mixed me);
-private string	to_player(string player_id, string file_name);
-private void	create_room(object me);
+private string    to_player(string player_id, string file_name);
+private void    create_room(object me);
 
 // 下面这个函数将提供给外部调用(/adm/daemons/updated)，用于更新玩家
 // 的数据(数据故障或是玩家自杀，被PURGE)
@@ -259,15 +259,15 @@ private int     create_new_key(object me);
 private object  get_user_key(object me);
 
 mapping* forms;
-mapping my_form;	// 一个表单，用来存放用户提交的建房信息
+mapping my_form;    // 一个表单，用来存放用户提交的建房信息
 
 // 这是提供的函数，之所以用宏定义，仅仅是为了减小运行时的开销
 // 查询form
-#define	query_form(pid, item)		query("form/" + pid + "/" + item)
+#define    query_form(pid, item)        query("form/" + pid + "/" + item)
 // 设置form内的值
-#define set_form(pid, item, content)	set("form/" + pid + "/" + item, content)
+#define set_form(pid, item, content)    set("form/" + pid + "/" + item, content)
 // 判断该玩家是否有提交申请
-#define submit_form(pid)		mapp(query("form/" + pid))
+#define submit_form(pid)        mapp(query("form/" + pid))
 
 void create()
 {
@@ -279,7 +279,7 @@ void create()
     set("nickname", HIC "鬼斧神工" NOR);
     set("shen_type", 0);
 
-    set("str", 10000);		// 防止接收的东西过多而导致丢失
+    set("str", 10000);        // 防止接收的东西过多而导致丢失
     set("int", 60);
 
     set("gender", "男性");
@@ -291,21 +291,21 @@ LONG
 );
     set("attitude", "friendly");
     set("inquiry", ([
-        "造房"	: (: ask_me :),
-        //"造屋"	: (: ask_me :),
-        "买房"	: (: ask_me :),
-        //"买屋"	: (: ask_me :),
-        "建房"	: (: ask_me :),
-        //"建屋"	: (: ask_me :),
-        "房子"	: (: ask_me :),
-        //"屋子"	: (: ask_me :),
+        "造房"    : (: ask_me :),
+        //"造屋"    : (: ask_me :),
+        "买房"    : (: ask_me :),
+        //"买屋"    : (: ask_me :),
+        "建房"    : (: ask_me :),
+        //"建屋"    : (: ask_me :),
+        "房子"    : (: ask_me :),
+        //"屋子"    : (: ask_me :),
                 "home"  : (: ask_me :),
-        "room"	: (: ask_me :),
-        "house"	: (: ask_me :),
-        "图纸"	: (: ask_paper :),
-        "纸张"	: (: ask_paper :),
-        "纸"	: (: ask_paper :),
-        "paper"	: (: ask_paper :),
+        "room"    : (: ask_me :),
+        "house"    : (: ask_me :),
+        "图纸"    : (: ask_paper :),
+        "纸张"    : (: ask_paper :),
+        "纸"    : (: ask_paper :),
+        "paper"    : (: ask_paper :),
         //"拆屋"  : (: ask_demolish :),
         "拆房"  : (: ask_demolish :),
         "拆毁"  : (: ask_demolish :),
@@ -313,18 +313,18 @@ LONG
                 "destroy" : (: ask_demolish :),
         "重建"  : (: ask_rebuild :),
         //"再建"  : (: ask_rebuild :),
-        "钥匙"	: (: ask_key :),
-        //"锁匙"	: (: ask_key :),
-        //"锁钥"	: (: ask_key :),
+        "钥匙"    : (: ask_key :),
+        //"锁匙"    : (: ask_key :),
+        //"锁钥"    : (: ask_key :),
                 "配钥匙": (: ask_key :),
                 //"配锁匙": (: ask_key :),
                 "新钥匙": (: ask_key :),
                 //"新锁匙": (: ask_key :),
-        "key"	: (: ask_key :),
-        "描述"	: (: ask_desc :),
-        "描写"	: (: ask_desc :),
-        "desc"	: (: ask_desc :),
-        "规则"	: (: ask_desc :),
+        "key"    : (: ask_key :),
+        "描述"    : (: ask_desc :),
+        "描写"    : (: ask_desc :),
+        "desc"    : (: ask_desc :),
+        "规则"    : (: ask_desc :),
         "修改"  : (: ask_modify :),
         "修正"  : (: ask_modify :),
         "改正"  : (: ask_modify :),
@@ -481,7 +481,7 @@ int recognize_apprentice(object me)
 int accept_object(object me, object ob)
 {
         object room;
-    object build;		// 建房的地点
+    object build;        // 建房的地点
 
     if (ob->id("key") && ob->query("item_make"))
     {
@@ -875,8 +875,8 @@ SAY , me);
 // 回答有关图纸的信息
 private int ask_paper()
 {
-    object	me;
-    object	ob;
+    object    me;
+    object    ob;
 
     me = this_player();
 
@@ -1029,14 +1029,14 @@ private int ask_desc()
 描述信息可以使用颜色，并且可以分行，但是最多不能超过160个汉字：
 
 颜色的规则：
-$BLK$ - 黑色		$NOR$ - 恢复正常颜色
-$RED$ - 红色		$HIR$ - 亮红色
-$GRN$ - 绿色		$HIG$ - 亮绿色
-$YEL$ - 土黄色		$HIY$ - 黄色
-$BLU$ - 深蓝色		$HIB$ - 蓝色
-$MAG$ - 浅紫色		$HIM$ - 粉红色
-$CYN$ - 蓝绿色		$HIC$ - 天青色
-$WHT$ - 浅灰色		$HIW$ - 白色
+$BLK$ - 黑色        $NOR$ - 恢复正常颜色
+$RED$ - 红色        $HIR$ - 亮红色
+$GRN$ - 绿色        $HIG$ - 亮绿色
+$YEL$ - 土黄色        $HIY$ - 黄色
+$BLU$ - 深蓝色        $HIB$ - 蓝色
+$MAG$ - 浅紫色        $HIM$ - 粉红色
+$CYN$ - 蓝绿色        $HIC$ - 天青色
+$WHT$ - 浅灰色        $HIW$ - 白色
 
 换行：
 只要在描述信息中添加一个\n就可以。比如：“这是一间小院。\n院子边上的墙很矮。”
@@ -1269,7 +1269,7 @@ private int do_changetype(string arg)
     object me;
     int value;
     string player_id;
-//	string position;
+//    string position;
     mapping example;
 
     me = this_player();
@@ -1318,7 +1318,7 @@ private int do_changedesc(string arg)
 {
     object me;
     string player_id;
-//	mapping example;
+//    mapping example;
     string room_name;
     string room_desc;
 
@@ -1471,7 +1471,7 @@ private int do_demolish()
 // 拆毁房屋的执行函数，该函数可能会被外部调用，所以必须察看权限
 int demolish_room(object me)
 {
-//	string *names;
+//    string *names;
         string room_name;
         string key_id;
         mixed *file;
@@ -1601,26 +1601,26 @@ int demolish_room(object me)
 // room_name是用户指定的房屋中的某一间的short描述
 private void show_desc(mixed player, string room_name)
 {
-    mapping filesp;		// 原型房屋描述的文件mapping
-    mapping descsp;		// 玩家的描述mapping
+    mapping filesp;        // 原型房屋描述的文件mapping
+    mapping descsp;        // 玩家的描述mapping
 
     int i;
-    int value;		// 房屋造价
-    int count;		// 显示的描述信息的数目
-    object me;		// 调用该函数的对象
-    object ob;		// 被描述的房屋的object或是建房场景的object
+    int value;        // 房屋造价
+    int count;        // 显示的描述信息的数目
+    object me;        // 调用该函数的对象
+    object ob;        // 被描述的房屋的object或是建房场景的object
 
         string player_id;       // 建造房屋的玩家ID
-    string desc;		// 房屋描述的mapping
-    string *names;		// 房屋mapping的关键字的字符串表
-    string room_nameid;	// 房屋名字及ID
-    string room_type;	// 房屋类型
-    string position;	// 建房的位置
+    string desc;        // 房屋描述的mapping
+    string *names;        // 房屋mapping的关键字的字符串表
+    string room_nameid;    // 房屋名字及ID
+    string room_type;    // 房屋类型
+    string position;    // 建房的位置
 
-    string ids;		// 查询时使用
+    string ids;        // 查询时使用
 
-    string info;		// 最后给出的提示信息
-    string msg;		// 临时变量，用于显示信息
+    string info;        // 最后给出的提示信息
+    string msg;        // 临时变量，用于显示信息
 
     me = this_player();
     info = "";
@@ -2310,7 +2310,7 @@ private int do_type(string arg)
 {
     string player_id;
     string room_name;
-//	int a;
+//    int a;
 
     if (! wizardp(this_player()) || wiz_level(this_player()) < WIZLEVEL)
     {
@@ -2340,7 +2340,7 @@ private void show_brief(string player_id)
     string msg;
     string wizard;
     string memo;
-//	int i;
+//    int i;
 
     form = query("form/" + player_id);
     if (! form || ! mapp(form)) return;
@@ -2601,31 +2601,31 @@ private void show_brief_title()
 // 根据一个表单建造房屋
 private void create_room(object me)
 {
-    mapping filesp;		// 建造的原型房的文件mapping
-    mapping descsp;		// 玩家填写的描述mapping
+    mapping filesp;        // 建造的原型房的文件mapping
+    mapping descsp;        // 玩家填写的描述mapping
 
-    string player_id;	// 建找房间的玩家的ID
-    string room_type;	// 房屋类型
-    string room_name;	// 房屋名字
-    string room_id;		// 房屋ID
-    string room_key;	// 房屋的钥匙
+    string player_id;    // 建找房间的玩家的ID
+    string room_type;    // 房屋类型
+    string room_name;    // 房屋名字
+    string room_id;        // 房屋ID
+    string room_key;    // 房屋的钥匙
         string room_owner;      // 房屋的主人
-    string position;	// 建造房屋的地点(路径名)
-    string position_short;	// 建造房屋的地点的中文名字
+    string position;    // 建造房屋的地点(路径名)
+    string position_short;    // 建造房屋的地点的中文名字
         string outdoors;        // 房屋所在的区域
-    string entry;		// 房屋的入口
+    string entry;        // 房屋的入口
 
-    string *content;	// 源文件的内容
-    string *names;		// filesp的关键字集合
-    string filename;	// 生成的文件名称
-    string dstfile;		// 生成的文件内容
+    string *content;    // 源文件的内容
+    string *names;        // filesp的关键字集合
+    string filename;    // 生成的文件名称
+    string dstfile;        // 生成的文件内容
 
-    string desc;		// 某间房屋的描述::钥匙的描述
-    object ob;		// 房屋的object
+    string desc;        // 某间房屋的描述::钥匙的描述
+    object ob;        // 房屋的object
 
     int i;
     int k;
-    string ids;		// 快捷查询字符串
+    string ids;        // 快捷查询字符串
 
     me = this_player();
     if (! objectp(me)) return;
@@ -2710,7 +2710,7 @@ private void create_room(object me)
               " of " + player_id + "'s room\n// Create by LUBAN written by Doing Lu\n";
         for (k = 0; k < sizeof(content); k++)
         {
-            if (strsrch(content[k], "LONG") != -1)	// 查到了一个LONG标志
+            if (strsrch(content[k], "LONG") != -1)    // 查到了一个LONG标志
             {
                 long_flag = ! long_flag;
                 if (! long_flag)
@@ -2884,12 +2884,12 @@ KEY;
     save();
 
     // 设置玩家的数据库
-    me->set("private_room/build", 1);		// 已经建过房屋
-    me->set("private_room/position", position);	// 房屋所在的位置
-    me->set("private_room/entry", entry);		// 房屋入口处的文件路径
-    me->set("private_room/name", room_name);	// 房屋的名字
-    me->set("private_room/id", room_id);		// 房屋的ID
-    me->set("private_room/type", room_type);	// 房屋的类型
+    me->set("private_room/build", 1);        // 已经建过房屋
+    me->set("private_room/position", position);    // 房屋所在的位置
+    me->set("private_room/entry", entry);        // 房屋入口处的文件路径
+    me->set("private_room/name", room_name);    // 房屋的名字
+    me->set("private_room/id", room_id);        // 房屋的ID
+    me->set("private_room/type", room_type);    // 房屋的类型
         me->set("private_room/key_no", 1);              // 使用原配钥匙
     me->save();
 
@@ -2926,13 +2926,13 @@ private string to_player(string player_id, string file_name)
 
 // 这是为了加快运行速度使用的宏函数
 // 判断首部的字符串是否相同(字符串1必须比字符串2长)
-#define	IS_HEAD(s1,s2)	  (s1[i..i + strlen(s2) - 1] == s2)
+#define    IS_HEAD(s1,s2)      (s1[i..i + strlen(s2) - 1] == s2)
 // 判断字符串首部是否为英文标点符号
-#define	IS_HEAD_ESIGH(s1) (s1[i] == '.' || s1[i] == '!' || s1[i] == ';' || s1[i] == ',' || s1[i] == ':')
+#define    IS_HEAD_ESIGH(s1) (s1[i] == '.' || s1[i] == '!' || s1[i] == ';' || s1[i] == ',' || s1[i] == ':')
 // 判断字符串首部是否为中文标点符号
-#define	IS_HEAD_CSIGH(s1) (s1[i..i + 1] == "。" || s1[i..i + 1] == "！" || s1[i..i + 1] == "；" || s1[i..i + 1] == "，" || s1[i..i + 1] == "：")
+#define    IS_HEAD_CSIGH(s1) (s1[i..i + 1] == "。" || s1[i..i + 1] == "！" || s1[i..i + 1] == "；" || s1[i..i + 1] == "，" || s1[i..i + 1] == "：")
 // 判断字符串首部是否是中文字符
-#define	IS_HEAD_CHN(s1)	  (s1[i] > 160)
+#define    IS_HEAD_CHN(s1)      (s1[i] > 160)
 
 // 规范描述信息
 // 这个函数主要为讲用户输入的描述信息添加回车和跳格
@@ -2940,10 +2940,10 @@ private string sort_desc(mixed me, string desc)
 {
     string res;
         string space;           // 段落前面的空格
-    int curlen;		// res的当前行长
-    int perline = 60;	// 最大行长(如果有标点符号，可能会超出)
-    int crlen;		// 换行符的长度
-    int escflag;		// 转义序列的长度
+    int curlen;        // res的当前行长
+    int perline = 60;    // 最大行长(如果有标点符号，可能会超出)
+    int crlen;        // 换行符的长度
+    int escflag;        // 转义序列的长度
         int colorflag;          // 本行是否有颜色
         int len;                // 字符串的长度
         int i;
@@ -2956,7 +2956,7 @@ private string sort_desc(mixed me, string desc)
         string position_short;
 
         space = "    ";
-    res = "";              	// 第一个段落前的不加空格
+    res = "";                  // 第一个段落前的不加空格
     curlen = strlen(space);
         colorflag = 0;
 
@@ -3035,7 +3035,7 @@ private string sort_desc(mixed me, string desc)
         // 判断是否为换行
         if (IS_HEAD(desc, "\n"))
         {
-            if (curlen) res += "\n";	// 避免刚刚有换行
+            if (curlen) res += "\n";    // 避免刚刚有换行
             res += space;
             curlen = strlen(space);
                         i += crlen;

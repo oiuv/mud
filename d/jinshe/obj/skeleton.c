@@ -4,16 +4,16 @@ inherit ITEM;
 
 void create()
 {
-	set_name("骸骨", ({ "skeleton" }) );
-	set("long", "这副骸骨已经躺在这里很久了。\n");
-	set("unit", "具" );
-	set("big_count", 1);
-	set("small_count", 1);
+    set_name("骸骨", ({ "skeleton" }) );
+    set("long", "这副骸骨已经躺在这里很久了。\n");
+    set("unit", "具" );
+    set("big_count", 1);
+    set("small_count", 1);
 }
 void init()
 {
-	add_action("do_mai", "mai");
-	add_action("do_mai", "bury");
+    add_action("do_mai", "mai");
+    add_action("do_mai", "bury");
 }
 int do_mai(string arg)
 {
@@ -66,4 +66,3 @@ int do_mai(string arg)
         }
         return 1;
 }
-

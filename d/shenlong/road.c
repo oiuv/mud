@@ -11,14 +11,13 @@ void create()
 LONG );
 
         set("exits", ([
-	        "west" : __DIR__"kongdi",
-	        "north" : __DIR__"road2",
+            "west" : __DIR__"kongdi",
+            "north" : __DIR__"road2",
         ]));
         set("objects", ([
-	        __DIR__"npc/old": 2,
+            __DIR__"npc/old": 2,
         ]));
         set("outdoors", "shenlong");
         setup();
-        replace_program(ROOM); 
+        replace_program(ROOM);
 }
-

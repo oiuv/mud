@@ -12,11 +12,11 @@ void create ()
 兵列队操练。
 LONG);
          set("exits", ([ /* sizeof() == 1 */
-         	"northeast" : __DIR__"dongan-daokou",
+             "northeast" : __DIR__"dongan-daokou",
          ]));
          set("objects", ([ /* sizeof() == 5 */
-         	__DIR__"npc/fujiang" : 1,
-         	__DIR__"npc/guanbing" : 4,
+             __DIR__"npc/fujiang" : 1,
+             __DIR__"npc/guanbing" : 4,
          ]));
 
          set("outdoors", "changan");

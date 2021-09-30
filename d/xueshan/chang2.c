@@ -16,7 +16,7 @@ LONG);
         ]));
 
         set("objects", ([
-        	__DIR__"npc/x_lama" : 1,
+            __DIR__"npc/x_lama" : 1,
         ]));
 
         setup();

@@ -13,13 +13,13 @@ int perform(object me, object target)
         object weapon, weapon2;
         string w1, w2;
         int ap, dp;
-		
-		float improve;
-		int lvls, m, n;
-		string martial;
-		string *ks;
-		martial = "whip";
-     
+
+        float improve;
+        int lvls, m, n;
+        string martial;
+        string *ks;
+        martial = "whip";
+
         me = this_player();
 
         if (userp(me) && ! me->query("can_perform/yinsuo-jinling/feng"))
@@ -50,33 +50,33 @@ int perform(object me, object target)
               return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         w1 = weapon->name();
-		
-		lvls = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		lvls = lvls * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (m = 0; m < sizeof(ks); m++)
-		{
-			if (SKILL_D(ks[m])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[m], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 5 / 100 / lvls;
+
+        lvls = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+        lvls = lvls * 4 / 5;
+        ks = keys(me->query_skills(martial));
+        improve = 0;
+        n = 0;
+        //最多给予5个技能的加成
+        for (m = 0; m < sizeof(ks); m++)
+        {
+            if (SKILL_D(ks[m])->valid_enable(martial))
+            {
+                n += 1;
+                improve += (int)me->query_skill(ks[m], 1);
+                if (n > 4 )
+                    break;
+            }
+        }
+
+        improve = improve * 5 / 100 / lvls;
 
         damage = (int)me->query_skill("whip") / 2;
         damage += random(damage);
 
         ap = me->query_skill("whip");
         dp = target->query_skill("parry");
-		
-		ap += ap * improve;
+
+        ap += ap * improve;
 
         msg = "\n" HIW "只见$N" HIW "手中" + w1
               + HIW "暮地一抖，幻出无数鞭影，霎"

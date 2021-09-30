@@ -11,12 +11,11 @@ void create()
 快走吧，别一不小心掉了下去。
 LONG);
         set("exits", ([
-  		"eastdown" : __DIR__"shudao7",
-  		"westup" : __DIR__"shudao9",
-   	]));
+          "eastdown" : __DIR__"shudao7",
+          "westup" : __DIR__"shudao9",
+       ]));
         set("no_clean_up", 0);
         set("outdoors", "chengdu");
         setup();
         replace_program(ROOM);
 }
-

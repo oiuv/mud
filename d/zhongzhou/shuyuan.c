@@ -11,8 +11,8 @@ LONG);
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"east" : __DIR__"wendingnan4",
-	]));
+          "east" : __DIR__"wendingnan4",
+    ]));
 
         set("no_fight",1);
         setup();

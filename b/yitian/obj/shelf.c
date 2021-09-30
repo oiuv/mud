@@ -19,9 +19,9 @@ void create()
                 ob = find_object(YITIAN);
 
                 if (! ob)
-			ob = load_object(YITIAN);
+            ob = load_object(YITIAN);
 
                 if (! environment(ob))
-			ob->move(this_object());
+            ob->move(this_object());
         }
 }

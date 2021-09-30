@@ -12,11 +12,11 @@ void create ()
 的菜，最出名的歌妓，最美的女人送到你屋里来。墙上挂着一个牌子。
 LONG);
         set("exits", ([ /* sizeof() == 2 */
-        	"north" : __DIR__"qixiang1",
-        	"up": __DIR__"kzsleep",
+            "north" : __DIR__"qixiang1",
+            "up": __DIR__"kzsleep",
         ]));
         set("objects", ([ /* sizeof() == 1 */
-        	__DIR__"npc/xiaoer" : 1,
+            __DIR__"npc/xiaoer" : 1,
         ]));
         set("no_fight", 1);
         //set("no_magic", 1);
@@ -30,6 +30,6 @@ LONG);
 int valid_leave(object me, string dir)
 {
         if (!me->query_temp("rent_paid") && dir == "up" )
-        	return notify_fail("店小二满脸堆笑地挡住了你：对不起，上面是客人的卧房，不是本店的客人，不能上去。\n");
+            return notify_fail("店小二满脸堆笑地挡住了你：对不起，上面是客人的卧房，不是本店的客人，不能上去。\n");
         return ::valid_leave(me, dir);
 }

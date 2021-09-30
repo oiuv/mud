@@ -11,70 +11,70 @@ inherit F_COAGENT;
 
 void create()
 {
-	set_name("殷天正", ({"yin tianzheng", "yin", "tianzheng", }));
-	set("long",
+    set_name("殷天正", ({"yin tianzheng", "yin", "tianzheng", }));
+    set("long",
         "他是一位身材魁梧的秃老者，身穿一件白色长袍。\n"
         "他长眉胜雪，垂下眼角，鼻子钩曲，犹如鹰嘴。\n"
-	);
-                                                          
-	set("title",HIR "明教" HIW "白眉鹰王" NOR);
-	set("gender", "男性");
-	set("attitude", "peaceful");
+    );
 
-	set("age", 72);
-	set("shen_type", 1);
-	set("per", 22);
-	set("str", 30);
-	set("int", 30);
-	set("con", 30);
-	set("dex", 30);
+    set("title",HIR "明教" HIW "白眉鹰王" NOR);
+    set("gender", "男性");
+    set("attitude", "peaceful");
 
-	set("max_qi", 6500);
-	set("max_jing", 2500);
-	set("neili", 7000);
-	set("max_neili", 7000);
-	set("jiali", 210);
+    set("age", 72);
+    set("shen_type", 1);
+    set("per", 22);
+    set("str", 30);
+    set("int", 30);
+    set("con", 30);
+    set("dex", 30);
 
-	set("combat_exp", 3900000);
-	set("score", 800000);
+    set("max_qi", 6500);
+    set("max_jing", 2500);
+    set("neili", 7000);
+    set("max_neili", 7000);
+    set("jiali", 210);
 
-	set_skill("force", 280);
-    	set_skill("dodge", 260);
-	set_skill("parry", 260);
-	set_skill("strike", 280);
+    set("combat_exp", 3900000);
+    set("score", 800000);
+
+    set_skill("force", 280);
+        set_skill("dodge", 260);
+    set_skill("parry", 260);
+    set_skill("strike", 280);
         set_skill("cuff", 280);
         set_skill("pili-quan", 280);
         set_skill("finger", 280);
-    	set_skill("shenghuo-xinfa", 280);
-      	set_skill("shenghuo-bu", 260);
+        set_skill("shenghuo-xinfa", 280);
+          set_skill("shenghuo-bu", 260);
         set_skill("yinfeng-dao", 280);
         set_skill("tougu-zhen", 280);
-      	set_skill("literate", 240);
+          set_skill("literate", 240);
         set_skill("martial-cognize", 220);
 
-    	map_skill("force", "shenghuo-xinfa");
-    	map_skill("dodge", "shenghuo-bu");
-    	map_skill("parry", "yinfeng-dao");
-    	map_skill("finger", "tougu-zhen");
+        map_skill("force", "shenghuo-xinfa");
+        map_skill("dodge", "shenghuo-bu");
+        map_skill("parry", "yinfeng-dao");
+        map_skill("finger", "tougu-zhen");
         map_skill("cuff", "pili-quan");
-    	map_skill("strike", "yinfeng-dao");
+        map_skill("strike", "yinfeng-dao");
 
-	prepare_skill("strike", "yinfeng-dao");
+    prepare_skill("strike", "yinfeng-dao");
         prepare_skill("finger", "tougu-zhen");
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: command("perform strike.jue") :),
-		(: command("perform finger.feng") :),
-	}) );
-	create_family("明教", 36, "弟子");
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: command("perform strike.jue") :),
+        (: command("perform finger.feng") :),
+    }) );
+    create_family("明教", 36, "弟子");
 
         set_temp("apply/attack", 150);
         set_temp("apply/damage", 150);
         set_temp("apply/unarmed_damage", 150);
         set_temp("apply/armor", 150);
 
-	set("coagents", ({
+    set("coagents", ({
                 ([ "startroom" : "/d/mingjiao/dadian",
                    "id"        : "zhang wuji" ]),
                 ([ "startroom" : "/d/mingjiao/dadian",
@@ -86,8 +86,8 @@ void create()
                 ([ "startroom" : "/d/mingjiao/dadian",
                    "id"        : "xie xun" ]),
         }));
-	setup();
-    	carry_object("/d/mingjiao/obj/baipao")->wear();
+    setup();
+        carry_object("/d/mingjiao/obj/baipao")->wear();
 }
 
 void attempt_apprentice(object ob)
@@ -100,9 +100,9 @@ void attempt_apprentice(object ob)
                 command("say 你行侠仗义的事做得还不够，还是请回吧。");
                 return;
         }
-      
+
         if (ob->query_skill("shenghuo-xinfa", 1) < 180)
-        {       
+        {
                 command("say 你圣火心法不够娴熟，还是下去多练习一下吧！");
                 return ;
         }
@@ -156,5 +156,3 @@ void unconcious()
 {
         die();
 }
-
-

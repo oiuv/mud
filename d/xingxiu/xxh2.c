@@ -12,10 +12,10 @@ void create()
 日月洞。洞口挂着一幅对联(duilian)。
 LONG);
         set("exits", ([
-             	"north" : __DIR__"riyuedong",
-             	"south" : __DIR__"xxh1",
-             	"northeast" : __DIR__"xxh3",
-             	"northwest" : __DIR__"xxh4",
+                 "north" : __DIR__"riyuedong",
+                 "south" : __DIR__"xxh1",
+                 "northeast" : __DIR__"xxh3",
+                 "northwest" : __DIR__"xxh4",
         ]));
 
         set("valid_startroom",1);

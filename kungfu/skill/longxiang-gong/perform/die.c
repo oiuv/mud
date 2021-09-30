@@ -51,20 +51,20 @@ int perform(object me, object target)
         dp = target->query_skill("parry") + target->query("dex") * 10;
 
         if (me->query("max_neili") > target->query("max_neili") * 2)
-	{
+    {
                 msg += HIR "$n" HIR "全然无力阻挡，竟被$N"
                        HIR "一拳击得飞起，重重的跌落在地上。\n" NOR;
-	        me->add("neili", -50);
+            me->add("neili", -50);
                 me->start_busy(1);
 
-	        message_combatd(msg, me, target);
+            message_combatd(msg, me, target);
 
                 target->set("eff_qi", 1);
                 target->set("eff_jing", 1);
                 target->unconcious();
 
-        	return 1;
-	} else
+            return 1;
+    } else
         if (ap / 2 + random(ap) > dp)
         {
                 count = ap / 10;

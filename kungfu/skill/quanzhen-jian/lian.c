@@ -31,7 +31,7 @@ int perform(object me, object target)
                 return notify_fail("你没有激发全真剑法，难以施展" LIAN "。\n");
 
         if (me->query_skill_mapped("strike") != "haotian-zhang" &&
-			me->query_skill_mapped("strike") != "chongyang-shenzhang")
+            me->query_skill_mapped("strike") != "chongyang-shenzhang")
                 return notify_fail("你没有激发全真的掌法，难以施展" LIAN "。\n");
 
         if ((int)me->query("neili") < 400)
@@ -63,15 +63,14 @@ int perform(object me, object target)
                 msg = COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 70,
                                            HIR "只见$n躲闪不及，已经被$N一腿扫中，惨叫声中，向后跌出丈许。\n" NOR);
                 me->add("neili", -150);
-				message_combatd(msg, me, target);
+                message_combatd(msg, me, target);
         } else
         {
-				message_combatd(HIY "$n见此招来势凶猛，向后一跃，轻巧地躲了开去。\n" NOR, me, target);
-				me->add("neili", -50);
-		}
+                message_combatd(HIY "$n见此招来势凶猛，向后一跃，轻巧地躲了开去。\n" NOR, me, target);
+                me->add("neili", -50);
+        }
 
         weapon->wield();
 
         return 1;
 }
-

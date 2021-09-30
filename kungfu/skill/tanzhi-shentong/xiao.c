@@ -27,7 +27,7 @@ int perform(object me, object target)
 
         if ((int)me->query_skill("jingluo-xue", 1) < 200)
                 return notify_fail("你对经络学的了解不够，难以施展" XIAO "。\n");
- 
+
         if (me->query_skill_mapped("finger") != "tanzhi-shentong")
                 return notify_fail("你没有激发弹指神通，难以施展" XIAO "。\n");
 
@@ -56,9 +56,9 @@ int perform(object me, object target)
         {
                 target->receive_damage("jing", damage * 4 / 3, me);
                 target->receive_wound("jing", damage / 3, me);
-		target->add("neili", -damage * 3);
+        target->add("neili", -damage * 3);
 
-	        if (target->query("neili") < 0)
+            if (target->query("neili") < 0)
                         target->set("neili", 0);
 
                 msg += HIR "$n" HIR "只觉$N" HIR "指风袭体，随即上体一"

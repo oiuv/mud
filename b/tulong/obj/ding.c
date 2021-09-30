@@ -19,9 +19,9 @@ void create()
                 ob = find_object(TULONG);
 
                 if (! ob)
-			ob = load_object(TULONG);
+            ob = load_object(TULONG);
 
                 if (! environment(ob))
-			ob->move(this_object());
+            ob->move(this_object());
         }
 }

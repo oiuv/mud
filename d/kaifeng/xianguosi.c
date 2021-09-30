@@ -9,13 +9,13 @@ void create()
 匾额乃是当今御笔亲书。大门敞开，多有行人来往。
 LONG);
         set("objects", ([
-  		__DIR__"npc/zhike" : 1,
-	]));
+          __DIR__"npc/zhike" : 1,
+    ]));
         set("no_clean_up", 0);
         set("exits", ([
-  		"north" : __DIR__"qianyuan",
-  		"south" : __DIR__"jiedao",
-	]));
+          "north" : __DIR__"qianyuan",
+          "south" : __DIR__"jiedao",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

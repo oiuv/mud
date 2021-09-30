@@ -84,7 +84,7 @@ mapping *action = ({
 ])
 });
 
-int valid_enable(string usage) { return usage=="unarmed" ||  usage=="parry"; }  
+int valid_enable(string usage) { return usage=="unarmed" ||  usage=="parry"; }
 
 int valid_learn(object me)
 {
@@ -95,7 +95,7 @@ int valid_learn(object me)
         return notify_fail("你的内力太弱，无法练桃花掌法。\n");
 
     if ((int)me->query_skill("unarmed", 1) < (int)me->query_skill("taohua-zhangfa", 1))
-	return notify_fail("你的基本掌法水平有限，无法领会更高深的桃花掌法。\n");
+    return notify_fail("你的基本掌法水平有限，无法领会更高深的桃花掌法。\n");
 
     return 1;
 }

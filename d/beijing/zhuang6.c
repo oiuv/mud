@@ -10,12 +10,12 @@ void create()
 家死人。一阵阴风吹过，蜡烛突然灭了。
 LONG );
     set("exits", ([
-	"west" : __DIR__"zhuang5",
+    "west" : __DIR__"zhuang5",
     ]));
     set("objects", ([
-	"/d/shenlong/npc/dizi": 1,
+    "/d/shenlong/npc/dizi": 1,
     ]));
     set("outdoors", "beijing");
     setup();
-    replace_program(ROOM); 
+    replace_program(ROOM);
 }

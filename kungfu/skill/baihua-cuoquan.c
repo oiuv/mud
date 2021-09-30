@@ -236,7 +236,7 @@ int valid_learn(object me)
         return 1;
 }
 
-int valid_enable(string usage) { return usage=="unarmed" ||  usage=="parry"; }  
+int valid_enable(string usage) { return usage=="unarmed" ||  usage=="parry"; }
 
 mapping query_action(object me, object weapon)
 {
@@ -277,9 +277,9 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         int lvl;
 
         lvl = me->query_skill("baihua-cuoquan", 1);
-		
-		if (me->query_craze() > 2000 && me->query("jianu"))
-				damage_bonus += me->query("jianu");
+
+        if (me->query_craze() > 2000 && me->query("jianu"))
+                damage_bonus += me->query("jianu");
 
         if (damage_bonus < 150 || lvl < 150) return 0;
 

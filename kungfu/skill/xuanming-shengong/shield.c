@@ -30,7 +30,7 @@ int exert(object me, object target)
                         "冉冉透体而出，盘旋笼罩了全身。\n" NOR, me);
 
         me->add_temp("apply/armor", skill / 2);
-		me->add_temp("apply/strike", skill / 8);
+        me->add_temp("apply/strike", skill / 8);
         me->set_temp("shield", 1);
 
         me->start_call_out((: call_other, __FILE__, "remove_effect", me, skill / 2 :), skill);

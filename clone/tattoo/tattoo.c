@@ -43,15 +43,15 @@ string long()
                       "、") + "。";
 
                 if (query("tattoo_special"))
-		{
+        {
                         msg += "此外，" + name() + NOR + WHT "还能带"
                                "给你" + query("tattoo_spcname") + NOR
                                WHT "的神秘力量。";
-		} else
-		{
+        } else
+        {
                         msg += "此外，" + name() + NOR + WHT "似乎还"
                                "蕴藏着某些未知的神秘力量。";
-		}
+        }
         } else
                 msg = "这是一张古旧的图片，上面绘着些纹样。";
 
@@ -62,4 +62,3 @@ int query_autoload()
 {
         return 1;
 }
-

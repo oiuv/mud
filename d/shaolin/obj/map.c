@@ -4,12 +4,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name( HIC "『少林旅游图』" NOR, ({ "luyou tu", "tu" }) );
-	set_weight(10);
-	if( clonep() )
-		set_default_object(__FILE__);
-	else {
-		set("unit", "张");
+    set_name( HIC "『少林旅游图』" NOR, ({ "luyou tu", "tu" }) );
+    set_weight(10);
+    if( clonep() )
+        set_default_object(__FILE__);
+    else {
+        set("unit", "张");
                 set("long",
 "\n                 『少林旅游图』\n\n"
 "+----------------------+-----------------------+-----------------------+\n"
@@ -115,8 +115,8 @@ void create()
 "    ==   台阶           |         石阶          |\n"
 "    O    开放           |==========OO===========|\n"
 "    X    关着的门\n");
-		set("value", 50);
-		set("material", "paper");
-	}
-	setup();
+        set("value", 50);
+        set("material", "paper");
+    }
+    setup();
 }

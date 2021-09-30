@@ -12,9 +12,9 @@ void create()
 LONG);
         set("outdoors", "shenfeng");
         set("resource/water", 1);
-        set("exits", ([ 
-        	"north" : __DIR__"lake2",
-        	"south" : __DIR__"lvzhou",
-	]));
+        set("exits", ([
+            "north" : __DIR__"lake2",
+            "south" : __DIR__"lvzhou",
+    ]));
         setup();
 }

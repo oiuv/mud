@@ -20,15 +20,15 @@ void create()
                 set("long",
         "这是一本薄薄的小册子，看起来十分的残旧，书中写着一\n"
         "些密密麻麻的小字，不知是用来做什么的。\n", );
-		set("skill", ([
-			"name"        : "jinzhong-zhao",
-			"exp_required":	800000,
-			"jing_cost"   :	150,
-			"neili_cost"  :	150,
-			"difficulty"  :	98,
-			"max_skill"   : 180,
-			"min_skill"   : 0,
-		]));
+        set("skill", ([
+            "name"        : "jinzhong-zhao",
+            "exp_required":    800000,
+            "jing_cost"   :    150,
+            "neili_cost"  :    150,
+            "difficulty"  :    98,
+            "max_skill"   : 180,
+            "min_skill"   : 0,
+        ]));
         }
 }
 

@@ -11,7 +11,7 @@ mixed ask_skill1();
 
 void create()
 {
-	object ob;
+    object ob;
         set_name("范松", ({"fan song", "fan", "song"}));
         set("nickname", HIR "大力神魔" NOR );
         set("title", "日月神教前辈长老");
@@ -28,7 +28,7 @@ LONG);
         set("int", 36);
         set("con", 36);
         set("dex", 36);
-        
+
         set("max_qi", 5400);
         set("max_jing", 4000);
         set("neili", 7000);
@@ -76,14 +76,14 @@ LONG);
                 "开天辟地" : (: ask_skill1 :),
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "hammer.kai" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "hammer.kai" :),
                 (: perform_action, "cuff.tong" :),
                 (: perform_action, "claw.duan" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-	}) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+    }) );
 
         setup();
 
@@ -126,7 +126,7 @@ int recognize_apprentice(object ob, string skill)
         {
                 command("sneer");
                 command("say 你还不配。");
-                return -1; 
+                return -1;
         }
 
         if ((int)ob->query("shen") > -80000)
@@ -255,7 +255,7 @@ mixed ask_skill1()
                      "携着开天辟地之势猛劈而下，气势恢弘之极。顿时只听轰"
                      "然一声巨响，$n" HIY "面前的山壁已被劈出一道人来宽的"
                      "裂缝，威力之强，真可谓是惊天地，泣鬼神。直把$N" HIY
-                     "看得目瞪口呆。\n\n" NOR, me, this_object()); 
+                     "看得目瞪口呆。\n\n" NOR, me, this_object());
 
         command("nod2");
         command("say 招式便是如此，你自己下去练吧。");

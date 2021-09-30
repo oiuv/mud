@@ -50,8 +50,8 @@ void do_effect(object me)
         obs = all_inventory(environment(me));
         for (i = 0; i < sizeof(obs); i++)
         {
-		if (obs[i] == me || ! living(obs[i]))
-			continue;
+        if (obs[i] == me || ! living(obs[i]))
+            continue;
 
                 if (obs[i]->is_fighting() && (target = obs[i]->query_competitor()) &&
                     target->query("nation") == "日本")
@@ -59,7 +59,7 @@ void do_effect(object me)
                         attacker = obs[i];
                         break;
                 }
-	}
+    }
 
         message("vision", HIY "你听了这首慷慨激昂的国歌，不禁激"
                 "动万分，说不出的兴奋。\n" NOR, obs, ({ me }));

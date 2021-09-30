@@ -18,14 +18,14 @@ void create()
         set_skill("dodge", 30);
         set_skill("parry", 30);
         set("vendor_goods", ({
-        	__DIR__"obj/pingguo",
-        	__DIR__"obj/hamigua",
-        	__DIR__"obj/juzi",
+            __DIR__"obj/pingguo",
+            __DIR__"obj/hamigua",
+            __DIR__"obj/juzi",
         }));
 
         setup();
-  	carry_object(__DIR__"obj/skirt")->wear();
-  	add_money("silver", 30);
+      carry_object(__DIR__"obj/skirt")->wear();
+      add_money("silver", 30);
 }
 
 void init()
@@ -35,11 +35,11 @@ void init()
         ::init();
         if (interactive(ob = this_player()) && !is_fighting())
         {
-        	remove_call_out("greeting");
+            remove_call_out("greeting");
                 call_out("greeting", 1, ob);
         }
         add_action("do_buy", "buy");
-	add_action("do_list", "list"); 	
+    add_action("do_list", "list");
 }
 
 void greeting(object ob)

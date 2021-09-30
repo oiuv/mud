@@ -9,14 +9,14 @@ void create()
 访友的，喧闹无比。北边不远就是山陕甘会馆。
 LONG);
         set("objects", ([
-  		__DIR__"npc/hanzi" : 1,
-	]));
+          __DIR__"npc/hanzi" : 1,
+    ]));
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"south" : __DIR__"eroad",
-  		"north" : __DIR__"eroad2",
-	]));
+          "south" : __DIR__"eroad",
+          "north" : __DIR__"eroad2",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

@@ -10,13 +10,13 @@ void create()
 却十分干净。床上铺着被褥。
 LONG );
     set("exits", ([
-		"south" : __DIR__"zhuang8",
+        "south" : __DIR__"zhuang8",
     ]));
     set("objects", ([
-	__DIR__"npc/furen": 1,
-	__DIR__"npc/shuanger": 1,
+    __DIR__"npc/furen": 1,
+    __DIR__"npc/shuanger": 1,
     ]));
     set("outdoors", "beijing");
     setup();
-    replace_program(ROOM); 
+    replace_program(ROOM);
 }

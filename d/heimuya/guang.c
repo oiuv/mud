@@ -9,12 +9,12 @@ void create()
 LONG);
         set("outdoors", "heimuya");
         set("exits", ([
-            	"east" : __DIR__"linjxd5",
-            	"southup" : __DIR__"qinggate",
-            	"west" : __DIR__"shidao1",
+                "east" : __DIR__"linjxd5",
+                "southup" : __DIR__"qinggate",
+                "west" : __DIR__"shidao1",
         ]));
         set("objects",([
-            	__DIR__"npc/kid" : 1,
+                __DIR__"npc/kid" : 1,
         ]));
         setup();
         replace_program(ROOM);

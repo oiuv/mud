@@ -57,22 +57,22 @@ int perform(object me, object target)
 
         if (random(ap) >= random(dp / 3))
         {
-         	damage = me->query_skill("furong-jian", 1);
-         	damage += random(damage / 3);
+             damage = me->query_skill("furong-jian", 1);
+             damage += random(damage / 3);
 
-         	msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 60,
+             msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 60,
                                            HIR "$n" HIR "只见无数剑花袭来，将自己包围"
-                                           "住，正犹豫间，$n" HIR "已被" + wn + HIR 
+                                           "住，正犹豫间，$n" HIR "已被" + wn + HIR
                                            "刺得皮开肉绽。\n" NOR);
-         	me->start_busy(3);
-         	me->add("neili", -100);
+             me->start_busy(3);
+             me->add("neili", -100);
         } else
         {
-         	msg = CYN "然而$n" CYN "看出其中的破绽，侧身一跳"
+             msg = CYN "然而$n" CYN "看出其中的破绽，侧身一跳"
                       "已然躲过$N" CYN "这一剑。\n" NOR;
 
-       		me->start_busy(3);
-         	me->add("neili", -100);
+               me->start_busy(3);
+             me->add("neili", -100);
         }
         message_combatd(msg, me, target);
 

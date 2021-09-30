@@ -12,17 +12,17 @@ mixed ask_skill3();
 
 void create()
 {
-	set_name("王剑杰", ({ "wang jianjie", "wang", "jianjie" }));
+        set_name("王剑杰", ({ "wang jianjie", "wang", "jianjie" }));
         set("long", @LONG
 他是镇远镖局总镖头王维扬的第二个儿子，子承
 父业，练得一身八卦门的好武功。现在镖局里的
 各种事务由他总管，看上去他精明老练，稳重务
 实，不怒自威。
 LONG );
-	set("title", "八卦门第二代高手");
-  	set("gender", "男性");
-  	set("age", 45);
-	set("class", "fighter");
+        set("title", "八卦门第二代高手");
+          set("gender", "男性");
+          set("age", 45);
+        set("class", "fighter");
         set("attitude", "peaceful");
         set("str", 35);
         set("int", 35);
@@ -54,7 +54,7 @@ LONG );
         set_skill("throwing", 140);
         set_skill("bagua-biao", 140);
         set_skill("literate", 160);
-  	set_skill("martial-cognize", 140);
+          set_skill("martial-cognize", 140);
 
         set("no_teach", ([
                 "wai-bagua" : "这个…外八卦神功…你还是找我爹或是我哥教你好了。",
@@ -62,16 +62,16 @@ LONG );
                 "bagua-dao" : "八卦刀法向来便是由我父亲亲自教授。",
         ]));
 
-	map_skill("blade", "bagua-dao");
-	map_skill("unarmed", "bazhen-zhang");
-	map_skill("dodge", "bagua-bu");
-	map_skill("force", "nei-bagua");
-	map_skill("strike", "bagua-zhang");
-	map_skill("cuff", "bagua-quan");
-	map_skill("parry", "wai-bagua");
-	map_skill("throwing", "bagua-biao");
+        map_skill("blade", "bagua-dao");
+        map_skill("unarmed", "bazhen-zhang");
+        map_skill("dodge", "bagua-bu");
+        map_skill("force", "nei-bagua");
+        map_skill("strike", "bagua-zhang");
+        map_skill("cuff", "bagua-quan");
+        map_skill("parry", "wai-bagua");
+        map_skill("throwing", "bagua-biao");
 
-	prepare_skill("strike", "bazhen-zhang");
+        prepare_skill("strike", "bazhen-zhang");
 
         set("inquiry", ([
                 "劈卦拳"   : (: ask_skill1 :),
@@ -104,11 +104,11 @@ LONG );
                 (: exert_function, "powerup" :),
         }) );
 
-  	create_family("八卦门", 2, "高手");
+          create_family("八卦门", 2, "高手");
 
-  	setup();
+          setup();
 
-  	carry_object("/clone/misc/cloth")->wear();
+          carry_object("/clone/misc/cloth")->wear();
         set_temp("handing", carry_object("/d/beijing/npc/obj/jinbiao"));
 }
 
@@ -117,14 +117,14 @@ void attempt_apprentice(object me)
         if (! permit_recruit(me))
                 return;
 
-	if (me->query("combat_exp") < 20000)
-    	{
-      		command("say 你的江湖经验太差了，还是在镖局里再摸爬滚打一段时间吧！");
-      		return;
-    	}
+        if (me->query("combat_exp") < 20000)
+            {
+                      command("say 你的江湖经验太差了，还是在镖局里再摸爬滚打一段时间吧！");
+                      return;
+            }
 
-  	command("nod");
-  	command("say 既然如此，我就收下你。你平时也要多为镖局出力。");
+          command("nod");
+          command("say 既然如此，我就收下你。你平时也要多为镖局出力。");
         command("recruit " + me->query("id"));
         if ((string)me->query("class") != "fighter")
                 me->set("class", "fighter");
@@ -244,7 +244,7 @@ mixed ask_skill3()
 
         message_vision(HIY "$n" HIY "笑了笑，伸手将$N" HIY "招到身前，低声在$N" HIY
                        "耳旁嘀咕了半\n天。然后又拔出腰刀翻转数下，斜撩而出。似乎是"
-                       "一种颇为\n独特的刀诀。\n" NOR, me, this_object()); 
+                       "一种颇为\n独特的刀诀。\n" NOR, me, this_object());
 
         command("nod");
         command("say 这招很简单，稍加练习便行。");

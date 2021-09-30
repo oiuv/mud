@@ -15,18 +15,18 @@ mixed ask_jian();
 void create()
 {
         object ob;
-	set_name("何足道", ({"he zudao", "he", "zudao"}));
-	set("title", "昆仑派开山祖师");
-	set("nickname", HIY "昆仑三圣" NOR);
+    set_name("何足道", ({"he zudao", "he", "zudao"}));
+    set("title", "昆仑派开山祖师");
+    set("nickname", HIY "昆仑三圣" NOR);
         set("long", @LONG
 这就是昆仑派开山祖师，号称琴剑棋三绝的昆
 仑三圣何足道。见他长脸深目，面目清秀。却
 是瘦骨棱棱，身着一青衫。
 LONG);
-	set("gender", "男性");
-	set("age", 95);
-	set("attitude", "friendly");
-	set("shen_type", 1);
+    set("gender", "男性");
+    set("age", 95);
+    set("attitude", "friendly");
+    set("shen_type", 1);
         set("str", 40);
         set("int", 40);
         set("con", 40);
@@ -100,11 +100,11 @@ LONG);
 
         }) );
 
-	setup();
+    setup();
 
-        set_temp("apply/damage", 100); 
-        set_temp("apply/unarmed_damage", 100); 
-        set_temp("apply/armor", 200); 
+        set_temp("apply/damage", 100);
+        set_temp("apply/unarmed_damage", 100);
+        set_temp("apply/armor", 200);
 
         if (clonep())
         {
@@ -148,32 +148,32 @@ void attempt_apprentice(object me)
                 return;
         }
 
-	if (me->query_int() < 38)
+    if (me->query_int() < 38)
         {
-	        command("say 高深的武功以及精深的技艺都需灵性极高的人才"
+            command("say 高深的武功以及精深的技艺都需灵性极高的人才"
                         "能悟其真谛，不致背道而驰。");
-         	command("say 我看" + RANK_D->query_respect(me) + "还是"
+             command("say 我看" + RANK_D->query_respect(me) + "还是"
                         "先回去多读点书吧。");
                 return;
-	}
+    }
 
         if ((int)me->query_skill("liangyi-shengong", 1) < 100)
         {
-		command("say 修习我的武功及剑法都需强大的内力为辅。");
-		command("say 我看" + RANK_D->query_respect(me) + "是否"
+        command("say 修习我的武功及剑法都需强大的内力为辅。");
+        command("say 我看" + RANK_D->query_respect(me) + "是否"
                         "还应该先在本门的内功上多下点功夫？");
-		return;
-	}
+        return;
+    }
 
         if ((int)me->query_skill("zhengliangyi-jian", 1) < 100)
         {
-		command("say 本派的正两仪剑法乃武林一绝，，我看"
+        command("say 本派的正两仪剑法乃武林一绝，，我看"
                         + RANK_D->query_respect(me) + "对此还练"
                         "得不够。");
-		return;
-	}
+        return;
+    }
 
-	command("say 看来你也是性情中人，我就教你一些琴剑棋的知识吧。");
+    command("say 看来你也是性情中人，我就教你一些琴剑棋的知识吧。");
         command("recruit " + me->query("id"));
 }
 
@@ -445,15 +445,14 @@ void init()
         {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
-        }    
+        }
 }
 
 void greeting(object ob)
-{ 
+{
         if (! ob || environment(ob) != environment())
                 return;
 
         command("play jian-jia");
         return;
 }
-

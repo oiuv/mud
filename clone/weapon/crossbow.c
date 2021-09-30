@@ -14,7 +14,7 @@ void create()
         {
                 set("unit", "张");
                 set("long", "一张弩，打造得极为精致，具有极好的准确度。\n");
-		        set("value", 250000);
+                set("value", 250000);
                 set("power", 250000);   // 攻击威力
                 set("accuracy", 180);   // 准确度180%
         }

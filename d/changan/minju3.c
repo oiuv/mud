@@ -11,9 +11,9 @@ void create ()
 子里杂草丛生，宅外墙满是青苔蜘网，显得既荒凉又阴森。四周死一般
 的沉寂。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
-        	"north" : __DIR__"huarui3",
+            "north" : __DIR__"huarui3",
         ]));
 
         setup();

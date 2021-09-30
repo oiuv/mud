@@ -10,14 +10,14 @@ void create ()
 放着张小小木榻，往下望去，柳条垂金，群芳争艳。
 LONG);
 
-  	set("exits", ([
-  		"out" : __DIR__"cabinet2",
-	]));
+      set("exits", ([
+          "out" : __DIR__"cabinet2",
+    ]));
 
-  	set("objects", ([
+      set("objects", ([
                 CLASS_D("zhenyuan") + "/wangweiyang" : 1,
        ]));
 
-  	setup();
+      setup();
         replace_program(ROOM);
 }

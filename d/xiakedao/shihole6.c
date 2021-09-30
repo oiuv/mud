@@ -18,11 +18,11 @@ LONG );
                 "west"  : __DIR__"shiroom24",
         ]));
         set("item_desc", ([
-                "xiaozi": 
+                "xiaozi":
 "小字写的是：「昔年余等沉溺无术，惟石公妙悟神功，盖因...」，
 后面的字迹已模糊难辨。\n"
         ]));
 
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

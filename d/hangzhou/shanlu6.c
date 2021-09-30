@@ -10,11 +10,11 @@ void create()
 路往东下山便到了山底。
 LONG);
         set("exits", ([
-            	"eastup"  : __DIR__"yuhuangsd",
-            	"westdown": __DIR__"yuhuangshan",
+                "eastup"  : __DIR__"yuhuangsd",
+                "westdown": __DIR__"yuhuangshan",
         ]));
         set("objects", ([
-            	"/clone/quarry/laohu" : 1,
+                "/clone/quarry/laohu" : 1,
         ]));
         set("outdoors", "hangzhou");
         set("max_room", 4);

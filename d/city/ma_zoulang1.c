@@ -13,7 +13,7 @@ LONG);
                 "north"  : __DIR__"ma_zoulang2",
         ]));
         set("objects", ([
-		"/d/gaibang/npc/1dai" : 1,
+        "/d/gaibang/npc/1dai" : 1,
         ]));
         set("no_clean_up", 0);
         setup();

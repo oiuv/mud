@@ -190,15 +190,15 @@ mixed ask_riyue()
         command("say 恩，那好吧，我就教你泼墨披麻剑。");
 
         me->set_skill("pomopima-jian", 10);
-		me->set("can_learn/meizhuang", 1);
+        me->set("can_learn/meizhuang", 1);
 
-		if (me->query("gongxian") > 10000 &&
-			me->query("balance") > 100000000)
-		{
-			me->add("gongxian", -10000);
-			me->add("balance", -100000000);
-			me->set("can_perform/pomopima-jian/zui", 1);
-		}
+        if (me->query("gongxian") > 10000 &&
+            me->query("balance") > 100000000)
+        {
+            me->add("gongxian", -10000);
+            me->add("balance", -100000000);
+            me->set("can_perform/pomopima-jian/zui", 1);
+        }
 
         tell_object(me, HIG "你学会了泼墨披麻剑！\n" NOR);
 

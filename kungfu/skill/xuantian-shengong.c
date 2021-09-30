@@ -12,7 +12,7 @@ int valid_learn(object me)
 
     if (me->query("gender") == "无性" &&
         (int)me->query_skill("xuantian-shengong", 1) > 49)
-    	    return notify_fail("你无根无性，阴阳不调，难以领会高深的玄天神功。\n");
+            return notify_fail("你无根无性，阴阳不调，难以领会高深的玄天神功。\n");
 
     return 1;
 }

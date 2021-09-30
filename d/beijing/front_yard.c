@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 void create ()
@@ -26,7 +26,7 @@ LONG);
 
 void init()
 {
-  	add_action("do_jida", "jida");
+      add_action("do_jida", "jida");
 }
 
 int do_jida(string arg)

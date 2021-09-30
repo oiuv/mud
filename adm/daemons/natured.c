@@ -113,7 +113,7 @@ void event_midnight()
 
         if (msg)
                 message("vision", HIC "【季节天时】" + msg,
-		        msg, all_interactive());
+                msg, all_interactive());
 
         switch(m)
         {

@@ -12,9 +12,9 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"east" : __DIR__"qianshou",
-  		"westdown" : __DIR__"wroad",
-	]));
+          "east" : __DIR__"qianshou",
+          "westdown" : __DIR__"wroad",
+    ]));
         set("objects", ([
                 "/clone/npc/walker" : 1,
         ]));

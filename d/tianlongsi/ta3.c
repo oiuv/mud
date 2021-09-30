@@ -11,7 +11,7 @@ LONG );
         set("exits", ([
                 "east" : __DIR__"talin",
         ]));
-	set("objects",([
+    set("objects",([
                 "/d/wudang/npc/guest" : 2,
         ]));
 //        set("no_clean_up", 0);

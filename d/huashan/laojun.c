@@ -5,7 +5,7 @@ inherit ROOM;
 void create()
 {
         set("short", "老君沟");
-	set("long", @LONG
+    set("long", @LONG
 爬过两个要命的悬崖，可在这里稍作歇息。老君沟是一条半里多长的
 山沟，相传为太上老君到此，见无路可通，因而套上大青牛用铁犁犁出了
 这条沟作为登山通道。
@@ -23,7 +23,7 @@ LONG );
         setup();
 
 }
- 
+
 int valid_leave(object me, string dir)
 {
         object guarder;

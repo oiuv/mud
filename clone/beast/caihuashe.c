@@ -9,8 +9,8 @@ void create()
         set("age", 1);
         set("str", 15);
         set("dex", 16);
-	set("max_qi", 200);
-	set("max_jing", 200);
+    set("max_qi", 200);
+    set("max_jing", 200);
         set("combat_exp", 1000);
 
         set("power", 8);

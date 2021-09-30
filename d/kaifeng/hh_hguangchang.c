@@ -10,11 +10,11 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"north" : __DIR__"hh_huayuan",
-  		"south" : __DIR__"hh_zoulang8",
-  		"east" : __DIR__"hh_xingtang",
-  		"west" : __DIR__"hh_zhangfang",
-	]));
+          "north" : __DIR__"hh_huayuan",
+          "south" : __DIR__"hh_zoulang8",
+          "east" : __DIR__"hh_xingtang",
+          "west" : __DIR__"hh_zhangfang",
+    ]));
         set("objects", ([
                 __DIR__"npc/honghua1" : 2,
         ]));

@@ -70,15 +70,15 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "unarmed" || usage == "parry";
+    return usage == "unarmed" || usage == "parry";
 }
 
 int valid_learn(object me)
 {
-	if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail("练空明拳必须空手。\n");
 
-	if ((int)me->query("max_neili") < 1500)
+    if ((int)me->query("max_neili") < 1500)
                 return notify_fail("你的内力太弱，无法练空明拳。\n");
 
         if ((int)me->query_skill("force") < 150)
@@ -90,7 +90,7 @@ int valid_learn(object me)
         if ((int)me->query_skill("unarmed", 1) < (int)me->query_skill("kongming-quan", 1))
                 return notify_fail("你的基本拳脚水平有限，无法领会更高深的空明拳。\n");
 
-	return 1;
+    return 1;
 }
 
 string query_skill_name(int level)
@@ -137,7 +137,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
                                             NOR]);
                         break;
                 case 1:
-                        result += (["msg" : HIG "$n" HIG "随意格挡，让$N" HIG 
+                        result += (["msg" : HIG "$n" HIG "随意格挡，让$N" HIG
                                             "只觉得自己全然捕捉不到$n" HIG "的"
                                             "力道。\n" NOR]);
                         break;
@@ -168,18 +168,18 @@ int query_effect_parry(object attacker, object me)
 
 int practice_skill(object me)
 {
-	if ((int)me->query("qi") < 60)
-		return notify_fail("你的体力太低了。\n");
+    if ((int)me->query("qi") < 60)
+        return notify_fail("你的体力太低了。\n");
 
-	if ((int)me->query("neili") < 70)
+    if ((int)me->query("neili") < 70)
                 return notify_fail("你的内力不够了。\n");
 
-	me->receive_damage("qi", 50);
-	me->add("neili", -60);
-	return 1;
+    me->receive_damage("qi", 50);
+    me->add("neili", -60);
+    return 1;
 }
 
 string perform_action_file(string action)
 {
-	return __DIR__"kongming-quan/" + action;
+    return __DIR__"kongming-quan/" + action;
 }

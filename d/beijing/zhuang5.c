@@ -10,15 +10,15 @@ void create()
 传来。
 LONG );
     set("exits", ([
-	"east" : __DIR__"zhuang6",
-	"west" : __DIR__"zhuang7",
-	"north" : __DIR__"zhuang8",
+    "east" : __DIR__"zhuang6",
+    "west" : __DIR__"zhuang7",
+    "north" : __DIR__"zhuang8",
         "south" : __DIR__"zhuang3",
     ]));
     set("objects", ([
-	"/d/shenlong/npc/dizi": 2,
+    "/d/shenlong/npc/dizi": 2,
     ]));
     set("outdoors", "beijing");
     setup();
-    replace_program(ROOM); 
+    replace_program(ROOM);
 }

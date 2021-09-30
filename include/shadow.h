@@ -1,4 +1,3 @@
 // shadow.h
 
-#define	NO_INIT		SHADOW_DIR "no_init"
-
+#define    NO_INIT        SHADOW_DIR "no_init"

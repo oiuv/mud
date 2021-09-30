@@ -14,10 +14,10 @@ int exert(object me, object target)
 
         if (! target || target == me)
         {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
+            me->clean_up_enemy();
+            target = me->select_opponent();
         }
-	if (! target || ! me->is_fighting(target))
+    if (! target || ! me->is_fighting(target))
                 return notify_fail("你只能对战斗中的对手使用「以柔破钢」。\n");
 
         if (target->is_busy())

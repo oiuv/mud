@@ -12,15 +12,14 @@ void create ()
 这来散步，聊天小憩。
 LONG);
         set("exits",([//sizeof() == 1
-        	"south" : __DIR__"huarui4",
+            "south" : __DIR__"huarui4",
         ]));
-        
+
         set("resource", ([ /* sizeof() == 1 */
-        	"water" : 1,
+            "water" : 1,
         ]));
-        
+
         set("outdoors", "changan");
         setup();
         replace_program(ROOM);
 }
-        

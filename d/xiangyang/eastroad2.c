@@ -5,8 +5,8 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "东内大街");
-	set("long", @LONG
+    set("short", "东内大街");
+    set("long", @LONG
 这是一条青石铺就的大街。西面是一堵盖着红色琉璃瓦的
 高墙，里面是襄阳守城大将王坚的府邸大院。东面是忠烈祠，
 因为十余年来，为保卫襄阳、抵抗蒙古军的侵略而牺牲的人特
@@ -15,13 +15,12 @@ void create()
 LONG );
         set("outdoors", "xiangyang");
 
-	set("no_clean_up", 0);
-	set("exits", ([
-		"east"  : __DIR__"zhonglie",
-		"south" : __DIR__"eastroad1",
-		"north" : __DIR__"jiekou2",
-	]));
-	setup();
-	replace_program(ROOM);
+    set("no_clean_up", 0);
+    set("exits", ([
+        "east"  : __DIR__"zhonglie",
+        "south" : __DIR__"eastroad1",
+        "north" : __DIR__"jiekou2",
+    ]));
+    setup();
+    replace_program(ROOM);
 }
-

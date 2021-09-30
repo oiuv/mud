@@ -12,11 +12,11 @@ void create()
 传来隐隐的狼嗥。
 LONG);
         set("outdoors", "shenfeng");
-        set("exits", ([ 
+        set("exits", ([
                 "east" : __DIR__"feixu1",
                 "west" : __DIR__"pendi",
-		"north" : __DIR__"xiaowu",
-	]));
+        "north" : __DIR__"xiaowu",
+    ]));
 
         setup();
 }

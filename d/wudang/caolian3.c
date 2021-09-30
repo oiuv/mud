@@ -10,7 +10,7 @@ void create()
 LONG);
 
       set("exits", ([
-            	"east"   : __DIR__"caolianfang",
+                "east"   : __DIR__"caolianfang",
       ]));
       set("for_family", "武当派");
       setup();

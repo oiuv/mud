@@ -12,8 +12,8 @@ void create()
         set_temp("apply/attack", 15);
         set_temp("apply/defense", 15);
         set("combat_exp", 750);
-//	set("shen", -150);
-	set("shen_type", -1);
+//    set("shen", -150);
+    set("shen_type", -1);
         set("str", 25);
         set("dex", 20);
         set("con", 18);
@@ -27,4 +27,3 @@ void create()
         }) );
         carry_object(__DIR__"obj/cloth")->wear();
 }
-

@@ -10,10 +10,10 @@ void create ()
 来的旅客和商人。东安大道再向东就是长安城的连德道口、东城门，往
 西是故皇宫的冯诩道。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 2
-		"west" : __DIR__"fengxu3",
-        	"east" : __DIR__"dongan-daokou",
+        "west" : __DIR__"fengxu3",
+            "east" : __DIR__"dongan-daokou",
         ]));
 
         set("outdoors", "changan");

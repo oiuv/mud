@@ -13,19 +13,19 @@ void create()
 四周很空旷，偶尔说话也能听见回声，但这里靠近洞口光
 线还算不错。千百年来的尘土已将周围山壁(bi)掩盖。
 LONG);
-	set("item_desc",([
-	       "bi" :  (: look_bi :),
+    set("item_desc",([
+           "bi" :  (: look_bi :),
                "pic1": (: look_pic1 :),
                "pic2": (: look_pic2 :),
                "pic3": (: look_pic3 :),
-               
-               
-	]));
 
-	set("exits",([
-	       "out":__DIR__"outzhushendong",
-	]));	
-	     	
+
+    ]));
+
+    set("exits",([
+           "out":__DIR__"outzhushendong",
+    ]));
+
        setup();
 }
 
@@ -36,13 +36,13 @@ string look_bi()
       if (! me->query_temp("gua"))
           return NOR + WHT "尘土已将其掩盖，不知道后面藏有什么。你不禁想将尘土刮去看看"
                  "后面是什么样的。\n" NOR;
-      
+
       return HIY "\n只见山壁上刻有三副巨图。图中人物个持宝剑，与人比武。\n"
              "第一副(pic1)的人物欲退反进，以守为攻。\n"
              "第二副(pic2)的人物手中之剑却突然化为无数把攻向对手。\n"
              "第三副(pic3)更为奇怪，那人物却突然一分为五，分使五种不同招式。\n"
              "你越看越奇怪，忍不住想跟着参悟起来。\n\n" NOR;
-      
+
 }
 
 string look_pic1()
@@ -76,10 +76,10 @@ string look_pic3()
 }
 
 void init()
-{              
-	add_action("do_canwu",({"canwu","think"}));
+{
+    add_action("do_canwu",({"canwu","think"}));
         add_action("do_gua", ({"gua"}));
-	
+
 }
 
 int do_gua(string arg)
@@ -97,16 +97,16 @@ int do_gua(string arg)
 
     write(HIG "\n你走到山壁旁，将山壁上的尘土一一刮去，后面景象一一显露了出来。\n" NOR);
     me->set_temp("gua", 1);
-   
+
     return 1;
-    
+
 }
 int do_canwu(string msg)
 {
     object me = this_player();
 
     string where, witch;
-    
+
     if (! msg)return notify_fail("你要参悟什么？\n");
 
     if (sscanf(msg, "%s from %s", witch, where) != 2)
@@ -141,19 +141,19 @@ int do_canwu(string msg)
     if (me->query_skill("wushen-jian", 1) < 180)
           return notify_fail("你对衡山五神剑所知实在有限，无法领悟石壁上的绝学！\n");
 
-    if (witch == "pic1" 
+    if (witch == "pic1"
         && me->query("can_perform/wushen-jian/hui"))
           return notify_fail("这项绝学你不是已经会了吗？\n");
 
-    else 
-    if (witch == "pic2" 
+    else
+    if (witch == "pic2"
         && me->query("can_perform/wushen-jian/qian"))
           return notify_fail("这项绝学你不是已经会了吗？\n");
 
-    else 
-    if (witch == "pic3" 
+    else
+    if (witch == "pic3"
         && me->query("can_perform/wushen-jian/shen"))
-          return notify_fail("这项绝学你不是已经会了吗？\n"); 
+          return notify_fail("这项绝学你不是已经会了吗？\n");
 
     me->receive_damage("jing", 95);
 
@@ -183,10 +183,10 @@ int do_canwu(string msg)
 
         write(HIC "你对「回峰蜿蜒势」这招有了新的认识，但是仍有许多不解之处。\n" NOR);
         me->start_busy(1 + random(2));
-        return 1;   
+        return 1;
     }
 
-    else 
+    else
     if (random(4) == 1 && witch == "pic2")
     {
         me->add("wushen_perform/qian/count", 1);
@@ -211,10 +211,10 @@ int do_canwu(string msg)
 
         write(HIC "你对「千剑纵横势」这招有了新的认识，但是仍有许多不解之处。\n" NOR);
         me->start_busy(2 + random(3));
-        return 1;   
+        return 1;
     }
 
-    else 
+    else
     if (random(5) == 1 && witch == "pic3")
     {
         me->add("wushen_perform/shen/count", 1);
@@ -237,9 +237,9 @@ int do_canwu(string msg)
             return 1;
         }
 
-        write(HIC "你对「五神朝元势」这招有了新的认识，但是仍有许多不解之处。\n" NOR);                
+        write(HIC "你对「五神朝元势」这招有了新的认识，但是仍有许多不解之处。\n" NOR);
         me->start_busy(2 + random(3));
-        return 1;   
+        return 1;
     }
 
     else return notify_fail("你试图从石壁上研究有关「衡山五神剑」的内容，但却没什么效果！\n");

@@ -22,15 +22,15 @@ int perform(object me, object target)
         if (! me->is_fighting(target))
                 return notify_fail("「万蛊噬天」只能对战斗中的对手使用。\n");
 
-		//晕倒后不可以再出pfm by over 20180129
-		if (! living(target))
-				return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
+        //晕倒后不可以再出pfm by over 20180129
+        if (! living(target))
+                return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         if (me->query_skill_prepared("hand") != "qianzhu-wandushou")
                 return notify_fail("你没有准备使用千蛛万毒手，无法施展万蛊噬天。\n");
 
         skill = me->query_skill("qianzhu-wandushou", 1);
-		poison = me->query_skill("poison");
+        poison = me->query_skill("poison");
 
         if (skill < 220)
                 return notify_fail("你的千蛛万毒手修为有限，无法施展万蛊噬天。\n");
@@ -54,13 +54,13 @@ int perform(object me, object target)
 
         message_combatd(msg, me, target);
         delta = skill / 6;
-		count = 0;
+        count = 0;
         me->add("neili", -300);
-		if (me->query("family/family_name") == "五毒教")
-			count = (int)(poison / 50) * 3;
+        if (me->query("family/family_name") == "五毒教")
+            count = (int)(poison / 50) * 3;
         target->add_temp("apply/parry", -delta);
         target->add_temp("apply/dodge", -delta);
-		me->add_temp("apply/unarmed_damage", count);
+        me->add_temp("apply/unarmed_damage", count);
         for (i = 0; i < 5; i++)
         {
                 if (! me->is_fighting(target))
@@ -71,7 +71,7 @@ int perform(object me, object target)
         }
         target->add_temp("apply/parry", delta);
         target->add_temp("apply/dodge", delta);
-		me->add_temp("apply/unarmed_damage", -count);
+        me->add_temp("apply/unarmed_damage", -count);
         me->start_busy(1 + random(5));
 
         return 1;

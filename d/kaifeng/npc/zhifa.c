@@ -1,7 +1,7 @@
 inherit NPC;
 void create()
 {
-	set_name("智法长老", ({"zhifa zhanglao", "zhanglao"}));
+    set_name("智法长老", ({"zhifa zhanglao", "zhanglao"}));
         set("gender", "男性");
         set("attitude", "aggressive");
         set("class", "bonze");
@@ -35,7 +35,7 @@ void create()
         map_skill("parry", "cibei-dao");
         map_skill("blade", "cibei-dao");
 
-   	setup();
-   	add_money("silver", 20);
-	carry_object(__DIR__"obj/xuan-cloth")->wear();
+       setup();
+       add_money("silver", 20);
+    carry_object(__DIR__"obj/xuan-cloth")->wear();
 }

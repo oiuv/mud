@@ -17,8 +17,8 @@ LONG );
 
         set("combat_exp", 300000);
 
-	set("eff_qi", 2000);
-	set("qi", 2000);
+    set("eff_qi", 2000);
+    set("qi", 2000);
         set("max_neili", 1000);
         set("neili", 2000);
         set("jiali", 50);
@@ -32,7 +32,7 @@ LONG );
         ]));
 
         setup();
-	carry_object("/clone/misc/cloth")->wear();
+    carry_object("/clone/misc/cloth")->wear();
 }
 
 void unconcious()

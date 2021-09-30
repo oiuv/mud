@@ -12,10 +12,10 @@ void create()
 LONG);
         set("outdoors", "shenfeng");
         set("exits", ([
-		"south" : __DIR__"caoyuan1",
-		"east" : __DIR__"lake3",
-		"west" : __DIR__"huijiang5",
-	]));
+        "south" : __DIR__"caoyuan1",
+        "east" : __DIR__"lake3",
+        "west" : __DIR__"huijiang5",
+    ]));
 
         setup();
         replace_program(ROOM);

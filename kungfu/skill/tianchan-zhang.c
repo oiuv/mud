@@ -41,12 +41,12 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "strike" || usage == "parry";
+    return usage == "strike" || usage == "parry";
 }
 
 int valid_combine(string combo)
 {
-	return combo == "wusheng-zhao";
+    return combo == "wusheng-zhao";
 }
 
 mapping query_action(object me, object weapon)
@@ -97,4 +97,3 @@ string perform_action_file(string action)
 {
         return __DIR__"tianchan-zhang/" + action;
 }
-

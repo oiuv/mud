@@ -11,8 +11,8 @@ void create()
 LONG);
         set("outdoors", "heimuya");
         set("exits", ([
-            	"south" : __DIR__"dating4",
-            	"north" : __DIR__"tianroad2",
+                "south" : __DIR__"dating4",
+                "north" : __DIR__"tianroad2",
         ]));
         set("objects", ([
                 __DIR__"npc/dizi6" : 2,

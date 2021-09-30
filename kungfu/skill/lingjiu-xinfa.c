@@ -4,11 +4,11 @@ inherit FORCE;
 
 int valid_enable(string usage) { return usage == "force"; }
 
-int valid_force(string force) 
+int valid_force(string force)
 {        return force == "bahuang-gong"||
-	              force == "xiaoyao-xinfa" ||
-	              force == "beiming-shengong" ||
-	              force == "xiaowuxiang"; 
+                  force == "xiaoyao-xinfa" ||
+                  force == "beiming-shengong" ||
+                  force == "xiaowuxiang";
 }
 
 int valid_learn(object me)

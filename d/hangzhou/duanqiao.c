@@ -13,11 +13,11 @@ void create()
 这里相会的。过桥往南走便是白堤了。东北边可通往青石大道。
 LONG);
         set("exits", ([
-            	"northeast" : __DIR__"road9",
-            	"south"      : __DIR__"baiti",
+                "northeast" : __DIR__"road9",
+                "south"      : __DIR__"baiti",
         ]));
         set("objects", ([
-            	__DIR__"npc/poorman" : 1,
+                __DIR__"npc/poorman" : 1,
         ]));
         set("outdoors", "hangzhou");
         setup();

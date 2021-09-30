@@ -12,11 +12,11 @@ void create()
 言，来这里准没错。
 LONG);
         set("exits", ([ /* sizeof() == 1 */
-        	"south" : __DIR__"qixiang2",
+            "south" : __DIR__"qixiang2",
         ]));
         set("objects", ([
-        	__DIR__"npc/teawaiter" : 1,
-        	__DIR__"npc/laoren" :1,
+            __DIR__"npc/teawaiter" : 1,
+            __DIR__"npc/laoren" :1,
         ]) );
 
         setup();

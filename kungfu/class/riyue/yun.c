@@ -22,7 +22,7 @@ LONG);
         set("int", 36);
         set("con", 36);
         set("dex", 36);
-        
+
         set("max_qi", 5400);
         set("max_jing", 4000);
         set("neili", 7000);
@@ -69,14 +69,14 @@ LONG);
                 "乾坤一击" : "你去让我师兄教你吧。",
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "club.qian" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "club.qian" :),
                 (: perform_action, "cuff.tong" :),
                 (: perform_action, "claw.duan" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-	}) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+    }) );
 
         setup();
 
@@ -107,7 +107,7 @@ int recognize_apprentice(object ob, string skill)
         {
                 command("sneer");
                 command("say 你还不配。");
-                return -1; 
+                return -1;
         }
 
         if ((int)ob->query("shen") > -60000)

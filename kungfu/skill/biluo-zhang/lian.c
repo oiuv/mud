@@ -48,33 +48,33 @@ int perform(object me, object target)
 
         message_sort(msg, me, target);
 
-	if (random(ap) > dp / 2)
-	{
-		msg = HIR "结果$n" HIR "目不暇接，顿时被$N" HIR "掌"
+    if (random(ap) > dp / 2)
+    {
+        msg = HIR "结果$n" HIR "目不暇接，顿时被$N" HIR "掌"
                       "风所困，顿时阵脚大乱。\n" NOR;
                 me->add_temp("apply/attack", 50);
         } else
         {
                 msg = HIY "$n" HIY "看清$N" HIY "这几招的来路，但"
-                      "内劲所至，掌风犀利，也只得小心抵挡。\n" NOR;          
+                      "内劲所至，掌风犀利，也只得小心抵挡。\n" NOR;
         }
-	message_combatd(msg, me, target);
+    message_combatd(msg, me, target);
 
         attack_time += 3 + random(ap / 40);
 
         if (attack_time > 6)
                 attack_time = 6;
 
-	me->add("neili", -attack_time * 20);
+    me->add("neili", -attack_time * 20);
 
-	for (i = 0; i < attack_time; i++)
-	{
-		if (! me->is_fighting(target))
-			break;
+    for (i = 0; i < attack_time; i++)
+    {
+        if (! me->is_fighting(target))
+            break;
                 COMBAT_D->do_attack(me, target, 0, 0);
-	}
+    }
         me->add_temp("apply/attack", -50);
-	me->start_busy(1 + random(attack_time));
+    me->start_busy(1 + random(attack_time));
 
-	return 1;
+    return 1;
 }

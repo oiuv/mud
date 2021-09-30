@@ -66,27 +66,27 @@ void monitor()
                 // 正在启动中同步版本？那么不启动惩罚系统
                 return;
 
-	// when the pking was going, I won't let the punisher out,
-	// because the competitor may in PKD.
-	if (PK_D->is_pking())
-		return;
+    // when the pking was going, I won't let the punisher out,
+    // because the competitor may in PKD.
+    if (PK_D->is_pking())
+        return;
 
         CHANNEL_D->do_channel(this_object(), "sys",
-			      "各大门派扫描所有在线玩家。");
+                  "各大门派扫描所有在线玩家。");
 
         // search all the player for punishing
         obs = filter_array(users(),
-			   (: $1->query("combat_exp") >= 100000 &&
-		              $1->query("combat/need_punish") &&
+               (: $1->query("combat_exp") >= 100000 &&
+                      $1->query("combat/need_punish") &&
                               ! $1->is_in_prison() &&
-			      ! $1->is_ghost() &&
+                  ! $1->is_ghost() &&
                               ! wizardp($1) &&
-			      environment($1) :));
+                  environment($1) :));
 
-	if (sizeof(obs))
+    if (sizeof(obs))
         {
-        	obs = sort_array(obs, (: $2->query("combat_exp") -
-        			         $1->query("combat_exp") :));
+            obs = sort_array(obs, (: $2->query("combat_exp") -
+                             $1->query("combat_exp") :));
                 aviable = filter_array(punishers, (: ! find_object($1) :));
                 i = 0;
                 while (sizeof(aviable) && i < sizeof(obs))
@@ -101,17 +101,17 @@ void monitor()
 
         // search all the player for catching
         obs = filter_array(users(),
-			   (: $1->query("combat_exp") < 300000 &&
+               (: $1->query("combat_exp") < 300000 &&
                               $1->query_condition("killer") &&
-			      ! $1->is_ghost() &&
+                  ! $1->is_ghost() &&
                               ! $1->is_in_prison() &&
                               ! wizardp($1) &&
-			      environment($1) :));
+                  environment($1) :));
 
-	if (sizeof(obs))
+    if (sizeof(obs))
         {
-        	obs = sort_array(obs, (: $2->query("combat_exp") -
-        			         $1->query("combat_exp") :));
+            obs = sort_array(obs, (: $2->query("combat_exp") -
+                             $1->query("combat_exp") :));
                 aviable = filter_array(catchers, (: ! find_object($1) :));
                 i = 0;
                 while (sizeof(aviable) && i < sizeof(obs))
@@ -167,12 +167,12 @@ void family_punish()
                                 continue;
 
                         punisher = punishers[random(sizeof(punishers))];
-			if (file_size(punisher + ".c") < 0)
-			{
-				log_file("static/log", "can not find punisher: "
-					 + punisher + "\n");
-				break;
-			}
+            if (file_size(punisher + ".c") < 0)
+            {
+                log_file("static/log", "can not find punisher: "
+                     + punisher + "\n");
+                break;
+            }
                         punisher->start_punish(ob, key);
                         break;
                 }

@@ -21,9 +21,9 @@ void create()
         "书皮泛黄，看来已经保存很久了。\n", );
                 set("skill", ([
                         "name"        : "jinshe-zhui",
-                        "exp_required":	100000,
-                        "jing_cost"   :	40,
-                        "difficulty"  :	35,
+                        "exp_required":    100000,
+                        "jing_cost"   :    40,
+                        "difficulty"  :    35,
                         "max_skill"   : 119,
                 ]));
         }

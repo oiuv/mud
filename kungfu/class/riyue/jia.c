@@ -8,7 +8,7 @@ mixed ask_skill1();
 
 void create()
 {
-	set_name("贾布", ({ "jia bu", "jia", "bu"}));
+    set_name("贾布", ({ "jia bu", "jia", "bu"}));
         set("title", "日月神教青龙堂长老");
         set("nickname", YEL "金面使者" NOR);
         set("long", @LONG
@@ -16,7 +16,7 @@ void create()
 脸，两边太阳穴高高鼓起，变如藏了一枚枚核
 桃似的，表情甚是严肃。
 LONG);
-	set("gender", "男性" );
+    set("gender", "男性" );
         set("class", "scholar");
         set("age", 39);
         set("attitude", "friendly");
@@ -25,7 +25,7 @@ LONG);
         set("int", 36);
         set("con", 36);
         set("dex", 36);
-        
+
         set("max_qi", 4800);
         set("max_jing", 3500);
         set("neili", 5600);
@@ -67,12 +67,12 @@ LONG);
                 "惊虹一笔" : (: ask_skill1 :),
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
                 (: perform_action, "dagger.jing" :),
-		(: exert_function, "powerup" :),
-		(: exert_function, "recover" :),
-	}) );
+        (: exert_function, "powerup" :),
+        (: exert_function, "recover" :),
+    }) );
 
         setup();
 

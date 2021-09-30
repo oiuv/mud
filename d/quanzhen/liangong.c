@@ -48,10 +48,10 @@ int do_finger()
         if (me->query("qi") > qi_cost)
         {
                 if (me->can_improve_skill("finger") && c_skill < 100)
-		{
-                	me->improve_skill("finger", 1 + random(me->query("str")));
-		        tell_object(me, HIC "你对「基本指法」有了新的领悟。\n" NOR);
-		}
+        {
+                    me->improve_skill("finger", 1 + random(me->query("str")));
+                tell_object(me, HIC "你对「基本指法」有了新的领悟。\n" NOR);
+        }
                 me->receive_damage("qi", qi_cost);
         }
         return 1;
@@ -72,11 +72,11 @@ int do_strike()
         if (me->query("qi") > qi_cost)
         {
                 if (me->can_improve_skill("strike") && c_skill < 100)
-		{
-	                me->improve_skill("strike", 1 + random(me->query("str")));
-		        tell_object(me, HIC "你对「基本掌法」有了新的领悟。\n" NOR);
-		}
+        {
+                    me->improve_skill("strike", 1 + random(me->query("str")));
+                tell_object(me, HIC "你对「基本掌法」有了新的领悟。\n" NOR);
+        }
                 me->receive_damage("qi", qi_cost);
-        } 
+        }
         return 1;
 }

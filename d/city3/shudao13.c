@@ -11,7 +11,7 @@ void create()
 LONG);
         set("exits", ([
                 "east" : __DIR__"shudao12",
-  		"west" : __DIR__"shudao14",
+          "west" : __DIR__"shudao14",
         ]));
         set("objects", ([
                 "/d/beijing/npc/haoke1" : 1,
@@ -22,4 +22,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

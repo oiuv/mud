@@ -18,74 +18,74 @@ mapping *action = ({
         "dodge"  : 2,
         "damage" : 7,
         "lvl"    : 10,
-    	"skill_name"  : "火海焚心",
-    	"damage_type" : "瘀伤"
+        "skill_name"  : "火海焚心",
+        "damage_type" : "瘀伤"
 ]),
-([  	"action" : "$N腾空飞起，一式「归天」，拳式变腿招踢出，$n急忙躲闪",    
+([      "action" : "$N腾空飞起，一式「归天」，拳式变腿招踢出，$n急忙躲闪",
         "force"  : 64,
         "attack" : 12,
         "parry"  : 5,
         "dodge"  : 3,
         "damage" : 9,
         "lvl"    : 30,
-    	"skill_name"  : "归天",
-    	"damage_type" : "瘀伤"
+        "skill_name"  : "归天",
+        "damage_type" : "瘀伤"
 ]),
-([  	"action" : "$N双拳划开，疾风突起，一式「镇魂」，向$n发出",
+([      "action" : "$N双拳划开，疾风突起，一式「镇魂」，向$n发出",
         "force"  : 71,
         "attack" : 13,
         "parry"  : 4,
         "dodge"  : 6,
         "damage" : 11,
         "lvl"    : 50,
-    	"skill_name"  : "镇魂",
-    	"damage_type" : "瘀伤"
+        "skill_name"  : "镇魂",
+        "damage_type" : "瘀伤"
 ]),
-([  	"action" : "$N两臂后展，拳招变掌，一式「炼狱」，插向$n的掖下死穴",    
+([      "action" : "$N两臂后展，拳招变掌，一式「炼狱」，插向$n的掖下死穴",
         "force"  : 84,
         "attack" : 18,
         "parry"  : 13,
         "dodge"  : 12,
         "damage" : 15,
         "lvl"    : 70,
-    	"skill_name"  : "炼狱",
-    	"damage_type" : "瘀伤"
+        "skill_name"  : "炼狱",
+        "damage_type" : "瘀伤"
 ]),
-([  	"action" : "$N跨前一步，施一式「修罗索命」，拳变指，点向$n的胸前死穴",
+([      "action" : "$N跨前一步，施一式「修罗索命」，拳变指，点向$n的胸前死穴",
         "force"  : 93,
         "attack" : 21,
         "parry"  : 7,
         "dodge"  : 9,
         "damage" : 19,
         "lvl"    : 90,
-    	"skill_name"  : "修罗索命",
-    	"damage_type" : "瘀伤"
+        "skill_name"  : "修罗索命",
+        "damage_type" : "瘀伤"
 ]),
-([  	"action" : "$N出其不意，从上而下，一式「魂飞魄散」，四周空气先凝集后突爆开",
+([      "action" : "$N出其不意，从上而下，一式「魂飞魄散」，四周空气先凝集后突爆开",
         "force"  : 101,
         "attack" : 24,
         "parry"  : 8,
         "dodge"  : 12,
         "damage" : 25,
         "lvl"    : 120,
-    	"skill_name"  : "魂飞魄散",
-   	"damage_type" : "瘀伤"
+        "skill_name"  : "魂飞魄散",
+       "damage_type" : "瘀伤"
 ]),
-([  	"action" : "$N眼眉一皱，双拳破气齐发，一式「孤山鬼嚎」，击向$n的头额",
+([      "action" : "$N眼眉一皱，双拳破气齐发，一式「孤山鬼嚎」，击向$n的头额",
         "force"  : 140,
         "attack" : 28,
         "parry"  : 13,
         "dodge"  : 12,
         "damage" : 27,
         "lvl"    : 150,
-    	"skill_name"  : "孤山鬼嚎",
-    	"damage_type" : "瘀伤"
+        "skill_name"  : "孤山鬼嚎",
+        "damage_type" : "瘀伤"
 ])
 });
 
 int valid_enable(string usage)
 {
-	return usage == "cuff" || usage == "parry";
+    return usage == "cuff" || usage == "parry";
 }
 
 int valid_combine(string combo)

@@ -9,8 +9,8 @@ int is_chat_room() { return 1; }
 
 void create()
 {
-	set("short", HIM "游戏开发室" NOR);
-	set("long", @LONG
+    set("short", HIM "游戏开发室" NOR);
+    set("long", @LONG
 这里是巫师和玩家交流的地方，为便于巫师统一管理，这
 里只能发表(post)关于玩家对本游戏的见解以及开发建议或者
 对游戏中某些问题的疑问，以供巫师参考。不能发表非该主题以外
@@ -22,14 +22,13 @@ void create()
                                     ==武林群侠传全体巫师==
 LONG );
 
-	set("exits", ([
-		"southwest": __DIR__"guest_room",               
+    set("exits", ([
+        "southwest": __DIR__"guest_room",
         ]));
 
-	set("no_fight", 1);
+    set("no_fight", 1);
 
-	setup();
-	"/clone/board/develop_b"->foo();
+    setup();
+    "/clone/board/develop_b"->foo();
         replace_program(ROOM);
 }
-

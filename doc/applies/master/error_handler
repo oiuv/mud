@@ -21,7 +21,7 @@ Each line of traceback is a mapping containing the following:
         "function"  : string,   // the function name
         "program"   : string,   // the program
         "object"    : object,   // the object
-	"file"      : string,   // the file to which the line number refers
+    "file"      : string,   // the file to which the line number refers
         "line"      : int,      // the line number
         "arguments" : array,    // function arguments
         "locals"    : array     // local variables

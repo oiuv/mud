@@ -17,7 +17,7 @@ void create()
 作「圣姑」的任盈盈。只见她青衫小袖，明艳
 不可方物，却是颦眉微皱，似乎不高兴。
 LONG);
-	set("gender", "女性" );
+    set("gender", "女性" );
         set("class", "scholar");
         set("age", 19);
         set("attitude", "friendly");
@@ -26,7 +26,7 @@ LONG);
         set("int", 36);
         set("con", 36);
         set("dex", 36);
-        
+
         set("max_qi", 3200);
         set("max_jing", 2000);
         set("neili", 3500);
@@ -76,13 +76,13 @@ LONG);
                 "鱼肠剑"   : "这是我的随身物品，你打听这个干嘛？",
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "dagger.cang" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "dagger.cang" :),
                 (: perform_action, "throwing.luo" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-	}) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+    }) );
         setup();
 
         if (clonep())
@@ -138,11 +138,11 @@ void init()
         {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
-        }    
+        }
 }
 
 void greeting(object ob)
-{ 
+{
         if (! ob || environment(ob) != environment())
                 return;
         command("play qingxin-pushan");

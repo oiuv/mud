@@ -12,15 +12,15 @@ int is_weapon() { return 1; }
 
 varargs void init_hammer(int damage, int flag)
 {
-	if( clonep(this_object()) ) return;
+        if( clonep(this_object()) ) return;
 
-	set("weapon_prop/damage", damage);
-	set("flag", flag );
-	set("skill_type", "hammer");
-	if( !query("actions") ) {
-		set("actions", (: call_other, WEAPON_D, "query_action" :) );
-		set("verbs", ({ "bash", "crush", "slam" }) );
-	}
+        set("weapon_prop/damage", damage);
+        set("flag", flag );
+        set("skill_type", "hammer");
+        if( !query("actions") ) {
+                set("actions", (: call_other, WEAPON_D, "query_action" :) );
+                set("verbs", ({ "bash", "crush", "slam" }) );
+        }
 }
 
 string extra_long()

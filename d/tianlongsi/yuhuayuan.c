@@ -9,8 +9,8 @@ void create()
 LONG );
         set("exits", ([
                 "west" : __DIR__"wuwujing",
-		"south" : __DIR__"doumugong",
-	]));
+        "south" : __DIR__"doumugong",
+    ]));
         set("no_clean_up", 0);
         setup();
         replace_program(ROOM);

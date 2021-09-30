@@ -13,17 +13,17 @@ void create()
 玉峰映在碧绿的池中，明艳洁净，幽绝清绝。
 LONG);
         set("resource/water", 1);
-        set("objects", ([ 
+        set("objects", ([
                 __DIR__"obj/skeleton3" : 1,
-	]));
+    ]));
 
         set("item_desc", ([
                 "pool" : HIC "\n池水澄净清澈，更无纤毫苔泥，圆池四周都是翡翠。\n" NOR,
         ]));
 
-        set("exits", ([ 
-        	"up" : __DIR__"yongdao5",
-	]));
+        set("exits", ([
+            "up" : __DIR__"yongdao5",
+    ]));
         setup();
 }
 

@@ -2,7 +2,7 @@
 #include <combat.h>
 
 inherit F_SSERVER;
- 
+
 int perform(object me, object target)
 {
         object weapon;
@@ -10,15 +10,15 @@ int perform(object me, object target)
         int count;
         int lvl;
         int i;
-        
+
         if (! target) target = offensive_target(me);
-        	
+
         if (userp(me) && ! me->query("can_perform/lingshe-zhangfa/qianshe"))
                 return notify_fail("你还不会使用「千蛇出洞」。\n");
 
         if (! target || ! me->is_fighting(target))
                 return notify_fail("「千蛇出洞」只能对战斗中的对手使用。\n");
- 
+
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "staff")
                 return notify_fail("你必须手持一把杖才能施展「千蛇出洞」！\n");
@@ -66,4 +66,3 @@ int perform(object me, object target)
         me->start_busy(1 + random(5));
         return 1;
 }
-

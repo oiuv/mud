@@ -25,7 +25,7 @@ public int qdel()
         object qob;
         int t, i;
 
-	seteuid(getuid());
+    seteuid(getuid());
 
         total = QUEST_D->query("information");
         if (! mapp(total))
@@ -52,5 +52,5 @@ public int qdel()
 
         CHANNEL_D->do_channel(this_object(), "sys", "系统自动清除 " + i + " 个超过30分钟的任务。");
 
-	return 1;
+    return 1;
 }

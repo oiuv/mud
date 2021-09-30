@@ -9,9 +9,8 @@ void create()
 太师椅上。
 LONG);
         set("exits", ([
-                "south" : __DIR__"zoulang1",                 
+                "south" : __DIR__"zoulang1",
         ]));
 
-	setup();
+    setup();
 }
-

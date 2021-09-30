@@ -199,7 +199,7 @@ string ask_npc1(object knower, object me)
                 call_out("whisper_to1", 0, knower, me);
         }
 
-	me->set_temp("capture/" + NPC1_ID, 1);
+    me->set_temp("capture/" + NPC1_ID, 1);
         return CYN "哦，听说最近六大门派已经上" + PLACE1 + "找他去了，我"
                "看他这次是小命不保罗。\n" + knower->name() + CYN "接着说"
                "道：唉，做人就得图个太平，何必去惹那么多麻烦呢？你说对不"
@@ -236,7 +236,7 @@ string ask_npc2(object knower, object me)
                 call_out("whisper_to2", 0, knower, me);
         }
 
-	me->set_temp("capture/" + NPC2_ID, 1);
+    me->set_temp("capture/" + NPC2_ID, 1);
         return CYN "唉呀呀，又来了一个打探消息的。听说那家伙收"
                "到风声，已经躲了起来。\n" + knower->name() + CYN
                "接着说道：不过前两天倒是有一伙人在店里歇脚，不"
@@ -284,7 +284,7 @@ string ask_npc3(object knower, object me)
                 call_out("whisper_to3", 0, knower, me);
         }
 
-	me->set_temp("capture/" + NPC3_ID, 1);
+    me->set_temp("capture/" + NPC3_ID, 1);
         return CYN "我说这家伙耐性可真好，等到他同伴全死光了他"
                "才现身，啧啧。\n" + knower->name() + CYN "接着"
                "说道：不过看来他好运也不长，几大门派收到消息后"

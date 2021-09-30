@@ -10,15 +10,15 @@ void create ()
 十丈的长廊走道连接皇宫大殿。三座大殿一主二副，自成一个体系，气
 象肃森。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
-        	"east" : __DIR__"huanggong",
+            "east" : __DIR__"huanggong",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
-        	__DIR__"npc/shiwei" : 2,
+            __DIR__"npc/shiwei" : 2,
         ]));
-	
+
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

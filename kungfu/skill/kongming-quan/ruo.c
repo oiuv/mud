@@ -6,8 +6,8 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	int level;
-	string msg;
+    int level;
+    string msg;
 
         if (userp(me) && ! me->query("can_perform/kongming-quan/ruo"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -38,22 +38,22 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = WHT "$N" WHT "使出空明拳「" HIG "空明若玄" NOR + WHT "」，双手"
+    msg = WHT "$N" WHT "使出空明拳「" HIG "空明若玄" NOR + WHT "」，双手"
               "吞吐不定，运转如意，试图扰乱$n" WHT "的攻势。\n" NOR;
 
         me->add("neili", -50);
         if (random(level) > (int)target->query_skill("parry", 1) / 2)
         {
-		msg += HIR "结果$n" HIR "被$N" HIR "的拳招所牵制，招架"
+        msg += HIR "结果$n" HIR "被$N" HIR "的拳招所牵制，招架"
                        "不迭，全然无法反击！\n" NOR;
-		target->start_busy(level / 16 + 2);
-	} else
+        target->start_busy(level / 16 + 2);
+    } else
         {
-		msg += CYN "可是$p" CYN "看破了$P" CYN "的企图，镇定逾"
+        msg += CYN "可是$p" CYN "看破了$P" CYN "的企图，镇定逾"
                        "恒，全神应对自如。\n" NOR;
-		me->start_busy(2);
-	}
-	message_combatd(msg, me, target);
+        me->start_busy(2);
+    }
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

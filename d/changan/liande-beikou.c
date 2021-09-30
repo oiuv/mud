@@ -10,14 +10,14 @@ void create ()
 笼，每当暮色降临，这里灯火通明。北面有一座竹棚，里面隐隐传来唱
 戏的声音。南方通向连德大道。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 3
-        	"west" : __DIR__"qixiang6",
-        	"north" : __DIR__"xiyuan",
-        	"south" : __DIR__"liande-dadao1"
+            "west" : __DIR__"qixiang6",
+            "north" : __DIR__"xiyuan",
+            "south" : __DIR__"liande-dadao1"
         ]));
 
-        set("outdoors", "changan");  
+        set("outdoors", "changan");
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

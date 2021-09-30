@@ -10,14 +10,14 @@ void create()
 草，红绿相间，疏密有致，令人赏心悦目。
 LONG);
         set("exits", ([ /* sizeof() == 1 */
-        	"south" : __DIR__"qunyuys8",
+            "south" : __DIR__"qunyuys8",
         ]));
         set("objects", ([
-        	__DIR__"npc/dashou" : 4,
-        	__DIR__"npc/xiangxiang": 1,
-        	__DIR__"npc/huangyi": 1,   
+            __DIR__"npc/dashou" : 4,
+            __DIR__"npc/xiangxiang": 1,
+            __DIR__"npc/huangyi": 1,
         ]) );
 
-	setup();
+    setup();
         replace_program(ROOM);
 }

@@ -22,13 +22,13 @@ void create()
 籍《乾坤大挪移》心法，相传来自西域山中老人所作。
 LONG );
                 set("material", "paper");
-		set("skill", ([
-			"name"         : "qiankun-danuoyi",
-			"exp_required" : 1000000,
-			"jing_cost"    : 200,
-			"difficulty"   : 45,
-			"max_skill"    : 310,
+        set("skill", ([
+            "name"         : "qiankun-danuoyi",
+            "exp_required" : 1000000,
+            "jing_cost"    : 200,
+            "difficulty"   : 45,
+            "max_skill"    : 310,
                         "need" : ([ "sanscrit" : 200 ]),
-		]) );
+        ]) );
         }
 }

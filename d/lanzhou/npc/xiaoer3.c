@@ -15,12 +15,12 @@ void create()
         set("attitude", "friendly");
 
         set("rank_info/respect", "小二哥");
-	set("vendor_goods", ({
-		__DIR__"obj/jiudai",
-		__DIR__"obj/jiouhulu",
-		__DIR__"obj/maoniurou",
-		__DIR__"obj/gourou",
-	}));
+    set("vendor_goods", ({
+        __DIR__"obj/jiudai",
+        __DIR__"obj/jiouhulu",
+        __DIR__"obj/maoniurou",
+        __DIR__"obj/gourou",
+    }));
         setup();
         carry_object("/clone/misc/cloth")->wear();
 }

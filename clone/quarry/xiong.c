@@ -3,10 +3,10 @@ inherit QUARRY;
 
 void create()
 {
-	set_name(NOR + WHT "灰熊" NOR, ({ "hui xiong", "hui", "xiong" }));
-	set("long", WHT "这是一只身材巨大，凶猛异常的灰熊。\n" NOR);
+    set_name(NOR + WHT "灰熊" NOR, ({ "hui xiong", "hui", "xiong" }));
+    set("long", WHT "这是一只身材巨大，凶猛异常的灰熊。\n" NOR);
 
-	set("age", 6);
+    set("age", 6);
         set("str", 50);
         set("dex", 20);
         set("con", 50);
@@ -29,5 +29,5 @@ void create()
         set_temp("apply/unarmed_damage", 220);
         set_temp("apply/armor", 220);
 
-	setup();
+    setup();
 }

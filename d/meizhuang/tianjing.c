@@ -27,41 +27,40 @@ void init()
 }
 int do_open(string arg)
 {
-	object room;
+    object room;
 
-	if (query("exits/south"))
-		return notify_fail("大门已经是开着了。\n");
+    if (query("exits/south"))
+        return notify_fail("大门已经是开着了。\n");
 
-	if (!arg || (arg != "gate" && arg != "south"))
-		return notify_fail("你要开什么？\n");
+    if (!arg || (arg != "gate" && arg != "south"))
+        return notify_fail("你要开什么？\n");
 
-	if(!( room = find_object(__DIR__"gate")) )
-		room = load_object(__DIR__"gate");
-	if(objectp(room))
-	{
-		set("exits/south", __DIR__"gate");
-		message_vision("$N使劲把大门打了开来。\n", this_player());
-		room->set("exits/north", __FILE__);
-		message("vision", "吱地一声，里面有人把大门打开了。\n", room);
-		remove_call_out("close_gate");
-		call_out("close_gate", 10);
-	}
+    if(!( room = find_object(__DIR__"gate")) )
+        room = load_object(__DIR__"gate");
+    if(objectp(room))
+    {
+        set("exits/south", __DIR__"gate");
+        message_vision("$N使劲把大门打了开来。\n", this_player());
+        room->set("exits/north", __FILE__);
+        message("vision", "吱地一声，里面有人把大门打开了。\n", room);
+        remove_call_out("close_gate");
+        call_out("close_gate", 10);
+    }
 
-	return 1;
+    return 1;
 }
 
 void close_gate()
 {
-	object room;
+    object room;
 
-	if(!( room = find_object(__DIR__"gate")) )
-		room = load_object(__DIR__"gate");
-	if(objectp(room))
-	{
-		delete("exits/south");
-			message("vision", "护院上前把大门关了起来。\n", this_object());
-		room->delete("exits/north");
-		message("vision", "乒地一声，里面有人把大门关上了。\n", room);
-	}
+    if(!( room = find_object(__DIR__"gate")) )
+        room = load_object(__DIR__"gate");
+    if(objectp(room))
+    {
+        delete("exits/south");
+            message("vision", "护院上前把大门关了起来。\n", this_object());
+        room->delete("exits/north");
+        message("vision", "乒地一声，里面有人把大门关上了。\n", room);
+    }
 }
-

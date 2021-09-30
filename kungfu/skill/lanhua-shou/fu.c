@@ -7,7 +7,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	string msg;
+    string msg;
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/lanhua-shou/fu"))
@@ -42,25 +42,25 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIC "$N" HIC "反手轻轻伸出三指，婉转如一朵盛开的兰花，轻点$n"
+    msg = HIC "$N" HIC "反手轻轻伸出三指，婉转如一朵盛开的兰花，轻点$n"
               HIC "胁下要穴。\n";
 
         ap = me->query_skill("hand");
         dp = target->query_skill("parry") / 2;
-	if (ap / 2 + random(ap) > dp)
-	{
-		msg +=  HIR "$p" HIR "只觉胁下一麻，已被$P"
+    if (ap / 2 + random(ap) > dp)
+    {
+        msg +=  HIR "$p" HIR "只觉胁下一麻，已被$P"
                         HIR "点个正着，顿时全身酸软，呆立当场。\n" NOR;
-		target->start_busy(ap / 30 + 2);
-		me->add("neili", -100);
+        target->start_busy(ap / 30 + 2);
+        me->add("neili", -100);
                 me->start_busy(1);
-	} else
-	{
-		msg += CYN "可是$p" CYN "看破了$P" CYN
-		       "的企图，轻轻一跃，跳了开去。\n" NOR;
-		me->start_busy(2);
-	}
-	message_combatd(msg, me, target);
+    } else
+    {
+        msg += CYN "可是$p" CYN "看破了$P" CYN
+               "的企图，轻轻一跃，跳了开去。\n" NOR;
+        me->start_busy(2);
+    }
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

@@ -10,16 +10,16 @@ string give_gift();
 
 void create()
 {
-	set_name(HIR "圣诞" HIW "老人" NOR, ({ "christmas man", "man", "lao ren" }) );
-	set("gender", "男性" );
-	set("age", 65);
-	set("long", HIM "圣诞老人背着一个大口袋，笑嘻嘻地看着你！\n" NOR);
-	set("shen_type", -1);
-	set("combat_exp", 10000);
-	set("str", 80);
-	set("dex", 82);
-	set("con", 80);
-	set("int", 81);
+    set_name(HIR "圣诞" HIW "老人" NOR, ({ "christmas man", "man", "lao ren" }) );
+    set("gender", "男性" );
+    set("age", 65);
+    set("long", HIM "圣诞老人背着一个大口袋，笑嘻嘻地看着你！\n" NOR);
+    set("shen_type", -1);
+    set("combat_exp", 10000);
+    set("str", 80);
+    set("dex", 82);
+    set("con", 80);
+    set("int", 81);
 
         set("max_qi", 30000);
         set("max_jing", 18000);
@@ -59,12 +59,12 @@ void create()
                 (: exert_function, "shield" :),
         }));
 
-	set("attitude", "friendly");
-	setup();
+    set("attitude", "friendly");
+    setup();
 
-	carry_object(__DIR__"ccloth")->wear();
+    carry_object(__DIR__"ccloth")->wear();
 
-	add_money("silver", 3);
+    add_money("silver", 3);
 }
 
 void init()
@@ -77,11 +77,11 @@ string give_gift()
         object me;
         object gift;
         me = this_player();
-    
+
         // 已经领取过礼物
         if (me->query("get_christmas_gift/y2002"))
                  return HIR "圣诞" HIW "老人" HIR " 笑嘻嘻地对你说道：“Merry Christmas！”\n" NOR;
-        
+
         // 已经吃过礼物
         if (me->query("eat_christmas_gift/y2002"))
                  return HIR "圣诞" HIW "老人" HIR "笑嘻嘻地对你说道：“Merry Christmas！”\n" NOR;
@@ -93,9 +93,9 @@ string give_gift()
         message_vision(HIY "圣诞老人将背上的大口袋放在地方，翻来翻去……\n", me);
         command("haha");
         command("say 好了，你的礼物，给你吧！");
-        message_vision(HIY "圣诞老人将礼物给$N" HIY "\n", me);        
+        message_vision(HIY "圣诞老人将礼物给$N" HIY "\n", me);
         tell_object(me, HIG "你得到了一个礼物，快看看吧！\n");
-        
+
         switch(random(5))
         {
              case 1 :
@@ -105,8 +105,8 @@ string give_gift()
              case 2 :
                   gift = new(__DIR__"hanbao");
                   gift->move(me);
- 
-             case 3 :                  
+
+             case 3 :
                   gift = new(__DIR__"dabing");
                   gift->move(me);
 
@@ -114,10 +114,8 @@ string give_gift()
                   gift = new(__DIR__"chang");
                   gift->move(me);
 
-        }        
+        }
         me->set("get_christmas_gift/y2002", 1);
         return "Bye！\n";
-          
+
 }
-
-

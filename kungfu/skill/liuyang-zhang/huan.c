@@ -7,9 +7,9 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-//	object weapon;
-	int damage;
-	string msg;
+//    object weapon;
+    int damage;
+    string msg;
         int ap, dp;
 
         if (userp(me) && ! me->query("can_perform/liuyang-zhang/huan"))
@@ -17,11 +17,11 @@ int perform(object me, object target)
 
         if (! target)
         {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
+            me->clean_up_enemy();
+            target = me->select_opponent();
         }
 
-	if (! target || ! me->is_fighting(target))
+    if (! target || ! me->is_fighting(target))
                 return notify_fail(HUAN "只能对战斗中的对手使用。\n");
 
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
@@ -45,30 +45,30 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIR "$N" HIR "双掌一振，施出天山六阳掌「寰阳式」，幻出"
+    msg = HIR "$N" HIR "双掌一振，施出天山六阳掌「寰阳式」，幻出"
               "满天掌影，团团罩住$n" HIR "。\n" NOR;
 
-	me->add("neili", -50);
+    me->add("neili", -50);
         ap = me->query_skill("force");
         dp = target->query_skill("force");
         if (ap / 2 + random(ap) > dp)
-	{
-		damage = me->query_skill("strike") + ap - dp;
+    {
+        damage = me->query_skill("strike") + ap - dp;
                 damage += random(damage * 2 / 5);
-		me->add("neili", -100);
+        me->add("neili", -100);
 
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 40,
                                            HIR "$n" HIR "见躲闪不得，只能硬挡下一"
                                            "招，顿时被$P" HIR "震得连退数步，吐血"
                                            "不止！\n" NOR);
-		me->start_busy(3);
-	} else
-	{
-		msg += HIC "可是$p" HIC "强运内力，硬生生的挡住$P"
+        me->start_busy(3);
+    } else
+    {
+        msg += HIC "可是$p" HIC "强运内力，硬生生的挡住$P"
                        HIC "这一掌，没有受到任何伤害。\n"NOR;
-		me->start_busy(3);
-	}
-	message_combatd(msg, me, target);
+        me->start_busy(3);
+    }
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

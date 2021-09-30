@@ -139,7 +139,7 @@ int do_unjoin(string arg)
 
 int do_decide()
 {
-	object ob, me;
+    object ob, me;
         me = this_player();
 
         if (me->query_temp("want_join"))

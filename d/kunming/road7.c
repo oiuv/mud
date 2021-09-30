@@ -10,7 +10,7 @@ LONG);
         set("outdoors", "kunming");
 
         set("exits", ([
-		"south": __DIR__"yunnan",
+        "south": __DIR__"yunnan",
                 "north"  :__DIR__"road6",
         ]));
         set("objects", ([

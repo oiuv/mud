@@ -8,7 +8,7 @@ void create()
 道的东面熙熙攘攘的是一个菜场。西面的一家店面，一听里面
 的算盘声就知道是一家不小的钱庄。
 LONG);
-	set("outdoors", "zhongzhou");
+    set("outdoors", "zhongzhou");
 
         set("exits", ([
                 "east" : __DIR__"canchang",
@@ -23,4 +23,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

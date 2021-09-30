@@ -13,7 +13,7 @@ LONG);
                 "south" : __DIR__"xiyuan",
         ]));
         set("objects", ([
-        	"/d/beijing/npc/kid1" : 2,
+            "/d/beijing/npc/kid1" : 2,
         ]));
 
         setup();

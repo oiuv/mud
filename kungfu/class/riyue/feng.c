@@ -12,7 +12,7 @@ mixed ask_skill1();
 
 void create()
 {
-	object ob;
+    object ob;
         set_name("张乘风", ({"zhang chengfeng", "zhang", "chengfeng", "feng"}));
         set("nickname", HIY "金猴神魔" NOR );
         set("title", "日月神教前辈长老");
@@ -29,7 +29,7 @@ LONG);
         set("int", 36);
         set("con", 36);
         set("dex", 36);
-        
+
         set("max_qi", 5400);
         set("max_jing", 4000);
         set("neili", 7000);
@@ -80,14 +80,14 @@ LONG);
                 "回去" : (: ask_back :),
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "club.qian" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "club.qian" :),
                 (: perform_action, "cuff.tong" :),
                 (: perform_action, "claw.duan" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-	}) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+    }) );
 
         setup();
 
@@ -131,7 +131,7 @@ int recognize_apprentice(object ob, string skill)
         {
                 command("sneer");
                 command("say 你还不配。");
-                return -1; 
+                return -1;
         }
 
         if ((int)ob->query("shen") > -60000)
@@ -252,7 +252,7 @@ mixed ask_skill1()
                      "好了！”说完便大步上前，怒吼一声，手中熟铜棍急速舞动"
                      "，霎时间飞沙走石，罡气激荡。便在那狂沙飓风中，$n" HIY
                      "忽然高高跃起，迎头一棒猛然劈落。数招一气呵成，连贯之"
-                     "极，煞为壮观。\n\n" NOR, me, this_object()); 
+                     "极，煞为壮观。\n\n" NOR, me, this_object());
 
         command("nod2");
         command("say 看懂了么？");
@@ -270,8 +270,8 @@ mixed ask_skill1()
 
 mixed ask_back()
 {
-    	object me, myenv;
-    	me = this_player();
+        object me, myenv;
+        me = this_player();
 
         if (find_object(query("startroom")) != environment())
                 return "咦？…嗯…这个…这…你还是自己看着办吧。";
@@ -280,7 +280,7 @@ mixed ask_back()
                 return "他奶奶的，你找死么？";
 
         command("nod");
-	message_vision(HIW "张乘风咳嗽一声，陡然纵声长啸，崖上顿时落下一个大吊篮。\n\n"
+    message_vision(HIW "张乘风咳嗽一声，陡然纵声长啸，崖上顿时落下一个大吊篮。\n\n"
                        NOR + HIY "$N" HIY "一弯腰进了吊篮，吊篮缓缓地铰上崖去……\n\n", me);
         myenv = environment(me);
         me->move ("/d/heimuya/basket");
@@ -290,13 +290,13 @@ mixed ask_back()
 
 void up1(object me)
 {
-    	tell_object(me, HIW "\n你乘座的吊篮急速上升，篮外的朵朵白云向下冲去。\n\n" NOR);
+        tell_object(me, HIW "\n你乘座的吊篮急速上升，篮外的朵朵白云向下冲去。\n\n" NOR);
         me->start_call_out((: call_other, __FILE__, "up2", me :), 3);
 }
 
 void up2(object me)
 {
-    	tell_object(me, HIW "\n你眼前一亮，一幢幢白色建筑屹立眼前，霎是辉煌。\n\n" NOR);
+        tell_object(me, HIW "\n你眼前一亮，一幢幢白色建筑屹立眼前，霎是辉煌。\n\n" NOR);
         me->move("/d/heimuya/shanya3");
         message_vision(HIC "\n$N" HIC "乘坐吊篮上了黑木崖。\n\n" NOR, me);
 }

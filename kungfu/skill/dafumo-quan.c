@@ -60,18 +60,18 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "unarmed" || usage == "parry";
+    return usage == "unarmed" || usage == "parry";
 }
 
 int valid_learn(object me)
 {
-	if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail("练大伏魔拳必须空手。\n");
 
         if (me->query("str") < 32)
                 return notify_fail("你先天臂力太弱，无法练大伏魔拳。\n");
 
-	if ((int)me->query("max_neili") < 1500)
+    if ((int)me->query("max_neili") < 1500)
                 return notify_fail("你的内力太弱，无法练大伏魔拳。\n");
 
         if ((int)me->query_skill("force") < 150)
@@ -83,7 +83,7 @@ int valid_learn(object me)
         if ((int)me->query_skill("unarmed", 1) < (int)me->query_skill("dafumo-quan", 1))
                 return notify_fail("你的基本拳脚水平有限，无法领会更高深的大伏魔拳。\n");
 
-	return 1;
+    return 1;
 }
 
 string query_skill_name(int level)
@@ -120,15 +120,15 @@ int query_effect_parry(object attacker, object me)
 
 int practice_skill(object me)
 {
-	if ((int)me->query("qi") < 60)
-		return notify_fail("你的体力太低了。\n");
+    if ((int)me->query("qi") < 60)
+        return notify_fail("你的体力太低了。\n");
 
-	if ((int)me->query("neili") < 70)
+    if ((int)me->query("neili") < 70)
                 return notify_fail("你的内力不够了。\n");
 
-	me->receive_damage("qi", 50);
-	me->add("neili", -60);
-	return 1;
+    me->receive_damage("qi", 50);
+    me->add("neili", -60);
+    return 1;
 }
 
 
@@ -172,5 +172,5 @@ mixed valid_damage(object ob, object me, int damage, object weapon)
 
 string perform_action_file(string action)
 {
-	return __DIR__"dafumo-quan/" + action;
+    return __DIR__"dafumo-quan/" + action;
 }

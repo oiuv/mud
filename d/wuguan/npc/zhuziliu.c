@@ -72,7 +72,7 @@ void init()
 
         ::init();
         if (interactive(ob = this_player()) && ! is_fighting())
-	{
+    {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
         }

@@ -10,14 +10,14 @@ mixed ask_skill3();
 
 void create()
 {
-	set_name("上官云", ({ "shangguan yun", "shangguan", "yun"}));
+    set_name("上官云", ({ "shangguan yun", "shangguan", "yun"}));
         set("title", "日月神教白虎堂长老");
         set("nickname", WHT "雕侠" NOR);
         set("long", @LONG
 这是日月神教白虎堂长老上官云。在教中人称
 雕侠，为人极其耿直，武功又高强。
 LONG);
-	set("gender", "男性" );
+    set("gender", "男性" );
         set("class", "scholar");
         set("age", 39);
         set("attitude", "friendly");
@@ -155,7 +155,7 @@ mixed ask_skill1()
         message_sort(HIY "\n$n" HIY "笑了笑，伸手将$N" HIY "招到身前，低"
                      "声在$N" HIY "耳旁嘀咕了半天。然后又拔出腰刀翻转数下"
                      "，斜撩而出。似乎是一种颇为独特的刀诀。\n\n" NOR, me,
-                     this_object()); 
+                     this_object());
 
         command("nod2");
         command("say 看懂了吗？看懂了就自己下去练吧。");
@@ -202,7 +202,7 @@ mixed ask_skill2()
                      "“不错，不错。老夫念你平时练功努力，今日就传你此招"
                      "，可瞧好了。”说完便只见$n" HIY "身形一展，双爪疾攻"
                      "而上，霎时间爪影层层叠叠，虚实难辩，招数甚为巧妙。"
-                     "\n\n" NOR, me, this_object()); 
+                     "\n\n" NOR, me, this_object());
 
         command("nod");
         command("say 这招的招式并不复杂，你下去后需勤加练习。");
@@ -248,7 +248,7 @@ mixed ask_skill3()
         message_sort(HIY "\n$n" HIY "微微一笑，招手示意$N" HIY "到他跟前"
                      "，然后俯身在$N" HIY "耳边轻声嘀嘀咕咕了半天，$N" HIY
                      "直听得眉开眼笑，一边听一边不住地点头。\n\n" NOR, me,
-                     this_object()); 
+                     this_object());
 
         command("nod");
         command("say 对付那些正派人士，一上来就要像这样痛下杀手。");

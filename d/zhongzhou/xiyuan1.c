@@ -9,12 +9,12 @@ void create()
 倒也是有板有眼，让人心情一畅，偶然的不快顿时烟消云散。
 LONG);
 
-	set("outdoors", "zhongzhou");
+    set("outdoors", "zhongzhou");
 
         set("exits", ([
                 "east" : __DIR__"xiyuan",
-                "west" : __DIR__"huazhuang",    
-	]));
+                "west" : __DIR__"huazhuang",
+    ]));
 
         set("objects",([
                 "/d/beijing/npc/guanzhong" : 2,

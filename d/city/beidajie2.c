@@ -2,7 +2,7 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "北大街");
+    set("short", "北大街");
         set("long", @LONG
 这是一条宽阔的青石街道，向南北两头延伸。北边则是由
 北城门通向城外。街道南边显得很繁忙。东边是一座两层的大
@@ -12,13 +12,12 @@ void create()
 下学武之人所共同敬仰的武庙了。
 LONG );
         set("outdoors", "city");
-	set("exits", ([
-		"east"  : __DIR__"zuixianlou",
-		"south" : __DIR__"beidajie1",
-		"west"  : __DIR__"wumiao",
-		"north" : __DIR__"beimen",
-	]));
-	setup();
-	replace_program(ROOM);
+    set("exits", ([
+        "east"  : __DIR__"zuixianlou",
+        "south" : __DIR__"beidajie1",
+        "west"  : __DIR__"wumiao",
+        "north" : __DIR__"beimen",
+    ]));
+    setup();
+    replace_program(ROOM);
 }
-

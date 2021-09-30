@@ -9,12 +9,12 @@ void create()
 个小孩正在追逐嬉戏。北边是上黄泥岭。南面是丁家山。
 LONG);
         set("exits", ([
-            	"south"   : __DIR__"tulu2",
-            	"northup"     : __DIR__"huangniling",
+                "south"   : __DIR__"tulu2",
+                "northup"     : __DIR__"huangniling",
         ]));
         set("objects", ([
-            	__DIR__"npc/boy" : 1,
-            	__DIR__"npc/oldwoman" : 1,
+                __DIR__"npc/boy" : 1,
+                __DIR__"npc/oldwoman" : 1,
         ]));
         set("outdoors", "hangzhou");
         setup();

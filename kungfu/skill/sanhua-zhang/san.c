@@ -25,8 +25,8 @@ int perform(object me, object target)
         if ((int)me->query("neili") < 200)
                 return notify_fail("你现在真气不够，无法使用天女散花。\n");
 
-	if (me->query_skill_mapped("strike") != "sanhua-zhang") 
-		return notify_fail("你没有激发散花掌，无法使用天女散花！\n");
+    if (me->query_skill_mapped("strike") != "sanhua-zhang")
+        return notify_fail("你没有激发散花掌，无法使用天女散花！\n");
 
        if (! living(target))
               return notify_fail("对方都已经这样了，用不着这么费力吧？\n");

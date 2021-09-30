@@ -3,28 +3,28 @@
 
 #include <ansi.h>
 
-#define MAX_SE		6
-#define MAX_TOSS	5
+#define MAX_SE        6
+#define MAX_TOSS    5
 
 inherit ITEM;
 
 int has_start;
 int has_guess;
-int se_num;					// 每人的色子数量
-int se_total;				// 每人的色子数量2
-int cur_point;				// 当前的点数
-int cur_amount;				// 当前的数量
-int has_guess_one;			// 是否猜过１
-string cur_player;			// 当前的玩家ID
-string last_player;			// 上一个玩家
-string who_lost;			// 输方
-mapping player;				// 两个玩家 [id:({色，色...})]
-mapping player_deal;		// 完成的玩家
-mapping player_toss;		// 玩家toss次数
-mapping player_follow;		// 玩家顺序
-mapping visitor;			// 观战的人 [id:({id,...})]
-mapping counter = ([]);		// 计数器
-mixed	history;				// 历史 string
+int se_num;                    // 每人的色子数量
+int se_total;                // 每人的色子数量2
+int cur_point;                // 当前的点数
+int cur_amount;                // 当前的数量
+int has_guess_one;            // 是否猜过１
+string cur_player;            // 当前的玩家ID
+string last_player;            // 上一个玩家
+string who_lost;            // 输方
+mapping player;                // 两个玩家 [id:({色，色...})]
+mapping player_deal;        // 完成的玩家
+mapping player_toss;        // 玩家toss次数
+mapping player_follow;        // 玩家顺序
+mapping visitor;            // 观战的人 [id:({id,...})]
+mapping counter = ([]);        // 计数器
+mixed    history;                // 历史 string
 int reset_game(int all);
 
 mixed se_text = ({
@@ -175,7 +175,7 @@ string build_se(object who)
     mixed *s;
     string r,t;
     int i,y,num;
-//	object ob;
+//    object ob;
 
     if(!who)
         return "";
@@ -292,7 +292,7 @@ string extra_long()
     if(sizeof(player)>0)
     {
         idx = keys(player);
-        r =	"******************************************\n";
+        r =    "******************************************\n";
         for(i=0;i<sizeof(idx);i++)
         {
             who = get_player(idx[i]);
@@ -327,25 +327,25 @@ void start_game(int num)
 void init()
 {
 
-    add_action("do_help","helpse");			// 帮助
+    add_action("do_help","helpse");            // 帮助
 
-    add_action("do_reset","reset");			// 重置游戏
-    add_action("do_start","start");			// 重新开始
-    add_action("do_join","join");			// 加入游戏
+    add_action("do_reset","reset");            // 重置游戏
+    add_action("do_start","start");            // 重新开始
+    add_action("do_join","join");            // 加入游戏
 
-    add_action("do_toss","toss");			// 摇色子
-    add_action("do_view","view");			// 查看情况
-    add_action("do_finish","finish");		// 完成
-    add_action("do_finish","deal");			// 完成
+    add_action("do_toss","toss");            // 摇色子
+    add_action("do_view","view");            // 查看情况
+    add_action("do_finish","finish");        // 完成
+    add_action("do_finish","deal");            // 完成
 
-    add_action("do_dahua","dahua");			// 发现大话
-    add_action("do_guess","guess");			// 猜测
-    add_action("do_guess","g");				// 猜测
+    add_action("do_dahua","dahua");            // 发现大话
+    add_action("do_guess","guess");            // 猜测
+    add_action("do_guess","g");                // 猜测
 
-    add_action("do_next","next");			// 催促
-    add_action("do_showc","showc");			// 显示计数器
-    add_action("do_visitor","visit");		// 增加旁观者
-    add_action("do_history","history");		// 查看猜测历史
+    add_action("do_next","next");            // 催促
+    add_action("do_showc","showc");            // 显示计数器
+    add_action("do_visitor","visit");        // 增加旁观者
+    add_action("do_history","history");        // 查看猜测历史
 }
 
 int do_toss(string arg)
@@ -497,7 +497,7 @@ int do_guess(string arg)
     int n,p,ok;
     object ob;
     object me;
-//	string nextone;
+//    string nextone;
 
     me = this_player();
     if(!is_playing(me))
@@ -793,7 +793,7 @@ int do_help(string arg)
 帮助命令：helpse
 加入命令：join　　　　　加入游戏
 开始命令：start 　　　　开始游戏
-重置命令：reset se		结束游戏
+重置命令：reset se        结束游戏
 
 ----[游戏前命令]------------------------------
 　摇色子：toss

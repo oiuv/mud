@@ -23,7 +23,7 @@ int is_stay_in_room() { return 1; }
 
 void create()
 {
-	set_name("聊天者", ({ "chatter object", "chatter" }));
+    set_name("聊天者", ({ "chatter object", "chatter" }));
         seteuid(0);
 }
 
@@ -53,9 +53,9 @@ string long()
 
 int accept_fight(object ob)
 {
-	message_vision("$N急忙对$n道：这位" + RANK_D->query_respect(ob) +
-		       "，有话好好说，怎么可以这个样子？\n",
-		       this_object(), ob);
+    message_vision("$N急忙对$n道：这位" + RANK_D->query_respect(ob) +
+               "，有话好好说，怎么可以这个样子？\n",
+               this_object(), ob);
         return 0;
 }
 
@@ -127,7 +127,7 @@ string full_name()
 
 int visible(mixed ob)
 {
-	if (wiz_level(this_object()) >= wiz_level(ob))
+    if (wiz_level(this_object()) >= wiz_level(ob))
                 return 1;
 
         // load the environment variable from user2
@@ -170,14 +170,14 @@ varargs int move(mixed dest, int raw)
 {
         object ob;
 
-	if (objectp(dest))
-		ob = dest;
-	else
+    if (objectp(dest))
+        ob = dest;
+    else
         if (stringp(dest))
         {
-		call_other(dest, "???");
-		ob = find_object(dest);
-		if (! ob)
+        call_other(dest, "???");
+        ob = find_object(dest);
+        if (! ob)
                 {
                         MESSAGE_D->tell_object(this_object(), FUN_NOTICE,
                                                HIR "你无法移动到(" + HIG +
@@ -185,11 +185,11 @@ varargs int move(mixed dest, int raw)
                         return 0;
                 }
 
-	} else
-		return 0;
+    } else
+        return 0;
 
         move_object(dest);
-	if (! raw) CHAT_LOOK_CMD->main(this_object(), 0);
+    if (! raw) CHAT_LOOK_CMD->main(this_object(), 0);
         return 1;
 }
 
@@ -373,7 +373,7 @@ int do_look(string arg)
 
 void move_or_destruct()
 {
-	if (is_chatter()) move(VOID_OB);
+    if (is_chatter()) move(VOID_OB);
 }
 
 void log_command(string msg) {}
@@ -387,12 +387,12 @@ string short()
         str = query("name") + "(" + query("id") + ")";
         if (! stringp(title = query_temp("title")))
                 title = query("title");
-	if (nick = query("nickname"))
+    if (nick = query("nickname"))
         {
-		str = "「" + nick + "」" + str;
-		if (title) str = title + str;
+        str = "「" + nick + "」" + str;
+        if (title) str = title + str;
         } else
-	if (title) str = title + " " + str;
+    if (title) str = title + " " + str;
 
         return str;
 }

@@ -26,7 +26,7 @@ LONG );
         set("int", 25);
         set("con", 25);
         set("dex", 25);
-        
+
         set("max_qi", 2500);
         set("max_jing", 1200);
         set("neili", 3000);
@@ -96,7 +96,7 @@ void attempt_apprentice(object ob)
         command("say 我早已看破红尘，你又来烦我做甚？");
 
         if (ob->query("gender") == "女性")
-	        command("say 待他日你功力深厚，我倒是可以传你一套鞭法。");
+            command("say 待他日你功力深厚，我倒是可以传你一套鞭法。");
 
         return;
 }
@@ -170,7 +170,7 @@ mixed ask_skill1()
         message_sort(HIY "\n$n" HIY "对$N" HIY "点了点头，随即取出腰"
                      "间拂尘，力贯梢柄，急速挥舞，拂尘顿时画出一个又"
                      "一个的圈子，紧逼$N" HIY "而去，招式变化甚为精巧"
-                     "。\n\n" NOR, me, this_object()); 
+                     "。\n\n" NOR, me, this_object());
 
         command("nod");
         command("say 这招看似花巧，其实并不难练，下去后仍需勤加练习。");

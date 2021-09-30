@@ -7,8 +7,8 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-//	object weapon;
-	string msg;
+//    object weapon;
+    string msg;
         int ap, dp;
         int level;
 
@@ -48,26 +48,26 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         msg = WHT "$N" WHT "双掌交错，施出铁掌绝技「" HIR "龙影掌" NOR +
-              WHT "」，旋起层层残影，笼罩$n" WHT "四方。\n" NOR;  
+              WHT "」，旋起层层残影，笼罩$n" WHT "四方。\n" NOR;
 
         ap = me->query_skill("strike") + me->query("str") * 5;
         dp = target->query_skill("parry") + target->query("dex") * 5;
 
         if (ap / 2 + random(ap) > dp)
         {
-		msg += HIR "残影晃动间$n" HIR "招式陡然一紧，竟被$N"
+        msg += HIR "残影晃动间$n" HIR "招式陡然一紧，竟被$N"
                        HIR "的掌招牵引得手忙脚乱！\n" NOR;
                 target->start_busy(level / 18 + 2);
                 me->start_busy(2);
                 me->add("neili", -100);
-	} else
+    } else
         {
-		msg += CYN "可是$n" CYN "看破了$N"
+        msg += CYN "可是$n" CYN "看破了$N"
                        CYN "的企图，镇定解招，一丝不乱。\n" NOR;
                 me->start_busy(2);
                 me->add("neili", -80);
-	}
-	message_combatd(msg, me, target);
+    }
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

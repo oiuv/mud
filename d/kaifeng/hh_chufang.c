@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 
 inherit ROOM;
 
@@ -12,8 +12,8 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"hh_guangchang",
-	]));
+          "west" : __DIR__"hh_guangchang",
+    ]));
         set("objects",([
                 __DIR__"npc/honghua2" : 1,
         ]));
@@ -36,10 +36,10 @@ int do_serve()
         if (me->query("family/family_name") != "红花会")
                 return notify_fail(CYN "红花弟子道：你又不是红花会的，走开。\n" NOR);
 
-        if (present("rice", this_player())) 
+        if (present("rice", this_player()))
                 return notify_fail(CYN "红花弟子道：吃完了再拿，别浪费食物。\n" NOR);
 
-        if (present("soup", this_object())) 
+        if (present("soup", this_object()))
                 return notify_fail(CYN "红花弟子道：吃完了再拿，别浪费食物。\n" NOR);
 
         if (query("ricewater") > 0)
@@ -52,8 +52,8 @@ int do_serve()
                 water->move(me);
                 add("ricewater", -1);
         }
-        else 
+        else
                 message_vision(CYN "红花弟子对$N" CYN "歉声道：嗨，吃的喝的都"
                                "没了。\n" NOR,me);
-        return 1; 
+        return 1;
 }

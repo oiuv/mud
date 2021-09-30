@@ -10,8 +10,8 @@ int do_insert(string arg);
 
 void create()
 {
-	set("short", "悬崖");
-	set("long", @TEXT
+    set("short", "悬崖");
+    set("long", @TEXT
 又一座陡峭的悬崖立在了你的面前。悬崖上仿佛有座白色的
 建筑，可云烟缭绕，看不清晰。崖上又垂下一条绳索(rope)，看
 上去象是悬崖上下互通消息的工具，要想办法找其他的牌子啊。
@@ -20,7 +20,7 @@ void create()
 TEXT );
 
     set("exits", ([
-	"westdown" : __DIR__"up3",
+    "westdown" : __DIR__"up3",
     ]));
 
     set("item_desc", ([
@@ -113,11 +113,11 @@ int do_insert(string arg)
     me=this_player();
 
     if( !arg || arg=="" ) return 0;
-    if( arg=="卡" ) arg = "card4";   
+    if( arg=="卡" ) arg = "card4";
     if( arg=="card4")
     {
-	if( !objectp(ob = present(arg, me)) )
-		return notify_fail("你身上没有这样东西。\n");
+    if( !objectp(ob = present(arg, me)) )
+        return notify_fail("你身上没有这样东西。\n");
 
         if( !me->query_temp("mark/cards") )
                 me->set_temp("mark/cards",1);
@@ -125,7 +125,7 @@ int do_insert(string arg)
         if( me->query_temp("mark/cards")==4)
         {
                 check_trigger();
-		me->delete_temp("mark/cards");
+        me->delete_temp("mark/cards");
         }
         else    {
                 me->add_temp("mark/cards",1);

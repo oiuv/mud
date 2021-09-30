@@ -10,12 +10,11 @@ void create()
 不安起来，发出阵阵咆哮声，不时翻滚着旋涡向东流去。
 LONG);
         set("exits", ([
-  		"west" : __DIR__"sanxia2",
-  		"east" : __DIR__"shudao10",
+          "west" : __DIR__"sanxia2",
+          "east" : __DIR__"shudao10",
         ]));
         set("no_clean_up", 0);
         set("outdoors", "chengdu");
         setup();
         replace_program(ROOM);
 }
-

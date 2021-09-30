@@ -4,12 +4,12 @@ inherit ITEM;
 
 void create()
 {
-	set_name( HIC "『少林拜师必读』" NOR, ({ "bidu", "guide" }) );
-	set_weight(10);
-	if( clonep() )
-		set_default_object(__FILE__);
-	else {
-		set("unit", "本");
+    set_name( HIC "『少林拜师必读』" NOR, ({ "bidu", "guide" }) );
+    set_weight(10);
+    if( clonep() )
+        set_default_object(__FILE__);
+    else {
+        set("unit", "本");
                 set("long",
 "\n                 『少林拜师必读』\n\n"
 "少林位于扬州城北少室山，新玩家由南麓北上山道，沿途攀\n"
@@ -44,8 +44,8 @@ void create()
 "僧并列玄字辈，位尊无比，并可委任为藏经阁阁主或僧监监\n"
 "长一职，并可直接进入武林大会的决赛圈。其他诸多好处，\n"
 "不必细表。\n");
-		set("value", 100);
-		set("material", "paper");
-	}
-	setup();
+        set("value", 100);
+        set("material", "paper");
+    }
+    setup();
 }

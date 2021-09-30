@@ -10,14 +10,13 @@ void create()
 了很多树枝石块。
 LONG);
         set("outdoors", "city");
-    	set("exits", ([
-        	"north" : __DIR__"jiaowai2",
-        	"south" : __DIR__"jiaowai4",
-    	]));
-    	set("objects", ([
-        	__DIR__"obj/shitou": 2,
-    	]));
-    	setup();
-    	replace_program(ROOM);
+        set("exits", ([
+            "north" : __DIR__"jiaowai2",
+            "south" : __DIR__"jiaowai4",
+        ]));
+        set("objects", ([
+            __DIR__"obj/shitou": 2,
+        ]));
+        setup();
+        replace_program(ROOM);
 }
-

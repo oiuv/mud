@@ -10,16 +10,15 @@ void create()
 上，令人顿感凉爽之极，不断有水滴顺着洞内的怪石滴下，连
 成一条条细线,远观之下犹如一幅幅窗帘， 水莲洞也因此得名。
 LONG);
-	set("item_desc",([
-	       "pubu":HIC"\n你仰望瀑布，景致甚为壮观，可是你猛然发现外面"
+    set("item_desc",([
+           "pubu":HIC"\n你仰望瀑布，景致甚为壮观，可是你猛然发现外面"
                       "的平地却在水莲洞上方，要跳出去却是万难做到。\n\n"NOR,
-	]));
+    ]));
 
-	set("exits",([
-	       "enter":__DIR__"inhole1",
-	]));	
-	     	
+    set("exits",([
+           "enter":__DIR__"inhole1",
+    ]));
+
        setup();
        replace_program(ROOM);
 }
-

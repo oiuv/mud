@@ -12,60 +12,60 @@ int  halt_working(object me);
 
 void create()
 {
-	set_name("曾柔", ({ "zeng rou", "zeng", "rou" }));
-	set("gender", "女性");
-	set("age", 16);
-	set("per", 25);
-	set("con", 25);
-	set("int", 25);
-	set("dex", 25);
-	set("str", 25);
-	set("long",
+    set_name("曾柔", ({ "zeng rou", "zeng", "rou" }));
+    set("gender", "女性");
+    set("age", 16);
+    set("per", 25);
+    set("con", 25);
+    set("int", 25);
+    set("dex", 25);
+    set("str", 25);
+    set("long",
 "她是韦爵爷不知道第几房的小妾，在这里开个成衣铺，卖些不知道
 哪来的衣服。有人说那都是韦爵爷从宫中弄出来的禁品。话这么说，
 生意照样红活。\n");
-	set_skill("unarmed", 60);
-	set_skill("changquan", 60);
-	map_skill("unarmed", "changquan");
-	set_temp("apply/damage", 15);
+    set_skill("unarmed", 60);
+    set_skill("changquan", 60);
+    map_skill("unarmed", "changquan");
+    set_temp("apply/damage", 15);
 
-	set("combat_exp", 50000);
-	set("attitude", "friendly");
-	set("vendor_goods", ({
-		__DIR__"cloth/belt",
-		__DIR__"cloth/boots",
-		__DIR__"cloth/bu-shoes",
-		__DIR__"cloth/cloth",
-		__DIR__"cloth/color-dress",
-		__DIR__"cloth/fu-cloth",
-		__DIR__"cloth/gui-dress",
-		__DIR__"cloth/hat",
-		__DIR__"cloth/jade-belt",
-		__DIR__"cloth/liu-dress",
-		__DIR__"cloth/marry-dress",
-		__DIR__"cloth/mini-dress",
-		__DIR__"cloth/moon-dress",
-		__DIR__"cloth/pink-dress",
-		__DIR__"cloth/qi-dress",
-		__DIR__"cloth/red-dress",
-		__DIR__"cloth/scarf",
-		__DIR__"cloth/sha-dress",
-		__DIR__"cloth/shoes",
-		__DIR__"cloth/xian-cloth",
-		__DIR__"cloth/xiu-cloth",
-		__DIR__"cloth/xiu-scarf",
-		__DIR__"cloth/yan-dress",
-		__DIR__"cloth/zi-dress",
-	}));
-	
+    set("combat_exp", 50000);
+    set("attitude", "friendly");
+    set("vendor_goods", ({
+        __DIR__"cloth/belt",
+        __DIR__"cloth/boots",
+        __DIR__"cloth/bu-shoes",
+        __DIR__"cloth/cloth",
+        __DIR__"cloth/color-dress",
+        __DIR__"cloth/fu-cloth",
+        __DIR__"cloth/gui-dress",
+        __DIR__"cloth/hat",
+        __DIR__"cloth/jade-belt",
+        __DIR__"cloth/liu-dress",
+        __DIR__"cloth/marry-dress",
+        __DIR__"cloth/mini-dress",
+        __DIR__"cloth/moon-dress",
+        __DIR__"cloth/pink-dress",
+        __DIR__"cloth/qi-dress",
+        __DIR__"cloth/red-dress",
+        __DIR__"cloth/scarf",
+        __DIR__"cloth/sha-dress",
+        __DIR__"cloth/shoes",
+        __DIR__"cloth/xian-cloth",
+        __DIR__"cloth/xiu-cloth",
+        __DIR__"cloth/xiu-scarf",
+        __DIR__"cloth/yan-dress",
+        __DIR__"cloth/zi-dress",
+    }));
+
         set("inquiry", ([
             "工作" : (: ask_job :),
             "job"  : (: ask_job :),
         ]));
 
-	setup();
-	carry_object(__DIR__"cloth/feature");
-	carry_object(__DIR__"cloth/feature")->wear();
+    setup();
+    carry_object(__DIR__"cloth/feature");
+    carry_object(__DIR__"cloth/feature")->wear();
 }
 
 void init()
@@ -135,7 +135,7 @@ int do_sew(string arg)
         }
 
         me->set_temp("job/step", 1);
-	me->start_busy(bind((: call_other, __FILE__, "working" :), me),
+    me->start_busy(bind((: call_other, __FILE__, "working" :), me),
                        bind((: call_other, __FILE__, "halt_working" :), me));
         tell_object(me, "你开始缝纫。\n");
         return 1;
@@ -193,7 +193,7 @@ int working(object me)
                 msg += "$n看了$N缝出来的衣服，点头道：不错，有点意思。\n";
                 me->delete_temp("job/sew");
                 me->delete_temp("job/step");
-				//基础奖励增加5倍
+                //基础奖励增加5倍
                 b = 20 + random(20);
                 me->add("combat_exp", b);
                 me->improve_potential((b + 10) / 3);
@@ -203,9 +203,9 @@ int working(object me)
                 ob->move(me, 1);
         }
 
-	msg = replace_string(msg, "$N", "你");
-	msg = replace_string(msg, "$n", name());
-	tell_object(me, msg);
+    msg = replace_string(msg, "$N", "你");
+    msg = replace_string(msg, "$n", name());
+    tell_object(me, msg);
 
         if (finish)
         {

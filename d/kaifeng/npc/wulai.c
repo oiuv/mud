@@ -2,14 +2,14 @@ inherit NPC;
 
 void create()
 {
-	set_name("无赖", ({"wu lai", "wu", "lai"}));
-	set("long", "大相国寺附近的无赖，平时专到菜园中偷菜。\n" );
+    set_name("无赖", ({"wu lai", "wu", "lai"}));
+    set("long", "大相国寺附近的无赖，平时专到菜园中偷菜。\n" );
         set("gender", "男性");
         set("age",25);
         set("combat_exp", 7000);
         set("shen_type", -1);
         set("attitude", "peaceful");
-        
+
         set_skill("unarmed", 40);
         set_skill("dodge", 40);
         set_temp("apply/attack", 20);
@@ -19,4 +19,3 @@ void create()
         carry_object("/clone/misc/cloth")->wear();
         add_money("silver", 2);
 }
-

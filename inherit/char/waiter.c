@@ -6,7 +6,7 @@ inherit NPC;
 
 int is_waiter()
 {
-	return 1;
+        return 1;
 }
 
 // 修改属性
@@ -93,7 +93,7 @@ void init()
 }
 
 void die()
-{	
+{
         return;
 }
 

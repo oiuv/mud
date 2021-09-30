@@ -19,7 +19,7 @@ LONG );
             "westup"    : __DIR__"sheshen",
         ]));
         set("item_desc", ([
-		"shibei" :
+        "shibei" :
 "石碑刻着几个大字：「韩退之投书处」，据说当年韩愈爬上此岭之后，再\n"
 "也不敢下来，自以为要死在山上，就在山上写信投下来，和家人诀别。后\n"
 "来还是华阴县的县官派人上山拿绳子把他捆着吊下来的。\n"
@@ -33,4 +33,3 @@ LONG );
         setup();
         replace_program(ROOM);
 }
- 

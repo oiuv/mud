@@ -33,21 +33,21 @@ int do_play(string arg)
 
         me->start_busy(1);
         switch(random(3))
-	{
+    {
                 case 0:
-        		message_sort(HIC "$N" HIC "弹起冬不拉，深情地唱道：在那遥"
+                message_sort(HIC "$N" HIC "弹起冬不拉，深情地唱道：在那遥"
                                      "远的地方，有位好姑娘。人们经过了她的毡房，总"
                                      "要把她深情地凝望。\n\n" NOR, me);
 
                         break;
                 case 1:
-        		message_sort(HIC "$N" HIC "弹起冬不拉，快乐地唱道：大坂城"
+                message_sort(HIC "$N" HIC "弹起冬不拉，快乐地唱道：大坂城"
                                      "的石头圆又硬喽西瓜大又甜喽，大坂城的姑娘辫子"
                                      "长喽两只眼睛真漂亮。\n\n" NOR, me);
 
                         break;
                 case 2:
-        		message_sort(HIC "$N" HIC "弹起冬不拉，哀伤地唱道：戈壁滩"
+                message_sort(HIC "$N" HIC "弹起冬不拉，哀伤地唱道：戈壁滩"
                                      "上的一朵清泉冰山上的一朵雪莲。风暴不会永远不"
                                      "停，何时才能见到你的笑脸。\n\n" NOR, me);
                         break;

@@ -12,14 +12,14 @@ void create()
 进出。
 LONG);
         set("exits", ([
-        	"north" : __DIR__"biaoju-damen",
-        	"south" : __DIR__"biaoju-dating",
+            "north" : __DIR__"biaoju-damen",
+            "south" : __DIR__"biaoju-dating",
         ]));
         set("objects", ([
-        	__DIR__"npc/biaotou" : 1,
-        	__DIR__"npc/tang" : 2,
+            __DIR__"npc/biaotou" : 1,
+            __DIR__"npc/tang" : 2,
         ]) );
-    
+
         set("outdoors", "changan");
         setup();
         replace_program(ROOM);

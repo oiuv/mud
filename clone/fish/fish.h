@@ -76,11 +76,11 @@ int broil(object me, object ob)
         }
 
         me = this_player();
-	if (me->is_busy())
-	{
-		write("你现在忙着呢，过会儿再烤吧。\n");
-		return 1;
-	}
+    if (me->is_busy())
+    {
+        write("你现在忙着呢，过会儿再烤吧。\n");
+        return 1;
+    }
 
         message_vision("$N把" + name() + "放在" + ob->name() +
                        "上细细的烤着，只听毕啵毕啵的声音，一"
@@ -90,6 +90,6 @@ int broil(object me, object ob)
         fob = new("/clone/food/fish");
         fob->move(me, 1);
         destruct(this_object());
-	me->start_busy(1);
+    me->start_busy(1);
         return 1;
 }

@@ -15,7 +15,7 @@ void create()
         set("long", "这是一只绿莹莹的毒蛇胆。\n");
         set("value", 200);
                 set("no_sell", 1);
-	set("medicine", 1);
+    set("medicine", 1);
         setup();
 }
 
@@ -41,9 +41,9 @@ int cure_ob(object me)
 }
 int effect_in_liquid(object ob)
 {
-	if (ob->query("liquid/type") == "alcohol"){
-	this_player()->add("qi", 10*ob->query("liquid/drunk_apply"));
-	tell_object(this_player(), MAG"你感到一股真气缓缓注入丹田，混身上下暖哄哄的。\n"NOR);
-	}
-	return 0;
+    if (ob->query("liquid/type") == "alcohol"){
+    this_player()->add("qi", 10*ob->query("liquid/drunk_apply"));
+    tell_object(this_player(), MAG"你感到一股真气缓缓注入丹田，混身上下暖哄哄的。\n"NOR);
+    }
+    return 0;
 }

@@ -22,9 +22,9 @@ void create()
         "书皮泛黄，看来已经保存很久了。\n", );
                 set("skill", ([
                         "name"        : "jinshe-zhang",
-                        "exp_required":	100000,
-                        "jing_cost"   :	50,
-                        "difficulty"  :	35,
+                        "exp_required":    100000,
+                        "jing_cost"   :    50,
+                        "difficulty"  :    35,
                         "max_skill"   : 119,
                 ]));
         }

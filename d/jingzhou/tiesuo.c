@@ -11,30 +11,30 @@ void create()
 
 LONG);
         setup();
-} 
+}
 
 void init()
 {
-	add_action("do_jump", "jump");
+    add_action("do_jump", "jump");
 }
 
 int do_jump (string arg)
 {
- 	object me = this_player();
-	if (! arg || arg == "") return 0;
-	if (arg == "down")
-	{
-		if(! random(10)) 
-		{
-                	me->set_temp("die_reason", "跳河死了");
-			me->die();
-		} else
-		{
-			tell_object(me, "你奋不顾身的跳进了江中，一阵江水涌来……\n");
-			me->move(__DIR__"river");
-		 	me->unconcious();}
-			return 1;
-		}	
-	else
-	return notify_fail("你要做什么？\n");
+     object me = this_player();
+    if (! arg || arg == "") return 0;
+    if (arg == "down")
+    {
+        if(! random(10))
+        {
+                    me->set_temp("die_reason", "跳河死了");
+            me->die();
+        } else
+        {
+            tell_object(me, "你奋不顾身的跳进了江中，一阵江水涌来……\n");
+            me->move(__DIR__"river");
+             me->unconcious();}
+            return 1;
+        }
+    else
+    return notify_fail("你要做什么？\n");
 }

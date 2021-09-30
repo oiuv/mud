@@ -27,7 +27,7 @@ void create()
 
         set("chat_chance", 1);
         set("chat_msg", ({
-		CYN "王万仞打了个喷嚏，骂道：这鬼地方可真够冷的，要是有点酒喝就暖和多了。\n" NOR,
+        CYN "王万仞打了个喷嚏，骂道：这鬼地方可真够冷的，要是有点酒喝就暖和多了。\n" NOR,
         }) );
 
         set_skill("force", 100);
@@ -66,7 +66,7 @@ void create()
         }));
 
         setup();
-        
+
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/cloth/cloth")->wear();
 }

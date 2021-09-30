@@ -13,13 +13,13 @@ LONG);
         if (random(5) == 1)
                set("objects", ([
                       "/d/gumu/obj/fengmi" : 2,
-                      	//杨过转移到古墓，还是不要让他和小龙女夫妻分离了:) by 薪有所属
+                          //杨过转移到古墓，还是不要让他和小龙女夫妻分离了:) by 薪有所属
                       //"/kungfu/class/gumu/yang" : 1,
                ]));
 
-        else 
+        else
                set("objects", ([
-                      "/d/gumu/obj/fengmi" : 2,                      
+                      "/d/gumu/obj/fengmi" : 2,
                ]));
 
         set("no_clean_up", 0);

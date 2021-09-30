@@ -8,11 +8,11 @@ void create()
 张起来。北面可以通向中州府，西边不远便是军事重地襄阳城。
 LONG);
         set("exits", ([
-  		"west" : "/d/xiangyang/eastgate2",
-  		"north" : __DIR__"nroad",
-	]));
+          "west" : "/d/xiangyang/eastgate2",
+          "north" : __DIR__"nroad",
+    ]));
 
-	set("outdoors", "zhongzhou");
+    set("outdoors", "zhongzhou");
         set("no_clean_up", 0);
         setup();
         replace_program(ROOM);

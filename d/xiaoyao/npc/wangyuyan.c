@@ -4,35 +4,35 @@ inherit NPC;
 
 void create()
 {
-	set_name("王语嫣", ({ "wang yuyan", "wang" }));
-	set("gender", "女性");
-	set("age", 20);
-	set("attitude", "peaceful");
+    set_name("王语嫣", ({ "wang yuyan", "wang" }));
+    set("gender", "女性");
+    set("age", 20);
+    set("attitude", "peaceful");
 
         set("per", 35);
 
-	set("str", 16);
-	set("int", 42);
-	set("con", 22);
-	set("dex", 20);
-	
-	set("max_qi", 500);
-	set("max_jing", 500);
-	set("neili", 150);
-	set("max_neili", 150);
-	set("combat_exp", 2000);
+    set("str", 16);
+    set("int", 42);
+    set("con", 22);
+    set("dex", 20);
 
-	set_skill("force", 30);
+    set("max_qi", 500);
+    set("max_jing", 500);
+    set("neili", 150);
+    set("max_neili", 150);
+    set("combat_exp", 2000);
 
-	setup();
-	
-	carry_object(__DIR__"obj/cloth")->wear();
+    set_skill("force", 30);
+
+    setup();
+
+    carry_object(__DIR__"obj/cloth")->wear();
 }
 
 string long()
 {
-	if (! this_player())
-		return "这是一个貌若天仙的女子，美丽的让你无法想象。\n";
+    if (! this_player())
+        return "这是一个貌若天仙的女子，美丽的让你无法想象。\n";
 
         switch (this_player()->query("gender"))
         {

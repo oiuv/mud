@@ -22,17 +22,17 @@ void create()
 void auto_relaim()
 {
         int i;
-	int t;
+    int t;
         string str;
 
-	t = uptime();
-	t /= 60;
-	t /= 60;
-	t /= 24;
+    t = uptime();
+    t /= 60;
+    t /= 60;
+    t /= 24;
 
         if (i = reclaim_objects())
-	        CHANNEL_D->do_channel( this_object(), "sys",
-		        sprintf("系统自动清除 %d 个变量。", i));
+            CHANNEL_D->do_channel( this_object(), "sys",
+                sprintf("系统自动清除 %d 个变量。", i));
 
         remove_call_out("auto_relaim");
         call_out("auto_relaim", 600);

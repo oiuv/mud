@@ -20,7 +20,7 @@ void setup()
 void unconcious()
 {
         message_vision(HIY "咔喇一声，" + name() +
-		       "坏了。\n\n" NOR, this_object());
+                       "坏了。\n\n" NOR, this_object());
         set("jing", 0);
         set("eff_jing", 0);
         set("qi", 0);
@@ -31,9 +31,9 @@ void unconcious()
 
 void die()
 {
-	message_vision(HIR "\n一阵希哩哗啦的声音过后，" + name() +
-		       "算是彻底的报废了。\n\n" NOR, this_object());
-	destruct(this_object());
+        message_vision(HIR "\n一阵希哩哗啦的声音过后，" + name() +
+                       "算是彻底的报废了。\n\n" NOR, this_object());
+        destruct(this_object());
 }
 
 int accept_fight(object ob)
@@ -55,23 +55,23 @@ int accept_fight(object ob)
                 return notify_fail("你这点身手还不足以和" + name() + "练功。\n");
 
         if (is_fighting())
-		return notify_fail("这个" + name() + "正在和人练功呢。\n");
+                return notify_fail("这个" + name() + "正在和人练功呢。\n");
 
         if (query("damaged"))
-                return notify_fail("这个" + name() + "已经被打坏了！\n"); 
+                return notify_fail("这个" + name() + "已经被打坏了！\n");
 
         if (query("fight_times") >= 10) {
-		unconcious();
-                return notify_fail("这个" + name() + "已经被打坏了！\n"); 
+                unconcious();
+                return notify_fail("这个" + name() + "已经被打坏了！\n");
         }
 
         if (objectp(query("last_fighter")) &&
-	    query("last_fighter")->query("id") != ob->query("id"))
+            query("last_fighter")->query("id") != ob->query("id"))
                 return notify_fail("这是" + query("fighter_name") +
-				   "的练功木人！\n");         
+                                   "的练功木人！\n");
 
         set("last_fighter", ob);
-	set("fighter_name", ob->name());
+        set("fighter_name", ob->name());
         add("fight_times", 1);
 
         my = query_entire_dbase();
@@ -79,16 +79,16 @@ int accept_fight(object ob)
         if (undefinedp(my["scale"]))
                 my["scale"] = 100;
 
-	if (undefinedp(my["max_exp"]))
-		my["max_exp"] = 2000000;
+        if (undefinedp(my["max_exp"]))
+                my["max_exp"] = 2000000;
 
-	if (undefinedp(my["max_skill"]))
-		my["max_skill"] = 200;
+        if (undefinedp(my["max_skill"]))
+                my["max_skill"] = 200;
 
 /* delete and copy skills */
 
         if (mapp(skill_status = query_skills()))
-	{
+        {
                 skill_status = query_skills();
                 sname  = keys(skill_status);
 
@@ -98,25 +98,25 @@ int accept_fight(object ob)
         }
 
         if (mapp(skill_status = ob->query_skills()))
-	{
+        {
                 skill_status = ob->query_skills();
                 sname  = keys(skill_status);
 
                 for (i = 0; i < sizeof(skill_status); i++)
-		{
-			int sk;
+                {
+                        int sk;
 
-			sk = skill_status[sname[i]];
-			if (sk > my["max_skill"])
-				sk = my["max_skill"];
+                        sk = skill_status[sname[i]];
+                        if (sk > my["max_skill"])
+                                sk = my["max_skill"];
                         set_skill(sname[i], sk);
                 }
         }
-        
+
 /* delete and copy skill maps */
 
         if (mapp(map_status = query_skill_map()))
-	{
+        {
                 mname = keys(map_status);
 
                 temp = sizeof(map_status);
@@ -125,7 +125,7 @@ int accept_fight(object ob)
         }
 
         if (mapp(map_status = ob->query_skill_map()))
-	{
+        {
                 mname  = keys(map_status);
 
                 for (i = 0; i < sizeof(map_status); i++)
@@ -135,7 +135,7 @@ int accept_fight(object ob)
 /* delete and copy skill prepares */
 
         if (mapp(prepare_status = query_skill_prepare()))
-	{
+        {
                 pname  = keys(prepare_status);
 
                 temp = sizeof(prepare_status);
@@ -144,7 +144,7 @@ int accept_fight(object ob)
         }
 
         if (mapp(prepare_status = ob->query_skill_prepare()))
-	{
+        {
                 pname  = keys(prepare_status);
 
                 for (i = 0; i < sizeof(prepare_status); i++)
@@ -175,10 +175,10 @@ int accept_fight(object ob)
             my["combat_exp"] < my["min_exp"])
                 my["combat_exp"] = my["min_exp"];
 
-	if (my["combat_exp"] > my["max_exp"])
-		my["combat_exp"] = my["max_exp"];
+        if (my["combat_exp"] > my["max_exp"])
+                my["combat_exp"] = my["max_exp"];
 
-	reset_action();
+        reset_action();
 
         return 1;
 }
@@ -208,19 +208,19 @@ int accept_kill(object ob)
 
         if (! me->query("damaged") && ob->query("combat_exp") < me->query("combat_exp"))
         {
-            	message_vision("$N扑上去想拆掉$n，结果$n“蓬蓬”几下"
-			       "就把$N撩倒在地。\n", ob, me);
-            	ob->start_busy(3);
-            	write("这个练功的" + name() + "太强了，你拆不掉它。\n");
-		return -1;
+                    message_vision("$N扑上去想拆掉$n，结果$n“蓬蓬”几下"
+                               "就把$N撩倒在地。\n", ob, me);
+                    ob->start_busy(3);
+                    write("这个练功的" + name() + "太强了，你拆不掉它。\n");
+                return -1;
         }
 
         ob->start_busy(2);
         remove_call_out("destroy");
         call_out("destroy", 0, ob, me);
 
-	write("上！\n");
-	return -1;
+        write("上！\n");
+        return -1;
 }
 
 int accept_ansuan(object ob)
@@ -256,9 +256,8 @@ void destroy(object ob, object me)
 void renewing(object ob)
 {
         if (! ob || ! is_fighting(ob))
-	{
+        {
                 delete("last_fighter");
-		delete("figher_name");
-	}
+                delete("figher_name");
+        }
 }
-

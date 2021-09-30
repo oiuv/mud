@@ -22,7 +22,6 @@ LONG);
                 "bao"        : 2000,
                 "laohu"      : 2000,
         ]));
- 	setup();
- 	replace_program(ROOM);
+     setup();
+     replace_program(ROOM);
 }
-

@@ -60,5 +60,5 @@ int do_effect(object me)
         if (query_amount() < 1)
                 destruct(this_object());
 
-	return 1;
+    return 1;
 }

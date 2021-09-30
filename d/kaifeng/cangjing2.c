@@ -10,16 +10,16 @@ void create()
 有佛力。
 LONG);
         set("objects", ([
-  		__DIR__"npc/obj/jing4" : 1,
-  		__DIR__"npc/obj/jing3" : 1,
-  		__DIR__"npc/obj/jing2" : 1,
-  		__DIR__"npc/obj/jing1" : 1,
-	]));
+          __DIR__"npc/obj/jing4" : 1,
+          __DIR__"npc/obj/jing3" : 1,
+          __DIR__"npc/obj/jing2" : 1,
+          __DIR__"npc/obj/jing1" : 1,
+    ]));
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"down" : __DIR__"cangjing",
-	]));
+          "down" : __DIR__"cangjing",
+    ]));
 
         setup();
         replace_program(ROOM);

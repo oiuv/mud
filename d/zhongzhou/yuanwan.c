@@ -14,8 +14,8 @@ LONG);
                 __DIR__"npc/jiading" : 2,
         ]));
         set("exits", ([
-  		"south" : __DIR__"yanlingdong1",
-	]));
+          "south" : __DIR__"yanlingdong1",
+    ]));
         set("outdoors", "zhongzhou");
 
         setup();

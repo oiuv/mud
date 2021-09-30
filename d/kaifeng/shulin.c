@@ -11,10 +11,10 @@ LONG);
         set("no_clean_up", 0);
 
         set("exits", ([
-		"southeast":__DIR__"guandao1",
-		"northwest" : __DIR__"dadao1",
-		"east" : __DIR__"yuwang",
-	]));
+        "southeast":__DIR__"guandao1",
+        "northwest" : __DIR__"dadao1",
+        "east" : __DIR__"yuwang",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

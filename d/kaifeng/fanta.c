@@ -12,9 +12,9 @@ LONG
         );
         set("outdoors", "kaifeng");
         set("exits", ([
-		"east" : __DIR__"zhulin",
-		"west" : __DIR__"jiedao2",
-	]));
+        "east" : __DIR__"zhulin",
+        "west" : __DIR__"jiedao2",
+    ]));
 
         set("no_clean_up", 0);
         setup();

@@ -22,13 +22,13 @@ void create()
 
         set("outdoors", "lingxiao");
         set("exits", ([
-            	"east"  : __DIR__"cityout",
-            	"west"  : __DIR__"cityout1",
-            	"down"  : __DIR__"bingti",
+                "east"  : __DIR__"cityout",
+                "west"  : __DIR__"cityout1",
+                "down"  : __DIR__"bingti",
         ]));
 
         set("item_desc", ([
-        	"bridge" : WHT "\n这是一张极大的吊桥，乃是凌霄城的一道防线。\n" NOR,
+            "bridge" : WHT "\n这是一张极大的吊桥，乃是凌霄城的一道防线。\n" NOR,
         ]) );
         setup();
 }

@@ -10,8 +10,8 @@ void create()
         set("str", 50);
         set("dex", 20);
         set("con", 50);
-	set("max_qi", 5000);
-	set("max_jing", 5000);
+    set("max_qi", 5000);
+    set("max_jing", 5000);
         set("neili", 3000);
         set("max_neili", 3000);
         set("combat_exp", 300000);

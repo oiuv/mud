@@ -12,7 +12,7 @@ void create()
 LONG );
 
         set("item_desc", ([
-        	"sign": HIW "\n\n    万  古  凌  霄  一  羽  毛\n\n" NOR "\n"
+            "sign": HIW "\n\n    万  古  凌  霄  一  羽  毛\n\n" NOR "\n"
         ]) );
         set("exits",([
                 "southeast"  : "/d/xuedao/sroad1",
@@ -26,4 +26,3 @@ LONG );
         setup();
         replace_program(ROOM);
 }
-

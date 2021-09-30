@@ -54,14 +54,14 @@ void init()
 
 void greeting(object ob)
 {
-	object *guard,me;
-	int i;
-	me=this_object();
-	guard = all_inventory(environment(me));
-	for(i=0; i<sizeof(guard); i++)
-	{
-		if( !living(guard[i]) || guard[i]==me ) continue;
-		me->kill_ob(guard[i]);
-	}
-	command("kill zhike");
+    object *guard,me;
+    int i;
+    me=this_object();
+    guard = all_inventory(environment(me));
+    for(i=0; i<sizeof(guard); i++)
+    {
+        if( !living(guard[i]) || guard[i]==me ) continue;
+        me->kill_ob(guard[i]);
+    }
+    command("kill zhike");
 }

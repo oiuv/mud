@@ -128,7 +128,7 @@ int practice_skill(object me)
 {
         object weapon;
 
-        if (!objectp(weapon = me->query_temp("weapon")) || 
+        if (!objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
                 return notify_fail("你使用的武器不对。\n");
 
@@ -151,18 +151,18 @@ int practice_skill(object me)
 // 对应perform canxue出现额外的攻击效应。
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-	int count = 0;
-	
-	count += random(me->query_skill("shenghuo-shengong", 1)/2);
-	count += damage_bonus;
-	
-	victim->receive_damage("qi", count);
-		
+    int count = 0;
+
+    count += random(me->query_skill("shenghuo-shengong", 1)/2);
+    count += damage_bonus;
+
+    victim->receive_damage("qi", count);
+
     if (me->query_temp("shenghuo-ling/max_hit"))
     {
-		victim->receive_wound("qi", damage_bonus);
+        victim->receive_wound("qi", damage_bonus);
     }
-	return HIR "只听“噗嗤”一声，一股鲜血至$n" HIR "胸前射出！\n" NOR;
+    return HIR "只听“噗嗤”一声，一股鲜血至$n" HIR "胸前射出！\n" NOR;
 }
 
 string perform_action_file(string action)

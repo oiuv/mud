@@ -6,24 +6,24 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("老道", ({ "lao dao", "dao" }));
-	set("long",  "他看上去仙风道骨，相貌不俗。\n");
-	set("gender", "男性");
-	set("age", 64);
-	set("attitude", "peaceful");
-	set("shen_type", 1);
-	set("str", 33);
-	set("int", 33);
-	set("con", 36);
-	set("dex", 32);
-	
-	set("max_qi", 6000);
-	set("max_jing", 3000);
-	set("neili", 7500);
-	set("max_neili", 7500);
-	set("jiali", 150);
-	set("combat_exp", 2500000);
-	set("score", 10000000);
+    set_name("老道", ({ "lao dao", "dao" }));
+    set("long",  "他看上去仙风道骨，相貌不俗。\n");
+    set("gender", "男性");
+    set("age", 64);
+    set("attitude", "peaceful");
+    set("shen_type", 1);
+    set("str", 33);
+    set("int", 33);
+    set("con", 36);
+    set("dex", 32);
+
+    set("max_qi", 6000);
+    set("max_jing", 3000);
+    set("neili", 7500);
+    set("max_neili", 7500);
+    set("jiali", 150);
+    set("combat_exp", 2500000);
+    set("score", 10000000);
 
         set_skill("force", 280);
         set_skill("quanzhen-xinfa", 280);
@@ -54,17 +54,17 @@ void create()
         prepare_skill("finger","sun-finger");
         prepare_skill("strike","haotian-zhang");
 
-	create_family("全真教", 0, "前辈");
+    create_family("全真教", 0, "前辈");
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "sword.ding" :),
-		(: perform_action, "sword.hua" :),
-		(: perform_action, "strike.ju" :),
-		(: exert_function, "recover" :),
-	}));
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "sword.ding" :),
+        (: perform_action, "sword.hua" :),
+        (: perform_action, "strike.ju" :),
+        (: exert_function, "recover" :),
+    }));
 
-	setup();
-	carry_object("/clone/weapon/changjian")->wield();
-	carry_object("/clone/misc/cloth")->wear();
+    setup();
+    carry_object("/clone/weapon/changjian")->wield();
+    carry_object("/clone/misc/cloth")->wear();
 }

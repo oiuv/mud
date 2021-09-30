@@ -10,8 +10,8 @@ int query_neili_improve(object me)
 {
         int lvl;
 
-	if (me->query("sex"))
-		return 0;
+    if (me->query("sex"))
+        return 0;
 
         lvl = (int)me->query_skill("linji-zhuang", 1);
         return lvl * lvl * 15 * 21 / 100 / 200 + 500;
@@ -27,9 +27,9 @@ int valid_force(string force)
 int valid_learn(object me)
 {
   int nf, nh, np;
-	nf = (int)me->query_skill("force", 1);
-	nh = (int)me->query_skill("linji-zhuang", 1);
-	np = (int)me->query_skill("mahayana", 1);
+    nf = (int)me->query_skill("force", 1);
+    nh = (int)me->query_skill("linji-zhuang", 1);
+    np = (int)me->query_skill("mahayana", 1);
 
         if (me->query("gender") != "女性")
                 return notify_fail("你非女子，不能练习临济十二庄。\n");

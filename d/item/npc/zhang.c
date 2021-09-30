@@ -8,17 +8,17 @@ int ask_me();
 
 void create()
 {
-	set_name("张天师", ({ "zhang tianshi", "zhang" }));
-	set("nickname", HIC "消息灵通" NOR);
-	set("age", 57);
-	set("gender", "男性");
-	set("long", "这是一位仙风神骨，道貌岸然的法师。\n");
-	set("attitude", "peaceful");
+    set_name("张天师", ({ "zhang tianshi", "zhang" }));
+    set("nickname", HIC "消息灵通" NOR);
+    set("age", 57);
+    set("gender", "男性");
+    set("long", "这是一位仙风神骨，道貌岸然的法师。\n");
+    set("attitude", "peaceful");
 
-	set("str", 28);
+    set("str", 28);
         set("int", 35);
         set("con", 38);
-	set("dex", 31);
+    set("dex", 31);
 
         set("max_qi", 8000);
         set("max_jing", 8000);
@@ -28,10 +28,10 @@ void create()
         set_skill("taoism", 350);
 
         set("chat_chance_combat", 3);
-	set("chat_msg_combat", ({
+    set("chat_msg_combat", ({
                 "张天师摇摇铃铛，道：天灵灵，地零零，太上老君还不显灵？\n",
                 "张天师呼呼的吹了几口气。\n",
-	}));
+    }));
 
         set("inquiry", ([
                 "开光" : (: ask_me :),
@@ -45,8 +45,8 @@ void create()
                 "浸入" : "你要是不行我可以帮你看看(show)浸入需要用什么物品。",
         ]));
 
-	setup();
-	carry_object("/clone/cloth/dao-cloth")->wear();
+    setup();
+    carry_object("/clone/cloth/dao-cloth")->wear();
 }
 
 void init()
@@ -181,9 +181,9 @@ int do_show(string arg)
         command("say 行了，行了！你可以走了。");
         me->delete_temp("paid/张天师");
         me->set("can_summon/" + ob->query("id"), base_name(ob));
-	log_file("static/item", sprintf("%s %s sancitfy %s(%s)\n",
-			log_time(), log_id(me),
-			filter_color(ob->name(1)), ob->query("id")));
+    log_file("static/item", sprintf("%s %s sancitfy %s(%s)\n",
+            log_time(), log_id(me),
+            filter_color(ob->name(1)), ob->query("id")));
         return 1;
 }
 

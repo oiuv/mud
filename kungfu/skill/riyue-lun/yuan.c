@@ -11,8 +11,8 @@ void remove_effect(object me, int amount);
 
 int perform(object me)
 {
-	object weapon;
-	string wp;
+    object weapon;
+    string wp;
         int skill;
 
         if (userp(me) && ! me->query("can_perform/riyue-lun/yuan"))

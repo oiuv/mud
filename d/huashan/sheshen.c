@@ -8,7 +8,7 @@ void create()
 如不小心，一失足掉下去，只怕连骨头都找不到。
 LONG);
         set("exits", ([
-            	"eastdown" : __DIR__"canglong",
+                "eastdown" : __DIR__"canglong",
         ]));
         setup();
         replace_program(ROOM);

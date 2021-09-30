@@ -26,7 +26,7 @@ void create()
 
 int do_ride(string arg)
 {
-	object me = this_player();
+    object me = this_player();
         if (!id(arg))
                 return notify_fail("你要骑什么？\n");
         if (this_player()->query_temp("marks/骑") ) {

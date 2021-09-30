@@ -5,16 +5,15 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "福州西门");
-	set("long", @LONG
+    set("short", "福州西门");
+    set("long", @LONG
 这里是福州西门。出此门向西可达中原。
 LONG );
-	set("exits", ([
+    set("exits", ([
                 "east" : __DIR__"ximendajie",
                 "west" : __DIR__"fzroad11",
-	]));
-	set("outdoors", "fuzhou");
-	setup();
-	replace_program(ROOM);
+    ]));
+    set("outdoors", "fuzhou");
+    setup();
+    replace_program(ROOM);
 }
-

@@ -9,7 +9,7 @@ void create()
 是个男人，手里执着一枚绣花针！
 LONG);
         set("exits", ([
-             	"west" : __DIR__"xiaoshe",
+                 "west" : __DIR__"xiaoshe",
         ]));
         setup();
         replace_program(ROOM);

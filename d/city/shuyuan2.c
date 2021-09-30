@@ -14,9 +14,8 @@ LONG);
         set("exits", ([
             "down" : __DIR__"shuyuan",
         ]));
-	set("no_clean_up", 0);
+    set("no_clean_up", 0);
         setup();
 
         replace_program(ROOM);
 }
-

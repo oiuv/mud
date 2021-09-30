@@ -11,13 +11,12 @@ void create ()
 闹。其他小街横巷，则依这些主街交错布置，井然有序。
 LONG);
         set("exits",([//sizeof() == 4
-        	"south" : __DIR__"xian-daokou",
-        	"north" : __DIR__"yongtai-dadao2",
-        	"east" : __DIR__"huiwenge",
+            "south" : __DIR__"xian-daokou",
+            "north" : __DIR__"yongtai-dadao2",
+            "east" : __DIR__"huiwenge",
         ]));
 
         set("outdoors", "changan");
         setup();
         replace_program(ROOM);
 }
-        

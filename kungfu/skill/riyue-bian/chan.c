@@ -7,7 +7,7 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
+    object weapon;
   string msg;
   int ap, dp;
 
@@ -19,9 +19,9 @@ int perform(object me, object target)
         if (target->is_busy())
                 return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧！\n");
 
-	if (! objectp(weapon = me->query_temp("weapon")) ||
-	    (string)weapon->query("skill_type") != "whip")
-		return notify_fail("你没有拿着鞭子。\n");
+    if (! objectp(weapon = me->query_temp("weapon")) ||
+        (string)weapon->query("skill_type") != "whip")
+        return notify_fail("你没有拿着鞭子。\n");
 
         if (me->query("neili") < 80)
                 return notify_fail("你现在真气不够，无法施展「缠绕」诀！\n");

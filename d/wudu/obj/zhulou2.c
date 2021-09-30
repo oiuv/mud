@@ -13,76 +13,76 @@ void create()
         {
                 set_default_object(__FILE__);
 
-	        if (random(10) > 8)
-		{
-        	        ob = new("/clone/worm/obj/dunang");
-                	ob->move(this_object());
+            if (random(10) > 8)
+        {
+                    ob = new("/clone/worm/obj/dunang");
+                    ob->move(this_object());
 
-        	        ob = new("/clone/worm/obj/dunang");
-                	ob->move(this_object());
+                    ob = new("/clone/worm/obj/dunang");
+                    ob->move(this_object());
 
-        	        ob = new("/clone/worm/obj/dunang");
-                	ob->move(this_object());
+                    ob = new("/clone/worm/obj/dunang");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"duanchang");
-        	        ob->move(this_object());
+                    ob = new(__DIR__"duanchang");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"duanchang");
-        	        ob->move(this_object());
+                    ob = new(__DIR__"duanchang");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"qianrizui");
-        	        ob->move(this_object());
+                    ob = new(__DIR__"qianrizui");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"qianrizui");
-        	        ob->move(this_object());
+                    ob = new(__DIR__"qianrizui");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"fugu");
-        	        ob->move(this_object());
+                    ob = new(__DIR__"fugu");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"chuanxin");
-        	        ob->move(this_object());
+                    ob = new(__DIR__"chuanxin");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"shexinzi");
-        	        ob->move(this_object());
-		} else
-	        if (random(10) > 6)
-		{
-        	        ob = new("/clone/worm/obj/dunang");
-                	ob->move(this_object());
+                    ob = new(__DIR__"shexinzi");
+                    ob->move(this_object());
+        } else
+            if (random(10) > 6)
+        {
+                    ob = new("/clone/worm/obj/dunang");
+                    ob->move(this_object());
 
-        	        ob = new("/clone/worm/obj/dunang");
-                	ob->move(this_object());
+                    ob = new("/clone/worm/obj/dunang");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"duanchang");
-        	        ob->move(this_object());
+                    ob = new(__DIR__"duanchang");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"qianrizui");
-        	        ob->move(this_object());
+                    ob = new(__DIR__"qianrizui");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"fugu");
-        	        ob->move(this_object());
+                    ob = new(__DIR__"fugu");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"chuanxin");
-        	        ob->move(this_object());
-		} else
-	        if (random(10) > 4)
-		{
-        	        ob = new("/clone/worm/obj/dunang");
-                	ob->move(this_object());
+                    ob = new(__DIR__"chuanxin");
+                    ob->move(this_object());
+        } else
+            if (random(10) > 4)
+        {
+                    ob = new("/clone/worm/obj/dunang");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"qianrizui");
-        	        ob->move(this_object());
+                    ob = new(__DIR__"qianrizui");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"chuanxin");
-        	        ob->move(this_object());
-		} else
-		{
-	                ob = new(__DIR__"qianrizui");
-        	        ob->move(this_object());
+                    ob = new(__DIR__"chuanxin");
+                    ob->move(this_object());
+        } else
+        {
+                    ob = new(__DIR__"qianrizui");
+                    ob->move(this_object());
 
-	                ob = new(__DIR__"chuanxin");
-        	        ob->move(this_object());
-		}
+                    ob = new(__DIR__"chuanxin");
+                    ob->move(this_object());
+        }
         } else
         {
                 set("unit", "个");

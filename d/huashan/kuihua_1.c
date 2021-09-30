@@ -24,14 +24,14 @@ void init()
         if (! ob) ob = load_object(JIASHA);
 
         add_action("do_look", "view");
-       	add_action("do_look", "wang");
+           add_action("do_look", "wang");
 
         if (! environment(ob) &&
-	    ! query("begin") &&
+        ! query("begin") &&
             ! query("over") &&
             me->query("gender") == "无性")
         {
-		set("jiasha", 1);
+        set("jiasha", 1);
                 tell_object(me, HIB "你刚到这里，忽然听见上方窗户传来阵阵耳"
                                 "语，不禁想朝窗户望(view)去！\n" NOR);
         }
@@ -263,8 +263,8 @@ int do_talk20(object me)
         if (! ob) ob = load_object(JIASHA);
 
         if (! environment(ob))
-	{
-        	message_vision( HIR "\n$N" HIR "大吃一惊，便想出声阻止，剑谱乃不世之物，"
+    {
+            message_vision( HIR "\n$N" HIR "大吃一惊，便想出声阻止，剑谱乃不世之物，"
                                "管他有益有害，岳老贼可无权毁去。便\n在此时，只听得窗子呀"
                                "的一声打开，$N" HIR "急忙缩头，眼前红光一闪，那件袈裟飘"
                                "将了下来，\n跟着窗子又即关上。眼看那袈裟从身旁飘过，$N" HIR
@@ -272,9 +272,9 @@ int do_talk20(object me)
                                "度外，右手搭在崖上，左脚拚命向外一勾，只觉脚尖似乎碰到了"
                                "袈裟，立\n即缩将回来，当真幸运得紧，竟将那袈裟勾到了，没"
                                "落入天声峡下的万仞深渊中。\n\n" NOR, me);
-	        set("over", 1);
-        	delete_temp("jiasha");
-	        ob->move(me, 1);
+            set("over", 1);
+            delete_temp("jiasha");
+            ob->move(me, 1);
 
                 if (! (int)me->query("skybook/xiaoao/baodian"))
                 {
@@ -287,17 +287,17 @@ int do_talk20(object me)
                                         + chinese_number(sc) + "点江湖阅历。\n\n" NOR);
                         me->set("skybook/xiaoao/baodian", 1);
                 } else
-        	        tell_object(me, HIC "你得到了一件袈裟。\n\n" NOR);
-	} else
-	{
-        	message_vision( HIR "\n$N" HIR "大吃一惊，便想出声阻止，剑谱乃不世之物，"
+                    tell_object(me, HIC "你得到了一件袈裟。\n\n" NOR);
+    } else
+    {
+            message_vision( HIR "\n$N" HIR "大吃一惊，便想出声阻止，剑谱乃不世之物，"
                                "管他有益有害，岳老贼可无权毁去。便\n在此时，只听得窗子呀"
                                "的一声打开，$N" HIR "急忙缩头，眼前红光一闪，那件袈裟飘"
                                "将了下来，\n跟着窗子又即关上。眼看那袈裟从身旁飘过，$N" HIR
                                "伸手一抓，差了数尺，没能抓到。袈裟\n顿时落入天声峡下的万"
                                "仞深渊中。\n\n" NOR, me);
-	        set("over", 1);
-        	delete_temp("jiasha");
-	}
+            set("over", 1);
+            delete_temp("jiasha");
+    }
         return 1;
 }

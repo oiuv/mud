@@ -31,7 +31,7 @@ int exert(object me, object target)
         me->add_temp("apply/attack", (skill / 3) + (layer * 15));
         me->add_temp("apply/parry", skill / 3);
         me->add_temp("apply/dodge", skill / 3);
-		me->add_temp("str", layer * 6);
+        me->add_temp("str", layer * 6);
         me->set_temp("powerup", 1);
         me->add("neili", -100);
 
@@ -57,7 +57,7 @@ void remove_effect(object me, int amount)
                 me->add_temp("apply/attack", -amount - (layer * 15));
                 me->add_temp("apply/parry", -amount);
                 me->add_temp("apply/dodge", -amount);
-				me->add_temp("str", -layer * 6);
+                me->add_temp("str", -layer * 6);
                 me->delete_temp("powerup");
                 tell_object(me, "你的龙象般若功运行完毕，将内力收回丹田。\n");
         }

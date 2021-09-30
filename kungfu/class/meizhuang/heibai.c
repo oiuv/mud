@@ -355,15 +355,15 @@ mixed ask_riyue()
         command("say 恩，那好吧，我就教你风雷盘法。");
 
         me->set_skill("fenglei-panfa", 10);
-		me->set("can_learn/meizhuang", 1);
+        me->set("can_learn/meizhuang", 1);
 
-		if (me->query("gongxian") > 10000 &&
-			me->query("balance") > 100000000)
-		{
-			me->add("gongxian", -10000);
-			me->add("balance", -100000000);
-			me->set("can_perform/fenglei-panfa/fenglei", 1);
-		}
+        if (me->query("gongxian") > 10000 &&
+            me->query("balance") > 100000000)
+        {
+            me->add("gongxian", -10000);
+            me->add("balance", -100000000);
+            me->set("can_perform/fenglei-panfa/fenglei", 1);
+        }
 
         tell_object(me, HIG "你学会了风雷盘法！\n" NOR);
 

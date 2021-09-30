@@ -8,7 +8,7 @@ inherit F_SSERVER;
 int perform(object me, object target)
 {
         string msg;
-	int ap, dp, level;
+    int ap, dp, level;
 
         if (userp(me) && ! me->query("can_perform/xiaoyaoyou/xian"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");

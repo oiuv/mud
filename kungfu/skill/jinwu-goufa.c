@@ -98,7 +98,7 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "sword" || usage == "parry";
+    return usage == "sword" || usage == "parry";
 }
 
 int valid_learn(object me)
@@ -148,7 +148,7 @@ int practice_skill(object me)
 
         if ((int)me->query("neili") < 70)
                 return notify_fail("你的内力不够，无法练习金蜈钩法。\n");
-        
+
         me->add("qi", -50);
         me->add("neili", -62);
         return 1;
@@ -158,4 +158,3 @@ string perform_action_file(string action)
 {
         return __DIR__"jinwu-goufa/" + action;
 }
-

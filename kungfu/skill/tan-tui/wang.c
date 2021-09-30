@@ -17,8 +17,8 @@ int perform(object me, object target)
 
         if (! target)
         {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
+            me->clean_up_enemy();
+            target = me->select_opponent();
         }
 
         if (! target || ! me->is_fighting(target))
@@ -45,30 +45,30 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIY "只见$N" HIY "拔地跃起，凌空一个翻滚，陡然间双腿便如"
+    msg = HIY "只见$N" HIY "拔地跃起，凌空一个翻滚，陡然间双腿便如"
               "流星般向$n" HIY "连续踢至。\n" NOR;
 
-	me->add("neili", -50);
+    me->add("neili", -50);
         ap = me->query_skill("unarmed");
         dp = target->query_skill("force");
         if (ap / 2 + random(ap) > dp)
-	{
-		damage = me->query_skill("unarmed") / 2;
+    {
+        damage = me->query_skill("unarmed") / 2;
                 damage += random(damage / 3);
-		me->add("neili", -100);
+        me->add("neili", -100);
 
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 35,
                                            HIR "却听$n" HIR "一声惨嚎，已被$P" HIR
                                            "单腿正中前胸，顿时心脉受震，喷出一大"
                                            "口鲜血。\n" NOR);
-		me->start_busy(3);
-	} else
-	{
-		msg += CYN "可是$p" CYN "奋力招架，终于将$P"
+        me->start_busy(3);
+    } else
+    {
+        msg += CYN "可是$p" CYN "奋力招架，终于将$P"
                        CYN "的双腿架开，没有受到任何伤害。\n"NOR;
-		me->start_busy(4);
-	}
-	message_combatd(msg, me, target);
+        me->start_busy(4);
+    }
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

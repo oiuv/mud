@@ -70,12 +70,12 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "hand" ||  usage == "parry";
+    return usage == "hand" ||  usage == "parry";
 }
 
 int valid_combine(string combo)
 {
-	return combo == "luoying-shenzhang";
+    return combo == "luoying-shenzhang";
 }
 
 int valid_learn(object me)

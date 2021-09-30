@@ -30,12 +30,12 @@ mixed valid_damage(object ob, object me, int damage)
            && ! ob->query_temp("secondary_weapon")
            && ! random(ob->query("score")) < 100000
            && random(50) == 1)
-	{
+    {
                 ob->receive_damage("qi", damage, me);
                 ob->receive_wound("qi", damage * 2 / 3, me);
 
                 return ([ "damage" : -damage,
                           "msg" : HIR "$N" HIR "一招刚触及$n" HIR "身体，忽觉"
                                   "掌心一阵刺痛，大惊之下连忙缩手。\n" NOR ]);
-	}
+    }
 }

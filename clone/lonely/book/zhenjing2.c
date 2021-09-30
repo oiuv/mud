@@ -125,12 +125,12 @@ int do_du(string arg)
                 me->start_busy(2);
                 me->set("can_perform/yinlong-bian/zhu", 1);
 
-           	if (me->can_improve_skill("whip"))
-                   	me->improve_skill("whip", 1500000);
-           	if (me->can_improve_skill("yinlong-bian"))
-                   	me->improve_skill("yinlong-bian", 1500000);
-           	if (me->can_improve_skill("martial-cognize"))
-                   	me->improve_skill("martial-cognize", 1500000);
+               if (me->can_improve_skill("whip"))
+                       me->improve_skill("whip", 1500000);
+               if (me->can_improve_skill("yinlong-bian"))
+                       me->improve_skill("yinlong-bian", 1500000);
+               if (me->can_improve_skill("martial-cognize"))
+                       me->improve_skill("martial-cognize", 1500000);
 
                 return 1;
 
@@ -157,12 +157,12 @@ int do_du(string arg)
                 me->start_busy(2);
                 me->set("can_perform/cuixin-zhang/cui", 1);
 
-           	if (me->can_improve_skill("strike"))
-                   	me->improve_skill("strike", 1500000);
-           	if (me->can_improve_skill("cuixin-zhang"))
-                   	me->improve_skill("cuixin-zhang", 1500000);
-           	if (me->can_improve_skill("martial-cognize"))
-                   	me->improve_skill("martial-cognize", 1500000);
+               if (me->can_improve_skill("strike"))
+                       me->improve_skill("strike", 1500000);
+               if (me->can_improve_skill("cuixin-zhang"))
+                       me->improve_skill("cuixin-zhang", 1500000);
+               if (me->can_improve_skill("martial-cognize"))
+                       me->improve_skill("martial-cognize", 1500000);
 
                 return 1;
         }
@@ -187,12 +187,12 @@ int do_du(string arg)
                 me->start_busy(2);
                 me->set("can_perform/jiuyin-baiguzhao/zhua", 1);
 
-           	if (me->can_improve_skill("claw"))
-                   	me->improve_skill("claw", 1500000);
-           	if (me->can_improve_skill("jiuyin-baiguzhao"))
-                   	me->improve_skill("jiuyin-baiguzhao", 1500000);
-           	if (me->can_improve_skill("martial-cognize"))
-                   	me->improve_skill("martial-cognize", 1500000);
+               if (me->can_improve_skill("claw"))
+                       me->improve_skill("claw", 1500000);
+               if (me->can_improve_skill("jiuyin-baiguzhao"))
+                       me->improve_skill("jiuyin-baiguzhao", 1500000);
+               if (me->can_improve_skill("martial-cognize"))
+                       me->improve_skill("martial-cognize", 1500000);
 
                 return 1;
         }
@@ -217,12 +217,12 @@ int do_du(string arg)
                 me->start_busy(2);
                 me->set("can_perform/jiuyin-baiguzhao/duo", 1);
 
-           	if (me->can_improve_skill("claw"))
-                   	me->improve_skill("claw", 1500000);
-           	if (me->can_improve_skill("jiuyin-baiguzhao"))
-                   	me->improve_skill("jiuyin-baiguzhao", 1500000);
-           	if (me->can_improve_skill("martial-cognize"))
-                   	me->improve_skill("martial-cognize", 1500000);
+               if (me->can_improve_skill("claw"))
+                       me->improve_skill("claw", 1500000);
+               if (me->can_improve_skill("jiuyin-baiguzhao"))
+                       me->improve_skill("jiuyin-baiguzhao", 1500000);
+               if (me->can_improve_skill("martial-cognize"))
+                       me->improve_skill("martial-cognize", 1500000);
 
                 return 1;
         }
@@ -241,18 +241,18 @@ int do_du(string arg)
                 skill = "yinlong-bian";
 
         if (! SKILL_D(skill)->valid_learn(me))
-               	return 0;
+                   return 0;
 
         if (! me->can_improve_skill(skill))
-       	{
-               	write("你的实战经验不足，再怎么读也没用。\n");
-               	return 1;
-       	}
+           {
+                   write("你的实战经验不足，再怎么读也没用。\n");
+                   return 1;
+           }
 
         lv = me->query_skill(skill, 1);
 
         if (lv >= 180)
-	{
+    {
                 write("你研读了一会儿，但是发现上面所说的对你而言都太浅了。\n");
                 return 1;
         }

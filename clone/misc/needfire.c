@@ -6,20 +6,20 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIR "篝火" NOR, ({ "needfire", "gou huo", "huo" }) );
-	set_weight(100);
-	if (clonep())
+    set_name(HIR "篝火" NOR, ({ "needfire", "gou huo", "huo" }) );
+    set_weight(100);
+    if (clonep())
         {
-		set_default_object(__FILE__);
+        set_default_object(__FILE__);
                 call_out("light", 30 + random(20));
-	} else
+    } else
         {
-		set("unit", "堆");
-		set("long", "这是一堆正在燃烧的篝火，看上去可以在上面烤烤东西(kao)。\n");
+        set("unit", "堆");
+        set("long", "这是一堆正在燃烧的篝火，看上去可以在上面烤烤东西(kao)。\n");
                 set("no_get", "你也不怕烧了手？\n");
                 set("no_fire", "这正在燃烧啊，你的脑子是不是有问题？\n");
-	}
-	setup();
+    }
+    setup();
 }
 
 void init()

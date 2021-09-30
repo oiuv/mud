@@ -9,13 +9,12 @@ void create()
 的四川山区了，东南方向有条小路，不知道通往哪里。
 LONG);
         set("exits", ([
-  		"east" :  __DIR__"shudao3",
-  		"west" : __DIR__"shudao5",
-   	]));
+          "east" :  __DIR__"shudao3",
+          "west" : __DIR__"shudao5",
+       ]));
         set("no_clean_up", 0);
         set("outdoors", "chengdu");
 
         setup();
         replace_program(ROOM);
 }
-

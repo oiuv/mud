@@ -7,17 +7,17 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIY "九转金丹" NOR, ({ "jiuzhuan jindan", "jindan", "dan" }));
-	set_weight(200);
-	if( clonep() )
-		set_default_object(__FILE__);
-	else {
-		set("long", HIY "一粒金色的仙丹，传说是太上老君"
-					"精心炼制的灵丹妙药。\n" NOR);
-		set("value", 50000000);
-		set("unit", "粒");
-		set("only_do_effect", 1);
-	}
+    set_name(HIY "九转金丹" NOR, ({ "jiuzhuan jindan", "jindan", "dan" }));
+    set_weight(200);
+    if( clonep() )
+        set_default_object(__FILE__);
+    else {
+        set("long", HIY "一粒金色的仙丹，传说是太上老君"
+                    "精心炼制的灵丹妙药。\n" NOR);
+        set("value", 50000000);
+        set("unit", "粒");
+        set("only_do_effect", 1);
+    }
 }
 
 int do_effect(object me)
@@ -67,6 +67,5 @@ int do_effect(object me)
                 tell_object(me, "不过你觉得好像没什么作用。\n");
 
         destruct(this_object());
-	return 1;
+    return 1;
 }
-

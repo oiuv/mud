@@ -47,15 +47,14 @@ void create()
 void die()
 {
         message_vision("\n$N大叫道：兄弟们会替我报仇的，头一偏，死了。\n", this_object());
-	::die();
+    ::die();
 }
 
 int ask_weiwang()
 {
-	command("tell "+this_player()->query("id")+" 你现在的江湖威望是 " +(string)(this_player()->query("weiwang")));
+    command("tell "+this_player()->query("id")+" 你现在的江湖威望是 " +(string)(this_player()->query("weiwang")));
 say("\n贾老六说：如果你威望值很高，有些人见了你不但不会杀你，还会教你武功，送你宝贝。\n"
 +"而且你还可以加入帮会，率领会众去攻打目标，就连去钱庄取钱也会有利息 。。。。。\n");
-	say("贾老六又说：杀某些坏人或救某些好人可以提高江湖威望。\n");
-	return 1;
+    say("贾老六又说：杀某些坏人或救某些好人可以提高江湖威望。\n");
+    return 1;
 }
-

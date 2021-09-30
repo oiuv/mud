@@ -12,10 +12,10 @@ void create()
 小村，而由东穿过野猪林便可到达开封府。
 LONG);
         set("exits", ([
-            	"west" : "/d/village/eexit",
-            	"east" : "/d/kaifeng/yezhulin",
-            	"north" : __DIR__"yuquan",
-            	"southeast" : __DIR__"shaluo",
+                "west" : "/d/village/eexit",
+                "east" : "/d/kaifeng/yezhulin",
+                "north" : __DIR__"yuquan",
+                "southeast" : __DIR__"shaluo",
         ]));
         set("no_clean_up", 0);
         set("outdoors", "huashan" );

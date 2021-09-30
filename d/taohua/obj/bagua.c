@@ -90,7 +90,7 @@ int do_break(string arg)
 
         if (me == owner && environment(owner) == env)
         {
-	        message_vision(HIW "只见$N" HIW "袍袖一拂，紫雾顿时朝四面"
+            message_vision(HIW "只见$N" HIW "袍袖一拂，紫雾顿时朝四面"
                                "散去，周围景致又恢复如初。\n" NOR, me);
                 me->start_busy(2);
         } else
@@ -103,7 +103,7 @@ int do_break(string arg)
                 me->receive_damage("jing", 100);
                 me->add("jingli", -150);
                 me->start_busy(3);
-        }        
+        }
         env->set("long", env->query("org_desc"));
         env->set("exits", env->query("org_exits"));
         env->set("cost", env->query("org_cost"));

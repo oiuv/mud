@@ -14,5 +14,5 @@ void create()
                 set("food_remaining", 5);
                 set("food_supply", 20);
         }
-    	setup();
+        setup();
 }

@@ -10,13 +10,13 @@ data types: int, string, object, void.  Most important you learned that
 many operations and functions behave differently based on the data type
 of the variables upon which they are operating.  Some operators and
 functions will even give errors if you use them with the wrong data
-types.  For example, "a"+"b" is handled much differently than 1+1. 
+types.  For example, "a"+"b" is handled much differently than 1+1.
 When you ass "a"+"b", you are adding "b" onto the end of "a" to get
 "ab".  On the other hand, when you add 1+1, you do not get 11, you get
 2 as you would expect.
 
 I refer to these data types as simple data types, because they atomic in
-that they cannot be broken down into smaller component data types. 
+that they cannot be broken down into smaller component data types.
 The object data type is a sort of exception, but you really cannot refer
 individually to the components which make it up, so I refer to it as a
 simple data type.
@@ -54,12 +54,12 @@ causes an error.  NULL causes an error because adding valueless fields
 in other data types to those data types makes no sense.
 
 Looking at this from another point of view, we can get the ZERO value
-for strings by knowing what added to "a" will give us "a" as a result. 
+for strings by knowing what added to "a" will give us "a" as a result.
 The answer is not 0, but instead "".  With integers, interchanging NULL
 and 0 was acceptable since 0 represents no value with respect to the
 integer data type.  This interchangeability is not true for other data types,
 since their ZERO values do not represent no value.  Namely, ""
-represents a string of no length and is very different from 0.  
+represents a string of no length and is very different from 0.
 
 When you first declare any variable of any type, it has no value.  Any
 data type except integers therefore must be initialized somehow before
@@ -192,7 +192,7 @@ certainly is much easier to read as well as is much more efficient and
 easier to code.  In fact, you can probably guess what the
 member_array() efun does:  It tells you if a given value is a member of
 the array in question.  Specifically here, we want to know if the currency
-the player is trying to sell is an element in the hard_curencies array. 
+the player is trying to sell is an element in the hard_curencies array.
 What might be confusing to you is, not only does member_array() tell us
 if the value is an element in the array, but it in fact tells us which element
 of the array the value is.
@@ -203,7 +203,7 @@ for the sake of argument, we will say that hard_currencies holds the
 value 179000.  This value tells the driver where to look for the array
 hard_currencies represents.  Thus, hard_currencies points to a place
 where the array values may be found.  When someone is talking about
-the first element of the array, they want the element located at 179000. 
+the first element of the array, they want the element located at 179000.
 When the object needs the value of the second element of the array, it
 looks at 179000 + one value, then 179000 plus two values for the third,
 and so on.  We can therefore access individual elements of an array by
@@ -275,7 +275,7 @@ a single element.
 One of the major advances made in LPMuds since they were created is
 the mapping data type.  People alternately refer to them as associative
 arrays.  Practically speaking, a mapping allows you freedom from the
-association of a numerical index to a value which arrays require. 
+association of a numerical index to a value which arrays require.
 Instead, mappings allow you to associate values with indices which
 actually have meaning to you, much like a relational database.
 
@@ -305,7 +305,7 @@ void add_money(string type, int amt) {
     string *tmp1;
     int * tmp2;
     int i, x, j, maxj;
-    
+
     i = member_array(type, currencies);
     if(i >= sizeof(amounts)) /*  corrupt data, we are in
       a bad way */
@@ -334,14 +334,14 @@ void add_money(string type, int amt) {
 
 That is really some nasty code to perform the rather simple concept of
 adding some money.  First, we figure out if the player has any of that
-kind of money, and if so, which element of the currencies array it is. 
+kind of money, and if so, which element of the currencies array it is.
 After that, we have to check to see that the integrity of the currency data
 has been maintained.  If the index of the type in the currencies array is
 greater than the highest index of the amounts array, then we have a
-problem since the indices are our only way of relating the two arrays. 
+problem since the indices are our only way of relating the two arrays.
 Once we know our data is in tact, if the currency type is not currently
 held by the player, we simply tack on the type as a new element to the
-currencies array and the amount as a new element to the amounts array. 
+currencies array and the amount as a new element to the amounts array.
 Finally, if it is a currency the player currently has, we just add the
 amount to the corresponding index in the amounts array.  If the money
 gets below 1, meaning having no money of that type, we want to clear
@@ -396,10 +396,10 @@ void add_money(string type, int amt) {
     if(money[type] < 1)
       map_delete(money, type);          /* this is for
           MudOS */
-            ...OR... 
+            ...OR...
             money = m_delete(money, type)  /* for some
           LPMud 3.* varieties */
-            ... OR... 
+            ... OR...
          m_delete(money, type);    /* for other LPMud 3.*
           varieties */
 }
@@ -412,9 +412,9 @@ As you can see immediately, you do not need to check the integrity of
 your data since the values which interest you are inextricably bound to
 one another in the mapping.  Secondly, getting rid of useless values is a
 simple efun call rather than a tricky, CPU-eating loop.  Finally, the
-query function is made up solely of a return instruction. 
+query function is made up solely of a return instruction.
 
-You must declare and initialize any mapping before using it. 
+You must declare and initialize any mapping before using it.
 Declarations look like:
 mapping map;
 Whereas common initializations look like:
@@ -424,15 +424,15 @@ map = ([ "gold": 20, "silver": 15 ]);
 
 As with other data types, there are rules defining how they work in
 common operations like addition and subtraction:
-    ([ "gold":20, "silver":30 ]) + ([ "electrum":5 ]) 
+    ([ "gold":20, "silver":30 ]) + ([ "electrum":5 ])
 gives:
-    (["gold":20, "silver":30, "electrum":5])   
+    (["gold":20, "silver":30, "electrum":5])
 Although my demonstration shows a continuity of order, there is in fact
-no guarantee of the order in which elements of mappings will stored. 
+no guarantee of the order in which elements of mappings will stored.
 Equivalence tests among mappings are therefore not a good thing.
 
 3.6 Summary
-Mappings and arrays can be built as complex as you need them to be. 
+Mappings and arrays can be built as complex as you need them to be.
 You can have an array of mappings of arrays.  Such a thing would be
 declared like this:
 
@@ -441,7 +441,7 @@ which might look like:
 ({ ([ ind1: ({ valA1, valA2}), ind2: ({valB1, valB2}) ]), ([ indX:
 ({valX1,valX2}) ]) })
 
-Mappings may use any data type as an index, including objects. 
+Mappings may use any data type as an index, including objects.
 Mapping indices are often referred to as keys as well, a term from
 databases.  Always keep in mind that with any non-integer data type,
 you must first initialize a variable before making use of it in common
@@ -451,9 +451,9 @@ by failing to initialize their values can be the most maddening experience
 for people new to these data types.  I would venture that a very high
 percentage of all errors people experimenting with mappings and arrays
 for the first time encounter are one of three error messages:
-	Indexing on illegal type.
-	Illegal index.
-	Bad argument 1 to (+ += - -=) /* insert your favourite operator */
+    Indexing on illegal type.
+    Illegal index.
+    Bad argument 1 to (+ += - -=) /* insert your favourite operator */
 Error messages 1 and 3 are darn near almost always caused by a failure
 to initialize the array or mapping in question.  Error message 2 is caused
 generally when you are trying to use an index in an initialized array

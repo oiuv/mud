@@ -14,8 +14,8 @@ int update_condition(object me, int duration)
         if( duration < 1 ) return 0;
 
         message("vision", HIG + me->name() + "的肢体僵"
-		          "直青肿，看来被冻伤了。\n" NOR,
-	        environment(me), me);
+                  "直青肿，看来被冻伤了。\n" NOR,
+            environment(me), me);
 
         if( !living(me) && me->query("qi") < 1 ) {
                 me->set_temp("die_reason", "被活活冻死了");

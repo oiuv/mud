@@ -1,10 +1,10 @@
 inherit ROOM;
-#include <ansi.h> 
+#include <ansi.h>
 
 void create()
 {
         set("short","居室");
-        set("long",@LONG 
+        set("long",@LONG
 这是齐自勉的房间。齐自勉性格风雅，为人飘逸。墙上挂着
 李白的《将进酒》，是齐自勉亲手所书，字迹豪放奔放，走的是
 张旭狂草的路子，从这依稀也能看出主人武功的性情。照壁上一
@@ -13,9 +13,9 @@ void create()
 在桌上，主人正在自斟自饮，自得其乐。
 LONG);
         set("exits", ([
-            	"north"  : __DIR__"zoulang4", 
+                "north"  : __DIR__"zoulang4",
         ]));
-        set("objects", ([  
+        set("objects", ([
                 __DIR__"npc/qi" : 1,
         ]));
         set("no_clean_up", 0);
@@ -23,4 +23,3 @@ LONG);
         replace_program(ROOM);
 
 }
-

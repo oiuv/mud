@@ -22,7 +22,7 @@ LONG
 
 void init()
 {
-	add_action("do_knock", "knock");
+    add_action("do_knock", "knock");
 }
 
 int do_knock(string arg)
@@ -104,4 +104,3 @@ void close_passage()
         }
         delete("exits/north");
 }
-

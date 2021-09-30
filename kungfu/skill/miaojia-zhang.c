@@ -1,7 +1,7 @@
 inherit SKILL;
 
 mapping *action = ({
-([	"action" : "$N划身错步，双掌内拢外托，缓缓向$n的左肩处拍去",
+([    "action" : "$N划身错步，双掌内拢外托，缓缓向$n的左肩处拍去",
         "force" : 70,
         "attack": 5,
         "dodge" : 38,
@@ -11,7 +11,7 @@ mapping *action = ({
         "skill_name" : "逆流捧沙",
         "damage_type" : "瘀伤"
 ]),
-([	"action" : "$N跨前一步，双掌以迅雷不及掩耳之势，劈向$n两额太阳穴",
+([    "action" : "$N跨前一步，双掌以迅雷不及掩耳之势，劈向$n两额太阳穴",
         "force" : 95,
         "attack": 8,
         "dodge" : 43,
@@ -21,7 +21,7 @@ mapping *action = ({
         "skill_name" : "雷洞霹雳",
         "damage_type" : "瘀伤"
 ]),
-([	"action" : "$N单掌突起，劲气弥漫，双掌如轮，一环环向$n的后背斫去",
+([    "action" : "$N单掌突起，劲气弥漫，双掌如轮，一环环向$n的后背斫去",
         "force" : 120,
         "attack": 13,
         "dodge" : 51,
@@ -31,7 +31,7 @@ mapping *action = ({
         "skill_name" : "摘星换斗",
         "damage_type" : "瘀伤"
 ]),
-([	"action" : "$N双掌似让非让，似顶非顶，气浪如急流般使$n陷身其中",
+([    "action" : "$N双掌似让非让，似顶非顶，气浪如急流般使$n陷身其中",
         "force" : 140,
         "attack": 15,
         "dodge" : 65,

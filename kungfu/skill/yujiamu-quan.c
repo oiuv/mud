@@ -68,20 +68,20 @@ int valid_enable(string usage) { return usage == "cuff" || usage == "parry"; }
 
 int valid_combine(string combo)
 {
-	return combo=="dashou-yin" ||
-	       combo=="huoyan-dao";
+    return combo=="dashou-yin" ||
+           combo=="huoyan-dao";
 }
 
 int valid_learn(object me)
 {
-	if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-		return notify_fail("练金刚瑜迦母拳必须空手。\n");
+    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+        return notify_fail("练金刚瑜迦母拳必须空手。\n");
 
-	if ((int)me->query("max_neili") < 600)
-		return notify_fail("你的内力不够。\n");
+    if ((int)me->query("max_neili") < 600)
+        return notify_fail("你的内力不够。\n");
 
-	if ((int)me->query_skill("force") < 100)
-		return notify_fail("你的内功火候不够。\n");
+    if ((int)me->query_skill("force") < 100)
+        return notify_fail("你的内功火候不够。\n");
 
         if ((int)me->query_skill("cuff", 1) < (int)me->query_skill("yujiamu-quan",1))
                 return notify_fail("你的基本拳法水平有限，无法领会更高深的金刚瑜迦母拳。\n");
@@ -100,7 +100,7 @@ string query_skill_name(int level)
 mapping query_action(object me, object weapon)
 {
         int i, level;
-	level   = (int) me->query_skill("yujiamu-quan",1);
+    level   = (int) me->query_skill("yujiamu-quan",1);
         for(i = sizeof(action); i > 0; i--)
                 if(level > action[i-1]["lvl"])
                         return action[NewRandom(i, 20, level/5)];
@@ -108,20 +108,20 @@ mapping query_action(object me, object weapon)
 
 int practice_skill(object me)
 {
-//	object weapon;
+//    object weapon;
 
-	if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-		return notify_fail("练金刚瑜迦母拳必须空手。\n");
+    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+        return notify_fail("练金刚瑜迦母拳必须空手。\n");
 
-	if ((int)me->query("qi") < 60)
-		return notify_fail("你的体力不够，练不了金刚瑜迦母拳。\n");
+    if ((int)me->query("qi") < 60)
+        return notify_fail("你的体力不够，练不了金刚瑜迦母拳。\n");
 
         if ((int)me->query("neili") < 70)
-		return notify_fail("你的内力不够，练不了金刚瑜迦母拳。\n");
+        return notify_fail("你的内力不够，练不了金刚瑜迦母拳。\n");
 
-	me->receive_damage("qi", 50);
+    me->receive_damage("qi", 50);
         me->add("neili", -61);
-	return 1;
+    return 1;
 }
 
 string perform_action_file(string action)

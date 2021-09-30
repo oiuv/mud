@@ -9,11 +9,11 @@ void create()
 还立着一个已快腐烂的书架。
 LONG );
         set("exits", ([
-            	"out"      : __DIR__"eastroad3",
+                "out"      : __DIR__"eastroad3",
         ]));
 
         set("objects", ([
-            	__DIR__"obj/shelf" : 1,
+                __DIR__"obj/shelf" : 1,
         ]));
 
         set("no_clean_up", 0);

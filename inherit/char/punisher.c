@@ -53,22 +53,22 @@ mixed hit_ob(object me, object ob, int damage_bouns)
 
 void fight_ob(object ob)
 {
-	if (is_fighting(ob))
-		return;
+        if (is_fighting(ob))
+                return;
 
         if (ob != query_temp("punish_ob") &&
             ! is_fighting(ob))
         {
                 message_vision(CYN "$N" CYN "对$n" CYN "冷笑道：我在这"
                                "里清理门户，你插手做甚？\n" NOR,
-			       this_object(), ob);
-		if (! ob->is_busy())
-			ob->start_busy(5);
+                               this_object(), ob);
+                if (! ob->is_busy())
+                        ob->start_busy(5);
         }
 
         ::fight_ob(ob);
-	if (! is_killing(ob->query("id")))
-        	kill_ob(ob);
+        if (! is_killing(ob->query("id")))
+                kill_ob(ob);
 }
 
 int accept_fight(object ob)
@@ -195,16 +195,16 @@ void unconcious()
         if (objectp(ob = query_last_damage_from())
            && userp(ob))
         {
-        	fam = query_temp("punishing_fam");
-        	ob->add("detach/times", 1);
-        	ob->add("detach/" + fam, 1);
+                fam = query_temp("punishing_fam");
+                ob->add("detach/times", 1);
+                ob->add("detach/" + fam, 1);
 
-        	if (ob->add("betrayer/times", -(int)ob->query("betrayer/" + fam)) < 1)
-                	ob->delete("betrayer");
-        	else
-                	ob->delete("betrayer/" + fam);
+                if (ob->add("betrayer/times", -(int)ob->query("betrayer/" + fam)) < 1)
+                        ob->delete("betrayer");
+                else
+                        ob->delete("betrayer/" + fam);
 
-	        CHANNEL_D->do_channel(this_object(), "rumor", "听说" + ob->name(1) +
+                CHANNEL_D->do_channel(this_object(), "rumor", "听说" + ob->name(1) +
                                       HIM "背叛师门后，杀掉了前来追杀的" + name() +
                                       HIM "，终于厚枕无忧。");
         }

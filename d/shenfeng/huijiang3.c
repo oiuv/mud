@@ -10,10 +10,10 @@ void create()
 LONG);
         set("outdoors", "shenfeng");
         set("exits", ([
-            	"northup" : __DIR__"huijiang2",
+                "northup" : __DIR__"huijiang2",
                 "south" : __DIR__"huijiang6",
-            	"west" : __DIR__"huijiang4",
-            	"east" : __DIR__"huijiang5",
+                "west" : __DIR__"huijiang4",
+                "east" : __DIR__"huijiang5",
         ]));
         set("no_clean_up", 0);
         setup();

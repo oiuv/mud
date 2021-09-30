@@ -30,7 +30,7 @@ void create()
         set("jiali", 400);
 
         set("combat_exp", 50000000);
-                
+
         set_skill("unarmed", 800);
         set_skill("finger", 800);
         set_skill("parry", 800);
@@ -48,17 +48,17 @@ void create()
         map_skill("finger", "kuihua-mogong");
         map_skill("sword", "kuihua-mogong");
 
-        prepare_skill("finger", "kuihua-mogong");     
-           
+        prepare_skill("finger", "kuihua-mogong");
+
         set("inquiry", ([
                 "麒麟靴" : (: ask_xue :),
-                "转世"   : (: ask_zhuan :),                
+                "转世"   : (: ask_zhuan :),
         ]));
-        
+
         setup();
         carry_object("/clone/cloth/cloth.c")->wear();
         carry_object("/clone/misc/spin")->wield();
-                
+
         create_family("冥府地藏王殿前", 1, "幽冥之主");
         set("title", HIR "幽冥之主" NOR);
 }
@@ -87,13 +87,13 @@ mixed ask_xue()
 
         ob = find_object(QILIN_XUE);
         if (! ob) ob = load_object(QILIN_XUE);
-	owner = environment(ob);
+    owner = environment(ob);
         while (owner)
-	{
+    {
                 if (owner->is_character() || ! environment(owner))
                         break;
-		owner = environment(owner);
-	}
+        owner = environment(owner);
+    }
 
         if (owner == me)
                 return "麒麟靴不是在你的手中么，怎么反而来找我呢？";
@@ -108,7 +108,7 @@ mixed ask_xue()
         }
 
         ob->move(this_object());
-        message_vision("$N点点头道：“好，既然你是为了老夫的锁阳丹之事，老夫就借给你吧！”\n", 
+        message_vision("$N点点头道：“好，既然你是为了老夫的锁阳丹之事，老夫就借给你吧！”\n",
                        this_object(), me);
         command("give boots to " + me->query("id"));
         return 1;
@@ -117,49 +117,49 @@ mixed ask_xue()
 mixed ask_zhuan()
 {
         object who;
-        
+
         who = this_player();
         /*
-        if ((int)who->query("combat_exp") < 800000000 || 
-            ! ultrap(who)) 
+        if ((int)who->query("combat_exp") < 800000000 ||
+            ! ultrap(who))
         {
-                message_vision("$N对$n一拱手，道：经验不够，技能不熟，强求亦是枉然。\n", 
+                message_vision("$N对$n一拱手，道：经验不够，技能不熟，强求亦是枉然。\n",
                                this_object(), who);
                 return 1;
         }
-        
-        if (! who->query("animaout")) 
+
+        if (! who->query("animaout"))
         {
-                message_vision("$N对$n一拱手，道：你还没有打通过生死玄关呢。\n", 
+                message_vision("$N对$n一拱手，道：你还没有打通过生死玄关呢。\n",
                                this_object(), who);
                 return 1;
         }
         */
         if (! who->query("HellZhenPass"))
         {
-                message_vision("$N对$n一拱手，道：你想转世先过了十八层地狱这一关再说！\n", 
+                message_vision("$N对$n一拱手，道：你想转世先过了十八层地狱这一关再说！\n",
                                this_object(), who);
                 return 1;
         }
-        
+
         if (who->query("SkyPass"))
         {
-                message_vision("$N对$n一拱手，道：精元丹你取来了吗？取来了就快给我！\n", 
+                message_vision("$N对$n一拱手，道：精元丹你取来了吗？取来了就快给我！\n",
                                this_object(), who);
                 return 1;
         }
-     
+
         message_vision("$N对$n阴阴地笑了几声，说：天堂有路你不走，地狱无门你闯进来。\n",
-                       this_object(), who);         
+                       this_object(), who);
 
         message("channel:rumor", HIB "【阴曹地府】" + who->query("name") +
-                "要闯幽冥地府考验最后一关，哼！等着收尸吧！\n" NOR, users());                                          
-        
+                "要闯幽冥地府考验最后一关，哼！等着收尸吧！\n" NOR, users());
+
         environment(this_object())->set("no_fight", 0);
         competition_with(who);
         this_object()->fight_ob(who);
         who->fight_ob(this_object());
-        
+
         return 1;
 }
 
@@ -183,16 +183,16 @@ void win()
         message_vision(HIB "$N看了看$n，嘿嘿笑道：“你知道你打不败我意味着什么吗？"
                        "就意味着死亡！哈哈！！！”\n" NOR,
                        this_object(), ob);
-                       
-        call_out("ob_die", 1, ob);  
-        environment(this_object())->set("no_fight", 1); 
+
+        call_out("ob_die", 1, ob);
+        environment(this_object())->set("no_fight", 1);
         ::win();
 }
 
 void ob_die(object me)
 {
         me->set_temp("die_reason", "被地藏王给活活杀死了");
-        me->die();       
+        me->die();
 }
 
 void lost()
@@ -211,8 +211,8 @@ void lost()
         ob->move("/d/death/sky/tianmen");
         environment(this_object())->set("no_fight", 1);
         message("channel:rumor", HIB "【阴曹地府】恭喜" + ob->query("name") +
-                "闯过幽冥地府考验，闯入天界十二重天！\n" NOR, users());             
-                
+                "闯过幽冥地府考验，闯入天界十二重天！\n" NOR, users());
+
         ::lost();
 }
 
@@ -246,19 +246,19 @@ int accept_object(object me, object ob)
                                NOR, me);
                 return 0;
         }
-        
+
         message_vision(CYN "地藏王道：很好很好！没有想到你连十二重天这一关也过了，这是天意。\n"
                        "老夫也只能顺天意而行了，去吧。\n"
                        NOR, me);
-                       
+
         message_vision(CYN "地藏王随手一招，突然刮起一阵阴风，精元丹护住你的元神帮你进入六道轮回。\n"
                        NOR, me);
 
         message("channel:rumor", HIB "【阴曹地府】恭喜" + me->query("name") +
-                "闯过天界十二重天，进入六道轮回时空，天意？人为？！！！\n" NOR, users());                             
-              
+                "闯过天界十二重天，进入六道轮回时空，天意？人为？！！！\n" NOR, users());
+
         destruct(ob);
-        
+
         me->move("/d/death/liudaolunhui/tiandao");
         me->move("/d/death/liudaolunhui/diyudao");
         me->move("/d/death/liudaolunhui/rendao");
@@ -266,6 +266,6 @@ int accept_object(object me, object ob)
         me->move("/d/death/liudaolunhui/chushengdao");
         me->move("/d/death/liudaolunhui/xiuluodao");
         me->move("/d/death/liudaolunhui/wujiandao");
-        
+
         return 1;
 }

@@ -152,7 +152,7 @@ int do_du(string arg)
                         me->add("max_neili", -10 - random(10));
                 }
                 me->unconcious();
-		return 1;
+        return 1;
         }
 
         me->receive_damage("jing", random(30) + 30);

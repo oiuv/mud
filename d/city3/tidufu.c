@@ -9,12 +9,12 @@ void create()
 他的亲兵侍从，看上去都十分彪悍。
 LONG);
         set("exits", ([
-            	"south" : __DIR__"tidugate",
+                "south" : __DIR__"tidugate",
         ]));
         set("objects", ([
-             	__DIR__"npc/wutiande" : 1,
-             	__DIR__"npc/shicong"  : 2,
-             	__DIR__"npc/qinbing" : 4,
+                 __DIR__"npc/wutiande" : 1,
+                 __DIR__"npc/shicong"  : 2,
+                 __DIR__"npc/qinbing" : 4,
         ]));
         setup();
         replace_program(ROOM);

@@ -4,31 +4,31 @@
 #include <combat.h>
 
 inherit F_SSERVER;
- 
+
 int perform(object me, object target)
 {
-	object weapon;
-	string msg;
+    object weapon;
+    string msg;
         int ap, dp;
         int damage;
- 
-	if (! target) target = offensive_target(me);
 
-	if (! target || ! me->is_fighting(target))
-	        return notify_fail("「佛心剑」只能在战斗中对对手使用。\n");
+    if (! target) target = offensive_target(me);
 
-	if (! objectp(weapon = me->query_temp("weapon")) ||
+    if (! target || ! me->is_fighting(target))
+            return notify_fail("「佛心剑」只能在战斗中对对手使用。\n");
+
+    if (! objectp(weapon = me->query_temp("weapon")) ||
               (string)weapon->query("skill_type") != "sword")
-		return notify_fail("你使用的武器不对。\n");
+        return notify_fail("你使用的武器不对。\n");
 
-	if (me->query_skill("force") < 200)
-		return notify_fail("你的内功的修为不够，不能使用这一绝技！\n");
+    if (me->query_skill("force") < 200)
+        return notify_fail("你的内功的修为不够，不能使用这一绝技！\n");
 
-	if (me->query_skill("fumo-jian", 1) < 135)
-		return notify_fail("你的伏魔剑法修为不够，目前不能使用佛心剑！\n");
+    if (me->query_skill("fumo-jian", 1) < 135)
+        return notify_fail("你的伏魔剑法修为不够，目前不能使用佛心剑！\n");
 
-	if (me->query("neili") < 250)
-		return notify_fail("你的真气不够，不能使用佛心剑！\n");
+    if (me->query("neili") < 250)
+        return notify_fail("你的真气不够，不能使用佛心剑！\n");
 
         if (me->query_skill_mapped("sword") != "fumo-jian")
                 return notify_fail("你没有激发伏摩剑，不能使用佛心剑！\n");
@@ -36,7 +36,7 @@ int perform(object me, object target)
        if (! living(target))
               return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIC "$N" HIC "手中" + weapon->name() +
+    msg = HIC "$N" HIC "手中" + weapon->name() +
               HIC "缓缓伸出，封住了$n" + HIC "的退路，随"
               "即一抖，化出数个剑花逼向$p" HIC "。\n" NOR;
 
@@ -60,7 +60,7 @@ int perform(object me, object target)
                        CYN "的招一一化解。\n"NOR;
         }
 
-	message_combatd(msg, me, target);
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

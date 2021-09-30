@@ -7,14 +7,14 @@ the driver include "type.h".  They are:
 
 <pre>
 INT             "int"
-STRING  	"string"
-ARRAY   	"array"
-OBJECT  	"object"
+STRING      "string"
+ARRAY       "array"
+OBJECT      "object"
 MAPPING         "mapping"
 FUNCTION        "function"
 FLOAT           "float"
 BUFFER          "buffer"
-CLASS		"class"
+CLASS        "class"
 </pre>
 
  Tim Hollebeek  Beek@ZorkMUD, Lima Bean, IdeaExchange, and elsewhere

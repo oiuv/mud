@@ -9,20 +9,20 @@ inherit NPC;
 
 void create()
 {
-	set_name("刘工匠", ({ "liu gongjiang", "liu", "worker" }) );
-	set("title", HIY "天国大匠" NOR);
-	set("gender", "男性" );
-	set("age", 52);
-	set("str", 33);
-	set("long", @LONG
+    set_name("刘工匠", ({ "liu gongjiang", "liu", "worker" }) );
+    set("title", HIY "天国大匠" NOR);
+    set("gender", "男性" );
+    set("age", 52);
+    set("str", 33);
+    set("long", @LONG
 一个毫不起眼的老匠人，但是却有着难以言喻的威严。从旁边学徒工
 人们的眼神中你感觉他不是一般的人物。
 LONG);
-	set("attitude", "friendly");
+    set("attitude", "friendly");
 
-	setup();
+    setup();
 
-	carry_object("/clone/cloth/cloth")->wear();
+    carry_object("/clone/cloth/cloth")->wear();
 }
 
 void init()

@@ -8,10 +8,10 @@ void create()
 矮几，一应俱全，清静之中隐然透出一丝富贵之象。
 LONG );
         set("exits", ([
-		"south": __DIR__"xianghemen",    			
-	        "east" : __DIR__"ta1",
-	]));
-	set("objects",([
+        "south": __DIR__"xianghemen",
+            "east" : __DIR__"ta1",
+    ]));
+    set("objects",([
                 __DIR__"npc/xiaoshami" : 2,
         ]));
 //        set("no_clean_up", 0);

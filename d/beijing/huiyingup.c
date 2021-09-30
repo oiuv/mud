@@ -18,9 +18,9 @@ LONG);
                 set("objects", ([
                         CLASS_D("gaibang") + "/ada" : 1,
                         "/b/yitian/npc/zhaomin2" : 1,
-                	"/b/yitian/npc/zhao1" : 1,
-                	"/b/yitian/npc/qian2" : 1,
-        	]));
+                    "/b/yitian/npc/zhao1" : 1,
+                    "/b/yitian/npc/qian2" : 1,
+            ]));
         }
         set("outdoors", "beijing");
         setup();

@@ -6,15 +6,15 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("詹春", ({"zhan chun", "zhan", "chun"}));
-	set("long", "她是何太冲最喜欢的弟子，长得倒也颇为俏丽。\n");
-	set("gender", "女性");
-	set("age", 24);
-	set("attitude", "friendly");
-	set("str", 25);
-	set("int", 25);
-	set("con", 25);
-	set("dex", 25);
+    set_name("詹春", ({"zhan chun", "zhan", "chun"}));
+    set("long", "她是何太冲最喜欢的弟子，长得倒也颇为俏丽。\n");
+    set("gender", "女性");
+    set("age", 24);
+    set("attitude", "friendly");
+    set("str", 25);
+    set("int", 25);
+    set("con", 25);
+    set("dex", 25);
         set("max_qi", 800);
         set("max_jing", 600);
         set("neili", 1200);
@@ -49,7 +49,7 @@ void create()
         prepare_skill("strike", "kunlun-zhang");
         prepare_skill("cuff", "zhentian-quan");
 
-	create_family("昆仑派", 5, "弟子");
+    create_family("昆仑派", 5, "弟子");
 
         set("chat_chance_combat", 100);
         set("chat_msg_combat", ({
@@ -60,7 +60,7 @@ void create()
 
         }) );
 
-	setup();
+    setup();
         carry_object("/d/kunlun/obj/sword")->wield();
         carry_object("/d/kunlun/obj/pao3")->wear();
 }

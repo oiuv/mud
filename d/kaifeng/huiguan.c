@@ -10,9 +10,9 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"eroad2",
-  		"east" : __DIR__"paifang",
-	]));
+          "west" : __DIR__"eroad2",
+          "east" : __DIR__"paifang",
+    ]));
         set("objects", ([
                 "/clone/npc/walker" : 1,
         ]));

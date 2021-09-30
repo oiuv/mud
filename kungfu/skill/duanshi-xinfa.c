@@ -29,5 +29,5 @@ int practice_skill(object me)
 
 string exert_function_file( string func )
 {
-	return(__DIR__ "duanshi-xinfa/" + func);
+    return(__DIR__ "duanshi-xinfa/" + func);
 }

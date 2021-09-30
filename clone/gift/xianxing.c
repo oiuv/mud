@@ -8,16 +8,16 @@ int filter_user(object ob);
 
 void create()
 {
-	set_name(HIR "现形炸弹" NOR, ({ "visible bomb", "bomb" }));
-	set_weight(100);
-	if( clonep() )
-		set_default_object(__FILE__);
-	else {
+    set_name(HIR "现形炸弹" NOR, ({ "visible bomb", "bomb" }));
+    set_weight(100);
+    if( clonep() )
+        set_default_object(__FILE__);
+    else {
                 set("long", "听说这是可以让人原形毕露的炸弹。\n");
                 set("value", 1);
                 set("no_sell", 1);
                 set("unit", "颗");
-	}
+    }
 }
 
 void init()
@@ -80,10 +80,10 @@ int filter_user(object ob)
 
                 msg = "听说" + ob->name(1) + HIM "假扮" + ob->name() +
                       HIM "被炸出了原形，浑身上下都是小烟";
-		ob->delete_temp("apply/name");
-		ob->delete_temp("apply/id");
-		ob->delete_temp("apply/short");
-		ob->delete_temp("apply/long");
+        ob->delete_temp("apply/name");
+        ob->delete_temp("apply/id");
+        ob->delete_temp("apply/short");
+        ob->delete_temp("apply/long");
                 if (objectp(mask = present("mian ju", ob)))
                 {
                         msg += "，连" + mask->name() + HIM "都被烧坏了。";
@@ -96,4 +96,3 @@ int filter_user(object ob)
 
         return 0;
 }
-

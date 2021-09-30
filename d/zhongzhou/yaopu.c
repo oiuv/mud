@@ -10,15 +10,15 @@ void create()
 有药方后院还可以让你自己熬药。
 LONG);
         set("objects", ([
-  		"/d/city/npc/huoji" : 1,
-	]));
+          "/d/city/npc/huoji" : 1,
+    ]));
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"north" : __DIR__"yaopuboss",
-  		"west" : __DIR__"wendingbei2",
-  		"south" : __DIR__"yaopu1",
-	]));
+          "north" : __DIR__"yaopuboss",
+          "west" : __DIR__"wendingbei2",
+          "south" : __DIR__"yaopu1",
+    ]));
 
         setup();
         replace_program(ROOM);

@@ -70,7 +70,7 @@ void init()
 
         ::init();
         if (interactive(ob = this_player()) && ! is_fighting())
-	{
+    {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
         }
@@ -133,7 +133,7 @@ void greeting(object ob)
         if (ob->query_skill("force") > 99
            && ob->query_skill("dodge") > 99
            && ob->query_skill("parry") > 99)
-		return;
+        return;
 
         command("nod " + ob->query("id"));
         command("say " + RANK_D->query_respect(ob) + "，我正在传授基本武功。");

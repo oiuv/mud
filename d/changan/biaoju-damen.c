@@ -10,12 +10,12 @@ void create()
 装结束的汉子，个个腰板笔挺，显出一股英悍之气。
 LONG);
         set("exits", ([
-        	"north" : __DIR__"qixiang5",
-        	"south" : __DIR__"biaoju-dayuan",
+            "north" : __DIR__"qixiang5",
+            "south" : __DIR__"biaoju-dayuan",
         ]));
         set("objects", ([
-        	__DIR__"npc/biaoshi" : 1,
-        	__DIR__"npc/tang" : 2,
+            __DIR__"npc/biaoshi" : 1,
+            __DIR__"npc/tang" : 2,
         ]) );
 
         setup();

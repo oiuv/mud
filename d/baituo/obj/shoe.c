@@ -13,6 +13,6 @@ void create()
                 set("value", 50);
                 set("material", "cloth");
                 set("female_only", 1);
-        	set("armor_prop/armor", 3);
+            set("armor_prop/armor", 3);
               }
 }

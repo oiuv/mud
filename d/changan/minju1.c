@@ -11,9 +11,9 @@ void create ()
 热闹，一张大木桌子，周围放着几把椅子，几个邻里凑在一起，不知在
 谈什么。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
-        	"north" : __DIR__"huarui1",
+            "north" : __DIR__"huarui1",
         ]));
 
         setup();

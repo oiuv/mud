@@ -5,8 +5,8 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "将军府大门");
-	set("long", @LONG
+    set("short", "将军府大门");
+    set("long", @LONG
 这是将军府的大门，门板不知是以什么材料制成，看上去
 黝黑一片，似乎极为沉重，上面有两个擦得晶亮的铜环；在大
 门的正上面有个夹着一个高大的木牌坊，上书「将军府」三个
@@ -16,14 +16,14 @@ void create()
 LONG );
         set("outdoors", "xiangyang");
 
-	set("exits", ([
-		"south" : __DIR__"eastjie1",
-		"north" : __DIR__"jiangjunyuan",
-	]));
-	set("objects", ([
-		__DIR__"npc/bing" : 2,
-	]));
-	setup();
+    set("exits", ([
+        "south" : __DIR__"eastjie1",
+        "north" : __DIR__"jiangjunyuan",
+    ]));
+    set("objects", ([
+        __DIR__"npc/bing" : 2,
+    ]));
+    setup();
 }
 
 int valid_leave(object me, string dir)

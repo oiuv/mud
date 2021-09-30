@@ -10,8 +10,8 @@ void create()
 LONG);
         set("outdoors", "heimuya");
         set("exits", ([
-            	"eastdown" : __DIR__"shijie2",
-            	"westup"   : __DIR__"up1",
+                "eastdown" : __DIR__"shijie2",
+                "westup"   : __DIR__"up1",
         ]));
         set("objects", ([
                 CLASS_D("riyue") + "/zhao" : 1,

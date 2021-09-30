@@ -4,8 +4,8 @@
 inherit ROOM;
 void create()
 {
-	set("short","玉霞山");
-	set("long",@LONG
+    set("short","玉霞山");
+    set("long",@LONG
 玉霞山东镇星云湖，山清林秀，许多游人来此欣赏湖光山色，无
 不为之倾倒。古人有诗曰：
       玉霞凄清秋气凉，
@@ -15,14 +15,13 @@ void create()
       水光山色相辉映，
       万里无云碧天净。
 LONG);
-	set("objects", ([
-	   __DIR__"npc/youke": 1,
-	]));
-	set("outdoors", "dali");
-	set("exits",([ /* sizeof() == 1 */
-	    "westdown"  : __DIR__"xingyunhu",
-	]));
-	setup();
-	replace_program(ROOM);
+    set("objects", ([
+       __DIR__"npc/youke": 1,
+    ]));
+    set("outdoors", "dali");
+    set("exits",([ /* sizeof() == 1 */
+        "westdown"  : __DIR__"xingyunhu",
+    ]));
+    setup();
+    replace_program(ROOM);
 }
-

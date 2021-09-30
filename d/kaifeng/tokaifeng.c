@@ -9,9 +9,9 @@ void create()
 LONG
         );
         set("exits", ([
-  		"east":"/d/zhongzhou/wroad3",
-  		"west":__DIR__"guandao1",
-	]));
+          "east":"/d/zhongzhou/wroad3",
+          "west":__DIR__"guandao1",
+    ]));
         set("outdoors", "zhongzhou");
         set("no_clean_up", 0);
 

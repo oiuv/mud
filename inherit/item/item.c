@@ -14,7 +14,7 @@ nosave string s_id;
 
 void setup()
 {
-	seteuid(getuid());
+        seteuid(getuid());
 }
 
 void set_name(string name, string *id)

@@ -115,7 +115,7 @@ string finger_all()
         "------------------------------------\n"
         + msg +
         "------------------------------------\n";
-    } else  	// wizard finger
+    } else      // wizard finger
     {
         string *counter;
         string ipname;
@@ -220,7 +220,7 @@ varargs string finger_user(string name, mixed me)
             else
                 msg += sprintf("\n%s目前断线中。\n", cname);
         }
-    } else  	// wizard finger
+    } else      // wizard finger
     {
         msg =  sprintf("英文代号：\t%s\n姓    名：\t%s\n权限等级：\t%s\n"
             "电子邮件地址：\t%s\n上次连线地址：\t%s( %s )\n",

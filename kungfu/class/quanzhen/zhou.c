@@ -122,7 +122,7 @@ LONG);
                 if (! environment(ob))
                         ob->move(this_object());
         }
-                
+
         carry_object("/clone/cloth/cloth")->wear();
 }
 
@@ -198,7 +198,7 @@ mixed ask_skill1()
                      "才说道：“小子，我把口诀说给你听，然后你就自己下去"
                      "练，别再来烦我了。”说完便一把将$N" HIY "楸到身边"
                      "，在$N" HIY "耳旁唧唧咕咕说了半天。\n\n" NOR, me,
-                     this_object()); 
+                     this_object());
 
         command("bite");
         command("say 好了，好了，你快走吧。");
@@ -245,7 +245,7 @@ mixed ask_skill2()
                      "这么烦，没看见我正在玩吗？”接着$n" HIY "摇了摇头，"
                      "又道：“真是后悔当初收了你，看好了！”说话间右手一"
                      "陡，轻飘飘挥出一拳，拳劲虚实难测，周围登时被激得尘"
-                     "土飞扬。\n\n" NOR, me, this_object()); 
+                     "土飞扬。\n\n" NOR, me, this_object());
 
         command("angry");
         command("say 快走，快走，以后别再来烦我了。");
@@ -340,8 +340,8 @@ void lost()
         ob->set("can_learn/zuoyou-hubo/zhou", 1);
         ob->improve_skill("martial-cognize", 1500000);
 
-        if (ob->query("potential") > ob->query_potential_limit()) 
-        	pot = 1;
+        if (ob->query("potential") > ob->query_potential_limit())
+            pot = 1;
 
         ob->add("combat_exp", exp);
         ob->improve_potential(pot);

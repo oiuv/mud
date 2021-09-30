@@ -13,11 +13,10 @@ LONG );
         set("exits", ([ /* sizeof() == 2 */
             "east" : __DIR__"sroad3",
             "northwest" : __DIR__"alley2",
-	]));
+    ]));
 
         set("outdoors", "village");
 
         setup();
         replace_program(ROOM);
 }
-

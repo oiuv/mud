@@ -14,5 +14,5 @@ void create()
         set_temp("apply/defense", 40);
         set("shen_type", 1);
         setup();
-	carry_object("/clone/misc/cloth")->wear();
+    carry_object("/clone/misc/cloth")->wear();
 }

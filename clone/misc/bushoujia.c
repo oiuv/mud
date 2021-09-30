@@ -149,7 +149,7 @@ void catch_quarry(object me)
                         catch(quarry = new("/clone/quarry/" + st[i]));
 
                         if (! objectp(quarry))
-                        	catch(quarry = new("/clone/beast/" + st[i]));
+                            catch(quarry = new("/clone/beast/" + st[i]));
 
                         if (! objectp(quarry))
                                 break;

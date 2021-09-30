@@ -109,9 +109,9 @@ void aux_warning(string warning);
 private void log(string entry);
 void resolve_callback(string address, string my_ip, int key);
 
-//	----------------------------------------------------------------------------
-//	The UDP(User Datagram Protocol) network functions
-//	----------------------------------------------------------------------------
+//    ----------------------------------------------------------------------------
+//    The UDP(User Datagram Protocol) network functions
+//    ----------------------------------------------------------------------------
 // used to inform the slave daemons of the udp port
 int query_udp_port() { return my_port; }
 
@@ -289,9 +289,9 @@ string start_message()
                    query_udp_port(), ctime(time()), CONFIG_D->query_string("zone"), uptime());
 }
 
-//	----------------------------------------------------------------------------
-//	Network database functions
-//	----------------------------------------------------------------------------
+//    ----------------------------------------------------------------------------
+//    Network database functions
+//    ----------------------------------------------------------------------------
 
 // Sends a startup message to our server mud, then requests a mudlist.
 // It requests every 60 seconds for 5 minutes.  If it doesn 't get one

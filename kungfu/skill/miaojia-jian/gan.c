@@ -71,8 +71,8 @@ int perform(object me, object target)
         {
                 msg += HIY "只见" + wn + HIY "余势不尽，又向前飞出数"
                        "丈，方才没入土中。\n" NOR;
-        	weapon->move(environment(me));
-	} else
+            weapon->move(environment(me));
+    } else
                 msg += HIY "然而$N" HIY "身形一展，登时跃出数丈，掌"
                        "出如风，将射出的" + wn + HIY "又抄回手中。\n" NOR;
 

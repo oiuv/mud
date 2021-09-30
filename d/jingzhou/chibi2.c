@@ -11,9 +11,9 @@ LONG);
 
         set("exits", ([
                 "northup" : __DIR__"chibi1",
-		"southdown" : __DIR__"chibi3",
+        "southdown" : __DIR__"chibi3",
         ]));
 
         setup();
         replace_program(ROOM);
-} 
+}

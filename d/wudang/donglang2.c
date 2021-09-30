@@ -10,7 +10,7 @@ void create()
 轻声细语地不知说那些什么，引得女孩子笑出声来。
 LONG);
 
-    	set("exits", ([
+        set("exits", ([
                 "south" : __DIR__"chashi",
                 "north" : __DIR__"xiuxishi",
                 "west"  : __DIR__"donglang1",

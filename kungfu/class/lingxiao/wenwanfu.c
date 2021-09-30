@@ -60,7 +60,7 @@ void create()
         }));
 
         setup();
-        
+
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/cloth/cloth")->wear();
 }
@@ -87,11 +87,11 @@ void kill_ob (object ob)
 
         if (guard1 && ! guard1->is_fighting())
         {
-	        message_vision (HIW "\n闻万夫大怒，喝道：居然欺到我们凌宵"
+            message_vision (HIW "\n闻万夫大怒，喝道：居然欺到我们凌宵"
                                 "城头上来了，大家并肩子上！\n\n" NOR,
                                 guard1);
                 guard1->kill_ob(ob);
-	}
+    }
 
         if (guard2 && ! guard2->is_fighting())
                 guard2->kill_ob(ob);

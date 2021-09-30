@@ -17,7 +17,7 @@ int perform(object me, object target)
         int skill;
         int count;
         int dp;
-		int ap;
+        int ap;
 
         if (userp(me) && ! me->query("can_perform/pixie-jian/pi"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -63,7 +63,7 @@ int perform(object me, object target)
               HIW "幻作数道虚影，顿时无数星光一齐射向$n" HIW "！\n" NOR;
         message_combatd(msg, me, target);
 
-		ap = me->query_skill("dodge", 1);
+        ap = me->query_skill("dodge", 1);
         dp = target->query_skill("dodge", 1);
         if (ap / 2 + random(ap) > dp){
             count = ap / 4;

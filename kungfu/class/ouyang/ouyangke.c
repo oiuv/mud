@@ -14,54 +14,54 @@ mixed ask_shenshe();
 
 void create()
 {
-	seteuid(getuid());
-	set_name("欧阳克", ({ "ouyang ke", "ouyang", "ke" }));
-	set("long", "他一身飘逸的白色长衫，手摇折扇，风流儒雅。\n");
-	set("title", "白驼山少庄主");
-	set("nickname", HIM "玉面蛇心" NOR);
-	set("gender", "男性");
-	set("age", 27);
-	set("attitude", "friendly");
-	set("shen_type", -1);
+    seteuid(getuid());
+    set_name("欧阳克", ({ "ouyang ke", "ouyang", "ke" }));
+    set("long", "他一身飘逸的白色长衫，手摇折扇，风流儒雅。\n");
+    set("title", "白驼山少庄主");
+    set("nickname", HIM "玉面蛇心" NOR);
+    set("gender", "男性");
+    set("age", 27);
+    set("attitude", "friendly");
+    set("shen_type", -1);
 
-	set("str", 25);
-	set("int", 29);
-	set("con", 25);
-	set("dex", 26);
+    set("str", 25);
+    set("int", 29);
+    set("con", 25);
+    set("dex", 26);
 
-	set("qi", 1700);
-	set("max_qi", 1700);
-	set("jing", 800);
-	set("max_jing", 800);
-	set("neili", 3000);
-	set("max_neili", 3000);
-	set("jiali", 50);
+    set("qi", 1700);
+    set("max_qi", 1700);
+    set("jing", 800);
+    set("max_jing", 800);
+    set("neili", 3000);
+    set("max_neili", 3000);
+    set("jiali", 50);
 
-	set("combat_exp", 300000);
+    set("combat_exp", 300000);
 
-	set_skill("cuff",  130);
-	set_skill("dodge", 120);
-	set_skill("parry", 140);
-	set_skill("force", 130);
-	set_skill("staff", 100);
-	set_skill("training", 80);
-	set_skill("hamagong",130);
-	set_skill("baituo-xinfa",140);
-	set_skill("chanchu-bufa", 120);
-	set_skill("lingshe-quan", 130);
-	set_skill("baibian-daxue", 120);
+    set_skill("cuff",  130);
+    set_skill("dodge", 120);
+    set_skill("parry", 140);
+    set_skill("force", 130);
+    set_skill("staff", 100);
+    set_skill("training", 80);
+    set_skill("hamagong",130);
+    set_skill("baituo-xinfa",140);
+    set_skill("chanchu-bufa", 120);
+    set_skill("lingshe-quan", 130);
+    set_skill("baibian-daxue", 120);
         set_skill("poison", 120);
         set_skill("finger", 100);
         set_skill("shedu-qiqiao", 120);
-	set_skill("medical", 150);
-	set_skill("baituo-michuan", 150);
+    set_skill("medical", 150);
+    set_skill("baituo-michuan", 150);
         set_skill("literate", 100);
 
-	map_skill("force", "hamagong");
-	map_skill("dodge", "chanchu-bufa");
-	map_skill("cuff",  "lingshe-quan");
-	map_skill("parry", "baibian-daxue");
-	map_skill("staff", "baibian-daxue");
+    map_skill("force", "hamagong");
+    map_skill("dodge", "chanchu-bufa");
+    map_skill("cuff",  "lingshe-quan");
+    map_skill("parry", "baibian-daxue");
+    map_skill("staff", "baibian-daxue");
         map_skill("cuff", "lingshe-quan");
         map_skill("finger", "shedu-qiqiao");
 
@@ -70,10 +70,10 @@ void create()
 
         create_family("欧阳世家", 6, "传人");
 
-	set("chat_chance", 2);
-	set("chat_msg", ({
-		CYN "欧阳克把纸扇一展，转过身去，深吟道：红颜知己最难得……\n" NOR,
-	}) );
+    set("chat_chance", 2);
+    set("chat_msg", ({
+        CYN "欧阳克把纸扇一展，转过身去，深吟道：红颜知己最难得……\n" NOR,
+    }) );
 
         set("inquiry", ([
                 "引路神蛇" : (: ask_shenshe :),
@@ -82,27 +82,27 @@ void create()
 
         set_temp("shenshe_count", 5);
 
-	setup();
-	carry_object("/d/baituo/obj/baipao")->wear();
-	add_money("silver",10);
+    setup();
+    carry_object("/d/baituo/obj/baipao")->wear();
+    add_money("silver",10);
 }
 
 void init()
 {
-	object ob;
+    object ob;
 
-	::init();
+    ::init();
 
-	if (interactive(ob = this_player()) && ! is_fighting()) 
+    if (interactive(ob = this_player()) && ! is_fighting())
         {
-		remove_call_out("greeting");
-		call_out("greeting", 1, ob);
-	}
+        remove_call_out("greeting");
+        call_out("greeting", 1, ob);
+    }
 }
 
 void greeting(object ob)
 {
-	if (!ob || environment(ob) != environment()) return;
+    if (!ob || environment(ob) != environment()) return;
 
         if (check_family(ob, "欧阳世家"))
         {
@@ -110,8 +110,8 @@ void greeting(object ob)
                 return;
         }
 
-	if ((string)ob->query("gender") == "女性")
-	{
+    if ((string)ob->query("gender") == "女性")
+    {
                 if (ob->query("per") < 22)
                         return;
 
@@ -120,27 +120,27 @@ void greeting(object ob)
                         command("kiss " + ob->query("id"));
                         command("say 怎么样，要不要再来几次？");
                 } else
-        	switch(random(3))
-        	{
-        	case 0: command("kiss "+(string)ob->query("id"));break;
-        	case 1: command("kiss6 "+(string)ob->query("id"));break;
-        	case 2: command("smile "+(string)ob->query("id"));break;
-        	}
-     
-	}
-	else
+            switch(random(3))
+            {
+            case 0: command("kiss "+(string)ob->query("id"));break;
+            case 1: command("kiss6 "+(string)ob->query("id"));break;
+            case 2: command("smile "+(string)ob->query("id"));break;
+            }
+
+    }
+    else
            say(CYN "欧阳克叹了一口气说：这位" + RANK_D->query_respect(ob) +
                CYN "，你要是能给我弄一个女人来就好了。\n" NOR);
-	return;
+    return;
 }
 
 void attempt_apprentice(object ob)
 {
-	if ((string)ob->query("gender") == "女性" &&
+    if ((string)ob->query("gender") == "女性" &&
             (string)ob->query("born_family") != "欧阳世家")
         {
-		message_vision(CYN "欧阳克动情地说道：这位" + RANK_D->query_respect(ob) +
-		               CYN "真乃我的红颜知己，可\n惜家规所限，不能传你武功，你还"
+        message_vision(CYN "欧阳克动情地说道：这位" + RANK_D->query_respect(ob) +
+                       CYN "真乃我的红颜知己，可\n惜家规所限，不能传你武功，你还"
                                "是做我的小妾吧。\n" NOR, ob);
                 return;
         }
@@ -149,7 +149,7 @@ void attempt_apprentice(object ob)
                 return;
 
         message_vision("$N道：好... 很好！\n", this_object());
-	command("recruit " + ob->query("id"));
+    command("recruit " + ob->query("id"));
         if (! ob->query("special/shenshe"))
         {
                 command("say 你还不会使用引路神蛇吧？我告诉你口诀，你可不要忘记了！");
@@ -161,39 +161,39 @@ void attempt_apprentice(object ob)
 
 int accept_fight(object ob)
 {
-	if ((string)ob->query("gender") == "女性")
-	{
-		message_vision(CYN "欧阳克摆摆手说道：这位" + RANK_D->query_respect(ob) +
-		               CYN "，我怎能欺负女孩子呢！\n" NOR, ob);
-		return 0;
+    if ((string)ob->query("gender") == "女性")
+    {
+        message_vision(CYN "欧阳克摆摆手说道：这位" + RANK_D->query_respect(ob) +
+                       CYN "，我怎能欺负女孩子呢！\n" NOR, ob);
+        return 0;
         }
 
         return ::accept_fight(ob);
 }
- 
+
 int accept_object(object who, object ob)
 {
-	object obn;
+    object obn;
         int addition;
 
         if (! who || environment(who) != environment()) return 0;
-	if (! objectp(ob)) return 0;
-	
-	if (! present(ob, who))
+    if (! objectp(ob)) return 0;
+
+    if (! present(ob, who))
                 return notify_fail("你没有这件东西。\n");
 
-	if (! ob->is_character() || (string)ob->query("gender") != "女性")
-	{
-              	command("say 我欧阳克不需要这件东西。");
+    if (! ob->is_character() || (string)ob->query("gender") != "女性")
+    {
+                  command("say 我欧阳克不需要这件东西。");
                 return 0;
         }
 
-	if (ob->is_corpse())
-	{
-		command("slap " + who->query("id"));
-		command("say 好嘛你，居然拿具尸体来糊弄我，找晦气啊？");
-		return 0;
-	}
+    if (ob->is_corpse())
+    {
+        command("slap " + who->query("id"));
+        command("say 好嘛你，居然拿具尸体来糊弄我，找晦气啊？");
+        return 0;
+    }
 
         if ((string)ob->query("born_family") == "欧阳世家")
         {
@@ -203,22 +203,22 @@ int accept_object(object who, object ob)
                 return 1;
         }
 
-	if (environment(this_object())->query("short") == "丽春院")
-	{
-               	command("say 我已经有女人了，你改天再送来吧。");
+    if (environment(this_object())->query("short") == "丽春院")
+    {
+                   command("say 我已经有女人了，你改天再送来吧。");
                 return 0;
         }
 
-	if ((int)ob->query("age") <18)
-	{
+    if ((int)ob->query("age") <18)
+    {
                 command("fear");
                 command("say 未成年少女我怎敢要！");
                 return 0;
         }
 
         if ((int)ob->query("age") > 29)
-	{
-        	command("say 这种老古董还是留给你自己吧！");
+    {
+            command("say 这种老古董还是留给你自己吧！");
                 return 0;
         }
 
@@ -236,7 +236,7 @@ int accept_object(object who, object ob)
                 {
                         command("shrug");
                         command("say 这……这种货色也未免差了点，你"
-				"也找个漂亮些的啊。");
+                "也找个漂亮些的啊。");
                         return 0;
                 }
 
@@ -244,7 +244,7 @@ int accept_object(object who, object ob)
                 if ((int) ob->query("sex/times") == 0)
                 {
                         command("say 哇，这还是个处女，怎么也得多给"
-			        "你点辛苦费！");
+                    "你点辛苦费！");
                         addition += 30;
                 }
         }
@@ -256,16 +256,16 @@ int accept_object(object who, object ob)
                 return 0;
         }
 
-	obn=new("/clone/money/silver");
+    obn=new("/clone/money/silver");
         obn->set_amount(20 + addition);
         obn->move(who);
-		who->add("shen", -addition);
-		who->add("can_learn/lingshe-quan/count", 1 + random(5));
-		if (who->query("can_learn/lingshe-quan/count") > 10)
-		{
-			tell_object(who, HIC "\n既然你帮了我这么多次,就传授你几手武功吧。\n" NOR);
-			who->set("can_learn/lingshe-quan/ke", 1);
-		}
+        who->add("shen", -addition);
+        who->add("can_learn/lingshe-quan/count", 1 + random(5));
+        if (who->query("can_learn/lingshe-quan/count") > 10)
+        {
+            tell_object(who, HIC "\n既然你帮了我这么多次,就传授你几手武功吧。\n" NOR);
+            who->set("can_learn/lingshe-quan/ke", 1);
+        }
 
         message_vision(HIC "$n" HIC "把" + ob->name() + HIC "交给了$N"
                        HIC "。\n\n" NOR, this_object(), who);
@@ -287,7 +287,7 @@ int accept_object(object who, object ob)
 
         ob->revive();
         tell_object(ob, HIY "你刚刚挣开眼睛，却发现一个人"
-		        "正抱着你，你大叫一声，几乎晕了过去。\n\n" NOR);
+                "正抱着你，你大叫一声，几乎晕了过去。\n\n" NOR);
         command("kiss " + ob->query("id"));
         command("say 嘻嘻，你慌什么么嘛，可是" + who->name() + "把你送过来的啊。");
         shout(sprintf(HIW "\n%s(%s)大声喊道：救命啊……救…救命………\n\n" NOR,

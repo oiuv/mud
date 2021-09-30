@@ -10,16 +10,15 @@ void create()
 桥。
 LONG);
         set("exits", ([
-            	"east" : __DIR__"road8",
-            	"north"     : __DIR__"shanlu8",
-            	"south"     : __DIR__"xilingqiao",
-            	"west"      : __DIR__"road6",
+                "east" : __DIR__"road8",
+                "north"     : __DIR__"shanlu8",
+                "south"     : __DIR__"xilingqiao",
+                "west"      : __DIR__"road6",
         ]));
         set("objects", ([
-            	__DIR__"npc/youfang" : 1,
+                __DIR__"npc/youfang" : 1,
         ]));
         set("outdoors", "hangzhou");
         setup();
         replace_program(ROOM);
 }
-

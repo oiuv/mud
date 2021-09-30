@@ -8,7 +8,7 @@ inherit F_SSERVER;
 int perform(object me, object target)
 {
         int skill, ap, dp, damage;
-	string msg;
+    string msg;
 
         if (userp(me) && ! me->query("can_perform/taiji-quan/yin"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -32,7 +32,7 @@ int perform(object me, object target)
 
         if (me->query("neili") < 200)
                 return notify_fail("你的真气不够，难以施展" YIN "。\n");
- 
+
         if (me->query_skill_mapped("unarmed") != "taiji-quan")
                 return notify_fail("你没有激发太极拳，难以施展" YIN "。\n");
 
@@ -45,9 +45,9 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIW "$N" HIW "双手一圈，施出「引」字诀，如抱太极，一股"
+    msg = HIW "$N" HIW "双手一圈，施出「引」字诀，如抱太极，一股"
               "雄浑无比的力道组成了一个旋涡，圈向$n" HIW "。\n" NOR;
-	me->add("neili", -50);
+    me->add("neili", -50);
 
         ap = me->query_skill("unarmed");
         dp = target->query_skill("parry");
@@ -73,4 +73,3 @@ int perform(object me, object target)
 
         return 1;
 }
-

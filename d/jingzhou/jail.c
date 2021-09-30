@@ -1,5 +1,5 @@
 // Copyright (C) 2003, by Lonely. All rights reserved.
-// This software can not be used, copied, or modified 
+// This software can not be used, copied, or modified
 // in any form without the written permission from authors.
 
 #include <room.h>
@@ -22,8 +22,6 @@ LONG );
         ]));
 
         create_door("west", "铁门", "east", DOOR_CLOSED);
-	setup();
+    setup();
         replace_program(ROOM);
 }
-
-

@@ -5,21 +5,21 @@ void create()
 {
         set_name(HIM "「狐仙」" NOR, ({ "huxian book", "huxian", "book" }));
         set_weight(200);
-	if (clonep())
-		set_default_object(__FILE__);
-	else {
+    if (clonep())
+        set_default_object(__FILE__);
+    else {
                 set("unit", "本");
-		set("long", HIM "一本破旧的书，也不知道这是谁写的。没"
+        set("long", HIM "一本破旧的书，也不知道这是谁写的。没"
                             "事可以看看(read)。\n" NOR);
-		set("value", 50);
-		set("material", "paper");
-	}
-	setup();
+        set("value", 50);
+        set("material", "paper");
+    }
+    setup();
 }
 
 void init()
 {
-	add_action("do_read", "read");
+    add_action("do_read", "read");
 
 }
 

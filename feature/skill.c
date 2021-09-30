@@ -290,7 +290,7 @@ int can_improve_skill(string skill)
 
 varargs void improve_skill(string skill, int amount, int weak_mode)
 {
-    //	int spi;
+    //    int spi;
     int lvl;
     int mlvl;
     string type;

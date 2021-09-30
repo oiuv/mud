@@ -20,21 +20,21 @@ mixed ask_jing();
 void create()
 {
         object ob;
-	set_name("何太冲", ({"he taichong", "he", "taichong"}));
+    set_name("何太冲", ({"he taichong", "he", "taichong"}));
         set("long", @LONG
 他就是名扬江湖的昆仑派第四代掌门铁琴先生
 何太冲。虽然此时他年纪已大，但仍然看得出
 他年轻时的英俊潇洒。
 LONG);
-	set("nickname", WHT "铁琴先生" NOR);
-	set("gender", "男性");
-	set("age", 43);
-	set("attitude", "heroism");
-	set("shen_type", 0);
-	set("str", 25);
-	set("int", 25);
-	set("con", 25);
-	set("dex", 25);
+    set("nickname", WHT "铁琴先生" NOR);
+    set("gender", "男性");
+    set("age", 43);
+    set("attitude", "heroism");
+    set("shen_type", 0);
+    set("str", 25);
+    set("int", 25);
+    set("con", 25);
+    set("dex", 25);
         set("max_qi", 5000);
         set("max_jing", 3000);
         set("neili", 6000);
@@ -103,7 +103,7 @@ LONG);
 
         }) );
 
-	setup();
+    setup();
 
         if (clonep())
         {
@@ -143,11 +143,11 @@ void attempt_apprentice(object me)
 
         if ((int)me->query_skill("kunlun-xinfa", 1) < 80)
         {
-		command("say 你对本门的内功心法所知尚浅，练习高了再来找我吧。");
-		return;
-	}
+        command("say 你对本门的内功心法所知尚浅，练习高了再来找我吧。");
+        return;
+    }
 
-	command("say 既然你如此有心，我便收下你，希望你能够有所作为。");
+    command("say 既然你如此有心，我便收下你，希望你能够有所作为。");
         command("recruit " + me->query("id"));
 }
 

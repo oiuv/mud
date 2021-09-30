@@ -119,7 +119,7 @@ void start_edit(string file)                // 呼叫编辑器，开始编辑
                                 for (int j=0; j<len; j++)
                                         if (me["sText"][i][j] == '\t')
                                                 me["sText"][i] = replace_string(
-							me["sText"][i], "\t", tabs[0..7-j%8]);
+                            me["sText"][i], "\t", tabs[0..7-j%8]);
                         }
                 }
                 else me["sText"] = ({ "" });
@@ -492,8 +492,8 @@ private void _del_char(object pl, int bs)                // 删除游标上的�
             sizeof(me["sText"][me["iS_Row"]+me["iRow"]-2]))
                 str += me["sText"][me["iS_Row"]+
                 me["iRow"]-2][me["iS_Col"]+me["iCol"]-1..<1];
-        else        go_left = 1;                // 因为是删除行尾的字，所以要左 
-	me["sText"][me["iS_Row"]+me["iRow"]-2] = str;
+        else        go_left = 1;                // 因为是删除行尾的字，所以要左
+    me["sText"][me["iS_Row"]+me["iRow"]-2] = str;
         printf(ESC "[%d;1f%-80s", me["iRow"]+1,        me["sText"][me["iS_Row"]+
                 me["iRow"]-2][me["iS_Col"]-1..me["iE_Col"]-1]);
         if (go_left && !bs) _left(pl);
@@ -862,8 +862,8 @@ private void _next_match(object pl)                // 搜寻/替换下个符合�
                                         ..me["iE_Col"]-1]);
                         }
                         // 将游漂移到搜寻字串後面
-                        else        
-				me["iCol"] = me["iCol"]+strlen(me["sSearch"])-me["iS_Col"]+1;
+                        else
+                me["iCol"] = me["iCol"]+strlen(me["sSearch"])-me["iS_Col"]+1;
                         _refresh_status(pl);
                         break;
                 } // if found

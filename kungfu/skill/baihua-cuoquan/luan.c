@@ -8,7 +8,7 @@ inherit F_SSERVER;
 int perform(object me, object target)
 {
         int skill, ap, dp, damage;
-	string msg;
+    string msg;
 
         if (userp(me) && ! me->query("can_perform/baihua-cuoquan/luan"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -29,7 +29,7 @@ int perform(object me, object target)
 
         if (me->query("neili") < 200)
                 return notify_fail("你的真气不够，难以施展" LUAN "。\n");
- 
+
         if (me->query_skill_mapped("unarmed") != "baihua-cuoquan")
                 return notify_fail("你没有激发百花错拳，难以施展" LUAN "。\n");
 
@@ -42,9 +42,9 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIW "$N" HIW "顿步沉身，双掌朝$n" HIW "交错打出，掌锋拳影重"
+    msg = HIW "$N" HIW "顿步沉身，双掌朝$n" HIW "交错打出，掌锋拳影重"
               "重叠叠，正是一招「百花错乱」。\n" NOR;
-	me->add("neili", -50);
+    me->add("neili", -50);
 
         ap = me->query_skill("unarmed");
         dp = target->query_skill("parry");
@@ -70,4 +70,3 @@ int perform(object me, object target)
 
         return 1;
 }
-

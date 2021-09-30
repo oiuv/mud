@@ -9,9 +9,9 @@ void create()
 是人人害怕的灵鹫宫了.
 LONG);
         set("exits", ([
-            	"northup" : "/d/lingjiu/shanjiao",
-            	"northdown" : __DIR__"xxh1",
-            	"south" : __DIR__"tianroad1",
+                "northup" : "/d/lingjiu/shanjiao",
+                "northdown" : __DIR__"xxh1",
+                "south" : __DIR__"tianroad1",
         ]));
         set("objects", ([
                 CLASS_D("xingxiu") + "/shihou" : 1,
@@ -24,4 +24,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

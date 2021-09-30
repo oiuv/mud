@@ -18,8 +18,8 @@ LONG);
                 CLASS_D("gaibang") + "/ma" : 1,
                 CLASS_D("gaibang") + "/xi" : 1,
                 CLASS_D("gaibang") + "/wu" : 1,
-		"/d/gaibang/npc/6dai" : 1 + random(2),
-		"/d/gaibang/npc/7dai" : 1 + random(2),
+        "/d/gaibang/npc/6dai" : 1 + random(2),
+        "/d/gaibang/npc/7dai" : 1 + random(2),
         ]));
         set("no_clean_up", 0);
         setup();

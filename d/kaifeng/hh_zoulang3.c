@@ -10,9 +10,9 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"hh_qianting",
-  		"east" : __DIR__"hh_pianting2",
-	]));
+          "west" : __DIR__"hh_qianting",
+          "east" : __DIR__"hh_pianting2",
+    ]));
         setup();
         replace_program(ROOM);
 }

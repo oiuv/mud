@@ -1,18 +1,18 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 void create()
 {
-	set("short", "后院");
-	set("long", @LONG
+    set("short", "后院");
+    set("long", @LONG
 你走进后院，迎面是一个大花园，很是美观。池中立着块
 巨大无比的假山 (jiashan)。水池的两旁种满了花草，郁郁葱
 葱，树木枝叶茂密，遮盖了大半个院子。南边一条长长的木制
 长廊，通往苗家的后厅。
 LONG);
-	set("exits", ([
-  		"south" : __DIR__"miaojia_zoulang2",
-	]));
+    set("exits", ([
+          "south" : __DIR__"miaojia_zoulang2",
+    ]));
 
         set("item_desc", ([
                 "jiashan" : WHT "\n你发现假山背面光滑无比，似"
@@ -65,10 +65,10 @@ int do_think(string arg)
         me->receive_damage("jing", 60);
 
         if (me->can_improve_skill("miaojia-neigong"))
-	{
+    {
                 // 天赋聪颖增加研读速度
                 if (me->query("special_skill/clever"))
-                	me->improve_skill("miaojia-neigong", me->query("int") + 9);
+                    me->improve_skill("miaojia-neigong", me->query("int") + 9);
                 else
                         me->improve_skill("miaojia-neigong", me->query("int"));
         }

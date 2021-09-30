@@ -10,8 +10,8 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-		"out" : __DIR__"zhulin",
-	]));
+        "out" : __DIR__"zhulin",
+    ]));
 
         setup();
         replace_program(ROOM);

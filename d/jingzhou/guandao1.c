@@ -9,13 +9,12 @@ void create()
 LONG);
         set("outdoors", "jingzhou");
         set("exits", ([
-  		"east" : __DIR__"road7",
-  		"west" : __DIR__"guandao2",
-	]));
+          "east" : __DIR__"road7",
+          "west" : __DIR__"guandao2",
+    ]));
 
         set("no_clean_up", 0);
 
         setup();
         replace_program(ROOM);
 }
-

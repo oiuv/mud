@@ -11,8 +11,8 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"south" : __DIR__"hh_xiaojing2",
-	]));
+          "south" : __DIR__"hh_xiaojing2",
+    ]));
         set("objects", ([
                 CLASS_D("honghua") + "/chen" : 1,
                 __DIR__"npc/xinyan" : 1,

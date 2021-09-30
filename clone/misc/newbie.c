@@ -21,6 +21,5 @@ void create()
 
 int do_effect(object me)
 {
-	return HELP_CMD->main(this_player(), "feature");
+    return HELP_CMD->main(this_player(), "feature");
 }
-

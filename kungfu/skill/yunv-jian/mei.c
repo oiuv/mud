@@ -10,7 +10,7 @@ int perform(object me, object target)
         string msg, wn;
         object weapon;
         int level;
-  
+
         me = this_player();
 
         if (userp(me) && ! me->query("can_perform/yunv-jian/mei"))
@@ -41,7 +41,7 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         wn = weapon->name();
-                           
+
         msg = HIC "\n$N" HIC "陡然间姿态万千，身法飘逸，犹如一个婀娜"
               "多姿的女子在随歌漫舞一样。但是$N手中" + wn + HIC "却"
               "跟随着身体轻盈地晃动，看似毫无章法，却又像是隐藏着厉"
@@ -53,20 +53,18 @@ int perform(object me, object target)
         me->add("neili", -50);
         if (level / 2 + random(level) > target->query_skill("dodge", 1))
         {
-		msg = HIY "$N" HIY "看不出$n" HIY "招式中的虚实，连忙"
-                      "护住自己全身，一时竟无以应对！\n" NOR; 
+        msg = HIY "$N" HIY "看不出$n" HIY "招式中的虚实，连忙"
+                      "护住自己全身，一时竟无以应对！\n" NOR;
                 target->start_busy(2 + random(level / 24));
                 me->start_busy(random(2));
-	} else
+    } else
         {
-		msg = CYN "可是$N" CYN "看出了$n" CYN "这招乃虚招，顿"
+        msg = CYN "可是$N" CYN "看出了$n" CYN "这招乃虚招，顿"
                       "时一丝不乱，镇定自若。\n" NOR;
-                      
+
                 me->start_busy(2);
-	}
-	message_combatd(msg, target, me);
+    }
+    message_combatd(msg, target, me);
 
-	return 1;
+    return 1;
 }
-
-

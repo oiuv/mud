@@ -11,12 +11,12 @@ void create()
 湖中的眼高于顶，顿时大为开心。
 LONG);
         set("exits", ([
-            	"down" : __DIR__"lichunyuan",
+                "down" : __DIR__"lichunyuan",
         ]));
         set("objects", ([
-            	__DIR__"npc/guigong" : 1,
+                __DIR__"npc/guigong" : 1,
         ]));
-	set("no_clean_up", 0);
+    set("no_clean_up", 0);
         set("no_fight", 1);
         set("no_steal", 1);
         set("no_beg", 1);
@@ -26,10 +26,10 @@ LONG);
 
 int valid_leave(object me, string dir)
 {
-    	me = this_player();
+        me = this_player();
 
-    	if (me->query_condition("prostitute"))
-      		return notify_fail(CYN "龟公一把抱住你，喝道：看你往哪里逃！\n" NOR);
+        if (me->query_condition("prostitute"))
+              return notify_fail(CYN "龟公一把抱住你，喝道：看你往哪里逃！\n" NOR);
 
-	return 1;
+    return 1;
 }

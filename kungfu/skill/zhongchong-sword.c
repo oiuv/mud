@@ -57,19 +57,19 @@ int practice_skill(object me)
         me->add("neili", -80);
         return 1;
 }
-                                          
+
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-	if( damage_bonus < 100 ) return 0;
+    if( damage_bonus < 100 ) return 0;
 
-	if( random(damage_bonus/4) > victim->query_str() )
-	{
-		victim->receive_wound("qi", (damage_bonus - 100) / 2 );
-		return HIR "你听到「嗤啦」一声轻响，脸上竟溅到一些血滴！\n" NOR;
-	}
+    if( random(damage_bonus/4) > victim->query_str() )
+    {
+        victim->receive_wound("qi", (damage_bonus - 100) / 2 );
+        return HIR "你听到「嗤啦」一声轻响，脸上竟溅到一些血滴！\n" NOR;
+    }
 }
 
 mapping query_action(object me, object weapon)
 {
-	return action[random(sizeof(action))];
+    return action[random(sizeof(action))];
 }

@@ -11,12 +11,12 @@ int perform(object me, object target)
         int damage;
         string msg;
         int ap, dp, slv, clv, p;
-		
-		float improve;
-		int lvl, m, n;
-		string martial;
-		string *ks;
-		martial = "finger";
+
+        float improve;
+        int lvl, m, n;
+        string martial;
+        string *ks;
+        martial = "finger";
 
         if (! target) target = offensive_target(me);
 
@@ -46,25 +46,25 @@ int perform(object me, object target)
 
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
-			
-		lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
-		lvl = lvl * 4 / 5;
-		ks = keys(me->query_skills(martial));
-		improve = 0;
-		n = 0;
-		//最多给予5个技能的加成
-		for (m = 0; m < sizeof(ks); m++)
-		{
-			if (SKILL_D(ks[m])->valid_enable(martial))
-			{
-				n += 1;
-				improve += (int)me->query_skill(ks[m], 1);
-				if (n > 4 )
-					break;
-			}
-		}
-		
-		improve = improve * 5 / 100 / lvl;
+
+        lvl = to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3));
+        lvl = lvl * 4 / 5;
+        ks = keys(me->query_skills(martial));
+        improve = 0;
+        n = 0;
+        //最多给予5个技能的加成
+        for (m = 0; m < sizeof(ks); m++)
+        {
+            if (SKILL_D(ks[m])->valid_enable(martial))
+            {
+                n += 1;
+                improve += (int)me->query_skill(ks[m], 1);
+                if (n > 4 )
+                    break;
+            }
+        }
+
+        improve = improve * 5 / 100 / lvl;
 
         damage = me->query_skill("finger") + me->query_skill("force");
         damage += random(damage);
@@ -72,16 +72,16 @@ int perform(object me, object target)
 
         ap = me->query_skill("finger");
         dp = target->query_skill("dodge");
-		
-		ap += ap * improve;
+
+        ap += ap * improve;
 
         msg = HIW "只见$N" HIW "十指分摊，霎时破空声骤响，数股剑气至指尖激"
               "射而出，朝$n" HIW "径直奔去！\n" NOR;
 
         me->start_busy(3 + random(3));
 
-        if (slv >= 140 
-            && random(5) == 0 
+        if (slv >= 140
+            && random(5) == 0
             && slv >= clv - 60 // 如果参合指等级比六脉神剑等级高60级以上取消特殊效果
             &&! target->is_busy()
             && target->query_skill_prepared("finger") == "liumai-shenjian")
@@ -96,7 +96,7 @@ int perform(object me, object target)
 
         } else
         if (ap * 3 / 4 + random(ap) > dp)
-        { 
+        {
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 64,
                                            HIR "\n顿时只听“嗤啦”的一声，$n" HIR
                                            "躲闪不及，剑气顿时穿胸而过，带出一蓬"
@@ -110,10 +110,10 @@ int perform(object me, object target)
         ap = me->query_skill("finger");
         dp = target->query_skill("force");
 
-        if (slv >= 160 
-            && random(8) == 0 
+        if (slv >= 160
+            && random(8) == 0
             && slv >= clv - 60  // 如果参合指等级比六脉神剑等级高60级以上取消特殊效果
-            &&! target->is_busy() 
+            &&! target->is_busy()
             && target->query_skill_prepared("finger") == "liumai-shenjian")
         {
                 msg += HIY "\n忽见$n" HIY "左手小指一伸，一招「少泽剑」至指尖透出"
@@ -126,7 +126,7 @@ int perform(object me, object target)
 
         } else
         if (ap * 3 / 4 + random(ap) > dp)
-        { 
+        {
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 75,
                                            HIR "\n只听$n" HIR "一声惨嚎，被$N" HIR
                                            "的剑气刺中了要害，血肉模糊，鲜血迸流不"
@@ -140,8 +140,8 @@ int perform(object me, object target)
         ap = me->query_skill("finger");
         dp = target->query_skill("parry");
 
-        if (slv >= 180 
-            && random(10) == 0 
+        if (slv >= 180
+            && random(10) == 0
             && slv >= clv - 50  // 如果参合指等级比六脉神剑等级高50级以上取消特殊效果
             &&! target->is_busy()
             && target->query_skill_prepared("finger") == "liumai-shenjian")
@@ -157,7 +157,7 @@ int perform(object me, object target)
 
         } else
         if (ap * 2 / 3 + random(ap) > dp)
-        { 
+        {
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 100,
                                            HIR "\n$n" HIR "奋力招架，仍是不敌，$N"
                                            "的" HIR "无形剑气已透体而入，鲜血飞射"

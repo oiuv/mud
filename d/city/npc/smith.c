@@ -41,9 +41,9 @@ void create()
                 "血海无边" : (: ask_back :),
         ]));
 
-	setup();
+    setup();
 
-	carry_object("/clone/misc/cloth")->wear();
+    carry_object("/clone/misc/cloth")->wear();
 }
 
 varargs int receive_damage(string type, int n, object who)

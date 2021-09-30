@@ -10,8 +10,8 @@ int valid_learn(object me)
         if ((int)me->query_skill("force") < 80)
                 return notify_fail("你的内功火候不够，没有办法练黑血神针。\n");
 
-	if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("heixue-shenzhen", 1))
-		return notify_fail("你的基本暗器水平有限，无法领会更高深的黑血神针。\n");
+    if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("heixue-shenzhen", 1))
+        return notify_fail("你的基本暗器水平有限，无法领会更高深的黑血神针。\n");
 
         return 1;
 }

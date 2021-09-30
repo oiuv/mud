@@ -13,9 +13,8 @@ void create()
         else {
                 set("unit", "件");
                 set("material", "cloth");
-		set("value", 300);
+        set("value", 300);
                 set("armor_prop/armor", 1);
         }
         setup();
 }
-

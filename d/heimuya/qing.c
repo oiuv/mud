@@ -9,11 +9,11 @@ void create()
 者居中，神情恍惚。
 LONG );
         set("exits", ([
-            	"north" : __DIR__"chlang2",
+                "north" : __DIR__"chlang2",
         ]));
         set("objects",([
                 CLASS_D("riyue") + "/jia" : 1,
-            	__DIR__"npc/dizi5" : 4,
+                __DIR__"npc/dizi5" : 4,
         ]));
         setup();
         replace_program(ROOM);

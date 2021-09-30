@@ -16,7 +16,7 @@ void create()
         set("int", 22);
         set("con", 22);
         set("dex", 22);
-        
+
         set("max_qi", 1800);
         set("max_jing", 1000);
         set("neili", 1500);
@@ -52,15 +52,15 @@ void create()
         set("class", "taoist");
 
         set("inquiry", ([
-        	"道德经" : (: ask_me :),
+                "道德经" : (: ask_me :),
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "sword.sheng" :),
-		(: exert_function, "recover" :),
-	}) );
-                                
+        set("chat_chance_combat", 120);
+        set("chat_msg_combat", ({
+                (: perform_action, "sword.sheng" :),
+                (: exert_function, "recover" :),
+        }) );
+
         set("book_count", 1);
 
         setup();
@@ -70,13 +70,13 @@ void create()
 
 string ask_me()
 {
-        mapping fam; 
+        mapping fam;
         object ob;
 
-        if (!(fam = this_player()->query("family")) 
+        if (!(fam = this_player()->query("family"))
             || fam["family_name"] != "武当派")
         {
-                return RANK_D->query_respect(this_player()) + 
+                return RANK_D->query_respect(this_player()) +
                        "与本派素无来往，不知此话从何谈起？";
         }
 

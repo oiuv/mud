@@ -9,12 +9,12 @@ void create()
 像，纹理细腻，推开窗栏，还能看到繁华的开封街景。
 LONG);
         set("objects", ([
-  		__DIR__"npc/obj/yudixiang" : 1,
-	]));
+          __DIR__"npc/obj/yudixiang" : 1,
+    ]));
         set("no_clean_up", 0);
         set("exits", ([
-  		"down" : __DIR__"yuhuang",
-	]));
+          "down" : __DIR__"yuhuang",
+    ]));
 
         setup();
         replace_program(ROOM);

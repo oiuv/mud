@@ -27,13 +27,13 @@ int perform(object me, object target)
             (string)weapon->query("skill_type") != "throwing")
                 return notify_fail("你现在手中并没有拿着暗器。\n");
 
-        if (me->query_skill_mapped("strike") != "bagua-zhang") 
+        if (me->query_skill_mapped("strike") != "bagua-zhang")
                 return notify_fail("你没有激发八卦掌，难以施展" JIA "。\n");
 
-        if (me->query_skill_prepared("strike") != "bagua-zhang") 
+        if (me->query_skill_prepared("strike") != "bagua-zhang")
                 return notify_fail("你没有准备八卦掌，难以施展" JIA "。\n");
 
-        if (me->query_skill_mapped("throwing") != "bagua-biao") 
+        if (me->query_skill_mapped("throwing") != "bagua-biao")
                 return notify_fail("你没有激发八卦镖诀，难以施展" JIA "。\n");
 
         if ((int)me->query_skill("bagua-zhang", 1) < 120)
@@ -72,7 +72,7 @@ int perform(object me, object target)
                        "连退数步！\n" NOR;
                 target->receive_damage("qi", damage * 3 / 2, me);
                 target->receive_wound("qi", damage, me);
-	        p = (int)target->query("qi") * 100 / (int)target->query("max_qi");
+            p = (int)target->query("qi") * 100 / (int)target->query("max_qi");
 
                 COMBAT_D->clear_ahinfo();
                 weapon->hit_ob(me, target, me->query("jiali") + 100);

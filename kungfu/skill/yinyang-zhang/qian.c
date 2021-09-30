@@ -41,37 +41,37 @@ int perform(object me, object target)
         dp = target->query_skill("dodge");
 
         msg = HIC "\n$N" HIC "一声长啸，将内力运于双掌之上，施出绝招"
-              "「" HIW "千掌环" HIC "」，刹时间尘土漫天飞扬，$N" HIC 
+              "「" HIW "千掌环" HIC "」，刹时间尘土漫天飞扬，$N" HIC
               "双掌不断地连续拍出，攻势凌厉，令人不敢大意。\n" NOR;
         message_sort(msg, me, target);
-        
-	if (random(ap) > dp / 2)
-	{
-		msg = HIR "结果$n" HIR "目不暇接，顿时被$N" HIR "掌"
+
+    if (random(ap) > dp / 2)
+    {
+        msg = HIR "结果$n" HIR "目不暇接，顿时被$N" HIR "掌"
                       "风所困，顿时阵脚大乱。\n" NOR;
                 me->add_temp("apply/attack", 100);
         } else
         {
                 msg = HIY "$n" HIY "看清$N" HIY "这几招的来路，但"
-                      "内劲所至，掌风犀利，也只得小心抵挡。\n" NOR;          
+                      "内劲所至，掌风犀利，也只得小心抵挡。\n" NOR;
         }
-	message_vision(msg, me, target);
+    message_vision(msg, me, target);
 
         attack_time += 3 + random(ap / 40);
 
         if (attack_time > 6)
                 attack_time = 6;
 
-	me->add("neili", -attack_time * 20);
+    me->add("neili", -attack_time * 20);
 
-	for (i = 0; i < attack_time; i++)
-	{
-		if (! me->is_fighting(target))
-			break;
+    for (i = 0; i < attack_time; i++)
+    {
+        if (! me->is_fighting(target))
+            break;
                 COMBAT_D->do_attack(me, target, 0, 0);
-	}
+    }
         me->add_temp("apply/attack", -100);
-	me->start_busy(1 + random(attack_time));
+    me->start_busy(1 + random(attack_time));
 
-	return 1;
+    return 1;
 }

@@ -49,7 +49,7 @@ int do_effect(object me)
 
         me->set_temp("last_eat/baoming", time());
 
-	message_vision(HIG "$N" HIG "吃下一粒" + name() +
+    message_vision(HIG "$N" HIG "吃下一粒" + name() +
                        HIG "，眼睛直冒绿光！\n", me);
         tell_object(me, HIG "不一会儿你只觉得精神饱满，神气完足，内力充沛之极。\n" NOR);
 
@@ -66,11 +66,11 @@ int do_effect(object me)
         if (my["neili"] < my["max_neili"])
                 my["neili"] = my["max_neili"];
 
-	me->start_busy(3);
+    me->start_busy(3);
 
         add_amount(-1);
         if (query_amount() < 1)
                 destruct(this_object());
 
-	return 1;
+    return 1;
 }

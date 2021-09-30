@@ -1,7 +1,7 @@
 inherit SKILL;
 
 mapping *action = ({
-([	"action" : "$N跨前一步，一式「寒月初升」，单手一拂而过，拍向$n的$l",
+([    "action" : "$N跨前一步，一式「寒月初升」，单手一拂而过，拍向$n的$l",
         "force" : 70,
         "attack": 5,
         "dodge" : 38,
@@ -11,7 +11,7 @@ mapping *action = ({
         "skill_name" : "寒月初升",
         "damage_type" : "瘀伤"
 ]),
-([	"action" : "$N一式「云雾茫茫」，双手缤纷拍出，同时击向$n的胸前几大要穴",
+([    "action" : "$N一式「云雾茫茫」，双手缤纷拍出，同时击向$n的胸前几大要穴",
         "force" : 95,
         "attack": 8,
         "dodge" : 43,
@@ -21,7 +21,7 @@ mapping *action = ({
         "skill_name" : "云雾茫茫",
         "damage_type" : "瘀伤"
 ]),
-([	"action" : "$N使一式「天际排云」，双掌纷飞，连续拍出，掌影向$n层层推进",
+([    "action" : "$N使一式「天际排云」，双掌纷飞，连续拍出，掌影向$n层层推进",
         "force" : 120,
         "attack": 13,
         "dodge" : 51,
@@ -31,7 +31,7 @@ mapping *action = ({
         "skill_name" : "天际排云",
         "damage_type" : "瘀伤"
 ]),
-([	"action" : "$N一式「平步青云」，单手一挥，手影虚虚实实，难辨真伪，完全笼罩$n",
+([    "action" : "$N一式「平步青云」，单手一挥，手影虚虚实实，难辨真伪，完全笼罩$n",
         "force" : 140,
         "attack": 15,
         "dodge" : 65,

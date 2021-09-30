@@ -84,16 +84,16 @@ void update_killer()
 //This function starts fight between this_object() and ob
 void fight_ob(object ob)
 {
-	object env;
+    object env;
 
         if (! ob || ob == this_object()) return;
-	if (member_array(ob, enemy) != -1)
+    if (member_array(ob, enemy) != -1)
                 return;
 
-	env = environment();
-    	if (environment(ob) != env ||
-	    env->query("no_fight"))
-        	return;
+    env = environment();
+        if (environment(ob) != env ||
+        env->query("no_fight"))
+            return;
 
         if (! living(this_object()))
                 return;
@@ -116,21 +116,21 @@ void kill_ob(object ob)
 {
         object *guarded;
         object me;
-	object env;
+    object env;
         object gob;
 //      int i;
 
-	me = this_object();
+    me = this_object();
         if (! living(me) || !ob)
-        	return;
+            return;
 
-	env = environment();
+    env = environment();
         if (environment(ob) != env ||
-	    env->query("no_fight"))
-        	return;
+        env->query("no_fight"))
+            return;
 
         guarded = ob->query_temp("guarded");
-	if (! guarded) guarded = ({ });
+    if (! guarded) guarded = ({ });
         if (member_array(me, guarded) != -1)
         {
                 tell_object(ob, HIR "不能杀你要保护的人！\n" NOR);
@@ -141,28 +141,28 @@ void kill_ob(object ob)
         if (member_array(ob->query("id"), killer) == -1)
         {
                 killer += ({ ob->query("id") });
-        	tell_object(ob, HIR "看起来" + this_object()->name() +
-		    	     HIR "想杀死你！\n" NOR);
-	}
+            tell_object(ob, HIR "看起来" + this_object()->name() +
+                     HIR "想杀死你！\n" NOR);
+    }
 
         foreach (gob in guarded)
         {
-		if (! gob || gob == me ||
-		    environment(gob) != environment())
-			continue;
+        if (! gob || gob == me ||
+            environment(gob) != environment())
+            continue;
 
-		if (! living(gob))
-			continue;
+        if (! living(gob))
+            continue;
 
-		if (gob->is_killing(me->query("id")))
-			continue;
+        if (gob->is_killing(me->query("id")))
+            continue;
 
                 tell_object(gob, HIR + ob->name(1) +
-			    "受到攻击，你挺身而出，加入战团！\n" NOR);
+                "受到攻击，你挺身而出，加入战团！\n" NOR);
                 switch (random(8))
                 {
                 case 0:
-		        message_vision(HIW "$N" HIW "一言不发，对$n"
+                message_vision(HIW "$N" HIW "一言不发，对$n"
                                        HIW "发动了攻击。\n" NOR, gob, me);
                         break;
                 case 1:
@@ -201,8 +201,8 @@ void kill_ob(object ob)
                         break;
                 }
 
-		if (ob->is_want_kill(me->query("id")))
-			gob->want_kill(me);
+        if (ob->is_want_kill(me->query("id")))
+            gob->want_kill(me);
                 gob->kill_ob(me);
         }
         fight_ob(ob);
@@ -210,13 +210,13 @@ void kill_ob(object ob)
 
 void want_kill(object ob)
 {
-	    string ob_id;
+        string ob_id;
 
         if (! userp(ob)) return;
 
         if (! arrayp(want_kills)) want_kills = ({ });
 
-	    ob_id = ob->query("id");
+        ob_id = ob->query("id");
         if (is_killing(ob_id) ||
             is_want_kill(ob_id)) return;
 
@@ -259,10 +259,10 @@ object select_opponent()
 int remove_enemy(object ob)
 {
         int i;
-		enemy -= ({ ob });
+        enemy -= ({ ob });
         if (! (i = sizeof(enemy)))
-			delete_temp("combat_time");//combat_time 玩家战斗时间
-		return 1;
+            delete_temp("combat_time");//combat_time 玩家战斗时间
+        return 1;
 }
 
 // Stop killing ob.
@@ -287,12 +287,12 @@ int remove_killer(object ob)
 void remove_all_enemy(int force)
 {
         int i;
-		delete_temp("combat_time");//combat_time 玩家战斗时间
-	if (! (i = sizeof(enemy)))
-		return;
+        delete_temp("combat_time");//combat_time 玩家战斗时间
+    if (! (i = sizeof(enemy)))
+        return;
 
         while (i--)
-	{
+    {
                 // We ask our enemy to stop fight, but not nessessary to confirm
                 // if the fight is succeffully stopped, bcz the fight will start
                 // again if our enemy keeping call COMBAT_D->fight() on us.
@@ -370,35 +370,35 @@ void lost()
 // return the next action of this object
 mixed query_action(int flag)
 {
-	if (flag || !functionp(next_action))
-		return next_action;
+    if (flag || !functionp(next_action))
+        return next_action;
 
-	return (*next_action)(this_object());
+    return (*next_action)(this_object());
 }
 
 // set next action
 int set_action(mixed action, string fun)
 {
-	if (mapp(action) || functionp(action))
-	{
-		next_action = action;
-	} else
-	if (stringp(action) || objectp(action))
-	{
-		next_action = (: call_other, action, fun :);
-	} else
-		return 0;
+    if (mapp(action) || functionp(action))
+    {
+        next_action = action;
+    } else
+    if (stringp(action) || objectp(action))
+    {
+        next_action = (: call_other, action, fun :);
+    } else
+        return 0;
 
-	return 1;
+    return 1;
 }
 
 // set default action
 // this action may be a simple mapping or a file & function to called
 int set_default_action(mixed ob, string fun)
 {
-	default_object = ob;
-	default_function = fun;
-	return 1;
+    default_object = ob;
+    default_function = fun;
+    return 1;
 }
 
 // reset_action()
@@ -459,7 +459,7 @@ int attack()
         if (objectp(opponent))
         {
                 set_temp("last_opponent", opponent);
-				add_temp("combat_time",1);//added by Ciwei@SJ
+                add_temp("combat_time",1);//added by Ciwei@SJ
                 COMBAT_D->fight(this_object(), opponent);
                 return 1;
         } else
@@ -471,7 +471,7 @@ int attack()
 //
 void init()
 {
-	object me;
+    object me;
         object ob;
         mapping my, its;
         string vendetta_mark;
@@ -480,7 +480,7 @@ void init()
         // most of these conditions are checked again in COMBAT_D's auto_fight()
         // function, these check reduces lots of possible failure in the call_out
         // launched by auto_fight() and saves some overhead.
-	me = this_object();
+    me = this_object();
 
         if (! living(me) ||
             ! (ob = this_player()) ||

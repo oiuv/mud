@@ -15,7 +15,7 @@ void create()
                 set("unit", "张");
                 set("long", HIR "这是一张铅铁所铸，舞凤雕纹，制作非常精细的弩。\n" NOR);
                 set("no_sell", "我的天…郡王府的东西你也敢拿来卖？");
-		set("value", 80000);
+        set("value", 80000);
                 set("power", 200000);   // 攻击威力
                 set("accuracy", 200);   // 准确度200%
         }

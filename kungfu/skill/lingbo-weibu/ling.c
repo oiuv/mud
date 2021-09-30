@@ -11,8 +11,8 @@ void remove_effect(object me, int amount, int amount1);
 int perform(object me, object target)
 {
         string msg;
-	int level, count;
-        
+    int level, count;
+
         if (userp(me) && ! me->query("can_perform/lingbo-weibu/ling"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 

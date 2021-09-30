@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 void create()
@@ -29,13 +29,13 @@ int valid_leave(object me, string dir)
 {
 
         if (! me->query_temp("rent_paid")
-	   && dir == "up")
-        	return notify_fail(CYN "维吾尔少女连忙挡在楼梯前，急道：客"
+       && dir == "up")
+            return notify_fail(CYN "维吾尔少女连忙挡在楼梯前，急道：客"
                                    "官，您得先付钱啊！\n" NOR);
 
         if (me->query_temp("rent_paid")
-	   && dir == "west")
-        	return notify_fail(CYN "维吾尔少女跑到门边拦住：您付了银子"
+       && dir == "west")
+            return notify_fail(CYN "维吾尔少女跑到门边拦住：您付了银子"
                                    "，怎麽不住店就走了呢？\n" NOR);
 
         return ::valid_leave(me, dir);

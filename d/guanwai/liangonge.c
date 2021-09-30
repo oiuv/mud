@@ -13,5 +13,5 @@ LONG );
         ]));
         set("for_family", "关外胡家");
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

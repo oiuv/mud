@@ -64,15 +64,13 @@ void greeting(object ob)
 
 int accept_object(object who, object ob)
 {
-	
-	if (ob->query("money_id") && ob->value() >= 5000) 
-	{
+
+    if (ob->query("money_id") && ob->value() >= 5000)
+    {
              say( "马贼大喊一声：既然交了钱，就请马前过。\n");
              ob->delete_temp("mazei");
-		return 1;
-	}
+        return 1;
+    }
        say( "马贼大怒：就这么点钱？\n");
        return 0;
 }
-
-

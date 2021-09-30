@@ -9,11 +9,11 @@ void create()
 惕的注视着周围的一切。
 LONG);
         set("exits", ([
-            	"north" :  __DIR__"grass1",
+                "north" :  __DIR__"grass1",
         ]));
         set("objects", ([
                 CLASS_D("riyue") + "/tong" : 1,
-            	__DIR__ "npc/dizi3" : 4,
+                __DIR__ "npc/dizi3" : 4,
         ]));
         setup();
         replace_program(ROOM);

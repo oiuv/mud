@@ -61,64 +61,64 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "claw" ||  usage == "parry";
+    return usage == "claw" ||  usage == "parry";
 }
 
 int valid_combine(string combo)
 {
-	return combo == "tianchan-zhang";
+    return combo == "tianchan-zhang";
 }
 
 int valid_learn(object me)
 {
-	if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
             return notify_fail("练五圣毒爪必须空手。\n");
 
         if ((int)me->query("max_neili") < 200)
             return notify_fail("你的内力太弱，无法练五圣毒爪。\n");
 
-	if ((int)me->query_skill("claw", 1) < (int)me->query_skill("wusheng-zhao", 1))
-	    return notify_fail("你的基本爪法水平有限，无法领会更高深的五圣毒爪。\n");
+    if ((int)me->query_skill("claw", 1) < (int)me->query_skill("wusheng-zhao", 1))
+        return notify_fail("你的基本爪法水平有限，无法领会更高深的五圣毒爪。\n");
 
-	return 1;
+    return 1;
 }
 
 string query_skill_name(int level)
 {
-	int i;
-	for(i = sizeof(action); i > 0; i--)
-		if(level >= action[i-1]["lvl"])
-			return action[i-1]["skill_name"];
+    int i;
+    for(i = sizeof(action); i > 0; i--)
+        if(level >= action[i-1]["lvl"])
+            return action[i-1]["skill_name"];
 }
 
 mapping query_action(object me, object weapon)
 {
-	int i, level;
-	level = (int) me->query_skill("wusheng-zhao",1);
-	for(i = sizeof(action); i > 0; i--)
-		if(level > action[i-1]["lvl"])
+    int i, level;
+    level = (int) me->query_skill("wusheng-zhao",1);
+    for(i = sizeof(action); i > 0; i--)
+        if(level > action[i-1]["lvl"])
                         return action[NewRandom(i, 5, level/5)];
 
 }
 
 int practice_skill(object me)
 {
-//	object* ob;
-	int /*i,*/skill/*,damage*/;
+//    object* ob;
+    int /*i,*/skill/*,damage*/;
 
-	skill = me->query_skill("wusheng-zhao",1);
-	if ((int)me->query("qi") < 40)
-		return notify_fail("你的体力太低了。\n");
+    skill = me->query_skill("wusheng-zhao",1);
+    if ((int)me->query("qi") < 40)
+        return notify_fail("你的体力太低了。\n");
 
-	if ((int)me->query("neili") < 40)
-		return notify_fail("你的内力不够练五圣毒爪。\n");
+    if ((int)me->query("neili") < 40)
+        return notify_fail("你的内力不够练五圣毒爪。\n");
 
-	me->receive_damage("qi", 30);
+    me->receive_damage("qi", 30);
         me->add("neili", -31);
-	return 1;
+    return 1;
 }
 
 string perform_action_file(string action)
 {
-	return __DIR__"wusheng-zhao/" + action;
+    return __DIR__"wusheng-zhao/" + action;
 }

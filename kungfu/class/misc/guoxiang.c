@@ -34,7 +34,7 @@ void create()
         set("jingli", 150);
 
         set("combat_exp", 2400000);
-	set("score", 10000000);
+    set("score", 10000000);
 
         set_skill("force", 270);
         set_skill("dodge", 270);

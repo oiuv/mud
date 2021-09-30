@@ -21,7 +21,7 @@ LONG );
              __DIR__"npc/shuobude"   : 1,
              __DIR__"npc/zhangzhong" : 1,
              __DIR__"npc/pengyingyu" : 1,
-             __DIR__"npc/zhoudian"   : 1, 
+             __DIR__"npc/zhoudian"   : 1,
 
         ]));
 
@@ -45,8 +45,7 @@ int valid_leave(object me, string dir)
              (objectp(present("shuo bude", environment(me)))) ||
              (objectp(present("leng qian", environment(me)))) ||
              (objectp(present("zhou dian", environment(me))))))
-         	return notify_fail("明教五散人拦住你说：此处乃明教"
-				   "重地，请止步。\n");
+             return notify_fail("明教五散人拦住你说：此处乃明教"
+                   "重地，请止步。\n");
         return ::valid_leave(me, dir);
 }
-

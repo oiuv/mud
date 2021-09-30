@@ -39,7 +39,7 @@ private void do_bonus(object room)
                 // 佛门弟子增加佛学技能
                 foreach (ob in obs)
                 {
-						//非佛门弟子也可增加
+                        //非佛门弟子也可增加
                         //if (ob->query("class") != "bonze")
                         //        continue;
 

@@ -8,9 +8,9 @@ void create()
 人小贩们走来走去都想尽快卖完了回家。常年在这里摆摊的都
 要给南面屋里的恶霸交保护费。
 LONG);
-	set("outdoors", "zhongzhou");
+    set("outdoors", "zhongzhou");
 
-        set("exits", ([                 
+        set("exits", ([
                 "south" : __DIR__"eba",
                 "west" : __DIR__"wendingnan1",
         ]));

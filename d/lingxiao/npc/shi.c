@@ -26,8 +26,8 @@ void create()
 
         set("chat_chance", 8);
         set("chat_msg", ({
-        	CYN "时万年恨恨说道：老疯子不知道又怎么了，把自己关在里面弄死不肯出来。\n" NOR,
-       		CYN "时万年把剑一弹，傲然道：有我守在这，谁都别想把老疯子放出来。\n" NOR,
+            CYN "时万年恨恨说道：老疯子不知道又怎么了，把自己关在里面弄死不肯出来。\n" NOR,
+               CYN "时万年把剑一弹，傲然道：有我守在这，谁都别想把老疯子放出来。\n" NOR,
         }) );
 
         set_skill("force", 160);
@@ -76,18 +76,18 @@ void attempt_apprentice(object ob)
 }
 
 void init()
-{ 
+{
         object ob;
         ::init();
 
         ob = this_player();
 
-      	if (ob->query("family/family_name") != "凌霄城")
+          if (ob->query("family/family_name") != "凌霄城")
         {
                 command("heng");
                 command("say 你居然敢闯入本派禁地，受死吧！\n");
                 remove_call_out("kill_ob");
-                call_out("kill_ob", 1, ob); 
+                call_out("kill_ob", 1, ob);
         } else
         if (ob->query("family/master_name") == "白自在")
         {

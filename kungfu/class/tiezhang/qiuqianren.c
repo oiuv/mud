@@ -46,7 +46,7 @@ void create()
         set_skill("unarmed", 280);
         set_skill("feilong-zhang", 260);
         set_skill("staff", 260);
-		set_skill("blade", 260);
+        set_skill("blade", 260);
         set_skill("tianlei-dao", 260);
         set_skill("literate", 200);
         set_skill("martial-cognize", 200);
@@ -58,7 +58,7 @@ void create()
         map_skill("parry", "tie-zhang");
         map_skill("dodge", "dengping-dushui");
         map_skill("staff", "feilong-zhang");
-		map_skill("blade", "tianlei-dao");
+        map_skill("blade", "tianlei-dao");
 
         prepare_skill("strike", "tie-zhang");
 

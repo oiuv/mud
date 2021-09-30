@@ -75,8 +75,8 @@ int valid_enable(string usage) { return usage == "hand" || usage == "parry"; }
 
 int valid_combine(string combo)
 {
-	return combo=="yujiamu-quan" ||
-	       combo=="huoyan-dao";
+    return combo=="yujiamu-quan" ||
+           combo=="huoyan-dao";
 }
 
 int valid_learn(object me)
@@ -94,7 +94,7 @@ int valid_learn(object me)
                 return notify_fail("你对密宗心法的知识了解太少，无法理解密宗大手印。\n");
 
         if ((int)me->query_skill("lamaism", 1) < (int)me->query_skill("dashou-yin",1) &&
-	    (int)me->query_skill("lamaism", 1) < 200)
+        (int)me->query_skill("lamaism", 1) < 200)
                 return notify_fail("你受密宗心法知识的知识所限，难以进一步领悟大手印。\n");
 
         if ((int)me->query_skill("hand", 1) < (int)me->query_skill("dashou-yin",1))

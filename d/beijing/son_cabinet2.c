@@ -9,10 +9,10 @@ void create ()
 刀和几幅字画，桌上放着三两部书，连床帐都只是青布的。
 LONG);
 
-  	set("exits", ([
-  		"south" : __DIR__"stone_road4",
-	]));
+      set("exits", ([
+          "south" : __DIR__"stone_road4",
+    ]));
 
-  	setup();
+      setup();
         replace_program(ROOM);
 }

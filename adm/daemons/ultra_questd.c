@@ -428,7 +428,7 @@ public void give_accede(object me, object who)
 
         // 人物注册接受玩家
         me->set_temp("need_accede/user", who->query("id"));
-        me->set_temp("need_accede/lvl", lvl); 
+        me->set_temp("need_accede/lvl", lvl);
 
         return;
 }
@@ -1085,15 +1085,15 @@ int accept_object(object me, object who, object ob)
 
                         if (ob->query("send/send") != me->name())
                         {
-                        	message_vision(CYN "$N" CYN "皱眉道：你会认人么？这"
-                        	               "封信又不是写给我的。\n" NOR, me);
+                            message_vision(CYN "$N" CYN "皱眉道：你会认人么？这"
+                                           "封信又不是写给我的。\n" NOR, me);
                                 return 0;
                         }
 
                         if (ob->query("send/user") != who->name())
                         {
-                        	message_vision(CYN "$N" CYN "皱眉道：这信是谁让你送"
-                        	               "的？我怎么不认识。\n" NOR, me);
+                            message_vision(CYN "$N" CYN "皱眉道：这信是谁让你送"
+                                           "的？我怎么不认识。\n" NOR, me);
                                 return 0;
                         }
 
@@ -1108,15 +1108,15 @@ int accept_object(object me, object who, object ob)
 
                         if (ob->query("send/send") != me->name())
                         {
-                        	message_vision(CYN "$N" CYN "皱眉道：你会认人么？这"
-                        	               "包裹又不是拿给我的。\n" NOR, me);
+                            message_vision(CYN "$N" CYN "皱眉道：你会认人么？这"
+                                           "包裹又不是拿给我的。\n" NOR, me);
                                 return 0;
                         }
 
                         if (ob->query("send/user") != who->name())
                         {
-                        	message_vision(CYN "$N" CYN "皱眉道：这包裹是谁给你"
-                        	               "的？还是你自己留着吧。\n" NOR, me);
+                            message_vision(CYN "$N" CYN "皱眉道：这包裹是谁给你"
+                                           "的？还是你自己留着吧。\n" NOR, me);
                                 return 0;
                         }
 

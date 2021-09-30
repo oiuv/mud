@@ -57,7 +57,7 @@ LONG );
         set_skill("hand", 260);
         set_skill("zhemei-shou", 260);
         set_skill("strike", 280);
-	set_skill("piaomiao-zhang", 240);
+    set_skill("piaomiao-zhang", 240);
         set_skill("liuyang-zhang", 280);
         set_skill("cuff", 100);
         set_skill("luohan-quan", 100);
@@ -88,7 +88,7 @@ LONG );
         map_skill("throwing", "liuyang-zhang");
 
         prepare_skill("hand", "zhemei-shou");
-        prepare_skill("strike", "liuyang-zhang");        
+        prepare_skill("strike", "liuyang-zhang");
 
         create_family("灵鹫宫", 2, "弟子");
 
@@ -103,17 +103,17 @@ LONG );
                 "破神诀" : (: ask_skill8 :),
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "hand.zhe" :),
-		(: perform_action, "hand.hai" :),
-		(: perform_action, "strike.huan" :),
-		(: perform_action, "strike.zhong" :),
-		(: perform_action, "strike.po" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-		(: exert_function, "shield" :),
-	}));
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "hand.zhe" :),
+        (: perform_action, "hand.hai" :),
+        (: perform_action, "strike.huan" :),
+        (: perform_action, "strike.zhong" :),
+        (: perform_action, "strike.po" :),
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+        (: exert_function, "shield" :),
+    }));
 
         set_temp("apply/damage", 100);
         set_temp("apply/unarmed_damage", 100);
@@ -136,14 +136,14 @@ void attempt_apprentice(object ob)
                 return;
         }
 
-        if ((int)ob->query_skill("lingjiu-xinfa", 1) < 100) 
+        if ((int)ob->query_skill("lingjiu-xinfa", 1) < 100)
         {
                 command("say 这个…这灵鹫心法…应该算是本门修炼内功的基础。");
                 command("say 现在嘛…嗯…你还是回去练练吧。");
                 return;
         }
 
-        if ((int)ob->query("max_neili") < 1200) 
+        if ((int)ob->query("max_neili") < 1200)
         {
                 command("say 这灵鹫宫和少林寺都一样，武功好不好全看内力。");
                 command("say 小僧劝…不…是在下劝你还是再回去练练吧。");
@@ -455,7 +455,7 @@ mixed ask_skill7()
                        "在$N" HIY "的左肩之上，$N" HIY "稍作\n诧异，"
                        "霎时只觉$n" HIY "内力源源不绝的汹涌而入，异"
                        "种真气注满体\n内，全身竟似快要炸裂开来，不禁"
-                       "花容失色。\n" NOR, me, this_object()); 
+                       "花容失色。\n" NOR, me, this_object());
 
         command("say 你懂了吗？");
         tell_object(me, HIC "你学会了「寰阳式」。\n" NOR);

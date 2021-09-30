@@ -15,7 +15,7 @@ string *dodge_msg = ({
 
 int valid_enable(string usage)
 {
-	return usage == "force" || usage == "dodge";
+    return usage == "force" || usage == "dodge";
 }
 
 int valid_force(string force)
@@ -34,22 +34,22 @@ int query_neili_improve(object me)
 
 int valid_learn(object me)
 {
-    	if (me->query_skill("force", 1) < 100)
-		return notify_fail("你的基本内功火候不够，无法学习瑜珈术！\n");
+        if (me->query_skill("force", 1) < 100)
+        return notify_fail("你的基本内功火候不够，无法学习瑜珈术！\n");
 
-	if (me->query("gender") != "男性")
-		return notify_fail("你不是男性，无法练习瑜珈术神功。\n");
+    if (me->query("gender") != "男性")
+        return notify_fail("你不是男性，无法练习瑜珈术神功。\n");
 
-	return ::valid_learn(me);
+    return ::valid_learn(me);
 }
 
 
 int practice_skill(object me)
 {
-	return notify_fail("瑜珈术只能用学(learn)的来增加熟练度。\n");
+    return notify_fail("瑜珈术只能用学(learn)的来增加熟练度。\n");
 }
 
 string exert_function_file(string func)
 {
-	return __DIR__"yujiashu/" + func;
+    return __DIR__"yujiashu/" + func;
 }

@@ -14,11 +14,11 @@ mixed ask_skill2();
 
 void create()
 {
-	object ob1, ob2;
+    object ob1, ob2;
         set_name("向问天", ({ "xiang wentian", "xiang", "wentian"}));
         set("nickname", HIR "天王老子" NOR );
         set("title", "日月神教光明右使");
-        set("long", @LONG 
+        set("long", @LONG
 他就是日月神教的光明右使向问天，为人极为
 豪爽。只见他白发苍苍，双目精光四射，内功
 甚是精纯。
@@ -32,7 +32,7 @@ LONG);
         set("int", 36);
         set("con", 36);
         set("dex", 36);
-        
+
         set("max_qi", 5800);
         set("max_jing", 4000);
         set("neili", 7600);
@@ -93,16 +93,16 @@ LONG);
                 "绝命七杀" : (: ask_skill2 :),
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "whip.chan" :),
-		(: perform_action, "whip.sha" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "whip.chan" :),
+        (: perform_action, "whip.sha" :),
                 (: perform_action, "cuff.tong" :),
                 (: perform_action, "claw.duan" :),
                 (: perform_action, "throwing.luo" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-	}) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+    }) );
 
         setup();
 
@@ -146,12 +146,12 @@ void attempt_apprentice(object ob)
                 return;
         }
 
-	if (ob->query_int() < 30)
-	{
-		command("sneer");
-		command("say 凭你的悟性能领悟什么？");
-		return;
-	}
+    if (ob->query_int() < 30)
+    {
+        command("sneer");
+        command("say 凭你的悟性能领悟什么？");
+        return;
+    }
 
         if (ob->query_skill("tianhuan-shenjue", 1) < 140
            && ob->query_skill("riyue-xinfa", 1) < 140)
@@ -255,7 +255,7 @@ mixed ask_skill1()
 
         message_sort(HIY "\n$n" HIY "点了点头，随即便将$N" HIY "招至身边"
                      "，在耳旁低声细说良久，$N" HIY "听后会心的一笑，看来"
-                     "大有所悟。\n\n" NOR, me, this_object()); 
+                     "大有所悟。\n\n" NOR, me, this_object());
 
         command("nod2");
         command("say 刚才我说的全是此招的精要，可要记牢了。");
@@ -303,7 +303,7 @@ mixed ask_skill2()
                      "”说完$n" HIY "招了招手，$N" HIY "连忙迎上前去，只"
                      "见$n" HIY "轻声在$N" HIY "说了些话，接着手中长索一"
                      "抖，登时幻出漫天鞭影，宛如蛟龙通天，无数鞭影向四面"
-                     "八方劲点而去。\n\n" NOR, me, this_object()); 
+                     "八方劲点而去。\n\n" NOR, me, this_object());
 
         command("nod2");
         command("say 招式便是如此，能否领悟就看你自己了。");

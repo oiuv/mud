@@ -17,7 +17,7 @@ LONG);
                 "east" : __DIR__"lake4",
         ]));
         set("objects", ([
-            	__DIR__"npc/su" : 1,
+                __DIR__"npc/su" : 1,
                 "/clone/quarry/yang" : 2,
         ]));
         set("quarrys", ([

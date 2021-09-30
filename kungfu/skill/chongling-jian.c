@@ -8,8 +8,8 @@ mapping *action = ({
 ([      "name"  : "青梅如豆",
         "action": "$N手中$w一抖，一招「青梅如豆」使出，眼中柔情万千，向$n的$l刺去",
         "force" : 70,
-	"attack": 10,
-	"parry" : 5,
+    "attack": 10,
+    "parry" : 5,
         "dodge" : 10,
         "damage": 30,
         "lvl"   : 0,
@@ -18,8 +18,8 @@ mapping *action = ({
 ([      "name"  : "雾中初见",
         "action": "$N身法陡快，一招「雾中初见」倒使上来，$w直指$n$l",
         "force" : 120,
-	"attack": 20,
-	"parry" : 15,
+    "attack": 20,
+    "parry" : 15,
         "dodge" : 20,
         "damage": 40,
         "lvl"   : 20,
@@ -28,8 +28,8 @@ mapping *action = ({
 ([      "name"  : "雨后乍逢",
         "action": "$N手中$w反转回来，似攻非攻，但剑身突转，刺向$n，心中似乎藏有万千感慨",
         "force" : 160,
-	"attack": 25,
-	"parry" : 20,
+    "attack": 25,
+    "parry" : 20,
         "dodge" : 30,
         "damage": 45,
         "lvl"   : 40,
@@ -38,8 +38,8 @@ mapping *action = ({
 ([      "name"  : "同生共死",
         "action": "$N长叹一声，跨步向前，使一招「同生共死」，手中$w斜刺而出，不守不防，誓将生死置之度外",
         "force" : 280,
-	"attack": 60,
-	"parry" : 10,
+    "attack": 60,
+    "parry" : 10,
         "dodge" : 10,
         "damage": 50,
         "lvl"   : 60,
@@ -62,7 +62,7 @@ int valid_learn(object me)
         return notify_fail("你必须先找一把剑才能学习冲灵剑法。\n");
 
     if (me->query_skill("sword", 1) < me->query_skill("chongling-jian", 1))
-	return notify_fail("你的基本剑法火候有限，无法领会更高深的冲灵剑法。\n");
+    return notify_fail("你的基本剑法火候有限，无法领会更高深的冲灵剑法。\n");
 
     return 1;
 }
@@ -83,7 +83,7 @@ string query_skill_name(int level)
 mapping query_action(object me, object weapon)
 {
         int i, level;
-	level = (int) me->query_skill("chongling-jian", 1);
+    level = (int) me->query_skill("chongling-jian", 1);
         for (i = sizeof(action); i > 0; i--)
                 if (level > action[i-1]["lvl"])
                         return action[NewRandom(i, 20, level/5)];
@@ -96,7 +96,7 @@ int practice_skill(object me)
 
     if (me->query_skill("huashan-jian", 1) < 100)
         return notify_fail("你华山剑法火候不够，无法练冲灵剑法。\n");
-                
+
     if ((int)me->query("neili") < 40)
         return notify_fail("你的内力不够，没有办法练习冲灵剑法。\n");
 

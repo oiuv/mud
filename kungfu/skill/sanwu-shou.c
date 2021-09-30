@@ -91,15 +91,15 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return usage == "whip" || usage == "parry";
+    return usage == "whip" || usage == "parry";
 }
 
 int valid_learn(object me)
 {
         object weapon;
 
-        if (me->query("character") != "心狠手辣" && me->query("character") != "国士无双") 
-                return notify_fail("练三无三不手必须要心狠手辣，我看你这点做得还不够。\n"); 
+        if (me->query("character") != "心狠手辣" && me->query("character") != "国士无双")
+                return notify_fail("练三无三不手必须要心狠手辣，我看你这点做得还不够。\n");
 
         if ( !objectp(weapon = me->query_temp("weapon"))
         || ( string)weapon->query("skill_type") != "whip" )
@@ -158,19 +158,19 @@ int practice_skill(object me)
 
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-		object weapon = me->query_temp("weapon");
+        object weapon = me->query_temp("weapon");
         if (! living(victim)
            || me->query("neili") < 200
            || me->query_skill("sanwu-shou", 1) < 120)
-        	return 0;
-			
-		if (victim->query("shen") > 0 && random(2))
-		{
-				me->add("neili", -30);
-				victim->receive_wound("qi", damage_bonus, me);
+            return 0;
+
+        if (victim->query("shen") > 0 && random(2))
+        {
+                me->add("neili", -30);
+                victim->receive_wound("qi", damage_bonus, me);
                 return HIR "$N" HIR "手中的" + weapon->name() +
                        HIR "抽尽天下的伪君子。\n" NOR;
-		}
+        }
         return 1;
 }
 

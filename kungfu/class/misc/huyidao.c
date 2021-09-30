@@ -6,24 +6,24 @@ inherit "/inherit/char/punisher";
 
 void create()
 {
-	set_name("胡一刀", ({ "hu yidao", "hu" }));
-	set("long",  "这是一个剽悍粗犷的北方大汉，双眼炯炯有神。\n");
-	set("gender", "男性");
-	set("age", 58);
-	set("attitude", "peaceful");
-	set("shen_type", 1);
-	set("str", 38);
-	set("int", 31);
-	set("con", 32);
-	set("dex", 36);
-	
-	set("max_qi", 6000);
-	set("max_jing", 3000);
-	set("neili", 7500);
-	set("max_neili", 7500);
-	set("jiali", 150);
-	set("combat_exp", 2500000);
-	set("score", 10000000);
+    set_name("胡一刀", ({ "hu yidao", "hu" }));
+    set("long",  "这是一个剽悍粗犷的北方大汉，双眼炯炯有神。\n");
+    set("gender", "男性");
+    set("age", 58);
+    set("attitude", "peaceful");
+    set("shen_type", 1);
+    set("str", 38);
+    set("int", 31);
+    set("con", 32);
+    set("dex", 36);
+
+    set("max_qi", 6000);
+    set("max_jing", 3000);
+    set("neili", 7500);
+    set("max_neili", 7500);
+    set("jiali", 150);
+    set("combat_exp", 2500000);
+    set("score", 10000000);
 
         set_skill("force", 210);            // 基本内功
         set_skill("lengyue-shengong", 210); // 冷月神功
@@ -50,17 +50,17 @@ void create()
         prepare_skill("strike", "tianchang-zhang");
         prepare_skill("cuff",   "hujia-quan");
 
-	create_family("关外胡家", 0, "老庄主");
+    create_family("关外胡家", 0, "老庄主");
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "blade.bafang" :),
-		(: perform_action, "blade.po" :),
-		(: perform_action, "cuff.kuai" :),
-		(: exert_function, "recover" :),
-	}));
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "blade.bafang" :),
+        (: perform_action, "blade.po" :),
+        (: perform_action, "cuff.kuai" :),
+        (: exert_function, "recover" :),
+    }));
 
-	setup();
-	carry_object("/clone/weapon/gangdao")->wield();
-	carry_object("/clone/misc/cloth")->wear();
+    setup();
+    carry_object("/clone/weapon/gangdao")->wield();
+    carry_object("/clone/misc/cloth")->wear();
 }

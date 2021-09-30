@@ -17,13 +17,10 @@ void create()
 
         set("attitude", "friendly");
         set("inquiry", ([
-            	"白自在" : "老爷子不知为什么，把自己关到监狱里。说是思什么过。",
-            	"监狱"   : "没少爷同意，你是进不去的。",
+                "白自在" : "老爷子不知为什么，把自己关到监狱里。说是思什么过。",
+                "监狱"   : "没少爷同意，你是进不去的。",
         ]) );
 
         setup();
         carry_object("/clone/cloth/cloth")->wear();
 }
-
-
-

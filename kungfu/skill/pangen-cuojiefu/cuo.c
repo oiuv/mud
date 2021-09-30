@@ -7,9 +7,9 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-	int level;
-	string msg;
+    object weapon;
+    int level;
+    string msg;
 
         if (userp(me) && ! me->query("can_perform/pangen-cuojiefu/cuo"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
@@ -44,22 +44,22 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIR "$N" HIR "高举手中" + weapon->name() + HIR "，陡然一声断喝，朝着$n"
+    msg = HIR "$N" HIR "高举手中" + weapon->name() + HIR "，陡然一声断喝，朝着$n"
               HIR "猛挥数斧，气势如虹。\n" NOR;
 
         me->add("neili", -30);
         if (random(level) > (int)target->query_skill("parry", 1) / 2)
         {
-		msg += HIR "$p" HIR "见$P" HIR "来势汹涌，不得不中途"
+        msg += HIR "$p" HIR "见$P" HIR "来势汹涌，不得不中途"
                        "变招，这一下登时便失了先机！\n" NOR;
                 target->start_busy(level / 18 + 1);
-	} else
+    } else
         {
-		msg += CYN "可是$p" CYN "看破$P" CYN "招式的来路，斜"
+        msg += CYN "可是$p" CYN "看破$P" CYN "招式的来路，斜"
                        "斜跳开，使这招未起到丝毫作用。\n" NOR;
-		me->start_busy(2);
-	}
-	message_combatd(msg, me, target);
+        me->start_busy(2);
+    }
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

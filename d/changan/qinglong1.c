@@ -10,11 +10,11 @@ void create ()
 比肩，笙歌处处。景物之美，直如神仙境地。南面有一座很具规模的寺
 院。偶尔有颂经之声传出。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 3
-		"south" : __DIR__"baoxiangsi",
-        	"west" : __DIR__"fufeng5",
-        	"east" : __DIR__"qinglong2",
+        "south" : __DIR__"baoxiangsi",
+            "west" : __DIR__"fufeng5",
+            "east" : __DIR__"qinglong2",
         ]));
 
         set("outdoors", "changan");

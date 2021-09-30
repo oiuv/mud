@@ -11,9 +11,9 @@ void create ()
 上面配有几行笔迹清秀的隶体小字，内侧则是一张红色帐幔垂挂的低矮
 木榻。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
-        	"north" : __DIR__"huarui2",
+            "north" : __DIR__"huarui2",
         ]));
 
         setup();

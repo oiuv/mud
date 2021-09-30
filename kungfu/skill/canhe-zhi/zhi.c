@@ -7,8 +7,8 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-//	object weapon;
-	string msg;
+//    object weapon;
+    string msg;
         int ap, dp;
         int skill;
 
@@ -24,8 +24,8 @@ int perform(object me, object target)
         if (! me->is_fighting(target))
                 return notify_fail(ZHI "只能对战斗中的对手使用。\n");
 
-	if (target->is_busy())
-		return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");
+    if (target->is_busy())
+        return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");
 
         skill = me->query_skill("canhe-zhi", 1);
 
@@ -52,18 +52,18 @@ int perform(object me, object target)
         ap = me->query_skill("finger");
         dp = target->query_skill("parry");
 
-	if (ap * 2 / 3 + random(ap) > dp)
+    if (ap * 2 / 3 + random(ap) > dp)
         {
-		msg += HIR "结果只听“噗噗噗”数声，$p" HIR "竟被$P"
+        msg += HIR "结果只听“噗噗噗”数声，$p" HIR "竟被$P"
                        HIR "以指力封住穴道，动弹不得。\n" NOR;
-		target->start_busy(ap / 20 + random(4));
-	} else
+        target->start_busy(ap / 20 + random(4));
+    } else
         {
-		msg += CYN "可是$p" CYN "看破了$P"
+        msg += CYN "可是$p" CYN "看破了$P"
                        CYN "的企图，轻轻一跃，躲开了这一招。\n" NOR;
-		me->start_busy(2);
-	}
-	message_combatd(msg, me, target);
+        me->start_busy(2);
+    }
+    message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

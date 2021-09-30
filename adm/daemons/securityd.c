@@ -237,7 +237,7 @@ mapping query_security(string para)
 
     case "default_exclude_write":
         return ([
-            "/adm":	        ({ "(arch)" }),
+            "/adm":            ({ "(arch)" }),
             "/feature":     ({ "(arch)" }),
             "/clone/user":  ({ "(arch)" }),
             "/shadow":      ({ "(arch)" }),
@@ -405,7 +405,7 @@ void remove(string euid)
 //     The argument user should be an object according to the source code
 // of driver. However, it is a mixed type in the released docs. We assume
 // it is an object in normal case here and issue an error if it was not
-// an object. 												- Annihilator
+// an object.                                                 - Annihilator
 
 int valid_write(string file, mixed user, string func)
 {
@@ -430,8 +430,8 @@ int valid_write(string file, mixed user, string func)
     {
         if ((stringp(user) ? sscanf(user, "/clone/%*s")
                            : sscanf(file_name(user), "/clone/%*s"))
-        &&	sscanf(file, "/data/%*s")
-        &&	(file == (string)user->query_save_file() +  __SAVE_EXTENSION__ ||
+        &&    sscanf(file, "/data/%*s")
+        &&    (file == (string)user->query_save_file() +  __SAVE_EXTENSION__ ||
                     file == (string)user->query_save_file()) )
         {
             // check the object's file with id in dbase
@@ -524,7 +524,7 @@ int valid_write(string file, mixed user, string func)
 //     The argument user should be an object according to the source code
 // of driver. However, it is a mixed type in the released docs. We assume
 // it is an object in normal case here and issue an error if it was not
-// an object. 												- Annihilator
+// an object.                                                 - Annihilator
 int valid_read(string file, mixed user, string func)
 {
     string euid, status, *path, dir;

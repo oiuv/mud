@@ -15,7 +15,7 @@ void create()
                 set("long", "一包散发出异香的药粉。它可以用(apply)来散发香味，借机逃走。\n");
                 set("unit", "包");
                 set("value", 100000);
-		set("no_sell", 1);
+        set("no_sell", 1);
                 set("can_apply_for_wimpy", 1);
         }
         setup();
@@ -63,9 +63,9 @@ int apply_for_wimpy(object me)
 
         me->set_temp("no_follow",1);
         tell_room(environment(me), HIM "\n忽然一阵异香传来，真是"
-				   "沁人心肺，舒泰无比，众人一时间只想睡觉。\n" NOR);
+                   "沁人心肺，舒泰无比，众人一时间只想睡觉。\n" NOR);
 
-	me->set_temp("success_flee", "你借着众人迷乱成功的逃走了。\n");
+    me->set_temp("success_flee", "你借着众人迷乱成功的逃走了。\n");
         GO_CMD->do_flee(me);
         destruct(this_object());
         return 1;

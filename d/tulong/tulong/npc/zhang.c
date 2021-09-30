@@ -5,7 +5,7 @@ inherit F_MASTER;
 
 void create()
 {
-        set_name("张翠山", ({ "zhang cuishan", "zhang" }));  
+        set_name("张翠山", ({ "zhang cuishan", "zhang" }));
         set("long",
         "一个二十一二岁的少年，面目俊秀，虽然略觉清\n"
         "癯，但神朗气爽，身形的瘦弱竟掩不住一股剽悍\n"
@@ -42,7 +42,7 @@ int accept_hit(object who)
 int accept_kill(object who)
 {
         command("say 怎么，要行凶么？在这里恐怕由不得你！");
-	return 1;
+    return 1;
 }
 int accept_ansuan(object who)
 {

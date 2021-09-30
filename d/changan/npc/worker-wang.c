@@ -9,20 +9,20 @@ inherit NPC;
 
 void create()
 {
-	set_name("王石匠", ({ "wang shijiang", "wang" }) );
-	set("title", HIY "天国大匠" NOR);
-	set("gender", "男性" );
-	set("age", 48);
-	set("str", 35);
-	set("long", @LONG
+    set_name("王石匠", ({ "wang shijiang", "wang" }) );
+    set("title", HIY "天国大匠" NOR);
+    set("gender", "男性" );
+    set("age", 48);
+    set("str", 35);
+    set("long", @LONG
 一个满脸沧桑的老匠人，看上去依然强壮有力。眼神中透露出自信
 与威严。
 LONG);
-	set("attitude", "friendly");
+    set("attitude", "friendly");
 
-	setup();
+    setup();
 
-	carry_object("/clone/cloth/cloth")->wear();
+    carry_object("/clone/cloth/cloth")->wear();
 }
 
 void init()
@@ -106,7 +106,7 @@ void heart_beat()
         if (ob->query_temp("job/owner") == owner)
         {
                 // 这个是本人领的工作，获得奖励
-				//基础奖励增加10倍（2015年4月25日）
+                //基础奖励增加10倍（2015年4月25日）
                 GIFT_D->bonus(owner, ([ "exp" : 150 + random(50),
                                         "pot" : 150 + random(50),
                                         "score" : 30 + random(10),

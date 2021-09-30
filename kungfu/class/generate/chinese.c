@@ -48,13 +48,13 @@ function *init_family = ({ (: from_wudang :),   (: from_shaolin :),   (: from_hu
                            (: from_xuedao :),   (: from_xiaoyao :),   (: from_shenlong :),
                            (: from_kunlun :),   (: from_yaowang :),   (: from_wudu :),
                            (: from_lingxiao :), (: from_tiezhang :),  (: from_zhenyuan :),
-                           (: from_wudang1 :),	(: from_shaolin1 :),  (: from_shaolin2 :),
-                           (: from_shaolin3 :),	(: from_shaolin4 :),  (: from_emei :),
-                           (: from_taohua1 :),	(: from_xueshan1 :),  (: from_xiaoyao1 :),
-                           (: from_xuanming :),	(: from_mingjiao :),  (: from_lingjiu :),
-                           (: from_honghua :),	(: from_quanzhen :),  (: from_quanzhen1 :),
-                           (: from_riyue :),	(: from_song :),	  (: from_murong :),
-                           (: from_murong1 :),	(: from_hengshan :),  (: from_pixie :), });
+                           (: from_wudang1 :),    (: from_shaolin1 :),  (: from_shaolin2 :),
+                           (: from_shaolin3 :),    (: from_shaolin4 :),  (: from_emei :),
+                           (: from_taohua1 :),    (: from_xueshan1 :),  (: from_xiaoyao1 :),
+                           (: from_xuanming :),    (: from_mingjiao :),  (: from_lingjiu :),
+                           (: from_honghua :),    (: from_quanzhen :),  (: from_quanzhen1 :),
+                           (: from_riyue :),    (: from_song :),      (: from_murong :),
+                           (: from_murong1 :),    (: from_hengshan :),  (: from_pixie :), });
 void create()
 {
         NPC_D->generate_cn_name(this_object());

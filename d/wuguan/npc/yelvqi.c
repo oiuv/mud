@@ -86,12 +86,12 @@ void init()
           && ob->query("mark/guofu_ok")
           && ! ob->query_temp("job_name")
           && ob->query("combat_exp") < 40000)
-	{
-       		command("nod " + ob->query("id"));
-        	command("say 现在郭府内正缺人手，你可以找我领工作(" HIY
-               		"ask yelv qi about 工作" NOR + CYN ")来做。" NOR);
-	}
-     	add_action("do_task", "task");
+    {
+               command("nod " + ob->query("id"));
+            command("say 现在郭府内正缺人手，你可以找我领工作(" HIY
+                       "ask yelv qi about 工作" NOR + CYN ")来做。" NOR);
+    }
+         add_action("do_task", "task");
 }
 
 string ask_job()
@@ -105,13 +105,13 @@ string ask_job()
         target = names[random(sizeof(names))];
 
         if (ob->query_temp("job_name"))
-		return "你不是已经领了工作吗？还不快去做。";
+        return "你不是已经领了工作吗？还不快去做。";
 
         if (ob->query("combat_exp") >= 40000)
-             	return "你功夫已经足够闯荡江湖，这里没有什么适合你的工作了。";
+                 return "你功夫已经足够闯荡江湖，这里没有什么适合你的工作了。";
 
         if (ob->query("mark/guofu_out"))
-             	return "你不是已经外出闯荡了吗，怎么又回来了？";
+                 return "你不是已经外出闯荡了吗，怎么又回来了？";
 
         ob->set_temp("job_name", target);
         ob->apply_condition("wuguan_job", random(3) + 4);
@@ -130,10 +130,10 @@ int do_task(string arg)
         pot = 25 + random(10);//奖励增加
 
         if (! arg || arg != "ok")
-		return 0;
+        return 0;
 
         if (! ob->query_temp("job_name"))
-		return notify_fail(CYN "耶律齐皱眉道：我没给你工作，怎"
+        return notify_fail(CYN "耶律齐皱眉道：我没给你工作，怎"
                                    "么跑来覆命了？\n" NOR);
 
         if (! (ob->query_temp("mark/劈完了")
@@ -147,14 +147,14 @@ int do_task(string arg)
 
         if (interactive(ob)
         && (int)ob->query_condition("wuguan_job"))
-	{
+    {
               command("hmm " + ob->query("id"));
               return notify_fail(CYN "耶律齐皱眉道：怎么这么快，是不是"
                                  "没做完啊，吩咐你回来了吗？\n" NOR);
         }
 
         if (! ob->query_temp("mark/还了"))
-		return notify_fail(CYN "耶律齐道：…嗯…你还是先把工具"
+        return notify_fail(CYN "耶律齐道：…嗯…你还是先把工具"
                                    "还了""再说吧。\n" NOR);
 
         command("smile " + ob->query("id"));
@@ -165,8 +165,8 @@ int do_task(string arg)
         obj->move(me, 1);
         command("give " + ob->query("id") + " silver");
 
-        if (ob->query("potential") > ob->query_potential_limit()) 
-            pot = 5;		//加强奖励，帮助新手成长（2015年4月10日）
+        if (ob->query("potential") > ob->query_potential_limit())
+            pot = 5;        //加强奖励，帮助新手成长（2015年4月10日）
 
         ob->add("combat_exp", exp);
         ob->improve_potential(pot);

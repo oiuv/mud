@@ -6,10 +6,10 @@ int valid_enable(string usage) { return usage == "force"; }
 
 int valid_force(string force)
 {
-	return force == "beiming-shengong" ||
-	       force == "lingjiu-xinfa" ||
+    return force == "beiming-shengong" ||
+           force == "lingjiu-xinfa" ||
          force == "bahuang-gong" ||
-	       force == "xiaowuxiang";
+           force == "xiaowuxiang";
 }
 
 int valid_learn(object me)

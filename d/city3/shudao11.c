@@ -11,7 +11,7 @@ void create()
 LONG);
         set("exits", ([
                 "east" : __DIR__"sanxia3",
-  		"west" : __DIR__"shudao12",
+          "west" : __DIR__"shudao12",
         ]));
         set("no_clean_up", 0);
         set("outdoors", "chengdu");
@@ -19,4 +19,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

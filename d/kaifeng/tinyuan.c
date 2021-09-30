@@ -11,13 +11,13 @@ LONG
         );
         set("objects", ([
                 CLASS_D("lingxiao") + "/shiqing" : 1,
-	]));
+    ]));
 
         set("no_clean_up", 0);
         set("exits", ([
-		"east" : __DIR__"longting",
-		"west" : __DIR__"wroad3",
-	]));
+        "east" : __DIR__"longting",
+        "west" : __DIR__"wroad3",
+    ]));
 
         set("outdoors", "kaifeng");
 

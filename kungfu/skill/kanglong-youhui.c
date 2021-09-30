@@ -17,8 +17,8 @@ string main_skill()
 
 int valid_enable(string usage)
 {
-	return usage == "strike";
-}  
+    return usage == "strike";
+}
 
 int valid_learn(object me)
 {

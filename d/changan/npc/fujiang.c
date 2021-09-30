@@ -16,25 +16,25 @@ void determine_data()
         switch(random(5))
         {
         case 0:
-	        weapon_file="changjian";
-	        skill="sword";
-	        break;
+            weapon_file="changjian";
+            skill="sword";
+            break;
         case 1:
                 weapon_file="gangdao";
-	        skill="blade";
-	        break;
+            skill="blade";
+            break;
         case 2:
                 weapon_file="gangzhang";
-        	skill="staff";
-        	break;
+            skill="staff";
+            break;
         case 3:
-        	weapon_file="changbian";
-        	skill="whip";
-        	break;
+            weapon_file="changbian";
+            skill="whip";
+            break;
         case 4:
-        	weapon_file="axe";
-        	skill="axe";
-        	break;
+            weapon_file="axe";
+            skill="axe";
+            break;
         }
 }
 
@@ -44,8 +44,8 @@ void create()
         name = first_name[random(sizeof(first_name))];
         name += name_words[random(sizeof(name_words))];
         if (random(10) > 2) name += name_words[random(sizeof(name_words))];
-	set_name(name, ({"fu jiang","fu","jiang", "general", "fujiang"}));
-	set ("long", @LONG
+    set_name(name, ({"fu jiang","fu","jiang", "general", "fujiang"}));
+    set ("long", @LONG
 一名战功累累的副将。如今太平了，便练练兵，以防边疆有变。
 LONG);
         determine_data();

@@ -17,7 +17,7 @@ void create()
 {
         seteuid(getuid());
         restore();
-	set_heart_beat(3);
+    set_heart_beat(3);
 }
 
 void remove()
@@ -51,8 +51,8 @@ void user_closed(object user)
         else
                 closed_users[user->query("id")] = user->query("startroom");
         save();
-	user->save();
-	set_heart_beat(10 + random(10));
+    user->save();
+    set_heart_beat(10 + random(10));
 }
 
 void user_opened(object user)
@@ -64,15 +64,15 @@ void user_opened(object user)
         {
                 map_delete(closed_users, user->query("id"));
                 if (! sizeof(closed_users))
-		{
+        {
                         closed_users = 0;
-			set_heart_beat(0);
-		}
+            set_heart_beat(0);
+        }
         }
 
         save();
         user->delete("startroom");
-	user->save();
+    user->save();
 }
 
 void heart_beat()
@@ -80,7 +80,7 @@ void heart_beat()
         if (! VERSION_D->is_version_ok())
                 return;
 
-	load_all_users();
+    load_all_users();
 }
 
 void continue_doing(object user_ob)
@@ -120,7 +120,7 @@ void load_all_users()
         if (! mapp(closed_users))
                 return;
 
-	set_heart_beat(10 + random(10));
+    set_heart_beat(10 + random(10));
         foreach (u in keys(closed_users))
         {
                 if (! objectp(user_ob = LOGIN_D->find_body(u)))
@@ -131,7 +131,7 @@ void load_all_users()
                         if (! login_ob->restore())
                         {
                                 destruct(login_ob);
-				map_delete(closed_users, u);
+                map_delete(closed_users, u);
                                 log_file("log", sprintf("closed：没有玩家(%s)。\n", u));
                                 continue;
                         }
@@ -140,7 +140,7 @@ void load_all_users()
                         if (! user_ob)
                         {
                                 destruct(login_ob);
-				map_delete(closed_users, u);
+                map_delete(closed_users, u);
                                 log_file("log", sprintf("closed：无法生成玩家(%s)。\n", u));
                                 continue;
                         }
@@ -149,20 +149,20 @@ void load_all_users()
                         {
                                 destruct(login_ob);
                                 destruct(user_ob);
-				map_delete(closed_users, u);
+                map_delete(closed_users, u);
                                 log_file("log", sprintf("closed：无法读取玩家(%s)的档案。\n", u));
                                 continue;
                         }
 
                         // Setup the user and move he to the closing room
-			catch(LOGIN_D->enter_world(login_ob, user_ob));
-			if (! stringp(user_ob->query("doing")) || ! environment(user_ob))
-			{
-				destruct(login_ob);
-				destruct(user_ob);
-				map_delete(closed_users, u);
-			}
-			continue;
+            catch(LOGIN_D->enter_world(login_ob, user_ob));
+            if (! stringp(user_ob->query("doing")) || ! environment(user_ob))
+            {
+                destruct(login_ob);
+                destruct(user_ob);
+                map_delete(closed_users, u);
+            }
+            continue;
                 }
 
                 if (query_heart_beat(user_ob))

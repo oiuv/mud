@@ -101,15 +101,15 @@ void receive_wound(string type, int n)
 
 string give_mashao()
 {
-	object	ob	= this_object();
-	object	me	= this_player();
-	object	obj;
-	if ( me->query( "family/family_name" ) != "八卦门" )
-		return("哼，你又不是我们镇远镖局的人。");
-	if ( present( "ma shao", me ) )
-		return("你已经有马哨了，要那么多干什么？");
-	obj = new( "/clone/misc/mashao" );
-	obj->move( me );
-	message_vision( HIY "$N" HIY "拿出一个马哨给$n。\n" NOR, ob, me );
-	return("需要马时吹(whistle)一下就行了。");
+    object    ob    = this_object();
+    object    me    = this_player();
+    object    obj;
+    if ( me->query( "family/family_name" ) != "八卦门" )
+        return("哼，你又不是我们镇远镖局的人。");
+    if ( present( "ma shao", me ) )
+        return("你已经有马哨了，要那么多干什么？");
+    obj = new( "/clone/misc/mashao" );
+    obj->move( me );
+    message_vision( HIY "$N" HIY "拿出一个马哨给$n。\n" NOR, ob, me );
+    return("需要马时吹(whistle)一下就行了。");
 }

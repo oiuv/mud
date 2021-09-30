@@ -11,10 +11,10 @@ void create()
 上首一虎皮交椅，上面坐着一个相貌威猛的汉子。
 LONG);
         set("exits", ([
-        	"north" : __DIR__"biaoju-dayuan",
+            "north" : __DIR__"biaoju-dayuan",
         ]));
         set("objects", ([
-        	__DIR__"npc/zong-biaotou" : 1,
+            __DIR__"npc/zong-biaotou" : 1,
         ]) );
 
         setup();

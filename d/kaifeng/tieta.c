@@ -11,9 +11,9 @@ void create()
 LONG);
         set("outdoors", "kaifeng");
         set("exits", ([
-		"west" : __DIR__"jieying",
-		"east" : __DIR__"eroad3",
-	]));
+        "west" : __DIR__"jieying",
+        "east" : __DIR__"eroad3",
+    ]));
         set("objects", ([
                 CLASS_D("honghua") + "/luo" : 1,
         ]));

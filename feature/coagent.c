@@ -13,7 +13,7 @@ int start_help(object env, object helper, object ob)
 {
         object me;
 
-	command("yun powerup");
+    command("yun powerup");
         me = this_object();
         if (! living(me)) return 0;
 

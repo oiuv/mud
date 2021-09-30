@@ -39,7 +39,7 @@ LONG );
         set("int", 41);
         set("con", 37);
         set("dex", 38);
-        
+
         set("max_qi", 7500);
         set("max_jing", 5000);
         set("neili", 8000);
@@ -82,7 +82,7 @@ LONG );
         map_skill("dodge", "lingbo-weibu");
         map_skill("hand", "zhemei-shou");
         map_skill("strike", "liuyang-zhang");
-		map_skill("throwing", "liuyang-zhang");
+        map_skill("throwing", "liuyang-zhang");
         map_skill("parry", "zhemei-jian");
         map_skill("sword", "liuyue-jian");
         map_skill("blade", "ruyi-dao");
@@ -137,7 +137,7 @@ LONG );
                 }
         }
 
-        carry_object("/clone/misc/cloth")->wear(); 
+        carry_object("/clone/misc/cloth")->wear();
 }
 
 void attempt_apprentice(object ob)
@@ -186,19 +186,19 @@ void attempt_apprentice(object ob)
             (int)ob->query_skill("xiaowuxiang", 1) < 130 &&
             (int)ob->query_skill("beiming-shengong", 1) < 130)
         {
-                command("say 我逍遥派的本门内功的你都没有学利索，还谈什么？"); 
+                command("say 我逍遥派的本门内功的你都没有学利索，还谈什么？");
                 return;
         }
 
         if ((int)ob->query_skill("force", 1) < 130)
         {
-                command("say 我逍遥派的的武功基础就是内功，你先把内功基础打好。"); 
+                command("say 我逍遥派的的武功基础就是内功，你先把内功基础打好。");
                 return;
         }
 
         if ((int)ob->query_skill("dodge", 1) < 130)
         {
-                command("say 逍遥逍遥，你轻功基础这么差，何谈逍遥？"); 
+                command("say 逍遥逍遥，你轻功基础这么差，何谈逍遥？");
                 return;
         }
 
@@ -422,7 +422,7 @@ mixed ask_skill5()
                        "在$N" HIY "的左肩之上，$N" HIY "稍作\n诧异，"
                        "霎时只觉$n" HIY "内力源源不绝的汹涌而入，异"
                        "种真气注满体\n内，全身竟似快要炸裂开来，不禁"
-                       "大惊失色。\n" NOR, me, this_object()); 
+                       "大惊失色。\n" NOR, me, this_object());
 
         command("say 你懂了吗？");
         tell_object(me, HIC "你学会了「寰阳式」。\n" NOR);
@@ -652,4 +652,3 @@ mixed ask_zhihuan()
         command("give shenxian huan to " + me->query("id"));
         return 1;
 }
-

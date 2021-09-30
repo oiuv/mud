@@ -1,4 +1,4 @@
-// guanfu.c 
+// guanfu.c
 
 #include <armor.h>
 #include <ansi.h>
@@ -13,9 +13,8 @@ void create()
         else {
                 set("unit", "件");
                 set("material", "丝");
-		set("value", 5000);
+        set("value", 5000);
                 set("armor_prop/armor", 3);
         }
         setup();
 }
-

@@ -39,7 +39,7 @@ int accept_hit(object who)
 int accept_kill(object who)
 {
         command("say 怎么，想得屠龙刀就非得要行凶不成？");
-	return 1;
+    return 1;
 }
 
 int accept_ansuan(object who)
@@ -53,7 +53,7 @@ int begin()
         if (objectp(present("chang jinpeng",environment())))
         return 0;
 
-        command("grin");        
+        command("grin");
         command("say 我海沙帮的绝技，乃是使用毒盐害人，如今你我各吃一碗，如何？");
 
         message_vision(HIW "$N叫手下装了两大碗毒盐，$N和$n各吃一碗。\n" NOR,

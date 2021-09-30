@@ -2,7 +2,7 @@
 inherit SKILL;
 
 mapping *action = ({
-([	"action" : HIR "$N" HIR "抠动扳机，手中$w" HIR "顿时喷出一股火舌，射向$n"
+([    "action" : HIR "$N" HIR "抠动扳机，手中$w" HIR "顿时喷出一股火舌，射向$n"
                    HIR "的$l" HIR,
         "force"  : 999,
         "attack" : 999,

@@ -4,7 +4,7 @@
 #define CHAN "「" HIR "毒蟾掌" NOR "」"
 
 inherit F_SSERVER;
- 
+
 int perform(object me)
 {
         string msg;
@@ -27,14 +27,14 @@ int perform(object me)
         if (me->query_temp("weapon"))
                 return notify_fail("你必须是空手才能使用" CHAN "。\n");
 
-        if (me->query_skill_mapped("strike") != "tianchan-zhang") 
+        if (me->query_skill_mapped("strike") != "tianchan-zhang")
                 return notify_fail("你没有激发天蟾掌法，难以施展" CHAN "。\n");
 
-        if (me->query_skill_prepared("strike") != "tianchan-zhang") 
+        if (me->query_skill_prepared("strike") != "tianchan-zhang")
                 return notify_fail("你没有准备使用天蟾掌法，难以施展" CHAN "。\n");
- 
+
         lvl = me->query_skill("tianchan-zhang", 1);
-		poison = me->query_skill("poison");
+        poison = me->query_skill("poison");
 
         if (lvl < 120)
                 return notify_fail("你天蟾掌法不够纯熟，难以施展" CHAN "。\n");
@@ -63,7 +63,7 @@ int perform(object me)
                         "id"    : me->query("id"),
                         "duration" : lvl / 60 + random(lvl / 30)
                 ]));
-                msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 70, 
+                msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 70,
                         HIR "只听$n" HIR "惨叫一声，被$N" HIR "这一掌"
                         "拍个正着，顿时毒气攻心，“哇”地喷出一大口鲜血。\n" NOR);
 

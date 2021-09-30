@@ -17,7 +17,7 @@ int exert(object me, object target)
         me->start_busy(1);
         me->add("max_neili", -1);
 
-	return 1;
+    return 1;
 }
 
 void del_sucked(object me)

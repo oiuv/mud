@@ -65,7 +65,7 @@ void init()
 void greeting(object me)
 {
         if (! objectp(me) || environment(me) != environment())
-	        return;
+            return;
 
         command("look " + me->query("id"));
 

@@ -15,18 +15,18 @@ void create()
 的床有些怪异。
 LONG);
         set("exits", ([ /* sizeof() == 1 */
-        	"west" : __DIR__"qunyulou3",
+            "west" : __DIR__"qunyulou3",
         ]));
         set("objects", ([
-        	__DIR__"npc/dashou" : 4,
+            __DIR__"npc/dashou" : 4,
         ]) );
         set("item_desc", ([
-        	"bed": "这张床似乎可以推开(push)。\n",
-        	"床" : "这张床似乎可以推开(push)。\n",
-        	"大床" : "这张床似乎可以推开(push)。\n"
+            "bed": "这张床似乎可以推开(push)。\n",
+            "床" : "这张床似乎可以推开(push)。\n",
+            "大床" : "这张床似乎可以推开(push)。\n"
         ]) );
 
-	setup();
+    setup();
 }
 void init()
 {
@@ -43,21 +43,21 @@ void close_path()
 
 int do_push(string arg)
 {
-	object me;
-	me = this_player();
+    object me;
+    me = this_player();
         if (! arg || arg == "" ) return 0;
         if (arg == "bed" || arg == "床" || arg == "大床")
-	{
+    {
                 write("你用力推开一张大床，");
-	        if ((int) me->query_str() >= 30)
-	        {
-	                write("床下露出了一个暗格。\n");
-	                if (! query("exits/enter"))
-	                {
-     	                        set("exits/enter", __DIR__"qunyums");
+            if ((int) me->query_str() >= 30)
+            {
+                    write("床下露出了一个暗格。\n");
+                    if (! query("exits/enter"))
+                    {
+                                 set("exits/enter", __DIR__"qunyums");
                                 call_out("close_path", 5);
-			}
-                        return 1;	
+            }
+                        return 1;
                 } else
                 write("试着推了推后面的暗格，但没有推开。\n");
                 return 1;
@@ -71,14 +71,14 @@ int valid_leave(object me, string dir)
         if (dir == "enter" &&
             objectp(ob = present("da shou", this_object())) &&
             living(ob))
-	{
+    {
                 message_vision("$N对$n喊道：那里是群玉楼的私人"
                        "地方，外人不要进去！\n", ob, me);
                 write("糟糕！被发现了！\n");
                 ob->kill_ob(me);
-                me->fight_ob(ob);       
+                me->fight_ob(ob);
                 return -1;
-	}
+    }
 
         return 1;
 }

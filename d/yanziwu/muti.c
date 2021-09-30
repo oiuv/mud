@@ -13,7 +13,7 @@ LONG );
         set("outdoors", "yanziwu");
         set("exits", ([
             "eastup"  : __DIR__"qinyun",
-	    "southup" : __DIR__"bozhou",
+        "southup" : __DIR__"bozhou",
         ]));
         setup();
         replace_program(ROOM);

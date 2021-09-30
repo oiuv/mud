@@ -12,7 +12,7 @@ void create()
         set_temp("apply/attack", 10);
         set_temp("apply/defense", 10);
         set("combat_exp", 500);
-		set("shen_type", -1);
+        set("shen_type", -1);
         set("str", 25);
         set("dex", 20);
         set("con", 18);

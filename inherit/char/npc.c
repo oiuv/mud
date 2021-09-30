@@ -52,7 +52,7 @@ int accept_fight(object who)
         switch(att)
         {
                 case "heroism":
-                if (perqi >= 50)                
+                if (perqi >= 50)
                 {
                         command("say 哼！出招吧！");
                         return 1;
@@ -436,7 +436,7 @@ int random_move()
         string *dirs;
 
         if (! mapp(exits = environment()->query("exits")) ||
-	    ! sizeof(exits))
+            ! sizeof(exits))
                 return 0;
         dirs = keys(exits);
         command("go " + dirs[random(sizeof(dirs))]);
@@ -462,7 +462,7 @@ int exert_function(string func)
         // 特殊情况禁止使用内功
         if (this_object()->query_temp("no_exert"))
                 return 0;
-    //毒的效果	
+    //毒的效果
     if (this_object()->query_temp("exert_drug"))
         return 0;
 
@@ -472,7 +472,7 @@ int exert_function(string func)
         return SKILL_D("force")->exert_function(this_object(), func);
 }
 
-// Default chat function: Let the npc perform special action with 
+// Default chat function: Let the npc perform special action with
 // his/her enabled martial art
 int perform_action(string action)
 {
@@ -488,7 +488,7 @@ int perform_action(string action)
 
         martial_skill = query_skill_mapped(martial_skill);
         if (stringp(martial_skill))
-                return SKILL_D(martial_skill)->perform_action(this_object(), act);              
+                return SKILL_D(martial_skill)->perform_action(this_object(), act);
 }
 
 // Check the player wether is belong a family

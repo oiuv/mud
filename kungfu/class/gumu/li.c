@@ -13,7 +13,7 @@ void create()
         set("long", @LONG
 她生得极为美貌，但冰冷的目光让人不寒而栗。
 LONG);
-	set("nickname", HIM "赤练仙子" NOR);
+    set("nickname", HIM "赤练仙子" NOR);
         set("gender", "女性");
         set("rank_info/respect", "道姑");
         set("age", 27);
@@ -33,7 +33,7 @@ LONG);
         set_skill("dodge", 220);
         set_skill("yunv-shenfa", 220);
         set_skill("qixing-bu", 220);
-	      set_skill("whip", 240);
+          set_skill("whip", 240);
         set_skill("yunzhou-fufa", 240);
         set_skill("sanwu-shou", 240);
         set_skill("strike", 220);
@@ -106,7 +106,7 @@ int do_look(string target)
 
         if ((string)me->query("gender") != "女性")
         {
-	        message_vision(HIR "李莫愁大怒，喝道：我最恨你们这"
+            message_vision(HIR "李莫愁大怒，喝道：我最恨你们这"
                                "些薄情的臭男人，去死吧！\n" NOR, me);
                 kill_ob(this_player());
         }
@@ -121,12 +121,12 @@ void attempt_apprentice(object ob)
                 return;
 
         if ((string)me->query("gender") == "男性")
-		{
-				command("say 我李莫愁可不收臭男人做徒弟。");
+        {
+                command("say 我李莫愁可不收臭男人做徒弟。");
                 return;
-		}
-		
-		if ((int)me->query("shen") > -70000)
+        }
+
+        if ((int)me->query("shen") > -70000)
         {
                 command("heng");
                 command("say 我李莫愁可不收心慈手软的人做徒弟。");

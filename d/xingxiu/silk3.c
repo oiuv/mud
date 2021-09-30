@@ -12,7 +12,7 @@ LONG );
 
         set("exits", ([
                 "southeast" : __DIR__"silk2",
-		"west" : __DIR__"silk4",
+        "west" : __DIR__"silk4",
         ]));
 
         set("objects", ([
@@ -41,7 +41,7 @@ int do_climb(string arg)
         if (! arg || arg == "" ) return 0;
 
         if (arg == "mount")
-	{
+    {
                 message("vision", HIY + me->name() + HIY "吭吃吭吃向沙山上爬"
                         "去。\n" NOR, environment(me), ({me}));
 
@@ -52,4 +52,3 @@ int do_climb(string arg)
                 return 1;
         }
 }
-

@@ -12,16 +12,16 @@ void create ()
 面。
 LONG);
         //set("item_desc", ([" *** " : " *** ", ]));
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
-        	"south" : __DIR__"huarui2",
+            "south" : __DIR__"huarui2",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
-        	__DIR__"npc/laozhang" : 1,
+            __DIR__"npc/laozhang" : 1,
         ]));
 
-	set("no_clean_up", 0);
+    set("no_clean_up", 0);
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

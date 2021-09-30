@@ -17,7 +17,7 @@ LONG);
                 CLASS_D("xuedao")+"/laozu" : 1,
                 __DIR__"npc/x_lama" : 2,
         ]));
-	set("valid_startroom", 1);
+    set("valid_startroom", 1);
         setup();
         replace_program(ROOM);
 

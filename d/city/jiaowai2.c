@@ -10,10 +10,10 @@ void create()
 了很多树枝石块。
 LONG );
         set("outdoors", "city");
-    	set("exits", ([
-        	"north" : __DIR__"jiaowai1",
-        	"south" : __DIR__"jiaowai3",
-    	]));
-    	setup();
-    	replace_program(ROOM);
+        set("exits", ([
+            "north" : __DIR__"jiaowai1",
+            "south" : __DIR__"jiaowai3",
+        ]));
+        setup();
+        replace_program(ROOM);
 }

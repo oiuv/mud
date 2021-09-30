@@ -238,7 +238,7 @@ private int work_step_5(object me, object ob)
 private int work_step_6(object me, object ob)
 {
     object moye;
-    //	int improve;
+    //    int improve;
 
     if (!objectp(moye = present("mo ye")))
     {
@@ -917,26 +917,26 @@ void confirm_make(string arg, object ob)
 
 // 关于原料对象各个属性的说明(item/)
 // ------ 用户可以描述的属性
-// name			道具的名称， 必须要
-// id			道具的ID，   必须要
-// long			道具的描述，系统会在生成道具时自动添加关于炼制原料的描述
-// wield_msg		装备武器的描述，如果没有系统会自动生成
-// unwield_msg		收回武器时的描述
-// wear_msg		穿上护甲时的描述
-// unwear_msg		脱掉护甲时的描述
+// name            道具的名称， 必须要
+// id            道具的ID，   必须要
+// long            道具的描述，系统会在生成道具时自动添加关于炼制原料的描述
+// wield_msg        装备武器的描述，如果没有系统会自动生成
+// unwield_msg        收回武器时的描述
+// wear_msg        穿上护甲时的描述
+// unwear_msg        脱掉护甲时的描述
 
 // ------ 不是用户描述的属性
-// owner_id		制造者的ID
+// owner_id        制造者的ID
 // owner_name           制造者的名字
-// unit			单位
-// type		        道具的类型 weapon 或 armor
-// stype		道具的子类别 weapon 为 sword, blade, whip, stick ； armor 为 armor
-// ctype		道具的类别的中文名 weapon 为 剑、刀、鞭、杖 ； armor 为 护甲
-// value		道具的价值
+// unit            单位
+// type                道具的类型 weapon 或 armor
+// stype        道具的子类别 weapon 为 sword, blade, whip, stick ； armor 为 armor
+// ctype        道具的类别的中文名 weapon 为 剑、刀、鞭、杖 ； armor 为 护甲
+// value        道具的价值
 // point                伤害力
 
 // ------ 说明是用户自练的道具的属性
-// item_make		1
+// item_make        1
 
 private string create_file(object item_temp)
 {

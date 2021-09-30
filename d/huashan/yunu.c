@@ -5,7 +5,7 @@ inherit ROOM;
 void create()
 {
         set("short", "玉女峰");
-	set("long", @LONG
+    set("long", @LONG
 这里是华山的中峰，玉女峰。传说春秋时隐士萧史善吹洞箫，箫声引
 动了秦穆公女儿弄玉的爱慕，抛弃了宫廷生活，跟萧史来此隐居，故称玉
 女峰。这里地势略为平缓，不似其它四峰般险峻，江湖上赫赫有名的华山
@@ -30,4 +30,3 @@ LONG
         setup();
         replace_program(ROOM);
 }
- 

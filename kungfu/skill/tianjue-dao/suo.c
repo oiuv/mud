@@ -21,7 +21,7 @@ int perform(object me, object target)
 
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "blade")
-		return notify_fail("你使用的武器不对，难以施展" SUO "。\n");
+        return notify_fail("你使用的武器不对，难以施展" SUO "。\n");
 
         if (target->is_busy())
                 return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");
@@ -39,7 +39,7 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         wn = weapon->name();
-                           
+
         msg = HIC "\n$N" HIC "怒啸一声，施展出绝招「" HIW "天绝锁" HIC "」"
               "将手中" + wn + HIC "挥舞得密不透风，猛然间风声大作，竟将$n" HIC
               "笼罩在刀风之下。"NOR;
@@ -52,18 +52,18 @@ int perform(object me, object target)
 
         if (level + random(level) > target->query_skill("dodge"))
         {
-		msg = HIY "$N" HIY "看不出$n" HIY "招式中的虚实，连忙"
-                      "护住自己全身，一时竟无以应对！\n" NOR; 
+        msg = HIY "$N" HIY "看不出$n" HIY "招式中的虚实，连忙"
+                      "护住自己全身，一时竟无以应对！\n" NOR;
                 target->start_busy(2 + random(level / 26));
                 me->start_busy(random(2));
-	} else
+    } else
         {
-		msg = CYN "可是$N" CYN "镇定自若，小心拆招，没有被"
+        msg = CYN "可是$N" CYN "镇定自若，小心拆招，没有被"
                       "$n" NOR + CYN "招式所困。\n" NOR;
-                      
-                me->start_busy(2);
-	}
-	message_combatd(msg, target, me);
 
-	return 1;
+                me->start_busy(2);
+    }
+    message_combatd(msg, target, me);
+
+    return 1;
 }

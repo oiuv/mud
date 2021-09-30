@@ -2,7 +2,7 @@ inherit FORCE;
 
 int valid_enable(string usage)
 {
-	return usage == "force";
+    return usage == "force";
 }
 
 int valid_force(string force)
@@ -15,18 +15,18 @@ int valid_force(string force)
 
 int query_neili_improve(object me)
 {
-    	int lvl;
+        int lvl;
 
-    	lvl = (int)me->query_skill("kurong-changong", 1);
-    	return lvl * lvl * 15 * 15 / 100 / 200;
+        lvl = (int)me->query_skill("kurong-changong", 1);
+        return lvl * lvl * 15 * 15 / 100 / 200;
 }
 
 int valid_learn(object me)
 {
-    	if (me->query("gender") == "无性")
-        	return notify_fail("你无根无性，阴阳不调，难以领会枯荣禅功。\n");
+        if (me->query("gender") == "无性")
+            return notify_fail("你无根无性，阴阳不调，难以领会枯荣禅功。\n");
 
-    	return ::valid_learn(me);
+        return ::valid_learn(me);
 }
 
 int practice_skill(object me)

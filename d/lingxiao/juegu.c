@@ -11,7 +11,7 @@ LONG);
         set("outdoors", "lingxiao");
         set("no_clean_up", 0);
         setup();
-} 
+}
 
 void init()
 {
@@ -21,7 +21,6 @@ void init()
 int do_pan()
 {
         object me = this_player();
-    	me->move(__DIR__"shiya");
-    	return 1;
+        me->move(__DIR__"shiya");
+        return 1;
 }
-

@@ -77,7 +77,7 @@ int perform(object me, object target)
                 if (random(3) == 1 && ! target->is_busy())
                         target->start_busy(1);
 
-        	COMBAT_D->do_attack(me, target, 0, 0);
+            COMBAT_D->do_attack(me, target, 0, 0);
         }
         me->add("neili", -400);
         me->start_busy(2 + random(4));

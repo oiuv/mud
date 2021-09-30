@@ -6,19 +6,19 @@ inherit NPC;
 
 void create()
 {
-	set_name("张召重", ({ "zhang zhaozhong", "zhang", "zhaozhong" }) );
-	set("title", "御林军骁骑营佐领");
-	set("nickname", HIR "火手判官" NOR);
-	set("gender", "男性");
-	set("age", 43);
-	set("long", @LONG
+    set_name("张召重", ({ "zhang zhaozhong", "zhang", "zhaozhong" }) );
+    set("title", "御林军骁骑营佐领");
+    set("nickname", HIR "火手判官" NOR);
+    set("gender", "男性");
+    set("age", 43);
+    set("long", @LONG
 张召重人称“火手判官”，身材魁梧，留一丛短胡子。江湖盛言“宁
 挨一枪，莫遇一张”就是指他了。他热衷功名利禄，投身朝廷，此人
 办事卖力，这些年来更是青云直上。
 LONG );
-	set("combat_exp", 1800000);
+    set("combat_exp", 1800000);
   set("shen_type", -1);
-	set("attitude", "heroism");
+    set("attitude", "heroism");
   set("max_neili", 5500);
   set("neili", 5500);
   set("max_jing", 2500);
@@ -31,25 +31,25 @@ LONG );
   set("con", 33);
   set("dex", 31);
 
-	set_skill("unarmed", 200);
-	set_skill("sword", 200);
-	set_skill("parry", 200);
-	set_skill("dodge", 200);
-	set_skill("force", 220);
-	set_skill("taiji-shengong", 220);
-	set_skill("taiji-jian", 200);
-	set_skill("taiji-quan", 200);
-	set_skill("tiyunzong", 200);
-	map_skill("dodge", "tiyunzong");
-	map_skill("force", "taiji-shengong");
-	map_skill("sword", "taiji-jian");
-	map_skill("unarmed", "taiji-quan");
-	map_skill("parry", "taiji-jian");
+    set_skill("unarmed", 200);
+    set_skill("sword", 200);
+    set_skill("parry", 200);
+    set_skill("dodge", 200);
+    set_skill("force", 220);
+    set_skill("taiji-shengong", 220);
+    set_skill("taiji-jian", 200);
+    set_skill("taiji-quan", 200);
+    set_skill("tiyunzong", 200);
+    map_skill("dodge", "tiyunzong");
+    map_skill("force", "taiji-shengong");
+    map_skill("sword", "taiji-jian");
+    map_skill("unarmed", "taiji-quan");
+    map_skill("parry", "taiji-jian");
 
   create_family("武当派", 13, "弟子");
-	setup();
+    setup();
 
-	set_max_encumbrance(100000000);
+    set_max_encumbrance(100000000);
   set_temp("apply/attack", 100);
   set_temp("apply/defense", 100);
   set_temp("apply/damage", 150);
@@ -71,7 +71,7 @@ int do_halt()
         if (this_player() == query_temp("catch_ob"))
         {
                 write(name() + "喝道：“你还想在我面前逃走吗？"
-								"乖乖的束手就擒吧！”\n");
+                                "乖乖的束手就擒吧！”\n");
                 return 1;
         }
 
@@ -80,20 +80,20 @@ int do_halt()
 
 void fight_ob(object ob)
 {
-	if (is_fighting(ob))
-		return;
+    if (is_fighting(ob))
+        return;
 
         if (ob != query_temp("catch_ob"))
         {
-					message_vision("$N对$n大喝道：大胆！居然敢攻击官差？找死么？\n",
-		      this_object(), ob);
-		if (! ob->is_busy())
-			ob->start_busy(2);
+                    message_vision("$N对$n大喝道：大胆！居然敢攻击官差？找死么？\n",
+              this_object(), ob);
+        if (! ob->is_busy())
+            ob->start_busy(2);
         }
 
         ::fight_ob(ob);
-	if (! is_killing(ob->query("id")))
-        	kill_ob(ob);
+    if (! is_killing(ob->query("id")))
+            kill_ob(ob);
 }
 
 int accept_fight(object ob)

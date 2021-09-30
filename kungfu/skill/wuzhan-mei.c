@@ -69,49 +69,49 @@ mapping *action = ({
 
 int valid_enable( string usage )
 {
-	return( (usage == "sword") || (usage == "parry") );
+    return( (usage == "sword") || (usage == "parry") );
 }
 
 int valid_learn( object me )
 {
-	if ( me->query( "max_neili" ) < 300 )
-		return(notify_fail( "你的内力不够。\n" ) );
-	if ( (int) me->query_skill( "biyun-xinfa", 1 ) < 60 )
-		return(notify_fail( "你的碧云心法太浅。\n" ) );
-	return(1);
+    if ( me->query( "max_neili" ) < 300 )
+        return(notify_fail( "你的内力不够。\n" ) );
+    if ( (int) me->query_skill( "biyun-xinfa", 1 ) < 60 )
+        return(notify_fail( "你的碧云心法太浅。\n" ) );
+    return(1);
 }
 
 string query_skill_name( int level )
 {
-	int i;
-	for ( i = sizeof(action) - 1; i >= 0; i-- )
-		if ( level >= action[i]["lvl"] )
-			return(action[i]["skill_name"]);
+    int i;
+    for ( i = sizeof(action) - 1; i >= 0; i-- )
+        if ( level >= action[i]["lvl"] )
+            return(action[i]["skill_name"]);
 }
 
 mapping query_action( object me, object weapon )
 {
-	int i, level;
-	level = (int) me->query_skill( "wuzhan-mei", 1 );
-	for ( i = sizeof(action); i > 0; i-- )
-		if ( level > action[i - 1]["lvl"] )
-			return(action[NewRandom( i, 5, level / 5 )]);
+    int i, level;
+    level = (int) me->query_skill( "wuzhan-mei", 1 );
+    for ( i = sizeof(action); i > 0; i-- )
+        if ( level > action[i - 1]["lvl"] )
+            return(action[NewRandom( i, 5, level / 5 )]);
 }
 
 int practice_skill( object me )
 {
-	object weapon;
+    object weapon;
 
-	if ( !objectp( weapon = me->query_temp( "weapon" ) )
-	     || weapon->query( "skill_type" ) != "sword" )
-		return(notify_fail( "你使用的武器不对。\n" ) );
-	if ( me->query( "qi" ) < 50 )
-		return(notify_fail( "你的体力不够练五展梅。\n" ) );
-	me->receive_damage( "qi", 20 );
-	return(1);
+    if ( !objectp( weapon = me->query_temp( "weapon" ) )
+         || weapon->query( "skill_type" ) != "sword" )
+        return(notify_fail( "你使用的武器不对。\n" ) );
+    if ( me->query( "qi" ) < 50 )
+        return(notify_fail( "你的体力不够练五展梅。\n" ) );
+    me->receive_damage( "qi", 20 );
+    return(1);
 }
 
 string perform_action_file( string action )
 {
-	return(__DIR__ "wuzhan-mei/" + action);
+    return(__DIR__ "wuzhan-mei/" + action);
 }

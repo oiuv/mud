@@ -78,8 +78,8 @@ int valid_learn(object me)
         if ((int)me->query_skill("force") < 40)
                 return notify_fail("你的内功火候不够，还不能学习百变打穴法!\n");
 
-	if ((int)me->query_skill("staff", 1) < (int)me->query_skill("baibian-daxue", 1))
-		return notify_fail("你的基本杖法水平有限，无法领会更高深的百变打穴杖法。\n");
+    if ((int)me->query_skill("staff", 1) < (int)me->query_skill("baibian-daxue", 1))
+        return notify_fail("你的基本杖法水平有限，无法领会更高深的百变打穴杖法。\n");
 
         return 1;
 }
@@ -123,4 +123,3 @@ string perform_action_file(string action)
 {
         return __DIR__ "baibian-daxue/" + action;
 }
-

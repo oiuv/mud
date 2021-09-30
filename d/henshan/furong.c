@@ -10,7 +10,7 @@ LONG);
        set("exits",([
               "enter":__DIR__"furong1",
        ]));
-	
+
        setup();
        replace_program(ROOM);
 }

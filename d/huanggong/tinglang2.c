@@ -12,9 +12,9 @@ void create()
 LONG
         );
         set("exits", ([
-			"north" : __DIR__"tinglang1",
-			"south" : __DIR__"shanfang",
-			"west" : __DIR__"tinglang3",
+            "north" : __DIR__"tinglang1",
+            "south" : __DIR__"shanfang",
+            "west" : __DIR__"tinglang3",
         ]));
         set("outdoors", "huangong");
         setup();

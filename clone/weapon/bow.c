@@ -54,48 +54,48 @@ int do_shot(string arg)
                                    "攻击对手。\n");
 
         if (userp(me))
-	{
-	        if (! arg)
-        	        return notify_fail("你想攻击谁？\n");
+    {
+            if (! arg)
+                    return notify_fail("你想攻击谁？\n");
 
-        	if (sscanf(arg, "%s with %s", target, item) != 2)
-                	return notify_fail("你要用什么攻击对手？(shot <对"
+            if (sscanf(arg, "%s with %s", target, item) != 2)
+                    return notify_fail("你要用什么攻击对手？(shot <对"
                                            "象> with <利器>)\n");
 
-        	if (! objectp(ob = present(item, me)))
-                	return notify_fail("你身上没有 " + item + " 这样物"
+            if (! objectp(ob = present(item, me)))
+                    return notify_fail("你身上没有 " + item + " 这样物"
                                            "品可以发射。\n");
 
-	        if (! ob->is_arrow())
-        	        return notify_fail("这不是箭，你无法发射。\n");
+            if (! ob->is_arrow())
+                    return notify_fail("这不是箭，你无法发射。\n");
 
-	        if ((amount = ob->query_amount()) < 1)
-        	        return notify_fail("你身上的" + ob->name() + "不够"
+            if ((amount = ob->query_amount()) < 1)
+                    return notify_fail("你身上的" + ob->name() + "不够"
                                            "用了。\n");
 
-	        if (! objectp(victim = present(target, env)))
-        	        return notify_fail("这里没有这个人。\n");
+            if (! objectp(victim = present(target, env)))
+                    return notify_fail("这里没有这个人。\n");
 
-	        if (! victim->is_character() || victim->query("not_living"))
-        	        return notify_fail("看清楚了，那不是活人！\n");
+            if (! victim->is_character() || victim->query("not_living"))
+                    return notify_fail("看清楚了，那不是活人！\n");
 
-	        if (! me->is_fighting(victim))
-        	        return notify_fail("你只能射击战斗中的对手。\n");
-	} else
-	{
-        	if (! objectp(ob = present("arrow", me))
+            if (! me->is_fighting(victim))
+                    return notify_fail("你只能射击战斗中的对手。\n");
+    } else
+    {
+            if (! objectp(ob = present("arrow", me))
                    || ! ob->is_arrow()
                    || (amount = ob->query_amount()) < 1)
-        	        return notify_fail("射击失败。\n");
+                    return notify_fail("射击失败。\n");
 
                 me->clean_up_enemy();
                 victim = me->select_opponent();
-	}
+    }
 
         if (me->query("special_skill/accuracy"))
-	        my_exp = me->query("combat_exp") * 3;//强化精准射击
-		else
-	        my_exp = me->query("combat_exp");
+            my_exp = me->query("combat_exp") * 3;//强化精准射击
+        else
+            my_exp = me->query("combat_exp");
 
         v_exp = victim->query("combat_exp");
 
@@ -126,7 +126,7 @@ int do_shot(string arg)
         ap = my_exp * query("accuracy") / 100;
         if (userp(victim)) ap /= 2;
 
-        if (v_exp / 2 + random(v_exp) > query("power") && 
+        if (v_exp / 2 + random(v_exp) > query("power") &&
             ap / 5 + random(ap) < v_exp || random(v_exp) > 300000)
         {
                 switch (random(3))

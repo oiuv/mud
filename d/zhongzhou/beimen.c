@@ -9,14 +9,14 @@ void create()
 LONG);
         set("outdoors", "zhongzhou");
         set("exits", ([
-  		"north" : __DIR__"to_zhongzhou3",
-  		"south" : __DIR__"wendingbei4",
-	]));
+          "north" : __DIR__"to_zhongzhou3",
+          "south" : __DIR__"wendingbei4",
+    ]));
         set("objects", ([
                 "/clone/npc/walker" : 1,
-  		"/d/kaifeng/npc/guanbing" : 4,
-  		"/d/beijing/npc/ducha" : 1,
-	]));
+          "/d/kaifeng/npc/guanbing" : 4,
+          "/d/beijing/npc/ducha" : 1,
+    ]));
         set("no_clean_up", 0);
 
         setup();

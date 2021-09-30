@@ -10,7 +10,7 @@ inherit F_GUARDER;
 void create()
 {
         set_name("鹤笔翁", ({ "hebi weng", "hebi", "weng" }));
-	set("gender", "男性");
+        set("gender", "男性");
         set("shen_type", -1);
         set("age", 50);
         set("str", 30);
@@ -44,7 +44,7 @@ void create()
         set_skill("dulong-shenzhua", 240);
         set_skill("literate", 220);
         set_skill("martial-cognize", 200);
-        
+
         map_skill("dagger",  "hexing-bifa");
         map_skill("strike", "xuanming-zhang");
         map_skill("force",  "xuanming-shengong");
@@ -54,17 +54,17 @@ void create()
         map_skill("claw",  "dulong-shenzhua");
 
         prepare_skill("strike", "xuanming-zhang");
-             
+
         create_family("玄冥谷", 2, "弟子");
 
         set("no_teach", ([
                 "xuanming-shengong" : "玄冥神功要我师父百损道人亲自传授。",
                 "xuanming-zhang"    : "玄冥神掌要我师父亲自传授，你还是去找他老人家吧！",
                 "dulong-shenzhua"   : "这个你还是找我师兄鹿杖客吧，他比我厉害多了！",
-        ])); 
+        ]));
 
         set("chat_chance_combat", 120);
-        set("chat_msg_combat", ({               
+        set("chat_msg_combat", ({
                 (: perform_action, "strike.ying" :),
                 (: perform_action, "strike.zhe" :),
                 (: perform_action, "strike.lang" :),
@@ -76,7 +76,7 @@ void create()
                 "张无忌"    :   "哼，臭小子屡次坏我大事！我非杀了他不可！\n",
                 "赵敏"      :   "那丫头诡计多端，忘恩负义，枉我兄弟为她出生入死。\n",
                 "百损道人"  :   "他是我恩师，你问这干什么？\n",
-                "鹿杖客"    :   "他是我师兄，我们从小跟着师父学艺，亲同手足。\n", 
+                "鹿杖客"    :   "他是我师兄，我们从小跟着师父学艺，亲同手足。\n",
         ]));
 
         set_temp("apply/attack", 80);
@@ -84,7 +84,7 @@ void create()
         set_temp("apply/unarmed_damage", 80);
         set_temp("apply/armor", 80);
 
-	set("coagents", ({
+        set("coagents", ({
                 ([ "startroom" : "xxxxxxxxxxxx",
                    "id"        : "baisun daoren" ]),
         }));

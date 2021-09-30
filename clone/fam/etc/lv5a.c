@@ -8,7 +8,7 @@ void create()
         if (clonep())
                 set_default_object(__FILE__);
         else {
-         	set("long", HIC "这是一块晶莹剔透的勾玉，珍贵无比。\n" NOR);
+             set("long", HIC "这是一块晶莹剔透的勾玉，珍贵无比。\n" NOR);
                 set("unit", "块");
                 set("value", 15000);
         }
@@ -19,4 +19,3 @@ int query_autoload()
 {
         return 1;
 }
-

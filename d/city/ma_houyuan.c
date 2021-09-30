@@ -14,12 +14,12 @@ LONG);
                 "south" : __DIR__"ma_dayuan",
         ]));
         set("no_clean_up", 0);
-	set("objects", ([
-		"/d/gaibang/npc/6dai" : 1 + random(2),
-		"/d/gaibang/npc/7dai" : random(2),
+    set("objects", ([
+        "/d/gaibang/npc/6dai" : 1 + random(2),
+        "/d/gaibang/npc/7dai" : random(2),
                 CLASS_D("gaibang") + "/quan" : 1,
-	]));
-	setup();
+    ]));
+    setup();
 }
 
 int valid_leave(object me, string dir)
@@ -32,5 +32,3 @@ int valid_leave(object me, string dir)
 
         return guard->permit_pass(me, dir);
 }
-
-

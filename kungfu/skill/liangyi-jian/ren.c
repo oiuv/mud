@@ -58,8 +58,8 @@ int perform(object me, object target)
                                            "，登时穿胸而过，血如泉涌。\n" NOR);
                 me->add("neili", -180);
         } else
-        {       
-        	      me->add("neili", -100);
+        {
+                  me->add("neili", -100);
                 me->start_busy(3);
                 msg += CYN "可是$p" CYN "轻轻一笑，侧身右转，躲开了$P"
                        CYN "左转的剑式，毫发未伤。\n" NOR;

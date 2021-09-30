@@ -29,7 +29,7 @@ LONG );
 
 
 void init()
-{       
+{
         add_action("do_think", "think");
 }
 
@@ -42,9 +42,9 @@ int do_think(string arg)
                 here = load_object(__DIR__"mishi2");
 
         if (me->query("special_skill/clever"))
-		add = me->query_int() * 5;
+        add = me->query_int() * 5;
         else
-		add = me->query_int() * 3;
+        add = me->query_int() * 3;
 
         if (! living(me) || arg != "wall")
                 return notify_fail("你要参悟什么？\n");
@@ -55,14 +55,14 @@ int do_think(string arg)
         if ((int)me->query_skill("force", 1) < 30)
                 return notify_fail("你的内功修为不够，无法领悟墙"
                                    "上的心法。\n");
-     
+
         if (! me->query("can_learn/yunv-xinjing/wall"))
                 return notify_fail("你研究了半天，却发现墙壁上的心法"
                                    "甚难领悟。\n");
-            
+
         if ((int)me->query_skill("yunv-xinjing", 1) < 180)
                 return notify_fail("你发现墙上所记载的心法过于深奥，自"
-                                   "己一时难以领悟。\n");             
+                                   "己一时难以领悟。\n");
 
         if ((int)me->query_skill("yunv-xinjing", 1) > 240)
                 return notify_fail("你发现墙上所记载的心法过于肤浅，自"
@@ -83,5 +83,3 @@ int do_think(string arg)
         write(HIC "你对「玉女心经」有了新的领悟。\n" NOR);
         return 1;
 }
-
-

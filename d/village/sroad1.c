@@ -16,11 +16,10 @@ LONG );
         ]));
         set("outdoors", "village");
         set("objects", ([
-		__DIR__"npc/girl": 1,
-		__DIR__"npc/boy": 1
-	]), );
+        __DIR__"npc/girl": 1,
+        __DIR__"npc/boy": 1
+    ]), );
 
         setup();
         replace_program(ROOM);
 }
-

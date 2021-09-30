@@ -39,7 +39,7 @@ LONG );
         set_skill("club", 400);
         set_skill("whip", 400);
         set_skill("dagger", 400);
-	set_skill("throwing", 400);
+    set_skill("throwing", 400);
         set_skill("parry", 400);
         set_skill("dodge", 400);
         set_skill("force", 400);
@@ -59,7 +59,7 @@ LONG );
         map_skill("force", "never-defeated");
 
         prepare_skill("blade", "never-defeated");
-        
+
         setup();
 
         carry_object(__DIR__"obj/armor1")->wear();

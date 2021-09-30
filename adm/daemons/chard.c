@@ -31,10 +31,10 @@ void setup_char(object ob)
                 if ((int)my["max_neili"] > (int)ob->query_neili_limit())
                         my["max_neili"] = (int)ob->query_neili_limit();
 
-	        // avoid excess jingli
-		if ((int)my["max_jingli"] > (int)ob->query_jingli_limit())
-			my["max_jingli"] = (int)ob->query_jingli_limit();
-	}
+            // avoid excess jingli
+        if ((int)my["max_jingli"] > (int)ob->query_jingli_limit())
+            my["max_jingli"] = (int)ob->query_jingli_limit();
+    }
 
         switch(race)
         {

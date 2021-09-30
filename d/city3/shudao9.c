@@ -10,12 +10,11 @@ void create()
 房子。
 LONG);
         set("exits", ([
-  		"eastdown" :  __DIR__"shudao8",
-  		"west" : __DIR__"baidicheng",
-   	]));
+          "eastdown" :  __DIR__"shudao8",
+          "west" : __DIR__"baidicheng",
+       ]));
         set("no_clean_up", 0);
         set("outdoors", "chengdu");
         setup();
         replace_program(ROOM);
 }
-

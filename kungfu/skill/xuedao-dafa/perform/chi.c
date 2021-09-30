@@ -7,9 +7,9 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-	string msg;
-	int count;
+    object weapon;
+    string msg;
+    int count;
         int i;
 
         if (userp(me) && ! me->query("can_perform/xuedao-dafa/chi"))
@@ -23,7 +23,7 @@ int perform(object me, object target)
 
         if (! target || ! me->is_fighting(target))
                 return notify_fail(CHI "只能对战斗中的对手使用。\n");
- 
+
         if (! objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "blade")
                 return notify_fail("你使用的武器不对，难以施展" CHI "。\n");
@@ -74,7 +74,7 @@ int perform(object me, object target)
                 COMBAT_D->do_attack(me, target, weapon, 0);
         }
 
-	me->add_temp("apply/attack", -count);
+    me->add_temp("apply/attack", -count);
         me->start_busy(1 + random(6));
-	return 1;
+    return 1;
 }

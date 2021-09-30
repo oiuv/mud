@@ -17,10 +17,9 @@ void create()
         }
 
         set("liquid", ([
-    	        "type": "water",
+                "type": "water",
                 "name": "鲫鱼汤",
                 "remaining": 6,
                 "drunk_supply": 20,
         ]));
 }
-

@@ -13,7 +13,7 @@ void create()
         object ob;
         set_name("莫大", ({ "mo da", "mo", "da" }));
         set("nickname", HIW "潇湘夜雨" NOR);
-	set("gender", "男性");
+    set("gender", "男性");
         set("class", "swordman");
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -31,24 +31,24 @@ void create()
         set("combat_exp", 3000000);
 
         set_skill("force", 240);
-        set_skill("henshan-xinfa", 240);   
-	set_skill("zhenyue-jue", 240);
+        set_skill("henshan-xinfa", 240);
+    set_skill("zhenyue-jue", 240);
         set_skill("dodge", 240);
         set_skill("henshan-shenfa", 240);
         set_skill("cuff", 240);
         set_skill("henshan-quan", 240);
         set_skill("sword", 260);
-        set_skill("henshan-jian", 260); 
+        set_skill("henshan-jian", 260);
         set_skill("tianzhu-jian", 260);
         set_skill("zigai-jian", 260);
         set_skill("furong-jian", 260);
         set_skill("shilin-jian", 260);
         set_skill("strike", 240);
         set_skill("biluo-zhang", 240);
-        set_skill("liuyun-zhang", 240); 
+        set_skill("liuyun-zhang", 240);
         set_skill("parry", 240);
         set_skill("literate", 240);
-	set_skill("tanqin-jifa", 300);
+    set_skill("tanqin-jifa", 300);
         set_skill("xiaoxiang-yeyu", 300);
         set_skill("martial-cognize", 220);
 
@@ -58,17 +58,17 @@ void create()
         map_skill("force", "zhenyue-jue");
         map_skill("dodge", "henshan-shenfa");
         map_skill("parry", "shilin-jian");
-	map_skill("tanqin-jifa", "xiaoxiang-yeyu");
+    map_skill("tanqin-jifa", "xiaoxiang-yeyu");
 
         prepare_skill("strike", "liuyun-zhang");
-             
+
         create_family("衡山派", 13, "掌门");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
                 (: perform_action, "sword.luo" :),
                 (: perform_action, "strike.pai" :),
-		(: perform_action, "strike.die" :),
+        (: perform_action, "strike.die" :),
                 (: exert_function, "recover" :),
                 (: exert_function, "powerup" :),
         }));
@@ -118,18 +118,18 @@ void attempt_apprentice(object ob)
         }
 
         if ((int)ob->query_skill("henshan-jian", 1) < 120)
-        {       
+        {
                 command("say 我衡山乃五岳剑派之一，最为重视剑法。");
                 command("say 你的衡山剑法还不够熟练，下去练练再来吧。");
                 return;
         }
-   
+
         if ((int)ob->query_skill("force") < 180)
         {
                 command("say 我衡山剑派虽善用剑，但内功却是御剑之本。");
                 command("say 你是否还应该在内功心法上多下点功夫？");
                 return;
-        } 
+        }
 
         command("nod");
         command("say 念你平时刻苦努力，今日我就收下你吧。");

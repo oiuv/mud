@@ -19,8 +19,8 @@ LONG );
         set("combat_exp", 1000000);
         set("shen_type", 1);
 
-	set("eff_qi", 2000);
-	set("qi", 2000);
+    set("eff_qi", 2000);
+    set("qi", 2000);
         set("max_neili", 1000);
         set("neili", 1000);
         set("jiali", 100);
@@ -35,7 +35,7 @@ LONG );
         ]));
 
         setup();
-	carry_object("/clone/misc/cloth")->wear();
+    carry_object("/clone/misc/cloth")->wear();
  }
 
 int chu_hai()
@@ -50,9 +50,9 @@ int chu_hai()
                 myenv = environment (ob) ;
                 ob->move ("/d/taohua/dahai");
                 tell_object(ob, BLU "你在海上航行了很久很久.......\n" NOR ) ;
-	        call_out("goto_taohua",5,ob) ;
+            call_out("goto_taohua",5,ob) ;
           ob->start_busy(5);
-       	        return 1;
+                   return 1;
         } else
                 message_vision("老船夫上上下下打量了$N一下：什么！"
                                "出海？你不要命了？！\n老船夫又想了"
@@ -67,9 +67,9 @@ int accept_object(object who, object ob)
         object myenv ;
         if (! (int)who->query_temp("出海"))
         {
-	        message_vision("老船夫笑着对$N说：无功不受禄，"
+            message_vision("老船夫笑着对$N说：无功不受禄，"
                                "您还是自己留着吧！\n", who);
-	        return 0 ;
+            return 0 ;
         }
 
         if (ob->query("money_id") && ob->value() >= 10000)
@@ -92,20 +92,20 @@ int accept_object(object who, object ob)
                 call_out("goto_taohua", 5, who);
           who->start_busy(5);
                 destruct(ob);
-       	        return 1;
-	} else
-	        message_vision("老船夫皱眉对$N说：您给的也太少了吧？\n", who);
+                   return 1;
+    } else
+            message_vision("老船夫皱眉对$N说：您给的也太少了吧？\n", who);
 
-	return 0;
+    return 0;
 }
 
 void goto_taohua(object ob)
 {
-   	if (! objectp(ob) || find_object("/d/taohua/dahai") != environment(ob))
-		return;
+       if (! objectp(ob) || find_object("/d/taohua/dahai") != environment(ob))
+        return;
 
-   	tell_object(ob , "大船终于停在了一个小岛边。你走下船来。\n");
-   	ob->move("/d/taohua/haitan");
+       tell_object(ob , "大船终于停在了一个小岛边。你走下船来。\n");
+       ob->move("/d/taohua/haitan");
 }
 
 void unconcious()

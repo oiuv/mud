@@ -11,13 +11,13 @@ void create()
 LONG );
 
         set("exits", ([
-	        "east" : __DIR__"chufang",
-	        "west" : __DIR__"dating",
-	        "south" : __DIR__"wuchang",
-	        "north" : __DIR__"xiuxishi",
+            "east" : __DIR__"chufang",
+            "west" : __DIR__"dating",
+            "south" : __DIR__"wuchang",
+            "north" : __DIR__"xiuxishi",
         ]));
         set("objects", ([
-	        CLASS_D("shenlong")+"/zhang" : 1,
+            CLASS_D("shenlong")+"/zhang" : 1,
         ]));
         set("outdoors", "shenlong");
         setup();
@@ -27,7 +27,7 @@ int valid_leave(object me, string dir)
 {
         object guarder;
 
-	if (dir == "west" )
+    if (dir == "west" )
                 return 1;
 
         if (objectp(guarder = present("zhang danyue", this_object())))

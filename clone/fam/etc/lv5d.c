@@ -8,7 +8,7 @@ void create()
         if (clonep())
                 set_default_object(__FILE__);
         else {
-         	set("long", HIM "珍奇罕见的宝珠，周身缭绕着五色彩芒。\n" NOR);
+             set("long", HIM "珍奇罕见的宝珠，周身缭绕着五色彩芒。\n" NOR);
                 set("unit", "颗");
                 set("value", 15000);
                 set("can_be_enchased", 1);
@@ -22,4 +22,3 @@ int query_autoload()
 {
         return 1;
 }
-

@@ -1,7 +1,7 @@
 int permit_recruit(object ob)
 {
-	//command("say 对不起，我嵩山派不对外收徒。");
-       // return 0;     
+        //command("say 对不起，我嵩山派不对外收徒。");
+       // return 0;
         if( ob->query("detach/嵩山派") || ob->query("betrayer/嵩山派") )
         {
                 command("say 你当年都已经离开了嵩山派，何必又要回来？");

@@ -11,7 +11,7 @@ LONG );
         set("outdoors","tianlongsi");
         set("exits", ([
             "north": __DIR__"yaotai",
-            "south": __DIR__"qingxinge",    			
+            "south": __DIR__"qingxinge",
             "west" : __DIR__"cibeiyuan",
             "east" : __DIR__"yuhuayuan",
         ]));

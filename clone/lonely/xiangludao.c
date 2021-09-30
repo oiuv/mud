@@ -40,8 +40,8 @@ string do_wield()
                         "id"    : "wu laoda",
                         "duration" : 5 + random(5)
                 ]));
-        	remove_call_out("poison");
-        	call_out("poison", 6, me);
+            remove_call_out("poison");
+            call_out("poison", 6, me);
                 return HIB "$N" HIB "抽出柄鬼头刀，哪知刚握在手中，却发现手掌已"
                        "然浮肿，磷光闪闪。\n\n" NOR;
         } else
@@ -58,8 +58,8 @@ string do_wield()
                         "id"    : "wu laoda",
                         "duration" : 3 + random(3)
                 ]));
-        	remove_call_out("poison");
-        	call_out("poison", 18, me);
+            remove_call_out("poison");
+            call_out("poison", 18, me);
                 return HIB "$N" HIB "抽出柄鬼头刀，哪知刚握在手中，却发现手掌已"
                        "然浮肿，磷光闪闪。\n" HIC "幸好$N" HIC "知晓毒技，忙呼了"
                        "半天，好容易才化解了部分毒性。\n\n" NOR;
@@ -76,17 +76,17 @@ void poison(object me)
         if (objectp(weapon = me->query_temp("weapon"))
            && weapon->query("id") == "xianglu dao"
            && me->query_skill("poison") < 180)
-	{
-	        message_vision(HIB "\n$N" HIB "右手不由得一颤，原来绿波香露刀刀"
+    {
+            message_vision(HIB "\n$N" HIB "右手不由得一颤，原来绿波香露刀刀"
                                "身剧毒已沁入肌肤。\n" NOR, me);
                 me->affect_by("lb_poison", ([
                         "level" : 300,
                         "id"    : "wu laoda",
                         "duration" : 10 + random(10)
                 ]));
-	       	remove_call_out("poison");
-       		call_out("poison", 12, me);
-	}
+               remove_call_out("poison");
+               call_out("poison", 12, me);
+    }
 }
 
 mixed hit_ob(object me, object victim, int damage_bonus)

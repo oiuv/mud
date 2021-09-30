@@ -103,18 +103,18 @@ void init()
                 command("say 茅十八你这个反贼，今天终于逮到你了！");
                 me->set_leader(ob);
                 remove_call_out("kill_ob");
-                call_out("kill_ob", 1, ob); 
+                call_out("kill_ob", 1, ob);
         }
 
         if (interactive(ob)
-	   && ! environment(ob)->query("no_fight")
+       && ! environment(ob)->query("no_fight")
            && (ob->query("combat_exp") > 150000)
            && (ob->query("family/family_name") == "天地会"))
         {
                 command("say 你这个天地会反贼，纳命来吧！");
                 me->set_leader(ob);
                 remove_call_out("kill_ob");
-                call_out("kill_ob", 1, ob); 
+                call_out("kill_ob", 1, ob);
         }
 }
 
@@ -124,7 +124,7 @@ int accept_object(object me, object ob)
 
         exp = 1000 + random(300);
         pot = 500 + random(250);
-        sc = 5 + random(25);	//奖励增加
+        sc = 5 + random(25);    //奖励增加
 
         if (base_name(ob) != LING)
         {

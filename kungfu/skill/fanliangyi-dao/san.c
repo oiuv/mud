@@ -9,9 +9,9 @@ inherit F_SSERVER;
 
 int perform(object me, object target)
 {
-	object weapon;
-	string msg;
-	int damage;
+    object weapon;
+    string msg;
+    int damage;
   int ap, dp;
 
   if (! target) target = offensive_target(me);
@@ -20,34 +20,34 @@ int perform(object me, object target)
           return notify_fail("你所使用的外功中没有这种功能。\n");
 
   if (! target || ! me->is_fighting(target))
-		return notify_fail(SAN "只能在战斗中对对手使用。\n");
+        return notify_fail(SAN "只能在战斗中对对手使用。\n");
 
-	if (! objectp(weapon = me->query_temp("weapon")) ||
-	    (string)weapon->query("skill_type") != "blade")
-		return notify_fail("你使用的武器不对。\n");
+    if (! objectp(weapon = me->query_temp("weapon")) ||
+        (string)weapon->query("skill_type") != "blade")
+        return notify_fail("你使用的武器不对。\n");
 
-	if ((int)me->query("max_neili") < 1800)
-		return notify_fail("你的内力修为不够，无法施展" SAN "！\n");
+    if ((int)me->query("max_neili") < 1800)
+        return notify_fail("你的内力修为不够，无法施展" SAN "！\n");
 
-	if ((int)me->query("neili") < 320)
-		return notify_fail("你的真气不够！\n");
+    if ((int)me->query("neili") < 320)
+        return notify_fail("你的真气不够！\n");
 
-	if ((int)me->query_skill("fanliangyi-dao", 1) < 100)
-		return notify_fail("你反两仪刀法火候不足，无法施展" SAN "\n");
+    if ((int)me->query_skill("fanliangyi-dao", 1) < 100)
+        return notify_fail("你反两仪刀法火候不足，无法施展" SAN "\n");
 
-	if ((int)me->query_skill("force", 1) < 140)
-		return notify_fail("你的内功修为不足，无法施展" SAN "\n");
+    if ((int)me->query_skill("force", 1) < 140)
+        return notify_fail("你的内功修为不足，无法施展" SAN "\n");
 
-	if (me->query_skill_mapped("blade") != "fanliangyi-dao")
-		return notify_fail("你还没有激发反两仪刀法，无法施展" SAN "！\n");
+    if (me->query_skill_mapped("blade") != "fanliangyi-dao")
+        return notify_fail("你还没有激发反两仪刀法，无法施展" SAN "！\n");
 
         if (! living(target))
                return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIY "\n$N" HIY "使出华山派绝技「" HIG "华岳三神峰" HIY "」，身"
+    msg = HIY "\n$N" HIY "使出华山派绝技「" HIG "华岳三神峰" HIY "」，身"
               "法突然变得异常灵动飘忽！手中" + weapon->name() + HIY "连连卷"
               "向$n" HIY "。" NOR;
-	message_sort(msg, me, target);
+    message_sort(msg, me, target);
 
         msg = HIW "$N" HIW "反转" + weapon->name() + HIW "，忽然一刀劈出，威力无穷。\n" NOR;
 

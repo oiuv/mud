@@ -10,16 +10,16 @@ void create ()
 的，可是却仍然有许多人来光顾，也不知道他们是来喝酒的，还是来欣
 赏那位坐在柜台后面的老板娘。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
-		"north" : __DIR__"liande-nankou",
+        "north" : __DIR__"liande-nankou",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
-		__DIR__"npc/ruhua" : 1,
+        __DIR__"npc/ruhua" : 1,
         ]));
 
-	set("no_clean_up", 0);
+    set("no_clean_up", 0);
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

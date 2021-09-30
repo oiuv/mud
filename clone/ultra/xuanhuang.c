@@ -6,17 +6,17 @@ inherit ITEM;
 
 void create()
 {
-	set_name(HIM "玄黄紫清丹" NOR, ({ "xuanhuang dan", "dan" }) );
-	set_weight(300);
-	if( clonep() )
-		set_default_object(__FILE__);
-	else {
+    set_name(HIM "玄黄紫清丹" NOR, ({ "xuanhuang dan", "dan" }) );
+    set_weight(300);
+    if( clonep() )
+        set_default_object(__FILE__);
+    else {
                 set("long", "一颗紫中泛黄的精致奇丹，具有这神话般的功效，"
                             "是练武人梦寐以求的妙药。\n");
                 set("value", 2500000);
-		set("unit", "粒");
-		set("only_do_effect", 1);
-	}
+        set("unit", "粒");
+        set("only_do_effect", 1);
+    }
 }
 
 int do_effect(object me)
@@ -42,6 +42,5 @@ int do_effect(object me)
         me->set("max_neili", neili);
 
         destruct(this_object());
-	return 1;
+    return 1;
 }
-

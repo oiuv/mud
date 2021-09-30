@@ -13,12 +13,11 @@ void create()
 LONG );
     set("exits", ([
         "northwest" : __DIR__"mjfengmen",
-	"north" : __DIR__"foshe",
-	"south" : __DIR__"daoshe",
+    "north" : __DIR__"foshe",
+    "south" : __DIR__"daoshe",
     ]));
     set("no_clean_up", 0);
     set("outdoors", "mingjiao");
     setup();
     replace_program(ROOM);
 }
-

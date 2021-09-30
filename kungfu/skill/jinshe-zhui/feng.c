@@ -4,33 +4,33 @@
 #define FENG "「" HIR "截脉封穴" NOR "」"
 
 inherit F_SSERVER;
- 
+
 int perform(object me)
 {
         string msg;
         object target, anqi;
         int skill, count, ap, dp;
-		
-		//anqi = me->query_temp("handing");
-		skill = me->query_skill("jinshe-zhui", 1);
-		
-		if (! objectp(anqi = me->query_temp("handing"))
+
+        //anqi = me->query_temp("handing");
+        skill = me->query_skill("jinshe-zhui", 1);
+
+        if (! objectp(anqi = me->query_temp("handing"))
            || (string)anqi->query("skill_type") != "throwing")
-		{
-			count = 0;
-		}	else
-		{
-			count = anqi->query("weapon_prop/damage");
-		}
-				
-		if (me->query_temp("jinshe/feng"))
-		return notify_fail("你才用过截脉封穴，没法接着就出招。\n");
+        {
+            count = 0;
+        }    else
+        {
+            count = anqi->query("weapon_prop/damage");
+        }
 
-		if (! target) target = offensive_target(me);
-		if (! target ||	! me->is_fighting(target))
-		return notify_fail("截脉封穴只能在战斗中使用。\n");
+        if (me->query_temp("jinshe/feng"))
+        return notify_fail("你才用过截脉封穴，没法接着就出招。\n");
 
-		if (me->query_skill("force") < 150)
+        if (! target) target = offensive_target(me);
+        if (! target ||    ! me->is_fighting(target))
+        return notify_fail("截脉封穴只能在战斗中使用。\n");
+
+        if (me->query_skill("force") < 150)
                 return notify_fail("你的内功的修为不够，难以施展" FENG "。\n");
 
         if (skill < 100)
@@ -49,44 +49,44 @@ int perform(object me)
 
         ap = me->query_skill("throwing");
         dp = target->query_skill("force");
-		
+
         if (ap / 2 + random(ap) > dp)
         {
-			
-			msg += HIR "$p" HIR "微微一楞，已被$N" HIR 
-				"点中要穴，顿时瘫软无力，缓缓瘫倒。\n" NOR;
-				me->add("neili", -200);
+
+            msg += HIR "$p" HIR "微微一楞，已被$N" HIR
+                "点中要穴，顿时瘫软无力，缓缓瘫倒。\n" NOR;
+                me->add("neili", -200);
                 me->start_busy(1);
-				me->set_temp("jinshe/feng", 1);
-				me->start_call_out((: call_other, __FILE__, "feng_end", me :), 5);
-			
-				switch (random(6))
-				{
-					case 0:
-							target->add_temp("apply/damage", -skill / 6);
-							break;
-					
-					case 1:
-							target->add_temp("apply/dodge", -skill / 4);
-							break;
-					
-					case 2:
-							target->add_temp("apply/parry", -skill / 4);
-							break;
-					
-					case 3:
-							target->add_temp("apply/force", -skill / 4);
-							break;
-					
-					case 4:
-							target->add_temp("apply/armor", -skill / 4);
-							break;
-					
-					default:
-							target->add_temp("apply/defense", -skill / 4);
-							break;	
-				}
-				
+                me->set_temp("jinshe/feng", 1);
+                me->start_call_out((: call_other, __FILE__, "feng_end", me :), 5);
+
+                switch (random(6))
+                {
+                    case 0:
+                            target->add_temp("apply/damage", -skill / 6);
+                            break;
+
+                    case 1:
+                            target->add_temp("apply/dodge", -skill / 4);
+                            break;
+
+                    case 2:
+                            target->add_temp("apply/parry", -skill / 4);
+                            break;
+
+                    case 3:
+                            target->add_temp("apply/force", -skill / 4);
+                            break;
+
+                    case 4:
+                            target->add_temp("apply/armor", -skill / 4);
+                            break;
+
+                    default:
+                            target->add_temp("apply/defense", -skill / 4);
+                            break;
+                }
+
         } else
         {
                 msg += CYN "可是$p" CYN "的看破了$P" CYN
@@ -95,7 +95,7 @@ int perform(object me)
                 me->start_busy(3);
         }
         message_combatd(msg, me, target);
-		
+
         return 1;
 }
 

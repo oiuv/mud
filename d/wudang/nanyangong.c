@@ -15,15 +15,15 @@ void create()
 高台摆有真武剑阵，剑气逼人而来。
 LONG);
         set("exits", ([
-          	"out"    : __DIR__"shizhu",
-          	"southup": __DIR__"gaotai",
-      	]));
-      	set("item_desc",([
-          	"三清坐像" : (: look_xiang :),
-          	"xiang"    : (: look_xiang :),
-      	]));
-      	set("no_clean_up", 0);
-      	setup();
+              "out"    : __DIR__"shizhu",
+              "southup": __DIR__"gaotai",
+          ]));
+          set("item_desc",([
+              "三清坐像" : (: look_xiang :),
+              "xiang"    : (: look_xiang :),
+          ]));
+          set("no_clean_up", 0);
+          setup();
 }
 
 int valid_leave(object ob, string dir)
@@ -35,12 +35,12 @@ int valid_leave(object ob, string dir)
 
         if ((int)ob->query("combat_exp", 1) < 10000 &&
            (dir == "southup"))
-            	return notify_fail(HIY "外面的真武剑阵威力太大，你被"
+                return notify_fail(HIY "外面的真武剑阵威力太大，你被"
                                    "内力鼓荡，不能上去。\n");
 
         if ((! myfam || (myfam["family_name"] != "武当派")) &&
            (dir == "southup"))
-            	return notify_fail(HIY "外面的真武剑阵威力太大，你被"
+                return notify_fail(HIY "外面的真武剑阵威力太大，你被"
                                    "内力鼓荡，退了回来。\n");
         return 1;
 }
@@ -63,7 +63,7 @@ int do_move(string arg)
         ob = this_player();
 
         if (! arg || arg != "xiang" )
-		return notify_fail("你要移动什么？\n");
+        return notify_fail("你要移动什么？\n");
 
         message_sort(HIY "\n$N" HIY "走到三清坐像背后，用力使劲推移老"
                      "君像，慢慢的推着，坐像终于推了。像下露出一个大"
@@ -73,8 +73,8 @@ int do_move(string arg)
 
         if (room = find_object(__DIR__"nanyan0"))
         {
-        	room->set("exits/up", __FILE__);
-           	message("vision", HIY "\n天花板忽然发出轧轧的声音，"
+            room->set("exits/up", __FILE__);
+               message("vision", HIY "\n天花板忽然发出轧轧的声音，"
                         "露出一个向上的楼梯。\n" NOR, room );
         }
         remove_call_out("close_andao");
@@ -84,17 +84,17 @@ int do_move(string arg)
 
 void close_andao()
 {
-    	object room;
+        object room;
 //      int i;
 
         if (! query("exits/down")) return;
-    		message("vision", HIY "\n只听乒地一声响，老君像自动"
+            message("vision", HIY "\n只听乒地一声响，老君像自动"
                         "移回原处。\n" NOR, this_object());
 
-    	if (room = find_object(__DIR__"nanyan0"))
-    	{
-        	message("vision", HIY "\n只听乒地一声响，向上的洞口"
+        if (room = find_object(__DIR__"nanyan0"))
+        {
+            message("vision", HIY "\n只听乒地一声响，向上的洞口"
                         "自动严严实实地关了起来。\n" NOR, room);
-    	}
-    	delete("exits/down");
+        }
+        delete("exits/down");
 }

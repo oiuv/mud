@@ -4,22 +4,22 @@
 #define KUANG "「" HIY "狂风绝技" NOR "」"
 
 inherit F_SSERVER;
- 
+
 int perform(object me, object target)
 {
-	//object weapon;
+    //object weapon;
     string msg;
-	int i;
-	int lvl, count;
-	
+    int i;
+    int lvl, count;
+
         if (userp(me) && ! me->query("can_perform/xuanfeng-tui/kuang"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
 
-	if (! target)
-	{
-		me->clean_up_enemy();
-	        target = me->select_opponent();
-	}
+    if (! target)
+    {
+        me->clean_up_enemy();
+            target = me->select_opponent();
+    }
 
         if (! target || ! me->is_fighting(target))
                 return notify_fail(KUANG "只能对战斗中的对手使用。\n");
@@ -45,30 +45,30 @@ int perform(object me, object target)
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-	msg = HIY "$N" HIY "使出桃花岛狂风绝技，身法飘忽不定，足带风尘，掌携"
+    msg = HIY "$N" HIY "使出桃花岛狂风绝技，身法飘忽不定，足带风尘，掌携"
               "万钧，有若天仙！\n" NOR;
-	message_combatd(msg, me);
-	me->add("neili", -100);
-	lvl = me->query_skill("xuanfeng-tui", 1);
-	count = 0;
-	
-	if (me->query("family/family_name") == "桃花岛")
-		count = lvl / 4;
-	
-	me->add_temp("apply/attack", count);
-	me->add_temp("apply/unarmed_damage", count / 2);
+    message_combatd(msg, me);
+    me->add("neili", -100);
+    lvl = me->query_skill("xuanfeng-tui", 1);
+    count = 0;
 
-	for (i = 0; i < 6; i++)
-	{
-		if (! me->is_fighting(target))
-			break;
+    if (me->query("family/family_name") == "桃花岛")
+        count = lvl / 4;
+
+    me->add_temp("apply/attack", count);
+    me->add_temp("apply/unarmed_damage", count / 2);
+
+    for (i = 0; i < 6; i++)
+    {
+        if (! me->is_fighting(target))
+            break;
                 if (random(3) == 0 && ! target->is_busy())
                         target->start_busy(1);
-		COMBAT_D->do_attack(me, target, 0, 0);
-	}
+        COMBAT_D->do_attack(me, target, 0, 0);
+    }
 
-	me->start_busy(1 + random(6));
-	me->add_temp("apply/attack", -count);
-	me->add_temp("apply/unarmed_damage", -count / 2);
-	return 1;
+    me->start_busy(1 + random(6));
+    me->add_temp("apply/attack", -count);
+    me->add_temp("apply/unarmed_damage", -count / 2);
+    return 1;
 }

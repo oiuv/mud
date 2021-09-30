@@ -33,79 +33,79 @@ int do_effect(object me)
 
         if (me->query("skybook/item/zhenyu"))
         {
-	        message_vision(HIR "$N" HIR "一仰脖，吞下了一颗镇狱惊天丸，却听$P"
+            message_vision(HIR "$N" HIR "一仰脖，吞下了一颗镇狱惊天丸，却听$P"
                                HIR "一声尖哮，喷出一口鲜血，仰面便倒。\n" NOR, me);
 
                 me->set_temp("die_reason", "贪吃镇狱惊天丸，结果弄得全身筋脉尽断"
                                            "而亡");
-                me->die(); 
+                me->die();
         } else
-	{
-        	message_vision(HIW "$N" HIW "一仰脖，吞下了一颗镇狱惊天丸，只见$P"
+    {
+            message_vision(HIW "$N" HIW "一仰脖，吞下了一颗镇狱惊天丸，只见$P"
                                HIW "浑身一颤，七窍都冒出白烟来。\n" NOR, me);
 
-        	me->add("combat_exp", 200000 + random(100000));
-        	me->add("magic_points", 3000);
-        	me->add("potential", 30000);
+            me->add("combat_exp", 200000 + random(100000));
+            me->add("magic_points", 3000);
+            me->add("potential", 30000);
 
-        	mapsk = me->query_skill_mapped("force");
-        	if (me->can_improve_skill("force"))
-                	me->improve_skill("force", 1500000);
-        	if (me->can_improve_skill("force"))
-                	me->improve_skill("force", 1500000);
-        	if (me->can_improve_skill("force"))
-                	me->improve_skill("force", 1500000);
-        	if (me->can_improve_skill("force"))
-                	me->improve_skill("force", 1500000);
-        	if (me->can_improve_skill("force"))
-                	me->improve_skill("force", 1500000);
-        	if (me->can_improve_skill("force"))
-                	me->improve_skill("force", 1500000);
-        	if (me->can_improve_skill("force"))
-                	me->improve_skill("force", 1500000);
-        	if (me->can_improve_skill("force"))
-                	me->improve_skill("force", 1500000);
-        	if (me->can_improve_skill("force"))
-                	me->improve_skill("force", 1500000);
-        	if (me->can_improve_skill("force"))
-                	me->improve_skill("force", 1500000);
+            mapsk = me->query_skill_mapped("force");
+            if (me->can_improve_skill("force"))
+                    me->improve_skill("force", 1500000);
+            if (me->can_improve_skill("force"))
+                    me->improve_skill("force", 1500000);
+            if (me->can_improve_skill("force"))
+                    me->improve_skill("force", 1500000);
+            if (me->can_improve_skill("force"))
+                    me->improve_skill("force", 1500000);
+            if (me->can_improve_skill("force"))
+                    me->improve_skill("force", 1500000);
+            if (me->can_improve_skill("force"))
+                    me->improve_skill("force", 1500000);
+            if (me->can_improve_skill("force"))
+                    me->improve_skill("force", 1500000);
+            if (me->can_improve_skill("force"))
+                    me->improve_skill("force", 1500000);
+            if (me->can_improve_skill("force"))
+                    me->improve_skill("force", 1500000);
+            if (me->can_improve_skill("force"))
+                    me->improve_skill("force", 1500000);
 
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
-        	if (stringp(mapsk) && me->can_improve_skill(mapsk))
-                	me->improve_skill(mapsk, 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
+            if (stringp(mapsk) && me->can_improve_skill(mapsk))
+                    me->improve_skill(mapsk, 1500000);
 
-               	me->improve_skill("martial-cognize", 1500000);
-               	me->improve_skill("martial-cognize", 1500000);
-               	me->improve_skill("martial-cognize", 1500000);
-               	me->improve_skill("martial-cognize", 1500000);
-               	me->improve_skill("martial-cognize", 1500000);
-               	me->improve_skill("martial-cognize", 1500000);
-               	me->improve_skill("martial-cognize", 1500000);
-               	me->improve_skill("martial-cognize", 1500000);
-               	me->improve_skill("martial-cognize", 1500000);
-               	me->improve_skill("martial-cognize", 1500000);
+                   me->improve_skill("martial-cognize", 1500000);
+                   me->improve_skill("martial-cognize", 1500000);
+                   me->improve_skill("martial-cognize", 1500000);
+                   me->improve_skill("martial-cognize", 1500000);
+                   me->improve_skill("martial-cognize", 1500000);
+                   me->improve_skill("martial-cognize", 1500000);
+                   me->improve_skill("martial-cognize", 1500000);
+                   me->improve_skill("martial-cognize", 1500000);
+                   me->improve_skill("martial-cognize", 1500000);
+                   me->improve_skill("martial-cognize", 1500000);
 
-        	me->improve_neili(800);
-        	me->improve_jingli(500);
-        	me->set("skybook/item/zhenyu", 1);
-	}
+            me->improve_neili(800);
+            me->improve_jingli(500);
+            me->set("skybook/item/zhenyu", 1);
+    }
         destruct(this_object());
         return 1;
 }

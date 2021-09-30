@@ -6,28 +6,28 @@
 inherit F_SSERVER;
 
 #define SHOU  "「" HIG "九阴神手" NOR "」"
- 
+
 int perform(object me, object target)
 {
-	string msg;
+    string msg;
         int ap, dp, ap1, dp1, damage;
 
         if (userp(me) && ! me->query("can_perform/jiuyin-shengong/shou"))
                 return notify_fail("你所使用的外功中没有这种功能。\n");
- 
-	if (! target) target = offensive_target(me);
 
-	if (! target || ! me->is_fighting(target))
-	        return notify_fail(SHOU "只能在战斗中对对手使用。\n");
+    if (! target) target = offensive_target(me);
+
+    if (! target || ! me->is_fighting(target))
+            return notify_fail(SHOU "只能在战斗中对对手使用。\n");
 
         if (me->query_temp("weapon"))
                 return notify_fail("此招只能空手施展！\n");
 
-	if (me->query_skill("jiuyin-shengong", 1) < 260)
-		return notify_fail("你的九阴神功还不够娴熟，不能使用" SHOU "！\n");
+    if (me->query_skill("jiuyin-shengong", 1) < 260)
+        return notify_fail("你的九阴神功还不够娴熟，不能使用" SHOU "！\n");
 
-	if (me->query("neili") < 300)
-		return notify_fail("你的真气不够！\n");
+    if (me->query("neili") < 300)
+        return notify_fail("你的真气不够！\n");
 
         if (me->query_skill_prepared("hand") != "jiuyin-shengong"
            && me->query_skill_prepared("unarmed") != "jiuyin-shengong")
@@ -41,16 +41,16 @@ int perform(object me, object target)
 
         ap = me->query_skill("jiuyin-shengong");
         dp = target->query("combat_exp") / 10000;
-	me->add("neili", -60);
-	me->start_busy(1 + random(3));
+    me->add("neili", -60);
+    me->start_busy(1 + random(3));
 
-	me->want_kill(target);
+    me->want_kill(target);
 
         if (dp >= 100) // 此招对百万经验以上的人无效
         { // 但是仍然受到伤害
 
                 ap1 = me->query_skill("jiuyin-shengong", 1) + me->query_skill("force", 1);
-                dp1 = target->query_skill("parry", 1) + target->query_skill("dodge", 1); 
+                dp1 = target->query_skill("parry", 1) + target->query_skill("dodge", 1);
                 //damage = ap1 + random(ap1);
                 damage = ap1 * 2 + random(ap1);
                 if (ap1 / 2 + random(ap1) > dp1)
@@ -60,7 +60,7 @@ int perform(object me, object target)
                                                     "心中一惊，却猛然间觉得一股阴风透骨而过。\n" NOR);
                          me->add("neili", -140);
                 }
-                      
+
                 else
                          msg += HIC "$n" HIC "知道来招不善，小心应对，没出一点差错。\n" NOR;
                 message_combatd(msg, me, target);
@@ -83,5 +83,5 @@ int perform(object me, object target)
 
         message_combatd(msg, me, target);
 
-	return 1;
+    return 1;
 }

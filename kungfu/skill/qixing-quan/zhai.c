@@ -54,14 +54,14 @@ int perform(object me, object target)
                                            HIR "闪避不及，闷哼一声，已然中拳。\n" NOR);
 
                 me->add("neili", -100);
-	        me->start_busy(2 + random(2));                                         
+            me->start_busy(2 + random(2));
         } else
         {
                 msg += CYN "$n" CYN "不慌不忙，以快打快，将$N"
                        CYN "这招化去。\n" NOR;
 
                 me->add("neili", -30);
-	        me->start_busy(2 + random(3));
+            me->start_busy(2 + random(3));
         }
         message_combatd(msg, me, target);
 

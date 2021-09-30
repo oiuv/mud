@@ -76,12 +76,12 @@ int perform(object me, object target)
                 me->add("max_neili", -random(50));
 
                 remove_call_out("unconcious_me");
-                call_out("unconcious_me", 1, me);               
+                call_out("unconcious_me", 1, me);
 
         } else
         {
                 ap = me->query_skill("poison", 1) / 2 +
-					 me->query_skill("force, 1");
+                     me->query_skill("force, 1");
                      //me->query_skill("force");
                 if (ap + random(ap) < target->query_skill("dodge"))
                 {

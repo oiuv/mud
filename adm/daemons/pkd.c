@@ -319,11 +319,11 @@ private void auto_check()
                         continue;
                 room = base_name(environment(total[i]));
                 if (! sscanf(room, PK_ROOM "%*s"))
-		{
+        {
                         // not in pk room
                         restore_status(total[i]);
                         total[i] = 0;
-		}
+        }
                 if (total[i]->query("qi") < 1 || total[i]->query("jing") < 1)
                         lost += ({ total[i] });
         }
@@ -414,16 +414,16 @@ private void restore_status(object me)
         me->delete_override("unconcious");
         me->delete_override("die");
         me->delete_override("quit");
-	me->remove_all_enemy(1);
-	me->remove_all_killer();
-	me->clear_condition();
-	me->receive_damage("qi", 0);
+    me->remove_all_enemy(1);
+    me->remove_all_killer();
+    me->clear_condition();
+    me->receive_damage("qi", 0);
         me->apply_killer(me->query_temp("backup/killer"));
         me->apply_want(me->query_temp("backup/want"));
 
         cnd = me->query("backup/condition");
         me->delete("backup/condition");
-	me->delete_temp("block_msg/all");
+    me->delete_temp("block_msg/all");
         if (! mapp(cnd)) return;
         ks = keys(cnd);
         for (i = 0; i < sizeof(ks); i++)
@@ -524,9 +524,9 @@ int check_out(object me)
         me->move(ENTRY_ROOM);
         message("vision", "一个黑影倏的窜了出来，随即就是“啪”的"
                 "一声，就见" + me->name() +"摔倒了地上，一副半死不"
-		"活的样子。\n", environment(me), ({ me }));
-	tell_object(me, "半昏半迷中，你觉得被人拎了起来，又"
-		    "重重的摔倒了地上。\n");
+        "活的样子。\n", environment(me), ({ me }));
+    tell_object(me, "半昏半迷中，你觉得被人拎了起来，又"
+            "重重的摔倒了地上。\n");
         if (! living(me))
                 me->revive();
         return 1;

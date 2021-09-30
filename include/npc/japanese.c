@@ -3,7 +3,7 @@
 #include "name.h"
 
 mapping jp_sname = ([
-	"白木" : "baimu",
+    "白木" : "baimu",
         "北条" : "beitiao",
         "川岛" : "chuandao",
         "村正" : "cunzheng",
@@ -17,7 +17,7 @@ mapping jp_sname = ([
         "濑川" : "laichuan",
         "毛利" : "maoli",
         "木下" : "muxia",
-	"青木" : "qingmu",
+    "青木" : "qingmu",
         "齐藤" : "qiteng",
         "松下" : "songxia",
         "山本" : "shanben",
@@ -32,7 +32,7 @@ mapping jp_sname = ([
         "细川" : "xichuan",
         "依田" : "yitian",
         "织田" : "zhitian",
-	"阵内" : "zhennei",
+    "阵内" : "zhennei",
         "中田" : "zhongtian",
         "竹中" : "zhuzhong",
         "最上" : "zuishang",

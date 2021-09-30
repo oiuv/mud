@@ -11,15 +11,15 @@ void create()
 缀有亭台楼阁、园林人物，看来是江南的一处名城。
 LONG);
         set("exits", ([ /* sizeof() == 3 */
-        	"west" : __DIR__"xiaojia-qianyuan",
-        	"north" : __DIR__"xiaojia-pianting",
-        	"south" : __DIR__"xiaojia-sleep"
+            "west" : __DIR__"xiaojia-qianyuan",
+            "north" : __DIR__"xiaojia-pianting",
+            "south" : __DIR__"xiaojia-sleep"
         ]));
         set("objects", ([
-        	__DIR__"npc/yuanwai" : 1,
+            __DIR__"npc/yuanwai" : 1,
         ]) );
 
         set("NONPC",1);
-	setup();
+    setup();
         replace_program(ROOM);
 }

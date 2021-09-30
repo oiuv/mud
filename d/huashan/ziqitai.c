@@ -16,7 +16,7 @@ LONG);
         set("max_room", 3);
         set("item_desc", ([
               "teng"  : MAG "一根紫藤，看起来很结实的样子，好像可以用它爬（climb）下悬崖。\n" NOR,
-        ]));   
+        ]));
         setup();
         //replace_program(ROOM);
 }
@@ -30,14 +30,14 @@ int do_climb(string arg)
         me = this_player();
 
         if (! arg || arg == "")
-        	return 0;
+            return 0;
 
         if (arg == "teng")
         {
                 if (me->is_busy())
                 {
                         return notify_fail("你的动作还没有完成，不能移动。\n");
-                        return 1; 
+                        return 1;
                 }
 
                 message_vision(MAG "$N拉着紫藤，慢慢的爬了下去。\n"

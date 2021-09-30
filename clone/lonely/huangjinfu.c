@@ -70,6 +70,6 @@ int do_pick(string arg)
                                "之取出，收入怀中。\n" NOR, me);
                 return 1;
         } else
-	        return notify_fail(YEL "你扭开斧柄，发现柄中空空如也，什么"
+            return notify_fail(YEL "你扭开斧柄，发现柄中空空如也，什么"
                                    "都没有。\n" NOR);
 }

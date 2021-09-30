@@ -7,7 +7,7 @@ void create()
 这里是一条小胡同，就在白天这里也是昏暗不堪。这里似
 乎到了胡同的尽头，有一扇门紧关着。
 LONG);
-	set("outdoors", "zhongzhou");
+    set("outdoors", "zhongzhou");
         set("exits", ([
                 "north"     : __DIR__"liwu",
                 "southwest" : __DIR__"hutong1",
@@ -19,4 +19,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

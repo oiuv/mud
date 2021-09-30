@@ -52,10 +52,10 @@ varargs int move(mixed dest, int raw)
 // 判断是否有人需要调解
 void give_intercession()
 {
-		object *obs;
+        object *obs;
         object ob;
         object me;
-		string qname;
+        string qname;
 //      string msg;
 
         if (! query_temp("trace"))
@@ -97,20 +97,20 @@ void give_intercession()
                 // 被列为门派中断的自由任务
                 if (me->query("quest/freequest") > 0)
                         GIFT_D->delay_freequest_bonus(me);
-        }		
+        }
 
-		qname = "寻找" + ob->name();
-		call_other(QUEST_DIR + "trace.c", "start_quest");
-		QUEST_D->remove_quest(qname);
+        qname = "寻找" + ob->name();
+        call_other(QUEST_DIR + "trace.c", "start_quest");
+        QUEST_D->remove_quest(qname);
 
-		obs = filter_array(children("/clone/quest/trace"),
+        obs = filter_array(children("/clone/quest/trace"),
                            (: $1->name() == $(qname) :));
-		if (sizeof(obs) > 0)
+        if (sizeof(obs) > 0)
         {
-			 obs[0]->change_status(QUEST_FINISH);
-		}
+             obs[0]->change_status(QUEST_FINISH);
+        }
 
-		delete_temp("trace");
+        delete_temp("trace");
         set_leader(0);
         destruct(ob);
         destruct(this_object());

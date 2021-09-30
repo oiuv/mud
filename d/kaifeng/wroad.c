@@ -11,9 +11,9 @@ LONG
         );
         set("no_clean_up", 0);
         set("exits", ([
-  		"north" : __DIR__"wroad1",
-  		"eastup" : __DIR__"fangsheng",
-	]));
+          "north" : __DIR__"wroad1",
+          "eastup" : __DIR__"fangsheng",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

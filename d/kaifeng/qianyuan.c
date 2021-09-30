@@ -10,11 +10,11 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"south" : __DIR__"xianguosi",
-  		"north" : __DIR__"tianwang",
-  		"east" : __DIR__"gulou",
-  		"west" : __DIR__"zhonglou",
-	]));
+          "south" : __DIR__"xianguosi",
+          "north" : __DIR__"tianwang",
+          "east" : __DIR__"gulou",
+          "west" : __DIR__"zhonglou",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

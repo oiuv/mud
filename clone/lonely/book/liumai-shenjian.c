@@ -240,41 +240,41 @@ int do_du(string arg)
         else
 
         if (skill == "shaochong-sword" || skill == "少冲剑")
-		skill = "shaochong-sword";
+        skill = "shaochong-sword";
         else
 
         if (skill == "shaoze-sword" || skill == "少泽剑")
-		skill = "shaoze-sword";
+        skill = "shaoze-sword";
         else
 
         if (skill == "shaoshang-sword" || skill == "少商剑")
-		skill = "shaoshang-sword";
+        skill = "shaoshang-sword";
         else
 
         if (skill == "zhongchong-sword" || skill == "中冲剑")
-		skill = "zhongchong-sword";
+        skill = "zhongchong-sword";
         else
 
         if (skill == "guanchong-sword" || skill == "关冲剑")
-		skill = "guanchong-sword";
+        skill = "guanchong-sword";
         else
 
         if (skill == "shangyang" || skill == "商阳剑")
-		skill = "shangyang-sword";
+        skill = "shangyang-sword";
 
         if (! SKILL_D(skill)->valid_learn(me))
-               	return 0;
+                   return 0;
 
         if (! me->can_improve_skill(skill))
-       	{
-               	write("你的实战经验不足，再怎么读也没用。\n");
-               	return 1;
-       	}
+           {
+                   write("你的实战经验不足，再怎么读也没用。\n");
+                   return 1;
+           }
 
         lv = me->query_skill(skill, 1);
 
         if (lv >= 1)
-	{
+    {
                 write("你研读了一会儿，但是发现上面所说的实在有限。\n");
                 return 1;
         }

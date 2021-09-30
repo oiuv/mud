@@ -2,8 +2,8 @@ inherit ROOM;
 
 void create()
 {
-	set("short", "书房");
-	set("long", @LONG
+    set("short", "书房");
+    set("long", @LONG
 这是郭靖的书房。右边是书架，上面陈列着道家和儒家的
 一些典籍，却没有一本与武学有关的书。左边靠窗的地方摆着
 一张木桌，上面放着笔墨纸砚，边上放着几本书，摆放得整整
@@ -13,11 +13,10 @@ void create()
 静下来。
 LONG );
         set("no_fight", 1);
-	set("no_clean_up", 0);
-	set("exits", ([
-		"south" : __DIR__"guofu_huayuan",
-	]));
-	setup();
-	replace_program(ROOM);
+    set("no_clean_up", 0);
+    set("exits", ([
+        "south" : __DIR__"guofu_huayuan",
+    ]));
+    setup();
+    replace_program(ROOM);
 }
-

@@ -11,7 +11,7 @@ int perform(object me, object target)
         string msg, wn;
         object weapon;
         int ap, dp;
-  
+
         me = this_player();
 
         if (userp(me) && ! me->query("can_perform/xiaoyao-jian/qi"))
@@ -45,7 +45,7 @@ int perform(object me, object target)
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         wn = weapon->name();
-                           
+
         msg = HIW "\n$N" HIW "将" + wn + HIW "斜指长空，猛地飞身跃起，"
               + wn + HIW "忽左忽右，飘忽不定，猛然间破空长响，" + wn + HIW
               "直指向$n" HIW "咽喉。这正是逍遥剑法之「" HIG "奇剑诀" HIW "」，"
@@ -60,26 +60,23 @@ int perform(object me, object target)
         {
                 damage = ap + random(ap / 4);
 
-         	msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 78,
+             msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 78,
                                           HIR "$n" HIR "只见一道电光从半空袭来，"
-                                          "心中惊骇不已，但鲜血已从$n胸口喷出。\n" 
+                                          "心中惊骇不已，但鲜血已从$n胸口喷出。\n"
                                           NOR);
-         	//me->start_busy(2 + random(4));
-         	me->start_busy(2);
-         	me->add("neili", -300);
+             //me->start_busy(2 + random(4));
+             me->start_busy(2);
+             me->add("neili", -300);
         } else
         {
-         	msg = CYN "然而$n" CYN "眼明手快，侧身一跳"
+             msg = CYN "然而$n" CYN "眼明手快，侧身一跳"
                       "躲过$N" CYN "这一剑。\n" NOR;
 
-         	//me->start_busy(2);
-         	me->start_busy(2 + random(4));
-         	me->add("neili", -200);
+             //me->start_busy(2);
+             me->start_busy(2 + random(4));
+             me->add("neili", -200);
         }
         message_combatd(msg, me, target);
 
         return 1;
 }
-
-
-

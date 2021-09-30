@@ -11,12 +11,12 @@ int valid_force(string force)
 
 int valid_learn(object me)
 {
-	return 1;
+    return 1;
 }
 
 int practice_skill(object me)
 {
-	return notify_fail("叫花内功只能用学(learn)的来增加熟练度。\n");
+    return notify_fail("叫花内功只能用学(learn)的来增加熟练度。\n");
 }
 
 string exert_function_file(string func)

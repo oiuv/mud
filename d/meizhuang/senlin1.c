@@ -22,6 +22,5 @@ LONG
 
         set("outdoors", "meizhuang");
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }
-

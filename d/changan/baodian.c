@@ -11,17 +11,17 @@ void create ()
 念佛的所在，是以陈设与其馀诸殿大不相同，倒像是庄严肃穆的佛堂一
 般。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 3
-        	"north" : __DIR__"baoxiangsi",
-        	"west" : __DIR__"piandian",
-        	"east" : __DIR__"fangzhangshi",
+            "north" : __DIR__"baoxiangsi",
+            "west" : __DIR__"piandian",
+            "east" : __DIR__"fangzhangshi",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
-        	__DIR__"npc/xiangke" : 2,
+            __DIR__"npc/xiangke" : 2,
         ]));
-	
+
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

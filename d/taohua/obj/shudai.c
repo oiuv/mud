@@ -13,7 +13,7 @@ void create()
                 set("value", 1500);
                 set("material", "silk");
                 set("armor_prop/armor", 1);
-		set("female_only", 1);
+        set("female_only", 1);
         set("wear_msg", "$N将$n拿出束在头发上。\n");
         }
         setup();

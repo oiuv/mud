@@ -10,14 +10,14 @@ void create()
 后面是寝室。
 LONG);
         set("exits", ([
-            	"north" : __DIR__"buwei2",
-            	"south" : __DIR__"qunxianguan",
-            	"west"  : __DIR__"garden",
-            	"east"  : __DIR__"buwei3",
+                "north" : __DIR__"buwei2",
+                "south" : __DIR__"qunxianguan",
+                "west"  : __DIR__"garden",
+                "east"  : __DIR__"buwei3",
         ]));
         set("objects", ([
-             	__DIR__"npc/dayou" : 1,
-		"/clone/quarry/hou" : 1,
+                 __DIR__"npc/dayou" : 1,
+        "/clone/quarry/hou" : 1,
         ]));
 
         setup();

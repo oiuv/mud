@@ -4,7 +4,7 @@
 #include <ansi.h>
 
 inherit SHAOLIN_SKILL;
- 
+
 mapping *action = ({
 ([      "action": "$N身形稍退，一招「大闹阎罗府」，手中$w迎风一抖，朝着$n劈头盖脸地砸将下",
         "dodge" : 31,
@@ -83,7 +83,7 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-	return  usage == "parry" || usage == "club";
+    return  usage == "parry" || usage == "club";
 }
 
 int valid_learn(object me)
@@ -120,11 +120,11 @@ string query_skill_name(int level)
 mapping query_action(object me, object weapon)
 {
         int i, level;
-       
+
 
         level = (int) me->query_skill("qujing-gunfa", 1);
-        		weapon = me->query_temp("weapon");
- 
+                weapon = me->query_temp("weapon");
+
 
         if (random(me->query_skill("qujing-gunfa", 1)) > 180
            && me->query_skill("force") > 350

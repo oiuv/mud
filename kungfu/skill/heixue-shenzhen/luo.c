@@ -62,7 +62,7 @@ int perform(object me, object target)
                        "不忍睹。\n" NOR;
                 target->receive_damage("qi", skill + random(skill), me);
                 target->receive_wound("qi", skill / 2 + random(skill / 2), me);
-	        p = (int)target->query("qi") * 100 / (int)target->query("max_qi");
+            p = (int)target->query("qi") * 100 / (int)target->query("max_qi");
                 while (n--)
                 {
                         COMBAT_D->clear_ahinfo();

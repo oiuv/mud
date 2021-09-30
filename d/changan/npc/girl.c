@@ -17,17 +17,17 @@ void create()
         set_skill("dodge", 30);
         set_skill("parry", 30);
         set("vendor_goods", ({
-        	__DIR__"obj/zi-luolan",
-        	__DIR__"obj/hong-meigui",
-        	__DIR__"obj/huang-meigui",
-        	__DIR__"obj/lan-tiane",
-        	__DIR__"obj/bai-chahua",
-        	__DIR__"obj/hei-mudan",
+            __DIR__"obj/zi-luolan",
+            __DIR__"obj/hong-meigui",
+            __DIR__"obj/huang-meigui",
+            __DIR__"obj/lan-tiane",
+            __DIR__"obj/bai-chahua",
+            __DIR__"obj/hei-mudan",
         }));
 
         setup();
-  	carry_object(__DIR__"obj/skirt")->wear();
-  	add_money("silver", 30);
+      carry_object(__DIR__"obj/skirt")->wear();
+      add_money("silver", 30);
 }
 void init()
 {
@@ -35,18 +35,18 @@ void init()
 
         ::init();
         if (interactive(ob = this_player()) && !is_fighting())
-	{
-	        remove_call_out("greeting");
+    {
+            remove_call_out("greeting");
                 call_out("greeting", 1, ob);
-	}
+    }
         add_action("do_buy", "buy");
-	add_action("do_list", "list"); 	
+    add_action("do_list", "list");
 }
 
 void greeting(object ob)
 {
         if (!ob || environment(ob) != environment()) return;
-        switch( random(2) ) 
+        switch( random(2) )
         {
         case 0:
                 message_vision("$N笑着说道：各种新"

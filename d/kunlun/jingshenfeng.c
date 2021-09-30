@@ -15,15 +15,15 @@ void create()
 上停满了鸟雀，黄莺，杜鹃，喜鹊，八哥，还有许多不知其名
 的，和琴声或一问一答，或齐声和唱。
 long);
-	set("exits", ([
-		"south" : __DIR__"sanshengao",
-	]));
+    set("exits", ([
+        "south" : __DIR__"sanshengao",
+    ]));
 
-	set("objects",([
+    set("objects",([
                 CLASS_D("kunlun") + "/hezudao" : 1,
-    	]));
+        ]));
 
         set("outdoors", "kunlun");
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

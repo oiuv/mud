@@ -27,7 +27,7 @@ void create()
         set("int", 27);
         set("con", 32);
         set("dex", 30);
-        
+
         set("max_qi", 6000);
         set("max_jing", 5000);
         set("neili", 7000);
@@ -87,21 +87,21 @@ void create()
 
         set("book_count", 1);
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "sword.zhenwu" :),
-		(: perform_action, "sword.chan" :),
-		(: perform_action, "sword.jia" :),
-		(: perform_action, "sword.sui" :),
-		(: perform_action, "sword.zhuan" :),
+        set("chat_chance_combat", 120);
+        set("chat_msg_combat", ({
+                (: perform_action, "sword.zhenwu" :),
+                (: perform_action, "sword.chan" :),
+                (: perform_action, "sword.jia" :),
+                (: perform_action, "sword.sui" :),
+                (: perform_action, "sword.zhuan" :),
                 (: perform_action, "unarmed.zhen" :),
                 (: perform_action, "unarmed.zhan" :),
                 (: perform_action, "unarmed.ji" :),
                 (: perform_action, "unarmed.yin" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-		(: exert_function, "shield" :),
-	}) );
+                (: exert_function, "recover" :),
+                (: exert_function, "powerup" :),
+                (: exert_function, "shield" :),
+        }) );
 
         set_temp("apply/attack", 150);
         set_temp("apply/defense", 150);
@@ -131,11 +131,11 @@ void attempt_apprentice(object ob)
                 return;
         }
 
-	if ((int)ob->query("combat_exp") < 300000)
-	{
-		command("say 你现在经验尚浅，不能领会高深的武功，先锻炼要紧。");
-		return;
-	}
+        if ((int)ob->query("combat_exp") < 300000)
+        {
+                command("say 你现在经验尚浅，不能领会高深的武功，先锻炼要紧。");
+                return;
+        }
 
         if ((int)ob->query_skill("wudang-xinfa", 1) < 100)
         {
@@ -254,9 +254,9 @@ mixed ask_book1()
 mixed ask_book2()
 {
         object ob;
-        
+
         if (this_player()->query("family/family_name") != query("family/family_name"))
-                return RANK_D->query_respect(this_player()) + 
+                return RANK_D->query_respect(this_player()) +
                        "与本派素无来往，不知此话从何谈起？";
 
         if (query("book_count") < 1)
@@ -269,4 +269,3 @@ mixed ask_book2()
         ob->move(this_player(), 1);
         return "好吧，这本「太极十三式」你拿回去好好钻研。";
 }
-

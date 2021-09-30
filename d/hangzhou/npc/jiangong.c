@@ -224,7 +224,7 @@ int working(object me)
 
                 if (me->query("combat_exp") < 300000)
                 {
-                        b = 40 + random(15);	//基础奖励增加4倍
+                        b = 40 + random(15);    //基础奖励增加4倍
                         me->add("combat_exp", b);
                         me->improve_potential((b + 10) / 3);
                         me->improve_skill("unarmed", (b + 5) / 2);

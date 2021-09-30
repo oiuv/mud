@@ -14,12 +14,11 @@ LONG);
                 "/d/beijing/npc/ducha" : 1,
         ]));
         set("exits", ([
-        	"northup" :"/d/wudang/wdroad5",
-	        "south" :__DIR__"beidajie2",
-  
+            "northup" :"/d/wudang/wdroad5",
+            "south" :__DIR__"beidajie2",
+
         ]));
         set("outdoors", "jingzhou");
         setup();
         replace_program(ROOM);
 }
-

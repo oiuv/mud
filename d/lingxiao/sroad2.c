@@ -13,11 +13,10 @@ void create()
 LONG);
         set("outdoors", "lingxiao");
         set("exits", ([
-            	"southdown"  : __DIR__"sroad1",
-            	"northup"  : __DIR__"sroad3",
+                "southdown"  : __DIR__"sroad1",
+                "northup"  : __DIR__"sroad3",
         ]));
         set("no_clean_up", 0);
         setup();
         replace_program(ROOM);
 }
-

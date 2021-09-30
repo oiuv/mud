@@ -16,14 +16,14 @@ int perform(object me, object target)
 
         if (! target)
         {
-	        me->clean_up_enemy();
-	        target = me->select_opponent();
+            me->clean_up_enemy();
+            target = me->select_opponent();
         }
 
-	if (! target || ! me->is_fighting(target))
-		return notify_fail(JU "只能对战斗中的对手使用。\n");
+    if (! target || ! me->is_fighting(target))
+        return notify_fail(JU "只能对战斗中的对手使用。\n");
 
-	if (objectp(me->query_temp("weapon")))
+    if (objectp(me->query_temp("weapon")))
                 return notify_fail(JU "只能空手施展。\n");
 
         if ((int)me->query_skill("haotian-zhang", 1) < 120)

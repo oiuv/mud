@@ -9,9 +9,9 @@ void create()
 石制的。看来似乎很久以前有人在这里住过。正中的石桌上平
 放着一块薄薄的石板，上面好象刻着些什么。
 LONG);
-		set("exits", ([
-			"south" : __DIR__"mishi",
-		]));
+        set("exits", ([
+            "south" : __DIR__"mishi",
+        ]));
         set("maze", 1);
         "/clone/book/lbook5"->foo();
         setup();

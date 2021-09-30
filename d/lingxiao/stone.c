@@ -11,7 +11,7 @@ void create()
 LONG );
         set("outdoors", "lingxiao");
         set("exits", ([
-            	"east" : __DIR__"meiroad2",
+                "east" : __DIR__"meiroad2",
         ]));
         set("no_clean_up", 0);
         setup();

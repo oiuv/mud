@@ -11,11 +11,11 @@ LONG );
         set("outdoors", "tianlongsi");
         set("exits", ([
                 "south" : __DIR__"ta1",
-		"west" : __DIR__"ta3",
-		"east" : __DIR__"ta2",
+        "west" : __DIR__"ta3",
+        "east" : __DIR__"ta2",
                 "north" : __DIR__"damen",
         ]));
-	set("objects",([
+    set("objects",([
                 __DIR__"npc/saodiseng" : 1,
         ]));
 //        set("no_clean_up", 0);

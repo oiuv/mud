@@ -48,14 +48,14 @@ int perform(object me, object target)
               "」双掌不断拍出，掌风作响，划破长空，将$n" HIC "团团"
               "围住。\n" NOR;
         message_sort(msg, me, target);
-        
+
         if (random(ap) > dp / 2)
         {
-		msg = HIR "$n" HIR "心神惧裂，一时间竟无从应对，"
+        msg = HIR "$n" HIR "心神惧裂，一时间竟无从应对，"
                       "竟被困在$N" HIR "的掌风之中。\n" NOR;
 
                 target->start_busy(ap / 40 + 1);
-               	me->start_busy(1);
+                   me->start_busy(1);
                 me->add("neili", -80);
         } else
         {

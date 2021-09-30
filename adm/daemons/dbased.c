@@ -66,7 +66,7 @@ int remove(string euid)
 // MUD将要停止运行
 void mud_shutdown()
 {
-    announce_all_save_object(ONLY_SAVE);	//added by mudren
+    announce_all_save_object(ONLY_SAVE);    //added by mudren
     save_flag = DESTRUCT_OBJECT;
     destruct(this_object());
 }

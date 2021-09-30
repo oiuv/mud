@@ -11,13 +11,12 @@ void create()
 LONG);
         set("outdoors", "lingxiao");
         set("exits", ([
-            	"south" : __DIR__"gate",
-            	"north" : __DIR__"iceroad2",
-            	"west"  : __DIR__"hotel",
-            	"east"  : __DIR__"sell",
+                "south" : __DIR__"gate",
+                "north" : __DIR__"iceroad2",
+                "west"  : __DIR__"hotel",
+                "east"  : __DIR__"sell",
         ]));
         set("no_clean_up", 0);
         setup();
         replace_program(ROOM);
 }
-

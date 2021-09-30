@@ -49,7 +49,7 @@ int perform(object me, object target)
         ap = me->query_skill("sword");
         dp = target->query_skill("parry");
 
-	damage = ap / 4 + random(ap / 4);
+    damage = ap / 4 + random(ap / 4);
 
         msg = HIW "$N" HIW "一声清啸，手中" + weapon->name() + HIW "凌"
                   "空划出，剑尖陡然生出半尺吞吐不定的青芒，一道剑气破空"
@@ -77,9 +77,9 @@ int perform(object me, object target)
                                            "哀嚎一声，再也无法站起。\n" NOR);
         } else
         {
-        	msg += CYN "$n" CYN "强忍全身的痛楚，飞身一跃，避开了$N"
+            msg += CYN "$n" CYN "强忍全身的痛楚，飞身一跃，避开了$N"
                        CYN "这强大的杀着。\n" NOR;
-	}
+    }
         me->start_busy(2 + random(3));
         me->add("neili", -400);
         message_combatd(msg, me, target);

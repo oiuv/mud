@@ -1,5 +1,5 @@
 inherit ROOM;
- 
+
 void create()
 {
         set("short", "草地");
@@ -8,8 +8,8 @@ void create()
 香气四逸，南边不远便是风雷堂的大厅了。
 LONG );
         set("exits", ([
-            	"south"    : __DIR__"fen0", 
-            	"north"    :__DIR__"grass2",
+                "south"    : __DIR__"fen0",
+                "north"    :__DIR__"grass2",
         ]));
         set("no_clean_up", 0);
         set("outdoors", "heimuya");

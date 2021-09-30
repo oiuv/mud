@@ -1,5 +1,5 @@
 inherit ROOM;
- 
+
 void create()
 {
         set("short", "天香堂厢房");
@@ -12,11 +12,11 @@ LONG);
         set("no_fight", 1);
         set("no_clean_up", 0);
         set("exits", ([
-            	"west"   : __DIR__"tian1",
+                "west"   : __DIR__"tian1",
         ]));
         set("objects", ([
                 __DIR__"npc/dizi6" : 1,
-        ]));       
+        ]));
         setup();
         replace_program(ROOM);
 }

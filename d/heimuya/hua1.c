@@ -8,7 +8,7 @@ void create()
 绿竹，青松翠柏，布置得颇具匠心，往西去是一片青草地。
 LONG);
         set("exits", ([
-            	"west" : __DIR__"grass2",
+                "west" : __DIR__"grass2",
         ]));
 
         set("no_clean_up", 0);

@@ -39,8 +39,7 @@ int valid_leave(object me, string dir)
                  if(objectp(present("leng qian", environment(me))))
                      return notify_fail("冷谦拦住你说道：这位" +
                          RANK_D->query_respect(me) + "请放下兵刃。我教教规严"
-			 "厉，外客不\n得持兵刃上山。请见谅。\n");
+             "厉，外客不\n得持兵刃上山。请见谅。\n");
     }
     return ::valid_leave(me, dir);
 }
-

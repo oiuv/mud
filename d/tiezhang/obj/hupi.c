@@ -14,9 +14,8 @@ void create()
         else {
                 set("unit", "块");
                 set("material", "fur");
-               	set("value", 2000);
+                   set("value", 2000);
                 set("armor_prop/armor", 10);
         }
         setup();
 }
-

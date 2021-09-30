@@ -22,7 +22,7 @@ LONG);
         ]));
         set("exits", ([
                 "north" : __DIR__"nroad1",
- 		"south" : __DIR__"beidajie2",
+         "south" : __DIR__"beidajie2",
         ]));
         set("objects", ([
                 "/d/city/npc/bing" : 4,

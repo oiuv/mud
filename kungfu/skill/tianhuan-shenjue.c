@@ -33,10 +33,10 @@ int valid_learn(object me)
 
 int practice_skill(object me)
 {
-	return notify_fail("天寰神诀只能用学(learn)的来增加熟练度。\n");
+    return notify_fail("天寰神诀只能用学(learn)的来增加熟练度。\n");
 }
 
 string exert_function_file(string func)
 {
-	return __DIR__"tianhuan-shenjue/" + func;
+    return __DIR__"tianhuan-shenjue/" + func;
 }

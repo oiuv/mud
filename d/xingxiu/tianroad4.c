@@ -15,7 +15,7 @@ LONG);
 
         if (random(50) > 48)
                 set("objects", ([
-                	"/clone/fam/pill/xuelian1" : 1
+                    "/clone/fam/pill/xuelian1" : 1
                 ]));
 
         set("item_desc", ([

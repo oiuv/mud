@@ -1,5 +1,5 @@
 inherit ROOM;
- 
+
 void create()
 {
         set("short", "白虎堂后厅");
@@ -9,7 +9,7 @@ void create()
 男子横眉座在当中。
 LONG);
         set("exits", ([
-            	"north" : __DIR__"baistep2",
+                "north" : __DIR__"baistep2",
         ]));
         set("objects", ([
                 CLASS_D("riyue") + "/shangguan" : 1,

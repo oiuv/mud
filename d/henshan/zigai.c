@@ -9,16 +9,16 @@ void create()
 春暖花开之时，山上的积雪便融化汇入紫盖仙洞中，水满则溢，
 便有了紫盖峰下水莲洞外的瀑布。
 LONG);
-	set("exits",([
-	       "southdown":__DIR__"shanlu16",
-	]));
-	
+    set("exits",([
+           "southdown":__DIR__"shanlu16",
+    ]));
+
         set("objects", ([
                 CLASS_D("henshan") + "/xiang" : 1,
         ]));
 
-	set("outdoors","henshan");
+    set("outdoors","henshan");
 
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

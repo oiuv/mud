@@ -19,11 +19,11 @@ int broil(object me, object ob)
 
         me = this_player();
 
-	if (me->is_busy())
-	{
-		write("你现在忙着呢，过会儿再烤吧。\n");
-		return 1;
-	}
+    if (me->is_busy())
+    {
+        write("你现在忙着呢，过会儿再烤吧。\n");
+        return 1;
+    }
 
         message_sort(HIM "$N" HIM "把" + name() + HIM "放在" + ob->name() +
                      HIM "上细细烤着，只听毕啵毕啵几声，闻得一阵诱人的香味"
@@ -38,6 +38,6 @@ int broil(object me, object ob)
         if (query_amount() < 1)
                 destruct(this_object());
 
-	me->start_busy(1);
+    me->start_busy(1);
         return 1;
 }

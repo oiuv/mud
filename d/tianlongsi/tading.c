@@ -13,14 +13,14 @@ LONG );
         ]));
         set("item_desc",([
             "zhuozi" : (:look():),
-        ]));	
+        ]));
         set("no_clean_up", 0);
         setup();
 }
 
 string look()
 {
-	object me=this_player();
-	me->set_temp("marks/ask_temp0",1);
-	return "那是原来供奉舍利子的地方，如今空空如也，看来江湖中传言不虚。\n";
+    object me=this_player();
+    me->set_temp("marks/ask_temp0",1);
+    return "那是原来供奉舍利子的地方，如今空空如也，看来江湖中传言不虚。\n";
 }

@@ -12,13 +12,12 @@ void create ()
 隍庙。
 LONG);
         set("exits",([//sizeof() == 3
-        	"south" : __DIR__"yongtai-dadao5",
-        	"north" : __DIR__"xian-daokou",
-        	"east" :__DIR__"miao"
+            "south" : __DIR__"yongtai-dadao5",
+            "north" : __DIR__"xian-daokou",
+            "east" :__DIR__"miao"
         ]));
 
         set("outdoors", "changan");
         setup();
         replace_program(ROOM);
 }
-        

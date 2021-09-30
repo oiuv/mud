@@ -24,8 +24,8 @@ int perform(object me, string skill)
         me->receive_damage("qi", 40 + random(40));
         me->set_temp("special_skill/power", 1);
         me->add_temp("apply/attack", count);
-   	me->start_call_out((: call_other, __FILE__, "remove_effect", me,
-			      count :), 60 + random(30));
+       me->start_call_out((: call_other, __FILE__, "remove_effect", me,
+                  count :), 60 + random(30));
 
         return 1;
 }

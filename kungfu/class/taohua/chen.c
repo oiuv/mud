@@ -68,7 +68,7 @@ void create()
                 "梅超风" : "她是我的师妹，也是我的内室。",
                 "陈玄风" : "不就是我么？你是白痴啊？",
                 "黄药师" : "他是我师父。"
-	]));
+        ]));
         set_temp("apply/damage", 100);
         set_temp("apply/unarmed_damage", 100);
         set_temp("apply/armor", 200);

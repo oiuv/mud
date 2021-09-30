@@ -9,7 +9,7 @@ void create()
         set("title", "钱庄老板");
         set("gender", "男性");
         set("age", 46);
-        set("kee", 800); 
+        set("kee", 800);
         set("max_kee", 800);
         set("sen", 200);
         set("max_sen", 200);
@@ -18,11 +18,11 @@ void create()
         set("env/wimpy", 50);
         set("chat_chance", 10);
         set("chat_msg", ({
-        	"铁公鸡嘿嘿嘿地笑了几声：我这把算盘几十年来可从来没算错过。\n",
-        	"铁公鸡骄傲的说道：本银号已经有上百年的历史，在长安城可以说是第一家。\n"
+            "铁公鸡嘿嘿嘿地笑了几声：我这把算盘几十年来可从来没算错过。\n",
+            "铁公鸡骄傲的说道：本银号已经有上百年的历史，在长安城可以说是第一家。\n"
         }));
         set_skill("unarmed", 60);
-	set_skill("parry", 60);
+    set_skill("parry", 60);
         set_skill("dodge", 60);
 
         setup();
@@ -51,11 +51,11 @@ int do_audit()
 {
         int total = (int)this_player()->query("balance");
         if (! total || total < 0)
-	{
-        	this_player()->set("balance", 0);
+    {
+            this_player()->set("balance", 0);
                 return notify_fail("您在敝钱庄没有存钱。\n");
-	}
-        write("铁算盘悄悄告诉你：您在弊钱庄共存有" + 
+    }
+        write("铁算盘悄悄告诉你：您在弊钱庄共存有" +
                 MONEY_D->money_str(total) + "\n");
-        return 1;                                                               
+        return 1;
 }

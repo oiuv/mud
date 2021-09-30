@@ -13,7 +13,7 @@ void create()
         else {
                 set("unit", "根");
                 set("long", "一根长约七尺的黑光铮亮的钢杖，杖端有一个蛇头，"
-		"有机关可射出毒针伤人。\n");
+        "有机关可射出毒针伤人。\n");
                 set("value", 450);
                 set("snake_type","毒蛇");
                 set("material", "steel");
@@ -35,17 +35,17 @@ int convert(string arg)
         object ob;
 
         if (arg!="shezhang" && arg!="staff" && arg!="zhang") return 0;
-        if (me->query("family/family_name") != "欧阳世家") 
+        if (me->query("family/family_name") != "欧阳世家")
                 return notify_fail("你不能化杖为蛇。\n");
         if ((int)me->query("jing") < 100)
                 return notify_fail("你的精力不够。\n");
-	if (!present("shezhang", me)) 
-		return notify_fail("你身上没有蛇杖。\n");
+    if (!present("shezhang", me))
+        return notify_fail("你身上没有蛇杖。\n");
 
         if (random(me->query_skill("training",1)) <20) {
         message_vision("$N手握蛇杖手舞足蹈，好像发疯一般。\n"
                 ,me);
-		me->receive_damage("jing", 95);
+        me->receive_damage("jing", 95);
                 return 1;
         }
         message_vision("$N手握蛇杖手舞足蹈，猛地往地上一摔，将蛇杖化为一条毒蛇。\n",
@@ -55,4 +55,3 @@ int convert(string arg)
         destruct(this_object());
         return 1;
 }
-

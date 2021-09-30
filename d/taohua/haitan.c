@@ -52,7 +52,7 @@ int do_enter ( string arg )
 void rtaohua(object ob)
 {
     if (! objectp(ob) || find_object(__DIR__"dahai") != environment(ob))
-	return;
+    return;
 
     tell_object(ob, "大船终于抵达了中原的一个繁华城市。你走下船来。\n");
     ob->move("/d/quanzhou/jiaxinggang");

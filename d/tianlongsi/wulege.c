@@ -10,8 +10,8 @@ LONG );
         set("exits", ([
             "north": __DIR__"xianghemen",
             "east" : __DIR__"huangtianmen",
-	]));
-	set("objects",([
+    ]));
+    set("objects",([
              __DIR__"npc/xiaoshami" : 2,
         ]));
 //        set("no_clean_up", 0);

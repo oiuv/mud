@@ -17,8 +17,8 @@ void create()
         set_skill("dodge", 100+random(50));
         set_skill("force", 100+random(50));
 
-        set("max_qi", 1000+random(500)); 
-        set("max_jing", 1000+random(500)); 
+        set("max_qi", 1000+random(500));
+        set("max_jing", 1000+random(500));
 
 
         setup();
@@ -41,7 +41,7 @@ int accept_hit(object who)
 int accept_kill(object who)
 {
         command("say 怎么，想得屠龙刀就非得要行凶不成？");
-	return 1;
+    return 1;
 }
 
 int accept_ansuan(object who)
@@ -125,4 +125,3 @@ int do_bi()
         begin(me);
         return 1;
 }
-

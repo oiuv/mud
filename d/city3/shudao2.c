@@ -10,9 +10,9 @@ void create()
 江。
 LONG);
         set("exits", ([
-  		"east" : __DIR__"shudao1",
-  		"southwest" : __DIR__"shudao3",
-   	]));
+          "east" : __DIR__"shudao1",
+          "southwest" : __DIR__"shudao3",
+       ]));
 
         set("no_clean_up", 0);
         set("outdoors", "chengdu");

@@ -151,7 +151,7 @@ void receive_message(string msgclass, string msg)
         {
             case "channel":
                 if(!pointerp(ch = query("channels"))
-                ||	member_array(msgclass, ch) == -1)
+                ||    member_array(msgclass, ch) == -1)
                     return;
                 break;
             case "outdoor":

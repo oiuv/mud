@@ -6,16 +6,16 @@ inherit NPC;
 
 void create()
 {
-	set_name("南海恶蛟", ({ "monster dragon", "dragon", "nanhai ejiao" }) );
-	set("title", HIC "龙族" NOR);
-	set("gender", "男性");
-	set("age", 23);
-	set("long", @LONG
+    set_name("南海恶蛟", ({ "monster dragon", "dragon", "nanhai ejiao" }) );
+    set("title", HIC "龙族" NOR);
+    set("gender", "男性");
+    set("age", 23);
+    set("long", @LONG
 这是一个气势汹汹的恶蛟，浑身缠绕着五颜六色的异彩云祥。
 LONG );
-	set("combat_exp", 10000000);
+    set("combat_exp", 10000000);
         set("shen_type", 0);
-	set("attitude", "heroism");
+    set("attitude", "heroism");
         set("max_neili", 20000);
         set("neili", 20000);
         set("max_jing", 20000);
@@ -30,11 +30,11 @@ LONG );
         set("con", 100);
         set("dex", 100);
 
-	set_skill("unarmed", 1200);
-	set_skill("sword", 1200);
-	set_skill("parry", 1200);
-	set_skill("dodge", 1200);
-	set_skill("force", 1200);
+    set_skill("unarmed", 1200);
+    set_skill("sword", 1200);
+    set_skill("parry", 1200);
+    set_skill("dodge", 1200);
+    set_skill("force", 1200);
 
         set("jiali", 200);
 
@@ -50,20 +50,20 @@ LONG );
                 keep_heart_beat();
         }
 
-	setup();
+    setup();
 }
 
 void fight_ob(object ob)
 {
-	if (is_fighting(ob))
-		return;
+    if (is_fighting(ob))
+        return;
 
         message_vision(HIW "$N" HIW "冷哼一声，浑身云气大盛，"
                        "妖气弥漫。\n" NOR, this_object(), ob);
 
         ::fight_ob(ob);
-	if (! is_killing(ob->query("id")))
-        	kill_ob(ob);
+    if (! is_killing(ob->query("id")))
+            kill_ob(ob);
 }
 
 int accept_fight(object ob)
@@ -113,14 +113,14 @@ void die()
 
 void random_move()
 {
-	if (time() - query("born_time") > 1800)
-	{
-		message_vision("$N急急忙忙的走了。\n", this_object());
+    if (time() - query("born_time") > 1800)
+    {
+        message_vision("$N急急忙忙的走了。\n", this_object());
                 CHANNEL_D->do_channel(this_object(), "rumor",
                         "听说" + name() + HIM "逍遥凡世，为祸人间良久"
                         "方才返回南海，百姓饱受荼毒。" NOR);
-		destruct(this_object());
-		return;
-	}
+        destruct(this_object());
+        return;
+    }
         NPC_D->random_move(this_object());
 }

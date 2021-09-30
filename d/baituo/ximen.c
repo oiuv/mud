@@ -30,10 +30,10 @@ int valid_leave(object me, string dir)
         if (dir == "east")
                 return guarder->permit_pass(me, dir);
 
-	if (dir == "west"
-	   && (int)me->query("combat_exp") < 600
-	   && guarder)
-	        return notify_fail(CYN "门卫拦住你道：你经验太低，会被"
+    if (dir == "west"
+       && (int)me->query("combat_exp") < 600
+       && guarder)
+            return notify_fail(CYN "门卫拦住你道：你经验太低，会被"
                                    "毒蛇咬死，还是不要乱闯的好。\n" NOR);
 
         return 1;

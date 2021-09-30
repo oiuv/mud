@@ -6,8 +6,8 @@ inherit F_MASTER;
 
 void create()
 {
-	set_name("赵鹤", ({"zhao he", "zhao", "he"}));
-    	set("nickname", HIW "飞天神魔" NOR);
+    set_name("赵鹤", ({"zhao he", "zhao", "he"}));
+        set("nickname", HIW "飞天神魔" NOR);
         set("title", "日月神教前辈长老");
         set("long", @LONG
 飞天神魔赵鹤乃是日月神教的前辈长老，武功
@@ -22,7 +22,7 @@ LONG);
         set("int", 36);
         set("con", 36);
         set("dex", 36);
-        
+
         set("max_qi", 5400);
         set("max_jing", 4000);
         set("neili", 7000);
@@ -69,14 +69,14 @@ LONG);
                 "开天辟地" : "你去让我师兄教你吧。",
         ]));
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "hammer.kai" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "hammer.kai" :),
                 (: perform_action, "cuff.tong" :),
                 (: perform_action, "claw.duan" :),
-		(: exert_function, "recover" :),
-		(: exert_function, "powerup" :),
-	}) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+    }) );
 
         setup();
 
@@ -105,7 +105,7 @@ int recognize_apprentice(object ob, string skill)
         {
                 command("sneer");
                 command("say 你还不配。");
-                return -1; 
+                return -1;
         }
 
         if ((int)ob->query("shen") > -80000)

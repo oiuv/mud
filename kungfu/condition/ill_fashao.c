@@ -14,7 +14,7 @@ int update_condition(object me, int duration)
         if( duration < 1 ) return 0;
 
         message("vision", HIG + me->name() + "的脸蛋烧得"
-		          "通红，看来是发高烧了。\n" NOR,
+                  "通红，看来是发高烧了。\n" NOR,
                 environment(me), me);
 
         if( !living(me) && me->query("qi") < 1 ) {

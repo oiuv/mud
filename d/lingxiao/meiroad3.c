@@ -1,5 +1,5 @@
 inherit ROOM;
-#include <ansi.h> 
+#include <ansi.h>
 
 void create()
 {
@@ -12,12 +12,12 @@ void create()
 LONG);
         set("outdoors", "lingxiao");
         set("exits", ([
-            	"west"  : __DIR__"meiroad1",
-            	"east"  : __DIR__"ting",
+                "west"  : __DIR__"meiroad1",
+                "east"  : __DIR__"ting",
         ]));
-        set("objects", ([ 
+        set("objects", ([
                 __DIR__"obj/ban" : 1,
-        ])); 
+        ]));
         setup();
 }
 

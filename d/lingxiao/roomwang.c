@@ -1,10 +1,10 @@
 inherit ROOM;
-#include <ansi.h> 
+#include <ansi.h>
 
 void create()
 {
         set("short","居室");
-        set("long",@LONG 
+        set("long",@LONG
 这里与其说是一间卧室，不如说是一间练功室。地上铺满了
 浑圆的黄豆，怎么也站不住。室内立了八根梅花桩，一名身挂披
 风的男子正在上面纵跃如飞，看得人眼花缭乱。他正是凌霄城的
@@ -13,9 +13,9 @@ void create()
 问这件事。
 LONG);
         set("exits",([
-            	"north"  : __DIR__"zoulang1", 
+                "north"  : __DIR__"zoulang1",
         ]));
-        set("objects", ([  
+        set("objects", ([
                 __DIR__"npc/wang-wanyi" : 1,
         ]));
         set("no_clean_up", 0);
@@ -23,4 +23,3 @@ LONG);
         replace_program(ROOM);
 
 }
-

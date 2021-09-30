@@ -41,9 +41,9 @@ int perform(object me, object target)
         dp = target->query_skill("parry");
 
         msg = HIC "\n$N" HIC "右掌高举，施一招「" HIW "破山斧"
-              HIC "」，掌速极快，犹如一把利斧从天而下，劈向$n\n" 
+              HIC "」，掌速极快，犹如一把利斧从天而下，劈向$n\n"
               HIC "。" NOR;
-        
+
         message_sort(msg, me, target);
 
         if (ap / 2 + random(ap) > dp)
@@ -56,14 +56,14 @@ int perform(object me, object target)
                                           HIR "闪避不及，却已中掌。\n" NOR);
 
                 me->add("neili", -100);
-	        me->start_busy(2 + random(2));                                         
+            me->start_busy(2 + random(2));
         } else
         {
                 msg = CYN "$n" CYN "不慌不忙，以快打快，将$N"
                       CYN "这招化去。\n" NOR;
 
                 me->add("neili", -30);
-	        me->start_busy(2 + random(3));
+            me->start_busy(2 + random(3));
         }
         message_vision(msg, me, target);
         return 1;

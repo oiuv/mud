@@ -16,20 +16,20 @@ HIC "           ##############################\n"
 "           ##############################\n\n" NOR
 "其字体遒劲挺拔，气势宏伟之极，想必应是出自黄药师的手笔。\n"
 );
-	set("exits", ([
-	    "north" : __DIR__"qianyuan",
-	    "south" : __DIR__"houyuan",
-	    "east"  : __DIR__"daojufang",
-	    "west"  : __DIR__"wofang" ,
-	]));
-	set("objects", ([
-	    "/kungfu/class/taohua/huang" : 1,
-	]) );
-	set("valid_startroom", 1);
-	set("no_beg", "1");
-	setup();
+    set("exits", ([
+        "north" : __DIR__"qianyuan",
+        "south" : __DIR__"houyuan",
+        "east"  : __DIR__"daojufang",
+        "west"  : __DIR__"wofang" ,
+    ]));
+    set("objects", ([
+        "/kungfu/class/taohua/huang" : 1,
+    ]) );
+    set("valid_startroom", 1);
+    set("no_beg", "1");
+    setup();
 
-	 "/clone/board/taohua_b"->foo();
+     "/clone/board/taohua_b"->foo();
 }
 
 int valid_leave(object me, string dir)

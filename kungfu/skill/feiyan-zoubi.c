@@ -3,9 +3,9 @@
 inherit SKILL;
 
 string *dodge_msg = ({
-	"$n身形急转，避过了$N的攻势。\n",
-	"可是$n拔地而起，躲过了$N这一招。\n",
-	"$n作闪右避，总算躲过了$N这一招。\n",
+    "$n身形急转，避过了$N的攻势。\n",
+    "可是$n拔地而起，躲过了$N这一招。\n",
+    "$n作闪右避，总算躲过了$N这一招。\n",
 });
 
 int valid_enable(string usage) { return (usage == "dodge") || (usage == "move"); }

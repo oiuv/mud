@@ -13,7 +13,7 @@ void create()
                 set("base_unit", "粒");
                 set("base_value", 100);
                 set("base_weight", 10);
-		set("poison_type", "poison");
+        set("poison_type", "poison");
                 set("can_pour", 1);
                 set("can_daub", 1);
                 set("can_drug", 1);
@@ -42,4 +42,3 @@ int do_effect(object me)
 
         return 1;
 }
-

@@ -1,5 +1,5 @@
 inherit ROOM;
-#include <ansi.h> 
+#include <ansi.h>
 
 void create()
 {
@@ -11,7 +11,7 @@ void create()
 闲自得地修剪桌上的一盆梅花。
 LONG);
         set("exits",([
-            	"east"  : __DIR__"houyuan2", 
+                "east"  : __DIR__"houyuan2",
         ]));
         set("objects", ([
                 CLASS_D("lingxiao") + "/baiwanjian" : 1,
@@ -22,4 +22,3 @@ LONG);
         replace_program(ROOM);
 
 }
-

@@ -1,5 +1,5 @@
 inherit ROOM;
-#include <ansi.h> 
+#include <ansi.h>
 
 void create()
 {
@@ -11,9 +11,9 @@ void create()
 说老爷子想试试这家伙的威力，结果在床上躺了一个月。
 LONG);
         set("exits", ([
-            	"south"  : __DIR__"zoulang2", 
+                "south"  : __DIR__"zoulang2",
         ]));
-        set("objects", ([  
+        set("objects", ([
                 CLASS_D("lingxiao") + "/kewanjun" : 1,
         ]));
         set("no_clean_up", 0);
@@ -21,4 +21,3 @@ LONG);
         replace_program(ROOM);
 
 }
-

@@ -18,5 +18,5 @@ int update_condition(object me, int parameter)
                 return 0;
         }
 
-	return 1;
+    return 1;
 }

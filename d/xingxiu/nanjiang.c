@@ -34,19 +34,19 @@ int valid_leave(object me, string dir)
 
         current_water = me->query("water");
         if (current_water == 0)
-	{
-          	write("你已经感到不行了，冥冥中你觉得有人把你抬到天山脚下。\n");
-          	me->move(__DIR__"shanjiao");
-          	me->unconcious();
-		return -1;
+    {
+              write("你已经感到不行了，冥冥中你觉得有人把你抬到天山脚下。\n");
+              me->move(__DIR__"shanjiao");
+              me->unconcious();
+        return -1;
         }
 
         if (current_water <= 20)
-	{
-            	write("你过于缺水，眼冒金星。\n");
-            	me->set("water", 0);
+    {
+                write("你过于缺水，眼冒金星。\n");
+                me->set("water", 0);
         } else
-            	me->add("water", -20);
+                me->add("water", -20);
 
         if (random(2))
         {

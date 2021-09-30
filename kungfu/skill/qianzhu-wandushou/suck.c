@@ -18,8 +18,8 @@ int perform(object me,object target)
 
      /*   if( target->query("age") < 99 )
                 return notify_fail("你看清楚点，那东西像是毒虫吗？\n"); */
-	if( ! target->query("worm_poison") )
-		  return notify_fail("你看清楚点，那东西像是毒虫吗？\n");
+    if( ! target->query("worm_poison") )
+          return notify_fail("你看清楚点，那东西像是毒虫吗？\n");
 
         my_skill = (int)me->query_skill("qianzhu-wandushou", 1);
         my_force = (int)me->query_skill("xiuluo-yinshagong", 1);

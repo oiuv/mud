@@ -9,16 +9,16 @@ void create()
 访友的。东面就是山陕甘会馆。西面有梯道可上角楼。
 LONG);
         set("objects", ([
-  		__DIR__"npc/qigai" : 1,
-	]));
+          __DIR__"npc/qigai" : 1,
+    ]));
 
         set("no_clean_up", 0);
         set("exits", ([
-  		"south" : __DIR__"eroad1",
-  		"north" : __DIR__"eroad3",
-  		"east" : __DIR__"huiguan",
-  		"westup" : __DIR__"jiaolou2",
-	]));
+          "south" : __DIR__"eroad1",
+          "north" : __DIR__"eroad3",
+          "east" : __DIR__"huiguan",
+          "westup" : __DIR__"jiaolou2",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

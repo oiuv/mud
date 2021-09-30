@@ -10,9 +10,9 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"east" : __DIR__"hh_jiashan",
-  		"north" : __DIR__"hh_jianlou1",
-	]));
+          "east" : __DIR__"hh_jiashan",
+          "north" : __DIR__"hh_jianlou1",
+    ]));
         set("outdoors", "honghua");
         setup();
         replace_program(ROOM);

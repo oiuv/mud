@@ -15,7 +15,7 @@ LONG);
         ]));
 
         set("objects", ([
-		__DIR__"npc/dizi1" : 2,
+        __DIR__"npc/dizi1" : 2,
         ]));
 
         set("no_clean_up", 0);
@@ -23,4 +23,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

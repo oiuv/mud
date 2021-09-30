@@ -136,9 +136,9 @@ nomask void enable_player()
 
         if (! enabled)
         {
-	        enable_commands();
+            enable_commands();
                 enabled = 1;
- 	        add_action("command_hook", "", 1);
+             add_action("command_hook", "", 1);
         }
 
         me = this_object();

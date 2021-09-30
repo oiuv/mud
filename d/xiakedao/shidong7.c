@@ -20,30 +20,30 @@ LONG );
         ]));
         set("no_clean_up", 0);
         set("item_desc",([
-	        "bi"  : (: look_bi :),
+            "bi"  : (: look_bi :),
                 "weapon": "图中人物手持刀剑，互相挥砍……\n",
         ]));
         setup();
 }
 
 void init()
-{       
+{
         add_action("do_think", "think");
         add_action("do_canwu", "canwu");
-} 
+}
 
 string look_bi()
 {
        object me = this_player();
        string msg;
-       
+
        if (me->query_skill("literate", 1)
            || me->query("learned_literate"))
        {
            msg = HIC "\n你走到石壁前，仔细观看石壁上的内容，发现石壁布满\n"
-                 "蝌蚪形状的文字。你仔细推敲这些文字却一无所获。\n" NOR;                    
+                 "蝌蚪形状的文字。你仔细推敲这些文字却一无所获。\n" NOR;
        }
-       else   
+       else
        {
            msg = HIC "\n你走到石壁前，仔细观看石壁上的内容，发现石壁布满\n"
                  "蝌蚪形状的文字，由于你从未读过书，所以你并没有在\n"
@@ -69,9 +69,9 @@ int do_think(string arg)
                 here = load_object(__DIR__"furong1");
 
         if (me->query("special_skill/clever"))
-		add = me->query_int() / 3;
+        add = me->query_int() / 3;
         else
-		add = me->query_int() / 10;
+        add = me->query_int() / 10;
 
         if (! living(me) || arg != "bi")
                 return notify_fail("你要参悟什么？\n");
@@ -92,10 +92,10 @@ int do_think(string arg)
 
         if ((int)me->query("dex") < 28)
                 return notify_fail("你研究了半天，发觉身法不够灵便，招式始终无法随意施展。\n");
-        
+
         if ((int)me->query("con") < 28)
                 return notify_fail("你研究了半天，只觉得根骨有些差，招式始终无法随意施展。\n");
-        
+
         if ((int)me->query("str") < 28)
                 return notify_fail("你研究了半天，感觉膂力有些低，招式始终无法随意施展。\n");
 */
@@ -114,7 +114,7 @@ int do_think(string arg)
         if ((int)me->query_skill("taixuan-gong", 1) < 120)
                 return notify_fail("你觉得石壁上记载的武功对你来说过于复杂，一"
                                    "时难以领悟。\n");
-        
+
         if ((int)me->query_skill("taixuan-gong", 1) >= 180)
                 return notify_fail("你觉得石壁上记载的武功对你来说太浅了，结果你"
                                    "什么也没学到。\n");
@@ -136,7 +136,7 @@ int do_canwu(string msg)
     object me = this_player();
 
     string where, witch;
-    
+
     if (! msg)return notify_fail("什么？\n");
 
     if (sscanf(msg, "%s from %s", witch, where) != 2)
@@ -205,7 +205,7 @@ int do_canwu(string msg)
 
         write(HIC "你对如何利用太玄功来驾御兵器有了更新的认识，但其中仍然有许"
                   "多不解之处。\n" NOR);
-        return 1;   
+        return 1;
     }
     else return notify_fail("你仔细研究石壁上所刻画的内容，但却没什么效果！\n");
 

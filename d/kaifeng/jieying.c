@@ -11,9 +11,9 @@ LONG
         );
         set("no_clean_up", 0);
         set("exits", ([
-  		"west" : __DIR__"road6",
-  		"east" : __DIR__"tieta",
-	]));
+          "west" : __DIR__"road6",
+          "east" : __DIR__"tieta",
+    ]));
         set("outdoors", "kaifeng");
 
         setup();

@@ -9,8 +9,8 @@ void create()
 苍然挺秀的南屏山。往西就回到大道上。
 LONG);
         set("exits", ([
-            	"west"   : __DIR__"road15",
-            	"enter"   : __DIR__"jingci",
+                "west"   : __DIR__"road15",
+                "enter"   : __DIR__"jingci",
         ]));
         set("no_clean_up", 0);
         setup();

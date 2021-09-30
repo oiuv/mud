@@ -11,12 +11,12 @@ void create ()
 立。街的北边是一家赌场，出出入入的人有喜有忧。赌场的老板为了方
 便客人，就又在麒祥街对面开了一家当铺。
 LONG);
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 4
-		"south" : __DIR__"dangpu",
-        	"north" : __DIR__"duchang",
-        	"west" : __DIR__"qixiang2",
-        	"east" : __DIR__"beian-daokou",
+        "south" : __DIR__"dangpu",
+            "north" : __DIR__"duchang",
+            "west" : __DIR__"qixiang2",
+            "east" : __DIR__"beian-daokou",
         ]));
 
         set("outdoors", "changan");

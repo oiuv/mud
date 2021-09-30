@@ -10,7 +10,7 @@ LONG);
 
         set("exits", ([
                 "east" : __DIR__"jiayuguan",
-		"west" : __DIR__"silk2",
+        "west" : __DIR__"silk2",
         ]));
 
         set("outdoors", "xiyu");
@@ -18,4 +18,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

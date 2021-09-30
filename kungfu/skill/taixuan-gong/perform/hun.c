@@ -1,6 +1,6 @@
 #include <ansi.h>
 #include <combat.h>
- 
+
 inherit F_SSERVER;
 
 #define HUN "「" HIW "混天一气" NOR "」"
@@ -20,7 +20,7 @@ int perform(object me, object target)
 
         if (! target || ! me->is_fighting(target))
                 return notify_fail(HUN "只能对战斗中的对手使用。\n");
- 
+
         if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail(HUN "只能空手施展。\n");
 
@@ -38,13 +38,13 @@ int perform(object me, object target)
 
         if (me->query("neili") < 600)
                 return notify_fail("你的内力不够，难以施展" HUN "。\n");
- 
+
         if (! living(target))
                 return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
         msg = HIG "\n$N" HIG "双手合十，双目微闭，太玄奥义自心底涌出，猛然间，$N"
               HIG "双手向前推出，一股强劲的气流袭向$n " HIG "。\n" NOR;
- 
+
         ap = me->query_skill("taixuan-gong", 1) * 2 + me->query("con") * 10 +
              me->query_skill("martial-cognize", 1);
 
@@ -57,13 +57,13 @@ int perform(object me, object target)
         {
                 msg += HIY "然而$n" HIY "全力抵挡，终于将$N" HIY
                        "发出的气流挡住。\n" NOR;
-	        me->start_busy(2);
+            me->start_busy(2);
         } else
         {
                 me->add("neili", -300);
-	        me->start_busy(3);
+            me->start_busy(3);
                 damage = ap + random(ap);
-                target->add("neili", -(me->query_skill("taixuan-gong", 1) + 
+                target->add("neili", -(me->query_skill("taixuan-gong", 1) +
                             random(me->query_skill("taixuan-gong", 1))), me);
                 msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 80 + random(5),
                                            (: final, me, target, damage :));

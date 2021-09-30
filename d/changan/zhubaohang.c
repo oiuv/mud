@@ -12,10 +12,10 @@ void create ()
 之气。
 LONG);
         set("exits", ([
-        	"south" : __DIR__"yongtai-beikou",
+            "south" : __DIR__"yongtai-beikou",
         ]));
         set("objects", ([
-        	__DIR__"npc/jinfuhuan"  : 1,
+            __DIR__"npc/jinfuhuan"  : 1,
         ]));
 
         setup();

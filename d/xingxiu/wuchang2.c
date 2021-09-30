@@ -14,7 +14,7 @@ LONG );
         ]));
         set("exits", ([
                 "east" : __DIR__"xxroad6",
-		"west" : __DIR__"wuchang3",
+        "west" : __DIR__"wuchang3",
         ]));
         set("outdoors", "xingxiu");
         set("for_family", "星宿派");

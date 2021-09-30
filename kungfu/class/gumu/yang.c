@@ -47,7 +47,7 @@ LONG );
         set_skill("sword", 380);
         set_skill("yunv-jian", 380);
         set_skill("quanzhen-jian", 380);
-	      set_skill("xuantie-jian", 380);
+          set_skill("xuantie-jian", 380);
         set_skill("dodge", 350);
         set_skill("yunv-shenfa", 350);
         set_skill("parry", 385);
@@ -59,8 +59,8 @@ LONG );
         set_skill("tianluo-diwang", 360);
         set_skill("literate", 250);
         set_skill("taoism", 300);
-	set_skill("medical", 380);
-	//set_skill("yunv-xinjing", 380);
+    set_skill("medical", 380);
+    //set_skill("yunv-xinjing", 380);
         set_skill("throwing", 340);
         set_skill("yufeng-zhen", 340);
         set_skill("martial-cognize", 300);
@@ -78,10 +78,10 @@ LONG );
 
         set("inquiry", ([
                 "王重阳" : "嘿...嘿！",
-	        "郭靖"   : "他可真是真正的大侠。",
-		"黄蓉"   : "黄师叔么...真不好说啊。",
-		"小龙女" : "你打听我妻子干什么？",
-		"杨康"   : "算了，不提他也罢。",
+            "郭靖"   : "他可真是真正的大侠。",
+        "黄蓉"   : "黄师叔么...真不好说啊。",
+        "小龙女" : "你打听我妻子干什么？",
+        "杨康"   : "算了，不提他也罢。",
                 "玉蜂针" : "我手头可没有，很久没有用它了。",
                 "黯然销魂掌" : (: teach_sad :),
                 "玄铁剑法"   : "那是独孤前辈所创绝学，在下有幸倒是习得！\n",
@@ -89,11 +89,11 @@ LONG );
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
-	        (: perform_action, "strike.wang" :),
-	        (: perform_action, "unarmed.xiao" :),
-	        (: perform_action, "unarmed.tuo" :),
-	        (: exert_function, "recover" :),
-	        (: exert_function, "powerup" :),
+            (: perform_action, "strike.wang" :),
+            (: perform_action, "unarmed.xiao" :),
+            (: perform_action, "unarmed.tuo" :),
+            (: exert_function, "recover" :),
+            (: exert_function, "powerup" :),
         }));
 
         set_temp("apply/attack", 150);
@@ -113,7 +113,7 @@ void attempt_apprentice(object ob)
 
         if (! permit_recruit(ob) )
                 return;
-                
+
         if (ob->query_str() < 45)
         {
                 command("say 连玄铁剑都拿不动，怎么做我徒弟。");
@@ -124,7 +124,7 @@ void attempt_apprentice(object ob)
                 command("say 你还是先跟龙儿学点玉女心经吧。");
                 return;
         }
-        
+
         if ((int)ob->query("max_neili") < 2000)
         {
                 command("say 你把内力锻炼好了再来也不迟啊！");
@@ -158,7 +158,7 @@ mixed teach_sad()
                 return 1;
         }
 
-        if (ob->query("character") == "阴险奸诈" || 
+        if (ob->query("character") == "阴险奸诈" ||
             ob->query("character") == "心狠手辣")
         {
                 command("say 你一心想着去害人，无法领悟黯然销魂的境界！");
@@ -187,7 +187,7 @@ mixed teach_sad()
         {
                 command("say 你内功修为不足，无法修炼黯然销魂掌。");
                 return 1;
-        }                
+        }
 
         if ((int)ob->query_skill("unarmed", 1) < 200)
         {
@@ -209,7 +209,7 @@ mixed teach_sad()
         ob->set_skill("sad-strike", 10);
 
         tell_object(ob, HIG "你学会了「黯然销魂掌」。\n" NOR);
- 
+
         command("tan");
         command("say 下去练习吧，记得要好好对待你的妻子！");
 

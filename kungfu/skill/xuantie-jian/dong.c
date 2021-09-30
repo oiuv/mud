@@ -53,19 +53,19 @@ int perform(object me, object target)
 
         ap = me->query_skill("sword") + me->query_str() * 5;
         dp = target->query_skill("force") + target->query_str() * 5;
-		weapon_t = target->query_temp("weapon");
-		
-		if (weapon_t && random(2) && weapon->query_weight() > 25000 &&
-			(!weapon_t->is_item_make() || weapon_t->query("skill_type") != "hammer"))
-		{
-				msg += HIR "$n" HIR "只觉得一股大力传来，手中" + weapon_t->name() +
+        weapon_t = target->query_temp("weapon");
+
+        if (weapon_t && random(2) && weapon->query_weight() > 25000 &&
+            (!weapon_t->is_item_make() || weapon_t->query("skill_type") != "hammer"))
+        {
+                msg += HIR "$n" HIR "只觉得一股大力传来，手中" + weapon_t->name() +
                        HIR "再也拿持不住，脱手而出！\n" NOR;
-				me->add("neili", -120);
-				weapon_t->move(environment(me));
+                me->add("neili", -120);
+                weapon_t->move(environment(me));
                 weapon_t->set("no_wield", weapon_t->name() + "已经碎掉了，没法装备了。\n");
                 weapon_t->set_name("碎掉的" + weapon_t->name());
                 weapon_t->set("value", 0);
-		}
+        }
 
         if (me->query("character") == "光明磊落" || me->query("character")=="国土无双" )
                 ap += ap / 5;
@@ -87,5 +87,3 @@ int perform(object me, object target)
 
         return 1;
 }
-
-

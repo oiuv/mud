@@ -8,17 +8,17 @@ void create()
 这是一片一望无际的大沙漠。你一进来就迷失了方向。看
 来要走出这块沙漠并非易事。
 LONG);
-	set("exits", ([
-		"east" : __FILE__,
-		"west" : __FILE__,
-		"south" : __FILE__,
-		"north" : __FILE__,
-	]));
+    set("exits", ([
+        "east" : __FILE__,
+        "west" : __FILE__,
+        "south" : __FILE__,
+        "north" : __FILE__,
+    ]));
 
-	set("outdoors", "xiyu");
+    set("outdoors", "xiyu");
         set("no_map", "这里的地形令人困惑，你无从下手绘制地图。\n");
 
-	setup();
+    setup();
 }
 
 int valid_leave(object me, string dir)
@@ -42,11 +42,11 @@ int valid_leave(object me, string dir)
                 jing = me->query("max_jing") * 5 / 100 + random(10);
 
                 if (me->query("qi") < qi || me->query("jing") < jing)
-        	{
-                  	write("你已经感到不行了，冥冥中你觉得有人把你抬到天山脚下。\n");
-                  	me->move(__DIR__"shanjiao");
-                  	me->unconcious();
-        		return -1;
+            {
+                      write("你已经感到不行了，冥冥中你觉得有人把你抬到天山脚下。\n");
+                      me->move(__DIR__"shanjiao");
+                      me->unconcious();
+                return -1;
                 }
 
                 me->receive_damage("qi", qi);

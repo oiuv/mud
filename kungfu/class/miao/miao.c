@@ -129,14 +129,14 @@ LONG );
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
-	        (: perform_action, "sword.zhai" :),
-	        (: perform_action, "sword.zhu" :),
-	        (: perform_action, "sword.jian" :),
-	        (: perform_action, "sword.gan" :),
-	        (: perform_action, "strike.zhan" :),
-	        (: perform_action, "claw.tan" :),
-	        (: exert_function, "recover" :),
-	        (: exert_function, "powerup" :),
+            (: perform_action, "sword.zhai" :),
+            (: perform_action, "sword.zhu" :),
+            (: perform_action, "sword.jian" :),
+            (: perform_action, "sword.gan" :),
+            (: perform_action, "strike.zhan" :),
+            (: perform_action, "claw.tan" :),
+            (: exert_function, "recover" :),
+            (: exert_function, "powerup" :),
         }));
 
         set_temp("apply/damage", 100);

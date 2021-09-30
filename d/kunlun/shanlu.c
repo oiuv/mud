@@ -8,11 +8,11 @@ void create()
 途倒并无什么强盗，只是黄沙扑面，寒风透骨，却也着实难熬。
 long);
         set("exits",([
-		"west" : __DIR__"shanlu1",
-		"east" : __DIR__"zhenyuanqiao",
-	]));
+        "west" : __DIR__"shanlu1",
+        "east" : __DIR__"zhenyuanqiao",
+    ]));
 
-	set("outdoors", "kunlun");
-	setup();
-	replace_program(ROOM);
+    set("outdoors", "kunlun");
+    setup();
+    replace_program(ROOM);
 }

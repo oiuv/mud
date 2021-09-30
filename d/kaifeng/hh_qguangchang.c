@@ -11,9 +11,9 @@ void create()
 LONG);
         set("no_clean_up", 0);
         set("exits", ([
-  		"north" : __DIR__"hh_damen",
-  		"west" : __DIR__"eroad3",
-	]));
+          "north" : __DIR__"hh_damen",
+          "west" : __DIR__"eroad3",
+    ]));
         set("objects", ([
                 __DIR__"npc/honghua1" : 2,
         ]));

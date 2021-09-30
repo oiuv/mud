@@ -53,7 +53,7 @@ mapping *action = ({
     "skill_name" : "黯黯侵骨寒" ,
 ]),
 ([  "action" : "$N使出「黄沙飘惊雨」，蓦然游身而上，绕着$n疾转数圈，$n正眼\n"
-               "花缭乱间，$N已悄然停在$n身后，右手划出一道光圈，接着右手冲出光圈猛抓$n的后背",  
+               "花缭乱间，$N已悄然停在$n身后，右手划出一道光圈，接着右手冲出光圈猛抓$n的后背",
     "force" : 280,
     "parry" : 20,
     "dodge" : 20,
@@ -74,7 +74,7 @@ mapping *action = ({
 ]),
 });
 
-int valid_enable(string usage) { return usage=="strike" ||  usage=="parry"; }  
+int valid_enable(string usage) { return usage=="strike" ||  usage=="parry"; }
 
 int valid_combine(string combo) { return combo=="shenlong-bashi"; }
 
@@ -89,8 +89,8 @@ int valid_learn(object me)
         if ((int)me->query("max_neili") < 250)
                 return notify_fail("你的内力太弱，无法练化骨绵掌。\n");
 
-	if ((int)me->query_skill("strike", 1) < (int)me->query_skill("huagu-mianzhang", 1))
-		return notify_fail("你的基本掌法火候有限，无法领会更高深的化骨绵掌。\n");
+    if ((int)me->query_skill("strike", 1) < (int)me->query_skill("huagu-mianzhang", 1))
+        return notify_fail("你的基本掌法火候有限，无法领会更高深的化骨绵掌。\n");
 
         return 1;
 }
@@ -132,20 +132,20 @@ string perform_action_file(string action)
 
 mixed hit_ob(object me, object victim, int damage_bonus, int factor)
 {
-	int lvl;
+    int lvl;
         int flvl;
 
-	lvl  = me->query_skill("huagu-mianzhang", 1);
+    lvl  = me->query_skill("huagu-mianzhang", 1);
         flvl = me->query("jiali");
-	if (lvl < 80 || flvl < 10 || ! damage_bonus)
-		return;
+    if (lvl < 80 || flvl < 10 || ! damage_bonus)
+        return;
 
-    	if (flvl * 2 + random(lvl) > victim->query_skill("force") &&
+        if (flvl * 2 + random(lvl) > victim->query_skill("force") &&
             victim->affect_by("huagu",
                               ([ "level" : flvl + random(flvl),
                                  "id"    : me->query("id"),
                                  "duration" : lvl / 50 + random(lvl / 20) ])))
         {
                 return "“喀喇”一声响，$n大声惨叫，连退数步。\n";
-    	}
+        }
 }

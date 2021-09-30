@@ -14,11 +14,10 @@ LONG);
            "northup"   : __DIR__"beiyuedian",
            "southdown" : __DIR__"guolaoling",
         ]));
-	set("objects", ([
-		__DIR__"npc/he" : 1,
-	]));
+    set("objects", ([
+        __DIR__"npc/he" : 1,
+    ]));
 //        set("no_clean_up", 0);
         setup();
         replace_program(ROOM);
 }
-

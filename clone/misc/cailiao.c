@@ -13,9 +13,9 @@ void create()
                 set("long", "做菜的原料，青菜萝卜、鸡鸭鱼肉。\n");
                 set("base_unit", "份");
                 set("base_value", 50);
-		set("base_weight", 80);
+        set("base_weight", 80);
         }
         setup();
 
-	set_amount(1);
+    set_amount(1);
 }

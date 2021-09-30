@@ -9,13 +9,13 @@ void create()
 这是条长长的走廊，四处黑沉沉的。
 LONG );
     set("exits", ([
-	"north" : __DIR__"zhuang9",
-	"south" : __DIR__"zhuang5",
+    "north" : __DIR__"zhuang9",
+    "south" : __DIR__"zhuang5",
     ]));
     set("objects", ([
-	"/d/shenlong/npc/dizi": 1,
+    "/d/shenlong/npc/dizi": 1,
     ]));
     set("outdoors", "beijing");
     setup();
-    replace_program(ROOM); 
+    replace_program(ROOM);
 }

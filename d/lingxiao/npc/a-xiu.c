@@ -6,8 +6,8 @@ void create()
         set_name("阿绣", ({"a xiu", "xiu", "a"}));
         set("gender", "女性");
         set("title", "凌霄城主孙女");
-	set("age", 16);
-	set("long", "她是凌霄城主的孙女，十多岁年纪。聪明伶俐\n"
+    set("age", 16);
+    set("long", "她是凌霄城主的孙女，十多岁年纪。聪明伶俐\n"
                     "美丽可人。\n");
         set("attitude", "peaceful");
         set("shen_type", 1);
@@ -26,15 +26,15 @@ void create()
         set("score", 2000);
 
         set("inquiry", ([
-            	"石破天"   : "天哥去了侠客岛，也不知道他现在怎么样了。",
-            	"大粽子"   : "只有我才能这么叫他，你可不许。",
-            	"石中玉"   : "哼，那个家伙，死不足惜。",
-            	"白万剑"   : "那是我爹呀。",
-            	"白自在"   : "那是我爷爷呀。",
+                "石破天"   : "天哥去了侠客岛，也不知道他现在怎么样了。",
+                "大粽子"   : "只有我才能这么叫他，你可不许。",
+                "石中玉"   : "哼，那个家伙，死不足惜。",
+                "白万剑"   : "那是我爹呀。",
+                "白自在"   : "那是我爷爷呀。",
         ]) );
         set("chat_chance", 5);
         set("chat_msg", ({
-       		CYN "阿绣忽然皱颦不快，好象想起了什么可气之事。\n" NOR,
+               CYN "阿绣忽然皱颦不快，好象想起了什么可气之事。\n" NOR,
         }) );
 
         set_skill("force", 100);
@@ -74,7 +74,7 @@ void create()
         }) );
 
         setup();
-	
+
         carry_object("/clone/weapon/mudao")->wield();
         carry_object("/d/city/npc/cloth/xian-cloth")->wear();
         carry_object("/d/city/npc/cloth/boots")->wear();
@@ -85,4 +85,3 @@ void attempt_apprentice(object ob)
 {
         command("say 我是不收徒的，你进城找我师兄们好了。");
 }
-

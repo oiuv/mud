@@ -1,12 +1,12 @@
 inherit ROOM;
 string* npcs = ({
-	"/clone/beast/jinshe",
-	"/clone/beast/qingshe",
-	"/clone/beast/jinshe",
-	"/clone/beast/qingshe",
-	"/clone/beast/fushe",
+    "/clone/beast/jinshe",
+    "/clone/beast/qingshe",
+    "/clone/beast/jinshe",
+    "/clone/beast/qingshe",
+    "/clone/beast/fushe",
 });
- 
+
 void create()
 {
         set("short", "灌木林");
@@ -16,20 +16,20 @@ void create()
 满了杂草。
 LONG);
 
-	set("exits", ([
-	    "south" : __DIR__"haitan",
-	]));
+    set("exits", ([
+        "south" : __DIR__"haitan",
+    ]));
 
-	set("item_desc", ([
-	    "bush" : "这片灌木林太深了,要想过去恐怕只有砍出一条路了(kan)。\n",
-	]));
+    set("item_desc", ([
+        "bush" : "这片灌木林太深了,要想过去恐怕只有砍出一条路了(kan)。\n",
+    ]));
 
-	set("objects", ([
-		"/clone/beast/dushe" : 1 + random(2),
-		npcs[random(sizeof(npcs))] : 1,
-		npcs[random(sizeof(npcs))] : 1,
-		npcs[random(sizeof(npcs))] : 1,
-	]));
+    set("objects", ([
+        "/clone/beast/dushe" : 1 + random(2),
+        npcs[random(sizeof(npcs))] : 1,
+        npcs[random(sizeof(npcs))] : 1,
+        npcs[random(sizeof(npcs))] : 1,
+    ]));
         set("outdoors", "shenlong");
         setup();
 }
@@ -48,14 +48,14 @@ int do_kan(string arg)
                 return notify_fail("你要砍什么？\n" ) ;
 
         me = this_player();
-	if (! objectp(weapon = me->query_temp("weapon")))
-		return notify_fail("不用武器恐怕不行吧！\n");
+    if (! objectp(weapon = me->query_temp("weapon")))
+        return notify_fail("不用武器恐怕不行吧！\n");
 
         if (weapon->query("skill_type") != "blade" &&
             weapon->query("skill_type") != "sword")
                 return notify_fail(weapon->name() + "也能用来砍东西？\n");
 
-	message_vision("$N抽出兵刃，对着灌木丛就是一阵乱砍。\n", me);
+    message_vision("$N抽出兵刃，对着灌木丛就是一阵乱砍。\n", me);
 
         if (me->query("neili") > 100)
         {
@@ -64,11 +64,11 @@ int do_kan(string arg)
                 me->add("neili", -50);
                 remove_call_out("close");
                 call_out("close", 20);
-	} else	
-	{
+    } else
+    {
                 message_vision("$N累得气喘吁吁,也没砍开一条路来。\n", me);
-	        me->set("neili", 0);
-	}
+            me->set("neili", 0);
+    }
         return 1;
 }
 

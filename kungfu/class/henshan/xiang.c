@@ -46,7 +46,7 @@ void create()
         map_skill("strike", "biluo-zhang");
         map_skill("cuff", "henshan-quan");
 
-	prepare_skill("cuff", "henshan-quan");
+    prepare_skill("cuff", "henshan-quan");
         prepare_skill("strike", "biluo-zhang");
 
         create_family("衡山派", 15, "弟子");
@@ -83,17 +83,17 @@ void attempt_apprentice(object ob)
         }
 
         if ((int)ob->query_skill("henshan-jian", 1) < 30)
-        {       
+        {
                 command("hmm");
                 command("say 你衡山剑法练成这样，平时都干什么去了？");
                 return;
         }
-   
+
         if ((int)ob->query_skill("force") < 80)
         {
                 command("say 你的内功心法太差，又能跟我学什么？");
                 return;
-        } 
+        }
 
         command("nod");
         command("say 我收下你便是，日后可别惹我生气。");

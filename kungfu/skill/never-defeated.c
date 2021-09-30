@@ -152,7 +152,7 @@ mapping *action_whip = ({
 });
 
 string *usage_skills = ({ "sword", "blade", "dagger",
-                          "staff", "hammer", "club", "whip",  
+                          "staff", "hammer", "club", "whip",
                           "dodge", "parry", "force", "throwing" });
 
 int valid_enable(string usage)
@@ -206,9 +206,9 @@ int valid_learn(object me)
                 return notify_fail("你觉得不败神功过于深奥，绝"
                                    "非自己的智力所能理解。\n");
 
-	if (me->query("gender") == "无性" &&
-	    (int)me->query_skill("never-defeated", 1) > 239)
-		return notify_fail("你无根无性，阴阳不调，难以领会高深的不败神功。\n");
+    if (me->query("gender") == "无性" &&
+        (int)me->query_skill("never-defeated", 1) > 239)
+        return notify_fail("你无根无性，阴阳不调，难以领会高深的不败神功。\n");
 
         level = me->query_skill("never-defeated", 1);
 
@@ -265,5 +265,3 @@ string exert_function_file(string action)
 {
         return __DIR__"never-defeated/exert/" + action;
 }
-
-

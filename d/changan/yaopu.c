@@ -13,16 +13,16 @@ void create ()
 被勤快的伙计擦的干干净净。墙上挂满了别人送来的谢匾(bian)。
 LONG);
         set("item_desc", (["bian" : HIW" 妙手回春 \n\n"NOR, ]));
-        set("exits", 
+        set("exits",
         ([ //sizeof() == 1
                 "south" : __DIR__"qixiang6",
         ]));
-        set("objects", 
+        set("objects",
         ([ //sizeof() == 1
                 __DIR__"npc/doctor" : 1,
         ]));
 
-	set("no_clean_up", 0);
+    set("no_clean_up", 0);
         setup();
-	replace_program(ROOM);
+    replace_program(ROOM);
 }

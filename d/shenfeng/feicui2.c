@@ -14,8 +14,8 @@ void create()
 
 LONG);
         set("item_desc", ([
-        	"rattan" : GRN "\n生长在翡翠池岸边的翠绿青藤，可以由它爬上岸去。\n" NOR,
-        	"hole"   : WHT "\n潜藏在池底的一个小洞，你似乎可以钻进去。\n" NOR,
+            "rattan" : GRN "\n生长在翡翠池岸边的翠绿青藤，可以由它爬上岸去。\n" NOR,
+            "hole"   : WHT "\n潜藏在池底的一个小洞，你似乎可以钻进去。\n" NOR,
         ]));
         setup();
 }
@@ -31,7 +31,7 @@ int do_zuan(string arg)
         object me = this_player();
 
         if (! arg || arg != "hole")
-		return notify_fail("你要钻什么？\n");
+        return notify_fail("你要钻什么？\n");
 
         message("vision", HIC "只见" + me->name() + HIC "紧闭呼吸，一个猛子朝池底"
                           "的洞钻去。\n" NOR, environment(me), ({me}) );
@@ -45,10 +45,10 @@ int do_zuan(string arg)
 
 int do_climb(string arg)
 {
-    	object me = this_player();
+        object me = this_player();
 
-    	if (! arg || arg != "rattan")
-		return notify_fail("你要爬什么？\n");
+        if (! arg || arg != "rattan")
+        return notify_fail("你要爬什么？\n");
 
         message("vision", HIC "只见" + me->name() + HIC "顺着青藤爬了上去。\n" NOR,
                           environment(me), ({me}));
@@ -56,4 +56,3 @@ int do_climb(string arg)
         message_vision(HIC "\n$N" HIC "顺着青藤水淋淋地爬了上来。\n\n" NOR, me);
         return 1;
 }
-

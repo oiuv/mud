@@ -37,10 +37,10 @@ int do_effect(object me)
                        "收药力。\n" NOR, me);
 
         if (me->query("max_jingli") < 1000)
-	{
+    {
                 tell_object(me, HIC "你只觉得精神健旺之极，精力直欲奔腾而出。\n" NOR);
                 me->improve_jingli(5 + random(5));
-	} else
+    } else
                 tell_object(me, HIC "你只觉精神饱满之极，全身的疲惫一扫而空。\n" NOR);
 
         if (me->query("jingli") < me->query("max_jingli"))

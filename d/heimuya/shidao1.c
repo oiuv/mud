@@ -10,8 +10,8 @@ void create()
 LONG);
         set("outdoors", "heimuya");
         set("exits", ([
-            	"east" : __DIR__"guang",
-            	"north" : __DIR__"shidao2",
+                "east" : __DIR__"guang",
+                "north" : __DIR__"shidao2",
         ]));
         set("no_clean_up", 0);
         setup();

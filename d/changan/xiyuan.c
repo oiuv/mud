@@ -11,14 +11,12 @@ void create ()
 背扶手椅。
 LONG);
         set("exits", ([
-        	"south" : __DIR__"liande-beikou",
+            "south" : __DIR__"liande-beikou",
         ]));
         set("objects", ([
-        	__DIR__"npc/xizi" : 1,
+            __DIR__"npc/xizi" : 1,
         ]));
 
         setup();
         replace_program(ROOM);
 }
-
-

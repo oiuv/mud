@@ -33,10 +33,10 @@ int do_break(string arg)
         inv = present("stone", me);
 
         if (query("dao"))
-		return notify_fail("船上的桅杆早就倒了，还砸什么？\n");
+        return notify_fail("船上的桅杆早就倒了，还砸什么？\n");
 
         if (! objectp(inv))
-		return notify_fail("你准备拿什么砸船呀？\n");
+        return notify_fail("你准备拿什么砸船呀？\n");
 
         message_vision(HIY "$N" HIY "举起手中的" + inv->query("name") +
                        HIY "，向船上的桅杆砸去。\n", me);

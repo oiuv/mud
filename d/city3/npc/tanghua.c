@@ -10,15 +10,15 @@ void create()
                 "都除了提督老爷以外，恐怕就属他最财大势大。\n" );
         set("age", 46);
         set("attitude", "peaceful");
-	set_skill("unarmed", 60);
-	set_skill("dodge", 60);
-	set_temp("apply/attack", 30);
-	set_temp("apply/attack", 30);
-	set_temp("apply/damage", 15);
+    set_skill("unarmed", 60);
+    set_skill("dodge", 60);
+    set_temp("apply/attack", 30);
+    set_temp("apply/attack", 30);
+    set_temp("apply/damage", 15);
 
-	set("combat_exp", 50000);
-	set("attitude", "friendly");
-	
+    set("combat_exp", 50000);
+    set("attitude", "friendly");
+
         set("inquiry", ([
                 "name": "在下姓唐单名一个桦字。\n",
                 "here": "此处便是蓉城酒楼，客倌如要点菜，吩咐店里的小二一声便可。\n",

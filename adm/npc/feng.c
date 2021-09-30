@@ -23,21 +23,21 @@ inherit F_SAVE;
                    //  超过这个时间，自动进程接管拍卖
 
 string query_save_file();
-int do_start(string arg);		// 启动拍卖，不使用arg参数表示启动手工进程
-int do_auction(string arg);		// 指定拍卖的当前店铺
-int begin_auction();			// 等待玩家竞投的守护程序
-int stop_auction();			// 结束当前店铺的拍卖
-int do_jupai(string arg);		// 玩家竞投中断
-int go_jupai();				// 玩家竞投的守护程序
-int do_qiao();				// 巫师宣价以及落棰
-int do_auctionlist();			// 查询拍卖店铺列表
-int do_ban(string arg);		        // 取消|恢复 玩家拍卖资格
-int finish_auction(string arg);		// 结束拍卖
-void heart_beat();			// 心跳线，手工拍卖守护进程
-object check_operator();		// 检查主持巫师状态函数
-int do_autoauction();			// 将手工进程转为自动进程
-int last_time = 0;	                // 最后一次手工操作的时间
-object operator;		        // 本变量记录拍卖主持者
+int do_start(string arg);        // 启动拍卖，不使用arg参数表示启动手工进程
+int do_auction(string arg);        // 指定拍卖的当前店铺
+int begin_auction();            // 等待玩家竞投的守护程序
+int stop_auction();            // 结束当前店铺的拍卖
+int do_jupai(string arg);        // 玩家竞投中断
+int go_jupai();                // 玩家竞投的守护程序
+int do_qiao();                // 巫师宣价以及落棰
+int do_auctionlist();            // 查询拍卖店铺列表
+int do_ban(string arg);                // 取消|恢复 玩家拍卖资格
+int finish_auction(string arg);        // 结束拍卖
+void heart_beat();            // 心跳线，手工拍卖守护进程
+object check_operator();        // 检查主持巫师状态函数
+int do_autoauction();            // 将手工进程转为自动进程
+int last_time = 0;                    // 最后一次手工操作的时间
+object operator;                // 本变量记录拍卖主持者
 
 void create()
 {
@@ -194,7 +194,7 @@ int do_start(string arg)
                         CHANNEL_D->do_channel(ob, "sys", "店铺拍卖系统由" + me->name(1) +
                                                   "成功启动，运行模式：人工。");
 
-		        // 拍卖设置为手工运行
+                // 拍卖设置为手工运行
                         ob->set("operator", me->query("id"));
 
                         msg += HIR "您选择了通过" HIW "人工操作" HIR "的方式来启"
@@ -252,10 +252,10 @@ int do_auction(string arg)
         shop_list = query("shop_list");
         begin_shop = query("begin_shop");
 
-	//  非自动的
+    //  非自动的
         if (ob != operator)
         {
-		// 已经全部拍卖完毕了
+        // 已经全部拍卖完毕了
                 if (sizeof(shop_list) < 1)
                 {
                         set("can_finish", 1);
@@ -265,7 +265,7 @@ int do_auction(string arg)
                                            ")拍卖了。\n" NOR);
                 }
 
-		//  提交的参数错误，重新显示所有待拍卖店铺列表
+        //  提交的参数错误，重新显示所有待拍卖店铺列表
                 if (! begin_shop[arg])
                 {
                         msg = HIR "对不起，您所提交的店铺并不存在。\n\n" NOR;
@@ -284,9 +284,9 @@ int do_auction(string arg)
                         write(msg);
                         return 1;
                 }
-		// 当前拍卖店铺
+        // 当前拍卖店铺
                 now_shop = arg;
-        } else	// 自动拍卖
+        } else    // 自动拍卖
         {
                 // 全部店铺都已经拍卖完毕
                 if (sizeof(shop_list) < 1)
@@ -297,11 +297,11 @@ int do_auction(string arg)
                         call_out("finish_auction", 0, "automatic");
                         return 1;
                 }
-		// 当前拍卖店铺
+        // 当前拍卖店铺
                 now_shop = shop_list[random(sizeof(shop_list))];
         }
 
-	// 从待拍店铺中删除当前拍卖店铺
+    // 从待拍店铺中删除当前拍卖店铺
         shop_list -= ({ now_shop });
         now_price = query("begin_shop/" + now_shop);
         ob->set("wait_jupai", 1);
@@ -338,7 +338,7 @@ int begin_auction()
 
         m = ob->query("wait_jupai");
 
-	// 已经有人开始举牌
+    // 已经有人开始举牌
         if (! m)
                 return 1;
 
@@ -410,14 +410,14 @@ int begin_auction()
                 break;
         }
 
-	// 自动拍卖
+    // 自动拍卖
         if (operator == ob)
         {
                 if (! (m >= 3))
                         call_out("begin_auction",DISTANCE);
                 else
                         call_out("stop_auction",DISTANCE);
-	// 手工拍卖
+    // 手工拍卖
         } else
                 // 记录最后一次操作的时间
                 last_time = time();
@@ -470,7 +470,7 @@ int stop_auction()
                 // 自动拍卖
                 if (operator == ob)
                 {
-                	// 所有店铺拍卖结束
+                    // 所有店铺拍卖结束
                         if (sizeof(shop_list) < 1)
                         {
                                 set("can_finish", 1);
@@ -520,7 +520,7 @@ int stop_auction()
                 if (! objectp(the_owner)
                    || (int)the_owner->query("balance") < (int)(now_price * 10000))
                 {
-                	// 取消该玩家的拍卖资格
+                    // 取消该玩家的拍卖资格
                         do_ban(temp_owner + " 1");
                         begin_shop[now_shop] = 2000;
                         ob->set("begin_shop", begin_shop);
@@ -587,7 +587,7 @@ int stop_auction()
                 ob->delete("temp_owner");
                 ob->save();
 
-		// 自动拍卖
+        // 自动拍卖
                 if (operator == ob)
                 {
                         // 所有店铺拍卖结束
@@ -645,7 +645,7 @@ int do_jupai(string arg)
         if (! query("auction_start"))
                 return notify_fail("现在拍卖还没有开始，不必心急。\n");
 
-	//  手工拍卖，检查执行巫师是否还在，如果不在则进程转为自动
+    //  手工拍卖，检查执行巫师是否还在，如果不在则进程转为自动
         if (operator != ob)
                 operator = check_operator();
 
@@ -721,7 +721,7 @@ int do_jupai(string arg)
                 break;
         }
 
-	// 自动拍卖
+    // 自动拍卖
         if (operator == ob)
                 call_out("go_jupai", DISTANCE);
         else
@@ -799,14 +799,14 @@ int go_jupai()
                 break;
         }
 
-	// 自动拍卖
+    // 自动拍卖
         if (operator == ob)
         {
                 if (! (m >= 3))
                         call_out("go_jupai", DISTANCE);
                 else
                         call_out("stop_auction", DISTANCE);
-	// 手工拍卖
+    // 手工拍卖
         } else
                 // 记录最后一次操作的时间
                 last_time = time();

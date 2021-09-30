@@ -8,11 +8,11 @@ void create()
 寺重地----牟尼堂。江湖中传言天龙寺的镇寺之宝----六脉神剑谱就藏于
 此中。
 LONG );
-	set("exits", ([
-		"south" : __DIR__"munitang",
-		"north" : __DIR__"doushuai",
-	]));
-	setup();
+    set("exits", ([
+        "south" : __DIR__"munitang",
+        "north" : __DIR__"doushuai",
+    ]));
+    setup();
 }
 
 string long()

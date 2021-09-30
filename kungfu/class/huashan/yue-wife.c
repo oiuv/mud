@@ -50,7 +50,7 @@ void create()
         set_skill("poyu-quan", 240);
         set_skill("huashan-zhang", 240);
         set_skill("hunyuan-zhang", 240);
-        set_skill("huashan-shenfa", 240); 
+        set_skill("huashan-shenfa", 240);
         set_skill("martial-cognize", 200);
 
         map_skill("sword", "shunv-jian");
@@ -73,14 +73,14 @@ void create()
 
         create_family("华山派", 13, "掌门夫人");
 
-	set("chat_chance_combat", 120);
-	set("chat_msg_combat", ({
-		(: perform_action, "sword.ning" :),
-		(: perform_action, "strike.wuji" :),
-		(: perform_action, "cuff.lei" :),
-		(: perform_action, "cuff.po" :),
-		(: exert_function, "recover" :),
-	}));
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "sword.ning" :),
+        (: perform_action, "strike.wuji" :),
+        (: perform_action, "cuff.lei" :),
+        (: perform_action, "cuff.po" :),
+        (: exert_function, "recover" :),
+    }));
 
         setup();
 
@@ -106,7 +106,7 @@ void do_recruit(object ob)
                 return;
 
         if ((string)ob->query("gender") != "女性")
-	{
+    {
                 command("say 这位"+RANK_D->query_respect(ob) + "你还是找我师哥去吧.");
                 return;
         }
@@ -116,18 +116,18 @@ void do_recruit(object ob)
                 command("say 你行侠仗义的事还做得不够，我还不能收你！");
                 return;
         }
- 
+
         if (ob->query_skill("huashan-xinfa", 1) < 140)
         {
                 command("say 我华山派以修气为主，你连本门心法都还不熟练，我不能收你！");
                 return;
         }
-      
+
         if (ob->query_skill("huashan-jian", 1) < 140)
         {
                 command("say 你华山剑法还不够熟练，下去多练习练习再来找我吧！");
                 return;
-        }        
+        }
 
         command("say 微笑道：好，好，只要你用心学，他日必有成就。");
         command("recruit " + ob->query("id") );
@@ -164,7 +164,7 @@ int accept_ask(object me, string topic)
                            "sk2"     : "force",
                            "lv2"     : 100,
                            "sk3"     : "dodge",
-                           "lv3"     : 100,                           
+                           "lv3"     : 100,
                            "gongxian": 600,
                            "shen"    : 30000, ]));
                 break;
@@ -178,5 +178,3 @@ void unconcious()
 {
         die();
 }
-
-
