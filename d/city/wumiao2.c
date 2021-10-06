@@ -4,7 +4,8 @@
 inherit ROOM;
 
 #define TIME "/cmds/usr/time"
-
+#define GIFT "/clone/fam/max/naobaijin"
+// 农历节日
 nosave mapping *lunar_day = ({
     (["month" :  1, "day" :  1, "name" : RED"春节"NOR]),
     (["month" :  1, "day" : 15, "name" : RED"元宵节"NOR]),
@@ -16,7 +17,7 @@ nosave mapping *lunar_day = ({
     (["month" : 12, "day" : 23, "name" : RED"小年"NOR]),
     (["month" : 12, "day" : 30, "name" : RED"除夕"NOR]),
 });
-
+// 公历节日
 nosave mapping *solar_day = ({
     (["month" :  1, "day" :  1, "name" : RED"元旦"NOR]),
     (["month" :  4, "day" :  5, "name" : CYN"清明节"NOR]),
@@ -104,6 +105,7 @@ int do_pray(string arg)
         // 周末加倍(无调休)
         if (!wday || wday == 6)
         {
+            tell_object(me, HIM "今天是周末，奖励加倍^_^\n" NOR);
             i *= 2;
         }
         //节假日加倍
@@ -138,6 +140,14 @@ int do_pray(string arg)
             {
                 tell_object(me, "今天是" + m["name"] + "，奖励加倍^_^\n");
                 i *= 2;
+
+                if (exp >= 100000)
+                {
+                    object gift = new (GIFT);
+                    gift->move(me);
+                    tell_object(me, "你得到节日礼物" + gift->short() + "^_^\n");
+                }
+
                 break;
             }
         }
@@ -157,7 +167,7 @@ int do_pray(string arg)
             pot = 50000;
 
         pot = me->improve_potential(pot);
-        if (! me->query("skybook/guard/death"))
+        if (me->query("skybook/guard/death") < i)
             me->set("skybook/guard/death", i);
         me->set(festival, day);
         message_vision(HIW "$N获得了" + chinese_number(pot) + "点潜能奖励和" + chinese_number(i) + "点积分。\n" NOR, me);
