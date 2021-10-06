@@ -212,8 +212,10 @@ int do_show(string arg)
 
     if( ob->query("id") == "qiankun stone" )
     {
-        message_vision(CYN "$N" CYN "对$n" CYN "说道：这可是炼制如意乾坤袋的材料，我可以"
+        message_vision(CYN "$N" CYN "对$n" CYN "说道：这是炼制背包(如意乾坤袋)的材料，我可以"
                            "亲自为你炼制，只要五百两黄金。\n" NOR, this_object(), me);
+        message_vision(CYN "$N" CYN "对$n" CYN "说道：这也可以用来升级背包空间，"
+                           "升级背包为免费服务，每次升级可增加五格空间。\n" NOR, this_object(), me);
         return 1;
     }
 
@@ -329,27 +331,51 @@ int accept_object(object me, object ob)
         filename = ITEM_DIR + "depot/" + me->query("id");
         if (file_size(filename + ".c") > 0)
         {
-            message_vision("$N一呆，对$n道：你已经拥有如意乾坤袋了呀，直接召唤(summon)吧！。\n",
-                            this_object(), me);
-            me->set("can_summon/ruyi dai", filename);
-            return 0;
+            int space = me->query("storage_bag");
+            if (space && space < 100)
+            {
+                message_vision("$N对$n道：不错不错，我现在就帮你强化背包，请稍等片刻！。\n", this_object(), me);
+                me->add("storage_bag", 5);
+                // 个人空间为等级的1/10，最小10，最大100
+                space = (to_int(pow(to_float(me->query("combat_exp") * 10), 1.0 / 3)) + 1) / 10;
+                if (space < 9) space = 9;
+                else if (space > 99) space = 99;
+                // 扩展背包空间
+                space += me->query("storage_bag");
+                tell_object(me, HIY "一道华光闪过，你的背包空间增加了，当前容量 " + space +" 格。\n" NOR);
+                return 1;
+            }
+            else if (space > 100)
+            {
+                message_vision("$N对$n道：你的背包已经强化到极限了！。\n", this_object(), me);
+                return 0;
+            }
+            else
+            {
+                message_vision("$N一呆，对$n道：你已经拥有如意乾坤袋了呀，直接召唤(summon)吧！。\n", this_object(), me);
+                me->set("can_summon/ruyi dai", filename);
+                return 0;
+            }
         }
-        val = ob->query("value") / 60;
-        message_vision(CYN "$N" CYN "对$n" CYN "说道：很好，炼制如意乾坤袋"
-                        "需要" + chinese_number(val) + "两黄金。\n" NOR,
-                        this_object(), me);
-        val *= 10000;
-        ob->set("item/value", val);
-        me->set_temp("item/status", "item_gived");
-        me->set_temp("item/value", val);
-        set_temp("item/status", "accept");
-        set_temp("item/player_id", me->query("id"));
-        set_temp("item/accept", ob);
+        else
+        {
+            val = ob->query("value") / 60;
+            message_vision(CYN "$N" CYN "对$n" CYN "说道：很好，炼制如意乾坤袋"
+                            "需要" + chinese_number(val) + "两黄金。\n" NOR,
+                            this_object(), me);
+            val *= 10000;
+            ob->set("item/value", val);
+            me->set_temp("item/status", "item_gived");
+            me->set_temp("item/value", val);
+            set_temp("item/status", "accept");
+            set_temp("item/player_id", me->query("id"));
+            set_temp("item/accept", ob);
 
-        // 如果过一段时间没有交款，还道具粗坯
-        remove_call_out("time_out");
-        call_out("time_out", 30, me, ob);
-        return 1;
+            // 如果过一段时间没有交款，还道具粗坯
+            remove_call_out("time_out");
+            call_out("time_out", 30, me, ob);
+            return 1;
+        }
     }
 
     if (ob->query("material_attrib") &&
@@ -425,7 +451,7 @@ int accept_object(object me, object ob)
             if (file_size(filename + ".c") > 0)
             {
                 if (depot_ob = find_object(filename))
-                        destruct(depot_ob);
+                    destruct(depot_ob);
 
                 DBASE_D->clear_object(filename);
                 rm(filename + ".c");
@@ -435,8 +461,9 @@ int accept_object(object me, object ob)
             write_file(filename + ".c", file);
             VERSION_D->append_sn(filename + ".c");
             remove_call_out("time_out");
-            catch(call_other(filename, "???"));
-            depot_ob = find_object(filename);
+            // catch(call_other(filename, "???"));
+            me->set("storage_bag", 1);  // 升级如意乾坤袋为玩家背包
+            depot_ob = load_object(filename);
             if (! depot_ob)
             {
                 delete_temp("item");
@@ -445,10 +472,9 @@ int accept_object(object me, object ob)
                                 this_object(), me);
                 return 0;
             }
-
-            depot_ob->move(me, 1);
-            depot_ob->save();
-            me->set("can_summon/ruyi dai", filename);
+            // depot_ob->move(me, 1);
+            // depot_ob->save();
+            // me->set("can_summon/ruyi dai", filename);
             me->delete_temp("item");
             delete_temp("item");
             message_vision(HIM "$N随手把" + origin->name() +
@@ -457,7 +483,7 @@ int accept_object(object me, object ob)
                         "$N又向炉中丢了一系列千奇百怪的材料一起熔炼。\n    ……\n"
                         "繁杂的炼制步骤看的$n眼花缭乱，可$n一点帮也忙不了，只能傻傻的等着。\n"
                         "    ……\n    ……\n    ……\n\n" NOR , this_object(), me);
-            tell_object(me, HIY "你获得了一个如意乾坤袋。\n" NOR);
+            tell_object(me, HIY "你获得了一个背包（如意乾坤袋），使用指令：\n\t查看背包   bag\n\t存放物品   store\n\t取出物品   take\n" NOR);
             ob->move(this_object());
             destruct(origin);
             return 1;

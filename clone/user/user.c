@@ -7,6 +7,9 @@
 
 inherit CHARACTER;
 inherit F_AUTOLOAD;
+inherit F_GMCP;
+inherit F_MXP;
+inherit F_STORAGE;
 inherit F_SAVE;
 
 // 分站使用
@@ -59,11 +62,11 @@ int is_user() { return 1; }
 // 判断是否具有管理权限：如果是版本发布站点或是通过 PASSWD
 // 命令设置过，则具有管理权限。具有该权限的巫师可是使用诸如
 // clone、call、log、smash、copyskill等命令。
-int is_admin() { return VERSION_D->is_release_server() || admin_flag == 1222; }
+int is_admin() { return VERSION_D->is_release_server() || admin_flag == 3160; }
 int set_admin()
 {
     if (previous_object() == find_object("/cmds/usr/passwd"))
-        admin_flag = 1222;
+        admin_flag = 3160;
 }
 
 void create()
@@ -72,16 +75,24 @@ void create()
     set_name("使用者物件", ({"user object", "user", "object"}));
 }
 
-void terminal_type(string term_type)
-{
-    set_temp("terminal_type", term_type);
-    message("system", "终端机型态设定为 " + term_type + "。\n", this_object());
-}
+// 在 login_ob 中调用
+// void terminal_type(string term_type)
+// {
+//     set_temp("terminal_type", term_type);
+//     message("system", "终端机型态设定为 " + term_type + "。\n", this_object());
+// }
 
 void window_size(int width, int height)
 {
     set_temp("window_size", ({width, height}));
     message("system", "终端窗口大小设置为 " + width + " × " + height + "。\n", this_object());
+}
+
+// receive_environ
+void receive_environ(string var, string value)
+{
+    string msg = sprintf("TELNET ENV received: %s=%s\n", var, value);
+    receive(msg);
 }
 
 void reset()
@@ -138,6 +149,7 @@ int save()
     if (query_temp("user_setup"))
     {
         save_autoload();
+        save_depot();
         set("sec_id", calc_sec_id()); // save sec_id
         res = ::save();
         clean_up_autoload(); // To save memory
@@ -225,19 +237,55 @@ void update_age()
     set("age", age);
 }
 
+// 获取玩家年龄的月份
+int age_month()
+{
+    int age = query("age");
+    int month = query("mud_age");
+
+    if (age >= 60)
+    {
+        month -= (age - 60) * 86400 * 4;
+        month = (month - 118 * 86400) / 7200 / 4 + 1;
+    }
+    else if (age >= 30)
+    {
+        month -= (age - 30) * 86400 * 3;
+        month = (month - 28 * 86400) / 7200 / 3 + 1;
+    }
+    else if (age >= 18)
+    {
+        month -= (age - 18) * 86400 * 2;
+        month = (month - 4 * 86400) / 7200 / 2 + 1;
+    }
+    else
+    {
+        month -= (age - 14) * 86400;
+        month = month / 7200 + 1;
+    }
+
+    if (month > 12 || month < 1)
+        month = 1;
+
+    return month;
+}
+
 void setup()
 {
     // We want set age first before new player got initialized with
     // random age.
     last_age_set = 0;
     update_age();
-
+    // GMCP
+    ::init_gmcp();
     ::setup();
 
     // set the enable flag to enable save
     set_temp("user_setup", 1);
-
+    // 取回身上物品
     restore_autoload();
+    // 取回背包物品
+    restore_depot();
 
     if (query("doing"))
         CLOSE_D->continue_doing(this_object());
@@ -480,15 +528,14 @@ int query_potential_limit()
         i += 5000;
 
     if (query("reborn"))
-        p = 200000;
+        p = 150000;
     else if (ultrap(this_object()))
-        p = 100000 + i;
-
+        p = 90000 + i;
     // 乾坤无量增加潜能上限
     else if (query("special_skill/potential"))
-        p = query_int() * 200 + 80000 + i;
+        p = query_int() * 200 + 50000 + i;
     else
-        p = query_int() * 100 + 50000 + i;
+        p = query_int() * 100 + 20000 + i;
 
     return (int)query("learned_points") + p;
 }
@@ -621,8 +668,8 @@ int accept_kill(object ob)
         return 1;
 
     tell_object(this_object(), HIW "如果你要和" + ob->name() +
-                                   HIW "性命相搏，请你也对这个人(" HIY + (string)ob->query("id") +
-                                   HIW ")下一次(" HIY "kill" HIW ")指令。\n\n" NOR);
+                               HIW "性命相搏，请你也对这个人(" HIY + (string)ob->query("id") +
+                               HIW ")下一次(" HIY "kill" HIW ")指令。\n\n" NOR);
     return 1;
 }
 
@@ -638,7 +685,7 @@ int accept_touxi(object who)
     {
     case 0:
         message_vision(HIW "$N" HIW "大吃一惊，叫道：「好你个" +
-                           RANK_D->query_rude(who) + "，真不要脸！」\n" NOR,
+                       RANK_D->query_rude(who) + "，真不要脸！」\n" NOR,
                        this_object(), who);
         break;
 
@@ -769,8 +816,8 @@ void get_into_prison(object ob, string p, int time)
         if (ob && time)
             CHANNEL_D->do_channel(find_object(MASTER_OB), "rumor",
                                   "听说" + query("name") + "的刑期被" +
-                                      ob->query("name") + "加长了" +
-                                      appromix_time(time * 60) + "。");
+                                  ob->query("name") + "加长了" +
+                                  appromix_time(time * 60) + "。");
         return;
     }
 
@@ -784,8 +831,7 @@ void get_into_prison(object ob, string p, int time)
             me->unconcious();
 
         CHANNEL_D->do_channel(find_object(MASTER_OB), "rumor",
-                              "听说" + query("name") + "越狱潜逃，结果被抓"
-                                                       "回去了。");
+                              "听说" + query("name") + "越狱潜逃，结果被抓回去了。");
 
         save();
         return;
@@ -797,8 +843,8 @@ void get_into_prison(object ob, string p, int time)
     {
         CHANNEL_D->do_channel(find_object(MASTER_OB), "rumor",
                               "听说" + query("name") + "被" + ob->query("name") +
-                                  "送进了" + p->short() + HIM "，禁闭" +
-                                  appromix_time(time * 60) + "。");
+                              "送进了" + p->short() + HIM "，禁闭" +
+                              appromix_time(time * 60) + "。");
     }
 
     me->set("startroom", prison);
@@ -832,8 +878,8 @@ void leave_prison(object ob, int time)
         {
             CHANNEL_D->do_channel(find_object(MASTER_OB), "rumor",
                                   "听说" + query("name") + "的刑期被" +
-                                      ob->query("name") + "缩短了" +
-                                      appromix_time(time * 60) + "。");
+                                  ob->query("name") + "缩短了" +
+                                  appromix_time(time * 60) + "。");
             return;
         }
     }
@@ -854,7 +900,7 @@ void leave_prison(object ob, int time)
     if (ob)
         CHANNEL_D->do_channel(find_object(MASTER_OB), "rumor",
                               "听说" + query("name") + "被" + ob->name() +
-                                  "提前释放了。");
+                              "提前释放了。");
     else
         CHANNEL_D->do_channel(find_object(MASTER_OB), "rumor",
                               "听说" + query("name") + "已经刑满释放了。");
@@ -948,7 +994,7 @@ int query_max_craze()
     case "心狠手辣":
         return CRAZE_LIMIT_2;
 
-    //新增国士无双怒气 by 薪有所属
+    //新增国士无双怒气
     case "国士无双":
         return CRAZE_LIMIT_3;
 

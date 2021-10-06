@@ -71,31 +71,7 @@ int main(object me, string arg)
     if (playerp(ob))
     {
         age = ob->query("age");
-        month = ob->query("mud_age");
-
-        if (age >= 60)
-        {
-            month -= (age - 60) * 86400 * 4;
-            month = (month - 118 * 86400) / 7200 / 4 + 1;
-        }
-        else if (age >= 30)
-        {
-            month -= (age - 30) * 86400 * 3;
-            month = (month - 28 * 86400) / 7200 / 3 + 1;
-        }
-        else if (age >= 18)
-        {
-            month -= (age - 18) * 86400 * 2;
-            month = (month - 4 * 86400) / 7200 / 2 + 1;
-        }
-        else
-        {
-            month -= (age - 14) * 86400;
-            month = month / 7200 + 1;
-        }
-
-        if (month > 12 || month < 1)
-            month = 1;
+        month = ob->age_month();
 
         if (ob->query("gender") == "无性")
             race = "阉人";

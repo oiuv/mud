@@ -1,5 +1,5 @@
-// 如意乾坤袋(Written by Lonely@chinamud.cn)
-// Modified by mudren@mud.ren
+// 如意乾坤袋 Modified by 雪风@mud.ren
+// 已废弃调用，改为F_STORAGE
 
 #include <ansi.h>
 #include <config.h>
@@ -22,6 +22,7 @@ nosave class store *all = ({});
 
 void create()
 {
+    object me = this_player();
     set_name(HIW "如意" HIG "乾" HIY "坤" HIC "袋" NOR, ({ "ruyi dai", "ruyi", "dai" }));
     set_weight(100);
     set("long", HIC "    一个四周环绕着神秘光环的如意乾坤袋，其炼制手法堪称巧夺天工。据说可以将"
@@ -36,6 +37,15 @@ void create()
     setup();
 
     ::restore();
+    // 升级如意乾坤袋为背包系统
+    if(!me->query("storage_bag"))
+    {
+        me->set("storage_bag", 1);
+        store_variable("all", all, me);
+        me->save_depot();
+        tell_object(me , HIY "你的如意乾坤袋成功升级为个人背包，以后无需召唤，背包相关指令：" HIC "bag take store\n" NOR);
+        DBASE_D->clear_object(this_object());
+    }
 }
 /*
 string short()
@@ -72,8 +82,9 @@ string extra_long()
 
 void init()
 {
-    add_action("do_store", "store");
-    add_action("do_take",  "take");
+    // 如意乾坤袋升级为玩家背包，存取功能禁用
+    // add_action("do_store", "store");
+    // add_action("do_take",  "take");
 }
 
 int do_take(string arg)
@@ -81,8 +92,7 @@ int do_take(string arg)
     object me, ob;
     object *obs;
     int n, amount, num;
-    // string *ks;
-    string /*k,*/ un;
+    string un;
 
     me = this_player();
 
@@ -173,7 +183,7 @@ int do_take(string arg)
 
 int do_store(string arg)
 {
-    int i, n/*, k*/, amount;
+    int i, n, amount;
     string item;
     object me, ob1, ob2, *inv;
 
@@ -195,7 +205,7 @@ int do_store(string arg)
         inv = all_inventory(me);
         inv -= ({ this_object() });
         inv -= ({ 0 });
-        inv = filter_array(inv, (: !$1->is_item_make() && !$1->query("equipped") && !$1->query("money_id") :));
+        inv = filter_array(inv, (: !$1->is_item_make() && !$1->query("equipped") && !$1->is_money() && !$1->is_food() :));
         n = sizeof(inv);
         if( n > 100 )
         {
