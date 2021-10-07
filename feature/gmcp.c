@@ -40,7 +40,7 @@ protected void init_gmcp()
 {
     if (this_player() && !has_gmcp(this_player()))
         return;
-    send_gmcp("core", "hello", (["mud_name" : MUD_NAME]));
+    send_gmcp("Core", "Hello", (["mud_name" : MUD_NAME]));
     gmcp_enable();
     add_action("dump_gmcp_log", "gmcp_log");
 }

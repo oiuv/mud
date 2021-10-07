@@ -235,6 +235,24 @@ int main(object me, string arg)
     // sp += sprintf(HIW "【 积 分 】  " HIC "%4d\n", me->query("state/jifen"));
     sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
     tell_object(me, sp);
+    // GMCP
+    if (interactive(me))
+    {
+        mapping char_vitals = ([
+            "jing"      : my["jing"],
+            "max_jing"  : my["max_jing"],
+            "qi"        : my["qi"],
+            "max_qi"    : my["max_qi"],
+            "neili"     : my["neili"],
+            "max_neili" : my["max_neili"],
+            "food"      : my["food"],
+            "water"     : my["water"],
+            "combat_exp": my["combat_exp"],
+            "potential" : (int)ob->query("potential") - (int)ob->query("learned_points"),
+
+        ]);
+        me->process_gmcp(char_vitals, "Char", "Vitals");
+    }
     return 1;
 }
 

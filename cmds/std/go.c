@@ -312,6 +312,16 @@ int main(object me, string arg)
     {
         me->add("state/go", 1);
     }
+    // GMCP
+    if (interactive(me))
+    {
+        mapping room_info = ([
+            "name" : remove_ansi(environment(me)->query("short")),
+            "exits": keys(environment(me)->query("exits")||([])),
+            "area" : environment(me)->query("outdoors")||"未知区域",
+        ]);
+        me->process_gmcp(room_info, "Room", "Info");
+    }
 
     if (environment(me) != env)
     {
