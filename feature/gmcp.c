@@ -21,16 +21,17 @@ void gmcp(string req)
 
 void gmcp_enable()
 {
-    message("system", "<GMCP negotiation enabled>\n\n", this_object());
+    message("system", "<GMCP negotiation enabled>\n", this_object());
 }
 
-private varargs void send_gmcp(string package, string message, mixed *data...)
+private varargs void send_gmcp(string package, string message, mapping data)
 {
-    // string pkg = lower_case(package);
     string msg = package + "." + message;
-    if (sizeof(data) && this_player())
+    if (!this_player() || !has_gmcp(this_player()))
+        return;
+    if (mapp(data))
     {
-        catch (msg += " " + json_encode(data[0]));
+        catch (msg += " " + json_encode(data));
         log_gmcp("Sending: " + msg);
         efun::send_gmcp(msg);
     }
@@ -38,10 +39,10 @@ private varargs void send_gmcp(string package, string message, mixed *data...)
 
 protected void init_gmcp()
 {
-    if (this_player() && !has_gmcp(this_player()))
+    if (!this_player() || !has_gmcp(this_player()))
         return;
-    send_gmcp("Core", "Hello", (["mud_name" : MUD_NAME]));
     gmcp_enable();
+    send_gmcp("Core", "Hello", (["mud_name" : MUD_NAME]));
     add_action("dump_gmcp_log", "gmcp_log");
 }
 

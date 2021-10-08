@@ -1,6 +1,6 @@
 void mxp_enable()
 {
-    receive("<MXP negotiation: enabled.>\n");
+    receive("<MXP negotiation enabled>\n");
 }
 
 void mxp_tag(string command)
