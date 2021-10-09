@@ -17,13 +17,13 @@ varargs void create(int x, int y, int z)
 
     if (x == 0 && y == 0)
     {
-        addExit("down", __DIR__ "mogong");
+        addExit("down", __DIR__ "migong/entry");
         addExit("up", "/d/sky/tianmen");
         set("objects",([
             "/d/city/npc/yanruyu" : 1,
         ]));
-        set("valid_startroom", 1);
         set("sleep_room", 1);
+        set("valid_startroom", 1);
     }
 
     setup();

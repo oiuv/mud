@@ -278,27 +278,27 @@ private void create_maze()
 
     switch (entry_dir)
     {
-        case "south":
-            // enter 入口坐标.
-            enter->x = to_int(l / 2); // 取中迷宫比较平衡。
-            enter->y = 0;
-            all[enter->x][enter->y] |= S;
-            break;
-        case "north":
-            enter->x = to_int(l / 2);
-            enter->y = l - 1;
-            all[enter->x][enter->y] |= N;
-            break;
-        case "west":
-            enter->y = to_int(l / 2);
-            enter->x = 0;
-            all[enter->x][enter->y] |= W;
-            break;
-        case "east":
-            enter->y = to_int(l / 2);
-            enter->x = l - 1;
-            all[enter->x][enter->y] |= E;
-            break;
+    case "south":
+        // enter 入口坐标.
+        enter->x = to_int(l / 2); // 取中迷宫比较平衡。
+        enter->y = 0;
+        all[enter->x][enter->y] |= S;
+        break;
+    case "north":
+        enter->x = to_int(l / 2);
+        enter->y = l - 1;
+        all[enter->x][enter->y] |= N;
+        break;
+    case "west":
+        enter->y = to_int(l / 2);
+        enter->x = 0;
+        all[enter->x][enter->y] |= W;
+        break;
+    case "east":
+        enter->y = to_int(l / 2);
+        enter->x = l - 1;
+        all[enter->x][enter->y] |= E;
+        break;
     }
 
     // 存入待处理队列.
@@ -343,46 +343,46 @@ private void create_maze()
 
     switch (entry_dir)
     {
-        case "west":
-            for (i = 0; i < l; i++)
-                if (all[l - 1][i])
-                {
-                    temp = new (class coordinate);
-                    temp->x = l - 1;
-                    temp->y = i;
-                    valid_leaves += ({temp});
-                }
-            break;
-        case "east":
-            for (i = 0; i < l; i++)
-                if (all[0][i])
-                {
-                    temp = new (class coordinate);
-                    temp->x = 0;
-                    temp->y = i;
-                    valid_leaves += ({temp});
-                }
-            break;
-        case "south":
-            for (i = 0; i < l; i++)
-                if (all[i][l - 1])
-                {
-                    temp = new (class coordinate);
-                    temp->x = i;
-                    temp->y = l - 1;
-                    valid_leaves += ({temp});
-                }
-            break;
-        case "north":
-            for (i = 0; i < l; i++)
-                if (all[i][0])
-                {
-                    temp = new (class coordinate);
-                    temp->x = i;
-                    temp->y = 0;
-                    valid_leaves += ({temp});
-                }
-            break;
+    case "west":
+        for (i = 0; i < l; i++)
+            if (all[l - 1][i])
+            {
+                temp = new (class coordinate);
+                temp->x = l - 1;
+                temp->y = i;
+                valid_leaves += ({temp});
+            }
+        break;
+    case "east":
+        for (i = 0; i < l; i++)
+            if (all[0][i])
+            {
+                temp = new (class coordinate);
+                temp->x = 0;
+                temp->y = i;
+                valid_leaves += ({temp});
+            }
+        break;
+    case "south":
+        for (i = 0; i < l; i++)
+            if (all[i][l - 1])
+            {
+                temp = new (class coordinate);
+                temp->x = i;
+                temp->y = l - 1;
+                valid_leaves += ({temp});
+            }
+        break;
+    case "north":
+        for (i = 0; i < l; i++)
+            if (all[i][0])
+            {
+                temp = new (class coordinate);
+                temp->x = i;
+                temp->y = 0;
+                valid_leaves += ({temp});
+            }
+        break;
     }
 
     if (!(i = sizeof(valid_leaves))) // 没有出口 须重新建立
@@ -398,18 +398,18 @@ private void create_maze()
 
     switch (entry_dir)
     {
-        case "south":
-            all[leave->x][leave->y] |= N;
-            break;
-        case "north":
-            all[leave->x][leave->y] |= S;
-            break;
-        case "west":
-            all[leave->x][leave->y] |= E;
-            break;
-        case "east":
-            all[leave->x][leave->y] |= W;
-            break;
+    case "south":
+        all[leave->x][leave->y] |= N;
+        break;
+    case "north":
+        all[leave->x][leave->y] |= S;
+        break;
+    case "west":
+        all[leave->x][leave->y] |= E;
+        break;
+    case "east":
+        all[leave->x][leave->y] |= W;
+        break;
     }
 
     // 迷宫创建完毕。
@@ -629,7 +629,6 @@ void set_inherit_room(mixed rooms)
             inherit_rooms = ({rooms});
         return;
     }
-
     else if (arrayp(rooms))
     {
         foreach (string f in rooms)
@@ -786,7 +785,6 @@ void set_maze_npcs(mixed npc)
             maze_npcs = ({npc});
         return;
     }
-
     else if (arrayp(npc))
     {
         foreach (string f in npc)
@@ -918,7 +916,7 @@ nomask object query_maze_room(string str)
     // 迷宫额外参数
     if (sizeof(extra_info))
     {
-        foreach(mixed key, mixed value in extra_info)
+        foreach (mixed key, mixed value in extra_info)
         {
             ob->set(key, value);
         }

@@ -6,8 +6,6 @@ void create()
     set("short", HIB "【青碇魔宫】" NOR);
     set("long", HIB @LONG
 
-                  青         魔         宫
-
     你轻轻的打开了铁门，走了进来，一个空旷的大厅映如你的眼帘。
 原来这里就是传说中的青碇魔宫，整个大殿的地板和台阶竟全为青铜
 所铸。四周阴深深的，寒冷的风把大殿四周青铜烛台上的火焰刮得时
@@ -17,7 +15,7 @@ void create()
 LONG NOR );
     set("exits", ([
         "down":"/d/city/mudren",
-        "up":__DIR__ "workroom",
+        "up":__DIR__ "migong/exit",
     ]));
     set("objects",([
         "/d/death/npc/wangfangping" : 1,
@@ -85,12 +83,12 @@ int do_ganwu(string arg)
     object ob = this_player();
 
     message_vision("$N盘膝静坐在神殿中央，开始游神冥想。\n", ob);
-    ob->set("combat_exp", 20000000);
-    ob->set("potential", 100000);
-    ob->set("max_neili", 100000);
-    ob->set("max_jingli", 100000);
-    ob->set("neili", 100000);
-    ob->set("jingli", 100000);
+    ob->add("combat_exp", 1000000);
+    ob->add("potential", 100000);
+    ob->set("max_neili", 10000);
+    ob->set("max_jingli", 10000);
+    ob->set("neili", 10000);
+    ob->set("jingli", 10000);
     //ob->set("title", HIY "九仪魔尊" NOR);
     return 1;
 }
