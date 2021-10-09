@@ -219,7 +219,11 @@ private void get_passwd(string pass, object ob)
             destruct(ob);
             return;
         }
-
+        // 升级老玩家的管理密码
+        if (ad_pass[0..2] != "$6$")
+        {
+            ob->set("ad_password", crypt(pass, 0));
+        }
         write(HIR "\n你采用了管理密码进入游戏，因此请你先修改你的普通密码。\n" NOR);
 
         // 做标记：表示目前流程是修改密码分支。
@@ -228,14 +232,18 @@ private void get_passwd(string pass, object ob)
         input_to("new_password", 1, ob);
         return;
     }
-
-    if (! stringp(ad_pass))
+    // 升级老玩家的登录密码
+    if (my_pass[0..2] != "$6$")
+    {
+        ob->set("password", crypt(pass, 0));
+    }
+    if (!stringp(ad_pass))
     {
         write(HIC "\n请注意：你的ID目前还没有管理密码，请设置你的管理密码。\n\n" NOR);
         write(HIW "在你普通密码丢失的情况下，你可以输入管理密码进入，并修改普通\n"
-            "密码，所以请你设置一个可靠的并且与普通密码不同的管理密码，用\n"
-            "来保护你的ID。平时请使用普通密码登陆，避免过于频繁的使用管理\n"
-            "密码以导致潜在的泄漏风险。\n\n" NOR);
+                  "密码，所以请你设置一个可靠的并且与普通密码不同的管理密码，用\n"
+                  "来保护你的ID。平时请使用普通密码登陆，避免过于频繁的使用管理\n"
+                  "密码以导致潜在的泄漏风险。\n\n" NOR);
         write("请输入你的管理密码：");
         input_to("reset_ad_password", 1, ob);
         return;
@@ -1003,15 +1011,12 @@ varargs void enter_world(object ob, object user, int silent)
             }
         }
     }
+    // 针对老玩家的提醒
+    if (ob->query("ad_password")[0..2] != "$6$")
+    {
+        tell_object(this_player(), HBRED "\n你的管理密码没有升级为SHA512加密，为了账号安全请使用" HIY " passwd " NOR HBRED "修改管理密码。" NOR "\n");
+    }
 
-    if (ob->query("ad_password")[0..2]!= "$6$")
-    {
-        tell_object(this_player(), HBRED "\n你的管理密码没有升级为SHA512加密，为了账号安全请使用" HIY " passwd " NOR HBRED "修改密码。" NOR "\n");
-    }
-    if (ob->query("password")[0..2] != "$6$")
-    {
-        tell_object(this_player(), HBRED "\n你的登录密码没有升级为SHA512加密，为了账号安全请使用" HIY " passwd " NOR HBRED "修改密码。" NOR "\n");
-    }
     write("\n");
     /*
     // 检查是否有新邮件未读
