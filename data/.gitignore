@@ -1,2 +1,5 @@
-.env
 *.o
+*.sqlite
+.env
+!e2c_dict.o
+!emoted.o

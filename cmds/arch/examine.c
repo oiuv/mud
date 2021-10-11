@@ -63,8 +63,7 @@ void search_dir(object me, int raw)
 
     if (!is_root(previous_object()))
         return 0;
-    log_file("examine", "SYSTEM start examine all player on " +
-                        ctime(time()) + ".\n");
+    log_file("examine", "SYSTEM start examine all player on " + ctime(time()) + ".\n");
     dir = get_dir(DATA_DIR + "login/");
     result = ({});
     count = 0;
@@ -89,8 +88,7 @@ void search_dir(object me, int raw)
                 me ? me : filter_array(all_interactive(), (: wizardp :)));
     }
 
-    info = HIC "\n检查所有 " HIY + total +
-            HIC " 玩家的结果如下：\n" NOR WHT;
+    info = HIC "\n检查所有 " HIY + total + HIC " 玩家的结果如下：\n" NOR WHT;
     for (i = 0; i < sizeof(result); i++)
     {
         info += result[i];
@@ -149,8 +147,7 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
     {
         if (!last_touched)
         {
-            st = stat(DATA_DIR + "login/" + name[0..0] + "/" +
-                        name + __SAVE_EXTENSION__);
+            st = stat(DATA_DIR + "login/" + name[0..0] + "/" + name + __SAVE_EXTENSION__);
 
             if (!arrayp(st) || sizeof(st) < 3)
                 // 可能没有这个文件
@@ -161,7 +158,7 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
         }
         else
             day = (time() - last_touched) / 86400;
-        /*系统备份自动删除超过一定时间未登录的玩
+        /*系统备份自动删除超过一定时间未登录的玩家
         if (day >= 360 && ! objectp(find_player(name)) && name != "mudren")
         {
             log_file("static/purge",
@@ -218,24 +215,17 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
     {
         if (online)
             result = sprintf("%s%-14s%-10s%s%-17s%s%s\n",
-                                WHT,
-                                name,
-                                user_ob->query("name"),
-                                (interactive(user_ob) ? HIC : HIR),
-                                (interactive(user_ob) ? query_ip_number(user_ob) : "断线中"),
-                                NOR,
-                                result);
+                             WHT, name, user_ob->query("name"),
+                             (interactive(user_ob) ? HIC : HIR),
+                             (interactive(user_ob) ? query_ip_number(user_ob) : "断线中"),
+                             NOR, result);
         else
             result = sprintf("%s%-14s%-10s%s%-11s%-6s%s%s%s\n",
-                                WHT,
-                                name,
-                                user_ob->query("name"),
-                                HIG,
-                                ctime(login_ob->query("last_on"))[0..10],
-                                ctime(login_ob->query("last_on"))[20..24],
-                                NOR,
-                                result,
-                                (user_ob->is_in_prison() ? HIR "(狱中)" NOR : ""));
+                             WHT, name, user_ob->query("name"), HIG,
+                             ctime(login_ob->query("last_on"))[0..10],
+                             ctime(login_ob->query("last_on"))[20..24],
+                             NOR, result,
+                             (user_ob->is_in_prison() ? HIR "(狱中)" NOR : ""));
     }
 
     destruct(login_ob);
@@ -246,10 +236,10 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
         {
             me = this_player();
             // I should login it
-            message_vision("$N口中念念有词，将$n变了出来。\n",
-                            me, user_ob);
+            message_vision("$N口中念念有词，将$n变了出来。\n", me, user_ob);
             catch (user_ob->setup());
             catch (user_ob->restore_autoload());
+            catch (user_ob->restore_depot());
             catch (user_ob->move(environment(me)));
         }
         else
@@ -293,10 +283,10 @@ private string is_illegal(object ob)
     else
     {
         mapping list = ([
-            "/clone/money/cash" : ({10, 1,}),
-            "/clone/money/gold" : ({1, 1,}),
-            "/clone/money/silver" : ({1, 100,}),
-            "/clone/money/coin" : ({1, 10000,}),
+            "/clone/money/cash"   : ({ 10, 1, }),
+            "/clone/money/gold"   : ({ 1, 1, }),
+            "/clone/money/silver" : ({ 1, 100, }),
+            "/clone/money/coin"   : ({ 1, 10000, }),
         ]);
 
         int *val;
