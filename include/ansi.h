@@ -1,85 +1,101 @@
-
-//    File    :  /include/ansi.h
-//    Creator    :  Gothic@TMI-2
-//
-//    The standard set of ANSI codes for mudlib use.
+// File    :  /include/ansi.h
+// Creator :  Gothic@TMI-2
+// 雪风@mud.ren 完善修改
+// The standard set of ANSI codes for mudlib use.
 
 #ifndef ANSI_H
 #define ANSI_H
 
-#define ESC "" /* "\033" | "\e" */
+// Control Characters
+#define BEEP "\07" /* Beep Sound BEL(\a) */
+#define ESC "\033" /* Escape ESC(\e | \x1b) */
+// Escape Sequences
+#define CSI ESC + "[" /* Control Sequence Introducer */
+// CSI Color Sequences
+#define SGR(x) CSI + x + "m"                                      /* ANSI color code (Select Graphic Rendition) */
+#define FCC(x) CSI + "38;5;" + x + "m"                            /* Foreground 256 color code */
+#define BCC(x) CSI + "48;5;" + x + "m"                            /* Background 256 color code */
+#define RGB(r, g, b) CSI + "38;2;" + r + ";" + g + ";" + b + "m"  /* Foreground 24 bit rgb color code */
+#define BRGB(r, g, b) CSI + "48;2;" + r + ";" + g + ";" + b + "m" /* Background 24 bit rgb color code */
 
-#define CSI ESC + "["        /* Control Sequence Introducer */
-#define SGR(x) CSI + x + "m" /* Set Graphics Rendition */
+/* Foreground Colors 30 ~ 37 */
 
-/* Foreground Colors */
+#define BLK SGR("30") /* 黑 */
+#define RED SGR("31") /* 紅 */
+#define GRN SGR("32") /* 綠 */
+#define YEL SGR("33") /* 黃 */
+#define BLU SGR("34") /* 藍 */
+#define MAG SGR("35") /* 紫 */
+#define CYN SGR("36") /* 青 */
+#define WHT SGR("37") /* 白 */
 
-#define BLK ESC + "[30m" /* Black    */
-#define RED ESC + "[31m" /* Red      */
-#define GRN ESC + "[32m" /* Green    */
-#define YEL ESC + "[33m" /* Yellow   */
-#define BLU ESC + "[34m" /* Blue     */
-#define MAG ESC + "[35m" /* Magenta  */
-#define CYN ESC + "[36m" /* Cyan     */
-#define WHT ESC + "[37m" /* White    */
+/* Hi Intensity Foreground Colors 90 ~ 97 */
 
-/* Hi Intensity Foreground Colors */
+#define GRY SGR("1;30")  /* 灰 */
+#define HIR SGR("1;31")  /* 紅 */
+#define HIG SGR("1;32")  /* 綠 */
+#define HIY SGR("1;33")  /* 黃 */
+#define HIB SGR("1;34")  /* 藍 */
+#define HIM SGR("1;35")  /* 紫 */
+#define HIC SGR("1;36")  /* 青 */
+#define HIW SGR("1;37")  /* 白 */
 
-#define HIR ESC + "[1;31m" /* Red      */
-#define HIG ESC + "[1;32m" /* Green    */
-#define HIY ESC + "[1;33m" /* Yellow   */
-#define HIB ESC + "[1;34m" /* Blue     */
-#define HIM ESC + "[1;35m" /* Magenta  */
-#define HIC ESC + "[1;36m" /* Cyan     */
-#define HIW ESC + "[1;37m" /* White    */
+/* Background Colors 40 ~ 47 */
 
-/* Background Colors */
+#define BBLK SGR("40") /* 黑 */
+#define BRED SGR("41") /* 紅 */
+#define BGRN SGR("42") /* 綠 */
+#define BYEL SGR("43") /* 黃 */
+#define BBLU SGR("44") /* 藍 */
+#define BMAG SGR("45") /* 紫 */
+#define BCYN SGR("46") /* 青 */
+#define BWHT SGR("47") /* 白 */
 
-#define BBLK ESC + "[40m" /* Black    */
-#define BRED ESC + "[41m" /* Red      */
-#define BGRN ESC + "[42m" /* Green    */
-#define BYEL ESC + "[43m" /* Yellow   */
-#define BBLU ESC + "[44m" /* Blue     */
-#define BMAG ESC + "[45m" /* Magenta  */
-#define BCYN ESC + "[46m" /* Cyan     */
-#define BWHT ESC + "[47m" /* White    */
+/* High Intensity Background Colors 100 ~ 107 */
 
-/* High Intensity Background Colors */
+#define HBBLK SGR("1;40") /* 灰 */
+#define HBRED SGR("1;41") /* 紅 */
+#define HBGRN SGR("1;42") /* 綠 */
+#define HBYEL SGR("1;43") /* 黃 */
+#define HBBLU SGR("1;44") /* 藍 */
+#define HBMAG SGR("1;45") /* 紫 */
+#define HBCYN SGR("1;46") /* 青 */
+#define HBWHT SGR("1;47") /* 白 */
 
-#define HBRED ESC + "[41;1m" /* Red      */
-#define HBGRN ESC + "[42;1m" /* Green    */
-#define HBYEL ESC + "[43;1m" /* Yellow   */
-#define HBBLU ESC + "[44;1m" /* Blue     */
-#define HBMAG ESC + "[45;1m" /* Magenta  */
-#define HBCYN ESC + "[46;1m" /* Cyan     */
-#define HBWHT ESC + "[47;1m" /* White    */
-
-#define NOR ESC + "[2;37;0m" /* Puts everything back to normal */
+// #define NOR ESC + "[m"   /* Puts everything back to normal */
+#define NOR SGR("0")     /* 清除所有特殊属性 */
+#define BOLD SGR("1")    /* Turn on BOLD mode */
+#define ITALIC SGR("3")  /* Turn on ITALIC mode */
+#define U SGR("4")       /* Initialize underscore mode */
+#define BLINK SGR("5")   /* Initialize blink mode */
+#define REV SGR("7")     /* Turns reverse video mode on */
+#define HIREV SGR("1;7") /* Hi intensity reverse video  */
+#define HIDDEN SGR("8")  /* 消隐(部分客户端不支持) */
+#define STRIKE SGR("9")  /* Display text as strikethrough */
+#define BOFF SGR("22")   /* BOLD OFF */
+#define IOFF SGR("23")   /* ITALIC OFF */
+#define UOFF SGR("24")   /* UNDERLINE OFF */
+#define ROFF SGR("27")   /* Reverse OFF */
 
 /* Additional ansi Esc codes added to ansi.h by Gothic  april 23,1993 */
 /* Note, these are Esc codes for VT100 terminals, and emmulators */
-/*           and they may not all work within the mud            */
-
-#define BOLD ESC + "[1m"     /* Turn on bold mode */
-#define EM ESC + "[3m"       /* Initialize italic mode */
-#define U ESC + "[4m"        /* Initialize underscore mode */
-#define BLINK ESC + "[5m"    /* Initialize blink mode */
-#define REV ESC + "[7m"      /* Turns reverse video mode on */
-#define HIREV ESC + "[1;7m"  /* Hi intensity reverse video  */
-#define CLR ESC + "[2J"      /* Clear the screen  */
-#define HOME ESC + "[H"      /* Send cursor to home position */
+/*          and they may not all work within the mud             */
+#define CLR CSI "2J"         /* Clear the screen  */
+#define HOME CSI "H"         /* Send cursor to home position */
 #define REF CLR + HOME       /* Clear screen and home cursor */
+#define SAVEC CSI "s"        /* Save cursor position */
+#define REST CSI "u"         /* Restore cursor to saved position */
+#define FRTOP CSI "2;25r"    /* Freeze top line */
+#define FRBOT CSI "1;24r"    /* Freeze bottom line */
+#define UNFR CSI "r"         /* Unfreeze top and bottom lines */
+
+#define FREEZE(x, y) CSI + x + ";" + y + "r" /* Freeze 住從 x 到 y 這幾行作為 screen */
+#define MOVEC(x, y) CSI + x + ";" + y + "H"  /* 將 cursor 移至第 x 行第 y 字 */
+
 #define REVINDEX ESC + "M"   /* Scroll screen in opposite direction */
 #define BIGTOP ESC + "#3"    /* Dbl height characters, top half */
 #define BIGBOT ESC + "#4"    /* Dbl height characters, bottem half */
 #define SINGW ESC + "#5"     /* Normal, single-width characters */
 #define DBL ESC + "#6"       /* Creates double-width characters */
-#define REST ESC + "[u"      /* Restore cursor to saved position */
-#define SAVEC ESC + "[s"     /* Save cursor position */
-#define FRTOP ESC + "[2;25r" /* Freeze top line */
-#define FRBOT ESC + "[1;24r" /* Freeze bottom line */
-#define UNFR ESC + "[r"      /* Unfreeze top and bottom lines */
-
-#define BEEP "" /* "\07" | "\a" */
 
 #endif
