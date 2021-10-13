@@ -300,7 +300,11 @@ string clear_user_data(string user, string cat)
     // save the data of the user
     if (flag)
         ob->save();
-
+    // 删除数据库缓存
+    if (env("CACHE_DATA"))
+    {
+        CACHE_D->delete(ob);
+    }
     // Destrut the object if create temporate
     if (login_ob)
     {
@@ -363,6 +367,9 @@ void born_player(object me)
         // 性格不符不会愤怒之心
         if (me->query("character") != "光明磊落" && me->query("character") != "心狠手辣")
             files -= ({"wrath"});
+        // 性格不符不会鬼话连篇
+        if (me->query("character") != "狡黠多变" && me->query("character") != "阴险奸诈")
+            files -= ({"trick"});
 
         // 先天膂力 < 20 不会麒麟血臂
         if (me->query("str") < 20)
@@ -485,7 +492,7 @@ void zhuan_player(object me)
     me->delete ("schedule");    // 计划记录
     me->delete ("skybook");     // 天书记录（三丹记录）
 
-    me->delete ("luohan_winner"); //过阵记录
+    me->delete ("luohan_winner"); // 过阵记录
     me->delete ("story");         // 中的故事
 
     me->delete ("DiZangPass");   // 转世任务
@@ -495,6 +502,7 @@ void zhuan_player(object me)
 
     //获取转生前门派，用于脱离时无损判断 by 薪有所属
     menpai1 = me->query("family/family_name");
+    //(取消无损背叛师门)
     //me->set("old_family_name",menpai1);
     me->set("reborn/family/" + menpai1, 1);
     me->delete ("reborn/family/mark"); //删除门派脱离记录

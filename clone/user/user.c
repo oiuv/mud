@@ -160,6 +160,12 @@ int save()
         res = ::save();
     }
 
+    // 缓存到数据库
+    if (env("CACHE_DATA"))
+    {
+        CACHE_D->update(me);
+    }
+
 #if INSTALL_EXAMINE
     EXAMINE_D->examine_player(me);
 #endif

@@ -1,4 +1,4 @@
-inherit F_DATABASE;
+inherit DATABASE;
 // 调用连接对象更新bbs.mud.ren网站账号
 varargs mixed update(object ob, string host, string db, string user)
 {

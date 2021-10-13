@@ -11,7 +11,8 @@
             "defines": [
                 "FLUFFOS",
                 "MUDOS",
-                "__PACKAGE_DB__"
+                "__PACKAGE_DB__",
+                "__USE_SQLITE3__"
             ],
             "cStandard": "c89",
             "cppStandard": "c++11",

@@ -800,13 +800,17 @@ private void init_new_player(object user)
 
     // 记录名字
     NAME_D->map_name(user->query("name"), user->query("id"));
-
     // 设置必要的环境参数
     user->set("env/auto_regenerate", 1);
     user->set("env/auto_get", 1);
     user->set("env/wimpy", 60);
     //设定不自动转宗师频道
     user->set("env/no_autoultra", 1);
+    // 缓存到数据库
+    if (env("CACHE_DATA"))
+    {
+        CACHE_D->insert(user, time());
+    }
 }
 
 varargs void enter_world(object ob, object user, int silent)
@@ -921,8 +925,6 @@ varargs void enter_world(object ob, object user, int silent)
     if (shoe && (! environment(shoe) || ! shoe->query("equipped")))
         destruct(shoe);
 
-    user->set("registered", 1);
-    // user->set("born",1);
     if (! silent)
     {
         string term_type;
@@ -1016,8 +1018,6 @@ varargs void enter_world(object ob, object user, int silent)
     {
         tell_object(this_player(), HBRED "\n你的管理密码没有升级为SHA512加密，为了账号安全请使用" HIY " passwd " NOR HBRED "修改管理密码。" NOR "\n");
     }
-
-    write("\n");
     /*
     // 检查是否有新邮件未读
     new_mail_n = get_info(user->query("id"), "newmail", "", 0);
