@@ -1,5 +1,9 @@
 # 炎黄群侠传MUD
 
+[![Created Badge](https://badges.pufler.dev/created/oiuv/mud)](https://github.com/oiuv/mud)
+[![Updated Badge](https://badges.pufler.dev/updated/oiuv/mud)](https://github.com/oiuv/mud)
+[![Visits Badge](https://badges.pufler.dev/visits/oiuv/mud)](https://github.com/oiuv/mud)
+
 炎黄MUD utf-8 版，推荐使用 FluffOS v2019 最新版驱动。
 
  - 游戏驱动下载地址：https://bbs.mud.ren/threads/4
@@ -27,3 +31,5 @@
 注册ID为 `mudren` 的帐号为游戏管理员(admin)。
 
 游戏体验：http://mud.ren:8888/
+
+如有任何问题请访问：https://bbs.mud.ren

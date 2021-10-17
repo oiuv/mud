@@ -40,9 +40,18 @@ int do_effect(object me)
 
     point = query("gift_point");
 
+    if (is_sub(query("gift_type"), me->query("env/no_gift")))
+    {
+        return notify_fail("你设置了不服用" + query("gift_name") + "(" + query("gift_type") + ")类仙丹，如需服用请取消限制。\n");
+    }
+
     // 真命天子提升成功几率
     if (me->query("special_skills/emperor"))
         point += 25;
+
+    // 九天玄女提升成功几率
+    if (me->query("special_skill/queen"))
+        point += 20;
 
     // 天煞孤星提升成功几率
     if (me->query("special_skills/lonely"))

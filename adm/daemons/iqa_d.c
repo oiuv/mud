@@ -14,10 +14,10 @@
 #define EESUCCESS 1
 
 nosave string host = "jisuapiareacode.api.bdymkt.com";
-nosave string addr = "157.255.71.211 80";
+nosave string addr = "157.255.71.211 443";
 nosave string path = "/iqa/query?question=";
 // 以下code请自己申请https://apis.baidu.com/store/detail/eef864e1-6f2e-4631-befc-5afe35cab769
-nosave string code = "你的AppCode";
+nosave string code = env("AppCode");
 nosave mapping status = ([]);
 nosave object receiver;
 

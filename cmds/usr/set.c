@@ -1,84 +1,84 @@
 // set.c
 #include <ansi.h>
 
-#define MAX_ENV_VARS    40
+#define MAX_ENV_VARS 40
 
 int help();
 
-#define LIST_TERM               0x1
-#define STRING_TERM             0x2
-#define NUMBER_TERM             0x4
-#define NON_ZERO                0x8
-#define ENABLE_COLOR            0x10
-#define NON_NEG                 0x40
-#define WIZ_ONLY                0x80
+#define LIST_TERM 0x1
+#define STRING_TERM 0x2
+#define NUMBER_TERM 0x4
+#define NON_ZERO 0x8
+#define ENABLE_COLOR 0x10
+#define NON_NEG 0x20
+#define WIZ_ONLY 0x40
 
 mapping query_terms()
 {
     return ([
-        "auto_ban"        : LIST_TERM,
-        "auto_drinkout"   : 0,
-        "auto_get"        : 0,
-        "auto_invite"      : LIST_TERM,
-        "auto_regenerate" : 0,
-        "auto_say"        : 0,
-        "brief"           : 0,
-        "combatd"         : 0,
-        "careful"         : 0,
-        "can_accept"      : LIST_TERM,
-        "can_emote"       : LIST_TERM,
-        "can_snoop"       : LIST_TERM,
-        "can_tell"        : LIST_TERM,
-        "default_sign"    : NUMBER_TERM | NON_NEG | NON_ZERO,
-        "halt_age"        : 0,
-        "jam_talk"        : 0,
-        "keep_idle"       : 0,
-        "look_window"     : 0,
-        "no_accept"       : LIST_TERM,
-        "no_learn"        : LIST_TERM,
-        "no_autoultra"    : 0,
-        "no_emote"        : LIST_TERM,
-        "no_more"         : 0,
-        "no_teach"        : 0,
-        "no_tell"         : LIST_TERM,
-        "no_story"        : 0,
-        "no_follow"       : 0,
-        "prompt"          : 0,
-        "public"          : 0,
-        "pure_say"        : 0,
-        "sign1"           : STRING_TERM,
-        "sign2"           : STRING_TERM,
-        "sign3"           : STRING_TERM,
-        "sign4"           : STRING_TERM,
-        "sign5"           : STRING_TERM,
-        "captcha"         : STRING_TERM,
-        "show_map"        : 0,
-        "wimpy"           : 0,
-        "wimpy_apply"     : 0,
-        // wiz term
-        "combat_test"     : WIZ_ONLY,
-        "invisible"       : WIZ_ONLY,
-        "immortal"        : WIZ_ONLY,
-        "msg_out"         : WIZ_ONLY | STRING_TERM | ENABLE_COLOR,
-        "msg_in"          : WIZ_ONLY | STRING_TERM | ENABLE_COLOR,
-        "no_prefix"       : WIZ_ONLY,
+               "auto_ban":LIST_TERM,
+          "auto_drinkout":0,
+               "auto_get":0,
+            "auto_invite":LIST_TERM,
+        "auto_regenerate":0,
+               "auto_say":0,
+                  "brief":0,
+             "can_accept":LIST_TERM,
+              "can_emote":LIST_TERM,
+              "can_snoop":LIST_TERM,
+               "can_tell":LIST_TERM,
+                "careful":0,
+                "combatd":0,
+           "default_sign":NUMBER_TERM | NON_NEG | NON_ZERO,
+               "halt_age":0,
+               "jam_talk":0,
+              "keep_idle":0,
+            "look_window":0,
+              "no_accept":LIST_TERM,
+           "no_autoultra":0,
+               "no_emote":LIST_TERM,
+              "no_follow":0,
+                "no_gift":LIST_TERM,
+               "no_learn":LIST_TERM,
+                "no_more":0,
+               "no_story":0,
+               "no_teach":0,
+                "no_tell":LIST_TERM,
+                 "prompt":0,
+                 "public":0,
+               "pure_say":0,
+               "show_map":0,
+                  "sign1":STRING_TERM,
+                  "sign2":STRING_TERM,
+                  "sign3":STRING_TERM,
+                  "sign4":STRING_TERM,
+                  "sign5":STRING_TERM,
+                  "wimpy":0,
+            "wimpy_apply":0,
+            // wiz term
+            "combat_test":WIZ_ONLY,
+              "invisible":WIZ_ONLY,
+               "immortal":WIZ_ONLY,
+                 "msg_in":WIZ_ONLY | STRING_TERM | ENABLE_COLOR,
+                "msg_out":WIZ_ONLY | STRING_TERM | ENABLE_COLOR,
+              "no_prefix":WIZ_ONLY,
     ]);
 }
 
 mapping query_env_domains()
 {
     return ([
-        "combatd" : ([
-            "normal" : 0,
-            "damage" : 1,
-            "brief"  : 2,
-            "self"   : 3,
-            "null"   : 4,
+        "combatd":([
+            "normal":0,
+            "damage":1,
+            "brief":2,
+            "self":3,
+            "null":4,
         ]),
-        "jam_talk" : ([
-            "none" : 0,
-            "half" : 1,
-            "abs"  : 2,
+        "jam_talk":([
+            "none":0,
+            "half":1,
+            "abs":2,
         ]),
     ]);
 }
@@ -106,10 +106,10 @@ int main(object me, string arg)
     term_map = query_terms();
     env_domains = query_env_domains();
 
-    if (! arg || arg == "")
+    if (!arg || arg == "")
     {
         msg = "你目前设定的环境变数有：\n";
-        if (! mapp(env) || ! sizeof(env))
+        if (!mapp(env) || !sizeof(env))
             msg = "你目前没有设定任何环境变数。\n";
         else
         {
@@ -131,7 +131,7 @@ int main(object me, string arg)
                 msg += sprintf("%-20s  %O\n", terms[i], env[terms[i]]);
             }
         }
-            write(msg);
+        write(msg);
         return 1;
     }
 
@@ -143,7 +143,7 @@ int main(object me, string arg)
         opt_add = 1;
     }
     else if (sscanf(arg, "%s -d %s", term, data) == 2 ||
-            sscanf(arg, "-d %s %s", term, data) == 2)
+             sscanf(arg, "-d %s %s", term, data) == 2)
     {
         opt_del = 1;
     }
@@ -152,7 +152,7 @@ int main(object me, string arg)
         term = arg;
         if (term_map[term] & STRING_TERM || term_map[term] & NUMBER_TERM)
             return notify_fail("你必须指明这个参数的内"
-                                "容，否则请用 unset 取消这个参数。\n");
+                               "容，否则请用 unset 取消这个参数。\n");
         else
             data = "YES";
     }
@@ -160,23 +160,24 @@ int main(object me, string arg)
     if (data == "")
         return notify_fail("设定的参数值不能为空。\n");
 
-        if (term_map[term] & NUMBER_TERM)
-        {
-            sscanf(data, "%d", data);
-            if (! intp(data)) data = 0;
-            if ((term_map[term] & NON_ZERO) && ! data)
-                return notify_fail("这个参数值不能设置为零。\n");
+    if (term_map[term] & NUMBER_TERM)
+    {
+        sscanf(data, "%d", data);
+        if (!intp(data))
+            data = 0;
+        if ((term_map[term] & NON_ZERO) && !data)
+            return notify_fail("这个参数值不能设置为零。\n");
 
-            if ((term_map[term] & NON_NEG) && data < 0)
-                return notify_fail("这个参数值不能设置为负数。\n");
-        }
-        else if (term_map[term] & STRING_TERM &&
-            term_map[term] & ENABLE_COLOR)
-        {
-            data = color_filter(data);
-            if (strsrch(data, ESC) != -1)
-                data += NOR;
-        }
+        if ((term_map[term] & NON_NEG) && data < 0)
+            return notify_fail("这个参数值不能设置为负数。\n");
+    }
+    else if (term_map[term] & STRING_TERM &&
+             term_map[term] & ENABLE_COLOR)
+    {
+        data = color_filter(data);
+        if (strsrch(data, ESC) != -1)
+            data += NOR;
+    }
 
     if (term && term != "")
     {
@@ -191,24 +192,24 @@ int main(object me, string arg)
 
         if (term_map[term] & LIST_TERM)
         {
-            if (! stringp(data) || data == "YES")
+            if (!stringp(data) || data == "YES")
                 return notify_fail("列表参数只能以字符串为取值。\n");
 
-            ks = explode(data, ",") - ({ "" });
-            bs = ({ });
+            ks = explode(data, ",") - ({""});
+            bs = ({});
             for (i = 0; i < sizeof(ks); i++)
             {
                 if (member_array(ks[i], bs) == -1)
-                    bs += ({ ks[i] });
+                    bs += ({ks[i]});
             }
             data = implode(bs, ",");
         }
 
         if (opt_add || opt_del)
         {
-            if (! (term_map[term] & LIST_TERM))
+            if (!(term_map[term] & LIST_TERM))
                 return notify_fail("这个参数不具有列表属性，不"
-                                    "能使用-a或则是-d参数。\n");
+                                   "能使用-a或则是-d参数。\n");
             if (opt_add)
                 data = add_sub(data, me->query("env/" + term));
             else
@@ -216,9 +217,9 @@ int main(object me, string arg)
             if (strlen(data) > 256)
                 return notify_fail("参数取值太长了。\n");
 
-            if (! data)
+            if (!data)
             {
-                me->delete("env/" + term);
+                me->delete ("env/" + term);
                 write("取消环境参数：" + term + "\n");
                 return 1;
             }
@@ -226,23 +227,25 @@ int main(object me, string arg)
 
         if (mapp(d = env_domains[term]))
         {
-            if (! undefinedp(d[data])) data = d[data];
+            if (!undefinedp(d[data]))
+                data = d[data];
 
             // check the data
             ks = keys(d);
             for (k = 0; k < sizeof(ks); k++)
-                if (d[ks[k]] == data) break;
+                if (d[ks[k]] == data)
+                    break;
             if (k >= sizeof(ks))
             {
                 write("该项参数不能设置成该值，请参见help settings。\n");
                 return 1;
             }
-                me->set("env/" + term, data);
+            me->set("env/" + term, data);
             write(sprintf("设定环境变数：%s = %O\n", term, ks[k]));
             return 1;
         }
-        else if (stringp(data) && ! (term_map[term] & LIST_TERM) &&
-            ! (term_map[term] & STRING_TERM))
+        else if (stringp(data) && !(term_map[term] & LIST_TERM) &&
+                 !(term_map[term] & STRING_TERM))
             sscanf(data, "%d", data);
 
         me->set("env/" + term, data);
