@@ -41,6 +41,11 @@ nosave int next_beat;
 nosave int keep_beat_flag = 0;
 nosave string short_desc = 0;
 
+int is_living()
+{
+    return living();
+}
+
 void create()
 {
     seteuid(0); // so LOGIN_D can export uid to us

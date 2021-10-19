@@ -10,6 +10,7 @@ mixed insert(object user, int last_touched);
 // 玩家数据更新接口
 mixed update(object user);
 // 玩家数据删除接口
+mixed delete(object user);
 
 nosave object db;
 

@@ -471,7 +471,7 @@ void zhuan_player(object me)
     me->delete ("betrayer"); // 叛师记录
     me->delete ("long");     // 个人描述
     //新增转世清除世家
-    me->delete ("born");
+    me->delete ("born_family");
 
     me->delete ("combat");    // PK  记录
     me->delete ("animaout");  // 元婴出世
