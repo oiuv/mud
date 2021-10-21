@@ -299,8 +299,9 @@ int store_item(object me, object ob, int amount)
         return 1;
     }
     */
-
-    if(ob->is_no_clone() || ob->query("no_put"))
+    // no_put为不可存入容器(put指令)，no_store为不可存入背包(store指令)
+    // put为move对象，store为destruct对象
+    if(ob->is_no_clone() || ob->query("no_put") || ob->query("no_store"))
     {
         tell_object(me, "背包不保存" + ob->query("name") + "，请你自己妥善处理。\n");
         return 1;

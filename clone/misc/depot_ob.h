@@ -325,7 +325,7 @@ int store_item(object me, object ob, int amount)
         return 1;
     }
 
-    if(ob->is_no_clone() || ob->query("no_put"))
+    if(ob->is_no_clone() || ob->query("no_put") || ob->query("no_store"))
     {
         tell_object(me, "如意乾坤袋不保存" + ob->query("name") + "，请你自己妥善处理。\n");
         return 0;
