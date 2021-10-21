@@ -132,42 +132,41 @@ void receive_message(string msgclass, string msg)
 {
     string subclass, *ch;
 
-    if (! interactive(this_object()))
+    if (!interactive(this_object()))
     {
-        this_object()->relay_message(msgclass, msg);
+        // this_object()->relay_message(msgclass, msg);
         return;
     }
 
-        if (msgclass == "telnet")
-        {
-            receive(msg);
-            return;
-        }
+    if (msgclass == "telnet")
+    {
+        receive(msg);
+        return;
+    }
     // debug_message(msgclass);
     // debug_message(msg);
     if (sscanf(msgclass, "%s:%s", subclass, msgclass) == 2)
     {
-        switch(subclass)
+        switch (subclass)
         {
-            case "channel":
-                if(!pointerp(ch = query("channels"))
-                ||    member_array(msgclass, ch) == -1)
+        case "channel":
+            if (!pointerp(ch = query("channels")) || member_array(msgclass, ch) == -1)
+                return;
+            break;
+        case "outdoor":
+            if (!environment() || !environment()->query("outdoors"))
+            {
+                if (query("env/look_window"))
+                    msg = HIG "【窗外景象】" + NOR + msg;
+                else
                     return;
-                break;
-            case "outdoor":
-                if (! environment() || ! environment()->query("outdoors"))
-                {
-                    if (query("env/look_window"))
-                        msg = HIG "【窗外景象】" + NOR + msg;
-                    else
-                        return;
-                }
-                break;
-            case "system":
-                break;
+            }
+            break;
+        case "system":
+            break;
 
-            default:
-                error("Message: Invalid Subclass " + subclass + ".\n");
+        default:
+            error("Message: Invalid Subclass " + subclass + ".\n");
         }
     }
 
@@ -175,23 +174,66 @@ void receive_message(string msgclass, string msg)
         return;
 
     if (in_input(this_object()) || in_edit(this_object()) ||
-            this_object()->is_attach_system() && msgclass != "system")
+        this_object()->is_attach_system() && msgclass != "system")
     {
         if (sizeof(msg_buffer) < MAX_MSG_BUFFER)
-            msg_buffer += ({ msg });
-    } else
+            msg_buffer += ({msg});
+    }
+    else
     {
         log_message(msg);
-        if (written && ! this_object()->is_attach_system())
+        if (written && !this_object()->is_attach_system())
         {
             if (written == COMMAND_RCVD)
             {
                 written = NONE;
-                receive(ESC "[256D" ESC "[K" + msg);
-            } else
-                receive(ESC "[256D" ESC "[K" + msg + prompt());
-        } else
+                // msg = ESC "[256D" ESC "[K" + msg;
+            }
+            else
+                // msg = ESC "[256D" ESC "[K" + msg + prompt();
+                receive(prompt());
+        }
+
+        switch (msgclass)
+        {
+        case "info":
+            receive(HIC + msg + NOR "\n");
+            return;
+        case "success":
+            receive(HIG + msg + NOR "\n");
+            return;
+        case "warning":
+            receive(HIY + msg + NOR "\n");
+            return;
+        case "danger":
+            receive(HIR + msg + NOR "\n");
+            return;
+
+        case "HIM":
+            receive(HIM + msg + NOR "\n");
+            return;
+        case "MAG":
+            receive(MAG + msg + NOR "\n");
+            return;
+        case "CYN":
+            receive(CYN + msg + NOR "\n");
+            return;
+        case "RED":
+            receive(RED + msg + NOR "\n");
+            return;
+        case "GRN":
+            receive(GRN + msg + NOR "\n");
+            return;
+        case "BLU":
+            receive(BLU + msg + NOR "\n");
+            return;
+        case "YEL":
+            receive(YEL + msg + NOR "\n");
+            return;
+
+        default:
             receive(msg);
+        }
     }
 }
 
@@ -226,8 +268,7 @@ void write_prompt()
     written = PROMPT_WRITTEN;
 }
 
-// 最大8920字节, utf-8 / 3
-#define MAX_STRING_SIZE                 2560
+#define MAX_STRING_SIZE 2560
 
 void receive_snoop(string msg)
 {
