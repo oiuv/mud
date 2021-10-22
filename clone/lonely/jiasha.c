@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <armor.h>
 
-inherit F_OBSAVE;
+inherit F_DBSAVE;
 inherit ARMOR;
 
 void create()

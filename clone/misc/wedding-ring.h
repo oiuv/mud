@@ -6,7 +6,7 @@
 
 inherit HANDS;
 inherit F_NOCLONE;
-inherit F_OBSAVE;
+inherit F_DBSAVE;
 
 string do_wear();
 void set_attrib();

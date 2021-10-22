@@ -18,7 +18,7 @@
 #include <ansi.h>
 
 inherit ROOM;
-inherit F_OBSAVE;
+inherit F_DBSAVE;
 
 string query_room_id(string room_id);
 string query_room_name(string room_name);

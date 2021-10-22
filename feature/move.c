@@ -243,7 +243,7 @@ varargs void remove(string euid)
                                          file_name(me)));
     }
 
-    if (me->is_ob_saved())
+    if (me->is_db_saved())
         me->save();
 
     // Leave environment
@@ -290,6 +290,6 @@ varargs int move_or_destruct(object dest)
                                        "送到另一个地方。\n\n" NOR);
         move(VOID_OB);
     }
-    else if (this_object()->is_ob_saved())
+    else if (this_object()->is_db_saved())
         this_object()->save();
 }

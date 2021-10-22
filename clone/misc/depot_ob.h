@@ -6,7 +6,7 @@
 
 inherit ITEM;
 inherit F_NOCLONE;
-inherit F_OBSAVE;
+inherit F_DBSAVE;
 
 int is_item_make() { return 1; }
 int is_depot_ob() { return 1; }

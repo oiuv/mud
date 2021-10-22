@@ -337,6 +337,7 @@ int look_item(object me, object obj)
     apply3 = ({});
 
     str = obj->long();
+    if (!str || str[ < 1] != '\n') str = str + "\n"; // 防止0报错
 
     if (mapp(obj->query("weapon_prop")) ||mapp(obj->query("armor_prop")))
     {

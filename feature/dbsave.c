@@ -1,6 +1,6 @@
-// obsave.c
+// dbsave.c
 
-int is_ob_saved() { return 1; }
+int is_db_saved() { return 1; }
 
 int save()
 {

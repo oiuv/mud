@@ -6,7 +6,7 @@
 #include <move.h>
 #include <command.h>
 
-inherit F_OBSAVE;
+inherit F_DBSAVE;
 inherit F_NOCLONE;
 
 int is_item_make() { return 1; }

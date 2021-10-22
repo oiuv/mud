@@ -11,7 +11,7 @@
 #include <ansi.h>
 
 inherit ROOM;
-inherit F_OBSAVE;
+inherit F_DBSAVE;
 inherit F_AUTOLOAD;
 
 int do_unlock(string arg);
@@ -76,7 +76,7 @@ void setup()
         //restore_autoload();
 }
 
-// the callback function of F_OBSAVE
+// the callback function of F_DBSAVE
 mixed save_dbase_data()
 {
         mapping data;
@@ -91,7 +91,7 @@ mixed save_dbase_data()
         return data;
 }
 
-// the callback function of F_OBSAVE
+// the callback function of F_DBSAVE
 int receive_dbase_data(mixed data)
 {
         if (! mapp(data))

@@ -9,7 +9,7 @@ Date: 2020-04-21
 #include <ansi.h>
 #include <localtime.h>
 
-inherit F_OBSAVE;
+inherit F_DBSAVE;
 
 // 游戏时间戳
 private int gametime;

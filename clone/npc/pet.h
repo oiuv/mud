@@ -8,7 +8,7 @@
 
 inherit NPC;
 inherit F_NOCLONE;
-inherit F_OBSAVE;
+inherit F_DBSAVE;
 inherit F_UNIQUE;
 
 int is_pet() { return 1; }
