@@ -18,7 +18,7 @@ class store
     int amount;
 }
 
-nosave class store *all = ({});
+nosave class store *bag = ({});
 
 int list_bag(string arg)
 {
@@ -30,19 +30,19 @@ int list_bag(string arg)
         return notify_fail("你还没有背包呢。\n");
     }
 
-    if (!all || sizeof(all) < 1)
+    if (!bag || sizeof(bag) < 1)
         return notify_fail("你的背包里没有存放任何物品。\n");
 
     msg = HIW "\n你的背包里存放的物品有：\n编号  物品                                      数量\n"
               "----------------------------------------------------\n" NOR;
-    for (int i = 0; i < sizeof(all); i++)
+    for (int i = 0; i < sizeof(bag); i++)
     {
-        msg += sprintf("[%2d]  %-36s      %-11d\n", i + 1, all[i]->name + "(" + all[i]->id + ")", all[i]->amount);
-        if (all[i]->amount == 0)
-            all[i] = 0;
+        msg += sprintf("[%2d]  %-36s      %-11d\n", i + 1, bag[i]->name + "(" + bag[i]->id + ")", bag[i]->amount);
+        if (bag[i]->amount == 0)
+            bag[i] = 0;
     }
     msg += HIW "----------------------------------------------------\n" NOR;
-    all -= ({0});
+    bag -= ({0});
     tell_object(me, msg);
     return 1;
 }
@@ -75,16 +75,16 @@ int do_take(string arg)
     if (n < 1)
         return notify_fail("你要取第几号物品？\n");
 
-    if (!all || sizeof(all) < 1 || n > sizeof(all))
+    if (!bag || sizeof(bag) < 1 || n > sizeof(bag))
         return notify_fail("你的背包里没有存放这项物品。\n");
     n--;
-    if (amount > all[n]->amount)
-        amount = all[n]->amount;
+    if (amount > bag[n]->amount)
+        amount = bag[n]->amount;
 
-    if (!(ob = new (all[n]->file)))
+    if (!(ob = new (bag[n]->file)))
     {
-        all[n] = 0;
-        all -= ({0});
+        bag[n] = 0;
+        bag -= ({0});
         tell_object(me, "无法取出该物品，系统自动清除之。\n");
         return 1;
     }
@@ -99,11 +99,11 @@ int do_take(string arg)
 
     if (ob->query_amount())
     {
-        all[n]->amount -= amount;
-        if (all[n]->amount == 0)
+        bag[n]->amount -= amount;
+        if (bag[n]->amount == 0)
         {
-            all[n] = 0;
-            all -= ({0});
+            bag[n] = 0;
+            bag -= ({0});
         }
         ob->set_amount(amount);
         ob->move(me);
@@ -113,11 +113,11 @@ int do_take(string arg)
     }
     destruct(ob);
 
-    all[n]->amount -= amount;
+    bag[n]->amount -= amount;
     num = amount;
     while (num--)
     {
-        ob = new (all[n]->file);
+        ob = new (bag[n]->file);
         ob->move(me, 1);
     }
 
@@ -126,10 +126,10 @@ int do_take(string arg)
     if (!wizardp(me) && random(2))
         me->start_busy(3);
 
-    if (all[n]->amount == 0)
+    if (bag[n]->amount == 0)
     {
-        all[n] = 0;
-        all -= ({0});
+        bag[n] = 0;
+        bag -= ({0});
     }
 
     return 1;
@@ -163,7 +163,7 @@ int do_store(string arg)
     // 扩展背包空间
     n += me->query("storage_bag");
 
-    if (sizeof(all) >= n)
+    if (sizeof(bag) >= n)
     {
         return notify_fail("你背包的 " + n + " 个储藏空间全被使用了，请整理一下吧。\n");
     }
@@ -335,12 +335,12 @@ int store_item(object me, object ob, int amount)
     if (!(un = ob->query("base_unit")))
         un = ob->query("unit");
 
-    n = sizeof(all);
+    n = sizeof(bag);
     for (i = 0; i < n; i++)
     {
-        if (all[i]->file == file && all[i]->id == id && all[i]->name == name)
+        if (bag[i]->file == file && bag[i]->id == id && bag[i]->name == name)
         {
-            all[i]->amount += amount;
+            bag[i]->amount += amount;
             msg("vision", "$ME把" + chinese_number(amount) + un + ob->query("name") + "存到背包里。\n", me);
             destruct(ob);
             return 1;
@@ -352,7 +352,7 @@ int store_item(object me, object ob, int amount)
     item->name = name;
     item->id = id;
     item->amount = amount;
-    all += ({item});
+    bag += ({item});
     msg("vision", "$ME把" + chinese_number(amount) + un + ob->query("name") + "存到背包里。\n", me);
     destruct(ob);
     return 1;
@@ -376,7 +376,7 @@ void restore_depot()
         item->id = data["item" + i]["id"];
         item->file = data["item" + i]["file"];
         item->amount = data["item" + i]["amount"];
-        all += ({item});
+        bag += ({item});
     }
 }
 
@@ -387,16 +387,16 @@ void save_depot()
     int i, n;
     data = ([]);
 
-    if (sizeof(all) > 0)
+    if (sizeof(bag) > 0)
     {
-        n = sizeof(all);
+        n = sizeof(bag);
         for (i = 0; i < n; i++)
         {
             list = ([]);
-            list["name"] = all[i]->name;
-            list["id"] = all[i]->id;
-            list["file"] = all[i]->file;
-            list["amount"] = all[i]->amount;
+            list["name"] = bag[i]->name;
+            list["id"] = bag[i]->id;
+            list["file"] = bag[i]->file;
+            list["amount"] = bag[i]->amount;
             data += (["item" + i:list]);
         }
     }

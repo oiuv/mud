@@ -85,14 +85,13 @@ void select_day_phase()
     {
         // the last hour
         n = 24 - t;
-        i = 0;
     }
     else
         n = day_phase[i + 1]["hour"] - t;
 
     // calculate the call out time
     n = n * 60 - lt[LT_MIN];
-    n = n * 60 / DATE_SCALE + 1;
+    n = n * 60 / DATE_SCALE;
     if (n < 1)
         n = 1;
     call_out("select_day_phase", n);
@@ -100,6 +99,7 @@ void select_day_phase()
     if (i != current_day_phase)
     {
         current_day_phase = i;
+        // message("warning", BRED"【提示】" + sprintf("现在游戏时间 %s || i=%d, n=%d", TIME_D->game_time_description(), i, n), users(), 0);
         update_day_phase();
     }
 }
