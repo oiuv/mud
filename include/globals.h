@@ -9,6 +9,10 @@
 #define nosave static
 #endif
 
+// 游戏时间设定
+#define GAME_TIME(t)    (t - 971000000)
+#define DATE_SCALE      365
+
 // Important directories
 #define BACKUP_DIR      "/backup/"
 #define COMMAND_DIR     "/cmds/"
@@ -42,6 +46,7 @@
 #define COMBAT_D        "/adm/daemons/combatd"
 #define COMMAND_D       "/adm/daemons/commandd"
 #define CONFIG_D        "/adm/daemons/configd"
+#define CORE_TIME_D     "/adm/daemons/time_d"
 #define CPU_D           "/adm/daemons/cpud"
 #define DBASE_D         "/adm/daemons/dbased"
 #define EMOTE_D         "/adm/daemons/emoted"

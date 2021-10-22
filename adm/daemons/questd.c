@@ -28,7 +28,7 @@ void create()
     call_out("collect_all_quest_information", 1);
 }
 
-#define ONE_DAY (86400 / 365)
+#define ONE_DAY (86400 / DATE_SCALE)
 #define MAX_QUEST_LEVEL 3
 
 private void special_bonus(object me, object who, mixed arg)

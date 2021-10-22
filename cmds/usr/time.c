@@ -197,8 +197,7 @@ void prepare();
 int main(object me, string arg)
 {
     mixed *now;
-    int t, d, h, m, s, i;
-    string time;
+    string time = "cmds/usr/mudinfo.c"->dotime();
 
     if (arg)
     {
@@ -208,37 +207,11 @@ int main(object me, string arg)
         return 1;
     }
     now = localtime(time());
-    t = uptime();
-    s = t % 60;
-    t /= 60;
-    m = t % 60;
-    t /= 60;
-    h = t % 24;
-    t /= 24;
-    d = t;
 
-    if (d)
-        time = chinese_number(d) + "天";
-    else
-        time = "";
-
-    if (h)
-        time += chinese_number(h) + "小时";
-    if (m)
-        time += chinese_number(m) + "分";
-    time += chinese_number(s) + "秒\n";
-
-    write(MUD_NAME + "已运行 " HIR + time + NOR);
-    write("现在 游戏 时间 " HIG + NATURE_D->game_time() + "\n" NOR);
-    printf("现在 北京 时间 " HIY "%s年%s月%s日%s时%s分%s秒，星期%s " NOR,
-           chinese_number(now[LT_YEAR]),
-           chinese_number(now[LT_MON] + 1),
-           chinese_number(now[LT_MDAY]),
-           chinese_number(now[LT_HOUR]),
-           chinese_number(now[LT_MIN]),
-           chinese_number(now[LT_SEC]),
-           now[LT_WDAY] == 0 ? "天" : chinese_number(now[LT_WDAY]));
-    for (i = 0; i < sizeof(solarfete); i++)
+    printf(MUD_NAME + "已运行：%s", HIG + time + NOR);
+    printf("现在 游戏 时间是：%s\n", YEL + TIME_D->game_time_description("炎黄") + NOR);
+    printf("现在 北京 时间是：%s ", GRN + TIME_D->real_time_description() + NOR);
+    for (int i = 0; i < sizeof(solarfete); i++)
     {
         if (solarfete[i]["month"] == now[LT_MON] + 1 &&
             solarfete[i]["day"] == now[LT_MDAY])
