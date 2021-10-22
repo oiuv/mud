@@ -11,7 +11,7 @@
 
 // 游戏时间设定
 #define GAME_TIME(t)    (t - 971000000)
-#define DATE_SCALE      365
+#define DATE_SCALE      60
 
 // Important directories
 #define BACKUP_DIR      "/backup/"

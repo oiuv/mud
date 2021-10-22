@@ -83,8 +83,8 @@ int main(object me, string arg)
                         chinese_number(age),
                         chinese_number(month),
                         //生日修正为和游戏中time指令显示的时间统一
-                        CHINESE_D->chinese_date((((int)ob->query("birthday") - 971000000) % 86400) * 365,
-                                                ((int)ob->query("birthday") - 971000000) / 86400));
+                        CHINESE_D->chinese_date((GAME_TIME((int)ob->query("birthday")) % 86400) * DATE_SCALE,
+                                                GAME_TIME((int)ob->query("birthday")) / 86400));
     }
 
     else

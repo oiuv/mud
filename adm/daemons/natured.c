@@ -1,183 +1,211 @@
 // natured.c
 
 #pragma optimize
-// #pragma save_binary
 
 #include <ansi.h>
 #include <localtime.h>
 
-#define REMEMBER_CHAR           '#'
+#define REMEMBER_CHAR '#'
+// 游戏时间修改由时间守护进程控制，这里只控制自然天气
+/** 游戏时间说明 DATE_SCALE=365
+ * 真实时间1天=游戏时间365天
+ * 真实时间2小时=游戏时间1个月
+ * 真实时间4分钟=游戏时间1天
+ * 真实时间10秒≈游戏时间1小时
+ * 真实时间1秒=游戏时间365秒
+ */
+// #define GAME_TIME(t)            (t - 971000000)
+// #define DATE_SCALE              365
 
 nosave int current_day_phase = -1;
-mapping *day_phase;
+nosave mapping *day_phase;
 
-mapping *read_table(string file);
+private mapping *read_table(string file);
 
 void select_day_phase();
 
-mixed *query_localtime(int t)
+varargs mixed *query_localtime(int t)
 {
+    if (t)
+    {
         mixed *lt;
 
         t = GAME_TIME(t);
-        lt = localtime((t % 86400) * 365);
+        lt = localtime((t % 86400) * DATE_SCALE);
+        // 注意这里提前+1了，使用时不需再加
         lt[LT_MON]++;
         lt[LT_YEAR] = t / 86400;
         return lt;
+    }
+
+    return TIME_D->query_game_time();
 }
 
-int query_hour()        { return query_localtime(time())[LT_HOUR]; }
-int query_day()         { return query_localtime(time())[LT_MDAY]; }
-int query_month()       { return query_localtime(time())[LT_MON]; }
-int query_year()        { return query_localtime(time())[LT_YEAR]; }
+varargs int query_minute(int t) { return query_localtime(t)[LT_MIN]; }
+varargs int query_hour(int t) { return query_localtime(t)[LT_HOUR]; }
+varargs int query_day(int t) { return query_localtime(t)[LT_MDAY]; }
+varargs int query_month(int t) { return query_localtime(t)[LT_MON] + (t ? 0 : 1); }
+varargs int query_year(int t) { return query_localtime(t)[LT_YEAR]; }
 
 void create()
 {
-        day_phase = read_table("/adm/etc/nature/day_phase");
-        select_day_phase();
+    day_phase = read_table("/adm/etc/nature/day_phase");
+    select_day_phase();
 }
 
 void update_day_phase()
 {
-        string msg;
+    string msg;
 
-        msg = color_filter(day_phase[current_day_phase]["outcolor"] +
-                           day_phase[current_day_phase]["time_msg"] + "\n" NOR);
-        message("outdoor:vision", msg, all_interactive());
-        if (! undefinedp(day_phase[current_day_phase]["event_fun"]))
-                call_other(this_object(), day_phase[current_day_phase]["event_fun"]);
+    msg = color_filter(day_phase[current_day_phase]["outcolor"] +
+                       day_phase[current_day_phase]["time_msg"] + "\n" NOR);
+    message("outdoor:vision", msg, all_interactive());
+    if (!undefinedp(day_phase[current_day_phase]["event_fun"]))
+        call_other(this_object(), day_phase[current_day_phase]["event_fun"]);
 }
+
 
 void select_day_phase()
 {
-        mixed *lt;
-        int i, t, n;
+    mixed *lt;
+    int i, t, n;
 
-        remove_call_out("select_day_phase");
+    remove_call_out("select_day_phase");
 
-        // Get minutes of today.
-        lt = query_localtime(time());
-        t = lt[LT_HOUR];
+    // Get minutes of today.
+    lt = query_localtime(time());
+    t = lt[LT_HOUR];
 
-        // Find the day phase for now.
-        for (i = 0; i < sizeof(day_phase) - 1; i++)
-                if (t < day_phase[i + 1]["hour"]) break;
+    // Find the day phase for now.
+    for (i = 0; i < sizeof(day_phase) - 1; i++)
+        if (t < day_phase[i + 1]["hour"])
+            break;
 
-        if (i >= sizeof(day_phase) - 1)
-        {
-                // the last hour
-                n = 24 - t;
-                i = 0;
-        } else
-                n = day_phase[i + 1]["hour"] - t;
+    if (i >= sizeof(day_phase) - 1)
+    {
+        // the last hour
+        n = 24 - t;
+        i = 0;
+    }
+    else
+        n = day_phase[i + 1]["hour"] - t;
 
-        // calculate the call out time
-        n = n * 60 - lt[LT_MIN];
-        n = n * 60 / 365 + 1;
-        if (n < 1) n = 1;
-        call_out("select_day_phase", n);
+    // calculate the call out time
+    n = n * 60 - lt[LT_MIN];
+    n = n * 60 / DATE_SCALE + 1;
+    if (n < 1)
+        n = 1;
+    call_out("select_day_phase", n);
 
-        if (i != current_day_phase)
-        {
-                current_day_phase = i;
-                update_day_phase();
-        }
+    if (i != current_day_phase)
+    {
+        current_day_phase = i;
+        update_day_phase();
+    }
 }
 
 void event_midnight()
 {
-        string msg;
-        int m, d;
+    string msg;
+    int m, d;
 
-        m = query_month();
-        d = query_day();
+    m = query_month();
+    d = query_day();
 
-        msg = 0;
-        switch (m * 100 + d)
-        {
-        case  321:
-                msg = HIG "春天终于到了，经过了漫长的冬季，万物开始复苏。\n" NOR;
-                break;
-        case  622:
-                msg = HIR "夏天来临了，天气越来越热，所有的生物都异常活跃。\n" NOR;
-                break;
-        case  923:
-                msg = HIY "已然是秋天了，大地一片金黄，正是收获的时期。\n" NOR;
-                break;
-        case 1222:
-                msg = HIW "来自北方的寒流扫过大地，万物又开始了寂静的休眠。\n" NOR;
-                break;
-        }
+    msg = 0;
+    switch (m * 100 + d)
+    {
+    case 321:
+        msg = HIG "春天终于到了，经过了漫长的冬季，万物开始复苏。\n" NOR;
+        break;
+    case 622:
+        msg = HIR "夏天来临了，天气越来越热，所有的生物都异常活跃。\n" NOR;
+        break;
+    case 923:
+        msg = HIY "已然是秋天了，大地一片金黄，正是收获的时期。\n" NOR;
+        break;
+    case 1222:
+        msg = HIW "来自北方的寒流扫过大地，万物又开始了寂静的休眠。\n" NOR;
+        break;
+    }
 
-        if (msg)
-                message("vision", HIC "【季节天时】" + msg,
+    if (msg)
+        message("vision", HIC "【季节天时】" + msg,
                 msg, all_interactive());
 
-        switch(m)
+    switch (m)
+    {
+    //spring weather
+    case 3:
+    case 4:
+    case 5:
+        switch (random(3))
         {
-        //spring weather
-        case 3: case 4: case 5:
-                switch(random(3))
-                {
-                case 0:
-                        day_phase = read_table("/adm/etc/nature/spring_rain");
-                        break;
-                case 1:
-                        day_phase = read_table("/adm/etc/nature/spring_sun");
-                        break;
-                case 2:
-                        day_phase = read_table("/adm/etc/nature/spring_wind");
-                        break;
-                }
-                break;
-        //summer weather
-        case 6: case 7: case 8:
-                switch(random(3))
-                {
-                case 0:
-                        day_phase = read_table("/adm/etc/nature/summer_rain");
-                        break;
-                case 1:
-                        day_phase = read_table("/adm/etc/nature/summer_sun");
-                        break;
-                case 2:
-                        day_phase = read_table("/adm/etc/nature/summer_wind");
-                        break;
-             }
-             break;
-        //autumn weather
-        case 9: case 10: case 11:
-                switch(random(3))
-                {
-                case 0:
-                        day_phase = read_table("/adm/etc/nature/autumn_rain");
-                        break;
-                case 1:
-                        day_phase = read_table("/adm/etc/nature/autumn_sun");
-                        break;
-                case 2:
-                        day_phase = read_table("/adm/etc/nature/autumn_wind");
-                        break;
-                }
-                break;
-        //winter weather
-        case 12: case 1: case 2:
-                switch(random(3))
-                {
-                case 0:
-                        day_phase = read_table("/adm/etc/nature/winter_rain");
-                        break;
-                case 1:
-                        day_phase = read_table("/adm/etc/nature/winter_sun");
-                        break;
-                case 2:
-                        day_phase = read_table("/adm/etc/nature/winter_wind");
-                        break;
-                }
-                break;
-        default:
-                day_phase = read_table("/adm/etc/nature/day_phase");
+        case 0:
+            day_phase = read_table("/adm/etc/nature/spring_rain");
+            break;
+        case 1:
+            day_phase = read_table("/adm/etc/nature/spring_sun");
+            break;
+        case 2:
+            day_phase = read_table("/adm/etc/nature/spring_wind");
+            break;
         }
+        break;
+    //summer weather
+    case 6:
+    case 7:
+    case 8:
+        switch (random(3))
+        {
+        case 0:
+            day_phase = read_table("/adm/etc/nature/summer_rain");
+            break;
+        case 1:
+            day_phase = read_table("/adm/etc/nature/summer_sun");
+            break;
+        case 2:
+            day_phase = read_table("/adm/etc/nature/summer_wind");
+            break;
+        }
+        break;
+    //autumn weather
+    case 9:
+    case 10:
+    case 11:
+        switch (random(3))
+        {
+        case 0:
+            day_phase = read_table("/adm/etc/nature/autumn_rain");
+            break;
+        case 1:
+            day_phase = read_table("/adm/etc/nature/autumn_sun");
+            break;
+        case 2:
+            day_phase = read_table("/adm/etc/nature/autumn_wind");
+            break;
+        }
+        break;
+    //winter weather
+    case 12:
+    case 1:
+    case 2:
+        switch (random(3))
+        {
+        case 0:
+            day_phase = read_table("/adm/etc/nature/winter_rain");
+            break;
+        case 1:
+            day_phase = read_table("/adm/etc/nature/winter_sun");
+            break;
+        case 2:
+            day_phase = read_table("/adm/etc/nature/winter_wind");
+            break;
+        }
+        break;
+    default:
+        day_phase = read_table("/adm/etc/nature/day_phase");
+    }
 }
 
 // This is called everyday noon by update_day_phase, defined in the
@@ -185,134 +213,180 @@ void event_midnight()
 
 void event_noon()
 {
-        object *ob;
-        object env;
-        int    ic;
-        int    con;
-        int    month;
-        string ill, msg;
-        int    i;
+    object *ob;
+    object env;
+    int ic;
+    int con;
+    int month;
+    string ill, msg;
+    int i;
 
-        if (random(4)) return;
-        switch(month = query_month())
+    if (random(4))
+        return;
+    switch (month = query_month())
+    {
+    case 3:
+    case 4:
+    case 5:
+        ill = "ill_kesou";
+        msg = HIG + "忽然喉头一阵痕痒，你感觉似乎要咳嗽了。\n" + NOR;
+        ic = 5;
+        break;
+    case 6:
+    case 7:
+    case 8:
+        ill = "ill_zhongshu";
+        msg = HIG + "突然你胸臆之间一阵翻腾，你中暑了。\n" + NOR;
+        ic = 5;
+        break;
+    case 9:
+    case 10:
+    case 11:
+        ill = "ill_shanghan";
+        msg = HIG + "陡的你打了个冷战，头昏沉沉的，你得伤寒病了。\n" + NOR;
+        ic = 5;
+        break;
+    case 12:
+    case 1:
+    case 2:
+        ill = "ill_dongshang";
+        msg = HIG + "你肢体末端一阵僵直，看来你被冻伤了。\n" + NOR;
+        ic = 0;
+        break;
+    }
+
+    if (random(4) == 0)
+    {
+        ill = "ill_fashao";
+        msg = HIG + "你偶感风寒，竟而发起烧来。\n" + NOR;
+    }
+
+    ob = users();
+    for (i = 0; i < sizeof(ob); i++)
+    {
+        if (!objectp(env = environment(ob[i])))
+            continue;
+        if (!env->query("outdoors"))
+            continue;
+        if (!living(ob[i]))
+            continue;
+        con = ob[i]->query_con();
+        con = con / 2 + random(con);
+        switch (ill)
         {
-        case 3: case 4: case 5:
-                ill = "ill_kesou";
-                msg = HIG + "忽然喉头一阵痕痒，你感觉似乎要咳嗽了。\n" + NOR;
-                ic  = 5;
-                break;
-        case 6: case 7: case 8:
-                ill = "ill_zhongshu";
-                msg = HIG+"突然你胸臆之间一阵翻腾，你中暑了。\n" + NOR;
-                ic  = 5;
-                break;
-        case 9: case 10: case 11:
-                ill = "ill_shanghan";
-                msg = HIG+"陡的你打了个冷战，头昏沉沉的，你得伤寒病了。\n"+NOR;
-                ic  = 5;
-                break;
-        case 12: case 1: case 2:
-                ill = "ill_dongshang";
-                msg = HIG+"你肢体末端一阵僵直，看来你被冻伤了。\n"+NOR;
-                ic  = 0;
-                break;
+        case "ill_shanghan":
+        case "ill_dongshang":
+            con += ob[i]->query_temp("apply/warm") +
+                   env->query_temp("warm");
+            break;
+
+        case "ill_zhongshu":
+            con -= ob[i]->query_temp("apply/warm") +
+                   env->query_temp("warm");
+            break;
         }
 
-        if (random(4) == 0)
+        if (con + ic < 25)
         {
-                ill = "ill_fashao";
-                msg = HIG+"你偶感风寒，竟而发起烧来。\n"+NOR;
+            ob[i]->apply_condition(ill, 30 - con);
+            tell_object(ob[i], msg);
         }
+    }
+}
 
-        ob = users();
-        for (i = 0; i < sizeof(ob); i++)
-        {
-                if (! objectp(env = environment(ob[i]))) continue;
-                if (! env->query("outdoors")) continue;
-                if (! living(ob[i])) continue;
-                con = ob[i]->query_con();
-                con = con / 2 + random(con);
-                switch (ill)
-                {
-                case "ill_shanghan":
-                case "ill_dongshang":
-                        con += ob[i]->query_temp("apply/warm") +
-                               env->query_temp("warm");
-                        break;
+void event_dawn(string file)
+{
+    // debug_message("event_dawn : " + file);
+}
 
-                case "ill_zhongshu":
-                        con -= ob[i]->query_temp("apply/warm") +
-                               env->query_temp("warm");
-                        break;
-                }
+void event_sunrise(string file)
+{
+    // debug_message("event_sunrise : " + file);
+}
 
-                if (con + ic < 25 )
-                {
-                        ob[i]->apply_condition(ill, 30 - con);
-                        tell_object(ob[i], msg);
-                }
-        }
+void event_morning(string file)
+{
+    // debug_message("event_morning : " + file);
+}
+
+void event_afternoon(string file)
+{
+    // debug_message("event_afternoon : " + file);
+}
+
+void event_evening(string file)
+{
+    // debug_message("event_evening : " + file);
+}
+
+void event_night(string file)
+{
+    // debug_message("event_night : " + file);
 }
 
 string outdoor_room_description()
 {
-        return color_filter(day_phase[current_day_phase]["outcolor"] + "    " +
-                            day_phase[current_day_phase]["desc_msg"] + "。\n");
+    return color_filter(day_phase[current_day_phase]["outcolor"] + "    " +
+                        day_phase[current_day_phase]["desc_msg"] + "。\n");
 }
 
 string game_time()
 {
-        mixed *lt;
-        string *ms = ({ "冬", "春", "夏", "秋", });
+    mixed *lt;
+    string *ms = ({
+        "冬",
+        "春",
+        "夏",
+        "秋",
+    });
 
-        lt = query_localtime(time());
+    lt = query_localtime(time());
 
-        return sprintf("%s年%s%s月%s日%s时",
-                       chinese_number(lt[LT_YEAR]),
-                       ms[((lt[LT_MON]) % 12) / 3],
-                       chinese_number(lt[LT_MON]),
-                       chinese_number(lt[LT_MDAY]),
-                       chinese_number(lt[LT_HOUR]), );
-}
-
-int to_game_time(int t)
-{
-        return GAME_TIME(t);
+    return sprintf("%s年%s%s月%s日%s时",
+                   chinese_number(lt[LT_YEAR]),
+                   ms[((lt[LT_MON]) % 12) / 3],
+                   chinese_number(lt[LT_MON]),
+                   chinese_number(lt[LT_MDAY]),
+                   chinese_number(lt[LT_HOUR]), );
 }
 
 mapping *read_table(string file)
 {
-        string *line, *field, *format;
-        mapping *data;
-        int i, rn, fn;
+    string *line, *field, *format;
+    mapping *data;
+    int i, rn, fn;
 
-        line = explode(read_file(file), "\n");
-        data = ({});
-        for(i = 0; i < sizeof(line); i++)
+    line = explode(read_file(file), "\n");
+    data = ({});
+    for (i = 0; i < sizeof(line); i++)
+    {
+        if (line[i] == "" || line[i][0] == REMEMBER_CHAR)
+            continue;
+        if (!pointerp(field))
         {
-                if (line[i] == "" || line[i][0] == REMEMBER_CHAR) continue;
-                if (! pointerp(field))
-                {
-                        field = explode(line[i], ":");
-                        continue;
-                }
-                if (! pointerp(format))
-                {
-                        format = explode(line[i], ":");
-                        continue;
-                }
-                break;
+            field = explode(line[i], ":");
+            continue;
         }
+        if (!pointerp(format))
+        {
+            format = explode(line[i], ":");
+            continue;
+        }
+        break;
+    }
 
-        for( rn = 0, fn = 0; i < sizeof(line); i++)
-        {
-                if (line[i] == "" || line[i][0] == REMEMBER_CHAR ) continue;
-                if (! fn) data += ({ allocate_mapping(sizeof(field)) });
-                sscanf(line[i], format[fn], data[rn][field[fn]]);
-                fn = (++fn) % sizeof(field);
-                if (! fn) ++rn;
-        }
-        return data;
+    for (rn = 0, fn = 0; i < sizeof(line); i++)
+    {
+        if (line[i] == "" || line[i][0] == REMEMBER_CHAR)
+            continue;
+        if (!fn)
+            data += ({allocate_mapping(sizeof(field))});
+        sscanf(line[i], format[fn], data[rn][field[fn]]);
+        fn = (++fn) % sizeof(field);
+        if (!fn)
+            ++rn;
+    }
+    return data;
 }
 
 mapping *query_day_phase() { return day_phase; }

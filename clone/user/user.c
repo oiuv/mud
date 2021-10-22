@@ -232,13 +232,14 @@ void update_age()
     }
 
     last_age_set = time();
-    age = query("age_modify") + query("mud_age") / 86400;
-    if (age > 118)
-        age = 46 + (age - 118) / 4;
-    else if (age > 28)
-        age = 16 + (age - 28) / 3;
-    else if (age > 4)
-        age = 4 + (age - 4) / 2;
+    age = query("age_modify") + query("mud_age") / (86400 * 365 / DATE_SCALE);
+    // 原始设置为现实1天游戏1年，玩家年龄增加分阶段递减
+    // if (age > 118)
+    //     age = 46 + (age - 118) / 4;
+    // else if (age > 28)
+    //     age = 16 + (age - 28) / 3;
+    // else if (age > 4)
+    //     age = 4 + (age - 4) / 2;
     age += 14;
     set("age", age);
 }
@@ -246,31 +247,9 @@ void update_age()
 // 获取玩家年龄的月份
 int age_month()
 {
-    int age = query("age");
-    int month = query("mud_age");
+    int month = query("mud_age") / (86400 * 365 / 12 / DATE_SCALE) + 1;
 
-    if (age >= 60)
-    {
-        month -= (age - 60) * 86400 * 4;
-        month = (month - 118 * 86400) / 7200 / 4 + 1;
-    }
-    else if (age >= 30)
-    {
-        month -= (age - 30) * 86400 * 3;
-        month = (month - 28 * 86400) / 7200 / 3 + 1;
-    }
-    else if (age >= 18)
-    {
-        month -= (age - 18) * 86400 * 2;
-        month = (month - 4 * 86400) / 7200 / 2 + 1;
-    }
-    else
-    {
-        month -= (age - 14) * 86400;
-        month = month / 7200 + 1;
-    }
-
-    if (month > 12 || month < 1)
+    if (month > 12)
         month = 1;
 
     return month;

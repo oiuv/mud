@@ -33,14 +33,14 @@ private nosave int *game_time = allocate(9);
 // 游戏时间计划任务
 private nosave mixed *game_crontab = ({
     // "5,25,45 * * * * *", ( : TIME_D->save() :), "存储游戏世界时间",
-    // "* * * * * *", (: debug("game_crontab! " + TIME_D->gametime_digital_clock()) :), "游戏时间测试任务",
-    // "5-15/3 * * * * *", (: debug("game_crontab! 5-15 " + ctime()) :), "测试任务",
+    // "* * * * * *", (: debug_message("game_crontab! " + TIME_D->gametime_digital_clock()) :), "游戏时间测试任务",
+    // "5-15/3 * * * * *", (: debug_message("game_crontab! 5-15 " + ctime()) :), "测试任务",
 });
 
 // 真实时间计划任务
 private nosave mixed *real_crontab = ({
-    // "*/2 * * * * *", (: debug("real_crontab! " + ctime()) :), "测试任务",
-    // "* * * * * *", (: debug("real_crontab! " + TIME_D->realtime_digital_clock()) :), "真实时间测试任务",
+    // "*/2 * * * * *", (: debug_message("real_crontab! " + ctime()) :), "测试任务",
+    // "* * * * * *", (: debug_message("real_crontab! " + TIME_D->realtime_digital_clock()) :), "真实时间测试任务",
 });
 
 // 设置游戏时间计划任务
@@ -70,9 +70,20 @@ int query_realtime()
 // 设置游戏时钟转换比率
 void set_scale(int t, int s, int y)
 {
-    tick = t;
-    scale = s;
-    year = y;
+    if (t)
+    {
+        tick = t;
+    }
+
+    if (s)
+    {
+        scale = s;
+    }
+
+    if (y)
+    {
+        year = y;
+    }
 }
 
 // 返回游戏时钟转换比
@@ -405,7 +416,7 @@ void process_crontab(mixed *crontab, int *timearray)
         {
             catch (evaluate(fp));
         };
-        // debug("任务耗时：" + timecost);
+        // debug_message("任务耗时：" + timecost);
     }
 }
 
@@ -474,6 +485,7 @@ void heart_beat()
 
 }
 
+// 默认时间设置，可用set_scale重定义
 // 现实２秒 = 游戏１分钟
 // 现实２分钟 = 游戏１小时
 // 现实４８分钟 = 游戏１天

@@ -7,12 +7,13 @@ void init_time()
 {
     // 设置游戏世界时间戳(现实1天为游戏世界DATE_SCALE天)
     reset_gametime((GAME_TIME(time()) % 86400) * DATE_SCALE);
-    // 设置游戏tick（现实多少秒）、scale(DATE_SCALE*tick)、year
+    // 设置游戏tick（对应游戏1天的现实多少秒）、scale(DATE_SCALE*tick)、year
     set_scale(1, DATE_SCALE, GAME_TIME(time()) / 86400);
 }
 
 void create()
 {
+    ::create();
     init_time();
     // 设置真实时间计划任务
     set_real_crontab(
@@ -29,7 +30,7 @@ void create()
             // "* * * * * *", (: debug_message(game_time_description("游戏")) :), "游戏时间测试任务",
             // "5-15/3 * * * * *", (: debug_message("game_crontab! 5-15 " + ctime()) :), "测试任务",
         }));
-    set_heart_beat(1);
+    // set_heart_beat(1);
 }
 
 // 每秒执行一次
@@ -42,5 +43,5 @@ void process_per_second()
 void clock()
 {
     // CHANNEL_D->do_channel(this_object(), "chat", sprintf("现在时间 %s", real_time_description()));
-    message("success", "【整点报时】" + sprintf("现在时间 %s", real_time_description()), users(), 0);
+    message("success", "【时间精灵】" + sprintf("现在时间 %s", real_time_description()), users(), 0);
 }

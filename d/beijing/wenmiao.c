@@ -32,14 +32,10 @@ void init()
 int do_pray(string arg)
 {
     object me = this_player();
-    int exp, pot, age, month, birthday, *born;
+    int exp, pot, age, month;
 
     age = me->query("age");
     month = me->age_month();
-
-    // 不在用到 birthday 了
-    born = localtime((((int)me->query("birthday")- 971000000) % 86400) * 365);
-    birthday = born[4] + 1;
 
     exp = me->query("combat_exp");
 
