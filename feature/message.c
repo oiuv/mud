@@ -191,7 +191,7 @@ void receive_message(string msgclass, string msg)
             }
             else
                 // msg = ESC "[256D" ESC "[K" + msg + prompt();
-                receive(prompt());
+                msg += prompt();
         }
 
         switch (msgclass)

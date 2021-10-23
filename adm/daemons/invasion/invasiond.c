@@ -19,9 +19,8 @@ void main()
 {
     int i,lvl;
 
-    message( "invasion", HIR"【外敌入侵】" BLINK "警报！警报！异族联军攻入北京了！\n" NOR
-            HIR"【外敌入侵】"NOR HIY"请各位大虾速至北京抵御外敌！"+
-            "打开waidi频道可获知战况。\n"NOR, users() );
+    message("invasion", HIR "【外敌入侵】" BLINK "警报！警报！异族联军攻入北京了！\n" NOR, users());
+    message("invasion", HIR "【外敌入侵】" NOR HIY "请各位大虾速至北京抵御外敌！打开waidi频道可获知战况。\n" NOR, users());
     this_object()->delete("record");
     this_object()->set("record/born_time",time());
 
