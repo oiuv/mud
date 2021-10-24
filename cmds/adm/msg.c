@@ -10,7 +10,7 @@ int main(object me, string arg)
     if (!arg)
         return 0;
 
-    message("warning", BRED"【系统提示】" + arg, users(), 0);
+    message("warning", BRED "【系统提示】" + arg + NOR "\n", users(), 0);
 
     return 1;
 }
