@@ -187,11 +187,10 @@ void receive_message(string msgclass, string msg)
             if (written == COMMAND_RCVD)
             {
                 written = NONE;
-                // msg = ESC "[256D" ESC "[K" + msg;
+                msg = CSI "256D" CSI "K" + msg;
             }
             else
-                // msg = ESC "[256D" ESC "[K" + msg + prompt();
-                msg += prompt();
+                msg = CSI "256D" CSI "K" + msg + prompt();
         }
 
         switch (msgclass)

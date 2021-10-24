@@ -104,7 +104,7 @@ protected void msg(mapping data)
             }
         }
         // 发送消息到MUD
-        message("info", HIG "【QQ群】" HIC + sender["memberName"] + "@" + sender["group"]["name"] + "：" + msg + NOR "\n", users());
+        message("QQ", HIG "【QQ群】" HIC + sender["memberName"] + "@" + sender["group"]["name"] + "：" + msg + NOR "\n", users());
     }
 }
 
