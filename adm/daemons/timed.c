@@ -43,5 +43,5 @@ void process_per_second()
 void clock()
 {
     // CHANNEL_D->do_channel(this_object(), "chat", sprintf("现在时间 %s", real_time_description()));
-    message("success", "【时间精灵】" + sprintf("现在时间 %s", real_time_description()), users(), 0);
+    message("success", "【时间精灵】" + sprintf("现在时间 %s\n", real_time_description()), users(), 0);
 }

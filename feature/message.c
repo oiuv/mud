@@ -196,38 +196,38 @@ void receive_message(string msgclass, string msg)
         switch (msgclass)
         {
         case "info":
-            receive(HIC + msg + NOR "\n");
+            receive(HIC + msg + NOR);
             return;
         case "success":
-            receive(HIG + msg + NOR "\n");
+            receive(HIG + msg + NOR);
             return;
         case "warning":
-            receive(HIY + msg + NOR "\n");
+            receive(HIY + msg + NOR);
             return;
         case "danger":
-            receive(HIR + msg + NOR "\n");
+            receive(HIR + msg + NOR);
             return;
 
         case "HIM":
-            receive(HIM + msg + NOR "\n");
+            receive(HIM + msg + NOR);
             return;
         case "MAG":
-            receive(MAG + msg + NOR "\n");
+            receive(MAG + msg + NOR);
             return;
         case "CYN":
-            receive(CYN + msg + NOR "\n");
+            receive(CYN + msg + NOR);
             return;
         case "RED":
-            receive(RED + msg + NOR "\n");
+            receive(RED + msg + NOR);
             return;
         case "GRN":
-            receive(GRN + msg + NOR "\n");
+            receive(GRN + msg + NOR);
             return;
         case "BLU":
-            receive(BLU + msg + NOR "\n");
+            receive(BLU + msg + NOR);
             return;
         case "YEL":
-            receive(YEL + msg + NOR "\n");
+            receive(YEL + msg + NOR);
             return;
 
         default:
