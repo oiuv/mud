@@ -320,7 +320,7 @@ int main(object me, string arg)
             "exits": keys(environment(me)->query("exits")||([])),
             "area" : environment(me)->query("outdoors")||"未知区域",
         ]);
-        me->process_gmcp(room_info, "Room", "Info");
+        me->sendGMCP(room_info, "Room", "Info");
     }
 
     if (environment(me) != env)

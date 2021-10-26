@@ -261,10 +261,10 @@ void setup()
     // random age.
     last_age_set = 0;
     update_age();
+    // enable player
+    ::setup();
     // GMCP
     ::init_gmcp();
-    ::setup();
-
     // set the enable flag to enable save
     set_temp("user_setup", 1);
     // 取回身上物品

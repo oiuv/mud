@@ -251,7 +251,7 @@ int main(object me, string arg)
             "potential" : (int)ob->query("potential") - (int)ob->query("learned_points"),
 
         ]);
-        me->process_gmcp(char_vitals, "Char", "Vitals");
+        me->sendGMCP(char_vitals, "Char", "Vitals");
     }
     return 1;
 }

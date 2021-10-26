@@ -1,40 +1,45 @@
 #define GMCP_LOG 50
-protected int dump_gmcp_log();
 
-#ifdef GMCP_LOG
 nosave string *gmcp_log = ({});
-#endif
+
+protected int dump_gmcp_log()
+{
+    write(implode(gmcp_log, "\n") + "\n");
+    return 1;
+}
 
 private void log_gmcp(string msg)
 {
-#ifdef GMCP_LOG
     gmcp_log = gmcp_log[ < GMCP_LOG..] + ({msg});
-#endif
 }
 
-// gmcp - provides an interface to GMCP data received from the client
-void gmcp(string req)
+void send_gmcp(string gmcp)
 {
-    log_gmcp("Received: " + req);
-    // debug_message(req);
+    efun::send_gmcp(gmcp);
 }
 
-void gmcp_enable()
+varargs void sendGMCP(mapping data, mixed *modules...)
 {
-    message("system", "<GMCP negotiation enabled>\n", this_object());
-}
-
-private varargs void send_gmcp(string package, string message, mapping data)
-{
-    string msg = package + "." + message;
     if (!this_player() || !has_gmcp(this_player()))
         return;
-    if (mapp(data))
+
+    if (!mapp(data) || !sizeof(modules))
     {
+        return;
+    }
+    else
+    {
+        string msg = implode(modules, ".");
         catch (msg += " " + json_encode(data));
         log_gmcp("Sending: " + msg);
-        efun::send_gmcp(msg);
+        send_gmcp(msg);
     }
+}
+
+private void gmcp_enable()
+{
+    message("system", "<GMCP negotiation enabled>\n", this_object());
+    sendGMCP((["mud_name":MUD_NAME]), "Core", "Hello");
 }
 
 protected void init_gmcp()
@@ -42,26 +47,27 @@ protected void init_gmcp()
     if (!this_player() || !has_gmcp(this_player()))
         return;
     gmcp_enable();
-    send_gmcp("Core", "Hello", (["mud_name" : MUD_NAME]));
-    add_action("dump_gmcp_log", "gmcp_log");
-}
 
-#ifdef GMCP_LOG
-protected int dump_gmcp_log()
-{
-    write(implode(gmcp_log, "\n") + "\n");
-    return 1;
-}
-#endif
-
-varargs void process_gmcp(mapping attributes, string package, string message)
-{
-    if (!package || !message)
+    // Mudlet Client
+    if (env("GUI"))
     {
-        // log_gmcp("Returning: " + package + "." + message);
-        return;
+        sendGMCP((["version":env("GUI.version"), "url":env("GUI.url")]), "Client", "GUI");
     }
-    // log_gmcp("Process: " + package + "." + message);
-    if (mapp(attributes))
-        send_gmcp(package, message, attributes);
+    if (sizeof(env("Map")))
+    {
+        sendGMCP((["url":env("Map")]), "Client", "Map");
+    }
+
+    if (wizardp(this_player()))
+    {
+        add_action("dump_gmcp_log", "gmcp_log");
+    }
+}
+
+// gmcp - provides an interface to GMCP data received from the client
+void gmcp(string req)
+{
+    // todo 处理客户端请求
+    log_gmcp("Received: " + req);
+    // debug_message(req);
 }
