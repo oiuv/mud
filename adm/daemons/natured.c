@@ -61,9 +61,8 @@ void update_day_phase()
                        day_phase[current_day_phase]["time_msg"] + "\n" NOR);
     message("outdoor:vision", msg, all_interactive());
     if (!undefinedp(day_phase[current_day_phase]["event_fun"]))
-        call_other(this_object(), day_phase[current_day_phase]["event_fun"]);
+        event(this_object(), day_phase[current_day_phase]["event_fun"]);
 }
-
 
 void select_day_phase()
 {
@@ -104,7 +103,7 @@ void select_day_phase()
     }
 }
 
-void event_midnight()
+void event_midnight(object file)
 {
     string msg;
     int m, d;
@@ -211,7 +210,7 @@ void event_midnight()
 // This is called everyday noon by update_day_phase, defined in the
 // "event_fun" field in /adm/etc/nature/day_phase
 
-void event_noon()
+void event_noon(object file)
 {
     object *ob;
     object env;
@@ -294,32 +293,32 @@ void event_noon()
     }
 }
 
-void event_dawn(string file)
+void event_dawn(object file)
 {
     // debug_message("event_dawn : " + file);
 }
 
-void event_sunrise(string file)
+void event_sunrise(object file)
 {
     // debug_message("event_sunrise : " + file);
 }
 
-void event_morning(string file)
+void event_morning(object file)
 {
     // debug_message("event_morning : " + file);
 }
 
-void event_afternoon(string file)
+void event_afternoon(object file)
 {
     // debug_message("event_afternoon : " + file);
 }
 
-void event_evening(string file)
+void event_evening(object file)
 {
     // debug_message("event_evening : " + file);
 }
 
-void event_night(string file)
+void event_night(object file)
 {
     // debug_message("event_night : " + file);
 }
