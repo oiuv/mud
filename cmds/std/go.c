@@ -24,6 +24,7 @@ mapping default_dirs = ([
     "up":           "上面",
     "down":         "下面",
     "enter":        "里面",
+    "in":           "里面",
     "out":          "外面",
 ]);
 
@@ -318,7 +319,7 @@ int main(object me, string arg)
         mapping room_info = ([
             "name" : remove_ansi(environment(me)->query("short")),
             "exits": keys(environment(me)->query("exits")||([])),
-            "area" : environment(me)->query("outdoors")||"未知区域",
+            "area" : environment(me)->query("outdoors")||explode(file_name(environment(me)), "/")[1],
         ]);
         me->sendGMCP(room_info, "Room", "Info");
     }
@@ -371,6 +372,7 @@ nosave mapping r_dirs = ([
     "up":           "down",
     "down":         "up",
     "enter":        "out",
+    "in":           "out",
     "out":          "enter",
 ]);
 

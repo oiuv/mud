@@ -27,6 +27,7 @@ LONG);
         "south" : __DIR__"nandajie1",
         "west" : __DIR__"xidajie1",
         "north" : __DIR__"beidajie1",
+        "in" : "/d/gaibang/inhole",
     ]));
 
     set("objects", ([
