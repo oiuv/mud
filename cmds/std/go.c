@@ -168,15 +168,12 @@ int main(object me, string arg)
 
     notify_fail("你过不去。\n");
     result = env->valid_leave(me, arg);
-    if (!objectp(me))
-        return 1;
-
     if (!result)
         return 0;
-    if (result < 0 || environment(me) != env)
+    if (result < 0 || !objectp(me) || environment(me) != env)
         // I needn't let the character do anymore,
         // because everything has been dong in the
-        // fucntion::valid_leave()
+        // function::valid_leave()
         return 1;
 
     dest = exit[arg];
@@ -316,10 +313,12 @@ int main(object me, string arg)
     // GMCP
     if (interactive(me))
     {
+        object room = environment(me);
         mapping room_info = ([
-            "name" : remove_ansi(environment(me)->query("short")),
-            "exits": keys(environment(me)->query("exits")||([])),
-            "area" : environment(me)->query("outdoors")||explode(file_name(environment(me)), "/")[1],
+            "name" : remove_ansi(room->query("short")),
+            "exits": keys(room->query("exits")||([])),
+            "area" : room->query("outdoors")||explode(base_name(room), "/")[1],
+            // "hash" : hash("md5", base_name(room))
         ]);
         me->sendGMCP(room_info, "Room", "Info");
     }

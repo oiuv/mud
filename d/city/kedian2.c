@@ -9,8 +9,8 @@ void create()
 到楼下的掌柜处付了钱再上来睡觉。
 LONG );
     set("exits", ([
-        "down"  : __DIR__"kedian",
-        "enter" : __DIR__"kedian3",
+        "down" : __DIR__"kedian",
+        "in" : __DIR__"kedian3",
     ]));
 
     set("objects", ([

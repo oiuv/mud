@@ -22,13 +22,13 @@ void create()
        );
 
     set("exits", ([
-             "enter" :  __DIR__"hall",
-             "up"    :  "/d/city/wumiao",
-                      "west"      :   __DIR__"wenxuan",
-        ]));
+        "in" : __DIR__"hall",
+        "up"    : "/d/city/wumiao",
+        "west"  : __DIR__"wenxuan",
+    ]));
 
     set("no_fight", 1);
 
     setup();
-       replace_program(ROOM);
+    replace_program(ROOM);
 }
