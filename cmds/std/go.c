@@ -45,6 +45,11 @@ int main(object me, string arg)
 
     if (!arg)
         return notify_fail("你要往哪个方向走？\n");
+    // GMCP
+    if (interactive(me))
+    {
+        me->send_gmcp("Room.Info {}");
+    }
 
     if (me->over_encumbranced())
         return notify_fail("你的负荷过重，动弹不得。\n");
