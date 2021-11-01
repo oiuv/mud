@@ -45,11 +45,6 @@ int main(object me, string arg)
 
     if (!arg)
         return notify_fail("你要往哪个方向走？\n");
-    // GMCP
-    if (interactive(me))
-    {
-        me->send_gmcp("Room.Info {}");
-    }
 
     if (me->over_encumbranced())
         return notify_fail("你的负荷过重，动弹不得。\n");
@@ -323,7 +318,7 @@ int main(object me, string arg)
             "name" : remove_ansi(room->query("short")),
             "exits": keys(room->query("exits")||([])),
             "area" : room->query("outdoors")||explode(base_name(room), "/")[1],
-            // "hash" : hash("md5", base_name(room))
+            "hash" : hash("md5", base_name(room))
         ]);
         me->sendGMCP(room_info, "Room", "Info");
     }
