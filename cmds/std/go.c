@@ -310,18 +310,6 @@ int main(object me, string arg)
     {
         me->add("state/go", 1);
     }
-    // GMCP
-    if (interactive(me))
-    {
-        object room = environment(me);
-        mapping room_info = ([
-            "name" : remove_ansi(room->query("short")),
-            "exits": keys(room->query("exits")||([])),
-            "area" : room->query("outdoors")||explode(base_name(room), "/")[1],
-            "hash" : hash("md5", base_name(room))
-        ]);
-        me->sendGMCP(room_info, "Room", "Info");
-    }
 
     if (environment(me) != env)
     {

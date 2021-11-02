@@ -205,6 +205,18 @@ varargs int move(mixed dest, int raw)
     // Move & run INIT function
     move_object(ob);
 
+    // GMCP
+    if (interactive(me))
+    {
+        mapping room_info = ([
+            "name" : remove_ansi(ob->query("short")),
+            "exits": keys(ob->query("exits")||([])),
+            "area" : ob->query("outdoors")||explode(base_name(ob), "/")[1],
+            "hash" : hash("md5", base_name(ob))
+        ]);
+        me->sendGMCP(room_info, "Room", "Info");
+    }
+
     return 1;
 }
 
