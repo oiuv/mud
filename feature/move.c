@@ -206,7 +206,7 @@ varargs int move(mixed dest, int raw)
     move_object(ob);
 
     // GMCP
-    if (interactive(me))
+    if (me && interactive(me))
     {
         mapping room_info = ([
             "name" : remove_ansi(ob->query("short") || ob->query("name") || ""),
