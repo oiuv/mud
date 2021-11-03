@@ -12,7 +12,7 @@ LONG);
     set("valid_startroom", 1);
     set("exits", ([
         "south" : __DIR__"ml4",
-        "enter" : __DIR__"gbxiaowu",
+        "in" : __DIR__"gbxiaowu",
     ]));
     set("objects", ([
         CLASS_D("gaibang") + "/lu" : 1,
@@ -24,12 +24,10 @@ LONG);
 
 int valid_leave(object me, string dir)
 {
-        object guard;
+    object guard;
 
-        if (dir != "enter"
-           || ! objectp(guard = present("lu youjiao", this_object()))
-           && ! objectp(guard = present("peng youjing", this_object())))
-                return ::valid_leave(me, dir);
+    if (dir != "in" || !objectp(guard = present("lu youjiao", this_object())) && !objectp(guard = present("peng youjing", this_object())))
+        return ::valid_leave(me, dir);
 
-        return guard->permit_pass(me, dir);
+    return guard->permit_pass(me, dir);
 }
