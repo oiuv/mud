@@ -11,18 +11,18 @@ void create()
 四周，令人心旷神怡。
 LONG );
     set("exits", ([
-        "southup"    : __DIR__"shanlu3",
-        "northwest"  : __DIR__"shanlu4",
-                "enter"      : __DIR__"xiaowu",
+        "southup"   : __DIR__"shanlu3",
+        "northwest" : __DIR__"shanlu4",
+        "in"        : __DIR__"xiaowu",
     ]));
 
-        set("objects", ([
-                "/kungfu/class/xuanming/lu" : 1,
-        ]));
+    set("objects", ([
+        "/kungfu/class/xuanming/lu" : 1,
+    ]));
 
-        set("item_desc", ([
-                "room"  : NOR + YEL "一间简陋的茅草屋，可以在里面休息练功。\n" NOR,
-        ]));
+    set("item_desc", ([
+        "room"  : NOR + YEL "一间简陋的茅草屋，可以在里面休息练功。\n" NOR,
+    ]));
 
     set("outdoors", "xuanming");
     setup();

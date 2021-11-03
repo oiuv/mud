@@ -16,7 +16,7 @@ LONG);
         "southdown"  : __DIR__"shilin",
         "west"       : __DIR__"shilin1",
         "northeast"  : __DIR__"shilin2",
-        "enter"      : __DIR__"hole",
+        "in"         : __DIR__"hole",
     ]));
     set("no_clean_up", 0);
     setup();

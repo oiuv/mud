@@ -6,8 +6,8 @@ string look_duilian();
 
 void create()
 {
-        set("short", HIB "【轮回道】" NOR);
-        set("long", HIB @LONG
+    set("short", HIB "【轮回道】" NOR);
+    set("long", HIB @LONG
 
                     轮         回         道
 
@@ -18,18 +18,18 @@ void create()
 
 LONG NOR );
 
-        set("exits", ([
-                "enter" : __DIR__"lunhuisi",
-                "west"  : __DIR__"jimiesi",
-        ]));
+    set("exits", ([
+        "in"   : __DIR__"lunhuisi",
+        "west" : __DIR__"jimiesi",
+    ]));
 
-        set("item_desc", ([
-                "door" : YEL "一扇厚厚的铜门，上面布满了蛛网和灰尘。\n" NOR,
-                "duilian" :       (: look_duilian :),
-        ]));
+    set("item_desc", ([
+        "door" : YEL "一扇厚厚的铜门，上面布满了蛛网和灰尘。\n" NOR,
+        "duilian" : (: look_duilian :),
+    ]));
 
-        create_door("enter", YEL "铜门" NOR, "out", DOOR_CLOSED);
-        setup();
+    create_door("in", YEL "铜门" NOR, "out", DOOR_CLOSED);
+    setup();
 }
 
 string look_duilian()

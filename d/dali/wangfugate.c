@@ -9,15 +9,15 @@ void create()
 站着两排侍卫，身着锦衣，手执钢刀，气宇轩昂。
 LONG);
     set("objects", ([
-           CLASS_D("duan") + "/chu" : 1,
-           __DIR__"npc/weishi1" : 2,
+        CLASS_D("duan") + "/chu" : 1,
+        __DIR__"npc/weishi1" : 2,
     ]));
     set("valid_startroom", 1);
-        set("no_sleep_room", 1);
+    set("no_sleep_room", 1);
     set("outdoors", "dali");
     set("exits", ([
-            "enter"  : __DIR__"wfdating",
-            "south"  : __DIR__"wangfulu",
+        "in"    : __DIR__"wfdating",
+        "south" : __DIR__"wangfulu",
     ]));
     setup();
     "/clone/board/dali_b"->foo();
@@ -25,9 +25,9 @@ LONG);
 
 int valid_leave(object me, string dir)
 {
-        object ob;
-        if (dir == "enter" && ob = present("chu wanli", this_object()))
-                return ob->permit_pass(me, dir);
+    object ob;
+    if (dir == "in" &&ob = present("chu wanli", this_object()))
+        return ob->permit_pass(me, dir);
 
-        return ::valid_leave(me, dir);
+    return ::valid_leave(me, dir);
 }

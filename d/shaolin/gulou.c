@@ -15,19 +15,20 @@ void create()
 LONG );
     set("exits", ([
         "east" : __DIR__"guangchang2",
-        "enter" : __DIR__"gulou1",
+        "in" : __DIR__"gulou1",
     ]));
     set("objects",([
         __DIR__"npc/seng-bing3" : 2,
     ]));
-//    set("no_clean_up", 0);
+
     set("outdoors", "shaolin");
     setup();
 }
 
 int valid_leave(object me, string dir)
 {
-    if ( me->query("id") == "seng bing" &&  dir == "enter" ) return 0;
+    if (me->query("id") == "seng bing" && dir == "in")
+        return 0;
 
     return ::valid_leave(me, dir);
 }

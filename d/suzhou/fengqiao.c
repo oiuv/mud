@@ -14,7 +14,7 @@ LONG );
     set("outdoors", "suzhou");
     set("no_clean_up", 0);
     set("exits", ([
-        "enter" : __DIR__"hanshidian",
+        "in" : __DIR__"hanshidian",
         "north" : __DIR__"tielingguan",
     ]));
     setup();

@@ -11,8 +11,8 @@ void create()
 只有一片苍翠的树林。
 LONG );
     set("exits", ([
-        "enter"  : __DIR__"jmqshulin1",
-        "west"   : __DIR__"tojmq3",
+        "in"   : __DIR__"jmqshulin1",
+        "west" : __DIR__"tojmq3",
     ]));
     set("no_clean_up", 0);
     set("outdoors", "mingjiao");

@@ -15,11 +15,11 @@ LONG
 
     set("exits", ([
         "down" : __DIR__"kedian",
-        "enter" : __DIR__"kedian3",
+        "in"   : __DIR__"kedian3",
     ]));
 
     set("objects", ([
-                CLASS_D("shaolin") + "/xingzhe" : 1,
+        CLASS_D("shaolin") + "/xingzhe" : 1,
     ]));
 
     setup();

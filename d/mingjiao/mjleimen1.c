@@ -13,7 +13,7 @@ void create()
 也与中土迥异。
 LONG );
     set("exits", ([
-        "enter" : __DIR__"sushe",
+        "in" : __DIR__"sushe",
         "northeast" : __DIR__"mjleimen",
     ]));
     set("no_clean_up", 0);

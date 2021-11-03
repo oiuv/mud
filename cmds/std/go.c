@@ -360,7 +360,7 @@ nosave mapping r_dirs = ([
     "down":         "up",
     "enter":        "out",
     "in":           "out",
-    "out":          "enter",
+    "out":          "in",
 ]);
 
 string query_reverse(string dir)

@@ -10,8 +10,8 @@ void create()
         "这里是一个不大的山洞，奔腾的瀑布成了它的门帘，阳光轻易就"
         "可以的透过水帘射进来，因此这里白天并不阴暗。");
     set("exits", ([/* sizeof() == 2 */
-        "out":__DIR__ "shanhongpb",
-        "enter":__DIR__ "s",
+        "out" : __DIR__ "shanhongpb",
+        "in"  : __DIR__ "s",
     ]));
 
     setup();
@@ -41,7 +41,7 @@ string long()
 int valid_leave(object me, string dir)
 {
 
-    if (dir == "enter")
+    if (dir == "in")
     {
         write(HIG "\n你进入山洞，只觉四周漆黑一片，你一直不停地往前走… \n" NOR);
         write(HIG "不久，穿过了山洞，只见前方却是悬崖峭壁。\n\n");

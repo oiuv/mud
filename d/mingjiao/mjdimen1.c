@@ -15,14 +15,15 @@ void create()
 却也不让男子随意进入。门口还立有一块木牌(mu pai)。
 LONG );
     set("exits", ([
-        "enter" : __DIR__"nushe",
+        "in" : __DIR__"nushe",
         "southwest" : __DIR__"mjdimen",
     ]));
-    set("item_desc",(["mu pai" : (: look_pai :),]));
+    set("item_desc",([
+        "mu pai" : (: look_pai :),
+    ]));
     set("outdoors", "mingjiao");
     set("no_clean_up", 0);
     setup();
-//    replace_program(ROOM);
 }
 
 string look_pai()

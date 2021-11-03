@@ -11,7 +11,7 @@ void create()
 土二字。
 LONG );
     set("exits", ([
-        "enter" : __DIR__"htqdating",
+        "in" : __DIR__"htqdating",
         "south" : __DIR__"tohtq7",
     ]));
     set("no_clean_up", 0);

@@ -12,12 +12,12 @@ LONG
     );
 
     set("exits", ([
-          "enter" : __DIR__"front_yard",
-          "south" : __DIR__"di_anmen",
+        "in"    : __DIR__"front_yard",
+        "south" : __DIR__"di_anmen",
     ]));
 
-      set("objects", ([
-                CLASS_D("zhenyuan") + "/tongzhaohe" : 1,
+    set("objects", ([
+        CLASS_D("zhenyuan") + "/tongzhaohe" : 1,
     ]));
 
     setup();
@@ -25,11 +25,11 @@ LONG
 
 int valid_leave(object me, string dir)
 {
-        object tong;
+    object tong;
 
-        if (dir != "enter" ||
-            ! objectp(tong = present("tong zhaohe", this_object())))
-                return ::valid_leave(me, dir);
+    if (dir != "in" ||
+        !objectp(tong = present("tong zhaohe", this_object())))
+        return ::valid_leave(me, dir);
 
-        return tong->permit_pass(me, dir);
+    return tong->permit_pass(me, dir);
 }

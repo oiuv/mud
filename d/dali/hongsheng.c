@@ -9,13 +9,13 @@ void create()
 跌涩椽，使其四角飞翘。整个塔身轮廓呈抛物线，优美流畅。
 LONG);
     set("exits", ([
-                "west"  : __DIR__"cangshan",
-                "enter" : __DIR__"hongsheng1",
-                "south" : "/d/tianlongsi/damen",
+        "west"  : __DIR__"cangshan",
+        "in"    : __DIR__"hongsheng1",
+        "south" : "/d/tianlongsi/damen",
     ]));
-        set("objects", ([
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/clone/npc/walker" : 1,
+    ]));
     set("no_clean_up", 0);
     setup();
     replace_program(ROOM);

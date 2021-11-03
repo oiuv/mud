@@ -10,7 +10,7 @@ void create()
 LONG);
     set("exits", ([
         "down" : __DIR__"kedian",
-        "enter" : __DIR__"kedian3",
+        "in" : __DIR__"kedian3",
     ]));
     setup();
     replace_program(ROOM);

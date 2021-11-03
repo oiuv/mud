@@ -12,7 +12,7 @@ void create()
 LONG );
     set("exits", ([
         "southwest" : __DIR__"huandi1",
-        "enter"     : __DIR__"shanshenmiao",
+        "in"        : __DIR__"shanshenmiao",
     ]));
     set("no_clean_up", 0);
     set("outdoors", "guanwai");

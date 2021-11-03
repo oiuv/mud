@@ -13,22 +13,19 @@ void create()
 LONG );
     set("exits", ([
         "east"  : __DIR__"huangtulu1",
-        "enter" : __DIR__"shandong",
+        "in" : __DIR__"shandong",
     ]));
     set("outdoors", "mingjiao");
-        set("objects", ([
-                __DIR__"npc/menwei1" : 4,
-        ]));
+    set("objects", ([
+        __DIR__"npc/menwei1" : 4,
+    ]));
     setup();
 }
 
 int valid_leave(object me, string dir)
 {
-        me = this_player();
-
-        if (dir == "enter" &&
-            objectp(present("da han", environment(me))))
-             return notify_fail("大汉拦住你说：此处乃明教"
-                   "重地，只有教主才能入内。\n");
-        return ::valid_leave(me, dir);
+    if (dir == "in" && objectp(present("da han", environment(me))))
+        return notify_fail("大汉拦住你说：此处乃明教"
+                           "重地，只有教主才能入内。\n");
+    return ::valid_leave(me, dir);
 }

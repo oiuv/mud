@@ -12,13 +12,13 @@ void create()
 人，多半也不知晓。
 LONG);
     set("objects", ([
-       __DIR__"npc/pochen": 1,
-       __DIR__"npc/poyi": 1,
+        __DIR__"npc/pochen": 1,
+        __DIR__"npc/poyi": 1,
     ]));
     set("outdoors", "dali");
     set("exits",([ /* sizeof() == 1 */
-        "enter"      : __DIR__"nianhua1",
-        "southdown"  : __DIR__"shanlu2",
+        "in"        : __DIR__"nianhua1",
+        "southdown" : __DIR__"shanlu2",
     ]));
     setup();
     replace_program(ROOM);

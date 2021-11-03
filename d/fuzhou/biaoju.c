@@ -15,7 +15,7 @@ LONG );
 
     set("exits", ([
         "south" : __DIR__"xidajie",
-        "enter" : __DIR__"biaojudy",
+        "in"    : __DIR__"biaojudy",
     ]));
     set("objects", ([
         __DIR__"npc/chenqi" : 1,

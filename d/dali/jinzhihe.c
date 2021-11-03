@@ -10,16 +10,16 @@ void create()
 檐，又是上层之基石。
 LONG);
     set("item_desc", ([
-                "jingzhuang" : "这是个稀世经幢，进去看看也不坏。\n",
+        "jingzhuang" : "这是个稀世经幢，进去看看也不坏。\n",
     ]));
     set("exits", ([
-                "east"  : __DIR__"yanchi1",
-                "west"  : __DIR__"xiaojing",
-                "enter" : __DIR__"jingzhuang1",
+        "east" : __DIR__"yanchi1",
+        "west" : __DIR__"xiaojing",
+        "in"   : __DIR__"jingzhuang1",
     ]));
     set("objects", ([
-                __DIR__"npc/seng": 2,
-                "/clone/npc/walker" : 1,
+        __DIR__"npc/seng": 2,
+        "/clone/npc/walker" : 1,
     ]));
     set("outdoors", "dali");
     setup();

@@ -14,7 +14,7 @@ void create()
 LONG );
     set("exits", ([
         "southdown" : __DIR__"shulin14",
-        "enter" : __DIR__"fumoquan",
+        "in" : __DIR__"fumoquan",
     ]));
     set("no_clean_up", 0);
     set("outdoors", "shaolin");
@@ -23,10 +23,9 @@ LONG );
 
 int valid_leave(object me, string dir)
 {
-    if ( dir == "enter" )
-    if ( present("fumo dao", me) || present("jingang zhao", me)
-      || present("fumo dao", environment(me)) || present("jingang zhao", environment(me)) )
-        return notify_fail("只听里面有人说道: 大侠上回已来过此处，此刻身携重宝，不便进入，\n恕老衲等失礼了。\n");
+    if (dir == "in")
+        if (present("fumo dao", me) || present("jingang zhao", me) || present("fumo dao", environment(me)) || present("jingang zhao", environment(me)))
+            return notify_fail("只听里面有人说道: 大侠上回已来过此处，此刻身携重宝，不便进入，\n恕老衲等失礼了。\n");
 
     return ::valid_leave(me, dir);
 }

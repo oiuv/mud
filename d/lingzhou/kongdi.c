@@ -15,13 +15,13 @@ void create()
 各有一条山路。
 LONG );
     set("exits", ([
-        "enter"     : __DIR__"dawu",
+        "in"        : __DIR__"dawu",
         "southwest" : __DIR__"tulu",
         "northwest" : __DIR__"qingxinquan",
     ]));
     set("objects", ([
         __DIR__"npc/nan" : 1,
-                "clone/quarry/gou2" : 2,
+        "clone/quarry/gou2" : 2,
     ]));
     set("outdoors", "lingzhou");
     setup();

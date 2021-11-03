@@ -15,12 +15,12 @@ void create()
 LONG );
     set("exits", ([
         "west" : __DIR__"guangchang2",
-        "enter" : __DIR__"zhonglou1",
+        "in"   : __DIR__"zhonglou1",
     ]));
     set("objects",([
         __DIR__"npc/seng-bing3" : 2,
     ]));
-//    set("no_clean_up", 0);
+
     set("outdoors", "shaolin");
     setup();
     replace_program(ROOM);

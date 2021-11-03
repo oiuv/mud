@@ -14,7 +14,7 @@ LONG );
     set("no_clean_up", 0);
     set("exits", ([
         "south" : __DIR__"road4",
-        "enter" : __DIR__"zhengdian",
+        "in"    : __DIR__"zhengdian",
     ]));
     setup();
     replace_program(ROOM);

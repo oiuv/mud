@@ -11,13 +11,13 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-                "enter" : __DIR__"dating",
-                "west"  : __DIR__"shanlu6",
-                "east"  : __DIR__"luyuxi",
+        "in"   : __DIR__"dating",
+        "west" : __DIR__"shanlu6",
+        "east" : __DIR__"luyuxi",
     ]));
-        set("objects", ([
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/clone/npc/walker" : 1,
+    ]));
     set("no_clean_up", 0);
     setup();
     replace_program(ROOM);

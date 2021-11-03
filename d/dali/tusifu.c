@@ -11,13 +11,13 @@ void create()
 屋共三台，占地约八百亩，分作正厅，议事厅，后厅，厢房。
 LONG);
     set("objects", ([
-       __DIR__"npc/datusi": 1,
-       __DIR__"npc/shicong": 2,
+        __DIR__"npc/datusi": 1,
+        __DIR__"npc/shicong": 2,
     ]));
     set("outdoors", "dali");
     set("exits",([ /* sizeof() == 1 */
-        "enter"  : __DIR__"tusimentang",
-        "south"  : __DIR__"dahejiewest",
+        "in"    : __DIR__"tusimentang",
+        "south" : __DIR__"dahejiewest",
     ]));
     setup();
     replace_program(ROOM);

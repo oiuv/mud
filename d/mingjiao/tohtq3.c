@@ -11,7 +11,7 @@ void create()
 LONG );
     set("exits", ([
         "southup" :__DIR__"tohtq2",
-        "enter"   :__DIR__"tohtq4",
+        "in"      :__DIR__"tohtq4",
     ]));
     set("outdoors", "mingjiao");
     set("no_clean_up", 0);

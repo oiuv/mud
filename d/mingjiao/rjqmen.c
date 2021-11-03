@@ -10,7 +10,7 @@ void create()
 到此，都必须出示一张腰牌，才可进入。
 LONG );
     set("exits", ([
-        "enter" : __DIR__"rjqyuan",
+        "in"   : __DIR__"rjqyuan",
         "east" : __DIR__"torjq3",
     ]));
     set("no_clean_up", 0);

@@ -13,19 +13,18 @@ void create()
 随意进入。
 LONG );
     set("exits", ([
-        "enter" : __DIR__"nanshe",
+        "in" : __DIR__"nanshe",
         "southeast" : __DIR__"mjtianmen",
     ]));
     set("outdoors", "mingjiao");
     set("no_clean_up", 0);
     setup();
-//    replace_program(ROOM);
 }
+
 int valid_leave(object me, string dir)
 {
-//  mapping myfam;
-    me = this_player();
-    if ((me->query("gender")!="男性") && (dir=="enter"))
-      return notify_fail("请你自重，以免不测！\n");
-    else  return 1;
+    if ((me->query("gender") != "男性") && (dir == "in"))
+        return notify_fail("请你自重，以免不测！\n");
+    else
+        return 1;
 }

@@ -4,8 +4,6 @@ inherit ROOM;
 
 void create()
 {
-//      object ob;
-
     set("short", "小径");
     set("long", @LONG
 这是一条蜿蜒的小径，曲曲折折通往山里。路旁有一间小砖房，烟筒
@@ -15,10 +13,10 @@ void create()
 LONG );
 
     set("exits", ([
-                "west"  : __DIR__"road4",
-                "enter" : __DIR__"xiaowu",
+        "west" : __DIR__"road4",
+        "in"   : __DIR__"xiaowu",
     ]));
     set("outdoors", "suzhou");
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }
