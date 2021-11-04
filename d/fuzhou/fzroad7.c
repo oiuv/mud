@@ -9,7 +9,7 @@ void create()
 风扑鼻而来。
 LONG);
     set("exits", ([
-        "northwest" : "/d/henshan/hsroad2",
+        "northwest" : "/d/hengyang/hsroad2",
         "eastup"    : __DIR__"fzroad6",
     ]));
         set("objects", ([

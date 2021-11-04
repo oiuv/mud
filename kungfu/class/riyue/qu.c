@@ -59,7 +59,7 @@ void create()
     create_family("日月神教", 12, "长老");
 
         set("coagents", ({
-                ([ "startroom" : "/d/henshan/furongfeng",
+                ([ "startroom" : "/d/hengyang/furongfeng",
                    "id"        : "liu zhengfeng" ]),
         }));
 
@@ -84,7 +84,7 @@ void create()
                 if (! environment(ob)) ob->move(this_object());
         }
         carry_object("/d/heimuya/npc/obj/jinpao")->wear();
-        set_temp("handing", carry_object("/d/henshan/npc/obj/zhuxiao"));
+        set_temp("handing", carry_object("/d/hengyang/npc/obj/zhuxiao"));
 }
 
 void init()

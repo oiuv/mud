@@ -23,7 +23,7 @@ mapping places = ([
     "gumu"     : "/d/gumu/mumen",
     "hangzhou" : "/d/hangzhou/road10",
     "heimuya"  : "/d/heimuya/shimen",
-    "hengyang"  : "/d/henshan/hengyang",
+    "hengyang"  : "/d/hengyang/hengyang",
     "huashan"  : "/d/huashan/shaluo",
     "jiaxing"  : "/d/quanzhou/jiaxing",
     "jingzhou" : "/d/jingzhou/guangchang",
@@ -58,7 +58,7 @@ mapping places = ([
     "zhongnan" : "/d/quanzhen/shanjiao",
     "zhongzhou": "/d/zhongzhou/shizhongxin",
     //新增衡山 2017-02-11
-    "hengshan" : "/d/henshan/nantian",
+    "hengshan" : "/d/hengyang/nantian",
     //新增绝情谷、铁掌山 2017-02-18
     "jueqing"  : "/d/jueqing/shanjiao",
     "tiezhang" : "/d/tiezhang/shanjiao",
@@ -192,7 +192,7 @@ int main(object me, string arg)
             else if (me->query("family/family_name") == "丐帮")
                 room = get_object("/d/gaibang/undertre");
             else if (me->query("family/family_name") == "衡山派")
-                room = get_object("/d/henshan/zhurongfeng");
+                room = get_object("/d/hengyang/zhurongfeng");
             else if (me->query("family/family_name") == "日月神教")
                 room = get_object("/d/quanzhou/chating");
             else

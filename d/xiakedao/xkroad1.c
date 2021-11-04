@@ -11,7 +11,7 @@ void create()
 LONG );
         set("outdoors", "xiakedao");
     set("exits", ([
-        "northup" : "/d/henshan/hsroad9",
+        "northup" : "/d/hengyang/hsroad9",
         "south"   : __DIR__"xkroad2",
     ]));
         set("no_clean_up", 0);

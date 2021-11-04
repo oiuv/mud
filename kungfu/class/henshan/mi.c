@@ -59,7 +59,7 @@ void create()
         }));
 
     set("coagents", ({
-                ([ "startroom" : "/d/henshan/zhurongfeng",
+                ([ "startroom" : "/d/hengyang/zhurongfeng",
                    "id"        : "mo da" ]),
         }));
 

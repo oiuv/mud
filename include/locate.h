@@ -18,7 +18,7 @@ mapping region_names = ([
         "hangzhou" : "杭州城",
         "heimuya"  : "黑木崖境内",
         "hengshan" : "恒山境内",
-        "henshan"  : "衡山境内",
+        "hengyang"  : "衡山境内",
         "huanggon" : "皇宫",
         "huanghe"  : "黄河边",
         "huashan"  : "华山境内",
@@ -136,7 +136,6 @@ mapping place = ([
                         "/d/huanghe/xiaojiaqiao",
                         "/d/huanghe/yinpanshui"
                 }),}),
-
         "guanwai"   : ({
                 "长白山上", ({
                         "/d/guanwai/milin1",
@@ -157,7 +156,6 @@ mapping place = ([
                         "/d/guanwai/yuzhu",
                         "/d/guanwai/tiyun"
                 }),}),
-
         "dali"      : ({
                 "大理郊外", ({
                         "/d/dali/atoubu",
@@ -254,8 +252,6 @@ mapping place = ([
                         "/d/dali/zhulin",
                         "/d/dali/zhulin2"
                 }),}),
-
-
         "foshan"   : ({
                 "佛山一带", ({
                         "/d/foshan/nanling",
@@ -319,49 +315,47 @@ mapping place = ([
                         "/d/hengshan/zhandao",
                         "/d/hengshan/zhanqiao"
                 }),}),
-        "hengshan"   : ({
-                "衡山一带", ({ "/d/henshan/banshan",
-                        "/d/henshan/chidifeng",
-                        "/d/henshan/denggaotai",
-                        "/d/henshan/heishatan",
-                        "/d/henshan/hsroad1",
-                        "/d/henshan/hsroad2",
-                        "/d/henshan/hsroad3",
-                        "/d/henshan/hsroad4",
-                        "/d/henshan/hsroad5",
-                        "/d/henshan/hsroad6",
-                        "/d/henshan/hsroad7",
-                        "/d/henshan/hsroad8",
-                        "/d/henshan/hsroad9",
-                        "/d/henshan/lingxingmen",
-                        "/d/henshan/liuyunping",
-                        "/d/henshan/mojingtai",
-                        "/d/henshan/nantian",
-                        "/d/henshan/shanjian",
-                        "/d/henshan/shanlu1",
-                        "/d/henshan/shanlu2",
-                        "/d/henshan/shanlu3",
-                        "/d/henshan/shanlu4",
-                        "/d/henshan/shanlu5",
-                        "/d/henshan/shanlu6",
-                        "/d/henshan/shanlu7",
-                        "/d/henshan/shanlu8",
-                        "/d/henshan/shanlu9",
-                        "/d/henshan/shanlu10",
-                        "/d/henshan/shanlu11",
-                        "/d/henshan/shanlu12",
-                        "/d/henshan/shanlu13",
-                        "/d/henshan/shanlu14",
-                        "/d/henshan/shiziyan",
-                        "/d/henshan/shuiliandong",
-                        "/d/henshan/tianzhu",
-                        "/d/henshan/yubeiting",
-                        "/d/henshan/zhengchuan",
-                        "/d/henshan/zhongting",
-                        "/d/henshan/zhurongfeng"
+        "hengyang"   : ({
+                "衡山一带", ({ "/d/hengyang/banshan",
+                        "/d/hengyang/chidifeng",
+                        "/d/hengyang/denggaotai",
+                        "/d/hengyang/heishatan",
+                        "/d/hengyang/hsroad1",
+                        "/d/hengyang/hsroad2",
+                        "/d/hengyang/hsroad3",
+                        "/d/hengyang/hsroad4",
+                        "/d/hengyang/hsroad5",
+                        "/d/hengyang/hsroad6",
+                        "/d/hengyang/hsroad7",
+                        "/d/hengyang/hsroad8",
+                        "/d/hengyang/hsroad9",
+                        "/d/hengyang/lingxingmen",
+                        "/d/hengyang/liuyunping",
+                        "/d/hengyang/mojingtai",
+                        "/d/hengyang/nantian",
+                        "/d/hengyang/shanjian",
+                        "/d/hengyang/shanlu1",
+                        "/d/hengyang/shanlu2",
+                        "/d/hengyang/shanlu3",
+                        "/d/hengyang/shanlu4",
+                        "/d/hengyang/shanlu5",
+                        "/d/hengyang/shanlu6",
+                        "/d/hengyang/shanlu7",
+                        "/d/hengyang/shanlu8",
+                        "/d/hengyang/shanlu9",
+                        "/d/hengyang/shanlu10",
+                        "/d/hengyang/shanlu11",
+                        "/d/hengyang/shanlu12",
+                        "/d/hengyang/shanlu13",
+                        "/d/hengyang/shanlu14",
+                        "/d/hengyang/shiziyan",
+                        "/d/hengyang/shuiliandong",
+                        "/d/hengyang/tianzhu",
+                        "/d/hengyang/yubeiting",
+                        "/d/hengyang/zhengchuan",
+                        "/d/hengyang/zhongting",
+                        "/d/hengyang/zhurongfeng"
                 }),}),
-
-
         "huashan" :  ({
                 "华山一带", ({ "/d/huashan/baichi",
                         "/d/huashan/canglong",
@@ -445,7 +439,6 @@ mapping place = ([
                         "/d/lingzhou/xiaolu3",
                         "/d/lingzhou/xuanhebao"
                 }),}),
-
         "quanzhen"   : ({
                 "终南山一带", ({ "/d/quanzhen/baishulin1",
                         "/d/quanzhen/baishulin2",
@@ -528,7 +521,6 @@ mapping place = ([
                         "/d/gumu/xiaohebian",
                         "/d/gumu/zhufeng"
                 }),}),
-
         "songshan"  : ({
                 "嵩山一带", ({ "/d/songshan/chaotian",
                         "/d/songshan/chongsheng",

@@ -79,7 +79,7 @@ void create()
         }));
 
         set("coagents", ({
-                ([ "startroom" : "/d/henshan/furongfeng",
+                ([ "startroom" : "/d/hengyang/furongfeng",
                    "id"        : "qu yang" ]),
         }));
 
@@ -92,7 +92,7 @@ void create()
 
         carry_object("/clone/weapon/changjian")->wield();
         carry_object("/clone/cloth/cloth")->wear();
-        set_temp("handing", carry_object("/d/henshan/npc/obj/tanmuqin"));
+        set_temp("handing", carry_object("/d/hengyang/npc/obj/tanmuqin"));
 }
 
 

@@ -17,7 +17,7 @@ LONG);
     set("no_beg", 1);
     set("owner", "VOID_SHOP");
     set("exits", ([
-                "down" : "/d/henshan/majiu",
+                "down" : "/d/hengyang/majiu",
         ]));
     set("no_steal", 1);
     set("objects", ([

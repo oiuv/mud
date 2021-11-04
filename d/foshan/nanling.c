@@ -10,7 +10,7 @@ void create()
 LONG);
         set("outdoors", "foshan");
         set("exits", ([
-                "northup" : "/d/henshan/hsroad9",
+                "northup" : "/d/hengyang/hsroad9",
                 "south"   : __DIR__"northgate",
         ]));
         setup();

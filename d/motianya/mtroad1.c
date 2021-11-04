@@ -11,7 +11,7 @@ void create()
 LONG );
         set("outdoors", "motianya");
         set("exits", ([
-            "east"  : "/d/henshan/hsroad5",
+            "east"  : "/d/hengyang/hsroad5",
             "west"  : __DIR__"mtroad",
             "north" : __FILE__,
             "south" : __DIR__"mtroad2",

@@ -12,7 +12,7 @@ LONG );
         set("exits", ([
                 "west"    : __DIR__"wdroad5",
                 "east"    : "/d/xiaoyao/shulin3",
-                "southup" : "/d/henshan/hsroad1",
+                "southup" : "/d/hengyang/hsroad1",
                 "north"   : __DIR__"wdroad3",
         ]));
         set("no_clean_up", 0);

@@ -96,7 +96,7 @@ void create()
                 }
         }
         carry_object("/clone/cloth/cloth")->wear();
-        set_temp("handing", carry_object("/d/henshan/npc/obj/huqin"));
+        set_temp("handing", carry_object("/d/hengyang/npc/obj/huqin"));
 }
 
 void attempt_apprentice(object ob)
