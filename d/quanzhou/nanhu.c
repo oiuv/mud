@@ -18,7 +18,7 @@ LONG );
             "southeast" : __DIR__ "nanhu1",
     ]));
 
-    set("outdoors", "jiaxing");
+    set("outdoors", "quanzhou");
 
     setup();
     replace_program(ROOM);

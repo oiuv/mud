@@ -12,11 +12,11 @@ void create()
 道什么原因店主把它迁到扬州了。
 LONG );
     set("exits", ([
-                "west" : __DIR__"qzroad2",
-                "east" : __DIR__"nanhu",
+        "west" : __DIR__"qzroad2",
+        "east" : __DIR__"nanhu",
         "south" : __DIR__"jxnanmen",
     ]));
-    set("outdoors", "jiaxing");
+    set("outdoors", "quanzhou");
     setup();
     replace_program(ROOM);
 }

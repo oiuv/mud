@@ -14,9 +14,9 @@ void create()
 LONG );
     set("exits", ([
         "south"     : __DIR__"yanyu",
-                "northwest" : __DIR__ "nanhu",
+        "northwest" : __DIR__ "nanhu",
     ]));
-    set("outdoors", "jiaxing");
+    set("outdoors", "quanzhou");
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }
