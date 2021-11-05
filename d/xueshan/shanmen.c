@@ -11,7 +11,7 @@ LONG);
         set("outdoors", "xueshan");
         set("exits", ([
                 "north"    : __DIR__"guangchang",
-                "eastdown" : "/d/xuedao/nroad4",
+                "eastdown" : "/d/xueshan/nroad4",
         ]));
         set("objects", ([
                 CLASS_D("xueshan") + "/gelunbu": 1,

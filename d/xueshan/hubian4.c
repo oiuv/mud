@@ -6,7 +6,7 @@ void create()
         set("long", @LONG
 这是圣湖边的小路。路侧长草没足, 青绿可喜。
 LONG);
-        set("outdoors", "xuedao");
+        set("outdoors", "xueshan");
         set("exits", ([
                 "north" : __DIR__"shanjiao",
                 "south" : __DIR__"hubian3",

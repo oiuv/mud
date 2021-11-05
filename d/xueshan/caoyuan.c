@@ -17,7 +17,7 @@ LONG);
                 "/clone/quarry/tu" : 4 ,
         ]));
 
-        set("outdoors", "xuedao");
+        set("outdoors", "xueshan");
 
         setup();
         replace_program(ROOM);

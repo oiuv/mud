@@ -21,7 +21,7 @@ LONG );
         set("objects", ([
                 "/clone/npc/walker" : 1,
         ]));
-        set("outdoors", "xuedao");
+        set("outdoors", "xueshan");
 
         setup();
 }
@@ -34,7 +34,7 @@ int valid_leave(object me, string dir)
            || me->query("family/family_name") == "大轮寺"
            || me->query("family/family_name") == "血刀门")
         {
-                total_steps = 1; 
+                total_steps = 1;
         } else
         {
                 me->receive_damage("jing", 5);
@@ -57,10 +57,10 @@ int valid_leave(object me, string dir)
                 me->delete_temp("taohua/steps");
                 write(HIC "\n雾气散开，你的眼前豁然开朗起来。\n\n" NOR);
                 return -1;
-        }  
+        }
 
         if (me->query_temp("taohua/steps") == - total_steps)
-        {  
+        {
                 me->move(__DIR__"tulu3");
                 me->delete_temp("taohua/steps");
                 write(HIC "\n雾气散开，你的眼前豁然开朗起来。\n\n" NOR);

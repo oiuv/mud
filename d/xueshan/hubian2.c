@@ -7,7 +7,7 @@ void create()
 这是圣湖边的小路。长草越径，虫鸣阵阵，偶尔有白色水
 禽掠湖点水，激起圈圈涟漪。
 LONG );
-        set("outdoors", "xuedao");
+        set("outdoors", "xueshan");
         set("exits", ([
                 "east" : __DIR__"hubian3",
                 "west" : __DIR__"hubian1",

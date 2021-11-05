@@ -8,7 +8,7 @@ void create()
 顶雪山显出一片蓝幽幽的宁静。但是周围却是被极浓的雾气所
 笼罩，使你的眼前一片朦胧，瞧不清四周。
 LONG );
-        set("outdoors", "xuedao");
+        set("outdoors", "xueshan");
         set("exits", ([
                 "west" : __DIR__"shenghu",
                 "east" : __DIR__"hubian2",

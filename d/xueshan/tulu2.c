@@ -7,7 +7,7 @@ void create()
 这是一条不起眼的土路，却是连接大轮寺与中原的必经之
 路。西边点点的炊烟依稀可见。往北可以通往雪山寺。
 LONG );
-        set("outdoors", "xuedao");
+        set("outdoors", "xueshan");
         set("exits", ([
                 "east" : __DIR__"tulu1",
                 "north" : __DIR__"tulu3",

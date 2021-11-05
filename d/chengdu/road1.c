@@ -9,10 +9,10 @@ void create()
 展展的大地上，偶尔会出现一大丛翠竹浓荫，细细认去，都是
 人家居处。
 LONG);
-    set("outdoors", "emei");
+    set("outdoors", "chengdu");
     set("exits", ([
-        "east"       : "/d/emei/qsjie1",
-        "northwest"  : __DIR__"road2",
+        "east"      : "/d/emei/qsjie1",
+        "northwest" : __DIR__"road2",
     ]));
     set("no_clean_up", 0);
     setup();
