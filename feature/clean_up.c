@@ -2,7 +2,7 @@
 Copyright: 2021, Mud.Ren
 File name: clean_up.c
 Description: clean_up 功能接口，driver会自动定期执行本apply函数
-Version: v1.1
+Version: v1.0
 *****************************************************************************/
 
 #define NEVER_AGAIN 0
@@ -19,17 +19,16 @@ int clean_up(int inherited)
 {
     object *inv;
 
-    // log_file("clean_up", sprintf("%-50s - %s", file_name(this_object()), ctime(time()) + "\n"));
+    // log_file("clean_up", sprintf("[%s] %3d --- %s", ctime(time()), inherited, file_name(this_object()) + "\n"));
     // 如果被其它对象继承不清除
-    if (inherited)
-        return AGAIN;
+    // if (inherited > 1)
+    //     return AGAIN;
 
     // no_clean_up 为 1 的非复制对象不清除
     if (!clonep() && this_object()->query("no_clean_up") == 1)
         return AGAIN;
     if (this_object()->query("no_clean_up") > 1)
-        log_file("no_clean_up", this_object() + "\tno_clean_up = " +
-                                this_object()->query("no_clean_up") + "\n");
+        log_file("no_clean_up", sprintf("%O\tno_clean_up = %d\n", this_object(), this_object()->query("no_clean_up")));
 
     // 在线游戏玩家不清除
     if (interactive(this_object()))

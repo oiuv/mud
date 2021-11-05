@@ -120,7 +120,7 @@ int valid_learn(object me)
                 return notify_fail("你的内力太弱，无法练须弥山掌。\n");
 
         if ((int)me->query_skill("strike", 1) < (int)me->query_skill("xumishan-zhang", 1))
-                return notify_fail("你的基本掌法水平有限，无法领会更高深的须弥山掌。\n"); 
+                return notify_fail("你的基本掌法水平有限，无法领会更高深的须弥山掌。\n");
 
         return 1;
 }
@@ -156,4 +156,9 @@ int practice_skill(object me)
         me->receive_damage("qi", 80);
         me->add("neili", -75);
         return 1;
+}
+
+string perform_action_file(string action)
+{
+        return __DIR__"xumishan-zhang/" + action;
 }
