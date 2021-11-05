@@ -14,7 +14,7 @@ LONG);
       set("outdoors", "emei");
       set("exits",([
           "north"      : __DIR__"xiaolu2",
-          "west"       : "/d/city3/road1",
+          "west"       : "/d/chengdu/road1",
           "southwest"  : __DIR__"qsjie2",
       ]));
       setup();

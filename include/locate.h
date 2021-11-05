@@ -5,7 +5,7 @@ mapping region_names = ([
         "beijing"  : "北京城",
         "changan"  : "长安城",
         "city"     : "扬州城",
-        "city3"    : "成都城",
+        "chengdu"  : "成都城",
         "dali"     : "云南大理城",
         "death"    : "鬼门关",
         "emei"     : "四川峨嵋",

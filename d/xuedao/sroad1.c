@@ -8,7 +8,7 @@ void create()
 接着藏边和中原。
 LONG);
         set("exits",([
-                "north" : "/d/city3/nanheqiaos",
+                "north" : "/d/chengdu/nanheqiaos",
                 "west"  : __DIR__"sroad2",
                 "northwest" : "/d/lingxiao/boot",
         ]));
@@ -17,4 +17,3 @@ LONG);
         setup();
         replace_program(ROOM);
 }
-

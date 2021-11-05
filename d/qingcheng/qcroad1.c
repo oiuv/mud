@@ -11,7 +11,7 @@ void create()
 LONG );
         set("outdoors","qingcheng");
     set("exits", ([
-        "south" : "/d/city3/fuheqiaon",
+        "south" : "/d/chengdu/fuheqiaon",
         "west"  : __DIR__"qcroad2",
     ]));
     setup();

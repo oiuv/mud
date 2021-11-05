@@ -115,10 +115,10 @@ mapping place = ([
                      "/d/lanzhou/ximen",
                  }),
         "成都城":({
-                     "/d/city3/southroad1",
-                     "/d/city3/qingyanggong",
-                     "/d/city3/northroad2",
-                     "/d/city3/fuheqiaoe",
+                     "/d/chengdu/southroad1",
+                     "/d/chengdu/qingyanggong",
+                     "/d/chengdu/northroad2",
+                     "/d/chengdu/fuheqiaoe",
                  }),
         "福州城":({
                      "/d/fuzhou/ximendajie",

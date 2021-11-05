@@ -12,7 +12,7 @@ mapping places = ([
     "baituo"   : "/d/baituo/guangchang",
     "beijing"  : "/d/beijing/tiananmen",
     "changan"  : "/d/changan/bridge2",
-    "chengdu"  : "/d/city3/guangchang",
+    "chengdu"  : "/d/chengdu/guangchang",
     "dali"     : "/d/dali/center",
     "emei"     : "/d/emei/huayanding",
     "foshan"   : "/d/foshan/street3",

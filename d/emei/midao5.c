@@ -9,7 +9,7 @@ void create()
 LONG);
         set("exits", ([
                 "south" : __DIR__"midao4",
-                "up"    : "/d/city3/qingyanggong",
+                "up"    : "/d/chengdu/qingyanggong",
         ]));
         setup();
         replace_program(ROOM);

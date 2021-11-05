@@ -77,7 +77,7 @@ int do_goto(string arg)
 
         case "成都" :
         case "chengdu" :
-                room = "/d/city3/wuhouci";
+                room = "/d/chengdu/wuhouci";
                 name = "成都";
                 break;
 
