@@ -7,12 +7,12 @@ void create()
 平沙，凝眸远眺，只觉天地相接，万籁无声，身当此境，不禁
 也生栗栗之感，顿觉大千无限，一己渺小异常。
 LONG);
-        set("outdoors", "xiyu");
-        set("exits", ([
-          "east" : __DIR__"caoyuan4",
-           "west"  : "/d/xingxiu/nanjiang1",
-           "south" : "/d/xingxiu/nanjiang2",
-           "southwest" : "/d/xingxiu/nanjiang1",
+    set("outdoors", "shenfeng");
+    set("exits", ([
+        "east" : __DIR__"caoyuan4",
+        "west" : "/d/xingxiu/nanjiang1",
+        "south" : "/d/xingxiu/nanjiang2",
+        "southwest" : "/d/xingxiu/nanjiang1",
     ]));
 
     setup();
