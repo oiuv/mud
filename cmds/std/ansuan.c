@@ -44,6 +44,7 @@ mapping default_dirs = ([
            "up":"上面",
          "down":"下面",
         "enter":"里面",
+           "in":"里面",
           "out":"外面",
 ]);
 
@@ -67,6 +68,7 @@ mapping default_undirs = ([
          "down":"上面",
            "up":"下面",
           "out":"里面",
+           "in":"外面",
         "enter":"外面",
 ]);
 

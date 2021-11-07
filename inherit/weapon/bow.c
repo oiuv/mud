@@ -32,6 +32,7 @@ mapping default_dirs = ([
         "up":           "上",
         "down":         "下",
         "out":          "外",
+        "in":           "里",
         "enter":        "里",
 ]);
 
