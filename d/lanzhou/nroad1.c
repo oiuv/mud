@@ -17,10 +17,9 @@ LONG);
                 "north" : __DIR__"nroad2",
         ]));
         set("objects", ([
-                "/d/xingxiu/npc/trader" : 1,
+                "/d/xiyu/npc/trader" : 1,
                 "/clone/npc/walker" : 1,
         ]));
         setup();
         replace_program(ROOM);
 }
-

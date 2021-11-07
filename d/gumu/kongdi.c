@@ -11,7 +11,7 @@ void create()
 条小径。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "west"     : __DIR__"shulin5",
                 "south"    : __DIR__"shulin4",

@@ -175,7 +175,7 @@ mapping place = ([
                      "/d/quanzhen/banshanting",
                  }),
         "星宿海":({
-                     "/d/xingxiu/tianroad2",
+                     "/d/xiyu/tianroad2",
                  }),
           "天山":({
                      "/d/lingjiu/yan",
@@ -188,14 +188,14 @@ mapping place = ([
                      "/d/guanwai/shanshenmiao",
                  }),
           "西域":({
-                     "/d/xingxiu/shamo5",
+                     "/d/xiyu/shamo5",
                      "/d/baituo/gebi",
                      "/d/xueshan/shenghu",
                      "/d/xueshan/hubian4",
                      "/d/xuedao/sroad3",
                      "/d/xuedao/nroad6",
                      "/d/mingjiao/gebitan5",
-                     "/d/xingxiu/nanjiang2",
+                     "/d/xiyu/nanjiang2",
                  }),
       "大理一带":({
                      "/d/dali/northgate",

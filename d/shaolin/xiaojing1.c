@@ -13,6 +13,7 @@ void create()
 LONG );
     set("exits", ([
         "east" : __DIR__"shijie1",
+        "south" : __DIR__"maowu",
         "northup" : __DIR__"xiaojing2",
     ]));
     set("outdoors", "shaolin");

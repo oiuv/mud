@@ -32,7 +32,7 @@ void create()
                 __DIR__"obj/tieshou",
                 __DIR__"obj/jinsijia",
                 "/clone/cloth/cuttonp",
-                "/d/xingxiu/obj/fire",
+                "/d/xiyu/obj/fire",
                 "/d/taohua/obj/bagua",
                 "/d/item/obj/chanhs",
                 "/clone/misc/wood",
@@ -50,4 +50,3 @@ void init()
         add_action("do_list", "list");
         add_action("do_buy", "buy");
 }
-

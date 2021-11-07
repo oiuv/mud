@@ -53,7 +53,7 @@ int valid_leave(object me, string dir)
                 me->receive_damage("jing", jing);
         }
 
-        dest = sprintf("/d/xingxiu/shamo%d", random(10) + 1);
+        dest = sprintf("/d/xiyu/shamo%d", random(10) + 1);
         me->move(dest);
         switch (random(3))
         {

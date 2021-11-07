@@ -152,7 +152,7 @@ mapping map_trans = ([
         "yongdeng"  : ([ "name" : "永登",     "room" : "/d/huanghe/majiu", ]),
         "suzhou"    : ([ "name" : "苏州",     "room" : "/d/suzhou/majiu", ]),
         "xiangyang" : ([ "name" : "襄阳",     "room" : "/d/xiangyang/majiu", ]),
-        "yili"      : ([ "name" : "伊犁",     "room" : "/d/xingxiu/majiu", ]),
+        "yili"      : ([ "name" : "伊犁",     "room" : "/d/xiyu/majiu", ]),
         "chengdu"   : ([ "name" : "成都",     "room" : "/d/chengdu/majiu", ]),
         "emei"      : ([ "name" : "峨嵋山",   "room" : "/d/emei/majiu1", ]),
         "emei2"     : ([ "name" : "峨嵋半山", "room" : "/d/emei/majiu2", ]),

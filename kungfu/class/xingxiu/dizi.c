@@ -13,7 +13,7 @@ void create()
         set("int", 28);
         set("con", 20);
         set("dex", 24);
-        
+
         set("max_qi", 300);
         set("max_jing", 300);
         set("neili", 500);
@@ -51,7 +51,7 @@ void create()
         create_family("星宿派", 3, "弟子");
 
         set("coagents", ({
-                ([ "startroom" : "/d/xingxiu/riyuedong",
+                ([ "startroom" : "/d/xiyu/riyuedong",
                    "id"        : "ding chunqiu", ]),
         }));
 
@@ -65,5 +65,3 @@ void create()
 
         carry_object("/clone/weapon/changbian")->wield();
 }
-
-

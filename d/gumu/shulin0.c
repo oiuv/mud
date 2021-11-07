@@ -11,7 +11,7 @@ void create()
 方向尽是茂密的树林。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("item_desc", ([
                 "shibei" : HIC
 "

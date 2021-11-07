@@ -11,7 +11,7 @@ void create()
 是一条山路。往南下是白马潭。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northup"    : __DIR__"shanlu5",
                 "eastdown"   : __DIR__"shanlu7",

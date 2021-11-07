@@ -20,7 +20,7 @@ void create()
         "/d/shaolin/obj/hulu",
         "/d/city/obj/zhubang",
                 "/d/village/obj/zhujian",
-                "/d/xingxiu/obj/fire",
+                "/d/xiyu/obj/fire",
     }) );
     setup();
         carry_object("/clone/cloth/cloth")->wear();

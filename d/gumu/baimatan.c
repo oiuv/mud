@@ -16,7 +16,7 @@ void create()
 路。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northup" : __DIR__"shanlu6",
         ]));

@@ -12,7 +12,7 @@ void create()
 是一处遗迹。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "west"      : __DIR__"foyezhang",
                 "north"     : __DIR__"shulin7",

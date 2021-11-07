@@ -9,7 +9,7 @@ void create()
 说为唐天宝年间地震造成，但见四周高峰环列，池面碧波荡漾，
 山光水影，风景十分优美。
 LONG);
-    set("outdoors", "quanzhen");
+    set("outdoors", "gumu");
     set("item_desc", ([
         "chi" : HIG "\n这是一个很大的山间湖，碧波荡漾，湖水清\n"
                     "澈见底，让人忍不住想跳(jump)下去畅游一番。\n" NOR,

@@ -11,7 +11,7 @@ void create()
 峰之间似乎有一个大洞。想不想游(swim)过去看？
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         setup();
 }
 

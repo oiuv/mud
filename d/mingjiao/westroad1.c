@@ -11,7 +11,7 @@ void create()
 LONG);
     set("exits",([
           "west" : __DIR__"westroad2",
-           "east" : "/d/xingxiu/silk2",
+           "east" : "/d/xiyu/silk2",
     ]));
     set("outdoors", "mingjiao");
     set("no_clean_up", 0);

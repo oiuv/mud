@@ -30,10 +30,10 @@ LONG
                 夫 殊 无 隅
                 。 ； 。 ；
 
-" NOR, 
+" NOR,
         ]));
 
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "westup"     : __DIR__"shanlu10",
                 "southdown"  : __DIR__"shanlu11",

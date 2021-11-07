@@ -1,4 +1,4 @@
-// food: /d/xingxiu/npc/obj/nang.c
+// food: /d/xiyu/npc/obj/nang.c
 // Jay 3/17/96
 
 inherit ITEM;
@@ -18,4 +18,3 @@ void create()
                 set("food_supply", 20);
         }
 }
-

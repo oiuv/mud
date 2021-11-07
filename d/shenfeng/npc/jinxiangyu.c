@@ -17,7 +17,7 @@ void create()
         set("combat_exp", 500);
         set("attitude", "friendly");
         set("vendor_goods", ({
-                "/d/xingxiu/obj/fire",
+                "/d/xiyu/obj/fire",
                 "/d/city/npc/obj/jiudai",
                 "/d/shenfeng/npc/obj/dogrou",
                 "/d/shenfeng/npc/obj/hulu",

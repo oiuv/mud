@@ -8,7 +8,7 @@ void create()
 {
         set_name("阿紫", ({ "a zi", "a", "zi"}));
         set("nickname", "星宿派小师妹");
-        set("long", 
+        set("long",
                 "她就是丁春秋弟子阿紫。\n"
                 "她容颜俏丽，可眼神中总是透出一股邪气。\n");
         set("gender", "女性");
@@ -20,7 +20,7 @@ void create()
         set("int", 28);
         set("con", 20);
         set("dex", 24);
-        
+
         set("max_qi", 300);
         set("max_jing", 300);
         set("neili", 500);
@@ -76,8 +76,8 @@ void create()
         setup();
 
         carry_object("/clone/weapon/rousisuo")->wield();
-        carry_object("/d/xingxiu/obj/xxqingxin-san");
-        carry_object("/d/xingxiu/obj/xxqingxin-san");
+        carry_object("/d/xiyu/obj/xxqingxin-san");
+        carry_object("/d/xiyu/obj/xxqingxin-san");
 }
 
 void attempt_apprentice(object ob)
@@ -132,4 +132,3 @@ int accept_kill(object who)
         command("say 我说了没有木鼎了，你怎么不信！");
         return 1;
 }
-

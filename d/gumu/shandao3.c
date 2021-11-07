@@ -9,7 +9,7 @@ void create()
 以望见一个较大的湖。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "southup"   : __DIR__"shulin12",
                 "northdown" : __DIR__"taiyi1",

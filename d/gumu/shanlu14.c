@@ -10,7 +10,7 @@ void create()
 一条道路。往西北可通往山林深处。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "east"      : __DIR__"shanlu13",
                 "northwest" : __DIR__"shanlu15",

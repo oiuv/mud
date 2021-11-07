@@ -10,7 +10,7 @@ LONG);
 
         set("exits", ([
                 "west"      : __DIR__"tulu1",
-                "northeast" : "/d/xingxiu/silk4" ,
+                "northeast" : "/d/xiyu/silk4" ,
         ]));
 
         set("objects", ([

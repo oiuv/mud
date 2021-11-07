@@ -11,7 +11,7 @@ void create()
 是一条蜿蜒的山路。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northup"   : __DIR__"shanlu11",
                 "southdown" : __DIR__"shanlu13",

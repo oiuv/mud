@@ -23,7 +23,7 @@ void create()
                 __DIR__"obj/stick",
                 __DIR__"obj/bottle",
                 __DIR__"obj/egg",
-                "/d/xingxiu/obj/fire",
+                "/d/xiyu/obj/fire",
         }));
         set("inquiry", ([
                 "药材"   : (: ask_me :),

@@ -7,18 +7,19 @@ void create()
 这就是浩瀚的塔克拉马干大沙漠，一走进来，你仿佛迷失
 了方向。你感到口内十分焦渴，还是快些离开吧。
 LONG );
-
         set("exits", ([
-                "northeast" : __DIR__"shanjiao",
-                "southeast" : __FILE__,
+                "northeast" : "/d/shenfeng/caoyuan5",
                 "southwest" : __FILE__,
-                "northwest" : __DIR__"nanjiang1",
+                "northwest" : __FILE__,
+                "southeast" : __FILE__,
                 "north" : __FILE__,
-                "south" : __FILE__,
-                "east" : __FILE__,
+                "south" : __DIR__"nanjiang3",
+                "east" : __DIR__"luzhou",
                 "west" : __FILE__,
         ]));
-
+        set("objects", ([
+                "/clone/npc/walker" : 1,
+        ]));
         set("outdoors", "xiyu");
         set("no_map", "这里的地形令人迷惑，无法绘制地图。\n");
 

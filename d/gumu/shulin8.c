@@ -9,7 +9,7 @@ void create()
 过浓密的枝头，投射而下。偶而远处几声兽吼声，更添了一份
 神密感。往西北和往东各有一条小径。
 LONG);
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northwest" : __DIR__"shenheyuan",
                 "east"      : __DIR__"baoziyan",

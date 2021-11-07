@@ -34,7 +34,7 @@ LONG );
         set("int", 30);
         set("con", 38);
         set("dex", 38);
-        
+
         set("max_qi", 6400);
         set("max_jing", 2900);
         set("neili", 7300);
@@ -202,9 +202,9 @@ int do_flatter(string arg)
 // 星宿老仙，德配天地，威震寰宇，古今无比
 string ask_me()
 {
-        mapping fam; 
+        mapping fam;
         object ob;
-        
+
         if (!(fam = this_player()->query("family")) || fam["family_name"] != "星宿派")
                 return RANK_D->query_respect(this_player()) + "与本派素无来往，不知此话从何谈起？\n";
 
@@ -219,9 +219,9 @@ string ask_me()
 
 string ask_du1()
 {
-        mapping fam; 
+        mapping fam;
         object ob;
-        
+
         if (!(fam = this_player()->query("family")) || fam["family_name"] != "星宿派")
                 return RANK_D->query_respect(this_player()) + "与本派素无来往，不知此话从何谈起？\n";
 
@@ -232,16 +232,16 @@ string ask_du1()
                 return "你来晚了，碧磷针都发完了。\n";
 
         add("zhen_count", -1);
-        ob = new("/d/xingxiu/obj/bilinzhen");
+        ob = new("/d/xiyu/obj/bilinzhen");
         ob->move(this_player());
         return "好吧，那你就先用这些针吧。\n";
 }
 
 string ask_du2()
 {
-        mapping fam; 
+        mapping fam;
         object ob;
-        
+
         if (!(fam = this_player()->query("family")) || fam["family_name"] != "星宿派")
                 return RANK_D->query_respect(this_player()) + "与本派素无来往，不知此话从何谈起？\n";
 
@@ -252,7 +252,7 @@ string ask_du2()
                 return "你来晚了，现在没什么剩的了。\n";
 
         add("san_count", -1);
-        ob = new("/d/xingxiu/obj/sanxiaosan");
+        ob = new("/d/xiyu/obj/sanxiaosan");
         ob->move(this_player());
         return "好吧，这包毒药你拿回去善加利用吧。\n";
 }
@@ -350,7 +350,7 @@ int accept_ask(object me, string topic)
                                  "neili"    :  3000,
                                  "gongxian" :  1200 ]));
                   break;
-   
+
              case "柔丝索" :
                 return MASTER_D->give_item(me, this_object(),
                                (["item"     :  SUO,
@@ -359,10 +359,10 @@ int accept_ask(object me, string topic)
                                  "lv1"      :  140,
                                  "shen"     :  -30000 ]));
                   break;
-                               
-             default : 
+
+             default :
                   return 0;
-                           
+
         }
 }
 
@@ -370,6 +370,6 @@ void clear_xiangliao_flag()
 {
         if (this_player()->query_temp("get_xiangliao"))
                this_player()->delete_temp("get_xiangliao");
-      
+
         return;
 }

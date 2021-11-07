@@ -10,11 +10,11 @@ void create()
 交界处，据说经常有土匪出没，不可久留。
 LONG    );
     set("exits", ([ /* sizeof() == 2 */
-  "southwest" : __DIR__"road-2",
-  "northeast" : __DIR__"lx",
-]));
+        "southwest" : __DIR__"road-2",
+        "northeast" : __DIR__"lx",
+    ]));
     set("no_clean_up", 0);
-    set("outdoors", "wudang");
+    set("outdoors", "tiezhang");
 
     setup();
     replace_program(ROOM);

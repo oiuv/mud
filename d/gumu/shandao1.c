@@ -11,7 +11,7 @@ void create()
 大的空地。往北下通往后山脚，远远可以望见一个较大的湖。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "southeast"   : __DIR__"shanlu7",
                 "northdown"   : __DIR__"shandao2",

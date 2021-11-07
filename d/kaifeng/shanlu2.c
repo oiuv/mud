@@ -12,10 +12,9 @@ LONG);
     set("outdoors", "kaifeng");
     set("exits", ([
         "north" : "/d/songshan/taishique",
-        "east" : "/d/shaolin/maowu",
         "eastup" : __DIR__"shanlu1",
     ]));
 
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

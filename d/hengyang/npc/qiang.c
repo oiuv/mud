@@ -20,7 +20,7 @@ LONG);
     set("no_get", "1");
     set("attitude", "friendly");
     set("vendor_goods", ({
-        "/d/xingxiu/obj/fire",
+        "/d/xiyu/obj/fire",
         "/d/hengyang/obj/mujian",
         //"/d/hengyang/obj/jia",
         "/d/item/obj/chanhs",

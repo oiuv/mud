@@ -15,7 +15,7 @@ void create()
 {
         set_name("摘星子", ({ "zhaixing zi", "zhaixing", "zi" }));
         set("nickname", HIR "星宿派大师兄" NOR);
-        set("long", 
+        set("long",
                 "他就是丁春秋的大弟子、星宿派大师兄摘星子。\n"
                 "他三十多岁，脸庞瘦削，眼光中透出一丝乖戾之气。\n");
         set("gender", "男性");
@@ -26,7 +26,7 @@ void create()
         set("int", 28);
         set("con", 26);
         set("dex", 26);
-        
+
         set("max_qi", 3400);
         set("max_jing", 1800);
         set("neili", 5800);
@@ -72,7 +72,7 @@ void create()
         prepare_skill("claw", "sanyin-wugongzhao");
 
         set("coagents", ({
-                ([ "startroom" : "/d/xingxiu/riyuedong",
+                ([ "startroom" : "/d/xiyu/riyuedong",
                    "id"        : "ding chunqiu", ]),
         }));
 
@@ -120,9 +120,9 @@ void attempt_apprentice(object ob)
 
 string ask_me()
 {
-        mapping fam; 
+        mapping fam;
         object ob;
-        
+
         if (!(fam = this_player()->query("family")) || fam["family_name"] != "星宿派")
                 return RANK_D->query_respect(this_player()) + "与本派素无来往，不知此话从何谈起？\n";
 
@@ -130,16 +130,16 @@ string ask_me()
                 return "你来晚了，没有炼心弹了。\n";
 
         add("dan_count", -1);
-        ob = new("/d/xingxiu/obj/lianxindan");
+        ob = new("/d/xiyu/obj/lianxindan");
         ob->move(this_player());
         return "这些练心弹够你用的了吧。\n";
 }
 
 string ask_book()
 {
-        mapping fam; 
+        mapping fam;
         object ob;
-        
+
         if (!(fam = this_player()->query("family")) || fam["family_name"] != "星宿派")
                 return RANK_D->query_respect(this_player()) + "与本派素无来往，不知此话从何谈起？\n";
 
@@ -155,7 +155,7 @@ string ask_book()
 int accept_ask(object me, string topic)
 {
         switch(topic)
-        {      
+        {
              case "如蛆附骨":
                  return MASTER_D->teach_pfm(me, this_object(),
                                (["perform"  :  "can_perform/tianshan-zhang/fugu",
@@ -225,15 +225,15 @@ int accept_ask(object me, string topic)
                                  "sk3"      :  "poison",
                                  "lv3"      :  150,
                                  "sk4"      :  "throwing",
-                                 "lv4"      :  120,                                 
+                                 "lv4"      :  120,
                                  "shen"     :  -10000,
                                  "neili"    :  1200,
                                  "gongxian" :  500 ]));
                   break;
 
-             default : 
+             default :
                   return 0;
-                           
+
         }
 }
 
@@ -241,4 +241,3 @@ void unconcious()
 {
         die();
 }
-

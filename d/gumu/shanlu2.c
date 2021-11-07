@@ -11,7 +11,7 @@ void create()
 路。往东上就是终南山主峰。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northdown" : __DIR__"shanlu3",
                 "eastup"    : __DIR__"zhufeng",

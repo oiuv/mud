@@ -13,7 +13,7 @@ long);
         "southup" : __DIR__"shanlu02",
     ]));
 
-    set("outdoors", "昆仑");
+    set("outdoors", "kunlun");
     setup();
     replace_program(ROOM);
 }

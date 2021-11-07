@@ -11,7 +11,7 @@ void create()
 往南下是两块耸天而立的巨石。往北是一片蓊郁的山林。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northup"    : __DIR__"shulin9",
                 "southdown"  : __DIR__"riyueyan",

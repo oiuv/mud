@@ -22,9 +22,9 @@ LONG);
                 "gaoshi" : (: look_gaoshi :),
         ]));
         set("exits", ([
-                "west"  : "/d/xingxiu/xxroad3",
+                "west"  : "/d/xiyu/xxroad3",
                 "east"  : __DIR__"xidajie1",
-                
+
         ]));
         set("objects", ([
                 "/d/city/npc/bing" : 4,

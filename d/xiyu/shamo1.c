@@ -1,15 +1,15 @@
 #include <room.h>
-inherit "/d/xingxiu/shamo";
+inherit "/d/xiyu/shamo";
 
 int valid_leave(object me, string dir)
 {
 //      string dest;
 
-           if (dir == "west")
+           if (dir == "east")
         {
-                if (me->add_temp("out_shamo", -1) <= -3)
+                if (me->add_temp("out_shamo", 1) >= 3)
                 {
-                         me->move("/d/baituo/gebi");
+                         me->move("/d/xiyu/silk4");
                          write("你累得半死，终於走出了沙漠。\n");
                 return -1;
                 }

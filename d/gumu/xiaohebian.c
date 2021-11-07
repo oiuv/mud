@@ -10,7 +10,7 @@ void create()
 涌出的泉水所形成，淙淙的水声更让你觉得身心顺畅。往北可
 通往山林深处。往西可进入山洞中。
 LONG );
-    set("outdoors", "quanzhen");
+    set("outdoors", "gumu");
     set("item_desc", ([
         "dong" : "一个深邃、幽暗、恐怖的小山洞。\n",
     ]));

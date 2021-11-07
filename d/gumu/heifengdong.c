@@ -10,7 +10,7 @@ void create()
 气，怪可怕的。往西是一片树林。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "westup"  : __DIR__"shulin7",
         ]));

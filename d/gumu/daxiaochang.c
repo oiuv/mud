@@ -12,7 +12,7 @@ void create()
 宇疏疏落落的散处山间。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northup"     : "/d/quanzhen/shijie1",
                 "westup"      : __DIR__"shanlu7",

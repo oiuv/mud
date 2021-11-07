@@ -12,7 +12,7 @@ void create()
 往西北通往后山下。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "westup"     : __DIR__"shanlu6",
                 "northdown"  : __DIR__"caotangsi",

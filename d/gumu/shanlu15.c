@@ -10,7 +10,7 @@ void create()
 可通往山林深处。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "southeast" : __DIR__"shanlu14",
                 "west"      : __DIR__"shanlu16",

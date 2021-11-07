@@ -10,9 +10,9 @@ LONG);
     set("outdoors", "shenfeng");
     set("exits", ([
         "east" : __DIR__"caoyuan4",
-        "west" : "/d/xingxiu/nanjiang1",
-        "south" : "/d/xingxiu/nanjiang2",
-        "southwest" : "/d/xingxiu/nanjiang1",
+        "west" : "/d/xiyu/nanjiang1",
+        "south" : "/d/xiyu/nanjiang2",
+        "southwest" : "/d/xiyu/nanjiang2",
     ]));
 
     setup();

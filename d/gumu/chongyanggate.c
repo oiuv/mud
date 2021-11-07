@@ -12,7 +12,7 @@ void create()
 着『重阳宫』三个大字。南下是广场。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "southdown"   : __DIR__"daxiaochang",
         ]));

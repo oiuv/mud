@@ -44,15 +44,15 @@ int do_rideyl()
         tell_room(environment(ob), ob->query("name") + "骑着" + hname + "一"
                        "路招摇疾驰而过。\n", ({ob}));
 
-        ob->move("/d/xingxiu/shanjiao");
+        ob->move("/d/xiyu/shanjiao");
         tell_room(environment(ob), ob->query("name") + "骑着" + hname + "一"
                        "路招摇疾驰而过。\n", ({ob}));
 
-        ob->move("/d/xingxiu/beijiang");
+        ob->move("/d/xiyu/beijiang");
         tell_room(environment(ob), ob->query("name") + "骑着" + hname + "一"
                        "路招摇疾驰而过。\n", ({ob}));
 
-        ob->move("/d/xingxiu/majiu");
+        ob->move("/d/xiyu/majiu");
         tell_room(environment(ob), ob->query("name") + "骑着" + hname + "一"
                        "路招摇疾驰而过。\n", ({ob}));
 

@@ -11,7 +11,7 @@ void create()
 神密感。往北、南各有一条小径。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "south"     : __DIR__"shulin10",
                 "northdown" : __DIR__"shulin12",

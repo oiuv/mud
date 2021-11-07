@@ -12,7 +12,7 @@ LONG);
         set("outdoors", "lingjiu");
         set("exits", ([
                 "westup" : __DIR__"ya",
-                "southdown" : "/d/xingxiu/tianroad2"
+                "southdown" : "/d/xiyu/tianroad2"
         ]));
         set("objects", ([
                 __DIR__"npc/jiuyi" : 1,

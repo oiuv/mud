@@ -1,4 +1,4 @@
-// item: /d/xingxiu/npc/obj/fire.c
+// item: /d/xiyu/npc/obj/fire.c
 // Jay 3/17/96
 
 inherit ITEM;

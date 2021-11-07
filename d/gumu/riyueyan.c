@@ -11,7 +11,7 @@ void create()
 多的小道，让人通过。往东下和北上走都是一条蜿蜒的山路。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "eastdown"  : __DIR__"shanlu10",
                 "northup"   : __DIR__"shanlu9",

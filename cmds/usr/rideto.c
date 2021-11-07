@@ -49,7 +49,7 @@ mapping places = ([
     "wugong"   : "/d/quanzhen/zhongxin",
     "xiangyang": "/d/xiangyang/guangchang",
     "xiaoyao"  : "/d/xiaoyao/xiaodao4",
-    "xingxiu"  : "/d/xingxiu/xxh1",
+    "xingxiu"  : "/d/xiyu/xxh1",
     "xuedao"   : "/d/xuedao/wangyougu",
     "xueshan"  : "/d/xuedao/nroad4",
     "yangzhou" : "/d/city/guangchang",
@@ -158,7 +158,7 @@ int main(object me, string arg)
             else if (me->query("family/family_name") == "八卦门")
                 room = get_object("/d/beijing/zhengting");
             else if (me->query("family/family_name") == "星宿派")
-                room = get_object("/d/xingxiu/riyuedong");
+                room = get_object("/d/xiyu/riyuedong");
             else if (me->query("family/family_name") == "大轮寺")
                 room = get_object("/d/xueshan/neidian");
             else if (me->query("family/family_name") == "五毒教")

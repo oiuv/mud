@@ -10,7 +10,7 @@ void create()
 势缓和，但山上郁郁葱葱地栽满了树木。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "south" : __DIR__"caodi",
                 "northeast" : __DIR__"shulin2",

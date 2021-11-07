@@ -71,7 +71,7 @@ mapping here_map = ([
 ]);
 
 mapping here_map2 = ([
-        "xingxiu":     ({"map_xxh", "map_xy"}),
+        "xiyu":        ({"map_xxh", "map_xy"}),
         "beijing":     ({"map_bje", "map_bjw"}),
         "dali":        ({"map_dl","map_dalie","map_dalis","map_daliw","map_dalie"}),
 ]);

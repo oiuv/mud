@@ -10,7 +10,7 @@ void create()
 类。这些树你大都叫不出名字来，树龄都已经很长了。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "southwest" : __DIR__"shulin3",
                 "northeast" : __DIR__"shulin1",
@@ -19,4 +19,3 @@ LONG
         setup();
         replace_program(ROOM);
 }
-

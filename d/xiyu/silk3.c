@@ -45,7 +45,7 @@ int do_climb(string arg)
                 message("vision", HIY + me->name() + HIY "吭吃吭吃向沙山上爬"
                         "去。\n" NOR, environment(me), ({me}));
 
-                me->move("/d/xingxiu/shashan");
+                me->move("/d/xiyu/shashan");
 
                 message("vision", HIY + me->name() + HIY "从沙山下爬了上来，"
                         "粘了一身沙子。\n", environment(me), me );

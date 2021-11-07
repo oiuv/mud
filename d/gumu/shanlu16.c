@@ -10,7 +10,7 @@ void create()
 一条小河。往东可通往山林深处。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "east"  : __DIR__"shanlu15",
                 "south" : __DIR__"xiaohebian",

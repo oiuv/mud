@@ -35,7 +35,7 @@ void create()
 
         setup();
         carry_object("/clone/cloth/wcloth")->wear();
-        carry_object("/d/xingxiu/obj/dongbula");
+        carry_object("/d/xiyu/obj/dongbula");
 }
 
 int accept_object(object who, object ob)

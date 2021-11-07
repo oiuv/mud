@@ -7,7 +7,7 @@ void create()
 {
         set_name("出尘子", ({ "chuchen zi", "chuchen" }));
         set("nickname", "星宿派八师兄");
-        set("long", 
+        set("long",
                 "他就是丁春秋的八弟子出尘子。\n"
                 "他身才矮胖，可手中握的钢杖又长又重。\n");
         set("gender", "男性");
@@ -19,7 +19,7 @@ void create()
         set("int", 12);
         set("con", 28);
         set("dex", 28);
-        
+
         set("max_qi", 1700);
         set("max_jing", 800);
         set("neili", 2200);
@@ -51,10 +51,10 @@ void create()
         create_family("星宿派", 2, "弟子");
 
         set("coagents", ({
-                ([ "startroom" : "/d/xingxiu/riyuedong",
+                ([ "startroom" : "/d/xiyu/riyuedong",
                    "id"        : "ding chunqiu" ]),
         }));
-        
+
         setup();
         carry_object("/clone/weapon/gangzhang")->wield();
 

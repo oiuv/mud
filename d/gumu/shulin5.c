@@ -11,7 +11,7 @@ void create()
 不论往哪ㄦ走尽是茂密的树林。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "east"   : __DIR__"shulin0",
                 "south"  : __DIR__"shulin4",

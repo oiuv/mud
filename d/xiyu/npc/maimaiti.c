@@ -18,11 +18,11 @@ void create()
         set("attitude", "friendly");
         set("rank_info/respect", "大叔");
         set("vendor_goods", ({
-                "/d/xingxiu/obj/hu",
-                "/d/xingxiu/obj/nang",
-                "/d/xingxiu/obj/fire",
-                "/d/xingxiu/obj/hamigua",
-                "/d/xingxiu/obj/dongbula",
+                "/d/xiyu/obj/hu",
+                "/d/xiyu/obj/nang",
+                "/d/xiyu/obj/fire",
+                "/d/xiyu/obj/hamigua",
+                "/d/xiyu/obj/dongbula",
         }));
         setup();
         carry_object("/clone/cloth/wcloth")->wear();

@@ -11,7 +11,7 @@ void create()
 往北上是一条陡峭的山路。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northup"    : __DIR__"shanlu8",
                 "southdown"  : __DIR__"shulin7",

@@ -10,7 +10,7 @@ LONG);
         set("outdoors", "baituo");
         set("no_clean_up", 0);
         set("exits", ([
-                "east" : "/d/xingxiu/shamo10",
+                "east" : "/d/xiyu/shamo10",
                 "west" : __DIR__"dongjie",
         ]));
         set("objects", ([

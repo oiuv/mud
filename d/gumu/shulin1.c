@@ -10,7 +10,7 @@ void create()
 吧，转头间却看见东南边似乎有一条小路，隐藏在树丛之中。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northdown" : __DIR__"shulin0",
                 "southwest" : __DIR__"shulin2",

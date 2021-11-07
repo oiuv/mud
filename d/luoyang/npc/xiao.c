@@ -29,9 +29,9 @@ void create()
                 "/d/city/npc/obj/shoutao",
                 "/d/city/npc/obj/tieshou",
                 "/d/city/npc/obj/jinsijia",
-                "/d/xingxiu/obj/fire",
+                "/d/xiyu/obj/fire",
         }));
-        
+
         setup();
         carry_object("/clone/misc/cloth")->wear();
 }

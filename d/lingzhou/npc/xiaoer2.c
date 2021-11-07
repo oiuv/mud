@@ -17,9 +17,9 @@ void create()
     set("no_get", "1");
     set("rank_info/respect", "小二哥");
     set("vendor_goods", ({
-        "/d/xingxiu/obj/nang",
-        "/d/xingxiu/obj/hu",
-        "/d/xingxiu/obj/yangrou",
+        "/d/xiyu/obj/nang",
+        "/d/xiyu/obj/hu",
+        "/d/xiyu/obj/yangrou",
         __DIR__"obj/paomo",
         __DIR__"obj/kaoyangtui",
     }));

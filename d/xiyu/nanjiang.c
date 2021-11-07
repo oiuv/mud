@@ -2,26 +2,27 @@ inherit ROOM;
 
 void create()
 {
-        set("short", "南疆沙漠");
-        set("long", @LONG
+    set("short", "南疆沙漠");
+    set("long", @LONG
 这就是浩瀚的塔克拉马干大沙漠，一走进来，你仿佛迷失
 了方向。你感到口内十分焦渴，还是快些离开吧。
-LONG);
-        set("exits", ([
-                "northwest" : __DIR__"luzhou",
-                "southeast" : __FILE__,
-                "southwest" : __FILE__,
-                "northeast" : __FILE__,
-                "north" : __FILE__,
-                "west" : __FILE__,
-                "south" : __FILE__,
-                "east" : __FILE__,
-        ]));
+LONG );
 
-        set("outdoors", "xiyu");
-        set("no_map", "这里的地形令人迷惑，无法绘制地图。\n");
+    set("exits", ([
+        "southeast" : __FILE__,
+        "northeast" : __DIR__"shanjiao",
+        "northwest" : __FILE__,
+        "southwest" : __DIR__"nanjiang3",
+        "north" : __FILE__,
+        "south" : __FILE__,
+        "east" : __FILE__,
+        "west" : __DIR__"luzhou",
+    ]));
 
-        setup();
+    set("outdoors", "xiyu");
+    set("no_map", "这里的地形令人迷惑，无法绘制地图。\n");
+
+    setup();
 }
 
 int valid_leave(object me, string dir)

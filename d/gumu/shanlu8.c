@@ -11,7 +11,7 @@ void create()
 的空地。往南下是一块巨岩。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northup"    : __DIR__"daxiaochang",
                 "southdown"  : __DIR__"juyan",

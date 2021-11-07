@@ -28,7 +28,7 @@ LONG
                 。。。。。。。。。
 "
         ]));
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "westdown"  : __DIR__"shanlu2",
                 "southdown" : __DIR__"shanlu1",

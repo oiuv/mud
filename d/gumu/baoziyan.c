@@ -11,7 +11,7 @@ void create()
 如一个妇人抱着个孩子般，细心呵护。往南和西各是一片密林。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "west"      : __DIR__"shulin8",
                 "south"     : __DIR__"shulin9",

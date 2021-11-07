@@ -11,7 +11,7 @@ void create()
 崎岖的山路。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northup"   : __DIR__"jinliange",
                 "southdown" : __DIR__"shanlu12",

@@ -11,7 +11,7 @@ void create()
 地。往北上就是终南山主峰。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "southdown" : __DIR__"kongdi",
                 "northup"   : __DIR__"zhufeng",

@@ -1,4 +1,4 @@
-// weapon: /d/xingxiu/npc/obj/yaochu.c
+// weapon: /d/xiyu/npc/obj/yaochu.c
 // Jay 3/18/96
 
 #include <weapon.h>
@@ -23,4 +23,3 @@ void create()
         init_hammer(5);
         setup();
 }
-

@@ -12,7 +12,7 @@ void create()
 山。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "northup"   : __DIR__"shanlu12",
                 "east"      : __DIR__"puguangsi",

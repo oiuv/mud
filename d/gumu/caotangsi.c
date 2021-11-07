@@ -11,7 +11,7 @@ void create()
 岖的山道。往北是一条阴森森的小径。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "southup"     : __DIR__"shanlu7",
         ]));

@@ -18,13 +18,13 @@ void create()
         set("attitude", "friendly");
         set("vendor_goods", ({
                 "/clone/cloth/cuttonp",
-                "/d/xingxiu/obj/fire",
+                "/d/xiyu/obj/fire",
                 "/d/item/obj/chanhs",
                 "/clone/misc/wood",
                 //"/clone/misc/shoeshine",
                 //"/clone/misc/brush",
         }));
-        
+
         setup();
         carry_object("/clone/misc/cloth")->wear();
 }

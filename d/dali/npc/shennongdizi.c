@@ -27,6 +27,6 @@ void create()
     set_temp("apply/armor", 40);
 
     setup();
-    carry_object("/d/xingxiu/obj/yaochu")->wield();
+    carry_object("/d/xiyu/obj/yaochu")->wield();
     carry_object("/clone/cloth/cloth")->wear();
 }

@@ -18,7 +18,7 @@ void create()
         set("int", 22);
         set("attitude", "friendly");
         set("vendor_goods", ({
-                "/d/xingxiu/obj/fire",
+                "/d/xiyu/obj/fire",
         }));
         set("count", 3);
 

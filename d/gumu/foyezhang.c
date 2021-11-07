@@ -10,7 +10,7 @@ void create()
 北是一片平原。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("exits", ([
                 "east"  : __DIR__"shenheyuan",
         ]));

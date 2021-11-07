@@ -1,4 +1,4 @@
-// item: /d/xingxiu/npc/obj/hu.c
+// item: /d/xiyu/npc/obj/hu.c
 // Jay 3/17/96
 
 inherit ITEM;
@@ -23,4 +23,3 @@ void create()
                 "drunk_supply": 6,
         ]));
 }
-

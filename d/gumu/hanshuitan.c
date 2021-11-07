@@ -15,7 +15,7 @@ void create()
 了一道七色彩虹，望着这般美景，你俗念尽消。
 LONG
         );
-        set("outdoors", "quanzhen");
+        set("outdoors", "gumu");
         set("max_room", 3);
         set("exits", ([
                 "northwest" : __DIR__"caodi2",
@@ -43,10 +43,9 @@ int do_qian(string arg)
 
         message_sort(HIG "$N纵身一跃，跳入水摊之中，许多游鱼从"
                      "你身边游过，你伸手一捞，却抓了空。突然$N "
-                     HIG "眼前一亮，一股暗流扑面而来，将$N" HIG 
+                     HIG "眼前一亮，一股暗流扑面而来，将$N" HIG
                      "冲入一个所在。\n" NOR,this_player());
 
         me->move(__DIR__"mishi1");
         return 1;
 }
-

@@ -19,7 +19,7 @@ void create()
         __DIR__"obj/beixin",
         __DIR__"obj/shield",
         __DIR__"obj/muqin",
-        "/d/xingxiu/obj/fire",
+        "/d/xiyu/obj/fire",
         "/d/item/obj/chanhs",
         "/clone/misc/wood",
         //"/clone/misc/shoeshine",
