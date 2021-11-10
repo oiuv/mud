@@ -28,7 +28,7 @@ LONG
         set("con", 31);
         set("dex", 31);
 
-                set("qi", 6000);
+        set("qi", 6000);
         set("max_qi", 6000);
         set("jing", 3000);
         set("max_jing", 3000);
@@ -83,7 +83,7 @@ LONG
                 (: exert_function, "powerup" :),
         }) );
 
-                set("inquiry", ([
+        set("inquiry", ([
                 "焚身" : (: ask_me :),
                 "天寰神炎" : (: ask_skill :),
         ]));
@@ -107,7 +107,7 @@ mixed ask_me()
         if (me->query_skill("huoyan-dao", 1) < 180)
                 return "你的火焰刀法修为还不够，等你练好了再说吧！";
 
-                if (me->query("shen") > -65000 )
+        if (me->query("shen") > -65000 )
                 return "你为人太过心软，这招暂时还不能传你。";
 
         if(me->query("gongxian") < 600 )
@@ -184,28 +184,28 @@ int accept_object(object who, object ob)
                 return -1;
         }
 
-                if (me->query_skill("huoyan-dao", 1))
-                {
-                        command("say 我已经没什么可教给你了，还来凑什么热闹？");
+        if (me->query_skill("huoyan-dao", 1))
+        {
+            command("say 我已经没什么可教给你了，还来凑什么热闹？");
             return -1;
-                }
+        }
 
-                if (me->query("family/family_name" == "雪山派"))
-                {
-                        me->add("skybook/tianlong/jiumozhi", 8);
-                        command("say 原来是我雪山的后辈！");
-                }
+        if (me->query("family/family_name") == "雪山派")
+        {
+            me->add("skybook/tianlong/jiumozhi", 8);
+            command("say 原来是我雪山的后辈！");
+        }
 
-                if (me->add("skybook/tianlong/jiumozhi", 1 + random(6)) < 10)
-                {
-                        command("say 谢谢施主送来的六脉剑谱。");
-                        command("heihei");
-                }else
-                {
-                        command("haha");
-                        tell_object(who, HIC "\n鸠摩智同意传授你「火焰刀」。\n" NOR);
-                        me->set_skill("huoyan-dao", 10);
-                }
+        if (me->add("skybook/tianlong/jiumozhi", 1 + random(6)) < 10)
+        {
+            command("say 谢谢施主送来的六脉剑谱。");
+            command("heihei");
+        }else
+        {
+            command("haha");
+            tell_object(who, HIC "\n鸠摩智同意传授你「火焰刀」。\n" NOR);
+            me->set_skill("huoyan-dao", 10);
+        }
 
         destruct(ob);
         return 1;
