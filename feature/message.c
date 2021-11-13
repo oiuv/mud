@@ -189,50 +189,53 @@ void receive_message(string msgclass, string msg)
                 written = NONE;
                 msg = CSI "256D" CSI "K" + msg;
             }
-            else
+            else if (!query_temp("terminal_type") || strsrch(query_temp("terminal_type"), "Mudlet") < 0)
+            {
                 msg = CSI "256D" CSI "K" + msg + prompt();
+            }
         }
 
         switch (msgclass)
         {
         case "info":
             receive(HIC + msg + NOR);
-            return;
+            break;
         case "success":
             receive(HIG + msg + NOR);
-            return;
+            break;
         case "warning":
             receive(HIY + msg + NOR);
-            return;
+            break;
         case "danger":
             receive(HIR + msg + NOR);
-            return;
+            break;
 
         case "HIM":
             receive(HIM + msg + NOR);
-            return;
+            break;
         case "MAG":
             receive(MAG + msg + NOR);
-            return;
+            break;
         case "CYN":
             receive(CYN + msg + NOR);
-            return;
+            break;
         case "RED":
             receive(RED + msg + NOR);
-            return;
+            break;
         case "GRN":
             receive(GRN + msg + NOR);
-            return;
+            break;
         case "BLU":
             receive(BLU + msg + NOR);
-            return;
+            break;
         case "YEL":
             receive(YEL + msg + NOR);
-            return;
+            break;
 
         default:
             receive(msg);
         }
+        // telnet_ga();
     }
 }
 
@@ -261,7 +264,7 @@ void write_prompt()
 
     if (this_object()->is_attach_system())
         receive(HIR "执行中" HIY "> " NOR);
-    else
+    else if (!query_temp("terminal_type") || strsrch(query_temp("terminal_type"), "Mudlet") < 0)
         receive(ESC "[256D" + prompt());
 
     written = PROMPT_WRITTEN;
