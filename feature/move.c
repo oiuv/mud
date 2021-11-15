@@ -208,13 +208,7 @@ varargs int move(mixed dest, int raw)
     // GMCP
     if (me && interactive(me))
     {
-        mapping room_info = ([
-            "name" : remove_ansi(ob->query("short") || ob->query("name") || ""),
-            "exits": keys(ob->query("exits") || ([])),
-            "area" : ob->query("outdoors") || explode(base_name(ob), "/")[1],
-            "hash" : hash("md5", base_name(ob))
-        ]);
-        me->sendGMCP(room_info, "Room", "Info");
+        me->gmcp("Room.Info.Get");
     }
 
     return 1;

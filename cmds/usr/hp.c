@@ -238,22 +238,7 @@ int main(object me, string arg)
     // GMCP
     if (interactive(me))
     {
-        // 很奇怪的问题, 得加` || 0`, 否则对0值客户端可能是<userdata 1>
-        mapping char_vitals = ([
-            "hp"         : my["qi"] || 0,
-            "max_hp"     : my["max_qi"] || 0,
-            "jing"       : my["jing"] || 0,
-            "max_jing"   : my["max_jing"] || 0,
-            "jingli"     : my["jingli"] || 0,
-            "max_jingli" : my["max_jingli"] || 0,
-            "neili"      : my["neili"] || 0,
-            "max_neili"  : my["max_neili"] || 0,
-            "food"       : my["food"] || 0,
-            "water"      : my["water"] || 0,
-            "exp"        : my["combat_exp"] || 0,
-            "pot"        : (int)ob->query("potential") - (int)ob->query("learned_points"),
-        ]);
-        me->sendGMCP(char_vitals, "Char", "Vitals");
+        me->gmcp("Char.Vitals.Get");
     }
     return 1;
 }

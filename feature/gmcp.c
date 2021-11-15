@@ -20,7 +20,7 @@ void send_gmcp(string gmcp)
 
 varargs void sendGMCP(mapping data, mixed *modules...)
 {
-    if (!this_player() || !has_gmcp(this_player()))
+    if (!has_gmcp())
         return;
 
     if (!mapp(data) || !sizeof(modules))
@@ -44,7 +44,7 @@ private void gmcp_enable()
 
 protected void init_gmcp()
 {
-    if (!this_player() || !has_gmcp(this_player()))
+    if (!has_gmcp())
         return;
     gmcp_enable();
 
@@ -67,7 +67,39 @@ protected void init_gmcp()
 // gmcp - provides an interface to GMCP data received from the client
 void gmcp(string req)
 {
-    // todo 处理客户端请求
     log_gmcp("Received: " + req);
-    // debug_message(req);
+    // todo 处理客户端请求
+    if (req == "Char.Vitals.Get")
+    {
+        object ob = this_object();
+        mapping my = ob->query_entire_dbase() || ([]);
+        // 很奇怪的问题, 得加` || 0`, 否则对0值客户端可能是<userdata 1>
+        mapping data = ([
+            "hp"         : my["qi"] || 0,
+            "max_hp"     : my["max_qi"] || 0,
+            "jing"       : my["jing"] || 0,
+            "max_jing"   : my["max_jing"] || 0,
+            "jingli"     : my["jingli"] || 0,
+            "max_jingli" : my["max_jingli"] || 0,
+            "neili"      : my["neili"] || 0,
+            "max_neili"  : my["max_neili"] || 0,
+            "food"       : my["food"] || 0,
+            "water"      : my["water"] || 0,
+            "exp"        : my["combat_exp"] || 0,
+            "pot"        : (int)ob->query("potential") - (int)ob->query("learned_points"),
+        ]);
+        sendGMCP(data, "Char", "Vitals");
+    }
+    else if (req == "Room.Info.Get")
+    {
+        object ob = environment(this_object());
+        mapping room_info = ([
+            "name" : remove_ansi(ob->query("short") || ob->query("name") || ""),
+            "exits": keys(ob->query("exits") || ([])),
+            "area" : ob->query("outdoors") || explode(base_name(ob), "/")[1],
+            "hash" : hash("md5", base_name(ob))
+        ]);
+        sendGMCP(room_info, "Room", "Info");
+    }
+
 }
