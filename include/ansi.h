@@ -32,7 +32,7 @@
 
 /* Hi Intensity Foreground Colors 90 ~ 97 */
 
-#define GRY SGR("1;30") /* 灰 */
+#define HIK SGR("1;30") /* 灰 */
 #define HIR SGR("1;31") /* 紅 */
 #define HIG SGR("1;32") /* 綠 */
 #define HIY SGR("1;33") /* 黃 */
@@ -101,7 +101,7 @@
 #define FRBOT CSI "1;24r"                    /* Freeze bottom line */
 #define UNFR CSI "r"                         /* Unfreeze top and bottom lines */
 #define SAVEC CSI "s"                        /* Save cursor position */
-#define REST CSI "u"                         /* Restore cursor to saved position */
+#define RESTC CSI "u"                        /* Restore cursor to saved position */
 
 #define REVINDEX ESC + "M" /* Scroll screen in opposite direction */
 #define BIGTOP ESC + "#3"  /* Dbl height characters, top half */

@@ -2,30 +2,9 @@
 #include <localtime.h>
 #include <ansi.h>
 
-// calculate the color char in a string
-int color_len(string str)
-{
-    int i;
-    int extra;
-
-    extra = 0;
-    for (i = 0; i < strlen(str); i++)
-    {
-        if (str[i] == ESC[0])
-        {
-            while((extra++, str[i] != 'm') && i < strlen(str))
-                i++;
-        }
-    }
-    return extra;
-}
-
 // filter color
 string filter_color(string arg)
 {
-#ifdef __PACKAGE_ANSI__
-    return efun::remove_ansi(arg);
-#else
     arg = replace_string(arg, BLK, "");
     arg = replace_string(arg, RED, "");
     arg = replace_string(arg, GRN, "");
@@ -44,16 +23,11 @@ string filter_color(string arg)
     arg = replace_string(arg, NOR, "");
     arg = replace_string(arg, BOLD, "");
     arg = replace_string(arg, BLINK, "");
+
     return arg;
-#endif
 }
 
 string filter_ansi(string content)
-{
-    return filter_color(content);
-}
-
-string remove_ansi(string content)
 {
     return filter_color(content);
 }
@@ -114,7 +88,7 @@ string trans_color(string arg, int raw)
     return arg;
 }
 
-// append color after the $N、$n、$w for the string color won't be
+// append color after the $N〝$n〝$w for the string color won't be
 // break by the NOR after the name
 string append_color(string arg, string default_color)
 {
@@ -171,6 +145,11 @@ string color_filter(string content)
     return content;
 }
 
+string color(string content)
+{
+    return color_filter(content);
+}
+
 void color_cat(string file)
 {
     if (previous_object())
@@ -181,7 +160,67 @@ void color_cat(string file)
     write(color_filter(read_file(file)));
 }
 
-void ansi(string file)
+string color_to_html(string msg)
 {
-    color_cat(file);
+    if( !msg ) return 0;
+    msg = replace_string(msg, BLK, "<font color=\"#000000\">");
+    msg = replace_string(msg, RED, "<font color=\"#990000\">");
+    msg = replace_string(msg, GRN, "<font color=\"#009900\">");
+    msg = replace_string(msg, YEL, "<font color=\"#999900\">");
+    msg = replace_string(msg, BLU, "<font color=\"#000099\">");
+    msg = replace_string(msg, MAG, "<font color=\"#990099\">");
+    msg = replace_string(msg, CYN, "<font color=\"#669999\">");
+    msg = replace_string(msg, WHT, "<font color=\"#EEEEEE\">");
+
+    msg = replace_string(msg, HIK, "<font color=\"#BBBBBB\">");
+    msg = replace_string(msg, HIR, "<font color=\"#FF0000\">");
+    msg = replace_string(msg, HIG, "<font color=\"#00FF00\">");
+    msg = replace_string(msg, HIY, "<font color=\"#FFFF00\">");
+    msg = replace_string(msg, HIB, "<font color=\"#0000FF\">");
+    msg = replace_string(msg, HIM, "<font color=\"#FF00FF\">");
+    msg = replace_string(msg, HIC, "<font color=\"#00FFFF\">");
+    msg = replace_string(msg, HIW, "<font color=\"#FFFFFF\">");
+
+    msg = replace_string(msg, BBLK, "<span style=\"background-color: #FFFF00\">");
+    msg = replace_string(msg, BRED, "<span style=\"background-color: #990000\">");
+    msg = replace_string(msg, BGRN, "<span style=\"background-color: #009900\">");
+    msg = replace_string(msg, BYEL, "<span style=\"background-color: #999900\">");
+    msg = replace_string(msg, BBLU, "<span style=\"background-color: #000099\">");
+    msg = replace_string(msg, BMAG, "<span style=\"background-color: #990099\">");
+    msg = replace_string(msg, BCYN, "<span style=\"background-color: #669999\">");
+    msg = replace_string(msg, BWHT, "<span style=\"background-color: #EEEEEE\">");
+
+    msg = replace_string(msg, NOR, "");
+    msg = replace_string(msg, U, "");
+    msg = replace_string(msg, BLINK, "");
+    msg = replace_string(msg, REV, "");
+
+    return msg;
+}
+
+// calculate the color char in a string
+int color_len(string str)
+{
+    int i, extra;
+
+    extra = 0;
+    for (i = 0; i < strlen(str); i++)
+    {
+        if (str[i] == ESC[0])
+        {
+            while ((extra++, str[i] != 'm') && i < strlen(str))
+                i++;
+        }
+    }
+    return extra;
+}
+
+string remove_ansi(string arg)
+{
+    return filter_color(arg);
+}
+
+string ansi(string arg)
+{
+    return color_filter(arg);
 }

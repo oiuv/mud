@@ -29,15 +29,25 @@
 #define SHOP_DIR        "/clone/shop/"
 #define STORY_DIR       "/adm/daemons/story/"
 #define TEMP_DIR        "/temp/"
+
 #define DAEMON_DIR      "/adm/daemons/"
+#define INCLUDE_DIR     "/include/"
 #define INHERIT_DIR     "/feature/"
 #define STD_DIR         "/inherit/"
-#define INCLUDE_DIR     "/include/"
+
+// World Directors
+#define _DIR_AREA_      "/world/area/"
+#define _DIR_EQ_        "/world/eq/"
+#define _DIR_ITEM_      "/world/item/"
+#define _DIR_NPC_       "/world/npc/"
+#define _DIR_WORLD_     "/world/"
+#define _DIR_WP_        "/world/wp/"
 
 // Daemons
 #define ALIAS_D         "/adm/daemons/aliasd"
 #define BACKUP_D        "/adm/daemons/backupd"
 #define BAN_D           "/adm/daemons/band"
+#define BUILDING_D      "/adm/daemons/buildingd"
 #define CACHE_D         "/adm/daemons/cached"
 #define CHANNEL_D       "/adm/daemons/channeld"
 #define CHAR_D          "/adm/daemons/chard"
@@ -109,6 +119,9 @@
 #define VOID_OB         "/clone/misc/void"
 
 // Inheritable Standard Objects
+#define AREA            "/std/area"
+#define BUILD           "/std/build"
+/* ---- */
 #define BOOK            "/inherit/item/book"
 #define BANK            "/inherit/room/bank"
 #define BUILD_ROOM      "/inherit/room/buildroom"
@@ -180,6 +193,7 @@
 #define F_MXP           "/feature/mxp.c"
 #define F_NAME          "/feature/name.c"
 #define F_NOCLONE       "/feature/noclone.c"
+#define F_OBSAVE        "/feature/obsave.c"
 #define F_PUNISHER      "/feature/punisher.c"
 #define F_QUESTER       "/feature/quester.c"
 #define F_SAVE          "/feature/save.c"
@@ -215,8 +229,5 @@
 
 // 记录指令耗时
 // #define PROFILE_COMMANDS
-
-// 引用泥芯框架头文件(放在最后)
-// #include <mudcore.h>
 
 #endif /* GLOBALS_H */

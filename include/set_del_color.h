@@ -52,7 +52,7 @@ string setcolor(string msg, int raw)
             "$BIGTOP$" : BIGTOP,
             "$BIGBOT$" : BIGBOT,
             "$SAVEC$" : SAVEC,
-            "$REST$" : REST,
+            "$RESTC$" : RESTC,
             "$SINGW$" : SINGW,
             "$DBL$" : DBL,
             "$FRTOP$" : FRTOP,
@@ -82,13 +82,10 @@ string delcolor(string msg)
     });
     /*
     color_key += ({
-        BOLD, CLR, HOME, REF, BIGTOP, BIGBOT, SAVEC, REST,
+        BOLD, CLR, HOME, REF, BIGTOP, BIGBOT, SAVEC, RESTC,
         SINGW, DBL, FRTOP, FRBOT, UNFR, U, REV, HIREV,
     })
     */
     // discard by Karlopex@sz
     return msg;
 }
-
-
-

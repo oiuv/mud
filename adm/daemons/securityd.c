@@ -237,7 +237,7 @@ mapping query_security(string para)
 
     case "default_exclude_write":
         return ([
-            "/adm":            ({ "(arch)" }),
+            "/adm":         ({ "(arch)" }),
             "/feature":     ({ "(arch)" }),
             "/clone/user":  ({ "(arch)" }),
             "/shadow":      ({ "(arch)" }),
@@ -343,16 +343,20 @@ string get_status(mixed ob)
     string euid;
 
     if (objectp(ob))
-        {
+    {
         euid = geteuid(ob);
-        if (! euid) euid = getuid(ob);
+        if (!euid)
+            euid = getuid(ob);
     }
-    else if (stringp(ob)) euid = ob;
+    else if (stringp(ob))
+        euid = ob;
 
-    if (! undefinedp(wiz_status[euid]))
-                return wiz_status[euid];
-    else if (member_array(euid, wiz_levels) != -1) return euid;
-    else return "(player)";
+    if (!undefinedp(wiz_status[euid]))
+        return wiz_status[euid];
+    else if (member_array(euid, wiz_levels) != -1)
+        return euid;
+    else
+        return "(player)";
 }
 
 int get_wiz_level(mixed ob)
@@ -429,17 +433,15 @@ int valid_write(string file, mixed user, string func)
     if (func == "save_object")
     {
         if ((stringp(user) ? sscanf(user, "/clone/%*s")
-                           : sscanf(file_name(user), "/clone/%*s"))
-        &&    sscanf(file, "/data/%*s")
-        &&    (file == (string)user->query_save_file() +  __SAVE_EXTENSION__ ||
-                    file == (string)user->query_save_file()) )
+                           : sscanf(file_name(user), "/clone/%*s")) &&
+            sscanf(file, "/data/%*s") && (file == (string)user->query_save_file() + __SAVE_EXTENSION__ || file == (string)user->query_save_file()))
         {
             // check the object's file with id in dbase
             if (euid && euid != getuid(user))
             {
                 write(sprintf(HIR "【保护】你的用户标识(%s)和有效用"
-                                "户标识(%s)不同，档案不正常，不能保存。\n" NOR,
-                                getuid(user), geteuid(user)));
+                                  "户标识(%s)不同，档案不正常，不能保存。\n" NOR,
+                              getuid(user), geteuid(user)));
                 return 0;
             }
 
@@ -447,10 +449,15 @@ int valid_write(string file, mixed user, string func)
                 getuid(user) != user->query("id"))
             {
                 write(sprintf(HIR "【保护】你的用户标识(%s)和数据中"
-                                "的标识(%s)不同，档案不正常，不能保存。\n" NOR,
-                                getuid(user), user->query("id")));
+                                  "的标识(%s)不同，档案不正常，不能保存。\n" NOR,
+                              getuid(user), user->query("id")));
                 return 0;
             }
+            return 1;
+        }
+        // 同名文件存档
+        else if (!clonep(user) && file == base_name(user) + __SAVE_EXTENSION__)
+        {
             return 1;
         }
     }
@@ -546,9 +553,14 @@ int valid_read(string file, mixed user, string func)
     {
         if (sscanf(base_name(user), "/clone/%*s") &&
             sscanf(file, "/data/%*s") &&
-            (file == (string)user->query_save_file() +  __SAVE_EXTENSION__ ||
-                     file == (string)user->query_save_file()))
+            (file == (string)user->query_save_file() + __SAVE_EXTENSION__ ||
+             file == (string)user->query_save_file()))
             return 1;
+        // 文件同名存档
+        else if (!clonep(user) file == base_name(user) + __SAVE_EXTENSION__)
+        {
+            return 1;
+        }
     }
 
     if (func == "file_size") return 1;
