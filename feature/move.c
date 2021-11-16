@@ -95,8 +95,7 @@ varargs int move(mixed dest, int raw)
     while (env = environment(env))
         if (env == ob)
             break;
-    if (!env && (int)ob->query_encumbrance() + weight() >
-                    (int)ob->query_max_encumbrance())
+    if (!env && !ob->is_area() && (int)ob->query_encumbrance() + weight() > (int)ob->query_max_encumbrance())
     {
         if (raw && environment(ob))
         {
@@ -201,10 +200,18 @@ varargs int move(mixed dest, int raw)
         env->add_encumbrance(-weight());
     if (ob)
         ob->add_encumbrance(weight());
-
+    // 如果由area移出, 在這做move_out動作
+    if (environment() && environment()->is_area())
+    {
+        mapping info;
+        info = this_object()->query("area_info");
+        environment()->move_out(info["x_axis_old"], info["y_axis_old"], this_object());
+    }
     // Move & run INIT function
     move_object(ob);
-
+    // 如果移入的不是區域，則刪除area_info
+    if (!environment()->is_area() && !environment()->query("void"))
+        this_object()->delete("area_info");
     // GMCP
     if (me && interactive(me))
     {

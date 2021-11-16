@@ -30,18 +30,14 @@ mapping default_dirs = ([
 
 nosave mapping empty_mapping = ([]);
 
+int do_area_move(object me, object env, string dir);
+int do_room_move(object me, object env, string dir);
+
 void create() { seteuid(getuid()); }
 
 int main(object me, string arg)
 {
-    string dest, mout, min, dir /*, blk, gud, skill*/, thing_msg, msg1, msg2 /*, msg3*/;
-    object env, obj /*, blocker*/, thing;
-    int result;
-    mapping exit;
-    object *f_obs, *ob;
-    mixed flee;
-    mapping my, my_temp;
-    mapping my_env, my_armor;
+    object env;
 
     if (!arg)
         return notify_fail("你要往哪个方向走？\n");
@@ -55,6 +51,22 @@ int main(object me, string arg)
     env = environment(me);
     if (!env)
         return notify_fail("你哪里也去不了。\n");
+    if (env->is_area())
+        return do_area_move(me, env, arg);
+    else
+        return do_room_move(me, env, arg);
+}
+
+int do_room_move(object me, object env, string arg)
+{
+    string dest, mout, min, dir, thing_msg, msg1, msg2;
+    object obj, thing;
+    int result;
+    mapping exit;
+    object *f_obs, *ob;
+    mixed flee;
+    mapping my, my_temp;
+    mapping my_env, my_armor;
 
     if (me->is_fighting())
     {
@@ -321,6 +333,117 @@ int main(object me, string arg)
         }
         all_inventory(env)->follow_me(me, arg);
     }
+    return 1;
+}
+
+int do_area_move(object me, object env, string dir)
+{
+    int x, y;
+    string *area_exits, dir_name, min, mout;
+    object new_env, *obs;
+    mapping info;
+
+    if (!(info = me->query("area_info")))
+        return 0;
+
+    x = info["x_axis"];
+    y = info["y_axis"];
+
+    area_exits = env->query_exits(x, y);
+
+    if (dir == "escape")
+    {
+        if (!sizeof(area_exits))
+        {
+            write("你已經無路可逃了！\n");
+            return 1;
+        }
+        else
+            dir = area_exits[random(sizeof(area_exits))];
+    }
+
+    if (member_array(dir, area_exits) == -1)
+    {
+        write("這個方向沒有出路。\n");
+        return 1;
+    }
+
+    if (undefinedp(dir_name = default_dirs[dir]))
+        dir_name = dir;
+
+    if (me->is_fighting())
+    {
+        int move, chance;
+        object *enemy, obj;
+        enemy = me->query_enemy() - ({0});
+
+        move = me->query_ability("move");
+
+        foreach (obj in enemy)
+        {
+            if (userp(obj) || !living(obj))
+                continue;
+            if (!area_environment(obj, me))
+                continue;
+            if (!me->visible(obj))
+                continue;
+            chance = 50 - ((obj->query_level() - me->query_level()) * 2);
+            if (chance < 10)
+                chance = 10;
+            else if (chance > 90)
+                chance = 90;
+            if (chance < random(100))
+            {
+                tell_object(me, "你被" + obj->name() + "擋住了！\n");
+                me->start_busy(1);
+                return 1;
+            }
+        }
+    }
+
+    // 檢查area是否合法的移動
+    if (function_exists("valid_leave", env) && !env->valid_leave(me, dir))
+        return 1;
+
+    new_env = environment(me);
+
+    if (undefinedp(dir_name = default_dirs[dir]))
+        dir_name = dir;
+
+    if (me->is_fighting())
+    {
+        mout = "往" + dir_name + "落荒而逃了。\n";
+        min = "跌跌撞撞地跑了過來﹐模樣有些狼狽。\n";
+    }
+    else
+    {
+        mout = "往" + dir_name + "離開。\n";
+        min = "走了過來。\n";
+    }
+
+    // 顯示離開訊息
+    tell_area(env, x, y, me->name() + mout, ({me}));
+
+    if (new_env->is_area())
+    {
+        // 顯示進入訊息
+        tell_area(new_env, info["x_axis"], info["y_axis"], me->name() + min, ({me}));
+
+        // 對進入的座標做init()動作
+        obs = new_env->query_inventory(info["x_axis"], info["y_axis"]);
+        if (sizeof(obs) > 1)
+            obs->init();
+    }
+    else
+        tell_room(new_env, me->name() + min, me);
+
+    // 讓移動性的設定歸零(如sneak)
+    me->set_temp("pending", 0);
+
+    // 是否有人物跟隨
+    obs = env->query_inventory(x, y);
+    obs->follow_me(me, dir);
+
     return 1;
 }
 

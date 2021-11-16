@@ -298,3 +298,27 @@ string query_fail_msg()
 {
     return this_player()->query_temp("notify_fail");
 }
+
+varargs void tell_area(mixed area, int x, int y, string str, object *exclude)
+{
+    if (area && area->is_area())
+    {
+        object *obs, ob;
+        if (!area->check_scope(x, y))
+            return;
+        obs = area->query_inventory(x, y);
+        foreach (ob in obs)
+        {
+            if (objectp(ob))
+            {
+                if (exclude)
+                {
+                    if (member_array(ob, exclude) == -1)
+                        message("vision", str, ob, exclude);
+                }
+                else
+                    message("vision", str, ob, 0);
+            }
+        }
+    }
+}

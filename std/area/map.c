@@ -257,11 +257,12 @@ int move_in(int x, int y, object ob)
 
     // 一格最多容納30個物件
     /*
-    if( sizeof(area[y][x]["objects"]) >= 30 ) {
+    if (sizeof(area[y][x]["objects"]) >= 30)
+    {
         write("那個方向太多東西了。\n");
         return 0;
     }
-*/
+    */
     // 物件已經存在物件集(objects)中，就不需要再加入物件集
     if (member_array(ob, area[y][x]["objects"]) != -1)
         return 1;
@@ -428,20 +429,27 @@ int valid_leave(object ob, string dir)
     // 移進build
     //////////////////////////////
     /*
-    if( !undefinedp(area[y][x]["_BUILDING_FILE_"]) ) {
+    if (!undefinedp(area[y][x]["_BUILDING_FILE_"]))
+    {
         object room;
-        if( !objectp(room = load_object( this_object()->getBuildFolderPath() + area[y][x]["_BUILDING_FILE_"] )) ) {
+        if (!objectp(room = load_object(this_object()->getBuildFolderPath() + area[y][x]["_BUILDING_FILE_"])))
+        {
             write("這個方向的出口有問題，請通知管理者來處理。\n");
             return 0;
         }
-        if( room->is_area() ) {
-            if( !area_move(room, ob, room->query("entryX"), room->query("entryY")) )
+        if (room->is_area())
+        {
+            if (!area_move(room, ob, room->query("entryX"), room->query("entryY")))
                 write("這個方向的出口有問題，請通知管理者來處理。\n");
             return 0;
-        } else {
+        }
+        else
+        {
             // 如果成功移到房間, move 會自動在先前的area裡做move_out動作
-            if( ob->move(room) ) return 1;
-            else {
+            if (ob->move(room))
+                return 1;
+            else
+            {
                 write("這個方向的出口有問題，請通知管理者來處理。\n");
                 return 0;
             }
@@ -571,12 +579,12 @@ varargs string show_area(int x, int y, int type)
     else
         y_start = y - 5;
 
-    if (x <= 9 || x_size <= 19)
+    if (x <= 18 || x_size <= 36)
         x_start = 0;
-    else if (x >= x_size - 9)
-        x_start = x_size - 19;
+    else if (x >= x_size - 18)
+        x_start = x_size - 36;
     else
-        x_start = x - 9;
+        x_start = x - 18;
 
     // 建立即時地圖
     msg = sprintf(BBLU "╲" U " %-21s %s (%2d,%2d) " NOR + BBLU "╱\n" NOR,
@@ -585,11 +593,11 @@ varargs string show_area(int x, int y, int type)
 
     for (i = y_start; i < y_size && i < y_start + 11; i++)
     {
-        msg += BBLU "▕" NOR;
-        for (j = x_start; j < x_size && j < x_start + 19; j++)
+        msg += BBLU " |" NOR;
+        for (j = x_start; j < x_size && j < x_start + 36; j++)
         {
             if (y == i && x == j)
-                msg += HIY "⊕" NOR;
+                msg += HIY "☺️" NOR;
             else if (undefinedp(area[i][j]["icon"]) &&
                      (!undefinedp(area[i][j]["room_exit"]) || !undefinedp(area[i][j]["area_exit"])))
                 msg += HIW "。" NOR;
@@ -627,7 +635,7 @@ varargs string show_area(int x, int y, int type)
                         }
                         else
                         {
-                            msg += "  ";
+                            msg += " ";
                             check = 0;
                         }
                     }
@@ -635,10 +643,10 @@ varargs string show_area(int x, int y, int type)
 
                 // 圖形未定
                 if (check)
-                    msg += area[i][j]["icon"] ? area[i][j]["icon"] : "  ";
+                    msg += area[i][j]["icon"] ? area[i][j]["icon"] : " ";
             }
         }
-        msg += BBLU "▏" NOR;
+        msg += BBLU "| " NOR;
         msg += "\n";
     }
     msg += BBLU "╱￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣╲\n" NOR;
@@ -762,7 +770,7 @@ varargs int do_look(object me, string arg)
     return 1;
 }
 
-varargs int map_ansi_save()
+int map_ansi_save()
 {
     int i, j, x, y;
     string file, msg = "", msg2 = "";
@@ -819,7 +827,7 @@ varargs int map_ansi_save()
     return 1;
 }
 
-varargs int map_html_save()
+int map_html_save()
 {
     int i, j, x, y;
     string file, msg = "", tmp;
@@ -852,7 +860,9 @@ varargs int map_html_save()
     msg += "</font></body>\n</html>";
 
     if (!write_file(file + ".html", msg, 1))
-        write("儲存HTML檔失敗。\n");
+    {
+        return notify_fail("儲存HTML檔失敗。\n");
+    }
 
     write("儲存HTML檔成功。\n");
 

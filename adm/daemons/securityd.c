@@ -477,6 +477,9 @@ int valid_write(string file, mixed user, string func)
 
     path = explode(file, "/");
 
+    if (path[0] == "world" && (file == base_name(user) + ".ansi" || file == base_name(user) + ".html"))
+        return 1;
+
     // I will check all the path, why ? because the more deeply, the
     // more exactly
     valid = 0;

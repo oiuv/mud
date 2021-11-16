@@ -182,6 +182,10 @@ int look_room(object me, object env, int brief)
         tell_object(me, "你的四周灰蒙蒙地一片，什么也没有。\n");
         return 1;
     }
+    if (env->is_area())
+    {
+        return env->do_look(me);
+    }
 
     if (!brief)
     {
