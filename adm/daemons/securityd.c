@@ -557,7 +557,7 @@ int valid_read(string file, mixed user, string func)
              file == (string)user->query_save_file()))
             return 1;
         // 文件同名存档
-        else if (!clonep(user) file == base_name(user) + __SAVE_EXTENSION__)
+        else if (!clonep(user) && file == base_name(user) + __SAVE_EXTENSION__)
         {
             return 1;
         }
