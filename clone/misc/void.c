@@ -15,8 +15,9 @@ LONG
         "down" : "/d/city/zuixianlou",
     ]));
 
-        set("no_fight", 1);
-        set("no_sleep_room", 1);
+    set("void", 1); // 重要标记，area环境move用
+    set("no_fight", 1);
+    set("no_sleep_room", 1);
 
     setup();
     replace_program(ROOM);

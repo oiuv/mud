@@ -6,7 +6,7 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg)
 {
-    object env;
+    object env, *obs;
     mixed msg;
 
     if (me->ban_say(1))
@@ -41,11 +41,22 @@ int main(object me, string arg)
     }
 
     write(CYN "你说道：" + arg + "\n" NOR);
-    message("sound", CYN + me->name() + CYN "说道：" + arg + "\n" NOR,
-            env, me);
+
+    if (env->is_area())
+    {
+        mapping info;
+        info = me->query("area_info");
+        obs = env->query_inventory(info["x_axis"], info["y_axis"]);
+        tell_area(env, info["x_axis"], info["y_axis"], me->name() + "說道﹕" + HIG + arg + "\n" NOR, ({me}));
+    }
+    else
+    {
+        obs = all_inventory(env);
+        message("sound", me->name() + "說道﹕" + HIG + arg + "\n" NOR, env, me);
+    }
 
     // The mudlib interface of say
-    all_inventory(env)->relay_say(me, arg);
+    obs->relay_say(me, arg);
 
     return 1;
 }
