@@ -1,6 +1,7 @@
 // go.c
 #include <ansi.h>
 #include <config.h>
+#include <type.h>
 
 inherit F_CLEAN_UP;
 
@@ -59,7 +60,8 @@ int main(object me, string arg)
 
 int do_room_move(object me, object env, string arg)
 {
-    string dest, mout, min, dir, thing_msg, msg1, msg2;
+    string mout, min, dir, thing_msg, msg1, msg2;
+    mixed dest;
     object obj, thing;
     int result;
     mapping exit;
@@ -189,10 +191,35 @@ int do_room_move(object me, object env, string arg)
         return 1;
 
     dest = exit[arg];
-    if (!(obj = find_object(dest)))
-        if (!objectp(obj = load_object(dest)))
-            return notify_fail(sprintf("目标物件无法找到，无法向 %s 移动。\n", dest));
 
+    switch (typeof(dest))
+    {
+    case T_OBJECT:
+        obj = dest;
+        break;
+    case T_STRING:
+        if (!objectp(obj = load_object(dest)))
+        {
+            return notify_fail(sprintf("目标环境异常，无法向 %s 移动。\n", dest));
+        }
+        break;
+    case T_MAPPING:
+        if (undefinedp(dest["filename"]) || undefinedp(dest["x_axis"]) || undefinedp(dest["y_axis"]))
+        {
+            return notify_fail(sprintf("目标方向异常，无法向 %s 移动。\n", arg));
+        }
+        if (!objectp(obj = load_object(dest["filename"])))
+        {
+            return notify_fail(sprintf("目标环境异常，无法向 %s 移动。\n", dest["filename"]));
+        }
+        break;
+    // case T_INT:
+    // case T_FLOAT:
+    // case T_ARRAY:
+    default:
+        write("這一個方向的出口有問題，請通知巫師處理。\n");
+        return 1;
+    }
     /* 限制骑马可通行的地方
     if (my_temp["is_riding"] &&
         arg != "north"     && arg != "south"     &&
@@ -212,6 +239,7 @@ int do_room_move(object me, object env, string arg)
         dir = default_dirs[arg];
     else
     {
+        // 针对玩家自建房间
         if (stringp(env->query_room_id(arg)))
             dir = env->query_room_id(arg);
         else
@@ -309,12 +337,28 @@ int do_room_move(object me, object env, string arg)
 #endif
 
     // move I to dest
+    if (obj->is_area())
+    {
+        if (area_move(obj, me, dest["x_axis"], dest["y_axis"]))
+        {
+            object *obs;
+            obs = obj->query_inventory(dest["x_axis"], dest["y_axis"]);
+            if (!my_env["invisible"])
+                tell_area(obj, dest["x_axis"], dest["y_axis"], min, ({me}));
+            // 對進入的座標做init()動作
+            if (sizeof(obs))
+                obs->init();
+        }
+        else
+            return notify_fail("移动失败！\n");
+    }
+    else if (!me->move(obj))
+        return notify_fail("移动失败！\n");
+    else if (!my_env["invisible"])
+        message("vision", min, obj, ({me}));
+
     me->remove_all_enemy(1);
     map_delete(my_temp, "pending");
-    if (objectp(obj) && !my_env["invisible"])
-        message("vision", min, dest, ({me}));
-
-    me->move(dest);
 
     if (!objectp(me))
         return 1;

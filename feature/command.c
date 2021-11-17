@@ -59,7 +59,7 @@ nomask int command_hook(string arg)
     }
 
     if (! arg &&
-        (environment() && stringp(environment()->query("exits/" + verb))) &&
+        (environment() && environment()->query("exits/" + verb)) &&
         stringp(file = find_command("go")) &&
         call_other(file, "main", me, verb))
         ;

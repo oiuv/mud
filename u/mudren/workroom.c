@@ -17,7 +17,7 @@ varargs void create(int x, int y, int z)
 
     if (x == 0 && y == 0)
     {
-        addExit("down", __DIR__ "migong/entry");
+        addExit("down", __DIR__ "mogong");
         addExit("up", "/d/sky/tianmen");
         set("objects",([
             "/d/city/npc/yanruyu" : 1,

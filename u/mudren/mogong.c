@@ -14,8 +14,8 @@ void create()
 的青年。
 LONG NOR );
     set("exits", ([
-        "down":"/d/city/mudren",
-        "up":__DIR__ "migong/exit",
+        "down": __DIR__ "migong/entry",
+        "up"  : __DIR__ "workroom",
     ]));
     set("objects",([
         "/d/death/npc/wangfangping" : 1,

@@ -25,7 +25,10 @@ LONG );
     ]));
     set("exits", ([
         "south" : __DIR__"zuixianlou",
-        "up" : "/u/mudren/mogong",
+        "in" : ([ "filename" : _DIR_WORLD_"world.c",
+                     "x_axis" : 25,
+                     "y_axis" : 25,
+                ]),
     ]));
     setup();
     "/clone/board/mudren_b"->foo();
@@ -36,7 +39,7 @@ int valid_leave(object me, string dir)
 {
     object ob = this_player();
 
-    if (dir == "up" && ob->query("id") != "mudren")
+    if (dir == "enter" && ob->query("id") != "mudren")
         return notify_fail(HIW "你感觉前方有一种奇异的力场拦住了你的去路。\n" NOR);
 
     return ::valid_leave(me, dir);

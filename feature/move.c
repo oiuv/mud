@@ -210,7 +210,7 @@ varargs int move(mixed dest, int raw)
     // Move & run INIT function
     move_object(ob);
     // 如果移入的不是區域，則刪除area_info
-    if (!environment()->is_area() && !environment()->query("void"))
+    if (!ob->is_area() && !ob->query("void"))
         this_object()->delete("area_info");
     // GMCP
     if (me && interactive(me))

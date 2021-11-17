@@ -901,14 +901,17 @@ int look_room_item(object me, string arg)
     }
     if (mapp(exits = env->query("exits")) && !undefinedp(exits[arg]))
     {
-        if (objectp(env = find_object(exits[arg])))
-            look_room(me, env, 0);
-        else
+        if (stringp(exits[arg]))
         {
-            call_other(exits[arg], "???");
-            look_room(me, find_object(exits[arg]), 0);
+            if (objectp(env = find_object(exits[arg])))
+                look_room(me, env, 0);
+            else
+            {
+                call_other(exits[arg], "???");
+                look_room(me, find_object(exits[arg]), 0);
+            }
+            return 1;
         }
-        return 1;
     }
     return notify_fail("你要看什么？\n");
 }
