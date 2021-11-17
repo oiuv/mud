@@ -417,7 +417,7 @@ int chat()
 
         if (arrayp(msg = query(is_fighting()? "chat_msg_combat": "chat_msg")))
         {
-                if (random(120) < chance)
+                if (random(100) < chance)
                 {
                         rnd = random(sizeof(msg));
                         if (stringp(msg[rnd]))
@@ -432,14 +432,21 @@ int chat()
 // Default chat function: Let the npc random move to another room.
 int random_move()
 {
-        mapping exits;
-        string *dirs;
+    mapping exits;
+    string *dirs;
 
-        if (! mapp(exits = environment()->query("exits")) ||
-            ! sizeof(exits))
-                return 0;
+    if (environment()->is_area())
+    {
+        if (!(dirs = environment()->query_exits(this_object()->query("area_info/x_axis"), this_object()->query("area_info/y_axis"))))
+            return 0;
+    }
+    else
+    {
+        if (!mapp(exits = environment()->query("exits")))
+            return 0;
         dirs = keys(exits);
-        command("go " + dirs[random(sizeof(dirs))]);
+    }
+    command("go " + element_of(dirs));
 }
 
 // Default chat function: Let the npc cast his/her enabled spells

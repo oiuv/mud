@@ -56,12 +56,10 @@
 #define COMBAT_D        "/adm/daemons/combatd"
 #define COMMAND_D       "/adm/daemons/commandd"
 #define CONFIG_D        "/adm/daemons/configd"
-#define CORE_TIME_D     "/adm/daemons/time_d"
 #define CPU_D           "/adm/daemons/cpud"
 #define DBASE_D         "/adm/daemons/dbased"
 #define EMOTE_D         "/adm/daemons/emoted"
 #define ENCHASE_D       "/adm/daemons/enchased"
-#define ENV_D           "/adm/daemons/env_d"
 #define EVENT_D         "/adm/daemons/eventd"
 #define EXAMINE_D       "/adm/daemons/examined"
 #define FAMILY_D        "/adm/daemons/familyd"
@@ -129,7 +127,6 @@
 #define CHALLENGER      "/inherit/char/challenger"
 #define CHARACTER       "/inherit/char/char"
 #define COMBINED_ITEM   "/inherit/item/combined"
-#define DATABASE        "/inherit/misc/database.c"
 #define EQUIP           "/inherit/misc/equip"
 #define FIGHTER         "/inherit/char/fighter"
 #define FORCE           "/inherit/skill/force"
@@ -229,5 +226,8 @@
 
 // 记录指令耗时
 // #define PROFILE_COMMANDS
+
+// 引用框架头文件(放在最后)
+#include <mudcore.h>
 
 #endif /* GLOBALS_H */

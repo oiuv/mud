@@ -201,17 +201,18 @@ varargs int move(mixed dest, int raw)
     if (ob)
         ob->add_encumbrance(weight());
     // 如果由area移出, 在這做move_out動作
-    if (environment() && environment()->is_area())
+    if (env && env->is_area())
     {
         mapping info;
         info = this_object()->query("area_info");
-        environment()->move_out(info["x_axis_old"], info["y_axis_old"], this_object());
+        env->move_out(info["x_axis_old"], info["y_axis_old"], this_object());
     }
     // Move & run INIT function
     move_object(ob);
+    // 可能在移动进目标环境后被destruct，所以需要判断me
     // 如果移入的不是區域，則刪除area_info
-    if (!ob->is_area() && !ob->query("void"))
-        this_object()->delete("area_info");
+    if (me && !ob->is_area() && !ob->query("void"))
+        me->delete("area_info");
     // GMCP
     if (me && interactive(me))
     {
@@ -221,6 +222,7 @@ varargs int move(mixed dest, int raw)
     return 1;
 }
 
+// destruct时调用
 varargs void remove(string euid)
 {
     object me;
@@ -262,32 +264,43 @@ varargs void remove(string euid)
     // Leave environment
     if (objectp(ob = environment()))
     {
-        ob->add_encumbrance(-weight());
-
-        if (ob->is_character() && ob->query_temp("handing") == me)
-            // remove handing when destruct the object
-            ob->delete_temp("handing");
-
-        if (is_magic_move() && userp(ob))
+        // 區域使用
+        if (ob->is_area())
         {
-            if (ob->visible(this_object()))
-                tell_object(ob, HIM "你忽然觉得身上好像轻了一"
-                                    "些。\n" NOR);
+            ob->move_out(me->query("area_info/x_axis"),
+                         me->query("area_info/y_axis"), me);
+        }
+        else
+        {
+            ob->add_encumbrance(-weight());
 
-            if (userp(me))
+            if (ob->is_character() && ob->query_temp("handing") == me)
+                // remove handing when destruct the object
+                ob->delete_temp("handing");
+
+            if (is_magic_move() && userp(ob))
             {
-                // One user enter another user
-                ob->add_temp("person_in_you", -1);
-                if (ob->query_temp("person_in_you") <= 0)
-                    ob->delete_temp("person_in_you");
+                if (ob->visible(this_object()))
+                    tell_object(ob, HIM "你忽然觉得身上好像轻了一"
+                                        "些。\n" NOR);
+
+                if (userp(me))
+                {
+                    // One user enter another user
+                    ob->add_temp("person_in_you", -1);
+                    if (ob->query_temp("person_in_you") <= 0)
+                        ob->delete_temp("person_in_you");
+                }
             }
         }
     }
 
+    // 移除当前对象中所有的延时函数
+    remove_call_out();
+
     // We only care about our own weight here, since remove() is called once
     // on each destruct(), so our inventory (encumbrance) will be counted as
     // well.
-
     // if (default_ob = me->query_default_object())
     //     //default_ob->add("no_clean_up", -1);
     //     default_ob->set("no_clean_up", 0);
