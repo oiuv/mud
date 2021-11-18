@@ -231,6 +231,7 @@ mapping query_security(string para)
         return ([
             "/":        ({ "(admin)" }),
             "/d":       ({ "(arch)" }),
+            "/world":   ({ "(arch)" }),
             "/clone":   ({ "(arch)" }),
             "/kungfu":  ({ "(arch)" }),
         ]);
@@ -477,7 +478,7 @@ int valid_write(string file, mixed user, string func)
 
     path = explode(file, "/");
 
-    if (path[0] == "world" && (file == base_name(user) + ".ansi" || file == base_name(user) + ".html"))
+    if (path[0] == "world" && (explode(file, ".")[ < 1] == "ansi" || file == base_name(user) + ".html"))
         return 1;
 
     // I will check all the path, why ? because the more deeply, the
