@@ -281,9 +281,9 @@ int main(object me, string arg)
     if (type == "icon")
     {
         value = ansi(value);
-        if (sizeof(remove_ansi(value)) != 2)
+        if (sizeof(remove_ansi(value)) != 1)
         {
-            write("設定座標上的icon必需是二個字元大小。\n");
+            write("設定座標上的icon必需是一個字符或汉字。\n");
             return 1;
         }
     }
