@@ -44,6 +44,7 @@
 #define _DIR_WP_        "/world/wp/"
 
 // Daemons
+#define AREA_PATTERN_D  "/adm/daemons/areapatternd.c"
 #define ALIAS_D         "/adm/daemons/aliasd"
 #define BACKUP_D        "/adm/daemons/backupd"
 #define BAN_D           "/adm/daemons/band"
