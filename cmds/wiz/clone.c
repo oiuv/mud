@@ -104,6 +104,17 @@ int main(object me, string arg)
         write(obj->name(1) + "复制成功，放在你的物品栏。\n");
         message_vision(msg + "\n", me, obj);
     }
+    else if (environment(me)->is_area())
+    {
+        if (area_move(environment(me), obj, me->query("area_info/x_axis"), me->query("area_info/y_axis")))
+        {
+            write(obj->name(1) + "複製成功﹐放在這個房間。\n");
+            message_vision(msg + "\n", me, obj);
+            return 1;
+        }
+        destruct(obj);
+        return notify_fail("无法复制不能移动的物件(" + file + ")。\n");
+    }
     else if (obj->move(environment(me)))
     {
         write(obj->name(1) + "复制成功，放在这个房间。\n");

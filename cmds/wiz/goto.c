@@ -37,8 +37,8 @@ int main(object me, string arg)
         */
         if (!(obj = load_object(arg)))
         {
-            if (file_size(arg) >= 0)
-                return me->move(arg);
+            // if (file_size(arg) >= 0)
+            //     return me->move(arg);
             return notify_fail("没有这个玩家、生物、或地方。\n");
         }
     }
@@ -80,7 +80,8 @@ int main(object me, string arg)
     }
 
     me->set_magic_move();
-    if (!me->move(obj))
+    // todo 修改支持传送进area环境
+    if (obj->is_area() || !me->move(obj))
     {
         msg = HIM "你的遁术失败了。\n" NOR;
         tell_object(me, msg);

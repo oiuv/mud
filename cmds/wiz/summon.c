@@ -11,10 +11,13 @@ int main(object me, string arg)
 
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
         return "/cmds/usr/summon"->main(me, arg);
-    ;
 
     if (!arg)
         return notify_fail("指令格式: Summon <player id> | <object>\n");
+    if (environment(me)->is_area())
+    {
+        return notify_fail(FCC(208) "这里暂不支持召唤。\n" NOR);
+    }
 
     str = arg;
     ob = find_player(str);

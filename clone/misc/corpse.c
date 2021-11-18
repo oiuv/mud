@@ -211,7 +211,23 @@ int make_corpse(object victim, object killer)
     env = environment(victim);
     while (env && environment(env))
         env = environment(env);
-    move(env);
+    // 移动corpse到victim位置
+    if (env->is_area())
+    {
+        if (!area_move(env, this_object(), victim->query("area_info/x_axis"), victim->query("area_info/y_axis")))
+        {
+            destruct();
+            return 0;
+        }
+    }
+    else
+    {
+        if (!move(env))
+        {
+            destruct();
+            return 0;
+        }
+    }
     set_temp("handing", victim->query_temp("handing"));
     if (victim->query("can_speak"))
     {

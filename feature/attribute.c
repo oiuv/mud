@@ -8,104 +8,119 @@
 
 int query_str()
 {
-        mapping sk;
-        int str;
-        int tat;
-        int improve = 0;
+    mapping sk;
+    int str;
+    int tat;
+    int improve = 0;
 
-        tat = query("tattoo/tattoo_str");
-        tat += query("reborn/str");
-        str = query("str");
+    tat = query("tattoo/tattoo_str");
+    tat += query("reborn/str");
+    str = query("str");
 
-        if (! mapp(sk = query_skills()))
-                return str;
+    if (!mapp(sk = query_skills()))
+        return str;
 
-        improve = (int)sk["unarmed"];
-        if (improve < (int) sk["cuff"]) improve = sk["cuff"];
-        if (improve < (int) sk["finger"]) improve = sk["finger"];
-        if (improve < (int) sk["strike"]) improve = sk["strike"];
-        if (improve < (int) sk["hand"]) improve = sk["hand"];
-        if (improve < (int) sk["claw"]) improve = sk["claw"];
+    improve = (int)sk["unarmed"];
+    if (improve < (int)sk["cuff"])
+        improve = sk["cuff"];
+    if (improve < (int)sk["finger"])
+        improve = sk["finger"];
+    if (improve < (int)sk["strike"])
+        improve = sk["strike"];
+    if (improve < (int)sk["hand"])
+        improve = sk["hand"];
+    if (improve < (int)sk["claw"])
+        improve = sk["claw"];
 
-        return str + tat + (improve / 10) + query_temp("apply/str");
+    return str + tat + (improve / 10) + query_temp("apply/str");
 }
 
 int query_int()
 {
-        mapping sk;
-        int str;
-        int tat;
-        int improve = 0;
+    mapping sk;
+    int str;
+    int tat;
+    int improve = 0;
 
-        tat = query("tattoo/tattoo_int");
-        tat += query("reborn/int");
-        str = query("int");
+    tat = query("tattoo/tattoo_int");
+    tat += query("reborn/int");
+    str = query("int");
 
-        if (! mapp(sk = query_skills()))
-                return str;
+    if (!mapp(sk = query_skills()))
+        return str;
 
-        improve = (int)sk["literate"];
+    improve = (int)sk["literate"];
 
-        return str + tat + (improve / 10) + query_temp("apply/int");
+    return str + tat + (improve / 10) + query_temp("apply/int");
 }
 
 int query_con()
 {
-        mapping sk;
-        int str;
-        int tat;
-        int improve = 0;
+    mapping sk;
+    int str;
+    int tat;
+    int improve = 0;
 
-        tat = query("tattoo/tattoo_con");
-        tat += query("reborn/con");
-        str = query("con");
+    tat = query("tattoo/tattoo_con");
+    tat += query("reborn/con");
+    str = query("con");
 
-        if (! mapp(sk = query_skills()))
-                return str;
+    if (!mapp(sk = query_skills()))
+        return str;
 
-        improve = (int)sk["force"];
+    improve = (int)sk["force"];
 
-        return str + tat + (improve / 10) + query_temp("apply/con");
+    return str + tat + (improve / 10) + query_temp("apply/con");
 }
 
 int query_dex()
 {
-        mapping sk;
-        int str;
-        int tat;
-        int improve = 0;
+    mapping sk;
+    int str;
+    int tat;
+    int improve = 0;
 
-        tat = query("tattoo/tattoo_dex");
-        tat += query("reborn/dex");
-        str = query("dex");
+    tat = query("tattoo/tattoo_dex");
+    tat += query("reborn/dex");
+    str = query("dex");
 
-        if (! mapp(sk = query_skills()))
-                return str;
+    if (!mapp(sk = query_skills()))
+        return str;
 
-        improve = (int)sk["dodge"];
+    improve = (int)sk["dodge"];
 
-        return str + tat + (improve / 10) + query_temp("apply/dex");
+    return str + tat + (improve / 10) + query_temp("apply/dex");
 }
 
 int query_per()
 {
-        int per;
-        int age;
-        int tat;
+    int per;
+    int age;
+    int tat;
 
-        tat = query("tattoo/tattoo_per");
+    tat = query("tattoo/tattoo_per");
 
-        per = (int)query("per") + tat + query_temp("apply/per");
+    per = (int)query("per") + tat + query_temp("apply/per");
 
-        if (query("special_skill/youth"))
-                return per;
-
-        age = query("age");
-
-        if (age > 70) per -= 6; else
-        if (age > 60) per -= 5; else
-        if (age > 50) per -= 4; else
-        if (age > 40) per -= 3; else
-        if (age > 30) per -= 2;
+    if (query("special_skill/youth"))
         return per;
+
+    age = query("age");
+
+    if (age > 70)
+        per -= 6;
+    else if (age > 60)
+        per -= 5;
+    else if (age > 50)
+        per -= 4;
+    else if (age > 40)
+        per -= 3;
+    else if (age > 30)
+        per -= 2;
+    return per;
+}
+
+int query_level()
+{
+    return to_int(pow(to_float(query("combat_exp") * 10), 1.0 / 3)) + 1;
 }

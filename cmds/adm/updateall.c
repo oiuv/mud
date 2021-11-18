@@ -59,13 +59,13 @@ int update_dir(object me, string dir, int continueable, int *total)
     int l;
     int filecount, compcount;
     mixed *file;
-    string filename;
+    string filename, *exclude;
 
     if (!is_root(previous_object()))
         return 0;
     // 不编译lib版本控制目录
-    if (dir == "/.git/" || dir == "/.vscode/" || dir == "/cygdrive/" || dir == "/dev/" || dir == "/proc/" || dir == "/backup/" || dir == "/bin/" || dir == "/binaries/" || dir == "/data/" || dir == "/doc/" || dir == "/dump/" || dir == "/grant/" || dir == "/help/" || dir == "/log/" || dir == "/version/")
-
+    exclude = ({"/.git/", "/.vscode/", "/backup/", "/bin/", "/binaries/", "/doc/", "/dump/", "/grant/", "/help/", "/log/", "/temp/", "/version/", "/www/"});
+    if (member_array(dir, exclude) > -1)
         return 1;
 
     file = get_dir(dir, -1);

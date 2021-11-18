@@ -41,7 +41,11 @@ int main(object me, string str)
 
     if (me->is_ghost())
         return notify_fail("等你还了阳再召唤吧。\n");
-
+    // todo 针对area地区优化
+    if (environment(me)->is_area())
+    {
+        return notify_fail(FCC(208) "这里暂不支持召唤。\n" NOR);
+    }
     ob = load_object(str);
     if (! ob || ! ob->receive_summon(me))
     {

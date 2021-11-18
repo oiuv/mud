@@ -64,7 +64,7 @@ string get_icon(int x, int y)
     else if (icon[coord] >= 31)
         return HIR "♀" NOR;
     else if (icon[coord] >= 1)
-        return "〥";
+        return "?";
     else
         return "  ";
 }

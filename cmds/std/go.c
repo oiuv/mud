@@ -350,18 +350,19 @@ int do_room_move(object me, object env, string arg)
                 obs->init();
         }
         else
-            return notify_fail("移动失败！\n");
+            return notify_fail("移动失败！！\n");
     }
     else if (!me->move(obj))
         return notify_fail("移动失败！\n");
     else if (!my_env["invisible"])
         message("vision", min, obj, ({me}));
 
-    me->remove_all_enemy(1);
     map_delete(my_temp, "pending");
-
+    // 因为移动到目标环境后可能被destruct，需判断me还在不在
     if (!objectp(me))
         return 1;
+
+    me->remove_all_enemy(1);
     if (living(me))
     {
         me->add("state/go", 1);
@@ -403,7 +404,7 @@ int do_area_move(object me, object env, string dir)
             return 1;
         }
         else
-            dir = area_exits[random(sizeof(area_exits))];
+            dir = element_of(area_exits);
     }
 
     if (member_array(dir, area_exits) == -1)
@@ -417,11 +418,9 @@ int do_area_move(object me, object env, string dir)
 
     if (me->is_fighting())
     {
-        int move, chance;
+        int chance;
         object *enemy, obj;
         enemy = me->query_enemy() - ({0});
-
-        move = me->query_ability("move");
 
         foreach (obj in enemy)
         {
@@ -445,7 +444,7 @@ int do_area_move(object me, object env, string dir)
         }
     }
 
-    // 檢查area是否合法的移動
+    // 檢查area是否合法的移動并通过valid_leave实现移动
     if (function_exists("valid_leave", env) && !env->valid_leave(me, dir))
         return 1;
 
@@ -475,6 +474,7 @@ int do_area_move(object me, object env, string dir)
 
         // 對進入的座標做init()動作
         obs = new_env->query_inventory(info["x_axis"], info["y_axis"]);
+        // 本质上还在一个环境中，需要主动调用init()
         if (sizeof(obs) > 1)
             obs->init();
     }

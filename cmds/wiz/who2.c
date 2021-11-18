@@ -40,7 +40,7 @@ int main(object me, string str)
         str += sprintf(HIY "%-20s ", admin ? query_ip_name(ob) : "--------");
         if (where)
             str += sprintf(HIM "%s" NOR "(" HIC "%s" NOR ")\n",
-                           where->query("short"),
+                           where->query("short")||where->query("name"),
                            file_name(where));
         else
             str += sprintf("\n" NOR);

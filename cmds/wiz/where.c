@@ -32,7 +32,7 @@ int main(object me, string str)
     write(sprintf("%s(%s)现在在%s(%s).\n",
                   (string)ob->name(1),
                   (string)ob->query("id"),
-                  (string)where->short(),
+                  (string)where->short()||where->query("name"),
                   (string)file_name(where)));
     return 1;
 }
