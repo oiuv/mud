@@ -579,28 +579,28 @@ varargs string show_area(int x, int y, int type)
     else
         y_start = y - 5;
 
-    if (x <= 18 || x_size <= 36)
+    if (x <= 19 || x_size <= 38)
         x_start = 0;
-    else if (x >= x_size - 18)
-        x_start = x_size - 36;
+    else if (x >= x_size - 19)
+        x_start = x_size - 38;
     else
-        x_start = x - 18;
+        x_start = x - 19;
 
     // 建立即時地圖
-    msg = sprintf(BBLU "╲" U " %-21s %s (%2d,%2d) " NOR + BBLU "╱\n" NOR,
+    msg = sprintf(BBLU "╲" U " %-59s %s (%3d,%3d) " NOR + BBLU "╱\n" NOR,
                   query("name") + (area[y][x]["short"] ? " - " + area[y][x]["short"] : ""),
                   (area[y][x]["no_fight"] ? "非戰區" : "戰鬥區"), x, y, );
 
     for (i = y_start; i < y_size && i < y_start + 11; i++)
     {
         msg += BBLU " |" NOR;
-        for (j = x_start; j < x_size && j < x_start + 36; j++)
+        for (j = x_start; j < x_size && j < x_start + 38; j++)
         {
             if (y == i && x == j)
-                msg += HIY "☺️" NOR;
+                msg += HIY "👤" NOR;
             else if (undefinedp(area[i][j]["icon"]) &&
                      (!undefinedp(area[i][j]["room_exit"]) || !undefinedp(area[i][j]["area_exit"])))
-                msg += HIW "◎" NOR;
+                msg += HIW "💒" NOR;
             else
             {
                 int check = 1;
@@ -630,12 +630,12 @@ varargs string show_area(int x, int y, int type)
                     {
                         if (area[i][j]["block"])
                         {
-                            msg += "■";
+                            msg += "口";
                             check = 0;
                         }
                         else
                         {
-                            msg += " ";
+                            msg += "  ";
                             check = 0;
                         }
                     }
@@ -643,13 +643,13 @@ varargs string show_area(int x, int y, int type)
 
                 // 圖形未定
                 if (check)
-                    msg += area[i][j]["icon"] ? area[i][j]["icon"] : " ";
+                    msg += area[i][j]["icon"] ? area[i][j]["icon"] : "  ";
             }
         }
         msg += BBLU "| " NOR;
         msg += "\n";
     }
-    msg += BBLU "╱￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣╲\n" NOR;
+    msg += BBLU "╱" + repeat_string("￣", 39) + "╲\n" NOR;
 
     if ((type & 1) == 1)
         return msg;

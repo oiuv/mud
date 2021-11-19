@@ -12,9 +12,9 @@ private mapping getIcon()
 {
     string color = BBLU+HIK;
     mapping icon = ([
-        0: ({ color +"╔"NOR, color +"═"NOR, color +"╗"NOR }),
-        1: ({ color +"║"NOR, color +"  "NOR, color +"║"NOR }),
-        2: ({ color +"╚"NOR, color +"。"NOR, color +"╝"NOR }),
+        0: ({ color +"╔="NOR, color +"=="NOR, color +"=╗"NOR }),
+        1: ({ color +"║ "NOR, color +"  "NOR, color +" ║"NOR }),
+        2: ({ color +"╚="NOR, color +"门"NOR, color +"=╝"NOR }),
     ]);
 
     return icon;

@@ -122,31 +122,35 @@ int do_drop(object me, object obj, int raw)
         tell_object(me, "这里东西太多了，你乱丢恐怕" + obj->name() + "就找不到了。\n");
         return 0;
     }
-
-    if (obj->move(environment(me)))
+    if (environment(me)->is_area())
     {
-        if (obj->is_character() && obj->query_weight() > 20000)
-            message_vision("$N将$n从背上放了下来，躺在地上。\n", me, obj);
-        else
-        {
-            if (!raw)
-                message_vision(sprintf("$N丢下一%s$n。\n",
-                               obj->query("unit")),
-                               me, obj);
-            else
-                write("你丢下了一" + obj->query("unit") +
-                      obj->name() + "\n");
-
-            if (!obj->is_character() && !obj->query("value") && !obj->value())
-            {
-                write("因为这样东西并不值钱，所以人们并不会注意到它的存在。\n");
-                destruct(obj);
-            }
-        }
-        return 1;
+        if (!move_side(obj, me))
+            return 0;
+    }
+    else if (!obj->move(environment(me)))
+    {
+        return 0;
     }
 
-    return 0;
+    if (obj->is_character() && obj->query_weight() > 20000)
+        message_vision("$N将$n从背上放了下来，躺在地上。\n", me, obj);
+    else
+    {
+        if (!raw)
+            message_vision(sprintf("$N丢下一%s$n。\n",
+                            obj->query("unit")),
+                            me, obj);
+        else
+            write("你丢下了一" + obj->query("unit") +
+                    obj->name() + "\n");
+
+        if (!obj->is_character() && !obj->query("value") && !obj->value())
+        {
+            write("因为这样东西并不值钱，所以人们并不会注意到它的存在。\n");
+            destruct(obj);
+        }
+    }
+    return 1;
 }
 
 int help(object me)

@@ -11,9 +11,9 @@ string getName() { return "房子[9格], 出口[南], 藍底亮白框 "; }
 private mapping getIcon()
 {
     mapping icon = ([
-        0: ({ BBLU+HIW"╔"NOR, BBLU+HIW"═"NOR, BBLU+HIW"╗"NOR }),
-        1: ({ BBLU+HIW"║"NOR, BBLU+HIW"  "NOR, BBLU+HIW"║"NOR }),
-        2: ({ BBLU+HIW"╚"NOR, BBLU+HIW"。"NOR, BBLU+HIW"╝"NOR }),
+        0: ({ BBLU+HIW"╔="NOR, BBLU+HIW"=="NOR, BBLU+HIW"=╗"NOR }),
+        1: ({ BBLU+HIW"║ "NOR, BBLU+HIW"  "NOR, BBLU+HIW" ║"NOR }),
+        2: ({ BBLU+HIW"╚="NOR, BBLU+HIW"门"NOR, BBLU+HIW"=╝"NOR }),
     ]);
 
     return icon;
