@@ -567,7 +567,8 @@ varargs string show_area(int x, int y, int type)
 {
     int i, j, x_start, y_start, x_size, y_size;
     string msg;
-
+    // 非utf-8编码下只显示block
+    if (query_encoding() != "utf-8") type = 4;
     // 決定顯示地圖的Y軸起點, X軸起點
     y_size = sizeof(area);
     x_size = sizeof(area[0]);
@@ -597,10 +598,10 @@ varargs string show_area(int x, int y, int type)
         for (j = x_start; j < x_size && j < x_start + 38; j++)
         {
             if (y == i && x == j)
-                msg += HIY "👤" NOR;
+                msg += (type != 4) ? "😃" : HIY "你" NOR;
             else if (undefinedp(area[i][j]["icon"]) &&
                      (!undefinedp(area[i][j]["room_exit"]) || !undefinedp(area[i][j]["area_exit"])))
-                msg += HIW "💒" NOR;
+                msg += (type != 4) ? "💒" : HIW "◎" NOR;
             else
             {
                 int check = 1;
@@ -620,7 +621,7 @@ varargs string show_area(int x, int y, int type)
                         if (area[i][j]["_BUILDING_"])
                         {
                             if (!area[i][j]["_BUILDING_FILE_"])
-                                msg += "。";
+                                msg += "十";
                             else
                                 msg += area[i][j]["icon"];
                             check = 0;

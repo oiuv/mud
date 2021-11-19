@@ -58,15 +58,15 @@ string get_icon(int x, int y)
     string coord;
     coord = (string)x + "," + (string)y;
     if (icon[coord] >= 9999)
-        return "😇";
+        return HIY "😇" NOR;
     else if (icon[coord] == 520)
-        return HIM " ♀" NOR;
+        return HIM "‍💃" NOR;
     else if (icon[coord] == 512)
-        return HIG " ♀" NOR;
+        return HIG "🕴️" NOR;
     else if (icon[coord] >= 31)
-        return HIR " ♀" NOR;
+        return HIC "♀ " NOR;
     else if (icon[coord] >= 1)
-        return " ?";
+        return "❔";
     else
         return "  ";
 }
