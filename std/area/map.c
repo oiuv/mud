@@ -654,7 +654,7 @@ varargs string show_area(int x, int y, int type)
     if ((type & 1) == 1)
         return msg;
     else
-        return SAVEC + CUU(99) + CNL(1) + msg + RESTC;
+        return SAVEC + CUP(2,1) + msg + RESTC;
 }
 
 varargs string show_objects(int x, int y, int type)
