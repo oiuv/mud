@@ -82,6 +82,7 @@
 /* Additional ansi Esc codes added to ansi.h by Gothic  april 23,1993 */
 /* Note, these are Esc codes for VT100 terminals, and emmulators */
 /*          and they may not all work within the mud             */
+#define ICH(n) CSI + n + "@"                 /* Insert n blank characters*/
 #define CUU(n) CSI + n + "A"                 /* （Cursor Up）光标向上移动n（默认1）格。如果光标已在屏幕边缘，则无效 */
 #define CUD(n) CSI + n + "B"                 /* （Cursor Down）光标向下移动n（默认1）格。如果光标已在屏幕边缘，则无效 */
 #define CUF(n) CSI + n + "C"                 /* （Cursor Forward）光标向右移动n（默认1）格。如果光标已在屏幕边缘，则无效 */
@@ -89,13 +90,19 @@
 #define CNL(n) CSI + n + "E"                 /* （Cursor Next Line）光标移动到下面第n（默认1）行的开头 */
 #define CPL(n) CSI + n + "F"                 /* （Cursor Previous Line）光标移动到上面第n（默认1）行的开头 */
 #define CHA(n) CSI + n + "G"                 /* （Cursor Horizontal Absolute）光标水平移动到第n（默认1）列 */
-#define CUP(x, y) CSI + x + ";" + y + "H"    /* 將 cursor 移至第 x 行第 y 列（Cursor Position） */
+#define CUP(x, y) CSI + x + ";" + y + "H"    /* （Cursor Position）將 cursor 移至第 x 行第 y 列 */
+#define ED(n) CSI + n + "J"                  /* （Erase Display）0 erase from cursor to end of display, 1 erase from start of display to cursor, 2 erase display*/
+#define EL(n) CSI + n + "K"                  /* （Erase Line）0 erase from cursor to end of line, 1 erase from start of line to cursor, 2 erase line*/
+#define IL(n) CSI + n + "L"                  /* Insert n blank lines*/
+#define DL(n) CSI + n + "M"                  /* Delete n lines*/
+#define DCH(n) CSI + n + "P"                 /* Delete n characters*/
+#define SPU(n) CSI + n + "S"                 /* Scroll whole page up by n (default 1) lines. */
+#define SPD(n) CSI + n + "T"                 /* Scroll whole page down by n (default 1) lines. */
+#define ECH(n) CSI + n + "X"                 /* Erase n characters*/
 #define HOME CSI "H"                         /* Send cursor to home position */
 #define CLR CSI "2J"                         /* Clear the screen  */
 #define ECL CSI "2K"                         /* Erase entire line. Cursor position does not change. */
 #define REF CLR + HOME                       /* Clear screen and home cursor */
-#define SPU(n) CSI + n + "S"                 /* Scroll whole page up by n (default 1) lines. */
-#define SPD(n) CSI + n + "T"                 /* Scroll whole page down by n (default 1) lines. */
 #define FREEZE(x, y) CSI + x + ";" + y + "r" /* Freeze 住從 x 到 y 這幾行作為 screen */
 #define FRTOP CSI "2;25r"                    /* Freeze top line */
 #define FRBOT CSI "1;24r"                    /* Freeze bottom line */
