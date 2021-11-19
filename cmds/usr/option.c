@@ -43,30 +43,6 @@ int main(object me, string arg)
             me->delete ("option/" + term);
         else
             me->set("option/" + term, v);
-        if (term == "map_unfreeze")
-        {
-            if (environment(me)->is_area())
-            {
-                if (!v)
-                {
-                    me->set_temp("window/freeze", 1);
-                    write(CLR + FREEZE(14, me->query_temp("window/height")));
-                }
-                else
-                {
-                    me->delete_temp("window/freeze");
-                    write(SAVEC + FREEZE("", "") + RESTC);
-                }
-            }
-            else
-            {
-                if (v)
-                {
-                    me->delete_temp("window/freeze");
-                    write(SAVEC + FREEZE("", "") + RESTC);
-                }
-            }
-        }
     }
     else
         return notify_fail("指令格式：option <選項> <設定值>\n");

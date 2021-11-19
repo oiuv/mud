@@ -600,7 +600,7 @@ varargs string show_area(int x, int y, int type)
                 msg += HIY "☺️" NOR;
             else if (undefinedp(area[i][j]["icon"]) &&
                      (!undefinedp(area[i][j]["room_exit"]) || !undefinedp(area[i][j]["area_exit"])))
-                msg += HIW "。" NOR;
+                msg += HIW "◎" NOR;
             else
             {
                 int check = 1;
@@ -654,7 +654,7 @@ varargs string show_area(int x, int y, int type)
     if ((type & 1) == 1)
         return msg;
     else
-        return SAVEC + HOME + msg + RESTC;
+        return SAVEC + CUU(99) + CNL(1) + msg + RESTC;
 }
 
 varargs string show_objects(int x, int y, int type)
