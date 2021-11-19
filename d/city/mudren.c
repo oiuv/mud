@@ -33,9 +33,9 @@ LONG );
     ]));
     set("exits", ([
         "south" : __DIR__"zuixianlou",
-        "enter" : ([ "filename" : _DIR_WORLD_"world.c",
-                     "x_axis" : 49,
-                     "y_axis" : 49,
+        "enter" : ([ "filename" : _DIR_AREA_"1/wild.c",
+                     "x_axis" : 55,
+                     "y_axis" : 5,
                 ]),
     ]));
     setup();

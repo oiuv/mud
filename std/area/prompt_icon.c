@@ -14,11 +14,11 @@ mapping query_icon() { return icon; }
 int get_icon_weight(object ob)
 {
     if (wizardp(ob))
-        return 9999;
+        return 1024;
     else if (userp(ob))
         return ob->query("gender") == "女性" ? 520 : 512;
     else if (living(ob))
-        return 128;
+        return 64;
     else if (objectp(ob))
         return 1;
     else
@@ -57,13 +57,13 @@ string get_icon(int x, int y)
 {
     string coord;
     coord = (string)x + "," + (string)y;
-    if (icon[coord] >= 9999)
+    if (icon[coord] >= 1024)
         return HIY "😇" NOR;
     else if (icon[coord] == 520)
-        return HIM "‍💃" NOR;
+        return HIM "♀ " NOR;
     else if (icon[coord] == 512)
-        return HIG "🕴️" NOR;
-    else if (icon[coord] >= 31)
+        return HIG "♀ " NOR;
+    else if (icon[coord] >= 64)
         return HIC "♀ " NOR;
     else if (icon[coord] >= 1)
         return "❔";
