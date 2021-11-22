@@ -169,5 +169,5 @@ object present(mixed arg, object ob)
         return 0;
     }
     else
-        return efun::present(arg, ob);
+        return ob ? efun::present(arg, ob) : efun::present(arg);
 }
