@@ -142,7 +142,7 @@ int area_move(object area, object who, int x, int y)
 // 覆寫mudos present函式
 object present(mixed arg, object ob)
 {
-    if (ob->is_area())
+    if (ob && ob->is_area())
     {
         int p = 0, index;
         object *obs, t;
