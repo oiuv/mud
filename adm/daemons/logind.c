@@ -1014,10 +1014,10 @@ varargs void enter_world(object ob, object user, int silent)
         }
     }
     // 针对老玩家的提醒
-    if (ob->query("ad_password")[0..2] != "$6$")
-    {
-        tell_object(this_player(), HBRED "\n你的管理密码没有升级为SHA512加密，为了账号安全请使用" HIY " passwd " NOR HBRED "修改管理密码。" NOR "\n");
-    }
+    // if (ob->query("ad_password")[0..2] != "$6$")
+    // {
+    //     tell_object(this_player(), HBRED "\n你的管理密码没有升级为SHA512加密，为了账号安全请使用" HIY " passwd " NOR HBRED "修改管理密码。" NOR "\n");
+    // }
     /*
     // 检查是否有新邮件未读
     new_mail_n = get_info(user->query("id"), "newmail", "", 0);
