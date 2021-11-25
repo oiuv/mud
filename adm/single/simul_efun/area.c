@@ -142,7 +142,22 @@ int area_move(object area, object who, int x, int y)
 // 覆寫mudos present函式
 object present(mixed arg, object ob)
 {
-    if (ob && ob->is_area())
+    if (!ob)
+    {
+        if (stringp(arg))
+        {
+            // 返回名为arg的对象
+            return efun::present(arg, previous_object()) || efun::present(arg, environment(previous_object()));
+        }
+        if (objectp(arg))
+        {
+            // 返回对象arg的环境
+            return efun::present(arg, previous_object()) && previous_object() || efun::present(arg, environment(previous_object())) && environment(previous_object());
+        }
+        error("参数 arg 必须是 object 或 string 类型");
+    }
+
+    if (ob->is_area())
     {
         int p = 0, index;
         object *obs, t;
@@ -169,5 +184,5 @@ object present(mixed arg, object ob)
         return 0;
     }
     else
-        return ob ? efun::present(arg, ob) : efun::present(arg);
+        return efun::present(arg, ob);
 }
