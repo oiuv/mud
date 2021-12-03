@@ -21,7 +21,7 @@ int area_environment(object ob1, object ob2)
 }
 
 // 將who移到與me同一格的位置
-int move_side(object who, object me)
+int area_move_side(object who, object me)
 {
     int env_area = 0, x, y;
     object area;

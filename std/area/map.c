@@ -1,8 +1,6 @@
 /* map.c write by -Acme-
-   這裡負責地圖的顯示、物件的移動以及一些設定等等。
+   這裡負責地圖的顯示、对象的移動以及一些設定等等。
 */
-
-// #pragma save_binary
 
 #include <area.h>
 #include <ansi.h>
@@ -10,11 +8,11 @@
 
 inherit AREA_PROMPT_ICON;
 
-// 區域座標資料(座標物件、圖樣...)
+// 區域座標資料(座標对象、圖樣...)
 mixed *area;
 
 // Location Of Objects
-// 所有存在物件的座標另成一個集合，以方便快速查找
+// 所有存在对象的座標另成一個集合，以方便快速查找
 string *LOO = ({});
 
 // 不能用一般設定方法的項目 (區域形式的出口，要用特別的方式設定)
@@ -28,7 +26,7 @@ varargs int do_look(object me, string arg);
 ////////////////////////////////////////////////////////////
 // 一般設定、檢查、查詢
 ////////////////////////////////////////////////////////////
-// 傳回有物件存在的座標集
+// 傳回有对象存在的座標集
 string *query_LOO() { return LOO; }
 // 加入一個座標元素在LOO集中
 void add_LOO(string location)
@@ -72,7 +70,7 @@ mapping *query_info(int x, int y)
     return area[y][x];
 }
 
-// 查詢某座標載入的物件
+// 查詢某座標載入的对象
 mapping query_loaded(int x, int y)
 {
     if (!check_scope(x, y))
@@ -80,7 +78,7 @@ mapping query_loaded(int x, int y)
     return area[y][x]["loaded"];
 }
 
-// 查詢區域中某座標的物件集
+// 查詢區域中某座標的对象集
 //mapping *query_inventory(int x, int y)
 object *query_inventory(int x, int y)
 {
@@ -244,18 +242,18 @@ int is_move(int x, int y)
     return 0;
 }
 
-// 物件移入某座標處理
+// 对象移入某座標處理
 int move_in(int x, int y, object ob)
 {
     // 超出區域大小範圍
     if (!check_scope(x, y))
         return 0;
 
-    // 該座標沒有物件集(objects)，則將物件集設為空
+    // 該座標沒有对象集(objects)，則將对象集設為空
     if (undefinedp(area[y][x]["objects"]))
         area[y][x]["objects"] = ({});
 
-    // 一格最多容納30個物件
+    // 一格最多容納30個对象
     /*
     if (sizeof(area[y][x]["objects"]) >= 30)
     {
@@ -263,11 +261,11 @@ int move_in(int x, int y, object ob)
         return 0;
     }
     */
-    // 物件已經存在物件集(objects)中，就不需要再加入物件集
+    // 对象已經存在对象集(objects)中，就不需要再加入对象集
     if (member_array(ob, area[y][x]["objects"]) != -1)
         return 1;
 
-    // 物件加入物件集中
+    // 对象加入对象集中
     area[y][x]["objects"] += ({ob});
 
     // 改變即時的圖示
@@ -279,28 +277,28 @@ int move_in(int x, int y, object ob)
     return 1;
 }
 
-// 物件移出某座標處理
+// 对象移出某座標處理
 int move_out(int x, int y, object ob)
 {
     // 超出區域大小範圍
     if (!check_scope(x, y))
         return 0;
 
-    // 該座標沒有物件集(objects)
+    // 該座標沒有对象集(objects)
     if (undefinedp(area[y][x]["objects"]))
         return 1;
 
     // 改變即時的圖示
     set_icon_weight(x, y, -get_icon_weight(ob));
 
-    // 物件不存在於物件集(objects)中，就不需要再移出物件集
+    // 对象不存在於对象集(objects)中，就不需要再移出对象集
     if (member_array(ob, area[y][x]["objects"]) == -1)
         return 1;
 
-    // 物件移出物件集
+    // 对象移出对象集
     area[y][x]["objects"] -= ({ob});
 
-    // 座標完全沒物件時，刪除物件集
+    // 座標完全沒对象時，刪除对象集
     if (sizeof(area[y][x]["objects"]) < 1)
     {
         map_delete(area[y][x], "objects");
@@ -312,7 +310,7 @@ int move_out(int x, int y, object ob)
 }
 
 // 進行移動
-// 物件是否合法的在區域中移動
+// 对象是否合法的在區域中移動
 int valid_leave(object ob, string dir)
 {
     int x, y, x_past, y_past;
@@ -460,10 +458,10 @@ int valid_leave(object ob, string dir)
     //////////////////////////////
     // 在區域中移動
     //////////////////////////////
-    // 物件移出舊座標
+    // 对象移出舊座標
     if (move_out(x_past, y_past, ob))
     {
-        // 物件移入新座標
+        // 对象移入新座標
         if (move_in(x, y, ob))
         {
             ob->set("area_info/x_axis", x);
@@ -473,7 +471,7 @@ int valid_leave(object ob, string dir)
         }
         else
         {
-            // 物件移入失敗，退回原座標
+            // 对象移入失敗，退回原座標
             move_in(x_past, y_past, ob);
             return 0;
         }
@@ -650,7 +648,7 @@ varargs string show_area(int x, int y, int type)
         msg += BBLU "| " NOR;
         msg += "\n";
     }
-    msg += BBLU "╱" + repeat_string("￣", 39) + "╲\n" NOR;
+    msg += BBLU "╱" + repeat_string("￣", 39) + "╲" NOR;
 
     if ((type & 1) == 1)
         return msg;
@@ -685,7 +683,7 @@ varargs string show_objects(int x, int y, int type)
             str += sprintf("  %s\n", ob->short());
     }
 
-    /*  debug 用
+    /* debug
     whos = all_inventory(this_object());
     str += sprintf("\n====== Environment_Objects (%d) ======\n", sizeof(whos));
     for (i = 0; i < sizeof(whos); i++)
@@ -756,17 +754,17 @@ varargs int do_look(object me, string arg)
         exits = query_exits(info["x_axis"], info["y_axis"], 1);
         if ((i = sizeof(exits)))
         {
-            str += "這裡的出口有 ";
+            str += "這裡的出口有 " NOR;
             while (i--)
                 str += exits[i] + (i ? "、" : "。\n");
         }
         else
             str += "這裡沒有任何出口。\n";
     }
-    // 顯示物件
+    // 顯示对象
     if (!option["map_obj_hidden"])
         str += show_objects(info["x_axis"], info["y_axis"], 0);
-    message("vision", str, me);
+    message("MAP", str, me);
 
     return 1;
 }
@@ -842,7 +840,7 @@ int map_html_save()
     msg += "<head>\n";
     msg += "<title>" + this_object()->query("name") + "</title>\n";
     msg += "</head>\n";
-    msg += "<body bgcolor=000000><font size=2 face=細明體>\n";
+    msg += "<body style=\"background-color: #000\">\n";
     for (i = 0; i < y; i++)
     {
         for (j = 0; j < x; j++)
@@ -853,12 +851,11 @@ int map_html_save()
             {
                 tmp = replace_string(area[i][j]["icon"], "  ", "　");
                 msg += color_to_html(tmp);
-                msg += "</span>";
             }
         }
-        msg += "\n<br>";
+        msg += "<br>\n";
     }
-    msg += "</font></body>\n</html>";
+    msg += "\n</body>\n</html>";
 
     if (!write_file(file + ".html", msg, 1))
     {

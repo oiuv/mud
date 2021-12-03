@@ -124,7 +124,7 @@ int do_drop(object me, object obj, int raw)
     }
     if (environment(me)->is_area())
     {
-        if (!move_side(obj, me))
+        if (!area_move_side(obj, me))
             return 0;
     }
     else if (!obj->move(environment(me)))
