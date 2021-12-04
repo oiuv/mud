@@ -94,7 +94,12 @@ varargs object make_corpse(object victim, object killer)
         inv -= ({0});
         i = sizeof(inv);
         while (i--)
-            inv[i]->move(environment(victim));
+        {
+            if (environment(victim)->is_area())
+                area_move_side(inv[i], victim);
+            else
+                inv[i]->move(environment(victim));
+        }
         return 0;
     }
 

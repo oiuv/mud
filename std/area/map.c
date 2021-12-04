@@ -653,7 +653,7 @@ varargs string show_area(int x, int y, int type)
     if ((type & 1) == 1)
         return msg;
     else
-        return SAVEC + CUP(2,1) + msg + RESTC;
+        return SAVEC + CUP(1,1) + msg + RESTC;
 }
 
 varargs string show_objects(int x, int y, int type)
@@ -666,7 +666,7 @@ varargs string show_objects(int x, int y, int type)
 
     if (sizeof(area[y][x]["objects"]) >= 30)
         return "這裡的東西太多，一時看不清楚...\n";
-
+    // todo 增加排序
     foreach (ob in area[y][x]["objects"])
     {
         if (ob == this_player())
@@ -742,12 +742,6 @@ varargs int do_look(object me, string arg)
     if (option["map_build"])
         op = op | 8;
 
-    // 顯示地圖
-    if (!option["map_hidden"])
-    {
-        str = show_area(info["x_axis"], info["y_axis"], op);
-    }
-
     // 出口提示
     if (!option["map_exits_hidden"])
     {
@@ -764,8 +758,12 @@ varargs int do_look(object me, string arg)
     // 顯示对象
     if (!option["map_obj_hidden"])
         str += show_objects(info["x_axis"], info["y_axis"], 0);
-    message("MAP", str, me);
-
+    message("vision", str, me);
+    // 顯示地圖
+    if (!option["map_hidden"])
+    {
+        message("MAP", show_area(info["x_axis"], info["y_axis"], op), me);
+    }
     return 1;
 }
 

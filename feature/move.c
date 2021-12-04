@@ -99,21 +99,16 @@ varargs int move(mixed dest, int raw)
     {
         if (raw && environment(ob))
         {
-            message_vision("由于$n对于$N而言是在"
-                           "是太重了，只好先扔在一旁。\n",
-                           ob, this_object());
+            message_vision("由于$n对于$N而言是在是太重了，只好先扔在一旁。\n", ob, this_object());
             ob = environment(ob);
         }
         else if (ob == this_player())
         {
-            return notify_fail(this_object()->name() +
-                               "对你而言太重了。\n");
+            return notify_fail(this_object()->name() + "对你而言太重了。\n");
         }
         else
         {
-            return notify_fail(this_object()->name() +
-                               "对" + ob->name() +
-                               "而言太重了。\n");
+            return notify_fail(this_object()->name() + "对" + ob->name() + "而言太重了。\n");
         }
     }
 
@@ -125,8 +120,7 @@ varargs int move(mixed dest, int raw)
         if (env != ob && magic_move && userp(env))
         {
             if (env->visible(me))
-                tell_object(env, HIM "你忽然觉得身上好像轻了一"
-                                     "些。\n" NOR);
+                tell_object(env, HIM "你忽然觉得身上好像轻了一些。\n" NOR);
 
             if (userp(me))
             {
@@ -188,8 +182,7 @@ varargs int move(mixed dest, int raw)
     if (magic_move && userp(ob))
     {
         if (ob->visible(this_object()))
-            tell_object(ob, HIM "你忽然觉得身上好像重了一"
-                                "些。\n" NOR);
+            tell_object(ob, HIM "你忽然觉得身上好像重了一些。\n" NOR);
 
         if (userp(this_object()))
             ob->add_temp("person_in_you", 1);
@@ -210,11 +203,20 @@ varargs int move(mixed dest, int raw)
     // Move & run INIT function
     move_object(ob);
     // 可能在移动进目标环境后被destruct，所以需要判断me
+    if (!me)
+        return -1;
     // 如果移入的不是區域或虚空，則刪除area_info
-    if (me && !ob->is_area() && !ob->query("void"))
+    if (!ob->is_area() && !ob->query("void"))
         me->delete("area_info");
+    // debug：对没有用area_move到area的移动到随机坐标
+    if (ob->is_area() && !me->query("area_info"))
+    {
+        debug_message(sprintf("%O -> %O", me, ob));
+        me->set("area_info/x_axis", random(ob->query("x_axis_size")));
+        me->set("area_info/y_axis", random(ob->query("y_axis_size")));
+    }
     // GMCP
-    if (me && interactive(me))
+    if (interactive(me))
     {
         me->gmcp("Room.Info.Get");
     }
@@ -281,8 +283,7 @@ varargs void remove(string euid)
             if (is_magic_move() && userp(ob))
             {
                 if (ob->visible(this_object()))
-                    tell_object(ob, HIM "你忽然觉得身上好像轻了一"
-                                        "些。\n" NOR);
+                    tell_object(ob, HIM "你忽然觉得身上好像轻了一些。\n" NOR);
 
                 if (userp(me))
                 {

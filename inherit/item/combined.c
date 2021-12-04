@@ -55,7 +55,10 @@ varargs int move(mixed dest, int silent)
         if (objectp(env))
         {
             file = base_name(this_object());
-            inv = all_inventory(env);
+            if (env->is_area())
+                inv = env->query_inventory(query("area_info/x_axis"), query("area_info/y_axis"));
+            else
+                inv = all_inventory(env);
             total = (int)query_amount();
             for (i = 0; i < sizeof(inv); i++)
             {

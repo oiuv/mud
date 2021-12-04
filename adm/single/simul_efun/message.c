@@ -9,6 +9,7 @@ varargs void message_vision(string msg, object me, object you)
 {
     string my_gender, your_gender, my_name, your_name;
     string str1, str2, str3;
+    object env;
 
     if (!me)
         return;
@@ -40,9 +41,12 @@ varargs void message_vision(string msg, object me, object you)
 
     message("vision", str1, me);
 
-    if (environment(me))
+    if (env = environment(me))
     {
-        message("vision", str3, all_inventory(environment(me)), ({me, you}));
+        if (env->is_area())
+            message("vision", str3, env->query_inventory(me->query("area_info/x_axis"), me->query("area_info/y_axis")), ({ me, you }));
+        else
+           message("vision", str3, all_inventory(env), ({ me, you }));
     }
 }
 
@@ -299,26 +303,12 @@ string query_fail_msg()
     return this_player()->query_temp("notify_fail");
 }
 
+// 针对area模式的tell_room
 varargs void tell_area(mixed area, int x, int y, string str, object *exclude)
 {
     if (area && area->is_area())
     {
-        object *obs, ob;
-        if (!area->check_scope(x, y))
-            return;
-        obs = area->query_inventory(x, y);
-        foreach (ob in obs)
-        {
-            if (objectp(ob))
-            {
-                if (exclude)
-                {
-                    if (member_array(ob, exclude) == -1)
-                        message("vision", str, ob, exclude);
-                }
-                else
-                    message("vision", str, ob, 0);
-            }
-        }
+        object *obs = area->query_inventory(x, y);
+        message("tell_area", str, obs, exclude);
     }
 }

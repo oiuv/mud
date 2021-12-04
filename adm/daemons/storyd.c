@@ -204,11 +204,19 @@ void give_gift(string gift, int amount, string msg)
         if (!objectp(env))
             return;
 
-        tell_room(env, msg);
         while (amount-- > 0)
         {
             ob = new (gift);
-            ob->move(env);
+            if (env->is_area())
+            {
+                area_move_side(ob, pob);
+                tell_area(env, pob->query("area_info/x_axis"), pob->query("area_info/y_axis"), msg);
+            }
+            else
+            {
+                ob->move(env);
+                tell_room(env, msg);
+            }
         }
         CHANNEL_D->do_channel(this_object(), "sys", sprintf(NOR WHT "赠品%s" NOR WHT "掉到了" HIC "%s" NOR WHT "(%O" NOR WHT ")。" NOR, ob->name(), env->short(), env));
     }

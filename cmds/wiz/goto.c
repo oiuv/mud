@@ -46,7 +46,10 @@ int main(object me, string arg)
     if (!goto_inventory)
     {
         if (environment(obj))
-            obj = environment(obj);
+        {
+            if (!environment(obj)->is_area())
+                obj = environment(obj);
+        }
         else
         {
             if (obj->is_character())
@@ -69,7 +72,12 @@ int main(object me, string arg)
         tell_object(me, HIG "你化作清风而去。\n" NOR);
     else
         tell_object(me, HIY "你化作长虹而去。\n" NOR);
-
+    // 修改支持传送进area环境
+    if (environment(obj) && environment(obj)->is_area())
+    {
+        area_move_side(me, obj);
+        return 1;
+    }
     if (env && !me->query("env/invisible"))
     {
         if (!stringp(msg = me->query("env/msg_mout")))
@@ -80,8 +88,7 @@ int main(object me, string arg)
     }
 
     me->set_magic_move();
-    // todo 修改支持传送进area环境
-    if (obj->is_area() || !me->move(obj))
+    if (!me->move(obj))
     {
         msg = HIM "你的遁术失败了。\n" NOR;
         tell_object(me, msg);
