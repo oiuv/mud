@@ -71,66 +71,66 @@ int valid_enable(string usage) { return usage == "hand" || usage == "parry"; }
 
 int valid_learn(object me)
 {
-        if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail("练大慈大悲手必须空手。\n");
+    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+        return notify_fail("练大慈大悲手必须空手。\n");
 
-        if ((int)me->query("max_neili") < 3500)
-                return notify_fail("你的内力不够。\n");
+    if ((int)me->query("max_neili") < 3500)
+        return notify_fail("你的内力不够。\n");
 
-        if ((int)me->query_skill("force") < 250)
-                return notify_fail("你的内功火候太浅。\n");
+    if ((int)me->query_skill("force") < 250)
+        return notify_fail("你的内功火候太浅。\n");
 
-        if ((int)me->query("dex") < 26 || (int)me->query("con") < 26)
-                return notify_fail("你的先天不足，无法理解大慈大悲手。\n");
+    if ((int)me->query("dex") < 26 || (int)me->query("con") < 26)
+        return notify_fail("你的先天不足，无法理解大慈大悲手。\n");
 
-        if ((int)me->query_skill("buddhism", 1) < 200)
-                return notify_fail("你对禅宗心法的知识了解太少，无法理解大慈大悲手。\n");
+    if ((int)me->query_skill("buddhism", 1) < 200)
+        return notify_fail("你对禅宗心法的知识了解太少，无法理解大慈大悲手。\n");
 
-        if ((int)me->query_skill("buddhism", 1) < (int)me->query_skill("dacidabei-shou",1) &&
-            (int)me->query_skill("buddhism", 1) < 300)
-                return notify_fail("你受禅宗心法知识的知识所限，难以进一步领悟大慈大悲手。\n");
+    if ((int)me->query_skill("buddhism", 1) < (int)me->query_skill("dacidabei-shou", 1) &&
+        (int)me->query_skill("buddhism", 1) < 300)
+        return notify_fail("你受禅宗心法知识的知识所限，难以进一步领悟大慈大悲手。\n");
 
-        if ((int)me->query_skill("hand", 1) < (int)me->query_skill("dashou-yin",1))
-                return notify_fail("你的基本手法水平有限，无法领会更高深的大慈大悲手。\n");
+    if ((int)me->query_skill("hand", 1) < (int)me->query_skill("dacidabei-shou", 1))
+        return notify_fail("你的基本手法水平有限，无法领会更高深的大慈大悲手。\n");
 
-        return 1;
+    return 1;
 }
 
 string query_skill_name(int level)
 {
-        int i;
-        for(i = sizeof(action)-1; i >= 0; i--)
-                if(level >= action[i]["lvl"])
-                        return action[i]["skill_name"];
+    int i;
+    for (i = sizeof(action) - 1; i >= 0; i--)
+        if (level >= action[i]["lvl"])
+            return action[i]["skill_name"];
 }
 
 mapping query_action(object me, object weapon)
 {
-        int i, level;
-                  level   = (int) me->query_skill("dashou-yin",1);
-        for(i = sizeof(action); i > 0; i--)
-                if(level > action[i-1]["lvl"])
-                        return action[NewRandom(i, 20, level/5)];
+    int i, level;
+    level = (int)me->query_skill("dacidabei-shou", 1);
+    for (i = sizeof(action); i > 0; i--)
+        if (level > action[i - 1]["lvl"])
+            return action[NewRandom(i, 20, level / 5)];
 }
 
 int practice_skill(object me)
 {
-        // object weapon; 
-        if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail("练「大慈大悲手」必须空手。\n");
+    // object weapon;
+    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+        return notify_fail("练「大慈大悲手」必须空手。\n");
 
-        if ((int)me->query("qi") < 100)
-                return notify_fail("你的体力不够，练不了大慈大悲手。\n");
+    if ((int)me->query("qi") < 100)
+        return notify_fail("你的体力不够，练不了大慈大悲手。\n");
 
-        if ((int)me->query("neili") < 100)
-                return notify_fail("你的内力不够，练不了大慈大悲手。\n");
+    if ((int)me->query("neili") < 100)
+        return notify_fail("你的内力不够，练不了大慈大悲手。\n");
 
-        me->receive_damage("qi", 60);
-        me->add("neili", -70);
-        return 1;
+    me->receive_damage("qi", 60);
+    me->add("neili", -70);
+    return 1;
 }
 
 string perform_action_file(string action)
 {
-        return __DIR__"dacidabei-shou/" + action;
+    return __DIR__ "dacidabei-shou/" + action;
 }
