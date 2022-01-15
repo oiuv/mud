@@ -1,131 +1,113 @@
 // top.c
 
 #include <ansi.h>
-#include <mudlib.h>
 
-inherit ITEM;
+#define U_ID 0
+#define U_NAME 1
+#define U_TITLE 2
+#define U_MASTER 3
+#define U_AGE 5
+#define U_QI 6
+#define U_JING 7
+#define U_NEILI 8
+#define U_JINGLI 9
+#define U_EXP 10
+#define U_KILL 11
+#define U_DIE 12
+#define U_UPDATED 13
 
-int top_list(object ob1, object ob2);
-int get_score(object ob);
-
-void init()
+int main(object me, string arg)
 {
-    add_action("do_view", "view");
-}
-
-int main(string arg)
-{
-    object *list, *ob, me;
-    int i;
+    int i = 0, top;
     int index = 0;
-    string msg, zhuans;
+    string msg;
+    mixed data;
+    string title;
 
     me = this_player();
 
     // 防止系统资源消耗过大，限时浏览。
-    if (!wizardp(me) && time() - me->query_temp("last_view") < 60)
-        return notify_fail(HIW "\n突然间英雄壁上一道光华闪过，使你"
-                               "难以辨清壁上的字迹。\n" NOR);
+    if (!wizardp(me) && time() - me->query_temp("last_view") < 15)
+        return notify_fail(HIW "\n排行榜更新中……请稍侯片刻。\n" NOR);
 
-    ob = filter_array(objects(), (: userp($1) && !wizardp($1) :));
-    list = sort_array(ob, (: top_list :));
+    if (member_array(arg, ({"age", "lv", "exp", "qi", "hp" ,"jing", "neili", "jingli", "kill", "die"})) < 0)
+    {
+        return notify_fail("目前只提供等级(top lv)/经验(top exp)/气血(top hp)/年龄(top age)/杀敌(top kill)等全服排行。\n");
+    }
+    if (arg == "lv" || arg == "exp") arg = "combat_exp";
+    if (arg == "hp")
+        arg = "qi";
 
-    msg = HIW "\n               ┏----『" HIG " 英 雄 壁 " HIW "』----┓\n";
+    switch (arg)
+    {
+    case "combat_exp":
+        top = U_EXP;
+        title = "经验等级";
+        break;
+    case "age":
+        top = U_AGE;
+        title = "游戏年龄";
+        break;
+    case "qi":
+        top = U_QI;
+        title = "气 血 值";
+        break;
+    case "jing":
+        top = U_JING;
+        title = "精 气 值";
+        break;
+    case "neili":
+        top = U_NEILI;
+        title = "内 力 值";
+        break;
+    case "jingli":
+        top = U_JINGLI;
+        title = "精 力 值";
+        break;
+    case "kill":
+        top = U_KILL;
+        title = "杀敌次数";
+        break;
+    case "die":
+        top = U_DIE;
+        title = "死亡次数";
+        break;
+
+    default:
+        top = U_UPDATED;
+        title = "活跃时间";
+        break;
+        break;
+    }
+
+    msg = HIW "\n               ┏----『" HIG " 英 雄 榜 " HIW "』----┓\n";
     msg += "┏------------------------------------------------┓\n";
-    msg += "┃ " HIG " 排 行 " HIW " │    " HIG "姓        名" HIW
-           "    │ " HIG "门  派" HIW " │ " HIG "评  价" HIW " ┃\n";
+    msg += "┃ " HIG "排 行" HIW "│ " HIG "姓    名" HIW
+           " │ " HIG "   称     号   " HIW " │  " HIG + title + HIW "  ┃\n";
     msg += "┠------------------------------------------------┨\n";
 
-    for (i = 0; i < 10; i++)
-    {
-        if (i >= sizeof(list) || list[i]->query("id") == 0 || get_score(list[i]) < 10) //ivy
+    data = CACHE_D->get(arg);
+
+    if (!sizeof(data))
+        msg += HIW "|        暂时空缺           无                -  |\n" NOR;
+    else
+        foreach(mixed user in data)
         {
-            msg += HIW "┃        暂时空缺              无             -  ┃\n" NOR;
-            continue;
-        }
-        if (list[i]->query("name") == me->query("name"))
-            index = i + 1;
-        if (list[i]->query("reborn/count"))
-            zhuans = "*";
-        else
-            zhuans = "";
-        msg += sprintf(HIW "┃" HIG "  %-5s %-22s%-10s %5d  " HIW "┃\n" NOR,
-                       chinese_number(i + 1),
-                       list[i]->query("name") + "(" +
-                           capitalize(list[i]->query("id")) + ")" + zhuans,
-                       list[i]->query("family") ? list[i]->query("family/family_name") : "江湖浪人",
-                       get_score(list[i]));
-    }
-    if (index == 0)
-        for (i = 10; i < sizeof(list); i++)
-        {
-            if (list[i]->query("name") == me->query("name"))
+            msg += sprintf(HIW "┃" HIG "  %-5d %-10s%|15s %12d  " HIW "┃\n" NOR,
+                    ++i,
+                    user[1],
+                    user[2],
+                    user[top]);
+            if (user[0] == me->query("id"))
             {
-                index = i + 1;
-                break;
+                index = i;
             }
         }
+    msg += HIW "┠------------------------------------------------┨\n" NOR;
 
-    msg += HIW "┗------------------------------------------------┛\n" NOR;
-    msg += HIG + NATURE_D->game_time() + "记。\n" NOR;
-    msg += WHT "英雄壁下面有一行小字刻着：" + me->query("name") + "，目前评价 " +
-           get_score(me);
-    if (index)
-    {
-        msg += "，排行第" + chinese_number(index) + "。\n" NOR;
-    }
-    else
-    {
-        msg += "。\n" NOR;
-    }
-
-    write(msg);
+    me->start_more(color_filter(msg));
+    // write(msg);
     me->set_temp("last_view", time());
+    tell_object(me, "\n" FCC(208) "提示：你的『" + title + "』在全服排行第 " + index + " 位。" NOR "\n");
     return 1;
-}
-
-int top_list(object ob1, object ob2)
-{
-    int score1, score2;
-
-    score1 = get_score(ob1);
-    score2 = get_score(ob2);
-
-    return score2 - score1;
-}
-
-int get_score(object ob)
-{
-    //int tlvl, i, score;
-    int tlvl, score;
-    //string *ski;
-    //mapping skills;
-
-    reset_eval_cost();
-
-    /*
-    //取消技能的加分权重，使评分更加合理并减轻系统负担
-    skills = ob->query_skills();
-
-    if (! sizeof(skills))
-            return 1;
-
-    ski  = keys(skills);
-    for(i = 0; i < sizeof(ski); i++)
-    {
-            tlvl += skills[ski[i]];
-    }
-    score = tlvl / 15;
-    */
-    //评分增加dodge,parry,force,martial-cognize
-    tlvl = (int)ob->query_skill("force", 1) + (int)ob->query_skill("dodge", 1) + (int)ob->query_skill("parry", 1) + (int)ob->query_skill("martial-cognize", 1);
-    score = tlvl;
-    score += ob->query("max_neili") / 30;
-    score += ob->query("max_jingli") / 30;
-    score += ob->query_str() +
-             ob->query_int() +
-             ob->query_dex() +
-             ob->query_con() - 80;
-    score += (int)ob->query("combat_exp") / 5000;
-    return score;
 }

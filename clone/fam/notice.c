@@ -15,7 +15,7 @@ void create()
         else {
                 set("long", GRN "\n这是一面由整块墨玉雕琢而成的英雄壁。上面"
                             "刻着当今武林中\n武功最为高强的十位英雄人物，你"
-                            "可以通过(view)来查阅排名。\n" NOR);
+                            "可以通过(view)来查阅排名。\n" NOR FCC(208)"提示：如需查询全服排行榜请使用top指令。\n"NOR);
                 set("no_get", "有没有错，连墙都想扛起来？\n");
                 set("unit", "面");
                 set("value", 1000000);
@@ -93,26 +93,10 @@ int top_list(object ob1, object ob2)
 
 int get_score(object ob)
 {
-        int tlvl/*, i*/, score;
-//      string *ski;
-//      mapping skills;
+        int tlvl, score;
 
         reset_eval_cost();
 
-        /*
-        //取消技能的加分权重，使评分更加合理并减轻系统负担
-        skills = ob->query_skills();
-
-        if (! sizeof(skills))
-                return 1;
-
-        ski  = keys(skills);
-        for(i = 0; i < sizeof(ski); i++)
-        {
-                tlvl += skills[ski[i]];
-        }
-        score = tlvl / 15;
-        */
         //评分增加dodge,parry,force,martial-cognize
         tlvl=(int)ob->query_skill("force",1) + (int)ob->query_skill("dodge",1) + (int)ob->query_skill("parry",1) + (int)ob->query_skill("martial-cognize",1);
         score = tlvl;

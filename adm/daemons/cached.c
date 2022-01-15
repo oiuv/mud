@@ -121,4 +121,15 @@ mixed delete(object user)
 
     return res;
 }
+
+varargs mixed get(string column, string order)
+{
+    mixed res;
+    column = column || "combat_exp";
+    order = order || "desc";
+
+    res = db->table("users")->orderBy(column, order)->get();
+
+    return res;
+}
 #endif
