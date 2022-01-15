@@ -80,11 +80,11 @@ int main(object me, string arg)
         break;
     }
 
-    msg = HIW "\n               ┏----『" HIG " 英 雄 榜 " HIW "』----┓\n";
-    msg += "┏------------------------------------------------┓\n";
-    msg += "┃ " HIG "排 行" HIW "│ " HIG "姓    名" HIW
-           " │ " HIG "   称     号   " HIW " │  " HIG + title + HIW "  ┃\n";
-    msg += "┠------------------------------------------------┨\n";
+    msg = HIW "\n                 ┏----『" HIG " 英 雄 榜 " HIW "』----┓\n";
+    msg += "┏-------------------------------------------------------┓\n";
+    msg += "┃ " HIG "排 行" HIW "| " HIG "姓    名" HIW
+           " | " HIG "    称          号    " HIW " |  " HIG + title + HIW "  ┃\n";
+    msg += "┠-------------------------------------------------------┨\n";
 
     data = CACHE_D->get(arg);
 
@@ -93,7 +93,7 @@ int main(object me, string arg)
     else
         foreach(mixed user in data)
         {
-            msg += sprintf(HIW "┃" HIG "  %-5d %-10s%|15s %12d  " HIW "┃\n" NOR,
+            msg += sprintf(HIW "┃" HIG "  %-5d %-12s%-20s %12d  " HIW "┃\n" NOR,
                     ++i,
                     user[1],
                     user[2],
@@ -103,7 +103,7 @@ int main(object me, string arg)
                 index = i;
             }
         }
-    msg += HIW "┠------------------------------------------------┨\n" NOR;
+    msg += HIW "┠-------------------------------------------------------┨\n" NOR;
 
     me->start_more(color_filter(msg));
     // write(msg);
