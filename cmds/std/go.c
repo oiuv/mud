@@ -444,8 +444,8 @@ int do_area_move(object me, object env, string dir)
         }
     }
 
-    // 檢查area是否合法的移動并通过valid_leave实现移动
-    if (function_exists("valid_leave", env) && !env->valid_leave(me, dir))
+    // 移动对象到区域指定方向
+    if (!env->moveObject(me, dir))
         return 1;
 
     new_env = environment(me);

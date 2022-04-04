@@ -13,7 +13,7 @@ mixed *area;
 
 // Location Of Objects
 // 所有存在对象的座標另成一個集合，以方便快速查找
-string *LOO = ({});
+nosave string *LOO = ({});
 
 // 不能用一般設定方法的項目 (區域形式的出口，要用特別的方式設定)
 string *set_data_resist = ({"objects", "loaded", "loads", "area_exit"});
@@ -309,9 +309,8 @@ int move_out(int x, int y, object ob)
     return 1;
 }
 
-// 進行移動
-// 对象是否合法的在區域中移動
-int valid_leave(object ob, string dir)
+// 移动指定对象到当前区域指定方向
+int moveObject(object ob, string dir)
 {
     int x, y, x_past, y_past;
     x_past = ob->query("area_info/x_axis");
@@ -482,6 +481,12 @@ int valid_leave(object ob, string dir)
         return 0;
 
     return 1;
+}
+// 移动对象（兼容性别名，不推荐使用）
+int valid_leave(object ob, string dir)
+{
+    debug_message("[警告]请使用 moveObject 方法代替 valid_leave");
+    return moveObject(ob, dir);
 }
 
 ////////////////////////////////////////////////////////////
@@ -683,18 +688,6 @@ varargs string show_objects(int x, int y, int type)
             str += sprintf("  %s\n", ob->short());
     }
 
-    /* debug
-    whos = all_inventory(this_object());
-    str += sprintf("\n====== Environment_Objects (%d) ======\n", sizeof(whos));
-    for (i = 0; i < sizeof(whos); i++)
-    {
-        str += sprintf("  %s(%s) -> (%d,%d)\n",
-                       whos[i]->query("name"),
-                       whos[i]->query("id"),
-                       whos[i]->query("area_info/x_axis"),
-                       whos[i]->query("area_info/y_axis"));
-    }
-    */
     return str;
 }
 

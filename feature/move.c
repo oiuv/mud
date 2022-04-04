@@ -99,16 +99,16 @@ varargs int move(mixed dest, int raw)
     {
         if (raw && environment(ob))
         {
-            message_vision("由于$n对于$N而言是在是太重了，只好先扔在一旁。\n", ob, this_object());
+            message_vision("由于$n对于$N而言是在是太重了，只好先扔在一旁。\n", ob, me);
             ob = environment(ob);
         }
         else if (ob == this_player())
         {
-            return notify_fail(this_object()->name() + "对你而言太重了。\n");
+            return notify_fail(me->name() + "对你而言太重了。\n");
         }
         else
         {
-            return notify_fail(this_object()->name() + "对" + ob->name() + "而言太重了。\n");
+            return notify_fail(me->name() + "对" + ob->name() + "而言太重了。\n");
         }
     }
 
@@ -181,10 +181,10 @@ varargs int move(mixed dest, int raw)
     // Enter environment
     if (magic_move && userp(ob))
     {
-        if (ob->visible(this_object()))
+        if (ob->visible(me))
             tell_object(ob, HIM "你忽然觉得身上好像重了一些。\n" NOR);
 
-        if (userp(this_object()))
+        if (userp(me))
             ob->add_temp("person_in_you", 1);
     }
     magic_move = 0;
@@ -197,8 +197,8 @@ varargs int move(mixed dest, int raw)
     if (env && env->is_area())
     {
         mapping info;
-        info = this_object()->query("area_info");
-        env->move_out(info["x_axis_old"], info["y_axis_old"], this_object());
+        info = me->query("area_info");
+        env->move_out(info["x_axis_old"], info["y_axis_old"], me);
     }
     // Move & run INIT function
     move_object(ob);
@@ -206,7 +206,7 @@ varargs int move(mixed dest, int raw)
     if (!me)
         return -1;
     // 如果移入的不是區域或虚空，則刪除area_info
-    if (!ob->is_area() && !ob->query("void"))
+    if (!ob->is_area() && me->query("area_info") && !ob->query("void"))
         me->delete("area_info");
     // debug：对没有用area_move到area的移动到随机坐标
     if (ob->is_area() && !me->query("area_info"))
@@ -242,7 +242,7 @@ varargs void remove(string euid)
         {
             // Failed to destruct
             log_file("destruct", sprintf("%s attempt to destruct user object %s (%s)\n",
-                                         euid, this_object()->query("id"),
+                                         euid, me->query("id"),
                                          ctime(time())));
             error("你(" + euid + ")不能摧毁其他的使用者。\n");
         }
@@ -282,7 +282,7 @@ varargs void remove(string euid)
 
             if (is_magic_move() && userp(ob))
             {
-                if (ob->visible(this_object()))
+                if (ob->visible(me))
                     tell_object(ob, HIM "你忽然觉得身上好像轻了一些。\n" NOR);
 
                 if (userp(me))
@@ -311,12 +311,13 @@ varargs void remove(string euid)
 
 varargs int move_or_destruct(object dest)
 {
-    if (userp(this_object()))
+    object me = this_object();
+    if (userp(me))
     {
-        tell_object(this_object(), HIW "\n霎时间一阵时空的扭曲将你传"
-                                       "送到另一个地方。\n\n" NOR);
+        tell_object(me, HIW "\n霎时间一阵时空的扭曲将你传"
+                            "送到另一个地方。\n\n" NOR);
         move(VOID_OB);
     }
-    else if (this_object()->is_db_saved())
-        this_object()->save();
+    else if (me->is_db_saved())
+        me->save();
 }

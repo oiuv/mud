@@ -233,17 +233,11 @@ void remove()
 int save()
 {
     int i, j, x_size, y_size;
-    string *LOO_BAK;
-    mapping ICON_BAK, LOADED_BAK, OBJECTS_BAK;
+    mapping LOADED_BAK, OBJECTS_BAK;
     mixed *AREA_BAK;
 
     // 存檔前將不需要儲取的變數清空，以免往後發生無法預期的錯誤
-    LOO_BAK = LOO;
-    ICON_BAK = icon;
     AREA_BAK = area;
-
-    LOO = ({});
-    icon = ([]);
 
     LOADED_BAK = ([]);
     OBJECTS_BAK = ([]);
@@ -270,8 +264,6 @@ int save()
     if (::save())
     {
         // 儲存完便還原
-        LOO = LOO_BAK;
-        icon = ICON_BAK;
         area = AREA_BAK;
 
         for (i = 0; i < y_size; i++)
