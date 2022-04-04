@@ -16,10 +16,10 @@ mixed *area;
 nosave string *LOO = ({});
 
 // 不能用一般設定方法的項目 (區域形式的出口，要用特別的方式設定)
-string *set_data_resist = ({"objects", "loaded", "loads", "area_exit"});
+nosave string *set_data_resist = ({"objects", "loaded", "loads", "area_exit"});
 
 // 不能用一般刪除方法的項目 (可能是區域管理用的項目或其它特別的項目)
-string *delete_data_resist = ({"objects", "loaded", "loads"});
+nosave string *delete_data_resist = ({"objects", "loaded", "loads"});
 
 varargs int do_look(object me, string arg);
 
