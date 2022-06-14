@@ -158,7 +158,7 @@ int accept_ask(object me, string topic)
                            "shen"    : -68000, ]));
                 break;
 
-                case "玄冥双行" :
+        case "玄冥双行" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/xuanming-zhang/xing",
                            "name"    : "玄冥双行",

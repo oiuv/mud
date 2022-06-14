@@ -6,7 +6,7 @@ inherit NPC;
 
 int is_worm()
 {
-        return 1;
+    return 1;
 }
 
 void setup()

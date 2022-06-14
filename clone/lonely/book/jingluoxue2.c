@@ -1,5 +1,5 @@
 #include <ansi.h>
- 
+
 inherit BOOK;
 
 void create()
@@ -20,7 +20,7 @@ void create()
                         "exp_required" : 600000,
                         "jing_cost"  : 90,
                         "difficulty" : 65,
-                        "max_skill"  : 200,
+                        "max_skill"  : 250,
                         "min_skill"  : 149
                 ]));
         }

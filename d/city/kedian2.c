@@ -14,7 +14,7 @@ LONG );
     ]));
 
     set("objects", ([
-                CLASS_D("shaolin") + "/xingzhe" : 1,
+        CLASS_D("shaolin") + "/xingzhe" : 1,
     ]));
     setup();
     replace_program(ROOM);

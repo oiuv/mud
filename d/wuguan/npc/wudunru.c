@@ -127,70 +127,70 @@ void init()
 
         if (interactive(ob = this_player())
            && ! is_fighting())
-    {
-            if (! ob || environment(ob) != environment())
-            return;
+        {
+                if (! ob || environment(ob) != environment())
+                        return;
 
-            if (ob->query("combat_exp") < 5000
-                  && ! ob->query("mark/guofu_ok")
-                  && ! ob->query("mark/guofu_over")
-                  && ! ob->query("mark/guofu_out"))
-        {
-                command("say 这位" + RANK_D->query_respect(ob) +
-                            "，武功这么差，怎么闯江湖呢？\n");
-                command("whisper " + ob->query("id") + " 现在正"
-                            "值兵荒马乱，这里正遭蒙\n古人的围攻，你"
-                            "还是别乱走动的好。我们郭府内正缺少人手"
-                            "打\n杂，你若有兴趣倒是可以进来 (" HIY
-                            "join 郭府" NOR + WHT ")帮帮忙，顺便学"
-                            "点\n基本功夫防身。不知" + RANK_D->query_respect(ob) +
-                            "意下如何？\n");
-        } else
-            if (ob->query("combat_exp") >= 40000
-                  && ob->query("mark/guofu_ok"))
-        {
-                command("look " + ob->query("id"));
-                command("haha");
-                command("whisper " + ob->query("id") + " 不错，"
+                if (ob->query("combat_exp") < 5000
+                      && ! ob->query("mark/guofu_ok")
+                      && ! ob->query("mark/guofu_over")
+                      && ! ob->query("mark/guofu_out"))
+                {
+                        command("say 这位" + RANK_D->query_respect(ob) +
+                                "，武功这么差，怎么闯江湖呢？\n");
+                        command("whisper " + ob->query("id") + " 现在正"
+                                "值兵荒马乱，这里正遭蒙\n古人的围攻，你"
+                                "还是别乱走动的好。我们郭府内正缺少人手"
+                                "打\n杂，你若有兴趣倒是可以进来 (" HIY
+                                "join 郭府" NOR + WHT ")帮帮忙，顺便学"
+                                "点\n基本功夫防身。不知" + RANK_D->query_respect(ob) +
+                                "意下如何？\n");
+                } else
+                if (ob->query("combat_exp") >= 40000
+                      && ob->query("mark/guofu_ok"))
+                {
+                        command("look " + ob->query("id"));
+                        command("haha");
+                        command("whisper " + ob->query("id") + " 不错，"
                                 "不错。想不到你的进展如\n此神速，再留在"
                                 "郭府已无多大用处，今后还是多去闯荡闯荡吧。\n");
 
-                ob->delete("mark/guofu_ok");
-                ob->set("mark/guofu_out", 1);
-                pot += ob->query("mark/guofu_job") * 2;        //潜能奖励与郭府工作次数相关
-                ob->add("combat_exp", exp);
-                ob->add("potential", pot);
-                ob->add("score", sc);
-                tell_object(ob, HIC "通过在郭府内的锻炼，你获得"
-                                "了" + chinese_number(exp) + "点"
-                                "经验、" + chinese_number(pot) +
-                                "点潜能\n以及" + chinese_number(sc)
-                                + "点江湖阅历，武技得到了提升。"
-                                "\n\n" NOR);
-        } else
-            if (ob->query("mark/guofu_over"))
-        {
-                command("sneer " + ob->query("id"));
-        } else
-            if (ob->query("mark/guofu_out"))
-        {
-                command("nod " + ob->query("id"));
-        } else
-            if (ob->query("combat_exp") > 20000
-                  && ! ob->query("mark/guofu_ok")
-                  && ! ob->query("mark/guofu_over")
-                  && ! ob->query("mark/guofu_out"))
-        {
-                command("hi " + ob->query("id"));
-                command("say 现襄阳正值动乱时期，不及招呼，还请恕罪。");
-        } else
-            if (ob->query("combat_exp") < 40000
-                  && ob->query("mark/guofu_ok"))
-        {
-                command("look " + ob->query("id"));
-                command("hmm");
-                command("say 赶快干活去，没事瞎溜达什么？");
-        }
+                                ob->delete("mark/guofu_ok");
+                                ob->set("mark/guofu_out", 1);
+                                pot += ob->query("mark/guofu_job") * 2;        //潜能奖励与郭府工作次数相关
+                                ob->add("combat_exp", exp);
+                                ob->add("potential", pot);
+                                ob->add("score", sc);
+                                tell_object(ob, HIC "通过在郭府内的锻炼，你获得"
+                                                                "了" + chinese_number(exp) + "点"
+                                                                "经验、" + chinese_number(pot) +
+                                                                "点潜能\n以及" + chinese_number(sc)
+                                                                + "点江湖阅历，武技得到了提升。"
+                                                                "\n\n" NOR);
+                } else
+                if (ob->query("mark/guofu_over"))
+                {
+                        command("sneer " + ob->query("id"));
+                } else
+                if (ob->query("mark/guofu_out"))
+                {
+                        command("nod " + ob->query("id"));
+                } else
+                if (ob->query("combat_exp") > 20000
+                      && ! ob->query("mark/guofu_ok")
+                      && ! ob->query("mark/guofu_over")
+                      && ! ob->query("mark/guofu_out"))
+                {
+                        command("hi " + ob->query("id"));
+                        command("say 现襄阳正值动乱时期，不及招呼，还请恕罪。");
+                } else
+                if (ob->query("combat_exp") < 40000
+                      && ob->query("mark/guofu_ok"))
+                {
+                        command("look " + ob->query("id"));
+                        command("hmm");
+                        command("say 赶快干活去，没事瞎溜达什么？");
+                }
         }
         add_action("do_join", "join");
         add_action("do_kill", "hit");
@@ -240,16 +240,16 @@ int do_join(string arg)
                                    "底要干什么？怎么说话吞吞吐吐"
                                    "的？\n" NOR);
 
-    if (ob->query("mark/guofu_over"))
+        if (ob->query("mark/guofu_over"))
                 return notify_fail(CYN "武敦儒冷笑道：师傅让你走"
                                    "开，你还赖在这里干嘛？\n" NOR);
 
-    if (ob->query("mark/guofu_ok"))
+        if (ob->query("mark/guofu_ok"))
                 return notify_fail(CYN "武敦儒皱眉道：你不是已经"
                                    "进来了吗？赶快干活去，罗嗦什"
                                    "么？\n" NOR);
 
-    if (ob->query("mark/guofu_out"))
+        if (ob->query("mark/guofu_out"))
                 return notify_fail(CYN "武敦儒微笑道：你现在的武"
                                    "功已经有一定的底子了，还是多"
                                    "闯荡闯荡吧。\n" NOR);
@@ -259,26 +259,26 @@ int do_join(string arg)
                                    "可太委屈你了，你还是另谋出路"
                                    "吧。\n" NOR);
 
-    if (ob->query_temp("mark/guofu_join"))
-    {
-            message_vision(HIC "\n$N" HIC "对$n" HIC "点了点"
+        if (ob->query_temp("mark/guofu_join"))
+        {
+                message_vision(HIC "\n$N" HIC "对$n" HIC "点了点"
                                "头，说道：甚好，甚好。入了郭府一"
                                "切就要\n按规矩办事，你现在去耶律"
                                "帮主那里，他会帮你安排事情的。\n"
                                "\n", this_object(), ob);
-        ob->set("mark/guofu_ok", 1);
+                ob->set("mark/guofu_ok", 1);
                 ob->set("startroom", "/d/wuguan/guofu_dayuan");
-        ob->delete_temp("mark/guofu_join");
-    } else
-    {
-            command("nod");
-            command("whisper " + ob->query("id") + " 你进郭"
+                ob->delete_temp("mark/guofu_join");
+        } else
+        {
+                command("nod");
+                command("whisper " + ob->query("id") + " 你进郭"
                         "府之后我们会确保你的安\n全，但是经验在"
                         HIW "四万" NOR + WHT "前不能离开郭府。如"
                         "果你决定下来了，请\n再输入一次此命令。"
                         "\n" NOR);
-        ob->set_temp("mark/guofu_join", 1);
-    }
+                ob->set_temp("mark/guofu_join", 1);
+        }
         return 1;
 }
 
@@ -286,64 +286,64 @@ int accept_fight(object who)
 {
         object ob = this_player();
 
-    if (ob->query("mark/guofu_ok"))
-    {
-            command("say 给我滚进去，跑到这里来瞎胡闹什么！");
-            return 0;
-    } else
-    {
-            command("say 我现在没空。\n");
-            return 0;
-    }
+        if (ob->query("mark/guofu_ok"))
+        {
+                command("say 给我滚进去，跑到这里来瞎胡闹什么！");
+                return 0;
+        } else
+        {
+                command("say 我现在没空。\n");
+                return 0;
+        }
 }
 
 int accept_hit(object who)
 {
         object ob = this_player();
 
-    if (ob->query("mark/guofu_ok"))
-    {
-            command("say 给我滚进去，跑到这里来瞎胡闹什么！");
-            return 0;
-    } else
-    {
-            command("say 找死。\n");
-            kill_ob(ob);
-            return 1;
-    }
+        if (ob->query("mark/guofu_ok"))
+        {
+                command("say 给我滚进去，跑到这里来瞎胡闹什么！");
+                return 0;
+        } else
+        {
+                command("say 找死。\n");
+                kill_ob(ob);
+                return 1;
+        }
 }
 
 int accept_kill(object who)
 {
         object ob = this_player();
 
-    if (ob->query("mark/guofu_ok"))
-    {
-            command("say 给我滚进去，跑到这里来瞎胡闹什么！");
+        if (ob->query("mark/guofu_ok"))
+        {
+                command("say 给我滚进去，跑到这里来瞎胡闹什么！");
                 return notify_fail("你还是不要轻举妄动为好。\n");
-    } else
-    {
-            command("say 找死。\n");
-            kill_ob(ob);
-            return 1;
-    }
+        } else
+        {
+                command("say 找死。\n");
+                kill_ob(ob);
+                return 1;
+        }
 }
 
 int accept_touxi(object who)
 {
         object ob = this_player();
 
-    if (ob->query("mark/guofu_ok"))
-    {
-            command("say 给我滚进去，跑到这里来瞎胡闹什么！");
+        if (ob->query("mark/guofu_ok"))
+        {
+                command("say 给我滚进去，跑到这里来瞎胡闹什么！");
                 return notify_fail("你还是不要轻举妄动为好。\n");
 
-    } else
-    {
-            command("say 找死。\n");
-            kill_ob(ob);
-            return 1;
-    }
+        } else
+        {
+                command("say 找死。\n");
+                kill_ob(ob);
+                return 1;
+        }
 }
 
 void recover()

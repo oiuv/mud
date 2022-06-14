@@ -68,27 +68,27 @@ void create()
         ]));
 
         create_family("武当派", 2, "弟子");
-        set("class", "taoist");
+    set("class", "taoist");
 
         set("inquiry", ([
                 "隔山打牛" : (: ask_skill1 :),
                 "太极初升" : (: ask_skill2 :),
         ]));
 
-        set("chat_chance_combat", 120);
-        set("chat_msg_combat", ({
-                (: perform_action, "sword.chan" :),
-                (: perform_action, "sword.jia" :),
-                (: perform_action, "sword.sui" :),
-                (: perform_action, "sword.zhuan" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "sword.chan" :),
+        (: perform_action, "sword.jia" :),
+        (: perform_action, "sword.sui" :),
+        (: perform_action, "sword.zhuan" :),
                 (: perform_action, "unarmed.zhen" :),
                 (: perform_action, "unarmed.zhan" :),
                 (: perform_action, "unarmed.ji" :),
                 (: perform_action, "unarmed.yin" :),
-                (: exert_function, "recover" :),
-                (: exert_function, "powerup" :),
-                (: exert_function, "shield" :),
-        }) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+        (: exert_function, "shield" :),
+    }) );
 
         setup();
         carry_object("/clone/weapon/changjian")->wield();

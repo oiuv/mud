@@ -140,7 +140,7 @@ mapping *action_finger = ({
         "skill_name" : "三阳开泰",
         "damage_type" : "内伤"
 ]),
-([      "action": " "RED" 一阳指之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 一阳指之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
         "attack" : (int)this_player()->query_skill("finger", 1)/4 + random((int)this_player()->query_skill("finger", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
@@ -200,115 +200,118 @@ int valid_enable(string usage)
 int valid_learn(object me)
 {
     if ((string)me->query("gender") != "男性")
-            return notify_fail("一阳指乃是纯阳玄功，你如何可以修习？\n");
+        return notify_fail("一阳指乃是纯阳玄功，你如何可以修习？\n");
 
-        if ((int)me->query("str") < 34)
-                return notify_fail("你的先天膂力欠佳，无法修炼一阳指。\n");
+    if ((int)me->query("con") < 34)
+        return notify_fail("你的先天根骨欠佳，无法修炼一阳指。\n");
 
-        if ((int)me->query("dex") < 30)
-                return notify_fail("你的先天身法不足，无法领会一阳指。\n");
+    if ((int)me->query("int") < 32)
+        return notify_fail("你的先天悟性不足，无法领会一阳指。\n");
 
-        if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail("练一阳指必须空手。\n");
+    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+        return notify_fail("练一阳指必须空手。\n");
 
-        if ((int)me->query_skill("force") < 240)
-                return notify_fail("你的内功火候不够，无法学一阳指。\n");
+    if ((int)me->query_skill("force") < 240)
+        return notify_fail("你的内功火候不够，无法学一阳指。\n");
 
-        if ((int)me->query("max_neili") < 2000)
-                return notify_fail("你的内力太弱，无法练一阳指。\n");
+    if ((int)me->query("max_neili") < 2000)
+        return notify_fail("你的内力太弱，无法练一阳指。\n");
 
-        if ((int)me->query_skill("finger", 1) < 150)
-                return notify_fail("你的基本指法火候不够，无法学一阳指。\n");
+    if ((int)me->query_skill("finger", 1) < 150)
+        return notify_fail("你的基本指法火候不够，无法学一阳指。\n");
 
-        if ((int)me->query_skill("finger", 1) < (int)me->query_skill("yiyang-zhi", 1))
-                return notify_fail("你的基本指法水平有限，无法领会更高深的一阳指。\n");
+    if ((int)me->query_skill("finger", 1) < (int)me->query_skill("yiyang-zhi", 1))
+        return notify_fail("你的基本指法水平有限，无法领会更高深的一阳指。\n");
 
-        return 1;
+    return 1;
 }
 
 string query_skill_name(int level)
 {
-        int i;
-        for(i = sizeof(action_finger)-1; i >= 0; i--)
-                if(level >= action_finger[i]["lvl"])
-                        return action_finger[i]["skill_name"];
+    int i;
+    for(i = sizeof(action_finger)-1; i >= 0; i--)
+        if(level >= action_finger[i]["lvl"])
+            return action_finger[i]["skill_name"];
 }
 
 mapping query_action(object me, object weapon)
 {
-        int i, level;
-        level = (int) me->query_skill("yiyang-zhi", 1);
+    int i, level;
+    level = (int) me->query_skill("yiyang-zhi", 1);
 
-        if ( ! weapon)
-        {
-             for(i = sizeof(action_finger); i > 0; i--)
-                     if(level >= action_finger[i-1]["lvl"])
-                             return action_finger[NewRandom(i, 20, level/5)];
-        }
-        else
-             for(i = sizeof(action_staff); i > 0; i--)
-                     if(level > action_staff[i-1]["lvl"])
-                             return action_staff[NewRandom(i, 20, level/5)];
+    if ( ! weapon)
+    {
+        for(i = sizeof(action_finger); i > 0; i--)
+            if(level >= action_finger[i-1]["lvl"])
+                return action_finger[NewRandom(i, 20, level/5)];
+    }
+    else
+    {
+        for(i = sizeof(action_staff); i > 0; i--)
+            if(level > action_staff[i-1]["lvl"])
+                return action_staff[NewRandom(i, 20, level/5)];
+    }
+
 }
 
 int practice_skill(object me)
 {
-        if ((int)me->query("qi") < 70)
-                return notify_fail("你的体力太低了。\n");
+    if ((int)me->query("qi") < 70)
+        return notify_fail("你的体力太低了。\n");
 
-        if ((int)me->query("neili") < 120)
-                return notify_fail("你的内力不够练一阳指!\n");
+    if ((int)me->query("neili") < 120)
+        return notify_fail("你的内力不够练一阳指!\n");
 
-        me->receive_damage("qi", 60);
-        me->add("neili", -100);
-        return 1;
+    me->receive_damage("qi", 60);
+    me->add("neili", -100);
+    return 1;
 }
 
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-          string name, weapon;
-          name = xue_name[random(sizeof(xue_name))];
+    string name, weapon;
+    name = xue_name[random(sizeof(xue_name))];
 
-          if (damage_bonus < 150)
-                return 0;
+    if (damage_bonus < 150)
+        return 0;
 
-          if (! objectp(weapon = me->query_temp("weapon")))
-          {
-                if ((me->query("neili") > 300)
-                      && me->query_skill("yiyang-zhi", 1) > 100
-                      && me->query_skill("jingluo-xue", 1) > 100)
-                {
-                    if (! victim->is_busy())
-                      victim->start_busy(2);
+    if (! objectp(weapon = me->query_temp("weapon")))
+    {
+        if ((me->query("neili") > 300)
+            && me->query_skill("yiyang-zhi", 1) > 100
+            && me->query_skill("jingluo-xue", 1) > 100)
+        {
+            if (! victim->is_busy())
+                victim->start_busy(2);
 
-                      me->add("neili", -50);
-                      victim->receive_wound("qi", (damage_bonus - 100) / 3, me);
+            me->add("neili", -50);
+            victim->receive_wound("qi", (damage_bonus - 100) / 3, me);
 
-                    if (victim->query("neili") <= (damage_bonus / 4 + 50))
-                        victim->set("neili", 0);
-                      else
-                            victim->add("neili", -damage_bonus / 4);
-                    return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "凌空一指点中" NOR +
-                                       HIY + name + NOR + HIR "，真气不由得一滞。\n" NOR;
-                }
-          } else
-          {
-                if ((me->query("neili") > 300)
-                   && me->query_skill("yiyang-zhi", 1) > 100
-                      && me->query_skill("jingluo-xue", 1) > 100
-                   && ! victim->is_busy())
-                {
-                    me->add("neili", -30);
-                      victim->receive_wound("qi", (damage_bonus - 100) / 4, me);
+            if (victim->query("neili") <= (damage_bonus / 4 + 50))
+                victim->set("neili", 0);
+            else
+                victim->add("neili", -damage_bonus / 4);
+            return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "凌空一指点中" NOR +
+                   HIY + name + NOR + HIR "，真气不由得一滞。\n" NOR;
+        }
+    }
+    else
+    {
+        if ((me->query("neili") > 300)
+            && me->query_skill("yiyang-zhi", 1) > 100
+            && me->query_skill("jingluo-xue", 1) > 100
+            && ! victim->is_busy())
+        {
+            me->add("neili", -30);
+            victim->receive_wound("qi", (damage_bonus - 100) / 4, me);
 
-                    return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "杖端发出的气劲刺中" NOR +
-                               HIY + name + NOR +HIR "，真气不由得一滞。\n" NOR;
-                }
-          }
-
+            return HIR "只听“嗤”的一声，$n" HIR "被$N" HIR "杖端发出的气劲刺中" NOR +
+                   HIY + name + NOR +HIR "，真气不由得一滞。\n" NOR;
+        }
+    }
 }
 
 string perform_action_file(string action)
 {
-          return __DIR__"yiyang-zhi/" + action;
+    return __DIR__"yiyang-zhi/" + action;
 }

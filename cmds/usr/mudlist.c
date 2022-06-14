@@ -62,7 +62,7 @@ int main(object me, string arg)
         muds = filter_array(muds, (: sscanf($1, $(arg) + "%*s") :));
 
     if (!sizeof(muds))
-        return notify_fail("目前本站并没有和这个 MUD 取得任何联系，你可以使用mudlist all嘗試。\n");
+        return notify_fail("目前本站并没有和这个 MUD 取得任何联系，你可以使用mudlist2查看更多。\n");
 
     //    Place mudlist into alphabetical format
     muds = sort_array(muds, 1);
@@ -80,10 +80,10 @@ int main(object me, string arg)
         if (undefinedp(mud_list[mudn]["USERS"]))
         {
             // continue;
-            mud_list[mudn]["USERS"] = "未知";
+            mud_list[mudn]["USERS"] = "--";
         }
 
-        if (!stringp(name = mud_list[mudn]["MUDNAME"]))
+        if (!stringp(name = mud_list[mudn]["MUDNAME"]) && !stringp(name = mud_list[mudn]["MUDLIB"]))
             name = "未知名称";
 
         // filter some ... strange ansi

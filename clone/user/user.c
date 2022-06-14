@@ -159,7 +159,6 @@ int save()
         set("sec_id", calc_sec_id()); // save sec_id
         res = ::save();
     }
-
     // 缓存到数据库
     if (env("CACHE_DATA"))
     {

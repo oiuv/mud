@@ -1,5 +1,5 @@
 // Copyright (C) 2003, by Lonely. All rights reserved.
-// Modified by Ivy (2013-11-30 22:56:59)
+// Modified by mudren (2013-11-30 22:56:59)
 // rideto.c
 
 #include <ansi.h>

@@ -39,11 +39,13 @@ int restore()
 
 int save()
 {
+//    int res;
+
         // this object (/inherit/room/buildroom) doesn't need to save
         if (base_name(this_object()) + ".c" == __FILE__)
                 return 0;
 
-        return ::save();
+    return ::save();
 }
 
 void setup()

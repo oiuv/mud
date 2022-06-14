@@ -43,12 +43,12 @@ void letter(object me)
         if (! me->query_temp("want_leave"))
                 return;
 
-        tell_object(me, WHT "  ┏━━━━━━┓\n"
+        tell_object(me, WHT "  ┏------------┓\n"
                             "  ┃观旁树林内有┃\n"
                             "  ┃本派密道能够┃\n"
                             "  ┃直通(" HIY "back" NOR + WHT ")峨┃\n"
                             "  ┃嵋华藏庵大殿┃\n"
-                            "  ┗━━━━━━┛\n" NOR);
+                            "  ┗------------┛\n" NOR);
 }
 
 int do_back()

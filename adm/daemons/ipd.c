@@ -1,4 +1,4 @@
-// mudren 2015年更新IP数据库
+// ivy 2015年更新IP数据库
 #include <ansi.h>
 string seek_ip_address(string ip)
 {

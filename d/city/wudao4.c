@@ -10,7 +10,7 @@ void create()
 坡山阵阵松涛哗哗作响，山脚下的平地绿草如茵，中间架起了
 个擂台，四周一溜过去搭着凉棚，棚中桌椅杯盆俱全。
 LONG);
-        set("outdoors", "city");
+    set("outdoors", "city");
     set("exits", ([
         "leitai"      : __DIR__"leitai",
         "north"       : __DIR__"ximenroad",
@@ -20,6 +20,6 @@ LONG);
     set("no_fight", 1);
     setup();
     "/clone/board/wudao_b"->foo();
-        init_here();
+    init_here();
     replace_program(__DIR__"underlt");
 }

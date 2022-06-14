@@ -75,10 +75,10 @@ LONG);
                 "流星火雨" : (: ask_skill1 :),
         ]));
 
-        set("coagents", ({
-                ([ "startroom" : "/d/xuedao/shandong3",
-                   "id" : "xuedao laozu" ]),
-        }));
+    set("coagents", ({
+        ([ "startroom" : "/d/xuedao/shandong3",
+           "id" : "xuedao laozu" ]),
+    }));
 
         setup();
         carry_object("/d/xueshan/obj/y-jiasha")->wear();

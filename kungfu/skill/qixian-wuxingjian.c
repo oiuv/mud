@@ -156,179 +156,179 @@ mapping *action_sword = ({
 
 int valid_enable(string usage)
 {
-        return usage == "unarmed"
-            || usage == "parry"
-            || usage == "sword"
-            || usage == "tanqin-jifa";
+    return usage == "unarmed"
+        || usage == "parry"
+        || usage == "sword"
+        || usage == "tanqin-jifa";
 }
 
 int valid_learn(object me)
 {
-        if ((int)me->query_skill("force") < 270)
-                return notify_fail("你的内功火候不够，无法修炼七弦无形剑。\n");
+    if ((int)me->query_skill("force") < 270)
+        return notify_fail("你的内功火候不够，无法修炼七弦无形剑。\n");
 
-        if ((int)me->query("max_neili") < 3000)
-                return notify_fail("你的内力太弱，无法修炼七弦无形剑。\n");
+    if ((int)me->query("max_neili") < 3000)
+        return notify_fail("你的内力太弱，无法修炼七弦无形剑。\n");
 
-        if ((int)me->query_skill("unarmed", 1) < 180)
-                return notify_fail("你的基本拳脚火候不够，无法修炼七弦无形剑。\n");
+    if ((int)me->query_skill("unarmed", 1) < 180)
+        return notify_fail("你的基本拳脚火候不够，无法修炼七弦无形剑。\n");
 
-        if ((int)me->query_skill("sword", 1) < 180)
-                return notify_fail("你的基本剑法火候不够，无法修炼七弦无形剑。\n");
+    if ((int)me->query_skill("sword", 1) < 180)
+        return notify_fail("你的基本剑法火候不够，无法修炼七弦无形剑。\n");
 
-        if ((int)me->query_skill("tanqin-jifa", 1) < 100)
-                return notify_fail("弹琴技法水平有限，无法修炼七弦无形剑。\n");
+    if ((int)me->query_skill("tanqin-jifa", 1) < 100)
+        return notify_fail("弹琴技法水平有限，无法修炼七弦无形剑。\n");
 
-        if ((int)me->query_skill("force", 1) < (int)me->query_skill("qixian-wuxingjian", 1))
-                return notify_fail("你的内功修为有限，无法领会更高深的七弦无形剑。\n");
+    if ((int)me->query_skill("force", 1) < (int)me->query_skill("qixian-wuxingjian", 1))
+        return notify_fail("你的内功修为有限，无法领会更高深的七弦无形剑。\n");
 
-        if ((int)me->query_skill("unarmed", 1) < (int)me->query_skill("qixian-wuxingjian", 1))
-                return notify_fail("你的基本拳脚水平有限，无法领会更高深的七弦无形剑。\n");
+    if ((int)me->query_skill("unarmed", 1) < (int)me->query_skill("qixian-wuxingjian", 1))
+        return notify_fail("你的基本拳脚水平有限，无法领会更高深的七弦无形剑。\n");
 
-        if ((int)me->query_skill("sword", 1) < (int)me->query_skill("qixian-wuxingjian", 1))
-                return notify_fail("你的基本剑法水平有限，无法领会更高深的七弦无形剑。\n");
+    if ((int)me->query_skill("sword", 1) < (int)me->query_skill("qixian-wuxingjian", 1))
+        return notify_fail("你的基本剑法水平有限，无法领会更高深的七弦无形剑。\n");
 
-        if ((int)me->query_skill("tanqin-jifa", 1) < (int)me->query_skill("qixian-wuxingjian", 1) / 3)
-                return notify_fail("你对琴学的了解不够深入，无法领会更高深的七弦无形剑。\n");
+    if ((int)me->query_skill("tanqin-jifa", 1) < (int)me->query_skill("qixian-wuxingjian", 1) / 3)
+        return notify_fail("你对琴学的了解不够深入，无法领会更高深的七弦无形剑。\n");
 
-        return 1;
+    return 1;
 }
 
 string query_skill_name(int level)
 {
-        int i;
-        for(i = sizeof(action_unarmed)-1; i >= 0; i--)
-                if(level >= action_unarmed[i]["lvl"])
-                        return action_unarmed[i]["skill_name"];
+    int i;
+    for(i = sizeof(action_unarmed)-1; i >= 0; i--)
+        if(level >= action_unarmed[i]["lvl"])
+            return action_unarmed[i]["skill_name"];
 }
 
 mapping query_action(object me, object weapon)
 {
-        int i, level;
-        level = (int) me->query_skill("qixian-wuxingjian", 1);
+    int i, level;
+    level = (int) me->query_skill("qixian-wuxingjian", 1);
 
-        if ( ! weapon)
-        {
-             for(i = sizeof(action_unarmed); i > 0; i--)
-                     if(level >= action_unarmed[i-1]["lvl"])
-                             return action_unarmed[NewRandom(i, 20, level/5)];
-        }
-        else
-             for(i = sizeof(action_sword); i > 0; i--)
-                     if(level > action_sword[i-1]["lvl"])
-                             return action_sword[NewRandom(i, 20, level/5)];
+    if ( ! weapon)
+    {
+        for(i = sizeof(action_unarmed); i > 0; i--)
+            if(level >= action_unarmed[i-1]["lvl"])
+                return action_unarmed[NewRandom(i, 20, level/5)];
+    }
+    else
+        for(i = sizeof(action_sword); i > 0; i--)
+            if(level > action_sword[i-1]["lvl"])
+                return action_sword[NewRandom(i, 20, level/5)];
 }
 
 int practice_skill(object me)
 {
-        if ((int)me->query("qi") < 70)
-                return notify_fail("你的体力不够练七弦无形剑！\n");
+    if ((int)me->query("qi") < 70)
+        return notify_fail("你的体力不够练七弦无形剑！\n");
 
-        if ((int)me->query("neili") < 120)
-                return notify_fail("你的内力不够练七弦无形剑！\n");
+    if ((int)me->query("neili") < 120)
+        return notify_fail("你的内力不够练七弦无形剑！\n");
 
-        me->receive_damage("qi", 60);
-        me->add("neili", -100);
-        return 1;
+    me->receive_damage("qi", 60);
+    me->add("neili", -100);
+    return 1;
 }
 
 mixed hit_ob(object me, object victim, int damage_bonus)
 {
-        string name;
-        name = xue_name[random(sizeof(xue_name))];
+    string name;
+    name = xue_name[random(sizeof(xue_name))];
 
-        if (me->query_skill("qixian-wuxingjian", 1) < 180
-           || me->query("max_neili") < 2500
-           || me->query("neili") < 500
-           || me->query("max_neili") < victim->query("max_neili")
-           || victim->query("max_neili") < 10)
-                return 0;
+    if (me->query_skill("qixian-wuxingjian", 1) < 180
+        || me->query("max_neili") < 2500
+        || me->query("neili") < 500
+        || me->query("max_neili") < victim->query("max_neili")
+        || victim->query("max_neili") < 10)
+        return 0;
 
-        if (victim->is_busy())
-                return 0;
+    if (victim->is_busy())
+        return 0;
 
-        if (damage_bonus < 150)
-                return 0;
+    if (damage_bonus < 150)
+        return 0;
 
-        victim->start_busy(1);
-        me->add("neili", -100);
-        victim->receive_damage("qi", me->query_skill("qixian-wuxingjian", 1) / 5 + damage_bonus / 3);
-        victim->receive_wound("qi", me->query_skill("qixian-wuxingjian", 1) / 8 + damage_bonus / 5);
-                return HIW "只听一阵淳厚的弦音从$N" HIW "处传来，$n" HIY "『" + name + "』"
-                       NOR + HIW "顿时受震，两耳轰鸣，全身真气乱窜不止！\n" NOR;
+    victim->start_busy(1);
+    me->add("neili", -100);
+    victim->receive_damage("qi", me->query_skill("qixian-wuxingjian", 1) / 5 + damage_bonus / 3);
+    victim->receive_wound("qi", me->query_skill("qixian-wuxingjian", 1) / 8 + damage_bonus / 5);
+    return HIW "只听一阵淳厚的弦音从$N" HIW "处传来，$n" HIY "『" + name + "』"
+                NOR + HIW "顿时受震，两耳轰鸣，全身真气乱窜不止！\n" NOR;
 }
 
 void do_effect(object me)
 {
-        object *obs;
-        int lvl;
-        int i;
-        int damage;
+    object *obs;
+    int lvl;
+    int i;
+    int damage;
 
-        lvl = me->query_skill("tanqin-jifa", 1) / 2 +
-              me->query_skill("qixian-wuxingjian", 1);
+    lvl = me->query_skill("tanqin-jifa", 1) / 2 +
+            me->query_skill("qixian-wuxingjian", 1);
 
-        if (environment(me)->query("no_fight")
-           || environment(me)->query("skybook")
-           || lvl < 150)
-                return;
+    if (environment(me)->query("no_fight")
+        || environment(me)->query("skybook")
+        || lvl < 150)
+        return;
 
-        lvl = lvl / 5 + me->query_skill("force");
-        lvl /= 2;
+    lvl = lvl / 5 + me->query_skill("force");
+    lvl /= 2;
 
-        obs = all_inventory(environment(me));
-        for (i = 0; i < sizeof(obs); i++)
+    obs = all_inventory(environment(me));
+    for (i = 0; i < sizeof(obs); i++)
+    {
+        if (! obs[i]->is_character() || obs[i] == me || ! living(obs[i]))
+            continue;
+
+        if (me->query_skill("qixian-wuxingjian") * 2 / 3 <
+            obs[i]->query_skill("qixian-wuxingjian"))
+            continue;
+
+        // 被死亡保护的玩家不受伤害
+        if ((int)obs[i]->query_condition("die_guard"))
+            continue;
+
+        if (obs[i]->query("max_neili") < 10)
         {
-                if (! obs[i]->is_character() || obs[i] == me || ! living(obs[i]))
-                        continue;
-
-                if (me->query_skill("qixian-wuxingjian") * 2 / 3 <
-                    obs[i]->query_skill("qixian-wuxingjian"))
-                        continue;
-
-                // 被死亡保护的玩家不受伤害
-                if ((int)obs[i]->query_condition("die_guard"))
-                        continue;
-
-                if (obs[i]->query("max_neili") < 10)
-                {
-                        tell_object(obs[i], HIM "你听后只觉得这首曲子平平常常，没半点特殊之处。\n" NOR);
-                        continue;
-                }
-
-                if (obs[i]->query("max_neili") + 500 > me->query("max_neili"))
-                {
-                        tell_object(obs[i], HIM "你听后只觉心头一紧，可是自己内力深厚，丝毫不受影响。\n" NOR);
-                        continue;
-                }
-
-                if (lvl + random(lvl) < obs[i]->query_skill("force"))
-                {
-                        tell_object(obs[i], HIM "你听了心中不禁微微一动，发现这曲子颇有奥妙之处。\n" NOR);
-                        continue;
-                }
-
-                damage = me->query("max_neili") - obs[i]->query("max_neili");
-                if (damage < 500)
-                {
-                        tell_object(obs[i], HIM "你忽然觉得一阵迷乱，连忙运了一口气，才清醒过来。\n" NOR);
-                        continue;
-                }
-
-                damage /= 10;
-                me->want_kill(obs[i]);
-                me->fight_ob(obs[i]);
-                obs[i]->kill_ob(me);
-                obs[i]->receive_damage("jing", damage / 2, me);
-                obs[i]->receive_wound("jing", damage / 2, me);
-                obs[i]->receive_damage("qi", damage * 2, me);
-                obs[i]->receive_wound("qi", damage * 2, me);
-
-                tell_object(obs[i], HIR "你听得心神不定，只感呼吸不畅，鼓膜轰鸣，目不视物，几欲晕倒。\n" NOR);
+            tell_object(obs[i], HIM "你听后只觉得这首曲子平平常常，没半点特殊之处。\n" NOR);
+            continue;
         }
+
+        if (obs[i]->query("max_neili") + 500 > me->query("max_neili"))
+        {
+            tell_object(obs[i], HIM "你听后只觉心头一紧，可是自己内力深厚，丝毫不受影响。\n" NOR);
+            continue;
+        }
+
+        if (lvl + random(lvl) < obs[i]->query_skill("force"))
+        {
+            tell_object(obs[i], HIM "你听了心中不禁微微一动，发现这曲子颇有奥妙之处。\n" NOR);
+            continue;
+        }
+
+        damage = me->query("max_neili") - obs[i]->query("max_neili");
+        if (damage < 500)
+        {
+            tell_object(obs[i], HIM "你忽然觉得一阵迷乱，连忙运了一口气，才清醒过来。\n" NOR);
+            continue;
+        }
+
+        damage /= 10;
+        me->want_kill(obs[i]);
+        me->fight_ob(obs[i]);
+        obs[i]->kill_ob(me);
+        obs[i]->receive_damage("jing", damage / 2, me);
+        obs[i]->receive_wound("jing", damage / 2, me);
+        obs[i]->receive_damage("qi", damage * 2, me);
+        obs[i]->receive_wound("qi", damage * 2, me);
+
+        tell_object(obs[i], HIR "你听得心神不定，只感呼吸不畅，鼓膜轰鸣，目不视物，几欲晕倒。\n" NOR);
+    }
 }
 
 string perform_action_file(string action)
 {
-        return __DIR__"qixian-wuxingjian/" + action;
+    return __DIR__"qixian-wuxingjian/" + action;
 }

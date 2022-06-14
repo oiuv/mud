@@ -14,27 +14,27 @@ void create()
 
     set("outdoors", "mingjiao");
     setup();
-        (CLASS_D("ultra") + "/huoshan")->come_here();
+    (CLASS_D("ultra") + "/huoshan")->come_here();
 }
 
 string long()
 {
-        object ob;
-        string msg;
+    object ob;
+    string msg;
 
-        msg = query("long");
-        if (! objectp(ob = present("huo shan", this_object())))
-                return sort_string(msg, 64, 4);
+    msg = query("long");
+    if (!objectp(ob = present("huo shan", this_object())))
+        return sort_string(msg, 64, 4);
 
-        if (! ob->is_fighting())
-                msg += "一老者正站在石上遥观云海，衣衫鼓动，对你的"
-                       "来到视若无物。";
-        else
-                msg += "只见一人正在与" +
-                       (ob->is_fighting(this_player()) ? "你" : "人") +
-                       "激战，层层气浪震得大石颤动不已。";
+    if (!ob->is_fighting())
+        msg += "一老者正站在石上遥观云海，衣衫鼓动，对你的"
+               "来到视若无物。";
+    else
+        msg += "只见一人正在与" +
+               (ob->is_fighting(this_player()) ? "你" : "人") +
+               "激战，层层气浪震得大石颤动不已。";
 
-        return sort_string(msg, 58, 4);
+    return sort_string(msg, 58, 4);
 }
 
 void init()

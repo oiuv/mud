@@ -14,7 +14,6 @@
 // #define MAX_ITEM_CARRIED        20
 
 // How many item does the room can got
-#define MAX_ITEM_IN_ROOM        30
+#define MAX_ITEM_IN_ROOM        999
 
 #endif
-

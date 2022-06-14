@@ -12,7 +12,7 @@ void create()
 东边是郊外，隐约可见一片一望无际的树林，神秘莫测。西边
 是城里。北面有一片茂盛的青竹林。
 LONG );
-        set("outdoors", "city");
+    set("outdoors", "city");
     set("item_desc", ([
         "gaoshi" : (: look_gaoshi :),
     ]));

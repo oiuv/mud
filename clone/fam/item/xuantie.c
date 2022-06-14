@@ -1,11 +1,3 @@
-/*
- * @Author: 雪风@mud.ren
- * @Date: 2021-09-09 19:23:48
- * @LastEditTime: 2021-09-09 19:23:49
- * @LastEditors: 雪风
- * @Description: 天山玄铁，可打造多数装备
- *  https://bbs.mud.ren
- */
 #include <ansi.h>
 
 inherit ITEM;

@@ -51,8 +51,8 @@ void create()
         set_skill("taiji-jian", 240);
         set_skill("taoism", 230);
         set_skill("literate", 200);
-        set_skill("medical", 180);
-        set_skill("wudang-yaoli", 180);
+    set_skill("medical", 180);
+    set_skill("wudang-yaoli", 180);
         set_skill("martial-cognize", 240);
 
         map_skill("force", "taiji-shengong");
@@ -82,9 +82,9 @@ void create()
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
                 (: perform_action, "claw.juehu" :),
-                (: exert_function, "recover" :),
-                (: exert_function, "powerup" :),
-                (: exert_function, "shield" :),
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+        (: exert_function, "shield" :),
         }) );
 
         set_temp("apply/attack", 150);
@@ -110,11 +110,11 @@ void attempt_apprentice(object ob)
                 return;
         }
 
-        if ((int)ob->query("combat_exp") < 150000)
-        {
-                command("say 你现在经验尚浅，不能领会高深的武功，先锻炼要紧。");
-                return;
-        }
+    if ((int)ob->query("combat_exp") < 150000)
+    {
+        command("say 你现在经验尚浅，不能领会高深的武功，先锻炼要紧。");
+        return;
+    }
 
         if ((int)ob->query_skill("wudang-xinfa", 1) < 80)
         {

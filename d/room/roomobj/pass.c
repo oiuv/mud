@@ -6,9 +6,9 @@ inherit ITEM;
 
 void create()
 {
-    set_name(YEL "手谕" NOR, ({"pass"}));
+    set_name(YEL "手谕" NOR, ({ "pass" }) );
     set_weight(10);
-    if (clonep())
+    if( clonep() )
         set_default_object(__FILE__);
     else
     {

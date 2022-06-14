@@ -49,7 +49,7 @@ int do_yell(string arg)
         if (arg != "船家" || ! arrive)
         {
                 msg += HIY "突然江面上远远传来一阵回声：「" +
-                       arg + "～～～」\n" NOR;
+                       arg + "~~~~~~」\n" NOR;
                 message_vision(msg, me);
         } else
         {
@@ -160,7 +160,6 @@ int do_cross()
         return 1;
 }
 
-//replaces the program in this_object()
 void replace_program(string ob)
 {
 }

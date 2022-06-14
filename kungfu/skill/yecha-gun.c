@@ -97,11 +97,11 @@ string query_skill_name(int level)
 
 mapping query_action(object me, object weapon)
 {
-    int i, level;
-    level = (int) me->query_skill("yecha-gun",1);
-    for (i = sizeof(action); i > 0; i--)
-        if (level > action[i-1]["lvl"])
-            return action[NewRandom(i, 20, level / 5)];
+        int i, level;
+        level = (int) me->query_skill("yecha-gun",1);
+        for (i = sizeof(action); i > 0; i--)
+            if (level > action[i-1]["lvl"])
+                return action[NewRandom(i, 20, level / 5)];
 }
 
 int practice_skill(object me)

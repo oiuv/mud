@@ -42,7 +42,7 @@ int is_room_owner(object me)
         string rid;
 
         rid = room_owner_id();
-        return (me->query("id") == rid || me->query("couple/id") == rid);
+    return (me->query("id") == rid || me->query("couple/id") == rid);
 }
 
 int restore()
@@ -56,24 +56,24 @@ int restore()
 
 int save()
 {
-        int res;
+    int res;
 
         // this object (/inherit/room/privateroom) doesn't need to save
         if (base_name(this_object()) + ".c" == __FILE__)
                 return 0;
 
         this_close_door(1);
-        save_autoload();
-        res = ::save();
-        clean_up_autoload();
-        return res;
+    save_autoload();
+    res = ::save();
+    clean_up_autoload();
+    return res;
 }
 
 void setup()
 {
         ::setup();
         restore();
-        //restore_autoload();
+    //restore_autoload();
 }
 
 // the callback function of F_DBSAVE

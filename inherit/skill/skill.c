@@ -1,7 +1,7 @@
-// skill.c
+//    skill.c
 //
-// This is the standard skill daemon object. All objects defining a skill
-// should inherit this as its skeleton.
+//     This is the standard skill daemon object. All objects defining a skill
+//    should inherit this as its skeleton.
 
 inherit F_CLEAN_UP;
 
@@ -14,21 +14,21 @@ void create()
 // skills to this skill
 int get_ready(object me)
 {
-        return 1;
+    return 1;
 }
 
 // Check if the user(me) has finished to combine some sub skills
 // to this skill
 int get_finish(object me)
 {
-        return 1;
+    return 1;
 }
 
 // All the sub skills for combine. Default is null indicating
 // that the skill needn't combine from other skills.
 mapping query_sub_skills()
 {
-        return 0;
+    return 0;
 }
 
 //
@@ -102,7 +102,8 @@ int exert_function(object me, string arg)
     {
         target_ob = present(target, environment(me));
         if( !target_ob ) return notify_fail("这里没有 " + target + "。\n");
-    } else
+    }
+    else
     {
         func = arg;
         target_ob = me;
@@ -124,7 +125,8 @@ int perform_action(object me, string arg)
     {
         target_ob = present(target, environment(me));
         if (! target_ob) return notify_fail("这里没有" + target + "。\n");
-    } else
+    }
+    else
     {
         action = arg;
     }
@@ -138,26 +140,26 @@ int perform_action(object me, string arg)
 
 int NewRandom(int n, int base, int d)
 {
-        int sum;
-        int i;
-        int k;
+    int sum;
+    int i;
+    int k;
 
-        k = 6;
+    k = 6;
     if (k > n) k = n;
         if (! k) return n;
 
-        sum = 0;
-        for (i = 0; i < k; i++) sum += i;
-        sum = random(sum);
-        for (i = 0; i < k; i++)
+    sum = 0;
+    for (i = 0; i < k; i++) sum += i;
+    sum = random(sum);
+    for (i = 0; i < k; i++)
+    {
+        sum -= i;
+        if (sum <= 0)
         {
-                sum -= i;
-                if (sum <= 0)
-                {
-                        n = n - k + i;
-                        if (n <= 0) n = 0;
-                        break;
-                }
+            n = n - k + i;
+            if (n <= 0) n = 0;
+            break;
         }
-        return n;
+    }
+    return n;
 }

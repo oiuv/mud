@@ -33,7 +33,6 @@ string *banned_id = ({
 private void get_id(string arg, object ob);
 private void get_passwd(string pass, object ob);
 private void get_ad_passwd(string pass, object ob);
-private void get_character(string type, object ob);
 private void check_ok(object ob);
 private void confirm_id(string yn, object ob);
 private void init_new_player(object user);
@@ -71,15 +70,15 @@ void logon(object ob)
         return;
     }
 
-    write(ESC "[2J");
+    write(CLR);
     color_cat(WELCOME);
 
     catch(MUDLIST_CMD->main());
     TIME_CMD->main();
 
-    if (! VERSION_D->is_version_ok() && ! VERSION_D->query_temp("operator"))
-        write(HIY "现在本站正在同步版本，如果你不是巫师，请稍候再登录。\n\n" NOR);
-    else if (REBOOT_CMD->is_rebooting())
+    // if (! VERSION_D->is_version_ok() && ! VERSION_D->query_temp("operator"))
+    //     write(HIY "现在本站正在同步版本，如果你不是巫师，请稍候再登录。\n\n" NOR);
+    if (REBOOT_CMD->is_rebooting())
         write(HIY "现在本站正在准备重新启动，如果你不是巫师，请稍候再登录。\n\n" NOR);
 
     usr = users() + filter(children(LOGIN_OB), (: interactive :));
@@ -151,12 +150,13 @@ private void get_id(string arg, object ob)
 
     if (wiz_level(arg) < 1)
     {
-        if (! VERSION_D->is_version_ok() && ! VERSION_D->query_temp("operator"))
-        {
-            write("现在本站正在同步版本中，暂时不能登录，请稍候再尝试。\n");
-            destruct(ob);
-            return;
-        } else if (REBOOT_CMD->is_rebooting() && ! find_player(arg))
+        // if (! VERSION_D->is_version_ok() && ! VERSION_D->query_temp("operator"))
+        // {
+        //     write("现在本站正在同步版本中，暂时不能登录，请稍候再尝试。\n");
+        //     destruct(ob);
+        //     return;
+        // }
+        if (REBOOT_CMD->is_rebooting() && ! find_player(arg))
         {
             write("现在本站正准备重新启动，暂时不能登录，请稍候再尝试。\n");
             destruct(ob);
@@ -171,12 +171,14 @@ private void get_id(string arg, object ob)
         return;
     }
 
-    if (arg == "new" || arg == "guest")
-    {
-        // If guest, refuse them create the character.
-        confirm_id("no", ob);
-        return;
-    } else if (file_size(ob->query_save_file() + __SAVE_EXTENSION__) >= 0)
+    // if (arg == "new" || arg == "guest")
+    // {
+    //     // If guest, refuse them create the character.
+    //     confirm_id("no", ob);
+    //     return;
+    // }
+
+    if (file_size(ob->query_save_file() + __SAVE_EXTENSION__) >= 0)
     {
         if (ob->restore())
         {
@@ -184,9 +186,9 @@ private void get_id(string arg, object ob)
             input_to("get_passwd", 1, ob);
             return;
         }
-            write("您的人物储存档出了一些问题，请利用 guest 人物通知巫师处理。\n");
-            destruct(ob);
-            return;
+        write("您的人物储存档出了一些问题，请利用 guest 人物通知巫师处理。\n");
+        destruct(ob);
+        return;
     }
 
     write(WHT "\n使用[" HIC + (string)ob->query("id") + NOR + WHT "]这个名字将会"
@@ -309,8 +311,7 @@ private void check_ok(object ob)
             reconnect(ob, user);
             return;
         }
-        write(WHT "\n您要将另一个连线中的相同人物赶出去，取而代之吗？("
-              HIY "y/n" NOR + WHT ")" NOR);
+        write(WHT "\n您要将另一个连线中的相同人物赶出去，取而代之吗？(" HIY "y/n" NOR + WHT ")" NOR);
         input_to("confirm_relogin", ob, user);
         return;
     }
@@ -320,8 +321,7 @@ private void check_ok(object ob)
     {
         write("你把正在聊天的ID踢了出去。\n");
         MESSAGE_D->user_logout(user, user->name(1) + "从" +
-                   query_ip_number(ob) + "连线进入世界，"
-                   "把你踢了出去。\n");
+                               query_ip_number(ob) + "连线进入世界，把你踢了出去。\n");
     }
 
     if (objectp(user = make_body(ob)))
@@ -332,12 +332,12 @@ private void check_ok(object ob)
             string msg;
 
             log_file("usage", sprintf("%s(%s) loggined from %s (%s)\n",
-                    user->query("name"), user->query("id"),
-                    query_ip_number(ob), ctime(time()) ) );
+                                      user->query("name"), user->query("id"),
+                                      query_ip_number(ob), ctime(time())));
 
             if (ob->query("last_on") <= time() &&
-              ob->query("last_on") > time() - 30 &&
-              ! wiz_level(user))
+                ob->query("last_on") > time() - 30 &&
+                !wiz_level(user))
             {
                 write(WHT "\n你距上次退出只有" HIY + chinese_number(time() - ob->query("last_on")) +
                       NOR + WHT "秒钟，请稍候再登录。\n" NOR);
@@ -347,7 +347,7 @@ private void check_ok(object ob)
             }
 
             user->set_temp("logon_time", time());
-            if (err = catch(enter_world(ob, user)))
+            if (err = catch (enter_world(ob, user)))
             {
                 user->set_temp("error", err);
                 msg = HIR "\n进入这个世界时出了一些问题，需要和巫师联系处理。\n\n" NOR;
@@ -357,7 +357,8 @@ private void check_ok(object ob)
                 tell_object(user, msg);
             }
             return;
-        } else
+        }
+        else
         {
             destruct(user);
             write(HIR "\n无法读取你的数据档案，您需要和巫师联系。\n" NOR);
@@ -365,11 +366,13 @@ private void check_ok(object ob)
             {
                 write(WHT "你可以选择重新创造玩家(y/n)：" NOR);
                 input_to("create_new_player", ob);
-            } else
-            destruct(ob);
+            }
+            else
+                destruct(ob);
         }
-    } else
-    write(HIR "无法创建该玩家，你可以尝试重新登录或是和巫师联系。\n" NOR);
+    }
+    else
+        write(HIR "无法创建该玩家，你可以尝试重新登录或是和巫师联系。\n" NOR);
 }
 
 private void create_new_player(string yn, object ob)
@@ -390,15 +393,14 @@ private void confirm_relogin(string yn, object ob, object user)
 {
     object old_link;
 
-    if (! yn || yn == "")
+    if (!yn || yn == "")
     {
-        write(WHT "\n您要将另一个连线中的相同人物赶出去，取而代之吗？("
-              HIY "y/n" NOR + WHT ")" NOR);
+        write(WHT "\n您要将另一个连线中的相同人物赶出去，取而代之吗？(" HIY "y/n" NOR + WHT ")" NOR);
         input_to("confirm_relogin", ob, user);
         return;
     }
 
-    if (yn[0]!='y' && yn[0]!='Y')
+    if (yn[0] != 'y' && yn[0] != 'Y')
     {
         write("好吧，欢迎下次再来。\n");
         destruct(ob);
@@ -407,11 +409,10 @@ private void confirm_relogin(string yn, object ob, object user)
 
     if (user)
     {
-        tell_object(user, "有人从别处( " + query_ip_number(ob)
-            + " )连线取代你所控制的人物。\n");
+        tell_object(user, "有人从别处( " + query_ip_number(ob) + " )连线取代你所控制的人物。\n");
         log_file("usage", sprintf("%s(%s) replaced by %s (%s)\n",
-           user->query("name"), user->query("id"),
-           query_ip_number(ob), ctime(time())));
+                                  user->query("name"), user->query("id"),
+                                  query_ip_number(ob), ctime(time())));
 
         // Kick out tho old player.
         old_link = user->query_temp("link_ob");
@@ -420,7 +421,8 @@ private void confirm_relogin(string yn, object ob, object user)
             exec(old_link, user);
             destruct(old_link);
         }
-    } else
+    }
+    else
     {
         write("在线玩家断开了连接，你需要重新登陆。\n");
         destruct(ob);
@@ -464,14 +466,15 @@ private void get_surname(string arg, object ob)
 {
     if (arg && strlen(arg) > 0)
     {
-        if (! check_legal_name(arg, 2))
+        if (!check_legal_name(arg, 2))
         {
             write("您的中文" HIG "姓氏" NOR "(不要超过两个汉字)：");
             input_to("get_surname", ob);
             return;
         }
         ob->set("surname", arg);
-    } else
+    }
+    else
     {
         ob->set("surname", 0);
     }
@@ -646,50 +649,9 @@ private void confirm_password(string pass, object ob)
         check_ok(ob);
         return;
     }
-
-    write(WHT "\n请选择在「" HIR "武林群侠传" NOR + WHT "」中您想要"
-            "扮演的角色性格类型：
-┏-----------┳-----------┳-----------┳-----------┓
-┃" HIC " 1 " HIY "光明磊落" NOR + WHT "┃" HIC " 2 " HIC "狡黠多变" NOR +
- WHT "┃" HIC " 3 " HIR "心狠手辣" NOR + WHT "┃" HIC " 4 " HIM "阴险奸诈"
- NOR + "┃
-┗-----------┻-----------┻-----------┻-----------┛\n" NOR);
-    write(WHT "输入数字" HIC " 1 " NOR + WHT "—" HIC " 4 " NOR + WHT "：");
-    input_to("get_character", ob);
-}
-
-private void get_character(string type, object ob)
-{
-    int n;
-    sscanf(type, "%d", n);
-
-    if (n < 1 || n > 4)
-    {
-        write(WHT "您只能选择系统所提供的这四种类型，请重新输入：" NOR);
-        input_to("get_character", ob);
-        return;
-    }
-
-    switch (n)
-    {
-    case 1:
-        ob->set_temp("type", "光明磊落");
-        break;
-    case 2:
-        ob->set_temp("type", "狡黠多变");
-        break;
-    case 3:
-        ob->set_temp("type", "心狠手辣");
-        break;
-    case 4:
-        ob->set_temp("type", "阴险奸诈");
-        break;
-    }
-
-    write(WHT "您选择了" HBGRN + ob->query_temp("type") + NOR +
-          WHT "的角色。\n\n" NOR);
-
-    write(WHT "您要扮演男性(" HIY "m" NOR + WHT ")的角色或女性(" HIY "f" NOR + WHT ")的角色？" NOR);
+    // ob->set_temp("type", "均衡型"); // 已弃用
+    write(WHT "您要扮演男性(" HIY "m" NOR + WHT ")的角色或女性("
+        HIY "f" NOR + WHT ")的角色？" NOR);
     input_to("get_gender", ob);
 }
 
@@ -738,7 +700,6 @@ private void get_gender(string gender, object ob)
     user->set("con", 14);
     user->set("int", 14);
     user->set("per", 20);
-    user->set("character", ob->query_temp("type"));
     user->set("gender", ob->query_temp("gender"));
     ob->set("registered", 0);
     user->set("registered", 0);
@@ -796,7 +757,7 @@ private void init_new_player(object user)
     user->set("food", (user->query("str") + 10) * 10);
     user->set("water", (user->query("str") + 10) * 10);
     user->set("channels", ({ "chat", "rumor", "party",
-         "bill", "sing", "family", "rultra", "ic" }));
+         "bill", "sing", "family", "rultra" }));
 
     // 记录名字
     NAME_D->map_name(user->query("name"), user->query("id"));
@@ -804,7 +765,6 @@ private void init_new_player(object user)
     user->set("env/auto_regenerate", 1);
     user->set("env/auto_get", 1);
     user->set("env/wimpy", 60);
-    //设定不自动转宗师频道
     user->set("env/no_autoultra", 1);
     // 缓存到数据库
     if (env("CACHE_DATA"))
@@ -930,15 +890,16 @@ varargs void enter_world(object ob, object user, int silent)
         string term_type;
 
         color_cat(MOTD);
+
         write("你连线进入" + LOCAL_MUD_NAME() + "。\n");
         if (term_type = ob->query_temp("terminal_type"))
         {
-            write("客户端类型为 " + term_type + "。\n");
+            write("客户端版本为 " + term_type + "。\n");
             user->set_temp("terminal_type", term_type);
         }
         write("\n");
-
-        if (!stringp(user->query("character")))
+        // 16岁以后再选天性
+        if (!stringp(user->query("character")) && user->query("age") >= 16)
         {
             if (user->is_ghost())
                 user->reincarnate();
@@ -979,7 +940,6 @@ varargs void enter_world(object ob, object user, int silent)
             // show rules
             color_cat(UNREG_MOTD);
             ob->set("login_times", 1);
-            // MYSQL_D->register(ob);
             CHANNEL_D->do_channel(this_object(), "chat", "欢迎新玩家" + user->short() + "来到" + LOCAL_MUD_NAME() + "。");
         }
         else

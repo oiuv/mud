@@ -1,11 +1,3 @@
-/*
- * @Author: 雪风@mud.ren
- * @Date: 2021-09-09 21:00:32
- * @LastEditTime: 2021-09-09 21:01:42
- * @LastEditors: 雪风
- * @Description: 汉水北岸，这里可钓鱼、有船夫可运货过河
- *  https://bbs.mud.ren
- */
 #include <ansi.h>
 inherit RIVER;
 

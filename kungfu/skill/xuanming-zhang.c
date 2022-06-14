@@ -1,5 +1,5 @@
 
-// create by rcwiz 2003 for yanhuang online 
+// create by rcwiz 2003 for yanhuang online
 
 inherit SKILL;
 #include <ansi.h>
@@ -105,13 +105,13 @@ mapping *action = ({
         "skill_name" : "冰坚地狱",
         "damage_type" : "内伤"
 ]),
-([      "action": " "RED" 玄冥神掌之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 玄冥神掌之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
         "attack" : (int)this_player()->query_skill("strike", 1)/4 + random((int)this_player()->query_skill("strike", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/4 + random((int)this_player()->query_skill("force", 1)/3),
         "parry"  : (int)this_player()->query_skill("parry", 1)/4 + random((int)this_player()->query_skill("parry", 1)/3),
         "damage" : (int)this_player()->query_skill("force", 1)/3 + random((int)this_player()->query_skill("strike", 1)/3),
-        "lvl"    : 200,
+        "lvl"    : 250,
         "skill_name" : "极意",
         "damage_type": "瘀伤"
 ]),
@@ -120,6 +120,11 @@ mapping *action = ({
 int valid_enable(string usage)
 {
         return usage=="strike" || usage=="parry";
+}
+
+int valid_combine(string combo)
+{
+    return combo == "dulong-shenzhua";
 }
 
 int valid_learn(object me)
@@ -211,4 +216,3 @@ string perform_action_file(string action)
 {
         return __DIR__"xuanming-zhang/" + action;
 }
-

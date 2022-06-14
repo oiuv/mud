@@ -110,27 +110,27 @@ void attempt_apprentice(object ob)
                 return;
         }
 
-        if ((int)ob->query("combat_exp") < 360000)
-        {
-                command("say 你现在经验尚浅，还是多在江湖上走走吧。");
-                return;
-        }
+    if ((int)ob->query("combat_exp") < 360000)
+    {
+        command("say 你现在经验尚浅，还是多在江湖上走走吧。");
+        return;
+    }
 
         if ((int)ob->query_skill("songshan-jian", 1) < 160)
-        {
-                command("say 我嵩山剑派乃五岳剑派之一，最为重视剑法。");
-                command("say 你的嵩山剑法还不够熟练，下去练练再来吧。");
-                return;
+    {
+        command("say 我嵩山剑派乃五岳剑派之一，最为重视剑法。");
+        command("say 你的嵩山剑法还不够熟练，下去练练再来吧。");
+            return;
         }
 
         if ((int)ob->query_skill("songshan-xinfa", 1) < 160)
-        {
-                command("say 我嵩山剑派虽善用剑，但内功却是御剑之本。");
-                command("say 你是否还应该在嵩山心法上多下点功夫？");
-                return;
-         }
+    {
+        command("say 我嵩山剑派虽善用剑，但内功却是御剑之本。");
+        command("say 你是否还应该在嵩山心法上多下点功夫？");
+        return;
+     }
 
-        command("haha");
+    command("haha");
         command("say 孺子可教，孺子可教。今日我就收下你吧。");
         command("say 你以后定要勤练武，扬我嵩山派雄风。");
         command("recruit " + ob->query("id"));

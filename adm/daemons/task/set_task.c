@@ -188,52 +188,38 @@ int do_return(object ob, object me, string arg)
 
     me->add("mirror_task/count", 1);
     me->add("mirror_count", 1);
+    me->add("state/mirror", 1);
 
     count = me->query("mirror_task/count");
-    /*
-    exp = 1000 + random(1000);
 
-    if ( count > 20 ) pot = 800 + random(100);
-    else
-    if ( count > 10 ) pot = 700 + random(100);
-    else
-    pot = 600 + random(100);
-
-    if ( count == 10 ) pot += 800;
-    if ( count == 20 ) pot += 1000;
-    if ( count == 30 ) pot += 1500;
-    */
     //调整task任务pot奖励 2017-02-02
-    exp = 1000 + random(1000);
+    exp = (100 + random(100)) * count;
     //宝镜定位越用灵力越低定位越模糊，也就是说每次更新一轮的30个任务内越后来寻找难度越大，故越后来pot奖励越大 2017-02-02
     //进一步提高task任务奖励。其实作为手动任务，如果不是因为担心出现全自动task机器人严重影响平衡，task任务的奖励还应该大得多。 2017-02-24
     if (count > 20)
-        pot = 5000 + random(2500);
+        pot = 2000 + random(2000);
     else if (count > 10)
-        pot = 2000 + random(1000);
+        pot = 1000 + random(1000);
     else if (count > 5)
-        pot = 1000 + random(500);
+        pot = 500 + random(500);
     else
-        pot = 600 + random(300);
+        pot = 100 + random(100);
 
     if (count == 10)
         pot += 1000;
     if (count == 20)
-        pot += 3000;
+        pot += 4000;
     if (count == 30)
         pot += 10000; //每次更新30个task物品，故30个全部完成理应加大奖励幅度（我怎么感觉30个全完成是不可能的事情。。。） 2017-02-02
 
-    //gx = 1 + random(2);
-    gx = 2 + random(2);
-    //增加阅历奖励 2016-12-21
+    gx = 1 + random(3);
     kar = me->query("kar"); //修改阅历增加和福缘挂钩 2016-12-21
-    score = 20 + random(kar);
+    score = 10 + random(kar);
     me->add("combat_exp", exp);
     me->add("potential", pot);
-    //  me->add("experience", tihui);
     me->add("gongxian", gx);
-    //增加阅历奖励 2016-12-21
     me->add("score", score);
+    // me->add("experience", tihui);
     me->delete ("xquest/mirror");
 
     tell_object(me, "你拿出" + ob->name() + "(" + ob->query("id") + ")给" +
@@ -243,7 +229,7 @@ int do_return(object ob, object me, string arg)
     tell_object(me, HIY "这是你这一轮完成的第" + HIR +
                         chinese_number(me->query("mirror_task/count")) + NOR + HIY "个宝镜任务。\n" NOR +
                         HIG "通过这次锻炼，你获得了" NOR HIR + chinese_number(exp) +
-                        HIG "点经验，" NOR HIW + chinese_number(pot) + NOR HIG "点潜能。\n" NOR HIW "外加奖励三十两白银，以及" + chinese_number(gx) +
+                        HIG "点经验，" NOR HIW + chinese_number(pot) + NOR HIG "点潜能。\n" NOR HIW "外加奖励十两白银，以及" + chinese_number(gx) +
                         "点门派贡献。\n" NOR);
     if (me->query("mirror_count"))
     {
@@ -256,7 +242,7 @@ int do_return(object ob, object me, string arg)
             environment(me), ({me}));
 
     pay = new ("/clone/money/silver");
-    pay->set_amount(30);
+    pay->set_amount(10);
     pay->move(me, 1);
 
     /*  log_file("static/mirror", sprintf("%s(%s) 交物品 at %s.\n",

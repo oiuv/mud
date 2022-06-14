@@ -15,7 +15,7 @@ void create()
         set("int", 18);
         set("gold_times", 1);
         set("attitude", "friendly");
-        set("chat_chance", 1);
+        set("chat_chance", 5);
         set("chat_msg", ({
                 CYN "金花哭泣着：我的命怎么这么苦哟。\n" NOR,
                 CYN "金花抹着眼泪：娘呀，我好想你呀！\n" NOR,

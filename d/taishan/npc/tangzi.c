@@ -18,7 +18,7 @@ void create()
 
     set("chat_chance", 5);
     set("chat_msg", ({
-        "趟子手一声大喊: 我～～武～～维～～扬～～！\n",
+        "趟子手一声大喊: 我~~~~武~~~~维~~~~扬~~~~！\n",
         (: random_move :)
     }) );
 

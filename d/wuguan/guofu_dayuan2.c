@@ -14,7 +14,7 @@ LONG);
                 "north" : __DIR__"guofu_dating",
         ]));
         set("objects", ([
-               __DIR__"npc/yelvqi" : 1,
+                __DIR__"npc/yelvqi" : 1,
         ]));
         setup();
         replace_program(ROOM);

@@ -29,7 +29,7 @@ void setup()
         set("no_fight", 1);
         set("no_clean_up", 1);
 
-        ::setup();
+    ::setup();
 
         product = query("product");
         if (! mapp(product))

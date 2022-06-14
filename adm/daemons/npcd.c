@@ -316,12 +316,12 @@ void init_npc_skill(object ob, int lvl)
     else
     {
         exp = ob->query("combat_exp");
-        if (exp < 600000)
-            sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * 0.4 + 1;
-        else if (exp < 2000000)
-            sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * (0.45 + to_float(exp * 3) / 20000000);
+        if (exp < 600000) // 小于180级
+            sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * 0.6 + 10;
+        else if (exp < 2000000) // 小于270级
+            sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * (0.6 + to_float(exp) / 10000000);
         else
-            sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * 0.75;
+            sk_lvl = to_int(pow(to_float(exp * 10), 1.0 / 3)) * 0.8;
     }
 
     ob->set("magic_points", sk_lvl * 20);

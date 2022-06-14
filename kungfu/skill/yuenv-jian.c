@@ -95,14 +95,14 @@ mapping *action = ({
         "lvl"    : 250,
         "damage_type" : "刺伤"
 ]),
-([      "action": " "RED" 越女剑之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 越女剑之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
         "attack" : (int)this_player()->query_skill("sword", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
         "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
         "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
-        "lvl"    : 300,
-        //"skill_name" : "极意",
+        "lvl"    : 350,
+        "skill_name" : "极意",
         "damage_type": "刺伤"
 ]),
 });
@@ -127,8 +127,8 @@ int valid_learn(object me)
         if ((int)me->query("max_neili") < 1200)
                 return notify_fail("你的内力太差，无法学习越女剑术。\n");
 
-    if ((int)me->query_skill("sword", 1) < (int)me->query_skill("yuenv-jian", 1))
-        return notify_fail("你的基本剑法水平有限，无法领会更高深的越女剑术。\n");
+        if ((int)me->query_skill("sword", 1) < (int)me->query_skill("yuenv-jian", 1))
+                return notify_fail("你的基本剑法水平有限，无法领会更高深的越女剑术。\n");
 
         return 1;
 }
@@ -167,10 +167,10 @@ mixed hit_ob(object me, object victim, int damage_bonus, int i, int attack_time)
         object weapon;
         //string name;
         int ap, dp;
-        int lvl, count;
+                int lvl, count;
 
         weapon = me->query_temp("weapon");
-        lvl = me->query_skill("yuenv-jian", 1);
+                lvl = me->query_skill("yuenv-jian", 1);
 
         attack_time = (int)(me->query_skill("yuenv-jian", 1) / 40);
 
@@ -187,19 +187,19 @@ mixed hit_ob(object me, object victim, int damage_bonus, int i, int attack_time)
            || me->query_temp("is_attacking")
            || me->query_skill_mapped("sword") != "yuenv-jian"
            || me->query_skill("yuenv-jian", 1) < 120)
-            return 0;
+                return 0;
 
         message_vision(HIW "\n霎那间，只见$N" HIW "手中" + weapon->name() + HIW "轻盈灵动"
                        "，优美华丽，不带一丝尘俗之气，却将$n" HIW "攻得无暇反击！\n"
                        NOR, me, victim);
 
         if (me->query("family/family_name") == "峨嵋派")
-            count = (int)lvl / 10;
-        me->set_temp("is_attacking", 1);
+                        count = (int)lvl / 10;
+                me->set_temp("is_attacking", 1);
         me->start_busy(1 + random(attack_time / 2));
         me->add("neili", -attack_time * 20);
-        me->add_temp("apply/attack", count);
-        me->add_temp("apply/damage", count);
+                me->add_temp("apply/attack", count);
+                me->add_temp("apply/damage", count);
         for (i = 0; i < attack_time; i++)
         {
                 if (! me->is_fighting(victim))
@@ -212,8 +212,8 @@ mixed hit_ob(object me, object victim, int damage_bonus, int i, int attack_time)
         }
 
         me->delete_temp("is_attacking");
-        me->add_temp("apply/attack", count);
-        me->add_temp("apply/damage", -count);
+                me->add_temp("apply/attack", count);
+                me->add_temp("apply/damage", -count);
         return 1;
 }
 

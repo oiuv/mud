@@ -12,7 +12,7 @@ void create()
         if (clonep())
                 set_default_object(__FILE__);
         else {
-                set("long", "一杯热茶，悠悠地冒着香气～～～\n");
+                set("long", "一杯热茶，悠悠地冒着香气~~~~~~\n");
                 set("unit", "杯");
                 set("value", 1000);
                 set("remaining", 2);

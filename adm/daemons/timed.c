@@ -7,7 +7,7 @@ void init_time()
 {
     // 设置游戏世界时间戳(现实1天为游戏世界DATE_SCALE天)
     reset_gametime((GAME_TIME(time()) % 86400) * DATE_SCALE);
-    // 设置游戏tick（对应游戏1天的现实多少秒）、scale(DATE_SCALE*tick)、year
+    // 设置游戏tick、scale、year(游戏年)，说明：现实tick秒是游戏scale秒
     set_scale(1, DATE_SCALE, GAME_TIME(time()) / 86400);
 }
 
@@ -36,7 +36,10 @@ void create()
 // 每秒执行一次
 void process_per_second()
 {
-    // debug_message("log_time : " + log_time());
+    // debug_message("---时间精灵---");
+    // debug_message(ctime());
+    // debug_message(TIME_D->real_time_description("公元"));
+    // debug_message(TIME_D->game_time_description("炎黄"));
 }
 
 // 时钟

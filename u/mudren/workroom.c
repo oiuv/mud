@@ -20,7 +20,9 @@ varargs void create(int x, int y, int z)
         addExit("down", __DIR__ "mogong");
         addExit("up", "/d/sky/tianmen");
         set("objects",([
-            "/d/city/npc/yanruyu" : 1,
+            // "/d/city/npc/yanruyu" : 1,
+            __DIR__"npc/shensuan" : 1,
+            __DIR__"obj/safe" : 1,
         ]));
         set("sleep_room", 1);
         set("valid_startroom", 1);

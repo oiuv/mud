@@ -42,7 +42,7 @@ mapping *action = ({
         "dmage" : 75,
         "damage_type": "瘀伤"
 ]),
-([      "action": " "RED" 抽髓掌之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 抽髓掌之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
         "attack" : (int)this_player()->query_skill("strike", 1)/4 + random((int)this_player()->query_skill("strike", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),

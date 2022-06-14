@@ -65,7 +65,7 @@ mapping *action = ({
         "lvl"   : 100,
         "damage_type":  "刺伤"
 ]),
-([      "action": " "RED" 华山剑法之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 华山剑法之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
         "attack" : (int)this_player()->query_skill("sword", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),

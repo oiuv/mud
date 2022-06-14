@@ -56,10 +56,10 @@ void create()
 有一个牌子(paizi)，你也许应该仔细看看(指令：look paizi)。
 
 LONG NOR );
-        set("no_fight", 1);
-        set("item_desc", ([
-            "paizi":"投胎乃人生大事，切记不可草率！选好天赋(washto)之后再投胎(born <中文地名>)吧。\n"
-        ]));
+    set("no_fight", 1);
+    set("item_desc", ([
+        "paizi":"投胎乃人生大事，切记不可草率！\n\n选好先天属性(指令：washto)之后再投胎(指令：born <中文地名>)吧。\n"
+    ]));
 
     set("objects", ([
         __DIR__ "npc/dizangwang":1,
@@ -86,7 +86,6 @@ LONG NOR );
 
         desc += sprintf("%2d. " HIC "%s" NOR "\n", k++, position[i]);
     }
-    desc += HIM "如有疑问请输入" HIY " help " HIM "查询帮助，或输入" HIY " chat " HIM "求助在线玩家。" NOR "\n";
     set("item_desc/paizi", desc);
 
     setup();
@@ -265,6 +264,7 @@ int do_born(string arg)
     me->set("age", 14);
     me->set("registered", 1);
     me->save();
+    // HELP_CMD->main(me, "rules");
     HELP_CMD->main(me, "topics");
 
     message_vision("$N揉揉眼睛，迷惘的望着这个陌生的世界。\n", me);

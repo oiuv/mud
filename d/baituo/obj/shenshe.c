@@ -34,7 +34,7 @@ int do_home()
             return notify_fail("你挠挠脑袋，不知道怎么使用「引路神蛇」。\n");
 
     message_vision("$N从怀中掏出「引路神蛇」，口里不知念了些什么，\n"
-                   "就见「引路神蛇」吐吐芯子，摇头摆尾地把$N往白驼山带去～～～\n",me);
+                   "就见「引路神蛇」吐吐芯子，摇头摆尾地把$N往白驼山带去~~~~~~\n",me);
     me->move("/d/baituo/damen");
     return 1;
 }

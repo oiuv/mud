@@ -16,6 +16,7 @@ inherit F_DBASE;
 
 #define ALLOW_LIST ({})
 #define SPECIAL_NPC ({"/adm/npc/beichou"})
+#define ROBOT_NPC ({"/u/mudren/npc/butong"})
 
 #define REMOTE_Q "/adm/daemons/network/services/remote_q.c"
 
@@ -188,7 +189,7 @@ void channel_log(string msg, string verb, object user)
     t = time();
     msg_log += sprintf(" %s(%s) on %s\n%s",
                        user->name(1), user->query("id"), log_time(), msg);
-    if (strlen(msg_log) > 8000 || t - log_from > 900)
+    if (strlen(msg_log) > 100 || t - log_from > 10)
     {
         lt = localtime(t);
 
@@ -496,10 +497,10 @@ varargs int do_channel(object me, string verb, string arg, int emote)
             msg = sprintf("%s(%s)正在向%s频道发出信息。",
                           me->query("name"), me->query("id"), verb);
             do_channel(this_object(), "sys", msg);
-            SPECIAL_NPC->receive_report(me, verb);
+            SPECIAL_NPC->receive_report(me, verb, arg);
         }
     }
-    else if (is_player || !stringp(who = me->query("channel_id")))
+    else if (is_player || !stringp(who = me->query("channel_id") || me->short()))
     {
         who = me->name(channels[verb]["name_raw"]);
         if (who == me->name(1))
@@ -508,6 +509,10 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         if (who[0] == 27)
             who = NOR + who;
         who += channels[verb]["msg_color"];
+        if (userp(me) && verb == "chat")
+        {
+            ROBOT_NPC->receive_report(me, verb, arg);
+        }
     }
 
     // Ok, now send the message to those people listening us.
@@ -550,11 +555,11 @@ varargs int do_channel(object me, string verb, string arg, int emote)
         message("channel:" + ((verb == "ultra") ? "chat" : verb), msg, obs);
         channel_log(msg, verb, me);
     }
-    // 同步聊天消息到QQ群
-    if (verb == "chat")
+    // 同步消息到QQ群
+    if (verb == "chat" || verb == "ic")
     {
-        // 过滤NPC消息
-        if (interactive(me))
+        // 过滤子虚道人宝镜任务消息
+        if (strsrch(msg, "子虚道人") < 1)
         {
             "/adm/daemons/qq_d"->send(remove_ansi(msg));
         }

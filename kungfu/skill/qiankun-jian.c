@@ -102,13 +102,13 @@ mapping *action = ({
         "skill_name" : "乾坤无极",
         "damage_type": "刺伤"
 ]),
-([      "action": " "RED" 乾坤神剑之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 乾坤神剑之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
         "attack" : (int)this_player()->query_skill("sword", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
         "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
         "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
-        "lvl"    : 200,
+        "lvl"    : 300,
         "skill_name" : "极意",
         "damage_type": "刺伤"
 ]),
@@ -154,7 +154,7 @@ int practice_skill(object me)
 {
         object weapon;
 
-        if (!objectp(weapon = me->query_temp("weapon")) || 
+        if (!objectp(weapon = me->query_temp("weapon")) ||
             (string)weapon->query("skill_type") != "sword")
                 return notify_fail("你使用的武器不对。\n");
 

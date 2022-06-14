@@ -8,8 +8,8 @@ void create()
 LONG);
         set("no_fight", 1);
         set("exits", ([
-               "east" : __DIR__"guofu_wuchang2",
-               "west" : __DIR__"guofu_dayuan",
+                "east" : __DIR__"guofu_wuchang2",
+                "west" : __DIR__"guofu_dayuan",
         ]));
         setup();
         replace_program(ROOM);

@@ -288,7 +288,7 @@ int do_sign()
     me = this_player();
     message_vision(CYN "\n$N" CYN "陪着笑脸对$n" CYN "道：您好，您好，我"
                    "也来签个到。\n" NOR, me, this_object());
-    if (me->query("combat_exp") < 1000)
+    if (me->query("combat_exp") < 10000)
     {
         message_vision(CYN "$n" CYN "抬头看了看$N" CYN "，不屑道：就"
                        "你这点本事？只好参加被屠大赛！\n" NOR, me,
@@ -329,8 +329,8 @@ int do_sign()
 
 int do_join()
 {
-    return notify_fail(CYN "乌老大怒道：靠，进什么进？今日上面的查下来，"
-                       "我铺面都被封了。\n" NOR);
+    // return notify_fail(CYN "乌老大怒道：靠，进什么进？今日上面的查下来，"
+    //                    "我铺面都被封了。\n" NOR);
 
     if (PK_D->is_pking())
         return notify_fail(CYN "乌老大眉头一皱道：现在里面正比赛呢，"

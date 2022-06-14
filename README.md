@@ -16,19 +16,34 @@
 
 ## 启动说明
 
+游戏集成了[mudcore](https://github.com/mudcore/mudcore)框架，请使用以下指令下载源码：
+
+    git clone --recurse-submodules https://github.com/oiuv/mud.git
+
+如果你已经直接clone了项目，请使用以下指令更新子模块：
+
+    git submodule update --init
+
+> 这是将 `git submodule init` 和 `git submodule update` 合并成一步执行。
+
+如果还要初始化、抓取并检出任何嵌套的子模块， 请使用以下指令：
+
+    git submodule update --init --recursive
+
 ### 环境配置
 
 请把`data`目录中的`.env.example`复制为`.env`，并根据需要修改环境配置。
 
 ### 启动服务
 
-使用以下方式启动游戏会开启调试模式
+使用以下方式启动游戏：
 
-> driver config.ini -fdebug
+    driver config.ini
 
-或者
+如果是开发学习，使用以下方式之一开启调试模式：
 
-> driver config.ini -d
+    driver config.ini -fdebug
+    driver config.ini -d
 
  * 5555 端口为GBK编码
  * 6666 端口为UTF-8编码
@@ -38,6 +53,6 @@
 
 注册ID为 `mudren` 的帐号为游戏管理员(admin)。
 
-游戏体验：http://mud.ren:8888/
+线上体验请访问：https://mud.ren:8888/
 
-如有任何问题请访问：https://bbs.mud.ren
+求助答疑请访问：https://bbs.mud.ren

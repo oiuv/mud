@@ -97,7 +97,7 @@ void create()
 
         create_family("华山派", 13, "掌门");
 
-    set("chat_chance_combat", 120);
+    set("chat_chance_combat", 100);
     set("chat_msg_combat", ({
         (: perform_action, "sword.duo" :),
         (: perform_action, "sword.pi" :),
@@ -131,7 +131,7 @@ void check_weapon()
         (: perform_action, "sword.pi" :),
         (: perform_action, "sword.gui" :),
         }));
-        set("chat_chance", 120);
+        set("chat_chance", 100);
         set("chat_msg", ({
                 (: unwield_weapon :),
         }));

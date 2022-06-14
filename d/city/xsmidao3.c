@@ -8,11 +8,11 @@ void create()
 以便神不知鬼不觉的往来西域。
 LONG);
 
-        set("exits", ([
-                "north" : __DIR__"xsmidao2",
-                "west"  : __DIR__"xsmidao4",
-        ]));
+    set("exits", ([
+        "north" : __DIR__"xsmidao2",
+        "west"  : __DIR__"xsmidao4",
+    ]));
 
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

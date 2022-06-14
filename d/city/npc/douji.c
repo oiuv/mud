@@ -1,4 +1,4 @@
-// by mudren on 2013年11月3日 10:07:39
+// by ivy on 2013年11月3日 10:07:39
 inherit NPC;
 /*
 int random2 (int i)
@@ -31,3 +31,4 @@ void create()
 
   setup();
 }
+

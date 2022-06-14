@@ -56,13 +56,13 @@ mapping *action = ({
         "lvl"   : 150,
         "damage_type": "瘀伤"
 ]),
-([      "action": " "RED" 空明拳之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 空明拳之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force")/2 + random((int)this_player()->query_skill("force")),
         "attack" : (int)this_player()->query_skill("unarmed")/4 + random((int)this_player()->query_skill("unarmed")/2),
         "dodge"  : (int)this_player()->query_skill("dodge")/4 + random((int)this_player()->query_skill("force")/3),
         "parry"  : (int)this_player()->query_skill("parry")/4 + random((int)this_player()->query_skill("parry")/3),
         "damage" : (int)this_player()->query_skill("force")/3 + random((int)this_player()->query_skill("unarmed")/3),
-        "lvl"    : 100,
+        "lvl"    : 200,
         "skill_name" : "极意",
         "damage_type": "瘀伤"
 ]),
@@ -70,15 +70,15 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-    return usage == "unarmed" || usage == "parry";
+        return usage == "unarmed" || usage == "parry";
 }
 
 int valid_learn(object me)
 {
-    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+        if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
                 return notify_fail("练空明拳必须空手。\n");
 
-    if ((int)me->query("max_neili") < 1500)
+        if ((int)me->query("max_neili") < 1500)
                 return notify_fail("你的内力太弱，无法练空明拳。\n");
 
         if ((int)me->query_skill("force") < 150)
@@ -90,7 +90,7 @@ int valid_learn(object me)
         if ((int)me->query_skill("unarmed", 1) < (int)me->query_skill("kongming-quan", 1))
                 return notify_fail("你的基本拳脚水平有限，无法领会更高深的空明拳。\n");
 
-    return 1;
+        return 1;
 }
 
 string query_skill_name(int level)
@@ -168,18 +168,18 @@ int query_effect_parry(object attacker, object me)
 
 int practice_skill(object me)
 {
-    if ((int)me->query("qi") < 60)
-        return notify_fail("你的体力太低了。\n");
+        if ((int)me->query("qi") < 60)
+                return notify_fail("你的体力太低了。\n");
 
-    if ((int)me->query("neili") < 70)
+        if ((int)me->query("neili") < 70)
                 return notify_fail("你的内力不够了。\n");
 
-    me->receive_damage("qi", 50);
-    me->add("neili", -60);
-    return 1;
+        me->receive_damage("qi", 50);
+        me->add("neili", -60);
+        return 1;
 }
 
 string perform_action_file(string action)
 {
-    return __DIR__"kongming-quan/" + action;
+        return __DIR__"kongming-quan/" + action;
 }

@@ -165,7 +165,7 @@ void check_body()
                 (: perform_action, "sword.fen" :),
                 (: exert_function, "recover" :),
         }));
-        set("chat_chance", 120);
+        set("chat_chance", 100);
         set("chat_msg", ({
                 (: command("jifa sword quanzhen-jian") :),
         }));

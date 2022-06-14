@@ -11,7 +11,7 @@ void create()
 萦绕房中。因为郭靖是当今的大英雄，所以江湖上有不少豪杰
 每年都来拜访他。
 LONG);
-        set("no_fight", 1);
+    set("no_fight", 1);
     set("no_clean_up", 0);
     set("sleep_room", 1);
     set("exits", ([

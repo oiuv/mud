@@ -71,17 +71,17 @@ void create()
                 "柔月穿空" : (: ask_me :),
         ]));
 
-        set("chat_chance_combat", 120);
-        set("chat_msg_combat", ({
-                (: perform_action, "sword.chuan" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "sword.chuan" :),
                 (: perform_action, "unarmed.zhen" :),
                 (: perform_action, "unarmed.zhan" :),
                 (: perform_action, "unarmed.ji" :),
                 (: perform_action, "unarmed.yin" :),
-                (: exert_function, "recover" :),
-                (: exert_function, "powerup" :),
-                (: exert_function, "shield" :),
-        }) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+        (: exert_function, "shield" :),
+    }) );
 
         setup();
         carry_object("/clone/weapon/changjian")->wield();

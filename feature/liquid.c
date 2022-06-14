@@ -1,11 +1,3 @@
-/*
- * @Author: 雪风@mud.ren
- * @Date: 2021-09-09 19:38:35
- * @LastEditTime: 2021-09-09 19:38:36
- * @LastEditors: 雪风
- * @Description: 饮水公共接口
- *  https://bbs.mud.ren
- */
 // liquid.c
 
 #include <dbase.h>

@@ -28,8 +28,8 @@ void create()
                 set("unit", "个");
                 set("long", WHT "这是一个灰布包裹，里面胀鼓鼓的，不知装"
                             "了些什么。\n" NOR);
-                set("no_put", 1);
                 set("no_sell", 1);
+                set("no_put", 1);
                 set("value", 500);
                 set("material", "cloth");
         }

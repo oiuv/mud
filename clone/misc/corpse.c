@@ -104,7 +104,8 @@ void create()
 
     set("long", "这是一具无名尸体。\n");
     decayed = 0;
-    if( clonep(this_object()) ) call_out("decay", 60, 1);
+    if (clonep(this_object()))
+        call_out("decay", 60, 1);
 }
 
 int is_corpse() { return decayed < 2; }

@@ -132,8 +132,8 @@ LONG);
                 "千蛛万毒手"   : (: ask_skill6 :),
         ]));
 
-        if (clonep())
-        {
+    if (clonep())
+    {
                 ob = find_object(ZHUSUO);
                 ob2 = find_object(SHEYING);
 
@@ -148,13 +148,13 @@ LONG);
                         if (! ob) ob = load_object(JINWUGOU);
                         if (! environment(ob))
                         {
-                                ob->move(this_object());
-                                ob->wield();
+                            ob->move(this_object());
+                            ob->wield();
                         } else
                         {
-                                ob = new("/clone/weapon/changbian");
-                                ob->move(this_object());
-                                       ob->wield();
+                            ob = new("/clone/weapon/changbian");
+                            ob->move(this_object());
+                               ob->wield();
                         }
                 }
                 if (! ob2) ob2 = load_object(SHEYING);

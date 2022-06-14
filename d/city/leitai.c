@@ -5,27 +5,27 @@ string look_tiaofu();
 
 void create()
 {
-    set("short", "擂台");
-    set("long", @LONG
+        set("short", "擂台");
+        set("long", @LONG
 这是一个四丈见方的擂台。粗壮结实的木柱撑起一片平台，
 四角的支柱上高挂着四副对联，四面的观众都能清楚地看到台
 上的手起脚落。梁上贴着一长条幅(tiaofu)。
 LONG );
         set("outdoors", "city");
-    set("item_desc", ([
-        "tiaofu" : (: look_tiaofu :),
-    ]));
+        set("item_desc", ([
+                "tiaofu" : (: look_tiaofu :),
+        ]));
 
-    set("exits", ([
-        "eastdown"  : __DIR__"wudao1",
-        "westdown"  : __DIR__"wudao2",
-        "southdown" : __DIR__"wudao3",
-        "northdown" : __DIR__"wudao4",
-    ]));
-    set("objects", ([
-        "/adm/npc/referee": 1,
-    ]));
-    setup();
+        set("exits", ([
+                "eastdown"  : __DIR__"wudao1",
+                "westdown"  : __DIR__"wudao2",
+                "southdown" : __DIR__"wudao3",
+                "northdown" : __DIR__"wudao4",
+        ]));
+        set("objects", ([
+                "/adm/npc/referee": 1,
+        ]));
+        setup();
 }
 
 void init()

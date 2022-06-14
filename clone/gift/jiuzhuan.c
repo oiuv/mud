@@ -1,23 +1,23 @@
 // jiuzhuan.c 九转金丹
-// Ivy为武林群侠传把原来每种先天属性+4修改为+2
-//薪有所属改为+1
+// Ivy为炎黄群侠传把原来每种先天属性+4修改为+2
+//薪有所属改为+1(转世可重新使用)
 #include <ansi.h>
 
 inherit ITEM;
 
 void create()
 {
-    set_name(HIY "九转金丹" NOR, ({ "jiuzhuan jindan", "jindan", "dan" }));
-    set_weight(200);
-    if( clonep() )
-        set_default_object(__FILE__);
-    else {
-        set("long", HIY "一粒金色的仙丹，传说是太上老君"
-                    "精心炼制的灵丹妙药。\n" NOR);
-        set("value", 50000000);
-        set("unit", "粒");
-        set("only_do_effect", 1);
-    }
+        set_name(HIY "九转金丹" NOR, ({ "jiuzhuan jindan", "jindan", "dan" }));
+        set_weight(200);
+        if( clonep() )
+                set_default_object(__FILE__);
+        else {
+                set("long", HIY "一粒金色的仙丹，传说是太上老君"
+                                        "精心炼制的灵丹妙药。\n" NOR);
+                set("value", 50000000);
+                set("unit", "粒");
+                set("only_do_effect", 1);
+        }
 }
 
 int do_effect(object me)
@@ -46,13 +46,19 @@ int do_effect(object me)
                 me->add("dex", 1);
         }
 
-        if (me->query("gift/jiuzhuan/con") < 1 && random(2) &&
-            me->query("gender") != "无性")
+        if (me->query("gift/jiuzhuan/con") < 1 && random(2))
         {
-                effect++;
-                write(HIC "你觉得自己的内息更通畅了。\n" NOR);
-                me->add("gift/jiuzhuan/con", 1);
-                me->add("con", 1);
+                if (me->query("gender") != "无性")
+                {
+                        effect++;
+                        write(HIC "你觉得自己的内息更通畅了。\n" NOR);
+                        me->add("gift/jiuzhuan/con", 1);
+                        me->add("con", 1);
+                }
+                else
+                {
+                        write(HIC "你无根无性，金丹也没法完善根骨。\n" NOR);
+                }
         }
 
         if (me->query("gift/jiuzhuan/str") < 1 && random(2))
@@ -67,5 +73,5 @@ int do_effect(object me)
                 tell_object(me, "不过你觉得好像没什么作用。\n");
 
         destruct(this_object());
-    return 1;
+        return 1;
 }

@@ -26,7 +26,7 @@ void create()
                                "周，咳嗽了两声。\n" NOR, this_object());
                 set("startroom", "/d/city/guangchang");
 
-                set("chat_chance", 40);
+                set("chat_chance", 20);
                 set("chat_msg", ({
                         (: NPC_D->random_move(this_object()) :),
                 }));

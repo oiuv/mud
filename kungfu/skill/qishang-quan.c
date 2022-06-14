@@ -68,7 +68,7 @@ mapping *action = ({
     "skill_name" : "七者皆伤",
     "damage_type" : "内伤"
 ]),
-([  "action": " "RED" 七伤拳之极意 "NOR"",
+([  "action": "$N凝神静气，使出极招"RED" 七伤拳之极意 "NOR"",
     "force"  : (int)this_player()->query_skill("force", 1)/3 + random((int)this_player()->query_skill("force")),
     "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
     "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("cuff", 1)/2),

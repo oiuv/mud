@@ -25,10 +25,10 @@ mapping special_data = ([
         "str"   : "后天臂力",
         "con"   : "后天根骨",
         "dex"   : "后天身法",
-            */
-            //新增 by 薪有所属 统一为四字风格，看着整齐。后续如果有新属性随时补充更新。
-            //附加属性有这个但实际query_per()中此属性无效，故定义为无效容貌
-        "personality"   : "无效容貌",
+        */
+
+        //附加属性有这个但实际attribute()中此属性无效
+        "personality"   : "人格魅力",
         "attack"        : "战斗攻击",
         "defense"       : "战斗防御",
         "parry"         : "有效招架",
@@ -45,8 +45,8 @@ mapping special_data = ([
         "claw"          : "有效爪法",
         "warm"          : "保暖能力",
 
-            /*
-            //留着作相关属性翻译参考
+        /*
+        //留着作相关属性翻译参考
         "max_neili"     : "最大内力上限",
         "max_jingli"    : "最大精力上限",
         "max_qi"        : "最大气血上限",
@@ -95,17 +95,17 @@ mapping special_data = ([
         "practice_effect"       : "提升练习的效果百分比",
         "derive_effect"         : "提升汲取的效果百分比",
 
-        "avoid_noperform"       : HIR "回避绝招使用限制机率百分比",         // 终极兵器
-        "target_noperform"      : HIB "限制对手使用绝招机率百分比",         // 终极防具
+        "avoid_noperform"       : HIR "回避绝招使用限制机率百分比",     // 终极兵器
+        "target_noperform"      : HIB "限制对手使用绝招机率百分比",     // 终极防具
         "add_busy"      : HIR "对手忙乱秒数",                           // 终极兵器
-        "reduce_busy"   : HIB "化解忙乱秒数",                               // 终极防具
-        "avoid_busy"    : HIB "回避忙乱机率百分比",                         // 终极防具
-        "xuruo_status"  : HIR "让对手处于虚弱状态机率百分比",               // 终极兵器
-        "avoid_xuruo"   : HIB "回避虚弱机率百分比",                         // 终极防具
-        "add_skilllevel": HIR "提升所有技能等级",                           // 终极兵器
-        "add_damage"    : HIR "追加最终伤害百分比",                         // 终极兵器
-        "reduce_damage" : HIB "化解最终伤害百分比",                         // 终极防具
-            */
+        "reduce_busy"   : HIB "化解忙乱秒数",                           // 终极防具
+        "avoid_busy"    : HIB "回避忙乱机率百分比",                     // 终极防具
+        "xuruo_status"  : HIR "让对手处于虚弱状态机率百分比",           // 终极兵器
+        "avoid_xuruo"   : HIB "回避虚弱机率百分比",                     // 终极防具
+        "add_skilllevel": HIR "提升所有技能等级",                       // 终极兵器
+        "add_damage"    : HIR "追加最终伤害百分比",                     // 终极兵器
+        "reduce_damage" : HIB "化解最终伤害百分比",                     // 终极防具
+        */
 ]);
 
 string special_desc(string arg)

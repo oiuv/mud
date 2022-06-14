@@ -40,12 +40,12 @@ mapping emote;
 //      $s              - self-rude calling of emoter
 //      aboved added by Xiang@XKX
 
-int set_emote(string pattern, mapping def, int raw);
+int     set_emote(string pattern, mapping def, int raw);
 mapping query_emote(string pattern);
 
 void create()
 {
-    if (!restore() && !mapp(emote))
+    if (! restore() && ! mapp(emote))
         emote = ([]);
 }
 
@@ -66,30 +66,27 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
     object target;
     string no_emote, can_emote;
     mapping def;
-    mapping rwho = ([]);
+    mapping rwho = ([ ]);
 
-    if (!default_color)
-        default_color = channel_emote ? "" : CYN;
-    if (who)
-        who += default_color;
+    if (! default_color) default_color = channel_emote ? "" : CYN;
+    if (who) who += default_color;
     my_name = me->name() + default_color;
-    if (my_name[0] == 27)
-        my_name = NOR + my_name;
+    if (my_name[0] == 27) my_name = NOR + my_name;
 
     if (channel_emote && channel_emote == 4)
     {
         // 根据其他MUD返回的信息做生成EMOTE表情
-        if (sscanf(arg, "mud=%s name=%s id=%s age=%d gender=%s respect=%s rude=%s ",
-                   rwho["mud"],
-                   rwho["name"],
-                   rwho["id"],
-                   rwho["age"],
-                   rwho["gender"],
-                   rwho["respect"],
-                   rwho["rude"]) != 7)
+        if (sscanf(arg,"mud=%s name=%s id=%s age=%d gender=%s respect=%s rude=%s ",
+                                rwho["mud"],
+                                rwho["name"],
+                                rwho["id"],
+                                rwho["age"],
+                                rwho["gender"],
+                                rwho["respect"],
+                                rwho["rude"]) != 7)
             return 0;
 
-        if (!mapp(def = query_emote(verb)))
+        if (! mapp(def = query_emote(verb)))
         {
             tell_object(me, "没有 " + verb + " 这个表情动词。\n");
             return 0;
@@ -110,16 +107,15 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
         return str + "\n";
     }
 
-    if (!environment(me))
+    if (! environment(me))
         return 0;
 
-    if (!mapp(def = query_emote(verb)))
+    if (! mapp(def = query_emote(verb)))
         return 0;
 
-    if (me->ban_say())
-        return 0;
+    if (me->ban_say()) return 0;
 
-    if (!channel_emote)
+    if (! channel_emote)
     {
         if (me->query("doing") == "scheme")
         {
@@ -134,41 +130,37 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
     {
         target = present(arg, environment(me));
 
-        if (!objectp(target) || !target->is_character())
+        if (! objectp(target) || ! target->is_character())
         {
             // If not channel emote, only search target in our environment.
-            if (!channel_emote)
-                return 0;
+            if (! channel_emote) return 0;
             target = find_player(arg);
-            if (!objectp(target))
-                return 0;
+            if (! objectp(target))  return 0;
         }
 
-        if (!target->is_character() || !me->visible(target))
+        if (! target->is_character() || ! me->visible(target))
             return notify_fail("你要对谁做这个动作？\n");
 
         no_emote = target->query("env/no_emote");
-        if (!wizardp(me) && userp(me) && (no_emote == "all" || no_emote == "ALL" || is_sub(me->query("id"), no_emote)))
+        if (! wizardp(me) && userp(me) && (no_emote == "all" || no_emote == "ALL" ||
+            is_sub(me->query("id"), no_emote)))
         {
             can_emote = target->query("env/can_emote");
-            if (!is_sub(me->query("id"), can_emote))
+            if (! is_sub(me->query("id"), can_emote))
                 return notify_fail("这个人不想接受你的动作。\n");
         }
 
         tar_name = target->name() + default_color;
-        if (tar_name[0] == 27)
-            tar_name = NOR + tar_name;
+        if (tar_name[0] == 27) tar_name = NOR + tar_name;
 
         target_gender = target->query("gender");
         if (target == me)
         {
             msg_postfix = "_self";
             target = 0;
-        }
-        else
+        } else
             msg_postfix = "_target";
-    }
-    else
+    } else
         msg_postfix = "";
 
     my_gender = me->query("gender");
@@ -188,7 +180,7 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
             str = replace_string(str, "$n", tar_name);
             str = replace_string(str, "$p", gender_pronoun(target_gender));
         }
-        if (!channel_emote)
+        if (! channel_emote)
             message("emote", CYN + str + NOR + "\n", me);
     }
 
@@ -204,7 +196,7 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
         str = replace_string(str, "$r", RANK_D->query_rude(target));
         str = replace_string(str, "$n", tar_name);
         str = replace_string(str, "$p", gender_self(target_gender));
-        if (!channel_emote)
+        if (! channel_emote)
             message("emote", CYN + str + NOR + "\n", target);
     }
 
@@ -223,13 +215,13 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
             str = replace_string(str, "$n", tar_name);
             str = replace_string(str, "$p", gender_pronoun(target_gender));
         }
-        if (!channel_emote)
+        if (! channel_emote)
         {
-            str = CHANNEL_D->remove_addresses(str, 0);
+            str = CHANNEL_D->remove_addresses(str,0);
             message("emote", CYN + str + NOR + "\n", environment(me), ({me, target}));
         }
         else
-            return str + "\n";
+            return str + "[" + me->query("id") + " | " + verb + "]\n";
     }
 
     // Let NPC know we are doing emote on him.
@@ -241,15 +233,15 @@ varargs mixed do_emote(object me, string verb, string arg, int channel_emote, st
     return 1;
 }
 
-#define UPDATE_TIME 0
-#define MSG_MYSELF 1
-#define MSG_OTHERS 2
-#define MSG_MYSELF_SELF 3
-#define MSG_OTHERS_SELF 4
-#define MSG_MYSELF_TARGET 5
-#define MSG_TARGET 6
-#define MSG_OTHERS_TARGET 7
-#define UPDATE_USER 8
+#define UPDATE_TIME             0
+#define MSG_MYSELF              1
+#define MSG_OTHERS              2
+#define MSG_MYSELF_SELF         3
+#define MSG_OTHERS_SELF         4
+#define MSG_MYSELF_TARGET       5
+#define MSG_TARGET              6
+#define MSG_OTHERS_TARGET       7
+#define UPDATE_USER             8
 
 int set_emote(string pattern, mapping def, int raw)
 {
@@ -300,8 +292,7 @@ int set_emote(string pattern, mapping def, int raw)
         data[MSG_TARGET] = def["target"];
 
     emote[pattern] = data;
-    if (!raw)
-        save();
+    if (! raw) save();
 
     return 1;
 }
@@ -330,7 +321,7 @@ mapping query_emote(string pattern)
     if (mapp(data))
         return data;
 
-    def = ([]);
+    def = ([ ]);
     def["time"] = data[UPDATE_TIME];
     def["updated"] = data[UPDATE_USER];
 
@@ -382,42 +373,4 @@ mapping data()
 void dump()
 {
     write_file("/EMOTE_DUMP.json", json_encode(emote), 1);
-}
-
-// 转为mudcore格式
-varargs void mudcore()
-{
-    string key, *value;
-    mapping data = ([]);
-    string emote1, emote2;
-    foreach (key, value in emote)
-    {
-        // printf("key = %s\n",key);
-        // printf("value = %O\n",value);
-        if (stringp(value[3]) && stringp(value[5]))
-        {
-            emote1 = value[3];
-            emote2 = value[5];
-            // 过滤部分称呼复杂的动作
-            if (strsrch(emote2, "$r") > 1 || strsrch(emote2, "$R") > 1 ||
-                strsrch(emote2, "$c") > 1 || strsrch(emote2, "$C") > 1 ||
-                strsrch(emote2, "$s") > 1 || strsrch(emote2, "$S") > 1)
-            {
-                continue;
-            }
-            // 转换人称代词
-            emote1 = replace_string(emote1, "$P", "$ME");
-            emote1 = replace_string(emote1, "$N", "$ME");
-            emote1 = replace_string(emote1, "$p", "$YOU");
-            emote1 = replace_string(emote1, "$n", "$YOU");
-            emote2 = replace_string(emote2, "$P", "$ME");
-            emote2 = replace_string(emote2, "$N", "$ME");
-            emote2 = replace_string(emote2, "$p", "$YOU");
-            emote2 = replace_string(emote2, "$n", "$YOU");
-
-            data[key] = ({emote1, emote2});
-        }
-    }
-
-    write_file("/EMOTE_DUMP", json_encode(data));
 }

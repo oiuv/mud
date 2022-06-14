@@ -106,7 +106,7 @@ mapping *action = ({
     "skill_name" : "万毒噬体",
     "damage_type" : "瘀伤"
 ]),
-([  "action": " "RED" 五毒神掌之极意 "NOR"",
+([  "action": "$N凝神静气，使出极招"RED" 五毒神掌之极意 "NOR"",
     "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
     "attack" : (int)this_player()->query_skill("strike", 1)/4 + random((int)this_player()->query_skill("strike", 1)/2),
     "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
@@ -125,25 +125,25 @@ int valid_enable(string usage)
 
 int valid_learn(object me)
 {
-       if (me->query("character") != "心狠手辣" && me->query("character") != "国士无双")
-                return notify_fail("练五毒神掌必须要心狠手辣，我看你这点做得还不够。\n");
+    if (me->query("character") != "心狠手辣" && me->query("character") != "国士无双")
+            return notify_fail("练五毒神掌必须要心狠手辣，我看你这点做得还不够。\n");
 
-        if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-                return notify_fail("练五毒神掌必须空手。\n");
+    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+            return notify_fail("练五毒神掌必须空手。\n");
 
-        if ((int)me->query_skill("force") < 150)
-                return notify_fail("你的内功火候不够，无法练五毒神掌。\n");
+    if ((int)me->query_skill("force") < 150)
+            return notify_fail("你的内功火候不够，无法练五毒神掌。\n");
 
-        if ((int)me->query("max_neili") < 1200)
-                return notify_fail("你的内力太弱，无法练五毒神掌。\n");
+    if ((int)me->query("max_neili") < 1200)
+            return notify_fail("你的内力太弱，无法练五毒神掌。\n");
 
-        if ((int)me->query_skill("strike", 1) < 120)
-                return notify_fail("你的基本掌法火候不够，无法练五毒神掌。\n");
+    if ((int)me->query_skill("strike", 1) < 120)
+            return notify_fail("你的基本掌法火候不够，无法练五毒神掌。\n");
 
-        if ((int)me->query_skill("strike", 1) < (int)me->query_skill("wudu-shenzhang", 1))
-                return notify_fail("你的基本掌法水平有限，无法领会更高深的五毒神掌。\n");
+    if ((int)me->query_skill("strike", 1) < (int)me->query_skill("wudu-shenzhang", 1))
+            return notify_fail("你的基本掌法水平有限，无法领会更高深的五毒神掌。\n");
 
-        return 1;
+    return 1;
 }
 
 mapping query_action(object me, object weapon)

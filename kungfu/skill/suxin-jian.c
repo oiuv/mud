@@ -262,27 +262,27 @@ mapping *action = ({
         "lvl"    : 178,
         "damage_type" : "刺伤"
 ]),
-([      "action": " "RED" 玉女素心剑之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 玉女素心剑之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force")/2 + random((int)this_player()->query_skill("force")),
         "attack" : (int)this_player()->query_skill("sword")/4 + random((int)this_player()->query_skill("sword")/2),
         "dodge"  : (int)this_player()->query_skill("dodge")/4 + random((int)this_player()->query_skill("force")/3),
         "parry"  : (int)this_player()->query_skill("parry")/4 + random((int)this_player()->query_skill("parry")/3),
         "damage" : (int)this_player()->query_skill("force")/3 + random((int)this_player()->query_skill("sword")/3),
-        "lvl"    : 100,
+        "lvl"    : 250,
         "skill_name" : "极意",
         "damage_type": "刺伤"
 ]),
 });
 
-int valid_enable(string usage) 
-{ 
-        return usage == "sword" || usage == "parry"; 
+int valid_enable(string usage)
+{
+        return usage == "sword" || usage == "parry";
 }
 
 int valid_learn(object me)
 {
         object weapon;
-        
+
         if (me->query("gender") != "女性")
                 return notify_fail("玉女素心剑只有女性能练。\n");
 
@@ -310,7 +310,7 @@ int valid_learn(object me)
 
 mapping query_action(object me, object weapon)
 {
-        int i, level;  
+        int i, level;
         level = (int) me->query_skill("suxin-jian", 1);
         for (i = sizeof(action); i > 0; i--)
                 if (level > action[i-1]["lvl"])

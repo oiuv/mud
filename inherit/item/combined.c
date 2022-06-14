@@ -12,7 +12,7 @@ nosave int amount;
 
 void setup()
 {
-    if (! query("unit"))
+    if (!query("unit"))
         set("unit", "些");
 }
 
@@ -22,16 +22,18 @@ void destruct_me() { destruct(this_object()); }
 
 void set_amount(int v)
 {
-    if (v < 0) error("combine:set_amount less than 1.\n");
+    if (v < 0)
+        error("combine:set_amount less than 1.\n");
     if (v == 0)
     {
         amount = 0;
         call_out("destruct_me", 0);
-    } else
+    }
+    else
     {
         amount = v;
         this_object()->set_weight(v * (int)query("base_weight"));
-        if (! query("money_id"))
+        if (!query("money_id"))
             set("value", v * (int)query("base_value"));
     }
 }
@@ -62,7 +64,8 @@ varargs int move(mixed dest, int silent)
             total = (int)query_amount();
             for (i = 0; i < sizeof(inv); i++)
             {
-                if (inv[i] == this_object()) continue;
+                if (inv[i] == this_object())
+                    continue;
                 if (base_name(inv[i]) == file)
                 {
                     total += (int)inv[i]->query_amount();

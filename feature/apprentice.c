@@ -32,7 +32,7 @@ int is_apprentice_of(object ob)
     if (!query("reborn/family_name") ||
         !ob->query("family/family_name"))
         return 0;
-
+    // 暂不生效，重生转世也得拜师
     if (query("reborn/family_name") == ob->query("family/family_name"))
         return 1;
 

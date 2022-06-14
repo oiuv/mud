@@ -1,11 +1,3 @@
-/*
- * @Author: 雪风@mud.ren
- * @Date: 2021-09-09 19:37:41
- * @LastEditTime: 2021-09-09 19:37:42
- * @LastEditors: 雪风
- * @Description: 食物公共接口
- *  https://bbs.mud.ren
- */
 // food.c
 
 #include <dbase.h>

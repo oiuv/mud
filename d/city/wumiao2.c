@@ -56,7 +56,8 @@ void init()
 int do_pray(string arg)
 {
     object me = this_player();
-    int exp, pot, wday, day, month, year, *date, exp0, exp1;
+    int exp, pot, wday, day, month, year, *date;
+    // int exp0, exp1;
     string festival;
 
     date = localtime(time());
@@ -66,8 +67,8 @@ int do_pray(string arg)
     wday = date[LT_WDAY];
 
     exp = me->query("combat_exp");
-    exp0 = me->query("experience");
-    exp1 = me->query("learned_experience");
+    // exp0 = me->query("experience");
+    // exp1 = me->query("learned_experience");
 
     festival = "festival/" + year + "/" + month;
 
@@ -77,15 +78,10 @@ int do_pray(string arg)
     }
 
     message_vision(HIG "$N" HIG "跪在神像前，恭恭敬敬的磕了三个响头，然后默默的祈祷着。\n" NOR, me);
-    // 修正玩家数据问题
-    if ( exp0 < exp1 )
-    {
-        me->set("learned_experience", exp0);
-    }
 
     if (me->query(festival) == day)
     {
-        tell_object(me, HIR "但是你今天已经被祝福过了（请明天再来吧）。\n" NOR);
+        return notify_fail(HIR "但是你今天已经被祝福过了（请明天再来吧）。\n" NOR);
     }
     else
     {

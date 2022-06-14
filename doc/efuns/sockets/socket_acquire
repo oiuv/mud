@@ -1,7 +1,7 @@
 socket_acquire - assume ownership of a socket
 
 int socket_acquire( int socket, string | function read_callback,
-             string | function write_callback,
+		     string | function write_callback,
                     string | function close_callback );
 
 This efun is only available if PACKAGE_SOCKETS is compiled in.

@@ -14,7 +14,7 @@ int random2 (int i)
 }
 
 mapping gutous = ([
-    "tc" : "头彩",
+        "tc" : "头彩",
         "sd" : "双对",
         "qx" : "七星",
         "sx" : "散星",
@@ -33,7 +33,7 @@ LONG);
                 "south" : __DIR__"qixiang3",
         ]));
         set("item_desc", ([
-                "sign": @TEXT
+                "paizi": @TEXT
 赌骰子方法:
 bet <kind> <amount> <money>
 
@@ -56,13 +56,13 @@ TEXT
 }
 void init()
 {
-    if (! interactive(this_player()))
-        return;
+        if (! interactive(this_player()))
+                return;
 
         add_action("do_bet", "bet");
 
         if (room_status > 0)
-            return;
+                return;
 
         remove_call_out("gamble_prepare");
         remove_call_out("gamble_start");
@@ -106,12 +106,12 @@ int do_bet(string arg)
         if (amount > ob->query_amount())
                 return notify_fail("你身上的钱不够押。\n");
 
-    if (amount > 10)
-        return notify_fail("庄家喊道：怎么零零碎碎的那么多？"
-                   "换成整票再来下注！\n");
+        if (amount > 10)
+                return notify_fail("庄家喊道：怎么零零碎碎的那么多？"
+                                   "换成整票再来下注！\n");
 
-    if (ob->query("base_value") * amount > 100000)
-        return notify_fail("赌注最大十两黄金。\n");
+        if (ob->query("base_value") * amount > 100000)
+                return notify_fail("赌注最大十两黄金。\n");
 
         if (me->query_temp("gamble_bet/amount") > 0)
                 return notify_fail("你已经押过了。\n");
@@ -159,52 +159,52 @@ void display_bet(object room, int i)
         {
         case 1:
                 str =
-"┌------┐\n"+
-"│　　　│\n"+
-"│　●　│\n"+
-"│　　　│\n"+
-"└------┘\n";
+"┌-----┐\n"+
+"│     │\n"+
+"│  ●  │\n"+
+"│     │\n"+
+"└-----┘\n";
 
                 break;
         case 2:
                 str =
-"┌------┐\n"+
-"│　　　│\n"+
-"│●　●│\n"+
-"│　　　│\n"+
-"└------┘\n";
+"┌-----┐\n"+
+"│     │\n"+
+"│ ● ● │\n"+
+"│     │\n"+
+"└-----┘\n";
                 break;
         case 3:
                 str =
-"┌------┐\n"+
-"│●　　│\n"+
-"│　●　│\n"+
-"│　　●│\n"+
-"└------┘\n";
+"┌-----┐\n"+
+"│●    │\n"+
+"│  ●  │\n"+
+"│    ●│\n"+
+"└-----┘\n";
                 break;
         case 4:
                 str =
-"┌------┐\n"+
-"│●　●│\n"+
-"│　　　│\n"+
-"│●　●│\n"+
-"└------┘\n";
+"┌-----┐\n"+
+"│ ● ● │\n"+
+"│     │\n"+
+"│ ● ● │\n"+
+"└-----┘\n";
                 break;
         case 5:
                 str =
-"┌------┐\n"+
-"│●　●│\n"+
-"│　●　│\n"+
-"│●　●│\n"+
-"└------┘\n";
+"┌-----┐\n"+
+"│●   ●│\n"+
+"│  ●  │\n"+
+"│●   ●│\n"+
+"└-----┘\n";
                 break;
         case 6:
                 str =
-"┌------┐\n"+
-"│●　●│\n"+
-"│●　●│\n"+
-"│●　●│\n"+
-"└------┘\n";
+"┌-----┐\n"+
+"│ ● ● │\n"+
+"│ ● ● │\n"+
+"│ ● ● │\n"+
+"└-----┘\n";
                 break;
         }
         tell_room(room,str);
@@ -276,7 +276,7 @@ void player_wins(object who, int total)
 void player_loses(object who, int total)
 {
         object money = new("/clone/money/" +
-               who->query_temp("gamble_bet/money"));
+                           who->query_temp("gamble_bet/money"));
         total = who->query_temp("gamble_bet/amount");
         message_vision(sprintf("庄家将$N押在银盘中的%s%s%s收走。\n",
                                chinese_number(total),

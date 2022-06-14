@@ -7,6 +7,7 @@
 #include <dbase.h>
 #include <name.h>
 #include <message.h>
+// #include <runtime_config.h>
 #include <shell.h>
 
 #define MAX_ALIASES 40
@@ -32,6 +33,7 @@ string process_input(string str)
     int i, j;
 
     me = this_object();
+    // notify_fail(get_config(__DEFAULT_FAIL_MESSAGE__));
     clear_written();
     if (!living(me))
         return "";

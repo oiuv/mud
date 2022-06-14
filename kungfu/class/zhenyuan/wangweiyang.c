@@ -21,10 +21,10 @@ mixed ask_skill7();
 void create()
 {
         object ob;
-        set_name("王维扬", ({ "wang weiyang", "wang", "weiyang", "wei", "yang"}));
-        set("nickname", HIY "威震河朔" NOR);
-        set("title", "镇远镖局总镖头");
-          set("gender", "男性");
+    set_name("王维扬", ({ "wang weiyang", "wang", "weiyang", "wei", "yang"}));
+    set("nickname", HIY "威震河朔" NOR);
+    set("title", "镇远镖局总镖头");
+      set("gender", "男性");
         set("long", @LONG
 这位就是镇远镖局的创始人，有“威震河朔”之
 称的王维扬。江湖上有句话叫：“宁碰阎王，莫
@@ -34,8 +34,8 @@ void create()
 管理镖局中事务了，一门心思放在提高自己的武
 功修为上。
 LONG );
-          set("age", 68);
-        set("class", "fighter");
+      set("age", 68);
+    set("class", "fighter");
         set("attitude", "peaceful");
         set("str", 35);
         set("int", 35);
@@ -49,42 +49,42 @@ LONG );
         set("jiali", 200);
         set("combat_exp", 3500000);
 
-          set_skill("force", 260);
-          set_skill("nei-bagua", 260);
-          set_skill("bagua-xinfa", 240);
-          set_skill("parry", 260);
-          set_skill("wai-bagua", 260);
-          set_skill("dodge", 240);
-          set_skill("bagua-bu", 240);
-          set_skill("unarmed", 240);
-          set_skill("youshen-zhang", 240);
-          set_skill("strike", 240);
-          set_skill("bagua-zhang", 240);
-          set_skill("bazhen-zhang", 240);
-          set_skill("cuff", 240);
-          set_skill("bagua-quan", 240);
-          set_skill("yanqing-quan", 240);
-          set_skill("blade", 260);
-          set_skill("bagua-dao", 260);
-          set_skill("kuimang-dao", 240);
-          set_skill("throwing", 240);
-          set_skill("bagua-biao", 240);
-          set_skill("literate", 220);
-          set_skill("martial-cognize", 240);
+      set_skill("force", 260);
+      set_skill("nei-bagua", 260);
+      set_skill("bagua-xinfa", 240);
+      set_skill("parry", 260);
+      set_skill("wai-bagua", 260);
+      set_skill("dodge", 240);
+      set_skill("bagua-bu", 240);
+      set_skill("unarmed", 240);
+      set_skill("youshen-zhang", 240);
+      set_skill("strike", 240);
+      set_skill("bagua-zhang", 240);
+      set_skill("bazhen-zhang", 240);
+      set_skill("cuff", 240);
+      set_skill("bagua-quan", 240);
+      set_skill("yanqing-quan", 240);
+      set_skill("blade", 260);
+      set_skill("bagua-dao", 260);
+      set_skill("kuimang-dao", 240);
+      set_skill("throwing", 240);
+      set_skill("bagua-biao", 240);
+      set_skill("literate", 220);
+      set_skill("martial-cognize", 240);
 
-        map_skill("unarmed", "youshen-zhang");
-        map_skill("dodge", "bagua-bu");
-        map_skill("force", "nei-bagua");
-        map_skill("strike", "bazhen-zhang");
-        map_skill("blade", "bagua-dao");
-        map_skill("cuff", "bagua-quan");
-        map_skill("parry", "wai-bagua");
-        map_skill("throwing", "bagua-biao");
+    map_skill("unarmed", "youshen-zhang");
+    map_skill("dodge", "bagua-bu");
+    map_skill("force", "nei-bagua");
+    map_skill("strike", "bazhen-zhang");
+    map_skill("blade", "bagua-dao");
+    map_skill("cuff", "bagua-quan");
+    map_skill("parry", "wai-bagua");
+    map_skill("throwing", "bagua-biao");
 
-        prepare_skill("unarmed", "youshen-zhang");
+    prepare_skill("unarmed", "youshen-zhang");
         set("class", "fighter");
 
-          create_family("八卦门", 1, "掌门");
+      create_family("八卦门", 1, "掌门");
 
         set("inquiry", ([
                 "厚背紫金刀" : (: ask_dao :),
@@ -108,7 +108,7 @@ LONG );
                 (: exert_function, "powerup" :),
         }) );
 
-          setup();
+      setup();
 
         set_temp("apply/damage", 100);
         set_temp("apply/unarmed_damage", 100);
@@ -130,15 +130,15 @@ LONG );
                 }
         }
 
-          carry_object("/clone/misc/cloth")->wear();
+      carry_object("/clone/misc/cloth")->wear();
         set_temp("handing", carry_object("/d/beijing/npc/obj/jinbiao"));
 }
 
 int accept_fight(object me)
 {
-          command("say 这位" + RANK_D->query_respect(me) +
+      command("say 这位" + RANK_D->query_respect(me) +
                 "，你不是我的对手，我看较量还是免了吧！\n");
-          return 0;
+      return 0;
 }
 
 void attempt_apprentice(object me)
@@ -166,7 +166,7 @@ void attempt_apprentice(object me)
         }
 
         command("haha");
-          command("say 很好，希望你多加努力，好好学习本门武功，他日将八卦门发扬光大。");
+      command("say 很好，希望你多加努力，好好学习本门武功，他日将八卦门发扬光大。");
         command("recruit " + me->query("id"));
 
         if ((string)me->query("class") != "fighter")

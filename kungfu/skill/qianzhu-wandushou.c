@@ -96,14 +96,14 @@ mapping *action = ({
         "lvl"   : 200,
         "damage_type" : "抓伤"
 ]),
-([      "action": " "RED" 千蛛万毒手之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 千蛛万毒手之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
         "attack" : (int)this_player()->query_skill("strike", 1)/4 + random((int)this_player()->query_skill("strike", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
         "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
         "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("strike", 1)/2),
-        "lvl"    : 200,
-        //"skill_name" : "极意",
+        "lvl"    : 300,
+        "skill_name" : "极意",
         "damage_type": "抓伤"
 ]),
 });
@@ -161,7 +161,7 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
 
         if (flvl * 2 + random(lvl) > victim->query_skill("force"))
         {
-                victim->affect_by("qianzhu_wandushou",
+                                victim->affect_by("qianzhu_wandushou",
                               ([ "level" : flvl + random(flvl),
                                  "id"    : me->query("id"),
                                  "duration" : lvl / 50 + random(lvl / 20) ]));

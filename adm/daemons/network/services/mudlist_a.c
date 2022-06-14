@@ -33,7 +33,7 @@ void incoming_request(mapping info)
     junk = keys(info);
     if (sizeof(junk))
         have_mudlist = 1;
-
+    // debug_message(sprintf("mudlist_a info = %O", info));
     filter_array(junk, "process_list", this_object(), info);
 }
 
@@ -50,7 +50,7 @@ int process_list(string idx, mapping info)
 
     // each entry consists of '|' separated fields
     inf = explode(info[idx], "|");
-
+    // debug_message(sprintf("mudlist_a inf = %O", inf));
     // build up the mapping for the individual muds
     newm = ([]);
     j = sizeof(inf);
@@ -59,7 +59,7 @@ int process_list(string idx, mapping info)
             newm[name] = value;
     if (!newm["NAME"])
         return 0;
-
+    // debug_message(sprintf("mudlist_a newm = %O", newm));
     // make sure the name is in the proper form
     // name = htonn(newm["NAME"]);
     name = newm["HOSTADDRESS"] + ":" + newm["PORTUDP"];
@@ -75,14 +75,14 @@ int process_list(string idx, mapping info)
     if (undefinedp(newm["MUDNAME"]) ||
         undefinedp(newm["USERS"]))
         return 0;
-
+    /*
     // if the sites is one of my subsites, I would receive
     // the information from mudlist, rather than wait for
     // the ping information from it.
     if (VERSION_D->is_release_server() &&
         newm["MUDLIB"] == MUDLIB_NAME)
         return 0;
-
+    */
     // if we have an entry, we update it, otherwise we add the new entry
     old = DNS_MASTER->query_mud_info(name);
 

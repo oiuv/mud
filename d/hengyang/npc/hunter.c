@@ -28,9 +28,9 @@ void create()
     set( "jiali", 150 );
 
     set( "inquiry", ([
-                 "hunting" : (: teach_hunting:),
-                 "捕猎"    : (: teach_hunting:),
-             ]) );
+        "hunting" : (: teach_hunting:),
+        "捕猎"    : (: teach_hunting:),
+    ]) );
 
     setup();
     carry_object( "/clone/cloth/cloth" )->wear();
@@ -48,7 +48,7 @@ int accept_object( object me, object ob )
     {
         command( "nod" );
         command( "say 这个我正用得着，在下无以为报，如果你愿意，我\n可以"
-             "教你一些捕猎的技巧。" );
+                "教你一些捕猎技巧和驭兽之术。" );
         me->set_temp( "marks/hunter", 1 );
         return(1);
     }else {
@@ -64,7 +64,7 @@ mixed teach_hunting()
     object    me = this_player();
     int    jing, add;
 
-    jing    = me->query( "jing" );
+    jing = me->query( "jing" );
     add    = me->query_int() + random( me->query_int() / 2 );
 
     if ( !me->query_temp( "marks/hunter" ) )
@@ -104,7 +104,7 @@ int recognize_apprentice( object me, string skill )
 
     if ( skill != "training" && skill != "hunting" )
     {
-        command( "say 我只传授训兽术(training)和狩猎技巧(hunting)。" );
+        command( "say 我只能传授你驭兽术(training)和狩猎技巧(hunting)。" );
         return(-1);
     }
 

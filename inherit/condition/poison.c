@@ -127,13 +127,13 @@ int do_effect(object ob, string cnd, mapping p)
 
         cnd_info = mixed_poison(ob->query_condition(cnd), p);
         ob->apply_condition(cnd, cnd_info);
-                if (p["level"] > 200)//中毒导致npc不能吸气，单方面加强玩家
-                {
-                        if (! userp(ob) && random(2) == 1)
-                                ob->apply_condition("exert_drug", 1);
-                //        else
-                //                ob->apply_condition("exert_drug", 1);
-                }
+        if (p["level"] > 200)//中毒导致npc不能吸气，单方面加强玩家
+        {
+            if (! userp(ob) && random(2) == 1)
+                ob->apply_condition("exert_drug", 1);
+        //    else
+        //        ob->apply_condition("exert_drug", 1);
+        }
         return 1;
 }
 
@@ -163,6 +163,8 @@ int dispel(object me, object ob, mapping cnd)
         need_lvl = cnd["level"] + 10;
         if (ob->query("breakup"))
                 need_lvl = need_lvl * 7 / 10;
+        if (ob->query("special_skill/divine"))
+                need_lvl = need_lvl * 7 / 10;
 
         if (ob->query("immune/poison") == -1)
                 need_lvl = 1;
@@ -179,7 +181,7 @@ int dispel(object me, object ob, mapping cnd)
         my_lvl = me->query_skill("force") +
                  me->query_skill("poison") / 5 +
                  me->query_skill("dispel-poison", 1) +
-                                 me->query_skill("medical") / 5 +
+                 me->query_skill("medical") / 5 +
                  me->query_temp("apply/dispel-poison");
         if (need_lvl > my_lvl)
         {
@@ -207,6 +209,8 @@ int dispel(object me, object ob, mapping cnd)
         power = my_lvl + me->query_skill("dispel-poison", 1) +
                 me->query_temp("apply/dispel-poison");
         if (ob->query("breakup"))
+                power += power * 3 / 10;
+        if (ob->query("special_skill/divine"))
                 power += power * 3 / 10;
         if (me == ob)
         {
@@ -333,19 +337,19 @@ int update_condition(object me, mapping cnd)
 {
         int jd;
         int qd;
-        int jw;
-        int qw;
+    int jw;
+    int qw;
         int improve;
 
-        //if (! mapp(cnd) || me->query_temp("nopoison")) return 0;
-        //为转世特技诸邪辟易增加百毒不侵效果 by 薪有所属
-               if (! mapp(cnd) || me->query_temp("nopoison") ||
+    //if (! mapp(cnd) || me->query_temp("nopoison")) return 0;
+    //为转世特技诸邪辟易增加百毒不侵效果 by 薪有所属
+           if (! mapp(cnd) || me->query_temp("nopoison") ||
             me->query("special_skill/piyi"))
                 return 0;
 
         if (! intp(cnd["level"]) ||
-            ! intp(cnd["remain"] ||
-            ! stringp(cnd["id"])))
+        ! intp(cnd["remain"] ||
+        ! stringp(cnd["id"])))
                 return 0;
 
         jd = this_object()->jing_damage(me, cnd);
@@ -359,27 +363,27 @@ int update_condition(object me, mapping cnd)
                 return 1;
         }
 
-        jw = jd / 2;
-        qw = qd / 2;
-        if (jw > me->query("eff_jing"))
-        {
-                jw = me->query("eff_jing");
-                if (jw < 0) jw = 0;
-        }
+    jw = jd / 2;
+    qw = qd / 2;
+    if (jw > me->query("eff_jing"))
+    {
+        jw = me->query("eff_jing");
+        if (jw < 0) jw = 0;
+    }
 
-        if (qw > me->query("eff_qi"))
-        {
-                qw = me->query("eff_qi");
-                if (qw < 0) qw = 0;
-        }
+    if (qw > me->query("eff_qi"))
+    {
+        qw = me->query("eff_qi");
+        if (qw < 0) qw = 0;
+    }
 
         improve = (int)me->query("immune/poison");
         if (improve != -1)
         {
                 me->receive_damage("jing", jd);
-                me->receive_wound("jing",  jw);
+            me->receive_wound("jing",  jw);
                 me->receive_damage("qi",   qd);
-                me->receive_wound("qi",    qw);
+            me->receive_wound("qi",    qw);
         }
 
         if (cnd["id"] == "nature poison" || improve == -1 ||
@@ -404,12 +408,12 @@ int update_condition(object me, mapping cnd)
 
                 // 正常去毒
                 cnd["remain"] -= cnd["level"];
-                me->apply_condition(this_object()->name(), cnd);
+            me->apply_condition(this_object()->name(), cnd);
         }
 
         message("vision", replace_string(update_msg_others(), "$N",
                           me->name()), environment(me), ({ me }));
-        tell_object(me, replace_string(update_msg_self(), "$?", cnd["name"]));
+    tell_object(me, replace_string(update_msg_self(), "$?", cnd["name"]));
 
-        return CND_NO_HEAL_UP | CND_CONTINUE;
+    return CND_NO_HEAL_UP | CND_CONTINUE;
 }

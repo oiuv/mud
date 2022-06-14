@@ -38,10 +38,10 @@ LONG);
     set("combat_exp", 12000000);
 
     set("inquiry", ([
-        "乾坤宝镜" : (: ask_mirror :),
+        "mirror" : (: ask_mirror :),
         "宝镜" : (: ask_mirror :),
-        // "mirror" : (: ask_mirror :),
-        "心魔" : (: ask_maze :),
+        "乾坤宝镜" : (: ask_mirror :),
+        "心魔幻境" : (: ask_maze :),
     ]));
 
     set_skill("force", 500);

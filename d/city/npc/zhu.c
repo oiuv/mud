@@ -113,7 +113,7 @@ string ask_job()
                 return "虽然我这里只是抄抄书，可是你战斗经验这么差，要"
                        "是有小流氓捣乱你怎么办？";
 
-        if (me->query("combat_exp") > 30000)
+        if (me->query("combat_exp") > 30000 && me->query("mark/job_copy") > 1000)
                 return "大侠你也来抄书？真是屈就您了，慢走啊！";
 
         if (me->query("qi") < 20)
@@ -222,8 +222,9 @@ int working(object me)
                 me->add_temp("mark/朱", 20);
                 me->add("combat_exp", b);
                 me->improve_potential((b + 20) / 3);
-
-                if (me->query_skill("literate",1) && me->query_skill("literate", 1) < 100)
+                // 记录抄书工作次数
+                me->add("mark/job_copy", 1);
+                if (me->query_skill("literate", 1) && me->query_skill("literate", 1) < 100)
                     me->improve_skill("literate", (b + 5) / 2);
 
                 ob = new("/clone/money/coin");

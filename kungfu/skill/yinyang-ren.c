@@ -92,20 +92,20 @@ mapping *action = ({
         "skill_name" : "刀光剑影",
         "damage_type":  "刺伤"
 ]),
-([      "action": " "RED" 阴阳刃法之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 阴阳刃法之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force")/2 + random((int)this_player()->query_skill("force")),
         "attack" : (int)this_player()->query_skill("sword")/4 + random((int)this_player()->query_skill("blade")/2),
         "dodge"  : (int)this_player()->query_skill("dodge")/4 + random((int)this_player()->query_skill("force")/3),
         "parry"  : (int)this_player()->query_skill("parry")/4 + random((int)this_player()->query_skill("parry")/3),
         "damage" : (int)this_player()->query_skill("force")/3 + random((int)this_player()->query_skill("sword")/3),
-        "lvl"    : 100,
+        "lvl"    : 250,
         "skill_name" : "极意",
         "damage_type": "刺伤"
 ]),
 });
 
 int valid_enable(string usage)
-{ 
+{
        return usage == "sword" || usage == "parry" || usage == "blade";
 }
 

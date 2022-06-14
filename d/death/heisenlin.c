@@ -59,4 +59,7 @@ LONG NOR);
 
     // 迷宫房间是否为户外房间？
     set_outdoors(0);
+
+    // 是否绘制迷宫地图
+    // set_maze_map(1);
 }

@@ -73,13 +73,14 @@ void incoming_request(mapping info)
 
     if (!ACCESS_CHECK(previous_object()))
         return;
-
+    // debug_message(sprintf("%O", info));
     if (info["NAME"])
     {
         if (info["NAME"] == Mud_name())
             return;
 
         minfo = DNS_MASTER->query_mud_info(info["HOSTADDRESS"] + ":" + info["PORTUDP"]);
+        // debug_message(sprintf("%O", minfo));
         if (!minfo || !strlen(info["USRNAME"]) ||
             !DNS_MASTER->dns_mudp(info["HOSTADDRESS"] + ":" + info["PORTUDP"]))
         {

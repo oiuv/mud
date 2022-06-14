@@ -148,7 +148,7 @@ int do_yell(string arg)
         return 1;
     } else
         message_vision("湖面上远远传来一阵回声：“" + arg +
-                       "～～～”\n", this_player());
+                       "~~~~~~”\n", this_player());
     return 1;
 }
 

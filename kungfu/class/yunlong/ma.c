@@ -87,7 +87,7 @@ void create()
 void init()
 {
     ::init();
-    remove_call_out("greeting");
+    // remove_call_out("greeting");
     add_action("do_join", "join");
 }
 
@@ -100,8 +100,6 @@ void greeting(object ob)
                 say("马超兴笑道：这位" + RANK_D->query_respect(ob) +
             "，可有什么不平之事么？\n");
 }
-
-
 
 void reset()
 {

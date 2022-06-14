@@ -4,8 +4,8 @@ The LPC for loop is also identical to that provided by C.  Syntax is as
 follows:
 
 for (expression0; expression1; expression2) {
-    statements;
-    ...;
+	statements;
+	...;
 }
 
 Expression0 is evaluated once prior to the execution of the loop.  Expression1
@@ -23,6 +23,6 @@ fixed number of times:
 int i;
 
 for (i = 0; i < 10; i++) {
-    write("i == " + i + "\n");
-    write("10 - i == " + (10 - i) + "\n");
+	write("i == " + i + "\n");
+	write("10 - i == " + (10 - i) + "\n");
 }

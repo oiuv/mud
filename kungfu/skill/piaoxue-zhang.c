@@ -62,13 +62,13 @@ mapping *action = ({
         "skill_name" : "穹寰飞仙",
         "damage_type" : "内伤"
 ]),
-([      "action": " "RED" 飘雪穿云掌之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 飘雪穿云掌之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force")/2 + random((int)this_player()->query_skill("force")),
         "attack" : (int)this_player()->query_skill("strike")/4 + random((int)this_player()->query_skill("strike")/2),
         "dodge"  : (int)this_player()->query_skill("dodge")/4 + random((int)this_player()->query_skill("force")/3),
         "parry"  : (int)this_player()->query_skill("parry")/4 + random((int)this_player()->query_skill("parry")/3),
         "damage" : (int)this_player()->query_skill("force")/3 + random((int)this_player()->query_skill("strike")/3),
-        "lvl"    : 100,
+        "lvl"    : 300,
         "skill_name" : "极意",
         "damage_type": "内伤"
 ]),
@@ -150,7 +150,7 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         if (damage_bonus / 6 > victim->query_con())
         {
                 victim->receive_wound("qi", (damage_bonus - 140) / 3, me);
-                    return HIR "只听$n" HIR "前胸“喀嚓”一声闷响，竟"
+                        return HIR "只听$n" HIR "前胸“喀嚓”一声闷响，竟"
                                "似折断了一跟肋骨。\n" NOR;
         }
 }

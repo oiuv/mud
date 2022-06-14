@@ -18,7 +18,7 @@ void create()
     // set("age", 20 + random(40));
     set("long", "这是你的心魔。\n");
     set("attitude", "aggressive");
-    set("chat_chance", 1); // 1/120 的机率
+    set("chat_chance", 1); // 1/100 的机率
     set("chat_msg", ({ (: random_move :) }));
     set("chat_chance_combat", 120);
     set("scale", 100);
@@ -140,18 +140,18 @@ void die(object killer)
         killer = query_temp("last_opponent");
 
     lvl = NPC_D->check_level(this_object());
-    exp = 15 + random(10) + lvl;
-    pot = 10 + random(5) + lvl;
-    weiwang = 5 + random(5) + lvl / 2;
-    score = 5 + random(5) + lvl / 2;
-
+    exp = 15 * lvl + random(lvl);
+    pot = 10 * lvl + random(lvl);
+    weiwang = 5 + random(lvl);
+    score = 5 + random(lvl);
+    // debug_message("lvl = " + lvl);
     if (objectp(killer))
     {
         GIFT_D->delay_bonus(killer, ([
-            "exp" : exp + random(4),
-            "pot" : pot + random(3),
-            "weiwang" : weiwang + random(3),
-            "score" : score + random(3),
+            "exp" : exp,
+            "pot" : pot,
+            "weiwang" : weiwang,
+            "score" : score,
             "prompt" : "击毙" + name() + "之后"
         ]));
     }

@@ -7,9 +7,9 @@ inherit NPC;
 void create()
 {
     seteuid(getuid());
-    set_name("张三", ({ "zhang san", "zhang", "san", "bai bian" }) );
+    set_name("张三", ({"zhang san", "zhang", "san", "bai bian"}));
     set("title", HIY "百变道人" NOR);
-    set("gender", "男性" );
+    set("gender", "男性");
     set("age", 50);
     set("long", "一位邋邋遢遢的道士。\n");
     set("attitude", "heroism");
@@ -28,7 +28,7 @@ void create()
     set("shen_type", -1);
     set("env/wimpy", 60);
 
-    set_temp("apply/attack",  10);
+    set_temp("apply/attack", 10);
     set_temp("apply/defense", 20);
 
     set("combat_exp", 25000);
@@ -44,7 +44,7 @@ void create()
     set_skill("tiyunzong", 53);
 
     map_skill("force", "taiji-shengong");
-    map_skill("unarmed","taiji-quan");
+    map_skill("unarmed", "taiji-quan");
     map_skill("parry", "taiji-quan");
     map_skill("sword", "taiji-jian");
     map_skill("dodge", "tiyunzong");
@@ -52,15 +52,12 @@ void create()
     create_family("武当派", 3, "弟子");
 
     set("chat_chance", 5);
-    set("chat_msg", ({
-        (: random_move :)
-    }) );
+    set("chat_msg", ({(: random_move :)}));
 
     setup();
 
     carry_object("/clone/misc/mask");
     add_money("gold", 3);
-
 }
 
 void init()
@@ -75,15 +72,16 @@ void init()
 
     ::init();
 
-    if (me->is_fighting() || wizardp(ob)) return;
+    if (me->is_fighting() || wizardp(ob))
+        return;
 
     remove_call_out("pretending");
     call_out("pretending", 1, ob);
 
     skill_status = ob->query_skills();
-    sname  = sort_array( keys(skill_status), (: strcmp :) );
+    sname = sort_array(keys(skill_status), (: strcmp :));
 
-    for(i=0; i<sizeof(skill_status); i++)
+    for (i = 0; i < sizeof(skill_status); i++)
     {
         me->set_skill(sname[i], skill_status[sname[i]]);
     }
@@ -92,18 +90,18 @@ void init()
     command("enable dodge none");
     command("enable parry none");
 
-    if ( !(map_status = ob->query_skill_map()) ) return;
+    if (!(map_status = ob->query_skill_map()))
+        return;
 
-    mname  = sort_array( keys(map_status), (: strcmp :) );
+    mname = sort_array(keys(map_status), (: strcmp :));
 
-    for(i=0; i<sizeof(map_status); i++)
+    for (i = 0; i < sizeof(map_status); i++)
     {
         command("enable " + mname[i] + " " + map_status[mname[i]]);
     }
 
     set("neili", 600);
     set("jiali", 30);
-
 }
 
 void pretending(object ob)
@@ -111,24 +109,25 @@ void pretending(object ob)
 
     object me = this_object();
 
-    if (!ob || environment(ob) != environment()) return;
+    if (!ob || environment(ob) != environment())
+        return;
 
-    switch(random(3))
+    switch (random(3))
     {
-        case 0:
-                       command("grin " + ob->query("id"));
-                       command("pretend " + ob->query("id"));
-                       command("exert recover");
-               break;
-        case 1:
-                       command("hi " + ob->query("id"));
-                       command("exert heal");
-                       command("exert recover");
-               break;
-        case 2:
-                       command("stare " + ob->query("id"));
-               me->fight_ob(ob);
-               ob->fight_ob(me);
-               break;
+    case 0:
+        command("grin " + ob->query("id"));
+        command("pretend " + ob->query("id"));
+        command("exert recover");
+        break;
+    case 1:
+        command("hi " + ob->query("id"));
+        command("exert heal");
+        command("exert recover");
+        break;
+    case 2:
+        command("stare " + ob->query("id"));
+        me->fight_ob(ob);
+        ob->fight_ob(me);
+        break;
     }
 }

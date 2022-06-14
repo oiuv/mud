@@ -9,8 +9,8 @@ void create()
 LONG);
         set("no_fight", 1);
         set("exits", ([
-               "north" : __DIR__"guofu_wupinfang",
-               "south" : __DIR__"guofu_wuchang4",
+                "north" : __DIR__"guofu_wupinfang",
+                "south" : __DIR__"guofu_wuchang4",
         ]));
         set("objects", ([
                 __DIR__"npc/wusantong" : 1,

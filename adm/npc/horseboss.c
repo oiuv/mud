@@ -426,7 +426,19 @@ int accept_object(object me, object ob)
 int recognize_apprentice(object me, string skill)
 {
     if (skill == "training")
-        return 1;
+    {
+        // 驯兽术超过10级后可以在马老板这学习
+        if (me->query_skill("training", 1) > 10)
+        {
+            return 1;
+        }
+        else
+        {
+            command("shake");
+            msg("info", "$ME对$YOU说道：你完全没有学过" + to_chinese(skill) + "，我可没功夫从零开始教你。\n", this_object(), me);
+            return -1;
+        }
+    }
     else
         return 0;
 }

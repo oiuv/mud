@@ -26,18 +26,17 @@ void incoming_request(mapping info)
 {
     if (!ACCESS_CHECK(previous_object()))
         return;
-    /*
-    if (VERSION_D->is_release_server() &&
-        info["MUDLIB"] == MUDLIB_NAME &&
-        !CONFIG_D->query(info["HOSTADDRESS"]))
-        return 0;
 
-    if (!undefinedp(info["USER"]) && info["USER"] == 0)
-        map_delete(info, "USER");
+    // if (VERSION_D->is_release_server() &&
+    //     info["MUDLIB"] == MUDLIB_NAME &&
+    //     !CONFIG_D->query(info["HOSTADDRESS"]))
+    //     return;
+
+    // if (!undefinedp(info["USER"]) && info["USER"] == 0)
+    //    map_delete(info, "USER");
 
     // set the name in the network master
-    if (info["NAME"] && info["NAME"] != Mud_name())
-        DNS_MASTER->set_mud_info(htonn(info["NAME"]), info);
-    */
+    // if (info["NAME"] && info["NAME"] != Mud_name())
+    //    DNS_MASTER->set_mud_info(htonn(info["NAME"]), info);
     DNS_MASTER->set_mud_info(info["HOSTADDRESS"] + ":" + info["PORTUDP"], info);
 }

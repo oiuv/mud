@@ -22,7 +22,7 @@ void create()
         setup();
         set("chat_chance", 5);
         set("chat_msg", ({
-"地痞迷迷糊糊的喊道：哥俩儿好啊，五魁手啊～～～",
+"地痞迷迷糊糊的喊道：哥俩儿好啊，五魁手啊~~~~~~",
 "地痞靠在墙角，发出了阵阵的鼾声。",
         }) );
         carry_object(__DIR__"obj/cloth")->wear();

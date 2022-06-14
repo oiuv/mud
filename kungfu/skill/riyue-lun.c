@@ -82,7 +82,7 @@ mapping *action = ({
         "damage_type" : "挫伤",
         "skill_name"  : "显吉祥",
 ]),
-([      "action": " "RED" 日月轮法之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 日月轮法之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
         "attack" : (int)this_player()->query_skill("hammer", 1)/4 + random((int)this_player()->query_skill("hammer", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
@@ -97,7 +97,7 @@ mapping *action = ({
 
 int valid_enable(string usage)
 {
-    return usage == "hammer" || usage == "parry";
+        return usage == "hammer" || usage == "parry";
 }
 
 int valid_learn(object me)

@@ -6,7 +6,7 @@
 
 inherit ROOM;
 
-string *seat = ({"north", "west", "south", "east"});
+string     *seat = ({ "north", "west", "south", "east" });
 mapping chinese_seat = ([
     "north": "北边",
     "west" : "西边",
@@ -21,20 +21,20 @@ int bid_flag;
 string bidcard_str = "";
 object server;
 string claimer;
-mapping pl = allocate_mapping(4),
-        cards = allocate_mapping(4),
-        card_count = allocate_mapping(4),
-        roundcards = allocate_mapping(4),
-        picks = allocate_mapping(4),
-        pick_count = allocate_mapping(4),
-        passed = allocate_mapping(4),
-        agreed = allocate_mapping(4),
-        hscore = allocate_mapping(4),
-        tscore = allocate_mapping(4);
+mapping    pl = allocate_mapping(4),
+     cards = allocate_mapping(4),
+    card_count = allocate_mapping(4),
+    roundcards = allocate_mapping(4),
+    picks = allocate_mapping(4),
+    pick_count = allocate_mapping(4),
+    passed = allocate_mapping(4),
+    agreed = allocate_mapping(4),
+    hscore = allocate_mapping(4),
+    tscore = allocate_mapping(4);
 
-string dealer;
-int *allow_playbid = allocate(4);
-int *oldcards = allocate(52),
+string    dealer;
+int    *allow_playbid = allocate(4);
+int     *oldcards = allocate(52),
     *newcards = allocate(52);
 
 int pl_count();
@@ -57,9 +57,8 @@ string picks_str();
 string table_str(string dir);
 string scoreboard_str();
 
-void reset() // set this room to no_reset
-{
-}
+void reset()    // set this room to no_reset
+{}
 
 int is_chat_room() { return 1; } // Always chat room
 
@@ -170,7 +169,7 @@ string refresh_str(string dir)
 }
 
 
-string table_str(string dir) // what's going on in table ?
+string table_str(string dir)    // what's going on in table ?
 {
     int i;
     mapping rseat = ([]);
@@ -191,7 +190,7 @@ string table_str(string dir) // what's going on in table ?
             r += "卖了的牌：" + bidcard_str + "\n\n";
         else
             r += "没有人卖牌。\n";
-        r = sprintf("%s%24s（%s）\n", r, "", pl[rseat[2]]->query("name")); // writes north name
+        r = sprintf("%s%24s（%s）\n", r, "", pl[rseat[2]]->query("name"));    // writes north name
         r = sprintf("%s%26s%s\n", r, "",
             PIG_D->card_str(roundcards[rseat[2]]));
         r = sprintf("%s%4s%16s%6s%6s%6s%s\n", r, "", "（" +
@@ -394,7 +393,7 @@ int do_leave(string arg)
     }
 }
 
-void do_assign_cards() // assign cards to players
+void do_assign_cards()    // assign cards to players
 {
     int i, j, k = 0;
 
@@ -543,6 +542,7 @@ void after_winner(string rw)
 
 void after_round()
 {
+//    int i;
     string rw;
 
     allow_playbid[SUIT(roundcards[round_order[0]])] = 1;

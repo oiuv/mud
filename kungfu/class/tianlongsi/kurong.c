@@ -16,70 +16,70 @@ void close_exit();
 void open_exit();
 
 string* names = ({
-        "ben yin",
-        "ben can",
-        "ben chen",
-        "ben guan",
-        "ben xiang",
+    "ben yin",
+    "ben can",
+    "ben chen",
+    "ben guan",
+    "ben xiang",
 });
 
 void create()
 {
-        set_name("枯荣大师", ({ "kurong", "ku"}) );
-        set("gender", "男性" );
-        set("title", "天龙寺第十六代僧人");
-        set("class", "bonze");
-        set("long", @LONG
+    set_name("枯荣大师", ({ "kurong", "ku"}) );
+    set("gender", "男性" );
+    set("title", "天龙寺第十六代僧人");
+    set("class", "bonze");
+    set("long", @LONG
 他的面壁而坐，看不见面貌。
 LONG );
-        set("age", 95);
-        set("shen_type", 1);
-        set("str", 32);
-        set("int", 34);
-        set("con", 31);
-        set("dex", 32);
+    set("age", 95);
+    set("shen_type", 1);
+    set("str", 32);
+    set("int", 34);
+    set("con", 31);
+    set("dex", 32);
 
-        set("qi", 5500);
-        set("max_qi", 5500);
-        set("jing", 2700);
-        set("max_jing", 2700);
-        set("neili", 6700);
-        set("max_neili", 6700);
-        set("jiali", 120);
-        set("combat_exp", 2700000);
+    set("qi", 5500);
+    set("max_qi", 5500);
+    set("jing", 2700);
+    set("max_jing", 2700);
+    set("neili", 6700);
+    set("max_neili", 6700);
+    set("jiali", 120);
+    set("combat_exp", 2700000);
 
-        set_skill("force", 300);
-        set_skill("dodge", 280);
-        set_skill("parry", 280);
-        set_skill("finger", 280);
-        set_skill("tiannan-step", 280);
-        set_skill("kurong-changong", 280);
+    set_skill("force", 300);
+    set_skill("dodge", 280);
+    set_skill("parry", 280);
+    set_skill("finger", 280);
+    set_skill("tiannan-step", 280);
+    set_skill("kurong-changong", 280);
         set_skill("duanshi-xinfa", 300);
-        set_skill("sun-finger", 280);
-        set_skill("literate", 260);
-        set_skill("buddhism", 260);
+    set_skill("sun-finger", 280);
+    set_skill("literate", 260);
+    set_skill("buddhism", 260);
         set_skill("lamaism", 260);
         set_skill("martial-cognize", 220);
 
-        map_skill("force", "kurong-changong");
-        map_skill("dodge", "tiannan-step");
-        map_skill("parry", "sun-finger");
-        map_skill("finger", "sun-finger");
+    map_skill("force", "kurong-changong");
+    map_skill("dodge", "tiannan-step");
+    map_skill("parry", "sun-finger");
+    map_skill("finger", "sun-finger");
 
-        prepare_skill("finger","sun-finger");
+    prepare_skill("finger","sun-finger");
 
-        set("inquiry" ,([
-                "六脉神剑" : (: ask_me :),
-                "六脉神剑谱" : (: ask_me :),
-                "六脉神剑剑谱" : (: ask_me :),
-        ]));
-        create_family("大理段家", 14, "高僧");
+    set("inquiry" ,([
+        "六脉神剑" : (: ask_me :),
+        "六脉神剑谱" : (: ask_me :),
+        "六脉神剑剑谱" : (: ask_me :),
+    ]));
+    create_family("大理段家", 14, "高僧");
 
-        set_temp("apply/damage", 50);
-        set_temp("apply/armor", 50);
+    set_temp("apply/damage", 50);
+    set_temp("apply/armor", 50);
 
-        setup();
-        carry_object("/clone/cloth/seng-cloth")->wear();
+    setup();
+    carry_object("/clone/cloth/seng-cloth")->wear();
 }
 
 int remove_killer(object ob)
@@ -139,16 +139,16 @@ int ask_me()
         object me;
 
         me = this_player();
-        if (me->query("born_family") != "段氏皇族")
-        {
-                message_vision("$N冷笑一声道：" +
-                               RANK_D->query_respect(this_player()) +
-                               "打听我们天龙寺镇寺之宝干什么？\n",
-                               this_object());
-                return 1;
-        }
+    if (me->query("born_family") != "段氏皇族")
+    {
+        message_vision("$N冷笑一声道：" +
+                   RANK_D->query_respect(this_player()) +
+                   "打听我们天龙寺镇寺之宝干什么？\n",
+                   this_object());
+        return 1;
+    }
 
-        message_vision("$N淡然对$n道：你虽然是皇族之人，但是也不"
+    message_vision("$N淡然对$n道：你虽然是皇族之人，但是也不"
                        "得染指六脉神剑剑谱。\n", this_object(), me);
         return 1;
 }
@@ -156,7 +156,7 @@ int ask_me()
 int accept_fight(object ob)
 {
         command("say 我没有兴趣陪你打架。");
-            return 0;
+        return 0;
 }
 
 int accept_hit(object ob)
@@ -164,7 +164,7 @@ int accept_hit(object ob)
         command("heng");
         command("command 你要找死么？");
         start_fight(ob);
-            return 1;
+        return 1;
 }
 
 int accept_kill(object ob)
@@ -228,13 +228,13 @@ void start_fight(object me)
         obs->kill_ob(me);
         kill_ob(me);
         close_exit();
-                if (random(2) == 1)
-                {
-                        ob = new(CLASS_D("tianlongsi") + "/jiumozhi.c");
-                        ob->move(environment());
-                        ob->kill_ob(me);
-                        ob->force_me("say 竟然敢坏法王的好事！");
-                }
+        if (random(2) == 1)
+        {
+            ob = new(CLASS_D("tianlongsi") + "/jiumozhi.c");
+            ob->move(environment());
+            ob->kill_ob(me);
+            ob->force_me("say 竟然敢坏法王的好事！");
+        }
 }
 
 void die(object killer)

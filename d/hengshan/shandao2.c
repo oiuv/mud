@@ -1,4 +1,4 @@
-// Room: /d/hengshan/huixiantai.c
+// Room: /d/hengshan/shandao2.c
 #include <room.h>
 inherit ROOM;
 void create()
@@ -9,11 +9,10 @@ void create()
 荡，远远看到前面就是峰顶了。
 LONG);
         set("exits", ([ /* sizeof() == 4 */
-           "southdown"  : __DIR__"beiyuedian",
+           "southdown"  : __DIR__"shandao1",
            "eastup"     : __DIR__"square",
         ]));
         set("no_clean_up", 0);
         setup();
         replace_program(ROOM);
 }
-

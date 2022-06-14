@@ -12,7 +12,7 @@ void create()
 一炉檀香，氲氲的香气轻轻横散，使人俗念尽消，心情完全平
 静下来。
 LONG );
-        set("no_fight", 1);
+    set("no_fight", 1);
     set("no_clean_up", 0);
     set("exits", ([
         "south" : __DIR__"guofu_huayuan",

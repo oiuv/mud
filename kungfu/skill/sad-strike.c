@@ -176,13 +176,13 @@ mapping *action = ({
         "skill_name" : "鹿死谁手",
         "damage_type": "内伤"
 ]),
-([      "action": " "RED" 黯然销魂之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 黯然销魂之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/3 + random((int)this_player()->query_skill("force")),
         "attack" : (int)this_player()->query_skill("unarmed", 1)/4 + random((int)this_player()->query_skill("unarmed", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
         //"parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
         "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("unarmed", 1)/2),
-        "lvl"    : 300,
+        "lvl"    : 350,
         "skill_name" : "极意",
         "damage_type": "内伤"
 ]),
@@ -192,8 +192,8 @@ int valid_enable(string usage) { return usage == "unarmed" || usage == "parry"; 
 
 int valid_learn(object me)
 {
-      
-        if (me->query("gender") != "男性") 
+
+        if (me->query("gender") != "男性")
                 return notify_fail("你体会不到男人思念一个人的心情，无法领悟黯然销魂掌。\n");
 
         if (me->query("character") == "心狠手辣")
@@ -267,4 +267,3 @@ string perform_action_file(string action)
 {
         return __DIR__"sad-strike/" + action;
 }
-

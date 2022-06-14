@@ -43,12 +43,12 @@ void letter(object me)
         if (! me->query_temp("want_back_wudu"))
                 return;
 
-        tell_object(me, WHT "  ┏━━━━━━┓\n"
+        tell_object(me, WHT "  ┏------------┓\n"
                             "  ┃柴房水缸下有┃\n"
                             "  ┃本教密道能够┃\n"
                             "  ┃直通(" HIY "back" NOR + WHT ")五┃\n"
                             "  ┃毒教  齐云傲┃\n"
-                            "  ┗━━━━━━┛\n" NOR);
+                            "  ┗------------┛\n" NOR);
 }
 
 int do_back()

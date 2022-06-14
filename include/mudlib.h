@@ -7,14 +7,14 @@
 
 // MUDLIB information
 #define MUDLIB_NAME             "Heros"
-#define MUDLIB_VERSION_NUMBER    "v2020"
-#define MUDLIB_VERSION            (MUDLIB_NAME + " " + MUDLIB_VERSION_NUMBER)
+#define MUDLIB_VERSION_NUMBER   "v2020"
+#define MUDLIB_VERSION          (MUDLIB_NAME + " " + MUDLIB_VERSION_NUMBER)
 
-#define INTERMUD_MUD_NAME        ((string) CONFIG_D->query_string("internet mud name"))
+#define INTERMUD_MUD_NAME       ((string) CONFIG_D->query_string("internet mud name"))
 #define CHINESE_MUD_NAME        LOCAL_MUD_NAME()
 #define MUD_DRIVER              __PROJECT_VERSION__
-#define    MUD_ENCODING            ((string) CONFIG_D->query_string("encoding"))
-#define    MUD_ZONE                ((string) CONFIG_D->query_string("zone"))
+#define MUD_ENCODING            ((string) CONFIG_D->query_string("encoding"))
+#define MUD_ZONE                ((string) CONFIG_D->query_string("zone"))
 
 // MAIL information
 #define SMTP_SERVER             ((string) CONFIG_D->query_string("smtp server"))

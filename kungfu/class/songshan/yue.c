@@ -54,7 +54,7 @@ void create()
         set("chat_msg_combat", ({
                 (: perform_action, "sword.wan" :),
                 (: perform_action, "strike.qian" :),
-                (: perform_action, "cuff.chui" :),
+        (: perform_action, "cuff.chui" :),
                 (: exert_function, "recover" :),
         }));
         setup();

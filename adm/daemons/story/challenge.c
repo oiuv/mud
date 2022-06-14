@@ -229,7 +229,7 @@ mixed continue_story(int n)
         return 0;
 
     case NO_USER_CAN_RESPOND:
-        cob->force_me("chat* haha");
+        // cob->force_me("chat* haha");
         stop_story();
         CHANNEL_D->do_channel(this_object(), "rumor", "听说来自" + cob->query("nation") + "的" + cob->name(1) + "在中国居然没有对手，真是中原武林的奇耻大辱！");
         return cob->name(1) + "：中原武林，不过如此！我去了！";

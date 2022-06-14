@@ -78,15 +78,15 @@ mapping *action = ({
         "weapon" : HIR "参合破体剑气" NOR,
         "damage_type" : "刺伤"
 ]),
-([      "action": " "RED" 参合指之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 参合指之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
         "attack" : (int)this_player()->query_skill("finger", 1)/4 + random((int)this_player()->query_skill("finger", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
         "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
         "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("finger", 1)/2),
-        //"lvl"    : 100,
+        "lvl"    : 200,
         "weapon" : HIR "参合破体剑气" NOR,
-        //"skill_name" : "极意",
+        "skill_name" : "极意",
         "damage_type": "刺伤"
 ]),
 });
@@ -176,12 +176,12 @@ mapping query_sub_skills()
 
 int valid_enable(string usage)
 {
-    return usage == "finger" || usage == "parry";
+        return usage == "finger" || usage == "parry";
 }
 
 int double_attack()
 {
-    return 1;
+        return 1;
 }
 
 int valid_learn(object me)
@@ -248,14 +248,14 @@ mapping query_action(object me, object weapon)
                 me->add("neili", -300);
                 return ([       "action": HIC "$N" HIC "凝神聚气，双指连续点出，指风凌"
                                           "厉，破空而出的「参合剑气」已经逼向$n",
-                        "attack": 280,
+                                "attack": 280,
                                 "dodge" : 140,
                                 "parry" : 140,
                                 "damage": 320,
                                 "force" : 560,
                                 "weapon" : HIR "参合破体剑气" NOR,
                                 "damage_type": "刺伤"
-                ]);
+                        ]);
         }
 
         return action[random(sizeof(action))];
@@ -320,7 +320,7 @@ mixed hit_ob(object me, object victim, int damage_bonus)
         {
                 me->add("neili", -80);
                 victim->receive_wound("qi", (damage_bonus - 80) / 3, me);
-                    return HIR "你只听「嗤嗤嗤」破空声骤响，脸上竟溅到一些血滴！\n" NOR;
+                        return HIR "你只听「嗤嗤嗤」破空声骤响，脸上竟溅到一些血滴！\n" NOR;
         }
 }
 

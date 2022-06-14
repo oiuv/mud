@@ -395,7 +395,7 @@ int accept_ask(object me, string topic)
         switch (topic)
         {
 
-         case "即世即空" :
+        case "即世即空" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/weituo-chu/jishi",
                            "name"    : "即世即空",
@@ -407,7 +407,7 @@ int accept_ask(object me, string topic)
                            "shen"    : 5000, ]));
                 break;
 
-         case "金龙疾空" :
+        case "金龙疾空" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/longxing-jian/kong",
                            "name"    : "金龙疾空",
@@ -420,7 +420,7 @@ int accept_ask(object me, string topic)
                 break;
 
 
-         case "火麒蚀月" :
+        case "火麒蚀月" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/ranmu-daofa/huo",
                            "name"    : "火麒蚀月",
@@ -433,7 +433,7 @@ int accept_ask(object me, string topic)
                 break;
 
 
-         case "震雷乾坤" :
+        case "震雷乾坤" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/qujing-gunfa/zhen",
                            "name"    : "震雷乾坤",
@@ -445,7 +445,7 @@ int accept_ask(object me, string topic)
                            "shen"    : 50000, ]));
                 break;
 
-         case "大金刚神通" :
+        case "大金刚神通" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/jingang-quan/jingang",
                            "name"    : "大金刚神通",
@@ -457,7 +457,7 @@ int accept_ask(object me, string topic)
                            "shen"    : 10000, ]));
                 break;
 
-         case "易筋通脉" :
+        case "易筋通脉" :
                 return MASTER_D->teach_pfm(me, this_object(),
                         ([ "perform" : "can_perform/yijinjing/tong",
                            "name"    : "易筋通脉",

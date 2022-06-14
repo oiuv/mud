@@ -23,7 +23,7 @@ LONG );
 瞬时间日月为之失色，瑞气千条，祥云朵朵，一派庄严气象。\n" NOR);
     set("remove_msg", HIY "$N将金刚罩从身上脱了下来，折叠成小小的一团。\n" NOR);
     set("armor_prop/armor", 220);
-        set("stable", 0);
+    set("stable", 0);
     setup();
-        check_clone();
+    check_clone();
 }

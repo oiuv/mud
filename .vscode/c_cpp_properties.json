@@ -3,7 +3,8 @@
         {
             "name": "LPC",
             "includePath": [
-                "${workspaceFolder}/include/"
+                "${workspaceFolder}/include/",
+                "${workspaceFolder}/mudcore/include/"
             ],
             "forcedInclude": [
                 "${workspaceFolder}/include/globals.h"

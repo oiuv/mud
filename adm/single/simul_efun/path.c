@@ -1,21 +1,20 @@
 // path.c
-// YZC 96/05/29 changed user_cwd();
 
 string user_cwd(string name)
 {
-        return ("/u/" + name);
+    return ("/u/" + name);
 }
-
+/*
 string user_path(string name)
 {
-        return (user_cwd(name) + "/");
+    return (user_cwd(name) + "/");
 }
 
 string resolve_path(string curr, string new_path)
 {
-        int i;
-        string *tmp;
-        string t1;
+    int i;
+    string *tmp;
+    string t1;
 
     if (! curr)
         curr = "/";
@@ -31,11 +30,9 @@ string resolve_path(string curr, string new_path)
 
     if (sscanf(new_path, "~/%s", t1))
         new_path = user_path(getuid(this_player())) + t1;
-    else
-    if (sscanf(new_path, "~%s", t1))
+    else if (sscanf(new_path, "~%s", t1))
         new_path = user_path(t1);
-    else
-    if (new_path[0] != '/')
+    else if (new_path[0] != '/')
     {
         if( curr[sizeof(curr)-1] != '/' )
             new_path = curr + "/" + new_path;
@@ -50,10 +47,10 @@ string resolve_path(string curr, string new_path)
         {
             if (sizeof(tmp) > 2)
             {
-                tmp = tmp[0..(i - 2)] +
-                                      tmp[(i + 1)..(sizeof(tmp) - 1)];
+                tmp = tmp[0..(i - 2)] + tmp[(i + 1)..(sizeof(tmp) - 1)];
                 i -= 2;
-            } else
+            }
+            else
             {
                 tmp = tmp[2 ..(sizeof(tmp) - 1)];
                 i = 0;
@@ -67,3 +64,4 @@ string resolve_path(string curr, string new_path)
 
     return new_path;
 }
+*/

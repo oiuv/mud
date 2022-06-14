@@ -15,7 +15,8 @@ void create()
 有再站起来。北面有一座寺庙。
 LONG );
     set("exits", ([
-        "northwest" : __DIR__"yinpanshui",
+        // "northwest" : __DIR__"yinpanshui",
+        "northwest" : __DIR__"guchangcheng",
         "south"     : __DIR__"hongshanxia",
         "north"     : __DIR__"wufosi",
     ]));
@@ -23,7 +24,7 @@ LONG );
         __DIR__"npc/xixiabing" : 1,
         __DIR__"npc/caishiren" : 2,
     ]));
-//    set("no_clean_up", 0);
+    // set("no_clean_up", 0);
     set("outdoors", "huanghe");
     setup();
     replace_program(ROOM);

@@ -54,7 +54,7 @@ LONG);
 
         create_family("玄冥谷", 3, "弟子");
 
-        set("coagents", ({
+    set("coagents", ({
                 ([ "startroom" : "xxxxxxxxxxxxxxxxxxxxxxxx",
                    "id"        : "baisun daoren" ]),
         }));

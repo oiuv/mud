@@ -7,7 +7,7 @@ void create()
 {
         set_name("浪翻云", ({ "lang fangyun", "lang", "fangyun" }));
         set("title", HIC "神秘人" NOR);
-        set("nickname", HIY "江湖卖艺人" NOR);        
+        set("nickname", HIY "江湖卖艺人" NOR);
         set("long", @LONG
 他是一位神秘的江湖人氏，没有人知道他的来历，也没人知
 道他的过去，他行踪不定，来去无影。只见他身着布衣，手
@@ -15,7 +15,7 @@ void create()
 憔悴和惆怅，双目正柔情地看着长空。
 LONG);
         set("gender", "男性");
-        set("age", 36);        
+        set("age", 36);
         set("attitude", "friendly");
         set("shen_type", 1);
         set("per", 30);
@@ -54,7 +54,7 @@ LONG);
         map_skill("sword", "duanjia-jian");
 
         prepare_skill("cuff", "jinyu-quan");
-        prepare_skill("strike", "wuluo-zhang");        
+        prepare_skill("strike", "wuluo-zhang");
 
         set("chat_chance_combat", 120);
         set("chat_msg_combat", ({
@@ -63,20 +63,18 @@ LONG);
                 (: perform_action, "sword.jing" :),
                 (: perform_action, "sword.lian" :),
                 (: exert_function, "recover" :),
-                (: exert_function, "powerup" :),                           
+                (: exert_function, "powerup" :),
         }));
-        
-        set("chat_chance", 120);
+
+        set("chat_chance", 20);
         set("chat_msg", ({
-                CYN "浪翻云深情地说道: 唉，不知道她现在过得可好，罢了，罢了......\n" NOR,                
+                CYN "浪翻云深情地说道: 唉，不知道她现在过得可好，罢了，罢了......\n" NOR,
                 (: random_move :)
         }) );
-        
-        setup();        
+
+        setup();
         carry_object("/d/mingjiao/obj/baipao")->wear();
-        carry_object("/clone/weapon/changjian")->wield();   
+        carry_object("/clone/weapon/changjian")->wield();
         if (random(4) == 1)
-                set_temp("jinzhong", carry_object("/clone/lonely/book/zhaobook")); 
+                set_temp("jinzhong", carry_object("/clone/lonely/book/zhaobook"));
 }
-
-

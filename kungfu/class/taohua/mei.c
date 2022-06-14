@@ -76,7 +76,7 @@ void create()
                 "黄药师" : "他是我师父。",
                 "九阴真经" : "那是我师父的秘籍！你可别打注意！",
                 "九阴神爪" : (: ask_skill :),
-        ]));
+    ]));
         set_temp("apply/damage", 100);
         set_temp("apply/unarmed_damage", 100);
         set_temp("apply/armor", 200);

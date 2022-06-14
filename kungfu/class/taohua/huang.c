@@ -154,24 +154,24 @@ void create()
                 "碧波神功"   : "…唉…我桃花岛的内功何等厉害，可惜…",
                 "九花玉露丸" : "这个东西难制得紧，你好好学学桃花药理，以后自己制吧。",
                 "无常丹"     : "…嗯…等你学通了桃花药理的奥妙，自己慢慢制吧。",
-                                //新增可学阴阳八卦
-                                "阴阳八卦"   : (: try_to_learn_count :),
+                //新增可学阴阳八卦
+                "阴阳八卦"   : (: try_to_learn_count :),
         ]));
 
         create_family("桃花岛", 1, "岛主");
 
-        set("chat_chance_combat", 120);
-        set("chat_msg_combat", ({
-                (: perform_action, "sword.bihai" :),
-                (: perform_action, "sword.qing" :),
-                (: perform_action, "sword.tian" :),
-                (: perform_action, "finger.ding" :),
-                (: perform_action, "finger.xiao" :),
-                (: perform_action, "finger.po" :),
-                (: perform_action, "finger.zhuan" :),
-                (: exert_function, "powerup" :),
-                (: exert_function, "recover" :),
-        }));
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "sword.bihai" :),
+        (: perform_action, "sword.qing" :),
+        (: perform_action, "sword.tian" :),
+        (: perform_action, "finger.ding" :),
+        (: perform_action, "finger.xiao" :),
+        (: perform_action, "finger.po" :),
+        (: perform_action, "finger.zhuan" :),
+        (: exert_function, "powerup" :),
+        (: exert_function, "recover" :),
+    }));
         set_temp("apply/damage", 100);
         set_temp("apply/unarmed_damage", 100);
         set_temp("apply/armor", 200);
@@ -205,15 +205,15 @@ void attempt_apprentice(object ob)
         if (ob->query_int() < 25)
         {
                 command("say 我不收资质差的弟子，您请回吧！");
-                return;
+        return;
         }
 
         if ((int)ob->query ("shen") < -10000
            || (int)ob->query ("shen") > 10000)
         {
                 command("say 我不与成名人物打交道，您请回吧！");
-                return;
-        }
+        return;
+    }
 
         if (ob->query("combat_exp") < 400000)
         {
@@ -299,7 +299,7 @@ mixed try_to_learn_bibo()
                 return 0;
 
         if (ob->query_skill("bihai-chaosheng", 1) >= 120
-           && ob->query_skill("chuixiao-jifa", 1) >= 120)
+       && ob->query_skill("chuixiao-jifa", 1) >= 120)
         {
                 command("sigh");
                 command("say 想不到你萧技居然已达此境界，今日老夫"
@@ -318,9 +318,9 @@ mixed try_to_learn_tanzhi()
                 return 0;
 
         if (ob->query_skill("qimen-wuxing", 1) >= 120
-           && ob->query_skill("jingluo-xue", 1) >= 120
-           && ob->query_skill("finger", 1) >= 120
-           && ob->query_skill("throwing", 1) >= 120)
+       && ob->query_skill("jingluo-xue", 1) >= 120
+       && ob->query_skill("finger", 1) >= 120
+       && ob->query_skill("throwing", 1) >= 120)
         {
                 command("nod2");
                 command("say 看来你武功已有了一定的根基，今日老夫"
@@ -568,8 +568,8 @@ mixed ask_skill6()
                 return "你不是我们桃花岛的人，打听老夫的武功有何企图？";
 
         if (me->query_skill("yuxiao-jian", 1) < 1
-           && me->query_skill("bibo-shengong", 1) < 1
-           && me->query_skill("bihai-chaosheng", 1) < 1)
+       && me->query_skill("bibo-shengong", 1) < 1
+       && me->query_skill("bihai-chaosheng", 1) < 1)
                 return "你玉箫剑法、碧波神功、碧海潮生曲一样都没学，捣什么乱？";
 
         if (me->query("gongxian") < 1000)

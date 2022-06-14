@@ -9,10 +9,10 @@ void create()
 LONG);
         set("no_fight", 1);
         set("exits", ([
-               "east" : __DIR__"guofu_chaifang",
-               "west" : __DIR__"guofu_shuifang",
-               "north" : __DIR__"guofu_houyuan2",
-               "south" : __DIR__"guofu_shilu-3",
+                "east" : __DIR__"guofu_chaifang",
+                "west" : __DIR__"guofu_shuifang",
+                "north" : __DIR__"guofu_houyuan2",
+                "south" : __DIR__"guofu_shilu-3",
         ]));
         set("outdoors", "wuguan");
         setup();

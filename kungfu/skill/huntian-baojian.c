@@ -139,7 +139,7 @@ mapping query_action(object me)
 
 int valid_learn(object me)
 {
-        return notify_fail("%……--（%￥·！·！·*#--\n");
+        return notify_fail("%……—（%￥·！·！·*#--\n");
 }
 
 int practice_skill(object me)

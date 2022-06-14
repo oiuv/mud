@@ -110,10 +110,10 @@ void attempt_apprentice(object ob)
 
         command("say 既然你有心习武，我就传你一些武功吧！");
         if ((string)ob->query("class") != "bonze")
-        {
+    {
                 command("say 若你打算入寺修行上层武功，却非得先" HIY "剃"
                         "度" NOR + CYN "不可。" NOR);
                 ob->set("title", "雪山派俗家弟子");
-        }
+    }
         command("recruit " + ob->query("id"));
 }

@@ -31,24 +31,25 @@ void load_sites()
     if (! file) return;
 
     tmp = explode(file, "\n");
-       for (loop = 0; loop < sizeof(tmp); loop++)
-            if (tmp[loop][0] == '#' || tmp[loop][0] == '\n' || tmp[loop] == "")
-                   continue;
-            else Sites += ({ tmp[loop] });
+    for (loop = 0; loop < sizeof(tmp); loop++)
+        if (tmp[loop][0] == '#' || tmp[loop][0] == '\n' || tmp[loop] == "")
+            continue;
+        else
+            Sites += ({tmp[loop]});
 }
 
 int is_banned(string site)
 {
-        string line;
+    string line;
 
-        site = replace_string(site, "*", "%*d");
+    site = replace_string(site, "*", "%*d");
 
     foreach (line in Sites)
-        {
-                line = replace_string(line, "*", "%*d");
-                if (site == line || sscanf(site, line) == 1)
-                        return 1;
-        }
+    {
+        line = replace_string(line, "*", "%*d");
+        if (site == line || sscanf(site, line) == 1)
+            return 1;
+    }
 
     return 0;
 }
@@ -56,7 +57,7 @@ int is_banned(string site)
 void print()
 {
     int i;
-    if (! sizeof(Sites))
+    if (!sizeof(Sites))
     {
         write("现在没有禁止任何IP上本站点。\n");
         return;
@@ -69,20 +70,18 @@ void print()
 
 void add_site(string site)
 {
-//    int i;
-
-        if (member_array(site, Sites) == -1)
-        {
-            Sites += ({ site });
-            write_file(BANNED_SITES, site + "\n", 0);
-        }
+    if (member_array(site, Sites) == -1)
+    {
+        Sites += ({site});
+        write_file(BANNED_SITES, site + "\n", 0);
+    }
 }
 
 void remove_site(string site)
 {
-        if (member_array(site, Sites) != -1)
-        {
-                Sites -= ({ site });
-                write_file(BANNED_SITES, implode(Sites, "\n") + "\n", 1);
-        }
+    if (member_array(site, Sites) != -1)
+    {
+        Sites -= ({site});
+        write_file(BANNED_SITES, implode(Sites, "\n") + "\n", 1);
+    }
 }

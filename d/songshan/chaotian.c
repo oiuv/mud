@@ -9,7 +9,7 @@ void create()
 LONG );
     set("exits", ([
         "northup"   : __DIR__"shandao6",
-        "southdown" : __DIR__"shandao5",
+        "southdown" : __DIR__"shandao7",
     ]));
     set("outdoors", "songshan");
         set("objects", ([

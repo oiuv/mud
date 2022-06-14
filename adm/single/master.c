@@ -7,6 +7,8 @@
 #include <config.h>
 #include <localtime.h>
 #include <runtime_config.h>
+
+#include "master/parse.c"
 #include "master/valid.c"
 
 object connect(int port)
@@ -325,7 +327,7 @@ void log_error(string file, string message)
 
 string object_name(object ob)
 {
-    if (ob) return ob->name();
+    if (ob) return ob->short();
 }
 
 void create()
@@ -342,6 +344,15 @@ void flag(string str) {
         default:
             write("[MASTER_OB]->flag():The only supproted flag is 'debug', got '" + str + "'.\n");
     }
+}
+
+// 可以在这里自定义不同文件的include目录
+mixed get_include_path(string object_path)
+{
+    if (DEBUG)
+        debug_message("[MASTER_OB]->get_include_path():" + object_path);
+
+    return ({":DEFAULT:"});
 }
 
 // When an object is destructed, this function is called with every

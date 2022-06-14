@@ -15,15 +15,15 @@ int is_weapon() { return 1; }
 
 varargs void init_xsword(int damage, int flag)
 {
-        if( clonep(this_object()) ) return;
+    if( clonep(this_object()) ) return;
 
-        set("weapon_prop/damage", damage * 90 / 100);
-        set("flag", (int)flag | EDGED);
-        set("skill_type", "sword");
-        if( !query("actions") ) {
-                set("actions", (: call_other, WEAPON_D, "query_action" :) );
-                set("verbs", ({ "slash", "slice", "thrust" }) );
-        }
+    set("weapon_prop/damage", damage * 90 / 100);
+    set("flag", (int)flag | EDGED);
+    set("skill_type", "sword");
+    if( !query("actions") ) {
+        set("actions", (: call_other, WEAPON_D, "query_action" :) );
+        set("verbs", ({ "slash", "slice", "thrust" }) );
+    }
 }
 
 void init()

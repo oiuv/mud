@@ -754,7 +754,7 @@ string query_respect(object ob)
         return str;
 
     if ((string)ob->query("id") == "mudren")
-        return "仙子";
+        return "仙尊";
 
     age = ob->query("age");
     switch (ob->query("gender"))
@@ -839,7 +839,7 @@ string query_rude(object ob)
         return str;
 
     if ((string)ob->query("id") == "mudren")
-        return "大神";
+        return "神棍";
 
     age = ob->query("age");
     switch (ob->query("gender"))
@@ -929,7 +929,7 @@ string query_self(object ob)
         return str;
 
     if ((string)ob->query("id") == "mudren")
-        return "我";
+        return "小仙";
 
     age = ob->query("age");
     switch (ob->query("gender"))
@@ -1000,7 +1000,7 @@ string query_self_rude(object ob)
         return str;
 
     if ((string)ob->query("id") == "mudren")
-        return "本仙";
+        return "本仙尊";
 
     age = ob->query("age");
     switch (ob->query("gender"))

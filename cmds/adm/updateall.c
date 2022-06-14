@@ -64,7 +64,7 @@ int update_dir(object me, string dir, int continueable, int *total)
     if (!is_root(previous_object()))
         return 0;
     // 不编译lib版本控制目录
-    exclude = ({"/.git/", "/.vscode/", "/backup/", "/bin/", "/binaries/", "/doc/", "/dump/", "/grant/", "/help/", "/log/", "/temp/", "/version/", "/www/"});
+    exclude = ({"/.git/", "/.vscode/", "/backup/", "/bin/", "/binaries/", "/doc/", "/dump/", "/fluffos/", "/grant/", "/help/", "/log/", "/temp/", "/version/", "/www/"});
     if (member_array(dir, exclude) > -1)
         return 1;
 

@@ -13,7 +13,7 @@ void create()
     if (clonep())
         set_default_object(__FILE__);
     else {
-        set("long", "一碗刚从锅里盛出来的大米饭，还冒着热气～～～\n");
+        set("long", "一碗刚从锅里盛出来的大米饭，还冒着热气~~~~~~\n");
         set("unit", "碗");
         set("value", 120);
           set("food_remaining", 5);

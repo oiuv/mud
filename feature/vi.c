@@ -663,8 +663,8 @@ U  Ctrl-U    将游标移到档头               V  Ctrl-V    将游标移到档
         printf(
 ".            重覆上个指令                 ?  Ctrl-Y    辅助画面（此画面）\r
 ~  Ctrl-T    在游标前面插入一个「!」字元\r\n
-合法的定义键是可印字母和 ESC、F1～F12、BACKSPACE、TAB、ENTER、INSERT、DELETE、\r
-HOME、END、PAGEUP、PAGEDOWN、UP、DOWN、LEFT、RIGHT、Ctrl-A～Ctrl-Z。\r
+合法的定义键是可印字母和 ESC、F1 ~ F12、BACKSPACE、TAB、ENTER、INSERT、DELETE、\r
+HOME、END、PAGEUP、PAGEDOWN、UP、DOWN、LEFT、RIGHT、Ctrl-A ~ Ctrl-Z。\r
 \r
 欢迎传播此编辑器，但请保留版权宣告，有任何问题和建议请联络我：\r
 kenny@cindy.cis.nctu.edu.tw。\r

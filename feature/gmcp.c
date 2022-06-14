@@ -2,6 +2,16 @@
 
 nosave string *gmcp_log = ({});
 
+// msp_oob("!!SOUND(10001.wav L=1 V=100 U=https://mud.ren/storage/wav/)");
+void msp_oob(string req)
+{
+#if efun_defined(telnet_msp_oob)
+    efun::telnet_msp_oob(req);
+#else
+    receive("<当前驱动不支持efun telnet_msp_oob()>\n");
+#endif
+}
+
 protected int dump_gmcp_log()
 {
     write(implode(gmcp_log, "\n") + "\n");
@@ -100,6 +110,14 @@ void gmcp(string req)
             "hash" : hash("md5", base_name(ob))
         ]);
         sendGMCP(room_info, "Room", "Info");
+        // 音效示例
+        if (room_info["name"] == "树林")
+        {
+            msp_oob("!!SOUND(10001.wav L=1 V=100 U=https://mud.ren/storage/wav/)");
+        }
+        else
+        {
+            msp_oob("!!SOUND(Off)");
+        }
     }
-
 }

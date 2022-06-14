@@ -7,9 +7,12 @@ void create() { seteuid(getuid()); }
 
 int main(object me, string arg)
 {
-    if (!wizardp(me))
-        return notify_fail("test what???\n");
+    // if (!wizardp(me))
+    if (!SECURITY_D->valid_grant(me, "(admin)"))
+        return 0;
+
     write("\n");
+
     /**
      * test code here
      */

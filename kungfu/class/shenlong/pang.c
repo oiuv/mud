@@ -56,8 +56,8 @@ void create()
         prepare_skill("hand", "shenlong-bashi");
         prepare_skill("strike", "huagu-mianzhang");
 
-        set("chat_chance_combat", 120);
-        set("chat_msg_combat", ({
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
                 (: perform_action, "staff.chang" :),
                 (: perform_action, "staff.chang2" :),
                 (: perform_action, "staff.chang3" :),
@@ -101,8 +101,8 @@ void init()
 
 int do_join(string arg)
 {
-        if (arg != "shenlongjiao")
-                return notify_fail("你要加入什么组织？\n");
+    if (arg != "shenlongjiao")
+        return notify_fail("你要加入什么组织？\n");
 
         message_vision("$N摆了摆手，对$n道：“我可不敢收你入教，你还是去"
                        "关外神龙岛上去找我们教主好了”\n",

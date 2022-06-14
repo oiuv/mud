@@ -158,7 +158,7 @@ void attempt_apprentice(object ob)
             ob->delete_temp("apprentice_ok");
 
             command("say 是" + ob_fam["master_name"] +
-                "叫你来找我的吧，哈哈哈 !");
+                    "叫你来找我的吧，哈哈哈 !");
             command("say 贫僧又得一可塑之才，真是可喜可贺 !");
 
             new_name = "慧" + name[1..1];
@@ -167,12 +167,13 @@ void attempt_apprentice(object ob)
             NAME_D->map_name(ob->query("name"), ob->query("id"));
 
             command("say 从今以后你的法名叫做" + new_name +
-                "，恭喜你荣升为少林派慧字辈弟子 !");
+                    "，恭喜你荣升为少林派慧字辈弟子 !");
             command("recruit " + ob->query("id"));
-        } else
+        }
+        else
         {
             command("say " + RANK_D->query_respect(ob) +
-                "，你没有推荐信，不能越级拜师。");
+                    "，你没有推荐信，不能越级拜师。");
             return;
         }
     }

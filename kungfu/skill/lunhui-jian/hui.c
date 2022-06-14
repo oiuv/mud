@@ -11,6 +11,7 @@ string attack3(object me, object target, int damage);
 string attack4(object me, object target, int damage);
 string attack5(object me, object target, int damage);
 string attack6(object me, object target, int damage);
+string attack7(object me, object target, int damage);
 
 int perform(object me, object target)
 {
@@ -34,7 +35,7 @@ int perform(object me, object target)
         if ((int)me->query_skill("force") < 750)
                 return notify_fail("你的内功修为不够，难以施展" HUI "。\n");
 
-        if ((int)me->query("max_neili") < 10000)
+        if ((int)me->query("max_neili") < 7500)
                 return notify_fail("你的内力修为不够，难以施展" HUI "。\n");
 
         if ((int)me->query_skill("buddhism", 1) < 500)
@@ -200,13 +201,48 @@ int perform(object me, object target)
                       "架，将剑招卸于无形。\n" NOR;
         }
         message_vision(msg, me, target);
+        ///* 六道轮回之六道合一
+        if (me->query_skill("lunhui-jian", 1) > 699)
+        {
+                damage = me->query_skill("lunhui-jian", 1);
+                damage = damage + random(damage);
+                message_vision(HUI, me, target);
+                message_vision(HIY "$N" HIY "集中精力，口宣佛号，手中" + wn +
+                                   HIY "变换出六道剑气，又合而为一，垂直立于面前。\n" HIM "             〈卍〉\n"
+                                       "             ┇卍┇\n"
+                                       "             ┋卍┋\n"
+                                       "         ≮≡≡∝≡≡≯\n"
+                                       "             ┡卍┥\n"
+                                       "             ┡卍┥\n"
+                                       "             ┡╋┥\n"
+                                       "             ┇卍┇\n"
+                                       "             ┡卍┥\n"
+                                       "             ┇╋┇\n"
+                                       "             ┇卍┇\n"
+                                       "             ┇卍┇\n"
+                                       "             ┇卍┇\n"
+                                       "              ＼／\n" NOR,
+                               me, target);
 
+                if (ap / 2 + random(ap) > dp)
+                {
+                        msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 500,
+                                                  (: attack7, me, target, damage :));
+                }
+                else
+                {
+                        msg = CYN "可是$n" CYN "收敛心神，奋力招"
+                                  "架，将剑气卸于无形。\n" NOR;
+                }
+                message_vision(msg, me, target);
+        }
+        //*/
         me->start_busy(3 + random(3));
         me->add("neili", -500 - random(500));
 
         // 为什么提行？为了画面更为赏心悦目而已
-        tell_object(me, "\n\n");
-        tell_object(target, "\n\n");
+        tell_object(me, "\n");
+        tell_object(target, "\n");
 
         // 转移回最初的房间
         me->move(sroom);
@@ -348,6 +384,25 @@ string attack6(object me, object target, int damage)
 
                 msg += WHT "$n" WHT "只感到全身真气涣散，丹元瓦解，似"
                        "乎所有的武功竟都消逝殆尽。\n" NOR;
+        }
+        return msg;
+}
+
+string attack7(object me, object target, int damage)
+{
+
+        string msg;
+
+        msg = HIR "忽然间$n" HIR "感到胸口一阵火热，剑气"
+                  "已从身体穿过，直飞空中。\n" NOR;
+
+        if (!target->query_temp("no_exert") || !target->query_temp("no_perform"))
+        {
+                target->set_temp("no_exert", 1);
+                target->set_temp("no_perform", 1);
+
+                msg += WHT "$n" WHT "只感到全身真气涣散，丹元瓦解，似"
+                           "乎所有的武功竟都消逝殆尽。\n" NOR;
         }
         return msg;
 }

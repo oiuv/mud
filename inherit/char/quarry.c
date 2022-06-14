@@ -6,7 +6,7 @@ inherit NPC;
 
 int is_quarry()
 {
-        return 1;
+    return 1;
 }
 
 void setup()
@@ -113,19 +113,19 @@ void die(object killer)
                         if (ob->query("item3") && random(skill) > 60
                            && random(5) > 3)
                         {
-                                item = new(ob->query("item3"));
-                                item->move(me, 1);
+                            item = new(ob->query("item3"));
+                            item->move(me, 1);
 
-                                msg += "及一" + item->query("base_unit") +
+                            msg += "及一" + item->query("base_unit") +
                                        item->name() + HIC;
                         } else
                         if (ob->query("item2") && random(skill) > 30
                            && random(4) > 2)
                         {
-                                item = new(ob->query("item2"));
-                                item->move(me, 1);
+                            item = new(ob->query("item2"));
+                            item->move(me, 1);
 
-                                msg += "及一" + item->query("base_unit") +
+                            msg += "及一" + item->query("base_unit") +
                                        item->name() + HIC;
                         }
                         msg += "。\n\n" NOR;

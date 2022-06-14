@@ -32,15 +32,16 @@ string *build_mudlist(mapping muds)
     int i, pos;
 
     ret = ({""});
-
+    // debug_message(sprintf("%O", muds));
     // only want to send them DNS muds
     if (!mapp(svc = DNS_MASTER->query_svc()))
         return ret;
 
     names = keys(svc);
-    /*
+    // debug_message(sprintf("%O", names));
     // I will only build the information of me & my
     // subsits
+    /*
     local_mudlib = MUDLIB_NAME;
     names = filter_array(names, (: $(muds)[$1]["MUDLIB"] == $(local_mudlib) &&
                                     ($1 == INTERMUD_MUD_NAME ||
@@ -78,8 +79,8 @@ string *build_mudlist(mapping muds)
 
 void send_mudlist_q(string host, string port)
 {
-    if (!ACCESS_CHECK(previous_object()))
-        return;
+    // if (!ACCESS_CHECK(previous_object()))
+    //    return;
 
     DNS_MASTER->send_udp(host, port, "@@@" + DNS_MUDLIST_Q + "||NAME:" + Mud_name() + "||PORTUDP:" + udp_port() + "@@@\n");
 }
@@ -93,22 +94,26 @@ void incoming_request(mapping info)
 
     if (!ACCESS_CHECK(previous_object()))
         return;
-
+    /*
     // sub-sites dosn't relase mudlist
     if (!VERSION_D->is_release_server())
         return;
-    /*
+
     minfo = DNS_MASTER->query_mud_info(info["NAME"]);
     if (!minfo || !DNS_MASTER->dns_mudp(info["NAME"]) ||
         minfo["HOSTADDRESS"] != info["HOSTADDRESS"])
         PING_Q->send_ping_q(info["HOSTADDRESS"], info["PORTUDP"]);
     */
+    // debug_message(sprintf("%O", info));
     if (info["PORTUDP"])
     {
         bits = build_mudlist((mapping)DNS_MASTER->query_muds());
         for (i = 0; i < sizeof(bits); i++)
+        {
             DNS_MASTER->send_udp(info["HOSTADDRESS"], info["PORTUDP"],
                                  "@@@" + DNS_MUDLIST_A + bits[i] + "@@@\n");
+            // debug_message("mudlist:" + bits[i]);
+        }
     }
     /*
     // 同时发布本站点信息

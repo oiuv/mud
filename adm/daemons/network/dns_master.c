@@ -152,6 +152,9 @@ void send_udp(string host, int port, mixed msg)
 {
     int sock;
 
+    // 不給自己發送資料
+    if (host == this_host["HOSTADDRESS"] && port == my_port) return;
+
 #if 0
     if (! ACCESS_CHECK(previous_object()) &&
             file_name(previous_object())[0..strlen(AUX_PATH) - 1] != AUX_PATH)
@@ -169,8 +172,16 @@ void send_udp(string host, int port, mixed msg)
         log("Failed to open socket to " + host + " " + port + "\n");
         return;
     }
-    // 为兼容FluffOS v2017，统一使用GBK编码发送数据
-    msg = string_encode(msg, "GBK");
+    // 为兼容FluffOS v2017，统一使用GBK或BIG5编码发送数据
+    if (strsrch(config("BIG5")||"", host) > 0)
+    {
+        msg = string_encode(msg, "BIG5");
+    }
+    else
+    {
+        msg = string_encode(msg, "GBK");
+    }
+
     socket_write(sock, msg, host + " " + port);
     socket_close(sock);
 }
@@ -184,6 +195,17 @@ void read_callback(int sock, mixed msg, string addr)
     mapping args;
     int i;
 
+    if (msg == "hi")
+    {
+        socket_write(sock, "你好，你的通信地址为：" + addr, addr);
+    }
+    else if (msg == "mudlist")
+    {
+        socket_write(sock, json_encode(query_muds()), addr);
+    }
+    // get the address(remove port number)
+    sscanf(addr, "%s %s", addr, port);
+
     if (bufferp(msg))
     {
         msg = string_decode(msg, "gbk");
@@ -195,7 +217,7 @@ void read_callback(int sock, mixed msg, string addr)
         }
     }
 #ifdef DEBUG
-    CHANNEL_D->do_channel(this_object(), "debug", sprintf("receive %s from %s", msg, addr));
+    CHANNEL_D->do_channel(this_object(), "debug", sprintf("receive %s from %s", msg, addr + ":" + port));
 #endif
     // debug_message("DNS: Got " + msg + "From " + addr);
 
@@ -206,9 +228,6 @@ void read_callback(int sock, mixed msg, string addr)
             return;
         rest = "";
     }
-
-    // get the address(remove port number)
-    sscanf(addr, "%s %s", addr, port);
 
     // get the arguments to the function
     // these are in the form "<arg>:<value>" and are put into a mapping
@@ -221,10 +240,10 @@ void read_callback(int sock, mixed msg, string addr)
             args[name] = arg;
     args["HOSTADDRESS"] = addr;
     args["HOSTPORT"] = port;
-
     // some muds don 't send their name out in a network friendly form
     if (args["NAME"])
         args["ALIAS"] = htonn(args["NAME"]);
+
     /*
     if (VERSION_D->is_release_server())
     {
@@ -416,7 +435,7 @@ void set_mud_info(string name, mapping junk)
     if (name == Mud_name())
         return;
 
-    junk["ALIAS"] = nntoh(junk["NAME"]);
+    // junk["ALIAS"] = nntoh(junk["NAME"]);
 
     // determines whether or not we send the service queries out
     // to the new mud
@@ -910,7 +929,7 @@ void create()
     if (stringp(MUDLIST_DNS5))
         list_nodes += ({MUDLIST_DNS5});
 
-    resolve(query_host_name(), "resolve_callback");
+    resolve("mud.ren", "resolve_callback");
 
     // initialise the udp socket, if successful start the database system
     if (startup_udp())

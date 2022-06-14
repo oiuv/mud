@@ -10,7 +10,7 @@ void create()
 瓶里，有一束百合花，正在散发出淡淡的幽香。里边放着两张
 木椅，中间是一茶几，上面摆着一盆山茶花。
 LONG );
-        set("no_fight", 1);
+    set("no_fight", 1);
     set("no_clean_up", 0);
     set("exits", ([
         "west" : __DIR__"guofu_huayuan",

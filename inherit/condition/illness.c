@@ -5,17 +5,17 @@ inherit F_CLEAN_UP;
 int dispel(object me, object ob, int duration)
 {
         int need_lvl;
-        int need_neili;
-        string cname;
+    int need_neili;
+    string cname;
 
         need_lvl = duration + 60;
-        need_neili = duration * 10;
+    need_neili = duration * 10;
         if (me != ob)
                 need_lvl = need_lvl * 3 / 2;
-        if (me != ob)
-                need_neili = need_neili * 3 / 2;
+    if (me != ob)
+        need_neili = need_neili * 3 / 2;
 
-        cname = to_chinese(this_object()->name());
+    cname = to_chinese(this_object()->name());
         if (need_lvl > me->query_skill("force"))
         {
                 if (me == ob)
@@ -29,12 +29,12 @@ int dispel(object me, object ob, int duration)
                 }
         }
 
-        if (me->query("neili") < need_neili)
-        {
-                tell_object(me, "你的内力现在不足，无法施展以驱除" + cname + "。\n");
-                return -1;
-        }
-        me->add("neili", -need_neili);
+    if (me->query("neili") < need_neili)
+    {
+        tell_object(me, "你的内力现在不足，无法施展以驱除" + cname + "。\n");
+        return -1;
+    }
+    me->add("neili", -need_neili);
 
         if (me == ob)
         {

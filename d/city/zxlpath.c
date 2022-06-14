@@ -16,11 +16,11 @@ LONG);
         "south"  : __DIR__"mudan",
         "west"   : __DIR__"zuixianlou2",
     ]));
-        set("objects", ([
-                __DIR__"npc/xiaoer2" : 1,
-        ]));
-        set("no_fight", 1);
+    set("objects", ([
+        __DIR__"npc/xiaoer2" : 1,
+    ]));
+    set("no_fight", 1);
     set("no_clean_up", 0);
-        setup();
+    setup();
     replace_program(ROOM);
 }

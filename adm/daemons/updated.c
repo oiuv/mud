@@ -362,7 +362,8 @@ void born_player(object me)
 
         // 去除转世特技和特殊技能;因取消师门药品奖励，故去除本草知识
         files -= ({"guibian", "guimai", "jinshen", "piyi", "lighting",
-                   "qinzong", "wuxing", "shenyan", "tiandao", "herb"});
+                   "qinzong", "wuxing", "shenyan", "tiandao",
+                   "herb", "wrach", "trick"});
 
         // 性格不符不会愤怒之心
         if (me->query("character") != "光明磊落" && me->query("character") != "心狠手辣")

@@ -49,7 +49,7 @@ int do_view(string arg)
         ob = filter_array(objects(), (: userp($1) && ! wizardp($1) :));
         list = sort_array(ob, (: top_list :));
 
-        msg = HIW "\n               ┏━━『" HIG " 英 雄 壁 " HIW "』━━┓\n";
+        msg = HIW "\n               ┏----『" HIG " 英 雄 壁 " HIW "』----┓\n";
         msg += "┏------------------------------------------------┓\n";
         msg += "┃ " HIG " 排 行 " HIW " │    " HIG "姓        名" HIW
                 "    │ " HIG "门  派" HIW " │ " HIG "评  价" HIW " ┃\n";
@@ -57,7 +57,7 @@ int do_view(string arg)
 
         for (i = 0; i < 10; i++)
         {
-                if (i >= sizeof(list)||list[i]->query("id") == 0||get_score(list[i]) < 10)    //mudren
+                if (i >= sizeof(list)||list[i]->query("id") == 0||get_score(list[i]) < 10)    //ivy
                 {
                         msg += HIW "┃        暂时空缺              无             -  ┃\n" NOR;
                         continue;

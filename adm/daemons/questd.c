@@ -28,7 +28,7 @@ void create()
     call_out("collect_all_quest_information", 1);
 }
 
-#define ONE_DAY (86400 / DATE_SCALE)
+#define ONE_DAY (86400 / 365)
 #define MAX_QUEST_LEVEL 3
 
 private void special_bonus(object me, object who, mixed arg)
@@ -563,7 +563,7 @@ int ask_quest(object me, object who)
         return 1;
     }
 
-    if (exp < 50000)
+    if (exp < 100000)
     {
         object letter;
 
@@ -1148,6 +1148,15 @@ int accept_object(object me, object who, object ob)
             quest_level = 1;
 
         who->set("quest_count", quest_count);
+        //记录任务总数
+        if (!who->query("state/quest"))
+        {
+            who->set("state/quest", quest_count);
+        }
+        else
+        {
+            who->add("state/quest", 1);
+        }
         who->set_temp("quest/next_level", quest_level);
     }
 

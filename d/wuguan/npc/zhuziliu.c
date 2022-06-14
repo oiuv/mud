@@ -72,7 +72,7 @@ void init()
 
         ::init();
         if (interactive(ob = this_player()) && ! is_fighting())
-    {
+        {
                 remove_call_out("greeting");
                 call_out("greeting", 1, ob);
         }
@@ -112,12 +112,11 @@ int recognize_apprentice(object ob, string skill)
 
 void greeting(object ob)
 {
-       if (! ob || environment(ob) != environment()) return;
+        if (! ob || environment(ob) != environment()) return;
 
-       if (ob->query_skill("literate") > 99) return;
+        if (ob->query_skill("literate") > 99) return;
 
-       command("pat " + ob->query("id"));
-       command("say 这位" + RANK_D->query_respect(ob) + "，过来跟我学些知"
-               "识(" HIY "xue zhu ziliu literate" NOR + CYN ")吧。" NOR);
-
+        command("pat " + ob->query("id"));
+        command("say 这位" + RANK_D->query_respect(ob) + "，过来跟我学些知"
+                "识(" HIY "xue zhu ziliu literate" NOR + CYN ")吧。" NOR);
 }

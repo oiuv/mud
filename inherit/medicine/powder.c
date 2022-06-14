@@ -14,8 +14,8 @@ int do_pour(string arg)
     function f;
 
     if( !arg
-    ||  sscanf(arg, "%s in %s", me, what)!=2
-    ||  !id(me) )
+    ||    sscanf(arg, "%s in %s", me, what)!=2
+    ||    !id(me) )
         return notify_fail("指令格式: pour <药粉> in <物品>\n");
 
     ob = present(what, this_player());

@@ -134,13 +134,13 @@ mapping *action = ({
         "damage_type" : "刺伤",
         "skill_name"  : "箫声响毕情两断"
 ]),
-([      "action": " "RED" 玉萧剑法之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 玉萧剑法之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force")/2 + random((int)this_player()->query_skill("force")),
         "attack" : (int)this_player()->query_skill("sword")/4 + random((int)this_player()->query_skill("sword")/2),
         "dodge"  : (int)this_player()->query_skill("dodge")/4 + random((int)this_player()->query_skill("force")/3),
         "parry"  : (int)this_player()->query_skill("parry")/4 + random((int)this_player()->query_skill("parry")/3),
         "damage" : (int)this_player()->query_skill("force")/3 + random((int)this_player()->query_skill("sword")/3),
-        "lvl"    : 100,
+        "lvl"    : 200,
         "skill_name" : "极意",
         "damage_type": "刺伤"
 ]),
@@ -210,18 +210,18 @@ mixed hit_ob(object me, object victim, int damage_bonus)
            || random(2)
            || me->query("neili") < 500
            || me->query_skill_mapped("sword") != "yuxiao-jian" )
-              return 0;
+                      return 0;
 
         if (damage_bonus / 6 > victim->query_con())
         {
 
-                    me->add("neili", -60);
-                    damage = damage_bonus * 2 / 3 + random(me->query_skill("chuixiao-jifa") / 2);
-                    victim->receive_wound("jing", damage, me);
+                                        me->add("neili", -60);
+                                        damage = damage_bonus * 2 / 3 + random(me->query_skill("chuixiao-jifa") / 2);
+                                        victim->receive_wound("jing", damage, me);
 
-                    return HIW "$N" HIW "手中" + weapon->name() + HIW "发出阵阵箫音，"
-                           "让$n" HIW "感到难受至极。\n" NOR;
-        }
+                                        return HIW "$N" HIW "手中" + weapon->name() + HIW "发出阵阵箫音，"
+                                                   "让$n" HIW "感到难受至极。\n" NOR;
+                }
 }
 
 string perform_action_file(string action)

@@ -11,8 +11,8 @@ void create()
         "路北通此谷中心大镇巴的甸，南连数个乌夷小部落。\n");
     set("outdoors", "dali");
     set("exits", ([/* sizeof() == 1 */
-                     "north":__DIR__ "badidian",
-                     "south":__DIR__ "atoubu",
+        "north":__DIR__ "badidian",
+        "south":__DIR__ "atoubu",
     ]));
     setup();
     (CLASS_D("ultra") + "/huang")->come_here();

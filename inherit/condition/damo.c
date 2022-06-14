@@ -95,8 +95,8 @@ int dispel(object me, object ob, mapping cnd)
         }
 
         need_lvl = cnd["level"] + 10;
-        if (ob->query("breakup"))
-                need_lvl = need_lvl * 6 / 10;
+    if (ob->query("breakup"))
+        need_lvl = need_lvl * 6 / 10;
         if (me != ob)
                 need_lvl += need_lvl / 5;
 
@@ -127,8 +127,8 @@ int dispel(object me, object ob, mapping cnd)
 
         // 去异常能力
         power = me->query_skill("force") +
-                                me->query_skill("poison") / 2 +
-                                me->query_skill("medical") / 4;
+                me->query_skill("poison") / 2 +
+                me->query_skill("medical") / 4;
         if (me == ob)
         {
                 if (cnd["id"] == me->query("id"))
@@ -219,10 +219,10 @@ int update_condition(object me, mapping cnd)
         int jd;
         int qd;
         int nd;
-        int jw;
-        int qw;
+    int jw;
+    int qw;
 
-        if (! cnd) return 0;
+    if (! cnd) return 0;
 
         if (! intp(cnd["level"]) || ! intp(cnd["remain"] || ! stringp(cnd["id"])))
                 return 0;
@@ -243,25 +243,25 @@ int update_condition(object me, mapping cnd)
         {
                 // receive damage of jing
                 me->receive_damage("jing", jd);
-                jw = jd / 2;
-                if (jw > me->query("eff_jing"))
-                {
-                        jw = me->query("eff_jing");
-                        if (jw < 0) jw = 0;
-                }
-                me->receive_wound("jing",  jw);
+        jw = jd / 2;
+        if (jw > me->query("eff_jing"))
+        {
+            jw = me->query("eff_jing");
+            if (jw < 0) jw = 0;
+        }
+            me->receive_wound("jing",  jw);
         }
 
         if (qd)
         {
                 // receive damage of qi
                 me->receive_damage("qi", qd);
-                if (qw > me->query("eff_qi"))
-                {
-                        qw = me->query("eff_qi");
-                        if (qw < 0) qw = 0;
-                }
-                me->receive_wound("qi",  qw);
+        if (qw > me->query("eff_qi"))
+        {
+            qw = me->query("eff_qi");
+            if (qw < 0) qw = 0;
+        }
+            me->receive_wound("qi",  qw);
         }
 
         if (nd)
@@ -287,12 +287,12 @@ int update_condition(object me, mapping cnd)
                 }
 
                 cnd["remain"] -= cnd["level"];
-                me->apply_condition(this_object()->name(), cnd);
+            me->apply_condition(this_object()->name(), cnd);
         }
 
         message("vision", replace_string(this_object()->update_msg_others(), "$N",
                           me->name()), environment(me), ({ me }));
-        tell_object(me, replace_string(this_object()->update_msg_self(), "$?", cnd["name"]));
+    tell_object(me, replace_string(this_object()->update_msg_self(), "$?", cnd["name"]));
 
-        return 1;
+    return 1;
 }

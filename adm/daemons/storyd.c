@@ -8,12 +8,11 @@ inherit F_DBASE;
 #define REFRESH_TIME 20 * 86400
 
 nosave string *story_name;
-
 nosave object running_story;
 nosave mapping history;
 nosave int step;
-int filter_listener(object ob);
 
+int filter_listener(object ob);
 private void init_story();
 private void ready_to_start();
 private void go_on_process(object ob);
@@ -28,6 +27,11 @@ void create()
 
     history = allocate_mapping(sizeof(story_name));
     ready_to_start();
+}
+
+int clean_up()
+{
+    return 1;
 }
 
 private void init_story()
@@ -46,7 +50,6 @@ private void ready_to_start()
     remove_call_out("start_story");
     remove_call_out("process_story");
     call_out("start_story", 1800 + random(300));
-    // call_out("start_story", 180 + random(30));//测试用
 }
 
 private void go_on_process(object ob)
@@ -54,11 +57,6 @@ private void go_on_process(object ob)
     remove_call_out("start_story");
     remove_call_out("process_story");
     call_out("process_story", 1, ob);
-}
-
-int clean_up()
-{
-    return 1;
 }
 
 object query_running_story()

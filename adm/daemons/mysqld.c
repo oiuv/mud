@@ -1,4 +1,4 @@
-inherit DATABASE;
+inherit CORE_DB;
 // 调用连接对象更新bbs.mud.ren网站账号
 varargs mixed update(object ob, string host, string db, string user)
 {
@@ -7,14 +7,14 @@ varargs mixed update(object ob, string host, string db, string user)
     {
         if (stringp(host) && stringp(db) && stringp(user))
         {
-            database::setConnection(([
+            DB::setConnection(([
                 "host":host,
                 "database":db,
                 "user":user,
             ]));
         }
 
-        return database::table("users")->where("username", ob->query("id"))->update(([
+        return DB::table("users")->where("username", ob->query("id"))->update(([
             "password":ob->query("password"),
             "phone":ob->query("phone"), ]));
     }
@@ -33,21 +33,21 @@ varargs int register(object ob, string host, string db, string user)
 
         if (stringp(host) && stringp(db) && stringp(user))
         {
-            database::setConnection(([
+            DB::setConnection(([
                 "host":host,
                 "database":db,
                 "user":user,
             ]));
         }
 
-        if (database::table("users")->where("username", ob->query("id"))->count())
+        if (DB::table("users")->where("username", ob->query("id"))->count())
         {
             return 0;
         }
 
-        res = database::table("users")->insert(([
+        res = DB::table("users")->insert(([
             "username":ob->query("id"),
-            "name":ob->query("surname") + ob->query("purename"),
+            "name":ob->query("surname")||"" + ob->query("purename"),
             "email":ob->query("id") + "@mud.ren",
             "phone":ob->query("phone"),
             "password":ob->query("password"),

@@ -609,6 +609,7 @@ varargs int do_attack(object me, object victim, object weapon, int attack_type)
             {
                 if (my["potential"] < me->query_potential_limit())
                     my["potential"]++;
+
                 if (stringp(attack_skill))
                     me->improve_skill(attack_skill, 1);
             }
@@ -1481,7 +1482,10 @@ void start_hatred(object me, object obj)
         return;
 
     // We found our hatred! Charge!
-    message_vision(catch_hunt_msg[random(sizeof(catch_hunt_msg))], me, obj);
+    if (me->query("race") != "野兽")
+        message_vision(element_of(catch_hunt_msg), me, obj);
+    else
+        message_vision(append_color(HIR "$N向$n发起了攻击！\n" NOR, HIR), me, obj);
     me->want_kill(obj);
     me->kill_ob(obj);
 
@@ -1963,19 +1967,20 @@ void killer_reward(object killer, object victim)
             {
                 // 按照实战经验修正掉技能几率，经验越高越不容易死亡掉技能
                 /*
-                                if (victim->query("combat_exp")>= 100000000) flag=0;//打通生死玄关且exp 1亿以上时百分之百不掉技能
-                                else if (victim->query("combat_exp")>= 80000000) flag=10;
-                                    else if (victim->query("combat_exp")>= 60000000) flag=20;
-                                        else if (victim->query("combat_exp")>= 40000000) flag=30;
-                                            else if (victim->query("combat_exp")>= 20000000) flag=40;
-                                                else if (victim->query("combat_exp")>= 10000000) flag=50;
-                                                    else if (victim->query("combat_exp")>= 5000000) flag=60;
-                                 else flag = 70;
-                                 */
+                if (victim->query("combat_exp")>= 100000000)
+                    flag=0;//打通生死玄关且exp 1亿以上时百分之百不掉技能
+                else if (victim->query("combat_exp")>= 80000000) flag=10;
+                else if (victim->query("combat_exp")>= 60000000) flag=20;
+                else if (victim->query("combat_exp")>= 40000000) flag=30;
+                else if (victim->query("combat_exp")>= 20000000) flag=40;
+                else if (victim->query("combat_exp")>= 10000000) flag=50;
+                else if (victim->query("combat_exp")>= 5000000) flag=60;
+                else flag = 70;
+                */
                 //调整death效果 2017-01-30
-                if (victim->query("combat_exp") >= 30000000)
+                if (victim->query("combat_exp") >= 50000000)
                     flag = 0;
-                else if (victim->query("combat_exp") >= 25000000)
+                else if (victim->query("combat_exp") >= 30000000)
                     flag = 10;
                 else if (victim->query("combat_exp") >= 20000000)
                     flag = 20;
@@ -1986,7 +1991,7 @@ void killer_reward(object killer, object victim)
                 else if (victim->query("combat_exp") >= 5000000)
                     flag = 50;
                 else
-                    flag = 60;
+                    flag = 70;
             }
             if (random(100) < flag)
                 victim->skill_death_penalty();

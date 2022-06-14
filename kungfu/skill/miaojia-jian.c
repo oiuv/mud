@@ -158,13 +158,13 @@ mapping *action = ({
      "skill_name" : "冲天掌苏秦背剑",
      "damage_type":  "刺伤"
 ]),
-([      "action": " "RED" 苗家剑法之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 苗家剑法之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force")/2 + random((int)this_player()->query_skill("force")),
         "attack" : (int)this_player()->query_skill("sword")/4 + random((int)this_player()->query_skill("sword")/2),
         "dodge"  : (int)this_player()->query_skill("dodge")/4 + random((int)this_player()->query_skill("force")/3),
         "parry"  : (int)this_player()->query_skill("parry")/4 + random((int)this_player()->query_skill("parry")/3),
         "damage" : (int)this_player()->query_skill("force")/3 + random((int)this_player()->query_skill("sword")/3),
-        "lvl"    : 100,
+        "lvl"    : 300,
         "skill_name" : "极意",
         "damage_type": "刺伤"
 ]),
@@ -228,7 +228,7 @@ int practice_skill(object me)
 
         if ((int)me->query("neili") < 100)
                 return notify_fail("你的内力不够，无法练习苗家剑法。\n");
-        
+
         me->add("qi", -53);
         me->add("neili", -84);
         return 1;

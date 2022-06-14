@@ -2,51 +2,141 @@
 #include <localtime.h>
 #include <ansi.h>
 
-string process_bar(int n)
-{
-    string sp;
-    int start;
+// string process_bar(int n)
+// {
+//     string sp;
+//     int start;
 
-    if (n < 0) n = 0; else
-    if (n > 100) n = 100;
+//     if (n < 0) n = 0; else
+//     if (n > 100) n = 100;
 
-    sp = "                                                  " NOR;
-    if (n == 100)
-    {
-        sp[22] = '1';
-        sp[23] = '0';
-        sp[24] = '0';
-        sp[25] = '%';
-        start = 22;
-    }
-    else if (n >= 10)
-    {
-        sp[23] = (n / 10) + '0';
-        sp[24] = (n % 10) + '0';
-        sp[25] = '%';
-        start = 23;
-    }
-    else {
-        sp[24] = n + '0';
-        sp[25] = '%';
-        start = 24;
-    }
+//     sp = "                                                  " NOR;
+//     if (n == 100)
+//     {
+//         sp[22] = '1';
+//         sp[23] = '0';
+//         sp[24] = '0';
+//         sp[25] = '%';
+//         start = 22;
+//     }
+//     else if (n >= 10)
+//     {
+//         sp[23] = (n / 10) + '0';
+//         sp[24] = (n % 10) + '0';
+//         sp[25] = '%';
+//         start = 23;
+//     }
+//     else {
+//         sp[24] = n + '0';
+//         sp[25] = '%';
+//         start = 24;
+//     }
 
-    n /= 2;
-    if (start > n)
-    {
-        sp = sp[0..start-1] + HIY + sp[start..<0];
-        sp = sp[0..n - 1] + BBLU + sp[n..<0];
-    }
-    else
-    {
-        sp = sp[0..n - 1] + BBLU + sp[n..<0];
-        sp = sp[0..start-1] + HIY + sp[start..<0];
-    }
+//     n /= 2;
+//     if (start > n)
+//     {
+//         sp = sp[0..start-1] + HIY + sp[start..<0];
+//         sp = sp[0..n - 1] + BBLU + sp[n..<0];
+//     }
+//     else
+//     {
+//         sp = sp[0..n - 1] + BBLU + sp[n..<0];
+//         sp = sp[0..start-1] + HIY + sp[start..<0];
+//     }
 
-    sp = NOR + BCYN + sp;
-    return sp;
-}
+//     sp = NOR + BCYN + sp;
+//     return sp;
+// }
+
+// sort a chinese string (must be chinese), align the
+// string with then len. the prefix is used when the desc
+// will be lead by another string or space with length is prefix.
+// string sort_string(string input, int width, int prefix)
+// {
+//     int i;
+//     int sl;  // 字符串长度
+//     int len; // 字符串宽度
+//     int esc;
+//     string result;
+
+//     result = "";
+
+//     len = prefix;
+//     esc = 0;
+//     sl = strlen(input);
+//     for (i = 0; i < sl; i++)
+//     {
+//         if (len >= width && input[i] != '\n')
+//         {
+//             int k = i;
+//             // ANSI颜色字符处理
+//             if (input[i] == 27)
+//                 while (k < sl && input[k++] != 'm')
+//                     ;
+
+//             switch ((k < sl) ? input[k..k] : 0)
+//             {
+//             // 符号不换行
+//             case "：":
+//             case "”":
+//             case "。":
+//             case "，":
+//             case "；":
+//             case "）":
+//             case " )":
+//             case "！":
+//             case "？":
+//             case "、":
+//                 if (k != i)
+//                 {
+//                     result += input[i..k];
+//                     i = k;
+//                     continue;
+//                 }
+//                 break;
+//             default:
+//                 len = 0;
+//                 result += "\n";
+//                 break;
+//             }
+//         }
+
+//         if (input[i] == 27)
+//             esc = 1;
+
+//         if (!esc)
+//         {
+//             // 非英文字符
+//             if (input[i] > 160)
+//             {
+//                 result += input[i..i];
+//                 len += 2;
+//                 continue;
+//             }
+//             // 换行
+//             if (input[i] == '\n')
+//             {
+//                 result += "\n";
+//                 len = 0;
+//                 continue;
+//             }
+//         }
+
+//         result += input[i..i];
+//         if (! esc) len++;
+
+//         if (esc && input[i] == 'm')
+//             esc = 0;
+//     }
+
+//     if (i < sl)
+//         result += input[i..sl-1];
+
+//     if (len)
+//         result += "\n";
+
+//     return result;
+// }
 
 object get_object(string name)
 {
@@ -116,7 +206,8 @@ string chinese_desc(string arg)
 // is the string1 be a substring of string2
 int is_sub(string s_str, string m_str)
 {
-    if (! m_str || ! s_str) return 0;
+    if (!m_str || !s_str)
+        return 0;
     return strsrch("," + m_str + ",", "," + s_str + ",") != -1;
 }
 
@@ -126,13 +217,13 @@ string add_sub(string s_str, string m_str)
     string *slist;
     int i;
 
-    if (! s_str || is_sub(s_str, m_str))
+    if (!s_str || is_sub(s_str, m_str))
         return m_str;
 
     slist = explode(s_str, ",");
-    slist -= ({ "" });
+    slist -= ({""});
     for (i = 0; i < sizeof(slist); i++)
-        if (! is_sub(slist[i], m_str))
+        if (!is_sub(slist[i], m_str))
             if (m_str == 0 || m_str == "")
                 m_str = slist[i];
             else
@@ -147,11 +238,13 @@ string remove_sub(string s_str, string m_str)
     string *slist;
     string *trilist;
 
-    if (! m_str || m_str == s_str) return 0;
-    slist = explode(m_str, ",") - ({ "" });
+    if (!m_str || m_str == s_str)
+        return 0;
+    slist = explode(m_str, ",") - ({""});
     trilist = explode(s_str, ",");
     slist -= trilist;
-    if (! sizeof(slist)) return 0;
+    if (!sizeof(slist))
+        return 0;
     m_str = implode(slist, ",");
     return m_str;
 }
@@ -181,7 +274,8 @@ string log_id(object ob, int raw)
     return msg;
 }
 
-// generate time
+// generate time，defined in mudcore now
+/*
 string log_time()
 {
     string msg = ctime(time());
@@ -189,6 +283,7 @@ string log_time()
     msg = msg[4..6] + "/" + msg[8..9] + "/" + msg[20..23] + " " + msg[11..18];
     return msg;
 }
+*/
 
 // can the two man talk with together ?
 int can_talk_with(object ob1, object ob2)
@@ -222,74 +317,5 @@ int file_valid(string file)
 
 int binary_valid(string file)
 {
-    return 1;
-}
-
-void debug(mixed arg)
-{
-    string *color = ({HIB, HIC, HIG, HIM, HIR, HIW, HIY});
-
-    if (objectp(arg))
-    {
-        arg = file_name(arg);
-    }
-
-    write(element_of(color) + arg + NOR "\n");
-}
-
-varargs void print_r(mixed *arr, int step)
-{
-    int i, j;
-    if (sizeof(arr))
-    {
-        write(YEL "({\n" NOR);
-
-        for (i = 0; i < sizeof(arr); i++)
-        {
-            if (arrayp(arr[i]))
-            {
-                step++;
-                for (j = 0; j < step; j++)
-                {
-                    write("    ");
-                }
-                write(i + " => ");
-                print_r(arr[i], step);
-                step--;
-            }
-            else
-            {
-                for (j = 0; j <= step; j++)
-                {
-                    write("    ");
-                }
-                write(i + " => " + arr[i] + "\n");
-            }
-        }
-
-        for (j = 0; j < step; j++)
-        {
-            write("    ");
-        }
-        write(YEL "})\n" NOR);
-    }
-    else
-    {
-        write(YEL "({ })\n" NOR);
-    }
-}
-
-int is_numeric(string str)
-{
-    int i;
-
-    if (nullp(str) || !str[0])
-        return 0;
-
-    i = strlen(str);
-    while (i--)
-        if (str[i] < '0' || str[i] > '9')
-            return 0;
-
     return 1;
 }

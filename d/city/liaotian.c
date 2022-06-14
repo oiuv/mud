@@ -22,8 +22,6 @@ LONG);
         "/clone/game/fruit":1,
         "/clone/game/mint":1,
         __DIR__ "npc/qichangfa":1,
-        // "/adm/npc/horseboss":1,
-        // __DIR__ "npc/yanruyu":1,
     ]));
     set("exits", ([
         "north":__DIR__ "kedian",
@@ -32,4 +30,5 @@ LONG);
 
     setup();
     replace_program(ROOM);
+    "/u/mudren/npc/butong"->come_here();
 }

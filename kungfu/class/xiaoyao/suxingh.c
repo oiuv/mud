@@ -127,11 +127,11 @@ void attempt_apprentice(object ob)
                 return;
         }
 
-        if ((int)ob->query("combat_exp") < 200000)
-        {
-                command("say 你现在经验尚浅，不能领会高深的武功，先锻炼要紧。");
-                return;
-        }
+    if ((int)ob->query("combat_exp") < 200000)
+    {
+        command("say 你现在经验尚浅，不能领会高深的武功，先锻炼要紧。");
+        return;
+    }
 
         if (ob->query_skill("force", 1) < 100)
         {

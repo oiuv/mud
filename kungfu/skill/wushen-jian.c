@@ -6,7 +6,7 @@
 inherit SKILL;
 
 mapping *action = ({
-([      
+([
         "action" : "$N反转手中$w，剑光夺目，将「" HIR "祝融剑法" NOR
                    "」发挥得淋漓尽致，闪电般射向$n",
         "force" : 430,
@@ -16,7 +16,7 @@ mapping *action = ({
         "damage": 190,
         "damage_type" : "刺伤",
 ]),
-([ 
+([
         "action" : "$N手中剑花突现，顿时剑光暴长，已将「" HIM "芙蓉剑"
                    "法" NOR "」使出，直刺$n的$l",
         "force" : 420,
@@ -37,7 +37,7 @@ mapping *action = ({
         "damage_type" : "刺伤",
 ]),
 ([
-        "action" : "$N轻啸一声，右手$w虚刺$n左眼，突然右腕翻转，将「" HIG 
+        "action" : "$N轻啸一声，右手$w虚刺$n左眼，突然右腕翻转，将「" HIG
                    "石廪剑法" NOR "」的精髓发挥到了极致",
         "force" : 430,
         "attack": 160,
@@ -56,13 +56,13 @@ mapping *action = ({
         "damage": 260,
         "damage_type" : "刺伤",
 ]),
-([      "action": " "RED" 衡山五神剑之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 衡山五神剑之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
         "attack" : (int)this_player()->query_skill("sword", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
         "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
         "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("sword", 1)/2),
-        //"lvl"    : 100,
+        "lvl"    : 200,
         "skill_name" : "极意",
         "damage_type": "刺伤"
 ]),
@@ -239,7 +239,7 @@ mixed hit_ob(object me, object victim, int damage_bonus)
               {
                   me->add("neili", -100);
                   victim->receive_wound("qi", (damage_bonus - 54) / 2, me);
-                  
+
                   return random(2) ? HIW "$N" HIW "一剑攻出，刹那间剑气横飞，$n" HIW
                                      "身上顿时鲜血狂涌。\n" NOR:
                                      HIW "$N" HIW "剑锋一转，一剑平平刺向$n" HIW "要害"
@@ -273,15 +273,15 @@ mixed hit_ob(object me, object victim, int damage_bonus)
                 {
                     if (! me->is_fighting(victim))
                             break;
-                   
+
                     if (! victim->is_busy() && random(2) == 1)
                             victim->start_busy(1);
 
                     COMBAT_D->do_attack(me, victim, weapon, 0);
-                }                
-                
+                }
+
              }
-             break;                        
+             break;
 
           default:
                 return 0;
@@ -296,5 +296,5 @@ int difficult_level()
 
 string perform_action_file(string action)
 {
-        return __DIR__"wushen-jian/" + action; 
+        return __DIR__"wushen-jian/" + action;
 }

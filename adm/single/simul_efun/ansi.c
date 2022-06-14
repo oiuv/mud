@@ -197,30 +197,3 @@ string color_to_html(string msg)
 
     return msg;
 }
-
-// calculate the color char in a string
-int color_len(string str)
-{
-    int i, extra;
-
-    extra = 0;
-    for (i = 0; i < strlen(str); i++)
-    {
-        if (str[i] == ESC[0])
-        {
-            while ((extra++, str[i] != 'm') && i < strlen(str))
-                i++;
-        }
-    }
-    return extra;
-}
-
-string remove_ansi(string arg)
-{
-    return filter_color(arg);
-}
-
-string ansi(string arg)
-{
-    return color_filter(arg);
-}

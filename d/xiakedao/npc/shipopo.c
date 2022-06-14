@@ -29,7 +29,7 @@ void create()
         set_skill("parry", 90);
         set_skill("unarmed", 90);
         set_skill("jinwu-daofa", 70);
-        set_skill("yanfly", 70);
+        set_skill("yan-fly", 70);
 
         set_temp("apply/attack", 50);
         set_temp("apply/defense", 50);
@@ -38,7 +38,7 @@ void create()
 
         map_skill("blade", "jinwu-daofa");
         map_skill("parry", "jinwu-daofa");
-        map_skill("dodge", "yanfly");
+        map_skill("dodge", "yan-fly");
         setup();
         carry_object("/clone/weapon/gangdao")->wield();
 }

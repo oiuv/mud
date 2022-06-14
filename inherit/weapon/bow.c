@@ -269,7 +269,7 @@ private int shoot_result(object me, object victim, object ob)
                     message_vision(CYN"结果$N一声惨叫，$n"+CYN+"已然插在$N的"+limbs[random(sizeof(limbs))]
                     +"上。\n"NOR, victim, ob);
     } else {
-    //  ob2 = present("arrow", victim);
+    //    ob2 = present("arrow", victim);
         ob2 = victim->query_temp("armor/embed");
 
         if ( ob2->query("weapon_type") == "arrow" ) {

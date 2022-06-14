@@ -55,8 +55,8 @@ void incoming_request(mapping info)
 // send a pinq query
 void send_ping_q(string host, mixed port)
 {
-    if (!ACCESS_CHECK(previous_object()))
-        return;
+    // if (!ACCESS_CHECK(previous_object()))
+    //     return;
 
     DNS_MASTER->send_udp(host, port, "@@@" + DNS_PING_Q + "||NAME:" + Mud_name() + "||PORTUDP:" + udp_port() + "@@@\n");
 }

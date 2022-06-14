@@ -23,13 +23,3 @@ string to_chinese(string str)
 
 //     return 1;
 // }
-
-int is_chinese(string str)
-{
-    if (!str)
-        return 0;
-
-    str = filter_ansi(str);
-
-    return pcre_match(str, "^\\p{Han}+$");
-}

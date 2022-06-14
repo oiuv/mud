@@ -109,7 +109,7 @@ void create()
                 "/d/death/obj/weapon79",
                 "/d/death/obj/weapon80",
         }));
-        
+
         setup();
         carry_object(__DIR__"obj/cloth4")->wear();
 }
@@ -119,4 +119,3 @@ void init()
         add_action("do_list", "list");
         add_action("do_buy", "buy");
 }
-

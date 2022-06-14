@@ -17,7 +17,7 @@ void create()
 LONG );
     set("no_fight", 1);
     set("valid_startroom", 1);
-        set("no_sleep_room",1);
+    set("no_sleep_room",1);
     set("item_desc", ([
         "paizi" : WHT "\n\n        ##==============================##\n"
                               "        ##                              ##\n"

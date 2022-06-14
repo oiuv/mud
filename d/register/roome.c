@@ -3,8 +3,8 @@ inherit ROOM;
 
 void create()
 {
-        set("short", NOR + WHT "桃源竹屋" NOR);
-        set("long", WHT @LONG
+    set("short", NOR + WHT "桃源竹屋" NOR);
+    set("long", WHT @LONG
 
                     桃     源     竹     屋
 
@@ -14,27 +14,27 @@ void create()
 
 
 LONG NOR );
-        set("no_fight", 1);
-        set("objects", ([
-                __DIR__"npc/lu" : 1,
-        ]));
-        set("exits", ([
-                "west"  : __DIR__"entry",
-                "out"   : __DIR__"yanluodian",
-        ]));
+    set("no_fight", 1);
+    set("objects", ([
+        __DIR__"npc/lu" : 1,
+    ]));
+    set("exits", ([
+        "west"  : __DIR__"entry",
+        "out"   : "/d/city/guangchang",
+    ]));
 
-        setup();
+    setup();
 }
 
 int valid_leave(object me, string dir)
 {
-        object ob;
-        if (! objectp(ob = present("lu tianshu", this_object())))
-        {
-                ob = new(__DIR__"npc/lu");
-                ob->move(this_object());
-        }
+    object ob;
+    if (! objectp(ob = present("lu tianshu", this_object())))
+    {
+        ob = new(__DIR__"npc/lu");
+        ob->move(this_object());
+    }
 
-        ob->check_leave(me, dir);
-        return ::valid_leave(me, dir);
+    ob->check_leave(me, dir);
+    return ::valid_leave(me, dir);
 }

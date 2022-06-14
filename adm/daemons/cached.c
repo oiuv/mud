@@ -16,7 +16,7 @@ nosave object db;
 
 void create()
 {
-    db = new (DATABASE, "", "/data/db.sqlite", "", __USE_SQLITE3__);
+    db = new (CORE_DB, "", "/data/db.sqlite", "", __USE_SQLITE3__);
 }
 
 mixed init_db()

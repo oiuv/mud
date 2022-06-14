@@ -55,14 +55,14 @@ void create()
         set("class", "taoist");
 
         set("inquiry", ([
-                "道德经" : (: ask_me :),
+            "道德经" : (: ask_me :),
         ]));
 
-        set("chat_chance_combat", 120);
-        set("chat_msg_combat", ({
-                (: perform_action, "sword.sheng" :),
-                (: exert_function, "recover" :),
-        }) );
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "sword.sheng" :),
+        (: exert_function, "recover" :),
+    }) );
 
         set("book_count", 1);
 

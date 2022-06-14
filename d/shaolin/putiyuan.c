@@ -107,7 +107,7 @@ int do_xian(string arg)
         return notify_fail("经偈中没有这没多的“" + arg + "”字呀！\n");
 
     message_vision("$N掀了一下" + (n > 1 ? "第" + chinese_number(n) + "个" : "") +
-                   "“" + arg + "”字。\n", this_player());
+                    "“" + arg + "”字。\n", this_player());
 
     right = 0;
     switch (query("status"))
@@ -126,8 +126,7 @@ int do_xian(string arg)
     // 只要掀“一”就还原
     if (arg == "一") right = 1;
     set("status", right);
-    message("vision", "你听到“咔啦”一声响声，似乎"
-            "有什么机关触动了。\n", this_object());
+    message("vision", "你听到“咔啦”一声响声，似乎有什么机关触动了。\n", this_object());
     if (right == 4)
     {
         message_vision("$N的手指还没有离开镜面，只听得轧轧声响，铜镜已"
@@ -175,8 +174,7 @@ int do_get(string arg)
 
     message_vision("$N从小洞中将那本经书取出，放进包内。\n", me);
     ob->move(me, 1);
-    CHANNEL_D->do_channel(this_object(), "rumor",
-                    me->name(1) + "从少林寺窃走一本易筋经。");
+    CHANNEL_D->do_channel(this_object(), "rumor", me->name(1) + "从少林寺窃走一本易筋经。");
     return 1;
 }
 

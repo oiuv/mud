@@ -29,4 +29,13 @@ string trim(string str)
 
     return str;
 }
+
+// 去掉str左端空格
+string ltrim(string arg)
+{
+    for (int i = 0; i < strlen(arg); i++)
+        if (arg[i..i] != " ")
+            return arg[i..strlen(arg)];
+    return "";
+}
 #endif

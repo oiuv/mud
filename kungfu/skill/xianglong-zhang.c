@@ -164,14 +164,14 @@ mapping *action = ({
         "lvl"    : 100,
         "damage_type": "震伤"
 ]),
-([      "action": " "RED" 降龙之极意 "NOR"",
+([      "action": "$N凝神静气，使出极招"RED" 降龙掌之极意 "NOR"",
         "force"  : (int)this_player()->query_skill("force", 1)/2 + random((int)this_player()->query_skill("force", 1)),
         "attack" : (int)this_player()->query_skill("strike", 1)/4 + random((int)this_player()->query_skill("strike", 1)/2),
         "dodge"  : (int)this_player()->query_skill("dodge", 1)/6 + random((int)this_player()->query_skill("force", 1)/3),
         "parry"  : (int)this_player()->query_skill("parry", 1)/6 + random((int)this_player()->query_skill("parry", 1)/3),
         "damage" : (int)this_player()->query_skill("force", 1)/4 + random((int)this_player()->query_skill("strike", 1)/2),
-        "lvl"    : 500,
-//        "skill_name" : "极意",
+        "lvl"    : 300,
+        "skill_name" : "极意",
         "damage_type": "内伤"
 ]),
 });

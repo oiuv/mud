@@ -10,14 +10,20 @@ int edit(function callback)
 
 void input_line(string line, string text, function callback)
 {
-    if( line=="." ) {
+    if (line == ".")
+    {
         (*callback)(text);
         return;
-    } else if( line=="~q" ) {
+    }
+    else if (line == "~q")
+    {
         write("输入取消。\n");
         return;
-    } else if( line=="~e" ) {
-    } else
+    }
+    else if (line == "~e")
+    {
+    }
+    else
         text += line + "\n";
     input_to("input_line", text, callback);
 }

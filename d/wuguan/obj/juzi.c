@@ -13,7 +13,7 @@ void create()
                 set("long", YEL "这是一用来锯木头的锯子，普通百姓的日常用品。\n" NOR);
                 set("value", 30);
                 set("material", "steel");
-            set("wield_msg", YEL "$N" YEL "拿出一把锯子握在手中。\n" NOR);
+                set("wield_msg", YEL "$N" YEL "拿出一把锯子握在手中。\n" NOR);
                 set("unwield_msg", YEL "$N" YEL "将手中的锯子抗在肩上。\n" NOR);
         }
         init_blade(4);

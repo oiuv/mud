@@ -28,88 +28,88 @@ int try_to_learn_jy();
 void create()
 {
   object ob;
-        set_name("张三丰", ({ "zhang sanfeng", "zhang", "sanfeng" }));
-        set("nickname", HIW "太极真人" NOR);
-        set("long", "他就是武当派开山鼻祖、当今武林的泰山北斗张\n"
+    set_name("张三丰", ({ "zhang sanfeng", "zhang", "sanfeng" }));
+    set("nickname", HIW "太极真人" NOR);
+    set("long", "他就是武当派开山鼻祖、当今武林的泰山北斗张\n"
                     "三丰真人。只见他身着一身污秽的灰色道袍，不\n"
                     "修边幅。身材高大，年满百岁，满脸红光，须眉\n"
                     "皆白。\n");
-        set("gender", "男性");
-        set("age", 100);
-        set("attitude", "friendly");
-        set("shen_type", 1);
-        set("str", 31);
-        set("int", 39);
-        set("con", 40);
-        set("dex", 32);
+    set("gender", "男性");
+    set("age", 100);
+    set("attitude", "friendly");
+    set("shen_type", 1);
+    set("str", 31);
+    set("int", 39);
+    set("con", 40);
+    set("dex", 32);
 
-        set("max_qi", 10000);
-        set("max_jing", 10000);
+    set("max_qi", 10000);
+    set("max_jing", 10000);
   set("max_jingli", 10000);
   set("jingli", 10000);
-        set("max_neili", 12000);
-        set("neili", 12000);
-        set("jiali", 250);
-        set("combat_exp", 5000000);
-        set("score", 1200000);
+    set("max_neili", 12000);
+    set("neili", 12000);
+    set("jiali", 250);
+    set("combat_exp", 5000000);
+    set("score", 1200000);
 
-        set_skill("force", 420);
+    set_skill("force", 420);
   set_skill("taiji-shengong", 420);
   set_skill("wudang-jiuyang", 200);
-        set_skill("wudang-xinfa", 400);
-        set_skill("dodge", 420);
-        set_skill("tiyunzong", 420);
-        set_skill("unarmed", 420);
-        set_skill("taiji-quan", 420);
-        set_skill("xuangong-quan", 400);
-        set_skill("strike", 400);
-        set_skill("wudang-zhang", 400);
-        set_skill("yitian-zhang", 400);
-        set_skill("zhenshan-zhang", 400);
+    set_skill("wudang-xinfa", 400);
+    set_skill("dodge", 420);
+    set_skill("tiyunzong", 420);
+    set_skill("unarmed", 420);
+    set_skill("taiji-quan", 420);
+    set_skill("xuangong-quan", 400);
+    set_skill("strike", 400);
+    set_skill("wudang-zhang", 400);
+    set_skill("yitian-zhang", 400);
+    set_skill("zhenshan-zhang", 400);
   set_skill("hand", 400);
   set_skill("paiyun-shou", 400);
   set_skill("claw", 400);
   set_skill("huzhua-shou", 400);
-        set_skill("parry", 420);
-        set_skill("sword", 420);
-        set_skill("wudang-jian", 400);
-        set_skill("shenmen-jian", 400);
-        set_skill("rouyun-jian", 400);
-        set_skill("raozhi-roujian", 400);
-        set_skill("liangyi-jian", 400);
+    set_skill("parry", 420);
+    set_skill("sword", 420);
+    set_skill("wudang-jian", 400);
+    set_skill("shenmen-jian", 400);
+    set_skill("rouyun-jian", 400);
+    set_skill("raozhi-roujian", 400);
+    set_skill("liangyi-jian", 400);
   set_skill("taiji-jian", 420);
-        set_skill("blade", 400);
-        set_skill("taiji-dao", 400);
-        set_skill("xuanxu-dao", 400);
+    set_skill("blade", 400);
+    set_skill("taiji-dao", 400);
+    set_skill("xuanxu-dao", 400);
   set_skill("throwing", 400);
   set_skill("furong-jinzhen", 400);
-        set_skill("taoism", 400);
-        set_skill("literate", 280);
-        set_skill("medical", 240);
-        set_skill("wudang-yaoli", 240);
+    set_skill("taoism", 400);
+    set_skill("literate", 280);
+    set_skill("medical", 240);
+    set_skill("wudang-yaoli", 240);
   set_skill("martial-cognize", 400);
 
-        map_skill("force", "taiji-shengong");
-        map_skill("dodge", "tiyunzong");
-        map_skill("unarmed", "taiji-quan");
-        map_skill("hand", "paiyun-shou");
-        map_skill("claw", "huzhua-shou");
-        map_skill("strike", "wudang-zhang");
-        map_skill("parry", "taiji-jian");
-        map_skill("sword", "taiji-jian");
-        map_skill("blade", "taiji-dao");
+    map_skill("force", "taiji-shengong");
+    map_skill("dodge", "tiyunzong");
+    map_skill("unarmed", "taiji-quan");
+    map_skill("hand", "paiyun-shou");
+    map_skill("claw", "huzhua-shou");
+    map_skill("strike", "wudang-zhang");
+    map_skill("parry", "taiji-jian");
+    map_skill("sword", "taiji-jian");
+    map_skill("blade", "taiji-dao");
   map_skill("throwing"  , "furong-jinzhen");
   map_skill("medical", "wudang-yaoli");
 
-        prepare_skill("unarmed", "taiji-quan");
-        prepare_skill("strike", "wudang-zhang");
+    prepare_skill("unarmed", "taiji-quan");
+    prepare_skill("strike", "wudang-zhang");
 
   set("no_teach", ([
           "wudang-jiuyang" : (: try_to_learn_jy :),
   ]));
 
-        create_family("武当派", 1, "开山祖师");
-        set("class", "taoist");
+    create_family("武当派", 1, "开山祖师");
+    set("class", "taoist");
 
   set("inquiry", ([
           "真武剑"     : (: ask_jian :),
@@ -130,24 +130,24 @@ void create()
           "真武除邪"   : (: ask_skill11 :),
   ]));
 
-        set("chat_chance_combat", 120);
-        set("chat_msg_combat", ({
-                (: perform_action, "sword.chan" :),
-                (: perform_action, "sword.jia" :),
-                (: perform_action, "sword.sui" :),
-                (: perform_action, "sword.zhuan" :),
-                (: perform_action, "sword.zhenwu" :),
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "sword.chan" :),
+        (: perform_action, "sword.jia" :),
+        (: perform_action, "sword.sui" :),
+        (: perform_action, "sword.zhuan" :),
+        (: perform_action, "sword.zhenwu" :),
     (: perform_action, "unarmed.tu" :),
     (: perform_action, "unarmed.zhen" :),
     (: perform_action, "unarmed.zhan" :),
     (: perform_action, "unarmed.ji" :),
     (: perform_action, "unarmed.yin" :),
-                (: exert_function, "recover" :),
-                (: exert_function, "powerup" :),
-                (: exert_function, "shield" :),
-        }) );
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+        (: exert_function, "shield" :),
+    }) );
 
-        setup();
+    setup();
 
   if (clonep())
   {
@@ -165,7 +165,7 @@ void create()
           }
   }
 
-        carry_object("/d/wudang/obj/greyrobe")->wear();
+    carry_object("/d/wudang/obj/greyrobe")->wear();
 }
 
 void attempt_apprentice(object ob)
@@ -173,47 +173,47 @@ void attempt_apprentice(object ob)
   if (! permit_recruit(ob))
           return;
 
-        if ((int)ob->query_skill("wudang-xinfa", 1) < 120)
-        {
-                command("say 我武当派乃内家武功，最重视内功心法。");
-                command("say " + RANK_D->query_respect(ob) +
-                        "是否还应该在武当心法上多下点功夫？");
-                return;
-        }
+    if ((int)ob->query_skill("wudang-xinfa", 1) < 120)
+    {
+        command("say 我武当派乃内家武功，最重视内功心法。");
+        command("say " + RANK_D->query_respect(ob) +
+            "是否还应该在武当心法上多下点功夫？");
+        return;
+    }
 
-        if ((int)ob->query("shen") < 80000)
-        {
-                command("say 学武之人，德义为先，功夫的高低倒还在其次，未练武，要先学做人。");
-                command("say 在德行方面，" + RANK_D->query_respect(ob) +
-                        "是否还做得不够？");
-                return;
-        }
+    if ((int)ob->query("shen") < 80000)
+    {
+        command("say 学武之人，德义为先，功夫的高低倒还在其次，未练武，要先学做人。");
+        command("say 在德行方面，" + RANK_D->query_respect(ob) +
+            "是否还做得不够？");
+        return;
+    }
 
-        if ((int)ob->query("combat_exp") < 500000)
-        {
-                command("say 你现在经验尚浅，不能领会高深的武功，先锻炼要紧。");
-                return;
-        }
+    if ((int)ob->query("combat_exp") < 500000)
+    {
+        command("say 你现在经验尚浅，不能领会高深的武功，先锻炼要紧。");
+        return;
+    }
 
   if (ob->query_skill("taoism", 1) < 120)
-        {
-                command("say 我武当派武功全从道藏悟出。");
-                command("say 你对道家心法的领悟还不够。");
-                command("say " + RANK_D->query_respect(ob) + "还是多研究研究道学心法吧。");
-                return;
-        }
+    {
+        command("say 我武当派武功全从道藏悟出。");
+        command("say 你对道家心法的领悟还不够。");
+        command("say " + RANK_D->query_respect(ob) + "还是多研究研究道学心法吧。");
+        return;
+    }
 
-        if (ob->query_int() < 32)
-        {
-                command("say 我武当派武功极需靠自己领悟。");
-                command("say 要能达到炉火纯青之境，体质什么的倒是无关紧要，悟性却是半点也马虎不得。");
-                command("say " + RANK_D->query_respect(ob) + "的悟性还大有潜力可挖，还是请回吧。");
-                return;
-        }
+    if (ob->query_int() < 32)
+    {
+        command("say 我武当派武功极需靠自己领悟。");
+        command("say 要能达到炉火纯青之境，体质什么的倒是无关紧要，悟性却是半点也马虎不得。");
+        command("say " + RANK_D->query_respect(ob) + "的悟性还大有潜力可挖，还是请回吧。");
+        return;
+    }
 
-        command("smile");
-        command("say 想不到老道在垂死之年，又觅得一个可塑之才，真是可喜可贺。");
-        command("recruit " + ob->query("id"));
+    command("smile");
+    command("say 想不到老道在垂死之年，又觅得一个可塑之才，真是可喜可贺。");
+    command("recruit " + ob->query("id"));
 }
 
 mixed ask_skill1()
@@ -550,8 +550,8 @@ mixed ask_skill6()
                         me->improve_skill("taiji-quan", 1500000);
                 if (me->can_improve_skill("taiji-quan"))
                         me->improve_skill("taiji-quan", 1500000);
-                me->improve_skill("martial-cognize", 1500000);
-                me->add("gongxian", -3000);
+            me->improve_skill("martial-cognize", 1500000);
+            me->add("gongxian", -3000);
         }
         return 1;
 }
@@ -810,13 +810,13 @@ mixed ask_jian()
 
         ob = find_object(ZHENWU_SWORD);
         if (! ob) ob = load_object(ZHENWU_SWORD);
-        owner = environment(ob);
+    owner = environment(ob);
         while (owner)
-        {
+    {
                 if (owner->is_character() || ! environment(owner))
                         break;
-                owner = environment(owner);
-        }
+        owner = environment(owner);
+    }
 
         if (owner == me)
                 return "真武剑不是在你的手中么，怎么反而来找我呢？";
@@ -836,7 +836,7 @@ mixed ask_jian()
 
         ob->move(this_object());
         message_vision(CYN "$N" CYN "点点头道：“好，你用这真武剑要多做一些行"
-                       "侠仗义的事情！”\n" NOR, this_object(), me);
+               "侠仗义的事情！”\n" NOR, this_object(), me);
         command("give zhenwu jian to " + me->query("id"));
         return 1;
 }
@@ -885,7 +885,7 @@ mixed ask_jiuyang()
         tell_object(me, HIC "张三丰同意传授你「武当九阳功」。\n" NOR);
 
         if (me->can_improve_skill("martial-cognize"))
-                me->improve_skill("martial-cognize", 1500000);
+            me->improve_skill("martial-cognize", 1500000);
 
         me->set("can_learn/jiuyang-shengong/wudang", 1);
         return 1;
@@ -899,18 +899,18 @@ int try_to_learn_jy()
         {
                 if (me->query("family/master_id") != query("id"))
                 {
-                        command("say 武当九阳神功乃是九阳神功的分支，我少"
+                    command("say 武当九阳神功乃是九阳神功的分支，我少"
                                 "年时得师父觉远大师所授。");
-                        command("say 但阁下与贫道素不相识，怎谈得上“指点"
+                    command("say 但阁下与贫道素不相识，怎谈得上“指点"
                                 "”二字？");
-                        return -1;
+                    return -1;
                 } else
                 {
-                        command("say 武当九阳神功乃是九阳神功的分支，我少"
+                    command("say 武当九阳神功乃是九阳神功的分支，我少"
                                 "年时得师父觉远大师所授。");
-                        command("say 虽然这武功在我手里有所改动，但它还是"
+                    command("say 虽然这武功在我手里有所改动，但它还是"
                                 "少林的武功，就算是我的弟子也不传授。");
-                        return -1;
+                    return -1;
                 }
         }
 
@@ -935,18 +935,18 @@ int recognize_apprentice(object me, string skill)
         {
                 if (me->query("family/master_id") != query("id"))
                 {
-                        command("say 武当九阳神功乃是九阳神功的分支，我少"
+                    command("say 武当九阳神功乃是九阳神功的分支，我少"
                                 "年时得师父觉远大师所授。");
-                        command("say 但阁下与贫道素不相识，怎谈得上“指点"
+                    command("say 但阁下与贫道素不相识，怎谈得上“指点"
                                 "”二字？");
-                        return -1;
+                    return -1;
                 } else
                 {
-                        command("say 武当九阳神功乃是九阳神功的分支，我少"
+                    command("say 武当九阳神功乃是九阳神功的分支，我少"
                                 "年时得师父觉远大师所授。");
-                        command("say 虽然这武功在我手里有所改动，但它还是"
+                    command("say 虽然这武功在我手里有所改动，但它还是"
                                 "少林的武功，就算是我的弟子也不传授。");
-                        return -1;
+                    return -1;
                 }
         }
 
