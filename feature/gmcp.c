@@ -94,7 +94,9 @@ void gmcp(string req)
             "neili"      : my["neili"] || 0,
             "max_neili"  : my["max_neili"] || 0,
             "food"       : my["food"] || 0,
+            "max_food"   : ob->max_food_capacity(),
             "water"      : my["water"] || 0,
+            "max_water"  : ob->max_water_capacity(),
             "exp"        : my["combat_exp"] || 0,
             "pot"        : (int)ob->query("potential") - (int)ob->query("learned_points"),
         ]);
