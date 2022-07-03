@@ -4,6 +4,8 @@
 [![Updated Badge](https://badges.pufler.dev/updated/oiuv/mud)](https://github.com/oiuv/mud)
 [![Visits Badge](https://badges.pufler.dev/visits/oiuv/mud)](https://github.com/oiuv/mud)
 
+![mud](mud.png "mud")
+
 炎黄MUD utf-8 版，推荐使用 FluffOS v2019 最新版驱动。
 
  - 游戏驱动下载地址：https://bbs.mud.ren/threads/4
@@ -24,12 +26,6 @@
 
     git submodule update --init
 
-> 这是将 `git submodule init` 和 `git submodule update` 合并成一步执行。
-
-如果还要初始化、抓取并检出任何嵌套的子模块， 请使用以下指令：
-
-    git submodule update --init --recursive
-
 ### 环境配置
 
 请把`data`目录中的`.env.example`复制为`.env`，并根据需要修改环境配置。
@@ -45,11 +41,11 @@
     driver config.ini -fdebug
     driver config.ini -d
 
- * 5555 端口为GBK编码
+ * 5566 端口为GBK编码
  * 6666 端口为UTF-8编码
  * 8000 端口为WEBSOCKET访问
 
-> 推荐使用mudlet客户端连接游戏，推荐使用UTF-8编码进行游戏。
+> 推荐使用[mudlet](https://github.com/Mudlet/Mudlet)客户端连接游戏，推荐使用UTF-8编码进行游戏。
 
 注册ID为 `mudren` 的帐号为游戏管理员(admin)。
 

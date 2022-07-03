@@ -4,6 +4,17 @@
  */
 nosave int DEBUG = env("DEBUG");
 
+// driver 启动测试: -fdebug
+void flag(string str) {
+    switch (str) {
+        case "debug":
+            DEBUG = 1;
+            break;
+        default:
+            write("[MASTER_OB]->flag():The only supproted flag is 'debug', got '" + str + "'.\n");
+    }
+}
+
 // controls the use of the bind() efun
 int valid_bind(object binder, object old_owner, object new_owner)
 {
