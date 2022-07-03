@@ -11,14 +11,19 @@ nosave int serial = 0;
 
 void heart_beat();
 
-void logon()
+void login()
 {
-    call_out("time_out", LOGIN_TIMEOUT);
-
     if (interactive(this_object()))
         set_temp("ip_number", query_ip_number(this_object()));
 
     LOGIN_D->logon(this_object());
+}
+
+void logon()
+{
+    call_out("time_out", LOGIN_TIMEOUT);
+    // 延迟登陆，解决mudlet初次连接乱码问题
+    call_out_walltime("login", 0.1);
 }
 
 // Don't destruct(this_object()) in the net_dead() interactive apply or
