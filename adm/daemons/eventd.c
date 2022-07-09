@@ -47,7 +47,7 @@ void heart_beat()
     int tnow, tt;
     int r;
 
-    lt = NATURE_D->query_localtime(time());
+    lt = NATURE_D->query_localtime();
     tnow = lt[LT_YEAR] * 1000000 +
            lt[LT_MON] * 10000 +
            lt[LT_MDAY] * 100 +
@@ -128,7 +128,7 @@ int at_after(int year, int month, int day, int hour, mixed para)
 {
     mixed *lt;
 
-    lt = NATURE_D->query_localtime(time());
+    lt = NATURE_D->query_localtime();
     if (year < 0)
         year = -year;
     else

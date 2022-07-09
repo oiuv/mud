@@ -105,7 +105,7 @@ int main(object me, string arg)
     }
     line += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
     write(line);
-    debug("……更多游戏记录完善中……");
+    cecho("……更多游戏记录完善中……");
 
     return 1;
 }

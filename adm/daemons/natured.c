@@ -7,15 +7,6 @@
 
 #define REMEMBER_CHAR '#'
 // 游戏时间修改由时间守护进程控制，这里只控制自然天气
-/** 游戏时间说明 DATE_SCALE=365
- * 真实时间1天=游戏时间365天
- * 真实时间2小时=游戏时间1个月
- * 真实时间4分钟=游戏时间1天
- * 真实时间10秒≈游戏时间1小时
- * 真实时间1秒=游戏时间365秒
- */
-// #define GAME_TIME(t)            (t - 971000000)
-// #define DATE_SCALE              365
 
 nosave int current_day_phase = -1;
 nosave mapping *day_phase;
@@ -28,23 +19,16 @@ varargs mixed *query_localtime(int t)
 {
     if (t)
     {
-        mixed *lt;
-
-        t = GAME_TIME(t);
-        lt = localtime((t % 86400) * DATE_SCALE);
-        // 注意这里提前+1了，使用时不需再加
-        lt[LT_MON]++;
-        lt[LT_YEAR] = t / 86400;
-        return lt;
+        t = (GAME_TIME(t) % 86400) * DATE_SCALE;
     }
 
-    return TIME_D->query_game_time();
+    return TIME_D->query_game_time(t);
 }
 
 varargs int query_minute(int t) { return query_localtime(t)[LT_MIN]; }
 varargs int query_hour(int t) { return query_localtime(t)[LT_HOUR]; }
 varargs int query_day(int t) { return query_localtime(t)[LT_MDAY]; }
-varargs int query_month(int t) { return query_localtime(t)[LT_MON] + (t ? 0 : 1); }
+varargs int query_month(int t) { return query_localtime(t)[LT_MON] + 1; }
 varargs int query_year(int t) { return query_localtime(t)[LT_YEAR]; }
 
 void create()
@@ -72,7 +56,7 @@ void select_day_phase()
     remove_call_out("select_day_phase");
 
     // Get minutes of today.
-    lt = query_localtime(time());
+    lt = query_localtime();
     t = lt[LT_HOUR];
 
     // Find the day phase for now.
@@ -339,12 +323,12 @@ string game_time()
         "秋",
     });
 
-    lt = query_localtime(time());
+    lt = query_localtime();
 
     return sprintf("%s年%s%s月%s日%s时",
                    chinese_number(lt[LT_YEAR]),
                    ms[((lt[LT_MON]) % 12) / 3],
-                   chinese_number(lt[LT_MON]),
+                   chinese_number(lt[LT_MON] + 1),
                    chinese_number(lt[LT_MDAY]),
                    chinese_number(lt[LT_HOUR]), );
 }

@@ -28,7 +28,7 @@ void create()
     call_out("collect_all_quest_information", 1);
 }
 
-#define ONE_DAY (86400 / 365)
+#define ONE_DAY (86400 / DATE_SCALE)
 #define MAX_QUEST_LEVEL 3
 
 private void special_bonus(object me, object who, mixed arg)
@@ -581,8 +581,6 @@ int ask_quest(object me, object who)
                                "西域", "凌霄城附近", "五毒教附近"}));
         NPC_D->set_from_me(ob, me, 100);
         NPC_D->random_move(ob);
-        NPC_D->random_move(ob);
-        NPC_D->random_move(ob);
         place = ob->query("place");
 
         letter = new ("/clone/misc/letter");
@@ -664,8 +662,6 @@ int ask_quest(object me, object who)
         ob->add_temp("apply/unarmed_damage", 5 + level * 7);
         ob->add_temp("apply/armor", 10 + level * 15);
         ob->set_temp("quester", who->query("id"));
-        NPC_D->random_move(ob);
-        NPC_D->random_move(ob);
         NPC_D->random_move(ob);
         place = ob->query("place");
         gender = (ob->query("gender") == "女性") ? "她" : "他";

@@ -19,7 +19,7 @@ varargs mixed update(object ob, string host, string db, string user)
             "phone":ob->query("phone"), ]));
     }
 #else
-    debug("注意：数据库功能被禁用。");
+    cecho("注意：数据库功能被禁用。");
     return 0;
 #endif
 }
@@ -57,17 +57,17 @@ varargs int register(object ob, string host, string db, string user)
         /* error */
         if (stringp(res))
         {
-            debug(res);
+            cecho(res);
             return 0;
         }
         else
         {
-            debug("提示：系统已自动在bbs.mud.ren注册账号，你可以使用游戏账号和密码登录社区。");
+            cecho("提示：系统已自动在bbs.mud.ren注册账号，你可以使用游戏账号和密码登录社区。");
             return 1;
         }
     }
 #else
-    debug("注意：数据库功能被禁用，无法注册论坛账号。");
+    cecho("注意：数据库功能被禁用，无法注册论坛账号。");
     return 0;
 #endif
 }
@@ -100,14 +100,14 @@ varargs void register(object ob, string host, string db, string user)
             if (!rows)
             {
                 db_exec(handle, "insert into users (username, name, email, password, activated_at, created_at) values (" + values + ")");
-                debug("提示：系统已自动在bbs.mud.ren注册账号，你可以使用游戏账号和密码登录社区。");
+                cecho("提示：系统已自动在bbs.mud.ren注册账号，你可以使用游戏账号和密码登录社区。");
             }
 
             db_close(handle);
         }
     }
 #else
-    debug("注意：数据库功能被禁用，无法注册论坛账号。");
+    cecho("注意：数据库功能被禁用，无法注册论坛账号。");
 #endif
 }
 */

@@ -206,7 +206,7 @@ string chinese_monthday(int date)
     mixed *local;
     local = NATURE_D->query_localtime(date);
     return sprintf("%s月%s日",
-                   chinese_number(local[LT_MON]),
+                   chinese_number(local[LT_MON] + 1),
                    chinese_number(local[LT_MDAY]));
 }
 
