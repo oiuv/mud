@@ -860,7 +860,7 @@ int accept_object(object me, object who, object ob)
         if (t > q["limit"])
         {
             msg += CYN "$N" CYN "叹了口气，又道：可惜，不是让你" +
-                   CHINESE_D->chinese_monthday(t) + "前做完吗？算"
+                   CHINESE_D->chinese_monthday(q["limit"]) + "前做完吗？算"
                    "了，将功补过，你先退下吧。\n" NOR;
             timeover = 1;
         }
@@ -929,7 +929,7 @@ int accept_object(object me, object who, object ob)
         else if (t > q["limit"])
         {
             msg += CYN "$N" CYN "摇摇头，又道：可惜，不是让你" +
-                   CHINESE_D->chinese_monthday(t) + "前做完吗？算"
+                   CHINESE_D->chinese_monthday(q["limit"]) + "前做完吗？算"
                    "了，将功补过，你先退下吧。\n" NOR;
             timeover = 1;
         }
