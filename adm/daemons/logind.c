@@ -70,7 +70,7 @@ void logon(object ob)
         return;
     }
 
-    write(CLR);
+    // write(CLR);
     color_cat(WELCOME);
 
     catch(MUDLIST_CMD->main());

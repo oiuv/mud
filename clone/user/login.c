@@ -23,7 +23,7 @@ void logon()
 {
     call_out("time_out", LOGIN_TIMEOUT);
     // 延迟登陆，解决mudlet初次连接乱码问题
-    call_out_walltime("login", 0.1);
+    call_out_walltime("login", 0.25);
 }
 
 // Don't destruct(this_object()) in the net_dead() interactive apply or
