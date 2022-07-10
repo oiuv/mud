@@ -15,7 +15,7 @@ void create()
         set("age", 30 + random(30));
         set("long", "");
         set("attitude", "friendly");
-        set("chat_chance", 30);
+        set("chat_chance", 1);
         set("chat_msg", ({ (: random_move :) }));
         set("scale", 100);
         set_temp("born_time", time());
@@ -45,7 +45,7 @@ int accept_hit(object ob)
 
 void random_move()
 {
-        if (time() - query_temp("born_time") > 900)
+        if (time() - query_temp("born_time") > 1800)
         {
                 destruct_me();
                 return;
