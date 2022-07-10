@@ -765,10 +765,11 @@ int ask_quest(object me, object who)
     t = time();
     who->set("quest/time", t);
     t = time() / ONE_DAY;
+    // 因为现在游戏时间改为60倍，1天24分钟，是以前的1/6，减少天数限制
     if (ob->query("place") == "西域")
-        t += 8;
+        t += 3;
     else
-        t += 4;
+        t += 2;
     t = t * ONE_DAY - 1;
     who->set("quest/limit", t);
     message("vision", WHT + me->name() + WHT "在你耳边悄声说道：你务必要在" NOR + HIY + CHINESE_D->chinese_monthday(t) + NOR + WHT "之前完成！\n" NOR, who);

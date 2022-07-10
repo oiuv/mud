@@ -27,7 +27,7 @@ void create()
         set_temp("apply/armor", 100);
         set_temp("apply/damage", 15);
         set_temp("born_time", time());
-        set_temp("dest_time", 1200 + time());
+        set_temp("dest_time", 1800 + time());
 
         add_money("silver", 10 + random(20));
         setup();
@@ -117,9 +117,9 @@ void set_from_me(object me)
                 my["jiali"] = query_skill("force") / 6;
         }
         if (query("place") == "西域")
-                set_temp("dest_time", 900 + time());
+                set_temp("dest_time", 4320 + time());
         else
-                set_temp("dest_time", 600 + time());
+                set_temp("dest_time", 2880 + time());
 }
 
 void kill_ob(object ob)
@@ -271,9 +271,9 @@ void random_place(string msg)
         {
                 new_place = query("place");
                 if (new_place == "西域")
-                        limit = 1800;
+                        limit = 4320;
                 else
-                        limit = 1200;
+                        limit = 2880;
         } else
         {
                 new_place = "很远的地方";
