@@ -1,9 +1,5 @@
 # 炎黄群侠传MUD
 
-[![Created Badge](https://badges.pufler.dev/created/oiuv/mud)](https://github.com/oiuv/mud)
-[![Updated Badge](https://badges.pufler.dev/updated/oiuv/mud)](https://github.com/oiuv/mud)
-[![Visits Badge](https://badges.pufler.dev/visits/oiuv/mud)](https://github.com/oiuv/mud)
-
 ![mud](mud.png "mud")
 
 炎黄MUD utf-8 版，推荐使用 FluffOS v2019 最新版驱动。
