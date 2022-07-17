@@ -66,7 +66,7 @@ LONG NOR );
         "/d/death/npc/niutou":1,
     ]));
 
-    set("no_say", "阎罗殿内阴森恐怖，你哪里敢乱说话？\n");
+    // set("no_say", "阎罗殿内阴森恐怖，你哪里敢乱说话？\n");
 
     desc = query("item_desc/paizi");
     position = keys(born);
