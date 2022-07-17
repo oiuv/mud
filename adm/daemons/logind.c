@@ -191,8 +191,8 @@ private void get_id(string arg, object ob)
         return;
     }
 
-    write(WHT "\n使用[" HIC + (string)ob->query("id") + NOR + WHT "]这个名字将会"
-              "创造一个新的人物，您确定吗(" HIY "y/n" NOR + WHT ")？" NOR);
+    write(WHT "\n使用[" HIC + (string)ob->query("id") + NOR WHT "]这个名字将会"
+              "创造一个新的人物，您确定吗(" HIG "是请输入" HIY "y" HIG "，否请输入" HIR "n" NOR WHT ")？" NOR);
     input_to("confirm_id", ob);
 }
 
@@ -468,7 +468,7 @@ private void get_surname(string arg, object ob)
     {
         if (!check_legal_name(arg, 2))
         {
-            write("您的中文" HIG "姓氏" NOR "(不要超过两个汉字)：");
+            write("请输入您的中文" HIG "姓氏" NOR "(不要超过两个汉字)：");
             input_to("get_surname", ob);
             return;
         }
@@ -478,7 +478,7 @@ private void get_surname(string arg, object ob)
     {
         ob->set("surname", 0);
     }
-    write("您的中文" HIY "名字" NOR "(不要超过两个汉字)：");
+    write("请输入您的中文" HIY "名字" NOR "(不要超过两个汉字)：");
     input_to("get_name", ob);
 }
 

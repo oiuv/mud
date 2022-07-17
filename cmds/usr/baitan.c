@@ -13,7 +13,7 @@ int main(object me, string arg)
     where = environment(me);
 
     if (!me->query("is_vendor"))
-        return notify_fail("只有从事商业的人才能摆摊。\n");
+        return notify_fail("只有从事商业的人才能摆摊(提示：可以在襄阳钱庄加入商会)。\n");
 
     if (!present("shang ling", me))
         return notify_fail("你的商令不在身上，如今世道乱，小心为妙。\n");

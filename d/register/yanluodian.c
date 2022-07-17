@@ -108,7 +108,7 @@ int do_wash(string arg)
         return 1;
 
     if (!arg || sscanf(arg, "%d %d %d %d", tmpstr, tmpint, tmpcon, tmpdex) != 4)
-        return notify_fail("指令格式：washto <膂力> <悟性> <根骨> <身法>\n");
+        return notify_fail("指令格式：washto <膂力> <悟性> <根骨> <身法>\n属性帮助：help attribute\n");
     if (tmpstr > 30)
         return notify_fail("你所选择的膂力参数不能大于30。\n");
     if (tmpstr < 10)
