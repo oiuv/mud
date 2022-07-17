@@ -1752,6 +1752,7 @@ void winner_reward(object winner, object victim)
     winner->set("combat/today", today);
 }
 
+// todo 优化此方法，代码太乱了
 void killer_reward(object killer, object victim)
 {
     object owner;
@@ -1786,6 +1787,9 @@ void killer_reward(object killer, object victim)
 
         if (!objectp(killer) || !playerp(killer))
             break;
+
+        // 任务记录
+        QUEST_D->doKilled(victim, killer);
 
         // assure the killer's dbase
         ks = killer->query_entire_dbase();

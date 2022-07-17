@@ -180,7 +180,6 @@
 #define F_EQUIP         "/feature/equip.c"
 #define F_FINANCE       "/feature/finance.c"
 #define F_FOOD          "/feature/food.c"
-#define F_GMCP          "/feature/gmcp.c"
 #define F_GUARDER       "/feature/guarder.c"
 #define F_ITEMMAKE      "/feature/itemmake.c"
 #define F_LIQUID        "/feature/liquid.c"
@@ -188,7 +187,6 @@
 #define F_MESSAGE       "/feature/message.c"
 #define F_MORE          "/feature/more.c"
 #define F_MOVE          "/feature/move.c"
-#define F_MXP           "/feature/mxp.c"
 #define F_NAME          "/feature/name.c"
 #define F_NOCLONE       "/feature/noclone.c"
 #define F_OBSAVE        "/feature/obsave.c"
@@ -205,7 +203,12 @@
 #define F_TREEMAP       "/feature/treemap.c"
 #define F_VENDOR        "/feature/dealer.c"
 #define F_UNIQUE        "/feature/unique.c"
-#define F_STORAGE       "/feature/storage.c"
+
+// 玩家专属
+#define F_USER_GMCP     "/feature/user_gmcp"
+#define F_USER_MXP      "/feature/user_mxp.c"
+#define F_USER_QUEST    "/feature/user_quest"
+#define F_USER_STORAGE  "/feature/user_storage.c"
 
 // music instructment
 #define F_XIAO          "/inherit/misc/_xiao.c"

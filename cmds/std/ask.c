@@ -114,8 +114,14 @@ int main(object me, string arg)
         query_inquiry(me, ob);
         return 1;
     }
+    else if(topic == "quest")
+    {
+        if (QUEST_D->doReward(ob, me))
+            return 1;
+        QUEST_D->doAssign(ob, me);
+    }
     else
-        message_vision(msg_dunno[random(sizeof(msg_dunno))], me, ob);
+        message_vision(element_of(msg_dunno), me, ob);
 
     return 1;
 }

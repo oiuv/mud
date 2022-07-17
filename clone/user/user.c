@@ -7,9 +7,10 @@
 
 inherit CHARACTER;
 inherit F_AUTOLOAD;
-inherit F_GMCP;
-inherit F_MXP;
-inherit F_STORAGE;
+inherit F_USER_GMCP;
+inherit F_USER_MXP;
+inherit F_USER_QUEST;
+inherit F_USER_STORAGE;
 inherit F_SAVE;
 
 // 分站使用
@@ -273,6 +274,11 @@ void setup()
 
     if (query("doing"))
         CLOSE_D->continue_doing(this_object());
+    // todo >>>？
+    if (!mapp(toDoList))
+        toDoList = ([]);
+    if (!arrayp(solved))
+        solved = ({});
 }
 
 void user_dump(int type)

@@ -88,12 +88,6 @@ int main(object me, string arg)
         }
     }
 
-    write(HBGRN "\n= 支线任务 =" NOR + "\n");
-    write("暂无\n");
-
-    write(HBCYN "\n= 解迷任务 =" NOR + "\n");
-    write("暂无\n");
-
     write(HBYEL "\n= 每日任务 =" NOR + "\n");
     write("扬州武庙二楼祈福：");
     if (me->query(festival) == day)
@@ -105,6 +99,8 @@ int main(object me, string arg)
         write(HIR "未领取" NOR "。\n");
     }
 
+    write(HBGRN "\n= 江湖任务 =" NOR + "\n");
+    write("提示：请使用指令"HIY"quest2"NOR"管理江湖任务！\n");
 
     return 1;
 }

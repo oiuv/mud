@@ -244,12 +244,20 @@ string desc_of_objects(object *obs)
 
         for (i = 0; i < sizeof(obs); i++)
         {
-            if (stringp(league_name = obs[i]->query("league/league_name")))
+
+            if (!userp(obs[i]) && QUEST_D->hasQuest(this_player(), obs[i]))
             {
-                short_name = HIG + "「" + league_name + "」" + NOR + obs[i]->short();
+                short_name = sprintf("%s", BLINK + HIY "！" NOR);
             }
             else
-                short_name = obs[i]->short();
+                short_name = "";
+
+            if (stringp(league_name = obs[i]->query("league/league_name")))
+            {
+                short_name += HIG + "「" + league_name + "」" + NOR + obs[i]->short();
+            }
+            else
+                short_name += obs[i]->short();
 
             if (undefinedp(count[short_name]))
             {

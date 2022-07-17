@@ -8,6 +8,7 @@
 #pragma optimize
 // #pragma save_binary
 
+inherit CORE_QUEST_D;
 inherit F_DBASE;
 
 // 定义提供给外部调用的接口函数
@@ -26,6 +27,21 @@ void create()
     set("channel_id", "任务精灵");
     set_heart_beat(900);
     call_out("collect_all_quest_information", 1);
+    doScanQuest();
+}
+
+
+int askQuest(object who, object me)
+{
+    if (!doAssign(who, me))
+    {
+        return notify_fail("对方没有任务需要你的帮助。\n");
+    }
+}
+
+int completeQuest(object who, object me)
+{
+    return doReward(who, me);
 }
 
 #define ONE_DAY (86400 / DATE_SCALE)
