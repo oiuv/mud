@@ -108,7 +108,7 @@ int do_wash(string arg)
         return 1;
 
     if (!arg || sscanf(arg, "%d %d %d %d", tmpstr, tmpint, tmpcon, tmpdex) != 4)
-        return notify_fail("指令格式：washto <膂力> <悟性> <根骨> <身法>\n属性帮助：help attribute\n");
+        return notify_fail("指令格式：washto <膂力> <悟性> <根骨> <身法>\n      如：washto 20 20 20 20\n属性帮助：help attribute\n");
     if (tmpstr > 30)
         return notify_fail("你所选择的膂力参数不能大于30。\n");
     if (tmpstr < 10)
@@ -169,7 +169,7 @@ int do_born(string arg)
         return notify_fail("你先在忘忧池中洗一下(washto)，选择好天赋你再投胎也不迟啊！\n");
 
     if (arg && arg[0] < 160)
-        return notify_fail("你必须输入中文地名，比如born 扬州人氏，或者是born 欧阳世家以避免投错胎。\n");
+        return notify_fail("你必须输入中文地名，比如：" HIY "born 扬州人氏" NOR "，以避免投错胎。\n");
 
     new_name = 0;
     if (arg)
