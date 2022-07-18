@@ -116,9 +116,9 @@ int main(object me, string arg)
     }
     else if(topic == "quest")
     {
-        if (QUEST_D->doReward(ob, me))
+        if (QUEST_D->completeQuest(ob, me))
             return 1;
-        QUEST_D->doAssign(ob, me);
+        return QUEST_D->askQuest(ob, me);
     }
     else
         message_vision(element_of(msg_dunno), me, ob);
