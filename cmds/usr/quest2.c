@@ -69,7 +69,7 @@ string getItem(object me, string quest_file)
         else
             msg += sprintf("  %s(%s)： %d/%d\n", ob->name(), ob->query("id"), me->getItem(quest_file, key[i]), value[i]);
 
-        destruct(ob);
+        // destruct(ob);
     }
 
     return msg;

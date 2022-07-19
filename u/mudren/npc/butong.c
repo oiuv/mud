@@ -10,21 +10,27 @@ nosave int money = 100000; // 黄金十两
 void create()
 {
     seteuid(getuid());
-    set_name("周不通", ({"zhou butong", "butong"}));
+    set_name("周不通", ({"zhou butong", "zhou", "butong"}));
     set("title", HIY "江湖游侠" NOR);
+    set("nickname", HIG "玩家导师" NOR);
     set("gender", "男性");
     set("age", 30);
     set("long", @LONG
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 这是炎黄老玩家周不通，他生得腰圆背厚，面阔口方，骨格不凡。
 因为坚持不懈的游戏，最终化身NPC，永久留在了游戏中。
 做为热心好玩家，化身NPC的他，也拥有了智能机器人小i的特殊
-能力，玩家可以在聊天时@butong和他对话，他上知天文地理，下
-知世间百态，还能做到很多神奇的事情。比如：
+能力，玩家可以在聊天时 @butong 和他对话，他上知天文地理，
+下知世间百态，还能做到很多神奇的事情。比如：
     chat @butong 唐诗宋词
     chat @butong 北京天气
     chat @butong 成语接龙
     chat @butong 心理测试
     chat @butong 翻译test
+    ……
+缺钱的新玩家每天可以找他要『福利』，老玩家也可以捐钱给他
+用来帮助其他有需要的人。
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 LONG);
     set("attitude", "heroism");
 
@@ -65,7 +71,7 @@ LONG);
     // set("chat_msg", ({(: random_move :)}));
 
     setup();
-    set("startroom", "/d/city/liaotian");
+    set("startroom", "/d/city/kedian");
     check_clone();
 }
 
@@ -80,8 +86,8 @@ void receive_report(object user, string verb, string arg)
 
 void iqa(object ob, string verb, string arg)
 {
-    // command(verb + " " + arg);
-    "/adm/daemons/iqa_d"->main(this_object(), arg);
+    command(verb + " 『系统升级，服务暂停』");
+    // "/adm/daemons/iqa_d"->main(this_object(), arg);
 }
 
 // 接受玩家物品
@@ -166,4 +172,9 @@ int greeting(object ob)
     {
         command("stingy");
     }
+    if (QUEST_D->hasQuest(ob, this_object()))
+    {
+        command("tell " + ob->query("id") + " 我这里有适合你的任务，可以 ask butong about quest 了解详情。");
+    }
+
 }

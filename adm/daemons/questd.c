@@ -30,13 +30,10 @@ void create()
     doScanQuest();
 }
 
-
 int askQuest(object who, object me)
 {
-    if (!doAssign(who, me))
-    {
-        return notify_fail("对方没有任务需要你的帮助。\n");
-    }
+    notify_fail("对方没有任务需要你的帮助。\n");
+    return doAssign(who, me);
 }
 
 int completeQuest(object who, object me)

@@ -59,7 +59,7 @@ int getLevel()
 int preCondition(object player)
 {
     string quest_file = __DIR__ "_1_shisong.c";
-    return player->query("combat_exp") > 10000 && !player->getToDo(quest_file) && player->isSolved(quest_file) < 0;
+    return player->query("combat_exp") > 10000 && !player->getToDo(quest_file) && !player->isSolved(quest_file);
 }
 
 // 接受任務的NPC  (以檔名來識別，注意加上`.c`)
