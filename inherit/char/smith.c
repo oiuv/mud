@@ -39,8 +39,8 @@ string ask_me()
 {
     object me = this_player();
 
-    if (me->query("combat_exp") > 10000 && me->query("mark/job_smith") > 1000)
-        return "让您老干这个未免屈尊了吧？";
+    if (me->query("mark/job_smith") > 10000)
+        return "您老不会真想做一辈子的铁匠吧？";
 
     if (me->query("qi") < 50)
         return "你还是歇会儿吧！要是出了人命我可承担不起。";

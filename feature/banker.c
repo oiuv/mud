@@ -116,7 +116,7 @@ int do_deposit(string arg)
         return notify_fail("哟，抱歉啊，我这儿正忙着呢……您请稍候。\n");
 
     if (!arg || sscanf(arg, "%d %s", amount, what) != 2)
-        return notify_fail("命令格式：deposit:cun <数量> <货币单位>\n");
+        return notify_fail("命令格式：deposit|cun <数量> <货币单位>\n");
 
     what_ob = present(what + "_money", me);
     if (!what_ob)

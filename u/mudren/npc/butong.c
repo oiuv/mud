@@ -99,6 +99,8 @@ int accept_object(object who, object ob)
         add("balance", ob->query("base_value") * ob->query_amount());
         return 1;
     }
+
+    return QUEST_D->doReward(this_object(), who);
 }
 
 // 接受玩家咨询
@@ -174,7 +176,9 @@ int greeting(object ob)
     }
     if (QUEST_D->hasQuest(ob, this_object()))
     {
-        command("tell " + ob->query("id") + " 我这里有适合你的任务，可以 ask butong about quest 了解详情。");
+        command("tell " + ob->query("id") + " 你好呀，我这里有适合你的任务😘");
+        command("tell " + ob->query("id") + " 你可以 ask butong about quest 了解详情。");
+        command("tell " + ob->query("id") + " 任务管理指令为quest2（help quest2）");
     }
 
 }

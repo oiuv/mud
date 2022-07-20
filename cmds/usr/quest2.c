@@ -131,7 +131,12 @@ void list(object me)
     msg += HIB "║" HIY + repeat_string("─", 60) + HIB "║\n" NOR;
     for (i = 0; i < size; i++)
     {
-        msg += sprintf(HIB "║" NOR " %2d    %2d   %-48s" HIB "║\n" NOR, i + 1, key[i]->getLevel(), key[i]->getName());
+        if (!file_exists(key[i]))
+        {
+            me->delToDo(key[i]);
+        }
+        else
+            msg += sprintf(HIB "║" NOR " %2d    %2d   %-48s" HIB "║\n" NOR, i + 1, key[i]->getLevel(), key[i]->getName());
     }
     msg += HIB "║" HIY + repeat_string("─", 60) + HIB "║\n" NOR;
     msg += sprintf(HIB "║" NOR "%60s" HIB "║\n" NOR, me->name() + " ＠  ");

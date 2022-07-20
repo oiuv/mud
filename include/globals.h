@@ -102,6 +102,7 @@
 #define CONDITION_D(x)  ("/kungfu/condition/" + x)
 #define SKILL_D(x)      ("/kungfu/skill/" + x)
 #define SPECIAL_D(x)    ("/kungfu/special/" + x)
+#define F_QUEST(x)      (QUEST_DIR + x + ".c")
 
 // Clonable/Non-inheritable Standard Objects
 #define COIN_OB         "/clone/money/coin"
