@@ -41,7 +41,7 @@ string getDetail()
     msg += HIY "(提示：如果一个NPC名称前面有 ! 就代表有适合你的任务)\n\n" NOR;
     msg += "行走江湖不能没钱，但也不能把所有钱都带在身上，毕竟不轻呀。\n";
     msg += "去钱庄把钱存起来，如果你使用mudlet客户端，可自动寻路（指令：gtr 8）。\n\n";
-    msg += "任务要求：让你的存款超过二十两白银\n";
+    msg += HIG "任务要求：让你的存款超过二十两白银\n" NOR;
     msg += HIY "(提示：在钱庄 l paizi 可以了解如何取钱和取钱)\n" NOR;
     msg += HIY "(提示：玩家可以使用score指令查看自己的资料，包括存款情况)\n" NOR;
     return msg;

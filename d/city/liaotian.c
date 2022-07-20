@@ -30,5 +30,4 @@ LONG);
 
     setup();
     replace_program(ROOM);
-    "/u/mudren/npc/butong"->come_here();
 }

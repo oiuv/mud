@@ -29,7 +29,7 @@ int noGiveUp() { return 0; }
 // 任務名稱
 string getName()
 {
-    return FCC(118)"郭府打工（9527？）"NOR;
+    return FCC(118)"拜师学艺"NOR;
 }
 
 // 任務描述
@@ -37,14 +37,15 @@ string getDetail()
 {
     string msg;
 
-    msg = "根据周不通的指引，熟悉怎么在江湖上生存。\n\n";
-    msg += "去襄阳加入郭府，然后在郭府打工并学习基础的武功。\n";
-    msg += HIG "任务要求：到郭府找郭靖报到（指令：ask guo about quest）\n" NOR;
-    msg += "加入郭府后必须经验超过四万后才能离开，工作越勤奋离开时奖励越多。\n";
-    msg += "步行去襄阳有点远，使用mudlet客户端可自动寻路（指令：gtr 1013）。\n";
-    msg += "推荐方式为骑马去襄阳到郭府（路径：rideto xiangyang;w;n）。\n";
-    msg += HIY "(提示：在醉仙楼后院马厩可以找马骑(指令：ride|unride|rideto))\n" NOR;
-    msg += HIY "(提示：马厩是游戏中最基础的交通枢纽，玩家可以乘马车到其它城市)\n" NOR;
+    msg = "根据周不通的指引，熟悉怎么在江湖上生存。\n";
+    msg += HIY "(提示：如果一个NPC名称前面有 ! 就代表有适合你的任务)\n\n" NOR;
+    msg += "天下风云出我辈，一入江湖岁月催。\n";
+    msg += "现在的你已经积累了一定的经验和潜能，也掌握了一些基础的武学。\n";
+    msg += "但要笑傲江湖，这点实力是远远不够的，你需要加入门派拜师学艺。\n";
+    msg += HIG "任务要求：选择一个门派加入（帮助：help menpai）。\n" NOR;
+    msg += HIY "(提示：骑马可以快速到达各大门派(指令：rideto))\n" NOR;
+    msg += HIY "(提示：到达门派后可以拜师(指令：bai｜帮助：help bai))\n" NOR;
+
     return msg;
 }
 
@@ -64,7 +65,7 @@ int getLevel()
  */
 int preCondition(object player)
 {
-    return player->isSolved(F_QUEST("_0_tutorial3"));
+    return player->isSolved(F_QUEST("_0_tutorial4"));
 }
 
 // 接受任務的NPC  (以檔名來識別，注意加上`.c`)
@@ -78,11 +79,10 @@ string *getAssignMessage()
 {
     // $ME為NPC, $YOU為player
     string *msg = ({
-        "$ME对$YOU说到：" HIG "除了打铁，游戏中还有大量适合新手的工作。\n" NOR,
-        "$ME对$YOU说到：" HIG "比如心灵手巧的女玩家可以去杂货铺二楼找曾柔做裁缝。\n" NOR,
-        "$ME对$YOU说到：" HIG "还有磨药、抄书、种药等等，更多工作可以help work了解。\n" NOR,
-        "$ME对$YOU说到：" HIG "但是对新玩家最好的工作之一还是去襄阳郭府找郭大侠收留。\n" NOR,
-        "$ME对$YOU说到：" HIG "去郭府找郭靖大侠，获取郭大侠的赏识，学会郭氏心法吧。\n" NOR,
+        "$ME对$YOU说到：" HIG "看来你在郭府收获不少呀。\n" NOR,
+        "$ME对$YOU说到：" HIG "现在的你已经积累了一定的经验和潜能，也掌握了一些基础的武学。\n" NOR,
+        "$ME对$YOU说到：" HIG "但这点实力是远远不够的，你需要加入门派拜师学艺。\n" NOR,
+        "$ME对$YOU说到：" HIG "选择一个你心仪的门派加入吧（帮助：help menpai）。\n" NOR,
     });
     return msg;
 }
@@ -106,13 +106,13 @@ mapping getItem()
 // return 1;為滿足條件, return 0;為失敗
 int postCondition(object player, object npc)
 {
-    return 1;
+    return mapp(player->query("family"));
 }
 
 // 完成任務的NPC (以檔名來識別，注意加上`.c`)
 string getRewarder()
 {
-    return "/d/wuguan/npc/guojing.c"; // 郭靖
+    return "/u/mudren/npc/butong.c"; // 周不通
 }
 
 // 完成任務時的訊息
@@ -120,9 +120,9 @@ string *getRewardMessage()
 {
     // $ME為NPC, $YOU為player
     string *msg = ({
-        CYN "$ME对$YOU说到：" HIG "欢迎来到郭府。\n" NOR,
-        CYN "$ME对$YOU说到：" HIG "现在蒙古人围攻襄阳，你的实力过于低微，现在这里做做后勤吧。\n" NOR,
-        CYN "$ME对$YOU说到：" HIG "去找耶律齐工作，如能勤奋刻苦，我便传授你一些技能。\n" NOR,
+        CYN "$ME对$YOU说到：" HIG "拜师后就可以学习武功(指令：xue)。\n" NOR,
+        CYN "$ME对$YOU说到：" HIG "学习基础武功可增加基础属性，而读书识字会增加悟性。\n" NOR,
+        CYN "$ME对$YOU说到：" HIG "但学习需要消耗潜能，所以你需要打工或做任务增加潜能。\n" NOR,
     });
     return msg;
 }

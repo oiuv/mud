@@ -38,6 +38,7 @@ LONG );
     setup();
     "/clone/board/kedian_b"->foo();
     "/adm/npc/beichou"->come_here();
+    "/u/mudren/npc/butong"->come_here();
 }
 
 void init()

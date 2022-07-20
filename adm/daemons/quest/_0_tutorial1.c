@@ -41,7 +41,7 @@ string getDetail()
     msg += HIY "(提示：如果一个NPC名称前面有 ! 就代表有适合你的任务)\n\n" NOR;
     msg += "扬州铁匠铺招学徒打铁，虽然比较累，但没有任何要求，正适合初入江湖的你。\n";
     msg += "铁匠铺在东大街，如果你使用mudlet客户端，可自动寻路（指令：gtr 17）。\n\n";
-    msg += "任务要求：帮铁匠打铁20次\n";
+    msg += HIG "任务要求：帮铁匠打铁20次\n" NOR;
     msg += HIY "(提示：在打铁匠向铁匠 ask tie jiang about job 开始工作)\n";
     msg += HIY "(提示：可以使用record指令查看打铁记录)\n" NOR;
     return msg;

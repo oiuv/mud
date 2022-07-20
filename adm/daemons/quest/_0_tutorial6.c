@@ -29,7 +29,7 @@ int noGiveUp() { return 0; }
 // 任務名稱
 string getName()
 {
-    return FCC(118)"郭府打工（9527？）"NOR;
+    return FCC(118)"每日福利"NOR;
 }
 
 // 任務描述
@@ -37,14 +37,13 @@ string getDetail()
 {
     string msg;
 
-    msg = "根据周不通的指引，熟悉怎么在江湖上生存。\n\n";
-    msg += "去襄阳加入郭府，然后在郭府打工并学习基础的武功。\n";
-    msg += HIG "任务要求：到郭府找郭靖报到（指令：ask guo about quest）\n" NOR;
-    msg += "加入郭府后必须经验超过四万后才能离开，工作越勤奋离开时奖励越多。\n";
-    msg += "步行去襄阳有点远，使用mudlet客户端可自动寻路（指令：gtr 1013）。\n";
-    msg += "推荐方式为骑马去襄阳到郭府（路径：rideto xiangyang;w;n）。\n";
-    msg += HIY "(提示：在醉仙楼后院马厩可以找马骑(指令：ride|unride|rideto))\n" NOR;
-    msg += HIY "(提示：马厩是游戏中最基础的交通枢纽，玩家可以乘马车到其它城市)\n" NOR;
+    msg = "根据周不通的指引，熟悉怎么在江湖上生存。\n";
+    msg += HIY "(提示：如果一个NPC名称前面有 ! 就代表有适合你的任务)\n\n" NOR;
+    msg += "在武庙二楼祈祷(指令：pray)可以获得祝福。\n";
+    msg += "祈福除了经验和潜能奖励，还有死亡保护(指令：hp -m 可查看保护状态)\n";
+    msg += "祈福不是一次性的，而是每天可祈祷一次，周末奖励双倍，节日四倍。\n";
+    msg += HIG "任务要求：祈福1次\n" NOR;
+
     return msg;
 }
 
@@ -64,7 +63,7 @@ int getLevel()
  */
 int preCondition(object player)
 {
-    return player->isSolved(F_QUEST("_0_tutorial3"));
+    return player->isSolved(F_QUEST("_0_tutorial6"));
 }
 
 // 接受任務的NPC  (以檔名來識別，注意加上`.c`)
@@ -78,11 +77,9 @@ string *getAssignMessage()
 {
     // $ME為NPC, $YOU為player
     string *msg = ({
-        "$ME对$YOU说到：" HIG "除了打铁，游戏中还有大量适合新手的工作。\n" NOR,
-        "$ME对$YOU说到：" HIG "比如心灵手巧的女玩家可以去杂货铺二楼找曾柔做裁缝。\n" NOR,
-        "$ME对$YOU说到：" HIG "还有磨药、抄书、种药等等，更多工作可以help work了解。\n" NOR,
-        "$ME对$YOU说到：" HIG "但是对新玩家最好的工作之一还是去襄阳郭府找郭大侠收留。\n" NOR,
-        "$ME对$YOU说到：" HIG "去郭府找郭靖大侠，获取郭大侠的赏识，学会郭氏心法吧。\n" NOR,
+        "$ME对$YOU说到：" HIG "现在你已经是一个可以在江湖上游历的少侠了。\n" NOR,
+        "$ME对$YOU说到：" HIG "只是江湖历练总会面对死亡，怎么减少损失？\n" NOR,
+        "$ME对$YOU说到：" HIG "来祈福获得死亡保护吧。\n" NOR,
     });
     return msg;
 }
@@ -106,13 +103,13 @@ mapping getItem()
 // return 1;為滿足條件, return 0;為失敗
 int postCondition(object player, object npc)
 {
-    return 1;
+    return mapp(player->query("festival"));
 }
 
 // 完成任務的NPC (以檔名來識別，注意加上`.c`)
 string getRewarder()
 {
-    return "/d/wuguan/npc/guojing.c"; // 郭靖
+    return "/u/mudren/npc/butong.c"; // 周不通
 }
 
 // 完成任務時的訊息
@@ -120,9 +117,7 @@ string *getRewardMessage()
 {
     // $ME為NPC, $YOU為player
     string *msg = ({
-        CYN "$ME对$YOU说到：" HIG "欢迎来到郭府。\n" NOR,
-        CYN "$ME对$YOU说到：" HIG "现在蒙古人围攻襄阳，你的实力过于低微，现在这里做做后勤吧。\n" NOR,
-        CYN "$ME对$YOU说到：" HIG "去找耶律齐工作，如能勤奋刻苦，我便传授你一些技能。\n" NOR,
+        CYN "$ME对$YOU说到：" HIG "很不错，以后记得每天祈福一次哦。\n" NOR,
     });
     return msg;
 }
@@ -131,7 +126,6 @@ string getReward()
 {
     string msg = " - 经验：500+\n"
                  " - 潜能：100+\n"
-                 " - 江湖阅历：10+\n"
                  ;
     return msg;
 }
@@ -146,15 +140,13 @@ string getReward()
  */
 void reward(object player, object npc)
 {
-    int exp, pot, sc;
+    int exp, pot;
 
     exp = 500 + random(50);
     pot = 100 + random(20);
-    sc = 10 + random(5);
 
     GIFT_D->work_bonus(player, ([
         "exp":exp,
         "pot":pot,
-        "score":sc,
     ]));
 }
