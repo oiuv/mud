@@ -176,8 +176,7 @@ int do_draw(string arg)
     me->delete_temp("fishing");
     me->start_busy(1);
     me->add("state/fish", 1);
-    if (me->query("combat_exp") < 30000 ||
-        me->query("combat_exp") > 150000)
+    if (me->query("state/fish") > 100000)
         return 1;
 
     exp = 50 + random(20); //基础经验增加10倍
