@@ -7,14 +7,14 @@ inherit ITEM;
 
 void create()
 {
-        set_name("鲤鱼", ({ "liyu", "li yu" }) );
-        if (clonep())
-                set_default_object(__FILE__);
-        else
-        {
-            set("long", "一条活蹦乱跳的大鲤鱼。\n");
-                set("unit", "条");
-        }
+    set_name("鲤鱼", ({"li yu", "liyu"}));
+    if (clonep())
+        set_default_object(__FILE__);
+    else
+    {
+        set("long", "一条活蹦乱跳的大鲤鱼。\n");
+        set("unit", "条");
+    }
 
     setup();
 }
