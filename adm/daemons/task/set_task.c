@@ -154,7 +154,7 @@ int do_return(object ob, object me, string arg)
 {
     string target, item;
     object who, pay;
-    int count, exp, pot /*, tihui*/, gx;
+    int count, exp, pot /*, tihui, gx*/;
     //增加阅历奖励 2016-12-21
     int score;
     int kar;
@@ -212,12 +212,12 @@ int do_return(object ob, object me, string arg)
     if (count == 30)
         pot += 10000; //每次更新30个task物品，故30个全部完成理应加大奖励幅度（我怎么感觉30个全完成是不可能的事情。。。） 2017-02-02
 
-    gx = 1 + random(3);
+    // gx = 1 + random(3);
     kar = me->query("kar"); //修改阅历增加和福缘挂钩 2016-12-21
     score = 10 + random(kar);
     me->add("combat_exp", exp);
     me->add("potential", pot);
-    me->add("gongxian", gx);
+    // me->add("gongxian", gx);
     me->add("score", score);
     // me->add("experience", tihui);
     me->delete ("xquest/mirror");
@@ -229,16 +229,14 @@ int do_return(object ob, object me, string arg)
     tell_object(me, HIY "这是你这一轮完成的第" + HIR +
                         chinese_number(me->query("mirror_task/count")) + NOR + HIY "个宝镜任务。\n" NOR +
                         HIG "通过这次锻炼，你获得了" NOR HIR + chinese_number(exp) +
-                        HIG "点经验，" NOR HIW + chinese_number(pot) + NOR HIG "点潜能。\n" NOR HIW "外加奖励十两白银，以及" + chinese_number(gx) +
-                        "点门派贡献。\n" NOR);
+                        HIG "点经验，" NOR HIW + chinese_number(pot) + NOR HIG "点潜能。\n" NOR HIW "外加奖励十两白银。\n" NOR);
     if (me->query("mirror_count"))
     {
         tell_object(me, HIY "你累计已完成" + HIR +
                             chinese_number(me->query("mirror_count")) + NOR + HIY "个宝镜任务。\n" NOR);
     }
     message("vision", me->name() + "拿出" + ob->name() + "(" + ob->query("id") + ")给" + who->name() + "。\n" + WHT + who->name() + "说道："
-                                                                                                                                    "“啊，真是多谢这位" +
-                          RANK_D->query_respect(me) + "了。”\n" NOR,
+            "“啊，真是多谢这位" + RANK_D->query_respect(me) + "了。”\n" NOR,
             environment(me), ({me}));
 
     pay = new ("/clone/money/silver");

@@ -3,9 +3,6 @@
  */
 #pragma optimize
 
-#include <config.h>
-#include <localtime.h>
-
 #include "master/crash.c"
 #include "master/ed.c"
 #include "master/error.c"
