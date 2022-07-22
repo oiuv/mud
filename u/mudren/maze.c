@@ -28,7 +28,7 @@ varargs void create(int x, int y, int z)
         }
     }
 
-    if (!random(100))
+    if (!random(20))
     {
         set("long", "这里是无边无际的幻境，在这单调的幻境中有一个闪闪发光的传送门（door），显得格外醒目。\n");
         set("item_desc", ([
@@ -44,17 +44,17 @@ void setInventory(int x, int y, int z)
 {
     mapping inv = ([]);
 
-    if (!random(15))
+    if (!random(150))
     {
         inv["/clone/beast/qingshe"] = 1;
     }
 
-    if (!random(20))
+    if (!random(200))
     {
         inv["/clone/beast/dushe"] = 1;
     }
 
-    if (!random(30))
+    if (!random(300))
     {
         inv["/clone/beast/jinshe"] = 1;
     }
