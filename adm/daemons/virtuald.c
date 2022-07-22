@@ -25,6 +25,7 @@ mixed compile_object(string file)
 
     if (file_size(virtual + ".c") < 1)
     {
+        log_file("virtual", file);
         return 0;
     }
 
@@ -36,13 +37,13 @@ mixed compile_object(string file)
         }
     }
 
-    if (m == 2 && !(ob = new (virtual, x, y)))
+    if (m == 2)
     {
-        return 0;
+        ob = new (virtual, x, y);
     }
-    else if (m == 3 && !(ob = new (virtual, x, y, z)))
+    else if (m == 3)
     {
-        return 0;
+        ob = new (virtual, x, y, z);
     }
 
     return ob;
