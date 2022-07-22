@@ -259,6 +259,15 @@ string desc_of_objects(object *obs)
             else
                 short_name += obs[i]->short();
 
+            if (obs[i]->is_corpse())
+            {
+                string killer;
+                if (killer = obs[i]->query("defeated_by_who"))
+                {
+                    short_name += "(被" MAG + killer + NOR "杀死)";
+                }
+            }
+
             if (undefinedp(count[short_name]))
             {
                 count += ([ short_name : 1 ]);

@@ -29,7 +29,7 @@ string *lost_objs = ({
 // 是场景和NPC的ID。
 mapping rcv_npcs = ([
               "/d/city/duchang":"pang tongtuo",
-              "/d/city/houyuan":"cui yuanwai",
+            //   "/d/city/houyuan":"cui yuanwai",
           "/d/city/ymzhengting":"cheng yaofa",
             "/d/city/beidajie1":"ouyang ke",
            "/d/city/qianzhuang":"qian yankai",
