@@ -10,5 +10,5 @@ void create()
     set("long", "这是一个供玩家发泄江湖恩怨的留言板。谢绝人身攻击。\n" );
     setup();
     set("capacity", 100);
-    // replace_program(BULLETIN_BOARD);
+    replace_program(BULLETIN_BOARD);
 }

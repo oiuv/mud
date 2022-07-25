@@ -23,5 +23,5 @@ LONG);
                 "/d/luoyang/npc/lang" : 1,
         ]));
     setup();
-    //replace_program(ROOM);
+    replace_program(ROOM);
 }

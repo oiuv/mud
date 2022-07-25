@@ -18,7 +18,7 @@ LONG);
               "teng"  : MAG "一根紫藤，看起来很结实的样子，好像可以用它爬（climb）下悬崖。\n" NOR,
         ]));
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }
 void init()
 {

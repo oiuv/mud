@@ -30,7 +30,7 @@ LONG);
           "south" : __DIR__"heilong1",
       ]));
       setup();
-      //replace_program(ROOM);
+      replace_program(ROOM);
 }
 
 string look_shibei()

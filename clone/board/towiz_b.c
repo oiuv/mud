@@ -10,5 +10,5 @@ void create()
     set("long", "这是一个供玩家和巫师交流的留言板。\n" );
     setup();
     set("capacity", 1000);
-    // replace_program(BULLETIN_BOARD);
+    replace_program(BULLETIN_BOARD);
 }

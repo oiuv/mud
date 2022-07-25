@@ -24,7 +24,7 @@ LONG );
     set("sleep_room", 1);
     set("no_fight", 1);
     setup();
-    //replace_program(ROOM);
+    replace_program(ROOM);
 }
 
 string look_fu()

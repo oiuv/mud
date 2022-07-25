@@ -10,6 +10,5 @@ LONG );
 
         set("outdoors", "wudujiao");
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }
-

@@ -24,7 +24,7 @@ LONG);
         set("exits", ([
                 "west" : __DIR__"dongdajie1",
                 "east" : "/d/changan/lzroad",
-                
+
         ]));
         set("objects", ([
                 "/d/city/npc/bing" : 4,
@@ -32,11 +32,10 @@ LONG);
                 "/d/beijing/npc/ducha" : 1,
         ]));
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }
 
 string look_gaoshi()
 {
         return FINGER_D->get_killer() + "\n         兰州知府\n                     耶律巡\n";
 }
-

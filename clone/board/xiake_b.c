@@ -10,5 +10,5 @@ void create()
     set("long", "这是一个供来到侠客岛的贵宾交流的留言板。\n" );
     setup();
     set("capacity", 100);
-    // replace_program(BULLETIN_BOARD);
+    replace_program(BULLETIN_BOARD);
 }

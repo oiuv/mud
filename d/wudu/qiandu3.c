@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 string* npcs = ({
         "/clone/worm/shishixie",
@@ -30,5 +30,5 @@ LONG);
         ]));
 
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }

@@ -5,7 +5,7 @@ void create()
         set("short", "民居");
         set("long", @LONG
 这是一户普通的农家，屋里没有什么象样的摆设。墙边摆放着一
-些农具，除此只外四壁皆空，看来并不富裕。后面似乎有一个小院。 
+些农具，除此只外四壁皆空，看来并不富裕。后面似乎有一个小院。
 LONG);
 
         set("exits", ([
@@ -17,5 +17,5 @@ LONG);
         ]));
 
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }

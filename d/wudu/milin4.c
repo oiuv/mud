@@ -20,5 +20,5 @@ LONG);
         "/clone/npc/walker" : 1,
     ]));
     setup();
-    //replace_program(ROOM);
+    replace_program(ROOM);
 }

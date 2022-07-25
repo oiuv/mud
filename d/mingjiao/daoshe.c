@@ -23,7 +23,7 @@ LONG );
     set("no_fight", 1);
     set("sleep_room", 1);
     setup();
-    //replace_program(ROOM);
+    replace_program(ROOM);
 }
 
 string look_dui()

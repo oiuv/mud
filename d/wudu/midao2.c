@@ -12,5 +12,5 @@ LONG);
                 "west" : __DIR__"midao3",
         ]));
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }

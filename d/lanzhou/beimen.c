@@ -30,7 +30,7 @@ LONG);
                 "/d/beijing/npc/ducha" : 1,
         ]));
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }
 
 string look_gaoshi()

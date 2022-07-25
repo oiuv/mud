@@ -10,5 +10,5 @@ void create()
     set("long", "这是一个专供比武报名的布告板，其他灌水杀无赦。\n" );
     setup();
     set("capacity", 100);
-    // replace_program(BULLETIN_BOARD);
+    replace_program(BULLETIN_BOARD);
 }

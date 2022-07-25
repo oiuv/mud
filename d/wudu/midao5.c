@@ -12,6 +12,5 @@ LONG);
                 "up"    : "/d/city/ma_chufang",
         ]));
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }
-

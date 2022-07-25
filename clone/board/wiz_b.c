@@ -9,5 +9,5 @@ void create()
     set("long", HIY "这堵墙上刻满了希奇古怪的咒文，也不知道记载了些什么。\n" NOR);
     setup();
     set("capacity", 1000);
-    // replace_program(BULLETIN_BOARD);
+    replace_program(BULLETIN_BOARD);
 }

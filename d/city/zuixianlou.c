@@ -23,5 +23,5 @@ LONG );
 
     set("no_fight", 1);
     setup();
-    //replace_program(ROOM);
+    replace_program(ROOM);
 }

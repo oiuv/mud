@@ -21,7 +21,7 @@ LONG);
                 "wall" : (: look_wall :),
         ]));
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }
 
 string look_wall()

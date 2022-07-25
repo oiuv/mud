@@ -10,5 +10,5 @@ void create()
     set("long", "有有用的话就往这里说，乱灌水杀无赦。\n" );
     setup();
     set("capacity", 1000);
-    // replace_program(BULLETIN_BOARD);
+    replace_program(BULLETIN_BOARD);
 }

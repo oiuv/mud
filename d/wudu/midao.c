@@ -11,10 +11,10 @@ LONG);
                 "up"   : __DIR__"huating2",
                 "west" : __DIR__"midao2",
         ]));
- //新增解密千蛛万毒所需的火把 2017-02-10       
+ //新增解密千蛛万毒所需的火把 2017-02-10
          set("objects", ([
                   __DIR__"obj/huoba": 1,
         ]));
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }

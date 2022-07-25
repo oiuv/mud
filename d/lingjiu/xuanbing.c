@@ -23,7 +23,7 @@ LONG);
         set("exercise_improve", (: exercise_improve :));
 
     setup();
-    //replace_program(ROOM);
+    replace_program(ROOM);
 }
 
 int exercise_improve()

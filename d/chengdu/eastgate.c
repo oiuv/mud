@@ -23,7 +23,7 @@ LONG);
         "/d/city/npc/bing"    : 2,
     ]));
     setup();
-    //replace_program(ROOM);
+    replace_program(ROOM);
 }
 
 string look_gaoshi()

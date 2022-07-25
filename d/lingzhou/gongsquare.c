@@ -18,5 +18,5 @@ LONG );
     ]));
     setup();
     create_door("south" , "红漆宫门", "north" , DOOR_CLOSED);
-    //replace_program(ROOM);
+    replace_program(ROOM);
 }

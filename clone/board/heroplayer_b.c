@@ -8,5 +8,5 @@ void create()
     set("long", "自由自在，畅所欲言。\n" );
     setup();
     set("capacity", 100);
-    // replace_program(BULLETIN_BOARD);
+    replace_program(BULLETIN_BOARD);
 }

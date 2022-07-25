@@ -22,7 +22,5 @@ LONG NOR);
         set("no_fight",1);
         //set("outdoors", "beijing");
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }
-
-

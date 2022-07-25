@@ -20,7 +20,7 @@ LONG
         "north": __DIR__"dongdajie1",
     ]));
            setup();
-    //replace_program(ROOM);
+    replace_program(ROOM);
 }
 
 void init()

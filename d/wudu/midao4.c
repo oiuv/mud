@@ -12,5 +12,5 @@ LONG);
                 "north" : __DIR__"midao5",
         ]));
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }

@@ -16,5 +16,5 @@ LONG);
                   __DIR__"obj/xiang": 1,
         ]));
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }

@@ -1,4 +1,4 @@
-#include <ansi.h> 
+#include <ansi.h>
 inherit ROOM;
 
 string* npcs = ({
@@ -29,8 +29,8 @@ LONG);
                 npcs[random(sizeof(npcs))] : 1,
                 npcs[random(sizeof(npcs))] : 1,
         ]));
-    
+
 
         setup();
-        //replace_program(ROOM);
+        replace_program(ROOM);
 }

@@ -22,7 +22,7 @@ LONG);
 
         create_door("east", "铁门", "west", DOOR_CLOSED);
     setup();
-    // replace_program(ROOM);
+    replace_program(ROOM);
 }
 
 int valid_leave(object me, string dir)

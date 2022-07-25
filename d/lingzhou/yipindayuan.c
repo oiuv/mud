@@ -27,5 +27,5 @@ LONG );
     ]));
     setup();
     create_door("south" , "铜皮大门", "north" , DOOR_CLOSED);
-    //replace_program(ROOM);
+    replace_program(ROOM);
 }

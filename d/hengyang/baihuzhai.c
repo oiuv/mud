@@ -26,7 +26,7 @@ LONG);
     ]));
 
     setup();
-    //replace_program(ROOM);
+    replace_program(ROOM);
 
 }
 

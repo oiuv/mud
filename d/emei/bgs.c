@@ -26,7 +26,7 @@ LONG);
         "south" : __DIR__"milin1",
     ]));
     setup();
-    //replace_program(ROOM);
+    replace_program(ROOM);
 }
 
 string look_ta()
