@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd fluffos || git clone https://github.com/fluffos/fluffos.git && cd fluffos
+cd fluffos || (git clone https://gitee.com/mudren/fluffos.git && cd fluffos)
 
 git pull
 rm -rf build && mkdir build && cd build
