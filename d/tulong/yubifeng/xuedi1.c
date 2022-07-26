@@ -9,8 +9,8 @@ void create()
 呼啸而过，吹得脸生痛。暗淡的太阳低悬在天边，显得那么苍白。
 LONG );
         set("exits", ([
-                "west"       : __DIR__"dongcheng",
-                "northeast"  : __DIR__"xuedi2",
+                // "west"       : __DIR__"dongcheng",
+                // "northeast"  : __DIR__"xuedi2",
                 "northwest"  : __DIR__"songlin1",
         ]));
         set("objects", ([

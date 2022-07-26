@@ -84,7 +84,7 @@ void create()
     setup();
     carry_object("/d/heimuya/npc/obj/cloth")->wear();
     carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/heimuya/npc/obj/card2");
+    // carry_object("/d/heimuya/npc/obj/card2"); // todo 文件不存在
 }
 
 int recognize_apprentice(object me, string skill)
