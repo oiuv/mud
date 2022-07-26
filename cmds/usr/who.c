@@ -6,8 +6,6 @@
 #include <net/dns.h>
 #include <getconfig.h>
 
-inherit F_CLEAN_UP;
-
 #define PREFIX(ob)    (ob->is_chatter() ? HIC "~" : interactive(ob) ? (query_idle(ob) > 120 ? HIG "*" NOR : " ") : stringp(ob->query("doing")) ? HIY "@" NOR : HIR "#" NOR)
 
 int sort_user(object,object);

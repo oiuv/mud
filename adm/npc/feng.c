@@ -9,7 +9,7 @@
 // 主持巫师断线
 // 主持巫师昏迷或者死亡
 
-// 拍卖过程中本NPC物件的更新不会导致拍卖进程的中断，比如update,dest & clone
+// 拍卖过程中本NPC对象的更新不会导致拍卖进程的中断，比如update,dest & clone
 
 #include <ansi.h>
 #include <getconfig.h>

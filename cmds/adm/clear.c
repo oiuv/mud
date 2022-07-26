@@ -15,7 +15,7 @@ int main(object me, string arg)
     seteuid(getuid(me));
 
     if (!arg)
-        return notify_fail("指令格式 : clear [-u] <物件之名"
+        return notify_fail("指令格式 : clear [-u] <对象之名"
                            "称或档名> | <玩家ID> <分项>\n");
 
     if (sscanf(arg, "-u %s", arg) == 1)
@@ -52,12 +52,12 @@ int main(object me, string arg)
         catch (obj = load_object(resolve_path(me->query("cwd"), target)));
     if (obj && !userp(obj))
     {
-        message_vision(sprintf("$N将物件<%O>连同存盘记录一起"
+        message_vision(sprintf("$N将对象<%O>连同存盘记录一起"
                                "彻底的摧毁了。\n",
                                obj),
                        me);
         if (!DBASE_D->clear_object(obj))
-            write("你没有能够成功的摧毁物件和记录。\n");
+            write("你没有能够成功的摧毁对象和记录。\n");
         else
             write("Ok.\n");
     }
@@ -76,9 +76,9 @@ int main(object me, string arg)
 int help(object me)
 {
     write(@HELP
-指令格式 : clear [-u] <物件之名称或档名> | <玩家ID> <分项>
+指令格式 : clear [-u] <对象之名称或档名> | <玩家ID> <分项>
 
-利用此一指令可将一个物件(object)连同它的存盘记录一起清除，注
+利用此一指令可将一个对象(object)连同它的存盘记录一起清除，注
 意：这里的存盘记录指的是数据保存在 DBASE_D 中的那些对象， 如
 果记录是保存成单独的文件，则它们的存盘记录不会受到任何影响，
 这个命令是提供给巫师对受到损伤的对象进行数据修复时使用的。

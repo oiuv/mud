@@ -123,7 +123,7 @@ int do_show(string arg)
                 imbue_ob = new(ob->query("magic/imbue_ob"));
                 if (! objectp(imbue_ob))
                 {
-                       command("say 你的物件有点问题，得和巫师联系！");
+                       command("say 你的对象有点问题，得和巫师联系！");
                        return 1;
                 }
                 tell_object(me, HIG "张天师悄悄对你说道：“恩...我看看，应该用" +

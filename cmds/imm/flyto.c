@@ -38,7 +38,7 @@ int main(object me, string arg)
         return notify_fail("不就在你面前么？乱飞个啥？\n");
 
     if (!obj)
-        return notify_fail("这个物件没有环境可以 flyto。\n");
+        return notify_fail("这个对象没有环境可以 flyto。\n");
     tell_object(me, "咦，怎么还不起飞呢？……\n");
     tell_object(me, "呵呵呵呵，飞了飞了！小小巫师飞呀飞……！\n");
     if (!me->query("env/invisible"))

@@ -524,7 +524,7 @@ public void give_quest(object me)
         me->set("ultra_quest/quest/obj", obj);
         me->set("ultra_quest/quest/msg", quest_msg);
 
-        // 如果存在任务道具，则注册物件属性
+        // 如果存在任务道具，则注册对象属性
         if (objectp(item))
         {
                 item->set("send/from", next_npc);
@@ -534,7 +534,7 @@ public void give_quest(object me)
                                   next_npc + "准备转交给" + obj + "的" +
                                   item->name() + "。\n" NOR);
 
-                // 提供出物件转移的信息
+                // 提供出对象转移的信息
                 message_vision(next_npc + "拿出一" + item->query("unit") +
                                item->name() + NOR "(" + item->query("id") +
                                ")给$N" NOR "。\n" NOR, me);

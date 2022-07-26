@@ -5,8 +5,6 @@
 #include <mudlib.h>
 #include <getconfig.h>
 
-inherit F_CLEAN_UP;
-
 // This command is also called by LOGIN_D, so we don't want it use
 // arguments.
 mixed main(string arg)

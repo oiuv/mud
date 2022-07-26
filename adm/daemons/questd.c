@@ -474,7 +474,7 @@ public mixed accept_ask(object me, object who, string topic)
 int ask_quest(object me, object who)
 {
     string fam, myfam; // 门派信息
-    object ob;         // 任务重的某些物件或人物
+    object ob;         // 任务重的某些对象或人物
     mapping q;         // WHO的人物
     object aob;        // WHO目前正在协助的对象
     int exp;           // WHO的经验

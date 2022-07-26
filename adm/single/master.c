@@ -25,7 +25,7 @@ object connect(int port)
 
     if (err)
     {
-        write("现在有人正在修改使用者连线部份的程式，请待会再来。\n");
+        write("现在有人正在修改使用者连线部份的程序，请待会再来。\n");
         //write(err);
         destruct(this_object());
     }

@@ -10,7 +10,7 @@ nosave mapping icon = ([]);
 
 mapping query_icon() { return icon; }
 
-// 取得某物件權重
+// 取得某对象權重
 int get_icon_weight(object ob)
 {
     if (wizardp(ob))

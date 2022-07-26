@@ -1,8 +1,6 @@
 #include <ansi.h>
 #include <skill.h>
 
-inherit F_CLEAN_UP;
-
 int main(object me, string arg)
 {
     string force;

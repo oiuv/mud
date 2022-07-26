@@ -1,6 +1,6 @@
 #include <ansi.h>
 inherit ITEM;
-// 独孤九剑之无招解迷物件
+// 独孤九剑之无招解迷对象
 // Edit by Rcwiz for Hero
 
 void create()

@@ -20,11 +20,11 @@ int main(object me, string arg)
     {
     case "user":
         ob = users();
-        printf("共有 %d 个使用者物件　\n", sizeof(ob));
+        printf("共有 %d 个使用者对象　\n", sizeof(ob));
         break;
     case "living":
         ob = livings();
-        printf("共有 %d 个生物(含使用者)物件　\n", sizeof(ob));
+        printf("共有 %d 个生物(含使用者)对象　\n", sizeof(ob));
         for (i = 0; i < sizeof(ob); i++)
         {
             if (member_array(base_name(ob[i]), file) == -1 && !environment(ob[i]))
@@ -41,11 +41,11 @@ int main(object me, string arg)
         break;
     case "char":
         ob = objects((: $1->is_character() && !clonep($1) :));
-        printf("共有 %d 种人物物件 master copy 被载入　\n", sizeof(ob));
+        printf("共有 %d 种人物对象 master copy 被载入　\n", sizeof(ob));
         break;
     case "npc":
         ob = filter_array(livings(), (: $1->is_character() && !userp($1) && clonep($1) :));
-        printf("共有 %d 个 NPC 物件　\n", sizeof(ob));
+        printf("共有 %d 个 NPC 对象　\n", sizeof(ob));
         break;
     case "combat":
         ob = objects((: $1->is_fighting() :));
@@ -61,11 +61,11 @@ int main(object me, string arg)
         break;
     case "heart beat":
         ob = objects((: query_heart_beat :));
-        printf("共有 %d 个物件的 heart beat 为有效状态　\n", sizeof(ob));
+        printf("共有 %d 个对象的 heart beat 为有效状态　\n", sizeof(ob));
         break;
     case "virtual":
         ob = objects((: virtualp :));
-        printf("共有 %d 个虚拟物件　\n", sizeof(ob));
+        printf("共有 %d 个虚拟对象　\n", sizeof(ob));
         break;
     case "room":
         ob = objects((: function_exists("create_door", $1) :));
@@ -87,18 +87,18 @@ int main(object me, string arg)
         if (!find_object(ROOM))
             ROOM->foo();
         ob = objects((: inherits(ROOM, $1) :));
-        printf("共有 %d 个物件继承标准房间　\n", sizeof(ob));
+        printf("共有 %d 个对象继承标准房间　\n", sizeof(ob));
         break;
     case "equip":
         // inherits won't work if master copy got cleaned up.
         if (!find_object(F_EQUIP))
             F_EQUIP->foo();
         ob = objects((: inherits(F_EQUIP, $1) :));
-        printf("共有 %d 个物件继承标准装备　\n", sizeof(ob));
+        printf("共有 %d 个对象继承标准装备　\n", sizeof(ob));
         break;
     case "object":
         ob = objects();
-        printf("共有 %d 个物件被载入　\n", sizeof(ob));
+        printf("共有 %d 个对象被载入　\n", sizeof(ob));
         for (i = 0; i < sizeof(ob); i++)
         {
             reset_eval_cost();
@@ -118,9 +118,9 @@ int main(object me, string arg)
     i = sizeof(ob);
     while (i--)
         m += memory_info(ob[i]);
-    printf("总共使用 %d bytes 记忆体　\n", m);
+    printf("总共使用 %d bytes 内存　\n", m);
     if (sizeof(ob))
-        printf("平均每个物件使用 %d bytes 记忆体　\n", m / sizeof(ob));
+        printf("平均每个对象使用 %d bytes 内存　\n", m / sizeof(ob));
     return 1;
 }
 

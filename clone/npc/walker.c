@@ -17,7 +17,7 @@ LONG);
     set("con", 19);
     set("dex", 17);
 
-    set("chat_chance", 30); // random(100) < chance
+    set("chat_chance", 10); // random(100) < chance
     set("chat_msg", ({
         (: do_walk :),
     }));

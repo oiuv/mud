@@ -4,7 +4,7 @@ inherit F_DBASE;
 
 #define ZIXU "/adm/daemons/task/npc/zixu"                 //task发布宣布者
 #define TASK_CARRIER "/adm/daemons/task/npc/task_carrier" //task 携带者
-#define TASK_OBJECT "/adm/daemons/task/obj/"              //task物件目录
+#define TASK_OBJECT "/adm/daemons/task/obj/"              //task对象目录
 #define MIRROR "/adm/daemons/task/mirror.c"               //宝镜放置的路径
 
 void create()
@@ -98,13 +98,13 @@ void set_task()
     mirror = children(MIRROR);
 
     if (sizeof(mirror) == 1)
-        return; //只有主物件没有任何clone出来的
+        return; //只有主对象没有任何clone出来的
 
     for (i = 0; i < sizeof(mirror); i++)
     {
 
         if (!clonep(mirror[i]))
-            continue; //若是主物件不注入
+            continue; //若是主对象不注入
 
         mirror_owner = environment(mirror[i]);
 

@@ -27,8 +27,8 @@ void show_info(object me, mapping coord)
     foreach (type in keys(info))
         switch (type)
         {
-        case "objects": // 存在於座標上的物件
-            msg += BRED "[系統]" NOR " 目前存在於這個座標的物件(objects)：\n";
+        case "objects": // 存在於座標上的对象
+            msg += BRED "[系統]" NOR " 目前存在於這個座標的对象(objects)：\n";
             if ((i = sizeof(info["objects"])))
             {
                 while (i--)
@@ -36,8 +36,8 @@ void show_info(object me, mapping coord)
             }
             break;
 
-        case "loaded": // 已經載入的物件
-            msg += BRED "[系統]" NOR " 已經載入的物件(loaded)：\n";
+        case "loaded": // 已經載入的对象
+            msg += BRED "[系統]" NOR " 已經載入的对象(loaded)：\n";
             if ((i = sizeof(info["loaded"])))
             {
                 mixed *k, *v;
@@ -48,8 +48,8 @@ void show_info(object me, mapping coord)
             }
             break;
 
-        case "loads": // 座標要載入的物件集
-            msg += BBLU "[設定]" NOR " 座標載入的物件集(loads)：\n";
+        case "loads": // 座標要載入的对象集
+            msg += BBLU "[設定]" NOR " 座標載入的对象集(loads)：\n";
             if ((i = sizeof(info["loads"])))
             {
                 mixed *k, *v;
@@ -155,7 +155,7 @@ int main(object me, string arg)
         lolo = environment(me)->query_LOLO();
         if ((i = sizeof(lolo)) > 0)
         {
-            write("==================== 目前這個區域有載入物件的座標 ====================\n");
+            write("==================== 目前這個區域有載入对象的座標 ====================\n");
             while (i--)
             {
                 if (sscanf(lolo[i], "%d,%d", y, x) == 2)
@@ -168,7 +168,7 @@ int main(object me, string arg)
             write("\n======================================================================\n");
         }
         else
-            write("這個區域目前都還沒有要載入的物件。\n");
+            write("這個區域目前都還沒有要載入的对象。\n");
         return 1;
     }
 
@@ -210,10 +210,10 @@ int main(object me, string arg)
         {
             if (!environment(me)->del_loads(info["x_axis"], info["y_axis"], value))
             {
-                write("刪除座標載入物件失敗。\n");
+                write("刪除座標載入对象失敗。\n");
                 return 1;
             }
-            write("刪除座標載入物件成功。\n");
+            write("刪除座標載入对象成功。\n");
             return 1;
         }
         if (!environment(me)->delete_data(info["x_axis"], info["y_axis"], type))
@@ -244,23 +244,23 @@ int main(object me, string arg)
         return 1;
     }
 
-    // 設定載入物件集
+    // 設定載入对象集
     if (type == "loads")
     {
         int amount;
         string filename;
         if (sscanf(value, "%s %d", filename, amount) != 2)
         {
-            write("區域載入物件設定錯誤。 (指令格式：sa loads FILE_NAME AMOUNT)\n");
+            write("區域載入对象設定錯誤。 (指令格式：sa loads FILE_NAME AMOUNT)\n");
             return 1;
         }
 
         if (!environment(me)->set_loads(info["x_axis"], info["y_axis"], filename, amount))
         {
-            write("區域載入物件設定失敗。\n");
+            write("區域載入对象設定失敗。\n");
             return 1;
         }
-        write("區域載入物件設定成功。\n");
+        write("區域載入对象設定成功。\n");
         return 1;
     }
 
@@ -304,8 +304,8 @@ int help(object me)
 {
     string msg = "這是指令是用來設定區域座標相關資料的指令(目前所處的座標)。\n" BBLU "\n1. 指令格式： sa\n" NOR
                  "   可以列出目前所處座標的相關資訊。\n" BBLU "\n2. 指令格式： sa loads\n" NOR
-                 "   查詢區域中會載入物件的所有座標列表。\n" BBLU "\n3. 指令格式： sa loads FILE_NAME AMOUNT\n" NOR
-                 "   這個指令可以設定目前身處的座標，會自動載入某物件於此座標中。\n"
+                 "   查詢區域中會載入对象的所有座標列表。\n" BBLU "\n3. 指令格式： sa loads FILE_NAME AMOUNT\n" NOR
+                 "   這個指令可以設定目前身處的座標，會自動載入某对象於此座標中。\n"
                  "   例： sa loads __DIR__npc 2      這樣會載入相對目錄路徑中的檔名npc二隻在座標上。\n"
                  "        sa loads __DIR__npc/mob 4  這樣會載入相對路徑中npc目錄下的mob檔案四隻在座標上。\n" BBLU "\n4. 指令格式： sa area_exit FILE_NAME X_AXIS Y_AXIS\n" NOR
                  "   這個指令可設定區域型式的出口。\n"
@@ -317,12 +317,12 @@ int help(object me)
                  "   這個指令是用來設定其它功能的設定。\n"
                  "   例： sa icon $YEL$屎$NOR$  設定圖示, 此指令支援色碼。\n"
                  "        sa no_fight 1         非戰區\n"
-                 "        sa nonprompt_icon 1   不會即時改變圖示的設定(意思是人物、物件移到這座標時圖示不會改變)\n"
+                 "        sa nonprompt_icon 1   不會即時改變圖示的設定(意思是人物、对象移到這座標時圖示不會改變)\n"
                  "        sa short 道路         設定座標的短序述\n"
                  "        sa long xxxxxxxx      設定座標的長序述，如果太長最好配合to指令, 如： to sa long\n"
                  "        sa block 1            設定成為障礙區，無法移動過來。\n" BBLU "\n8. 指令格式： sa TYPE delete\n" NOR
                  "   這是用來刪除區域資料的指令。\n"
-                 "   例： sa loads delete      刪除座標的載入物件集\n"
+                 "   例： sa loads delete      刪除座標的載入对象集\n"
                  "        sa area_exit delete  刪除座標的區域型式出口\n"
                  "        sa room_exit delete  刪除座標的房間型式出口\n"
                  "        sa icon delete       刪除座標的圖示\n" BBLU "\n9. 指令格式： sa save\n" NOR

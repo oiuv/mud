@@ -136,13 +136,13 @@ int cleanup_all_save_object(int raw)
 
 string query_save_file() { return DATA_DIR + "dbased"; }
 
-// 某个物件读取自己的记录
+// 某个对象读取自己的记录
 mixed query_data()
 {
     return query_object_data(previous_object());
 }
 
-// 某个物件保存自己的记录
+// 某个对象保存自己的记录
 int set_data(mixed data)
 {
     return set_object_data(previous_object(), data);

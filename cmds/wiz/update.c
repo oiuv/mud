@@ -70,7 +70,7 @@ int main(object me, string file)
     }
 
     if (obj)
-        return notify_fail("无法清除旧程式码。\n");
+        return notify_fail("无法清除旧程序码。\n");
 
     write("重新编译 " + file + "：");
     if (load_object(file))
@@ -169,9 +169,9 @@ int help(object me)
     write(@HELP
 指令格式 : update <档名|here|me|玩家名>
 
-这个指令可以更新档案, 并将新档的内容载入记忆体内. 若目标为
+这个指令可以更新档案, 并将新档的内容载入内存内. 若目标为
 'here' 则更新所在环境. 若目标为 'me' 则更新自己的人物. 若目
-标为玩家则可更新玩家物件.
+标为玩家则可更新玩家对象.
 
 HELP
     );

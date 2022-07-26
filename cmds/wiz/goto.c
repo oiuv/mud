@@ -60,7 +60,7 @@ int main(object me, string arg)
     }
 
     if (!obj)
-        return notify_fail("这个物件没有环境可以 goto。\n");
+        return notify_fail("这个对象没有环境可以 goto。\n");
 
     if ((env = environment(me)) == obj)
         return notify_fail("你在原地乱蹦什么？\n");

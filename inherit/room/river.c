@@ -159,7 +159,3 @@ int do_cross()
                           environment(me), ({ me }));
         return 1;
 }
-
-void replace_program(string ob)
-{
-}

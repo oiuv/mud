@@ -2,7 +2,6 @@
 // Update by xuefeng@mud.ren
 
 #include <ansi.h>
-inherit F_CLEAN_UP;
 
 string status_color(int current, int max);
 

@@ -1,6 +1,6 @@
 
 #include <ansi.h>
-#define TASK_OBJ_PATH "/adm/daemons/task/obj/" //task物件目录
+#define TASK_OBJ_PATH "/adm/daemons/task/obj/" //task对象目录
 
 inherit ITEM;
 

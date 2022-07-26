@@ -48,7 +48,7 @@ int do_array(string arg)
                            "不知如何下手。\n");
 
     if (query("count") < 1)
-        return notify_fail("布阵箱中的物件已经用完了。\n");
+        return notify_fail("布阵箱中的对象已经用完了。\n");
 
     if (skill < 120)
         return notify_fail("你对奇门五行的研究不够，尚且无法"

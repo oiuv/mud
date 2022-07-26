@@ -10,7 +10,7 @@ int main(object me, string arg)
         return 0;
 
     if (!arg)
-        return notify_fail("指令格式：ilist <物件或档名>\n");
+        return notify_fail("指令格式：ilist <对象或档名>\n");
 
     ob = present(arg, me);
     if (!ob)
@@ -18,7 +18,7 @@ int main(object me, string arg)
     if (!ob)
         ob = find_object(resolve_path(me->query("cwd"), arg));
     if (!ob)
-        return notify_fail("没有这样物件或这样物件没有被载入。\n");
+        return notify_fail("没有这样对象或这样对象没有被载入。\n");
 
     write(sprintf("%O直接或间接继承以下档案：\n    %s\n", ob,
                   implode(deep_inherit_list(ob), "\n    ")));
@@ -28,9 +28,9 @@ int main(object me, string arg)
 int help (object me)
 {
     write(@HELP
-指令格式: ilist <物件或档名>
+指令格式: ilist <对象或档名>
 
-列出一个物件所继承的所有物件。
+列出一个对象所继承的所有对象。
 
 HELP );
     return 1;

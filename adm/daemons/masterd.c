@@ -321,7 +321,7 @@ public mixed teach_pfm(object who, object ob, mapping b)
         return msg;
 }
 
-// 物件的发放
+// 对象的发放
 public mixed give_item(object who, object ob, mapping b)
 {
         object obj, owner;              // 给予的物品及拥有者
@@ -351,7 +351,7 @@ public mixed give_item(object who, object ob, mapping b)
                                family + "素无渊源，不知此话从何说起。";
         //}
 
-        // 查找对应的 base_name 呼出物件
+        // 查找对应的 base_name 呼出对象
         obj = find_object(item);
 
         if (! obj)
@@ -459,7 +459,7 @@ public mixed give_item(object who, object ob, mapping b)
                                "也没用。" NOR;
         }
 
-        // 寻找该物件的所有者
+        // 寻找该对象的所有者
     owner = environment(obj);
         while (owner)
     {
@@ -504,7 +504,7 @@ public mixed give_item(object who, object ob, mapping b)
                        "作出的贡献不够，这" + obj->name() + CYN
                        "暂时还不能交给你。" NOR;
 
-        // 物件转移，给予出提示信息
+        // 对象转移，给予出提示信息
         message_vision("$N拿出" + obj->name() + "(" +
                        obj->query("id") + ")给$n。\n" NOR, ob, who);
         obj->move(who, 1);

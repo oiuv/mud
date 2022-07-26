@@ -160,7 +160,7 @@ int update_file(object me, string file)
     }
 
     if (obj)
-        return notify_fail("\n无法清除旧程式码。\n");
+        return notify_fail("\n无法清除旧程序码。\n");
 
     err = catch (call_other(file, "???"));
     if (err)

@@ -73,7 +73,7 @@ int main(object me, string arg)
     obs -= ({find_object(VOID_OB), find_object(TEMP_OB)});
     if (sizeof(obs) > 1024 && !opt_force)
     {
-        write("一共有 " + sizeof(obs) + " 个物件牵涉"
+        write("一共有 " + sizeof(obs) + " 个对象牵涉"
                                         "在内，如果你决定编译，请指明-f参数。\n");
     }
 
@@ -180,10 +180,10 @@ int help(object me)
     write(@HELP
 指令格式 : updatei <档案名> [-c] [-d] [-f]
 
-这个指令可以更新某个档案和所有继承该档案的物件，不过那些复制
-出来的物件不会更新。比如你编译了/feature/message，则继承该文
+这个指令可以更新某个档案和所有继承该档案的对象，不过那些复制
+出来的对象不会更新。比如你编译了/feature/message，则继承该文
 件的/inherit/char/char和间接继承的/inherit/char/npc 都会被重
-新编译。如果一个物件是玩家对象，则不会被编译。
+新编译。如果一个对象是玩家对象，则不会被编译。
 
 如果不指明参数-c，则系统只是列出需要编译那些档案。如果指明了
 参数-d，则采用详细模式列出所有需要编译的档案。如果指明了-f则

@@ -11,7 +11,7 @@ int main(object me, string arg)
         return 0;
 
     if (!arg || sscanf(arg, "%s %s", dest, func) != 2)
-        return notify_fail("指令格式：ff <物件> <函数名称>\n");
+        return notify_fail("指令格式：ff <对象> <函数名称>\n");
 
     if (dest == "me")
         ob = me;
@@ -29,18 +29,18 @@ int main(object me, string arg)
 
     file = function_exists(func, ob);
     if (!file)
-        write(sprintf("物件 %O 并没有定义 %s 这个函数。\n", ob, func));
+        write(sprintf("对象 %O 并没有定义 %s 这个函数。\n", ob, func));
     else
-        write(sprintf("物件 %O 的 %s 函数定义在 %s.c。\n", ob, func, file));
+        write(sprintf("对象 %O 的 %s 函数定义在 %s.c。\n", ob, func, file));
     return 1;
 }
 
 int help()
 {
     write(@TEXT
-指令格式：ff <物件> <函数名称>
+指令格式：ff <对象> <函数名称>
 
-这个指令可以找出指定物件中的某个函数定义在哪一个档案里。
+这个指令可以找出指定对象中的某个函数定义在哪一个档案里。
 TEXT );
     return 1;
 }

@@ -1,5 +1,4 @@
 #include <ansi.h>
-inherit F_CLEAN_UP;
 
 int player_pay(object who, object target, int amount);
 void destruct_it(object ob);

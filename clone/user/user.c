@@ -73,7 +73,7 @@ int set_admin()
 void create()
 {
     ::create();
-    set_name("使用者物件", ({"user object", "user", "object"}));
+    set_name("使用者对象", ({"user object", "user", "object"}));
 }
 
 // 在 login_ob 中调用

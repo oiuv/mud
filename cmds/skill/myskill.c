@@ -3,8 +3,6 @@
 
 #include <ansi.h>
 
-inherit F_CLEAN_UP;
-
 string *valid_types = ({
     "force",
     "dodge",

@@ -27,7 +27,7 @@ int main(object me, string arg)
     if (!file)
         file = me->query("cwf");
     if (!file)
-        return notify_fail("你要复制什麽物件？\n");
+        return notify_fail("你要复制什麽对象？\n");
 
     file = resolve_path(me->query("cwd"), file);
     if (sscanf(file, "%*s.c") != 1)
@@ -113,7 +113,7 @@ int main(object me, string arg)
             return 1;
         }
         destruct(obj);
-        return notify_fail("无法复制不能移动的物件(" + file + ")。\n");
+        return notify_fail("无法复制不能移动的对象(" + file + ")。\n");
     }
     else if (obj->move(environment(me)))
     {
@@ -123,7 +123,7 @@ int main(object me, string arg)
     else
     {
         destruct(obj);
-        return notify_fail("无法复制不能移动的物件(" + file + ")。\n");
+        return notify_fail("无法复制不能移动的对象(" + file + ")。\n");
     }
 
     // if (obj->query_amount() != amount)
@@ -148,7 +148,7 @@ int help(object me)
     write(@HELP
 指令格式 : clone <文件名> [<数量>]
 
-利用此指令可复制任何能移动之物件(含人物)。
+利用此指令可复制任何能移动之对象(含人物)。
 
 该命令在可以被授权使用的信息包括：gift、all。
 

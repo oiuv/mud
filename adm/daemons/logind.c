@@ -731,7 +731,7 @@ object make_body(object ob)
     user = new(USER_OB);
     if (! user)
     {
-        write("现在可能有人正在修改使用者物件的程式，无法进行复制。\n");
+        write("现在可能有人正在修改使用者对象的程序，无法进行复制。\n");
         write(err+"\n");
         return 0;
     }

@@ -17,7 +17,7 @@ int main(object me, string arg)
     seteuid(getuid(me));
 
     if (!arg)
-        return notify_fail("指令格式 : query all | <物件之名称或档名>\n");
+        return notify_fail("指令格式 : query all | <对象之名称或档名>\n");
     target = arg;
 
     if (target == "all" || target == "ALL")
@@ -38,9 +38,9 @@ int main(object me, string arg)
 
     result = DBASE_D->query_object_data(obj);
     if (undefinedp(result))
-        write("该物件在数据库中没有任何记录。\n");
+        write("该对象在数据库中没有任何记录。\n");
     else
-        write(sprintf("该物件(%O)保存的数据：\n%O\n", obj, result));
+        write(sprintf("该对象(%O)保存的数据：\n%O\n", obj, result));
 
     return 1;
 }
@@ -48,9 +48,9 @@ int main(object me, string arg)
 int help(object me)
 {
     write(@HELP
-指令格式 : query all | <物件之名称或档名>
+指令格式 : query all | <对象之名称或档名>
 
-利用此一指令可以查询一个物件(object)保存在数据库中的记录。
+利用此一指令可以查询一个对象(object)保存在数据库中的记录。
 
 参考资料：clear
 HELP

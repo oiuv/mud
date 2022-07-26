@@ -87,7 +87,7 @@ int accept_object(object me, object ob)
         message_vision(CYN "$N" CYN "一把抓过$n" NOR + CYN "，使劲嗅了嗅。\n"
                        NOR, this_object(), ob);
 
-        // 必须提前转移物件，否则下面的指令无效
+        // 必须提前转移对象，否则下面的指令无效
     ob->move(this_object());
 
           command("eat " + ob->query("id"));

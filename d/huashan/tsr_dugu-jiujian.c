@@ -1,11 +1,11 @@
-// 该物件用于记录A-F房间开锁状态和随机分配房间参数
+// 该对象用于记录A-F房间开锁状态和随机分配房间参数
 // 该文件常驻内存直到系统关闭
 
 inherit ITEM;
 #include <ansi.h>
 
 public string openlock(string lock); // 外部调用开锁函数
-public void init_data(string arg); // 初始化物件数据
+public void init_data(string arg); // 初始化对象数据
 private string get_result(string str1, string str2);
 
 mapping unlock = ([
@@ -21,7 +21,7 @@ mapping unlock = ([
 
 void create()
 {
-    set_name("独孤九剑解迷管理物件", ({"tsr_dugu-jiujian"}));
+    set_name("独孤九剑解迷管理对象", ({"tsr_dugu-jiujian"}));
     set_weight(1);
     set("no_clean_up", 1);
 
@@ -40,7 +40,7 @@ public void init_data(string arg)
     object s;
 
     // 随机分配房间参数，每次reboot后顺序都不一样
-    // 初试化个房间数据，各个房间数据统一交该物件管理，便于统一
+    // 初试化个房间数据，各个房间数据统一交该对象管理，便于统一
     // 增加了解迷的难度
     ran_num = random(6);
     set("number/lockroom1", rn[ran_num]);

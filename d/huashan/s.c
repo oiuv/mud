@@ -58,7 +58,7 @@ string look_door(string dir)
     ob = find_object(TSROB);
 
     if (!objectp(ob))
-        return "TSR 物件出错，请与巫师联系！\n";
+        return "TSR 对象出错，请与巫师联系！\n";
 
     opened = ob->query("lock/opened");
 

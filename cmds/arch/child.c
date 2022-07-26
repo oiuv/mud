@@ -52,7 +52,7 @@ int main(object me, string str)
         }
     }
     else
-        write("没有找到任何派生物件。\n");
+        write("没有找到任何派生对象。\n");
 
     return 1;
 }
@@ -62,7 +62,7 @@ int help(object me)
     write(@HELP
 指令格式: child filename
 
-列出一个文档物件和所有副本。
+列出一个文档对象和所有副本。
 
 HELP );
     return 1;

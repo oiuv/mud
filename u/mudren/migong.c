@@ -4,7 +4,7 @@ inherit VRM;
 
 void create()
 {
-    //迷宫房间所继承的物件的档案名称。
+    //迷宫房间所继承的对象的档案名称。
     set_inherit_room( ROOM );
 
     //迷宫房间里的怪物。

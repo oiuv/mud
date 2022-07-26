@@ -12,7 +12,7 @@ int main(object me, string arg)
 
     seteuid(geteuid(me));
     if (!arg)
-        return notify_fail("指令格式 : more <档名>|<物件名> \n");
+        return notify_fail("指令格式 : more <档名>|<对象名> \n");
     file = resolve_path(me->query("cwd"), arg);
     if (file_size(file) < 0)
     {

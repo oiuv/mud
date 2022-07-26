@@ -47,7 +47,7 @@ int main(object me, string arg)
         if (!ob1)
             return notify_fail("本地无此生物: " + id + "\n");
         if (!ob = present(arg, ob1))
-            return notify_fail("该生物身上无此物件: " + arg + "\n");
+            return notify_fail("该生物身上无此对象: " + arg + "\n");
     }
     else if (arg == "here")
         ob = environment(me);
@@ -63,13 +63,13 @@ int main(object me, string arg)
         if (!ob)
             ob = present(arg, me);
         if (!ob)
-            return notify_fail("Data: 无法找到此物件: " + arg + "。\n");
+            return notify_fail("Data: 无法找到此对象: " + arg + "。\n");
     }
 
     list = ob->query_entire_dbase();
     tlist = ob->query_entire_temp_dbase();
     if (!mapp(list) && !mapp(tlist))
-        return notify_fail("Data:  此物件并没有任何的资料。\n");
+        return notify_fail("Data:  此对象并没有任何的资料。\n");
 
     if (mapp(list) && sizeof(list))
     {
@@ -84,7 +84,7 @@ int main(object me, string arg)
     }
 
     if (!klist || !sizeof(klist))
-        return notify_fail("Data: 此物件并没有储存任何资料。\n");
+        return notify_fail("Data: 此对象并没有储存任何资料。\n");
 
     if (!spec || spec == "-d")
     {
@@ -140,19 +140,19 @@ protected int filter_props(string prop, object target)
 int help(object  me)
 {
     write(@LONG
-指令格式: data <-t|-d> <玩家|物件|here> <in 玩家或生物>
+指令格式: data <-t|-d> <玩家|对象|here> <in 玩家或生物>
 指令范例: data                  <--  看自己的所有  data  base
       data -t               <--  看自己的暂存资料
       data -d               <--  看自己的永久资料
       data -t here          <--  看所在房间的暂时资料
-      data wade             <--  看  wade  这个玩家(或物件)的所有资料
+      data wade             <--  看  wade  这个玩家(或对象)的所有资料
       data board            <--  看版子的资料
       data cloth in wade    <--  看  wade  身上的  cloth  的资料
 指令说明:
-    此命令让你可以观看所指定物件的资料，且将会以 more 的
+    此命令让你可以观看所指定对象的资料，且将会以 more 的
 方式输出，如果没有指定数，则自动以使用者为参数。其中的 -t 选
 项可以显示暂时变数, -d 选项可以只显示永久变数， 所要看的对象
-可以是玩家或任何物件。
+可以是玩家或任何对象。
 LONG);
     return  1;
 }

@@ -1,5 +1,5 @@
 /* area.c write by -Acme-
-   這裡負責區域物件的載入、清除、重設等工作。
+   這裡負責區域对象的載入、清除、重設等工作。
 */
 
 // #pragma save_binary
@@ -14,15 +14,15 @@ inherit F_SAVE;
 inherit AREA_MAP;
 inherit AREA_BUILDING;
 
-// 區域載入的物件集
+// 區域載入的对象集
 // Location Of Loaded Objects
-// 所有區域載入之物件的座標另成一個集合，以方便快速查找
+// 所有區域載入之对象的座標另成一個集合，以方便快速查找
 string *LOLO = ({});
 
 ////////////////////////////////////////////////////////////
 // 一般設定、檢查、查詢
 ////////////////////////////////////////////////////////////
-// 傳回有載入物件的座標集
+// 傳回有載入对象的座標集
 string *query_LOLO() { return LOLO; }
 // 加入一個座標元素在LOLO集中
 void add_LOLO(string location)
@@ -40,13 +40,13 @@ void del_LOLO(string location)
 // 儲存區域資料的路徑位置
 string query_save_file() { return file_name(this_object()); }
 
-// 絕對接受物件移入區域物件
+// 絕對接受对象移入區域对象
 int receive_object(object ob, int from_inventory) { return 1; }
 
 // 區域檢查
 int is_area() { return 1; }
 
-// 設定某座標要載入的物件檔
+// 設定某座標要載入的对象檔
 int set_loads(int x, int y, string filename, int amount)
 {
     if (!check_scope(x, y))
@@ -62,7 +62,7 @@ int set_loads(int x, int y, string filename, int amount)
     return 1;
 }
 
-// 將某座標要載入的物件檔移除
+// 將某座標要載入的对象檔移除
 int del_loads(int x, int y)
 {
     if (!check_scope(x, y))
@@ -76,7 +76,7 @@ int del_loads(int x, int y)
     return 1;
 }
 
-// 將某座標的已載入物件移除
+// 將某座標的已載入对象移除
 int del_loaded(int x, int y)
 {
     if (!check_scope(x, y))
@@ -88,7 +88,7 @@ int del_loaded(int x, int y)
 }
 
 ////////////////////////////////////////////////////////////
-// 區域裡的物件載入、清除
+// 區域裡的对象載入、清除
 ////////////////////////////////////////////////////////////
 object make_inventory(string file, int x, int y)
 {
@@ -109,7 +109,7 @@ object make_inventory(string file, int x, int y)
     ob->set("area_info/x_axis_old", x);
     ob->set("area_info/y_axis_old", y);
 
-    // 將物件移到區域裡，並檢查是否有guard某方向
+    // 將对象移到區域裡，並檢查是否有guard某方向
     if (move_in(x, y, ob))
     {
         if ((exits = ob->query("guard_exit")))
@@ -170,7 +170,7 @@ void reset()
     // 清空LOO座標集
     LOO = ({});
 
-    // 物件載入集有資料, 遞迴延遲呼叫產生mob以免cost過多
+    // 对象載入集有資料, 遞迴延遲呼叫產生mob以免cost過多
     call_out("reset_callout", 1, 0);
     return;
 }
@@ -219,10 +219,10 @@ void remove()
                     cnt++;
                 }
             }
-            // 清空座標物件集，以免往後出錯
+            // 清空座標对象集，以免往後出錯
             map_delete(area[y][x], "objects");
 
-            // 清空座標已載入物件之資料，以免往後出錯
+            // 清空座標已載入对象之資料，以免往後出錯
             map_delete(area[y][x], "loaded");
         }
 
@@ -309,7 +309,7 @@ void setup()
                 area[i][j] = ([]);
         }
 
-        // 清空相關物件集
+        // 清空相關对象集
         LOO = ({});
         LOLO = ({});
 

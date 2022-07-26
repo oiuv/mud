@@ -120,7 +120,7 @@ void kill_enemy(object ob)
             if (!objectp(room))
             {
                 if (wizardp(this_object()))
-                    write(sprintf("读取物件错误：%s\n捕捉讯息：%s\n\n",
+                    write(sprintf("读取对象错误：%s\n捕捉讯息：%s\n\n",
                                   startroom, result));
                 continue;
             }

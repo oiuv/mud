@@ -11,7 +11,7 @@ int main(object me, string arg)
     if (!SECURITY_D->valid_grant(me, "(arch)"))
         return 0;
 
-    output = sprintf("%-45s %-20s %5s %s\n", "物件", "函数", "延迟时间", "参数");
+    output = sprintf("%-45s %-20s %5s %s\n", "对象", "函数", "延迟时间", "参数");
     if (arg && arg != "")
         info = filter_array(call_out_info(), (: $1[1] == $2 :),
                             arg);

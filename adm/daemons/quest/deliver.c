@@ -26,7 +26,7 @@ void create()
 
 void start_quest()
 {
-    object qob;  // 任务物件
+    object qob;  // 任务对象
     string name; // 要送的货物
     int amount;  // 送货的数量
 

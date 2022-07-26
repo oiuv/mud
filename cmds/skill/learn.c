@@ -3,8 +3,6 @@
 #include <skill.h>
 #include <ansi.h>
 
-inherit F_CLEAN_UP;
-
 int can_learn(object me, string skill);
 
 string *reject_msg = ({

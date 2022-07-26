@@ -15,7 +15,7 @@ mixed main(object me, string arg)
 
     if (!arg)
     {
-        write(sprintf("%s目前共使用 %s bytes 记忆体。\n",
+        write(sprintf("%s目前共使用 %s bytes 内存。\n",
                       LOCAL_MUD_NAME(), memory_expression(memory_info())));
         return 1;
     }
@@ -37,9 +37,9 @@ mixed main(object me, string arg)
     if (!obj)
         obj = find_object(resolve_path(me->query("cwd"), arg));
     if (!obj)
-        return notify_fail("没有这样物件....。\n");
+        return notify_fail("没有这样对象....。\n");
 
-    write(sprintf("%O 共使用 %s bytes 记忆体。\n", obj, memory_expression(memory_info(obj))));
+    write(sprintf("%O 共使用 %s bytes 内存。\n", obj, memory_expression(memory_info(obj))));
     return 1;
 }
 
@@ -58,10 +58,10 @@ string memory_expression(int m)
 int help(object me)
 {
     write(@HELP
-指令格式 : mem <物件之名称或档名>
+指令格式 : mem <对象之名称或档名>
 
-这个指令告诉你某个物件占用的记忆体数量。
-若没有指明物件, 则会显示目前游戏所占用的记忆体.
+这个指令告诉你某个对象占用的内存数量。
+若没有指明对象, 则会显示目前游戏所占用的内存.
 HELP );
     return 1;
 }

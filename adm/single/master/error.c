@@ -11,7 +11,7 @@ string standard_trace(mapping error, int caught)
     /* keep track of number of errors per object...if you're into that */
 
     res = (caught) ? "错误讯息被拦截：" : "";
-    res = sprintf("%s\n执行时段错误：%s\n程式：%s 第 %i 行\n物件：%s\n",
+    res = sprintf("%s\n执行时段错误：%s\n程序：%s 第 %i 行\n对象：%s\n",
                   res, error["error"],
                   error["program"], error["line"],
                   error["object"] ? file_name(error["object"]) : "0");
@@ -48,7 +48,7 @@ string standard_trace(mapping error, int caught)
 
     for (; i < s; i++)
     {
-        res = sprintf("%s呼叫来自：%s 的 %s() 第 %i 行，物件： %O\n",
+        res = sprintf("%s呼叫来自：%s 的 %s() 第 %i 行，对象： %O\n",
                   res,
                       error["trace"][i]["program"],
                       error["trace"][i]["function"],

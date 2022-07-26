@@ -28,9 +28,9 @@ int main(object me, string arg)
             seteuid(geteuid(this_player()));
 
         if (sscanf(arg, "%s->%s(%s)", objname, func, param) != 3)
-            return notify_fail("指令格式：call <物件>-><函数>( <参数>, ... )\n");
+            return notify_fail("指令格式：call <对象>-><函数>( <参数>, ... )\n");
     } else
-        return notify_fail("指令格式：call <物件>-><函数>( <参数>, ... )\n");
+        return notify_fail("指令格式：call <对象>-><函数>( <参数>, ... )\n");
 
     obj = present(objname, environment(me));
     if (! obj) obj = present(objname, me);
@@ -38,7 +38,7 @@ int main(object me, string arg)
     if (! obj || ! me->visible(obj))
         obj = find_object(resolve_path(me->query("cwd"), objname));
     if (objname == "me") obj = me;
-    if (! obj) return notify_fail("找不到指定的物件。\n");
+    if (! obj) return notify_fail("找不到指定的对象。\n");
 
     if (userp(obj) && wiz_level(me) >= wiz_level(obj))
     {
@@ -49,7 +49,7 @@ int main(object me, string arg)
                     geteuid(obj), func, param));
     }
     else if (! master()->valid_write( base_name(obj), me, "set" ))
-        return notify_fail("你没有直接呼叫这个物件的函数的权力。\n");
+        return notify_fail("你没有直接呼叫这个对象的函数的权力。\n");
 
     args = explode(param, ",");
     for (i = 0; i < sizeof(args); i++)
@@ -90,9 +90,9 @@ int main(object me, string arg)
 int help(object me)
 {
     write(@HELP
-指令格式 : call <物件>-><函数>(<参数>, ...... )
+指令格式 : call <对象>-><函数>(<参数>, ...... )
 
-呼叫<物件>里的<函数>并传入相关<参数>.
+呼叫<对象>里的<函数>并传入相关<参数>.
 
 相关命令：findusr
 

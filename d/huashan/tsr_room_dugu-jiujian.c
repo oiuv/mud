@@ -8,23 +8,23 @@ void init()
 {
        object me = this_player();
        object ob;
-       
+
        if (! objectp(ob = find_object(TSROB)))
        {
-             write(HIR "TSR 物件载入出错，请与本站 (admin) 联系。\n" NOR);
+             write(HIR "TSR 对象载入出错，请与本站 (admin) 联系。\n" NOR);
              return;
        }
 
        if (wizardp(me))
        {
-                
+
                 write(HIG "\n房间ID：" + this_object()->query("room_id") + "\n");
-                write(HIG "管理物件分配该房间的序列号：" + ob->query(this_object()->query("room_id")) +
+                write(HIG "管理对象分配该房间的序列号：" + ob->query(this_object()->query("room_id")) +
                           "\n"NOR);
                 write(HIG "正确开锁顺序：F、A、B、C、D、E\n" NOR);
-                
+
        }
-       
+
        add_action("do_move", "move");
 }
 
@@ -33,7 +33,7 @@ int do_move(string arg)
        object me = this_player();
        object ob;
        string room_id;
-       
+
        if (! arg || arg != "desk")
              return notify_fail("你想移动什么？\n");
 
@@ -41,9 +41,9 @@ int do_move(string arg)
              return notify_fail("等你忙完了再说吧！\n");
 
        ob = find_object(TSROB);
-       
+
        if ( ! objectp(ob))
-             return notify_fail("TSR 物件载入出错，请与巫师联系！\n");
+             return notify_fail("TSR 对象载入出错，请与巫师联系！\n");
 
        if (ob->query("lock/unlocked"))
              return notify_fail("机关已经被打开了，这样是多此一举。\n");

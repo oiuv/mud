@@ -192,7 +192,7 @@ int do_repair(string arg)
     mapping repair;
 
     if (! arg)
-        return notify_fail("你打算修理什么物件？\n");
+        return notify_fail("你打算修理什么对象？\n");
 
     me = this_player();
 

@@ -35,16 +35,16 @@ int main(object me, string arg)
         if (!obj)
             obj = find_object(resolve_path(me->query("cwd"), arg));
         if (!obj)
-            return notify_fail("没有这样物件....。\n");
+            return notify_fail("没有这样对象....。\n");
     }
 
-    write(sprintf("物件 [%O]\n-----------------------------------------------------\n", obj));
+    write(sprintf("对象 [%O]\n-----------------------------------------------------\n", obj));
     write("档案：\t\t" + base_name(obj) + ".c\n");
     write("领域：\t\t" + domain_file(base_name(obj)) + "\n");
     write("作者：\t\t" + author_file(base_name(obj)) + "\n");
     write("权限：\t\tuid = " + getuid(obj) + ", euid = " + geteuid(obj) + "\n");
     write("等级：\t\t" + wizhood(obj) + "\n");
-    write("使用记忆体：\t" + memory_info(obj) + "\n");
+    write("使用内存：\t" + memory_info(obj) + "\n");
     str = "";
     if (living(obj))
         str += "生物 ";
@@ -81,9 +81,9 @@ int main(object me, string arg)
 int help(object me)
 {
     write(@HELP
-指令格式 : info <物件之名称或档名>
+指令格式 : info <对象之名称或档名>
 
-利用此一指令可得知一些有关该物件的资讯。
+利用此一指令可得知一些有关该对象的资讯。
 HELP );
     return 1;
 }

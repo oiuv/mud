@@ -13,7 +13,7 @@ int main(object me, string arg)
         return 0;
 
     if (!arg)
-        return notify_fail("指令格式 : dest <物件之名称或档名>\n");
+        return notify_fail("指令格式 : dest <对象之名称或档名>\n");
 
     if (sscanf(arg, "%s %s", option, target) == 2 &&
         option == "-c")
@@ -36,7 +36,7 @@ int main(object me, string arg)
     if (!obj)
         obj = find_object(resolve_path(me->query("cwd"), target));
     if (!obj)
-        return notify_fail("没有这样物件....。\n");
+        return notify_fail("没有这样对象....。\n");
 
     seteuid(getuid());
 
@@ -109,7 +109,7 @@ int main(object me, string arg)
 
     destruct(obj);
     if (obj)
-        write("你无法将这个物件摧毁。\n");
+        write("你无法将这个对象摧毁。\n");
     else if (me)
         write("Ok.\n");
 
@@ -119,10 +119,10 @@ int main(object me, string arg)
 int help(object me)
 {
     write(@HELP
-指令格式 : dest [-c] <物件之名称或档名>
+指令格式 : dest [-c] <对象之名称或档名>
 
-利用此一指令可将一个物件 object 从记忆体中清除，若清除物件，
-则下一次参考到这个物件的时候会重新将它编译。
+利用此一指令可将一个对象 object 从内存中清除，若清除对象，
+则下一次参考到这个对象的时候会重新将它编译。
 
 如果使用了 -c 参数，则将清除该档案派生出的所有对象。
 

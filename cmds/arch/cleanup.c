@@ -21,7 +21,7 @@ int main(object me, string str)
         if (ob_list[i] && clonep(ob_list[i]) && !environment(ob_list[i]))
             destruct(ob_list[i]);
     ob_list -= ({0});
-    write(sprintf("清除 %d 个物件。\n", old_size - sizeof(ob_list)));
+    write(sprintf("清除 %d 个对象。\n", old_size - sizeof(ob_list)));
     return 1;
 }
 
@@ -30,8 +30,8 @@ int help(object me)
     write(@HELP
 指令格式：cleanup <档名>
 
-对所有指定档名的物件呼叫 clean_up，并且清除所有被复制出来的，但是又没有
-被放在另一个物件中的散失物件。
+对所有指定档名的对象呼叫 clean_up，并且清除所有被复制出来的，但是又没有
+被放在另一个对象中的散失对象。
 HELP );
     return 1;
 }
