@@ -33,9 +33,9 @@ LONG );
     ]));
     set("exits", ([
         "south" : __DIR__"zuixianlou",
-        "enter" : ([ "filename" : _DIR_AREA_"1/wild.c",
-                     "x_axis" : 55,
-                     "y_axis" : 5,
+        "enter" : ([ "filename" : _DIR_AREA_"world.c",
+                     "x_axis" : 75,
+                     "y_axis" : 69
                 ]),
     ]));
     setup();
@@ -43,12 +43,10 @@ LONG );
     replace_program(ROOM);
 }
 
-// int valid_leave(object me, string dir)
-// {
-//     object ob = this_player();
+int valid_leave(object me, string dir)
+{
+    if (dir == "enter" && !userp(me))
+        return notify_fail(HIW "你感觉前方有一种奇异的力场拦住了你的去路。\n" NOR);
 
-//     if (dir == "enter" && ob->query("id") != "mudren")
-//         return notify_fail(HIW "你感觉前方有一种奇异的力场拦住了你的去路。\n" NOR);
-
-//     return ::valid_leave(me, dir);
-// }
+    return ::valid_leave(me, dir);
+}
