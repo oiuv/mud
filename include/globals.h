@@ -120,7 +120,7 @@
 
 // Inheritable Standard Objects
 #define AREA            "/std/area"
-#define BUILD           "/std/build"
+#define AREA_BUILD      "/std/area/build"
 /* ---- */
 #define BOOK            "/inherit/item/book"
 #define BANK            "/inherit/room/bank"
