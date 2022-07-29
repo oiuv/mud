@@ -84,7 +84,7 @@ nomask int command_hook(string arg)
         ;
     else
     {
-        mixed err = parse_sentence(arg ? verb + " " + arg : verb, 1);
+        mixed err = parse_sentence(arg ? verb + " " + arg : verb, 0);
         if (intp(err))
         {
             switch (err)

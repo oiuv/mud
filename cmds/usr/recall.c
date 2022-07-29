@@ -14,7 +14,7 @@ int main(object me, string arg)
     if (env->query("maze"))
         return notify_fail(HIR "你目前不能使用recall指令😱\n" NOR);
 
-    debug(outdoors);
+    // debug(outdoors);
     switch (outdoors)
     {
     case "beijing":
