@@ -51,6 +51,16 @@ int main(object me, string arg)
         x = 74;
         y = 86;
         break;
+    case "gumu":
+    case "quanzhen":
+    case "zhongnan":
+        x = 58;
+        y = 68;
+        break;
+    case "guanwai":
+        x = 81;
+        y = 41;
+        break;
     case "hangzhou":
     case "jiaxing":
         x = 77;
@@ -106,6 +116,7 @@ int main(object me, string arg)
         y = 89;
         break;
     case "shaolin":
+    case "songshan":
         x = 66;
         y = 66;
         break;
@@ -120,6 +131,10 @@ int main(object me, string arg)
     case "wudang":
         x = 61;
         y = 68;
+        break;
+    case "wugong":
+        x = 56;
+        y = 66;
         break;
     case "xiangyang":
         x = 62;
