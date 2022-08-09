@@ -4,7 +4,6 @@ inherit CORE_SIMUL_EFUN_OB;
 
 #include <ansi.h>
 
-#include "simul_efun/area.c"
 #include "simul_efun/ansi.c"
 // #include "simul_efun/break_string.c"
 #include "simul_efun/file.c"
