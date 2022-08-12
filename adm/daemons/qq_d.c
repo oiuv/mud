@@ -48,7 +48,10 @@ protected void msg(mapping data)
 
 void create()
 {
-    ::create();
-    // Debug = 1;
-    verify();
+    if (env("MIRAI_HOST"))
+    {
+        ::create();
+        // Debug = 1;
+        verify();
+    }
 }
