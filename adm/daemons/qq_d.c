@@ -13,6 +13,11 @@ protected void msg(mapping data)
     mapping sender, messageChain;
     string type;
 
+    if (!data)
+    {
+        return;
+    }
+
     sender = data["sender"];
     type = data["type"];
 

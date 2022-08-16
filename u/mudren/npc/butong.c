@@ -86,8 +86,8 @@ void receive_report(object user, string verb, string arg)
 
 void iqa(object ob, string verb, string arg)
 {
-    command(verb + " 『系统升级，服务暂停』");
-    // "/adm/daemons/iqa_d"->main(this_object(), arg);
+    // command(verb + " 『系统升级，服务暂停』");
+    "/adm/daemons/iqa_d"->main(this_object(), arg);
 }
 
 // 接受玩家物品
