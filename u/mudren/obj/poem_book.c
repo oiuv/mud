@@ -1,3 +1,13 @@
+/**
+ * @file poem_book.c
+ * @author 雪风 (雪风@mud.ren)
+ * @brief 因诗词API已失效，此书仅为代码示例用
+ * @version 1.1
+ * @date 2022-08-16
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 #include <ansi.h>
 #include <socket.h>
 #include <socket_err.h>
@@ -70,7 +80,7 @@ int do_read(string arg)
 
 void write_data(int fd)
 {
-    socket_write(fd, "GET " + status[fd]["path"] + " HTTP/1.0\nHost: " + status[fd]["host"] + "\n\r\n\r");
+    socket_write(fd, "GET " + status[fd]["path"] + " HTTP/1.1\nHost: " + status[fd]["host"] + "\n\r\n\r");
 }
 
 void receive_data(int fd, mixed result)

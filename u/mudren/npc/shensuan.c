@@ -1,20 +1,15 @@
 #include <ansi.h>
-#include <socket.h>
-#include <socket_err.h>
 
 inherit NPC;
-
-nosave mapping status = ([]);
-nosave object receiver;
 
 void create()
 {
     seteuid(getuid());
-    set_name("神算子", ({"shen suan", "shen", "suan", "shensuan"}));
+    set_name("神算子", ({"shensuan zi", "shen", "suan", "shensuan", "zi"}));
     set("title", HIY "天机道人" NOR);
     set("gender", "男性");
     set("age", 50);
-    set("long", "一位邋邋遢遢的道士，自称可占卜(zhanbu)号码吉凶，每天仅算十卦。\n");
+    set("long", "一位邋邋遢遢的道士，自称可占卜(zhanbu)号码吉凶，每天仅算数十卦。\n");
     set("attitude", "heroism");
     set("class", "taoist");
 
@@ -83,85 +78,18 @@ void greeting(object ob)
 
 int do_zhanbu(string arg)
 {
-    int fd;
-    int ret;
-    int number;
-    string host = "api.avatardata.cn";
-    string addr = "121.42.196.237 80";
-    string key = "3d0d2c19aa164b75b544dc94e3deb0d2";
-    string path;
+    object me = this_player();
 
-    receiver = this_player();
-
-    if (number = atoi(arg))
+    if (pcre_match(arg, "^1[3-9][0-9]{9}$"))
     {
-        path = "/JiXiong/LookUp?key=" + key + "&keyword=" + number;
-        msg("info", "$ME拿出纸条写了一串数字给神算子。\n", receiver);
-        msg("info", "神算子接过纸条看了看，摆出龟甲为$ME占卜号码吉凶。\n", receiver);
+        __DIR__ "_api_luck"->query(me, to_int(arg));
+        msg("info", "$ME拿出纸条写了一串数字给神算子。\n", me);
+        msg("info", "神算子接过纸条看了看，摆出龟甲为$ME占卜号码吉凶。\n", me);
     }
     else
     {
-        msg("info", "神算子对$ME说到：贫道只占卜号码吉凶，请报数字给我，最好是和你生活息息相关的号码。\n", receiver);
-    }
-
-    fd = socket_create(STREAM, "receive_callback", "socket_shutdown");
-    status[fd] = ([]);
-    status[fd]["host"] = host;
-    status[fd]["path"] = path;
-    status[fd]["keyword"] = number;
-
-    ret = socket_connect(fd, addr, "receive_data", "write_data");
-    if (ret != EESUCCESS)
-    {
-        tell_object(receiver, "天机不清，神算子什么也没占卜出来。\n");
-        socket_close(fd);
+        msg("info", "神算子对$ME说到：贫道只占卜号码吉凶，请报和你生活息息相关的号码。\n", me);
     }
 
     return 1;
-}
-
-void write_data(int fd)
-{
-    socket_write(fd, "GET " + status[fd]["path"] + " HTTP/1.0\nHost: " + status[fd]["host"] + "\n\r\n\r");
-}
-
-void receive_data(int fd, mixed result)
-{
-    result = result[strsrch(result, "{")..];
-    // debug_message(sprintf("%d || %O", strlen(result), result));
-    result = json_decode(result);
-    if (result["error_code"])
-    {
-        tell_object(receiver, "也不知道是不是今日占卜过多，神算子默默的看着你不言不语。\n");
-    }
-    else
-    {
-        string str;
-        result = result["result"];
-        str = "号码 " + status[fd]["keyword"] + " 的占卜结果：\n";
-        str += "----------------------------------------\n";
-        str += HIC "运势：" + result["yunshi"] + NOR + "\n";
-        str += HIM "数理：" + result["shuli"] + NOR + "\n";
-        str += HIY "含义：" + result["hanyi"] + NOR + "\n";
-        str += HIW "简述：" + result["jianshu"] + NOR + "\n";
-        str += HIW "详解：" + result["xiangjie"] + NOR + "\n";
-        str += HIW "事业：" + result["jiye"] + NOR + "\n";
-        str += HIW "家庭：" + result["jiating"] + NOR + "\n";
-        str += HIW "健康：" + result["jiankang"] + NOR + "\n";
-        str += "----------------------------------------\n";
-        tell_object(receiver, str);
-    }
-}
-
-void receive_callback(int fd, mixed result, string addr)
-{
-    // if (stringp(result))
-    // {
-    //     debug_message(sprintf("receive_callback(%d, %O, %s)\n", fd, result, addr));
-    // }
-}
-
-void socket_shutdown(int fd)
-{
-    socket_close(fd);
 }

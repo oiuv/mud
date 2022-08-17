@@ -15,6 +15,7 @@ LONG );
     set("valid_startroom", 1);
     set("objects", ([
         __DIR__"obj/box" : 1,
+        "/u/mudren/npc/shensuan" : 1,
     ]));
 
     set("exits", ([
