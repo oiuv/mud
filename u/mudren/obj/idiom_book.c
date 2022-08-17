@@ -12,11 +12,15 @@ void create()
         set_default_object(__FILE__);
     else
     {
-        set("long", HIY "这是一本厚厚的成语词典，你可以用来查询任何成语的读音、解释和出处(指令：cha [关键词] 和 chengyu [成语])。\n" NOR);
+        set("long", HIW @LONG
+    这是一本厚厚的成语词典，你可以用来查询任何成语的读音、解释和出处。
+(指令：cha [关键词] 和 chengyu [成语])
+LONG NOR);
         set("unit", "本");
         set("no_get", "这是公共图书，你还是别拿走的好。\n");
         set("material", "paper");
     }
+    // HTTP模块功能初始化
     ::create();
 }
 
@@ -48,7 +52,7 @@ int do_read(string arg)
     Receiver = this_player();
     if (is_chinese(arg))
     {
-        msg("info", "$ME翻开成语词典开始查成语 " + arg + " 的释义。\n", Receiver);
+        msg("info", "$ME翻开成语词典开始查成语『" + arg + "』的释义。\n", Receiver);
         Http::get(url);
         return 1;
     }
@@ -87,17 +91,17 @@ private void response(mixed result)
         else if(mapp(result))
         {
             idiom = "----------------------------------------\n";
-            idiom += HIY "成语：" + result["name"] + NOR "\n";
-            idiom += HIW "读音：" + result["pronounce"] + NOR + "\n";
+            idiom += HIY "『成语』" + result["name"] + NOR "\n";
+            idiom += HIW "『读音』" + result["pronounce"] + NOR + "\n";
             idiom += "----------------------------------------\n";
-            idiom += HIC "解释：" + result["content"] + NOR + "\n";
+            idiom += HIC "『解释』" + sort_string(result["content"], 72, 8) + NOR;
             if (result["comefrom"])
             {
-                idiom += HIW "出处：" + result["comefrom"] + NOR + "\n";
+                idiom += HIW "『出处』" + sort_string(result["comefrom"], 72, 8) + NOR;
             }
             if (sizeof(result["example"]))
             {
-                idiom += HIW "示例：" + result["example"] + NOR + "\n";
+                idiom += WHT "『示例』" + sort_string(result["example"], 72, 8) + NOR;
             }
             if (arrayp(result["thesaurus"]) || arrayp(result["antonym"]))
             {

@@ -10,10 +10,15 @@ void create()
 的璀璨传说。
 LONG);
     set("item_desc", ([
-        "shelf" : "此处已经被衙门查封了。\n",
+        "shelf" : "书架上放着大量经典书籍，你可以随意阅读(如：read shi jing)。\n",
     ]));
     set("exits", ([
         "down" : __DIR__"shuyuan",
+    ]));
+    set("objects", ([
+        "/u/mudren/obj/dizigui_book" : 1,
+        "/u/mudren/obj/qianjiashi_book" : 1,
+        "/u/mudren/obj/shijing_book" : 1,
     ]));
     set("no_clean_up", 0);
     setup();
