@@ -41,6 +41,11 @@ void load_sites()
 int is_banned(string site)
 {
     string line;
+    // 避免query_ip_number(ob)返回0报错
+    if (!site)
+    {
+        return 0;
+    }
 
     site = replace_string(site, "*", "%*d");
 
