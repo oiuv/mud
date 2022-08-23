@@ -559,7 +559,7 @@ varargs int do_channel(object me, string verb, string arg, int emote)
     if (verb == "chat" || verb == "ic")
     {
         // 过滤子虚道人宝镜任务消息
-        if (strsrch(msg, "子虚道人") < 1)
+        if (env("MIRAI_HOST") && strsrch(msg, "子虚道人") < 1)
         {
             "/adm/daemons/qq_d"->send(remove_ansi(msg));
         }
