@@ -1165,3 +1165,13 @@ string query_info()
 
     return msg;
 }
+
+string set_encoding(string charset)
+{
+    return efun::set_encoding(charset);
+}
+
+string query_encoding()
+{
+    return efun::query_encoding();
+}
