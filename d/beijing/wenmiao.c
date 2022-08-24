@@ -10,6 +10,7 @@ void create()
 自己的江山社稷，当朝皇帝自然也不例外。不论何人到此，都毕恭毕敬地上
 香礼拜(pray)。
 LONG );
+    set("no_fight", 1);
     set("exits", ([
         "south" : __DIR__"dong_3",
     ]));
@@ -18,6 +19,7 @@ LONG );
         __DIR__"npc/shusheng1" : 2,
         __DIR__"npc/shusheng2" : 1,
         "/clone/npc/walker" : 1,
+        "/u/mudren/npc/LiSouci" : 1,
     ]));
 
     setup();

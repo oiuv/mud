@@ -206,6 +206,7 @@ void receive_message(string msgclass, string msg)
         case "warning":
             receive(HIY + msg + NOR);
             break;
+        case "error":
         case "danger":
             receive(HIR + msg + NOR);
             break;
