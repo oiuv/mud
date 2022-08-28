@@ -20,8 +20,6 @@ LONG NOR);
         set("no_get", "这是公共图书，你还是别拿走的好。\n");
         set("material", "paper");
     }
-    // HTTP模块功能初始化
-    ::create();
 }
 
 void init()

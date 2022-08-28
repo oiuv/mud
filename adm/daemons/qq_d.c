@@ -55,8 +55,7 @@ void create()
 {
     if (env("MIRAI_HOST"))
     {
-        ::create();
-        // Debug = 1; // 调试用，开启后会记录数据到驱动控制台debug.log
+        // Debug = 1;
         verify();
     }
 }
