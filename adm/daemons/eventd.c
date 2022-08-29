@@ -29,7 +29,7 @@ void create()
 
     event_list = ([]);
     collect_all_event();
-    set_heart_beat(5); // 每个小时心跳一次
+    set_heart_beat(60); // 每个小时心跳一次（现实1秒游戏1分钟）
 }
 
 int clean_up()
@@ -68,9 +68,7 @@ void heart_beat()
         map_delete(event_list, event);
 
         // 事件需要触发，调用传入参数
-        r = catch (event->trigger_event(el[4],
-                    lt[LT_YEAR], lt[LT_MON],
-                    lt[LT_MON], lt[LT_MDAY]));
+        r = catch (event->trigger_event(el[4]));
         if (r)
             log_file("static/event", sprintf("%s event:%s trigger occur an error.\n",
                                              log_time(), ks));
@@ -96,20 +94,10 @@ void collect_all_event()
         (EVENT_DIR + event)->create_event();
 }
 
-// 登记在某时刻启动事件(测试用)
-// int test(string st, int year, int month, int day, int hour, mixed para)
-// {
-//     if (undefinedp(event_list[st]))
-//         return notify_fail("not found..\n");
-
-//     event_list[st] = ({year, month, day, hour, para});
-// }
-
 // 登记在某时刻启动事件
 int at_when(int year, int month, int day, int hour, mixed para)
 {
     object pob;
-    //      int t;
 
     if (!objectp(pob = previous_object()))
         return 0;
@@ -124,6 +112,7 @@ int at_when(int year, int month, int day, int hour, mixed para)
 // 登记在一段时间以后启动事件
 // 如果传入的参数是负数，则标志了一个绝对的时间
 // 比如：Y = 0 month = 0 day = 1 hour = -5 表示明天5点钟
+// 需要特别注意月份范围为0~11的问题
 int at_after(int year, int month, int day, int hour, mixed para)
 {
     mixed *lt;
