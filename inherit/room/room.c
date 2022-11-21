@@ -12,8 +12,6 @@
 #define ENABLE_OPTIMIZE 1
 
 inherit CORE_ROOM;
-inherit F_DBASE;
-inherit F_CLEAN_UP;
 
 #if ENABLE_OPTIMIZE
 nosave string s_long;

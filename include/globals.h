@@ -204,6 +204,9 @@
 #define F_TREEMAP       "/feature/treemap.c"
 #define F_VENDOR        "/feature/dealer.c"
 #define F_UNIQUE        "/feature/unique.c"
+// mudcore继承
+#define _CLEAN_UP       F_CLEAN_UP
+#define _DBASE          F_DBASE
 
 // 玩家专属
 #define F_USER_GMCP     "/feature/user_gmcp"
