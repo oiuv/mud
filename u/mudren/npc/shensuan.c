@@ -80,7 +80,7 @@ int do_zhanbu(string arg)
 {
     object me = this_player();
 
-    if (pcre_match(arg, "^1[3-9][0-9]{9}$"))
+    if (arg && pcre_match(arg, "^1[3-9][0-9]{9}$"))
     {
         __DIR__ "_api_luck"->query(me, to_int(arg));
         msg("info", "$ME拿出纸条写了一串数字给神算子。\n", me);
