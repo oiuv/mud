@@ -33,7 +33,7 @@ private void do_bonus(object room)
         msg = HIR "只见太阳一点一点的升了起来，倏的眼前一亮，只见一道光晕出现在云际，\n"
                   "朦朦胧胧似乎有一个人影立在当中，令人叹羡不已。\n" NOR;
         msg += HIG "你冥冥中仿佛得到了佛主的指示，登时有茅塞顿开的感觉。\n" NOR;
-        //obs->add("potential", 1000);
+
         obs->add("potential", 5000);
 
         // 佛门弟子增加佛学技能
@@ -76,8 +76,8 @@ private void do_bonus(object room)
             break;
         }
         msg += HIG "你心头闪过一道灵光，似乎受到了某种启迪。\n" NOR;
-        //obs->improve_potential(10 + random(10));
-        obs->improve_potential(100 + random(100));
+
+        obs->improve_potential(1000 + random(100));
 
         message("vision", msg, obs);
 

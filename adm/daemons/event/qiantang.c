@@ -43,7 +43,7 @@ private void do_bonus(object room)
     msg = HIG "你望着汹涌的潮水，若有所悟，对武功又有了新的体会。\n" NOR;
     message("vision", msg, obs);
     obs->add("combat_exp", 5000 + random(5000));
-    obs->improve_potential(1000 + random(500));
+    obs->improve_potential(3000 + random(500));
     obs->improve_skill("force", 10000 + random(10000));
     MAP_D->record_rumor(obs, "钱塘江潮信", this_object());
 }
