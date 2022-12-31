@@ -7,7 +7,7 @@ void create() { seteuid(getuid()); }
 // 开始创建事件
 void create_event()
 {
-    // 每凌晨12点
+    // 明日凌晨1点以后
     EVENT_D->at_after(0, 0, 1, -1);
 }
 

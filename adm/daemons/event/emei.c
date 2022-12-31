@@ -9,7 +9,7 @@ void create() { seteuid(getuid()); }
 // 开始创建事件
 void create_event()
 {
-    // 明天5点钟日出
+    // 明天5点以后日出
     EVENT_D->at_after(0, 0, 1, -5);
 }
 

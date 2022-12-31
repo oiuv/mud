@@ -39,7 +39,7 @@
 
  * 5566 端口为GBK编码
  * 6666 端口为UTF-8编码
- * 8000 端口为WEBSOCKET访问
+ * 8888 端口为WEBSOCKET访问
 
 > 推荐使用[mudlet](https://github.com/Mudlet/Mudlet)客户端连接游戏，推荐使用UTF-8编码进行游戏。
 

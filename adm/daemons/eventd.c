@@ -37,7 +37,7 @@ int clean_up()
     return 1;
 }
 
-// 每个小时心跳一次，检查所有的事件
+// 每个小时心跳一次，检查所有的事件（5点的事件可能6点触发）
 void heart_beat()
 {
     mixed *lt;

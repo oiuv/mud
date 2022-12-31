@@ -7,7 +7,7 @@ void create() { seteuid(getuid()); }
 // 开始创建事件
 void create_event()
 {
-    // 明天5点钟瀑流最急
+    // 明天5点开始瀑流最急
     EVENT_D->at_after(0, 0, 1, -5);
 }
 
