@@ -29,6 +29,8 @@ void create()
 
     event_list = ([]);
 
+    // 因为在游戏启动时调用NATURE_D->query_localtime()返回游戏时间为空，不能马上收集事件
+    call_out_walltime("collect_all_event", 15);
     set_heart_beat(60); // 每个小时心跳一次（现实1秒游戏1分钟）
 }
 
@@ -46,13 +48,6 @@ void heart_beat()
     mixed *el;
     int tnow, tt;
     int r;
-
-    if (uptime() < 90)
-    {
-        // 因为在游戏启动时调用NATURE_D->query_localtime()返回游戏时间为空，不能马上收集事件，放在此处触发
-        collect_all_event();
-        return;
-    }
 
     lt = NATURE_D->query_localtime();
     tnow = lt[LT_YEAR] * 1000000 +
