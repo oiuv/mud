@@ -4,7 +4,8 @@
 
 炎黄MUD utf-8 版，推荐使用 FluffOS v2019 最新版驱动。
 
- - 游戏驱动下载地址：https://bbs.mud.ren/threads/4
+ - 游戏驱动下载：https://bbs.mud.ren/threads/4
+ - 线上游戏体验：https://mud.ren:8888/
 
 ## LIB说明
 
@@ -16,7 +17,10 @@
 
 游戏集成了[mudcore](https://github.com/mudcore/mudcore)框架，请使用以下指令下载源码：
 
+    # 从github安装（国外推荐）
     git clone --recurse-submodules https://github.com/oiuv/mud.git
+    # 从gitee 安装（国内推荐）
+    git clone --recurse-submodules https://gitee.com/mudren/mud.git
 
 如果你已经直接clone了项目，请使用以下指令更新子模块：
 
@@ -45,6 +49,4 @@
 
 注册ID为 `mudren` 的帐号为游戏管理员(admin)。
 
-线上体验请访问：https://mud.ren:8888/
-
-求助答疑请访问：https://bbs.mud.ren
+求助答疑请访问：https://bbs.mud.ren/nodes/6

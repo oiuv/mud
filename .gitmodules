@@ -1,6 +1,6 @@
 [submodule "www"]
 	path = www
-	url = https://github.com/MudRen/www.git
+	url = https://gitee.com/mudren/www.git
 [submodule "mudcore"]
 	path = mudcore
-	url = https://github.com/mudcore/mudcore.git
+	url = https://gitee.com/mudcore/mudcore.git
