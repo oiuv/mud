@@ -6,7 +6,7 @@
 #include <runtime_config.h>
 
 #define RELEASE_SERVER()        ((string) CONFIG_D->query_string("release server"))
-#define LOCAL_MUD_NAME()        ((string) get_config(__MUD_NAME__))
-#define LOCAL_PORT()            ((int) get_config(__MUD_PORT__))
+#define LOCAL_MUD_NAME()        MUD_NAME
+#define LOCAL_PORT()            __PORT__
 
 #endif

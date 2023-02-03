@@ -26,6 +26,8 @@
 
     git submodule update --init
 
+> 提示：为方便国内用户使用，[mudcore](https://github.com/mudcore/mudcore)和[www](https://github.com/mudren/www)子模块都使用了gitee镜像地址。
+
 ### 环境配置
 
 请把`data`目录中的`.env.example`复制为`.env`，并根据需要修改环境配置。
