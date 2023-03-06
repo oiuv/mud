@@ -15,7 +15,7 @@ void login()
 {
     string term_type = query_temp("terminal_type");
     // 自动设置客户端编码，不设置默认为UTF-8
-    if (!term_type || term_type == "vt100" || term_type == "mushclient")
+    if (term_type == "vt100" || term_type == "mushclient")
     {
         set_encoding("GBK");
     }
