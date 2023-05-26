@@ -96,18 +96,18 @@ int do_eat(string arg)
         message_vision(HIR "$N一口将无花果吞下了肚子，“咕噜噜”地放了个臭屁。\n" NOR, me);
         write(HIG "你的" + me->query_temp("wish_sub_tianfu1") + "的失败记录减少了一点。\n" NOR);
 
-        // if (me->query("gift/" + me->query_temp("wish_sub_tianfu") + "/all") > 10)
-        // {
-        //     me->set("gift/" + me->query_temp("wish_sub_tianfu") + "/all", 10);
-        // }
-        if (me->query("gift/gift_all") > 10)
+        if (me->query("gift/" + me->query_temp("wish_sub_tianfu") + "/all") > 10)
         {
-            me->set("gift/gift_all", 10);
+            me->set("gift/" + me->query_temp("wish_sub_tianfu") + "/all", 10);
         }
+        // if (me->query("gift/gift_all") > 10)
+        // {
+        //     me->set("gift/gift_all", 10);
+        // }
 
         // me->add("gift/" + me->query_temp("wish_sub_tianfu") + "/all", -1);
         me->add("gift/" + me->query_temp("wish_sub_tianfu") + "/fail", -1);
-        me->add("gift/gift_all", -1);
+        // me->add("gift/gift_all", -1);
         me->add("gift/gift_guo", 1);
 
         me->delete_temp("wish_sub_tianfu");
