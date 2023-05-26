@@ -129,7 +129,7 @@ int accept_hit(object ob)
 mixed hit_ob(object me, object ob, int damage_bouns)
 {
         ob->receive_wound("qi", 80 + random(50), me);
-        ob->set_temp("can_learn/houwang", 1);
+        ob->add_temp("can_learn/houwang", 1);
         return random(2) ? HIY "陡然间$N" HIY "招式一变，腾空跃起，双"
                            "爪竟似幻作两道金光，宛若星划长空，飕的抓向"
                            "$n" HIY "而去。\n" NOR:
@@ -145,7 +145,7 @@ void unconcious()
 
         if (objectp(ob = query_last_damage_from())
            && ! ob->query_skill("mizong-houquan", 1)
-           && ob->query_temp("can_learn/houwang", 1) > 30
+           && ob->query_temp("can_learn/houwang") > 30
            && ob->query("combat_exp") > 100000
            && ob->query_skill("cuff", 1) > 100
            && ob->query_skill("force", 1) > 100
