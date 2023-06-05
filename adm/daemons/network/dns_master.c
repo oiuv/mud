@@ -173,7 +173,7 @@ void send_udp(string host, int port, mixed msg)
         return;
     }
     // 为兼容FluffOS v2017，统一使用GBK或BIG5编码发送数据
-    if (strsrch(config("BIG5")||"", host) > 0)
+    if (strsrch(env("BIG5")||"", host) > 0)
     {
         msg = string_encode(msg, "BIG5");
     }

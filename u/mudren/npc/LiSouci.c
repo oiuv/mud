@@ -73,7 +73,7 @@ int do_puzzle(string arg)
     {
         if (!Content)
         {
-            exec(curl, ({"-s", url}));
+            external_cmd(curl, ({"-s", url}));
         }
         else
         {

@@ -278,7 +278,7 @@ varargs void say(string str, mixed exclude)
 
 void message(mixed arg, string message, mixed target, mixed exclude)
 {
-    efun::message(arg, message, target, exclude);
+    efun::message(arg, message, target, exclude||({}));
 }
 
 void message_system(string message)
