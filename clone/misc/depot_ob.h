@@ -22,7 +22,7 @@ nosave class store *all = ({});
 
 void create()
 {
-    object me = this_player();
+    // object me = this_player();
     set_name(HIW "如意" HIG "乾" HIY "坤" HIC "袋" NOR, ({ "ruyi dai", "ruyi", "dai" }));
     set_weight(100);
     set("long", HIC "    一个四周环绕着神秘光环的如意乾坤袋，其炼制手法堪称巧夺天工。据说可以将"
@@ -38,14 +38,14 @@ void create()
 
     ::restore();
     // 升级如意乾坤袋为背包系统
-    if(!me->query("storage_bag"))
-    {
-        me->set("storage_bag", 1);
-        store_variable("all", all, me);
-        me->save_depot();
-        tell_object(me , HIY "你的如意乾坤袋成功升级为个人背包，以后无需召唤，背包相关指令：" HIC "bag take store\n" NOR);
-        DBASE_D->clear_object(this_object());
-    }
+    // if(!me->query("storage_bag"))
+    // {
+    //     me->set("storage_bag", 1);
+    //     store_variable("all", all, me);
+    //     me->save_depot();
+    //     tell_object(me , HIY "你的如意乾坤袋成功升级为个人背包，以后无需召唤，背包相关指令：" HIC "bag take store\n" NOR);
+    //     DBASE_D->clear_object(this_object());
+    // }
 }
 /*
 string short()

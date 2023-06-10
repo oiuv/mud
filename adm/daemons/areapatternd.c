@@ -15,8 +15,8 @@ void scanPattern(string dir)
     files = get_dir(dir, -1);
 
     if( !sizeof(files) ) {
-        if( file_size(dir) == -2 ) write("ERROR: Area_Pattern目錄是空的。 (" + dir + ")\n");
-        else write("ERROR: 沒有這個目錄。 (" + dir + ")\n");
+        if( file_size(dir) == -2 ) write("WARNING: Area_Pattern目錄是空的。 (" + dir + ")\n");
+        else write("WARNING: 沒有這個目錄。 (" + dir + ")\n");
         return;
     }
 

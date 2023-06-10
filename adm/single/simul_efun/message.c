@@ -1,5 +1,10 @@
 #include <ansi.h>
 
+varargs void message(mixed type, string message, mixed target, mixed exclude)
+{
+    efun::message(type, message, target, exclude||({}));
+}
+
 string sort_msg(string input)
 {
     return SIMUL_EFUN_OB->sort_string(input, 60, 0);
@@ -274,11 +279,6 @@ varargs void say(string str, mixed exclude)
         message("say", str, environment(previous_object()), previous_object());
     else if (this_player())
         message("say", str, environment(this_player()), this_player());
-}
-
-void message(mixed arg, string message, mixed target, mixed exclude)
-{
-    efun::message(arg, message, target, exclude||({}));
 }
 
 void message_system(string message)
