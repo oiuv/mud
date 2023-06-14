@@ -859,8 +859,7 @@ void aux_warning(string warning)
 // This is for internal use
 private void log(string entry)
 {
-    // string temp;
-    // log_file(MY_LOG_FILE, sprintf("%s: %s\n", ctime(time()), entry));
+    log_file(MY_LOG_FILE, sprintf("%s: %s\n", ctime(time()), entry));
 }
 
 // Used to find the ip number of the host we are on
