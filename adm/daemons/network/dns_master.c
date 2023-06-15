@@ -197,13 +197,13 @@ void read_callback(int sock, mixed msg, string addr)
 
     if (bufferp(msg))
     {
+        // 默认GBK转UTF8
+        msg = string_decode(msg, "gbk");
         if (strsrch(upper_case(msg), "BIG5") > 0)
         {
+            // 重新轉碼
+            msg = string_encode(msg, "gbk");
             msg = string_decode(msg, "big5");
-        }
-        else
-        {
-            msg = string_decode(msg, "gbk");
         }
     }
     else
