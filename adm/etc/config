@@ -17,7 +17,7 @@ internet mud name : yhmud
 my_ip : 118.190.104.241
 
 # MUDOS
-mudos : FluffOS v2019
+mudos : FluffOS
 
 # 编码方式
 encoding : UTF-8 & GBK
@@ -33,9 +33,9 @@ encoding : UTF-8 & GBK
 
 # 和本系统相联系的MUD服务器（端口為PORTUDP）
 mudlist1 : 118.190.104.241 5567     #炎黄群侠传
-mudlist2 : 43.252.229.138 4004      #異想世界
-mudlist3 : 210.59.236.38 4004       #重生的世界
-# mudlist4 : 118.190.104.241 5556   #mud.ren
+mudlist2 : 210.59.236.38 4004       #重生的世界
+# mudlist3 : 118.190.104.241 5567   #mud.ren
+# mudlist4 : 118.190.104.241 5567   #mud.ren
 # mudlist5 : 118.190.104.241 5556   #mud.ren
 
 # 游戏服务区域

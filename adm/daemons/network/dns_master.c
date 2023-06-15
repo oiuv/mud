@@ -195,27 +195,34 @@ void read_callback(int sock, mixed msg, string addr)
     mapping args;
     int i;
 
-    if (msg == "hi")
+    if (bufferp(msg))
     {
-        socket_write(sock, "你好，你的通信地址为：" + addr, addr);
+        if (strsrch(upper_case(msg), "BIG5") > 0)
+        {
+            msg = string_decode(msg, "big5");
+        }
+        else
+        {
+            msg = string_decode(msg, "gbk");
+        }
     }
-    else if (msg == "mudlist")
+    else
     {
-        socket_write(sock, json_encode(query_muds()), addr);
+        if (msg == "ping")
+        {
+            socket_write(sock, "你好，你的通信地址为：" + addr, addr);
+            return;
+        }
+        else if (msg == "mudlist")
+        {
+            socket_write(sock, json_encode(query_muds()), addr);
+            return;
+        }
     }
+
     // get the address(remove port number)
     sscanf(addr, "%s %s", addr, port);
 
-    if (bufferp(msg))
-    {
-        msg = string_decode(msg, "gbk");
-        if (strsrch(upper_case(msg), "BIG5") > 0)
-        {
-            // 重新轉碼
-            msg = string_encode(msg, "gbk");
-            msg = string_decode(msg, "big5");
-        }
-    }
 #ifdef DEBUG
     CHANNEL_D->do_channel(this_object(), "debug", sprintf("receive %s from %s", msg, addr + ":" + port));
 #endif
