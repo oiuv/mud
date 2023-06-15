@@ -67,8 +67,8 @@ int main(object me, string arg)
     //    Place mudlist into alphabetical format
     muds = sort_array(muds, 1);
 
-    output = WHT BBLU " Mud                 中文名称            国际网路位址     端口  人数 \n" NOR
-                      "---------------------------------------------------------------------\n";
+    output = WHT BBLU " Mud                           中文名称                 国际网路位址      端口   人数 \n" NOR
+                      "--------------------------------------------------------------------------------------\n";
 
     //      Count for users
     uc = 0;
@@ -107,7 +107,7 @@ int main(object me, string arg)
         if (stringp(mud_list[mudn]["ZONE"]))
             name += "(" + mud_list[mudn]["ZONE"] + ")";
 
-        output += sprintf(" %-20s%-20s%-17s%-6s%-5s" NOR + "\n",
+        output += sprintf(" %-30s%-25s%-18s%-7s%-5s" NOR + "\n",
                           upper_case(vis_mudn), name,
                           mud_list[mudn]["HOSTADDRESS"],
                           mud_list[mudn]["PORT"],
@@ -118,10 +118,10 @@ int main(object me, string arg)
         if (mud_list[mudn][DNS_NO_CONTACT] <= MAX_RETRYS)
             uc += atoi(mud_list[mudn]["USERS"]);
     }
-    output += "---------------------------------------------------------------------\n";
+    output += "--------------------------------------------------------------------------------------\n";
 
     if (!arg || arg == "sites")
-        output += "本泥潭共有 " CYN + uc + NOR " 位玩家在游戏中。（提示："YEL"mudlist all"NOR" 查看遊戲列表）\n";
+        output += "本游戏共有 " CYN + uc + NOR " 位玩家在线（提示：" YEL "mudlist all 或 mudlist2" NOR " 查看遊戲列表）\n";
 
     if (objectp(me))
         me->start_more(output);

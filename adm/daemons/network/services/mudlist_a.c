@@ -71,11 +71,11 @@ int process_list(string idx, mapping info)
     // already know about ourselves
     if (newm["NAME"] == Mud_name())
         return 0;
-
+    /*
     if (undefinedp(newm["MUDNAME"]) ||
         undefinedp(newm["USERS"]))
         return 0;
-    /*
+
     // if the sites is one of my subsites, I would receive
     // the information from mudlist, rather than wait for
     // the ping information from it.

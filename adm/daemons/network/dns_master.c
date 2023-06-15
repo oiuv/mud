@@ -206,18 +206,21 @@ void read_callback(int sock, mixed msg, string addr)
             msg = string_decode(msg, "big5");
         }
     }
-    else
+
+    if (msg == "ping")
     {
-        if (msg == "ping")
+        socket_write(sock, "你好，你的通信地址为：" + addr, addr);
+        return;
+    }
+    else if (msg == "mudlist")
+    {
+        string key;
+        mapping value;
+        foreach(key, value in query_muds())
         {
-            socket_write(sock, "你好，你的通信地址为：" + addr, addr);
-            return;
+            socket_write(sock, json_encode(value), addr);
         }
-        else if (msg == "mudlist")
-        {
-            socket_write(sock, json_encode(query_muds()), addr);
-            return;
-        }
+        return;
     }
 
     // get the address(remove port number)

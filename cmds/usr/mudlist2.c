@@ -2,49 +2,74 @@
 #include <ansi.h>
 inherit F_CLEAN_UP;
 
+#define MODE 2
+#define MUD_DNS "118.190.104.241 5567"
+
+nosave int Socket;
+nosave mixed *List = ({});
+
+void read_callback(int fd, mixed message, string addr)
+{
+    // debug(sprintf("fd = %d, addr = %s", fd, addr));
+    // debug(json_decode(message));
+    List += ({json_decode(message)});
+}
+
+private void socket_init()
+{
+    // 创建一个 efun socket 连接
+    Socket = socket_create(MODE, "read_callback");
+    // 如果不绑定端口，将使用随机端口连接服务器，但无法收到服务端返回的消息
+    socket_bind(Socket, 7890);
+    if (Socket < 0)
+    {
+        cecho("【Warning】socket_create error: " + socket_error(Socket));
+    }
+    else
+    {
+        int err;
+        // UDP 发送消息到服务器
+        err = socket_write(Socket, "mudlist", MUD_DNS);
+        if (err < 0)
+        {
+            cecho("【Warning】socket_write error: " + socket_error(err));
+            // socket_close(Socket);
+        }
+    }
+}
+
+void create()
+{
+    socket_init();
+}
+
+void reset( void )
+{
+    // debug("开始更新mudlist 🧡💛💚");
+    List = ({});
+    socket_write(Socket, "mudlist", MUD_DNS);
+}
+
 int main(object me, string arg)
 {
-    mapping mud_list;
-    mixed *muds;
     string output;
-    string name;
-    string mudn;
-    string vis_mudn;
-    int loop, size;
-    //    Obtain mapping containing mud data
-    mud_list = (mapping)INTERMUD_D->query_mudlist();
 
-    if (!mud_list)
-        return notify_fail("目前并没有跟网路上其他 Mud 取得联系。\n");
-    // debug_message(sprintf("%O", mud_list));
+    if (!sizeof(List))
+        return notify_fail("MUDLIST更新中，请稍后查看 💞\n");
 
-    //    Place mudlist into alphabetical format
-    muds = sort_array(keys(mud_list), 1);
-    // debug_message(sprintf("%O", muds));
-    output = WHT BBLU " MUDLIB                   MUD名称                  国际网路位址        端口\n" NOR
+    output = WHT BBLU " MUD名称                 MUD 地址                  在线人数    驱动·版本   \n" NOR
                       "---------------------------------------------------------------------------\n";
-
-    // Loop through mud list and store one by one
-    for (loop = 0, size = sizeof(muds); loop < size; loop++)
+    foreach(mapping mud in List)
     {
-        mudn = muds[loop];
-        if (undefinedp(mud_list[mudn]["USERS"]))
+        if (undefinedp(mud["USERS"]))
         {
             // continue;
-            mud_list[mudn]["USERS"] = "未知";
+            mud["USERS"] = "--";
         }
 
-        if (!stringp(name = mud_list[mudn]["NAME"]))
-            name = "未知名称";
-        vis_mudn = mud_list[mudn]["MUDLIB"];
-
-        if (stringp(mud_list[mudn]["ZONE"]))
-            name += "(" + mud_list[mudn]["ZONE"] + ")";
-
-        output += sprintf(" %-25s%-25s%-20s%-5s" NOR + "\n",
-                          vis_mudn, name,
-                          mud_list[mudn]["HOSTADDRESS"],
-                          mud_list[mudn]["PORT"]);
+        output += sprintf(" %-25s%-25s%-12s%-s" NOR + "\n",
+                          mud["MUDNAME"]||mud["NAME"], mud["HOSTADDRESS"]+":"+mud["PORT"],
+                          mud["USERS"],mud["DRIVER"]||mud["VERSION"]);
     }
     output += "---------------------------------------------------------------------------\n";
 
@@ -59,13 +84,9 @@ int main(object me, string arg)
 int help()
 {
     write(@HELP
-指令格式 : mudlist2 <MUD名字> | all | sites
+指令格式 : mudlist2
 
 这个指令让你列出目前跟这个 Mud 取得联系中的其他 Mud。
-
-使用 all 参数表示更新 mudlist。
-使用 sites 参数表示列出该 Mud 的所有分站。
-如果不是以上参数，则列出以 <MUD名字> 开头的站点。
 HELP );
     return 1;
 }
