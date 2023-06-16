@@ -61,7 +61,7 @@ int main(object me, string arg)
     if (!sizeof(List))
         return notify_fail("MUDLIST更新中，请稍后查看 💞\n");
 
-    output = WHT BBLU " MUD名称                 MUD 地址                  在线人数    驱动·版本   \n" NOR
+    output = WHT BBLU " MUD名称                  MUD地址                  在线人数    驱动·版本   \n" NOR
                       "---------------------------------------------------------------------------\n";
     foreach(mapping mud in List)
     {
@@ -73,7 +73,7 @@ int main(object me, string arg)
 
         output += sprintf(" %-25s%-25s%-12s%-s" NOR + "\n",
                           mud["MUDNAME"]||mud["NAME"], mud["HOSTADDRESS"]+":"+mud["PORT"],
-                          mud["USERS"],mud["DRIVER"]||mud["VERSION"]);
+                          mud["USERS"],mud["DRIVER"]||mud["VERSION"]||"--");
     }
     output += "---------------------------------------------------------------------------\n";
 
@@ -90,7 +90,7 @@ int help()
     write(@HELP
 指令格式 : mudlist2 [-U]
 
-这个指令让你列出目前跟这个 Mud 取得联系中的其他 Mud。
+这个指令让你列出目前跟炎黄 Mud 取得联系中的其他 Mud。
 HELP );
     return 1;
 }
