@@ -1,6 +1,5 @@
 // mudlist.c
 #include <ansi.h>
-inherit F_CLEAN_UP;
 
 #define MODE 2
 #define MUD_DNS "118.190.104.241 5567"
@@ -54,6 +53,11 @@ int main(object me, string arg)
 {
     string output;
 
+    if (arg == "-U")
+    {
+        reset();
+    }
+
     if (!sizeof(List))
         return notify_fail("MUDLIST更新中，请稍后查看 💞\n");
 
@@ -84,7 +88,7 @@ int main(object me, string arg)
 int help()
 {
     write(@HELP
-指令格式 : mudlist2
+指令格式 : mudlist2 [-U]
 
 这个指令让你列出目前跟这个 Mud 取得联系中的其他 Mud。
 HELP );

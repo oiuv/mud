@@ -209,6 +209,7 @@ void read_callback(int sock, mixed msg, string addr)
 
     if (msg == "ping")
     {
+        debug_message(msg + " from " + addr);
         socket_write(sock, "你好，你的通信地址为：" + addr, addr);
         return;
     }
@@ -216,6 +217,7 @@ void read_callback(int sock, mixed msg, string addr)
     {
         string key;
         mapping value;
+        debug_message(msg + " from " + addr);
         foreach(key, value in query_muds())
         {
             socket_write(sock, json_encode(value), addr);
