@@ -318,12 +318,12 @@ void send_shutdown()
 string start_message()
 {
     return sprintf("||NAME:%s||VERSION:%s||MUDNAME:%s||DRIVER:%s||USERS:%d"
-                   "||MUDLIB:%s||HOST:%s||PORT:%O||ENCODING:%s"
-                   "||PORTUDP:%d||TIME:%s||ZONE:%s||UPTIME:%d",
+                   "||MUDLIB:%s||HOST:%s||PORT:%O||ENCODING:%s||MUDGROUP:%s"
+                   "||PORTUDP:%d||TIME:%s||LOCATION:%s||UPTIME:%d",
                    Mud_name(), MUDLIB_VERSION, LOCAL_MUD_NAME(), MUD_DRIVER,
                    sizeof(filter_array(users(), (: !wizardp($1) || !$1->query("env/invisible") :))),
                    MUDLIB_NAME, query_host_name(),
-                   mud_port(), MUD_ENCODING,
+                   mud_port(), MUD_ENCODING,"Chinese MUD Group",
                    query_udp_port(), ctime(time()), CONFIG_D->query_string("zone"), uptime());
 }
 
@@ -926,7 +926,7 @@ void create()
             "PORTUDP":"" + query_udp_port(),
                "TIME":ctime(time()),
              "DRIVER":MUD_DRIVER,
-               "ZONE":CONFIG_D->query_string("zone"),
+           "LOCATION":CONFIG_D->query_string("zone"),
              "UPTIME":sprintf("%d", uptime()),
     ]);
     // debug_message(sprintf("%O", this_host));
