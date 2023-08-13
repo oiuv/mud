@@ -947,7 +947,7 @@ void create()
     if (stringp(MUDLIST_DNS5))
         list_nodes += ({MUDLIST_DNS5});
 
-    resolve("mud.ren", "resolve_callback");
+    resolve(query_host_name(), "resolve_callback");
 
     // initialise the udp socket, if successful start the database system
     if (startup_udp())

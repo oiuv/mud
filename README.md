@@ -26,7 +26,10 @@
 
     git submodule update --init
 
-> 提示：为方便国内用户使用，[mudcore](https://github.com/mudcore/mudcore)和[www](https://github.com/mudren/www)子模块都使用了gitee镜像地址。
+> 提示：国内用户[mudcore](https://github.com/mudcore/mudcore)和[www](https://github.com/mudren/www)子模块可使用gitee镜像地址
+
+- https://gitee.com/mudcore/mudcore.git
+- https://gitee.com/mudren/www.git
 
 ### 环境配置
 
@@ -34,9 +37,11 @@
 
 ### 启动服务
 
-使用以下方式启动游戏：
+使用以下指令启动游戏：
 
     driver config.ini
+
+> 推荐使用`run.sh`或`run.bat`脚本启动项目。
 
 如果是开发学习，使用以下方式之一开启调试模式：
 
