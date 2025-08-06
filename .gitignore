@@ -4,6 +4,7 @@
 cert*
 driver*
 fluffos*
+tintin*
 lpcc*
 mudos*
 swapfile*
@@ -12,3 +13,7 @@ temp
 version
 PROFILE
 config.json
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
