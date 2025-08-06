@@ -78,3 +78,35 @@ void destruct_env_of(object ob)
     tell_object(ob, "你所存在的空间被毁灭了。\n");
     ob->move(VOID_OB);
 }
+
+mapping get_mud_stats()
+{
+    return ([
+        /* 必需字段 (Required) */
+        // "NAME": "炎黄群侠传",           // MUD服务器名称(FluffOS自动提供)
+        // "PLAYERS": sprintf("%d", sizeof(users())),  // 当前在线玩家数量(FluffOS自动提供)
+        // "UPTIME": sprintf("%d", uptime()),          // 服务器启动时间戳(FluffOS自动提供)
+
+        /* 通用字段 (Generic) */
+        "HOSTNAME": "mud.ren",          // 服务器主机名
+        "PORT": "6666",                 // 主连接端口
+        "CODEBASE": "FluffOS v2019+",   // 代码库版本信息
+        "CONTACT": "admin@mud.ren",     // 管理员联系邮箱
+        "CREATED": "2010-01-01",        // MUD创建日期
+        "LANGUAGE": "Chinese",          // 主要使用语言
+        "LOCATION": "China",            // 服务器地理位置
+        "WEBSITE": "https://mud.ren",   // 官方网站地址
+
+        /* 分类字段 (Categorization) */
+        "FAMILY": "LPMud",              // MUD代码库家族
+        "GENRE": "武侠",                // 游戏题材类型
+        "GAMEPLAY": "Roleplaying",      // 主要游戏玩法
+        "STATUS": "Live",               // 服务器运行状态
+
+        /* 协议支持字段 (Protocols) */
+        "ANSI": "1",                    // 支持ANSI颜色代码
+        "UTF-8": "1",                   // 支持UTF-8编码
+        "XTERM_256_COLORS": "1",        // 支持XTERM 256色
+        "XTERM_TRUE_COLORS": "1"        // 支持XTERM真彩色
+    ]);
+}
