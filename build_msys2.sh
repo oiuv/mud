@@ -17,7 +17,8 @@ if [ ! -d "fluffos" ]; then
 fi
 
 # 进入 fluffos 目录并拉取最新代码
-cd fluffos && git checkout . && git pull
+cd fluffos
+git checkout . && git pull
 
 # 如果 build 目录已存在，则删除
 if [ -d "build" ]; then
@@ -30,7 +31,7 @@ mkdir build && cd build
 # 记录开始时间
 starttime=`date +'%Y-%m-%d %H:%M:%S'`
 
-# 编译 fluffos，使用多线程编译，开启 SQLite 数据库和默认数据库支持
+# 编译 fluffos，使用多线程编译，开启 SQLite 数据库和默认数据库支持 -DMARCH_NATIVE=OFF -DSTATIC=ON -DCMAKE_BUILD_TYPE=Release
 cmake -G "MSYS Makefiles" -DPACKAGE_DB_MYSQL="" -DPACKAGE_DB_SQLITE=2 -DPACKAGE_DB_DEFAULT_DB=2 .. && make -j$(nproc) install
 
 # 记录结束时间
