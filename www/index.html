@@ -456,6 +456,7 @@
                     terminalHeight: 24
                 };
                 this.gmcp = new GMCPHandler(this);
+                this.msp = new MSPHandler(this);
                 this.eventHandlers = {};
                 this.setupEventListeners();
             }
@@ -529,6 +530,16 @@
 
             // 处理子协商
             handleSubnegotiation(type, data) {
+                const typeName = {
+                    [TELNET.TERMINAL_TYPE]: 'TERMINAL_TYPE',
+                    [TELNET.NAWS]: 'NAWS',
+                    [TELNET.GMCP]: 'GMCP',
+                    [TELNET.MSP]: 'MSP'
+                }[type] || `TYPE_${type}`;
+
+                const text = new TextDecoder().decode(Uint8Array.from(data));
+                console.log(`📡 子协商 ${typeName}:`, text);
+
                 switch (type) {
                     case TELNET.TERMINAL_TYPE:
                         this.handleTerminalType(data);
@@ -539,6 +550,11 @@
                     case TELNET.GMCP:
                         this.gmcp.handleMessage(data);
                         break;
+                    case TELNET.MSP:
+                        this.msp.handleMessage(data);
+                        break;
+                    default:
+                        console.log('🤔 未处理的子协商类型:', typeName);
                 }
             }
 
@@ -716,6 +732,21 @@
             }
         }
 
+        // 最简MSP处理器 - 仅记录日志
+        class MSPHandler {
+            constructor(telnet) {
+                this.telnet = telnet;
+            }
+
+            handleMessage(data) {
+                // MSP数据由handleSubnegotiation统一处理
+            }
+
+            enable() {
+                console.log('MSP已启用');
+            }
+        }
+
         // 增强版MUD客户端
         class AdvancedMUDClient {
             constructor() {
@@ -884,11 +915,7 @@
             }
 
             handleGMCPMessage(data) {
-                // 在控制台记录GMCP数据，但不显示在终端界面上
-                console.log('GMCP消息:', data);
-
                 // 可以在这里添加GMCP数据的实际处理逻辑
-                // 例如更新状态栏、地图、技能面板等
                 this.processGMCPData(data);
             }
 
@@ -897,19 +924,13 @@
 
                 switch (data.module) {
                     case 'Char.Vitals':
-                        // 处理角色状态数据，可以更新状态栏
                         this.updateCharacterStatus(data.data);
                         break;
                     case 'Room.Info':
-                        // 处理房间信息，可以更新地图或房间显示
                         this.updateRoomInfo(data.data);
                         break;
                     case 'Client.GUI':
-                        // 处理客户端GUI配置
-                        console.log('收到客户端GUI配置:', data.data);
                         break;
-                    default:
-                        console.log(`未处理的GMCP模块: ${data.module}`, data.data);
                 }
             }
 
@@ -954,6 +975,7 @@
                 this.sendTelnetCommand(TELNET.DO, TELNET.NAWS);
                 this.sendTelnetCommand(TELNET.DO, TELNET.GMCP);
                 this.sendTelnetCommand(TELNET.DO, TELNET.SUPPRESS_GO_AHEAD);
+                this.sendTelnetCommand(TELNET.DO, TELNET.MSP); // 客户端请求MSP支持
 
                 // 发送窗口大小
                 this.sendWindowSize();
@@ -972,7 +994,6 @@
                     reader.readAsArrayBuffer(data);
                     return;
                 } else if (typeof data === 'string') {
-                    // 字符串数据直接处理
                     this.handleMessage(data);
                     return;
                 }
@@ -1113,6 +1134,14 @@
                     case TELNET.ECHO:
                         this.sendTelnetCommand(TELNET.DO, TELNET.ECHO);
                         break;
+                    case TELNET.MSP:
+                        // 服务器支持MSP，客户端确认
+                        this.sendTelnetCommand(TELNET.DO, TELNET.MSP);
+                        // 初始化MSP处理器
+                        if (this.telnet && this.telnet.msp) {
+                            this.telnet.msp.enable();
+                        }
+                        break;
                     default:
                         this.sendTelnetCommand(TELNET.DONT, option);
                 }
@@ -1134,6 +1163,10 @@
                         break;
                     case TELNET.GMCP:
                         this.handleGMCPData(data);
+                        break;
+                    case TELNET.MSP:
+                        const text = new TextDecoder().decode(Uint8Array.from(data));
+                        console.log('📡 子协商 MSP:', text);
                         break;
                 }
             }
@@ -1173,6 +1206,7 @@
                 this.sendWindowSize();
             }
 
+
             sendGMCP(module, data) {
                 const message = module + ' ' + JSON.stringify(data);
                 const bytes = new TextEncoder().encode(message);
@@ -1182,6 +1216,8 @@
             handleGMCPData(data) {
                 try {
                     const text = new TextDecoder().decode(Uint8Array.from(data));
+                    console.log('📡 子协商 GMCP:', text);
+
                     const spaceIndex = text.indexOf(' ');
                     const module = spaceIndex > -1 ? text.substring(0, spaceIndex) : text;
                     const jsonData = spaceIndex > -1 ? text.substring(spaceIndex + 1) : '';
@@ -1195,34 +1231,7 @@
                 }
             }
 
-            sendCommand(command) {
-                if (!this.connected) return;
 
-                if (!command) {
-                    command = '\n';
-                } else if (!command.endsWith('\n')) {
-                    command += '\n';
-                }
-
-                if (this.protocolType === 'telnet' || this.protocolType === 'binary') {
-                    // Telnet/Binary模式下需要转义IAC字符
-                    const encoder = new TextEncoder();
-                    const bytes = encoder.encode(command);
-                    const escaped = [];
-
-                    for (const byte of bytes) {
-                        if (byte === TELNET.IAC) {
-                            escaped.push(TELNET.IAC, TELNET.IAC);
-                        } else {
-                            escaped.push(byte);
-                        }
-                    }
-
-                    this.ws.send(Uint8Array.from(escaped));
-                } else {
-                    this.ws.send(command);
-                }
-            }
 
             handleMessage(data) {
                 if (data instanceof Blob) {
