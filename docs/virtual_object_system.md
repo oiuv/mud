@@ -347,56 +347,64 @@ private void setup_default_room(string area, string room_code)
 
 ### 4. 数据库访问接口 (`/adm/daemons/dbase_d.c`)
 
+基于CORE_DB的链式调用实现：
+
 ```lpc
+#include <DB.h>
+
 mapping query_room(string area, string room_code)
 {
-    string sql = sprintf(
-        "SELECT * FROM rooms WHERE area_code = '%s' AND room_code = '%s'",
-        area, room_code
-    );
-    mixed result = query(sql);
-    return sizeof(result) > 0 ? result[0] : 0;
+    mixed result = DB->table("rooms")
+        ->where("area_code", area)
+        ->where("room_code", room_code)
+        ->first();
+    
+    return result;
 }
 
-mapping query_exits(string area, string room_code)
+mixed query_exits(string area, string room_code)
 {
-    string sql = sprintf(
-        "SELECT direction, target_area, target_room FROM room_exits " +
-        "WHERE area_code = '%s' AND room_code = '%s'",
-        area, room_code
-    );
-    mixed result = query(sql);
-    
-    mapping exits = ([ ]);
-    foreach (mixed row in result) {
-        string target_path = sprintf("/d/%s/%s", row["target_area"], row["target_room"]);
-        exits[row["direction"]] = target_path;
-    }
-    
-    return exits;
+    return DB->table("room_exits")
+        ->where("area_code", area)
+        ->where("room_code", room_code)
+        ->get();
 }
 
 mixed query_room_objects(string area, string room_code)
 {
-    string sql = sprintf(
-        "SELECT ro.*, o.obj_type, o.obj_name " +
-        "FROM room_objects ro " +
-        "JOIN objects o ON ro.obj_area = o.area_code AND ro.obj_code = o.obj_code " +
-        "WHERE ro.area_code = '%s' AND ro.room_code = '%s'",
-        area, room_code
-    );
-    
-    return query(sql);
+    return DB->table("room_objects")
+        ->select("room_objects.*, objects.obj_type, objects.obj_name")
+        ->join("objects", "room_objects.obj_area = objects.area_code AND room_objects.obj_code = objects.obj_code")
+        ->where("room_objects.area_code", area)
+        ->where("room_objects.room_code", room_code)
+        ->get();
 }
 
 mapping query_object(string area, string obj_code)
 {
-    string sql = sprintf(
-        "SELECT * FROM objects WHERE area_code = '%s' AND obj_code = '%s'",
-        area, obj_code
-    );
-    mixed result = query(sql);
-    return sizeof(result) > 0 ? result[0] : 0;
+    mixed result = DB->table("objects")
+        ->where("area_code", area)
+        ->where("obj_code", obj_code)
+        ->first();
+    
+    return result;
+}
+
+// 批量查询优化
+mixed query_rooms_by_area(string area)
+{
+    return DB->table("rooms")
+        ->where("area_code", area)
+        ->orderBy("room_code")
+        ->get();
+}
+
+// 聚合查询示例
+int count_rooms_in_area(string area)
+{
+    return DB->table("rooms")
+        ->where("area_code", area)
+        ->count();
 }
 ```
 
