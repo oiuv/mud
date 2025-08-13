@@ -82,7 +82,7 @@ git submodule update --init
 
 # 执行内容：
 # 1. 安装MSYS2依赖
-# 2. 从gitee.com/mudren/fluffos克隆/构建FluffOS
+# 2. 从gitee.com/fluffos/fluffos克隆/构建FluffOS
 # 3. 编译SQLite支持
 # 4. 复制driver.exe到项目根目录
 ```
@@ -94,7 +94,7 @@ git submodule update --init
 
 # 执行内容：
 # 1. 安装apt依赖
-# 2. 从gitee.com/mudren/fluffos克隆/构建FluffOS
+# 2. 从gitee.com/fluffos/fluffos克隆/构建FluffOS
 # 3. 编译SQLite支持
 # 4. 安装驱动到/usr/local/games/
 ```

@@ -7,7 +7,7 @@ sudo apt install git bison build-essential autoconf automake cmake gcc g++ libje
 
 # 如果 fluffos 目录不存在，则从 gitee 克隆 fluffos 仓库
 if [ ! -d "fluffos" ]; then
-    git clone https://gitee.com/mudren/fluffos.git
+    git clone https://gitee.com/fluffos/fluffos.git
 fi
 
 # 进入 fluffos 目录并拉取最新代码
