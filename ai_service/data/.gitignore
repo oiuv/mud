@@ -10,3 +10,4 @@ memories.json
 # 其他生成数据
 *.tmp
 *.bak
+*db
