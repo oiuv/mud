@@ -5,6 +5,8 @@
 inherit NPC;
 inherit F_NOCLONE;
 
+int accept_talk(object me, string topic);
+
 nosave int money = 100000; // 黄金十两
 
 void create()
@@ -19,14 +21,11 @@ void create()
 －－－－－－－－－－－－－－－－－－－－－－－－－－－－
 这是炎黄老玩家周不通，他生得腰圆背厚，面阔口方，骨格不凡。
 因为坚持不懈的游戏，最终化身NPC，永久留在了游戏中。
-做为热心好玩家，化身NPC的他，也拥有了智能机器人小i的特殊
-能力，玩家可以在聊天时 @butong 和他对话，他上知天文地理，
-下知世间百态，还能做到很多神奇的事情。比如：
-    chat @butong 唐诗宋词
-    chat @butong 北京天气
-    chat @butong 成语接龙
-    chat @butong 心理测试
-    chat @butong 翻译test
+做为热心好玩家，化身NPC后，上知天文地理，下知世间百态，
+还能做到很多神奇的事情。比如：
+    talk butong 唐诗宋词
+    talk butong 成语接龙
+    talk butong 你的任何话题...
     ……
 缺钱的新玩家每天可以找他要『福利』，老玩家也可以捐钱给他
 用来帮助其他有需要的人。
@@ -69,6 +68,9 @@ LONG);
 
     // set("chat_chance", 5);
     // set("chat_msg", ({(: random_move :)}));
+    // AI配置
+    set("ai_npc_id", "zhou butong");
+    set("ai_topics", ({"炎黄MUD", "武侠", "江湖"}));
 
     setup();
     set("startroom", "/d/city/kedian");
@@ -86,8 +88,7 @@ void receive_report(object user, string verb, string arg)
 
 void iqa(object ob, string verb, string arg)
 {
-    // command(verb + " 『系统升级，服务暂停』");
-    "/adm/daemons/iqa_d"->main(this_object(), arg);
+    accept_talk(ob, arg);
 }
 
 // 接受玩家物品
@@ -181,4 +182,31 @@ int greeting(object ob)
         command("tell " + ob->query("id") + " 任务管理指令为quest2（help quest2）");
     }
 
+}
+
+// AI对话命令
+int accept_talk(object me, string topic) {
+    string player_id = me->query("id");
+    string player_name = me->name();
+
+    mapping context = ([
+        "time": NATURE_D->game_time(),
+        "location": environment(this_object())->query("short"),
+        "weather": NATURE_D->outdoor_room_description()
+    ]);
+
+    if (!topic || topic == "") {
+        topic = "你好";
+    }
+
+    // 发送AI请求到中心化守护程序
+    AI_CLIENT_D->send_chat_request(
+        query("ai_npc_id"),
+        player_id,
+        player_name,
+        topic,
+        context
+    );
+
+    return 1;
 }

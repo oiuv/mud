@@ -1,0 +1,12 @@
+# AI服务数据目录 - 不提交到仓库
+
+# 对话记录
+conversations/
+*.log
+
+# 记忆数据
+memories.json
+
+# 其他生成数据
+*.tmp
+*.bak

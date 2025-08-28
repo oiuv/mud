@@ -174,6 +174,56 @@ varargs void debug_log(string msg, mixed arg1, mixed arg2) {
 - `public`, `protected`, `private`, `nosave`
 - `this_object()`, `this_player()`, `new()`, `clone_object()`
 
+## 代码风格规范
+
+为了避免歧义，文档大量使用了「能愿动词」，对应的解释如下：
+
+- 必须 (MUST)：绝对，严格遵循，请照做，无条件遵守；
+- 一定不可 (MUST NOT)：禁令，严令禁止；
+- 应该 (SHOULD) ：强烈建议这样做，但是不强求；
+- 不该 (SHOULD NOT)：强烈不建议这样做，但是不强求；
+- 可以 (MAY) 和 可选 (OPTIONAL) ：选择性高一点，在这个文档内，此词语使用较少；
+
+      The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+      NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
+      "OPTIONAL" in this document are to be interpreted as described in
+      [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
+
+### 命名约定
+
+* 文件名 **应该** 使用大写开头的驼峰式命名（和JAVA类似，LPC文件名也是类名，所以建议按类名规范命名，但LPC中类的存在感很弱，只有在`Room::setup()`这样的地方用到类名，所以此命名约定为建议而不是强求）；
+* 常量所有字母都  **必须** 大写，单词间用下划线分隔；
+* 业务级函数（开发者自主实现的业务逻辑方法）名称 **必须** 符合 camelCase 式的小写开头驼峰命名规范，系统级函数（包括 efun、apply、核心框架函数）保持under_score命名风格；
+* 变量命名 **必须** 遵循以下规范，按作用域区分风格：
+  * **局部变量**（方法内部临时使用）：**必须** 使用 camelCase 小写开头驼峰命名，禁止使用单字母命名（短循环变量如 `i`、`j` 可例外）。
+    示例：`tempData`、`loopCount`、`userInput`
+  * **全局变量**（跨类/跨模块共享）：**必须** 使用“模块前缀（首字母大写）+ PascalCase”命名，通过首字母大写与局部/成员变量形成视觉区分，前缀明确归属模块。
+    示例：`SocketConnections`（Socket模块的全局连接集合）、`DnsCache`（DNS模块的全局缓存）、`HttpConfig`（HTTP模块的全局配置）
+  * 变量命名 **必须** 体现具体含义，避免模糊名称（如禁用 `data`、`info`，应使用 `recvData`、`userInfo`）。
+
+### LPC编码风格规范
+
+* 所有 LPC 文件 **必须** 以 `不带 BOM 的 UTF-8` 编码；
+* 所有 LPC 文件 **必须** 使用 Unix LF (linefeed) 作为行的结束符;
+* 所有 LPC 文件 **必须** 以一个空白行作为结束;
+* 代码 **必须** 使用 4 个空格符而不是「Tab 键」进行缩进。
+* 非空行后 **一定不可** 有多余的空格符。
+* 空行 **可以** 使得阅读代码更加方便以及有助于代码的分块。
+* 每行 **一定不可** 存在多于一条语句。
+* 每行的字符数 **应该** 软性保持在 80 个之内，理论上 **不该** 多于 120 个，但 **一定不可** 有硬性限制。
+* 方法的开始花括号（{） **必须** 写在函数声明后自成一行，结束花括号（}）也 **必须** 写在函数主体后自成一行。
+* 匿名函数的开始花括号 **必须** 写在声明的同一行，结束花括号 **必须** 紧跟主体结束的下一行。
+* 方法参数列表中，每个逗号后面 **必须** 要有一个空格，而逗号前面 **一定不可** 有空格。
+* 参数列表 **可以** 分列成多行，这样，包括第一个参数在内的每个参数都 **必须** 单独成行。
+* 拆分成多行的参数列表后，结束括号以及方法开始花括号 **必须** 写在同一行，中间用一个空格分隔。
+* 全局变量和方法 **必须** 添加访问修饰符（`private`、`protected` 以及 `public`），`nosave` 以及 `nomask` **必须** 声明在访问修饰符之前，而 `varargs` **必须** 声明在访问修饰符之后。
+* **不该** 使用下划线作为前缀，来区分属性或方法是 `protected` 或 `private`。
+* 控制结构的关键字后 **必须** 要有一个空格符，而调用方法或函数时则 **一定不可** 有。
+* 控制结构的开始左括号后和结束右括号前，都 **一定不可** 有空格符。
+* 控制结构的开始花括号（{） **必须** 写在声明后自成一行，结束花括号（}）也 **必须** 写在主体后自成一行。
+* 结构体主体 **必须** 要有一次缩进。
+
+
 ## 目录结构
 
 ### 核心目录
@@ -266,7 +316,7 @@ socktest udpclient
 socktest udpserver
 socktest info
 
-# 运行HTTP测试  
+# 运行HTTP测试
 httptest get https://httpbin.org/json
 httptest post https://httpbin.org/post
 httptest json
