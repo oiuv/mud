@@ -37,11 +37,11 @@ void create() {
 }
 
 // 发送对话请求
-varargs string send_chat_request(string npc_name, string player_id, string player_name,
+varargs string send_chat_request(string npc_id, string player_id, string player_name,
                                string message, mapping context) {
     mapping request = ([
         "type": "chat",
-        "npc_id": npc_name,
+        "npc_id": npc_id,
         "player_id": player_id,
         "player_name": player_name,
         "message": message,

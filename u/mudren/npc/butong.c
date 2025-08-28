@@ -70,7 +70,6 @@ LONG);
     // set("chat_msg", ({(: random_move :)}));
     // AI配置
     set("ai_npc_id", "zhou butong");
-    set("ai_topics", ({"炎黄MUD", "武侠", "江湖"}));
 
     setup();
     set("startroom", "/d/city/kedian");

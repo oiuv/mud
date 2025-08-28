@@ -3,9 +3,23 @@ import json
 import socket
 import threading
 import traceback
+import os
+import logging
 from typing import Dict, Any
 from src.memory_store import memory_store
 from src.npc_manager import npc_manager
+
+# 设置日志级别
+DEBUG = os.getenv('DEBUG', 'false').lower() == 'true'
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG if DEBUG else logging.WARNING)
+
+# 创建控制台处理器
+handler = logging.StreamHandler()
+handler.setLevel(logging.DEBUG if DEBUG else logging.WARNING)
+formatter = logging.Formatter('%(asctime)s - %(message)s', datefmt='%H:%M:%S')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 class UDPServer:
     def __init__(self, host='127.0.0.1', port=9999):
@@ -21,15 +35,16 @@ class UDPServer:
             self.server_socket.bind((self.host, self.port))
             self.running = True
 
-            print("AI NPC服务器启动成功!")
-            print(f"监听地址: {self.host}:{self.port}")
+            logger.info("AI NPC服务器启动成功!")
+            logger.info(f"监听地址: {self.host}:{self.port}")
 
             while self.running:
                 try:
                     data, addr = self.server_socket.recvfrom(2048)
                     if data:
                         message = data.decode('utf-8').strip()
-                        print(f"收到请求: {addr} -> {message}")
+                        if DEBUG:
+                            logger.debug(f"收到请求: {addr} -> {message}")
 
                         client_thread = threading.Thread(
                             target=self.handle_request,
@@ -40,18 +55,20 @@ class UDPServer:
 
                 except socket.error as e:
                     if self.running:
-                        print(f"UDP错误: {e}")
+                        logger.error(f"UDP错误: {e}")
 
         except Exception as e:
-            print(f"服务器启动失败: {e}")
+            logger.error(f"服务器启动失败: {e}")
             traceback.print_exc()
 
     def handle_request(self, message: str, addr):
         try:
             request = json.loads(message)
-            print(f"处理请求: {request}")
+            if DEBUG:
+                logger.debug(f"处理请求: {request}")
             response = self.process_request(request)
-            print(f"发送响应: {response}")
+            if DEBUG:
+                logger.debug(f"发送响应: {response}")
 
             response_json = json.dumps(response, ensure_ascii=False)
             self.server_socket.sendto(response_json.encode('utf-8'), addr)
@@ -145,4 +162,4 @@ class UDPServer:
         self.running = False
         if self.server_socket:
             self.server_socket.close()
-        print("AI服务器已停止")
+        logger.info("AI服务器已停止")

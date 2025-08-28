@@ -26,7 +26,6 @@ void create() {
 
     // AI配置
     set("ai_npc_id", "li bai");
-    set("ai_topics", ({"诗词", "美酒", "剑术", "人生", "江湖", "明月"}));
 
     setup();
     carry_object("/clone/weapon/changjian");

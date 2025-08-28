@@ -20,7 +20,7 @@ class NPCManager:
             self.config_file = config_file
         self.npc_configs = {}
         self.load_npc_configs()
-    
+
     def load_npc_configs(self):
         """加载NPC配置"""
         try:
@@ -30,11 +30,11 @@ class NPCManager:
         except Exception as e:
             print(f"加载NPC配置失败: {e}")
             self.npc_configs = {}
-    
+
     def get_npc_config(self, npc_name: str) -> Dict[str, Any]:
         """获取NPC配置"""
         return self.npc_configs.get(npc_name, {})
-    
+
     def generate_response(self, npc_name: str, player_name: str, message: str,
                          player_memory: Dict[str, Any], history: List[str],
                          context: Dict[str, Any]) -> str:
@@ -42,24 +42,31 @@ class NPCManager:
         npc_config = self.get_npc_config(npc_name)
         if not npc_config:
             return f"抱歉，我不认识 {npc_name}"
-        
+
         # 检查是否配置了API密钥
-        api_key = os.getenv("MOONSHOT_API_KEY")
+        api_key = os.getenv("OPENAI_API_KEY")
+        base_url = os.getenv("OPENAI_BASE_URL", "https://api.moonshot.cn/v1")
+        model = os.getenv("OPENAI_MODEL", "moonshot-v1-auto")
+
         if not api_key or api_key == "your-api-key":
             # 使用模拟回复
             return self.generate_mock_response(npc_config, player_memory, message)
-        
+
         try:
-            return self.generate_real_response(npc_config, player_memory, message, player_name, history, context)
+            return self.generate_real_response(npc_config, player_memory, message, player_name, history, context, api_key, base_url, model)
         except Exception as e:
             # 如果API调用失败，使用模拟回复
             print(f"API调用失败，使用模拟回复: {e}")
             return self.generate_mock_response(npc_config, player_memory, message)
-    
+
     def generate_real_response(self, npc_config: Dict[str, Any],
                              player_memory: Dict[str, Any], message: str,
-                             player_name: str, history: List[str], context: Dict[str, Any]) -> str:
+                             player_name: str, history: List[str], context: Dict[str, Any],
+                             api_key: str, base_url: str, model: str) -> str:
         """集成Moonshot AI生成真实回复"""
+
+        # 构建知识库字符串
+        knowledge_base = "\n".join("• " + item for item in npc_config.get('knowledge_base', []))
         
         # 构建系统提示
         system_prompt = f"""你是{npc_config['name']}，{npc_config['title']}，{npc_config['role']}。
@@ -74,6 +81,12 @@ class NPCManager:
 - 说话风格：{npc_config['speech_style']}
 - 擅长话题：{', '.join(npc_config['topics'])}
 - 初次见面：{npc_config['greeting']}
+- 喜好礼物：{', '.join(npc_config.get('relationship_tips', {}).get('gifts', []))}
+- 喜欢话题：{', '.join(npc_config.get('relationship_tips', {}).get('topics', []))}
+- 忌讳话题：{', '.join(npc_config.get('relationship_tips', {}).get('taboos', []))}
+
+游戏知识库：
+{knowledge_base}
 
 当前情境：
 - 时间：{context.get('time', '未知')}
@@ -91,11 +104,21 @@ class NPCManager:
 1. 保持{npc_config['name']}的身份、{npc_config['role']}地位和说话风格
 2. 回复简洁，不超过100字
 3. 使用古雅的中文表达
-4. 记住这是炎黄群侠传游戏世界"""
+4. 基于知识库提供准确的游戏指导
+5. 使用以下MUD游戏专用ANSI颜色规范：
+   - 任务：\033[1;31m红色\033[0m 如 \033[1;31m送信任务\033[0m
+   - 门派：\033[1;32m绿色\033[0m 如 \033[1;32m少林\033[0m
+   - 物品：\033[1;33m黄色\033[0m 如 \033[1;33m银两\033[0m
+   - 属性：\033[1;34m蓝色\033[0m 如 \033[1;34m内力\033[0m
+   - 武功：\033[1;35m紫色\033[0m 如 \033[1;35m降龙十八掌\033[0m
+   - 地点：\033[1;35m紫色\033[0m 如 \033[1;35m扬州\033[0m
+   - 指令：\033[1;36m青色\033[0m 如 \033[1;36mhelp\033[0m
+   - 提示：\033[1;37m白色\033[0m 如 \033[1;37m重要提示\033[0m
+6. 记住这是炎黄群侠传游戏世界"""
 
         # 构建消息
         messages = [{"role": "system", "content": system_prompt}]
-        
+
         # 添加历史对话 - 使用所有历史记录
         for line in history:
             line = line.strip()
@@ -111,34 +134,34 @@ class NPCManager:
                 if len(parts) == 2:
                     content = parts[1].strip()
                     messages.append({"role": "assistant", "content": content})
-        
+
         # 添加当前消息
         messages.append({"role": "user", "content": message})
-        
+
         # 调用Moonshot AI
         try:
             from openai import OpenAI
-            
+
             client = OpenAI(
-                api_key=os.getenv("MOONSHOT_API_KEY", "your-api-key"),
-                base_url="http://127.0.0.1:9988/v1",
+                api_key=api_key,
+                base_url=base_url,
             )
-            
+
             completion = client.chat.completions.create(
-                model="moonshot-v1-auto",
+                model=model,
                 messages=messages,
                 temperature=0.7,
                 max_tokens=200,
                 timeout=10,  # 10秒超时
             )
             return completion.choices[0].message.content
-            
+
         except ImportError:
             return "请先安装openai库: pip install openai"
         except Exception as e:
             return f"AI调用失败: {str(e)[:100]}... 让我想想怎么回答你..."
-            
-    def generate_mock_response(self, npc_config: Dict[str, Any], 
+
+    def generate_mock_response(self, npc_config: Dict[str, Any],
                              player_memory: Dict[str, Any], message: str) -> str:
         """生成模拟回复（用于测试或API失败时）"""
         greetings = [
@@ -147,14 +170,14 @@ class NPCManager:
             f"{message}... 让我想想，{npc_config['name']}觉得此事颇为有趣。"
         ]
         return random.choice(greetings)
-    
+
     def update_player_memory(self, npc_name: str, player_id: str,
-                           player_name: str, message: str, response: str, 
+                           player_name: str, message: str, response: str,
                            player_memory: Dict[str, Any] = None) -> Dict[str, Any]:
         """根据对话更新玩家记忆，采用更精细的亲密度系统"""
         current = player_memory or {}
         familiarity = current.get('familiarity', 0)
-        
+
         # 动态增长：前期快后期慢
         if familiarity < 20:  # 0-19
             increment = 1
@@ -164,9 +187,9 @@ class NPCManager:
             increment = 0.2
         else:  # 100+
             increment = 0.1
-            
+
         familiarity = min(150, familiarity + increment)
-        
+
         # 更精细的关系等级
         if familiarity >= 120:
             relationship = "生死之交"  # 最高级
@@ -190,11 +213,11 @@ class NPCManager:
             relationship = "路人"
         else:
             relationship = "陌生人"
-            
+
         # 额外属性：信任度、好感度
         trust = min(100, current.get('trust', 0) + (increment * 2))
         favor = min(100, current.get('favor', 50) + (increment * 1.5))
-        
+
         return {
             "familiarity": round(familiarity, 1),
             "relationship": relationship,

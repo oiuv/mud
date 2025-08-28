@@ -18,7 +18,6 @@ void create() {
 
     // 必需：AI配置（必须与config/npc_roles.json中的键匹配）
     set("ai_npc_id", "template_npc_id");
-    set("ai_topics", ({"话题1", "话题2", "话题3"}));
     
     // 可选：角色属性
     set("gender", "男性");
