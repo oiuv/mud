@@ -78,24 +78,44 @@ class NPCManager:
 
         # 构建知识库分类
         person_knowledge = "\n".join("• " + item for item in npc_config.get('knowledge_base', []))
-
         game_knowledge = []
+
+        # 尝试使用千问语义搜索
         try:
+            from knowledge_qwen import qwen_knowledge
+            search_results = qwen_knowledge.semantic_search(message, limit=3, threshold=0.4)
+            if search_results:
+                for result in search_results:
+                    game_knowledge.append(f"{result['title']}\n{result['content']}")
+                logger.info(f"📚 千问语义查询: npc={npc_name}, query='{message}', results={len(search_results)}")
+                for result in search_results:
+                    logger.debug(f"   📖 结果: {result['title']} (相似度={result['score']:.3f})")
+            else:
+                logger.info(f"📚 千问语义查询无结果: npc={npc_name}, query='{message}'")
+        except ImportError:
+            # 千问系统不可用，使用基础搜索
+            from knowledge_basic import basic_knowledge
             search_results = basic_knowledge.search(message, limit=3)
             if search_results:
                 for result in search_results:
                     game_knowledge.append(f"{result['title']}\n{result['content']}")
-                logger.info(f"📚 知识库查询: npc={npc_name}, query='{message}', results={len(search_results)}")
-                for result in search_results:
-                    logger.debug(f"   📖 结果: {result['title']} (score={result['score']:.2f})")
+                logger.info(f"📚 基础查询(千问不可用): npc={npc_name}, query='{message}', results={len(search_results)}")
             else:
-                logger.debug(f"📚 知识库无结果: npc={npc_name}, query='{message}'")
+                logger.info(f"📚 基础查询无结果: npc={npc_name}, query='{message}'")
         except Exception as e:
             logger.error(f"❌ 知识库查询失败: {e}")
-            pass
+            # 异常时也使用基础搜索作为最终保障
+            from knowledge_basic import basic_knowledge
+            search_results = basic_knowledge.search(message, limit=3)
+            if search_results:
+                for result in search_results:
+                    game_knowledge.append(f"{result['title']}\n{result['content']}")
+                logger.info(f"📚 基础查询(异常回退): npc={npc_name}, query='{message}', results={len(search_results)}")
+            else:
+                logger.info(f"📚 基础查询无结果(异常回退): npc={npc_name}, query='{message}'")
         game_knowledge = "\n".join("• " + item for item in game_knowledge)
 
-        # 构建系统提示（Markdown格式优化）
+        # 构建系统提示（只有静态内容，用于缓存命中优化）
         system_prompt = f"""# 角色设定
 
 ## 基本信息
@@ -107,6 +127,9 @@ class NPCManager:
 - **性格特征**: {npc_config['personality']}
 - **背景故事**: {npc_config['background']}
 - **说话风格**: {npc_config['speech_style']}
+
+### 📚 人物专属知识
+{person_knowledge}
 
 ## 互动偏好
 | 类别 | 内容 |
@@ -137,30 +160,14 @@ class NPCManager:
 **中立**: 桃花岛、古墓派、玄冥谷、大轮寺、铁掌帮、红花会、绝情谷
 **世家**: 欧阳世家、慕容世家、关外胡家、段氏皇族、中原苗家
 
-## 当前环境
-| 要素 | 状态 |
-|------|------|
-| **时间** | {context.get('time', '未知')} |
-| **地点** | {context.get('location', '未知')} |
-| **天气** | {context.get('weather', '未知')} |
-
-## 玩家关系档案
-| 属性 | 数值 | 说明 |
-|------|------|------|
-| **姓名** | {player_name} | - |
-| **关系** | {player_memory.get('relationship', '陌生人')} | 当前关系等级 |
-| **熟悉度** | {player_memory.get('familiarity', 0)}/150 | 互动频率 |
-| **信任度** | {player_memory.get('trust', 0)}/100 | 信赖程度 |
-| **好感度** | {player_memory.get('favor', 50)}/100 | 情感倾向 |
-
 ## 🎯 回复规则
 
 ### 必须遵守
 1. **身份保持**: 始终以{npc_config['name']}的{npc_config['role']}角色身份回应
 2. **回复策略**:
-   - **有游戏通用知识库内容**: 必须详细完整回答，字数限制800字以内，**仅用对话内容，不包含动作描述或引号**
-   - **无游戏通用知识库内容**: 简洁回复不超过200字，保持{npc_config['speech_style']}风格，**仅用对话内容**
-   - **知识优先**: 基于真实知识库内容，避免虚假编造
+   - **有参考知识**: 当用户消息【游戏参考知识】部分有内容时，基于这些知识详细完整回答，字数限制800字以内，**仅用对话内容**
+   - **无参考知识**: 当用户消息【游戏参考知识】部分为空时，简洁回复不超过200字，保持{npc_config['speech_style']}风格，**仅用对话内容**
+   - **知识优先**: 优先使用【游戏参考知识】和【人物专属知识】部分的内容，避免编造虚假内容
 3. **语言风格**: 使用古雅中文，{npc_config['speech_style']}，避免现代词汇
 4. **角色认知**: 牢记你是炎黄群侠传武侠游戏世界的角色
 5. **输出格式**: **直接输出对话内容，不包含"{npc_config['name']}说道"或动作描述**
@@ -178,25 +185,26 @@ class NPCManager:
 | **提示** | 白色 | `\033[1;37m重要提示\033[0m` |
 
 **表达要求**:
-- **流畅叙述**: 用连续的自然语言段落表达，避免生硬列表
 - **角色化**: 始终用{npc_config['name']}的身份和语气讲述
+- **流畅叙述**: 用流畅的口语化叙述表达，避免生硬列表
+- **准确表述**: 准确使用参考知识中具体门派、人物、地点、技能名称等内容
 - **颜色运用**: 在关键门派、武功、指令等处可巧妙使用ANSI颜色增强可读性
+"""
+        # 构建包含动态资料的用户消息
+        enriched_message = f"""## 当前情境
+时间: {context.get('time', '未知')} | 地点: {context.get('location', '未知')} | 天气: {context.get('weather', '未知')}
 
-## 知识库
+## 玩家关系档案
+姓名: {player_name} | 关系: {player_memory.get('relationship', '陌生人')} | 熟悉度: {player_memory.get('familiarity', 0)}/150 | 信任度: {player_memory.get('trust', 0)}/100 | 好感度: {player_memory.get('favor', 50)}/100
 
-### 知识库使用规则
-- **充分使用**: 充分使用游戏通用知识部分提供的资料
-- **自然语言**: 用流畅的口语化叙述，可适时使用ANSI颜色突出重点
-- **角色化表达**: 用{npc_config['name']}的口吻和知识背景来讲述
-- **具体细节**: 引用知识库中的具体门派、人物、地点、技能名称等内容
-
-### 📚 人物专属知识
-{person_knowledge}
-
-### 🎮 游戏通用知识
+## 游戏参考知识
 {game_knowledge}
 
-"""
+---------
+
+## 玩家输入
+{message}"""
+
         # 构建消息
         messages = [{"role": "system", "content": system_prompt}]
 
@@ -216,8 +224,8 @@ class NPCManager:
                     content = parts[1].strip()
                     messages.append({"role": "assistant", "content": content})
 
-        # 添加当前消息
-        messages.append({"role": "user", "content": message})
+        # 添加包含动态资料的用户消息
+        messages.append({"role": "user", "content": enriched_message})
 
         # 调用Moonshot AI
         try:
