@@ -8,6 +8,7 @@ import logging
 from typing import Dict, Any
 from src.memory_store import memory_store
 from src.npc_manager import npc_manager
+from src.history_manager import history_manager
 
 # 设置日志级别
 DEBUG = os.getenv('DEBUG', 'false').lower() == 'true'
@@ -93,22 +94,27 @@ class UDPServer:
             return {"error": f"未知请求类型: {request_type}"}
 
     def handle_chat(self, request: Dict[str, Any]) -> Dict[str, Any]:
-        npc_name = request.get("npc_id")
+        npc_id = request.get("npc_id")
         player_id = request.get("player_id")
         player_name = request.get("player_name", player_id)
         message = request.get("message", "")
         context = request.get("context", {})
 
-        if not all([npc_name, player_id, message]):
+        if not all([npc_id, player_id, message]):
             return {"error": "缺少必要参数"}
 
-        # 获取历史记录（不包含当前消息）
-        history = memory_store.get_conversations(npc_name, player_id, limit=100)
-        player_memory = memory_store.get_player_memory(npc_name, player_id)
+        # 获取NPC配置以获取中文名
+        npc_config = npc_manager.get_npc_config(npc_id)
+        npc_name = npc_config.get('name', npc_id)
 
-        # 生成回复
-        ai_response = npc_manager.generate_response(
-            npc_name=npc_name,
+        # 获取历史记录（不包含当前消息）
+        history = history_manager.get_conversation_history(npc_id, player_id, limit=100)
+        # 获取NPC对该玩家的记忆（包含关系等级、亲密度等）
+        player_memory = memory_store.get_player_memory(npc_id, player_id)
+
+        # 生成回复并获取完整消息
+        enriched_message, ai_response = npc_manager.generate_response(
+            npc_id=npc_id,
             player_name=player_name,
             message=message,
             player_memory=player_memory,
@@ -117,46 +123,50 @@ class UDPServer:
         )
 
         # 保存当前对话和回复（在生成回复之后）
-        memory_store.save_conversation(npc_name, player_id, "玩家", message)
-        memory_store.save_conversation(npc_name, player_id, npc_name, ai_response)
+        history_manager.save_conversation(npc_id=npc_id, npc_name=npc_name, 
+                                        player_id=player_id, player_name=player_name,
+                                        role="user", content=enriched_message, message=message)
+        history_manager.save_conversation(npc_id=npc_id, npc_name=npc_name,
+                                        player_id=player_id, player_name=player_name,
+                                        role="assistant", content=ai_response)
 
         # 更新记忆
         updated_memory = npc_manager.update_player_memory(
-            npc_name=npc_name,
+            npc_id=npc_id,
             player_id=player_id,
             player_name=player_name,
             message=message,
             response=ai_response,
             player_memory=player_memory
         )
-        memory_store.update_player_memory(npc_name, player_id, player_name, updated_memory)
+        memory_store.update_player_memory(npc_id, player_id, player_name, updated_memory)
 
         return {
             "type": "chat",
             "response": ai_response,
-            "npc_id": npc_name,
+            "npc_id": npc_id,
             "player_id": player_id
         }
 
     def handle_memory(self, request: Dict[str, Any]) -> Dict[str, Any]:
-        npc_name = request.get("npc_id")
+        npc_id = request.get("npc_id")
         player_id = request.get("player_id")
 
-        memory = memory_store.get_player_memory(npc_name, player_id)
-        conversations = memory_store.get_conversations(npc_name, player_id, limit=5)
+        memory = memory_store.get_player_memory(npc_id, player_id)
+        conversations = history_manager.get_conversation_history(npc_id, player_id, limit=5)
 
         return {
             "type": "memory",
             "memory": memory,
             "recent_conversations": conversations,
-            "npc_id": npc_name,
+            "npc_id": npc_id,
             "player_id": player_id
         }
 
     def handle_config(self, request: Dict[str, Any]) -> Dict[str, Any]:
-        npc_name = request.get("npc_id")
-        npc_config = npc_manager.get_npc_config(npc_name)
-        return {"type": "config", "config": npc_config, "npc_id": npc_name}
+        npc_id = request.get("npc_id")
+        npc_config = npc_manager.get_npc_config(npc_id)
+        return {"type": "config", "config": npc_config, "npc_id": npc_id}
 
     def stop(self):
         self.running = False

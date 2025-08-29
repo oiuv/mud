@@ -1,5 +1,18 @@
 # AI NPC集成指南
 
+## 系统文件说明
+
+### 核心文件功能
+- **udp_server.py** - 网络网关：接收游戏客户端请求，返回AI回复
+- **npc_manager.py** - AI大脑：加载配置、生成回复、管理记忆
+- **memory_store.py** - 长期记忆：存储NPC对玩家的关系数据
+- **history_manager.py** - 对话记录：永久保存所有聊天记录，查询时返回最近指定数量作为上下文
+- **knowledge_qwen.py** - 语义搜索：向量知识检索（千问）
+- **knowledge_basic.py** - 关键词搜索：基础文本匹配回退方案
+
+### 数据流向
+游戏客户端 → udp_server.py → npc_manager.py → [记忆+历史+知识库] → 大模型 → 回复
+
 ## 快速创建新的AI NPC
 
 ### 1. 配置NPC角色
@@ -167,6 +180,31 @@ python scripts/setup_qwen.py
 ```bash
 python main.py          # 正常模式
 python main.py -d       # 调试模式（显示详细日志）
+```
+
+## 长期记忆优化（未来规划）
+
+### 当前限制
+- **memory_store.py** 仅存储关系数值（亲密度、信任度等）
+- **history_manager.py** 仅提供最近100条对话作为上下文
+- **盲区**：第101条之前的对话AI完全无法回忆，尽管数据永久存在
+
+### 改进方案
+memory_store.py可扩展存储：
+1. **对话摘要** - 每10次对话自动生成关键信息摘要
+2. **事件记忆** - 重要互动、礼物、任务提及等
+3. **性格画像** - 玩家行为模式、沟通风格
+4. **关系里程碑** - 初次见面、友谊升级、重大冲突
+
+实现方式：
+```python
+# 定期摘要生成示例
+conversation_summary = {
+    "topics_discussed": ["武功秘籍", "门派恩怨"],
+    "player_preferences": {"喜欢话题": ["剑法"], "忌讳话题": ["家事"]},
+    "important_events": ["赠送玉佩", "提及血海深仇"],
+    "relationship_notes": "玩家性格直爽，对邪派深恶痛绝"
+}
 ```
 
 ## 性能优化（可选）

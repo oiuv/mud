@@ -24,24 +24,6 @@ class MemoryStore:
             with open(self.memories_file, 'w', encoding='utf-8') as f:
                 f.write('{}')
     
-    def save_conversation(self, npc_name: str, player_id: str, speaker: str, message: str):
-        """保存对话记录"""
-        conversation_file = self.conversations_dir / f"{npc_name}_{player_id}.log"
-        
-        with open(conversation_file, "a", encoding="utf-8") as f:
-            timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
-            f.write(f"{timestamp} [{speaker}] {message}\n")
-    
-    def get_conversations(self, npc_name: str, player_id: str, limit: int = 100) -> List[str]:
-        """获取对话历史"""
-        conversation_file = self.conversations_dir / f"{npc_name}_{player_id}.log"
-        
-        if not conversation_file.exists():
-            return []
-        
-        with open(conversation_file, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-            return lines[-limit:] if limit else lines
     
     def get_player_memory(self, npc_name: str, player_id: str) -> Dict[str, Any]:
         """获取NPC对玩家的记忆"""

@@ -46,13 +46,13 @@ class NPCManager:
         """获取NPC配置"""
         return self.npc_configs.get(npc_name, {})
 
-    def generate_response(self, npc_name: str, player_name: str, message: str,
-                         player_memory: Dict[str, Any], history: List[str],
-                         context: Dict[str, Any]) -> str:
+    def generate_response(self, npc_id: str, player_name: str, message: str,
+                         player_memory: Dict[str, Any], history: List[Dict[str, str]],
+                         context: Dict[str, Any]) -> tuple[str, str]:
         """生成AI回复"""
-        npc_config = self.get_npc_config(npc_name)
+        npc_config = self.get_npc_config(npc_id)
         if not npc_config:
-            return f"抱歉，我不认识 {npc_name}"
+            return f"抱歉，我不认识 {npc_id}"
 
         # 检查是否配置了API密钥
         api_key = os.getenv("OPENAI_API_KEY")
@@ -64,16 +64,16 @@ class NPCManager:
             return self.generate_mock_response(npc_config, player_memory, message)
 
         try:
-            return self.generate_real_response(npc_config, npc_name, player_memory, message, player_name, history, context, api_key, base_url, model)
+            return self.generate_real_response(npc_config, npc_id, player_memory, message, player_name, history, context, api_key, base_url, model)
         except Exception as e:
             # 如果API调用失败，使用模拟回复
             print(f"API调用失败，使用模拟回复: {e}")
             return self.generate_mock_response(npc_config, player_memory, message)
 
-    def generate_real_response(self, npc_config: Dict[str, Any], npc_name: str,
+    def generate_real_response(self, npc_config: Dict[str, Any], npc_id: str,
                              player_memory: Dict[str, Any], message: str,
-                             player_name: str, history: List[str], context: Dict[str, Any],
-                             api_key: str, base_url: str, model: str) -> str:
+                             player_name: str, history: List[Dict[str, str]], context: Dict[str, Any],
+                             api_key: str, base_url: str, model: str) -> tuple[str, str]:
         """集成Moonshot AI生成真实回复"""
 
         # 构建知识库分类
@@ -87,11 +87,11 @@ class NPCManager:
             if search_results:
                 for result in search_results:
                     game_knowledge.append(f"{result['title']}\n{result['content']}")
-                logger.info(f"📚 千问语义查询: npc={npc_name}, query='{message}', results={len(search_results)}")
+                logger.info(f"📚 千问语义查询: npc={npc_config['name']}, query='{message}', results={len(search_results)}")
                 for result in search_results:
                     logger.debug(f"   📖 结果: {result['title']} (相似度={result['score']:.3f})")
             else:
-                logger.info(f"📚 千问语义查询无结果: npc={npc_name}, query='{message}'")
+                logger.info(f"📚 千问语义查询无结果: npc={npc_config['name']}, query='{message}'")
         except ImportError:
             # 千问系统不可用，使用基础搜索
             from knowledge_basic import basic_knowledge
@@ -99,9 +99,9 @@ class NPCManager:
             if search_results:
                 for result in search_results:
                     game_knowledge.append(f"{result['title']}\n{result['content']}")
-                logger.info(f"📚 基础查询(千问不可用): npc={npc_name}, query='{message}', results={len(search_results)}")
+                logger.info(f"📚 基础查询(千问不可用): npc={npc_config['name']}, query='{message}', results={len(search_results)}")
             else:
-                logger.info(f"📚 基础查询无结果: npc={npc_name}, query='{message}'")
+                logger.info(f"📚 基础查询无结果: npc={npc_config['name']}, query='{message}'")
         except Exception as e:
             logger.error(f"❌ 知识库查询失败: {e}")
             # 异常时也使用基础搜索作为最终保障
@@ -110,9 +110,9 @@ class NPCManager:
             if search_results:
                 for result in search_results:
                     game_knowledge.append(f"{result['title']}\n{result['content']}")
-                logger.info(f"📚 基础查询(异常回退): npc={npc_name}, query='{message}', results={len(search_results)}")
+                logger.info(f"📚 基础查询(异常回退): npc={npc_config['name']}, query='{message}', results={len(search_results)}")
             else:
-                logger.info(f"📚 基础查询无结果(异常回退): npc={npc_name}, query='{message}'")
+                logger.info(f"📚 基础查询无结果(异常回退): npc={npc_config['name']}, query='{message}'")
         game_knowledge = "\n".join("• " + item for item in game_knowledge)
 
         # 构建系统提示（只有静态内容，用于缓存命中优化）
@@ -127,6 +127,7 @@ class NPCManager:
 - **性格特征**: {npc_config['personality']}
 - **背景故事**: {npc_config['background']}
 - **说话风格**: {npc_config['speech_style']}
+- **初次问候**: {npc_config['greeting']}
 
 ### 📚 人物专属知识
 {person_knowledge}
@@ -207,22 +208,9 @@ class NPCManager:
 
         # 构建消息
         messages = [{"role": "system", "content": system_prompt}]
-
-        # 添加历史对话 - 使用所有历史记录
-        for line in history:
-            line = line.strip()
-            if "[玩家]" in line:
-                # 格式：时间 [玩家] 内容
-                parts = line.split(" [玩家] ", 1)
-                if len(parts) == 2:
-                    content = parts[1].strip()
-                    messages.append({"role": "user", "content": content})
-            elif "]" in line and "[" in line:
-                # 格式：时间 [NPC名字] 内容
-                parts = line.split("] ", 1)
-                if len(parts) == 2:
-                    content = parts[1].strip()
-                    messages.append({"role": "assistant", "content": content})
+        
+        # 添加历史对话 - 直接使用结构化历史
+        messages.extend(history)
 
         # 添加包含动态资料的用户消息
         messages.append({"role": "user", "content": enriched_message})
@@ -243,24 +231,26 @@ class NPCManager:
                 max_tokens=1024,  # 1024 tokens ≈ 750 Chinese characters - optimal balance
                 timeout=10,  # 10秒超时
             )
-            return completion.choices[0].message.content
+            return enriched_message, completion.choices[0].message.content
 
         except ImportError:
-            return "请先安装openai库: pip install openai"
+            return enriched_message, "请先安装openai库: pip install openai"
         except Exception as e:
-            return f"AI调用失败: {str(e)[:100]}... 让我想想怎么回答你..."
+            return enriched_message, f"AI调用失败: {str(e)[:100]}... 让我想想怎么回答你..."
 
     def generate_mock_response(self, npc_config: Dict[str, Any],
-                             player_memory: Dict[str, Any], message: str) -> str:
+                             player_memory: Dict[str, Any], message: str) -> tuple[str, str]:
         """生成模拟回复（用于测试或API失败时）"""
         greetings = [
             f"这位{player_memory.get('relationship', '朋友')}，{npc_config['greeting']}",
             f"原来是{player_memory.get('name', '朋友')}啊，今日天气正好，不如聊聊{npc_config['topics'][0]}？",
             f"{message}... 让我想想，{npc_config['name']}觉得此事颇为有趣。"
         ]
-        return random.choice(greetings)
+        # 构建模拟的enriched_message
+        enriched_message = f"## 玩家输入\n{message}"
+        return enriched_message, random.choice(greetings)
 
-    def update_player_memory(self, npc_name: str, player_id: str,
+    def update_player_memory(self, npc_id: str, player_id: str,
                            player_name: str, message: str, response: str,
                            player_memory: Dict[str, Any] = None) -> Dict[str, Any]:
         """根据对话更新玩家记忆，采用更精细的亲密度系统"""
