@@ -60,14 +60,53 @@ void create() {
 // 管理员可以使用：clone /clone/npc/你的npc名
 ```
 
+## 改造现有NPC为AI
+
+### 1. 添加AI配置
+在现有NPC的create()函数中添加：
+```lpc
+set("ai_npc_id", "zhou butong");  // 对应json中的键名
+```
+
+### 2. 添加AI对话入口
+在现有NPC中添加：
+```lpc
+int accept_talk(object me, string topic) {
+    string player_id = me->query("id");
+    string player_name = me->name();
+
+    mapping context = ([
+        "time": NATURE_D->game_time(),
+        "location": environment(this_object())->query("short"),
+        "weather": NATURE_D->outdoor_room_description()
+    ]);
+
+    if (!topic || topic == "") {
+        topic = "你好";
+    }
+
+    AI_CLIENT_D->send_chat_request(
+        query("ai_npc_id"),
+        player_id,
+        player_name,
+        topic,
+        context
+    );
+
+    return 1;
+}
+```
+
 ## 配置示例
+
+编辑文件：`ai_service/config/npc_roles.json`
 
 ### 1. 江湖侠客
 ```json
 {
-  "jianghu_xiake": {
-    "name": "游侠李天",
-    "title": "江湖游侠",
+  "li bai": {
+    "name": "李白",
+    "title": "诗剑双绝",
     "personality": "豪爽仗义，嫉恶如仇",
     "background": "行走江湖二十载，剑下斩尽不平事",
     "topics": ["武功", "江湖", "正义", "剑客"]
@@ -78,7 +117,7 @@ void create() {
 ### 2. 商人NPC
 ```json
 {
-  "merchant_wang": {
+  "wang zhanggui": {
     "name": "王掌柜",
     "title": "商会会长",
     "personality": "精明能干，善于经商",
@@ -88,6 +127,10 @@ void create() {
 }
 ```
 
+## 相关文档
+- **AI_CLIENT_D**：`/adm/daemons/ai_client_d.c` - 游戏内AI客户端守护程序，处理NPC与Python服务端的通信
+- **talk指令**：`/cmds/std/talk.c` - 玩家talk命令实现，用于与AI NPC对话
+
 ## 测试命令
 
 游戏内使用以下命令测试：
@@ -96,8 +139,39 @@ talk npc_id 测试消息
 ```
 
 ## 注意事项
-
 1. **ai_npc_id** 必须与json配置中的键完全一致
-2. **topics** 会影响NPC的对话风格和内容
-3. 重启AI服务后配置生效
-4. 每次对话都会更新亲密度和关系
+2. 重启AI服务后配置生效
+
+
+## 服务端使用
+
+### 1. 配置环境变量
+```bash
+cd ai_service
+echo "OPENAI_API_KEY=你的月之暗面API密钥" > .env
+echo "OPENAI_BASE_URL=https://api.moonshot.cn/v1" >> .env
+echo "OPENAI_MODEL=moonshot-v1-auto" >> .env
+echo "DASHSCOPE_API_KEY=你的千问API密钥" >> .env
+```
+
+### 2. 初始化知识库
+```bash
+# 基础关键词搜索
+python scripts/setup_basic.py
+
+# 千问向量搜索（推荐）
+python scripts/setup_qwen.py
+```
+
+### 3. 启动服务端
+```bash
+python main.py          # 正常模式
+python main.py -d       # 调试模式（显示详细日志）
+```
+
+## 性能优化（可选）
+高频查询场景可启用查询向量缓存，减少API调用次数。参考实现：
+```python
+# 在 QwenKnowledgeSystem 类中添加查询向量缓存
+self.query_vec_cache = {}  # 内存缓存，或替换为Redis
+```
