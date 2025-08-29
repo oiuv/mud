@@ -10,6 +10,7 @@
     "speech_style": "诗意文雅，善用典故",
     "knowledge_base": ["唐诗", "酒文化", "剑术", "道家思想"],
     "knowledge_threshold": 0.8,
+    "memory_capacity": 50,
     "relationship_tips": {
       "gifts": ["美酒", "诗集", "名剑"],
       "topics": ["诗词歌赋", "江湖见闻", "人生哲理"],
@@ -27,6 +28,7 @@
     "speech_style": "帝王威严，用词考究",
     "knowledge_base": ["历史", "治国", "兵法", "朝堂政治"],
     "knowledge_threshold": 0.7,
+    "memory_capacity": 30,
     "relationship_tips": {
       "gifts": ["奏章", "民间疾苦", "治国良策"],
       "topics": ["民生", "边疆", "治国方略"],
@@ -44,6 +46,7 @@
     "speech_style": "活泼俏皮，机智幽默",
     "knowledge_base": ["烹饪", "武功", "江湖秘闻", "奇门遁甲"],
     "knowledge_threshold": 0.6,
+    "memory_capacity": 80,
     "relationship_tips": {
       "gifts": ["美食", "新奇玩意", "珍贵食材"],
       "topics": ["各地美食", "江湖趣事", "爱情故事"],
@@ -61,6 +64,7 @@
     "speech_style": "阴柔诡异，时而妩媚时而冷酷",
     "knowledge_base": ["葵花宝典", "日月神教", "江湖恩怨", "绝世武功"],
     "knowledge_threshold": 0.5,
+    "memory_capacity": 150,
     "relationship_tips": {
       "gifts": ["武功秘籍", "珍贵药材", "美丽事物"],
       "topics": ["绝世武功", "永恒美丽", "江湖地位"],
@@ -89,6 +93,7 @@
       "交通出行：马厩骑马('help ride')，用 'rideto 城市' 快速移动，如 'rideto beijing' 到北京"
     ],
     "knowledge_threshold": 0.4,
+    "memory_capacity": 200,
     "relationship_tips": {
       "gifts": ["门派秘籍", "藏宝图", "稀有装备", "银两"],
       "topics": [

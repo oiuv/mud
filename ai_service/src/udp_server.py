@@ -107,8 +107,9 @@ class UDPServer:
         npc_config = npc_manager.get_npc_config(npc_id)
         npc_name = npc_config.get('name', npc_id)
 
-        # 获取历史记录（不包含当前消息）
-        history = history_manager.get_conversation_history(npc_id, player_id, limit=100)
+        # 获取记忆容量配置，默认100条
+        memory_capacity = npc_config.get('memory_capacity', 100)
+        history = history_manager.get_conversation_history(npc_id, player_id, limit=memory_capacity)
         # 获取NPC对该玩家的记忆（包含关系等级、亲密度等）
         player_memory = memory_store.get_player_memory(npc_id, player_id)
 
