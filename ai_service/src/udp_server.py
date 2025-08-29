@@ -123,7 +123,7 @@ class UDPServer:
         )
 
         # 保存当前对话和回复（在生成回复之后）
-        history_manager.save_conversation(npc_id=npc_id, npc_name=npc_name, 
+        history_manager.save_conversation(npc_id=npc_id, npc_name=npc_name,
                                         player_id=player_id, player_name=player_name,
                                         role="user", content=enriched_message, message=message)
         history_manager.save_conversation(npc_id=npc_id, npc_name=npc_name,

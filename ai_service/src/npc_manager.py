@@ -83,15 +83,16 @@ class NPCManager:
         # 尝试使用千问语义搜索
         try:
             from knowledge_qwen import qwen_knowledge
-            search_results = qwen_knowledge.semantic_search(message, limit=3, threshold=0.4)
+            threshold = npc_config.get('knowledge_threshold', 0.4)
+            search_results = qwen_knowledge.semantic_search(message, limit=3, threshold=threshold)
             if search_results:
                 for result in search_results:
                     game_knowledge.append(f"{result['title']}\n{result['content']}")
-                logger.info(f"📚 千问语义查询: npc={npc_config['name']}, query='{message}', results={len(search_results)}")
+                logger.info(f"📚 千问语义查询: npc={npc_config['name']}, query='{message}', threshold={threshold}, results={len(search_results)}")
                 for result in search_results:
                     logger.debug(f"   📖 结果: {result['title']} (相似度={result['score']:.3f})")
             else:
-                logger.info(f"📚 千问语义查询无结果: npc={npc_config['name']}, query='{message}'")
+                logger.info(f"📚 千问语义查询无结果: npc={npc_config['name']}, query='{message}', threshold={threshold}")
         except ImportError:
             # 千问系统不可用，使用基础搜索
             from knowledge_basic import basic_knowledge
@@ -208,7 +209,7 @@ class NPCManager:
 
         # 构建消息
         messages = [{"role": "system", "content": system_prompt}]
-        
+
         # 添加历史对话 - 直接使用结构化历史
         messages.extend(history)
 

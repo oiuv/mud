@@ -29,7 +29,8 @@
     "greeting": "初次见面问候语",
     "topics": ["话题1", "话题2", "话题3"],
     "speech_style": "说话风格",
-    "knowledge_base": ["知识领域1", "知识领域2"]
+    "knowledge_base": ["知识领域1", "知识领域2"],
+    "knowledge_threshold": 0.4  // 知识库匹配阈值，0-1之间，越高匹配越严格，0.9相当于禁用
   }
 }
 ```
