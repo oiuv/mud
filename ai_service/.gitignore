@@ -1,0 +1,23 @@
+# NPC配置 - 由游戏管理员自定义
+config/npc_roles.json
+
+# Python环境
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志
+*.log
+logs/

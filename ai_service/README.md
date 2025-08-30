@@ -47,7 +47,13 @@
     "topics": ["话题1", "话题2", "话题3"],
     "speech_style": "说话风格",
     "knowledge_base": ["知识领域1", "知识领域2"],
-    "knowledge_threshold": 0.4  // 知识库匹配阈值，0-1之间，越高匹配越严格，0.9相当于禁用
+    "knowledge_threshold": 0.4,  // 知识库匹配阈值，0-1之间，0=匹配所有，1=禁用匹配，0.5-0.7为推荐范围
+    "memory_capacity": 100,  // 记忆容量：0=禁用历史记忆，1-9=自动调整为10，≥10=使用指定值，推荐100-200
+    "relationship_tips": {
+      "gifts": ["门派秘籍", "稀有装备", "银两"],  // 赠送礼物提升关系
+      "topics": ["各门派特色", "武功搭配技巧"],  // 喜欢的话题
+      "taboos": ["询问外挂", "索要管理员权限"]  // 禁忌话题
+    }
   }
 }
 ```
@@ -140,7 +146,8 @@ int accept_talk(object me, string topic) {
     "title": "诗剑双绝",
     "personality": "豪爽仗义，嫉恶如仇",
     "background": "行走江湖二十载，剑下斩尽不平事",
-    "topics": ["武功", "江湖", "正义", "剑客"]
+    "topics": ["武功", "江湖", "正义", "剑客"],
+    "memory_capacity": 150  // 记忆容量：0=禁用历史记忆，1-9=自动调整为10，≥10=使用指定值
   }
 }
 ```
@@ -153,7 +160,8 @@ int accept_talk(object me, string topic) {
     "title": "商会会长",
     "personality": "精明能干，善于经商",
     "background": "经营百年老店，见多识广",
-    "topics": ["生意", "商品", "行情", "各地特产"]
+    "topics": ["生意", "商品", "行情", "各地特产"],
+    "memory_capacity": 80  // 商人NPC记忆较短，主要关注当前交易
   }
 }
 ```

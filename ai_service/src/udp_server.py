@@ -107,12 +107,17 @@ class UDPServer:
         npc_config = npc_manager.get_npc_config(npc_id)
         npc_name = npc_config.get('name', npc_id)
 
-        # 获取记忆容量配置，默认100条
+        # 获取记忆容量配置，默认100条，0表示禁用历史记忆，其他值最小10条
         memory_capacity = npc_config.get('memory_capacity', 100)
-        history = history_manager.get_conversation_history(npc_id, player_id, limit=memory_capacity)
+        if memory_capacity == 0:
+            history = []
+        else:
+            memory_capacity = max(10, memory_capacity)
+            history = history_manager.get_conversation_history(npc_id, player_id, limit=memory_capacity)
 
-        # 检查是否达到容量上限，自动触发摘要
-        if len(history) >= memory_capacity:
+        # 检查是否达到容量上限，自动触发摘要（仅当memory_capacity > 0时）
+        # 注意：此消息内容必须与history_manager.py中的摘要查询保持一致
+        if memory_capacity and len(history) >= memory_capacity:
             message = "【记忆回顾】我们聊过哪些内容呀？请详细总结我的提问和你的回答"
 
         # 获取NPC对该玩家的记忆（包含关系等级、亲密度等）

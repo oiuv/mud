@@ -70,6 +70,7 @@ class HistoryManager:
         cursor = conn.cursor()
 
         # 确定ID阈值：有摘要则用其ID，否则用0（匹配所有ID>0的记录）
+        # 注意：此消息内容必须与udp_server.py中的摘要触发消息保持一致
         cursor.execute('''
             SELECT id FROM conversations
             WHERE npc_id = ? AND player_id = ? AND message = '【记忆回顾】我们聊过哪些内容呀？请详细总结我的提问和你的回答'
