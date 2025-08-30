@@ -31,6 +31,10 @@ class QwenKnowledgeSystem:
             base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
         )
 
+        # 查询向量缓存（只缓存向量，不缓存完整结果）
+        self.vector_cache = {}
+        self.cache_stats = {"hits": 0, "misses": 0, "total": 0}
+
         self._init_db()
 
     def _init_db(self):
@@ -175,9 +179,24 @@ class QwenKnowledgeSystem:
         else:
             return '其他'
 
+    def get_cache_rate(self) -> float:
+        """获取缓存命中率"""
+        if self.cache_stats["total"] == 0:
+            return 0.0
+        return (self.cache_stats["hits"] / self.cache_stats["total"]) * 100
+
     def semantic_search(self, query: str, limit: int = 5, threshold: float = 0.4) -> List[Dict]:
-        """语义搜索 - 使用向量相似度"""
-        query_vec = self.get_embedding(query)
+        """语义搜索 - 使用向量相似度（缓存查询向量）"""
+        self.cache_stats["total"] += 1
+
+        # 检查向量缓存
+        if query in self.vector_cache:
+            self.cache_stats["hits"] += 1
+            query_vec = self.vector_cache[query]
+        else:
+            self.cache_stats["misses"] += 1
+            query_vec = self.get_embedding(query)
+            self.vector_cache[query] = query_vec
 
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
@@ -289,7 +308,13 @@ class QwenKnowledgeSystem:
             "total_categories": len(categories),
             "category_distribution": categories,
             "model": self.model_name,
-            "dimensions": self.dimensions
+            "dimensions": self.dimensions,
+            "cache_stats": {
+                "hits": self.cache_stats["hits"],
+                "misses": self.cache_stats["misses"],
+                "total": self.cache_stats["total"],
+                "hit_rate_percent": round(self.get_cache_rate(), 2)
+            }
         }
 
     def update_vectors(self):
