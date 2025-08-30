@@ -110,6 +110,11 @@ class UDPServer:
         # 获取记忆容量配置，默认100条
         memory_capacity = npc_config.get('memory_capacity', 100)
         history = history_manager.get_conversation_history(npc_id, player_id, limit=memory_capacity)
+
+        # 检查是否达到容量上限，自动触发摘要
+        if len(history) >= memory_capacity:
+            message = "【记忆回顾】我们聊过哪些内容呀？请详细总结我的提问和你的回答"
+
         # 获取NPC对该玩家的记忆（包含关系等级、亲密度等）
         player_memory = memory_store.get_player_memory(npc_id, player_id)
 

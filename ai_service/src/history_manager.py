@@ -65,16 +65,26 @@ class HistoryManager:
         conn.close()
 
     def get_conversation_history(self, npc_id: str, player_id: str, limit: int = 10) -> List[Dict[str, Any]]:
-        """获取对话历史，直接用于OpenAI API"""
+        """获取对话历史，从最新摘要开始"""
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
 
+        # 确定ID阈值：有摘要则用其ID，否则用0（匹配所有ID>0的记录）
+        cursor.execute('''
+            SELECT id FROM conversations
+            WHERE npc_id = ? AND player_id = ? AND message = '【记忆回顾】我们聊过哪些内容呀？请详细总结我的提问和你的回答'
+            ORDER BY timestamp DESC LIMIT 1
+        ''', (npc_id, player_id))
+
+        summary_id = cursor.fetchone()
+        id_threshold = summary_id[0] if summary_id else 0
+
+        # 统一执行单条SQL查询
         cursor.execute('''
             SELECT role, content FROM conversations
-            WHERE npc_id = ? AND player_id = ?
-            ORDER BY timestamp ASC
-            LIMIT ?
-        ''', (npc_id, player_id, limit))
+            WHERE npc_id = ? AND player_id = ? AND id >= ?
+            ORDER BY timestamp ASC LIMIT ?
+        ''', (npc_id, player_id, id_threshold, limit))
 
         results = [{"role": row[0], "content": row[1]} for row in cursor.fetchall()]
         conn.close()

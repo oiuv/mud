@@ -64,7 +64,7 @@
     "speech_style": "阴柔诡异，时而妩媚时而冷酷",
     "knowledge_base": ["葵花宝典", "日月神教", "江湖恩怨", "绝世武功"],
     "knowledge_threshold": 0.5,
-    "memory_capacity": 150,
+    "memory_capacity": 60,
     "relationship_tips": {
       "gifts": ["武功秘籍", "珍贵药材", "美丽事物"],
       "topics": ["绝世武功", "永恒美丽", "江湖地位"],
@@ -93,7 +93,7 @@
       "交通出行：马厩骑马('help ride')，用 'rideto 城市' 快速移动，如 'rideto beijing' 到北京"
     ],
     "knowledge_threshold": 0.4,
-    "memory_capacity": 200,
+    "memory_capacity": 100,
     "relationship_tips": {
       "gifts": ["门派秘籍", "藏宝图", "稀有装备", "银两"],
       "topics": [
