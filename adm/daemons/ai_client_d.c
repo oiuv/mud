@@ -107,7 +107,7 @@ private void handle_chat_response(mapping response) {
     player = find_player(player_id);
 
     if (npc && player) {
-        tell_object(player, sort_string(npc->name() + "说道：" + ai_response + "\n", 78));
+        tell_object(player, sort_string(ai_response, 78));
     }
 }
 
