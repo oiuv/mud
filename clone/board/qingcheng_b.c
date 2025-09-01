@@ -10,5 +10,4 @@ void create()
     set("long", "这是一个供青城门下交流的留言板。\n" );
     setup();
     set("capacity", 100);
-    replace_program(BULLETIN_BOARD);
 }

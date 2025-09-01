@@ -10,5 +10,4 @@ void create()
     set("long","这是供血刀门弟子传递信息用的留言板\n" );
     setup();
     set("capacity", 100);
-    replace_program(BULLETIN_BOARD);
 }

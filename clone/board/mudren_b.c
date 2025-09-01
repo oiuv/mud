@@ -9,5 +9,4 @@ void create()
     set("long", "这就是【武林外传】的留言板，可留言，不可灌水。\n" );
     setup();
     set("capacity", 1000);
-    replace_program(BULLETIN_BOARD);
 }

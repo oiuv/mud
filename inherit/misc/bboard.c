@@ -165,8 +165,7 @@ int do_post(string arg, int n)
     note["title"] = arg;
     note["author"] = this_player()->query("name") + "-" + this_player()->query("id");
     note["time"] = time();
-    this_player()->edit((
-        : done_post, this_player(), note, n:));
+    this_player()->edit((: done_post, this_player(), note, n:));
     return 1;
 }
 

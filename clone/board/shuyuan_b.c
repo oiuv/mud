@@ -10,5 +10,4 @@ void create()
     set("long", "先贤的江湖风雨，传说故事。\n" );
     setup();
     set("capacity", 100);
-    replace_program(BULLETIN_BOARD);
 }

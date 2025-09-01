@@ -10,5 +10,4 @@ void create()
     set("long", "这是供星宿门下留言的板子.\n");
     setup();
     set("capacity", 100);
-    replace_program(BULLETIN_BOARD);
 }

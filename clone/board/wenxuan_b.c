@@ -8,5 +8,4 @@ void create()
     set("long", "请您注意您的留言主题和内容。\n" );
     setup();
     set("capacity", 200);
-    replace_program(BULLETIN_BOARD);
 }
