@@ -28,9 +28,9 @@ int main(object me, string arg) {
     }
 
     // 检查是否是AI NPC
-    if (!function_exists("accept_talk", npc)) {
-        return notify_fail(npc->name() + "似乎不想和你聊天。\n");
-    }
+    // if (!function_exists("accept_talk", npc)) {
+    //     return notify_fail(npc->name() + "似乎不想和你聊天。\n");
+    // }
 
     // 发送对话请求
     if (npc->accept_talk(me, message)) {
@@ -38,7 +38,7 @@ int main(object me, string arg) {
         return 1;
     }
 
-    return notify_fail("对话失败。\n");
+    return notify_fail(npc->name() + "似乎不想和你聊天。\n");
 }
 
 int help(object me) {
