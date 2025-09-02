@@ -48,11 +48,11 @@ class NPCManager:
 
     def generate_response(self, npc_id: str, player_name: str, message: str,
                          player_memory: Dict[str, Any], history: List[Dict[str, str]],
-                         context: Dict[str, Any]) -> tuple[str, str]:
+                         context: str) -> tuple[str, str]:
         """生成AI回复"""
         npc_config = self.get_npc_config(npc_id)
         if not npc_config:
-            return f"抱歉，我不认识 {npc_id}"
+            return message, f"系统提示：AI角色'{npc_id}'尚未配置，请联系管理员添加此角色的AI配置"
 
         # 检查是否配置了API密钥
         api_key = os.getenv("OPENAI_API_KEY")
@@ -61,18 +61,18 @@ class NPCManager:
 
         if not api_key or api_key == "your-api-key":
             # 使用模拟回复
-            return self.generate_mock_response(npc_config, player_memory, message)
+            return self.generate_mock_response(npc_config, player_memory, message, context)
 
         try:
             return self.generate_real_response(npc_config, npc_id, player_memory, message, player_name, history, context, api_key, base_url, model)
         except Exception as e:
             # 如果API调用失败，使用模拟回复
             print(f"API调用失败，使用模拟回复: {e}")
-            return self.generate_mock_response(npc_config, player_memory, message)
+            return self.generate_mock_response(npc_config, player_memory, message, context)
 
     def generate_real_response(self, npc_config: Dict[str, Any], npc_id: str,
                              player_memory: Dict[str, Any], message: str,
-                             player_name: str, history: List[Dict[str, str]], context: Dict[str, Any],
+                             player_name: str, history: List[Dict[str, str]], context: str,
                              api_key: str, base_url: str, model: str) -> tuple[str, str]:
         """集成Moonshot AI生成真实回复"""
 
@@ -157,10 +157,10 @@ class NPCManager:
    - **无参考知识**: 当玩家消息【游戏参考知识】部分为空时，简洁回复不超过200字，保持{npc_config['speech_style']}风格
    - **知识优先**: 优先使用【游戏参考知识】和【人物专属知识】部分的内容，避免编造虚假内容
 5. **输出格式**: 输出对话内容必须以**角色姓名+微动作/表情描述+对话标签：**为前缀，具体要求：
-   - 说话人的角色姓名必须是{npc_config['name']}，不能修改为任何简称，如对角色张无忌不能用“张教主说、他说”，而只能是“张无忌说”
-   - 微动作或表情描述非必须，如果有必须符合角色人设，且贴合对话内容，增强 “说” 的画面感
-   - 对话内容前的“对话标签”优先用“说”，但也可用 “语气状态” 替代，跳出 “XX 说” 的固定句式，让对话更生动自然
-   - 对话内容是显示给玩家本人的，所以也可以用“{npc_config['name']}对你说：……”这种对话前缀，让玩家更有沉浸感
+   - 说话人的角色姓名必须是{npc_config['name']}，不能修改为任何简称，如对角色张无忌不能用"张教主说、他说"，而只能是"张无忌说"
+   - 微动作或表情描述非必须，如果有必须符合角色人设，且贴合对话内容，增强 "说" 的画面感
+   - 对话内容前的"对话标签"优先用"说"，但也可用 "语气状态" 替代，跳出 "XX 说" 的固定句式，让对话更生动自然
+   - 对话内容是显示给玩家本人的，所以也可以用"{npc_config['name']}对你说：……"这种对话前缀，让玩家更有沉浸感
 
 ### 颜色规范（ANSI）
 | 类型 | 颜色 | 示例 |
@@ -182,7 +182,7 @@ class NPCManager:
 """
         # 构建包含动态资料的用户消息
         enriched_message = f"""## 当前情境
-时间: {context.get('time', '未知')} | 地点: {context.get('location', '未知')} | 天气: {context.get('weather', '未知')}
+{context}
 
 ## 玩家关系档案
 姓名: {player_name} | 关系: {player_memory.get('relationship', '陌生人')} | 熟悉度: {player_memory.get('familiarity', 0)}/150 | 信任度: {player_memory.get('trust', 0)}/100 | 好感度: {player_memory.get('favor', 50)}/100
@@ -228,7 +228,7 @@ class NPCManager:
             return enriched_message, f"AI调用失败: {str(e)[:100]}... 让我想想怎么回答你..."
 
     def generate_mock_response(self, npc_config: Dict[str, Any],
-                             player_memory: Dict[str, Any], message: str) -> tuple[str, str]:
+                             player_memory: Dict[str, Any], message: str, context: str = "") -> tuple[str, str]:
         """生成模拟回复（用于测试或API失败时）"""
         greetings = [
             f"这位{player_memory.get('relationship', '朋友')}，{npc_config['greeting']}",
@@ -236,7 +236,7 @@ class NPCManager:
             f"{message}... 让我想想，{npc_config['name']}觉得此事颇为有趣。"
         ]
         # 构建模拟的enriched_message
-        enriched_message = f"## 玩家输入\n{message}"
+        enriched_message = f"## 当前情境\n{context}\n\n## 玩家输入\n{message}"
         return enriched_message, random.choice(greetings)
 
     def update_player_memory(self, npc_id: str, player_id: str,

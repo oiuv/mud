@@ -68,8 +68,6 @@ LONG);
 
     // set("chat_chance", 5);
     // set("chat_msg", ({(: random_move :)}));
-    // AI配置
-    set("ai_npc_id", "zhou butong");
 
     setup();
     set("startroom", "/d/city/kedian");
@@ -186,22 +184,31 @@ int greeting(object ob)
 
 // AI对话命令
 int accept_talk(object me, string topic) {
+    string npc_id = query("id");
     string player_id = me->query("id");
     string player_name = me->name();
-
-    mapping context = ([
-        "time": NATURE_D->game_time(),
-        "location": environment(this_object())->query("short"),
-        "weather": NATURE_D->outdoor_room_description()
-    ]);
+    string context;
 
     if (!topic || topic == "") {
         topic = "你好";
     }
 
+    // 构造简洁的上下文信息
+    context = sprintf(
+        "时间：%s | 地点：%s | 天气：%s\n"
+        "玩家性别：%s | 玩家年龄：%s | 玩家称号：%s | 玩家门派：%s",
+        NATURE_D->game_time(),
+        environment(this_object())->query("short") || "未知",
+        NATURE_D->outdoor_room_description(),
+        me->query("gender") || "未知",
+        me->query("age") ? sprintf("%d岁", me->query("age")) : "未知",
+        me->query("title") || "无",
+        me->query("family/family_name") || "无门派"
+    );
+
     // 发送AI请求到中心化守护程序
     AI_CLIENT_D->send_chat_request(
-        query("ai_npc_id"),
+        npc_id,
         player_id,
         player_name,
         topic,

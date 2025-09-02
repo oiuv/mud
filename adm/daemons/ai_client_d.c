@@ -38,14 +38,14 @@ void create() {
 
 // 发送对话请求
 varargs string send_chat_request(string npc_id, string player_id, string player_name,
-                               string message, mapping context) {
+                               string message, string context) {
     mapping request = ([
         "type": "chat",
         "npc_id": npc_id,
         "player_id": player_id,
         "player_name": player_name,
         "message": message,
-        "context": context || ([])
+        "context": context || "无"
     ]);
     string json_str = json_encode(request);
     int result;
