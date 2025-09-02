@@ -47,17 +47,17 @@ int accept_talk(object me, string topic) {
         topic = "你好";
     }
 
-    // 构造简洁灵活的上下文情境信息
+    // 构造简洁的上下文情境信息（可自由灵活配置）
     context = sprintf(
         "时间：%s | 地点：%s | 天气：%s\n"
-        "玩家性别：%s | 玩家年龄：%s | 玩家称号：%s | 玩家门派：%s",
+        "玩家性别：%s | 玩家年龄：%s | 玩家门派：%s | 玩家师父：%s",
         NATURE_D->game_time(),
         environment(this_object())->query("short") || "未知",
-        NATURE_D->outdoor_room_description(),
+        trim(remove_ansi(NATURE_D->outdoor_room_description())),
         me->query("gender") || "未知",
         me->query("age") ? sprintf("%d岁", me->query("age")) : "未知",
-        me->query("title") || "无",
-        me->query("family/family_name") || "无门派"
+        me->query("family/family_name") || "无门派",
+        me->query("family/master_name") || "无师父"
     );
 
     // 发送AI请求到中心化守护程序

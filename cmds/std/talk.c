@@ -29,7 +29,7 @@ int main(object me, string arg) {
 
     // 检查是否是AI NPC
     if (!function_exists("accept_talk", npc)) {
-        return notify_fail(npc_name + "似乎不想说话。\n");
+        return notify_fail(npc->name() + "似乎不想和你聊天。\n");
     }
 
     // 发送对话请求

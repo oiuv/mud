@@ -246,45 +246,33 @@ class NPCManager:
         current = player_memory or {}
         familiarity = current.get('familiarity', 0)
 
-        # 动态增长：前期快后期慢
-        if familiarity < 20:  # 0-19
-            increment = 1
-        elif familiarity < 50:  # 20-49
-            increment = 0.5
-        elif familiarity < 100:  # 50-99
-            increment = 0.2
-        else:  # 100+
-            increment = 0.1
+        # 超严格增长：每互动只+0.1，说1000次才100点
+        increment = 0.1
+        familiarity = min(100, familiarity + increment)
 
-        familiarity = min(150, familiarity + increment)
-
-        # 更精细的关系等级
-        if familiarity >= 120:
-            relationship = "生死之交"  # 最高级
-        elif familiarity >= 100:
-            relationship = "莫逆之交"
-        elif familiarity >= 80:
-            relationship = "知己好友"
-        elif familiarity >= 60:
-            relationship = "挚交好友"
-        elif familiarity >= 40:
-            relationship = "至交"
-        elif familiarity >= 25:
-            relationship = "好友"
+        # 超严格7级关系（需要1000次互动才到至交）
+        if familiarity >= 100:
+            relationship = "至交"      # 1000次互动
+        elif familiarity >= 75:
+            relationship = "挚友"      # 750次互动
+        elif familiarity >= 50:
+            relationship = "知己"      # 500次互动
+        elif familiarity >= 30:
+            relationship = "好友"      # 300次互动
         elif familiarity >= 15:
-            relationship = "朋友"
-        elif familiarity >= 10:
-            relationship = "相识"
+            relationship = "朋友"      # 150次互动
         elif familiarity >= 5:
-            relationship = "熟客"
-        elif familiarity >= 2:
-            relationship = "路人"
+            relationship = "相识"      # 50次互动
         else:
-            relationship = "陌生人"
+            relationship = "陌生人"    # 0-49次互动
 
-        # 额外属性：信任度、好感度
-        trust = min(100, current.get('trust', 0) + (increment * 2))
-        favor = min(100, current.get('favor', 50) + (increment * 1.5))
+        # 超严格计算：熟悉度平方增长，后期极难
+        import math
+        trust = min(100, int(familiarity * 0.9 + 5))      # 5→95
+        favor = min(100, int(familiarity * 0.85 + 10))    # 10→95
+
+        trust = round(trust, 1)
+        favor = round(favor, 1)
 
         return {
             "familiarity": round(familiarity, 1),
