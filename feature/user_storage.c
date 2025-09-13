@@ -365,8 +365,8 @@ void restore_depot()
     class store item;
     mapping data = my_depot;
 
-    if (!mapp(data) || sizeof(data) < 1)
-        return 0;
+    if (!mapp(data) || sizeof(data) < 1 || sizeof(bag) > 0)
+        return;
 
     n = sizeof(data);
     for (i = 0; i < n; i++)

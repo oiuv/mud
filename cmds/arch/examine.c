@@ -238,8 +238,6 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
             // I should login it
             message_vision("$N口中念念有词，将$n变了出来。\n", me, user_ob);
             catch (user_ob->setup());
-            catch (user_ob->restore_autoload());
-            catch (user_ob->restore_depot());
             catch (user_ob->move(environment(me)));
         }
         else
