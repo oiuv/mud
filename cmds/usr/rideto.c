@@ -118,9 +118,7 @@ int main(object me, string arg)
     if (me->query_condition("killer"))
         return notify_fail("你有命案在身呢，你想肆无忌惮的在官道上溜达？！\n");
 
-    //if (member_array(arg, keys(places)) == -1 && arg != "home")
-    //新增family参数
-    if (member_array(arg, keys(places)) == -1 && arg != "home" && arg != "family")
+    if (member_array(arg, keys(places)) == -1 && arg != "home" && arg != "family" && arg != "npc")
         return notify_fail("这个地方无法乘坐骑去。\n");
 
     if (arg == "home" && !me->query("private_room/position"))
@@ -231,12 +229,19 @@ int main(object me, string arg)
             //return notify_fail("你所在的门派无法使用 rideto family 直达任务使功能。\n");
         }
     }
-    //新加family结束
+    else if (arg == "npc")
+    {
+        object xiang;
+        if (!objectp(xiang = present("yinzong xiang", me)))
+            return notify_fail(YEL "缺少神魂引踪香，你无法追踪任务目标。\n" NOR);
 
+        room = xiang->find_room();
+    }
     else
         room = get_object(places[arg]);
+
     if (!room)
-        return notify_fail("你感觉到似乎那个地方有点不对劲。\n");
+        return notify_fail("你的坐骑变得迷茫起来，不知道要去哪儿...。\n");
 
     message("vision", me->name() + "骑着「" + riding->name() + NOR "」匆匆忙忙地离开了。\n",
             environment(me), ({me}));
@@ -278,7 +283,8 @@ zhongnan : 终南山        zhongzhou: 中  州        hengshan : 衡  山
 jueqing  : 绝情谷        tiezhang : 铁掌山        taohua   : 桃花岛
 home     : 住  房        family   : 任务使
 
-注：rideto family 可直达门派任务使。只限有门派的人使用，且exp需达到80万。
+注：rideto family 可直达门派任务使，只限有门派的人使用，且exp需达到80万。
+    rideto npc 可以直达任务目标位置，需消耗神魂引踪香。
 
 HELP
     );

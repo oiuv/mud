@@ -44,19 +44,29 @@ void setInventory(int x, int y, int z)
 {
     mapping inv = ([]);
 
-    if (!random(150))
+    if (!random(10))
     {
-        inv["/clone/beast/qingshe"] = 1;
+        inv["/clone/misc/yinzongxiang"] = 1;
     }
 
-    if (!random(200))
+    if (!random(20))
     {
-        inv["/clone/beast/dushe"] = 1;
+        inv["/clone/misc/yinzongxiang"] = 2;
     }
 
-    if (!random(300))
+    if (!random(30))
     {
-        inv["/clone/beast/jinshe"] = 1;
+        inv["/clone/misc/yinzongxiang"] = 3;
+    }
+
+    if (!random(50))
+    {
+        inv["/clone/misc/yinzongxiang"] = 5;
+    }
+
+    if (!random(100))
+    {
+        inv["/clone/misc/yinzongxiang"] = 10;
     }
 
     set("objects", inv);
@@ -92,6 +102,8 @@ void setDemon(object me)
         "/clone/fam/etc/va4",
         "/clone/fam/etc/va5",
         "/clone/fam/etc/va6",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 三十分之一机率
@@ -101,6 +113,8 @@ void setDemon(object me)
         "/clone/fam/pill/linghui2",
         "/clone/fam/pill/food1",
         "/clone/fam/pill/neili2",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 五十分之一机率
@@ -111,6 +125,8 @@ void setDemon(object me)
         "/clone/gift/cagate",
         "/clone/gift/ccrystal",
         "/clone/gift/cjade",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 一百分之一机率
@@ -129,6 +145,8 @@ void setDemon(object me)
         "/clone/fam/pill/renshen1",
         "/clone/fam/pill/lingzhi1",
         "/clone/fam/pill/xuelian1",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 两百分之一机率
@@ -141,6 +159,8 @@ void setDemon(object me)
         "/clone/fam/pill/renshen2",
         "/clone/fam/pill/lingzhi2",
         "/clone/fam/pill/xuelian2",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 三百分之一机率
@@ -154,6 +174,8 @@ void setDemon(object me)
         "/clone/fam/pill/xuelian3",
         "/clone/fam/item/zhenlong",
         "/clone/fam/item/jiulei",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 四百分之一机率
@@ -166,6 +188,8 @@ void setDemon(object me)
         "/clone/tattoo/buttock6",
         "/clone/tattoo/buttock7",
         "/clone/tattoo/buttock8",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 五百分之一机率
@@ -181,6 +205,8 @@ void setDemon(object me)
         "/clone/fam/etc/lv7b",
         "/clone/fam/etc/lv7c",
         "/clone/fam/etc/lv7d",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 六百分之一机率
@@ -195,6 +221,8 @@ void setDemon(object me)
         "/clone/tattoo/body8",
         "/clone/tattoo/body9",
         "/clone/tattoo/body10",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 七百分之一机率
@@ -209,6 +237,8 @@ void setDemon(object me)
         "/clone/fam/item/haoyue",
         "/clone/fam/item/leihuo",
         "/clone/fam/item/yinzhu",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 八百分之一机率
@@ -223,6 +253,8 @@ void setDemon(object me)
         "/clone/tattoo/spcs8",
         "/clone/tattoo/spcs9",
         "/clone/tattoo/spcs10",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 九百分之一机率
@@ -242,6 +274,8 @@ void setDemon(object me)
         "/clone/fam/skpaper/throwing1",
         "/clone/fam/skpaper/unarmed1",
         "/clone/fam/skpaper/whip1",
+
+        "/clone/misc/yinzongxiang",
     });
 
     // 千分之一机率
@@ -253,6 +287,8 @@ void setDemon(object me)
         "/clone/fam/item/yanluo",
         "/clone/fam/item/lihuo",
         "/clone/fam/item/qiankun_stone",
+
+        "/clone/misc/yinzongxiang",
     });
 
     exp = me->query("combat_exp") * 10;

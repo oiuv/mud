@@ -762,6 +762,8 @@
                 this.historyIndex = -1;
                 this.currentInput = '';
                 this.protocolType = 'ascii';
+                this.heartbeat = null;
+                this.cleanupTimeout = null;
 
                 this.init();
             }
@@ -803,6 +805,74 @@
                 });
             }
 
+            // 强制清理WebSocket连接和相关资源
+            forceCleanup() {
+                if (this.cleanupTimeout) {
+                    clearTimeout(this.cleanupTimeout);
+                    this.cleanupTimeout = null;
+                }
+
+                if (this.heartbeat) {
+                    clearInterval(this.heartbeat);
+                    this.heartbeat = null;
+                }
+
+                if (this.ws) {
+                    try {
+                        // 立即关闭连接，不等待缓冲区
+                        this.ws.close(1000, "强制断开");
+                        // 移除所有事件监听器
+                        this.ws.onopen = null;
+                        this.ws.onmessage = null;
+                        this.ws.onclose = null;
+                        this.ws.onerror = null;
+                        this.ws = null;
+                    } catch (e) {
+                        console.warn('清理WebSocket时出错:', e);
+                    }
+                }
+
+                if (this.telnet) {
+                    this.telnet = null;
+                }
+
+                // 清空终端缓冲区，避免残留消息
+                this.terminal.innerHTML = '';
+
+                this.connected = false;
+                console.log('🔧 连接已强制清理');
+            }
+
+            // 启动心跳检测
+            startHeartbeat() {
+                if (this.heartbeat) {
+                    clearInterval(this.heartbeat);
+                }
+
+                this.heartbeat = setInterval(() => {
+                    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+                        try {
+                            // 发送空消息检测连接状态
+                            this.ws.send('');
+                        } catch (e) {
+                            console.warn('心跳检测失败:', e);
+                            this.forceCleanup();
+                        }
+                    } else {
+                        console.log('💔 心跳检测发现连接断开');
+                        this.forceCleanup();
+                    }
+                }, 30000); // 30秒心跳
+            }
+
+            // 停止心跳检测
+            stopHeartbeat() {
+                if (this.heartbeat) {
+                    clearInterval(this.heartbeat);
+                    this.heartbeat = null;
+                }
+            }
+
             setDefaultConfig() {
                 this.protocolSelect.value = 'wss://';
                 this.addressInput.value = 'mud.ren';
@@ -835,10 +905,18 @@
 
             connect(wsUrl, protocols) {
                 try {
+                    // 先强制清理之前的连接
+                    this.forceCleanup();
+
                     this.status.textContent = '正在连接...';
                     this.status.className = 'status connecting';
 
-                    this.ws = new WebSocket(wsUrl, protocols);
+                    // 添加时间戳防止缓存
+                    const cleanUrl = wsUrl.includes('?') ?
+                        `${wsUrl}&t=${Date.now()}` :
+                        `${wsUrl}?t=${Date.now()}`;
+
+                    this.ws = new WebSocket(cleanUrl, protocols);
 
                     this.ws.onopen = () => {
                         this.connected = true;
@@ -851,13 +929,16 @@
                         this.connectionPanel.style.display = 'none';
                         this.terminal.style.display = 'block';
 
+                        // 启动心跳检测
+                        this.startHeartbeat();
+
                         if (this.protocolType === 'telnet' || this.protocolType === 'binary') {
                             const protocolName = this.protocolType === 'telnet' ? 'Telnet' : 'Binary';
                             this.appendMessage(`✅ ${protocolName}协议已激活，正在协商...`, 'system');
-                            // 使用Telnet协议栈进行协商
-                            setTimeout(() => {
+                            // 延迟初始化Telnet协商，确保连接稳定
+                            this.cleanupTimeout = setTimeout(() => {
                                 this.initTelnetNegotiation();
-                            }, 100);
+                            }, 500);
                         } else {
                             this.appendMessage('✅ 已连接到MUD服务器', 'system');
                         }
@@ -873,7 +954,8 @@
 
                     this.ws.onclose = () => {
                         this.connected = false;
-                        this.telnet = null;
+                        this.stopHeartbeat();
+
                         this.status.textContent = '已断开';
                         this.status.className = 'status disconnected';
                         this.commandInput.disabled = true;
@@ -883,6 +965,11 @@
                         this.terminal.style.display = 'none';
 
                         this.appendMessage('🔌 连接已断开', 'error');
+
+                        // 延迟清理，确保所有资源释放
+                        this.cleanupTimeout = setTimeout(() => {
+                            this.forceCleanup();
+                        }, 1000);
 
                         if (this.retryCount < this.maxRetries) {
                             this.retryCount++;
