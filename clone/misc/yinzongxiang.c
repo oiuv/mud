@@ -8,12 +8,12 @@ void remove();
 
 void create()
 {
-    set_name(HIM "神魂引踪香" NOR, ({"yinzong xiang", "shenhun xiang", "xiang"}));
+    set_name(YEL "神魂引踪香" NOR, ({"yinzong xiang", "shenhun xiang", "xiang"}));
     if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "根");
-        set("long", HIM "这是一根暗紫色的线香，香体中隐约可见丝丝银光流转，如同星辰碎屑。
+        set("long", MAG "这是一根暗紫色的线香，香体中隐约可见丝丝银光流转，如同星辰碎屑。
 香头系着一缕纯白色的丝线，散发着淡淡的、难以名状的清香，既非草木
 之香，也非脂粉之气，而是一种直透心脾的奇异味道。
 
@@ -46,9 +46,9 @@ object find_room()
 
     if (clonep())
     {
-        message_vision(HIM "$N" HIM "手中掐诀，一缕真元注入$n" HIM "中！\n" NOR, me, this_object());
+        message_vision(HIW "$N" HIW "手中掐诀，一缕真元注入$n" HIW "中！\n" NOR, me, this_object());
         tell_object(me, HIC "线香顶端突然亮起一点银光，香烟袅袅升起，在空中形成奇异的纹路...\n" NOR);
-        tell_object(me, HIW "借助师门任务的因果之力和引踪香中的神魂之力，你与目标之间建立了一丝微妙的联系！\n" NOR);
+        tell_object(me, HIM "借助师门任务的因果之力和引踪香中的神魂之力，你与目标之间建立了一丝微妙的联系！\n" NOR);
         message("vision", HIC "神魂引踪香燃烧殆尽，化作一缕青烟，缓缓消散在天地间。\n" NOR, environment());
     }
     room = environment(npc);

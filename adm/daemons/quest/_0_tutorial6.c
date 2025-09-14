@@ -63,7 +63,7 @@ int getLevel()
  */
 int preCondition(object player)
 {
-    return player->isSolved(F_QUEST("_0_tutorial6"));
+    return player->isSolved(F_QUEST("_0_tutorial5"));
 }
 
 // 接受任務的NPC  (以檔名來識別，注意加上`.c`)
