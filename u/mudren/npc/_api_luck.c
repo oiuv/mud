@@ -1,4 +1,4 @@
-inherit "mudcore/system/daemons/http/mobile_d.c";
+inherit "u/mudren/http/mobile_d.c";
 
 #include <ansi.h>
 

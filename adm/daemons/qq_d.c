@@ -4,7 +4,7 @@
  * 服务器配置文档：https://project-mirai.github.io/mirai-api-http/
  *
  */
-inherit CORE_DIR "system/daemons/http/qq_d";
+inherit "u/mudren/http/qq_d";
 
 #include <ansi.h>
 

@@ -1,5 +1,5 @@
 // iqa - 智能应答机器人
-inherit CORE_DIR "system/daemons/http/iqa_d";
+inherit "u/mudren/http/iqa_d";
 
 int main(object me, string arg)
 {

@@ -1,6 +1,6 @@
 // SMS 短信接口
 
-inherit CORE_DIR "system/daemons/http/sms_d";
+inherit "u/mudren/http/sms_d";
 
 // 重写接口
 void sms(object me, mixed code, mixed mobile)
