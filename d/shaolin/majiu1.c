@@ -21,6 +21,5 @@ LONG);
                 "west" : __DIR__"kedian1",
       ]));
       setup();
-      replace_program(TRANS_ROOM);
+      // replace_program(TRANS_ROOM);
 }
-

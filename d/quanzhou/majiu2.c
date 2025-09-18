@@ -21,5 +21,5 @@ LONG);
         "northeast" : __DIR__"jxnanmen",
     ]));
     setup();
-    replace_program(TRANS_ROOM);
+    // replace_program(TRANS_ROOM);
 }

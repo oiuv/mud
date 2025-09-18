@@ -33,7 +33,7 @@ void incoming_request(mapping info)
     if (!ACCESS_CHECK(previous_object()))
         return;
 
-    if (info["NAME"] == Mud_name())
+    if (info["HOSTADDRESS"] == my_address && info["PORTUDP"] == my_port)
     {
         dns_warning("ping_q::incoming_request: ping from ourselves\n");
         // we pinged ourselves!

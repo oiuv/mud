@@ -23,5 +23,5 @@ LONG);
                 "up"   : "/clone/shop/luoyang_shop",
         ]));
         setup();
-        replace_program(TRANS_ROOM);
+        // replace_program(TRANS_ROOM);
 }

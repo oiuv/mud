@@ -23,6 +23,5 @@ LONG);
                 "up"    : "/clone/shop/changan_shop",
         ]));
         setup();
-        replace_program(TRANS_ROOM);
+        // replace_program(TRANS_ROOM);
 }
-

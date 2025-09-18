@@ -23,5 +23,5 @@ LONG);
                 "/clone/npc/mafu": 1,
         ]));
         setup();
-        replace_program(TRANS_ROOM);
+        // replace_program(TRANS_ROOM);
 }

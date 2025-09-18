@@ -23,6 +23,5 @@ LONG);
                 "up"   : "/clone/shop/chengdu_shop",
       ]));
       setup();
-      replace_program(TRANS_ROOM);
+      // replace_program(TRANS_ROOM);
 }
-

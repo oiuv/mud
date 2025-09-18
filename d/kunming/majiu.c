@@ -23,5 +23,5 @@ LONG);
                   "east"      : __DIR__"kedian",
           ]));
           setup();
-          replace_program(TRANS_ROOM);
+          // replace_program(TRANS_ROOM);
 }

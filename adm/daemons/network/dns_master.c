@@ -181,7 +181,7 @@ void send_udp(string host, int port, mixed msg)
     {
         msg = string_encode(msg, "GBK");
     }
-
+    socket_bind(sock, 0);
     socket_write(sock, msg, host + " " + port);
     socket_close(sock);
 }

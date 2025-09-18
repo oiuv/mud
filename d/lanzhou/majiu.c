@@ -23,5 +23,5 @@ LONG);
         "west" : __DIR__"beidajie2",
     ]));
     setup();
-    replace_program(TRANS_ROOM);
+    // replace_program(TRANS_ROOM);
 }

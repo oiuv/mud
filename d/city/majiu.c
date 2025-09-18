@@ -24,5 +24,5 @@ LONG);
               "up"   : "/clone/shop/yangzhou_shop",
       ]));
       setup();
-      replace_program(TRANS_ROOM);
+      // replace_program(TRANS_ROOM);
 }
