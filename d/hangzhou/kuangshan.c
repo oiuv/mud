@@ -18,18 +18,18 @@ LONG );
         "west" : __DIR__"kslu2",
     ]));
 
-        set("objects", ([
-                __DIR__"npc/jiangong" : 1,
-        ]));
+    set("objects", ([
+        __DIR__"npc/jiangong" : 1,
+    ]));
 
-        set("no_fight", 1);
+    set("no_fight", 1);
 
-        set("product/cuprum_ore", ([ "name" : "铜矿石",
-                                     "rate" : 100,
-                                     "max"  : 10000, ]));
+    set("product/cuprum_ore", ([ "name" : "铜矿石",
+                                 "rate" : 100,
+                                 "max"  : 10000, ]));
 
     set("outdoors", "hangzhou");
     setup();
-        replace_program(PRODUCING_ROOM);
-        set_heart_beat(120);
+    replace_program(PRODUCING_ROOM);
+    set_heart_beat(120);
 }

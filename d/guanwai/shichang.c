@@ -16,18 +16,18 @@ LONG );
         "west" : __DIR__"tulu",
     ]));
 
-        set("objects", ([
-                __DIR__"npc/jiangong" : 1,
-        ]));
+    set("objects", ([
+        __DIR__"npc/jiangong" : 1,
+    ]));
 
-        set("no_fight", 1);
+    set("no_fight", 1);
 
-        set("product/stone", ([ "name" : "石料",
-                                "rate" : 1000,
-                                "max"  : 200000, ]));
+    set("product/stone", ([ "name" : "石料",
+                            "rate" : 1000,
+                            "max"  : 200000, ]));
 
     set("outdoors", "guanwai");
     setup();
 
-        set_heart_beat(120);
+    set_heart_beat(120);
 }

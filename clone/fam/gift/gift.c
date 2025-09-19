@@ -71,12 +71,7 @@ int do_effect(object me)
     {
         tell_object(me, "你觉得这药好象没什么效果。\n");
     }
-    // 开放转世后，限制最多吃十颗仙丹，多吃无效
-    // if (me->query("gift/gift_all") > 10)
-    // {
-    //     tell_object(me, "已经超过10颗啦，是药三分毒，再吃小心拉肚子。\n");
-    //     // me->add("gift/gift_all", -1);
-    // }
+
     else if (random(100) >= point)
     {
         tell_object(me, HIR "不过你觉得这药好像没起到什么作用。\n" NOR);

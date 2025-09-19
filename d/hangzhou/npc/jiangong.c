@@ -41,7 +41,7 @@ void create()
         CYN "监工打量着四周，不知道在打什么主意。\n" NOR,
         CYN "监工狠狠的抽了一个人几下，骂道：怎么把矿石掉到地上了，你这笨蛋。\n" NOR,
     }));
-
+    set("startroom", "/d/hangzhou/kuangshan");
     carry_object("clone/weapon/changbian")->wield();
 }
 

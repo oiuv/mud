@@ -9,13 +9,16 @@ int main(object me, string arg)
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
         return 0;
 
-    if (file_size(user_path(geteuid(me)) + "workroom.c") <= 0)
-        return notify_fail("你没有自己的工作室。\n");
-
+    // 统一处理自定义消息
     if (stringp(msg = me->query("env/msg_home")))
         message_vision(msg + "\n", me);
 
-    me->move("/u/" + geteuid(me) + "/workroom.c");
+    if (file_size(user_path(geteuid(me)) + "workroom.c") <= 0) {
+        // 如果没有个人工作室，移动到巫师大厅
+        me->move("/d/wizard/hall");
+    } else {
+        me->move("/u/" + geteuid(me) + "/workroom.c");
+    }
     return 1;
 }
 

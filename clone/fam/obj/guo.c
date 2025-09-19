@@ -32,13 +32,13 @@ int do_wish(string arg)
     object me;
     me = this_player();
 
-    me->set_temp("wish_sub_tianfu1", arg);
     if (arg == "臂力" || arg == "str")
     {
         if (me->query("gift/str/fail") == 0)
             return notify_fail("你的臂力没有失败记录呀！\n");
         me->set_temp("wish_sub_tianfu", "str");
-        write("你指定了要减一点" HIY + arg + NOR "的失败记录。\n");
+        me->set_temp("wish_sub_tianfu1", "臂力");
+        write("你指定了要减一点" HIY "臂力" NOR "的失败记录。\n");
         return 1;
     }
 
@@ -47,7 +47,8 @@ int do_wish(string arg)
         if (me->query("gift/int/fail") == 0)
             return notify_fail("你的悟性没有失败记录呀！\n");
         me->set_temp("wish_sub_tianfu", "int");
-        write("你指定了要减一点" HIW + arg + NOR "的失败记录。\n");
+        me->set_temp("wish_sub_tianfu1", "悟性");
+        write("你指定了要减一点" HIW "悟性" NOR "的失败记录。\n");
         return 1;
     }
 
@@ -56,7 +57,8 @@ int do_wish(string arg)
         if (me->query("gift/con/fail") == 0)
             return notify_fail("你的根骨没有失败记录呀！\n");
         me->set_temp("wish_sub_tianfu", "con");
-        write("你指定了要减一点" YEL + arg + NOR "的失败记录。\n");
+        me->set_temp("wish_sub_tianfu1", "根骨");
+        write("你指定了要减一点" YEL "根骨" NOR "的失败记录。\n");
         return 1;
     }
 
@@ -65,7 +67,8 @@ int do_wish(string arg)
         if (me->query("gift/dex/fail") == 0)
             return notify_fail("你的身法没有失败记录呀！\n");
         me->set_temp("wish_sub_tianfu", "dex");
-        write("你指定了要减一点" HIR + arg + NOR "的失败记录。\n");
+        me->set_temp("wish_sub_tianfu1", "身法");
+        write("你指定了要减一点" HIR "身法" NOR "的失败记录。\n");
         return 1;
     }
 
@@ -100,14 +103,10 @@ int do_eat(string arg)
         {
             me->set("gift/" + me->query_temp("wish_sub_tianfu") + "/all", 10);
         }
-        // if (me->query("gift/gift_all") > 10)
-        // {
-        //     me->set("gift/gift_all", 10);
-        // }
 
-        // me->add("gift/" + me->query_temp("wish_sub_tianfu") + "/all", -1);
+        me->add("gift/" + me->query_temp("wish_sub_tianfu") + "/all", -1);
         me->add("gift/" + me->query_temp("wish_sub_tianfu") + "/fail", -1);
-        // me->add("gift/gift_all", -1);
+        me->add("gift/gift_all", -1);
         me->add("gift/gift_guo", 1);
 
         me->delete_temp("wish_sub_tianfu");

@@ -12,7 +12,7 @@ int   halt_working(object me);
 
 void create()
 {
-    set_name("监工", ({ "jian gong", "jiangong" }));
+    set_name("监工", ({ "jian gong", "jian", "gong", "jiangong" }));
     set("long", "这是一个监工，眼光不断闪烁，不知"
                 "道在打什么坏主意\n");
     set("gender", "男性");
@@ -42,6 +42,7 @@ void create()
         "监工打量着四周，不知道在打什么主意。 \n",
         "监工狠狠的抽了一个人几下，骂道：怎么把石头掉到地上了，你这笨蛋。\n",
     }));
+    set("startroom", "/d/guanwai/shichang");
 }
 
 void init()
@@ -259,13 +260,13 @@ mixed ask_transit()
         amount = (amount + 99) / 20;
         // 五天(MUD时间)内如果货物还没有送达，则不能领
         message_sort("$N冷笑一声，对$n道：“" + me->name(1) +
-                         "，上次你送的石料... 哼！你本事"
-                         "低微，这次我不多加追究了，可是"
-                         "那一车石料岂能就这样白白的丢了"
-                         "？你先赔了" +
-                         chinese_number(amount) +
-                         "两白银再说！”\n",
-                     this_object(), me);
+                    "，上次你送的石料... 哼！你本事"
+                    "低微，这次我不多加追究了，可是"
+                    "那一车石料岂能就这样白白的丢了"
+                    "？你先赔了" +
+                    chinese_number(amount) +
+                    "两白银再说！”\n",
+                    this_object(), me);
         return 1;
     }
 
