@@ -286,9 +286,8 @@ int no_money()
 // 接受定金
 int accept_object(object me, object ob)
 {
-    string status, filename, file;
-    int    val;
-    object depot_ob;
+    string status;
+    int val;
 
     status = query_temp("item/status");
     if (status == "look_working")
@@ -328,11 +327,10 @@ int accept_object(object me, object ob)
 
     if( ob->query("id") == "qiankun stone" )
     {
-        filename = ITEM_DIR + "depot/" + me->query("id");
-        if (file_size(filename + ".c") > 0)
+        int space = me->query("storage_bag");
+        if (space)
         {
-            int space = me->query("storage_bag");
-            if (space && space < 100)
+            if (space < 100)
             {
                 message_vision("$N对$n道：不错不错，我现在就帮你强化背包，请稍等片刻！。\n", this_object(), me);
                 me->add("storage_bag", 5);
@@ -348,12 +346,6 @@ int accept_object(object me, object ob)
             else if (space > 100)
             {
                 message_vision("$N对$n道：你的背包已经强化到极限了！。\n", this_object(), me);
-                return 0;
-            }
-            else
-            {
-                message_vision("$N一呆，对$n道：你已经拥有如意乾坤袋了呀，直接召唤(summon)吧！。\n", this_object(), me);
-                me->set("can_summon/ruyi dai", filename);
                 return 0;
             }
         }
@@ -440,41 +432,8 @@ int accept_object(object me, object ob)
 
         if (origin->query("id") == "qiankun stone")
         {
-            file = read_file(DEPOT_OB);
-
-            file = replace_string(file, "LONG_DESCRIPTION",
-                                    HIB "如意乾坤袋上绣着一行小字：" + me->query("name") +
-                                    "(" + me->query("id") +")。\n" NOR);
-
-            // give depot ob to me
-            filename = ITEM_DIR+"depot/" + me->query("id");
-            if (file_size(filename + ".c") > 0)
-            {
-                if (depot_ob = find_object(filename))
-                    destruct(depot_ob);
-
-                DBASE_D->clear_object(filename);
-                rm(filename + ".c");
-                //log_file("depot_ob",sprintf("%s have new depot ob.\n",query("id", me)));
-            }
-            assure_file(filename);
-            write_file(filename + ".c", file);
-            VERSION_D->append_sn(filename + ".c");
             remove_call_out("time_out");
-            // catch(call_other(filename, "???"));
-            me->set("storage_bag", 1);  // 升级如意乾坤袋为玩家背包
-            depot_ob = load_object(filename);
-            if (! depot_ob)
-            {
-                delete_temp("item");
-                me->delete_temp("item");
-                message_vision("$N一呆，对$n道：抱歉抱歉！出了一些问题！材料我还是还你吧。\n",
-                                this_object(), me);
-                return 0;
-            }
-            // depot_ob->move(me, 1);
-            // depot_ob->save();
-            // me->set("can_summon/ruyi dai", filename);
+            me->set("storage_bag", 1);  // 为玩家增加背包
             me->delete_temp("item");
             delete_temp("item");
             message_vision(HIM "$N随手把" + origin->name() +

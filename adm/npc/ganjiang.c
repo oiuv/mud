@@ -561,6 +561,12 @@ int do_desc(string arg)
         return 0;
 
     ob = query_temp("item/making");
+    if (!objectp(ob))
+    {
+        command("kick " + me->query("id"));
+        command("say 你太磨蹭了，这生意我不做了，恕不退货！");
+        return 0;
+    }
     if (!ob->query("item/name"))
     {
         message_vision("$N瞪了$n一眼道：你还是先给它取好名字再考虑描述吧！\n",
@@ -609,6 +615,12 @@ int do_wieldmsg(string arg)
         return 0;
 
     ob = query_temp("item/making");
+    if (!objectp(ob))
+    {
+        command("kick " + me->query("id"));
+        command("say 你太磨蹭了，这生意我不做了，恕不退货！");
+        return 0;
+    }
     if (!ob->query("item/name"))
     {
         message_vision("$N瞪了$n一眼道：你还是先给它取好名字再考虑描述吧！\n",
@@ -661,6 +673,12 @@ int do_unwield(string arg)
         return 0;
 
     ob = query_temp("item/making");
+    if (!objectp(ob))
+    {
+        command("kick " + me->query("id"));
+        command("say 你太磨蹭了，这生意我不做了，恕不退货！");
+        return 0;
+    }
     if (!ob->query("item/name"))
     {
         message_vision("$N瞪了$n一眼道：你还是先给它取好名字再考虑描述吧！\n",
@@ -959,7 +977,7 @@ private string create_file(object item_temp)
     assure_file(filename);
     buf = "// ITEM Made by player(" + item_temp->query("item/owner_name") +
           ":" + item_temp->query("item/owner_id") + ") " + filename +
-          "\n// Written by GAN JIANG(Doing Lu 1998/11/2)\t" + ctime(time()) + "\n";
+          "\n// Written by GAN JIANG - " + ctime(time()) + "\n";
     info = item_temp->query("item");
     ih = upper_case(info["stype"]);
     if (info["type"] == "weapon")
@@ -991,21 +1009,21 @@ private string create_file(object item_temp)
         buf += "inherit " + ih + ";\n";
         buf += "inherit F_ITEMMAKE;\n\n";
         buf += "void create()\n{\n";
-        buf += sprintf("\tset_name(\"%s\", ({ \"%s\" }));\n",
+        buf += sprintf("    set_name(\"%s\", ({ \"%s\" }));\n",
                        info["name"], info["id"]);
-        buf += sprintf("\tset_weight(%d);\n", item_temp->query_weight() * item_temp->query("item/wscale") / 100);
-        buf += sprintf("\tset(\"item_make\", 1);\n");
-        buf += sprintf("\tset(\"unit\", \"%s\");\n", info["unit"]);
-        buf += sprintf("\tset(\"long\", \"%s\");\n", desc);
-        buf += sprintf("\tset(\"value\", %d);\n", info["value"]);
-        buf += sprintf("\tset(\"point\", %d);\n", info["point"]);
-        buf += sprintf("\tset(\"material\", \"%s\");\n", item_temp->query("material_attrib"));
-        buf += sprintf("\tset(\"wield_msg\", \"%s\\n\");\n", info["wield_msg"]);
-        buf += sprintf("\tset(\"unwield_msg\", \"%s\\n\");\n", info["unwield_msg"]);
-        buf += sprintf("\tif (! check_clone()) return;\n\trestore();\n");
-        buf += sprintf("\tinit_%s(apply_damage());\n", info["stype"]);
+        buf += sprintf("    set_weight(%d);\n", item_temp->query_weight() * item_temp->query("item/wscale") / 100);
+        buf += sprintf("    set(\"item_make\", 1);\n");
+        buf += sprintf("    set(\"unit\", \"%s\");\n", info["unit"]);
+        buf += sprintf("    set(\"long\", \"%s\");\n", desc);
+        buf += sprintf("    set(\"value\", %d);\n", info["value"]);
+        buf += sprintf("    set(\"point\", %d);\n", info["point"]);
+        buf += sprintf("    set(\"material\", \"%s\");\n", item_temp->query("material_attrib"));
+        buf += sprintf("    set(\"wield_msg\", \"%s\\n\");\n", info["wield_msg"]);
+        buf += sprintf("    set(\"unwield_msg\", \"%s\\n\");\n", info["unwield_msg"]);
+        buf += sprintf("    if (! check_clone()) return;\n    restore();\n");
+        buf += sprintf("    init_%s(apply_damage());\n", info["stype"]);
         buf += prop_segment(info["prop"], "");
-        buf += sprintf("\n\tsetup();\n}\n\n");
+        buf += sprintf("\n    setup();\n}\n\n");
         // 生成武器道具文件完毕
     }
     else
@@ -1037,23 +1055,23 @@ private string create_file(object item_temp)
         buf += "inherit " + ih + ";\n";
         buf += "inherit F_ITEMMAKE;\n\n";
         buf += "void create()\n{\n";
-        buf += sprintf("\tset_name(\"%s\", ({ \"%s\" }));\n",
+        buf += sprintf("    set_name(\"%s\", ({ \"%s\" }));\n",
                        info["name"], info["id"]);
-        buf += sprintf("\tset_weight(%d);\n", item_temp->query_weight() * item_temp->query("item/wscale") / 100);
-        buf += sprintf("\tset(\"item_make\", 1);\n");
-        buf += sprintf("\tset(\"unit\", \"%s\");\n", info["unit"]);
-        buf += sprintf("\tset(\"long\", \"%s\");\n", desc);
-        buf += sprintf("\tset(\"value\", %d);\n", info["value"]);
-        buf += sprintf("\tset(\"point\", %d);\n", info["point"]);
-        buf += sprintf("\tset(\"material\", \"%s\");\n", item_temp->query("material_attrib"));
-        buf += sprintf("\tset(\"wear_msg\", \"%s\\n\");\n", info["wear_msg"]);
-        buf += sprintf("\tset(\"remove_msg\", \"%s\\n\");\n", info["remove_msg"]);
-        buf += sprintf("\tif (! check_clone()) return;\n\trestore();\n");
+        buf += sprintf("    set_weight(%d);\n", item_temp->query_weight() * item_temp->query("item/wscale") / 100);
+        buf += sprintf("    set(\"item_make\", 1);\n");
+        buf += sprintf("    set(\"unit\", \"%s\");\n", info["unit"]);
+        buf += sprintf("    set(\"long\", \"%s\");\n", desc);
+        buf += sprintf("    set(\"value\", %d);\n", info["value"]);
+        buf += sprintf("    set(\"point\", %d);\n", info["point"]);
+        buf += sprintf("    set(\"material\", \"%s\");\n", item_temp->query("material_attrib"));
+        buf += sprintf("    set(\"wear_msg\", \"%s\\n\");\n", info["wear_msg"]);
+        buf += sprintf("    set(\"remove_msg\", \"%s\\n\");\n", info["remove_msg"]);
+        buf += sprintf("    if (! check_clone()) return;\n    restore();\n");
         if (!info["prop"])
-            buf += sprintf("\tset(\"armor_prop/armor\", apply_armor());\n");
+            buf += sprintf("    set(\"armor_prop/armor\", apply_armor());\n");
         else
             buf += prop_segment(info["prop"], "");
-        buf += sprintf("\n\tsetup();\n}\n\n");
+        buf += sprintf("\n    setup();\n}\n\n");
         // 生成防护道具文件完毕
     }
     buf += sprintf("string long() { return query(\"long\") + item_long(); }\n");
@@ -1085,7 +1103,7 @@ private string prop_segment(mapping p, string path)
             buf += prop_segment(p[ks[i]], path);
         }
         else
-            buf += sprintf("\tset(\"%s\", %s);\n",
+            buf += sprintf("    set(\"%s\", %s);\n",
                            path + ks[i], (string)p[ks[i]]);
     }
 
