@@ -122,8 +122,8 @@ string getReward()
     string msg = " - 经验：10000+\n"
                  " - 潜能：5000+\n"
                  " - 江湖阅历：100+\n"
-                 " - 称号：铁匠\n"
-                 " - 物品：乾坤石(打造如意乾坤袋的材料)\n"
+                 " - 称号：铁匠(暂未开放)\n"
+                 " - 物品：乾坤石(打造背包的材料)\n"
                  ;
     return msg;
 }
@@ -139,6 +139,7 @@ string getReward()
 void reward(object player, object npc)
 {
     int exp, pot, sc;
+    object reward_item;
 
     exp = 10000 + random(1000);
     pot = 5000 + random(500);
@@ -149,5 +150,10 @@ void reward(object player, object npc)
         "pot":pot,
         "score":sc,
     ]));
+
+    // 初始化并发放物品奖励
+    reward_item = new("/clone/fam/item/qiankun_stone");
+    reward_item->move(player);
+
     // todo 称号（计划放在成就系统中）
 }
