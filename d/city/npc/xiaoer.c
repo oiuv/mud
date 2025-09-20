@@ -214,135 +214,160 @@ int do_drop(string arg)
 int do_exchange(string arg)
 {
     object ob, me = this_player();
-    int bug, bugp;
+    int jifen, cost;
 
-    bug = me->query("state/jifen", 1);
+    jifen = me->query("state/jifen", 1);
 
-    if (!bug)
-        return notify_fail(CYN "你一点积分都没有，拿什么兑换呀？\n" NOR);
+    if (!jifen)
+        return notify_fail(CYN "店小二微笑道：客官，您暂时没有积分呢，可以通过报告BUG或在扬州武庙祈祷获得积分。\n" NOR);
 
     if (!arg)
         return notify_fail(CYN "店小二微笑道：你要兑换"
                                "什么东西？(help jifen)\n" NOR);
 
-    if (arg == "血菩提" || arg == "舍利子" || arg == "昊天果" || arg == "壮骨粉" || arg == "福寿膏" || arg == "增慧丹" || arg == "神力丸")
+    switch (arg)
     {
-        bugp = 5;
-
-        if (arg == "血菩提")
-            ob = new ("/clone/fam/pill/puti1");
-        else if (arg == "舍利子")
-            ob = new ("/clone/fam/pill/sheli1");
-        else if (arg == "昊天果")
-            ob = new ("/clone/fam/pill/linghui1");
-        else if (arg == "壮骨粉")
-            ob = new ("/clone/fam/gift/con1");
-        else if (arg == "福寿膏")
-            ob = new ("/clone/fam/gift/dex1");
-        else if (arg == "增慧丹")
-            ob = new ("/clone/fam/gift/int1");
-        else
-            ob = new ("/clone/fam/gift/str1");
-    }
-    else if (arg == "冰菩提" || arg == "昊天丹" || arg == "帝者舍利")
-    {
-        bugp = 10;
-
-        if (arg == "冰菩提")
-            ob = new ("/clone/fam/pill/puti3");
-        else if (arg == "昊天丹")
-            ob = new ("/clone/fam/pill/linghui2");
-        else
-            ob = new ("/clone/fam/pill/sheli3");
-    }
-    else if (arg == "菩提子" || arg == "圣舍利" || arg == "百年人参" || arg == "百年灵芝" || arg == "天山雪莲")
-    {
-        bugp = 15;
-
-        if (arg == "菩提子")
-            ob = new ("/clone/fam/pill/puti4");
-        else if (arg == "圣舍利")
-            ob = new ("/clone/fam/pill/sheli4");
-        else if (arg == "百年人参")
-            ob = new ("/clone/fam/pill/renshen1");
-        else if (arg == "百年灵芝")
-            ob = new ("/clone/fam/pill/lingzhi1");
-        else
-            ob = new ("/clone/fam/pill/xuelian1");
-    }
-    else if (arg == "百年参心丹" || arg == "天山雪莲膏" || arg == "百年灵芝丸")
-    {
-        bugp = 20;
-
-        if (arg == "百年参心丹")
-            ob = new ("/clone/fam/pill/renshen3");
-        else if (arg == "天山雪莲膏")
-            ob = new ("/clone/fam/pill/xuelian3");
-        else
-            ob = new ("/clone/fam/pill/lingzhi3");
-    }
-    else if (arg == "白虎赐元丹" || arg == "青龙炼睿丹" || arg == "朱雀玲珑丹" || arg == "玄武铸骨丹")
-    {
-        bugp = 30;
-
-        if (arg == "玄武铸骨丹")
-            ob = new ("/clone/fam/gift/con2");
-        else if (arg == "朱雀玲珑丹")
-            ob = new ("/clone/fam/gift/dex2");
-        else if (arg == "青龙炼睿丹")
-            ob = new ("/clone/fam/gift/int2");
-        else
-            ob = new ("/clone/fam/gift/str2");
-    }
-    else if (arg == "千年参心丹" || arg == "千年雪莲丹" || arg == "千年灵芝丸")
-    {
-        bugp = 40;
-
-        if (arg == "千年参心丹")
-            ob = new ("/clone/fam/pill/renshen4");
-        else if (arg == "千年雪莲丹")
-            ob = new ("/clone/fam/pill/xuelian4");
-        else
-            ob = new ("/clone/fam/pill/lingzhi4");
-    }
-    else if (arg == "洗髓再造仙丹" || arg == "破阳无极仙丹" || arg == "神恩通慧仙丹" || arg == "蚩尤诛元仙丹")
-    {
-        bugp = 50;
-
-        if (arg == "洗髓再造仙丹")
-            ob = new ("/clone/fam/gift/con3");
-        else if (arg == "破阳无极仙丹")
-            ob = new ("/clone/fam/gift/dex3");
-        else if (arg == "神恩通慧仙丹")
-            ob = new ("/clone/fam/gift/int3");
-        else
-            ob = new ("/clone/fam/gift/str3");
-    }
-    else if (arg == "子午龙甲丹" || arg == "玄黄紫箐丹")
-    {
-        bugp = 80;
-        if (arg == "子午龙甲丹")
-            ob = new ("/clone/fam/max/longjia");
-        else
-            ob = new ("/clone/fam/max/xuanhuang");
-    }
-    else if (arg == "镇狱惊天丸")
-    {
-        bugp = 100;
+    case "血菩提":
+        cost = 5;
+        ob = new ("/clone/fam/pill/puti1");
+        break;
+    case "舍利子":
+        cost = 5;
+        ob = new ("/clone/fam/pill/sheli1");
+        break;
+    case "昊天果":
+        cost = 5;
+        ob = new ("/clone/fam/pill/linghui1");
+        break;
+    case "壮骨粉":
+        cost = 5;
+        ob = new ("/clone/fam/gift/con1");
+        break;
+    case "福寿膏":
+        cost = 5;
+        ob = new ("/clone/fam/gift/dex1");
+        break;
+    case "增慧丹":
+        cost = 5;
+        ob = new ("/clone/fam/gift/int1");
+        break;
+    case "神力丸":
+        cost = 5;
+        ob = new ("/clone/fam/gift/str1");
+        break;
+    case "冰菩提":
+        cost = 10;
+        ob = new ("/clone/fam/pill/puti3");
+        break;
+    case "昊天丹":
+        cost = 10;
+        ob = new ("/clone/fam/pill/linghui2");
+        break;
+    case "帝者舍利":
+        cost = 10;
+        ob = new ("/clone/fam/pill/sheli3");
+        break;
+    case "菩提子":
+        cost = 15;
+        ob = new ("/clone/fam/pill/puti4");
+        break;
+    case "圣舍利":
+        cost = 15;
+        ob = new ("/clone/fam/pill/sheli4");
+        break;
+    case "百年人参":
+        cost = 15;
+        ob = new ("/clone/fam/pill/renshen1");
+        break;
+    case "百年灵芝":
+        cost = 15;
+        ob = new ("/clone/fam/pill/lingzhi1");
+        break;
+    case "天山雪莲":
+        cost = 15;
+        ob = new ("/clone/fam/pill/xuelian1");
+        break;
+    case "百年参心丹":
+        cost = 20;
+        ob = new ("/clone/fam/pill/renshen3");
+        break;
+    case "天山雪莲膏":
+        cost = 20;
+        ob = new ("/clone/fam/pill/xuelian3");
+        break;
+    case "百年灵芝丸":
+        cost = 20;
+        ob = new ("/clone/fam/pill/lingzhi3");
+        break;
+    case "玄武铸骨丹":
+        cost = 30;
+        ob = new ("/clone/fam/gift/con2");
+        break;
+    case "朱雀玲珑丹":
+        cost = 30;
+        ob = new ("/clone/fam/gift/dex2");
+        break;
+    case "青龙炼睿丹":
+        cost = 30;
+        ob = new ("/clone/fam/gift/int2");
+        break;
+    case "白虎赐元丹":
+        cost = 30;
+        ob = new ("/clone/fam/gift/str2");
+        break;
+    case "千年参心丹":
+        cost = 40;
+        ob = new ("/clone/fam/pill/renshen4");
+        break;
+    case "千年雪莲丹":
+        cost = 40;
+        ob = new ("/clone/fam/pill/xuelian4");
+        break;
+    case "千年灵芝丸":
+        cost = 40;
+        ob = new ("/clone/fam/pill/lingzhi4");
+        break;
+    case "洗髓再造仙丹":
+        cost = 50;
+        ob = new ("/clone/fam/gift/con3");
+        break;
+    case "破阳无极仙丹":
+        cost = 50;
+        ob = new ("/clone/fam/gift/dex3");
+        break;
+    case "神恩通慧仙丹":
+        cost = 50;
+        ob = new ("/clone/fam/gift/int3");
+        break;
+    case "蚩尤诛元仙丹":
+        cost = 50;
+        ob = new ("/clone/fam/gift/str3");
+        break;
+    case "子午龙甲丹":
+        cost = 80;
+        ob = new ("/clone/fam/max/longjia");
+        break;
+    case "玄黄紫箐丹":
+        cost = 80;
+        ob = new ("/clone/fam/max/xuanhuang");
+        break;
+    case "镇狱惊天丸":
+        cost = 100;
         ob = new ("/clone/fam/max/zhenyu");
-    }
-    else
+        break;
+    default:
         return notify_fail(CYN "店小二对你摇摇头道：你只能兑换"
                                "规定范围内的物品。\n" NOR);
+    }
 
-    if (bug < bugp)
-        return notify_fail(CYN "店小二对你摇摇头道：你可用积分"
-                               "只有 " + bug + " 点，无法兑换此类物品。\n" NOR);
+    if (jifen < cost)
+        return notify_fail(CYN "店小二对你摇摇头道：您当前积分"
+                               "只有 " + jifen + " 点，兑换此物品需要 " + cost + " 点积分。\n" NOR);
 
     if (!ob)
         return notify_fail(CYN "店小二一惊，叫道：咦？我的东西"
                                "…我的东西呢?！\n" NOR);
-    me->add("state/jifen", -bugp);
+    me->add("state/jifen", -cost);
 
     ob->move(this_object());
     command("give " + ob->query("id") + " to " + me->query("id"));
