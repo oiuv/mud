@@ -3,32 +3,11 @@
 
 inherit F_CLEAN_UP;
 
-string *valid_types = ({
-    "force",
-    "dodge",
-    "cuff",
-    "strike",
-    "finger",
-    "hand",
-    "claw",
-    "sword",
-    "blade",
-    "staff",
-    "hammer",
-    "club",
-    "whip",
-    "dagger",
-    "throwing",
-    "unarmed",
-    "parry",
-    "magic",
-    "medical",
-    "poison",
-    "chuixiao-jifa",
-    "tanqin-jifa",
-    "guzheng-jifa",
-    "cooking",
-});
+// 从 masterd.c 获取有效技能类型
+string *query_valid_types()
+{
+    return MASTER_D->query_valid_types();
+}
 
 #define HP_CMD              "/cmds/usr/hp"
 #define SKILLS_CMD              "/cmds/skill/skills"
@@ -157,7 +136,7 @@ private void show_target_skills(object me, object ob)
     sname = keys(skl);
     str = (ob == me ? "你" : ob->name()) + "目前所学到的所有技能";
 
-    basic = filter_array(valid_types, (: member_array($1, $(sname)) != -1 :));
+    basic = filter_array(query_valid_types(), (: member_array($1, $(sname)) != -1 :));
     lists = allocate(sizeof(basic));
     others = ({ });
 
@@ -220,7 +199,7 @@ private void show_target_skills(object me, object ob)
             break;
         }
 
-        if (member_array(sname[i], valid_types) != -1)
+        if (member_array(sname[i], query_valid_types()) != -1)
             skcolor = CYN;
         else
             skcolor = WHT;

@@ -9,7 +9,7 @@ public mixed teach_pfm(object who, object ob, mapping b);
 public mixed give_item(object who, object ob, mapping b);
 
 // 对应下面的提升 skills 的可激发技能
-string *valid_types = ({
+private string *valid_types = ({
         "force",
         "dodge",
         "unarmed",
@@ -35,6 +35,18 @@ string *valid_types = ({
         "guzheng-jifa",
         "cooking",
 });
+
+// 提供给外部调用的接口函数，获取有效技能类型
+public string *query_valid_types()
+{
+    return valid_types;
+}
+
+// 检查指定技能类型是否有效
+public int is_valid_type(string type)
+{
+    return member_array(type, valid_types) != -1;
+}
 
 // 传授武功绝招
 public mixed teach_pfm(object who, object ob, mapping b)

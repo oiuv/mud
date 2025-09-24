@@ -3,32 +3,11 @@
 
 #include <ansi.h>
 
-string *valid_types = ({
-    "force",
-    "dodge",
-    "cuff",
-    "strike",
-    "finger",
-    "hand",
-    "claw",
-    "sword",
-    "blade",
-    "staff",
-    "hammer",
-    "club",
-    "whip",
-    "dagger",
-    "throwing",
-    "unarmed",
-    "parry",
-    "magic",
-    "medical",
-    "poison",
-    "chuixiao-jifa",
-    "tanqin-jifa",
-    "guzheng-jifa",
-    "cooking",
-});
+// 从 masterd.c 获取有效技能类型
+string *query_valid_types()
+{
+    return MASTER_D->query_valid_types();
+}
 
 int sort_skill(string sk1, string sk2, mapping spos);
 int filter_for_enable(string skill, string skill1);
@@ -173,7 +152,7 @@ int main(object me, string arg)
     if (skill1)
     {
         // filter the skill array by skill1
-        if (member_array(skill1, valid_types) != -1)
+        if (member_array(skill1, query_valid_types()) != -1)
         {
             // skill1 is a basic skill
             sname = filter_array(sname, (: filter_for_enable :), skill1);
@@ -208,7 +187,7 @@ int main(object me, string arg)
 
     // sort all the skills
     // select all the basic skill of the skill list
-    basic = filter_array(valid_types, (: member_array($1, $(sname)) != -1 :));
+    basic = filter_array(query_valid_types(), (: member_array($1, $(sname)) != -1 :));
 
     // allocate the string array for each basic skill
     lists = allocate(sizeof(basic));
@@ -328,7 +307,7 @@ int main(object me, string arg)
                 skillname = sprintf("%c    %c", skillname[0], skillname[1]);
                 break;
             }
-            if (member_array(sname[i], valid_types) != -1)
+            if (member_array(sname[i], query_valid_types()) != -1)
                 skcolor = CYN;
             else
                 skcolor = WHT;

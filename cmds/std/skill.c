@@ -7,32 +7,11 @@
 
 inherit F_CLEAN_UP;
 
-string *valid_types = ({
-    "force",
-    "dodge",
-    "unarmed",
-    "cuff",
-    "strike",
-    "finger",
-    "hand",
-    "claw",
-    "sword",
-    "blade",
-    "staff",
-    "hammer",
-    "club",
-    "whip",
-    "dagger",
-    "throwing",
-    "parry",
-    "magic",
-    "medical",
-    "poison",
-    "chuixiao-jifa",
-    "tanqin-jifa",
-    "guzheng-jifa",
-    "cooking",
-});
+// 从 masterd.c 获取有效技能类型
+string *query_valid_types()
+{
+    return MASTER_D->query_valid_types();
+}
 
 int main(object me, string arg)
 {
@@ -67,7 +46,7 @@ int main(object me, string arg)
     if (SKILL_D(arg)->valid_enable("force"))
         is_force = 1;
 
-    if (member_array(arg, valid_types) != -1)
+    if (member_array(arg, query_valid_types()) != -1)
     {
         msg += WHT "  武功所属：  " HIG "基本武功\n" NOR;
         msg += HIC "≡" HIY "----------------------------------------------" HIC "≡\n" NOR;

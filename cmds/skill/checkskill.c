@@ -8,32 +8,11 @@
 
 inherit F_CLEAN_UP;
 
-string *valid_types = ({
-    "force",
-    "dodge",
-    "unarmed",
-    "cuff",
-    "strike",
-    "finger",
-    "hand",
-    "claw",
-    "sword",
-    "blade",
-    "staff",
-    "hammer",
-    "club",
-    "whip",
-    "dagger",
-    "throwing",
-    "parry",
-    "magic",
-    "medical",
-    "poison",
-    "chuixiao-jifa",
-    "tanqin-jifa",
-    "guzheng-jifa",
-    "cooking",
-});
+// 从 masterd.c 获取有效技能类型
+string *query_valid_types()
+{
+    return MASTER_D->query_valid_types();
+}
 
 // 查询技能的特性
 
@@ -173,7 +152,7 @@ int main(object me, string arg)
         msg += CYN "\n  特殊技能：  " WHT + enable + "\n" NOR;
     }
 
-    if (member_array(arg, valid_types) != -1)
+    if (member_array(arg, query_valid_types()) != -1)
     {
         msg += CYN "\n  技能所属：  " WHT "基本技能\n" NOR;
         msg += HORIZONTAL_STR;
