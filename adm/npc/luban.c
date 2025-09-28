@@ -2827,7 +2827,7 @@ private void create_room(object me)
                     }
                     desc = replace_string(desc, "ROOM_POSITION", position_short);
                     desc = sort_desc(me, desc);
-                    dstfile += "\tset (\"long\", @LONG\n" + desc + "LONG );\n";
+                    dstfile += "    set (\"long\", @LONG\n" + desc + "LONG );\n";
                 }
                 continue;
             }
