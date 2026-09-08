@@ -17,3 +17,5 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+/.codegraph/
+/.zread/
