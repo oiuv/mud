@@ -6,7 +6,7 @@
 
 inherit F_DBASE;
 
-#define BACKUP_DATE     15               // the oldest's backup (days) 保留半个月内的备份
+#define BACKUP_DATE     90               // the oldest's backup (days) 保留三个月内的备份
 
 nosave int state;
 
