@@ -57,7 +57,7 @@ class NPCManager:
         # 检查是否配置了API密钥
         api_key = os.getenv("OPENAI_API_KEY")
         base_url = os.getenv("OPENAI_BASE_URL", "https://api.moonshot.cn/v1")
-        model = os.getenv("OPENAI_MODEL", "moonshot-v1-auto")
+        model = os.getenv("OPENAI_MODEL", "kimi-k2.6")
 
         if not api_key or api_key == "your-api-key":
             # 使用模拟回复
@@ -216,9 +216,11 @@ class NPCManager:
             completion = client.chat.completions.create(
                 model=model,
                 messages=messages,
-                temperature=0.7,
-                max_tokens=1024,  # 1024 tokens ≈ 750 Chinese characters - optimal balance
-                timeout=10,  # 10秒超时
+                extra_body={
+                    "thinking": {"type": "disabled"}
+                },  # 通过 extra_body 参数，传递额外请求体，从而禁用思考能力
+                max_tokens=1024*32
+                # 无需设置temperature
             )
             return enriched_message, completion.choices[0].message.content
 

@@ -34,7 +34,8 @@ int main(object me, string arg) {
 
     // 发送对话请求
     if (npc->accept_talk(me, message)) {
-        write("你对" + npc->name() + "说：" + message + "\n");
+        // write("你对" + npc->name() + "说：" + message + "\n");
+        message_vision("$N对" + npc->name() + "说：" + message + "\n", me);
         return 1;
     }
 
