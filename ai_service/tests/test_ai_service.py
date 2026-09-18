@@ -216,11 +216,14 @@ class RetrievalTests(Fixture):
     def test_rrf_combines_both_rankings(self):
         system, _ = self.knowledge()
         _, docs = system.basic.corpus()
-        with patch.object(system.basic, "search", return_value=[docs[0], docs[1]]), \
-             patch.object(system, "semantic_search", return_value=[docs[1]]):
+        with patch.object(system.basic, "search", return_value=[dict(docs[0], bm25_score=4.0), dict(docs[1], bm25_score=2.0)]), \
+             patch.object(system, "semantic_search", return_value=[dict(docs[1], vector_score=0.9)]):
             results = system.hybrid_search("query")
         self.assertEqual(results[0]["id"], docs[1]["id"])
         self.assertEqual(set(results[0]["sources"]), {"vector", "bm25"})
+        self.assertEqual(results[0]["bm25_score"], 2.0)
+        self.assertEqual(results[0]["vector_score"], 0.9)
+        self.assertAlmostEqual(results[0]["score"], 1 / 62 + 1 / 61)
 
     def test_rerank_native_payload_and_original_index_mapping(self):
         system, _ = self.knowledge()

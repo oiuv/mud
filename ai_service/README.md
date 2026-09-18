@@ -207,6 +207,38 @@ LPC和Python必须同步更新；旧客户端没有请求编号，无法获得�
 改 SERVER_HOST/PORT 时同步修改 adm/daemons/ai_client_d.c 中的常量；默认仅绑定本机。
 完整参数参见 .env.example。
 
+## 查看提问的知识库召回
+
+在 `ai_service` 目录运行。无需启动游戏或 AI 服务；省略问题参数即可连续输入不同问题，输入 `/quit` 或 `/exit` 退出。
+
+Windows PowerShell：
+
+~~~powershell
+# 连续提问，按李白的知识库阈值检索
+.\.venv\Scripts\python.exe .\scripts\test_retrieval.py --npc "li bai"
+
+# 单次问题，显示前 5 条结果及完整文档块正文
+.\.venv\Scripts\python.exe .\scripts\test_retrieval.py "武当派如何拜师？" --npc "li bai" --top-k 5 --full
+
+# 仅测试本地 BM25，不调用远程 API
+.\.venv\Scripts\python.exe .\scripts\test_retrieval.py --bm25
+~~~
+
+Linux：
+
+~~~sh
+.venv/bin/python scripts/test_retrieval.py --npc "li bai"
+.venv/bin/python scripts/test_retrieval.py "少林派有什么武功？" --bm25 --full
+~~~
+
+每条结果显示标题、文件相对路径、文档块 ID、召回来源、分数和正文。默认预览前 600 字，`--full` 显示整个命中文档块。混合结果保留 BM25 分数、向量余弦相似度和 RRF 融合分数；实际完成重排时还显示重排分数，各类分数不可直接比较。
+
+默认读取 `.env` 和当前知识库索引，复用游戏中的 `hybrid_search`（BM25 + 向量召回、RRF 融合、按配置重排），可能调用向量和重排 API。脚本仅展示检索结果，不调用问答模型，也不写玩家对话记录；展示的正文尚未经过问答提示词的总长度截断。
+
+`--npc` 使用对应 NPC 的 `knowledge_threshold`；未指定时为 0.4。`--threshold` 可覆盖阈值，1 按游戏规则关闭全部召回。`--top-k` 默认读取 `RETRIEVAL_TOP_K`。
+
+首次使用空的本地知识库时会从 `HELP_DIR` 构建 BM25 索引；脚本不生成文档向量。更新帮助文件或更换向量模型后，先用同一 Python 执行 `scripts/update_knowledge.py` 更新索引。没有匹配当前模型的向量或远程检索失败时，会保留可用的 BM25 结果并显示提示。
+
 ## 验证
 
 ~~~sh

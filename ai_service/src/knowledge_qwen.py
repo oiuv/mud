@@ -198,6 +198,9 @@ class QwenKnowledgeSystem:
                 entry = fused.setdefault(doc["id"], dict(doc, score=0.0, sources=[]))
                 entry["score"] += 1.0 / (60 + rank)
                 entry["sources"].append(source)
+                score_key = f"{source}_score"
+                if score_key in doc:
+                    entry[score_key] = doc[score_key]
         candidates = sorted(fused.values(), key=lambda doc: doc["score"], reverse=True)[:count]
         try:
             return self.rerank(query, candidates, limit, deadline)
