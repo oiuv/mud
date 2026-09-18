@@ -56,6 +56,10 @@ class WindowsLauncherTests(unittest.TestCase):
         (self.root / "scripts/update_knowledge.py").write_text(FAKE_UPDATE, encoding="utf-8")
         (self.root / "main.py").write_text(FAKE_MAIN, encoding="utf-8")
         (self.root / ".env").write_text("# test environment\n", encoding="utf-8")
+        (self.root / ".env.example").write_text("# template environment\n", encoding="utf-8")
+        (self.root / "requirements.txt").write_text("# offline fixture\n", encoding="utf-8")
+        (self.root / "config").mkdir()
+        (self.root / "config/npc_roles.example.json").write_text('{"template": true}\n', encoding="utf-8")
         self.env = dict(os.environ, AI_STOP_TIMEOUT="3", PYTHONUTF8="1")
         self.addCleanup(self.command, "stop")
 
@@ -70,6 +74,81 @@ class WindowsLauncherTests(unittest.TestCase):
         if check:
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         return result
+
+    def batch_command(self, *args):
+        return subprocess.run(
+            [str(self.root / "start.bat"), *args], shell=True,
+            cwd=tempfile.gettempdir(), env=self.env, capture_output=True,
+            encoding="utf-8", errors="replace", timeout=25,
+            creationflags=subprocess.CREATE_NO_WINDOW,
+        )
+
+    def prepare_bootstrap(self):
+        # Keep a real Windows venv template; simulate creation and pip offline.
+        original = (self.root / ".venv").resolve()
+        template = (self.root / "bootstrap-template").resolve()
+        self.assertEqual(original.parent, self.root)
+        self.assertEqual(template.parent, self.root)
+        original.rename(template)
+        modules = self.root / "bootstrap-modules"
+        modules.mkdir()
+        (modules / "venv.py").write_text(
+            "import shutil, sys\n"
+            f"shutil.copytree({str(template)!r}, sys.argv[-1])\n",
+            encoding="utf-8",
+        )
+        (modules / "pip.py").write_text(
+            "from pathlib import Path\n"
+            "import sys\n"
+            "root = Path(__file__).resolve().parents[1]\n"
+            "assert sys.argv[1:] == ['install', '-r', str(root / 'requirements.txt')]\n"
+            "with (root / 'installs').open('a') as output: output.write('install\\n')\n"
+            "if (root / 'fail-install').exists(): raise SystemExit(9)\n",
+            encoding="utf-8",
+        )
+        self.env.update(AI_PYTHON=sys.executable, PYTHONPATH=str(modules))
+
+    def test_default_batch_start_bootstraps_and_preserves_configuration(self):
+        self.prepare_bootstrap()
+        roles = self.root / "config/npc_roles.json"
+        roles.write_text('{"existing": true}\n', encoding="utf-8")
+        result = self.batch_command()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.command("status", check=True)
+        self.assertEqual((self.root / ".env").read_text(), "# test environment\n")
+        self.assertEqual(roles.read_text(), '{"existing": true}\n')
+        self.assertEqual((self.root / "installs").read_text().splitlines(), ["install"])
+        self.assertEqual((self.root / "updates").read_text().splitlines(), ["update"])
+        self.command("stop", check=True)
+        self.command("start", check=True)
+        self.assertEqual((self.root / "installs").read_text().splitlines(), ["install"])
+        self.assertEqual((self.root / "updates").read_text().splitlines(), ["update", "update"])
+
+    def test_default_powershell_start_copies_missing_configuration(self):
+        self.prepare_bootstrap()
+        (self.root / ".env").unlink()
+        self.command(check=True)
+        self.assertEqual((self.root / ".env").read_text(), "# template environment\n")
+        self.assertEqual((self.root / "config/npc_roles.json").read_text(), '{"template": true}\n')
+        self.command("status", check=True)
+
+    def test_failed_install_is_retried_before_knowledge_update(self):
+        self.prepare_bootstrap()
+        failure = self.root / "fail-install"
+        failure.touch()
+        result = self.command()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("exit 9", result.stderr)
+        self.assertTrue((self.root / ".venv/Scripts/python.exe").is_file())
+        self.assertFalse((self.root / "updates").exists())
+        self.assertFalse((self.root / ".run/windows-service.json").exists())
+        failure.unlink()
+        # Existing venv must be enough to retry, even without the base interpreter.
+        self.env["AI_PYTHON"] = str(self.root / "unavailable-python.exe")
+        self.command(check=True)
+        self.assertEqual((self.root / "installs").read_text().splitlines(), ["install", "install"])
+        self.assertEqual((self.root / "updates").read_text().splitlines(), ["update"])
+        self.command("status", check=True)
 
     def state(self):
         return json.loads((self.root / ".run/windows-service.json").read_text(encoding="utf-8"))

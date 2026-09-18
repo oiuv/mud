@@ -10,6 +10,7 @@ $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 $serviceDir = $PSScriptRoot
 $venvPython = Join-Path $serviceDir ".venv\Scripts\python.exe"
+$setupPendingFile = Join-Path $serviceDir ".venv\.setup-pending"
 $runDir = Join-Path $serviceDir ".run"
 $stateFile = Join-Path $runDir "windows-service.json"
 $logFile = Join-Path $serviceDir "logs\ai_service.log"
@@ -37,8 +38,9 @@ function Invoke-Python {
 }
 
 function Assert-Environment {
-    if (-not (Test-Path -LiteralPath $venvPython)) {
-        throw "Virtual environment missing. Run: start.bat setup"
+    if (-not (Test-Path -LiteralPath $venvPython) -or (Test-Path -LiteralPath $setupPendingFile)) {
+        Write-Host "Preparing the virtual environment and dependencies..."
+        Initialize-Environment
     }
     if (-not (Test-Path -LiteralPath (Join-Path $serviceDir ".env"))) {
         throw "Configuration missing. Run setup, then edit ai_service\.env."
@@ -48,19 +50,22 @@ function Assert-Environment {
 
 function Initialize-Environment {
     if ($null -ne (Get-ServiceState)) { throw "Stop the service before updating dependencies." }
-    $pythonArgs = @()
-    if ($env:AI_PYTHON) {
-        $python = $env:AI_PYTHON
-    } elseif (Get-Command python -ErrorAction SilentlyContinue) {
-        $python = (Get-Command python).Source
-    } elseif (Get-Command py -ErrorAction SilentlyContinue) {
-        $python = (Get-Command py).Source
-        $pythonArgs = @("-3")
-    } else { throw "Install Python 3.10+ or set AI_PYTHON to python.exe." }
-    Invoke-Python $python ($pythonArgs + @("-c", "import sys; sys.exit(0 if sys.version_info >= (3, 10) else 'Python 3.10+ required')"))
     if (-not (Test-Path -LiteralPath $venvPython)) {
+        $pythonArgs = @()
+        if ($env:AI_PYTHON) {
+            $python = $env:AI_PYTHON
+        } elseif (Get-Command python -ErrorAction SilentlyContinue) {
+            $python = (Get-Command python).Source
+        } elseif (Get-Command py -ErrorAction SilentlyContinue) {
+            $python = (Get-Command py).Source
+            $pythonArgs = @("-3")
+        } else { throw "Install Python 3.10+ or set AI_PYTHON to python.exe." }
+        Invoke-Python $python ($pythonArgs + @("-c", "import sys; sys.exit(0 if sys.version_info >= (3, 10) else 'Python 3.10+ required')"))
         Invoke-Python $python ($pythonArgs + @("-m", "venv", (Join-Path $serviceDir ".venv")))
     }
+    Invoke-Python $venvPython @("-X", "utf8", "-c", "import sys; sys.exit(0 if sys.version_info >= (3, 10) else 'Python 3.10+ required')")
+    # A failed/interrupted install must be retried before knowledge updates or startup.
+    [IO.File]::WriteAllText($setupPendingFile, "pending", $utf8)
     Invoke-Python $venvPython @("-m", "pip", "install", "-r", (Join-Path $serviceDir "requirements.txt"))
     foreach ($name in @(".env", "config\npc_roles.json")) {
         $target = Join-Path $serviceDir $name
@@ -69,7 +74,8 @@ function Initialize-Environment {
             Copy-Item -LiteralPath (Join-Path $serviceDir $example) -Destination $target
         }
     }
-    Write-Host "Setup complete. Edit ai_service\.env, then run start.bat start."
+    Remove-Item -LiteralPath $setupPendingFile -Force
+    Write-Host "Setup complete. Configuration: $serviceDir\.env"
 }
 
 function Start-AIService {
@@ -160,10 +166,11 @@ try {
     if ($Command -eq "help") {
         Write-Host @"
 Usage: start.bat [setup|start|stop|restart|status|logs|run|help] [-d]
-Default: start. Startup automatically synchronizes BM25 and missing vectors.
+Default: start. First startup creates .venv and installs dependencies automatically.
+Startup retries incomplete setup, then synchronizes BM25 and missing vectors.
 setup: create .venv, install requirements, copy missing configuration templates.
 run: foreground mode. start: background mode with logs/ai_service.log.
-AI_PYTHON selects Python for setup. AI_STOP_TIMEOUT defaults to 90 seconds.
+AI_PYTHON selects Python when creating .venv. AI_STOP_TIMEOUT defaults to 90 seconds.
 "@
         exit 0
     }
