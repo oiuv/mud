@@ -1,8 +1,9 @@
 # FluffOS LPC 语言语法指南
 
-> 核对基线：仓库内 `fluffos/` 的提交 `b1fb96f`（2026-07-24）。
-> 本文覆盖当前构建启用的 LPC 语法、核心运行时语义和常用 efun；efun 是否可用仍取决于编译时功能包。
-> 若本文与更新后的驱动冲突，以 `grammar.y`、词法器与编译选项、`*.spec` 和 `testsuite/` 为准，并同步修订本文。
+> 核对基线：FluffOS 源码提交 `2c27287500daf48a87a1f89d69a97d8b9603028d`（2026-09-16），核对日期为 2026-09-18。
+> 本文按最新已核对的 FluffOS 源码描述 LPC 语法、核心运行时语义和常用 efun；涉及可选功能时注明编译开关或功能包。
+> 关键新增与行为修正的支持起点见[关键更新的支持版本](#关键更新的支持版本)，按引入提交及日期标注。
+> 若本文与更新后的驱动冲突，以 `grammar.y`、语义规则实现、词法器与编译选项、`packages/<包名>/<包名>.spec` 和 `testsuite/` 为准，并同步修订本文。核对依据见文末附录。
 
 ---
 
@@ -27,6 +28,7 @@
 17. [特殊内置形式](#17-特殊内置形式)
 18. [内置函数（Efun）分类速查](#18-内置函数efun分类速查)
 19. [编码风格建议](#19-编码风格建议)
+20. [异步函数与 Promise](#20-异步函数与-promise)
 
 ---
 
@@ -86,13 +88,14 @@ LPC 中每个源文件编译为一个"程序"（program），可以被：
 | `object` | 对象指针 | 引用类型 |
 | `mapping` | 关联数组（哈希表） | 引用类型 |
 | `function` | 函数指针 | 引用类型 |
+| `promise` / `promise<T>` | 异步结果，详见第20节 | 引用类型 |
 | `buffer` | 字节数组（每元素 0-255） | 引用类型 |
 | `class` / `struct` | 具名字段结构 | 引用类型 |
 | `mixed` | 任意类型（关闭类型检查） | — |
 | `void` | 仅用于函数返回值，表示无返回 | — |
 
 **值类型**（`int`、`string`、`float`）赋值和传参时复制值。
-**引用类型**（`mapping`、`function`、`object`、数组、`buffer`、`class`/`struct`）赋值和传参时共享引用。
+**引用类型**（`mapping`、`function`、`object`、`promise`、数组、`buffer`、`class`/`struct`）赋值和传参时共享引用。
 
 ```c
 int a = 10;             // 值类型
@@ -112,7 +115,7 @@ string *names;          // string 数组
 mixed *stuff;           // mixed 数组（可存放任意类型）
 ```
 
-当前构建未启用 `ARRAY_RESERVED_WORD`，因此不要使用旧式 `int array nums` 写法。
+旧式 `int array nums` 写法依赖兼容选项 `ARRAY_RESERVED_WORD`（源码默认关闭）；本文统一使用 `int *nums` 写法。
 
 ### 3.3 Class 类型
 
@@ -123,7 +126,7 @@ class Person {
     float *scores;
 }
 
-// 当前构建同时启用 struct；它与 class 使用同一套语法和运行时表示
+// struct 与 class 使用同一套语法和运行时表示，关键字是否启用取决于编译选项
 struct Point {
     int x;
     int y;
@@ -142,6 +145,7 @@ struct Point {
 | `nomask` | 禁止被继承覆盖或 `shadow()` |
 | `nosave` | 全局变量不参与 `save_object()` / `restore_object()` |
 | `varargs` | 函数可接受可变数量参数 |
+| `async` | 异步函数；调用得到 Promise，函数体可使用 `await` / `acatch` |
 
 修饰符可组合使用：
 
@@ -150,7 +154,7 @@ nosave private int internalCounter;
 public varargs mixed query(string key, mixed def) { ... }
 ```
 
-当前构建启用了 `SENSIBLE_MODIFIERS`：`static` 不是关键字，使用 `private` 或 `nosave` 明确表达意图；`virtual` 也不是 LPC 修饰符。`varargs` 只能修饰函数，不能用于 `private:` 这类全局修饰符标签。
+启用编译选项 `SENSIBLE_MODIFIERS` 时，`static` 不是关键字，使用 `private` 或 `nosave` 明确表达意图；`virtual` 也不是 LPC 修饰符。`varargs` 和 `async` 只能修饰函数，不能用于 `private:` 这类全局修饰符标签。
 
 ### 3.5 类型转换
 
@@ -214,7 +218,7 @@ void example() {
 }
 ```
 
-这是语言能力；本仓库的贡献规范仍要求局部变量集中在函数开头，提交代码时遵循 `AGENTS.md`。
+局部变量的声明位置属于语言支持范围，是否集中在函数开头可由项目编码规范约定。
 
 ### 4.3 变量初始化
 
@@ -456,7 +460,8 @@ a = (x = 1, y = 2, x + y);  // a = 3
 
 | 优先级 | 运算符 | 结合性 |
 |--------|--------|--------|
-| 最低 | `=` `+=` `-=` 等赋值 | 右结合 |
+| 最低 | `,` 逗号表达式 | 左结合 |
+| | `=` `+=` `-=` 等赋值 | 右结合 |
 | | `? :` 三元 | 右结合 |
 | | `??` 空值合并 | 左结合 |
 | | `\|\|` 逻辑或 | 左结合 |
@@ -469,7 +474,8 @@ a = (x = 1, y = 2, x + y);  // a = 3
 | | `<<` `>>` | 左结合 |
 | | `+` `-` | 左结合 |
 | | `*` `/` `%` | 左结合 |
-| 最高 | `!` `~` 一元 `-` | — |
+| | `!` `~` 一元 `-`、cast、`await`、前置 `++` / `--` | 前缀 |
+| 最高 | 函数调用、索引/切片、成员访问、后置 `++` / `--` | 后缀 |
 
 ---
 
@@ -570,7 +576,9 @@ foreach (int b in buf) {
 **注意：**
 
 - 双变量 `foreach (key, value in expr)` 只适用于 mapping；数组、字符串和 buffer 使用单变量形式。
-- `ref` 只能原地修改数组和 buffer 的元素。对字符串的 `ref` 遍历不会修改原字符串。
+- `ref` 可原地修改数组、buffer 的元素，以及 mapping 的值；例如 `foreach (string key, mixed ref value in data) { value *= 2; }`。mapping 的键不能用 `ref` 修改。
+- 对字符串的 `ref` 遍历不会修改原字符串。
+- 异步函数中，使用局部循环变量的普通 `foreach` 支持 `await`；`ref` 或全局循环变量仍有限制，见第20.2节。
 - 字符串按扩展字形簇遍历；无法表示为单一 Unicode 码点的多码点簇会得到 `-1`，需要完整文本时使用范围切片。
 
 ### 7.6 switch / case
@@ -636,6 +644,17 @@ return;           // void 函数
 return value;     // 返回值
 ```
 
+当声明的返回类型与表达式的静态类型分别为 `int` / `float` 时，编译器执行数值转换；这与第3.5节只改变类型标记的显式 cast 不同：
+
+```c
+int wholePart() { return 3.9; }      // 真正返回 int 3
+float realValue() { return 5; }     // 真正返回 float 5.0
+float realZero() { return 0; }      // 真正返回 float 0.0
+mixed keepValue() { return 1.5; }   // 保留 float 值
+```
+
+该规则不逐项转换 `int *` / `float *` 数组，也不代表任意 `mixed` 返回值都会在运行时按声明重新检查。
+
 ---
 
 ## 8. 函数
@@ -693,7 +712,9 @@ greet("Alice");            // 使用默认值 "friend"
 greet("Bob", "Sir");       // 覆盖为 "Sir"
 ```
 
-默认值使用函数指针语法 `: (: expr :)`，在**调用时**在**调用者上下文**中求值。
+默认值使用函数指针语法 `: (: expr :)`，在**调用时**在**调用者上下文**中求值。带默认值的参数必须位于参数列表末尾。
+
+默认参数表达式内不能声明局部变量，也不能使用 `await` / `acatch`；需要复杂处理时调用普通辅助函数。
 
 ### 8.5 按引用传递（ref / &）
 
@@ -746,11 +767,13 @@ ops[0](1, 2);
 ### 8.7 函数名称限定
 
 ```c
-foo()                   // 本对象或全局函数
-::foo()                 // 绕过继承，直接调用本对象的版本
-Parent::foo()           // 调用指定继承类的方法
-int::to_string(42)      // 内置类型方法
+foo()                   // 普通函数调用，可调用本对象覆盖后的实现
+::foo()                 // 调用继承链中的实现，绕过本对象同名覆盖
+room::foo()             // 指定已继承的 room.c / room.lpc 中的实现
+efun::write("hello")    // 直接调用驱动 efun，绕过 simul_efun
 ```
+
+`room` 匹配继承文件去掉扩展名后的名称，须先有对应的 `inherit`。即使限定名写成 `int`、`object` 等类型关键字，也仍走继承文件查找；`int::to_string(42)` 不是内置类型方法语法。
 
 ---
 
@@ -813,13 +836,15 @@ int result = f(5);   // result = 11
 
 ### 9.4 五种函数指针类型
 
-| 类型 | 语法 | 参数求值时机 |
-|------|------|-------------|
-| 本地函数 | `(: func :)` 或 `func` | 创建时 |
-| efun 指针 | `(: efun :)` | 创建时 |
-| call_other | `(: object, "method" :)` | 创建时 |
-| 表达式函数 | `(: $1 + $2 :)` | 使用时 |
-| 匿名函数 | `function(type arg) { ... }` | 使用时 |
+| 类型 | 语法 | 求值说明 |
+|------|------|----------|
+| 本地函数 | `(: func :)` 或 `func` | 创建函数引用，调用时执行函数 |
+| efun 指针 | `(: efun :)` | 创建 efun 引用，调用时执行 |
+| call_other | `(: object, "method" :)` | 创建时绑定目标，调用时执行方法 |
+| 表达式函数 | `(: $1 + $2 :)` | 调用时计算表达式 |
+| 匿名函数 | `function(type arg) { ... }` | 调用时执行函数体 |
+
+调用实参在调用时求值；`(: func, expr :)` 的预绑定参数 `expr` 则在创建指针时求值。不要把绑定参数的求值时机理解为函数体在创建时执行。
 
 ### 9.5 `$()` 捕获表达式
 
@@ -861,10 +886,10 @@ public inherit "/std/weapon";       // 公有继承（显式）
 **访问被覆盖的父函数：**
 
 ```c
-// 调用指定继承类的方法
-Object::reset();
+// 假设已 inherit "/std/object"，调用该文件中的父函数
+object::reset();
 
-// 调用当前对象中被覆盖的版本
+// 调用继承链中被本对象覆盖的实现
 ::query_long();
 ```
 
@@ -881,7 +906,7 @@ void external_api() { ... }
 
 ### 10.3 Class（结构体）
 
-`class` 是共享引用的具名字段结构，不支持继承。赋值不会复制实例，对任一别名修改字段都会影响同一个实例；`struct` 是当前构建启用的同义关键字。
+`class` 是共享引用的具名字段结构，不支持继承。赋值不会复制实例，对任一别名修改字段都会影响同一个实例；`struct` 是受编译选项控制的同义关键字。
 
 ```c
 // 定义
@@ -1205,7 +1230,11 @@ CONCAT(foo, bar)   // foobar
 #include <mudlib.h>     // 只搜索 include path
 ```
 
-文件名可由宏产生：`#include CONFIG`
+文件名可由宏产生：`#include CONFIG`。
+
+`#include` 与 `inherit` 应保留源码中的先后顺序，不能为排版将头文件统一移到继承语句之前；头文件可能引用继承引入的 class 或函数。当前上游格式化器也保留该顺序。
+
+`include_list(ob)` 返回对象编译时实际打开的头文件列表，包含嵌套头文件和实际打开的全局头文件；按首次出现顺序去重，不含对象自身源文件及未生效条件分支中的头文件。省略参数时查询 `this_object()`。
 
 ### 16.3 条件编译
 
@@ -1260,7 +1289,21 @@ string h = hash("sha256", data);
 
 此外，`#echo text` 会在编译时向标准错误输出文本，`#line N "file"` 会重设后续诊断使用的行号和可选文件名；`#breakpoint` 仅为兼容而接受，当前实现会忽略它。
 
-### 16.6 预定义宏
+### 16.6 指令行续行与注释
+
+以 `#` 开始的预处理指令先拼接反斜杠加换行，再识别注释。`#` 和指令名之间可以有块注释；续行也可出现在指令的字符串内部。
+
+```c
+# /* comment */ define LIMIT 10
+#define GREETING "hel\
+lo"                             // 展开为 "hello"
+#define VALUE 1 // note \
+这一物理行仍属于上一行注释
+```
+
+特别注意指令中 `//` 注释末尾的反斜杠：下一物理行也会被吞入注释。以上规则描述指令行，不表示普通 LPC 字符串都可以这样换行。
+
+### 16.7 预定义宏
 
 | 宏 | 说明 |
 |----|------|
@@ -1279,17 +1322,19 @@ string h = hash("sha256", data);
 
 ```c
 // 捕获表达式中的错误
-string err = catch(some_dangerous_call());
+mixed err = catch(some_dangerous_call());
 if (err) {
-    write("Error: " + err + "\n");
+    write(sprintf("Error: %O\n", err));
 }
 
 // 捕获代码块中的错误
-string err = catch {
+mixed err = catch {
     load_object("/dangerous");
     do_something();
 };
 ```
+
+`catch` 成功返回 `0`，失败返回错误值。驱动错误通常是以 `*` 开头的字符串，`throw(value)` 可抛出其他非零值，因此用 `mixed` 保存结果。普通 `catch` 内不能使用 `await`；需要跨异步挂起捕获异常时使用第20.3节的 `acatch`。
 
 ### 17.2 sscanf — 字符串解析
 
@@ -1334,7 +1379,7 @@ class Person p = new(class Person, name : "Alice", level : 10);
 
 ## 18. 内置函数（Efun）分类速查
 
-以下仅列常用 efun。准确签名以 `fluffos/src/packages/*.spec` 为准；数据库、PCRE、加密、数学等功能还取决于对应功能包是否编译。
+以下仅列常用 efun。准确签名以 `fluffos/src/packages/<包名>/<包名>.spec` 为准；数据库、PCRE、加密、数学等功能还取决于对应功能包是否编译。
 
 ### 18.1 数组操作
 
@@ -1452,8 +1497,11 @@ time()                          // 当前时间戳
 uptime()                        // 运行时间
 memory_info()                   // 内存信息
 debug_info(level, ob)           // 调试信息
-call_out(func, delay)           // 延时调用
-remove_call_out(id)             // 取消延时调用
+call_out(func, delay, args...)  // 传统回调形式，返回整数句柄
+call_out(delay)                 // Promise 形式，到时以 0 完成
+call_out_walltime(delay)        // 墙钟定时的 Promise 形式；也保留回调形式
+remove_call_out(id)             // 取消整数句柄对应的定时器
+include_list(ob)                // 编译时实际包含的头文件，可省略 ob
 ```
 
 ### 18.11 函数指针操作
@@ -1465,15 +1513,48 @@ map_array(arr, func)            // 用函数映射数组
 filter_array(arr, func)         // 用函数过滤数组
 ```
 
+### 18.12 异步文件操作
+
+这些 efun 需要 `PACKAGE_ASYNC`；Promise 类型、`async` / `await` 语法和第20节的核心 Promise efun 不依赖这个功能包。
+
+| 调用方式（省略回调） | 结果 |
+|--------------------|------|
+| `async_read(path)` | 返回 Promise，完成值为文件内容；读取失败以负整数拒绝 |
+| `async_write(path, text, flag)` | 返回 Promise，成功无有效载荷；失败以负整数拒绝；`flag == 1` 覆盖，否则追加 |
+| `async_getdir(pattern)` | 返回 Promise，完成值为排序后的文件名数组 |
+
+传入末尾 `function` 回调时仍走原有回调接口。`async_db_exec(conn, sql, callback, ...)` 还需要 `PACKAGE_DB`，当前仍要求回调，不能省略回调当成 Promise 使用。
+
+### 18.13 外部进程
+
+需要 `PACKAGE_EXTERNAL`，命令索引对应运行配置中的 `external_cmd_N`。
+
+| 调用 | 说明 |
+|------|------|
+| `external_start(index, args)` | 省略回调时返回 Promise；传统回调形式仍返回 socket fd |
+| `external_create(index, args)` | 分配进程句柄，尚不启动进程 |
+| `external_run(handle)` | 启动该句柄对应的进程，返回 Promise；每个句柄只能启动一次 |
+| `external_write(handle, text)` / `external_close_stdin(handle)` | 写入或关闭标准输入 |
+| `external_stdout(handle)` / `external_stderr(handle)` / `external_exit_code(handle)` | 读取结果 |
+| `external_kill(handle)` | 停止子进程，保留句柄及结果 |
+| `external_close(handle)` | 停止进程并释放句柄；未完成的运行 Promise 会拒绝 |
+
+`external_start` / `external_run` 的 Promise 完成值是 `({ stdout, stderr, exitCode })`。进程以非零状态退出仍是完成，调用方必须检查 `exitCode`；启动失败则拒绝。句柄归创建对象所有，使用后应 `external_close`。
+
+直接 `promise_reject` 这两种进程 Promise 会终止子进程；普通 `promise_race` 超时不会。`promise_cancel` 只适用于 `async` 函数的返回 Promise，不能用来取消这些进程 Promise。
+
 ---
 
 ## 19. 编码风格建议
 
+以下排版和命名为可选风格建议，不是 LPC 语法限制；具体项目可以采用其他一致的编码规范。
+
 ### 19.1 格式
 
 - **编码与换行**：UTF-8、LF，保留文件末尾换行并移除行尾空白
-- **缩进**：4 空格，不用 Tab
-- **花括号**：遵循相邻代码；本仓库 LPC 通常将函数和控制块的左花括号单独成行
+- **缩进**：示例使用4空格；项目内统一缩进宽度，避免混用 Tab 与空格
+- **局部变量**：支持第4.2节所述的 C99 式声明，也可以集中在函数开头
+- **花括号**：左花括号同行或独占一行均合法，保持风格一致；下面示例采用独占一行
 
 ```c
 void example()
@@ -1498,7 +1579,7 @@ void example()
 
 ### 19.3 类型检查
 
-始终在文件开头使用：
+建议在文件开头启用严格类型检查：
 
 ```c
 #pragma strict_types
@@ -1530,11 +1611,142 @@ void example()
 
 ---
 
+## 20. 异步函数与 Promise
+
+基础语法、Promise 链式接口和 `async_yield` 自 `858d5da9`（2026-08-27）支持。局部变量 `foreach` 跨 `await`、第20.4节的组合器、第20.5节的取消机制及取消状态 `3` 自 `7c808c8b`（2026-09-09）支持。
+
+### 20.1 Promise 类型与状态
+
+`promise` 表示一次异步结果，`promise<T>` 可声明完成值的类型。裸 `promise` 等价于 `promise<mixed>`：
+
+```c
+promise<int> result;
+promise<int> *results;        // Promise 数组
+promise<string *> names;      // 完成值为 string 数组的 Promise
+```
+
+类型参数可以是普通类型、数组或 class，不支持 `promise<void>` 或嵌套的 Promise 载荷。`promise<T>` 是类型声明，不会对动态 `mixed` 载荷进行全面的运行时类型检查。`promisep(value)` 判断是否为 Promise，`typeof(p)` 返回 `"promise"`。
+
+Promise 具有引用身份：`p == q` 比较是否同一实例，作为 mapping 键也按身份区分，`copy(p)` 不复制异步操作。它不能持久化，`save_object()` 将其保存为 `0`。
+
+| `promise_status(p)` | 状态 | `promise_result(p)` |
+|--------------------|------|---------------------|
+| `0` | pending，尚未完成 | 抛出错误 |
+| `1` | fulfilled，成功完成 | 完成值 |
+| `2` | rejected，失败 | 拒绝原因 |
+| `3` | cancelled，已取消 | 取消原因 |
+
+`promise_result` 读取失败或取消原因，不会像 `await` 那样将原因抛出。创建和完成 Promise 的基础接口：
+
+```c
+promise p = promise_create();
+promise_resolve(p, 42);        // 成功完成
+// 或 promise_reject(p, reason); 失败；同一个 Promise 不能重复完成
+```
+
+以另一个 Promise 完成时会跟随它的结果，不会产生嵌套 Promise。重复完成（包括已开始跟随另一个尚未完成的 Promise）会报错；`async` 函数返回的 Promise 由函数体负责完成，不能通过 `promise_resolve` / `promise_reject` 强行修改。
+
+### 20.2 async 与 await
+
+`async` 修饰函数；声明的返回类型仍用于检查函数体内的 `return`，调用方得到 Promise。例如 `async int f()` 调用后得到 `promise<int>`。`async void` 也合法，适用于没有业务返回值的异步工作。
+
+下面是一个完整示例，需要 `PACKAGE_ASYNC`：
+
+```c
+#pragma strict_types
+
+private async string readNotice(string path)
+{
+    return await async_read(path);
+}
+
+async void showNotice(object player, string path)
+{
+    string content;
+    mixed err;
+
+    err = acatch {
+        content = await readNotice(path);
+    };
+    if (!objectp(player))
+        return;
+    if (err)
+    {
+        tell_object(player, sprintf("读取失败：%O\n", err));
+        return;
+    }
+    tell_object(player, content);
+}
+```
+
+调度与求值规则：
+
+- 调用后先同步执行函数体，直到遇到需要挂起的 `await`，或直接结束；`async` 不会把整段 LPC 代码转移到后台线程。
+- `await` 非 Promise 时直接返回原值，不挂起；`await` 任意 Promise 时都会挂起，包括已经完成的 Promise，之后由微任务队列恢复执行。
+- 成功恢复得到完成值，失败或取消则在 `await` 处抛出对应原因。每次恢复有新的执行成本预算。
+- `await` 是一元前缀运算符，`await p + 3` 等于 `(await p) + 3`。
+- 连续 `await` 可能在同一轮微任务处理中继续执行。需要让事件循环处理网络及到期定时器时使用 `await async_yield()`，不要用 `await call_out(0)` 代替。
+- 挂起期间对象仍可接收其他调用；恢复后应重新检查共享状态及对象是否有效。`this_player()` 的恢复受运行配置 `this_player in call_out` 控制。
+
+限制与兼容性：
+
+- 原型、定义以及继承覆盖必须一致声明 `async`；不能给变量加 `async`，也不能写 `async:`。
+- `await` / `acatch` 只允许直接出现在异步函数体内，不允许写在其内部的普通 Lambda、匿名函数、默认参数或全局初始化中。
+- 普通 `catch` 和 `time_expression` 内不能 `await`，应将异步工作移出这些区域或改用 `acatch`。
+- 局部循环变量的普通 `foreach` 支持跨 `await`，包括数组、mapping、字符串、buffer 和嵌套循环。全局循环变量、`ref` 循环变量/实参，以及仍在栈上的字符串字符或 buffer 字节左值不能跨挂起保存，会触发运行时错误。
+- 当前源码允许 `arr[i] += await p` 和 `value += await p`：复合赋值先求右侧，再取得赋值目标。不要沿用旧文档中禁止此写法的说明。
+- `create`、`init`、`id`、`heart_beat` 等对象 apply 声明为 `async` 会编译失败；`valid_read` 等 master 专用 apply 的同名声明会警告。驱动需要即时返回值，权限校验和 `add_action` 命令函数不能返回 Promise；需要异步处理时由同步入口启动辅助函数。
+- 挂起期间所属对象被销毁、`recompile_object()` 重编译或 `replace_program()` 替换程序时，原调用不再恢复，返回的 Promise 会拒绝。
+
+### 20.3 acatch 与清理
+
+`acatch(expr)` 和 `acatch { ... }` 的返回约定与 `catch` 相同：成功为 `0`，失败为错误值；它们还可捕获挂起后收到的 Promise 拒绝或取消。错误值可能是整数、字符串等，使用 `mixed` 保存。
+
+`acatch` 只能用于异步函数，不能嵌入普通 `catch`；`acatch` 内可有不含 `await` 的普通 `catch`。`break` / `continue` 不能跳出捕获区域，`return` 可以正常退出。
+
+`defer(function)` 注册的清理回调会跨 `await` 保留，在函数最终退出时执行。但对象销毁、等待中的 Promise 被回收等放弃执行路径不能保证运行清理回调；必须跨这些情况清理的资源应交给寿命更长的管理对象。
+
+### 20.4 Promise 链与组合器
+
+| 接口 | 行为 |
+|------|------|
+| `promise_then(p, onValue, onError)` | 返回新的 Promise；回调参数可省略，回调返回值或抛出的错误决定后续结果 |
+| `promise_catch(p, onError)` | 只处理失败的链式形式，返回新的 Promise |
+| `promise_all(items)` | 全部成功后按输入顺序返回值数组；遇到首个失败立即失败 |
+| `promise_any(items)` | 首个成功者决定结果；全部失败则以按输入顺序收集的原因数组拒绝 |
+| `promise_race(items)` | 首个完成者决定结果，成功、失败或取消均可 |
+| `promise_all_settled(items)` | 等待全部结束，返回每项状态及结果，不因某项失败而拒绝 |
+
+组合器接收 `mixed *`，非 Promise 元素视为已成功的值。空数组的 `all` / `all_settled` 立即完成为空数组，`any` 拒绝，`race` 直接报错。
+
+`promise_all_settled` 每项结果采用以下格式：
+
+```c
+([ "status": 1, "value": value ])   // 成功
+([ "status": 2, "reason": reason ]) // 失败
+([ "status": 3, "reason": reason ]) // 取消
+```
+
+组合器不会自动停止尚未结束的操作。用 `promise_race` 限制等待时间时，超时只结束等待；需要停止工作，还须调用对应操作的取消或关闭接口。
+
+### 20.5 协作取消与诊断
+
+`promise_cancel(p)` 只接受 `async` 函数返回的 Promise。返回 `1` 表示已发出取消请求，`0` 表示函数体已结束、无可取消的工作；对其他来源的 Promise 调用会报错。
+
+取消是协作式的：在下一次 `await` 抛出 `"*async function cancelled"`；已经挂起的调用会从等待对象脱离并安排恢复，不必等原操作完成。错误未被捕获时，返回的 Promise 进入状态 `3`。请求被投递后即消耗，函数可在 `acatch` 中捕获，等待清理工作并正常返回；没有下一次 `await` 的函数也可能正常执行完毕。
+
+取消请求不会自动传播到被等待的其他异步函数。`call_out(delay)`、异步文件 I/O、组合器等返回的 Promise 不能用 `promise_cancel` 取消。需要单独撤销定时器时使用传统 `call_out(func, delay)` 的整数句柄和 `remove_call_out(handle)`。
+
+`async_info()` 提供异步运行诊断；长期不结束的等待会占用挂起函数额度。无人观察的拒绝会在 Promise 被释放时写入调试日志，调用方应通过 `await` / `acatch` 或 Promise 错误回调处理失败。
+
+---
+
 ## 附录：快速参考卡
 
 ### 类型速查
 ```
 int float string object mapping function buffer mixed void
+promise / promise<T>  — 异步结果
 class 类名 / struct 类名
 类型名 *      — 数组
 类型名 &      — 引用参数
@@ -1572,6 +1784,9 @@ void func(int a : (: default :)) { }       — 默认参数
 void func(int ref x) { }                   — 引用参数
 void func(int & x) { }                     — 引用参数（语法糖）
 int func(int a);                           — 前向声明
+async int func(int a) { return a; }        — 调用得到 promise<int>
+await expr;                               — 异步函数内等待
+acatch { await expr; };                    — 跨异步挂起捕获异常
 ```
 
 ### 函数指针速查
@@ -1586,4 +1801,40 @@ evaluate(f, args);                 — 传统调用
 
 ---
 
-> 本指南已按上述 FluffOS 基线的编译器语法、词法配置、efun 规范和回归测试核对。驱动升级后应重新核对并更新基线。
+> 本指南已按上述 FluffOS 基线的编译器语法、词法配置、efun 规范和回归用例核对。FluffOS 源码更新后应重新核对并更新基线。
+
+---
+
+## 附录：本次同步与核对依据
+
+文档基线从 `b1fb96f`（2026-07-24）同步到 `2c272875`（2026-09-16），依据源码、efun 签名和回归用例核对。
+
+### 关键更新的支持版本
+
+下表的“支持起点”表示包含该提交（含本提交）的驱动源码开始支持对应能力或修正。日期取自提交记录，便于定位；判断是否具备能力以是否包含该提交为准。
+
+| 关键更新 | 支持起点 | 文档位置 |
+|----------|----------|----------|
+| 函数 `return` 按声明执行标量 `int` / `float` 数值转换 | `88224998`（2026-07-27） | 第7.8节 |
+| 默认参数表达式内禁止声明局部变量 | `9e11248f`（2026-08-20） | 第8.4节 |
+| `promise<T>`、`async` / `await` / `acatch`、基础 Promise 接口及 `async_yield`；包括已完成 Promise 仍挂起及复合赋值右侧 `await` | `858d5da9`（2026-08-27） | 第20.1—20.3节，第20.4节的链式接口 |
+| `async_read` / `async_write` / `async_getdir`、`call_out` / `call_out_walltime` 省略回调时返回 Promise | `858d5da9`（2026-08-27） | 第18.10、18.12节 |
+| `include_list` 查询编译时实际包含的头文件 | `faccd243`（2026-09-03） | 第16.2、18.10节 |
+| 预处理指令先拼接反斜杠续行，再识别注释 | `ac9f6191`（2026-09-07） | 第16.6节 |
+| 外部进程句柄 API、`external_start` / `external_run` 的 Promise 形式及拒绝 Promise 时终止子进程 | `b8dd5866`（2026-09-09） | 第18.13节 |
+| Promise 组合器、`promise_cancel`、取消状态 `3`，以及局部循环变量的 `foreach` 跨 `await` | `7c808c8b`（2026-09-09） | 第7.5、20.1、20.2、20.4、20.5节 |
+
+`::foo()` 调用继承实现、mapping 值的 `ref` 遍历等属于旧说明纠正，并非本次源码才引入的能力。`2c272875`（2026-09-16）修正的是上游格式化器保留 `#include` / `inherit` 顺序的行为，不是新增语言语法。
+
+### 源码与测试依据
+
+| 内容 | 实现与签名 | 回归用例或上游说明 |
+|------|------------|--------------------|
+| Promise / async / await / acatch | [语法](../fluffos/src/compiler/internal/grammar.y)、[表达式语义](../fluffos/src/compiler/internal/grammar_rules_exprs.cc)、[core.spec](../fluffos/src/packages/core/core.spec) | [Promise 类型](../fluffos/testsuite/single/tests/efuns/promise_typed.lpc)、[await 求值和复合赋值](../fluffos/testsuite/single/tests/operators/await.lpc)、[异步 foreach](../fluffos/testsuite/single/tests/efuns/async_foreach.lpc) |
+| 组合器与取消 | [Promise 状态与类型](../fluffos/docs/lpc/types/promise.md)、[异步执行模型](../fluffos/docs/concepts/general/async.md) | [组合器](../fluffos/testsuite/single/tests/efuns/promise_combinators.lpc)、[取消](../fluffos/testsuite/single/tests/efuns/promise_cancel.lpc) |
+| 文件、定时器、外部进程 Promise 接口 | [async.spec](../fluffos/src/packages/async/async.spec)、[external.spec](../fluffos/src/packages/external/external.spec)、[call_out](../fluffos/docs/efun/calls/call_out.md) | [external_run](../fluffos/docs/efun/external/external_run.md)、[external_start](../fluffos/docs/efun/external/external_start.md) |
+| 返回值数值转换、默认参数限制 | [返回语句实现](../fluffos/src/compiler/internal/grammar_rules_loops.cc)、[默认实参求值](../fluffos/src/vm/internal/base/interpret.cc) | [返回值转换](../fluffos/testsuite/single/tests/operators/return_type_coercion.lpc)、[默认参数声明限制](../fluffos/testsuite/single/tests/compiler/default_arg_decl.lpc) |
+| 继承限定调用、mapping 引用遍历 | [继承函数查找](../fluffos/src/compiler/internal/compiler.cc)、[函数限定名实现](../fluffos/src/compiler/internal/grammar_rules_exprs.cc) | [函数调用语法](../fluffos/testsuite/single/tests/compiler/syntax_functions.lpc)、[mapping ref](../fluffos/testsuite/single/tests/operators/foreach_ref_mapping.lpc) |
+| 预处理续行、头文件依赖 | [include_list](../fluffos/docs/efun/system/include_list.md)、[上游源码顺序约定](../fluffos/docs/lpc/style-guide.md) | [预处理器](../fluffos/testsuite/single/tests/compiler/preprocessor.lpc)、[include_list 测试](../fluffos/testsuite/single/tests/efuns/include_list.lpc) |
+
+注意：上游 `docs/lpc/constructs/async.md` 仍残留“只等待 pending Promise 才挂起”和“`arr[i] += await p` 不允许”的旧说明。本指南已按当前实现及 `operators/await.lpc` 修正，后续维护时不能直接复制这些旧段落。
