@@ -1,338 +1,219 @@
-"""
-千问语义知识库系统
-使用text-embedding-v4实现高级语义搜索
-"""
-
-import os
-import json
-import sqlite3
+"""BM25 + dense retrieval, reciprocal rank fusion, then DashScope reranking."""
 import hashlib
-import re
+import json
+import logging
+import threading
+import time
+from collections import OrderedDict
 from pathlib import Path
-from typing import List, Dict, Optional, Tuple
+
+import httpx
 import numpy as np
 from openai import OpenAI
 
+from .database import connect, initialize
+from .knowledge_basic import BasicKnowledgeSystem
+from .settings import load_settings
+
+logger = logging.getLogger(__name__)
+
+
+def remaining_timeout(settings, deadline=None):
+    remaining = settings.api_timeout if deadline is None else deadline - time.monotonic()
+    if remaining <= 0:
+        raise TimeoutError("AI request deadline exceeded")
+    return min(settings.api_timeout, remaining)
+
+
 class QwenKnowledgeSystem:
-    """千问语义知识库系统"""
-
-    def __init__(self, data_dir: str = "data", model_name: str = "text-embedding-v4",
-                 dimensions: int = 1024):
-        self.data_dir = Path(data_dir)
-        self.data_dir.mkdir(exist_ok=True)
-        self.help_dir = Path("../help")
+    def __init__(self, data_dir=None, model_name=None, dimensions=None, settings=None, basic=None, client=None):
+        self.settings = settings or load_settings()
+        self.data_dir = Path(data_dir) if data_dir is not None else self.settings.data_dir
+        self.model_name = model_name or self.settings.embedding_model
+        self.dimensions = dimensions or self.settings.embedding_dimensions
+        self.basic = basic or BasicKnowledgeSystem(self.data_dir, self.settings)
         self.db_path = self.data_dir / "qwen_knowledge.db"
-        self.model_name = model_name
-        self.dimensions = dimensions
-
-        # 千问客户端
-        self.client = OpenAI(
-            api_key=os.getenv("DASHSCOPE_API_KEY"),
-            base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
-        )
-
-        # 查询向量缓存（只缓存向量，不缓存完整结果）
-        self.vector_cache = {}
+        self.client = client
+        self._lock = threading.RLock()
+        self.vector_cache = OrderedDict()
         self.cache_stats = {"hits": 0, "misses": 0, "total": 0}
+        self.fingerprint = hashlib.sha256(json.dumps(
+            [self.settings.embedding_base_url, self.model_name, self.dimensions]
+        ).encode()).hexdigest()
+        initialize(self.db_path)
+        with connect(self.db_path) as db:
+            # Legacy vectors are preserved but never silently reused for another model.
+            db.execute("""CREATE TABLE IF NOT EXISTS embeddings(
+                document_id TEXT NOT NULL,fingerprint TEXT NOT NULL,vector BLOB NOT NULL,
+                PRIMARY KEY(document_id,fingerprint))""")
 
-        self._init_db()
+    def _client(self):
+        with self._lock:
+            if self.client is None:
+                if not self.settings.dashscope_api_key:
+                    raise RuntimeError("DASHSCOPE_API_KEY is not configured")
+                self.client = OpenAI(api_key=self.settings.dashscope_api_key,
+                                     base_url=self.settings.embedding_base_url,
+                                     timeout=self.settings.api_timeout, max_retries=0)
+            return self.client
 
-    def _init_db(self):
-        """初始化向量数据库"""
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
+    def get_embedding(self, text, deadline=None):
+        if len(text.encode("utf-8")) > self.settings.embedding_max_bytes:
+            raise ValueError("Embedding input exceeds configured byte budget")
+        result = self._client().with_options(
+            timeout=remaining_timeout(self.settings, deadline)
+        ).embeddings.create(model=self.model_name, input=text, dimensions=self.dimensions,
+                            encoding_format="float")
+        vector = np.asarray(result.data[0].embedding, dtype=np.float32)
+        if vector.shape != (self.dimensions,) or not np.all(np.isfinite(vector)) or np.linalg.norm(vector) == 0:
+            raise ValueError("Invalid embedding vector")
+        return vector
 
-        # 文档表
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS documents (
-                id TEXT PRIMARY KEY,
-                title TEXT,
-                filename TEXT,
-                content TEXT,
-                category TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        ''')
-
-        # 向量索引表
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS vectors (
-                document_id TEXT PRIMARY KEY,
-                vector BLOB,
-                FOREIGN KEY (document_id) REFERENCES documents(id)
-            )
-        ''')
-
-        conn.commit()
-        conn.close()
-
-    def get_embedding(self, text: str) -> np.ndarray:
-        """获取文本的向量表示"""
-        try:
-            response = self.client.embeddings.create(
-                model=self.model_name,
-                input=text,
-                dimensions=self.dimensions
-            )
-            return np.array(response.data[0].embedding, dtype=np.float32)
-        except Exception as e:
-            print(f"向量获取失败: {e}")
-            return np.zeros(self.dimensions, dtype=np.float32)
-
-    def process_files(self) -> int:
-        """处理帮助文件并生成向量"""
-        if not self.help_dir.exists():
-            return 0
-
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
-        # 清空数据
-        cursor.execute("DELETE FROM documents")
-        cursor.execute("DELETE FROM vectors")
-
-        processed = 0
-        documents = []
-
-        for file in self.help_dir.glob("*"):
-            if file.is_file():
-                try:
-                    content = self._read_file(file)
-                    doc_id = hashlib.md5(f"{file.stem}_{len(content)}_{file.stat().st_mtime}".encode()).hexdigest()[:16]
-                    title = self._get_chinese_title(file.stem, content)
-                    category = self._categorize(file.stem)
-
-                    # 生成向量
-                    vector = self.get_embedding(content[:2000])  # 截断避免超长
-
-                    cursor.execute('''
-                        INSERT INTO documents (id, title, filename, content, category)
-                        VALUES (?, ?, ?, ?, ?)
-                    ''', (doc_id, title, file.stem, content, category))
-
-                    cursor.execute('''
-                        INSERT INTO vectors (document_id, vector) VALUES (?, ?)
-                    ''', (doc_id, vector.tobytes()))
-
-                    processed += 1
-
-                except Exception as e:
-                    print(f"处理失败 {file}: {e}")
-
-        conn.commit()
-        conn.close()
-        return processed
-
-    def _read_file(self, file: Path) -> str:
-        """读取文件完整内容"""
-        try:
-            with open(file, 'r', encoding='utf-8') as f:
-                content = f.read()
-        except:
-            with open(file, 'r', encoding='gbk') as f:
-                content = f.read()
-
-        # 清理内容
-        content = re.sub(r'\033\[[0-9;]*m', '', content)
-        content = re.sub(r'\$[A-Z]+\$', '', content)
-        content = re.sub(r'-{10,}', '', content)
-        content = re.sub(r'\|', '', content)
-        content = re.sub(r'\n{3,}', '\n\n', content)
-        return content.strip()
-
-    def _get_chinese_title(self, filename: str, content: str) -> str:
-        """获取中文标题"""
-        filename = filename.lower()
-        title_map = {
-            'shaolin': '少林派', 'wudang': '武当派', 'emei': '峨眉派',
-            'huashan': '华山派', 'gaibang': '丐帮', 'taohua': '桃花岛',
-            'xingxiu': '星宿派', 'xiaoyao': '逍遥派', 'gumu': '古墓派',
-            'quanzhen': '全真派', 'xuanming': '玄冥谷', 'kunlun': '昆仑派',
-            'mingjiao': '明教', 'riyue': '日月神教', 'lingjiu': '灵鹫宫',
-            'song': '嵩山派', 'dalunsi': '大轮寺', 'tiezhang': '铁掌帮',
-            'honghua': '红花会', 'xuedao': '血刀门', 'wudu': '五毒教',
-            'meizhuang': '梅庄', 'zhenyuan': '镇远镖局', 'hengshan': '衡山派',
-            'jueqing': '绝情谷', 'ouyang': '欧阳世家', 'hu': '关外胡家',
-            'murong': '慕容世家', 'duan': '段氏皇族', 'miao': '中原苗家',
-            'work': '工作指南', 'help': '游戏帮助', 'skills': '武功系统',
-            'newbie': '新手指南', 'commands': '游戏命令', 'maps': '地图指南',
-            'menpai': '门派系统', 'job': '工作介绍'
-        }
-
-        if filename in title_map:
-            return title_map[filename]
-        return filename.title()
-
-    def _categorize(self, filename: str) -> str:
-        """自动分类"""
-        filename = filename.lower()
-        if 'map' in filename or '地图' in filename:
-            return '地图'
-        elif 'skill' in filename or '武功' in filename:
-            return '技能'
-        elif 'cmd' in filename:
-            return '命令'
-        elif '门派' in filename:
-            return '门派'
-        elif '新手' in filename or 'newbie' in filename:
-            return '新手'
-        else:
-            return '其他'
-
-    def get_cache_rate(self) -> float:
-        """获取缓存命中率"""
-        if self.cache_stats["total"] == 0:
-            return 0.0
-        return (self.cache_stats["hits"] / self.cache_stats["total"]) * 100
-
-    def semantic_search(self, query: str, limit: int = 5, threshold: float = 0.4) -> List[Dict]:
-        """语义搜索 - 使用向量相似度（缓存查询向量）"""
-        self.cache_stats["total"] += 1
-
-        # 检查向量缓存
-        if query in self.vector_cache:
-            self.cache_stats["hits"] += 1
-            query_vec = self.vector_cache[query]
-        else:
+    def _query_vector(self, query, deadline=None):
+        now = time.monotonic()
+        with self._lock:
+            self.cache_stats["total"] += 1
+            cached = self.vector_cache.get(query)
+            if cached and now - cached[0] < self.settings.vector_cache_ttl:
+                self.cache_stats["hits"] += 1
+                self.vector_cache.move_to_end(query)
+                return cached[1]
+            self.vector_cache.pop(query, None)
             self.cache_stats["misses"] += 1
-            query_vec = self.get_embedding(query)
-            self.vector_cache[query] = query_vec
+        vector = self.get_embedding(query, deadline)
+        # Failed calls raise; zero vectors and errors never poison the cache.
+        with self._lock:
+            self.vector_cache[query] = (time.monotonic(), vector)
+            while len(self.vector_cache) > self.settings.vector_cache_size:
+                self.vector_cache.popitem(last=False)
+        return vector
 
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
-        # 获取所有文档和向量
-        cursor.execute('''
-            SELECT documents.id, documents.title, documents.filename, documents.content, documents.category, vectors.vector
-            FROM documents
-            JOIN vectors ON documents.id = vectors.document_id
-        ''')
-
-        results = []
-        for row in cursor.fetchall():
-            doc_vec = np.frombuffer(row[5], dtype=np.float32)
-
-            # 计算余弦相似度
-            norm_query = np.linalg.norm(query_vec)
-            norm_doc = np.linalg.norm(doc_vec)
-
-            if norm_query > 0 and norm_doc > 0:
-                similarity = np.dot(query_vec, doc_vec) / (norm_query * norm_doc)
-
-                # 额外文件名匹配权重
-                filename_bonus = 0
-                query_lower = query.lower()
-                filename_lower = row[2].lower()
-
-                if query_lower in filename_lower:
-                    filename_bonus = 0.3
-                elif filename_lower in query_lower:
-                    filename_bonus = 0.2
-
-                final_score = similarity + filename_bonus
-
-                if final_score >= threshold:
-                    results.append({
-                        "id": row[0],
-                        "title": row[1],
-                        "filename": row[2],
-                        "content": row[3],
-                        "category": row[4],
-                        "score": float(final_score)
-                    })
-
-        conn.close()
-        return sorted(results, key=lambda x: x["score"], reverse=True)[:limit]
-
-    def hybrid_search(self, query: str, limit: int = 5) -> List[Dict]:
-        """混合搜索：主要依赖向量语义，关键词作为补充"""
-        # 优先使用语义搜索
-        semantic_results = self.semantic_search(query, limit * 2, threshold=0.15)
-
-        # 如果语义结果足够好，直接返回
-        if len(semantic_results) >= limit:
-            return semantic_results[:limit]
-
-        # 补充关键词搜索作为后备
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
-        cursor.execute('''
-            SELECT documents.id, documents.title, documents.filename, documents.content, documents.category,
-                   (
-                       CASE WHEN documents.filename LIKE ? THEN 150 ELSE 0 END +
-                       CASE WHEN documents.content LIKE ? THEN 100 ELSE 0 END +
-                       50.0 / (LENGTH(documents.content) / 100.0 + 1)
-                   ) as relevance_score
-            FROM documents
-            WHERE documents.filename LIKE ? OR documents.content LIKE ?
-            ORDER BY relevance_score DESC
-            LIMIT ?
-        ''', (f'%{query}%', f'%{query}%', f'%{query}%', f'%{query}%', limit))
-
-        keyword_results = []
-        for row in cursor.fetchall():
-            keyword_results.append({
-                "id": row[0],
-                "title": row[1],
-                "filename": row[2],
-                "content": row[3],
-                "category": row[4],
-                "score": float(row[5]) * 0.005
-            })
-
-        conn.close()
-
-        # 合并结果，语义优先
-        seen = {r["id"] for r in semantic_results}
-        combined = semantic_results + [r for r in keyword_results if r["id"] not in seen]
-        return sorted(combined, key=lambda x: x["score"], reverse=True)[:limit]
-
-    def get_stats(self) -> Dict:
-        """获取统计"""
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
-        cursor.execute('SELECT COUNT(*) FROM documents')
-        total = cursor.fetchone()[0]
-
-        cursor.execute('''
-            SELECT category, COUNT(*) FROM documents GROUP BY category
-        ''')
-        categories = {row[0]: row[1] for row in cursor.fetchall()}
-
-        conn.close()
-
-        return {
-            "total_documents": total,
-            "total_categories": len(categories),
-            "category_distribution": categories,
-            "model": self.model_name,
-            "dimensions": self.dimensions,
-            "cache_stats": {
-                "hits": self.cache_stats["hits"],
-                "misses": self.cache_stats["misses"],
-                "total": self.cache_stats["total"],
-                "hit_rate_percent": round(self.get_cache_rate(), 2)
-            }
-        }
+    def process_files(self):
+        self.basic.process_files()
+        return self.update_vectors()
 
     def update_vectors(self):
-        """更新所有文档向量"""
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
+        _, documents = self.basic.corpus()
+        with connect(self.db_path) as db:
+            existing = {row[0] for row in db.execute(
+                "SELECT document_id FROM embeddings WHERE fingerprint=?", (self.fingerprint,))}
+        missing = [doc for doc in documents if doc["id"] not in existing]
+        logger.info("Vector update: %s missing of %s chunks", len(missing), len(documents))
+        for index, document in enumerate(missing, 1):
+            vector = self.get_embedding(document["content"])
+            # Commit completed work immediately. A later API failure must not discard it.
+            # No SQLite write transaction remains open during remote calls.
+            with connect(self.db_path) as db:
+                db.execute("INSERT OR REPLACE INTO embeddings VALUES(?,?,?)",
+                           (document["id"], self.fingerprint, vector.tobytes()))
+            if index % 25 == 0:
+                logger.info("Vector update progress: %s/%s", index, len(missing))
+        active = {doc["id"] for doc in documents}
+        with connect(self.db_path) as db:
+            db.executemany("DELETE FROM embeddings WHERE document_id=? AND fingerprint=?",
+                           [(doc_id, self.fingerprint) for doc_id in existing - active])
+        return len(documents)
 
-        cursor.execute('SELECT id, content FROM documents')
-        documents = cursor.fetchall()
+    def semantic_search(self, query, limit=5, threshold=0.4, deadline=None):
+        if not query.strip() or threshold >= 1 or limit <= 0:
+            return []
+        _, documents = self.basic.corpus()
+        by_id = {doc["id"]: doc for doc in documents}
+        with connect(self.db_path) as db:
+            rows = db.execute("SELECT document_id,vector FROM embeddings WHERE fingerprint=?",
+                              (self.fingerprint,)).fetchall()
+        valid = []
+        for row in rows:
+            if row["document_id"] not in by_id:
+                continue
+            vector = np.frombuffer(row["vector"], dtype=np.float32)
+            if vector.shape == (self.dimensions,) and np.all(np.isfinite(vector)) and np.linalg.norm(vector) > 0:
+                valid.append((row["document_id"], vector))
+        if not valid:
+            return []
+        query_vector = self._query_vector(query, deadline)
+        matrix = np.stack([item[1] for item in valid])
+        scores = (matrix @ query_vector) / (np.linalg.norm(matrix, axis=1) * np.linalg.norm(query_vector))
+        ranked = np.argsort(-scores)
+        return [dict(by_id[valid[i][0]], score=float(scores[i]), vector_score=float(scores[i]))
+                for i in ranked if scores[i] >= threshold][:limit]
 
-        for doc_id, content in documents:
-            vector = self.get_embedding(content[:2000])
-            cursor.execute('''
-                UPDATE vectors SET vector = ? WHERE document_id = ?
-            ''', (vector.tobytes(), doc_id))
+    def rerank(self, query, documents, limit, deadline=None):
+        if not documents or not self.settings.rerank_enabled or not self.settings.dashscope_api_key:
+            return documents[:limit]
+        query_bytes = len(query.encode("utf-8"))
+        if query_bytes > min(4000, self.settings.rerank_max_bytes):
+            return documents[:limit]
+        selected, texts, total = [], [], 0
+        for doc in documents:
+            text = doc["title"] + "\n" + doc["content"]
+            length = len(text.encode("utf-8"))
+            if length > self.settings.rerank_max_bytes:
+                continue
+            if total + query_bytes + length > self.settings.rerank_total_bytes:
+                break
+            selected.append(doc)
+            texts.append(text)
+            total += query_bytes + length
+        if not selected:
+            return documents[:limit]
+        body = {"model": self.settings.rerank_model,
+                "input": {"query": query, "documents": texts},
+                "parameters": {"top_n": min(limit, len(texts)),
+                               "instruct": "Given a Chinese martial arts game question, retrieve relevant game help passages."}}
+        response = httpx.post(self.settings.rerank_url,
+                              headers={"Authorization": f"Bearer {self.settings.dashscope_api_key}"},
+                              json=body, timeout=remaining_timeout(self.settings, deadline))
+        response.raise_for_status()
+        data = response.json()
+        if data.get("code"):
+            raise ValueError("Rerank API returned an error")
+        results = data["output"]["results"]
+        if not isinstance(results, list) or not results:
+            raise ValueError("Rerank API returned no results")
+        ranked, seen = [], set()
+        for result in results:
+            index, score = result["index"], result["relevance_score"]
+            if (type(index) is not int or not 0 <= index < len(selected)
+                    or index in seen or not isinstance(score, (int, float)) or not np.isfinite(score)):
+                raise ValueError("Invalid rerank result")
+            seen.add(index)
+            ranked.append(dict(selected[index], rerank_score=float(score)))
+        return sorted(ranked, key=lambda doc: doc["rerank_score"], reverse=True)[:limit]
 
-        conn.commit()
-        conn.close()
+    def hybrid_search(self, query, limit=None, threshold=0.4, deadline=None):
+        limit = self.settings.retrieval_top_k if limit is None else limit
+        if threshold >= 1 or limit <= 0 or not query.strip():
+            return []
+        count = max(limit, self.settings.retrieval_candidates)
+        keyword = self.basic.search(query, count)
+        try:
+            semantic = self.semantic_search(query, count, threshold, deadline)
+        except Exception as error:
+            logger.warning("Vector retrieval unavailable (%s); using BM25", type(error).__name__)
+            semantic = []
+        fused = {}
+        for source, ranking in (("bm25", keyword), ("vector", semantic)):
+            for rank, doc in enumerate(ranking, 1):
+                entry = fused.setdefault(doc["id"], dict(doc, score=0.0, sources=[]))
+                entry["score"] += 1.0 / (60 + rank)
+                entry["sources"].append(source)
+        candidates = sorted(fused.values(), key=lambda doc: doc["score"], reverse=True)[:count]
+        try:
+            return self.rerank(query, candidates, limit, deadline)
+        except Exception as error:
+            logger.warning("Reranking unavailable (%s); using fused ranks", type(error).__name__)
+            return candidates[:limit]
 
-# 全局实例
-qwen_knowledge = QwenKnowledgeSystem()
+    def get_cache_rate(self):
+        with self._lock:
+            return 100 * self.cache_stats["hits"] / max(1, self.cache_stats["total"])
+
+    def get_stats(self):
+        stats = self.basic.get_stats()
+        with connect(self.db_path) as db:
+            stats["indexed_vectors"] = db.execute(
+                "SELECT COUNT(*) FROM embeddings WHERE fingerprint=?", (self.fingerprint,)).fetchone()[0]
+        stats.update(model=self.model_name, dimensions=self.dimensions,
+                     cache_stats=dict(self.cache_stats, hit_rate_percent=round(self.get_cache_rate(), 2)))
+        return stats

@@ -1,247 +1,153 @@
-"""
-基础向量知识库系统
-使用简单向量化的基础版本
-"""
-
-import os
-import json
-import sqlite3
+"""Local BM25 retrieval over complete, overlapping help-file chunks."""
 import hashlib
+import math
 import re
+import threading
+from collections import Counter
 from pathlib import Path
-from typing import List, Dict, Optional
+
+from .database import connect, initialize
+from .settings import load_settings
+
+STOP_WORDS = {"如何", "怎么", "什么", "请问", "一下", "一个", "哪些", "是否"}
+TITLE_MAP = {"shaolin": "少林派", "wudang": "武当派", "emei": "峨眉派",
+             "huashan": "华山派", "gaibang": "丐帮", "taohua": "桃花岛",
+             "xingxiu": "星宿派", "xiaoyao": "逍遥派", "gumu": "古墓派",
+             "quanzhen": "全真派", "mingjiao": "明教", "riyue": "日月神教",
+             "newbie": "新手指南", "work": "工作指南", "menpai": "门派系统"}
+
+
+def tokenize(text):
+    """Chinese bigrams avoid an external dictionary; preserve English command names."""
+    tokens = []
+    for part in re.findall(r"[\u3400-\u9fff]+|[a-z0-9_-]+", text.lower()):
+        if re.fullmatch(r"[\u3400-\u9fff]+", part):
+            tokens.extend([part] if len(part) == 1 else
+                          [part[i:i + 2] for i in range(len(part) - 1)])
+        else:
+            tokens.append(part)
+    return [token for token in tokens if token not in STOP_WORDS]
+
+
+class BM25Index:
+    def __init__(self, documents):
+        self.counts = [Counter(tokenize(
+            f"{doc['title']} {doc['title']} {doc['filename']} {doc['content']}"
+        )) for doc in documents]
+        self.lengths = [sum(count.values()) for count in self.counts]
+        self.average = sum(self.lengths) / max(1, len(self.lengths))
+        self.frequencies = Counter(token for count in self.counts for token in count)
+
+    def scores(self, query):
+        scores = [0.0] * len(self.counts)
+        for token in set(tokenize(query)):
+            frequency = self.frequencies[token]
+            if not frequency:
+                continue
+            idf = math.log(1 + (len(self.counts) - frequency + 0.5) / (frequency + 0.5))
+            for index, count in enumerate(self.counts):
+                tf = count[token]
+                if tf:
+                    denominator = tf + 1.5 * (0.25 + 0.75 * self.lengths[index] / (self.average or 1))
+                    scores[index] += idf * tf * 2.5 / denominator
+        return scores
+
 
 class BasicKnowledgeSystem:
-    """基础知识库系统"""
-
-    def __init__(self, data_dir: str = "data"):
-        self.data_dir = Path(data_dir)
-        self.data_dir.mkdir(exist_ok=True)
-        self.help_dir = Path("../help")
+    def __init__(self, data_dir=None, settings=None, auto_build=True):
+        self.settings = settings or load_settings()
+        self.data_dir = Path(data_dir) if data_dir is not None else self.settings.data_dir
+        self.help_dir = self.settings.help_dir
         self.db_path = self.data_dir / "basic_knowledge.db"
-        self._init_db()
+        self._lock = threading.RLock()
+        self._revision = None
+        self._documents = []
+        self._index = BM25Index([])
+        initialize(self.db_path)
+        with connect(self.db_path) as db:
+            db.executescript("""
+                CREATE TABLE IF NOT EXISTS chunks(
+                    id TEXT PRIMARY KEY,title TEXT,filename TEXT,content TEXT,category TEXT
+                );
+                CREATE TABLE IF NOT EXISTS corpus_meta(id INTEGER PRIMARY KEY,revision INTEGER);
+                INSERT OR IGNORE INTO corpus_meta VALUES(1,0);
+            """)
+            empty = db.execute("SELECT COUNT(*) FROM chunks").fetchone()[0] == 0
+        if auto_build and empty and self.help_dir.is_dir():
+            self.process_files()
 
-    def _init_db(self):
-        """初始化数据库"""
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS documents (
-                id TEXT PRIMARY KEY,
-                title TEXT,
-                filename TEXT,
-                content TEXT,
-                category TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        ''')
-
-        cursor.execute('''
-            CREATE VIRTUAL TABLE IF NOT EXISTS documents_fts USING fts5(
-                title, content, document_id UNINDEXED
-            )
-        ''')
-
-        conn.commit()
-        conn.close()
-
-    def process_files(self) -> int:
-        """处理帮助文件"""
-        if not self.help_dir.exists():
-            return 0
-
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
-        # 清空数据
-        cursor.execute("DELETE FROM documents")
-        cursor.execute("DELETE FROM documents_fts")
-
-        processed = 0
-        for file in self.help_dir.glob("*"):
-            if file.is_file():
-                try:
-                    content = self._read_file(file)
-                    doc_id = hashlib.md5(content.encode()).hexdigest()[:16]
-                    title = self._get_chinese_title(file.stem, content)
-                    category = self._categorize(file.stem)
-
-                    cursor.execute('''
-                        INSERT INTO documents (id, title, filename, content, category) VALUES (?, ?, ?, ?, ?)
-                    ''', (doc_id, title, file.stem, content, category))
-
-                    cursor.execute('''
-                        INSERT INTO documents_fts (title, content, document_id) VALUES (?, ?, ?)
-                    ''', (title, content, doc_id))
-
-                    processed += 1
-                except Exception as e:
-                    print(f"处理失败 {file}: {e}")
-
-        conn.commit()
-        conn.close()
-        return processed
-
-    def _read_file(self, file: Path) -> str:
-        """读取文件完整内容"""
-        try:
-            with open(file, 'r', encoding='utf-8') as f:
-                content = f.read()
-        except:
-            with open(file, 'r', encoding='gbk') as f:
-                content = f.read()
-
-        # 清理内容，移除ANSI转义码和格式化字符
-        content = re.sub(r'\033\[[0-9;]*m', '', content)  # ANSI颜色码
-        content = re.sub(r'\$[A-Z]+\$', '', content)     # MUD格式化
-        content = re.sub(r'-{10,}', '', content)         # 分隔线
-        content = re.sub(r'\|', '', content)            # 表格线
-        content = re.sub(r'\n{3,}', '\n\n', content)    # 多余空行
-        return content.strip()
-
-    def _get_chinese_title(self, filename: str, content: str) -> str:
-        """获取中文标题"""
-        filename = filename.lower()
-
-        # 文件名到中文主题的映射
-        title_map = {
-            'shaolin': '少林派',
-            'wudang': '武当派',
-            'emei': '峨眉派',
-            'huashan': '华山派',
-            'gaibang': '丐帮',
-            'taohua': '桃花岛',
-            'xingxiu': '星宿派',
-            'xiaoyao': '逍遥派',
-            'gumu': '古墓派',
-            'quanzhen': '全真派',
-            'xuanming': '玄冥谷',
-            'kunlun': '昆仑派',
-            'mingjiao': '明教',
-            'riyue': '日月神教',
-            'lingjiu': '灵鹫宫',
-            'song': '嵩山派',
-            'dalunsi': '大轮寺',
-            'tiezhang': '铁掌帮',
-            'honghua': '红花会',
-            'xuedao': '血刀门',
-            'wudu': '五毒教',
-            'meizhuang': '梅庄',
-            'zhenyuan': '镇远镖局',
-            'hengshan': '衡山派',
-            'jueqing': '绝情谷',
-            'ouyang': '欧阳世家',
-            'hu': '关外胡家',
-            'murong': '慕容世家',
-            'duan': '段氏皇族',
-            'miao': '中原苗家',
-            'work': '工作指南',
-            'help': '游戏帮助',
-            'skills': '武功系统',
-            'newbie': '新手指南',
-            'commands': '游戏命令',
-            'maps': '地图指南',
-            'menpai': '门派系统',
-            'job': '工作介绍'
-        }
-
-        # 优先使用映射，其次从内容中提取第一行
-        if filename in title_map:
-            return title_map[filename]
-
-        # 从内容中提取中文标题（跳过ANSI艺术字符）
-        lines = [line.strip() for line in content.split('\n') if line.strip()]
-        for line in lines[:5]:  # 检查前5行
-            # 跳过纯符号或ANSI艺术的行
-            if re.match(r'^[■□●○━═║║╔╗╚╝╠╣╦╩╬─│┌┐└┘├┤┬┴┼┏┓┗┛┣┫┳┻╋─│┌┐└┘├┤┬┴┼┏┓┗┛┣┫┳┻╋]+$', line):
+    def process_files(self):
+        if not self.help_dir.is_dir():
+            raise FileNotFoundError(f"Help directory does not exist: {self.help_dir}")
+        documents = []
+        # Cap each chunk conservatively by UTF-8 bytes for both external models.
+        max_bytes = min(self.settings.embedding_max_bytes, self.settings.rerank_max_bytes) - 1024
+        if max_bytes < 16:
+            raise ValueError("Model input budget is too small for document chunks")
+        for file in sorted(self.help_dir.rglob("*")):
+            if not file.is_file() or file.name.startswith("."):
                 continue
+            try:
+                content = file.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                content = file.read_text(encoding="gbk", errors="replace")
+            content = re.sub(r"\x1b\[[0-9;]*m|\$[A-Z]+\$", "", content).strip()
+            if not content:
+                continue
+            filename = file.relative_to(self.help_dir).as_posix()
+            title = TITLE_MAP.get(file.stem, file.stem)
+            position, chunk_number = 0, 0
+            while position < len(content):
+                chunk = content[position:position + self.settings.chunk_size]
+                chunk = chunk.encode("utf-8")[:max_bytes].decode("utf-8", errors="ignore")
+                if not chunk:
+                    raise ValueError("Empty chunk after applying model input budget")
+                doc_id = hashlib.sha256(f"{filename}\0{chunk_number}\0{chunk}".encode()).hexdigest()
+                documents.append((doc_id, title, filename, chunk, "帮助"))
+                if position + len(chunk) >= len(content):
+                    break
+                position += max(1, len(chunk) - min(self.settings.chunk_overlap, len(chunk) // 2))
+                chunk_number += 1
+        with self._lock, connect(self.db_path) as db:
+            # Compare full records: content, filenames, titles and chunk settings matter.
+            db.execute("BEGIN IMMEDIATE")
+            existing = {tuple(row) for row in db.execute("SELECT * FROM chunks")}
+            if existing == set(documents):
+                return len(documents)
+            # Atomic swap; old corpus remains usable if reading/building failed.
+            db.execute("DELETE FROM chunks")
+            db.executemany("INSERT INTO chunks VALUES(?,?,?,?,?)", documents)
+            db.execute("UPDATE corpus_meta SET revision=revision+1 WHERE id=1")
+            self._revision = None
+        return len(documents)
 
-            # 清理ANSI码和格式化字符
-            title = re.sub(r'\033\[[0-9;]*m|\$[A-Z]+\$|\|', '', line)
-            title = re.sub(r'-{10,}|【|】|■|□|●|○|━|═|║|║|╔|╗|╚|╝|╠|╣|╦|╩|╬|─|│|┌|┐|└|┘|├|┤|┬|┴|┼|┏|┓|┗|┛|┣|┫|┳|┻|╋', '', title).strip()
+    def _refresh(self):
+        with connect(self.db_path) as db:
+            revision = db.execute("SELECT revision FROM corpus_meta WHERE id=1").fetchone()[0]
+            if revision != self._revision:
+                documents = [dict(row) for row in db.execute("SELECT * FROM chunks ORDER BY id")]
+                self._documents = documents
+                self._index = BM25Index(documents)
+                self._revision = revision
 
-            # 确保标题有实际内容且不是纯符号
-            if title and len(title) < 50 and re.search(r'[\u4e00-\u9fff]', title):
-                return title
+    def corpus(self):
+        with self._lock:
+            self._refresh()
+            return self._revision, [dict(doc) for doc in self._documents]
 
-        return filename.title()
+    def search(self, query, limit=3):
+        if not query.strip() or limit <= 0:
+            return []
+        with self._lock:
+            self._refresh()
+            scores = self._index.scores(query)
+            ranked = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
+            return [dict(self._documents[i], score=scores[i], bm25_score=scores[i])
+                    for i in ranked if scores[i] > 0][:limit]
 
-    def _categorize(self, filename: str) -> str:
-        """自动分类"""
-        filename = filename.lower()
-        if 'map' in filename or '地图' in filename:
-            return '地图'
-        elif 'skill' in filename or '武功' in filename:
-            return '技能'
-        elif 'cmd' in filename:
-            return '命令'
-        elif '门派' in filename:
-            return '门派'
-        elif '新手' in filename or 'newbie' in filename:
-            return '新手'
-        else:
-            return '其他'
-
-    def search(self, query: str, limit: int = 3) -> List[Dict]:
-        """搜索文档 - 智能中英文搜索，返回最优结果"""
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
-        # 统一搜索：文件名、标题、内容匹配
-        cursor.execute('''
-            SELECT id, title, filename, content, category,
-                   (
-                       CASE WHEN title = ? THEN 200 ELSE 0 END +
-                       CASE WHEN LOWER(filename) = LOWER(?) THEN 150 ELSE 0 END +
-                       CASE WHEN title LIKE ? THEN 120 ELSE 0 END +
-                       CASE WHEN LOWER(filename) LIKE LOWER(?) THEN 100 ELSE 0 END +
-                       (LENGTH(content) - LENGTH(REPLACE(LOWER(content), LOWER(?), ''))) / LENGTH(?) * 30 +
-                       50.0 / (LENGTH(content) / 100.0 + 1)
-                   ) as relevance_score
-            FROM documents
-            WHERE filename LIKE ? OR title LIKE ? OR content LIKE ?
-            ORDER BY relevance_score DESC
-            LIMIT ?
-        ''', (
-            query, query, f'%{query}%', f'%{query}%', query, query,
-            f'%{query}%', f'%{query}%', f'%{query}%', limit
-        ))
-
-        results = []
-        for row in cursor.fetchall():
-            results.append({
-                "id": row[0],
-                "title": row[1],
-                "filename": row[2],
-                "content": row[3],
-                "category": row[4],
-                "score": float(row[5])
-            })
-
-        conn.close()
-        return results
-
-    def get_stats(self) -> Dict:
-        """获取统计"""
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
-        cursor.execute('SELECT COUNT(*) FROM documents')
-        total = cursor.fetchone()[0]
-
-        cursor.execute('''
-            SELECT category, COUNT(*) FROM documents GROUP BY category
-        ''')
-        categories = {row[0]: row[1] for row in cursor.fetchall()}
-
-        conn.close()
-
-        return {
-            "total_documents": total,
-            "total_categories": len(categories),
-            "category_distribution": categories
-        }
-
-# 全局实例
-basic_knowledge = BasicKnowledgeSystem()
+    def get_stats(self):
+        _, documents = self.corpus()
+        categories = Counter(doc["category"] for doc in documents)
+        return {"total_documents": len(documents),
+                "source_files": len({doc["filename"] for doc in documents}),
+                "total_categories": len(categories), "category_distribution": dict(categories)}

@@ -1,35 +1,55 @@
 #!/usr/bin/env python3
-import sys
-import os
-import logging
+"""Run with python ai_service/main.py or python -m ai_service.main."""
 import argparse
+import logging
+import signal
+from pathlib import Path
 
-# 解析命令行参数
-parser = argparse.ArgumentParser(description='AI NPC服务器')
-parser.add_argument('-d', '--debug', action='store_true', help='启用调试模式')
-args = parser.parse_args()
+try:
+    from .src.settings import load_settings
+    from .src.udp_server import UDPServer
+except ImportError:
+    from src.settings import load_settings
+    from src.udp_server import UDPServer
 
-# 设置日志级别 - 命令行参数优先于环境变量
-DEBUG = args.debug or os.getenv('DEBUG', 'false').lower() == 'true'
-logging.basicConfig(
-    level=logging.DEBUG if DEBUG else logging.WARNING,
-    format='%(asctime)s - %(message)s',
-    datefmt='%H:%M:%S'
-)
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+def request_shutdown(signum, frame):
+    # Ignore repeated TERM while the worker pool finishes its current requests.
+    signal.signal(signal.SIGTERM, signal.SIG_IGN)
+    logging.info("Received SIGTERM; waiting for active requests to finish")
+    raise KeyboardInterrupt
 
-from src.udp_server import UDPServer
+
+def main():
+    parser = argparse.ArgumentParser(description="AI NPC服务器")
+    parser.add_argument("-d", "--debug", action="store_true")
+    parser.add_argument("--stop-file", type=Path, help=argparse.SUPPRESS)
+    args = parser.parse_args()
+    settings = load_settings()
+    logging.basicConfig(level=logging.DEBUG if args.debug or settings.debug else logging.INFO,
+                        format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    # Avoid SDK wire logs exposing prompts or credentials in debug mode.
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("httpcore").setLevel(logging.WARNING)
+    logging.getLogger("openai").setLevel(logging.WARNING)
+    server = None
+    previous_handler = signal.signal(signal.SIGTERM, request_shutdown)
+    try:
+        server = UDPServer(settings=settings)
+        server.start(stop_file=args.stop_file)
+    except KeyboardInterrupt:
+        pass
+    except Exception:
+        logging.exception("AI service failed")
+        return 1
+    finally:
+        try:
+            if server:
+                server.stop()
+        finally:
+            signal.signal(signal.SIGTERM, previous_handler)
+    return 0
+
 
 if __name__ == "__main__":
-    logging.info("AI NPC服务器启动...")
-    server = UDPServer(host='127.0.0.1', port=9999)
-    try:
-        server.start()
-    except KeyboardInterrupt:
-        logging.info("服务器已停止")
-        server.stop()
-    except Exception as e:
-        logging.error(f"启动失败: {e}")
-        if server:
-            server.stop()
+    raise SystemExit(main())

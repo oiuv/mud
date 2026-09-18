@@ -21,3 +21,11 @@ venv/
 # 日志
 *.log
 logs/
+
+# Local credentials
+.env
+.env.*
+!.env.example
+
+# Launcher runtime files
+.run/

@@ -1,215 +1,219 @@
-# AI NPC集成指南
+# AI NPC 服务
 
-## 📋 功能特性
+独立 Python 服务，通过本机 UDP 为 LPC NPC 提供人设对话、游戏帮助检索、对话摘要和关系记录。要求 Python 3.10+。
 
-### 🔍 **智能对话系统**
-- **长期记忆**: 支持无限对话积累，无历史限制
-- **自动优化**: 智能摘要触发，减少API调用
-- **关系记忆**: 完整记录玩家互动历史和关系变化
+## 启动
 
-### ⚡ **性能优化**
-- **向量缓存**: 查询向量缓存机制，提升响应速度
-- **缓存优化**: MoonPalace缓存键稳定，命中率显著提升
-- **内存高效**: 4KB/查询向量，游戏运行期间持续有效
+以下命令从仓库根目录执行；从其他目录启动时，配置和数据路径仍以 ai_service 为基准。
 
-### 🎮 **使用配置**
-- **记忆容量**: 每npc可配置memory_capacity条对话（默认100条）
-- **摘要机制**: 自动触发，无需手动干预
-- **实现位置**: 核心逻辑在`src/udp_server.py`和`src/history_manager.py`
+~~~sh
+python -m pip install -r ai_service/requirements.txt
+# 首次部署复制；已有文件请直接编辑，不要覆盖：
+cp ai_service/.env.example ai_service/.env
+cp ai_service/config/npc_roles.example.json ai_service/config/npc_roles.json
 
-## 系统文件说明
+python ai_service/scripts/setup_basic.py
+python ai_service/scripts/setup_qwen.py
+python ai_service/main.py -d
+~~~
 
-### 核心文件功能
-- **udp_server.py** - 网络网关：接收游戏客户端请求，返回AI回复
-- **npc_manager.py** - AI大脑：加载配置、生成回复、管理记忆
-- **memory_store.py** - 长期记忆：存储NPC对玩家的关系数据
-- **history_manager.py** - 对话记录：永久保存所有聊天记录，查询时返回最近指定数量作为上下文
-- **knowledge_qwen.py** - 语义搜索：向量知识检索（千问）
-- **knowledge_basic.py** - 关键词搜索：基础文本匹配回退方案
+PowerShell 可用 Copy-Item 代替 cp。生产环境不需要 -d。
 
-### 数据流向
-游戏客户端 → udp_server.py → npc_manager.py → [记忆+历史+知识库] → 大模型 → 回复
+- .env 自动加载，系统环境变量优先；不会读取游戏的 data/.env。
+- OPENAI_API_KEY 使用百炼密钥，用于对话和历史摘要；DASHSCOPE_API_KEY 用于向量与重排。
+- 缺少聊天密钥时明确显示离线演示话术，不保存模拟对话、不增加关系。
+- 未构建新向量或向量接口不可用时继续使用本地 BM25。
+- setup_basic.py 不调用远程 API；setup_qwen.py 为缺失文档块生成向量，会使用模型额度。
+- 配置在服务启动时读取，修改后重启生效。
 
-## 快速创建新的AI NPC
+## Linux 服务器启动脚本
 
-### 1. 配置NPC角色
-编辑 `ai_service/config/npc_roles.json`，添加新NPC配置：
+建议使用固定的普通用户运行，服务器需安装 Python 3.10+、venv 和 util-linux（提供 flock）。
+从仓库根目录执行：
 
-```json
-{
-  "your_npc_id": {
-    "name": "NPC显示名称",
-    "title": "NPC称号",
-    "role": "角色类型",
-    "personality": "性格描述",
-    "background": "背景故事",
-    "greeting": "初次见面问候语",
-    "topics": ["话题1", "话题2", "话题3"],
-    "speech_style": "说话风格",
-    "knowledge_base": ["知识领域1", "知识领域2"],
-    "knowledge_threshold": 0.4,  // 知识库匹配阈值，0-1之间，0=匹配所有，1=禁用匹配，0.5-0.7为推荐范围
-    "memory_capacity": 100,  // 记忆容量：0=禁用历史记忆，1-9=自动调整为10，≥10=使用指定值，推荐100-200
-    "relationship_tips": {
-      "gifts": ["门派秘籍", "稀有装备", "银两"],  // 赠送礼物提升关系
-      "topics": ["各门派特色", "武功搭配技巧"],  // 喜欢的话题
-      "taboos": ["询问外挂", "索要管理员权限"]  // 禁忌话题
-    }
-  }
-}
-```
+~~~sh
+# 首次部署：创建 ai_service/.venv、安装依赖、复制缺失的配置
+bash ai_service/start.sh setup
+# 编辑模型密钥；已有 .env 和 NPC 角色配置不会被 setup 覆盖
+nano ai_service/.env
 
-### 2. 创建NPC文件
-复制模板文件并修改配置：
+# 启动前自动同步 BM25；配置 DASHSCOPE_API_KEY 后自动补齐缺失向量
+bash ai_service/start.sh start
+bash ai_service/start.sh status
+bash ai_service/start.sh logs
+bash ai_service/start.sh restart
+bash ai_service/start.sh stop
+~~~
 
-```bash
-cp u/mudren/npc/ai_npc_template.c clone/npc/你的npc名.c
-```
+不传命令时默认后台启动。可以从任意目录用绝对路径调用脚本；
+后台进程通过 nohup 运行，关闭 SSH 后继续运行。日志追加到 ai_service/logs/ai_service.log，
+PID 和启动标识保存在 ai_service/.run/，这些运行文件已加入忽略规则。
 
-### 3. 修改NPC配置
-在你的NPC文件中修改以下内容：
+- start/restart/run 支持 -d；run 在前台运行，适合调试或交给 systemd 等进程管理器托管。
+- setup 可用 AI_PYTHON=/usr/bin/python3.12 指定解释器；日常启动自动更新知识库，不会安装依赖。
+- setup 更新依赖前要求停止服务；升级依赖后再 start。
+- 重复 start 不会重复启动；知识库更新完成后，服务启动两秒内退出会显示日志并返回失败。status 检查的是进程状态，实际端口监听和请求处理情况请看日志或使用 test_client.py 验证。
+- stop 发送 SIGTERM，等待正在处理的请求结束；默认最多等 90 秒。超时保留进程及 PID 文件，restart 也会中止，可设置 AI_STOP_TIMEOUT=120 后重试。
+- 脚本核对进程启动时间和系统启动标识，忽略旧 PID 文件，避免误停复用相同 PID 的进程。
+- 此脚本不自动注册开机启动或崩溃重启；有需要时可由 systemd 使用 run 命令托管。
+- 脚本管理的启动请统一使用该脚本；直接运行 main.py 的进程不在其管理范围内。
 
-```lpc
-// 修改这些配置项
-set_name("张三", ({"zhang san", "zhangsan", "zhang"}));
-set("title", "江湖游侠");
-set("long", "这里写NPC描述...");
-set("ai_npc_id", "zhang_san");  // 必须与json中的键匹配
-set("ai_topics", ({"武功", "江湖", "美食"}));
-```
+## Windows 启动脚本
 
-### 4. 放置NPC
-将NPC放置到游戏世界中，在房间文件中添加：
+安装 Python 3.10+ 后，在仓库根目录用 PowerShell 或 CMD 执行：
 
-```lpc
-// 方法一：在房间create函数中设置
-void create() {
-    ::create();
-    set("short", "房间名称");
-    set("long", "房间描述...");
-    set("objects", ([
-        "/clone/npc/你的npc名" : 1,     // 单个NPC
-        "/clone/npc/另一个npc" : 2,     // 多个相同NPC
-    ]));
-    setup();
-}
+~~~powershell
+.\ai_service\start.bat setup
+notepad .\ai_service\.env
+.\ai_service\start.bat start
+.\ai_service\start.bat status
+.\ai_service\start.bat logs
+.\ai_service\start.bat restart
+.\ai_service\start.bat stop
+~~~
 
-// 方法二：管理员动态添加
-// 管理员可以使用：clone /clone/npc/你的npc名
-```
+start.bat 调用同目录的 start.ps1，兼容 Windows PowerShell 5.1+；
+只为本次脚本进程设置执行策略，不修改系统策略。
+不传命令默认后台启动，后台运行不弹出窗口。也可直接在 PowerShell 中调用 start.ps1。
+支持 setup/start/stop/restart/status/logs/run，start/restart/run 可加 -d；
+run 使用当前控制台前台运行。日志追加到 logs/ai_service.log。
 
-## 改造现有NPC为AI
+- setup 自动创建 .venv\Scripts\python.exe 对应的虚拟环境，安装依赖，保留已有配置。
+- 可设置 $env:AI_PYTHON 指定安装时的 Python 路径；不同操作系统需各自创建虚拟环境，不能复制复用 .venv。
+- stop 通过每次启动独有的本地停止文件请求退出，服务结束当前工作后关闭；默认等 90 秒，可设置 $env:AI_STOP_TIMEOUT。
+- 记录 PID 和进程创建时间，避免旧记录误认其他进程；启动、停止与更新依赖命令互斥执行。
+- 关闭启动命令窗口后后台服务继续运行；本脚本不注册 Windows 服务、登录自动启动或故障自动重启。
 
-### 1. 添加AI配置
-在现有NPC的create()函数中添加：
-```lpc
-set("ai_npc_id", "zhou butong");  // 对应json中的键名
-```
+## 启动时自动更新知识库
 
-### 2. 添加AI对话入口
-在现有NPC中添加：
-```lpc
-int accept_talk(object me, string topic) {
-    string player_id = me->query("id");
-    string player_name = me->name();
+两套启动脚本的 start/restart/run 都会在服务启动前调用 scripts/update_knowledge.py。
+已在运行时重复 start 只显示状态，不会再次更新或重复启动。
 
-    string context = sprintf(
-        "时间：%s | 地点：%s | 天气：%s\n"
-        "玩家性别：%s | 玩家年龄：%s | 玩家门派：%s | 玩家师父：%s",
-        NATURE_D->game_time(),
-        environment(this_object())->query("short") || "未知",
-        NATURE_D->outdoor_room_description(),
-        me->query("gender") || "未知",
-        me->query("age") ? sprintf("%d岁", me->query("age")) : "未知",
-        me->query("family/family_name") || "无门派",
-        me->query("family/master_name") || "无师父"
-    );
+1. 扫描配置的 HELP_DIR（默认 help/），检测新增、修改、删除和重命名，包含分块配置的变化。
+2. 文档块内容与元数据均未变化时，保留 BM25 数据与版本；有变化时原子更新语料，删除已移除的文档。
+3. 配置了 DASHSCOPE_API_KEY 时，仅生成当前模型、端点和维度下缺失的向量；未变化的文档块复用已有向量，不调用嵌入 API。
+4. 每个成功的向量立即保存；网络失败后保留已完成的工作，下次启动仅补齐缺失部分。
+5. 未配置密钥或向量更新失败时，显示提示并使用 BM25 启动。首次构建或大量文件变化时启动需要等待向量生成，并消耗模型额度。
+6. 本地帮助目录缺失、无法读取或数据库更新失败时停止启动并报错，保留之前成功提交的数据。
 
-    if (!topic || topic == "") {
-        topic = "你好";
-    }
+也可手动运行 python ai_service/scripts/update_knowledge.py。
+直接运行 main.py 时仍需自行同步知识库；自动更新由启动脚本负责。
+更新知识库不会重新生成对话摘要，也不会删除玩家历史或关系数据。
 
-    AI_CLIENT_D->send_chat_request(
-        query("ai_npc_id") || query("id"),
-        player_id,
-        player_name,
-        topic,
-        context
-    );
+## 模型和端点
 
-    return 1;
-}
-```
+~~~dotenv
+OPENAI_MODEL=qwen3.7-flash
+CHAT_EXTRA_BODY={"enable_thinking":false}
+EMBEDDING_MODEL=qwen3.7-text-embedding-flash
+EMBEDDING_DIMENSIONS=1024
+RERANK_MODEL=qwen3.7-text-rerank
+RERANK_ENABLED=true
+~~~
 
-## 配置示例
+默认问答和历史摘要模型均为 qwen3.7-flash，关闭思考模式；模型和额外请求参数仍可通过 .env 覆盖。参数依据[百炼深度思考文档](https://help.aliyun.com/zh/model-studio/deep-thinking)。
 
-编辑文件：`ai_service/config/npc_roles.json`
+默认使用北京 DashScope 公共地址。使用业务空间域名时配置 DASHSCOPE_WORKSPACE_ID，会生成问答、向量与重排端点；其他地域或网关可显式配置 OPENAI_BASE_URL、EMBEDDING_BASE_URL 和完整 RERANK_URL，显式配置优先。端点必须与 API Key 和模型可用地域一致。
 
-### 1. 江湖侠客
-```json
+向量调用使用 OpenAI 兼容 /embeddings，传递 model、dimensions、input、encoding_format。
+重排使用 DashScope 原生 input/parameters 请求体及 output.results 响应格式；qwen3-rerank 的另一套兼容接口不适用此适配器。
+
+官方规格（2026-09-18核对）：向量模型输入为128,000 tokens；qwen3.7-text-rerank接口为单条30,000 tokens，建议请求总量120,000 tokens。代码使用保守 UTF-8 字节预算，避免将字符数直接当作token数；这不是精确的模型分词计数。
+
+- [向量API](https://help.aliyun.com/zh/model-studio/text-embedding-synchronous-api/)
+- [重排API](https://help.aliyun.com/zh/model-studio/text-rerank-api)
+
+## 检索流程
+
+1. 递归读取 help/，清理颜色码，以3000字符分块、200字符重叠；保留全文，取消旧版前2000字符截断。
+2. BM25 使用中文双字片段与英文指令词匹配，不依赖额外分词字典；例如“请问武当派如何拜师”可以召回武当帮助。
+3. 同时获取 BM25 和向量两路候选，按文档块ID去重，通过 RRF 融合排名。
+4. 使用重排模型评估融合候选，返回默认3条资料，限制注入提示词的总字符数。
+5. 向量失败或结果为空仍保留 BM25；重排超时、报错、结果损坏时返回融合排名。
+6. 查询向量使用有容量和TTL限制的LRU缓存；错误和零向量不进入缓存。
+
+“同时”指两路均参与召回；网络调用在当前请求线程内依次完成。
+向量以模型、端点、维度的指纹隔离，文档块ID包含内容哈希。换模型或维度后，启动脚本会自动补齐新向量；也可手动运行 setup_qwen.py。
+旧版 vectors 表保留，但不会与新模型混用；文件变更后重启服务会自动更新，也可手动运行构建脚本。
+重排候选按配置的单条和整请求字节预算限制；超出预算的低排名候选不送入重排。
+
+knowledge_threshold 控制向量召回相似度；BM25不使用该阈值。为兼容原文档，设置为1会禁用该NPC的整个知识检索。
+
+## 角色和游戏接入
+
+角色配置位于 config/npc_roles.json，以 NPC 的AI角色ID为键。保留原有 name/title/role/personality/background/greeting/topics/speech_style/knowledge_base/relationship_tips 字段。
+
+~~~json
 {
   "li bai": {
     "name": "李白",
-    "title": "诗剑双绝",
-    "personality": "豪爽仗义，嫉恶如仇",
-    "background": "行走江湖二十载，剑下斩尽不平事",
-    "topics": ["武功", "江湖", "正义", "剑客"],
-    "memory_capacity": 150  // 记忆容量：0=禁用历史记忆，1-9=自动调整为10，≥10=使用指定值
+    "title": "诗仙",
+    "role": "诗人",
+    "personality": "豪爽洒脱",
+    "background": "诗酒风流，游历江湖",
+    "greeting": "少侠可愿共饮？",
+    "topics": ["诗词", "剑术"],
+    "speech_style": "诗意文雅",
+    "knowledge_base": ["诗酒与江湖"],
+    "knowledge_threshold": 0.4,
+    "memory_capacity": 100
   }
 }
-```
+~~~
 
-### 2. 商人NPC
-```json
-{
-  "wang zhanggui": {
-    "name": "王掌柜",
-    "title": "商会会长",
-    "personality": "精明能干，善于经商",
-    "background": "经营百年老店，见多识广",
-    "topics": ["生意", "商品", "行情", "各地特产"],
-    "memory_capacity": 80  // 商人NPC记忆较短，主要关注当前交易
-  }
-}
-```
+NPC通过 accept_talk 调用 AI_CLIENT_D->send_chat_request(npcId, playerId, playerName, message, context)。
+context 为字符串；参考 u/mudren/npc/ai_npc_template.c。ai_npc_id 必须匹配角色配置，但不再要求与 find_living 注册名称一致。
 
-## 相关文档
-- **AI_CLIENT_D**：`/adm/daemons/ai_client_d.c` - 游戏内AI客户端守护程序，处理NPC与Python服务端的通信
-- **talk指令**：`/cmds/std/talk.c` - 玩家talk命令实现，用于与AI NPC对话
+~~~text
+talk libai 如何学习剑法？
+talk li bai about 你会作诗吗？
+chat @butong 武当派如何拜师？
+aitest li bai about 你好
+~~~
 
-## 测试命令
+最后一项为管理员测试指令。李白模板兼容 ask；周不通的原任务询问逻辑保留。
 
-游戏内使用以下命令测试：
-```
-talk npc_id 测试消息
-```
+## 历史与关系
 
-## 注意事项
-1. **ai_npc_id** 必须与json配置中的键完全一致
-2. 重启AI服务后配置生效
+- conversations.db 保留完整原始提问和回复；一轮对应2条消息，100条容量约50轮。
+- 查询最近历史按ID稳定排序；不会返回最早的N条冒充最新记录。
+- 达到消息容量或历史字符预算时单独调用摘要模型，将累计摘要保存到 summaries；原问题随后正常回答。
+- 摘要失败不推进摘要位置、不删除原历史，当前问题继续处理。
+- memory_capacity=0 仅关闭历史上下文和摘要，仍保存成功对话和关系；不代表禁止持久化。
+- 首次启动把 memories.json 导入同一SQLite数据库的 player_memories，保留原文件；后续不再读写该JSON。
+- 对话两条记录、关系变化、请求去重结果在同一个事务中提交。
+- 保留现有按互动次数增长的关系规则；礼物、忌讳等仍是角色提示信息，不会自动触发游戏奖励或数值变化。
+- 旧版摘要记录会被识别作为初始摘要；升级前已被替换丢失的问题无法恢复。
 
+## 通信与运维
 
-## 服务端使用
+LPC和Python必须同步更新；旧客户端没有请求编号，无法获得新版客户端的关联和超时保证。
 
-### 1. 配置环境变量
-```bash
-cd ai_service
-echo "OPENAI_API_KEY=你的月之暗面API密钥" > .env
-echo "OPENAI_BASE_URL=https://api.moonshot.cn/v1" >> .env
-echo "OPENAI_MODEL=moonshot-v1-auto" >> .env
-echo "DASHSCOPE_API_KEY=你的千问API密钥" >> .env
-```
+- 三种请求：chat / memory / config；后两者只读。
+- 正常和错误响应回显 request_id、npc_id、player_id；错误带 type=error、code、error。
+- LPC按原玩家对象交付回复，验证来源地址、请求编号及身份；迟到或重复回复忽略。
+- 游戏端同一玩家对同一NPC只允许一个待处理请求；5秒后重传一次，90秒超时提示。
+- Python限制工作线程数，过载立即返回busy；同一NPC/玩家会话串行处理。
+- 成功请求结果在SQLite中缓存，默认最多1024条、保存300秒；进程重启后仍能在有效期内去重。
+- API不做隐式SDK重试，单次默认20秒；整请求预算80秒。HTTP库超时按网络操作执行，结果超出总预算时不会保存对话。
+- 单条提问上限1000字符，回复上限1600字符；数据报限制8192字节。
+- 服务退出等待正在处理的工作结束；启动失败返回非零退出码。
 
-### 2. 初始化知识库
-```bash
-# 基础关键词搜索
-python scripts/setup_basic.py
+数据只在服务实际启动/构建时迁移；不要同时运行多个实例读写同一份会话数据库。
+改 SERVER_HOST/PORT 时同步修改 adm/daemons/ai_client_d.c 中的常量；默认仅绑定本机。
+完整参数参见 .env.example。
 
-# 千问向量搜索（推荐）
-python scripts/setup_qwen.py
-```
+## 验证
 
-### 3. 启动服务端
-```bash
-python main.py          # 正常模式
-python main.py -d       # 调试模式（显示详细日志）
-```
+~~~sh
+python -m unittest discover -s ai_service/tests -v
+python ai_service/scripts/performance_test.py
+python ai_service/scripts/test_client.py config "li bai"
+python ai_service/scripts/test_client.py chat "li bai" "如何拜师"
+~~~
+
+自动回归使用临时数据和模拟模型，不消耗API额度；UDP测试使用随机本机端口。
+performance_test.py 默认只测本地BM25，--remote 才调用外部检索API。
+benchmark_cache.py 会调用外部向量API；先完成索引构建。
+
+游戏回归：正常对话；连续提问的忙碌提示；配置ID不同于living ID的NPC；服务停止后的超时；模型失败后的错误提示；容量达到10条时第6轮原问题仍被回答。检查 log/debug.log 和 log/error.log。

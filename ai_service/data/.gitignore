@@ -11,3 +11,8 @@ memories.json
 *.tmp
 *.bak
 *db
+
+# SQLite journals
+*.db-wal
+*.db-shm
+*.db-journal
