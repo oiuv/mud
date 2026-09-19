@@ -59,8 +59,11 @@ int update_dir(object me, string dir, int continueable, int *total) {
         return 0;
     // 不编译lib版本控制目录
     exclude = ({
+        "/.agents/",
+        "/.codegraph/",
         "/.git/",
         "/.vscode/",
+        "/ai_service/",
         "/backup/",
         "/bin/",
         "/binaries/",
@@ -70,6 +73,7 @@ int update_dir(object me, string dir, int continueable, int *total) {
         "/grant/",
         "/help/",
         "/log/",
+        "/openspec/",
         "/temp/",
         "/version/",
         "/www/"
