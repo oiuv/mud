@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string target;
     mixed result;
     mixed obj;
@@ -20,10 +19,9 @@ int main(object me, string arg)
         return notify_fail("指令格式 : query all | <对象之名称或档名>\n");
     target = arg;
 
-    if (target == "all" || target == "ALL")
-    {
+    if (target == "all" || target == "ALL") {
         write(sprintf("目前数据库中保存的数据有：%d 项。\n",
-                      sizeof(DBASE_D->query_save_dbase())));
+            sizeof(DBASE_D->query_save_dbase())));
         return 1;
     }
 
@@ -45,8 +43,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : query all | <对象之名称或档名>
 

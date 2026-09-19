@@ -4,8 +4,7 @@ inherit F_DEALER;
 string ask_me1();
 string ask_me2();
 
-void create()
-{
+void create() {
     set_name("程老板", ({ "cheng laoban", "cheng" }));
     set("title", "全聚德老板");
     set("shen_type", 1);
@@ -36,8 +35,7 @@ void create()
     carry_object("/clone/misc/cloth")->wear();
 }
 
-void init()
-{
+void init() {
     add_action("do_list", "list");
     add_action("do_buy", "buy");
 }

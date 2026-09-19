@@ -5,56 +5,45 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
 
     if (me != this_player(1)) return 0;
 
-    if (arg == "?")
-    {
+    if (arg == "?") {
         write("特殊功能：SHUTDOWN、ADMIN。\n");
         return 1;
     }
 
-    if (stringp(arg))
-    {
-        if (! SECURITY_D->valid_grant(me, "(admin)"))
-        {
+    if (stringp(arg)) {
+        if (!SECURITY_D->valid_grant(me, "(admin)")) {
             write("你没有权限修改别人的口令。\n");
             return 1;
         }
 
-        if (wiz_level(me) < wiz_level(arg))
-        {
+        if (wiz_level(me) < wiz_level(arg)) {
             write("你没有权限修改这个人的口令。\n");
             return 1;
         }
 
         seteuid(getuid());
         ob = find_player(arg);
-        if (! ob)
-        {
+        if (!ob) {
             ob = new(LOGIN_OB);
             ob->set("id", arg);
-            if (! ob->restore())
-            {
+            if (!ob->restore()) {
                 destruct(ob);
                 return notify_fail("没有这个玩家。\n");
             }
             ob->set_temp("create_temp", 1);
-        }
-        else
-        {
+        } else {
             ob = ob->query_temp("link_ob");
             while (ob && ob->is_character())
                 ob = ob->query_temp("link_ob");
-            if (! ob)
-            {
+            if (!ob) {
                 ob = new(LOGIN_OB);
                 ob->set("id", arg);
-                if (! ob->restore())
-                {
+                if (!ob->restore()) {
                     destruct(ob);
                     return notify_fail("这个人物缺少连接信息，请重新LOGIN。\n");
                 }
@@ -68,7 +57,7 @@ int main(object me, string arg)
     }
 
     ob = me->query_temp("link_ob");
-    if (! ob)
+    if (!ob)
         return notify_fail("你的人物缺少连接信息，请重新LOGIN。\n");
 
     while (ob && ob->is_character()) ob = ob->query_temp("link_ob");
@@ -78,96 +67,87 @@ int main(object me, string arg)
     return 1;
 }
 
-private void get_old_pass(string pass, object ob)
-{
+private void get_old_pass(string pass, object ob) {
     string old_pass;
 
-    if (! objectp(ob))
-    {
+    if (!objectp(ob)) {
         write("无法找到连接对象，此次操作中止了。\n");
         return;
     }
 
     write("\n");
     old_pass = ob->query("ad_password");
-    if (! stringp(old_pass) || (crypt(pass, old_pass) != old_pass && oldcrypt(pass, old_pass) != old_pass))
-    {
+    if (!stringp(old_pass) || (crypt(
+        pass,
+        old_pass
+    ) != old_pass && oldcrypt(pass, old_pass) != old_pass)) {
         write(HIR "密码错误！请注意：你需要输入的是管理密码。\n" NOR);
         return;
     }
     write("请选择你下一步操作：\n"
-            "1. 修改管理密码\n"
-            "2. 修改普通密码\n"
-            "3. 不修改。\n"
-            "你选择(如果你不方便输入数字，可以输入select1、select2)：");
+        "1. 修改管理密码\n"
+        "2. 修改普通密码\n"
+        "3. 不修改。\n"
+        "你选择(如果你不方便输入数字，可以输入select1、select2)：");
 
     input_to("select_fun", ob);
 }
 
-private void select_fun(string fun, object ob)
-{
-    if (! objectp(ob))
-    {
+private void select_fun(string fun, object ob) {
+    if (!objectp(ob)) {
         write("无法找到连接对象，此次操作中止了。\n");
         return;
     }
 
-    switch (fun)
-    {
-    case "1":
-    case "select1":
-        write("请你输入新的管理密码：");
-        input_to("get_new_ad_pass", 1, ob);
-        return;
+    switch (fun) {
+        case "1":
+        case "select1":
+            write("请你输入新的管理密码：");
+            input_to("get_new_ad_pass", 1, ob);
+            return;
 
-    case "2":
-    case "select2":
-        write("请你输入新的普通密码：");
-        input_to("get_new_pass", 1, ob);
-        return;
+        case "2":
+        case "select2":
+            write("请你输入新的普通密码：");
+            input_to("get_new_pass", 1, ob);
+            return;
 
-    case "":
-    case "3":
-        write("操作完毕。\n");
-        return;
+        case "":
+        case "3":
+            write("操作完毕。\n");
+            return;
 
-    default:
-        write("没有这项功能。\n");
-        return;
+        default:
+            write("没有这项功能。\n");
+            return;
     }
 }
 
-string trans_char(int c)
-{
+string trans_char(int c) {
     return sprintf("%c ", c);
 }
 
-private void get_new_pass(string pass, object ob)
-{
+private void get_new_pass(string pass, object ob) {
     string old_pass;
 
-    if (! objectp(ob))
-    {
+    if (!objectp(ob)) {
         write("无法找到连接对象，此次操作中止了。\n");
         return;
     }
 
-    if (pass == "")
-    {
+    if (pass == "") {
         write("操作取消了。\n");
         return;
     }
 
-    if (strlen(pass) < 3)
-    {
+    if (strlen(pass) < 3) {
         write("对不起，你的普通密码长度必须大于三位，请重新输入：");
         input_to("get_new_pass", 1, ob);
         return;
     }
 
     old_pass = ob->query("ad_password");
-    if (stringp(old_pass) && crypt(pass, old_pass) == old_pass)
-    {
+    if (stringp(old_pass) && crypt(pass, old_pass) == old_pass) {
         write(HIR "\n为了安全起见，普通密码和管理密码不能一样。\n\n" NOR);
         write("请重新输入你的普通密码：");
         input_to("get_new_pass", 1, ob);
@@ -178,27 +158,23 @@ private void get_new_pass(string pass, object ob)
     input_to("confirm_new_pass", 1, ob, crypt(pass, 0));
 }
 
-private void confirm_new_pass(string pass, object ob, string new_pass)
-{
+private void confirm_new_pass(string pass, object ob, string new_pass) {
     object me;
 
-    if (! objectp(ob))
-    {
+    if (!objectp(ob)) {
         write("无法找到连接对象，此次操作中止了。\n");
         return;
     }
 
     write("\n");
-    if (crypt(pass, new_pass) != new_pass)
-    {
+    if (crypt(pass, new_pass) != new_pass) {
         write("对不起，您两次输入的并不相同，请重新输入你的普通密码：");
         input_to("get_new_pass", 1, ob);
         return;
     }
 
     seteuid(getuid());
-    if (! ob->set("password", new_pass))
-    {
+    if (!ob->set("password", new_pass)) {
         write("普通密码变更失败！\n");
         return;
     }
@@ -206,33 +182,29 @@ private void confirm_new_pass(string pass, object ob, string new_pass)
     ob->save();
     me = this_player();
     log_file("static/passwd", sprintf("%s %s's normal passwd changed by %s(%s)\n",
-                                        log_time(),
-                                        ob->query("id"),
-                                        geteuid(me),
-                                        interactive(me) ? query_ip_name(me) : 0,
-                                        ctime(time())));
+        log_time(),
+        ob->query("id"),
+        geteuid(me),
+        interactive(me) ? query_ip_name(me) : 0,
+        ctime(time())));
 
     write("普通密码变更成功。\n");
 }
 
-private void get_new_ad_pass(string pass, object ob)
-{
+private void get_new_ad_pass(string pass, object ob) {
     string old_pass;
 
-    if (! objectp(ob))
-    {
+    if (!objectp(ob)) {
         write("无法找到连接对象，此次操作中止了。\n");
         return;
     }
 
-    if (pass == "")
-    {
+    if (pass == "") {
         write("操作取消了。\n");
         return;
     }
 
-    if (strlen(pass) < 5)
-    {
+    if (strlen(pass) < 5) {
         write(HIR "\n对不起，为了安全起见，你的普通密码长度必须大于五位。\n\n" NOR);
         write("请重新输入新的管理密码：");
         input_to("get_new_ad_pass", 1, ob);
@@ -240,8 +212,7 @@ private void get_new_ad_pass(string pass, object ob)
     }
 
     old_pass = ob->query("password");
-    if (stringp(old_pass) && crypt(pass, old_pass) == old_pass)
-    {
+    if (stringp(old_pass) && crypt(pass, old_pass) == old_pass) {
         write(HIR "\n为了安全起见，管理密码和普通密码不能一样。\n\n" NOR);
         write("请重新输入你的管理密码：");
         input_to("get_new_ad_pass", 1, ob);
@@ -252,30 +223,26 @@ private void get_new_ad_pass(string pass, object ob)
     input_to("confirm_new_ad_pass", 1, ob, crypt(pass, 0));
 }
 
-private void confirm_new_ad_pass(string pass, object ob, string new_pass)
-{
+private void confirm_new_ad_pass(string pass, object ob, string new_pass) {
     object me;
     // object body;
     // string email;
     // string msg;
 
-    if (! objectp(ob))
-    {
+    if (!objectp(ob)) {
         write("无法找到连接对象，此次操作中止了。\n");
         return;
     }
 
     write("\n");
-    if (crypt(pass, new_pass) != new_pass)
-    {
+    if (crypt(pass, new_pass) != new_pass) {
         write("对不起，您两次输入的并不相同，请重新输入你的管理密码：");
         input_to("get_new_ad_pass", 1, ob);
         return;
     }
 
     seteuid(getuid());
-    if (! ob->set("ad_password", new_pass))
-    {
+    if (!ob->set("ad_password", new_pass)) {
         write("管理密码变更失败！\n");
         return;
     }
@@ -283,27 +250,24 @@ private void confirm_new_ad_pass(string pass, object ob, string new_pass)
     ob->save();
     me = this_player();
     log_file("static/passwd", sprintf("%s %s's super passwd changed by %s(%s)\n",
-                                        log_time(),
-                                        ob->query("id"),
-                                        geteuid(me),
-                                        interactive(me) ? query_ip_name(me) : 0,
-                                        ctime(time())));
+        log_time(),
+        ob->query("id"),
+        geteuid(me),
+        interactive(me) ? query_ip_name(me) : 0,
+        ctime(time())));
 
     // 查找并发送mail
-    if (geteuid(me) == ob->query("id"))
-    {
+    if (geteuid(me) == ob->query("id")) {
         // 是本人在修改
         write("管理密码变更成功。\n");
         return;
-    }
-    else
-    {
+    } else {
         // 是其他人修改
         ob->set("password", "55AA");
         write("清除用户原有的普通密码。\n");
         ob->save();
     }
-/*
+    /*
     body = LOGIN_D->make_body(ob);
     {
         // 发送mail
@@ -333,8 +297,7 @@ LONG ;
         destruct(ob);
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : passwd <玩家>
 
@@ -342,6 +305,6 @@ int help(object me)
 修改他人的管理密码，修改以后系统会自动发信到玩家所注册信箱通
 知新的管理密码。
 
-HELP );
+HELP);
     return 1;
 }

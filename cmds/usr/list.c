@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     mapping goods;
     string *gks;
     object obj, env, *inv;
@@ -17,21 +16,17 @@ int main(object me, string arg)
 
     env = environment(me);
 
-    if (!arg)
-    {
+    if (!arg) {
         inv = all_inventory(env);
 
         if (!inv)
             return notify_fail("这里并没有任何在摆摊的商人。\n");
 
         msg = HIC "现在这里的小摊子有：" HIY "\n----------------------------\n" NOR;
-        for (i = 0; i < sizeof(inv); i++)
-        {
-            if (userp(inv[i]) && inv[i]->query_temp("on_baitan"))
-            {
+        for (i = 0; i < sizeof(inv); i++) {
+            if (userp(inv[i]) && inv[i]->query_temp("on_baitan")) {
                 have_vendor = 1;
-                msg += WHT + inv[i]->name(1) + "的杂货摊(" +
-                       inv[i]->query("id") + ")\n";
+                msg += WHT + inv[i]->name(1) + "的杂货摊(" + inv[i]->query("id") + ")\n";
             }
         }
         if (!have_vendor)
@@ -58,8 +53,7 @@ int main(object me, string arg)
 
     gks = keys(goods);
 
-    for (i = 0; i < sizeof(gks); i++)
-    {
+    for (i = 0; i < sizeof(gks); i++) {
         if (!present(gks[i]->query("id"), obj))
             map_delete(goods, gks[i]);
     }
@@ -72,16 +66,14 @@ int main(object me, string arg)
 
     gks = keys(goods);
 
-    for (i = 0; i < sizeof(gks); i++)
-    {
+    for (i = 0; i < sizeof(gks); i++) {
         object gob;
         call_other(gks[i], "???");
 
-        if (!objectp(find_object(gks[i])))
-        {
+        if (!objectp(find_object(gks[i]))) {
             log_file("user_vendor", sprintf("No found vend"
-                                            "or good:%s\n",
-                                            gks[i]));
+                "or good:%s\n",
+                gks[i]));
             continue;
         }
 
@@ -93,30 +85,28 @@ int main(object me, string arg)
         else
             prefix = "";
 
-        unit += ([short_name:gob->query(prefix + "unit")]);
-        price += ([short_name:goods[gks[i]]]);
+        unit += ([ short_name: gob->query(prefix + "unit") ]);
+        price += ([ short_name: goods[gks[i]] ]);
     }
 
     msg = HIC + obj->name(1) + "目前出售以下物品：" HIY "\n--------------------------------------------------\n" NOR;
     dk = sort_array(keys(unit), 1);
 
-    for (i = 0; i < sizeof(dk); i++)
-    {
+    for (i = 0; i < sizeof(dk); i++) {
         int p;
         p = price[dk[i]];
 
         //msg += sprintf("%" + sprintf("%d", (30 + color_len(dk[i]))) +
         msg += sprintf("%" + sprintf("%d", (30)) +
-                       "-s：每%s%s" CYN "\n" NOR,
-                       dk[i], unit[dk[i]], MONEY_D->price_str(p));
+            "-s：每%s%s" CYN "\n" NOR,
+            dk[i], unit[dk[i]], MONEY_D->price_str(p));
     }
     msg += HIY "--------------------------------------------------\n" NOR;
     write(msg);
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: list <ID>
 

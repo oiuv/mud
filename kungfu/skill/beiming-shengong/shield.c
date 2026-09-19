@@ -7,8 +7,7 @@ inherit F_CLEAN_UP;
 
 void remove_effect(object me, int amount);
 
-int exert(object me, object target)
-{
+int exert(object me, object target) {
     int skill;
 
     if (target != me)
@@ -28,7 +27,7 @@ int exert(object me, object target)
     me->receive_damage("qi", 0);
 
     message_combatd(HIW "$N" HIW "双手平举过顶，运起北冥"
-                        "神功，全身笼罩在劲气之中！\n" NOR, me);
+        "神功，全身笼罩在劲气之中！\n" NOR, me);
 
     me->add_temp("apply/armor", skill / 2);
     me->set_temp("shield", 1);
@@ -40,12 +39,10 @@ int exert(object me, object target)
     return 1;
 }
 
-void remove_effect(object me, int amount)
-{
-        if (me->query_temp("shield"))
-        {
-            me->add_temp("apply/armor", -amount);
-            me->delete_temp("shield");
-            tell_object(me, "你的北冥神功运行完毕，将内力收回丹田。\n");
-        }
+void remove_effect(object me, int amount) {
+    if (me->query_temp("shield")) {
+        me->add_temp("apply/armor", -amount);
+        me->delete_temp("shield");
+        tell_object(me, "你的北冥神功运行完毕，将内力收回丹田。\n");
+    }
 }

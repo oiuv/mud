@@ -17,8 +17,7 @@
 inherit F_CLEAN_UP;
 
 // Some mud or other has decied to tell us it is shuting down...
-void incoming_request(mapping info)
-{
+void incoming_request(mapping info) {
     mapping mud_info;
 
     if (!ACCESS_CHECK(previous_object()))
@@ -31,16 +30,15 @@ void incoming_request(mapping info)
     if (!mud_info || !DNS_MASTER->dns_mudp(info["NAME"]))
         return;
 
-    if (info["HOSTADDRESS"] != mud_info["HOSTADDRESS"])
-    { // faked
+    if (info["HOSTADDRESS"] != mud_info["HOSTADDRESS"]) {  // faked
         dns_log("dns_fake", sprintf("Shutdown from: %s for %s (%s) @%s\n",
-                                    mud_info["HOSTADDRESS"], info["NAME"],
-                                    info["HOSTADDRESS"], ctime(time())));
+            mud_info["HOSTADDRESS"], info["NAME"],
+            info["HOSTADDRESS"], ctime(time())));
         DNS_MASTER->send_udp(mud_info["HOSTADDRESS"], mud_info["PORTUDP"],
-                             "@@@" + DNS_WARNING +
-                                 "||MSG: Faked shutdown message from " +
-                                 info["HOSTADDRESS"] + "||FAKEHOST:" +
-                                 info["NAME"] + "@@@");
+            "@@@" + DNS_WARNING +
+            "||MSG: Faked shutdown message from " +
+            info["HOSTADDRESS"] + "||FAKEHOST:" +
+            info["NAME"] + "@@@");
         return;
     }
 
@@ -48,15 +46,17 @@ void incoming_request(mapping info)
 }
 
 // we send this when we shut down
-void send_shutdown(string host, int port)
-{
+void send_shutdown(string host, int port) {
     if (!ACCESS_CHECK(previous_object()))
         return;
 
-    DNS_MASTER->send_udp(host, port, "@@@" + DNS_SHUTDOWN + "||NAME:" + Mud_name() + "||PORTUDP:" + udp_port() + "@@@\n");
+    DNS_MASTER->send_udp(
+        host,
+        port,
+        "@@@" + DNS_SHUTDOWN + "||NAME:" + Mud_name() + "||PORTUDP:" + udp_port() + "@@@\n"
+    );
 }
 
-void create()
-{
+void create() {
     seteuid(ROOT_UID);
 }

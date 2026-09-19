@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "大驿道");
     set("long", @LONG
 你走在一条尘土飞扬的大驿道上。四周人来人往。挑担子
@@ -11,8 +10,8 @@ void create()
 是些些习武的江湖人。道路两旁是整整齐齐的杨树林。
 LONG);
     set("exits", ([
-        "south" : "/d/city/beimen",
-        "north" : __DIR__"yidao1",
+        "south": "/d/city/beimen",
+        "north": __DIR__ "yidao1",
     ]));
     set("outdoors", "nanyang");
     setup();

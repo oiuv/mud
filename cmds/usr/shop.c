@@ -5,12 +5,10 @@ inherit F_CLEAN_UP;
 
 int help(object me);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string name, id;
 
-    if (!arg)
-    {
+    if (!arg) {
         SHOP_D->list_shop(me);
         return 1;
     }
@@ -18,47 +16,40 @@ int main(object me, string arg)
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
         return notify_fail("你没有权力使用店铺管理指令。\n");
 
-    switch (arg)
-    {
-    case "open":
-        SHOP_D->open_all(me);
-        break;
-    case "close":
-        SHOP_D->close_all(me);
-        break;
-    case "reset":
-        SHOP_D->reset_all(me);
-        break;
-    default:
-        if (sscanf(arg, "open %s", name))
-        {
-            SHOP_D->open_shop(me, name);
+    switch (arg) {
+        case "open":
+            SHOP_D->open_all(me);
             break;
-        }
-        if (sscanf(arg, "close %s", name))
-        {
-            SHOP_D->close_shop(me, name);
+        case "close":
+            SHOP_D->close_all(me);
             break;
-        }
-        if (sscanf(arg, "reset %s", name))
-        {
-            SHOP_D->reset_shop(me, name);
+        case "reset":
+            SHOP_D->reset_all(me);
             break;
-        }
-        if (sscanf(arg, "owner %s %s", name, id))
-        {
-            SHOP_D->change_owner(me, name, id);
-            break;
-        }
-        else
-            return help(me);
+        default:
+            if (sscanf(arg, "open %s", name)) {
+                SHOP_D->open_shop(me, name);
+                break;
+            }
+            if (sscanf(arg, "close %s", name)) {
+                SHOP_D->close_shop(me, name);
+                break;
+            }
+            if (sscanf(arg, "reset %s", name)) {
+                SHOP_D->reset_shop(me, name);
+                break;
+            }
+            if (sscanf(arg, "owner %s %s", name, id)) {
+                SHOP_D->change_owner(me, name, id);
+                break;
+            } else
+                return help(me);
     }
 
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 
 指令格式：shop [ open [店铺名称] ]  | [ close [店铺名称] ] |

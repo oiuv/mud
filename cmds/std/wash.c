@@ -6,8 +6,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string target;
     object dest;
     string msg;
@@ -27,36 +26,28 @@ int main(object me, string arg)
     if (me->is_fighting())
         return notify_fail("你还是打完了架再洗吧！\n");
 
-    if (target == "hand" || target == "me")
-    {
+    if (target == "hand" || target == "me") {
         // washing me
         dest = me;
-    }
-    else
-    {
+    } else {
         dest = present(target, me);
         if (!dest)
             dest = present(target, environment(me));
         if (!dest)
             return notify_fail("这里没有这样东西。\n");
 
-        if (dest->is_character())
-        {
-            if (dest != me)
-            {
+        if (dest->is_character()) {
+            if (dest != me) {
                 dest->force_me("chat* rascal " + me->query("id"));
                 return notify_fail("你要给人家" + dest->name() + "洗澡？\n");
             }
             // daub on me
-        }
-        else if (!mapp(dest->query("armor_prop")) && !mapp(dest->query("weapon_prop")))
-        {
+        } else if (!mapp(dest->query("armor_prop")) && !mapp(dest->query("weapon_prop"))) {
             return notify_fail("那既不是武器，也不是防具，你有什么好清洗的？\n");
         }
     }
 
-    if (remain = dest->query_temp("daub/poison/remain"))
-    {
+    if (remain = dest->query_temp("daub/poison/remain")) {
         if (remain > 10000)
             msg = "，只见洗完的水变得腥臭无比，令人掩鼻。\n";
         else if (remain > 4000)
@@ -65,19 +56,16 @@ int main(object me, string arg)
             msg = "，清水随即色变，散发出一种难闻的气味。\n";
         else
             msg = "，洗后水的颜色变得有点不对。\n";
-    }
-    else
+    } else
         msg = "。\n";
 
     dest->delete_temp("daub");
-    if (dest == me)
-    {
+    if (dest == me) {
         message_vision("$N好好的洗了洗手" + msg, me);
         return 1;
     }
 
-    if (dest->query("equipped") == "worn")
-    {
+    if (dest->query("equipped") == "worn") {
         // function f;
 
         if (!REMOVE_CMD->do_remove(me, dest))
@@ -95,8 +83,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : wash <武器> | <防具> | hand
 

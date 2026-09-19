@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("族头人", ({ "zu touren", "touren" }));
     set("age", 42);
     set("gender", "男性");

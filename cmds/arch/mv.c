@@ -3,8 +3,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string src, dst;
 
     if (!SECURITY_D->valid_grant(me, "(arch)"))
@@ -27,14 +26,13 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : mv <原档名> <目标档名>
 
 此指令可让你修改某个档案或目录名称。
 
 see also: cp, rm
-HELP );
+HELP);
     return 1;
 }

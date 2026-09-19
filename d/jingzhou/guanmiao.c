@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "关圣庙");
     set("long", @LONG
 相传关老爷子旧年曾在这里和周仓争关庙首席之位。周仓
@@ -12,12 +11,12 @@ void create()
 地人心中是多英雄的人物。
 LONG);
     set("exits", ([
-        "south" : __DIR__"xidajie2",
-        "north" :__DIR__"houdian",
+        "south": __DIR__ "xidajie2",
+        "north": __DIR__ "houdian",
     ]));
-        set("objects", ([
-                "/d/beijing/npc/xiangke" : 1,
-        ]));
+    set("objects", ([
+        "/d/beijing/npc/xiangke": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

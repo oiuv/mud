@@ -3,8 +3,7 @@
 #include <weapon.h>
 inherit CLUB;
 
-void create()
-{
+void create() {
     set_name("长枪", ({ "changqiang" }));
     set_weight(5000);
     if (clonep())
@@ -18,6 +17,6 @@ void create()
         set("wield_msg", "$N掣出一杆根$n握在手中。\n");
         set("unwield_msg", "$N将手中的$n反别身后。\n");
     }
-      init_club(25);
+    init_club(25);
     setup();
 }

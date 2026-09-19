@@ -4,10 +4,9 @@
 
 inherit "/inherit/char/punisher";
 
-void create()
-{
+void create() {
     set_name("老奴", ({ "lao nu", "laonu" }));
-    set("long",  "他看上去白发苍苍，一副仆人打扮，弱不经风的样子。\n");
+    set("long", "他看上去白发苍苍，一副仆人打扮，弱不经风的样子。\n");
     set("gender", "男性");
     set("age", 72);
     set("attitude", "peaceful");
@@ -30,32 +29,32 @@ void create()
     set_skill("dodge", 250);
     set_skill("parry", 270);
     set_skill("cuff", 250);
-        set_skill("finger", 240);
+    set_skill("finger", 240);
     set_skill("staff", 270);
     set_skill("training", 270);
-        set_skill("poison", 270);
-        set_skill("shedu-qiqiao", 270);
+    set_skill("poison", 270);
+    set_skill("shedu-qiqiao", 270);
     set_skill("hamagong", 270);
     set_skill("chanchu-bufa", 250);
     set_skill("lingshe-quan", 250);
     set_skill("lingshe-zhangfa", 270);
     set_skill("baibian-daxue", 260);
-        set_skill("guzheng-jifa", 300);
-        set_skill("xiyu-tiezheng", 300);
+    set_skill("guzheng-jifa", 300);
+    set_skill("xiyu-tiezheng", 300);
     set_skill("medical", 280);
     set_skill("baituo-michuan", 280);
 
     map_skill("force", "hamagong");
     map_skill("dodge", "chanchu-bufa");
-    map_skill("cuff",  "lingshe-quan");
+    map_skill("cuff", "lingshe-quan");
     map_skill("parry", "lingshe-zhangfa");
     map_skill("staff", "lingshe-zhangfa");
-        map_skill("finger", "shedu-qiqiao");
-        map_skill("poison", "shedu-qiqiao");
-        map_skill("guzheng-jifa", "xiyu-tiezheng");
+    map_skill("finger", "shedu-qiqiao");
+    map_skill("poison", "shedu-qiqiao");
+    map_skill("guzheng-jifa", "xiyu-tiezheng");
 
-        prepare_skill("finger", "shedu-qiqiao");
-        prepare_skill("cuff", "lingshe-quan");
+    prepare_skill("finger", "shedu-qiqiao");
+    prepare_skill("cuff", "lingshe-quan");
 
     create_family("欧阳世家", 0, "老奴");
 

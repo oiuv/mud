@@ -3,9 +3,8 @@
 inherit ITEM;
 inherit F_LIQUID;
 
-void create()
-{
-    set_name("牛皮酒袋", ({"jiudai", "wineskin", "skin"}));
+void create() {
+    set_name("牛皮酒袋", ({ "jiudai", "wineskin", "skin" }));
     set_weight(700);
     if (clonep())
         set_default_object(__FILE__);

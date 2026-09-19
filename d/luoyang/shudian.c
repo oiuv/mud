@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "老僧书店");
     set("long", @LONG
 这里的老板刚从南阳搬来，听说以前他曾在嵩山少林寺出过家，后不
@@ -10,11 +9,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "south" : __DIR__"wroad7",
+        "south": __DIR__ "wroad7",
     ]));
-        set("objects", ([
-                __DIR__"npc/shudianboss" : 1,
-        ]));
+    set("objects", ([
+        __DIR__ "npc/shudianboss": 1,
+    ]));
 
     setup();
     replace_program(ROOM);

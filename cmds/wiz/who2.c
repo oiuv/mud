@@ -3,8 +3,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string str)
-{
+int main(object me, string str) {
     object where, ob;
     object *ob_list, *wiz_ob;
     mapping dbase;
@@ -27,10 +26,8 @@ int main(object me, string str)
     ob_list = wiz_ob + ob_list;
 
     i = 0;
-    str = HIG " 玩家    年龄 存款       地址               所在       程序       \n" NOR
-        WHT "--------------------------------------------------------------------------\n" NOR;
-    foreach (ob in ob_list)
-    {
+    str = HIG " 玩家    年龄 存款       地址               所在       程序       \n" NOR WHT "--------------------------------------------------------------------------\n" NOR;
+    foreach (ob in ob_list) {
         dbase = ob->query_entire_dbase();
         where = environment(ob);
 
@@ -40,8 +37,8 @@ int main(object me, string str)
         str += sprintf(HIY "%-20s ", admin ? query_ip_name(ob) : "--------");
         if (where)
             str += sprintf(HIM "%s" NOR "(" HIC "%s" NOR ")\n",
-                           where->query("short")||where->query("name"),
-                           file_name(where));
+                where->query("short") || where->query("name"),
+                file_name(where));
         else
             str += sprintf("\n" NOR);
         if (i++ >= 200)
@@ -54,23 +51,19 @@ int main(object me, string str)
     return 1;
 }
 
-int sort_user(object ob1, object ob2)
-{
+int sort_user(object ob1, object ob2) {
     return ob2->query("mud_age") - ob1->query("mud_age");
 }
 
-int sort_wizard(object ob1, object ob2)
-{
-    return (int)SECURITY_D->get_wiz_level(ob2) -
-           (int)SECURITY_D->get_wiz_level(ob1);
+int sort_wizard(object ob1, object ob2) {
+    return (int)SECURITY_D->get_wiz_level(ob2) - (int)SECURITY_D->get_wiz_level(ob1);
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：who2
 
 玩家信息查询列表2。
-HELP );
+HELP);
     return 1;
 }

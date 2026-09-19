@@ -3,8 +3,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string wiz_status;
 
     if (!SECURITY_D->valid_grant(me, "(arch)"))
@@ -17,8 +16,7 @@ int main(object me, string arg)
 
     seteuid(getuid());
 
-    if (EXAMINE_D->end_log_player(arg, me->query("id")))
-    {
+    if (EXAMINE_D->end_log_player(arg, me->query("id"))) {
         write("停止记录(" + arg + ")的日志。\n");
         return 1;
     }
@@ -26,8 +24,7 @@ int main(object me, string arg)
     return 0;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: endlog <player>
 
@@ -35,6 +32,6 @@ int help(object me)
 则该项设置将取消。除了 admin，只有等级不亚于开始记录日志者的
 巫师才能够取消记录日志。
 
-HELP );
+HELP);
     return 1;
 }

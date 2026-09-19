@@ -1,19 +1,18 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
-      set("short", "十二盘");
-      set("long", @LONG
+void create() {
+    set("short", "十二盘");
+    set("long", @LONG
 这里石阶陡折多弯，号称「十二盘」。由此西上可达华严
 顶，东下则到万年庵。
 LONG);
-      set("outdoors", "emei");
-      set("exits", ([
-          "eastdown"  : __DIR__"wannianan",
-          "southwest" : __DIR__"shierpan2",
-      ]));
-      setup();
+    set("outdoors", "emei");
+    set("exits", ([
+        "eastdown": __DIR__ "wannianan",
+        "southwest": __DIR__ "shierpan2",
+    ]));
+    setup();
 }
 /*
 int valid_leave(object me, string dir)

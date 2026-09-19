@@ -5,8 +5,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, mapping info)
-{
+int main(object me, mapping info) {
     seteuid(geteuid());
 
     if (!is_root(previous_object()))

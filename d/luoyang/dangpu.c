@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "当铺");
     set("long", @LONG
 这是洛阳城里最大的一家当铺了，素来以买卖公平着称。门帘上绣了
@@ -11,20 +10,20 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "down" : __DIR__"cunchu",
-          "east" : __DIR__"sroad1",
+        "down": __DIR__ "cunchu",
+        "east": __DIR__ "sroad1",
     ]));
-        set("item_desc", ([
-                "paizi" : "公平交易\n
+    set("item_desc", ([
+        "paizi": "公平交易\n
 sell        卖
 buy         买
 redeem      赎
 value       估价
 ",
-        ]));
-        set("objects", ([
-                __DIR__"npc/qi" : 1,
-        ]));
+    ]));
+    set("objects", ([
+        __DIR__ "npc/qi": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

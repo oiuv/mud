@@ -1,76 +1,75 @@
 inherit SHAOLIN_SKILL;
 
 mapping *action = ({
-([      "action" : "$N使出一招「莲花手」，双掌合十，直直撞向$n的前胸",
-        "skill_name" : "莲花手",
-        "force" : 120,
+    ([ "action": "$N使出一招「莲花手」，双掌合十，直直撞向$n的前胸",
+        "skill_name": "莲花手",
+        "force": 120,
         "attack": 70,
-        "dodge" : 20,
-        "lvl" : 0,
-        "damage_type" : "瘀伤",
-]),
-([      "action" : "$N使出一招「观音手」，飞身跃起，双手如勾，抓向$n的$l",
-        "skill_name" : "观音手",
-        "force" : 170,
+        "dodge": 20,
+        "lvl": 0,
+        "damage_type": "瘀伤",
+    ]),
+    ([ "action": "$N使出一招「观音手」，飞身跃起，双手如勾，抓向$n的$l",
+        "skill_name": "观音手",
+        "force": 170,
         "attack": 80,
-        "dodge" : 20,
-        "lvl" : 25,
-        "damage_type" : "瘀伤",
-]),
-([      "action" : "$N使出一招「佛母手」，运力于指，直取$n的$l",
-        "skill_name" : "佛母手",
-        "force" : 220,
+        "dodge": 20,
+        "lvl": 25,
+        "damage_type": "瘀伤",
+    ]),
+    ([ "action": "$N使出一招「佛母手」，运力于指，直取$n的$l",
+        "skill_name": "佛母手",
+        "force": 220,
         "attack": 60,
-        "dodge" : 20,
-        "lvl" : 50,
-        "damage_type" : "瘀伤",
-]),
-([      "action" : "$N使出一招「红阎婆罗手」，怒吼一声，一掌当头拍向$n的$l",
-        "skill_name" : "红阎婆罗手",
-        "force" : 250,
+        "dodge": 20,
+        "lvl": 50,
+        "damage_type": "瘀伤",
+    ]),
+    ([ "action": "$N使出一招「红阎婆罗手」，怒吼一声，一掌当头拍向$n的$l",
+        "skill_name": "红阎婆罗手",
+        "force": 250,
         "attack": 80,
-        "dodge" : 30,
-        "lvl" : 80,
-        "damage_type" : "瘀伤",
-]),
-([      "action" : "$N使出一招「慈悲手」，猛冲向前，掌如游龙般攻向$n",
-        "skill_name" : "慈悲手",
-        "force" : 360,
+        "dodge": 30,
+        "lvl": 80,
+        "damage_type": "瘀伤",
+    ]),
+    ([ "action": "$N使出一招「慈悲手」，猛冲向前，掌如游龙般攻向$n",
+        "skill_name": "慈悲手",
+        "force": 360,
         "attack": 80,
-        "dodge" : 30,
-        "lvl" : 100,
-        "damage_type" : "瘀伤",
-]),
-([      "action" : "$N使出一招「大慈大悲手」，伏身疾进，双掌自下扫向$n的$l",
-        "skill_name" : "大慈大悲手",
-        "force" : 550,
-        "dodge" : 70,
-        "lvl" : 180,
-        "damage_type" : "瘀伤",
-]),
-([      "action" : "$N使出一招「金刚手」，飞身横跃，双掌前后击出，抓向$n的咽喉",
-        "skill_name" : "金刚手",
-        "force" : 500,
+        "dodge": 30,
+        "lvl": 100,
+        "damage_type": "瘀伤",
+    ]),
+    ([ "action": "$N使出一招「大慈大悲手」，伏身疾进，双掌自下扫向$n的$l",
+        "skill_name": "大慈大悲手",
+        "force": 550,
+        "dodge": 70,
+        "lvl": 180,
+        "damage_type": "瘀伤",
+    ]),
+    ([ "action": "$N使出一招「金刚手」，飞身横跃，双掌前后击出，抓向$n的咽喉",
+        "skill_name": "金刚手",
+        "force": 500,
         "attack": 120,
-        "dodge" : 80,
-        "lvl" : 140,
-        "damage_type" : "瘀伤",
-]),
-([      "action" : "$N使出一招「六臂智慧手」，顿时劲气弥漫，天空中出现无数掌影打"
-                   "向$n的$l",
-        "skill_name" : "六臂智慧手",
-        "force" : 500,
+        "dodge": 80,
+        "lvl": 140,
+        "damage_type": "瘀伤",
+    ]),
+    ([ "action": "$N使出一招「六臂智慧手」，顿时劲气弥漫，天空中出现无数掌影打"
+        "向$n的$l",
+        "skill_name": "六臂智慧手",
+        "force": 500,
         "attack": 120,
-        "dodge" : 100,
-        "lvl" : 160,
-        "damage_type" : "瘀伤",
-]),
+        "dodge": 100,
+        "lvl": 160,
+        "damage_type": "瘀伤",
+    ]),
 });
 
 int valid_enable(string usage) { return usage == "hand" || usage == "parry"; }
 
-int valid_learn(object me)
-{
+int valid_learn(object me) {
     if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
         return notify_fail("练大慈大悲手必须空手。\n");
 
@@ -96,16 +95,14 @@ int valid_learn(object me)
     return 1;
 }
 
-string query_skill_name(int level)
-{
+string query_skill_name(int level) {
     int i;
     for (i = sizeof(action) - 1; i >= 0; i--)
         if (level >= action[i]["lvl"])
             return action[i]["skill_name"];
 }
 
-mapping query_action(object me, object weapon)
-{
+mapping query_action(object me, object weapon) {
     int i, level;
     level = (int)me->query_skill("dacidabei-shou", 1);
     for (i = sizeof(action); i > 0; i--)
@@ -113,8 +110,7 @@ mapping query_action(object me, object weapon)
             return action[NewRandom(i, 20, level / 5)];
 }
 
-int practice_skill(object me)
-{
+int practice_skill(object me) {
     // object weapon;
     if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
         return notify_fail("练「大慈大悲手」必须空手。\n");
@@ -130,7 +126,6 @@ int practice_skill(object me)
     return 1;
 }
 
-string perform_action_file(string action)
-{
+string perform_action_file(string action) {
     return __DIR__ "dacidabei-shou/" + action;
 }

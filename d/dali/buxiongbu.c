@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "步雄部");
     set("long", @LONG
 这里属江川路，是摆夷的一支徒蛮聚居的地方。此地较
@@ -10,18 +9,18 @@ void create()
 树多，产丝，乡间民妇多擅纺丝织麻。
 LONG);
     set("objects", ([
-           __DIR__"npc/bshangfan" : 1,
+        __DIR__ "npc/bshangfan": 1,
     ]));
     set("outdoors", "dali");
     set("exits", ([
-                "west"   : __DIR__"banshan",
-                "east"   : __DIR__"yangcanfang",
-                "south"  : __DIR__"xingyunhu",
-                "north"  : __DIR__"nongtian5",
+        "west": __DIR__ "banshan",
+        "east": __DIR__ "yangcanfang",
+        "south": __DIR__ "xingyunhu",
+        "north": __DIR__ "nongtian5",
     ]));
-        set("objects", ([
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/clone/npc/walker": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

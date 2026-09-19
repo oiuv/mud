@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", HIW "世外桃源" NOR);
     set("long", HIW @LONG
 
@@ -13,33 +12,31 @@ void create()
 说不尽的哀思。旁边一位男子英武挺拔，傲然而立。大石的旁边有一块
 牌子(paizi)，你也许应该仔细看看。
 
-LONG NOR );
+LONG NOR);
     set("no_fight", 1);
     set("item_desc", ([
         // "paizi" : WHT "请先注册(" NOR + HIY "register email" NOR +
         //           WHT ")邮件，然后你可以分别去不同的出口选择你的内在品质。\n" NOR,
-        "paizi" : HIY "请从这里不同方向的出口选择你的内在品质(help gift)。\n" NOR,
+        "paizi": HIY "请从这里不同方向的出口选择你的内在品质(help gift)。\n" NOR,
     ]));
     set("objects", ([
-        __DIR__"npc/shuisheng" : 1,
-        __DIR__"npc/diyun"     : 1,
+        __DIR__ "npc/shuisheng": 1,
+        __DIR__ "npc/diyun": 1,
     ]));
     set("exits", ([
-        "east"  : __DIR__"roome",
-        "south" : __DIR__"rooms",
-        "west"  : __DIR__"roomw",
-        "north" : __DIR__"roomn",
+        "east": __DIR__ "roome",
+        "south": __DIR__ "rooms",
+        "west": __DIR__ "roomw",
+        "north": __DIR__ "roomn",
     ]));
 
     setup();
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     object ob;
-    if (! objectp(ob = present("shui sheng", this_object())))
-    {
-        ob = new(__DIR__"npc/shuisheng");
+    if (!objectp(ob = present("shui sheng", this_object()))) {
+        ob = new(__DIR__ "npc/shuisheng");
         ob->move(this_object());
     }
     // 已取消邮件注册
@@ -55,9 +52,8 @@ int valid_leave(object me, string dir)
     //     return notify_fail(HIY "你还不快注册？\n" NOR);
     // }
 
-    if (! objectp(ob = present("di yun", this_object())))
-    {
-        ob = new(__DIR__"npc/diyun");
+    if (!objectp(ob = present("di yun", this_object()))) {
+        ob = new(__DIR__ "npc/diyun");
         ob->move(this_object());
     }
     message_vision(CYN "狄云对$N" CYN "一抱拳，道：人生路全靠自己走，朋友走好！\n" NOR, me);

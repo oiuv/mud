@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("无量剑弟子", ({ "wuliang dizi", "dizi" }));
     set("age", 42);
     set("gender", "男性");

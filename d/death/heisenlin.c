@@ -2,10 +2,9 @@
 #include <ansi.h>
 inherit VRM;
 
-void create()
-{
+void create() {
     //迷宫房间所继承的对象的档案名称。
-    set_inherit_room( ROOM );
+    set_inherit_room(ROOM);
 
     //迷宫房间里的怪物。
     //set_maze_npcs(__DIR__"npc/baihu");
@@ -20,13 +19,13 @@ void create()
     set_link_entry_dir("south");
 
     //入口与区域的连接档案名
-    set_link_entry_room(__DIR__"jimiesi");
+    set_link_entry_room(__DIR__ "jimiesi");
 
     //出口与区域的连接方向
     set_link_exit_dir("north");
 
     //出口与区域的连接档案名
-    set_link_exit_room(__DIR__"baihuxue");
+    set_link_exit_room(__DIR__ "baihuxue");
 
     //入口房间短描述
     set_entry_short(HIB "黑森林" NOR);

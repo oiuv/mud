@@ -2,10 +2,9 @@ inherit ITEM;
 
 int is_container() { return 1; }
 
-void create()
-{
+void create() {
     parse_init();
-    set_name("保险箱", ({"safe", "safe deposit box", "box"}));
+    set_name("保险箱", ({ "safe", "safe deposit box", "box" }));
     set_weight(50000);
     set_max_encumbrance(100000);
 
@@ -17,8 +16,7 @@ void create()
     restore_object(__FILE__);
 }
 
-varargs void remove(string euid)
-{
+varargs void remove(string euid) {
     ::remove();
     save_object(__FILE__);
 }

@@ -16,8 +16,7 @@ int ask_list();
 mixed ask_cancel();
 int filter_listener(object user);
 
-void create()
-{
+void create() {
     set_name("北丑", ({ "bei chou", "bei", "chou", "xizi" }));
     set("long", @LONG
 这是一个身着戏子打扮的瘦小老头，长得尖嘴
@@ -27,7 +26,7 @@ void create()
 LONG);
     set("nickname", HIW "北戏子" NOR);
     set("title", HIC "武林泰斗" NOR);
-    set("gender", "男性" );
+    set("gender", "男性");
     set("age", 68);
     set("attitude", "friendly");
     set("max_jing", 50000);
@@ -44,26 +43,26 @@ LONG);
     set("combat_exp", 12000000);
 
     set("inquiry", ([
-        "name" : "俺就是北丑，你要打听点什么？",
+        "name": "俺就是北丑，你要打听点什么？",
         "rumor": "哼，不是戏子我吹牛，谁的谣言我都能查出来。",
-        "fee"  : (: ask_fee :),
-        "收费" : (: ask_fee :),
-        "bomb" : (: ask_bomb :),
-        "炸弹" : (: ask_bomb :),
+        "fee": (: ask_fee :),
+        "收费": (: ask_fee :),
+        "bomb": (: ask_bomb :),
+        "炸弹": (: ask_bomb :),
         //"蛇毒" : (: ask_shedu :),
-        "毒药" : (: ask_duwan :),
-        "核弹" : (: ask_list :),
-        "打听" : "嘿嘿嘿，你想打听谁？俺的消息那个灵通……",
-        "南贤" : "靠，那个老头没半点学问，你有什么事情找我好了。",
+        "毒药": (: ask_duwan :),
+        "核弹": (: ask_list :),
+        "打听": "嘿嘿嘿，你想打听谁？俺的消息那个灵通……",
+        "南贤": "靠，那个老头没半点学问，你有什么事情找我好了。",
         //"核炸弹"    : (: ask_list :),
         //"核子飞弹"  : (: ask_list :),
         //"核子炸弹"  : (: ask_list :),
         //"核子导弹"  : (: ask_list :),
-        "飞毛腿"    : (: ask_list :),
+        "飞毛腿": (: ask_list :),
         //"飞毛腿导弹": (: ask_list :),
-        "矿泉水"    : "被飞弹炸了？来两瓶解解渴！",
-        "发呆神功"  : "想学么(idle-force)？戏子我教，不收钱的。",
-        "cancel"    : (: ask_cancel :),
+        "矿泉水": "被飞弹炸了？来两瓶解解渴！",
+        "发呆神功": "想学么(idle-force)？戏子我教，不收钱的。",
+        "cancel": (: ask_cancel :),
     ]));
 
     set("vendor_goods", ({
@@ -73,7 +72,7 @@ LONG);
     }));
 
     set("chat_chance", 1);
-    set("chat_msg",({
+    set("chat_msg", ({
         CYN "北丑嘻嘻道：戏子我没别的本事，就会打听消息，就算是巫师造谣，俺也能知道。\n" NOR,
         CYN "北丑亮出一指道：便宜啊，几两银子就能查条谣言，这可真是跳楼价。\n" NOR,
         CYN "北丑贼眯眯的说：天算地算不如人算，可是再怎么算戏子我都知道。\n" NOR,
@@ -156,28 +155,24 @@ LONG);
     setup();
     carry_object("d/city/obj/cloth")->wear();
 
-    if (! clonep(this_object()))
-    {
+    if (!clonep(this_object())) {
         move("/d/city/kedian");
         message_vision(CYN "\n$N" CYN "笑嘻嘻道：来了来了，戏子我来了。\n"
-                       NOR, this_object());
+            NOR, this_object());
         set("startroom", "/d/city/kedian");
     }
     set_temp("bomb_count", 1);
 }
 
-void init()
-{
+void init() {
     add_action("do_list", "list");
     add_action("do_buy", "buy");
 }
 
-mixed accept_ask(object ob, string topic)
-{
+mixed accept_ask(object ob, string topic) {
     object fob;
 
-    if (topic == ob->query("id"))
-    {
+    if (topic == ob->query("id")) {
         command("laugh " + topic);
         return 1;
     }
@@ -188,77 +183,65 @@ mixed accept_ask(object ob, string topic)
     if (!fob || !ob->visible(fob) || !environment(fob))
         return;
 
-    if (fob->query("ask_cheap") >= 1)
-    {
+    if (fob->query("ask_cheap") >= 1) {
         ob->set_temp("pending/ask_beichou", topic);
         ob->set_temp("pending/ask_value", 1000);
         message_vision(CYN "$N" CYN "皱了皱眉头，对$n" CYN "摇摇"
-                           "头道：看来你这次确实是遇到了困难，收你十"
-                           "两白银就是了。\n" NOR,
-                       this_object(), ob);
+            "头道：看来你这次确实是遇到了困难，收你十"
+            "两白银就是了。\n" NOR,
+            this_object(), ob);
         return 1;
-    }
-    else
-    {
+    } else {
         ob->set_temp("pending/ask_beichou", topic);
         ob->set_temp("pending/ask_value", 10000);
         message_vision(CYN "$N" CYN "嘿嘿奸笑两声，对$n" CYN "小"
-                           "声道：没有问题，不过得要一两黄金，不二"
-                           "价！\n" NOR,
-                       this_object(), ob);
+            "声道：没有问题，不过得要一两黄金，不二"
+            "价！\n" NOR,
+            this_object(), ob);
         return 1;
     }
 }
 
-int recognize_apprentice(object me, string skill)
-{
-    if (skill != "idle-force")
-    {
-        if (me->add_temp("illegal_learn", 1) > 3)
-        {
+int recognize_apprentice(object me, string skill) {
+    if (skill != "idle-force") {
+        if (me->add_temp("illegal_learn", 1) > 3) {
             command("say 滚！你怎么比南贤那个老不死的还烦？");
             message_vision(HIC "$n飞起就是一脚，把$N" HIC "踢出门外！\n" NOR,
-                           me, this_object());
+                me, this_object());
             me->set_temp("illegal_learn", 2);
             me->move("/d/city/beidajie1");
             me->unconcious();
-        }
-        else
+        } else
             command("say 俺只教发呆神功，不传其它武功！");
         return -1;
     }
 
     message_vision(HIC "$N" HIC "向$n" HIC "请教发呆神功的诀窍。\n" NOR,
-                   me, this_object());
+        me, this_object());
 
-    if (me->query_temp("learned_idle_force"))
-    {
-        if (me->add_temp("too_many_xue", 1) > 3)
-        {
+    if (me->query_temp("learned_idle_force")) {
+        if (me->add_temp("too_many_xue", 1) > 3) {
             command("say 他奶奶的！居然比南贤那老不死还罗嗦！");
             message_vision(HIC "$n飞起就是一脚，把$N" HIC "踢出门外！\n" NOR,
-                           me, this_object());
+                me, this_object());
             me->set_temp("too_many_xue", 1);
             me->move("/d/city/beidajie1");
             me->unconcious();
-        }
-        else
+        } else
             command("say 你先把俺刚才教你的领悟好再说吧！");
         return -1;
     }
 
     command("say 听好了！发呆神功宗旨：@#$^&#$#@$&*&+*^&……");
 
-    if (me->query("potential") < me->query("learned_points") + 10)
-    {
+    if (me->query("potential") < me->query("learned_points") + 10) {
         write(HIY "你听得稀里糊涂，看来是潜能不够了。\n" NOR);
         return -1;
     }
 
-    if (me->query_skill("idle-force", 1) > 500)
-    {
+    if (me->query_skill("idle-force", 1) > 500) {
         write(HIW "你听完了心想，这些我都懂啊，看来北丑也"
-                  "就知道这么多了。\n" NOR);
+            "就知道这么多了。\n" NOR);
         return -1;
     }
 
@@ -268,87 +251,79 @@ int recognize_apprentice(object me, string skill)
     return -1;
 }
 
-void append_receiver(object ob)
-{
+void append_receiver(object ob) {
     if (!receiver)
-        receiver = ({ob});
+        receiver = ({ ob });
     else if (member_array(ob, receiver) == -1)
-        receiver += ({ob});
+        receiver += ({ ob });
 }
 
-int accept_object(object me, object ob)
-{
+int accept_object(object me, object ob) {
     string wid;
 
-    if (clonep(this_object()))
-    {
+    if (clonep(this_object())) {
         command("hehe");
         command("say 俺是真北丑，如假包换啊！");
         return 1;
     }
 
-    if (ob->id("visible bomb"))
-    {
+    if (ob->id("visible bomb")) {
         command("say 不要了？那就还给俺吧。");
         return 1;
     }
 
-    if (!stringp(ob->query("money_id")))
-    {
-        switch (me->query_temp("beichou_refused"))
-        {
-        case 0:
-            command("heihei");
-            command("say 这种破烂你留着吧。");
-            me->set_temp("beichou_refused", 1);
-            return 0;
+    if (!stringp(ob->query("money_id"))) {
+        switch (me->query_temp("beichou_refused")) {
+            case 0:
+                command("heihei");
+                command("say 这种破烂你留着吧。");
+                me->set_temp("beichou_refused", 1);
+                return 0;
 
-        case 1:
-            message_vision(HIC "$N" HIC "飞起一脚，把$n" HIC "踢了出去，骂道：捣什么乱"
-                               "？\n" NOR,
-                           this_object(), me);
-            break;
+            case 1:
+                message_vision(HIC "$N" HIC "飞起一脚，把$n" HIC "踢了出去，骂道：捣什么乱"
+                    "？\n" NOR,
+                    this_object(), me);
+                break;
 
-        case 2:
-            message_vision(HIC "$N" HIC "飞起一脚，狠狠"
-                               "的把$n" HIC "踢了出去，骂道："
-                               "居然还敢来捣乱？\n" NOR,
-                           this_object(), me);
-            me->receive_damage("qi", 100);
-            me->receive_wound("qi", 10);
-            break;
+            case 2:
+                message_vision(HIC "$N" HIC "飞起一脚，狠狠"
+                    "的把$n" HIC "踢了出去，骂道："
+                    "居然还敢来捣乱？\n" NOR,
+                    this_object(), me);
+                me->receive_damage("qi", 100);
+                me->receive_wound("qi", 10);
+                break;
 
-        default:
-            message_vision(HIC "$N" HIC "大怒，一招万佛"
-                               "朝宗，就见$n" HIC "像纸片一"
-                               "样飞了出去。\n" NOR,
-                           this_object(), me);
-            command("chat* heng " + me->query("id"));
-            me->unconcious();
-            break;
+            default:
+                message_vision(HIC "$N" HIC "大怒，一招万佛"
+                    "朝宗，就见$n" HIC "像纸片一"
+                    "样飞了出去。\n" NOR,
+                    this_object(), me);
+                command("chat* heng " + me->query("id"));
+                me->unconcious();
+                break;
         }
 
         me->add_temp("beichou_refused", 1);
         me->move("/d/city/beidajie1");
         message_vision(HIC "只听“啪嗒”的一声，$N" HIC
-                           "狠狠的摔在了地上。\n" NOR,
-                       me);
+            "狠狠的摔在了地上。\n" NOR,
+            me);
         return -1;
     }
 
     me->delete_temp("beichou_refused", 1);
-    if (stringp(wid = me->query_temp("pending/ask_beichou", 1)))
-    {
+    if (stringp(wid = me->query_temp("pending/ask_beichou", 1))) {
         object fob;
         int va;
 
         va = me->query_temp("pending/ask_value");
 
-        if (ob->value() < va)
-        {
+        if (ob->value() < va) {
             message_vision(CYN "$N" CYN "冷笑一声道：就这点钱？"
-                               "打发鲁有脚还差不多。\n" NOR,
-                           this_object());
+                "打发鲁有脚还差不多。\n" NOR,
+                this_object());
             return 0;
         }
 
@@ -357,25 +332,21 @@ int accept_object(object me, object ob)
         fob = find_player(wid);
         if (!fob || !me->visible(fob))
             fob = find_living(wid);
-        if (!fob || !me->visible(fob) || !environment(fob))
-        {
+        if (!fob || !me->visible(fob) || !environment(fob)) {
             message_vision(CYN "$N" CYN "挠挠头对$n" CYN "道：怪事…刚"
-                               "才我还有他的消息呢，怎么这么一会儿。\n" NOR,
-                           this_object(), me);
+                "才我还有他的消息呢，怎么这么一会儿。\n" NOR,
+                this_object(), me);
             return 0;
         }
 
         destruct(ob);
-        if (me->query("map_all"))
-        {
+        if (me->query("map_all")) {
             command("whisper " + me->query("id") + " 据可靠消息，这个人刚才在" +
-                    MAP_D->query_map_short(environment(fob)->query("outdoors")) + "的" +
-                    environment(fob)->short() + "。");
-        }
-        else
-        {
+                MAP_D->query_map_short(environment(fob)->query("outdoors")) + "的" +
+                environment(fob)->short() + "。");
+        } else {
             command("whisper " + me->query("id") + " 据可靠消息，这个人刚才在" +
-                    environment(fob)->short() + "。");
+                environment(fob)->short() + "。");
         }
 
         if (va <= 1000)
@@ -387,12 +358,11 @@ int accept_object(object me, object ob)
         return 1;
     }
 
-    if (ob->value() < 10000)
-    {
+    if (ob->value() < 10000) {
         message_vision(CYN "$N" CYN "接过$n" CYN "递过去的" + ob->name() +
-                           NOR + CYN "，皱了皱眉，道：就这点钱？算了，你不要就"
-                                     "给我吧！\n" NOR,
-                       this_object(), me);
+            NOR + CYN "，皱了皱眉，道：就这点钱？算了，你不要就"
+            "给我吧！\n" NOR,
+            this_object(), me);
         destruct(ob);
         return 1;
     }
@@ -402,48 +372,47 @@ int accept_object(object me, object ob)
 
     me->add_temp("receive_rumor_time", ob->value() / 1000 * 60);
     message_vision(CYN "$N" CYN "乐得合不拢嘴，连忙接过" + ob->name() +
-                       CYN "，点头哈腰的对$n" CYN "道：好！好！\n" NOR,
-                   this_object(), me);
+        CYN "，点头哈腰的对$n" CYN "道：好！好！\n" NOR,
+        this_object(), me);
 
     command("tell " + me->query("id") +
-            sprintf(" 要是 %d 分钟内有人造谣，我一定揭穿他的老底。",
-                    (me->query_temp("receive_rumor_time") - time()) / 60));
+        sprintf(" 要是 %d 分钟内有人造谣，我一定揭穿他的老底。",
+            (me->query_temp("receive_rumor_time") - time()) / 60));
     destruct(ob);
     append_receiver(me);
     return 1;
 }
 
-int ask_fee()
-{
+int ask_fee() {
     int n;
     object me;
 
     me = this_player();
-    if (me->query_temp("receive_rumor_time") < time())
-    {
+    if (me->query_temp("receive_rumor_time") < time()) {
         command("say 不贵不贵，一百两银子包管十分钟。");
         return 1;
     }
 
     n = me->query_temp("receive_rumor_time") - time();
     n /= 60;
-    if (!n)
-    {
+    if (!n) {
         command("tell " + me->query("id") +
-                " 马上到时间啦，再想听消息，快点拿钱来啊！");
-    }
-    else
-    {
+            " 马上到时间啦，再想听消息，快点拿钱来啊！");
+    } else {
         command("tell " + me->query("id") +
-                sprintf(" 你还能听 %d 分钟的消息。", n));
+            sprintf(" 你还能听 %d 分钟的消息。", n));
     }
 
-    message("visoin", CYN + name() + CYN "嘀嘀咕咕的对" + me->name() + CYN "说了一些话。\n" NOR, environment(me), ({me}));
+    message(
+        "visoin",
+        CYN + name() + CYN "嘀嘀咕咕的对" + me->name() + CYN "说了一些话。\n" NOR,
+        environment(me),
+        ({ me })
+    );
     return 1;
 }
 
-int ask_bomb()
-{
+int ask_bomb() {
     object ob;
     object me;
     int n;
@@ -453,25 +422,22 @@ int ask_bomb()
     if (n < 0)
         n = 0;
     n /= 60;
-    if (!n)
-    {
+    if (!n) {
         command("shake");
         command("say 你问我这个干嘛？我不认识你。");
         return 1;
     }
 
     if (!(ob = present("visible bomb", this_object())) &&
-        query_temp("bomb_count") <= 0)
-    {
+        query_temp("bomb_count") <= 0) {
         command("say 可惜，我倒是想给你，可是手头没有啦！");
         return 1;
     }
 
     if (!ob)
-        catch (ob = new ("/clone/gift/xianxing"));
+        catch(ob = new("/clone/gift/xianxing"));
 
-    if (!ob)
-    {
+    if (!ob) {
         command("say 我的炸弹受潮……给不了你了！");
         return 1;
     }
@@ -489,72 +455,59 @@ int ask_bomb()
     return 1;
 }
 
-private void restore_bomb()
-{
+private void restore_bomb() {
     set_temp("bomb_count", 1);
 }
 
-void receive_report(object user, string verb, string arg)
-{
+void receive_report(object user, string verb, string arg) {
     string msg, name, id;
 
     msg = sprintf("听说%s(%s)又要发谣言了。", user->query("name"), user->query("id"));
-    if (random(100) < 7)
-    {
+    if (random(100) < 7) {
         command("heihei");
         command("say " + msg);
-        }
+    }
 
-        if (! receiver)
+    if (!receiver)
+        return;
+
+    receiver = filter_array(receiver, (: filter_listener :));
+    if (!sizeof(receiver)) {
+        receiver = 0;
+        return 0;
+    }
+
+    if (sscanf(arg, "寻找%s(%s)", name, id) == 2) {
+        object ob, env;
+        string *ban = ({ "mudren", "bei chou" });
+        name = trim(name);
+        id = trim(id);
+        // 过滤ID
+        if (member_array(id, ban) > -1 || id == user->query("id")) {
             return;
+        } else {
+            if (member_array(
+                user,
+                receiver
+            ) > -1 && objectp(ob = find_living(id)) && objectp(env = environment(ob))) {
+                if (user->query("map_all")) {
+                    msg = "据可靠消息，" + name + "刚才在" + MAP_D->query_map_short(env->query("outdoors")) + "的" + env->short();
+                } else {
+                    msg = "据可靠消息，" + name + "刚才在" + env->short();
+                }
 
-        receiver = filter_array(receiver, (: filter_listener :));
-        if (! sizeof(receiver))
-        {
-            receiver = 0;
-            return 0;
-        }
-
-        if (sscanf(arg, "寻找%s(%s)", name, id) == 2)
-        {
-            object ob, env;
-            string *ban = ({"mudren", "bei chou"});
-            name = trim(name);
-            id = trim(id);
-            // 过滤ID
-            if (member_array(id, ban) > -1 || id == user->query("id"))
-            {
-                return;
-            }
-            else
-            {
-                if (member_array(user, receiver) > -1 && objectp(ob = find_living(id)) && objectp(env = environment(ob)))
-                {
-                    if (user->query("map_all"))
-                    {
-                        msg = "据可靠消息，" + name + "刚才在" + MAP_D->query_map_short(env->query("outdoors")) + "的" + env->short();
-                    }
-                    else
-                    {
-                        msg = "据可靠消息，" + name + "刚才在" + env->short();
-                    }
-
-                    // tell_object(user, HIC "北丑悄悄的告诉你：" + msg + "。\n");
-                    if (ob->query("name") == name)
-                    {
-                        call_out((: tell_object:), 1, user, HIC "北丑悄悄的告诉你：" + msg + "。\n");
-                    }
+                // tell_object(user, HIC "北丑悄悄的告诉你：" + msg + "。\n");
+                if (ob->query("name") == name) {
+                    call_out((: tell_object :), 1, user, HIC "北丑悄悄的告诉你：" + msg + "。\n");
                 }
             }
         }
-        else
-        {
-            message("vision", HIC "北丑悄悄的告诉你：" + msg + "\n", receiver, user);
-        }
+    } else {
+        message("vision", HIC "北丑悄悄的告诉你：" + msg + "\n", receiver, user);
+    }
 }
 
-private int filter_listener(object ob)
-{
+private int filter_listener(object ob) {
     if (!objectp(ob))
         return 0;
 
@@ -568,23 +521,20 @@ private int filter_listener(object ob)
     return 0;
 }
 
-int ask_duwan()
-{
+int ask_duwan() {
     object me;
     object ob;
 
     me = this_player();
-    if (!wizardp(me) || wiz_level(me) < 2)
-    {
+    if (!wizardp(me) || wiz_level(me) < 2) {
         command("say 你…你要毒药干什么？下毒可是犯法的！");
         return 1;
     }
 
     command("consider");
     command("shzi");
-    catch (ob = new ("/clone/misc/duwan"));
-    if (!ob)
-    {
+    catch(ob = new("/clone/misc/duwan"));
+    if (!ob) {
         command("say 毒丸出了点问题，我暂时拿不出来了。");
         return 1;
     }
@@ -594,23 +544,20 @@ int ask_duwan()
     return 1;
 }
 
-int ask_shedu()
-{
+int ask_shedu() {
     object me;
     object ob;
 
     me = this_player();
-    if (!wizardp(me) || wiz_level(me) < 2)
-    {
+    if (!wizardp(me) || wiz_level(me) < 2) {
         command("say 你……你要毒药干什么？下毒可是犯法的！");
         return 1;
     }
 
     command("heihei");
     command("shzi");
-    catch (ob = new ("/clone/misc/shedu"));
-    if (!ob)
-    {
+    catch(ob = new("/clone/misc/shedu"));
+    if (!ob) {
         command("say 蛇毒出了点问题，我暂时拿不出来。");
         return 1;
     }
@@ -620,42 +567,37 @@ int ask_shedu()
     return 1;
 }
 
-int ask_list()
-{
+int ask_list() {
     object me;
 
     me = this_player();
-    if (me->query_temp("can_buy/beichou/nuclues-bomb", 1))
-    {
+    if (me->query_temp("can_buy/beichou/nuclues-bomb", 1)) {
         command("say 你咋这么罗嗦？好话不说二遍。");
         return 1;
     }
     command("shzi");
     command("whisper " + me->query("id") +
-            " 我身上有不少好东西，便宜得很。核弹才五两黄金一个。");
+        " 我身上有不少好东西，便宜得很。核弹才五两黄金一个。");
     me->set_temp("can_buy/beichou/nuclues-bomb", 1);
     return 1;
 }
 
-int do_list(string arg)
-{
+int do_list(string arg) {
     if (arg && !id(arg))
         return notify_fail("这里没有这个人。\n");
 
-    if (this_player()->query_temp("can_buy/beichou"))
-    {
+    if (this_player()->query_temp("can_buy/beichou")) {
         command("shzi");
         return ::do_list();
     }
 
     message_vision(CYN "$N" CYN "两手忙摆，对$n" CYN
-                       "道：我只卖消息不卖货，嘿嘿。\n" NOR,
-                   this_object(), this_player());
+        "道：我只卖消息不卖货，嘿嘿。\n" NOR,
+        this_object(), this_player());
     return 1;
 }
 
-int do_buy(string arg)
-{
+int do_buy(string arg) {
     object me;
     string my_id;
 
@@ -663,20 +605,18 @@ int do_buy(string arg)
         return notify_fail("这里没有这个人。\n");
 
     me = this_player();
-    if (!me->query_temp("can_buy/beichou"))
-    {
+    if (!me->query_temp("can_buy/beichou")) {
         message_vision(CYN "$N" CYN "急得双手乱摆，对$n" CYN
-                           "道：我说过了不卖" CYN "东西的，我可"
-                           "是老实人。\n",
-                       this_object(), this_player());
+            "道：我说过了不卖" CYN "东西的，我可"
+            "是老实人。\n",
+            this_object(), this_player());
         return 1;
     }
 
     return ::do_buy(arg);
 }
 
-mixed ask_cancel()
-{
+mixed ask_cancel() {
     object me = this_player();
     int t = uptime();
 
@@ -689,7 +629,7 @@ mixed ask_cancel()
     if (t > 900)
         return "走开，你早干什么去了？\n";
 
-    me->delete ("quest");
+    me->delete("quest");
 
     return "好了！\n";
 }

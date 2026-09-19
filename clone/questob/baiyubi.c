@@ -2,8 +2,7 @@
 
 inherit ITEM;
 
-void create()
-{
+void create() {
     set_name("白玉笔", ({ "baiyu bi", "bi" }));
     set_weight(300);
     if (clonep())

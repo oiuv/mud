@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "武馆后院");
     set("long", @LONG
 这里是武馆的后院，龙腾武馆的馆主经常会在这里亲自向一些年轻有
@@ -10,7 +9,7 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "north" : __DIR__"wuguan",
+        "north": __DIR__ "wuguan",
     ]));
 
     setup();

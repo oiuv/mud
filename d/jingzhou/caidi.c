@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "菜地");
     set("long", @LONG
 你看到一片绿油油的菜地，种满了各种各样的菜，有大头
@@ -9,7 +8,7 @@ void create()
 LONG);
 
     set("exits", ([
-        "east" : __DIR__"whouyuan",
+        "east": __DIR__ "whouyuan",
     ]));
 
     setup();

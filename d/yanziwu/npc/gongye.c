@@ -5,9 +5,8 @@
 inherit NPC;
 inherit F_GUARDER;
 
-void create()
-{
-    set_name("公冶乾", ({"gongye qian", "gongye"}));
+void create() {
+    set_name("公冶乾", ({ "gongye qian", "gongye" }));
     set("gender", "男性");
     set("age", 35);
     set("long", "他是慕容家四大家臣之二，为人稳重。\n");
@@ -46,15 +45,15 @@ void create()
     create_family("慕容世家", 0, "家臣");
 
     set("coagents", ({
-        ([ "startroom" : "/d/yanziwu/qinyun",
-           "id"        : "bao butong" ]),
-        ([ "startroom" : "/d/yanziwu/shuiyun",
-           "id"        : "murong fu" ]),
+        ([ "startroom": "/d/yanziwu/qinyun",
+            "id": "bao butong" ]),
+        ([ "startroom": "/d/yanziwu/shuiyun",
+            "id": "murong fu" ]),
     }));
 
     set("inquiry", ([
-        "慕容博":   "那是老主人。\n",
-        "慕容复":   "他就是我们跟随的公子！\n",
+        "慕容博": "那是老主人。\n",
+        "慕容复": "他就是我们跟随的公子！\n",
     ]));
 
     setup();
@@ -63,8 +62,7 @@ void create()
     carry_object("/clone/weapon/gangjian")->wield();
 }
 
-void attempt_apprentice(object ob)
-{
+void attempt_apprentice(object ob) {
     command("say 我们跟随慕容公子，不收徒。");
     return;
 }

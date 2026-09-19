@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("余人彦", ({ "yu renyan", "yu", "renyan" }));
     set("gender", "男性");
     set("age", 20);

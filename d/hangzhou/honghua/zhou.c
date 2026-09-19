@@ -5,13 +5,12 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("周仲英", ({ "zhou zhongying", "zhou","zhongying" }));
+void create() {
+    set_name("周仲英", ({ "zhou zhongying", "zhou", "zhongying" }));
     set("title", HIC "铁胆庄庄主" NOR);
     set("nickname", HIW "铁胆" NOR);
     set("long",
-"他白发飘动，精神矍铄，乃是西北武林的领袖人物铁胆周仲英。\n");
+        "他白发飘动，精神矍铄，乃是西北武林的领袖人物铁胆周仲英。\n");
     set("gender", "男性");
     set("class", "fighter");
     set("age", 61);
@@ -49,7 +48,7 @@ void create()
 
     set("env/wimpy", 20);
     create_family("少林派", 51, "俗家弟子");
-     setup();
+    setup();
     carry_object("/clone/misc/cloth")->wear();
-    carry_object(__DIR__"obj/tiedan");
+    carry_object(__DIR__ "obj/tiedan");
 }

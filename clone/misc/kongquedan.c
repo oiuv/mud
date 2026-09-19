@@ -4,9 +4,8 @@
 
 inherit ITEM;
 
-void create()
-{
-    set_name(BLU "孔雀胆" NOR, ({"kongque dan", "dan"}));
+void create() {
+    set_name(BLU "孔雀胆" NOR, ({ "kongque dan", "dan" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -18,10 +17,9 @@ void create()
     setup();
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     message_vision("$N仰头张口吞下一粒" + name() + "。\n", me);
-        me->set_temp("die_reason", "吃了孔雀胆，中毒死了");
+    me->set_temp("die_reason", "吃了孔雀胆，中毒死了");
     me->die();
     destruct(this_object());
     return 1;

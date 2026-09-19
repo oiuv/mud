@@ -15,143 +15,116 @@
 inherit F_SAVE;
 
 // some constatns
-nosave string *c_digit = ({"零", "十", "百", "千", "万", "亿", "兆"});
-nosave string *c_num = ({"零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"});
-nosave string *sym_tian = ({"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"});
-nosave string *sym_di = ({"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"});
+nosave string *c_digit = ({ "零", "十", "百", "千", "万", "亿", "兆" });
+nosave string *c_num = ({ "零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十" });
+nosave string *sym_tian = ({ "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸" });
+nosave string *sym_di = ({ "子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥" });
 
 mapping dict = ([]);
 
 void add_translate(string key, string chn);
 void remove_translate(string key);
 
-void create()
-{
+void create() {
     seteuid(getuid());
     restore();
 }
 
-void remove()
-{
+void remove() {
     save();
 }
 
-string chinese_number(int i)
-{
+string chinese_number(int i) {
     if (i < 0)
         return "负" + chinese_number(-i);
     if (i < 11)
         return c_num[i];
     if (i < 20)
         return c_digit[1] + c_num[i - 10];
-    if (i < 100)
-    {
+    if (i < 100) {
         if (i % 10)
             return c_num[i / 10] + c_digit[1] + c_num[i % 10];
         else
             return c_num[i / 10] + c_digit[1];
     }
-    if (i < 1000)
-    {
+    if (i < 1000) {
         if (i % 100 == 0)
             return c_num[i / 100] + c_digit[2];
         else if (i % 100 < 10)
-            return c_num[i / 100] + c_digit[2] +
-                   c_num[0] + chinese_number(i % 100);
+            return c_num[i / 100] + c_digit[2] + c_num[0] + chinese_number(i % 100);
         else if (i % 100 < 10)
-            return c_num[i / 100] + c_digit[2] +
-                   c_num[1] + chinese_number(i % 100);
+            return c_num[i / 100] + c_digit[2] + c_num[1] + chinese_number(i % 100);
         else
-            return c_num[i / 100] + c_digit[2] +
-                   chinese_number(i % 100);
+            return c_num[i / 100] + c_digit[2] + chinese_number(i % 100);
     }
-    if (i < 10000)
-    {
+    if (i < 10000) {
         if (i % 1000 == 0)
             return c_num[i / 1000] + c_digit[3];
         else if (i % 1000 < 100)
-            return c_num[i / 1000] + c_digit[3] +
-                   c_num[0] + chinese_number(i % 1000);
+            return c_num[i / 1000] + c_digit[3] + c_num[0] + chinese_number(i % 1000);
         else
-            return c_num[i / 1000] + c_digit[3] +
-                   chinese_number(i % 1000);
+            return c_num[i / 1000] + c_digit[3] + chinese_number(i % 1000);
     }
-    if (i < 100000000)
-    {
+    if (i < 100000000) {
         if (i % 10000 == 0)
             return chinese_number(i / 10000) + c_digit[4];
         else if (i % 10000 < 1000)
-            return chinese_number(i / 10000) + c_digit[4] +
-                   c_num[0] + chinese_number(i % 10000);
+            return chinese_number(i / 10000) + c_digit[4] + c_num[0] + chinese_number(i % 10000);
         else
-            return chinese_number(i / 10000) + c_digit[4] +
-                   chinese_number(i % 10000);
+            return chinese_number(i / 10000) + c_digit[4] + chinese_number(i % 10000);
     }
-    if (i < 1000000000000)
-    {
+    if (i < 1000000000000) {
         if (i % 100000000 == 0)
             return chinese_number(i / 100000000) + c_digit[5];
         else if (i % 100000000 < 1000000)
-            return chinese_number(i / 100000000) + c_digit[5] +
-                   c_num[0] + chinese_number(i % 100000000);
+            return chinese_number(i / 100000000) + c_digit[5] + c_num[0] + chinese_number(i % 100000000);
         else
-            return chinese_number(i / 100000000) + c_digit[5] +
-                   chinese_number(i % 100000000);
+            return chinese_number(i / 100000000) + c_digit[5] + chinese_number(i % 100000000);
     }
     if (i % 1000000000000 == 0)
         return chinese_number(i / 1000000000000) + c_digit[6];
     else if (i % 1000000000000 < 100000000)
-        return chinese_number(i / 1000000000000) + c_digit[6] +
-               c_num[0] + chinese_number(i % 1000000000000);
+        return chinese_number(i / 1000000000000) + c_digit[6] + c_num[0] + chinese_number(i % 1000000000000);
     else
-        return chinese_number(i / 1000000000000) + c_digit[6] +
-               chinese_number(i % 1000000000000);
+        return chinese_number(i / 1000000000000) + c_digit[6] + chinese_number(i % 1000000000000);
 }
 
-string query_save_file()
-{
+string query_save_file() {
     return E2C_DICTIONARY;
 }
 
-string chinese(string str)
-{
+string chinese(string str) {
     if (!undefinedp(dict[str]))
         return dict[str];
     else
         return str;
 }
 
-string find_skill(string value)
-{
+string find_skill(string value) {
     string *english, key;
 
     english = keys(dict);
-    foreach (key in english)
-    {
+    foreach (key in english) {
         if (dict[key] == value)
             return key;
     }
     return 0;
 }
 
-void remove_translate(string key)
-{
+void remove_translate(string key) {
     map_delete(dict, key);
     save();
 }
 
-void add_translate(string key, string chn)
-{
+void add_translate(string key, string chn) {
     dict[key] = chn;
     save();
 }
 
-varargs void dump_translate(int type)
-{
+varargs void dump_translate(int type) {
     string *k, str;
 
-    if (type)
-    {
+    if (type) {
         write_file("/CHINESE_DUMP.json", json_encode(dict), 1);
         return;
     }
@@ -163,63 +136,55 @@ varargs void dump_translate(int type)
     write_file("/CHINESE_DUMP", str, 1);
 }
 
-void dump()
-{
+void dump() {
     dump_translate(1);
 }
 
-mapping data()
-{
+mapping data() {
     return dict;
 }
 
-string chinese_date(int date, int year)
-{
+string chinese_date(int date, int year) {
     mixed *local;
 
     if (date <= 0)
         date = 1;
-    if (year <= 3)
-    {
+    if (year <= 3) {
         year += 10;
     }
 
     local = localtime(date);
     local[LT_YEAR] = year;
     return sprintf("%s%s年%s月%s日%s时%s刻",
-                   sym_tian[(local[LT_YEAR] - 4) % 10], sym_di[(local[LT_YEAR] - 4) % 12],
-                   chinese_number(local[LT_MON] + 1),
-                   chinese_number(local[LT_MDAY] + (local[LT_HOUR] > 23 ? 1 : 0)),
-                   sym_di[((local[LT_HOUR] + 1) % 24) / 2],
-                   chinese_number((local[LT_MIN] / 15 + 1) + ((local[LT_HOUR] + 1) % 2) * 4));
+        sym_tian[(local[LT_YEAR] - 4) % 10], sym_di[(local[LT_YEAR] - 4) % 12],
+        chinese_number(local[LT_MON] + 1),
+        chinese_number(local[LT_MDAY] + (local[LT_HOUR] > 23 ? 1 : 0)),
+        sym_di[((local[LT_HOUR] + 1) % 24) / 2],
+        chinese_number((local[LT_MIN] / 15 + 1) + ((local[LT_HOUR] + 1) % 2) * 4));
 }
 
 //Used in natured.c to as a condition to judge which season should be
 //to use different weather discription.
-string chinese_month(int date)
-{
+string chinese_month(int date) {
     return chinese_number(NATURE_D->query_month(date)) + "月";
 }
 
-string chinese_monthday(int date)
-{
+string chinese_monthday(int date) {
     mixed *local;
     local = NATURE_D->query_localtime(date);
     return sprintf("%s月%s日",
-                   chinese_number(local[LT_MON] + 1),
-                   chinese_number(local[LT_MDAY]));
+        chinese_number(local[LT_MON] + 1),
+        chinese_number(local[LT_MDAY]));
 }
 
 //end of appendance
-int check_control(string name)
-{
+int check_control(string name) {
     int i;
     if (!name)
         return 0;
 
     i = strlen(name);
-    while (i--)
-    {
+    while (i--) {
         if (name[i] == ' ' || name[i] == '\n')
             continue;
 
@@ -229,53 +194,46 @@ int check_control(string name)
     return 0;
 }
 
-int check_space(string name)
-{
+int check_space(string name) {
     int i;
     if (!name)
         return 0;
 
     i = strlen(name);
-    while (i--)
-    {
+    while (i--) {
         if (name[i] == ' ')
             return 1;
     }
     return 0;
 }
 
-int check_return(string name)
-{
+int check_return(string name) {
     int i;
     if (!name)
         return 0;
 
     i = strlen(name);
-    while (i--)
-    {
+    while (i--) {
         if (name[i] == '\n')
             return 1;
     }
     return 0;
 }
 
-int check_chinese(string name)
-{
+int check_chinese(string name) {
     int i;
     if (!name)
         return 0;
 
     i = strlen(name);
-    while (i--)
-    {
-        if (i % 2 == 0 && !is_chinese(name[i..< 0]))
+    while (i--) {
+        if (i % 2 == 0 && !is_chinese(name[i..<0]))
             return 0;
     }
     return 1;
 }
 
-int check_length(string str)
-{
+int check_length(string str) {
     if (!str)
         return 0;
     else

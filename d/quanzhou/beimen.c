@@ -3,15 +3,14 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "泉州北门");
     set("long", @LONG
 这里是南方第一港泉州的北门。出此门向北可抵中原。
-LONG );
+LONG);
     set("exits", ([
-                "north" : "/d/fuzhou/puxian",
-                "south" : __DIR__"zhongxin",
+        "north": "/d/fuzhou/puxian",
+        "south": __DIR__ "zhongxin",
     ]));
     set("outdoors", "quanzhou");
     set("no_clean_up", 0);

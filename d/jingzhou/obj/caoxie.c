@@ -4,11 +4,10 @@
 
 inherit BOOTS;
 
-void create()
-{
-    set_name("草鞋", ({ "sandals", "cao xie", "xie" }) );
+void create() {
+    set_name("草鞋", ({ "sandals", "cao xie", "xie" }));
     set_weight(200);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("material", "wood");

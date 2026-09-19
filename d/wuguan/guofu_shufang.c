@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "书房");
     set("long", @LONG
 这是郭靖的书房。右边是书架，上面陈列着道家和儒家的
@@ -11,11 +10,11 @@ void create()
 净，可以看到外面松竹掩映，时有微风入户，门后桌上还燃着
 一炉檀香，氲氲的香气轻轻横散，使人俗念尽消，心情完全平
 静下来。
-LONG );
+LONG);
     set("no_fight", 1);
     set("no_clean_up", 0);
     set("exits", ([
-        "south" : __DIR__"guofu_huayuan",
+        "south": __DIR__ "guofu_huayuan",
     ]));
     setup();
     replace_program(ROOM);

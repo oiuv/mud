@@ -1,8 +1,7 @@
 inherit ROOM;
 string look_gaoshi();
 
-void create()
-{
+void create() {
     set("short", "东门");
     set("long", @LONG
 这是成都东城门，城门正上方刻着“东门”两个楷书大字
@@ -12,21 +11,20 @@ void create()
 LONG);
     set("outdoors", "chengdu");
     set("item_desc", ([
-        "gaoshi" : (: look_gaoshi :),
+        "gaoshi": (: look_gaoshi :),
     ]));
     set("exits", ([
-        "east"  : __DIR__"fuheqiaoe",
-        "west"  : __DIR__"eastroad2",
+        "east": __DIR__ "fuheqiaoe",
+        "west": __DIR__ "eastroad2",
     ]));
     set("objects", ([
-        "/d/city/npc/wujiang" : 1,
-        "/d/city/npc/bing"    : 2,
+        "/d/city/npc/wujiang": 1,
+        "/d/city/npc/bing": 2,
     ]));
     setup();
     replace_program(ROOM);
 }
 
-string look_gaoshi()
-{
+string look_gaoshi() {
     return FINGER_D->get_killer() + "\n成都提督\n吴天德\n";
 }

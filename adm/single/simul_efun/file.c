@@ -1,8 +1,7 @@
 // file.c
 #include <ansi.h>
 
-void cat(string file)
-{
+void cat(string file) {
     if (previous_object())
         seteuid(geteuid(previous_object()));
     else
@@ -10,8 +9,7 @@ void cat(string file)
     write(read_file(file));
 }
 
-varargs void log_file(string file, string text, int flag)
-{
+varargs void log_file(string file, string text, int flag) {
     seteuid(ROOT_UID);
     CORE_SIMUL_EFUN_OB->log_file(file, text, flag);
 }
@@ -41,12 +39,10 @@ varargs void log_file(string file, string text, int flag)
 //     dir = 0;
 // }
 
-int file_lines(string file)
-{
+int file_lines(string file) {
     return efun::file_length(file);
 }
 
-int file_exists(string file)
-{
+int file_exists(string file) {
     return (file_size(file) >= 0);
 }

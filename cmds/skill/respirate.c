@@ -8,8 +8,7 @@ private int respirate_cost;
 int respirating(object me);
 int halt_respirate(object me);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     seteuid(getuid());
 
     if ((int)me->query("age") < 18)
@@ -24,7 +23,7 @@ int main(object me, string arg)
     if (me->is_fighting())
         return notify_fail("战斗中吐纳，好象只有神仙才能做到。\n");
 
-    if (! arg || ! sscanf(arg, "%d", respirate_cost))
+    if (!arg || !sscanf(arg, "%d", respirate_cost))
         return notify_fail("你要花多少精修行？\n");
 
     if (respirate_cost <= 0)
@@ -44,31 +43,26 @@ int main(object me, string arg)
     me->set_temp("respirate_cost", respirate_cost);
     me->set_short_desc("正坐在地下吐纳炼精。");
     message_vision("$N盘膝坐下，开始吐纳炼精。\n", me);
-    me->start_busy(bind((:call_other, __FILE__, "respirating" :), me),
-                       bind((:call_other, __FILE__, "halt_respirate" :), me));
+    me->start_busy(bind((: call_other, __FILE__, "respirating" :), me),
+        bind((: call_other, __FILE__, "halt_respirate" :), me));
     return 1;
 }
 
-int respirating(object me)
-{
+int respirating(object me) {
     int respirate_cost = (int)me->query_temp("respirate_cost");
     int jingli_gain = (int)me->query_skill("force") / 10;
     jingli_gain = 1 + jingli_gain / 2 + random(jingli_gain);
 
-    if (respirate_cost > 0)
-    {
+    if (respirate_cost > 0) {
         if (jingli_gain > respirate_cost)
             jingli_gain = respirate_cost;
 
-        if (jingli_gain > me->query("jing"))
-        {
+        if (jingli_gain > me->query("jing")) {
             jingli_gain = me->query("jing");
             respirate_cost = 0;
             me->set_temp("respirate_cost", 0);
             me->set_short_desc(0);
-        }
-        else
-        {
+        } else {
             me->set_temp("respirate_cost", respirate_cost -= jingli_gain);
         }
 
@@ -83,18 +77,14 @@ int respirating(object me)
     me->set_short_desc(0);
     respirate_cost = 0;
     message_vision("$N吐纳完毕，睁开双眼，站了起来。\n", me);
-    if((int)me->query("jingli") < (int)me->query("max_jingli") * 2)
+    if ((int)me->query("jingli") < (int)me->query("max_jingli") * 2)
         return 0;
-    else
-    {
-        if ((int)me->query("max_jingli") > (int)me->query_current_jingli_limit())
-        {
+    else {
+        if ((int)me->query("max_jingli") > (int)me->query_current_jingli_limit()) {
             write("你的精力修为似乎已经达到了瓶颈。\n");
             me->set("jingli", (int)me->query("max_jingli"));
             return 0;
-        }
-        else
-        {
+        } else {
             me->add("max_jingli", 1);
             me->set("jingli", (int)me->query("max_jingli"));
             write("你的精力增加了！！\n");
@@ -103,8 +93,7 @@ int respirating(object me)
     }
 }
 
-int halt_respirate(object me)
-{
+int halt_respirate(object me) {
     tell_object(me, "你将真气分压回丹田，站了起来。\n");
     tell_room(environment(me), me->name() + "深吸一口气，站了起来。\n", me);
     respirate_cost = 0;
@@ -116,8 +105,7 @@ int halt_respirate(object me)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : respirate|tuna [<耗费「精」的量>]
 

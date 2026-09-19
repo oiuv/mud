@@ -15,8 +15,7 @@ int count_ppls();
 
 void create() { seteuid(getuid(this_object())); }
 
-int main(object me)
-{
+int main(object me) {
     float value;
     mapping r;
 
@@ -45,8 +44,7 @@ int main(object me)
     return 1;
 }
 
-string memory_expression(int m)
-{
+string memory_expression(int m) {
     float mem;
 
     mem = m;
@@ -58,24 +56,21 @@ string memory_expression(int m)
     return sprintf("%.3f M", (float)mem / (1024 * 1024));
 }
 
-int count_ppls()
-{
+int count_ppls() {
     int count, i;
     string *dir, *ppls;
 
     seteuid(getuid());
 
     dir = get_dir(DATA_DIR + "login/");
-    for (i = 0; i < sizeof(dir); i++)
-    {
+    for (i = 0; i < sizeof(dir); i++) {
         ppls = get_dir(DATA_DIR + "login/" + dir[i] + "/");
         count += sizeof(ppls);
     }
     return count;
 }
 
-string dotime()
-{
+string dotime() {
     int t, d, h, m, s;
     string time;
 
@@ -110,6 +105,6 @@ int help(object me) {
 这个指令将会显示有关这个 Mud 的一些系统资讯。
 
 HELP
-);
+    );
     return 1;
 }

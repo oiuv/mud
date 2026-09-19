@@ -4,8 +4,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object obj;
 
     if (!arg)
@@ -18,13 +17,12 @@ int main(object me, string arg)
     return obj->do_stab(me);
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : stab <物品名称>
 
 这个指令可以让你将某样东西插在地面上，比如标志牌什么的。
 
-HELP );
+HELP);
     return 1;
 }

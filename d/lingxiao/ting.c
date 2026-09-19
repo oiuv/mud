@@ -2,8 +2,7 @@ inherit ROOM;
 
 #include <ansi.h>
 
-void create()
-{
+void create() {
     set("short", "戏梅亭");
     set("long", @LONG
 这里是凌霄城的戏梅亭，是凌霄城主白自在平时最喜欢来的
@@ -13,14 +12,14 @@ void create()
 巴，可也没人正直到敢在白老爷子面前讥讽半句。
 LONG);
     set("exits", ([
-        "west" : __DIR__"meiroad3",
+        "west": __DIR__ "meiroad3",
     ]));
     set("objects", ([
-            __DIR__"obj/ban" : 3,
+        __DIR__ "obj/ban": 3,
     ]));
     set("item_desc", ([
-        "poem" : HIR "\n\n          忍把浮名，换了浅酌低唱。\n\n" NOR,
-    ]) );
+        "poem": HIR "\n\n          忍把浮名，换了浅酌低唱。\n\n" NOR,
+    ]));
     setup();
     set("outdoors", "lingxiao");
     set("no_clean_up", 0);

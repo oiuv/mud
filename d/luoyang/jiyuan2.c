@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "迎客大厅");
     set("long", @LONG
 你站在春月楼二楼的迎客大厅里。满耳的淫声秽响不绝如缕。布置的
@@ -11,16 +10,16 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"chenyu",
-          "down" : __DIR__"jiyuan",
-          "south" : __DIR__"xiuhua",
-          "west" : __DIR__"luoyan",
-          "north" : __DIR__"biyue",
+        "east": __DIR__ "chenyu",
+        "down": __DIR__ "jiyuan",
+        "south": __DIR__ "xiuhua",
+        "west": __DIR__ "luoyan",
+        "north": __DIR__ "biyue",
     ]));
-        set("objects", ([
-                "/d/beijing/npc/piaoke" : 1,
-                "/d/beijing/npc/jinv" : 1,
-        ]));
+    set("objects", ([
+        "/d/beijing/npc/piaoke": 1,
+        "/d/beijing/npc/jinv": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

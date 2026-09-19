@@ -4,11 +4,10 @@
 
 inherit SURCOAT;
 
-void create()
-{
-    set_name("肚带", ({ "surcoat", "du dai", "dai" }) );
+void create() {
+    set_name("肚带", ({ "surcoat", "du dai", "dai" }));
     set_weight(500);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("material", "leather");

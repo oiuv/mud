@@ -6,8 +6,7 @@ inherit F_CLEAN_UP;
 
 void remove_effect(object me, int amount);
 
-int exert(object me, object target)
-{
+int exert(object me, object target) {
     int skill;
 
     if (target != me)
@@ -25,27 +24,25 @@ int exert(object me, object target)
     me->receive_damage("qi", 0);
 
     message_combatd(HIG "$N" HIG "脸色一青，充满了煞气，周身泛起"
-                        "萤萤绿光，诡秘异常！\n" NOR, me);
+        "萤萤绿光，诡秘异常！\n" NOR, me);
 
     me->add_temp("apply/attack", skill / 3);
     me->add_temp("apply/dodge", skill / 3);
     me->set_temp("powerup", 1);
 
     me->start_call_out((: call_other, __FILE__, "remove_effect",
-                           me, skill / 3 :), skill);
+        me, skill / 3 :), skill);
 
     if (me->is_fighting()) me->start_busy(1 + random(3));
 
     return 1;
 }
 
-void remove_effect(object me, int amount)
-{
-        if ((int)me->query_temp("powerup"))
-        {
-            me->add_temp("apply/attack", -amount);
-            me->add_temp("apply/dodge", -amount);
-            me->delete_temp("powerup");
-                tell_object(me, "你的化功大法运行完毕，将内力收回丹田。\n");
-        }
+void remove_effect(object me, int amount) {
+    if ((int)me->query_temp("powerup")) {
+        me->add_temp("apply/attack", -amount);
+        me->add_temp("apply/dodge", -amount);
+        me->delete_temp("powerup");
+        tell_object(me, "你的化功大法运行完毕，将内力收回丹田。\n");
+    }
 }

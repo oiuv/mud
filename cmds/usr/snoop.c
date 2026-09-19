@@ -6,8 +6,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string msg;
     object sob;
     object ob;
@@ -15,26 +14,20 @@ int main(object me, string arg)
     if (!interactive(me))
         return 0;
 
-    if (!arg)
-    {
+    if (!arg) {
         if (objectp(ob = query_snooping(me)))
             write("你现在正在监听" + ob->query("name") +
-                  "所收到的讯息。\n");
+                "所收到的讯息。\n");
         else
             write("你现在没有监听任何人。\n");
 
         return 1;
-    }
-    else if (arg == "none")
-    {
+    } else if (arg == "none") {
         snoop(me);
         write("Ok.\n");
         return 1;
-    }
-    else if (sscanf(arg, "-i %s", arg) || arg == "-i")
-    {
-        if (!SECURITY_D->valid_grant(me, "(admin)"))
-        {
+    } else if (sscanf(arg, "-i %s", arg) || arg == "-i") {
+        if (!SECURITY_D->valid_grant(me, "(admin)")) {
             write("参数错误。\n");
             return 1;
         }
@@ -43,22 +36,19 @@ int main(object me, string arg)
             ob = me;
         else
             ob = find_player(arg);
-        if (!objectp(ob))
-        {
+        if (!objectp(ob)) {
             write("没有找到 " + arg + " 这个玩家，无法查看信息。\n");
             return 1;
         }
 
         msg = "目前有关" + ob->name(1) + "(" + geteuid(ob) + ")的监听情况如下：\n";
         if (objectp(sob = query_snooping(ob)))
-            msg += "正在监听" + sob->name(1) + "(" + geteuid(sob) +
-                   ")收到的信息。\n";
+            msg += "正在监听" + sob->name(1) + "(" + geteuid(sob) + ")收到的信息。\n";
         else
             msg += "没有监听任何人。\n";
 
         if (objectp(sob = query_snoop(ob)))
-            msg += "正在被" + sob->name(1) + "(" + geteuid(sob) +
-                   ")窃听。\n";
+            msg += "正在被" + sob->name(1) + "(" + geteuid(sob) + ")窃听。\n";
         else
             msg += "没有被任何人窃听。\n";
 
@@ -89,15 +79,14 @@ int main(object me, string arg)
     write("你现在开始窃听" + ob->name(1) + "所收到的讯息。\n");
     if (playerp(ob))
         log_file("snoop",
-                 sprintf("%s(%s-%s) snoops %s on %s.\n", me->name(1),
-                         geteuid(me), query_ip_number(ob), ob->name(1),
-                         ctime(time())));
+            sprintf("%s(%s-%s) snoops %s on %s.\n", me->name(1),
+                geteuid(me), query_ip_number(ob), ob->name(1),
+                ctime(time())));
 
     return 1;
 }
 
-int help()
-{
+int help() {
     write(@TEXT
 指令格式：snoop <某人> | none | -i <某人>
 
@@ -105,6 +94,6 @@ int help()
 对方的前提是对方允许你这么做，即设置了 can_snoop 为你的ID。
 
 使用 -i 参数可以查看某人目前窃听的信息。
-TEXT );
+TEXT);
     return 1;
 }

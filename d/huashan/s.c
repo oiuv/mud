@@ -5,17 +5,16 @@ inherit ROOM;
 
 string look_door(string dir);
 
-void create()
-{
+void create() {
     set("short", "峭壁");
     set("exits", ([
-        "hole1":__DIR__ "lockroom1",
-        "hole2":__DIR__ "lockroom2",
-        "hole3":__DIR__ "lockroom3",
-        "hole4":__DIR__ "lockroom4",
-        "hole5":__DIR__ "lockroom5",
-        "hole6":__DIR__ "lockroom6",
-        "out":__DIR__ "shandong",
+        "hole1": __DIR__ "lockroom1",
+        "hole2": __DIR__ "lockroom2",
+        "hole3": __DIR__ "lockroom3",
+        "hole4": __DIR__ "lockroom4",
+        "hole5": __DIR__ "lockroom5",
+        "hole6": __DIR__ "lockroom6",
+        "out": __DIR__ "shandong",
     ]));
 
     set("long", @LONG
@@ -25,34 +24,32 @@ void create()
 LONG);
 
     set("item_desc", ([
-        "door"  : (: look_door :),
-        "huoju" : HIR "这些火炬看来很奇怪，似乎连接着什么机关！\n" NOR,
+        "door": (: look_door :),
+        "huoju": HIR "这些火炬看来很奇怪，似乎连接着什么机关！\n" NOR,
     ]));
 
     set("no_clean_up", 0);
     setup();
 }
 
-void init()
-{
+void init() {
     object tsrob;
     if (!tsrob = find_object(TSROB))
         tsrob = load_object(TSROB);
 }
 
-string look_door(string dir)
-{
+string look_door(string dir) {
     object ob;
     int n;
     string opened, msg, temp;
 
     mapping change_num = ([
-        "1":"一",
-        "2":"二",
-        "3":"三",
-        "4":"四",
-        "5":"五",
-        "6":"六",
+        "1": "一",
+        "2": "二",
+        "3": "三",
+        "4": "四",
+        "5": "五",
+        "6": "六",
     ]);
 
     ob = find_object(TSROB);
@@ -69,8 +66,7 @@ string look_door(string dir)
         return NOR + WHT "\n只见石门陷入地下，六把火炬烧得正旺！一个入口露了出来。\n" NOR;
 
     msg = HIC "只见石门紧闭，第";
-    for (n = 0; n < sizeof(opened); n++)
-    {
+    for (n = 0; n < sizeof(opened); n++) {
         temp = opened[n..n];
         msg += change_num[temp];
         if (n < sizeof(opened) - 1)

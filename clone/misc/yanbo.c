@@ -2,8 +2,7 @@
 
 inherit ITEM;
 
-void create()
-{
+void create() {
     set_name("研钵", ({ "yanbo", "bo" }));
     set_weight(600);
     set_max_encumbrance(200);

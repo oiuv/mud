@@ -1,8 +1,7 @@
 #include <room.h>
 inherit TRANS_ROOM;
 
-void create()
-{
+void create() {
     set("short", "马厩");
     set("long", @LONG
 这是客店后的马厩，常年供应着新鲜的草料。荆州城民风
@@ -18,9 +17,9 @@ LONG);
         "/clone/horse/ziliuma": 1,
         "/clone/npc/mafu": 1,
     ]));
-    set("exits",([
-        "west" : __DIR__"kedian",
-        "up"   : "/clone/shop/jingzhou_shop",
+    set("exits", ([
+        "west": __DIR__ "kedian",
+        "up": "/clone/shop/jingzhou_shop",
     ]));
     setup();
     // replace_program(TRANS_ROOM);

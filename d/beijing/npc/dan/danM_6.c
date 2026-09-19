@@ -2,9 +2,8 @@
 
 inherit COMBINED_ITEM;
 
-void create()
-{
-    set_name(HIC"映月丹"NOR, ({"yingyue dan", "dan"}));
+void create() {
+    set_name(HIC "映月丹" NOR, ({ "yingyue dan", "dan" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -16,12 +15,10 @@ void create()
     set_amount(1);
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     mapping my;
 
-    if (time() - me->query_temp("last_eat/dan(M)") < 15)
-    {
+    if (time() - me->query_temp("last_eat/dan(M)") < 15) {
         write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
         return 1;
     }

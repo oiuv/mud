@@ -4,10 +4,9 @@
 
 inherit "/inherit/char/punisher";
 
-void create()
-{
+void create() {
     set_name("桃谷老仙", ({ "taogu laoxian", "laoxian" }));
-    set("long",  "他据说是桃谷六仙的长辈，出身于东海桃花岛。\n");
+    set("long", "他据说是桃谷六仙的长辈，出身于东海桃花岛。\n");
     set("gender", "男性");
     set("age", 58);
     set("attitude", "peaceful");
@@ -36,7 +35,7 @@ void create()
     set_skill("parry", 270);
     set_skill("sword", 270);
     set_skill("yuxiao-jian", 270);
-      set_skill("qimen-wuxing", 250);
+    set_skill("qimen-wuxing", 250);
     set_skill("literate", 100);
 
     map_skill("force", "bibo-shengong");

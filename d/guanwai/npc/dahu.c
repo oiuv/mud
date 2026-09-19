@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("忽伦大虎", ({ "da hu" }));
     set("gender", "男性");
     set("nickname", "巨人");
@@ -22,5 +21,5 @@ void create()
 
     setup();
     carry_object("/clone/misc/cloth")->wear();
-    add_money("silver",2);
+    add_money("silver", 2);
 }

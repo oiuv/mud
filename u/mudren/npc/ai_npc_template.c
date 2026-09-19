@@ -8,7 +8,7 @@ void create() {
 
     // ====== 配置部分开始 ======
     // NPC基本信息
-    set_name("模板名字", ({"template_npc_id", "npc_id"}));
+    set_name("模板名字", ({ "template_npc_id", "npc_id" }));
     set("long",
         "这里填写NPC的详细描述，包括外貌特征、性格特点等。\n"
         "指令：talk \u003cNPC名\u003e [内容] - 与NPC对话\n"

@@ -6,8 +6,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int opt_clear, opt_del;
     int i;
     string *opts, *gr;
@@ -18,23 +17,19 @@ int main(object me, string arg)
     if (!is_root(me) && !SECURITY_D->valid_grant(me, "(admin)"))
         return notify_fail("只有管理员才能使用授权命令。\n");
 
-    if (!me->is_admin())
-    {
-        switch (SECURITY_D->query_site_privilege("grant"))
-        {
-        case "enable":
-            break;
+    if (!me->is_admin()) {
+        switch (SECURITY_D->query_site_privilege("grant")) {
+            case "enable":
+                break;
 
-        default:
-            return notify_fail("你不能为其他玩家授权。\n");
+            default:
+                return notify_fail("你不能为其他玩家授权。\n");
         }
     }
 
-    if (!arg)
-    {
+    if (!arg) {
         gr = SECURITY_D->query_grant_users();
-        if (!arrayp(gr) || sizeof(gr) < 1)
-        {
+        if (!arrayp(gr) || sizeof(gr) < 1) {
             write("目前系统中没有人被授予额外使用命令的权利。\n");
             return 1;
         }
@@ -48,8 +43,7 @@ int main(object me, string arg)
     arg = replace_string(arg, ";", " ");
     arg = replace_string(arg, ",", " ");
     opts = explode(arg, " ");
-    for (i = 0; i < sizeof(opts); i++)
-    {
+    for (i = 0; i < sizeof(opts); i++) {
         if (opts[i] == "")
             continue;
 
@@ -61,23 +55,22 @@ int main(object me, string arg)
             user = opts[i];
         else if (file_size("/grant/" + opts[i]) < 0)
             return notify_fail("请参见/grant下面的"
-                               "可授权命令，目前并没有 " +
-                               opts[i] +
-                               " 这个项目。\n");
+                "可授权命令，目前并没有 " +
+                opts[i] +
+                " 这个项目。\n");
         else
             continue;
 
         opts[i] = 0;
     }
 
-    opts -= ({0, ""});
+    opts -= ({ 0, "" });
     if (!stringp(user))
         return notify_fail("你要给谁授权？\n");
 
     ob = find_player(user);
 
-    if (opt_clear)
-    {
+    if (opt_clear) {
         // 清除某一个玩家所有的权限
         write("清除了 " + user + " 的所有授予的命令使用权限。\n");
         if (SECURITY_D->remove_grant(user, "*") && objectp(ob))
@@ -85,22 +78,18 @@ int main(object me, string arg)
         return 1;
     }
 
-    if (!sizeof(opts))
-    {
+    if (!sizeof(opts)) {
         // 显示一个玩家所有的权限
         gr = SECURITY_D->query_grant(user);
-        if (!arrayp(gr) || sizeof(gr) < 1)
-        {
+        if (!arrayp(gr) || sizeof(gr) < 1) {
             write("目前 " + user + " 并没有被授予任何命令使用权限。\n");
             return 1;
         }
 
         msg = "目前 " + user + " 授予的命令使用权限有：\n";
-        for (i = 0; i < sizeof(gr); i++)
-        {
+        for (i = 0; i < sizeof(gr); i++) {
             msg += WHT + gr[i] + NOR;
-            if (i < sizeof(gr) - 1)
-            {
+            if (i < sizeof(gr) - 1) {
                 msg += "、";
                 if ((i + 1) % 8 == 0)
                     msg += "\n";
@@ -111,31 +100,27 @@ int main(object me, string arg)
         return 1;
     }
 
-    for (i = 0; i < sizeof(opts); i++)
-    {
-        if (opt_del)
-        {
+    for (i = 0; i < sizeof(opts); i++) {
+        if (opt_del) {
             if (!me->is_admin())
                 message_system(me->name(1) + "收回了 " + user +
-                               " 使用 " + opts[i] + " 的权限。\n");
+                    " 使用 " + opts[i] + " 的权限。\n");
             write("清除了 " + user + " 使用 " + opts[i] +
-                  " 的权限。\n");
+                " 的权限。\n");
             if (SECURITY_D->remove_grant(user, opts[i]) && objectp(ob))
                 tell_object(ob, HIG + me->name(1) +
-                                    "收回了你 " + opts[i] +
-                                    " 的权限。\n");
-        }
-        else
-        {
+                    "收回了你 " + opts[i] +
+                    " 的权限。\n");
+        } else {
             if (!me->is_admin())
                 message_system(me->name(1) + "授予 " + user +
-                               " 使用 " + opts[i] + " 的权限。\n");
+                    " 使用 " + opts[i] + " 的权限。\n");
             write("授予了 " + user + " 使用 " + opts[i] +
-                  " 的权限。\n");
+                " 的权限。\n");
             if (SECURITY_D->grant(user, opts[i]) && objectp(ob))
                 tell_object(ob, HIG + me->name(1) +
-                                    "授予了你 " + opts[i] +
-                                    " 的权限。\n");
+                    "授予了你 " + opts[i] +
+                    " 的权限。\n");
         }
     }
 
@@ -145,9 +130,8 @@ int main(object me, string arg)
     return 1;
 }
 
-int help (object me)
-{
-        write(@HELP
+int help(object me) {
+    write(@HELP
 指令格式: grant [-d | -c] <玩家> <命令> <命令> ....
 
 给一个玩家授权使用某些命令。当然，该玩家必须能够呼叫到这些命
@@ -167,6 +151,6 @@ int help (object me)
 
 该命令可以授权的信息：enable
 
-HELP );
-        return 1;
+HELP);
+    return 1;
 }

@@ -3,16 +3,14 @@ inherit CORE_TIME_D;
 void clock();
 
 // 初始化游戏时间，同步现实世界时间
-void init_time()
-{
+void init_time() {
     // 设置游戏世界时间戳
     reset_gametime((GAME_TIME(time()) % 86400) * DATE_SCALE);
     // 设置游戏tick、scale、year(游戏年)，说明：现实tick秒是游戏scale秒
     set_scale(1, -GAME_TIME(time()) / 86400, DATE_SCALE);
 }
 
-void create()
-{
+void create() {
     ::create();
     init_time();
     // 设置真实时间计划任务
@@ -33,8 +31,7 @@ void create()
 }
 
 // 每秒执行一次
-void process_per_second()
-{
+void process_per_second() {
     // debug_message("---时间精灵---");
     // debug_message(ctime());
     // debug_message(TIME_D->real_time_description("公元"));
@@ -42,8 +39,7 @@ void process_per_second()
 }
 
 // 时钟
-void clock()
-{
+void clock() {
     // CHANNEL_D->do_channel(this_object(), "chat", sprintf("现在时间 %s", real_time_description()));
     message("success", "【时间精灵】" + sprintf("现在时间 %s\n", real_time_description()), users(), 0);
 }

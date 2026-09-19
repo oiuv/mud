@@ -5,8 +5,7 @@ inherit NPC;
 
 #include <ansi.h>
 
-void create()
-{
+void create() {
     set_name("李天垣", ({ "li tianyuan", "li", "tianyuan", }));
     set("long",
         "他是一位看起来很慈祥的老者，身穿一件白布长袍。\n"
@@ -14,13 +13,13 @@ void create()
         "对他畏如蛇蝎。\n"
     );
 
-        set("title", HIR "明教" CYN "天市堂" NOR "堂主" );
-        set("nickname", "慈眉善目");
+    set("title", HIR "明教" CYN "天市堂" NOR "堂主");
+    set("nickname", "慈眉善目");
     set("gender", "男性");
     set("attitude", "friendly");
-        set("class", "fighter");
+    set("class", "fighter");
 
-        set("age", 55);
+    set("age", 55);
     set("shen_type", 1);
     set("str", 25);
     set("int", 25);
@@ -50,7 +49,7 @@ void create()
     map_skill("parry", "jingang-quan");
 
     prepare_skill("cuff", "jingang-quan");
-        create_family("明教", 3, "天市堂堂主");
+    create_family("明教", 3, "天市堂堂主");
 
     setup();
 

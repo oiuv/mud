@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "东厅");
     set("long", @LONG
 这里是万俯内的东厅，房间里摆着一张桌子，以及一个书
@@ -9,7 +8,7 @@ void create()
 门弟子练功的地方。
 LONG);
     set("exits", ([
-        "west" : __DIR__"dayuan",
+        "west": __DIR__ "dayuan",
     ]));
 
     setup();

@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob, *inv;
     int i = 0;
 
@@ -27,30 +26,28 @@ int main(object me, string arg)
         return notify_fail("这里没有这个东西吧？\n");
 
     inv = all_inventory(environment(me));
-    while (i < sizeof(inv) && i >= 0)
-    {
+    while (i < sizeof(inv) && i >= 0) {
         if (inv[i] == ob)
             continue;
 
         if (!inv[i]->is_character() || inv[i]->query("can_speak"))
             continue;
 
-        if (inv[i]->query_temp("owner") == me)
-        {
+        if (inv[i]->query_temp("owner") == me) {
             if (inv[i]->is_fighting())
                 return notify_fail("已经有野兽在帮你咬人了！\n");
 
             if (inv[i]->is_busy())
                 return notify_fail(inv[i]->name() +
-                                   "正在忙乎，没空理你！\n");
+                    "正在忙乎，没空理你！\n");
 
             if (me->query_skill("training", 1) < 30)
                 return notify_fail("你的驭兽术还不纯熟，无法"
-                                   "让野兽帮你咬人！\n");
+                    "让野兽帮你咬人！\n");
 
             message_vision("只见$N冲着" + inv[i]->name() +
-                               "口中一声呼哨，它一窜就向$n扑了上去。\n",
-                           me, ob);
+                "口中一声呼哨，它一窜就向$n扑了上去。\n",
+                me, ob);
             me->receive_damage("jing", 30);
             me->want_kill(ob);
             inv[i]->fight_ob(ob);
@@ -63,8 +60,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : attack <动物>
 
@@ -82,6 +78,6 @@ int help(object me)
         qi(ride) <动物名>:              骑，如骑马，虎，雕，鲨等。
         xia(unride) <动物名>:           下，离开坐骑。
 
-HELP );
+HELP);
     return 1;
 }

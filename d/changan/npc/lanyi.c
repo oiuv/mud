@@ -5,11 +5,10 @@ inherit NPC;
 #include <ansi.h>
 #include "bajiao.h"
 
-void create()
-{
-    set_name(HIB "蓝衣" NOR, ({ "lan yi" }) );
+void create() {
+    set_name(HIB "蓝衣" NOR, ({ "lan yi" }));
     set("title", CYN "群玉八娇" NOR);
-    set("gender", "女性" );
+    set("gender", "女性");
     set("age", 22);
     set("str", 30);
     set("per", 40);
@@ -20,5 +19,5 @@ LONG);
     set("attitude", "friendly");
 
     setup();
-    carry_object(__DIR__"obj/skirt")->wear();
+    carry_object(__DIR__ "obj/skirt")->wear();
 }

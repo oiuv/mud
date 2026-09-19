@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object where = environment(me);
 
     seteuid(getuid());
@@ -28,18 +27,17 @@ int main(object me, string arg)
     if (me->query_skill("buddhism", 1) < 200)
         return notify_fail("你的佛学还不够深厚，难以通过静修参悟禅理。\n");
 
-    switch (random(3))
-    {
-    case 0:
-        message_vision("$N盘膝坐下，冥思入定。\n", me);
-        break;
+    switch (random(3)) {
+        case 0:
+            message_vision("$N盘膝坐下，冥思入定。\n", me);
+            break;
 
-    case 1:
-        message_vision("$N缓缓坐下，魂游天外。\n", me);
-        break;
+        case 1:
+            message_vision("$N缓缓坐下，魂游天外。\n", me);
+            break;
 
-    default:
-        message_vision("$N安坐不动，整个人似梦似醒。\n", me);
+        default:
+            message_vision("$N安坐不动，整个人似梦似醒。\n", me);
     }
 
     me->receive_damage("jing", 40 + random(10));
@@ -49,13 +47,12 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : jingxiu
 
 这个指令是少林派弟子用以静修参禅的命令.
 
-HELP );
+HELP);
     return 1;
 }

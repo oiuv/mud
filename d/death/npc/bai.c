@@ -10,11 +10,10 @@ string *death_msg = ({
     HIW "白无常「哼」的一声，从袖中掏出一本像帐册的东西翻看著。\n\n" NOR,
     HIW "白无常合上册子，说道：咦？阳寿未尽？怎么可能？\n\n" NOR,
     HIW "白无常搔了搔头，叹道：罢了罢了，你走吧。\n\n"
-        "一股阴冷的浓雾突然出现，很快地包围了你。\n\n" NOR,
+    "一股阴冷的浓雾突然出现，很快地包围了你。\n\n" NOR,
 });
 
-void create()
-{
+void create() {
     set_name("白无常", ({ "bai wuchang", "bai", "wuchang" }));
     set("title", HIR "冥府地藏王殿前" NOR);
     set("long", "\n白无常瞪著你，焦黄的脸上看不出任何喜怒哀乐。\n");
@@ -23,7 +22,7 @@ void create()
     set("chat_msg", ({
         CYN "白无常狠狠的敲了敲你的脑袋，你觉得头晕晕的。\n", NOR,
         CYN "白无常嘿嘿奸笑两声。\n" NOR,
-    }) );
+    }));
     set("age", 217);
 
     set("max_qi", 9999);
@@ -67,8 +66,7 @@ void create()
     set_temp("handing", carry_object(__DIR__ "obj/book"));
 }
 
-void init()
-{
+void init() {
     ::init();
     if (!previous_object() ||
         !userp(previous_object()) ||
@@ -78,8 +76,7 @@ void init()
     call_out("death_stage", 5, previous_object(), 0);
 }
 
-void death_stage(object ob, int stage)
-{
+void death_stage(object ob, int stage) {
     int i;
     object *inv;
 
@@ -87,16 +84,13 @@ void death_stage(object ob, int stage)
         return;
 
     tell_object(ob, death_msg[stage]);
-    if (++stage < sizeof(death_msg))
-    {
+    if (++stage < sizeof(death_msg)) {
         call_out("death_stage", 5, ob, stage);
         return;
-    }
-    else
+    } else
         ob->reincarnate();
 
-    if (!wizardp(ob))
-    {
+    if (!wizardp(ob)) {
         inv = all_inventory(ob);
         for (i = 0; i < sizeof(inv); i++)
             DROP_CMD->do_drop(ob, inv[i]);
@@ -105,6 +99,6 @@ void death_stage(object ob, int stage)
     ob->move(REVIVE_ROOM);
     ob->set("startroom", REVIVE_ROOM);
     message("vision", HIW "你忽然发现前面多了一个人影，不过那人影又好像已经在那里\n"
-                          "很久了，只是你一直没发觉。\n" NOR,
-            environment(ob), ob);
+        "很久了，只是你一直没发觉。\n" NOR,
+        environment(ob), ob);
 }

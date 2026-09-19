@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "滇池");
     set("long", @LONG
 滇池四周连绵无际的山脉均属昆仑山系，云岭山脉的东支
@@ -12,8 +11,8 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-            "north"   : __DIR__"dasenlin",
-            "south"   : __DIR__"yanchi1",
+        "north": __DIR__ "dasenlin",
+        "south": __DIR__ "yanchi1",
     ]));
     set("no_clean_up", 0);
     setup();

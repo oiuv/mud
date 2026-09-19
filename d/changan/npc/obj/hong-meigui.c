@@ -5,18 +5,16 @@
 
 inherit HEAD;
 
-void create()
-{
+void create() {
     set_name(HIR "红玫瑰" NOR, ({ "hong meigui", "meigui" }));
     set_weight(10);
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("long", "热奔奔放的红玫瑰。\n");
         set("unit", "朵");
-                set("no_sell", 1);
-                set("value", 100000);
+        set("no_sell", 1);
+        set("value", 100000);
         set("material", "plant");
         set("armor_prop/armor", 0);
         set("armor_prop/personality", 3);

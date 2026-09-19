@@ -7,21 +7,20 @@ inherit F_GUARDER;
 inherit F_COAGENT;
 #include <ansi.h>
 
-void create()
-{
+void create() {
     set_name("张中", ({ "zhang zhong", "zhang", "zhong", }));
     set("long",
         "他是一位高高瘦瘦的道人，身穿一件白布长袍。\n"
         "\n"
     );
 
-        set("title", HIR "明教" NOR "五散人");
-        set("nickname", "铁冠道人");
+    set("title", HIR "明教" NOR "五散人");
+    set("nickname", "铁冠道人");
     set("gender", "男性");
     set("attitude", "friendly");
-        set("class", "taoist");
+    set("class", "taoist");
 
-        set("age", 52);
+    set("age", 52);
     set("shen_type", 1);
     set("str", 25);
     set("int", 25);
@@ -50,38 +49,35 @@ void create()
     map_skill("cuff", "jingang-quan");
     map_skill("parry", "jingang-quan");
     prepare_skill("cuff", "jingang-quan");
-        create_family("明教", 3, "五散人");
+    create_family("明教", 3, "五散人");
 
     set("coagents", ({
-                ([ "startroom" : "/d/mingjiao/dadian",
-                   "id"        : "zhang wuji" ]),
-                ([ "startroom" : "/d/mingjiao/dadian",
-                   "id"        : "fan yao" ]),
-                ([ "startroom" : "/d/mingjiao/dadian",
-                   "id"        : "shuo bude" ]),
-                ([ "startroom" : "/d/mingjiao/dadian",
-                   "id"        : "zhou dian" ]),
-                ([ "startroom" : "/d/mingjiao/dadian",
-                   "id"        : "peng yingyu" ]),
-        }));
+        ([ "startroom": "/d/mingjiao/dadian",
+            "id": "zhang wuji" ]),
+        ([ "startroom": "/d/mingjiao/dadian",
+            "id": "fan yao" ]),
+        ([ "startroom": "/d/mingjiao/dadian",
+            "id": "shuo bude" ]),
+        ([ "startroom": "/d/mingjiao/dadian",
+            "id": "zhou dian" ]),
+        ([ "startroom": "/d/mingjiao/dadian",
+            "id": "peng yingyu" ]),
+    }));
 
     setup();
 
-        carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/d/mingjiao/obj/baipao")->wear();
 }
 
-void init()
-{
+void init() {
     ::init();
 
-    if (interactive(this_player()) && this_player()->query_temp("fighting"))
-    {
-        COMBAT_D->do_attack(this_object(), this_player(), query_temp("weapon") );
+    if (interactive(this_player()) && this_player()->query_temp("fighting")) {
+        COMBAT_D->do_attack(this_object(), this_player(), query_temp("weapon"));
         this_player()->add_temp("beat_count", 1);
     }
 }
 
-void unconcious()
-{
-        die();
+void unconcious() {
+    die();
 }

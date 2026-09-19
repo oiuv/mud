@@ -4,8 +4,7 @@
 
 inherit "/inherit/char/punisher";
 
-void create()
-{
+void create() {
     set_name("穆人清", ({ "mu renqing", "mu", "renqing" }));
     set("title", HIY "拳剑无双" NOR);
 
@@ -41,7 +40,7 @@ void create()
     set_skill("poyu-quan", 270);
     set_skill("huashan-jian", 280);
     set_skill("hunyuan-zhang", 270);
-        set_skill("feiyan-huixiang",280);
+    set_skill("feiyan-huixiang", 280);
     set_skill("literate", 120);
 
     prepare_skill("cuff", "poyu-quan");
@@ -49,8 +48,8 @@ void create()
 
     map_skill("cuff", "poyu-quan");
     map_skill("force", "zixia-shengong");
-        map_skill("dodge", "feiyan-huixiang");
-        map_skill("parry", "huashan-jian");
+    map_skill("dodge", "feiyan-huixiang");
+    map_skill("parry", "huashan-jian");
     map_skill("sword", "huashan-jian");
     map_skill("strike", "hunyuan-zhang");
 

@@ -7,8 +7,7 @@ void beat_faint(object ob);
 
 int is_ghost() { return 1; }
 
-void create()
-{
+void create() {
     set_name("打手", ({
         "da shou",
         "da",
@@ -57,24 +56,21 @@ void create()
     setup();
 }
 
-void init()
-{
+void init() {
     object ob;
 
     ::init();
-    if( interactive(ob = this_player()) && !is_fighting() )
-    {
+    if (interactive(ob = this_player()) && !is_fighting()) {
         remove_call_out("beat_faint");
         call_out("beat_faint", 1, ob);
     }
 }
 
-void beat_faint(object ob)
-{
-    if( !ob || environment(ob) != environment() )
+void beat_faint(object ob) {
+    if (!ob || environment(ob) != environment())
         return;
 
-//    ob->add("qi", -ob->query("qi")-1);
+    //    ob->add("qi", -ob->query("qi")-1);
     ob->unconcious();
     ob->move("/d/shaolin/jianyu");
 }

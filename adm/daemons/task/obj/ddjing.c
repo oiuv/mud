@@ -9,26 +9,24 @@
 inherit ITEM;
 
 
-void create()
-{
-        set_name(YEL "道德经" NOR, ({ "ddjing"}));
-        if (clonep())
-                destruct(this_object());
-        else {
-                set("unit", "本");
-                set("owner_id", "song yuanqiao");
-                set("owner", "宋远桥");
+void create() {
+    set_name(YEL "道德经" NOR, ({ "ddjing" }));
+    if (clonep())
+        destruct(this_object());
+    else {
+        set("unit", "本");
+        set("owner_id", "song yuanqiao");
+        set("owner", "宋远桥");
 
-                set("value",10);
-                set("no_sell",1);
-                set("no_put",1);
-        }
-        setup();
+        set("value", 10);
+        set("no_sell", 1);
+        set("no_put", 1);
+    }
+    setup();
 }
 
-void init()
-{
-    add_action("do_give","give");
+void init() {
+    add_action("do_give", "give");
 }
 
 
@@ -36,7 +34,7 @@ int do_give(string arg)
 
 {
 
-    object me,ob;
+    object me, ob;
 
     ob = this_object();
     me = this_player();
@@ -45,9 +43,7 @@ int do_give(string arg)
 
 }
 
-string long()
-{
-        return "这是" + query("owner") + "的" + query("name") +
-               "(" + query("id") + ")。\n";
+string long() {
+    return "这是" + query("owner") + "的" + query("name") + "(" + query("id") + ")。\n";
 
 }

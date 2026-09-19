@@ -4,12 +4,11 @@
 
 inherit NPC;
 
-void create()
-{
-    set_name("方怡", ({"fang yi", "fang","yi"}));
-    set("title",HIY"神龙教"HIR"赤龙使"NOR"座下弟子");
+void create() {
+    set_name("方怡", ({ "fang yi", "fang", "yi" }));
+    set("title", HIY "神龙教" HIR "赤龙使" NOR "座下弟子");
     set("long",
-            "她原来是沐王府家将，现在是神龙教赤龙门女弟子，长得活泼可爱。\n"
+        "她原来是沐王府家将，现在是神龙教赤龙门女弟子，长得活泼可爱。\n"
     );
 
     set("gender", "女性");
@@ -32,11 +31,11 @@ void create()
     set_skill("parry", 40);
     set_skill("sword", 60);
     set_skill("shedao-qigong", 30);
-    map_skill("sword","shedao-qigong");
+    map_skill("sword", "shedao-qigong");
 
     setup();
     carry_object("/d/shenlong/obj/xionghuang")->wield();
-        carry_object("/d/city/obj/duanjian")->wield();
+    carry_object("/d/city/obj/duanjian")->wield();
     carry_object("/clone/misc/cloth")->wear();
     add_money("silver", 5);
 }

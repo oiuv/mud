@@ -7,9 +7,8 @@ int do_liandan();
 string ask_me();
 string ask_yinzhen();
 
-void create()
-{
-    set_name("姚春", ({"yao chun", "yao", "chun"}));
+void create() {
+    set_name("姚春", ({ "yao chun", "yao", "chun" }));
     set("gender", "男性");
     set("age", 56);
     set("title", HIG "回春堂" NOR);
@@ -19,7 +18,7 @@ void create()
         "瘦，其貌不扬。当年天地会徐天川受了伤，便由\n"
         "他医治，此人既是名医，擒拿短打也是一绝。\n");
     set("attitude", "heroism");
-    set("shen_type",1);
+    set("shen_type", 1);
     set("str", 32);
     set("int", 30);
     set("con", 30);
@@ -45,23 +44,23 @@ void create()
     map_skill("medical", "bencao-shuli");
 
     set("inquiry", ([
-        "徐天川"  :  "那老猴儿便是我给医治的，怎么你也知道。\n",
-        "炼丹"    : (:do_liandan:),
-        "liandan" : (:do_liandan:),
-        "quest"   :  "在我这里可以帮着我「" HIR "炼丹" NOR + CYN
-                        "」，如果愿意可以向我询问。\n",
-        "job"     :  "在我这里可以帮着我「" HIR "炼丹" NOR + CYN
-                        "」，如果愿意可以向我询问。\n",
-        "药材"    :  "去找我的小童，他会帮你处理。\n",
-        "原料"    :  "去找我的小童，他会帮你处理。\n",
-        "yaocai"  :  "去找我的小童，他会帮你处理。\n",
-        "医术"    : (: ask_me :),
-        "炼丹术"  : (: ask_me :),
-        "针灸术"  : (: ask_me :),
+        "徐天川": "那老猴儿便是我给医治的，怎么你也知道。\n",
+        "炼丹": (: do_liandan :),
+        "liandan": (: do_liandan :),
+        "quest": "在我这里可以帮着我「" HIR "炼丹" NOR + CYN
+        "」，如果愿意可以向我询问。\n",
+        "job": "在我这里可以帮着我「" HIR "炼丹" NOR + CYN
+        "」，如果愿意可以向我询问。\n",
+        "药材": "去找我的小童，他会帮你处理。\n",
+        "原料": "去找我的小童，他会帮你处理。\n",
+        "yaocai": "去找我的小童，他会帮你处理。\n",
+        "医术": (: ask_me :),
+        "炼丹术": (: ask_me :),
+        "针灸术": (: ask_me :),
         "本草术理": "掌握本草常识才能领悟高深的本草术理。\n",
         "基本医术": (: ask_me :),
-        "银针"    : (: ask_yinzhen :),
-        "针灸"    : (: ask_yinzhen :),
+        "银针": (: ask_yinzhen :),
+        "针灸": (: ask_yinzhen :),
     ]));
     setup();
     carry_object("/clone/misc/cloth")->wear();
@@ -76,27 +75,23 @@ void create()
 }
 
 
-void init()
-{
+void init() {
     add_action("do_buy", "buy");
     add_action("do_list", "list");
 }
 
-int do_liandan()
-{
+int do_liandan() {
     int exp, pot;
     object me = this_player();
 
-    if (me->query_temp("liandan"))
-    {
-        if (me->query_temp("liandan") < 4)
-        {
+    if (me->query_temp("liandan")) {
+        if (me->query_temp("liandan") < 4) {
             command("say 不是要去炼丹吗，怎么还在这呆着？\n");
             return 1;
         }
         message_vision(CYN "姚春对$N" CYN "微笑道：炼丹是个修身养性的"
-                        "过程，你能成功，很不错！\n" NOR, me);
-                        //奖励增加5倍（2015年4月25日）
+            "过程，你能成功，很不错！\n" NOR, me);
+        //奖励增加5倍（2015年4月25日）
         exp = 8 + random(10);
         pot = 4 + random(5);
 
@@ -107,25 +102,22 @@ int do_liandan()
             pot = 1;
 
         tell_object(me, HIC "你获得了" + chinese_number(exp) +
-                        "点经验和" + chinese_number(pot) + "点潜能。\n"
-                        NOR );
+            "点经验和" + chinese_number(pot) + "点潜能。\n"
+            NOR);
 
         me->delete_temp("liandan");
         me->add("over_quest/liandan_quest", 1);
         return 1;
-    }
-    else
-    {
+    } else {
         message_vision(CYN "姚春对$N" CYN "点了点头，说道：炼丹是考验"
-                        "人的定力修为，心不静则事不成，你去向童子询问「"
-                        HIG "药材" NOR + CYN "」吧。\n", me);
+            "人的定力修为，心不静则事不成，你去向童子询问「"
+            HIG "药材" NOR + CYN "」吧。\n", me);
         me->set_temp("liandan", 1);
         return 1;
     }
 }
 
-string ask_me()
-{
+string ask_me() {
     object me;
 
     me = this_player();
@@ -136,48 +128,41 @@ string ask_me()
     if (me->query("shen") < -10000)
         return "你这种魔头，不去杀人都算是武林大幸了。";
 
-    if (me->query("over_quest/liandan_quest") < 100 )
+    if (me->query("over_quest/liandan_quest") < 100)
         return "这样吧，你先帮我炼丹百次，心诚之时我自然会传授给你。";
 
     if (me->query("shen") < 0)
         return "你侠义正事做得不够，多多行善之后我自然会传授给你。";
 
     me->set("can_learn_medical/yaochun", 1);
-        return "既然你欲诚心钻研学医之道，我就成全成全你吧。";
+    return "既然你欲诚心钻研学医之道，我就成全成全你吧。";
 }
 
-int recognize_apprentice(object me, string skill)
-{
-    if (me->query("shen") < -10000)
-    {
+int recognize_apprentice(object me, string skill) {
+    if (me->query("shen") < -10000) {
         command("say 给我滚开！我不会传授任何技能给你这种魔头！");
         return -1;
     }
 
-    if ( ! me->query("can_learn_medical/yaochun") )
-    {
+    if (!me->query("can_learn_medical/yaochun")) {
         command("say 我的医术向来是不轻易传授的。");
         return -1;
     }
 
-    if (skill == "literate")
-    {
+    if (skill == "literate") {
         command("say 读书写字自己去找教书先生学去。");
         return -1;
     }
 
-    if (skill == "liandan-shu")
-    {
-        if (me->query("over_quest/liandan_quest") < 2000 )
-        {
+    if (skill == "liandan-shu") {
+        if (me->query("over_quest/liandan_quest") < 2000) {
             command("say 成为炼丹师需要足够的毅力，你先去炼丹满两千次再来学炼丹术。");
             return -1;
         }
         return 1;
     }
 
-    if (skill != "medical" && skill != "zhenjiu-shu")
-    {
+    if (skill != "medical" && skill != "zhenjiu-shu") {
         command("say 我只能传授基本医术和针灸术。");
         return -1;
     }
@@ -185,8 +170,7 @@ int recognize_apprentice(object me, string skill)
     return 1;
 }
 
-string ask_yinzhen()
-{
+string ask_yinzhen() {
     object ob;
     object me = this_player();
 

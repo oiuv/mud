@@ -5,25 +5,24 @@ inherit NPC;
 inherit F_UNIQUE;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("瘦头陀", ({ "shou toutuo", "shou" ,"toutuo"}));
-    set("title", HIY"神龙教"NOR"右护法");
-    set("nickname",HIR "辽东瘦尊者" NOR);
+void create() {
+    set_name("瘦头陀", ({ "shou toutuo", "shou", "toutuo" }));
+    set("title", HIY "神龙教" NOR "右护法");
+    set("nickname", HIR "辽东瘦尊者" NOR);
     set("long", "这头陀身材奇矮，而且胖得出奇，整个人就活脱脱是一个大冬瓜。\n"
-                    "光溜溜的脑袋上瞪着一对铜铃大眼，样子非常滑稽。\n" );
+        "光溜溜的脑袋上瞪着一对铜铃大眼，样子非常滑稽。\n");
     set("gender", "男性");
     set("age", 44);
 
     set("str", 26);
-        set("int", 18);
-        set("con", 31);
+    set("int", 18);
+    set("con", 31);
     set("dex", 25);
 
     set("max_qi", 3600);
-        set("qi", 3600);
+    set("qi", 3600);
     set("max_jing", 1800);
-        set("jing", 1800);
+    set("jing", 1800);
     set("neili", 4200);
     set("max_neili", 4200);
     set("jiali", 50);
@@ -59,19 +58,18 @@ void create()
     set_temp("apply/armor", 100);
     set_temp("apply/damage", 100);
 
-        set("inquiry", ([
-        "神龙教" : "一般人是入不了我神龙教的(join shenlongjiao).\n",
-        "入教"   : "一般人是入不了我神龙教的(join shenlongjiao).\n",
-        "洪安通" : "教主脾气不好,要讨他欢心才好。\n",
-        "教主"   : "教主脾气不好,要讨他欢心才好。\n",
-        "口号"   : "万年不老！永享仙福！寿与天齐！文武仁圣！",
-    ]) );
+    set("inquiry", ([
+        "神龙教": "一般人是入不了我神龙教的(join shenlongjiao).\n",
+        "入教": "一般人是入不了我神龙教的(join shenlongjiao).\n",
+        "洪安通": "教主脾气不好,要讨他欢心才好。\n",
+        "教主": "教主脾气不好,要讨他欢心才好。\n",
+        "口号": "万年不老！永享仙福！寿与天齐！文武仁圣！",
+    ]));
     setup();
     carry_object("/clone/misc/cloth")->wear();
     add_money("silver", 35);
 }
 
-void attempt_apprentice(object ob)
-{
-        command("say 滚！少在大爷面前瞎晃。");
+void attempt_apprentice(object ob) {
+    command("say 滚！少在大爷面前瞎晃。");
 }

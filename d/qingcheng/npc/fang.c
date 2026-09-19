@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("方人智", ({ "fang renzhi", "fang", "renzhi" }));
     set("gender", "男性");
     set("age", 20);

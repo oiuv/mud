@@ -4,9 +4,8 @@
 
 inherit "/inherit/char/punisher";
 
-void create()
-{
-    set_name("汪剑通", ({"wang jiantong", "wang", "jiantong"}));
+void create() {
+    set_name("汪剑通", ({ "wang jiantong", "wang", "jiantong" }));
 
     set("gender", "男性");
     set("age", 54);
@@ -24,7 +23,7 @@ void create()
         (: perform_action, "staff.wugou" :),
         (: perform_action, "staff.ban" :),
         (: exert_function, "recover" :),
-    }) );
+    }));
 
     set("qi", 6000);
     set("max_qi", 6000);
@@ -43,20 +42,20 @@ void create()
     set_skill("feiyan-zoubi", 250);
     set_skill("parry", 250);
     set_skill("staff", 270);
-        set_skill("strike", 270);
-        set_skill("dragon-strike", 270);
-        set_skill("dagou-bang", 270);
+    set_skill("strike", 270);
+    set_skill("dragon-strike", 270);
+    set_skill("dagou-bang", 270);
     set_skill("begging", 200);
     set_skill("checking", 200);
-        set_skill("training", 180);
+    set_skill("training", 180);
 
     map_skill("force", "huntian-qigong");
     map_skill("dodge", "feiyan-zoubi");
     map_skill("parry", "dragon-strike");
     map_skill("staff", "dagou-bang");
-        map_skill("strike", "dragon-strike");
+    map_skill("strike", "dragon-strike");
 
-        prepare_skill("strike", "dragon-strike");
+    prepare_skill("strike", "dragon-strike");
 
     create_family("丐帮", 0, "名宿");
 

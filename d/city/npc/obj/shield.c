@@ -4,11 +4,10 @@
 
 inherit SHIELD;
 
-void create()
-{
-    set_name("牛皮盾", ({ "leather shield", "shield", "dun" }) );
+void create() {
+    set_name("牛皮盾", ({ "leather shield", "shield", "dun" }));
     set_weight(7000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("material", "leather");

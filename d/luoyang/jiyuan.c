@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "春月楼");
     set("long", @LONG
 此楼虽不在京城，但却是中原最有名的青楼。这里有最贵的酒，最华
@@ -12,13 +11,13 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "up" : __DIR__"jiyuan2",
-          "west" : __DIR__"sroad5",
+        "up": __DIR__ "jiyuan2",
+        "west": __DIR__ "sroad5",
     ]));
-        set("objects", ([
-                __DIR__"npc/laobao" : 1,
-                "/d/beijing/npc/jinv" : 1,
-        ]));
+    set("objects", ([
+        __DIR__ "npc/laobao": 1,
+        "/d/beijing/npc/jinv": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

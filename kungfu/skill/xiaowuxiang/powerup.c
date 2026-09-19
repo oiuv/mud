@@ -6,8 +6,7 @@ inherit F_CLEAN_UP;
 
 void remove_effect(object me, int amount);
 
-int exert(object me, object target)
-{
+int exert(object me, object target) {
     int skill;
 
     if (target != me)
@@ -32,21 +31,19 @@ int exert(object me, object target)
     me->set_temp("powerup", 1);
 
     me->start_call_out((: call_other, __FILE__, "remove_effect",
-                           me, skill / 3 :), skill);
+        me, skill / 3 :), skill);
 
     if (me->is_fighting()) me->start_busy(1 + random(3));
 
     return 1;
 }
 
-void remove_effect(object me, int amount)
-{
-        if ((int)me->query_temp("powerup"))
-        {
-            me->add_temp("apply/attack", -amount);
-            me->add_temp("apply/parry", -amount);
-            me->add_temp("apply/dodge", -amount);
-            me->delete_temp("powerup");
-                tell_object(me, "你的小无相功运行完毕，将内力收回丹田。\n");
-        }
+void remove_effect(object me, int amount) {
+    if ((int)me->query_temp("powerup")) {
+        me->add_temp("apply/attack", -amount);
+        me->add_temp("apply/parry", -amount);
+        me->add_temp("apply/dodge", -amount);
+        me->delete_temp("powerup");
+        tell_object(me, "你的小无相功运行完毕，将内力收回丹田。\n");
+    }
 }

@@ -7,8 +7,7 @@ inherit F_DEALER;
 
 int redeem(string arg);
 
-void create()
-{
+void create() {
     set_name("唐槐", ({ "tang huai", "tang" }));
     set("title", "兵器铺老板");
     set("shen_type", 0);
@@ -29,18 +28,17 @@ void create()
     set("combat_exp", 50000);
     set("attitude", "friendly");
     set("vendor_goods", ({
-                __DIR__"obj/feihuangshi",
-        __DIR__"obj/flower-leaf",
-        __DIR__"obj/tea-leaf",
-        __DIR__"obj/tielianzi"
+        __DIR__ "obj/feihuangshi",
+        __DIR__ "obj/flower-leaf",
+        __DIR__ "obj/tea-leaf",
+        __DIR__ "obj/tielianzi"
     }));
 
     setup();
     carry_object("/clone/misc/cloth")->wear();
 }
 
-void init()
-{
-        add_action("do_list", "list");
-        add_action("do_buy", "buy");
+void init() {
+    add_action("do_list", "list");
+    add_action("do_buy", "buy");
 }

@@ -6,8 +6,7 @@ int halt_baitan(object me);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object where;
 
     where = environment(me);
@@ -37,66 +36,62 @@ int main(object me, string arg)
         return notify_fail("这个地方过于嘈杂，还是换个地方做生意吧。\n");
 
     message_vision(WHT "$N" WHT "寻了块空地，一屁股坐了下来，随后掏"
-                       "出一块布摊开在地。\n" NOR,
-                   me);
+        "出一块布摊开在地。\n" NOR,
+        me);
     tell_object(me, HIC "现在你可以摆上(" HIW "stock" HIC ")货物或是"
-                        "收起(" HIW "unstock" HIC ")某种货物。\n" NOR);
+        "收起(" HIW "unstock" HIC ")某种货物。\n" NOR);
 
     me->set_temp("on_baitan", 1);
-    me->delete ("vendor_goods");
+    me->delete("vendor_goods");
     me->set_short_desc("正在地上摆摊。");
 
     me->start_busy(bind((: call_other, __FILE__, "baitan" :), me),
-                   bind((: call_other, __FILE__, "halt_baitan" :), me));
+        bind((: call_other, __FILE__, "halt_baitan" :), me));
     return 1;
 }
 
-int baitan(object me)
-{
-    switch (random(300))
-    {
-    case 0:
+int baitan(object me) {
+    switch (random(300)) {
+        case 0:
 
-        message_vision(CYN "$N" CYN "环顾了一下四周，笑眯眯"
-                           "地招呼着众人。\n" NOR,
-                       me);
-        break;
+            message_vision(CYN "$N" CYN "环顾了一下四周，笑眯眯"
+                "地招呼着众人。\n" NOR,
+                me);
+            break;
 
-    case 1:
-        message_vision(CYN "$N" CYN "吆喝道：走过路过不要错"
-                           "过，大家快来看看货。\n" NOR,
-                       me);
-        break;
+        case 1:
+            message_vision(CYN "$N" CYN "吆喝道：走过路过不要错"
+                "过，大家快来看看货。\n" NOR,
+                me);
+            break;
 
-    case 2:
-        message_vision(CYN "$N" CYN "吆喝道：大家来看看，我"
-                           "这里货物齐全，包您满意。\n" NOR,
-                       me);
-        break;
-    case 3:
-        message_vision(CYN "$N" CYN "吆喝道：来来来，现在所"
-                           "有物品贱价出售，别错过。\n" NOR,
-                       me);
-        break;
+        case 2:
+            message_vision(CYN "$N" CYN "吆喝道：大家来看看，我"
+                "这里货物齐全，包您满意。\n" NOR,
+                me);
+            break;
+        case 3:
+            message_vision(CYN "$N" CYN "吆喝道：来来来，现在所"
+                "有物品贱价出售，别错过。\n" NOR,
+                me);
+            break;
     }
 
     return 1;
 }
 
-int halt_baitan(object me)
-{
+int halt_baitan(object me) {
     message_vision(WHT "$N" WHT "提起摊布的四个角，把货物一股脑的收了"
-                       "起来，站起身来。\n" NOR,
-                   me);
+        "起来，站起身来。\n" NOR,
+        me);
 
     me->delete_temp("on_baitan");
-    me->delete ("vendor_goods");
+    me->delete("vendor_goods");
     me->set_short_desc(0);
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : baitan
 

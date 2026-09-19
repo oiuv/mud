@@ -2,8 +2,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "丹房");
     set("long", @LONG
 行至这里，顿感炽热更盛，只见里面是间丈许见方的石室。
@@ -12,8 +11,8 @@ void create()
 淋漓。
 LONG);
     set("exits", ([
-        "south"   : __DIR__"huohuanshi",
-        "west"    : __DIR__"zhulin3",
+        "south": __DIR__ "huohuanshi",
+        "west": __DIR__ "zhulin3",
     ]));
 
     set("no_clean_up", 0);

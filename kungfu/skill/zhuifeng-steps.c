@@ -11,21 +11,18 @@ string *dodge_msg = ({
     "$n衣袂飘飘，一招「事了拂衣去」，潇洒地避了开去。\n"
 });
 
-int valid_enable(string usage)
-{
+int valid_enable(string usage) {
     return (usage == "dodge") || (usage == "move");
 }
 
 int valid_learn(object me) { return 1; }
 
-string query_dodge_msg(string limb)
-{
+string query_dodge_msg(string limb) {
     return dodge_msg[random(sizeof(dodge_msg))];
 }
 
-int practice_skill(object me)
-{
-    if( (int)me->query("qi") < 50 )
+int practice_skill(object me) {
+    if ((int)me->query("qi") < 50)
         return notify_fail("你的体力太差了，不能练追风步。\n");
 
     me->receive_damage("qi", 40);

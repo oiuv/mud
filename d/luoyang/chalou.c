@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "壶记茶楼");
     set("long", @LONG
 你一走进来，就闻到一股茶香沁入心脾，精神为之一爽。几张八仙桌
@@ -10,13 +9,13 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"sroad2",
-          "up" : __DIR__"chalou2",
-          "west" : __DIR__"rest",
+        "east": __DIR__ "sroad2",
+        "up": __DIR__ "chalou2",
+        "west": __DIR__ "rest",
     ]));
-        set("objects", ([
-                "/d/beijing/npc/teahuoji" : 1,
-        ]));
+    set("objects", ([
+        "/d/beijing/npc/teahuoji": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

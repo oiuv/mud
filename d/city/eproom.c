@@ -6,8 +6,7 @@ string look_table();
 string look_scoreboard();
 string look_rules();
 
-void create()
-{
+void create() {
     set("short", "拱猪房");
     set("long", @LONG
 这是一间专门为拱猪而特别设计的拱猪房。房间里面灯火
@@ -19,9 +18,9 @@ LONG);
     set("pigging", 1);
 
     set("item_desc", ([
-        "table" : (: look_table :),
-        "scoreboard" : (: look_scoreboard :),
-        "paper" : "请务必读 help pig_cmds 和 help pig_rules。\n",
+        "table": (: look_table :),
+        "scoreboard": (: look_scoreboard :),
+        "paper": "请务必读 help pig_cmds 和 help pig_rules。\n",
     ]));
 
     set("exits", ([
@@ -32,20 +31,17 @@ LONG);
     setup();
 }
 
-string look_table()
-{
+string look_table() {
     if (this_player()->query_temp("pigging_seat"))
         return table_str(this_player()->query_temp("pigging_seat"));
     return table_str("");
 }
 
-string look_scoreboard()
-{
+string look_scoreboard() {
     return scoreboard_str();
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     if (me->query_temp("pigging_seat"))
         return notify_fail("先离开拱猪桌才能行动。\n");
     return ::valid_leave(me, dir);

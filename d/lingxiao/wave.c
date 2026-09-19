@@ -1,8 +1,7 @@
 inherit ROOM;
 #include <ansi.h>
 
-void create()
-{
+void create() {
     set("short", "冰洞");
     set("long", @LONG
 蛇！一条足有水桶粗的白蛇，正横卧在冰洞正中，望见有人
@@ -11,28 +10,25 @@ void create()
 东西。
 LONG);
     set("exits", ([
-        "out" : __DIR__ "wave2",
+        "out": __DIR__ "wave2",
     ]));
     set("objects", ([
-        "/clone/beast/xuanmang" : 1,
+        "/clone/beast/xuanmang": 1,
     ]));
     setup();
 }
 
-void init()
-{
+void init() {
     add_action("do_break", "break");
 }
 
-int do_break(string arg)
-{
+int do_break(string arg) {
     object me;
     me = this_player();
 
     message_vision(HIW "$N" HIW "走到冰壁前，运劲向冰壁轰去！\n" NOR, me);
 
-    if (me->query("neili") < 2000)
-    {
+    if (me->query("neili") < 2000) {
         message_vision(HIR "结果只听一声闷哼，$N" HIR "被冰壁的寒气回侵经脉，眼前一黑……\n" NOR, me);
         me->set("neili", 0);
         me->unconcious();
@@ -46,22 +42,19 @@ int do_break(string arg)
     return 1;
 }
 
-void close_out()
-{
+void close_out() {
     if (query("exits/enter"))
-        delete ("exits/enter");
+        delete("exits/enter");
 }
 
-void close(object room)
-{
+void close(object room) {
     message("vision", HIW "一股寒气自洞中冒出，将洞口又冻了个严严实实。\n" NOR, room);
-    room->delete ("exits/enter");
+    room->delete("exits/enter");
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     if (objectp(present("xuanbing chimang", environment(me))))
         return notify_fail(HIY "你正欲离开此地，却只见" NOR + HIW "玄冰" NOR +
-                           HIR "赤" NOR + HIW "蟒" NOR + HIY "一个盘旋，顿时将去路完全封锁。\n" NOR);
+            HIR "赤" NOR + HIW "蟒" NOR + HIY "一个盘旋，顿时将去路完全封锁。\n" NOR);
     return ::valid_leave(me);
 }

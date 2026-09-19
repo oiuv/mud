@@ -2,9 +2,8 @@
 #include "dan.h"
 //inherit COMBINED_ITEM;
 
-void create()
-{
-    set_name(HIY"轩辕"NOR+HIW"补心"NOR+YEL"丹"NOR, ({"xuanyuan dan", "dan"}));
+void create() {
+    set_name(HIY "轩辕" NOR + HIW "补心" NOR + YEL "丹" NOR, ({ "xuanyuan dan", "dan" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -16,12 +15,10 @@ void create()
     //set_amount(1);
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     mapping my;
 
-    if (time() - me->query_temp("last_eat/dan(full)") < 30)
-    {
+    if (time() - me->query_temp("last_eat/dan(full)") < 30) {
         write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
         return 1;
     }
@@ -32,11 +29,11 @@ int do_effect(object me)
 
     message_vision(HIY "$N吃下一粒轩辕补心丹，再也感觉不到任何疲惫。\n" NOR, me);
     my["jingli"] = my["max_jingli"];
-    my["neili"]  = my["max_neili"];
-    my["jing"]   = my["max_jing"];
-    my["qi"]     = my["max_qi"];
+    my["neili"] = my["max_neili"];
+    my["jing"] = my["max_jing"];
+    my["qi"] = my["max_qi"];
     my["eff_jing"] = my["max_jing"];
-    my["eff_qi"]   = my["max_qi"];
+    my["eff_qi"] = my["max_qi"];
 
     me->start_busy(5);
 
@@ -47,7 +44,6 @@ int do_effect(object me)
     return 1;
 }
 
-void owner_is_killed()
-{
+void owner_is_killed() {
     destruct(this_object());
 }

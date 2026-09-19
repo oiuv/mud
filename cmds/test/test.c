@@ -5,8 +5,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     // if (!wizardp(me))
     if (!SECURITY_D->valid_grant(me, "(admin)"))
         return 0;
@@ -20,7 +19,6 @@ int main(object me, string arg)
     return 1;
 }
 
-int help()
-{
+int help() {
     return 1;
 }

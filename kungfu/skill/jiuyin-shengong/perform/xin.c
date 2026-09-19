@@ -9,8 +9,7 @@ void remove_effs(object target);
 
 string final(object me, object target, int damage);
 
-int perform(object me, object target)
-{
+int perform(object me, object target) {
     string msg;
     int ap, dp;
     int times;
@@ -42,15 +41,14 @@ int perform(object me, object target)
         return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
     msg = HIM "\n$N" HIM "猛然间尖啸一声，施展出九阴神功中的「" HIR "摄心大法" HIM "」。"
-              "只见$N" HIM "各种招式千奇百怪、变化多端，脸上喜怒哀乐，怪状百出。\n" NOR;
+        "只见$N" HIM "各种招式千奇百怪、变化多端，脸上喜怒哀乐，怪状百出。\n" NOR;
 
     ap = me->query_skill("jiuyin-shengong", 1) + me->query_skill("force", 1);
     dp = target->query_skill("martial-cognize", 1) + target->query_skill("force", 1);
 
-    if (ap * 11 / 20 + random(ap) > dp)
-    {
+    if (ap * 11 / 20 + random(ap) > dp) {
         msg += HIG "$n" HIG "登时觉得胸口苦闷之极，心神难以自制，喜怒哀乐竟全随着$N" HIG
-                   "而变。顷刻之间，$n" HIG "顿觉精力不济，头晕目眩。\n" NOR;
+            "而变。顷刻之间，$n" HIG "顿觉精力不济，头晕目眩。\n" NOR;
 
         me->start_busy(2 + random(4));
         me->add("neili", -400);
@@ -79,12 +77,10 @@ int perform(object me, object target)
             times = 8 + random(7);
         remove_call_out("remove_effs");
         call_out("remove_effs", times, target);
-    }
-    else
-    {
+    } else {
         msg += NOR + CYN "$n" NOR + CYN "怒喝道：“尔等妖法，休想迷惑我！”。猛然间，招式陡快，"
-                                        "竟将$N" NOR +
-               CYN "这招破去。\n" NOR;
+            "竟将$N" NOR +
+            CYN "这招破去。\n" NOR;
         me->add("neili", -200);
         me->start_busy(1 + random(2));
     }
@@ -93,8 +89,7 @@ int perform(object me, object target)
     return 1;
 }
 
-void remove_effs(object target)
-{
+void remove_effs(object target) {
     if (!objectp(target) || !target->query_temp("eff/jiuyin-shengong/xin"))
         return;
     target->delete_temp("eff/jiuyin-shengong/xin");

@@ -3,9 +3,8 @@ inherit NPC;
 
 void greeting(object me);
 
-void create()
-{
-    set_name("李自成", ({ "li zicheng", "li", "zicheng"}));
+void create() {
+    set_name("李自成", ({ "li zicheng", "li", "zicheng" }));
     set("long", "他面透煞气，暴戾异常，看得你心里毛毛的。\n");
     set("gender", "男性");
     set("age", 49);
@@ -17,18 +16,17 @@ void create()
     carry_object("/clone/cloth/cloth.c")->wear();
 }
 
-void init()
-{
+void init() {
     object me = this_player();
 
     ::init();
 
-    if (! objectp(me) || ! userp(me))
+    if (!objectp(me) || !userp(me))
         return;
 
     command("nod " + me->query("id"));
     command("say 这位" + RANK_D->query_respect(me) + "来得正好，要得"
-            "权势，就必须" HIR "心狠手辣" NOR + CYN "不可。" NOR);
+        "权势，就必须" HIR "心狠手辣" NOR + CYN "不可。" NOR);
     command("say 什么正派人士，全是伪君子，要把他们统统杀光！");
 
     tell_object(me, HIR "
@@ -41,23 +39,18 @@ void init()
 " NOR);
 }
 
-void check_leave(object me, string dir)
-{
-    if (dir == "out")
-    {
+void check_leave(object me, string dir) {
+    if (dir == "out") {
         message_vision(CYN "$N" CYN "对$n" CYN "狂笑道：哈哈哈！"
-                           "杀光那帮伪君子！\n" NOR,
-                       this_object(), me);
+            "杀光那帮伪君子！\n" NOR,
+            this_object(), me);
         me->set("character", "心狠手辣");
         me->set("startroom", "/d/city/guangchang");
-        if (me->query("combat/dietimes") > random(3))
-        {
+        if (me->query("combat/dietimes") > random(3)) {
             me->set("special_skill/wrath", 1);
             tell_object(me, HIC "你领悟了特技" + SPECIAL_D("wrath")->name() + "(help special)。\n");
         }
-    }
-    else if (dir == "south")
-    {
+    } else if (dir == "south") {
         command("sneer");
         command("say 胆小鬼！");
     }

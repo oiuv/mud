@@ -3,9 +3,8 @@
 
 inherit HAMMER;
 
-void create()
-{
-    set_name(HIW "银轮" NOR, ({ "yin lun","lun","yinlun" }));
+void create() {
+    set_name(HIW "银轮" NOR, ({ "yin lun", "lun", "yinlun" }));
     set_weight(5000);
     if (clonep())
         set_default_object(__FILE__);
@@ -15,8 +14,8 @@ void create()
         set("value", 10000);
         set("material", "silver");
         set("wield_msg", "$N「唰」的一声抽出一柄$n握在手中。\n");
-        set("unwield_msg","$N将手中的$n放回腰间。\n");
-                set("stable", 40);
+        set("unwield_msg", "$N将手中的$n放回腰间。\n");
+        set("stable", 40);
     }
     init_hammer(50);
     setup();

@@ -3,8 +3,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string str)
-{
+int main(object me, string str) {
     object ob, stone;
     int p, mp;
 
@@ -35,14 +34,13 @@ int main(object me, string str)
     p = ob->query("power_point");
 
     message_vision(HIM "$N" HIM "将" + ob->name() +
-                   HIM "握于掌中，默默运转内力，迫"
-                   "使其熔化。\n" NOR, me);
+        HIM "握于掌中，默默运转内力，迫"
+        "使其熔化。\n" NOR, me);
 
-    if (p < 50)
-    {
+    if (p < 50) {
         message_vision(HIR "突然却见" + ob->name() +
-                       HIR "嗤的化作一股青烟，什么都"
-                       "没有留下。\n" NOR, me);
+            HIR "嗤的化作一股青烟，什么都"
+            "没有留下。\n" NOR, me);
         destruct(ob);
         return 1;
     }
@@ -50,22 +48,21 @@ int main(object me, string str)
     p = random(p * 3 / 2);
 
     if (p > 120)
-        stone = new ("/clone/fam/item/stone5");
+        stone = new("/clone/fam/item/stone5");
     else if (p > 90)
-        stone = new ("/clone/fam/item/stone4");
+        stone = new("/clone/fam/item/stone4");
     else if (p > 70)
-        stone = new ("/clone/fam/item/stone3");
+        stone = new("/clone/fam/item/stone3");
     else if (p > 50)
-        stone = new ("/clone/fam/item/stone2");
+        stone = new("/clone/fam/item/stone2");
     else
-        stone = new ("/clone/fam/item/stone1");
+        stone = new("/clone/fam/item/stone1");
 
     message_vision(HIM "霎时只见$N" HIM "掌心白雾蒸腾，似乎发"
-                       "生了什么不同寻常的事情。\n" NOR,
-                   me);
+        "生了什么不同寻常的事情。\n" NOR,
+        me);
 
-    if (stone->query("value"))
-    {
+    if (stone->query("value")) {
         mp = stone->query("value") / 300;
         mp = 5 + random(mp);
         if (mp < 5)
@@ -75,8 +72,8 @@ int main(object me, string str)
 
         me->add("magic_points", mp);
         tell_object(me, HIC "你通过熔炼" + stone->name() +
-                        HIC "的过程，从而获得了" +
-                        chinese_number(mp) + "点灵慧。\n" NOR);
+            HIC "的过程，从而获得了" +
+            chinese_number(mp) + "点灵慧。\n" NOR);
     }
     me->add("max_neili", -1);
     me->add("neili", -3000);
@@ -88,8 +85,7 @@ int main(object me, string str)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：fuse <物品ID>
 

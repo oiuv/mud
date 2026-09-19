@@ -68,119 +68,98 @@ nosave string boot_message;
 nosave string comments;
 nosave int socket;
 
-void log_info(string error)
-{
+void log_info(string error) {
 #ifdef LOG_INFO
     log_file("cmwhod", ctime(time()) + "\n" + error);
 #endif
 }
 
-void send_data(string datagram)
-{
+void send_data(string datagram) {
 #ifdef INTERMUD
     int rc;
 
     rc = socket_write(socket, datagram, mwhod_addr);
-    if (rc != EESUCCESS)
-    {
+    if (rc != EESUCCESS) {
         log_info("socket_write: " + socket_error(rc) + "\n");
     }
 #endif /* INTERMUD */
 }
 
-string header(string op)
-{
+string header(string op) {
     return op + TAB + mudname + TAB + PASSWORD;
 }
 
-void set_keepalive_message()
-{
+void set_keepalive_message() {
     /* uptime() is an efun that returns # of seconds the driver has been up */
-    keepalive_message = header("M") + TAB + mudname + TAB +
-                        (time() - uptime()) + TAB + GENERATION + TAB + comments;
+    keepalive_message = header("M") + TAB + mudname + TAB + (time() - uptime()) + TAB + GENERATION + TAB + comments;
 }
 
-void set_boot_message()
-{
-    boot_message = header("U") + TAB + mudname + TAB +
-                   (time() - uptime()) + TAB + GENERATION + TAB + comments;
+void set_boot_message() {
+    boot_message = header("U") + TAB + mudname + TAB + (time() - uptime()) + TAB + GENERATION + TAB + comments;
 }
 
-void set_comments()
-{
+void set_comments() {
     comments = __VERSION__ + "/" + CLIENT_VERSION;
 }
 
-void add_user(object user, int which)
-{
+void add_user(object user, int which) {
     string name, datagram;
     int userid, login_time;
 
-    if (!user)
-    {
+    if (!user) {
         return;
     }
     userid = getoid(user);
     /* refresh approx. 1/PARTITIONS of list each time */
-    if ((userid % PARTITIONS) != which)
-    {
+    if ((userid % PARTITIONS) != which) {
         return;
     }
     login_time = (int)user->QUERY_LOGIN_TIME;
     name = (string)user->QUERY_NAME;
-    datagram =
-        header("A") + TAB + mudname + TAB + userid + "@" + LOCAL_MUD_NAME() +
-        TAB + login_time + TAB + GENERATION + TAB + name;
+    datagram = header("A") + TAB + mudname + TAB + userid + "@" + LOCAL_MUD_NAME() + TAB + login_time + TAB + GENERATION + TAB + name;
     send_data(datagram);
 }
 
-void add_all_users(int which)
-{
+void add_all_users(int which) {
     object *all;
     int j;
 
     all = users();
-    for (j = 0; j < sizeof(all); j++)
-    {
+    for (j = 0; j < sizeof(all); j++) {
         add_user(all[j], which);
     }
 }
 
-void refresh(int which)
-{
+void refresh(int which) {
     string err;
 
 #ifdef LOG_CALL_OUTS
     log_info("call_out: refresh " + which + "\n");
 #endif
     // do the catch() so the call_out won't be lost in case of runtime error.
-    err = catch (add_all_users(which));
-    if (err)
-    {
+    err = catch(add_all_users(which));
+    if (err) {
         log_info("refresh: " + err + "\n");
     }
     call_out("refresh", REFRESH_INTERVAL / PARTITIONS,
-             (which + 1) % PARTITIONS);
+        (which + 1) % PARTITIONS);
 }
 
 /*
  * Initialize CMWHOD
  */
-void create()
-{
+void create() {
     int error;
 
     rm(LOG_DIR + "/cmwhod");
     log_info(CLIENT_VERSION + ": cmwhod log for '" + LOCAL_MUD_NAME() + "'\n");
     socket = socket_create(DATAGRAM, "read", "close");
-    if (socket < 0)
-    {
+    if (socket < 0) {
         log_info("socket_create: " + socket_error(socket) + "\n");
         return;
     }
     error = socket_bind(socket, 0);
-    if (error != EESUCCESS)
-    {
+    if (error != EESUCCESS) {
         log_info("socket_bind: " + socket_error(error) + "\n");
         return;
     }
@@ -193,8 +172,7 @@ void create()
     call_out("refresh", REFRESH_INTERVAL / PARTITIONS, 0);
 }
 
-void keepalive()
-{
+void keepalive() {
 #ifdef LOG_CALL_OUTS
     log_info("call_out: keepalive:\n" + keepalive_message + "\n");
 #endif
@@ -203,24 +181,20 @@ void keepalive()
     call_out("keepalive", KEEPALIVE_INTERVAL);
 }
 
-void boot()
-{
+void boot() {
     log_info("booting");
     send_data(boot_message);
 }
 
-void halt()
-{
+void halt() {
     log_info("halting");
     send_data(header("D"));
 }
 
-void remove_user(object user)
-{
+void remove_user(object user) {
     string datagram;
     int userid;
 
-    userid = getoid(user); /* get number following # in file_name(user) */
-    datagram = header("Z") + TAB + mudname + TAB + userid + "@" + LOCAL_MUD_NAME();
+    userid = getoid(user); /* get number following # in file_name(user) */ datagram = header("Z") + TAB + mudname + TAB + userid + "@" + LOCAL_MUD_NAME();
     send_data(datagram);
 }

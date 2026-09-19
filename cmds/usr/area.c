@@ -7,8 +7,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string file, text;
     object area;
 
@@ -18,14 +17,12 @@ int main(object me, string arg)
         return notify_fail("這個指令只適用在區域環境中。\n");
 
     // 區域大，分成左、右二部分的圖
-    if (area->query("x_axis_size") > 49)
-    {
+    if (area->query("x_axis_size") > 49) {
         if (me->query("area_info/x_axis") <= 49)
             file = file_name(area) + "_left.ansi";
         else
             file = file_name(area) + "_right.ansi";
-    }
-    else
+    } else
         file = file_name(area) + ".ansi";
 
     if (file_size(file) <= 0)
@@ -39,8 +36,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式： area
 

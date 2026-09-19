@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "翠屏山道");
     set("long", @LONG
 你爬在翠屏山道上，树木遮天，难见天日。山林静谧，隐隐晨
@@ -12,12 +11,12 @@ void create()
 LONG
     );
     set("exits", ([
-        "eastup"   : __DIR__"xuankong1",
-        "eastdown" : __DIR__"cuiping1",
+        "eastup": __DIR__ "xuankong1",
+        "eastdown": __DIR__ "cuiping1",
     ]));
 
     set("outdoors", "hengshan");
-        set("no_clean_up", 0);
+    set("no_clean_up", 0);
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

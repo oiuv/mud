@@ -3,15 +3,13 @@
 
 inherit F_CLEAN_UP;
 
-int main( object me, string arg )
-{
-    write(sprintf("现在的时间是北京时间 " HIG + ctime( time() ) + NOR "。\n" ) );
+int main(object me, string arg) {
+    write(sprintf("现在的时间是北京时间 " HIG + ctime(time()) + NOR "。\n"));
 
-    return(1);
+    return (1);
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: time
 

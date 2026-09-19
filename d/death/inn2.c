@@ -3,10 +3,9 @@ inherit ROOM;
 
 int do_stuff(object ob);
 
-void create()
-{
-        set("short", HIB "【黑店】" NOR);
-        set("long", HIB @LONG
+void create() {
+    set("short", HIB "【黑店】" NOR);
+    set("long", HIB @LONG
 
                       黑                店
 
@@ -18,15 +17,15 @@ void create()
 
 LONG NOR);
     set("exits", ([
-        "west" : "/d/death/road1",
-    ]) );
+        "west": "/d/death/road1",
+    ]));
 
     set("objects", ([
-        __DIR__"npc/ghost": 1,
-    ]) );
+        __DIR__ "npc/ghost": 1,
+    ]));
 
     set("item_desc", ([
-        "wall" : @WALL
+        "wall": @WALL
 几行你勉强分辨得出来的字:
 我被困在这里了.... 我要回家啦!!!!!!!!!!!
                       ^^^^
@@ -38,11 +37,11 @@ LONG NOR);
                                  你... 确... 定?!?!
 喔..
 WALL
-    ]) );
+    ]));
 
     set("no_fight", 1);
-        set("no_sleep_room", 1);
+    set("no_sleep_room", 1);
 
-        setup();
-        replace_program(ROOM);
+    setup();
+    replace_program(ROOM);
 }

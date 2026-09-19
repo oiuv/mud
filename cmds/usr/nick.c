@@ -4,13 +4,11 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
-    if (! arg)
+int main(object me, string arg) {
+    if (!arg)
         return notify_fail("你要替自己取什么绰号？\n");
 
-    if (arg == "none")
-    {
+    if (arg == "none") {
         me->delete("nickname");
         write("你的绰号取消了。\n");
         return 1;
@@ -44,8 +42,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : nick <外号, 绰号> | none
 
@@ -63,6 +60,6 @@ $WHT$ - 浅灰色        $HIW$ - 白色
 
 其中系统自动会在字串尾端加一个 $NOR$。
 
-HELP );
+HELP);
     return 1;
 }

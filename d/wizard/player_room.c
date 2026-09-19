@@ -7,8 +7,7 @@ inherit ROOM;
 
 int is_chat_room() { return 1; }
 
-void create()
-{
+void create() {
     set("short", HIG "玩家交流室" NOR);
     set("long", @LONG
 这里是巫师和玩家交流非技术的地方，你可以在这里放松
@@ -16,15 +15,15 @@ void create()
 有争斗也没有屠杀。祝君好运！
 
                                 ==炎黄群侠传全体巫师==
-LONG );
+LONG);
 
     set("exits", ([
-        "northwest": __DIR__"guest_room",
-        ]));
+        "northwest": __DIR__ "guest_room",
+    ]));
 
     set("no_fight", 1);
 
     setup();
     "/clone/board/heroplayer_b"->foo();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

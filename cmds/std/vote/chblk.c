@@ -6,9 +6,8 @@ inherit F_CONDITION;
 
 int clear_vote(object me);
 
-int vote(object me, object victim)
-{
-    string reason; // vote for what?
+int vote(object me, object victim) {
+    string reason;  // vote for what?
     int vv;        // valid voter numbers
     int vc;        // vote count;
     int df;
@@ -17,8 +16,7 @@ int vote(object me, object victim)
     if (!interactive(me))
         return 0;
 
-    if (me == victim)
-    {
+    if (me == victim) {
         me->add("vote/abuse", 1);
         return notify_fail("你不是开玩笑吧？当心被剥夺表决权！\n");
     }
@@ -30,16 +28,14 @@ int vote(object me, object victim)
     if (victim->query("chblk_on"))
         return notify_fail(victim->name() + "的频道已经是关闭的了。\n");
 
-    if (!victim->query_condition("vote_clear"))
-    {
+    if (!victim->query_condition("vote_clear")) {
         victim->set("vote/count", 0);
         reason = 0;
     }
 
-    if (reason != "chblk")
-    {
+    if (reason != "chblk") {
         victim->set("vote/reason", "chblk");
-        victim->delete ("vote/juror");
+        victim->delete("vote/juror");
     }
 
     my_id = me->query("id");
@@ -54,13 +50,10 @@ int vote(object me, object victim)
 
     if (member_array(my_ip, jip) != -1)
         return notify_fail("你所在的IP地址已经有人投过票了。\n");
-    else if (member_array(my_id, juser) == -1)
-    {
-        victim->set("vote/juror/user", juser + ({my_id}));
-        victim->set("vote/juror/ip", jip + ({my_ip}));
-    }
-    else
-    {
+    else if (member_array(my_id, juser) == -1) {
+        victim->set("vote/juror/user", juser + ({ my_id }));
+        victim->set("vote/juror/ip", jip + ({ my_ip }));
+    } else {
         me->add("vote/abuse", 1);
         return notify_fail("一人一票！滥用表决权是要受惩罚的！\n");
     }
@@ -76,21 +69,29 @@ int vote(object me, object victim)
 
     df = vv - vc;
 
-    if (df >= 1)
-    {
-        message("vision", HIG "【人民公决】" + me->name(1) + "投票关闭" + victim->name(1) + "的交谈频道，还差" + sprintf("%d", df) + "票。\n" NOR, all_interactive());
+    if (df >= 1) {
+        message(
+            "vision",
+            HIG "【人民公决】" + me->name(1) + "投票关闭" + victim->name(1) + "的交谈频道，还差" + sprintf(
+                "%d",
+                df
+            ) + "票。\n" NOR,
+            all_interactive()
+        );
         victim->apply_condition("vote_clear", 10);
         return 1;
-    }
-    else
-    {
-        message("vision", HIG "【人民公决】" + me->name(1) + "投票关闭" + victim->name(1) + "的交谈频道。" + victim->name(1) + "的交谈频道被关闭了！\n" NOR, all_interactive());
+    } else {
+        message(
+            "vision",
+            HIG "【人民公决】" + me->name(1) + "投票关闭" + victim->name(1) + "的交谈频道。" + victim->name(1) + "的交谈频道被关闭了！\n" NOR,
+            all_interactive()
+        );
     }
 
     victim->clear_condition("vote_clear");
-    victim->delete ("vote/count");
-    victim->delete ("vote/reason");
-    victim->delete ("vote/juror");
+    victim->delete("vote/count");
+    victim->delete("vote/reason");
+    victim->delete("vote/juror");
     victim->set("chblk_on", 1);
 
     return 1;

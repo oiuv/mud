@@ -1,22 +1,19 @@
 inherit CORE_DB;
 // 调用连接对象更新bbs.mud.ren网站账号
-varargs mixed update(object ob, string host, string db, string user)
-{
+varargs mixed update(object ob, string host, string db, string user) {
 #ifdef __PACKAGE_DB__
-    if (objectp(ob) && ob->query("id") && ob->query("password"))
-    {
-        if (stringp(host) && stringp(db) && stringp(user))
-        {
+    if (objectp(ob) && ob->query("id") && ob->query("password")) {
+        if (stringp(host) && stringp(db) && stringp(user)) {
             DB::setConnection(([
-                "host":host,
-                "database":db,
-                "user":user,
+                "host": host,
+                "database": db,
+                "user": user,
             ]));
         }
 
         return DB::table("users")->where("username", ob->query("id"))->update(([
-            "password":ob->query("password"),
-            "phone":ob->query("phone"), ]));
+            "password": ob->query("password"),
+            "phone": ob->query("phone"), ]));
     }
 #else
     cecho("注意：数据库功能被禁用。");
@@ -24,44 +21,37 @@ varargs mixed update(object ob, string host, string db, string user)
 #endif
 }
 // 调用玩家连线对象注册bbs.mud.ren网站账号
-varargs int register(object ob, string host, string db, string user)
-{
+varargs int register(object ob, string host, string db, string user) {
 #ifdef __PACKAGE_DB__
-    if (objectp(ob) && ob->query("id") && ob->query("password"))
-    {
+    if (objectp(ob) && ob->query("id") && ob->query("password")) {
         mixed res;
 
-        if (stringp(host) && stringp(db) && stringp(user))
-        {
+        if (stringp(host) && stringp(db) && stringp(user)) {
             DB::setConnection(([
-                "host":host,
-                "database":db,
-                "user":user,
+                "host": host,
+                "database": db,
+                "user": user,
             ]));
         }
 
-        if (DB::table("users")->where("username", ob->query("id"))->count())
-        {
+        if (DB::table("users")->where("username", ob->query("id"))->count()) {
             return 0;
         }
 
         res = DB::table("users")->insert(([
-            "username":ob->query("id"),
-            "name":ob->query("surname")||"" + ob->query("purename"),
-            "email":ob->query("id") + "@mud.ren",
-            "phone":ob->query("phone"),
-            "password":ob->query("password"),
-            "activated_at":log_time(),
-            "created_at":log_time(),
+            "username": ob->query("id"),
+            "name": ob->query("surname") || "" + ob->query("purename"),
+            "email": ob->query("id") + "@mud.ren",
+            "phone": ob->query("phone"),
+            "password": ob->query("password"),
+            "activated_at": log_time(),
+            "created_at": log_time(),
         ]));
         /* error */
-        if (stringp(res))
-        {
+        if (stringp(res)) {
             cecho(res);
             return 0;
-        }
-        else
-        {
+        } else {
             cecho("提示：系统已自动在bbs.mud.ren注册账号，你可以使用游戏账号和密码登录社区。");
             return 1;
         }

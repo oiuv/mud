@@ -15,8 +15,7 @@ specifying whether or not the object has been inheritted by anything.
 If clean_up() returns 0, clean_up() will never be called again on that
 object. If it returns 1, it will be called again when the object remains
 inactive for the specified clean_up() delay. */
-int clean_up(int inherited)
-{
+int clean_up(int inherited) {
     object *inv;
 
     // log_file("clean_up", sprintf("[%s] %3d --- %s", ctime(time()), inherited, file_name(this_object()) + "\n"));
@@ -28,7 +27,10 @@ int clean_up(int inherited)
     if (!clonep() && this_object()->query("no_clean_up") == 1)
         return AGAIN;
     if (this_object()->query("no_clean_up") > 1)
-        log_file("no_clean_up", sprintf("%O\tno_clean_up = %d\n", this_object(), this_object()->query("no_clean_up")));
+        log_file(
+            "no_clean_up",
+            sprintf("%O\tno_clean_up = %d\n", this_object(), this_object()->query("no_clean_up"))
+        );
 
     // 在线游戏玩家不清除
     if (interactive(this_object()))
@@ -52,9 +54,9 @@ int clean_up(int inherited)
             return AGAIN;
 
     destruct(this_object());
-    if (objectp(this_object())) // 清除失败记录日志
+    if (objectp(this_object()))  // 清除失败记录日志
         log_file("no_destructed", base_name(this_object()) + " flag = " +
-                                  this_object()->query("no_clean_up") + "\n");
+            this_object()->query("no_clean_up") + "\n");
 
     return NEVER_AGAIN;
 }

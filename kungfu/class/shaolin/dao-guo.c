@@ -10,8 +10,7 @@ inherit F_MASTER;
 
 string ask_me();
 
-void create()
-{
+void create() {
     set_name("道果禅师", ({
         "daoguo chanshi",
         "daoguo",
@@ -65,55 +64,48 @@ void create()
     create_family("少林派", 39, "弟子");
 
     set("inquiry", ([
-        "木人"     : (: ask_me :),
-        "修理"       : (: ask_me :),
-        "修木人"   : (: ask_me :)
+        "木人": (: ask_me :),
+        "修理": (: ask_me :),
+        "修木人": (: ask_me :)
     ]));
 
     setup();
 
-        carry_object("/d/shaolin/obj/changjian")->wield();
-        carry_object("/d/shaolin/obj/dao-cloth")->wear();
+    carry_object("/d/shaolin/obj/changjian")->wield();
+    carry_object("/d/shaolin/obj/dao-cloth")->wear();
 }
 
-void init()
-{
+void init() {
     object me, ob;
 
     me = this_object();
 
     ::init();
-    if( objectp(ob = present("mu ren", environment())) )
-    {
+    if (objectp(ob = present("mu ren", environment()))) {
         remove_call_out("repairing_1");
         call_out("repairing_1", 5, me, ob);
     }
 }
 
-int repairing_1(object me, object ob)
-{
-    if ( !present(ob, environment()) ) return 1;
+int repairing_1(object me, object ob) {
+    if (!present(ob, environment())) return 1;
 
     command("say 是这个木人吧？ 唔，我来瞧瞧！ 你在边上呆着，看能帮我什么忙。");
 
     remove_call_out("repairing_2");
-    call_out("repairing_2", 2+random(3), me, ob);
+    call_out("repairing_2", 2 + random(3), me, ob);
 
     return 1;
 }
 
-int repairing_2(object me, object ob)
-{
-    if ( !present(ob, environment()) ) return 1;
+int repairing_2(object me, object ob) {
+    if (!present(ob, environment())) return 1;
 
-    if( ob->query("damaged") )
-    {
+    if (ob->query("damaged")) {
         message_vision(GRN "\n道果禅师对着木人瞧了一会，又试着扳动木人的四肢和脑袋，嘴里喃喃念叨着什么。\n\n" NOR, me);
         remove_call_out("repairing_3");
-        call_out("repairing_3", 2+random(2), me, ob);
-    }
-    else
-    {
+        call_out("repairing_3", 2 + random(2), me, ob);
+    } else {
         command("say 这木人好端端地又没坏！ 还大老远地拖着我过来！");
         command("follow none");
 
@@ -127,27 +119,23 @@ int repairing_2(object me, object ob)
     return 1;
 }
 
-int repairing_3(object me, object ob)
-{
+int repairing_3(object me, object ob) {
     command("say 唔，原来如此，我来修修看吧！");
     message_vision(GRN "\n他接着从怀里掏出一大堆工具来，打开木人的身体，摆弄了几下。\n\n" NOR, me);
 
     remove_call_out("repairing_4");
-    call_out("repairing_4", 3+random(3), me, ob);
+    call_out("repairing_4", 3 + random(3), me, ob);
 
     return 1;
 }
 
-int repairing_4(object me, object ob)
-{
-    if( random(2) == 0 )
-    {
+int repairing_4(object me, object ob) {
+    if (random(2) == 0) {
         command("say 好，修好了！");
         ob->delete("damaged");
         ob->set("fight_times", 0);
         message_vision(GRN "\n木人的身体吱吱地扭动了几下，恢复了正常站立的姿态。\n\n" NOR, me);
-    }
-    else
+    } else
         message_vision(GRN "\n道果禅师叹了口气，说道：看来不行，这木人损坏得太厉害了，没法子修了！\n" NOR, me);
 
     command("say 好，那我走了！");
@@ -163,22 +151,19 @@ int repairing_4(object me, object ob)
     return 1;
 }
 
-int do_back(object me)
-{
+int do_back(object me) {
     me->move("/d/shaolin/twdian");
     return 1;
 }
 
-string ask_me()
-{
+string ask_me() {
     mapping fam;
     object ob;
 
     ob = this_player();
 
     if (!(fam = ob->query("family")) || fam["family_name"] != "少林派")
-        return RANK_D->query_respect(ob) +
-        "与本派素无来往，不知此话从何谈起？";
+        return RANK_D->query_respect(ob) + "与本派素无来往，不知此话从何谈起？";
 
     command("say 木人打坏了是吧？ 好吧，我跟你去看看。");
     command("follow " + ob->query("id"));

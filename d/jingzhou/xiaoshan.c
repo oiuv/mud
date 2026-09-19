@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "小山坡");
     set("long", @LONG
 这里是一处小山，到处长满了过人高的长草，东面是一处
@@ -9,12 +8,12 @@ void create()
 你根根体毛竖起！
 LONG);
     set("exits", ([
-        "southdown" : __DIR__"houmen",
-        "eastdown" :__DIR__"luan",
+        "southdown": __DIR__ "houmen",
+        "eastdown": __DIR__ "luan",
     ]));
-        set("no_clean_up", 0);
-        set("outdoors", "jingzhou");
+    set("no_clean_up", 0);
+    set("outdoors", "jingzhou");
 
-        setup();
-        replace_program(ROOM);
+    setup();
+    replace_program(ROOM);
 }

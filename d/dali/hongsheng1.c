@@ -2,16 +2,15 @@
 //Date: June. 29 1998 by Java
 
 inherit ROOM;
-void create()
-{
-    set("short","塔基");
-    set("long",@LONG
+void create() {
+    set("short", "塔基");
+    set("long", @LONG
 宏圣寺塔基座系用石板砌成，与千寻塔基为砖砌不同。基座西
 面有塔门，可入内攀登而上。
 LONG);
-    set("exits",([ /* sizeof() == 1 */
-        "out"    : __DIR__"hongsheng",
-        "up"     : __DIR__"hongsheng2",
+    set("exits", ([ /* sizeof() == 1 */
+        "out": __DIR__ "hongsheng",
+        "up": __DIR__ "hongsheng2",
     ]));
     set("no_clean_up", 0);
     setup();

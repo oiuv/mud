@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string /*what,*/ who;
     object ob, victim;
     mapping myfam, vtfam;
@@ -53,14 +52,14 @@ int main(object me, string arg)
     dp = (int)victim->query("jing");
 
     tell_object(me, "你摇摇了头，慢慢地向" + victim->name() +
-                        "走过去，双手合十，开始念诵佛经...\n\n");
+        "走过去，双手合十，开始念诵佛经...\n\n");
     tell_object(victim, me->name() + "摇摇了头向你慢慢走过来，"
-                                     "双手合十，说道：我佛慈悲普度渡众生, 还请" +
-                            RANK_D->query_respect(victim) +
-                            "罢斗, 免增罪孽吧...\n\n");
+        "双手合十，说道：我佛慈悲普度渡众生, 还请" +
+        RANK_D->query_respect(victim) +
+        "罢斗, 免增罪孽吧...\n\n");
 
     message("vision", "只见" + me->name() + "摇摇了头，慢慢地向" + victim->name() + "走过去，\n双手合十，说道：请" + RANK_D->query_respect(victim) + "，停手吧 ...\n\n",
-            where, ({me, victim}));
+        where, ({ me, victim }));
 
     me->set_temp("dushi", 1);
     call_out("compelete_dushi", 3, me, victim, ob, sp, dp);
@@ -68,8 +67,7 @@ int main(object me, string arg)
     return 1;
 }
 
-private void compelete_dushi(object me, object victim, object ob, int sp, int dp)
-{
+private void compelete_dushi(object me, object victim, object ob, int sp, int dp) {
     if (objectp(me))
         me->delete_temp("dushi");
     else
@@ -78,17 +76,15 @@ private void compelete_dushi(object me, object victim, object ob, int sp, int dp
     if (!objectp(victim))
         return;
 
-    if (environment(victim) != environment(me))
-    {
+    if (environment(victim) != environment(me)) {
         tell_object(me, "很可惜，你要找的人已经不在这里了。\n");
         return;
     }
 
-    if (living(victim) && (random(sp + dp) > dp))
-    {
+    if (living(victim) && (random(sp + dp) > dp)) {
         victim->remove_all_enemy(1);
         tell_object(me, victim->name() + "低头想了一会，又看了"
-                                         "看你，摇摇头，叹了口气，停止了打斗。\n");
+            "看你，摇摇头，叹了口气，停止了打斗。\n");
         tell_object(victim, "你听了之后，心中不觉一紧，不再想继续打下去了。\n");
 
         me->improve_skill("persuading", 2 * random(me->query("int")));
@@ -96,29 +92,25 @@ private void compelete_dushi(object me, object victim, object ob, int sp, int dp
             me->add("potential", random(50) + 1);
         me->add("combat_exp", random(100) + 2);
         me->start_busy(3);
-    }
-    else
-    {
-        if (random(sp) > dp / 2)
-        {
+    } else {
+        if (random(sp) > dp / 2) {
             message_vision("$n狠狠地瞪了$N一眼，喝道：滚！"
-                           "$N叹了口气转身走开了。\n",
-                           me, victim);
+                "$N叹了口气转身走开了。\n",
+                me, victim);
             return;
         }
 
         tell_object(me, victim->name() + "扭过头去，对你理都不理。\n");
         tell_object(victim, "你扭过头去，对" + me->name() + "理都不理。\n");
         message("vision", victim->name() + "扭过头去，对" + me->name() + "理都不理。\n",
-                environment(me), ({me, victim}));
+            environment(me), ({ me, victim }));
     }
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : persuade | quanjia <某人> stop
 
-HELP );
+HELP);
     return 1;
 }

@@ -6,8 +6,7 @@ inherit NPC;
 void my_move();
 
 
-void create()
-{
+void create() {
     set_name("扫地僧", ({
         "saodi seng",
         "saodi",
@@ -22,10 +21,10 @@ void create()
     set("attitude", "peaceful");
     set("class", "bonze");
 
-    set("chat_msg",({
+    set("chat_msg", ({
 
-    (: this_object(), "my_move" :),
-    "扫地僧喃喃自语：这几天也真怪，干干净净的，不知道打哪冒出许多老鼠来！\n",
+        (: this_object(), "my_move" :),
+        "扫地僧喃喃自语：这几天也真怪，干干净净的，不知道打哪冒出许多老鼠来！\n",
 
     }));
 
@@ -54,20 +53,16 @@ void create()
 }
 
 
-void my_move()
-{
+void my_move() {
     int value;
 
     value = random(10);
 
-    if (value > 6)
-    {
+    if (value > 6) {
         command("say 还一大堆活没干完呢，我得赶紧了。\n");
         command("sigh");
         command("up");
-    }
-    else if (value < 4)
-    {
+    } else if (value < 4) {
         command("say 还一大堆活没干完呢，我得赶紧了。\n");
         command("sigh");
         command("down");

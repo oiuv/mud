@@ -5,9 +5,8 @@ void greeting(object me);
 int do_register(string arg);
 int do_decide(string arg);
 
-void create()
-{
-    set_name("水笙", ({ "shui sheng", "shui", "sheng"}));
+void create() {
+    set_name("水笙", ({ "shui sheng", "shui", "sheng" }));
     set("long", "她轻妆淡抹，眉目之中深深的透露哀思。\n");
     set("gender", "女性");
     set("age", 22);
@@ -19,13 +18,12 @@ void create()
     carry_object("/clone/cloth/cloth")->wear();
 }
 
-void init()
-{
+void init() {
     object me;
 
     ::init();
     me = this_player();
-    if (! objectp(me) || ! userp(me))
+    if (!objectp(me) || !userp(me))
         return;
 
     add_action("do_register", "register");
@@ -35,10 +33,9 @@ void init()
     call_out("greeting", 0, me);
 }
 
-void greeting(object me)
-{
-    if (! objectp(me) || environment(me) != environment(this_object()))
-            return;
+void greeting(object me) {
+    if (!objectp(me) || environment(me) != environment(this_object()))
+        return;
 
     // if (! me->query("registered"))
     // {
@@ -50,20 +47,17 @@ void greeting(object me)
     //         return;
     // }
 
-    if (! stringp(me->query("character")))
-    {
+    if (!stringp(me->query("character"))) {
         command("whisper " + me->query("id") + " 你还没有选择品质，快去"
-                "附近选选吧。");
+            "附近选选吧。");
         command("whisper " + me->query("id") + " 关于如何选择理想的天赋"
-                "，你可以看看(" HIY "help gift" NOR + WHT ")帮助文件。" NOR);
+            "，你可以看看(" HIY "help gift" NOR + WHT ")帮助文件。" NOR);
         return;
     }
 
-    if (! wizardp(me))
-    {
+    if (!wizardp(me)) {
         command("tell " + me->query("id") + " 咦，你怎么跑到这里来了？");
-        if (! stringp(me->query("born")))
-        {
+        if (!stringp(me->query("born"))) {
             message_vision("$N被昏昏沉沉的扔了出去。\n", me);
             me->delete("born");
             me->move("/d/register/yanluodian");
@@ -79,30 +73,26 @@ void greeting(object me)
     command("look " + me->query("id"));
 }
 
-int do_register(string arg)
-{
+int do_register(string arg) {
     object me;
     string id, address;
 
-    if (! objectp(me = this_player()))
+    if (!objectp(me = this_player()))
         return 0;
 
-    if (me->query("registered"))
-    {
+    if (me->query("registered")) {
         command("say 你不是已经注册过了吗？不用再注册了。");
         return 1;
     }
 
-    if (! arg || ! stringp(arg))
-    {
+    if (!arg || !stringp(arg)) {
         command("shake " + me->query("id"));
         command("say 注册的email地址你得给我啊。请输入" HIY "register" NOR +
-                CYN "你的email地址。" NOR);
+            CYN "你的email地址。" NOR);
         return 1;
     }
 
-    if (strlen(arg) > 64 || sscanf(arg, "%s@%s", id, address) != 2)
-    {
+    if (strlen(arg) > 64 || sscanf(arg, "%s@%s", id, address) != 2) {
         command("say 我怎么没有见过这么怪的email地址？你看看清楚好吗？");
         return 1;
     }
@@ -117,28 +107,25 @@ int do_register(string arg)
 果你出于某种目的不愿意注册你的信箱，那么管理人员将不再为你的密
 码担负任何责任，这意味着你必须自己保管好你的密码。你注册的地址
 为(" NOR + HIY + arg + NOR + HIR ")，如无错误，请输入(" NOR +
-HIY "decide" NOR + HIR ")决定。\n\n" NOR);
+        HIY "decide" NOR + HIR ")决定。\n\n" NOR);
 
     return 1;
 }
 
-int do_decide(string arg)
-{
+int do_decide(string arg) {
     object me;
 
-    if (! objectp(me = this_player()))
+    if (!objectp(me = this_player()))
         return 0;
 
-    if (me->query("registered"))
-    {
+    if (me->query("registered")) {
         command("say 行了行了，我已经知道你的地址了，不用再说啦！\n");
         return 1;
     }
 
-    if (! stringp(me->query_temp("email")))
-    {
+    if (!stringp(me->query_temp("email"))) {
         command("say 你要决定什么？是决定注册吗？要是那"
-                "样请你先注册你的email地址。");
+            "样请你先注册你的email地址。");
         return 1;
     }
 

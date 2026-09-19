@@ -3,14 +3,13 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "无相庵");
     set("long", @LONG
 一个小小庵堂。
-LONG );
+LONG);
     set("exits", ([
-                "south" : __DIR__"shulin",
+        "south": __DIR__ "shulin",
     ]));
     set("outdoors", "fuzhou");
     setup();

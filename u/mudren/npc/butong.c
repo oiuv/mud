@@ -7,12 +7,11 @@ inherit F_NOCLONE;
 
 int accept_talk(object me, string topic);
 
-nosave int money = 100000; // 黄金十两
+nosave int money = 100000;  // 黄金十两
 
-void create()
-{
+void create() {
     seteuid(getuid());
-    set_name("周不通", ({"zhou butong", "zhou", "butong"}));
+    set_name("周不通", ({ "zhou butong", "zhou", "butong" }));
     set("title", HIY "江湖游侠" NOR);
     set("nickname", HIG "玩家导师" NOR);
     set("gender", "男性");
@@ -75,24 +74,19 @@ LONG);
 }
 
 // 监听玩家聊天并做处理
-void receive_report(object user, string verb, string arg)
-{
-    if (sscanf(arg, "@butong %s", arg) == 1)
-    {
+void receive_report(object user, string verb, string arg) {
+    if (sscanf(arg, "@butong %s", arg) == 1) {
         call_out("iqa", 1, user, verb, arg);
     }
 }
 
-void iqa(object ob, string verb, string arg)
-{
+void iqa(object ob, string verb, string arg) {
     accept_talk(ob, arg);
 }
 
 // 接受玩家物品
-int accept_object(object who, object ob)
-{
-    if (ob->is_money())
-    {
+int accept_object(object who, object ob) {
+    if (ob->is_money()) {
         // debug_message("ob = " + ob);
         add("balance", ob->query("base_value") * ob->query_amount());
         return 1;
@@ -102,8 +96,7 @@ int accept_object(object who, object ob)
 }
 
 // 接受玩家咨询
-mixed accept_ask(object who, string topic)
-{
+mixed accept_ask(object who, string topic) {
     int wday, day, month, year, *date;
     string mark;
 
@@ -114,23 +107,17 @@ mixed accept_ask(object who, string topic)
     wday = date[LT_WDAY];
     mark = "mark/money/" + year + "/" + month;
 
-    if (topic == "福利")
-    {
-        if (who->query(mark) == day)
-        {
+    if (topic == "福利") {
+        if (who->query(mark) == day) {
             return "一人一天只能领取一次福利，你真没钱的话，单独找我老板要吧。";
         }
 
-        if (query("balance") >= money)
-        {
-            if (who->query("id") == "butong")
-            {
+        if (query("balance") >= money) {
+            if (who->query("id") == "butong") {
                 command("say " + "那个……老板您也穷啦？我把我身上的钱全转给您吧");
                 who->add("balance", query("balance"));
                 set("balance", 0);
-            }
-            else
-            {
+            } else {
                 who->add("balance", money);
                 who->set(mark, day);
                 add("balance", -money);
@@ -138,9 +125,7 @@ mixed accept_ask(object who, string topic)
                 command("tell " + who->query("id") + " " + "好了，我向你的账户转了" + MONEY_D->money_str(money) + "。");
             }
             return 1;
-        }
-        else
-        {
+        } else {
             return "地主家也没有余粮啊，我的存款不够转账啦！";
         }
     }
@@ -148,32 +133,25 @@ mixed accept_ask(object who, string topic)
     return 0;
 }
 
-void init()
-{
+void init() {
     object ob;
 
-    if (interactive(ob = this_player()) && !is_fighting())
-    {
+    if (interactive(ob = this_player()) && !is_fighting()) {
         remove_call_out("greeting");
         call_out("greeting", 1, ob);
     }
 }
 
-int greeting(object ob)
-{
-    if (query("balance") >= money)
-    {
+int greeting(object ob) {
+    if (query("balance") >= money) {
         if (ob->query("id") == "butong")
             command("say " + "老板好，我现在发福利的存款还有" + MONEY_D->money_str(query("balance")) + "。");
         else
             command("rich " + ob->query("id"));
-    }
-    else
-    {
+    } else {
         command("stingy");
     }
-    if (QUEST_D->hasQuest(ob, this_object()))
-    {
+    if (QUEST_D->hasQuest(ob, this_object())) {
         command("tell " + ob->query("id") + " 你好呀，快来看看我（l butong）快来看看我😘");
         command("tell " + ob->query("id") + " 你好呀，我这里有适合你的任务😎");
         command("tell " + ob->query("id") + " 你可以 ask butong about quest 了解详情。");

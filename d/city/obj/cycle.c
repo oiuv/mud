@@ -4,11 +4,10 @@
 
 inherit NECK;
 
-void create()
-{
-    set_name("武者项圈", ({ "neck-cycle", "xiang quan", "lian" }) );
+void create() {
+    set_name("武者项圈", ({ "neck-cycle", "xiang quan", "lian" }));
     set_weight(1000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("material", "steel");

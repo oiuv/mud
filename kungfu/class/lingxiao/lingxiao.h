@@ -1,10 +1,9 @@
 // check recruit
 
-int permit_recruit(object ob)
-{
-        command("say 对不起，我雪山剑派不对外收徒。");
-        return 0;
-        /*
+int permit_recruit(object ob) {
+    command("say 对不起，我雪山剑派不对外收徒。");
+    return 0;
+    /*
         if (ob->query("detach/凌霄城") || ob->query("betrayer/凌霄城"))
         {
                 command("say 你当年既然已经离开凌霄城，现在何必又要回来？");

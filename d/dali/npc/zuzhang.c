@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("族长", ({ "zu zhang", "zhang" }));
     set("age", 62);
     set("gender", "女性");
@@ -27,5 +26,5 @@ void create()
     set_temp("apply/armor", 10);
 
     setup();
-    carry_object(__DIR__"obj/tongqun")->wear();
+    carry_object(__DIR__ "obj/tongqun")->wear();
 }

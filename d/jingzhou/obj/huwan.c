@@ -5,11 +5,10 @@
 
 inherit WRISTS;
 
-void create()
-{
-    set_name( "护腕", ({ "wrists", "hu wan", "huwan" }) );
+void create() {
+    set_name("护腕", ({ "wrists", "hu wan", "huwan" }));
     set_weight(500);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "双");

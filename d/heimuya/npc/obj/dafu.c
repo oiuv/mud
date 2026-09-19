@@ -3,9 +3,8 @@
 
 inherit HAMMER;
 
-void create()
-{
-    set_name(WHT "开山斧" NOR, ({"kaishan fu", "kaishan", "fu"}));
+void create() {
+    set_name(WHT "开山斧" NOR, ({ "kaishan fu", "kaishan", "fu" }));
     set_weight(5000);
 
     if (clonep())

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "存储室");
     set("long", @LONG
 这里是当铺的存储室，用于存储一些已被典当，但还可能被物主赎回
@@ -11,7 +10,7 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "up" : __DIR__"dangpu",
+        "up": __DIR__ "dangpu",
     ]));
 
     setup();

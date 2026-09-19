@@ -2,9 +2,8 @@
 
 inherit NPC;
 
-void create()
-{
-        set_name("梁喜禄", ({"liang xilu", "liang", "boss"}));
+void create() {
+    set_name("梁喜禄", ({ "liang xilu", "liang", "boss" }));
     set("title", "货栈老板");
     set("gender", "男性");
     set("age", 35);
@@ -19,6 +18,6 @@ void create()
     set_skill("unarmed", 40);
     set_skill("dodge", 40);
     setup();
-        carry_object(__DIR__"obj/choupao")->wear();
+    carry_object(__DIR__ "obj/choupao")->wear();
     add_money("silver", 1);
 }

@@ -6,8 +6,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string *file;
     string msg;
     int i, j;
@@ -19,14 +18,12 @@ int main(object me, string arg)
 
     file = map_array(get_dir("/clone/board/"), (: "/clone/board/" + $1 :));
     i = sizeof(file);
-    if (!i)
-    {
+    if (!i) {
         write("目前没有任何留言版。\n");
         return 1;
     }
 
-    if (arg)
-    {
+    if (arg) {
         sscanf(arg, "%d", j);
         j--;
         if (j < 0 || j >= i)

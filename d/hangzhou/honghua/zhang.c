@@ -5,13 +5,12 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("章进", ({ "zhang jin", "zhang","jin" }));
-    set("title", HIR "红花会"HIG"十当家" NOR);
+void create() {
+    set_name("章进", ({ "zhang jin", "zhang", "jin" }));
+    set("title", HIR "红花会" HIG "十当家" NOR);
     set("nickname", HIM "石敢当" NOR);
     set("long",
-"他是个驼子，最是直性子。他天生残疾，可是神力惊人，练
+        "他是个驼子，最是直性子。他天生残疾，可是神力惊人，练
 就了一身外家的硬功夫。他身有缺陷，最恼别人取笑他的驼
 背，他和人说话时自称“章驼子”，那是好端端地，然而别
 人若是在他面前提到个“驼”字，甚至冲着他的驼背一笑，
@@ -57,11 +56,11 @@ void create()
     map_skill("parry", "wuchang-zhang");
     map_skill("claw", "yunlong-zhua");
 
-    prepare_skill("hand","yunlong-shou");
-    prepare_skill("claw","yunlong-zhua");
+    prepare_skill("hand", "yunlong-shou");
+    prepare_skill("claw", "yunlong-zhua");
     set("env/wimpy", 20);
 
-     setup();
+    setup();
     carry_object("/clone/weapon/gangzhang")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

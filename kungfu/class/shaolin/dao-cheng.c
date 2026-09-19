@@ -6,8 +6,7 @@ inherit F_MASTER;
 
 #include "dao.h"
 
-void create()
-{
+void create() {
     set_name("道成禅师", ({
         "daocheng chanshi",
         "daocheng",
@@ -62,5 +61,5 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/dao-cloth")->wear();
+    carry_object("/d/shaolin/obj/dao-cloth")->wear();
 }

@@ -5,21 +5,20 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("常金鹏", ({ "chang jinpeng", "chang", "jinpeng", }));
     set("long",
         "他是一位体健如牛的大汉，身穿一件白布长袍。\n"
         "他脸上手上的肌肉凹凹凸凸，盘根错节，看来武功修为不浅。\n"
     );
 
-        set("title",HIG "明教" HIR "朱雀坛" NOR "坛主");
+    set("title", HIG "明教" HIR "朱雀坛" NOR "坛主");
 
     set("gender", "男性");
     set("attitude", "friendly");
-        set("class", "fighter");
+    set("class", "fighter");
 
-        set("age", 45);
+    set("age", 45);
     set("shen_type", 1);
     set("str", 20);
     set("int", 20);
@@ -52,9 +51,9 @@ void create()
     map_skill("sword", "damo-jian");
 
     prepare_skill("finger", "nianhua-zhi");
-        create_family("明教", 4, "朱雀坛坛主");
+    create_family("明教", 4, "朱雀坛坛主");
 
     setup();
 
-        carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/d/mingjiao/obj/baipao")->wear();
 }

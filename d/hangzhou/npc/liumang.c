@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("流氓", ({ "liu mang", "liu" }));
     set("gender", "男性");
     set("age", 19);
@@ -21,5 +20,5 @@ void create()
 
     setup();
     carry_object("/clone/misc/cloth")->wear();
-    add_money("silver",2);
+    add_money("silver", 2);
 }

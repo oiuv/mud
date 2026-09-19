@@ -19,48 +19,42 @@ nosave mixed *story = ({
     (: random_gift :),
 });
 
-void create()
-{
+void create() {
     seteuid(getuid());
 }
 
 string prompt() { return HIR "【天灾人祸】" NOR; }
 
-mixed query_story_message(int step)
-{
+mixed query_story_message(int step) {
     return step < sizeof(story) ? story[step] : 0;
 }
 
-mixed random_gift()
-{
+mixed random_gift() {
     object *obs;
     object ob;
     string msg;
 
-    obs = filter_array(all_interactive(), (: !wizardp($1) && environment($1) && environment($1)->query("outdoors") && !$1->query("doing") :));
+    obs = filter_array(
+        all_interactive(),
+        (: !wizardp($1) && environment($1) && environment($1)->query("outdoors") && !$1->query("doing") :)
+    );
     if (!sizeof(obs))
         return 0;
 
     ob = obs[random(sizeof(obs))];
 
-    if (ob->query("gift/lighting") || !random(ob->query("kar")))
-    {
-        if (ob->query("qi") < 1000 || !random(ob->query("kar")))
-        {
+    if (ob->query("gift/lighting") || !random(ob->query("kar"))) {
+        if (ob->query("qi") < 1000 || !random(ob->query("kar"))) {
             msg = HIR + ob->name(1) + "一声惨叫，软软的倒了下去。" NOR;
             ob->set("qi", 10);
             ob->set("eff_qi", 10);
             ob->set("jing", 1);
             ob->set("eff_jing", 1);
             ob->unconcious();
-        }
-        else
-        {
+        } else {
             msg = HIR + ob->name(1) + "有惊无险的避过了天灾，毫发无损。" NOR;
         }
-    }
-    else
-    {
+    } else {
         msg = HIC "霎那间" + ob->name(1) + "浑身火花四射，犹如天神一般，神威凛凛。" NOR;
         ob->add("con", 1);
         ob->add("gift/lighting", 1);

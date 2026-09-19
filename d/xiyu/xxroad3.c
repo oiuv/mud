@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "六盘山");
     set("long", @LONG
 这是一座不太高的小山。山顶望去，瓦蓝的天空飘着几朵
@@ -10,8 +9,8 @@ void create()
 隘。路旁有一处悬崖之上刻着首词。
 LONG);
     set("exits", ([
-        "westdown" : __DIR__ "jiayuguan",
-        "east" : "/d/lanzhou/ximen",
+        "westdown": __DIR__ "jiayuguan",
+        "east": "/d/lanzhou/ximen",
     ]));
     set("no_clean_up", 0);
     set("outdoors", "xiyu");

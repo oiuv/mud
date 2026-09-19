@@ -2,13 +2,11 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string *tuned_ch;
 
     tuned_ch = me->query("channels");
-    if (!arg)
-    {
+    if (!arg) {
         if (!pointerp(tuned_ch) || !sizeof(tuned_ch))
             write("你现在并没有收听任何频道。\n");
         else
@@ -16,22 +14,18 @@ int main(object me, string arg)
         return 1;
     }
 
-    if (pointerp(tuned_ch) && member_array(arg, tuned_ch) != -1)
-    {
+    if (pointerp(tuned_ch) && member_array(arg, tuned_ch) != -1) {
         write("关闭 " + arg + " 频道。\n");
-        tuned_ch -= ({arg});
+        tuned_ch -= ({ arg });
         me->set("channels", tuned_ch);
         return 1;
-    }
-    else
-    {
+    } else {
         write("要打开某个频道只要用该频道说话即可。\n");
         return 1;
     }
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：tune [<频道名称>]
 

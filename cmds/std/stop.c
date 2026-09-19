@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
 
     seteuid(getuid());
@@ -27,8 +26,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : stop <动物>
 
@@ -42,6 +40,6 @@ int help(object me)
         stop <动物名>:                  让动物停止对人的攻击。
         release:                        结束主奴状态，将动物放离。
 
-HELP );
+HELP);
     return 1;
 }

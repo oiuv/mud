@@ -16,18 +16,15 @@ void requestTimeout(string requestId);
 void retryRequest(string requestId);
 void showPending(string requestId, string npcName);
 
-void create()
-{
+void create() {
     seteuid(getuid(this_object()));
     instanceId = sprintf("%d-%d", time(), random(1000000000));
     socket_fd = socket_create(DATAGRAM, "read_callback");
-    if (socket_fd < 0)
-    {
+    if (socket_fd < 0) {
         debug_message("AI客户端: 无法创建socket");
         return;
     }
-    if (socket_bind(socket_fd, 0) < 0)
-    {
+    if (socket_bind(socket_fd, 0) < 0) {
         socket_close(socket_fd);
         socket_fd = -1;
         debug_message("AI客户端: 无法绑定socket");
@@ -35,8 +32,7 @@ void create()
 }
 
 varargs string send_chat_request(string npcId, string playerId, string playerName,
-                                string message, string context)
-{
+    string message, string context) {
     mapping request, pending;
     string requestId, jsonStr, key, error, npcName;
     object player, npc;
@@ -51,16 +47,13 @@ varargs string send_chat_request(string npcId, string playerId, string playerNam
         error = "提问不能为空且不能超过1000字。";
     else if (sizeof(pending_requests) >= 64)
         error = "AI正在忙碌，请稍后再试。";
-    if (error)
-    {
+    if (error) {
         tell_object(player, error + "\n");
         return error;
     }
-    foreach (key in keys(pending_requests))
-    {
+    foreach (key in keys(pending_requests)) {
         pending = pending_requests[key];
-        if (pending["player_id"] == playerId && pending["npc_id"] == npcId)
-        {
+        if (pending["player_id"] == playerId && pending["npc_id"] == npcId) {
             tell_object(player, "这位NPC还在思考你上一个问题，请稍候。\n");
             return "处理中...";
         }
@@ -72,14 +65,12 @@ varargs string send_chat_request(string npcId, string playerId, string playerNam
         "message": message, "context": context || "无"
     ]);
     jsonStr = json_encode(request);
-    if (sizeof(string_encode(jsonStr, "UTF-8")) > AI_MAX_PACKET)
-    {
+    if (sizeof(string_encode(jsonStr, "UTF-8")) > AI_MAX_PACKET) {
         tell_object(player, "提问和情境信息过长，请缩短后再试。\n");
         return "请求过长";
     }
     result = socket_write(socket_fd, jsonStr, AI_SERVER_HOST + " " + AI_SERVER_PORT);
-    if (result < 0)
-    {
+    if (result < 0) {
         tell_object(player, "AI服务通信异常，请稍后再试。\n");
         return "AI服务通信异常";
     }
@@ -101,8 +92,7 @@ varargs string send_chat_request(string npcId, string playerId, string playerNam
     return "处理中...";
 }
 
-void showPending(string requestId, string npcName)
-{
+void showPending(string requestId, string npcName) {
     mapping pending;
     object player;
 
@@ -114,8 +104,7 @@ void showPending(string requestId, string npcName)
         tell_object(player, npcName + "正在思索你的问题，请稍候……\n");
 }
 
-void retryRequest(string requestId)
-{
+void retryRequest(string requestId) {
     mapping pending;
 
     pending = pending_requests[requestId];
@@ -124,8 +113,7 @@ void retryRequest(string requestId)
     socket_write(socket_fd, pending["payload"], AI_SERVER_HOST + " " + AI_SERVER_PORT);
 }
 
-void requestTimeout(string requestId)
-{
+void requestTimeout(string requestId) {
     mapping pending;
     object player;
 
@@ -138,16 +126,14 @@ void requestTimeout(string requestId)
         tell_object(player, "AI暂时没有回应，请稍后重新提问。\n");
 }
 
-void read_callback(int fd, mixed message, string addr)
-{
+void read_callback(int fd, mixed message, string addr) {
     mapping response, pending;
     string requestId, output;
     object player;
 
     if (fd != socket_fd || addr != AI_SERVER_HOST + " " + AI_SERVER_PORT)
         return;
-    catch
-    {
+    catch {
         response = json_decode(message);
     };
     if (!mapp(response) || !stringp(response["request_id"]))
@@ -172,14 +158,12 @@ void read_callback(int fd, mixed message, string addr)
         tell_object(player, sort_string(output + "\n", 78));
 }
 
-void remove()
-{
+void remove() {
     string requestId;
     mapping pending;
     object player;
 
-    foreach (requestId in keys(pending_requests))
-    {
+    foreach (requestId in keys(pending_requests)) {
         pending = pending_requests[requestId];
         remove_call_out(pending["timeout"]);
         remove_call_out(pending["retry"]);

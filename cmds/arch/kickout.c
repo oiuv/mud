@@ -7,8 +7,7 @@ inherit F_CLEAN_UP;
 
 void kickout_player(object me, object ob);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
 
     if (!SECURITY_D->valid_grant(me, "(arch)"))
@@ -36,8 +35,7 @@ int main(object me, string arg)
     return 1;
 }
 
-void kickout_player(object me, object ob)
-{
+void kickout_player(object me, object ob) {
     object link_ob;
 
     if (previous_object() &&
@@ -46,35 +44,32 @@ void kickout_player(object me, object ob)
         return;
 
     log_file("static/kickout_player", sprintf("%s %-9s kickout %s\n",
-                                              log_time(), geteuid(me), geteuid(ob)));
+        log_time(), geteuid(me), geteuid(ob)));
 
     tell_object(me, "你把" + ob->query("name") + "踢了出去！\n");
     CHANNEL_D->do_channel(this_object(), "rumor",
-                          sprintf("%s被%s踢出了泥潭。",
-                                  ob->name(), me->name()));
+        sprintf("%s被%s踢出了泥潭。",
+            ob->name(), me->name()));
     seteuid(ROOT_UID);
-    if (ob->is_chatter())
-    {
+    if (ob->is_chatter()) {
         MESSAGE_D->user_logout(ob, "你被" + me->name(1) +
-                                   "踢了出去。\n");
+            "踢了出去。\n");
         return;
     }
 
-    if (objectp(link_ob = ob->query_temp("link_ob")))
-    {
-        catch (link_ob->save());
+    if (objectp(link_ob = ob->query_temp("link_ob"))) {
+        catch(link_ob->save());
         destruct(link_ob);
     }
-    catch (ob->save());
+    catch(ob->save());
     destruct(ob);
     seteuid(getuid());
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : kickout <某人>
 
-HELP );
+HELP);
     return 1;
 }

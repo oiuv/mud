@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "鲁望镇");
     set("long", @LONG
 这里是普麽部的鲁望镇，普麽部属台夷，领属还有附近的越州。
@@ -10,14 +9,14 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-            "west"  : __DIR__"feilihu",
-            "east"  : __DIR__"yulin",
-            "south" : __DIR__"shuitian",
-            "north" : __DIR__"zhulou3",
+        "west": __DIR__ "feilihu",
+        "east": __DIR__ "yulin",
+        "south": __DIR__ "shuitian",
+        "north": __DIR__ "zhulou3",
     ]));
     set("objects", ([
-                __DIR__"npc/tshangfan": 1,
-                "/clone/npc/walker" : 1,
+        __DIR__ "npc/tshangfan": 1,
+        "/clone/npc/walker": 1,
     ]));
     setup();
     replace_program(ROOM);

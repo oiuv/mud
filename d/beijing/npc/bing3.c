@@ -1,7 +1,6 @@
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("西厂官兵", ({ "guan bing", "bing" }));
     set("age", 22);
     set("gender", "男性");
@@ -23,17 +22,16 @@ void create()
     set_temp("apply/damage", 40);
     set_temp("apply/armor", 80);
 
-       set("chat_chance_combat", 10);
+    set("chat_chance_combat", 10);
     set("chat_msg_combat", ({
         "西厂官兵喝道：大胆刁民，京城之中，竟敢造反不成？\n",
     }));
     setup();
-    carry_object(__DIR__"obj/sword4")->wield();
-       carry_object(__DIR__"obj/guanfu4")->wear();
+    carry_object(__DIR__ "obj/sword4")->wield();
+    carry_object(__DIR__ "obj/guanfu4")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
     ::init();
     if (interactive(ob = this_player()) &&
@@ -43,8 +41,7 @@ void init()
     }
 }
 
-int accept_fight(object me)
-{
+int accept_fight(object me) {
     command("say 大爷我正想找人杀呐，今天算你倒霉。\n");
     me->apply_condition("killer", 500);
     kill_ob(me);

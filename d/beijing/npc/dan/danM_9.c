@@ -2,9 +2,8 @@
 #include "dan.h"
 //inherit COMBINED_ITEM;
 
-void create()
-{
-    set_name(HIW"嫦娥仙丹"NOR, ({"change dan", "dan"}));
+void create() {
+    set_name(HIW "嫦娥仙丹" NOR, ({ "change dan", "dan" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -22,12 +21,10 @@ void create()
     //set_amount(1);
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     mapping my;
 
-    if (time() - me->query_temp("last_eat/dan(M)") < 30)
-    {
+    if (time() - me->query_temp("last_eat/dan(M)") < 30) {
         write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
         return 1;
     }
@@ -36,8 +33,7 @@ int do_effect(object me)
 
     me->set_temp("last_eat/dan(M)", time());
 
-    if (me->improve_jingli(5))
-    {
+    if (me->improve_jingli(5)) {
         message_vision(HIW "$N吃下一粒嫦娥仙丹，感到精力修为比以前提高不少。\n" NOR, me);
         me->set("jingli", me->query("max_jingli"));
     } else
@@ -52,7 +48,6 @@ int do_effect(object me)
     return 1;
 }
 
-void owner_is_killed()
-{
+void owner_is_killed() {
     destruct(this_object());
 }

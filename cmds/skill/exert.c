@@ -1,8 +1,7 @@
 #include <ansi.h>
 #include <skill.h>
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string force;
 
     seteuid(getuid());
@@ -16,22 +15,18 @@ int main(object me, string arg)
     if (me->query_temp("no_exert") || me->query_condition("exert_drug"))
         return notify_fail(HIR "你只觉得内息一阵紊乱，根本无法控制内息。\n" NOR);
 
-    if (stringp(force = me->query_skill_mapped("force")))
-    {
+    if (stringp(force = me->query_skill_mapped("force"))) {
         notify_fail("你无法顺利的运转内息。\n");
 
         if (SKILL_D(force)->do_effect(me))
             return 0;
 
         notify_fail("你所学的内功中没有这种功能。\n");
-        if (SKILL_D(force)->exert_function(me, arg))
-        {
+        if (SKILL_D(force)->exert_function(me, arg)) {
             if (random(120) < (int)me->query_skill("force"))
                 me->improve_skill(force, 1, 1);
             return 1;
-        }
-        else if (SKILL_D("force")->exert_function(me, arg))
-        {
+        } else if (SKILL_D("force")->exert_function(me, arg)) {
             if (random(120) < (int)me->query_skill("force", 1))
                 me->improve_skill("force", 1, 1);
             return 1;
@@ -42,8 +37,7 @@ int main(object me, string arg)
     return notify_fail("你请先用 enable 指令选择你要使用的内功。\n");
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：exert|yun <功能名称> [<施用对象>]
 
@@ -57,6 +51,6 @@ int help (object me)
 注：如果你改变自己的内功，你原本蓄积的内力并不能直接转换过去，必须
     从０开始。
 
-HELP );
+HELP);
     return 1;
 }

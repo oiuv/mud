@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("乌夷老祭司", ({ "lao jisi", "lao", "jisi" }));
     set("gender", "男性");
     set("age", random(10) + 60);
@@ -29,11 +28,10 @@ void create()
     set("jiali", 10);
 
     setup();
-    carry_object(__DIR__"obj/wdahui")->wear();
+    carry_object(__DIR__ "obj/wdahui")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
     ::init();
     if (interactive(ob = this_player()) &&

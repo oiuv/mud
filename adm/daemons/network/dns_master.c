@@ -116,29 +116,25 @@ void resolve_callback(string address, string my_ip, int key);
 int query_udp_port() { return my_port; }
 
 // this function binds our listening socket, and requests a mudlist
-int startup_udp()
-{
+int startup_udp() {
     int err_no;
 
     if (socket_id)
         return 0;
 
     socket_id = socket_create(DATAGRAM, "read_callback", "close_callback");
-    if (socket_id < 0)
-    {
+    if (socket_id < 0) {
         log("Failed to acquire socket.\n");
         return 0;
     }
 
     err_no = socket_bind(socket_id, query_udp_port());
-    while (err_no == EEADDRINUSE)
-    {
+    while (err_no == EEADDRINUSE) {
         my_port++;
         err_no = socket_bind(socket_id, query_udp_port());
     }
 
-    if (err_no <= 0)
-    {
+    if (err_no <= 0) {
         log(sprintf("Failed to bind socket of UDP services, error = %d.\n", err_no));
         socket_close(socket_id);
         return 0;
@@ -148,16 +144,15 @@ int startup_udp()
 }
 
 // this is the function used by the udp slave daemons to send packets
-void send_udp(string host, int port, mixed msg)
-{
+void send_udp(string host, int port, mixed msg) {
     int sock;
 
     // 不給自己發送資料
     if (host == this_host["HOSTADDRESS"] && port == my_port) return;
 
 #if 0
-    if (! ACCESS_CHECK(previous_object()) &&
-            file_name(previous_object())[0..strlen(AUX_PATH) - 1] != AUX_PATH)
+    if (!ACCESS_CHECK(previous_object()) &&
+        file_name(previous_object())[0..strlen(AUX_PATH) - 1] != AUX_PATH)
         return;
 #endif
 
@@ -167,18 +162,14 @@ void send_udp(string host, int port, mixed msg)
     // debug_message("DNS: Sending " + msg + "To " + host + ":" + port);
 
     sock = socket_create(DATAGRAM_BINARY, "read_callback", "close_callback");
-    if (sock <= 0)
-    {
+    if (sock <= 0) {
         log("Failed to open socket to " + host + " " + port + "\n");
         return;
     }
     // 为兼容FluffOS v2017，统一使用GBK或BIG5编码发送数据
-    if (strsrch(env("BIG5")||"", host) > 0)
-    {
+    if (strsrch(env("BIG5") || "", host) > 0) {
         msg = string_encode(msg, "BIG5");
-    }
-    else
-    {
+    } else {
         msg = string_encode(msg, "GBK");
     }
     socket_bind(sock, 0);
@@ -189,43 +180,34 @@ void send_udp(string host, int port, mixed msg)
 // this is called when we receive a udp packet.  We determine which
 // service the packet is for, and send it to the auxiliary daemon of
 // that name
-void read_callback(int sock, mixed msg, string addr)
-{
+void read_callback(int sock, mixed msg, string addr) {
     string func, rest, *bits, name, arg, port;
     mapping args;
     int i;
 
-    if (bufferp(msg))
-    {
+    if (bufferp(msg)) {
         // 默认GBK转UTF8
         msg = string_decode(msg, "gbk");
-        if (strsrch(upper_case(msg), "BIG5") > 0)
-        {
+        if (strsrch(upper_case(msg), "BIG5") > 0) {
             // 重新轉碼
             msg = string_encode(msg, "gbk");
             msg = string_decode(msg, "big5");
         }
     }
 
-    if (msg == "ping")
-    {
+    if (msg == "ping") {
         // debug_message(msg + " from " + addr);
         socket_write(sock, "你好，你的通信地址为：" + addr, addr);
         return;
-    }
-    else if (msg == "mudlist")
-    {
+    } else if (msg == "mudlist") {
         string key;
         mapping value;
         // debug_message(msg + " from " + addr);
-        foreach(key, value in query_muds())
-        {
+        foreach (key, value in query_muds()) {
             socket_write(sock, json_encode(value), addr);
         }
         return;
-    }
-    else if (to_int(msg))
-    {
+    } else if (to_int(msg)) {
         string str = repeat_string("*", to_int(msg));
         socket_write(sock, "sizeof(msg) = " + sizeof(str), addr);
         socket_write(sock, str, addr);
@@ -236,13 +218,16 @@ void read_callback(int sock, mixed msg, string addr)
     sscanf(addr, "%s %s", addr, port);
 
 #ifdef DEBUG
-    CHANNEL_D->do_channel(this_object(), "debug", sprintf("receive %s from %s", msg, addr + ":" + port));
+    CHANNEL_D->do_channel(
+        this_object(),
+        "debug",
+        sprintf("receive %s from %s", msg, addr + ":" + port)
+    );
 #endif
     // debug_message("DNS: Got " + msg + "From " + addr);
 
     // get the function from the packet
-    if (sscanf(msg, "@@@%s||%s@@@%*s", func, rest) != 3)
-    {
+    if (sscanf(msg, "@@@%s||%s@@@%*s", func, rest) != 3) {
         if (sscanf(msg, "@@@%s@@@%*s", func) != 2)
             return;
         rest = "";
@@ -287,8 +272,7 @@ void read_callback(int sock, mixed msg, string addr)
         muds[args["ALIAS"]][DNS_NO_CONTACT] = 0;
 
     // we now execute the function we have received
-    if (file_size(AUX_PATH + func + ".c") > 0)
-    {
+    if (file_size(AUX_PATH + func + ".c") > 0) {
         (AUX_PATH + func)->incoming_request(args);
     }
 }
@@ -297,8 +281,7 @@ void read_callback(int sock, mixed msg, string addr)
 string query_mud_name() { return INTERMUD_MUD_NAME; }
 
 // this is called when we want to shut the mud down
-void send_shutdown()
-{
+void send_shutdown() {
     string *mud_names;
     int i;
 
@@ -310,21 +293,20 @@ void send_shutdown()
     i = sizeof(mud_names);
     while (i--)
         SHUTDOWN->send_shutdown(muds[mud_names[i]]["HOSTADDRESS"],
-                                muds[mud_names[i]]["PORTUDP"]);
+            muds[mud_names[i]]["PORTUDP"]);
     socket_close(socket_id);
     CHANNEL_D->do_channel(this_object(), "sys", "送出 shutdown 讯息。\n");
 }
 
-string start_message()
-{
+string start_message() {
     return sprintf("||NAME:%s||VERSION:%s||MUDNAME:%s||DRIVER:%s||USERS:%d"
-                   "||MUDLIB:%s||HOST:%s||PORT:%O||ENCODING:%s||MUDGROUP:%s"
-                   "||PORTUDP:%d||TIME:%s||LOCATION:%s||UPTIME:%d",
-                   Mud_name(), MUDLIB_VERSION, LOCAL_MUD_NAME(), MUD_DRIVER,
-                   sizeof(filter_array(users(), (: !wizardp($1) || !$1->query("env/invisible") :))),
-                   MUDLIB_NAME, query_host_name(),
-                   mud_port(), MUD_ENCODING,"Chinese MUD Group",
-                   query_udp_port(), ctime(time()), CONFIG_D->query_string("zone"), uptime());
+        "||MUDLIB:%s||HOST:%s||PORT:%O||ENCODING:%s||MUDGROUP:%s"
+        "||PORTUDP:%d||TIME:%s||LOCATION:%s||UPTIME:%d",
+        Mud_name(), MUDLIB_VERSION, LOCAL_MUD_NAME(), MUD_DRIVER,
+        sizeof(filter_array(users(), (: !wizardp($1) || !$1->query("env/invisible") :))),
+        MUDLIB_NAME, query_host_name(),
+        mud_port(), MUD_ENCODING, "Chinese MUD Group",
+        query_udp_port(), ctime(time()), CONFIG_D->query_string("zone"), uptime());
 }
 
 //    ----------------------------------------------------------------------------
@@ -337,16 +319,14 @@ string start_message()
 // until it gets a reply.  If it does switch to the backup server it
 // doesn't bother checking for the main server, as this would chew cpu
 // with no real advantage.
-void init_database()
-{
+void init_database() {
     int i;
     string message, *list;
     string boot_addr;
     int boot_port;
 
     // if we have received any muds then we stop starting up.
-    if (MUDLIST_A->query_db_flag())
-    {
+    if (MUDLIST_A->query_db_flag()) {
         // start call outs - note we do the sequence clean up
         // a bit early because of the number of muds we query
         // when we first start up.
@@ -362,8 +342,7 @@ void init_database()
     list = list_nodes;
     i = sizeof(list);
 
-    while (i--)
-    {
+    while (i--) {
         if (sscanf(list[i], "%s %d", boot_addr, boot_port) != 2)
             continue;
 
@@ -377,8 +356,7 @@ void init_database()
 
 // This periodic function queries the boot server for its current list
 // of muds
-void refresh_database()
-{
+void refresh_database() {
     int i;
     string *list;
     string boot_addr;
@@ -391,8 +369,7 @@ void refresh_database()
     list = list_nodes;
     i = sizeof(list);
 
-    while (i--)
-    {
+    while (i--) {
         if (sscanf(list[i], "%s %d", boot_addr, boot_port) != 2)
             continue;
 
@@ -402,8 +379,7 @@ void refresh_database()
 
 // this periodic function pings all the muds on our list.  It keeps them
 // alive in our database, and keeps us alive in theirs
-void do_pings()
-{
+void do_pings() {
     int i;
     string *mud_names;
 
@@ -415,8 +391,7 @@ void do_pings()
 
     mud_names = keys(muds);
     i = sizeof(mud_names);
-    while (i--)
-    {
+    while (i--) {
         // a nosave mud
         if (undefinedp(mud_svc[mud_names[i]]))
             continue;
@@ -427,7 +402,7 @@ void do_pings()
 
         // ping the mud
         PING_Q->send_ping_q(muds[mud_names[i]]["HOSTADDRESS"],
-                            muds[mud_names[i]]["PORTUDP"]);
+            muds[mud_names[i]]["PORTUDP"]);
 
         // delete it if is hasn 't answered recently enough
         if (muds[mud_names[i]][DNS_NO_CONTACT] >= MAX_RETRYS)
@@ -437,18 +412,17 @@ void do_pings()
 
 // adds a mud to the 'muds' mapping.  if it is a new entry then it may
 // also query the muds services
-void set_mud_info(string name, mapping junk)
-{
+void set_mud_info(string name, mapping junk) {
     string tcp;
 
     if (!(ACCESS_CHECK(previous_object())) &&
-        file_name(previous_object())[0..strlen(AUX_PATH)-1] != AUX_PATH)
+        file_name(previous_object())[0..strlen(AUX_PATH) - 1] != AUX_PATH)
         return;
 
     name = htonn(name);
 
     while (name[strlen(name) - 1] == '.')
-        name = name[0..strlen(name)-2];
+        name = name[0..strlen(name) - 2];
 
     // already know about ourselves
     if (name == Mud_name())
@@ -458,8 +432,7 @@ void set_mud_info(string name, mapping junk)
 
     // determines whether or not we send the service queries out
     // to the new mud
-    if (!undefinedp(mud_svc[name]))
-    {
+    if (!undefinedp(mud_svc[name])) {
         muds[name] = junk;
         return;
     }
@@ -475,45 +448,44 @@ void set_mud_info(string name, mapping junk)
     muds[name] = junk;
 
     tcp = junk["TCP"];
-    switch (tcp)
-    {
-    case TCP_ALL:
-        mud_svc[name] = ([
-               "mail":SVC_TCP,
-             "finger":SVC_TCP | SVC_UDP | SVC_KNOWN,
-               "tell":SVC_TCP | SVC_UDP | SVC_KNOWN,
-             "rwho_q":SVC_UDP,
-            "gwizmsg":SVC_UDP,
-        ]);
-        break;
-    case TCP_ONLY:
-        mud_svc[name] = ([
-               "mail":SVC_TCP | SVC_NO_UDP | SVC_KNOWN,
-             "finger":SVC_TCP | SVC_NO_UDP | SVC_KNOWN,
-               "tell":SVC_TCP | SVC_NO_UDP | SVC_KNOWN,
-             "rwho_q":SVC_NO_UDP,
-            "gwizmsg":SVC_NO_UDP,
-        ]);
-        break;
-    case TCP_SOME:
-        mud_svc[name] = ([
-               "mail":SVC_UNKNOWN,
-             "finger":SVC_UDP,
-               "tell":SVC_UDP,
-             "rwho_q":SVC_UDP,
-            "gwizmsg":SVC_UDP,
-        ]);
-        break;
-    default: // TCP_NONE
-        mud_svc[name] = ([
-               "mail":SVC_NO_TCP,
-             "finger":SVC_NO_TCP | SVC_UDP | SVC_KNOWN,
-               "tell":SVC_NO_TCP | SVC_UDP | SVC_KNOWN,
-             "rwho_q":SVC_NO_TCP | SVC_UDP | SVC_KNOWN,
-            "gwizmsg":SVC_NO_TCP | SVC_UDP | SVC_KNOWN,
-        ]);
-        break;
-    } // switch (tcp)
+    switch (tcp) {
+        case TCP_ALL:
+            mud_svc[name] = ([
+                "mail": SVC_TCP,
+                "finger": SVC_TCP | SVC_UDP | SVC_KNOWN,
+                "tell": SVC_TCP | SVC_UDP | SVC_KNOWN,
+                "rwho_q": SVC_UDP,
+                "gwizmsg": SVC_UDP,
+            ]);
+            break;
+        case TCP_ONLY:
+            mud_svc[name] = ([
+                "mail": SVC_TCP | SVC_NO_UDP | SVC_KNOWN,
+                "finger": SVC_TCP | SVC_NO_UDP | SVC_KNOWN,
+                "tell": SVC_TCP | SVC_NO_UDP | SVC_KNOWN,
+                "rwho_q": SVC_NO_UDP,
+                "gwizmsg": SVC_NO_UDP,
+            ]);
+            break;
+        case TCP_SOME:
+            mud_svc[name] = ([
+                "mail": SVC_UNKNOWN,
+                "finger": SVC_UDP,
+                "tell": SVC_UDP,
+                "rwho_q": SVC_UDP,
+                "gwizmsg": SVC_UDP,
+            ]);
+            break;
+        default:  // TCP_NONE
+            mud_svc[name] = ([
+                "mail": SVC_NO_TCP,
+                "finger": SVC_NO_TCP | SVC_UDP | SVC_KNOWN,
+                "tell": SVC_NO_TCP | SVC_UDP | SVC_KNOWN,
+                "rwho_q": SVC_NO_TCP | SVC_UDP | SVC_KNOWN,
+                "gwizmsg": SVC_NO_TCP | SVC_UDP | SVC_KNOWN,
+            ]);
+            break;
+    }  // switch (tcp)
 
     // handle service information
     if (tcp != TCP_ONLY)
@@ -521,8 +493,7 @@ void set_mud_info(string name, mapping junk)
 }
 
 // deletes an entry for a mud
-void zap_mud_info(string name, mapping junk)
-{
+void zap_mud_info(string name, mapping junk) {
     // check permissions
     if (previous_object() &&
         !ACCESS_CHECK(previous_object()))
@@ -536,8 +507,7 @@ void zap_mud_info(string name, mapping junk)
 }
 
 // This is called when we get a service response from the other end
-void support_q_callback(mapping info)
-{
+void support_q_callback(mapping info) {
     string cmd;
     string mud;
 
@@ -561,67 +531,57 @@ void support_q_callback(mapping info)
         mud_svc[mud] = ([]);
 
     if (!info["SUPPORTED"] && !info["NOTSUPPORTED"])
-        return; // mesed up packet
+        return;  // mesed up packet
 
-    if (info["CMD"] == "tcp")
-    {
-        cmd = info["PARAM"];
+        if (info["CMD"] == "tcp") {
+            cmd = info["PARAM"];
 
-        // if udp is known then we know the whole status
-        if (mud_svc[mud][cmd] & (SVC_UDP | SVC_NO_UDP))
-            mud_svc[mud][cmd] |= SVC_KNOWN;
+            // if udp is known then we know the whole status
+            if (mud_svc[mud][cmd] & (SVC_UDP | SVC_NO_UDP))
+                mud_svc[mud][cmd] |= SVC_KNOWN;
 
-        if (info["SUPPORTED"])
-        {
-            mud_svc[mud][cmd] |= SVC_TCP;
-            mud_svc[mud][cmd] &= ~SVC_NO_TCP;
-        }
-        else
-        {
-            mud_svc[mud][cmd] |= SVC_NO_TCP;
-            mud_svc[mud][cmd] &= ~SVC_TCP;
+            if (info["SUPPORTED"]) {
+                mud_svc[mud][cmd] |= SVC_TCP;
+                mud_svc[mud][cmd] &= ~SVC_NO_TCP;
+            } else {
+                mud_svc[mud][cmd] |= SVC_NO_TCP;
+                mud_svc[mud][cmd] &= ~SVC_TCP;
 
-            // if they don't support something tcp, we check udp
-            if (!(mud_svc[mud][cmd] & SVC_KNOWN))
-                SUPPORT_Q->send_support_q(muds[mud]["HOSTADDRESS"],
-                                          muds[mud]["PORTUDP"], info["PARAM"]);
-        }
-    } // if (info["CMD"] == "tcp")
-    else
-    {
+                // if they don't support something tcp, we check udp
+                if (!(mud_svc[mud][cmd] & SVC_KNOWN))
+                    SUPPORT_Q->send_support_q(muds[mud]["HOSTADDRESS"],
+                        muds[mud]["PORTUDP"], info["PARAM"]);
+            }
+        }  // if (info["CMD"] == "tcp")
+    else {
         cmd = info["CMD"];
 
         // if tcp is known then we know the whole status
         if (mud_svc[mud][cmd] & (SVC_TCP | SVC_NO_TCP))
             mud_svc[mud][cmd] |= SVC_KNOWN;
 
-        if (info["SUPPORTED"])
-        {
+        if (info["SUPPORTED"]) {
             mud_svc[mud][cmd] |= SVC_UDP;
             mud_svc[mud][cmd] &= ~SVC_NO_UDP;
-        }
-        else
-        {
+        } else {
             mud_svc[mud][cmd] |= SVC_NO_UDP;
             mud_svc[mud][cmd] &= ~SVC_UDP;
 
             // if they don't support something udp, we check tcp
             if (!(mud_svc[mud][cmd] & SVC_KNOWN))
                 SUPPORT_Q->send_support_q(muds[mud]["HOSTADDRESS"],
-                                          muds[mud]["PORTUDP"], "tcp", info["CMD"]);
+                    muds[mud]["PORTUDP"], "tcp", info["CMD"]);
         }
-    } // if (info["CMD"] == "tcp")
+    }  // if (info["CMD"] == "tcp")
 
     return;
 }
 
 // This queries a mud just added to the database for its supported services
 // What is queries for is dependant on config.h
-private void query_services(string mud, string address, string port, string tcp)
-{
+private void query_services(string mud, string address, string port, string tcp) {
 #ifdef PREF_MAIL
-    if (!(mud_svc[mud]["mail"] & SVC_KNOWN))
-    {
+    if (!(mud_svc[mud]["mail"] & SVC_KNOWN)) {
 #if PREF_MAIL & SVC_TCP
         if (tcp == TCP_SOME && !(mud_svc[mud]["mail"] & (SVC_TCP | SVC_NO_TCP)))
             SUPPORT_Q->send_support_q(address, port, "tcp", "mail");
@@ -633,8 +593,7 @@ private void query_services(string mud, string address, string port, string tcp)
 #endif // PREF_MAIL
 
 #ifdef PREF_FINGER
-    if (!(mud_svc[mud]["finger"] & SVC_KNOWN))
-    {
+    if (!(mud_svc[mud]["finger"] & SVC_KNOWN)) {
 #if PREF_FINGER & SVC_TCP
         if (tcp == TCP_SOME && !(mud_svc[mud]["finger"] & (SVC_TCP | SVC_NO_TCP)))
             SUPPORT_Q->send_support_q(address, port, "tcp", "finger");
@@ -643,8 +602,7 @@ private void query_services(string mud, string address, string port, string tcp)
 #endif // PREF_FINGER
 
 #ifdef PREF_TELL
-    if (!(mud_svc[mud]["tell"] & SVC_KNOWN))
-    {
+    if (!(mud_svc[mud]["tell"] & SVC_KNOWN)) {
 #if PREF_TELL & SVC_TCP
         if (tcp == TCP_SOME && !(mud_svc[mud]["tell"] & (SVC_TCP | SVC_NO_TCP)))
             SUPPORT_Q->send_support_q(address, port, "tcp", "tell");
@@ -660,8 +618,7 @@ private void query_services(string mud, string address, string port, string tcp)
  */
 // this is used by the internet communication front ends.  It return
 // flags representing whether a service is supported or not.
-int query_service_method(string mud, string service)
-{
+int query_service_method(string mud, string service) {
     mud = htonn(mud);
 
     // do we know about the mud
@@ -673,26 +630,23 @@ int query_service_method(string mud, string service)
         return SVC_TCP | SVC_NO_UDP | SVC_KNOWN;
 
     // if we have an entry for the mud, do we know what the service is ?
-    if (undefinedp(mud_svc[mud][service]))
-    {
+    if (undefinedp(mud_svc[mud][service])) {
         // if it is a standard service we try to find out
         if (member_array(service, STD_SERVICE) != -1)
             query_services(mud, muds[mud]["HOSTADDRESS"], muds[mud]["PORTUDP"],
-                           muds[mud]["TCP"]);
+                muds[mud]["TCP"]);
         return SVC_UNKNOWN;
     }
 
     return mud_svc[mud][service];
 }
 
-mapping query_svc_entry(string mud)
-{
+mapping query_svc_entry(string mud) {
     // if (ACCESS_CHECK(previous_object()))
     return mud_svc[mud];
 }
 
-string get_host_name(string name)
-{
+string get_host_name(string name) {
     name = htonn(name);
 
     if (name == mud_nname())
@@ -704,18 +658,16 @@ string get_host_name(string name)
     return muds[name]["HOSTADDRESS"];
 }
 
-mapping current_mud_info()
-{
+mapping current_mud_info() {
     mapping m;
     int n;
 
     n = sizeof(filter_array(users(), (: !wizardp($1) || !$1->query("env/invisible") :)));
-    m = this_host + (["TIME":ctime(time()), "USERS":sprintf("%d", n)]);
+    m = this_host + ([ "TIME": ctime(time()), "USERS": sprintf("%d", n) ]);
     return m;
 }
 
-mapping query_mud_info(string name)
-{
+mapping query_mud_info(string name) {
     name = htonn(name);
     if (name == mud_nname())
         return current_mud_info();
@@ -723,22 +675,19 @@ mapping query_mud_info(string name)
 }
 
 // this returns '1' if the mud is in the dns, or if it is us
-int dns_mudp(string name)
-{
+int dns_mudp(string name) {
     name = htonn(name);
     return undefinedp(mud_svc[name]) ? (name == mud_nname() ? 1 : 0) : 1;
 }
 
 // returns all the muds in the databases
-mapping query_muds()
-{
+mapping query_muds() {
     // if (ACCESS_CHECK(previous_object()))
-    return muds + ([mud_nname():current_mud_info()]);
+    return muds + ([ mud_nname(): current_mud_info() ]);
 }
 
 // returns the services mapping
-mapping query_svc()
-{
+mapping query_svc() {
     // if (ACCESS_CHECK(previous_object()))
     return mud_svc;
 }
@@ -751,20 +700,18 @@ mapping query_svc()
 // ----------------------------------------------------------------------------
 
 // register a function in the sequencer
-varargs int idx_request(function f)
-{
-    if (file_name(previous_object())[0..strlen(AUX_PATH)-1] != AUX_PATH)
+varargs int idx_request(function f) {
+    if (file_name(previous_object())[0..strlen(AUX_PATH) - 1] != AUX_PATH)
         return 0;
 
     seq_ctr++;
-    seq_entries[seq_ctr] = ({geteuid(previous_object()), f, time()});
+    seq_entries[seq_ctr] = ({ geteuid(previous_object()), f, time() });
 
     return seq_ctr;
 }
 
 // call a function in the sequencer
-void idx_callback(int idx, mixed param)
-{
+void idx_callback(int idx, mixed param) {
     mixed *entry;
 
     if (!ACCESS_CHECK(previous_object()))
@@ -777,13 +724,12 @@ void idx_callback(int idx, mixed param)
     map_delete(seq_entries, idx);
 
     seteuid(entry[0]);
-    (*entry[1])(param);
+    (* entry[1])(param);
     restore_euid();
 }
 
 // remove timed out entries
-void sequence_clean_up()
-{
+void sequence_clean_up() {
     int i, now;
     int *indexes;
 
@@ -795,10 +741,9 @@ void sequence_clean_up()
     i = sizeof(indexes);
 
     while (i--)
-        if (now - seq_entries[indexes[i]][2] > SERVICE_TIMEOUT)
-        {
+        if (now - seq_entries[indexes[i]][2] > SERVICE_TIMEOUT) {
             seteuid(seq_entries[indexes[i]][0]);
-            (*seq_entries[indexes[i]][1])(0);
+            (* seq_entries[indexes[i]][1])(0);
             restore_euid();
             map_delete(seq_entries, indexes[i]);
         }
@@ -810,29 +755,24 @@ void sequence_clean_up()
  * general debugging stuff
  */
 #ifdef DEBUG
-void dump_sequencer()
-{
+void dump_sequencer() {
     printf("counter: %d\n\n%O\n", seq_ctr, seq_entries);
 }
 
-void dump_svc()
-{
+void dump_svc() {
     printf("%O\n", mud_svc);
 }
 
-void dump_mud_keys()
-{
+void dump_mud_keys() {
     printf("%O\n", keys(muds));
 }
 
-void dump_svc_keys()
-{
+void dump_svc_keys() {
     printf("%O\n", keys(mud_svc));
 }
 
-void set_monitor(object ob)
-{
-/*
+void set_monitor(object ob) {
+    /*
     string euid;
     euid = geteuid(previous_object());
     if (!euid || !member_group(euid, "admin") && !member_group(euid, "socket"))
@@ -841,8 +781,7 @@ void set_monitor(object ob)
     monitor = ob;
 }
 
-object query_monitor()
-{
+object query_monitor() {
     return monitor;
 }
 #endif // DEBUG
@@ -851,15 +790,13 @@ object query_monitor()
  * some misc functions
  */
 // Not really used yet
-private void restore_euid()
-{
+private void restore_euid() {
     seteuid(ROOT_UID);
 }
 
 // Logging functions
 // This one is for log entries from the auxiliaries
-void aux_log(string file, string entry)
-{
+void aux_log(string file, string entry) {
     if (!ACCESS_CHECK(previous_object()))
         return;
 
@@ -868,22 +805,19 @@ void aux_log(string file, string entry)
 }
 
 // This one is for warnings from the auxiliaries
-void aux_warning(string warning)
-{
+void aux_warning(string warning) {
     if (!ACCESS_CHECK(previous_object()))
         return;
     log("dns_warning: " + warning);
 }
 
 // This is for internal use
-private void log(string entry)
-{
+private void log(string entry) {
     log_file(MY_LOG_FILE, sprintf("%s: %s\n", ctime(time()), entry));
 }
 
 // Used to find the ip number of the host we are on
-void resolve_callback(string address, string my_ip, int key)
-{
+void resolve_callback(string address, string my_ip, int key) {
     //if (! my_ip) my_ip = "LOCALHOST";
     if (!my_ip)
         my_ip = address;
@@ -893,14 +827,13 @@ void resolve_callback(string address, string my_ip, int key)
 // ----------------------------------------------------------------------------
 // This starts us all off
 // ----------------------------------------------------------------------------
-void create()
-{
+void create() {
     restore_euid();
 
     set("channel_id", "网络精灵");
 
     // find out which port we are on
-    my_port = mud_port() + 1; // 默认UDP端口为游戏端口+1
+    my_port = mud_port() + 1;  // 默认UDP端口为游戏端口+1
 
     // initialise global mud info variables
     muds = allocate_mapping(MUDS_ALLOC);
@@ -915,37 +848,37 @@ void create()
 
     // set up our own info
     this_host = ([
-               "NAME":Mud_name(),
-              "ALIAS":Mud_name(),
-             "MUDLIB":MUDLIB_NAME,
-            "MUDNAME":"" + LOCAL_MUD_NAME(),
-            "VERSION":MUDLIB_VERSION,
-               "HOST":query_host_name(),
-        "HOSTADDRESS":0, // set in resolve_callback()
-               "PORT":"" + mud_port(),
-            "PORTUDP":"" + query_udp_port(),
-               "TIME":ctime(time()),
-             "DRIVER":MUD_DRIVER,
-           "LOCATION":CONFIG_D->query_string("zone"),
-             "UPTIME":sprintf("%d", uptime()),
+        "NAME": Mud_name(),
+        "ALIAS": Mud_name(),
+        "MUDLIB": MUDLIB_NAME,
+        "MUDNAME": "" + LOCAL_MUD_NAME(),
+        "VERSION": MUDLIB_VERSION,
+        "HOST": query_host_name(),
+        "HOSTADDRESS": 0,  // set in resolve_callback()
+        "PORT": "" + mud_port(),
+        "PORTUDP": "" + query_udp_port(),
+        "TIME": ctime(time()),
+        "DRIVER": MUD_DRIVER,
+        "LOCATION": CONFIG_D->query_string("zone"),
+        "UPTIME": sprintf("%d", uptime()),
     ]);
     // debug_message(sprintf("%O", this_host));
     // 设置list_nodes
     list_nodes = ({});
     if (stringp(MUDLIST_DNS1))
-        list_nodes += ({MUDLIST_DNS1});
+        list_nodes += ({ MUDLIST_DNS1 });
 
     if (stringp(MUDLIST_DNS2))
-        list_nodes += ({MUDLIST_DNS2});
+        list_nodes += ({ MUDLIST_DNS2 });
 
     if (stringp(MUDLIST_DNS3))
-        list_nodes += ({MUDLIST_DNS3});
+        list_nodes += ({ MUDLIST_DNS3 });
 
     if (stringp(MUDLIST_DNS4))
-        list_nodes += ({MUDLIST_DNS4});
+        list_nodes += ({ MUDLIST_DNS4 });
 
     if (stringp(MUDLIST_DNS5))
-        list_nodes += ({MUDLIST_DNS5});
+        list_nodes += ({ MUDLIST_DNS5 });
 
     resolve(query_host_name(), "resolve_callback");
 
@@ -955,7 +888,6 @@ void create()
     CHANNEL_D->do_channel(this_object(), "sys", "MUD 互联核心 DNS_MASTER 已经启动。 \n");
 }
 
-void remove()
-{
+void remove() {
     send_shutdown();
 }

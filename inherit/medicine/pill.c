@@ -1,4 +1,3 @@
 //pill.c
- 
-inherit COMBINED_ITEM;
 
+inherit COMBINED_ITEM;

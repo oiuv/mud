@@ -6,9 +6,8 @@ inherit ITEM;
 
 void remove();
 
-void create()
-{
-    set_name(YEL "神魂引踪香" NOR, ({"yinzong xiang", "shenhun xiang", "xiang"}));
+void create() {
+    set_name(YEL "神魂引踪香" NOR, ({ "yinzong xiang", "shenhun xiang", "xiang" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -19,15 +18,14 @@ void create()
 
 此香蕴含精纯的神魂之力，可用于感应天地间生灵的魂魄波动。");
         set("value", 10000);
-        set("base_value", 10000); // 基础价值
-        set("material", "incense"); // 材料类型
+        set("base_value", 10000);  // 基础价值
+        set("material", "incense");  // 材料类型
     }
     setup();
 }
 
 // 追踪目标
-object find_room()
-{
+object find_room() {
     object me = this_player(), npc, room;
     mapping quest = me->query("quest");
 
@@ -38,14 +36,12 @@ object find_room()
     }
     npc = find_living(quest["id"]);
     // 任务过期
-    if (!npc)
-    {
+    if (!npc) {
         tell_object(me, HIC "你的任务目标早就无影无踪了，还是想想其它办法吧。\n" NOR);
         return 0;
     }
 
-    if (clonep())
-    {
+    if (clonep()) {
         message_vision(HIW "$N" HIW "手中掐诀，一缕真元注入$n" HIW "中！\n" NOR, me, this_object());
         tell_object(me, HIC "线香顶端突然亮起一点银光，香烟袅袅升起，在空中形成奇异的纹路...\n" NOR);
         tell_object(me, HIM "借助师门任务的因果之力和引踪香中的神魂之力，你与目标之间建立了一丝微妙的联系！\n" NOR);
@@ -59,6 +55,4 @@ object find_room()
 }
 
 // 道具销毁时的特殊效果
-void remove(object ob)
-{
-}
+void remove(object ob) {}

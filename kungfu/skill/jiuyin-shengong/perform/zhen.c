@@ -5,8 +5,7 @@ inherit F_SSERVER;
 
 #define DUO "「" HIC "真·天诛龙蛟诀" NOR "」"
 
-int perform(object me, object target)
-{
+int perform(object me, object target) {
     object weapon;
     string msg;
     int ap, dp;
@@ -40,26 +39,25 @@ int perform(object me, object target)
     if (!living(target))
         return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-    msg = HIW "$N" HIW "诡异的一笑，手中" + weapon->name() +
-          HIW "犹如一条银龙猛然飞向$n" HIW "，正是九阴真经中的"
-              "绝招「" HIC "真·天诛龙蛟诀" HIW "」！\n" NOR;
+    msg = HIW "$N" HIW "诡异的一笑，手中" + weapon->name() + HIW "犹如一条银龙猛然飞向$n" HIW "，正是九阴真经中的"
+        "绝招「" HIC "真·天诛龙蛟诀" HIW "」！\n" NOR;
 
     ap = me->query_skill("whip") + me->query_skill("force") + me->query_skill("martial-cognize", 1);
-    dp = target->query_skill("force") + target->query_skill("parry") + target->query_skill("martial-cognize", 1);
+    dp = target->query_skill("force") + target->query_skill("parry") + target->query_skill(
+        "martial-cognize",
+        1
+    );
 
-    if (ap * 11 / 20 + random(ap) > dp)
-    {
+    if (ap * 11 / 20 + random(ap) > dp) {
         damage = ap + random(ap / 2);
         me->add("neili", -300);
         me->start_busy(2);
 
         msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 100,
-                                   HIR "结果$n" HIR "一声惨叫，未能看破$N" HIR "的企图，被这一鞭硬击在胸口，鲜血飞"
-                                       "溅，皮肉绽开！\n" NOR);
+            HIR "结果$n" HIR "一声惨叫，未能看破$N" HIR "的企图，被这一鞭硬击在胸口，鲜血飞"
+            "溅，皮肉绽开！\n" NOR);
         message_combatd(msg, me, target);
-    }
-    else
-    {
+    } else {
         me->add("neili", -100);
         me->start_busy(3);
         msg += CYN "可是$p" CYN "飞身一跃而起，躲避开了" CYN "$P" CYN "的攻击！\n" NOR;

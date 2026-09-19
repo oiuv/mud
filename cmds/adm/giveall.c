@@ -3,8 +3,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     int count, num = 0;
     string target, gift_file, str;
@@ -14,7 +13,7 @@ int main(object me, string arg)
 
     if (!arg)
         return notify_fail("派送礼物给经验超过5万的在线玩家。\n\n"
-                           "命令格式： gift </路径/目标文件名> [数量]\n\n");
+            "命令格式： gift </路径/目标文件名> [数量]\n\n");
 
     if (sscanf(arg, "%s %d", target, count) != 2)
         target = arg;
@@ -28,14 +27,12 @@ int main(object me, string arg)
 
     seteuid(getuid());
 
-    foreach (object player in users())
-    {
-        ob = new (target);
+    foreach (object player in users()) {
+        ob = new(target);
 
         if (count > 1 && ob->query("base_unit"))
             ob->set_amount(count);
-        if (player->query("combat_exp") > 50000)
-        {
+        if (player->query("combat_exp") > 50000) {
             num++;
             ob->move(player);
             tell_object(player, HIW "\n\n忽然从极高极远的天空中极速降下一只浑身烈焰的" HIR "火凤" HIW "，周身闪耀七彩光芒。\n" NOR);
@@ -49,8 +46,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：giveall 礼品路径 [数量]
 

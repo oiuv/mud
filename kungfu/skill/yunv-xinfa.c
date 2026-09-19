@@ -1,26 +1,22 @@
 #include <ansi.h>
 inherit FORCE;
 
-int valid_enable(string usage)
-{
+int valid_enable(string usage) {
     return usage == "force";
 }
 
-int valid_force(string force)
-{
+int valid_force(string force) {
     return force == "suxin-jue" || force == "quanzhen-xinfa";
 }
 
-int query_neili_improve(object me)
-{
+int query_neili_improve(object me) {
     int lvl;
 
     lvl = (int)me->query_skill("yunv-xinjing", 1);
     return lvl * lvl * 15 * 16 / 100 / 200;
 }
 
-int valid_learn(object me)
-{
+int valid_learn(object me) {
     if (me->query("gender") == "无性")
         return notify_fail("你无根无性，阴阳难调，不能修习玉女心经。\n");
 
@@ -36,8 +32,7 @@ int valid_learn(object me)
     return ::valid_learn(me);
 }
 
-mixed hit_ob(object me, object victim, int damage_bonus, int factor)
-{
+mixed hit_ob(object me, object victim, int damage_bonus, int factor) {
     int lvl;
     string wn;
     object weapon;
@@ -49,8 +44,7 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
 
     wn = weapon->name();
 
-    if ((string)weapon->query("skill_type") == "sword" && me->query_skill_mapped("sword") == "suxin-jian")
-    {
+    if ((string)weapon->query("skill_type") == "sword" && me->query_skill_mapped("sword") == "suxin-jian") {
         me->add("neili", -50);
         damage_bonus = lvl / 5 + random(lvl / 5);
 
@@ -58,9 +52,7 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
         victim->receive_wound("qi", damage_bonus * 2 / 3, me);
 
         return HIW "$N" HIW "手中" + wn + HIW "忽的一振，将玉女心经功力运于剑端，漫出无边寒意。\n" NOR;
-    }
-    else if ((string)weapon->query("skill_type") == "whip" && me->query_skill_mapped("whip") == "yinsuo-jinling")
-    {
+    } else if ((string)weapon->query("skill_type") == "whip" && me->query_skill_mapped("whip") == "yinsuo-jinling") {
         me->add("neili", -50);
         damage_bonus = lvl / 4 + random(lvl / 4);
 
@@ -71,13 +63,11 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
     }
 }
 
-int practice_skill(object me)
-{
+int practice_skill(object me) {
     return notify_fail("玉女心经只能用学(learn)来增加熟练度。\n");
 }
 
-int difficult_level()
-{
+int difficult_level() {
     return 400;
 }
 /*

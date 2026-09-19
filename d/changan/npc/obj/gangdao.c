@@ -4,14 +4,12 @@
 
 inherit BLADE;
 
-void create()
-{
+void create() {
     set_name("钢刀", ({ "blade", "dao" }));
     set_weight(7000);
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("unit", "柄");
         set("long", "这是一柄亮晃晃的钢刀，普通官兵的常备武器。\n");
         set("value", 300);

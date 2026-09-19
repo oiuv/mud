@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "禹王庙");
     set("long", @LONG
 禹王庙为追念大禹治水功德，在吹台上建造，庙内的大禹
@@ -9,11 +8,11 @@ void create()
 发大水的，西下过去就是片树林。
 LONG);
     set("objects", ([
-          __DIR__"npc/obj/dayu" : 1,
+        __DIR__ "npc/obj/dayu": 1,
     ]));
     set("no_clean_up", 0);
     set("exits", ([
-          "westdown" : __DIR__"yuwang",
+        "westdown": __DIR__ "yuwang",
     ]));
 
     setup();

@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int max, pts;
 
     // 愤怒之心增加加怒上限
@@ -16,14 +15,13 @@ int main(object me, string arg)
 
     if (!arg || (arg != "none" && arg != "max" && arg != "half" && !sscanf(arg, "%d", pts)))
         return notify_fail("\n指令格式：pique|jianu <使出几成愤"
-                           "怒伤敌> |max|half|none \n你现在最多"
-                           "能用" HIG +
-                           chinese_number(max) + NOR "点愤怒值伤敌。\n");
+            "怒伤敌> |max|half|none \n你现在最多"
+            "能用" HIG +
+            chinese_number(max) + NOR "点愤怒值伤敌。\n");
 
     if (arg == "none")
-        me->delete ("jianu");
-    else
-    {
+        me->delete("jianu");
+    else {
         if (arg == "max")
             pts = max;
 
@@ -32,7 +30,7 @@ int main(object me, string arg)
 
         if (pts < 0)
             return notify_fail("你只能用 none 表示不用愤怒，或数字"
-                               "表示每一击用几点愤怒值。\n");
+                "表示每一击用几点愤怒值。\n");
 
         if (pts > max)
             return notify_fail("你最多只能用" HIG + chinese_number(max) + NOR "点愤怒值伤敌。\n");
@@ -43,12 +41,11 @@ int main(object me, string arg)
         write(HIC "你决定放弃使用愤怒值伤敌。\n" NOR);
     else
         write(HIR "你决定用" HIG + chinese_number(pts) +
-              HIR "点愤怒值伤敌。\n" NOR);
+            HIR "点愤怒值伤敌。\n" NOR);
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: pique|jianu <使出几点愤怒值伤敌>|max|half|none
 

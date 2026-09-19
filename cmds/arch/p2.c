@@ -8,8 +8,7 @@ inherit F_CLEAN_UP;
 
 int do_sort_players(int day);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
 
     if (!SECURITY_D->valid_grant(me, "(arch)"))
         return 0;
@@ -22,8 +21,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int do_sort_players(int day)
-{
+int do_sort_players(int day) {
     int i, j, count, fail, succ;
     string *dir, *ppls, name;
     string sdir /*, ufile*/;
@@ -37,45 +35,38 @@ int do_sort_players(int day)
     succ = 0;
     dir = get_dir(DATA_DIR + "login/");
 
-    login_ob = new ("/clone/user/login");
-    for (i = 0; i < sizeof(dir); i++)
-    {
+    login_ob = new("/clone/user/login");
+    for (i = 0; i < sizeof(dir); i++) {
         reset_eval_cost();
         write("Check: " + dir[i] + "\n");
         sdir = DATA_DIR + "login/" + dir[i] + "/";
         ppls = get_dir(sdir);
-        for (j = 0; j < sizeof(ppls); j++)
-        {
-            if (sscanf(ppls[j], "%s.o", name) == 1)
-            {
+        for (j = 0; j < sizeof(ppls); j++) {
+            if (sscanf(ppls[j], "%s.o", name) == 1) {
                 count++;
 
                 login_ob->set("id", name);
-                if (catch (login_ob->restore()))
-                {
+                if (catch(login_ob->restore())) {
                     fail++;
                     write(sprintf("Login: %s can not be loaded.\n", name));
                     continue;
                 }
 
                 user_ob = LOGIN_D->make_body(login_ob);
-                if (!objectp(user_ob))
-                {
+                if (!objectp(user_ob)) {
                     fail++;
                     write(sprintf("User: %s can not be make.\n", name));
                     continue;
                 }
 
-                if (catch (user_ob->restore()))
-                {
+                if (catch(user_ob->restore())) {
                     fail++;
                     write(sprintf("User: %s can not be loaded.\n", name));
                     destruct(user_ob);
                     continue;
                 }
 
-                if (!user_ob->query("sec_id"))
-                {
+                if (!user_ob->query("sec_id")) {
                     succ++;
                     user_ob->save();
                 }

@@ -11,10 +11,9 @@ inherit F_UNIQUE;
 int ask_mirror();
 int ask_maze();
 
-void create()
-{
+void create() {
     seteuid(getuid());
-    set_name("子虚道人", ({"zixu daoren", "zixu", "daoren"}));
+    set_name("子虚道人", ({ "zixu daoren", "zixu", "daoren" }));
     set("long", @LONG
 此人身着道袍，须发皆白，一副仙风道骨的气派，这便是武林中号称「子虚乌有」
 二道仙中的子虚道人，传说此人早已得道成仙，可通神界。
@@ -38,10 +37,10 @@ LONG);
     set("combat_exp", 12000000);
 
     set("inquiry", ([
-        "mirror" : (: ask_mirror :),
-        "宝镜" : (: ask_mirror :),
-        "乾坤宝镜" : (: ask_mirror :),
-        "心魔幻境" : (: ask_maze :),
+        "mirror": (: ask_mirror :),
+        "宝镜": (: ask_mirror :),
+        "乾坤宝镜": (: ask_mirror :),
+        "心魔幻境": (: ask_maze :),
     ]));
 
     set_skill("force", 500);
@@ -85,16 +84,15 @@ LONG);
     carry_object("/d/wudang/obj/whiterobe")->wear();
 }
 
-int ask_maze()
-{
+int ask_maze() {
 
     object me, maze;
     me = this_player();
 
     message_vision(HIG "$N盯着$n看了看，说道：“修武之人，也需修心，若不谨慎，魔由心生！\n"
-                        "贫道送你入心魔幻境，斩杀心魔，历练自我吧。”\n" NOR
-                        CYN "$N念念有词，转瞬间$n消失在大家眼前。\n" NOR,
-                    this_object(), me);
+        "贫道送你入心魔幻境，斩杀心魔，历练自我吧。”\n" NOR
+        CYN "$N念念有词，转瞬间$n消失在大家眼前。\n" NOR,
+        this_object(), me);
 
     maze = new(MAZE, 0, 0, getoid(me));
     me->move(maze);
@@ -102,8 +100,7 @@ int ask_maze()
     return 1;
 }
 
-int ask_mirror()
-{
+int ask_mirror() {
 
     object me, ob, *obj;
     int i, have;
@@ -111,10 +108,8 @@ int ask_mirror()
     have = 0;
 
     obj = all_inventory(me);
-    for (i = 0; i < sizeof(obj); i++)
-    {
-        if (base_name(obj[i]) == MIRROR)
-        {
+    for (i = 0; i < sizeof(obj); i++) {
+        if (base_name(obj[i]) == MIRROR) {
             have = 1;
         }
     }
@@ -123,27 +118,24 @@ int ask_mirror()
 
     {
         message_vision(HIG "$N对$n说道：“你身上已经有一个宝镜了，"
-                           "别贪得无厌！”\n" NOR,
-                       this_object(), me);
+            "别贪得无厌！”\n" NOR,
+            this_object(), me);
         return 1;
-    }
-    else
-    {
+    } else {
 
-        ob = new (MIRROR);
+        ob = new(MIRROR);
         ob->move(me);
 
         message_vision(HIG "$N盯着$n看了看，说道：“嗯，这个宝镜你可得慎用！\n"
-                           "好好用它锻炼锻炼你的判断力和观察力吧。”\n" NOR
-                           CYN "$N从怀里拿出一面乾坤宝镜交给$n。\n" NOR,
-                       this_object(), me);
+            "好好用它锻炼锻炼你的判断力和观察力吧。”\n" NOR
+            CYN "$N从怀里拿出一面乾坤宝镜交给$n。\n" NOR,
+            this_object(), me);
         return 1;
     }
 
     return 1;
 }
 
-void unconcious()
-{
+void unconcious() {
     die();
 }

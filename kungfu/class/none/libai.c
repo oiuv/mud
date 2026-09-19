@@ -4,9 +4,8 @@ inherit NPC;
 inherit F_DEALER;
 inherit F_QUESTER;
 
-void create()
-{
-    set_name("李白", ({ "li bai", "li", "bai"}));
+void create() {
+    set_name("李白", ({ "li bai", "li", "bai" }));
     set("long", @LONG
 这便是唐朝第一大诗人李太白，只见他须垂三尺，面如冠玉，双目炯炯有神。
 一手持青铜爵，一手持长剑，正在独饮。他的诗作《侠客行》名动江湖，现
@@ -74,8 +73,7 @@ LONG);
     set_temp("handing", carry_object("/d/sky/obj/shenjiu"));
 }
 
-void init()
-{
+void init() {
     add_action("do_list", "list");
     add_action("do_buy", "buy");
 }

@@ -4,8 +4,7 @@
 inherit NPC;
 
 
-void create()
-{
+void create() {
     set_name("护林僧兵", ({
         "seng bing",
         "seng",
@@ -57,14 +56,12 @@ void create()
 }
 
 
-void init()
-{
+void init() {
     object ob = this_player();
 
     ::init();
 
-    if (interactive(ob))
-    {
+    if (interactive(ob)) {
         remove_call_out("kill_ob");
         call_out("kill_ob", 1, ob);
     }

@@ -5,8 +5,7 @@
 
 inherit F_SSERVER;
 
-int perform(object me, object target)
-{
+int perform(object me, object target) {
     int damage;
     string msg, wn;
     object weapon;
@@ -48,57 +47,49 @@ int perform(object me, object target)
 
     wn = weapon->name();
 
-    msg = HIM "\n$N" HIM "一声怒喝，内劲暴涨，手中" + wn +
-          HIM "变幻万千，霎那间化作红黄蓝绿白五道剑光，纵"
-              "横飞扬。$P身法蓦地变快，随着剑光同时将『" HIR
-              "祝融" HIM "』、『" HIY "紫盖" HIM "』、『" NOR
-              WHT "石廪" HIM "』、『" HIG "芙蓉" HIM "』、『" HIW "天柱" HIM "』五套剑法交替使出，电光火石间"
-              "已袭向$n" HIM "全身。\n" NOR;
+    msg = HIM "\n$N" HIM "一声怒喝，内劲暴涨，手中" + wn + HIM "变幻万千，霎那间化作红黄蓝绿白五道剑光，纵"
+        "横飞扬。$P身法蓦地变快，随着剑光同时将『" HIR
+        "祝融" HIM "』、『" HIY "紫盖" HIM "』、『" NOR
+        WHT "石廪" HIM "』、『" HIG "芙蓉" HIM "』、『" HIW "天柱" HIM "』五套剑法交替使出，电光火石间"
+        "已袭向$n" HIM "全身。\n" NOR;
 
     message_sort(msg, me, target);
 
-    ap = me->query_skill("wushen-jian", 1) +
-         me->query_skill("martial-cognize", 1);
+    ap = me->query_skill("wushen-jian", 1) + me->query_skill("martial-cognize", 1);
 
-    dp = target->query_skill("dodge", 1) +
-         target->query_skill("martial-cognize", 1);
+    dp = target->query_skill("dodge", 1) + target->query_skill("martial-cognize", 1);
 
-    if (ap * 2 / 3 + random(ap) > random(dp))
-    {
-        damage = me->query_skill("wushen-jian", 1) +
-                 me->query_skill("force", 1) +
-                 me->query_skill("martial-cognize", 1);
+    if (ap * 2 / 3 + random(ap) > random(dp)) {
+        damage = me->query_skill(
+            "wushen-jian",
+            1
+        ) + me->query_skill("force", 1) + me->query_skill("martial-cognize", 1);
 
         damage += random(damage / 2);
 
         // 五分之一的几率可被招架
-        if (random(10) <= 1 && ap / 2 < dp)
-        {
+        if (random(10) <= 1 && ap / 2 < dp) {
             damage = damage / 3;
 
             msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 80,
-                                      HIG "\n$n" HIG "见$N" HIG "五道剑光剑势"
-                                          "惊人，急忙收敛心神奋力招架。哪知$P这"
-                                          "招力道非凡，$p一声闷哼，连退几步，喷"
-                                          "出一口鲜血。\n" NOR);
+                HIG "\n$n" HIG "见$N" HIG "五道剑光剑势"
+                "惊人，急忙收敛心神奋力招架。哪知$P这"
+                "招力道非凡，$p一声闷哼，连退几步，喷"
+                "出一口鲜血。\n" NOR);
             me->add("neili", -200);
             me->start_busy(3 + random(2));
-        }
-        else
-        {
+        } else {
             msg = COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 100 + random(10),
-                                      HIR "\n$n" HIR "见$N" HIR "五道剑光缤纷"
-                                          "洒落，交错纵横，呼啸着向自己袭来。心"
-                                          "底不由大惊，登时听得“噗嗤”一声，剑"
-                                          "气透体而过。\n" NOR);
+                HIR "\n$n" HIR "见$N" HIR "五道剑光缤纷"
+                "洒落，交错纵横，呼啸着向自己袭来。心"
+                "底不由大惊，登时听得“噗嗤”一声，剑"
+                "气透体而过。\n" NOR);
             me->add("neili", -300);
             me->start_busy(3 + random(3));
         }
-    }
-    else
-    {
+    } else {
         msg = CYN "\n然而$n" CYN "以快对快，飞身一跳"
-                  "已然躲过$N" CYN "这一招。\n" NOR;
+            "已然躲过$N" CYN "这一招。\n" NOR;
         me->add("neili", -150);
         me->start_busy(3);
     }

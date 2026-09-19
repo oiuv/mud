@@ -3,8 +3,7 @@
 inherit KNOWER;
 inherit F_DEALER;
 
-void create()
-{
+void create() {
     set_name("茶博士", ({ "cha boshi", "boshi" }));
     set("title", "茶馆老板");
     set("nickname", HIC "消息灵通" NOR);
@@ -20,42 +19,38 @@ void create()
     set("attitude", "friendly");
 
     set("vendor_goods", ({
-            "/d/city/npc/obj/peanut",
-            "/d/city/npc/obj/tofu",
+        "/d/city/npc/obj/peanut",
+        "/d/city/npc/obj/tofu",
     }));
 
     setup();
     carry_object("/clone/misc/cloth")->wear();
 }
 
-void init()
-{
-        object ob;
+void init() {
+    object ob;
 
-        ::init();
-        add_action("do_buy", "buy");
-        add_action("do_list", "list");
+    ::init();
+    add_action("do_buy", "buy");
+    add_action("do_list", "list");
 
-        if (interactive(ob = this_player()) && ! is_fighting())
-        {
-                remove_call_out("greeting");
-                call_out("greeting", 1, ob);
-        }
+    if (interactive(ob = this_player()) && !is_fighting()) {
+        remove_call_out("greeting");
+        call_out("greeting", 1, ob);
+    }
 }
 
-void greeting(object ob)
-{
-    if (! ob || environment(ob) != environment())
+void greeting(object ob) {
+    if (!ob || environment(ob) != environment())
         return;
-    switch(random(2))
-    {
-    case 0 :
-        say(CYN "茶博士揩了揩桌子说道：这位" + RANK_D->query_respect(ob) +
-            "，哈你家快请进来喝杯热茶。\n" NOR);
-        break;
-    case 1 :
-        say(CYN "茶博士说道：哈你家！这位" + RANK_D->query_respect(ob) +
-            "哈你家小店卖茶不卖酒，哈你家！\n" NOR);
-        break;
+    switch (random(2)) {
+        case 0:
+            say(CYN "茶博士揩了揩桌子说道：这位" + RANK_D->query_respect(ob) +
+                "，哈你家快请进来喝杯热茶。\n" NOR);
+            break;
+        case 1:
+            say(CYN "茶博士说道：哈你家！这位" + RANK_D->query_respect(ob) +
+                "哈你家小店卖茶不卖酒，哈你家！\n" NOR);
+            break;
     }
 }

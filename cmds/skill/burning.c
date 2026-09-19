@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int count;
 
     if (me->query_temp("burning_up"))
@@ -15,8 +14,8 @@ int main(object me, string arg)
         return notify_fail("你现在还不够愤怒，无法让自己怒火燃烧。\n");
 
     message_vision(HIR "$N" HIR "一声大吼，两目登时精光"
-                       "四射，咄咄逼人，势不可挡。\n" NOR,
-                   me);
+        "四射，咄咄逼人，势不可挡。\n" NOR,
+        me);
 
     me->cost_craze(500 + random(300));
     count = me->query_skill("force") / 5;
@@ -27,8 +26,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: burning|fenu
 

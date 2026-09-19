@@ -6,10 +6,9 @@ inherit THROWING;
 
 int is_arrow() { return 1; }
 
-void create()
-{
+void create() {
     set_name("狼牙箭", ({ "wolf arrow", "arrow", "jian" }));
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("long", "一根细长的箭，簇失略弯，如同狼牙一般阴森森的。\n");
@@ -24,5 +23,5 @@ void create()
     init_throwing(300);
     setup();
 
-        set("no_wield", "这不是用来装备的。\n");
+    set("no_wield", "这不是用来装备的。\n");
 }

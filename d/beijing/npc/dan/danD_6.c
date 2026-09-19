@@ -2,9 +2,8 @@
 #include "dan.h"
 //inherit COMBINED_ITEM;
 
-void create()
-{
-    set_name(HIW"罗刹"NOR+HIR"无常"NOR+HIY"丹"NOR, ({"luosha dan", "dan"}));
+void create() {
+    set_name(HIW "罗刹" NOR + HIR "无常" NOR + HIY "丹" NOR, ({ "luosha dan", "dan" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -16,12 +15,10 @@ void create()
     //set_amount(1);
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     mapping my;
 
-    if (time() - me->query_temp("last_eat/dan(D)") < 25)
-    {
+    if (time() - me->query_temp("last_eat/dan(D)") < 25) {
         write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
         return 1;
     }
@@ -42,7 +39,6 @@ int do_effect(object me)
     return 1;
 }
 
-void owner_is_killed()
-{
+void owner_is_killed() {
     destruct(this_object());
 }

@@ -4,8 +4,7 @@ inherit ROOM;
 
 string look_kong();
 
-void create()
-{
+void create() {
     set("short", "潭底石窟");
     set("long", @LONG
 此处是个天然生成的石窟，深不见尽头，顶上有个圆径丈
@@ -15,16 +14,16 @@ void create()
 LONG);
 
     set("exits", ([
-        "in" : __DIR__"hole2",
+        "in": __DIR__ "hole2",
     ]));
 
     set("item_desc", ([
-        "kong" : (: look_kong :),
-        "tree" : HIC "\n但见枣树参天耸立，竟有百丈之高。\n" NOR,
+        "kong": (: look_kong :),
+        "tree": HIC "\n但见枣树参天耸立，竟有百丈之高。\n" NOR,
     ]));
 
     set("objects", ([
-        CLASS_D("jueqing") + "/chi" : 1,
+        CLASS_D("jueqing") + "/chi": 1,
     ]));
 
     set("no_clean_up", 0);
@@ -33,23 +32,20 @@ LONG);
 
 }
 
-string look_kong()
-{
+string look_kong() {
     string msg;
     msg = HIW "\n抬头向头顶透光的洞穴望去，只见那洞离地少说也有一百来丈，"
-              "树下虽长着一株大枣树，但不过四五丈高，就算二十株枣树叠起，也到"
-              "不了顶，凝思半晌，实是束手无策。\n" NOR;
+        "树下虽长着一株大枣树，但不过四五丈高，就算二十株枣树叠起，也到"
+        "不了顶，凝思半晌，实是束手无策。\n" NOR;
 
     return sort_msg(msg);
 }
 
-void init()
-{
-    add_action("do_climb", ({"climb", "pa"}));
+void init() {
+    add_action("do_climb", ({ "climb", "pa" }));
 }
 
-int do_climb(string arg)
-{
+int do_climb(string arg) {
     object me = this_player();
     object ob;
 

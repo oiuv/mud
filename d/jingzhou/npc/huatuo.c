@@ -3,8 +3,7 @@
 inherit NPC;
 inherit F_DEALER;
 
-void create()
-{
+void create() {
     set_name("华陀二世", ({ "huatuo ershi", "huatuo", "ershi", "hua", "tuo" }));
     set("title", "药铺老板");
     set("gender", "男性");
@@ -39,8 +38,7 @@ void create()
     carry_object("/clone/book/mbook6");
 }
 
-void init()
-{
-        add_action("do_list", "list");
-        add_action("do_buy", "buy");
+void init() {
+    add_action("do_list", "list");
+    add_action("do_buy", "buy");
 }

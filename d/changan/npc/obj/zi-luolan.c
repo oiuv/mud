@@ -5,14 +5,12 @@
 
 inherit HEAD;
 
-void create()
-{
+void create() {
     set_name(HIM "紫罗兰" NOR, ({ "zi luolan", "luolan" }));
     set_weight(10);
     if (clonep())
-            set_default_object(__FILE__);
-    else
-    {
+        set_default_object(__FILE__);
+    else {
         set("long", "高贵典雅的紫罗兰，闻起来还有一股淡淡的香味儿。\n");
         set("unit", "朵");
         set("value", 6);

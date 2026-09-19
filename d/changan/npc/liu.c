@@ -3,8 +3,7 @@
 inherit NPC;
 inherit F_DEALER;
 
-void create()
-{
+void create() {
     set_name("刘老实", ({ "liu laoshi", "liu" }));
     set("title", "杂货铺老板");
     set("shen_type", 1);
@@ -16,9 +15,9 @@ void create()
     set("combat_exp", 50000);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        __DIR__"obj/beixin",
-        __DIR__"obj/shield",
-        __DIR__"obj/muqin",
+        __DIR__ "obj/beixin",
+        __DIR__ "obj/shield",
+        __DIR__ "obj/muqin",
         "/d/xiyu/obj/fire",
         "/d/item/obj/chanhs",
         "/clone/misc/wood",
@@ -28,13 +27,12 @@ void create()
         "/clone/misc/yuer",
         "/clone/misc/yanwu",
         "/clone/misc/shexiang",
-        }));
+    }));
 
     setup();
-    carry_object(__DIR__"obj/changpao")->wear();
+    carry_object(__DIR__ "obj/changpao")->wear();
 }
-void init()
-{
-        add_action("do_list", "list");
-        add_action("do_buy", "buy");
+void init() {
+    add_action("do_list", "list");
+    add_action("do_buy", "buy");
 }

@@ -6,8 +6,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string item, imbue;
     object obj, dest;
 
@@ -31,12 +30,11 @@ int main(object me, string arg)
         return notify_fail("你身上没有这样道具。\n");
 
     notify_fail("你无法把" + obj->name() + "浸入" +
-                dest->name() + "。\n");
+        dest->name() + "。\n");
     return dest->do_imbue(me, obj);
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : imbue <特殊物品> in <道具>
            imbue <道具> with <特殊物品>

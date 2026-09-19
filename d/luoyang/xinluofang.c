@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "新罗坊");
     set("long", @LONG
 新罗坊，顾名思义是给新罗人住的地方，不过其实现在新罗已经被高
@@ -12,11 +11,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "south" : __DIR__"wroad1",
+        "south": __DIR__ "wroad1",
     ]));
-        set("objects", ([
-                "/d/xiangyang/npc/gaoli" : 1,
-        ]));
+    set("objects", ([
+        "/d/xiangyang/npc/gaoli": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

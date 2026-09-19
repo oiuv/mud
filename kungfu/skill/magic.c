@@ -3,4 +3,4 @@
 
 inherit SKILL;
 
-string type() {return "knowledge"; }
+string type() { return "knowledge"; }

@@ -6,12 +6,11 @@ inherit F_MASTER;
 #include <ansi.h>
 #include "qizong.h"
 
-void create()
-{
+void create() {
     set_name("矮老者", ({ "ai laozhe", "ai" }));
-    set("title", HIG"华山第十二代长老"NOR);
+    set("title", HIG "华山第十二代长老" NOR);
     set("long", "他就是华山的长老矮老者。一张严肃"
-                    "威严的脸，望而生畏。\n");
+        "威严的脸，望而生畏。\n");
     set("gender", "男性");
     set("attitude", "peaceful");
     set("shen_type", 1);
@@ -45,7 +44,7 @@ void create()
     set_skill("fanliangyi-dao", 180);
     set_skill("huashan-jian", 220);
     set_skill("hunyuan-zhang", 190);
-        set_skill("feiyan-huixiang",190);
+    set_skill("feiyan-huixiang", 190);
     set_skill("literate", 140);
 
     prepare_skill("cuff", "poyu-quan");
@@ -53,8 +52,8 @@ void create()
 
     map_skill("cuff", "poyu-quan");
     map_skill("force", "zixia-shengong");
-        map_skill("dodge", "feiyan-huixiang");
-        map_skill("parry", "fanliangyi-dao");
+    map_skill("dodge", "feiyan-huixiang");
+    map_skill("parry", "fanliangyi-dao");
     map_skill("blade", "fanliangyi-dao");
     map_skill("sword", "huashan-jian");
     map_skill("strike", "hunyuan-zhang");
@@ -65,18 +64,17 @@ void create()
     set("chat_msg_combat", ({
         (: perform_action, "blade.san" :),
         (: exert_function, "recover" :),
-    }) );
+    }));
 
     setup();
     carry_object("/clone/misc/cloth")->wear();
     carry_object("/clone/weapon/gangdao")->wield();
 }
 
-void attempt_apprentice(object ob)
-{
-        command("say 我不收徒弟！");
-        return;
-/*
+void attempt_apprentice(object ob) {
+    command("say 我不收徒弟！");
+    return;
+    /*
         string ob_fam;
 
         ob_fam = ob->query("family/family_name");

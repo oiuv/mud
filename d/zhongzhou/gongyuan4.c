@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "中州贡院");
     set("long", @LONG
 中州贡院是天下最热闹的一所考场，每月初一，全国各地
@@ -9,15 +8,15 @@ void create()
 围墙上有张新贴的告示。
 LONG);
     set("objects", ([
-          "/d/kaifeng/npc/zhukao3" : 1,
+        "/d/kaifeng/npc/zhukao3": 1,
     ]));
     set("no_clean_up", 0);
 
     set("exits", ([
-          "south" : __DIR__"yanling2",
+        "south": __DIR__ "yanling2",
     ]));
 
-        set("outdoors", "zhongzhou");
+    set("outdoors", "zhongzhou");
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

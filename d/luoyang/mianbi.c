@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "面壁室");
     set("long", @LONG
 这间屋子是用来惩罚那些先生上课时不认真听讲的孩子的，屋子又黑
@@ -10,11 +9,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "south" : __DIR__"sishu",
+        "south": __DIR__ "sishu",
     ]));
-        set("objects", ([
-                "/d/wudu/npc/xuetong" : 1,
-        ]));
+    set("objects", ([
+        "/d/wudu/npc/xuetong": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

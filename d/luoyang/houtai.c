@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "后台");
     set("long", @LONG
 这里是戏院的后台，地方不大，除了化妆台，就没有什么了，到处都
@@ -11,11 +10,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "west" : __DIR__"xiyuan",
+        "west": __DIR__ "xiyuan",
     ]));
-        set("objects", ([
-                "/d/beijing/npc/xizi1" : 2,
-        ]));
+    set("objects", ([
+        "/d/beijing/npc/xizi1": 2,
+    ]));
     setup();
     replace_program(ROOM);
 }

@@ -6,11 +6,10 @@ inherit F_CLEAN_UP;
 int update_dir(object me, string dir, int continueable, int *total);
 int update_file(object me, string file);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string dir;
     int continueable;
-    int *total = ({0});
+    int *total = ({ 0 });
 
     if (!SECURITY_D->valid_grant(me, "(admin)"))
         return 0;
@@ -21,14 +20,11 @@ int main(object me, string arg)
     if (!arg || sscanf(arg, "%s %d", dir, continueable) != 2)
         dir = arg;
 
-    if (!dir)
-    {
+    if (!dir) {
         dir = me->query("cwd");
         if (!dir)
             return notify_fail("你要重新编译那个路径下档案？\n");
-    }
-    else
-    {
+    } else {
         dir = resolve_path(me->query("cwd"), dir);
     }
     if (dir[strlen(dir) - 1] != '/')
@@ -40,8 +36,7 @@ int main(object me, string arg)
     me->set("cwd", dir);
 
     message_system("整理批量档案中，请稍候...");
-    if (!update_dir(me, dir, continueable, total))
-    {
+    if (!update_dir(me, dir, continueable, total)) {
         write(HIR "编译遇到错误中止。\n" NOR);
     }
 
@@ -53,8 +48,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int update_dir(object me, string dir, int continueable, int *total)
-{
+int update_dir(object me, string dir, int continueable, int *total) {
     int i;
     int l;
     int filecount, compcount;
@@ -64,19 +58,31 @@ int update_dir(object me, string dir, int continueable, int *total)
     if (!is_root(previous_object()))
         return 0;
     // 不编译lib版本控制目录
-    exclude = ({"/.git/", "/.vscode/", "/backup/", "/bin/", "/binaries/", "/doc/", "/dump/", "/fluffos/", "/grant/", "/help/", "/log/", "/temp/", "/version/", "/www/"});
+    exclude = ({
+        "/.git/",
+        "/.vscode/",
+        "/backup/",
+        "/bin/",
+        "/binaries/",
+        "/doc/",
+        "/dump/",
+        "/fluffos/",
+        "/grant/",
+        "/help/",
+        "/log/",
+        "/temp/",
+        "/version/",
+        "/www/"
+    });
     if (member_array(dir, exclude) > -1)
         return 1;
 
     file = get_dir(dir, -1);
-    if (!sizeof(file))
-    {
-        if (file_size(dir) == -2)
-        {
+    if (!sizeof(file)) {
+        if (file_size(dir) == -2) {
             write(dir + "这个目录是空的。\n");
             log_file("empty_dir", dir + "\n");
-        }
-        else
+        } else
             write("没有" + dir + "这个目录。\n");
         return 1;
     }
@@ -85,11 +91,9 @@ int update_dir(object me, string dir, int continueable, int *total)
     i = sizeof(file);
     compcount = 0;
     filecount = 0;
-    while (i--)
-    {
+    while (i--) {
         reset_eval_cost();
-        if (file[i][1] != -2)
-        {
+        if (file[i][1] != -2) {
             filecount++;
             filename = file[i][0];
             l = strlen(filename);
@@ -109,14 +113,12 @@ int update_dir(object me, string dir, int continueable, int *total)
         // continue to compile next file
     }
     write(HIC "\n整理了目录" + dir + "下的" + HIW + filecount + HIC +
-          "个文件，编译了其中" + HIW + compcount + HIC + "个档案。\n" NOR);
+        "个文件，编译了其中" + HIW + compcount + HIC + "个档案。\n" NOR);
 
     i = sizeof(file);
-    while (i--)
-    {
+    while (i--) {
         reset_eval_cost();
-        if (file[i][1] == -2)
-        {
+        if (file[i][1] == -2) {
             file[i][0] += "/";
             write("\n");
             if (!update_dir(me, dir + file[i][0], continueable, total) &&
@@ -127,8 +129,7 @@ int update_dir(object me, string dir, int continueable, int *total)
     return 1;
 }
 
-int update_file(object me, string file)
-{
+int update_file(object me, string file) {
     object obj;
     object *inv;
     string err;
@@ -139,17 +140,14 @@ int update_file(object me, string file)
         return 1;
 
     write(".");
-    if (obj = find_object(file))
-    {
-        if (obj == environment(me))
-        {
+    if (obj = find_object(file)) {
+        if (obj == environment(me)) {
             if (file_name(obj) == VOID_OB)
                 return notify_fail("\n你不能在 VOID_OB 里重新编译 VOID_OB。\n");
 
             inv = all_inventory(obj);
             i = sizeof(inv);
-            while (i--)
-            {
+            while (i--) {
                 if (userp(inv[i]))
                     inv[i]->move(VOID_OB, 1);
                 else
@@ -162,16 +160,12 @@ int update_file(object me, string file)
     if (obj)
         return notify_fail("\n无法清除旧程序码。\n");
 
-    err = catch (call_other(file, "???"));
-    if (err)
-    {
+    err = catch(call_other(file, "???"));
+    if (err) {
         printf("\n发生错误：\n%s\n", err);
         return 0;
-    }
-    else
-    {
-        if ((i = sizeof(inv)) && (obj = find_object(file)))
-        {
+    } else {
+        if ((i = sizeof(inv)) && (obj = find_object(file))) {
             while (i--)
                 if (inv[i] && userp(inv[i]))
                     inv[i]->move(obj, 1);
@@ -181,8 +175,7 @@ int update_file(object me, string file)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : updateall <路径名> [1]
 

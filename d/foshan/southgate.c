@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "南门");
     set("long", @LONG
 这里是佛山镇的南门。从出南门再向南行进，就到达南海
@@ -9,12 +8,12 @@ void create()
 LONG);
     set("outdoors", "foshan");
     set("exits", ([
-                "north" : __DIR__"street3",
-                "south" : "/d/xiakedao/xkroad3",
+        "north": __DIR__ "street3",
+        "south": "/d/xiakedao/xkroad3",
     ]));
-        set("objects", ([
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/clone/npc/walker": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

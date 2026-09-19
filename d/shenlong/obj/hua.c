@@ -4,9 +4,8 @@ inherit ITEM;
 
 #include <ansi.h>
 
-void create()
-{
-    set_name(HIG"百香花"NOR, ({"baixiang hua", "baixiang"}));
+void create() {
+    set_name(HIG "百香花" NOR, ({ "baixiang hua", "baixiang" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -17,9 +16,8 @@ void create()
     setup();
 }
 
-int do_effect(object me)
-{
-        message_vision("$N把" + name() + "扔进嘴里，几下就吞了下去。\n", me);
+int do_effect(object me) {
+    message_vision("$N把" + name() + "扔进嘴里，几下就吞了下去。\n", me);
     destruct(this_object());
     return 1;
 }

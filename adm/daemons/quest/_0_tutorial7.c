@@ -27,14 +27,12 @@ int isNewly() { return 0; }
 int noGiveUp() { return 0; }
 
 // 任務名稱
-string getName()
-{
-    return FCC(118)"师门任务"NOR;
+string getName() {
+    return FCC(118) "师门任务" NOR;
 }
 
 // 任務描述
-string getDetail()
-{
+string getDetail() {
     string msg;
 
     msg = "根据周不通的指引，熟悉怎么在江湖上生存。\n";
@@ -49,8 +47,7 @@ string getDetail()
 }
 
 // 任務等級
-int getLevel()
-{
+int getLevel() {
     return 1;
 }
 
@@ -62,20 +59,17 @@ int getLevel()
     等等，應可以自由發揮才是。
     回傳非零值表示符合條件。
  */
-int preCondition(object player)
-{
+int preCondition(object player) {
     return player->isSolved(F_QUEST("_0_tutorial6"));
 }
 
 // 接受任務的NPC  (以檔名來識別，注意加上`.c`)
-string getAssigner()
-{
-    return "/u/mudren/npc/butong.c"; // 周不通
+string getAssigner() {
+    return "/u/mudren/npc/butong.c";  // 周不通
 }
 
 // 接受任務時的訊息
-string *getAssignMessage()
-{
+string *getAssignMessage() {
     // $ME為NPC, $YOU為player
     string *msg = ({
         "$ME对$YOU说到：" HIG "拜师学习不只是需要消耗潜能，如果要学习绝招还需门派贡献。\n" NOR,
@@ -86,14 +80,12 @@ string *getAssignMessage()
 }
 
 // 任務須要殺死某些怪物(以檔名來識別，注意加上`.c`)，若不需要則 return 0
-mapping getKill()
-{
+mapping getKill() {
     return ([]);
 }
 
 // 任務須要取得某些物品(以檔名來識別，注意加上`.c`)，若不需要則 return 0
-mapping getItem()
-{
+mapping getItem() {
     return ([]);
 }
 
@@ -102,20 +94,17 @@ mapping getItem()
 // 2. 殺了足夠數量的怪物之外
 // 有需要的話，還可以自訂完成任務條件
 // return 1;為滿足條件, return 0;為失敗
-int postCondition(object player, object npc)
-{
+int postCondition(object player, object npc) {
     return player->query("quest_count") >= 5;
 }
 
 // 完成任務的NPC (以檔名來識別，注意加上`.c`)
-string getRewarder()
-{
-    return "/u/mudren/npc/butong.c"; // 周不通
+string getRewarder() {
+    return "/u/mudren/npc/butong.c";  // 周不通
 }
 
 // 完成任務時的訊息
-string *getRewardMessage()
-{
+string *getRewardMessage() {
     // $ME為NPC, $YOU為player
     string *msg = ({
         CYN "$ME对$YOU说到：" HIG "师门任务是玩家成长的重要方式。\n" NOR,
@@ -125,12 +114,10 @@ string *getRewardMessage()
     return msg;
 }
 
-string getReward()
-{
+string getReward() {
     string msg = " - 经验：500+\n"
-                 " - 潜能：100+\n"
-                 " - 门派贡献：50+\n"
-                 ;
+        " - 潜能：100+\n"
+        " - 门派贡献：50+\n";
     return msg;
 }
 
@@ -142,8 +129,7 @@ string getReward()
         4. 習得某技能
         5. 更改玩家狀態, ex: 轉職
  */
-void reward(object player, object npc)
-{
+void reward(object player, object npc) {
     int exp, pot, sc;
 
     exp = 500 + random(50);
@@ -151,8 +137,8 @@ void reward(object player, object npc)
     sc = 50 + random(5);
 
     GIFT_D->work_bonus(player, ([
-        "exp":exp,
-        "pot":pot,
-        "gongxian":sc,
+        "exp": exp,
+        "pot": pot,
+        "gongxian": sc,
     ]));
 }

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "沉鱼阁");
     set("long", @LONG
 应入眼帘，首先是一幅占据了一面墙的春宫图，无疑为名家所著。画
@@ -12,7 +11,7 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "west" : __DIR__"jiyuan2",
+        "west": __DIR__ "jiyuan2",
     ]));
 
     setup();

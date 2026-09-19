@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("武将", ({ "wu jiang", "wu", "jiang" }));
     set("gender", "男性");
     set("age", random(10) + 30);
@@ -30,11 +29,10 @@ void create()
 
     setup();
     carry_object("/clone/weapon/gangjian")->wield();
-    carry_object(__DIR__"obj/tiejia")->wear();
+    carry_object(__DIR__ "obj/tiejia")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
     ::init();
     if (interactive(ob = this_player()) &&

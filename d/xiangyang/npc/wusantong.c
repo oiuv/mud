@@ -3,13 +3,12 @@
 #include <ansi.h>
 
 inherit NPC;
-void create()
-{
-    set_name("武三通", ({"wu santong", "wu", "santong"}));
+void create() {
+    set_name("武三通", ({ "wu santong", "wu", "santong" }));
     set("gender", "男性");
     set("age", 55);
     set("long", "一灯大师的四大弟子之一，现在襄阳协助郭靖、黄蓉守城。\n");
-     set("attitude", "peaceful");
+    set("attitude", "peaceful");
 
     set("per", 17);
     set("str", 40);

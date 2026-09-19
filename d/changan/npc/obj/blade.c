@@ -4,14 +4,12 @@
 
 inherit BLADE;
 
-void create()
-{
-    set_name("钢刀", ({"blade", "gangdao", "dao"}));
+void create() {
+    set_name("钢刀", ({ "blade", "gangdao", "dao" }));
     set_weight(4000);
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("unit", "柄");
         set("value", 500);
         set("material", "iron");

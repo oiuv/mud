@@ -3,8 +3,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("蒙面人", ({ "mengmian ren", "ren" }));
     set("long",
         "一个蒙着面部，身穿黑色夜行衣服的神秘人。\n");
@@ -40,6 +39,6 @@ void create()
     create_family("逍遥派", 5, "弟子");
     setup();
 
-    carry_object(__DIR__"obj/blade")->wield();
-    carry_object(__DIR__"obj/cloth")->wear();
+    carry_object(__DIR__ "obj/blade")->wield();
+    carry_object(__DIR__ "obj/cloth")->wear();
 }

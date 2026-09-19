@@ -4,11 +4,10 @@ inherit ROOM;
 
 string look_duilian();
 
-void create()
-{
-        set("short", "全真教大门");
-        set("long",
-"你已走到了终南山半山腰，来到全真教的总部重阳宫。殿
+void create() {
+    set("short", "全真教大门");
+    set("long",
+        "你已走到了终南山半山腰，来到全真教的总部重阳宫。殿
 宇依山而筑，高低错落有致。门上挂着一块匾上面写着：
 
            " WHT "################################
@@ -21,27 +20,25 @@ void create()
 森森，翠竹成林，景色清幽。正前方黄墙碧瓦飞檐翘檩，正中
 有一道二丈来宽三丈来高的朱红杉木包铜大门。\n");
 
-        set("exits", ([
-                "east" : __DIR__"datang1",
-                "westdown" : __DIR__"jiaobei",
-        ]));
+    set("exits", ([
+        "east": __DIR__ "datang1",
+        "westdown": __DIR__ "jiaobei",
+    ]));
 
-        set("item_desc", ([
-                "duilian" : (: look_duilian :),
-        ]));
+    set("item_desc", ([
+        "duilian": (: look_duilian :),
+    ]));
 
-        set("objects",([
-                __DIR__"npc/zhike" : 1,
-        ]));
-        create_door("east", YEL "包铜大门" NOR, "west", DOOR_CLOSED);
-        set("outdoors", "quanzhen");
-        setup();
+    set("objects", ([
+        __DIR__ "npc/zhike": 1,
+    ]));
+    create_door("east", YEL "包铜大门" NOR, "west", DOOR_CLOSED);
+    set("outdoors", "quanzhen");
+    setup();
 }
 
-string look_duilian()
-{
-        return
-        HIR "\n"
+string look_duilian() {
+    return HIR "\n"
         "       ##############            ##############\n"
         "       ##############            ##############\n"
         "       ####      ####            ####      ####\n"

@@ -2,13 +2,12 @@
 
 inherit ROOM;
 
-void create()
-{
-        set("short", "小路");
-        set("long", @LONG
+void create() {
+    set("short", "小路");
+    set("long", @LONG
 这是一条蜿蜒的小路，北面可以远远的望见万安寺的塔间。
-LONG );
+LONG);
 
-        set("outdoors", "beijing");
-        setup();
+    set("outdoors", "beijing");
+    setup();
 }

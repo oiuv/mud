@@ -6,15 +6,14 @@
 inherit STAFF;
 inherit F_NOCLONE;
 
-void create()
-{
+void create() {
     set_name("伏魔杖", ({ "fumo zhang", "zhang" }));
     set_weight(10000);
     set("unit", "把");
     set("long", @LONG
 这是一把银光雪亮的伏魔杖，流苏闪动，耀人耳目。此乃数百年前由
 达摩老祖携入中原，一路用之除妖灭魔，乃是佛家无上降魔法宝。
-LONG );
+LONG);
     set("value", 1000000);
     set("no_sell", 1);
     set("material", "steel");

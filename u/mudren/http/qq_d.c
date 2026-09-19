@@ -29,59 +29,51 @@ protected void bind();
 protected void websocket();
 protected void msg(mixed data);
 
-protected void response(mixed result)
-{
+protected void response(mixed result) {
     int n = strsrch(result, "{");
     Debug && debug_message(result);
     result = trim(result[n..]);
 
-    if (pcre_match(result, "^{.+}$"))
-    {
+    if (pcre_match(result, "^{.+}$")) {
         mixed json;
-        if (ReadyState == STATE_CONNECTED && !pcre_match(result, "^{\"syncId\":.+}}}}$"))
-        {
-            return; // 消息不完整，无法解析json，直接丢弃处理
+        if (ReadyState == STATE_CONNECTED && !pcre_match(result, "^{\"syncId\":.+}}}}$")) {
+            return;  // 消息不完整，无法解析json，直接丢弃处理
         }
         json = json_decode(result);
         Debug && debug_message(sprintf("%O", json));
-        switch (ReadyState)
-        {
-        case STATE_VERIFYING:
-            if (json["session"])
-            {
-                debug_message("QQ_D 认证完成！");
-                Session = json["session"];
-                debug_message("QQ_D 开始绑定！");
-                bind();
-            }
-            break;
-        case STATE_BINDING:
-            if (!json["code"])
-            {
-                debug_message("QQ_D 绑定完成！");
-                debug_message("QQ_D 连接ＷＳ！");
-                websocket();
-            }
-            break;
-        case STATE_CONNECTING:
-            ReadyState = STATE_CONNECTED;
-            debug_message("QQ_D 连接成功！");
-            break;
-        case STATE_CONNECTED:
-            msg(json["data"]);
-        default:
-            break;
+        switch (ReadyState) {
+            case STATE_VERIFYING:
+                if (json["session"]) {
+                    debug_message("QQ_D 认证完成！");
+                    Session = json["session"];
+                    debug_message("QQ_D 开始绑定！");
+                    bind();
+                }
+                break;
+            case STATE_BINDING:
+                if (!json["code"]) {
+                    debug_message("QQ_D 绑定完成！");
+                    debug_message("QQ_D 连接ＷＳ！");
+                    websocket();
+                }
+                break;
+            case STATE_CONNECTING:
+                ReadyState = STATE_CONNECTED;
+                debug_message("QQ_D 连接成功！");
+                break;
+            case STATE_CONNECTED:
+                msg(json["data"]);
+            default:
+                break;
         }
     }
 }
 
 // 可重写此方法以适应自己的MUD
-protected void msg(mapping data)
-{
+protected void msg(mapping data) {
     mapping sender, messageChain;
     string type;
-    if (!data)
-    {
+    if (!data) {
         return;
     }
 
@@ -89,29 +81,27 @@ protected void msg(mapping data)
     type = data["type"];
     // 这里只做最傻瓜的处理
     messageChain = data["messageChain"][1];
-    if (type == "GroupMessage")
-    {
+    if (type == "GroupMessage") {
         string msg = "[其它类型消息]";
-        if (messageChain["type"] == "Plain")
-        {
+        if (messageChain["type"] == "Plain") {
             msg = messageChain["text"];
-        }
-        else if (messageChain["type"] == "Face")
-        {
+        } else if (messageChain["type"] == "Face") {
             msg = "[表情]" + messageChain["name"];
         }
         // 发送消息到MUD
-        message("info", HIG "【QQ群】" NOR + sender["memberName"] + "@" + sender["group"]["name"] + "：" + msg, users());
+        message(
+            "info",
+            HIG "【QQ群】" NOR + sender["memberName"] + "@" + sender["group"]["name"] + "：" + msg,
+            users()
+        );
     }
 }
 
 /* 游戏消息转发QQ群调用此方法 */
-varargs void send(string msg, int qun)
-{
+varargs void send(string msg, int qun) {
     string body;
     string qq_qun = Group + "";
-    if (qun)
-    {
+    if (qun) {
         qq_qun = qun + "";
     }
     // body = "{\"sessionKey\":\"" + Session + "\",\"target\":" + qq_qun + ",\"messageChain\":[{\"type\":\"Plain\",\"text\":\"" + msg + "\"}]}";
@@ -129,36 +119,40 @@ varargs void send(string msg, int qun)
 }
 RAW;
     body = terminal_colour(body, ([
-        "session":Session,
-        "group":qq_qun,
-        "msg":msg,
+        "session": Session,
+        "group": qq_qun,
+        "msg": msg,
     ]));
 
     Http::post(Base_uri + "/sendGroupMessage", body);
 }
 
 // 连接websocket
-protected void websocket()
-{
+protected void websocket() {
     ReadyState = STATE_CONNECTING;
     Http::ws(Base_uri + "/message?verifyKey=" + Mirai_verifyKey + "&sessionKey=" + Session);
 }
 // 绑定session到QQ
-protected void bind()
-{
+protected void bind() {
     ReadyState = STATE_BINDING;
-    Http::post(Base_uri + "/bind", (["sessionKey":Session, "qq":Mirai_qq]), (["Content-Type":"application/json"]));
+    Http::post(
+        Base_uri + "/bind",
+        ([ "sessionKey": Session, "qq": Mirai_qq ]),
+        ([ "Content-Type": "application/json" ])
+    );
 }
 
 // 认证获取session
-protected void verify()
-{
+protected void verify() {
     ReadyState = STATE_VERIFYING;
-    Http::post(Base_uri + "/verify", (["verifyKey":Mirai_verifyKey]), (["Content-Type":"application/json"]));
+    Http::post(
+        Base_uri + "/verify",
+        ([ "verifyKey": Mirai_verifyKey ]),
+        ([ "Content-Type": "application/json" ])
+    );
 }
 
-void create()
-{
+void create() {
     // 调试用，开启后会记录数据到驱动控制台debug.log
     // Debug = 1;
     // 初始化认证，请继承调用

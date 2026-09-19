@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "客房");
     set("long", @LONG
 这里是郭府客人们的住处，整整齐齐的一排平房。门的左
@@ -15,7 +14,7 @@ LONG);
     set("no_clean_up", 0);
     set("sleep_room", 1);
     set("exits", ([
-        "east" : __DIR__"guofu_huayuan",
+        "east": __DIR__ "guofu_huayuan",
     ]));
     setup();
     replace_program(ROOM);

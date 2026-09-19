@@ -1,8 +1,7 @@
 // which.c
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string file;
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
         return 0;
@@ -16,8 +15,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help()
-{
+int help() {
     write(@TEXT
 指令格式：which <命令>
 这个指令可以找到某个命令在什么目录。

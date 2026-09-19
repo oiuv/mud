@@ -4,14 +4,13 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("李嫂", ({ "li sao", "li", "sao" }));
     set("long",
         "她是 [灵鹫宫] 的厨师.\n");
     set("gender", "女性");
     set("age", 30);
-    set("shen_type",1);
+    set("shen_type", 1);
     set("attitude", "peaceful");
 
     set("str", 25);
@@ -33,27 +32,27 @@ void create()
     set_skill("unarmed", 100);
     set_skill("dodge", 100);
     set_skill("parry", 100);
-    set_skill("hand",100);
+    set_skill("hand", 100);
     set_skill("strike", 100);
 
-    set_skill("zhemei-shou",90);
-    set_skill("liuyang-zhang",90);
-       set_skill("yueying-wubu",90);
+    set_skill("zhemei-shou", 90);
+    set_skill("liuyang-zhang", 90);
+    set_skill("yueying-wubu", 90);
     set_skill("lingjiu-xinfa", 90);
 
     map_skill("force", "lingjiu-xinfa");
-    map_skill("strike","liuyang-zhang");
+    map_skill("strike", "liuyang-zhang");
     map_skill("dodge", "yueying-wubu");
     map_skill("unarmed", "liuyang-zhang");
     map_skill("hand", "zhemei-shou");
     map_skill("parry", "liuyang-zhang");
 
-        prepare_skill("hand", "zhemei-shou");
-    prepare_skill("strike","liuyang-zhang");
+    prepare_skill("hand", "zhemei-shou");
+    prepare_skill("strike", "liuyang-zhang");
 
-    create_family("灵鹫宫",3,"弟子");
+    create_family("灵鹫宫", 3, "弟子");
     setup();
     carry_object("/d/lingjiu/obj/qingyi")->wear();
-            carry_object("/d/lingjiu/obj/doupeng")->wear();
-    add_money("silver",10);
+    carry_object("/d/lingjiu/obj/doupeng")->wear();
+    add_money("silver", 10);
 }

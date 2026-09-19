@@ -2,8 +2,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "巨木旗大厅");
     set("long", @LONG
 这是巨木旗的大厅，虽然都是练武之人，这里却布置得古
@@ -14,10 +13,10 @@ void create()
 敌。
 LONG);
     set("exits", ([
-        "down" : __DIR__"jmqshenmu",
+        "down": __DIR__ "jmqshenmu",
     ]));
-        set("objects",([
-                __DIR__"npc/wensong":1,
+    set("objects", ([
+        __DIR__ "npc/wensong": 1,
     ]));
     setup();
     replace_program(ROOM);

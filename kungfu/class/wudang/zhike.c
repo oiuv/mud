@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("知客道长", ({ "zhike daozhang", "zhike" }));
     set("long",
         "他是武当山的知客道长。\n");
@@ -26,7 +25,7 @@ void create()
     set("score", 1000);
 
     set_skill("force", 40);
-        set_skill("wudang-xinfa", 40);
+    set_skill("wudang-xinfa", 40);
     set_skill("dodge", 40);
     set_skill("strike", 40);
     set_skill("wudang-zhang", 40);

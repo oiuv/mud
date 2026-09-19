@@ -30,20 +30,18 @@ nosave mixed *story = ({
     (: give_gift :),
 });
 
-void create()
-{
+void create() {
     seteuid(getuid());
 }
 
-object select_character()
-{
+object select_character() {
     object *obs;
     object ob;
 
     obs = filter_array(all_interactive(), (: !wizardp($1) &&
-            living($1) &&
-            $1->query_skill("literate", 1) < 1 &&
-            !$1->query("doing") :));
+        living($1) &&
+        $1->query_skill("literate", 1) < 1 &&
+        !$1->query("doing") :));
 
     if (!sizeof(obs))
         return 0;
@@ -54,25 +52,22 @@ object select_character()
     return ob;
 }
 
-mixed query_story_message(int step)
-{
+mixed query_story_message(int step) {
     mixed msg;
 
     if (step >= sizeof(story))
         return 0;
 
     msg = story[step];
-    if (stringp(msg))
-    {
+    if (stringp(msg)) {
         msg = replace_string(msg, "$N", char_name ? char_name : char_name = "钱百万");
         msg = replace_string(msg, "$ID", char_id ? char_id : char_id = "none");
     }
     return msg;
 }
 
-int give_gift()
-{
-    STORY_D->remove_story("mengzi"); //降低出现机率 2017-01-08
+int give_gift() {
+    STORY_D->remove_story("mengzi");  //降低出现机率 2017-01-08
     STORY_D->give_gift("/clone/book/mengzi", 1, HIM "\n“啪”的一声一本书掉到你面前。\n\n" NOR);
     return 1;
 }

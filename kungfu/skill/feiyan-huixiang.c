@@ -12,24 +12,20 @@ string *dodge_msg = ({
     "$n左脚一点右脚背，身形往上一拔，一招「一鹤冲天」，轻轻巧巧地避开了这一招。\n"
 });
 
-int valid_enable(string usage)
-{
-    return (usage=="dodge") || (usage=="move");
+int valid_enable(string usage) {
+    return (usage == "dodge") || (usage == "move");
 }
 
-int valid_learn(object me)
-{
+int valid_learn(object me) {
     return 1;
 }
 
-string query_dodge_msg(string limb)
-{
+string query_dodge_msg(string limb) {
     return dodge_msg[random(sizeof(dodge_msg))];
 }
 
-int practice_skill(object me)
-{
-    if( (int)me->query("qi") < 50 )
+int practice_skill(object me) {
+    if ((int)me->query("qi") < 50)
         return notify_fail("你的体力太差了，不能练飞燕回翔。\n");
 
     me->receive_damage("qi", 40);

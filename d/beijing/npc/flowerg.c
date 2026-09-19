@@ -2,10 +2,9 @@
 
 inherit NPC;
 
-void create()
-{
-    set_name("卖花姑娘", ({ "flower girl","girl"}) );
-    set("gender", "女性" );
+void create() {
+    set_name("卖花姑娘", ({ "flower girl", "girl" }));
+    set("gender", "女性");
     set("age", 18);
     set("long", "一个容貌清丽的小姑娘。\n");
     set("shen_type", 1);
@@ -33,21 +32,19 @@ void create()
     carry_object("/clone/misc/cloth")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
 
     ::init();
 
-    if( interactive(ob = this_player()) && !is_fighting() ) {
+    if (interactive(ob = this_player()) && !is_fighting()) {
         remove_call_out("greeting");
         call_out("greeting", 1, ob);
     }
 }
-void greeting(object ob)
-{
-    if( !ob || environment(ob) != environment() ) return;
-         say("卖花姑娘说道：这位" + RANK_D->query_respect(ob)
-         + "，买一朵花吧。\n");
+void greeting(object ob) {
+    if (!ob || environment(ob) != environment()) return;
+    say("卖花姑娘说道：这位" + RANK_D->query_respect(ob)
+        + "，买一朵花吧。\n");
     return;
 }

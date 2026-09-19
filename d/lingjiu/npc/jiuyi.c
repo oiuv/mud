@@ -4,11 +4,10 @@
 
 inherit KNOWER;
 
-void create()
-{
-    set_name("九翼道人", ({ "jiuyi daoren", "jiuyi"}));
+void create() {
+    set_name("九翼道人", ({ "jiuyi daoren", "jiuyi" }));
     set("long",
-        "他是西夏一品堂礼聘的高手，身材高瘦，脸上总是阴沉沉的。\n"+
+        "他是西夏一品堂礼聘的高手，身材高瘦，脸上总是阴沉沉的。\n" +
         "他轻功极高，擅使雷公挡，凭一手雷公挡功夫，成为江湖的一流高手。\n");
     set("title", "西夏一品堂高手");
     set("gender", "男性");
@@ -24,7 +23,7 @@ void create()
     set("dex", 30);
 
     set("max_qi", 2000);
-     set("qi", 2000);
+    set("qi", 2000);
     set("jing", 1000);
     set("max_jing", 1000);
     set("neili", 3000);

@@ -4,8 +4,7 @@
 inherit NPC;
 
 
-void create()
-{
+void create() {
     set_name("清晓比丘", ({
         "qingxiao biqiu",
         "qingxiao",
@@ -56,7 +55,7 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/qing-cloth")->wear();
+    carry_object("/d/shaolin/obj/qing-cloth")->wear();
 }
 
 

@@ -3,9 +3,8 @@
 inherit ITEM;
 inherit F_FOOD;
 
-void create()
-{
-    set_name(YEL "花种" NOR, ({"hua zhong", "hua", "zhong"}));
+void create() {
+    set_name(YEL "花种" NOR, ({ "hua zhong", "hua", "zhong" }));
     set_weight(100);
     if (clonep())
         set_default_object(__FILE__);
@@ -18,13 +17,11 @@ void create()
     }
 }
 
-void init()
-{
+void init() {
     add_action("do_zhonghua", "zhonghua");
 }
 
-int do_zhonghua()
-{
+int do_zhonghua() {
     object me, ob, where;
 
     me = this_player();
@@ -34,30 +31,27 @@ int do_zhonghua()
     if ((string)where->query("short") != "苗园")
         return notify_fail("这里似乎不适合种花吧？\n");
 
-    if (me->query("combat_exp") < 5000)
-    {
+    if (me->query("combat_exp") < 5000) {
         tell_object(me, "你的经验尚浅，还是先到处多走动走动吧。\n");
         return 1;
     }
 
-    if (me->query("combat_exp") > 30000 && me->query("mark/job_zhonghua") > 1000)
-    {
+    if (me->query("combat_exp") > 30000 && me->query("mark/job_zhonghua") > 1000) {
         tell_object(me, "以你的身份大概不适合种花了吧。\n");
         return 1;
     }
 
-    if (me->query_temp("zhonghua") == 1)
-    {
+    if (me->query_temp("zhonghua") == 1) {
         tell_object(me, "种子已经播种了，现在该培育"
-                        HIY "(peiyu)" NOR "花种了。"
-                        "\n");
+            HIY "(peiyu)" NOR "花种了。"
+            "\n");
         return 1;
     }
 
     message_vision(HIC "$N" HIC "用手在地上挖了一个小"
-                    "坑，把花种放了进去。\n" NOR, me);
+        "坑，把花种放了进去。\n" NOR, me);
     tell_object(me, "种子已经播种了，现在该培育" HIY
-                    "(peiyu)" NOR "花种了。\n");
+        "(peiyu)" NOR "花种了。\n");
     me->add_temp("zhonghua", 1);
     destruct(ob);
     me->add("jing", -50);

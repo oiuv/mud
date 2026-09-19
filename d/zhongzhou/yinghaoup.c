@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "英豪酒家二楼");
     set("long", @LONG
 这是英豪酒家二楼雅座，如果靠窗坐的话，街上行人可以
@@ -10,11 +9,11 @@ void create()
 LONG);
 
     set("exits", ([
-        "west" : __DIR__"xiuxishi",
-        "down" : __DIR__"yinghao",
+        "west": __DIR__ "xiuxishi",
+        "down": __DIR__ "yinghao",
     ]));
-        set("objects", ([
-          "/d/beijing/npc/richman1" : 1,
+    set("objects", ([
+        "/d/beijing/npc/richman1": 1,
     ]));
 
     setup();

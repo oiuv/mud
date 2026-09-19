@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("黄眉大师", ({ "huangmei dashi", "dashi", "huangmei" }));
     set("age", 69);
     set("gender", "男性");

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "青石大道");
     set("long", @LONG
 这是一条通往成都的大青石道，两旁绿树荫蔽，空气十分
@@ -10,9 +9,9 @@ void create()
 LONG);
     set("outdoors", "chengdu");
     set("exits", ([
-        "southeast" : __DIR__"road1",
-        "west"      : __DIR__"fuheqiaoe",
-        "east"      : __DIR__"shudao19",
+        "southeast": __DIR__ "road1",
+        "west": __DIR__ "fuheqiaoe",
+        "east": __DIR__ "shudao19",
     ]));
     set("no_clean_up", 0);
     setup();

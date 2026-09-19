@@ -2,8 +2,7 @@
 #include <weapon.h>
 inherit WHIP;
 
-void create()
-{
+void create() {
     set_name("蛇鞭", ({ "shebian", "bian" }));
     set_weight(700);
     if (clonep())

@@ -12,8 +12,7 @@ int halt_closing(object me);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object where;
 
     seteuid(getuid());
@@ -48,7 +47,7 @@ int main(object me, string arg)
 
     if ((int)me->query("max_neili") < 4000)
         return notify_fail("你觉得内力颇有不足，看来目前还难以"
-                           "进行长时间的闭关修炼。\n");
+            "进行长时间的闭关修炼。\n");
 
     if ((int)me->query("neili") * 100 / me->query("max_neili") < 90)
         return notify_fail("你现在的内力太少了，无法静心闭关。\n");
@@ -58,25 +57,23 @@ int main(object me, string arg)
     me->set("doing", "closed");
     CLOSE_D->user_closed(me, "closed");
     me->start_busy(bind((: call_other, __FILE__, "closing" :), me),
-                   bind((: call_other, __FILE__, "halt_closing" :), me));
+        bind((: call_other, __FILE__, "halt_closing" :), me));
     CHANNEL_D->do_channel(this_object(), "rumor",
-                          sprintf("大宗师%s(%s)开始闭关修行。",
-                                  me->name(1), me->query("id")));
+        sprintf("大宗师%s(%s)开始闭关修行。",
+            me->name(1), me->query("id")));
 
     return 1;
 }
 
-int continue_closing(object me)
-{
+int continue_closing(object me) {
     me->start_busy(bind((: call_other, __FILE__, "closing" :), me),
-                   bind((: call_other, __FILE__, "halt_closing" :), me));
+        bind((: call_other, __FILE__, "halt_closing" :), me));
     CLOSE_D->user_closed(me);
     tell_object(me, HIR "\n你继续闭关...\n" NOR);
     return 1;
 }
 
-int filter_skill(string sk, object me)
-{
+int filter_skill(string sk, object me) {
     if (me->query_skill(sk, 1) < 200 || !me->can_improve_skill(sk))
         return 0;
 
@@ -93,8 +90,7 @@ int filter_skill(string sk, object me)
     return 1;
 }
 
-int closing(object me)
-{
+int closing(object me) {
     int t;
     int tn;
     int pot;
@@ -103,16 +99,14 @@ int closing(object me)
     string *ks;
 
     pot = me->query("potential");
-    if (pot <= me->query("learned_points"))
-    {
+    if (pot <= me->query("learned_points")) {
         tell_object(me, "你的潜能耗尽了。\n");
         message_vision("$N睁开双目，缓缓吐了一口气，站了起来。\n", me);
         CLOSE_D->user_opened(me);
         CHANNEL_D->do_channel(this_object(), "rumor",
-                              sprintf("听说%s(%s)闭关功德圆满。",
-                                      me->name(1), me->query("id")));
-        if (!interactive(me))
-        {
+            sprintf("听说%s(%s)闭关功德圆满。",
+                me->name(1), me->query("id")));
+        if (!interactive(me)) {
             me->force_me("chat* haha");
             call_out("user_quit", 0, me);
         }
@@ -122,8 +116,7 @@ int closing(object me)
 
     t = me->query_temp("last_closing");
     tn = time();
-    if (tn - t < 0)
-    {
+    if (tn - t < 0) {
         me->set_temp("last_closing", tn);
         return 1;
     }
@@ -138,14 +131,12 @@ int closing(object me)
     if (random(10) == 0)
         tell_object(me, "闭关修炼中...\n");
 
-    if ((random(100) < 4) && me->can_improve_neili())
-    {
+    if ((random(100) < 4) && me->can_improve_neili()) {
         tell_object(me, HIR "你对内功有所领悟，感到内力进步了！\n" NOR);
         me->improve_neili(1);
     }
 
-    if ((random(100) < 4) && me->can_improve_jingli())
-    {
+    if ((random(100) < 4) && me->can_improve_jingli()) {
         tell_object(me, HIM "你对神通有所领悟，感到精力进步了！\n" NOR);
         me->improve_jingli(1);
     }
@@ -157,9 +148,8 @@ int closing(object me)
     //closed增加武学修养 by 薪有所属
     me->improve_skill("martial-cognize", 1000 + random(500));
 
-    ks = filter_array(keys(me->query_skills()), (: filter_skill:), me);
-    if (r = sizeof(ks))
-    {
+    ks = filter_array(keys(me->query_skills()), (: filter_skill :), me);
+    if (r = sizeof(ks)) {
         r = random(r);
         tell_object(me, HIY "你对" + to_chinese(ks[r]) + "有所感悟。\n" NOR);
         me->improve_skill(ks[r], 5000 + random(1000));
@@ -168,28 +158,25 @@ int closing(object me)
     return 1;
 }
 
-int halt_closing(object me)
-{
+int halt_closing(object me) {
     CLOSE_D->user_opened(me);
     tell_object(me, "你中止了闭关。\n");
     message_vision(HIY "$N" HIY "大喝一声，睁开眼来，一股气流登时"
-                       "将众人迫退四步。\n\n" NOR,
-                   me);
+        "将众人迫退四步。\n\n" NOR,
+        me);
     me->add("potential", (me->query("learned_points") - me->query("potential")) / 2);
     CHANNEL_D->do_channel(this_object(), "rumor", "听说" + me->name(1) + "闭关中途突然复出。");
     return 1;
 }
 
-private void user_quit(object me)
-{
-    if (! objectp(me) || interactive(me))
+private void user_quit(object me) {
+    if (!objectp(me) || interactive(me))
         return;
 
     me->force_me("quit");
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : closed
 
@@ -198,6 +185,6 @@ int help(object me)
 关开始以后，玩家离线以后其角色将仍然在线修行，直到玩家中止闭关
 (halt)或是潜能耗尽。期间内玩家的经验、技能、内力将会提升。
 
-HELP );
+HELP);
     return 1;
 }

@@ -4,8 +4,7 @@
 
 #include <ansi.h>
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object obj;
     int /*skill,*/ count;
 
@@ -30,7 +29,7 @@ int main(object me, string arg)
 
     if (!living(obj))
         return notify_fail(obj->name() + "都已经这样了，你还用"
-                           "得着偷袭吗？\n");
+            "得着偷袭吗？\n");
 
     if (obj == me)
         return notify_fail("偷袭自己？别这么想不开。\n");
@@ -45,21 +44,20 @@ int main(object me, string arg)
         return notify_fail("这个人正被官府保护着呢，还是别去招惹。\n");
 
     tell_object(me, HIW "\n你猛的飞身纵起，直扑" + obj->name() +
-                    HIW "而去。\n" NOR);
+        HIW "而去。\n" NOR);
 
     tell_object(obj, HIW "\n" + me->name() + HIW "忽然向你扑来"
-                "，来势甚为迅猛。\n" NOR);
+        "，来势甚为迅猛。\n" NOR);
 
     message("vision", HIW "\n" + me->name() + HIW "一声冷笑，忽"
-            "然向" + obj->name() + HIW "直扑而去。\n" NOR,
-            environment(me), ({me, obj}));
+        "然向" + obj->name() + HIW "直扑而去。\n" NOR,
+        environment(me), ({ me, obj }));
 
-    switch (obj->accept_touxi(me))
-    {
-    case 0:
-        return 0;
-    case -1:
-        return 1;
+    switch (obj->accept_touxi(me)) {
+        case 0:
+            return 0;
+        case -1:
+            return 1;
     }
 
     count = me->query_str();
@@ -69,14 +67,11 @@ int main(object me, string arg)
 
     me->kill_ob(obj);
 
-    if (random(me->query("combat_exp")) < (int)obj->query("combat_exp") / 2)
-    {
+    if (random(me->query("combat_exp")) < (int)obj->query("combat_exp") / 2) {
         me->add_temp("str", count * 4);
         COMBAT_D->do_attack(me, obj, me->query_temp("weapon"));
         me->add_temp("str", -count * 4);
-    }
-    else
-    {
+    } else {
         COMBAT_D->do_attack(me, obj, me->query_temp("weapon"));
         COMBAT_D->do_attack(me, obj, me->query_temp("weapon"));
         COMBAT_D->do_attack(me, obj, me->query_temp("weapon"));
@@ -88,8 +83,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : touxi <人物>
 

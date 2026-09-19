@@ -4,8 +4,7 @@
 inherit NPC;
 
 
-void create()
-{
+void create() {
     set_name("虚通", ({
         "xu tong",
         "xu",
@@ -58,5 +57,5 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/xu-cloth")->wear();
+    carry_object("/d/shaolin/obj/xu-cloth")->wear();
 }

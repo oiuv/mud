@@ -2,8 +2,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "客栈二楼");
     set("long", @LONG
 这里是二楼雅座，比起楼下就要高雅多了，景德镇的餐具，红木的桌
@@ -13,12 +12,12 @@ LONG
     );
     set("no_clean_up", 0);
     set("exits", ([ /* sizeof() == 5 */
-  "east" : __DIR__"kefang1",
-  "down" : __DIR__"kezhan",
-  "south" : __DIR__"kefang2",
-  "west" : __DIR__"kefang3",
-  "north" : __DIR__"kefang4",
-]));
+        "east": __DIR__ "kefang1",
+        "down": __DIR__ "kezhan",
+        "south": __DIR__ "kefang2",
+        "west": __DIR__ "kefang3",
+        "north": __DIR__ "kefang4",
+    ]));
 
     setup();
     replace_program(ROOM);

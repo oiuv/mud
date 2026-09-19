@@ -5,13 +5,12 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("杨成协", ({ "yang chengxie", "yang","chengxie" }));
-    set("title", HIR "红花会"HIG"八当家" NOR);
+void create() {
+    set_name("杨成协", ({ "yang chengxie", "yang", "chengxie" }));
+    set("title", HIR "红花会" HIG "八当家" NOR);
     set("nickname", CYN "铁塔" NOR);
     set("long",
-"他又肥又高，手执钢鞭，鞭身甚是粗重，看模样少说也有三十来斤。\n");
+        "他又肥又高，手执钢鞭，鞭身甚是粗重，看模样少说也有三十来斤。\n");
     set("gender", "男性");
     set("class", "fighter");
     set("age", 26);
@@ -49,11 +48,11 @@ void create()
     map_skill("claw", "yunlong-zhua");
     map_skill("whip", "yunlong-bian");
 
-    prepare_skill("hand","yunlong-shou");
-    prepare_skill("claw","yunlong-zhua");
+    prepare_skill("hand", "yunlong-shou");
+    prepare_skill("claw", "yunlong-zhua");
     set("env/wimpy", 20);
 
-     setup();
+    setup();
     carry_object("/clone/misc/cloth")->wear();
-    carry_object(__DIR__"obj/tiebian")->wield();
+    carry_object(__DIR__ "obj/tiebian")->wield();
 }

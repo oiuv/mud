@@ -1,6 +1,5 @@
 inherit ROOM;
-void create()
-{
+void create() {
     set("short", "戈壁");
     set("long", @LONG
 戈壁平坦如镜，和沙漠上的沙丘起伏全然不同，只见一片
@@ -9,10 +8,10 @@ void create()
 LONG);
     set("outdoors", "shenfeng");
     set("exits", ([
-        "east" : __DIR__"caoyuan4",
-        "west" : "/d/xiyu/nanjiang1",
-        "south" : "/d/xiyu/nanjiang2",
-        "southwest" : "/d/xiyu/nanjiang2",
+        "east": __DIR__ "caoyuan4",
+        "west": "/d/xiyu/nanjiang1",
+        "south": "/d/xiyu/nanjiang2",
+        "southwest": "/d/xiyu/nanjiang2",
     ]));
 
     setup();

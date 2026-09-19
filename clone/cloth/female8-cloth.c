@@ -4,11 +4,10 @@
 #include <ansi.h>
 inherit CLOTH;
 
-void create()
-{
-    set_name(MAG"紫纱小夹衫"NOR, ({ "cloth" }) );
+void create() {
+    set_name(MAG "紫纱小夹衫" NOR, ({ "cloth" }));
     set_weight(1000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("long", "这是件紫纱小夹衫。\n");

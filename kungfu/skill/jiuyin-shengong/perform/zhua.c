@@ -7,8 +7,7 @@ inherit F_SSERVER;
 
 #define ZHUA "「" HIR "九阴神爪" NOR "」"
 
-int perform(object me, object target)
-{
+int perform(object me, object target) {
     int damage;
     string msg;
     string pmsg;
@@ -47,24 +46,19 @@ int perform(object me, object target)
     if (ap < me->query_skill("claw"))
         ap = me->query_skill("claw");
     ap += me->query_skill("martial-cognize", 1);
-    dp = target->query_skill("parry") +
-         target->query_skill("martial-cognize", 1);
+    dp = target->query_skill("parry") + target->query_skill("martial-cognize", 1);
 
     me->want_kill(target);
-    if (ap / 2 + random(ap * 2) > dp)
-    {
+    if (ap / 2 + random(ap * 2) > dp) {
         me->start_busy(2);
         me->add("neili", -180);
         damage = 0;
 
-        if (me->query("max_neili") > target->query("max_neili") * 2)
-        {
+        if (me->query("max_neili") > target->query("max_neili") * 2) {
             msg += HIR "$N" HIR "这一爪来势好快，正抓中$n" HIR "的檀中大穴，$n" HIR
-                       "一声惨叫，软绵绵的瘫了下去。\n" NOR;
+                "一声惨叫，软绵绵的瘫了下去。\n" NOR;
             damage = -1;
-        }
-        else
-        {
+        } else {
             target->start_busy(1 + random(3));
 
             damage = ap + (int)me->query_skill("force");
@@ -78,9 +72,7 @@ int perform(object me, object target)
             pmsg = HIR "$n连忙腾挪躲闪，然而“扑哧”一声，$N" HIR "五指正插入$n" HIR "的" + limb + "，$n" HIR "一声惨叫，血溅五步。\n" NOR;
             msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 110, pmsg);
         }
-    }
-    else
-    {
+    } else {
         me->start_busy(2);
         msg += CYN "可是$p" CYN "看破了$P" CYN "的来势，应对得法，避开了这一抓。\n" NOR;
     }

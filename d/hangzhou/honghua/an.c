@@ -5,12 +5,11 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("安健刚", ({ "an jiangang", "an","jiangang" }));
+void create() {
+    set_name("安健刚", ({ "an jiangang", "an", "jiangang" }));
     set("nickname", HIY "独角虎" NOR);
     set("long",
-"他是铁胆周仲英的二弟子，对师父始终忠心不二。\n");
+        "他是铁胆周仲英的二弟子，对师父始终忠心不二。\n");
     set("gender", "男性");
     set("class", "fighter");
     set("age", 25);
@@ -47,7 +46,7 @@ void create()
 
     set("env/wimpy", 20);
     create_family("少林派", 52, "俗家弟子");
-     setup();
+    setup();
     carry_object("/clone/misc/cloth")->wear();
-    carry_object(__DIR__"obj/tiedan")->wield();
+    carry_object(__DIR__ "obj/tiedan")->wield();
 }

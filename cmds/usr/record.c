@@ -22,16 +22,14 @@ inherit F_CLEAN_UP;
  * tattoo 刺青记录
  */
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     mapping my;
     string line;
 
     if (!arg)
         ob = me;
-    else if (wizardp(me) && SECURITY_D->valid_grant(me, "(wizard)"))
-    {
+    else if (wizardp(me) && SECURITY_D->valid_grant(me, "(wizard)")) {
         ob = present(arg, environment(me));
         if (!ob || !ob->is_character())
             ob = find_player(arg);
@@ -39,8 +37,7 @@ int main(object me, string arg)
             ob = find_living(arg);
         if (!ob || !ob->is_character())
             return notify_fail("你要察看谁的状态？\n");
-    }
-    else
+    } else
         return notify_fail("只有天神能察看别人的状态。\n");
 
     my = ob->query_entire_dbase();
@@ -48,24 +45,19 @@ int main(object me, string arg)
     if (playerp(ob) && (!stringp(my["born"])))
         return notify_fail("还没有出生呐，察看什么？\n");
 
-    if (!mapp(my["mark"]))
-    {
+    if (!mapp(my["mark"])) {
         my["mark"] = ([]);
     }
-    if (!mapp(my["state"]))
-    {
+    if (!mapp(my["state"])) {
         my["state"] = ([]);
     }
-    if (!mapp(my["over_quest"]))
-    {
+    if (!mapp(my["over_quest"])) {
         my["over_quest"] = ([]);
     }
-    if (!my["state"]["quest"])
-    {
+    if (!my["state"]["quest"]) {
         my["state"]["quest"] = my["quest_count"];
     }
-    if (!my["state"]["mirror"])
-    {
+    if (!my["state"]["mirror"]) {
         my["state"]["mirror"] = my["mirror_count"];
     }
 
@@ -74,19 +66,42 @@ int main(object me, string arg)
     line += sprintf(HIW " 生日礼物领取次数：%d 次\n", sizeof(my["birthgift"]));
     line += sprintf(HIW " 扬州武庙祈福次数：%d 次\n", my["state"]["pray"]);
     line += "\n";
-    line += sprintf(HIW " %-30s%-20s\n", "打铁次数：" + my["mark"]["job_smith"] + " 次", "抄书次数：" + my["mark"]["job_copy"] + " 次");
-    if (my["gender"] == "女性")
-    {
-        line += sprintf(HIW " %-30s%-20s\n", "裁缝次数：" + my["mark"]["job_sew"] + " 次", "炒菜次数：" + my["mark"]["job_cook"] + " 次");
+    line += sprintf(
+        HIW " %-30s%-20s\n",
+        "打铁次数：" + my["mark"]["job_smith"] + " 次",
+        "抄书次数：" + my["mark"]["job_copy"] + " 次"
+    );
+    if (my["gender"] == "女性") {
+        line += sprintf(
+            HIW " %-30s%-20s\n",
+            "裁缝次数：" + my["mark"]["job_sew"] + " 次",
+            "炒菜次数：" + my["mark"]["job_cook"] + " 次"
+        );
     }
-    line += sprintf(HIW " %-30s%-20s\n", "磨药次数：" + my["mark"]["job_peiyao"] + " 次", "种花次数：" + my["mark"]["job_zhonghua"] + " 次");
+    line += sprintf(
+        HIW " %-30s%-20s\n",
+        "磨药次数：" + my["mark"]["job_peiyao"] + " 次",
+        "种花次数：" + my["mark"]["job_zhonghua"] + " 次"
+    );
     line += sprintf(HIW " 郭府打工次数：%d 次\n", my["mark"]["guofu_job"]);
-    line += sprintf(HIW " %-30s%-20s\n", "采石次数：" + my["mark"]["job_mine1"] + " 次", "采石送货次数：" + my["mark"]["job_transit1"] + " 次");
-    line += sprintf(HIW " %-30s%-20s\n", "采矿次数：" + my["mark"]["job_mine2"] + " 次", "采矿送货次数：" + my["mark"]["job_transit2"] + " 次");
+    line += sprintf(
+        HIW " %-30s%-20s\n",
+        "采石次数：" + my["mark"]["job_mine1"] + " 次",
+        "采石送货次数：" + my["mark"]["job_transit1"] + " 次"
+    );
+    line += sprintf(
+        HIW " %-30s%-20s\n",
+        "采矿次数：" + my["mark"]["job_mine2"] + " 次",
+        "采矿送货次数：" + my["mark"]["job_transit2"] + " 次"
+    );
     line += "\n";
     line += sprintf(HIW " 师门任务完成次数：%d 次\n", my["state"]["quest"]);
     line += sprintf(HIW " 宝镜任务完成次数：%d 次\n", my["state"]["mirror"]);
-    line += sprintf(HIW " 江湖挑战接受次数：%d 次，获胜：%d 次\n", my["state"]["challenge"], my["state"]["challenge_win"]);
+    line += sprintf(
+        HIW " 江湖挑战接受次数：%d 次，获胜：%d 次\n",
+        my["state"]["challenge"],
+        my["state"]["challenge_win"]
+    );
     line += sprintf(HIW " 屠人大赛参加次数：%d 次，获胜：%d 次\n", my["state"]["pk"], my["state"]["pk_win"]);
     line += sprintf(HIW " 支线解迷数量：%d 次\n", my["state"]["puzzle"]);
     line += "\n";
@@ -99,8 +114,7 @@ int main(object me, string arg)
     line += sprintf(HIW " 睡觉次数：%d 次\n", my["state"]["sleep"]);
     line += sprintf(HIW " 移动距离：%d 米\n", my["state"]["go"] * 5);
     line += "\n";
-    if(me->query("family/family_name") == "丐帮")
-    {
+    if (me->query("family/family_name") == "丐帮") {
         line += sprintf(HIW " 乞讨成功次数：%d 次\n", my["state"]["beg"]);
     }
     line += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
@@ -110,8 +124,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: time
 

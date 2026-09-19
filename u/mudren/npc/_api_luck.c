@@ -2,17 +2,13 @@ inherit "u/mudren/http/mobile_d.c";
 
 #include <ansi.h>
 
-void response(mixed result)
-{
+void response(mixed result) {
     // debug(result);
     result = result[strsrch(result, "{")..];
     result = json_decode(result);
-    if (result["status"])
-    {
+    if (result["status"]) {
         tell_object(Receiver, "……\n");
-    }
-    else
-    {
+    } else {
         string str;
         result = result["result"];
         str = "号码『" + result["mobile"] + "』的占卜结果：\n";

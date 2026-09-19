@@ -3,9 +3,8 @@ inherit NPC;
 
 void greeting(object me);
 
-void create()
-{
-    set_name("花铁干", ({"hua tiegan", "hua", "tiegan"}));
+void create() {
+    set_name("花铁干", ({ "hua tiegan", "hua", "tiegan" }));
     set("long", "他一脸来上去大义凛然，却总让感觉有点什么不对。\n");
     set("gender", "男性");
     set("age", 41);
@@ -17,8 +16,7 @@ void create()
     carry_object("/clone/cloth/cloth.c")->wear();
 }
 
-void init()
-{
+void init() {
     object me = this_player();
 
     ::init();
@@ -28,7 +26,7 @@ void init()
 
     command("grin " + me->query("id"));
     command("say 这位" + RANK_D->query_respect(me) + "，这年头做那"
-            "种什么正人君子太吃亏啦。");
+        "种什么正人君子太吃亏啦。");
     command("say 看看我，看看岳不群老哥，现今世道" HIM "阴险奸诈" NOR + CYN "才是做人的道理！" NOR);
 
     tell_object(me, HIM "
@@ -41,23 +39,18 @@ void init()
 " NOR);
 }
 
-void check_leave(object me, string dir)
-{
-    if (dir == "out")
-    {
+void check_leave(object me, string dir) {
+    if (dir == "out") {
         message_vision(CYN "$N" CYN "对$n" CYN "奸笑道：上路吧"
-                           "。\n" NOR,
-                       this_object(), me);
+            "。\n" NOR,
+            this_object(), me);
         me->set("character", "阴险奸诈");
         me->set("startroom", "/d/city/guangchang");
-        if (me->query("combat/dietimes") > random(3))
-        {
+        if (me->query("combat/dietimes") > random(3)) {
             me->set("special_skill/trick", 1);
             tell_object(me, HIC "你领悟了特技" + SPECIAL_D("trick")->name() + "(help special)。\n");
         }
-    }
-    else if (dir == "east")
-    {
+    } else if (dir == "east") {
         command("sneer");
         command("say 哼，没眼光！");
     }

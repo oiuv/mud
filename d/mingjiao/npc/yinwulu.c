@@ -5,20 +5,19 @@ inherit NPC;
 inherit F_UNIQUE;
 #include <ansi.h>
 
-void create()
-{
-        set_name("殷无禄", ({ "yin wulu", "yin", "wulu", }));
+void create() {
+    set_name("殷无禄", ({ "yin wulu", "yin", "wulu", }));
     set("long",
         "他是一位老者，身穿一件白布长袍。\n"
         "他是白眉鹰王殷天正的仆从。一双怪眼正恶狠狠地瞪着你呢！\n"
     );
 
-        set("title", HIR "明教" HIC "天市堂" NOR "属下");
+    set("title", HIR "明教" HIC "天市堂" NOR "属下");
     set("gender", "男性");
     set("attitude", "friendly");
-        set("class", "fighter");
+    set("class", "fighter");
 
-        set("age", 56);
+    set("age", 56);
     set("shen_type", 1);
     set("str", 25);
     set("int", 25);
@@ -48,9 +47,9 @@ void create()
     map_skill("parry", "jingang-quan");
 
     prepare_skill("cuff", "jingang-quan");
-        create_family("明教", 4, "天市堂属下");
+    create_family("明教", 4, "天市堂属下");
 
     setup();
 
-        carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/d/mingjiao/obj/baipao")->wear();
 }

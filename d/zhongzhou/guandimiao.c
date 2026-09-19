@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "破庙");
     set("long", @LONG
 这是小巷中的一座破庙，许多残破的青砖散落在地下，从
@@ -10,11 +9,11 @@ void create()
 LONG);
 
     set("exits", ([
-        "southeast" : __DIR__"xiaoxiang1",
-        "in":__DIR__"inpomiao",
+        "southeast": __DIR__ "xiaoxiang1",
+        "in": __DIR__ "inpomiao",
     ]));
-    set("objects",([
-        "/d/kaifeng/npc/qigai" : 2,
+    set("objects", ([
+        "/d/kaifeng/npc/qigai": 2,
     ]));
 
     setup();

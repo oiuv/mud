@@ -4,11 +4,10 @@
 
 inherit HANDS;
 
-void create()
-{
-    set_name( "皮手套", ({ "gloves", "pi shoutao", "shoutao" }) );
+void create() {
+    set_name("皮手套", ({ "gloves", "pi shoutao", "shoutao" }));
     set_weight(500);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "双");

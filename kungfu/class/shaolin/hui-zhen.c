@@ -6,8 +6,7 @@ inherit F_MASTER;
 
 #include "hui.h"
 
-void create()
-{
+void create() {
     set_name("慧真尊者", ({
         "huizhen zunzhe",
         "huizhen",
@@ -65,31 +64,29 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/changjian")->wield();
-        carry_object("/d/shaolin/obj/hui-cloth")->wear();
+    carry_object("/d/shaolin/obj/changjian")->wield();
+    carry_object("/d/shaolin/obj/hui-cloth")->wear();
 }
 
-void init()
-{
+void init() {
     string startroom;
     mapping mine;
     object me;
 
     me = this_player();
-        if (! living(this_object()))
-                return;
+    if (!living(this_object()))
+        return;
 
-    if (! stringp(startroom = query("startroom")))
+    if (!stringp(startroom = query("startroom")))
         return;
 
     if (find_object(startroom) != environment())
         return;
 
-    if (! mapp(mine = me->query("family")) ||
+    if (!mapp(mine = me->query("family")) ||
         mine["family_name"] != "少林派" ||
-        ! present("shou yu", me))
-    {
-          command("say 大胆狂徒，竟敢闯入藏经阁，看招!\n");
-          kill_ob(me);
+        !present("shou yu", me)) {
+        command("say 大胆狂徒，竟敢闯入藏经阁，看招!\n");
+        kill_ob(me);
     }
 }

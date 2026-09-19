@@ -4,8 +4,7 @@ inherit NPC;
 //inherit F_VENDOR;
 inherit F_DEALER;
 
-void create()
-{
+void create() {
     set_name("高丽商", ({ "gaoli shang", "shang" }));
     set("title", "新罗坊老板");
     set("shen_type", 1);
@@ -42,8 +41,7 @@ void create()
     carry_object("/clone/misc/cloth")->wear();
 }
 
-void init()
-{
-        add_action("do_list", "list");
-        add_action("do_buy", "buy");
+void init() {
+    add_action("do_list", "list");
+    add_action("do_buy", "buy");
 }

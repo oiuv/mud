@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "皮货店");
     set("long", @LONG
 这是洛阳的一家皮货店，专卖各式各样的皮货。据说店主自开店以来
@@ -11,11 +10,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"nroad4",
+        "east": __DIR__ "nroad4",
     ]));
-        set("objects", ([
-                "/d/kaifeng/npc/huizhang" : 1,
-        ]));
+    set("objects", ([
+        "/d/kaifeng/npc/huizhang": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

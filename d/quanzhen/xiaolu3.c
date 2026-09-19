@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "后山小路");
     set("long", @LONG
 这里是后山上的小路。这条小路好象不是人工刻意修出来
@@ -9,8 +8,8 @@ void create()
 LONG);
     set("outdoors", "quanzhen");
     set("exits", ([
-        "west" : __DIR__"xiaolu2",
-        "in" : __DIR__"shandong",
+        "west": __DIR__ "xiaolu2",
+        "in": __DIR__ "shandong",
     ]));
     set("no_clean_up", 0);
 

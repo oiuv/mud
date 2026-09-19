@@ -3,8 +3,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     string old_status, new_status;
 
@@ -30,22 +29,21 @@ int main(object me, string arg)
         return notify_fail("修改失败。\n");
 
     message_vision("$N将$n的权限从 " + old_status + " 改为 " +
-                   new_status + " 。\n",
-                   me, ob);
+        new_status + " 。\n",
+        me, ob);
     seteuid(getuid());
     ob->setup();
 
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : promote <某人> (权限等级)
 
 用来提升权限等级, (player) (immortal) (apprentice) (wizard)
 (arch) (admin)
 一个 admin 能提升权限至任何等级，而 arch 只能提升至 arch。
-HELP );
+HELP);
     return 1;
 }

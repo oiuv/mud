@@ -16,15 +16,13 @@ inherit F_CLEAN_UP;
 
 // They have answered our remote who question.
 
-void incoming_request(mapping info)
-{
+void incoming_request(mapping info) {
     object ob;
 
     if (!ACCESS_CHECK(previous_object()))
         return;
 
-    if (stringp(info["PORTUDP"]) && stringp(info["HOSTADDRESS"]))
-    {
+    if (stringp(info["PORTUDP"]) && stringp(info["HOSTADDRESS"])) {
         if (info["NAME"] == Mud_name())
             return;
         if (!DNS_MASTER->dns_mudp(info["NAME"]))
@@ -35,7 +33,6 @@ void incoming_request(mapping info)
     }
 }
 
-void create()
-{
+void create() {
     seteuid(ROOT_UID);
 }

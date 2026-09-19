@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "落燕厅");
     set("long", @LONG
 四小厅借沉鱼落燕羞花闭月之典故而起名，此厅内高爽宽敞，窗台明
@@ -11,7 +10,7 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"jiyuan2",
+        "east": __DIR__ "jiyuan2",
     ]));
 
     setup();

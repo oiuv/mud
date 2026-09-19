@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
 
     if (me->is_chatter())
@@ -13,14 +12,11 @@ int main(object me, string arg)
         return notify_fail("指令格式：follow <某人>|none。\n");
 
     if (arg == "none")
-        if (me->query_leader())
-        {
+        if (me->query_leader()) {
             me->set_leader(0);
             write("Ok.\n");
             return 1;
-        }
-        else
-        {
+        } else {
             write("你现在并没有跟随任何人。\n");
             return 1;
         }
@@ -40,8 +36,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : follow [<生物>|none]
 
@@ -49,6 +44,6 @@ int help (object me)
 如果输入 follow none 则停止跟随。
 
 HELP
-);
+    );
     return 1;
 }

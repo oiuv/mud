@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me)
-{
+int main(object me) {
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
         return 0;
 
@@ -11,8 +10,7 @@ int main(object me)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : qload
 

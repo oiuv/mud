@@ -4,9 +4,8 @@ inherit ITEM;
 
 #include <ansi.h>
 
-void create()
-{
-    set_name(HIY"伤寒愁"NOR, ({"shanghan chou", "shanghanchou"}));
+void create() {
+    set_name(HIY "伤寒愁" NOR, ({ "shanghan chou", "shanghanchou" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -18,10 +17,8 @@ void create()
     setup();
 }
 
-int do_effect(object me)
-{
-    if (!me->query_condition("ill_shanghan"))
-    {
+int do_effect(object me) {
+    if (!me->query_condition("ill_shanghan")) {
         write("你现在又没有得伤寒，别乱吃药。\n");
         return 1;
     } else {

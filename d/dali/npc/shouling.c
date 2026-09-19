@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("傣族首领", ({ "daizu shouling", "shouling" }));
     set("age", 42);
     set("title", "洪源洞洞主");
@@ -28,6 +27,6 @@ void create()
     set_temp("apply/armor", 40);
 
     setup();
-    carry_object(__DIR__"obj/mandao")->wield();
-    carry_object(__DIR__"obj/hupi")->wear();
+    carry_object(__DIR__ "obj/mandao")->wield();
+    carry_object(__DIR__ "obj/hupi")->wear();
 }

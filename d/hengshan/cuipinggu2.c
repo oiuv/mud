@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "翠屏谷");
     set("long", @LONG
 这里峡谷幽深，石壁陡直，两崖壁立，一涧中流。就在这地势
@@ -14,12 +13,12 @@ void create()
 LONG
     );
     set("exits", ([
-        "up"         : __DIR__"cuiping1",
-        "northwest"  : __DIR__"cuipinggu1",
+        "up": __DIR__ "cuiping1",
+        "northwest": __DIR__ "cuipinggu1",
     ]));
 
     set("outdoors", "hengshan");
-        set("no_clean_up", 0);
+    set("no_clean_up", 0);
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

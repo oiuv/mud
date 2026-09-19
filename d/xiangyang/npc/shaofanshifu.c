@@ -3,8 +3,7 @@
 inherit NPC;
 inherit F_DEALER;
 
-void create()
-{
+void create() {
     set_name("烧饭师傅", ({ "shaofan shifu", "shifu" }));
     set("str", 50);
     set("gender", "男性");

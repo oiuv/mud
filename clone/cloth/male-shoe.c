@@ -4,11 +4,10 @@
 
 inherit BOOTS;
 
-void create()
-{
-    set_name("皮靴", ({ "pi xue", "xue" }) );
+void create() {
+    set_name("皮靴", ({ "pi xue", "xue" }));
     set_weight(800);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("material", "leather");

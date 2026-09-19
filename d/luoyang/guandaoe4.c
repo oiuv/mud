@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "大官道");
     set("long", @LONG
 这是一条宽阔笔直，尘土飞扬的大官道，足可容得下十马并驰。往东
@@ -10,8 +9,8 @@ LONG);
     set("outdoors", "luoyang");
     set("no_clean_up", 0);
     set("exits", ([
-        "west" : __DIR__"guandaoe3",
-        "east" : __DIR__"hanguguan",
+        "west": __DIR__ "guandaoe3",
+        "east": __DIR__ "hanguguan",
     ]));
 
     setup();

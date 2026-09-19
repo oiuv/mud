@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "一线牵");
     set("long", @LONG
 你现在正地方叫一线牵，这里是专门替人缔结婚约和解除婚约的地方，
@@ -10,11 +9,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "north" : __DIR__"eroad2",
+        "north": __DIR__ "eroad2",
     ]));
-        set("objects", ([
-                "/adm/npc/hongniang" : 1,
-        ]));
+    set("objects", ([
+        "/adm/npc/hongniang": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

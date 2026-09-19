@@ -8,8 +8,7 @@ string ask_me_1();
 
 #include "dao.h"
 
-void create()
-{
+void create() {
     set_name("道象禅师", ({
         "daoxiang chanshi",
         "daoxiang",
@@ -40,7 +39,7 @@ void create()
 
     set_skill("force", 50);
     set_skill("hunyuan-yiqi", 50);
-        set_skill("shaolin-xinfa", 50);
+    set_skill("shaolin-xinfa", 50);
     set_skill("dodge", 50);
     set_skill("shaolin-shenfa", 50);
     set_skill("strike", 50);
@@ -52,38 +51,34 @@ void create()
     map_skill("force", "hunyuan-yiqi");
     map_skill("dodge", "shaolin-shenfa");
     map_skill("strike", "banruo-zhang");
-    map_skill("parry",  "banruo-zhang");
+    map_skill("parry", "banruo-zhang");
 
     prepare_skill("strike", "banruo-zhang");
 
     create_family("少林派", 39, "弟子");
 
     set("inquiry", ([
-        "金创药" : (: ask_me_1 :),
+        "金创药": (: ask_me_1 :),
     ]));
 
     set("jin_count", 20);
     setup();
 
-        carry_object("/d/shaolin/obj/dao-cloth")->wear();
+    carry_object("/d/shaolin/obj/dao-cloth")->wear();
 }
 
-string ask_me_1()
-{
+string ask_me_1() {
     mapping fam;
     object ob;
 
     if (!(fam = this_player()->query("family")) || fam["family_name"] != "少林派")
-        return RANK_D->query_respect(this_player()) +
-        "与本派素无来往，不知此话从何谈起？";
+        return RANK_D->query_respect(this_player()) + "与本派素无来往，不知此话从何谈起？";
 
-    if ( (int)this_player()->query_condition("bonze_drug" ) > 0 )
-        return RANK_D->query_respect(this_player()) +
-        "你是不是刚吃过药，怎麽又来要了？ 灵药多吃有害无宜，过段时间再来吧。";
+    if ((int)this_player()->query_condition("bonze_drug") > 0)
+        return RANK_D->query_respect(this_player()) + "你是不是刚吃过药，怎麽又来要了？ 灵药多吃有害无宜，过段时间再来吧。";
 
-    if (  present("jin chuangyao", this_player()) )
-        return RANK_D->query_respect(this_player()) +
-        "你现在身上不是有颗药丸吗，怎麽又来要了？ 真是贪得无餍！";
+    if (present("jin chuangyao", this_player()))
+        return RANK_D->query_respect(this_player()) + "你现在身上不是有颗药丸吗，怎麽又来要了？ 真是贪得无餍！";
 
     if (query("jin_count") < 1) return "对不起，金创药已经发完了";
 
@@ -92,7 +87,7 @@ string ask_me_1()
 
     add("jin_count", -1);
 
-    message_vision("$N获得一包金创药。\n",this_player());
+    message_vision("$N获得一包金创药。\n", this_player());
     return "好吧，记住，不到危急关头不要轻易使用此药。";
 
 }

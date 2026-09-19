@@ -4,10 +4,9 @@ inherit ITEM;
 inherit F_FOOD;
 #include <ansi.h>
 
-void create()
-{
-    set_name(HIR"高粱米饭"NOR, ({ "rice", "mi fan" }) );
-    if( clonep() )
+void create() {
+    set_name(HIR "高粱米饭" NOR, ({ "rice", "mi fan" }));
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("long", "一碗香喷喷的高粱米饭。\n");

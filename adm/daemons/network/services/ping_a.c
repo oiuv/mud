@@ -16,14 +16,12 @@
 inherit F_CLEAN_UP;
 
 // set our uid
-void create()
-{
+void create() {
     seteuid(ROOT_UID);
 }
 
 // Someone has answered our ping of them.
-void incoming_request(mapping info)
-{
+void incoming_request(mapping info) {
     if (!ACCESS_CHECK(previous_object()))
         return;
 

@@ -6,8 +6,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
 
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
@@ -20,14 +19,12 @@ int main(object me, string arg)
     if (!ob)
         return notify_fail(LOCAL_MUD_NAME() + "并没有这个人！\n");
 
-    if (wiz_level(ob) > 0)
-    {
+    if (wiz_level(ob) > 0) {
         UPDATE_D->global_destruct_player(ob);
         return notify_fail("你不能关闭巫师的频道。\n");
     }
 
-    if (ob->query("chblk_on"))
-    {
+    if (ob->query("chblk_on")) {
         UPDATE_D->global_destruct_player(ob);
         return notify_fail("这个人的频道已经被关闭了。\n");
     }
@@ -41,13 +38,12 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : chblk <玩家>
 
 此命令将关闭某个玩家的频道。
 
-HELP );
+HELP);
     return 1;
 }

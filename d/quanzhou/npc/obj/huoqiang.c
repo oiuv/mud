@@ -5,9 +5,8 @@
 
 inherit STAFF;
 
-void create()
-{
-    set_name("荷兰火枪", ({"helan huoqiang", "huoqiang"}));
+void create() {
+    set_name("荷兰火枪", ({ "helan huoqiang", "huoqiang" }));
     set_weight(5000);
 
     if (clonep())

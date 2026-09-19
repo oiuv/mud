@@ -3,8 +3,7 @@
 inherit NPC;
 
 
-void create()
-{
+void create() {
     set_name("偏将", ({ "pian jiang", "pian", "jiang" }));
     set("gender", "男性");
     set("age", random(10) + 30);
@@ -36,8 +35,7 @@ void create()
     carry_object("/d/city/npc/obj/tiejia")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
     ::init();
     if (interactive(ob = this_player()) &&

@@ -4,14 +4,12 @@
 // poet modified to use free command style
 #include <shell.h>
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     mixed result;
     string name, value;
     int index;
 
-    if (!arg)
-    {
+    if (!arg) {
         mapping vars;
         string content;
 
@@ -24,15 +22,14 @@ int main(object me, string arg)
 
         content += sprintf("me\t: %s\t== %O\n", typeof(me), me);
         content += sprintf("here\t: %s\t== %O\n",
-                           typeof(environment(me)), environment(me));
-        foreach (name in keys(vars))
-        {
+            typeof(environment(me)), environment(me));
+        foreach (name in keys(vars)) {
 
             if (undefinedp(vars[name]) || nullp(vars[name]))
                 content += sprintf("%s\t: void\n", name);
             else
                 content += sprintf("%s\t: %s\t== %O\n", name,
-                                   typeof(vars[name]), vars[name]);
+                    typeof(vars[name]), vars[name]);
         }
 
         tell_object(me, content);
@@ -41,35 +38,29 @@ int main(object me, string arg)
 
     index = strsrch(arg, '=');
 
-    if (index == -1)
-    {
+    if (index == -1) {
         name = arg;
-    }
-    else
-    {
+    } else {
         name = arg[0..(index - 1)];
-        value = arg[(index + 1)..< 1];
+        value = arg[(index + 1)..<1];
     }
 
     name = replace_string(name, " ", "");
 
-    if (name == "me" || name == "here")
-    {
+    if (name == "me" || name == "here") {
         return notify_fail("这是系统预定义的私有变量。\n");
     }
 
-    if (!value)
-    {
+    if (!value) {
         if (undefinedp(result) || nullp(result))
             printf("%s\t: void\n", name);
         else
             printf("%s\t: %s\t== %O\n", name,
-                   typeof(me->query_var(name)), me->query_var(name));
+                typeof(me->query_var(name)), me->query_var(name));
         return 1;
     }
 
-    if (value == "none" || value == " none" || value == "null" || value == " null")
-    {
+    if (value == "none" || value == " none" || value == "null" || value == " null") {
         me->delete_var(name);
         printf("Delete var '%s' Ok.\n", name);
 
@@ -91,8 +82,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : var name=value
 

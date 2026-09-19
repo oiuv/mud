@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", NOR + WHT "桃源瓦房" NOR);
     set("long", WHT @LONG
 
@@ -13,25 +12,23 @@ void create()
 葛之亮。正笑吟吟的看着你进来。
 
 
-LONG NOR );
+LONG NOR);
     set("no_fight", 1);
     set("objects", ([
-        __DIR__"npc/wei" : 1,
+        __DIR__ "npc/wei": 1,
     ]));
     set("exits", ([
-        "north"  : __DIR__"entry",
-        "out"    : "/d/city/guangchang",
+        "north": __DIR__ "entry",
+        "out": "/d/city/guangchang",
     ]));
 
     setup();
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     object ob;
-    if (!objectp(ob = present("wei xiaobao", this_object())))
-    {
-        ob = new (__DIR__ "npc/wei");
+    if (!objectp(ob = present("wei xiaobao", this_object()))) {
+        ob = new(__DIR__ "npc/wei");
         ob->move(this_object());
     }
 

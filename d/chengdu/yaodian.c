@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "济世堂药店");
     set("long", @LONG
 济世堂药店卖很多中原买不到的药。托唐门的福，生意一
@@ -10,10 +9,10 @@ void create()
 的眼光看你。他们的腰间鼓鼓囊囊的，显然不是好惹的。
 LONG);
     set("objects", ([
-        __DIR__"npc/huoji" : 1,
+        __DIR__ "npc/huoji": 1,
     ]));
     set("exits", ([
-        "southeast" : __DIR__"westroad3",
+        "southeast": __DIR__ "westroad3",
     ]));
     setup();
     replace_program(ROOM);

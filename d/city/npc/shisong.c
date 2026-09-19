@@ -4,8 +4,7 @@ inherit NPC;
 #define HEILONG    "/clone/lonely/heilongbian"
 #define LING       "/clone/lonely/item/tongjiling"
 
-void create()
-{
+void create() {
     object ob;
     set_name("史松", ({ "shi song", "shi", "song" }));
     set("gender", "男性");
@@ -58,8 +57,8 @@ void create()
     }));
 
     set("inquiry", ([
-        "茅十八" : "谁帮我干掉这恶贼，我一定保他前程似锦。",
-        "缠字诀" : "我总得留两手吧？",
+        "茅十八": "谁帮我干掉这恶贼，我一定保他前程似锦。",
+        "缠字诀": "我总得留两手吧？",
     ]));
 
     set("chat_chance", 1);
@@ -70,19 +69,15 @@ void create()
 
     setup();
 
-    if (clonep())
-    {
+    if (clonep()) {
         ob = find_object(HEILONG);
         if (!ob)
             ob = load_object(HEILONG);
-        if (!environment(ob))
-        {
+        if (!environment(ob)) {
             ob->move(this_object());
             ob->wield();
-        }
-        else
-        {
-            ob = new ("/clone/weapon/changbian");
+        } else {
+            ob = new("/clone/weapon/changbian");
             ob->move(this_object());
             ob->wield();
         }
@@ -92,24 +87,21 @@ void create()
     add_money("silver", 20);
 }
 
-void init()
-{
+void init() {
     object me, ob;
     ::init();
 
     ob = this_player();
     me = this_object();
 
-    if (ob->query("id") == "mao shiba")
-    {
+    if (ob->query("id") == "mao shiba") {
         command("say 茅十八你这个反贼，今天终于逮到你了！");
         me->set_leader(ob);
         remove_call_out("kill_ob");
         call_out("kill_ob", 1, ob);
     }
 
-    if (interactive(ob) && !environment(ob)->query("no_fight") && (ob->query("combat_exp") > 150000) && (ob->query("family/family_name") == "天地会"))
-    {
+    if (interactive(ob) && !environment(ob)->query("no_fight") && (ob->query("combat_exp") > 150000) && (ob->query("family/family_name") == "天地会")) {
         command("say 你这个天地会反贼，纳命来吧！");
         me->set_leader(ob);
         remove_call_out("kill_ob");
@@ -117,16 +109,13 @@ void init()
     }
 }
 
-int accept_object(object me, object ob)
-{
-    if (base_name(ob) != LING)
-    {
+int accept_object(object me, object ob) {
+    if (base_name(ob) != LING) {
         command("say 你给我这种东西干什么？");
         return 0;
     }
 
-    if (!(int)me->query("skybook/luding/shi"))
-    {
+    if (!(int)me->query("skybook/luding/shi")) {
         return QUEST_D->doReward(this_object(), me);
     }
 
@@ -135,30 +124,25 @@ int accept_object(object me, object ob)
     return 1;
 }
 
-int recognize_apprentice(object me, string skill)
-{
-    if (!me->query("can_learn/yunlong-bian/shi"))
-    {
+int recognize_apprentice(object me, string skill) {
+    if (!me->query("can_learn/yunlong-bian/shi")) {
         command("say 奶奶的，你找死么？");
         return -1;
     }
 
-    if (skill != "yunlong-bian")
-    {
+    if (skill != "yunlong-bian") {
         command("say 我拿手的就只有这套鞭法，你不学就算了。");
         return -1;
     }
     return 1;
 }
 
-int accept_fight(object me)
-{
+int accept_fight(object me) {
     command("say 没兴趣。");
     return 0;
 }
 
-int accept_hit(object me)
-{
+int accept_hit(object me) {
     command("say 他奶奶的，连我你都敢惹？");
     kill_ob(me);
     return 1;

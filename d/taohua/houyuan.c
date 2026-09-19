@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "后院");
     set("long", @LONG
 这是山庄的后院。院后是桃花岛的唯一一座山峰：弹指峰。
@@ -11,16 +10,16 @@ void create()
 LONG);
     set("outdoors", "taohua");
     set("exits", ([
-        "north" :__DIR__"dating",
-        "west"  :__DIR__"xiaowu",
-        "east"  :__DIR__"siguoshi" ,
-        "southeast" : __DIR__"wuchang1",
-        "southwest" : __DIR__"wuchang2",
-        "south" : __DIR__"wuchang3",
+        "north": __DIR__ "dating",
+        "west": __DIR__ "xiaowu",
+        "east": __DIR__ "siguoshi",
+        "southeast": __DIR__ "wuchang1",
+        "southwest": __DIR__ "wuchang2",
+        "south": __DIR__ "wuchang3",
     ]));
 
     set("objects", ([
-        __DIR__"obj/shizi" : 1,
+        __DIR__ "obj/shizi": 1,
     ]));
     setup();
     replace_program(ROOM);

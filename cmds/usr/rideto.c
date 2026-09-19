@@ -9,67 +9,66 @@ inherit F_CLEAN_UP;
 int help(object me);
 
 mapping places = ([
-    "baituo"   : "/d/baituo/guangchang",
-    "beijing"  : "/d/beijing/tiananmen",
-    "changan"  : "/d/changan/bridge2",
-    "chengdu"  : "/d/chengdu/guangchang",
-    "dali"     : "/d/dali/center",
-    "emei"     : "/d/emei/huayanding",
-    "foshan"   : "/d/foshan/street3",
-    "fuzhou"   : "/d/fuzhou/dongjiekou",
-    "gc"       : "/d/city/guangchang",
-    "guanwai"  : "/d/guanwai/jishi",
-    "guiyun"   : "/d/guiyun/taihu",
-    "gumu"     : "/d/gumu/mumen",
-    "hangzhou" : "/d/hangzhou/road10",
-    "heimuya"  : "/d/heimuya/shimen",
-    "hengyang"  : "/d/hengyang/hengyang",
-    "huashan"  : "/d/huashan/shaluo",
-    "jiaxing"  : "/d/quanzhou/jiaxing",
-    "jingzhou" : "/d/jingzhou/guangchang",
-    "kaifeng"  : "/d/kaifeng/zhuque",
-    "kunlun"   : "/d/kunlun/klshanlu",
-    "kunming"  : "/d/kunming/jinrilou",
-    "lanzhou"  : "/d/lanzhou/guangchang",
-    "lingjiu"  : "/d/lingjiu/jian",
-    "lingzhou" : "/d/lingzhou/center",
-    "luoyang"  : "/d/luoyang/center",
-    "mingjiao" : "/d/mingjiao/shanjiao",
-    "murong"   : "/d/yanziwu/hupan",
-    "nanhai"   : "/d/xiakedao/haibin",
-    "nanyang"  : "/d/shaolin/nanyang",
-    "quanzhen" : "/d/quanzhen/damen",
-    "quanzhou" : "/d/quanzhou/zhongxin",
-    "shaolin"  : "/d/shaolin/shanmen",
-    "suzhou"   : "/d/suzhou/canlangting",
-    "taishan"  : "/d/taishan/taishanjiao",
+    "baituo": "/d/baituo/guangchang",
+    "beijing": "/d/beijing/tiananmen",
+    "changan": "/d/changan/bridge2",
+    "chengdu": "/d/chengdu/guangchang",
+    "dali": "/d/dali/center",
+    "emei": "/d/emei/huayanding",
+    "foshan": "/d/foshan/street3",
+    "fuzhou": "/d/fuzhou/dongjiekou",
+    "gc": "/d/city/guangchang",
+    "guanwai": "/d/guanwai/jishi",
+    "guiyun": "/d/guiyun/taihu",
+    "gumu": "/d/gumu/mumen",
+    "hangzhou": "/d/hangzhou/road10",
+    "heimuya": "/d/heimuya/shimen",
+    "hengyang": "/d/hengyang/hengyang",
+    "huashan": "/d/huashan/shaluo",
+    "jiaxing": "/d/quanzhou/jiaxing",
+    "jingzhou": "/d/jingzhou/guangchang",
+    "kaifeng": "/d/kaifeng/zhuque",
+    "kunlun": "/d/kunlun/klshanlu",
+    "kunming": "/d/kunming/jinrilou",
+    "lanzhou": "/d/lanzhou/guangchang",
+    "lingjiu": "/d/lingjiu/jian",
+    "lingzhou": "/d/lingzhou/center",
+    "luoyang": "/d/luoyang/center",
+    "mingjiao": "/d/mingjiao/shanjiao",
+    "murong": "/d/yanziwu/hupan",
+    "nanhai": "/d/xiakedao/haibin",
+    "nanyang": "/d/shaolin/nanyang",
+    "quanzhen": "/d/quanzhen/damen",
+    "quanzhou": "/d/quanzhou/zhongxin",
+    "shaolin": "/d/shaolin/shanmen",
+    "suzhou": "/d/suzhou/canlangting",
+    "taishan": "/d/taishan/taishanjiao",
     //新增桃花岛 2018-06-02
-    "taohua"   : "/d/taohua/haitan",
-    "wudang"   : "/d/wudang/jiejianyan",
-    "wugong"   : "/d/quanzhen/zhongxin",
+    "taohua": "/d/taohua/haitan",
+    "wudang": "/d/wudang/jiejianyan",
+    "wugong": "/d/quanzhen/zhongxin",
     "xiangyang": "/d/xiangyang/guangchang",
-    "xiaoyao"  : "/d/xiaoyao/xiaodao4",
-    "xingxiu"  : "/d/xiyu/xxh1",
-    "xuedao"   : "/d/xuedao/wangyougu",
-    "xueshan"  : "/d/xuedao/nroad4",
-    "yangzhou" : "/d/city/guangchang",
-    "yanziwu"  : "/d/yanziwu/bozhou",
-    "yongdeng" : "/d/huanghe/yongdeng",
-    "zhongnan" : "/d/quanzhen/shanjiao",
+    "xiaoyao": "/d/xiaoyao/xiaodao4",
+    "xingxiu": "/d/xiyu/xxh1",
+    "xuedao": "/d/xuedao/wangyougu",
+    "xueshan": "/d/xuedao/nroad4",
+    "yangzhou": "/d/city/guangchang",
+    "yanziwu": "/d/yanziwu/bozhou",
+    "yongdeng": "/d/huanghe/yongdeng",
+    "zhongnan": "/d/quanzhen/shanjiao",
     "zhongzhou": "/d/zhongzhou/shizhongxin",
     //新增衡山 2017-02-11
-    "hengshan" : "/d/hengyang/nantian",
+    "hengshan": "/d/hengyang/nantian",
     //新增绝情谷、铁掌山 2017-02-18
-    "jueqing"  : "/d/jueqing/shanjiao",
-    "tiezhang" : "/d/tiezhang/shanjiao",
+    "jueqing": "/d/jueqing/shanjiao",
+    "tiezhang": "/d/tiezhang/shanjiao",
 
     // "hujia"    : "/d/guanwai/xiaoyuan",
     // "tangmen"  : "/d/tangmen/",
     // "yaowang"  : "/d/yaowang/",
 ]);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object riding, room;
     string where;
 
@@ -127,20 +126,16 @@ int main(object me, string arg)
     if (arg == "home" && stringp(me->query("private_room/position")) &&
         file_size(me->query("private_room/position") + ".c") > 0)
         room = get_object(me->query("private_room/position"));
-    else
-    // 特殊：古墓2个，绝情谷2个。拜裘千尺后自动转成铁掌帮，实际是铁掌帮有两个？
+    else  // 特殊：古墓2个，绝情谷2个。拜裘千尺后自动转成铁掌帮，实际是铁掌帮有两个？
     //灵鹫下属小门派不管，已被关闭的门派不管。
-    if (arg == "family")
-    {
+    if (arg == "family") {
         if (!me->query("family/family_name"))
             return notify_fail("你还没有门派，不能使用 rideto family 指令！\n");
-        else
-            //if (me->query("combat_exp") < 1000000) return notify_fail("以你现在的经验还不够使用 rideto family 指令。\n");
-            //转世后取消100万exp限制
-            if (me->query("combat_exp") < 800000 && !me->query("reborn"))
+        else  //if (me->query("combat_exp") < 1000000) return notify_fail("以你现在的经验还不够使用 rideto family 指令。\n");
+        //转世后取消100万exp限制
+        if (me->query("combat_exp") < 800000 && !me->query("reborn"))
             return notify_fail("以你现在的经验还不够使用 rideto family 指令。\n");
-        else
-        {
+        else {
             if (me->query("family/family_name") == "少林派")
                 room = get_object("/d/shaolin/fzlou2");
             else if (me->query("family/family_name") == "慕容世家")
@@ -167,9 +162,8 @@ int main(object me, string arg)
                 room = get_object("/d/xuedao/shandong3");
             else if (me->query("family/family_name") == "铁掌帮")
                 room = get_object("/d/tiezhang/wztang");
-            else
-                //if (me->query("family/family_name")=="绝情谷") room = get_object("/d/jueqing/zizhuxuan");else
-                if (me->query("family/family_name") == "武当派")
+            else  //if (me->query("family/family_name")=="绝情谷") room = get_object("/d/jueqing/zizhuxuan");else
+            if (me->query("family/family_name") == "武当派")
                 room = get_object("/d/wudang/xiaoyuan");
             else if (me->query("family/family_name") == "梅庄")
                 room = get_object("/d/meizhuang/houting");
@@ -193,30 +187,23 @@ int main(object me, string arg)
                 room = get_object("/d/hengyang/zhurongfeng");
             else if (me->query("family/family_name") == "日月神教")
                 room = get_object("/d/quanzhou/chating");
-            else
-                //补充遗漏的明教和峨嵋 2017-02-05
-                if (me->query("family/family_name") == "明教")
+            else  //补充遗漏的明教和峨嵋 2017-02-05
+            if (me->query("family/family_name") == "明教")
                 room = get_object("/d/mingjiao/dadian");
             else if (me->query("family/family_name") == "峨嵋派")
                 room = get_object("/d/emei/hcahoudian");
-            else
-                //补充重新开放的嵩山 2017-02-07
-                if (me->query("family/family_name") == "嵩山派")
+            else  //补充重新开放的嵩山 2017-02-07
+            if (me->query("family/family_name") == "嵩山派")
                 room = get_object("/d/songshan/fengchantai");
-            else
-                //古墓分支
+            else  //古墓分支
 
-                if (me->query("family/family_name") == "古墓派")
-            {
+            if (me->query("family/family_name") == "古墓派") {
                 if (me->query("family/master_name") == "李莫愁")
                     room = get_object("/d/gumu/liangong3");
                 else
                     room = get_object("/d/gumu/mishi8");
-            }
-            else
-                //绝情分支
-                if (me->query("family/family_name") == "绝情谷")
-            {
+            } else  //绝情分支
+            if (me->query("family/family_name") == "绝情谷") {
                 if (me->query("family/master_name") == "裘千尺")
                     room = get_object("/d/jueqing/undertan");
                 else
@@ -228,23 +215,20 @@ int main(object me, string arg)
                 return notify_fail("你所在的门派无法使用 rideto family 直达任务使功能。\n");
             //return notify_fail("你所在的门派无法使用 rideto family 直达任务使功能。\n");
         }
-    }
-    else if (arg == "npc")
-    {
+    } else if (arg == "npc") {
         object xiang;
         if (!objectp(xiang = present("yinzong xiang", me)))
             return notify_fail(YEL "缺少神魂引踪香，你无法追踪任务目标。\n" NOR);
 
         room = xiang->find_room();
-    }
-    else
+    } else
         room = get_object(places[arg]);
 
     if (!room)
         return notify_fail("你的坐骑变得迷茫起来，不知道要去哪儿...。\n");
 
     message("vision", me->name() + "骑着「" + riding->name() + NOR "」匆匆忙忙地离开了。\n",
-            environment(me), ({me}));
+        environment(me), ({ me }));
 
     where = room->query("short");
 
@@ -252,15 +236,14 @@ int main(object me, string arg)
     me->move(room);
 
     message("vision", me->name() + "骑着「" + riding->name() + NOR "」一路疾驰而来。\n",
-            environment(me), ({me}));
+        environment(me), ({ me }));
 
     // me->receive_damage("qi", 10);
 
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : rideto <地点>
 

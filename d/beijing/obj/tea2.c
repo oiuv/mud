@@ -1,9 +1,8 @@
 inherit ITEM;
 inherit F_LIQUID;
 
-void create()
-{
-    set_name("乌龙茶", ({"wulong tea", "tea"}));
+void create() {
+    set_name("乌龙茶", ({ "wulong tea", "tea" }));
     set_weight(50);
     if (clonep())
         set_default_object(__FILE__);

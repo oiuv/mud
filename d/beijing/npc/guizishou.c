@@ -1,11 +1,10 @@
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("刽子手", ({ "guizi shou", "guizi", "shou" }));
     set("long",
         "一个身材剽悍的男子，手里提着柄钢刀。\n"
-              "在刑场中专门负责屠人。\n");
+        "在刑场中专门负责屠人。\n");
     set("gender", "男性");
     set("age", 30);
     set("attitude", "heroism");
@@ -31,5 +30,5 @@ void create()
 
     setup();
     carry_object("/d/beijing/npc/obj/blade1")->wield();
-       carry_object("/d/beijing/npc/obj/cloth")->wear();
+    carry_object("/d/beijing/npc/obj/cloth")->wear();
 }

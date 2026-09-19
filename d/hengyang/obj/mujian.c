@@ -1,9 +1,8 @@
 #include <weapon.h>
 inherit SWORD;
 
-void create()
-{
-    set_name("木剑", ({ "mu jian","jian" }));
+void create() {
+    set_name("木剑", ({ "mu jian", "jian" }));
     set_weight(800);
     if (clonep())
         set_default_object(__FILE__);

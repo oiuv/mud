@@ -4,8 +4,7 @@
 inherit NPC;
 
 
-void create()
-{
+void create() {
     set_name("烧饭僧", ({
         "shaofan seng",
         "shaofan",

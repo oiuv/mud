@@ -6,8 +6,7 @@
 inherit NPC;
 inherit F_UNIQUE;
 
-void create()
-{
+void create() {
     set_name("辛然", ({ "xin ran", "xin", "ran", }));
     set("long",
         "他是一位高大魁伟的中年男子，身穿一件白布长袍。\n"
@@ -15,7 +14,7 @@ void create()
     );
 
     set("title", HIG "明教" HIR "烈火旗" NOR "掌旗使");
-    set("level",7);
+    set("level", 7);
 
     set("gender", "男性");
     set("attitude", "friendly");
@@ -50,8 +49,8 @@ void create()
     map_skill("parry", "jingang-quan");
 
     prepare_skill("cuff", "jingang-quan");
-        create_family("明教", 3, "烈火旗掌旗使");
+    create_family("明教", 3, "烈火旗掌旗使");
     setup();
 
-        carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/d/mingjiao/obj/baipao")->wear();
 }

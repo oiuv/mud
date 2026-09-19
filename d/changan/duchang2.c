@@ -4,20 +4,19 @@
 
 inherit ROOM;
 
-void create()
-{
-        set("short", "赌场");
-        set("long", @LONG
+void create() {
+    set("short", "赌场");
+    set("long", @LONG
 大厅里摆满大大小小的赌桌，只要能说出名的赌具，这里
 都有。进来这里你首先听到的就是少女们吃吃的笑声和男人们
 的吹牛声，掷骰子声……在这里，你几乎就可以听到世上所有
 不规矩的声音。墙上挂着一块牌子(paizi)。
 LONG);
-        set("exits", ([
-                "south" : __DIR__"qixiang3",
-        ]));
-        set("item_desc", ([
-                "sign": @TEXT
+    set("exits", ([
+        "south": __DIR__ "qixiang3",
+    ]));
+    set("item_desc", ([
+        "sign": @TEXT
 赌骰子方法:
 bet <kind> <amount> <money> 
 
@@ -29,33 +28,30 @@ kind:
     七星 <qx>（两骰之和为七）              ：一赢六
     散星 <sx>（两骰之和为三，五，九，十一）：一赢三
 TEXT
-        ]));
+    ]));
 
-        set("objects", ([
-                __DIR__"npc/zhuangjia" : 1,
-        ]));
+    set("objects", ([
+        __DIR__ "npc/zhuangjia": 1,
+    ]));
 
-        set("no_fight", 1);
-        setup();
+    set("no_fight", 1);
+    setup();
 }
-void init()
-{
-        add_action("do_bet", "bet");
+void init() {
+    add_action("do_bet", "bet");
 }
 
-int do_bet(string arg)
-{
-        //object me = this_player();
-        object zj;
-        
-        if (! objectp(zj = present("zhuang jia", this_object())))
-                return notify_fail("庄家都没有，你要和谁赌？\n");
+int do_bet(string arg) {
+    //object me = this_player();
+    object zj;
 
-        if (! living(zj))
-                return notify_fail("你还是等庄家醒了再说吧！\n");
+    if (!objectp(zj = present("zhuang jia", this_object())))
+        return notify_fail("庄家都没有，你要和谁赌？\n");
 
-        return notify_fail("对不起，系统测试，目前停止营业！\n");
+    if (!living(zj))
+        return notify_fail("你还是等庄家醒了再说吧！\n");
+
+    return notify_fail("对不起，系统测试，目前停止营业！\n");
 
 
 }
-

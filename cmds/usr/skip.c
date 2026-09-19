@@ -6,21 +6,17 @@ inherit F_CLEAN_UP;
 
 int help(object me);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     mixed list;
     mixed info;
     string msg;
 
     list = me->query_temp("tell_list");
-    if (arrayp(list) && sizeof(list) > 0)
-    {
-        if (arg == "all")
-        {
+    if (arrayp(list) && sizeof(list) > 0) {
+        if (arg == "all") {
             // 显示所有的历史信息
             msg = "以下是你收到的所有信息：\n";
-            foreach (info in list)
-            {
+            foreach (info in list) {
                 if (!arrayp(info) || sizeof(info) < 3 ||
                     !stringp(info[2]))
                     // 这条历史信息不合法
@@ -39,19 +35,17 @@ int main(object me, string arg)
         }
 
         // 去掉一条消息
-        list = list[1.. < 1];
+        list = list[1..<1];
 
         // 整理一下，取出下一条历史信息
-        while (sizeof(list) > 0)
-        {
+        while (sizeof(list) > 0) {
             info = list[0];
             if (!arrayp(info) || sizeof(info) < 3 ||
                 !stringp(info[0]) ||
                 !stringp(info[1]) ||
-                !stringp(info[2]))
-            {
+                !stringp(info[2])) {
                 // 这条历史信息不合法
-                list = list[1.. < 1];
+                list = list[1..<1];
                 continue;
             }
 
@@ -65,20 +59,16 @@ int main(object me, string arg)
             break;
         }
 
-        if (sizeof(list) < 1)
-        {
+        if (sizeof(list) < 1) {
             // 已经没有任何消息了
             me->delete_temp("tell_list");
             me->delete_temp("reply");
             if (previous_object() != find_object(REPLY_CMD))
                 write("现在没有任何历史消息了。\n");
             return 1;
-        }
-        else
+        } else
             me->set_temp("tell_list", list);
-    }
-    else
-    {
+    } else {
         if (!undefinedp(list))
             me->delete_temp("tell_list");
 
@@ -89,8 +79,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：skip [all]
 
@@ -104,6 +93,6 @@ int help(object me)
 这条命令可以用 . 来代替。
 
 see also : tell、reply
-HELP );
+HELP);
     return 1;
 }

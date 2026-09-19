@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int lvl;
 
     if (!SECURITY_D->valid_grant(me, "(arch)"))
@@ -16,17 +15,14 @@ int main(object me, string arg)
         lvl = wiz_level(arg);
     seteuid(getuid());
 
-    if (LOGIN_D->set_wizlock(lvl))
-    {
+    if (LOGIN_D->set_wizlock(lvl)) {
         write("Ok.\n");
         return 1;
-    }
-    else
+    } else
         return notify_fail("上线权限设定失败。\n");
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: wizlock <巫师等级>
 
@@ -34,6 +30,6 @@ int help (object me)
 其中巫师等级分别为 (immortal) (wizard) (arch) (admin), 若要取
 消限制, 则输入 (player).
 
-HELP );
+HELP);
     return 1;
 }

@@ -87,8 +87,7 @@ varargs void send_env(mixed user, mixed which);
 void user_logout(mixed user, string msg);
 
 // this function binds our listening socket, and requests a mudlist
-private int startup_udp()
-{
+private int startup_udp() {
     int err_no;
     return 0;
 
@@ -96,23 +95,20 @@ private int startup_udp()
         return 0;
 
     socket_id = socket_create(DATAGRAM, "read_callback", "close_callback");
-    if (socket_id < 0)
-    {
+    if (socket_id < 0) {
         log_file("messaged", "Failed to acquire socket.\n");
         return 0;
     }
 
     err_no = socket_bind(socket_id, my_port);
-    while (err_no == EEADDRINUSE)
-    {
+    while (err_no == EEADDRINUSE) {
         my_port++;
         err_no = socket_bind(socket_id, my_port);
     }
-    if (err_no <= 0)
-    {
+    if (err_no <= 0) {
         log_file("messaged", sprintf("Failed to bind socket of "
-                                     "UDP services, error = %d.\n",
-                                     err_no));
+            "UDP services, error = %d.\n",
+            err_no));
         socket_close(socket_id);
         return 0;
     }
@@ -121,68 +117,59 @@ private int startup_udp()
 }
 
 // this is the function used by the udp slave daemons to send packets
-private void send_udp(string addr, string msg)
-{
+private void send_udp(string addr, string msg) {
     if (!addr || !msg)
         return;
     socket_write(socket_id, msg, addr);
 }
 
 // register an error message
-int error_msg(string msg)
-{
+int error_msg(string msg) {
     last_error_msg = msg;
     return 0;
 }
 
 // query the last error message
-string query_last_error()
-{
+string query_last_error() {
     return last_error_msg;
 }
 
 // set the last address info
-private void set_last_addr(string addr)
-{
+private void set_last_addr(string addr) {
     last_from_addr = addr;
 }
 
 // query the last address info
-private string query_last_addr()
-{
+private string query_last_addr() {
     return last_from_addr;
 }
 
 // set the current user calling in
-private void set_current_user(string user, int sequence)
-{
+private void set_current_user(string user, int sequence) {
     current_user = user;
     current_sequence = sequence;
 }
 
 // return the current user calling in
-private string query_current_user()
-{
+private string query_current_user() {
     return current_user;
 }
 
 // return the current user calling in
-private int query_current_sequence()
-{
+private int query_current_sequence() {
     return current_sequence;
 }
 
 // handle the error
-private int error_handle(int n)
-{
+private int error_handle(int n) {
     string fullmsg;
 
     if (n)
         return n;
 
     fullmsg = sprintf("%s:%d" SEP "%s:%s",
-                      ACK, query_current_sequence(),
-                      ERROR, last_error_msg);
+        ACK, query_current_sequence(),
+        ERROR, last_error_msg);
     DEBUG_OUT(HIR "Error:" + fullmsg + NOR "\n");
     send_udp(last_from_addr, fullmsg);
     return 0;
@@ -191,12 +178,11 @@ private int error_handle(int n)
 // this is called when we receive a udp packet.  We determine which
 // service the packet is for, and send it to the auxiliary daemon of
 // that name
-private void read_callback(int sock, string msg, string addr)
-{
+private void read_callback(int sock, string msg, string addr) {
     mixed user;          // calling user
     string index;        // message item's index
     string value;        // message item's value
-    mapping info = ([]); // total message item
+    mapping info = ([]);  // total message item
 
     DEBUG_OUT("MSG: Got " + msg);
 
@@ -229,10 +215,9 @@ private void read_callback(int sock, string msg, string addr)
 
     handle_msg(info);
 
-    if (objectp(user = find_chatter(user)))
-    {
+    if (objectp(user = find_chatter(user))) {
         DEBUG_OUT(sprintf("Send packet:%d  Send ack:%d",
-                          is_send_packet, is_send_ack));
+            is_send_packet, is_send_ack));
         // Does I need to send packet in queue or send an
         // ack to input packet ?
         if (is_send_packet)
@@ -247,18 +232,16 @@ private void read_callback(int sock, string msg, string addr)
 }
 
 // handle the message
-private void handle_msg(mapping info)
-{
+private void handle_msg(mapping info) {
     object me;    // the user object
     mapping my;   // me's dbase
-    int sequence; // sequence of the message packet
+    int sequence;  // sequence of the message packet
     string user;  // calling user
 
     sequence = info[SEQUENCE];
     user = info[USER];
 
-    if (intp(info[ACK]))
-    {
+    if (intp(info[ACK])) {
         // pass ack to me ?
         receive_ack(info);
     }
@@ -267,49 +250,39 @@ private void handle_msg(mapping info)
         return;
 
     // I will look up the sequence
-    if (objectp(me = connection[user]))
-    {
+    if (objectp(me = connection[user])) {
         my = me->query_entire_temp_dbase();
-        if (!my)
-        {
+        if (!my) {
             destruct(me);
             return;
         }
         my[KEEP_ALIVE] = time();
 
-        if (my[SEQUENCE] == sequence)
-        {
+        if (my[SEQUENCE] == sequence) {
             // I must have handle it
-            if (info[FUNCTION] == FUN_LOGON)
-            {
+            if (info[FUNCTION] == FUN_LOGON) {
                 // the logon packet, I should reply with
                 // my sequence
                 my[ADDRESS] = query_last_addr();
                 send_udp(my[ADDRESS],
-                         sprintf("%s:%d" SEP "%s:%d",
-                                 SEQUENCE, my[MY_SEQ] - 1,
-                                 ACK, my[SEQUENCE]));
-            }
-            else
+                    sprintf("%s:%d" SEP "%s:%d",
+                        SEQUENCE, my[MY_SEQ] - 1,
+                        ACK, my[SEQUENCE]));
+            } else
                 is_send_ack = 1;
             return;
         }
 
-        if (my[SEQUENCE] + 1 == sequence)
-        {
+        if (my[SEQUENCE] + 1 == sequence) {
             // Oh, this is the next request, I will
             // record the sequence & new address
             my[SEQUENCE] = sequence;
             my[ADDRESS] = query_last_addr();
-        }
-        else
-            // I must drop the packet with incorrent sequence
-            if (info[FUNCTION] != FUN_LOGON)
+        } else  // I must drop the packet with incorrent sequence
+        if (info[FUNCTION] != FUN_LOGON)
             return;
-    }
-    else if (info[FUNCTION] != FUN_LOGON &&
-             info[FUNCTION] != FUN_LOGOUT)
-    {
+    } else if (info[FUNCTION] != FUN_LOGON &&
+        info[FUNCTION] != FUN_LOGOUT) {
         // The user must logon first
         error_handle(error_msg("没有你的登录信息，请重新登录。\n"));
         return;
@@ -323,8 +296,7 @@ private void handle_msg(mapping info)
 }
 
 // I will let a user connect with host in this function
-private int user_logon(mapping info)
-{
+private int user_logon(mapping info) {
     object me;
     mapping my;
     string notice_msg;
@@ -351,7 +323,7 @@ private int user_logon(mapping info)
     if (sizeof(connection) > MAX_CONNECTIONS)
         return error_msg("已经有太多的用户登录了。\n");
 
-    ob = new (LOGIN_OB);
+    ob = new(LOGIN_OB);
     ob->set("id", user);
     if (!ob->restore())
         // no this user
@@ -363,33 +335,29 @@ private int user_logon(mapping info)
     if (crypt(pass, ob->query("password")) != ob->query("password"))
         return error_msg("用户口令不正确，请重新输入。\n");
 
-    if (me = find_chatter(user))
-    {
+    if (me = find_chatter(user)) {
         notice_msg = "该用户已经在线，注销原先的连接。\n";
         user_logout(me, "有人从(" + query_last_addr() +
-                            ")取代了你的连接。\n");
+            ")取代了你的连接。\n");
     }
 
     body = LOGIN_D->make_body(ob);
-    if (!objectp(body) || !body->restore())
-    {
+    if (!objectp(body) || !body->restore()) {
         destruct(ob);
         if (body)
             destruct(body);
         return error_msg("无法读取该用户的信息，请和巫师联系。\n");
     }
 
-    if (body->is_in_prison())
-    {
+    if (body->is_in_prison()) {
         destruct(ob);
         destruct(body);
         return error_msg("你因为犯法太多，已经被关进监狱。\n");
     }
 
     // create chatter & record the information of the user
-    me = new (CHATTER_OB);
-    if (!objectp(me))
-    {
+    me = new(CHATTER_OB);
+    if (!objectp(me)) {
         destruct(ob);
         return error_msg("暂时无法接入系统，请稍候再试。\n");
     }
@@ -399,7 +367,7 @@ private int user_logon(mapping info)
     seteuid(getuid());
 
     me->setup();
-    me->set_name(body->name(1), ({user}));
+    me->set_name(body->name(1), ({ user }));
     copy_dbase(me, body);
 
     // copy the dbase from body
@@ -420,9 +388,9 @@ private int user_logon(mapping info)
 
     // login successfully
     send_udp(my[ADDRESS],
-             sprintf("%s:%d" SEP "%s:%d",
-                     SEQUENCE, my[MY_SEQ] - 1,
-                     ACK, my[SEQUENCE]));
+        sprintf("%s:%d" SEP "%s:%d",
+            SEQUENCE, my[MY_SEQ] - 1,
+            ACK, my[SEQUENCE]));
 
     if (!query_heart_beat())
         // start heart beat to maintance all logined user
@@ -438,8 +406,7 @@ private int user_logon(mapping info)
 }
 
 // user logout
-void user_logout(mixed user, string msg)
-{
+void user_logout(mixed user, string msg) {
     if (!is_root(previous_object()))
         return;
 
@@ -447,11 +414,10 @@ void user_logout(mixed user, string msg)
         return;
 
     if (environment(user) &&
-        environment(user) != find_object(VOID_OB))
-    {
+        environment(user) != find_object(VOID_OB)) {
         // hide this object
         message("vision", HIY "一道金光闪过，" + user->name() + HIY "消失得无影无踪。\n" NOR,
-                environment(user), ({user}));
+            environment(user), ({ user }));
     }
 
     user->set_temp("logout_notice", msg);
@@ -459,18 +425,15 @@ void user_logout(mixed user, string msg)
 }
 
 // call the function
-private void call_fun(mapping info)
-{
+private void call_fun(mapping info) {
     object me;
     string inputed;
     string fun;
     int result;
 
-    if (undefinedp(info[FUNCTION]))
-    {
+    if (undefinedp(info[FUNCTION])) {
         if (!stringp(info[MESSAGE]) ||
-            !objectp(me = connection[info[USER]]))
-        {
+            !objectp(me = connection[info[USER]])) {
             error_handle(error_msg("消息格式不完整。\n"));
             return;
         }
@@ -478,12 +441,9 @@ private void call_fun(mapping info)
         // This is prefix message, I will record it first
         if (stringp(inputed = me->query_temp("inputed")) &&
             strlen(inputed) < (wizardp(me) ? MAX_WIZARD_INPUT_LEN
-                                           : MAX_PLAYER_INPUT_LEN))
-        {
+                : MAX_PLAYER_INPUT_LEN)) {
             me->set_temp("inputed", inputed + info[MESSAGE]);
-        }
-        else
-        {
+        } else {
             me->set_temp("inputed", info[MESSAGE]);
         }
         is_send_ack = 1;
@@ -491,15 +451,13 @@ private void call_fun(mapping info)
     }
 
     if (objectp(me = connection[info[USER]]) &&
-        stringp(info[MESSAGE]))
-    {
+        stringp(info[MESSAGE])) {
         // only function with message arrived, I will
         // clear the message, because some function such
         // as finger will send in a serial packet with
         // seperated message, BUT this function won't
         // user MESSAGE field.
-        if (stringp(inputed = me->query_temp("inputed")))
-        {
+        if (stringp(inputed = me->query_temp("inputed"))) {
             // The prefix message arrival first ?
             info[MESSAGE] = inputed + info[MESSAGE];
 
@@ -508,31 +466,30 @@ private void call_fun(mapping info)
         }
     }
 
-    switch (info[FUNCTION])
-    {
-    case FUN_LOGON:
-        result = user_logon(info);
-        break;
+    switch (info[FUNCTION]) {
+        case FUN_LOGON:
+            result = user_logon(info);
+            break;
 
-    case FUN_LOGOUT:
-        result = fun_logout(info);
-        break;
+        case FUN_LOGOUT:
+            result = fun_logout(info);
+            break;
 
-    case FUN_NULL:
-        result = 1;
-        is_send_packet = 1;
-        break;
+        case FUN_NULL:
+            result = 1;
+            is_send_packet = 1;
+            break;
 
-    default:
-        if (!info[USER] || !objectp(me = connection[info[USER]]))
-            result = error_msg("请先登录你的用户。\n");
-        else if (!stringp(fun = me->find_chat_command(info[FUNCTION])))
-            result = error_msg("这个版本的消息精灵"
-                               "不支持这个功能。\n");
-        else
-            result = call_other(fun, "main", me, info);
+        default:
+            if (!info[USER] || !objectp(me = connection[info[USER]]))
+                result = error_msg("请先登录你的用户。\n");
+            else if (!stringp(fun = me->find_chat_command(info[FUNCTION])))
+                result = error_msg("这个版本的消息精灵"
+                    "不支持这个功能。\n");
+            else
+                result = call_other(fun, "main", me, info);
 
-        break;
+            break;
     }
 
     if (!result)
@@ -542,8 +499,7 @@ private void call_fun(mapping info)
 }
 
 // logout an user
-private int fun_logout(mapping info)
-{
+private int fun_logout(mapping info) {
     object me;
 
     send_udp(query_last_addr(), sprintf("ack:%d", info[SEQUENCE]));
@@ -551,18 +507,16 @@ private int fun_logout(mapping info)
     if (!objectp(me = find_chatter(info[USER])))
         return 1;
     DEBUG_OUT(sprintf("Logout out: %d   %O = %d\n",
-                      info[SEQUENCE], me, me->query_temp(SEQUENCE)));
-    if (info[SEQUENCE] == me->query_temp(SEQUENCE))
-    {
+        info[SEQUENCE], me, me->query_temp(SEQUENCE)));
+    if (info[SEQUENCE] == me->query_temp(SEQUENCE)) {
         DEBUG_OUT("Destruct object...\n");
 
         if (environment(me) &&
-            environment(me) != find_object(VOID_OB))
-        {
+            environment(me) != find_object(VOID_OB)) {
             // show the disapper message
             message("vision", HIM + me->name() + HIM "的影子越来越稀薄，"
-                                                     "渐渐的消失了。\n" NOR,
-                    environment(me), ({me}));
+                "渐渐的消失了。\n" NOR,
+                environment(me), ({ me }));
         }
 
         // this chatter in connecting now
@@ -573,8 +527,7 @@ private int fun_logout(mapping info)
 }
 
 // public functions
-private void reply_ack(object user)
-{
+private void reply_ack(object user) {
     string msg;
 
     if (direct_send(user))
@@ -585,13 +538,12 @@ private void reply_ack(object user)
         msg += sprintf(SEP "%s:%s", ERROR, user->query_temp("last_error"));
 
     DEBUG_OUT(sprintf("Send ack(%s) to %s(%s)", msg,
-                      user->query("id"), user->query_temp(ADDRESS)));
+        user->query("id"), user->query_temp(ADDRESS)));
     send_udp(user->query_temp(ADDRESS), msg);
 }
 
 // I has receive the ack from user
-private void receive_ack(mapping info)
-{
+private void receive_ack(mapping info) {
     object me;
     mapping my;
     string user;
@@ -605,8 +557,7 @@ private void receive_ack(mapping info)
         return;
 
     my = me->query_entire_temp_dbase();
-    if (!my)
-    {
+    if (!my) {
         destruct(me);
         return;
     }
@@ -620,10 +571,8 @@ private void receive_ack(mapping info)
     my[FAILED] = 0;
 
     q = sending_queue[me];
-    if (arrayp(q))
-    {
-        if (q[0][MSG_CONT_MSG])
-        {
+    if (arrayp(q)) {
+        if (q[0][MSG_CONT_MSG]) {
             q[0][MSG_RETRY] = MSG_MAX_RETRY;
             q[0][MSG_INFO][MESSAGE] = "";
             sort_packet(q[0]);
@@ -633,11 +582,10 @@ private void receive_ack(mapping info)
 
         notice = q[0][MSG_NOTICE];
         success = q[0][MSG_SUCCESS];
-        q = q[1.. < 1];
+        q = q[1..<1];
         if (!sizeof(q))
             map_delete(sending_queue, me);
-        else
-        {
+        else {
             sending_queue[me] = q;
             is_send_packet = 1;
         }
@@ -648,8 +596,7 @@ private void receive_ack(mapping info)
         if (functionp(success))
             success = evaluate(success);
 
-        if (stringp(success))
-        {
+        if (stringp(success)) {
             // notice back
             if (objectp(notice))
                 tell_object(notice, success);
@@ -660,20 +607,16 @@ private void receive_ack(mapping info)
 }
 
 // notice user a message
-varargs private void notice_user(mixed user, string fun, string msg, string add)
-{
+varargs private void notice_user(mixed user, string fun, string msg, string add) {
     if (stringp(user) && !objectp(user = find_user(user)))
         return;
 
-    if (user->is_chatter())
-    {
+    if (user->is_chatter()) {
         // put the packet in queue for chatter
-        ready_to_send(user, ([FUNCTION:fun,
-                                 MESSAGE:msg, ADDITION:add]),
-                      0, 0);
-    }
-    else
-    {
+        ready_to_send(user, ([ FUNCTION: fun,
+            MESSAGE: msg, ADDITION: add ]),
+            0, 0);
+    } else {
         // direct tell the user
         tell_object(user, msg);
         return;
@@ -682,16 +625,14 @@ varargs private void notice_user(mixed user, string fun, string msg, string add)
 
 // because the message in pakcet may be too long to send, so
 // I need to sort the message, be sure it would too long
-private void sort_packet(mixed *packet)
-{
+private void sort_packet(mixed *packet) {
     mapping info;
     //      string msg;
     //      string *cont;
     int i;
 
     info = packet[MSG_INFO];
-    if (sizeof(info[MESSAGE]) > MSG_BYTES)
-    {
+    if (sizeof(info[MESSAGE]) > MSG_BYTES) {
         // Not trans in temp, I will store msg in it
         packet[MSG_CONT_MSG] = explode(info[MESSAGE], "\n");
         packet[MSG_TOTAL_LINE] = sizeof(packet[MSG_CONT_MSG]);
@@ -703,10 +644,9 @@ private void sort_packet(mixed *packet)
     if (!packet[MSG_CONT_MSG])
         return;
 
-    for (i = 0; i < sizeof(packet[MSG_CONT_MSG]); i++)
-    {
+    for (i = 0; i < sizeof(packet[MSG_CONT_MSG]); i++) {
         if (strlen(info[MESSAGE]) +
-                strlen(packet[MSG_CONT_MSG][i]) >=
+            strlen(packet[MSG_CONT_MSG][i]) >=
             MSG_BYTES)
             break;
         info[MESSAGE] += packet[MSG_CONT_MSG][i] + "\n";
@@ -716,18 +656,17 @@ private void sort_packet(mixed *packet)
     if (i >= sizeof(packet[MSG_CONT_MSG]))
         packet[MSG_CONT_MSG] = 0;
     else
-        packet[MSG_CONT_MSG] = packet[MSG_CONT_MSG][i..< 1];
+        packet[MSG_CONT_MSG] = packet[MSG_CONT_MSG][i..<1];
 }
 
 // try to add a packet in queue to send
-private int ready_to_send(object user, mapping info, mixed notice, mixed finish)
-{
+private int ready_to_send(object user, mapping info, mixed notice, mixed finish) {
     mixed *packet;
     mixed q;
     int n;
 
     DEBUG_OUT(sprintf("Ready send: User=%O msg=%O notice=%O finish=%O",
-                      user, keys(info), notice, finish));
+        user, keys(info), notice, finish));
 
     if (sizeof(sending_queue[user]) >= MAX_PACKET_IN_Q)
         return 0;
@@ -739,18 +678,15 @@ private int ready_to_send(object user, mapping info, mixed notice, mixed finish)
         (n = sizeof(q) - 1) >= 1 &&
         q[n][MSG_INFO][FUNCTION] == info[FUNCTION] &&
         !q[n][MSG_NOTICE] && !q[n][MSG_SUCCESS] &&
-        sizeof(q[n][MSG_CONT_MSG]) < MSG_BUFFER_LINES)
-    {
+        sizeof(q[n][MSG_CONT_MSG]) < MSG_BUFFER_LINES) {
         // ok, the last packet is not lag & without
         // recall function, smae as me, I will append to it
-        if (!q[n][MSG_CONT_MSG])
-        {
+        if (!q[n][MSG_CONT_MSG]) {
             // no continue message, I will add to this
             // page & sort again
             q[n][MSG_INFO][MESSAGE] += info[MESSAGE];
             sort_packet(q[n]);
-        }
-        else
+        } else
             q[n][MSG_CONT_MSG] += explode(info[MESSAGE], "\n");
 
         DEBUG_OUT(HIW "Message append to " + n + "." NOR);
@@ -769,26 +705,23 @@ private int ready_to_send(object user, mapping info, mixed notice, mixed finish)
     packet[MSG_HAS_SENT] = 0;
     sort_packet(packet);
 
-    if (!arrayp(sending_queue[user]))
-    {
-        sending_queue[user] = ({packet});
+    if (!arrayp(sending_queue[user])) {
+        sending_queue[user] = ({ packet });
         if (user != connection[query_current_user()])
             // other object call me to send, so I
             // must send now
             direct_send(user);
         else
             is_send_packet = 1;
-    }
-    else
-        sending_queue[user] += ({packet});
+    } else
+        sending_queue[user] += ({ packet });
 
     set_heart_beat(1);
     return 1;
 }
 
 // direct to send to packet to user
-private int direct_send(object user)
-{
+private int direct_send(object user) {
     mapping my;
     mixed q;
     string msg;
@@ -798,31 +731,26 @@ private int direct_send(object user)
     DEBUG_OUT(sprintf("Direct send: User=%O", user));
 
     q = sending_queue[user];
-    if (!arrayp(q) || !sizeof(q))
-    {
+    if (!arrayp(q) || !sizeof(q)) {
         map_delete(sending_queue, user);
         return 0;
     }
 
     q[0][MSG_LAST_SEND] = time();
     my = user->query_entire_temp_dbase();
-    if (!my)
-    {
+    if (!my) {
         destruct(user);
         return 0;
     }
 
-    if (!is_send_ack && q[0][MSG_RETRY]-- < 1)
-    {
-        if (user->add_temp(FAILED, 1) > MAX_SEND_FAILED)
-        {
+    if (!is_send_ack && q[0][MSG_RETRY]-- < 1) {
+        if (user->add_temp(FAILED, 1) > MAX_SEND_FAILED) {
             // too many failed, or the user has disonnected,
             // I think I should clear this user
-            if (q[0][MSG_NOTICE])
-            {
+            if (q[0][MSG_NOTICE]) {
                 notice_user(q[0][MSG_NOTICE], FUN_NOTICE,
-                            "已经与该用户" + user->full_name() +
-                                "失去联系。\n");
+                    "已经与该用户" + user->full_name() +
+                    "失去联系。\n");
             }
             remove_user(user);
 
@@ -832,11 +760,10 @@ private int direct_send(object user)
             return 0;
         }
 
-        if (q[0][MSG_NOTICE])
-        {
+        if (q[0][MSG_NOTICE]) {
             notice_user(q[0][MSG_NOTICE], FUN_NOTICE,
-                        "无法向" + user->full_name() +
-                            "发送消息。\n");
+                "无法向" + user->full_name() +
+                "发送消息。\n");
         }
 
         // drop all packet in the sending queue
@@ -856,26 +783,23 @@ private int direct_send(object user)
     // for function:tell, because client can received "tell"
     // seperated.
     if (q[0][MSG_INFO][FUNCTION] == FUN_VISION ||
-        !q[0][MSG_CONT_MSG])
-    {
+        !q[0][MSG_CONT_MSG]) {
         // append all fields
         foreach (ks in keys(q[0][MSG_INFO]))
             msg = sprintf("%s" SEP "%s:%s", msg, ks, q[0][MSG_INFO][ks]);
-    }
-    else
+    } else
         // only append message field
         msg += sprintf("%s" SEP "%s:%s" SEP "send:%d",
-                       msg, MESSAGE, q[0][MSG_INFO][MESSAGE],
-                       q[0][MSG_HAS_SENT] * 100 / q[0][MSG_TOTAL_LINE]);
+            msg, MESSAGE, q[0][MSG_INFO][MESSAGE],
+            q[0][MSG_HAS_SENT] * 100 / q[0][MSG_TOTAL_LINE]);
 
-    if (is_send_ack)
-    {
+    if (is_send_ack) {
         msg += sprintf(SEP "%s:%d", ACK, my[SEQUENCE]);
 
         // error msg must be sent with ack
         if (user->query_temp("last_error"))
             msg += sprintf(SEP "%s:%s", ERROR,
-                           user->query_temp("last_error"));
+                user->query_temp("last_error"));
     }
 
     // send the msg to peer
@@ -887,39 +811,35 @@ private int direct_send(object user)
 // send a message to user, I must assure the message will
 // arrival, If I haven't receive the confirm message I should
 // send the message again.
-private int queue_msg(object msgto, mapping send_info, mixed user, mixed finish)
-{
+private int queue_msg(object msgto, mapping send_info, mixed user, mixed finish) {
     //      string addr;
 
-    if (!msgto->is_chatter())
-    {
+    if (!msgto->is_chatter()) {
         // direct send
         if (send_info[ERROR])
             // error occur
             tell_object(msgto, HIR + send_info[ERROR]);
-        else
-        {
+        else {
             // normal function
-            switch (send_info[FUNCTION])
-            {
-            case FUN_VISION:
-            case FUN_NOTICE:
-                tell_object(msgto, send_info[MESSAGE]);
-                break;
+            switch (send_info[FUNCTION]) {
+                case FUN_VISION:
+                case FUN_NOTICE:
+                    tell_object(msgto, send_info[MESSAGE]);
+                    break;
 
-            case FUN_TELL:
-                tell_object(msgto, HIG + send_info[NAME] + "(" +
-                                       send_info[USER] + ")告诉你：" +
-                                       replace_string(send_info[MESSAGE], "\n", "\n ") +
-                                       "\n" NOR);
-                break;
+                case FUN_TELL:
+                    tell_object(msgto, HIG + send_info[NAME] + "(" +
+                        send_info[USER] + ")告诉你：" +
+                        replace_string(send_info[MESSAGE], "\n", "\n ") +
+                        "\n" NOR);
+                    break;
 
-            case FUN_ACKTELL:
-                tell_object(msgto, sprintf(HIG "你告诉%s" HIG
-                                               "(%s)：%s\n" NOR,
-                                           send_info[NAME],
-                                           send_info[USER],
-                                           send_info[MESSAGE]));
+                case FUN_ACKTELL:
+                    tell_object(msgto, sprintf(HIG "你告诉%s" HIG
+                        "(%s)：%s\n" NOR,
+                        send_info[NAME],
+                        send_info[USER],
+                        send_info[MESSAGE]));
             }
         }
 
@@ -930,8 +850,7 @@ private int queue_msg(object msgto, mapping send_info, mixed user, mixed finish)
         return 1;
     }
 
-    if (!ready_to_send(msgto, send_info, user, finish))
-    {
+    if (!ready_to_send(msgto, send_info, user, finish)) {
         notice_user(user, FUN_NOTICE, "系统正繁忙，无法代你发送该消息。\n");
         return 0;
     }
@@ -940,21 +859,18 @@ private int queue_msg(object msgto, mapping send_info, mixed user, mixed finish)
 }
 
 // save the dbase of the user
-private void save_data(object user)
-{
+private void save_data(object user) {
     object login_ob;
     object body;
 
     // save the dbase of the user
     login_ob = user->query_temp("link_ob");
     body = 0;
-    for (;;)
-    {
-        if (!login_ob)
-        {
+    for (;;) {
+        if (!login_ob) {
             // No found the login object information,
             // So I should reload it
-            login_ob = new (LOGIN_OB);
+            login_ob = new(LOGIN_OB);
             login_ob->set("id", geteuid(user));
             if (!login_ob->restore())
                 break;
@@ -970,7 +886,7 @@ private void save_data(object user)
         if (!body || !body->restore())
             break;
 
-        copy_dbase(body, user, ({"env", "channels", "cwd", "cwf", "board_last_read"}));
+        copy_dbase(body, user, ({ "env", "channels", "cwd", "cwf", "board_last_read" }));
         body->save();
         break;
     }
@@ -982,15 +898,13 @@ private void save_data(object user)
 }
 
 // copy dbase from one object to another object
-void copy_dbase(object dst, object src, string *item)
-{
+void copy_dbase(object dst, object src, string *item) {
     string ks;
     mapping dmap, smap;
 
     dmap = dst->query_entire_dbase();
     smap = src->query_entire_dbase();
-    foreach (ks in keys(smap))
-    {
+    foreach (ks in keys(smap)) {
         if (arrayp(item) && member_array(ks, item) == -1)
             continue;
         dmap[ks] = smap[ks];
@@ -999,8 +913,7 @@ void copy_dbase(object dst, object src, string *item)
 
 // heart beat function
 // I will re send all the packet in queue
-private void heart_beat()
-{
+private void heart_beat() {
     mixed me;
     mapping my;
     string user;
@@ -1012,10 +925,8 @@ private void heart_beat()
     is_send_ack = 0;
 
     // send packet in queue
-    foreach (me in keys(sending_queue))
-    {
-        if (!objectp(me))
-        {
+    foreach (me in keys(sending_queue)) {
+        if (!objectp(me)) {
             map_delete(sending_queue, me);
             continue;
         }
@@ -1024,8 +935,7 @@ private void heart_beat()
 
     reset_eval_cost();
 
-    if (!sizeof(connection))
-    {
+    if (!sizeof(connection)) {
         DEBUG_OUT(HIY "Stop heart beat." NOR);
         set_heart_beat(0);
         return;
@@ -1033,33 +943,29 @@ private void heart_beat()
 
     t = time();
     // keep alive of all user
-    foreach (user in keys(connection))
-    {
-        if (!objectp(me = connection[user]))
-        {
+    foreach (user in keys(connection)) {
+        if (!objectp(me = connection[user])) {
             map_delete(connection, user);
             continue;
         }
 
         my = me->query_entire_temp_dbase();
-        if (!my)
-        {
+        if (!my) {
             destruct(me);
             continue;
         }
 
-        if (t - my[KEEP_ALIVE] >= KEEP_ALIVE_PERIOD)
-        {
+        if (t - my[KEEP_ALIVE] >= KEEP_ALIVE_PERIOD) {
             // send a null command to peer
-            ready_to_send(me, ([FUNCTION:FUN_NULL]), 0, 0);
+            ready_to_send(me, ([ FUNCTION: FUN_NULL ]), 0, 0);
 
             // I will send next null command after
             // 20s if I won't receive the command ack
             my[KEEP_ALIVE] += MSG_MAX_RETRY + 1;
 
             DEBUG_OUT(sprintf("User %s's keep alive"
-                              " packet sent.",
-                              user));
+                " packet sent.",
+                user));
         }
     }
 
@@ -1068,8 +974,7 @@ private void heart_beat()
 
 // If user 2 is visible for user 1, the function will return 1,
 // else return 0
-int visible(mixed user1, mixed user2)
-{
+int visible(mixed user1, mixed user2) {
     if (user1 && wiz_level(user1) >= wiz_level(user2))
         return 1;
 
@@ -1091,8 +996,7 @@ int visible(mixed user1, mixed user2)
 }
 
 // send user's envrionment to client
-varargs void send_env(mixed user, mixed which)
-{
+varargs void send_env(mixed user, mixed which) {
     object ob;
     string msg;
     string ks;
@@ -1106,8 +1010,7 @@ varargs void send_env(mixed user, mixed which)
         return;
 
     msg = "";
-    if (mapp(env = ob->query("env")))
-    {
+    if (mapp(env = ob->query("env"))) {
         if (stringp(which))
             inc = filter_array(explode(which, ","), (: !undefinedp($(env)[$1]) :));
         else if (arrayp(which))
@@ -1115,24 +1018,20 @@ varargs void send_env(mixed user, mixed which)
         else
             inc = keys(env);
 
-        foreach (ks in inc)
-        {
+        foreach (ks in inc) {
             // generate environment string
-            msg += ks + "=" +
-                   sprintf(intp(env[ks]) ? "%d" : stringp(env[ks]) ? "%s" : "%O",
-                           env[ks]) +
-                   "\n";
+            msg += ks + "=" + sprintf(intp(env[ks]) ? "%d" : stringp(env[ks]) ? "%s" : "%O",
+                env[ks]) + "\n";
         }
     }
 
-    ready_to_send(ob, ([FUNCTION:FUN_SEND_ENV,
-                           MESSAGE:msg]),
-                  0, 0);
+    ready_to_send(ob, ([ FUNCTION: FUN_SEND_ENV,
+        MESSAGE: msg ]),
+        0, 0);
 }
 
 // can player 1 tell with user 2 ?
-string reject_tell(object user1, object user2)
-{
+string reject_tell(object user1, object user2) {
     string to_name;
     string no_tell;
     string can_tell;
@@ -1142,10 +1041,8 @@ string reject_tell(object user1, object user2)
 
     to_name = user2->name(1) + "(" + user2->query("id") + ")";
     if (!wiz_level(user1) && (no_tell == "all" || no_tell == "ALL" ||
-                              is_sub(user1->query("id"), no_tell)))
-    {
-        if (!is_sub(user1->query("id"), can_tell))
-        {
+        is_sub(user1->query("id"), no_tell))) {
+        if (!is_sub(user1->query("id"), can_tell)) {
             if (!visible(user1, user2))
                 return "这个用户没有登录，你无法和他交谈。\n";
             else
@@ -1153,8 +1050,7 @@ string reject_tell(object user1, object user2)
         }
     }
 
-    if (!user2->is_chatter())
-    {
+    if (!user2->is_chatter()) {
         // check target's connection status
         if (!interactive(user2))
             return to_name + "现在不在线上，无法听到你的话。\n";
@@ -1170,14 +1066,12 @@ string reject_tell(object user1, object user2)
 
 // globals functions
 // find a chatter object
-object find_chatter(string user)
-{
+object find_chatter(string user) {
     return connection[user];
 }
 
 // find a user (player/chatter) object
-object find_user(string user)
-{
+object find_user(string user) {
     object ob;
 
     if (!(ob = find_player(user)))
@@ -1187,16 +1081,14 @@ object find_user(string user)
 }
 
 // remove a user from connection
-void remove_user(object user)
-{
+void remove_user(object user) {
     string msg;
 
     if (!is_root(previous_object()) &&
         previous_object() != user)
         error("You can not destruct the user\n");
 
-    if (connection[user->query("id")] == user)
-    {
+    if (connection[user->query("id")] == user) {
         // Am I in connection now ?
         map_delete(connection, user->query("id"));
         save_data(user);
@@ -1207,12 +1099,11 @@ void remove_user(object user)
 
     // destruct the object of the user
     if (user->query_temp(ADDRESS) &&
-        stringp(msg = user->query_temp("logout_notice")))
-    {
+        stringp(msg = user->query_temp("logout_notice"))) {
         send_udp(user->query_temp(ADDRESS),
-                 sprintf("%s:%s" SEP "%s:%s",
-                         FUNCTION, FUN_LOGOUT,
-                         MESSAGE, msg));
+            sprintf("%s:%s" SEP "%s:%s",
+                FUNCTION, FUN_LOGOUT,
+                MESSAGE, msg));
     }
 
     if (objectp(user->query_temp("link_ob")))
@@ -1223,8 +1114,7 @@ void remove_user(object user)
 }
 
 // send a msg to a user
-int send_msg_to(mixed user, string msgto, string msg)
-{
+int send_msg_to(mixed user, string msgto, string msg) {
     object from;
     object to;
     string reply;
@@ -1240,33 +1130,29 @@ int send_msg_to(mixed user, string msgto, string msg)
 
     if (sscanf(msgto, "%s@%s", msgto, mud) == 2)
         if (GTELL->send_gtell(mud, msgto, user, msg,
-                              stringp(user) ? connection[user][NAME] : 0))
-        {
+            stringp(user) ? connection[user][NAME] : 0)) {
             notice_user(user, FUN_VISION, HIY "网际讯息已送出，可能"
-                                              "要稍候才能得到回应。\n" NOR);
+                "要稍候才能得到回应。\n" NOR);
             return 1;
         }
 
     // get to user object if existed
-    if (!objectp(to = find_user(msgto)))
-    {
+    if (!objectp(to = find_user(msgto))) {
         notice_user(from, FUN_NOTICE,
-                    "这个用户没有登录，你无法和他交谈。\n");
+            "这个用户没有登录，你无法和他交谈。\n");
         return 1;
     }
 
-    if (to == from)
-    {
+    if (to == from) {
         notice_user(from, FUN_NOTICE,
-                    "自己对自己说话？似乎无此必要。\n");
+            "自己对自己说话？似乎无此必要。\n");
         return 1;
     }
 
     if (!to->is_chatter())
         to->set_temp("reply", from->query("id"));
 
-    if (reply = reject_tell(from, to))
-    {
+    if (reply = reject_tell(from, to)) {
         // reject the tell from user
         notice_user(from, FUN_NOTICE, reply);
         return 1;
@@ -1282,33 +1168,35 @@ int send_msg_to(mixed user, string msgto, string msg)
     reply = msg;
 
     // remote tell
-    queue_msg(to, ([USER:from->query("id"), NAME:from->name(1), FUNCTION:FUN_TELL, MESSAGE:msg]),
-              from, (: acktell, from, to, reply :));
+    queue_msg(to, ([
+        USER: from->query("id"),
+        NAME: from->name(1),
+        FUNCTION: FUN_TELL,
+        MESSAGE: msg
+    ]),
+        from, (: acktell, from, to, reply :));
 
     return 1;
 }
 
-private void acktell(object from, object to, string msg)
-{
+private void acktell(object from, object to, string msg) {
     if (!to || !from)
         return;
-    queue_msg(from, ([USER:to->query("id"),
-                            NAME:to->name(1), FUNCTION:FUN_ACKTELL, MESSAGE:msg]),
-              0, 0);
+    queue_msg(from, ([ USER: to->query("id"),
+        NAME: to->name(1), FUNCTION: FUN_ACKTELL, MESSAGE: msg ]),
+        0, 0);
 
     // target online & idle now ?
-    if (interactive(to) && query_idle(to) >= 120)
-    {
+    if (interactive(to) && query_idle(to) >= 120) {
         notice_user(from, FUN_VISION,
-                    YEL "可是" + gender_pronoun(to->query("gender")) +
-                        "已经发呆" + chinese_number(query_idle(to) / 60) +
-                        "分钟了，恐怕听不到你说的话。\n" NOR);
+            YEL "可是" + gender_pronoun(to->query("gender")) +
+            "已经发呆" + chinese_number(query_idle(to) / 60) +
+            "分钟了，恐怕听不到你说的话。\n" NOR);
     }
 }
 
 // send message to direct user
-varargs void tell_user(mixed user, string fun, string msg, string add)
-{
+varargs void tell_user(mixed user, string fun, string msg, string add) {
     notice_user(user, fun, msg, add);
 }
 
@@ -1316,8 +1204,7 @@ varargs void tell_user(mixed user, string fun, string msg, string add)
 int query_udp_port() { return my_port; }
 
 // query connection info
-mixed query_connection(string user)
-{
+mixed query_connection(string user) {
     if (!user)
         return connection;
 
@@ -1325,20 +1212,16 @@ mixed query_connection(string user)
 }
 
 // query connection info
-mixed query_sending_queue(object user)
-{
+mixed query_sending_queue(object user) {
     if (!user)
         return sending_queue;
 
     return sending_queue[user];
 }
 
-void remove()
-{
-}
+void remove() {}
 
-void create()
-{
+void create() {
     object *obs;
     object ob;
 
@@ -1349,10 +1232,8 @@ void create()
 
     // create connection list
     obs = filter_array(children(CHATTER_OB), (: $1->is_chatter() :));
-    foreach (ob in obs)
-    {
-        if (ob->query_temp("disconnected"))
-        {
+    foreach (ob in obs) {
+        if (ob->query_temp("disconnected")) {
             // this object should be removed
             destruct(ob);
             continue;

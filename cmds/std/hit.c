@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object obj;
 
     if (me->is_chatter())
@@ -37,38 +36,34 @@ int main(object me, string arg)
 
     if (obj->query("can_speak"))
         message_vision(HIW "\n$N" HIW "对著$n" HIW "大喝一声道：看"
-                           "招！\n\n" NOR,
-                       me, obj);
+            "招！\n\n" NOR,
+            me, obj);
     else
         message_vision(HIW "\n$N" HIW "大喝一声，开始对$n" HIW "发"
-                           "动攻击！\n\n" NOR,
-                       me, obj);
+            "动攻击！\n\n" NOR,
+            me, obj);
 
     notify_fail("你无从下手。\n");
-    switch (obj->accept_hit(me))
-    {
-    case 0:
-        return 0;
-    case -1:
-        return 1;
-    default:
+    switch (obj->accept_hit(me)) {
+        case 0:
+            return 0;
+        case -1:
+            return 1;
+        default:
     }
 
     me->fight_ob(obj);
-    if (obj->query("can_speak"))
-    {
+    if (obj->query("can_speak")) {
         me->want_kill(obj);
         obj->fight_ob(me);
-    }
-    else
+    } else
         obj->kill_ob(me);
 
     return 1;
 }
 
-int help(object me)
-{
-  write(@HELP
+int help(object me) {
+    write(@HELP
 指令格式 : hit <人物>
 
 这个指令让你直接向一个人物「进招」。这种形式的战斗是即时的，只要玩家一

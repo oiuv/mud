@@ -2,8 +2,7 @@
 inherit NPC;
 inherit F_DEALER;
 
-void create()
-{
+void create() {
     set_name("黄智强", ({ "huang zhiqiang", "zhiqiang", "huang" }));
     set("nickname", HIM "食人魔" NOR);
     set("title", "杂货铺老板");
@@ -38,15 +37,13 @@ LONG);
 
 }
 
-void init()
-{
+void init() {
     object ob;
 
     ob = this_player();
 
     ::init();
-    if( interactive(ob) && !is_fighting() )
-    {
+    if (interactive(ob) && !is_fighting()) {
         remove_call_out("greeting");
         call_out("greeting", 2, ob);
     }
@@ -55,11 +52,10 @@ void init()
     add_action("do_list", "list");
 }
 
-void greeting(object ob)
-{
-    if( !ob || environment(ob) != environment() ) return;
+void greeting(object ob) {
+    if (!ob || environment(ob) != environment()) return;
 
-    say(CYN "黄智强笑着说道：这位" + RANK_D->query_respect(ob)+ "你需"
+    say(CYN "黄智强笑着说道：这位" + RANK_D->query_respect(ob) + "你需"
         "买些什么，请随便看。\n" NOR);
 
     return;

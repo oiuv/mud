@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string msg, msg1, msg2;
     mixed files;
     mapping ss;
@@ -28,8 +27,7 @@ int main(object me, string arg)
     if (!mapp(ss = ob->query("special_skill")) || !sizeof(ss))
         return notify_fail(pro + "现在好像什么特技都不会哦。\n");
 
-    if (arg && (ob == me))
-    {
+    if (arg && (ob == me)) {
         // 有参数，运用特技。
         if (me->is_busy())
             return notify_fail("你现在忙着呢，不能使用特技。\n");
@@ -71,13 +69,10 @@ int main(object me, string arg)
         msg += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
     }
     */
-    foreach (skill in keys(ss))
-    {
+    foreach (skill in keys(ss)) {
         m = 0;
-        for (i = 0; i < sizeof(files); i++)
-        {
-            if (skill == files[i])
-            {
+        for (i = 0; i < sizeof(files); i++) {
+            if (skill == files[i]) {
                 msg2 += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
                 m = 1;
             }
@@ -86,8 +81,7 @@ int main(object me, string arg)
             msg1 += SPECIAL_D(skill)->name() + "(" YEL + skill + NOR ")\n";
     }
     msg += msg1;
-    if (msg2 != "")
-    {
+    if (msg2 != "") {
         msg += HIG " 转  世\n";
         msg += msg2;
     }
@@ -95,8 +89,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : special <skill> | <玩家ID>
 
@@ -105,6 +98,6 @@ int help(object me)
 
 巫师可以查看其他玩家所会的特殊技能。
 
-HELP );
+HELP);
     return 1;
 }

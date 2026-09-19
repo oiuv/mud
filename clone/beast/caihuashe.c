@@ -1,9 +1,8 @@
 #include <ansi.h>
 inherit SNAKE;
 
-void create()
-{
-    set_name(HIC "菜花蛇" NOR, ({"caihua she", "caihua", "she"}));
+void create() {
+    set_name(HIC "菜花蛇" NOR, ({ "caihua she", "caihua", "she" }));
     set("long", HIC "这是一只青幽幽的菜花蛇，头部呈椭圆形。\n" NOR);
 
     set("age", 1);

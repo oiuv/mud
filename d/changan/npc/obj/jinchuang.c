@@ -4,23 +4,20 @@
 
 inherit ITEM;
 
-void create()
-{
+void create() {
     set_name(HIY "金创药" NOR, ({ "jinchuang yao", "jinchuang", "yao" }));
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("unit", "包");
         set("long", "这是一包武林人士必备的金创药。\n");
         set("value", 5000);
-            set("only_do_effect", 1);
+        set("only_do_effect", 1);
     }
     setup();
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     if ((int)me->query("eff_qi") >= (int)me->query("max_qi"))
         return notify_fail("你现在不需要用金创药。\n");
 

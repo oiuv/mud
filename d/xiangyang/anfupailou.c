@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "安抚府牌楼");
     set("long", @LONG
 这里是安抚使府前的一座牌楼，高达二丈，由黄玉制成，
@@ -13,13 +12,13 @@ void create()
 牌楼上四个大金字“安抚使府”。牌楼下站着两派手那刀枪的
 宋兵，紧紧盯着每一个靠近这儿的人。北面就是安抚府大院了。
 南面就是襄阳的中央广场。
-LONG );
-        set("outdoors", "xiangyang");
+LONG);
+    set("outdoors", "xiangyang");
     set("no_clean_up", 0);
 
     set("exits", ([
-        "south" : __DIR__"guangchang",
-        "north" : __DIR__"anfugate",
+        "south": __DIR__ "guangchang",
+        "north": __DIR__ "anfugate",
     ]));
     setup();
     replace_program(ROOM);

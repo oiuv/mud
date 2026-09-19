@@ -9,8 +9,7 @@ inherit F_COAGENT;
 
 string ask_me();
 
-void create()
-{
+void create() {
     set_name("上官银票", ({ "cash" }));
     set("long", "他就是金钱帮帮主。\n");
     set("gender", "男性");

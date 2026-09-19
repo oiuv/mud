@@ -3,8 +3,7 @@
 #include <dbase.h>
 #include <weapon.h>
 
-int wear()
-{
+int wear() {
     object owner;
     mapping armor_prop, applied_prop;
     string *apply, type;
@@ -49,8 +48,7 @@ int wear()
     return 1;
 }
 
-int wield()
-{
+int wield() {
     object owner, old_weapon;
     mapping weapon_prop;
     string *apply /*, type*/;
@@ -71,8 +69,7 @@ int wield()
         return 1;
 
     // If the item can not wield, I will return the fail message
-    if (no_wield = query("no_wield"))
-    {
+    if (no_wield = query("no_wield")) {
         // can not wield
         if (stringp(no_wield))
             return notify_fail(no_wield);
@@ -91,49 +88,40 @@ int wield()
 
     flag = query("flag");
 
-    if (flag & TWO_HANDED)
-    {
+    if (flag & TWO_HANDED) {
         if (owner->query_temp("secondary_weapon") ||
             owner->query_temp("weapon") ||
             owner->query_temp("handing"))
             return notify_fail("你必须空出双手才能装备该武器。\n");
         owner->set_temp("weapon", this_object());
-    }
-    else
-    {
+    } else {
         // If we are are using any weapon?
         if (!(old_weapon = owner->query_temp("weapon")))
             owner->set_temp("weapon", this_object());
 
-        else // If we still have a free hand?
-            if (!owner->query_temp("secondary_weapon") && !owner->query_temp("handing"))
-        {
+        else  // If we still have a free hand?
+        if (!owner->query_temp("secondary_weapon") && !owner->query_temp("handing")) {
             // If we can wield this as secondary weapon?
-            if (flag & SECONDARY)
-            {
+            if (flag & SECONDARY) {
                 owner->set_temp("secondary_weapon", this_object());
             }
             // If we can switch our old weapon to secondary weapon ?
-            else if ((int)old_weapon->query("flag") & SECONDARY)
-            {
+            else if ((int)old_weapon->query("flag") & SECONDARY) {
                 old_weapon->unequip();
                 owner->set_temp("weapon", this_object());
                 old_weapon->wield();
 
                 // We need unwield our old weapon before we can use this one.
-            }
-            else
+            } else
                 return notify_fail("你必须先放下你目前装备的武器。\n");
 
             // We have both hands wearing something.
-        }
-        else
+        } else
             return notify_fail("你必须空出一只手来使用武器。\n");
     }
 
     // add by doing to discard the secondary_weapon's prop
-    if (owner->query_temp("secondary_weapon") != this_object())
-    {
+    if (owner->query_temp("secondary_weapon") != this_object()) {
         apply = keys(weapon_prop);
         for (int i = 0; i < sizeof(apply); i++)
             owner->add_temp("apply/" + apply[i], weapon_prop[apply[i]]);
@@ -144,8 +132,7 @@ int wield()
     return 1;
 }
 
-int unequip()
-{
+int unequip() {
     object owner;
     mapping prop = 0, applied_prop;
     string *apply, equipped;
@@ -156,28 +143,21 @@ int unequip()
     if (!stringp(equipped = query("equipped")))
         return notify_fail("你目前并没有装备这样东西。\n");
 
-    if (equipped == "wielded")
-    {
-        if ((object)owner->query_temp("weapon") == this_object())
-        {
+    if (equipped == "wielded") {
+        if ((object)owner->query_temp("weapon") == this_object()) {
             prop = query("weapon_prop");
             owner->delete_temp("weapon");
-        }
-        else if ((object)owner->query_temp("secondary_weapon") == this_object())
-        {
+        } else if ((object)owner->query_temp("secondary_weapon") == this_object()) {
             owner->delete_temp("secondary_weapon");
             prop = 0;
         }
         owner->reset_action();
-    }
-    else if (equipped == "worn")
-    {
+    } else if (equipped == "worn") {
         owner->delete_temp("armor/" + query("armor_type"));
         prop = query("armor_prop");
     }
 
-    if (mapp(prop))
-    {
+    if (mapp(prop)) {
         apply = keys(prop);
         applied_prop = owner->query_temp("apply");
         for (int i = 0; i < sizeof(apply); i++)
@@ -185,13 +165,12 @@ int unequip()
             applied_prop[apply[i]] -= prop[apply[i]];
     }
 
-    delete ("equipped");
+    delete("equipped");
     return 1;
 }
 
 // hit the object as a weapon
-mixed hit_ob(object me, object victim, int damage_bonus)
-{
+mixed hit_ob(object me, object victim, int damage_bonus) {
     mixed foo;
 
     foo = this_object()->weapon_hit_ob(me, victim, damage_bonus);
@@ -206,16 +185,14 @@ mixed hit_ob(object me, object victim, int damage_bonus)
 }
 
 // other one hit me as an armor
-mixed valid_damage(object me, object victim, int damage_bonus)
-{
+mixed valid_damage(object me, object victim, int damage_bonus) {
     ITEM_D->reduce_consistence(this_object());
 
     if (!mapp(query_temp("daub")))
         return;
 
     if (me->query_temp("weapon") || me->query_temp("remote_attack") ||
-        me->query("not_living"))
-    {
+        me->query("not_living")) {
         // the attacker has weapon, or remote attack, or not living,
         // he won't be poisoned by my cloth or armor
         return;

@@ -7,47 +7,46 @@ inherit NPC;
 #define PET_OBJ        "/clone/npc/pet.c"
 #define PET_DIR        "/data/pet/"
 
-int  do_selete();
+int do_selete();
 void get_type(string arg, object ob);
 void get_subtype(string arg, object ob);
-void get_gender(string arg,object ob);
+void get_gender(string arg, object ob);
 void get_id(string arg, object ob);
 void get_name(string arg, object ob);
 void get_desc(string arg, object ob);
 void build_pet(object ob);
-int  check_legal_name(string name, int max_len);
-int  check_legal_id(string name);
+int check_legal_name(string name, int max_len);
+int check_legal_id(string name);
 void confirm_dispose(string arg, object ob, object fabao_ob);
 
-string* pet_type_name = ({
+string *pet_type_name = ({
     "马", "驴", "骡", "驼", "牛", "象",
     "狮", "虎", "豹", "鹿", "鹤", "雕",
     "羊", "猴", "熊", "狼", "狐", "貂",
     "驹", "兽",
 });
 
-string* pet_id_surfix = ({
+string *pet_id_surfix = ({
     "ma", "lv", "luo", "tuo", "niu", "xiang",
     "shi", "hu", "bao", "lu", "he", "diao",
     "yang", "hou", "xiong", "lang", "hu", "diao",
     "ju", "shou",
 });
 
-string* pet_unit_name=({
+string *pet_unit_name = ({
     "匹", "头", "头", "头", "头", "头",
     "只", "只", "只", "头", "只", "只",
     "头", "只", "只", "条", "只", "只",
     "匹", "头",
 });
 
-void create()
-{
-    set_name("马老板", ({"horse boss", "boss"}));
-    set("title", HIR"坐骑商人"NOR);
+void create() {
+    set_name("马老板", ({ "horse boss", "boss" }));
+    set("title", HIR "坐骑商人" NOR);
     set("gender", "男性");
     set("age", 32);
     set("long", "一个身着朴素的老板，是关东大风堂派驻在扬州城提供坐骑的。\n"
-                "在这里你可以选择(choose)自己称心如意的坐骑。\n");
+        "在这里你可以选择(choose)自己称心如意的坐骑。\n");
 
     set("attitude", "peaceful");
     set_skill("training", 400);
@@ -56,21 +55,18 @@ void create()
     add_money("coin", 10000);
 }
 
-void init()
-{
+void init() {
     ::init();
     add_action("do_selete", "choose");
 }
 
-int do_selete()
-{
+int do_selete() {
     object me = this_player();
 
     if (me->query_skill("training", 1) < 100)
         return notify_fail("你的驭兽术太低了，即使养了坐骑，也会离你而去。\n");
 
-    if (! me->query_temp("pet/money"))
-    {
+    if (!me->query_temp("pet/money")) {
         command("say 这位" + RANK_D->query_respect(me) + "，每只坐骑一千两黄金！");
         return 1;
     }
@@ -84,17 +80,16 @@ int do_selete()
 
     input_to( (: get_subtype :), me);
     */
-    me->set_temp("pet/pet_type",  1);
+    me->set_temp("pet/pet_type", 1);
 
     write("\n");
     write("请设定坐骑的性别(雄性：1  雌性：0  取消：Q)：");
-    input_to( (: get_gender :), me );
+    input_to((: get_gender :), me);
 
     return 1;
 }
 
-void get_subtype(string arg, object ob)
-{
+void get_subtype(string arg, object ob) {
     int order;
 
     if (arg == "q" || arg == "Q")
@@ -102,8 +97,7 @@ void get_subtype(string arg, object ob)
 
     sscanf(arg, "%d", order);
 
-    if (order <= 0 || order > 20)
-    {
+    if (order <= 0 || order > 20) {
         write("到大风堂做买卖就得守规矩，选了坐骑就不能后悔了，除非养了也不用它：\n");
         write("您要养哪类坐骑：\n");
         write(" 1. 马   2. 驴   3. 骡   4. 驼  5. 牛  6. 象\n");
@@ -111,19 +105,18 @@ void get_subtype(string arg, object ob)
         write("13. 羊  14. 猴  15. 熊  16. 狼 17. 狐 18. 貂\n");
         write("19. 驹  20. 兽\n");
         write("请选择：(q 键取消)");
-        input_to( (: get_subtype :), ob);
+        input_to((: get_subtype :), ob);
         return;
     }
 
-    ob->set_temp("pet/pet_type",  order);
+    ob->set_temp("pet/pet_type", order);
 
     write("\n");
     write("请设定坐骑的性别(雄性：1  雌性：0)：");
-    input_to( (: get_gender :), ob );
+    input_to((: get_gender :), ob);
 }
 
-void get_gender(string arg, object ob)
-{
+void get_gender(string arg, object ob) {
     int gender;
 
     if (arg == "q" || arg == "Q")
@@ -131,11 +124,10 @@ void get_gender(string arg, object ob)
 
     sscanf(arg, "%d", gender);
 
-    if (gender != 0 && gender != 1)
-    {
+    if (gender != 0 && gender != 1) {
         write("\n");
         write("请设定坐骑的性别(雄性：1  雌性：0)：");
-        input_to( (: get_gender :), ob );
+        input_to((: get_gender :), ob);
         return;
     }
     ob->set_temp("pet/pet_gender", gender ? "雄性" : "雌性");
@@ -144,42 +136,37 @@ void get_gender(string arg, object ob)
     write("现在你可以设定英文 id ，英文 id 会自动加上后缀id(ma)。\n");
     write("比如：你设定的 id 是 bailong，那么马匹的 id 为 bailong ma。\n");
     write("请设定英文 id ：");
-    input_to( (: get_id :), ob );
+    input_to((: get_id :), ob);
 }
 
-int check_legal_id(string id)
-{
+int check_legal_id(string id) {
     int i;
     // string *legalid;
     object ppl;
 
     i = strlen(id);
 
-    if ((i < 3) || (i > 20))
-    {
+    if ((i < 3) || (i > 20)) {
         write("对不起，英文 id 必须是 3 到 20 个英文字母。\n");
         return 0;
     }
 
-    while(i--)
+    while (i--)
 
-    if (id[i] != ' ' && (id[i] < 'a' || id[i] > 'z'))
-    {
-        write("对不起，英文 id 只能用英文字母。\n");
-        return 0;
-    }
+        if (id[i] != ' ' && (id[i] < 'a' || id[i] > 'z')) {
+            write("对不起，英文 id 只能用英文字母。\n");
+            return 0;
+        }
 
     ppl = LOGIN_D->find_body(id);
 
-    if (ppl || id == "guest" || id == "new")
-    {
+    if (ppl || id == "guest" || id == "new") {
         write("这个名字与别的玩家ID相同了．．．");
         return 0;
     }
 
     if (file_size(sprintf("/data/user/%c/%s", id[0], id)
-        + __SAVE_EXTENSION__) >= 0)
-    {
+        +__SAVE_EXTENSION__) >= 0) {
         write("这个名字已经被别的玩家使用了．．．");
         return 0;
     }
@@ -197,16 +184,14 @@ int check_legal_id(string id)
     return 1;
 }
 
-int check_legal_name(string name, int max_len)
-{
+int check_legal_name(string name, int max_len) {
     int i;
     // string  *legalname; // not implemented..may add later
 
     i = strwidth(name);
-    if ((i < 2) || (i > max_len ))
-    {
+    if ((i < 2) || (i > max_len)) {
         write(sprintf("对不起，坐骑中文字必须是 1 到 %d 个中文字。\n",
-                max_len / 2));
+            max_len / 2));
         return 0;
     }
     /*
@@ -216,8 +201,7 @@ int check_legal_name(string name, int max_len)
         return 0;
     }
     */
-    if (max_len < 13 && ! is_chinese(name))
-    {
+    if (max_len < 13 && !is_chinese(name)) {
         write("对不起，请您用「中文」为坐骑取名字或描述。\n");
         return 0;
     }
@@ -225,17 +209,15 @@ int check_legal_name(string name, int max_len)
 }
 
 
-void get_id(string arg, object ob)
-{
+void get_id(string arg, object ob) {
     arg = lower_case(arg);
 
-    if (! check_legal_id(arg))
-    {
+    if (!check_legal_id(arg)) {
         write("\n");
         write("现在你可以设定英文 id ，英文 id 会自动加上后缀坐骑种类 id(ma)。\n");
         write("比如你想设定的 id 是 bailong ma，那么你只要输入 bailong 就可以。\n");
         write("请设定英文 id ：");
-        input_to( (: get_id :), ob );
+        input_to((: get_id :), ob);
         return;
     }
 
@@ -248,12 +230,11 @@ void get_id(string arg, object ob)
     write("现在你可以设定中文名，请注意，你设定的中文名会自动加上基本名（马）。\n");
     write("比如中文名为白龙马，只用输入白龙即可。\n");
     write("请设定中文名：(可加颜色)");
-    input_to( (: get_name :), ob);
+    input_to((: get_name :), ob);
 }
 
-void get_name(string arg, object ob)
-{
-    string  arg_old;
+void get_name(string arg, object ob) {
+    string arg_old;
 
 
     arg_old = arg;
@@ -278,12 +259,11 @@ void get_name(string arg, object ob)
     arg = replace_string(arg, "$HIW$", "");
     arg = replace_string(arg, "$NOR$", "");
 
-    if (! check_legal_name(arg, 12))
-    {
+    if (!check_legal_name(arg, 12)) {
         write("现在你可以设定中文名，请注意，你设定的中文名会自动加上基本名（马）。\n");
         write("比如中文名为白龙马，只用输入白龙即可。\n");
         write("请设定中文名：(可加颜色)");
-        input_to( (: get_name :), ob);
+        input_to((: get_name :), ob);
         return;
     }
 
@@ -310,26 +290,23 @@ void get_name(string arg, object ob)
 
     write("\n");
     write("请描述坐骑：(不可加颜色)");
-    input_to( (: get_desc :), ob);
+    input_to((: get_desc :), ob);
 }
 
-void get_desc(string arg, object ob)
-{
-    if (! check_legal_name(arg, 60))
-    {
+void get_desc(string arg, object ob) {
+    if (!check_legal_name(arg, 60)) {
         write("请描述坐骑：(不可加颜色)");
-        input_to( (: get_desc :), ob);
+        input_to((: get_desc :), ob);
         return;
     }
 
-    ob->set_temp("pet/pet_desc",  arg);
+    ob->set_temp("pet/pet_desc", arg);
     write("ok\n");
     //报错的行号
     build_pet(ob);
 }
 
-void build_pet(object ob)
-{
+void build_pet(object ob) {
     string *id_list;
     string msg;
     string fn;
@@ -357,63 +334,56 @@ void build_pet(object ob)
     fc = replace_string(fc, "PET_GENDER", pet_gender);
 
     fc = replace_string(fc, "PET_UNIT",
-                        pet_unit_name[(int)pet_type - 1]);
+        pet_unit_name[(int)pet_type - 1]);
 
     fc = replace_string(fc, "LONG_DESCRIPTION",
-                        pet_desc + "\n" + "它是" +
-                        ob->query("name") + "的坐骑。\n");
+        pet_desc + "\n" + "它是" +
+        ob->query("name") + "的坐骑。\n");
 
     fc = replace_string(fc, "OWNER_ID", ob->query("id"));
     fc = replace_string(fc, "OWNER_NAME", ob->query("name"));
 
     fn = PET_DIR + ob->query("id") + "-" + "pet";
 
-    if (file_size(fn + ".c") > 0)
-    {
+    if (file_size(fn + ".c") > 0) {
         if (pet = find_object(fn)) destruct(pet);
         rm(fn + ".c");
     }
 
     assure_file(fn);
-    write_file(fn + ".c", fc); // 写入文件
-    VERSION_D->append_sn(fn + ".c"); // 给物品增加识别码
+    write_file(fn + ".c", fc);  // 写入文件
+    VERSION_D->append_sn(fn + ".c");  // 给物品增加识别码
 
     pet = load_object(fn);
 
     msg = "$N到屋后坐骑培育场牵了" + pet_name + "出来。\n" +
-            "恭喜$n养了" + pet_name + "，以后$n可要好好待它。\n";
+        "恭喜$n养了" + pet_name + "，以后$n可要好好待它。\n";
 
     message_vision(msg, this_object(), ob);
 
     pet->move(environment(ob));
-    command("say 你可以吹声口哨召唤你的坐骑！<whistle " + pet_id +">\n");
+    command("say 你可以吹声口哨召唤你的坐骑！<whistle " + pet_id + ">\n");
     ob->set("can_whistle/" + pet_id, fn);
     ob->delete_temp("pet");
     ob->save();
     return;
 }
 
-int accept_object(object me, object ob)
-{
+int accept_object(object me, object ob) {
     command("xixi");
     command("say 呵呵，多谢这位" + RANK_D->query_respect(me) + " ！");
 
-    if (me->query_skill("training", 1) < 100)
-    {
+    if (me->query_skill("training", 1) < 100) {
         command("say 你的驭兽术不够，即使养了坐骑，也会离你而去！");
         return 0;
     }
 
-    if (ob->query("money_id"))
-    {
-        if (ob->value() < 10000000)
-        {
+    if (ob->query("money_id")) {
+        if (ob->value() < 10000000) {
             command("say 这位给的未免少了点！每只坐骑要一千两黄金！");
             return 0;
-        }
-        else
-        {
-            me->set_temp("pet/money",1);
+        } else {
+            me->set_temp("pet/money", 1);
             command("say 好我收下了！");
             command("say " + me->name() + "，现在我这里有各种可当作坐骑的动物！");
             command("say 请选择你要的动物 < choose >");
@@ -423,22 +393,21 @@ int accept_object(object me, object ob)
     }
     return 0;
 }
-int recognize_apprentice(object me, string skill)
-{
-    if (skill == "training")
-    {
+int recognize_apprentice(object me, string skill) {
+    if (skill == "training") {
         // 驯兽术超过10级后可以在马老板这学习
-        if (me->query_skill("training", 1) > 10)
-        {
+        if (me->query_skill("training", 1) > 10) {
             return 1;
-        }
-        else
-        {
+        } else {
             command("shake");
-            msg("info", "$ME对$YOU说道：你完全没有学过" + to_chinese(skill) + "，我可没功夫从零开始教你。\n", this_object(), me);
+            msg(
+                "info",
+                "$ME对$YOU说道：你完全没有学过" + to_chinese(skill) + "，我可没功夫从零开始教你。\n",
+                this_object(),
+                me
+            );
             return -1;
         }
-    }
-    else
+    } else
         return 0;
 }

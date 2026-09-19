@@ -4,8 +4,7 @@
 
 inherit NECK;
 
-void create()
-{
+void create() {
     set_name("金项链", ({ "golden necklace", "necklace", "lace" }));
     set("weight", 500);
     if (clonep())

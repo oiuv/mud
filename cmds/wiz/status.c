@@ -9,8 +9,7 @@ int help(object me);
 
 int filter_for_heart_beat(object ob);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     object *obs;
     string msg;
@@ -27,23 +26,20 @@ int main(object me, string arg)
 
     lt = localtime(time());
     msg = sprintf("%d/%d/%d  %d:%d:%d\n",
-                  lt[LT_YEAR], lt[LT_MON] + 1, lt[LT_MDAY],
-                  lt[LT_HOUR], lt[LT_MIN], lt[LT_SEC]);
-    if (arg == "object")
-    {
+        lt[LT_YEAR], lt[LT_MON] + 1, lt[LT_MDAY],
+        lt[LT_HOUR], lt[LT_MIN], lt[LT_SEC]);
+    if (arg == "object") {
         st = ([]);
         obs = objects();
         i = 0;
-        foreach (ob in obs)
-        {
+        foreach (ob in obs) {
             bn = file_name(ob);
             sscanf(bn, "%s#%*d", bn);
             if (!st[bn])
                 st[bn] = 1;
             else
                 st[bn]++;
-            if (i++ > 10000)
-            {
+            if (i++ > 10000) {
                 reset_eval_cost();
                 i = 0;
             }
@@ -62,7 +58,7 @@ int main(object me, string arg)
         msg += "目前系统中复制对象超过 50 个的物品如下：\n";
         for (i = 0; i < sizeof(ks) && i < 100; i++)
             msg += sprintf("%3d. %-40s %d\n",
-                           i + 1, ks[i], st[ks[i]]);
+                i + 1, ks[i], st[ks[i]]);
         me->start_more(msg);
         return 1;
     }
@@ -77,17 +73,15 @@ int main(object me, string arg)
     return 1;
 }
 
-int filter_for_heart_beat(object ob)
-{
+int filter_for_heart_beat(object ob) {
     return query_heart_beat(ob);
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : status [detail | object]
 
 利用此指令可得知有关系统的信息。
-HELP );
+HELP);
     return 1;
 }

@@ -18,8 +18,7 @@ void create() { seteuid(ROOT_UID); }
 
 // This is the interface to the intermud channels
 void send_msg(string channel, string id, string name, string msg, int emoted,
-              mixed filter)
-{
+    mixed filter) {
     string *names;
     int i;
     mapping muds;
@@ -42,8 +41,7 @@ void send_msg(string channel, string id, string name, string msg, int emoted,
     names = keys(svcs);
     i = sizeof(names);
     while (i--)
-        if ((names[i] != mud_nname()))
-        {
+        if ((names[i] != mud_nname())) {
             minfo = muds[names[i]];
             if (!mapp(minfo) || !mapp(svcs[names[i]]) ||
                 !(svcs[names[i]]["gwizmsg"] & SVC_UDP))
@@ -51,39 +49,36 @@ void send_msg(string channel, string id, string name, string msg, int emoted,
 #ifdef DEBUG
             set("channel_id", "网路频道精灵");
             CHANNEL_D->do_channel(this_object(), "sys",
-                                  sprintf("gchannel message sent to %s.", minfo["NAME"]));
+                sprintf("gchannel message sent to %s.", minfo["NAME"]));
 #endif
             // 发送消息
             DNS_MASTER->send_udp(minfo["HOSTADDRESS"], minfo["PORTUDP"],
-                                 "@@@" + DNS_GCHANNEL +
-                                     "||NAME:" + Mud_name() +
-                                     "||PORTUDP:" + udp_port() +
-                                     "||USRNAME:" + capitalize(id) +
-                                     "||CNAME:" + name +
-                                     "||MSG:" + msg +
-                                     "||CHANNEL:" + channel +
-                                     (emoted ? "||EMOTE:1" : "") + "@@@\n");
+                "@@@" + DNS_GCHANNEL +
+                "||NAME:" + Mud_name() +
+                "||PORTUDP:" + udp_port() +
+                "||USRNAME:" + capitalize(id) +
+                "||CNAME:" + name +
+                "||MSG:" + msg +
+                "||CHANNEL:" + channel +
+                (emoted ? "||EMOTE:1" : "") + "@@@\n");
         }
 }
 
-void incoming_request(mapping info)
-{
+void incoming_request(mapping info) {
     mapping minfo;
     string tmsg;
 
     if (!ACCESS_CHECK(previous_object()))
         return;
     // debug_message(sprintf("%O", info));
-    if (info["NAME"])
-    {
+    if (info["NAME"]) {
         if (info["NAME"] == Mud_name())
             return;
 
         minfo = DNS_MASTER->query_mud_info(info["HOSTADDRESS"] + ":" + info["PORTUDP"]);
         // debug_message(sprintf("%O", minfo));
         if (!minfo || !strlen(info["USRNAME"]) ||
-            !DNS_MASTER->dns_mudp(info["HOSTADDRESS"] + ":" + info["PORTUDP"]))
-        {
+            !DNS_MASTER->dns_mudp(info["HOSTADDRESS"] + ":" + info["PORTUDP"])) {
             // We don't accept the message.  But ping them anyway.
             PING_Q->send_ping_q(info["HOSTADDRESS"], info["PORTUDP"]);
             return;
@@ -91,8 +86,7 @@ void incoming_request(mapping info)
 
         // if (minfo["MUDLIB"] != MUDLIB_NAME) return;
 
-        if (info["HOSTADDRESS"] != minfo["HOSTADDRESS"])
-        {
+        if (info["HOSTADDRESS"] != minfo["HOSTADDRESS"]) {
             if (info["EMOTE"])
                 tmsg = info["USRNAME"] + "@" + info["NAME"] + " " + info["MSG"];
             else
@@ -100,13 +94,13 @@ void incoming_request(mapping info)
 
             // Faked.  sheeze...
             dns_log("dns_fake", sprintf("Gchannel: %s %s\n%s", ctime(time()),
-                                        info["HOSTADDRESS"], tmsg));
+                info["HOSTADDRESS"], tmsg));
             DNS_MASTER->send_udp(info["HOSTADDRESS"], info["PORTUDP"],
-                                 "@@@" + DNS_WARNING +
-                                     "||NAME:" + Mud_name() +
-                                     "||MSG: Fake gchannel msg: " + tmsg +
-                                     "||FAKEHOST:" + info["HOSTADDRESS"] +
-                                     "@@@\n");
+                "@@@" + DNS_WARNING +
+                "||NAME:" + Mud_name() +
+                "||MSG: Fake gchannel msg: " + tmsg +
+                "||FAKEHOST:" + info["HOSTADDRESS"] +
+                "@@@\n");
             return;
         }
 

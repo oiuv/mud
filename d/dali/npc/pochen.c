@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("破嗔", ({ "po chen", "chen" }));
     set("age", 22);
     set("gender", "男性");

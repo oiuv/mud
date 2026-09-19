@@ -11,22 +11,21 @@ string status_color(int current, int max);
 string date_string(int date);
 
 mapping oprank = ([
-    "宗师"     : HIW "宗师境界  ",
-    "登峰造极" : HIY "★★★★☆",
-    "超凡脱俗" : HIY "★★★★  ",
-    "臻至化境" : HIR "★★★☆  ",
-    "炉火纯青" : HIR "★★★    ",
-    "已有大成" : HIC "★★☆    ",
-    "非同凡响" : HIC "★★      ",
-    "出类拔萃" : HIG "★☆      ",
-    "身手不凡" : HIG "★        ",
-    "已有小成" : HIM "☆        ",
+    "宗师": HIW "宗师境界  ",
+    "登峰造极": HIY "★★★★☆",
+    "超凡脱俗": HIY "★★★★  ",
+    "臻至化境": HIR "★★★☆  ",
+    "炉火纯青": HIR "★★★    ",
+    "已有大成": HIC "★★☆    ",
+    "非同凡响": HIC "★★      ",
+    "出类拔萃": HIG "★☆      ",
+    "身手不凡": HIG "★        ",
+    "已有小成": HIM "☆        ",
 ]);
 
 void create() { seteuid(ROOT_UID); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     mapping my;
     mapping mci;
@@ -40,8 +39,7 @@ int main(object me, string arg)
     if (!arg)
         ob = me;
 
-    else if (wizardp(me) && SECURITY_D->valid_grant(me, "(wizard)"))
-    {
+    else if (wizardp(me) && SECURITY_D->valid_grant(me, "(wizard)")) {
         ob = present(arg, environment(me));
         if (!ob || !ob->is_character())
             ob = find_player(arg);
@@ -49,8 +47,7 @@ int main(object me, string arg)
             ob = find_living(arg);
         if (!ob || !ob->is_character())
             return notify_fail("你要察看谁的状态？\n");
-    }
-    else
+    } else
         return notify_fail("只有天神能察看别人的状态。\n");
     my = ob->query_entire_dbase();
     mci = my["combat"];
@@ -67,8 +64,7 @@ int main(object me, string arg)
     line += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
     line += sprintf(BOLD " %s" NOR "%s\n", RANK_D->query_rank(ob), ob->short(1));
 
-    if (playerp(ob))
-    {
+    if (playerp(ob)) {
         line += CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR "\n" NOR;
         age = ob->query("age");
         month = ob->age_month();
@@ -79,60 +75,50 @@ int main(object me, string arg)
             race = ob->query("gender");
 
         line += sprintf(WHT "  你是%s%s岁%s个月的" + race + "，%s生。\n",
-                        ob->query("unit"),
-                        chinese_number(age),
-                        chinese_number(month),
-                        //CHINESE_D->chinese_date(((int)ob->query("birthday") - 7358400) * 60));
-                        //生日修正为和游戏中time指令显示的时间统一
-                        CHINESE_D->chinese_date((GAME_TIME((int)ob->query("birthday")) % 86400) * DATE_SCALE,
-                                                GAME_TIME((int)ob->query("birthday")) / 86400));
+            ob->query("unit"),
+            chinese_number(age),
+            chinese_number(month),
+            //CHINESE_D->chinese_date(((int)ob->query("birthday") - 7358400) * 60));
+            //生日修正为和游戏中time指令显示的时间统一
+            CHINESE_D->chinese_date((GAME_TIME((int)ob->query("birthday")) % 86400) * DATE_SCALE,
+                GAME_TIME((int)ob->query("birthday")) / 86400));
     }
 
     else
         line += sprintf(WHT "  这是一%s%s岁的%s%s，%s生。\n",
-                        ob->query("unit"),
-                        chinese_number(ob->query("age")),
-                        ob->query("gender"),
-                        ob->query("race"),
-                        CHINESE_D->chinese_date(((int)ob->query("birthday") - 7358400) * 60));
+            ob->query("unit"),
+            chinese_number(ob->query("age")),
+            ob->query("gender"),
+            ob->query("race"),
+            CHINESE_D->chinese_date(((int)ob->query("birthday") - 7358400) * 60));
 
     line += sprintf(WHT "  膂力：[%s]  悟性：[%s]  根骨：[%s]  身法：[%s]\n",
-                    display_attr(my["str"], ob->query_str()) + WHT,
-                    display_attr(my["int"], ob->query_int()) + WHT,
-                    display_attr(my["con"], ob->query_con()) + WHT,
-                    display_attr(my["dex"], ob->query_dex()) + WHT);
+        display_attr(my["str"], ob->query_str()) + WHT,
+        display_attr(my["int"], ob->query_int()) + WHT,
+        display_attr(my["con"], ob->query_con()) + WHT,
+        display_attr(my["dex"], ob->query_dex()) + WHT);
 
-    if (playerp(ob))
-    {
-        if (my["born_family"] && my["born_family"] != "没有")
-        {
+    if (playerp(ob)) {
+        if (my["born_family"] && my["born_family"] != "没有") {
             line += HIW "  你出生在" + my["born_family"];
-        }
-        else if (stringp(my["born"]) && my["born"])
-        {
+        } else if (stringp(my["born"]) && my["born"]) {
             line += HIW "  你是" + my["born"];
-        }
-        else
+        } else
             line += HIW "  你尚未出生";
 
-        if (my["character"])
-        {
+        if (my["character"]) {
             line += "，天性" + my["character"];
-        }
-        else
-        {
+        } else {
             line += "，天性未定";
         }
 
-        if (mapp(my["family"]))
-        {
+        if (mapp(my["family"])) {
             if (my["family"]["master_name"])
                 line += sprintf("，师父是%s。\n" NOR,
-                                my["family"]["master_name"]);
+                    my["family"]["master_name"]);
             else
                 line += "，还没有师父。\n" NOR;
-        }
-        else
+        } else
             line += "，还没有拜师。\n" NOR;
 
         rmb = ob->query("TASK", 1);
@@ -145,49 +131,38 @@ int main(object me, string arg)
         else
             line += HIY "  你目前没有存款。\n" NOR;
 
-        if (ob->query("gender") != "无性")
-        {
-            if (!ob->query("couple/name"))
-            {
+        if (ob->query("gender") != "无性") {
+            if (!ob->query("couple/name")) {
                 if (ob->query("gender") == "女性")
                     line += HIC "  你尚未婚配。\n" NOR;
                 else
                     line += HIC "  你尚未娶妻。\n" NOR;
-            }
-            else
-                line += HIC "  你的伴侣是" + ob->query("couple/name") + "(" +
-                        ob->query("couple/id") + ")。\n" NOR;
+            } else
+                line += HIC "  你的伴侣是" + ob->query("couple/name") + "(" + ob->query("couple/id") + ")。\n" NOR;
 
-            if (!(int)ob->query("sex/times"))
-            {
+            if (!(int)ob->query("sex/times")) {
                 if (ob->query("gender") == "女性")
                     line += HIG "  你还是处女。\n" NOR;
                 else
                     line += HIC "  你还是童男。\n" NOR;
-            }
-            else
-            {
+            } else {
                 string *ks;
 
                 ks = keys(ob->query("sex"));
-                ks -= ({"times", "first", ""});
+                ks -= ({ "times", "first", "" });
                 if (sizeof(ks) >= 10)
                     line += HIW "  你曾经和数不清的人发生过关系，结果"
-                                "连自己都忘了有谁了。\n" NOR;
+                        "连自己都忘了有谁了。\n" NOR;
                 else
-                    line += HIW "  你曾经和" + implode(ks, HIW "、") +
-                            HIW "发生过关系。\n" NOR;
+                    line += HIW "  你曾经和" + implode(ks, HIW "、") + HIW "发生过关系。\n" NOR;
             }
         }
     }
 
-    if (objectp(weapon = ob->query_temp("weapon")))
-    {
+    if (objectp(weapon = ob->query_temp("weapon"))) {
         skill_type = weapon->query("skill_type");
         attack_points = COMBAT_D->skill_power(ob, skill_type, SKILL_USAGE_ATTACK);
-    }
-    else
-    {
+    } else {
         mapping prepare;
         string *sk;
 
@@ -204,8 +179,7 @@ int main(object me, string arg)
 
         attack_points = COMBAT_D->skill_power(ob, skill_type, SKILL_USAGE_ATTACK);
 
-        if (sizeof(prepare) == 2)
-        {
+        if (sizeof(prepare) == 2) {
             int temp;
             temp = COMBAT_D->skill_power(ob, sk[1], SKILL_USAGE_ATTACK);
             if (attack_points < temp)
@@ -217,66 +191,51 @@ int main(object me, string arg)
     dodge_points = COMBAT_D->skill_power(ob, "dodge", SKILL_USAGE_DEFENSE);
 
     //if (wizardp(me))
-    if (playerp(ob))
-    {
+    if (playerp(ob)) {
         line += CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR "\n" NOR;
         line += sprintf(WHT "  战斗攻击： " HIW "%8d" NOR WHT "\t\t  战斗防御： " HIW "%8d\n" NOR,
-                        attack_points / 100 + 1, (dodge_points + (weapon ? parry_points : (parry_points / 10))) / 100 + 1, );
+            attack_points / 100 + 1, (dodge_points + (weapon ? parry_points : (parry_points / 10))) / 100 + 1,);
         line += sprintf(WHT "  战斗伤害： " HIW "%8d" NOR WHT "\t\t  战斗保护： " HIW "%8d\n" NOR,
-                        weapon ? ob->query_temp("apply/damage")
-                               : ob->query_temp("apply/unarmed_damage"),
-                        ob->query_temp("apply/armor"));
+            weapon ? ob->query_temp("apply/damage")
+            : ob->query_temp("apply/unarmed_damage"),
+            ob->query_temp("apply/armor"));
     }
 
-    if (playerp(ob))
-    {
+    if (playerp(ob)) {
         line += CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR "\n" NOR;
-        if (!((int)mci["MKS"] + (int)mci["PKS"]))
-        {
+        if (!((int)mci["MKS"] + (int)mci["PKS"])) {
             line += HIY "  你到目前为止尚未开杀戒。\n";
-        }
-        else
-        {
+        } else {
             line += sprintf(HIR "  你到目前为止总共杀生%s次。\n",
-                            chinese_number(mci["MKS"] + mci["PKS"]));
+                chinese_number(mci["MKS"] + mci["PKS"]));
 
-            if ((int)mci["PKS"])
-            {
-                line += "  其中有" + chinese_number(mci["PKS"]) +
-                        "次是玩家，";
+            if ((int)mci["PKS"]) {
+                line += "  其中有" + chinese_number(mci["PKS"]) + "次是玩家，";
 
-                if ((int)mci["WPK"] >= (int)mci["PKS"])
-                {
+                if ((int)mci["WPK"] >= (int)mci["PKS"]) {
                     mci["WPK"] = (int)mci["PKS"];
                     line += "他们都是你有意杀害的。\n";
-                }
-                else if ((int)mci["WPK"])
-                {
-                    line += chinese_number(mci["WPK"]) +
-                            "次是你有意杀害的。\n";
-                }
-                else
+                } else if ((int)mci["WPK"]) {
+                    line += chinese_number(mci["WPK"]) + "次是你有意杀害的。\n";
+                } else
                     line += "但他们全都是你无心杀害的。\n";
             }
         }
     }
 
-    if ((int)mci["dietimes"])
-    {
+    if ((int)mci["dietimes"]) {
         line += sprintf(HIR "  你到目前为止总共到黑白无常那里串"
-                            "门%s次。\n" NOR,
-                        chinese_number(mci["dietimes"]));
+            "门%s次。\n" NOR,
+            chinese_number(mci["dietimes"]));
 
         if (stringp(mci["last_die"]))
             line += sprintf(HIR "  你最后一次是%s。\n" NOR,
-                            mci["last_die"]);
-    }
-    else if (playerp(ob))
+                mci["last_die"]);
+    } else if (playerp(ob))
 
         line += HIC "\n  你到目前为止尚无死亡记录。\n" NOR;
 
-    while (playerp(ob))
-    {
+    while (playerp(ob)) {
         //              string op;
 
         line += CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR "\n" NOR;
@@ -307,8 +266,7 @@ int main(object me, string arg)
         line += CYN "\n-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR + CYN "-" NOR + YEL "-" NOR "\n" NOR;
         break;
     }
-    while (playerp(ob))
-    {
+    while (playerp(ob)) {
         //              string op;
 
         line += HIW "  镇狱惊天丸： " NOR;
@@ -333,11 +291,9 @@ int main(object me, string arg)
         break;
     }
 
-    while (playerp(ob))
-    {
+    while (playerp(ob)) {
         string op;
-        if (ultrap(ob))
-        {
+        if (ultrap(ob)) {
             line += HIC "  你现在已经成为武学大宗师。\n\n" NOR;
             break;
         }
@@ -373,8 +329,7 @@ int main(object me, string arg)
     line += sprintf(NOR + WHT "  实战经验： " HIW "%8d\t\t" NOR, my["combat_exp"]);
     line += sprintf(WHT "  门派贡献： " HIW "%8d\n" NOR, my["gongxian"]);
 
-    if (playerp(ob))
-    {
+    if (playerp(ob)) {
         line += sprintf(WHT "  江湖阅历： " HIC "%8d\t\t" NOR, my["score"]);
         line += sprintf(WHT "  江湖威望： " HIC "%8d\n" NOR, my["weiwang"]);
     }
@@ -385,16 +340,15 @@ int main(object me, string arg)
         line += sprintf(WHT "  邪    气： " HIR "%8d\t\t" NOR, -ob->query("shen"));
 
     line += sprintf(WHT "  灵    慧： %s%8d\n" NOR,
-                    my["magic_points"] < 100 ? HIY : HIM,
-                    (my["magic_points"] - my["magic_learned"]));
+        my["magic_points"] < 100 ? HIY : HIM,
+        (my["magic_points"] - my["magic_learned"]));
 
     line += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
     write(line);
     return 1;
 }
 
-string display_attr(int gift, int value)
-{
+string display_attr(int gift, int value) {
     if (value > gift)
         return sprintf(HIY "%3d" NOR, value);
     else if (value < gift)
@@ -403,8 +357,7 @@ string display_attr(int gift, int value)
         return sprintf("%3d", value);
 }
 
-string status_color(int current, int max)
-{
+string status_color(int current, int max) {
     int percent;
 
     if (max)
@@ -425,8 +378,7 @@ string status_color(int current, int max)
     return RED;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式： score
            score <对象名称>                   (巫师专用)

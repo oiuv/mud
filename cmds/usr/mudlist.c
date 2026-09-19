@@ -9,8 +9,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     mapping mud_list;
     mapping mud_svc;
     mixed *muds;
@@ -29,35 +28,31 @@ int main(object me, string arg)
     mud_list = (mapping)DNS_MASTER->query_muds();
 
     // so we recognise ourselves as a DNS mud
-    mud_svc = DNS_MASTER->query_svc() + ([Mud_name():0]);
+    mud_svc = DNS_MASTER->query_svc() + ([ Mud_name(): 0 ]);
 
     if (!mud_list)
         return notify_fail(LOCAL_MUD_NAME() + "目前并没有跟网路上其他 Mud 取得联系。\n");
     // debug_message(sprintf("%O", mud_list));
     // Get list of all mud names within name server
-    muds = keys(mud_list) - ({"DEFAULT"});
+    muds = keys(mud_list) - ({ "DEFAULT" });
 
-    if (!arg)
-    {
+    if (!arg) {
         // filter for release sub sites & me
         local_mudlib = MUDLIB_NAME;
         muds = filter_array(muds, (: $(mud_list)[$1]["MUDLIB"] == $(local_mudlib) &&
-                                            (!VERSION_D->is_release_server() ||
-                                             $1 == INTERMUD_MUD_NAME ||
-                                             CONFIG_D->query($(mud_list)[$1]["HOSTADDRESS"]) == "valid")
-                                    :));
-    }
-    else if (arg == "sites")
-    {
+            (!VERSION_D->is_release_server() ||
+                $1 == INTERMUD_MUD_NAME ||
+                CONFIG_D->query($(mud_list)[$1]["HOSTADDRESS"]) == "valid")
+            :));
+    } else if (arg == "sites") {
         // filter for all sub sites & me
         local_mudlib = MUDLIB_NAME;
         muds = filter_array(muds, (: $(mud_list)[$1]["MUDLIB"] == $(local_mudlib) &&
-                                            (!VERSION_D->is_release_server() ||
-                                             $1 == INTERMUD_MUD_NAME ||
-                                             CONFIG_D->query($(mud_list)[$1]["HOSTADDRESS"]))
-                                    :));
-    }
-    else if (arg != "all")
+            (!VERSION_D->is_release_server() ||
+                $1 == INTERMUD_MUD_NAME ||
+                CONFIG_D->query($(mud_list)[$1]["HOSTADDRESS"]))
+            :));
+    } else if (arg != "all")
         // filter for muds matched argument
         muds = filter_array(muds, (: sscanf($1, $(arg) + "%*s") :));
 
@@ -68,17 +63,15 @@ int main(object me, string arg)
     muds = sort_array(muds, 1);
 
     output = WHT BBLU " Mud                           中文名称                 国际网路位址      端口   人数 \n" NOR
-                      "--------------------------------------------------------------------------------------\n";
+        "--------------------------------------------------------------------------------------\n";
 
     //      Count for users
     uc = 0;
 
     //    Loop through mud list and store one by one
-    for (loop = 0, size = sizeof(muds); loop < size; loop++)
-    {
+    for (loop = 0, size = sizeof(muds); loop < size; loop++) {
         mudn = muds[loop];
-        if (undefinedp(mud_list[mudn]["USERS"]))
-        {
+        if (undefinedp(mud_list[mudn]["USERS"])) {
             // continue;
             mud_list[mudn]["USERS"] = "--";
         }
@@ -108,11 +101,11 @@ int main(object me, string arg)
             name += "(" + mud_list[mudn]["ZONE"] + ")";
 
         output += sprintf(" %-30s%-25s%-18s%-7s%-5s" NOR + "\n",
-                          upper_case(vis_mudn), name,
-                          mud_list[mudn]["HOSTADDRESS"],
-                          mud_list[mudn]["PORT"],
-                          mud_list[mudn][DNS_NO_CONTACT] > MAX_RETRYS ? "失去联系"
-                                                                      : mud_list[mudn]["USERS"]);
+            upper_case(vis_mudn), name,
+            mud_list[mudn]["HOSTADDRESS"],
+            mud_list[mudn]["PORT"],
+            mud_list[mudn][DNS_NO_CONTACT] > MAX_RETRYS ? "失去联系"
+            : mud_list[mudn]["USERS"]);
 
         // 累计玩家数量
         if (mud_list[mudn][DNS_NO_CONTACT] <= MAX_RETRYS)
@@ -131,8 +124,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help()
-{
+int help() {
     write(@HELP
 指令格式 : mudlist <MUD名字> | all | sites
 
@@ -142,6 +134,6 @@ int help()
 使用 all 参数表示列出所有的 Mud 游戏。
 使用 sites 参数表示列出该 Mud 的所有分站。
 如果不是以上参数，则列出以 <MUD名字> 开头的站点。
-HELP );
+HELP);
     return 1;
 }

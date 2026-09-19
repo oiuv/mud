@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("流氓头", ({ "liumang tou", "liumang", "liu" }));
     set("gender", "男性");
     set("age", 25);

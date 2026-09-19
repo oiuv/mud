@@ -3,8 +3,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     int period;
     int min;
@@ -17,8 +16,7 @@ int main(object me, string arg)
 
     if (!arg)
         ob = me;
-    else
-    {
+    else {
         if (!ob)
             ob = find_player(arg);
         if (!ob)
@@ -32,8 +30,7 @@ int main(object me, string arg)
     sec = period - min * 60;
     if (period == 0)
         write("该使用者刚刚保存过进度。\n");
-    else
-    {
+    else {
         write("该使用者距上次存盘时间是");
         if (min)
             write(chinese_number(min) + "分钟");
@@ -45,8 +42,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : checkuser <user>
 

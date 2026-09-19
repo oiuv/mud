@@ -5,11 +5,10 @@
 
 inherit STAFF;
 
-void create()
-{
-    set_name(WHT "人骨" NOR, ({ "bone", "gu" }) );
+void create() {
+    set_name(WHT "人骨" NOR, ({ "bone", "gu" }));
     set_weight(1000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "根");

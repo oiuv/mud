@@ -2,8 +2,7 @@
 
 inherit KNOWER;
 
-void create()
-{
+void create() {
     set_name("知客僧", ({ "zhike seng", "zhike", "seng" }));
     set("nickname", HIC "消息灵通" NOR);
     set("gender", "男性");

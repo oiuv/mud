@@ -5,13 +5,12 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("卫春华", ({ "wei chunhua", "wei","chunhua" }));
-    set("title", HIR "红花会"HIG"九当家" NOR);
+void create() {
+    set_name("卫春华", ({ "wei chunhua", "wei", "chunhua" }));
+    set("title", HIR "红花会" HIG "九当家" NOR);
     set("nickname", HIY "九命锦豹子" NOR);
     set("long",
-"他长得面目英俊，穿一件青布长衫，三十岁左右年纪，双目炯炯，
+        "他长得面目英俊，穿一件青布长衫，三十岁左右年纪，双目炯炯，
 英气逼人。凡逢江湖上凶殴争斗、对抗官兵之时，卫春华总是不顾
 性命的勇往直前，一生所遇凶险不计其数，但连重伤也未受过一次，
 是以说他有九条性命。\n");
@@ -52,7 +51,7 @@ void create()
 
     set("env/wimpy", 20);
 
-     setup();
+    setup();
     carry_object("/d/wudang/obj/bluecloth")->wear();
     carry_object("/clone/weapon/changjian")->wield();
 }

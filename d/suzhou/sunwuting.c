@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "孙武亭");
     set("long", @LONG
 在真娘幕后的土丘上，有一座小亭子，名为孙武亭。相传
@@ -12,11 +11,11 @@ void create()
 别担任队长，由于宠姬与宫女们不听军令，虽三令五申，仍置
 若罔闻，孙武遂下令，先斩两姬于军前以整军纪。后人遂筑此
 亭。
-LONG );
+LONG);
     set("outdoors", "suzhou");
     set("no_clean_up", 0);
     set("exits", ([
-        "south"  : __DIR__"zhenniang",
+        "south": __DIR__ "zhenniang",
     ]));
     setup();
     replace_program(ROOM);

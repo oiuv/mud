@@ -3,9 +3,8 @@
 
 inherit NPC;
 
-void create()
-{
-    set_name("托钵僧", ({"tuobo seng","seng"}));
+void create() {
+    set_name("托钵僧", ({ "tuobo seng", "seng" }));
     set("title", "少林弟子");
     set("long",
         "他是一位未通世故的青年和尚，脸上挂着孩儿般的微笑。\n"
@@ -33,7 +32,7 @@ void create()
     set("chat_msg", ({
         "托钵僧说道: 请这位施主化几两银子给贫僧，积点阴德，造福众生。\n",
         (: random_move :)
-    }) );
+    }));
 
     set_skill("force", 41);
     set_skill("unarmed", 41);
@@ -55,19 +54,17 @@ void create()
 
 }
 
-int accept_object(object me, object ob)
-{
+int accept_object(object me, object ob) {
     object ling;
 
     command("smile");
     command("say 阿弭陀佛，多谢这位" + RANK_D->query_respect(me) + " ！");
 
-    if( ob->query("money_id") && ob->value() >= 10000 && me->query("class") != "bonze" )
-    {
+    if (ob->query("money_id") && ob->value() >= 10000 && me->query("class") != "bonze") {
         command("say " + RANK_D->query_respect(me) +
-        "如此乐善好施，兼又身怀绝艺，本寺方丈正欲一晤天下英雄，不知可愿赴少林寺内一游？");
+            "如此乐善好施，兼又身怀绝艺，本寺方丈正欲一晤天下英雄，不知可愿赴少林寺内一游？");
 
-        ling=new("/d/shaolin/obj/tie-ling");
+        ling = new("/d/shaolin/obj/tie-ling");
         ling->move(me);
         message_vision("托钵僧给$N一块铁铸令牌。\n", me);
 

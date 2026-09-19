@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object obj, old_target;
 
     if (me->is_chatter())
@@ -32,29 +31,29 @@ int main(object me, string arg)
     if (obj == me)
         return notify_fail("你不能攻击自己。\n");
 
-    if (obj->query("can_speak"))
-    {
-        message_vision("\n$N对著$n说道：" + RANK_D->query_self(me) + me->name() + "，领教" + RANK_D->query_respect(obj) + "的高招！\n\n", me, obj);
+    if (obj->query("can_speak")) {
+        message_vision(
+            "\n$N对著$n说道：" + RANK_D->query_self(me) + me->name() + "，领教" + RANK_D->query_respect(obj) + "的高招！\n\n",
+            me,
+            obj
+        );
 
         if (objectp(old_target = me->query_temp("pending/fight")))
             tell_object(old_target, YEL + me->name() + "取消了和你比试的念头。\n" NOR);
         me->set_temp("pending/fight", obj);
 
         notify_fail("看起来" + obj->name() + "并不想跟你较量。\n");
-        switch (obj->accept_fight(me))
-        {
-        case 0:
-            return userp(obj);
-        case -1:
-            return 1;
-        default:
+        switch (obj->accept_fight(me)) {
+            case 0:
+                return userp(obj);
+            case -1:
+                return 1;
+            default:
         }
 
         me->fight_ob(obj);
         obj->fight_ob(me);
-    }
-    else
-    {
+    } else {
         message_vision("\n$N大喝一声，开始对$n发动攻击！\n\n", me, obj);
         me->fight_ob(obj);
         obj->kill_ob(me);
@@ -63,8 +62,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : fight <人物>
 

@@ -7,28 +7,24 @@ mixed func = 0;
 
 int is_food() { return 1; }
 
-void apply_effect(function f)
-{
+void apply_effect(function f) {
     if (!func)
         func = f;
     else if (functionp(func))
-        func = ({func, f});
+        func = ({ func, f });
     else if (sizeof(func) < 12)
-        func += ({f});
+        func += ({ f });
 }
 
-void clear_effect()
-{
+void clear_effect() {
     func = 0;
 }
 
-mixed query_effect()
-{
+mixed query_effect() {
     return func;
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     int i;
 
     if (functionp(func))

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "京韵大戏院");
     set("long", @LONG
 戏院内有一座高高的戏台，台上一些脸上上过妆的人，穿着戏服，拿
@@ -11,14 +10,14 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"houtai",
-          "west" : __DIR__"sroad4",
+        "east": __DIR__ "houtai",
+        "west": __DIR__ "sroad4",
     ]));
-        set("objects", ([
-                "/d/beijing/npc/guanzhong" : 4,
-                "/d/beijing/npc/xizi2" : 1,
-                "/d/beijing/npc/xizi3" : 1,
-        ]));
+    set("objects", ([
+        "/d/beijing/npc/guanzhong": 4,
+        "/d/beijing/npc/xizi2": 1,
+        "/d/beijing/npc/xizi3": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

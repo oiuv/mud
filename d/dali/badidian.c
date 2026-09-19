@@ -1,6 +1,5 @@
 inherit ROOM;
-void create()
-{
+void create() {
     set("short", "巴的甸");
     set("long", @LONG
 这里就是大理西部要镇巴的甸，是乌夷的重要治府，多
@@ -9,9 +8,9 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-            "north"      : __DIR__"zhenxiong",
-            "south"      : __DIR__"lushui",
-            "eastup"     : __DIR__"lushuieast",
+        "north": __DIR__ "zhenxiong",
+        "south": __DIR__ "lushui",
+        "eastup": __DIR__ "lushuieast",
     ]));
     set("no_clean_up", 0);
     setup();

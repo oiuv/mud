@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "黄羊滩");
     set("long", @LONG
 这里就是灵州西南著名的黄羊滩，本来是黄河边的一大片
@@ -10,12 +9,12 @@ void create()
 嬉戏，休养生息，成为塞上一大景观。
 LONG);
     set("exits", ([
-        "north"     : __DIR__"nanmen",
-        "southwest" : __DIR__"xiaoba",
+        "north": __DIR__ "nanmen",
+        "southwest": __DIR__ "xiaoba",
     ]));
     set("no_clean_up", 0);
     set("objects", ([
-        "/clone/quarry/yang3" : 1,
+        "/clone/quarry/yang3": 1,
     ]));
     set("outdoors", "lingzhou");
     setup();

@@ -2,12 +2,11 @@
 inherit F_FOOD;
 inherit ITEM;
 
-void create()
-{
-    set_name("大白鱼", ({ "fish" }) );
+void create() {
+    set_name("大白鱼", ({ "fish" }));
     set_weight(350);
     if (clonep())
-            set_default_object(__FILE__);
+        set_default_object(__FILE__);
     else {
         set("long", "这是一尾大白鱼，长达一尺。\n");
         set("unit", "尾");
@@ -19,8 +18,7 @@ void create()
     setup();
 }
 
-int finish_eat()
-{
+int finish_eat() {
     set_name(WHT "鱼骨" NOR, ({ "fish bone" }));
     set_weight(150);
     set("unit", "根");

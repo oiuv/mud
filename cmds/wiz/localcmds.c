@@ -3,8 +3,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     mixed *cmds;
     int i;
@@ -21,15 +20,13 @@ int main(object me, string arg)
     if (!ob)
         return notify_fail("没有这个玩家。\n");
 
-    if (!me->is_admin())
-    {
-        switch (SECURITY_D->query_site_privilege("localcmds"))
-        {
-        case "enable":
-            break;
+    if (!me->is_admin()) {
+        switch (SECURITY_D->query_site_privilege("localcmds")) {
+            case "enable":
+                break;
 
-        default:
-            return notify_fail("你不能查看当地的命令。\n");
+            default:
+                return notify_fail("你不能查看当地的命令。\n");
         }
     }
 
@@ -41,14 +38,13 @@ int main(object me, string arg)
     return 1;
 }
 
-int help()
-{
+int help() {
     write(@TEXT
 指令格式：localcmds
 
 列出你身上及四周的物品与所在的环境提供的所有指令。
 
 该命令在可以被授权使用的信息包括：enable。
-TEXT );
+TEXT);
     return 1;
 }

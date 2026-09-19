@@ -4,8 +4,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", HIR "剁人场" NOR);
     set("long", @LONG
 这里阴森恐怖，地上到处是残肢碎尸，无处不是暗红色的血滴。你心中
@@ -13,11 +12,11 @@ void create()
 LONG
     );
     set("exits", ([
-        "east"  : __DIR__"turen4",
-        "south"  : __DIR__"turen7",
-        "northeast" : __DIR__"turen1",
+        "east": __DIR__ "turen4",
+        "south": __DIR__ "turen7",
+        "northeast": __DIR__ "turen1",
     ]));
 
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

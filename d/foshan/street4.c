@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "东镇街");
     set("long", @LONG
 凤家在佛山是首屈一指的大户，凤家的家丁常牵着狼狗鱼
@@ -11,16 +10,16 @@ void create()
 北有家烧饼油条铺，里面传出阵阵油烟香气。
 LONG);
     set("objects", ([
-            "/clone/quarry/gou2" : 2,
-            __DIR__"npc/zhongxiaoer" : 1,
-            __DIR__"npc/zhongsisao"  : 1,
+        "/clone/quarry/gou2": 2,
+        __DIR__ "npc/zhongxiaoer": 1,
+        __DIR__ "npc/zhongsisao": 1,
     ]));
     set("outdoors", "foshan");
     set("exits", ([
-            "north" : __DIR__"youtiaopu",
-            "south" : __DIR__"yingxionglou",
-            "west"  : __DIR__"street3",
-            "east"  : __DIR__"street5",
+        "north": __DIR__ "youtiaopu",
+        "south": __DIR__ "yingxionglou",
+        "west": __DIR__ "street3",
+        "east": __DIR__ "street5",
     ]));
     setup();
     replace_program(ROOM);

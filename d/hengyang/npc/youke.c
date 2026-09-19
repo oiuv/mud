@@ -1,8 +1,7 @@
 inherit NPC;
 
-void create()
-{
-    set_name("游客", ({ "you ke","ke","you"}));
+void create() {
+    set_name("游客", ({ "you ke", "ke", "you" }));
     set("gender", "男性");
     set("age", 25);
     set("long", "这是来衡山旅游的游客。\n");

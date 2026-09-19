@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "四海钱庄");
     set("long", @LONG
 四海钱庄乃洛阳城最大的钱庄。也是非常有名的老字号。老板正是中
@@ -11,21 +10,21 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-        "north" : __DIR__"wroad1",
+        "north": __DIR__ "wroad1",
     ]));
-        set("item_desc", ([
-                "paizi" : @TEXT
+    set("item_desc", ([
+        "paizi": @TEXT
      本钱庄提供以下服务：
       存钱        deposit或者cun
       取钱        withdraw或者qu
       钱币兑换    convert或者duihuan
       查帐        check或者chazhang
 TEXT
-        ]) );
+    ]));
 
-        set("objects", ([
-                __DIR__"npc/hu" : 1
-        ]));
+    set("objects", ([
+        __DIR__ "npc/hu": 1
+    ]));
 
     setup();
     replace_program(ROOM);

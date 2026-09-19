@@ -3,9 +3,8 @@
 inherit NPC;
 
 
-void create()
-{
-    set_name("樵夫", ({ "qiao fu","fu" }));
+void create() {
+    set_name("樵夫", ({ "qiao fu", "fu" }));
     set("gender", "男性");
     set("age", 52);
     set("str", 25);
@@ -17,6 +16,6 @@ void create()
     set("attitude", "peaceful");
 
     setup();
-    carry_object(__DIR__"obj/futou")->wield();
+    carry_object(__DIR__ "obj/futou")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

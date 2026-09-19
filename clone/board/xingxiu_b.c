@@ -2,9 +2,8 @@
 
 inherit BULLETIN_BOARD;
 
-void create()
-{
-    set_name("星宿派弟子留言板",({"board"}));
+void create() {
+    set_name("星宿派弟子留言板", ({ "board" }));
     set("location", "/d/xiyu/xxh2");
     set("board_id", "xingxiu_b");
     set("long", "这是供星宿门下留言的板子.\n");

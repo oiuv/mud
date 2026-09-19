@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "休息室");
     set("long", @LONG
 房间里除了几个凳子椅子，没有摆设任何东西，但也不提供任何服务，
@@ -10,12 +9,12 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"chalou",
+        "east": __DIR__ "chalou",
     ]));
-        set("objects", ([
-                "/d/beijing/npc/kid1" : 1,
-                "/d/beijing/npc/old2" : 1,
-        ]));
+    set("objects", ([
+        "/d/beijing/npc/kid1": 1,
+        "/d/beijing/npc/old2": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

@@ -2,11 +2,10 @@
 
 inherit KNOWER;
 
-void create()
-{
+void create() {
     set_name("扫地僧", ({ "saodi seng", "saodi", "seng" }));
     set("nickname", HIC "消息灵通" NOR);
-    set("gender", "男性" );
+    set("gender", "男性");
     set("class", "bonze");
     set("age", 100);
     set("shen_type", 1);

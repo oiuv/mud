@@ -4,8 +4,7 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
+void create() {
     set_name("澄观", ({
         "chengguan luohan",
         "chengguan",
@@ -59,7 +58,7 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/cheng-cloth")->wear();
+    carry_object("/d/shaolin/obj/cheng-cloth")->wear();
 }
 
 #include "/kungfu/class/shaolin/cheng.h"

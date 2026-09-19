@@ -5,8 +5,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     mapping mine;
     string line;
@@ -17,8 +16,7 @@ int main(object me, string arg)
 
     if (!arg)
         ob = me;
-    else
-    {
+    else {
         ob = present(arg, environment(me));
         if (!ob)
             ob = find_player(arg);
@@ -31,17 +29,20 @@ int main(object me, string arg)
     mine = ob->query_entire_dbase();
     line = sprintf("\n-------先天资质-------\n");
     line += sprintf(" 膂力：[%s]  悟性：[%s]  根骨：[%s]  身法：[%s]\n\n",
-                    sprintf("%3d", mine["str"]),
-                    sprintf("%3d", mine["int"]),
-                    sprintf("%3d", mine["con"]),
-                    sprintf("%3d", mine["dex"]));
+        sprintf("%3d", mine["str"]),
+        sprintf("%3d", mine["int"]),
+        sprintf("%3d", mine["con"]),
+        sprintf("%3d", mine["dex"]));
     line += sprintf("-------后天资质-------\n");
     line += sprintf(" 膂力：[%s]  悟性：[%s]  根骨：[%s]  身法：[%s]\n\n",
-                    sprintf("%3d", ob->query_str()),
-                    sprintf("%3d", ob->query_int()),
-                    sprintf("%3d", ob->query_con()),
-                    sprintf("%3d", ob->query_dex()));
-    line += sprintf(HIC "-------魔法提升先天根骨：%s\n\n" NOR, sprintf("%3d", ob->query("con_improve_time")));
+        sprintf("%3d", ob->query_str()),
+        sprintf("%3d", ob->query_int()),
+        sprintf("%3d", ob->query_con()),
+        sprintf("%3d", ob->query_dex()));
+    line += sprintf(
+        HIC "-------魔法提升先天根骨：%s\n\n" NOR,
+        sprintf("%3d", ob->query("con_improve_time"))
+    );
 
     basic_data = mine["str"] + mine["int"] + mine["con"] + mine["dex"];
     if (basic_data > (80 + (int)ob->query("con_improve_time")))

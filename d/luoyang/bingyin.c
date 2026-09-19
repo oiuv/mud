@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "兵营");
     set("long", @LONG
 这里是兵营，密密麻麻到处都是官兵，有的在武将的指挥下列队操练，
@@ -11,13 +10,13 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "north" : __DIR__"bingqiku",
-          "south" : __DIR__"bingyindamen",
+        "north": __DIR__ "bingqiku",
+        "south": __DIR__ "bingyindamen",
     ]));
-        set("objects", ([
-                "/d/kaifeng/npc/guanbing" : 4,
-                "/d/city/npc/wujiang" : 1,
-        ]));
+    set("objects", ([
+        "/d/kaifeng/npc/guanbing": 4,
+        "/d/city/npc/wujiang": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

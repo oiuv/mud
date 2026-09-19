@@ -4,8 +4,7 @@
 
 inherit WHIP;
 
-void create()
-{
+void create() {
     set_name("黑龙鞭", ({ "heilong bian", "bian" }));
     set_weight(500);
     if (clonep())

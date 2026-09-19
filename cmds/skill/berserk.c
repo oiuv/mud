@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int max;
     int pts;
 
@@ -19,8 +18,8 @@ int main(object me, string arg)
         return notify_fail("你的内力不够充沛，难以控制自己的情绪。\n");
 
     message_vision(HIR "$N" HIR "嘿然冷笑，关节喀啦喀啦"
-                       "的响个不停，一股悍气油然而起。\n" NOR,
-                   me);
+        "的响个不停，一股悍气油然而起。\n" NOR,
+        me);
 
     pts = max * random(me->query_skill("force") + 500) / 1000;
     me->improve_craze(pts);
@@ -30,8 +29,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: berserk|baofa
 

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "唐三彩");
     set("long", @LONG
 瓷器之中以唐三彩最为名贵，而洛阳的唐三彩又是出的最多，而且最
@@ -11,11 +10,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"nroad1",
+        "east": __DIR__ "nroad1",
     ]));
-        set("objects", ([
-                __DIR__"npc/qin" : 1,
-        ]));
+    set("objects", ([
+        __DIR__ "npc/qin": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

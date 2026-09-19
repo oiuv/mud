@@ -1,26 +1,24 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
-        set("short", "蜀道");
-        set("long", @LONG
+void create() {
+    set("short", "蜀道");
+    set("long", @LONG
 你走在以险著称天下的蜀道上，走在这样的路上非要格外
 小心，用尽全身气力才行。不多一会儿，你就觉得很累了。
 LONG);
-        set("exits", ([
-                "westup" :  __DIR__"shudao16",
-                "eastdown" : __DIR__"shudao14",
+    set("exits", ([
+        "westup": __DIR__ "shudao16",
+        "eastdown": __DIR__ "shudao14",
 
-        ]));
-        set("no_clean_up", 0);
-        set("outdoors", "chengdu");
+    ]));
+    set("no_clean_up", 0);
+    set("outdoors", "chengdu");
 
-        setup();
+    setup();
 }
 
-int init()
-{
+int init() {
     object me;
     int i;
     me = this_player();

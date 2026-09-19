@@ -4,8 +4,7 @@
 
 inherit HANDS;
 
-void create()
-{
+void create() {
     set_name("金戒指", ({ "golden ring", "ring" }));
     set_weight(400);
     if (clonep())

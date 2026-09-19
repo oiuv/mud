@@ -13,8 +13,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object env;
 
     seteuid(getuid());
@@ -34,82 +33,77 @@ int main(object me, string arg)
     me->set_short_desc("正在东张西望。");
 
     message("vision", HIC "只见" + me->name() + HIC "深吸口气，四处东瞅"
-            "西望，不知道在干什么。\n" NOR,
-            environment(me), ({ me }));
+        "西望，不知道在干什么。\n" NOR,
+        environment(me), ({ me }));
 
     tell_object(me, HIC "你开始在这里摸索，看有没有什么值钱的东西。\n" NOR);
-    me->start_busy(bind((:call_other, __FILE__, "searching" :), me),
-                   bind((:call_other, __FILE__, "halt_searching" :), me));
+    me->start_busy(bind((: call_other, __FILE__, "searching" :), me),
+        bind((: call_other, __FILE__, "halt_searching" :), me));
     return 1;
 }
 
-mapping query_default_objects(object me)
-{
+mapping query_default_objects(object me) {
     int score = me->query("score");
 
-    if (! environment(me)->query("outdoors"))
-        return ([ ]);
+    if (!environment(me)->query("outdoors"))
+        return ([]);
 
     if (score < 100)
         return ([
-            "/clone/money/coin"       : 100000,
-            "/clone/money/silver"     : 20000,
-            "/clone/misc/jinchuang"   : 20000,
-            "/clone/weapon/dagger"    : 20000,
-            "/d/city/npc/obj/jiudai"  : 10000,
-            "/clone/weapon/duanjian"  : 6000,
-            "/clone/weapon/changjian" : 4000,
-            "/clone/weapon/blade"     : 4000,
-            "/clone/weapon/gangzhang" : 4000,
-            "/clone/cloth/tiejia"     : 3500, ]);
-    else
-    if (score < 400)
+            "/clone/money/coin": 100000,
+            "/clone/money/silver": 20000,
+            "/clone/misc/jinchuang": 20000,
+            "/clone/weapon/dagger": 20000,
+            "/d/city/npc/obj/jiudai": 10000,
+            "/clone/weapon/duanjian": 6000,
+            "/clone/weapon/changjian": 4000,
+            "/clone/weapon/blade": 4000,
+            "/clone/weapon/gangzhang": 4000,
+            "/clone/cloth/tiejia": 3500, ]);
+    else if (score < 400)
         return ([
-            "/clone/money/coin"       : 10000,
-            "/clone/money/silver"     : 15000,
-            "/clone/misc/jinchuang"   : 15000,
-            "/clone/weapon/dagger"    : 8000,
-            "/d/city/npc/obj/jiudai"  : 8000,
-            "/clone/weapon/duanjian"  : 3000,
-            "/clone/weapon/changjian" : 4000,
-            "/clone/weapon/blade"     : 4000,
-            "/clone/weapon/gangzhang" : 4000,
-            "/clone/cloth/tiejia"     : 3500, ]);
-    else
-    if (score < 2000)
+            "/clone/money/coin": 10000,
+            "/clone/money/silver": 15000,
+            "/clone/misc/jinchuang": 15000,
+            "/clone/weapon/dagger": 8000,
+            "/d/city/npc/obj/jiudai": 8000,
+            "/clone/weapon/duanjian": 3000,
+            "/clone/weapon/changjian": 4000,
+            "/clone/weapon/blade": 4000,
+            "/clone/weapon/gangzhang": 4000,
+            "/clone/cloth/tiejia": 3500, ]);
+    else if (score < 2000)
         return ([
-            "/clone/money/coin"       : 5000,
-            "/clone/money/silver"     : 10000,
-            "/clone/misc/jinchuang"   : 25000,
-            "/clone/weapon/dagger"    : 20000,
-            "/d/city/npc/obj/jiudai"  : 10000,
-            "/clone/weapon/duanjian"  : 6000,
-            "/clone/weapon/changjian" : 4000,
-            "/clone/weapon/blade"     : 4000,
-            "/clone/weapon/gangzhang" : 4000,
-            "/clone/cloth/tiejia"     : 3500, ]);
-    else
-    if (score < 10000)
+            "/clone/money/coin": 5000,
+            "/clone/money/silver": 10000,
+            "/clone/misc/jinchuang": 25000,
+            "/clone/weapon/dagger": 20000,
+            "/d/city/npc/obj/jiudai": 10000,
+            "/clone/weapon/duanjian": 6000,
+            "/clone/weapon/changjian": 4000,
+            "/clone/weapon/blade": 4000,
+            "/clone/weapon/gangzhang": 4000,
+            "/clone/cloth/tiejia": 3500, ]);
+    else if (score < 10000)
         return ([
-            "/clone/money/silver"     : 10000,
-            "/clone/misc/jinchuang"   : 20000,
-            "/clone/weapon/dagger"    : 10000,
-            "/d/city/npc/obj/jiudai"  : 5000,
-            "/clone/weapon/duanjian"  : 6000,
-            "/clone/weapon/changjian" : 4000,
-            "/clone/weapon/blade"     : 4000,
-            "/clone/weapon/gangzhang" : 4000,
-            "/clone/cloth/tiejia"     : 3500, ]);
+            "/clone/money/silver": 10000,
+            "/clone/misc/jinchuang": 20000,
+            "/clone/weapon/dagger": 10000,
+            "/d/city/npc/obj/jiudai": 5000,
+            "/clone/weapon/duanjian": 6000,
+            "/clone/weapon/changjian": 4000,
+            "/clone/weapon/blade": 4000,
+            "/clone/weapon/gangzhang": 4000,
+            "/clone/cloth/tiejia": 3500, ]);
     else
         return ([
-            "/clone/weapon/changjian" : 8000,
-            "/clone/weapon/blade"     : 8000,
-            "/clone/weapon/gangzhang" : 8000,
-            "/clone/cloth/tiejia"     : 2500, ]);
+            "/clone/weapon/changjian": 8000,
+            "/clone/weapon/blade": 8000,
+            "/clone/weapon/gangzhang": 8000,
+            "/clone/cloth/tiejia": 2500, ]);
 }
 
-object found(object me, object env)
-{
+object found(object me, object env) {
     mixed *st;
     mapping cs, ns;
     mapping os;
@@ -125,11 +119,9 @@ object found(object me, object env)
         os += cs;
 
     sum = me->query("score") >> 7;
-    if (mapp(ns = env->query_temp("no_search")))
-    {
+    if (mapp(ns = env->query_temp("no_search"))) {
         st = keys(ns);
-        for (i = 0; i < sizeof(st); i++)
-        {
+        for (i = 0; i < sizeof(st); i++) {
             if (!ns[st[i]] || sum < ns[st[i]])
                 // can not search this object or
                 // need score
@@ -137,11 +129,9 @@ object found(object me, object env)
         }
     }
 
-    if (mapp(ns = env->query("no_search")))
-    {
+    if (mapp(ns = env->query("no_search"))) {
         st = keys(ns);
-        for (i = 0; i < sizeof(st); i++)
-        {
+        for (i = 0; i < sizeof(st); i++) {
             if (!ns[st[i]] || sum < ns[st[i]])
                 // can not search this object or
                 // need score
@@ -158,8 +148,7 @@ object found(object me, object env)
 
     st = keys(os);
     sum = 0;
-    for (i = 0; i < sizeof(st); i++)
-    {
+    for (i = 0; i < sizeof(st); i++) {
         if (!intp(os[st[i]]))
             os[st[i]] = 0;
         sum += os[st[i]];
@@ -168,12 +157,10 @@ object found(object me, object env)
     if (!sum)
         return 0;
     sum = random(sum);
-    for (i = 0; i < sizeof(st); i++)
-    {
-        if (sum < os[st[i]])
-        {
+    for (i = 0; i < sizeof(st); i++) {
+        if (sum < os[st[i]]) {
             if (stringp(st[i]))
-                ob = new (st[i]);
+                ob = new(st[i]);
             else if (objectp(st[i]))
                 ob = st[i];
             else if (functionp(st[i]))
@@ -191,27 +178,24 @@ object found(object me, object env)
     return 0;
 }
 
-int searching(object me)
-{
+int searching(object me) {
     object env;
     object ob;
 
     env = environment(me);
-    if (me->add_temp("pending/searching", 1) > 6)
-    {
+    if (me->add_temp("pending/searching", 1) > 6) {
         tell_object(me, HIY "你找了半天，结果还是一无所获，只得放弃。\n" NOR);
         message("vision", HIC + me->name() + HIC "叹了口气，发了发呆。\n" NOR,
-                env, ({me}));
+            env, ({ me }));
         me->set_short_desc(0);
         return 0;
     }
 
     if (me->query("qi") < 30 ||
-        me->query("jing") < 30)
-    {
+        me->query("jing") < 30) {
         tell_object(me, HIY "你实在太疲倦了，只好放弃了寻找。\n" NOR);
         message("vision", HIC + me->name() + HIC "叹了口气，一脸倦容。\n" NOR,
-                env, ({me}));
+            env, ({ me }));
         me->set_short_desc(0);
         return 0;
     }
@@ -220,91 +204,84 @@ int searching(object me)
     me->receive_damage("jing", 30);
 
     ob = found(me, env);
-    if (ob)
-    {
+    if (ob) {
         if (ob->query("base_unit"))
             ob->set_amount(random(5) + 1);
 
         tell_object(me, HIW "你突然发现了一" + ob->query("unit") + ob->name() +
-                            HIW "。\n" NOR);
+            HIW "。\n" NOR);
 
         message("visoin", HIW + me->name() + HIW "突然弯下腰，不知道从地"
-                                                 "上捡起了什么东西。\n" NOR,
-                env, ({me}));
+            "上捡起了什么东西。\n" NOR,
+            env, ({ me }));
 
-        if (!ob->move(me, 1))
-        {
+        if (!ob->move(me, 1)) {
             tell_object(me, "可惜" + ob->name() + "对你来"
-                                                  "说太重了，你只好先放在地上。\n");
+                "说太重了，你只好先放在地上。\n");
         }
         me->delete_temp("pending/searching");
         me->add("score", 1 + random(3));
         me->set_short_desc(0);
         return 0;
-    }
-    else
-    {
-        switch (random(8))
-        {
-        case 0:
-            message_vision(HIC "$N" HIC "叹了口气，继续东张西望的查"
-                               "看。\n" NOR,
-                           me);
-            break;
-        case 1:
-            message_vision(HIC "$N" HIC "用脚拨了拨身前的土，似乎在"
-                               "找寻什么。\n" NOR,
-                           me);
-            break;
-        case 2:
-            message_vision(HIC "$N" HIC "皱了皱眉头，又弯下腰仔细观"
-                               "察着地面的一切。\n" NOR,
-                           me);
-            break;
-        case 3:
-            message_vision(HIC "$N" HIC "回转过头，仔细看了看身后的"
-                               "地面。\n" NOR,
-                           me);
-            break;
-        case 4:
-            message_vision(HIC "$N" HIC "转过身子，伸出脚使劲踏了踏"
-                               "地面，探个虚实。\n" NOR,
-                           me);
-            break;
-        case 5:
-            message_vision(HIC "$N" HIC "聚了聚神，又接着开始四处张"
-                               "望，不放过周围的一切。\n" NOR,
-                           me);
-            break;
-        case 6:
-            message_vision(HIC "$N" HIC "探下身子，轻轻在周围的地面"
-                               "上敲击了几下。\n" NOR,
-                           me);
-            break;
-        default:
-            message_vision(HIC "$N" HIC "咦了一声，弯下腰在地上拨拉"
-                               "什么东西。\n" NOR,
-                           me);
-            break;
+    } else {
+        switch (random(8)) {
+            case 0:
+                message_vision(HIC "$N" HIC "叹了口气，继续东张西望的查"
+                    "看。\n" NOR,
+                    me);
+                break;
+            case 1:
+                message_vision(HIC "$N" HIC "用脚拨了拨身前的土，似乎在"
+                    "找寻什么。\n" NOR,
+                    me);
+                break;
+            case 2:
+                message_vision(HIC "$N" HIC "皱了皱眉头，又弯下腰仔细观"
+                    "察着地面的一切。\n" NOR,
+                    me);
+                break;
+            case 3:
+                message_vision(HIC "$N" HIC "回转过头，仔细看了看身后的"
+                    "地面。\n" NOR,
+                    me);
+                break;
+            case 4:
+                message_vision(HIC "$N" HIC "转过身子，伸出脚使劲踏了踏"
+                    "地面，探个虚实。\n" NOR,
+                    me);
+                break;
+            case 5:
+                message_vision(HIC "$N" HIC "聚了聚神，又接着开始四处张"
+                    "望，不放过周围的一切。\n" NOR,
+                    me);
+                break;
+            case 6:
+                message_vision(HIC "$N" HIC "探下身子，轻轻在周围的地面"
+                    "上敲击了几下。\n" NOR,
+                    me);
+                break;
+            default:
+                message_vision(HIC "$N" HIC "咦了一声，弯下腰在地上拨拉"
+                    "什么东西。\n" NOR,
+                    me);
+                break;
         }
         return 1;
     }
 }
 
-int halt_searching(object me)
-{
+int halt_searching(object me) {
     object env;
 
     env = environment(me);
     me->delete_temp("pending/searching");
     tell_object(me, HIY "你放弃了寻找。\n" NOR);
-    message("vision", HIC + me->name() + HIC "舒展了一下腰，叹了口气。\n" NOR, env, ({me}));
+    message("vision", HIC + me->name() + HIC "舒展了一下腰，叹了口气。\n" NOR, env, ({ me }));
     me->set_short_desc(0);
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: search
 
@@ -312,6 +289,6 @@ int help (object me)
 好东西。不过大部分地方只能找到一些普通的东西。如果你找到了东
 西，你的江湖阅历将会因此而增长一点。
 
-HELP );
+HELP);
     return 1;
 }

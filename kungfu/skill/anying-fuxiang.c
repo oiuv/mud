@@ -11,30 +11,26 @@ string *dodge_msg = ({
     "$n双足一点，斜斜飞起，使出「斜日杏花飞」已闪到$N身侧。\n",
 });
 
-int valid_enable(string usage) 
-{ 
+int valid_enable(string usage) {
     return usage == "dodge" || usage == "move";
 }
 
 int valid_learn(object me) { return 1; }
 
-string query_dodge_msg(string limb)
-{
-        return dodge_msg[random(sizeof(dodge_msg))];
+string query_dodge_msg(string limb) {
+    return dodge_msg[random(sizeof(dodge_msg))];
 }
 
-int practice_skill(object me)
-{
-        if ((int)me->query("qi") < 50)
-            return notify_fail("你的体力太差了，不能练暗影浮香。\n");
+int practice_skill(object me) {
+    if ((int)me->query("qi") < 50)
+        return notify_fail("你的体力太差了，不能练暗影浮香。\n");
 
-        if (me->query_skill("anying-fuxiang", 1) < 30)
-                me->receive_damage("qi", 10);
-        else
-        if (me->query_skill("anying-fuxiang", 1) < 50)
-                me->receive_damage("qi", 25);
-        else
-                me->receive_damage("qi", 40);
+    if (me->query_skill("anying-fuxiang", 1) < 30)
+        me->receive_damage("qi", 10);
+    else if (me->query_skill("anying-fuxiang", 1) < 50)
+        me->receive_damage("qi", 25);
+    else
+        me->receive_damage("qi", 40);
 
-        return 1;
+    return 1;
 }

@@ -17,8 +17,7 @@ nomask int over_encumbranced() { return encumb > max_encumb; }
 
 nomask int query_max_encumbrance() { return max_encumb; }
 nomask void set_max_encumbrance(int e) { max_encumb = e; }
-nomask void add_encumbrance(int w)
-{
+nomask void add_encumbrance(int w) {
     object env;
     encumb += w;
     if (encumb < 0)
@@ -29,18 +28,15 @@ nomask void add_encumbrance(int w)
         env->add_encumbrance(w);
 }
 
-void over_encumbrance()
-{
+void over_encumbrance() {
     if (!interactive(this_object()))
         return;
     tell_object(this_object(), "你的负荷过重了！\n");
 }
 
 nomask int query_weight() { return weight; }
-nomask void set_weight(int w)
-{
-    if (!environment())
-    {
+nomask void set_weight(int w) {
+    if (!environment()) {
         weight = w;
         return;
     }
@@ -57,8 +53,7 @@ nomask int weight() { return weight + encumb; }
 nomask int is_magic_move() { return magic_move; }
 nomask int set_magic_move() { magic_move = 1; }
 
-varargs int move(mixed dest, int raw)
-{
+varargs int move(mixed dest, int raw) {
     object ob, env;
     object me;
     int is_char;
@@ -75,14 +70,12 @@ varargs int move(mixed dest, int raw)
     // Find the destination ob for moving.
     if (objectp(dest))
         ob = dest;
-    else if (stringp(dest))
-    {
+    else if (stringp(dest)) {
         call_other(dest, "???");
         ob = find_object(dest);
         if (!ob)
             return notify_fail("move: destination unavailable.\n");
-    }
-    else
+    } else
         return notify_fail(sprintf("move: invalid destination %O.\n", dest));
 
     // Check if the destination ob can hold this object.
@@ -95,19 +88,13 @@ varargs int move(mixed dest, int raw)
     while (env = environment(env))
         if (env == ob)
             break;
-    if (!env && !ob->is_area() && (int)ob->query_encumbrance() + weight() > (int)ob->query_max_encumbrance())
-    {
-        if (raw && environment(ob))
-        {
+    if (!env && !ob->is_area() && (int)ob->query_encumbrance() + weight() > (int)ob->query_max_encumbrance()) {
+        if (raw && environment(ob)) {
             message_vision("由于$n对于$N而言是在是太重了，只好先扔在一旁。\n", ob, me);
             ob = environment(ob);
-        }
-        else if (ob == this_player())
-        {
+        } else if (ob == this_player()) {
             return notify_fail(me->name() + "对你而言太重了。\n");
-        }
-        else
-        {
+        } else {
             return notify_fail(me->name() + "对" + ob->name() + "而言太重了。\n");
         }
     }
@@ -115,15 +102,12 @@ varargs int move(mixed dest, int raw)
     // Leave environment
     // Move the object and update encumbrance
     env = environment();
-    if (env)
-    {
-        if (env != ob && magic_move && userp(env))
-        {
+    if (env) {
+        if (env != ob && magic_move && userp(env)) {
             if (env->visible(me))
                 tell_object(env, HIM "你忽然觉得身上好像轻了一些。\n" NOR);
 
-            if (userp(me))
-            {
+            if (userp(me)) {
                 env->add_temp("person_in_you", -1);
                 if (env->query_temp("person_in_you") <= 0)
                     env->delete_temp("person_in_you");
@@ -138,49 +122,38 @@ varargs int move(mixed dest, int raw)
     // remove the thing I am guarding
     old_target = query_temp("guardfor");
 
-    if (objectp(old_target) && !old_target->is_character())
-    {
-        if (arrayp(guards = old_target->query_temp("guarded")))
-        {
-            guards -= ({me});
-            if (!sizeof(guards))
-            {
+    if (objectp(old_target) && !old_target->is_character()) {
+        if (arrayp(guards = old_target->query_temp("guarded"))) {
+            guards -= ({ me });
+            if (!sizeof(guards)) {
                 old_target->delete_temp("guarded");
-            }
-            else
+            } else
                 old_target->set_temp("guarded", guards);
         }
         me->delete_temp("guardfor");
-    }
-    else if (stringp(old_target))
-    {
+    } else if (stringp(old_target)) {
         guards = env->query_temp("guarded/" + old_target);
-        if (arrayp(guards))
-        {
-            guards -= ({me});
-            if (!sizeof(guards))
-            {
+        if (arrayp(guards)) {
+            guards -= ({ me });
+            if (!sizeof(guards)) {
                 env->delete_temp("guarded/" + old_target);
-            }
-            else
+            } else
                 env->set_temp("guarded/" + old_target, guards);
         }
         me->delete_temp("guardfor");
     }
 
     // If we are players, try look where we are.
-    if (is_char && interactive(me) && // are we linkdead?
-        living(me) &&                 // are we still concious?
-        !raw)
-    {
+    if (is_char && interactive(me) &&  // are we linkdead?
+    living(me) &&                 // are we still concious?
+    !raw) {
         // look before move, because the init may be kick me
         // to ...
         LOOK_CMD->look_room(me, ob, query("env/brief"));
     }
 
     // Enter environment
-    if (magic_move && userp(ob))
-    {
+    if (magic_move && userp(ob)) {
         if (ob->visible(me))
             tell_object(ob, HIM "你忽然觉得身上好像重了一些。\n" NOR);
 
@@ -194,8 +167,7 @@ varargs int move(mixed dest, int raw)
     if (ob)
         ob->add_encumbrance(weight());
     // 如果由area移出, 在這做move_out動作
-    if (env && env->is_area())
-    {
+    if (env && env->is_area()) {
         mapping info;
         info = me->query("area_info");
         env->move_out(info["x_axis_old"], info["y_axis_old"], me);
@@ -209,15 +181,13 @@ varargs int move(mixed dest, int raw)
     if (!ob->is_area() && me->query("area_info") && !ob->query("void"))
         me->delete("area_info");
     // debug：对没有用area_move到area的移动到随机坐标
-    if (ob->is_area() && !me->query("area_info"))
-    {
+    if (ob->is_area() && !me->query("area_info")) {
         debug_message(sprintf("%O -> %O", me, ob));
         me->set("area_info/x_axis", random(ob->query("x_axis_size")));
         me->set("area_info/y_axis", random(ob->query("y_axis_size")));
     }
     // GMCP
-    if (interactive(me))
-    {
+    if (interactive(me)) {
         me->gmcp("Room.Info.Get");
     }
 
@@ -225,8 +195,7 @@ varargs int move(mixed dest, int raw)
 }
 
 // destruct时调用
-varargs void remove(string euid)
-{
+varargs void remove(string euid) {
     object me;
     object ob;
     // object default_ob;
@@ -236,57 +205,47 @@ varargs void remove(string euid)
         error("move: remove() can only be called by destruct() simul efun.\n");
 
     me = this_object();
-    if (userp(me) && euid != ROOT_UID)
-    {
-        if (euid != getuid(me))
-        {
+    if (userp(me) && euid != ROOT_UID) {
+        if (euid != getuid(me)) {
             // Failed to destruct
             log_file("destruct", sprintf("%s attempt to destruct user object %s (%s)\n",
-                                         euid, me->query("id"),
-                                         ctime(time())));
+                euid, me->query("id"),
+                ctime(time())));
             error("你(" + euid + ")不能摧毁其他的使用者。\n");
         }
         log_file("destruct", sprintf("%s in %O destruct on %s.\n",
-                                     me->query("id"),
-                                     environment(me),
-                                     ctime(time())));
+            me->query("id"),
+            environment(me),
+            ctime(time())));
         error("只有ROOT才能摧毁玩家。\n");
-    }
-    else if (me->query("equipped"))
-    {
+    } else if (me->query("equipped")) {
         // Failed to unequip, only log but continue
         if (!me->unequip())
             log_file("destruct", sprintf("Failed to unequip %s when destructed.\n",
-                                         file_name(me)));
+                file_name(me)));
     }
 
     if (me->is_db_saved())
         me->save();
 
     // Leave environment
-    if (objectp(ob = environment()))
-    {
+    if (objectp(ob = environment())) {
         // 區域使用
-        if (ob->is_area())
-        {
+        if (ob->is_area()) {
             ob->move_out(me->query("area_info/x_axis"),
-                         me->query("area_info/y_axis"), me);
-        }
-        else
-        {
+                me->query("area_info/y_axis"), me);
+        } else {
             ob->add_encumbrance(-weight());
 
             if (ob->is_character() && ob->query_temp("handing") == me)
                 // remove handing when destruct the object
                 ob->delete_temp("handing");
 
-            if (is_magic_move() && userp(ob))
-            {
+            if (is_magic_move() && userp(ob)) {
                 if (ob->visible(me))
                     tell_object(ob, HIM "你忽然觉得身上好像轻了一些。\n" NOR);
 
-                if (userp(me))
-                {
+                if (userp(me)) {
                     // One user enter another user
                     ob->add_temp("person_in_you", -1);
                     if (ob->query_temp("person_in_you") <= 0)
@@ -309,15 +268,12 @@ varargs void remove(string euid)
     me->end_log();
 }
 
-varargs int move_or_destruct(object dest)
-{
+varargs int move_or_destruct(object dest) {
     object me = this_object();
-    if (userp(me))
-    {
+    if (userp(me)) {
         tell_object(me, HIW "\n霎时间一阵时空的扭曲将你传"
-                            "送到另一个地方。\n\n" NOR);
+            "送到另一个地方。\n\n" NOR);
         move(VOID_OB);
-    }
-    else if (me->is_db_saved())
+    } else if (me->is_db_saved())
         me->save();
 }

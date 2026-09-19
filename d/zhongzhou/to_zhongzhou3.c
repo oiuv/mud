@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "中州道");
     set("long", @LONG
 这条连接中州和扬州的要道来往车马不断。南面是中州城
@@ -10,8 +9,8 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "north" : __DIR__"to_zhongzhou2",
-          "south":__DIR__"beimen",
+        "north": __DIR__ "to_zhongzhou2",
+        "south": __DIR__ "beimen",
     ]));
     set("outdoors", "zhongzhou");
 

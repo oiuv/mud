@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("赵齐贤", ({ "zhao qixian", "zhao", "qixian" }));
     set("title", HIR "御前侍卫" NOR);
     set("age", 32);
@@ -25,17 +24,16 @@ void create()
     set_temp("apply/damage", 60);
     set_temp("apply/armor", 60);
 
-       set("chat_chance_combat", 10);
+    set("chat_chance_combat", 10);
     set("chat_msg_combat", ({
         "赵齐贤喝道：太岁头上居然敢动土？\n",
     }));
     setup();
     carry_object("/d/beijing/npc/obj/sword4")->wield();
-       carry_object("/d/beijing/npc/obj/guanfu2")->wear();
+    carry_object("/d/beijing/npc/obj/guanfu2")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
     ::init();
     if (interactive(ob = this_player()) &&
@@ -45,8 +43,7 @@ void init()
     }
 }
 
-int accept_fight(object me)
-{
+int accept_fight(object me) {
     command("say 这可是你活腻了自找的，休得怪我无情。\n");
     me->apply_condition("killer", 500);
     kill_ob(me);

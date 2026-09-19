@@ -2,12 +2,11 @@
 
 #include <ansi.h>
 
-int perform(object me)
-{
+int perform(object me) {
     int skill;
     // string msg;
 
-    if (! me->is_fighting())
+    if (!me->is_fighting())
         return notify_fail("唱仙法只能在战斗中使用。\n");
 
     if ((int)me->query_skill("shedao-qigong", 1) < 60)
@@ -24,7 +23,7 @@ int perform(object me)
     me->add("neili", -200);
 
     message_combatd(HIR "只听$N" HIR "口中念念有词，顷刻"
-                        "之间武功大进！\n" NOR, me);
+        "之间武功大进！\n" NOR, me);
 
     me->add_temp("apply/attack", 1);
     me->add_temp("apply/dodge", 1);

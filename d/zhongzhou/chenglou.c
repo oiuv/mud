@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "西城楼");
     set("long", @LONG
 不觉你已到了中州的西城门。高高的城楼看上去坚不可摧。
@@ -10,15 +9,15 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "west" : __DIR__"xijiao",
-          "east" : __DIR__"yanling2",
-          "up" : __DIR__"chenglouup",
+        "west": __DIR__ "xijiao",
+        "east": __DIR__ "yanling2",
+        "up": __DIR__ "chenglouup",
     ]));
-        set("objects", ([
-                "/d/kaifeng/npc/guanbing" : 4,
-                "/d/city/npc/wujiang" : 1,
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/d/kaifeng/npc/guanbing": 4,
+        "/d/city/npc/wujiang": 1,
+        "/clone/npc/walker": 1,
+    ]));
     set("outdoors", "zhongzhou");
 
     setup();

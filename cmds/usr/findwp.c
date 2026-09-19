@@ -5,15 +5,13 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string str)
-{
+int main(object me, string str) {
     object ob, owner;
     string msg, *ks;
     mapping summon;
     int i;
 
-    if (!str)
-    {
+    if (!str) {
         summon = me->query("can_summon");
         if (!mapp(summon) || !sizeof(summon))
             return notify_fail("你要寻找什么物品？\n");
@@ -21,11 +19,14 @@ int main(object me, string str)
         ks = keys(summon);
         msg = "你现在可以寻找的物品有：\n";
 
-        for (i = 0; i < sizeof(ks); i++)
-        {
+        for (i = 0; i < sizeof(ks); i++) {
             if (!get_object(summon[ks[i]]))
                 continue;
-            msg += sprintf(HIW "物品ID：" MAG "%-15s" NOR HIW "    物品名字：%-20s\n" NOR, ks[i], summon[ks[i]]->name());
+            msg += sprintf(
+                HIW "物品ID：" MAG "%-15s" NOR HIW "    物品名字：%-20s\n" NOR,
+                ks[i],
+                summon[ks[i]]->name()
+            );
         }
         write(msg);
         return 1;
@@ -42,11 +43,9 @@ int main(object me, string str)
         ob = load_object(str);
 
     owner = environment(ob);
-    if (owner == me)
-    {
+    if (owner == me) {
         tell_object(me, "眼瞎啊，不就在你自己身上吗！\n");
-    }
-    else if (!owner)
+    } else if (!owner)
         tell_object(me, "这个人好像消失了！\n");
     else
         tell_object(me, "你的" + ob->query("name") + "在" + owner->query("name") + "那里，你去找他吧。\n");
@@ -54,8 +53,7 @@ int main(object me, string str)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : findwp <物品的ID>
 

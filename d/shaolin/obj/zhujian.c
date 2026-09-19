@@ -4,11 +4,10 @@
 
 inherit SWORD;
 
-void create()
-{
-    set_name("竹剑",({ "zhu jian", "jian", "sword" }) );
+void create() {
+    set_name("竹剑", ({ "zhu jian", "jian", "sword" }));
     set_weight(1000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "把");

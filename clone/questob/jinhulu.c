@@ -4,8 +4,7 @@
 
 inherit ITEM;
 
-void create()
-{
+void create() {
     set_name("金葫芦", ({ "jin hulu", "hulu" }));
     set_weight(800);
     if (clonep())

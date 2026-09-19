@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("官兵", ({ "guan bing", "bing" }));
     set("age", 22);
     set("gender", "男性");
@@ -40,12 +39,11 @@ void create()
         "官兵喝道：跑得了和尚跑不了庙，你还是快快束手就擒！\n",
     }));
     setup();
-    carry_object(__DIR__"obj/gangdao")->wield();
-    carry_object(__DIR__"obj/junfu")->wear();
+    carry_object(__DIR__ "obj/gangdao")->wield();
+    carry_object(__DIR__ "obj/junfu")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
     ::init();
     if (interactive(ob = this_player()) &&
@@ -55,8 +53,7 @@ void init()
     }
 }
 
-int accept_fight(object me)
-{
+int accept_fight(object me) {
     command("say 大爷我正想找人杀呐，今天算你倒霉。\n");
     me->apply_condition("killer", 500);
     kill_ob(me);

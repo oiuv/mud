@@ -23,15 +23,14 @@ void create() { seteuid(ROOT_UID); }
  * We will only tell them about the DNS-enabled muds and not the
  * old tcp ones...
  */
-string *build_mudlist(mapping muds)
-{
+string *build_mudlist(mapping muds) {
     mapping svc;
     string *names, *ret;
     mapping cr;
     // string local_mudlib;
     int i, pos;
 
-    ret = ({""});
+    ret = ({ "" });
     // debug_message(sprintf("%O", muds));
     // only want to send them DNS muds
     if (!mapp(svc = DNS_MASTER->query_svc()))
@@ -49,45 +48,34 @@ string *build_mudlist(mapping muds)
                                 :));
     */
     // we want to break the mudlist up into smaller packets
-    for (i = 0, pos = 0; i < sizeof(names); i++)
-    {
+    for (i = 0, pos = 0; i < sizeof(names); i++) {
         cr = muds[names[i]];
         if (!mapp(cr))
             continue;
         // add the mud to the packet
-        ret[pos] += "||" + i + ":" +
-                    (undefinedp(cr["MUDNAME"]) ? "" : "|MUDNAME:" + cr["MUDNAME"]) +
-                    (undefinedp(cr["USERS"]) ? "" : "|USERS:" + cr["USERS"]) +
-                    (undefinedp(cr["DRIVER"]) ? "" : "|DRIVER:" + cr["DRIVER"]) +
-                    "|NAME:" + cr["NAME"] +
-                    "|HOST:" + cr["HOST"] +
-                    "|HOSTADDRESS:" + cr["HOSTADDRESS"] +
-                    "|PORT:" + cr["PORT"] +
-                    "|PORTUDP:" + cr["PORTUDP"] +
-                    (undefinedp(cr["ZONE"]) ? "" : "|ZONE:" + cr["ZONE"]) +
-                    (undefinedp(cr["MUDLIB"]) ? "" : "|MUDLIB:" + cr["MUDLIB"]) +
-                    (undefinedp(cr["TCP"]) ? "" : "|TCP:" + cr["TCP"]);
-        if (strlen(ret[pos]) > 256)
-        {
+        ret[pos] += "||" + i + ":" + (undefinedp(cr["MUDNAME"]) ? "" : "|MUDNAME:" + cr["MUDNAME"]) + (undefinedp(cr["USERS"]) ? "" : "|USERS:" + cr["USERS"]) + (undefinedp(cr["DRIVER"]) ? "" : "|DRIVER:" + cr["DRIVER"]) + "|NAME:" + cr["NAME"] + "|HOST:" + cr["HOST"] + "|HOSTADDRESS:" + cr["HOSTADDRESS"] + "|PORT:" + cr["PORT"] + "|PORTUDP:" + cr["PORTUDP"] + (undefinedp(cr["ZONE"]) ? "" : "|ZONE:" + cr["ZONE"]) + (undefinedp(cr["MUDLIB"]) ? "" : "|MUDLIB:" + cr["MUDLIB"]) + (undefinedp(cr["TCP"]) ? "" : "|TCP:" + cr["TCP"]);
+        if (strlen(ret[pos]) > 256) {
             // start a new packet
-            ret += ({""});
+            ret += ({ "" });
             pos++;
         }
     }
     return ret;
 }
 
-void send_mudlist_q(string host, string port)
-{
+void send_mudlist_q(string host, string port) {
     // if (!ACCESS_CHECK(previous_object()))
     //    return;
 
-    DNS_MASTER->send_udp(host, port, "@@@" + DNS_MUDLIST_Q + "||NAME:" + Mud_name() + "||PORTUDP:" + udp_port() + "@@@\n");
+    DNS_MASTER->send_udp(
+        host,
+        port,
+        "@@@" + DNS_MUDLIST_Q + "||NAME:" + Mud_name() + "||PORTUDP:" + udp_port() + "@@@\n"
+    );
 }
 
 // someone has requests a mudlist from us
-void incoming_request(mapping info)
-{
+void incoming_request(mapping info) {
     int i;
     // mapping minfo;
     string *bits;
@@ -105,13 +93,11 @@ void incoming_request(mapping info)
         PING_Q->send_ping_q(info["HOSTADDRESS"], info["PORTUDP"]);
     */
     // debug_message(sprintf("%O", info));
-    if (info["PORTUDP"])
-    {
+    if (info["PORTUDP"]) {
         bits = build_mudlist((mapping)DNS_MASTER->query_muds());
-        for (i = 0; i < sizeof(bits); i++)
-        {
+        for (i = 0; i < sizeof(bits); i++) {
             DNS_MASTER->send_udp(info["HOSTADDRESS"], info["PORTUDP"],
-                                 "@@@" + DNS_MUDLIST_A + bits[i] + "@@@\n");
+                "@@@" + DNS_MUDLIST_A + bits[i] + "@@@\n");
             // debug_message("mudlist:" + bits[i]);
         }
     }

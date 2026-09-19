@@ -8,8 +8,7 @@ void do_loving(object me, object target, int wakeup);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string no_tell, can_tell;
     object target;
     object where = environment(me);
@@ -64,39 +63,38 @@ int main(object me, string arg)
 
     no_tell = target->query("env/no_tell");
 
-    if (no_tell == "all" || no_tell == "ALL" || is_sub(me->query("id"), no_tell))
-    {
+    if (no_tell == "all" || no_tell == "ALL" || is_sub(me->query("id"), no_tell)) {
         can_tell = target->query("env/can_tell");
         if (!is_sub(me->query("id"), can_tell))
             return notify_fail("这个人不想听你罗嗦啦。\n");
     }
 
-    if (target->query_temp("pending/makelove") == me)
-    {
+    if (target->query_temp("pending/makelove") == me) {
         target->delete_temp("pending/makelove");
         do_makelove(me, target);
         return 1;
     }
 
     me->set_temp("pending/makelove", target);
-    message("vision", me->name() + "悄悄的和" + target->name() + "说了几句话。\n", environment(me), ({me, target}));
+    message(
+        "vision",
+        me->name() + "悄悄的和" + target->name() + "说了几句话。\n",
+        environment(me),
+        ({ me, target })
+    );
 
-    if (me->query("gender") == "男性")
-    {
+    if (me->query("gender") == "男性") {
         me->force_me("tell " + target->query("id") +
-                     " 好宝贝，今天就和我欢乐一次吧。");
-    }
-    else
-    {
+            " 好宝贝，今天就和我欢乐一次吧。");
+    } else {
         me->force_me("tell " + target->query("id") +
-                     " 你现在想要我么？");
+            " 你现在想要我么？");
     }
 
     return 1;
 }
 
-void do_makelove(object me, object target)
-{
+void do_makelove(object me, object target) {
     mapping armor;
     string msg;
     string msg1, msg2;
@@ -108,21 +106,18 @@ void do_makelove(object me, object target)
     if (armor = target->query_temp("armor") && sizeof(armor))
         target->force_me("remove all");
 
-    if (me->query("gender") == "男性")
-    {
+    if (me->query("gender") == "男性") {
         man = me;
         woman = target;
-    }
-    else
-    {
+    } else {
         man = target;
         woman = me;
     }
 
     msg = "\n$N轻轻搂着$n，双手从$n的脸颊慢慢的抚摸下去直至胸膛，只见$p"
-          "不由的颤动了一下，一时间意乱情迷，双手紧紧的抱住了$N，把脸深"
-          "深的埋在$N的怀中，磨擦着$P坚实的胸口。霎时间满堂春意，锦绣亦"
-          "添光华，两人相互缠绵，渐渐的进入了忘我的状态。\n";
+        "不由的颤动了一下，一时间意乱情迷，双手紧紧的抱住了$N，把脸深"
+        "深的埋在$N的怀中，磨擦着$P坚实的胸口。霎时间满堂春意，锦绣亦"
+        "添光华，两人相互缠绵，渐渐的进入了忘我的状态。\n";
 
     msg1 = replace_string(msg, "$N", "你");
     msg1 = replace_string(msg1, "$n", woman->name());
@@ -145,7 +140,7 @@ void do_makelove(object me, object target)
 
     message("vision", HIM + msg1 + NOR, man);
     message("vision", HIM + msg2 + NOR, woman);
-    message("vision", HIM + msg + NOR, environment(man), ({man, woman}));
+    message("vision", HIM + msg + NOR, environment(man), ({ man, woman }));
 
     tell_object(man, HIR "\n你心情激荡，热血沸腾，一时不能自己……\n" NOR);
     tell_object(woman, HIR "\n你心神一荡，意乱情迷，难以自己……\n" NOR);
@@ -154,12 +149,11 @@ void do_makelove(object me, object target)
     do_loving(woman, man, 15 + random(3));
 }
 
-void do_loving(object me, object target, int wakeup)
-{
+void do_loving(object me, object target, int wakeup) {
     me->set_temp("sleeped", 1);
     me->set_temp("block_msg/all", 1);
     me->disable_player(" <做爱中>");
-    me->start_call_out(bind((: call_other, __FILE__, "do_over", me:), me), wakeup);
+    me->start_call_out(bind((: call_other, __FILE__, "do_over", me :), me), wakeup);
     me->set("no_get", 1);
     me->set("no_get_from", 1);
     me->set_temp("last_makelove", time());
@@ -169,15 +163,13 @@ void do_loving(object me, object target, int wakeup)
     if (me->query("sex/times") == 1)
         me->set("sex/first", target->name(1));
 
-    if (me->query("gender") == "男性")
-    {
+    if (me->query("gender") == "男性") {
         me->set("jing", 20);
         me->set("qi", 50);
     }
 }
 
-void do_over(object me)
-{
+void do_over(object me) {
     if (!me || !me->query_temp("sleeped"))
         return;
 
@@ -187,15 +179,14 @@ void do_over(object me)
 
     me->enable_player();
     me->set_temp("block_msg/all", 0);
-    me->delete ("no_get");
-    me->delete ("no_get_from");
+    me->delete("no_get");
+    me->delete("no_get_from");
     message_vision(HIC "\n$N" HIC "呻吟了一下，慢慢的睁开了眼"
-                       "睛，清醒过来。\n\n" NOR,
-                   me);
+        "睛，清醒过来。\n\n" NOR,
+        me);
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：makelove <id>
 

@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     int immortal;
     string msg;
@@ -17,8 +16,7 @@ int main(object me, string arg)
         return notify_fail("指令格式: smash <living>\n");
 
     ob = present(arg, environment(me));
-    if (!ob || !me->visible(ob))
-    {
+    if (!ob || !me->visible(ob)) {
         ob = find_player(arg);
         if (!ob || wiz_level(ob) < 1 || !me->visible(ob))
             ob = find_living(arg);
@@ -30,41 +28,36 @@ int main(object me, string arg)
             return notify_fail("找不到这个生物。\n");
     }
 
-    if (!me->is_admin())
-    {
-        switch (SECURITY_D->query_site_privilege("smash"))
-        {
-        case "all":
-            break;
+    if (!me->is_admin()) {
+        switch (SECURITY_D->query_site_privilege("smash")) {
+            case "all":
+                break;
 
-        case "npc":
-            if (playerp(ob))
-                return notify_fail("你不能对玩家施展法力。\n");
-            break;
+            case "npc":
+                if (playerp(ob))
+                    return notify_fail("你不能对玩家施展法力。\n");
+                break;
 
-        default:
-            return notify_fail("你不能使用该命令。\n");
+            default:
+                return notify_fail("你不能使用该命令。\n");
         }
     }
 
-    if (environment(ob) != environment(me))
-    {
+    if (environment(ob) != environment(me)) {
         message("vision", HIY "\n天空慢慢的暗了下来，忽然间天际一亮，一道闪电"
-                              "伴随滚滚雷声直落而下，正正劈中" +
-                              ob->name(1) + HIY "。\n\n" NOR,
-                all_interactive());
+            "伴随滚滚雷声直落而下，正正劈中" +
+            ob->name(1) + HIY "。\n\n" NOR,
+            all_interactive());
 
-        if (wizardp(ob))
-        {
+        if (wizardp(ob)) {
             immortal = (int)ob->query("env/immortal");
             ob->set("env/immortal", 0);
         }
 
-        if (wiz_level(me) < wiz_level(ob))
-        {
+        if (wiz_level(me) < wiz_level(ob)) {
             message_vision(HIM "\n$N" HIM "身上冒着缕缕青烟，"
-                               "却没有半点事情。\n\n" NOR,
-                           ob);
+                "却没有半点事情。\n\n" NOR,
+                ob);
             return 1;
         }
 
@@ -78,33 +71,28 @@ int main(object me, string arg)
     }
 
     msg = HIC "\n$N" HIC "伸手一招，只见一道" HIY "闪电" HIC
-              "从天而降，击中了$n" HIC "！！！\n" NOR;
-    if (me == ob)
-    {
+        "从天而降，击中了$n" HIC "！！！\n" NOR;
+    if (me == ob) {
         msg = replace_string(msg, "$n", "$N");
         message_vision(msg, me);
-    }
-    else
+    } else
         message_vision(msg, me, ob);
 
-    if (!ob->is_character())
-    {
+    if (!ob->is_character()) {
         message_vision(HIM + ob->name() + HIM "从这个世界上消失了...\n\n" NOR, me);
         destruct(ob);
         return 1;
     }
 
-    if (wizardp(ob))
-    {
+    if (wizardp(ob)) {
         immortal = (int)ob->query("env/immortal");
         ob->set("env/immortal", 0);
     }
 
-    if (wiz_level(me) < wiz_level(ob))
-    {
+    if (wiz_level(me) < wiz_level(ob)) {
         message_vision(HIM "\n$N" HIM "身上冒着缕缕青烟，"
-                           "却没有半点事情。\n\n" NOR,
-                       ob);
+            "却没有半点事情。\n\n" NOR,
+            ob);
         return 1;
     }
 
@@ -121,14 +109,13 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: smash <生物>
 
 hehehehehe...........
 
 该命令在可以被授权使用的信息包括：npc、all。
-HELP );
+HELP);
     return 1;
 }

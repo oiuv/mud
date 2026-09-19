@@ -1,4 +1,3 @@
-
 #define V_FAIL 0
 
 // minimum votes
@@ -15,4 +14,3 @@
 #define V_CHBLK 6
 #define V_UNCHBLK 7
 #define V_ROBOT 8
-

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "白塔二楼");
     set("long", @LONG
 这里是报恩塔的第二楼，相传是前朝一位状元郎考取功名
@@ -9,8 +8,8 @@ void create()
 要登高眺望。
 LONG);
     set("exits", ([
-          "up" : __DIR__"baita2",
-          "down" : __DIR__"baita",
+        "up": __DIR__ "baita2",
+        "down": __DIR__ "baita",
     ]));
     set("no_clean_up", 0);
 

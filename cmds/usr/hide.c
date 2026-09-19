@@ -5,8 +5,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string str)
-{
+int main(object me, string str) {
     object ob;
     //int i;
 
@@ -20,19 +19,17 @@ int main(object me, string str)
         !objectp(ob = present(str, environment(me))))
         return notify_fail("你身边没有这个物品。\n");
 
-    if (!ob->hide_anywhere(me))
-    {
+    if (!ob->hide_anywhere(me)) {
         message_vision(HIM "$N" HIM "举着" + ob->name() +
-                       HIM "，口中念念有词。\n然而"
-                       "什么也没有发生 :)\n",
-                       me);
+            HIM "，口中念念有词。\n然而"
+            "什么也没有发生 :)\n",
+            me);
     }
 
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : hide <物品的ID>
 

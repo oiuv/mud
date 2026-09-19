@@ -2,16 +2,15 @@
 
 inherit NPC;
 
-void create()
-{
-    set_name("陈七", ({ "chen qi","chen" }) );
+void create() {
+    set_name("陈七", ({ "chen qi", "chen" }));
     set("gender", "男性");
     set("title", "趟子手");
     set("age", 30);
     set("long",
         "这是个镖局趟子手，长得虎背熊腰，一身横练功夫。\n");
     set("combat_exp", 10000);
-        set("shen_type", -1);
+    set("shen_type", -1);
     set("attitude", "peaceful");
 
     set("apply/attack", 20);
@@ -23,7 +22,7 @@ void create()
     set_skill("dodge", 40);
     setup();
 
-        carry_object("/clone/misc/cloth")->wear();
+    carry_object("/clone/misc/cloth")->wear();
 
     add_money("silver", 1);
 }

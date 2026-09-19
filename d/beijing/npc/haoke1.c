@@ -1,7 +1,6 @@
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("江湖豪客", ({ "jianghu haoke", "haoke" }));
     set("long",
         "一名满脸彪捍之色的江湖豪客。\n");
@@ -30,5 +29,5 @@ void create()
 
     setup();
     carry_object("/d/beijing/npc/obj/blade2")->wield();
-       carry_object("/d/beijing/npc/obj/cloth")->wear();
+    carry_object("/d/beijing/npc/obj/cloth")->wear();
 }

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "私塾");
     set("long", @LONG
 这里是一家的私塾，窗明几净，一尘不染。一位庄重严肃的老先生坐
@@ -10,13 +9,13 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "south" : __DIR__"eroad2",
-          "north" : __DIR__"mianbi",
+        "south": __DIR__ "eroad2",
+        "north": __DIR__ "mianbi",
     ]));
-        set("objects", ([
-                "/d/wudu/npc/xuetong" : 2,
-                "/d/wudu/npc/xiansheng" : 1,
-        ]));
+    set("objects", ([
+        "/d/wudu/npc/xuetong": 2,
+        "/d/wudu/npc/xiansheng": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

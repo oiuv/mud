@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "碎石小路");
     set("long", @LONG
 小路是用五彩缤纷的石子铺成的。石子组成了各种花纹，甚是好看。路边
@@ -11,9 +10,9 @@ LONG
     );
 
     set("exits", ([
-          "north" : __DIR__"stone_road2",
-          "east" : __DIR__"stone_road3",
-          "south" : __DIR__"c_garden",
+        "north": __DIR__ "stone_road2",
+        "east": __DIR__ "stone_road3",
+        "south": __DIR__ "c_garden",
     ]));
 
     setup();

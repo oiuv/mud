@@ -1,21 +1,20 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
-        set("short", "八十四盘");
-        set("long", @LONG
+void create() {
+    set("short", "八十四盘");
+    set("long", @LONG
 八十四盘，道路艰险陡峭，迂回盘折，令人不能喘息。路
 左是蔽日遮天的冷杉林，路右是深不见底的绝壁峡谷。由此往
 上至接引殿，北下到洗象池。
 LONG);
-        set("outdoors", "emei");
-        set("exits", ([
-                "southup"   : __DIR__"bashisipan3",
-                "northeast" : __DIR__"bashisipan1",
-                "east"      : __DIR__"lengsl3",
-        ]));
-        setup();
+    set("outdoors", "emei");
+    set("exits", ([
+        "southup": __DIR__ "bashisipan3",
+        "northeast": __DIR__ "bashisipan1",
+        "east": __DIR__ "lengsl3",
+    ]));
+    setup();
 }
 /*
 int valid_leave(object me, string dir)

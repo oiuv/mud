@@ -5,10 +5,9 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("文泰来", ({ "wen tailai", "wen","tailai" }));
-    set("title", HIR "红花会"HIG"四当家" NOR);
+void create() {
+    set_name("文泰来", ({ "wen tailai", "wen", "tailai" }));
+    set("title", HIR "红花会" HIG "四当家" NOR);
     set("nickname", HIW "奔雷手" NOR);
     set("long", "文泰来号称“奔雷手”，十五岁起浪荡江湖，手掌下不知击毙
 过多少神奸巨憝、凶徒恶霸。\n");
@@ -47,10 +46,10 @@ void create()
     map_skill("parry", "yunlong-shou");
     map_skill("claw", "yunlong-zhua");
 
-    prepare_skill("hand","yunlong-shou");
-    prepare_skill("claw","yunlong-zhua");
+    prepare_skill("hand", "yunlong-shou");
+    prepare_skill("claw", "yunlong-zhua");
     set("env/wimpy", 20);
 
-     setup();
+    setup();
     carry_object("/clone/misc/cloth")->wear();
 }

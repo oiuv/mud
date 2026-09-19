@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("崔镖头", ({ "cui biaotou", "cui" }));
     set("gender", "男性");
     set("age", 35);

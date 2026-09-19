@@ -2,11 +2,10 @@
 
 inherit EQUIP;
 
-void create()
-{
-    set_name("白绸裙", ({ "baichou qun", "qun" }) );
+void create() {
+    set_name("白绸裙", ({ "baichou qun", "qun" }));
     set_weight(500);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "件");

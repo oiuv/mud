@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("梁兴禄", ({ "liang xinglu", "liang" }));
     set("title", "长安知府");
     set("gender", "男性");
@@ -28,6 +27,6 @@ void create()
     set("jiali", 20);
 
     setup();
-    carry_object(__DIR__"obj/sword")->wield();
-    carry_object(__DIR__"obj/choupao")->wear();
+    carry_object(__DIR__ "obj/sword")->wield();
+    carry_object(__DIR__ "obj/choupao")->wear();
 }

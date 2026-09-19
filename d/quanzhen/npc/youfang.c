@@ -1,11 +1,10 @@
 #include <ansi.h>
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("游方道人", ({ "youfang daoren", "youfang", "daoren" }));
     set("long", "他是一位未通世故的青年道人，脸上挂着孩\n"
-                    "儿般的微笑。\n");
+        "儿般的微笑。\n");
 
     set("gender", "男性");
     set("attitude", "heroism");
@@ -28,9 +27,9 @@ void create()
     set("chat_chance", 10);
     set("chat_msg", ({
         CYN "游方道人说道：请施主化几两银子给贫道，随喜"
-                "随喜，造福众生。\n" NOR,
+        "随喜，造福众生。\n" NOR,
         (: random_move :)
-    }) );
+    }));
 
     set_skill("force", 41);
     set_skill("strike", 41);
@@ -44,7 +43,7 @@ void create()
     map_skill("dodge", "jinyan-gong");
     map_skill("strike", "haotian-zhang");
     map_skill("parry", "haotian-zhang");
-        create_family("全真教", 4, "弟子");
+    create_family("全真教", 4, "弟子");
     setup();
     carry_object("/d/city/obj/cloth")->wear();
 

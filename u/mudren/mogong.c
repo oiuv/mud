@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", HIB "【青碇魔宫】" NOR);
     set("long", HIB @LONG
 
@@ -12,25 +11,24 @@ void create()
 阴时亮，你不觉打了个冷颤。正对着大门有一个三丈来高的高台上面
 刻着“ 青碇台 ”三个大字，高台上四方魔神拥簇着一位二十岁左右
 的青年。
-LONG NOR );
+LONG NOR);
     set("exits", ([
         "down": __DIR__ "migong/entry",
-        "up"  : __DIR__ "workroom",
+        "up": __DIR__ "workroom",
     ]));
-    set("objects",([
-        "/d/death/npc/wangfangping" : 1,
+    set("objects", ([
+        "/d/death/npc/wangfangping": 1,
     ]));
     set("valid_startroom", 1);
     set("no_clean_up", 0);
     set("sleep_room", 1);
     set("item_desc", ([
-        "tai" : HIB "一个三丈来高的高台，上面刻着“ 青碇台 ”三个大字。大台下面还刻着一些希奇古怪的花纹。\n" NOR,
+        "tai": HIB "一个三丈来高的高台，上面刻着“ 青碇台 ”三个大字。大台下面还刻着一些希奇古怪的花纹。\n" NOR,
     ]));
     setup();
 }
 
-void init()
-{
+void init() {
     add_action("do_sisuo", "技能");
     add_action("do_ganwu", "经验");
     add_action("do_get1", "金钱");
@@ -38,8 +36,7 @@ void init()
     add_action("do_get3", "物品");
 }
 
-int do_sisuo(string arg)
-{
+int do_sisuo(string arg) {
     object ob;
     ob = this_player();
 
@@ -78,8 +75,7 @@ int do_sisuo(string arg)
     return 1;
 }
 
-int do_ganwu(string arg)
-{
+int do_ganwu(string arg) {
     object ob = this_player();
 
     message_vision("$N盘膝静坐在神殿中央，开始游神冥想。\n", ob);
@@ -93,66 +89,63 @@ int do_ganwu(string arg)
     return 1;
 }
 
-int do_get1()
-{
+int do_get1() {
     object ob, me = this_player();
 
     message_vision(HIW "$N念了一句咒语，顿时从天空散落下漫天的银票，飞舞至你手中。\n" NOR, me);
-    ob = new ("/clone/money/cash");
+    ob = new("/clone/money/cash");
     ob->move(me);
-    ob = new ("/clone/money/cash");
+    ob = new("/clone/money/cash");
     ob->move(me);
-    ob = new ("/clone/money/cash");
+    ob = new("/clone/money/cash");
     ob->move(me);
-    ob = new ("/clone/money/cash");
+    ob = new("/clone/money/cash");
     ob->move(me);
-    ob = new ("/clone/money/cash");
+    ob = new("/clone/money/cash");
     ob->move(me);
     return 1;
 }
 
-int do_get2()
-{
+int do_get2() {
     object ob, me = this_player();
 
     message_vision(HIW "$N念了一句咒语，顿时从天上落下几粒闪闪发光的仙丹到你手中。\n" NOR, me);
-    ob = new ("/clone/gift/jiuzhuan");
+    ob = new("/clone/gift/jiuzhuan");
     ob->move(me);
-    ob = new ("/clone/gift/shenliwan");
+    ob = new("/clone/gift/shenliwan");
     ob->move(me);
-    ob = new ("/clone/gift/unknowdan");
+    ob = new("/clone/gift/unknowdan");
     ob->move(me);
-    ob = new ("/clone/gift/xiandan");
+    ob = new("/clone/gift/xiandan");
     ob->move(me);
-    ob = new ("/clone/gift/xisuidan");
+    ob = new("/clone/gift/xisuidan");
     ob->move(me);
     return 1;
 }
 
-int do_get3()
-{
+int do_get3() {
     object ob, me = this_player();
 
     message_vision(HIW "$N念了一句咒语，顿时从天上落下一堆稀奇古怪的物品到你手中。\n" NOR, me);
     //ob = new("/clone/fam/item/qiankun");ob -> move(me);
-    ob = new ("/clone/fam/item/qiankun_stone");
+    ob = new("/clone/fam/item/qiankun_stone");
     ob->move(me);
     //ob = new("/clone/fam/item/xuantie");ob -> move(me);
-    ob = new ("/d/death/obj/tianjing");
+    ob = new("/d/death/obj/tianjing");
     ob->move(me);
-    ob = new ("/d/death/obj/hupi");
+    ob = new("/d/death/obj/hupi");
     ob->move(me);
-    ob = new ("/d/death/obj/jiake");
+    ob = new("/d/death/obj/jiake");
     ob->move(me);
-    ob = new ("/d/death/obj/longjin");
+    ob = new("/d/death/obj/longjin");
     ob->move(me);
-    ob = new ("/clone/fam/etc/hanjing");
+    ob = new("/clone/fam/etc/hanjing");
     ob->move(me);
-    ob = new ("/clone/fam/etc/mozhixin");
+    ob = new("/clone/fam/etc/mozhixin");
     ob->move(me);
-    ob = new ("/clone/fam/etc/huojingling");
+    ob = new("/clone/fam/etc/huojingling");
     ob->move(me);
-    ob = new ("/clone/fam/etc/leishentong");
+    ob = new("/clone/fam/etc/leishentong");
     ob->move(me);
     return 1;
 }

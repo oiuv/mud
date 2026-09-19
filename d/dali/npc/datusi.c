@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("大土司", ({ "da tusi", "tusi" }));
     set("age", 42);
     set("gender", "男性");
@@ -30,5 +29,5 @@ void create()
     set_temp("apply/armor", 100);
 
     setup();
-    carry_object(__DIR__"obj/lace")->wear();
+    carry_object(__DIR__ "obj/lace")->wear();
 }

@@ -3,16 +3,15 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "闽中大道");
     set("long", @LONG
 这里密迩城郊，来往行人也渐渐都了起来。福州的官话听起
 来刺耳难懂，可是抑扬顿挫，别有一番风味。
-LONG );
+LONG);
     set("exits", ([
-        "east"   : __DIR__"ximen",
-        "west"   : __DIR__"fzroad9",
+        "east": __DIR__ "ximen",
+        "west": __DIR__ "fzroad9",
     ]));
     set("outdoors", "fuzhou");
     setup();

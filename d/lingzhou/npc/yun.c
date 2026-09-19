@@ -3,12 +3,11 @@
 inherit NPC;
 
 #include <ansi.h>
-void create()
-{
+void create() {
 
     set_name("云中鹤", ({ "yun zhonghe", "yun" }));
     set("gender", "男性");
-    set("nickname", HIY"穷凶极恶"NOR);
+    set("nickname", HIY "穷凶极恶" NOR);
     set("age", 34);
     set("str", 25);
     set("dex", 16);

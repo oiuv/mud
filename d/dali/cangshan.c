@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "苍山");
     set("long", @LONG
 苍山之腹盛产奇石，世称大理石，且又名为点苍石、文
@@ -15,9 +14,9 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-            "north"     : __DIR__"shilin",
-            "east"      : __DIR__"hongsheng",
-            "southwest" : __DIR__"xiaguan",
+        "north": __DIR__ "shilin",
+        "east": __DIR__ "hongsheng",
+        "southwest": __DIR__ "xiaguan",
     ]));
     set("no_clean_up", 0);
     setup();

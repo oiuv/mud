@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "草原");
     set("long", @LONG
 这里是一望无际的大草原。绿色的草地美丽得就象晴朗的
@@ -10,10 +9,10 @@ void create()
 烂如黄金。你也许从没想到，在塞外的边陲之地竟有如此美妙
 的地方，美得辉煌而神秘，美得令人迷惑。
 LONG);
-        set("outdoors", "shenfeng");
+    set("outdoors", "shenfeng");
     set("exits", ([
-          "westup" : __DIR__"caoyuan7",
-          "east" : __DIR__"xingxing2",
+        "westup": __DIR__ "caoyuan7",
+        "east": __DIR__ "xingxing2",
     ]));
     setup();
     replace_program(ROOM);

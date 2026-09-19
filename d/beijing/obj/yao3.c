@@ -1,17 +1,14 @@
 inherit ITEM;
 #include <ansi.h>
 
-void setup()
-{}
+void setup() {}
 
-void init()
-{
+void init() {
     add_action("do_eat", "eat");
 }
 
-void create()
-{
-    set_name(HIY"金创药"NOR, ({"jinchuang yao", "jinchuang", "yao"}));
+void create() {
+    set_name(HIY "金创药" NOR, ({ "jinchuang yao", "jinchuang", "yao" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -22,12 +19,11 @@ void create()
     setup();
 }
 
-int do_eat(string arg)
-{
+int do_eat(string arg) {
     object me = this_player();
     if (!id(arg))
         return notify_fail("你要吃什么药？\n");
-    if (me->is_busy() )
+    if (me->is_busy())
         return notify_fail("别急，慢慢吃，小心别噎着了。\n");
     if ((int)me->query("eff_qi") == (int)me->query("max_qi"))
         return notify_fail("你现在不需要用金创药。\n");

@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string option, target /*, msg*/;
     object obj;
     int opt_clone;
@@ -16,12 +15,9 @@ int main(object me, string arg)
         return notify_fail("指令格式 : dest <对象之名称或档名>\n");
 
     if (sscanf(arg, "%s %s", option, target) == 2 &&
-        option == "-c")
-    {
+        option == "-c") {
         opt_clone = 1;
-    }
-    else
-    {
+    } else {
         target = arg;
         opt_clone = 0;
     }
@@ -40,62 +36,54 @@ int main(object me, string arg)
 
     seteuid(getuid());
 
-    if (!me->is_admin())
-    {
-        switch (SECURITY_D->query_site_privilege("dest"))
-        {
-        case "all":
-            break;
+    if (!me->is_admin()) {
+        switch (SECURITY_D->query_site_privilege("dest")) {
+            case "all":
+                break;
 
-        case "noneuser":
-            if (playerp(obj))
-                return notify_fail("你不能对玩家施展法力。\n");
-            break;
+            case "noneuser":
+                if (playerp(obj))
+                    return notify_fail("你不能对玩家施展法力。\n");
+                break;
 
-        case "user":
-            if (!playerp(obj))
-                return notify_fail("你只能对玩家施展法力。\n");
-            break;
+            case "user":
+                if (!playerp(obj))
+                    return notify_fail("你只能对玩家施展法力。\n");
+                break;
 
-        default:
-            return notify_fail("你不能使用该命令。\n");
+            default:
+                return notify_fail("你不能使用该命令。\n");
         }
     }
 
     if (!is_root(me))
         seteuid(geteuid(me));
 
-    if (!SECURITY_D->valid_write(base_name(obj), me, "dest"))
-    {
+    if (!SECURITY_D->valid_write(base_name(obj), me, "dest")) {
         write("你没有权限操作这个对象。\n");
         return 1;
     }
 
-    if (opt_clone)
-    {
-        if (clonep(obj))
-        {
+    if (opt_clone) {
+        if (clonep(obj)) {
             write("该对象是复制对象，没有派生对象，无法执行 -c 选项。\n");
             return 1;
         }
 
-        if (obj == find_object(USER_OB))
-        {
+        if (obj == find_object(USER_OB)) {
             write("你不能清除使用者的派生对象。\n");
             return 1;
         }
 
-        if (obj == find_object(LOGIN_OB))
-        {
+        if (obj == find_object(LOGIN_OB)) {
             write("你不能清除使用者连接信息的派生对象。\n");
             return 1;
         }
 
         obs = children(base_name(obj));
-        foreach (obj in obs)
-        {
+        foreach (obj in obs) {
             write("你摧毁了" + obj->name(1) + "(" +
-                  file_name(obj) + ")。\n");
+                file_name(obj) + ")。\n");
             destruct(obj);
         }
         write("Ok.\n");
@@ -116,8 +104,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : dest [-c] <对象之名称或档名>
 
@@ -129,6 +116,6 @@ int help(object me)
 该命令在可以被授权使用的信息包括：noneuser、user、all。
 
 参考资料： destruct()
-HELP );
+HELP);
     return 1;
 }

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "市中心");
     set("long", @LONG
 这是中州的市中心，两条街道在这里划个大十字。整个中
@@ -12,13 +11,13 @@ void create()
 LONG);
     set("outdoors", "zhongzhou");
     set("exits", ([
-          "east" : __DIR__"yanlingdong",
-          "south" : __DIR__"wendingnan1",
-          "west" : __DIR__"yanling",
-          "north" : __DIR__"wendingbei1",
+        "east": __DIR__ "yanlingdong",
+        "south": __DIR__ "wendingnan1",
+        "west": __DIR__ "yanling",
+        "north": __DIR__ "wendingbei1",
     ]));
-        set("objects", ([
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/clone/npc/walker": 1,
+    ]));
     setup();
 }

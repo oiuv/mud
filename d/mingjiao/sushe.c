@@ -4,15 +4,14 @@
 #include <room.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "雷门宿舍");
     set("long", @LONG
 走进这间宿舍，满目异国情调。雷门教众似乎不大理睬你。许是
 言语不通，你也不想在此多留。
-LONG );
+LONG);
     set("exits", ([
-        "out" : __DIR__"mjleimen1",
+        "out": __DIR__ "mjleimen1",
     ]));
     set("no_clean_up", 0);
     set("sleep_room", 1);

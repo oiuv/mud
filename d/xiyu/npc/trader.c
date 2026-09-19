@@ -2,8 +2,7 @@
 
 inherit KNOWER;
 
-void create()
-{
+void create() {
     set_name("波斯商人", ({ "bosi shangren", "shangren", "bosi" }));
     set("nickname", HIC "消息灵通" NOR);
     set("gender", "男性");
@@ -27,11 +26,11 @@ void create()
     setup();
     set("chat_chance", 15);
     set("chat_msg", ({
-    CYN "波斯商人对你挤了一下眼睛。\n" NOR,
-    CYN "波斯商人对你说：阿拉阿可巴，穆罕默德瑞素阿拉。\n" NOR,
-    CYN "波斯商人呵呵笑了笑，神秘兮兮的看着你：。\n" NOR,
-            (: random_move :)
-    }) );
+        CYN "波斯商人对你挤了一下眼睛。\n" NOR,
+        CYN "波斯商人对你说：阿拉阿可巴，穆罕默德瑞素阿拉。\n" NOR,
+        CYN "波斯商人呵呵笑了笑，神秘兮兮的看着你：。\n" NOR,
+        (: random_move :)
+    }));
     carry_object("/clone/weapon/wandao")->wield();
     carry_object("/clone/cloth/changpao")->wear();
     add_money("silver", 20);

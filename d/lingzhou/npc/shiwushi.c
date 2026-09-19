@@ -3,8 +3,7 @@
 inherit NPC;
 
 
-void create()
-{
+void create() {
     set_name("石人武士", ({ "wu shi", "shi" }));
     set("gender", "男性");
     set("age", random(10) + 20);

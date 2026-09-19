@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     string r;
 
@@ -37,8 +36,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : accept
 
@@ -46,6 +44,6 @@ int help(object me)
 
 其他相关指令: fight, hit
 
-HELP );
+HELP);
     return 1;
 }

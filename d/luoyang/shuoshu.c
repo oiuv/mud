@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "说书大厅");
     set("long", @LONG
 这里就是说书大厅，一位四十多岁的中年人正坐在大厅中央手拿折扇
@@ -11,13 +10,13 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"chalou2",
+        "east": __DIR__ "chalou2",
     ]));
-        set("objects", ([
-                "/d/beijing/npc/chaboshi" : 1,
-                "/d/beijing/npc/teahuoji" : 1,
-                "/d/beijing/npc/chake" : 4,
-        ]));
+    set("objects", ([
+        "/d/beijing/npc/chaboshi": 1,
+        "/d/beijing/npc/teahuoji": 1,
+        "/d/beijing/npc/chake": 4,
+    ]));
     setup();
     replace_program(ROOM);
 }

@@ -5,13 +5,12 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("余鱼同", ({ "yu yutong", "yu","yutong" }));
-    set("title", HIR "红花会"HIG"十四当家" NOR);
+void create() {
+    set_name("余鱼同", ({ "yu yutong", "yu", "yutong" }));
+    set("title", HIR "红花会" HIG "十四当家" NOR);
     set("nickname", YEL "金笛秀才" NOR);
     set("long",
-"一个长身玉立，眉清目秀，风流英俊的书生。余鱼同乃江南望族
+        "一个长身玉立，眉清目秀，风流英俊的书生。余鱼同乃江南望族
 子弟，中过秀才。他父亲因和一家豪门争一块坟地，官司打得倾家
 荡产，又被豪门借故陷害，瘐死狱中。余鱼同一气出走，得遇机缘，
 拜马真为师，弃文习武，回来把士豪刺死，从此亡命江湖，后来入
@@ -67,12 +66,12 @@ void create()
     map_skill("sword", "yunlong-jian");
     map_skill("whip", "yunlong-bian");
 
-    prepare_skill("hand","yunlong-shou");
-    prepare_skill("claw","yunlong-zhua");
+    prepare_skill("hand", "yunlong-shou");
+    prepare_skill("claw", "yunlong-zhua");
     set("env/wimpy", 20);
     create_family("武当派", 18, "弟子");
 
-     setup();
+    setup();
     carry_object("/clone/cloth/jinduan")->wear();
     carry_object("/clone/cloth/yaodai")->wear();
     carry_object("/clone/weapon/changjian")->wield();

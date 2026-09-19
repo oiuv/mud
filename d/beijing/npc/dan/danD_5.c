@@ -2,9 +2,8 @@
 
 inherit COMBINED_ITEM;
 
-void create()
-{
-    set_name(RED"血麒丹"NOR, ({"xueqi dan", "dan"}));
+void create() {
+    set_name(RED "血麒丹" NOR, ({ "xueqi dan", "dan" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -16,13 +15,11 @@ void create()
     set_amount(1);
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     mapping my;
     int nl, mn;
 
-    if (time() - me->query_temp("last_eat/dan(D)") < 15)
-    {
+    if (time() - me->query_temp("last_eat/dan(D)") < 15) {
         write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
         return 1;
     }
@@ -31,8 +28,7 @@ int do_effect(object me)
     nl = (int)me->query("neili") + 1000;
     mn = (int)me->query("max_neili") * 2;
 
-    if (nl > mn)
-    {
+    if (nl > mn) {
         write("你现在内力修为无需服用" + name() + "。\n");
         return 1;
     }

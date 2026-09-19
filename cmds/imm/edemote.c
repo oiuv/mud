@@ -5,43 +5,39 @@ inherit F_CLEAN_UP;
 
 int in_use;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     mapping emote;
     int i;
 
-    if (! present("emote editor", me) &&
-        ! SECURITY_D->valid_grant(me, "(immortal)"))
+    if (!present("emote editor", me) &&
+        !SECURITY_D->valid_grant(me, "(immortal)"))
         return 0;
 
     seteuid(getuid());
 
-    if (! VERSION_D->is_release_server())
+    if (!VERSION_D->is_release_server())
         return notify_fail("只有版本发布站点才能修改表情动词。\n");
 
-    if (! arg) return notify_fail("你要编辑什么 emote？\n");
+    if (!arg) return notify_fail("你要编辑什么 emote？\n");
 
-    if (sscanf(arg, "-d %s", arg))
-    {
+    if (sscanf(arg, "-d %s", arg)) {
         write("删除 emote：" + arg + "\n");
         EMOTE_D->delete_emote(arg);
         return 1;
     }
 
-    if (sscanf(arg, "-p %s", arg))
-    {
-        if (! mapp(emote = EMOTE_D->query_emote(arg)) ||
-            ! sizeof(emote))
-        {
+    if (sscanf(arg, "-p %s", arg)) {
+        if (!mapp(emote = EMOTE_D->query_emote(arg)) ||
+            !sizeof(emote)) {
             write("没有这个表情动词。\n");
             return 1;
         }
 
         write(sprintf("上次修改：%s(%s)\n", emote["updated"], ctime(emote["time"])));
         write(sprintf("------------------------------------------\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
-                emote["myself"], emote["others"], emote["myself_self"],
-                emote["others_self"], emote["myself_target"], emote["target"],
-                emote["others_target"]));
+            emote["myself"], emote["others"], emote["myself_self"],
+            emote["others_self"], emote["myself_target"], emote["target"],
+            emote["others_target"]));
         return 1;
     }
 
@@ -51,13 +47,13 @@ int main(object me, string arg)
             return notify_fail("表情动词必须由字母或数字、标点构成。\n");
 
     emote = EMOTE_D->query_emote(arg);
-    if (! mapp(emote)) emote = ([ ]);
+    if (!mapp(emote)) emote = ([]);
 
     emote["updated"] = geteuid(me);
 
     write("编辑 emote：" + arg + "\n");
     write("讯息可以有好几行，用 . 表示结束。\n"
-            "输入 x 表示该行采用同一族类似的表情描述。\n");
+        "输入 x 表示该行采用同一族类似的表情描述。\n");
     write("讯息中可使用的参数有以下几种：\n");
     write("  $N  自己的名字。\n");
     write("  $n  使用对象的名字。\n");
@@ -76,22 +72,20 @@ int main(object me, string arg)
 }
 
 
-int get_msg_myself(string msg, mapping emote, string pattern, int n)
-{
+int get_msg_myself(string msg, mapping emote, string pattern, int n) {
     msg = replace_string(msg, "\\n", "\n");
-    if (msg == "." || msg == "x")
-    {
+    if (msg == "." || msg == "x") {
         if (msg == "x")
             map_delete(emote, "myself");
-        else if (! n)
+        else if (!n)
             write("忽略该项描述。\n");
         write("不指定对象使用这个 emote 时，其他人看到的讯息：\n->");
         input_to("get_msg_others", emote, pattern);
         return 1;
     }
 
-    if (! n) map_delete(emote, "myself");
-    if (! undefinedp(emote["myself"]))
+    if (!n) map_delete(emote, "myself");
+    if (!undefinedp(emote["myself"]))
         emote["myself"] += msg;
     else
         emote["myself"] = msg;
@@ -100,22 +94,20 @@ int get_msg_myself(string msg, mapping emote, string pattern, int n)
     return 1;
 }
 
-int get_msg_others(string msg, mapping emote, string pattern, int n)
-{
+int get_msg_others(string msg, mapping emote, string pattern, int n) {
     msg = replace_string(msg, "\\n", "\n");
-    if (msg == "." || msg == "x")
-    {
+    if (msg == "." || msg == "x") {
         if (msg == "x")
             map_delete(emote, "others");
-        else if (! n)
+        else if (!n)
             write("忽略该项描述。\n");
         write("对自己使用这个 emote 时，自己看到的讯息：\n->");
         input_to("get_msg_myself_self", emote, pattern);
         return 1;
     }
 
-    if (! n) map_delete(emote, "others");
-    if (! undefinedp(emote["others"]))
+    if (!n) map_delete(emote, "others");
+    if (!undefinedp(emote["others"]))
         emote["others"] += msg;
     else
         emote["others"] = msg;
@@ -124,22 +116,20 @@ int get_msg_others(string msg, mapping emote, string pattern, int n)
     return 1;
 }
 
-int get_msg_myself_self(string msg, mapping emote, string pattern, int n)
-{
+int get_msg_myself_self(string msg, mapping emote, string pattern, int n) {
     msg = replace_string(msg, "\\n", "\n");
-    if (msg == "." || msg == "x")
-    {
+    if (msg == "." || msg == "x") {
         if (msg == "x")
             map_delete(emote, "myself_self");
-        else if (! n)
-             write("忽略该项描述。\n");
+        else if (!n)
+            write("忽略该项描述。\n");
         write("对自己使用这个 emote 时，其他人看到的讯息：\n->");
         input_to("get_msg_others_self", emote, pattern);
         return 1;
     }
 
-    if (! n) map_delete(emote, "myself_self");
-    if (! undefinedp(emote["myself_self"]))
+    if (!n) map_delete(emote, "myself_self");
+    if (!undefinedp(emote["myself_self"]))
         emote["myself_self"] += msg;
     else
         emote["myself_self"] = msg;
@@ -148,22 +138,20 @@ int get_msg_myself_self(string msg, mapping emote, string pattern, int n)
     return 1;
 }
 
-int get_msg_others_self(string msg, mapping emote, string pattern, int n)
-{
+int get_msg_others_self(string msg, mapping emote, string pattern, int n) {
     msg = replace_string(msg, "\\n", "\n");
-    if (msg == "." || msg == "x")
-    {
+    if (msg == "." || msg == "x") {
         if (msg == "x")
             map_delete(emote, "others_self");
-        else if (! n)
+        else if (!n)
             write("忽略该项描述。\n");
         write("对别人使用这个 emote 时，自己看到的讯息：\n->");
         input_to("get_msg_myself_target", emote, pattern);
         return 1;
     }
 
-    if (! n) map_delete(emote, "others_self");
-    if (! undefinedp(emote["others_self"]))
+    if (!n) map_delete(emote, "others_self");
+    if (!undefinedp(emote["others_self"]))
         emote["others_self"] += msg;
     else
         emote["others_self"] = msg;
@@ -172,22 +160,20 @@ int get_msg_others_self(string msg, mapping emote, string pattern, int n)
     return 1;
 }
 
-int get_msg_myself_target(string msg, mapping emote, string pattern, int n)
-{
+int get_msg_myself_target(string msg, mapping emote, string pattern, int n) {
     msg = replace_string(msg, "\\n", "\n");
-    if (msg == "." || msg == "x")
-    {
+    if (msg == "." || msg == "x") {
         if (msg == "x")
             map_delete(emote, "myself_target");
-        else if (! n)
+        else if (!n)
             write("忽略该项描述。\n");
         write("对别人使用这个 emote 时，使用对象看到的讯息：\n->");
         input_to("get_msg_target", emote, pattern);
         return 1;
     }
 
-    if (! n) map_delete(emote, "myself_target");
-    if (! undefinedp(emote["myself_target"]))
+    if (!n) map_delete(emote, "myself_target");
+    if (!undefinedp(emote["myself_target"]))
         emote["myself_target"] += msg;
     else
         emote["myself_target"] = msg;
@@ -196,22 +182,20 @@ int get_msg_myself_target(string msg, mapping emote, string pattern, int n)
     return 1;
 }
 
-int get_msg_target(string msg, mapping emote, string pattern, int n)
-{
+int get_msg_target(string msg, mapping emote, string pattern, int n) {
     msg = replace_string(msg, "\\n", "\n");
-    if (msg == "." || msg == "x")
-    {
+    if (msg == "." || msg == "x") {
         if (msg == "x")
             map_delete(emote, "target");
-        else if (! n)
+        else if (!n)
             write("忽略该项描述。\n");
         write("对别人使用这个 emote 时，除你自己和使用对象外，其他人看到的讯息：\n->");
         input_to("get_msg_others_target", emote, pattern);
         return 1;
     }
 
-    if (! n) map_delete(emote, "target");
-    if (! undefinedp(emote["target"]))
+    if (!n) map_delete(emote, "target");
+    if (!undefinedp(emote["target"]))
         emote["target"] += msg;
     else
         emote["target"] = msg;
@@ -220,14 +204,12 @@ int get_msg_target(string msg, mapping emote, string pattern, int n)
     return 1;
 }
 
-int get_msg_others_target(string msg, mapping emote, string pattern, int n)
-{
+int get_msg_others_target(string msg, mapping emote, string pattern, int n) {
     msg = replace_string(msg, "\\n", "\n");
-    if (msg == "." || msg == "x")
-    {
+    if (msg == "." || msg == "x") {
         if (msg == "x")
             map_delete(emote, "others_target");
-        else if (! n)
+        else if (!n)
             write("忽略该项描述。\n");
         emote["time"] = time();
         EMOTE_D->set_emote(pattern, emote);
@@ -235,8 +217,8 @@ int get_msg_others_target(string msg, mapping emote, string pattern, int n)
         return 1;
     }
 
-    if (! n) map_delete(emote, "others_target");
-    if (! undefinedp(emote["others_target"]))
+    if (!n) map_delete(emote, "others_target");
+    if (!undefinedp(emote["others_target"]))
         emote["others_target"] += msg;
     else
         emote["others_target"] = msg;
@@ -245,8 +227,7 @@ int get_msg_others_target(string msg, mapping emote, string pattern, int n)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : edemote [-d|-p] <emote>
 
@@ -277,6 +258,6 @@ $r : 对别人的粗鲁称呼。
 用这个命令。
 
 see also：edemote、rnemote
-HELP );
+HELP);
     return 1;
 }

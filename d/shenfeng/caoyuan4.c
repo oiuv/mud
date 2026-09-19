@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "戈壁");
     set("long", @LONG
 此处地势与大漠的其余地方截然不同，遍地黄沙中混着粗
@@ -9,8 +8,8 @@ void create()
 LONG);
     set("outdoors", "shenfeng");
     set("exits", ([
-        "west" : __DIR__"caoyuan5",
-        "east" : __DIR__"caoyuan3",
+        "west": __DIR__ "caoyuan5",
+        "east": __DIR__ "caoyuan3",
     ]));
 
     setup();

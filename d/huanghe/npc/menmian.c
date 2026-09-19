@@ -3,8 +3,7 @@
 inherit NPC;
 
 
-void create()
-{
+void create() {
     set_name("蒙面人", ({ "menmian ren", "menmian", "ren" }));
     set("gender", "男性");
     set("age", random(10) + 40);
@@ -31,6 +30,6 @@ void create()
     set("jiali", 10);
 
     setup();
-    carry_object(__DIR__"obj/fenshuici")->wield();
-    carry_object(__DIR__"obj/shuikao")->wear();
+    carry_object(__DIR__ "obj/fenshuici")->wield();
+    carry_object(__DIR__ "obj/shuikao")->wear();
 }

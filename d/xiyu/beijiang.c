@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "伊犁");
     set("long", @LONG
 这里是一座维吾尔族聚居的小镇。镇上人来人往，十分热
@@ -10,16 +9,16 @@ void create()
 北边是一家马厩。
 LONG);
     set("exits", ([
-        "west"      : __DIR__"store",
-        "east"      : __DIR__"house",
-        "north"     : __DIR__"majiu",
-        "northwest" : __DIR__"saimachang",
-        "southeast" : __DIR__"shanjiao",
+        "west": __DIR__ "store",
+        "east": __DIR__ "house",
+        "north": __DIR__ "majiu",
+        "northwest": __DIR__ "saimachang",
+        "southeast": __DIR__ "shanjiao",
     ]));
 
     set("objects", ([
-        __DIR__"npc/woman": 2,
-]));
+        __DIR__ "npc/woman": 2,
+    ]));
 
     set("outdoors", "xiyu");
     setup();

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "长乐坊");
     set("long", @LONG
 在大门上挂者一块黑色的帘子，帘子上绣了个大大的“赌”字，原来
@@ -13,14 +12,14 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"sroad3",
+        "east": __DIR__ "sroad3",
     ]));
-        set("objects", ([
-                "/d/kaifeng/npc/guanbing" : 1,
-                "/d/city/npc/liumang" : 2,
-                "/d/beijing/npc/haoke1" : 2,
-                "/d/beijing/npc/duke" : 3,
-        ]));
+    set("objects", ([
+        "/d/kaifeng/npc/guanbing": 1,
+        "/d/city/npc/liumang": 2,
+        "/d/beijing/npc/haoke1": 2,
+        "/d/beijing/npc/duke": 3,
+    ]));
     setup();
     replace_program(ROOM);
 }

@@ -1,7 +1,6 @@
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("鳌府侍卫", ({ "shi wei", "shi", "wei" }));
     set("age", 22);
     set("gender", "男性");
@@ -25,10 +24,9 @@ void create()
 
     setup();
     carry_object("/d/beijing/npc/obj/blade1")->wield();
-       carry_object("/d/beijing/npc/obj/guanfu6")->wear();
+    carry_object("/d/beijing/npc/obj/guanfu6")->wear();
 }
 
-void unconcious()
-{
-        die();
+void unconcious() {
+    die();
 }

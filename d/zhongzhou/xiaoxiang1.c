@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "小巷");
     set("long", @LONG
 前面看起来好象要到小巷底了，巷中行人越发稀少。西北
@@ -10,8 +9,8 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "northwest" : __DIR__"guandimiao",
-          "east" : __DIR__"xiaoxiang",
+        "northwest": __DIR__ "guandimiao",
+        "east": __DIR__ "xiaoxiang",
     ]));
     set("outdoors", "zhongzhou");
 

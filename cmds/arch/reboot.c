@@ -14,8 +14,7 @@ int last_notice = 0;
 
 int is_rebooting() { return start_reboot != 0; }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string str;
     int n;
     int flag;
@@ -27,14 +26,13 @@ int main(object me, string arg)
         flag = 0;
 
     // memoryd 调用重新启动系统
-    if (flag)
-    {
+    if (flag) {
         n = 10;
         start_reboot = time() + n * 60;
         last_notice = time();
         set_heart_beat(1);
         message_system("系统精灵将在十分钟以后重新启动" + LOCAL_MUD_NAME() + HIW "，"
-                                                                                 "请抓紧时间处理你的人物。");
+            "请抓紧时间处理你的人物。");
 
         return 1;
     }
@@ -42,22 +40,19 @@ int main(object me, string arg)
     if (!SECURITY_D->valid_grant(me, "(arch)"))
         return 0;
 
-    if (!arg)
-    {
+    if (!arg) {
         write("指令格式: reboot [-f] | soon | after <n>\n");
         return 1;
     }
 
     str = me->name(1) + "(" + me->query("id") + ")";
-    if (arg == "-f")
-    {
+    if (arg == "-f") {
         if (!find_object(SECURITY_D) ||
             !find_object(SIMUL_EFUN_OB) ||
             !find_object(MASTER_OB))
             shutdown(0);
 
-        if (!is_root(me))
-        {
+        if (!is_root(me)) {
             write("你没有权限强制停止" + LOCAL_MUD_NAME() + "。\n");
             return 1;
         }
@@ -67,24 +62,19 @@ int main(object me, string arg)
         return 1;
     }
 
-    if (wiz_level(me) < 4 && !flag)
-    {
+    if (wiz_level(me) < 4 && !flag) {
         write("你没有权限重新启动" + LOCAL_MUD_NAME() + "。\n");
         return 1;
     }
 
-    if (sscanf(arg, "after %d", n) != 1)
-    {
-        if (arg != "soon")
-        {
-            if (arg != "cancel")
-            {
+    if (sscanf(arg, "after %d", n) != 1) {
+        if (arg != "soon") {
+            if (arg != "cancel") {
                 write("参数错误，请查看帮助。\n");
                 return 1;
             }
 
-            if (start_reboot)
-            {
+            if (start_reboot) {
                 start_reboot = 0;
                 set_heart_beat(0);
                 message_system(str + "取消了启动，游戏继续进行。");
@@ -99,14 +89,12 @@ int main(object me, string arg)
         reboot_mud();
     }
 
-    if (n < 1)
-    {
+    if (n < 1) {
         write("没有这么短的时间，你不如选择 soon 立刻启动。\n");
         return 1;
     }
 
-    if (n > 10)
-    {
+    if (n > 10) {
         write("这么久？你还是等一会儿再启动吧。\n");
         return 1;
     }
@@ -115,12 +103,11 @@ int main(object me, string arg)
     last_notice = time();
     set_heart_beat(1);
     message_system(str + "决定在" + chinese_number(n) +
-                   "分钟以后重新启动" + LOCAL_MUD_NAME() + "。");
+        "分钟以后重新启动" + LOCAL_MUD_NAME() + "。");
     return 1;
 }
 
-private void heart_beat()
-{
+private void heart_beat() {
     int t;
     int n;
     string str;
@@ -129,8 +116,7 @@ private void heart_beat()
         return;
 
     n = start_reboot - time();
-    if (n < 1)
-    {
+    if (n < 1) {
         reboot_mud();
         return;
     }
@@ -143,27 +129,24 @@ private void heart_beat()
         str += chinese_number(n % 60) + "秒";
 
     t = time() - last_notice;
-    if ((n >= 60 && t >= 60) || (n < 60 && n >= 10 && t >= 10) || n < 10)
-    {
+    if ((n >= 60 && t >= 60) || (n < 60 && n >= 10 && t >= 10) || n < 10) {
         message_system(LOCAL_MUD_NAME() + "将在" +
-                       str + "以后重新启动，请抓紧时间处理你的人物。");
+            str + "以后重新启动，请抓紧时间处理你的人物。");
         last_notice = time();
     }
 }
 
-private void reboot_mud()
-{
+private void reboot_mud() {
     object *user, link_ob;
     int i;
 
     message_system("游戏重新启动，请稍候一分钟再 login 。\n");
 
     user = users();
-    for (i = 0; i < sizeof(user); i++)
-    {
+    for (i = 0; i < sizeof(user); i++) {
         if (!environment(user[i]))
             continue;
-        user[i]->delete ("quest");
+        user[i]->delete("quest");
         user[i]->save();
         link_ob = user[i]->query_temp("link_ob");
         if (objectp(link_ob))
@@ -186,8 +169,7 @@ private void reboot_mud()
     shutdown(0);
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: reboot [-f] | soon | after <n> | cancel
 
@@ -199,6 +181,6 @@ int help (object me)
 
 如果使用了 after 参数，可以使用 cancel 参数中止启动的过程。
 
-HELP );
+HELP);
     return 1;
 }

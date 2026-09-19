@@ -1,4 +1,3 @@
-
 // find.c
 // By jjgod for FYTX.
 
@@ -20,8 +19,7 @@ public string *search_file(string file, string *flist, object me, int raw);
 public string *deep_file_list(string dir);
 string itoa(int i) { return sprintf("%d", i); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string file, dir, flag;
     int raw;
 
@@ -32,8 +30,7 @@ int main(object me, string arg)
     if (!arg)
         return notify_fail("指令格式：find <文件名|内容> in <目录名|文件名> [-c]\n");
 
-    if (sscanf(arg, "%s in %s %s", file, dir, flag) != 3)
-    {
+    if (sscanf(arg, "%s in %s %s", file, dir, flag) != 3) {
         if (sscanf(arg, "%s in %s", file, dir) != 2)
             notify_fail("指令格式：find <文件名|内容> in <目录名|文件名> [-c]\n");
     }
@@ -47,8 +44,7 @@ int main(object me, string arg)
     seteuid(getuid(me));
 
     // 如果是在文件中查找模式
-    if (file_size(dir) >= 0)
-    {
+    if (file_size(dir) >= 0) {
         search_in_file(me, file, dir);
         return 1;
     }
@@ -63,8 +59,7 @@ int main(object me, string arg)
 
 #if ENABLE_BAR
     write(HIR "\n现在系统正在搜索 " + dir + " 目录，稍后汇报。\n\n" NOR HIW "进度：" + process_bar(0) + "\n");
-    if (me)
-    {
+    if (me) {
         me->attach_system();
         me->write_prompt();
     }
@@ -73,8 +68,7 @@ int main(object me, string arg)
     return 1;
 }
 
-void search_dir(object me, string file, string dir, int raw)
-{
+void search_dir(object me, string file, string dir, int raw) {
     int i;
     string *flist, *result;
     string info, file_info, size;
@@ -82,8 +76,7 @@ void search_dir(object me, string file, string dir, int raw)
     // 获得所有的深层目录文件列表
     flist = deep_file_list(dir);
 
-    if (!arrayp(flist) || !sizeof(flist))
-    {
+    if (!arrayp(flist) || !sizeof(flist)) {
         message_system("系统数据处理完毕，请继续游戏。\n" ESC + "[K");
         info = HIR "文件搜索完毕：\n\n" NOR ESC + "[K" HIR "目录 " + dir + " 下并没有可供查找的文件。" NOR;
 
@@ -105,23 +98,20 @@ void search_dir(object me, string file, string dir, int raw)
     if (!sizeof(result))
         info = HIR "文件搜索完毕：\n" + ESC + "[K" + "\n" NOR ESC + "[K" HIR "目录 " + dir + " 下没有找到任何符合要求的文件。\n" NOR ESC + "[K";
 
-    else
-    {
+    else {
         file_info = "";
-        for (i = 0; i < sizeof(result); i++)
-        {
+        for (i = 0; i < sizeof(result); i++) {
             if (eval_cost() < 100)
                 set_eval_limit(0);
 
             size = itoa(file_size(result[i]) / 1000);
             file_info += sprintf(CYN "%-45s " WHT "%4s " CYN " %s\n",
-                                 result[i],
-                                 (size == "0" ? itoa(file_size(result[i])) + "b" : size + "k"),
-                                 CHINESE_D->chinese_time(9, ctime(stat(result[i])[1])), );
+                result[i],
+                (size == "0" ? itoa(file_size(result[i])) + "b" : size + "k"),
+                CHINESE_D->chinese_time(9, ctime(stat(result[i])[1])),);
         }
 
-        info = HIR "文件搜索完毕：\n" + ESC + "[K" + "\n" NOR ESC + "[K" +
-               file_info + NOR + ESC + "[K" HIR "\n一共找到 " + sizeof(result) + " 个文件。" + ESC + "[K" + NOR ESC + "[K\n" + ESC + "[K";
+        info = HIR "文件搜索完毕：\n" + ESC + "[K" + "\n" NOR ESC + "[K" + file_info + NOR + ESC + "[K" HIR "\n一共找到 " + sizeof(result) + " 个文件。" + ESC + "[K" + NOR ESC + "[K\n" + ESC + "[K";
     }
 
     if (me)
@@ -129,54 +119,49 @@ void search_dir(object me, string file, string dir, int raw)
     // message("system", info, me);
 }
 
-string *deep_file_list(string dir)
-{
+string *deep_file_list(string dir) {
     int i;
     string *flist, *result = ({}), file;
 
     flist = get_dir(dir);
 
-    for (i = 0; i < sizeof(flist); i++)
-    {
+    for (i = 0; i < sizeof(flist); i++) {
         file = dir + flist[i];
 
         if (file_size(file + "/") == -2)
             result += deep_file_list(file + "/");
         else
-            result += ({file});
+            result += ({ file });
     }
 
     return result;
 }
 
-string *search_file(string file, string *flist, object me, int raw)
-{
+string *search_file(string file, string *flist, object me, int raw) {
     int i, j;
     string *result = ({}), file_info;
 
-    for (i = 0; i < sizeof(flist); i++)
-    {
+    for (i = 0; i < sizeof(flist); i++) {
 #if ENABLE_BAR
-        message("system", NOR ESC + "[1A" + ESC + "[256D" HIG "进度：" + process_bar((i + 1) * 100 / sizeof(flist)) + "\n" + ESC + "[K", me);
+        message(
+            "system",
+            NOR ESC + "[1A" + ESC + "[256D" HIG "进度：" + process_bar((i + 1) * 100 / sizeof(flist)) + "\n" + ESC + "[K",
+            me
+        );
 #endif
-        if (raw == 0)
-        {
+        if (raw == 0) {
             j = strsrch(flist[i], "/", -1);
             file_info = flist[i][j..(sizeof(flist[i]) - 1)];
 
-            if (file_info == file)
-            {
-                result += ({flist[i]});
+            if (file_info == file) {
+                result += ({ flist[i] });
                 continue;
             }
-            if (strsrch(file_info, file) > -1)
-            {
-                result += ({flist[i]});
+            if (strsrch(file_info, file) > -1) {
+                result += ({ flist[i] });
                 continue;
             }
-        }
-        else
-        {
+        } else {
             // 如果文件本身都没有这个要找的字符串长
             if (file_size(flist[i]) < strlen(file))
                 continue;
@@ -184,9 +169,8 @@ string *search_file(string file, string *flist, object me, int raw)
             if (!read_file(flist[i]))
                 continue;
 
-            if (strsrch(read_file(flist[i]), file) > -1)
-            {
-                result += ({flist[i]});
+            if (strsrch(read_file(flist[i]), file) > -1) {
+                result += ({ flist[i] });
                 continue;
             }
         }
@@ -194,23 +178,20 @@ string *search_file(string file, string *flist, object me, int raw)
     return result;
 }
 
-void search_in_file(object me, string word, string file)
-{
+void search_in_file(object me, string word, string file) {
     string text, info;
     string *lines;
     int line, num, i, count = 0;
 
     seteuid(getuid(me));
-    if (!text = read_file(file))
-    {
+    if (!text = read_file(file)) {
         write(HIR "\n文件 " + file + " 打开失败，可能是因为文件过大。\n" NOR);
         return;
     }
 
-    if (strsrch(text, word) == -1)
-    {
+    if (strsrch(text, word) == -1) {
         write(HIR "\n文件 " + file + " 内部并无包含“" HIW + word +
-              HIR "”字符串。\n" NOR);
+            HIR "”字符串。\n" NOR);
         return;
     }
 
@@ -218,14 +199,12 @@ void search_in_file(object me, string word, string file)
     info = HIR "正在文件 " + file + " 中查找包含 " + word + "\n字符串的内容：\n\n" NOR;
 
     line = sizeof(lines);
-    for (i = 0; i < line; i++)
-    {
+    for (i = 0; i < line; i++) {
         num = strsrch(lines[i], word);
 
-        if (num > -1)
-        {
+        if (num > -1) {
             info += WHT "在第 " + (i + 1) + " 行的第 " + (num + 1) + " 字节处"
-                        "找到指定字符。\n" NOR;
+                "找到指定字符。\n" NOR;
 
             info += CYN "............\n" NOR;
             info += (i - 1) >= 0 ? CYN + lines[i - 1] + "\n" + NOR : "";
@@ -242,8 +221,7 @@ void search_in_file(object me, string word, string file)
     return;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: find <文件名|内容> in <目录名|文件名> [-c]
 
@@ -252,6 +230,6 @@ int help(object me)
 如果加上了 -c 参数则表示查找在指定目录下包含指定内容的文件。
 如果指定的位置是一个文件名，则表示在那个文件中查找包含指定内容
 的行。
-HELP );
+HELP);
     return 1;
 }

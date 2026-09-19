@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "杂货铺");
     set("long", @LONG
 不知为什么洛阳虽大，却只有这一间杂货铺。所以每天人来人往，也
@@ -11,11 +10,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"sroad4",
+        "east": __DIR__ "sroad4",
     ]));
-        set("objects", ([
-                __DIR__"npc/xiao" : 1,
-        ]));
+    set("objects", ([
+        __DIR__ "npc/xiao": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

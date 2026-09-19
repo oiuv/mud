@@ -15,22 +15,18 @@ string *dodge_msg = ({
     "$n陡然使出一式「八面埋伏」，身形由一分二，由二变四，又四为八，犹如鬼魅忽隐忽现，令人难以琢磨。\n"
 });
 
-int valid_enable(string usage)
-{
-        return (usage == "dodge") ||
-               (usage == "move");
+int valid_enable(string usage) {
+    return (usage == "dodge") || (usage == "move");
 }
 
 int valid_learn(object me) { return 1; }
 
-string query_dodge_msg(string limb)
-{
-        return dodge_msg[random(sizeof(dodge_msg))];
+string query_dodge_msg(string limb) {
+    return dodge_msg[random(sizeof(dodge_msg))];
 }
 
-int practice_skill(object me)
-{
-    if( (int)me->query("qi") < 50 )
+int practice_skill(object me) {
+    if ((int)me->query("qi") < 50)
         return notify_fail("你的体力太差了，不能练八卦步。\n");
 
     me->receive_damage("qi", 40);

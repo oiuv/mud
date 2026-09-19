@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "女浴池");
     set("long", @LONG
 这里热气腾腾，烟雾袅绕，一切都在朦胧之中，无法看个真切，微波
@@ -11,11 +10,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "west" : __DIR__"rest2",
+        "west": __DIR__ "rest2",
     ]));
-        set("objects", ([
-                "/d/kaifeng/npc/obj/zaopeng" : 2,
-        ]));
+    set("objects", ([
+        "/d/kaifeng/npc/obj/zaopeng": 2,
+    ]));
     setup();
     replace_program(ROOM);
 }

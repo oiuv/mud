@@ -21,8 +21,7 @@ void set_title(object ob);
 object global_find_player(string user);
 void global_destruct_player(object ob, int raw);
 
-void create()
-{
+void create() {
     seteuid(getuid());
     restore();
 
@@ -36,8 +35,7 @@ void create()
 #define RING_DIR "/data/item/ring/"
 
 // check the user's data when login
-void check_user(object ob)
-{
+void check_user(object ob) {
     mapping my;
     mapping skill_status;
     string *sname;
@@ -49,13 +47,13 @@ void check_user(object ob)
     my = ob->query_entire_dbase();
 
     if (ob->query("family/generation") == 0 || ob->query("family/family_name") == "无门无派")
-        ob->delete ("family");
+        ob->delete("family");
 
     if (ob->query("gender") == "无性")
         ob->set("class", "eunach");
 
     if ((int)ob->query("combat/today/which_day") != time() / 86400)
-        ob->delete ("combat/today");
+        ob->delete("combat/today");
 
     if (mapp(party = my["party"]) && stringp(party["party_name"]))
         party["party_name"] = filter_color(party["party_name"]);
@@ -95,19 +93,16 @@ void check_user(object ob)
         return;
     sname = keys(skill_status);
 
-    for (i = 0; i < sizeof(skill_status); i++)
-    {
+    for (i = 0; i < sizeof(skill_status); i++) {
         level = skill_status[sname[i]];
-        if (file_size(SKILL_D(sname[i]) + ".c") == -1)
-        {
+        if (file_size(SKILL_D(sname[i]) + ".c") == -1) {
             tell_object(ob, "No such skill:" + sname[i] + "\n");
             continue;
         }
 
-        if (SKILL_D(sname[i])->type() == "martial")
-        {
+        if (SKILL_D(sname[i])->type() == "martial") {
             while (level &&
-                   (level - 1) * (level - 1) * (level - 1) / 10 > combat_exp)
+                (level - 1) * (level - 1) * (level - 1) / 10 > combat_exp)
                 level--;
 
             ob->set_skill(sname[i], level);
@@ -119,8 +114,7 @@ void check_user(object ob)
 // when catalog parameter equal to "all", I will remove all
 // the informatino of this user. This may be used when the
 // user was purged.
-string clear_user_data(string user, string cat)
-{
+string clear_user_data(string user, string cat) {
     object login_ob;
     object ob;
     string couple_id;
@@ -143,21 +137,18 @@ string clear_user_data(string user, string cat)
     seteuid(getuid());
     login_ob = 0;
     ob = find_player(user);
-    if (!ob)
-    {
-        login_ob = new (LOGIN_OB);
+    if (!ob) {
+        login_ob = new(LOGIN_OB);
         login_ob->set("id", user);
         ob = LOGIN_D->make_body(login_ob);
-        if (!ob)
-        {
-            catch (destruct(login_ob));
+        if (!ob) {
+            catch(destruct(login_ob));
             return "暂时无法生成玩家对象。\n";
         }
 
-        if (!ob->restore())
-        {
-            catch (destruct(login_ob));
-            catch (destruct(ob));
+        if (!ob->restore()) {
+            catch(destruct(login_ob));
+            catch(destruct(ob));
             return "没有这个玩家。\n";
         }
 
@@ -175,8 +166,7 @@ string clear_user_data(string user, string cat)
 
     // remove room information
     if ((cat == "room" || cat == "all") &&
-        mapp(ob->query("private_room")))
-    {
+        mapp(ob->query("private_room"))) {
         // Demolish the room of the user
         LUBAN->demolish_room(ob);
         flag++;
@@ -184,48 +174,41 @@ string clear_user_data(string user, string cat)
 
     // remove marriage information
     if ((cat == "couple" || cat == "all") &&
-        mapp(ob->query("couple")))
-    {
+        mapp(ob->query("couple"))) {
         // clear the couple infomation
 
         // remove the ring
         file_name = RING_DIR + ob->query("id");
-        if (file_size(file_name + ".c") > 0)
-        {
-            if (temp = find_object(file_name))
-            {
-                if (environment(temp))
-                {
+        if (file_size(file_name + ".c") > 0) {
+            if (temp = find_object(file_name)) {
+                if (environment(temp)) {
                     message("vision", HIM + temp->name() + HIM "忽然化作一缕清烟，不见了！\n" NOR,
-                            environment(temp));
+                        environment(temp));
                 }
             }
             DBASE_D->clear_object(file_name);
         }
 
         couple_id = ob->query("couple/id");
-        ob->delete ("couple");
-        ob->delete ("can_summon/wedding ring");
+        ob->delete("couple");
+        ob->delete("can_summon/wedding ring");
         flag++;
         if (couple_id)
             clear_user_data(couple_id, "couple");
     }
 
     // remove item information
-    if (cat == "item" || cat == "all")
-    {
+    if (cat == "item" || cat == "all") {
         object item;
         // clear the all item
         path = ITEM_DIR + ob->query("id")[0..0] + "/";
         dirs = get_dir(path + ob->query("id") + "-*");
-        for (i = 0; i < sizeof(dirs); i++)
-        {
+        for (i = 0; i < sizeof(dirs); i++) {
             file_name = path + dirs[i];
             if ((item = find_object(file_name)) &&
-                environment(item))
-            {
+                environment(item)) {
                 message("vision", HIM + item->name() + "忽然化作一股轻烟，不见了！\n" NOR,
-                        environment(item));
+                    environment(item));
             }
             DBASE_D->clear_object(file_name);
             rm(file_name);
@@ -233,10 +216,12 @@ string clear_user_data(string user, string cat)
     }
 
     // remove board information
-    if (cat == "board" || cat == "all")
-    {
+    if (cat == "board" || cat == "all") {
         object *rooms;
-        rooms = filter_array(children(CHAT_ROOM), (: clonep($1) && $1->query("owner_id") == $(user) :));
+        rooms = filter_array(
+            children(CHAT_ROOM),
+            (: clonep($1) && $1->query("owner_id") == $(user) :)
+        );
         for (i = 0; i < sizeof(rooms); i++)
             destruct(rooms[i]);
         file_name = DATA_DIR + "board/chatroom_" + user + __SAVE_EXTENSION__;
@@ -244,8 +229,7 @@ string clear_user_data(string user, string cat)
     }
 
     // remove haterd information
-    if (cat == "hatred" || cat == "all")
-    {
+    if (cat == "hatred" || cat == "all") {
         // remove the hatred information about the
         // familys & leagues to this player
         FAMILY_D->remove_hatred(ob->query("id"));
@@ -254,8 +238,7 @@ string clear_user_data(string user, string cat)
 
     // remove brothers information
     if (mapp(bro = ob->query("brothers")) &&
-        (sscanf(cat, "brothers:%s", brothers) == 1 || cat == "all"))
-    {
+        (sscanf(cat, "brothers:%s", brothers) == 1 || cat == "all")) {
         // remove all the brothers information
         if (cat == "all")
             brothers = "all";
@@ -265,20 +248,17 @@ string clear_user_data(string user, string cat)
         // will remove all brothers for this ob, Does it
         // cause a BUG? I won't, because the ID "all"
         // can not be registered for this MUD.
-        if (brothers == "all")
-        {
+        if (brothers == "all") {
             foreach (bro_id in keys(bro))
                 // remove my brother's data for me
                 clear_user_data(bro_id, "brothers:" + ob->query("id"));
 
-            ob->delete ("brothers");
-        }
-        else if (!undefinedp(bro[brothers]) != -1)
-        {
+            ob->delete("brothers");
+        } else if (!undefinedp(bro[brothers]) != -1) {
             // remove this brother
             map_delete(bro, brothers);
             if (sizeof(bro) < 1)
-                ob->delete ("brothers");
+                ob->delete("brothers");
             else
                 ob->set("brothers", bro);
         }
@@ -286,11 +266,10 @@ string clear_user_data(string user, string cat)
     }
 
     // remove league information
-    if (cat == "league" || cat == "all")
-    {
+    if (cat == "league" || cat == "all") {
         // remove the user's league info
         LEAGUE_D->remove_member_from_league(ob);
-        ob->delete ("league");
+        ob->delete("league");
     }
 
     // remove title information
@@ -301,32 +280,28 @@ string clear_user_data(string user, string cat)
     if (flag)
         ob->save();
     // 删除数据库缓存
-    if (env("CACHE_DATA"))
-    {
+    if (env("CACHE_DATA")) {
         CACHE_D->delete(ob);
     }
     // Destrut the object if create temporate
-    if (login_ob)
-    {
-        catch (destruct(login_ob));
-        catch (destruct(ob));
+    if (login_ob) {
+        catch(destruct(login_ob));
+        catch(destruct(ob));
     }
 
     return "成功。\n";
 }
 
 // remove an user
-string remove_user(string user)
-{
+string remove_user(string user) {
     object ob;
     string result;
 
     // destruct the user object
-    if (ob = find_player(user))
-    {
+    if (ob = find_player(user)) {
         if (ob->query_temp("link_ob"))
-            catch (destruct(ob->query_temp("link_ob")));
-        catch (destruct(ob));
+            catch(destruct(ob->query_temp("link_ob")));
+        catch(destruct(ob));
     }
 
     // Remove the user from wizlist if the user was wizard
@@ -341,8 +316,7 @@ string remove_user(string user)
 }
 
 // user born
-void born_player(object me)
-{
+void born_player(object me) {
     mixed files;
     int i;
     string special;
@@ -352,49 +326,48 @@ void born_player(object me)
 
     // 查看所有的特殊技能文件
     files = get_dir("/kungfu/special/");
-    me->delete ("special_skill");
+    me->delete("special_skill");
 
-    if (sizeof(files))
-    {
+    if (sizeof(files)) {
         // 整理所有的技能文件
         for (i = 0; i < sizeof(files); i++)
             sscanf(files[i], "%s.c", files[i]);
 
         // 去除转世特技和特殊技能;因取消师门药品奖励，故去除本草知识
-        files -= ({"guibian", "guimai", "jinshen", "piyi", "lighting",
-                   "qinzong", "wuxing", "shenyan", "tiandao",
-                   "herb", "wrach", "trick"});
+        files -= ({ "guibian", "guimai", "jinshen", "piyi", "lighting",
+            "qinzong", "wuxing", "shenyan", "tiandao",
+            "herb", "wrach", "trick" });
 
         // 性格不符不会愤怒之心
         if (me->query("character") != "光明磊落" && me->query("character") != "心狠手辣")
-            files -= ({"wrath"});
+            files -= ({ "wrath" });
         // 性格不符不会鬼话连篇
         if (me->query("character") != "狡黠多变" && me->query("character") != "阴险奸诈")
-            files -= ({"trick"});
+            files -= ({ "trick" });
 
         // 先天膂力 < 20 不会麒麟血臂
         if (me->query("str") < 20)
-            files -= ({"strength"});
+            files -= ({ "strength" });
 
         // 先天悟性 < 20 不会罡睿神慧
         if (me->query("int") < 20)
-            files -= ({"intellect"});
+            files -= ({ "intellect" });
 
         // 先天根骨 < 20 不会镇蕴七星
         if (me->query("con") < 20)
-            files -= ({"constitution"});
+            files -= ({ "constitution" });
 
         // 先天身法 < 20 不会玲珑玉躯
         if (me->query("dex") < 20)
-            files -= ({"dexterity"});
+            files -= ({ "dexterity" });
 
         // 先天容貌 < 20 不会天颜永驻
         if (me->query("per") < 20)
-            files -= ({"youth"});
+            files -= ({ "youth" });
 
         // 先天悟性 < 20 不会天赋聪颖
         if (me->query("int") < 20)
-            files -= ({"clever"});
+            files -= ({ "clever" });
 
         // 获得第一项技能
         special = files[random(sizeof(files))];
@@ -402,18 +375,16 @@ void born_player(object me)
 
         msg += SPECIAL_D(special)->name();
 
-        files -= ({special});
+        files -= ({ special });
 
-        if (sizeof(files))
-        {
+        if (sizeof(files)) {
             // 获得第二项技能
             special = files[random(sizeof(files))];
             me->set("special_skill/" + special, 1);
             msg += HIG "、" NOR + SPECIAL_D(special)->name();
 
-            files -= ({special});
-            if (sizeof(files))
-            {
+            files -= ({ special });
+            if (sizeof(files)) {
                 // 获得第三项技能
                 special = files[random(sizeof(files))];
                 me->set("special_skill/" + special, 1);
@@ -438,15 +409,14 @@ void born_player(object me)
             me->add("dex", 2);
 
         msg += HIG "。\n" NOR + HIC "如果你对此有任何疑问，可以重新"
-                                    "阅读天赋属性(" HIY "help gift" NOR +
-               HIC ")介绍。\n" NOR;
+            "阅读天赋属性(" HIY "help gift" NOR +
+            HIC ")介绍。\n" NOR;
         me->start_call_out((: call_other, __FILE__, "notice_player", me, msg :), 0);
     }
 }
 
 // 转世重生 by 薪有所属
-void zhuan_player(object me)
-{
+void zhuan_player(object me) {
     mixed files;
     string special;
     string msg;
@@ -460,97 +430,97 @@ void zhuan_player(object me)
 
     //转世清除记录delete
     me->set_name();          // 重置姓名
-    me->delete ("couple");   // 家庭记录
-    me->delete ("sex");      // 做爱记录
-    me->delete ("brothers"); // 结拜兄弟
-    me->delete ("bunch");    // 帮派记录
-    me->delete ("league");   // 同盟记录
-    me->delete ("family");   // 门派记录
+    me->delete("couple");   // 家庭记录
+    me->delete("sex");      // 做爱记录
+    me->delete("brothers");  // 结拜兄弟
+    me->delete("bunch");    // 帮派记录
+    me->delete("league");   // 同盟记录
+    me->delete("family");   // 门派记录
 
-    me->delete ("class");    // 称号记录
-    me->delete ("detach");   // 脱离记录
-    me->delete ("betrayer"); // 叛师记录
-    me->delete ("long");     // 个人描述
+    me->delete("class");    // 称号记录
+    me->delete("detach");   // 脱离记录
+    me->delete("betrayer");  // 叛师记录
+    me->delete("long");     // 个人描述
     //新增转世清除世家
-    me->delete ("born_family");
+    me->delete("born_family");
 
-    me->delete ("combat");    // PK  记录
-    me->delete ("animaout");  // 元婴出世
-    me->delete ("breakup");   // 任督二脉
-    me->delete ("can_learn"); // 技能解密
-    me->delete ("can_make");  // 制药记录
+    me->delete("combat");    // PK  记录
+    me->delete("animaout");  // 元婴出世
+    me->delete("breakup");   // 任督二脉
+    me->delete("can_learn");  // 技能解密
+    me->delete("can_make");  // 制药记录
 
-    me->delete ("env");        // 个人设定
-    me->delete ("gift");       // 吃丹记录（含九转）
-    me->delete ("opinion");    // 评价记录
-    me->delete ("opinions");   // 宗师身份
-    me->delete ("out_family"); // 出师历练
+    me->delete("env");        // 个人设定
+    me->delete("gift");       // 吃丹记录（含九转）
+    me->delete("opinion");    // 评价记录
+    me->delete("opinions");   // 宗师身份
+    me->delete("out_family");  // 出师历练
 
-    me->delete ("quest");       // 门派任务
-    me->delete ("quest_count"); // 门派任务
-    me->delete ("map");         // 地图标志
-    me->delete ("rumor");       // 事件记录
-    me->delete ("schedule");    // 计划记录
-    me->delete ("skybook");     // 天书记录（三丹记录）
+    me->delete("quest");       // 门派任务
+    me->delete("quest_count");  // 门派任务
+    me->delete("map");         // 地图标志
+    me->delete("rumor");       // 事件记录
+    me->delete("schedule");    // 计划记录
+    me->delete("skybook");     // 天书记录（三丹记录）
 
-    me->delete ("luohan_winner"); // 过阵记录
-    me->delete ("story");         // 中的故事
+    me->delete("luohan_winner");  // 过阵记录
+    me->delete("story");         // 中的故事
 
-    me->delete ("DiZangPass");   // 转世任务
-    me->delete ("HellZhenPass"); // 转世任务
-    me->delete ("SkyPass");      // 转世任务
-    me->delete ("over_quest");   // 转世任务
+    me->delete("DiZangPass");   // 转世任务
+    me->delete("HellZhenPass");  // 转世任务
+    me->delete("SkyPass");      // 转世任务
+    me->delete("over_quest");   // 转世任务
 
     //获取转生前门派，用于脱离时无损判断 by 薪有所属
     menpai1 = me->query("family/family_name");
     //(取消无损背叛师门)
     //me->set("old_family_name",menpai1);
     me->set("reborn/family/" + menpai1, 1);
-    me->delete ("reborn/family/mark"); //删除门派脱离记录
-    me->delete ("mark");               //删除郭府打工记录
-    me->delete ("family");             // 门派记录
+    me->delete("reborn/family/mark");  //删除门派脱离记录
+    me->delete("mark");               //删除郭府打工记录
+    me->delete("family");             // 门派记录
 
     //转世set
     me->set("title", "江湖游侠");              // 个人称号
     me->set("character", "国士无双");          // 转世性格
     // me->set("family/family_name", "侠客盟"); //设定转世后默认散人
     //补充 by 薪有所属
-    me->delete ("tattoo"); // 刺青记录
+    me->delete("tattoo");  // 刺青记录
     //me->delete("special_skill");            // 特技记录
-    me->delete ("can_learned");  // 技能解密2(太玄)
-    me->delete ("mirror_task");  // task记录
-    me->delete ("mirror_count"); // task记录
+    me->delete("can_learned");  // 技能解密2(太玄)
+    me->delete("mirror_task");  // task记录
+    me->delete("mirror_count");  // task记录
 
-    me->delete ("death"); // 生死玄关
+    me->delete("death");  // 生死玄关
 
-    me->delete ("can_perform"); //武功绝招
+    me->delete("can_perform");  //武功绝招
 
-    me->delete ("learned_literate"); //学过读书写字
+    me->delete("learned_literate");  //学过读书写字
 
     me->set("gongxian", 0);           //贡献清零
     me->set("score", 0);              //阅历清零
     me->set("weiwang", 0);            //威望清零
     me->set("experience", 0);         //体会清零
-    me->set("learned_experience", 0); //体会清零
+    me->set("learned_experience", 0);  //体会清零
 
-    me->set("max_neili", 0); //内力清零
+    me->set("max_neili", 0);  //内力清零
     me->set("neili", 0);     //内力清零
     me->set("jiali", 0);
 
-    me->set("max_jingli", 0); //精力清零
+    me->set("max_jingli", 0);  //精力清零
     me->set("jingli", 0);     //精力清零
     me->set("jiajing", 0);    //精力清零
 
     me->set("shen", 0);           //神清零
     me->set("combat_exp", 0);     //经验清零
-    me->set("learned_points", 0); //潜能清零
+    me->set("learned_points", 0);  //潜能清零
     me->set("potential", 0);      //潜能清零
     me->set("magic_learned", 0);  //灵慧清零
     me->set("magic_points", 0);   //灵慧清零
 
     //me->set("static/marry",0);      //黯然记录
     //me->set("static/sadly",0);      //黯然记录
-    me->delete ("static"); //黯然记录
+    me->delete("static");  //黯然记录
 
     //hp set
     me->set("max_qi", 100);
@@ -568,8 +538,7 @@ void zhuan_player(object me)
 
     //判断是否有技能，有技能才清除技能。否则没技能时原清除技能代码会报错。 by 薪有所属
     //虽说正常转世肯定不会0技能，但完全可以最后一步放弃所有技能。。。
-    if (all_skills)
-    {
+    if (all_skills) {
         skills = keys(all_skills);
         //skills清零
         for (i = 0; i < sizeof(skills); i++)
@@ -577,26 +546,22 @@ void zhuan_player(object me)
     }
     //me->set("reborn", 1);
     me->add("reborn/count", 1);
-    me->add("reborn/point", 1); //转世获得洗点1
+    me->add("reborn/point", 1);  //转世获得洗点1
 
     //新增转世获得后天九转
-    if (random(2))
-    {
+    if (random(2)) {
         write(HIM "臂力+1\n" NOR);
         me->add("reborn/str", 1);
     }
-    if (random(2))
-    {
+    if (random(2)) {
         write(HIM "根骨+1\n" NOR);
         me->add("reborn/con", 1);
     }
-    if (random(2))
-    {
+    if (random(2)) {
         write(HIM "悟性+1\n" NOR);
         me->add("reborn/int", 1);
     }
-    if (random(2))
-    {
+    if (random(2)) {
         write(HIM "身法+1\n" NOR);
         me->add("reborn/dex", 1);
     }
@@ -623,11 +588,9 @@ void zhuan_player(object me)
         "might",
     });
 
-    for (i = 0; i < sizeof(files); i++)
-    {
-        if (me->query("special_skill/" + files[i]))
-        {
-            files -= ({files[i]});
+    for (i = 0; i < sizeof(files); i++) {
+        if (me->query("special_skill/" + files[i])) {
+            files -= ({ files[i] });
             i--;
         }
     }
@@ -637,7 +600,11 @@ void zhuan_player(object me)
     me->set("special_skill/" + special, 1);
     msg += SPECIAL_D(special)->name() + HIG "、" NOR;
 
-    message("channel:rumor", HIR "【转世重生】" + me->query("name") + "获得普通技能--" + SPECIAL_D(special)->name() + HIR "！\n" NOR, users());
+    message(
+        "channel:rumor",
+        HIR "【转世重生】" + me->query("name") + "获得普通技能--" + SPECIAL_D(special)->name() + HIR "！\n" NOR,
+        users()
+    );
 
     // 查看所有的转世特殊技能文件
     files = ({
@@ -652,26 +619,24 @@ void zhuan_player(object me)
     });
 
     //转世固定赠送神眼特技，故随机时神眼特技先行排除
-    files -= ({"shenyan"});
+    files -= ({ "shenyan" });
 
     //转世先天悟性小于16时直接赠送互搏特技，先天悟性在16（含）至25（含）之间时有机率随机到互搏特技
     //先天悟性26（含）以上时不会随机到互搏特技 by 薪有所属
     if (me->query("int") < 16 || me->query("int") > 25)
-        files -= ({"tiandao"});
+        files -= ({ "tiandao" });
 
     //转世先天悟性小于35点不会随机到count特技 by 薪有所属
     if (me->query("int") < 35 || me->query("special_skill/tiandao"))
-        files -= ({"qinzong"});
+        files -= ({ "qinzong" });
 
     //转世int<22或dex<26,极限也无法达到葵花要求时不给鬼脉特技 2017-03-29
     if (me->query("int") < 22 || me->query("dex") < 26)
-        files -= ({"guimai"});
+        files -= ({ "guimai" });
 
-    for (i = 0; i < sizeof(files); i++)
-    {
-        if (me->query("special_skill/" + files[i]))
-        {
-            files -= ({files[i]});
+    for (i = 0; i < sizeof(files); i++) {
+        if (me->query("special_skill/" + files[i])) {
+            files -= ({ files[i] });
             i--;
         }
     }
@@ -681,26 +646,26 @@ void zhuan_player(object me)
     me->set("special_skill/" + special, 1);
     msg += SPECIAL_D(special)->name();
 
-    message("channel:rumor", HIR "【转世重生】" + me->query("name") + "获得转世技能--" + SPECIAL_D(special)->name() + HIR "！\n" NOR, users());
+    message(
+        "channel:rumor",
+        HIR "【转世重生】" + me->query("name") + "获得转世技能--" + SPECIAL_D(special)->name() + HIR "！\n" NOR,
+        users()
+    );
 
-    if (me->query("int") < 16 && !me->query("special_skill/tiandao"))
-    {
+    if (me->query("int") < 16 && !me->query("special_skill/tiandao")) {
         me->set("special_skill/tiandao", 1);
         msg += HIG "、" NOR + HIG "天道酬勤" NOR;
-    }
-    else if (!me->query("special_skill/clever"))
-    {
+    } else if (!me->query("special_skill/clever")) {
         me->set("special_skill/clever", 1);
         msg += HIG "、" NOR + HIM "天赋聪颖" NOR;
     }
 
-    if (!me->query("special_skill/shenyan"))
-    {
+    if (!me->query("special_skill/shenyan")) {
         me->set("special_skill/shenyan", 1);
         msg += HIG "、" NOR + SPECIAL_D("shenyan")->name();
     }
     msg += HIG "。\n" NOR;
-/*
+    /*
     if (me->query("per") < 20)
         me->set("per",20);
 
@@ -745,14 +710,12 @@ void zhuan_player(object me)
 }
 
 // notice user a piece of message, delay call by born user
-void notice_player(object me, string msg)
-{
+void notice_player(object me, string msg) {
     tell_object(me, msg);
 }
 
 // query title dbase
-mixed query_title_base()
-{
+mixed query_title_base() {
     if (!is_root(previous_object()))
         return 0;
 
@@ -760,8 +723,7 @@ mixed query_title_base()
 }
 
 // set title dbase
-mixed set_title_base(mixed ts)
-{
+mixed set_title_base(mixed ts) {
     if (!is_root(previous_object()))
         return 0;
 
@@ -769,18 +731,16 @@ mixed set_title_base(mixed ts)
 }
 
 // 清除某个玩家的 title
-void remove_title(object ob)
-{
+void remove_title(object ob) {
     int i;
 
     if (!arrayp(title_base) || !ob->query("granted_title"))
         return;
 
     ob->delete_temp("title");
-    ob->delete ("granted_title");
+    ob->delete("granted_title");
 
-    for (i = 0; i < sizeof(title_base); i++)
-    {
+    for (i = 0; i < sizeof(title_base); i++) {
         // 搜索所有的 title
         if (title_base[i][1] == ob->query("id"))
             // 去掉title
@@ -791,8 +751,7 @@ void remove_title(object ob)
 }
 
 // 设置某个玩家的 title
-void set_title(object ob)
-{
+void set_title(object ob) {
     string id;
     int i;
 
@@ -801,15 +760,14 @@ void set_title(object ob)
 
     id = ob->query("id");
     for (i = 0; i < sizeof(title_base); i++)
-        if (title_base[i][1] == id)
-        {
+        if (title_base[i][1] == id) {
             // 加上title
             ob->set_temp("title", title_base[i][0]);
             return;
         }
 
     // 这个用户并没有分配的称号
-    ob->delete ("granted_title");
+    ob->delete("granted_title");
 }
 
 // 寻找或调入某一个玩家
@@ -817,43 +775,40 @@ void set_title(object ob)
 // 将这个玩家调入并且进行修改，请注意：修改完毕以后程序必须
 // 保存玩家，并且使用 global_destruct_player 将玩家析构，如
 // 果没有调用这个函数，则赋予玩家的定时器会自动析构玩家。
-object global_find_player(string user)
-{
+object global_find_player(string user) {
     object ob;
     object login_ob;
 
     ob = find_player(user);
-    if (!ob)
-    {
-        login_ob = new (LOGIN_OB);
+    if (!ob) {
+        login_ob = new(LOGIN_OB);
         login_ob->set("id", user);
         ob = LOGIN_D->make_body(login_ob);
-        if (!ob)
-        {
-            catch (destruct(login_ob));
+        if (!ob) {
+            catch(destruct(login_ob));
             return 0;
         }
 
-        if (!ob->restore())
-        {
-            catch (destruct(login_ob));
-            catch (destruct(ob));
+        if (!ob->restore()) {
+            catch(destruct(login_ob));
+            catch(destruct(ob));
             return 0;
         }
 
         ob->set_temp("temp_loaded", 1);
-        ob->start_call_out(bind((: call_other, __FILE__, "global_destruct_player", ob, 0 :), ob), 0);
-        catch (destruct(login_ob));
+        ob->start_call_out(
+            bind((: call_other, __FILE__, "global_destruct_player", ob, 0 :), ob),
+            0
+        );
+        catch(destruct(login_ob));
     }
 
     return ob;
 }
 
 // 析构一个被 UPDATE_D 调入的玩家
-void global_destruct_player(object ob, int raw)
-{
-    if (objectp(ob) && ob->query_temp("temp_loaded"))
-    {
+void global_destruct_player(object ob, int raw) {
+    if (objectp(ob) && ob->query_temp("temp_loaded")) {
         if (raw)
             ob->save();
         destruct(ob);

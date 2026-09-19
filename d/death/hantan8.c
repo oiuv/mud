@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", HIB "【碧水寒潭】" NOR);
     set("long", HIB @LONG
 
@@ -14,33 +13,31 @@ void create()
 你前方豁然出现一个深不见底的岩洞，从洞内传出阵阵吼声。
 
 
-LONG NOR );
+LONG NOR);
 
     set("exits", ([
-        "in"    : __DIR__"qinglongtan",
-        "east"  : __DIR__"hantan1",
-        "west"  : __DIR__"hantan1",
-        "south" : __DIR__"hantan1",
-        "north" : __DIR__"hantan1",
+        "in": __DIR__ "qinglongtan",
+        "east": __DIR__ "hantan1",
+        "west": __DIR__ "hantan1",
+        "south": __DIR__ "hantan1",
+        "north": __DIR__ "hantan1",
     ]));
     set("no_clean_up", 0);
     setup();
 }
 
-void init()
-{
+void init() {
     object me;
     int meqi, meneili, decqi, mq;
     me = this_player();
 
-    if (present("diyin xuemai", me))
-    {
+    if (present("diyin xuemai", me)) {
         tell_object(me, RED "你怀中的地阴血脉发出一阵阵热量，护住了周身的"
-                            "经脉！\n" NOR);
+            "经脉！\n" NOR);
         return 0;
     }
     tell_object(me, HIW "你身陷碧水寒潭，潭中寒冰削肉刮骨，你"
-                        "只觉浑身血液都被冻住一般！\n" NOR);
+        "只觉浑身血液都被冻住一般！\n" NOR);
     meqi = (int)me->query("qi");
     meneili = (int)me->query("neili");
     mq = (int)me->query("max_qi");
@@ -48,12 +45,9 @@ void init()
     meqi = meqi - decqi;
     me->set("neili", 0);
 
-    if (meqi > 0)
-    {
+    if (meqi > 0) {
         me->set("qi", meqi);
-    }
-    else
-    {
+    } else {
         me->set_temp("die_reason", "在碧水寒潭给活活冻死了");
         me->die();
     }

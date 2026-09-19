@@ -3,10 +3,9 @@
 inherit NPC;
 inherit F_DEALER;
 
-void create()
-{
-      set_name("巫攀冰", ({ "wu panbing", "wu", "panbing"}));
-      set("gender","男性");
+void create() {
+    set_name("巫攀冰", ({ "wu panbing", "wu", "panbing" }));
+    set("gender", "男性");
     set("age", 56);
     set("title", "药铺老板");
     set("combat_exp", 6000);
@@ -22,20 +21,19 @@ void create()
     }));
     setup();
     carry_object("/clone/misc/cloth")->wear();
-        carry_object("/clone/book/mbook1");
-        carry_object("/clone/book/mbook1");
-        carry_object("/clone/book/mbook1");
-        carry_object("/clone/book/mbook1");
-        carry_object("/clone/book/mbook1");
-        carry_object("/clone/book/mbook2");
-        carry_object("/clone/book/mbook2");
-        carry_object("/clone/book/mbook2");
-        carry_object("/clone/book/mbook2");
-        carry_object("/clone/book/mbook2");
+    carry_object("/clone/book/mbook1");
+    carry_object("/clone/book/mbook1");
+    carry_object("/clone/book/mbook1");
+    carry_object("/clone/book/mbook1");
+    carry_object("/clone/book/mbook1");
+    carry_object("/clone/book/mbook2");
+    carry_object("/clone/book/mbook2");
+    carry_object("/clone/book/mbook2");
+    carry_object("/clone/book/mbook2");
+    carry_object("/clone/book/mbook2");
 }
 
-void init()
-{
-        add_action("do_buy", "buy");
-        add_action("do_list", "list");
+void init() {
+    add_action("do_buy", "buy");
+    add_action("do_list", "list");
 }

@@ -4,12 +4,10 @@ inherit F_CLEAN_UP;
 
 int help(object me);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int wmp;
 
-    if (!arg)
-    {
+    if (!arg) {
         write("你现在的当「气」低於 " + (int)me->query("env/wimpy") + "% 时就会尝试逃跑。\n");
         return 1;
     }
@@ -21,8 +19,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式： wimpy [<逃跑时「气」的百分比>]
 

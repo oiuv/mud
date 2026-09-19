@@ -9,18 +9,16 @@
 
 mapping search = ([]);
 
-void rehash(string dir)
-{
+void rehash(string dir) {
     int i;
     string path;
     string *cmds;
     mapping cmdlist;
     string alias;
 
-    if (!sscanf(dir, "/cmds/%s", path) && !sscanf(dir, "/mudcore/cmds/%s", path))
-    {
+    if (!sscanf(dir, "/cmds/%s", path) && !sscanf(dir, "/mudcore/cmds/%s", path)) {
         write("The path(" + dir + ")was not command path, "
-                                  "operation was failed.\n");
+            "operation was failed.\n");
         return;
     }
 
@@ -38,8 +36,7 @@ void rehash(string dir)
     // 取所有命令的别名
     i = sizeof(cmds);
     while (i--)
-        if (sscanf(cmds[i], "%s.alias", cmds[i]))
-        {
+        if (sscanf(cmds[i], "%s.alias", cmds[i])) {
             alias = read_file(dir + cmds[i] + ".alias", 1, 1);
             alias = replace_string(alias, "\n", "");
             alias = replace_string(alias, "\r", "");
@@ -52,8 +49,7 @@ void rehash(string dir)
         search[dir] = cmdlist;
 }
 
-string find_command(string verb, string *path)
-{
+string find_command(string verb, string *path) {
     int i;
     string file;
     mapping current;
@@ -61,10 +57,8 @@ string find_command(string verb, string *path)
     if (!pointerp(path))
         return 0;
 
-    for (i = 0; i < sizeof(path); i++)
-    {
-        if (undefinedp(current = search[path[i]]))
-        {
+    for (i = 0; i < sizeof(path); i++) {
+        if (undefinedp(current = search[path[i]])) {
             rehash(path[i]);
             if (undefinedp(current = search[path[i]]))
                 continue;

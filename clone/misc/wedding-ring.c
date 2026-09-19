@@ -2,8 +2,7 @@
 
 #include "/clone/misc/wedding-ring.h"
 
-void setup()
-{
-        set("long", "LONG_DESCRIPTION");
-        ::setup();
+void setup() {
+    set("long", "LONG_DESCRIPTION");
+    ::setup();
 }

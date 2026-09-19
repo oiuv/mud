@@ -3,20 +3,18 @@
 
 inherit CLOTH;
 
-void create()
-{
-        set_name( HIY "镶边黄马褂" NOR, ({ "huang magua", "cloth" }) );
-        set_weight(3000);
-        if( clonep() )
-                set_default_object(__FILE__);
-        else {
-                set("unit", "件");
-                set("long", "皇上御赐的黄马褂。\n");
-                set("value", 1500);
-                set("no_sell", "这，这可不敢买！");
-                set("material", "cloth");
-                set("armor_prop/armor", 18);
-        }
-        setup();
+void create() {
+    set_name(HIY "镶边黄马褂" NOR, ({ "huang magua", "cloth" }));
+    set_weight(3000);
+    if (clonep())
+        set_default_object(__FILE__);
+    else {
+        set("unit", "件");
+        set("long", "皇上御赐的黄马褂。\n");
+        set("value", 1500);
+        set("no_sell", "这，这可不敢买！");
+        set("material", "cloth");
+        set("armor_prop/armor", 18);
+    }
+    setup();
 }
-

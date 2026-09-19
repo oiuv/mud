@@ -5,8 +5,7 @@
 inherit F_CLEAN_UP;
 int help(object me);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     mapping emote;
     string *e, *loop;
     string result;
@@ -16,14 +15,12 @@ int main(object me, string arg)
         return 0;
 
     count = 0;
-    loop = keys(EMOTE_D->query_emote("kok")) - ({"time", "updated"});
+    loop = keys(EMOTE_D->query_emote("kok")) - ({ "time", "updated" });
     write(sprintf("替代索引：%O\n", loop));
-    foreach (e in EMOTE_D->query_all_emote())
-    {
+    foreach (e in EMOTE_D->query_all_emote()) {
         count++;
         emote = EMOTE_D->query_emote(e);
-        for (int j = 0; j < sizeof(loop); j++)
-        {
+        for (int j = 0; j < sizeof(loop); j++) {
             result = emote[loop[j]];
             if (!result)
                 continue;
@@ -55,12 +52,11 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : replace in emote
 
 功能：替换emote中所有的英文标点符号为中文标点符号。
-HELP );
+HELP);
     return 1;
 }

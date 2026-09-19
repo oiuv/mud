@@ -8,13 +8,11 @@
 inherit F_CLEAN_UP;
 
 // 从 masterd.c 获取有效技能类型
-string *query_valid_types()
-{
+string *query_valid_types() {
     return MASTER_D->query_valid_types();
 }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string file, dir, filename;
     string msg, msg1;
     int i, j, l, is_force;
@@ -22,17 +20,16 @@ int main(object me, string arg)
 
     seteuid(getuid());
 
-    if (! arg)
+    if (!arg)
         return notify_fail("指令格式：skill  <技能名称> | <技能中文名>\n");
 
-    if (! stringp(file = SKILL_D(arg)) || file_size(file + ".c") <= 0)
-    {
+    if (!stringp(file = SKILL_D(arg)) || file_size(file + ".c") <= 0) {
         // 英文的找不到？那就找中文名
-        if (! stringp(arg = CHINESE_D->find_skill(arg)))
+        if (!stringp(arg = CHINESE_D->find_skill(arg)))
             return notify_fail("没有这种技能存在。\n");
 
         // 根据中文名找到了英文名，看看是否真的有此技能
-        if (! stringp(file = SKILL_D(arg)) || file_size(file + ".c") <= 0)
+        if (!stringp(file = SKILL_D(arg)) || file_size(file + ".c") <= 0)
             return notify_fail("没有这种技能存在。\n");
     }
 
@@ -46,16 +43,14 @@ int main(object me, string arg)
     if (SKILL_D(arg)->valid_enable("force"))
         is_force = 1;
 
-    if (member_array(arg, query_valid_types()) != -1)
-    {
+    if (member_array(arg, query_valid_types()) != -1) {
         msg += WHT "  武功所属：  " HIG "基本武功\n" NOR;
         msg += HIC "≡" HIY "----------------------------------------------" HIC "≡\n" NOR;
         write(msg);
         return 1;
     }
 
-    if (! wizardp(me) && me->query_skill(arg) <= 0)
-    {
+    if (!wizardp(me) && me->query_skill(arg) <= 0) {
         msg += HIC "≡" HIY "----------------------------------------------" HIC "≡\n" NOR;
         write(msg);
         return 1;
@@ -74,26 +69,21 @@ int main(object me, string arg)
 
     if (file_size(dir) != -2)
         msg1 += "";
-    else
-    {
+    else {
         all_file = get_dir(dir);
-        if (! sizeof(all_file))
+        if (!sizeof(all_file))
             msg1 += "";
-        else
-        {
-            for (i = 0; i < sizeof(all_file); i++)
-            {
+        else {
+            for (i = 0; i < sizeof(all_file); i++) {
                 filename = all_file[i];
                 l = strlen(filename);
-                if (filename[l - 1] == 'c' && filename[l - 2] == '.')
-                {
+                if (filename[l - 1] == 'c' && filename[l - 2] == '.') {
                     j++;
-                    msg1 += sprintf(HIY "%s  " NOR, filename[0..l-3]);
+                    msg1 += sprintf(HIY "%s  " NOR, filename[0..l - 3]);
                 }
             }
 
-            if (msg1 != "")
-            {
+            if (msg1 != "") {
                 msg += WHT "  武功绝招：  " NOR;
                 msg += msg1;
                 msg += "\n";
@@ -102,8 +92,7 @@ int main(object me, string arg)
     }
 
     // 查询内功的 exert 情况
-    if (! is_force)
-    {
+    if (!is_force) {
         msg += HIC "≡" HIY "----------------------------------------------" HIC "≡\n" NOR;
         write(msg);
         return 1;
@@ -121,32 +110,27 @@ int main(object me, string arg)
         all_file = get_dir(dir + "exert/");
     else if (file_size(dir) == -2)
         all_file = get_dir(dir);
-    else
-    {
+    else {
         msg += HIC "≡" HIY "----------------------------------------------" HIC "≡\n" NOR;
         write(msg);
         return 1;
     }
 
-    if (! sizeof(all_file))
-    {
+    if (!sizeof(all_file)) {
         write(msg);
         return 1;
     }
 
-    for (i = 0; i < sizeof(all_file); i++)
-    {
+    for (i = 0; i < sizeof(all_file); i++) {
         filename = all_file[i];
         l = strlen(filename);
-        if (filename[l - 1] == 'c' && filename[l - 2] == '.')
-        {
+        if (filename[l - 1] == 'c' && filename[l - 2] == '.') {
             j++;
-            msg1 += sprintf(HIW "%s  " NOR, filename[0..l-3]);
+            msg1 += sprintf(HIW "%s  " NOR, filename[0..l - 3]);
         }
     }
 
-    if (msg1 != "")
-    {
+    if (msg1 != "") {
         msg += WHT "  内功功能：  " NOR;
         msg += msg1;
         msg += "\n";
@@ -157,8 +141,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：skill  <技能名称> | <技能中文名>
 

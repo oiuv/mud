@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("冯正东", ({ "feng zhengdong", "feng" }));
     set("title", "苏州知府");
     set("gender", "男性");

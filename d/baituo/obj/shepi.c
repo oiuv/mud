@@ -4,11 +4,10 @@
 
 inherit CLOTH;
 
-void create()
-{
-    set_name( "蛇皮", ({ "she pi", "pi" }) );
+void create() {
+    set_name("蛇皮", ({ "she pi", "pi" }));
     set_weight(1000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "件");

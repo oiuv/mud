@@ -3,8 +3,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("清缘比丘", ({
         "qingyuan biqiu",
         "qingyuan",
@@ -55,37 +54,34 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/qing-cloth")->wear();
+    carry_object("/d/shaolin/obj/qing-cloth")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
 
     ::init();
-    if( interactive(ob = this_player()) ) {
+    if (interactive(ob = this_player())) {
         remove_call_out("speaking");
         call_out("speaking", 1, ob);
     }
 }
 
-void speaking(object ob)
-{
-    if ( random(5) < 1 )
-    {
-        switch( random(4) ) {
-        case 0:
-                       command("say 百年前的一场大火，整个少林寺就除这监牢和北边的钟楼没遭灾。唉。。。\n");
-               break;
-        case 1:
-                       command("say 这里四周全用钢汁浇缝的花岗岩给封了起来，你们就是变成苍蝇也飞不出去！\n");
-               break;
-        case 2:
-                       command("say 好好呆着别动，等会儿自然会放你们出去，不过你们自己要打架我可不管！\n");
-               break;
-        case 3:
-                       command("say 嘿，历年来多少巨奸大盗都在这里被关过，北边牢里的狱卒就是其中一个。\n");
-               break;
+void speaking(object ob) {
+    if (random(5) < 1) {
+        switch (random(4)) {
+            case 0:
+                command("say 百年前的一场大火，整个少林寺就除这监牢和北边的钟楼没遭灾。唉。。。\n");
+                break;
+            case 1:
+                command("say 这里四周全用钢汁浇缝的花岗岩给封了起来，你们就是变成苍蝇也飞不出去！\n");
+                break;
+            case 2:
+                command("say 好好呆着别动，等会儿自然会放你们出去，不过你们自己要打架我可不管！\n");
+                break;
+            case 3:
+                command("say 嘿，历年来多少巨奸大盗都在这里被关过，北边牢里的狱卒就是其中一个。\n");
+                break;
         }
     }
 }

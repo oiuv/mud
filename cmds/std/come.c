@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     int cost;
 
@@ -41,8 +40,7 @@ int main(object me, string arg)
     if (!ob->query_temp("owner"))
         return notify_fail(ob->name() + "是只无主野兽，你得先驯服(train)它啊！\n");
 
-    if (ob->query_temp("owner") != me)
-    {
+    if (ob->query_temp("owner") != me) {
         ob->kill_ob(me);
         return notify_fail(ob->name() + "早被人家驯服了，你不是找死啊！\n");
     }
@@ -59,8 +57,8 @@ int main(object me, string arg)
         return notify_fail("现在你太累了，无法让野兽跟随。\n");
 
     message_vision("只见$N冲着" + ob->name() +
-                       "手中摆了个手式，它一窜就跟上了。\n\n",
-                   me);
+        "手中摆了个手式，它一窜就跟上了。\n\n",
+        me);
 
     me->receive_damage("jing", cost);
     me->set_temp("comedby", ob->query("id"));
@@ -68,8 +66,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : come <动物>
 
@@ -82,6 +79,6 @@ int help(object me)
         stop <动物名>:                  让动物停止对人的攻击。
         release:                        结束主奴状态，将动物放离。
 
-HELP );
+HELP);
     return 1;
 }

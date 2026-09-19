@@ -1,9 +1,8 @@
 // turou.c 野兔肉
 inherit ITEM;
 inherit F_FOOD;
-void create()
-{
-    set_name("兔肉", ({"tu rou", "tu"}));
+void create() {
+    set_name("兔肉", ({ "tu rou", "tu" }));
     set_weight(300);
     if (clonep())
         set_default_object(__FILE__);

@@ -2,11 +2,10 @@
 
 inherit BOOK;
 
-void create()
-{
+void create() {
     set_name("琴谱", ({ "qin pu", "pu" }));
     set_weight(500);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "本");
@@ -14,11 +13,11 @@ void create()
         set("value", 10);
         set("material", "paper");
         set("skill", ([
-            "name":     "tanqin-jifa",
-            "jing_cost":    20,
-            "difficulty":    20,
-            "max_skill":    150,
-                        "min_skill":    10,
-        ]) );
+            "name": "tanqin-jifa",
+            "jing_cost": 20,
+            "difficulty": 20,
+            "max_skill": 150,
+            "min_skill": 10,
+        ]));
     }
 }

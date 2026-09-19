@@ -4,12 +4,11 @@
 
 inherit "/inherit/char/punisher";
 
-void create()
-{
+void create() {
     set_name("天山童姥", ({ "tonglao", "lao" }));
     set("long", @LONG
 她看上去只是一个小小的孩童，可是相貌已然极老。
-LONG );
+LONG);
     set("gender", "女性");
     set("age", 96);
     set("attitude", "peaceful");
@@ -47,15 +46,15 @@ LONG );
     map_skill("hand", "zhemei-shou");
     map_skill("parry", "liuyang-zhang");
 
-    prepare_skill("hand","zhemei-shou");
-    prepare_skill("strike","liuyang-zhang");
+    prepare_skill("hand", "zhemei-shou");
+    prepare_skill("strike", "liuyang-zhang");
 
-        set("chat_chance_combat", 120);
-        set("chat_msg_combat", ({
-                (: perform_action, "hand.jiubu" :),
-                (: perform_action, "strike.jiutian" :),
-                (: exert_function, "recover" :),
-        }));
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: perform_action, "hand.jiubu" :),
+        (: perform_action, "strike.jiutian" :),
+        (: exert_function, "recover" :),
+    }));
 
     create_family("灵鹫宫", 0, "主人");
     setup();

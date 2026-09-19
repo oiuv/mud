@@ -1,13 +1,12 @@
 inherit NPC;
 #include <ansi.h>
-void create()
-{
+void create() {
     set_name("郑克爽", ({ "zheng keshuang", "zheng" }));
-    set("title", HIC"一等海澄公"NOR);
+    set("title", HIC "一等海澄公" NOR);
     set("long", "这是一个弓腰曲背的老头儿，头发花白，容色憔悴不堪，\n"
-                   "仔细再看，这人年纪倒也不怎么老，只是愁眉苦脸，眼角\n"
-                   "边都是皱纹，颏下留了短须，也已花白，再凝神一看，却\n"
-                   "不是郑克爽是谁\n");
+        "仔细再看，这人年纪倒也不怎么老，只是愁眉苦脸，眼角\n"
+        "边都是皱纹，颏下留了短须，也已花白，再凝神一看，却\n"
+        "不是郑克爽是谁\n");
     set("gender", "男性");
     set("age", 32);
     set("attitude", "peaceful");
@@ -28,5 +27,5 @@ void create()
     set_skill("parry", 100);
 
     setup();
-    carry_object(__DIR__"obj/goldcloth1")->wear();
+    carry_object(__DIR__ "obj/goldcloth1")->wear();
 }

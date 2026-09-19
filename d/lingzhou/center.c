@@ -4,8 +4,7 @@
 #include <room.h>
 
 inherit ROOM;
-void create()
-{
+void create() {
     set("short", "城中心");
     set("long", @LONG
 这里是西夏都城灵州的中心广场，也是四条大街的交汇处，北面是
@@ -14,12 +13,12 @@ void create()
 域通往中原的必经之地。各色人等来来往往，马嘶人喊，热闹非凡，广
 场空地上卖艺的、要饭的、大腹便便的财主、提笼携鸟的王公贵戚到处
 都是，偶尔也有行色匆匆的江湖人士一晃而过。
-LONG );
+LONG);
     set("exits", ([
-        "south" : __DIR__"nandajie",
-        "north" : __DIR__"beidajie",
-        "east"  : __DIR__"dongdajie",
-        "west"  : __DIR__"xidajie",
+        "south": __DIR__ "nandajie",
+        "north": __DIR__ "beidajie",
+        "east": __DIR__ "dongdajie",
+        "west": __DIR__ "xidajie",
     ]));
     set("outdoors", "lingzhou");
     setup();

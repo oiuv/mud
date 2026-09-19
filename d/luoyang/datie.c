@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "打铁铺");
     set("long", @LONG
 这是一家生意兴隆的打铁铺，中心摆着一个火炉，炉火把四周照得一
@@ -12,14 +11,14 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"sroad5",
+        "east": __DIR__ "sroad5",
     ]));
-        set("item_desc",([
-                "paizi" : "修补武器防具(repair xxx)。\n",
-        ]));
-        set("objects", ([
-                __DIR__"npc/smith" : 1,
-        ]));
+    set("item_desc", ([
+        "paizi": "修补武器防具(repair xxx)。\n",
+    ]));
+    set("objects", ([
+        __DIR__ "npc/smith": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

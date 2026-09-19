@@ -5,8 +5,7 @@ inherit NPC;
 inherit F_MASTER;
 
 
-void create()
-{
+void create() {
     set_name("澄心", ({
         "chengxin luohan",
         "chengxin",
@@ -60,7 +59,7 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/cheng-cloth")->wear();
+    carry_object("/d/shaolin/obj/cheng-cloth")->wear();
 }
 
 

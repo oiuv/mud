@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     string dest, func, file;
 
@@ -35,12 +34,11 @@ int main(object me, string arg)
     return 1;
 }
 
-int help()
-{
+int help() {
     write(@TEXT
 指令格式：ff <对象> <函数名称>
 
 这个指令可以找出指定对象中的某个函数定义在哪一个档案里。
-TEXT );
+TEXT);
     return 1;
 }

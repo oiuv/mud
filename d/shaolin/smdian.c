@@ -7,8 +7,7 @@ int do_close(string arg);
 string look_gate();
 int do_open(string arg);
 
-void create()
-{
+void create() {
     set("short", "山门殿");
     set("long", @LONG
 这里便是少林寺的前殿山门殿了。只见殿内青砖铺地，两侧
@@ -19,45 +18,41 @@ void create()
 铜大门(gate)。
 LONG);
     set("exits", ([
-        "east" : __DIR__"smdian1",
-        "west" : __DIR__"smdian2",
-        "north" : __DIR__"taijie",
+        "east": __DIR__ "smdian1",
+        "west": __DIR__ "smdian2",
+        "north": __DIR__ "taijie",
     ]));
-    set("item_desc",([
-        "gate" : (: look_gate :),
+    set("item_desc", ([
+        "gate": (: look_gate :),
     ]));
-    set("objects",([
-        __DIR__"npc/seng-bing3" : 2,
-        __DIR__"npc/xiang-ke" : 1,
+    set("objects", ([
+        __DIR__ "npc/seng-bing3": 2,
+        __DIR__ "npc/xiang-ke": 1,
     ]));
     setup();
 }
 
-void init()
-{
+void init() {
     add_action("do_open", "open");
     add_action("do_close", "close");
 }
 
-void close_gate()
-{
+void close_gate() {
     object room;
 
-    if(!( room = find_object(__DIR__"guangchang1")) )
-        room = load_object(__DIR__"guangchang1");
-    if(objectp(room))
-    {
+    if (!(room = find_object(__DIR__ "guangchang1")))
+        room = load_object(__DIR__ "guangchang1");
+    if (objectp(room)) {
         delete("exits/south");
-            message("vision", HIY "僧兵上前把大门关了起来。\n" NOR,
-                                          this_object());
+        message("vision", HIY "僧兵上前把大门关了起来。\n" NOR,
+            this_object());
         room->delete("exits/north");
         message("vision", HIY "只听乒地一声，里面有人把大门关上了。\n"
-                                  NOR, room);
+            NOR, room);
     }
 }
 
-int do_close(string arg)
-{
+int do_close(string arg) {
     if (!query("exits/south"))
         return notify_fail("大门已经是关着的了。\n");
 
@@ -72,8 +67,7 @@ int do_close(string arg)
     return 1;
 }
 
-int do_open(string arg)
-{
+int do_open(string arg) {
     object room;
 
     if (query("exits/south"))
@@ -82,11 +76,10 @@ int do_open(string arg)
     if (!arg || (arg != "gate" && arg != "south"))
         return notify_fail("你要开什么？\n");
 
-    if(!( room = find_object(__DIR__"guangchang1")) )
-        room = load_object(__DIR__"guangchang1");
-    if(objectp(room))
-    {
-        set("exits/south", __DIR__"guangchang1");
+    if (!(room = find_object(__DIR__ "guangchang1")))
+        room = load_object(__DIR__ "guangchang1");
+    if (objectp(room)) {
+        set("exits/south", __DIR__ "guangchang1");
         message_vision(HIY "$N" HIY "使劲把大门打了开来。\n" NOR, this_player());
         room->set("exits/north", __FILE__);
         message("vision", HIY "只听吱地一声，里面有人把大门打开了。\n" NOR, room);
@@ -97,14 +90,12 @@ int do_open(string arg)
     return 1;
 }
 
-string look_gate()
-{
-        return YEL "一道三丈来高的朱红杉木包铜大门。\n" NOR;
+string look_gate() {
+    return YEL "一道三丈来高的朱红杉木包铜大门。\n" NOR;
 }
 
-int valid_leave(object me, string dir)
-{
-    if (me->query("id") == "seng bing" &&  dir == "south" ) return 0;
+int valid_leave(object me, string dir) {
+    if (me->query("id") == "seng bing" && dir == "south") return 0;
 
     return ::valid_leave(me, dir);
 }

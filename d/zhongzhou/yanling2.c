@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "延陵西路");
     set("long", @LONG
 这里就是延陵西路，是中州的一条老街。两边的房屋看上
@@ -12,9 +11,9 @@ LONG);
     set("no_clean_up", 0);
     set("outdoors", "zhongzhou");
     set("exits", ([
-          "north" : __DIR__"gongyuan4",
-          "west" : __DIR__"chenglou",
-          "east" : __DIR__"yanling1",
+        "north": __DIR__ "gongyuan4",
+        "west": __DIR__ "chenglou",
+        "east": __DIR__ "yanling1",
     ]));
     setup();
     replace_program(ROOM);

@@ -1,18 +1,15 @@
 #include <ansi.h>
 inherit COMBINED_ITEM;
 
-string query_autoload()
-{
+string query_autoload() {
     return query_amount() + "";
 }
 
-void create()
-{
-    set_name(HIY "补药" NOR, ({"pill"}));
+void create() {
+    set_name(HIY "补药" NOR, ({ "pill" }));
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("long", HIY "这是一颗增加内功的补药。\n" NOR);
         set("base_unit", "颗");
         set("base_value", 10000);
@@ -33,11 +30,11 @@ void create()
 
         // 服用成功的描述
         set("pill_msg1", HIR "你只觉一股暖气散布全身，说不出"
-                             "的舒服受用。\n" NOR);
+            "的舒服受用。\n" NOR);
 
         // 服用失败的描述
         set("pill_msg2", HIY "你只觉一股热流涌上，内息得到了"
-                             "完全的补充。\n" NOR);
+            "完全的补充。\n" NOR);
 
         // 增加功力的描述，如果有前面两条信息，则应作缺省
         set("pill_msg3", HIM "你感到内力又雄厚了一些。\n" NOR);
@@ -46,8 +43,7 @@ void create()
     setup();
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     string skill;
     int pot1, pot2, time, ltime;
     mapping my = me->query_entire_dbase();
@@ -61,17 +57,15 @@ int do_effect(object me)
         time = 400 + query("force_point") * 10;
 
     // 本草知识增加药物效果
-    if (me->query("special_skill/herb"))
-    {
+    if (me->query("special_skill/herb")) {
         pot1 += pot1 / 2;
         pot2 += pot2 / 2;
         time -= time / 2;
     }
 
-    if ((int)me->query_condition("pill_drug") > 0)
-    {
+    if ((int)me->query_condition("pill_drug") > 0) {
         write("你觉得现在内息未定，经脉隐隐还能感到真气"
-              "冲荡，不敢贸然服食。\n");
+            "冲荡，不敢贸然服食。\n");
 
         ltime = (int)me->query_condition("pill_drug") / 6;
         if (ltime >= 480)
@@ -94,12 +88,11 @@ int do_effect(object me)
     me->apply_condition("pill_drug", time);
 
     message_vision(HIY "$N" HIY "服下一" + query("base_unit") +
-                       name() + HIY "，急忙开始运功吸收药力。\n" NOR,
-                   me);
+        name() + HIY "，急忙开始运功吸收药力。\n" NOR,
+        me);
 
     // 如果该药物有增加技能的功能，则加之
-    if (query("pill_skill") && query("pill_point"))
-    {
+    if (query("pill_skill") && query("pill_point")) {
         // 判断增加的技能是否为特殊技能
         if (query("skill_mapped") >= 1)
             skill = me->query_skill_mapped(query("pill_skill"));
@@ -107,26 +100,21 @@ int do_effect(object me)
             skill = query("pill_skill");
 
         // 可以增加该技能
-        if (stringp(skill) && me->can_improve_skill(skill))
-        {
+        if (stringp(skill) && me->can_improve_skill(skill)) {
             tell_object(me, query("pill_msg1"));
             me->improve_skill(skill, pot1);
             // 本草效果加倍
-            if (me->query("special_skill/herb") && me->can_improve_skill(skill))
-            {
+            if (me->query("special_skill/herb") && me->can_improve_skill(skill)) {
                 me->improve_skill(skill, pot1);
             }
-        }
-        else
+        } else
             tell_object(me, query("pill_msg2"));
     }
 
     // 如果该药物有增加功力的功能，则加之
-    if (query("pill_skill") && query("force_point"))
-    {
+    if (query("pill_skill") && query("force_point")) {
         // 内功型药物增加内力，否则则增加精力
-        if (query("pill_skill") == "force")
-        {
+        if (query("pill_skill") == "force") {
             // 提供出信息
             if (me->query("max_neili") < me->query_neili_limit() && query("pill_msg3"))
                 tell_object(me, query("pill_msg3"));
@@ -137,9 +125,7 @@ int do_effect(object me)
 
             if (me->query("neili") < me->query("max_neili"))
                 my["neili"] = my["max_neili"];
-        }
-        else
-        {
+        } else {
             // 提供出信息
             if (me->query("max_jingli") < me->query_jingli_limit() && query("pill_msg3"))
                 tell_object(me, query("pill_msg3"));
@@ -161,16 +147,14 @@ int do_effect(object me)
     return 1;
 }
 
-void autoload(string param)
-{
+void autoload(string param) {
     int amt;
 
     if (sscanf(param, "%d", amt) == 1)
         set_amount(amt);
 }
 
-void setup()
-{
+void setup() {
     set_amount(1);
     ::setup();
 }

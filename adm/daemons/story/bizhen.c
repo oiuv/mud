@@ -37,12 +37,10 @@ nosave mixed *story = ({
     (: give_gift :),
 });
 
-void create()
-{
+void create() {
     seteuid(getuid());
 
-    if (!objectp(select_character()))
-    {
+    if (!objectp(select_character())) {
         STORY_D->remove_story("bizhen");
         return;
     }
@@ -50,16 +48,15 @@ void create()
 
 string prompt() { return HIG "【武林传闻】" NOR; }
 
-object select_character()
-{
+object select_character() {
     object *obs;
     object ob;
 
     obs = filter_array(all_interactive(),
-                       (: living($1) && $1->query_skill("bizhen-qingzhang", 1) < 1 &&
-                          $1->query("combat_exp") >= 400000 && !wizardp($1) &&
-                          !$1->query("story/bizhen")
-                       :));
+        (: living($1) && $1->query_skill("bizhen-qingzhang", 1) < 1 &&
+        $1->query("combat_exp") >= 400000 && !wizardp($1) &&
+        !$1->query("story/bizhen")
+        :));
     if (!sizeof(obs))
         return 0;
 
@@ -69,24 +66,21 @@ object select_character()
     return ob;
 }
 
-mixed query_story_message(int step)
-{
+mixed query_story_message(int step) {
     mixed msg;
 
     if (step >= sizeof(story))
         return 0;
 
     msg = story[step];
-    if (stringp(msg))
-    {
+    if (stringp(msg)) {
         msg = replace_string(msg, "$N", char_name ? char_name : char_name = "路人甲");
         msg = replace_string(msg, "$ID", char_id ? char_id : char_id = "none");
     }
     return msg;
 }
 
-int give_gift()
-{
+int give_gift() {
     object ob;
     object book;
 
@@ -97,7 +91,7 @@ int give_gift()
     ob->set("story/bizhen", 1);
     tell_object(ob, HIC "你得到了玄铁令。\n" NOR);
     CHANNEL_D->do_channel(this_object(), "rumor", "听说玄铁令落在了" + ob->name(1) + "的手里。");
-    book = new ("/d/tulong/tulong/obj/xuantie-ling");
+    book = new("/d/tulong/tulong/obj/xuantie-ling");
     book->move(ob, 1);
     STORY_D->remove_story("bizhen");
     return 1;

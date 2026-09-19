@@ -1,4 +1,3 @@
-
 inherit F_SHADOW;
 
 // AI对话命令

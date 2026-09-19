@@ -4,8 +4,7 @@ inherit ROOM;
 
 string look_duilian();
 
-void create()
-{
+void create() {
     set("short", HIB "【轮回道】" NOR);
     set("long", HIB @LONG
 
@@ -16,26 +15,24 @@ void create()
 一座雄伟的大殿，殿堂的高匾上写着「轮回司」三个大字，匾下有一幅残
 缺不全的对联(duilian)。轮回司巨大厚实的铜门(door)紧紧关闭着。
 
-LONG NOR );
+LONG NOR);
 
     set("exits", ([
-        "in"   : __DIR__"lunhuisi",
-        "west" : __DIR__"jimiesi",
+        "in": __DIR__ "lunhuisi",
+        "west": __DIR__ "jimiesi",
     ]));
 
     set("item_desc", ([
-        "door" : YEL "一扇厚厚的铜门，上面布满了蛛网和灰尘。\n" NOR,
-        "duilian" : (: look_duilian :),
+        "door": YEL "一扇厚厚的铜门，上面布满了蛛网和灰尘。\n" NOR,
+        "duilian": (: look_duilian :),
     ]));
 
     create_door("in", YEL "铜门" NOR, "out", DOOR_CLOSED);
     setup();
 }
 
-string look_duilian()
-{
-        return
-        RED "\n"
+string look_duilian() {
+    return RED "\n"
         "             ##========##            ##========##\n"
         "             ##========##            ##========##\n"
         "             ####      ####            ####      ####\n"

@@ -5,24 +5,21 @@ inherit F_DBASE;
 
 #include <ansi.h>
 
-int clean_up()
-{
+int clean_up() {
     return 1;
 }
 
 void recordmem();
 string memory_expression(int m);
 
-void create()
-{
+void create() {
     seteuid(ROOT_UID);
     set("channel_id", "内存精灵");
     CHANNEL_D->do_channel(this_object(), "sys", "内存记录精灵已经启动。");
     recordmem();
 }
 
-void recordmem()
-{
+void recordmem() {
     string memcost, uptime;
 
     remove_call_out("protect");
@@ -33,11 +30,10 @@ void recordmem()
     uptime = "/cmds/usr/uptime"->main("-r");
 
     log_file("meminfo", sprintf("\n运行时间：%s消耗内存：%s\n",
-                                uptime, memcost));
+        uptime, memcost));
 }
 
-string memory_expression(int m)
-{
+string memory_expression(int m) {
     float mem;
 
     mem = m;

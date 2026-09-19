@@ -3,9 +3,8 @@
 inherit ITEM;
 inherit F_FOOD;
 
-void create()
-{
-    set_name("过桥米线", ({"guoqiao mixian", "mixian"}));
+void create() {
+    set_name("过桥米线", ({ "guoqiao mixian", "mixian" }));
     set_weight(80);
     if (clonep())
         set_default_object(__FILE__);

@@ -1,7 +1,6 @@
 // ivy 2015年更新IP数据库
 #include <ansi.h>
-string seek_ip_address(string ip)
-{
+string seek_ip_address(string ip) {
     string *ip_address, *ip_number;
     string str;
     string *ip_list_start, *ip_list_end;
@@ -16,8 +15,7 @@ string seek_ip_address(string ip)
     if (atoi(user_ip[0]) == 60)
         ip_config = "/adm/etc/ip/ip011";
 
-    else if (atoi(user_ip[0]) == 61)
-    {
+    else if (atoi(user_ip[0]) == 61) {
         if (atoi(user_ip[1]) <= 54)
             ip_config = "/adm/etc/ip/ip011";
         else if (atoi(user_ip[1]) <= 132 && atoi(user_ip[1]) > 54)
@@ -48,9 +46,7 @@ string seek_ip_address(string ip)
             ip_config = "/adm/etc/ip/ip042";
         else
             ip_config = "/adm/etc/ip043";
-    }
-    else if (atoi(user_ip[0]) == 202)
-    {
+    } else if (atoi(user_ip[0]) == 202) {
         if (atoi(user_ip[1]) <= 101 && atoi(user_ip[1]) > 60)
             ip_config = "/adm/etc/ip/ip051";
         else if (atoi(user_ip[1]) <= 103 && atoi(user_ip[1]) > 101)
@@ -61,20 +57,16 @@ string seek_ip_address(string ip)
             ip_config = "/adm/etc/ip/ip062";
         else if (atoi(user_ip[1]) <= 255 && atoi(user_ip[1]) > 130)
             ip_config = "/adm/etc/ip/ip063";
-    }
-    else if (atoi(user_ip[0]) <= 209 && atoi(user_ip[0]) > 202)
+    } else if (atoi(user_ip[0]) <= 209 && atoi(user_ip[0]) > 202)
         ip_config = "/adm/etc/ip/ip071";
-    else if (atoi(user_ip[0]) == 210)
-    {
+    else if (atoi(user_ip[0]) == 210) {
         if (atoi(user_ip[1]) <= 25)
             ip_config = "/adm/etc/ip/ip071";
         else if (atoi(user_ip[1]) <= 51 && atoi(user_ip[1]) > 25)
             ip_config = "/adm/etc/ip/ip072";
         else
             ip_config = "/adm/etc/ip/ip073";
-    }
-    else if (atoi(user_ip[0]) == 211)
-    {
+    } else if (atoi(user_ip[0]) == 211) {
         if (atoi(user_ip[1]) <= 90)
             ip_config = "/adm/etc/ip/ip081";
         else if (atoi(user_ip[1]) <= 97 && atoi(user_ip[1]) > 90)
@@ -83,25 +75,19 @@ string seek_ip_address(string ip)
             ip_config = "/adm/etc/ip/ip083";
         else
             ip_config = "/adm/etc/ip/ip084";
-    }
-    else if (atoi(user_ip[0]) == 212)
-    {
+    } else if (atoi(user_ip[0]) == 212) {
         if (atoi(user_ip[1]) <= 63)
             ip_config = "/adm/etc/ip/ip091";
         else
             ip_config = "/adm/etc/ip/ip092";
-    }
-    else if (atoi(user_ip[0]) == 213)
-    {
+    } else if (atoi(user_ip[0]) == 213) {
         if (atoi(user_ip[1]) <= 149)
             ip_config = "/adm/etc/ip/ip092";
         else
             ip_config = "/adm/etc/ip/ip093";
-    }
-    else if (atoi(user_ip[0]) <= 217 && atoi(user_ip[0]) > 213)
+    } else if (atoi(user_ip[0]) <= 217 && atoi(user_ip[0]) > 213)
         ip_config = "/adm/etc/ip/ip093";
-    else if (atoi(user_ip[0]) == 218)
-    {
+    else if (atoi(user_ip[0]) == 218) {
         if (atoi(user_ip[1]) <= 4)
             ip_config = "/adm/etc/ip/ip101";
         else if (atoi(user_ip[1]) <= 6 && atoi(user_ip[1]) > 4)
@@ -130,14 +116,12 @@ string seek_ip_address(string ip)
             ip_config = "/adm/etc/ip/ip131";
         else if (atoi(user_ip[1]) <= 61 && atoi(user_ip[1]) > 58)
             ip_config = "/adm/etc/ip/ip132";
-        else if (atoi(user_ip[1]) == 62)
-        {
+        else if (atoi(user_ip[1]) == 62) {
             if (atoi(user_ip[2]) <= 59)
                 ip_config = "/adm/etc/ip/ip133";
             else
                 ip_config = "/adm/etc/ip/ip134";
-        }
-        else if (atoi(user_ip[1]) <= 65 && atoi(user_ip[1]) > 62)
+        } else if (atoi(user_ip[1]) <= 65 && atoi(user_ip[1]) > 62)
             ip_config = "/adm/etc/ip/ip135";
         else if (atoi(user_ip[1]) <= 74 && atoi(user_ip[1]) > 65)
             ip_config = "/adm/etc/ip/ip141";
@@ -159,9 +143,7 @@ string seek_ip_address(string ip)
             ip_config = "/adm/etc/ip/ip155";
         else
             ip_config = "/adm/etc/ip/ip156";
-    }
-    else if (atoi(user_ip[0]) == 219)
-    {
+    } else if (atoi(user_ip[0]) == 219) {
         if (atoi(user_ip[1]) <= 136)
             ip_config = "/adm/etc/ip/ip161";
         else if (atoi(user_ip[1]) <= 138 && atoi(user_ip[1]) > 136)
@@ -186,9 +168,7 @@ string seek_ip_address(string ip)
             ip_config = "/adm/etc/ip/ip176";
         else
             ip_config = "/adm/etc/ip/ip181";
-    }
-    else if (atoi(user_ip[0]) == 220)
-    {
+    } else if (atoi(user_ip[0]) == 220) {
         if (atoi(user_ip[1]) <= 165)
             ip_config = "/adm/etc/ip/ip181";
         else if (atoi(user_ip[1]) <= 172 && atoi(user_ip[1]) > 165)
@@ -197,9 +177,7 @@ string seek_ip_address(string ip)
             ip_config = "/adm/etc/ip/ip183";
         else
             ip_config = "/adm/etc/ip/ip184";
-    }
-    else if (atoi(user_ip[0]) == 221)
-    {
+    } else if (atoi(user_ip[0]) == 221) {
         if (atoi(user_ip[1]) <= 13)
             ip_config = "/adm/etc/ip/ip191";
         else if (atoi(user_ip[1]) <= 204 && atoi(user_ip[1]) > 13)
@@ -208,58 +186,45 @@ string seek_ip_address(string ip)
             ip_config = "/adm/etc/ip/ip193";
         else
             ip_config = "/adm/etc/ip/ip194";
-    }
-    else if (atoi(user_ip[0]) == 222)
-    {
+    } else if (atoi(user_ip[0]) == 222) {
         if (atoi(user_ip[1]) <= 51)
             ip_config = "/adm/etc/ip/ip194";
         else
             ip_config = "/adm/etc/ip/ip195";
-    }
-    else
+    } else
         ip_config = "/adm/etc/ip/ip000";
 
     str = read_file(ip_config);
     if (!str)
         return "数据读取失败";
     ip_address = explode(str, "\n");
-    for (i = 0; i < sizeof(ip_address); i++)
-    {
+    for (i = 0; i < sizeof(ip_address); i++) {
         ip_number = explode(ip_address[i], ".");
-        if (atoi(ip_number[0]) == atoi(user_ip[0]))
-        {
+        if (atoi(ip_number[0]) == atoi(user_ip[0])) {
             ip_list_start = explode(ip_address[i][0..14], ".");
             ip_list_end = explode(ip_address[i][16..30], ".");
 
-            for (j = 1; j <= 3; j++)
-            {
+            for (j = 1; j <= 3; j++) {
                 ip_start = atoi(ip_list_start[j]);
                 ip_end = atoi(ip_list_end[j]);
                 now_ip = atoi(user_ip[j]);
                 if (j == 1 && now_ip <= ip_end && now_ip >= ip_start)
                     k++;
-                if (j == 2 && k == 1)
-                {
+                if (j == 2 && k == 1) {
                     if (now_ip < ip_end && now_ip > ip_start)
                         k = k + 2;
-                    else if (now_ip == ip_start && now_ip == ip_end)
-                    {
+                    else if (now_ip == ip_start && now_ip == ip_end) {
                         k++;
                         n = 3;
-                    }
-                    else if (now_ip == ip_start && n != 3)
-                    {
+                    } else if (now_ip == ip_start && n != 3) {
                         k++;
                         n = 1;
-                    }
-                    else if (now_ip == ip_end && n != 3)
-                    {
+                    } else if (now_ip == ip_end && n != 3) {
                         k++;
                         n = 2;
                     }
                 }
-                if (j == 3 && k == 2)
-                {
+                if (j == 3 && k == 2) {
                     if (n == 1 && now_ip >= ip_start)
                         k++;
                     else if (n == 2 && now_ip <= ip_end)
@@ -268,8 +233,7 @@ string seek_ip_address(string ip)
                         k++;
                 }
             }
-            if (k == 3)
-            {
+            if (k == 3) {
                 return ip_address[i][32..];
             }
             k = 0;

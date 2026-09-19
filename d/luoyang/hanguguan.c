@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "函谷关");
     set("long", @LONG
 这里就是古函古关。它东起崤山，西接潼津，关设谷中。当年强秦一
@@ -10,12 +9,12 @@ void create()
 千载以下，后人仍研读不尽。
 LONG);
     set("exits", ([
-        "southeast" : __DIR__"road1",
-        "west" : __DIR__"guandaoe4",
+        "southeast": __DIR__ "road1",
+        "west": __DIR__ "guandaoe4",
     ]));
     set("outdoors", "luoyang");
     set("objects", ([
-        __DIR__"npc/tianlong" : 1,
+        __DIR__ "npc/tianlong": 1,
     ]));
 
     setup();

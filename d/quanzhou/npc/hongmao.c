@@ -4,9 +4,8 @@
 
 inherit NPC;
 
-void create()
-{
-    set_name("红毛鬼", ({ "hongmao gui", "gui"}));
+void create() {
+    set_name("红毛鬼", ({ "hongmao gui", "gui" }));
     set("gender", "男性");
     set("age", random(10) + 30);
     set("str", 25);
@@ -22,34 +21,30 @@ void create()
     set_temp("apply/damage", 30);
 
     setup();
-    carry_object(__DIR__"obj/huoqiang")->wield();
+    carry_object(__DIR__ "obj/huoqiang")->wield();
 }
 
-void init()
-{
+void init() {
     object ob;
 
     ::init();
 
-    if (interactive(ob = this_player()) && ! is_fighting())
-        {
+    if (interactive(ob = this_player()) && !is_fighting()) {
         remove_call_out("greeting");
         call_out("greeting", 1, ob);
     }
 }
 
-void greeting(object ob)
-{
-        string startroom;
+void greeting(object ob) {
+    string startroom;
 
-    if (! objectp(ob) || environment(ob) != environment()) return;
+    if (!objectp(ob) || environment(ob) != environment()) return;
 
-        if (stringp(startroom = query("startroom")) &&
-            find_object(startroom) == environment())
-        {
-                say("红毛鬼抬手就是一枪，“砰”的一团火焰从枪口窜出。\n");
-                tell_object(ob, HIR "你躲避不及，只觉得伤口一痛。\n" NOR);
-                ob->receive_wound("qi", 90);
-        } else
-            say("红毛鬼瞪着你，看了半天。\n");
+    if (stringp(startroom = query("startroom")) &&
+        find_object(startroom) == environment()) {
+        say("红毛鬼抬手就是一枪，“砰”的一团火焰从枪口窜出。\n");
+        tell_object(ob, HIR "你躲避不及，只觉得伤口一痛。\n" NOR);
+        ob->receive_wound("qi", 90);
+    } else
+        say("红毛鬼瞪着你，看了半天。\n");
 }

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "黑森林");
     set("long", @LONG
 这里就是有名的黑森林，四周均是茂密的丛林，巨大的古木遮天
@@ -11,10 +10,10 @@ LONG);
     set("outdoors", "wudujiao");
 
     set("exits", ([
-            "east"  : __DIR__"milin6",
-            "south" : __DIR__"milin3",
-            "in"    : __DIR__"huxue1",
-            "north" : __DIR__"milin8",
+        "east": __DIR__ "milin6",
+        "south": __DIR__ "milin3",
+        "in": __DIR__ "huxue1",
+        "north": __DIR__ "milin8",
     ]));
 
     setup();

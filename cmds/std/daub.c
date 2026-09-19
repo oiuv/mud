@@ -12,8 +12,7 @@ void check_poison(object me, object dest, int iknow);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string item, target;
     object obj, dest;
 
@@ -35,33 +34,26 @@ int main(object me, string arg)
     else
         return notify_fail("你要往哪儿涂抹毒药？\n");
 
-    if (target == "hand" || target == "me")
-    {
+    if (target == "hand" || target == "me") {
         // daub on me
         dest = me;
-    }
-    else
-    {
+    } else {
         dest = present(target, me);
         if (!dest)
             dest = present(target, environment(me));
         if (!dest)
             return notify_fail("这里没有这样东西。\n");
 
-        if (dest->is_character())
-        {
-            if (dest != me && !dest->is_corpse())
-            {
+        if (dest->is_character()) {
+            if (dest != me && !dest->is_corpse()) {
                 return notify_fail("你往" + dest->name() +
-                                   "上面涂什么，找扁啊？\n");
+                    "上面涂什么，找扁啊？\n");
             }
             // daub on me
-        }
-        else if (!mapp(dest->query("armor_prop")) &&
-                 !mapp(dest->query("weapon_prop")))
-        {
+        } else if (!mapp(dest->query("armor_prop")) &&
+            !mapp(dest->query("weapon_prop"))) {
             return notify_fail("那既不是武器，也不是防具，"
-                               "你怎么涂抹毒药呢？\n");
+                "你怎么涂抹毒药呢？\n");
         }
     }
 
@@ -79,13 +71,12 @@ int main(object me, string arg)
     dest->set_temp("daub/poison_name", obj->name());
     dest->set_temp("daub/poison_type", obj->query("poison_type"));
     dest->set_temp("daub/poison", POISON->mixed_poison(dest->query_temp("daub/poison"),
-                                                       obj->query("poison")));
-    if (dest == me)
-    {
+        obj->query("poison")));
+    if (dest == me) {
         message("vision", sprintf("%s拿出一些东西在自己身上涂来"
-                                  "抹去的，不知道在干什么。\n",
-                                  me->name()),
-                environment(me), ({me}));
+            "抹去的，不知道在干什么。\n",
+            me->name()),
+            environment(me), ({ me }));
         tell_object(me, HIG "你把" + obj->name() + HIG "涂抹到自己手上。\n" NOR);
         check_poison(me, dest, I_KNOW);
 
@@ -98,13 +89,12 @@ int main(object me, string arg)
     }
 
     message("vision", sprintf("%s拿出一些东西涂抹在%s上面。\n", me->name(), dest->name()),
-            environment(me), ({me}));
+        environment(me), ({ me }));
     tell_object(me, HIG "你把" + obj->name() + HIG "涂抹到" + dest->name() +
-                    HIG "上。\n" NOR);
+        HIG "上。\n" NOR);
     if (dest->query("equipped") == "worn" &&
         dest->query("armor_type") != "hands" &&
-        environment(dest) == me)
-    {
+        environment(dest) == me) {
         // daub on armor that I am wearing
         check_poison(me, dest, I_KNOW);
     }
@@ -117,8 +107,7 @@ int main(object me, string arg)
 }
 
 // check wether I can sufface the poison
-void check_poison(object me, object dest, int iknow)
-{
+void check_poison(object me, object dest, int iknow) {
     string name;
     string type;
     mapping p;
@@ -137,11 +126,10 @@ void check_poison(object me, object dest, int iknow)
         return;
 
     lvl = me->query_skill("force") + me->query("poison", 1) / 2;
-    if (lvl < 100 || lvl < (int)p["level"])
-    {
+    if (lvl < 100 || lvl < (int)p["level"]) {
         message("vision", HIC "忽然" + me->name() + HIC "眉头"
-                "紧缩，神情痛苦，看来是遇到麻烦了。\n" NOR,
-                environment(me), ({me}));
+            "紧缩，神情痛苦，看来是遇到麻烦了。\n" NOR,
+            environment(me), ({ me }));
         tell_object(me, HIC "忽然你觉得有点不对劲，不好，可能是中毒了。\n" NOR);
         me->affect_by(type, p);
         dest->delete_temp("daub");
@@ -149,27 +137,23 @@ void check_poison(object me, object dest, int iknow)
     }
 
     message("vision", HIC + me->name() + HIC "眉头"
-            "微微一皱，随即舒展开来。\n" NOR,
-            environment(me), ({me}));
+        "微微一皱，随即舒展开来。\n" NOR,
+        environment(me), ({ me }));
 
-    if (p["level"] > 120)
-    {
+    if (p["level"] > 120) {
         if (iknow)
             tell_object(me, HIC "你发现这" + name + HIC "毒性甚"
-                                "是猛烈，幸好内功高深，抵挡得住。\n" NOR);
+                "是猛烈，幸好内功高深，抵挡得住。\n" NOR);
         else
             tell_object(me, HIC "你发现这" + dest->name() + HIC "上的" +
-                                name + HIC "毒性甚"
-                                "是猛烈，亏得你内功高深，才幸免无事。\n" NOR);
-    }
-    else if (!iknow && dest->query_temp("who_id") != me->query("id"))
-    {
+                name + HIC "毒性甚"
+                "是猛烈，亏得你内功高深，才幸免无事。\n" NOR);
+    } else if (!iknow && dest->query_temp("who_id") != me->query("id")) {
         tell_object(me, HIC "你发现这" + name + HIC "上面带毒。\n" NOR);
     }
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：daub <毒品名称> on <武器> | <防具> | hand
           daub <武器> | <防具> | [hand] with <毒品名称>

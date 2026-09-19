@@ -4,11 +4,10 @@
 
 inherit HANDS;
 
-void create()
-{
-    set_name( "指套", ({ "finger", "zhitao" }) );
+void create() {
+    set_name("指套", ({ "finger", "zhitao" }));
     set_weight(500);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "副");

@@ -1,25 +1,24 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
-      set("short", "莲花石");
-      set("long", @LONG
+void create() {
+    set("short", "莲花石");
+    set("long", @LONG
 这是莲花石。此处岩石纹理纵横，形似莲花颜如芙蓉，仿
 佛萼瓣层叠，细蕊欲绽。上有一庵，叫「莲花社」。由此往西
 上直达洗象池，东下左通华严顶，右通九老洞。
 LONG);
-      set("objects", ([
-           CLASS_D("emei") + "/su" : 1,
-           CLASS_D("emei") + "/ling" : 1,
-      ]));
-      set("outdoors", "emei");
-      set("exits", ([
-          "southeast" : __DIR__"jldongkou",
-          "eastdown"  : __DIR__"huayanding",
-          "westup"    : __DIR__"ztpo1",  
-      ]));
-      setup();
+    set("objects", ([
+        CLASS_D("emei") + "/su": 1,
+        CLASS_D("emei") + "/ling": 1,
+    ]));
+    set("outdoors", "emei");
+    set("exits", ([
+        "southeast": __DIR__ "jldongkou",
+        "eastdown": __DIR__ "huayanding",
+        "westup": __DIR__ "ztpo1",
+    ]));
+    setup();
 }
 /*
 int valid_leave(object me, string dir)

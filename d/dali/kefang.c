@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "客房");
     set("long", @LONG
 这是一间客房，靠墙放了一张梨木大床，上面的被褥尽
@@ -9,10 +8,10 @@ void create()
 在高谈阔论。
 LONG);
     set("objects", ([
-           __DIR__"npc/peicong": 3,
+        __DIR__ "npc/peicong": 3,
     ]));
     set("exits", ([
-            "south" : __DIR__"zoulang2",
+        "south": __DIR__ "zoulang2",
     ]));
     setup();
     replace_program(ROOM);

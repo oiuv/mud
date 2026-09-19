@@ -5,20 +5,19 @@
 inherit NPC;
 inherit F_UNIQUE;
 
-void create()
-{
-        set_name("颜垣", ({ "yan yuan", "yan", "yuan", }));
+void create() {
+    set_name("颜垣", ({ "yan yuan", "yan", "yuan", }));
     set("long",
         "他是一个矮矮胖胖的汉子，身穿一件白布长袍。\n"
         "他天生神力，手中的两头狼牙棒有万夫不当之勇，真是一条威风凛凛的汉子。\n"
     );
-        set("title", HIG "明教" HIY "厚土旗" NOR "掌旗使");
+    set("title", HIG "明教" HIY "厚土旗" NOR "掌旗使");
 
     set("gender", "男性");
     set("attitude", "friendly");
-        set("class", "fighter");
+    set("class", "fighter");
 
-        set("age", 48);
+    set("age", 48);
     set("shen_type", 1);
     set("str", 25);
     set("int", 25);
@@ -48,10 +47,10 @@ void create()
     map_skill("parry", "jingang-quan");
     prepare_skill("cuff", "jingang-quan");
 
-        create_family("明教", 3, "厚土旗掌旗使");
+    create_family("明教", 3, "厚土旗掌旗使");
 
     setup();
 
-//        carry_object("/d/mingjiao/obj/tiechan")->wield();
-        carry_object("/d/mingjiao/obj/baipao")->wear();
+    //        carry_object("/d/mingjiao/obj/tiechan")->wield();
+    carry_object("/d/mingjiao/obj/baipao")->wear();
 }

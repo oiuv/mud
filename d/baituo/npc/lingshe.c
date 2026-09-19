@@ -6,9 +6,8 @@
 #include <ansi.h>
 inherit SNAKE;
 
-void create()
-{
-    set_name("灵蛇", ({"ling she", "she", "snake"}));
+void create() {
+    set_name("灵蛇", ({ "ling she", "she", "snake" }));
     set("race", "野兽");
     set("age", 4);
     set("long", "一条银光闪闪的小蛇，产于西域，极为罕见。\n");
@@ -33,36 +32,31 @@ void create()
     setup();
 }
 
-void init()
-{
+void init() {
     object ob;
     ::init();
     add_action("convert", "bian");
     if (interactive(ob = this_player()) &&
         ob->query("family/family_name") != "欧阳世家" &&
-        !present("xiong huang", environment(ob)))
-    {
+        !present("xiong huang", environment(ob))) {
         remove_call_out("kill_ob");
         call_out("kill_ob", 1, ob);
     }
 }
 
-void unconcious()
-{
+void unconcious() {
     write("灵蛇嗦地一下逃掉了。\n");
     destruct(this_object());
 }
 
-void die(object killer)
-{
+void die(object killer) {
     object ob;
-    ob = new ("/d/baituo/npc/obj/shedan");
+    ob = new("/d/baituo/npc/obj/shedan");
     ob->move(environment(this_object()));
     destruct(this_object());
 }
 
-int convert(string arg)
-{
+int convert(string arg) {
     object me = this_player();
     object ob;
 
@@ -70,13 +64,12 @@ int convert(string arg)
         return 0;
     if (me->query("family/family_name") != "欧阳世家")
         return notify_fail("你不能化蛇为杖。\n");
-    if (me->query_skill("training", 1) < 70 + random(70))
-    {
+    if (me->query_skill("training", 1) < 70 + random(70)) {
         kill_ob(me);
         return 1;
     }
-    message_vision("$N左手按住灵蛇的头，右手轻抚其七寸，口中念念有词，片刻间将蛇化为一根蛇杖。\n", me, );
-    ob = new ("/d/baituo/obj/lingshezhang");
+    message_vision("$N左手按住灵蛇的头，右手轻抚其七寸，口中念念有词，片刻间将蛇化为一根蛇杖。\n", me,);
+    ob = new("/d/baituo/obj/lingshezhang");
     ob->move(environment(this_object()));
     ob->set("poison_applied", me->query_skill("poison", 1) / 2);
     destruct(this_object());

@@ -4,14 +4,12 @@
 
 inherit ITEM;
 
-void create()
-{
-    set_name(YEL "手谕" NOR, ({ "pass" }) );
+void create() {
+    set_name(YEL "手谕" NOR, ({ "pass" }));
     set_weight(10);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("unit", "张");
         set("no_sell", 1);
         set("no_store", 1);

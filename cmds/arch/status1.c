@@ -1,5 +1,5 @@
-  // status.c
-  // Smallfish@Huaxia
+// status.c
+// Smallfish@Huaxia
 
 #include <localtime.h>
 
@@ -11,8 +11,7 @@ int filter_for_heart_beat(object ob);
 
 int si;
 
-int stat_fun(mapping st, object ob)
-{
+int stat_fun(mapping st, object ob) {
     string bn;
 
     bn = file_name(ob);
@@ -26,8 +25,7 @@ int stat_fun(mapping st, object ob)
     return 0;
 }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string msg;
     mixed lt;
     mapping st;
@@ -42,10 +40,9 @@ int main(object me, string arg)
 
     lt = localtime(time());
     msg = sprintf("%d/%d/%d  %d:%d:%d\n",
-                  lt[LT_YEAR], lt[LT_MON] + 1, lt[LT_MDAY],
-                  lt[LT_HOUR], lt[LT_MIN], lt[LT_SEC]);
-    if (arg == "object")
-    {
+        lt[LT_YEAR], lt[LT_MON] + 1, lt[LT_MDAY],
+        lt[LT_HOUR], lt[LT_MIN], lt[LT_SEC]);
+    if (arg == "object") {
         st = ([]);
         si = 0;
         printf("result = %O\n", sizeof(objects((: stat_fun, st :))));
@@ -60,11 +57,10 @@ int main(object me, string arg)
         ks = sort_array(ks, (: $(st)[$2] - $(st)[$1] :));
 
         // 选择前100个
-        msg += "目前系统中有 " + si +
-               " 个物品，其中复制对象超过 50 个的物品如下：\n";
+        msg += "目前系统中有 " + si + " 个物品，其中复制对象超过 50 个的物品如下：\n";
         for (i = 0; i < sizeof(ks) && i < 100; i++)
             msg += sprintf("%3d. %-40s %d\n",
-                           i + 1, ks[i], st[ks[i]]);
+                i + 1, ks[i], st[ks[i]]);
         me->start_more(msg);
         return 1;
     }
@@ -79,17 +75,15 @@ int main(object me, string arg)
     return 1;
 }
 
-int filter_for_heart_beat(object ob)
-{
+int filter_for_heart_beat(object ob) {
     return query_heart_beat(ob);
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : status [detail | object]
 
 利用此指令可得知有关系统的信息。
-HELP );
+HELP);
     return 1;
 }

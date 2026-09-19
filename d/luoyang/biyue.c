@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "闭月亭");
     set("long", @LONG
 亭上交缠蔷薇、木香、刺梅、金雀，桥下撒满凤仙、鸡冠、秋葵等种。
@@ -11,7 +10,7 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "south" : __DIR__"jiyuan2",
+        "south": __DIR__ "jiyuan2",
     ]));
 
     setup();

@@ -5,10 +5,8 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
-    if (!SECURITY_D->valid_grant(me, "(arch)"))
-    {
+int main(object me, string arg) {
+    if (!SECURITY_D->valid_grant(me, "(arch)")) {
         write("你没有权限编译" + LOCAL_MUD_NAME() + "的版本。\n");
         return 1;
     }
@@ -31,9 +29,8 @@ int main(object me, string arg)
     return VERSION_D->build_path(arg);
 }
 
-int help (object me)
-{
-        write(@HELP
+int help(object me) {
+    write(@HELP
 指令格式: build <路径名> | version | cancel | new
 
 编译生成用于发布的MUDLIB版本，如果输入了路径名，就更新当前版
@@ -51,6 +48,6 @@ build new     生成新的版本号。
 build new 则是配合build <路径名>使用的，当分别更新了一些路径
 以后，有必要生成一个新的版本号，已备其他站点自动更新。
 
-HELP );
-        return 1;
+HELP);
+    return 1;
 }

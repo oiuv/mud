@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int goto_inventory = 0;
     object obj;
     object env;
@@ -28,30 +27,24 @@ int main(object me, string arg)
         obj = MESSAGE_D->find_user(arg);
     if (!obj)
         obj = find_living(arg);
-    if (!obj || !me->visible(obj))
-    {
+    if (!obj || !me->visible(obj)) {
         arg = resolve_path(me->query("cwd"), arg);
         /*
         if (!sscanf(arg, "%*s.c"))
             arg += ".c";
         */
-        if (!(obj = load_object(arg)))
-        {
+        if (!(obj = load_object(arg))) {
             // if (file_size(arg) >= 0)
             //     return me->move(arg);
             return notify_fail("没有这个玩家、生物、或地方。\n");
         }
     }
 
-    if (!goto_inventory)
-    {
-        if (environment(obj))
-        {
+    if (!goto_inventory) {
+        if (environment(obj)) {
             if (!environment(obj)->is_area())
                 obj = environment(obj);
-        }
-        else
-        {
+        } else {
             if (obj->is_character())
                 // unless you goto a inventory, or you
                 // can not enter a character
@@ -73,29 +66,25 @@ int main(object me, string arg)
     else
         tell_object(me, HIY "你化作长虹而去。\n" NOR);
     // 修改支持传送进area环境
-    if (environment(obj) && environment(obj)->is_area())
-    {
+    if (environment(obj) && environment(obj)->is_area()) {
         area_move_side(me, obj);
         return 1;
     }
-    if (env && !me->query("env/invisible"))
-    {
+    if (env && !me->query("env/invisible")) {
         if (!stringp(msg = me->query("env/msg_mout")))
             msg = "只见一阵烟雾过後，$N的身影已经不见了。";
 
         msg = replace_string(msg, "$N", me->name() + HIM);
-        message("vision", HIM + msg + "\n" NOR, env, ({me, env}));
+        message("vision", HIM + msg + "\n" NOR, env, ({ me, env }));
     }
 
     me->set_magic_move();
-    if (!me->move(obj))
-    {
+    if (!me->move(obj)) {
         msg = HIM "你的遁术失败了。\n" NOR;
         tell_object(me, msg);
-        message("vision", HIM "突然" + me->name() + "一个跟头摔倒在地上。\n" NOR, obj, ({me}));
+        message("vision", HIM "突然" + me->name() + "一个跟头摔倒在地上。\n" NOR, obj, ({ me }));
         return 1;
-    }
-    else
+    } else
         msg = HIM "你到了地方，落下遁光，收住身形。\n" NOR;
 
     if (environment(me) != obj)
@@ -103,19 +92,17 @@ int main(object me, string arg)
 
     tell_object(me, msg);
 
-    if (!me->query("env/invisible"))
-    {
+    if (!me->query("env/invisible")) {
         if (!stringp(msg = me->query("env/msg_min")))
             msg = "$N的身影突然出现在一阵烟雾之中。";
         msg = replace_string(msg, "$N", me->name());
-        message("vision", HIM + msg + "\n" NOR, obj, ({me, obj}));
+        message("vision", HIM + msg + "\n" NOR, obj, ({ me, obj }));
     }
 
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : goto [-i] <目标>
 
@@ -124,6 +111,6 @@ int help(object me)
 如果有加上 -i 参数且目标是 living, 则你会被移到该 living 的
 的 inventory 中.
 
-HELP );
+HELP);
     return 1;
 }

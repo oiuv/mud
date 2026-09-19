@@ -5,8 +5,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("执法僧兵", ({
         "seng bing",
         "seng",
@@ -38,7 +37,7 @@ void create()
     set("chat_chance", 20);
     set("chat_msg", ({
         (: random_move :)
-    }) );
+    }));
 
     set_skill("force", 40);
     set_skill("hunyuan-yiqi", 40);
@@ -63,30 +62,25 @@ void create()
 }
 
 
-void init()
-{
+void init() {
     object me, ob;
     ob = this_player();
     me = this_object();
 
     ::init();
 
-    if ( interactive(ob) && !environment(ob)->query("no_fight") )
-    {
-        if ( ob->query("guilty") == 1 )
-        {
-            if ( random(2) ==1 )
-            command("say 你这佛门败类，哪里逃！ 还不速到戒律院领罪！\n");
+    if (interactive(ob) && !environment(ob)->query("no_fight")) {
+        if (ob->query("guilty") == 1) {
+            if (random(2) == 1)
+                command("say 你这佛门败类，哪里逃！ 还不速到戒律院领罪！\n");
             me->set_leader(ob);
             remove_call_out("fight_ob");
             call_out("fight_ob", 1, ob);
         }
-        if ( ob->query("guilty") >= 2 )
-        {
-            if ( random(2) ==1 )
-            command("say 戒律院玄痛大师请你去陈述此次下山经过 ！\n");
+        if (ob->query("guilty") >= 2) {
+            if (random(2) == 1)
+                command("say 戒律院玄痛大师请你去陈述此次下山经过 ！\n");
             me->set_leader(ob);
         }
-    }
-    else if( environment(ob)->query("no_fight") ) me->set_leader(0);
+    } else if (environment(ob)->query("no_fight")) me->set_leader(0);
 }

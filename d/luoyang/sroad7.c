@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "景云道");
     set("long", @LONG
 景云大道位于洛阳城里的南面，是洛阳最繁华地段，青石板铺成的街
@@ -11,13 +10,13 @@ void create()
 检查排队出城的路人。这里的东边是一间花店，在里面你可以买到名满天
 下的洛阳牡丹，西边是鲁氏木器店。
 LONG);
-        set("outdoors", "luoyang");
-        set("no_clean_up", 0);
-        set("exits", ([
-          "east" : __DIR__"miaopu",
-          "north" : __DIR__"sroad6",
-          "south" : __DIR__"nandoor",
-          "west" : __DIR__"muqipu",
+    set("outdoors", "luoyang");
+    set("no_clean_up", 0);
+    set("exits", ([
+        "east": __DIR__ "miaopu",
+        "north": __DIR__ "sroad6",
+        "south": __DIR__ "nandoor",
+        "west": __DIR__ "muqipu",
     ]));
 
     setup();

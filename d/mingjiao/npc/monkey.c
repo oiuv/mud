@@ -1,8 +1,7 @@
 inherit NPC;
 
-void create()
-{
-    set_name("猴子", ({ "monkey" }) );
+void create() {
+    set_name("猴子", ({ "monkey" }));
     set("gender", "雄性");
     set("race", "野兽");
     set("age", 5);
@@ -11,8 +10,8 @@ void create()
     set("combat_exp", 5000);
     set("shen_type", -1);
     set("attitude", "peaceful");
-    set("limbs", ({ "猴嘴", "前爪", "后爪", "尾巴" }) );
-    set("verbs", ({ "bite", "claw" }) );
+    set("limbs", ({ "猴嘴", "前爪", "后爪", "尾巴" }));
+    set("verbs", ({ "bite", "claw" }));
 
     set("water", 200);
     set("food", 200);

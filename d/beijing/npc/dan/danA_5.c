@@ -2,8 +2,7 @@
 #include "dan.h"
 //inherit COMBINED_ITEM;
 
-void create()
-{
+void create() {
     set_name(HIY "九皇补心丹" NOR, ({ "buxin dan", "dan" }));
     if (clonep())
         set_default_object(__FILE__);
@@ -16,19 +15,16 @@ void create()
     //set_amount(1);
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     mapping my;
 
-    if (time() - me->query_temp("last_eat/dan(A)") < 15)
-    {
+    if (time() - me->query_temp("last_eat/dan(A)") < 15) {
         write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
         return 1;
     }
 
     my = me->query_entire_dbase();
-    if (my["jing"] == my["max_jing"])
-    {
+    if (my["jing"] == my["max_jing"]) {
         write("你现在精神状态很好，无需服用" + name() + "。\n");
         return 1;
     }
@@ -48,7 +44,6 @@ int do_effect(object me)
     return 1;
 }
 
-void owner_is_killed()
-{
+void owner_is_killed() {
     destruct(this_object());
 }

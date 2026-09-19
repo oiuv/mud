@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "天安门广场");
     set("long", @LONG
 这里就是天安门广场，灰色的城墙给人以庄严肃穆之感，再往北通过金水
@@ -12,17 +11,17 @@ void create()
 和永定门。
 LONG NOR);
     set("exits", ([
-        "south" : __DIR__"cagc_s",
-        "north" : __DIR__"qiao",
-            "west" : __DIR__"cagc_w",
-                "east" : __DIR__"cagc_e",
+        "south": __DIR__ "cagc_s",
+        "north": __DIR__ "qiao",
+        "west": __DIR__ "cagc_w",
+        "east": __DIR__ "cagc_e",
     ]));
     set("objects", ([
-        __DIR__"npc/maiyi2" : 1,
-        __DIR__"npc/bing1" : 2,
-        __DIR__"npc/old2" : 1,
-        __DIR__"npc/kid1" : 1,
-                "/clone/npc/walker" : 1,
+        __DIR__ "npc/maiyi2": 1,
+        __DIR__ "npc/bing1": 2,
+        __DIR__ "npc/old2": 1,
+        __DIR__ "npc/kid1": 1,
+        "/clone/npc/walker": 1,
     ]));
     set("outdoors", "beijing");
     setup();

@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "嵩山派客房");
     set("long", @LONG
 这是一间很大的客房，是嵩山派供前来祭神的游客暂住的
@@ -12,7 +11,7 @@ LONG);
     set("sleep_room", 1);
     set("no_fight", 1);
     set("exits", ([
-           "west"  :  __DIR__"changlang",
+        "west": __DIR__ "changlang",
     ]));
     setup();
 }

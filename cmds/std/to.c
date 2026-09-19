@@ -16,32 +16,30 @@ int help(object me);
 #define LIMIT_LONG      0x0080          // limit to 128(chn char)
 
 mapping valid_verb = ([
-        "tell" : EXISTED | APPEND_CR | IS_STD_COMMAND | NEED_OPP,
-        "reply": EXISTED | APPEND_CR | IS_STD_COMMAND,
-        "say"  : EXISTED | APPEND_CR | IS_STD_COMMAND,
-        "chat" : EXISTED | APPEND_CR,
-        "wiz"  : EXISTED | APPEND_CR,
-        "debug": EXISTED | APPEND_CR,
-        "sys"  : EXISTED | APPEND_CR,
-        "rumor": EXISTED | APPEND_CR,
-        "sing" : EXISTED | APPEND_CR,
-        "party": EXISTED | APPEND_CR,
-        "shout": EXISTED | APPEND_CR,
-        "describe" : EXISTED | IS_USR_COMMAND | NO_COST |
-                     NO_SPACE | LIMIT_LONG,
+    "tell": EXISTED | APPEND_CR | IS_STD_COMMAND | NEED_OPP,
+    "reply": EXISTED | APPEND_CR | IS_STD_COMMAND,
+    "say": EXISTED | APPEND_CR | IS_STD_COMMAND,
+    "chat": EXISTED | APPEND_CR,
+    "wiz": EXISTED | APPEND_CR,
+    "debug": EXISTED | APPEND_CR,
+    "sys": EXISTED | APPEND_CR,
+    "rumor": EXISTED | APPEND_CR,
+    "sing": EXISTED | APPEND_CR,
+    "party": EXISTED | APPEND_CR,
+    "shout": EXISTED | APPEND_CR,
+    "describe": EXISTED | IS_USR_COMMAND | NO_COST |
+    NO_SPACE | LIMIT_LONG,
 ]);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string verb, opp;
 
     if (!arg)
         return help(me);
 
-    if (sscanf(arg, "%s %s", verb, opp) != 2)
-    {
+    if (sscanf(arg, "%s %s", verb, opp) != 2) {
         verb = arg;
         opp = 0;
     }
@@ -56,8 +54,7 @@ int main(object me, string arg)
     return 1;
 }
 
-void done(object me, string verb, string opp, string msg)
-{
+void done(object me, string verb, string opp, string msg) {
     int m, n;
     int att;
 
@@ -73,8 +70,7 @@ void done(object me, string verb, string opp, string msg)
         msg = replace_string(msg, "\n", "\n ");
 
     m = strlen(msg);
-    if (m > 4096 || m > 256 && (att & LIMIT_LONG))
-    {
+    if (m > 4096 || m > 256 && (att & LIMIT_LONG)) {
         tell_object(me, "你弄得这么长干什么啊？\n");
         return;
     }
@@ -83,16 +79,11 @@ void done(object me, string verb, string opp, string msg)
     if (att & NO_COST)
         n = 0;
     n *= 10;
-    if (me->query("neili") >= n)
-    {
+    if (me->query("neili") >= n) {
         me->add("neili", -n);
-    }
-    else if (me->query("jing") >= n)
-    {
+    } else if (me->query("jing") >= n) {
         me->add("jing", -n);
-    }
-    else
-    {
+    } else {
         tell_object(me, "你目前的内力和精不允许你这么做。\n");
         return;
     }
@@ -101,15 +92,13 @@ void done(object me, string verb, string opp, string msg)
     me->write_prompt();
     me->clear_written();
 
-    if (att & IS_STD_COMMAND)
-    {
+    if (att & IS_STD_COMMAND) {
         if (!("/cmds/std/" + verb)->main(me, msg))
             write(query_fail_msg());
         return;
     }
 
-    if (att & IS_USR_COMMAND)
-    {
+    if (att & IS_USR_COMMAND) {
         if (!("/cmds/usr/" + verb)->main(me, msg))
             write(query_fail_msg());
         return;
@@ -119,8 +108,7 @@ void done(object me, string verb, string opp, string msg)
     return;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式： to say | tell | chat | rumor ... [sb]
 
@@ -128,6 +116,6 @@ int help(object me)
 (whisper)方式。 玩家发布的信息会在每行前面自动加上一
 个空格。对于tell命令，必须指定对象。另外注意的是：一
 次可以贴的行数受玩家内力和精的限制。
-HELP );
+HELP);
     return 1;
 }

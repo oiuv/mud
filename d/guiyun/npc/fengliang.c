@@ -4,9 +4,8 @@
 inherit F_UNIQUE;
 inherit NPC;
 
-void create()
-{
-    set_name("风良", ({ "feng liang", "feng"}));
+void create() {
+    set_name("风良", ({ "feng liang", "feng" }));
     set("title", HIG "青龙门掌门人" NOR);
     set("long", "他是个高大的中年汉子，腰里缠九节鞭。\n");
     set("gender", "男性");
@@ -24,7 +23,7 @@ void create()
     set("neili", 1000);
     set("max_neili", 1000);
     set("jiali", 50);
-    set("combat_exp", 50000+random(10000));
+    set("combat_exp", 50000 + random(10000));
     set("score", 20000);
 
     set_skill("force", 50);
@@ -32,7 +31,7 @@ void create()
     set_skill("unarmed", 50);
     set_skill("whip", 50);
     set_skill("riyue-bian", 50);
-    set_skill("lingxu-bu",50);
+    set_skill("lingxu-bu", 50);
     map_skill("dodge", "lingxu-bu");
     map_skill("parry", "riyue-bian");
     map_skill("whip", "riyue-bian");
@@ -41,6 +40,6 @@ void create()
     set_temp("apply/attack", 25);
     set_temp("apply/damage", 25);
     setup();
-    carry_object(__DIR__"obj/jiujiebian")->wield();
+    carry_object(__DIR__ "obj/jiujiebian")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

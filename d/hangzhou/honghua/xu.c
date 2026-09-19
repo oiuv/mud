@@ -5,13 +5,12 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("徐天宏", ({ "xu tianhong", "xu","tianhong" }));
-    set("title", HIR "红花会"HIG"七当家" NOR);
+void create() {
+    set_name("徐天宏", ({ "xu tianhong", "xu", "tianhong" }));
+    set("title", HIR "红花会" HIG "七当家" NOR);
     set("nickname", HIC "武诸葛" NOR);
     set("long",
-"其人身材矮小，足智多谋，是红花会的智囊军师，武功也颇
+        "其人身材矮小，足智多谋，是红花会的智囊军师，武功也颇
 不弱，冷静持重。\n");
     set("gender", "男性");
     set("class", "scholar");
@@ -51,11 +50,11 @@ void create()
     map_skill("parry", "wuhu-duanmendao");
     map_skill("claw", "yunlong-zhua");
 
-    prepare_skill("hand","yunlong-shou");
-    prepare_skill("claw","yunlong-zhua");
+    prepare_skill("hand", "yunlong-shou");
+    prepare_skill("claw", "yunlong-zhua");
     set("env/wimpy", 20);
 
-     setup();
+    setup();
     carry_object("/clone/misc/cloth")->wear();
     carry_object("/clone/weapon/gangdao")->wield();
 }

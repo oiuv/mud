@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("小混混", ({ "xiao hunhun", "xiao", "hunhun" }));
     set("long", "他是扬州里的小混混，整天闲着没事干。\n");
     set("gender", "男性");
@@ -31,7 +30,7 @@ void create()
         CYN "小混混唱道: 一二三四五，上山打老虎，老虎没吃饭，专吃大坏蛋！\n" NOR,
         CYN "小混混哼道：大事不好，房子要倒，母猪母猪，我看你往哪跑！\n" NOR,
         (: random_move :)
-    }) );
+    }));
 
     setup();
     carry_object("/clone/misc/cloth")->wear();

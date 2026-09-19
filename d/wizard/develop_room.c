@@ -7,8 +7,7 @@ inherit ROOM;
 
 int is_chat_room() { return 1; }
 
-void create()
-{
+void create() {
     set("short", HIM "游戏开发室" NOR);
     set("long", @LONG
 这里是巫师和玩家交流的地方，为便于巫师统一管理，这
@@ -20,15 +19,15 @@ void create()
 此发表任何符合该主题的文章，巫师也将尽力回复之，并定期公布
 开发进度和计划以供玩家参考，欢迎提出意见！
                                     ==炎黄群侠传全体巫师==
-LONG );
+LONG);
 
     set("exits", ([
-        "southwest": __DIR__"guest_room",
-        ]));
+        "southwest": __DIR__ "guest_room",
+    ]));
 
     set("no_fight", 1);
 
     setup();
     "/clone/board/develop_b"->foo();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

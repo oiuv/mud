@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "龙门客栈");
     set("long", @LONG
 小酒家几乎从不打烊，酒铺看起来不差，老板娘长得很不
@@ -12,10 +11,10 @@ void create()
 方的主人，一定是整天在做着发财梦的穷小子。
 LONG);
     set("objects", ([
-          __DIR__"npc/jinxiangyu" : 1,
+        __DIR__ "npc/jinxiangyu": 1,
     ]));
     set("exits", ([
-          "south" : __DIR__"guandao2",
+        "south": __DIR__ "guandao2",
     ]));
 
     setup();

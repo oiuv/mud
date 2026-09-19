@@ -15,15 +15,13 @@ nosave string *path;
 
 // Leave this to allow other objects can search your commands such as
 // help, which...
-string find_command(string verb)
-{
+string find_command(string verb) {
     return (string)COMMAND_D->find_command(verb, path);
 }
 
 // This is the add_action hook handling movement, commands, emotes and
 // channels. Optimization is needed.
-nomask int command_hook(string arg)
-{
+nomask int command_hook(string arg) {
     string verb, file;
     object me;
     mapping para;
@@ -46,8 +44,7 @@ nomask int command_hook(string arg)
 
     para = me->query_entire_dbase();
     para = para["env"];
-    if (mapp(para) && para["pure_say"] && ! me->is_direct_command())
-    {
+    if (mapp(para) && para["pure_say"] && !me->is_direct_command()) {
         // 不是做动作，而是说话
         if (stringp(file = find_command("say")) &&
             call_other(file, "main", me, me->query_orginal_input()))
@@ -58,7 +55,7 @@ nomask int command_hook(string arg)
             return 0;
     }
 
-    if (! arg &&
+    if (!arg &&
         (environment() && environment()->query("exits/" + verb)) &&
         stringp(file = find_command("go")) &&
         call_other(file, "main", me, verb))
@@ -66,34 +63,29 @@ nomask int command_hook(string arg)
     else if (stringp(file = find_command(verb)) &&
         call_other(file, "main", me, arg))
         ;
-    else if (me->is_in_prison())
-    {
+    else if (me->is_in_prison()) {
         return notify_fail("狱卒喝道：你老老实实的呆着别动！" +
-                    appromix_time(me->query_time_to_leave(), 1) +
-                    "放你出去！\n");
-    }
-    else if (EMOTE_D->do_emote(me, verb, arg))
+            appromix_time(me->query_time_to_leave(), 1) +
+            "放你出去！\n");
+    } else if (EMOTE_D->do_emote(me, verb, arg))
         ;
     else if (CHANNEL_D->do_channel(me, verb, arg))
         ;
     else if (mapp(para) && para["auto_say"] &&
         query_fail_msg() == "什么？\n" &&
         stringp(file = find_command("say")) &&
-        ! me->is_direct_command() &&
+        !me->is_direct_command() &&
         call_other(file, "main", me, me->query_orginal_input()))
         ;
-    else
-    {
+    else {
         mixed err = parse_sentence(arg ? verb + " " + arg : verb, 0);
-        if (intp(err))
-        {
-            switch (err)
-            {
-            case 1: // verb 匹配成功
-                return 1;
-            default:
-                // debug_message("err = " + err + ", verb = " + verb + ", arg = " + arg + ", ob = " + me);
-                return 0;
+        if (intp(err)) {
+            switch (err) {
+                case 1:  // verb 匹配成功
+                    return 1;
+                default:
+                    // debug_message("err = " + err + ", verb = " + verb + ", arg = " + arg + ", ob = " + me);
+                    return 0;
             }
         }
         return notify_fail(err);
@@ -102,38 +94,35 @@ nomask int command_hook(string arg)
 #ifdef PROFILE_COMMANDS
     info = rusage();
     PROFILE_D->log_command(verb, memory_info() - mem, info["stime"] - stime,
-            info["utime"] - utime, cost - eval_cost());
+        info["utime"] - utime, cost - eval_cost());
     PROFILE_D->make_profile();
 #endif
 
     return 1;
 }
 
-private nomask void set_path(string *p)
-{
+private nomask void set_path(string *p) {
     path = p;
 }
 
 string *query_path() { return path; }
 mixed *query_commands() { return commands(); }
 
-int force_me(string cmd)
-{
+int force_me(string cmd) {
     int ret;
 
-    if (! is_root(previous_object()))
+    if (!is_root(previous_object()))
         return 0;
 
     ret = command(this_object()->process_input(cmd));
-    if (objectp(this_object()) && ! in_input())
+    if (objectp(this_object()) && !in_input())
         this_object()->write_prompt();
     return ret;
 }
 
 nosave int enabled = 0;
 
-nomask void enable_player()
-{
+nomask void enable_player() {
     object me;
     string *my_path;
 
@@ -142,8 +131,7 @@ nomask void enable_player()
     else
         set_living_name(query("name"));
 
-    if (! enabled)
-    {
+    if (!enabled) {
         enable_commands();
         parse_init();
         enabled = 1;
@@ -155,38 +143,37 @@ nomask void enable_player()
     }
 
     me = this_object();
-    if (! playerp(me) &&
-        ! interactive(me) &&
-        ! me->is_chatter())
+    if (!playerp(me) &&
+        !interactive(me) &&
+        !me->is_chatter())
         my_path = NPC_PATH;
     else
-        switch (wizhood(me))
-        {
-        case "(admin)":
-            my_path = ADM_PATH;
-            enable_wizard();
-            break;
-        case "(arch)":
-            my_path = ARC_PATH;
-            enable_wizard();
-            break;
-        case "(wizard)":
-            my_path = WIZ_PATH;
-            enable_wizard();
-            break;
-        case "(apprentice)":
-            my_path = APR_PATH;
-            enable_wizard();
-            break;
-        case "(immortal)":
-            my_path = IMM_PATH;
-            enable_wizard();
-            break;
-        default:
-            if (this_object()->is_in_prison())
-                my_path = PNE_PATH;
-            else
-                my_path = PLR_PATH;
+        switch (wizhood(me)) {
+            case "(admin)":
+                my_path = ADM_PATH;
+                enable_wizard();
+                break;
+            case "(arch)":
+                my_path = ARC_PATH;
+                enable_wizard();
+                break;
+            case "(wizard)":
+                my_path = WIZ_PATH;
+                enable_wizard();
+                break;
+            case "(apprentice)":
+                my_path = APR_PATH;
+                enable_wizard();
+                break;
+            case "(immortal)":
+                my_path = IMM_PATH;
+                enable_wizard();
+                break;
+            default:
+                if (this_object()->is_in_prison())
+                    my_path = PNE_PATH;
+                else
+                    my_path = PLR_PATH;
         }
 
     if (me->is_chatter())
@@ -196,14 +183,12 @@ nomask void enable_player()
     set_path(my_path);
 }
 
-nomask void disable_player(string type)
-{
-    if (! is_root(previous_object()) &&
+nomask void disable_player(string type) {
+    if (!is_root(previous_object()) &&
         previous_object() != this_object()) return;
 
     set("disable_type", type);
-    if (enabled)
-    {
+    if (enabled) {
         disable_commands();
         enabled = 0;
     }

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "山路");
     set("long", @LONG
 一条山路，四面皆是茂密的树林和延绵不绝的大山，道路两旁间
@@ -10,14 +9,14 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-                "east"    : __DIR__"shanlu3",
-                "south"   : __DIR__"shanlu4",
-                "northup" : __DIR__"nianhuasi",
-                "westup"  : __DIR__"biluoxueshan",
+        "east": __DIR__ "shanlu3",
+        "south": __DIR__ "shanlu4",
+        "northup": __DIR__ "nianhuasi",
+        "westup": __DIR__ "biluoxueshan",
     ]));
-        set("objects", ([
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/clone/npc/walker": 1,
+    ]));
     set("no_clean_up", 0);
     setup();
     replace_program(ROOM);

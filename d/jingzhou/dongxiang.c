@@ -5,21 +5,20 @@
 #include <room.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "闺房");
     set("long", @LONG
 这是凌小姐的闺房，一股幽香扑面而来。一张绣榻放在墙角，垂着细
 纱。凌小姐正对着一盆菊花在沉思。北面是座花园。
-LONG );
+LONG);
 
     set("exits", ([
-        "west" : __DIR__"houyuan",
-        "north" : __DIR__"huayuan",
+        "west": __DIR__ "houyuan",
+        "north": __DIR__ "huayuan",
     ]));
 
     set("objects", ([
-        __DIR__"npc/shuanghua" : 1,
+        __DIR__ "npc/shuanghua": 1,
     ]));
 
     setup();

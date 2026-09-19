@@ -4,8 +4,7 @@
 
 inherit ITEM;
 
-void create()
-{
+void create() {
     set_name("银镂花", ({ "yinlou hua", "hua" }));
     set_weight(300);
     if (clonep())

@@ -4,11 +4,10 @@
 
 inherit HEAD;
 
-void create()
-{
-    set_name("头盔", ({ "helmet", "toukui" }) );
+void create() {
+    set_name("头盔", ({ "helmet", "toukui" }));
     set_weight(2000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("material", "steel");

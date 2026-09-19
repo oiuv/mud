@@ -23,8 +23,7 @@ inherit F_DBASE;
 * Someone has asked us for a remote who...
 * Lets oblige them.
 */
-void incoming_request(mapping info)
-{
+void incoming_request(mapping info) {
     //object *who;
     string str;
     //int i;
@@ -32,31 +31,28 @@ void incoming_request(mapping info)
     if (!ACCESS_CHECK(previous_object()))
         return;
 
-    if (stringp(info["NAME"]) && stringp(info["PORTUDP"]))
-    {
+    if (stringp(info["NAME"]) && stringp(info["PORTUDP"])) {
         if (info["NAME"] == Mud_name())
             return;
-        if (!DNS_MASTER->dns_mudp(info["NAME"]))
-        {
+        if (!DNS_MASTER->dns_mudp(info["NAME"])) {
             PING_Q->send_ping_q(info["HOSTADDRESS"], info["PORTUDP"]);
             CHANNEL_D->do_channel(this_object(), "sys",
-                                  sprintf("rwho request from %s rejected, ping_q sent.", info["NAME"]));
+                sprintf("rwho request from %s rejected, ping_q sent.", info["NAME"]));
         }
 
         str = WHO_CMD->main(0, info["VERBOSE"] ? "-l -i" : "-i", 1);
 
         DNS_MASTER->send_udp(info["HOSTADDRESS"], info["PORTUDP"],
-                             "@@@" + DNS_RWHO_A +
-                                 "||NAME:" + Mud_name() +
-                                 "||PORTUDP:" + udp_port() +
-                                 "||RWHO:" + str +
-                                 "||ASKWIZ:" + info["ASKWIZ"] +
-                                 "@@@\n");
-    } //if (stringp(info["NAME"]) && stringp(info["PORTUDP"]))
+            "@@@" + DNS_RWHO_A +
+            "||NAME:" + Mud_name() +
+            "||PORTUDP:" + udp_port() +
+            "||RWHO:" + str +
+            "||ASKWIZ:" + info["ASKWIZ"] +
+            "@@@\n");
+    }  //if (stringp(info["NAME"]) && stringp(info["PORTUDP"]))
 }
 
-void send_rwho_q(string mud, object them, int verbose)
-{
+void send_rwho_q(string mud, object them, int verbose) {
     mapping info;
     string askwiz;
 
@@ -70,16 +66,15 @@ void send_rwho_q(string mud, object them, int verbose)
     if (!info)
         return;
     DNS_MASTER->send_udp(info["HOSTADDRESS"], info["PORTUDP"],
-                         "@@@" + DNS_RWHO_Q +
-                             "||NAME:" + Mud_name() +
-                             "||PORTUDP:" + udp_port() +
-                             "||ASKWIZ:" + askwiz +
-                             (verbose ? "||VERBOSE:1" : "") +
-                             "||@@@\n");
+        "@@@" + DNS_RWHO_Q +
+        "||NAME:" + Mud_name() +
+        "||PORTUDP:" + udp_port() +
+        "||ASKWIZ:" + askwiz +
+        (verbose ? "||VERBOSE:1" : "") +
+        "||@@@\n");
 }
 
-void create()
-{
+void create() {
     seteuid(ROOT_UID);
     set("channel_id", "网络精灵");
 }

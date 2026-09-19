@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "林荫小道");
     set("long", @LONG
 沿林荫小道曲折前行约四十公尺，只见古树林立，浓荫蔽
@@ -12,13 +11,13 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-                "northup" : __DIR__"qingxi",
-                "south"   : __DIR__"heilongling",
-                "west"    : __DIR__"hudiequan",
+        "northup": __DIR__ "qingxi",
+        "south": __DIR__ "heilongling",
+        "west": __DIR__ "hudiequan",
     ]));
-        set("objects", ([
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/clone/npc/walker": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

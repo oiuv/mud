@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "厨房");
     set("long", @LONG
 这里是一间厨房。厨房很大，可能也是因为兼作仓库的缘
@@ -11,8 +10,8 @@ void create()
 犬牙交错的砖缝来。屋角边有个大洞。
 LONG);
     set("exits", ([
-        "southwest" : __DIR__"houshan",
-        ]));
-        setup();
-        replace_program(ROOM);
+        "southwest": __DIR__ "houshan",
+    ]));
+    setup();
+    replace_program(ROOM);
 }

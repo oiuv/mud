@@ -5,11 +5,10 @@
 inherit HAMMER;
 inherit F_FOOD;
 
-void create()
-{
-    set_name("炸鸡腿", ({ "jitui", "tui","leg" }) );
+void create() {
+    set_name("炸鸡腿", ({ "jitui", "tui", "leg" }));
     set_weight(350);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("long", "一根啃得姬的炸鸡腿。\n");
@@ -24,10 +23,9 @@ void create()
     setup();
 }
 
-int finish_eat()
-{
-    if( !query("weapon_prop") ) return 0;
-    set_name("啃得精光的鸡腿骨头", ({ "bone" }) );
+int finish_eat() {
+    if (!query("weapon_prop")) return 0;
+    set_name("啃得精光的鸡腿骨头", ({ "bone" }));
     set_weight(150);
     set("long", "一根啃得精光的鸡腿骨头。\n");
     return 1;

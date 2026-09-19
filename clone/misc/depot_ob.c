@@ -2,8 +2,7 @@
 
 #include "/clone/misc/depot_ob.h"
 
-string long()
-{
+string long() {
     string msg;
 
     msg = query("long");

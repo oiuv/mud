@@ -8,41 +8,35 @@
 inherit F_DBASE;
 inherit F_SAVE;
 
-void create()
-{
+void create() {
     seteuid(getuid());
     ::restore();
     set("channel_id", "检查精灵");
 }
 
-string query_save_file()
-{
+string query_save_file() {
     return DATA_DIR "examined";
 }
 
-void remove()
-{
+void remove() {
     save();
 }
 
-varargs mixed query(string idx, int raw)
-{
+varargs mixed query(string idx, int raw) {
     if (previous_object() && !is_root(previous_object()))
         return 0;
 
     return ::query(idx, raw);
 }
 
-mixed set(string idx, mixed data)
-{
+mixed set(string idx, mixed data) {
     if (previous_object() && !is_root(previous_object()))
         return 0;
 
     return ::set(idx, data);
 }
 
-void examine_player(object ob)
-{
+void examine_player(object ob) {
     int exp;
     object cash, gold, silver, coin;
     string log_msg;
@@ -69,15 +63,13 @@ void examine_player(object ob)
     if (coin)
         tval += coin->query_amount() / 10000;
 
-    if (tval > 1500)
-    {
-        if (!ob->query_temp("reported/too_much_money"))
-        {
+    if (tval > 1500) {
+        if (!ob->query_temp("reported/too_much_money")) {
             ob->set_temp("reported/too_much_money", 1);
             log_msg = sprintf("%s(%s) has (%d gold) at %s on %s",
-                              ob->name(1), ob->query("id"), tval,
-                              (environment(ob) ? base_name(environment(ob)) : "Unknow"),
-                              ctime(time()));
+                ob->name(1), ob->query("id"), tval,
+                (environment(ob) ? base_name(environment(ob)) : "Unknow"),
+                ctime(time()));
             log_file("user/money_report", log_msg + "\n");
             CHANNEL_D->do_channel(this_object(), "sys", log_msg);
         }
@@ -90,8 +82,7 @@ void examine_player(object ob)
     }
 }
 
-string create_log_file(object ob)
-{
+string create_log_file(object ob) {
     string fn;
     mixed lt;
 
@@ -100,15 +91,13 @@ string create_log_file(object ob)
 
     lt = localtime(time());
 
-    fn = "user/" + sprintf("%d-%d-%d/", lt[LT_YEAR], lt[LT_MON] + 1, lt[LT_MDAY]) +
-         ob->query("id");
+    fn = "user/" + sprintf("%d-%d-%d/", lt[LT_YEAR], lt[LT_MON] + 1, lt[LT_MDAY]) + ob->query("id");
     assure_file(LOG_DIR + fn);
 
     return fn;
 }
 
-int start_log_player(string id, string me)
-{
+int start_log_player(string id, string me) {
     mixed by;
     object ob;
 
@@ -133,7 +122,7 @@ int start_log_player(string id, string me)
     set("log_by/" + id, me);
 
     log_file("static/log_user", sprintf("%s start log %s on %s\n",
-                                        me, id, ctime(time())));
+        me, id, ctime(time())));
     if (objectp(ob))
         ob->start_log();
     save();
@@ -141,8 +130,7 @@ int start_log_player(string id, string me)
     return 1;
 }
 
-int end_log_player(string id, string euid)
-{
+int end_log_player(string id, string euid) {
     object ob;
     mixed by;
 
@@ -156,11 +144,10 @@ int end_log_player(string id, string euid)
         return notify_fail("系统现在并没有记录这个玩家的日志。\n");
 
     if (euid == ROOT_UID || wizhood(euid) == "(admin)" ||
-        stringp(by) && (by == euid || wiz_level(by) <= wiz_level(euid)))
-    {
-        delete ("log_by/" + id);
+        stringp(by) && (by == euid || wiz_level(by) <= wiz_level(euid))) {
+        delete("log_by/" + id);
         log_file("static/log_user", sprintf("%s stop log %s on %s\n",
-                                            euid, id, ctime(time())));
+            euid, id, ctime(time())));
         save();
         if (objectp(ob))
             ob->end_log();

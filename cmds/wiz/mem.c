@@ -6,22 +6,19 @@ inherit F_CLEAN_UP;
 
 string memory_expression(int m);
 
-mixed main(object me, string arg)
-{
+mixed main(object me, string arg) {
     object obj;
 
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
         return 0;
 
-    if (!arg)
-    {
+    if (!arg) {
         write(sprintf("%s目前共使用 %s bytes 内存。\n",
-                      LOCAL_MUD_NAME(), memory_expression(memory_info())));
+            LOCAL_MUD_NAME(), memory_expression(memory_info())));
         return 1;
     }
 
-    if (arg == "-m")
-    {
+    if (arg == "-m") {
         malloc_status();
         write("\n");
 
@@ -43,8 +40,7 @@ mixed main(object me, string arg)
     return 1;
 }
 
-string memory_expression(int m)
-{
+string memory_expression(int m) {
     float mem;
 
     mem = m;
@@ -55,13 +51,12 @@ string memory_expression(int m)
     return sprintf("%.3f M", (float)mem / (1024 * 1024));
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : mem <对象之名称或档名>
 
 这个指令告诉你某个对象占用的内存数量。
 若没有指明对象, 则会显示目前游戏所占用的内存.
-HELP );
+HELP);
     return 1;
 }

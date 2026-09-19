@@ -3,8 +3,7 @@
 #include <weapon.h>
 inherit DAGGER;
 
-void create()
-{
+void create() {
     set_name("普通匕首", ({ "bishou" }));
     set_weight(6000);
     if (clonep())
@@ -17,6 +16,6 @@ void create()
         set("wield_msg", "$N从兜里掏出一把$n握在手中。\n");
         set("unwield_msg", "$N将手中的$n放会兜里。\n");
     }
-    init_dagger(30,0);
+    init_dagger(30, 0);
     setup();
 }

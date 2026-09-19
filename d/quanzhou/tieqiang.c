@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "铁枪庙");
     set("long", @LONG
 这铁枪庙祀奉的是五代时名将铁枪王彦章。庙旁有座高塔，
@@ -9,9 +8,9 @@ void create()
 不敢侵犯，以致生养繁殖，越来越多。
 LONG);
     set("exits", ([
-                "west"  : __DIR__"jxnanmen",
-        "north" : __DIR__"nanhu",
-        ]));
-        setup();
-        replace_program(ROOM);
+        "west": __DIR__ "jxnanmen",
+        "north": __DIR__ "nanhu",
+    ]));
+    setup();
+    replace_program(ROOM);
 }

@@ -5,8 +5,7 @@
 
 inherit F_SSERVER;
 
-int perform(object me, object target)
-{
+int perform(object me, object target) {
     int damage, lvl, i;
     string msg;
     int ap, dp;
@@ -48,13 +47,11 @@ int perform(object me, object target)
     dp = target->query_skill("parry") + target->query_skill("force") + target->query_str() + target->query_dex();
     lvl = (int)me->query_skill("yintuoluo-zhua", 1);
     msg = HIW "\n$N" HIW "运转少林真气，双手忽成爪行，施出绝招「" HIR "赤"
-              "血连环爪" HIW "」，迅猛无比地抓向$n" HIW "。\n" NOR;
+        "血连环爪" HIW "」，迅猛无比地抓向$n" HIW "。\n" NOR;
 
-    if (ap * 3 / 4 + random(ap) > dp)
-    {
+    if (ap * 3 / 4 + random(ap) > dp) {
 
-        if (me->query("max_neili") > target->query("max_neili") * 2 && me->query("neili") > 500)
-        {
+        if (me->query("max_neili") > target->query("max_neili") * 2 && me->query("neili") > 500) {
             msg += HIR "$n" HIR "全身一颤，立足不稳，被$N" HIR "这一爪抓得跌落在地上。\n" NOR;
 
             me->add("neili", -500);
@@ -65,21 +62,17 @@ int perform(object me, object target)
             target->set("eff_qi", 0);
             target->set("eff_jing", 0);
             // target->unconcious(me);
-        }
-        else
-        {
+        } else {
             damage = ap + random(ap);
             msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 120,
-                                       HIR "但见$N" HIR "双爪划过，$n" HIR "已闪避不及，胸口被$N" HIR
-                                           "抓出十条血痕。\n" NOR);
+                HIR "但见$N" HIR "双爪划过，$n" HIR "已闪避不及，胸口被$N" HIR
+                "抓出十条血痕。\n" NOR);
 
             me->start_busy(3);
             //target->start_busy(lvl/30);
             me->add("neili", -400);
         }
-    }
-    else
-    {
+    } else {
         msg += CYN "$n" CYN "奋力招架，竟将$N" CYN "这招化解。\n" NOR;
 
         me->start_busy(4);
@@ -88,8 +81,7 @@ int perform(object me, object target)
     message_sort(msg, me, target);
     me->add_temp("apply/attack", lvl / 2);
     me->add_temp("apply/unarmed_damage", lvl / 2);
-    for (i = 0; i < 4; i++)
-    {
+    for (i = 0; i < 4; i++) {
         if (!me->is_fighting(target))
             break;
         if (random(8) < 2 && !target->is_busy())

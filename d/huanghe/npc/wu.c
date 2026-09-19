@@ -2,12 +2,11 @@
 
 inherit NPC;
 #include <ansi.h>
-void create()
-{
+void create() {
     set_name("吴青烈", ({ "wu qinglie", "wu", "qinglie" }));
     set("gender", "男性");
-    set("title", HIY"黄河四鬼老二"NOR);
-    set("nickname", HIC"追命枪"NOR);
+    set("title", HIY "黄河四鬼老二" NOR);
+    set("nickname", HIC "追命枪" NOR);
     set("age", 32);
     set("str", 25);
     set("dex", 16);

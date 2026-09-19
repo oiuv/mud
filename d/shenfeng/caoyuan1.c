@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "草原");
     set("long", @LONG
 这是一片无边无际的草原，半人高的青草随风而动，正如
@@ -10,8 +9,8 @@ void create()
 LONG);
     set("outdoors", "shenfeng");
     set("exits", ([
-          "north" : __DIR__"lake4",
-          "south" : __DIR__"caoyuan2",
+        "north": __DIR__ "lake4",
+        "south": __DIR__ "caoyuan2",
     ]));
 
     setup();

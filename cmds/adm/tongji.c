@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string str)
-{
+int main(object me, string str) {
     object *users;
     int count, i, j;
 
@@ -26,10 +25,8 @@ int main(object me, string str)
     j = 0;
     write(HIW "\n以下为本MUD中掌握 " + HIM + CHINESE_D->chinese(str) + HIW + " 的在线玩家。\n" NOR);
     write(HIY "-------------------------------------------------------------------------\n" NOR);
-    for (i = 0; i < count; i++)
-    {
-        if (users[i]->query_skill(str, 1))
-        {
+    for (i = 0; i < count; i++) {
+        if (users[i]->query_skill(str, 1)) {
             write(HIC + users[i]->name() + "(" + users[i]->query("id") + ") \t\t" NOR);
             write(HIC "年龄：" + users[i]->query("age") + "\t" NOR);
             write(HIC "所属门派：" + users[i]->query("family/family_name") + "\t" NOR);

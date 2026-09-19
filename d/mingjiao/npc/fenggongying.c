@@ -5,19 +5,18 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("封弓影", ({ "feng gongying", "feng", "gongying", }));
     set("long",
         "他是一个阴郁的瘦子，身穿一件白布长袍。\n"
         "他脸上阴沉沉的，看来心胸必不开阔。\n"
     );
 
-        set("title",HIG "明教" HIM "神蛇坛" NOR "坛主");
+    set("title", HIG "明教" HIM "神蛇坛" NOR "坛主");
 
     set("gender", "男性");
     set("attitude", "friendly");
-        set("class", "fighter");
+    set("class", "fighter");
 
     set("age", 47);
     set("shen_type", 1);
@@ -52,9 +51,9 @@ void create()
     map_skill("sword", "damo-jian");
     prepare_skill("finger", "nianhua-zhi");
 
-        create_family("明教", 4, "神蛇坛坛主");
+    create_family("明教", 4, "神蛇坛坛主");
 
     setup();
 
-        carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/d/mingjiao/obj/baipao")->wear();
 }

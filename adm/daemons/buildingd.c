@@ -7,18 +7,18 @@ void create() { seteuid(getuid()); }
 string getRoomCode() {
     string code;
 
-////////////////////////
-// start ROOM CODE
-////////////////////////
+    ////////////////////////
+    // start ROOM CODE
+    ////////////////////////
     code = @ROOM_CODE
 // created by BUILDING_D
 
 inherit BUILD;
 
 ROOM_CODE;
-////////////////////////
-// edit ROOM CODE
-////////////////////////
+    ////////////////////////
+    // edit ROOM CODE
+    ////////////////////////
 
     return code;
 }
@@ -26,9 +26,9 @@ ROOM_CODE;
 string getAreaCode(int x, int y) {
     string code;
 
-////////////////////////
-// start AREA CODE
-////////////////////////
+    ////////////////////////
+    // start AREA CODE
+    ////////////////////////
     code = @AREA_CODE
 // created by BUILDING_D
 
@@ -47,9 +47,9 @@ AREA_CODE;
     setup();
 }
 AREA_CODE;
-////////////////////////
-// edit AREA CODE
-////////////////////////
+    ////////////////////////
+    // edit AREA CODE
+    ////////////////////////
 
     return code;
 }

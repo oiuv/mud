@@ -1,9 +1,8 @@
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("厨师", ({ "chu shi", "chu", "shi" }));
-    set("gender", "男性" );
+    set("gender", "男性");
     set("age", 35);
     set("long", "一个肥头大耳的厨师，两只小眼睛不停地眨巴着。\n");
     set("shen_type", -1);

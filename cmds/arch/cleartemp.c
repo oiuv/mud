@@ -8,8 +8,7 @@ inherit F_CLEAN_UP;
 
 int help(object me);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string flogin;
     string fuser;
 
@@ -25,8 +24,7 @@ int main(object me, string arg)
     fuser = TEMP_DIR + "user/" + arg;
 
     if (file_size(flogin) < 0 &&
-        file_size(fuser) < 0)
-    {
+        file_size(fuser) < 0) {
         write("这个玩家在暂存区中没有临时档案。\n");
         return 1;
     }
@@ -34,8 +32,7 @@ int main(object me, string arg)
     rm(flogin);
     rm(fuser);
     if (file_size(flogin) >= 0 ||
-        file_size(fuser) >= 0)
-    {
+        file_size(fuser) >= 0) {
         write("清除暂存区中玩家(" + arg + ")的文件失败了。");
         return 1;
     }
@@ -44,8 +41,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：cleartemp <玩家ID>
 
@@ -53,6 +49,6 @@ int help(object me)
 命令从备份区恢复玩家数据时产生的。
 
 相关指令：restore
-HELP );
+HELP);
     return 1;
 }

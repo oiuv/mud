@@ -4,9 +4,8 @@ inherit ITEM;
 inherit F_FOOD;
 #include <ansi.h>
 
-void create()
-{
-    set_name(HIG"叶儿粑"NOR, ({"ye er ba", "ba"}));
+void create() {
+    set_name(HIG "叶儿粑" NOR, ({ "ye er ba", "ba" }));
     set_weight(80);
     if (clonep())
         set_default_object(__FILE__);

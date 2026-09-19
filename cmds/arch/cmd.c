@@ -2,8 +2,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object *list;
     int i, j, threshold;
 
@@ -19,18 +18,17 @@ int main(object me, string arg)
     for (j = 0; j < i; j++)
         if (list[j]->query_cmd_count() > threshold)
             write(sprintf("%10s    %5d\n", list[j]->query("id"),
-                          list[j]->query_cmd_count()));
+                list[j]->query_cmd_count()));
     return 1;
 }
 
-int  help(object  me)
-{
+int help(object me) {
     write(@HELP
 指令格式  :  cmd  [threshold]
 
 List the average number of commands a player typed per second recently.
 If a "threshold" is given, only number > threshold will be shown.
 
-HELP );
-    return  1;
+HELP);
+    return 1;
 }

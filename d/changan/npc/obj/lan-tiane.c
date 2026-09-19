@@ -5,14 +5,12 @@
 
 inherit HEAD;
 
-void create()
-{
+void create() {
     set_name(HIB "蓝天鹅" NOR, ({ "lan tiane", "tiane" }));
     set_weight(10);
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("long", "庄重朴实的蓝天鹅。\n");
         set("unit", "朵");
         set("value", 6);

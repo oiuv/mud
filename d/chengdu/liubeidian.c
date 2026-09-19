@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "刘备殿");
     set("long", @LONG
 这里是武侯祠的刘备殿。正中供着汉昭烈帝高可丈许。后
@@ -10,8 +9,8 @@ void create()
 的武将廊和蒋琬为首的文臣廊。
 LONG);
     set("exits", ([
-        "south"   : __DIR__"wuhoucigate",
-        "northup" : __DIR__"wuhouci",
+        "south": __DIR__ "wuhoucigate",
+        "northup": __DIR__ "wuhouci",
     ]));
     set("no_clean_up", 0);
     setup();

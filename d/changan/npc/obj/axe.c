@@ -4,14 +4,12 @@
 
 inherit AXE;
 
-void create()
-{
+void create() {
     set_name("板斧", ({ "axe", "axe" }));
     set_weight(6000);
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("unit", "把");
         set("material", "steel");
         set("long", "这是一把沉重的大板斧，砍起东西来非常顺手。\n");

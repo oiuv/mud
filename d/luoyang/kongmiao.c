@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "孔庙");
     set("long", @LONG
 这里是孔庙正殿，内有孔夫子像。历代皇帝都懂得利用儒教思想来巩
@@ -10,11 +9,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "south" : __DIR__"wroad2",
+        "south": __DIR__ "wroad2",
     ]));
-        set("objects", ([
-                "/d/beijing/npc/shusheng2" : 1,
-        ]));
+    set("objects", ([
+        "/d/beijing/npc/shusheng2": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

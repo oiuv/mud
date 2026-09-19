@@ -7,11 +7,10 @@ inherit NPC;
 // 接收的货物
 #define CHECK_GOODS     "cuprum_ore"
 
-void create()
-{
-    set_name("刘工匠", ({ "liu gongjiang", "liu", "worker" }) );
+void create() {
+    set_name("刘工匠", ({ "liu gongjiang", "liu", "worker" }));
     set("title", HIY "天国大匠" NOR);
-    set("gender", "男性" );
+    set("gender", "男性");
     set("age", 52);
     set("str", 33);
     set("long", @LONG
@@ -25,13 +24,11 @@ LONG);
     carry_object("/clone/cloth/cloth")->wear();
 }
 
-void init()
-{
+void init() {
     set_heart_beat(1);
 }
 
-int filter_ob(object ob)
-{
+int filter_ob(object ob) {
     object owner;
 
     if (!ob->is_transport())
@@ -57,8 +54,7 @@ int filter_ob(object ob)
     return 1;
 }
 
-void heart_beat()
-{
+void heart_beat() {
     object *obs;
     object ob;
     object owner;
@@ -77,8 +73,7 @@ void heart_beat()
 
     obs = all_inventory(environment());
     obs = filter_array(obs, (: filter_ob :));
-    if (sizeof(obs) < 1)
-    {
+    if (sizeof(obs) < 1) {
         // 没有到达合适的车辆，停止心跳
         set_heart_beat(0);
         return;
@@ -88,10 +83,10 @@ void heart_beat()
     ob = obs[0];
     owner = ob->query_owner();
     message_vision("$N看到$n押货而来，连连点头道：“很"
-                   "好！很好！就卸到这里吧！”\n",
-                   this_object(), owner);
+        "好！很好！就卸到这里吧！”\n",
+        this_object(), owner);
     tell_object(owner, "你卸下" + ob->query_temp("goods/name") +
-                           "，将" + ob->name() + "交给学徒拉走。\n");
+        "，将" + ob->name() + "交给学徒拉走。\n");
 
     // 卸下铜矿石
     goods = ob->query_temp("goods");
@@ -101,23 +96,21 @@ void heart_beat()
     // 给与奖励
     MONEY_D->pay_player(owner, amount * 10);
     tell_object(owner, "你领到了一些工钱。\n");
-    if (ob->query_temp("job/owner") == owner)
-    {
+    if (ob->query_temp("job/owner") == owner) {
         // 这个是本人领的工作，获得奖励
-        GIFT_D->bonus(owner, (["exp":2000 + random(2000),
-                               "pot":1500 + random(1500),
-                               "score":30 + random(30),
-                               "prompt":"通过这次押送" + goods["name"] + HIG]));
+        GIFT_D->bonus(owner, ([ "exp": 2000 + random(2000),
+            "pot": 1500 + random(1500),
+            "score": 30 + random(30),
+            "prompt": "通过这次押送" + goods["name"] + HIG ]));
 
         // 去掉我做这个工作的信息
-        owner->delete ("job/" + ob->query_temp("job/info"));
+        owner->delete("job/" + ob->query_temp("job/info"));
         // 记录工作次数
         owner->add("mark/job_transit2", 1);
     }
     destruct(ob);
 
-    if (sizeof(obs) < 2)
-    {
+    if (sizeof(obs) < 2) {
         // 已经处理完毕，没有新的车辆到达，停止心跳
         set_heart_beat(0);
     }

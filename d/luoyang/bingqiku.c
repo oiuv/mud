@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "兵器库");
     set("long", @LONG
 这里是兵器库，到处银光闪闪，让人眼花缭乱。宝刀、宝剑、金箍棒，
@@ -10,13 +9,13 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "south" : __DIR__"bingyin",
+        "south": __DIR__ "bingyin",
     ]));
-        set("objects", ([
-                "/clone/weapon/changjian" : 2,
-                "/clone/weapon/gangdao" : 2,
-                "/clone/weapon/dagger" : 2,
-        ]));
+    set("objects", ([
+        "/clone/weapon/changjian": 2,
+        "/clone/weapon/gangdao": 2,
+        "/clone/weapon/dagger": 2,
+    ]));
 
     setup();
     replace_program(ROOM);

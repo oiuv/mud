@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "萧湘书院");
     set("long", @LONG
 这里是书院的讲堂，窗明几净，一尘不染。一位庄重严肃
@@ -10,12 +9,12 @@ void create()
 面，案上摆着几本翻开了的线装书籍。
 LONG);
     set("exits", ([
-          "north" : __DIR__"dongdajie1",
-          "south" : __DIR__"shuyuan1",
+        "north": __DIR__ "dongdajie1",
+        "south": __DIR__ "shuyuan1",
     ]));
     set("objects", ([
-          __DIR__"npc/xiaoxiang" : 1,
-                "/d/wudu/npc/xuetong" : 2,
+        __DIR__ "npc/xiaoxiang": 1,
+        "/d/wudu/npc/xuetong": 2,
     ]));
     set("no_clean_up", 0);
 

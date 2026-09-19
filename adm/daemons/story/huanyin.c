@@ -35,24 +35,22 @@ nosave mixed *story = ({
     (: give_gift :),
 });
 
-void create()
-{
+void create() {
     seteuid(getuid());
 }
 
 string prompt() { return HIG "【武林传闻】" NOR; }
 
-object select_character()
-{
+object select_character() {
     object *obs;
     object ob;
 
     obs = filter_array(all_interactive(),
-                       (: living($1) && $1->query_skill("huanyin-zhi", 1) < 1 &&
-                          $1->query("family/family_name") && $1->query("family/family_name") != "明教" &&
-                          $1->query("combat_exp") >= 400000 && !wizardp($1) &&
-                          !$1->query("story/huanyin")
-                       :));
+        (: living($1) && $1->query_skill("huanyin-zhi", 1) < 1 &&
+        $1->query("family/family_name") && $1->query("family/family_name") != "明教" &&
+        $1->query("combat_exp") >= 400000 && !wizardp($1) &&
+        !$1->query("story/huanyin")
+        :));
     if (!sizeof(obs))
         return 0;
 
@@ -63,16 +61,14 @@ object select_character()
     return ob;
 }
 
-mixed query_story_message(int step)
-{
+mixed query_story_message(int step) {
     mixed msg;
 
     if (step >= sizeof(story))
         return 0;
 
     msg = story[step];
-    if (stringp(msg))
-    {
+    if (stringp(msg)) {
         msg = replace_string(msg, "$N", char_name ? char_name : char_name = "扫地僧");
         msg = replace_string(msg, "$F", family_name ? family_name : family_name = "少林寺");
         msg = replace_string(msg, "$ID", char_id ? char_id : char_id = "none");
@@ -80,8 +76,7 @@ mixed query_story_message(int step)
     return msg;
 }
 
-int give_gift()
-{
+int give_gift() {
     object ob;
 
     ob = find_player(char_id);

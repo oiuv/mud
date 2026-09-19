@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("破疑", ({ "po yi", "yi" }));
     set("age", 22);
     set("gender", "男性");

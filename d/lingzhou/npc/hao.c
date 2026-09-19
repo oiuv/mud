@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("郝连铁树", ({ "haolian tieshu", "tieshu" }));
     set("gender", "男性");
     set("age", random(10) + 20);

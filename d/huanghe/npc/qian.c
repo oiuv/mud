@@ -2,12 +2,11 @@
 
 inherit NPC;
 #include <ansi.h>
-void create()
-{
+void create() {
     set_name("钱青健", ({ "qian qingjian", "qian", "qingjian" }));
     set("gender", "男性");
-    set("title", HIY"黄河四鬼老四"NOR);
-    set("nickname", HIC"丧门斧"NOR);
+    set("title", HIY "黄河四鬼老四" NOR);
+    set("nickname", HIC "丧门斧" NOR);
     set("age", 32);
     set("str", 25);
     set("dex", 16);
@@ -33,6 +32,6 @@ void create()
     set("jiali", 10);
 
     setup();
-    carry_object(__DIR__"obj/axe")->wield();
+    carry_object(__DIR__ "obj/axe")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "鸣沙山");
     set("long", @LONG
 这是一座黄沙堆积形成的山。微风吹动，沙山发出嗡嗡的
@@ -9,11 +8,11 @@ void create()
 LONG);
     set("outdoors", "xiyu");
     set("exits", ([
-        "west"      : __DIR__"yueerquan",
-        "northeast" : __DIR__"silk3",
+        "west": __DIR__ "yueerquan",
+        "northeast": __DIR__ "silk3",
     ]));
     set("objects", ([
-        __DIR__"npc/shachong" : 1
+        __DIR__ "npc/shachong": 1
     ]));
     setup();
     replace_program(ROOM);

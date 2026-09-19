@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("神农帮弟子", ({ "shennong dizi", "dizi" }));
     set("age", 32);
     set("gender", "男性");

@@ -6,9 +6,8 @@ inherit NPC;
 inherit F_GUARDER;
 inherit F_COAGENT;
 
-void create()
-{
-    set_name("风波恶", ({"feng boe", "feng"}));
+void create() {
+    set_name("风波恶", ({ "feng boe", "feng" }));
     set("gender", "男性");
     set("age", 28);
     set("long", "他是慕容家四大家臣之四，最喜欢打架，轻易却不服输。\n");
@@ -47,15 +46,15 @@ void create()
     create_family("慕容世家", 0, "家臣");
 
     set("inquiry", ([
-        "慕容博":   "那是老主人。\n",
-        "慕容复":   "他就是我们跟随的公子！\n",
+        "慕容博": "那是老主人。\n",
+        "慕容复": "他就是我们跟随的公子！\n",
     ]));
 
     set("coagents", ({
-        ([ "startroom" : "/d/yanziwu/qinyun",
-           "id"        : "bao butong" ]),
-        ([ "startroom" : "/d/yanziwu/shuiyun",
-           "id"        : "murong bo" ]),
+        ([ "startroom": "/d/yanziwu/qinyun",
+            "id": "bao butong" ]),
+        ([ "startroom": "/d/yanziwu/shuiyun",
+            "id": "murong bo" ]),
     }));
 
     setup();
@@ -64,8 +63,7 @@ void create()
     carry_object("/clone/weapon/gangdao")->wield();
 }
 
-void attempt_apprentice(object ob)
-{
+void attempt_apprentice(object ob) {
     command("say 我们跟随慕容公子，不收徒。");
     return;
 }

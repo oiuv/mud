@@ -1,17 +1,16 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "大官道");
     set("long", @LONG
 这是一条宽阔笔直，尘土飞扬的大官道，足可容得下十马并驰。南边
 是东都洛阳古城，往北直上可以到达华山。
 LONG);
-        set("outdoors", "luoyang");
-        set("no_clean_up", 0);
-        set("exits", ([
-          "north" : "/d/village/hsroad1",
-          "south" : __DIR__"guandaon3",
+    set("outdoors", "luoyang");
+    set("no_clean_up", 0);
+    set("exits", ([
+        "north": "/d/village/hsroad1",
+        "south": __DIR__ "guandaon3",
     ]));
 
     setup();

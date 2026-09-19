@@ -4,8 +4,7 @@
 
 inherit HAMMER;
 
-void create()
-{
+void create() {
     set_name("啃得精光的鸡腿骨头", ({ "bone" }));
     set_weight(150);
     if (clonep())

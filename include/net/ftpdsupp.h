@@ -26,9 +26,8 @@
  * password is known).  if check_access() returns 0 then the user is
  * disallowed even if the user knows the password.
  */
-int check_access(string name)
-{
-//string file;
+int check_access(string name) {
+    //string file;
 
 #ifdef FTP_USERS
     if (!sizeof(FTP_USERS))
@@ -37,12 +36,12 @@ int check_access(string name)
 #else
 
 #ifdef ANONYMOUS_FTP
-    if ( name == "anonymous" )
+    if (name == "anonymous")
         return 1;
 #endif /* ANONYMOUS_FTP */
 
 #ifdef GUEST_WIZARD_FTP
-        return wizhood(name) != "(player)";
+    return wizhood(name) != "(player)";
 #else
     // This is if you require users to have a home directory
     //  in order to use ftp.
@@ -55,13 +54,12 @@ int check_access(string name)
 /*
  * return 1 if user named 'name' has password of 'plaintext'
  */
-int check_password(string name, string plaintext)
-{
+int check_password(string name, string plaintext) {
     string fancytext, cpass;
     object login_ob;
 
 #ifdef ANONYMOUS_FTP
-    if ( name == "anonymous" ) {
+    if (name == "anonymous") {
         // Currently guest's email address is not verified from USITE;
         // consider supporting:
         //   name@some.ip.dot.address (from USITE and/or socket_address(fd))
@@ -69,11 +67,11 @@ int check_password(string name, string plaintext)
         //   name@some-mud (reverse DNS lookup)
         if (!plaintext || plaintext == "")
             return 0;
-        else if( sizeof(plaintext) < 12 ) return 0;
-        else if( plaintext[sizeof(plaintext)-1..sizeof(plaintext)] == "@")
-                return 0;
+        else if (sizeof(plaintext) < 12) return 0;
+        else if (plaintext[sizeof(plaintext) - 1..sizeof(plaintext)] == "@")
+            return 0;
         else if (member_array(plaintext, ({ "none", "guest", "anon",
-              "anonymous", "none@none"}) ) != -1)
+            "anonymous", "none@none" })) != -1)
             return 0;
         else
             return 1;
@@ -86,8 +84,7 @@ int check_password(string name, string plaintext)
      *   2) query_password() vs query("password")
      */
 #if 0
-    seteuid(name)
-    login_ob = new(LOGIN_OB);
+    seteuid(name) login_ob = new(LOGIN_OB);
     seteuid(getuid());
 
     login_ob->load_me(name);
@@ -101,7 +98,7 @@ int check_password(string name, string plaintext)
     export_uid(login_ob);
 
     // now set login object's name
-    seteuid( getuid() );
+    seteuid(getuid());
     login_ob->set("id", name);
 
     // get login object's password
@@ -182,7 +179,7 @@ int check_site(string who, int fd) {
      * get site list (if any)
      */
     if (site && site != "" && file_size(HOME_DIR(who)) == -2 &&
-          file_size(HOME_DIR(who) + ".login") > 0) {
+        file_size(HOME_DIR(who) + ".login") > 0) {
         arg = read_file(HOME_DIR(who) + ".login");
         if (arg && strlen(arg)) {
             sites = explode(arg, "\n");
@@ -223,7 +220,7 @@ int check_site(string who, int fd) {
                  */
                 if (sscanf(site, "%*d.%*d.%*d.%*d") != 4) {
                     site_num = socket_address(fd);
-                    sscanf( site_num, "%s %*s", site_num );
+                    sscanf(site_num, "%s %*s", site_num);
                     if (member_array(site_num, sites) != -1)
                         return 1;
                 } else {
@@ -252,9 +249,9 @@ int check_site(string who, int fd) {
                             while (i--) {
                                 l2 = strlen(sites[i]) - 1;
                                 if (l2 > 1 && l1 > l2 &&
-                                      sites[i][0..1] == "*." &&
-                                      strcmp(site[l1-l2..-1],
-                                      sites[i][1..-1]) == 0)
+                                    sites[i][0..1] == "*." &&
+                                    strcmp(site[l1 - l2..-1],
+                                        sites[i][1..-1]) == 0)
                                     return 1;
                             }
 
@@ -262,15 +259,15 @@ int check_site(string who, int fd) {
                                 /*
                                  * handle '*' as suffix
                                  */
-                                 i = s;
-                                 while (i--) {
-                                     l2 = strlen(sites[i]) - 2;
-                                     if (l2 > 0 && l1 > l2 &&
-                                          sites[i][l2..-1] == ".*" &&
-                                          strcmp(site[0..l2],
-                                          sites[i][0..l2]) == 0)
+                                i = s;
+                                while (i--) {
+                                    l2 = strlen(sites[i]) - 2;
+                                    if (l2 > 0 && l1 > l2 &&
+                                        sites[i][l2..-1] == ".*" &&
+                                        strcmp(site[0..l2],
+                                            sites[i][0..l2]) == 0)
                                         return 1;
-                                 }
+                                }
                             }
                         }
 
@@ -283,7 +280,7 @@ int check_site(string who, int fd) {
                             while (i--) {
                                 match_dots = explode(sites[i], ".");
                                 if (dot_match(site_dots, match_dots,
-                                      wildcard_flag))
+                                    wildcard_flag))
                                     return 1;
                             }
                         }

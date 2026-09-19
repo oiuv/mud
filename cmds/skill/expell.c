@@ -6,8 +6,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
 
     if (!arg || !ob = present(arg, environment(me)))
@@ -22,17 +21,14 @@ int main(object me, string arg)
     if (!ob->is_apprentice_of(me))
         return notify_fail("这个人不是你的弟子。\n");
 
-    if (ob->query_temp("pending/detach"))
-    {
+    if (ob->query_temp("pending/detach")) {
         message_vision("\n$N痛心的对$n说：唉！你若能呆在我" +
-                           ob->query("family/family_name") +
-                           "，何等有前途？罢了！罢了！\n",
-                       me, ob);
-    }
-    else
-    {
+            ob->query("family/family_name") +
+            "，何等有前途？罢了！罢了！\n",
+            me, ob);
+    } else {
         message_vision("\n$N对着$n说道：从今天起，你再也不是我" + me->query("family/family_name") + "的弟子了，你走吧！\n",
-                       me, ob);
+            me, ob);
     }
 
     tell_object(ob, "\n你被师父开革出师门了！\n");
@@ -40,15 +36,14 @@ int main(object me, string arg)
     ob->skill_expell_penalty();
     ob->add("detach/times", 1);
     ob->add("detach/" + ob->query("family/family_name"), 1);
-    ob->delete ("family");
+    ob->delete("family");
     ob->set("title", "普通百姓");
     ob->unconcious();
 
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : expell|kaichu <某人>
 

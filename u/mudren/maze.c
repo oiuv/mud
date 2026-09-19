@@ -5,34 +5,30 @@ inherit ROOM;
 void setDemon(object me);
 void setInventory(int x, int y, int z);
 
-varargs void create(int x, int y, int z)
-{
+varargs void create(int x, int y, int z) {
     set("short", "心魔幻境");
     set("long", "这里是你的心魔幻境，无边无际，四周灰蒙蒙的，也不知道这里会有什么危险。\n");
     set("maze", "maze");
     setArea("maze", x, y, z);
     set("valid_startroom", 1);
     set("exits", ([
-        "north":__DIR__ "maze/" + x + "," + (y + 1) + "," + z,
-        "south":__DIR__ "maze/" + x + "," + (y - 1) + "," + z,
-        "west":__DIR__ "maze/" + (x - 1) + "," + y + "," + z,
-        "east":__DIR__ "maze/" + (x + 1) + "," + y + "," + z,
+        "north": __DIR__ "maze/" + x + "," + (y + 1) + "," + z,
+        "south": __DIR__ "maze/" + x + "," + (y - 1) + "," + z,
+        "west": __DIR__ "maze/" + (x - 1) + "," + y + "," + z,
+        "east": __DIR__ "maze/" + (x + 1) + "," + y + "," + z,
     ]));
-    if (random(3))
-    {
+    if (random(3)) {
         removeRandomExit();
         // 随机关闭第二个出口
-        if (random(2))
-        {
+        if (random(2)) {
             removeRandomExit();
         }
     }
 
-    if (!random(20))
-    {
+    if (!random(20)) {
         set("long", "这里是无边无际的幻境，在这单调的幻境中有一个闪闪发光的传送门（door），显得格外醒目。\n");
         set("item_desc", ([
-            "door":"离开(out)心魔幻境的传送门！\n",
+            "door": "离开(out)心魔幻境的传送门！\n",
         ]));
         set("exits/out", "/d/city/wumiao2");
     }
@@ -40,32 +36,26 @@ varargs void create(int x, int y, int z)
     setInventory(x, y, z);
 }
 
-void setInventory(int x, int y, int z)
-{
+void setInventory(int x, int y, int z) {
     mapping inv = ([]);
 
-    if (!random(10))
-    {
+    if (!random(10)) {
         inv["/clone/misc/yinzongxiang"] = 1;
     }
 
-    if (!random(20))
-    {
+    if (!random(20)) {
         inv["/clone/misc/yinzongxiang"] = 2;
     }
 
-    if (!random(30))
-    {
+    if (!random(30)) {
         inv["/clone/misc/yinzongxiang"] = 3;
     }
 
-    if (!random(50))
-    {
+    if (!random(50)) {
         inv["/clone/misc/yinzongxiang"] = 5;
     }
 
-    if (!random(100))
-    {
+    if (!random(100)) {
         inv["/clone/misc/yinzongxiang"] = 10;
     }
 
@@ -73,8 +63,7 @@ void setInventory(int x, int y, int z)
     setup();
 }
 
-void setDemon(object me)
-{
+void setDemon(object me) {
     int exp, level;
     object ob;
     // 十分之一机率
@@ -294,7 +283,7 @@ void setDemon(object me)
     exp = me->query("combat_exp") * 10;
     level = to_int(pow(to_float(exp), 1.0 / 3)) / 10 + 1;
 
-    ob = new (CLASS_D("generate") + "/demon.c");
+    ob = new(CLASS_D("generate") + "/demon.c");
     NPC_D->set_from_me(ob, me, 120);
     ob->set_temp("level", level);
     ob->add_temp("apply/attack", ob->query_skill("force", 1) * (level - 1) / 15);
@@ -304,67 +293,52 @@ void setDemon(object me)
     ob->add_temp("apply/unarmed_damage", 5 + level * 7);
     ob->add_temp("apply/armor", 10 + level * 15);
 
-    if (!random(10))
-    {
+    if (!random(10)) {
         ob->carry_object(element_of(ob1_list));
     }
-    if (!random(30))
-    {
+    if (!random(30)) {
         ob->carry_object(element_of(ob2_list));
     }
-    if (!random(50))
-    {
+    if (!random(50)) {
         ob->carry_object(element_of(ob3_list));
     }
-    if (!random(100))
-    {
+    if (!random(100)) {
         ob->carry_object(element_of(ob4_list));
     }
-    if (!random(200))
-    {
+    if (!random(200)) {
         ob->carry_object(element_of(ob5_list));
     }
-    if (!random(300))
-    {
+    if (!random(300)) {
         ob->carry_object(element_of(ob6_list));
     }
-    if (!random(400))
-    {
+    if (!random(400)) {
         ob->carry_object(element_of(ob7_list));
     }
-    if (!random(500))
-    {
+    if (!random(500)) {
         ob->carry_object(element_of(ob8_list));
     }
-    if (!random(600))
-    {
+    if (!random(600)) {
         ob->carry_object(element_of(ob9_list));
     }
-    if (!random(700))
-    {
+    if (!random(700)) {
         ob->carry_object(element_of(ob10_list));
     }
-    if (!random(800))
-    {
+    if (!random(800)) {
         ob->carry_object(element_of(ob11_list));
     }
-    if (!random(900))
-    {
+    if (!random(900)) {
         ob->carry_object(element_of(ob12_list));
     }
-    if (!random(1000))
-    {
+    if (!random(1000)) {
         ob->carry_object(element_of(ob13_list));
     }
     ob->move(environment(me));
 }
 
-void init()
-{
+void init() {
     object me = this_player();
     object ob = next_inventory(me);
-    if (interactive(me) && (!objectp(ob) || !living(ob)) && !random(5))
-    {
+    if (interactive(me) && (!objectp(ob) || !living(ob)) && !random(5)) {
         setDemon(me);
     }
 }

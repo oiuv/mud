@@ -4,8 +4,7 @@ inherit F_CLEAN_UP;
 
 int help(object me);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object obj;
     string str;
     int ttl;
@@ -23,8 +22,7 @@ int main(object me, string arg)
         obj = me;
     else if (arg == "my link")
         obj = me->query_temp("link_ob");
-    else
-    {
+    else {
         obj = present(arg, me);
         if (!obj || !me->visible(obj))
             obj = present(arg, environment(me));
@@ -78,12 +76,11 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : info <对象之名称或档名>
 
 利用此一指令可得知一些有关该对象的资讯。
-HELP );
+HELP);
     return 1;
 }

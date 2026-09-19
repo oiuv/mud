@@ -7,8 +7,7 @@ mixed ask_skill1();
 mixed ask_skill2();
 mixed ask_skill3();
 
-void create()
-{
+void create() {
     set_name("阿大", ({ "a da", "a", "da" }));
     set("long", @LONG
 八臂神剑方东白本是丐帮四大长老之首，剑术
@@ -68,17 +67,17 @@ LONG);
     prepare_skill("strike", "xianglong-zhang");
 
     set("inquiry", ([
-            "傲尘剑" : (: ask_skill1 :),
-            "焚阳剑" : (: ask_skill2 :),
-            "观日神诀" : (: ask_skill3 :),
+        "傲尘剑": (: ask_skill1 :),
+        "焚阳剑": (: ask_skill2 :),
+        "观日神诀": (: ask_skill3 :),
     ]));
 
     set("chat_chance_combat", 120);
     set("chat_msg_combat", ({
-            (: perform_action, "sword.fen" :),
-            (: perform_action, "sword.guan" :),
-            (: exert_function, "recover" :),
-            (: exert_function, "powerup" :),
+        (: perform_action, "sword.fen" :),
+        (: perform_action, "sword.guan" :),
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
     }));
 
     create_family("丐帮", 17, "长老");
@@ -92,23 +91,19 @@ LONG);
     carry_object("/clone/cloth/cloth")->wear();
 }
 
-void attempt_apprentice(object ob)
-{
+void attempt_apprentice(object ob) {
     command("hmm");
     command("say 走开，我不收徒。");
 }
 
-int accept_fight(object ob)
-{
+int accept_fight(object ob) {
     command("sneer");
     command("say 滚开。");
     return 0;
 }
 
-int recognize_apprentice(object ob, string skill)
-{
-    if (ob->query("family/family_name") != "丐帮")
-    {
+int recognize_apprentice(object ob, string skill) {
+    if (ob->query("family/family_name") != "丐帮") {
         command("hmm");
         command("say 滚开。");
         return -1;
@@ -116,8 +111,7 @@ int recognize_apprentice(object ob, string skill)
 
     if (ob->query("family/master_id") != "ma dayuan"
         && ob->query("family/master_id") != "hong qigong"
-        && ob->query("family/beggarlvl") < 7)
-    {
+        && ob->query("family/beggarlvl") < 7) {
         command("sneer");
         command("say 你还不配。\n");
         return -1;
@@ -125,21 +119,18 @@ int recognize_apprentice(object ob, string skill)
 
     if (skill != "sword"
         && skill != "guanri-jian"
-        && skill != "pichen-jian")
-    {
+        && skill != "pichen-jian") {
         command("hmm");
         command("say 我只会两手剑法，不想学就滚吧。");
         return -1;
     }
 
-    if (skill == "sword" && ob->query_skill("sword", 1) > 179)
-    {
+    if (skill == "sword" && ob->query_skill("sword", 1) > 179) {
         command("say 够了，剩下的自己去练。");
         return -1;
     }
 
-    if (! ob->query_temp("can_learn/ada"))
-    {
+    if (!ob->query_temp("can_learn/ada")) {
         command("sigh");
         command("say 也罢，也罢。");
         command("say 这辟尘和观日两套剑法乃我生平绝学，就传给你好了。");
@@ -148,8 +139,7 @@ int recognize_apprentice(object ob, string skill)
     return 1;
 }
 
-mixed ask_skill1()
-{
+mixed ask_skill1() {
     object me;
     me = this_player();
 
@@ -174,11 +164,11 @@ mixed ask_skill1()
         return "你的辟尘剑法还不到家，要多练练。";
 
     message_sort(HIY "\n$n" HIY "一声长叹，摇头道：“也罢，也"
-                    "罢，你过来。”说完便将$N" HIY "招到一旁的僻"
-                    "静处，轻声在$N" HIY "耳边低声嘀咕了半天，不"
-                    "时还伸指捏作剑诀，比划演示剑招，所示全为辟尘"
-                    "剑法绝招的精微要诣，$N" HIY "听后大有所悟。"
-                    "\n\n" NOR, me, this_object());
+        "罢，你过来。”说完便将$N" HIY "招到一旁的僻"
+        "静处，轻声在$N" HIY "耳边低声嘀咕了半天，不"
+        "时还伸指捏作剑诀，比划演示剑招，所示全为辟尘"
+        "剑法绝招的精微要诣，$N" HIY "听后大有所悟。"
+        "\n\n" NOR, me, this_object());
 
     command("sigh");
     command("say 你好好努力吧，别像我……唉。");
@@ -195,8 +185,7 @@ mixed ask_skill1()
     return 1;
 }
 
-mixed ask_skill2()
-{
+mixed ask_skill2() {
     object me;
     me = this_player();
 
@@ -224,11 +213,11 @@ mixed ask_skill2()
         return "你内力修为不够，学不了这一招。";
 
     message_sort(HIY "\n$n" HIY "一声长叹，摇头道：“也罢，也"
-                    "罢，你过来。”说完便将$N" HIY "招到一旁的僻"
-                    "静处，轻声在$N" HIY "耳边低声嘀咕了半天，不"
-                    "时还伸指捏作剑诀，比划演示剑招，所示全为观日"
-                    "剑法绝招的精微要诣，$N" HIY "听后大有所悟。"
-                    "\n\n" NOR, me, this_object());
+        "罢，你过来。”说完便将$N" HIY "招到一旁的僻"
+        "静处，轻声在$N" HIY "耳边低声嘀咕了半天，不"
+        "时还伸指捏作剑诀，比划演示剑招，所示全为观日"
+        "剑法绝招的精微要诣，$N" HIY "听后大有所悟。"
+        "\n\n" NOR, me, this_object());
 
     command("sigh");
     command("say 你好好努力吧，别像我……唉。");
@@ -245,8 +234,7 @@ mixed ask_skill2()
     return 1;
 }
 
-mixed ask_skill3()
-{
+mixed ask_skill3() {
     object me;
     me = this_player();
 
@@ -272,12 +260,12 @@ mixed ask_skill3()
         return "你内力修为不够，学不了这一招。";
 
     message_sort(HIY "\n$n" HIY "一声长叹，摇头道：“也罢，也"
-                     "罢，你过来。”说完便将$N" HIY "招到一旁的僻"
-                     "静处，轻声在$N" HIY "耳边低声嘀咕了半天，不"
-                     "时还伸指捏作剑诀，比划演示剑招，所示全为观日"
-                     "剑法绝招的精微要诣，$N" HIY "听后大有所悟。"
-                     "\n\n" NOR,
-                 me, this_object());
+        "罢，你过来。”说完便将$N" HIY "招到一旁的僻"
+        "静处，轻声在$N" HIY "耳边低声嘀咕了半天，不"
+        "时还伸指捏作剑诀，比划演示剑招，所示全为观日"
+        "剑法绝招的精微要诣，$N" HIY "听后大有所悟。"
+        "\n\n" NOR,
+        me, this_object());
 
     command("sigh");
     command("say 你好好努力吧，别像我……唉。");

@@ -1,10 +1,9 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", HIR "【酆都城门】" NOR);
-       set("long", HIR @LONG
+    set("long", HIR @LONG
 
                     酆     都     城     门
 
@@ -14,14 +13,14 @@ void create()
 烁著。
 
 
-LONG NOR );
+LONG NOR);
     set("exits", ([
-        "north" : __DIR__"road1",
-        "south" : __DIR__"gate",
+        "north": __DIR__ "road1",
+        "south": __DIR__ "gate",
     ]));
     set("objects", ([
-        __DIR__"npc/hei": 1,
-    ]) );
+        __DIR__ "npc/hei": 1,
+    ]));
 
     set("no_fight", 1);
     set("no_sleep_room", 1);
@@ -29,12 +28,10 @@ LONG NOR );
     setup();
 }
 
-int valid_leave(object me, string dir)
-{
-    if( wizardp(me) || !userp(me) ) return 1;
+int valid_leave(object me, string dir) {
+    if (wizardp(me) || !userp(me)) return 1;
 
     if (dir == "south") {
         return notify_fail(HIW "\n一个空洞的声音在你耳边响起……没有回头路了……\n" NOR);
-    }
-    else return 1;
+    } else return 1;
 }

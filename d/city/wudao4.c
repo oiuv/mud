@@ -1,9 +1,8 @@
 #include <ansi.h>
 
-inherit __DIR__"underlt";
+inherit __DIR__ "underlt";
 
-void create()
-{
+void create() {
     set("short", "武道场");
     set("long", @LONG
 这里是三面环山，只有北面有条出口的一坪山间平地。山
@@ -12,14 +11,14 @@ void create()
 LONG);
     set("outdoors", "city");
     set("exits", ([
-        "leitai"      : __DIR__"leitai",
-        "north"       : __DIR__"ximenroad",
-        "southeast"   : __DIR__"wudao1",
-        "southwest"   : __DIR__"wudao2",
+        "leitai": __DIR__ "leitai",
+        "north": __DIR__ "ximenroad",
+        "southeast": __DIR__ "wudao1",
+        "southwest": __DIR__ "wudao2",
     ]));
     set("no_fight", 1);
     setup();
     "/clone/board/wudao_b"->foo();
     init_here();
-    replace_program(__DIR__"underlt");
+    replace_program(__DIR__ "underlt");
 }

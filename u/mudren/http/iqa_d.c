@@ -15,8 +15,7 @@ nosave string AppCode = env("AppKey");
 
 nosave object Receiver;
 
-protected void response(mixed result)
-{
+protected void response(mixed result) {
     string res;
     Debug && debug_message(result);
     res = trim(result[strsrch(result, "content") + 10..strsrch(result, "relquestion") - 4]);
@@ -28,22 +27,23 @@ protected void response(mixed result)
     res = replace_string(res, "\\", "");
     // 替换默认回复
     res = replace_string(res, "defaultReply", "...");
-    if (sizeof(res) < 3)
-    {
+    if (sizeof(res) < 3) {
         return;
     }
     CHANNEL_D->do_channel(Receiver, "chat", res);
 }
 
 // 智能问答
-void iqa(object me, string arg)
-{
+void iqa(object me, string arg) {
     Receiver = me;
 
-    if (!AppCode)
-    {
+    if (!AppCode) {
         error("请先配置AppKey！");
     }
 
-    Http::get(Url, (["appkey":AppCode, "question":arg]), (["Content-Type":"application/json;charset=UTF-8"]));
+    Http::get(
+        Url,
+        ([ "appkey": AppCode, "question": arg ]),
+        ([ "Content-Type": "application/json;charset=UTF-8" ])
+    );
 }

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "北门");
     set("long", @LONG
 阳苜咩城，或简称苜咩城，是大理国的都城。自南诏于初创，历
@@ -12,16 +11,16 @@ void create()
 大路向西通去。
 LONG);
     set("objects", ([
-                __DIR__"npc/bing": 4,
-                __DIR__"npc/jiang": 1,
-                "/clone/npc/walker" : 1,
+        __DIR__ "npc/bing": 4,
+        __DIR__ "npc/jiang": 1,
+        "/clone/npc/walker": 1,
     ]));
     set("outdoors", "dali");
     set("exits", ([
-        "south"     : __DIR__"paifang",
-        "north"     : __DIR__"dalinorth",
-        "east"      : __DIR__"chahuashan1",
-        "west"      : __DIR__"shanlu3",
+        "south": __DIR__ "paifang",
+        "north": __DIR__ "dalinorth",
+        "east": __DIR__ "chahuashan1",
+        "west": __DIR__ "shanlu3",
     ]));
     setup();
     replace_program(ROOM);

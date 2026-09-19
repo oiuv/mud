@@ -1,9 +1,8 @@
 #include <ansi.h>
 inherit ITEM;
 
-void create()
-{
-    set_name(HIR "捕兽夹" NOR, ({ "bushou jia","jia", "bushou" }));
+void create() {
+    set_name(HIR "捕兽夹" NOR, ({ "bushou jia", "jia", "bushou" }));
     set_weight(1000);
     if (clonep())
         set_default_object(__FILE__);

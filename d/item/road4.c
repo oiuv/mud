@@ -2,9 +2,8 @@
 
 inherit ROOM;
 
-void create()
-{
-//      object ob;
+void create() {
+    //      object ob;
 
     set("short", "小径");
     set("long", @LONG
@@ -12,13 +11,13 @@ void create()
 经常有人来往。这里已经是山脚了，山坡上有一些梯田，附近间或有一些
 茅屋。只有东边不远的地方有一见小砖房，烟筒里面时不时冒出一股股黑
 烟，不象是炊火。
-LONG );
+LONG);
 
     set("exits", ([
-                "southwest" : __DIR__"road3",
-                "east"      : __DIR__"road5",
+        "southwest": __DIR__ "road3",
+        "east": __DIR__ "road5",
     ]));
     set("outdoors", "suzhou");
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

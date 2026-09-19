@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "黑森林");
     set("long", @LONG
 这里就是有名的黑森林，四周均是茂密的丛林，巨大的古木遮天
@@ -11,13 +10,13 @@ LONG);
     set("outdoors", "wudujiao");
 
     set("exits", ([
-        "in"    : __DIR__"langwo",
-        "south" : __DIR__"milin5",
-        "west"  : __DIR__"milin3",
-        "north" : __DIR__"milin3",
+        "in": __DIR__ "langwo",
+        "south": __DIR__ "milin5",
+        "west": __DIR__ "milin3",
+        "north": __DIR__ "milin3",
     ]));
     set("objects", ([
-        "/clone/npc/walker" : 1,
+        "/clone/npc/walker": 1,
     ]));
     setup();
     replace_program(ROOM);

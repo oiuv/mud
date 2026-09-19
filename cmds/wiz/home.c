@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string msg;
 
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
@@ -22,13 +21,12 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : home
 
 利用此一指令可直接回到自己的工作室。
 如果你有 'msg_home' 这个设定, 则在场的人都会看到那个讯息.
-HELP );
+HELP);
     return 1;
 }

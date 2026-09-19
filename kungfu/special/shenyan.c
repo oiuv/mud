@@ -4,8 +4,7 @@
 inherit F_CLEAN_UP;
 
 // 从 masterd.c 获取有效技能类型
-string *query_valid_types()
-{
+string *query_valid_types() {
     return MASTER_D->query_valid_types();
 }
 
@@ -19,11 +18,10 @@ int is_scborn() { return 1; }
 
 string name() { return HIC "通慧神眼" NOR; }
 
-private int check_target(object me, string arg)
-{
+private int check_target(object me, string arg) {
     object ob;
 
-    if (! objectp(ob = present(arg, environment(me))))
+    if (!objectp(ob = present(arg, environment(me))))
         return notify_fail("这里没有这个人！格式：special shenyan <对象id>\n");
 
     if (ob->query_temp("apply/invisible"))
@@ -32,8 +30,7 @@ private int check_target(object me, string arg)
     return 1;
 }
 
-string status_color(int current, int max)
-{
+string status_color(int current, int max) {
     int percent;
 
     if (max > 0)
@@ -54,8 +51,7 @@ string status_color(int current, int max)
     return RED;
 }
 
-private void show_target_status(object me, object ob)
-{
+private void show_target_status(object me, object ob) {
     mapping my;
     string sp;
     int craze;
@@ -76,39 +72,41 @@ private void show_target_status(object me, object ob)
     sp += HIC "≡" HIY "----------------------------------------------------------------" HIC "≡\n" NOR;
 
     sp += sprintf(HIC "【 精 气 】 %s%5d/ %5d %s(%3d%%)" HIC "    【 精 力 】 %s%5d / %5d (+%d)\n",
-                  status_color(my["jing"], my["eff_jing"]), my["jing"], my["eff_jing"],
-                  status_color(my["eff_jing"], my["max_jing"]),
-                  my["eff_jing"] * 100 / my["max_jing"],
-                  status_color(my["jingli"], my["max_jingli"]), my["jingli"],
-                  my["max_jingli"], my["jiajing"]);
+        status_color(my["jing"], my["eff_jing"]), my["jing"], my["eff_jing"],
+        status_color(my["eff_jing"], my["max_jing"]),
+        my["eff_jing"] * 100 / my["max_jing"],
+        status_color(my["jingli"], my["max_jingli"]), my["jingli"],
+        my["max_jingli"], my["jiajing"]);
 
     sp += sprintf(HIC "【 气 血 】 %s%5d/ %5d %s(%3d%%)" HIC "    【 内 力 】 %s%5d / %5d (+%d)\n",
-                  status_color(my["qi"], my["eff_qi"]), my["qi"], my["eff_qi"],
-                  status_color(my["eff_qi"], my["max_qi"]),
-                  my["eff_qi"] * 100 / my["max_qi"],
-                  status_color(my["neili"], my["max_neili"]), my["neili"],
-                  my["max_neili"], my["jiali"]);
+        status_color(my["qi"], my["eff_qi"]), my["qi"], my["eff_qi"],
+        status_color(my["eff_qi"], my["max_qi"]),
+        my["eff_qi"] * 100 / my["max_qi"],
+        status_color(my["neili"], my["max_neili"]), my["neili"],
+        my["max_neili"], my["jiali"]);
 
     sp += sprintf(HIW "【 食 物 】 %s%5d/ %5d      " HIW "     【 潜 能 】  %s%d\n",
-                  status_color(my["food"], ob->max_food_capacity()),
-                  my["food"], ob->max_food_capacity(),
-                  (int)ob->query("potential") >= (int)ob->query_potential_limit() ? HIM : HIY,
-                  (int)ob->query("potential") - (int)ob->query("learned_points"));
+        status_color(my["food"], ob->max_food_capacity()),
+        my["food"], ob->max_food_capacity(),
+        (int)ob->query("potential") >= (int)ob->query_potential_limit() ? HIM : HIY,
+        (int)ob->query("potential") - (int)ob->query("learned_points"));
 
     sp += sprintf(HIW "【 饮 水 】 %s%5d/ %5d      " HIW "     【 体 会 】  %s%d\n",
-                  status_color(my["water"], ob->max_water_capacity()),
-                  my["water"], ob->max_water_capacity(),
-                  my["experience"] >= ob->query_experience_limit() ? HIM : HIY,
-                  my["experience"] - my["learned_experience"]);
+        status_color(my["water"], ob->max_water_capacity()),
+        my["water"], ob->max_water_capacity(),
+        my["experience"] >= ob->query_experience_limit() ? HIM : HIY,
+        my["experience"] - my["learned_experience"]);
 
     if (craze = me->query_craze()) {
         if (me->is_most_craze())
-            sp += HIR "【 愤 " BLINK "怒" NOR HIR " 】  " +
-                  sprintf("%-22s", me->query("character") == "光明磊落" ? "竖发冲冠" : "怒火中烧");
+            sp += HIR "【 愤 " BLINK "怒" NOR HIR " 】  " + sprintf(
+                "%-22s",
+                me->query("character") == "光明磊落" ? "竖发冲冠" : "怒火中烧"
+            );
         else
             sp += sprintf(HIR "【 愤 怒 】 %5d/ %5d (+%-3d)    ",
-                          craze, me->query_max_craze(),
-                          me->query("jianu"));
+                craze, me->query_max_craze(),
+                me->query("jianu"));
     } else {
         sp += HIC "【 平 和 】   ---------            ";
     }
@@ -117,19 +115,18 @@ private void show_target_status(object me, object ob)
     tell_object(me, sp);
 }
 
-private void show_target_skills(object me, object ob)
-{
+private void show_target_skills(object me, object ob) {
     mapping skl, lrn, map;
     string *sname, *mapped, str, skillname, skcolor;
     string *basic;
-    mixed  *lists;
+    mixed *lists;
     string *others;
     int i, k;
     int lvl;
 
     skl = ob->query_skills();
-    if (! sizeof(skl)) {
-        tell_object(me, (ob==me ? "你" : ob->name()) + "目前并没有学会任何技能。\n");
+    if (!sizeof(skl)) {
+        tell_object(me, (ob == me ? "你" : ob->name()) + "目前并没有学会任何技能。\n");
         return;
     }
 
@@ -138,17 +135,17 @@ private void show_target_skills(object me, object ob)
 
     basic = filter_array(query_valid_types(), (: member_array($1, $(sname)) != -1 :));
     lists = allocate(sizeof(basic));
-    others = ({ });
+    others = ({});
 
     sname -= basic;
     for (i = 0; i < sizeof(sname); i++) {
-        if (! sname[i]) continue;
+        if (!sname[i]) continue;
 
         for (k = 0; k < sizeof(basic); k++) {
             string main_skill;
 
             if (SKILL_D(sname[i])->valid_enable(basic[k])) {
-                if (! lists[k])
+                if (!lists[k])
                     lists[k] = ({ sname[i] });
                 else
                     lists[k] += ({ sname[i] });
@@ -170,7 +167,7 @@ private void show_target_skills(object me, object ob)
             others += ({ sname[i] });
     }
 
-    sname = ({ });
+    sname = ({});
     for (i = 0; i < sizeof(basic); i++) {
         sname += ({ basic[i] });
         if (lists[i]) sname += lists[i];
@@ -179,10 +176,10 @@ private void show_target_skills(object me, object ob)
 
     map = ob->query_skill_map();
     if (mapp(map)) mapped = values(map);
-    if (! mapped) mapped = ({});
+    if (!mapped) mapped = ({});
 
     lrn = ob->query_learned();
-    if (! mapp(lrn)) lrn = ([]);
+    if (!mapp(lrn)) lrn = ([]);
     str += "\n\n";
     str += HIC "≡" HIY "------------------------------------------------------------" HIC "≡\n" NOR;
 
@@ -191,12 +188,12 @@ private void show_target_skills(object me, object ob)
         skillname = to_chinese(sname[i]);
 
         switch (strlen(skillname)) {
-        case 3:
-            skillname = sprintf("%c %c %c", skillname[0], skillname[1], skillname[2]);
-            break;
-        case 2:
-            skillname = sprintf("%c    %c", skillname[0], skillname[1]);
-            break;
+            case 3:
+                skillname = sprintf("%c %c %c", skillname[0], skillname[1], skillname[2]);
+                break;
+            case 2:
+                skillname = sprintf("%c    %c", skillname[0], skillname[1]);
+                break;
         }
 
         if (member_array(sname[i], query_valid_types()) != -1)
@@ -204,8 +201,8 @@ private void show_target_skills(object me, object ob)
         else
             skcolor = WHT;
 
-        if (! objectp(find_object(SKILL_D(sname[i]))) &&
-            ! objectp(load_object(SKILL_D(sname[i])))) {
+        if (!objectp(find_object(SKILL_D(sname[i]))) &&
+            !objectp(load_object(SKILL_D(sname[i])))) {
             tell_object(me, HIR "Error(No such skill):" + sname[i] + "\n" NOR);
             continue;
         }
@@ -214,8 +211,8 @@ private void show_target_skills(object me, object ob)
         percent = lrn[sname[i]] * 100 / ((lvl + 1) * (lvl + 1) + 1);
         if (percent > 100) percent = 100;
         str += sprintf("%s%s%s%-40s" NOR WHT " - %4d/%3d%%\n" NOR, skcolor,
-            (lrn[sname[i]] >= (skl[sname[i]]+1) * (skl[sname[i]]+1)) ? HIM : "",
-            (member_array(sname[i], mapped)==-1? "  ": "□ "),
+            (lrn[sname[i]] >= (skl[sname[i]] + 1) * (skl[sname[i]] + 1)) ? HIM : "",
+            (member_array(sname[i], mapped) == -1 ? "  " : "□ "),
             skillname + " (" + sname[i] + ")",
             lvl, percent);
     }
@@ -224,8 +221,7 @@ private void show_target_skills(object me, object ob)
     me->start_more(str);
 }
 
-int perform(object me, string skill, string arg)
-{
+int perform(object me, string skill, string arg) {
     object ob;
 
     if (me->query("neili") < SHENYAN_NEILI_REQUIRE)

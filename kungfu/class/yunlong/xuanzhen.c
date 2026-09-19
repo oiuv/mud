@@ -5,12 +5,11 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
+void create() {
     set_name("玄贞道长", ({ "xuan zhen", "xuan", "zhen" }));
     set("gender", "男性");
-    set("title", HIR "天地会"HIG"青木堂"NOR"会众");
-    set("long", "\n这位沉默寡言的道人，便是天地会青木堂护法。\n"+
+    set("title", HIR "天地会" HIG "青木堂" NOR "会众");
+    set("long", "\n这位沉默寡言的道人，便是天地会青木堂护法。\n" +
         "他是青木堂数一数二的好手，一柄长剑使得出神入化。\n");
     set("age", 55);
     set("class", "taoist");
@@ -54,22 +53,22 @@ void create()
 
     prepare_skill("hand", "yunlong-shou");
     prepare_skill("claw", "yunlong-zhua");
-    create_family("云龙门",2, "弟子");
+    create_family("云龙门", 2, "弟子");
     set("book_count", 1);
 
-        set("inquiry", ([
-        "陈近南" : "想见总舵主可不容易啊。",
-        "天地会" : "只要是英雄好汉，都可以入我天地会。",
-                "反清复明" : "去棺材店和回春堂仔细瞧瞧吧！",
-                "暗号" : "敲三下！",
-                "切口" : "敲三下！",
-        ]));
+    set("inquiry", ([
+        "陈近南": "想见总舵主可不容易啊。",
+        "天地会": "只要是英雄好汉，都可以入我天地会。",
+        "反清复明": "去棺材店和回春堂仔细瞧瞧吧！",
+        "暗号": "敲三下！",
+        "切口": "敲三下！",
+    ]));
 
     set("chat_chance_combat", 50);
     set("chat_msg_combat", ({
         (: command("smile") :),
         (: command("haha") :),
-        (: command("chat 这位" + RANK_D->query_respect(this_player())+",你我无冤无仇，何必如此?\n") :),
+        (: command("chat 这位" + RANK_D->query_respect(this_player()) + ",你我无冤无仇，何必如此?\n") :),
         (: command("unwield changjian") :),
         (: command("unwield changjian") :),
         (: command("unwield changjian") :),
@@ -88,26 +87,25 @@ void create()
         (: command("wield bian") :),
         (: command("wield bian") :),
         (: command("wield bian") :),
-                (: perform_action, "sword.xian" :),
-                (: perform_action, "sword.xian" :),
-                (: perform_action, "sword.xian" :),
-                (: perform_action, "whip.chan" :),
-                (: perform_action, "whip.chan" :),
-                (: exert_function, "recover" :),
-                (: exert_function, "recover" :),
+        (: perform_action, "sword.xian" :),
+        (: perform_action, "sword.xian" :),
+        (: perform_action, "sword.xian" :),
+        (: perform_action, "whip.chan" :),
+        (: perform_action, "whip.chan" :),
+        (: exert_function, "recover" :),
+        (: exert_function, "recover" :),
         (: command("unwield bian") :),
         (: command("unwield bian") :),
         (: command("unwield bian") :),
         (: command("unwield bian") :),
-                      }) );
+    }));
     setup();
     carry_object("/clone/weapon/changjian")->wield();
     carry_object("/clone/misc/cloth")->wear();
-        add_money("silver", 12);
+    add_money("silver", 12);
 }
 
-void init()
-{
+void init() {
     ::init();
     add_action("do_join", "join");
 }

@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "白驼山");
     set("long", @LONG
 这是传说中神秘的白驼山。远远望去，两座白沙堆积形成
@@ -11,11 +10,11 @@ void create()
 宅，一般人闯进去非死即伤。
 LONG);
     set("exits", ([
-        "east" : __DIR__"shamo4",
-        "westup" : __DIR__"btshan1",
+        "east": __DIR__ "shamo4",
+        "westup": __DIR__ "btshan1",
     ]));
     set("objects", ([
-        "/clone/beast/jinshe" : 3,
+        "/clone/beast/jinshe": 3,
     ]));
     set("outdoors", "xiyu");
     setup();

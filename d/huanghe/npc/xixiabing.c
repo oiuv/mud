@@ -3,8 +3,7 @@
 inherit NPC;
 
 
-void create()
-{
+void create() {
     set_name("西夏兵", ({ "xixia bing", "bing" }));
     set("gender", "男性");
     set("age", random(10) + 20);

@@ -3,8 +3,7 @@ inherit NPC;
 
 int do_walk();
 
-void create()
-{
+void create() {
     NPC_D->generate_cn_name(this_object());
     set("gender", "男性");
     set("age", 53 + random(20));
@@ -17,7 +16,7 @@ LONG);
     set("con", 19);
     set("dex", 17);
 
-    set("chat_chance", 10); // random(100) < chance
+    set("chat_chance", 10);  // random(100) < chance
     set("chat_msg", ({
         (: do_walk :),
     }));
@@ -30,8 +29,7 @@ LONG);
     carry_object("/clone/cloth/cloth")->wear();
 }
 
-int do_walk()
-{
+int do_walk() {
     string start_room;
     object room, env = environment();
     object ob, *obs;
@@ -41,13 +39,11 @@ int do_walk()
     if (!env)
         return 0;
 
-    if (time() - query("check_time") > 900)
-    {
+    if (time() - query("check_time") > 900) {
         if (!stringp(start_room = query("startroom")) ||
             !objectp(room = find_object(start_room)) ||
             !mapp(obmap = room->query_temp("objects")) ||
-            member_array(this_object(), values(obmap)) == -1)
-        {
+            member_array(this_object(), values(obmap)) == -1) {
             message_vision(CYN "$N" CYN "叹了叹气，走了。\n" NOR, this_object());
             destruct(this_object());
             return 0;
@@ -61,8 +57,7 @@ int do_walk()
         obs = env->query_inventory(query("area_info/x_axis"), query("area_info/y_axis"));
     else
         obs = all_inventory(env);
-    foreach (ob in obs)
-    {
+    foreach (ob in obs) {
         if (ob->is_character() ||
             ob->is_head() ||
             ob->query("no_get"))
@@ -73,18 +68,17 @@ int do_walk()
 
     if (n == 1)
         message_vision(HIC "$N" HIC "一弯腰，从地上捡起一样"
-                           "东西。\n" NOR,
-                       this_object());
+            "东西。\n" NOR,
+            this_object());
     else if (n > 1)
         message_vision(HIC "$N" HIC "弯腰在地上摸摸索索找了"
-                           "半天，捡起一堆东西。\n" NOR,
-                       this_object());
+            "半天，捡起一堆东西。\n" NOR,
+            this_object());
 
     random_move();
     return 1;
 }
 
-void unconcious()
-{
+void unconcious() {
     die();
 }

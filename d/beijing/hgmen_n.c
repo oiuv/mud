@@ -1,8 +1,7 @@
 inherit ROOM;
 #include <ansi.h>
 
-void create()
-{
+void create() {
     set("short", "皇宫北门");
     set("long", @LONG
 这里便是皇宫的北门，丈高的朱红大门敞开着，门上金色的铆钉闪闪发光。
@@ -12,20 +11,19 @@ void create()
 过地安门可以到达北京的北城郊。
 LONG NOR);
     set("exits", ([
-        "south" : __DIR__"hg",
-        "north" : __DIR__"dianmen",
+        "south": __DIR__ "hg",
+        "north": __DIR__ "dianmen",
     ]));
     set("objects", ([
-        __DIR__"npc/bing2" : 1,
-        __DIR__"npc/bing3" : 1,
-        __DIR__"npc/yuqian1" : 1,
+        __DIR__ "npc/bing2": 1,
+        __DIR__ "npc/bing3": 1,
+        __DIR__ "npc/yuqian1": 1,
     ]));
     set("no_fight", 1);
     setup();
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     if (objectp(present("guan bing", environment(me))) && dir == "south")
         return notify_fail("御前侍卫伸手拦住你朗声说道：皇宫重地，岂容寻常百姓出入。\n\n");
     return ::valid_leave(me, dir);

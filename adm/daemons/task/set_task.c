@@ -7,16 +7,14 @@ inherit F_DBASE;
 #define TASK_OBJECT "/adm/daemons/task/obj/"              //task对象目录
 #define MIRROR "/adm/daemons/task/mirror.c"               //宝镜放置的路径
 
-void create()
-{
+void create() {
     seteuid(getuid());
     set("name", HIG "宝镜任务精灵" NOR);
     set("id", "mirror daemon");
     call_out("task_reminder", 20);
 }
 
-void task_reminder()
-{
+void task_reminder() {
     object zixu = find_object(ZIXU);
     if (!zixu)
         zixu = load_object(ZIXU);
@@ -27,8 +25,7 @@ void task_reminder()
     call_out("set_task", 180);
 }
 
-void set_task()
-{
+void set_task() {
     object npc, zixu, task, *mirror, mirror_owner, *npc_inv;
     string *i_list, *ip;
     int level, x, i, ii, same, y;
@@ -45,44 +42,37 @@ void set_task()
 
     i_list = get_dir(TASK_OBJECT);
 
-    for (x = 0; x < sizeof(i_list); x++)
-    {
+    for (x = 0; x < sizeof(i_list); x++) {
         task = find_object(TASK_OBJECT + i_list[x]);
         if (task)
             destruct(task);
     }
 
-    for (x = 0; x < sizeof(i_list); x++)
-    {
+    for (x = 0; x < sizeof(i_list); x++) {
 
         task = find_object(TASK_OBJECT + i_list[x]);
-        if (!task)
-        {
-            npc = new (TASK_CARRIER);
+        if (!task) {
+            npc = new(TASK_CARRIER);
 
             task = load_object(TASK_OBJECT + i_list[x]);
             task->set("task_time", time() / 100);
 
             NPC_D->place_npc(npc, 0);
-            if (strsrch(npc->query("long"), "一个拾荒者") > -1)
-            { //增加npc的伪装
+            if (strsrch(npc->query("long"), "一个拾荒者") > -1) {  //增加npc的伪装
                 npc_inv = all_inventory(npc);
-                for (y = 0; y < sizeof(npc_inv); y++)
-                {
+                for (y = 0; y < sizeof(npc_inv); y++) {
                     destruct(npc_inv[y]);
                 }
                 npc->carry_object("/clone/cloth/cloth")->wear();
                 npc->set("combat_exp", 1);
-            }
-            else
-            {
+            } else {
                 NPC_D->set_from_me(npc, zixu, random(100) + 1);
                 npc->add_temp("apply/attack", npc->query_skill("force") *
-                                                  (level - 1) / 15);
+                    (level - 1) / 15);
                 npc->add_temp("apply/dodge", npc->query_skill("force") *
-                                                 (level - 1) / 15);
+                    (level - 1) / 15);
                 npc->add_temp("apply/parry", npc->query_skill("force") *
-                                                 (level - 1) / 15);
+                    (level - 1) / 15);
                 npc->add_temp("apply/damage", 5 + level * 7);
                 npc->add_temp("apply/unarmed_damage", 5 + level * 7);
                 npc->add_temp("apply/armor", 10 + level * 15);
@@ -98,60 +88,50 @@ void set_task()
     mirror = children(MIRROR);
 
     if (sizeof(mirror) == 1)
-        return; //只有主对象没有任何clone出来的
+        return;  //只有主对象没有任何clone出来的
 
-    for (i = 0; i < sizeof(mirror); i++)
-    {
+        for (i = 0; i < sizeof(mirror); i++) {
 
-        if (!clonep(mirror[i]))
-            continue; //若是主对象不注入
+            if (!clonep(mirror[i]))
+                continue;  //若是主对象不注入
 
-        mirror_owner = environment(mirror[i]);
+                mirror_owner = environment(mirror[i]);
 
-        if (query_ip_number(mirror_owner) == 0)
-        {
-            destruct(mirror[i]);
-            tell_object(mirror_owner, "你目前没有ip地址，因此"
-                                      "这块宝镜天神予以没收。\n");
-            continue;
-        }
-
-        if (!ip)
-        {
-            ip = ({query_ip_number(mirror_owner)});
-
-            mirror[i]->set("power", 100);
-            tell_object(mirror_owner, HIR "只见一道红光注入你的乾坤宝"
-                                          "镜里面，使它顿时有了灵气。\n" NOR);
-            continue;
-        }
-        else
-        {
-            same = 0;
-            for (ii = 0; ii < sizeof(ip); ii++)
-            {
-                if (query_ip_number(mirror_owner) == ip[ii])
-                    same = 1;
-            }
-            if (same == 1)
-            {
+            if (query_ip_number(mirror_owner) == 0) {
                 destruct(mirror[i]);
-                tell_object(mirror_owner, "你所在ip还有另外的宝镜，"
-                                          "这块宝镜天神予以没收。\n");
+                tell_object(mirror_owner, "你目前没有ip地址，因此"
+                    "这块宝镜天神予以没收。\n");
+                continue;
             }
-            else
-            {
-                ip += ({query_ip_number(mirror_owner)});
+
+            if (!ip) {
+                ip = ({ query_ip_number(mirror_owner) });
+
                 mirror[i]->set("power", 100);
                 tell_object(mirror_owner, HIR "只见一道红光注入你的乾坤宝"
-                                              "镜里面，使它顿时有了灵气。\n" NOR);
+                    "镜里面，使它顿时有了灵气。\n" NOR);
+                continue;
+            } else {
+                same = 0;
+                for (ii = 0; ii < sizeof(ip); ii++) {
+                    if (query_ip_number(mirror_owner) == ip[ii])
+                        same = 1;
+                }
+                if (same == 1) {
+                    destruct(mirror[i]);
+                    tell_object(mirror_owner, "你所在ip还有另外的宝镜，"
+                        "这块宝镜天神予以没收。\n");
+                } else {
+                    ip += ({ query_ip_number(mirror_owner) });
+                    mirror[i]->set("power", 100);
+                    tell_object(mirror_owner, HIR "只见一道红光注入你的乾坤宝"
+                        "镜里面，使它顿时有了灵气。\n" NOR);
+                }
             }
         }
-    }
 }
 
-int do_return(object ob, object me, string arg)
-{
+int do_return(object ob, object me, string arg) {
     string target, item;
     object who, pay;
     int count, exp, pot /*, tihui, gx*/;
@@ -180,9 +160,8 @@ int do_return(object ob, object me, string arg)
     if (!living(who))
         return notify_fail("你还是得等人家醒了再说吧。\n");
 
-    if (me->query("mirror_task/task_time") != ob->query("task_time"))
-    {
-        me->delete ("mirror_task");
+    if (me->query("mirror_task/task_time") != ob->query("task_time")) {
+        me->delete("mirror_task");
         me->set("mirror_task/task_time", ob->query("task_time"));
     }
 
@@ -210,36 +189,35 @@ int do_return(object ob, object me, string arg)
     if (count == 20)
         pot += 4000;
     if (count == 30)
-        pot += 10000; //每次更新30个task物品，故30个全部完成理应加大奖励幅度（我怎么感觉30个全完成是不可能的事情。。。） 2017-02-02
+        pot += 10000;  //每次更新30个task物品，故30个全部完成理应加大奖励幅度（我怎么感觉30个全完成是不可能的事情。。。） 2017-02-02
 
-    // gx = 1 + random(3);
-    kar = me->query("kar"); //修改阅历增加和福缘挂钩 2016-12-21
-    score = 10 + random(kar);
+        // gx = 1 + random(3);
+        kar = me->query("kar");  //修改阅历增加和福缘挂钩 2016-12-21
+        score = 10 + random(kar);
     me->add("combat_exp", exp);
     me->add("potential", pot);
     // me->add("gongxian", gx);
     me->add("score", score);
     // me->add("experience", tihui);
-    me->delete ("xquest/mirror");
+    me->delete("xquest/mirror");
 
     tell_object(me, "你拿出" + ob->name() + "(" + ob->query("id") + ")给" +
-                        who->name() + "。\n" + WHT + who->name() + "说道：“啊，真是多谢这位" +
-                        RANK_D->query_respect(me) + "了。”\n" NOR);
+        who->name() + "。\n" + WHT + who->name() + "说道：“啊，真是多谢这位" +
+        RANK_D->query_respect(me) + "了。”\n" NOR);
 
     tell_object(me, HIY "这是你这一轮完成的第" + HIR +
-                        chinese_number(me->query("mirror_task/count")) + NOR + HIY "个宝镜任务。\n" NOR +
-                        HIG "通过这次锻炼，你获得了" NOR HIR + chinese_number(exp) +
-                        HIG "点经验，" NOR HIW + chinese_number(pot) + NOR HIG "点潜能。\n" NOR HIW "外加奖励十两白银。\n" NOR);
-    if (me->query("mirror_count"))
-    {
+        chinese_number(me->query("mirror_task/count")) + NOR + HIY "个宝镜任务。\n" NOR +
+        HIG "通过这次锻炼，你获得了" NOR HIR + chinese_number(exp) +
+        HIG "点经验，" NOR HIW + chinese_number(pot) + NOR HIG "点潜能。\n" NOR HIW "外加奖励十两白银。\n" NOR);
+    if (me->query("mirror_count")) {
         tell_object(me, HIY "你累计已完成" + HIR +
-                            chinese_number(me->query("mirror_count")) + NOR + HIY "个宝镜任务。\n" NOR);
+            chinese_number(me->query("mirror_count")) + NOR + HIY "个宝镜任务。\n" NOR);
     }
     message("vision", me->name() + "拿出" + ob->name() + "(" + ob->query("id") + ")给" + who->name() + "。\n" + WHT + who->name() + "说道："
-            "“啊，真是多谢这位" + RANK_D->query_respect(me) + "了。”\n" NOR,
-            environment(me), ({me}));
+        "“啊，真是多谢这位" + RANK_D->query_respect(me) + "了。”\n" NOR,
+        environment(me), ({ me }));
 
-    pay = new ("/clone/money/silver");
+    pay = new("/clone/money/silver");
     pay->set_amount(10);
     pay->move(me, 1);
 
@@ -254,15 +232,14 @@ int do_return(object ob, object me, string arg)
     return 1;
 }
 
-string set_item(object me)
-{
+string set_item(object me) {
     //task增加100、200、400任务奖品 by 薪有所属
     // 完成100个task：美容丸、福源丹
     string *ob1_list = ({
         "/clone/fam/gift/perwan",
         "/clone/fam/gift/kardan",
-        "/clone/fam/etc/prize4", //圣杯
-        "/clone/fam/etc/prize5", //神圣血清
+        "/clone/fam/etc/prize4",  //圣杯
+        "/clone/fam/etc/prize5",  //神圣血清
     });
 
     // 完成200个task：7成丹
@@ -283,7 +260,7 @@ string set_item(object me)
 
     // 完成400个task：稀有特殊合成材料
     string *ob4_list = ({
-        "/clone/fam/item/xuantie", //天山玄铁（100point，打造刀、剑）
+        "/clone/fam/item/xuantie",  //天山玄铁（100point，打造刀、剑）
         "/clone/fam/etc/bipo",
         "/clone/fam/etc/huanshi",
         "/clone/fam/etc/binghuozhu",
@@ -299,49 +276,37 @@ string set_item(object me)
     string gift;
     object item;
 
-    if (me->query("mirror_count") == 100)
-    {
+    if (me->query("mirror_count") == 100) {
         gift = ob1_list[random(sizeof(ob1_list))];
         //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
-    }
-    else if (me->query("mirror_count") == 200)
-    {
+    } else if (me->query("mirror_count") == 200) {
         gift = ob2_list[random(sizeof(ob2_list))];
         //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
-    }
-    else if (me->query("mirror_count") == 300)
-    {
+    } else if (me->query("mirror_count") == 300) {
         gift = ob3_list[random(sizeof(ob3_list))];
         //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
-    }
-    else if (me->query("mirror_count") == 400)
-    {
+    } else if (me->query("mirror_count") == 400) {
         gift = ob4_list[random(sizeof(ob4_list))];
         //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
-    }
-    else if (me->query("mirror_count") == 500)
-    {
-        me->delete ("mirror_count");
+    } else if (me->query("mirror_count") == 500) {
+        me->delete("mirror_count");
         gift = ob5_list[random(sizeof(ob5_list))];
         //log_file("static/mirror", sprintf("%s(%s) 获得无花果 at %s.\n",
         //me->name(1), me->query("id"), ctime(time())));
     }
 
-    item = new (gift);
+    item = new(gift);
     item->move(me);
 
-    if (item->query("base_unit"))
-    {
+    if (item->query("base_unit")) {
         tell_object(me, HIG "你获得了一" + item->query("base_unit") + NOR +
-                            item->name() + "\n");
-    }
-    else
-    {
+            item->name() + "\n");
+    } else {
         tell_object(me, HIG "你获得了一" + item->query("unit") + NOR +
-                            item->name() + "\n");
+            item->name() + "\n");
     }
 }

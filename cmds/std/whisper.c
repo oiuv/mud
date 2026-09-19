@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string dest, msg;
     object ob;
     object env;
@@ -26,10 +25,8 @@ int main(object me, string arg)
     if (me->ban_say(1))
         return 0;
 
-    if (info = env->query("no_say"))
-    {
-        if (stringp(info))
-        {
+    if (info = env->query("no_say")) {
+        if (stringp(info)) {
             write(info);
             return 1;
         }
@@ -38,30 +35,28 @@ int main(object me, string arg)
         return 1;
     }
 
-    if (me->query("doing") == "scheme")
-    {
+    if (me->query("doing") == "scheme") {
         if (me->query("jing") < 100)
             return notify_fail("你现在的精神不济，等一会儿吧。\n");
         me->add("jing", -50);
     }
 
     write(WHT "你在" + ob->name() + WHT "的耳边悄声说道：" +
-          msg + "\n" NOR);
-    tell_room(environment(me), me->name() + "在" + ob->name() + "耳边小声地说了些话。\n", ({me, ob}));
+        msg + "\n" NOR);
+    tell_room(environment(me), me->name() + "在" + ob->name() + "耳边小声地说了些话。\n", ({ me, ob }));
     if (!userp(ob))
         ob->relay_whisper(me, msg);
     else
         tell_object(ob, WHT + me->name() +
-                        WHT "在你的耳边悄声说道：" + msg + "\n" NOR);
+            WHT "在你的耳边悄声说道：" + msg + "\n" NOR);
     return 1;
 }
 
-int help(object me)
-{
-    write( @TEXT
+int help(object me) {
+    write(@TEXT
 指令格式：whisper <某人> <讯息>
 
 这个指令可以用来和同一房间中的人耳语，包括 NPC 在内。
-TEXT );
+TEXT);
     return 1;
 }

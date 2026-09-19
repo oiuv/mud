@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "瓷器店");
     set("long", @LONG
 在这里你能够买到各种你所需要的瓷器，价格昂贵的有，价格低廉的
@@ -10,11 +9,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "south" : __DIR__"eroad3",
+        "south": __DIR__ "eroad3",
     ]));
-        set("objects", ([
-                __DIR__"npc/han" : 1,
-        ]));
+    set("objects", ([
+        __DIR__ "npc/han": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

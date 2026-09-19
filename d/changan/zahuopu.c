@@ -2,8 +2,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "杂货铺");
     set("long", @LONG
 一间老字号的杂货铺。祖孙三代经营下来，在长安城南一带已经有
@@ -12,10 +11,10 @@ void create()
 看来一天比一天好。
 LONG);
     set("exits", ([
-        "south" : __DIR__"huarui5",
+        "south": __DIR__ "huarui5",
     ]));
     set("objects", ([
-            __DIR__"npc/liu": 1,
+        __DIR__ "npc/liu": 1,
     ]));
 
     set("no_clean_up", 0);

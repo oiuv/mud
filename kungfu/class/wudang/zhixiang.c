@@ -1,8 +1,7 @@
 // zhixiang.c 制香
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("制香道长", ({ "zhixiang daozhang", "zhixiang" }));
     set("long",
         "他是武当山的制香道长, 兼在这里出售香烛。\n");
@@ -25,7 +24,7 @@ void create()
     set("score", 1000);
 
     set_skill("force", 40);
-        set_skill("wudang-xinfa", 40);
+    set_skill("wudang-xinfa", 40);
     set_skill("dodge", 40);
     set_skill("strike", 40);
     set_skill("wudang-zhang", 40);

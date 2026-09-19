@@ -2,9 +2,8 @@
 
 inherit ITEM;
 
-void create()
-{
-    set_name(RED "朱羽" NOR, ({ "zhu yu", "yu", "yumao"}));
+void create() {
+    set_name(RED "朱羽" NOR, ({ "zhu yu", "yu", "yumao" }));
     set_weight(100);
     if (clonep())
         set_default_object(__FILE__);

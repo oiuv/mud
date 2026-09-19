@@ -8,19 +8,18 @@ inherit F_CLEAN_UP;
 
 int update_player(object me);
 
-int main(object me, string file)
-{
+int main(object me, string file) {
     int i;
     object obj, *inv;
     string bin_file;
 
-    if (! SECURITY_D->valid_grant(me, "(wizard)"))
+    if (!SECURITY_D->valid_grant(me, "(wizard)"))
         return 0;
 
     seteuid(geteuid(me));
 
-    if (! file) file = me->query("cwf");
-    if (! file)
+    if (!file) file = me->query("cwf");
+    if (!file)
         return notify_fail("你要重新编译什麽档案？\n");
 
     if ((obj = present(file, environment(me))) && playerp(obj))
@@ -28,10 +27,9 @@ int main(object me, string file)
 
     if (file == "me")
         return update_player(me);
-    else
-    {
+    else {
         file = resolve_path(me->query("cwd"), file);
-        if (! sscanf(file, "%*s.c")) file += ".c";
+        if (!sscanf(file, "%*s.c")) file += ".c";
     }
 
     // if (file_size(file) == -1)
@@ -39,10 +37,8 @@ int main(object me, string file)
 
     me->set("cwf", file);
 
-    if (obj = find_object(file))
-    {
-        if (obj == environment(me))
-        {
+    if (obj = find_object(file)) {
+        if (obj == environment(me)) {
             if (file_name(obj) == VOID_OB)
                 return notify_fail("你不能在 VOID_OB 里重新编译 VOID_OB。\n");
 
@@ -56,8 +52,7 @@ int main(object me, string file)
                     inv[i] = 0;
         }
 
-        if (obj == find_object(VERSION_D) && VERSION_D->is_release_server())
-        {
+        if (obj == find_object(VERSION_D) && VERSION_D->is_release_server()) {
             // 如果是版本发布的服务器，则删除
             // VERSION_D 的 bin 代码，因为在没有
             // VERSION_D 的时候 driver 是不予编译的。
@@ -73,24 +68,20 @@ int main(object me, string file)
         return notify_fail("无法清除旧程序码。\n");
 
     write("重新编译 " + file + "：");
-    if (load_object(file))
-    {
+    if (load_object(file)) {
         write("成功！\n");
         if ((i = sizeof(inv)) && (obj = find_object(file)))
             while (i--)
                 if (inv[i])
                     inv[i]->move(obj, 1);
-    }
-    else
-    {
+    } else {
         write("失败，文件不存在!\n");
     }
 
     return 1;
 }
 
-int update_player(object me)
-{
+int update_player(object me) {
     object env, link_ob, obj;
     object *ob, *dob;
     mapping equip;
@@ -104,12 +95,10 @@ int update_player(object me)
 
     // First, create the new body.
     link_ob = me->query_temp("link_ob");
-    if (! link_ob)
-    {
+    if (!link_ob) {
         link_ob = new(LOGIN_OB);
         link_ob->set("id", me->query("id"));
-        if (! link_ob->restore())
-        {
+        if (!link_ob->restore()) {
             write("找不到该玩家的存盘数据。\n");
             return 1;
         }
@@ -117,21 +106,20 @@ int update_player(object me)
             link_ob->set_temp("ip_number", query_ip_number(me));
     }
 
-    if (link_ob->query("id") != getuid(me))
-    {
-        write (sprintf("连接对象的ID(%s)和用户的ID(%s)不相同，不能"
-                "更新该玩家。\n", link_ob->query("id"), getuid(me)));
+    if (link_ob->query("id") != getuid(me)) {
+        write(sprintf("连接对象的ID(%s)和用户的ID(%s)不相同，不能"
+            "更新该玩家。\n", link_ob->query("id"), getuid(me)));
         return 1;
     }
 
     obj = LOGIN_D->make_body(link_ob);
-    if (! obj) return 0;
+    if (!obj) return 0;
 
     // Save the data and exec the player to his/her link object.
     ob = all_inventory(me);
-    equip = ([ ]);
+    equip = ([]);
     for (i = 0; i < sizeof(ob); i++)
-        equip += ([ ob[i] : ob[i]->query("equipped") ]);
+        equip += ([ ob[i]: ob[i]->query("equipped") ]);
     ob->move(VOID_OB);
     me->save();
     if (interactive(me))
@@ -149,11 +137,10 @@ int update_player(object me)
     obj->move(env);
     ob->move(obj);
 
-    if (! interactive(obj))
+    if (!interactive(obj))
         destruct(link_ob);
 
-    for (i = 0; i < sizeof(ob); i++)
-    {
+    for (i = 0; i < sizeof(ob); i++) {
         if (equip[ob[i]] == "worn")
             ob[i]->wear();
         if (equip[ob[i]] == "wielded")
@@ -164,8 +151,7 @@ int update_player(object me)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : update <档名|here|me|玩家名>
 

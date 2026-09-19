@@ -7,8 +7,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object where = environment(me);
     string skillname;
     string base_skname;
@@ -24,7 +23,7 @@ int main(object me, string arg)
 
     if (t == me->query_temp("time/practice"))
         return notify_fail("你刚刚才练习过（如果你要连续练习，可以"
-                           "指明练习的次数）。\n");
+            "指明练习的次数）。\n");
 
     if (me->is_fighting())
         return notify_fail("你已经在战斗中了，学一点实战经验吧。\n");
@@ -35,8 +34,7 @@ int main(object me, string arg)
     if (!arg)
         return (__DIR__ "enable")->main(me, arg);
 
-    if ((sscanf(arg, "%s %d", base_skname, times) != 2))
-    {
+    if ((sscanf(arg, "%s %d", base_skname, times) != 2)) {
         times = 1;
         base_skname = arg;
     }
@@ -58,8 +56,8 @@ int main(object me, string arg)
 
     if (skill_basic <= skill)
         return notify_fail("你的" + to_chinese(base_skname) +
-                           "火候不够，难以继续提升你" +
-                           to_chinese(skillname) + "的水平。\n");
+            "火候不够，难以继续提升你" +
+            to_chinese(skillname) + "的水平。\n");
 
     notify_fail("你现在不能练习这项技能。\n");
     if (!SKILL_D(skillname)->valid_learn(me))
@@ -96,8 +94,7 @@ int main(object me, string arg)
         improve += improve * 20 / 100;
     improve += improve * where->query("practice_improve") / 100;
 
-    for (i = 0; i < times; i++)
-    {
+    for (i = 0; i < times; i++) {
         if (SKILL_D(skillname)->practice_skill(me))
             me->improve_skill(skillname, improve, skill_basic > skill ? 0 : 1);
         else
@@ -105,7 +102,7 @@ int main(object me, string arg)
     }
     if (i > 0)
         write(HIC "你试着把" + to_chinese(skillname) +
-              "练了" + chinese_number(i) + "趟。\n" NOR);
+            "练了" + chinese_number(i) + "趟。\n" NOR);
 
     if (i >= times)
         return 1;
@@ -113,8 +110,7 @@ int main(object me, string arg)
     return 0;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@TEXT
 指令格式：practice | lian <技能种类> <次数>
 

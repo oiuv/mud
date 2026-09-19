@@ -3,14 +3,12 @@
 
 inherit DAGGER;
 
-void create()
-{
-    set_name(NOR + CYN "玄铁" WHT "匕首" NOR, ({"xuantie bishou", "xuantie", "bishou"}));
+void create() {
+    set_name(NOR + CYN "玄铁" WHT "匕首" NOR, ({ "xuantie bishou", "xuantie", "bishou" }));
     set_weight(12000);
     if (clonep())
         destruct(this_object());
-    else
-    {
+    else {
         set("long", NOR + CYN "通体漆黑的匕首，匕脊处沁出丝丝寒意。\n" NOR);
         set("unit", "柄");
         set("no_sell", "这柄破匕首你自个留着吧。");

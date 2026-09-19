@@ -2,8 +2,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "绝情山庄");
     set("long", @LONG
 此处便是绝情山庄，但见山庄掩映于葱翠的林木之下，四
@@ -12,14 +11,14 @@ void create()
 LONG);
     set("outdoors", "jueqing");
     set("exits", ([
-        "in" : __DIR__"dating",
-        "south" : __DIR__"shiban",
+        "in": __DIR__ "dating",
+        "south": __DIR__ "shiban",
     ]));
 
     set("objects", ([
-        __DIR__"npc/dizi1" : 4,
-        __DIR__"npc/dizi2" : 4,
-        CLASS_D("jueqing") + "/fan" : 1,
+        __DIR__ "npc/dizi1": 4,
+        __DIR__ "npc/dizi2": 4,
+        CLASS_D("jueqing") + "/fan": 1,
     ]));
 
     set("no_clean_up", 0);
@@ -27,8 +26,7 @@ LONG);
     setup();
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     object guard;
 
     if (dir != "in" || !objectp(guard = present("fan yiweng", this_object())))

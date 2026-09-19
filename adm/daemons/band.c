@@ -8,49 +8,44 @@
 void load_sites();
 void add(string pattern);
 void remove(string pattern);
-int  is_banned(string site);
+int is_banned(string site);
 void print();
 
 string *Sites;
 
-void create()
-{
+void create() {
     seteuid(getuid());
     load_sites();
 }
 
-void load_sites()
-{
+void load_sites() {
     string *tmp, file;
     int loop;
 
-    Sites = ({ });
+    Sites = ({});
 
     // reads in the list of the banned sites
     file = read_file(BANNED_SITES);
-    if (! file) return;
+    if (!file) return;
 
     tmp = explode(file, "\n");
     for (loop = 0; loop < sizeof(tmp); loop++)
         if (tmp[loop][0] == '#' || tmp[loop][0] == '\n' || tmp[loop] == "")
             continue;
         else
-            Sites += ({tmp[loop]});
+            Sites += ({ tmp[loop] });
 }
 
-int is_banned(string site)
-{
+int is_banned(string site) {
     string line;
     // 避免query_ip_number(ob)返回0报错
-    if (!site)
-    {
+    if (!site) {
         return 0;
     }
 
     site = replace_string(site, "*", "%*d");
 
-    foreach (line in Sites)
-    {
+    foreach (line in Sites) {
         line = replace_string(line, "*", "%*d");
         if (site == line || sscanf(site, line) == 1)
             return 1;
@@ -59,11 +54,9 @@ int is_banned(string site)
     return 0;
 }
 
-void print()
-{
+void print() {
     int i;
-    if (!sizeof(Sites))
-    {
+    if (!sizeof(Sites)) {
         write("现在没有禁止任何IP上本站点。\n");
         return;
     }
@@ -73,20 +66,16 @@ void print()
         write(Sites[i] + "\n");
 }
 
-void add_site(string site)
-{
-    if (member_array(site, Sites) == -1)
-    {
-        Sites += ({site});
+void add_site(string site) {
+    if (member_array(site, Sites) == -1) {
+        Sites += ({ site });
         write_file(BANNED_SITES, site + "\n", 0);
     }
 }
 
-void remove_site(string site)
-{
-    if (member_array(site, Sites) != -1)
-    {
-        Sites -= ({site});
+void remove_site(string site) {
+    if (member_array(site, Sites) != -1) {
+        Sites -= ({ site });
         write_file(BANNED_SITES, implode(Sites, "\n") + "\n", 1);
     }
 }

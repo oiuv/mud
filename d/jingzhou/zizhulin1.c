@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "紫竹林");
     set("long", @LONG
 你眼前突然一遍光明，你来到了一座有许多紫竹搭成的花
@@ -12,13 +11,13 @@ LONG);
     set("outdoors", "jingzhou");
 
     set("exits", ([
-        "north" : __DIR__"zizhulin",
-        "in" : __DIR__"xiaoyuan",
+        "north": __DIR__ "zizhulin",
+        "in": __DIR__ "xiaoyuan",
     ]));
     set("item_desc", ([
-        "yuan" : HIM "\n这里看来是一处种花的好地方，可隐约看到里面"
-                 "种有许许多多\n的花卉，由许多的紫竹搭建而成。\n" NOR
-    ]) );
+        "yuan": HIM "\n这里看来是一处种花的好地方，可隐约看到里面"
+        "种有许许多多\n的花卉，由许多的紫竹搭建而成。\n" NOR
+    ]));
     setup();
     replace_program(ROOM);
 }

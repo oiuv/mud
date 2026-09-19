@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "小胡同");
     set("long", @LONG
 这里是洛阳城内老百姓的居住区。胡同内很安静，没有什么杂声。一
@@ -9,16 +8,16 @@ void create()
 多了，只见这些人鬼鬼祟祟，眼神恍惚，行踪可疑，让人猜不透是干什么
 的。
 LONG);
-        set("outdoors", "luoyang");
-        set("no_clean_up", 0);
-        set("exits", ([
-          "north" : __DIR__"suanming",
-          "south" : __DIR__"hutong2",
-          "west" : __DIR__"roudian",
+    set("outdoors", "luoyang");
+    set("no_clean_up", 0);
+    set("exits", ([
+        "north": __DIR__ "suanming",
+        "south": __DIR__ "hutong2",
+        "west": __DIR__ "roudian",
     ]));
-        set("objects", ([
-                "/d/kaifeng/npc/qigai" : 1,
-        ]));
+    set("objects", ([
+        "/d/kaifeng/npc/qigai": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

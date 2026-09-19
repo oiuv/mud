@@ -1,8 +1,7 @@
 // jianghuyiren.c
 #include <ansi.h>
 inherit NPC;
-void create()
-{
+void create() {
     set_name("江湖艺人", ({ "jianghu yiren", "yiren" }));
     set("long", "他是一个外地来的江湖艺人，手里牵着一只金丝猴儿，满脸风尘之色。\n");
     set("gender", "男性");

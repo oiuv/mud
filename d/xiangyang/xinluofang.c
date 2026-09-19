@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "新罗坊");
     set("long", @LONG
 新罗坊，顾名思义是给新罗人住的地方，不过其实现在新
@@ -13,12 +12,12 @@ void create()
 丽的使臣进东京城路过襄阳，便也住在这里。这里的高丽商人
 总有很多很好的货物，大家都喜欢来买，于是这里就非常的热
 闹了。
-LONG );
+LONG);
     set("exits", ([
-        "south" : __DIR__"northroad1",
+        "south": __DIR__ "northroad1",
     ]));
     set("objects", ([
-        __DIR__"npc/gaoli" : 1,
+        __DIR__ "npc/gaoli": 1,
     ]));
     setup();
     replace_program(ROOM);

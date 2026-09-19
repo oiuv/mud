@@ -3,10 +3,8 @@
 #include <ansi.h>
 #include <login.h>
 
-int update_condition(object me, int duration)
-{
-    if (duration < 1)
-        {
+int update_condition(object me, int duration) {
+    if (duration < 1) {
         me->move("/d/shaolin/guangchang1");
         message("vision",
             HIY "只听乒地一声，你吓了一跳，定睛一看，\n"

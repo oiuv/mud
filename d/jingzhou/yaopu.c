@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "药铺");
     set("long", @LONG
 这里是一家药铺，一股浓浓的药味让你几欲窒息，那是从
@@ -10,11 +9,11 @@ void create()
 呼着顾客。
 LONG);
     set("objects", ([
-        __DIR__"npc/huatuo" : 1,
-        __DIR__"npc/huoji" : 1,
+        __DIR__ "npc/huatuo": 1,
+        __DIR__ "npc/huoji": 1,
     ]));
     set("exits", ([
-        "east" : __DIR__"beidajie2",
+        "east": __DIR__ "beidajie2",
     ]));
 
     setup();

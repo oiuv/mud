@@ -1,8 +1,7 @@
 inherit ROOM;
 string look_gaoshi();
 
-void create()
-{
+void create() {
     set("short", "西门");
     set("long", @LONG
 这里是扬州城的西城门，几年前曾经遭到土匪的攻打，因
@@ -13,27 +12,26 @@ void create()
 的、走路的，行人匆匆。东边是城里。南边是滚滚长江，江边
 是一个小小的渡口，可以通往中州府。
 LONG);
-        set("outdoors", "city");
+    set("outdoors", "city");
     set("item_desc", ([
-        "gaoshi" : (: look_gaoshi :),
+        "gaoshi": (: look_gaoshi :),
     ]));
 
     set("exits", ([
-        "east"  : __DIR__"xidajie2",
-        "west"  : __DIR__"ximenroad",
-        "south" : "/d/zhongzhou/yangzhoudu",
+        "east": __DIR__ "xidajie2",
+        "west": __DIR__ "ximenroad",
+        "south": "/d/zhongzhou/yangzhoudu",
     ]));
-        set("objects", ([
-                "/d/beijing/npc/ducha" : 1,
-                __DIR__"npc/bing" : 4,
-                "/d/mingjiao/npc/fenggongying" : 1,
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/d/beijing/npc/ducha": 1,
+        __DIR__ "npc/bing": 4,
+        "/d/mingjiao/npc/fenggongying": 1,
+        "/clone/npc/walker": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }
 
-string look_gaoshi()
-{
+string look_gaoshi() {
     return FINGER_D->get_killer() + "\n扬州知府\n程药发\n";
 }

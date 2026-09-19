@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("丫鬟", ({ "ya huan", "ya" }));
     set("long",
         "她是一个长得很好看的小姑娘。\n");

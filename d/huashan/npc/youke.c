@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("游客", ({ "youke" }));
     set("gender", "男性");
     set("age", 20 + random(30));

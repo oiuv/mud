@@ -6,8 +6,7 @@ inherit F_MASTER;
 
 #include "dao.h"
 
-void create()
-{
+void create() {
     set_name("道正禅师", ({
         "daozheng chanshi",
         "daozheng",
@@ -44,7 +43,7 @@ void create()
     set_skill("strike", 50);
     set_skill("sanhua-zhang", 50);
     set_skill("parry", 50);
-          set_skill("sword", 50);
+    set_skill("sword", 50);
     set_skill("damo-jian", 50);
     set_skill("buddhism", 50);
     set_skill("literate", 50);
@@ -52,12 +51,12 @@ void create()
     map_skill("force", "hunyuan-yiqi");
     map_skill("dodge", "shaolin-shenfa");
     map_skill("strike", "sanhua-zhang");
-          map_skill("sword", "damo-jian");
+    map_skill("sword", "damo-jian");
     map_skill("parry", "sanhua-zhang");
 
     create_family("少林派", 39, "弟子");
 
     setup();
 
-        carry_object("/d/shaolin/obj/dao-cloth")->wear();
+    carry_object("/d/shaolin/obj/dao-cloth")->wear();
 }

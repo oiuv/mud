@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "水果店");
     set("long", @LONG
 这间水果店地方不大，但却有着丰富的水果品种：如香蕉，苹果，橘
@@ -11,11 +10,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"sroad6",
+        "east": __DIR__ "sroad6",
     ]));
-        set("objects", ([
-                __DIR__"npc/xiaofan" : 1,
-        ]));
+    set("objects", ([
+        __DIR__ "npc/xiaofan": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

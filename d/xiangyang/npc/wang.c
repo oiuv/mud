@@ -3,11 +3,10 @@
 inherit NPC;
 
 
-void create()
-{
+void create() {
     set_name("王坚", ({ "wang jian", "wang", "jian" }));
     set("gender", "男性");
-    set("title", HIY"襄阳守备大将"NOR);
+    set("title", HIY "襄阳守备大将" NOR);
     set("age", 40);
     set("str", 35);
     set("dex", 36);

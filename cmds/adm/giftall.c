@@ -3,8 +3,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     int count;
     string target, gift_file, str;
@@ -31,8 +30,7 @@ int main(object me, string arg)
     seteuid(getuid());
 
     ips = ([]);
-    foreach (pob in all_interactive())
-    {
+    foreach (pob in all_interactive()) {
         if (wizardp(pob) || !pob->query("born") ||
             !living(pob) || !environment(pob) ||
             pob->is_ghost())
@@ -40,18 +38,16 @@ int main(object me, string arg)
 
         ip = query_ip_number(pob);
         if (undefinedp(ips[ip]))
-            ips[ip] = ({pob});
+            ips[ip] = ({ pob });
         else
-            ips[ip] += ({pob});
+            ips[ip] += ({ pob });
     }
 
-    if (sizeof(ips) >= 1)
-    {
+    if (sizeof(ips) >= 1) {
         ks = keys(ips);
-        foreach (ip in ks)
-        {
+        foreach (ip in ks) {
             pob = ips[ip][random(sizeof(ips[ip]))];
-            ob = new (target);
+            ob = new(target);
 
             if (count > 1 && ob->query("base_unit"))
                 ob->set_amount(count);
@@ -69,8 +65,7 @@ int main(object me, string arg)
     return notify_fail("在线没有可以接受礼物的玩家。\n");
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：giftall|gift <物品路径> <数量>
 

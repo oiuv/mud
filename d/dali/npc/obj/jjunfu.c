@@ -3,8 +3,7 @@
 #include <armor.h>
 inherit CLOTH;
 
-void create()
-{
+void create() {
     set_name("锦衣军服", ({ "junfu", "cloth" }));
     set("long", "这是一件颜色鲜亮的锦衣军服。\n");
     set_weight(2000);

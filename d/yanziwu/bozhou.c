@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit RIVER;
 
-void create()
-{
+void create() {
     set("short", "泊舟坞");
     set("long", @LONG
 此处一片芦苇，茭白丛中现出一座船坞，大小船只依次排
@@ -11,8 +10,8 @@ void create()
 LONG);
     set("arrive_room", "/d/yanziwu/hupan");
     set("exits", ([
-        "east"      : __DIR__"pindi",
-        "northdown" : __DIR__"muti",
+        "east": __DIR__ "pindi",
+        "northdown": __DIR__ "muti",
     ]));
     set("resource/fish", ({
         "/clone/fish/liyu",

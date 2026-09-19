@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     int age;
     age = 20 + random(40);
 
@@ -16,8 +15,8 @@ void create()
     set("apply/attack", 15);
     set("apply/defense", 15);
     set("apply/damage", 5);
-    set("combat_exp", 150+age*10);
+    set("combat_exp", 150 + age * 10);
     set("shen_type", 1);
     setup();
-    add_money("silver", 3+age/10);
+    add_money("silver", 3 + age / 10);
 }

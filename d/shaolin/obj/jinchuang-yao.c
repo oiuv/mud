@@ -4,10 +4,9 @@
 
 inherit ITEM;
 
-void create()
-{
+void create() {
 
-    set_name("金创药", ({"jin chuangyao", "yao"}));
+    set_name("金创药", ({ "jin chuangyao", "yao" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -17,19 +16,18 @@ void create()
         set("only_do_effect", 1);
     }
 
-    set("shaolin",1);
+    set("shaolin", 1);
     setup();
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     if (me->query("eff_qi") == me->query("max_qi"))
         return notify_fail("你现在不需要用金创药。\n");
 
     me->start_busy(1);
     me->receive_curing("qi", 50);
     message_vision(HIC "$N" HIC "吃下一包金创药，只觉精神振"
-               "作，气色看起来好多了。\n" NOR, me);
+        "作，气色看起来好多了。\n" NOR, me);
 
     destruct(this_object());
     return 1;

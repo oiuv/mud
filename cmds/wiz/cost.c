@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int /*stime,usertime,*/ eval_cost;
 
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
@@ -23,12 +22,11 @@ int main(object me, string arg)
     return 1;
 }
 
-int help()
-{
-    write( @TEXT
+int help() {
+    write(@TEXT
 指令格式：cost <指令> [<参数> .... ]
 
 这个指令让你测量另一个指令执行所需的时间。
-TEXT );
-    return 1 ;
+TEXT);
+    return 1;
 }

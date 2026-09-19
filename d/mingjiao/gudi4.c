@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "昆仑仙境");
     set("long", @LONG
 放开脚步向前急奔，直奔了两里有馀，才遇一座高峰阻路。
@@ -10,12 +9,12 @@ void create()
 LONG);
     set("outdoors", "mingjiao");
     set("exits", ([
-        "north" : __DIR__"gudi3",
+        "north": __DIR__ "gudi3",
     ]));
 
     set("objects", ([
-        "/clone/quarry/hou" : 2,
-        __DIR__"npc/bigmonkey" : random(2),
+        "/clone/quarry/hou": 2,
+        __DIR__ "npc/bigmonkey": random(2),
     ]));
 
     setup();

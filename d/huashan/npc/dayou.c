@@ -3,14 +3,13 @@
 inherit NPC;
 inherit F_GUARDER;
 
-void create()
-{
+void create() {
     set_name("陆大有", ({ "lu dayou", "lu", "dayou" }));
     set("nickname", "六猴儿");
     set("long",
-"陆大有身材很瘦，又长的尖嘴猴腮的，但别看他其貌不扬，他在\n"
-"同门中排行第六，是华山派年轻一代中的好手。肩上坐着一只小\n"
-"猴，一对眼睛四处乱转。\n");
+        "陆大有身材很瘦，又长的尖嘴猴腮的，但别看他其貌不扬，他在\n"
+        "同门中排行第六，是华山派年轻一代中的好手。肩上坐着一只小\n"
+        "猴，一对眼睛四处乱转。\n");
     set("gender", "男性");
     set("age", 26);
     set("attitude", "peaceful");
@@ -39,10 +38,10 @@ void create()
     map_skill("parry", "huashan-jian");
     map_skill("sword", "huashan-jian");
 
-        set("coagents", ({
-                ([ "startroom" : "/d/huashan/qunxianguan",
-                   "id"        : "yue buqun" ]),
-        }));
+    set("coagents", ({
+        ([ "startroom": "/d/huashan/qunxianguan",
+            "id": "yue buqun" ]),
+    }));
 
     create_family("华山派", 14, "弟子");
 

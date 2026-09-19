@@ -3,14 +3,12 @@
 inherit ITEM;
 inherit F_EQUIP;
 
-void create()
-{
-    set_name("布条", ({"cloth piece", "cloth", "piece"}));
+void create() {
+    set_name("布条", ({ "cloth piece", "cloth", "piece" }));
     set_weight(200);
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("unit", "条");
         set("material", "cloth");
         set("armor_type", "bandage");
@@ -20,15 +18,13 @@ void create()
     }
 }
 
-void init()
-{
+void init() {
     add_action("do_bandage", "bandage");
 }
 
 int wear() { return 0; }
 
-int do_bandage(string arg)
-{
+int do_bandage(string arg) {
     object ob;
 
     if ((int)query("blood_soaked") >= 2)
@@ -39,8 +35,7 @@ int do_bandage(string arg)
 
     if (!arg)
         ob = this_player();
-    else
-    {
+    else {
         ob = present(arg, environment(this_player()));
         if (!ob || !userp(ob))
             return notify_fail("你要替谁裹伤？\n");
@@ -70,21 +65,18 @@ int do_bandage(string arg)
     return 1;
 }
 
-void remove(string euid)
-{
+void remove(string euid) {
     ::remove(euid);
     if (query("equipped") && environment())
         environment()->apply_condition("bandaged", 0);
 }
 
-string query_autoload()
-{
+string query_autoload() {
     if (query("equipped"))
         return query("name");
 }
 
-void autoload(string arg)
-{
+void autoload(string arg) {
     set("name", arg);
     set("blood_soaked", 3);
     ::wear();

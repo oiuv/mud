@@ -5,11 +5,10 @@
 
 inherit BOOTS;
 
-void create()
-{
-        set_name(HIR "麒麟靴" NOR, ({ "qilin xue", "xue", "boots" }) );
+void create() {
+    set_name(HIR "麒麟靴" NOR, ({ "qilin xue", "xue", "boots" }));
     set_weight(800);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("material", "leather");

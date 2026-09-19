@@ -4,9 +4,8 @@
 #include <ansi.h>
 inherit SWORD;
 
-void create()
-{
-    set_name(HIC"短剑"NOR, ({ "short sword", "sword", "jian" }));
+void create() {
+    set_name(HIC "短剑" NOR, ({ "short sword", "sword", "jian" }));
     set_weight(5000);
     if (clonep())
         set_default_object(__FILE__);

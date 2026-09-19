@@ -13,19 +13,20 @@ inherit CORE_HTTP;
 nosave string Url = "http://api.oiuv.cn/api/mobile/";
 nosave object Receiver;
 
-protected void response(mixed result)
-{
+protected void response(mixed result) {
     mixed *status = allocate(3);
     sscanf(result, "%s %d %s\r\n", status[0], status[1], status[2]);
 
-    if (status[1] == 200)
-    {
-        CHANNEL_D->do_channel(Receiver, "chat", sprintf("%O", json_decode(trim(result[strsrch(result, "{")..]))));
+    if (status[1] == 200) {
+        CHANNEL_D->do_channel(
+            Receiver,
+            "chat",
+            sprintf("%O", json_decode(trim(result[strsrch(result, "{")..])))
+        );
     }
 }
 
-void query(object me, int mobile)
-{
+void query(object me, int mobile) {
     Receiver = me;
     Http::get(Url + mobile);
 }

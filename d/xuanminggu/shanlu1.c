@@ -1,14 +1,13 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "山路");
     set("long", @LONG
 这是玄冥峰的山路，四周树木高耸，走兽成群。
-LONG );
+LONG);
     set("exits", ([
-        "southeast"  : __DIR__"shanjiao",
-                  "northwest"  : __DIR__"xiaolu2",
+        "southeast": __DIR__ "shanjiao",
+        "northwest": __DIR__ "xiaolu2",
     ]));
 
     set("outdoors", "xuanming");

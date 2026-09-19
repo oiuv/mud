@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "洞口");
     set("long", @LONG
 山谷里积雪被拢成几个雪堆，这里时常有人扫除积雪。你
@@ -9,18 +8,17 @@ void create()
 则是一处峭壁，非常险要。
 LONG);
     set("exits", ([
-        "in"   : __DIR__"shandong3",
-        "west" : __DIR__"sroad9",
+        "in": __DIR__ "shandong3",
+        "west": __DIR__ "sroad9",
     ]));
     set("objects", ([
-        CLASS_D("xuedao") + "/baoxiang" : 1,
+        CLASS_D("xuedao") + "/baoxiang": 1,
     ]));
     set("outdoors", "xuedao");
     setup();
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     object guarder;
 
     if (dir == "west" ||

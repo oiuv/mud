@@ -6,8 +6,7 @@
 //    1:    can afford with proper money(coins).
 //    2:    can afford, but don't have enough proper money(coins).
 //
-int can_afford(int amount)
-{
+int can_afford(int amount) {
     int total;
     object gold, silver, coin;
 
@@ -43,8 +42,7 @@ int can_afford(int amount)
     return 1;
 }
 
-int pay_money(int amount)
-{
+int pay_money(int amount) {
     int total;
     object gold, silver, coin;
 
@@ -63,40 +61,29 @@ int pay_money(int amount)
     if (total < amount)
         return 0;
 
-    if (gold && amount > 10000)
-    {
-        if (gold->value() >= amount)
-        {
+    if (gold && amount > 10000) {
+        if (gold->value() >= amount) {
             gold->add_amount(-amount / 10000);
             amount %= 10000;
-        }
-        else
-        {
+        } else {
             amount -= (int)gold->value();
             gold->set_amount(0);
         }
     }
-    if (silver && amount > 100)
-    {
-        if (silver->value() >= amount)
-        {
+    if (silver && amount > 100) {
+        if (silver->value() >= amount) {
             silver->add_amount(-amount / 100);
             amount %= 100;
-        }
-        else
-        {
+        } else {
             amount -= (int)silver->value();
             silver->set_amount(0);
         }
     }
-    if (coin && amount > 0)
-    {
-        if (coin->value() >= amount)
-        {
+    if (coin && amount > 0) {
+        if (coin->value() >= amount) {
             coin->add_amount(-amount);
             amount = 0;
-        }
-        else
+        } else
             error("F_FINANCE: Not enough money!\n");
     }
 

@@ -4,11 +4,10 @@
 
 inherit WAIST;
 
-void create()
-{
-    set_name("腰带", ({ "waist band","waist","band" }) );
+void create() {
+    set_name("腰带", ({ "waist band", "waist", "band" }));
     set_weight(500);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "条");

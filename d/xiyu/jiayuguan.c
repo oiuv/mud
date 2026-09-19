@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "嘉峪关");
     set("long", @LONG
 这是长城最西的关隘。岁月沧桑，仍掩不住它的风采。群
@@ -11,12 +10,12 @@ void create()
 LONG);
     set("outdoors", "xiyu");
     set("exits", ([
-        "eastup" : __DIR__"xxroad3",
-        "west" : __DIR__"silk1",
+        "eastup": __DIR__ "xxroad3",
+        "west": __DIR__ "silk1",
     ]));
     set("objects", ([
-        __DIR__"npc/wujiang" : 1,
-        __DIR__"npc/bing" : 2,
+        __DIR__ "npc/wujiang": 1,
+        __DIR__ "npc/bing": 2,
     ]));
     setup();
     replace_program(ROOM);

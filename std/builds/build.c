@@ -6,8 +6,7 @@ inherit F_SAVE;
 
 int isBuild() { return 1; }
 
-void create()
-{
+void create() {
     set("short", "空地");
     set("long", "這是一塊什麼也沒有的空地。\n");
     setup();
@@ -16,22 +15,20 @@ void create()
 
 string query_save_file() { return file_name(this_object()); }
 
-void init()
-{
+void init() {
     // 不是巫師且不是擁有者，是不能有動作的
     if (this_object()->query("owner") != this_player()->query_id() && !wizardp(this_player()))
         return;
 
     // 一般共用指令
-    add_action("do_set_short", "short"); // 設定房間short
+    add_action("do_set_short", "short");  // 設定房間short
     add_action("do_set_long", "long");   // 設定房間long
 
     if (this_object()->query("_IS_WELL_"))
         add_action("do_drink", "drink");
 }
 
-int do_set_short(string arg)
-{
+int do_set_short(string arg) {
     object me;
     me = this_player();
 
@@ -48,8 +45,7 @@ int do_set_short(string arg)
     return 1;
 }
 
-int do_set_long(string arg)
-{
+int do_set_long(string arg) {
     object me;
     me = this_player();
 
@@ -67,8 +63,7 @@ int do_set_long(string arg)
 }
 
 // for well
-int do_drink(string arg)
-{
+int do_drink(string arg) {
     int old_time, cd_time;
     object me;
 
@@ -76,15 +71,16 @@ int do_drink(string arg)
     cd_time = 3600;
     old_time = this_object()->query("_IS_WELL_TIME_");
 
-    if (old_time)
-    {
+    if (old_time) {
         int diff, m, s;
         diff = time() - old_time;
-        if (diff < cd_time)
-        {
+        if (diff < cd_time) {
             m = (cd_time - diff) / 60;
             s = (cd_time - diff) % 60;
-            tell_object(me, "還要經過 " + chinese_number(m) + "分" + chinese_number(s) + "秒 水井的水才會再產生。\n");
+            tell_object(
+                me,
+                "還要經過 " + chinese_number(m) + "分" + chinese_number(s) + "秒 水井的水才會再產生。\n"
+            );
             return 1;
         }
     }

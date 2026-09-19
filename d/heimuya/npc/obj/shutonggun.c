@@ -3,9 +3,8 @@
 
 inherit CLUB;
 
-void create()
-{
-    set_name(HIY "熟铜棍" NOR, ({"shutong gun", "shutong", "gun", "club"}));
+void create() {
+    set_name(HIY "熟铜棍" NOR, ({ "shutong gun", "shutong", "gun", "club" }));
     set_weight(2000);
 
     if (clonep())

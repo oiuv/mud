@@ -2,8 +2,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "物品房");
     set("long", @LONG
 这是物品房，一个大架子。上面放的整整齐齐，看来这里
@@ -12,12 +11,12 @@ void create()
 LONG);
     set("no_fight", 1);
     set("exits", ([
-        "south" : __DIR__"guofu_lang4",
-        "north" : __DIR__"guofu_lang6",
-        "west" : __DIR__"guofu_shilu-1",
+        "south": __DIR__ "guofu_lang4",
+        "north": __DIR__ "guofu_lang6",
+        "west": __DIR__ "guofu_shilu-1",
     ]));
     set("objects", ([
-        __DIR__"npc/wuxiuwen" : 1,
+        __DIR__ "npc/wuxiuwen": 1,
     ]));
     setup();
     replace_program(ROOM);

@@ -3,9 +3,8 @@
 inherit ITEM;
 inherit F_LIQUID;
 #include <ansi.h>
-void create()
-{
-    set_name(HIG"荷叶冬笋汤"NOR, ({"soup"}));
+void create() {
+    set_name(HIG "荷叶冬笋汤" NOR, ({ "soup" }));
     set_weight(50);
     if (clonep())
         set_default_object(__FILE__);

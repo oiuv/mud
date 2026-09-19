@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("日月弟子", ({ "riyue dizi", "riyue", "dizi" }));
     set("title", HIY "成德殿" NOR);
     set("long", "这是成德殿殿下弟子，他警惕地巡视着四周的情形。\n");
@@ -38,22 +37,19 @@ void create()
     carry_object("/clone/cloth/cloth")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
 
     ::init();
 
-    if (interactive(ob = this_player()) && !is_fighting())
-    {
+    if (interactive(ob = this_player()) && !is_fighting()) {
         remove_call_out("greeting");
         call_out("greeting", 1, ob);
     }
 }
 
-void greeting(object ob)
-{
-    if (! ob || environment(ob) != environment()) return;
+void greeting(object ob) {
+    if (!ob || environment(ob) != environment()) return;
 
     say(CYN "日月弟子高声呼喊道：日月神教，文成武德。千秋万载，一统江湖。\n" NOR);
 }

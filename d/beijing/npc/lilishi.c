@@ -3,16 +3,15 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
+void create() {
     set_name("李力世", ({ "li lishi", "li" }));
-    set("title", HIG "天地会青木堂"NOR"会众");
+    set("title", HIG "天地会青木堂" NOR "会众");
     set("gender", "男性");
     set("age", 45);
     set("str", 25);
     set("dex", 20);
-    set("long", "这是一个身材矮小，满连胡须的中年人，身上的\n"+
-"衣服又脏又破，脸上满是皱纹，看上去饱经风霜。\n");
+    set("long", "这是一个身材矮小，满连胡须的中年人，身上的\n" +
+        "衣服又脏又破，脸上满是皱纹，看上去饱经风霜。\n");
     set("combat_exp", 35000);
     set("score", 5000);
     set("shen_type", 1);

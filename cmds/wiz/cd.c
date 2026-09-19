@@ -3,8 +3,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string dir;
 
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
@@ -28,12 +27,11 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : cd <子目录名>, cd .. , and cd
 
 将目前参考的目录移至指定的子目录或回到上一主目录; 亦可直接回到自己工作目录。
-HELP );
+HELP);
     return 1;
 }

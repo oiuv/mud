@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "碧罗雪山");
     set("long", @LONG
 你身处一片大雪山之中，此地只是半山腰，却已经积雪
@@ -12,12 +11,12 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-                "eastdown" : __DIR__"shanlu2",
-                "westdown" : __DIR__"lushuieast",
+        "eastdown": __DIR__ "shanlu2",
+        "westdown": __DIR__ "lushuieast",
     ]));
-        set("objects", ([
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/clone/npc/walker": 1,
+    ]));
     set("no_clean_up", 0);
     setup();
     replace_program(ROOM);

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "育婴堂");
     set("long", @LONG
 走进育婴堂，你看见到处都是一些小孩子，一位中年妇女正在照看着
@@ -11,14 +10,14 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "north" : __DIR__"eroad3",
+        "north": __DIR__ "eroad3",
     ]));
-        set("objects", ([
-                "/d/beijing/npc/girl2" : 1,
-                "/d/beijing/npc/kid1" : 1,
-                "/d/beijing/npc/girl4" : 1,
-                "/d/beijing/npc/boy2" : 1,
-        ]));
+    set("objects", ([
+        "/d/beijing/npc/girl2": 1,
+        "/d/beijing/npc/kid1": 1,
+        "/d/beijing/npc/girl4": 1,
+        "/d/beijing/npc/boy2": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

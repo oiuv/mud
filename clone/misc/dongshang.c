@@ -3,17 +3,14 @@
 inherit ITEM;
 #include <ansi.h>
 
-void setup()
-{}
+void setup() {}
 
-void init()
-{
+void init() {
     add_action("do_mo", "mo");
 }
 
-void create()
-{
-    set_name(HIC"祛疮粉"NOR, ({"quchuang fen", "quchuangfen"}));
+void create() {
+    set_name(HIC "祛疮粉" NOR, ({ "quchuang fen", "quchuangfen" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -24,15 +21,13 @@ void create()
     setup();
 }
 
-int do_mo(string arg)
-{
+int do_mo(string arg) {
     object me = this_player();
     if (!id(arg))
         return notify_fail("你要抹什么东西？\n");
-    if (me->is_busy() )
+    if (me->is_busy())
         return notify_fail("别急，慢慢来。\n");
-    if (!me->query_condition("ill_dongshang"))
-    {
+    if (!me->query_condition("ill_dongshang")) {
         write("你现在又没有被冻伤，往哪儿抹药？\n");
         return 1;
     } else {

@@ -4,10 +4,9 @@
 
 inherit "/inherit/char/punisher";
 
-void create()
-{
+void create() {
     set_name("段寿辉", ({ "duan shouhui", "duan" }));
-    set("long",  "他一副僧人打扮，但是却透露出一股雍容华贵的气质。\n");
+    set("long", "他一副僧人打扮，但是却透露出一股雍容华贵的气质。\n");
     set("gender", "男性");
     set("age", 60);
     set("attitude", "peaceful");
@@ -25,18 +24,18 @@ void create()
     set("combat_exp", 2500000);
     set("score", 10000000);
 
-        set_skill("force", 250);
-        set_skill("dodge", 240);
-        set_skill("parry", 250);
-        set_skill("cuff", 240);
-        set_skill("sword", 240);
-        set_skill("staff", 240);
-        set_skill("finger", 250);
+    set_skill("force", 250);
+    set_skill("dodge", 240);
+    set_skill("parry", 250);
+    set_skill("cuff", 240);
+    set_skill("sword", 240);
+    set_skill("staff", 240);
+    set_skill("finger", 250);
     set_skill("duanshi-xinfa", 250);
-        set_skill("tiannan-step", 240);
-        set_skill("jinyu-quan", 240);
-        set_skill("duanjia-sword", 240);
-        set_skill("sun-finger", 250);
+    set_skill("tiannan-step", 240);
+    set_skill("jinyu-quan", 240);
+    set_skill("duanjia-sword", 240);
+    set_skill("sun-finger", 250);
     set_skill("literate", 180);
 
     map_skill("force", "duanshi-xinfa");
@@ -48,7 +47,7 @@ void create()
     map_skill("sword", "duanjia-sword");
     map_skill("staff", "duanjia-sword");
 
-        prepare_skill("finger", "sun-finger");
+    prepare_skill("finger", "sun-finger");
 
     create_family("段氏皇族", 0, "老僧");
 

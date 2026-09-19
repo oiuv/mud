@@ -1,7 +1,6 @@
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("凌退思", ({ "ling tuisi", "ling", "tuisi" }));
     set("title", "荆州知府");
     set("gender", "男性");
@@ -28,6 +27,6 @@ void create()
     set("jiali", 10);
 
     setup();
-    carry_object(__DIR__"obj/gangjian")->wield();
+    carry_object(__DIR__ "obj/gangjian")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

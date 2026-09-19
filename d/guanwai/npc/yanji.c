@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("阎基", ({ "yan ji", "yan" }));
     set("title", "江湖医生");
     set("gender", "男性");

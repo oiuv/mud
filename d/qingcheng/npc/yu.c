@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("于人豪", ({ "yu renhao", "yu", "renhao" }));
     set("gender", "男性");
     set("age", 25);
@@ -24,20 +23,17 @@ void create()
     carry_object("/clone/weapon/changjian")->wield();
     carry_object("/d/wudang/obj/bluecloth")->wear();
 }
-void init()
-{
-        object ob;
+void init() {
+    object ob;
 
-        ::init();
-        if( interactive(ob=this_player()) && !is_fighting() )
-        {
-                remove_call_out("greeting");
-                call_out("greeting", 1, ob);
-        }
+    ::init();
+    if (interactive(ob = this_player()) && !is_fighting()) {
+        remove_call_out("greeting");
+        call_out("greeting", 1, ob);
+    }
 }
 
-void greeting(object ob)
-{
-        say ("于人豪大喊一声：老子就是于人豪！\n");
-        return;
+void greeting(object ob) {
+    say("于人豪大喊一声：老子就是于人豪！\n");
+    return;
 }

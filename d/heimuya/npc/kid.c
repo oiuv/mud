@@ -1,10 +1,9 @@
 //kid.c
 inherit NPC;
 
-void create()
-{
-    set_name("小孩",({ "kid" }) );
-    set("gender", "男性" );
+void create() {
+    set_name("小孩", ({ "kid" }));
+    set("gender", "男性");
     set("age", 6);
     set("long", "这是个农家小孩子\n");
     set("combat_exp", 50);

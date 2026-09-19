@@ -4,8 +4,7 @@
 
 inherit ITEM;
 
-void create()
-{
+void create() {
     set_name("四剪瓶", ({ "sijian ping", "ping" }));
     set_weight(500);
     if (clonep())

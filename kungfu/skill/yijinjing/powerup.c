@@ -6,8 +6,7 @@ inherit F_CLEAN_UP;
 
 void remove_effect(object me, int amount);
 
-int exert(object me, object target)
-{
+int exert(object me, object target) {
     int skill;
 
     if (target != me)
@@ -22,27 +21,25 @@ int exert(object me, object target)
     skill = me->query_skill("yijinjing", 1);
 
     message_combatd(HIR "$N" HIR "淡淡一笑，脸现慈和之意，衣裳无"
-                        "风自动，似乎有一股气流回旋。\n" NOR, me);
+        "风自动，似乎有一股气流回旋。\n" NOR, me);
 
     me->add_temp("apply/attack", skill / 3);
     me->add_temp("apply/defense", skill / 3);
     me->set_temp("powerup", 1);
     me->add("neili", -100);
 
-    me->start_call_out( (: call_other, __FILE__, "remove_effect", me, skill / 3 :), skill);
+    me->start_call_out((: call_other, __FILE__, "remove_effect", me, skill / 3 :), skill);
 
     if (me->is_fighting()) me->start_busy(1 + random(3));
 
     return 1;
 }
 
-void remove_effect(object me, int amount)
-{
-        if (me->query_temp("powerup"))
-        {
-            me->add_temp("apply/attack", - amount);
-            me->add_temp("apply/defense", - amount);
-            me->delete_temp("powerup");
-            tell_object(me, "你的易筋经神功运行完毕，将内力收回丹田。\n");
-        }
+void remove_effect(object me, int amount) {
+    if (me->query_temp("powerup")) {
+        me->add_temp("apply/attack", -amount);
+        me->add_temp("apply/defense", -amount);
+        me->delete_temp("powerup");
+        tell_object(me, "你的易筋经神功运行完毕，将内力收回丹田。\n");
+    }
 }

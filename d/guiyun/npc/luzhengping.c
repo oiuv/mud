@@ -4,9 +4,8 @@
 inherit F_UNIQUE;
 inherit NPC;
 
-void create()
-{
-    set_name("吕正平", ({ "lu zhengping", "lu"}));
+void create() {
+    set_name("吕正平", ({ "lu zhengping", "lu" }));
     set("title", HIC "快刀门掌门人" NOR);
     set("long", "只见他一张国字方脸，腮上一部虬髯，将大半张脸都遮没了。\n");
     set("gender", "男性");
@@ -24,7 +23,7 @@ void create()
     set("neili", 1000);
     set("max_neili", 1000);
     set("jiali", 50);
-    set("combat_exp", 50000+random(10000));
+    set("combat_exp", 50000 + random(10000));
     set("score", 20000);
 
     set_skill("force", 50);
@@ -32,7 +31,7 @@ void create()
     set_skill("unarmed", 50);
     set_skill("blade", 50);
     set_skill("kuangfeng-blade", 50);
-    set_skill("lingxu-bu",50);
+    set_skill("lingxu-bu", 50);
     map_skill("dodge", "lingxu-bu");
     map_skill("parry", "kuangfeng-blade");
     map_skill("blade", "kuangfeng-blade");

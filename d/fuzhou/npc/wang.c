@@ -2,11 +2,10 @@
 #include <ansi.h>
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("王夫人", ({ "wang furen", "wang" }));
     set("gender", "女性");
-    set("title", HIY"金刀"NOR);
+    set("title", HIY "金刀" NOR);
     set("long", "她是洛阳金刀王老爷子的独生爱女，福威镖局总镖头夫人。");
     set("age", 39);
 

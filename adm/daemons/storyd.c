@@ -17,8 +17,7 @@ private void init_story();
 private void ready_to_start();
 private void go_on_process(object ob);
 
-void create()
-{
+void create() {
     seteuid(ROOT_UID);
     set("channel_id", "故事精灵");
     CHANNEL_D->do_channel(this_object(), "sys", "故事系统已经启动。");
@@ -29,21 +28,18 @@ void create()
     ready_to_start();
 }
 
-int clean_up()
-{
+int clean_up() {
     return 1;
 }
 
-private void init_story()
-{
+private void init_story() {
     CHANNEL_D->do_channel(this_object(), "sys", "故事系统更新所有故事。");
     story_name = get_dir(STORY_DIR + "*.c");
-    story_name = map_array(story_name, (: $1[0.. < 3] :));
+    story_name = map_array(story_name, (: $1[0..<3] :));
     set_temp("last_update", time());
 }
 
-private void ready_to_start()
-{
+private void ready_to_start() {
     if (time() - query_temp("last_update") > REFRESH_TIME)
         init_story();
 
@@ -52,20 +48,17 @@ private void ready_to_start()
     call_out("start_story", 1800 + random(300));
 }
 
-private void go_on_process(object ob)
-{
+private void go_on_process(object ob) {
     remove_call_out("start_story");
     remove_call_out("process_story");
     call_out("process_story", 1, ob);
 }
 
-object query_running_story()
-{
+object query_running_story() {
     return running_story;
 }
 
-varargs void start_story(string sname)
-{
+varargs void start_story(string sname) {
     string *all_story;
     string name;
     object ob;
@@ -81,27 +74,28 @@ varargs void start_story(string sname)
     if (sname)
         all_story = explode(sname, ",");
     else
-        all_story = filter_array(story_name, (: $1 == "challenge" || time() - (int)history[$1] > 18000 :));
-    while (sizeof(all_story))
-    {
+        all_story = filter_array(
+            story_name,
+            (: $1 == "challenge" || time() - (int)history[$1] > 18000 :)
+        );
+    while (sizeof(all_story)) {
         name = all_story[random(sizeof(all_story))];
         if (undefinedp(history[name]))
-            history += ([name:0]);
+            history += ([ name: 0 ]);
         else
             history[name] = (int)time();
 
         CHANNEL_D->do_channel(this_object(), "sys", "故事系统选择了故事(" + name + ")。");
 
-        all_story -= ({name});
+        all_story -= ({ name });
         name = STORY_DIR + name;
         if (ob = find_object(name))
             destruct(ob);
 
-        catch (ob = load_object(name));
+        catch(ob = load_object(name));
         running_story = ob;
 
-        if (objectp(ob))
-        {
+        if (objectp(ob)) {
             step = 0;
             go_on_process(ob);
             break;
@@ -109,26 +103,22 @@ varargs void start_story(string sname)
     }
 }
 
-void remove_story(string story)
-{
-    story_name -= ({story});
+void remove_story(string story) {
+    story_name -= ({ story });
 }
 
-string *query_all_story()
-{
+string *query_all_story() {
     return story_name;
 }
 
-void process_story(object ob)
-{
+void process_story(object ob) {
     mixed line;
     object *listeners;
     string prompt;
 
     go_on_process(ob);
 
-    if (!objectp(ob))
-    {
+    if (!objectp(ob)) {
         ready_to_start();
         return;
     }
@@ -140,37 +130,32 @@ void process_story(object ob)
     if (!prompt)
         prompt = HIG "【故事传闻】" NOR;
     if (functionp(line))
-        catch (line = evaluate(line));
-    if (stringp(line))
-    {
+        catch(line = evaluate(line));
+    if (stringp(line)) {
         listeners = filter_array(users(), (: filter_listener :));
         message("story", prompt + WHT + line + "\n" NOR, listeners);
     }
 
-    if (intp(line) && !line)
-    {
+    if (intp(line) && !line) {
         ready_to_start();
         destruct(ob);
     }
 }
 
-int filter_listener(object ob)
-{
+int filter_listener(object ob) {
     if (ob->query("env/no_story"))
         return 0;
     return 1;
 }
 
-void give_gift(string gift, int amount, string msg)
-{
+void give_gift(string gift, int amount, string msg) {
     object ob, pob;
     object env;
     mapping ips;
     string ip, *ks;
 
     ips = ([]);
-    foreach (pob in all_interactive())
-    {
+    foreach (pob in all_interactive()) {
         if (wizardp(pob) || !pob->query("born") ||
             !living(pob) || !environment(pob) ||
             pob->is_ghost() ||
@@ -179,13 +164,12 @@ void give_gift(string gift, int amount, string msg)
 
         ip = query_ip_number(pob);
         if (undefinedp(ips[ip]))
-            ips[ip] = ({pob});
+            ips[ip] = ({ pob });
         else
-            ips[ip] += ({pob});
+            ips[ip] += ({ pob });
     }
 
-    if (sizeof(ips) >= 1)
-    {
+    if (sizeof(ips) >= 1) {
         // 需要三个以上的IP登录才给与奖品
 
         // 随即抽一个IP
@@ -202,20 +186,25 @@ void give_gift(string gift, int amount, string msg)
         if (!objectp(env))
             return;
 
-        while (amount-- > 0)
-        {
-            ob = new (gift);
-            if (env->is_area())
-            {
+        while (amount-- > 0) {
+            ob = new(gift);
+            if (env->is_area()) {
                 area_move_side(ob, pob);
                 tell_area(env, pob->query("area_info/x_axis"), pob->query("area_info/y_axis"), msg);
-            }
-            else
-            {
+            } else {
                 ob->move(env);
                 tell_room(env, msg);
             }
         }
-        CHANNEL_D->do_channel(this_object(), "sys", sprintf(NOR WHT "赠品%s" NOR WHT "掉到了" HIC "%s" NOR WHT "(%O" NOR WHT ")。" NOR, ob->name(), env->short(), env));
+        CHANNEL_D->do_channel(
+            this_object(),
+            "sys",
+            sprintf(
+                NOR WHT "赠品%s" NOR WHT "掉到了" HIC "%s" NOR WHT "(%O" NOR WHT ")。" NOR,
+                ob->name(),
+                env->short(),
+                env
+            )
+        );
     }
 }

@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     function f;
 
     seteuid(getuid());
@@ -21,12 +20,11 @@ int main(object me, string arg)
     return evaluate(f);
 }
 
-int help(object me)
-{
-    write( @HELP
+int help(object me) {
+    write(@HELP
 指令格式: refuse <someone>
 
 拒绝某人向你提出的要求。
-HELP );
+HELP);
     return 1;
 }

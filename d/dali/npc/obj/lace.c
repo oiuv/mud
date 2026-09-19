@@ -4,8 +4,7 @@
 
 inherit NECK;
 
-void create()
-{
+void create() {
     set_name("贝壳项链", ({ "shell lace", "lace" }));
     set_weight(500);
     if (clonep())

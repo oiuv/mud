@@ -5,8 +5,7 @@
 
 inherit PIN;
 
-void create()
-{
+void create() {
     set_name("钢针", ({ "pin", "zhen" }));
     set_weight(15);
     if (clonep())

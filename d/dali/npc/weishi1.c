@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("黄衣卫士", ({ "wei shi", "shi", "wei" }));
     set("age", 32);
     set("gender", "男性");
@@ -28,5 +27,5 @@ void create()
 
     setup();
     carry_object("/clone/weapon/gangdao")->wield();
-    carry_object(__DIR__"obj/junfu")->wear();
+    carry_object(__DIR__ "obj/junfu")->wear();
 }

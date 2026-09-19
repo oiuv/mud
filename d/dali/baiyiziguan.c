@@ -1,6 +1,5 @@
 inherit ROOM;
-void create()
-{
+void create() {
     set("short", "摆夷字馆");
     set("long", @LONG
 摆夷文字有悠久的历史。撒尼叙事长诗「阿诗玛」，武
@@ -10,7 +9,7 @@ void create()
 等等。
 LONG);
     set("exits", ([
-            "south"  : __DIR__"dahejieeast",
+        "south": __DIR__ "dahejieeast",
     ]));
     set("no_clean_up", 0);
     setup();

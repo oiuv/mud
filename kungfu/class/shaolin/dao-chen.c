@@ -8,8 +8,7 @@ string ask_me(string name);
 
 #include "dao.h"
 
-void create()
-{
+void create() {
     set_name("道尘禅师", ({
         "daochen chanshi",
         "daochen",
@@ -60,33 +59,30 @@ void create()
 
     create_family("少林派", 39, "弟子");
 
-        set("inquiry", ([
-        "齐眉棍" : (: ask_me, "qimeigun" :),
-        "戒刀" :   (: ask_me, "jiedao" :),
-        "禅杖" :   (: ask_me, "chanzhang" :),
-                "长剑" :   (: ask_me, "changjian" :),
-                "皮鞭" :   (: ask_me, "changbian" :),
-        ]));
+    set("inquiry", ([
+        "齐眉棍": (: ask_me, "qimeigun" :),
+        "戒刀": (: ask_me, "jiedao" :),
+        "禅杖": (: ask_me, "chanzhang" :),
+        "长剑": (: ask_me, "changjian" :),
+        "皮鞭": (: ask_me, "changbian" :),
+    ]));
 
     set("wuqi_count", 15);
 
     setup();
 
-        carry_object("/d/shaolin/obj/dao-cloth")->wear();
+    carry_object("/d/shaolin/obj/dao-cloth")->wear();
 }
 
-string ask_me(string name)
-{
+string ask_me(string name) {
     mapping fam;
     object ob;
 
     if (!(fam = this_player()->query("family")) || fam["family_name"] != "少林派")
-        return RANK_D->query_respect(this_player()) +
-        "与本派素无来往，不知此话从何谈起？";
+        return RANK_D->query_respect(this_player()) + "与本派素无来往，不知此话从何谈起？";
 
-    if (  present(name, this_player()) )
-        return RANK_D->query_respect(this_player()) +
-        "你现在身上不是有这样武器吗，怎麽又来要了？ 真是贪得无餍！";
+    if (present(name, this_player()))
+        return RANK_D->query_respect(this_player()) + "你现在身上不是有这样武器吗，怎麽又来要了？ 真是贪得无餍！";
 
     if (query("wuqi_count") < 1)
         return "抱歉，你来得不是时候，武器已经发完了。";

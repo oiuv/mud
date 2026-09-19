@@ -4,10 +4,9 @@
 
 inherit THROWING;
 
-void create()
-{
-    set_name("铁莲子", ({ "tie lianzi", "lianzi", "zi" }) );
-    if( clonep() )
+void create() {
+    set_name("铁莲子", ({ "tie lianzi", "lianzi", "zi" }));
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("long", "精铁打制的莲子状暗器。\n");

@@ -7,8 +7,7 @@
 
 // This command is also called by LOGIN_D, so we don't want it use
 // arguments.
-mixed main(string arg)
-{
+mixed main(string arg) {
     int t, d, h, m, s;
     string time;
 
@@ -32,8 +31,7 @@ mixed main(string arg)
         time += chinese_number(m) + "分";
     time += chinese_number(s) + "秒";
 
-    if (arg == "-r")
-    {
+    if (arg == "-r") {
         return time;
     }
 
@@ -41,8 +39,7 @@ mixed main(string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : uptime
 

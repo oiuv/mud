@@ -4,14 +4,12 @@
 
 inherit STAFF;
 
-void create()
-{
+void create() {
     set_name("钢杖", ({ "gangzhang" }));
     set_weight(5000);
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("unit", "根");
         set("long", "这是一根粗重的钢杖。\n");
         set("value", 200);
@@ -21,6 +19,6 @@ void create()
         set("unwield_msg", "$N将手中的$n插回腰间。\n");
     }
 
-      init_staff(25);
+    init_staff(25);
     setup();
 }

@@ -1,27 +1,22 @@
-
 inherit FORCE;
 #include <ansi.h>
 
-int valid_enable(string usage)
-{
+int valid_enable(string usage) {
     return usage == "force";
 }
 
-int query_neili_improve(object me)
-{
+int query_neili_improve(object me) {
     int lvl;
 
     lvl = (int)me->query_skill("shenghuo-shengong", 1);
     return lvl * lvl * 15 * 16 / 100 / 200;
 }
 
-int valid_force(string force)
-{
+int valid_force(string force) {
     return (force == "shenghuo-xinfa");
 }
 
-int valid_learn(object me)
-{
+int valid_learn(object me) {
     if (me->query("gender") == "无性" &&
         (int)me->query_skill("shenghuo-shengong", 1) > 49)
         return notify_fail("你无根无性，阴阳不调，难以领会高深的圣火神功。\n");
@@ -35,13 +30,11 @@ int valid_learn(object me)
     return ::valid_learn(me);
 }
 
-int practice_skill(object me)
-{
+int practice_skill(object me) {
     return notify_fail("圣火神功只能用学(learn)的来增加熟练度。\n");
 }
 
-mixed hit_ob(object me, object victim, int damage_bonus, int factor)
-{
+mixed hit_ob(object me, object victim, int damage_bonus, int factor) {
     int lvl, i;
     int flvl, attack_time;
     object weapon;
@@ -65,16 +58,14 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
         attack_time = 8;
 
     if (lvl / 2 + random(lvl) > victim->query_skill("force", 1) &&
-        !me->query_temp("shenghuo-ling/max_hit"))
-    {
+        !me->query_temp("shenghuo-ling/max_hit")) {
         message_vision(HIR "\n刹那间$N" HIR "身法陡然加快，剑招连绵而出，招式诡异无比"
-                           "，令$n" HIR "难以琢磨。\n" NOR, me, victim);
+            "，令$n" HIR "难以琢磨。\n" NOR, me, victim);
 
         me->start_busy(1 + random(attack_time));
         me->add("neili", -attack_time * 20);
         me->add_temp("shenghuo-ling/hit", 1);
-        for (i = 0; i < attack_time; i++)
-        {
+        for (i = 0; i < attack_time; i++) {
             if (!me->is_fighting(victim))
                 break;
 
@@ -86,7 +77,6 @@ mixed hit_ob(object me, object victim, int damage_bonus, int factor)
     }
 }
 
-string exert_function_file(string func)
-{
+string exert_function_file(string func) {
     return __DIR__ "shenghuo-shengong/" + func;
 }

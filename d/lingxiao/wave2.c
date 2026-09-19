@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "冰洞");
     set("long", @LONG
 这里又是一个冰洞，但从这里往上望，居然可以透过冰壁看
@@ -10,8 +9,8 @@ void create()
 碧天如水夜云轻’的意境。
 LONG);
     set("exits", ([
-        "in"   : __DIR__"wave",
-        "east" : __DIR__"wave1",
+        "in": __DIR__ "wave",
+        "east": __DIR__ "wave1",
     ]));
     set("no_clean_up", 0);
     setup();

@@ -4,8 +4,7 @@
 void wakeup(object me, object where);
 void del_jingzuoed(object me);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object where = environment(me);
 
     seteuid(getuid());
@@ -42,13 +41,12 @@ int main(object me, string arg)
     me->set("no_get_from", 1);
     me->disable_player(" <静坐中>");
     me->start_call_out(bind((: call_other, __FILE__, "wakeup", me, where :), me),
-                       random(45) + 1, me, where);
+        random(45) + 1, me, where);
 
     return 1;
 }
 
-void wakeup(object me, object where)
-{
+void wakeup(object me, object where) {
     int skillslvl, addp, addc, exppot, intpot;
 
     skillslvl = (int)me->query_skill("mahayana", 1);
@@ -76,19 +74,18 @@ void wakeup(object me, object where)
     me->set("jingzuo_time", time());
     write("你静坐完毕，感觉到好累。\n");
 
-    me->delete ("no_get");
-    me->delete ("no_get_from");
+    me->delete("no_get");
+    me->delete("no_get_from");
     me->write_prompt();
     return;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : jingzuo
 
 这个指令是峨嵋派弟子用以静坐修道的命令.
 
-HELP );
+HELP);
     return 1;
 }

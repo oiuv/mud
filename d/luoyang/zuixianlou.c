@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "望星楼");
     set("long", @LONG
 望星楼共四层，高达三十余米，乃洛阳城中的一绝。方圆数百里内提
@@ -11,12 +10,12 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "up" : __DIR__"zuixianlou2",
-          "west" : __DIR__"nroad1",
+        "up": __DIR__ "zuixianlou2",
+        "west": __DIR__ "nroad1",
     ]));
-        set("objects", ([
-                "/d/city/npc/xiaoer2" : 1,
-        ]));
+    set("objects", ([
+        "/d/city/npc/xiaoer2": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

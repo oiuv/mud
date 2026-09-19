@@ -12,33 +12,30 @@ void remove_effect(object me, int amount);
 
 inherit SWORD;
 
-void create()
-{
-        set_name(HIY "神聖長劍" NOR, ({ "long sword", "sword" }));
-        set_weight(1000);
-        if (clonep())
-                destruct(this_object());
-        else {
-                set("unit", "柄");
-                set("no_sell", 1);
-                set("long", (: look_sword :));
-                set("value", 2000000);
-                set("no_sell", "Oh！My god！");
-                set("material", "???");
-                set("stable", 100);
-        }
-        init_sword(500);
-        setup();
+void create() {
+    set_name(HIY "神聖長劍" NOR, ({ "long sword", "sword" }));
+    set_weight(1000);
+    if (clonep())
+        destruct(this_object());
+    else {
+        set("unit", "柄");
+        set("no_sell", 1);
+        set("long", (: look_sword :));
+        set("value", 2000000);
+        set("no_sell", "Oh！My god！");
+        set("material", "???");
+        set("stable", 100);
+    }
+    init_sword(500);
+    setup();
 }
 
-void init()
-{
-        add_action("do_cast", "cast");
+void init() {
+    add_action("do_cast", "cast");
 }
 
-string look_sword()
-{
-        return HIY
+string look_sword() {
+    return HIY
         "\n"
         "神聖長劍+5：「" HIR "諸神的喧譁" HIY "」\n\n"
         "這把長劍除了柄端由白銀所鑄外，整個劍身漆黑，無鋒無刃，便似薄\n"
@@ -83,117 +80,105 @@ string look_sword()
         "  混亂陣營的人物\n" NOR;
 }
 
-mixed hit_ob(object me, object victim, int damage_bonus)
-{
-        int n;
+mixed hit_ob(object me, object victim, int damage_bonus) {
+    int n;
     n = 3 + random(16);
 
-        if (random(100) < 15 && living(victim))
-    {
-                victim->unconcious();
-            return HIR "霎時間只見$N" HIY "神聖長劍" HIR"劍芒暴"
-                       "漲，$n" HIR "頓覺一陣昏眩。\n" NOR;
-    } else
-        if (random(100) < 50)
-    {
-            victim->receive_wound("qi", n * 100, me);
-            victim->receive_wound("jing", n * 50, me);
-            return HIR "只見$N" HIY "神聖長劍" HIR"劍尖陡然噴射"
-                       "出" + chinese_number(n) + "個火球，盡數擊在"
-                       "$n" HIR "全身。\n" NOR;
+    if (random(100) < 15 && living(victim)) {
+        victim->unconcious();
+        return HIR "霎時間只見$N" HIY "神聖長劍" HIR "劍芒暴"
+            "漲，$n" HIR "頓覺一陣昏眩。\n" NOR;
+    } else if (random(100) < 50) {
+        victim->receive_wound("qi", n * 100, me);
+        victim->receive_wound("jing", n * 50, me);
+        return HIR "只見$N" HIY "神聖長劍" HIR "劍尖陡然噴射"
+            "出" + chinese_number(n) + "個火球，盡數擊在"
+            "$n" HIR "全身。\n" NOR;
     }
 }
 
-int do_cast(string arg)
-{
-        object me = this_player(), *obs;
-        int n, i, flag, damage;
+int do_cast(string arg) {
+    object me = this_player(), *obs;
+    int n, i, flag, damage;
 
-        if (! arg || arg == "")
-                return notify_fail("你要施展什麽法術？\n");
+    if (!arg || arg == "")
+        return notify_fail("你要施展什麽法術？\n");
 
-        if (arg != "rage" && arg != "shield")
-                return notify_fail("你無法施展此類法術。\n");
+    if (arg != "rage" && arg != "shield")
+        return notify_fail("你無法施展此類法術。\n");
 
-        if (arg == "rage")
-        {
-            me->clean_up_enemy();
-            obs = me->query_enemy();
+    if (arg == "rage") {
+        me->clean_up_enemy();
+        obs = me->query_enemy();
 
-            if (! me->is_fighting())
-                    return notify_fail("你只有在戰鬥中才能施展"
-                                           RAGE "。\n");
+        if (!me->is_fighting())
+            return notify_fail("你只有在戰鬥中才能施展"
+                RAGE "。\n");
 
-            if (me->is_busy())
-                    return notify_fail("你現在正在忙，沒有時間"
-                                           "施法" RAGE "。\n");
+        if (me->is_busy())
+            return notify_fail("你現在正在忙，沒有時間"
+                "施法" RAGE "。\n");
 
-            message_vision(HIW "\n$N" HIW "施法" RAGEC + HIW "」"
-                               "，高聲念誦道：比迪姆·亞特蒙·泰里"
-                               "阿普·埃控。\n\n" NOR, me);
-            me->start_busy(5);
+        message_vision(HIW "\n$N" HIW "施法" RAGEC + HIW "」"
+            "，高聲念誦道：比迪姆·亞特蒙·泰里"
+            "阿普·埃控。\n\n" NOR, me);
+        me->start_busy(5);
 
-            for (flag = 0, i = 0; i < sizeof(obs); i++)
-            {
-                    if (random(10) > 3)
-                    {
-                                tell_object(obs[i], HIR "你只見眼前光芒"
-                                                    "一閃，霎時間無數光"
-                                                    "線便如鋼針般刺入體"
-                                                    "内，幾欲窒息。\n" NOR);
+        for (flag = 0, i = 0; i < sizeof(obs); i++) {
+            if (random(10) > 3) {
+                tell_object(obs[i], HIR "你只見眼前光芒"
+                    "一閃，霎時間無數光"
+                    "線便如鋼針般刺入體"
+                    "内，幾欲窒息。\n" NOR);
 
-                        damage = 1000 + random(3000);
-                        obs[i]->receive_wound("qi", damage);
-                            obs[i]->receive_wound("jing", damage / 2, me);
+                damage = 1000 + random(3000);
+                obs[i]->receive_wound("qi", damage);
+                obs[i]->receive_wound("jing", damage / 2, me);
 
-                            message("vision", HIY + obs[i]->name() +
-                                                  HIY "只見眼前光芒一閃"
-                                                  "，霎時間無數光線便如"
-                                                  "鋼針般刺入體内，幾欲"
-                                                  "窒息。\n\n" NOR,
-                                                  environment(me),
-                                                  ({ obs[i] }));
-                            flag = 1;
-                    } else
-                    {
-                            tell_object(obs[i], HIC "你法術豁免率檢定"
-                                                    "成功，避開了" RAGEC +
-                                                    HIC "」的攻擊。\n" NOR);
-                    }
+                message("vision", HIY + obs[i]->name() +
+                    HIY "只見眼前光芒一閃"
+                    "，霎時間無數光線便如"
+                    "鋼針般刺入體内，幾欲"
+                    "窒息。\n\n" NOR,
+                    environment(me),
+                    ({ obs[i] }));
+                flag = 1;
+            } else {
+                tell_object(obs[i], HIC "你法術豁免率檢定"
+                    "成功，避開了" RAGEC +
+                    HIC "」的攻擊。\n" NOR);
             }
-            if (! flag)
-                    message_vision(HIC "然而沒有任何人受到$N" RAGEC +
-                                       HIC "」的影响。\n" NOR, me, 0, obs);
-            return 1;
+        }
+        if (!flag)
+            message_vision(HIC "然而沒有任何人受到$N" RAGEC +
+                HIC "」的影响。\n" NOR, me, 0, obs);
+        return 1;
     }
 
-        if (arg == "shield")
-        {
-            if ((int)me->query_temp("shieldc"))
-                    return notify_fail("你已經施展了" SHIELD "。\n");
+    if (arg == "shield") {
+        if ((int)me->query_temp("shieldc"))
+            return notify_fail("你已經施展了" SHIELD "。\n");
 
-            n = 500;
+        n = 500;
 
-            message_vision(HIW "\n$N" HIW "施法" SHIELDC + HIW "」"
-                               "，高聲念誦道：亞帝斯·索利·洛哈吾吉特"
-                               "·莫拉薩拉。\n\n" NOR, me);
+        message_vision(HIW "\n$N" HIW "施法" SHIELDC + HIW "」"
+            "，高聲念誦道：亞帝斯·索利·洛哈吾吉特"
+            "·莫拉薩拉。\n\n" NOR, me);
 
-            me->add_temp("apply/armor", n);
-            me->set_temp("shieldc", 1);
+        me->add_temp("apply/armor", n);
+        me->set_temp("shieldc", 1);
 
-            me->start_call_out((: call_other, __FILE__, "remove_effect",
-                                      me, n :), n);
+        me->start_call_out((: call_other, __FILE__, "remove_effect",
+            me, n :), n);
 
-            return 1;
+        return 1;
     }
 }
 
-void remove_effect(object me, int n)
-{
-        if (me->query_temp("shieldc"))
-           {
-                   me->add_temp("apply/armor", -n);
-                   me->delete_temp("shieldc");
-                   tell_object(me, "你的" SHIELD "施展完畢。\n");
-           }
+void remove_effect(object me, int n) {
+    if (me->query_temp("shieldc")) {
+        me->add_temp("apply/armor", -n);
+        me->delete_temp("shieldc");
+        tell_object(me, "你的" SHIELD "施展完畢。\n");
+    }
 }

@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string str)
-{
+int main(object me, string str) {
     object *ob;
     int i;
 
@@ -12,16 +11,14 @@ int main(object me, string str)
 
     ob = users();
     i = sizeof(ob);
-    while (i--)
-    {
+    while (i--) {
         write(sprintf("%15s : %30s\n", ob[i]->query("id"),
-                      file_name(ob[i])));
+            file_name(ob[i])));
     }
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : ulist
 

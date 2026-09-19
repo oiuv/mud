@@ -1,10 +1,9 @@
 inherit BOOK;
 
-void create()
-{
-    set_name( "天山六阳掌法图上册", ({ "zhangfa tu1", "tu1" }));
+void create() {
+    set_name("天山六阳掌法图上册", ({ "zhangfa tu1", "tu1" }));
     set_weight(200);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "本");
@@ -13,12 +12,12 @@ void create()
         set("no_put", 1);
         set("material", "paper");
         set("skill", ([
-            "name":    "liuyang-zhang",
-            "exp_required":    10000,    // minimum combat experience required
-            "jing_cost":    20,     // jing cost every time study this
-            "difficulty":    20,    // the base int to learn this skill
-            "max_skill":    49,    // the maximum level you can learn
-            "min_skill":    10,    // the maximum level you can learn
-        ]) );
+            "name": "liuyang-zhang",
+            "exp_required": 10000,    // minimum combat experience required
+            "jing_cost": 20,     // jing cost every time study this
+            "difficulty": 20,    // the base int to learn this skill
+            "max_skill": 49,    // the maximum level you can learn
+            "min_skill": 10,    // the maximum level you can learn
+        ]));
     }
 }

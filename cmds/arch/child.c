@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string str)
-{
+int main(object me, string str) {
     object where, *list;
     int i, number;
 
@@ -25,45 +24,35 @@ int main(object me, string str)
 
     list = children(str);
     number = sizeof(list);
-    if (number)
-    {
-        for (i = 0; i < sizeof(list); i++)
-        {
+    if (number) {
+        for (i = 0; i < sizeof(list); i++) {
             write((int)(i + 1) + ". " + file_name(list[i]) + " " +
-                  list[i]->name(1) + "(" +
-                  list[i]->query("id") + ") is at ");
+                list[i]->name(1) + "(" +
+                list[i]->query("id") + ") is at ");
             where = environment(list[i]);
-            if (where)
-            {
-                if (where->query("short"))
-                {
+            if (where) {
+                if (where->query("short")) {
                     write(where->query("short"));
-                }
-                else
-                {
+                } else {
                     write(where->short());
                 }
                 write("(" + file_name(where) + ")\n");
-            }
-            else
-            {
+            } else {
                 write("???\n");
             }
         }
-    }
-    else
+    } else
         write("没有找到任何派生对象。\n");
 
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: child filename
 
 列出一个文档对象和所有副本。
 
-HELP );
+HELP);
     return 1;
 }

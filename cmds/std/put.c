@@ -1,12 +1,10 @@
-
 inherit F_CLEAN_UP;
 
 int do_put(object me, object obj, object dest);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string target, item;
     object obj, dest, *inv, obj2;
     int i, amount;
@@ -27,8 +25,7 @@ int main(object me, string arg)
     if (dest->query("no_get_from"))
         return notify_fail("还是不要打扰人家了。\n");
 
-    if (sscanf(item, "%d %s", amount, item) == 2)
-    {
+    if (sscanf(item, "%d %s", amount, item) == 2) {
         if (!objectp(obj = present(item, me)))
             return notify_fail("你身上没有这样东西。\n");
 
@@ -42,17 +39,15 @@ int main(object me, string arg)
             return notify_fail("你没有那么多的" + obj->name() + "。\n");
         else if (amount == (int)obj->query_amount())
             return do_put(me, obj, dest);
-        else
-        {
+        else {
             obj->set_amount((int)obj->query_amount() - amount);
-            obj2 = new (base_name(obj));
+            obj2 = new(base_name(obj));
             obj2->set_amount(amount);
             return do_put(me, obj2, dest);
         }
     }
 
-    if (item == "all")
-    {
+    if (item == "all") {
         inv = all_inventory(me);
         for (i = 0; i < sizeof(inv); i++)
             if (inv[i] != dest)
@@ -66,31 +61,26 @@ int main(object me, string arg)
     return do_put(me, obj, dest);
 }
 
-int do_put(object me, object obj, object dest)
-{
+int do_put(object me, object obj, object dest) {
     mixed msg;
 
-    if (dest->is_depot_ob())
-    {
+    if (dest->is_depot_ob()) {
         tell_object(me, "存东西到" + dest->name() + "的快捷方式：store 物品ID。\n");
         return 1;
     }
 
-    if (!dest->is_container() && !dest->is_character())
-    {
+    if (!dest->is_container() && !dest->is_character()) {
         tell_object(me, dest->name() + "不是容器，你不能把东西放进去。\n");
         return 1;
     }
 
-    if (sizeof(all_inventory(dest)) >= MAX_ITEM_CARRIED)
-    {
+    if (sizeof(all_inventory(dest)) >= MAX_ITEM_CARRIED) {
         tell_object(me, dest->name() + "里面的东西实在"
-                        "是太多了，你没法再放东西了。\n");
+            "是太多了，你没法再放东西了。\n");
         return 1;
     }
 
-    if (!undefinedp(msg = obj->query("no_put")))
-    {
+    if (!undefinedp(msg = obj->query("no_put"))) {
         if (stringp(msg))
             tell_object(me, msg);
         else
@@ -98,30 +88,26 @@ int do_put(object me, object obj, object dest)
         return 1;
     }
 
-    if (obj->is_corpse())
-    {
+    if (obj->is_corpse()) {
         tell_object(me, "你无法把" + obj->name() + "塞进去。\n");
         return 1;
     }
 
-    if (userp(obj))
-    {
+    if (userp(obj)) {
         tell_object(me, "你无法把" + obj->name() + "塞进去。\n");
         return 1;
     }
 
-    if (obj == dest)
-    {
+    if (obj == dest) {
         tell_object(me, "嗯... 自己套自己，你的想法比较有趣。\n");
         return 1;
     }
 
-    if (obj->move(dest))
-    {
+    if (obj->move(dest)) {
         message_vision(sprintf("$N将一%s%s放进%s。\n",
-                               obj->query("unit"), obj->name(),
-                               dest->name()),
-                       me);
+            obj->query("unit"), obj->name(),
+            dest->name()),
+            me);
         return 1;
     }
 
@@ -133,8 +119,7 @@ int do_put(object me, object obj, object dest)
     return 0;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : put <物品名称> in <某容器>
 

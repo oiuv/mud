@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     if (!wizardp(me) || wiz_level(me) < 5)
         return 0;
 

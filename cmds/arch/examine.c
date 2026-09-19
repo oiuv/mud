@@ -13,8 +13,7 @@ void create() { seteuid(getuid()); }
 
 public void search_dir(object me, int raw);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int copy_user;
 
     if (!SECURITY_D->valid_grant(me, "(arch)"))
@@ -28,8 +27,7 @@ int main(object me, string arg)
     else
         copy_user = 1;
 
-    if (arg != "-all")
-    {
+    if (arg != "-all") {
         string r;
         r = examine_player(arg, copy_user, 0, 0);
         if (!r)
@@ -40,8 +38,7 @@ int main(object me, string arg)
 
     message_system("系统进行数据处理中，请耐心等候...\n");
     write(HIG "现在系统将检查所有玩家，稍后汇报。\n" HIG "进度：" + process_bar(0) + "\n");
-    if (me)
-    {
+    if (me) {
         me->attach_system();
         me->write_prompt();
     }
@@ -49,8 +46,7 @@ int main(object me, string arg)
     return 1;
 }
 
-void search_dir(object me, int raw)
-{
+void search_dir(object me, int raw) {
     string *dir;
     string *result;
     string name;
@@ -68,32 +64,27 @@ void search_dir(object me, int raw)
     result = ({});
     count = 0;
     total = 0;
-    for (i = 0; i < sizeof(dir); i++)
-    {
+    for (i = 0; i < sizeof(dir); i++) {
         ppls = get_dir(DATA_DIR + "login/" + dir[i] + "/", -1);
-        for (j = 0; j < sizeof(ppls); j++)
-        {
+        for (j = 0; j < sizeof(ppls); j++) {
             reset_eval_cost();
-            if (sscanf(ppls[j][0], "%s.o", name) == 1)
-            {
+            if (sscanf(ppls[j][0], "%s.o", name) == 1) {
                 info = examine_player(name, 0, raw, ppls[j][2]);
                 if (!info)
                     continue;
-                result += ({info});
+                result += ({ info });
                 count++;
             }
         }
         total += j;
         message("system", ESC + "[1A" + ESC + "[256D" HIG "进度：" + process_bar((i + 1) * 100 / sizeof(dir)) + "\n" + (me ? HIR "执行中" NOR "> " : ""),
-                me ? me : filter_array(all_interactive(), (: wizardp :)));
+            me ? me : filter_array(all_interactive(), (: wizardp :)));
     }
 
     info = HIC "\n检查所有 " HIY + total + HIC " 玩家的结果如下：\n" NOR WHT;
-    for (i = 0; i < sizeof(result); i++)
-    {
+    for (i = 0; i < sizeof(result); i++) {
         info += result[i];
-        if (i % 20)
-        {
+        if (i % 20) {
             log_file("examine", filter_color(info));
             if (me)
                 message("system", info, me);
@@ -104,18 +95,15 @@ void search_dir(object me, int raw)
     if (!count)
         info += HIC "没有任何的玩家数据可能异样。\n" NOR;
     else
-        info += HIG "共有 " + to_chinese(count) +
-                " 位玩家数据可能异常。\n\n" NOR;
+        info += HIG "共有 " + to_chinese(count) + " 位玩家数据可能异常。\n\n" NOR;
     log_file("examine", filter_color(info));
-    if (me)
-    {
+    if (me) {
         message("system", info, me);
         me->detach_system();
     }
 }
 
-private string fname(object ob)
-{
+private string fname(object ob) {
     string s1, s2;
 
     s1 = ob->query("surname");
@@ -133,8 +121,7 @@ private string fname(object ob)
 // a detial string, or I will return 0
 // If the flag copy_user has been set, I will login the user if
 // he is offline
-private string examine_player(string name, int copy_user, int raw, int last_touched)
-{
+private string examine_player(string name, int copy_user, int raw, int last_touched) {
     object me;
     object login_ob;
     object user_ob;
@@ -143,10 +130,8 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
     int online;
     mixed *st;
 
-    if (raw)
-    {
-        if (!last_touched)
-        {
+    if (raw) {
+        if (!last_touched) {
             st = stat(DATA_DIR + "login/" + name[0..0] + "/" + name + __SAVE_EXTENSION__);
 
             if (!arrayp(st) || sizeof(st) < 3)
@@ -155,8 +140,7 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
 
             // 计算没有上线的时间
             day = (time() - st[1]) / 86400;
-        }
-        else
+        } else
             day = (time() - last_touched) / 86400;
         /*系统备份自动删除超过一定时间未登录的玩家
         if (day >= 360 && ! objectp(find_player(name)) && name != "mudren")
@@ -173,83 +157,69 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
             return 0;
     }
 
-    login_ob = new (LOGIN_OB);
+    login_ob = new(LOGIN_OB);
     login_ob->set("id", name);
 
-    if (!login_ob->restore())
-    {
+    if (!login_ob->restore()) {
         destruct(login_ob);
         return sprintf(WHT "没有玩家(%s)。\n" NOR, name);
     }
 
-    if (login_ob->query("id") != name)
-    {
+    if (login_ob->query("id") != name) {
         string id;
         id = login_ob->query("id");
         destruct(login_ob);
         return sprintf(HIR "玩家(%s)的ID(%s)不正确。\n" NOR, name, id);
     }
 
-    if (!objectp(user_ob = find_player(name)))
-    {
+    if (!objectp(user_ob = find_player(name))) {
         online = 0;
         user_ob = LOGIN_D->make_body(login_ob);
-        if (!user_ob)
-        {
+        if (!user_ob) {
             destruct(login_ob);
             return sprintf(HIR "无法生成玩家(%s)。\n" NOR, name);
         }
 
-        if (!user_ob->restore())
-        {
+        if (!user_ob->restore()) {
             destruct(login_ob);
             destruct(user_ob);
             return sprintf(HIR "无法读取玩家档案(%s)。\n" NOR, name);
         }
-    }
-    else
+    } else
         online = 1;
 
     result = is_illegal(user_ob);
-    if (result)
-    {
+    if (result) {
         if (online)
             result = sprintf("%s%-14s%-10s%s%-17s%s%s\n",
-                             WHT, name, user_ob->query("name"),
-                             (interactive(user_ob) ? HIC : HIR),
-                             (interactive(user_ob) ? query_ip_number(user_ob) : "断线中"),
-                             NOR, result);
+                WHT, name, user_ob->query("name"),
+                (interactive(user_ob) ? HIC : HIR),
+                (interactive(user_ob) ? query_ip_number(user_ob) : "断线中"),
+                NOR, result);
         else
             result = sprintf("%s%-14s%-10s%s%-11s%-6s%s%s%s\n",
-                             WHT, name, user_ob->query("name"), HIG,
-                             ctime(login_ob->query("last_on"))[0..10],
-                             ctime(login_ob->query("last_on"))[20..24],
-                             NOR, result,
-                             (user_ob->is_in_prison() ? HIR "(狱中)" NOR : ""));
+                WHT, name, user_ob->query("name"), HIG,
+                ctime(login_ob->query("last_on"))[0..10],
+                ctime(login_ob->query("last_on"))[20..24],
+                NOR, result,
+                (user_ob->is_in_prison() ? HIR "(狱中)" NOR : ""));
     }
 
     destruct(login_ob);
-    if (!online)
-    {
+    if (!online) {
         // the user is offline
-        if (copy_user)
-        {
+        if (copy_user) {
             me = this_player();
             // I should login it
             message_vision("$N口中念念有词，将$n变了出来。\n", me, user_ob);
-            catch (user_ob->setup());
-            catch (user_ob->move(environment(me)));
-        }
-        else
-        {
+            catch(user_ob->setup());
+            catch(user_ob->move(environment(me)));
+        } else {
             // ok. logout the user
             destruct(user_ob);
         }
-    }
-    else
-    {
-        if (copy_user)
-        {
+    } else {
+        if (copy_user) {
             // login user? oh, I needn't do it because the
             // user is online now.
             write("玩家目前正在线上。\n");
@@ -259,8 +229,7 @@ private string examine_player(string name, int copy_user, int raw, int last_touc
     return result;
 }
 
-private string is_illegal(object ob)
-{
+private string is_illegal(object ob) {
     int gold;
     int age;
     int exp;
@@ -271,20 +240,18 @@ private string is_illegal(object ob)
     if (wizhood(ob) != "(player)")
         return 0;
 
-    if (strlen(ob->query("name")) == 1)
-    {
+    if (strlen(ob->query("name")) == 1) {
         return HIR "姓名只有一个汉字，需要修复。" NOR;
     }
 
     if (ob->query_temp("user_setup"))
         gold = MONEY_D->player_carry(ob);
-    else
-    {
+    else {
         mapping list = ([
-            "/clone/money/cash"   : ({ 10, 1, }),
-            "/clone/money/gold"   : ({ 1, 1, }),
-            "/clone/money/silver" : ({ 1, 100, }),
-            "/clone/money/coin"   : ({ 1, 10000, }),
+            "/clone/money/cash": ({ 10, 1, }),
+            "/clone/money/gold": ({ 1, 1, }),
+            "/clone/money/silver": ({ 1, 100, }),
+            "/clone/money/coin": ({ 1, 10000, }),
         ]);
 
         int *val;
@@ -303,8 +270,7 @@ private string is_illegal(object ob)
             i = sizeof(autoload);
         else
             i = 0;
-        for (--i; i >= 0; i--)
-        {
+        for (--i; i >= 0; i--) {
             if (sscanf(autoload[i], "%s:%d", item, amount) != 2)
                 continue;
 
@@ -312,7 +278,7 @@ private string is_illegal(object ob)
                 continue;
             gold += amount * val[0] / val[1];
             if (gold < 0)
-                break; // Too much money
+                break;  // Too much money
         }
     }
 
@@ -321,8 +287,7 @@ private string is_illegal(object ob)
     exp = ob->query("combat_exp");
     dexp = exp - (int)ob->query("last_examine/combat_exp");
     dt = time() - (int)ob->query("last_examine/time");
-    if (dt > 60)
-    {
+    if (dt > 60) {
         ob->set("last_examine/combat_exp", exp);
         ob->set("last_examine/time", time());
         if (!ob->query_temp("user_setup"))
@@ -344,8 +309,7 @@ private string is_illegal(object ob)
     return 0;
 }
 
-int  help(object  me)
-{
+int help(object me) {
     write(@HELP
 指令格式：examine [-u] <玩家ID> | -all
 
@@ -360,5 +324,5 @@ int  help(object  me)
 
 HELP
     );
-    return  1;
+    return 1;
 }

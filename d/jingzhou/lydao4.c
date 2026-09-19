@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "林荫道");
     set("long", @LONG
 这是一条安静的林荫道，地上铺着奇奇怪怪五颜六色的石
@@ -9,13 +8,13 @@ void create()
 小孩在玩耍，安静，和谐，微风吹来，使人忘却了江湖上的生
 死情仇。
 LONG);
-        set("outdoors", "jingzhou");
-        set("objects", ([
-                "/d/beijing/npc/kid1" : 2,
-        ]));
+    set("outdoors", "jingzhou");
+    set("objects", ([
+        "/d/beijing/npc/kid1": 2,
+    ]));
     set("exits", ([
-        "eastup" : __DIR__"nandajie2",
-        "west" : __DIR__"lydao3",
+        "eastup": __DIR__ "nandajie2",
+        "west": __DIR__ "lydao3",
     ]));
 
     setup();

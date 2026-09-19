@@ -1,7 +1,6 @@
 // object.c
 
-varargs int getoid(object ob)
-{
+varargs int getoid(object ob) {
     int id;
 
     if (!ob) ob = previous_object();
@@ -10,24 +9,20 @@ varargs int getoid(object ob)
 }
 
 // Get the owner of a file.  Used by log_error() in master.c.
-string file_owner(string file)
-{
+string file_owner(string file) {
     string name, rest, dir;
 
-    if (file[0] != '/')
-    {
+    if (file[0] != '/') {
         file = "/" + file;
     }
-    if (sscanf(file, "/u/%s/%s/%s", dir, name, rest) == 3)
-    {
+    if (sscanf(file, "/u/%s/%s/%s", dir, name, rest) == 3) {
         return name;
     }
     return 0;
 }
 
 // domain_file should return the domain associated with a given file.
-string domain_file(string file)
-{
+string domain_file(string file) {
     string domain;
 
     if (sscanf(file, "/d/%s/%*s", domain))
@@ -37,43 +32,40 @@ string domain_file(string file)
 }
 
 // creator_file should return the name of the creator of a specific file.
-string creator_file(string file)
-{
+string creator_file(string file) {
     string *path;
 
     path = explode(file, "/") - ({ 0 });
-    switch (path[0])
-    {
-    case "adm":
-    case "mudcore":
-        if (file == SIMUL_EFUN_OB || file == CORE_SIMUL_EFUN_OB)
-            return "MudOS";
-        else
+    switch (path[0]) {
+        case "adm":
+        case "mudcore":
+            if (file == SIMUL_EFUN_OB || file == CORE_SIMUL_EFUN_OB)
+                return "MudOS";
+            else
+                return ROOT_UID;
+        case "cmds":
+        case "shadow":
             return ROOT_UID;
-    case "cmds":
-    case "shadow":
-        return ROOT_UID;
-    case "u":
-        if (sizeof(path) >= 3)
-            return path[1];
-    case "d":
-        return "Domain";
-    case "clone":
-        return "Clone";
-    case "feature":
-        return "Feature";
-    case "kungfu":
-        return "Kungfu";
-    case "inherit":
-        return "Inherit";
-    default:
-        return "Unknow";
+        case "u":
+            if (sizeof(path) >= 3)
+                return path[1];
+        case "d":
+            return "Domain";
+        case "clone":
+            return "Clone";
+        case "feature":
+            return "Feature";
+        case "kungfu":
+            return "Kungfu";
+        case "inherit":
+            return "Inherit";
+        default:
+            return "Unknow";
     }
 }
 
 // author_file should return the name of the author of a specific file.
-string author_file(string file)
-{
+string author_file(string file) {
     string name;
 
     if (sscanf(file, "/u/%*s/%s/%*s", name))
@@ -82,13 +74,11 @@ string author_file(string file)
 }
 
 // check the object's euid wheter is root
-int is_root(mixed ob)
-{
+int is_root(mixed ob) {
     if (stringp(ob))
         return (SECURITY_D->get_status(ob) == "(admin)");
 
-    if (objectp(ob))
-    {
+    if (objectp(ob)) {
         if (geteuid(ob) == ROOT_UID)
             // Root object want to execute
             return 1;
@@ -100,10 +90,8 @@ int is_root(mixed ob)
 }
 
 // simul efun:destruct
-void destruct(object ob)
-{
-    if (ob && base_name(ob) != CORE_USER_OB)
-    {
+void destruct(object ob) {
+    if (ob && base_name(ob) != CORE_USER_OB) {
         if (previous_object())
             ob->remove(geteuid(previous_object()));
         else

@@ -13,12 +13,11 @@ string *seat_char = ({ "N", "W", "S", "E" });
 string *seat_str = ({ "北", "西", "南", "东" });
 int *heart_score = ({ 0, 0, 0, -10, -10, -10, -10, -10, -10, -20, -30, -40, -50 });
 
-int is_validcard(string str)
-{
+int is_validcard(string str) {
     int i, st, rk;
     string s, r;
 
-    if (strlen(str) != 2 )
+    if (strlen(str) != 2)
         return -1;
     s = capitalize(str[0..0]);
     r = capitalize(str[1..1]);
@@ -37,8 +36,7 @@ int is_validcard(string str)
     return st * 13 + rk;
 }
 
-int is_validbid(int c)
-{
+int is_validbid(int c) {
     if (c == SPIG)
         return BID_SPIG;
     if (c == HACE)
@@ -50,20 +48,17 @@ int is_validbid(int c)
     return 0;
 }
 
-int is_special(int c)
-{
+int is_special(int c) {
     return c == SPIG || c == DSHEEP || c == CTRANS || SUIT(c) == HEART;
 }
 
-string card_str(int c)
-{
+string card_str(int c) {
     if (c < 0 || c > 51)
         return "";
-    return(suit_str[SUIT(c)] + rank_str[RANK(c)]);
+    return (suit_str[SUIT(c)] + rank_str[RANK(c)]);
 }
 
-string refresh(int *cl, int b, int e)
-{
+string refresh(int *cl, int b, int e) {
     string output = "";
     int i, ls, ns;
     if (b < 0 || e < 0)
@@ -77,32 +72,29 @@ string refresh(int *cl, int b, int e)
             output += rank_str[RANK(cl[i])] + " ";
         else {
             output = sprintf("%s\n%18s%s：", output, "",
-                    suit_str[ls = ns]);
+                suit_str[ls = ns]);
             output += rank_str[RANK(cl[i])] + " ";
         }
     }
     return output + "\n";
 }
 
-int has_suit(int *cl, int b, int e, int s)
-{
+int has_suit(int *cl, int b, int e, int s) {
     int i, r = 0;
     for (i = b; i <= e; i++)
         if (SUIT(cl[i]) == s)
             r++;
     return r;
 }
-int has_card(int *cl, int b, int e, int c)
-{
+int has_card(int *cl, int b, int e, int c) {
     int i;
     for (i = b; i <= e; i++)
-        if(cl[i] == c)
+        if (cl[i] == c)
             return 1;
     return 0;
 }
 
-void shuffle(int *ol, int *nl, int t)
-{
+void shuffle(int *ol, int *nl, int t) {
     int i, j, k, l;
     if (sizeof(ol) < 52 || sizeof(nl) < 52)
         for (i = 0; i < 52; i++)
@@ -120,8 +112,7 @@ void shuffle(int *ol, int *nl, int t)
     }
 }
 
-string card_cmp4(mapping cl, int s)
-{
+string card_cmp4(mapping cl, int s) {
     int i, bc;
     string bp;
     string *clkeys = keys(cl);
@@ -135,8 +126,7 @@ string card_cmp4(mapping cl, int s)
     return bp;
 }
 
-string *order_turn(string rw)
-{
+string *order_turn(string rw) {
     if (rw == "east")
         return ({ "east", "north", "west", "south" });
     else if (rw == "north")
@@ -147,7 +137,7 @@ string *order_turn(string rw)
         return ({ "south", "east", "north", "west" });
 }
 
-int count_score(int *fcl, int bid_flag) // support for single pig ONLY
+int count_score(int *fcl, int bid_flag)  // support for single pig ONLY
 {
     int i, j, pc, doubler, n_heart, cardj, r;
     int *cl = ({});
@@ -167,24 +157,20 @@ int count_score(int *fcl, int bid_flag) // support for single pig ONLY
         r = -100;
         if (bid_flag & BID_SPIG)
             r = -200;
-    }
-    else if (pc == 13 && cl[0] >= 13 && cl[12] <= 25) {
+    } else if (pc == 13 && cl[0] >= 13 && cl[12] <= 25) {
         // all 13 hearts
         r = 200;
         if (bid_flag & BID_HACE)
             r = 400;
-    }
-    else if (pc == 1 && cl[0] == CTRANS) {
+    } else if (pc == 1 && cl[0] == CTRANS) {
         r = 50;
         if (bid_flag & BID_CTRANS)
             r = 100;
-    }
-    else if (pc == 1 && cl[0] == DSHEEP) {
+    } else if (pc == 1 && cl[0] == DSHEEP) {
         r = 100;
         if (bid_flag & BID_DSHEEP)
             r = 200;
-    }
-    else {
+    } else {
         doubler = 1;
         n_heart = 0;
         for (j = 0; j < pc; j++) {
@@ -195,18 +181,15 @@ int count_score(int *fcl, int bid_flag) // support for single pig ONLY
                 if (bid_flag & BID_HACE)
                     r += heart_score[cardj % 13];
                 n_heart++;
-            }
-            else if (cardj == SPIG) {
+            } else if (cardj == SPIG) {
                 r -= 100;
                 if (bid_flag & BID_SPIG)
                     r -= 100;
-            }
-            else if (cardj == DSHEEP) {
+            } else if (cardj == DSHEEP) {
                 r += 100;
                 if (bid_flag & BID_DSHEEP)
                     r += 100;
-            }
-            else if (cardj == CTRANS) {
+            } else if (cardj == CTRANS) {
                 doubler = 2;
                 if (bid_flag & BID_CTRANS)
                     doubler = 4;

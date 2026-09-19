@@ -5,14 +5,12 @@
 
 inherit HEAD;
 
-void create()
-{
+void create() {
     set_name(HIW "白茶花" NOR, ({ "bai chahua", "chahua" }));
     set_weight(10);
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("long", "冰清玉洁的白茶花。\n");
         set("unit", "朵");
         set("value", 6);

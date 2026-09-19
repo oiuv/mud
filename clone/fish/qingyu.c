@@ -5,13 +5,11 @@ inherit ITEM;
 #include <ansi.h>
 #include "fish.h"
 
-void create()
-{
-    set_name("青鱼", ({"qing yu", "qingyu"}));
+void create() {
+    set_name("青鱼", ({ "qing yu", "qingyu" }));
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("long", "一条不安分的青鱼。\n");
         set("unit", "条");
     }

@@ -2,13 +2,11 @@
 
 inherit ITEM;
 
-void create()
-{
-    set_name(CYN "弟子规" NOR, ({"dizi gui", "book", "gui"}));
+void create() {
+    set_name(CYN "弟子规" NOR, ({ "dizi gui", "book", "gui" }));
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("long", CYN @LONG
     《弟子规》，原名《训蒙文》，是清朝李毓秀所作的三言韵文，约作于
 康熙年间；后经贾存仁（一说贾有仁）修订改编，命名为《弟子规》。该文
@@ -23,24 +21,18 @@ LONG NOR);
     }
 }
 
-void init()
-{
+void init() {
     add_action("do_read", "read");
 }
 
-int do_read(string arg)
-{
-    if (arg != "dizi gui")
-    {
+int do_read(string arg) {
+    if (arg != "dizi gui") {
         return 0;
-    }
-    else
-    {
-        string f = read_file(__DIR__"book/dizigui.json");
+    } else {
+        string f = read_file(__DIR__ "book/dizigui.json");
         mapping c = element_of(json_decode(f)["content"]);
         msg("info", sprintf("$ME开始阅读《弟子规》『%s』部分的内容。\n", c["chapter"]), this_player());
-        foreach(string line in c["paragraphs"])
-        {
+        foreach (string line in c["paragraphs"]) {
             write("\t" + line + "\n");
         }
 

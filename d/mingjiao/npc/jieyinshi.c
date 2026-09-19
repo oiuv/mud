@@ -6,13 +6,12 @@
 inherit NPC;
 inherit F_GUARDER;
 
-void create()
-{
-    set_name("接引使", ({"jieyin shi","jieyin","shi",}));
+void create() {
+    set_name("接引使", ({ "jieyin shi", "jieyin", "shi", }));
     set("long",
         "他是一位精明的中年人，身穿一件白布长袍。\n"
         "他正在上下打量着你。\n"
-        );
+    );
 
     set("title", HIR "明教" NOR);
 
@@ -51,11 +50,11 @@ void create()
     prepare_skill("cuff", "jingang-quan");
 
     set("coagents", ({
-                ([ "startroom" : "/d/mingjiao/shanmen",
-                   "id"        : "leng qian" ]),
-        }));
+        ([ "startroom": "/d/mingjiao/shanmen",
+            "id": "leng qian" ]),
+    }));
 
     setup();
 
-        carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/d/mingjiao/obj/baipao")->wear();
 }

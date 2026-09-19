@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "巡捕房");
     set("long", @LONG
 这里是官府发放通缉令的地方，凡是出现什么江洋大盗，大魔头，杀
@@ -11,12 +10,12 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "north" : __DIR__"laofang",
-          "south" : __DIR__"wroad3",
+        "north": __DIR__ "laofang",
+        "south": __DIR__ "wroad3",
     ]));
-        set("objects", ([
-                "clone/npc/xunbu" : 2,
-        ]));
+    set("objects", ([
+        "clone/npc/xunbu": 2,
+    ]));
 
     setup();
     replace_program(ROOM);

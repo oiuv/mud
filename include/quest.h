@@ -6,16 +6,16 @@
 // 任务对象的函数
 varargs string name();
 varargs string query_introduce(object knower, object who);
-varargs int    can_know_by(object knower);
-varargs int    can_rumor_by(object knower);
+varargs int can_know_by(object knower);
+varargs int can_rumor_by(object knower);
 
 // 功能函数
-varargs void   set_information(string key, string info);
-varargs void   set_name(string name);
+varargs void set_information(string key, string info);
+varargs void set_name(string name);
 
 // 状态机函数
-string  query_status();
-void    change_status(string new_state);
+string query_status();
+void change_status(string new_state);
 
 // 任务对象的系统状态
 #define QUEST_CREATE            "created" /* 任务创建     */
@@ -32,4 +32,4 @@ void    change_status(string new_state);
 // 在结束状态最长的停留时间
 #define QUEST_FINISH_PERIOD     30
 
-void    register_information();
+void register_information();

@@ -2,8 +2,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "北厅");
     set("long", @LONG
 这里是衙门的北厅，乃是知府的书房。房中有一个亮敞的红木书桌，
@@ -13,8 +12,8 @@ LONG
     );
     set("no_clean_up", 0);
     set("exits", ([ /* sizeof() == 1 */
-  "south" : __DIR__"yamen",
-]));
+        "south": __DIR__ "yamen",
+    ]));
 
     setup();
     replace_program(ROOM);

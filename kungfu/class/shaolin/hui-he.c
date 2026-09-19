@@ -6,8 +6,7 @@ inherit F_MASTER;
 
 string ask_me();
 
-void create()
-{
+void create() {
     set_name("慧合尊者", ({
         "huihe zunzhe",
         "huihe",
@@ -61,18 +60,17 @@ void create()
     create_family("少林派", 38, "弟子");
 
     set("inquiry", ([
-        "买铁" :    (: ask_me :),
+        "买铁": (: ask_me :),
     ]));
 
     setup();
 
-        carry_object("/d/shaolin/obj/changjian")->wield();
-        carry_object("/d/shaolin/obj/hui-cloth")->wear();
+    carry_object("/d/shaolin/obj/changjian")->wield();
+    carry_object("/d/shaolin/obj/hui-cloth")->wear();
 }
 
 #include "hui.h"
 
-string ask_me()
-{
+string ask_me() {
     return "买铁？ 他现在又不缺铁！ 前天老乔不是刚送来一堆铁块，铁手掌什麽的给他吗？！";
 }

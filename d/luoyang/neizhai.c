@@ -2,8 +2,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "内宅");
     set("long", @LONG
 这里是衙门的内宅，住着知府的家眷。只见宅内布置的富丽堂皇，珠
@@ -13,8 +12,8 @@ LONG
     );
     set("no_clean_up", 0);
     set("exits", ([ /* sizeof() == 1 */
-  "west" : __DIR__"yamen",
-]));
+        "west": __DIR__ "yamen",
+    ]));
 
     setup();
     replace_program(ROOM);

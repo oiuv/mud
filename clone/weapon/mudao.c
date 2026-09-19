@@ -4,11 +4,10 @@
 
 inherit BLADE;
 
-void create()
-{
-    set_name("木刀", ({ "mu dao", "dao", "blade" }) );
+void create() {
+    set_name("木刀", ({ "mu dao", "dao", "blade" }));
     set_weight(2000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "把");

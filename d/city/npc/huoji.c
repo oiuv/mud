@@ -3,8 +3,7 @@
 inherit NPC;
 inherit F_DEALER;
 
-void create()
-{
+void create() {
     set_name("药铺伙计", ({ "yaopu huoji", "huoji" }));
     set("str", 20);
     set("gender", "男性");
@@ -29,8 +28,7 @@ void create()
     carry_object("/clone/misc/cloth")->wear();
 }
 
-void init()
-{
-        add_action("do_list", "list");
-        add_action("do_buy", "buy");
+void init() {
+    add_action("do_list", "list");
+    add_action("do_buy", "buy");
 }

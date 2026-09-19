@@ -2,38 +2,31 @@
 
 inherit F_CLEAN_UP;
 
-void create()
-{
+void create() {
     seteuid(getuid());
 }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object *ob;
 
     if (time() - me->query_temp("scan_time") < 10 && !wizardp(me))
         return notify_fail("等等，系统喘气中……\n");
 
-    if (!arg)
-    {
+    if (!arg) {
         if ((int)me->query("jing") < 50)
             return notify_fail("你的精神无法集中。\n");
 
         me->receive_damage("jing", 50);
         me->set_temp("scan_time", time());
         me->start_more(FINGER_D->finger_all());
-    }
-    else if (arg == "-m")
-    {
+    } else if (arg == "-m") {
         if (!wizardp(this_player()))
             return notify_fail("你无权使用 -m 参数。\n");
 
         ob = filter_array(users(), (: $1->name() != $1->name(1) :));
         me->set_temp("scan_time", time());
         me->start_more(FINGER_D->user_list(ob), 0);
-    }
-    else
-    {
+    } else {
         if ((int)me->query("jing") < 20)
             return notify_fail("你的精神无法集中。\n");
 
@@ -43,8 +36,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：finger [-m] [使用者姓名]
 

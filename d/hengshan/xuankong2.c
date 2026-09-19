@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "悬空寺南楼");
     set("long", @LONG
 这里是悬空寺的南门楼，也是南碑亭。悬空寺于陡崖上凿石穴
@@ -13,10 +12,10 @@ void create()
 LONG
     );
     set("exits", ([
-        "north"   : __DIR__"zhanqiao",
-        "southup" : __DIR__"zhandao",
+        "north": __DIR__ "zhanqiao",
+        "southup": __DIR__ "zhandao",
     ]));
-        set("no_clean_up", 0);
+    set("no_clean_up", 0);
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

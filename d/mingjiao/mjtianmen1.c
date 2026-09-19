@@ -4,25 +4,23 @@
 #include <room.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "门口");
     set("long", @LONG
 前面就是明教的“天字门”了，这里是明教中男弟子修炼
 的地方，从门口看进去，汗衫扬臭，木桌流酒。此处不允女人
 随意进入。
-LONG );
+LONG);
     set("exits", ([
-        "in" : __DIR__"nanshe",
-        "southeast" : __DIR__"mjtianmen",
+        "in": __DIR__ "nanshe",
+        "southeast": __DIR__ "mjtianmen",
     ]));
     set("outdoors", "mingjiao");
     set("no_clean_up", 0);
     setup();
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     if ((me->query("gender") != "男性") && (dir == "in"))
         return notify_fail("请你自重，以免不测！\n");
     else

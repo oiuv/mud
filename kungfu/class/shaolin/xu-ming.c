@@ -4,8 +4,7 @@
 inherit NPC;
 
 
-void create()
-{
+void create() {
 
     set_name("虚明", ({
         "xu ming",
@@ -57,7 +56,7 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/changjian")->wield();
-        carry_object("/d/shaolin/obj/xu-cloth")->wear();
+    carry_object("/d/shaolin/obj/changjian")->wield();
+    carry_object("/d/shaolin/obj/xu-cloth")->wear();
 
 }

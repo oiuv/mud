@@ -6,8 +6,7 @@ inherit F_MASTER;
 
 #include "hui.h"
 
-void create()
-{
+void create() {
     set_name("慧如尊者", ({
         "huiru zunzhe",
         "huiru",
@@ -57,6 +56,6 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/changjian")->wield();
-        carry_object("/d/shaolin/obj/hui-cloth")->wear();
+    carry_object("/d/shaolin/obj/changjian")->wield();
+    carry_object("/d/shaolin/obj/hui-cloth")->wear();
 }

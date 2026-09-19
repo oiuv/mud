@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "漕帮");
     set("long", @LONG
 这里是漕帮的总部，说是什么漕帮，其实就是几个恶霸勾
@@ -10,8 +9,8 @@ void create()
 LONG);
 
     set("exits", ([
-        "north" : __DIR__"canchang",
-        "in" : __DIR__"liwu",
+        "north": __DIR__ "canchang",
+        "in": __DIR__ "liwu",
     ]));
 
     set("outdoors", "zhongzhou");

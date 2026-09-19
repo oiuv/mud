@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     if (!SECURITY_D->valid_grant(me, "(arch)"))
         return 0;
 
@@ -20,13 +19,12 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：rehash <目录名称>
 
 这个指令会更新系统内部的指令表，如果你新增或删除了某个目录下
 的指令，必须用这个指令更新该目录才能使用。
-HELP );
+HELP);
     return 1;
 }

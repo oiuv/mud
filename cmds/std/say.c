@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object env, *obs;
     mixed msg;
 
@@ -13,18 +12,15 @@ int main(object me, string arg)
         return 0;
 
     env = environment(me);
-    if (!arg)
-    {
+    if (!arg) {
         write("你自言自语不知道在说些什么。\n");
         message("sound", me->name() + "自言自语不知道在说些什么。\n",
-                env, me);
+            env, me);
         return 1;
     }
 
-    if (msg = env->query("no_say"))
-    {
-        if (stringp(msg))
-        {
+    if (msg = env->query("no_say")) {
+        if (stringp(msg)) {
             write(msg);
             return 1;
         }
@@ -33,8 +29,7 @@ int main(object me, string arg)
         return 1;
     }
 
-    if (me->query("doing") == "scheme")
-    {
+    if (me->query("doing") == "scheme") {
         if (me->query("jing") < 100)
             return notify_fail("你现在的精神不济，等一会儿吧。\n");
         me->add("jing", -50);
@@ -42,15 +37,18 @@ int main(object me, string arg)
 
     write(CYN "你说道：" + arg + "\n" NOR);
 
-    if (env->is_area())
-    {
+    if (env->is_area()) {
         mapping info;
         info = me->query("area_info");
         obs = env->query_inventory(info["x_axis"], info["y_axis"]);
-        tell_area(env, info["x_axis"], info["y_axis"], me->name() + "說道﹕" + HIG + arg + "\n" NOR, ({me}));
-    }
-    else
-    {
+        tell_area(
+            env,
+            info["x_axis"],
+            info["y_axis"],
+            me->name() + "說道﹕" + HIG + arg + "\n" NOR,
+            ({ me })
+        );
+    } else {
         obs = all_inventory(env);
         message("sound", me->name() + "說道﹕" + HIG + arg + "\n" NOR, env, me);
     }
@@ -61,8 +59,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: say <讯息>
 

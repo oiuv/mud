@@ -4,8 +4,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     object card;
     int time;
@@ -26,14 +25,13 @@ int main(object me, string arg)
     if (!ob->is_in_prison())
         return notify_fail("这个玩家现在没有被禁闭。\n");
 
-    if (!SECURITY_D->valid_grant(me, "(arch)"))
-    {
+    if (!SECURITY_D->valid_grant(me, "(arch)")) {
         if (!objectp(card = present("help card", me)))
             return notify_fail("你没有权利把人放出来。\n");
 
         message_vision("$N摸出一张卡片，拼命念叨：太上老君救命啊，" +
-                       ob->name(1) + "真是无辜啊！\n",
-                       me);
+            ob->name(1) + "真是无辜啊！\n",
+            me);
         destruct(card);
     }
 
@@ -41,8 +39,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : free <玩家ID>
 

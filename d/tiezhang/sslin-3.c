@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "松树林");
     set("long", @LONG
 你走进一片黑压压的松树林，这里的松树枝繁叶茂，树冠
@@ -10,10 +9,10 @@ void create()
 现自己已迷失在这片松林中，找不到出去的路了。
 LONG);
     set("exits", ([
-          "west"  : __DIR__"sslin-4",
-          "east"  : __FILE__,
-          "south" : __DIR__ "sslin-2",
-          "north" : __FILE__,
+        "west": __DIR__ "sslin-4",
+        "east": __FILE__,
+        "south": __DIR__ "sslin-2",
+        "north": __FILE__,
     ]));
     set("no_clean_up", 0);
     setup();

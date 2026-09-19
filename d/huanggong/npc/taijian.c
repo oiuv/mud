@@ -1,11 +1,9 @@
-
 inherit NPC;
 
-void create()
-{
-    set_name("太监", ({ "tai jian", "tai" ,"jian"}));
+void create() {
+    set_name("太监", ({ "tai jian", "tai", "jian" }));
     set("gender", "无性");
-    set("age", 15+random(60));
+    set("age", 15 + random(60));
 
     set("combat_exp", 5000);
     set("shen_type", 0);

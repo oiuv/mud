@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "老庙首饰店");
     set("long", @LONG
 老庙首饰店中珠光宝气四射，眩的人有些睁不开眼睛。精致的长柜中
@@ -12,11 +11,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "west" : __DIR__"sroad6",
+        "west": __DIR__ "sroad6",
     ]));
-        set("objects", ([
-                __DIR__"npc/zhou" : 1,
-        ]));
+    set("objects", ([
+        __DIR__ "npc/zhou": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

@@ -5,10 +5,9 @@
 inherit ITEM;
 inherit F_FOOD;
 
-void create()
-{
-    set_name(WHT "白米饭" NOR, ({ "rice", "mi fan" }) );
-    if( clonep() )
+void create() {
+    set_name(WHT "白米饭" NOR, ({ "rice", "mi fan" }));
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("long", "一碗香喷喷的白米饭。\n");

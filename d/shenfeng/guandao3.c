@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "破旧长城");
     set("long", @LONG
 昔日雄伟的长城已面目全非，岁月和战争已几乎把它夷为
@@ -9,10 +8,10 @@ void create()
 这里虽然是一片萧杀，却有几株小树从碎石的缝隙中挤出，给
 人以一线生机的感觉。
 LONG);
-        set("outdoors", "shenfeng");
+    set("outdoors", "shenfeng");
     set("exits", ([
-          "west" : __DIR__"guandao4",
-          "east" : __DIR__"guandao2",
+        "west": __DIR__ "guandao4",
+        "east": __DIR__ "guandao2",
     ]));
 
     setup();

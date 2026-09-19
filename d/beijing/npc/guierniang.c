@@ -1,14 +1,13 @@
 inherit NPC;
 inherit F_MASTER;
 #include <ansi.h>
-void create()
-{
+void create() {
     set_name("归二娘", ({ "gui erniang", "gui" }));
     set("title", "华山派三十二代高手");
     set("long",
-"一个年迈的老妇，头发半白，但看起来却是精神抖擞，\n"
-"脾气相当的火暴。他便是神拳无敌归心树的内人----归\n"
-"二娘。\n");
+        "一个年迈的老妇，头发半白，但看起来却是精神抖擞，\n"
+        "脾气相当的火暴。他便是神拳无敌归心树的内人----归\n"
+        "二娘。\n");
     set("gender", "女性");
     set("age", 68);
     set("attitude", "peaceful");
@@ -40,21 +39,21 @@ void create()
     set_skill("zixia-shengong", 150);
     set_skill("poyu-quan", 100);
     set_skill("hunyuan-zhang", 100);
-       set_skill("feiyan-huixiang",150);
+    set_skill("feiyan-huixiang", 150);
 
     map_skill("cuff", "poyu-quan");
     map_skill("force", "zixia-shengong");
-       map_skill("dodge", "feiyan-huixiang");
-       map_skill("parry", "huashan-jian");
+    map_skill("dodge", "feiyan-huixiang");
+    map_skill("parry", "huashan-jian");
     map_skill("strike", "hunyuan-zhang");
     map_skill("sword", "huashan-jian");
 
     prepare_skill("strike", "hunyuan-zhang");
     prepare_skill("cuff", "poyu-quan");
-       set("chat_chance", 2);
-       set("chat_msg", ({
-                "归二娘望了归钟一眼，深深的叹了口气。\n",
-        }) );
+    set("chat_chance", 2);
+    set("chat_msg", ({
+        "归二娘望了归钟一眼，深深的叹了口气。\n",
+    }));
 
 
     create_family("华山派", 32, "弟子");
@@ -62,7 +61,7 @@ void create()
     set("chat_chance_combat", 60);
     set("chat_msg_combat", ({
         (: exert_function, "recover" :),
-    }) );
+    }));
 
     setup();
     carry_object("/d/beijing/npc/obj/cloth4")->wear();

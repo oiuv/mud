@@ -21,4 +21,3 @@ mixed evaluate_shell(string arg, int novalue);
 string parse_shell(string arg);
 
 #endif
-

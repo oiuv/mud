@@ -1,7 +1,6 @@
 // profile.c
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     if (!SECURITY_D->valid_grant(me, "(admin)"))
         return 0;
 
@@ -13,14 +12,13 @@ int main(object me, string arg)
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: profile
 
 turns on command profiling, the result will be saved to /PROFILE
 
 HELP
-);
+    );
     return 1;
 }

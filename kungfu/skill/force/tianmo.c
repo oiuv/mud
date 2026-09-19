@@ -6,8 +6,7 @@
 
 inherit F_CLEAN_UP;
 
-int exert(object me, object target)
-{
+int exert(object me, object target) {
     int shen, shen_lvl;
     int skill, count;
     int i;
@@ -42,7 +41,7 @@ int exert(object me, object target)
     me->receive_wound("jing", skill + shen_lvl + random(1000));
 
     message_combatd(RED "$N蓦地大叫一声，喷出一口鲜血，"
-                        "正是天下闻名的 " TIANMO "。\n" NOR, me);
+        "正是天下闻名的 " TIANMO "。\n" NOR, me);
 
     me->add_temp("apply/str", me->query("str"));
     me->add_temp("apply/int", me->query("int"));
@@ -55,8 +54,7 @@ int exert(object me, object target)
     me->add_temp("apply/damage", me->query("str") * 3);
     me->add_temp("apply/unarmed_damage", me->query("str") * 3);
 
-    for (i = 0; i < sizeof(skills); i++)
-    {
+    for (i = 0; i < sizeof(skills); i++) {
         me->add_temp("apply/" + skills[i], count / 2);
     }
 

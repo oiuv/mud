@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "水房");
     set("long", @LONG
 一进屋，你看见屋内放着几口大缸，好象是装水用的，不
@@ -9,8 +8,8 @@ void create()
 LONG);
     set("no_fight", 1);
     set("exits", ([
-        "east" : __DIR__"guofu_houyuan",
-    ]) );
+        "east": __DIR__ "guofu_houyuan",
+    ]));
     set("outdoors", "wuguan");
     setup();
     replace_program(ROOM);

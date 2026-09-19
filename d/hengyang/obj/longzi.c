@@ -1,9 +1,8 @@
 #include <ansi.h>
 inherit ITEM;
 
-void create()
-{
-    set_name(HIY "笼子" NOR, ({ "long zi","long", "zi" }));
+void create() {
+    set_name(HIY "笼子" NOR, ({ "long zi", "long", "zi" }));
     set_weight(1000);
     if (clonep())
         set_default_object(__FILE__);

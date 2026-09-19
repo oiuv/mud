@@ -16,8 +16,7 @@ string *msg_dunno = ({
     CYN "$n" CYN "看着$N" CYN "，皱了皱眉头，说道：“我从没听说过这事，你去问别人吧。”\n" NOR,
 });
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string dest, topic, msg;
     object ob;
     //mapping inquiry;
@@ -34,10 +33,8 @@ int main(object me, string arg)
         return notify_fail("你要问谁什么事？\n");
 
     env = environment(me);
-    if (info = env->query("no_say"))
-    {
-        if (stringp(info))
-        {
+    if (info = env->query("no_say")) {
+        if (stringp(info)) {
             write(info);
             return 1;
         }
@@ -52,48 +49,42 @@ int main(object me, string arg)
     if (me->ban_say(1) && playerp(ob))
         return 0;
 
-    if (!ob->is_character())
-    {
+    if (!ob->is_character()) {
         message_vision("$N对着$n自言自语....\n", me, ob);
         return 1;
     }
 
-    if (ob == me)
-    {
+    if (ob == me) {
         message_vision("$N自己自言自语。\n", me);
         return 1;
     }
 
-    if (me->query("jing") < 30 && !playerp(ob) && !me->is_ghost())
-    {
+    if (me->query("jing") < 30 && !playerp(ob) && !me->is_ghost()) {
         write("你现在的精神不太好，没法和别人套瓷。\n");
         return 1;
     }
 
-    if (!ob->query("can_speak"))
-    {
+    if (!ob->query("can_speak")) {
         message_vision(CYN "$N" CYN "向$n" CYN
-                           "打听有关『" HIG +
-                           topic + NOR CYN "』"
-                           "的消息，但是$p显然听不懂人话。\n" NOR,
-                       me, ob);
+            "打听有关『" HIG +
+            topic + NOR CYN "』"
+            "的消息，但是$p显然听不懂人话。\n" NOR,
+            me, ob);
         return 1;
     }
 
     if (!INQUIRY_D->parse_inquiry(me, ob, topic))
         message_vision(CYN "$N" CYN "向$n" CYN "打听有关『" HIG +
-                           topic + NOR CYN "』的消息。\n" NOR,
-                       me, ob);
+            topic + NOR CYN "』的消息。\n" NOR,
+            me, ob);
 
-    if (!living(ob))
-    {
+    if (!living(ob)) {
         message_vision("但是很显然的，$n现在的状况没有办法给$N任何答覆。\n",
-                       me, ob);
+            me, ob);
         return 1;
     }
 
-    if (playerp(ob) || ob->is_chatter())
-    {
+    if (playerp(ob) || ob->is_chatter()) {
         ob->set_temp("ask_you", me->query("id"));
         return 1;
     }
@@ -101,48 +92,42 @@ int main(object me, string arg)
     if (!me->is_ghost())
         me->receive_damage("jing", 10 + random(10));
     if (msg = ob->query("inquiry/" + topic) ||
-              msg = ob->accept_ask(me, topic))
-    {
-        if (stringp(msg))
-        {
+        msg = ob->accept_ask(me, topic)) {
+        if (stringp(msg)) {
             message_vision(CYN "$N说道：" + msg + "\n" NOR, ob);
             return 1;
         }
-    }
-    else if (topic == "all")
-    {
+    } else if (topic == "all") {
         query_inquiry(me, ob);
         return 1;
-    }
-    else if(topic == "quest")
-    {
+    } else if (topic == "quest") {
         if (QUEST_D->completeQuest(ob, me))
             return 1;
         return QUEST_D->askQuest(ob, me);
-    }
-    else
+    } else
         message_vision(element_of(msg_dunno), me, ob);
 
     return 1;
 }
 
 // 从 npc 身上读取 inquiry
-string query_inquiry(object me, object ob)
-{
+string query_inquiry(object me, object ob) {
     int i = 0;
     mapping inq;
     string str = "", *indexs;
 
-    if (mapp(inq = ob->query("inquiry")))
-    {
+    if (mapp(inq = ob->query("inquiry"))) {
         indexs = keys(inq);
-        for (i = 0; i < sizeof(indexs); i++)
-        {
+        for (i = 0; i < sizeof(indexs); i++) {
             //str += HIB + indexs[i] + " " NOR;
             str += HIY "  第" + chinese_number(i + 1) + "条：" HIG + indexs[i] + "\n" NOR;
         }
         str = "有关于\n" + str + "这些事情，你若想知道的话可以问我！";
-        tell_room(environment(me), CYN + ob->name() + "在" + me->name() + "耳边小声地说了些话。\n" NOR, ({me, ob}));
+        tell_room(
+            environment(me),
+            CYN + ob->name() + "在" + me->name() + "耳边小声地说了些话。\n" NOR,
+            ({ me, ob })
+        );
         tell_object(me, GRN + ob->name() + "在你的耳边悄声说道：" + str + "\n" NOR);
         return "\n";
     }
@@ -150,9 +135,8 @@ string query_inquiry(object me, object ob)
     return "\n";
 }
 
-int help(object me)
-{
-    write( @HELP
+int help(object me) {
+    write(@HELP
 指令格式: ask <someone> about <something>
 
 这个指令在解谜时很重要, 通常必须藉由此一指令才能
@@ -165,6 +149,6 @@ int help(object me)
         rumor
 
 其中的about可以省略。
-HELP );
+HELP);
     return 1;
 }

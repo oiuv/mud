@@ -1,18 +1,17 @@
 inherit ROOM;
 
-void create()
-{
-       set("short", "土路");
-       set("long", @LONG
+void create() {
+    set("short", "土路");
+    set("long", @LONG
 你走在一条尘土飞扬的黄土路上，两旁满是阴森森的树林。
 这里向北通往扬州，往南就进入湖南地界了。
-LONG );
+LONG);
 
-      set("outdoors", "hengyang");
+    set("outdoors", "hengyang");
 
-      set("exits", ([
-        "northdown" : "/d/wudang/wdroad4",
-                "southeast" : __DIR__"hsroad2",
+    set("exits", ([
+        "northdown": "/d/wudang/wdroad4",
+        "southeast": __DIR__ "hsroad2",
 
     ]));
 

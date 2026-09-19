@@ -5,38 +5,35 @@ inherit ROOM;
 
 string look_bian();
 
-void create()
-{
-        set("short", "烟雨楼二楼");
-        set("long", @LONG
+void create() {
+    set("short", "烟雨楼二楼");
+    set("long", @LONG
 烟雨楼在南湖畔，四望临风，醺醺醉人。柳岸翻曳，禽噪起伏。
 湖面轻烟薄雾，几尾小舟荡漾其间。半湖水里都浮着碧油油的菱叶，
 越女轻歌，娇痴无邪。你放眼观赏，直欲跳入她的怀中。
     楼中立了一幅长匾(bian)，绞丝镶边，楠木为里，年代虽久，
 桐油粉漆，犹自清新如昨。柱子上隐隐有些字迹（ziji）。
-LONG );
-        set("no_sleep_room",1);
-        set("item_desc", ([
-            "ziji" : "江南七怪叫板邱处机处。\n",
-            "bian" : (: look_bian :),
-        ]));
+LONG);
+    set("no_sleep_room", 1);
+    set("item_desc", ([
+        "ziji": "江南七怪叫板邱处机处。\n",
+        "bian": (: look_bian :),
+    ]));
 
-        set("exits", ([
-            "down"     : __DIR__"yanyu",
-        ]));
+    set("exits", ([
+        "down": __DIR__ "yanyu",
+    ]));
 
-        set("objects", ([
-             "/d/hangzhou/npc/yuenv" : 1,
-        ]));
+    set("objects", ([
+        "/d/hangzhou/npc/yuenv": 1,
+    ]));
 
-        set("no_clean_up", 0);
-        setup();
+    set("no_clean_up", 0);
+    setup();
 }
 
-string look_bian()
-{
-        return
-        "##################################################################\n"
+string look_bian() {
+    return "##################################################################\n"
         "########　　　                    　　　　　　　　　　　　########\n"
         "########　　　　            　西洲曲    　        　　　　########\n"
         "########　                                            　　########\n"

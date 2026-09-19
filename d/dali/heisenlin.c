@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "大森林");
     set("long", @LONG
 迎面一大片黑压压的森林，高大的古松参天而立。左首一
@@ -10,8 +9,8 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-        "south" : __DIR__"dasenlin",
-        "northeast" : "/d/kunming/htroad3",
+        "south": __DIR__ "dasenlin",
+        "northeast": "/d/kunming/htroad3",
     ]));
     set("no_clean_up", 0);
     setup();

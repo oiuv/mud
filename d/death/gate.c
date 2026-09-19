@@ -2,10 +2,9 @@
 
 inherit ROOM;
 
-void create()
-{
-        set("short", HIR "【鬼门关】" NOR);
-        set("long", HIR @LONG
+void create() {
+    set("short", HIR "【鬼门关】" NOR);
+    set("long", HIR @LONG
 
                     鬼         门         关
 
@@ -14,19 +13,19 @@ void create()
 回阳间了。
 
 
-LONG NOR );
-        set("exits", ([
-                "north" : __DIR__"gateway",
-        ]) );
-        set("objects", ([
-                __DIR__"npc/bai":1,
-                __DIR__"npc/ghost":1,
-        ]) );
+LONG NOR);
+    set("exits", ([
+        "north": __DIR__ "gateway",
+    ]));
+    set("objects", ([
+        __DIR__ "npc/bai": 1,
+        __DIR__ "npc/ghost": 1,
+    ]));
 
-        set("no_fight", 1);
-        set("no_magic", 1);
-        set("no_sleep_room", 1);
+    set("no_fight", 1);
+    set("no_magic", 1);
+    set("no_sleep_room", 1);
 
-        setup();
-        replace_program(ROOM);
+    setup();
+    replace_program(ROOM);
 }

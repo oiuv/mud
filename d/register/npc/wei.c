@@ -3,9 +3,8 @@ inherit NPC;
 
 void greeting(object me);
 
-void create()
-{
-    set_name("韦小宝", ({"wei xiaobao", "wei", "xiaobao"}));
+void create() {
+    set_name("韦小宝", ({ "wei xiaobao", "wei", "xiaobao" }));
     set("long", "他一脸顽皮像，眼神中透露着狡黠，没有半点正经。\n");
     set("gender", "男性");
     set("age", 21);
@@ -17,8 +16,7 @@ void create()
     carry_object("/clone/cloth/cloth.c")->wear();
 }
 
-void init()
-{
+void init() {
     object me = this_player();
 
     ::init();
@@ -28,9 +26,9 @@ void init()
 
     command("xixi " + me->query("id"));
     command("say 这位" + RANK_D->query_respect(me) + "，嘿，在武林中"
-            "立足，光讲仁义是万万不行的。");
+        "立足，光讲仁义是万万不行的。");
     command("say 只有像我和令狐大侠那样" HIC "狡黠多变" NOR + CYN "才"
-            "活得下去！" NOR);
+        "活得下去！" NOR);
 
     tell_object(me, HIC "
 关于狡黠多变天性的说明：
@@ -42,23 +40,18 @@ void init()
 " NOR);
 }
 
-void check_leave(object me, string dir)
-{
-    if (dir == "out")
-    {
+void check_leave(object me, string dir) {
+    if (dir == "out") {
         message_vision(CYN "$N" CYN "对$n" CYN "笑道：走！多捣点"
-                           "乱，那多有意思？\n" NOR,
-                       this_object(), me);
+            "乱，那多有意思？\n" NOR,
+            this_object(), me);
         me->set("character", "狡黠多变");
         me->set("startroom", "/d/city/guangchang");
-        if (me->query("combat/dietimes") > random(3))
-        {
+        if (me->query("combat/dietimes") > random(3)) {
             me->set("special_skill/trick", 1);
             tell_object(me, HIC "你领悟了特技" + SPECIAL_D("trick")->name() + "(help special)。\n");
         }
-    }
-    else if (dir == "north")
-    {
+    } else if (dir == "north") {
         command("shake");
         command("say 不好玩儿。");
     }

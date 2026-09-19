@@ -3,8 +3,7 @@
 #include <weapon.h>
 inherit AXE;
 
-void create()
-{
+void create() {
     set_name("大斧头", ({ "futou", "da futou" }));
     set_weight(7000);
     if (clonep())

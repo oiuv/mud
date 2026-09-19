@@ -4,8 +4,7 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object item;
 
     if (!arg)
@@ -20,8 +19,7 @@ int main(object me, string arg)
     return item->do_san(me);
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : san <物品名称>
 

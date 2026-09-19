@@ -11,8 +11,7 @@ inherit F_CLEAN_UP;
 int help(object me);
 int to_money(string str);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     string name, str;
     int money;
@@ -20,24 +19,20 @@ int main(object me, string arg)
     if (!arg)
         return help(me);
 
-    if (arg == "cancel")
-    {
+    if (arg == "cancel") {
         AUCTION_D->cancel_auction(me);
         return 1;
     }
 
-    if (arg == "check")
-    {
-        if (stringp(str = AUCTION_D->check_auction_info()))
-        {
+    if (arg == "check") {
+        if (stringp(str = AUCTION_D->check_auction_info())) {
             write(str);
             return 1;
         }
         return notify_fail("目前没有任何东西正在拍卖。\n");
     }
 
-    if (sscanf(arg, "%s for %s", name, str) == 2)
-    {
+    if (sscanf(arg, "%s for %s", name, str) == 2) {
         if (!objectp(ob = present(name, me)))
             return notify_fail("你身上没有这个东西。\n");
 
@@ -48,8 +43,7 @@ int main(object me, string arg)
         return 1;
     }
 
-    if (sscanf(arg, "%s to %s", str, name) == 2)
-    {
+    if (sscanf(arg, "%s to %s", str, name) == 2) {
         if (!intp(money = to_money(str)) || !money)
             return notify_fail("输入价格错误。\n");
 
@@ -63,49 +57,45 @@ int main(object me, string arg)
     return help(me);
 }
 
-int to_money(string str)
-{
+int to_money(string str) {
     int money, gold, silver, coin;
     string type;
 
     if (sscanf(str, "%d gold %d silver %d coin",
-               gold, silver, coin) == 3)
+        gold, silver, coin) == 3)
         money = gold * 10000 + silver * 100 + coin;
 
     else if (sscanf(str, "%d gold %d silver",
-                    gold, silver) == 2)
+        gold, silver) == 2)
         money = gold * 10000 + silver * 100;
 
     else if (sscanf(str, "%d silver %d coin",
-                    silver, coin) == 2)
+        silver, coin) == 2)
         money = silver * 100 + coin;
-    else
-    {
+    else {
         if (sscanf(str, "%d %s", money, type) != 2)
             return 0;
 
-        switch (type)
-        {
-        case "gold":
-            money *= 10000;
-            break;
+        switch (type) {
+            case "gold":
+                money *= 10000;
+                break;
 
-        case "silver":
-            money *= 100;
-            break;
+            case "silver":
+                money *= 100;
+                break;
 
-        case "coin":
-            break;
+            case "coin":
+                break;
 
-        default:
-            money = 0;
+            default:
+                money = 0;
         }
     }
     return money;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : auction <物品> for <数量> <钱的种类>
            拍卖出一件物品。

@@ -2,10 +2,9 @@
 
 inherit NPC;
 
-void create()
-{
-    set_name("书生", ({ "shu sheng", "sheng" }) );
-    set("gender", "男性" );
+void create() {
+    set_name("书生", ({ "shu sheng", "sheng" }));
+    set("gender", "男性");
     set("age", 22);
     set("int", 28);
     set("long",

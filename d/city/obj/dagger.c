@@ -3,8 +3,7 @@
 #include <weapon.h>
 inherit DAGGER;
 
-void create()
-{
+void create() {
     set_name("普通匕首", ({ "dagger", "bishou" }));
     set_weight(6000);
     if (clonep())

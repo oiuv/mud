@@ -1,5 +1,4 @@
-void skill_adjust(object ob)
-{
+void skill_adjust(object ob) {
     mapping skl;
     string *sname;
     int i, lmt;

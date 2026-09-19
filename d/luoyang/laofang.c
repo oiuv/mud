@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "牢房");
     set("long", @LONG
 这里是牢房，四面都用铁栏杆围住，正面有一扇小铁门锁着，后面高
@@ -10,11 +9,11 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "south" : __DIR__"xunbu",
+        "south": __DIR__ "xunbu",
     ]));
-        set("objects", ([
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/clone/npc/walker": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

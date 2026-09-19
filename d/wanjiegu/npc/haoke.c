@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("江湖豪客", ({ "jianghu haoke", "haoke" }));
     set("long",
         "一名满脸彪捍之色的江湖豪客。\n");

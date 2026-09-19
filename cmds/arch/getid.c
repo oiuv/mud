@@ -1,17 +1,15 @@
- // getid.c
+// getid.c
 #include <ansi.h>
 
 inherit F_CLEAN_UP;
 
 private int get_sameaddress_players(string adress);
 
-void create()
-{
+void create() {
     seteuid(getuid());
 }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string status;
 
     status = wizhood(me);
@@ -22,8 +20,7 @@ int main(object me, string arg)
     return get_sameaddress_players(arg);
 }
 
-private int get_sameaddress_players(string address)
-{
+private int get_sameaddress_players(string address) {
     int i, j, ppl_cnt, count;
     string *dir, *ppls, name;
     object ob;
@@ -31,27 +28,20 @@ private int get_sameaddress_players(string address)
     count = 0;
     ppl_cnt = 0;
     dir = get_dir(DATA_DIR + "login/");
-    for (i = 0; i < sizeof(dir); i++)
-    {
+    for (i = 0; i < sizeof(dir); i++) {
         reset_eval_cost();
 
         ppls = get_dir(DATA_DIR + "login/" + dir[i] + "/");
-        for (j = 0; j < sizeof(ppls); j++)
-        {
-            if (sscanf(ppls[j], "%s.o", name) == 1)
-            {
+        for (j = 0; j < sizeof(ppls); j++) {
+            if (sscanf(ppls[j], "%s.o", name) == 1) {
 
-                ob = new (LOGIN_OB);
+                ob = new(LOGIN_OB);
                 ob->set("id", name);
-                if (!ob->restore())
-                {
+                if (!ob->restore()) {
                     destruct(ob);
                     continue;
-                }
-                else
-                {
-                    if (ob->query("last_from") == address)
-                    {
+                } else {
+                    if (ob->query("last_from") == address) {
                         write("id  :" + ob->query("id") + "\n");
                         write("name:" + ob->query("name") + "\n");
                         count++;
@@ -68,8 +58,7 @@ private int get_sameaddress_players(string address)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：getid adress
 

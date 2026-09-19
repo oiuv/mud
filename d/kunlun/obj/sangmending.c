@@ -4,8 +4,7 @@
 #include <weapon.h>
 inherit THROWING;
 
-void create()
-{
+void create() {
     set_name("丧门钉", ({ "sangmen ding", "ding" }));
     set_weight(50);
     if (clonep())

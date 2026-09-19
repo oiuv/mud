@@ -4,8 +4,7 @@
 #include <ansi.h>
 
 // 从 masterd.c 获取有效技能类型
-string *query_valid_types()
-{
+string *query_valid_types() {
     return MASTER_D->query_valid_types();
 }
 
@@ -13,18 +12,17 @@ int sort_skill(string sk1, string sk2, mapping spos);
 int filter_for_enable(string skill, string skill1);
 int filter_for_main(string skill, string skill1);
 int filter_for_combine(string skill, string skill1);
-int filter_for_knowledge( string skill );
+int filter_for_knowledge(string skill);
 int help(object me);
-string get_str( string *ls, string n, mapping skl, mapping lrn, string *mapped );
+string get_str(string *ls, string n, mapping skl, mapping lrn, string *mapped);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     mapping skl, lrn, map;
     string *sname, *mapped, str, skill1;
     string skillname, skcolor;
     string *basic;
-    mixed  *lists;
+    mixed *lists;
     string *others;
     string fname;
     int valid_check;
@@ -37,27 +35,22 @@ int main(object me, string arg)
     seteuid(getuid());
 
     skill1 = 0;
-    if (! arg)
-    {
+    if (!arg) {
         ob = me;
-    }
-    else
-    {
+    } else {
         string *temp;
-        if( arg == "-h" )
+        if (arg == "-h")
             return help(me);
         if (sscanf(arg, "%s of %s", skill1, arg) == 2)
             ;
-        else if (temp = explode(arg, " "))
-        {
+        else if (temp = explode(arg, " ")) {
             if (sizeof(temp) < 2)
                 arg = "me";
             else
                 arg = implode(temp[0..sizeof(temp) - 2], " ");
             skill1 = temp[sizeof(temp) - 1];
 
-            if (file_size(SKILL_D(skill1) + ".c") <= 0)
-            {
+            if (file_size(SKILL_D(skill1) + ".c") <= 0) {
                 if (sizeof(temp) < 2)
                     arg = skill1;
                 else
@@ -65,52 +58,44 @@ int main(object me, string arg)
                 ob = present(arg, environment(me));
                 skill1 = 0;
             }
-        }
-        else
-        {
+        } else {
             // if the user was not wizard, I will
             // treat the arg as skill1, and the
             // object he check is hiself.
-            if (! wizardp(me) && (! (ob = present(arg, environment(me))) ||
-                ! ob->is_character() ||
-                ! me->is_apprentice_of(ob)))
-            {
+            if (!wizardp(me) && (!(ob = present(arg, environment(me))) ||
+                !ob->is_character() ||
+                !me->is_apprentice_of(ob))) {
                 skill1 = arg;
                 arg = "me";
             }
         }
 
-        if (ob && ! ob->is_character())
+        if (ob && !ob->is_character())
             ob = 0;
 
-        if (skill1 && file_size(SKILL_D(skill1) + ".c") <= 0)
-        {
-            if (objectp(ob))
-            {
+        if (skill1 && file_size(SKILL_D(skill1) + ".c") <= 0) {
+            if (objectp(ob)) {
                 arg = 0;
                 skill1 = 0;
-            }
-            else
+            } else
                 return notify_fail("没有(" + skill1 + ")这种技能。\n");
         }
 
-        if (! ob || ! ob->is_character())
-        {
+        if (!ob || !ob->is_character()) {
             if (arg == "me")
                 ob = me;
             else
                 ob = present(arg, environment(me));
 
-            if (! ob || ! ob->is_character()) ob = find_player(arg);
-            if (! ob || ! ob->is_character()) ob = find_living(arg);
+            if (!ob || !ob->is_character()) ob = find_player(arg);
+            if (!ob || !ob->is_character()) ob = find_living(arg);
         }
 
-        if (! ob || ! ob->is_character())
+        if (!ob || !ob->is_character())
             return notify_fail("你要察看谁的技能？\n");
     }
 
-    if (ob != me)
-    {
+    if (ob != me) {
         // call the player, if the player has override the
         // the function & return a nonzero valud, I will
         // return success.
@@ -124,8 +109,7 @@ int main(object me, string arg)
         me->query("couple/id") == ob->query("id") ||
         me->is_brother(ob))
         valid_check = 1;
-    else
-    {
+    else {
         fname = me->query("league/league_name");
         if (stringp(fname) && fname == ob->query("league/league_name"))
             valid_check = 1;
@@ -133,14 +117,13 @@ int main(object me, string arg)
             valid_check = 0;
     }
 
-    if (! valid_check)
+    if (!valid_check)
         return notify_fail("只有巫师或有师徒/夫妻/结拜/同盟关系的人"
-                "才能察看他人的技能。\n");
+            "才能察看他人的技能。\n");
 
     skl = ob->query_skills();
-    if (! sizeof(skl))
-    {
-        write((ob==me ? "你" : ob->name()) + "目前并没有学会任何技能。\n");
+    if (!sizeof(skl)) {
+        write((ob == me ? "你" : ob->name()) + "目前并没有学会任何技能。\n");
         return 1;
     }
 
@@ -149,38 +132,29 @@ int main(object me, string arg)
 
     str = (ob == me ? "你" : ob->name()) + "目前所学到的";
     // filter array by skill1
-    if (skill1)
-    {
+    if (skill1) {
         // filter the skill array by skill1
-        if (member_array(skill1, query_valid_types()) != -1)
-        {
+        if (member_array(skill1, query_valid_types()) != -1) {
             // skill1 is a basic skill
             sname = filter_array(sname, (: filter_for_enable :), skill1);
             str += to_chinese(skill1) + "及相关技能";
-        }
-        else if (SKILL_D(skill1)->main_skill() &&
-            member_array(SKILL_D(skill1)->main_skill(), sname) == -1)
-        {
+        } else if (SKILL_D(skill1)->main_skill() &&
+            member_array(SKILL_D(skill1)->main_skill(), sname) == -1) {
             // skill1 is a sub skill
             skill1 = SKILL_D(skill1)->main_skill();
             sname = filter_array(sname, (: filter_for_main :), skill1);
             str += to_chinese(skill1) + "中的招式";
-        }
-        else
-        {
+        } else {
             sname = filter_array(sname, (: filter_for_combine :), skill1);
             str += to_chinese(skill1) + "和可以激发的基础武技与能够互备的技能";
         }
-    }
-    else
-    {
-        str += "所有技能(共"+chinese_number(sizeof(skl))+"项)：";
-        str = BBLU + HIY + str + "  (查看指令帮助：cha -h) "NOR;
+    } else {
+        str += "所有技能(共" + chinese_number(sizeof(skl)) + "项)：";
+        str = BBLU + HIY + str + "  (查看指令帮助：cha -h) " NOR;
         mark = 1;
     }
 
-    if (! sizeof(sname))
-    {
+    if (!sizeof(sname)) {
         write("你目前还没有掌握该技能。\n");
         return 1;
     }
@@ -193,37 +167,32 @@ int main(object me, string arg)
     lists = allocate(sizeof(basic));
 
     // allocate the other skill for none apply to all the basic skill
-    others = ({ });
+    others = ({});
 
     // select out all the special skill & other skill
     sname -= basic;
-    for (i = 0; i < sizeof(sname); i++)
-    {
+    for (i = 0; i < sizeof(sname); i++) {
         // let's check every special skill & other skill
-        if (! sname[i]) continue;
+        if (!sname[i]) continue;
 
         // enable for basic skill
-        for (k = 0; k < sizeof(basic); k++)
-        {
+        for (k = 0; k < sizeof(basic); k++) {
             string main_skill;
 
-            if (SKILL_D(sname[i])->valid_enable(basic[k]))
-            {
+            if (SKILL_D(sname[i])->valid_enable(basic[k])) {
                 // yes, I record this special skill
-                if (! lists[k])
+                if (!lists[k])
                     lists[k] = ({ sname[i] });
                 else
                     lists[k] += ({ sname[i] });
 
                 // Is this a sub skill ?
-                if (main_skill = SKILL_D(sname[i])->main_skill())
-                {
+                if (main_skill = SKILL_D(sname[i])->main_skill()) {
                     // yes, I select out all the other sub skills
                     int st;
                     for (st = i + 1; st < sizeof(sname); st++)
                         if (sname[st] &&
-                            SKILL_D(sname[st])->main_skill() == main_skill)
-                        {
+                            SKILL_D(sname[st])->main_skill() == main_skill) {
                             // record it
                             lists[k] += ({ sname[st] });
                             sname[st] = 0;
@@ -237,83 +206,75 @@ int main(object me, string arg)
         if (k == sizeof(basic))
             // It can enable on basic skill, it must be a others skill
             others += ({ sname[i] });
-        }
+    }
 
-        // let me combine all the skill in string array: sname
-        sname = ({ });
-        for (i = 0; i < sizeof(basic); i++)
-        {
-            sname += ({ basic[i] });
-            if (lists[i]) sname += lists[i];
-        }
-        sname += others;
+    // let me combine all the skill in string array: sname
+    sname = ({});
+    for (i = 0; i < sizeof(basic); i++) {
+        sname += ({ basic[i] });
+        if (lists[i]) sname += lists[i];
+    }
+    sname += others;
 
     // get the skill map
     map = ob->query_skill_map();
     if (mapp(map)) mapped = values(map);
-    if (! mapped) mapped = ({});
+    if (!mapped) mapped = ({});
 
     lrn = ob->query_learned();
-    if (! mapp(lrn)) lrn = ([]);
+    if (!mapp(lrn)) lrn = ([]);
 
 
     // 奈何修改 查询所有技能时，将技能分类显示
     // 如果 mark = 1，表示查询的是所有技能，将使用分类的方法。
     // 否则使用旧的方式。不过说实在的，旧的统计方式是否烦琐了点？
 
-    if( mark )
-    {
+    if (mark) {
         // 好，开始组合信息
         str += "\n\n";
         //str += HIC "≡" HIY "----------------------------------------------------" HIC "≡\n" NOR;
 
         // 将知识类技能得到，并组合其信息
-        skill_k = ({ });
-        for( i=sizeof(sname)-1; i>=0; i-- )
-        {
-            skill_k = filter_array( sname, (: filter_for_knowledge :), sname[i] );
+        skill_k = ({});
+        for (i = sizeof(sname) - 1; i >= 0; i--) {
+            skill_k = filter_array(sname, (: filter_for_knowledge :), sname[i]);
         }
         // 不知道是什么原因，有的技能属于“杂学”，却又属于“基本XX”
         // 那么，将这一类的剔除，让它分类为“基本技能”类
         skill_k -= basic;
         // 显示该类技能信息
-        str += get_str( skill_k, "各类杂学", skl, lrn, mapped );
+        str += get_str(skill_k, "各类杂学", skl, lrn, mapped);
 
         // 基本技能类信息，这个索引在前边已经得到了，是“basic”。显示它
-        str += get_str( basic, "基本技能", skl, lrn, mapped );
+        str += get_str(basic, "基本技能", skl, lrn, mapped);
 
         // 其它技能，即： 所有技能 减 知识 减 基本， 即：
-        str += get_str( sname - skill_k - basic, "特殊技能", skl, lrn, mapped );
+        str += get_str(sname - skill_k - basic, "特殊技能", skl, lrn, mapped);
 
         // OK! 完毕。
         // 信息尾，结束
         //str += HIC "≡" HIY "----------------------------------------------------" HIC "≡\n" NOR;
-    }
-    else
-    {
+    } else {
         // 这里是原来的显示方法
         str += "\n\n";
         str += HIC "≡" HIY "------------------------------------------------------------" HIC "≡\n" NOR;
 
-        for (i = 0; i < sizeof(sname); i++)
-        {
+        for (i = 0; i < sizeof(sname); i++) {
             skillname = to_chinese(sname[i]);
-            switch (strlen(skillname))
-            {
-            case 3:
-                skillname = sprintf("%c %c %c", skillname[0], skillname[1], skillname[2]);
-                break;
-            case 2:
-                skillname = sprintf("%c    %c", skillname[0], skillname[1]);
-                break;
+            switch (strlen(skillname)) {
+                case 3:
+                    skillname = sprintf("%c %c %c", skillname[0], skillname[1], skillname[2]);
+                    break;
+                case 2:
+                    skillname = sprintf("%c    %c", skillname[0], skillname[1]);
+                    break;
             }
             if (member_array(sname[i], query_valid_types()) != -1)
                 skcolor = CYN;
             else
                 skcolor = WHT;
-            if (! objectp(find_object(SKILL_D(sname[i]))) &&
-                ! objectp(load_object(SKILL_D(sname[i]))))
-            {
+            if (!objectp(find_object(SKILL_D(sname[i]))) &&
+                !objectp(load_object(SKILL_D(sname[i])))) {
                 write(HIR "Error(No such skill):" + sname[i] + "\n" NOR);
                 continue;
             }
@@ -321,8 +282,8 @@ int main(object me, string arg)
             percent = lrn[sname[i]] * 100 / ((lvl + 1) * (lvl + 1) + 1);
             if (percent > 100) percent = 100;
             str += sprintf("%s%s%s%-40s" NOR WHT " - %4d/%3d%%\n" NOR, skcolor,
-                (lrn[sname[i]] >= (skl[sname[i]]+1) * (skl[sname[i]]+1)) ? HIM : "",
-                (member_array(sname[i], mapped)==-1? "  ": "□ "),
+                (lrn[sname[i]] >= (skl[sname[i]] + 1) * (skl[sname[i]] + 1)) ? HIM : "",
+                (member_array(sname[i], mapped) == -1 ? "  " : "□ "),
                 skillname + " (" + sname[i] + ")",
                 lvl, percent);
         }
@@ -334,78 +295,67 @@ int main(object me, string arg)
 
 #define        COLORS        NOR    // 显示时的主颜色
 
-string get_str( string *ls, string n, mapping skl, mapping lrn, string *mapped )
-{
+string get_str(string *ls, string n, mapping skl, mapping lrn, string *mapped) {
     string str = "", skillname;
     int size, i, percent, lvl;
 
-    if( !ls || !(size=sizeof(ls)) )
+    if (!ls || !(size = sizeof(ls)))
         return "";
 
-    str += sprintf( COLORS"┌"BGRN+WHT"%|20s"NOR+COLORS"--------------------------------┐\n"NOR,
-                    chinese_number(size)+"项"+n );
-    for( i=0; i<size; i++ )
-    {
-        skillname = to_chinese( ls[i] );
+    str += sprintf(COLORS "┌" BGRN + WHT "%|20s" NOR + COLORS "--------------------------------┐\n" NOR,
+        chinese_number(size) + "项" + n);
+    for (i = 0; i < size; i++) {
+        skillname = to_chinese(ls[i]);
         // 发现错误时报告
-        if (! objectp(find_object(SKILL_D( ls[i] ))) &&
-                       ! objectp(load_object(SKILL_D( ls[i] ))) )
-        {
-            write(HIR "技能错误！没有这个技能：" +  ls[i]  + "\n" NOR);
+        if (!objectp(find_object(SKILL_D(ls[i]))) &&
+            !objectp(load_object(SKILL_D(ls[i])))) {
+            write(HIR "技能错误！没有这个技能：" + ls[i] + "\n" NOR);
             continue;
         }
-        lvl = skl[  ls[i]  ];
-        percent = lrn[  ls[i]  ] * 100 / ((lvl + 1) * (lvl + 1) + 1);
+        lvl = skl[ls[i]];
+        percent = lrn[ls[i]] * 100 / ((lvl + 1) * (lvl + 1) + 1);
         if (percent > 100)
             percent = 100;
-        if (percent < 0 )
+        if (percent < 0)
             percent = 0;
-        switch (strlen(skillname))
-        {
-        case 3:
-            skillname = sprintf("%c %c %c", skillname[0], skillname[1], skillname[2]);
-            break;
-        case 2:
-            skillname = sprintf("%c    %c", skillname[0], skillname[1]);
-            break;
+        switch (strlen(skillname)) {
+            case 3:
+                skillname = sprintf("%c %c %c", skillname[0], skillname[1], skillname[2]);
+                break;
+            case 2:
+                skillname = sprintf("%c    %c", skillname[0], skillname[1]);
+                break;
         }
-        str += sprintf( COLORS"│%s%s%-38s - %s%4d"NOR+COLORS"/%3d%%│\n"NOR,
-            (lrn[ ls[i] ] >= (skl[ ls[i] ]+1) * (skl[ ls[i] ]+1)) ? HIM : "",
-            member_array( ls[i] , mapped)== -1 ? "  ": HIG"□ "NOR+COLORS,
-            skillname + " (" +  ls[i]  + ")",
+        str += sprintf(COLORS "│%s%s%-38s - %s%4d" NOR + COLORS "/%3d%%│\n" NOR,
+            (lrn[ls[i]] >= (skl[ls[i]] + 1) * (skl[ls[i]] + 1)) ? HIM : "",
+            member_array(ls[i], mapped) == -1 ? "  " : HIG "□ " NOR + COLORS,
+            skillname + " (" + ls[i] + ")",
             lvl < 99 ? GRN : lvl < 199 ? WHT : lvl < 299 ? HIB : lvl < 399 ?
-                 HIY : lvl < 499 ? HIW : lvl < 599 ? HIC : lvl < 699 ? HIG : lvl < 799 ? HIM : HIR,
+            HIY : lvl < 499 ? HIW : lvl < 599 ? HIC : lvl < 699 ? HIG : lvl < 799 ? HIM : HIR,
             lvl, percent
-            );
+        );
     }
-    str += COLORS"└----------------------------------------------------┘\n"NOR;
+    str += COLORS "└----------------------------------------------------┘\n" NOR;
     return str;
 }
 
-int filter_for_knowledge( string skill )
-{
-    return ( SKILL_D(skill)->type() == "knowledge" );
+int filter_for_knowledge(string skill) {
+    return (SKILL_D(skill)->type() == "knowledge");
 }
 
-int filter_for_enable(string skill, string skill1)
-{
+int filter_for_enable(string skill, string skill1) {
     return (skill == skill1) || (SKILL_D(skill)->valid_enable(skill1));
 }
 
-int filter_for_main(string skill, string skill1)
-{
+int filter_for_main(string skill, string skill1) {
     return (SKILL_D(skill)->main_skill() == skill1);
 }
 
-int filter_for_combine(string skill, string skill1)
-{
-    return (SKILL_D(skill1)->valid_enable(skill)) ||
-            (SKILL_D(skill)->valid_combine(skill1)) ||
-            (skill == skill1);
+int filter_for_combine(string skill, string skill1) {
+    return (SKILL_D(skill1)->valid_enable(skill)) || (SKILL_D(skill)->valid_combine(skill1)) || (skill == skill1);
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : skills | cha [<技能名> | <某人>]
 

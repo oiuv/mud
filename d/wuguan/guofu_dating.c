@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "郭府大厅");
     set("long", @LONG
 这里是郭府的客厅。厅虽不大，却布置的挺雅致。东壁悬
@@ -14,10 +13,10 @@ void create()
 LONG);
     set("no_fight", 1);
     set("exits", ([
-        "south" : __DIR__"guofu_dayuan2",
-        "north" : __DIR__"guofu_lang5",
-        "west" : __DIR__"guofu_shilu-2",
-        "east" : __DIR__"guofu_shilu-1",
+        "south": __DIR__ "guofu_dayuan2",
+        "north": __DIR__ "guofu_lang5",
+        "west": __DIR__ "guofu_shilu-2",
+        "east": __DIR__ "guofu_shilu-1",
     ]));
 
     setup();

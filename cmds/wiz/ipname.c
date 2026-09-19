@@ -3,8 +3,7 @@
 
 int help(object me);
 
-int main(object me, string name)
-{
+int main(object me, string name) {
     object ob;
     string ip;
     if (!name)
@@ -19,8 +18,7 @@ int main(object me, string name)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：ipname <id>
 察看某个玩家IP地址以及详细地点。

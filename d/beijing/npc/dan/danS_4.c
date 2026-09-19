@@ -2,9 +2,8 @@
 #include "dan.h"
 //inherit COMBINED_ITEM;
 
-void create()
-{
-    set_name(HIW"白虎"NOR+HIY"神农丹"NOR, ({"baihu dan", "dan"}));
+void create() {
+    set_name(HIW "白虎" NOR + HIY "神农丹" NOR, ({ "baihu dan", "dan" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -22,12 +21,10 @@ void create()
     //set_amount(1);
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     mapping my;
 
-    if (time() - me->query_temp("last_eat/dan(S)") < 25)
-    {
+    if (time() - me->query_temp("last_eat/dan(S)") < 25) {
         write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
         return 1;
     }
@@ -37,11 +34,11 @@ int do_effect(object me)
     me->set_temp("last_eat/dan(S)", time());
 
     message_sort(HIW "$N" HIW "吃下一颗$n" HIW "，只觉全身"
-                    "筋脉逆流而上，内力源源不断的涌入丹田，说"
-                    "不出的舒服受用。顿时感到灵台处如湖面一般"
-                    "平静，以往所学的武学知识一一涌向心头，在"
-                    "灵台处交融贯通。$N" HIW "感到的经验和潜能"
-                    "有了一定的进展。\n" NOR, me, this_object());
+        "筋脉逆流而上，内力源源不断的涌入丹田，说"
+        "不出的舒服受用。顿时感到灵台处如湖面一般"
+        "平静，以往所学的武学知识一一涌向心头，在"
+        "灵台处交融贯通。$N" HIW "感到的经验和潜能"
+        "有了一定的进展。\n" NOR, me, this_object());
     me->set("jingli", me->query("max_jingli"));
     me->set("neili", me->query("max_neili"));
     me->add("combat_exp", 3000);
@@ -56,7 +53,6 @@ int do_effect(object me)
     return 1;
 }
 
-void owner_is_killed()
-{
+void owner_is_killed() {
     destruct(this_object());
 }

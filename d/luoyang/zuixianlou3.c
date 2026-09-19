@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "望星楼三层");
     set("long", @LONG
 这里是雅座，文人学士经常在这里吟诗作画，富商土豪也在这里边吃
@@ -12,12 +11,12 @@ LONG);
 
     set("no_clean_up", 0);
     set("exits", ([
-          "up" : __DIR__"zuixianlou4",
-          "down" : __DIR__"zuixianlou2",
+        "up": __DIR__ "zuixianlou4",
+        "down": __DIR__ "zuixianlou2",
     ]));
-        set("objects", ([
-                "/d/zhongzhou/npc/fushang" : 2,
-        ]));
+    set("objects", ([
+        "/d/zhongzhou/npc/fushang": 2,
+    ]));
     setup();
     replace_program(ROOM);
 }

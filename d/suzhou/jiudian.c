@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "春在楼");
     set("long", @LONG
 这里是一座苏州城里有名的酒楼，整个楼面以雕刻为特色
@@ -11,7 +10,7 @@ void create()
 LONG);
     set("outdoors", "suzhou");
     set("exits", ([
-        "west" : __DIR__"beidajie2",
+        "west": __DIR__ "beidajie2",
     ]));
     set("objects", ([
         "/d/city/npc/xiaoer2": 1,

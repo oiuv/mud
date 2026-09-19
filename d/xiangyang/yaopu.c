@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "药铺");
     set("long", @LONG
 药铺不大，却异常的整洁；正面是柜台，柜台后面是个大
@@ -13,12 +12,12 @@ void create()
 伙计正在分拣刚刚收购来的草药。东边一张小矮桌儿，上面放
 着笔墨纸砚，桌后坐着一位老郎中。一股刺鼻药味充满了整个
 房间。
-LONG );
+LONG);
     set("exits", ([
-        "north" : __DIR__"eastjie1",
+        "north": __DIR__ "eastjie1",
     ]));
     set("objects", ([
-        "/d/city/npc/huoji" : 1,
+        "/d/city/npc/huoji": 1,
     ]));
     setup();
     replace_program(ROOM);

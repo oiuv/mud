@@ -9,8 +9,7 @@ int halt_exercise(object me);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int exercise_cost;
     string force;
     object where;
@@ -56,34 +55,28 @@ int main(object me, string arg)
     me->set_short_desc("正坐在地下修炼内力。");
     message_vision("$N盘膝坐下，开始修炼内力。\n", me);
     me->start_busy(bind((: call_other, __FILE__, "exercising" :), me),
-                   bind((: call_other, __FILE__, "halt_exercise" :), me));
+        bind((: call_other, __FILE__, "halt_exercise" :), me));
     return 1;
 }
 
-int exercising(object me)
-{
+int exercising(object me) {
     int exercise_cost = (int)me->query_temp("exercise_cost");
     int neili_gain = (int)me->query_skill("force") / 5;
 
-    neili_gain = 1 + neili_gain / 2 + random(neili_gain) +
-                 environment(me)->query("exercise_improve");
+    neili_gain = 1 + neili_gain / 2 + random(neili_gain) + environment(me)->query("exercise_improve");
     if (neili_gain < 0)
         neili_gain = 1;
 
-    if (exercise_cost > 0)
-    {
+    if (exercise_cost > 0) {
         if (neili_gain > exercise_cost)
             neili_gain = exercise_cost;
 
-        if (neili_gain > me->query("qi"))
-        {
+        if (neili_gain > me->query("qi")) {
             neili_gain = me->query("qi");
             me->set_temp("exercise_cost", 0);
             me->set_short_desc(0);
             exercise_cost = 0;
-        }
-        else
-        {
+        } else {
             me->set_temp("exercise_cost", exercise_cost -= neili_gain);
         }
         me->add("neili", neili_gain);
@@ -98,16 +91,12 @@ int exercising(object me)
     message_vision("$N运功完毕，深深吸了口气，站了起来。\n", me);
     if ((int)me->query("neili") < (int)me->query("max_neili") * 2)
         return 0;
-    else
-    {
-        if ((int)me->query("max_neili") >= (int)me->query_current_neili_limit())
-        {
+    else {
+        if ((int)me->query("max_neili") >= (int)me->query_current_neili_limit()) {
             write("你的内力修为似乎已经达到了瓶颈。\n");
             me->set("neili", (int)me->query("max_neili"));
             return 0;
-        }
-        else
-        {
+        } else {
             me->add("max_neili", 1);
             me->set("neili", (int)me->query("max_neili"));
             write("你的内力增加了！！\n");
@@ -116,8 +105,7 @@ int exercising(object me)
     }
 }
 
-int halt_exercise(object me)
-{
+int halt_exercise(object me) {
     tell_object(me, "你将真气压回丹田，站了起来。\n");
     tell_room(environment(me), me->name() + "深吸一口气，站了起来。\n", me);
     if ((int)me->query("neili") > (int)me->query("max_neili") * 2)
@@ -127,8 +115,7 @@ int halt_exercise(object me)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : exercise|dazuo [<耗费「气」的量> 必须多于 10]
 
@@ -136,6 +123,6 @@ int help(object me)
 力、爆发力，并且用内力的形式将能量储备下来。注意：你不能在不能
 战斗的地方打坐。
 
-HELP );
+HELP);
     return 1;
 }

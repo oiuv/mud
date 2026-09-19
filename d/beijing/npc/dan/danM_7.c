@@ -2,9 +2,8 @@
 
 inherit COMBINED_ITEM;
 
-void create()
-{
-    set_name(HIW"邀月丹"NOR, ({"yaoyue dan", "dan"}));
+void create() {
+    set_name(HIW "邀月丹" NOR, ({ "yaoyue dan", "dan" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -16,12 +15,10 @@ void create()
     set_amount(1);
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     mapping my;
 
-    if (time() - me->query_temp("last_eat/dan(M)") < 20)
-    {
+    if (time() - me->query_temp("last_eat/dan(M)") < 20) {
         write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
         return 1;
     }
@@ -31,9 +28,9 @@ int do_effect(object me)
     me->set_temp("last_eat/dan(M)", time());
 
     if (me->improve_jingli(2))
-            message_vision(HIW "$N吃下一粒邀月丹，感到精力修为比以前有所提高。\n" NOR, me);
+        message_vision(HIW "$N吃下一粒邀月丹，感到精力修为比以前有所提高。\n" NOR, me);
     else
-            message_vision(HIC "$N吃下一粒邀月丹，感觉好像没什么效果。\n" NOR, me);
+        message_vision(HIC "$N吃下一粒邀月丹，感觉好像没什么效果。\n" NOR, me);
 
     me->start_busy(2);
 

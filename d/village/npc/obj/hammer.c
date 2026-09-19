@@ -4,11 +4,10 @@
 
 inherit HAMMER;
 
-void create()
-{
-    set_name("铁锤", ({ "hammer" }) );
+void create() {
+    set_name("铁锤", ({ "hammer" }));
     set_weight(8000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "把");
@@ -17,7 +16,7 @@ void create()
         set("material", "iron");
         set("wield_msg", "$N拿出一把$n，试了试重量，然後握在手中。\n");
         set("unwield_msg", "$N放下手中的$n。\n");
-                set("stable", 0);
+        set("stable", 0);
     }
 
     init_hammer(25);

@@ -1,8 +1,7 @@
 // xiucai.c
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("老秀才", ({ "lao xiucai", "lao" }));
     set("long", "一个穷困潦倒的落第秀才，在这里开堂授课为生。\n");
     set("gender", "男性");
@@ -25,16 +24,14 @@ void create()
     carry_object("/clone/misc/cloth")->wear();
 }
 
-int recognize_apprentice(object ob)
-{
+int recognize_apprentice(object ob) {
     if (!(int)ob->query_temp("mark/朱"))
         return 0;
     ob->add_temp("mark/朱", -1);
     return 1;
 }
 
-int accept_object(object who, object ob)
-{
+int accept_object(object who, object ob) {
     if (!(int)who->query_temp("mark/朱"))
         who->set_temp("mark/朱", 0);
     if (ob->query("money_id") && ob->value() >= 5000) {

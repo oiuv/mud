@@ -18,18 +18,15 @@ nosave mixed *story = ({
     "赤脚大仙：唉！",
 });
 
-void create()
-{
+void create() {
     seteuid(getuid());
 }
 
-mixed query_story_message(int step)
-{
+mixed query_story_message(int step) {
     return step < sizeof(story) ? story[step] : 0;
 }
 
-string give_gift()
-{
+string give_gift() {
     STORY_D->give_gift("/clone/fam/gift/con2", 1, HIM "\n“啪”的一声一颗仙丹掉到你面前。\n\n" NOR);
     return "赤脚大仙急道：啊！这可是斗战胜佛蒙佛主所赐的铸骨丹，妙不可言。";
 }

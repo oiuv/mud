@@ -1,7 +1,6 @@
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("骁骑营侍卫", ({ "shi wei", "shi", "wei" }));
     set("age", 32);
     set("gender", "男性");
@@ -23,17 +22,16 @@ void create()
     set_temp("apply/damage", 60);
     set_temp("apply/armor", 60);
 
-       set("chat_chance_combat", 10);
+    set("chat_chance_combat", 10);
     set("chat_msg_combat", ({
         "骁骑营侍卫喝道：亡命狂徒，京城之中，岂得由你猖狂？\n",
     }));
     setup();
     carry_object("/d/beijing/npc/obj/sword4")->wield();
-       carry_object("/d/beijing/npc/obj/guanfu1")->wear();
+    carry_object("/d/beijing/npc/obj/guanfu1")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
     ::init();
     if (interactive(ob = this_player()) &&
@@ -43,8 +41,7 @@ void init()
     }
 }
 
-int accept_fight(object me)
-{
+int accept_fight(object me) {
     command("say 这可是你活腻了自找的，休得怪我无情。\n");
     me->apply_condition("killer", 500);
     kill_ob(me);

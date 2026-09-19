@@ -22,8 +22,7 @@ inherit CORE_SIMUL_EFUN_OB;
 // This is the utilitis
 #include "simul_efun/util.c"
 
-void create()
-{
+void create() {
     seteuid(getuid());
     debug_message("simul_efun loaded successfully.");
 }

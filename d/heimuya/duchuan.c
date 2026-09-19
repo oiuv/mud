@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "渡船");
     set("long", @LONG
 黄河上的小舟都是这种很简陋的小舟。一位中年艄公正站

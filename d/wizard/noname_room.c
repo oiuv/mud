@@ -5,8 +5,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", HIR "匿名留言室" NOR);
     set("long", @LONG
 如果您有问题留言给炎黄巫师但又不想其他玩家看到，那
@@ -14,12 +13,12 @@ void create()
 里您可以举报有问题的id和其他作弊行为，炎黄巫师将为您的
 留言完全保密。
                                 ==炎黄群侠传全体巫师==
-LONG );
+LONG);
 
     set("exits", ([
-        "east": __DIR__"hall",
-                "west": __DIR__"wizard_room",
-        ]));
+        "east": __DIR__ "hall",
+        "west": __DIR__ "wizard_room",
+    ]));
 
     set("no_fight", 1);
 
@@ -27,9 +26,8 @@ LONG );
     "/clone/board/noname_b"->foo();
 }
 
-int valid_leave(object me, string dir)
-{
-    if (dir == "west" && ! wizardp(me))
+int valid_leave(object me, string dir) {
+    if (dir == "west" && !wizardp(me))
         return notify_fail("只有巫师才能进去！\n");
 
     return ::valid_leave(me, dir);

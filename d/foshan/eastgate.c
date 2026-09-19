@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "东门");
     set("long", @LONG
 这里是佛山镇的东门。再往东走，不久就要离开佛山去往
@@ -9,8 +8,8 @@ void create()
 LONG);
     set("outdoors", "foshan");
     set("exits", ([
-        "east" : __DIR__"road8",
-        "west" : __DIR__"street5",
+        "east": __DIR__ "road8",
+        "west": __DIR__ "street5",
     ]));
     set("no_clean_up", 0);
     setup();

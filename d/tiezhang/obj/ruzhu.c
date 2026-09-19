@@ -5,9 +5,8 @@
 inherit ITEM;
 inherit F_FOOD;
 
-void create()
-{
-    set_name(HIY "片皮乳猪" NOR, ({"ruzhu"}));
+void create() {
+    set_name(HIY "片皮乳猪" NOR, ({ "ruzhu" }));
     set_weight(700);
     if (clonep())
         set_default_object(__FILE__);

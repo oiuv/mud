@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "悬空寺北楼");
     set("long", @LONG
 这里是悬空寺的北门楼，也是北碑亭。登楼俯视，如临深渊，
@@ -12,14 +11,14 @@ void create()
 LONG
     );
     set("exits", ([
-        "south"    : __DIR__"zhanqiao",
-        "up"       : __DIR__"sanjiaodian",
-        "westdown" : __DIR__"cuiping2",
+        "south": __DIR__ "zhanqiao",
+        "up": __DIR__ "sanjiaodian",
+        "westdown": __DIR__ "cuiping2",
     ]));
     set("objects", ([
-        __DIR__"npc/yafu" : 1,
+        __DIR__ "npc/yafu": 1,
     ]));
-//        set("no_clean_up", 0);
+    //        set("no_clean_up", 0);
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

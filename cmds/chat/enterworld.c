@@ -7,8 +7,7 @@ inherit F_CLEAN_UP;
 
 string *valid_entry = ({ "/d/city/kedian" });
 
-int main(object me, mapping info)
-{
+int main(object me, mapping info) {
     object env;
     string startroom;
 
@@ -23,7 +22,12 @@ int main(object me, mapping info)
     if (!me->move(startroom))
         return MESSAGE_D->error_msg("系统出现故障，无法让你进入世界。\n");
 
-    message("vision", HIC "空气中悄然弥漫出一股青烟，渐渐的凝成了" + me->name() + HIC "的样子。\n" NOR, environment(me), ({me}));
+    message(
+        "vision",
+        HIC "空气中悄然弥漫出一股青烟，渐渐的凝成了" + me->name() + HIC "的样子。\n" NOR,
+        environment(me),
+        ({ me })
+    );
 
     return 1;
 }

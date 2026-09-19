@@ -1,10 +1,9 @@
 #include <ansi.h>
 #include <getconfig.h>
 
-inherit  F_CLEAN_UP;
+inherit F_CLEAN_UP;
 
-void listing(object who, string prefix, string arg)
-{
+void listing(object who, string prefix, string arg) {
     object *ilist;
     int j;
 
@@ -15,27 +14,23 @@ void listing(object who, string prefix, string arg)
     if (!ilist)
         return;
     j = sizeof(ilist);
-    while (j--)
-    {
+    while (j--) {
         object ob = ilist[j];
         string *ids = ob->parse_command_id_list();
-        if (member_array(arg, ids) == -1)
-        {
+        if (member_array(arg, ids) == -1) {
             continue;
         }
         write("  " + ob->short());
     }
     write("\n");
     j = sizeof(ilist);
-    while (j--)
-    {
+    while (j--) {
         object ob = ilist[j];
         listing(ob, "    " + prefix, arg);
     }
 }
 
-mixed main(object me, string arg, int remote)
-{
+mixed main(object me, string arg, int remote) {
     object *ulist;
     int i;
 
@@ -47,21 +42,19 @@ mixed main(object me, string arg, int remote)
 
     ulist = users();
     i = sizeof(ulist);
-    while (i--)
-    {
+    while (i--) {
         listing(ulist[i], "    ", arg);
     }
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式  :  whohave  <id>
 
 可列出目前携带某个物品的玩家。
 
 HELP
-);
-    return  1;
+    );
+    return 1;
 }

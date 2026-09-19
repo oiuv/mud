@@ -1,9 +1,8 @@
 inherit NPC;
 
-void create()
-{
-        set_name("侍女", ({ "shi nu" }) );
-    set("gender", "女性" );
+void create() {
+    set_name("侍女", ({ "shi nu" }));
+    set("gender", "女性");
     set("age", 20);
     set("long", "美目四盼，矫揉造作，让你恨不得在她脸蛋儿掐上一把。\n");
     set("shen_type", -1);

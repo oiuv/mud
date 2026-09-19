@@ -5,13 +5,12 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("常伯志", ({ "chang bozhi", "chang","bozhi" }));
-    set("title", HIR "红花会"HIG"六当家" NOR);
+void create() {
+    set_name("常伯志", ({ "chang bozhi", "chang", "bozhi" }));
+    set("title", HIR "红花会" HIG "六当家" NOR);
     set("nickname", HIB "白无常" NOR);
     set("long",
-"他身材又高又瘦，脸色蜡黄，眼睛凹进，眉毛斜斜的倒垂下来，形
+        "他身材又高又瘦，脸色蜡黄，眼睛凹进，眉毛斜斜的倒垂下来，形
 相甚是可怖。他是青城派慧侣道人的徒弟。黑沙掌的功夫，江湖上无
 人能敌。黑白无常两兄弟是川江上著名的侠盗，一向劫富济贫，不过
 心狠手辣，因此得了这难听的外号。\n");
@@ -49,11 +48,11 @@ void create()
     map_skill("parry", "yunlong-shou");
     map_skill("claw", "yunlong-zhua");
 
-    prepare_skill("hand","yunlong-shou");
-    prepare_skill("claw","yunlong-zhua");
+    prepare_skill("hand", "yunlong-shou");
+    prepare_skill("claw", "yunlong-zhua");
     set("env/wimpy", 20);
-    create_family("青城派",21, "弟子");
+    create_family("青城派", 21, "弟子");
 
-     setup();
+    setup();
     carry_object("/clone/misc/cloth")->wear();
 }

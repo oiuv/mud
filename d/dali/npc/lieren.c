@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("猎人", ({ "lie ren", "lie" }));
     set("age", 32);
     set("gender", "男性");
@@ -27,5 +26,5 @@ void create()
     set_temp("apply/armor", 20);
 
     setup();
-    carry_object(__DIR__"obj/wdahui")->wear();
+    carry_object(__DIR__ "obj/wdahui")->wear();
 }

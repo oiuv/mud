@@ -1,21 +1,20 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
-      set("short","九十九道拐");
-      set("long",@LONG
+void create() {
+    set("short", "九十九道拐");
+    set("long", @LONG
 这是著名的「九十九道拐」，道路纡曲陡竖千折百回。据
 说过去曾有个百余岁的疯僧至此，见一巨蟒挡路，便念咒驱蟒。
 但人们得知此处有巨蟒出没后，便再也无人敢碰这里的草木并
 以「龙居」名之。由此东可至千佛庵，西达九老洞。
 LONG);
-      set("outdoors", "emei");
-      set("exits", ([
-          "northeast" : __DIR__"jsjdg2",
-          "westup"    : __DIR__"jsjdg4",
-      ]));
-      setup();
+    set("outdoors", "emei");
+    set("exits", ([
+        "northeast": __DIR__ "jsjdg2",
+        "westup": __DIR__ "jsjdg4",
+    ]));
+    setup();
 }
 /*
 int valid_leave(object me, string dir)

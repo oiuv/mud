@@ -3,17 +3,14 @@
 inherit ITEM;
 #include <ansi.h>
 
-void setup()
-{}
+void setup() {}
 
-void init()
-{
+void init() {
     add_action("do_tie", "tie");
 }
 
-void create()
-{
-    set_name("狗皮膏药", ({"goupi gaoyao", "goupi", "gaoyao"}));
+void create() {
+    set_name("狗皮膏药", ({ "goupi gaoyao", "goupi", "gaoyao" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -24,8 +21,7 @@ void create()
     setup();
 }
 
-int do_tie(string arg)
-{
+int do_tie(string arg) {
     object me = this_player();
     if (!id(arg))
         return notify_fail("你要贴什么药？\n");

@@ -6,8 +6,7 @@ inherit F_SSERVER;
 
 #define ZHANG "「" HIM "九阴神掌" NOR "」"
 
-int perform(object me, object target)
-{
+int perform(object me, object target) {
     string msg;
     int ap, dp;
     int i, count;
@@ -37,7 +36,7 @@ int perform(object me, object target)
         return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
     msg = HIY "$N" HIY "双掌一错，幻化出无数掌影，层层叠荡向$n" HIY "逼去！\n" NOR;
-    message_combatd(msg, me, target); //修正pfm描述信息显示时间错误 by MK
+    message_combatd(msg, me, target);  //修正pfm描述信息显示时间错误 by MK
 
     ap = me->query_skill("jiujin-shengong", 1);
     dp = target->query_skill("parry", 1);
@@ -50,15 +49,14 @@ int perform(object me, object target)
         count = 9;
 
     me->add_temp("apply/attack", count);
-    for (i = 0; i < 9; i++)
-    {
+    for (i = 0; i < 9; i++) {
         if (!me->is_fighting(target))
             break;
 
         if (random(2) == 1 && !target->is_busy())
             target->start_busy(1);
 
-        COMBAT_D->do_attack(me, target, 0, );
+        COMBAT_D->do_attack(me, target, 0,);
     }
     me->start_busy(2 + random(4));
     me->add("neili", -320);

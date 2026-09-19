@@ -4,8 +4,7 @@
 
 inherit BLADE;
 
-void create()
-{
+void create() {
     set_name("单刀", ({ "blade" }));
     set_weight(7000);
     if (clonep())
@@ -18,6 +17,6 @@ void create()
         set("wield_msg", "$N「唰」的一声抽出一柄$n握在手中。\n");
         set("unwield_msg", "$N将手中的$n插回刀鞘。\n");
     }
-    init_blade(20,110);
+    init_blade(20, 110);
     setup();
 }

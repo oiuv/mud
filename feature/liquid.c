@@ -7,28 +7,24 @@ mixed func = 0;
 
 int is_liquid() { return 1; }
 
-void apply_effect(function f)
-{
+void apply_effect(function f) {
     if (!func)
         func = f;
     else if (functionp(func))
-        func = ({func, f});
+        func = ({ func, f });
     else if (sizeof(func) < 12)
-        func += ({f});
+        func += ({ f });
 }
 
-void clear_effect()
-{
+void clear_effect() {
     func = 0;
 }
 
-mixed query_effect()
-{
+mixed query_effect() {
     return func;
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     int i;
 
     if (functionp(func))
@@ -41,13 +37,11 @@ int do_effect(object me)
     return 1;
 }
 
-string extra_long()
-{
+string extra_long() {
     int amount, max;
     string str;
 
-    if (amount = query("liquid/remaining"))
-    {
+    if (amount = query("liquid/remaining")) {
         max = query("max_liquid");
         if (amount == max)
             str = "里面装满了" + query("liquid/name") + "。\n";
@@ -60,7 +54,6 @@ string extra_long()
         else if (amount >= 1)
             str = "里面装了少许的" + query("liquid/name") + "。\n";
         return str;
-    }
-    else
+    } else
         return 0;
 }

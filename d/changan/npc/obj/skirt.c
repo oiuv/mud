@@ -5,14 +5,12 @@
 
 inherit CLOTH;
 
-void create()
-{
+void create() {
     set_name("轻纱长裙", ({ "skirt", "cloth" }));
     set_weight(1000);
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("long", "一条朦朦胧胧的纱裙，闻起来还有一股淡香。\n");
         set("unit", "条");
         set("value", 0);

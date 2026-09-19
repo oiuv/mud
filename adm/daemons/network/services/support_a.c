@@ -18,15 +18,13 @@ inherit F_CLEAN_UP;
 void create() { seteuid(ROOT_UID); }
 
 // We received an answer answer to our 'do you support xx' request.
-void incoming_request(mapping info)
-{
+void incoming_request(mapping info) {
     int idx;
 
     if (!ACCESS_CHECK(previous_object()))
         return;
 
-    if (stringp(info["PORTUDP"]) && stringp(info["NAME"]))
-    {
+    if (stringp(info["PORTUDP"]) && stringp(info["NAME"])) {
         // don't want requests from ourself
         if (info["NAME"] == Mud_name())
             return;

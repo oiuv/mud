@@ -6,7 +6,7 @@ inherit NPC;
 void create() {
     ::create();
 
-    set_name("李白", ({"li bai", "libai", "li", "poet"}));
+    set_name("李白", ({ "li bai", "libai", "li", "poet" }));
     set("title", "诗仙");
     set("long",
         "李白，字太白，号青莲居士，唐代著名诗人，被后人誉为诗仙。

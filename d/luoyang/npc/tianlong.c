@@ -4,10 +4,9 @@ inherit NPC;
 
 #define MIJI "/clone/lonely/book/tianlongzhi"
 
-void create()
-{
+void create() {
     object ob;
-    set_name("大天龙", ({"da tianlong", "da", "tianlong"}));
+    set_name("大天龙", ({ "da tianlong", "da", "tianlong" }));
     set("nickname", HIY "关东" NOR);
     set("gender", "男性");
     set("age", 42);
@@ -47,7 +46,7 @@ void create()
     prepare_skill("finger", "datianlong-zhi");
 
     set("inquiry", ([
-        "大天龙指" : "这正是在下的绝学，阁下为何知晓？\n",
+        "大天龙指": "这正是在下的绝学，阁下为何知晓？\n",
     ]));
 
     set("chat_chance_combat", 120);
@@ -62,8 +61,7 @@ void create()
 
     setup();
 
-    if (clonep())
-    {
+    if (clonep()) {
         ob = find_object(MIJI);
         if (!ob)
             ob = load_object(MIJI);

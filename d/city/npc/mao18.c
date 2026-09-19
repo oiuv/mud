@@ -6,8 +6,7 @@ inherit NPC;
 
 mixed ask_skill1();
 
-void create()
-{
+void create() {
     object ob;
     set_name("茅十八", ({ "mao shiba", "mao", "shiba" }));
     set("long", @LONG
@@ -63,9 +62,9 @@ LONG);
     }));
 
     set("inquiry", ([
-        "史松"   : "谁杀了史松这奸贼，我可以帮他提高江湖威望。",
+        "史松": "谁杀了史松这奸贼，我可以帮他提高江湖威望。",
         //"断字诀" : "我总得留两手吧？",
-        "断字诀" : (: ask_skill1 :),
+        "断字诀": (: ask_skill1 :),
     ]));
 
     set("chat_chance", 2);
@@ -75,15 +74,13 @@ LONG);
         CYN "茅十八说道: 他奶奶的，要谁帮我杀了史松，兄弟我就谢谢了。\n" NOR,
         CYN "茅十八朗声说道：江湖有言为人不识陈近南，就称英雄也枉然。\n" NOR,
         (: random_move :)
-    }) );
+    }));
     setup();
-    if (clonep())
-    {
+    if (clonep()) {
         ob = find_object(LING);
         if (!ob)
             ob = load_object(LING);
-        if (!environment(ob))
-        {
+        if (!environment(ob)) {
             ob->move(this_object());
             set_temp("handing", ob);
         }
@@ -92,16 +89,13 @@ LONG);
     carry_object("/clone/misc/cloth")->wear();
 }
 
-int accept_object(object me, object ob)
-{
-    if (base_name(ob) != HEILONG)
-    {
+int accept_object(object me, object ob) {
+    if (base_name(ob) != HEILONG) {
         command("say 你给我这种东西干什么？");
         return 0;
     }
 
-    if (!(int)me->query("skybook/luding/mao"))
-    {
+    if (!(int)me->query("skybook/luding/mao")) {
         return QUEST_D->doReward(this_object(), me);
     }
 
@@ -110,24 +104,20 @@ int accept_object(object me, object ob)
     return 1;
 }
 
-int recognize_apprentice(object me, string skill)
-{
-    if (!me->query("can_learn/wuhu-duanmendao/mao"))
-    {
+int recognize_apprentice(object me, string skill) {
+    if (!me->query("can_learn/wuhu-duanmendao/mao")) {
         command("say 干嘛？没拜师就想向俺学东西？");
         return -1;
     }
 
-    if (skill != "wuhu-duanmendao")
-    {
+    if (skill != "wuhu-duanmendao") {
         command("say 俺就只有这一套刀法拿得出手。");
         return -1;
     }
     return 1;
 }
 
-mixed ask_skill1()
-{
+mixed ask_skill1() {
     object me;
 
     me = this_player();
@@ -148,11 +138,11 @@ mixed ask_skill1()
         return "你的五虎断门刀还练得不到家，自己下去练练再来吧！";
 
     message_sort(HIY "\n$n" HIY "朝$N" HIY "微微点了点头，说道：“看"
-                     "好了！”说完$n" HIY "一声断喝，猛然伏地，手中钢刀，"
-                     "携着开天辟地之势连出数刀，气势恢弘之极，顿时一片白"
-                     "光向前直滚而去！真可谓是惊天地，泣鬼神，直把$N" HIY
-                     "看得目瞪口呆。\n\n" NOR,
-                 me, this_object());
+        "好了！”说完$n" HIY "一声断喝，猛然伏地，手中钢刀，"
+        "携着开天辟地之势连出数刀，气势恢弘之极，顿时一片白"
+        "光向前直滚而去！真可谓是惊天地，泣鬼神，直把$N" HIY
+        "看得目瞪口呆。\n\n" NOR,
+        me, this_object());
 
     command("nod2");
     command("say 招式便是如此，你自己下去练吧。");

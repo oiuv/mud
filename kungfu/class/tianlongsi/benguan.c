@@ -3,10 +3,9 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("本观", ({ "ben guan","guan"}) );
-    set("gender", "男性" );
+void create() {
+    set_name("本观", ({ "ben guan", "guan" }));
+    set("gender", "男性");
     set("long", "一个枯黄精瘦的僧人，他是本因方丈的师兄。\n");
     set("title", "天龙寺第十七代僧人");
     set("class", "bonze");
@@ -38,9 +37,9 @@ void create()
     set_skill("buddhism", 120);
     set_skill("literate", 60);
 
-    set("inquiry" ,([
-            "六脉神剑谱" : "哼！\n",
-            "六脉神剑" :  "哼！\n",
+    set("inquiry", ([
+        "六脉神剑谱": "哼！\n",
+        "六脉神剑": "哼！\n",
     ]));
 
     map_skill("force", "duanshi-xinfa");
@@ -48,7 +47,7 @@ void create()
     map_skill("parry", "sun-finger");
     map_skill("finger", "sun-finger");
     map_skill("sword", "duanjia-sword");
-    prepare_skill("finger","sun-finger");
+    prepare_skill("finger", "sun-finger");
     create_family("大理段家", 15, "高僧");
     setup();
     carry_object("/d/xueshan/obj/b-jiasha")->wear();

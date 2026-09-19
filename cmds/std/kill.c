@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object obj;
     string /**killer,*/ callname;
 
@@ -43,31 +42,29 @@ int main(object me, string arg)
 
     callname = RANK_D->query_rude(obj);
 
-    if (obj->query("can_speak"))
-    {
+    if (obj->query("can_speak")) {
         if (!living(obj))
             message_vision(HIR "\n$N" HIR "看了看晕倒在地的$n" HIR "，冷笑"
-                           "一声，喝道：" +
-                           callname + HIR "，给我见阎王去"
-                           "吧！\n\n" NOR,
-                           me, obj);
+                "一声，喝道：" +
+                callname + HIR "，给我见阎王去"
+                "吧！\n\n" NOR,
+                me, obj);
         else if (random(3) > 1)
             message_vision(HIR "\n$N" HIR "对著$n" HIR "喝道：" + callname +
-                           HIR "，今日不是你死就是我活！\n\n" NOR,
-                           me, obj);
+                HIR "，今日不是你死就是我活！\n\n" NOR,
+                me, obj);
         else
             message_vision(HIR "\n$N" HIR "对著$n" HIR "喝道：" + callname +
-                           HIR "，明年今日就是你的忌日！\n\n" NOR,
-                           me, obj);
+                HIR "，明年今日就是你的忌日！\n\n" NOR,
+                me, obj);
     }
 
-    switch (obj->accept_kill(me))
-    {
-    case 0:
-        return (!objectp(obj));
-    case -1:
-        return 1;
-    default:
+    switch (obj->accept_kill(me)) {
+        case 0:
+            return (!objectp(obj));
+        case -1:
+            return 1;
+        default:
     }
 
     if (userp(me) && userp(obj) && !obj->is_want_kill(me->query("id")))
@@ -82,8 +79,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : kill <人物>
 

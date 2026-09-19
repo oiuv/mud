@@ -7,8 +7,7 @@ inherit F_SSERVER;
 
 #define SHOU "「" HIG "九阴神手" NOR "」"
 
-int perform(object me, object target)
-{
+int perform(object me, object target) {
     string msg;
     int ap, dp, ap1, dp1, damage;
 
@@ -45,18 +44,17 @@ int perform(object me, object target)
 
     me->want_kill(target);
 
-    if (dp >= 100) // 此招对百万经验以上的人无效
+    if (dp >= 100)  // 此招对百万经验以上的人无效
     {              // 但是仍然受到伤害
 
         ap1 = me->query_skill("jiuyin-shengong", 1) + me->query_skill("force", 1);
         dp1 = target->query_skill("parry", 1) + target->query_skill("dodge", 1);
         //damage = ap1 + random(ap1);
         damage = ap1 * 2 + random(ap1);
-        if (ap1 / 2 + random(ap1) > dp1)
-        {
+        if (ap1 / 2 + random(ap1) > dp1) {
             msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 90,
-                                       HIR "$n" HIR "只觉此招，阴柔无比，诡异莫测，"
-                                           "心中一惊，却猛然间觉得一股阴风透骨而过。\n" NOR);
+                HIR "$n" HIR "只觉此招，阴柔无比，诡异莫测，"
+                "心中一惊，却猛然间觉得一股阴风透骨而过。\n" NOR);
             me->add("neili", -140);
         }
 
@@ -65,19 +63,15 @@ int perform(object me, object target)
         message_combatd(msg, me, target);
         target->start_busy(1 + random(2));
         return 1;
-    }
-    else if (random(ap) > dp)
-    {
+    } else if (random(ap) > dp) {
         msg += HIR "这一招完全超出了$n" HIR "的想象，被$N" HIR "结结实实的打中了檀中大穴，浑身真气登时涣散！\n" NOR;
         message_combatd(msg, me, target);
         me->add("neili", -200);
         target->die(me);
         return 1;
-    }
-    else
-    {
+    } else {
         msg += HIM "$n" HIM "大吃一惊，连忙胡乱抵挡，居"
-                   "然没有一点伤害，侥幸得脱！\n" NOR;
+            "然没有一点伤害，侥幸得脱！\n" NOR;
     }
 
     message_combatd(msg, me, target);

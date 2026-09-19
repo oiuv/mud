@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("士兵", ({ "shi bing", "bing" }));
     set("age", 32);
     set("gender", "男性");
@@ -29,11 +28,10 @@ void create()
 
     setup();
     carry_object("/clone/weapon/gangdao")->wield();
-    carry_object(__DIR__"obj/junfu")->wear();
+    carry_object(__DIR__ "obj/junfu")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
     ::init();
     if (interactive(ob = this_player()) &&
@@ -43,8 +41,7 @@ void init()
     }
 }
 
-int accept_fight(object me)
-{
+int accept_fight(object me) {
     command("say 大爷我正想找人杀呐，今天算你倒霉。\n");
     kill_ob(me);
     return 1;

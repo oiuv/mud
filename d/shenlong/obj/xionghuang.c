@@ -2,9 +2,8 @@
 
 inherit ITEM;
 
-void create()
-{
-    set_name(YEL "雄黄" NOR, ({"xionghuang" }));
+void create() {
+    set_name(YEL "雄黄" NOR, ({ "xionghuang" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -16,8 +15,7 @@ void create()
     setup();
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     write("想死啊？雄黄不能吃。\n");
-        return 1;
+    return 1;
 }

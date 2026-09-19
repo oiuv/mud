@@ -5,12 +5,11 @@
 
 inherit CLOTH;
 
-void create()
-{
-    set_name("青色道袍", ({"pao", "cloth", "dao pao"}) );
+void create() {
+    set_name("青色道袍", ({ "pao", "cloth", "dao pao" }));
     set_weight(1500);
-    if( clonep() )
-       set_default_object(__FILE__);
+    if (clonep())
+        set_default_object(__FILE__);
     else {
         set("female_only", 1);
         set("unit", "件");

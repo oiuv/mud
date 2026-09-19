@@ -1,10 +1,9 @@
 #include <ansi.h>
 #include <getconfig.h>
 
-inherit  F_CLEAN_UP;
+inherit F_CLEAN_UP;
 
-mixed main(object me, string arg, int remote)
-{
+mixed main(object me, string arg, int remote) {
     object *ulist;
     int i;
 
@@ -13,15 +12,13 @@ mixed main(object me, string arg, int remote)
 
     ulist = users();
     i = sizeof(ulist);
-    while (i--)
-    {
+    while (i--) {
         object who = ulist[i];
         object ridee = ulist[i]->query_temp("is_riding");
 
         if (!ridee)
             continue;
-        if (ridee->query_temp("is_rided_by") != who)
-        {
+        if (ridee->query_temp("is_rided_by") != who) {
             continue;
         }
         write("    ");
@@ -34,14 +31,13 @@ mixed main(object me, string arg, int remote)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式  :  whoride
 
 可列出目前骑有坐骑的玩家。
 
 HELP
-);
-    return  1;
+    );
+    return 1;
 }

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "银瀑");
     set("long", @LONG
 溪水转弯绕过一块高地，忽然眼前一片银瀑，水声轰轰不
@@ -9,10 +8,10 @@ void create()
 漠之中突然见此美景，不觉身神俱爽，好奇心起，想看看瀑布
 之上更有甚么景色。
 LONG);
-        set("outdoors", "shenfeng");
+    set("outdoors", "shenfeng");
     set("exits", ([
-          "west" : __DIR__"lake4",
-          "south" : __DIR__"lake2",
+        "west": __DIR__ "lake4",
+        "south": __DIR__ "lake2",
     ]));
 
     setup();

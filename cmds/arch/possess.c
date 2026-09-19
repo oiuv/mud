@@ -3,8 +3,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
 
     if (!SECURITY_D->valid_grant(me, "(arch)"))
@@ -37,13 +36,12 @@ int main(object me, string arg)
     return 1;
 }
 
-int help()
-{
+int help() {
     write(@TEXT
 指令格式：posssess <目标生物>
 
 附身到另一个生物上，这个生物必须和你有相同的 EUID。
 附身後用 quit 指令会回到原来的身体。
-TEXT );
+TEXT);
     return 1;
 }

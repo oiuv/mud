@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "二楼雅座");
     set("long", @LONG
 这里相对楼下比较安静，环境更加幽雅，摆设更精致，服务也更是周
@@ -11,12 +10,12 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "down" : __DIR__"chalou",
-          "west" : __DIR__"shuoshu",
+        "down": __DIR__ "chalou",
+        "west": __DIR__ "shuoshu",
     ]));
-        set("objects", ([
-                "/d/beijing/npc/chake" : 1,
-        ]));
+    set("objects", ([
+        "/d/beijing/npc/chake": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

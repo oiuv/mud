@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "南门");
     set("long", @LONG
 此间是大理国都大理城的南门，大理城实名阳苜咩城，南诏于初
@@ -11,14 +10,14 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-                "north" : __DIR__"shizilukou",
-                "east"  : __DIR__"xiaodao2",
-                "south" : __DIR__"shuangheqiao",
+        "north": __DIR__ "shizilukou",
+        "east": __DIR__ "xiaodao2",
+        "south": __DIR__ "shuangheqiao",
     ]));
     set("objects", ([
-                __DIR__"npc/jiang": 1,
-                __DIR__"npc/bing": 3,
-                "/clone/npc/walker" : 1,
+        __DIR__ "npc/jiang": 1,
+        __DIR__ "npc/bing": 3,
+        "/clone/npc/walker": 1,
     ]));
     set("no_clean_up", 0);
     setup();

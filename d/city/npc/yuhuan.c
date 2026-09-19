@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("程玉环", ({ "cheng yuhuan", "cheng", "yuhuan" }));
     set("long",
         "她就是程知府的独生女儿，长得如花似玉，貌赛天仙的程玉环。\n"
@@ -37,9 +36,9 @@ void create()
     set("combat_exp", 50000);
 
     setup();
-    carry_object(__DIR__"obj/goldring")->wear();
-    carry_object(__DIR__"obj/necklace")->wear();
-    carry_object(__DIR__"obj/changjian")->wield();
-    carry_object(__DIR__"obj/pink_cloth")->wear();
-    carry_object(__DIR__"obj/flower_shoe")->wear();
+    carry_object(__DIR__ "obj/goldring")->wear();
+    carry_object(__DIR__ "obj/necklace")->wear();
+    carry_object(__DIR__ "obj/changjian")->wield();
+    carry_object(__DIR__ "obj/pink_cloth")->wear();
+    carry_object(__DIR__ "obj/flower_shoe")->wear();
 }

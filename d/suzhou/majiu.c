@@ -1,8 +1,7 @@
 #include <room.h>
 inherit TRANS_ROOM;
 
-void create()
-{
+void create() {
     set("short", "马厩");
     set("long", @LONG
 这里是北大街的马厩，常年供应新鲜草料。苏州民风淳朴
@@ -10,18 +9,18 @@ void create()
 干乾净净，一直伺候到客人上路。马厩雨檐下的烂木柱上钉着
 一块破木牌(paizi)。马厩中堆放著几堆草料。
 LONG);
-      set("outdoors", "suzhou");
-      set("exits", ([
-        "west" : __DIR__"kedian",
-                "up"   : "/clone/shop/suzhou_shop",
-      ]));
-      set("no_fight", 1);
-      set("objects", ([
-                "/clone/horse/zaohongma": 1,
-                "/clone/horse/huangbiaoma": 1,
-                "/clone/horse/ziliuma": 1,
-                "/clone/npc/mafu": 1,
-      ]));
-      setup();
-      // replace_program(TRANS_ROOM);
+    set("outdoors", "suzhou");
+    set("exits", ([
+        "west": __DIR__ "kedian",
+        "up": "/clone/shop/suzhou_shop",
+    ]));
+    set("no_fight", 1);
+    set("objects", ([
+        "/clone/horse/zaohongma": 1,
+        "/clone/horse/huangbiaoma": 1,
+        "/clone/horse/ziliuma": 1,
+        "/clone/npc/mafu": 1,
+    ]));
+    setup();
+    // replace_program(TRANS_ROOM);
 }

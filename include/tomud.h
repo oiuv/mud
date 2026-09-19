@@ -16,4 +16,3 @@
 #define CLEAN2  TMI("lbclear2")
 #define ADD2(x) TMI("lbadd2 "+L_ITEM(x)+";")
 #define REM2(x) TMI("lbrem2 "+L_ITEM(x)+";")
-

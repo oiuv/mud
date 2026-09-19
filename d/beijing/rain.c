@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "听雨楼");
     set("long", @LONG
 一座两层的碧绿色小竹楼, 三面环水, 窗外一泓秋水，池边花树映水而红，
@@ -12,9 +11,9 @@ void create()
 之处。
 LONG);
 
-      set("exits", ([
-          "up" : __DIR__"shulou",
-          "west" : __DIR__"stone_road4",
+    set("exits", ([
+        "up": __DIR__ "shulou",
+        "west": __DIR__ "stone_road4",
     ]));
 
     setup();

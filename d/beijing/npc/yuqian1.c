@@ -4,8 +4,7 @@
 inherit NPC;
 mixed ask_reward();
 
-void create()
-{
+void create() {
     set_name("御前侍卫", ({ "shi wei", "shi", "wei" }));
     set("age", 32);
     set("gender", "男性");
@@ -32,56 +31,52 @@ void create()
         "御前侍卫喝道：亡命狂徒，京城之中，岂得由你猖狂？\n",
     }));
     set("inquiry", ([
-        "赏赐" : (: ask_reward :),
-        "请赏" : (: ask_reward :),
-        "领赏" : (: ask_reward :),
-        "reward" : (: ask_reward :),
+        "赏赐": (: ask_reward :),
+        "请赏": (: ask_reward :),
+        "领赏": (: ask_reward :),
+        "reward": (: ask_reward :),
     ]));
     setup();
     carry_object("/d/beijing/npc/obj/sword4")->wield();
     carry_object("/d/beijing/npc/obj/guanfu1")->wear();
 }
 
-void init()
-{
+void init() {
     object ob;
     ::init();
     if (interactive(ob = this_player()) &&
-        (int)ob->query_condition("killer"))
-    {
+        (int)ob->query_condition("killer")) {
         remove_call_out("kill_ob");
         call_out("kill_ob", 1, ob);
     }
 }
 
-int accept_fight(object me)
-{
+int accept_fight(object me) {
     command("say 这可是你活腻了自找的，休得怪我无情。\n");
     me->apply_condition("killer", 500);
     kill_ob(me);
     return 1;
 }
 
-mixed ask_reward()
-{
+mixed ask_reward() {
     object me;
     me = this_player();
 
     if (me->query_condition("killer")) return 1;
 
-    if ( ! find_object(INVASIOND) || ! INVASIOND->query("record") )
+    if (!find_object(INVASIOND) || !INVASIOND->query("record"))
         return command("say 如今并无异族联军入侵呀！");
-    if ( ! INVASIOND->query("record/all_killed") )
+    if (!INVASIOND->query("record/all_killed"))
         return command("say 圣上并未恩准赏赐，尔等速速离去！");
-    if ( me->query("waidi/born_time") != INVASIOND->query("record/born_time"))
+    if (me->query("waidi/born_time") != INVASIOND->query("record/born_time"))
         return command("say 你的赏赐已经过期了！");
-    if ( environment(me) == find_object("/d/beijing/hg") )
+    if (environment(me) == find_object("/d/beijing/hg"))
         return command("say 你快快向皇上领赏吧！");
 
     command("say 啊，原来是抗击异族联军的义士，快请快请！");
     command("say 在下这便带你入宫面见圣上！");
     message_vision(HIW "\n$N" HIW "大步地走进皇宫大殿，$n"
-                    HIW "紧随其后。\n\n" NOR, this_object(), me);
+        HIW "紧随其后。\n\n" NOR, this_object(), me);
     me->move("/d/beijing/hg");
     this_object()->move("/d/beijing/hg");
     command("say 好了，我带你到大殿了，你可以面见圣上领赏了。");
@@ -93,8 +88,7 @@ mixed ask_reward()
     return 1;
 }
 
-void unconcious()
-{
+void unconcious() {
     die();
 }
 

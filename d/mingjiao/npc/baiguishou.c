@@ -5,21 +5,20 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("白龟寿", ({ "bai guishou", "bai", "guishou", }));
     set("long",
         "他是一位两鬓斑白的老者，身穿一件白布长袍。\n"
         "他脸上总是浮现出可亲的微笑，但有时又透出一丝狡谲。\n"
     );
 
-        set("title",HIG "明教" BLU "玄武坛" NOR "坛主");
+    set("title", HIG "明教" BLU "玄武坛" NOR "坛主");
 
     set("gender", "男性");
     set("attitude", "friendly");
-        set("class", "fighter");
+    set("class", "fighter");
 
-        set("age", 56);
+    set("age", 56);
     set("shen_type", 1);
     set("str", 20);
     set("int", 20);
@@ -52,9 +51,9 @@ void create()
     map_skill("sword", "damo-jian");
 
     prepare_skill("finger", "nianhua-zhi");
-        create_family("明教", 4, "玄武坛坛主");
+    create_family("明教", 4, "玄武坛坛主");
 
     setup();
 
-        carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/d/mingjiao/obj/baipao")->wear();
 }

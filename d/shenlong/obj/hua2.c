@@ -1,8 +1,7 @@
 // hua2.c 无名花
 inherit ITEM;
 
-void create()
-{
+void create() {
     set_name("无名花", ({ "wuming hua", "wuming", "hua" }));
     if (clonep())
         set_default_object(__FILE__);
@@ -14,9 +13,8 @@ void create()
     setup();
 }
 
-int do_effect(object me)
-{
-        message_vision("$N把" + name() + "扔进嘴里，几下就吞了下去。\n", me);
+int do_effect(object me) {
+    message_vision("$N把" + name() + "扔进嘴里，几下就吞了下去。\n", me);
     destruct(this_object());
     return 1;
 }

@@ -3,8 +3,7 @@
 inherit ITEM;
 inherit F_FOOD;
 
-void create()
-{
+void create() {
     set_name("菜肴", ({ "dish" }));
     set_weight(40);
     if (clonep())

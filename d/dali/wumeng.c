@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "乌蒙村落");
     set("long", @LONG
 这里是山的缓坡，乌夷人搬石去土，把这里修成一层层阶梯状的
@@ -10,14 +9,14 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-                "west"  : __DIR__"wunong",
-                "east"  : __DIR__"caopo",
-                "north" : __DIR__"wuyiminju1",
-                "south" : __DIR__"wuyiminju2",
+        "west": __DIR__ "wunong",
+        "east": __DIR__ "caopo",
+        "north": __DIR__ "wuyiminju1",
+        "south": __DIR__ "wuyiminju2",
     ]));
-        set("objects", ([
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        "/clone/npc/walker": 1,
+    ]));
     set("no_clean_up", 0);
     setup();
     replace_program(ROOM);

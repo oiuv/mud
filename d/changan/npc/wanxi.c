@@ -3,9 +3,8 @@
 inherit NPC;
 inherit F_DEALER;
 
-void create()
-{
-    set_name("萧万喜", ({"xiao wanxi", "xiao", "wanxi"}));
+void create() {
+    set_name("萧万喜", ({ "xiao wanxi", "xiao", "wanxi" }));
     set("title", "当铺老板");
     set("shen_type", 1);
     set("gender", "男性");
@@ -27,26 +26,22 @@ void create()
     carry_object(__DIR__ "obj/choupao")->wear();
 }
 
-void init()
-{
+void init() {
     add_action("do_list", "list");
     add_action("do_buy", "buy");
     add_action("do_sell", "sell");
     add_action("do_value", "value");
 }
 
-int clean_up(int inherited)
-{
+int clean_up(int inherited) {
     return 0;
 }
 
-void die()
-{
+void die() {
     message_vision("\n$N一声惨叫，死了。\n", this_object());
     destruct(this_object());
 }
 
-void unconcious()
-{
+void unconcious() {
     die();
 }

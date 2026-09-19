@@ -5,9 +5,8 @@
 inherit ITEM;
 inherit F_FOOD;
 
-void create()
-{
-    set_name("大米饭", ({"mi fan", "fan"}));
+void create() {
+    set_name("大米饭", ({ "mi fan", "fan" }));
     set_weight(500);
     if (clonep())
         set_default_object(__FILE__);

@@ -7,21 +7,20 @@ inherit F_CLEAN_UP;
 int do_purchase(object me, string from, string item, int count, string money);
 
 mapping items = ([
-        "sword"    : "/clone/weapon/changjian",
-        "blade"    : "/clone/weapon/gangdao",
-        "staff"    : "/clone/weapon/gangzhang",
-        "club"     : "/clone/weapon/tiegun",
-        "hammer"   : "/clone/weapon/hammer",
-        "dagger"   : "/clone/weapon/dagger",
-        "pin"      : "/clone/misc/pin",
-        "whip"     : "/clone/weapon/changbian",
-        "throwing" : "/clone/weapon/tielianzi",
+    "sword": "/clone/weapon/changjian",
+    "blade": "/clone/weapon/gangdao",
+    "staff": "/clone/weapon/gangzhang",
+    "club": "/clone/weapon/tiegun",
+    "hammer": "/clone/weapon/hammer",
+    "dagger": "/clone/weapon/dagger",
+    "pin": "/clone/misc/pin",
+    "whip": "/clone/weapon/changbian",
+    "throwing": "/clone/weapon/tielianzi",
 ]);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string item;
     object ob;
     string from;
@@ -37,8 +36,7 @@ int main(object me, string arg)
     if (sscanf(arg, "%*s from %*s") == 2)
         return notify_fail("你打算花多少钱？\n");
 
-    if (arg == "cancel")
-    {
+    if (arg == "cancel") {
         string target;
         object target_ob;
 
@@ -47,7 +45,7 @@ int main(object me, string arg)
 
         if (objectp(target_ob = present(target, environment(me))))
             tell_object(target_ob,
-                        YEL + me->name(1) + "打消向你购买东西的念头。\n" NOR);
+                YEL + me->name(1) + "打消向你购买东西的念头。\n" NOR);
         tell_object(me, YEL "你打消了交易的念头。\n" NOR);
         me->delete_temp("pending/purchase");
         me->delete_temp("pending/info");
@@ -66,7 +64,7 @@ int main(object me, string arg)
     if (MONEY_D->player_pay(me, 10000 + item->value()) != 1)
         return notify_fail("你身上的钱不够，没法托人购买道具。\n");
 
-    ob = new (item);
+    ob = new(item);
     message_vision("$N找了一个打杂的，让他帮助你购买" + item->name() + "。\n", me);
     ob->move(me, 1);
     write("你成功的买到了一" + ob->query("unit") + item->name() + "。\n");
@@ -74,8 +72,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int do_purchase(object me, string from, string item, int count, string money)
-{
+int do_purchase(object me, string from, string item, int count, string money) {
     int amount;
     object from_ob;
     object item_ob;
@@ -115,12 +112,11 @@ int do_purchase(object me, string from, string item, int count, string money)
 
     if (amount < 1)
         return notify_fail("你想买多少" + item_ob->query("units") +
-                           item_ob->name() + "？\n");
+            item_ob->name() + "？\n");
 
     if (!undefinedp(total = item_ob->query_amount()))
         combined = 1;
-    else
-    {
+    else {
         string iname;
 
         iname = base_name(item_ob);
@@ -146,32 +142,31 @@ int do_purchase(object me, string from, string item, int count, string money)
         return notify_fail("你身上没那么多" + money_ob->name() + "。\n");
 
     message_vision("$N想用" + chinese_number(count) +
-                       money_ob->query("base_unit") + money_ob->name() +
-                       "向$n购买" + chinese_number(amount) +
-                       (combined ? item_ob->query("base_unit") : item_ob->query("unit")) +
-                       item_ob->name() + "。\n" NOR,
-                   me, from_ob);
+        money_ob->query("base_unit") + money_ob->name() +
+        "向$n购买" + chinese_number(amount) +
+        (combined ? item_ob->query("base_unit") : item_ob->query("unit")) +
+        item_ob->name() + "。\n" NOR,
+        me, from_ob);
     tell_object(from_ob, YEL "你同意(right)还是不同意(refuse)" + me->name(1) +
-                             YEL "(" + me->query("id") + YEL ")的要求？\n" NOR);
+        YEL "(" + me->query("id") + YEL ")的要求？\n" NOR);
     from_ob->set_temp("pending/answer/" + me->query("id") + "/right",
-                      bind((: call_other, __FILE__, "do_right", from_ob, me :), from_ob));
+        bind((: call_other, __FILE__, "do_right", from_ob, me :), from_ob));
     from_ob->set_temp("pending/answer/" + me->query("id") + "/refuse",
-                      bind((: call_other, __FILE__, "do_refuse", from_ob, me :), from_ob));
+        bind((: call_other, __FILE__, "do_refuse", from_ob, me :), from_ob));
     me->set_temp("pending/purchase", from_ob->query("id"));
     me->set_temp("pending/purchase_info",
-                 ([
-                    "item":base_name(item_ob),
-                    "amount":amount,
-                    "money":money,
-                    "count":count
-                 ])
-                );
+        ([
+            "item": base_name(item_ob),
+            "amount": amount,
+            "money": money,
+            "count": count
+        ])
+    );
     tell_object(me, YEL + "你向" + from_ob->name(1) + "提出了要求。\n" NOR);
     return 1;
 }
 
-int do_refuse(object me, object ob)
-{
+int do_refuse(object me, object ob) {
     if (!objectp(ob))
         return notify_fail("这里没有人等你回话了。\n");
 
@@ -184,8 +179,7 @@ int do_refuse(object me, object ob)
     return 1;
 }
 
-int do_right(object me, object ob)
-{
+int do_right(object me, object ob) {
     string item;
     object item_ob;
     int amount;
@@ -210,8 +204,7 @@ int do_right(object me, object ob)
     ob->delete_temp("pending/purchase_info");
     ob->delete_temp("pending/purchase");
 
-    if (!stringp(item))
-    {
+    if (!stringp(item)) {
         tell_object(me, "你现在没有人家感兴趣的东西了。\n");
         tell_object(ob, "人家现在已经没有你感兴趣的东西了。\n");
         return 1;
@@ -221,8 +214,7 @@ int do_right(object me, object ob)
         if (base_name(item_ob) == item)
             break;
 
-    if (base_name(item_ob) != item)
-    {
+    if (base_name(item_ob) != item) {
         tell_object(me, "你现在没有人家感兴趣的东西了。\n");
         tell_object(ob, "人家现在已经没有你感兴趣的东西了。\n");
         return 1;
@@ -231,19 +223,17 @@ int do_right(object me, object ob)
     if (item_ob->query("money_id"))
         return notify_fail("钱你也想卖？\n");
 
-    if (amount < 1)
-    {
+    if (amount < 1) {
         tell_object(me, "你不知道人家究竟买多少" +
-                        item_ob->name() + "。\n");
+            item_ob->name() + "。\n");
         tell_object(ob, "人家不清楚你究竟要买多少" +
-                        item_ob->name() + "。\n");
+            item_ob->name() + "。\n");
         return 1;
     }
 
     if (!undefinedp(total = item_ob->query_amount()))
         combined = 1;
-    else
-    {
+    else {
         string iname;
 
         iname = base_name(item_ob);
@@ -252,32 +242,28 @@ int do_right(object me, object ob)
         combined = 0;
     }
 
-    if (amount > total)
-    {
+    if (amount > total) {
         tell_object(me, "你现在身上没有那么多" + item_ob->name() + "了。\n");
         tell_object(ob, "人家现在身上没有那么多" + item_ob->name() + "了。\n");
         return 1;
     }
 
-    if (count < 1)
-    {
+    if (count < 1) {
         tell_object(me, "你不知道人家想要出多少钱。\n");
         tell_object(ob, "人家不知道你想要出多少钱。\n");
         return 1;
     }
 
     if (!stringp(money) || !objectp(money_ob = present(money, ob)) ||
-        !money_ob->query("money_id") || count > money_ob->query_amount())
-    {
+        !money_ob->query("money_id") || count > money_ob->query_amount()) {
         tell_object(me, "人家现在身上没有钱了。\n");
         tell_object(ob, "人家同意了，可是你现在身上没有钱了。\n");
         return 1;
     }
 
     if (money_ob->query("base_weight") * count +
-            me->query_encumbrance() >
-        me->query_max_encumbrance())
-    {
+        me->query_encumbrance() >
+        me->query_max_encumbrance()) {
         tell_object(me, "你现在接不下这么多" + money_ob->name() + "。\n");
         tell_object(ob, "人家现在接不下你这么多" + money_ob->name() + "。\n");
         return 1;
@@ -286,35 +272,30 @@ int do_right(object me, object ob)
     tell_object(me, "你同意了" + ob->name(1) + "的要求。\n");
     tell_object(ob, me->name(1) + "同意了你的要求。\n");
     message_vision("$N接过了$n的" + money_ob->name() + "，把" +
-                   item_ob->name() + "递给了$n。\n",
-                   me, ob);
+        item_ob->name() + "递给了$n。\n",
+        me, ob);
 
     // 对方支付钱
     if (count == money_ob->query_amount())
         money_ob->move(me, 1);
-    else
-    {
-        temp_ob = new (base_name(money_ob));
+    else {
+        temp_ob = new(base_name(money_ob));
         temp_ob->set_amount(count);
         money_ob->add_amount(-count);
         temp_ob->move(me, 1);
     }
 
     // 本方提供物品
-    if (combined)
-    {
+    if (combined) {
         if (amount == item_ob->query_amount())
             item_ob->move(ob, 1);
-        else
-        {
-            temp_ob = new (base_name(item_ob));
+        else {
+            temp_ob = new(base_name(item_ob));
             temp_ob->set_amount(amount);
             item_ob->add_amount(-amount);
             temp_ob->move(ob, 1);
         }
-    }
-    else
-    {
+    } else {
         while (amount--)
             total_obs[amount]->move(ob, 1);
     }
@@ -322,8 +303,7 @@ int do_right(object me, object ob)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : purchase [数量] <名字> [from <玩家> with <数量> <货币>]
            purchase cancel
@@ -339,6 +319,6 @@ int help(object me)
 
 see also : scheme
 
-HELP );
+HELP);
     return 1;
 }

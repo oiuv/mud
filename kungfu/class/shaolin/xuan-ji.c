@@ -6,8 +6,7 @@ inherit F_MASTER;
 
 #include "xuan.h"
 
-void create()
-{
+void create() {
     set_name("玄寂大师", ({
         "xuanji dashi",
         "xuanji",
@@ -38,8 +37,8 @@ void create()
 
     set_skill("force", 160);
     set_skill("hunyuan-yiqi", 160);
-        set_skill("strike", 160);
-        set_skill("yipai-liangsan", 160);
+    set_skill("strike", 160);
+    set_skill("yipai-liangsan", 160);
     set_skill("shaolin-xinfa", 150);
     set_skill("dodge", 150);
     set_skill("shaolin-shenfa", 150);
@@ -47,31 +46,31 @@ void create()
     set_skill("claw", 150);
 
     set_skill("longzhua-gong", 160);
-        set_skill("yipai-liangsan", 160);
+    set_skill("yipai-liangsan", 160);
     set_skill("buddhism", 180);
     set_skill("literate", 180);
     set_skill("medical", 180);
     set_skill("shaolin-yishu", 180);
 
     map_skill("force", "hunyuan-yiqi");
-        map_skill("parry", "longzhua-gong");
+    map_skill("parry", "longzhua-gong");
     map_skill("dodge", "shaolin-shenfa");
     map_skill("claw", "longzhua-gong");
     map_skill("parry", "yingzhua-gong");
-        map_skill("strike", "yipai-liangsan");
+    map_skill("strike", "yipai-liangsan");
 
-        prepare_skill("strike", "yipai-liangsan");
+    prepare_skill("strike", "yipai-liangsan");
 
     create_family("少林派", 36, "弟子");
 
-        set("chat_chance_combat", 120);
-        set("chat_msg_combat", ({
-                (: exert_function, "recover" :),
-                (: exert_function, "powerup" :),
-                (: perform_action, "claw.zhua" :),
-        }));
+    set("chat_chance_combat", 120);
+    set("chat_msg_combat", ({
+        (: exert_function, "recover" :),
+        (: exert_function, "powerup" :),
+        (: perform_action, "claw.zhua" :),
+    }));
 
     setup();
 
-        carry_object("/d/shaolin/obj/xuan-cloth")->wear();
+    carry_object("/d/shaolin/obj/xuan-cloth")->wear();
 }

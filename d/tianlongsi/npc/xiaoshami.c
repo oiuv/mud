@@ -1,10 +1,9 @@
 // xiaoshami.c
 inherit NPC;
 
-void create()
-{
-    set_name("小沙弥", ({ "xiao shami","shami"}) );
-    set("gender", "男性" );
+void create() {
+    set_name("小沙弥", ({ "xiao shami", "shami" }));
+    set("gender", "男性");
     set("class", "bonze");
     set("age", 15);
     set("shen_type", 1);

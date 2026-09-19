@@ -2,8 +2,7 @@
 
 inherit "/inherit/char/punisher";
 
-void create()
-{
+void create() {
     set_name("方生", ({ "fang sheng", "fang" }));
     set("long", "他面目慈和，显然是一得道高僧。\n");
 
@@ -63,5 +62,5 @@ void create()
     }));
 
     setup();
-        carry_object("/d/shaolin/obj/xuan-cloth")->wear();
+    carry_object("/d/shaolin/obj/xuan-cloth")->wear();
 }

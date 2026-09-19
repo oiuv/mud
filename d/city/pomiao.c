@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "破庙");
     set("long", @LONG
 这是一间破破烂烂的土地庙，庙里破败不堪，土地神像推
@@ -11,22 +10,24 @@ void create()
 LONG);
     set("valid_startroom", 1);
     set("exits", ([
-        "south" : __DIR__"ml4",
-        "in" : __DIR__"gbxiaowu",
+        "south": __DIR__ "ml4",
+        "in": __DIR__ "gbxiaowu",
     ]));
     set("objects", ([
-        CLASS_D("gaibang") + "/lu" : 1,
-        CLASS_D("gaibang") + "/peng" : 1,
+        CLASS_D("gaibang") + "/lu": 1,
+        CLASS_D("gaibang") + "/peng": 1,
     ]));
     setup();
     "/clone/board/gaibang_b"->foo();
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     object guard;
 
-    if (dir != "in" || !objectp(guard = present("lu youjiao", this_object())) && !objectp(guard = present("peng youjing", this_object())))
+    if (dir != "in" || !objectp(guard = present(
+        "lu youjiao",
+        this_object()
+    )) && !objectp(guard = present("peng youjing", this_object())))
         return ::valid_leave(me, dir);
 
     return guard->permit_pass(me, dir);

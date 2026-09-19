@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
 
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
@@ -21,17 +20,16 @@ int main(object me, string arg)
         return notify_fail("没有这样对象或这样对象没有被载入。\n");
 
     write(sprintf("%O直接或间接继承以下档案：\n    %s\n", ob,
-                  implode(deep_inherit_list(ob), "\n    ")));
+        implode(deep_inherit_list(ob), "\n    ")));
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: ilist <对象或档名>
 
 列出一个对象所继承的所有对象。
 
-HELP );
+HELP);
     return 1;
 }

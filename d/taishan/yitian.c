@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "一天门");
     set("long", @LONG
 从岱宗坊上山大约走四里，便来到一天门。北面有一座天阶坊，过
@@ -13,15 +12,15 @@ void create()
 望，南天门与十八盘在云雾明灭间或隐或现，登泰山的人到此已有
 观止之叹。附近有一牌坊，上写「孔子登临处」，相传为「孔子过
 泰山侧」的故事发生的地方。
-LONG );
+LONG);
     set("exits", ([
-        "northup" : __DIR__"doumo",
-        "southdown" : __DIR__"baihe",
+        "northup": __DIR__ "doumo",
+        "southdown": __DIR__ "baihe",
     ]));
-    set("objects",([
-        __DIR__"npc/dao-ke" : 1,
+    set("objects", ([
+        __DIR__ "npc/dao-ke": 1,
     ]));
-//    set("no_clean_up", 0);
+    //    set("no_clean_up", 0);
     set("outdoors", "taishan");
     setup();
     replace_program(ROOM);

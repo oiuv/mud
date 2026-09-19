@@ -4,8 +4,7 @@
 
 inherit AXE;
 
-void create()
-{
+void create() {
     set_name("斧头", ({ "axe", "fu tou" }));
     set_weight(10000);
     if (clonep())

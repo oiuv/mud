@@ -2,4 +2,3 @@
 #include <condition.h>
 
 inherit F_CLEAN_UP;
-

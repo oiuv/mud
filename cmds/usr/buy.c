@@ -3,8 +3,7 @@
 int player_pay(object who, object target, int amount);
 void destruct_it(object ob);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     mapping goods;
     int value;
     object ob, env, obj;
@@ -19,8 +18,7 @@ int main(object me, string arg)
     if (!(sscanf(arg, "%s from %s", arg, my_id) == 2))
         return notify_fail("指令格式：buy <物品> from <玩家>\n");
 
-    if (sizeof(all_inventory(me)) >= MAX_ITEM_CARRIED)
-    {
+    if (sizeof(all_inventory(me)) >= MAX_ITEM_CARRIED) {
         write("你身上的东西太多了，先处理一下再买东西吧。\n");
         return 1;
     }
@@ -56,60 +54,52 @@ int main(object me, string arg)
 
     value = goods[base_name(ob)];
 
-    if (ob->query_amount())
-    {
+    if (ob->query_amount()) {
         object old_ob;
-        ob = new (base_name(old_ob = ob));
+        ob = new(base_name(old_ob = ob));
         ob->set_temp("moved_from", old_ob);
         call_out("destruct_it", 0, ob);
     }
 
-    switch (player_pay(me, obj, value))
-    {
-    case 0:
-        write(CYN + obj->name(1) + CYN "冷笑一声，骂道：穷"
-              "光蛋，一边呆着去。\n" NOR);
-        return 1;
-    case 2:
-        write(CYN + obj->name(1) + CYN "皱眉道：您还有没有"
-              "零钱啊？银票我可找不开。\n" NOR);
-        return 1;
-    default:
-        if (ob->query_amount())
-        {
-            message_vision("$N从$n那里买下了" + ob->short() + "。\n",
-                           me, obj);
-        }
-        else
-        {
-            message_vision("$N从$n那里买下了一" + ob->query("unit") +
-                           ob->query("name") + "。\n",
-                           me, obj);
-        }
-        ob->move(me, 1);
+    switch (player_pay(me, obj, value)) {
+        case 0:
+            write(CYN + obj->name(1) + CYN "冷笑一声，骂道：穷"
+                "光蛋，一边呆着去。\n" NOR);
+            return 1;
+        case 2:
+            write(CYN + obj->name(1) + CYN "皱眉道：您还有没有"
+                "零钱啊？银票我可找不开。\n" NOR);
+            return 1;
+        default:
+            if (ob->query_amount()) {
+                message_vision("$N从$n那里买下了" + ob->short() + "。\n",
+                    me, obj);
+            } else {
+                message_vision("$N从$n那里买下了一" + ob->query("unit") +
+                    ob->query("name") + "。\n",
+                    me, obj);
+            }
+            ob->move(me, 1);
 
-        if (objectp(ob->query_temp("moved_from")))
-        {
-            ob->query_temp("moved_from")->add_amount(-1);
-            ob->delete_temp("moved_from");
-        }
+            if (objectp(ob->query_temp("moved_from"))) {
+                ob->query_temp("moved_from")->add_amount(-1);
+                ob->delete_temp("moved_from");
+            }
     }
     me->start_busy(2);
     return 1;
 }
 
-int player_pay(object who, object target, int amount)
-{
+int player_pay(object who, object target, int amount) {
     object t_ob, g_ob, s_ob, c_ob;
     int tc, gc, sc, cc, left;
     int v;
 
     seteuid(getuid());
 
-    if (amount >= 100000 &&t_ob = present("cash_money", who))
+    if (amount >= 100000 && t_ob = present("cash_money", who))
         tc = t_ob->query_amount();
-    else
-    {
+    else {
         tc = 0;
         t_ob = 0;
     }
@@ -131,8 +121,7 @@ int player_pay(object who, object target, int amount)
 
     v = cc + sc * 100 + gc * 10000;
 
-    if (amount < 100000 && v < amount)
-    {
+    if (amount < 100000 && v < amount) {
         if (present("cash_money", who))
             return 2;
         else
@@ -143,11 +132,9 @@ int player_pay(object who, object target, int amount)
 
     if (v < amount)
         return 0;
-    else
-    {
+    else {
         left = v - amount;
-        if (tc)
-        {
+        if (tc) {
             tc = left / 100000;
             left %= 100000;
         }
@@ -157,9 +144,8 @@ int player_pay(object who, object target, int amount)
         sc = left / 100;
         cc = left % 100;
 
-        if (t_ob && !g_ob && gc)
-        {
-            g_ob = new (GOLD_OB);
+        if (t_ob && !g_ob && gc) {
+            g_ob = new(GOLD_OB);
             g_ob->move(who, 1);
         }
 
@@ -173,18 +159,16 @@ int player_pay(object who, object target, int amount)
 
         if (s_ob)
             s_ob->set_amount(sc);
-        else if (sc)
-        {
-            s_ob = new (SILVER_OB);
+        else if (sc) {
+            s_ob = new(SILVER_OB);
             s_ob->set_amount(sc);
             s_ob->move(who, 1);
         }
 
         if (c_ob)
             c_ob->set_amount(cc);
-        else if (cc)
-        {
-            c_ob = new (COIN_OB);
+        else if (cc) {
+            c_ob = new(COIN_OB);
             c_ob->set_amount(cc);
             c_ob->move(who, 1);
         }
@@ -197,16 +181,14 @@ int player_pay(object who, object target, int amount)
     }
 }
 
-void destruct_it(object ob)
-{
+void destruct_it(object ob) {
     if (!ob || environment(ob))
         return;
 
     destruct(ob);
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: buy <物品> from <玩家>
 

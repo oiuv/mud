@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "练功房");
     set("long", @LONG
 这里是归云庄陆少庄主的练功房。由与陆少庄主乃少林旁支仙
@@ -10,9 +9,9 @@ void create()
 LONG);
 
     set("exits", ([
-        "west"  : __DIR__"huayuan",
+        "west": __DIR__ "huayuan",
     ]));
-        set("for_family", "桃花岛");
+    set("for_family", "桃花岛");
     setup();
     replace_program(ROOM);
 }

@@ -1,6 +1,5 @@
 inherit CORE_VRM;
 
-void create()
-{
+void create() {
     replace_program(CORE_VRM);
 }

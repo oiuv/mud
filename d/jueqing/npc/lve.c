@@ -1,9 +1,8 @@
 inherit NPC;
 #include <ansi.h>
 
-void create()
-{
-    set_name("公孙绿萼", ({ "gongsun lve", "gongsun", "lve" }) );
+void create() {
+    set_name("公孙绿萼", ({ "gongsun lve", "gongsun", "lve" }));
     set("nickname", HIC "绝情谷主女儿" NOR);
     set("gender", "女性");
     set("long", @LONG
@@ -23,8 +22,8 @@ LONG);
     set("neili", 200);
     set("max_neili", 200);
     set("jiali", 60);
-    set("max_qi",800);
-    set("max_jing",600);
+    set("max_qi", 800);
+    set("max_jing", 600);
     set("combat_exp", 400000);
     set("shen_type", 1);
 

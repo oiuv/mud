@@ -6,8 +6,7 @@
 #include <dbase.h>
 #include <skill.h>
 
-int query_str()
-{
+int query_str() {
     mapping sk;
     int str;
     int tat;
@@ -35,8 +34,7 @@ int query_str()
     return str + tat + (improve / 10) + query_temp("apply/str");
 }
 
-int query_int()
-{
+int query_int() {
     mapping sk;
     int str;
     int tat;
@@ -54,8 +52,7 @@ int query_int()
     return str + tat + (improve / 10) + query_temp("apply/int");
 }
 
-int query_con()
-{
+int query_con() {
     mapping sk;
     int str;
     int tat;
@@ -73,8 +70,7 @@ int query_con()
     return str + tat + (improve / 10) + query_temp("apply/con");
 }
 
-int query_dex()
-{
+int query_dex() {
     mapping sk;
     int str;
     int tat;
@@ -92,8 +88,7 @@ int query_dex()
     return str + tat + (improve / 10) + query_temp("apply/dex");
 }
 
-int query_per()
-{
+int query_per() {
     int per;
     int age;
     int tat;
@@ -120,7 +115,6 @@ int query_per()
     return per;
 }
 
-int query_level()
-{
+int query_level() {
     return to_int(pow(to_float(query("combat_exp") * 10), 1.0 / 3)) + 1;
 }

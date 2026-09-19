@@ -2,9 +2,8 @@
 inherit NPC;
 inherit F_BANKER;
 
-void create()
-{
-    set_name("钱迷心", ({"qian mixin", "qian", "mixin"}));
+void create() {
+    set_name("钱迷心", ({ "qian mixin", "qian", "mixin" }));
     set("title", "钱庄老板");
     set("nickname", "心迷钱");
     set("gender", "男性");
@@ -42,14 +41,13 @@ void create()
     carry_object("/clone/misc/cloth")->wear();
 }
 
-void init()
-{
-        add_action("do_check", "check");
-        add_action("do_check", "chazhang");
-        add_action("do_convert", "convert");
-        add_action("do_convert", "duihuan");
-        add_action("do_deposit", "deposit");
-        add_action("do_deposit", "cun");
-        add_action("do_withdraw", "withdraw");
-        add_action("do_withdraw", "qu");
+void init() {
+    add_action("do_check", "check");
+    add_action("do_check", "chazhang");
+    add_action("do_convert", "convert");
+    add_action("do_convert", "duihuan");
+    add_action("do_deposit", "deposit");
+    add_action("do_deposit", "cun");
+    add_action("do_withdraw", "withdraw");
+    add_action("do_withdraw", "qu");
 }

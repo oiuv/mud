@@ -75,19 +75,19 @@ protected void real_connect(int fd) {
     mapping conn = Connections[fd];
     string addr;
     int port, type, result;
-    
+
     if (!conn) return;
-    
+
     addr = conn["addr"];
     port = conn["port"];
     type = conn["type"];
-    
+
     if (type == STREAM) {
         result = socket_connect(fd, addr + " " + port, "receive_data", "connected");
     } else {
         result = socket_connect(fd, addr + " " + port, "receive_data", 0);
     }
-    
+
     if (result != EESUCCESS) {
         debug("Connect failed: " + socket_error(result));
         cleanup_connection(fd);
@@ -99,7 +99,7 @@ protected void on_resolve(string host, string addr, int key) {
     debug("DNS resolved: " + host + " -> " + addr);
     if (addr) {
         DNSCache[host] = addr;
-        
+
         // 处理等待该解析的连接
         foreach (int fd, mapping conn in Connections) {
             if (conn["host"] == host && conn["state"] == STATE_CONNECTING) {
@@ -124,7 +124,7 @@ public int tcp_connect(string host, int port) {
         debug("Failed to create TCP socket");
         return -1;
     }
-    
+
     Connections[fd] = ([
         "type": STREAM,
         "host": host,
@@ -132,14 +132,14 @@ public int tcp_connect(string host, int port) {
         "state": STATE_CONNECTING,
         "protocol": "TCP"
     ]);
-    
+
     if (DNSCache[host]) {
         Connections[fd]["addr"] = DNSCache[host];
         real_connect(fd);
     } else {
         resolve(host, "on_resolve");
     }
-    
+
     debug("TCP connection " + fd + " created for " + host + ":" + port);
     return fd;
 }
@@ -151,7 +151,7 @@ public int udp_connect(string host, int port) {
         debug("Failed to create UDP socket");
         return -1;
     }
-    
+
     Connections[fd] = ([
         "type": DATAGRAM,
         "host": host,
@@ -159,14 +159,14 @@ public int udp_connect(string host, int port) {
         "state": STATE_CONNECTING,
         "protocol": "UDP"
     ]);
-    
+
     if (DNSCache[host]) {
         Connections[fd]["addr"] = DNSCache[host];
         real_connect(fd);
     } else {
         resolve(host, "on_resolve");
     }
-    
+
     debug("UDP connection " + fd + " created for " + host + ":" + port);
     return fd;
 }
@@ -174,23 +174,23 @@ public int udp_connect(string host, int port) {
 // 发送数据
 public int send_data(int fd, mixed data) {
     int result;
-    
+
     if (!Connections[fd]) {
         debug("Invalid connection: " + fd);
         return -1;
     }
-    
+
     if (Connections[fd]["state"] != STATE_CONNECTED) {
         debug("Connection not ready: " + fd);
         return -1;
     }
-    
+
     result = socket_write(fd, data);
     if (result != EESUCCESS) {
         debug("Send failed: " + socket_error(result));
         return -1;
     }
-    
+
     debug("Data sent to " + fd + ": " + sizeof(data) + " bytes");
     return sizeof(data);
 }
@@ -223,34 +223,34 @@ public int is_connected(int fd) {
 // 创建TCP服务器监听
 public int tcp_listen(int port, string addr) {
     int fd, result;
-    
+
     fd = socket_create(STREAM, "receive_callback", "close_callback");
     if (fd < 0) {
         debug("Failed to create TCP server socket");
         return -1;
     }
-    
+
     result = socket_bind(fd, port);
     if (result != EESUCCESS) {
         debug("Bind failed: " + socket_error(result));
         socket_close(fd);
         return -1;
     }
-    
+
     result = socket_listen(fd, "accept_callback");
     if (result != EESUCCESS) {
         debug("Listen failed: " + socket_error(result));
         socket_close(fd);
         return -1;
     }
-    
+
     Connections[fd] = ([
         "type": STREAM,
         "state": STATE_LISTENING,
         "port": port,
         "protocol": "TCP_SERVER"
     ]);
-    
+
     debug("TCP server listening on " + (addr || "0.0.0.0") + ":" + port);
     return fd;
 }
@@ -258,27 +258,27 @@ public int tcp_listen(int port, string addr) {
 // 创建UDP服务器
 public int udp_listen(int port, string addr) {
     int fd, result;
-    
+
     fd = socket_create(DATAGRAM, "receive_callback", "close_callback");
     if (fd < 0) {
         debug("Failed to create UDP server socket");
         return -1;
     }
-    
+
     result = socket_bind(fd, port);
     if (result != EESUCCESS) {
         debug("Bind failed: " + socket_error(result));
         socket_close(fd);
         return -1;
     }
-    
+
     Connections[fd] = ([
         "type": DATAGRAM,
         "state": STATE_LISTENING,
         "port": port,
         "protocol": "UDP_SERVER"
     ]);
-    
+
     debug("UDP server listening on " + (addr || "0.0.0.0") + ":" + port);
     return fd;
 }
@@ -287,19 +287,19 @@ public int udp_listen(int port, string addr) {
 public int sendto(int fd, string data, string host, int port) {
     string addr;
     int result;
-    
+
     if (!Connections[fd] || Connections[fd]["type"] != DATAGRAM) {
         debug("Invalid UDP socket: " + fd);
         return -1;
     }
-    
+
     addr = DNSCache[host] || host;
     result = socket_write(fd, data, addr + " " + port);
     if (result != EESUCCESS) {
         debug("UDP send failed: " + socket_error(result));
         return -1;
     }
-    
+
     debug("UDP data sent to " + host + ":" + port + " from " + fd);
     return sizeof(data);
 }
@@ -336,14 +336,14 @@ protected void accept_callback(int fd) {
         debug("Accept failed");
         return;
     }
-    
+
     Connections[new_fd] = ([
         "type": STREAM,
         "state": STATE_CONNECTED,
         "protocol": "TCP_CLIENT",
         "server_fd": fd
     ]);
-    
+
     debug("New TCP connection accepted: " + new_fd);
     on_connect(new_fd);
 }

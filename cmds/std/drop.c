@@ -8,8 +8,7 @@ int do_drop(object me, object obj, int raw);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object obj, *inv, obj2;
     int i, amount;
     mixed info;
@@ -18,8 +17,7 @@ int main(object me, string arg)
     if (!arg)
         return notify_fail("你要丢下什么东西？\n");
 
-    if (sscanf(arg, "%d %s", amount, item) == 2)
-    {
+    if (sscanf(arg, "%d %s", amount, item) == 2) {
         if (!objectp(obj = present(item, me)))
             return notify_fail("你身上没有这样东西。\n");
 
@@ -36,13 +34,11 @@ int main(object me, string arg)
             return notify_fail("你没有那么多的" + obj->name() + "。\n");
         else if (amount == (int)obj->query_amount())
             return do_drop(me, obj, 0);
-        else
-        {
+        else {
             obj->set_amount((int)obj->query_amount() - amount);
-            obj2 = new (base_name(obj));
+            obj2 = new(base_name(obj));
             obj2->set_amount(amount);
-            if (!do_drop(me, obj2, 0))
-            {
+            if (!do_drop(me, obj2, 0)) {
                 obj2->move(me);
                 return 0;
             }
@@ -50,24 +46,21 @@ int main(object me, string arg)
         }
     }
 
-    if (arg == "all")
-    {
+    if (arg == "all") {
         inv = all_inventory(me);
-        for (amount = 0, i = 0; i < sizeof(inv); i++)
-        {
+        for (amount = 0, i = 0; i < sizeof(inv); i++) {
             if (!living(me))
                 break;
             amount += do_drop(me, inv[i], 1);
         }
 
-        if (!amount)
-        {
+        if (!amount) {
             write("你什么都没有丢掉。\n");
             return 1;
         }
 
         message("vision", me->name() + "丢下了一堆东西。\n",
-                environment(me), ({me}));
+            environment(me), ({ me }));
         write("丢完了。\n");
         return 1;
     }
@@ -79,13 +72,11 @@ int main(object me, string arg)
     return 1;
 }
 
-int do_drop(object me, object obj, int raw)
-{
+int do_drop(object me, object obj, int raw) {
     mixed no_drop;
     object riding, env = environment(me);
 
-    if (obj == (riding = me->query_temp("is_riding")))
-    {
+    if (obj == (riding = me->query_temp("is_riding"))) {
         message_vision("$N从$n背上飞身跳下。\n", me, riding);
         me->delete_temp("is_riding");
         obj->delete_temp("is_rided_by");
@@ -95,8 +86,7 @@ int do_drop(object me, object obj, int raw)
             obj->move(env);
         return 1;
     }
-    if (obj->is_depot_ob())
-    {
+    if (obj->is_depot_ob()) {
         tell_object(me, obj->name() + "你也舍得丢弃？\n");
         return 0;
     }
@@ -106,50 +96,48 @@ int do_drop(object me, object obj, int raw)
     if (no_drop = env->query("no_drop"))
         return notify_fail(stringp(no_drop) ? no_drop : "这里东西丢弃下去也看不见。\n");
 
-    switch ((string)obj->query("equipped"))
-    {
-    case "worn":
-        tell_object(me, obj->name() + "必须脱下来才能丢掉。\n");
-        return 0;
+    switch ((string)obj->query("equipped")) {
+        case "worn":
+            tell_object(me, obj->name() + "必须脱下来才能丢掉。\n");
+            return 0;
 
-    case "wielded":
-        tell_object(me, obj->name() + "必须解除装备才能丢掉。\n");
-        return 0;
+        case "wielded":
+            tell_object(me, obj->name() + "必须解除装备才能丢掉。\n");
+            return 0;
     }
 
     if (!obj->is_character() &&
         !obj->can_combine_to(env) &&
         sizeof(filter_array(all_inventory(env),
-                            (: !$1->is_character() :))) > MAX_ITEM_IN_ROOM)
-    {
+            (: !$1->is_character() :))) > MAX_ITEM_IN_ROOM) {
         tell_object(me, "这里东西太多了，你乱丢恐怕" + obj->name() + "就找不到了。\n");
         return 0;
     }
-    if (env->is_area())
-    {
-        if (area_move_side(obj, me))
-        {
+    if (env->is_area()) {
+        if (area_move_side(obj, me)) {
             mapping info = me->query("area_info");
             write("你丢下了一" + obj->query("unit") + obj->name() + "\n");
-            tell_area(env, info["x_axis"], info["y_axis"], me->name() + "丢下了一" + obj->query("unit") + obj->name() + "\n", ({me}));
+            tell_area(
+                env,
+                info["x_axis"],
+                info["y_axis"],
+                me->name() + "丢下了一" + obj->query("unit") + obj->name() + "\n",
+                ({ me })
+            );
         }
-    }
-    else if (obj->move(environment(me)))
-    {
+    } else if (obj->move(environment(me))) {
         if (obj->is_character() && obj->query_weight() > 20000)
             message_vision("$N将$n从背上放了下来，躺在地上。\n", me, obj);
-        else
-        {
+        else {
             if (!raw)
                 message_vision(sprintf("$N丢下一%s$n。\n",
-                                obj->query("unit")),
-                                me, obj);
+                    obj->query("unit")),
+                    me, obj);
             else
                 write("你丢下了一" + obj->query("unit") +
-                        obj->name() + "\n");
+                    obj->name() + "\n");
 
-            if (!obj->is_character() && !obj->query("value") && !obj->value())
-            {
+            if (!obj->is_character() && !obj->query("value") && !obj->value()) {
                 write("因为这样东西并不值钱，所以人们并不会注意到它的存在。\n");
                 destruct(obj);
             }
@@ -159,13 +147,12 @@ int do_drop(object me, object obj, int raw)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : drop <物品名称> | all
 
 这个指令可以让你丢下你所携带的物品.
 
-HELP );
+HELP);
     return 1;
 }

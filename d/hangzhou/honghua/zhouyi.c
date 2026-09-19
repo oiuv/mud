@@ -4,13 +4,12 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("周绮", ({ "zhou yi", "zhou","yi" }));
-    set("title", HIC "铁胆庄"HIM"大小姐" NOR);
+void create() {
+    set_name("周绮", ({ "zhou yi", "zhou", "yi" }));
+    set("title", HIC "铁胆庄" HIM "大小姐" NOR);
     set("nickname", HIB "俏李逵" NOR);
     set("long",
-"这是铁胆庄的大小姐，周仲英的宝贝女儿。她性格豪迈，颇
+        "这是铁胆庄的大小姐，周仲英的宝贝女儿。她性格豪迈，颇
 有乃父之风，爱管闲事，好打不平，西北武林中人送了她个
 外号，叫做“俏李逵”。\n");
     set("gender", "女性");
@@ -49,7 +48,7 @@ void create()
 
     set("env/wimpy", 20);
     create_family("少林派", 51, "俗家弟子");
-     setup();
+    setup();
     carry_object("/clone/cloth/jinduan")->wear();
     carry_object("/clone/weapon/gangdao")->wield();
 }

@@ -5,8 +5,7 @@
 
 inherit PIN;
 
-void create()
-{
+void create() {
     set_name(HIW "银针" NOR, ({ "pin", "silver pin", "yin zhen", "zhen" }));
     set_weight(24);
     if (clonep())

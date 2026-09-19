@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "杂货铺");
     set("long", @LONG
 这是一家小小的杂货铺，平时就卖些日常用品，只见货柜
@@ -12,10 +11,10 @@ LONG);
         "zhaopai": "请用 \"list\" 列出货物表，\"buy\" 向老板购物。\n",
     ]));
     set("exits", ([
-        "south"    : __DIR__"hengyang2",
+        "south": __DIR__ "hengyang2",
     ]));
     set("objects", ([
-        __DIR__"npc/qiang": 1,
+        __DIR__ "npc/qiang": 1,
     ]));
 
     setup();

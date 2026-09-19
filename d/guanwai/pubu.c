@@ -2,8 +2,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "长白瀑布");
     set("long", @LONG
 天池水从两百余尺高飞流跌落，轰鸣之声远传数里，水花直落大嶂谷，
@@ -12,10 +11,10 @@ void create()
 诗云：“白河两岸景清幽，碧水悬崖万古留；疑似龙池喷瑞雪，如同天际挂
 飞流。不须鞭石渡沧海，直可乘槎问斗牛？欲识林泉真乐趣，明朝结伴再来
 游。”
-LONG );
+LONG);
     set("exits", ([
-        "southeast"  : __DIR__"damen",
-        "westdown"   : __DIR__"xiaotianchi",
+        "southeast": __DIR__ "damen",
+        "westdown": __DIR__ "xiaotianchi",
     ]));
     set("no_clean_up", 0);
     set("outdoors", "guanwai");

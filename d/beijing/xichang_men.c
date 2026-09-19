@@ -1,8 +1,7 @@
 inherit ROOM;
 #include <ansi.h>
 
-void create()
-{
+void create() {
     set("short", "西厂大门");
     set("long", @LONG
 这里就是京城的特务机构----西厂的大门。这里警备深严，不时有穿着制
@@ -11,12 +10,12 @@ void create()
 离开的好。
 LONG NOR);
     set("exits", ([
-        "south" : __DIR__"xichang",
-        "north" : __DIR__"di_2",
+        "south": __DIR__ "xichang",
+        "north": __DIR__ "di_2",
     ]));
     set("objects", ([
-        __DIR__"npc/bing3" : 2,
+        __DIR__ "npc/bing3": 2,
     ]));
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

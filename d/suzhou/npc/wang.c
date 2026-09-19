@@ -5,8 +5,7 @@
 inherit NPC;
 inherit F_DEALER;
 
-void create()
-{
+void create() {
     set_name("王合计", ({ "wang heji", "heji", "wang" }));
     set("title", "当铺老板");
     set("shen_type", 0);
@@ -30,16 +29,14 @@ void create()
     carry_object("/clone/misc/cloth")->wear();
 }
 
-void init()
-{
+void init() {
     add_action("do_list", "list");
-        add_action("do_buy", "buy");
+    add_action("do_buy", "buy");
     add_action("do_sell", "sell");
     add_action("do_value", "value");
 }
 
-void die()
-{
+void die() {
     message_vision("\n$N死了。\n", this_object());
     destruct(this_object());
 }

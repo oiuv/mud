@@ -1,9 +1,8 @@
 // laodaoshi.c
 inherit NPC;
 
-void create()
-{
-    set_name("老道士", ({"lao daoshi", "daoshi"}));
+void create() {
+    set_name("老道士", ({ "lao daoshi", "daoshi" }));
     set("long", "这是一个精壮老道士。\n");
 
     set("gender", "男性");
@@ -23,7 +22,7 @@ void create()
     set("jiali", 100);
     set("combat_exp", 20000);
     set("score", 100);
-    set("apply/attack",  30);
+    set("apply/attack", 30);
     set("apply/defense", 30);
 
     set_skill("force", 50);

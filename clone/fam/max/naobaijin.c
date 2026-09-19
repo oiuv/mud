@@ -2,35 +2,32 @@
 
 inherit ITEM;
 
-void create()
-{
-    set_name(HIW "脑白金" NOR, ({"nao baijin", "nao", "baijin"}));
+void create() {
+    set_name(HIW "脑白金" NOR, ({ "nao baijin", "nao", "baijin" }));
     set_weight(300);
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("long", HIW "上面写着「" HIY "今年我家不收礼，收礼只"
-                        "收脑白金" HIW "」看样子是高级货。\n" NOR);
+            "收脑白金" HIW "」看样子是高级货。\n" NOR);
         set("value", 500000);
         set("unit", "盒");
         set("only_do_effect", 1);
     }
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     string mapsk;
     int effect;
 
     log_file("static/using", sprintf("%s(%s) eat 脑白金 at %s.\n",
-                                     me->name(1), me->query("id"), ctime(time())));
+        me->name(1), me->query("id"), ctime(time())));
 
     effect = 0;
 
     message_vision(HIW "$N" HIW "哈哈一笑，将一整盒脑白金连同"
-                       "盒子一块吞下肚去。\n" NOR,
-                   me);
+        "盒子一块吞下肚去。\n" NOR,
+        me);
 
     me->add("combat_exp", 100000);
     me->add("potential", 10000);

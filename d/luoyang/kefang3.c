@@ -2,8 +2,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "西客房");
     set("long", @LONG
 这是一间很大的客房，陈设虽然简单，但十分干净整洁。靠墙放了十
@@ -13,8 +12,8 @@ LONG
     );
     set("no_clean_up", 0);
     set("exits", ([ /* sizeof() == 1 */
-  "east" : __DIR__"kezhan2",
-]));
+        "east": __DIR__ "kezhan2",
+    ]));
 
     setup();
     replace_program(ROOM);

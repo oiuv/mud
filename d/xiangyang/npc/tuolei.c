@@ -5,11 +5,10 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
+void create() {
     set_name("拖雷", ({ "tuo lei", "lei", "tuo" }));
     set("long",
-"拖雷是成吉思汗幼子，坚忍果决。此次带兵南来，势如破竹，兵锋毕露。\n");
+        "拖雷是成吉思汗幼子，坚忍果决。此次带兵南来，势如破竹，兵锋毕露。\n");
     set("gender", "男性");
     set("age", 18);
     set("attitude", "friendly");
@@ -32,9 +31,9 @@ void create()
     set_skill("unarmed", 40);
 
     set("env/wimpy", 60);
-    set_temp("is_riding", HIC"青骢马"NOR);
+    set_temp("is_riding", HIC "青骢马" NOR);
     set("env/wimpy", 40);
 
-     setup();
+    setup();
     carry_object("/d/city/obj/tiejia")->wear();
 }

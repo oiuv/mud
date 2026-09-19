@@ -5,10 +5,9 @@
 
 inherit ROOM;
 
-string* dirs = ({"east", "south", "west", "north"});
+string *dirs = ({ "east", "south", "west", "north" });
 
-void create()
-{
+void create() {
     set("short", HIB "五行洞" NOR);
     set("long", HIB @LONG
 这是五行洞。一进这里，你就陷在齐腰深的水里，脚底是厚
@@ -17,19 +16,18 @@ void create()
 在上面爬上爬下，把尸体咬得面木全非。四壁用粗糙的片岩垒垛
 而成，一颗颗水珠沿着墙壁滚下来，溅在水中．
 LONG
-NOR    );
+        NOR);
     set("exits", ([
-        "east" : __DIR__"wuxing1",
-        "south" : __DIR__"wuxing4",
-        "west" : __DIR__"wuxing0",
-        "north" : __DIR__"wuxing3",
+        "east": __DIR__ "wuxing1",
+        "south": __DIR__ "wuxing4",
+        "west": __DIR__ "wuxing0",
+        "north": __DIR__ "wuxing3",
     ]));
     set("no_clean_up", 0);
     setup();
 }
 
-int check_out(object me)
-{
+int check_out(object me) {
     int metal, wood, water, fire, earth;
 
     metal = me->query_temp("wuxing/金");
@@ -38,37 +36,31 @@ int check_out(object me)
     fire = me->query_temp("wuxing/火");
     earth = me->query_temp("wuxing/土");
 
-    if ( metal > 0 &&
+    if (metal > 0 &&
         metal == wood && metal == water &&
-        metal == fire && metal == earth )
-    {
+        metal == fire && metal == earth) {
         me->delete_temp("wuxing");
-        me->move(__DIR__"andao2");
+        me->move(__DIR__ "andao2");
         return (1);
     }
     return (0);
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     int count;
 
-    if (member_array(dir, dirs) != -1)
-    {
-        if (dir == "east")
-        {
-//            write("*水生木*\n");
+    if (member_array(dir, dirs) != -1) {
+        if (dir == "east") {
+            //            write("*水生木*\n");
             count = me->query_temp("wuxing/木");
             count++;
             me->set_temp("wuxing/木", count);
             if (check_out(me))
                 return notify_fail("你顺利地走出了五行迷宫。\n");
-        }
-        else if (dir == "north")
-        {
-//            write("*水克火*\n");
+        } else if (dir == "north") {
+            //            write("*水克火*\n");
             me->delete_temp("wuxing");
-            me->move(__DIR__"jianyu1");
+            me->move(__DIR__ "jianyu1");
             return notify_fail("你掉进机关，落入僧监。\n");
         }
     }

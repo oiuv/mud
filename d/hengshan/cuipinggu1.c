@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "翠屏谷");
     set("long", @LONG
 浑河在谷中冲刷而过，天峰岭和翠屏山分列峡谷两侧，绝壁千
@@ -13,14 +12,14 @@ void create()
 LONG
     );
     set("exits", ([
-        "southeast"  : __DIR__"cuipinggu2",
-        "northwest"  : __DIR__"jinlongxia",
+        "southeast": __DIR__ "cuipinggu2",
+        "northwest": __DIR__ "jinlongxia",
     ]));
     set("objects", ([
-        __DIR__"npc/wen" : 1,
+        __DIR__ "npc/wen": 1,
     ]));
     set("outdoors", "hengshan");
-//        set("no_clean_up", 0);
+    //        set("no_clean_up", 0);
     setup();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

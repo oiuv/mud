@@ -6,20 +6,16 @@
 #pragma optimize
 // #pragma save_binary
 
-string money_str(int amount)
-{
+string money_str(int amount) {
     // returns a chinese string of `amount` of money
     string output;
 
-    if (amount / 10000)
-    {
+    if (amount / 10000) {
         output = chinese_number(amount / 10000) + "两黄金";
         amount %= 10000;
-    }
-    else
+    } else
         output = "";
-    if (amount / 100)
-    {
+    if (amount / 100) {
         output = output + chinese_number(amount / 100) + "两白银";
         amount %= 100;
     }
@@ -28,23 +24,19 @@ string money_str(int amount)
     return output;
 }
 
-string price_str(int amount)
-{
+string price_str(int amount) {
     // returns a chinese string of `amount` of money
     string output;
 
     if (amount < 1)
         amount = 1;
 
-    if (amount / 10000)
-    {
+    if (amount / 10000) {
         output = chinese_number(amount / 10000) + "两黄金";
         amount %= 10000;
-    }
-    else
+    } else
         output = "";
-    if (amount / 100)
-    {
+    if (amount / 100) {
         if (output != "")
             output += "又" + chinese_number(amount / 100) + "两白银";
         else
@@ -59,8 +51,7 @@ string price_str(int amount)
     return output;
 }
 
-void pay_player(object who, int amount)
-{
+void pay_player(object who, int amount) {
     int v;
     object ob;
 
@@ -68,38 +59,33 @@ void pay_player(object who, int amount)
     if (amount < 1)
         amount = 1;
     //设定取钱小于100gold时不自动转cash，取100gold以及以上的钱时才转cash 2016-12-22
-    if (v = amount / 100000 && amount >= 1000000)
-    {
-        ob = new (CASH_OB);
+    if (v = amount / 100000 && amount >= 1000000) {
+        ob = new(CASH_OB);
         ob->set_amount(amount / 100000);
         ob->move(who, 1);
         amount %= 100000;
     }
 
-    if (amount / 10000)
-    {
-        ob = new (GOLD_OB);
+    if (amount / 10000) {
+        ob = new(GOLD_OB);
         ob->set_amount(amount / 10000);
         ob->move(who, 1);
         amount %= 10000;
     }
-    if (amount / 100)
-    {
-        ob = new (SILVER_OB);
+    if (amount / 100) {
+        ob = new(SILVER_OB);
         ob->set_amount(amount / 100);
         ob->move(who, 1);
         amount %= 100;
     }
-    if (amount)
-    {
-        ob = new (COIN_OB);
+    if (amount) {
+        ob = new(COIN_OB);
         ob->set_amount(amount);
         ob->move(who, 1);
     }
 }
 
-int player_pay(object who, int amount)
-{
+int player_pay(object who, int amount) {
     object t_ob, g_ob, s_ob, c_ob;
     int tc, gc, sc, cc, left;
     int v;
@@ -110,8 +96,7 @@ int player_pay(object who, int amount)
         objectp(t_ob = present("cash_money", who)))
         // 昂贵物品或是计划中可以使用银票
         tc = t_ob->query_amount();
-    else
-    {
+    else {
         tc = 0;
         t_ob = 0;
     }
@@ -129,8 +114,7 @@ int player_pay(object who, int amount)
         cc = 0;
 
     v = cc + sc * 100 + gc * 10000;
-    if (amount < 100000 && v < amount)
-    {
+    if (amount < 100000 && v < amount) {
         if (present("cash_money", who))
             return 2;
         else
@@ -140,11 +124,9 @@ int player_pay(object who, int amount)
     v += tc * 100000;
     if (v < amount)
         return 0;
-    else
-    {
+    else {
         left = v - amount;
-        if (tc)
-        {
+        if (tc) {
             tc = left / 100000;
             left %= 100000;
         }
@@ -153,9 +135,8 @@ int player_pay(object who, int amount)
         sc = left / 100;
         cc = left % 100;
 
-        if (t_ob && !g_ob && gc)
-        {
-            g_ob = new (GOLD_OB);
+        if (t_ob && !g_ob && gc) {
+            g_ob = new(GOLD_OB);
             g_ob->move(who, 1);
         }
 
@@ -167,17 +148,15 @@ int player_pay(object who, int amount)
             sc += (gc * 100);
         if (s_ob)
             s_ob->set_amount(sc);
-        else if (sc)
-        {
-            s_ob = new (SILVER_OB);
+        else if (sc) {
+            s_ob = new(SILVER_OB);
             s_ob->set_amount(sc);
             s_ob->move(who, 1);
         }
         if (c_ob)
             c_ob->set_amount(cc);
-        else if (cc)
-        {
-            c_ob = new (COIN_OB);
+        else if (cc) {
+            c_ob = new(COIN_OB);
             c_ob->set_amount(cc);
             c_ob->move(who, 1);
         }
@@ -186,8 +165,7 @@ int player_pay(object who, int amount)
     }
 }
 
-int player_carry(object ob)
-{
+int player_carry(object ob) {
     object cash_ob;
     object gold_ob;
     object silver_ob;

@@ -4,10 +4,9 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     seteuid(getuid());
-    set_name("张三", ({"zhang san", "zhang", "san", "bai bian"}));
+    set_name("张三", ({ "zhang san", "zhang", "san", "bai bian" }));
     set("title", HIY "百变道人" NOR);
     set("gender", "男性");
     set("age", 50);
@@ -52,7 +51,7 @@ void create()
     create_family("武当派", 3, "弟子");
 
     set("chat_chance", 5);
-    set("chat_msg", ({(: random_move :)}));
+    set("chat_msg", ({ (: random_move :) }));
 
     setup();
 
@@ -60,8 +59,7 @@ void create()
     add_money("gold", 3);
 }
 
-void init()
-{
+void init() {
     object ob, me;
     mapping skill_status, map_status;
     string *sname, *mname;
@@ -81,8 +79,7 @@ void init()
     skill_status = ob->query_skills();
     sname = sort_array(keys(skill_status), (: strcmp :));
 
-    for (i = 0; i < sizeof(skill_status); i++)
-    {
+    for (i = 0; i < sizeof(skill_status); i++) {
         me->set_skill(sname[i], skill_status[sname[i]]);
     }
 
@@ -95,8 +92,7 @@ void init()
 
     mname = sort_array(keys(map_status), (: strcmp :));
 
-    for (i = 0; i < sizeof(map_status); i++)
-    {
+    for (i = 0; i < sizeof(map_status); i++) {
         command("enable " + mname[i] + " " + map_status[mname[i]]);
     }
 
@@ -104,30 +100,28 @@ void init()
     set("jiali", 30);
 }
 
-void pretending(object ob)
-{
+void pretending(object ob) {
 
     object me = this_object();
 
     if (!ob || environment(ob) != environment())
         return;
 
-    switch (random(3))
-    {
-    case 0:
-        command("grin " + ob->query("id"));
-        command("pretend " + ob->query("id"));
-        command("exert recover");
-        break;
-    case 1:
-        command("hi " + ob->query("id"));
-        command("exert heal");
-        command("exert recover");
-        break;
-    case 2:
-        command("stare " + ob->query("id"));
-        me->fight_ob(ob);
-        ob->fight_ob(me);
-        break;
+    switch (random(3)) {
+        case 0:
+            command("grin " + ob->query("id"));
+            command("pretend " + ob->query("id"));
+            command("exert recover");
+            break;
+        case 1:
+            command("hi " + ob->query("id"));
+            command("exert heal");
+            command("exert recover");
+            break;
+        case 2:
+            command("stare " + ob->query("id"));
+            me->fight_ob(ob);
+            ob->fight_ob(me);
+            break;
     }
 }

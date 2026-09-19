@@ -4,8 +4,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("蒙古兵", ({ "menggu bing", "bing", "menggu" }));
     set("long", "蒙古兵长年跃马横枪，十分骁勇。\n");
     set("gender", "男性");
@@ -36,7 +35,7 @@ void create()
     set_temp("is_riding", HIY "蒙古马" NOR);
     set("env/wimpy", 40);
 
-     setup();
+    setup();
     carry_object("/d/city/obj/tiejia")->wear();
     carry_object("/clone/weapon/changqiang")->wield();
 }

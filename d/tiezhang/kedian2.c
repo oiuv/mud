@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "客店二楼");
     set("long", @LONG
 你正走在客店二楼的走廊上，可以听到从客房里不时地呼呼的打酣声一
@@ -13,8 +12,8 @@ LONG
     );
 
     set("exits", ([
-        "down" : __DIR__"kedian",
-        "in"   : __DIR__"kedian3",
+        "down": __DIR__ "kedian",
+        "in": __DIR__ "kedian3",
     ]));
 
     setup();

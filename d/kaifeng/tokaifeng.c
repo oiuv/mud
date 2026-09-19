@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "官道");
     set("long", @LONG
 这是条连接开封府与中州府的官道，由于这条路治安较好
@@ -9,8 +8,8 @@ void create()
 LONG
     );
     set("exits", ([
-        "east":"/d/zhongzhou/wroad3",
-        "west":__DIR__"guandao1",
+        "east": "/d/zhongzhou/wroad3",
+        "west": __DIR__ "guandao1",
     ]));
     set("outdoors", "kaifeng");
     set("no_clean_up", 0);

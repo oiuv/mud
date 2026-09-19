@@ -3,9 +3,8 @@
 inherit ITEM;
 inherit F_FOOD;
 
-void create()
-{
-    set_name("叫化鸡", ({"jiaohuaji", "ji", "chicken"}));
+void create() {
+    set_name("叫化鸡", ({ "jiaohuaji", "ji", "chicken" }));
     set_weight(300);
     if (clonep())
         set_default_object(__FILE__);

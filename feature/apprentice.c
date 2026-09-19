@@ -18,8 +18,7 @@ int is_apprentice_of(object ob)
     return 0;
 }
 */
-int is_apprentice_of(object ob)
-{
+int is_apprentice_of(object ob) {
     mapping family;
 
     if (!mapp(family = query("family")))
@@ -39,8 +38,7 @@ int is_apprentice_of(object ob)
     return 0;
 }
 
-void assign_apprentice(string title, int privs)
-{
+void assign_apprentice(string title, int privs) {
     mapping family;
 
     if (!mapp(family = query("family")))
@@ -49,27 +47,24 @@ void assign_apprentice(string title, int privs)
     family["title"] = title;
     family["privs"] = privs;
 
-    if (userp(this_object()) || !query("title"))
-    {
-        switch (family["generation"])
-        {
-        case 0:
-            set("title", family["family_name"] + family["title"]);
-            break;
-        case 1:
-            set("title", family["family_name"] + "开山祖师");
-            break;
-        default:
-            set("title", sprintf("%s第%s代%s", family["family_name"],
-                                 chinese_number(family["generation"]), family["title"]));
-            break;
+    if (userp(this_object()) || !query("title")) {
+        switch (family["generation"]) {
+            case 0:
+                set("title", family["family_name"] + family["title"]);
+                break;
+            case 1:
+                set("title", family["family_name"] + "开山祖师");
+                break;
+            default:
+                set("title", sprintf("%s第%s代%s", family["family_name"],
+                    chinese_number(family["generation"]), family["title"]));
+                break;
         }
     }
 }
 
 // This is used for NPC, or start a new family for a player.
-void create_family(string family_name, int generation, string title)
-{
+void create_family(string family_name, int generation, string title) {
     mapping family;
 
     family = allocate_mapping(6);
@@ -83,8 +78,7 @@ void create_family(string family_name, int generation, string title)
     assign_apprentice(title, -1);
 }
 
-int recruit_apprentice(object ob)
-{
+int recruit_apprentice(object ob) {
     mapping my_family, family;
 
     if (ob->is_apprentice_of(this_object()))
@@ -106,13 +100,11 @@ int recruit_apprentice(object ob)
     family["family_name"] = my_family["family_name"];
     family["generation"] = my_family["generation"] + 1;
     family["enter_time"] = time();
-    if (query("inherit_title"))
-    {
+    if (query("inherit_title")) {
         ob->set("title", query("inherit_title"));
         ob->set("family", family);
         return 1;
-    }
-    else if (query("born_family") != "没有")
+    } else if (query("born_family") != "没有")
         family["title"] = "传人";
     else
         family["title"] = "弟子";

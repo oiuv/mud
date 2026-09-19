@@ -5,8 +5,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     mapping log;
     string *ks;
     object *obs;
@@ -21,48 +20,42 @@ int main(object me, string arg)
         return notify_fail("请你指明一个玩家。\n");
 
     seteuid(getuid());
-    if (arg == "?")
-    {
+    if (arg == "?") {
         log = EXAMINE_D->query("log_by");
         msg = "";
-        if (mapp(log) && sizeof(log) > 0)
-        {
+        if (mapp(log) && sizeof(log) > 0) {
             ks = keys(log);
             flag = 0;
-            for (i = 0; i < sizeof(ks); i++)
-            {
+            for (i = 0; i < sizeof(ks); i++) {
                 if (wiz_level(me) < wiz_level(log[ks[i]]))
                     continue;
 
-                if (!flag)
-                {
+                if (!flag) {
                     msg += HIW "\n目前记录的情况如下：\n" HIY "------------------------------------------------\n" NOR;
                     flag = 1;
                 }
                 msg += sprintf("%s%-14s  目前被  %-14s 记录日志。\n" NOR,
-                               (wizhood(me) == "(player)") ? CYN : HIY,
-                               ks[i], log[ks[i]]);
+                    (wizhood(me) == "(player)") ? CYN : HIY,
+                    ks[i], log[ks[i]]);
             }
         }
 
         obs = filter_array(users(), (: $1->is_loging_now() :));
         obs = sort_array(obs, (: wiz_level($1) - wiz_level($2) :));
         flag = 0;
-        for (i = 0; i < sizeof(obs); i++)
-        {
+        for (i = 0; i < sizeof(obs); i++) {
             string nid;
 
-            if (!flag)
-            {
+            if (!flag) {
                 msg += HIW "\n目前正在记录的使用者情况如下：\n" HIY "------------------------------------------------\n" NOR;
                 flag = 1;
             }
 
             nid = obs[i]->name(1) + "(" + obs[i]->query("id") + ")";
             msg += sprintf("%s%-20s  " HIC "%-10s  %s\n" NOR,
-                           wizardp(obs[i]) ? HIY : CYN, nid,
-                           environment(obs[i]) ? environment(obs[i])->short() : "未知地点",
-                           interactive(obs[i]) ? HIG + query_ip_name(obs[i]) : HIR "断线");
+                wizardp(obs[i]) ? HIY : CYN, nid,
+                environment(obs[i]) ? environment(obs[i])->short() : "未知地点",
+                interactive(obs[i]) ? HIG + query_ip_name(obs[i]) : HIR "断线");
         }
         if (!flag)
             msg += "目前没有在线玩家被记录日志。\n";
@@ -81,8 +74,7 @@ int main(object me, string arg)
     if (wizhood(arg) == "(admin)" && !me->is_admin())
         return notify_fail("你不能记录天神的日志。\n");
 
-    if (EXAMINE_D->start_log_player(arg, me->query("id")))
-    {
+    if (EXAMINE_D->start_log_player(arg, me->query("id"))) {
         write("开始记录(" + arg + ")的日志。\n");
         return 1;
     }
@@ -90,8 +82,7 @@ int main(object me, string arg)
     return 0;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: log <player> | ?
 
@@ -101,6 +92,6 @@ int help (object me)
 
 如果输入 ? 作为参数，列出当前记录的情况。
 
-HELP );
+HELP);
     return 1;
 }

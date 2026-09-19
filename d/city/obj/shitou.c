@@ -4,11 +4,10 @@
 #include <ansi.h>
 inherit HAMMER;
 
-void create()
-{
-    set_name(HIW"大石头"NOR, ({ "shi tou"}));
+void create() {
+    set_name(HIW "大石头" NOR, ({ "shi tou" }));
     set_weight(5000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "块");

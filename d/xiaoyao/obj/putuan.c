@@ -2,8 +2,7 @@
 
 inherit ITEM;
 
-void create()
-{
+void create() {
     set_name("小蒲团", ({ "putuan", "pu", "tuan" }));
     set_weight(500);
     set_max_encumbrance(10000);

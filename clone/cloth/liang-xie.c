@@ -5,11 +5,10 @@
 
 inherit BOOTS;
 
-void create()
-{
-    set_name( HIC "凉鞋" NOR, ({ "liang xie", "xie" }) );
+void create() {
+    set_name(HIC "凉鞋" NOR, ({ "liang xie", "xie" }));
     set_weight(1000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "双");

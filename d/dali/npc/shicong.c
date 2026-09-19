@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("侍从", ({ "shi cong", "shi", "cong" }));
     set("age", 32);
     set("gender", "男性");

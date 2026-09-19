@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "回雁楼");
     set("long", @LONG
 这里是衡阳回雁楼，是本地最大的酒楼。往日这时已经十
@@ -10,14 +9,14 @@ void create()
 脸忧急愁苦之色，容貌却十分秀丽。
 LONG);
     set("exits", ([
-           "down" : __DIR__"shop",
+        "down": __DIR__ "shop",
     ]));
     set("objects", ([
-            __DIR__"npc/tian"   : 1,
-            __DIR__"npc/yilin"  : 1,
+        __DIR__ "npc/tian": 1,
+        __DIR__ "npc/yilin": 1,
     ]));
 
-        set("no_clean_up", 0);
+    set("no_clean_up", 0);
 
     setup();
     replace_program(ROOM);

@@ -4,12 +4,11 @@
 
 inherit NPC;
 
-void create()
-{
-    set_name("云素梅", ({"yun sumei", "yun" }));
+void create() {
+    set_name("云素梅", ({ "yun sumei", "yun" }));
     set("title", HIY "神龙教" HIR "赤龙使" NOR "座下弟子");
     set("long",
-            "这是一个神龙教女弟子，一袭红衣，长得颇为可爱。\n"
+        "这是一个神龙教女弟子，一袭红衣，长得颇为可爱。\n"
     );
 
     set("gender", "女性");
@@ -17,7 +16,7 @@ void create()
 
     set("age", 10 + random(10));
     set("shen_type", -1);
-        set("shen", 1500);
+    set("shen", 1500);
     set("str", 25 + random(10));
     set("dex", 25 + random(10));
     set("max_qi", 200);
@@ -37,7 +36,7 @@ void create()
 
     setup();
     carry_object("/d/shenlong/obj/xionghuang")->wield();
-        carry_object("/d/city/obj/duanjian")->wield();
+    carry_object("/d/city/obj/duanjian")->wield();
     carry_object("/clone/misc/cloth")->wear();
     add_money("silver", 5);
 }

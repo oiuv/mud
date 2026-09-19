@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "文定南街");
     set("long", @LONG
 这是中州城文定南街，宽敞的街道让人不竟心情一畅。西
@@ -10,13 +9,13 @@ void create()
 LONG);
     set("outdoors", "zhongzhou");
     set("objects", ([
-          "/d/beijing/npc/boy3" : 2,
+        "/d/beijing/npc/boy3": 2,
     ]));
 
     set("exits", ([
-          "south" : __DIR__"wendingnan4",
-          "northeast" : __DIR__"hutong",
-          "north" : __DIR__"wendingnan2",
+        "south": __DIR__ "wendingnan4",
+        "northeast": __DIR__ "hutong",
+        "north": __DIR__ "wendingnan2",
     ]));
     set("no_clean_up", 0);
     setup();

@@ -2,11 +2,10 @@
 
 inherit BLADE;
 
-void create()
-{
-    set_name("大刀", ({ "da dao", "dao" }) );
+void create() {
+    set_name("大刀", ({ "da dao", "dao" }));
     set_weight(5000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "把");

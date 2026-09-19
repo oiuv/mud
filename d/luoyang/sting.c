@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "南厅");
     set("long", @LONG
 这里是衙门东厅，是知府招待客人的所在。厅中摆着一张杉木圆桌和
@@ -10,7 +9,7 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "north" : __DIR__"yamen",
+        "north": __DIR__ "yamen",
     ]));
 
     setup();

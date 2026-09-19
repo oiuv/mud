@@ -1,11 +1,8 @@
-
-string chinese_number(int i)
-{
+string chinese_number(int i) {
     return CHINESE_D->chinese_number(i);
 }
 
-string to_chinese(string str)
-{
+string to_chinese(string str) {
     return CHINESE_D->chinese(str);
 }
 

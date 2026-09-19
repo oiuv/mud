@@ -5,8 +5,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, mapping info)
-{
+int main(object me, mapping info) {
     string msg;
     string fun;
 
@@ -14,14 +13,11 @@ int main(object me, mapping info)
         return MESSAGE_D->error_msg("请输入你要查询的用户代号。\n");
 
     msg = FINGER_D->finger_user(info[ARG], me);
-    if (sscanf(info[ARG], "%*s@%*s") == 2)
-    {
+    if (sscanf(info[ARG], "%*s@%*s") == 2) {
         // finger remote user ?
-        fun = FUN_TELL; // Only message to user
+        fun = FUN_TELL;  // Only message to user
         msg = HIY + msg + NOR;
-    }
-    else
-    {
+    } else {
         fun = FUN_NOTICE;
         msg = HIW "关于用户(" + info[ARG] + ")的查询信息：\n" NOR + msg;
     }

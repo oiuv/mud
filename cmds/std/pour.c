@@ -6,8 +6,7 @@ int do_effect(string type, mixed para);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string item, target;
     object obj, dest;
     function f;
@@ -37,17 +36,28 @@ int main(object me, string arg)
     if (!obj->query("can_pour"))
         return notify_fail("这种毒药不能溶在水里。\n");
 
-    if (dest->query("liquid/remaining") < 1)
-    {
+    if (dest->query("liquid/remaining") < 1) {
         tell_object(me, "里面一点喝的都没有是不能下毒的。\n");
         return 1;
     }
 
-    message("vision", sprintf("%s将一些东西偷偷放进%s，摇了一摇。\n", me->name(), dest->name()), environment(me), ({me}));
+    message(
+        "vision",
+        sprintf("%s将一些东西偷偷放进%s，摇了一摇。\n", me->name(), dest->name()),
+        environment(me),
+        ({ me })
+    );
 
-    message("vision", sprintf("你将一%s%s偷偷放进%s，摇了一摇。\n", obj->query("unit"), obj->name(), dest->name()), me);
+    message(
+        "vision",
+        sprintf("你将一%s%s偷偷放进%s，摇了一摇。\n", obj->query("unit"), obj->name(), dest->name()),
+        me
+    );
 
-    f = bind((: call_other, __FILE__, "do_effect", obj->query("poison_type"), obj->query("poison") :), dest);
+    f = bind(
+        (: call_other, __FILE__, "do_effect", obj->query("poison_type"), obj->query("poison") :),
+        dest
+    );
     dest->apply_effect(f);
     if (obj->query_amount() > 1)
         obj->add_amount(-1);
@@ -56,26 +66,21 @@ int main(object me, string arg)
     return 1;
 }
 
-int do_effect(string type, mixed para)
-{
+int do_effect(string type, mixed para) {
     object me = this_player();
     mapping p;
 
     if (!objectp(me))
         return 1;
 
-    if (mapp(para))
-    {
+    if (mapp(para)) {
         p = allocate_mapping(4);
         p["level"] = para["level"];
         p["id"] = para["id"];
         p["name"] = para["name"];
-        p["duration"] = para["duration"] / 2 +
-                        random(para["duration"] / 2);
+        p["duration"] = para["duration"] / 2 + random(para["duration"] / 2);
         me->affect_by(type, p);
-    }
-    else
-    {
+    } else {
         int old;
         if (intp(para) && intp(old = me->query_condition(type)))
             me->apply_condition(type, para + old);
@@ -86,8 +91,7 @@ int do_effect(string type, mixed para)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : pour <毒药> in <容器>
 

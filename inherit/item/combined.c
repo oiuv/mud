@@ -10,8 +10,7 @@ inherit F_NAME;
 
 nosave int amount;
 
-void setup()
-{
+void setup() {
     if (!query("unit"))
         set("unit", "些");
 }
@@ -20,17 +19,13 @@ int query_amount() { return amount; }
 
 void destruct_me() { destruct(this_object()); }
 
-void set_amount(int v)
-{
+void set_amount(int v) {
     if (v < 0)
         error("combine:set_amount less than 1.\n");
-    if (v == 0)
-    {
+    if (v == 0) {
         amount = 0;
         call_out("destruct_me", 0);
-    }
-    else
-    {
+    } else {
         amount = v;
         this_object()->set_weight(v * (int)query("base_weight"));
         if (!query("money_id"))
@@ -40,34 +35,28 @@ void set_amount(int v)
 
 void add_amount(int v) { set_amount(amount + v); }
 
-string short()
-{
+string short() {
     return chinese_number(query_amount()) + query("base_unit") + ::short();
 }
 
-varargs int move(mixed dest, int silent)
-{
+varargs int move(mixed dest, int silent) {
     object env, *inv;
     int i, total;
     string file;
 
-    if (::move(dest, silent))
-    {
+    if (::move(dest, silent)) {
         env = environment();
-        if (objectp(env))
-        {
+        if (objectp(env)) {
             file = base_name(this_object());
             if (env->is_area())
                 inv = env->query_inventory(query("area_info/x_axis"), query("area_info/y_axis"));
             else
                 inv = all_inventory(env);
             total = (int)query_amount();
-            for (i = 0; i < sizeof(inv); i++)
-            {
+            for (i = 0; i < sizeof(inv); i++) {
                 if (inv[i] == this_object())
                     continue;
-                if (base_name(inv[i]) == file)
-                {
+                if (base_name(inv[i]) == file) {
                     total += (int)inv[i]->query_amount();
                     destruct(inv[i]);
                 }
@@ -79,8 +68,7 @@ varargs int move(mixed dest, int silent)
 }
 
 // does I can combine to an item in the object env ?
-int can_combine_to(object env)
-{
+int can_combine_to(object env) {
     object item;
     string file;
 
@@ -92,8 +80,7 @@ int can_combine_to(object env)
     return 0;
 }
 
-string type()
-{
+string type() {
     if (this_object()->is_weapon())
         return "武器";
     if (this_object()->is_armor())

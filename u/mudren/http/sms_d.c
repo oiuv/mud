@@ -15,56 +15,56 @@ nosave string Url = "https://gwgp-wtxhytukujk.n.bdcloudapi.com/chuangxin/dxjk";
 nosave string AppCode = env("AppCode");
 nosave object Receiver;
 
-protected void response(mixed result)
-{
+protected void response(mixed result) {
     // debug_message("response: " + result);
-    if (result && sizeof(result))
-    {
+    if (result && sizeof(result)) {
         result = json_decode(result);
         // debug_message(sprintf("%O", result));
-        if (result["ReturnStatus"] == "Success")
-        {
+        if (result["ReturnStatus"] == "Success") {
             tell_object(Receiver, BCYN "消息已发送，请注意查收短信。\n" NOR);
-        }
-        else
-        {
+        } else {
             tell_object(Receiver, BRED + result["Message"] + NOR "\n");
         }
-    }
-    else
-    {
+    } else {
         tell_object(Receiver, BRED "短信服务失效，消息发送失败。\n" NOR);
     }
 
 }
 
 // 发送短信
-void sms(object me, mixed code, mixed mobile)
-{
+void sms(object me, mixed code, mixed mobile) {
     string tpl;
 
     Receiver = me;
 
-    if (!Curl)
-    {
+    if (!Curl) {
         error("请启用exteral_cmd并在.env中配置CMD_CURL！");
     }
 
-    if (!AppCode)
-    {
+    if (!AppCode) {
         error("请先在.env中配置AppCode！");
     }
-    if (intp(code))
-    {
+    if (intp(code)) {
         tpl = "【雪风】你的验证码是：" + code + "，请勿泄漏于他人！";
-    }
-    else
-    {
+    } else {
         tpl = code;
     }
 
-    CMD::external_cmd(Curl, ({"-s", "--header", "Content-Type: application/json;charset=UTF-8", "--header", "X-Bce-Signature: AppCode/" + AppCode, Url + "?content=" + tpl + "&mobile=" + mobile}));
+    CMD::external_cmd(
+        Curl,
+        ({
+            "-s",
+            "--header",
+            "Content-Type: application/json;charset=UTF-8",
+            "--header",
+            "X-Bce-Signature: AppCode/" + AppCode,
+            Url + "?content=" + tpl + "&mobile=" + mobile
+        })
+    );
 
     // 记录日志
-    log_file("mobile", "[" + ctime() + "]" + mobile + "\t" + me->short() + "\t" + query_ip_number(me) + "\n");
+    log_file(
+        "mobile",
+        "[" + ctime() + "]" + mobile + "\t" + me->short() + "\t" + query_ip_number(me) + "\n"
+    );
 }

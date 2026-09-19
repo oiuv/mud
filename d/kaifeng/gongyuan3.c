@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "开封贡院");
     set("long", @LONG
 过了州桥，街道边一处高深的大院，威武的石狮守卫两边
@@ -9,14 +8,14 @@ void create()
 开考，门边墙上贴了张告示。
 LONG);
     set("objects", ([
-          __DIR__"npc/zhukao3" : 1,
+        __DIR__ "npc/zhukao3": 1,
     ]));
-        set("no_clean_up", 0);
+    set("no_clean_up", 0);
     set("exits", ([
-          "east" : __DIR__"road2",
+        "east": __DIR__ "road2",
     ]));
-        set("outdoors", "kaifeng");
+    set("outdoors", "kaifeng");
 
-        setup();
-        replace_program(ROOM);
+    setup();
+    replace_program(ROOM);
 }

@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "饭厅");
     set("long", @LONG
 这里是武馆内用餐的地方。屋里布置很简单, 只摆着几张
@@ -10,21 +9,19 @@ void create()
 可以向他要(serve)食物和水。
 LONG);
     set("exits", ([
-        "east" : __DIR__"guofu_shilu-4",
+        "east": __DIR__ "guofu_shilu-4",
     ]));
 
     set("objects", ([
-        __DIR__"npc/chushi" : 1,
+        __DIR__ "npc/chushi": 1,
     ]));
     set("no_fight", 1);
     setup();
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     if ((dir == "east")
-        && present("chu shi", environment(me)))
-    {
+        && present("chu shi", environment(me))) {
         if (present("tea", me))
             return notify_fail(CYN "厨师拦住你道：你还是先把茶喝完再走吧。\n" NOR);
 

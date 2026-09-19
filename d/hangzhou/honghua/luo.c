@@ -5,13 +5,12 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("骆冰", ({ "luo bing", "luo","bing" }));
-    set("title", HIR "红花会"HIG"十一当家" NOR);
+void create() {
+    set_name("骆冰", ({ "luo bing", "luo", "bing" }));
+    set("title", HIR "红花会" HIG "十一当家" NOR);
     set("nickname", HIG "鸳鸯刀" NOR);
     set("long",
-"她是一个秀美的少妇。一手短刀，一手握着一柄长刀。\n");
+        "她是一个秀美的少妇。一手短刀，一手握着一柄长刀。\n");
     set("gender", "女性");
     set("class", "fighter");
     set("age", 24);
@@ -50,11 +49,11 @@ void create()
     map_skill("parry", "yunlong-shou");
     map_skill("claw", "yunlong-zhua");
 
-    prepare_skill("hand","yunlong-shou");
-    prepare_skill("claw","yunlong-zhua");
+    prepare_skill("hand", "yunlong-shou");
+    prepare_skill("claw", "yunlong-zhua");
     set("env/wimpy", 20);
 
-     setup();
+    setup();
     carry_object("/clone/cloth/jinduan")->wear();
     carry_object("/clone/weapon/gangdao")->wield();
 }

@@ -5,29 +5,25 @@
 
 inherit F_CLEAN_UP;
 
-void create()
-{
+void create() {
     seteuid(getuid());
 }
 
 // Check if the user(me) has been ready for combininh some sub
 // skills to this skill
-int get_ready(object me)
-{
+int get_ready(object me) {
     return 1;
 }
 
 // Check if the user(me) has finished to combine some sub skills
 // to this skill
-int get_finish(object me)
-{
+int get_finish(object me) {
     return 1;
 }
 
 // All the sub skills for combine. Default is null indicating
 // that the skill needn't combine from other skills.
-mapping query_sub_skills()
-{
+mapping query_sub_skills() {
     return 0;
 }
 
@@ -51,8 +47,7 @@ int valid_learn(object me) { return 1; }
 int valid_research(object me) { return 1; }
 
 // do effect when parry
-int valid_effect(object me, object weapon, string action_name, int skill)
-{
+int valid_effect(object me, object weapon, string action_name, int skill) {
     return 1;
 }
 
@@ -68,8 +63,7 @@ int valid_effect(object me, object weapon, string action_name, int skill)
 string type() { return "martial"; }
 
 // When I learn from others, The max level I can learn.
-int valid_learn_level(object me)
-{
+int valid_learn_level(object me) {
     return (type() == "martial") ? 200 : 999;
 }
 
@@ -93,69 +87,58 @@ void skill_improved(object me) {}
 // that takes the function name as argument and return the file name that
 // defines the specified function.
 
-int exert_function(object me, string arg)
-{
+int exert_function(object me, string arg) {
     string func, target, file;
     object target_ob;
 
-    if (sscanf(arg, "%s %s", func, target) == 2)
-    {
+    if (sscanf(arg, "%s %s", func, target) == 2) {
         target_ob = present(target, environment(me));
-        if( !target_ob ) return notify_fail("这里没有 " + target + "。\n");
-    }
-    else
-    {
+        if (!target_ob) return notify_fail("这里没有 " + target + "。\n");
+    } else {
         func = arg;
         target_ob = me;
     }
 
-    if (! stringp(file = (string)this_object()->exert_function_file(func)) ||
+    if (!stringp(file = (string)this_object()->exert_function_file(func)) ||
         file_size(file + ".c") <= 0)
         return 0;
 
     return (int)call_other(file, "exert", me, target_ob);
 }
 
-int perform_action(object me, string arg)
-{
+int perform_action(object me, string arg) {
     string action, target, file;
     object target_ob;
 
-    if (sscanf(arg, "%s %s", action, target) == 2)
-    {
+    if (sscanf(arg, "%s %s", action, target) == 2) {
         target_ob = present(target, environment(me));
-        if (! target_ob) return notify_fail("这里没有" + target + "。\n");
-    }
-    else
-    {
+        if (!target_ob) return notify_fail("这里没有" + target + "。\n");
+    } else {
         action = arg;
     }
 
-    if (! stringp(file = (string)this_object()->perform_action_file(action)) ||
+    if (!stringp(file = (string)this_object()->perform_action_file(action)) ||
         file_size(file + ".c") <= 0)
         return 0;
 
     return (int)call_other(file, "perform", me, target_ob);
 }
 
-int NewRandom(int n, int base, int d)
-{
+int NewRandom(int n, int base, int d) {
     int sum;
     int i;
     int k;
 
     k = 6;
     if (k > n) k = n;
-        if (! k) return n;
+    if (!k) return n;
 
     sum = 0;
     for (i = 0; i < k; i++) sum += i;
     sum = random(sum);
-    for (i = 0; i < k; i++)
-    {
+    for (i = 0; i < k; i++) {
         sum -= i;
-        if (sum <= 0)
-        {
+        if (sum <= 0) {
             n = n - k + i;
             if (n <= 0) n = 0;
             break;

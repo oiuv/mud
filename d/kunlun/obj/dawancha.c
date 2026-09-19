@@ -4,9 +4,8 @@
 inherit ITEM;
 inherit F_LIQUID;
 
-void create()
-{
-    set_name("粗磁大碗", ({"wan", "da wan","ci wan"}));
+void create() {
+    set_name("粗磁大碗", ({ "wan", "da wan", "ci wan" }));
     set_weight(50);
     if (clonep())
         set_default_object(__FILE__);

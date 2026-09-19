@@ -2,8 +2,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "衙门正厅");
     set("long", @LONG
 堂上东西有两根楹住，挂着一幅对联，但是你无心细看。正墙上悬挂
@@ -14,11 +13,11 @@ LONG
     );
     set("no_clean_up", 0);
     set("exits", ([ /* sizeof() == 4 */
-  "east" : __DIR__"neizhai",
-  "south" : __DIR__"sting",
-  "west" : __DIR__"yamendoor",
-  "north" : __DIR__"bting",
-]));
+        "east": __DIR__ "neizhai",
+        "south": __DIR__ "sting",
+        "west": __DIR__ "yamendoor",
+        "north": __DIR__ "bting",
+    ]));
 
     setup();
     replace_program(ROOM);

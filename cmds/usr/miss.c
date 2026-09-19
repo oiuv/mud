@@ -5,8 +5,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string str)
-{
+int main(object me, string str) {
     object ob;
 
     if (!str)
@@ -31,8 +30,7 @@ int main(object me, string str)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : miss <炼制物品的ID>
 

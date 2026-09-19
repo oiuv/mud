@@ -26,8 +26,7 @@ string query_orginal_input() { return orginal_input; }
 // 是否是控制命令(以/或//打头)
 int is_direct_command() { return direct_command; }
 
-string process_input(string str)
-{
+string process_input(string str) {
     string *args, cmd, argstr;
     object me;
     int i, j;
@@ -39,21 +38,18 @@ string process_input(string str)
         return "";
 
     // 记录最原始的输入
-    if (str[0] == '/')
-    {
+    if (str[0] == '/') {
         direct_command = 1;
         if (str[1] == '/')
-            str = str[2.. < 1];
+            str = str[2..<1];
         else
-            str = str[1.. < 1];
-    }
-    else
+            str = str[1..<1];
+    } else
         direct_command = 0;
     orginal_input = str;
 
     // attach system ?
-    if (me->is_attach_system())
-    {
+    if (me->is_attach_system()) {
         me->detach_system();
         tell_object(me, HIR "用户终止了当前执行的进程。\n" NOR);
     }
@@ -61,10 +57,8 @@ string process_input(string str)
     if (str == "")
         return str;
 
-    if (!wizardp(me))
-    {
-        if (me->reject_command())
-        {
+    if (!wizardp(me)) {
+        if (me->reject_command()) {
             int cq, cj;
 
             // 晕倒以后要保证qi/jing不变
@@ -82,8 +76,8 @@ string process_input(string str)
             me->receive_damage("jing", 0);
 
             message_vision(HIC "\n天空忽然传来了几声冷笑，"
-                               "霎时间乌云密布！一道" HIY "闪电" HIC "从天而降！\n" NOR,
-                           me);
+                "霎时间乌云密布！一道" HIY "闪电" HIC "从天而降！\n" NOR,
+                me);
             me->unconcious();
 
             // 恢复晕倒前的qi/jing
@@ -98,19 +92,17 @@ string process_input(string str)
                 set("eff_jing", 0);
 
             message_vision(HIW "只见晕倒在地的$N"
-                               "身上冒着缕缕轻烟......\n\n" NOR,
-                           me);
+                "身上冒着缕缕轻烟......\n\n" NOR,
+                me);
             return "";
         }
     }
 
-    if (mapp(alias))
-    {
+    if (mapp(alias)) {
         if (!undefinedp(alias[str]))
             return replace_string(alias[str], "$*", "");
 
-        if (sscanf(str, "%s %s", cmd, argstr) == 2 && !undefinedp(alias[cmd]))
-        {
+        if (sscanf(str, "%s %s", cmd, argstr) == 2 && !undefinedp(alias[cmd])) {
             cmd = replace_string(alias[cmd], "$*", argstr);
             args = explode(argstr, " ");
             if ((j = sizeof(args)))
@@ -130,18 +122,14 @@ string process_input(string str)
     return last_input;
 }
 
-int set_alias(string verb, string replace)
-{
-    if (!replace)
-    {
+int set_alias(string verb, string replace) {
+    if (!replace) {
         if (mapp(alias))
             map_delete(alias, verb);
         return 1;
-    }
-    else
-    {
+    } else {
         if (!mapp(alias))
-            alias = ([verb:replace]);
+            alias = ([ verb: replace ]);
         else if (sizeof(alias) > MAX_ALIASES)
             return notify_fail("您设定的 alias 太多了，请先删掉一些不常用的。\n");
         else
@@ -150,7 +138,6 @@ int set_alias(string verb, string replace)
     }
 }
 
-mapping query_all_alias()
-{
+mapping query_all_alias() {
     return alias;
 }

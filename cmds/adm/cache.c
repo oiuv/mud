@@ -8,8 +8,7 @@ private void examine_player(string name, int last_touched);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     if (!SECURITY_D->valid_grant(me, "(admin)"))
         return 0;
 
@@ -24,8 +23,7 @@ int main(object me, string arg)
     return 1;
 }
 
-private void search_dir(object me)
-{
+private void search_dir(object me) {
     string *dir;
     string name;
     mixed *ppls;
@@ -42,33 +40,28 @@ private void search_dir(object me)
 
     count = 0;
     total = 0;
-    for (i = 0; i < sizeof(dir); i++)
-    {
+    for (i = 0; i < sizeof(dir); i++) {
         ppls = get_dir(DATA_DIR + "login/" + dir[i] + "/", -1);
-        for (j = 0; j < sizeof(ppls); j++)
-        {
+        for (j = 0; j < sizeof(ppls); j++) {
             reset_eval_cost();
-            if (sscanf(ppls[j][0], "%s.o", name) == 1)
-            {
+            if (sscanf(ppls[j][0], "%s.o", name) == 1) {
                 examine_player(name, ppls[j][2]);
                 count++;
             }
         }
         total += j;
         message("system", ESC + "[1A" + ESC + "[256D" HIG "进度：" + process_bar((i + 1) * 100 / sizeof(dir)) + "\n",
-                me ? me : filter_array(all_interactive(), (: wizardp :)));
+            me ? me : filter_array(all_interactive(), (: wizardp :)));
     }
 }
 
-private void examine_player(string name, int last_touched)
-{
+private void examine_player(string name, int last_touched) {
     object login_ob;
     object user_ob;
     int online;
     mixed *st;
 
-    if (!last_touched)
-    {
+    if (!last_touched) {
         st = stat(DATA_DIR + "login/" + name[0..0] + "/" + name + __SAVE_EXTENSION__);
 
         if (!arrayp(st) || sizeof(st) < 3)
@@ -78,52 +71,44 @@ private void examine_player(string name, int last_touched)
         last_touched = st[1];
     }
 
-    login_ob = new (LOGIN_OB);
+    login_ob = new(LOGIN_OB);
     login_ob->set("id", name);
 
-    if (!login_ob->restore())
-    {
+    if (!login_ob->restore()) {
         destruct(login_ob);
         return;
     }
 
-    if (login_ob->query("id") != name)
-    {
+    if (login_ob->query("id") != name) {
         destruct(login_ob);
         return;
     }
 
-    if (!objectp(user_ob = find_player(name)))
-    {
+    if (!objectp(user_ob = find_player(name))) {
         online = 0;
         user_ob = LOGIN_D->make_body(login_ob);
-        if (!user_ob)
-        {
+        if (!user_ob) {
             destruct(login_ob);
             return;
         }
 
-        if (!user_ob->restore())
-        {
+        if (!user_ob->restore()) {
             destruct(login_ob);
             destruct(user_ob);
             return;
         }
-    }
-    else
+    } else
         online = 1;
 
     CACHE_D->insert(user_ob, last_touched);
 
-    if (!online)
-    {
+    if (!online) {
         destruct(user_ob);
     }
     destruct(login_ob);
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：cache -all
 
@@ -131,5 +116,5 @@ int help(object me)
 
 HELP
     );
-    return  1;
+    return 1;
 }

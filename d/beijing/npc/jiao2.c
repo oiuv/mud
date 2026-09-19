@@ -1,11 +1,10 @@
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("摔跤手头领", ({ "shuaijiao touling", "touling", "shuaijiao" }));
     set("long",
         "一名上身半裸的男人，身材魁梧，满脸彪捍。\n"
-              "他是宫中摔跤手头领，对于格斗相当在行。\n");
+        "他是宫中摔跤手头领，对于格斗相当在行。\n");
     set("gender", "男性");
     set("age", 30);
     set("attitude", "heroism");

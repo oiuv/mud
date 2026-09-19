@@ -41,14 +41,12 @@ nosave int next_beat;
 nosave int keep_beat_flag = 0;
 nosave string short_desc = 0;
 
-int is_living()
-{
+int is_living() {
     return living();
 }
 
-void create()
-{
-    seteuid(0); // so LOGIN_D can export uid to us
+void create() {
+    seteuid(0);  // so LOGIN_D can export uid to us
 }
 
 // Use this function to identify if an object is a character.
@@ -60,8 +58,7 @@ int is_not_bad() { return query("shen") > -500; }
 int is_good() { return query("shen") > 500 || query("shen_type") == 1; }
 int is_bad() { return query("shen") < -500 || query("shen_type") == -1; }
 
-void setup()
-{
+void setup() {
     seteuid(getuid(this_object()));
 
     set_heart_beat(1);
@@ -71,19 +68,16 @@ void setup()
     CHAR_D->setup_char(this_object());
 }
 
-void keep_heart_beat()
-{
+void keep_heart_beat() {
     set_heart_beat(1);
     keep_beat_flag = 1;
 }
 
-void not_keep_heat_beat()
-{
+void not_keep_heat_beat() {
     keep_beat_flag = 0;
 }
 
-void heart_beat()
-{
+void heart_beat() {
     int t;
     int period;
     int wimpy_ratio, cnd_flag;
@@ -96,8 +90,7 @@ void heart_beat()
     me = this_object();
     my = query_entire_dbase();
 
-    if (userp(me) && living(me) && mapp(my["env"]))
-    {
+    if (userp(me) && living(me) && mapp(my["env"])) {
         // update prompt
         prompt = my["env"]["prompt"];
         if ((prompt == "time" || prompt == "mud" || prompt == "hp") &&
@@ -109,8 +102,7 @@ void heart_beat()
     }
 
     // If we're dying or falling unconcious?
-    if (my["qi"] < 0 || my["jing"] < 0)
-    {
+    if (my["qi"] < 0 || my["jing"] < 0) {
         if (!living(me))
             die();
         else
@@ -126,13 +118,10 @@ void heart_beat()
     }
 
     // Do attack if we are fighting.
-    if (is_busy())
-    {
+    if (is_busy()) {
         continue_action();
         // We don't want heart beat be halt eventually, so return here.
-    }
-    else if (living(me))
-    {
+    } else if (living(me)) {
         string apply;
         object apply_ob;
 
@@ -141,15 +130,12 @@ void heart_beat()
             intp(wimpy_ratio = (int)query("env/wimpy")) &&
             wimpy_ratio > 0 &&
             (my["qi"] * 100 / my["max_qi"] <= wimpy_ratio ||
-             my["jing"] * 100 / my["max_jing"] <= wimpy_ratio))
-        {
+                my["jing"] * 100 / my["max_jing"] <= wimpy_ratio)) {
             if (stringp(apply = query("env/wimpy_apply")) &&
                 objectp(apply_ob = present(apply, me)) &&
-                apply_ob->query("can_apply_for_wimpy"))
-            {
+                apply_ob->query("can_apply_for_wimpy")) {
                 apply_ob->apply_for_wimpy(this_object());
-            }
-            else
+            } else
                 GO_CMD->do_flee(this_object());
         }
 
@@ -164,8 +150,7 @@ void heart_beat()
     if (!me)
         return;
 
-    if (!(is_player = playerp(me)))
-    {
+    if (!(is_player = playerp(me))) {
         me->scan();
         // scan() may do anything -- include destruct(this_object())
         if (!me)
@@ -190,15 +175,12 @@ void heart_beat()
         !keep_beat_flag &&
         !is_fighting() &&
         !is_busy() &&
-        !interactive(this_object()))
-    {
-        if (environment() && query("chat_msg"))
-        {
+        !interactive(this_object())) {
+        if (environment() && query("chat_msg")) {
             ob = first_inventory(environment());
             while (ob && !interactive(ob))
                 ob = next_inventory(ob);
-        }
-        else
+        } else
             ob = 0;
         if (!ob)
             set_heart_beat(0);
@@ -209,11 +191,9 @@ void heart_beat()
 
     me->update_age();
 
-    if (living(me))
-    {
+    if (living(me)) {
         period = t - ((int)my["last_save"]);
-        if (period < 0 || period > 15 * 60)
-        {
+        if (period < 0 || period > 15 * 60) {
             string msg;
 
             msg = HIY + element_of(read_lines(NOTICE)) + NOR "\n";
@@ -229,24 +209,21 @@ void heart_beat()
     if (!interactive(me))
         return;
 
-    if (my["food"] <= 0 || my["water"] <= 0)
-    {
+    if (my["food"] <= 0 || my["water"] <= 0) {
         if (environment() &&
             !environment()->is_chat_room() &&
-            !query_condition("hunger"))
-        {
+            !query_condition("hunger")) {
             // born & enter the world
             apply_condition("hunger", 1);
         }
     }
 
-    if (query_idle(me) > IDLE_TIMEOUT && !wizardp(me)/* &&(!mapp(my["env"]) || !my["env"]["keep_idle"]) */)
+    if (query_idle(me) > IDLE_TIMEOUT && !wizardp(me) /* &&(!mapp(my["env"]) || !my["env"]["keep_idle"]) */)
         me->user_dump(DUMP_IDLE);
 }
 
 // check the poison attack
-mixed hit_ob(object me, object victim, int damage_bonus)
-{
+mixed hit_ob(object me, object victim, int damage_bonus) {
     object unarmed_weapon;
 
     if (unarmed_weapon = query_temp("armor/hands"))
@@ -258,15 +235,13 @@ mixed hit_ob(object me, object victim, int damage_bonus)
     return COMBAT_D->hit_with_poison(me, victim, this_object());
 }
 
-int visible(object ob)
-{
+int visible(object ob) {
     int lvl;
 
     if (!ob->is_character())
         return 1;
 
-    if (!wizardp(ob))
-    {
+    if (!wizardp(ob)) {
         if (!ob->is_ghost() || is_ghost())
             return 1;
     }
@@ -281,13 +256,11 @@ int visible(object ob)
     return 1;
 }
 
-string set_short_desc(string desc)
-{
+string set_short_desc(string desc) {
     short_desc = desc;
 }
 
-varargs string short(int raw)
-{
+varargs string short(int raw) {
     string title, nick, str /*, str1*/, *mask;
     object me;
 
@@ -295,8 +268,7 @@ varargs string short(int raw)
 
     if (!raw && sizeof(mask = query_temp("apply/short")))
         str = (string)mask[sizeof(mask) - 1];
-    else
-    {
+    else {
         str = query("name") + "(" + query("id") + ")";
         if (!stringp(title = query_temp("title")))
 
@@ -310,53 +282,47 @@ varargs string short(int raw)
                 title += query("title");
         }
         */
-        if (nick = query("nickname"))
-        {
+        if (nick = query("nickname")) {
             str = "「" + nick + "」" + str;
             if (title)
                 str = title + str;
-        }
-        else if (title)
+        } else if (title)
             str = title + " " + str;
     }
 
-    if (!raw)
-    {
+    if (!raw) {
         if (short_desc)
             str = name() + short_desc;
-    }
-    else
+    } else
         return str;
 
     if (me->is_ghost())
         str = HIB "(鬼气) " NOR + str;
 
-    if (me->is_net_dead())
-    {
-        switch (me->query("doing"))
-        {
-        case "breakup":
-            str += HIY " <通脉中>" NOR;
-            break;
+    if (me->is_net_dead()) {
+        switch (me->query("doing")) {
+            case "breakup":
+                str += HIY " <通脉中>" NOR;
+                break;
 
-        case "closed":
-            str += HIY " <闭关中>" NOR;
-            break;
+            case "closed":
+                str += HIY " <闭关中>" NOR;
+                break;
 
-        case "animaout":
-            str += HIY " <元婴中>" NOR;
-            break;
+            case "animaout":
+                str += HIY " <元婴中>" NOR;
+                break;
 
-        case "death":
-            str += HIY " <生死中>" NOR;
-            break;
+            case "death":
+                str += HIY " <生死中>" NOR;
+                break;
 
-        case "scheme":
-            str += HIW " <计划中>" NOR;
-            break;
+            case "scheme":
+                str += HIW " <计划中>" NOR;
+                break;
 
-        default:
-            str += HIG " <断线中>" NOR;
+            default:
+                str += HIG " <断线中>" NOR;
         }
     }
 

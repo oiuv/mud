@@ -6,13 +6,13 @@
 #endif
 
 #include <mudlib.h>
- 
+
 /* This is the default packet size of outgoing mail messages.  The ideal
  * number is 512, maximum would be about 900, since 1024 is the maximum
  * udp packet size.  Probably best kept at 512
  */
 #define MAIL_PACKET_SIZE        512
- 
+
 /* These macros are for the name service.  They determine how often the
  * database is refreshed, how often other muds are checked, how often
  * the sequence list is checked for timed out services, and how long a

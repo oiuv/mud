@@ -2,9 +2,8 @@
 
 inherit COMBINED_ITEM;
 
-void create()
-{
-    set_name(YEL"大还丹"NOR, ({"dahuan dan", "dan"}));
+void create() {
+    set_name(YEL "大还丹" NOR, ({ "dahuan dan", "dan" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -16,19 +15,16 @@ void create()
     set_amount(1);
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     mapping my;
 
-    if (time() - me->query_temp("last_eat/dan(B)") < 7)
-    {
+    if (time() - me->query_temp("last_eat/dan(B)") < 7) {
         write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
         return 1;
     }
 
     my = me->query_entire_dbase();
-    if (my["qi"] == my["max_qi"])
-    {
+    if (my["qi"] == my["max_qi"]) {
         write("你现在体力充沛，无需服用" + name() + "。\n");
         return 1;
     }

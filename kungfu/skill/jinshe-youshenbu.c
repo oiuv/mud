@@ -7,21 +7,18 @@ string *dodge_msg = ({
     "$n怪异的一笑，身行朦胧，$N的凌厉招式竟然透体而过，原来竟是一具幻影。\n",
 });
 
-int valid_enable(string usage)
-{
+int valid_enable(string usage) {
     return (usage == "dodge") || (usage == "move");
 }
 
 int valid_learn(object me) { return 1; }
 
-string query_dodge_msg(string limb)
-{
+string query_dodge_msg(string limb) {
     return dodge_msg[random(sizeof(dodge_msg))];
 }
 
-int practice_skill(object me)
-{
-    if( (int)me->query("qi") < 50 )
+int practice_skill(object me) {
+    if ((int)me->query("qi") < 50)
         return notify_fail("你的体力太差了，不能练金蛇游身步。\n");
 
     me->receive_damage("qi", 40);

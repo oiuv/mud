@@ -3,9 +3,8 @@
 #include <weapon.h>
 inherit WHIP;
 
-void create()
-{
-    set_name("拂尘", ({ "fu chen", "fu" ,"chen"}));
+void create() {
+    set_name("拂尘", ({ "fu chen", "fu", "chen" }));
     set_weight(500);
     if (clonep())
         set_default_object(__FILE__);

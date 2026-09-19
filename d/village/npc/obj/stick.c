@@ -4,11 +4,10 @@
 
 inherit STAFF;
 
-void create()
-{
-    set_name("手杖", ({ "walking stick", "stick" }) );
+void create() {
+    set_name("手杖", ({ "walking stick", "stick" }));
     set_weight(1000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "根");

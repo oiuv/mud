@@ -4,10 +4,9 @@
 
 inherit THROWING;
 
-void create()
-{
-    set_name("飞蝗石", ({ "feihuangshi", "shi" }) );
-    if( clonep() )
+void create() {
+    set_name("飞蝗石", ({ "feihuangshi", "shi" }));
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("long", "仔细挑选的鹅卵石，大小一致，个个都滴溜溜圆。\n");

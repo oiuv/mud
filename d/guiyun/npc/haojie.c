@@ -1,9 +1,8 @@
 #include <ansi.h>
 inherit NPC;
 
-void create()
-{
-    set_name("太湖豪杰", ({"hao jie", "hao", "jie"}));
+void create() {
+    set_name("太湖豪杰", ({ "hao jie", "hao", "jie" }));
     set("gender", "男性");
     set("age", 25);
     set("long", "这是归云庄属下的在太湖劫富济贫的太湖豪杰。\n");

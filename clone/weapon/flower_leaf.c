@@ -4,10 +4,9 @@
 
 inherit THROWING;
 
-void create()
-{
-    set_name("花瓣", ({ "flower leaf", "hua ban", "ban" }) );
-    if( clonep() )
+void create() {
+    set_name("花瓣", ({ "flower leaf", "hua ban", "ban" }));
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("long", "新鲜的玫瑰花的花瓣，上面还挂这晶莹的露珠。\n");

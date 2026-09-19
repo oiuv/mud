@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "千佛庵");
     set("long", @LONG
 此处是洪椿坪千佛庵。山间小坪坝，四面层峦叠障，峰环
@@ -15,9 +14,9 @@ void create()
 LONG);
     set("outdoors", "emei");
     set("exits", ([
-        "westup" : __DIR__"jsjdg1",
-        "east"   : __DIR__"heilong2",
-        "in"     : __DIR__"qfadadian",
+        "westup": __DIR__ "jsjdg1",
+        "east": __DIR__ "heilong2",
+        "in": __DIR__ "qfadadian",
     ]));
     setup();
 }

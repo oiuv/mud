@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "碎石路");
     set("long", @LONG
 一条碎石小路，刚下过雨，路面看起来还满干净的．一些乡下人挑着
@@ -9,11 +8,11 @@ void create()
 个乞丐正在行乞，无家可归的人正四处游荡，从这里可以看出洛阳的另一
 面。路的两边都是当地的一些民宅。
 LONG);
-        set("outdoors", "luoyang");
-        set("no_clean_up", 0);
-        set("exits", ([
-          "east" : __DIR__"nandoor",
-          "west" : __DIR__"suishi8",
+    set("outdoors", "luoyang");
+    set("no_clean_up", 0);
+    set("exits", ([
+        "east": __DIR__ "nandoor",
+        "west": __DIR__ "suishi8",
     ]));
 
     setup();

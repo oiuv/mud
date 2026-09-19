@@ -12,21 +12,18 @@ mapping my_depot;
 
 int store_item(object me, object ob, int amount);
 
-class store
-{
+class store {
     string name, id, file;
     int amount;
 }
 
-nosave class store *bag = ({});
+nosave class store * bag = ({});
 
-int list_bag(string arg)
-{
+int list_bag(string arg) {
     string msg;
     object me = this_player();
 
-    if (!me->query("storage_bag"))
-    {
+    if (!me->query("storage_bag")) {
         return notify_fail("你还没有背包呢。\n");
     }
 
@@ -34,21 +31,24 @@ int list_bag(string arg)
         return notify_fail("你的背包里没有存放任何物品。\n");
 
     msg = HIW "\n你的背包里存放的物品有：\n编号  物品                                      数量\n"
-              "----------------------------------------------------\n" NOR;
-    for (int i = 0; i < sizeof(bag); i++)
-    {
-        msg += sprintf("[%2d]  %-36s      %-11d\n", i + 1, bag[i]->name + "(" + bag[i]->id + ")", bag[i]->amount);
+        "----------------------------------------------------\n" NOR;
+    for (int i = 0; i < sizeof(bag); i++) {
+        msg += sprintf(
+            "[%2d]  %-36s      %-11d\n",
+            i + 1,
+            bag[i]->name + "(" + bag[i]->id + ")",
+            bag[i]->amount
+        );
         if (bag[i]->amount == 0)
             bag[i] = 0;
     }
     msg += HIW "----------------------------------------------------\n" NOR;
-    bag -= ({0});
+    bag -= ({ 0 });
     tell_object(me, msg);
     return 1;
 }
 
-int do_take(string arg)
-{
+int do_take(string arg) {
     object me, ob;
     object *obs;
     int n, amount, num;
@@ -56,8 +56,7 @@ int do_take(string arg)
 
     me = this_player();
 
-    if (!me->query("storage_bag"))
-    {
+    if (!me->query("storage_bag")) {
         return notify_fail("你还没有背包呢。\n");
     }
 
@@ -81,10 +80,9 @@ int do_take(string arg)
     if (amount > bag[n]->amount)
         amount = bag[n]->amount;
 
-    if (!(ob = new (bag[n]->file)))
-    {
+    if (!(ob = new(bag[n]->file))) {
         bag[n] = 0;
-        bag -= ({0});
+        bag -= ({ 0 });
         tell_object(me, "无法取出该物品，系统自动清除之。\n");
         return 1;
     }
@@ -97,13 +95,11 @@ int do_take(string arg)
     if (!(un = ob->query("base_unit")))
         un = ob->query("unit");
 
-    if (ob->query_amount())
-    {
+    if (ob->query_amount()) {
         bag[n]->amount -= amount;
-        if (bag[n]->amount == 0)
-        {
+        if (bag[n]->amount == 0) {
             bag[n] = 0;
-            bag -= ({0});
+            bag -= ({ 0 });
         }
         ob->set_amount(amount);
         ob->move(me);
@@ -115,9 +111,8 @@ int do_take(string arg)
 
     bag[n]->amount -= amount;
     num = amount;
-    while (num--)
-    {
-        ob = new (bag[n]->file);
+    while (num--) {
+        ob = new(bag[n]->file);
         ob->move(me, 1);
     }
 
@@ -126,25 +121,22 @@ int do_take(string arg)
     if (!wizardp(me) && random(2))
         me->start_busy(3);
 
-    if (bag[n]->amount == 0)
-    {
+    if (bag[n]->amount == 0) {
         bag[n] = 0;
-        bag -= ({0});
+        bag -= ({ 0 });
     }
 
     return 1;
 }
 
-int do_store(string arg)
-{
+int do_store(string arg) {
     int i, n, amount;
     string item;
     object me, ob1, ob2, *inv;
 
     me = this_player();
 
-    if (!me->query("storage_bag"))
-    {
+    if (!me->query("storage_bag")) {
         return notify_fail("你还没有背包呢。\n");
     }
 
@@ -163,40 +155,33 @@ int do_store(string arg)
     // 扩展背包空间
     n += me->query("storage_bag");
 
-    if (sizeof(bag) >= n)
-    {
+    if (sizeof(bag) >= n) {
         return notify_fail("你背包的 " + n + " 个储藏空间全被使用了，请整理一下吧。\n");
     }
 
-    if (arg == "all")
-    {
+    if (arg == "all") {
         inv = all_inventory(me);
-        inv -= ({this_object()});
-        inv -= ({0});
+        inv -= ({ this_object() });
+        inv -= ({ 0 });
         inv = filter_array(inv, (: !$1->is_item_make() && !$1->query("equipped") &&
-                                   !$1->is_money() && !$1->is_character() &&
-                                   !$1->is_food() && !$1->is_liquid() :));
+            !$1->is_money() && !$1->is_character() &&
+            !$1->is_food() && !$1->is_liquid() :));
         n = sizeof(inv);
-        if (n > 100)
-        {
+        if (n > 100) {
             tell_object(me, "你身上的物品太多了，很容易搞混，你还是一个一个存吧。\n");
             return 1;
         }
 
-        if (n < 1)
-        {
+        if (n < 1) {
             tell_object(me, "你身上没有任何可以保存的物品。\n");
             return 1;
         }
 
-        for (i = 0; i < n; i++)
-        {
+        for (i = 0; i < n; i++) {
             do_store(inv[i]->query("id"));
         }
         return 1;
-    }
-    else if (sscanf(arg, "%d %s", amount, item) == 2)
-    {
+    } else if (sscanf(arg, "%d %s", amount, item) == 2) {
         if (!objectp(ob1 = present(item, me)))
             return notify_fail("你身上没有这样东西。\n");
 
@@ -206,17 +191,13 @@ int do_store(string arg)
         if (amount > ob1->query_amount())
             return notify_fail("你没有那么多的" + ob1->name() + "。\n");
 
-        if (amount == (int)ob1->query_amount())
-        {
+        if (amount == (int)ob1->query_amount()) {
             return store_item(me, ob1, amount);
-        }
-        else
-        {
+        } else {
             ob1->set_amount((int)ob1->query_amount() - amount);
-            ob2 = new (base_name(ob1));
+            ob2 = new(base_name(ob1));
             ob2->set_amount(amount);
-            if (!store_item(me, ob2, amount))
-            {
+            if (!store_item(me, ob2, amount)) {
                 ob2->move(me, 1);
                 return 0;
             }
@@ -234,14 +215,12 @@ int do_store(string arg)
     return 1;
 }
 
-int store_item(object me, object ob, int amount)
-{
+int store_item(object me, object ob, int amount) {
     class store item;
     int i, n;
     string file, name, id, un;
 
-    if (!objectp(ob))
-    {
+    if (!objectp(ob)) {
         error("no this object!\n");
         return 0;
     }
@@ -249,14 +228,12 @@ int store_item(object me, object ob, int amount)
     if (file_size(base_name(ob) + ".c") < 0)
         return 1;
 
-    if (ob->is_money())
-    {
+    if (ob->is_money()) {
         tell_object(me, "存钱请找钱庄老板存(deposit)。\n");
         return 1;
     }
 
-    if (ob->is_food() || ob->is_liquid())
-    {
+    if (ob->is_food() || ob->is_liquid()) {
         tell_object(me, "食物饮水存背包里会变质的。\n");
         return 1;
     }
@@ -267,20 +244,17 @@ int store_item(object me, object ob, int amount)
     //     return 1;
     // }
 
-    if (ob->query_entire_temp_dbase())
-    {
+    if (ob->query_entire_temp_dbase()) {
         tell_object(me, "背包不保存" + ob->query("name") + "，请你自己妥善处理。\n");
         return 1;
     }
 
-    if (inherits(F_SILENTDEST, ob))
-    {
+    if (inherits(F_SILENTDEST, ob)) {
         tell_object(me, "背包不保存" + ob->query("name") + "，请你自己妥善处理。\n");
         return 1;
     }
 
-    if (inherits(F_UNIQUE, ob))
-    {
+    if (inherits(F_UNIQUE, ob)) {
         tell_object(me, "背包不保存" + ob->query("name") + "，请你自己妥善处理。\n");
         return 1;
     }
@@ -301,30 +275,26 @@ int store_item(object me, object ob, int amount)
     */
     // no_put为不可存入容器(put指令)，no_store为不可存入背包(store指令)
     // put为move对象，store为destruct对象
-    if(ob->is_no_clone() || ob->query("no_put") || ob->query("no_store"))
-    {
+    if (ob->is_no_clone() || ob->query("no_put") || ob->query("no_store")) {
         tell_object(me, "背包不保存" + ob->query("name") + "，请你自己妥善处理。\n");
         return 1;
     }
 
-    if (ob->is_character() || ob->is_item_make() || !clonep(ob))
-    {
+    if (ob->is_character() || ob->is_item_make() || !clonep(ob)) {
         tell_object(me, "背包不能保存" + ob->query("name") + "\n");
         return 1;
     }
 
-    switch( ob->query("equipped"))
-    {
-    case "worn":
-        tell_object(me, ob->name() + "必须先脱下来才能存放。\n");
-        return 1;
-    case "wielded":
-        tell_object(me, ob->name() + "必须先解除装备才能存放。\n");
-        return 1;
+    switch (ob->query("equipped")) {
+        case "worn":
+            tell_object(me, ob->name() + "必须先脱下来才能存放。\n");
+            return 1;
+        case "wielded":
+            tell_object(me, ob->name() + "必须先解除装备才能存放。\n");
+            return 1;
     }
 
-    if (sizeof(all_inventory(ob)))
-    {
+    if (sizeof(all_inventory(ob))) {
         tell_object(me, "请你先把" + ob->query("name") + "里面的东西先拿出来。\n");
         return 1;
     }
@@ -336,31 +306,32 @@ int store_item(object me, object ob, int amount)
         un = ob->query("unit");
 
     n = sizeof(bag);
-    for (i = 0; i < n; i++)
-    {
-        if (bag[i]->file == file && bag[i]->id == id && bag[i]->name == name)
-        {
+    for (i = 0; i < n; i++) {
+        if (bag[i]->file == file && bag[i]->id == id && bag[i]->name == name) {
             bag[i]->amount += amount;
-            msg("vision", "$ME把" + chinese_number(amount) + un + ob->query("name") + "存到背包里。\n", me);
+            msg(
+                "vision",
+                "$ME把" + chinese_number(amount) + un + ob->query("name") + "存到背包里。\n",
+                me
+            );
             destruct(ob);
             return 1;
         }
     }
 
-    item = new (class store);
+    item = new(class store);
     item->file = file;
     item->name = name;
     item->id = id;
     item->amount = amount;
-    bag += ({item});
+    bag += ({ item });
     msg("vision", "$ME把" + chinese_number(amount) + un + ob->query("name") + "存到背包里。\n", me);
     destruct(ob);
     return 1;
 }
 
 // 恢复背包物品
-void restore_depot()
-{
+void restore_depot() {
     int i, n;
     class store item;
     mapping data = my_depot;
@@ -369,35 +340,31 @@ void restore_depot()
         return;
 
     n = sizeof(data);
-    for (i = 0; i < n; i++)
-    {
-        item = new (class store);
+    for (i = 0; i < n; i++) {
+        item = new(class store);
         item->name = data["item" + i]["name"];
         item->id = data["item" + i]["id"];
         item->file = data["item" + i]["file"];
         item->amount = data["item" + i]["amount"];
-        bag += ({item});
+        bag += ({ item });
     }
 }
 
 // 保存背包物品
-void save_depot()
-{
+void save_depot() {
     mapping data, list;
     int i, n;
     data = ([]);
 
-    if (sizeof(bag) > 0)
-    {
+    if (sizeof(bag) > 0) {
         n = sizeof(bag);
-        for (i = 0; i < n; i++)
-        {
+        for (i = 0; i < n; i++) {
             list = ([]);
             list["name"] = bag[i]->name;
             list["id"] = bag[i]->id;
             list["file"] = bag[i]->file;
             list["amount"] = bag[i]->amount;
-            data += (["item" + i:list]);
+            data += ([ "item" + i: list ]);
         }
     }
     my_depot = data;

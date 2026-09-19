@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "易溪部");
     set("long", @LONG
 易溪部也是乌夷族乌杂蛮的部落。这里处半坡地，附近有不少农
@@ -10,13 +9,13 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-                "northwest" : __DIR__"atoubu",
-                "south"     : __DIR__"wuyiminju4",
-                "east"      : __DIR__"biluoshan",
+        "northwest": __DIR__ "atoubu",
+        "south": __DIR__ "wuyiminju4",
+        "east": __DIR__ "biluoshan",
     ]));
     set("objects", ([
-                __DIR__"npc/shaonu": 1,
-                "/clone/npc/walker" : 1,
+        __DIR__ "npc/shaonu": 1,
+        "/clone/npc/walker": 1,
     ]));
     setup();
     replace_program(ROOM);

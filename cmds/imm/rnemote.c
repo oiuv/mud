@@ -5,8 +5,7 @@ inherit F_CLEAN_UP;
 
 int help(object me);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string from, to;
     mapping emote;
     mapping toemote;
@@ -36,8 +35,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : rnemote <from> <to>
 
@@ -48,6 +46,6 @@ int help(object me)
 用这个命令。
 
 see also：edemote、cpemote
-HELP );
+HELP);
     return 1;
 }

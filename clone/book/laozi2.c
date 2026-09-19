@@ -4,11 +4,10 @@
 
 inherit BOOK;
 
-void create()
-{
-    set_name( "道德经「第二章」", ({ "jing", "daode jing" }));
+void create() {
+    set_name("道德经「第二章」", ({ "jing", "daode jing" }));
     set_weight(200);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "本");
@@ -20,17 +19,17 @@ void create()
             "随。恒也。\n"
             "\t是以圣人处无为之事，行不言之教；万物作而弗始，生而弗有，\n"
             "为而弗恃，功成而不居。夫唯弗居，是以不去。\n"
-            "\n"NOR
+            "\n" NOR
         );
         set("value", 500);
         set("material", "paper");
         set("skill", ([
-            "name":    "taoism",    // name of the skill
-            "exp_required":     0,    // minimum combat experience required
-            "jing_cost":  10,     // jing cost every time study this
-            "difficulty":    15,    // the base int to learn this skill
-            "max_skill":    19,    // the maximum level you can learn
-            "min_skill" : 10,
-        ]) );
+            "name": "taoism",    // name of the skill
+            "exp_required": 0,    // minimum combat experience required
+            "jing_cost": 10,     // jing cost every time study this
+            "difficulty": 15,    // the base int to learn this skill
+            "max_skill": 19,    // the maximum level you can learn
+            "min_skill": 10,
+        ]));
     }
 }

@@ -2,8 +2,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "金水桥");
     set("long", @LONG
 一座不大的拱桥，横架在紫禁城的护城河两岸，通过金水桥向北走便是紫
@@ -12,12 +11,12 @@ void create()
 闹非凡。
 LONG NOR);
     set("exits", ([
-        "south" : __DIR__"tiananmen",
-        "north" : __DIR__"hgmen_s",
+        "south": __DIR__ "tiananmen",
+        "north": __DIR__ "hgmen_s",
     ]));
     set("objects", ([
-        __DIR__"npc/bing1" : 2,
-        __DIR__"npc/xiaofan" : 1,
+        __DIR__ "npc/bing1": 2,
+        __DIR__ "npc/xiaofan": 1,
     ]));
     set("outdoors", "beijing");
     setup();

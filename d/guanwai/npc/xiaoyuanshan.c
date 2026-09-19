@@ -4,11 +4,10 @@
 
 inherit NPC;
 
-void create()
-{
-    set_name("萧远山", ({"xiao yuanshan", "xiao", "yuanshan"}));
+void create() {
+    set_name("萧远山", ({ "xiao yuanshan", "xiao", "yuanshan" }));
     set("gender", "男性");
-    set("nickname",HIB"黑衣僧"NOR);
+    set("nickname", HIB "黑衣僧" NOR);
     set("age", 28);
     set("long",
         "他就是丐帮前任帮主萧峰的父亲，潜伏少林数十年了。\n"

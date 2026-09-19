@@ -5,8 +5,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     mapping total;
     object *obs /*, *dst*/;
     object qob;
@@ -30,10 +29,8 @@ int main(object me, string arg)
         return notify_fail("当前系统没有任何任务。\n");
 
     sscanf(arg, "%s %*s", arg);
-    if (arg == "all" || arg == "ALL")
-    {
-        foreach (qob in obs)
-        {
+    if (arg == "all" || arg == "ALL") {
+        foreach (qob in obs) {
             reset_eval_cost();
             destruct(qob);
         }
@@ -42,13 +39,11 @@ int main(object me, string arg)
     }
 
     qob = find_object(arg);
-    if (!objectp(qob) || !qob->is_quest())
-    {
+    if (!objectp(qob) || !qob->is_quest()) {
         obs = filter_array(obs, (: $1->name() == $(arg) :));
-        if (!sizeof(obs))
-        {
+        if (!sizeof(obs)) {
             write("目前系统中不存在 " + arg +
-                  " 这个任务。\n");
+                " 这个任务。\n");
             return 1;
         }
         qob = obs[0];
@@ -59,8 +54,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : qdel all | <任务名称>
 

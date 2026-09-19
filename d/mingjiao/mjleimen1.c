@@ -4,17 +4,16 @@
 #include <room.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "门口");
     set("long", @LONG
 前面就是明教的“雷字门”了，这里是明教中西域弟子修
 炼的地方。西域风俗大异中土，他们的生活习惯以及使用物品
 也与中土迥异。
-LONG );
+LONG);
     set("exits", ([
-        "in" : __DIR__"sushe",
-        "northeast" : __DIR__"mjleimen",
+        "in": __DIR__ "sushe",
+        "northeast": __DIR__ "mjleimen",
     ]));
     set("no_clean_up", 0);
     set("outdoors", "mingjiao");

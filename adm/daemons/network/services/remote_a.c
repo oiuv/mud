@@ -14,14 +14,12 @@
 inherit F_CLEAN_UP;
 inherit F_DBASE;
 
-void create()
-{
+void create() {
     seteuid(ROOT_UID);
     set("channel_id", "网路频道");
 }
 
-void incoming_request(mapping info)
-{
+void incoming_request(mapping info) {
     object ob;
     string msg;
     mapping minfo;
@@ -33,8 +31,7 @@ void incoming_request(mapping info)
     if (!minfo)
         return;
 
-    if (stringp(info["PORTUDP"]) && stringp(info["HOSTADDRESS"]))
-    {
+    if (stringp(info["PORTUDP"]) && stringp(info["HOSTADDRESS"])) {
         if (info["NAME"] == Mud_name())
             return;
 
@@ -46,7 +43,7 @@ void incoming_request(mapping info)
         if (!ob)
             return;
         msg = EMOTE_D->do_emote(ob, lower_case(info["MSG"]), info["TARGET"], 4,
-                                info["NAME"]);
+            info["NAME"]);
 
         if (!stringp(msg) || !strlen(msg))
             return;

@@ -9,15 +9,14 @@ inherit F_GUARDER;
 
 string ask_me();
 
-void create()
-{
+void create() {
     set_name("范遥", ({ "fan yao", "fan", "yao" }));
     set("long",
-            "他是一位带发修行的头陀，身穿白布长袍。\n"
-            "他的脸上七七八八的全是伤疤，简直看不出本来面目了。\n"
+        "他是一位带发修行的头陀，身穿白布长袍。\n"
+        "他的脸上七七八八的全是伤疤，简直看不出本来面目了。\n"
     );
 
-    set("title",HIR "明教" HIG "光明右使" NOR);
+    set("title", HIR "明教" HIG "光明右使" NOR);
     set("gender", "男性");
     set("attitude", "peaceful");
     set("class", "bonze");
@@ -40,7 +39,7 @@ void create()
 
     set_skill("force", 340);
     set_skill("shenghuo-xinfa", 340);
-        set_skill("shenghuo-shengong", 340);
+    set_skill("shenghuo-shengong", 340);
     set_skill("dodge", 340);
     set_skill("lingxu-bu", 340);
     set_skill("finger", 340);
@@ -64,28 +63,27 @@ void create()
     map_skill("hand", "fengyun-shou");
     map_skill("claw", "longzhua-gong");
     map_skill("parry", "nianhua-zhi");
-        map_skill("sword", "xiaoyao-jian");
+    map_skill("sword", "xiaoyao-jian");
 
     set("chat_chance_combat", 120);
     set("chat_msg_combat", ({
         (: prepare_skill("finger", "nianhua-zhi") :),
         (: prepare_skill("strike", "sanhua-zhang") :),
-    }) );
+    }));
 
     create_family("明教", 0, "光明右使");
 
     set("coagents", ({
-                ([ "startroom" : "/d/mingjiao/dadian",
-                   "id"        : "zhang wuji" ]),
-        }));
+        ([ "startroom": "/d/mingjiao/dadian",
+            "id": "zhang wuji" ]),
+    }));
 
     setup();
 
-        carry_object("/d/mingjiao/obj/baipao")->wear();
-        carry_object("/clone/weapon/gangjian")->wield();
+    carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/clone/weapon/gangjian")->wield();
 }
 
-void unconcious()
-{
-        die();
+void unconcious() {
+    die();
 }

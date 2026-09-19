@@ -7,8 +7,7 @@ inherit F_CLEAN_UP;
 
 void remove_effect(object me, int amount);
 
-int exert(object me, object target)
-{
+int exert(object me, object target) {
     int skill;
 
     if (target != me)
@@ -17,7 +16,7 @@ int exert(object me, object target)
     if ((int)me->query("neili") < 100)
         return notify_fail("你的内力不够。\n");
 
-    if ((int)me->query_skill("never-defeated",1) < 50)
+    if ((int)me->query_skill("never-defeated", 1) < 50)
         return notify_fail("你的不败神功修为不够。\n");
 
     if ((int)me->query_temp("shield"))
@@ -39,12 +38,10 @@ int exert(object me, object target)
     return 1;
 }
 
-void remove_effect(object me, int amount)
-{
-        if (me->query_temp("shield"))
-        {
-            me->add_temp("apply/armor", -amount);
-            me->delete_temp("shield");
-            tell_object(me, "你的不败神功运行完毕，将内力收回丹田。\n");
-        }
+void remove_effect(object me, int amount) {
+    if (me->query_temp("shield")) {
+        me->add_temp("apply/armor", -amount);
+        me->delete_temp("shield");
+        tell_object(me, "你的不败神功运行完毕，将内力收回丹田。\n");
+    }
 }

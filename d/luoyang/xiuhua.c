@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "羞花汀");
     set("long", @LONG
 春月楼著名之处在这里可略见一斑，四边花草甚多，但唯有牡丹最胜。
@@ -11,7 +10,7 @@ void create()
 LONG);
     set("no_clean_up", 0);
     set("exits", ([
-          "north" : __DIR__"jiyuan2",
+        "north": __DIR__ "jiyuan2",
     ]));
 
     setup();

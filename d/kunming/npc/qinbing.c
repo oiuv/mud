@@ -1,7 +1,6 @@
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("王府亲兵", ({ "qin bing", "qin", "bing" }));
     set("age", 32);
     set("gender", "男性");
@@ -24,6 +23,6 @@ void create()
 
 
     setup();
-    carry_object(__DIR__"obj/changjian")->wield();
-    carry_object(__DIR__"obj/armor")->wear();
+    carry_object(__DIR__ "obj/changjian")->wield();
+    carry_object(__DIR__ "obj/armor")->wear();
 }

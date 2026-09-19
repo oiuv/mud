@@ -3,8 +3,7 @@
 #include <ansi.h>
 
 // filter color
-string filter_color(string arg)
-{
+string filter_color(string arg) {
     arg = replace_string(arg, BLK, "");
     arg = replace_string(arg, RED, "");
     arg = replace_string(arg, GRN, "");
@@ -27,8 +26,7 @@ string filter_color(string arg)
     return arg;
 }
 
-string filter_ansi(string content)
-{
+string filter_ansi(string content) {
     return filter_color(content);
 }
 
@@ -36,8 +34,7 @@ string filter_ansi(string content)
 // raw = 0, only forecolor
 // raw = 1, include backround color
 // raw = 2, include blink & others
-string trans_color(string arg, int raw)
-{
+string trans_color(string arg, int raw) {
     // forecolor
     arg = replace_string(arg, "$BLK$", BLK);
     arg = replace_string(arg, "$RED$", RED);
@@ -56,9 +53,8 @@ string trans_color(string arg, int raw)
     arg = replace_string(arg, "$HIW$", HIW);
     arg = replace_string(arg, "$NOR$", NOR);
 
-    if (raw)
-    {
-            // Background color
+    if (raw) {
+        // Background color
         arg = replace_string(arg, "$BBLK$", BBLK);
         arg = replace_string(arg, "$BRED$", BRED);
         arg = replace_string(arg, "$BGRN$", BGRN);
@@ -74,9 +70,8 @@ string trans_color(string arg, int raw)
         arg = replace_string(arg, "$HBCYN$", HBCYN);
     }
 
-    if (raw == 2)
-    {
-            // special effect
+    if (raw == 2) {
+        // special effect
         arg = replace_string(arg, "$U$", U);
         arg = replace_string(arg, "$BLINK$", BLINK);
         arg = replace_string(arg, "$REV$", REV);
@@ -90,17 +85,15 @@ string trans_color(string arg, int raw)
 
 // append color after the $N〝$n〝$w for the string color won't be
 // break by the NOR after the name
-string append_color(string arg, string default_color)
-{
+string append_color(string arg, string default_color) {
     arg = replace_string(arg, "$N", "$N" + default_color);
     arg = replace_string(arg, "$n", "$n" + default_color);
     arg = replace_string(arg, "$w", "$w" + default_color);
     return arg;
 }
 
-string color_filter(string content)
-{
-    if (! content)
+string color_filter(string content) {
+    if (!content)
         return "";
 
     // Foreground color
@@ -145,13 +138,11 @@ string color_filter(string content)
     return content;
 }
 
-string color(string content)
-{
+string color(string content) {
     return color_filter(content);
 }
 
-void color_cat(string file)
-{
+void color_cat(string file) {
     if (previous_object())
         seteuid(geteuid(previous_object()));
     else
@@ -160,9 +151,8 @@ void color_cat(string file)
     write(color_filter(read_file(file)));
 }
 
-string color_to_html(string msg)
-{
-    if( !msg ) return 0;
+string color_to_html(string msg) {
+    if (!msg) return 0;
     msg = replace_string(msg, BLK, "<font color=\"#000000\">");
     msg = replace_string(msg, RED, "<font color=\"#990000\">");
     msg = replace_string(msg, GRN, "<font color=\"#009900\">");

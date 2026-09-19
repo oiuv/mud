@@ -14,11 +14,9 @@ string *unarmed_parry_msg = ({
     "结果被$p挡开了。\n",
 });
 
-string query_parry_msg(object weapon)
-{
-    if( weapon )
+string query_parry_msg(object weapon) {
+    if (weapon)
         return parry_msg[random(sizeof(parry_msg))];
     else
         return unarmed_parry_msg[random(sizeof(unarmed_parry_msg))];
 }
- 

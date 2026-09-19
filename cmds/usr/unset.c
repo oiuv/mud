@@ -5,20 +5,18 @@ inherit F_CLEAN_UP;
 
 int help();
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     if (!arg || arg == "")
         return help();
 
-    me->delete ("env/" + arg);
+    me->delete("env/" + arg);
     //if (arg == "show_map")
     //write(ESC+"[r"+TOBOT(50));
     write("Ok.\n");
     return 1;
 }
 
-int help()
-{
+int help() {
     write(@TEXT
 指令格式：unset <变数名>
 

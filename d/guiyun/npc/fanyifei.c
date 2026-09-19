@@ -4,9 +4,8 @@
 inherit F_UNIQUE;
 inherit NPC;
 
-void create()
-{
-    set_name("范一飞", ({ "fan yifei", "fan"}));
+void create() {
+    set_name("范一飞", ({ "fan yifei", "fan" }));
     set("title", HIB "鹤笔门掌门人" NOR);
     set("long", "他是一个矮瘦的老者，一张黑脸。腰里插着判官
 笔，人称‘辽东鹤’。\n");
@@ -25,7 +24,7 @@ void create()
     set("neili", 1000);
     set("max_neili", 1000);
     set("jiali", 50);
-    set("combat_exp", 50000+random(10000));
+    set("combat_exp", 50000 + random(10000));
     set("score", 20000);
 
     set_skill("force", 50);
@@ -33,7 +32,7 @@ void create()
     set_skill("unarmed", 50);
     set_skill("dagger", 50);
     set_skill("shigu-bifa", 50);
-    set_skill("lingxu-bu",50);
+    set_skill("lingxu-bu", 50);
     map_skill("dodge", "lingxu-bu");
     map_skill("parry", "shigu-bifa");
     map_skill("dagger", "shigu-bifa");

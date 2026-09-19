@@ -19,8 +19,7 @@ inherit F_DBASE;
 string my_address;
 int my_port;
 
-void create()
-{
+void create() {
     seteuid(ROOT_UID);
     my_address = query_host_name();
     my_port = udp_port();
@@ -28,35 +27,35 @@ void create()
 }
 
 // Someone has ping'd us
-void incoming_request(mapping info)
-{
+void incoming_request(mapping info) {
     if (!ACCESS_CHECK(previous_object()))
         return;
 
-    if (info["HOSTADDRESS"] == my_address && info["PORTUDP"] == my_port)
-    {
+    if (info["HOSTADDRESS"] == my_address && info["PORTUDP"] == my_port) {
         dns_warning("ping_q::incoming_request: ping from ourselves\n");
         // we pinged ourselves!
         return;
     }
 
-    if (info["PORTUDP"])
-    {
+    if (info["PORTUDP"]) {
         // check we have an entry for the sender
         // if (!DNS_MASTER->dns_mudp(info["NAME"]))
         //     PING_Q->send_ping_q(info["HOSTADDRESS"], info["PORTUDP"]);
 
         // send a ping answer along with our mud info
         DNS_MASTER->send_udp(info["HOSTADDRESS"], info["PORTUDP"],
-                             "@@@" + DNS_PING_A + (string)DNS_MASTER->start_message() + "@@@\n");
+            "@@@" + DNS_PING_A + (string)DNS_MASTER->start_message() + "@@@\n");
     }
 }
 
 // send a pinq query
-void send_ping_q(string host, mixed port)
-{
+void send_ping_q(string host, mixed port) {
     // if (!ACCESS_CHECK(previous_object()))
     //     return;
 
-    DNS_MASTER->send_udp(host, port, "@@@" + DNS_PING_Q + "||NAME:" + Mud_name() + "||PORTUDP:" + udp_port() + "@@@\n");
+    DNS_MASTER->send_udp(
+        host,
+        port,
+        "@@@" + DNS_PING_Q + "||NAME:" + Mud_name() + "||PORTUDP:" + udp_port() + "@@@\n"
+    );
 }

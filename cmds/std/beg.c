@@ -3,8 +3,7 @@
 #include <ansi.h>
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string what, who;
     object ob, victim;
     int sp, dp;
@@ -61,7 +60,7 @@ int main(object me, string arg)
 
     if (!ob)
         return notify_fail("看起来" + victim->name() + "身上没有什"
-                           "麽让你感兴趣的东西。\n");
+            "麽让你感兴趣的东西。\n");
 
     if (ob->query("equipped") || ob->query("no_drop"))
         return notify_fail("这是那人的随身家伙，肯定不会给你。\n");
@@ -74,15 +73,14 @@ int main(object me, string arg)
     dp = (int)victim->query("jing") + ob->value() / 5;
 
     message_vision(WHT "只见$N" WHT "可怜巴巴地向$n" WHT "伸手说道：这位" + RANK_D->query_respect(victim) +
-                   WHT "，行行好，赏我点钱吧。\n" NOR, me, victim);
+        WHT "，行行好，赏我点钱吧。\n" NOR, me, victim);
 
     me->set_temp("begging", 1);
     call_out("compelete_beg", 3, me, victim, ob, sp, dp);
     return 1;
 }
 
-private void compelete_beg(object me, object victim, object ob, int sp, int dp)
-{
+private void compelete_beg(object me, object victim, object ob, int sp, int dp) {
     int amount;
     int bcount;
     object ob1;
@@ -98,24 +96,20 @@ private void compelete_beg(object me, object victim, object ob, int sp, int dp)
     if (!objectp(ob) || !living(me) || me->is_fighting())
         return;
 
-    if (!victim || environment(victim) != environment(me))
-    {
+    if (!victim || environment(victim) != environment(me)) {
         tell_object(me, "太可惜了，你要乞讨的人已经走了。\n");
         return;
     }
 
-    if (environment(ob) != victim)
-    {
+    if (environment(ob) != victim) {
         tell_object(me, "太可惜了，人家好像已经没有" + ob->name() + "了。\n");
         return;
     }
 
-    if (living(victim) && (random(sp + dp) > dp))
-    {
-        if (!ob->query("money_id") || !(amount = ob->query_amount()))
-        {
+    if (living(victim) && (random(sp + dp) > dp)) {
+        if (!ob->query("money_id") || !(amount = ob->query_amount())) {
             tell_object(me, HIY "看来还是走吧，这家伙身上已经"
-                                "没有多少油水可榨了。\n" NOR);
+                "没有多少油水可榨了。\n" NOR);
             return;
         }
 
@@ -124,14 +118,14 @@ private void compelete_beg(object me, object victim, object ob, int sp, int dp)
             bcount = 1;
         ob->set_amount(amount - bcount);
 
-        ob1 = new ("/clone/money/" + ob->query("money_id"));
+        ob1 = new("/clone/money/" + ob->query("money_id"));
         ob1->set_amount(bcount);
         ob1->move(me);
 
         message_vision(HIC "$n" HIC "皱了皱眉，接着叹了口气，摸出" +
-                           ob1->query("unit") + ob1->name() +
-                           HIC "扔给$N" HIC "。\n" NOR,
-                       me, victim);
+            ob1->query("unit") + ob1->name() +
+            HIC "扔给$N" HIC "。\n" NOR,
+            me, victim);
 
         if (me->can_improve_skill("begging"))
             me->improve_skill("begging", random(me->query("int")));
@@ -142,12 +136,13 @@ private void compelete_beg(object me, object victim, object ob, int sp, int dp)
         me->add("combat_exp", 1);
         me->add("state/beg", 1);
         me->start_busy(3 + random(4));
-    }
-    else
-    {
-        if (random(sp) > dp / 2)
-        {
-            message_vision(HIR "$n" HIR "狠狠地瞪了$N" HIR "一眼，喝道：滚开。$N" HIR "只好灰溜溜地走开了。\n" NOR, me, victim);
+    } else {
+        if (random(sp) > dp / 2) {
+            message_vision(
+                HIR "$n" HIR "狠狠地瞪了$N" HIR "一眼，喝道：滚开。$N" HIR "只好灰溜溜地走开了。\n" NOR,
+                me,
+                victim
+            );
             me->start_busy(3);
             return;
         }
@@ -156,8 +151,7 @@ private void compelete_beg(object me, object victim, object ob, int sp, int dp)
     }
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：beg <财物> from <某人>
 

@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string str)
-{
+int main(object me, string str) {
     string prefix;
     object env;
     mixed info;
@@ -14,10 +13,8 @@ int main(object me, string str)
         return 0;
 
     env = environment(me);
-    if (info = env->query("no_say"))
-    {
-        if (stringp(info))
-        {
+    if (info = env->query("no_say")) {
+        if (stringp(info)) {
             write(info);
             return 1;
         }
@@ -26,15 +23,13 @@ int main(object me, string str)
         return 1;
     }
 
-    if (me->query("doing") == "scheme")
-    {
+    if (me->query("doing") == "scheme") {
         if (me->query("jing") < 100)
             return notify_fail("你现在的精神不济，等一会儿吧。\n");
         me->add("jing", -50);
     }
 
-    if (!str)
-    {
+    if (!str) {
         write(CYN "你看起来表情丰富。\n" NOR);
         tell_room(env, CYN + (string)me->name() + "看起来表情丰富。\n" + NOR, me);
         return 1;
@@ -46,8 +41,7 @@ int main(object me, string str)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: emote <动作词>
 
@@ -62,6 +56,6 @@ int help(object me)
 其中, 包子就是你的名字.
 
 相关指令: semote
-HELP );
+HELP);
     return 1;
 }

@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("侍卫", ({ "shi wei", "shi", "wei" }));
     set("gender", "男性");
     set("age", random(20) + 30);
@@ -32,8 +31,7 @@ void create()
     add_money("silver", random(15));
 }
 
-void init()
-{
+void init() {
     object ob;
     ::init();
     if (interactive(ob = this_player()) &&
@@ -41,14 +39,13 @@ void init()
         remove_call_out("kill_ob");
         call_out("kill_ob", 1, ob);
     }
-    if( interactive(ob = this_player()) && !is_fighting() ) {
-        switch(random(10))
-    {
-        case 1:
-    message_vision("\n侍卫忽然对$N大喝一声：何方刁民，竟敢在此撒野！看刀！\n",this_player());
-    remove_call_out("kill_ob");
-    call_out("kill_ob", 1, ob);
-    break;
-    }
+    if (interactive(ob = this_player()) && !is_fighting()) {
+        switch (random(10)) {
+            case 1:
+                message_vision("\n侍卫忽然对$N大喝一声：何方刁民，竟敢在此撒野！看刀！\n", this_player());
+                remove_call_out("kill_ob");
+                call_out("kill_ob", 1, ob);
+                break;
+        }
     }
 }

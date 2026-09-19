@@ -4,15 +4,14 @@
 
 inherit NPC;
 
-void create()
-{
-    set_name("红衣武士", ({ "wei shi", "shi", "guard" }) );
+void create() {
+    set_name("红衣武士", ({ "wei shi", "shi", "guard" }));
     set("gender", "男性");
     set("age", 35);
     set("long",
         "这是位红衣武士，身披钢甲，手执长剑，双目精光炯炯，警惕地巡视着四周的情形。\n");
     set("combat_exp", 80000);
-        set("shen_type", 1);
+    set("shen_type", 1);
     set("attitude", "heroism");
 
     set("str", 28);
@@ -30,7 +29,7 @@ void create()
     set("jiali", 25);
     set("shen_type", 0);
 
-    set_temp("apply/attack",  40);
+    set_temp("apply/attack", 40);
     set_temp("apply/defense", 40);
 
     set_skill("sword", 80);
@@ -40,21 +39,20 @@ void create()
 
     setup();
 
-        carry_object("/d/city/obj/changjian")->wield();
-        carry_object("/d/city/obj/tiejia")->wear();
+    carry_object("/d/city/obj/changjian")->wield();
+    carry_object("/d/city/obj/tiejia")->wear();
 }
 
-void init()
-{
+void init() {
     object ob1;
     string mengzhu;
 
-    if(!( ob1 = find_living("mengzhu")) )
-    ob1 = load_object("/clone/npc/meng-zhu");
+    if (!(ob1 = find_living("mengzhu")))
+        ob1 = load_object("/clone/npc/meng-zhu");
     mengzhu = ob1->query("winner");
 
-    if( this_player()->query("id") == mengzhu ) {
+    if (this_player()->query("id") == mengzhu) {
         message_vision(HIY "红衣武士举起长剑，向$N齐声大喊：盟主万岁，万岁，万万岁！\n" NOR,
-        this_player());
+            this_player());
     }
 }

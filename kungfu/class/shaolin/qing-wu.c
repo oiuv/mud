@@ -8,8 +8,7 @@ inherit F_MASTER;
 
 #include "qing.h"
 
-void create()
-{
+void create() {
     set_name("清无比丘", ({
         "qingwu biqiu",
         "qingwu",
@@ -58,24 +57,21 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/jiedao")->wield();
-        carry_object("/d/shaolin/obj/qing-cloth")->wear();
+    carry_object("/d/shaolin/obj/jiedao")->wield();
+    carry_object("/d/shaolin/obj/qing-cloth")->wear();
 }
 
-void attempt_apprentice(object ob)
-{
-    if( (string)ob->query("gender") != "男性" )
-    {
-        command ("say 阿弥陀佛！女施主呀，贫僧可不敢开这等玩笑啊。");
+void attempt_apprentice(object ob) {
+    if ((string)ob->query("gender") != "男性") {
+        command("say 阿弥陀佛！女施主呀，贫僧可不敢开这等玩笑啊。");
         return;
     }
 
-        if (! permit_recruit(ob))
-                return;
+    if (!permit_recruit(ob))
+        return;
 
-    if( (string)ob->query("class")!="bonze" )
-    {
-        command ("say 阿弥陀佛！贫僧就收下你做『俗家弟子』了。");
+    if ((string)ob->query("class") != "bonze") {
+        command("say 阿弥陀佛！贫僧就收下你做『俗家弟子』了。");
     }
     command("say 阿弥陀佛，善哉！善哉！");
     command("recruit " + ob->query("id"));

@@ -6,23 +6,20 @@
 #include <ansi.h>
 #define REBOOT_CMD "/cmds/arch/reboot"
 
-int do_check()
-{
+int do_check() {
     // here we use 3 units to display bank infos
     int total = (int)this_player()->query("balance");
-    if (!total || total < 0)
-    {
+    if (!total || total < 0) {
         this_player()->set("balance", 0);
         write("您在敝商号没有存钱。\n");
         return 1;
     }
     write(this_object()->query("name") + "悄悄告诉你：您在弊商号共存有" +
-          MONEY_D->money_str(total) + "。\n");
+        MONEY_D->money_str(total) + "。\n");
     return 1;
 }
 
-int do_convert(string arg)
-{
+int do_convert(string arg) {
     string from, to;
     int amount, bv1, bv2;
     object from_ob, to_ob;
@@ -36,8 +33,7 @@ int do_convert(string arg)
     if (this_object()->is_fighting())
         return notify_fail("哟，抱歉啊，我这儿正忙着呢……您请稍候。\n");
 
-    if (!arg || sscanf(arg, "%d %s to %s", amount, from, to) != 3)
-    {
+    if (!arg || sscanf(arg, "%d %s to %s", amount, from, to) != 3) {
         return notify_fail("命令格式：convert|duihuan <数量> <货币单位> to <新货币单位>\n");
     }
 
@@ -58,19 +54,22 @@ int do_convert(string arg)
 
     if ((int)from_ob->query_amount() < amount)
         return notify_fail("你带的" + from_ob->query("name") +
-                           "不够。\n");
+            "不够。\n");
 
     bv1 = from_ob->query("base_value");
     if (!bv1)
         return notify_fail("这样东西不值钱。\n");
 
-    bv2 = to_ob ? to_ob->query("base_value")
-                : call_other("/clone/money/" + to, "query", "base_value");
+    bv2 = to_ob ? to_ob->query("base_value") : call_other(
+        "/clone/money/" + to,
+        "query",
+        "base_value"
+    );
     if (bv1 < bv2)
         amount -= amount % (bv2 / bv1);
     if (amount == 0)
         return notify_fail("这些" + from_ob->query("name") +
-                           "不够换。\n ");
+            "不够换。\n ");
 
     if (bv1 > bv2 && bv1 / bv2 * amount > 10000)
         return notify_fail("哦呦...我这一下子还拿不出这么多散钱...\n");
@@ -80,29 +79,26 @@ int do_convert(string arg)
 
     from_ob->add_amount(-amount);
 
-    if (!to_ob)
-    {
-        to_ob = new ("/clone/money/" + to);
+    if (!to_ob) {
+        to_ob = new("/clone/money/" + to);
         to_ob->set_amount(amount * bv1 / bv2);
         to_ob->move(me, 1);
-    }
-    else
+    } else
         to_ob->add_amount(amount * bv1 / bv2);
 
     message_vision(sprintf("$N从身上取出%s%s%s，换成了%s%s%s。\n",
-                           chinese_number(amount),
-                           from_ob->query("base_unit"),
-                           from_ob->query("name"),
-                           chinese_number(amount * bv1 / bv2),
-                           to_ob->query("base_unit"),
-                           to_ob->query("name")),
-                   me);
+        chinese_number(amount),
+        from_ob->query("base_unit"),
+        from_ob->query("name"),
+        chinese_number(amount * bv1 / bv2),
+        to_ob->query("base_unit"),
+        to_ob->query("name")),
+        me);
 
     return 1;
 }
 
-int do_deposit(string arg)
-{
+int do_deposit(string arg) {
     string what;
     int amount /*, money_limit*/;
     object what_ob, me;
@@ -124,11 +120,11 @@ int do_deposit(string arg)
 
     if (amount < 1)
         return notify_fail("你想存多少" + what_ob->query("name") +
-                           "？\n");
+            "？\n");
 
     if ((int)what_ob->query_amount() < amount)
         return notify_fail("你带的" + what_ob->query("name") +
-                           "不够。\n");
+            "不够。\n");
 
     // deposit it
     me->start_busy(1);
@@ -136,15 +132,14 @@ int do_deposit(string arg)
     me->add("balance", what_ob->query("base_value") * amount);
     what_ob->add_amount(-amount);
     message_vision(sprintf("$N拿出%s%s%s，存进了银号。\n",
-                           chinese_number(amount), what_ob->query("base_unit"),
-                           what_ob->query("name")),
-                   me);
+        chinese_number(amount), what_ob->query("base_unit"),
+        what_ob->query("name")),
+        me);
 
     return 1;
 }
 
-int do_withdraw(string arg)
-{
+int do_withdraw(string arg) {
     string what;
     int amount /*, money_limit*/;
     object /*what_ob,*/ me;
@@ -185,8 +180,7 @@ int do_withdraw(string arg)
     return 1;
 }
 
-int do_transfer(string arg)
-{
+int do_transfer(string arg) {
     string who, what;
     int value;
     object me, ob;
@@ -231,8 +225,14 @@ int do_transfer(string arg)
     me->save();
     ob->save();
 
-    tell_object(ob, HIR + me->query("name") + HIR "从银号里划转" + MONEY_D->money_str(value) + "到你的帐户上。\n" NOR);
-    tell_object(me, HIR "你从银号里划转" + MONEY_D->money_str(value) + "到" + ob->query("name") + HIR "的帐户上。\n" NOR);
+    tell_object(
+        ob,
+        HIR + me->query("name") + HIR "从银号里划转" + MONEY_D->money_str(value) + "到你的帐户上。\n" NOR
+    );
+    tell_object(
+        me,
+        HIR "你从银号里划转" + MONEY_D->money_str(value) + "到" + ob->query("name") + HIR "的帐户上。\n" NOR
+    );
     UPDATE_D->global_destruct_player(ob);
     return 1;
 }

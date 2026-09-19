@@ -2,9 +2,8 @@
 
 inherit NPC;
 
-void create()
-{
-    set_name("野羊", ({ "sheep" }) );
+void create() {
+    set_name("野羊", ({ "sheep" }));
     set("gender", "雄性");
     set("race", "野兽");
     set("age", 2);
@@ -13,8 +12,8 @@ void create()
     set("combat_exp", 5000);
     set("shen_type", -1);
     set("attitude", "peaceful");
-    set("limbs", ({ "羊角", "前蹄", "后蹄" }) );
-    set("verbs", ({ "hoof" }) );
+    set("limbs", ({ "羊角", "前蹄", "后蹄" }));
+    set("verbs", ({ "hoof" }));
 
     set("water", 200);
     set("food", 200);

@@ -13,14 +13,12 @@
 
 inherit ROOM;
 
-void start_heart_beat()
-{
+void start_heart_beat() {
     // 每天(MUD单位)心跳一次
     set_heart_beat(120);
 }
 
-void setup()
-{
+void setup() {
     mapping product;
     string mine;
     int count;
@@ -32,11 +30,10 @@ void setup()
     ::setup();
 
     product = query("product");
-    if (! mapp(product))
+    if (!mapp(product))
         return;
 
-    foreach (mine in keys(product))
-    {
+    foreach (mine in keys(product)) {
         // 设置最初的产品
         count = product[mine]["max"] / 10;
         count = count / 2 + random(count);
@@ -46,22 +43,19 @@ void setup()
     start_heart_beat();
 }
 
-void init()
-{
+void init() {
     add_action("do_info", "info");
 }
 
-int query_product_amount(string name, int amount)
-{
+int query_product_amount(string name, int amount) {
     return query_temp("stored/" + name);
 }
 
 // 如果amount < 0则表示消耗资源
-void improve_product_amount(string name, int amount)
-{
+void improve_product_amount(string name, int amount) {
     mapping m;
 
-    if (! mapp(m = query("product/" + name)))
+    if (!mapp(m = query("product/" + name)))
         // 不提供这种资源
         return;
 
@@ -71,8 +65,7 @@ void improve_product_amount(string name, int amount)
     set_temp("stored/" + name, amount);
 }
 
-void heart_beat()
-{
+void heart_beat() {
     int count;
     mapping product;
     string mine;
@@ -81,29 +74,25 @@ void heart_beat()
     string cost;
     int cost_total;
 
-    if (! mapp(product = query("product")))
-    {
+    if (!mapp(product = query("product"))) {
         set_heart_beat(0);
         return;
     }
 
     // 生产产品
-    foreach (mine in keys(product))
-    {
+    foreach (mine in keys(product)) {
         // 每次心跳消耗一些原料，生产一些产品
-        if (! mapp(m = product[mine]))
-        {
+        if (!mapp(m = product[mine])) {
             map_delete(product, mine);
             continue;
         }
 
         // 计算能够生产的数量
-        if (! intp(rate = m["rate"]) || rate < 1)
+        if (!intp(rate = m["rate"]) || rate < 1)
             continue;
 
         count = rate / 2 + random(rate / 2);
-        if (arrayp(m["cost"]))
-        {
+        if (arrayp(m["cost"])) {
             foreach (cost in m["cost"])
                 if (count > (cost_total = query_temp("stored/" + cost)))
                     count = cost_total;
@@ -122,8 +111,7 @@ void heart_beat()
     }
 }
 
-int do_info(string arg)
-{
+int do_info(string arg) {
     mapping product;
     mapping stored;
     string mine;
@@ -134,16 +122,14 @@ int do_info(string arg)
 
     msg = "当前各种资源的信息：\n";
 
-    if (! mapp(stored = query_temp("stored")) ||
-        ! mapp(product = query("product")))
-    {
+    if (!mapp(stored = query_temp("stored")) ||
+        !mapp(product = query("product"))) {
         write("目前没有任何库存资源。\n");
         return 1;
     }
 
-    foreach (mine in keys(stored))
-    {
-        if (! mapp(m = product[mine]))
+    foreach (mine in keys(stored)) {
+        if (!mapp(m = product[mine]))
             continue;
 
         msg += sprintf("%-8s  库存量：" HIY "%-6d" NOR, m["name"], stored[mine]);

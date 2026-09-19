@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "古道");
     set("long", @LONG
 一条石板古道，两边树木苍翠，山势平缓，南面是一望
@@ -11,12 +10,12 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-        "in"   : __DIR__"dating",
-        "west" : __DIR__"shanlu6",
-        "east" : __DIR__"luyuxi",
+        "in": __DIR__ "dating",
+        "west": __DIR__ "shanlu6",
+        "east": __DIR__ "luyuxi",
     ]));
     set("objects", ([
-        "/clone/npc/walker" : 1,
+        "/clone/npc/walker": 1,
     ]));
     set("no_clean_up", 0);
     setup();

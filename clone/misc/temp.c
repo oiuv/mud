@@ -8,8 +8,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     seteuid(getuid());
     set("short", "无边落木");
     set("long", "这是一处渺无人迹的地方。\n");
@@ -17,24 +16,21 @@ void create()
     set_heart_beat(1);
 }
 
-void heart_beat()
-{
+void heart_beat() {
     object *ob;
 
     // Clear the room's link
     SIMUL_EFUN_OB->clear_link_temp();
 
     ob = all_inventory(this_object());
-    if (pointerp(ob) && sizeof(ob) > 0)
-    {
+    if (pointerp(ob) && sizeof(ob) > 0) {
         // Moved all the item to VOID_OB
         ob->apply_moved_function(0);
         ob->move(VOID_OB);
     }
 }
 
-int clean_up(int inherited)
-{
+int clean_up(int inherited) {
     heart_beat();
     destruct(this_object());
     return 0;

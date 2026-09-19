@@ -5,12 +5,11 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
+void create() {
     set_name("心砚", ({ "xin yan", "yan" }));
-    set("title", HIR "红花会"HIG"书僮" NOR);
+    set("title", HIR "红花会" HIG "书僮" NOR);
     set("long",
-"他是红花会总舵主陈家洛的贴身书僮。\n");
+        "他是红花会总舵主陈家洛的贴身书僮。\n");
     set("gender", "男性");
     set("class", "scholar");
     set("age", 15);
@@ -51,11 +50,11 @@ void create()
     map_skill("sword", "yunlong-jian");
     map_skill("whip", "yunlong-bian");
 
-    prepare_skill("hand","yunlong-shou");
-    prepare_skill("claw","yunlong-zhua");
+    prepare_skill("hand", "yunlong-shou");
+    prepare_skill("claw", "yunlong-zhua");
     set("env/wimpy", 60);
 
-     setup();
+    setup();
     carry_object("/clone/misc/cloth")->wear();
     carry_object("/clone/weapon/changbian")->wield();
 }

@@ -2,10 +2,9 @@
 #include <ansi.h>
 inherit MONEY;
 
-void create()
-{
-    set_name(HIY"铜钱"NOR, ({"coin", "coins", "coin_money" }));
-    if( clonep() )
+void create() {
+    set_name(HIY "铜钱" NOR, ({ "coin", "coins", "coin_money" }));
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("money_id", "coin");

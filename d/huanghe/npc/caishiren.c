@@ -3,9 +3,8 @@
 inherit NPC;
 
 
-void create()
-{
-    set_name("采石人", ({ "caishi ren","ren" }));
+void create() {
+    set_name("采石人", ({ "caishi ren", "ren" }));
     set("gender", "男性");
     set("age", 22);
     set("str", 25);
@@ -17,6 +16,6 @@ void create()
     set("attitude", "peaceful");
 
     setup();
-    carry_object(__DIR__"obj/tieqiao")->wield();
+    carry_object(__DIR__ "obj/tieqiao")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

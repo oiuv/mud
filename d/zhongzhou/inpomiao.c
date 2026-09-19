@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "丐帮中州分舵");
     set("long", @LONG
 这里是丐帮设在中州府的分舵。破庙角落中散放着一些稻
@@ -11,10 +10,10 @@ LONG);
     set("no_clean_up", 0);
     set("outdoors", "zhongzhou");
     set("exits", ([
-          "out" : __DIR__"guandimiao",
+        "out": __DIR__ "guandimiao",
     ]));
     set("objects", ([
-                "/clone/npc/walker" : 1,
+        "/clone/npc/walker": 1,
     ]));
     setup();
     replace_program(ROOM);

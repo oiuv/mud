@@ -2,11 +2,10 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("乔三槐", ({ "lao qiao", "qiao" }));
     set("gender", "男性");
-    set("age", 55 );
+    set("age", 55);
 
     set_skill("unarmed", 20);
     set_skill("dodge", 20);

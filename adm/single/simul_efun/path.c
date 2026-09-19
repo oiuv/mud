@@ -1,7 +1,6 @@
 // path.c
 
-string user_cwd(string name)
-{
+string user_cwd(string name) {
     return ("/u/" + name);
 }
 /*

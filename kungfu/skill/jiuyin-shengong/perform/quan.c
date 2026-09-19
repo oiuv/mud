@@ -7,14 +7,12 @@ inherit F_SSERVER;
 
 #define QUAN "「" HIW "九阴神拳" NOR "」"
 
-int perform(object me, object target)
-{
+int perform(object me, object target) {
     string msg;
     int ap, dp;
     int damage;
 
-    if (!target)
-    {
+    if (!target) {
         me->clean_up_enemy();
         target = me->select_opponent();
     }
@@ -46,22 +44,21 @@ int perform(object me, object target)
     if (ap < me->query_skill("cuff"))
         ap = me->query_skill("cuff");
     ap += me->query_skill("martial-cognize", 1);
-    dp = target->query_skill("dodge") + target->query("dex") * 20 +
-         target->query_skill("martial-cognize", 1);
+    dp = target->query_skill("dodge") + target->query("dex") * 20 + target->query_skill(
+        "martial-cognize",
+        1
+    );
 
     me->start_busy(2);
     me->add("neili", -50);
-    if (ap / 2 + random(ap) < dp)
-    {
+    if (ap / 2 + random(ap) < dp) {
         msg += HIG "只见$n" HIG "不慌不忙，轻轻一闪，躲过了$N" HIG "这一击！\n" NOR;
-    }
-    else
-    {
+    } else {
         me->add("neili", -90);
         damage = ap / 2 + random(ap / 2);
         msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 85 + random(5),
-                                   HIR "$n" HIR "连忙格挡，可是这一拳力道何等之重，哪里抵"
-                                       "挡得住？只被打得吐血三尺，连退数步！\n" NOR);
+            HIR "$n" HIR "连忙格挡，可是这一拳力道何等之重，哪里抵"
+            "挡得住？只被打得吐血三尺，连退数步！\n" NOR);
     }
 
     message_combatd(msg, me, target);

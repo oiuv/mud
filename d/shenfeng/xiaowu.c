@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "小屋");
     set("long", @LONG
 这地方极是干燥，草木不生，屋中物品虽然经历了不知多
@@ -11,7 +10,7 @@ void create()
 LONG);
 
     set("exits", ([
-        "south" : __DIR__"feixu2",
+        "south": __DIR__ "feixu2",
     ]));
 
     setup();

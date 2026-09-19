@@ -4,21 +4,20 @@
 
 inherit CLASS_D("generate") + "/chinese";
 
-int  accept_object(object who, object ob);
+int accept_object(object who, object ob);
 
 void random_move();
-int  leave();
-int  is_stay_in_room()  { return 1; }
+int leave();
+int is_stay_in_room() { return 1; }
 
-void create()
-{
+void create() {
     ::create();
     set("gender", random(5) ? "男性" : "女性");
-    set_name("心魔", ({"xin mo", "mo", "daemon"}));
+    set_name("心魔", ({ "xin mo", "mo", "daemon" }));
     // set("age", 20 + random(40));
     set("long", "这是你的心魔。\n");
     set("attitude", "aggressive");
-    set("chat_chance", 1); // 1/100 的机率
+    set("chat_chance", 1);  // 1/100 的机率
     set("chat_msg", ({ (: random_move :) }));
     set("chat_chance_combat", 120);
     set("scale", 100);
@@ -33,8 +32,7 @@ void create()
     if (clonep()) keep_heart_beat();
 }
 
-void set_from_me(object me, int scale)
-{
+void set_from_me(object me, int scale) {
     mapping my;
     int s, f, x, y, z;
     // debug_message("scale = " + scale);
@@ -59,8 +57,7 @@ void set_from_me(object me, int scale)
     my["max_qi"] += (int)my["max_neili"] / 4;
 
     if ((x = (int)this_object()->query_skill("taoism", 1)) > 39 &&
-        (y = (int)this_object()->query_skill("taiji-shengong", 1)) > 39)
-    { // 太极神功配合道学心法加气
+        (y = (int)this_object()->query_skill("taiji-shengong", 1)) > 39) {  // 太极神功配合道学心法加气
         if (x > 350)
             x = (x - 350) / 2 + 350;
         if (y > 350)
@@ -71,10 +68,8 @@ void set_from_me(object me, int scale)
             y = (y - 200) / 2 + 200;
 
         my["max_qi"] += (x + 100) * (y + 100) / 100;
-    }
-    else if ((x = (int)this_object()->query_skill("bihai-chaosheng", 1)) > 39 &&
-             (y = (int)this_object()->query_skill("bibo-shengong", 1)) > 39)
-    { // 碧波神功配合碧海潮生曲加气
+    } else if ((x = (int)this_object()->query_skill("bihai-chaosheng", 1)) > 39 &&
+        (y = (int)this_object()->query_skill("bibo-shengong", 1)) > 39) {  // 碧波神功配合碧海潮生曲加气
         if (x > 250)
             x = (x - 250) / 2 + 250;
         if (y > 250)
@@ -108,18 +103,14 @@ void set_from_me(object me, int scale)
     my["neili"] = my["max_neili"];
     my["quest_count"] = me->query("quest_count");
 
-    if (my["combat_exp"] > 800000)
-    {
+    if (my["combat_exp"] > 800000) {
         my["jiali"] = query_skill("force") / 3;
-    }
-    else
-    {
+    } else {
         my["jiali"] = query_skill("force") / 6;
     }
 }
 
-void kill_ob(object ob)
-{
+void kill_ob(object ob) {
     if (!is_busy())
         exert_function("powerup");
 
@@ -127,8 +118,7 @@ void kill_ob(object ob)
 }
 
 // 当任务的NPC死亡的时候，检查是否可以进行奖励玩家。
-void die(object killer)
-{
+void die(object killer) {
     int lvl;        // NPC的等级
     int exp;        // 需要瓜分的经验
     int pot;        // 需要瓜分的潜能
@@ -145,14 +135,13 @@ void die(object killer)
     weiwang = 5 + random(lvl);
     score = 5 + random(lvl);
     // debug_message("lvl = " + lvl);
-    if (objectp(killer))
-    {
+    if (objectp(killer)) {
         GIFT_D->delay_bonus(killer, ([
-            "exp" : exp,
-            "pot" : pot,
-            "weiwang" : weiwang,
-            "score" : score,
-            "prompt" : "击毙" + name() + "之后"
+            "exp": exp,
+            "pot": pot,
+            "weiwang": weiwang,
+            "score": score,
+            "prompt": "击毙" + name() + "之后"
         ]));
     }
 
@@ -162,33 +151,28 @@ void die(object killer)
     return;
 }
 
-int accept_fight(object ob)
-{
+int accept_fight(object ob) {
     command("say 好！咱们就比划比划！");
     kill_ob(ob);
     return 1;
 }
 
-int accept_hit(object ob)
-{
+int accept_hit(object ob) {
     command("say 你死去吧！");
     kill_ob(ob);
     return 1;
 }
 
-int accept_kill(object ob)
-{
+int accept_kill(object ob) {
     command("say 哼！找死！");
     return 1;
 }
 
-void random_move()
-{
+void random_move() {
     NPC_D->random_move(this_object());
 }
 
-void init()
-{
+void init() {
     object me;
 
     ::init();

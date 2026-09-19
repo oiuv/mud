@@ -2,17 +2,14 @@
 
 inherit ITEM;
 
-void setup()
-{}
+void setup() {}
 
-void init()
-{
+void init() {
     add_action("do_eat", "eat");
 }
 
-void create()
-{
-    set_name("金创药", ({"jinchuang yao", "jin", "jinchuang"}));
+void create() {
+    set_name("金创药", ({ "jinchuang yao", "jin", "jinchuang" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -23,8 +20,7 @@ void create()
     setup();
 }
 
-int do_eat(string arg)
-{
+int do_eat(string arg) {
     if (!id(arg))
         return notify_fail("你要吃什么药？\n");
     if ((int)this_player()->query("eff_qi") ==

@@ -2,10 +2,9 @@
 #include <ansi.h>
 inherit MONEY;
 
-void create()
-{
-    set_name(HIW"白银"NOR, ({"silver", "ingot", "silver_money"}));
-    if( clonep() )
+void create() {
+    set_name(HIW "白银" NOR, ({ "silver", "ingot", "silver_money" }));
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("money_id", "silver");

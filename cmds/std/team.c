@@ -6,22 +6,19 @@ inherit F_CLEAN_UP;
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object *t;
     string team_cmd;
 
-    if (!arg)
-    {
+    if (!arg) {
         if (!pointerp(t = me->query_team()))
             return notify_fail("你现在并没有参加任何队伍。\n");
         write(sort_msg("你现在队伍中的成员有：\n  " +
-                       implode(t->short(1), "\n  ") + "。\n"));
+            implode(t->short(1), "\n  ") + "。\n"));
         return 1;
     }
 
-    if (sscanf(arg, "%s %s", team_cmd, arg) != 2)
-    {
+    if (sscanf(arg, "%s %s", team_cmd, arg) != 2) {
         team_cmd = arg;
         arg = 0;
     }
@@ -33,9 +30,8 @@ int main(object me, string arg)
     return team_cmd->main(me, arg);
 }
 
-int help(object me)
-{
-    write( @HELP
+int help(object me) {
+    write(@HELP
 队伍指令使用方法:
 
 team with <某人> - 跟某人组成队伍. 必须要双方都同意加入才会生效。
@@ -68,6 +64,6 @@ team swear <名字>- 全队结义。只有队长才能够使用这个命令，�
 
 注: team 跟 follow 是独立的，你不一定要 follow 队伍的领袖就可以跟随队长
 一起行动。
-HELP );
+HELP);
     return 1;
 }

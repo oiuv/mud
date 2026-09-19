@@ -3,29 +3,27 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "黄土小路");
     set("long", @LONG
 这里是茂密松林中的一条黄土小路。松林极密，四面都是蓝幽幽
 的感觉，白白的冰雪反光耀眼。你来到一个山腰的危崖之边，前边有
 一个小洞。
-LONG );
+LONG);
     set("exits", ([
-        "east"  : __DIR__"huangtulu1",
-        "in" : __DIR__"shandong",
+        "east": __DIR__ "huangtulu1",
+        "in": __DIR__ "shandong",
     ]));
     set("outdoors", "mingjiao");
     set("objects", ([
-        __DIR__"npc/menwei1" : 4,
+        __DIR__ "npc/menwei1": 4,
     ]));
     setup();
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     if (dir == "in" && objectp(present("da han", environment(me))))
         return notify_fail("大汉拦住你说：此处乃明教"
-                           "重地，只有教主才能入内。\n");
+            "重地，只有教主才能入内。\n");
     return ::valid_leave(me, dir);
 }

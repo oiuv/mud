@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "九老洞口");
     set("long", @LONG
 九老洞在仙峰寺外。传说远古时候，有九位仙叟住在这个
@@ -11,13 +10,13 @@ void create()
 向西经九十九道拐到千佛庵，一路向北到莲花石。
 LONG);
     set("objects", ([
-        "/clone/quarry/hou" : 2,
+        "/clone/quarry/hou": 2,
     ]));
     set("outdoors", "emei");
     set("exits", ([
-        "east"      : __DIR__"jsjdg4",
-        "in"        : __DIR__"jiulaodong",
-        "northwest" : __DIR__"lianhuashi",
+        "east": __DIR__ "jsjdg4",
+        "in": __DIR__ "jiulaodong",
+        "northwest": __DIR__ "lianhuashi",
     ]));
     setup();
     replace_program(ROOM);

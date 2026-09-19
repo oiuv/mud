@@ -3,8 +3,7 @@
 #include <weapon.h>
 inherit DAGGER;
 
-void create()
-{
+void create() {
     set_name("分水刺", ({ "fenshui ci", "ci" }));
     set_weight(7000);
     if (clonep())

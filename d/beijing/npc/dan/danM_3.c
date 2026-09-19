@@ -2,9 +2,8 @@
 
 inherit COMBINED_ITEM;
 
-void create()
-{
-    set_name(HIY "龙王丹" NOR, ({"longwang dan", "dan"}));
+void create() {
+    set_name(HIY "龙王丹" NOR, ({ "longwang dan", "dan" }));
     if (clonep())
         set_default_object(__FILE__);
     else {
@@ -22,12 +21,10 @@ void create()
     set_amount(1);
 }
 
-int do_effect(object me)
-{
+int do_effect(object me) {
     mapping my;
 
-    if (time() - me->query_temp("last_eat/dan(M)") < 25)
-    {
+    if (time() - me->query_temp("last_eat/dan(M)") < 25) {
         write("你刚服用过药，需药性发挥完效用以后才能继续服用。\n");
         return 1;
     }
@@ -38,8 +35,7 @@ int do_effect(object me)
 
     if (me->improve_neili(3))
         message_vision(HIY "$N" HIY "吃下一粒龙王丹，感到内力又雄厚了一些。\n" NOR, me);
-    else
-    {
+    else {
         tell_object(me, "你感到内息澎湃，难以吸收丹药的效力。\n");
     }
 

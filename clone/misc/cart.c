@@ -6,9 +6,8 @@
 inherit ITEM;
 inherit F_TRANSPORT;
 
-void create()
-{
-    set_name("大车", ({ "cart" }) );
+void create() {
+    set_name("大车", ({ "cart" }));
     set_weight(200000);
     if (clonep())
         set_default_object(__FILE__);
@@ -23,16 +22,14 @@ void create()
     setup();
 }
 
-string long()
-{
+string long() {
     mapping goods;
     string desc;
 
     desc = ::long();
-    if (! mapp(goods = query_temp("goods")))
+    if (!mapp(goods = query_temp("goods")))
         return desc;
 
-    desc += "里面装着" + chinese_number(goods["amount"]) +
-            goods["unit"] + goods["name"] + "。\n";
+    desc += "里面装着" + chinese_number(goods["amount"]) + goods["unit"] + goods["name"] + "。\n";
     return desc;
 }

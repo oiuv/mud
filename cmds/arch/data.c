@@ -9,8 +9,7 @@
 inherit F_DBASE;
 int help(object me);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     mapping list, tlist;
     mixed *klist, *tlist2;
     object ob, ob1;
@@ -22,16 +21,13 @@ int main(object me, string arg)
 
     seteuid(geteuid(me));
 
-    if (arg)
-    {
+    if (arg) {
         sscanf(arg, "%s %s", spec, arg);
-        if (arg == "-t" || arg == "-d")
-        {
+        if (arg == "-t" || arg == "-d") {
             spec = arg;
             arg = 0;
         }
-        if (spec && spec != "-d" && spec != "-t")
-        {
+        if (spec && spec != "-d" && spec != "-t") {
             arg = spec + " " + arg;
             spec = 0;
         }
@@ -39,8 +35,7 @@ int main(object me, string arg)
 
     if (!arg || arg == "")
         ob = me;
-    else if (sscanf(arg, "%s in %s", arg, id) == 2)
-    {
+    else if (sscanf(arg, "%s in %s", arg, id) == 2) {
         ob1 = present(id, environment(me));
         if (!ob1)
             ob1 = present(id, me);
@@ -48,11 +43,9 @@ int main(object me, string arg)
             return notify_fail("本地无此生物: " + id + "\n");
         if (!ob = present(arg, ob1))
             return notify_fail("该生物身上无此对象: " + arg + "\n");
-    }
-    else if (arg == "here")
+    } else if (arg == "here")
         ob = environment(me);
-    else
-    {
+    else {
         arg = lower_case(arg);
 
         ob = present(arg, environment(me));
@@ -71,14 +64,12 @@ int main(object me, string arg)
     if (!mapp(list) && !mapp(tlist))
         return notify_fail("Data:  此对象并没有任何的资料。\n");
 
-    if (mapp(list) && sizeof(list))
-    {
+    if (mapp(list) && sizeof(list)) {
         klist = keys(list);
         klist = sort_array(klist, "sort_keys", this_object());
     }
 
-    if (mapp(tlist) && sizeof(tlist))
-    {
+    if (mapp(tlist) && sizeof(tlist)) {
         tlist2 = keys(tlist);
         tlist2 = sort_array(tlist2, "sort_keys", this_object());
     }
@@ -86,12 +77,10 @@ int main(object me, string arg)
     if (!klist || !sizeof(klist))
         return notify_fail("Data: 此对象并没有储存任何资料。\n");
 
-    if (!spec || spec == "-d")
-    {
+    if (!spec || spec == "-d") {
         text = "Object: " + base_name(ob) + ".c\n";
 
-        for (loop = 0; loop < sizeof(klist); loop++)
-        {
+        for (loop = 0; loop < sizeof(klist); loop++) {
             if (strlen(klist[loop]) > 7)
                 text += klist[loop] + "\t: ";
             else
@@ -100,16 +89,13 @@ int main(object me, string arg)
             text += sprintf("%O \n", list[klist[loop]]);
         }
         text += "\n总共有 " + sizeof(klist) + " 个储存的资料。\n\n";
-    }
-    else
+    } else
         text = "";
 
-    if (!spec || spec == "-t")
-    {
+    if (!spec || spec == "-t") {
         text += "TEMP DATA :\n\n";
 
-        for (loop = 0; loop < sizeof(tlist2); loop++)
-        {
+        for (loop = 0; loop < sizeof(tlist2); loop++) {
             if (strlen(tlist2[loop]) > 7)
                 text += tlist2[loop] + "\t: ";
             else
@@ -126,19 +112,16 @@ int main(object me, string arg)
 
 // This function is used to sort the key array.
 
-protected int sort_keys(string one, string two)
-{
+protected int sort_keys(string one, string two) {
     return strcmp(one, two);
 }
 
 // This function strips out the secured props from the data array.
-protected int filter_props(string prop, object target)
-{
-    return  1;
+protected int filter_props(string prop, object target) {
+    return 1;
 }
 
-int help(object  me)
-{
+int help(object me) {
     write(@LONG
 指令格式: data <-t|-d> <玩家|对象|here> <in 玩家或生物>
 指令范例: data                  <--  看自己的所有  data  base
@@ -154,5 +137,5 @@ int help(object  me)
 项可以显示暂时变数, -d 选项可以只显示永久变数， 所要看的对象
 可以是玩家或任何对象。
 LONG);
-    return  1;
+    return 1;
 }

@@ -1,31 +1,30 @@
 #include <ansi.h>
 inherit NPC;
 
-void create()
-{
-        set_name("北丑", ({ "bei chou", "bei", "chou", "xizi" }) );
-        set("nickname", HIW "北戏子" NOR);
-        set("title", HIC "武林泰斗" NOR);
-        set("gender", "男性" );
-        set("age", 68);
-        set("long", HIC "这是一个身着戏子打扮的瘦小老头，长得尖\n"
-                        "嘴猴腮，天生一副奸相。这便是当今武林中\n"
-                        "号称「" HIR "南贤北丑" HIC "」戏子北丑。"
-                        "\n" NOR);
-        set("attitude", "friendly");
-        set("max_jing", 25000);
-        set("max_qi", 25000);
-        set("max_jingli", 50000);
-        set("jingli", 50000);
-        set("max_neili", 50000);
-        set("neili", 50000);
-        set("jiali", 375);
-        set("str", 50);
-        set("int", 50);
-        set("con", 50);
-        set("dex", 50);
-        set("combat_exp", 12000000);
-        /*
+void create() {
+    set_name("北丑", ({ "bei chou", "bei", "chou", "xizi" }));
+    set("nickname", HIW "北戏子" NOR);
+    set("title", HIC "武林泰斗" NOR);
+    set("gender", "男性");
+    set("age", 68);
+    set("long", HIC "这是一个身着戏子打扮的瘦小老头，长得尖\n"
+        "嘴猴腮，天生一副奸相。这便是当今武林中\n"
+        "号称「" HIR "南贤北丑" HIC "」戏子北丑。"
+        "\n" NOR);
+    set("attitude", "friendly");
+    set("max_jing", 25000);
+    set("max_qi", 25000);
+    set("max_jingli", 50000);
+    set("jingli", 50000);
+    set("max_neili", 50000);
+    set("neili", 50000);
+    set("jiali", 375);
+    set("str", 50);
+    set("int", 50);
+    set("con", 50);
+    set("dex", 50);
+    set("combat_exp", 12000000);
+    /*
         set_skill("dodge", 500);
         set_skill("unarmed", 500);
         set_skill("force", 500);
@@ -101,6 +100,6 @@ void create()
                 (: exert_function, "regenerate" :),
         }) );
         */
-        setup();
-        carry_object("d/city/obj/cloth")->wear();
+    setup();
+    carry_object("d/city/obj/cloth")->wear();
 }

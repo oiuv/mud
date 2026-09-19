@@ -5,13 +5,12 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("石双英", ({ "shi shuangying", "shi","shuangying" }));
-    set("title", HIR "红花会"HIG"十二当家" NOR);
+void create() {
+    set_name("石双英", ({ "shi shuangying", "shi", "shuangying" }));
+    set("title", HIR "红花会" HIG "十二当家" NOR);
     set("nickname", HIG "鬼见愁" NOR);
     set("long",
-"鬼见愁石双英在会中坐第十二把交椅，执掌刑堂，铁面无私，心狠手
+        "鬼见愁石双英在会中坐第十二把交椅，执掌刑堂，铁面无私，心狠手
 辣，犯了规条的就是逃到天涯海角，他也必派人抓来处刑，原来依据红
 花会规条，会中兄弟犯了大罪，若是一时胡涂，此后诚心悔悟，可在开
 香堂执法之前，自行用尖刀在大腿上连戳三刀，这三刀须对穿而过，即
@@ -53,9 +52,9 @@ void create()
     map_skill("sword", "taiji-jian");
 
     set("env/wimpy", 20);
-    create_family("太极门",8, "弟子");
+    create_family("太极门", 8, "弟子");
 
-     setup();
+    setup();
     carry_object("/clone/misc/cloth")->wear();
     carry_object("/clone/weapon/changjian")->wield();
 }

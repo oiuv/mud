@@ -4,8 +4,7 @@
 
 inherit ITEM;
 
-void create()
-{
+void create() {
     set_name("鸡血石", ({ "jixue shi", "shi" }));
     set_weight(500);
     if (clonep())

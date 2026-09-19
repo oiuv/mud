@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob /*,where*/;
     int sp, dp;
     int /*i,*/ cost, train_level;
@@ -47,18 +46,17 @@ int main(object me, string arg)
         return notify_fail("现在你太累了，无法训练野兽。\n");
 
     message_vision("只见$N冲着" + ob->name() +
-                       "手脚乱摆，口中似对它轻轻细语。\n\n",
-                   me);
+        "手脚乱摆，口中似对它轻轻细语。\n\n",
+        me);
 
     sp = me->query_skill("training", 1) + me->query("int");
     dp = ob->query("combat_exp") / 100;
 
-    if (random(sp) < random(dp) / 2)
-    {
+    if (random(sp) < random(dp) / 2) {
         ob->kill_ob(me);
         me->start_busy(1);
         return notify_fail("你驭兽术不精，那东西野"
-                           "性不泯，冲着你就窜了过来！\n");
+            "性不泯，冲着你就窜了过来！\n");
     }
 
     me->receive_damage("jing", cost);
@@ -91,8 +89,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : train <动物>
 

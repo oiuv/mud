@@ -2,8 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string file;
     object ob;
 
@@ -14,8 +13,7 @@ int main(object me, string arg)
     if (!arg)
         return notify_fail("指令格式 : more <档名>|<对象名> \n");
     file = resolve_path(me->query("cwd"), arg);
-    if (file_size(file) < 0)
-    {
+    if (file_size(file) < 0) {
         ob = present(arg, me);
         if (!ob)
             ob = present(arg, environment(me));
@@ -31,14 +29,13 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : more <档案名>
 
 这个指令让你可以以分页方式查阅一个文件的内容。
 
 see also: cat
-HELP );
+HELP);
     return 1;
 }

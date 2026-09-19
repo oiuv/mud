@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "打铁铺");
     set("long", @LONG
 这是一家简陋的打铁铺，中心摆着一个火炉，炉火把四周
@@ -12,20 +11,20 @@ void create()
 上悬挂着一个牌子(paizi)。
 LONG);
     set("item_desc", ([
-        "paizi" : WHT "\n\n        ##====================##\n"
-                        "        ##                    ##\n"
-                        "        ##      " NOR + HIW "负责维修" NOR + WHT "      ##\n"
-                        "        ##                    ##\n"
-                        "        ##  " NOR + HIY "repair  <兵器id>" NOR + WHT "  ##\n"
-                        "        ##                    ##\n"
-                        "        ##                    ##\n"
-                        "        ##====================##\n\n\n" NOR,
+        "paizi": WHT "\n\n        ##====================##\n"
+        "        ##                    ##\n"
+        "        ##      " NOR + HIW "负责维修" NOR + WHT "      ##\n"
+        "        ##                    ##\n"
+        "        ##  " NOR + HIY "repair  <兵器id>" NOR + WHT "  ##\n"
+        "        ##                    ##\n"
+        "        ##                    ##\n"
+        "        ##====================##\n\n\n" NOR,
     ]));
     set("exits", ([
-        "north" : __DIR__"dongdajie2",
+        "north": __DIR__ "dongdajie2",
     ]));
-        set("objects", ([
-        __DIR__"npc/smith": 1,
+    set("objects", ([
+        __DIR__ "npc/smith": 1,
     ]));
     setup();
     replace_program(ROOM);

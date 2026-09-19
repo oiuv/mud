@@ -3,21 +3,20 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "方丈室");
     set("long", @LONG
 方丈室陈设简洁，正中一几，一蒲团，一矮床。北面墙上写
 着大大的一个『禅』字。一位慈眉善目的灰衣老僧正端坐于蒲团
 上打坐。
-LONG );
+LONG);
     set("exits", ([
-        "south" : __DIR__"fzlou1",
+        "south": __DIR__ "fzlou1",
     ]));
-    set("objects",([
-        CLASS_D("shaolin") + "/xuan-ci" : 1,
+    set("objects", ([
+        CLASS_D("shaolin") + "/xuan-ci": 1,
     ]));
-//    set("no_clean_up", 0);
+    //    set("no_clean_up", 0);
     setup();
     replace_program(ROOM);
 }

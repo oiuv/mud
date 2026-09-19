@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "大道");
     set("long", @LONG
 你走在一条黄土飞扬的大道上，不时地有人挂剑跨马匆匆
@@ -9,8 +8,8 @@ void create()
 LONG);
     set("outdoors", "emei");
     set("exits", ([
-        "southwest" : __DIR__"xiaolu1",
-        "northeast" : "/d/wudang/sanbuguan",
+        "southwest": __DIR__ "xiaolu1",
+        "northeast": "/d/wudang/sanbuguan",
     ]));
     set("no_clean_up", 0);
     setup();

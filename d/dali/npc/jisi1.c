@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("老祭司", ({ "lao jisi", "jisi" }));
     set("age", 62);
     set("gender", "男性");
@@ -26,5 +25,5 @@ void create()
     set_temp("apply/armor", 10);
 
     setup();
-    carry_object(__DIR__"obj/bduanqun")->wear();
+    carry_object(__DIR__ "obj/bduanqun")->wear();
 }

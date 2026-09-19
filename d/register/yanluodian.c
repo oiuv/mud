@@ -10,36 +10,35 @@ int do_wash(string arg);
 int do_born(string arg);
 
 mapping born = ([
-    "扬州人氏":"/d/city/kedian",
-    "欧阳世家":([
-        "born":"西域人氏",
-        "surname":"欧阳",
-        "startroom":"/d/baituo/dating",
+    "扬州人氏": "/d/city/kedian",
+    "欧阳世家": ([
+        "born": "西域人氏",
+        "surname": "欧阳",
+        "startroom": "/d/baituo/dating",
     ]),
-    "关外胡家":([
-        "born":"关外人氏",
-        "surname":"胡",
-        "startroom":"/d/guanwai/xiaowu",
+    "关外胡家": ([
+        "born": "关外人氏",
+        "surname": "胡",
+        "startroom": "/d/guanwai/xiaowu",
     ]),
-    "中原苗家":([
-        "born":"中原人氏",
-        "surname":"苗",
-        "startroom":"/d/zhongzhou/miaojia_houting",
+    "中原苗家": ([
+        "born": "中原人氏",
+        "surname": "苗",
+        "startroom": "/d/zhongzhou/miaojia_houting",
     ]),
-    "段氏皇族":([
-        "born":"大理人氏",
-        "surname":"段",
-        "startroom":"/d/dali/wangfugate",
+    "段氏皇族": ([
+        "born": "大理人氏",
+        "surname": "段",
+        "startroom": "/d/dali/wangfugate",
     ]),
-    "慕容世家":([
-        "born":"江南人氏",
-        "surname":"慕容",
-        "startroom":"/d/yanziwu/cuixia",
+    "慕容世家": ([
+        "born": "江南人氏",
+        "surname": "慕容",
+        "startroom": "/d/yanziwu/cuixia",
     ]),
 ]);
 
-void create()
-{
+void create() {
     int i, k;
     string desc;
     string *position;
@@ -55,15 +54,15 @@ void create()
 成的池子，池中潭水清澈却不见底，不知道它究竟有多深。水池的旁边
 有一个牌子(paizi)，你也许应该仔细看看(指令：look paizi)。
 
-LONG NOR );
+LONG NOR);
     set("no_fight", 1);
     set("item_desc", ([
-        "paizi":"投胎乃人生大事，切记不可草率！\n\n选好先天属性(指令：washto)之后再投胎(指令：born <中文地名>)吧。\n"
+        "paizi": "投胎乃人生大事，切记不可草率！\n\n选好先天属性(指令：washto)之后再投胎(指令：born <中文地名>)吧。\n"
     ]));
 
     set("objects", ([
-        __DIR__ "npc/dizangwang":1,
-        "/d/death/npc/niutou":1,
+        __DIR__ "npc/dizangwang": 1,
+        "/d/death/npc/niutou": 1,
     ]));
 
     // set("no_say", "阎罗殿内阴森恐怖，你哪里敢乱说话？\n");
@@ -71,16 +70,14 @@ LONG NOR );
     desc = query("item_desc/paizi");
     position = keys(born);
 
-    for (i = 0, k = 1; i < sizeof(position); i++)
-    {
+    for (i = 0, k = 1; i < sizeof(position); i++) {
         if (!stringp(born[position[i]]))
             continue;
 
         desc += sprintf("%2d. " HIG "%s" NOR "\n", k++, position[i]);
     }
 
-    for (i = 0; i < sizeof(position); i++)
-    {
+    for (i = 0; i < sizeof(position); i++) {
         if (!mapp(born[position[i]]))
             continue;
 
@@ -91,14 +88,12 @@ LONG NOR );
     setup();
 }
 
-void init()
-{
+void init() {
     add_action("do_wash", "washto");
     add_action("do_born", "born");
 }
 
-int do_wash(string arg)
-{
+int do_wash(string arg) {
     int tmpstr, tmpint, tmpcon, tmpdex;
     object me;
     mapping my;
@@ -141,19 +136,18 @@ int do_wash(string arg)
 
     write(HIC "只听“啪”的一声，你被湿漉漉的抛了出来。\n" NOR, me);
     write(sprintf(HIY "\n你这次获得的四项先天天赋分别是：\n"
-                      "膂力：【 " HIG "%d" HIY " 】 "
-                      "悟性：【 " HIG "%d" HIY " 】 "
-                      "根骨：【 " HIG "%d" HIY " 】 "
-                      "身法：【 " HIG "%d" HIY " 】\n"
-                      "如果你满意，就去投胎(born)吧！方法如" HIR "<born 扬州人氏>\n\n" NOR,
-                  tmpstr, tmpint, tmpcon, tmpdex));
+        "膂力：【 " HIG "%d" HIY " 】 "
+        "悟性：【 " HIG "%d" HIY " 】 "
+        "根骨：【 " HIG "%d" HIY " 】 "
+        "身法：【 " HIG "%d" HIY " 】\n"
+        "如果你满意，就去投胎(born)吧！方法如" HIR "<born 扬州人氏>\n\n" NOR,
+        tmpstr, tmpint, tmpcon, tmpdex));
     me->set_temp("washed", 1);
 
     return 1;
 }
 
-int do_born(string arg)
-{
+int do_born(string arg) {
     object me;
     object obj;
     object item;
@@ -175,8 +169,7 @@ int do_born(string arg)
     if (arg)
         sscanf(arg, "%s %s", arg, new_name);
 
-    if (!arg || (!stringp(dest = born[arg]) && !mapp(dest)))
-    {
+    if (!arg || (!stringp(dest = born[arg]) && !mapp(dest))) {
         message_vision(CYN "牛头恶狠狠的对$N" CYN "说：你要干什么！投胎去哪里？\n" NOR, me);
         return 1;
     }
@@ -184,24 +177,20 @@ int do_born(string arg)
     if (mapp(dest) && stringp(dest["notice"]))
         return notify_fail(dest["notice"]);
 
-    if (stringp(dest))
-    {
+    if (stringp(dest)) {
         if (!objectp(obj = find_object(dest)))
             obj = load_object(dest);
         me->set("startroom", dest);
         me->set("born", arg);
         me->set("born_family", "没有");
-    }
-    else
-    {
+    } else {
         if (!objectp(obj = find_object(dest["startroom"])))
             obj = load_object(dest["startroom"]);
         me->set("startroom", dest["startroom"]);
         me->set("born", dest["born"]);
         me->set("born_family", arg);
 
-        if (new_name)
-        {
+        if (new_name) {
             if (!sscanf(new_name, dest["surname"] + "%*s"))
                 new_name = dest["surname"] + new_name;
 
@@ -215,30 +204,26 @@ int do_born(string arg)
                 return notify_fail("请你用中文起名字。\n");
         }
 
-        if (me->query("surname") != dest["surname"])
-        {
+        if (me->query("surname") != dest["surname"]) {
             // 名字需要变化
             if (!new_name)
                 new_name = dest["surname"] + me->query("purename");
-            if (stringp(msg = NAME_D->invalid_new_name(new_name)))
-            {
+            if (stringp(msg = NAME_D->invalid_new_name(new_name))) {
                 write(msg);
                 write("你可以考虑在投入世家的时候重新选择名字：born <世家> <名字>\n");
                 return 1;
             }
             me->set("surname", dest["surname"]);
-            me->set("purename", new_name[strlen(dest["surname"])..< 1]);
+            me->set("purename", new_name[strlen(dest["surname"])..<1]);
         }
 
-        if (mapp(dest["family"]))
-        {
+        if (mapp(dest["family"])) {
             me->set("family", dest["family"]);
             me->assign_apprentice(dest["family"]["title"], 0);
         }
         me->set_name();
     }
-    if (!objectp(obj))
-    {
+    if (!objectp(obj)) {
         message_vision(CYN "牛头一呆，搔搔头说道：怎么好像有问题……\n" NOR, me);
         return 1;
     }
@@ -246,8 +231,7 @@ int do_born(string arg)
     message_vision(HIC "牛头飞起一脚，将$N" HIC "踢了出去。\n" NOR, me);
 
     foreach (item in all_inventory(me))
-        if (!item->query("armor_type") && !(item->query("id") == "heros book"))
-        {
+        if (!item->query("armor_type") && !(item->query("id") == "heros book")) {
             if (item->is_character() || item->query("value"))
                 item->move(environment(me));
             else
@@ -255,8 +239,7 @@ int do_born(string arg)
         }
 
     // 选择特殊技能
-    if (!me->query("reborn"))
-    {
+    if (!me->query("reborn")) {
         UPDATE_D->born_player(me);
     }
     me->move(obj);

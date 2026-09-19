@@ -6,13 +6,11 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, mapping info)
-{
+int main(object me, mapping info) {
     string arg;
     seteuid(getuid());
 
-    if (mapp(info))
-    {
+    if (mapp(info)) {
         if (!stringp(arg = info[ARG]))
             arg = "";
         while (sscanf(arg, " %s", arg))
@@ -21,8 +19,7 @@ int main(object me, mapping info)
             ;
         if (arg == "")
             arg = 0;
-    }
-    else
+    } else
         arg = 0;
     if (!arg)
         arg = "look";

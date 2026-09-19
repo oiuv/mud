@@ -4,20 +4,19 @@
 inherit NPC;
 inherit F_UNIQUE;
 
-void create()
-{
-        set_name("闻苍松", ({ "wen cangsong", "wen", "cangsong", }));
+void create() {
+    set_name("闻苍松", ({ "wen cangsong", "wen", "cangsong", }));
     set("long",
         "他是一位高大魁伟的中年男子，身穿一件白布长袍。\n"
         "他天生神力，手中的两头狼牙棒有万夫不当之勇，真是一条威风凛凛的汉子。\n"
     );
 
-        set("title", HIR "明教" HIC "巨木旗" NOR "掌旗使");
+    set("title", HIR "明教" HIC "巨木旗" NOR "掌旗使");
     set("gender", "男性");
     set("attitude", "friendly");
-        set("class", "fighter");
+    set("class", "fighter");
 
-        set("age", 48);
+    set("age", 48);
     set("shen_type", 1);
     set("str", 25);
     set("int", 25);
@@ -47,10 +46,10 @@ void create()
     map_skill("parry", "jingang-quan");
 
     prepare_skill("cuff", "jingang-quan");
-        create_family("明教", 3, "巨木旗掌旗使");
+    create_family("明教", 3, "巨木旗掌旗使");
 
     setup();
 
-        carry_object("/d/mingjiao/obj/qimeigun")->wield();
-        carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/d/mingjiao/obj/qimeigun")->wield();
+    carry_object("/d/mingjiao/obj/baipao")->wear();
 }

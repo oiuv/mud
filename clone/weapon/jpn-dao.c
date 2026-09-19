@@ -3,8 +3,7 @@
 #include <weapon.h>
 inherit BLADE;
 
-void create()
-{
+void create() {
     set_name("东洋刀", ({ "blade", "dao" }));
     set_weight(5000);
     if (clonep())

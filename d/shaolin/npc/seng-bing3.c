@@ -5,8 +5,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("守寺僧兵", ({
         "seng bing",
         "seng",
@@ -57,8 +56,7 @@ void create()
     carry_object("/d/shaolin/obj/cloth")->wear();
 }
 
-void init()
-{
+void init() {
     object me, ob;
     mapping fam;
 
@@ -68,16 +66,14 @@ void init()
     me = this_object();
 
     if (interactive(ob)
-    && !environment(ob)->query("no_fight")
-    && !present("yingxiong ling", ob)
-    && ( (fam = ob->query("family")) && fam["family_name"] != "少林派" ) )
-    {
-        if( !ob->query_temp("warned") ) {
+        && !environment(ob)->query("no_fight")
+        && !present("yingxiong ling", ob)
+        && ((fam = ob->query("family")) && fam["family_name"] != "少林派")) {
+        if (!ob->query_temp("warned")) {
             command("say 你是谁？  怎么闯到少林寺里来了？！");
             command("say 快给我速速离开，下次看到决不轻饶！");
             ob->set_temp("warned", 1);
-        }
-        else if( ob->query_temp("stay") < 10 ) ob->add_temp("stay", 1);
+        } else if (ob->query_temp("stay") < 10) ob->add_temp("stay", 1);
         else {
             command("say 大胆狂徒，竟敢闯到少林寺里来撒野！！！\n");
             me->set_leader(ob);

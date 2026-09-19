@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object user, mapping info)
-{
+int main(object user, mapping info) {
     if (!stringp(info[MSGTO]))
         return MESSAGE_D->error_msg("你要发消息给谁？\n");
 

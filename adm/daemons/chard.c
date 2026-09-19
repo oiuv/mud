@@ -12,13 +12,11 @@
 
 void create() { seteuid(getuid()); }
 
-void setup_char(object ob)
-{
+void setup_char(object ob) {
     string race;
     mapping my;
 
-    if (!stringp(race = ob->query("race")))
-    {
+    if (!stringp(race = ob->query("race"))) {
         race = "人类";
         ob->set("race", "人类");
     }
@@ -36,19 +34,18 @@ void setup_char(object ob)
     //         my["max_jingli"] = (int)ob->query_jingli_limit();
     // }
 
-    switch (race)
-    {
-    case "人类":
-        HUMAN_RACE->setup_human(ob);
-        break;
-    case "妖魔":
-        MONSTER_RACE->setup_monster(ob);
-        break;
-    case "野兽":
-        BEAST_RACE->setup_beast(ob);
-        break;
-    default:
-        error("Chard: undefined race " + race + ".\n");
+    switch (race) {
+        case "人类":
+            HUMAN_RACE->setup_human(ob);
+            break;
+        case "妖魔":
+            MONSTER_RACE->setup_monster(ob);
+            break;
+        case "野兽":
+            BEAST_RACE->setup_beast(ob);
+            break;
+        default:
+            error("Chard: undefined race " + race + ".\n");
     }
 
     if (undefinedp(my["jing"]))
@@ -64,8 +61,7 @@ void setup_char(object ob)
     if (undefinedp(my["shen_type"]))
         my["shen_type"] = 0;
 
-    if (undefinedp(my["shen"]))
-    {
+    if (undefinedp(my["shen"])) {
         if (userp(ob))
             my["shen"] = 0;
         else
@@ -78,8 +74,7 @@ void setup_char(object ob)
     ob->reset_action();
 }
 
-varargs object make_corpse(object victim, object killer)
-{
+varargs object make_corpse(object victim, object killer) {
     int i;
     object corpse, *inv;
 
@@ -87,14 +82,12 @@ varargs object make_corpse(object victim, object killer)
     if (wizardp(victim))
         return 0;
 
-    if (victim->is_ghost())
-    {
+    if (victim->is_ghost()) {
         inv = all_inventory(victim);
         inv->owner_is_killed(killer);
-        inv -= ({0});
+        inv -= ({ 0 });
         i = sizeof(inv);
-        while (i--)
-        {
+        while (i--) {
             if (environment(victim)->is_area())
                 area_move_side(inv[i], victim);
             else
@@ -103,7 +96,7 @@ varargs object make_corpse(object victim, object killer)
         return 0;
     }
 
-    corpse = new (CORPSE_OB);
+    corpse = new(CORPSE_OB);
     corpse->make_corpse(victim, killer);
     return corpse;
 }

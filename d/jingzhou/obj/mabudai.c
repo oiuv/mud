@@ -2,8 +2,7 @@
 
 inherit ITEM;
 
-void create()
-{
+void create() {
     set_name("麻布袋", ({ "budai", "dai", "bag" }));
     set_weight(500);
     set_max_encumbrance(10000);

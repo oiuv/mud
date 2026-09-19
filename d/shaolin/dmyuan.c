@@ -3,8 +3,7 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "达摩院");
     set("long", @LONG
 这是一座古朴的殿堂。西首的墙上挂满了各类武功图谱，不
@@ -12,11 +11,11 @@ void create()
 南北山墙是高及屋顶的大书架，走近细看，它们是各门各派的武
 功秘笈，屋正中摆着几张矮几诃和几个团，几位老僧正在入定中。
 西首有个楼梯上楼。
-LONG );
+LONG);
     set("exits", ([
-        "southdown" : __DIR__"wuchang3",
-        "northdown" : __DIR__"guangchang5",
-        "up"        : __DIR__"dmyuan2",
+        "southdown": __DIR__ "wuchang3",
+        "northdown": __DIR__ "guangchang5",
+        "up": __DIR__ "dmyuan2",
     ]));
     set("no_clean_up", 0);
     setup();

@@ -79,7 +79,7 @@ string *tough_level_desc = ({
     HIM "深不可测" NOR,
     HIR "返璞归真" NOR
 });
-string *heavy_level_desc= ({
+string *heavy_level_desc = ({
     "极轻",
     "很轻",
     "不重",
@@ -89,8 +89,7 @@ string *heavy_level_desc= ({
 });
 
 //测试代码开始（已成功）
-string locate(string file)
-{
+string locate(string file) {
     string domain_file;
     string *all_place;
     string the_place;
@@ -100,8 +99,7 @@ string locate(string file)
 
     domain_file = domain_file(file);
 
-    if (!undefinedp(place[domain_file]))
-    {
+    if (!undefinedp(place[domain_file])) {
         all_place = place[domain_file][1];
         the_place = place[domain_file][0];
         if (member_array(file, all_place) != -1)
@@ -118,8 +116,7 @@ string locate(string file)
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object obj;
     object env;
     int result;
@@ -127,29 +124,29 @@ int main(object me, string arg)
 
     if (!arg)
         result = look_room(me, environment(me), 0);
-    else
-    {
-        if (sscanf(arg, "%s of %s", objid, where) == 2)
-        {
+    else {
+        if (sscanf(arg, "%s of %s", objid, where) == 2) {
             if (where == "here")
                 obj = present(objid, environment(me));
             else if (where == "me")
                 obj = present(objid, me);
-            else
-            {
+            else {
                 env = present(where, environment(me));
                 if (!objectp(env))
                     return notify_fail("你要看哪里的东西？\n");
                 obj = present(objid, env);
-                if (env->is_character() && env != me)
-                {
+                if (env->is_character() && env != me) {
                     if (!objectp(obj) ||
                         !obj->query("equipped") &&
-                            env->query_temp("handing") != obj)
+                        env->query_temp("handing") != obj)
                         return notify_fail("这人好像并没有漏出来你想看的东西啊。\n");
-                    message("vision", me->name() + "盯着你的" + obj->name() + "看了一会儿，不知道在打什么主意。\n", env);
+                    message(
+                        "vision",
+                        me->name() + "盯着你的" + obj->name() + "看了一会儿，不知道在打什么主意。\n",
+                        env
+                    );
                     message("vision", me->name() + "盯着" + env->name() + "的" + obj->name() + "看了一会儿，不知道在打什么主意。\n",
-                            environment(me), ({me, env}));
+                        environment(me), ({ me, env }));
                 }
             }
 
@@ -157,66 +154,56 @@ int main(object me, string arg)
                 return notify_fail("那里没有这样东西。\n");
         }
 
-        if (obj || (obj = present(arg, environment(me))) || (obj = present(arg, me)))
-        {
+        if (obj || (obj = present(arg, environment(me))) || (obj = present(arg, me))) {
             if (obj->is_character() && !obj->is_corpse())
                 result = look_living(me, obj);
             else
                 result = look_item(me, obj);
-        }
-        else
+        } else
             result = look_room_item(me, arg);
     }
 
     return result;
 }
 
-int look_room(object me, object env, int brief)
-{
+int look_room(object me, object env, int brief) {
     int i;
     mapping exits;
     string str, *dirs;
 
-    if (!env)
-    {
+    if (!env) {
         tell_object(me, "你的四周灰蒙蒙地一片，什么也没有。\n");
         return 1;
     }
-    if (env->is_area())
-    {
+    if (env->is_area()) {
         return env->do_look(me);
     }
 
-    if (!brief)
-    {
+    if (!brief) {
         str = sprintf(HIC + "%s" + NOR + "%s\n    %s%s" + NOR,
-                      env->short(),
-                      wizardp(me) ? " - " + file_name(env) : " - ",
-                      env->long(),
-                      env->query("outdoors") ? NATURE_D->outdoor_room_description() : "");
-    }
-    else
-    {
+            env->short(),
+            wizardp(me) ? " - " + file_name(env) : " - ",
+            env->long(),
+            env->query("outdoors") ? NATURE_D->outdoor_room_description() : "");
+    } else {
         str = sprintf(HIC + "%s" + NOR + "%s\n" + NOR,
-                      env->short(),
-                      wizardp(me) ? " - " + file_name(env) : "");
+            env->short(),
+            wizardp(me) ? " - " + file_name(env) : "");
     }
 
-    if (mapp(exits = env->query("exits")))
-    {
+    if (mapp(exits = env->query("exits"))) {
         dirs = keys(exits);
         for (i = 0; i < sizeof(dirs); i++)
             if ((int)env->query_door(dirs[i], "status") & DOOR_CLOSED)
                 dirs[i] = 0;
-        dirs -= ({0});
+        dirs -= ({ 0 });
         if (sizeof(dirs) == 0)
             str += "    这里没有任何明显的出路。\n";
         else if (sizeof(dirs) == 1)
-            str += "    这里唯一的出口是 " + BOLD +
-                   dirs[0] + NOR + "。\n";
+            str += "    这里唯一的出口是 " + BOLD + dirs[0] + NOR + "。\n";
         else
             str += sprintf("    这里明显的出口是 " + BOLD + "%s" + NOR + " 和 " + BOLD + "%s" + NOR + "。\n",
-                           implode(dirs[0..sizeof(dirs)-2], "、"), dirs[sizeof(dirs) - 1]);
+                implode(dirs[0..sizeof(dirs) - 2], "、"), dirs[sizeof(dirs) - 1]);
     }
 
     str += look_all_inventory_of_room(me, env, RETURN_RESULT);
@@ -225,8 +212,7 @@ int look_room(object me, object env, int brief)
     return 1;
 }
 
-string desc_of_objects(object *obs)
-{
+string desc_of_objects(object *obs) {
     int i;
 
     string str;
@@ -236,32 +222,25 @@ string desc_of_objects(object *obs)
     string *dk;
     string league_name;
 
-    if (obs && sizeof(obs) > 0)
-    {
+    if (obs && sizeof(obs) > 0) {
         str = "";
         count = ([]);
         unit = ([]);
 
-        for (i = 0; i < sizeof(obs); i++)
-        {
-            if (stringp(league_name = obs[i]->query("league/league_name")))
-            {
+        for (i = 0; i < sizeof(obs); i++) {
+            if (stringp(league_name = obs[i]->query("league/league_name"))) {
                 short_name = HIG + "「" + league_name + "」" + NOR + obs[i]->short();
-            }
-            else
+            } else
                 short_name = obs[i]->short();
-            if (undefinedp(count[short_name]))
-            {
-                count += ([short_name:1]);
-                unit += ([short_name:obs[i]->query("unit")]);
-            }
-            else
+            if (undefinedp(count[short_name])) {
+                count += ([ short_name: 1 ]);
+                unit += ([ short_name: obs[i]->query("unit") ]);
+            } else
                 count[short_name] += 1;
         }
 
         dk = sort_array(keys(count), 1);
-        for (i = 0; i < sizeof(dk); i++)
-        {
+        for (i = 0; i < sizeof(dk); i++) {
             str += "  ";
             if (count[dk[i]] > 1)
                 str += chinese_number(count[dk[i]]) + unit[dk[i]];
@@ -273,8 +252,7 @@ string desc_of_objects(object *obs)
     return "";
 }
 
-string look_all_inventory_of_room(object me, object env, int ret_str)
-{
+string look_all_inventory_of_room(object me, object env, int ret_str) {
     object *inv;
     object *obs;
 
@@ -292,7 +270,10 @@ string look_all_inventory_of_room(object me, object env, int ret_str)
     obs = filter_array(inv, (: $(me) != $1 && userp($1) && $(me)->visible($1) :));
     str += desc_of_objects(obs);
 
-    obs = filter_array(inv, (: $(me) != $1 && !userp($1) && $1->is_character() && $(me)->visible($1) :));
+    obs = filter_array(
+        inv,
+        (: $(me) != $1 && !userp($1) && $1->is_character() && $(me)->visible($1) :)
+    );
     str += desc_of_objects(obs);
 
     obs = filter_array(inv, (: !$1->is_character() :), me);
@@ -304,8 +285,7 @@ string look_all_inventory_of_room(object me, object env, int ret_str)
     return str;
 }
 
-int look_item(object me, object obj)
-{
+int look_item(object me, object obj) {
     object hob;
     mixed *inv;
     mapping count;
@@ -341,8 +321,7 @@ int look_item(object me, object obj)
 
     str = obj->long();
 
-    if (mapp(obj->query("weapon_prop")) || mapp(obj->query("armor_prop")))
-    {
+    if (mapp(obj->query("weapon_prop")) || mapp(obj->query("armor_prop"))) {
         if (obj->query("skill_type"))
             applied_prop = obj->query("weapon_prop");
         else if (obj->query("armor_type"))
@@ -350,10 +329,8 @@ int look_item(object me, object obj)
 
         if (mapp(applied_prop) && sizeof(applied_prop) > 0)
             apply3 = keys(applied_prop);
-        if (arrayp(apply3) && sizeof(apply3) > 0)
-        {
-            for (i = 0; i < sizeof(apply3); i++)
-            {
+        if (arrayp(apply3) && sizeof(apply3) > 0) {
+            for (i = 0; i < sizeof(apply3); i++) {
                 if (undefinedp(special_prop[apply3[i]]))
                     special_prop[apply3[i]] = applied_prop[apply3[i]];
                 else
@@ -362,41 +339,32 @@ int look_item(object me, object obj)
         }
         if (mapp(special_prop) && sizeof(special_prop) > 0)
             apply = keys(special_prop);
-        if (arrayp(apply) && sizeof(apply) > 0)
-        {
+        if (arrayp(apply) && sizeof(apply) > 0) {
             str += "---------------附加属性--------------\n";
-            for (i = 0; i < sizeof(apply); i++)
-            {
+            for (i = 0; i < sizeof(apply); i++) {
                 f = special_prop[apply[i]];
                 desc = ENCHASE_D->special_desc(apply[i]);
 
                 str += sprintf(HIC "%s%10s%-5d\n" NOR, desc,
-                               //                      f > 0 ? "+" : "-", abs(f));
-                               f > 0 ? "+" : "-", abs(f));
+                    //                      f > 0 ? "+" : "-", abs(f));
+                    f > 0 ? "+" : "-", abs(f));
             }
         }
         str += "\n-------------------------------------\n";
     }
 
-    while (mapp(obj->query_temp("daub")))
-    {
+    while (mapp(obj->query_temp("daub"))) {
         if (!obj->query_temp("daub/poison/remain"))
             // no poison remain now
             break;
 
-        if (obj->query_temp("daub/poison/id") == me->query("id"))
-        {
-            str += HIG "你发现这上面还有你炼制的" +
-                   obj->query_temp("daub/poison/name") +
-                   HIG "呢。\n" NOR;
+        if (obj->query_temp("daub/poison/id") == me->query("id")) {
+            str += HIG "你发现这上面还有你炼制的" + obj->query_temp("daub/poison/name") + HIG "呢。\n" NOR;
             break;
         }
 
-        if (obj->query_temp("daub/who_id") == me->query("id"))
-        {
-            str += HIG "这上面还有你亲手布下的" +
-                   obj->query_temp("daub/poison/name") +
-                   HIG "呢。\n" NOR;
+        if (obj->query_temp("daub/who_id") == me->query("id")) {
+            str += HIG "这上面还有你亲手布下的" + obj->query_temp("daub/poison/name") + HIG "呢。\n" NOR;
             break;
         }
 
@@ -405,8 +373,7 @@ int look_item(object me, object obj)
             break;
 
         str += HIG "忽然间你发现上面似乎泛着一些奇异荧光";
-        if (me->query_skill("poison", 1) >= 120)
-        {
+        if (me->query_skill("poison", 1) >= 120) {
             str += "，可能是" + obj->query_temp("daub/poison/name");
         }
 
@@ -418,43 +385,33 @@ int look_item(object me, object obj)
         str += sprintf("耐久度：" WHT "%d%%\n" NOR, obj->query("consistence"));
 
     inv = all_inventory(obj);
-    if (!sizeof(inv))
-    {
+    if (!sizeof(inv)) {
         message("vision", str, me);
         return 1;
     }
 
-    if (obj->is_corpse())
-    {
-        if (objectp(hob = obj->query_temp("handing")))
-        {
+    if (obj->is_corpse()) {
+        if (objectp(hob = obj->query_temp("handing"))) {
             if (hob->query_amount())
-                str += "手中还死死握着一" + hob->query("base_unit") +
-                       hob->name() + "，";
+                str += "手中还死死握着一" + hob->query("base_unit") + hob->name() + "，";
             else
-                str += "手中还死死握着一" + hob->query("unit") +
-                       hob->name() + "，";
-            inv -= ({hob});
+                str += "手中还死死握着一" + hob->query("unit") + hob->name() + "，";
+            inv -= ({ hob });
             if (!sizeof(inv))
                 str += "没有什么其他遗物了。\n";
             else
                 str += "里面的遗物有：\n";
-        }
-        else
+        } else
             str += "里面的遗物有：\n";
-    }
-    else
+    } else
         str += "里面有：\n";
 
-    for (i = 0; i < sizeof(inv); i++)
-    {
+    for (i = 0; i < sizeof(inv); i++) {
         short_name = inv[i]->short();
-        if (undefinedp(count[short_name]))
-        {
-            count += ([short_name:1]);
-            unit += ([short_name:inv[i]->query("unit")]);
-        }
-        else
+        if (undefinedp(count[short_name])) {
+            count += ([ short_name: 1 ]);
+            unit += ([ short_name: inv[i]->query("unit") ]);
+        } else
             count[short_name] += 1;
 
         if (inv[i]->query("equipped"))
@@ -463,8 +420,7 @@ int look_item(object me, object obj)
 
     dk = keys(count);
     dk = sort_array(dk, 1);
-    for (i = 0; i < sizeof(dk); i++)
-    {
+    for (i = 0; i < sizeof(dk); i++) {
         if (equiped[dk[i]])
             str += HIC "  □" NOR;
         else
@@ -482,8 +438,7 @@ int look_item(object me, object obj)
     return 1;
 }
 
-string look_equiped(object me, object obj, string pro)
-{
+string look_equiped(object me, object obj, string pro) {
     mixed *inv;
     string str;
     string subs;
@@ -496,54 +451,46 @@ string look_equiped(object me, object obj, string pro)
 
     str = "";
     subs = "";
-    for (i = 0; i < sizeof(inv); i++)
-    {
-        switch (inv[i]->query("equipped"))
-        {
-        case "wielded":
-            n++;
-            subs = HIC "  □" NOR + inv[i]->short() + "\n" + subs;
-            break;
+    for (i = 0; i < sizeof(inv); i++) {
+        switch (inv[i]->query("equipped")) {
+            case "wielded":
+                n++;
+                subs = HIC "  □" NOR + inv[i]->short() + "\n" + subs;
+                break;
 
-        case "worn":
-            n++;
-            subs += HIC "  □" NOR + inv[i]->short() + "\n";
-            break;
+            case "worn":
+                n++;
+                subs += HIC "  □" NOR + inv[i]->short() + "\n";
+                break;
 
-        default:
-            break;
+            default:
+                break;
         }
     }
 
     if (n)
         str += pro + "装备着：\n" + subs;
 
-    if (objectp(hob = obj->query_temp("handing")))
-    {
+    if (objectp(hob = obj->query_temp("handing"))) {
         int mad;
 
         // dress nothing but handing a cloth !
         mad = (!objectp(obj->query_temp("armor/cloth")) &&
-               hob->query("armor_type") == "cloth");
+            hob->query("armor_type") == "cloth");
 
-        str = pro + "手中" + (mad ? "却" : "") + "握着一" +
-              (hob->query_amount() ? hob->query("base_unit")
-                                   : hob->query("unit")) +
-              hob->name() +
-              (mad ? "，疯了，一定是疯了！\n" : "。\n") + str;
+        str = pro + "手中" + (mad ? "却" : "") + "握着一" + (hob->query_amount() ? hob->query("base_unit")
+            : hob->query("unit")) + hob->name() + (mad ? "，疯了，一定是疯了！\n" : "。\n") + str;
     }
 
     if (playerp(obj) &&
-        !objectp(obj->query_temp("armor/cloth")))
-    {
+        !objectp(obj->query_temp("armor/cloth"))) {
         str = pro + "身上没有穿衣服啊！\n" + str;
     }
 
     return str;
 }
 
-string getdam(object me, object obj)
-{
+string getdam(object me, object obj) {
 
     int level;
     level = obj->query_temp("apply/damage");
@@ -552,18 +499,14 @@ string getdam(object me, object obj)
         level = sizeof(heavy_level_desc) - 1;
     return heavy_level_desc[((int)level)];
 }
-string gettof(object me, object ob)
-{
+string gettof(object me, object ob) {
     object weapon;
     string skill_type, parry_type;
     int attack_points;
-    if (objectp(weapon = ob->query_temp("weapon")))
-    {
+    if (objectp(weapon = ob->query_temp("weapon"))) {
         skill_type = weapon->query("skill_type");
         parry_type = "parry";
-    }
-    else
-    {
+    } else {
         skill_type = "unarmed";
         parry_type = "unarmed";
     }
@@ -571,8 +514,7 @@ string gettof(object me, object ob)
     attack_points = COMBAT_D->skill_power(ob, skill_type, SKILL_USAGE_ATTACK) / 25;
     return tough_level(attack_points);
 }
-string tough_level(int power)
-{
+string tough_level(int power) {
 
     int lvl;
     int rawlvl;
@@ -586,18 +528,15 @@ string tough_level(int power)
     return tough_level_desc[((int)lvl)];
 }
 
-string description(object obj)
-{
-    if (playerp(obj))
-    {
+string description(object obj) {
+    if (playerp(obj)) {
         int per;
         int age;
         per = obj->query_per();
         age = obj->query("age");
         if (obj->query("special_skill/youth"))
             age = 14;
-        if ((string)obj->query("gender") == "男性" || (string)obj->query("gender") == "无性")
-        {
+        if ((string)obj->query("gender") == "男性" || (string)obj->query("gender") == "无性") {
             if (per >= 30)
                 return "长得宛如玉树临风，风流倜傥，顾盼之间，神采飞扬。真正是人中龙凤！\n";
             if (per >= 28)
@@ -609,9 +548,7 @@ string description(object obj)
             if (per >= 15)
                 return "相貌平平。没什么好看的。\n";
             return "长得有点对不住别人。\n";
-        }
-        else
-        {
+        } else {
             if (per >= 30)
                 return "有倾国倾城之貌，容色丽郁，娇艳绝伦，堪称人间仙子！\n长发如云，肌肤胜雪，风华绝代，不知倾倒了多少英雄豪杰。\n";
             if (per >= 28)
@@ -628,21 +565,17 @@ string description(object obj)
                 return "相貌马马虎虎。\n";
             return "长得和无盐有点相似耶。\n";
         }
-    }
-    else if (!obj->query("can_speak") && living(obj))
-    {
+    } else if (!obj->query("can_speak") && living(obj)) {
         if (!obj->query_temp("owner"))
             return "是一只未被驯服的畜生，眼光里满是戒心和敌意。\n";
         else
-            return "是一只被" + obj->query_temp("owner_name") +
-                   "驯服的畜生，一副很温驯的样子。\n";
+            return "是一只被" + obj->query_temp("owner_name") + "驯服的畜生，一副很温驯的样子。\n";
     }
 
     return "";
 }
 
-int look_living(object me, object obj)
-{
+int look_living(object me, object obj) {
     int per;
     //      int spi;
     int age;
@@ -658,46 +591,39 @@ int look_living(object me, object obj)
     age = obj->query("age");
     pro = (obj == me) ? gender_self(obj->query("gender")) : gender_pronoun(obj->query("gender"));
 
-    if (playerp(obj) && !(obj->query("born")))
-    {
+    if (playerp(obj) && !(obj->query("born"))) {
         tell_object(me, pro + "还没有投胎，只有一股元神，什么都看不到耶！\n");
         return 1;
     }
 
     me_shen = (int)me->query("shen");
-    if (me != obj)
-    {
+    if (me != obj) {
         message("vision", me->name() + "正盯著你看，不知道在打"
-                                       "什么主意。\n",
-                obj);
+            "什么主意。\n",
+            obj);
         message("vision", me->name() + "盯着" + obj->name() + "看了一会儿，不知道在打什么主意。\n",
-                environment(me), ({me, obj}));
+            environment(me), ({ me, obj }));
     }
 
-    if (stringp(league_name = obj->query("league/league_name")))
-    {
+    if (stringp(league_name = obj->query("league/league_name"))) {
         str = HIG + "「" + league_name + "」" + NOR + obj->long();
-    }
-    else
+    } else
         str = obj->long();
     if (me != obj && objectp(obj->query_temp("is_riding")))
         str += sprintf("%s正骑在%s上，低头看着你。\n", pro, obj->query_temp("is_riding")->name());
 
     if (obj->is_character() &&
-        obj->query("can_speak"))
-    {
+        obj->query("can_speak")) {
         // 是人物角色
         if (age >= 25 && obj->query("special_skill/youth"))
             str += pro + "看不出年纪的大小，好像只有二十多岁。\n";
-        else
-        {
+        else {
             if (age >= 200)
                 str += pro + "看起来年纪很大了，难以估计。\n";
             else if (age < 10)
                 str += pro + "看起来年纪尚幼。\n";
             else
-                str += pro + "看起来有" + chinese_number(age / 10 * 10) +
-                       "多岁。\n";
+                str += pro + "看起来有" + chinese_number(age / 10 * 10) + "多岁。\n";
         }
     }
 
@@ -706,13 +632,11 @@ int look_living(object me, object obj)
         str += pro + desc;
 
     // 检查人物的刺青纹身情况
-    if (obj->is_character() && obj->query("tattoo"))
-    {
+    if (obj->is_character() && obj->query("tattoo")) {
         str += pro;
 
         // 检查角色脸部的刺青情况
-        if (obj->query("tattoo/face_long"))
-        {
+        if (obj->query("tattoo/face_long")) {
             str += "的脸上刺有" + obj->query("tattoo/face_long") + "。\n";
 
             if (((obj->query("tattoo/chest_long") || obj->query("tattoo/back_long")) && !objectp(obj->query_temp("armor/cloth"))) || obj->query("tattoo/leftarm_long") || obj->query("tattoo/rightarm_long"))
@@ -720,50 +644,33 @@ int look_living(object me, object obj)
         }
 
         // 检查躯体前后的刺青情况，如果一样则修正描述
-        if ((obj->query("tattoo/chest_long") == obj->query("tattoo/back_long")) && obj->query("tattoo/chest_long") && obj->query("tattoo/back_long") && !objectp(obj->query_temp("armor/cloth")))
-        {
-            str += "裸露出的胸口和背部都刺有" +
-                   obj->query("tattoo/chest_long") + "。\n";
-        }
-        else
-        {
+        if ((obj->query("tattoo/chest_long") == obj->query("tattoo/back_long")) && obj->query("tattoo/chest_long") && obj->query("tattoo/back_long") && !objectp(obj->query_temp("armor/cloth"))) {
+            str += "裸露出的胸口和背部都刺有" + obj->query("tattoo/chest_long") + "。\n";
+        } else {
             if (obj->query("tattoo/chest_long") && !objectp(obj->query_temp("armor/cloth")))
-                str += "裸露出的胸口上刺有" +
-                       obj->query("tattoo/chest_long") + "。\n";
+                str += "裸露出的胸口上刺有" + obj->query("tattoo/chest_long") + "。\n";
 
-            if (obj->query("tattoo/back_long") && !objectp(obj->query_temp("armor/cloth")))
-            {
+            if (obj->query("tattoo/back_long") && !objectp(obj->query_temp("armor/cloth"))) {
                 if (obj->query("tattoo/chest_long"))
-                    str += "而" + pro + "的背部还刺有" +
-                           obj->query("tattoo/back_long") + "。\n";
+                    str += "而" + pro + "的背部还刺有" + obj->query("tattoo/back_long") + "。\n";
                 else
-                    str += "裸露出的背部刺有" +
-                           obj->query("tattoo/back_long") + "。\n";
+                    str += "裸露出的背部刺有" + obj->query("tattoo/back_long") + "。\n";
             }
         }
 
         // 检查左右手臂的刺青情况，如果一样则修正描述
-        if ((obj->query("tattoo/leftarm_long") == obj->query("tattoo/rightarm_long")) && obj->query("tattoo/leftarm_long") && obj->query("tattoo/rightarm_long"))
-        {
-            str += "结实的双臂上都刺有" +
-                   obj->query("tattoo/leftarm_long") + "。\n";
-        }
-        else
-        {
+        if ((obj->query("tattoo/leftarm_long") == obj->query("tattoo/rightarm_long")) && obj->query("tattoo/leftarm_long") && obj->query("tattoo/rightarm_long")) {
+            str += "结实的双臂上都刺有" + obj->query("tattoo/leftarm_long") + "。\n";
+        } else {
             if (obj->query("tattoo/leftarm_long"))
-                str += "结实的左臂上刺有" +
-                       obj->query("tattoo/leftarm_long");
+                str += "结实的左臂上刺有" + obj->query("tattoo/leftarm_long");
 
-            if (obj->query("tattoo/rightarm_long"))
-            {
+            if (obj->query("tattoo/rightarm_long")) {
                 if (obj->query("tattoo/leftarm_long"))
-                    str += "，而右臂则刺有" +
-                           obj->query("tattoo/rightarm_long") + "。\n";
+                    str += "，而右臂则刺有" + obj->query("tattoo/rightarm_long") + "。\n";
                 else
-                    str += "结实的右臂上刺有" +
-                           obj->query("tattoo/rightarm_long") + "。\n";
-            }
-            else if (obj->query("tattoo/leftarm_long"))
+                    str += "结实的右臂上刺有" + obj->query("tattoo/rightarm_long") + "。\n";
+            } else if (obj->query("tattoo/leftarm_long"))
                 str += "。\n";
         }
     }
@@ -774,61 +681,49 @@ int look_living(object me, object obj)
     str += getdam(me, obj);
     str += sprintf("。\n");
     //check about wife and husband
-    if (obj->query("id") == me->query("couple/id"))
-    {
+    if (obj->query("id") == me->query("couple/id")) {
         // 夫妻关系
         if ((string)me->query("gender") == "女性")
             str += sprintf("%s就是你的夫君。\n", pro);
         else
             str += sprintf("%s就是你的妻子。\n", pro);
-    }
-    else if (obj->is_brother(me))
-    {
+    } else if (obj->is_brother(me)) {
         // 兄弟
-        if (obj->query("gender") == "女性")
-        {
+        if (obj->query("gender") == "女性") {
             if (obj->query("mud_age") > me->query("mud_age"))
                 str += sprintf("%s是你的义姐。\n", pro);
             else
                 str += sprintf("%s是你的结义妹子。\n", pro);
-        }
-        else
-        {
+        } else {
             if (obj->query("mud_age") > me->query("mud_age"))
                 str += sprintf("%s是你的结义兄长。\n", pro);
             else
                 str += sprintf("%s是你的义弟。\n", pro);
         }
-    }
-    else if (obj != me && obj->query("league") &&
-             obj->query("league/league_name") == me->query("league/league_name"))
-    {
+    } else if (obj != me && obj->query("league") &&
+        obj->query("league/league_name") == me->query("league/league_name")) {
         str += sprintf("%s和你均是%s的同盟义士。\n", pro,
-                       obj->query("league/league_name"));
+            obj->query("league/league_name"));
     }
 
     // If we both has family, check if we have any relations.
     if (obj != me &&
         mapp(fam = obj->query("family")) &&
         mapp(my_fam = me->query("family")) &&
-        fam["family_name"] == my_fam["family_name"])
-    {
+        fam["family_name"] == my_fam["family_name"]) {
 
-        if (fam["generation"] == my_fam["generation"])
-        {
+        if (fam["generation"] == my_fam["generation"]) {
 
             if ((string)obj->query("gender") == "男性" ||
                 (string)obj->query("gender") == "无性")
                 str += sprintf(pro + "是你的%s%s。\n",
-                               my_fam["master_id"] == fam["master_id"] ? "" : "同门",
-                               my_fam["enter_time"] > fam["enter_time"] ? "师兄" : "师弟");
+                    my_fam["master_id"] == fam["master_id"] ? "" : "同门",
+                    my_fam["enter_time"] > fam["enter_time"] ? "师兄" : "师弟");
             else
                 str += sprintf(pro + "是你的%s%s。\n",
-                               my_fam["master_id"] == fam["master_id"] ? "" : "同门",
-                               my_fam["enter_time"] > fam["enter_time"] ? "师姐" : "师妹");
-        }
-        else if (fam["generation"] < my_fam["generation"])
-        {
+                    my_fam["master_id"] == fam["master_id"] ? "" : "同门",
+                    my_fam["enter_time"] > fam["enter_time"] ? "师姐" : "师妹");
+        } else if (fam["generation"] < my_fam["generation"]) {
             if (my_fam["master_id"] == obj->query("id"))
                 str += pro + "是你的师父。\n";
             else if (my_fam["generation"] - fam["generation"] > 1)
@@ -837,9 +732,7 @@ int look_living(object me, object obj)
                 str += pro + "是你的师伯。\n";
             else
                 str += pro + "是你的师叔。\n";
-        }
-        else
-        {
+        } else {
             if (fam["generation"] - my_fam["generation"] > 1)
                 str += pro + "是你的同门晚辈。\n";
             else if (fam["master_id"] == me->query("id"))
@@ -849,32 +742,25 @@ int look_living(object me, object obj)
         }
     }
 
-    if (obj->is_chatter())
-    {
+    if (obj->is_chatter()) {
         message("vision", str, me);
         return 1;
     }
 
-    if (stringp(obj->query_temp("eff_status_msg")))
-    {
+    if (stringp(obj->query_temp("eff_status_msg"))) {
         str += obj->query_temp("eff_status_msg") + "\n";
-    }
-    else if (obj->query("max_qi"))
+    } else if (obj->query("max_qi"))
         str += pro + COMBAT_D->eff_status_msg((int)obj->query("eff_qi") * 100 / (int)obj->query("max_qi")) + "\n";
 
     if (obj->query_temp("daub/poison/remain") &&
-        (me == obj || random((int)me->query_skill("poison", 1)) > 80))
-    {
-        str += pro + HIG "身上现在" + (me == obj ? "" : "似乎") +
-               "淬了" + (me == obj ? obj->query_temp("daub/poison/name") : "毒") +
-               NOR "。\n";
+        (me == obj || random((int)me->query_skill("poison", 1)) > 80)) {
+        str += pro + HIG "身上现在" + (me == obj ? "" : "似乎") + "淬了" + (me == obj ? obj->query_temp("daub/poison/name") : "毒") + NOR "。\n";
     }
 
     str += look_equiped(me, obj, pro);
     message("vision", str, me);
 
-    if (obj != me && living(obj) && !me->is_brother(obj) && !obj->query_condition("die_guard") && !me->query_condition("die_guard") && me->query("couple/id") != obj->query("id") && (((me_shen < 0) && (obj_shen > 0)) || ((me_shen > 0) && (obj_shen < 0))) && (((me_shen - obj_shen) > ((int)obj->query("max_neili") * 20)) || ((obj_shen - me_shen) > ((int)obj->query("max_neili") * 20))))
-    {
+    if (obj != me && living(obj) && !me->is_brother(obj) && !obj->query_condition("die_guard") && !me->query_condition("die_guard") && me->query("couple/id") != obj->query("id") && (((me_shen < 0) && (obj_shen > 0)) || ((me_shen > 0) && (obj_shen < 0))) && (((me_shen - obj_shen) > ((int)obj->query("max_neili") * 20)) || ((obj_shen - me_shen) > ((int)obj->query("max_neili") * 20)))) {
         tell_object(me, obj->name() + "突然转过头来瞪你一眼。\n");
         if (obj->query("age") > 15 && me->query("age") > 15)
             if (!wizardp(obj) && !wizardp(me))
@@ -883,30 +769,25 @@ int look_living(object me, object obj)
     return 1;
 }
 
-int look_room_item(object me, string arg)
-{
+int look_room_item(object me, string arg) {
     object env;
     mapping item, exits;
 
     if (!objectp(env = environment(me)))
         return notify_fail("这里只有灰蒙蒙地一片，什么也没有。\n");
-    if (mapp(item = env->query("item_desc")) && !undefinedp(item[arg]))
-    {
+    if (mapp(item = env->query("item_desc")) && !undefinedp(item[arg])) {
         if (stringp(item[arg]))
             tell_object(me, item[arg]);
         else if (functionp(item[arg]))
-            tell_object(me, (string)(*item[arg])(me));
+            tell_object(me, (string)(* item[arg])(me));
 
         return 1;
     }
-    if (mapp(exits = env->query("exits")) && !undefinedp(exits[arg]))
-    {
-        if (stringp(exits[arg]))
-        {
+    if (mapp(exits = env->query("exits")) && !undefinedp(exits[arg])) {
+        if (stringp(exits[arg])) {
             if (objectp(env = find_object(exits[arg])))
                 look_room(me, env, 0);
-            else
-            {
+            else {
                 call_other(exits[arg], "???");
                 look_room(me, find_object(exits[arg]), 0);
             }
@@ -916,8 +797,7 @@ int look_room_item(object me, string arg)
     return notify_fail("你要看什么？\n");
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: look [<物品>|<生物>|<方向>]
 
@@ -929,6 +809,6 @@ int help(object me)
 令 look ??? of <id> 可以看他人的装备或是亮出来的物品。
 
 HELP
-);
+    );
     return 1;
 }

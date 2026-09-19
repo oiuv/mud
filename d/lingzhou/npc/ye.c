@@ -3,11 +3,10 @@
 inherit NPC;
 
 #include <ansi.h>
-void create()
-{
+void create() {
     set_name("叶二娘", ({ "ye erniang", "ye" }));
     set("gender", "女性");
-    set("nickname", HIR"无恶不作"NOR);
+    set("nickname", HIR "无恶不作" NOR);
     set("age", 43);
     set("str", 25);
     set("dex", 16);

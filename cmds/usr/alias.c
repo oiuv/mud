@@ -5,22 +5,17 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int i;
     mapping alias;
     string verb, replace, *vrbs;
 
-    if (!arg)
-    {
+    if (!arg) {
         alias = me->query_all_alias();
-        if (!sizeof(alias))
-        {
+        if (!sizeof(alias)) {
             write("你目前并没有设定任何 alias。\n");
             return 1;
-        }
-        else
-        {
+        } else {
             write("你目前设定的 alias 有：\n");
             vrbs = sort_array(keys(alias), 1);
             for (i = 0; i < sizeof(vrbs); i++)
@@ -29,32 +24,27 @@ int main(object me, string arg)
         }
     }
 
-    if (sscanf(arg, "%s %s", verb, replace) != 2)
-    {
+    if (sscanf(arg, "%s %s", verb, replace) != 2) {
         me->set_alias(arg, 0);
         write("你取消了 " HIR + arg + NOR " 这个替代命令。\n");
-    }
-    else if (verb == "alias")
+    } else if (verb == "alias")
         return notify_fail("你不能将 \"alias\" 指令设定其他用途。\n");
     else if (verb == "")
         return notify_fail("你要设什么 alias？\n");
     else if (stringp(COMMAND_D->find_command(verb, PLR_PATH)))
         return notify_fail("动词 " + verb + " 是一个常用命令，你不能替代它。\n");
-    else
-    {
-        if (!me->set_alias(verb, replace))
-        {
+    else {
+        if (!me->set_alias(verb, replace)) {
             // failed.
             return 0;
         }
         write("今后你用 " HIR + verb + NOR " 来替代 " HIG +
-              replace + NOR " 命令。\n");
+            replace + NOR " 命令。\n");
     }
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : alias <欲设定之指令> <系统提供之指令>
 
@@ -76,6 +66,6 @@ int help (object me)
 就会取代成：
     put bandage in bag
 
-HELP );
+HELP);
     return 1;
 }

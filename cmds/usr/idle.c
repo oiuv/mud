@@ -4,8 +4,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object ob;
     int lvl;
     int n;
@@ -57,33 +56,31 @@ int main(object me, string arg)
 
     message_vision(HIM "$N" HIM "口中念念有词：!@#$%^&，什么意思？\n", me);
     if (random(lvl * lvl) + lvl * lvl < ob->query("combat_exp") ||
-        random(lvl) + lvl / 2 < ob->query_skill("idle-force", 1))
-    {
+        random(lvl) + lvl / 2 < ob->query_skill("idle-force", 1)) {
         write("没有任何效果，看来你的发呆神功失败了！\n");
         return 1;
     }
 
-    switch (random(4))
-    {
-    case 0:
-        message_vision(HIM "天空突然出现了一个人头，恶狠狠的盯着$N" HIM "，吓得$P" HIM "目瞪口呆，一句话也说不上来。\n" NOR,
-                       ob);
-        break;
-    case 1:
-        message_vision(HIM "烟雾中突然窜出两个小鬼，一把抓住$N" HIM "，道：走，该你去报到了！吓得$P" HIM "口吐白沫，几乎晕了过去。\n" NOR,
-                       ob);
-        break;
-    case 2:
-        message_vision(HIM "一个人飞也似的跑了过来，大声喊道：" +
-                       ob->name() + HIM "！" + ob->name() + HIM "！"
-                       "你的股票又跌了！\n$P" HIM "听了一跤摔在了地上，不住的抽搐！\n" NOR,
-                       ob);
-        break;
-    default:
-        message_vision(HIM "忽然警铃大作，由远及近，越来越响，$N" +
-                       HIM "登时脸色发白，说不出话来！\n" NOR,
-                       ob);
-        break;
+    switch (random(4)) {
+        case 0:
+            message_vision(HIM "天空突然出现了一个人头，恶狠狠的盯着$N" HIM "，吓得$P" HIM "目瞪口呆，一句话也说不上来。\n" NOR,
+                ob);
+            break;
+        case 1:
+            message_vision(HIM "烟雾中突然窜出两个小鬼，一把抓住$N" HIM "，道：走，该你去报到了！吓得$P" HIM "口吐白沫，几乎晕了过去。\n" NOR,
+                ob);
+            break;
+        case 2:
+            message_vision(HIM "一个人飞也似的跑了过来，大声喊道：" +
+                ob->name() + HIM "！" + ob->name() + HIM "！"
+                "你的股票又跌了！\n$P" HIM "听了一跤摔在了地上，不住的抽搐！\n" NOR,
+                ob);
+            break;
+        default:
+            message_vision(HIM "忽然警铃大作，由远及近，越来越响，$N" +
+                HIM "登时脸色发白，说不出话来！\n" NOR,
+                ob);
+            break;
     }
 
     if (lvl > 180)
@@ -92,14 +89,17 @@ int main(object me, string arg)
 
     ob->ban_say_until(lvl, "你被吓傻了，现在说不上话来");
     write(HIC "你的发呆神功成功了，" + ob->name(1) +
-          HIC "现在被吓得说不上话来了！\n" NOR);
+        HIC "现在被吓得说不上话来了！\n" NOR);
 
-    CHANNEL_D->do_channel(this_object(), "rumor", "听说" + me->name(1) + HIM "施展发呆神功，" + ob->name(1) + HIM "无辜受害。");
+    CHANNEL_D->do_channel(
+        this_object(),
+        "rumor",
+        "听说" + me->name(1) + HIM "施展发呆神功，" + ob->name(1) + HIM "无辜受害。"
+    );
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : idle <玩家> <次数>
 
@@ -108,6 +108,6 @@ int help(object me)
 率与自己的发呆神功等级和对方的经验有关，每使用一次发呆神
 功都会耗费一点潜能和一些精。
 
-HELP );
+HELP);
     return 1;
 }

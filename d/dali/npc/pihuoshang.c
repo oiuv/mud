@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("皮货商", ({ "pihuo shang", "shang" }));
     set("age", 32);
     set("gender", "男性");

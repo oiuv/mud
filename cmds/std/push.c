@@ -3,76 +3,75 @@
 #include <ansi.h>
 
 mapping default_where = ([
-        "n":    "north",
-        "s":    "south",
-        "e":    "east",
-        "w":    "west",
-        "nu":   "northup",
-        "su":   "southup",
-        "eu":   "eastup",
-        "wu":   "westup",
-        "nd":   "northdown",
-        "sd":   "southdown",
-        "ed":   "eastdown",
-        "wd":   "westdown",
-        "ne":   "northeast",
-        "nw":   "northwest",
-        "se":   "southeast",
-        "sw":   "southwest",
-        "u":    "up",
-        "d":    "down",
+    "n": "north",
+    "s": "south",
+    "e": "east",
+    "w": "west",
+    "nu": "northup",
+    "su": "southup",
+    "eu": "eastup",
+    "wu": "westup",
+    "nd": "northdown",
+    "sd": "southdown",
+    "ed": "eastdown",
+    "wd": "westdown",
+    "ne": "northeast",
+    "nw": "northwest",
+    "se": "southeast",
+    "sw": "southwest",
+    "u": "up",
+    "d": "down",
 ]);
 
 mapping default_dirs = ([
-        "north":        "北边",
-        "south":        "南边",
-        "east":         "东边",
-        "west":         "西边",
-        "northup":      "北边",
-        "southup":      "南边",
-        "eastup":       "东边",
-        "westup":       "西边",
-        "northdown":    "北边",
-        "southdown":    "南边",
-        "eastdown":     "东边",
-        "westdown":     "西边",
-        "northeast":    "东北",
-        "northwest":    "西北",
-        "southeast":    "东南",
-        "southwest":    "西南",
-        "up":           "上面",
-        "down":         "下面",
-        "enter":        "里面",
-        "in":           "里面",
-        "out":          "外面",
+    "north": "北边",
+    "south": "南边",
+    "east": "东边",
+    "west": "西边",
+    "northup": "北边",
+    "southup": "南边",
+    "eastup": "东边",
+    "westup": "西边",
+    "northdown": "北边",
+    "southdown": "南边",
+    "eastdown": "东边",
+    "westdown": "西边",
+    "northeast": "东北",
+    "northwest": "西北",
+    "southeast": "东南",
+    "southwest": "西南",
+    "up": "上面",
+    "down": "下面",
+    "enter": "里面",
+    "in": "里面",
+    "out": "外面",
 ]);
 
 mapping default_undirs = ([
-        "south":        "北边",
-        "north":        "南边",
-        "west":         "东边",
-        "east":         "西边",
-        "southup":      "北边",
-        "northup":      "南边",
-        "westup":       "东边",
-        "eastup":       "西边",
-        "southdown":    "北边",
-        "northdown":    "南边",
-        "westdown":     "东边",
-        "eastdown":     "西边",
-        "southwest":    "东北",
-        "southeast":    "西北",
-        "northwest":    "东南",
-        "northeast":    "西南",
-        "down":         "上面",
-        "up":           "下面",
-        "out":          "里面",
-        "in":           "外面",
-        "enter":        "外面",
+    "south": "北边",
+    "north": "南边",
+    "west": "东边",
+    "east": "西边",
+    "southup": "北边",
+    "northup": "南边",
+    "westup": "东边",
+    "eastup": "西边",
+    "southdown": "北边",
+    "northdown": "南边",
+    "westdown": "东边",
+    "eastdown": "西边",
+    "southwest": "东北",
+    "southeast": "西北",
+    "northwest": "东南",
+    "northeast": "西南",
+    "down": "上面",
+    "up": "下面",
+    "out": "里面",
+    "in": "外面",
+    "enter": "外面",
 ]);
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string who, where, dir, undir, where_temp;
     object env, env_to;
     mapping exits;
@@ -120,16 +119,14 @@ int main(object me, string arg)
     if (!mapp(exits = env->query("exits")) || undefinedp(exits[where]))
         return notify_fail("没有这个方向。\n");
 
-    if (!objectp(env_to = find_object(exits[where])))
-    {
+    if (!objectp(env_to = find_object(exits[where]))) {
         call_other(exits[where], "???");
         env_to = find_object(exits[where]);
     }
 
     wiz_push = wiz_level(me) >= wiz_level("(wizard)");
 
-    if (!wiz_push)
-    {
+    if (!wiz_push) {
         if (me->query("qi", 1) < 150)
             return notify_fail("你气力不佳，推不动别人。\n");
 
@@ -150,45 +147,40 @@ int main(object me, string arg)
     else
         undir = where;
 
-    switch (random(3))
-    {
-    case 0:
-        msg = HIC "$N" HIC "清咳一声，喝道：「让开了！」顺势就把$n" HIC "往" + dir + HIC "一挤。\n" NOR;
-        break;
+    switch (random(3)) {
+        case 0:
+            msg = HIC "$N" HIC "清咳一声，喝道：「让开了！」顺势就把$n" HIC "往" + dir + HIC "一挤。\n" NOR;
+            break;
 
-    case 1:
-        msg = HIC "$N" HIC "皱了皱眉头，恼道：「闪开！」随手便把$n" HIC "往" + dir + HIC "一推。\n" NOR;
-        break;
+        case 1:
+            msg = HIC "$N" HIC "皱了皱眉头，恼道：「闪开！」随手便把$n" HIC "往" + dir + HIC "一推。\n" NOR;
+            break;
 
-    default:
-        msg = HIC "$N" HIC "双目一瞪，喝道：「还不快快给我闪开？」"
-                  "说罢把$n" HIC "往" + dir + HIC "推去。\n" NOR;
-        break;
+        default:
+            msg = HIC "$N" HIC "双目一瞪，喝道：「还不快快给我闪开？」"
+                "说罢把$n" HIC "往" + dir + HIC "推去。\n" NOR;
+            break;
     }
 
-    if (!wiz_push)
-    {
+    if (!wiz_push) {
         me->receive_damage("qi", 100);
         me->add("neili", -50);
     }
 
     if (wiz_level(me) < wiz_level(target))
         msg += HIM "$N" HIM "用力推了推，只觉得好象撞到"
-                   "了一堵墙一样。\n" NOR;
+            "了一堵墙一样。\n" NOR;
     else if (!wiz_push && target->query_skill("force") >= 150)
         msg += HIM "$N" HIM "默运内力，却觉得$n" HIM "内"
-                   "功根基颇为扎实，全然无法推动。\n" NOR;
-    else
-    {
-        if (!env->valid_leave(target, where))
-        {
+            "功根基颇为扎实，全然无法推动。\n" NOR;
+    else {
+        if (!env->valid_leave(target, where)) {
             message_vision(msg, me, target);
             write("过不去，你推不动人家。\n");
             return 1;
         }
 
-        if (!target || environment(target) != env)
-        {
+        if (!target || environment(target) != env) {
             message_vision(msg, me, target);
             write("奇怪了，人呢？\n");
             return 1;
@@ -198,8 +190,8 @@ int main(object me, string arg)
         message_vision(msg, me, target);
         target->move(env_to);
         message("vision", WHT "只见" + target->name() + WHT "跌跌撞"
-                "撞的从" + undir + WHT "晃了过来。\n",
-                env_to, target);
+            "撞的从" + undir + WHT "晃了过来。\n",
+            env_to, target);
         if (!target->is_busy())
             target->stary_busy(5);
         return 1;
@@ -211,13 +203,12 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : push <人物> to <方向>
 
 这个指令让你把觉得妨碍你的人推开，当然，倘若人家内功扎实，
 你这一下子多半奏不了效。
-HELP );
+HELP);
     return 1;
 }

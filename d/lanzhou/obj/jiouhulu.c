@@ -3,9 +3,8 @@
 inherit ITEM;
 inherit F_LIQUID;
 
-void create()
-{
-    set_name("葫芦", ({"jiouhulu", "hulu"}));
+void create() {
+    set_name("葫芦", ({ "jiouhulu", "hulu" }));
     set_weight(700);
     if (clonep())
         set_default_object(__FILE__);

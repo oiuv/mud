@@ -5,8 +5,7 @@ inherit NPC;
 
 #include "dao.h"
 
-void create()
-{
+void create() {
     set_name("道一禅师", ({
         "daoyi chanshi",
         "daoyi",
@@ -59,5 +58,5 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/dao-cloth")->wear();
+    carry_object("/d/shaolin/obj/dao-cloth")->wear();
 }

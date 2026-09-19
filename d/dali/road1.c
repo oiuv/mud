@@ -1,6 +1,5 @@
 inherit ROOM;
-void create()
-{
+void create() {
     set("short", "官道");
     set("long", @LONG
 这是一条蜿蜒崎岖的山间土路，是由中原通向大理的官道。
@@ -10,9 +9,9 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-        "northeast"  : "/d/emei/qsjie2",
-        "southwest"  : __DIR__"road2",
-        "east"  : "/d/kunming/xroad2",
+        "northeast": "/d/emei/qsjie2",
+        "southwest": __DIR__ "road2",
+        "east": "/d/kunming/xroad2",
     ]));
     set("no_clean_up", 0);
     setup();

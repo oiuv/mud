@@ -1,8 +1,7 @@
 // cat.c
 // updated by doing
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string file;
 
     if (!SECURITY_D->valid_grant(me, "(wizard)"))
@@ -29,8 +28,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式：cat <档案名>
 

@@ -2,11 +2,10 @@
 
 inherit BOOK;
 
-void create()
-{
+void create() {
     set_name("太极十三式", ({ "shu", "book" }));
     set_weight(600);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "本");
@@ -14,11 +13,11 @@ void create()
         set("value", 500);
         set("material", "paper");
         set("skill", ([
-            "name":    "force",    // name of the skill
-            "exp_required":    0,    // minimum combat experience required
-            "jing_cost":    30,    // jing cost every time study this
-            "difficulty":    10,    // the base int to learn this skill
-            "max_skill":    30    // the maximum level you can learn
-        ]) );
+            "name": "force",    // name of the skill
+            "exp_required": 0,    // minimum combat experience required
+            "jing_cost": 30,    // jing cost every time study this
+            "difficulty": 10,    // the base int to learn this skill
+            "max_skill": 30    // the maximum level you can learn
+        ]));
     }
 }

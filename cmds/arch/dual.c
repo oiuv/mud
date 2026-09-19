@@ -1,7 +1,6 @@
 // dual.c
 // this file does nothing if no shell's enabled.
-int main(object me, string arg, string flag1)
-{
+int main(object me, string arg, string flag1) {
     int flag;
     if (!SECURITY_D->valid_grant(me, "(arch)") && flag1 != "call")
         return 0;
@@ -18,8 +17,7 @@ int main(object me, string arg, string flag1)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : dual [detail]
 

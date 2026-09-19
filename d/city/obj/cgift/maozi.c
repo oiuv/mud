@@ -5,11 +5,10 @@
 
 inherit CLOTH;
 
-void create()
-{
-    set_name( HIR "圣诞" HIW "帽" NOR, ({ "mao zi", "mao",  "zi" }) );
+void create() {
+    set_name(HIR "圣诞" HIW "帽" NOR, ({ "mao zi", "mao", "zi" }));
     set_weight(1000);
-    if( clonep() )
+    if (clonep())
         set_default_object(__FILE__);
     else {
         set("unit", "顶");

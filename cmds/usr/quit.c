@@ -6,16 +6,14 @@
 inherit F_DBASE;
 inherit F_CLEAN_UP;
 
-void create()
-{
+void create() {
     seteuid(getuid());
     set("name", "离线指令");
     set("id", "quit");
     set("channel_id", "离线精灵");
 }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int i;
     object *inv, link_ob;
 
@@ -43,21 +41,18 @@ int main(object me, string arg)
     link_ob = me->query_temp("link_ob");
 
     // We might be called on a link_dead player, so check this.
-    if (objectp(link_ob))
-    {
+    if (objectp(link_ob)) {
         // Are we possessing in others body ?
-        if (link_ob->is_character())
-        {
+        if (link_ob->is_character()) {
             write("你的魂魄回到" + link_ob->name(1) + "的身上。\n");
-            me->delete_temp("link_ob"); //删除附身对象的link_ob，避免kickout时把自己也踢下线。
+            me->delete_temp("link_ob");  //删除附身对象的link_ob，避免kickout时把自己也踢下线。
             exec(link_ob, me);
             link_ob->setup();
             link_ob->write_prompt();
             return 1;
         }
 
-        if (link_ob->query_temp("ip_number"))
-        {
+        if (link_ob->query_temp("ip_number")) {
             link_ob->set("last_on", time());
             link_ob->set("last_from", link_ob->query_temp("ip_number"));
             link_ob->set("registered", me->query("registered"));
@@ -66,15 +61,14 @@ int main(object me, string arg)
         destruct(link_ob);
     }
 
-    if (me->query("doing"))
-    {
+    if (me->query("doing")) {
         if (!interactive(me))
             return 1;
 
         write("你暂时离线，人物不退出...\n");
-        message("vision", me->name() + "离线了。\n", environment(me), ({me}));
+        message("vision", me->name() + "离线了。\n", environment(me), ({ me }));
         me->save();
-        link_ob = new (LOGIN_OB);
+        link_ob = new(LOGIN_OB);
         exec(link_ob, me);
         destruct(link_ob);
         return 1;
@@ -86,8 +80,7 @@ int main(object me, string arg)
 
     me->log_command("quit");
 
-    if (!wizardp(me))
-    {
+    if (!wizardp(me)) {
         int flag;
         flag = 0;
         inv = all_inventory(me);
@@ -96,15 +89,14 @@ int main(object me, string arg)
                 flag += DROP_CMD->do_drop(me, inv[i], 1);
         if (flag)
             message("vision", me->name() + "将身上的东西都丢了下来。\n",
-                    environment(me), ({me}));
+                environment(me), ({ me }));
     }
 
     write("欢迎下次再来！\n");
     me->set("last_on", time());
-    if (environment(me))
-    {
+    if (environment(me)) {
         message("vision", me->name() + "离开游戏。\n",
-                environment(me), ({me}));
+            environment(me), ({ me }));
     }
 
     CHANNEL_D->do_channel(this_object(), "sys", me->name() + "(" + me->query("id") + ")离开游戏了。");
@@ -116,8 +108,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int force_quit(object me)
-{
+int force_quit(object me) {
     if (previous_object() != me || !playerp(me))
         return notify_fail("你不能摧毁这个对象。\n");
 
@@ -129,12 +120,11 @@ int force_quit(object me)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : quit | exit
 
 当你(你)想暂时离开时, 可利用此一指令。
-HELP );
+HELP);
     return 1;
 }

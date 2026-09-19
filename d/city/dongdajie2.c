@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "东大街");
     set("long", @LONG
 东大街上，踩着坚实的青石板地面。东边是东城门，可以
@@ -9,12 +8,12 @@ void create()
 边是一家老字号的药铺，南边是打铁铺，叮叮当当的声音老远
 就能听到。
 LONG);
-        set("outdoors", "city");
+    set("outdoors", "city");
     set("exits", ([
-        "east"  : __DIR__"dongmen",
-        "south" : __DIR__"datiepu",
-        "west"  : __DIR__"dongdajie1",
-        "north" : __DIR__"yaopu",
+        "east": __DIR__ "dongmen",
+        "south": __DIR__ "datiepu",
+        "west": __DIR__ "dongdajie1",
+        "north": __DIR__ "yaopu",
     ]));
 
     setup();

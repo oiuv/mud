@@ -5,14 +5,12 @@
 
 inherit HEAD;
 
-void create()
-{
+void create() {
     set_name(HIY "黄玫瑰" NOR, ({ "huang meigui", "meigui" }));
     set_weight(10);
     if (clonep())
         set_default_object(__FILE__);
-    else
-    {
+    else {
         set("long", "含情脉脉的黄玫瑰。\n");
         set("unit", "朵");
         set("value", 6);

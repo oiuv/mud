@@ -23,8 +23,7 @@ int ghost = 0;
 
 int is_ghost() { return ghost; }
 
-varargs int receive_damage(string type, int damage, object who)
-{
+varargs int receive_damage(string type, int damage, object who) {
     int val;
 
     if (damage < 0)
@@ -32,8 +31,7 @@ varargs int receive_damage(string type, int damage, object who)
     if (type != "jing" && type != "qi")
         error("F_DAMAGE: 伤害种类错误(只能是 jing 和 qi 其中一种)。\n");
 
-    if (who != last_damage_from)
-    {
+    if (who != last_damage_from) {
         last_damage_name = (who ? who->name(1) : 0);
         last_damage_from = who;
     }
@@ -53,8 +51,7 @@ varargs int receive_damage(string type, int damage, object who)
     return damage;
 }
 
-varargs int receive_wound(string type, int damage, object who)
-{
+varargs int receive_wound(string type, int damage, object who) {
     int val;
 
     if (damage < 0)
@@ -62,8 +59,7 @@ varargs int receive_wound(string type, int damage, object who)
     if (type != "jing" && type != "qi")
         error("F_DAMAGE: 伤害种类错误(只能是 jing 和 qi 其中一种)。\n");
 
-    if (who != last_damage_from)
-    {
+    if (who != last_damage_from) {
         last_damage_name = (who ? who->name(1) : 0);
         last_damage_from = who;
     }
@@ -75,8 +71,7 @@ varargs int receive_wound(string type, int damage, object who)
 
     if (val >= 0)
         set("eff_" + type, val);
-    else
-    {
+    else {
         set("eff_" + type, -1);
         val = -1;
     }
@@ -89,8 +84,7 @@ varargs int receive_wound(string type, int damage, object who)
     return damage;
 }
 
-int receive_heal(string type, int heal)
-{
+int receive_heal(string type, int heal) {
     int val;
 
     if (heal < 0)
@@ -108,8 +102,7 @@ int receive_heal(string type, int heal)
     return heal;
 }
 
-int receive_curing(string type, int heal)
-{
+int receive_curing(string type, int heal) {
     int max, val;
 
     if (heal < 0)
@@ -120,20 +113,16 @@ int receive_curing(string type, int heal)
     val = (int)query("eff_" + type);
     max = (int)query("max_" + type);
 
-    if (val + heal > max)
-    {
+    if (val + heal > max) {
         set("eff_" + type, max);
         return max - val;
-    }
-    else
-    {
+    } else {
         set("eff_" + type, val + heal);
         return heal;
     }
 }
 
-int dps_count()
-{
+int dps_count() {
     int i;
     object *dp;
 
@@ -143,13 +132,12 @@ int dps_count()
     for (i = 0; i < sizeof(dp); i++)
         if (dp[i] && living(dp[i]))
             dp[i] = 0;
-    dp -= ({0});
+    dp -= ({ 0 });
     set_temp("defeat_player", dp);
     return sizeof(dp);
 }
 
-void record_dp(object ob)
-{
+void record_dp(object ob) {
     object *dp;
 
     if (!this_object()->is_want_kill(ob->query("id")))
@@ -159,16 +147,14 @@ void record_dp(object ob)
     dp = query_temp("defeat_player");
     if (!dp)
         dp = ({});
-    dp += ({ob});
+    dp += ({ ob });
     set_temp("defeat_player", dp);
 }
 
-void remove_dp(object ob)
-{
+void remove_dp(object ob) {
     object *dp;
 
-    if (!ob)
-    {
+    if (!ob) {
         // remove all player defeated by me
         delete_temp("defeat_player");
         return;
@@ -177,12 +163,11 @@ void remove_dp(object ob)
     dp = query_temp("defeat_player");
     if (!dp)
         return;
-    dp -= ({ob, 0});
+    dp -= ({ ob, 0 });
     set_temp("defeat_player", dp);
 }
 
-void unconcious()
-{
+void unconcious() {
     object me;
     object ob;
     //      object room, *inv;
@@ -199,8 +184,7 @@ void unconcious()
 
     // I am lost if in competition with others
     if (objectp(ob = me->query_competitor()) &&
-        !ob->is_killing(me->query("id")))
-    {
+        !ob->is_killing(me->query("id"))) {
         ob->win();
         me->lost();
     }
@@ -211,23 +195,18 @@ void unconcious()
     if (run_override("unconcious"))
         return;
 
-    if (!last_damage_from && (applyer = query_last_applyer_id()))
-    {
+    if (!last_damage_from && (applyer = query_last_applyer_id())) {
         last_damage_from = UPDATE_D->global_find_player(applyer);
         last_damage_name = query_last_applyer_name();
     }
 
     defeated_by_who = last_damage_name;
-    if (defeated_by = last_damage_from)
-    {
+    if (defeated_by = last_damage_from) {
         // 如果此人有主，则算主人打晕的
-        if (objectp(defeated_by->query_temp("owner")))
-        {
+        if (objectp(defeated_by->query_temp("owner"))) {
             defeated_by = defeated_by->query_temp("owner");
             defeated_by_who = defeated_by->name(1);
-        }
-        else if (stringp(owner_id = defeated_by->query_temp("owner_id")))
-        {
+        } else if (stringp(owner_id = defeated_by->query_temp("owner_id"))) {
             defeated_by = UPDATE_D->global_find_player(owner_id);
             if (objectp(defeated_by))
                 defeated_by_who = defeated_by->name(1);
@@ -248,15 +227,14 @@ void unconcious()
     me->clear_written();
 
     message("vision", HIR "\n你的眼前一黑，接著什么也不知道了....\n\n" NOR,
-            me);
+        me);
 
     me->disable_player(" <昏迷不醒>");
     me->delete_temp("sleeped");
 
-    if (objectp(riding = me->query_temp("is_riding")))
-    {
+    if (objectp(riding = me->query_temp("is_riding"))) {
         message_vision("$N一头从$n上面栽了下来！\n",
-                       me, riding);
+            me, riding);
         me->delete_temp("is_riding");
         riding->delete_temp("is_rided_by");
         riding->move(environment(me));
@@ -273,8 +251,7 @@ void unconcious()
     UPDATE_D->global_destruct_player(defeated_by, 1);
 }
 
-varargs void revive(int quiet)
-{
+varargs void revive(int quiet) {
     object me;
     object env;
 
@@ -282,14 +259,13 @@ varargs void revive(int quiet)
 
     remove_call_out("revive");
     env = environment();
-    if (env)
-    {
+    if (env) {
         while (env->is_character() && environment(env))
             env = environment(env);
         if (env != environment())
             me->move(env);
     }
-    delete ("disable_type");
+    delete("disable_type");
     set_temp("block_msg/all", 0);
     me->enable_player();
 
@@ -299,21 +275,19 @@ varargs void revive(int quiet)
     if (objectp(defeated_by))
         defeated_by->remove_dp(me);
 
-    if (!quiet)
-    {
+    if (!quiet) {
         defeated_by = 0;
         defeated_by_who = 0;
         COMBAT_D->announce(this_object(), "revive");
         message("vision", HIY "\n慢慢地你终于又有了知觉....\n\n" NOR,
-                me);
+            me);
     }
 
     last_damage_from = 0;
     last_damage_name = 0;
 }
 
-varargs void die(object killer)
-{
+varargs void die(object killer) {
     object me;
     object riding;
     object dob;
@@ -326,17 +300,15 @@ varargs void die(object killer)
 
     me = this_object();
     me->delete_temp("sleeped");
-    me->delete ("last_sleep");
+    me->delete("last_sleep");
 
     // I am lost if in competition with others
-    if (ob = me->query_competitor())
-    {
+    if (ob = me->query_competitor()) {
         ob->win();
         me->lost();
     }
 
-    if (wizardp(me) && query("env/immortal"))
-    {
+    if (wizardp(me) && query("env/immortal")) {
         delete_temp("die_reason");
         return;
     }
@@ -347,39 +319,33 @@ varargs void die(object killer)
     if (run_override("die"))
         return;
 
-    if (!last_damage_from && (applyer = query_last_applyer_id()))
-    {
+    if (!last_damage_from && (applyer = query_last_applyer_id())) {
         tmp_load = UPDATE_D->global_find_player(applyer);
         last_damage_from = tmp_load;
         last_damage_name = query_last_applyer_name();
     }
 
-    if (!killer)
-    {
+    if (!killer) {
         killer = last_damage_from;
         killer_name = last_damage_name;
-    }
-    else
+    } else
         killer_name = killer->name(1);
 
     // record defeater first, because revive will clear it
-    if (!living(me))
-    {
+    if (!living(me)) {
         direct_die = 0;
         if (userp(me) || playerp(me))
             revive(1);
         else
-            me->delete ("disable_type");
-    }
-    else
+            me->delete("disable_type");
+    } else
         direct_die = 1;
 
     if (direct_die && killer)
         // direct to die ? call winner_reward
         COMBAT_D->winner_reward(killer, me);
 
-    if (objectp(riding = me->query_temp("is_riding")))
-    {
+    if (objectp(riding = me->query_temp("is_riding"))) {
         message_vision("$N一头从$n上面栽了下来！\n", me, riding);
         me->delete_temp("is_riding");
         riding->delete_temp("is_rided_by");
@@ -389,25 +355,20 @@ varargs void die(object killer)
     // Check how am I to die
     dob = defeated_by;
     dob_name = defeated_by_who;
-    if (!query_temp("die_reason"))
-    {
+    if (!query_temp("die_reason")) {
         if (userp(me) && dob_name && killer_name &&
-            (dob_name != killer_name || dob != killer))
-        {
+            (dob_name != killer_name || dob != killer)) {
             // set the die reason
             set_temp("die_reason", "被" +
-                        dob_name + "打晕以后，被" +
-                        (dob_name == killer_name ? "另一个" : "") +
-                        killer_name + "趁机杀掉了");
-        }
-        else if (userp(me) && killer_name && !killer)
-        {
+                dob_name + "打晕以后，被" +
+                (dob_name == killer_name ? "另一个" : "") +
+                killer_name + "趁机杀掉了");
+        } else if (userp(me) && killer_name && !killer) {
             set_temp("die_reason", "被" + killer_name + HIM "杀害了");
         }
     }
 
-    if (COMBAT_D->player_escape(killer, this_object()))
-    {
+    if (COMBAT_D->player_escape(killer, this_object())) {
         UPDATE_D->global_destruct_player(tmp_load, 1);
         return;
     }
@@ -430,14 +391,12 @@ varargs void die(object killer)
     defeated_by_who = 0;
     me->remove_all_killer();
 
-    if (environment())
-    {
+    if (environment()) {
         all_inventory(environment())->remove_killer(me);
     }
 
     me->dismiss_team();
-    if (userp(me) || playerp(me))
-    {
+    if (userp(me) || playerp(me)) {
         if (me->is_busy())
             me->interrupt_me();
         set("jing", 1);
@@ -449,20 +408,17 @@ varargs void die(object killer)
         DEATH_ROOM->start_death(me);
         me->delete_temp("die_reason");
         me->craze_of_die(killer ? killer->query("id") : 0);
-    }
-    else
+    } else
         destruct(me);
 }
 
-void reincarnate()
-{
+void reincarnate() {
     ghost = 0;
     set("eff_jing", query("max_jing"));
     set("eff_qi", query("max_qi"));
 }
 
-int max_food_capacity()
-{
+int max_food_capacity() {
     int f;
 
     f = query("str") * 10 + 100;
@@ -484,8 +440,7 @@ int max_food_capacity()
     return f;
 }
 
-int max_water_capacity()
-{
+int max_water_capacity() {
     int w;
 
     w = query("str") * 10 + 100;
@@ -506,8 +461,7 @@ int max_water_capacity()
     return w;
 }
 
-int heal_up()
-{
+int heal_up() {
     int update_flag /*, i*/;
     int scale;
     int is_user;
@@ -521,8 +475,7 @@ int heal_up()
 
     me = this_object();
     // Am I in prison ?
-    if (me->is_in_prison())
-    {
+    if (me->is_in_prison()) {
         me->update_in_prison();
         return 1;
     }
@@ -534,16 +487,13 @@ int heal_up()
 
     if (!is_user ||
         environment() &&
-            !environment()->is_chat_room() &&
-            (!stringp(my["doing"]) && interactive(me) || my["doing"] == "scheme"))
-    {
-        if (my["water"] > 0)
-        {
+        !environment()->is_chat_room() &&
+        (!stringp(my["doing"]) && interactive(me) || my["doing"] == "scheme")) {
+        if (my["water"] > 0) {
             my["water"] -= 1;
             update_flag++;
         }
-        if (my["food"] > 0)
-        {
+        if (my["food"] > 0) {
             my["food"] -= 1;
             update_flag++;
         }
@@ -552,10 +502,8 @@ int heal_up()
             return update_flag;
 
         if ((guard = me->query_temp("guardfor")) &&
-            (!objectp(guard) || !guard->is_character()))
-        {
-            if (my["jing"] * 100 / my["max_jing"] < 50)
-            {
+            (!objectp(guard) || !guard->is_character())) {
+            if (my["jing"] * 100 / my["max_jing"] < 50) {
                 tell_object(me, "你觉得太累了，需要放松放松了。\n");
                 command("guard cancel");
                 return update_flag;
@@ -563,23 +511,22 @@ int heal_up()
 
             my["jing"] -= 30 + random(20);
 
-            switch (random(8))
-            {
-            case 0:
-                message_vision("$N紧张的盯着四周来往的行人。\n", me);
-                break;
+            switch (random(8)) {
+                case 0:
+                    message_vision("$N紧张的盯着四周来往的行人。\n", me);
+                    break;
 
-            case 1:
-                message_vision("$N打了个哈欠，随即振作精神继续观察附近情况。\n", me);
-                break;
+                case 1:
+                    message_vision("$N打了个哈欠，随即振作精神继续观察附近情况。\n", me);
+                    break;
 
-            case 2:
-                message_vision("$N左瞅瞅，右看看，不放过一个可疑的人物。\n", me);
-                break;
+                case 2:
+                    message_vision("$N左瞅瞅，右看看，不放过一个可疑的人物。\n", me);
+                    break;
 
-            case 3:
-                message_vision("$N打起精神细细的观察周围。\n", me);
-                break;
+                case 3:
+                    message_vision("$N打起精神细细的观察周围。\n", me);
+                    break;
             }
             update_flag++;
             return update_flag;
@@ -587,46 +534,38 @@ int heal_up()
 
         my["jing"] += (my["con"] + my["max_jingli"] / 10) / scale;
 
-        if (my["jing"] >= my["eff_jing"])
-        {
+        if (my["jing"] >= my["eff_jing"]) {
             my["jing"] = my["eff_jing"];
-            if (my["eff_jing"] < my["max_jing"])
-            {
+            if (my["eff_jing"] < my["max_jing"]) {
                 my["eff_jing"]++;
                 update_flag++;
             }
-        }
-        else
+        } else
             update_flag++;
 
         if (!me->is_busy())
             my["qi"] += (my["con"] * 2 + my["max_neili"] / 20) / scale;
 
-        if (my["qi"] >= my["eff_qi"])
-        {
+        if (my["qi"] >= my["eff_qi"]) {
             my["qi"] = my["eff_qi"];
-            if (my["eff_qi"] < my["max_qi"])
-            {
+            if (my["eff_qi"] < my["max_qi"]) {
                 my["eff_qi"]++;
                 update_flag++;
             }
-        }
-        else
+        } else
             update_flag++;
 
         if (my["food"] < 1 && is_user)
             return update_flag;
 
-        if (my["max_jingli"] && my["jingli"] < my["max_jingli"])
-        {
+        if (my["max_jingli"] && my["jingli"] < my["max_jingli"]) {
             my["jingli"] += my["con"] + (int)me->query_skill("force") / 6;
             if (my["jingli"] > my["max_jingli"])
                 my["jingli"] = my["max_jingli"];
             update_flag++;
         }
 
-        if (my["max_neili"] && my["neili"] < my["max_neili"])
-        {
+        if (my["max_neili"] && my["neili"] < my["max_neili"]) {
             my["neili"] += my["con"] * 2 + (int)me->query_skill("force") / 3;
             if (my["neili"] > my["max_neili"])
                 my["neili"] = my["max_neili"];

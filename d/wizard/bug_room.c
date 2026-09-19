@@ -7,8 +7,7 @@ inherit ROOM;
 
 int is_chat_room() { return 1; }
 
-void create()
-{
+void create() {
     set("short", HIC "BUG留言室" NOR);
     set("long", @LONG
 这里是巫师处理玩家提出的bug的地方，为便于巫师统一管
@@ -23,15 +22,15 @@ void create()
 清楚最好能引用原文。请严格按照该格式发表，否则一切后果自
 负。
                                   ==炎黄群侠传全体巫师==
-LONG );
+LONG);
 
     set("exits", ([
-        "west": __DIR__"guest_room",
-        ]));
+        "west": __DIR__ "guest_room",
+    ]));
 
     set("no_fight", 1);
 
     setup();
     "/clone/board/bug_b"->foo();
-        replace_program(ROOM);
+    replace_program(ROOM);
 }

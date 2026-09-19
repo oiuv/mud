@@ -2,15 +2,13 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     string *txt;
 
-    if (! arg)
+    if (!arg)
         return notify_fail("指令格式：describe <描述> | none\n");
 
-    if (arg == "none")
-    {
+    if (arg == "none") {
         me->delete("long");
         write("取消了原有的描述。\n");
         return 1;
@@ -27,8 +25,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help()
-{
+int help() {
     write(@TEXT
 指令格式：describe <描述>
 

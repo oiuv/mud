@@ -10,8 +10,7 @@ int working(object me);
 int coagent(object me);
 int halt_working(object me, object who, int silent);
 
-void create()
-{
+void create() {
     set("short", "伐木场");
     set("long", @LONG
 这里是鹿鸣峰西坡下的一片森林，长着许多百年的参天大
@@ -20,7 +19,7 @@ void create()
 有凶猛的野兽出没。
 LONG);
     set("exits", ([
-        "southup" : __DIR__"luming",
+        "southup": __DIR__ "luming",
     ]));
     set("outdoors", "guanwai");
     setup();

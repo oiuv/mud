@@ -2,8 +2,7 @@
 
 #include <ansi.h>
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     int i;
     object *inv, ob;
     mapping count;
@@ -14,8 +13,7 @@ int main(object me, string arg)
     string str;
     string *dk;
 
-    if (wizardp(me) && arg)
-    {
+    if (wizardp(me) && arg) {
         ob = find_player(arg);
         if (!ob)
             ob = find_living(arg);
@@ -27,29 +25,25 @@ int main(object me, string arg)
         ob = me;
 
     inv = all_inventory(ob);
-    if (!sizeof(inv))
-    {
+    if (!sizeof(inv)) {
         write((ob == me) ? "目前你身上没有任何东西。\n"
-                         : ob->name() + "身上没有携带任何东西。\n");
+            : ob->name() + "身上没有携带任何东西。\n");
         return 1;
     }
     str = sprintf("%s身上带著下列这些东西(负重 %d%%)：\n",
-                  (ob == me) ? "你" : ob->name(),
-                  (int)ob->query_encumbrance() * 100 / (int)ob->query_max_encumbrance());
+        (ob == me) ? "你" : ob->name(),
+        (int)ob->query_encumbrance() * 100 / (int)ob->query_max_encumbrance());
 
     count = ([]);
     unit = ([]);
     equiped = ([]);
 
-    for (i = 0; i < sizeof(inv); i++)
-    {
+    for (i = 0; i < sizeof(inv); i++) {
         short_name = inv[i]->short();
-        if (undefinedp(count[short_name]))
-        {
-            count += ([short_name:1]);
-            unit += ([short_name:inv[i]->query("unit")]);
-        }
-        else
+        if (undefinedp(count[short_name])) {
+            count += ([ short_name: 1 ]);
+            unit += ([ short_name: inv[i]->query("unit") ]);
+        } else
             count[short_name] += 1;
 
         if (inv[i]->query("equipped"))
@@ -63,8 +57,7 @@ int main(object me, string arg)
 
     dk = keys(count);
     dk = sort_array(dk, 1);
-    for (i = 0; i < sizeof(dk); i++)
-    {
+    for (i = 0; i < sizeof(dk); i++) {
         if (dk[i] == short_name)
             // handing now
             str += HIM "□ " NOR;
@@ -82,8 +75,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help (object me)
-{
+int help(object me) {
     write(@HELP
 指令格式: inventory
 
@@ -92,6 +84,6 @@ int help (object me)
 注 : 此指令可以 " i " 代替。
 
 HELP
-);
+    );
     return 1;
 }

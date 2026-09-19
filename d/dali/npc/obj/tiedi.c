@@ -5,9 +5,8 @@
 
 inherit SWORD;
 
-void create()
-{
-    set_name(HIB"铁笛"NOR, ({"tie di"}));
+void create() {
+    set_name(HIB "铁笛" NOR, ({ "tie di" }));
     set_weight(500);
 
     if (clonep())

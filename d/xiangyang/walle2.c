@@ -3,17 +3,16 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "石阶");
     set("long", @LONG
 这是登向城头的石阶，因为城墙很高，所以很陡。石阶两
 侧有可供拉车上下的斜坡道。
-LONG );
-        set("outdoors", "xiangyang");
+LONG);
+    set("outdoors", "xiangyang");
     set("exits", ([
-        "northup"   : __DIR__"walle4",
-        "southdown" : __DIR__"eastgate1",
+        "northup": __DIR__ "walle4",
+        "southdown": __DIR__ "eastgate1",
     ]));
     setup();
 }

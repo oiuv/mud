@@ -3,8 +3,7 @@ inherit ROOM;
 
 string look_ta();
 
-void create()
-{
+void create() {
     set("short", "报国寺");
     set("long", @LONG
 报国寺是峨眉山最的大寺院之一。寺庙倚山建造，弥勒殿
@@ -14,25 +13,24 @@ void create()
 LONG);
     set("outdoors", "emei");
     set("item_desc", ([
-        "ta" : (: look_ta :),
+        "ta": (: look_ta :),
     ]));
     set("objects", ([
-        __DIR__"npc/guest": 1,
+        __DIR__ "npc/guest": 1,
     ]));
     set("exits", ([
-        "west"  : __DIR__"bgsxq",
-        "in"    : __DIR__"dxdian",
-        "north" : __DIR__"bgsgate",
-        "south" : __DIR__"milin1",
+        "west": __DIR__ "bgsxq",
+        "in": __DIR__ "dxdian",
+        "north": __DIR__ "bgsgate",
+        "south": __DIR__ "milin1",
     ]));
     setup();
     replace_program(ROOM);
 }
 
-string look_ta()
-{
+string look_ta() {
     return YEL "\n这是一座十五层的紫铜铸华严塔。塔高七"
-               "米，塔身周匝共有小\n佛四千七百尊之多，并铸"
-               "有「华严经」全文两万多字，其冶炼\n工艺与雕"
-               "工技巧，已造至极至美之境。\n\n" NOR;
+        "米，塔身周匝共有小\n佛四千七百尊之多，并铸"
+        "有「华严经」全文两万多字，其冶炼\n工艺与雕"
+        "工技巧，已造至极至美之境。\n\n" NOR;
 }

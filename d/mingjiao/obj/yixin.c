@@ -4,15 +4,14 @@
 
 inherit ITEM;
 
-void create()
-{
-        set_name("阳教主遗信", ({"yi xin", "xin", "letter"}));
-        set_weight(100);
-        if (clonep())
-                set_default_object(__FILE__);
-        else {
-                set("unit", "封");
-                set("long", @LONG
+void create() {
+    set_name("阳教主遗信", ({ "yi xin", "xin", "letter" }));
+    set_weight(100);
+    if (clonep())
+        set_default_object(__FILE__);
+    else {
+        set("unit", "封");
+        set("long", @LONG
 夫人亲启：
 
     夫人妆次：夫人自归阳门，日夕郁郁。余粗鄙寡德，无足为欢，甚可歉咎，
@@ -41,14 +40,13 @@ void create()
 
     余名顶天，然于世无功，于教无勋，伤夫人之心，赍恨而没，狂言顶天立地，
 诚可笑也。
-LONG );
-                set("material", "paper");
-        }
+LONG);
+        set("material", "paper");
+    }
 }
 
-string long()
-{
-        return query("long") + HIG "
+string long() {
+    return query("long") + HIG "
 你看完心底暗自寻思，想不到阳教主这封信和乾坤大挪移心法却是没能送了出去。
 阳夫人自杀殉情，便使这遗信和心法几乎长眠于此了，若是千百年后才能有人来
 此，却不知道还能看到否？\n" NOR;

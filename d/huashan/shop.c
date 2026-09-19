@@ -2,19 +2,18 @@
 
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "山顶小店");
     set("long", @LONG
 这里是华山山顶的一间小店，卖些简单的饮食，专门赚那些游客
 的钱。
-LONG );
+LONG);
     set("exits", ([
-        "east" : __DIR__"square",
+        "east": __DIR__ "square",
     ]));
-//    set("no_clean_up", 0);
+    //    set("no_clean_up", 0);
     set("objects", ([
-        "/d/city/npc/xiaoer2" : 1,
+        "/d/city/npc/xiaoer2": 1,
     ]));
 
     setup();

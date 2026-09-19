@@ -4,9 +4,8 @@
 
 inherit NPC;
 
-void create()
-{
-    set_name("行者", ({"xingzhe","walker",}));
+void create() {
+    set_name("行者", ({ "xingzhe", "walker", }));
     set("title", "少林派弟子");
     set("long",
         "他是一位云游四方的行者，风霜满面，行色匆匆，似乎正在办一件急事。\n"
@@ -17,7 +16,7 @@ void create()
     set("class", "bonze");
 
     set("chat_chance", 10);
-    set("chat_msg",({
+    set("chat_msg", ({
         (: this_object(), "random_move" :),
     }));
 
@@ -34,7 +33,7 @@ void create()
     set("jiali", 100);
     set("combat_exp", 20000);
     set("score", 100);
-    set("apply/attack",  30);
+    set("apply/attack", 30);
     set("apply/defense", 30);
 
     set_skill("force", 50);
@@ -59,8 +58,7 @@ void create()
     add_money("silver", 50);
 }
 
-int random_move()
-{
+int random_move() {
     object where;
     mapping exits;
     string *dirs;
@@ -70,28 +68,23 @@ int random_move()
     command("say 师父叫我在此办一件大事。");
 
     /* trapped */
-    if( !mapp(exits = where->query("exits")) )
+    if (!mapp(exits = where->query("exits")))
         return 0;
 
-    if ( (string)file_name(where) == "/d/village/hsroad2" )
-    {
+    if ((string)file_name(where) == "/d/village/hsroad2") {
         command("go south");
         return 1;
     }
 
-    if ( (string)file_name(where) == "/d/wudang/wdroad5" )
-    {
+    if ((string)file_name(where) == "/d/wudang/wdroad5") {
         command("go north");
         return 1;
     }
 
     dirs = keys(exits);
-    if (sizeof(dirs) < 2)
-    {
+    if (sizeof(dirs) < 2) {
         command("go " + dirs[0]);
-    }
-    else
-    {
+    } else {
         command("go " + dirs[random(sizeof(dirs))]);
     }
     return 1;

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "半山竹林");
     set("long", @LONG
 一大片茂密的成年竹林生长在半山腰的缓坡上。竹子对
@@ -12,12 +11,12 @@ void create()
 里再捞起来。
 LONG);
     set("objects", ([
-           __DIR__"npc/kanzhuren": 2,
+        __DIR__ "npc/kanzhuren": 2,
     ]));
     set("outdoors", "dali");
     set("exits", ([
-            "northup"  : __DIR__"shanjian",
-            "east"     : __DIR__"buxiongbu",
+        "northup": __DIR__ "shanjian",
+        "east": __DIR__ "buxiongbu",
     ]));
     setup();
     replace_program(ROOM);

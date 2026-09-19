@@ -7,15 +7,14 @@ string ask_me_1();
 string ask_me_2();
 
 nosave string *check_skill = ({
-        "buddhism",
-        "dodge",
-        "shaolin-shenfa",
-        "force",
-        "parry",
+    "buddhism",
+    "dodge",
+    "shaolin-shenfa",
+    "force",
+    "parry",
 });
 
-void create()
-{
+void create() {
     set_name("清乐比丘", ({
         "qingle biqiu",
         "qingle",
@@ -65,59 +64,52 @@ void create()
     create_family("少林派", 40, "弟子");
 
     set("inquiry", ([
-        "手谕"       : (: ask_me_1 :),
-        "七十二绝艺" : (: ask_me_1 :),
-        "达摩令" :     (: ask_me_2 :)
+        "手谕": (: ask_me_1 :),
+        "七十二绝艺": (: ask_me_1 :),
+        "达摩令": (: ask_me_2 :)
     ]));
 
     setup();
 
-        carry_object("/d/shaolin/obj/qing-cloth")->wear();
+    carry_object("/d/shaolin/obj/qing-cloth")->wear();
 }
 
 
-string ask_me_1()
-{
+string ask_me_1() {
     mapping fam, skl;
     object ob;
     string *sname;
     int i;
 
     if (!(fam = this_player()->query("family")) || fam["family_name"] != "少林派")
-        return RANK_D->query_respect(this_player()) +
-        "与本派素无来往，不知此话从何谈起？";
+        return RANK_D->query_respect(this_player()) + "与本派素无来往，不知此话从何谈起？";
 
-        if ( (int)this_player()->query("guilty") > 0 )
-        return RANK_D->query_respect(this_player()) +
-        "你累犯数戒，身带重罪，我如何能给你这手谕！";
+    if ((int)this_player()->query("guilty") > 0)
+        return RANK_D->query_respect(this_player()) + "你累犯数戒，身带重罪，我如何能给你这手谕！";
 
-        if ( (int)this_player()->query_int() < 30 )
-        return RANK_D->query_respect(this_player()) +
-        "资质不够，不能进入藏经楼。";
+    if ((int)this_player()->query_int() < 30)
+        return RANK_D->query_respect(this_player()) + "资质不够，不能进入藏经楼。";
 
     skl = this_player()->query_skills();
-    sname  = sort_array( keys(skl), (: strcmp :) );
+    sname = sort_array(keys(skl), (: strcmp :));
 
-    for(i=0; i<sizeof(check_skill); i++) {
+    for (i = 0; i < sizeof(check_skill); i++) {
         if (skl[check_skill[i]] < 100)
-                return RANK_D->query_respect(this_player()) +
-                       "功力不够，不够资格领取手谕。";
+            return RANK_D->query_respect(this_player()) + "功力不够，不够资格领取手谕。";
     }
 
-        if ( (int)this_player()->query_skill("buddhism",1) < 150 )
-        return RANK_D->query_respect(this_player()) +
-        "想学习上乘武功，先要以高深佛法化解它们的戾气，否则后悔无及。";
+    if ((int)this_player()->query_skill("buddhism", 1) < 150)
+        return RANK_D->query_respect(this_player()) + "想学习上乘武功，先要以高深佛法化解它们的戾气，否则后悔无及。";
 
     ob = new("/d/shaolin/obj/allow-letter");
     ob->move(this_player());
-    message_vision("$N获得一封手谕。\n",this_player());
+    message_vision("$N获得一封手谕。\n", this_player());
 
     return "好吧，凭这封手谕，你可自由进入藏经阁二楼研习上乘武功。";
 
 }
 
-string ask_me_2()
-{
+string ask_me_2() {
     mapping fam;
     object ob;
     object me;
@@ -125,23 +117,20 @@ string ask_me_2()
 
     me = this_player();
     if (!(fam = me->query("family")) || fam["family_name"] != "少林派")
-        return RANK_D->query_respect(me) +
-        "与本派素无来往，不知此话从何谈起？";
+        return RANK_D->query_respect(me) + "与本派素无来往，不知此话从何谈起？";
 
     n = fam["generation"];
     n = 41 - n;
     lvl = n * 20 + 30;
 
-    for(i=0; i< sizeof(check_skill); i++) {
+    for (i = 0; i < sizeof(check_skill); i++) {
         if (me->query_skill(check_skill[i], 1) < lvl)
-        return RANK_D->query_respect(me) +
-               "你" + to_chinese(check_skill[i]) +
-                       "的功力不够，不能领取达摩令。";
+            return RANK_D->query_respect(me) + "你" + to_chinese(check_skill[i]) + "的功力不够，不能领取达摩令。";
     }
 
     ob = new("/d/shaolin/obj/damo-ling");
     ob->move(me);
-    message_vision("$N获得一面达摩令。\n",this_player());
+    message_vision("$N获得一面达摩令。\n", this_player());
 
     return "好吧，凭这面达摩令，你可自由向你的师尊挑战。";
 

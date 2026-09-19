@@ -4,23 +4,21 @@
 
 inherit F_CLEAN_UP;
 
-private int   create_title(string arg);
-private int   delete_title(string arg);
-private int   grant_title(string arg);
-private int   replace_title(string arg);
-private int   set_title(string arg);
-private int   list_title();
+private int create_title(string arg);
+private int delete_title(string arg);
+private int grant_title(string arg);
+private int replace_title(string arg);
+private int set_title(string arg);
+private int list_title();
 private mixed check_title(string arg);
 
 void create() { seteuid(getuid()); }
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     //object ob;
     string sw;
 
-    if (!arg)
-    {
+    if (!arg) {
         if (!me->query("title"))
             write("你现在并没有任何称号。\n");
         else
@@ -39,34 +37,32 @@ int main(object me, string arg)
     if (sscanf(arg, "%s %s", sw, arg) != 2)
         return notify_fail("请参见 help title 获得该命令的使用方法。\n");
 
-    switch (sw)
-    {
-    case "-c":
-        return create_title(arg);
-        break;
-    case "-d":
-        return delete_title(arg);
-        break;
-    case "-g":
-        return grant_title(arg);
-        break;
-    case "-r":
-        return replace_title(arg);
-        break;
-    case "-s":
-        return set_title(arg);
-        break;
-    case "-l":
-        return list_title();
-        break;
-    default:
-        return notify_fail("参数错误。\n");
+    switch (sw) {
+        case "-c":
+            return create_title(arg);
+            break;
+        case "-d":
+            return delete_title(arg);
+            break;
+        case "-g":
+            return grant_title(arg);
+            break;
+        case "-r":
+            return replace_title(arg);
+            break;
+        case "-s":
+            return set_title(arg);
+            break;
+        case "-l":
+            return list_title();
+            break;
+        default:
+            return notify_fail("参数错误。\n");
     }
 }
 
 // 创建称号
-private int create_title(string arg)
-{
+private int create_title(string arg) {
     int n = 1;
     mixed ts;
 
@@ -82,15 +78,14 @@ private int create_title(string arg)
 
     write("创建了" + chinese_number(n) + "个称号：" + arg + "\n");
     while (n--)
-        ts += ({({arg, 0})});
+        ts += ({ ({ arg, 0 }) });
     UPDATE_D->set_title_base(ts);
     UPDATE_D->save();
     return 1;
 }
 
 // 删除称号
-private int delete_title(string arg)
-{
+private int delete_title(string arg) {
     mixed ts;
     mixed item;
     mixed ds;
@@ -101,24 +96,22 @@ private int delete_title(string arg)
     if (!arrayp(ts))
         return notify_fail("目前游戏中并没有任何特殊称号。\n");
 
-    if (sscanf(arg, "%d", n))
-    {
+    if (sscanf(arg, "%d", n)) {
         if (n < 1 || n > sizeof(ts))
             return notify_fail("称号的代号是从 1 到 " +
-                               sizeof(ts) + " ，请输入有效的代号。\n");
+                sizeof(ts) + " ，请输入有效的代号。\n");
 
         n--;
         if (stringp(ts[n][1]) && wiz_level(ts[n][1]) > wiz_level(this_player()))
             return notify_fail("你没有权限删除 " + ts[n][1] +
-                               " 拥有的称号。\n");
+                " 拥有的称号。\n");
 
-        if (stringp(ts[n][1]) && objectp(ob = find_player(ts[n][1])))
-        {
+        if (stringp(ts[n][1]) && objectp(ob = find_player(ts[n][1]))) {
             ob->delete_temp("title");
-            ob->delete ("granted_title");
+            ob->delete("granted_title");
         }
 
-        ds = ts[0..n - 1] + ts[n + 1.. < 1];
+        ds = ts[0..n - 1] + ts[n + 1..<1];
         UPDATE_D->set_title_base(ds);
         UPDATE_D->save();
         write("去掉了第 " + (n + 1) + " 个称号。\n");
@@ -133,18 +126,15 @@ private int delete_title(string arg)
 
     ds = allocate(sizeof(ts));
     n = 0;
-    foreach (item in ts)
-    {
+    foreach (item in ts) {
         if (!arrayp(item) || sizeof(item) != 2)
             continue;
 
         if (filter_color(item[0]) == arg &&
-            (!stringp(item[1]) || wiz_level(item[1]) < wiz_level(this_player())))
-        {
-            if (stringp(item[1]) && objectp(ob = find_player(item[1])))
-            {
+            (!stringp(item[1]) || wiz_level(item[1]) < wiz_level(this_player()))) {
+            if (stringp(item[1]) && objectp(ob = find_player(item[1]))) {
                 ob->delete_temp("title");
-                ob->delete ("granted_title");
+                ob->delete("granted_title");
             }
             continue;
         }
@@ -160,8 +150,7 @@ private int delete_title(string arg)
 }
 
 // 更换称号
-private int replace_title(string arg)
-{
+private int replace_title(string arg) {
     string new_title;
     mixed ts;
     mixed item;
@@ -178,22 +167,19 @@ private int replace_title(string arg)
     if (!arrayp(ts))
         return notify_fail("目前游戏中并没有任何特殊称号。\n");
 
-    if (sscanf(arg, "%d", n))
-    {
+    if (sscanf(arg, "%d", n)) {
         if (n < 1 || n > sizeof(ts))
             return notify_fail("称号的代号是从 1 到 " +
-                               sizeof(ts) + " ，请输入有效的代号。\n");
+                sizeof(ts) + " ，请输入有效的代号。\n");
 
         n--;
-        if (!stringp(ts[n][1]) || wiz_level(ts[n][1]) <= wiz_level(this_player()))
-        {
+        if (!stringp(ts[n][1]) || wiz_level(ts[n][1]) <= wiz_level(this_player())) {
             // 可以修改这个称号
             ts[n][0] = new_title;
             if (stringp(ts[n][1]) &&
                 objectp(ob = find_player(ts[n][1])))
                 ob->set_temp("title", new_title);
-        }
-        else
+        } else
             return notify_fail("你没有权限修改 " + ts[n][1] + " 所拥有的称号。\n");
 
         UPDATE_D->set_title_base(ts);
@@ -208,15 +194,12 @@ private int replace_title(string arg)
 
     n = 0;
     arg = filter_color(arg);
-    foreach (item in ts)
-    {
+    foreach (item in ts) {
         if (!arrayp(item) || sizeof(item) != 2)
             continue;
 
-        if (filter_color(item[0]) == arg)
-        {
-            if (!stringp(item[1]) || wiz_level(item[1]) <= wiz_level(this_player()))
-            {
+        if (filter_color(item[0]) == arg) {
+            if (!stringp(item[1]) || wiz_level(item[1]) <= wiz_level(this_player())) {
                 // 可以修改这个称号
                 n++;
                 item[0] = new_title;
@@ -238,8 +221,7 @@ private int replace_title(string arg)
 }
 
 // 设置称号
-private int set_title(string arg)
-{
+private int set_title(string arg) {
     string user;
     object ob;
 
@@ -261,8 +243,7 @@ private int set_title(string arg)
 }
 
 // 授予称号
-private int grant_title(string arg)
-{
+private int grant_title(string arg) {
     string user;
     mixed ts;
     mixed item;
@@ -270,8 +251,7 @@ private int grant_title(string arg)
     object ob;
     int i;
 
-    if (sscanf(arg, "%s none", user) == 1)
-    {
+    if (sscanf(arg, "%s none", user) == 1) {
         // 清除他原先的 title
         write(UPDATE_D->clear_user_data(user, "title"));
         return 1;
@@ -283,22 +263,20 @@ private int grant_title(string arg)
     ts = UPDATE_D->query_title_base();
     if (i < 1 || i > sizeof(ts))
         return notify_fail("称号的代号是从 1 到 " +
-                           sizeof(ts) + " ，请输入有效的代号。\n");
+            sizeof(ts) + " ，请输入有效的代号。\n");
     i--;
     item = ts[i];
 
     if (!objectp(nob = UPDATE_D->global_find_player(user)))
         return notify_fail("你只能授予称号给已经注册的玩家。\n");
 
-    if (item[1] == user)
-    {
+    if (item[1] == user) {
         notify_fail(nob->name(1) + "的称号目前正是这个。\n");
         UPDATE_D->global_destruct_player(nob);
         return 0;
     }
 
-    if (wiz_level(this_player()) < wiz_level(nob))
-    {
+    if (wiz_level(this_player()) < wiz_level(nob)) {
         notify_fail("你不能为" + nob->name(1) + "设定称号。\n");
         UPDATE_D->global_destruct_player(nob);
         return 0;
@@ -307,11 +285,10 @@ private int grant_title(string arg)
     // 清除他原先的 title
     UPDATE_D->remove_title(nob);
 
-    if (stringp(item[1]) && objectp(ob = find_player(item[1])))
-    {
+    if (stringp(item[1]) && objectp(ob = find_player(item[1]))) {
         // 恢复这个玩家的原先称号
         ob->delete_temp("title");
-        ob->delete ("granted_title");
+        ob->delete("granted_title");
     }
 
     // 重新设置系统的 title 记录
@@ -331,8 +308,7 @@ private int grant_title(string arg)
     return 1;
 }
 
-private int list_title()
-{
+private int list_title() {
     mixed ts;
     string str;
     mixed item;
@@ -344,11 +320,10 @@ private int list_title()
 
     i = 1;
     str = "目前系统中的特殊称号有 " CYN + sizeof(ts) + NOR " 个：\n";
-    foreach (item in ts)
-    {
+    foreach (item in ts) {
         //str += sprintf("%3d. %-" + (30 + color_len(item[0])) + "s%s\n",
         str += sprintf("%3d. %-" + (30) + "s%s\n",
-                       i, item[0], item[1] ? item[1] : "");
+            i, item[0], item[1] ? item[1] : "");
         i++;
     }
     this_player()->start_more(str);
@@ -356,8 +331,7 @@ private int list_title()
     return 1;
 }
 
-private mixed check_title(string arg)
-{
+private mixed check_title(string arg) {
     arg = replace_string(arg, "$BLK$", BLK);
     arg = replace_string(arg, "$RED$", RED);
     arg = replace_string(arg, "$GRN$", GRN);
@@ -381,8 +355,7 @@ private mixed check_title(string arg)
     return arg + NOR;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : title -c <称号> [<数量>]
            title -d <称号代码> | <称号>
@@ -425,6 +398,6 @@ title -g player none
 只有需要永久保留的 title 才使用 title -c 创建然后授予玩家，
 一般修改 title 应该使用 title -s <玩家> <称号> 以节约资源。
 
-HELP );
+HELP);
     return 1;
 }

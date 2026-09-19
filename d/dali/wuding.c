@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "武定镇");
     set("long", @LONG
 这里是台夷分支卢鹿族罗蝥部的治府，罗蝥部除了这武定州外还
@@ -10,15 +9,15 @@ void create()
 LONG);
     set("outdoors", "dali");
     set("exits", ([
-                "north"     : __DIR__"zhulou1",
-                "northeast" : __DIR__"zhulin",
-                "west"      : __DIR__"qingzhulin",
-                "south"     : __DIR__"nongtian1",
+        "north": __DIR__ "zhulou1",
+        "northeast": __DIR__ "zhulin",
+        "west": __DIR__ "qingzhulin",
+        "south": __DIR__ "nongtian1",
     ]));
-        set("objects", ([
-                __DIR__"npc/guniang": 1,
-                "/clone/npc/walker" : 1,
-        ]));
+    set("objects", ([
+        __DIR__ "npc/guniang": 1,
+        "/clone/npc/walker": 1,
+    ]));
     setup();
     replace_program(ROOM);
 }

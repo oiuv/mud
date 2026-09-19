@@ -5,8 +5,7 @@
 
 inherit F_CLEAN_UP;
 
-int main(object me, string arg)
-{
+int main(object me, string arg) {
     object obj;
 
     if (!SECURITY_D->valid_grant(me, "(immortal)"))
@@ -18,13 +17,11 @@ int main(object me, string arg)
     obj = MESSAGE_D->find_user(arg);
     if (!obj)
         obj = find_living(arg);
-    if (!obj || !me->visible(obj))
-    {
+    if (!obj || !me->visible(obj)) {
         arg = resolve_path(me->query("cwd"), arg);
         if (!sscanf(arg, "%*s.c"))
             arg += ".c";
-        if (!(obj = find_object(arg)))
-        {
+        if (!(obj = find_object(arg))) {
             if (file_size(arg) >= 0)
                 return me->move(arg);
             return notify_fail("没有这个玩家、生物、或地方。\n");
@@ -43,7 +40,7 @@ int main(object me, string arg)
     tell_object(me, "呵呵呵呵，飞了飞了！小小巫师飞呀飞……！\n");
     if (!me->query("env/invisible"))
         message("vision", me->name() + "轻飘飘的飞了起来。\n",
-                environment(me), ({me}));
+            environment(me), ({ me }));
     tell_object(me, "到了？到了！降落喽！！！\n");
     if (!me->query("env/invisible"))
         message("vision", me->name() + "从天上慢慢的落了下来。\n", obj);
@@ -51,8 +48,7 @@ int main(object me, string arg)
     return 1;
 }
 
-int help(object me)
-{
+int help(object me) {
     write(@HELP
 指令格式 : flyto <目标>
 HELP);

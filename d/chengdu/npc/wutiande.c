@@ -3,8 +3,7 @@
 #include <ansi.h>
 
 inherit NPC;
-void create()
-{
+void create() {
     set_name("吴天德", ({ "wu tiande", "wu" }));
     set("title", "成都提督");
     set("shen_type", 0);

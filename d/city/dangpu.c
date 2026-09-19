@@ -1,8 +1,7 @@
 #include <ansi.h>
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "当铺");
     set("long", @LONG
 这里是扬州城内一家以买卖公平著称的当铺，一个五尺高
@@ -11,26 +10,26 @@ void create()
 LONG);
     set("no_fight", 1);
     set("no_steal", 1);
-    set("no_beg",1);
+    set("no_beg", 1);
     set("item_desc", ([
-        "paizi" : WHT "\n\n        ##==================##\n"
-                        "        ##                  ##\n"
-                        "        ##     公平交易     ##\n"
-                        "        ##                  ##\n"
-                        "        ##  " NOR + HIW "卖出" NOR + WHT "：   " NOR + HIY "sell" NOR + WHT "   ##\n"
-                        "        ##                  ##\n"
-                        "        ##  " NOR + HIW "买进" NOR + WHT "：   " NOR + HIY "buy" NOR + WHT "    ##\n"
-                        "        ##                  ##\n"
-                        "        ##  " NOR + HIW "估价" NOR + WHT "：   " NOR + HIY "value" NOR + WHT "  ##\n"
-                        "        ##                  ##\n"
-                        "        ##                  ##\n"
-                        "        ##==================##\n\n\n" NOR,
+        "paizi": WHT "\n\n        ##==================##\n"
+        "        ##                  ##\n"
+        "        ##     公平交易     ##\n"
+        "        ##                  ##\n"
+        "        ##  " NOR + HIW "卖出" NOR + WHT "：   " NOR + HIY "sell" NOR + WHT "   ##\n"
+        "        ##                  ##\n"
+        "        ##  " NOR + HIW "买进" NOR + WHT "：   " NOR + HIY "buy" NOR + WHT "    ##\n"
+        "        ##                  ##\n"
+        "        ##  " NOR + HIW "估价" NOR + WHT "：   " NOR + HIY "value" NOR + WHT "  ##\n"
+        "        ##                  ##\n"
+        "        ##                  ##\n"
+        "        ##==================##\n\n\n" NOR,
     ]));
     set("objects", ([
-        __DIR__"npc/tang" : 1,
+        __DIR__ "npc/tang": 1,
     ]));
     set("exits", ([
-        "west" : __DIR__"nandajie1",
+        "west": __DIR__ "nandajie1",
     ]));
 
     setup();

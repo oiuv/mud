@@ -3,8 +3,7 @@
 #include <weapon.h>
 inherit CLUB;
 
-void create()
-{
+void create() {
     set_name("木棍", ({ "mu gun", "club", "gun" }));
     set_weight(500);
     if (clonep())

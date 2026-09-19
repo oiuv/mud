@@ -6,8 +6,7 @@
 
 int dispel() { return 0; }
 
-int update_condition(object me, int duration)
-{
+int update_condition(object me, int duration) {
     if (duration < 1) {
         if (duration > -5)
             tell_object(me, HIM "因为响应的人不多，对你的投票取消了。\n" NOR);

@@ -10,8 +10,7 @@ int clean_up() { return 1; }
 
 void auto_relaim();
 
-void create()
-{
+void create() {
     seteuid(ROOT_UID);
     set("name", HIR "系统精灵" NOR);
     set("channel_id", "内存精灵");
@@ -19,8 +18,7 @@ void create()
     call_out("auto_relaim", 40);
 }
 
-void auto_relaim()
-{
+void auto_relaim() {
     int i;
     int t;
     string str;
@@ -37,8 +35,7 @@ void auto_relaim()
     call_out("auto_relaim", 600);
 
     //if (t >= 14 && ! "/cmds/arch/reboot"->is_rebooting() )
-    if (t > 365 && !"/cmds/arch/reboot"->is_rebooting())
-    {
+    if (t > 365 && !"/cmds/arch/reboot"->is_rebooting()) {
         reboot_now = 1;
         str = "/cmds/usr/uptime"->main("-r");
         "/cmds/arch/reboot"->main(this_object(), "after 10 called by memoryd");

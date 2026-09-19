@@ -2,7 +2,4 @@
 
 inherit F_SHADOW;
 
-void init()
-{
-}
-
+void init() {}

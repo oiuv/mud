@@ -2,8 +2,7 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("渔夫", ({ "yu fu", "yu", "fu" }));
     set("age", 22);
     set("gender", "男性");
@@ -27,6 +26,6 @@ void create()
     set_temp("apply/armor", 20);
 
     setup();
-    carry_object(__DIR__"obj/ttoujin")->wear();
-    carry_object(__DIR__"obj/xiaoao")->wear();
+    carry_object(__DIR__ "obj/ttoujin")->wear();
+    carry_object(__DIR__ "obj/xiaoao")->wear();
 }

@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "望江楼");
     set("long", @LONG
 望江楼又名崇丽阁。下两层四角，上两层八角，朱柱琉瓦
@@ -11,9 +10,9 @@ void create()
 漂洗一种红色诗笺而流芳千古：无波古井因涛重，有色遗笺举
 世珍。这也是这一才女的传世的唯一遗泽。
 LONG);
-        set("outdoors", "chengdu");
+    set("outdoors", "chengdu");
     set("exits", ([
-            "northwest" : __DIR__"eastroad3",
+        "northwest": __DIR__ "eastroad3",
     ]));
     set("no_clean_up", 0);
     setup();

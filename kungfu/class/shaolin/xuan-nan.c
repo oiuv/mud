@@ -8,8 +8,7 @@ string ask_me();
 
 #include "xuan-nan.h"
 
-void create()
-{
+void create() {
     set_name("玄难大师", ({
         "xuannan dashi",
         "xuannan",
@@ -72,12 +71,12 @@ void create()
     create_family("少林派", 36, "弟子");
 
     set("inquiry", ([
-        "十八罗汉阵"       : (: ask_me :),
-        "罗汉大阵"       : (: ask_me :)
+        "十八罗汉阵": (: ask_me :),
+        "罗汉大阵": (: ask_me :)
     ]));
 
     setup();
 
-        carry_object("/d/shaolin/obj/chanzhang")->wield();
-        carry_object("/d/shaolin/obj/xuan-cloth")->wear();
+    carry_object("/d/shaolin/obj/chanzhang")->wield();
+    carry_object("/d/shaolin/obj/xuan-cloth")->wear();
 }

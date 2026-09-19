@@ -3,10 +3,9 @@
 inherit NPC;
 inherit F_MASTER;
 
-void create()
-{
-    set_name("本因", ({ "ben yin","yin"}) );
-    set("gender", "男性" );
+void create() {
+    set_name("本因", ({ "ben yin", "yin" }));
+    set("gender", "男性");
     set("title", "天龙寺第十七代住持");
     set("long", "一个神情潇洒的僧人，他是天龙寺住持方丈。\n");
     set("class", "bonze");
@@ -17,8 +16,8 @@ void create()
     set("con", 26);
     set("dex", 24);
 
-        set("qi", 3300);
-        set("max_qi", 3300);
+    set("qi", 3300);
+    set("max_qi", 3300);
     set("jing", 1600);
     set("max_jing", 1600);
     set("neili", 4200);
@@ -43,10 +42,10 @@ void create()
     map_skill("parry", "sun-finger");
     map_skill("finger", "sun-finger");
     map_skill("sword", "duanjia-sword");
-    prepare_skill("finger","sun-finger");
-    set("inquiry" ,([
-            "六脉神剑谱" : "哼！\n",
-            "六脉神剑" :  "哼！\n",
+    prepare_skill("finger", "sun-finger");
+    set("inquiry", ([
+        "六脉神剑谱": "哼！\n",
+        "六脉神剑": "哼！\n",
     ]));
 
     create_family("大理段家", 15, "高僧");

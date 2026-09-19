@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "内厅");
     set("long", @LONG
 这是一个石洞，此洞硕大无朋，四周点满了火把，把整个
@@ -10,14 +9,14 @@ void create()
 LONG);
 
     set("exits", ([
-        "in"    : __DIR__"shihole1",
-        "north" : __DIR__"xiuxis2",
-        "east"  : __DIR__"shibi",
-        "west"  : __DIR__"chashi",
+        "in": __DIR__ "shihole1",
+        "north": __DIR__ "xiuxis2",
+        "east": __DIR__ "shibi",
+        "west": __DIR__ "chashi",
     ]));
 
     set("objects", ([
-        __DIR__"npc/dizi": 2,
+        __DIR__ "npc/dizi": 2,
     ]));
 
     setup();

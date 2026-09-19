@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "山洞");
     set("long", @LONG
 一个黑漆漆的山洞，一眼竟望不到底。两侧的石壁上生满的苔藓，摸起
@@ -10,9 +9,9 @@ void create()
 LONG
     );
     set("exits", ([
-        "out" : __DIR__"dezj",
+        "out": __DIR__ "dezj",
         // "in"  : __DIR__"dong-2",
-]));
+    ]));
 
     set("objects", ([
 

@@ -2,15 +2,14 @@
 
 inherit NPC;
 
-void create()
-{
+void create() {
     set_name("小道姑", ({ "xiao daogu", "daogu" }));
-    set("long","玉虚观的小道姑，她是在这接待香客的。\n");
+    set("long", "玉虚观的小道姑，她是在这接待香客的。\n");
     set("gender", "女性");
     set("age", 16);
     set("attitude", "peaceful");
     set("shen_type", 1);
-        set("class", "taoist");
+    set("class", "taoist");
 
     set("per", 20);
     set("str", 20);
@@ -36,5 +35,5 @@ void create()
 
     setup();
 
-    carry_object(__DIR__"obj/cynrobe")->wear();
+    carry_object(__DIR__ "obj/cynrobe")->wear();
 }

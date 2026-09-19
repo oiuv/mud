@@ -3,12 +3,11 @@
 inherit NPC;
 
 #include <ansi.h>
-void create()
-{
+void create() {
     set_name("沙通天", ({ "sha tongtian", "sha", "tongtian" }));
     set("gender", "男性");
-    set("title", HIY"黄河帮帮主"NOR);
-    set("nickname", HIC"鬼门龙王"NOR);
+    set("title", HIY "黄河帮帮主" NOR);
+    set("nickname", HIC "鬼门龙王" NOR);
     set("age", 43);
     set("str", 25);
     set("dex", 16);

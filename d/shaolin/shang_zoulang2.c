@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "走廊");
     set("long", @LONG
 这是商家堡内的一条木制的走廊，红漆地面很是光滑，整个
@@ -9,8 +8,8 @@ void create()
 走动，忙碌个不停。
 LONG);
     set("exits", ([
-        "north"  : __DIR__"shang_houyuan",
-        "south"  : __DIR__"shang_zoulang1",
+        "north": __DIR__ "shang_houyuan",
+        "south": __DIR__ "shang_zoulang1",
     ]));
     setup();
     replace_program(ROOM);

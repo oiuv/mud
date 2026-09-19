@@ -138,8 +138,7 @@
 //     return result;
 // }
 
-object get_object(string name)
-{
+object get_object(string name) {
     object ob;
     if (ob = find_object(name))
         return ob;
@@ -147,8 +146,7 @@ object get_object(string name)
 }
 
 // to a appromix time
-string appromix_time(int n, int flag)
-{
+string appromix_time(int n, int flag) {
     string s;
 
     if (n <= 0)
@@ -156,28 +154,19 @@ string appromix_time(int n, int flag)
 
     if (n < 60)
         s = "秒钟";
-    else if (n < 60 * 60)
-    {
+    else if (n < 60 * 60) {
         s = "分钟";
         n /= 60;
-    }
-    else if (n < 24 * 60 * 60)
-    {
+    } else if (n < 24 * 60 * 60) {
         s = "小时";
         n /= 60 * 60;
-    }
-    else if (n < 30 * 24 * 60 * 60)
-    {
+    } else if (n < 30 * 24 * 60 * 60) {
         s = "天";
         n /= 24 * 60 * 60;
-    }
-    else if (n < 365 * 24 * 60 * 60)
-    {
+    } else if (n < 365 * 24 * 60 * 60) {
         s = "个月";
         n /= 30 * 24 * 60 * 60;
-    }
-    else
-    {
+    } else {
         s = "年";
         n /= 365 * 24 * 60 * 60;
     }
@@ -196,24 +185,21 @@ string appromix_time(int n, int flag)
 // }
 
 // change to english sigh to chinese
-string chinese_desc(string arg)
-{
+string chinese_desc(string arg) {
     arg = replace_string(arg, ",", "，");
     arg = replace_string(arg, "!", "！");
     return arg;
 }
 
 // is the string1 be a substring of string2
-int is_sub(string s_str, string m_str)
-{
+int is_sub(string s_str, string m_str) {
     if (!m_str || !s_str)
         return 0;
     return strsrch("," + m_str + ",", "," + s_str + ",") != -1;
 }
 
 // add a s_str
-string add_sub(string s_str, string m_str)
-{
+string add_sub(string s_str, string m_str) {
     string *slist;
     int i;
 
@@ -221,7 +207,7 @@ string add_sub(string s_str, string m_str)
         return m_str;
 
     slist = explode(s_str, ",");
-    slist -= ({""});
+    slist -= ({ "" });
     for (i = 0; i < sizeof(slist); i++)
         if (!is_sub(slist[i], m_str))
             if (m_str == 0 || m_str == "")
@@ -233,14 +219,13 @@ string add_sub(string s_str, string m_str)
 }
 
 // remove a s_str
-string remove_sub(string s_str, string m_str)
-{
+string remove_sub(string s_str, string m_str) {
     string *slist;
     string *trilist;
 
     if (!m_str || m_str == s_str)
         return 0;
-    slist = explode(m_str, ",") - ({""});
+    slist = explode(m_str, ",") - ({ "" });
     trilist = explode(s_str, ",");
     slist -= trilist;
     if (!sizeof(slist))
@@ -250,22 +235,20 @@ string remove_sub(string s_str, string m_str)
 }
 
 // check the id is legal
-int is_legal_id(string id)
-{
+int is_legal_id(string id) {
     int i;
 
-    if (! id) return 0;
+    if (!id) return 0;
 
     for (i = 0; i < strlen(id); i++)
-    if (id[i] < 'a' || id[i] > 'z')
-        return 0;
+        if (id[i] < 'a' || id[i] > 'z')
+            return 0;
 
     return 1;
 }
 
 // generate the short id for log
-string log_id(object ob, int raw)
-{
+string log_id(object ob, int raw) {
     string msg;
     if (raw) return sprintf("%-8s", geteuid(ob));
 
@@ -286,12 +269,11 @@ string log_time()
 */
 
 // can the two man talk with together ?
-int can_talk_with(object ob1, object ob2)
-{
-    if (! objectp(ob1) || ! objectp(ob2))
+int can_talk_with(object ob1, object ob2) {
+    if (!objectp(ob1) || !objectp(ob2))
         return 0;
 
-    if (! living(ob1) || ! living(ob2))
+    if (!living(ob1) || !living(ob2))
         return 0;
 
     if (environment(ob1) != environment(ob2))
@@ -304,18 +286,15 @@ int can_talk_with(object ob1, object ob2)
 }
 
 // build file crypt key
-string file_crypt(string file)
-{
+string file_crypt(string file) {
     return "1234567890ABCDEF";
 }
 
 // check the file valid
-int file_valid(string file)
-{
+int file_valid(string file) {
     return file_size(file) > 0;
 }
 
-int binary_valid(string file)
-{
+int binary_valid(string file) {
     return 1;
 }

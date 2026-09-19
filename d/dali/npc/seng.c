@@ -1,10 +1,9 @@
 // seng.c
 inherit NPC;
 
-void create()
-{
-    set_name("僧人", ({"seng ren","seng"}));
-    set("long", "一个精壮僧人。\n" );
+void create() {
+    set_name("僧人", ({ "seng ren", "seng" }));
+    set("long", "一个精壮僧人。\n");
     set("gender", "男性");
     set("attitude", "peace");
     set("class", "bonze");
@@ -22,7 +21,7 @@ void create()
     set("jiali", 100);
     set("combat_exp", 20000);
     set("score", 100);
-    set("apply/attack",  30);
+    set("apply/attack", 30);
     set("apply/defense", 30);
 
     set_skill("force", 50);

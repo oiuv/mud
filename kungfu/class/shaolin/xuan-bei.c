@@ -6,8 +6,7 @@ inherit F_MASTER;
 
 #include "xuan.h"
 
-void create()
-{
+void create() {
     set_name("玄悲大师", ({
         "xuanbei dashi",
         "xuanbei",
@@ -71,5 +70,5 @@ void create()
 
     setup();
 
-        carry_object("/d/shaolin/obj/xuan-cloth")->wear();
+    carry_object("/d/shaolin/obj/xuan-cloth")->wear();
 }

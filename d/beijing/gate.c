@@ -1,7 +1,6 @@
 inherit ROOM;
 
-void create()
-{
+void create() {
     set("short", "镇远镖局");
     set("long", @LONG
 里面就是镇远镖局的总部，说到镇远镖局的大名在北京城乃至整个北方是
@@ -12,19 +11,18 @@ LONG
     );
 
     set("exits", ([
-        "in"    : __DIR__"front_yard",
-        "south" : __DIR__"di_anmen",
+        "in": __DIR__ "front_yard",
+        "south": __DIR__ "di_anmen",
     ]));
 
     set("objects", ([
-        CLASS_D("zhenyuan") + "/tongzhaohe" : 1,
+        CLASS_D("zhenyuan") + "/tongzhaohe": 1,
     ]));
 
     setup();
 }
 
-int valid_leave(object me, string dir)
-{
+int valid_leave(object me, string dir) {
     object tong;
 
     if (dir != "in" ||

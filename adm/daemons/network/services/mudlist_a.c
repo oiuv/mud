@@ -22,8 +22,7 @@ int have_mudlist = 0;
 void create() { seteuid(ROOT_UID); }
 
 // Someone replyed to our query and has sent us their mudlist.
-void incoming_request(mapping info)
-{
+void incoming_request(mapping info) {
     string *junk;
 
     if (!ACCESS_CHECK(previous_object()))
@@ -37,8 +36,7 @@ void incoming_request(mapping info)
     filter_array(junk, "process_list", this_object(), info);
 }
 
-int process_list(string idx, mapping info)
-{
+int process_list(string idx, mapping info) {
     string *inf, name, value;
     int j;
     mapping newm, old;
@@ -65,7 +63,7 @@ int process_list(string idx, mapping info)
     name = newm["HOSTADDRESS"] + ":" + newm["PORTUDP"];
 
     while (name[strlen(name) - 1] == '.')
-        name = name[0..strlen(name)-2];
+        name = name[0..strlen(name) - 2];
     newm["ALIAS"] = nntoh(newm["NAME"]);
 
     // already know about ourselves
@@ -92,8 +90,7 @@ int process_list(string idx, mapping info)
 
     if (!old)
         DNS_MASTER->set_mud_info(name, newm);
-    else
-    {
+    else {
         inf = keys(newm);
         j = sizeof(inf);
         while (j--)
@@ -104,8 +101,7 @@ int process_list(string idx, mapping info)
 }
 
 // these is used by the dns master to find out if we have a mudlist
-int clear_db_flag()
-{
+int clear_db_flag() {
     if (ACCESS_CHECK(previous_object()))
         have_mudlist = 0;
 }

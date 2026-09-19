@@ -20,32 +20,32 @@ mixed *jewel = ({
 });
 */
 mapping special_data = ([
-        /*
+    /*
         "int"   : "后天悟性",
         "str"   : "后天臂力",
         "con"   : "后天根骨",
         "dex"   : "后天身法",
         */
 
-        //附加属性有这个但实际attribute()中此属性无效
-        "personality"   : "人格魅力",
-        "attack"        : "战斗攻击",
-        "defense"       : "战斗防御",
-        "parry"         : "有效招架",
-        "dodge"         : "有效轻功",
-        "force"         : "有效内功",
-        "armor"         : "战斗护甲",
-        "damage"        : "兵器伤害",
-        "unarmed_damage": "空手伤害",
-        "unarmed"       : "有效拳脚",
-        "cuff"          : "有效拳法",
-        "strike"        : "有效掌法",
-        "hand"          : "有效手法",
-        "finger"        : "有效指法",
-        "claw"          : "有效爪法",
-        "warm"          : "保暖能力",
+    //附加属性有这个但实际attribute()中此属性无效
+    "personality": "人格魅力",
+    "attack": "战斗攻击",
+    "defense": "战斗防御",
+    "parry": "有效招架",
+    "dodge": "有效轻功",
+    "force": "有效内功",
+    "armor": "战斗护甲",
+    "damage": "兵器伤害",
+    "unarmed_damage": "空手伤害",
+    "unarmed": "有效拳脚",
+    "cuff": "有效拳法",
+    "strike": "有效掌法",
+    "hand": "有效手法",
+    "finger": "有效指法",
+    "claw": "有效爪法",
+    "warm": "保暖能力",
 
-        /*
+    /*
         //留着作相关属性翻译参考
         "max_neili"     : "最大内力上限",
         "max_jingli"    : "最大精力上限",
@@ -108,10 +108,9 @@ mapping special_data = ([
         */
 ]);
 
-string special_desc(string arg)
-{
-        if (! undefinedp(special_data[arg]))
-                return special_data[arg];
-        else
-                return to_chinese(arg);
+string special_desc(string arg) {
+    if (!undefinedp(special_data[arg]))
+        return special_data[arg];
+    else
+        return to_chinese(arg);
 }
