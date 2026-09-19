@@ -32,6 +32,8 @@ class Settings:
     rerank_max_bytes: int = 30000
     rerank_total_bytes: int = 120000
     api_timeout: float = 20.0
+    chat_timeout: float = 60.0
+    summary_timeout: float = 20.0
     request_timeout: float = 80.0
     max_workers: int = 8
     max_message_chars: int = 1000
@@ -53,7 +55,8 @@ class Settings:
             path = Path(getattr(self, name)).expanduser()
             setattr(self, name, path if path.is_absolute() else SERVICE_DIR / path)
         for name in ("embedding_dimensions", "embedding_max_bytes", "rerank_max_bytes",
-                     "rerank_total_bytes", "api_timeout", "request_timeout", "max_workers",
+                     "rerank_total_bytes", "api_timeout", "chat_timeout", "summary_timeout",
+                     "request_timeout", "max_workers",
                      "max_message_chars", "max_response_chars", "max_tokens", "history_max_chars",
                      "knowledge_max_chars", "chunk_size", "retrieval_candidates", "retrieval_top_k",
                      "vector_cache_size", "vector_cache_ttl", "request_cache_size", "request_cache_ttl"):

@@ -18,11 +18,12 @@ from .settings import load_settings
 logger = logging.getLogger(__name__)
 
 
-def remaining_timeout(settings, deadline=None):
-    remaining = settings.api_timeout if deadline is None else deadline - time.monotonic()
+def remaining_timeout(settings, deadline=None, *, timeout=None):
+    limit = settings.api_timeout if timeout is None else timeout
+    remaining = limit if deadline is None else deadline - time.monotonic()
     if remaining <= 0:
         raise TimeoutError("AI request deadline exceeded")
-    return min(settings.api_timeout, remaining)
+    return min(limit, remaining)
 
 
 class QwenKnowledgeSystem:

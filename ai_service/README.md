@@ -199,13 +199,53 @@ LPC和Python必须同步更新；旧客户端没有请求编号，无法获得�
 - 游戏端同一玩家对同一NPC只允许一个待处理请求；5秒后重传一次，90秒超时提示。
 - Python限制工作线程数，过载立即返回busy；同一NPC/玩家会话串行处理。
 - 成功请求结果在SQLite中缓存，默认最多1024条、保存300秒；进程重启后仍能在有效期内去重。
-- API不做隐式SDK重试，单次默认20秒；整请求预算80秒。HTTP库超时按网络操作执行，结果超出总预算时不会保存对话。
+- API不做隐式SDK重试；检索与摘要默认20秒，问答默认60秒，整请求预算80秒。HTTP库超时按网络操作执行，结果超出总预算时不会保存对话。
 - 单条提问上限1000字符，回复上限1600字符；数据报限制8192字节。
 - 服务退出等待正在处理的工作结束；启动失败返回非零退出码。
 
 数据只在服务实际启动/构建时迁移；不要同时运行多个实例读写同一份会话数据库。
 改 SERVER_HOST/PORT 时同步修改 adm/daemons/ai_client_d.c 中的常量；默认仅绑定本机。
 完整参数参见 .env.example。
+
+## 问答超时排查
+
+问答、检索和摘要使用独立超时配置：
+
+~~~dotenv
+API_TIMEOUT=20
+CHAT_TIMEOUT=60
+SUMMARY_TIMEOUT=20
+REQUEST_TIMEOUT=80
+~~~
+
+`API_TIMEOUT` 用于向量和重排，`CHAT_TIMEOUT` 用于 NPC 问答，`SUMMARY_TIMEOUT` 用于历史摘要。旧版问答也使用 `API_TIMEOUT=20`，长回答可能在完整返回前超时。升级后，即使现有 `.env` 只保留 `API_TIMEOUT=20`，问答仍默认使用独立的 60 秒；按需添加 `CHAT_TIMEOUT` 覆盖，重启生效。每次调用同时受整轮剩余预算限制，`REQUEST_TIMEOUT` 保持不超过 80 秒。
+
+HTTP 超时按网络操作计算，并非严格的整次调用计时器；超过整轮截止时间的回复或摘要不会被接受。问答失败不保存该轮玩家对话或增加关系，超时会向玩家返回专门的超时提示。
+
+看到 embeddings 返回 200，只能证明向量接口调用成功。问答与向量可配置不同主机、密钥和模型，需单独验证问答接口。启动日志会显示实际模型、主机和各阶段超时；失败日志含 `operation`、`timeout_s`、`elapsed_s`、`input_chars`、`error`、`cause` 和 HTTP `status`，不记录密钥、玩家输入或原始错误响应。检查服务进程的环境变量是否覆盖了 `.env`。
+
+在 `ai_service` 目录执行独立诊断，无需启动游戏或 AI 服务：
+
+~~~sh
+# Linux：只显示脱敏配置，不调用 API
+.venv/bin/python scripts/diagnose_chat.py --config-only
+# 使用原 20 秒限制，对比默认 60 秒；每条命令真实调用一次问答模型
+.venv/bin/python scripts/diagnose_chat.py --timeout 20
+.venv/bin/python scripts/diagnose_chat.py --timeout 60
+~~~
+
+~~~powershell
+# Windows
+.\.venv\Scripts\python.exe .\scripts\diagnose_chat.py --config-only
+.\.venv\Scripts\python.exe .\scripts\diagnose_chat.py --timeout 60
+~~~
+
+诊断脚本复用 NPC 的问答调用和模型参数，默认发送一句简短问题，也可在命令末尾传入自定义问题；不加载知识库、人设或玩家历史，不保存对话。简短请求成功后，再用 `scripts/test_client.py chat "li bai" "武当派如何拜师？"` 测试已启动服务的完整流程；该客户端会按正常规则保存测试玩家的对话。
+
+- `cause=ConnectTimeout`：连接阶段超时，检查线上机器对问答主机的网络、代理和连通性。
+- `cause=ReadTimeout`：等待响应数据超时，检查网关、模型耗时和输入长度；可对比 20 秒与 60 秒的诊断结果。
+- 有 HTTP 状态码时按状态排查鉴权、模型权限、限流或服务端错误。
+- 本地成功不代表线上网络和服务进程环境一致；同一诊断命令也应在出问题的服务器执行。
 
 ## 查看提问的知识库召回
 

@@ -31,6 +31,8 @@ def main():
     # Avoid SDK wire logs exposing prompts or credentials in debug mode.
     logging.getLogger("httpx").setLevel(logging.WARNING)
     logging.getLogger("httpcore").setLevel(logging.WARNING)
+    logging.getLogger("httpx2").setLevel(logging.WARNING)
+    logging.getLogger("httpcore2").setLevel(logging.WARNING)
     logging.getLogger("openai").setLevel(logging.WARNING)
     server = None
     previous_handler = signal.signal(signal.SIGTERM, request_shutdown)

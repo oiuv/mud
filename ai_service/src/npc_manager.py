@@ -5,8 +5,9 @@ import re
 import time
 from dataclasses import dataclass
 from pathlib import Path
+from urllib.parse import urlsplit
 
-from openai import OpenAI
+from openai import APITimeoutError, OpenAI
 from .knowledge_qwen import QwenKnowledgeSystem, remaining_timeout
 from .settings import load_settings
 
@@ -23,17 +24,72 @@ class Reply:
     simulated: bool = False
 
 
+def create_chat_client(settings):
+    if not settings.chat_api_key or settings.chat_api_key.startswith("your-"):
+        return None
+    return OpenAI(api_key=settings.chat_api_key, base_url=settings.chat_base_url,
+                  timeout=settings.chat_timeout, max_retries=0)
+
+
+def complete_chat(settings, client, messages, deadline=None, max_tokens=None, *, operation="chat"):
+    if client is None:
+        raise ChatUnavailable("未配置聊天模型")
+    started = time.monotonic()
+    timeout = 0.0
+    limit = settings.summary_timeout if operation == "summary" else settings.chat_timeout
+    host = urlsplit(settings.chat_base_url).hostname
+    input_chars = sum(len(message.get("content", "")) for message in messages)
+    try:
+        timeout = remaining_timeout(settings, deadline, timeout=limit)
+        completion = client.with_options(timeout=timeout).chat.completions.create(
+            model=settings.chat_model, messages=messages,
+            max_tokens=max_tokens or settings.max_tokens,
+            extra_body=settings.chat_extra_body or None,
+        )
+        if deadline is not None and time.monotonic() >= deadline:
+            raise TimeoutError("AI request deadline exceeded")
+        if completion.choices[0].finish_reason == "length":
+            raise ValueError("Truncated completion")
+        content = completion.choices[0].message.content
+        if not isinstance(content, str) or not content.strip():
+            raise ValueError("Empty chat completion")
+        logger.info(
+            "Chat completion succeeded: operation=%s model=%s host=%s "
+            "elapsed_s=%.2f input_chars=%d output_chars=%d",
+            operation, settings.chat_model, host, time.monotonic() - started,
+            input_chars, len(content),
+        )
+        return content.strip()
+    except Exception as error:
+        # Log diagnostic metadata only; exceptions may contain keys or prompt text.
+        logger.warning(
+            "Chat completion failed: operation=%s model=%s host=%s timeout_s=%.2f "
+            "elapsed_s=%.2f input_chars=%d error=%s cause=%s status=%s",
+            operation, settings.chat_model, host, timeout, time.monotonic() - started,
+            input_chars, type(error).__name__,
+            type(error.__cause__).__name__ if error.__cause__ else "-",
+            getattr(error, "status_code", None),
+        )
+        message = ("AI回答超时，请稍后再试。" if isinstance(error, (APITimeoutError, TimeoutError))
+                   else "AI暂时无法回答，请稍后再试。")
+        raise ChatUnavailable(message) from error
+
+
 class NPCManager:
     def __init__(self, config_file=None, settings=None, knowledge=None, client=None):
         self.settings = settings or load_settings()
         self.config_file = Path(config_file) if config_file else self.settings.roles_file
         self.knowledge = knowledge or QwenKnowledgeSystem(settings=self.settings)
-        self.client = client
-        if self.client is None and self.settings.chat_api_key and not self.settings.chat_api_key.startswith("your-"):
-            self.client = OpenAI(api_key=self.settings.chat_api_key, base_url=self.settings.chat_base_url,
-                                 timeout=self.settings.api_timeout, max_retries=0)
+        self.client = client if client is not None else create_chat_client(self.settings)
         self.npc_configs = {}
         self.load_npc_configs()
+        logger.info(
+            "Chat configuration: model=%s host=%s enabled=%s chat_timeout_s=%.2f "
+            "summary_timeout_s=%.2f retrieval_timeout_s=%.2f request_timeout_s=%.2f",
+            self.settings.chat_model, urlsplit(self.settings.chat_base_url).hostname,
+            self.client is not None, self.settings.chat_timeout, self.settings.summary_timeout,
+            self.settings.api_timeout, self.settings.request_timeout,
+        )
 
     def load_npc_configs(self):
         if not self.config_file.exists():
@@ -76,26 +132,9 @@ class NPCManager:
     def get_npc_config(self, npc_id):
         return self.npc_configs.get(npc_id, {})
 
-    def _complete(self, messages, deadline=None, max_tokens=None):
-        if self.client is None:
-            raise ChatUnavailable("未配置聊天模型")
-        try:
-            completion = self.client.with_options(
-                timeout=remaining_timeout(self.settings, deadline)
-            ).chat.completions.create(
-                model=self.settings.chat_model, messages=messages,
-                max_tokens=max_tokens or self.settings.max_tokens,
-                extra_body=self.settings.chat_extra_body or None,
-            )
-            if completion.choices[0].finish_reason == "length":
-                raise ValueError("Truncated completion")
-            content = completion.choices[0].message.content
-            if not isinstance(content, str) or not content.strip():
-                raise ValueError("Empty chat completion")
-            return content.strip()
-        except Exception as error:
-            logger.warning("Chat completion failed (%s)", type(error).__name__)
-            raise ChatUnavailable("AI暂时无法回答，请稍后再试。") from error
+    def _complete(self, messages, deadline=None, max_tokens=None, *, operation="chat"):
+        return complete_chat(self.settings, self.client, messages, deadline, max_tokens,
+                             operation=operation)
 
     def generate_response(self, npc_id, player_name, message, player_memory, history, context, deadline=None):
         role = self.get_npc_config(npc_id)
@@ -163,7 +202,7 @@ class NPCManager:
             {"role": "user", "content": json.dumps(
                 {"previous_summary": previous, "conversation": history}, ensure_ascii=False)},
         ]
-        summary = self._complete(messages, deadline, max_tokens=1200)
+        summary = self._complete(messages, deadline, max_tokens=1200, operation="summary")
         # Do not advance a watermark for an incomplete/truncated summary.
         if len(summary) > 2400:
             raise ChatUnavailable("摘要过长，本轮保留原历史")
