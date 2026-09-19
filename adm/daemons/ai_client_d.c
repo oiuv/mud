@@ -14,6 +14,7 @@ nosave private mapping pending_requests = ([]);
 
 void requestTimeout(string requestId);
 void retryRequest(string requestId);
+void showPending(string requestId, string npcName);
 
 void create()
 {
@@ -37,8 +38,8 @@ varargs string send_chat_request(string npcId, string playerId, string playerNam
                                 string message, string context)
 {
     mapping request, pending;
-    string requestId, jsonStr, key, error;
-    object player;
+    string requestId, jsonStr, key, error, npcName;
+    object player, npc;
     int result;
 
     player = find_player(playerId);
@@ -87,7 +88,30 @@ varargs string send_chat_request(string npcId, string playerId, string playerNam
         "timeout": call_out("requestTimeout", AI_REQUEST_TIMEOUT, requestId),
         "retry": call_out("retryRequest", 5, requestId)
     ]);
+    npc = previous_object();
+    if (objectp(npc) && function_exists("query_shadow_now", npc))
+        npc = npc->query_shadow_now();
+    npcName = "对方";
+    if (objectp(npc) && function_exists("name", npc))
+        npcName = npc->name();
+    if (!stringp(npcName) || npcName == "")
+        npcName = "对方";
+    // 等命令先显示玩家提问，再提示等待；自动重传不重复提示。
+    call_out("showPending", 0, requestId, npcName);
     return "处理中...";
+}
+
+void showPending(string requestId, string npcName)
+{
+    mapping pending;
+    object player;
+
+    pending = pending_requests[requestId];
+    if (!mapp(pending))
+        return;
+    player = pending["player"];
+    if (objectp(player))
+        tell_object(player, npcName + "正在思索你的问题，请稍候……\n");
 }
 
 void retryRequest(string requestId)
