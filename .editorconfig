@@ -7,3 +7,10 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
+
+# Windows PowerShell 5.1 使用 BOM 识别中文脚本的 UTF-8 编码。
+[run.ps1]
+charset = utf-8-bom
+
+[npc_ai/start.ps1]
+charset = utf-8-bom

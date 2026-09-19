@@ -246,7 +246,10 @@ class WindowsLauncherTests(unittest.TestCase):
             creationflags=subprocess.CREATE_NO_WINDOW,
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertIn("Usage:", result.stdout)
+        self.assertIn("用法：start.bat", result.stdout)
+        self.assertIn("后台启动 AI 服务（默认）", result.stdout)
+        self.assertIn("AI_STOP_TIMEOUT", result.stdout)
+        self.assertNotIn("\ufffd", result.stdout)
 
 
 if __name__ == "__main__":

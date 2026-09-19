@@ -1,4 +1,4 @@
-# Windows PowerShell 5.1+ launcher. ASCII source also works without a UTF-8 BOM.
+﻿# Windows PowerShell 5.1+；使用带 BOM 的 UTF-8 编码以兼容中文帮助。
 param(
     [ValidateSet("setup", "start", "stop", "restart", "status", "logs", "run", "help")]
     [string]$Command = "start",
@@ -164,14 +164,31 @@ function Stop-AIService {
 
 try {
     if ($Command -eq "help") {
-        Write-Host @"
-Usage: start.bat [setup|start|stop|restart|status|logs|run|help] [-d]
-Default: start. First startup creates .venv and installs dependencies automatically.
-Startup retries incomplete setup, then synchronizes BM25 and missing vectors.
-setup: create .venv, install requirements, copy missing configuration templates.
-run: foreground mode. start: background mode with logs/npc_ai.log.
-AI_PYTHON selects Python when creating .venv. AI_STOP_TIMEOUT defaults to 90 seconds.
-"@
+        Write-Host @'
+用法：start.bat [setup|start|stop|restart|status|logs|run|help] [-d]
+
+  setup    创建虚拟环境、安装依赖，并补齐缺失的配置模板
+  start    后台启动 AI 服务（默认）
+  stop     等待正在处理的请求结束后停止服务
+  restart  停止服务后重新后台启动
+  status   查看运行状态、进程 ID（PID）和日志位置
+  logs     显示最近 100 行日志并持续跟踪
+  run      在当前终端前台运行，直接显示服务输出
+  help     显示此帮助
+
+不带参数时默认执行 start。首次启动会自动准备虚拟环境和依赖。
+安装未完成时，下次启动会重试；已有的 .env 和 NPC 角色配置不会被覆盖。
+每次启动前自动检查并更新知识库，按配置补齐缺失向量。
+后台运行日志：logs/npc_ai.log。
+
+-d 仅用于 start、restart 和 run，开启调试日志。
+run 模式下按 Ctrl+C 请求停止服务；logs 模式下只退出日志查看。
+status 返回码：0 表示运行中，3 表示未运行。
+
+环境变量：
+  AI_PYTHON        创建虚拟环境时使用的 Python 3.10+ 解释器路径
+  AI_STOP_TIMEOUT  停止服务时的最长等待秒数，默认 90 秒
+'@
         exit 0
     }
     if ($ServiceDebug -and $Command -notin @("start", "restart", "run")) {
