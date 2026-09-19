@@ -1,20 +1,20 @@
-# AI NPC 服务
+# NPC 智能对话服务
 
 独立 Python 服务，通过本机 UDP 为 LPC NPC 提供人设对话、游戏帮助检索、对话摘要和关系记录。要求 Python 3.10+。
 
 ## 启动
 
-以下命令从仓库根目录执行；从其他目录启动时，配置和数据路径仍以 ai_service 为基准。
+以下命令从仓库根目录执行；从其他目录启动时，配置和数据路径仍以 npc_ai 为基准。
 
 ~~~sh
-python -m pip install -r ai_service/requirements.txt
+python -m pip install -r npc_ai/requirements.txt
 # 首次部署复制；已有文件请直接编辑，不要覆盖：
-cp ai_service/.env.example ai_service/.env
-cp ai_service/config/npc_roles.example.json ai_service/config/npc_roles.json
+cp npc_ai/.env.example npc_ai/.env
+cp npc_ai/config/npc_roles.example.json npc_ai/config/npc_roles.json
 
-python ai_service/scripts/setup_basic.py
-python ai_service/scripts/setup_qwen.py
-python ai_service/main.py -d
+python npc_ai/scripts/setup_basic.py
+python npc_ai/scripts/setup_qwen.py
+python npc_ai/main.py -d
 ~~~
 
 PowerShell 可用 Copy-Item 代替 cp。生产环境不需要 -d。
@@ -26,28 +26,36 @@ PowerShell 可用 Copy-Item 代替 cp。生产环境不需要 -d。
 - setup_basic.py 不调用远程 API；setup_qwen.py 为缺失文档块生成向量，会使用模型额度。
 - 配置在服务启动时读取，修改后重启生效。
 
+## 从旧目录升级
+
+目录已由 `ai_service/` 更名为 `npc_ai/`。已有部署请先用旧目录的启动脚本停止服务，再更新代码。
+
+将旧目录中的 `.env`、`config/npc_roles.json`、`data/` 和 `logs/` 迁移到新目录，保留已有配置、知识库和对话记录。旧日志 `logs/ai_service.log` 可改名为 `logs/npc_ai.log` 继续使用。
+
+虚拟环境包含绝对路径，请在新目录重新执行 `setup` 创建 `.venv`，然后启动服务。若使用 systemd、计划任务或自定义脚本，也需将启动路径和工作目录改为 `npc_ai/`。
+
 ## Linux 服务器启动脚本
 
 建议使用固定的普通用户运行，服务器需安装 Python 3.10+、venv 和 util-linux（提供 flock）。
 从仓库根目录执行：
 
 ~~~sh
-# 首次部署：创建 ai_service/.venv、安装依赖、复制缺失的配置
-bash ai_service/start.sh setup
+# 首次部署：创建 npc_ai/.venv、安装依赖、复制缺失的配置
+bash npc_ai/start.sh setup
 # 编辑模型密钥；已有 .env 和 NPC 角色配置不会被 setup 覆盖
-nano ai_service/.env
+nano npc_ai/.env
 
 # 启动前自动同步 BM25；配置 DASHSCOPE_API_KEY 后自动补齐缺失向量
-bash ai_service/start.sh start
-bash ai_service/start.sh status
-bash ai_service/start.sh logs
-bash ai_service/start.sh restart
-bash ai_service/start.sh stop
+bash npc_ai/start.sh start
+bash npc_ai/start.sh status
+bash npc_ai/start.sh logs
+bash npc_ai/start.sh restart
+bash npc_ai/start.sh stop
 ~~~
 
 不传命令时默认后台启动。可以从任意目录用绝对路径调用脚本；
-后台进程通过 nohup 运行，关闭 SSH 后继续运行。日志追加到 ai_service/logs/ai_service.log，
-PID 和启动标识保存在 ai_service/.run/，这些运行文件已加入忽略规则。
+后台进程通过 nohup 运行，关闭 SSH 后继续运行。日志追加到 npc_ai/logs/npc_ai.log，
+PID 和启动标识保存在 npc_ai/.run/，这些运行文件已加入忽略规则。
 
 - start/restart/run 支持 -d；run 在前台运行，适合调试或交给 systemd 等进程管理器托管。
 - setup 可用 AI_PYTHON=/usr/bin/python3.12 指定解释器；日常启动自动更新知识库，不会安装依赖。
@@ -64,21 +72,21 @@ PID 和启动标识保存在 ai_service/.run/，这些运行文件已加入忽�
 
 ~~~powershell
 # 直接启动：首次自动准备虚拟环境、安装依赖并补齐配置模板
-.\ai_service\start.bat
+.\npc_ai\start.bat
 # 如需修改模型密钥，编辑后重启
-notepad .\ai_service\.env
-.\ai_service\start.bat status
-.\ai_service\start.bat logs
-.\ai_service\start.bat restart
-.\ai_service\start.bat stop
+notepad .\npc_ai\.env
+.\npc_ai\start.bat status
+.\npc_ai\start.bat logs
+.\npc_ai\start.bat restart
+.\npc_ai\start.bat stop
 ~~~
 
 start.bat 调用同目录的 start.ps1，兼容 Windows PowerShell 5.1+；
 只为本次脚本进程设置执行策略，不修改系统策略。
 不传命令默认后台启动，后台运行不弹出窗口。也可直接在 PowerShell 中调用 start.ps1。
-在 ai_service 目录内，直接运行 .\start.bat 或 .\start.ps1 即可，无需先手动 setup。
+在 npc_ai 目录内，直接运行 .\start.bat 或 .\start.ps1 即可，无需先手动 setup。
 支持 setup/start/stop/restart/status/logs/run，start/restart/run 可加 -d；
-run 使用当前控制台前台运行。日志追加到 logs/ai_service.log。
+run 使用当前控制台前台运行。日志追加到 logs/npc_ai.log。
 
 - start/restart/run 在缺少虚拟环境时自动创建 .venv\Scripts\python.exe、安装依赖并复制缺失的配置模板；已有 .env 和 NPC 角色配置不会被覆盖。
 - 首次安装需要联网下载 Python 依赖；失败时停止启动，下次执行会重试未完成的安装。成功准备后，日常启动只更新知识库，不会重复安装依赖。
@@ -100,7 +108,7 @@ run 使用当前控制台前台运行。日志追加到 logs/ai_service.log。
 5. 未配置密钥或向量更新失败时，显示提示并使用 BM25 启动。首次构建或大量文件变化时启动需要等待向量生成，并消耗模型额度。
 6. 本地帮助目录缺失、无法读取或数据库更新失败时停止启动并报错，保留之前成功提交的数据。
 
-也可手动运行 python ai_service/scripts/update_knowledge.py。
+也可手动运行 python npc_ai/scripts/update_knowledge.py。
 直接运行 main.py 时仍需自行同步知识库；自动更新由启动脚本负责。
 更新知识库不会重新生成对话摘要，也不会删除玩家历史或关系数据。
 
@@ -225,7 +233,7 @@ HTTP 超时按网络操作计算，并非严格的整次调用计时器；超过
 
 看到 embeddings 返回 200，只能证明向量接口调用成功。问答与向量可配置不同主机、密钥和模型，需单独验证问答接口。启动日志会显示实际模型、主机和各阶段超时；失败日志含 `operation`、`timeout_s`、`elapsed_s`、`input_chars`、`error`、`cause` 和 HTTP `status`，不记录密钥、玩家输入或原始错误响应。检查服务进程的环境变量是否覆盖了 `.env`。
 
-在 `ai_service` 目录执行独立诊断，无需启动游戏或 AI 服务：
+在 `npc_ai` 目录执行独立诊断，无需启动游戏或 AI 服务：
 
 ~~~sh
 # Linux：只显示脱敏配置，不调用 API
@@ -250,7 +258,7 @@ HTTP 超时按网络操作计算，并非严格的整次调用计时器；超过
 
 ## 查看提问的知识库召回
 
-在 `ai_service` 目录运行。无需启动游戏或 AI 服务；省略问题参数即可连续输入不同问题，输入 `/quit` 或 `/exit` 退出。
+在 `npc_ai` 目录运行。无需启动游戏或 AI 服务；省略问题参数即可连续输入不同问题，输入 `/quit` 或 `/exit` 退出。
 
 Windows PowerShell：
 
@@ -283,10 +291,10 @@ Linux：
 ## 验证
 
 ~~~sh
-python -m unittest discover -s ai_service/tests -v
-python ai_service/scripts/performance_test.py
-python ai_service/scripts/test_client.py config "li bai"
-python ai_service/scripts/test_client.py chat "li bai" "如何拜师"
+python -m unittest discover -s npc_ai/tests -v
+python npc_ai/scripts/performance_test.py
+python npc_ai/scripts/test_client.py config "li bai"
+python npc_ai/scripts/test_client.py chat "li bai" "如何拜师"
 ~~~
 
 自动回归使用临时数据和模拟模型，不消耗API额度；UDP测试使用随机本机端口。

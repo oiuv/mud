@@ -27,10 +27,10 @@ int main(object me, string file) {
 
     if (file == "me")
         return update_player(me);
-    else {
+    else if (file == "here")
+        file = base_name(environment(me));
+    else
         file = resolve_path(me->query("cwd"), file);
-        if (!sscanf(file, "%*s.c")) file += ".c";
-    }
 
     // if (file_size(file) == -1)
     //     return notify_fail("没有这个档案。\n");
@@ -158,6 +158,7 @@ int help(object me) {
 这个指令可以更新档案, 并将新档的内容载入内存内. 若目标为
 'here' 则更新所在环境. 若目标为 'me' 则更新自己的人物. 若目
 标为玩家则可更新玩家对象.
+文件名支持 .lpc、.c，也可省略扩展名，由驱动优先查找 .lpc。
 
 HELP
     );

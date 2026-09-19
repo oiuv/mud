@@ -14,14 +14,14 @@ from unittest.mock import Mock, patch
 
 import numpy as np
 
-from ai_service.src.database import connect
-from ai_service.src.history_manager import HistoryManager, LEGACY_SUMMARY
-from ai_service.src.knowledge_basic import BasicKnowledgeSystem
-from ai_service.src.knowledge_qwen import QwenKnowledgeSystem
-from ai_service.src.memory_store import MemoryStore
-from ai_service.src.npc_manager import NPCManager, Reply, ChatUnavailable
-from ai_service.src.settings import Settings, SERVICE_DIR, load_settings
-from ai_service.src.udp_server import UDPServer
+from npc_ai.src.database import connect
+from npc_ai.src.history_manager import HistoryManager, LEGACY_SUMMARY
+from npc_ai.src.knowledge_basic import BasicKnowledgeSystem
+from npc_ai.src.knowledge_qwen import QwenKnowledgeSystem
+from npc_ai.src.memory_store import MemoryStore
+from npc_ai.src.npc_manager import NPCManager, Reply, ChatUnavailable
+from npc_ai.src.settings import Settings, SERVICE_DIR, load_settings
+from npc_ai.src.udp_server import UDPServer
 
 
 class Fixture(unittest.TestCase):
@@ -231,7 +231,7 @@ class RetrievalTests(Fixture):
         _, docs = system.basic.corpus()
         response = Mock()
         response.json.return_value = {"output": {"results": [{"index": 1, "relevance_score": .9}]}}
-        with patch("ai_service.src.knowledge_qwen.httpx.post", return_value=response) as post:
+        with patch("npc_ai.src.knowledge_qwen.httpx.post", return_value=response) as post:
             ranked = system.rerank("武当", docs, 1)
         self.assertEqual(ranked[0]["id"], docs[1]["id"])
         payload = post.call_args.kwargs["json"]
@@ -242,7 +242,7 @@ class RetrievalTests(Fixture):
     def test_rerank_failure_preserves_fused_results(self):
         system, _ = self.knowledge()
         system.settings.dashscope_api_key = "fake"
-        with patch("ai_service.src.knowledge_qwen.httpx.post", side_effect=RuntimeError("offline")):
+        with patch("npc_ai.src.knowledge_qwen.httpx.post", side_effect=RuntimeError("offline")):
             self.assertTrue(system.hybrid_search("武当"))
 
     def test_rerank_invalid_index_falls_back(self):
@@ -250,7 +250,7 @@ class RetrievalTests(Fixture):
         system.settings.dashscope_api_key = "fake"
         response = Mock()
         response.json.return_value = {"output": {"results": [{"index": 999, "relevance_score": .9}]}}
-        with patch("ai_service.src.knowledge_qwen.httpx.post", return_value=response):
+        with patch("npc_ai.src.knowledge_qwen.httpx.post", return_value=response):
             self.assertTrue(system.hybrid_search("武当"))
 
 
@@ -456,7 +456,7 @@ class EdgeCaseTests(Fixture):
                 failures.append(error)
 
         thread = threading.Thread(target=serve, daemon=True)
-        with patch("ai_service.src.udp_server.json.loads", side_effect=decode):
+        with patch("npc_ai.src.udp_server.json.loads", side_effect=decode):
             thread.start()
             try:
                 deadline = time.monotonic() + 3
@@ -524,7 +524,7 @@ class EdgeCaseTests(Fixture):
         system.settings.rerank_total_bytes = first_length + len(query.encode("utf-8"))
         response = Mock()
         response.json.return_value = {"output": {"results": [{"index": 0, "relevance_score": .9}]}}
-        with patch("ai_service.src.knowledge_qwen.httpx.post", return_value=response) as post:
+        with patch("npc_ai.src.knowledge_qwen.httpx.post", return_value=response) as post:
             system.rerank(query, documents, 2)
         self.assertEqual(len(post.call_args.kwargs["json"]["input"]["documents"]), 1)
 

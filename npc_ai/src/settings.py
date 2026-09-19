@@ -1,4 +1,4 @@
-"""Load ai_service/.env once per startup; paths never depend on cwd."""
+"""Load npc_ai/.env once per startup; paths never depend on cwd."""
 import json
 import math
 import os

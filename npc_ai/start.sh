@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
-# Linux server launcher. Use: bash ai_service/start.sh help
+# Linux server launcher. Use: bash npc_ai/start.sh help
 set -euo pipefail
 umask 077
 
 SERVICE_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 VENV_PYTHON="$SERVICE_DIR/.venv/bin/python"
 RUN_DIR="$SERVICE_DIR/.run"
-PID_FILE="$RUN_DIR/ai_service.pid"
-LOG_FILE="$SERVICE_DIR/logs/ai_service.log"
+PID_FILE="$RUN_DIR/npc_ai.pid"
+LOG_FILE="$SERVICE_DIR/logs/npc_ai.log"
 STOP_TIMEOUT="${AI_STOP_TIMEOUT:-90}"
 
 usage() {
     cat <<'HELP'
-用法: bash ai_service/start.sh [命令] [-d]
+用法: bash npc_ai/start.sh [命令] [-d]
 
   setup      创建 .venv、安装依赖，复制缺失的配置模板（首次部署/更新依赖）
-  start      后台启动（默认），日志追加到 logs/ai_service.log
+  start      后台启动（默认），日志追加到 logs/npc_ai.log
   stop       等待正在处理的请求结束后停止，最多等待 90 秒
   restart    停止后重新后台启动
   status     查看运行状态；未运行时退出码为 3
@@ -26,7 +26,7 @@ usage() {
 start / restart / run 可以附加 -d 或 --debug。
 setup 可通过 AI_PYTHON=/path/to/python3 指定 Python 3.10+。
 stop / restart 可通过 AI_STOP_TIMEOUT=120 调整等待秒数。
-配置读取 ai_service/.env；setup 不覆盖已有文件。
+配置读取 npc_ai/.env；setup 不覆盖已有文件。
 每次 start / restart / run 启动前自动同步知识库；配置密钥后会补齐缺失向量。
 HELP
 }

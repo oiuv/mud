@@ -10,8 +10,8 @@ import sys
 import time
 from unittest.mock import Mock, patch
 
-from ai_service.scripts import test_retrieval as cli
-from ai_service.tests.test_ai_service import Fixture
+from npc_ai.scripts import test_retrieval as cli
+from npc_ai.tests.test_npc_ai import Fixture
 
 
 SCRIPT = Path(cli.__file__).resolve()

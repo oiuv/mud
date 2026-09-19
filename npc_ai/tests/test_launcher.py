@@ -59,7 +59,7 @@ class LauncherTests(unittest.TestCase):
         return result
 
     def pid(self):
-        return int((self.root / ".run/ai_service.pid").read_text().split()[0])
+        return int((self.root / ".run/npc_ai.pid").read_text().split()[0])
 
     def test_lifecycle_and_duplicate_start(self):
         self.command("start", check=True)
@@ -73,7 +73,7 @@ class LauncherTests(unittest.TestCase):
         self.assertNotEqual(self.pid(), first)
         self.command("stop", check=True)
         self.assertEqual(self.command("status").returncode, 3)
-        log = (self.root / "logs/ai_service.log").read_text()
+        log = (self.root / "logs/npc_ai.log").read_text()
         self.assertIn(str(self.root), log)
         self.assertIn("['-d']", log)
         self.assertEqual(log.count("STOPPED"), 2)
@@ -84,7 +84,7 @@ class LauncherTests(unittest.TestCase):
         self.addCleanup(outsider.wait)
         self.addCleanup(outsider.terminate)
         (self.root / ".run").mkdir()
-        (self.root / ".run/ai_service.pid").write_text(f"{outsider.pid} previous-boot:1\n")
+        (self.root / ".run/npc_ai.pid").write_text(f"{outsider.pid} previous-boot:1\n")
         self.assertEqual(self.command("status").returncode, 3)
         self.command("stop", check=True)
         self.assertIsNone(outsider.poll())
@@ -95,7 +95,7 @@ class LauncherTests(unittest.TestCase):
     def test_local_update_failure_prevents_start(self):
         (self.root / "scripts/update_knowledge.py").write_text("raise SystemExit(1)\n")
         self.assertNotEqual(self.command("start").returncode, 0)
-        self.assertFalse((self.root / ".run/ai_service.pid").exists())
+        self.assertFalse((self.root / ".run/npc_ai.pid").exists())
 
     def test_start_failure_returns_error_and_logs(self):
         (self.root / "main.py").write_text('raise RuntimeError("startup-test-failed")\n')
@@ -103,7 +103,7 @@ class LauncherTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("startup-test-failed", result.stderr)
         self.assertEqual(self.command("status").returncode, 3)
-        self.assertFalse((self.root / ".run/ai_service.pid").exists())
+        self.assertFalse((self.root / ".run/npc_ai.pid").exists())
 
     def test_stop_timeout_keeps_process_and_pid(self):
         (self.root / "main.py").write_text(
@@ -162,7 +162,7 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(self.command("start", "--unknown").returncode, 2)
         (self.root / ".venv/bin/python").unlink()
         self.assertNotEqual(self.command("start").returncode, 0)
-        self.assertFalse((self.root / ".run/ai_service.pid").exists())
+        self.assertFalse((self.root / ".run/npc_ai.pid").exists())
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@ from src.settings import load_settings
 def main():
     settings = load_settings()
     if not settings.dashscope_api_key:
-        print("请在 ai_service/.env 配置 DASHSCOPE_API_KEY", file=sys.stderr)
+        print("请在 npc_ai/.env 配置 DASHSCOPE_API_KEY", file=sys.stderr)
         return 1
     try:
         knowledge = QwenKnowledgeSystem(settings=settings)

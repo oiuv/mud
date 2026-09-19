@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This is a UTF-8 Chinese MUD written primarily in LPC and run by FluffOS. Administrative daemons and configuration live in `adm/`; player, wizard, and test commands are under `cmds/`. Game content is organized across `d/`, `b/`, `world/`, and `clone/`. Shared behavior belongs in `feature/`, `inherit/`, and `std/`, while headers and macros live in `include/`. Keep technical documentation in `docs/`; `www/` contains the WebSocket client assets. `mudcore/` is a Git submodule, and `ai_service/` is an optional Python service.
+This is a UTF-8 Chinese MUD written primarily in LPC and run by FluffOS. Administrative daemons and configuration live in `adm/`; player, wizard, and test commands are under `cmds/`. Game content is organized across `d/`, `b/`, `world/`, and `clone/`. Shared behavior belongs in `feature/`, `inherit/`, and `std/`, while headers and macros live in `include/`. Keep technical documentation in `docs/`; `www/` contains the WebSocket client assets. `mudcore/` is a Git submodule, and `npc_ai/` is an optional Python service.
 
 ## Build, Test, and Development Commands
 
@@ -10,11 +10,42 @@ This is a UTF-8 Chinese MUD written primarily in LPC and run by FluffOS. Adminis
 - `./build.sh` installs Linux prerequisites and builds the FluffOS driver; `./build_msys2.sh` is the Windows/MSYS2 equivalent.
 - `./run.sh` starts the Linux build with `config.ini`; `run.bat` starts the Windows driver.
 - `driver config.ini -d` runs directly in debug mode. Default listeners are telnet ports `5566`/`6666` and WebSocket port `8888`.
-- `cd ai_service && python -m pip install -r requirements.txt && python main.py -d` starts the optional AI NPC service in debug mode.
+- `cd npc_ai && python -m pip install -r requirements.txt && python main.py -d` starts the optional AI NPC service in debug mode.
 
 ## Coding Style & Naming Conventions
 
 Honor `.editorconfig`: UTF-8, LF endings, four-space indentation, trimmed trailing whitespace, and a final newline. Never use tabs in LPC. Declare variables at the start of a function, before executable statements. Use `UPPER_SNAKE_CASE` for constants, descriptive camelCase for local variables and business helpers, and established `under_score` names for driver applies, efuns, and framework hooks. Follow the surrounding directory’s lowercase LPC filename and object-ID patterns.
+
+### LPC 文件命名
+
+- 新建 LPC 源文件统一使用 `.lpc` 扩展名，包括 `mudcore/` 中的新文件；文件名沿用所在目录的小写命名方式，例如 `quest_helper.lpc`。头文件继续使用 `.h`。
+- 修改已有 `.c` 文件时保留原文件名，不因本规范批量改名。同一路径下不要新增同名的 `.c` 和 `.lpc` 文件，它们对应同一个对象名。
+- `inherit`、`load_object()`、`clone_object()`、`call_other()` 等对象引用优先使用无扩展名路径，如 `"/std/room"`；`#include` 仍写实际文件名。
+- 引入新 `.lpc` 文件时检查所属模块的命令索引、目录扫描和更新工具；涉及只识别 `.c` 或拼接 `".c"` 的加载路径时，同步兼容双扩展名并验证新文件可被发现、加载。
+
+## LPC Formatting（必须执行）
+
+修改或新增 LPC 源文件（`.c`、`.lpc`）及其头文件（`.h`）后，AI 必须在交付或提交前对本次修改的文件运行格式化，再运行 `--check` 验证。此要求也适用于 `mudcore/` 子模块。
+
+- 统一使用项目入口 `tools/format_lpc.mjs`，参数固定为 `indentSize: 4`、`printWidth: 100`。采用 K&R 大括号风格，其他间距与换行交由 FluffOS 格式化器处理。
+- 需要 Node.js 18+ 和本地 `fluffos/tools/lpc-syntax/` 源码，无需 `npm install`。上游 `format-corpus.mjs` 默认使用两空格，不要直接用其默认值格式化游戏代码。
+- 仅传入本次修改或新建的 LPC 文件，保留其他文件现状。路径含空格时加引号；子模块文件同样从主仓库根目录指定。
+- 工具在写入前检查 token 序列、字面量与注释内容，以及幂等性；任一文件检查失败时，本批文件不写入。工具缺失或报错时，应说明原因并解决，不能跳过检查后声称格式化完成。
+- 保留字符串、模板、heredoc、注释及预处理指令中的受保护内容；其中原有的超长行或尾部空格不应为了满足排版检查而被改写。
+- 格式化后审查差异，并按改动范围执行 LPC 编译或游戏回归检查。格式化不替代命名规范、变量声明位置要求或功能验证。
+
+从仓库根目录执行，以下文件路径替换为本次实际修改的文件：
+
+```sh
+node tools/format_lpc.mjs cmds/adm/updateall.c
+node tools/format_lpc.mjs --check cmds/adm/updateall.c
+
+# 修改 mudcore 时使用相同规则
+node tools/format_lpc.mjs mudcore/inherit/user_gmcp.c
+node tools/format_lpc.mjs --check mudcore/inherit/user_gmcp.c
+```
+
+`--check` 不修改文件；发现需要格式化的文件或检查失败时返回非零退出码。
 
 ## Testing Guidelines
 

@@ -6,11 +6,11 @@ import threading
 import time
 from unittest.mock import patch
 
-from ai_service.src.database import connect
-from ai_service.src.knowledge_basic import BasicKnowledgeSystem
-from ai_service.src.knowledge_qwen import QwenKnowledgeSystem
-from ai_service.src.knowledge_update import update_knowledge
-from ai_service.tests.test_ai_service import Fixture
+from npc_ai.src.database import connect
+from npc_ai.src.knowledge_basic import BasicKnowledgeSystem
+from npc_ai.src.knowledge_qwen import QwenKnowledgeSystem
+from npc_ai.src.knowledge_update import update_knowledge
+from npc_ai.tests.test_npc_ai import Fixture
 
 
 class KnowledgeUpdateTests(Fixture):
@@ -18,7 +18,7 @@ class KnowledgeUpdateTests(Fixture):
         system, client = self.knowledge()
         settings = replace(self.settings, dashscope_api_key="test-key")
         before = system.basic.corpus()[0]
-        with patch("ai_service.src.knowledge_update.QwenKnowledgeSystem", return_value=system):
+        with patch("npc_ai.src.knowledge_update.QwenKnowledgeSystem", return_value=system):
             self.assertEqual(update_knowledge(settings)["vectors"], "ready")
             self.assertFalse(update_knowledge(settings)["changed"])
         self.assertEqual(client.embeddings.create.call_count, 2)
@@ -47,7 +47,7 @@ class KnowledgeUpdateTests(Fixture):
         result = client.embeddings.create.side_effect(input="test")
         client.embeddings.create.side_effect = [result, RuntimeError("offline")]
         settings = replace(self.settings, dashscope_api_key="test-key")
-        with patch("ai_service.src.knowledge_update.QwenKnowledgeSystem", return_value=system):
+        with patch("npc_ai.src.knowledge_update.QwenKnowledgeSystem", return_value=system):
             with self.assertLogs(level="WARNING"):
                 self.assertEqual(update_knowledge(settings)["vectors"], "unavailable")
             self.assertEqual(system.get_stats()["indexed_vectors"], 1)
@@ -69,7 +69,7 @@ class KnowledgeUpdateTests(Fixture):
 
     def test_no_key_updates_bm25_without_constructing_remote_client(self):
         (self.help / "test").write_text("测试知识库更新", encoding="utf-8")
-        with patch("ai_service.src.knowledge_update.QwenKnowledgeSystem") as remote:
+        with patch("npc_ai.src.knowledge_update.QwenKnowledgeSystem") as remote:
             stats = update_knowledge(self.settings)
         remote.assert_not_called()
         self.assertTrue(stats["changed"])

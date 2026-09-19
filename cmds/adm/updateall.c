@@ -53,17 +53,18 @@ int update_dir(object me, string dir, int continueable, int *total) {
     int l;
     int filecount, compcount;
     mixed *file;
-    string filename, *exclude;
+    string filename, dirName, *exclude;
 
     if (!is_root(previous_object()))
         return 0;
-    // 不编译lib版本控制目录
+    // 直接指定隐藏目录的子目录时也跳过。
+    foreach (dirName in explode(dir, "/")) {
+        if (strlen(dirName) && dirName[0] == '.')
+            return 1;
+    }
+
+    // 不编译非游戏源码目录。
     exclude = ({
-        "/.agents/",
-        "/.codegraph/",
-        "/.git/",
-        "/.vscode/",
-        "/ai_service/",
         "/backup/",
         "/bin/",
         "/binaries/",
@@ -73,6 +74,7 @@ int update_dir(object me, string dir, int continueable, int *total) {
         "/grant/",
         "/help/",
         "/log/",
+        "/npc_ai/",
         "/openspec/",
         "/temp/",
         "/version/",
@@ -101,7 +103,8 @@ int update_dir(object me, string dir, int continueable, int *total) {
             filecount++;
             filename = file[i][0];
             l = strlen(filename);
-            if (filename[l - 1] != 'c' || filename[l - 2] != '.')
+            if ((l <= 2 || filename[<2..] != ".c") &&
+                (l <= 4 || filename[<4..] != ".lpc"))
                 continue;
 
             if (!update_file(me, dir + filename) &&
@@ -185,6 +188,7 @@ int help(object me) {
 
 这个指令可以更新某个路径下的全部档案, 并将新档的内容载入记
 忆体内. 如果后面尾随标志1， 则编译遇到错误时将不会中止。
+支持 .lpc 和 .c 源文件，自动跳过路径中以 . 开头的目录及其子目录。
 HELP
     );
     return 1;

@@ -1,6 +1,6 @@
 # AI_CLIENT_D — AI服务客户端
 
-实现文件：adm/daemons/ai_client_d.c。Python实现与配置见 [AI服务指南](../../ai_service/README.md)。
+实现文件：adm/daemons/ai_client_d.c。Python实现与配置见 [AI服务指南](../../npc_ai/README.md)。
 
 ## 接口
 

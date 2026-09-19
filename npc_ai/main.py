@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run with python ai_service/main.py or python -m ai_service.main."""
+"""Run with python npc_ai/main.py or python -m npc_ai.main."""
 import argparse
 import logging
 import signal

@@ -13,7 +13,7 @@ $venvPython = Join-Path $serviceDir ".venv\Scripts\python.exe"
 $setupPendingFile = Join-Path $serviceDir ".venv\.setup-pending"
 $runDir = Join-Path $serviceDir ".run"
 $stateFile = Join-Path $runDir "windows-service.json"
-$logFile = Join-Path $serviceDir "logs\ai_service.log"
+$logFile = Join-Path $serviceDir "logs\npc_ai.log"
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 [Console]::OutputEncoding = $utf8
 $OutputEncoding = $utf8
@@ -43,7 +43,7 @@ function Assert-Environment {
         Initialize-Environment
     }
     if (-not (Test-Path -LiteralPath (Join-Path $serviceDir ".env"))) {
-        throw "Configuration missing. Run setup, then edit ai_service\.env."
+        throw "Configuration missing. Run setup, then edit npc_ai\.env."
     }
     Invoke-Python $venvPython @("-X", "utf8", "-c", "import sys; sys.exit(0 if sys.version_info >= (3, 10) else 'Python 3.10+ required')")
 }
@@ -169,7 +169,7 @@ Usage: start.bat [setup|start|stop|restart|status|logs|run|help] [-d]
 Default: start. First startup creates .venv and installs dependencies automatically.
 Startup retries incomplete setup, then synchronizes BM25 and missing vectors.
 setup: create .venv, install requirements, copy missing configuration templates.
-run: foreground mode. start: background mode with logs/ai_service.log.
+run: foreground mode. start: background mode with logs/npc_ai.log.
 AI_PYTHON selects Python when creating .venv. AI_STOP_TIMEOUT defaults to 90 seconds.
 "@
         exit 0

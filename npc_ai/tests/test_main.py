@@ -3,8 +3,8 @@ import signal
 import unittest
 from unittest.mock import patch
 
-from ai_service import main as entrypoint
-from ai_service.src.settings import Settings
+from npc_ai import main as entrypoint
+from npc_ai.src.settings import Settings
 
 
 class MainShutdownTests(unittest.TestCase):

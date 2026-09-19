@@ -165,7 +165,7 @@ class WindowsLauncherTests(unittest.TestCase):
         self.command("stop", check=True)
         self.assertEqual(self.command("status").returncode, 3)
         self.assertEqual((self.root / "updates").read_text().splitlines(), ["update", "update"])
-        log = (self.root / "logs/ai_service.log").read_text(encoding="utf-8")
+        log = (self.root / "logs/npc_ai.log").read_text(encoding="utf-8")
         self.assertIn(str(self.root), log)
         self.assertIn("True", log)
         self.assertEqual(log.count("STOPPED"), 2)
@@ -194,7 +194,7 @@ class WindowsLauncherTests(unittest.TestCase):
         self.assertNotEqual(self.command("start").returncode, 0)
         self.assertEqual(self.command("status").returncode, 3)
         self.assertIn("startup-test-failed",
-                      (self.root / "logs/ai_service.log").read_text(encoding="utf-8"))
+                      (self.root / "logs/npc_ai.log").read_text(encoding="utf-8"))
 
     def test_foreground_can_be_stopped_by_another_command(self):
         with (self.root / "foreground.log").open("w", encoding="utf-8") as log:
