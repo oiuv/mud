@@ -44,6 +44,8 @@
 
 > 推荐使用`run.sh`或`run.bat`脚本启动项目。
 
+Windows 的 `run.bat` 使用 `config.cfg`，可从任意目录调用。启动前会检查本项目的驱动进程和配置中的监听端口；已运行时显示进程号，端口被占用时停止启动。驱动在后台运行，调试日志位于 `log/debug.log`。
+
 如果是开发学习，使用以下方式之一开启调试模式：
 
     driver config.ini -fdebug

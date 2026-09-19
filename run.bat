@@ -1,8 +1,4 @@
 @echo off
-if not exist "bin\driver.exe" (
-    echo driver.exe not found, please compile with build_msys2.sh...
-    pause
-) else (
-    start /B "" "bin\driver.exe" "config.cfg"
-    color 02
-)
+setlocal
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0run.ps1"
+exit /b %ERRORLEVEL%
