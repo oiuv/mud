@@ -55,6 +55,42 @@ bash build_msys2.sh --help
 
 `--local` 跳过软件包及源码更新；`--no-install` 保留当前项目的驱动，产物位于 `fluffos/build-msys2/bin/`。脚本可从其他目录使用完整路径调用，构建目录始终位于项目内。
 
+### Docker 部署
+
+先启动 Docker 引擎，在 Linux Bash 或 Windows 的 MSYS2 Bash 中执行：
+
+~~~bash
+bash docker.build.sh
+bash docker.run.sh start
+bash docker.run.sh status
+bash docker.run.sh logs
+bash docker.run.sh stop
+~~~
+
+构建脚本默认恢复并更新 FluffOS 官方源码；`bash docker.build.sh --local` 使用本地已提交的版本（HEAD），跳过源码更新。构建通过 `git archive` 直接使用该版本自带的 Dockerfile，排除本地未提交文件和宿主机编译产物。
+
+镜像完全使用 FluffOS 官方 Dockerfile 和默认功能。启动脚本在运行时设置工作目录及健康检查；不修改驱动源码、Dockerfile 或宿主机的 `fluffos/build/`。
+
+启动脚本可从任意目录调用，容器名称根据项目路径生成。游戏目录挂载到 `/opt/mud`，使用 `docker.config.cfg`；首次启动补齐缺失的 `data/.env`，日志写入项目 `log/`。默认映射宿主机 `5566`（GBK）、`6666`（UTF-8）和 `8080`（网页/WebSocket）。网页地址为 `http://localhost:8080/`；网页客户端中请选择 `ws://`、实际服务器地址和端口 `8080`。
+
+`start` 默认后台运行，等待健康检查通过后启用自动重启；启动失败时保留容器日志；`stop` 停止容器并保留日志；`restart` 重新创建容器以应用新镜像。`run` 前台运行，按 Ctrl+C 停止游戏；`logs` 持续跟踪输出，退出查看不影响游戏。`status` 在运行时返回 0，未运行时返回 3。
+
+宿主机已有游戏占用默认端口时，可以指定其他端口：
+
+~~~bash
+MUD_BIND_IP=127.0.0.1 MUD_TELNET_PORT=15566 MUD_UTF8_PORT=16666 MUD_WEB_PORT=18080 bash docker.run.sh start
+bash docker.run.sh help
+bash docker.build.sh --help
+~~~
+
+`MUD_DOCKER_IMAGE` 可指定镜像名（默认 `fluffos:latest`），构建和启动时使用相同值。镜像只运行游戏驱动，NPC AI 服务需要单独部署。容器中的 `127.0.0.1` 指向容器自身，游戏的 `AI_SERVER_HOST` 与 NPC AI 的监听地址应根据实际容器网络配置。
+
+Docker 启动脚本的回归测试使用独立容器和临时目录；需事先准备 `busybox:latest` 镜像：
+
+~~~bash
+RUN_DOCKER_TESTS=1 python -m unittest discover -s tools/tests -p test_docker_launcher.py -v
+~~~
+
 ### 启动服务
 
 使用以下指令启动游戏：
