@@ -57,9 +57,9 @@ int update_dir(object me, string dir, int continueable, int *total) {
 
     if (!is_root(previous_object()))
         return 0;
-    // 直接指定隐藏目录的子目录时也跳过。
+    // 隔离测试和隐藏目录不属于游戏源码，直接指定其子目录时也跳过。
     foreach (dirName in explode(dir, "/")) {
-        if (strlen(dirName) && dirName[0] == '.')
+        if (dirName == "tests" || (strlen(dirName) && dirName[0] == '.'))
             return 1;
     }
 
@@ -189,6 +189,7 @@ int help(object me) {
 这个指令可以更新某个路径下的全部档案, 并将新档的内容载入记
 忆体内. 如果后面尾随标志1， 则编译遇到错误时将不会中止。
 支持 .lpc 和 .c 源文件，自动跳过路径中以 . 开头的目录及其子目录。
+自动跳过名为 tests 的隔离测试目录及其子目录；cmds/test 不受影响。
 HELP
     );
     return 1;
