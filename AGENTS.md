@@ -18,7 +18,9 @@ Honor `.editorconfig`: UTF-8, LF endings, four-space indentation, trimmed traili
 
 ### LPC 文件命名
 
-- 新建 LPC 源文件统一使用 `.lpc` 扩展名，包括 `mudcore/` 中的新文件；文件名沿用所在目录的小写命名方式，例如 `quest_helper.lpc`。头文件继续使用 `.h`。
+`mudcore/` 的文件命名遵循其自身 `AGENTS.md`。
+
+- 游戏中新建 LPC 源文件使用 `.lpc` 扩展名，文件名沿用所在目录的小写命名方式，例如 `quest_helper.lpc`。头文件继续使用 `.h`。
 - 修改已有 `.c` 文件时保留原文件名，不因本规范批量改名。同一路径下不要新增同名的 `.c` 和 `.lpc` 文件，它们对应同一个对象名。
 - `inherit`、`load_object()`、`clone_object()`、`call_other()` 等对象引用优先使用无扩展名路径，如 `"/std/room"`；`#include` 仍写实际文件名。
 - 引入新 `.lpc` 文件时检查所属模块的命令索引、目录扫描和更新工具；涉及只识别 `.c` 或拼接 `".c"` 的加载路径时，同步兼容双扩展名并验证新文件可被发现、加载。
