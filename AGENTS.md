@@ -14,7 +14,9 @@ This is a UTF-8 Chinese MUD written primarily in LPC and run by FluffOS. Adminis
 
 ## Coding Style & Naming Conventions
 
-Honor `.editorconfig`: UTF-8, LF endings, four-space indentation, trimmed trailing whitespace, and a final newline. Never use tabs in LPC. Declare variables at the start of a function, before executable statements. Use `UPPER_SNAKE_CASE` for constants, descriptive camelCase for local variables and business helpers, and established `under_score` names for driver applies, efuns, and framework hooks. Follow the surrounding directory’s lowercase LPC filename and object-ID patterns.
+Honor `.editorconfig`: UTF-8, LF endings, four-space indentation, trimmed trailing whitespace, and a final newline. Never use tabs in LPC. Declare variables at the start of a function, before executable statements. Use `snake_case` for all new LPC functions, including sefuns, lfuns, callbacks, and framework hooks; do not encode function origin through casing. Preserve driver-mandated names and documented legacy aliases. Constants use `UPPER_SNAKE_CASE`; descriptive camelCase local variables remain allowed. Do not rename stored fields or protocol keys for style. Follow the surrounding directory’s lowercase LPC filename and object-ID patterns. For mudcore API migration and compatibility, see `mudcore/docs/function-naming.md`.
+
+Function names must describe actual behavior, not mechanically split capital letters: treat `todo` as one concept, distinguish collections/counts/descriptions, and use action verbs for mutations. A naming-only change must preserve parameters, return values, boolean polarity, and stored data.
 
 ### LPC 文件命名
 
