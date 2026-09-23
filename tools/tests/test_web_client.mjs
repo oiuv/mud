@@ -249,7 +249,8 @@ test('page retains all original protocol choices and no manual password option',
     const select = html.match(/<select id="subprotocolSelect">([\s\S]*?)<\/select>/)[1];
     assert.deepEqual([...select.matchAll(/value="([^"]*)"/g)].map(match => match[1]),
         ['ascii', 'telnet', 'binary', 'http', '']);
-    assert.ok(select.includes('Telnet (推荐)'));
+    assert.match(select, /<option value="telnet" selected>/);
+    assert.equal(setup().c.subprotocolSelect.value, 'telnet');
     assert.equal(html.includes('privateInput'), false);
 });
 test('ASCII sends text frames, preserves UTF-8 chunks and retains command history', async () => {
