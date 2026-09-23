@@ -160,6 +160,7 @@ try {
             await call('Input.dispatchKeyEvent', { type:'keyUp', key:'ArrowUp', code:'ArrowUp', windowsVirtualKeyCode:38 });
             await until(() => peer.sent.some(v => v.data.equals(Buffer.from('\x1b[A'))), '方向键');
             await screenshot('desktop-terminal');
+            await call('Emulation.setTouchEmulationEnabled', { enabled:true });
             await call('Emulation.setDeviceMetricsOverride', { width:390, height:844, deviceScaleFactor:1, mobile:true });
             await until(() => evaluate(`client.output.term.cols<80`), '手机字符网格');
             const size = await evaluate(`client.output.size`);
@@ -171,13 +172,56 @@ try {
             await until(() => evaluate(`!client.charMode && client.output.term.buffer.active.type==='normal'`), '恢复命令输入');
             assert.ok((await evaluate(screen)).includes(marker));
             await screenshot('mobile-chat');
+            assert.equal(await evaluate(`client.output.term.options.fontSize`), 12);
+            assert.equal(await evaluate(`getComputedStyle(client.commandInput).fontSize`), '12px');
+            await evaluate(`client.commandInput.value='say 键盘测试'; client.commandInput.focus()`);
+            // 模拟软键盘仅缩小 VisualViewport，布局视口仍为 390×844。
+            await evaluate(`(() => {
+                for (const [key,value] of Object.entries({height:420,offsetTop:30,scale:1})) {
+                    Object.defineProperty(visualViewport,key,{configurable:true,value});
+                }
+                visualViewport.dispatchEvent(new Event('resize'));
+            })()`);
+            await until(() => evaluate(`Math.abs(document.body.getBoundingClientRect().height-420)<1 &&
+                document.body.classList.contains('compact') && client.output.term.rows<20`), '键盘展开后的可见布局');
+            assert.equal(await evaluate(`innerHeight`), 844);
+            assert.equal(await evaluate(`(() => { const input=client.commandInput.getBoundingClientRect();
+                return input.top>=visualViewport.offsetTop && input.bottom<=visualViewport.offsetTop+visualViewport.height &&
+                    client.terminal.getBoundingClientRect().height>100; })()`), true);
+            const keyboardSize = await evaluate(`client.output.size`);
+            await until(() => peer.sent.some(v => v.data.equals(Buffer.from([255,250,31,0,keyboardSize.width,0,keyboardSize.height,255,240]))), '键盘展开后上报 NAWS');
+            await screenshot('mobile-keyboard');
+            // 平移或聚焦自动缩放后输入栏仍位于可见区域，字号、列数和草稿保持不变。
+            await evaluate(`Object.defineProperty(visualViewport,'offsetTop',{configurable:true,value:45});
+                visualViewport.dispatchEvent(new Event('scroll'))`);
+            assert.equal(await evaluate(`document.body.getBoundingClientRect().top`), 45);
+            await evaluate(`Object.defineProperty(visualViewport,'scale',{configurable:true,value:2});
+                Object.defineProperty(visualViewport,'height',{configurable:true,value:210});
+                visualViewport.dispatchEvent(new Event('resize'))`);
+            assert.equal(await evaluate(`client.output.size.width`), keyboardSize.width);
+            assert.equal(await evaluate(`client.output.term.options.fontSize`), 12);
+            assert.equal(await evaluate(`document.body.getBoundingClientRect().height`), 210);
+            assert.equal(await evaluate(`client.commandInput.getBoundingClientRect().bottom<=255`), true);
+            await evaluate(`for (const key of ['height','offsetTop','scale']) delete visualViewport[key];
+                visualViewport.dispatchEvent(new Event('resize'))`);
+            await until(() => evaluate(`!document.body.classList.contains('compact') && client.output.term.rows>20`), '键盘收起后恢复');
+            assert.equal(await evaluate(`client.commandInput.value`), 'say 键盘测试');
+            assert.ok((await evaluate(screen)).includes(marker));
+            await evaluate(`client.commandInput.value=''`);
+            await call('Emulation.setDeviceMetricsOverride', { width:844, height:390, deviceScaleFactor:1, mobile:true });
+            await until(() => evaluate(`document.body.classList.contains('compact') && client.output.term.cols>60`), '手机横屏');
+            assert.equal(await evaluate(`client.output.term.options.fontSize`), 14);
+            assert.equal(await evaluate(`client.commandInput.getBoundingClientRect().bottom<=390 &&
+                client.terminal.getBoundingClientRect().height>100 && document.documentElement.scrollWidth<=innerWidth`), true);
+            await screenshot('mobile-landscape');
+            await call('Emulation.setTouchEmulationEnabled', { enabled:false });
             await call('Emulation.setDeviceMetricsOverride', { width:1100, height:760, deviceScaleFactor:1, mobile:false });
         }
         await evaluate(`document.getElementById('disconnectBtn').click()`);
         assert.ok((await evaluate(screen)).includes('欢迎来到客栈'));
     }
     assert.deepEqual(errors, []);
-    console.log('PASS: all connection choices, real xterm display, UTF-8, safe text, password history, immediate keys, alternate screen, resize and mobile layout');
+    console.log('PASS: all connection choices, real xterm display, UTF-8, safe text, password history, immediate keys, alternate screen, resize, mobile layout and simulated keyboard viewport');
     console.log('Screenshots: ' + artifacts);
 } finally {
     cdp?.close();

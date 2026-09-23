@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MUD游戏客户端 - FluffOS</title>
     <link rel="stylesheet" href="vendor/xterm.css">
     <style>
@@ -12,6 +12,14 @@
             box-sizing: border-box;
         }
 
+        html {
+            height: 100%;
+            overflow: hidden;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            background-color: #0a0a0a;
+        }
+
         body {
             background-color: #0a0a0a;
             color: #e0e0e0;
@@ -19,7 +27,13 @@
             font-size: 14px;
             line-height: 1.5;
             height: 100vh;
-            height: 100dvh;
+            height: var(--viewport-height, 100dvh);
+            position: fixed;
+            top: var(--viewport-top, 0px);
+            left: 0;
+            right: 0;
+            padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+                env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -110,7 +124,7 @@
 
         .panel-content {
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
             gap: 15px;
             align-items: center;
         }
@@ -128,6 +142,7 @@
 
         .form-group input,
         .form-group select {
+            min-width: 0;
             background-color: #222;
             color: #0f0;
             border: 1px solid #444;
@@ -301,34 +316,29 @@
             opacity: 0.7;
         }
 
-        @media (max-width: 768px) {
-            body {
-                font-size: 12px;
-            }
-
-            .header h1 {
-                font-size: 16px;
-            }
-
-            #terminal > .xterm {
-                padding: 10px;
-            }
-
-            .input-area {
-                padding: 10px;
-            }
-
-            .command-input {
-                font-size: 12px;
-                padding: 8px 35px 8px 10px;
-            }
-        }
         .header, .status-container, .input-area { flex-shrink: 0; }
-        .connection-panel { overflow-y: auto; flex-shrink: 0; max-height: 55vh; }
+        .connection-panel { overflow-y: auto; flex-shrink: 1; min-height: 0; max-height: 55%; }
         .input-area { flex-wrap: wrap; }
         .input-container { min-width: 160px; }
         #terminal > .xterm { height: 100%; padding: 12px; }
         #disconnectBtn { padding: 5px 12px; }
+        .status { min-width: 0; }
+        #statusText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        @media (max-width: 768px) {
+            body { font-size: 12px; }
+            .header h1 { font-size: 16px; }
+            .input-area { padding: 10px; }
+            .command-input { font-size: 12px; padding: 8px 35px 8px 10px; }
+        }
+
+        /* 横屏或软键盘展开时，收紧留白，把可见空间留给游戏内容。 */
+        body.compact .header { padding: 4px 10px; }
+        body.compact .header h1 { font-size: 14px; letter-spacing: 1px; }
+        body.compact .status-container { padding: 4px 10px; }
+        body.compact .input-area { padding: 6px 10px; }
+        body.compact .connection-panel { margin: 6px 10px; padding: 10px; }
+        body.compact .panel-header { margin-bottom: 8px; }
     </style>
 </head>
 <body>

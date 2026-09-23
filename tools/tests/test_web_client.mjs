@@ -73,10 +73,11 @@ function setup() {
     const context = vm.createContext({
         TextDecoder, TextEncoder, Uint8Array, ArrayBuffer, Blob, URL, Terminal: TerminalStub, FitAddon: { FitAddon: FitStub }, console: { ...console, debug: (...args) => debugMessages.push(args) }, WebSocket: Socket,
         document: {
+            body: { style: { setProperty(name, value) { this[name] = value; } }, classList: { toggle() {} } },
             getElementById(id) { if (!elements.has(id)) elements.set(id, new Element()); return elements.get(id); },
             createElement(tag) { return new Element(tag); }, createTextNode(data) { return new TextNode(data); }
         },
-        window: { addEventListener(name, fn) { windowEvents[name] = fn; },
+        window: { innerWidth: 1100, innerHeight: 760, addEventListener(name, fn) { windowEvents[name] = fn; },
             open(...args) { openedPages.push(args); } },
         setTimeout(fn, ms) { const id = ++nextTimer; timers.set(id, { fn, ms }); return id; },
         clearTimeout(id) { timers.delete(id); }, alert() {}

@@ -80,12 +80,7 @@ class GameTerminal {
             fontFamily: "'Consolas', 'Monaco', 'Courier New', monospace",
             fontSize: 14, lineHeight: 1.3, scrollback: 2000, convertEol: true,
             disableStdin: true, cursorInactiveStyle: "none",
-            theme: {
-                background: "#000000", foreground: "#e0e0e0", cursor: "#00ff00",
-                scrollbarSliderBackground: "#008000",
-                scrollbarSliderHoverBackground: "#00a000",
-                scrollbarSliderActiveBackground: "#00c000"
-            }
+            theme: { background: "#000000", foreground: "#e0e0e0", cursor: "#00ff00" }
         });
         this.fitAddon = new FitAddon.FitAddon();
         this.term.loadAddon(this.fitAddon);
@@ -101,7 +96,8 @@ class GameTerminal {
 
     fit() {
         if (!this.element.clientWidth || !this.element.clientHeight) return;
-        this.term.options.fontSize = window.innerWidth <= 768 ? 12 : 14;
+        const fontSize = window.innerWidth <= 768 ? 12 : 14;
+        if (this.term.options.fontSize !== fontSize) this.term.options.fontSize = fontSize;
         this.fitAddon.fit();
     }
 
@@ -182,8 +178,24 @@ class MudClient {
             }
         });
         this.sendBtn.addEventListener("click", () => { if (!this.composing) this.handleSendCommand(); });
-        window.addEventListener("resize", () => this.output.fit());
+        this.setupViewport();
         window.addEventListener("pagehide", () => this.disconnect(false));
+    }
+
+    setupViewport() {
+        const viewport = window.visualViewport;
+        const sync = () => {
+            // 跟随实际可见区域避让软键盘，也适配输入框聚焦后的浏览器自动缩放。
+            const height = viewport?.height ?? window.innerHeight;
+            document.body.style.setProperty("--viewport-height", `${height}px`);
+            document.body.style.setProperty("--viewport-top", `${viewport?.offsetTop ?? 0}px`);
+            document.body.classList.toggle("compact", height < 620);
+            this.output.fit();
+        };
+        window.addEventListener("resize", sync);
+        viewport?.addEventListener("resize", sync);
+        viewport?.addEventListener("scroll", sync);
+        sync();
     }
 
     updateStatus(text, state) {
