@@ -1,0 +1,30 @@
+int checks, failures;
+string get_root_uid() { return "Root"; }
+string get_bb_uid() { return "Root"; }
+mixed creator_file(string file) { return "Root"; }
+int valid_read(string file, mixed user, string func) { return 1; }
+int valid_write(string file, mixed user, string func) { return 1; }
+int valid_seteuid(object ob, string uid) { return 1; }
+int valid_socket(object ob, string action, mixed *info) { return 1; }
+void log_error(string file, string text) { debug_message(text); }
+void check(int ok, string label) {
+    checks++;
+    if (!ok) { failures++; debug_message("FAIL: " + label); }
+}
+void error_handler(mapping details, int caught) {
+    if (!caught) check(0, details["error"]);
+}
+void finish() {
+    debug_message(sprintf("AI LPC CHECKS: %d FAILURES: %d", checks, failures));
+    debug_message(failures ? "AI LPC FAIL" : "AI LPC PASS");
+    shutdown(failures ? 1 : 0);
+}
+void run() {
+    mixed err;
+    err = catch(load_object("/tests/probe")->run());
+    if (err) { check(0, err); finish(); }
+}
+string *epilog(int flag) {
+    call_out("run", 0);
+    return ({});
+}

@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This is a UTF-8 Chinese MUD written primarily in LPC and run by FluffOS. Administrative daemons and configuration live in `adm/`; player, wizard, and test commands are under `cmds/`. Game content is organized across `d/`, `b/`, `world/`, and `clone/`. Shared behavior belongs in `feature/`, `inherit/`, and `std/`, while headers and macros live in `include/`. Keep technical documentation in `docs/`; `www/` contains the WebSocket client assets. `mudcore/` is a Git submodule, and `npc_ai/` is an optional Python service.
+This is a UTF-8 Chinese MUD written primarily in LPC and run by FluffOS. Administrative daemons and configuration live in `adm/`; player, wizard, and test commands are under `cmds/`. Game content is organized across `d/`, `b/`, `world/`, and `clone/`. Shared behavior belongs in `feature/`, `inherit/`, and `std/`, while headers and macros live in `include/`. Keep technical documentation in `docs/`; `www/` contains the WebSocket client assets. `mudcore/` is a Git submodule, and `ai/` is an optional Python service.
 
 ## Build, Test, and Development Commands
 
@@ -10,7 +10,11 @@ This is a UTF-8 Chinese MUD written primarily in LPC and run by FluffOS. Adminis
 - `./build.sh` installs Linux prerequisites and builds the FluffOS driver; `./build_msys2.sh` is the Windows/MSYS2 equivalent.
 - `./run.sh` starts the Linux build with `config.ini`; `run.bat` starts the Windows driver.
 - `driver config.ini -d` runs directly in debug mode. Default listeners are telnet ports `5566`/`6666` and WebSocket port `8888`.
-- `cd npc_ai && python -m pip install -r requirements.txt && python main.py -d` starts the optional AI NPC service in debug mode.
+- `cd ai && python -m pip install -r requirements.txt && python main.py -d` starts the optional AI service in debug mode.
+
+## AI Service
+
+Use AI_CLIENT_D for all game-side AI requests; keep NPC validation and display in AI_NPC_D. Register Python capabilities explicitly in ai/main.py, with separate bounded capacity and deadlines. Reuse ai/src/llm.py for model calls; prompts, persistence and durable deduplication belong to each business module. See docs/daemons/ai_client_d.md for contracts. Automated tests use temporary data and fake models; live API calls are separate.
 
 ## Coding Style & Naming Conventions
 

@@ -1,0 +1,4 @@
+inherit "/tests/actor";
+private object target;
+void set_shadow_target(object ob) { target = ob; }
+object query_shadow_now() { return target; }

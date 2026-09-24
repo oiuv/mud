@@ -1,0 +1,10 @@
+#include "json.c"
+mapping players = ([]);
+void register_player(string id, object player) { players[id] = player; }
+object find_player(string id) { return players[id]; }
+string sort_string(string text, int width) { return text; }
+string remove_ansi(string text) { return text; }
+int is_root(object ob) { return 1; }
+string resolve_path(string cwd, string path) { return path; }
+void message_system(string text) {}
+void log_file(string file, string text) {}

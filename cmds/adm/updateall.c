@@ -74,7 +74,7 @@ int update_dir(object me, string dir, int continueable, int *total) {
         "/grant/",
         "/help/",
         "/log/",
-        "/npc_ai/",
+        "/ai/",
         "/openspec/",
         "/temp/",
         "/version/",

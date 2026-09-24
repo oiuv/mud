@@ -98,6 +98,7 @@
 #define VIRTUAL_D       "/adm/daemons/virtuald"
 #define WEAPON_D        "/adm/daemons/weapond"
 #define AI_CLIENT_D     "/adm/daemons/ai_client_d"
+#define AI_NPC_D        "/adm/daemons/ai_npc_d"
 
 #define CLASS_D(x)      ("/kungfu/class/" + x)
 #define CONDITION_D(x)  ("/kungfu/condition/" + x)

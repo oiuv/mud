@@ -85,8 +85,8 @@ class WindowsLauncherTests(unittest.TestCase):
         self.projects.append(path)
         for filename in ("run.bat", "run.ps1"):
             shutil.copyfile(ROOT / filename, path / filename)
-        (path / "npc_ai").mkdir()
-        (path / "npc_ai/start.bat").write_text(
+        (path / "ai").mkdir()
+        (path / "ai/start.bat").write_text(
             '@echo off\n> "%~dp0called.txt" echo unexpected\n', encoding="ascii"
         )
         if installed:
@@ -185,7 +185,7 @@ class WindowsLauncherTests(unittest.TestCase):
         second = self.project()
         output = self.launch(first)
         self.assertIn("如需使用 AI 功能", output)
-        self.assertIn("npc_ai\\start.bat", output)
+        self.assertIn("ai\\start.bat", output)
         first_pid = self.pids(first)[-1]
         self.assert_running(first_pid)
         self.assertIn(str(first_pid), self.launch(first, "status"))
@@ -215,14 +215,14 @@ class WindowsLauncherTests(unittest.TestCase):
         self.launch(first, "status", expected=3)
         self.assertIn("未运行", self.launch(first, "stop"))
         for project in (first, second):
-            self.assertFalse((project / "npc_ai/called.txt").exists())
+            self.assertFalse((project / "ai/called.txt").exists())
 
     def test_help_validation_and_uninstalled_status(self):
         project = self.project(installed=False)
         help_text = self.launch(project, "help")
         self.assertIn("用法：run.bat [start|stop|restart|status|run|logs|help]", help_text)
         self.assertIn("后台启动游戏驱动（默认）", help_text)
-        self.assertIn("如需使用 AI 功能，请单独启动 NPC AI 服务：", help_text)
+        self.assertIn("如需使用 AI 功能，请单独启动 AI 服务：", help_text)
         self.assertNotIn("\ufffd", help_text)
         self.launch(project, "status", expected=3)
         self.launch(project, "stop")
@@ -231,7 +231,7 @@ class WindowsLauncherTests(unittest.TestCase):
         self.assertIn("找不到 driver.exe", self.launch(project, "start", expected=1))
         self.assertIn("找不到 driver.exe", self.launch(project, "restart", expected=1))
         self.assertFalse(self.pids(project))
-        self.assertFalse((project / "npc_ai/called.txt").exists())
+        self.assertFalse((project / "ai/called.txt").exists())
 
     def test_busy_port_prevents_start(self):
         project = self.project()
@@ -290,7 +290,7 @@ class WindowsLauncherTests(unittest.TestCase):
         self.launch(project, "stop")
         self.assert_stopped(process_id)
         process.wait(timeout=10)
-        self.assertFalse((project / "npc_ai/called.txt").exists())
+        self.assertFalse((project / "ai/called.txt").exists())
 
     def test_foreground_preserves_exit_code(self):
         project = self.project()
@@ -333,7 +333,7 @@ class WindowsLauncherTests(unittest.TestCase):
         viewer.terminate()
         viewer.wait(timeout=10)
         self.assert_running(process_id)
-        self.assertFalse((project / "npc_ai/called.txt").exists())
+        self.assertFalse((project / "ai/called.txt").exists())
 
     def test_logs_missing_does_not_start_driver(self):
         project = self.project()
@@ -341,7 +341,7 @@ class WindowsLauncherTests(unittest.TestCase):
         self.assertIn("日志文件尚未生成", output)
         self.assertIn("debug.log", output)
         self.assertFalse(self.pids(project))
-        self.assertFalse((project / "npc_ai/called.txt").exists())
+        self.assertFalse((project / "ai/called.txt").exists())
 
 
 if __name__ == "__main__":

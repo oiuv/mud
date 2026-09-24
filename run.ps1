@@ -14,8 +14,8 @@ $startupLock = $null
 $lockHeld = $false
 
 function Show-AiStartupHint {
-    Write-Host "如需使用 AI 功能，请单独启动 NPC AI 服务："
-    Write-Host "  & `"$gameDir\npc_ai\start.bat`""
+    Write-Host "如需使用 AI 功能，请单独启动 AI 服务："
+    Write-Host "  & `"$gameDir\ai\start.bat`""
 }
 
 function Read-DriverConfig {

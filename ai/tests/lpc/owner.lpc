@@ -1,0 +1,6 @@
+void receive(mapping response) {
+    "/tests/master"->check(0, "destroyed owner was reloaded");
+}
+void run() {
+    AI_CLIENT_D->send_request("echo", ([ "value": 3 ]), (: receive :));
+}

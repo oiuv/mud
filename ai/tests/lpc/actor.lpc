@@ -1,0 +1,18 @@
+private mapping data = ([]);
+private string label = "测试对象", transcript = "";
+
+void create() {}
+void configure(string id, string name) { data["id"] = id; label = name; }
+string name() { return label; }
+mixed query(string key) { return data[key]; }
+void set(string key, mixed value) { data[key] = value; }
+void catch_tell(string text) { transcript += text; }
+string output() { return transcript; }
+void reset_output() { transcript = ""; }
+
+
+string game_time() { return "清晨"; }
+string outdoor_room_description() { return "晴天"; }
+int valid_grant(object ob, string grant) { return 1; }
+
+void move(object destination) { move_object(destination); }

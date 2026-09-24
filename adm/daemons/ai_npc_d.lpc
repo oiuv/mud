@@ -1,0 +1,111 @@
+// NPC 聊天的玩家校验、等待提示与回答展示；通用通信不持有玩家对象。
+nosave private mapping pending_chats = ([]);
+
+void show_pending(string requestId, string npcName);
+void receive_chat(mapping response);
+int valid_response(string npcId, string playerId, mapping response);
+
+void create() {
+    seteuid(getuid(this_object()));
+}
+
+varargs string send_chat_request(string npcId, string playerId, string playerName,
+    string message, string context, object npc) {
+    mapping result, pending;
+    string requestId, key, error, npcName;
+    object player;
+
+    player = find_player(playerId);
+    if (!objectp(player))
+        return "玩家已离线";
+    if (!stringp(message) || message == "" || sizeof(message) > 1000)
+        error = "提问不能为空且不能超过1000字。";
+    else if (sizeof(pending_chats) >= 64)
+        error = "AI正在忙碌，请稍后再试。";
+    if (error) {
+        tell_object(player, error + "\n");
+        return error;
+    }
+    foreach (key in keys(pending_chats)) {
+        pending = pending_chats[key];
+        if (pending["player_id"] == playerId && pending["npc_id"] == npcId) {
+            tell_object(player, "这位NPC还在思考你上一个问题，请稍候。\n");
+            return "处理中...";
+        }
+    }
+    result = AI_CLIENT_D->send_request("chat", ([
+        "npc_id": npcId, "player_id": playerId, "player_name": playerName,
+        "message": message, "context": context || "无"
+    ]), (: receive_chat :), ([ "validator": (: valid_response, npcId, playerId :) ]));
+    if (!stringp(result["request_id"])) {
+        tell_object(player, result["error"] + "\n");
+        return result["code"] == "too_large" ? "请求过长" : result["error"];
+    }
+    requestId = result["request_id"];
+    pending_chats[requestId] = ([
+        "player": player, "player_id": playerId, "npc_id": npcId
+    ]);
+    if (!objectp(npc))
+        npc = previous_object();
+    if (objectp(npc) && function_exists("query_shadow_now", npc))
+        npc = npc->query_shadow_now();
+    npcName = "对方";
+    if (objectp(npc) && function_exists("name", npc))
+        npcName = npc->name();
+    if (!stringp(npcName) || npcName == "")
+        npcName = "对方";
+    // 命令先显示玩家提问；重传不重复显示等待提示。
+    pending_chats[requestId]["notice"] = call_out("show_pending", 0, requestId, npcName);
+    return "处理中...";
+}
+
+int valid_response(string npcId, string playerId, mapping response) {
+    return response["npc_id"] == npcId && response["player_id"] == playerId && stringp(response[response["type"] == "error" ? "error" : "response"]);
+}
+
+void show_pending(string requestId, string npcName) {
+    mapping pending;
+
+    pending = pending_chats[requestId];
+    if (!mapp(pending))
+        return;
+    pending["notice"] = 0;
+    if (objectp(pending["player"]))
+        tell_object(pending["player"], npcName + "正在思索你的问题，请稍候……\n");
+}
+
+void receive_chat(mapping response) {
+    mapping pending;
+    object player;
+    string output;
+
+    pending = pending_chats[response["request_id"]];
+    if (!mapp(pending))
+        return;
+    map_delete(pending_chats, response["request_id"]);
+    if (pending["notice"] > 0)
+        remove_call_out(pending["notice"]);
+    player = pending["player"];
+    if (!objectp(player))
+        return;
+    output = response[response["type"] == "error" ? "error" : "response"];
+    if (stringp(output))
+        tell_object(player, sort_string(output + "\n", 78));
+}
+
+void remove() {
+    string requestId;
+    mapping pending;
+    object client;
+
+    client = find_object(AI_CLIENT_D);
+    foreach (requestId, pending in pending_chats) {
+        if (pending["notice"] > 0)
+            remove_call_out(pending["notice"]);
+        if (objectp(client))
+            client->cancel_request(requestId);
+        if (objectp(pending["player"]))
+            tell_object(pending["player"], "AI聊天服务已重载，请重新提问。\n");
+    }
+    pending_chats = ([]);
+}

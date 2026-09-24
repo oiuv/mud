@@ -1,0 +1,164 @@
+private mapping counts = ([]), results = ([]);
+private object *players = ({}), *npcs = ({});
+private object replacement;
+void check(int ok, string label) { "/tests/master"->check(ok, label); }
+
+void receive(string key, mapping response) {
+    counts[key]++;
+    results[key] = response;
+    if (key == "offline") write_file("/resume-request", "1");
+    if (key == "throws") error("expected callback failure");
+    if (key == "reenter") {
+        check(AI_CLIENT_D->query_pending_count() < 64, "released before callback");
+        AI_CLIENT_D->send_request("echo", ([ "value": 9 ]), (: receive, "nested" :));
+    }
+}
+int validator(mapping response) { return response["value"] == 7; }
+void finish() {
+    check(
+        counts["echo"] == 1 && results["echo"]["value"] == 7,
+        "correlation and duplicate response"
+    );
+    check(counts["retry"] == 1 && results["retry"]["attempts"] == 2, "same-id bounded retry");
+    check(
+        counts["timeout"] == 1 && results["timeout"]["code"] == "timeout",
+        "timeout exactly once"
+    );
+    check(
+        counts["throws"] == 1 && counts["nested"] == 1,
+        "callback throw isolated and reentry works"
+    );
+    check(
+        counts["reload"] == 1 && results["reload"]["code"] == "unavailable",
+        "reload notifies once"
+    );
+    check(counts["restored"] == 1, "transport restored");
+    check(
+        counts["offline"] == 1 && results["offline"]["code"] == "timeout",
+        "real offline timeout"
+    );
+    check(replacement->output() == "", "late reply never finds replacement player");
+    check(AI_CLIENT_D->query_pending_count() == 0, "no pending leaks");
+    "/tests/master"->finish();
+}
+void reload_transport() {
+    object client;
+    mapping submitted;
+    client = load_object(AI_CLIENT_D);
+    submitted = client->send_request("echo", ([ "drop": 1 ]), (: receive, "reload" :));
+    check(stringp(submitted["request_id"]), "reload submission " + sprintf("%O", submitted));
+    client->remove();
+    check(client->query_pending_count() == 0, "reload releases all state");
+    destruct(client);
+    AI_CLIENT_D->send_request("echo", ([]), (: receive, "restored" :));
+    call_out("finish", 1);
+}
+
+void wait_resume() {
+    if (file_size("/resumed") < 0) {
+        call_out("wait_resume", 0.1);
+        return;
+    }
+    reload_transport();
+}
+void wait_paused() {
+    if (file_size("/paused") < 0) {
+        call_out("wait_paused", 0.1);
+        return;
+    }
+    AI_CLIENT_D->send_request("echo", ([]), (: receive, "offline" :),
+        ([ "timeout": 1, "retries": 0 ]));
+    call_out("wait_resume", 0.1);
+}
+
+void check_chats() {
+    string text;
+    int i;
+    for (i = 0; i < sizeof(players); i++) {
+        text = players[i]->output();
+        check(strsrch(text, "玩家提问\n") == 0, "question precedes wait " + i);
+        check(strsrch(text, npcs[i]->name() + "正在思索") >= 0, "original NPC name " + i);
+        check(strsrch(text, "测试回复：问题") >= 0 && strsrch(text, "WRONG") < 0,
+            "NPC reply and business identity " + i);
+        check(sizeof(explode(text, "正在思索")) == 2, "one wait notice " + i);
+    }
+    check(strsrch(players[0]->output(), "还在思考") >= 0, "NPC duplicate guard");
+    write_file("/pause-request", "1");
+    call_out("wait_paused", 0.1);
+}
+void run() {
+    mapping result, payload;
+    string *ids = ({});
+    string name, source;
+    object owner, player, npc, room, shadowNpc, oldPlayer;
+    int i, *total = ({ 0 });
+
+    // Capacity is bounded synchronously, before the driver can receive replies.
+    for (i = 0; i < 64; i++) {
+        result = AI_CLIENT_D->send_request("discard", ([]), (: receive, "cancelled" :));
+        check(stringp(result["request_id"]), "capacity accepted " + i);
+        ids += ({ result["request_id"] });
+    }
+    result = AI_CLIENT_D->send_request("discard", ([]), (: receive, "cancelled" :));
+    check(result["code"] == "busy", "owner capacity bounded");
+    foreach (name in ids) check(AI_CLIENT_D->cancel_request(name), "cancel releases slot");
+    payload = ([ "value": 7, "inject": 1 ]);
+    result = AI_CLIENT_D->send_request("echo", payload, (: receive, "echo" :),
+        ([ "validator": (: validator :) ]));
+    check(stringp(result["request_id"]) && undefinedp(payload["type"]) &&
+        undefinedp(payload["request_id"]), "request mapping not modified");
+    result = AI_CLIENT_D->send_request("echo", ([ "type": "chat" ]), (: receive, "bad" :));
+    check(result["code"] == "invalid_request", "reserved field rejected");
+    result = AI_CLIENT_D->send_request(
+        "echo",
+        ([ "x": repeat_string("字", 3000) ]),
+        (: receive, "bad" :)
+    );
+    check(result["code"] == "too_large", "UTF8 byte limit");
+    AI_CLIENT_D->send_request("echo", ([ "retry": 1 ]), (: receive, "retry" :),
+        ([ "timeout": 3, "retry_delay": 1 ]));
+    AI_CLIENT_D->send_request("echo", ([ "drop": 1 ]), (: receive, "timeout" :),
+        ([ "timeout": 1, "retries": 0 ]));
+    AI_CLIENT_D->send_request("echo", ([]), (: receive, "throws" :));
+    AI_CLIENT_D->send_request("echo", ([]), (: receive, "reenter" :));
+    owner = new("/tests/owner");
+    owner->run();
+    destruct(owner);
+
+    room = new("/tests/actor");
+    room->set("short", "测试客店");
+    for (i = 0; i < 4; i++) {
+        player = new("/tests/actor");
+        player->configure("player" + i, "测试玩家");
+        register_player("player" + i, player);
+        source = ({ "butong", "libai", "ai_npc_template", "shadow" })[i];
+        npc = new("/tests/" + source);
+        name = ({ "周不通", "李白", "模板侠客", "影子侠客" })[i];
+        npc->configure("npc" + i, name);
+        npc->move(room);
+        if (i == 3) {
+            shadowNpc = new("/tests/actor");
+            shadowNpc->configure("shadow", name);
+            shadowNpc->move(room);
+            npc->set_shadow_target(shadowNpc);
+        }
+        npc->accept_talk(player, "问题");
+        tell_object(player, "玩家提问\n");
+        players += ({ player });
+        npcs += ({ npc });
+    }
+    npcs[0]->accept_talk(players[0], "重复");
+    oldPlayer = new("/tests/actor");
+    oldPlayer->configure("reconnect", "旧玩家");
+    register_player("reconnect", oldPlayer);
+    AI_CLIENT_D->send_chat_request("npc", "reconnect", "旧玩家", "late", "");
+    destruct(oldPlayer);
+    replacement = new("/tests/actor");
+    register_player("reconnect", replacement);
+
+    check("/tests/updateall"->update_dir(players[0], "/ai/", 0, total) && total[0] == 0,
+        "updateall skips ai with invalid C fixture");
+    check("/tests/updateall"->update_dir(players[0], "/.hidden/nested/", 0, total) && total[0] == 0,
+        "updateall skips hidden subdirectories");
+    call_out("check_chats", 2);
+}
