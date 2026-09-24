@@ -59,7 +59,7 @@ int main(object me, string arg) {
 
 int do_room_move(object me, object env, string arg) {
     string mout, min, dir, thing_msg, msg1, msg2;
-    mixed dest;
+    mixed dest, load_error;
     object obj, thing;
     int result;
     mapping exit;
@@ -177,6 +177,17 @@ int do_room_move(object me, object env, string arg) {
             obj = dest;
             break;
         case T_STRING:
+            if (strsrch(dest, "/d/illusion/world/") == 0) {
+                load_error = catch(obj = load_object(dest));
+                if (load_error || !objectp(obj)) {
+                    log_file(
+                        "illusion_world",
+                        sprintf("Unable to load %s: %O\n", dest, load_error)
+                    );
+                    return notify_fail("前方雾气骤然聚拢，一时辨不清去路。\n");
+                }
+                break;
+            }
             if (!objectp(obj = load_object(dest))) {
                 return notify_fail(sprintf("目标环境异常，无法向 %s 移动。\n", dest));
             }

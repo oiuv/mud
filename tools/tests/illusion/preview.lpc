@@ -1,0 +1,67 @@
+inherit "/inherit/illusion/inspection";
+#define WORLD "/adm/daemons/illusion_world_d"
+#define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
+
+private mixed *samples;
+private int sample_index;
+
+void run_next() {
+    mapping report, decoded;
+    object admin;
+    int count, cx, cy;
+    string basename;
+    mixed err;
+
+    cx = samples[sample_index][0]; cy = samples[sample_index][1];
+    count = sizeof(children("/d/illusion/room"));
+    err = catch(report = inspect_world_chunk("test-scan-v1", cx, cy));
+    if (err) { CHECK(0, err); "/tests/master"->finish(); return; }
+    CHECK(count == sizeof(children("/d/illusion/room")), "preview creates no runtime rooms");
+    CHECK(report["connectivity"]["ok"], "diagnostic connectivity and reverse edges pass");
+    decoded = json_decode(json_encode(report));
+    CHECK(decoded["seed"] == 42 && sizeof(decoded["cells"]) == report["connectivity"]["rooms"],
+        "JSON export preserves seed and room facts");
+    basename = sprintf("/data/preview-%d-%d", cx, cy);
+    CHECK(write_file(basename + ".json", json_encode(report) + "\n", 1), "JSON artifact saved");
+    CHECK(write_file(basename + ".txt", report["ascii"], 1), "ASCII artifact saved");
+    if (!sample_index) {
+        admin = new("/tests/room_stub"); admin->set("admin", 1);
+        CHECK(
+            "/cmds/test/illusion_world"->main(admin, "test-scan-v1 0 0"),
+            "admin ASCII preview works"
+        );
+        CHECK(
+            "/cmds/test/illusion_world"->main(admin, "test-scan-v1 0 0 json"),
+            "admin JSON preview works"
+        );
+        CHECK(
+            !"/cmds/test/illusion_world"->main(admin, "test-scan-v1 00 0"),
+            "noncanonical preview rejected"
+        );
+        CHECK(
+            !"/cmds/test/illusion_world"->main(admin, "test-scan-v1 0 0 extra"),
+            "invalid mode rejected"
+        );
+        destruct(admin);
+    }
+    if (++sample_index < sizeof(samples)) { call_out("run_next", 0); return; }
+    debug_message(sprintf(
+        "ILLUSION PREVIEW: %d ASCII/JSON pairs saved under /data",
+        sizeof(samples)
+    ));
+    "/tests/master"->finish();
+}
+
+void start(mapping scenes) {
+    mapping scene;
+    string id;
+    int *point;
+
+    samples = ({ ({ 0, 0 }) });
+    foreach (id in sort_array(keys(scenes), 1)) {
+        scene = scenes[id];
+        point = ({ WORLD->floor_div(scene["x"], 16), WORLD->floor_div(scene["y"], 16) });
+        samples += ({ point });
+    }
+    call_out("run_next", 0);
+}

@@ -1,0 +1,409 @@
+inherit "/inherit/illusion/generator";
+inherit "/inherit/illusion/catalog";
+
+private mixed *directions() { return ({ ({ 0, 1 }), ({ 1, 0 }), ({ 0, -1 }), ({ -1, 0 }) }); }
+
+mapping biome_facts(mapping fields, mapping catalog) {
+    mapping biome, best, second;
+    int score, top, runner;
+
+    top = 1000000; runner = 1000000;
+    foreach (biome in catalog["biomes"]) {
+        score = abs(fields["elevation"] - biome["target"][0]) + abs(fields["moisture"] - biome["target"][1]) + abs(fields["temperature"] - biome["target"][2]);
+        if (score < top) { runner = top; second = best; top = score; best = biome; } else if (score < runner) {
+            runner = score; second = biome;
+        }
+    }
+    return ([ "biome": best["id"], "biome_name": best["name"], "description": best["description"],
+        "transition": second && runner - top < 5000 ? best["transition"] : "",
+        "secondary": second && runner - top < 5000 ? second["id"] : "",
+        "theme": catalog["themes"][fields["theme"] * sizeof(catalog["themes"]) / 65536],
+        "patch": best["patches"][fields["detail"] * sizeof(best["patches"]) / 65536]]);
+}
+
+mapping chunk_skeleton(int seed, int cx, int cy) {
+    int *b, *delta, *point;
+    mixed *ports;
+    mapping reserved;
+    int hx, hy, x, y, offset, low, width;
+
+    b = chunk_bounds(cx, cy);
+    hx = b[0] + (b[2] - b[0]) / 2;
+    hy = b[1] + (b[3] - b[1]) / 2;
+    ports = ({});
+    foreach (delta in directions()) {
+        if (!valid_coordinate(delta[0] < 0 ? b[0] - 1 : delta[0] > 0 ? b[2] + 1 : hx,
+            delta[1] < 0 ? b[1] - 1 : delta[1] > 0 ? b[3] + 1 : hy)) continue;
+        low = delta[0] ? b[1] : b[0];
+        width = delta[0] ? b[3] - b[1] + 1 : b[2] - b[0] + 1;
+        offset = coordinate_hash(seed, cx + (delta[0] < 0 ? -1 : 0),
+            cy + (delta[1] < 0 ? -1 : 0), delta[0] ? 71 : 72);
+        offset = width > 2 ? 1 + offset % (width - 2) : offset % width;
+        x = delta[0] ? (delta[0] > 0 ? b[2] : b[0]) : low + offset;
+        y = delta[1] ? (delta[1] > 0 ? b[3] : b[1]) : low + offset;
+        ports += ({ ({ x, y, x + delta[0], y + delta[1] }) });
+    }
+    reserved = ([]);
+    foreach (point in ports + (cx == 0 && cy == 0 ? ({ ({ 0, 0 }) }) : ({}))) {
+        x = point[0]; y = point[1]; reserved[cell_key(x, y)] = 1;
+        while (x != hx) { x += x < hx ? 1 : -1; reserved[cell_key(x, y)] = 1; }
+        while (y != hy) { y += y < hy ? 1 : -1; reserved[cell_key(x, y)] = 1; }
+    }
+    reserved[cell_key(hx, hy)] = 1;
+    return ([ "hub": ({ hx, hy }), "ports": ports, "reserved": reserved ]);
+}
+
+private int *rotate_point(int x, int y, int rotation) {
+    switch (rotation) {
+        case 1: return ({ -y, x });
+        case 2: return ({ -x, -y });
+        case 3: return ({ y, -x });
+        default: return ({ x, y });
+    }
+}
+
+// Exposed for deterministic validation of hand-authored templates as well as candidates.
+mapping place_scene(mapping template, int x, int y, int rotation) {
+    mapping cells, edges, landmark;
+    mixed *rooms, *doors;
+    mixed row;
+    int *a, *b, *box;
+    int i;
+
+    cells = ([]); edges = ([]); rooms = ({}); doors = ({});
+    box = ({ x + 12, y + 12, x - 12, y - 12 });
+    foreach (row in template["rooms"]) {
+        a = rotate_point(row[0], row[1], rotation); a[0] += x; a[1] += y;
+        if (!valid_coordinate(a[0], a[1])) return 0;
+        cells[cell_key(a[0], a[1])] = row[2]; rooms += ({ ({ a[0], a[1], row[2] }) });
+        if (row[2] == template["landmark_role"])
+            landmark = ([ "name": template["landmark"], "role": row[2], "x": a[0], "y": a[1] ]);
+        if (a[0] < box[0]) box[0] = a[0]; if (a[1] < box[1]) box[1] = a[1];
+        if (a[0] > box[2]) box[2] = a[0]; if (a[1] > box[3]) box[3] = a[1];
+    }
+    for (i = 0; i < 2; i++) {
+        foreach (row in i ? template["entrances"] : template["links"]) {
+            a = rotate_point(row[0], row[1], rotation); b = rotate_point(row[2], row[3], rotation);
+            a[0] += x; a[1] += y; b[0] += x; b[1] += y;
+            if (!valid_coordinate(b[0], b[1])) return 0;
+            edges[edge_key(a[0], a[1], b[0], b[1])] = 1;
+            if (i) doors += ({ ({ a[0], a[1], b[0], b[1] }) });
+        }
+    }
+    return ([ "cells": cells, "edges": edges, "rooms": rooms, "doors": doors, "bounds": box,
+        "template": template, "x": x, "y": y, "rotation": rotation, "landmark": landmark,
+        "id": sprintf("%s:%d:%d", template["id"], x, y) ]);
+}
+
+int scene_fragments_connected(mapping scene) {
+    mapping groups, members, visited, gates;
+    mixed *queue, *fragment;
+    mixed row, door;
+    string group, id, other;
+    int head;
+
+    groups = ([]); gates = ([]);
+    foreach (row in scene["rooms"]) {
+        group = cell_key(floor_div(row[0], 16), floor_div(row[1], 16));
+        if (!groups[group]) groups[group] = ({});
+        groups[group] += ({ row });
+    }
+    foreach (door in scene["doors"]) {
+        if (floor_div(door[0], 16) == floor_div(door[2], 16) &&
+            floor_div(door[1], 16) == floor_div(door[3], 16))
+            gates[cell_key(door[0], door[1])] = 1;
+    }
+    foreach (group, fragment in groups) {
+        members = ([]); visited = ([]); queue = ({}); head = 0;
+        foreach (row in fragment) {
+            id = cell_key(row[0], row[1]); members[id] = row;
+            if (gates[id]) { visited[id] = 1; queue += ({ row }); }
+        }
+        while (head < sizeof(queue)) {
+            row = queue[head++];
+            foreach (other in keys(members)) {
+                if (!visited[other] && scene["edges"][edge_key(
+                    row[0],
+                    row[1],
+                    members[other][0],
+                    members[other][1]
+                ) ]) {
+                    visited[other] = 1; queue += ({ members[other] });
+                }
+            }
+        }
+        if (sizeof(visited) != sizeof(members)) return 0;
+    }
+    return 1;
+}
+
+private int within(int x, int y, int *box) {
+    return x >= box[0] && x <= box[2] && y >= box[1] && y <= box[3];
+}
+
+private mapping candidate(int seed, int gx, int gy, mapping catalog, mapping memo) {
+    mapping scene, fields, facts, skeleton;
+    string key, reserved;
+    int x, y, cx, cy, rx, ry;
+    int *box;
+
+    key = cell_key(gx, gy);
+    if (!undefinedp(memo[key])) return memo[key];
+    memo[key] = 0;
+    x = gx * 32 + coordinate_hash(seed, gx, gy, 81) % 32;
+    y = gy * 32 + coordinate_hash(seed, gx, gy, 82) % 32;
+    if (!valid_coordinate(x, y)) return 0;
+    fields = sample_fields(seed, x, y); facts = biome_facts(fields, catalog);
+    scene = catalog["scenes"][coordinate_hash(seed, gx, gy, 83) % sizeof(catalog["scenes"])];
+    if (member_array(
+        facts["biome"],
+        scene["biomes"]
+    ) < 0 || fields["slope"] > scene["max_slope"]) return 0;
+    scene = place_scene(scene, x, y, coordinate_hash(seed, gx, gy, 84) % 4);
+    if (!mapp(scene) || !scene_fragments_connected(scene)) return 0;
+    box = scene["bounds"];
+    for (cx = floor_div(box[0], 16); cx <= floor_div(box[2], 16); cx++) {
+        for (cy = floor_div(box[1], 16); cy <= floor_div(box[3], 16); cy++) {
+            skeleton = chunk_skeleton(seed, cx, cy);
+            foreach (reserved in keys(skeleton["reserved"])) {
+                sscanf(reserved, "%d,%d", rx, ry);
+                if (within(rx, ry, box)) return 0;
+            }
+        }
+    }
+    scene["priority"] = coordinate_hash(seed, gx, gy, 85);
+    scene["biome"] = facts["biome"];
+    scene["theme"] = facts["theme"];
+    scene["name"] = catalog["name_prefixes"][coordinate_hash(
+        seed,
+        gx,
+        gy,
+        86
+    ) % sizeof(catalog["name_prefixes"]) ] + scene["template"]["name"];
+    memo[key] = scene;
+    return scene;
+}
+
+private int overlaps(int *a, int *b) {
+    // Keep a free cell between footprints for legal external access.
+    return a[0] <= b[2] + 1 && a[2] + 1 >= b[0] && a[1] <= b[3] + 1 && a[3] + 1 >= b[1];
+}
+
+mixed *chunk_scenes(int seed, int cx, int cy, mapping catalog) {
+    mapping scene, other, memo;
+    mixed *accepted;
+    int *box;
+    int gx, gy, nx, ny, rejected;
+
+    box = chunk_bounds(cx, cy); memo = ([]); accepted = ({});
+    for (gx = floor_div(box[0] - 12, 32); gx <= floor_div(box[2] + 12, 32); gx++) {
+        for (gy = floor_div(box[1] - 12, 32); gy <= floor_div(box[3] + 12, 32); gy++) {
+            scene = candidate(seed, gx, gy, catalog, memo);
+            if (!scene || !overlaps(box, scene["bounds"])) continue;
+            rejected = 0;
+            for (nx = gx - 1; nx <= gx + 1; nx++) {
+                for (ny = gy - 1; ny <= gy + 1; ny++) {
+                    if (nx == gx && ny == gy) continue;
+                    other = candidate(seed, nx, ny, catalog, memo);
+                    if (other && overlaps(scene["bounds"], other["bounds"]) &&
+                        (other["priority"] > scene["priority"] ||
+                            (other["priority"] == scene["priority"] && (nx < gx || (nx == gx && ny < gy))))) rejected = 1;
+                }
+            }
+            if (!rejected) accepted += ({ scene });
+        }
+    }
+    return accepted;
+}
+
+private int allowed_edge(int x, int y, int nx, int ny, mapping occupied, mapping edges) {
+    if (occupied[cell_key(
+        x,
+        y
+    ) ] || occupied[cell_key(nx, ny)]) return edges[edge_key(x, y, nx, ny)] != 0;
+    return 1;
+}
+
+private int exit_chunk(int seed, int cx, int cy) {
+    int gx, gy, width, height;
+
+    gx = floor_div(cx, 4);
+    gy = floor_div(cy, 4);
+    width = 62500000 - gx * 4 + 1;
+    height = 62500000 - gy * 4 + 1;
+    if (width > 4) width = 4;
+    if (height > 4) height = 4;
+    return local_coordinate(
+        cx,
+        4
+    ) == coordinate_hash(
+        seed,
+        gx,
+        gy,
+        91
+    ) % width && local_coordinate(cy, 4) == coordinate_hash(seed, gx, gy, 92) % height;
+}
+
+private void heap_push(int *heap, int count, int value) {
+    int parent;
+
+    while (count > 0) {
+        parent = (count - 1) / 2;
+        if (heap[parent] <= value) break;
+        heap[count] = heap[parent]; count = parent;
+    }
+    heap[count] = value;
+}
+
+private void heap_pop(int *heap, int count) {
+    int value, index, child;
+
+    if (!count) return;
+    value = heap[count]; index = 0;
+    while (index * 2 + 1 < count) {
+        child = index * 2 + 1;
+        if (child + 1 < count && heap[child + 1] < heap[child]) child++;
+        if (heap[child] >= value) break;
+        heap[index] = heap[child]; index = child;
+    }
+    heap[index] = value;
+}
+
+mapping build_chunk(int seed, int cx, int cy, mapping catalog) {
+    int *box, *hub, *delta, *point, *heap;
+    mixed *scenes, *queue;
+    mapping skeleton, scene, occupied, edges, cells, field, facts, distances, parents, visited, roads;
+    mapping exits, reachable;
+    mixed row;
+    string key, next, best, target, dir;
+    int x, y, nx, ny, cost, best_cost, head, count, index, priority;
+    string *names;
+
+    box = chunk_bounds(cx, cy); skeleton = chunk_skeleton(seed, cx, cy); hub = skeleton["hub"];
+    scenes = chunk_scenes(seed, cx, cy, catalog);
+    occupied = ([]); edges = ([]); cells = ([]);
+    foreach (scene in scenes) {
+        for (x = scene["bounds"][0]; x <= scene["bounds"][2]; x++)
+            for (y = scene["bounds"][1]; y <= scene["bounds"][3]; y++) occupied[cell_key(
+                x,
+                y
+            ) ] = scene;
+        edges += scene["edges"];
+    }
+    for (y = box[1]; y <= box[3]; y++) {
+        for (x = box[0]; x <= box[2]; x++) {
+            key = cell_key(x, y); scene = occupied[key];
+            if (scene && !scene["cells"][key]) continue;
+            field = sample_fields(seed, x, y); facts = biome_facts(field, catalog);
+            facts += ([ "x": x, "y": y, "fields": field, "scene_id": "", "role": "wilderness",
+                "name": facts["biome_name"] + "·" + facts["patch"], "scene_name": "", "scene": ([]) ]);
+            if (scene) {
+                facts["scene_id"] = scene["id"]; facts["scene_name"] = scene["name"];
+                facts["scene"] = ([ "id": scene["id"], "name": scene["name"],
+                    "biome": scene["biome"], "theme": scene["theme"], "landmark": scene["landmark"],
+                    "material": scene["template"]["material"], "condition": scene["template"]["condition"]]);
+                facts["role"] = scene["cells"][key];
+                facts["name"] = scene["name"] + "·" + catalog["roles"][facts["role"]];
+                facts["description"] += scene["template"]["description"];
+            }
+            cells[key] = facts;
+        }
+    }
+    // Bounded Dijkstra heap; ties use y/x index, never mapping order.
+    distances = ([ cell_key(hub[0], hub[1]): 0 ]); parents = ([]); visited = ([]);
+    heap = allocate(2048); count = 1;
+    heap[0] = (hub[1] - box[1]) * 16 + hub[0] - box[0];
+    while (count) {
+        priority = heap[0]; heap_pop(heap, --count);
+        best_cost = priority / 256; index = priority % 256;
+        x = box[0] + index % 16; y = box[1] + index / 16;
+        best = cell_key(x, y);
+        if (visited[best] || distances[best] != best_cost) continue;
+        visited[best] = 1; x = cells[best]["x"]; y = cells[best]["y"];
+        foreach (delta in directions()) {
+            nx = x + delta[0]; ny = y + delta[1]; next = cell_key(nx, ny);
+            if (!cells[next] || visited[next] || !allowed_edge(
+                x,
+                y,
+                nx,
+                ny,
+                occupied,
+                edges
+            )) continue;
+            cost = best_cost + 10 + cells[next]["fields"]["slope"] / 20 + cells[next]["fields"]["detail"] / 8192;
+            if (undefinedp(distances[next]) || cost < distances[next]) {
+                distances[next] = cost; parents[next] = best;
+                if (count == sizeof(heap)) error("illusion: bounded path heap exhausted.\n");
+                heap_push(heap, count++, cost * 256 + (ny - box[1]) * 16 + nx - box[0]);
+            }
+        }
+    }
+    roads = ([ cell_key(hub[0], hub[1]): 1 ]);
+    queue = skeleton["ports"] + (cx == 0 && cy == 0 ? ({ ({ 0, 0 }) }) : ({}));
+    foreach (scene in scenes) foreach (row in scene["rooms"])
+        if (within(row[0], row[1], box)) queue += ({ row });
+    foreach (scene in scenes) foreach (row in scene["doors"])
+        if (within(row[2], row[3], box)) queue += ({ ({ row[2], row[3] }) });
+    foreach (point in queue) {
+        target = cell_key(point[0], point[1]);
+        if (undefinedp(distances[target])) error("illusion: required room has no legal chunk route.\n");
+        while (!roads[target]) { roads[target] = 1; target = parents[target]; }
+    }
+    // Flood-prune ordinary terrain after preserving roads and complete scene fragments.
+    reachable = ([ cell_key(hub[0], hub[1]): 1 ]); queue = ({ hub }); head = 0;
+    while (head < sizeof(queue)) {
+        point = queue[head++];
+        foreach (delta in directions()) {
+            nx = point[0] + delta[0]; ny = point[1] + delta[1]; key = cell_key(nx, ny);
+            if (!cells[key] || reachable[key] || !allowed_edge(
+                point[0],
+                point[1],
+                nx,
+                ny,
+                occupied,
+                edges
+            )) continue;
+            field = cells[key]["fields"];
+            if (!roads[key] && (field["elevation"] > 54000 || field["moisture"] > 55000)) continue;
+            reachable[key] = 1; queue += ({ ({ nx, ny }) });
+        }
+    }
+    names = ({ "north", "east", "south", "west" });
+    foreach (key in keys(cells)) {
+        if (!reachable[key]) { map_delete(cells, key); continue; }
+        facts = cells[key]; x = facts["x"]; y = facts["y"]; exits = ([]); index = 0;
+        foreach (delta in directions()) {
+            nx = x + delta[0]; ny = y + delta[1]; next = cell_key(nx, ny); dir = names[index++];
+            if (!valid_coordinate(nx, ny)) continue;
+            if (within(nx, ny, box)) {
+                if (reachable[next] && allowed_edge(
+                    x,
+                    y,
+                    nx,
+                    ny,
+                    occupied,
+                    edges
+                )) exits[dir] = ({ nx, ny });
+            } else if (edges[edge_key(x, y, nx, ny)]) exits[dir] = ({ nx, ny });
+        }
+        foreach (point in skeleton["ports"])
+            if (point[0] == x && point[1] == y) {
+                dir = point[2] > x ? "east" : point[2] < x ? "west" : point[3] > y ? "north" : "south";
+                exits[dir] = ({ point[2], point[3] });
+            }
+        facts["exits"] = exits; facts["road"] = roads[key] ? 1 : 0;
+        facts["out"] = (x == 0 && y == 0) || (x == hub[0] && y == hub[1] && exit_chunk(
+            seed,
+            cx,
+            cy
+        ));
+    }
+    return ([
+        "cx": cx,
+        "cy": cy,
+        "cells": cells,
+        "hub": hub,
+        "ports": skeleton["ports"],
+        "scenes": scenes
+    ]);
+}

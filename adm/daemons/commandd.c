@@ -14,7 +14,7 @@ void rehash(string dir) {
     string path;
     string *cmds;
     mapping cmdlist;
-    string alias;
+    string alias, name, stem;
 
     if (!sscanf(dir, "/cmds/%s", path) && !sscanf(dir, "/mudcore/cmds/%s", path)) {
         write("The path(" + dir + ")was not command path, "
@@ -29,24 +29,32 @@ void rehash(string dir) {
     cmdlist = allocate_mapping(i);
 
     // 取所有命令
-    while (i--)
-        if (sscanf(cmds[i], "%s.c", cmds[i]))
-            cmdlist[cmds[i]] = dir + cmds[i] + ".c";
+    while (i--) {
+        name = cmds[i];
+        if (strlen(name) > 4 && name[<4..] == ".lpc") {
+            stem = name[0..<5];
+            cmdlist[stem] = dir + name;
+        } else if (strlen(name) > 2 && name[<2..] == ".c") {
+            stem = name[0..<3];
+            if (!cmdlist[stem]) cmdlist[stem] = dir + name;
+        }
+    }
 
     // 取所有命令的别名
     i = sizeof(cmds);
     while (i--)
-        if (sscanf(cmds[i], "%s.alias", cmds[i])) {
-            alias = read_file(dir + cmds[i] + ".alias", 1, 1);
+        if (strlen(cmds[i]) > 6 && cmds[i][<6..] == ".alias") {
+            name = cmds[i][0..<7];
+            alias = read_file(dir + cmds[i], 1, 1);
+            if (!stringp(alias)) continue;
             alias = replace_string(alias, "\n", "");
             alias = replace_string(alias, "\r", "");
-            sscanf(alias, "%s.c", alias);
-            if (member_array(alias, cmds) != -1)
-                cmdlist[cmds[i]] = dir + alias + ".c";
+            if (strlen(alias) > 4 && alias[<4..] == ".lpc") alias = alias[0..<5];
+            else if (strlen(alias) > 2 && alias[<2..] == ".c") alias = alias[0..<3];
+            if (stringp(cmdlist[alias])) cmdlist[name] = cmdlist[alias];
         }
 
-    if (sizeof(cmds))
-        search[dir] = cmdlist;
+    search[dir] = cmdlist;
 }
 
 string find_command(string verb, string *path) {

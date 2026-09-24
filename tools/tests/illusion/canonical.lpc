@@ -1,0 +1,18 @@
+// Test-only full-fact comparison; not the future persistent AI content-key encoding.
+string canonical_text(mixed value) {
+    mixed item;
+    string key;
+    string *parts;
+
+    parts = ({});
+    if (mapp(value)) {
+        foreach (key in sort_array(keys(value), 1))
+            parts += ({ json_encode(key) + ":" + canonical_text(value[key]) });
+        return "{" + implode(parts, ",") + "}";
+    }
+    if (arrayp(value)) {
+        foreach (item in value) parts += ({ canonical_text(item) });
+        return "[" + implode(parts, ",") + "]";
+    }
+    return json_encode(value);
+}

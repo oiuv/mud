@@ -20,7 +20,7 @@ mixed compile_object(string file) {
 
     virtual = file[0..n - 1];
 
-    if (file_size(virtual + ".c") < 1) {
+    if (file_size(virtual + ".lpc") < 1 && file_size(virtual + ".c") < 1) {
         log_file("virtual", sprintf("[%s]%s %O\n", ctime(), file, all_previous_objects()));
         return 0;
     }

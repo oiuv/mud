@@ -4,7 +4,7 @@
 ![mud](mud.png "mud")
 
 
-炎黄MUD utf-8 版，推荐使用 FluffOS UTF8版驱动。
+炎黄MUD UTF-8 版。当前 MUDLIB 最低支持 **FluffOS v2026.0712.3**，请使用该版本或更新版本的驱动。
 
  - 游戏驱动下载：https://bbs.mud.ren/threads/4
  - 线上游戏体验：https://mud.ren:8888/
@@ -33,6 +33,8 @@
 - https://gitee.com/mudcore/mudcore.git
 
 ### 环境配置
+
+驱动须为 **FluffOS v2026.0712.3 或更新版本**。当前 LIB 优先使用 `.lpc` 源文件，不再以旧驱动兼容为开发目标；已有 `.c` 文件继续保留。升级现有游戏时应先升级驱动，再更新 LIB 和 `mudcore` 子模块，并验证启动与全量编译。
 
 请把`data`目录中的`.env.example`复制为`.env`，并根据需要修改环境配置。
 

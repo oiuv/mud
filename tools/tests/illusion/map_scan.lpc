@@ -1,0 +1,135 @@
+#define WORLD "/adm/daemons/illusion_world_d"
+#define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
+inherit "/tests/canonical";
+private int index;
+private mapping original_digests = ([]);
+private mapping scene_samples = ([]);
+private mapping exit_groups = ([]);
+private int *timings = ({});
+private int scene_count;
+private int transition_count;
+
+private string fingerprint(mapping chunk) {
+    return hash("sha256", canonical_text(chunk));
+}
+
+void scan_next() {
+    mapping chunk, cell, other, seen, scene, scene_by_id;
+    mixed *queue;
+    int cx, cy, nx, ny, head, started, position;
+    int *destination;
+    string key, dir, next, reverse, chunk_key, group;
+    mapping reverse_dirs;
+    mixed err;
+    mixed row;
+
+    position = index < 76 ? index : 151 - index;
+    if (position < 70) { cx = position % 10 - 5; cy = position / 10 - 3; } else {
+        cx = position % 2 ? 62500000 : -62500000;
+        cy = position < 72 ? 0 : position < 74 ? 62500000 : -62500000;
+    }
+    started = time_ns();
+    err = catch(chunk = WORLD->query_chunk("test-scan-v1", cx, cy));
+    if (err) { CHECK(0, err); "/tests/master"->finish(); return; }
+    chunk_key = WORLD->cell_key(cx, cy);
+    if (index >= 76) {
+        CHECK(
+            fingerprint(chunk) == original_digests[chunk_key],
+            "reverse-order full facts match after LRU eviction"
+        );
+        if (++index < 152) { call_out("scan_next", 0); return; }
+        write_file("/data/map-scan.json", json_encode(([ "seed": 42, "chunks": 76,
+            "reverse_chunks": 76, "scene_samples": scene_samples, "transition_rooms": transition_count,
+            "digests": original_digests ])) + "\n", 1);
+        "/tests/cross_scene"->start(scene_samples);
+        return;
+    }
+    timings += ({ (time_ns() - started) / 1000 });
+    scene_count += sizeof(chunk["scenes"]);
+    scene_by_id = ([]);
+    foreach (scene in chunk["scenes"]) {
+        scene_by_id[scene["id"]] = scene;
+        scene_samples[scene["id"]] = ([ "type": scene["template"]["id"], "name": scene["name"],
+            "x": scene["x"], "y": scene["y"], "bounds": scene["bounds"], "rotation": scene["rotation"]]);
+        foreach (row in scene["rooms"]) {
+            other = WORLD->query_room_facts("test-scan-v1", row[0], row[1]);
+            CHECK(mapp(other) && other["scene_id"] == scene["id"] && other["role"] == row[2],
+                "entire accepted scene exists across all covered chunks");
+        }
+    }
+    reverse_dirs = ([ "north": "south", "south": "north", "east": "west", "west": "east" ]);
+    key = WORLD->cell_key(chunk["hub"][0], chunk["hub"][1]);
+    seen = ([ key: 1 ]); queue = ({ key }); head = 0;
+    while (head < sizeof(queue)) {
+        key = queue[head++]; cell = chunk["cells"][key];
+        foreach (dir, destination in cell["exits"]) {
+            nx = destination[0]; ny = destination[1]; next = WORLD->cell_key(nx, ny);
+            CHECK(WORLD->valid_coordinate(nx, ny), "no exits outside safe world bounds");
+            if (WORLD->floor_div(nx, 16) != cx || WORLD->floor_div(ny, 16) != cy) continue;
+            other = chunk["cells"][next]; reverse = reverse_dirs[dir];
+            CHECK(mapp(other) && arrayp(other["exits"][reverse]) &&
+                other["exits"][reverse][0] == cell["x"] && other["exits"][reverse][1] == cell["y"], "internal reverse edge");
+            if (!seen[next]) { seen[next] = 1; queue += ({ next }); }
+        }
+    }
+    CHECK(sizeof(seen) == sizeof(chunk["cells"]), "every chunk room reaches its hub");
+    foreach (key, cell in chunk["cells"]) {
+        transition_count += sizeof(cell["transition"]) > 0;
+        if (cell["out"] && (cell["x"] || cell["y"])) {
+            group = WORLD->cell_key(WORLD->floor_div(cx, 4), WORLD->floor_div(cy, 4));
+            exit_groups[group]++;
+        }
+        if (sizeof(cell["scene_id"])) {
+            scene = scene_by_id[cell["scene_id"]];
+            CHECK(
+                mapp(scene) && cell["role"] == scene["cells"][key],
+                "scene room preserved with correct role"
+            );
+            CHECK(canonical_text(cell["scene"]["landmark"]) == canonical_text(scene["landmark"]),
+                "scene rooms share stable landmark facts");
+            foreach (dir, destination in cell["exits"])
+                CHECK(scene["edges"][WORLD->edge_key(
+                    cell["x"],
+                    cell["y"],
+                    destination[0],
+                    destination[1]
+                ) ],
+                    "roads never open an unauthored scene wall");
+        }
+        foreach (dir, destination in cell["exits"]) {
+            nx = destination[0]; ny = destination[1];
+            if (WORLD->floor_div(nx, 16) == cx && WORLD->floor_div(ny, 16) == cy) continue;
+            other = WORLD->query_room_facts("test-scan-v1", nx, ny);
+            reverse = reverse_dirs[dir];
+            CHECK(mapp(other) && arrayp(other["exits"][reverse]) &&
+                other["exits"][reverse][0] == cell["x"] && other["exits"][reverse][1] == cell["y"], "paired cross-chunk edge");
+            CHECK(abs(cell["fields"]["elevation"] - other["fields"]["elevation"]) < 2000 &&
+                abs(cell["fields"]["moisture"] - other["fields"]["moisture"]) < 2000 &&
+                abs(cell["fields"]["temperature"] - other["fields"]["temperature"]) < 2000,
+                "low-frequency fields remain continuous across computation boundaries");
+        }
+    }
+    CHECK(WORLD->query_cached_chunks() <= 64, "bounded chunk LRU");
+    original_digests[chunk_key] = fingerprint(chunk);
+    if (++index < 76) { call_out("scan_next", 0); return; }
+    chunk = WORLD->query_chunk("test-scan-v1", -5, -3);
+    CHECK(fingerprint(chunk) == original_digests["-5,-3"], "evicted chunk regenerates exactly");
+    CHECK(scene_count > 0, "scan includes accepted scenes");
+    CHECK(transition_count > 0, "fixed range includes biome transitions");
+    CHECK(exit_groups["0,0"] == 1 && exit_groups["-1,0"] == 1,
+        "each fully scanned 4x4 chunk group has a hub exit");
+    chunk = WORLD->query_chunk("test-scan-v1", 62500000, 62500000);
+    CHECK(
+        chunk["cells"]["1000000000,1000000000"]["out"],
+        "partial edge group retains reachable exit"
+    );
+    timings = sort_array(timings, 1);
+    debug_message(sprintf("ILLUSION SCAN: 76 chunks, %d scene occurrences, p95 %d us, max %d us", scene_count,
+        timings[sizeof(timings) * 95 / 100], timings[<1]));
+    call_out("scan_next", 0);
+}
+
+void start() {
+    WORLD->initialize_world(WORLD->catalog_manifest("test-scan-v1", 42, 1));
+    call_out("scan_next", 0);
+}

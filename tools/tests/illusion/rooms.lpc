@@ -1,0 +1,175 @@
+#define WORLD "/adm/daemons/illusion_world_d"
+#define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
+
+void run() {
+    object first, second, room, other, next, blueprint, router, refusing;
+    mapping manifest, decoded, exits;
+    mixed err;
+    string token, other_token, path, invalid, dir, destination;
+    int count;
+
+    manifest = WORLD->catalog_manifest("test-rooms-v1", 42, 1);
+    WORLD->initialize_world(manifest);
+    first = "/tests/master"->query_players()[0]; second = "/tests/master"->query_players()[1];
+    CHECK(userp(first) && interactive(first) && userp(second), "two real loopback player sessions");
+    token = WORLD->register_instance(first, "test-rooms-v1");
+    other_token = WORLD->register_instance(second, "test-rooms-v1");
+    CHECK(token != other_token, "different players get separate instances");
+    CHECK(
+        token == WORLD->register_instance(first, "test-rooms-v1"),
+        "same player reuses live instance"
+    );
+    CHECK(!WORLD->instance_owned_by("test-rooms-v1", token, second), "reject foreign owner");
+    refusing = new("/tests/refusing_player");
+    CHECK(!WORLD->enter_world(refusing, "test-rooms-v1"), "failed movement reported");
+    CHECK(!WORLD->instance_valid("test-rooms-v1", refusing->query("attempted_token")),
+        "failed first entry releases newly registered instance");
+    refusing->set("throw_on_move", 1);
+    err = catch(WORLD->enter_world(refusing, "test-rooms-v1"));
+    CHECK(stringp(err) && !WORLD->instance_valid(
+        "test-rooms-v1",
+        refusing->query("attempted_token")
+    ),
+        "throwing first entry releases newly registered instance");
+    invalid = WORLD->register_instance(refusing, "test-rooms-v1");
+    err = catch(WORLD->enter_world(refusing, "test-rooms-v1"));
+    CHECK(stringp(err) && WORLD->instance_valid("test-rooms-v1", invalid),
+        "failed reentry preserves preexisting live instance");
+    WORLD->release_instance(invalid, refusing);
+    destruct(refusing);
+    path = WORLD->room_path("test-rooms-v1", 0, 0, token);
+    decoded = WORLD->parse_room_path("test-rooms-v1~0~0~" + token);
+    CHECK(decoded["x"] == 0 && decoded["instance"] == token, "canonical path parsed");
+    foreach (invalid in ({ "test-rooms-v1~00~0~", "test-rooms-v1~-0~0~", "test-rooms-v1~a~0~",
+        "test-rooms-v1~1000000001~0~", "../bad~0~0~", "test-rooms-v1~~0~" })) {
+        err = catch(WORLD->parse_room_path(invalid + token));
+        CHECK(stringp(err), "malformed route rejected");
+    }
+    router = load_object("/d/illusion/world"); blueprint = load_object("/d/illusion/room");
+    CHECK(
+        !blueprint->query("illusion_world") && !blueprint->query("setup_count"),
+        "blueprint has no instance or drops"
+    );
+    room = load_object(path);
+    CHECK(!room->valid_illusion_entry(0), "null actor cannot enter instance");
+    other = load_object(WORLD->room_path("test-rooms-v1", 0, 0, other_token));
+    CHECK(
+        room != other && room->long() == other->long(),
+        "same public facts, separate runtime rooms"
+    );
+    CHECK(room == load_object(path), "canonical origin object reused");
+    CHECK(!room->query("valid_startroom"), "virtual room is not permanent startroom");
+    first->move(room, 1);
+    CHECK(environment(first) == room, "owner may enter instance through actual move code");
+    second->move(room, 1);
+    CHECK(environment(second) != room, "foreign player blocked by actual movement hook");
+    err = catch(first->move("/d/illusion/world/test-rooms-v1~1000000001~0~" + token, 1));
+    CHECK(
+        !err && environment(first) == room,
+        "illegal coordinate leaves player in original room"
+    );
+    CHECK(room->query("position")[2] == 0, "public GMCP z does not contain instance ID");
+    CHECK(room->query("exits")["out"] == "/d/city/wumiao2", "out goes to wumiao");
+    count = room->query("setup_count");
+    room->long(); room->long();
+    CHECK(
+        count == 1 && room->query("setup_count") == count,
+        "look does not initialize drops twice"
+    );
+    exits = room->query("exits");
+    foreach (dir, destination in exits) {
+        if (dir == "out") continue;
+        next = load_object(destination);
+        CHECK(
+            member_array(path, values(next->query("exits"))) >= 0,
+            "loaded neighbor returns to canonical origin"
+        );
+    }
+    WORLD->release_instance(token, first);
+    CHECK(!WORLD->instance_valid("test-rooms-v1", token), "leaving invalidates instance");
+    err = catch(WORLD->parse_room_path("test-rooms-v1~0~0~" + token));
+    CHECK(stringp(err), "expired path cannot be loaded");
+    destruct(second);
+    CHECK(
+        !WORLD->instance_valid("test-rooms-v1", other_token),
+        "destroyed owner invalidates instance"
+    );
+    CHECK(!WORLD->query_active_world(), "new public entrance disabled by default");
+    err = catch(WORLD->set_active_world("test-rooms-v1"));
+    CHECK(stringp(err), "test world cannot become public entrance");
+    room = "/adm/daemons/virtuald"->compile_object("/tests/numeric/1,2");
+    CHECK(
+        room->query("position")[0] == 1 && room->query("position")[1] == 2,
+        "legacy two-number route works"
+    );
+    room = "/adm/daemons/virtuald"->compile_object("/tests/numeric/1,2,3");
+    CHECK(room->query("position")[2] == 3, "legacy three-number route works");
+    CHECK(room->query("preferred") == "lpc", "extensionless template follows driver lpc priority");
+    room = "/adm/daemons/virtuald"->compile_object("/tests/legacy_numeric/-1,2,3");
+    CHECK(room->query("preferred") == "c" && room->query("position")[0] == -1,
+        "c-only legacy virtual template preserved");
+    CHECK(
+        !"/adm/daemons/virtuald"->compile_object("/tests/absent/name"),
+        "missing virtual template returns zero"
+    );
+    load_object("/u/mudren/maze");
+    CHECK(1, "old maze still compiles with shared encounter base");
+    "/adm/daemons/commandd"->rehash("/cmds/adm/");
+    "/adm/daemons/commandd"->rehash("/cmds/test/");
+    CHECK(
+        "/adm/daemons/commandd"->find_command(
+            "illusion",
+            ({ "/cmds/adm/" })
+        ) == "/cmds/adm/illusion.lpc",
+        "new admin lpc command discovered"
+    );
+    CHECK(
+        "/adm/daemons/commandd"->find_command(
+            "illusion_world",
+            ({ "/cmds/test/" })
+        ) == "/cmds/test/illusion_world.lpc",
+        "new map lpc command discovered"
+    );
+    CHECK(
+        "/adm/daemons/commandd"->find_command(
+            "iw",
+            ({ "/cmds/test/" })
+        ) == "/cmds/test/illusion_world.lpc",
+        "lpc alias discovered"
+    );
+    CHECK(
+        "/adm/daemons/commandd"->find_command(
+            "legacy",
+            ({ "/cmds/test/" })
+        ) == "/cmds/test/legacy.c",
+        "legacy command discovered"
+    );
+    CHECK(
+        "/adm/daemons/commandd"->find_command("old", ({ "/cmds/test/" })) == "/cmds/test/legacy.c",
+        "legacy alias discovered"
+    );
+    CHECK(
+        "/adm/daemons/commandd"->find_command(
+            "prefer",
+            ({ "/cmds/test/" })
+        ) == "/cmds/test/prefer.lpc",
+        "command lpc priority"
+    );
+    CHECK(
+        !"/adm/daemons/commandd"->find_command("invalid", ({ "/cmds/test/" })),
+        "missing alias target ignored"
+    );
+    load_object("/cmds/adm/illusion"); load_object("/cmds/test/illusion_world"); load_object("/cmds/std/go");
+    load_object("/tests/zixu_entrance");
+    CHECK(1, "new commands and real go compile");
+    CHECK(
+        !"/cmds/adm/illusion"->main(first, "init test-unauthorized 42"),
+        "ordinary player cannot initialize a world"
+    );
+    CHECK(
+        file_size("/data/illusion_world/worlds/test-unauthorized.json") == -1,
+        "unauthorized command has no file side effect"
+    );
+    CHECK(!"/cmds/test/illusion_world"->main(first, "test-rooms-v1 0 0"),
+        "ordinary player cannot run map diagnostic command");
+}

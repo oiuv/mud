@@ -1,0 +1,181 @@
+#define WORLD "/adm/daemons/illusion_world_d"
+#define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
+
+void run() {
+    object generator, stranger;
+    mapping manifest, changed, loaded, fields, again;
+    mixed err;
+    mixed *samples;
+    string digest, name;
+    int i, x, y;
+    int *bounds;
+
+    generator = load_object(WORLD);
+    digest = hash("sha256", "test catalog");
+    manifest = generator->make_manifest("test-foundation-v1", 42, 1, "test-v1", digest);
+    CHECK(generator->valid_digest(manifest["manifest_digest"]), "manifest SHA256");
+    stranger = load_object("/tests/stranger");
+    err = catch(stranger->initialize(manifest));
+    CHECK(stringp(err), "unprivileged caller cannot initialize world");
+    CHECK(generator->frame_fields(({ "中", "a" })) == "3:中1:a", "framing uses UTF-8 bytes");
+    err = catch(generator->read_world("test-missing"));
+    CHECK(stringp(err), "missing manifest does not create a random world");
+    CHECK(
+        file_size("/data/illusion_world/worlds/test-missing.json") == -1,
+        "missing read has no writes"
+    );
+    loaded = generator->initialize_world(manifest);
+    CHECK(
+        loaded["manifest_digest"] == manifest["manifest_digest"],
+        "initialize explicit test world"
+    );
+    loaded = generator->initialize_world(manifest);
+    CHECK(
+        loaded["manifest_digest"] == manifest["manifest_digest"],
+        "same manifest initialization idempotent"
+    );
+    loaded["parameters"]["chunk_size"] = 32;
+    CHECK(
+        generator->read_world("test-foundation-v1")["parameters"]["chunk_size"] == 16,
+        "caller cannot mutate frozen world"
+    );
+    changed = generator->make_manifest("test-foundation-v1", 43, 1, "test-v1", digest);
+    err = catch(generator->initialize_world(changed));
+    CHECK(stringp(err), "same ID different seed rejected");
+    changed = generator->make_manifest("test-foundation-v1", 42, 1, "test-v2", digest);
+    err = catch(generator->initialize_world(changed));
+    CHECK(stringp(err), "same ID different catalog version rejected");
+    changed = generator->make_manifest(
+        "test-foundation-v1",
+        42,
+        1,
+        "test-v1",
+        hash("sha256", "changed catalog")
+    );
+    err = catch(generator->initialize_world(changed));
+    CHECK(stringp(err), "same ID different catalog digest rejected");
+    changed = generator->read_world("test-foundation-v1");
+    changed["seed"] = 43;
+    err = catch(generator->validate_manifest(changed));
+    CHECK(stringp(err), "tampered manifest digest rejected");
+    changed = generator->read_world("test-foundation-v1");
+    changed["parameters"]["chunk_size"] = 16.0;
+    err = catch(generator->validate_manifest(changed));
+    CHECK(stringp(err), "reject float fact parameter");
+    changed = generator->read_world("test-foundation-v1");
+    changed["generator_version"] = 1.0;
+    err = catch(generator->validate_manifest(changed));
+    CHECK(stringp(err), "reject float version");
+    changed = generator->read_world("test-foundation-v1");
+    changed["unexpected"] = 1;
+    err = catch(generator->validate_manifest(changed));
+    CHECK(stringp(err), "reject unrecognized manifest field");
+    changed = generator->read_world("test-foundation-v1");
+    map_delete(changed, "seed");
+    err = catch(generator->validate_manifest(changed));
+    CHECK(stringp(err), "reject missing manifest field");
+    write_file("/data/illusion_world/worlds/test-corrupt.json", "{", 1);
+    err = catch(generator->read_world("test-corrupt"));
+    CHECK(stringp(err), "reject corrupt saved manifest");
+    write_file("/data/illusion_world/worlds/test-wrong-id.json", json_encode(manifest), 1);
+    err = catch(generator->read_world("test-wrong-id"));
+    CHECK(stringp(err), "reject ID different from filename");
+    write_file("/data/illusion_world/worlds/test-pending.json.pending", "interrupted", 1);
+    changed = generator->make_manifest("test-pending", 42, 1, "test-v1", digest);
+    err = catch(generator->initialize_world(changed));
+    CHECK(stringp(err), "pending publication requires explicit recovery");
+    CHECK(
+        read_file("/data/illusion_world/worlds/test-pending.json.pending") == "interrupted",
+        "pending file not overwritten"
+    );
+    err = catch(generator->make_manifest("huanjing-v1", 42, 1, "test-v1", digest));
+    CHECK(stringp(err), "test world cannot use production ID");
+    err = catch(generator->make_manifest("test-prod", 42, 0, "test-v1", digest));
+    CHECK(stringp(err), "production cannot use test ID");
+    foreach (name in ({ "../escape", "test/a", "A", "a~1", "a\\b", "" }))
+        CHECK(!generator->valid_world_id(name), "reject unsafe ID " + name);
+    destruct(generator);
+    generator = load_object(WORLD);
+    CHECK(
+        generator->read_world("test-foundation-v1")["seed"] == 42,
+        "daemon reload preserves frozen world"
+    );
+    CHECK(
+        generator->floor_div(-1, 16) == -1 && generator->local_coordinate(-1, 16) == 15,
+        "negative chunk floor/remainder"
+    );
+    CHECK(
+        generator->floor_div(-16, 16) == -1 && generator->local_coordinate(-16, 16) == 0,
+        "negative aligned boundary"
+    );
+    CHECK(
+        generator->floor_div(-17, 16) == -2 && generator->local_coordinate(-17, 16) == 15,
+        "negative next chunk"
+    );
+    CHECK(
+        generator->floor_div(0, 16) == 0 && generator->floor_div(16, 16) == 1,
+        "zero and positive boundary"
+    );
+    CHECK(generator->local_coordinate(
+        9223372036854775806,
+        9223372036854775807
+    ) == 9223372036854775806,
+        "remainder avoids addition overflow");
+    CHECK(generator->coordinate_hash(0, 0, 0, 0) == 4243941292, "hash golden zero");
+    CHECK(generator->coordinate_hash(42, -1, 16, 11) == 838324289, "hash golden negative");
+    CHECK(generator->coordinate_hash(2147483647, 1000000000, -1000000000, 65535) == 729200363,
+        "hash golden coordinate and seed extremes");
+    CHECK(
+        generator->coordinate_hash(73, -999999999, -16, 21) == 2088615494,
+        "hash golden negative boundary"
+    );
+    err = catch(generator->floor_div(1, 0));
+    CHECK(stringp(err), "zero divisor rejected");
+    err = catch(generator->value_noise(42, 0, 0, 513, 1));
+    CHECK(stringp(err), "unbounded noise scale rejected");
+    samples = ({});
+    for (i = 0; i < 25; i++) {
+        x = i * 17 - 200;
+        y = 100 - i * 31;
+        samples += ({ generator->sample_fields(42, x, y) });
+    }
+    for (i = 24; i >= 0; i--) {
+        random(1000000);
+        again = generator->sample_fields(42, i * 17 - 200, 100 - i * 31);
+        foreach (name in keys(again)) CHECK(
+            again[name] == samples[i][name],
+            "sampling order/random invariant " + name
+        );
+    }
+    foreach (x in ({ -1000000000, -1, 0, 1, 1000000000 })) {
+        foreach (y in ({ -1000000000, 0, 1000000000 })) {
+            fields = generator->sample_fields(2147483647, x, y);
+            foreach (name in keys(fields)) CHECK(
+                fields[name] >= 0 && fields[name] <= 65535,
+                "bounded edge field " + name
+            );
+            bounds = generator->chunk_bounds(
+                generator->floor_div(x, 16),
+                generator->floor_div(y, 16)
+            );
+            CHECK(
+                bounds[0] <= x && x <= bounds[2] && bounds[1] <= y && y <= bounds[3],
+                "clipped chunk contains coordinate"
+            );
+            CHECK(
+                generator->valid_coordinate(
+                    bounds[0],
+                    bounds[1]
+                ) && generator->valid_coordinate(bounds[2], bounds[3]),
+                "clipped corners valid"
+            );
+        }
+    }
+    err = catch(generator->sample_fields(42, 1000000001, 0));
+    CHECK(stringp(err), "out of range sample rejected");
+    err = catch(generator->chunk_bounds(62500001, 0));
+    CHECK(stringp(err), "out of range chunk rejected");
+    fields = generator->sample_fields(42, -1, 0);
+    again = generator->sample_fields(42, 0, 0);
+    CHECK(abs(fields["elevation"] - again["elevation"]) < 500, "elevation continuous across zero");
+}

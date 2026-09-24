@@ -1,0 +1,110 @@
+string cell_key(int x, int y) { return sprintf("%d,%d", x, y); }
+
+string edge_key(int x, int y, int nx, int ny) {
+    if (x > nx || (x == nx && y > ny)) return sprintf("%d,%d:%d,%d", nx, ny, x, y);
+    return sprintf("%d,%d:%d,%d", x, y, nx, ny);
+}
+
+mapping validate_catalog(mapping catalog) {
+    mapping ids, scene_ids, cells, counts, links, seen;
+    mapping biome, scene;
+    mixed row;
+    mixed *queue;
+    string id, key;
+    int i, head, x, y, nx, ny;
+    int *bounds;
+
+    if (!mapp(catalog) || !stringp(catalog["version"]) || !mapp(catalog["roles"]) ||
+        !arrayp(catalog["biomes"]) || !sizeof(catalog["biomes"]) || sizeof(catalog["biomes"]) > 8 ||
+        !arrayp(catalog["scenes"]) || !sizeof(catalog["scenes"]) || sizeof(catalog["scenes"]) > 8)
+        error("illusion: invalid catalog fields.\n");
+    foreach (id in ({ "themes", "name_prefixes" })) {
+        if (!arrayp(catalog[id]) || !sizeof(catalog[id]) || sizeof(catalog[id]) > 16)
+            error("illusion: invalid word table " + id + ".\n");
+        foreach (row in catalog[id])
+            if (!stringp(row) || !sizeof(row) || sizeof(row) > 40) error("illusion: invalid catalog word.\n");
+    }
+    ids = ([]);
+    foreach (biome in catalog["biomes"]) {
+        if (!mapp(biome) || !stringp(biome["id"]) || !stringp(biome["name"]) ||
+            !stringp(biome["description"]) || !stringp(biome["transition"]) ||
+            !arrayp(biome["patches"]) || !sizeof(biome["patches"]) || sizeof(biome["patches"]) > 16 ||
+            !arrayp(biome["target"]) || sizeof(biome["target"]) != 3)
+            error("illusion: invalid biome fields.\n");
+        if (ids[biome["id"]]) error("illusion: duplicate biome ID.\n");
+        ids[biome["id"]] = 1;
+        foreach (row in biome["target"])
+            if (!intp(row) || row < 0 || row > 65535) error("illusion: invalid biome target.\n");
+        foreach (row in biome["patches"])
+            if (!stringp(row) || !sizeof(row) || sizeof(row) > 40) error("illusion: invalid biome patch.\n");
+    }
+    scene_ids = ([]);
+    foreach (scene in catalog["scenes"]) {
+        if (!mapp(scene) || !stringp(scene["id"]) || !stringp(scene["name"]) ||
+            !stringp(scene["description"]) || !stringp(scene["landmark"]) ||
+            !stringp(scene["material"]) || !stringp(scene["condition"]) ||
+            !stringp(scene["landmark_role"]) || !arrayp(scene["biomes"]) ||
+            !sizeof(scene["biomes"]) || !intp(scene["max_slope"]) || scene["max_slope"] < 0 ||
+            !arrayp(scene["rooms"]) || sizeof(scene["rooms"]) < 9 || sizeof(scene["rooms"]) > 40 ||
+            !arrayp(scene["links"]) || sizeof(scene["links"]) > 80 ||
+            !arrayp(scene["entrances"]) || !sizeof(scene["entrances"]) || sizeof(scene["entrances"]) > 40)
+            error("illusion: invalid scene fields.\n");
+        if (scene_ids[scene["id"]]) error("illusion: duplicate scene ID.\n");
+        scene_ids[scene["id"]] = 1;
+        foreach (id in scene["biomes"])
+            if (!ids[id]) error("illusion: unknown scene biome.\n");
+        cells = ([]);
+        counts = ([]);
+        bounds = ({ 13, 13, -13, -13 });
+        foreach (row in scene["rooms"]) {
+            if (!arrayp(row) || sizeof(row) != 3 || !intp(row[0]) || !intp(row[1]) ||
+                abs(row[0]) > 12 || abs(row[1]) > 12 || !stringp(row[2]) ||
+                !stringp(catalog["roles"][row[2]])) error("illusion: invalid room coordinate or role.\n");
+            key = cell_key(row[0], row[1]);
+            if (cells[key]) error("illusion: duplicate scene room.\n");
+            cells[key] = row;
+            counts[row[2]]++;
+            if (row[0] < bounds[0]) bounds[0] = row[0];
+            if (row[1] < bounds[1]) bounds[1] = row[1];
+            if (row[0] > bounds[2]) bounds[2] = row[0];
+            if (row[1] > bounds[3]) bounds[3] = row[1];
+        }
+        if (counts[scene["landmark_role"]] != 1) error("illusion: landmark must have one room.\n");
+        links = ([]);
+        foreach (row in scene["links"] + scene["entrances"]) {
+            if (!arrayp(row) || sizeof(row) != 4) error("illusion: invalid template edge.\n");
+            for (i = 0; i < 4; i++)
+                if (!intp(row[i]) || abs(row[i]) > 13) error("illusion: invalid template edge coordinate.\n");
+            x = row[0]; y = row[1]; nx = row[2]; ny = row[3];
+            if (abs(nx - x) + abs(ny - y) != 1 || !cells[cell_key(x, y)])
+                error("illusion: template edge must start at a room and join neighbours.\n");
+            key = edge_key(x, y, nx, ny);
+            if (links[key]) error("illusion: duplicate template edge.\n");
+            links[key] = 1;
+        }
+        foreach (row in scene["links"])
+            if (!cells[cell_key(
+                row[2],
+                row[3]
+            ) ]) error("illusion: internal edge ends outside scene.\n");
+        foreach (row in scene["entrances"])
+            if (row[2] >= bounds[0] && row[2] <= bounds[2] &&
+                row[3] >= bounds[1] && row[3] <= bounds[3])
+                error("illusion: entrance must end outside reserved footprint.\n");
+        queue = ({ scene["rooms"][0] });
+        key = cell_key(queue[0][0], queue[0][1]);
+        seen = ([ key: 1 ]);
+        head = 0;
+        while (head < sizeof(queue)) {
+            row = queue[head++];
+            foreach (id in keys(cells)) {
+                if (!seen[id] && links[edge_key(row[0], row[1], cells[id][0], cells[id][1])]) {
+                    seen[id] = 1;
+                    queue += ({ cells[id] });
+                }
+            }
+        }
+        if (sizeof(seen) != sizeof(cells)) error("illusion: disconnected template.\n");
+    }
+    return copy(catalog);
+}

@@ -57,7 +57,7 @@ varargs int move(mixed dest, int raw) {
     object ob, env;
     object me;
     int is_char;
-    mixed old_target;
+    mixed old_target, load_error;
     mixed *guards;
 
     me = this_object();
@@ -71,12 +71,25 @@ varargs int move(mixed dest, int raw) {
     if (objectp(dest))
         ob = dest;
     else if (stringp(dest)) {
-        call_other(dest, "???");
+        if (strsrch(dest, "/d/illusion/world/") == 0) {
+            load_error = catch(call_other(dest, "???"));
+            if (load_error) {
+                log_file(
+                    "illusion_world",
+                    sprintf("Unable to move into %s: %O\n", dest, load_error)
+                );
+                return notify_fail("前方雾气骤然聚拢，一时辨不清去路。\n");
+            }
+        } else call_other(dest, "???");
         ob = find_object(dest);
         if (!ob)
             return notify_fail("move: destination unavailable.\n");
     } else
         return notify_fail(sprintf("move: invalid destination %O.\n", dest));
+
+    // Reject foreign/expired illusion instances before look, movement or init.
+    if (ob->query("illusion_world") && !ob->valid_illusion_entry(me))
+        return notify_fail("眼前雾气翻涌，似有一股力量将你挡在幻境之外。\n");
 
     // Check if the destination ob can hold this object.
     // Beforce checking it, we check if the destination is environment of
@@ -177,6 +190,9 @@ varargs int move(mixed dest, int raw) {
     // 可能在移动进目标环境后被destruct，所以需要判断me
     if (!me)
         return -1;
+    if (env && objectp(environment(me)) && env->query("illusion_world") &&
+        env->query("illusion_instance") != environment(me)->query("illusion_instance"))
+        "/adm/daemons/illusion_world_d"->release_instance(env->query("illusion_instance"), me);
     // 如果移入的不是區域或虚空，則刪除area_info
     if (!ob->is_area() && me->query("area_info") && !ob->query("void"))
         me->delete("area_info");

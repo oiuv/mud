@@ -1,0 +1,69 @@
+int checks, failures;
+int connection_waits;
+object *players = ({});
+
+string get_root_uid() { return "Root"; }
+string get_bb_uid() { return "Root"; }
+mixed creator_file(string file) { return "Root"; }
+int valid_read(string file, mixed user, string func) { return 1; }
+int valid_write(string file, mixed user, string func) { return 1; }
+int valid_seteuid(object ob, string uid) { return 1; }
+void log_error(string file, string text) { debug_message(text); }
+mixed compile_object(string file) { return "/adm/daemons/virtuald"->compile_object(file); }
+object connect() { return new("/tests/mover"); }
+void register_connection(object player) { players += ({ player }); }
+object *query_players() { return players; }
+
+void check(int ok, string label) {
+    checks++;
+    if (!ok) {
+        failures++;
+        debug_message("FAIL: " + label);
+    }
+}
+
+void error_handler(mapping details, int caught) {
+    if (!caught) { check(0, details["error"]); call_out("finish", 0); }
+}
+
+void run() {
+    mixed err;
+
+    err = catch(load_object("/tests/foundation")->run());
+    if (err) check(0, err);
+    call_out("run_topology", 0);
+}
+
+void run_topology() {
+    mixed err;
+
+    err = catch(load_object("/tests/topology")->run());
+    if (err) check(0, err);
+    call_out("run_rooms", 0);
+}
+
+void finish() {
+    debug_message(sprintf("ILLUSION CHECKS: %d FAILURES: %d", checks, failures));
+    debug_message(failures ? "ILLUSION FAIL" : "ILLUSION PASS");
+    shutdown(failures ? 1 : 0);
+}
+
+void run_rooms() {
+    mixed err;
+
+    if (sizeof(players) < 2) {
+        if (++connection_waits > 10) { check(0, "player connection timeout"); finish(); return; }
+        call_out("run_rooms", 1);
+        return;
+    }
+    err = catch(load_object("/tests/rooms")->run());
+    if (err) check(0, err);
+    err = catch(load_object("/tests/map_scan")->start());
+    if (err) { check(0, err); finish(); }
+}
+
+string *epilog(int flag) {
+    debug_message("ILLUSION READY");
+    call_out("run", 0);
+    return ({});
+}

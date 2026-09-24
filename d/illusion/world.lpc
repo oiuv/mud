@@ -1,0 +1,18 @@
+#define WORLD_D "/adm/daemons/illusion_world_d"
+
+object query_maze_room(string suffix) {
+    mapping identity;
+    object actor;
+
+    identity = WORLD_D->parse_room_path(suffix);
+    actor = this_player();
+    if (objectp(actor) && userp(actor) && !WORLD_D->instance_owned_by(
+        identity["world"],
+        identity["instance"],
+        actor
+    ))
+        error("illusion: this instance belongs to another player.\n");
+    if (!WORLD_D->query_room_facts(identity["world"], identity["x"], identity["y"]))
+        error("illusion: room is not enterable.\n");
+    return new("/d/illusion/room", identity);
+}

@@ -1,0 +1,5 @@
+inherit "/tests/room_stub";
+varargs void create(int x, int y, int z) {
+    setArea("test", x, y, z);
+    set("preferred", "lpc");
+}

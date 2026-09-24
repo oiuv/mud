@@ -1,0 +1,37 @@
+inherit F_CLEAN_UP;
+inherit "/inherit/illusion/inspection";
+#define WORLD_D "/adm/daemons/illusion_world_d"
+
+int main(object me, string arg) {
+    string *parts;
+    int cx, cy;
+    mapping report, result;
+    mixed err;
+
+    if (!SECURITY_D->valid_grant(me, "(admin)")) return 0;
+    parts = stringp(arg) ? explode(arg, " ") - ({ "" }) : ({});
+    if (sizeof(parts) < 3 || sizeof(parts) > 4 ||
+        (sizeof(parts) == 4 && parts[3] != "json"))
+        return notify_fail("用法：illusion_world 世界ID 区块X 区块Y [json]\n");
+    cx = to_int(parts[1]); cy = to_int(parts[2]);
+    if (sprintf("%d", cx) != parts[1] || sprintf("%d", cy) != parts[2])
+        return notify_fail("区块坐标必须是规范十进制整数。\n");
+    err = catch(report = inspect_world_chunk(parts[0], cx, cy));
+    if (err) return notify_fail("地图生成失败：" + err);
+    if (sizeof(parts) == 4) { write(json_encode(report) + "\n"); return 1; }
+    result = report["connectivity"];
+    write(report["ascii"]);
+    printf("世界 %s，种子 %d，区块 %d,%d：%d 可进入格，%d 定向边。\n",
+        parts[0], report["seed"], cx, cy, result["rooms"], result["directed_edges"]);
+    printf(
+        "生态格数：%O\n场景格数：%O\n边界口：%O\n",
+        report["biomes"],
+        report["scene_room_counts"],
+        report["ports"]
+    );
+    printf("枢纽可达 %d/%d；反向边 %d/%d；检查%s。\n", result["reached"], result["rooms"],
+        result["paired_edges"], result["directed_edges"], result["ok"] ? "通过" : "失败");
+    if (!result["ok"]) printf("错误：%O\n", result["errors"]);
+    write("@ 起点；O 离境；S 场景；+ 保留道路；. 荒野；# 不可进入。未创建房间或 AI 任务。\n");
+    return 1;
+}

@@ -39,6 +39,10 @@
 - **WHEN** 一个场景跨越两个计算区块，玩家分别从两边进入
 - **THEN** 系统生成同一结构，其房间、连接和事实没有重复、断裂或相互覆盖
 
+#### Scenario: A structure fragment has no legal road entrance
+- **WHEN** 候选场景在某个区块内的结构连通片段没有可接入本区道路的合法门径
+- **THEN** 整个候选被拒绝，不通过裁掉片段、临时开门或修路穿墙使其入选
+
 ### Requirement: Bidirectional connected movement
 普通空间出口 SHALL 对称，所有可供玩家进入的房间和场景 SHALL 接入世界道路网络；系统 MUST 不生成没有离境或回程路径的孤立可进入区域。传送门是显式单向跨区域出口，不属于普通双向道路。
 

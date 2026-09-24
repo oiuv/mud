@@ -4,7 +4,7 @@
 
 现有心魔幻境已有无限坐标房间和完整的心魔任务，但房间外观单一、出口随对象重建随机变化，缺少可辨认、可重访的大世界。采用固定种子的程序化地形，加上后台生成并永久保存的 AI 描写，可以利用文本 MUD 的优势，同时避开 LLM 延迟对移动和战斗的影响。
 
-前置变更：[refactor-ai-service](../refactor-ai-service/proposal.md)。先完成统一 AI 服务与 NPC 回归验收，再实施本变更；本规划中的 `ai/` 指前置重构后的服务目录。
+前置变更：[refactor-ai-service](../archive/2026-09-24-refactor-ai-service/proposal.md) 已完成并归档；验收范围见其 [validation.md](../archive/2026-09-24-refactor-ai-service/validation.md)。本变更基于统一 AI 服务实施，`ai/` 指重构后的服务目录。
 
 ## What Changes
 
@@ -38,4 +38,4 @@
 - 新增世界清单、AI 场景数据库和可被游戏离线读取的 JSON 存档；运行数据排除出 Git。首期按当前同机部署设计，由服务写入共享目录、游戏只读。
 - 更新 `help/huanjing`、服务配置示例和运维说明；不修改 FluffOS 官方源码，不向独立框架 `mudcore` 引入游戏或外部 AI 服务依赖，不要求 Web 客户端新增功能。
 
-详细技术选择、参数、风险与分期见 [design.md](design.md)；需求验收见 `specs/`，实施顺序见 [tasks.md](tasks.md)。本变更当前仅创建规划文档。
+详细技术选择、参数、风险与分期见 [design.md](design.md)；需求验收见 `specs/`，实施进度见 [tasks.md](tasks.md)，已运行检查与剩余验收见 [validation.md](validation.md)。当前正在实施 M1，尚未完成全部功能或正式开放。

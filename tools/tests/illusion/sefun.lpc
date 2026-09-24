@@ -1,0 +1,16 @@
+#include "json.c"
+
+int is_root(object ob) {
+    return objectp(ob) && member_array(
+        file_name(ob),
+        ({ "/tests/foundation", "/tests/rooms", "/tests/map_scan" })
+    ) >= 0;
+}
+
+void log_file(string file, string text) {}
+varargs void message_vision(string text, object actor, object target) {}
+mixed element_of(mixed *items) { return items[0]; }
+int area_move(object area, object player, int x, int y) { return 1; }
+varargs void tell_area(object area, int x, int y, string text, mixed exclude) {}
+int area_environment(object first, object second) { return 1; }
+int getoid(object ob) { return 123; }

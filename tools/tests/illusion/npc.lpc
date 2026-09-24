@@ -1,0 +1,1 @@
+void set_from_me(object npc, object player, int strength) { npc->set("strength", strength); }

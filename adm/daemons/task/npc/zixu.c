@@ -87,7 +87,23 @@ LONG);
 int ask_maze() {
 
     object me, maze;
+    string world;
+    mixed err;
+    int moved;
     me = this_player();
+
+    world = "/adm/daemons/illusion_world_d"->query_active_world();
+
+    if (world) {
+        err = catch(moved = "/adm/daemons/illusion_world_d"->enter_world(me, world));
+        if (err || !moved) {
+            log_file("illusion_world", sprintf("Entrance %s failed: %O\n", world, err));
+            tell_object(me, "子虚道人微微皱眉，说道：“此刻幻境迷雾未散，且稍候再试。”\n");
+            return 1;
+        }
+        tell_object(me, HIG "子虚道人轻诵法诀，你只觉眼前白雾涌起，转瞬已置身幻境。\n" NOR);
+        return 1;
+    }
 
     message_vision(HIG "$N盯着$n看了看，说道：“修武之人，也需修心，若不谨慎，魔由心生！\n"
         "贫道送你入心魔幻境，斩杀心魔，历练自我吧。”\n" NOR

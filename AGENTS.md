@@ -6,6 +6,8 @@ This is a UTF-8 Chinese MUD written primarily in LPC and run by FluffOS. Adminis
 
 ## Build, Test, and Development Commands
 
+当前 MUDLIB 最低支持 **FluffOS v2026.0712.3**，开发与测试以该版本及更新版本为目标，不为更早的驱动添加兼容分支。使用晚于最低版本才引入的功能时，须核对实际支持版本并明确提升最低要求，不能把“现代 FluffOS”当作所有新特性均可用的保证。
+
 - `git submodule update --init` initializes the required `mudcore` framework.
 - `./build.sh` installs Linux prerequisites and builds the FluffOS driver; `./build_msys2.sh` is the Windows/MSYS2 equivalent.
 - `./run.sh` starts the Linux build with `config.ini`; `run.bat` starts the Windows driver.
@@ -21,6 +23,13 @@ Use AI_CLIENT_D for all game-side AI requests; keep NPC validation and display i
 Honor `.editorconfig`: UTF-8, LF endings, four-space indentation, trimmed trailing whitespace, and a final newline. Never use tabs in LPC. Declare variables at the start of a function, before executable statements. Use `snake_case` for all new LPC functions, including sefuns, lfuns, callbacks, and framework hooks; do not encode function origin through casing. Preserve driver-mandated names and documented legacy aliases. Constants use `UPPER_SNAKE_CASE`; descriptive camelCase local variables remain allowed. Do not rename stored fields or protocol keys for style. Follow the surrounding directory’s lowercase LPC filename and object-ID patterns. For mudcore API migration and compatibility, see `mudcore/docs/function-naming.md`.
 
 Function names must describe actual behavior, not mechanically split capital letters: treat `todo` as one concept, distinguish collections/counts/descriptions, and use action verbs for mutations. A naming-only change must preserve parameters, return values, boolean polarity, and stored data.
+
+### 玩家可见文本
+
+- 所有玩家可能看到的名称、描述和提示都必须符合武侠游戏语境，包括房间、物品、NPC 对话、命令反馈、帮助文本、系统消息、异常提示、默认值、占位内容和降级文案。
+- 不向玩家展示“模板”“绑定实例”“后台队列”“API”“数据库”等实现术语；用玩家能理解的游戏内现象和操作表达。例如，未初始化的幻境显示“未知心魔幻境”和雾霭描写，而不是“心魔幻境模板”或“尚未绑定玩家实例”。
+- 技术术语及实现细节仅放在代码注释、受限日志和管理员工具中。不要将异常原文、内部路径、协议状态或服务响应直接拼入玩家消息；按游戏语境提供可执行的提示，诊断信息另行记录。
+- 修改涉及显示的代码时，审查正常、未初始化、失败、超时及服务不可用路径，确保兜底内容同样遵守本规范。管理员专用诊断仍可使用准确的技术术语。
 
 ### LPC 文件命名
 

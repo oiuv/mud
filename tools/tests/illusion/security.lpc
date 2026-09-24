@@ -1,0 +1,1 @@
+int valid_grant(object actor, string grant) { return actor->query("admin") == 1; }

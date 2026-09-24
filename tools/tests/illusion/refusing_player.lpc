@@ -1,0 +1,7 @@
+inherit "/tests/room_stub";
+
+varargs int move(mixed destination, int raw) {
+    set("attempted_token", destination->query("illusion_instance"));
+    if (query("throw_on_move")) error("deliberate movement failure\n");
+    return 0;
+}

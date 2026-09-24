@@ -1,0 +1,3 @@
+mapping initialize(mapping manifest) {
+    return "/adm/daemons/illusion_world_d"->initialize_world(manifest);
+}

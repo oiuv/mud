@@ -1,0 +1,78 @@
+// Read-only diagnostics: one chunk and its four neighbours, no ROOM creation or AI.
+#define WORLD_D "/adm/daemons/illusion_world_d"
+
+mapping inspect_world_chunk(string id, int cx, int cy) {
+    mapping world, chunk, cell, other, biomes, scenes, seen, neighbours, reverse_dirs;
+    mixed *queue, *external;
+    string key, next, dir, neighbour_key, line, marker;
+    string *lines, *errors;
+    int *box, *xy;
+    int x, y, nx, ny, head, directed_edges, checked_edges;
+
+    world = WORLD_D->read_world(id);
+    box = WORLD_D->chunk_bounds(cx, cy);
+    chunk = WORLD_D->query_chunk(id, cx, cy);
+    biomes = ([]); scenes = ([]); neighbours = ([]);
+    lines = ({}); errors = ({}); external = ({});
+    reverse_dirs = ([ "north": "south", "south": "north", "east": "west", "west": "east" ]);
+    for (y = box[3]; y >= box[1]; y--) {
+        line = "";
+        for (x = box[0]; x <= box[2]; x++) {
+            key = WORLD_D->cell_key(x, y); cell = chunk["cells"][key]; marker = "#";
+            if (mapp(cell)) {
+                biomes[cell["biome"]]++;
+                if (sizeof(cell["scene_id"])) scenes[cell["scene_id"]]++;
+                marker = sizeof(cell["scene_id"]) ? "S" : cell["road"] ? "+" : ".";
+                if (cell["out"]) marker = "O";
+                if (!x && !y) marker = "@";
+            }
+            line += marker;
+        }
+        lines += ({ line });
+    }
+    key = WORLD_D->cell_key(chunk["hub"][0], chunk["hub"][1]);
+    seen = ([]); queue = ({}); head = 0;
+    if (mapp(chunk["cells"][key])) { seen[key] = 1; queue = ({ key }); }
+    while (head < sizeof(queue)) {
+        cell = chunk["cells"][queue[head++]];
+        foreach (dir, xy in cell["exits"]) {
+            next = WORLD_D->cell_key(xy[0], xy[1]);
+            if (mapp(chunk["cells"][next]) && !seen[next]) {
+                seen[next] = 1; queue += ({ next });
+            }
+        }
+    }
+    if (sizeof(seen) != sizeof(chunk["cells"])) errors += ({ "disconnected local rooms" });
+    foreach (key, cell in chunk["cells"]) {
+        foreach (dir, xy in cell["exits"]) {
+            directed_edges++;
+            if (!WORLD_D->valid_coordinate(xy[0], xy[1])) {
+                errors += ({ "out-of-range exit at " + key });
+                continue;
+            }
+            nx = WORLD_D->floor_div(xy[0], 16); ny = WORLD_D->floor_div(xy[1], 16);
+            if (nx == cx && ny == cy) other = chunk; else {
+                neighbour_key = WORLD_D->cell_key(nx, ny);
+                other = neighbours[neighbour_key];
+                if (!other) {
+                    other = WORLD_D->query_chunk(id, nx, ny);
+                    neighbours[neighbour_key] = other;
+                }
+                external += ({ ({ cell["x"], cell["y"], xy[0], xy[1] }) });
+            }
+            other = other["cells"][WORLD_D->cell_key(xy[0], xy[1])];
+            if (!mapp(other) || !arrayp(other["exits"][reverse_dirs[dir]]) ||
+                other["exits"][reverse_dirs[dir]][0] != cell["x"] ||
+                other["exits"][reverse_dirs[dir]][1] != cell["y"])
+                errors += ({ "unpaired exit at " + key + " " + dir });
+            else checked_edges++;
+        }
+    }
+    return ([ "world_id": id, "seed": world["seed"], "manifest_digest": world["manifest_digest"],
+        "catalog_digest": world["catalog_digest"], "cx": cx, "cy": cy, "bounds": box,
+        "ascii": implode(lines, "\n") + "\n", "biomes": biomes, "scene_room_counts": scenes,
+        "ports": chunk["ports"], "cross_edges": external, "cells": chunk["cells"],
+        "scenes": chunk["scenes"], "connectivity": ([ "rooms": sizeof(chunk["cells"]),
+            "reached": sizeof(seen), "directed_edges": directed_edges, "paired_edges": checked_edges,
+            "ok": !sizeof(errors), "errors": errors ]) ]);
+}

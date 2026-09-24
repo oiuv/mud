@@ -1,0 +1,218 @@
+// Only explicit administrator operations create persistent worlds.
+inherit "/inherit/illusion/identity";
+inherit "/inherit/illusion/topology";
+
+#define WORLD_ROOT "/data/illusion_world"
+
+private mapping chunk_cache = ([]);
+private string *chunk_order = ({});
+private mapping catalog_data;
+private string catalog_sha;
+private mapping instances = ([]);
+private int instance_serial;
+private string active_world;
+
+mapping read_catalog() {
+    string text;
+
+    if (!catalog_data) {
+        if (file_size("/d/illusion/catalog.json") < 1 || file_size("/d/illusion/catalog.json") > 65536)
+            error("illusion: missing or oversized catalog.\n");
+        text = read_file("/d/illusion/catalog.json");
+        catalog_data = validate_catalog(json_decode(text));
+        catalog_sha = hash("sha256", text);
+    }
+    return copy(catalog_data);
+}
+
+mapping catalog_manifest(string id, int seed, int test_world) {
+    read_catalog();
+    if (!test_world && strsrch(catalog_data["version"], "test-") == 0)
+        error("illusion: test catalog cannot initialize a production world.\n");
+    return make_manifest(id, seed, test_world, catalog_data["version"], catalog_sha);
+}
+
+void create() {
+    seteuid(getuid());
+}
+
+private string manifest_path(string id) {
+    if (!valid_world_id(id)) error("illusion: invalid world ID.\n");
+    return WORLD_ROOT + "/worlds/" + id + ".json";
+}
+
+mapping read_world(string id) {
+    mapping world;
+    string path;
+    int size;
+
+    path = manifest_path(id);
+    size = file_size(path);
+    if (size < 1 || size > 8192) error("illusion: missing or oversized world manifest.\n");
+    world = validate_manifest(json_decode(read_file(path)));
+    if (world["world_id"] != id) error("illusion: world ID does not match filename.\n");
+    return world;
+}
+
+mapping initialize_world(mapping requested) {
+    mapping world, existing;
+    string path, temporary;
+
+    if (!objectp(previous_object()) || !is_root(previous_object()))
+        error("illusion: administrator authority required.\n");
+    world = validate_manifest(requested);
+    path = manifest_path(world["world_id"]);
+    if (file_size(path) != -1) {
+        existing = read_world(world["world_id"]);
+        if (existing["manifest_digest"] != world["manifest_digest"])
+            error("illusion: world ID already frozen with different facts.\n");
+        return existing;
+    }
+    if (file_size(WORLD_ROOT) != -2 && !mkdir(WORLD_ROOT)) error("illusion: cannot create world root.\n");
+    if (file_size(WORLD_ROOT + "/worlds") != -2 && !mkdir(WORLD_ROOT + "/worlds"))
+        error("illusion: cannot create manifest directory.\n");
+    temporary = path + ".pending";
+    // A failed earlier publication is deliberately left for explicit operator recovery.
+    if (file_size(temporary) != -1) error("illusion: pending manifest requires inspection.\n");
+    if (!write_file(
+        temporary,
+        json_encode(world) + "\n",
+        1
+    )) error("illusion: cannot write manifest.\n");
+    if (rename(temporary, path) != 0) error("illusion: cannot publish manifest.\n");
+    return copy(world);
+}
+
+mapping query_chunk(string id, int cx, int cy) {
+    mapping world, chunk;
+    string key;
+
+    world = read_world(id);
+    read_catalog();
+    if (world["catalog_version"] != catalog_data["version"] || world["catalog_digest"] != catalog_sha)
+        error("illusion: catalog no longer matches frozen world.\n");
+    key = world["manifest_digest"] + ":" + cell_key(cx, cy);
+    chunk = chunk_cache[key];
+    if (!chunk) {
+        chunk = build_chunk(world["seed"], cx, cy, catalog_data);
+        if (sizeof(chunk_order) == 64) {
+            map_delete(chunk_cache, chunk_order[0]); chunk_order = chunk_order[1..];
+        }
+        chunk_cache[key] = chunk;
+    }
+    chunk_order -= ({ key }); chunk_order += ({ key });
+    return copy(chunk);
+}
+
+mapping query_room_facts(string id, int x, int y) {
+    mapping chunk;
+
+    if (!valid_coordinate(x, y)) error("illusion: coordinate outside world.\n");
+    chunk = query_chunk(id, floor_div(x, 16), floor_div(y, 16));
+    return chunk["cells"][cell_key(x, y)];
+}
+
+int query_cached_chunks() { return sizeof(chunk_cache); }
+
+private void prune_instances() {
+    string token;
+
+    foreach (token in keys(instances))
+        if (!objectp(instances[token]["owner"])) map_delete(instances, token);
+}
+
+string register_instance(object owner, string id) {
+    string token;
+
+    if (!objectp(previous_object()) || !is_root(previous_object()) || !objectp(owner))
+        error("illusion: unauthorized instance registration.\n");
+    read_world(id);
+    prune_instances();
+    foreach (token in keys(instances))
+        if (instances[token]["owner"] == owner && instances[token]["world"] == id) return token;
+    if (sizeof(instances) >= 256) error("illusion: instance capacity reached.\n");
+    token = hash("sha256", sprintf("%O:%d:%d", this_object(), time_ns(), ++instance_serial));
+    instances[token] = ([ "owner": owner, "world": id ]);
+    return token;
+}
+
+int instance_valid(string id, string token) {
+    return valid_digest(token) && mapp(instances[token]) && objectp(instances[token]["owner"]) && instances[token]["world"] == id;
+}
+
+int instance_owned_by(string id, string token, object owner) {
+    return instance_valid(id, token) && instances[token]["owner"] == owner;
+}
+
+void release_instance(string token, object owner) {
+    if (!objectp(previous_object()) || (previous_object() != owner && !is_root(previous_object())))
+        error("illusion: unauthorized instance release.\n");
+    if (mapp(instances[token]) && instances[token]["owner"] == owner) map_delete(instances, token);
+}
+
+string room_path(string id, int x, int y, string token) {
+    if (!valid_coordinate(
+        x,
+        y
+    ) || !instance_valid(id, token)) error("illusion: invalid room identity.\n");
+    return sprintf("/d/illusion/world/%s~%d~%d~%s", id, x, y, token);
+}
+
+mapping parse_room_path(string suffix) {
+    string *parts;
+    string id, token;
+    int x, y;
+
+    if (!stringp(suffix) || sizeof(suffix) > 160) error("illusion: invalid virtual suffix.\n");
+    parts = explode(suffix, "~");
+    if (sizeof(parts) != 4 || sizeof(parts[1]) > 11 || sizeof(parts[2]) > 11)
+        error("illusion: invalid virtual path fields.\n");
+    id = parts[0]; token = parts[3]; x = to_int(parts[1]); y = to_int(parts[2]);
+    if (!valid_world_id(id) || !valid_coordinate(x, y) || !instance_valid(id, token) ||
+        suffix != sprintf(
+            "%s~%d~%d~%s",
+            id,
+            x,
+            y,
+            token
+        )) error("illusion: invalid or expired room path.\n");
+    return ([ "world": id, "x": x, "y": y, "instance": token ]);
+}
+
+string query_active_world() { return active_world; }
+
+void set_active_world(string id) {
+    mapping world;
+
+    if (!objectp(previous_object()) || !is_root(previous_object())) error("illusion: administrator authority required.\n");
+    if (id) {
+        world = read_world(id);
+        if (world["test_world"]) error("illusion: test world cannot be opened as the public entrance.\n");
+        if (!query_room_facts(id, 0, 0)) error("illusion: world origin unavailable.\n");
+    }
+    active_world = id;
+}
+
+int enter_world(object owner, string id) {
+    string token, existing;
+    object room;
+    mixed err;
+    int moved;
+
+    if (!objectp(previous_object()) || !is_root(previous_object())) error("illusion: unauthorized entrance.\n");
+    foreach (token in keys(instances))
+        if (instances[token]["owner"] == owner && instances[token]["world"] == id) existing = token;
+    token = register_instance(owner, id);
+    err = catch(room = load_object(room_path(id, 0, 0, token)));
+    if (err || !objectp(room)) {
+        if (!existing) release_instance(token, owner);
+        error("illusion: world entrance unavailable.\n");
+    }
+    err = catch(moved = owner->move(room));
+    if (err || !moved) {
+        if (!existing) release_instance(token, owner);
+        if (err) error("illusion: entrance movement failed.\n");
+        return 0;
+    }
+    return moved;
+}

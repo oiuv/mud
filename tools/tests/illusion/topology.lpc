@@ -1,0 +1,73 @@
+#define WORLD "/adm/daemons/illusion_world_d"
+#define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
+
+void run() {
+    mapping catalog, bad, scene, chunk, facts, other;
+    mixed err;
+    mixed *queue;
+    mapping reached;
+    string key, dir, next;
+    int head;
+    int *xy;
+    int started, used;
+
+    catalog = WORLD->read_catalog();
+    CHECK(sizeof(catalog["biomes"]) == 4, "finite biome catalog");
+    bad = copy(catalog); bad["scenes"][0]["id"] = bad["scenes"][1]["id"];
+    err = catch(WORLD->validate_catalog(bad)); CHECK(stringp(err), "duplicate scene ID rejected");
+    bad = copy(catalog); bad["scenes"][0]["rooms"][0][2] = "bad-role";
+    err = catch(WORLD->validate_catalog(bad)); CHECK(stringp(err), "invalid room role rejected");
+    bad = copy(catalog); map_delete(bad["scenes"][0], "entrances");
+    err = catch(WORLD->validate_catalog(bad)); CHECK(stringp(err), "missing entrances rejected");
+    bad = copy(catalog);
+    bad["scenes"][0]["rooms"] += ({ ({ -2, -1, "yard" }) });
+    bad["scenes"][0]["links"] += ({ ({ -2, -1, -1, -1 }) });
+    err = catch(WORLD->validate_catalog(bad));
+    CHECK(stringp(err), "entrance into an empty reserved footprint cell rejected");
+    scene = WORLD->place_scene(catalog["scenes"][0], 16, 6, 0);
+    CHECK(
+        WORLD->scene_fragments_connected(scene),
+        "cross-chunk village has legal gates for both pieces"
+    );
+    bad = copy(catalog["scenes"][0]); bad["entrances"] = ({ ({ 1, 0, 2, 0 }) });
+    scene = WORLD->place_scene(bad, 16, 6, 0);
+    CHECK(
+        !WORLD->scene_fragments_connected(scene),
+        "reject single-door scene with isolated cross-chunk fragment"
+    );
+    scene = WORLD->place_scene(catalog["scenes"][1], 16, 6, 1);
+    CHECK(scene["cells"]["15,6"] == "hall", "rotation preserves role and orientation");
+    CHECK(scene["landmark"]["name"] == "旧碑" && scene["landmark"]["x"] == 16 &&
+        scene["landmark"]["y"] == 6, "rotated scene keeps canonical landmark coordinates");
+    facts = WORLD->biome_facts(([ "elevation": 22500, "moisture": 50500,
+        "temperature": 37500, "theme": 32000, "detail": 32000 ]), catalog);
+    CHECK(sizeof(facts["transition"]) && sizeof(facts["secondary"]),
+        "competing biome scores produce transition facts");
+    started = time_ns(); used = eval_cost();
+    chunk = WORLD->build_chunk(42, 0, 0, catalog);
+    debug_message(sprintf(
+        "ILLUSION chunk cold: %d us, eval: %d",
+        (time_ns() - started) / 1000,
+        used - eval_cost()
+    ));
+    CHECK(
+        mapp(chunk["cells"]["0,0"]) && chunk["cells"]["0,0"]["out"],
+        "origin platform has stable out"
+    );
+    key = WORLD->cell_key(chunk["hub"][0], chunk["hub"][1]);
+    queue = ({ key }); reached = ([ key: 1 ]); head = 0;
+    while (head < sizeof(queue)) {
+        key = queue[head++]; facts = chunk["cells"][key];
+        foreach (dir, xy in facts["exits"]) {
+            next = WORLD->cell_key(xy[0], xy[1]); other = chunk["cells"][next];
+            if (!other) continue;
+            CHECK(member_array(
+                key,
+                map(values(other["exits"]), (: WORLD->cell_key($1[0], $1[1]) :))
+            ) >= 0,
+                "bidirectional internal edge");
+            if (!reached[next]) { reached[next] = 1; queue += ({ next }); }
+        }
+    }
+    CHECK(sizeof(reached) == sizeof(chunk["cells"]), "all enterable cells connected to hub");
+}

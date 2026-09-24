@@ -1,0 +1,112 @@
+// Integer-only generation primitives, version 1. Inputs are deliberately bounded.
+#define COORD_LIMIT 1000000000
+#define HASH_MASK 0xffffffff
+#define FIXED_ONE 65536
+
+int floor_div(int value, int divisor) {
+    if (divisor <= 0) error("illusion: divisor must be positive.\n");
+    return value / divisor - (value % divisor < 0 ? 1 : 0);
+}
+
+int local_coordinate(int value, int divisor) {
+    int remainder;
+
+    if (divisor <= 0) error("illusion: divisor must be positive.\n");
+    remainder = value % divisor;
+    return remainder < 0 ? remainder + divisor : remainder;
+}
+
+int valid_coordinate(int x, int y) {
+    return x >= -COORD_LIMIT && x <= COORD_LIMIT && y >= -COORD_LIMIT && y <= COORD_LIMIT;
+}
+
+private int mix_bits(int value) {
+    // Each multiplication is < 2^32 * 2^27 = 2^59, below signed int64 limits.
+    value = (((value & HASH_MASK) ^ ((value & HASH_MASK) >> 16)) * 0x45d9f3b) & HASH_MASK;
+    value = ((value ^ (value >> 16)) * 0x45d9f3b) & HASH_MASK;
+    return (value ^ (value >> 16)) & HASH_MASK;
+}
+
+int coordinate_hash(int seed, int x, int y, int salt) {
+    if (seed < 0 || seed > 2147483647 || salt < 0 || salt > 65535)
+        error("illusion: invalid hash seed or salt.\n");
+    if (x < -COORD_LIMIT - 512 || x > COORD_LIMIT + 512 ||
+        y < -COORD_LIMIT - 512 || y > COORD_LIMIT + 512)
+        error("illusion: hash coordinate outside sampling range.\n");
+    return mix_bits(mix_bits(seed ^ salt) ^ mix_bits(x) ^ mix_bits(mix_bits(y) ^ 0x9e3779b9));
+}
+
+private int smooth_weight(int fraction) {
+    // Q16 smoothstep: maximum intermediate < 2^49. Fixed evaluation order.
+    return fraction * fraction / FIXED_ONE * (3 * FIXED_ONE - 2 * fraction) / FIXED_ONE;
+}
+
+private int interpolate(int a, int b, int weight) {
+    return (a * (FIXED_ONE - weight) + b * weight) / FIXED_ONE;
+}
+
+int value_noise(int seed, int x, int y, int period, int salt) {
+    int gx, gy, fx, fy, low, high;
+
+    if (!valid_coordinate(x, y) || period < 1 || period > 512)
+        error("illusion: invalid noise coordinate or period.\n");
+    gx = floor_div(x, period);
+    gy = floor_div(y, period);
+    fx = smooth_weight(local_coordinate(x, period) * FIXED_ONE / period);
+    fy = smooth_weight(local_coordinate(y, period) * FIXED_ONE / period);
+    low = interpolate(coordinate_hash(seed, gx, gy, salt) & 65535,
+        coordinate_hash(seed, gx + 1, gy, salt) & 65535, fx);
+    high = interpolate(coordinate_hash(seed, gx, gy + 1, salt) & 65535,
+        coordinate_hash(seed, gx + 1, gy + 1, salt) & 65535, fx);
+    return interpolate(low, high, fy);
+}
+
+private int elevation(int seed, int x, int y) {
+    return (value_noise(seed, x, y, 256, 11) * 4 + value_noise(seed, x, y, 128, 12) * 2 +
+        value_noise(seed, x, y, 64, 13)) / 7;
+}
+
+mapping sample_fields(int seed, int x, int y) {
+    int h, slope, other, nx, ny;
+    int *delta;
+
+    if (!valid_coordinate(x, y)) error("illusion: coordinate outside world.\n");
+    h = elevation(seed, x, y);
+    slope = 0;
+    foreach (delta in ({ ({ 0, 1 }), ({ 1, 0 }), ({ 0, -1 }), ({ -1, 0 }) })) {
+        nx = x + delta[0];
+        ny = y + delta[1];
+        if (!valid_coordinate(nx, ny)) continue;
+        other = abs(elevation(seed, nx, ny) - h);
+        if (other > slope) slope = other;
+    }
+    return ([ "elevation": h,
+        "moisture": (value_noise(seed, x, y, 256, 21) * 2 + value_noise(seed, x, y, 128, 22)) / 3,
+        "temperature": (value_noise(
+            seed,
+            x,
+            y,
+            256,
+            31
+        ) * 2 + value_noise(seed, x, y, 128, 32)) / 3,
+        "theme": value_noise(seed, x, y, 512, 41),
+        "detail": (value_noise(seed, x, y, 32, 51) * 2 + value_noise(seed, x, y, 16, 52)) / 3,
+        "slope": slope ]);
+}
+
+int *chunk_bounds(int cx, int cy) {
+    int minx, miny, maxx, maxy;
+
+    if (cx < floor_div(-COORD_LIMIT, 16) || cx > floor_div(COORD_LIMIT, 16) ||
+        cy < floor_div(-COORD_LIMIT, 16) || cy > floor_div(COORD_LIMIT, 16))
+        error("illusion: chunk outside world.\n");
+    minx = cx * 16;
+    miny = cy * 16;
+    maxx = minx + 15;
+    maxy = miny + 15;
+    if (minx < -COORD_LIMIT) minx = -COORD_LIMIT;
+    if (miny < -COORD_LIMIT) miny = -COORD_LIMIT;
+    if (maxx > COORD_LIMIT) maxx = COORD_LIMIT;
+    if (maxy > COORD_LIMIT) maxy = COORD_LIMIT;
+    return ({ minx, miny, maxx, maxy });
+}

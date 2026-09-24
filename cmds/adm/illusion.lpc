@@ -1,0 +1,45 @@
+inherit F_CLEAN_UP;
+#define WORLD_D "/adm/daemons/illusion_world_d"
+
+int main(object me, string arg) {
+    string *parts;
+    string id;
+    mapping world;
+    mixed err;
+    int seed, moved;
+
+    if (!SECURITY_D->valid_grant(me, "(admin)")) return 0;
+    seteuid(geteuid(me));
+    parts = stringp(arg) ? explode(arg, " ") - ({ "" }) : ({});
+    if (!sizeof(parts) || parts[0] == "status") {
+        printf(
+            "新入口：%s；地形缓存：%d/64。\n",
+            WORLD_D->query_active_world() || "关闭（旧幻境）",
+            WORLD_D->query_cached_chunks()
+        );
+        return 1;
+    }
+    if (sizeof(parts) == 3 && parts[0] == "init") {
+        id = parts[1]; seed = to_int(parts[2]);
+        if (sprintf("%d", seed) != parts[2]) return notify_fail("种子必须是规范十进制整数。\n");
+        err = catch(world = WORLD_D->initialize_world(WORLD_D->catalog_manifest(id, seed, 1)));
+        if (err) return notify_fail("创建测试世界失败：" + err);
+        printf("世界 %s 已冻结，摘要 %s。\n", id, world["manifest_digest"]);
+        return 1;
+    }
+    if (sizeof(parts) == 2 && parts[0] == "enter") {
+        err = catch(moved = WORLD_D->enter_world(me, parts[1]));
+        if (err) return notify_fail("无法进入：" + err);
+        if (!moved) return notify_fail("未能进入，仍停留在原处。\n");
+        return 1;
+    }
+    if (sizeof(parts) == 2 && parts[0] == "entry") {
+        err = catch(WORLD_D->set_active_world(parts[1] == "off" ? 0 : parts[1]));
+        if (err) return notify_fail("入口设置失败：" + err);
+        write("入口已切换，不改变仍有效的在线实例。重载守护程序后默认关闭新入口。\n");
+        return 1;
+    }
+    write("用法：illusion status | init test-世界ID 种子 | enter 世界ID | entry off\n"
+        "当前仅用于测试；正式世界须在内容冻结及上线验收后启用。\n");
+    return 1;
+}

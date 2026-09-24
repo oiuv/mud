@@ -2,6 +2,10 @@
 
 本文档为开发者提供完整的技术参考，所有文档均基于游戏实际代码实现编写。
 
+## 驱动要求
+
+当前 MUDLIB 最低支持 **FluffOS v2026.0712.3**，不再兼容更早的驱动。新 LPC 源文件优先使用 `.lpc`；已有 `.c` 文件无需批量改名。语言参考可能包含最低版本之后新增的特性，使用前须核对其支持版本。安装与升级见[项目说明](../README.md)，开发规则见 [AGENTS.md](../AGENTS.md)。
+
 ## 📁 文档结构
 
 ```
@@ -53,6 +57,7 @@ docs/
 - 基于已实现功能的综合分析
 
 **示例文档**:
+- [illusion-world.md](systems/illusion-world.md) - 武侠无限世界当前实现、世界身份与阶段测试
 - [quest-system.md](systems/quest-system.md) - 任务系统完整实现（questd+各类任务）
 - [combat-system.md](systems/combat-system.md) - 战斗系统综合设计（combatd+伤害计算+PK系统）
 - [reborn-system.md](systems/reborn-system.md) - 转世重生全流程（updated+转世条件+奖励机制）

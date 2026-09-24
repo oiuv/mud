@@ -1,0 +1,18 @@
+private mapping data = ([]);
+void create() {}
+varargs mixed query(string key, int raw) { return data[key]; }
+mixed set(string key, mixed value) { return data[key] = value; }
+void setArea(string name, int x, int y, int z) { data["position"] = ({ x, y, z }); }
+void removeRandomExit() {}
+void setup() { data["setup_count"]++; }
+int is_character() { return 1; }
+int query_max_encumbrance() { return 1000000; }
+int query_encumbrance() { return 0; }
+void add_encumbrance(int weight) {}
+void set_temp(string key, mixed value) { data[key] = value; }
+void add_temp(string key, int value) { data[key] += value; }
+mixed query_temp(string key) { return data[key]; }
+void delete_temp(string key) { map_delete(data, key); }
+int query_skill(string name, int raw) { return 100; }
+void carry_object(string file) {}
+varargs int move(mixed target, int raw) { move_object(target); return 1; }

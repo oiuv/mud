@@ -1,0 +1,71 @@
+// Find and validate a real accepted cross-chunk village, not just a placed template.
+inherit "/tests/canonical";
+#define WORLD "/adm/daemons/illusion_world_d"
+#define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
+private int index;
+private mapping catalog, samples;
+
+void search_next() {
+    mapping scene, chunk, other, facts, snapshot;
+    int cx, cy, n, minx, maxx, miny, maxy, x, y, rooms;
+    mixed row;
+    mixed *scenes;
+    string key;
+
+    for (n = 0; n < 16 && index < 1024; n++, index++) {
+        cx = index % 32 - 16; cy = index / 32 - 16;
+        scenes = WORLD->chunk_scenes(42, cx, cy, catalog);
+        foreach (scene in scenes) {
+            if (scene["template"]["id"] != "village") continue;
+            minx = WORLD->floor_div(scene["bounds"][0], 16);
+            maxx = WORLD->floor_div(scene["bounds"][2], 16);
+            miny = WORLD->floor_div(scene["bounds"][1], 16);
+            maxy = WORLD->floor_div(scene["bounds"][3], 16);
+            if (minx == maxx && miny == maxy) continue;
+            snapshot = ([]); rooms = 0;
+            for (x = minx; x <= maxx; x++) for (y = miny; y <= maxy; y++) {
+                chunk = WORLD->build_chunk(42, x, y, catalog);
+                key = WORLD->cell_key(x, y);
+                snapshot[key] = hash("sha256", canonical_text(chunk));
+                foreach (row in scene["rooms"]) {
+                    key = WORLD->cell_key(row[0], row[1]); facts = chunk["cells"][key];
+                    if (WORLD->floor_div(
+                        row[0],
+                        16
+                    ) != x || WORLD->floor_div(row[1], 16) != y) continue;
+                    CHECK(mapp(facts) && facts["scene_id"] == scene["id"] && facts["role"] == row[2],
+                        "accepted cross-chunk village preserves each room");
+                    CHECK(facts["scene"]["landmark"]["x"] == scene["landmark"]["x"] &&
+                        facts["scene"]["landmark"]["y"] == scene["landmark"]["y"],
+                        "accepted village fragments share landmark coordinates");
+                    rooms++;
+                }
+            }
+            for (x = maxx; x >= minx; x--) for (y = maxy; y >= miny; y--) {
+                other = WORLD->build_chunk(42, x, y, catalog);
+                CHECK(hash("sha256", canonical_text(other)) == snapshot[WORLD->cell_key(x, y)],
+                    "cross-chunk village layout unchanged in reverse generation order");
+            }
+            CHECK(rooms == sizeof(scene["rooms"]), "whole cross-chunk village retained");
+            samples[scene["id"]] = ([ "type": "village", "name": scene["name"],
+                "x": scene["x"], "y": scene["y"], "bounds": scene["bounds"], "rotation": scene["rotation"]]);
+            write_file("/data/cross-scene.json", json_encode(scene) + "\n", 1);
+            debug_message(sprintf(
+                "ILLUSION CROSS SCENE: %s at %d,%d",
+                scene["id"],
+                scene["x"],
+                scene["y"]
+            ));
+            "/tests/preview"->start(samples);
+            return;
+        }
+    }
+    if (index < 1024) { call_out("search_next", 0); return; }
+    CHECK(0, "expected accepted cross-chunk village in fixed search range");
+    "/tests/master"->finish();
+}
+
+void start(mapping scene_samples) {
+    samples = scene_samples; catalog = WORLD->read_catalog();
+    call_out("search_next", 0);
+}

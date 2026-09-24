@@ -19,3 +19,4 @@ __pycache__/
 *.pyd
 /.codegraph/
 /.zread/
+/data/illusion_world/
