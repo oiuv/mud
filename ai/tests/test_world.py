@@ -455,6 +455,9 @@ class WorldTests(unittest.TestCase):
     def test_consistent_backup_restore_reuses_ready_text(self):
         self.submit()
         self.service.tick()
+        original = self.store.get(sample_payload()["content_key"])
+        with self.store.connect() as db:
+            original_usage = [tuple(row) for row in db.execute("SELECT * FROM daily_usage ORDER BY day")]
         saved = Path(self.temp.name) / "backup"
         backup(self.store, saved)
         target = Settings(data_dir=Path(self.temp.name) / "restored-ai",
@@ -465,6 +468,11 @@ class WorldTests(unittest.TestCase):
         restored = Store(target)
         self.addCleanup(restored.close)
         row = restored.get(sample_payload()["content_key"])
+        for key in ("content_key", "payload", "prose", "attempts", "model", "prompt", "usage"):
+            self.assertEqual(row[key], original[key])
+        with restored.connect() as db:
+            self.assertEqual([tuple(item) for item in db.execute("SELECT * FROM daily_usage ORDER BY day")],
+                             original_usage)
         self.assertTrue(row["published"])
         self.assertFalse(restored.needs_repair(row))
         self.assertEqual(self.model.call_count, 1)

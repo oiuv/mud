@@ -105,6 +105,7 @@ class RetrievalCLITests(Fixture):
             "bm25_score": 2.0, "vector_score": 0.9, "rerank_score": 0.95,
         }]
         settings = replace(self.settings, dashscope_api_key="fake", retrieval_top_k=5)
+        knowledge.settings = settings
         output, errors = io.StringIO(), io.StringIO()
         started = time.monotonic()
         with patch.object(cli, "load_settings", return_value=settings), \
@@ -116,10 +117,13 @@ class RetrievalCLITests(Fixture):
         self.assertEqual(call.args, ("武当拜师",))
         self.assertEqual(call.kwargs["limit"], 5)
         self.assertEqual(call.kwargs["threshold"], 0.8)
-        self.assertGreaterEqual(call.kwargs["deadline"], started + settings.request_timeout)
-        self.assertLessEqual(call.kwargs["deadline"], time.monotonic() + settings.request_timeout)
+        self.assertGreater(call.kwargs["deadline"], started)
+        self.assertLessEqual(call.kwargs["deadline"], time.monotonic() + 30)
+        self.assertEqual(call.kwargs["context"].audience, "admin")
+        self.assertTrue(call.kwargs["allowed"]({"filename": "wudang"}))
+        self.assertFalse(call.kwargs["allowed"]({"filename": ".env"}))
         for text in ("BM25 + 向量", "RRF=0.032500", "BM25=2.000000",
                      "向量余弦=0.900000", "重排=0.950000", "张三丰"):
             self.assertIn(text, output.getvalue())
         knowledge.update_vectors.assert_not_called()
-        knowledge.client.close.assert_called_once()
+        knowledge.close.assert_called_once()

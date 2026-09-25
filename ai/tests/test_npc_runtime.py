@@ -1,6 +1,8 @@
 """NPC/summary integration: fake SDK, temporary documents, real transactions."""
 import json
+import sqlite3
 import time
+from contextlib import closing
 from dataclasses import replace
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
@@ -87,6 +89,36 @@ class NPCRuntimeTests(Fixture):
         self.addCleanup(restarted.close)
         self.assertEqual(restarted.process_request(self.request(message="你好"), time.monotonic() + 80), first)
         self.assertEqual(self.client.chat.completions.create.call_count, 1)
+
+    def test_backup_copy_retains_baseline_sql_contract_and_replay(self):
+        self.setup_runtime()
+        response = self.ask(message="你好")
+        self.service.history.save_summary("npc", "player", 2, "玩家与侠客互致问候。")
+        copied = self.root / "rollback-copy"
+        copied.mkdir()
+        self.service.close()  # No competing writers during the backup/rollback fixture.
+        with connect(self.service.history.db_path) as source, \
+             closing(sqlite3.connect(copied / "conversations.db")) as target:
+            source.backup(target)
+        # Fixed reader contract from 2f8192a5; not an execution of the old release.
+        with connect(copied / "conversations.db") as db:
+            rows = db.execute("SELECT role,CASE WHEN role='user' THEN COALESCE(message,content) "
+                              "ELSE content END AS content FROM conversations "
+                              "WHERE npc_id=? AND player_id=? ORDER BY id", ("npc", "player")).fetchall()
+            self.assertEqual([row["role"] for row in rows], ["user", "assistant"])
+            self.assertEqual(rows[1]["content"], response["response"])
+            memory = json.loads(db.execute("SELECT data FROM player_memories WHERE npc_id=? AND player_id=?",
+                                           ("npc", "player")).fetchone()[0])
+            self.assertEqual(memory["total_interactions"], 1)
+            self.assertEqual(db.execute("SELECT through_id FROM summaries").fetchone()[0], 2)
+            cached = db.execute("SELECT fingerprint,response FROM request_results WHERE request_id=? AND created>?",
+                                (self.request()["request_id"], time.time() - self.settings.request_cache_ttl)).fetchone()
+            self.assertEqual(json.loads(cached["response"]), response)
+        rollback = NPCService(replace(self.settings, data_dir=copied), npc_manager=self.manager)
+        self.addCleanup(rollback.close)
+        self.assertEqual(rollback.process_request(self.request(message="你好"), time.monotonic() + 80), response)
+        self.assertEqual(self.client.chat.completions.create.call_count, 1)
+        self.assertTrue(self.service.history.db_path.exists())
 
     def test_needs_input_and_incomplete_do_not_persist_or_increase_relationship(self):
         self.setup_runtime()

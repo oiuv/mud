@@ -53,6 +53,22 @@
 - **WHEN** 技能正文或必需完整加载的指导资源超过允许大小
 - **THEN** 明确返回加载失败，不将截断内容当作完整指导继续生成成功结果
 
+### Requirement: Skill loading and professional execution have distinct responsibilities
+
+统一 `skill(name, path?)` SHALL 只负责在当前 Agent 上下文中加载授权指导和资源，不暗中启动模型或嵌套工具循环。需要隔离专业过程的任务 SHALL 由已注册业务 Agent 承担，通过 `agent.invoke` 委派并复用共享 Runner；专业 Agent SHALL 在自己的上下文中使用同一个 skill 工具、声明的模型配置及授权工具。一个 Agent 可复用多个 Skill，一个 Skill 可被多个 Agent 使用，新增技能 MUST 不要求新增逐技能执行器。
+
+专业任务的技能正文、参考资料和工具过程 MUST 不自动返回主 Agent；回传 SHALL 遵守业务结果、证据和未完成事项契约。直接入口的预加载 MUST 保持无额外模型调用，世界单次生成及摘要 MUST 不因技能加载增加主 Agent、审稿或结果压缩调用。独立执行 MUST 不形成另一套模型、权限或预算通道。
+
+#### Scenario: Professional agent uses a skill privately within its task
+
+- **WHEN** 主 Agent 委派专业任务，子 Agent 加载技能及引用资料并使用工具完成工作
+- **THEN** 这些材料留在子任务上下文，主 Agent 只接收约定结果；加载本身不调用模型，专业模型调用统一计入运行时根预算
+
+#### Scenario: Simple task only needs local skill guidance
+
+- **WHEN** 当前 Agent 可以在已有上下文内完成任务，仅需加载专业指导
+- **THEN** 经统一 skill 工具直接加载，不强制创建子 Agent 或额外专业模型调用
+
 ### Requirement: Skills do not grant authority
 
 技能声明和正文 MUST 不授予工具、源码目录、受众或外发权限；工具声明至多收紧已有授权。技能资源 MUST 限于当前授权包并接受路径、文件大小和内容外发检查。服务 MUST 不执行技能附带脚本，不允许技能引用开发者私有技能目录或任意宿主路径。

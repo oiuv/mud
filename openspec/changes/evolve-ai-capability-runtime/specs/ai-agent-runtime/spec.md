@@ -24,6 +24,8 @@
 
 Agent SHALL 根据目标、已确认事实、证据、待解决问题和工具反馈决定后续行动。候选结果 MUST 经过业务完成条件验证；缺口仍可在授权范围和预算内补查时 SHALL 继续。首次检索无结果、一次工具失败或模型自称完成 MUST 不单独构成任务完成依据。任务状态 MUST 不要求或保存模型私有思维链。
 
+运行时 SHALL 在硬预算外检测连续无进展：等价行动反复产生相同事实、失败或完成缺口时，先提供可调整策略的反馈，达到配置阈值仍无进展则返回 incomplete 及未解决事项。新的调用 ID、时间戳或模型自称取得进展 MUST 不单独重置检测。有效新证据、相关资料变化及已验证的缺口减少 SHALL 被识别为进展；首次无命中、正常跨文件调查或合理重读 MUST 不单独触发停止。
+
 #### Scenario: Recoverable search failure
 
 - **WHEN** 首次关键词未命中但还有可行的授权查询和剩余预算
@@ -34,9 +36,26 @@ Agent SHALL 根据目标、已确认事实、证据、待解决问题和工具�
 - **WHEN** 候选答案缺少关键条件的证据或引用未读资料
 - **THEN** 结果不作为成功提交，Agent 获得具体缺口并在允许范围内继续调查
 
+#### Scenario: Equivalent actions repeatedly make no progress
+
+- **WHEN** 模型收到调整反馈后仍重复等价行动、没有新证据或已解决缺口，并达到无进展阈值
+- **THEN** 返回 incomplete 和实际阻碍，不通过更换调用 ID 无限循环，不强制输出成功答案
+
+#### Scenario: Investigation makes observable progress
+
+- **WHEN** Agent 沿相关依赖获取新证据，或因资料变化执行必要重读
+- **THEN** 在剩余权限和预算内继续，不因工具名称相同或问题跨文件而误判为重复停滞
+
 ### Requirement: Bounded main-agent coordination
 
 主 Agent SHALL 能发现授权业务、顺序委派、检查结果并继续决策；首期 MUST 禁止递归委派及祖先调用环，委派深度至多一层。委派 MUST 不绕过业务容量、身份和持久任务入口。短确认 SHALL 仅证明任务受理，不代表后台业务完成；目标不明确时 SHALL 请求澄清。
+
+主 Agent SHALL 能使用自身已授权能力直接完成简单任务，复杂任务按专业子目标需要委派；MUST 不要求每次主 Agent 请求调用子 Agent，也不因使用工具或多轮处理就强制拆分。直接处理与委派 SHALL 遵守同一权限、完成验证和提交边界。
+
+#### Scenario: Main agent handles a simple request directly
+
+- **WHEN** 请求已进入主 Agent，且其自身已授权能力足以完成该简单目标
+- **THEN** 主 Agent 直接处理并验证结果，子 Agent 调用次数为零，不为了架构形式额外委派
 
 #### Scenario: Delegated result leaves a gap
 
@@ -61,6 +80,22 @@ Agent SHALL 根据目标、已确认事实、证据、待解决问题和工具�
 
 - **WHEN** 两名玩家提出相同问题但拥有不同会话资料或知识范围
 - **THEN** 不复用包含越权资料的上下文、证据或结果缓存
+
+### Requirement: Isolated professional execution with bounded result handoff
+
+主 Agent SHALL 负责整体目标、任务拆分、协调及目标完成检查；专业子 Agent SHALL 负责执行其专业任务并验证成果。每次委派 SHALL 复用共享 Runner，但拥有独立消息历史和任务状态；输入 SHALL 仅包含该任务必要且已授权的资料，不复制父运行全部历史。专业 Agent SHALL 能使用声明的模型配置、统一 Skill 工具及内部工具循环，不建立独立的 Skill 执行引擎。
+
+子任务 SHALL 返回有界摘要、必要业务结论、成果/证据引用、限制及未完成事项。原始参考资料、技能正文、检索列表、完整工具过程和中间草稿 MUST 不自动回灌父上下文；必要条件、数值、例外和阻碍 MUST 不因压缩被丢弃或改成成功。主 Agent SHALL 能根据交付结果判断覆盖情况，并在原授权内补查或继续委派，不要求默认重做完整调查。隔离 MUST 不重置权限、根预算、截止时间或取消状态，简单直接任务 MUST 不被强制增加委派或压缩结果的模型回合。
+
+#### Scenario: Large professional context stays in the child
+
+- **WHEN** 子 Agent 为完成任务加载大量授权参考资料并经历多轮工具调用
+- **THEN** 父 Agent 后续模型请求仅包含约定的有界交付结果，不自动包含子消息历史、技能全文或原始工具输出；子调用仍计入根预算
+
+#### Scenario: Compact handoff preserves decision-critical facts
+
+- **WHEN** 子任务结果包含门槛与消耗的不同数值、适用例外或尚未解决的条件
+- **THEN** 交付结果保留这些必要结论、证据引用和阻碍，不仅返回不可核查的成功摘要；父 Agent 不将部分完成视为整体完成
 
 ### Requirement: Shared budgets deadlines and cancellation
 
@@ -96,6 +131,32 @@ Agent SHALL 根据目标、已确认事实、证据、待解决问题和工具�
 
 - **WHEN** 需要保存的候选结果已生成且通过验证，但业务提交尚未完成
 - **THEN** 不提前宣告运行成功；提交失败时返回失败，提交成功时只完成一次运行，不额外调用模型重新生成
+
+### Requirement: Authorized delivery by verified result reference
+
+较大或需原样交付的成果 SHALL 支持由可信运行时保留并生成结果引用，短结果仍可直接返回。主 Agent SHALL 能选择已授权引用，由可信交付层取得原成果，无需模型重新生成正文。结果引用 MUST 不被解释为文件路径、任意 URL 或访问授权；解析 SHALL 核验根请求、会话/受众、有效权限、来源、完整性和业务完成状态，拒绝伪造、跨请求、失效或未完成引用。首期 SHALL 使用请求内有界结果保存和已有业务凭据，不新增通用成果数据库。
+
+引用交付 MUST 遵守输出契约、大小、受众呈现、证据权限、取消及提交边界，不因持有引用绕过验证。需要持久化的成果 MUST 在业务提交确定成功后才可作为已完成成果交付；后台受理凭据 MUST 不冒充已完成正文。引用解析 MUST 不重新生成或重复提交；成功重放缓存 MUST 不依赖已失效的请求内引用。
+
+#### Scenario: Deliver an existing verified work without rewriting
+
+- **WHEN** 专业 Agent 已产生通过验证且完成必要提交的成果，主 Agent 选择其合法引用
+- **THEN** 可信交付层按业务视图交付原成果，不为复述正文增加模型调用，仍检查父目标覆盖与最终输出契约
+
+#### Scenario: Result reference belongs to another request
+
+- **WHEN** 模型提供伪造引用、另一根请求的引用或另一会话的成果标识
+- **THEN** 拒绝交付，不泄露目标成果，不把引用本身当作授权
+
+#### Scenario: Referenced candidate is not committed
+
+- **WHEN** 所选引用指向仍待持久化的候选或后台任务受理凭据
+- **THEN** 不作为已完成业务成果交付，不因引用存在而重复生成或提前宣告成功
+
+#### Scenario: Successful delivery is replayed after restart
+
+- **WHEN** 原请求的内存成果表已不存在，但持久成功响应仍在有效期内
+- **THEN** 复用可重放的最终响应或既有业务凭据，不解析悬空内存引用、不重新调用模型
 
 ### Requirement: Replay safety without automatic autonomous recovery
 

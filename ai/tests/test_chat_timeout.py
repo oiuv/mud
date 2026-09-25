@@ -137,14 +137,14 @@ class ChatDiagnosticTests(Fixture):
         output = io.StringIO()
         with patch.object(diagnose_chat, "load_settings", return_value=self.settings), \
              patch.object(diagnose_chat, "create_chat_client", return_value=client), \
-             patch.object(diagnose_chat, "complete_chat", return_value="连接正常") as complete, \
+             patch.object(diagnose_chat, "diagnose_text", return_value=SimpleNamespace(
+                 result=SimpleNamespace(status="completed", value="连接正常"))) as complete, \
              redirect_stdout(output):
             code = diagnose_chat.main(["--timeout", "30", "测试"])
         self.assertEqual(code, 0)
         self.assertEqual(self.settings.chat_timeout, 30)
-        self.assertEqual(complete.call_args.args[2], [{"role": "user", "content": "测试"}])
+        self.assertEqual(complete.call_args.args[2], "测试")
         self.assertIs(complete.call_args.args[1], client)
-        self.assertIn("deadline", complete.call_args.kwargs)
         self.assertIn("调用成功", output.getvalue())
         client.close.assert_called_once()
 
@@ -152,7 +152,8 @@ class ChatDiagnosticTests(Fixture):
         client = Mock()
         with patch.object(diagnose_chat, "load_settings", return_value=self.settings), \
              patch.object(diagnose_chat, "create_chat_client", return_value=client), \
-             patch.object(diagnose_chat, "complete_chat", side_effect=diagnose_chat.ModelUnavailable("timeout")), \
+             patch.object(diagnose_chat, "diagnose_text", return_value=SimpleNamespace(
+                 result=SimpleNamespace(status="incomplete", code="deadline"))), \
              redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
             code = diagnose_chat.main([])
         self.assertEqual(code, 1)

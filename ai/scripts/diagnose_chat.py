@@ -9,7 +9,8 @@ import time
 from urllib.parse import urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from src.llm import ModelUnavailable, complete_chat, create_chat_client
+from src.llm import ModelUnavailable, create_chat_client
+from src.diagnostics import diagnose_text
 from src.settings import load_settings
 
 
@@ -47,15 +48,15 @@ def main(argv=None):
         print("将发送一次问答请求（消耗模型额度），跳过知识库、NPC 提示词和历史。", flush=True)
         client = create_chat_client(settings)
         started = time.monotonic()
-        answer = complete_chat(
-            settings, client, [{"role": "user", "content": args.question}],
-            deadline=started + settings.request_timeout, timeout=settings.chat_timeout,
-        )
+        outcome = diagnose_text(settings, client, args.question)
+        if outcome.result.status != "completed":
+            raise ModelUnavailable(outcome.result.code)
         print(f"调用成功，耗时 {time.monotonic() - started:.2f} 秒", flush=True)
-        print(answer)
+        print(outcome.result.value)
         return 0
     except ModelUnavailable as error:
-        print("AI回答超时，请稍后再试。" if error.code == "timeout" else "AI暂时无法回答，请稍后再试。", file=sys.stderr)
+        print("AI回答超时，请稍后再试。" if error.code in ("timeout", "deadline", "tool_timeout")
+              else "AI暂时无法回答，请稍后再试。", file=sys.stderr)
         print("查看上方 error/cause：ConnectTimeout 检查目标域名与网络；"
               "ReadTimeout 表示等待响应超时，仍需检查网关和模型耗时。", file=sys.stderr)
         return 1

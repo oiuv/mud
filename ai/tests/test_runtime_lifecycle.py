@@ -3,7 +3,6 @@ import time
 import threading
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
-from dataclasses import replace
 from unittest.mock import Mock
 
 from ai.src.llm import ModelResponse, ModelUnavailable
@@ -15,6 +14,15 @@ from ai.tests.test_runtime import DATA, QUERY, RuntimeFixture, ScriptedModel
 
 
 class LifecycleTests(RuntimeFixture):
+    def test_hook_data_copy_respects_declared_bound_without_leaking_to_observers(self):
+        events = []
+        hooks = Hooks([Hook("after_tool", lambda event: events.append(event))])
+        data = {"result": {"content": "文" * 16000}}
+        self.assertEqual(hooks.emit("after_tool", self.context(), data), data)
+        self.assertNotIn("data", events[0])
+        with self.assertRaisesRegex(RuntimeFault, "size_limit"):
+            hooks.emit("after_tool", self.context(), {"result": "文" * 50000})
+
     def test_rejected_child_does_not_finalize_parent_or_discard_its_candidate(self):
         hooks, events = self.observed()
         runner = Runner(ScriptedModel(ModelResponse("answer")),

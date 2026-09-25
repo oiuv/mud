@@ -82,7 +82,9 @@ class Hooks:
                  "parent_id": context.parent_id, "agent": context.agent_id,
                  "policy": context.policy.version, **metadata}
         logger.info("AI lifecycle %s", json_text(trace, 8192))
-        current = parse_json(json_text(data or {}))
+        # Copy using the same bound in both directions. Tool results may exceed
+        # the JSON parser's smaller default (32 KiB) while remaining valid.
+        current = parse_json(json_text(data or {}, 131072), 131072)
         denied = None
         for hook in self.hooks:
             if hook.event != event:

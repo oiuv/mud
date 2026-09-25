@@ -12,9 +12,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.knowledge_basic import BasicKnowledgeSystem
 from src.knowledge_qwen import QwenKnowledgeSystem
 from src.settings import load_settings
+from src.diagnostics import RetrievalDiagnostic
+from src.runtime.contracts import RuntimeFault
 
 
 PREVIEW_CHARS = 600
+
+
+class DiagnosticInputError(ValueError):
+    """Safe, locally authored input errors (not provider exception bodies)."""
 
 
 def top_k(value):
@@ -37,10 +43,10 @@ def resolve_threshold(args, settings):
         roles = json.loads(settings.roles_file.read_text(encoding="utf-8"))
         role = roles.get(args.npc) if isinstance(roles, dict) else None
         if not isinstance(role, dict):
-            raise ValueError(f"找不到 NPC 配置：{args.npc}")
+            raise DiagnosticInputError("找不到 NPC 配置，请检查 --npc 参数")
         threshold = role.get("knowledge_threshold", 0.4)
         if not isinstance(threshold, (int, float)) or not math.isfinite(threshold) or not 0 <= threshold <= 1:
-            raise ValueError(f"NPC 的 knowledge_threshold 无效：{args.npc}")
+            raise DiagnosticInputError("NPC 的 knowledge_threshold 无效")
     return threshold if args.threshold is None else args.threshold
 
 
@@ -72,23 +78,30 @@ def display_results(query, results, elapsed, bm25=False, full=False):
             print(f"…（显示前 {PREVIEW_CHARS}/{len(content)} 字；--full 显示整个文档块）")
 
 
-def search_and_display(query, basic, knowledge, settings, args, threshold):
+def search_and_display(query, diagnostic, settings, args, threshold):
     if not query.strip():
-        raise ValueError("问题不能为空")
+        raise DiagnosticInputError("问题不能为空")
     if len(query) > settings.max_message_chars:
-        raise ValueError(f"问题超过游戏限制：最多 {settings.max_message_chars} 字符")
+        raise DiagnosticInputError(f"问题超过游戏限制：最多 {settings.max_message_chars} 字符")
     started = time.monotonic()
     limit = args.top_k if args.top_k is not None else settings.retrieval_top_k
-    if threshold >= 1:
-        results = []
-    elif args.bm25:
-        results = basic.search(query, limit)
-    else:
-        results = knowledge.hybrid_search(
-            query, limit=limit, threshold=threshold,
-            deadline=started + settings.request_timeout,
-        )
+    value, context = diagnostic.search(query, limit, threshold)
+    results = [dict(item["diagnostics"], title=item["title"], filename=item["path"],
+                    content=item["content"]) for item in value["evidence"]]
     display_results(query, results, time.monotonic() - started, args.bm25, args.full)
+    if value["truncated"]:
+        print("结果达到安全输出上限，以上为部分资料；请缩小问题范围。--full 不解除此上限。")
+    if value["degraded"]:
+        print("检索降级：" + ", ".join(value["degraded"]))
+    print(f"本次外部请求：{context.budget.snapshot()['external_calls']}")
+
+
+def report_error(error):
+    # Locally constructed validation errors are useful; provider/runtime errors
+    # must never disclose arbitrary exception bodies or credentials.
+    detail = str(error) if isinstance(error, DiagnosticInputError) else (
+        error.code if isinstance(error, RuntimeFault) else type(error).__name__)
+    print(f"检索失败：{detail}", file=sys.stderr)
 
 
 def main(argv=None):
@@ -109,7 +122,7 @@ def main(argv=None):
         basic = BasicKnowledgeSystem(settings=settings)
         stats = basic.get_stats()
         if not stats["total_documents"]:
-            raise ValueError("知识库为空，请运行 scripts/update_knowledge.py 或检查 HELP_DIR")
+            raise DiagnosticInputError("知识库为空，请运行 scripts/update_knowledge.py 或检查 HELP_DIR")
         print("模式：" + ("本地 BM25（离线）" if args.bm25 else "混合检索（BM25 + 向量，按配置重排）"))
         print(f"知识库：{stats['source_files']} 个文件，{stats['total_documents']} 个文档块")
         print(f"NPC：{args.npc or '未指定'}；向量阈值：{threshold:g}")
@@ -125,8 +138,10 @@ def main(argv=None):
             elif not knowledge.get_stats()["indexed_vectors"]:
                 print("提示：当前模型没有文档向量，将使用 BM25 召回；可先运行 scripts/update_knowledge.py。")
         print("分数不可跨类型比较；有重排分数时按重排排序，否则混合模式按 RRF 排序。")
+        diagnostic = RetrievalDiagnostic(basic if args.bm25 else knowledge,
+                                         mode="bm25" if args.bm25 else "hybrid")
         if args.query is not None:
-            search_and_display(args.query.strip(), basic, knowledge, settings, args, threshold)
+            search_and_display(args.query.strip(), diagnostic, settings, args, threshold)
             return 0
         print("连续输入问题；/quit 或 /exit 退出，Ctrl+C 也可退出。")
         while True:
@@ -136,18 +151,18 @@ def main(argv=None):
             if not query:
                 continue
             try:
-                search_and_display(query, basic, knowledge, settings, args, threshold)
+                search_and_display(query, diagnostic, settings, args, threshold)
             except Exception as error:
-                print(f"检索失败（{type(error).__name__}）：{error}", file=sys.stderr)
+                report_error(error)
     except (EOFError, KeyboardInterrupt):
         print()
         return 0
     except Exception as error:
-        print(f"检索失败（{type(error).__name__}）：{error}", file=sys.stderr)
+        report_error(error)
         return 1
     finally:
-        if knowledge is not None and knowledge.client is not None:
-            knowledge.client.close()
+        if knowledge is not None:
+            knowledge.close()
 
 
 if __name__ == "__main__":
