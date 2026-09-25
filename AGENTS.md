@@ -16,7 +16,7 @@ This is a UTF-8 Chinese MUD written primarily in LPC and run by FluffOS. Adminis
 
 ## AI Service
 
-Use AI_CLIENT_D for all game-side AI requests; keep NPC validation and display in AI_NPC_D. Register Python capabilities explicitly in ai/main.py, with separate bounded capacity and deadlines. Reuse ai/src/llm.py for model calls; prompts, persistence and durable deduplication belong to each business module. See docs/daemons/ai_client_d.md for contracts. Automated tests use temporary data and fake models; live API calls are separate.
+Use AI_CLIENT_D for all game-side AI requests; keep NPC validation and display in AI_NPC_D. Register Python capabilities explicitly in ai/main.py, with separate bounded capacity and deadlines. Model-backed business capabilities use ai/src/runtime/Runner through the shared ai/src/llm.py adapter; retrieval goes through the unified Tool boundary. Maintain professional prompts in ai/skills/, loaded only through the single skill(name, path?) tool, including direct preloads. Keep persistence and durable deduplication in business modules: commit verified candidates through runner.commit() before reporting success. NPC summary, retrieval and dialogue share one request budget and deadline (at most 80 seconds); world jobs retain their independent queue, quotas and one-call-per-attempt limit. Do not import game business modules into the shared runtime or enable source/admin access from request fields. See docs/architecture/ai-service.md and docs/daemons/ai_client_d.md. Automated tests use temporary data and fake models; live API calls are separate and require authorization.
 
 ## Coding Style & Naming Conventions
 

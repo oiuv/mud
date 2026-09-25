@@ -98,10 +98,13 @@ class HistoryManager:
             selected.pop()
         return summary, selected
 
-    def save_summary(self, npc_id, player_id, through_id, content):
+    def save_summary(self, npc_id, player_id, through_id, content, *, check=None):
         if not content.strip():
             raise ValueError("Empty summary")
         with connect(self.db_path) as db:
+            db.execute("BEGIN IMMEDIATE")
+            if check is not None:
+                check()
             db.execute("""
                 INSERT INTO summaries VALUES(?,?,?,?)
                 ON CONFLICT(npc_id,player_id) DO UPDATE SET

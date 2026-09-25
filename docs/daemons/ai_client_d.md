@@ -95,11 +95,13 @@ server.register(
 
 每组注册共享自己的有限线程池，监听线程不等待模型。NPC 使用 `MAX_WORKERS` 和 `REQUEST_TIMEOUT`；其他能力单独指定，不争用 NPC 会话锁。公共层仅合并同一来源地址、编号及内容的在途重传；完成后的去重必须由业务实现。
 
-模型调用使用 `ai/src/llm.py` 的 `create_chat_client(settings)`、`complete_chat(settings, client, messages, deadline=..., timeout=..., max_tokens=..., operation=...)`。业务自行提供提示词；`operation` 只是日志标签。模型失败抛 `ModelUnavailable`，`code` 可为 `unconfigured`、`timeout`、`api_error`、`empty`、`truncated`。
+模型业务通过 `ai/src/runtime/Runner` 执行 Agent，底层统一使用 `ai/src/llm.py:ChatModel`；专业提示词维护在 `ai/skills/`，检索使用共享工具，直接预加载同样经过唯一的 `skill` 工具。新增业务不要直接调用旧 `complete_chat()` 或检索 handler 绕过策略、预算和 Hook。接入契约见 [服务架构](../architecture/ai-service.md)。
+
+NPC 使用多轮 `npc_dialogue`，摘要使用单次 `conversation_summary`，共享当前请求期限与预算；世界独立使用单次 `world_narration` 和原持久队列。候选通过 `runner.commit(outcome, callback)` 提交后才发运行完成事件。旧 NPC 报文不变：澄清/未完成可返回游戏语境的 `response`，但不写入成功历史、关系与去重记录；失败返回安全错误。外部请求自称管理员或指定 scope 不授予权限。
 
 模型单次超时取显式上限与剩余业务期限的较小值。NPC 整轮预算不超过 80 秒；公共模型入口不把其他能力限制在此预算内。HTTP 超时按网络操作执行，处理方仍需拒绝迟到结果；线程池不会强制中断 Python 函数。
 
-公共模型错误另携带安全的 `status_code` 与 `retry_after` 元数据，世界 worker 用于 429 退避；不将供应商错误正文透传给玩家。可选 `usage_callback` 接收供应商返回的整数 token 计数，世界模块按尝试保存可取得的计数；无 usage 时不推算费用。
+公共模型错误与运行结果保留安全的 `status_code`、`retry_after`，世界 worker 用于 429 退避；不将供应商错误正文透传给玩家。用量经共享预算累加，世界模块按尝试保存可取得的 token 计数；迟到或无效响应同样计入实际用量，无 usage 时不推算费用。
 
 组件关闭自己创建的客户端，外部注入的客户端由注入方关闭。服务停止先等待工作结束，再关闭业务资源；日志仅记录模型、主机、耗时和错误分类，不输出密钥、提示词或 SDK 错误正文。
 

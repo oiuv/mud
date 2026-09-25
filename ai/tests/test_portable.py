@@ -81,15 +81,17 @@ class PortableTests(Fixture):
         external = self.root / "another-game"
         external.mkdir()
         (external / "guide").mkdir()
+        shutil.copytree(SERVICE_DIR / "skills", external / "guidance")
         (external / "guide/rules").write_text("星港通行须向领航员领取通行证。", encoding="utf-8")
         (external / "roles.json").write_text(json.dumps({"navigator": {
             "name": "领航员", "title": "星港向导", "role": "导航员", "memory_capacity": 10,
-            "knowledge_threshold": 1, "greeting": "欢迎来到星港。",
+            "knowledge_threshold": 0.4, "greeting": "欢迎来到星港。",
         }}, ensure_ascii=False), encoding="utf-8")
         environment = {key: value for key, value in os.environ.items()
                        if key in ("PATH", "SYSTEMROOT", "TEMP", "TMP", "WINDIR", "COMSPEC")}
         environment.update(ENABLED_MODULES="npc", KNOWLEDGE_UPDATE_ENABLED="false",
                            DATA_DIR=str(external / "state"), HELP_DIR=str(external / "guide"),
+                           SKILLS_DIR=str(external / "guidance"),
                            NPC_ROLES_FILE=str(external / "roles.json"), OPENAI_API_KEY="fake-test-key",
                            OPENAI_BASE_URL="http://invalid.test/v1", DASHSCOPE_API_KEY="")
         code = textwrap.dedent("""
@@ -102,8 +104,23 @@ class PortableTests(Fixture):
             from src.settings import load_settings
             client = Mock()
             client.with_options.return_value = client
-            client.chat.completions.create.return_value = SimpleNamespace(choices=[SimpleNamespace(
-                finish_reason='stop', message=SimpleNamespace(content='领航员说：通行证就在星港领取。'))])
+            def complete(**kwargs):
+                messages = kwargs['messages']
+                if any('已加载专业指导' in (m.get('content') or '') and 'conversation-summary' in m['content']
+                       for m in messages):
+                    text, calls = '旅人询问星港通行证。', []
+                elif messages[-1]['role'] == 'tool':
+                    evidence = json.loads(messages[-1]['content'])['value']['evidence']
+                    assert evidence
+                    text, calls = json.dumps(dict(status='completed', kind='rules',
+                        answer='领航员说：须向领航员领取通行证。', pending=[], claims=[
+                            dict(text='向领航员领取通行证', evidence=[evidence[0]['id']])])), []
+                else:
+                    text, calls = None, [SimpleNamespace(id='knowledge-1', type='function', function=SimpleNamespace(
+                        name='knowledge__search', arguments=json.dumps(dict(query='星港通行', threshold=0))))]
+                return SimpleNamespace(choices=[SimpleNamespace(finish_reason='tool_calls' if calls else 'stop',
+                    message=SimpleNamespace(content=text, tool_calls=calls))])
+            client.chat.completions.create.side_effect = complete
             with patch('src.npc.manager.create_chat_client', return_value=client):
                 server = create_server(load_settings())
             assert not any(name.startswith('src.world') for name in sys.modules)
@@ -125,7 +142,7 @@ class PortableTests(Fixture):
                         assert response['type'] == 'chat', response
                         assert response['request_id'] == str(index), response
                         assert '领航员' in response['response'], response
-                assert client.chat.completions.create.call_count == 7  # six chats plus one summary
+                assert client.chat.completions.create.call_count == 13  # two model rounds per chat plus one summary
             finally:
                 server.stop()
                 thread.join(5)

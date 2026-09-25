@@ -3,6 +3,7 @@ import time
 import threading
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
+from dataclasses import replace
 from unittest.mock import Mock
 
 from ai.src.llm import ModelResponse, ModelUnavailable
@@ -14,6 +15,33 @@ from ai.tests.test_runtime import DATA, QUERY, RuntimeFixture, ScriptedModel
 
 
 class LifecycleTests(RuntimeFixture):
+    def test_rejected_child_does_not_finalize_parent_or_discard_its_candidate(self):
+        hooks, events = self.observed()
+        runner = Runner(ScriptedModel(ModelResponse("answer")),
+                        [self.agent(requires_commit=True), replace(self.agent(), name="restricted")], hooks=hooks)
+        parent = runner.run("answer", {"goal": "x"}, self.context())
+        self.assertFalse(parent.finalized)
+        for name, code in (("unknown_child", "unknown_agent"), ("restricted", "agent_denied")):
+            child = runner.run(name, {"goal": "x"}, parent.context, delegated=True)
+            self.assertEqual(child.result.code, code)
+            self.assertNotEqual(child.context.run_id, parent.context.run_id)
+            self.assertEqual(child.context.parent_id, parent.context.run_id)
+            self.assertEqual(child.context.budget.snapshot()["model_calls"], 0)
+            self.assertFalse(parent.finalized)
+        self.assertEqual(runner.commit(parent, lambda value: value), "answer")
+        self.assertEqual([e["status"] for e in events if e["event"] == "run_end"], ["failed", "failed", "completed"])
+
+    def test_provider_failure_only_carries_valid_scheduling_metadata(self):
+        for status, delay, expected_status, expected_delay in (
+                (429, 123, 429, 123), ("PRIVATE", float("nan"), None, 0), (999, -1, None, 0)):
+            with self.subTest(status=status):
+                def fail(*args, **kwargs):
+                    raise ModelUnavailable("api_error", status_code=status, retry_after=delay)
+                outcome = Runner(ScriptedModel(fail), [self.agent()]).run("answer", {"goal": "x"}, self.context())
+                self.assertEqual(outcome.result.status_code, expected_status)
+                self.assertEqual(outcome.result.retry_after, expected_delay)
+                self.assertEqual(outcome.result.code, "api_error")
+
     def observed(self, *interventions):
         events = []
         hooks = Hooks([*interventions, *(

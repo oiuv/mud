@@ -3,6 +3,7 @@ import copy
 import json
 import os
 import sqlite3
+import shutil
 import tempfile
 import threading
 import time
@@ -12,11 +13,13 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 from types import SimpleNamespace
 
-from ai.src.llm import ModelUnavailable, complete_chat
+from ai.src.llm import ModelResponse, ModelUnavailable, complete_chat
+from ai.src.runtime.contracts import RuntimeFault
+from ai.src.runtime.hooks import Decision, Hook, Hooks
 from ai.src.protocol import RequestError
 from ai.src.settings import Settings, load_settings, SERVICE_DIR
 from ai.src.udp_server import UDPServer
-from ai.src.world.generator import Generator, PROMPT_VERSION, SYSTEM_PROMPT
+from ai.src.world.generator import Generator, PROMPT_VERSION
 from ai.src.world.protocol import (TEXT_FIELDS, content_key, digest, facts_digest,
                                    manifest_digest, validate_payload, validate_prose)
 from ai.src.world.service import WorldService
@@ -235,12 +238,15 @@ class WorldTests(unittest.TestCase):
 
     def test_prompt_only_sends_facts_and_uses_world_deadline(self):
         with patch("ai.src.world.generator.create_chat_client", return_value=Mock()), \
-                patch("ai.src.world.generator.complete_chat", return_value=json.dumps(fake_prose())) as call:
+                patch("ai.src.llm.complete_model", return_value=ModelResponse(json.dumps(fake_prose()))) as call:
             generator = Generator(self.settings)
             generator(sample_payload())
             self.assertEqual(call.call_args.kwargs["timeout"], 90)
             self.assertEqual(call.call_args.kwargs["operation"], "world_describe")
             self.assertEqual(json.loads(call.call_args.args[2][1]["content"]), sample_payload()["facts"])
+            self.assertEqual(call.call_count, 1)
+            self.assertFalse(call.call_args.kwargs["tools"])
+            self.assertIn("允许合理补白", call.call_args.args[2][2]["content"])
             generator.close()
 
     def test_creative_details_and_metaphor_survive_generation_and_publication(self):
@@ -251,7 +257,7 @@ class WorldTests(unittest.TestCase):
             "风穿过松梢，碎石旁一层针叶轻颤，石隙透着凉意，令人顿生争胜之念。",
         )
         with patch("ai.src.world.generator.create_chat_client", return_value=Mock()), \
-                patch("ai.src.world.generator.complete_chat") as completion:
+                patch("ai.src.llm.complete_model") as completion:
             generator = Generator(self.settings)
             self.addCleanup(generator.close)
             self.service.generator = generator
@@ -259,7 +265,7 @@ class WorldTests(unittest.TestCase):
                 with self.subTest(index=index):
                     payload = sample_payload(index)
                     expected = dict(schema_version=1, description=text, used_fact_ids=[])
-                    completion.return_value = json.dumps(expected, ensure_ascii=False)
+                    completion.return_value = ModelResponse(json.dumps(expected, ensure_ascii=False))
                     self.assertNotIn(text, payload["facts"]["description"])
                     self.assertEqual(validate_prose(expected, payload["facts"]), expected)
                     self.submit(payload)
@@ -275,11 +281,154 @@ class WorldTests(unittest.TestCase):
     def test_prompt_states_creative_space_without_relaxing_output_contract(self):
         # This checks the prompt contract, not whether a real model follows it.
         self.assertEqual(PROMPT_VERSION, "illusion-prose-v2")
-        for guidance in ("允许合理补白", "未逐项列在输入中不是禁写理由", "守住既定事实",
-                         "局部岩面不代表整格地势", "不承诺规则未提供", "不得增加其他字段"):
-            self.assertIn(guidance, SYSTEM_PROMPT)
-        self.assertNotIn("不得描写当前天气", SYSTEM_PROMPT)
-        self.assertNotIn("只能依据提供的", SYSTEM_PROMPT)
+        skill = (self.settings.skills_dir / "world-narration/SKILL.md").read_text(encoding="utf-8")
+        for guidance in ("允许合理补白", "未逐项列在输入中不是禁写理由", "保持房间名",
+                         "局部岩面不代表整格地势", "不承诺规则未提供", "不增加其他字段"):
+            self.assertIn(guidance, skill)
+        self.assertNotIn("不得描写当前天气", skill)
+        self.assertNotIn("只能依据提供的", skill)
+
+    def install_runtime(self, *interventions):
+        events = []
+        def observe(event):
+            # Terminal observers must see settled durable state, never a candidate.
+            events.append((dict(event), self.store.get(sample_payload()["content_key"])))
+        hooks = Hooks([*interventions, Hook("run_end", observe), Hook("run_error", observe)])
+        client = Mock()
+        client.with_options.return_value = client
+        client.chat.completions.create.return_value = SimpleNamespace(
+            choices=[SimpleNamespace(finish_reason="stop", message=SimpleNamespace(content=json.dumps(fake_prose())))],
+            usage=SimpleNamespace(prompt_tokens=10, completion_tokens=5, total_tokens=15))
+        with patch("ai.src.world.generator.create_chat_client", return_value=client):
+            generator = Generator(self.settings, hooks=hooks)
+        self.addCleanup(generator.close)
+        self.service.generator = generator
+        return client, generator, events
+
+    def test_runtime_terminal_after_commit_and_cached_prose_needs_zero_calls(self):
+        client, generator, events = self.install_runtime()
+        self.submit()
+        self.assertTrue(self.service.tick())
+        self.assertEqual([(e["event"], e["status"], row["state"]) for e, row in events],
+                         [("run_end", "completed", "ready")])
+        budget = events[0][0]["budget"]
+        self.assertEqual(budget["model_calls"], 1)
+        self.assertEqual(budget["tool_calls"], 1)
+        self.assertEqual(budget["usage"]["total_tokens"], 15)
+        self.assertEqual(generator.usage["total_tokens"], 15)
+        self.store.publication_path(sample_payload()).unlink()
+        self.assertEqual(self.submit()["status"], "pending")
+        self.assertFalse(self.service.tick())
+        self.assertEqual(self.submit()["status"], "ready")
+        self.assertEqual(client.chat.completions.create.call_count, 1)
+
+    def test_runtime_commit_failure_never_emits_completed_or_publishes(self):
+        client, generator, events = self.install_runtime()
+        self.submit()
+        with patch.object(self.store, "complete", side_effect=sqlite3.OperationalError("PRIVATE_BODY")):
+            self.service.tick()
+        self.assertEqual([e["status"] for e, _ in events], ["failed", "failed"])
+        self.assertTrue(all(row["state"] == "running" for _, row in events))
+        self.assertEqual(self.store.get(sample_payload()["content_key"])["state"], "retry_wait")
+        self.assertEqual(self.store.get(sample_payload()["content_key"])["error"], "commit_failed")
+        self.assertFalse(self.store.publication_path(sample_payload()).exists())
+        self.assertNotIn("PRIVATE_BODY", str(events))
+        self.assertEqual(generator.usage["total_tokens"], 15)
+
+    def test_runtime_429_keeps_retry_after_and_no_hidden_retries(self):
+        client, _, events = self.install_runtime()
+        error = RuntimeError("PRIVATE_PROVIDER_BODY")
+        error.status_code = 429
+        error.response = SimpleNamespace(headers={"retry-after": "123"})
+        client.chat.completions.create.side_effect = error
+        self.submit()
+        now = time.time()
+        self.service.tick()
+        row = self.store.get(sample_payload()["content_key"])
+        self.assertEqual(row["state"], "retry_wait")
+        self.assertGreaterEqual(row["next_at"], now + 123)
+        self.assertGreater(self.service._backoff, time.monotonic() + 120)
+        self.assertEqual(client.chat.completions.create.call_count, 1)
+        self.assertNotIn("PRIVATE_PROVIDER_BODY", str(events))
+
+    def test_runtime_three_invalid_attempts_keep_daily_quota_and_usage(self):
+        client, _, _ = self.install_runtime()
+        client.chat.completions.create.return_value.choices[0].message.content = "not JSON"
+        self.submit()
+        key = sample_payload()["content_key"]
+        for _ in range(3):
+            self.assertTrue(self.service.tick())
+            self.immediate_retry(key)
+        self.assertFalse(self.service.tick())
+        self.assertEqual(self.store.get(key)["state"], "failed")
+        self.assertEqual(client.chat.completions.create.call_count, 3)
+        with self.store.connect() as db:
+            self.assertEqual(db.execute("SELECT sum(calls) FROM daily_usage").fetchone()[0], 3)
+            rows = db.execute("SELECT usage FROM attempt_usage").fetchall()
+        self.assertEqual(len(rows), 3)
+        self.assertTrue(all(json.loads(row[0])["total_tokens"] == 15 for row in rows))
+
+    def test_runtime_commit_denial_or_shutdown_never_writes_prose(self):
+        for mode in ("deny", "shutdown"):
+            with self.subTest(mode=mode):
+                def intervene(event):
+                    if mode == "shutdown":
+                        self.service._stop.set()
+                        return Decision()
+                    return Decision("deny")
+                client, _, events = self.install_runtime(Hook("before_commit", intervene, intervention=True))
+                self.submit()
+                self.service.tick()
+                self.assertTrue(all(e["status"] != "completed" for e, _ in events))
+                self.assertFalse(self.store.publication_path(sample_payload()).exists())
+                self.assertEqual(client.chat.completions.create.call_count, 1)
+                self.service._stop.clear()
+                self.immediate_retry(sample_payload()["content_key"])
+
+    def test_runtime_missing_skill_fails_closed_without_model_call(self):
+        self.settings.skills_dir = Path(self.temp.name) / "skills"
+        self.settings.skills_dir.mkdir()
+        client, _, events = self.install_runtime()
+        self.submit()
+        self.service.tick()
+        client.chat.completions.create.assert_not_called()
+        self.assertEqual(self.store.get(sample_payload()["content_key"])["error"], "skill_unavailable")
+        self.assertEqual([e["status"] for e, _ in events], ["failed", "failed"])
+
+    def test_store_rejects_stale_attempt_and_expired_context_atomically(self):
+        self.submit()
+        row = self.store.claim()
+        for bad in ({**row, "attempts": row["attempts"] + 1}, {**row, "lease": row["lease"] + 1}):
+            with self.assertRaises(ValueError):
+                self.store.complete(bad, fake_prose(), "test", PROMPT_VERSION)
+        def expired():
+            raise RuntimeFault("deadline", "incomplete")
+        with self.assertRaises(RuntimeFault):
+            self.store.complete(row, fake_prose(), "test", PROMPT_VERSION, check=expired)
+        with self.store.connect() as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM attempt_usage").fetchone()[0], 0)
+        self.assertEqual(self.store.get(row["content_key"])["state"], "running")
+
+    def test_skill_version_upgrade_only_affects_new_content(self):
+        skills = Path(self.temp.name) / "skills-copy"
+        shutil.copytree(self.settings.skills_dir, skills)
+        self.settings.skills_dir = skills
+        client, _, _ = self.install_runtime()
+        self.submit()
+        self.service.tick()
+        old = sample_payload()
+        snapshot = self.store.publication_path(old).read_bytes()
+        skill = skills / "world-narration/SKILL.md"
+        skill.write_text(skill.read_text(encoding="utf-8").replace(PROMPT_VERSION, "test-prose-v3"), encoding="utf-8")
+        self.assertEqual(self.submit()["status"], "ready")
+        self.assertFalse(self.service.tick())
+        new = sample_payload(2)
+        self.submit(new)
+        self.service.tick()
+        self.assertEqual(self.store.get(new["content_key"])["prompt"], "test-prose-v3")
+        self.assertEqual(self.store.get(old["content_key"])["prompt"], PROMPT_VERSION)
+        self.assertEqual(self.store.publication_path(old).read_bytes(), snapshot)
+        self.assertEqual(client.chat.completions.create.call_count, 2)
 
     def test_short_route_independent_of_busy_chat_and_model(self):
         server = UDPServer(settings=self.settings, port=0)

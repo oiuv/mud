@@ -10,6 +10,7 @@ from openai import APITimeoutError, APIStatusError
 from ai.scripts import diagnose_chat
 from ai.src.knowledge_qwen import remaining_timeout
 from ai.src.npc.manager import ChatUnavailable, NPCManager
+from ai.src.llm import ModelUnavailable, complete_chat
 from ai.src.settings import Settings, load_settings
 from ai.tests.test_npc_ai import Fixture
 
@@ -52,7 +53,7 @@ class ChatTimeoutTests(Fixture):
 
         client.chat.completions.create.side_effect = slow_response
         with patch("ai.src.npc.manager.time.monotonic", side_effect=lambda: clock[0]):
-            answer = manager._complete([{"role": "user", "content": "问题"}], deadline=180)
+            answer = complete_chat(self.settings, client, [{"role": "user", "content": "问题"}], deadline=180)
             self.assertEqual(answer, "回答")
             client.with_options.assert_called_with(timeout=60)
             self.assertEqual(remaining_timeout(self.settings, 180), 20)
@@ -63,12 +64,12 @@ class ChatTimeoutTests(Fixture):
     def test_chat_is_capped_by_remaining_request_budget(self):
         manager, client = self.manager()
         with patch("ai.src.npc.manager.time.monotonic", return_value=100):
-            manager._complete([], deadline=107)
+            complete_chat(self.settings, client, [], deadline=107)
         client.with_options.assert_called_once_with(timeout=7)
         client.chat.completions.create.reset_mock()
         with patch("ai.src.npc.manager.time.monotonic", return_value=100):
-            with self.assertRaises(ChatUnavailable):
-                manager._complete([], deadline=100)
+            with self.assertRaises(ModelUnavailable):
+                complete_chat(self.settings, client, [], deadline=100)
         client.chat.completions.create.assert_not_called()
 
     def test_response_after_deadline_is_not_accepted(self):
@@ -82,8 +83,8 @@ class ChatTimeoutTests(Fixture):
 
         client.chat.completions.create.side_effect = late_response
         with patch("ai.src.npc.manager.time.monotonic", side_effect=lambda: clock[0]):
-            with self.assertRaisesRegex(ChatUnavailable, "超时"):
-                manager._complete([], deadline=180)
+            with self.assertRaisesRegex(ModelUnavailable, "timeout"):
+                complete_chat(self.settings, client, [], deadline=180)
 
     def test_timeout_log_reports_cause_without_secrets_or_prompt(self):
         manager, client = self.manager()
@@ -97,8 +98,8 @@ class ChatTimeoutTests(Fixture):
         client.chat.completions.create.side_effect = fail
         self.settings.chat_base_url = "https://secret-user:secret-pass@example.test/v1?key=secret-token"
         with self.assertLogs("ai.src.llm", level="WARNING") as logs:
-            with self.assertRaisesRegex(ChatUnavailable, "超时"):
-                manager._complete([{"role": "user", "content": "private-player-question"}])
+            with self.assertRaisesRegex(ModelUnavailable, "timeout"):
+                complete_chat(self.settings, client, [{"role": "user", "content": "private-player-question"}])
         text = "\n".join(logs.output)
         for expected in ("operation=chat", "model=qwen3.8-flash", "host=example.test",
                          "timeout_s=60.00", "error=APITimeoutError", "cause=ReadTimeout"):
@@ -112,8 +113,8 @@ class ChatTimeoutTests(Fixture):
         client.chat.completions.create.side_effect = APIStatusError(
             "secret-provider-error", response=response, body={"key": "secret-key"})
         with self.assertLogs("ai.src.llm", level="WARNING") as logs:
-            with self.assertRaises(ChatUnavailable):
-                manager._complete([])
+            with self.assertRaises(ModelUnavailable):
+                complete_chat(self.settings, client, [])
         self.assertIn("status=401", "\n".join(logs.output))
         self.assertNotIn("secret", "\n".join(logs.output))
 

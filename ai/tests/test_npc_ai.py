@@ -312,8 +312,10 @@ class ChatTests(Fixture):
     def test_chat_and_summary_send_qwen_model_and_non_thinking_parameters(self):
         client = Mock()
         client.with_options.return_value = client
-        client.chat.completions.create.return_value = SimpleNamespace(choices=[SimpleNamespace(
-            finish_reason="stop", message=SimpleNamespace(content="侠客说：少侠有礼。"))])
+        client.chat.completions.create.side_effect = [SimpleNamespace(choices=[SimpleNamespace(
+            finish_reason="stop", message=SimpleNamespace(content=text))]) for text in (
+                json.dumps(dict(status="completed", kind="conversation", answer="侠客说：少侠有礼。",
+                                claims=[], pending=[]), ensure_ascii=False), "玩家向侠客问好。")]
         knowledge = Mock()
         knowledge.hybrid_search.return_value = []
         manager = NPCManager(settings=self.settings, client=client, knowledge=knowledge)

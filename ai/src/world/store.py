@@ -199,10 +199,19 @@ class Store:
                 db.execute("UPDATE room_jobs SET state=?,error=?,next_at=?,lease=0 WHERE content_key=?",
                            (state, code, now + max(delay, backoff), key))
 
-    def complete(self, row, prose, model, prompt, usage=None):
+    def complete(self, row, prose, model, prompt, usage=None, *, check=None):
         payload = json.loads(row["payload"])
         prose = validate_prose(prose, payload["facts"])
+        self.verify_world(payload)
         with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            if check is not None:
+                check()
+            current = db.execute("SELECT * FROM room_jobs WHERE content_key=?", (row["content_key"],)).fetchone()
+            if (current is None or current["state"] != "running" or current["attempts"] != row["attempts"]
+                    or current["payload"] != row["payload"] or current["lease"] != row["lease"]
+                    or current["lease"] <= time.time()):
+                raise ValueError("stale world attempt")
             db.execute("INSERT OR REPLACE INTO attempt_usage VALUES (?,?,?)",
                        (row["content_key"], row["attempts"], json.dumps(usage or {})))
             db.execute("UPDATE room_jobs SET state='ready',prose=?,model=?,prompt=?,usage=?,completed=?,lease=0,next_at=0,error='' "

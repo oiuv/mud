@@ -7,6 +7,7 @@ import time
 
 from ..llm import ModelUnavailable
 from ..protocol import RequestError
+from ..runtime.contracts import RuntimeFault
 from .generator import Generator, PROMPT_VERSION
 from .protocol import DIGEST
 from .store import Store
@@ -112,11 +113,21 @@ class WorldService:
         try:
             payload = json.loads(row["payload"])
             self.store.verify_world(payload)
-            prose = self.generator(payload)
-            usage = self.generator.usage if isinstance(self.generator, Generator) else None
-            self.store.complete(row, prose, self.settings.chat_model, PROMPT_VERSION, usage)
+            if isinstance(self.generator, Generator):
+                outcome = self.generator.prepare(payload, request_id=f"{row['content_key']}:{row['attempts']}")
+                def check():
+                    outcome.context.check()
+                    if self._stop.is_set():
+                        raise RuntimeFault("cancelled", "cancelled")
+                self.generator.runner.commit(outcome, lambda prose: self.store.complete(
+                    row, prose, self.settings.chat_model, self.generator.prompt_version,
+                    self.generator.usage, check=check))
+            else:
+                # Trusted injected fixtures do not create a model-backed Agent run.
+                prose = self.generator(payload)
+                self.store.complete(row, prose, self.settings.chat_model, PROMPT_VERSION)
         except Exception as error:
-            code = error.code if isinstance(error, ModelUnavailable) else "invalid_result" if isinstance(error, ValueError) else "generation_failed"
+            code = error.code if isinstance(error, (ModelUnavailable, RuntimeFault)) else "invalid_result" if isinstance(error, ValueError) else "generation_failed"
             retry_after = getattr(error, "retry_after", 0) or 0
             if getattr(error, "status_code", None) == 429:
                 retry_after = max(60, retry_after)

@@ -1,10 +1,12 @@
 """Goal-driven loop. Business modules supply prompts and completion criteria."""
 import logging
+import math
 import re
+import uuid
 from dataclasses import dataclass, field, replace
 
 from ..llm import ModelUnavailable
-from .context import Limits, Policy
+from .context import Budget, Limits, Policy, RunState
 from .contracts import Contract, RuntimeFault, json_text
 from .hooks import Hooks
 from .lifecycle import error_code
@@ -20,10 +22,18 @@ class Result:
     status: str
     value: object = None
     code: str = ""
+    status_code: int | None = None
+    retry_after: float = 0
 
     def __post_init__(self):
         if self.status not in STATUSES:
             raise ValueError("Invalid result status")
+        if (self.status_code is not None and
+                (type(self.status_code) is not int or not 100 <= self.status_code <= 599)):
+            raise ValueError("Invalid failure status code")
+        if (type(self.retry_after) not in (int, float) or not math.isfinite(self.retry_after)
+                or self.retry_after < 0):
+            raise ValueError("Invalid retry delay")
 
 
 def text_result(text):
@@ -128,11 +138,16 @@ class Runner:
         return messages
 
     def run(self, name, payload, context, *, delegated=False):
+        parent = context
+        # Even rejection before enter() belongs to a separate invocation. Never
+        # terminate the caller's state or discard its pending durable candidate.
+        context = replace(parent, run_id=uuid.uuid4().hex, parent_id=parent.run_id,
+                          agent_id=name, state=RunState(), budget=Budget(parent.budget.limits, parent.budget))
         agent = self.agents.get(name)
         try:
             if agent is None:
                 raise RuntimeFault("unknown_agent")
-            context = context.enter(agent.name, agent.policy, agent.limits, delegated=delegated)
+            context = parent.enter(agent.name, agent.policy, agent.limits, delegated=delegated)
             payload = agent.inputs.validate(payload, context.budget.limits.context_bytes)
             context.state.goal = payload.get("goal", "") if isinstance(payload, dict) else str(payload)
             self.hooks.emit("run_start", context)
@@ -185,7 +200,13 @@ class Runner:
         except RuntimeFault as error:
             return self._finish(Result(error.status, code=error.code), context, agent)
         except ModelUnavailable as error:
-            return self._finish(Result("failed", code=error_code(error)), context, agent)
+            # Preserve scheduling metadata, never provider bodies/exception strings.
+            status = error.status_code
+            delay = error.retry_after
+            status = status if type(status) is int and 100 <= status <= 599 else None
+            delay = delay if type(delay) in (int, float) and math.isfinite(delay) and delay >= 0 else 0
+            return self._finish(Result("failed", code=error_code(error), status_code=status,
+                                       retry_after=delay), context, agent)
         except Exception as error:
             logger.warning("Agent failed: error=%s", type(error).__name__)
             return self._finish(Result("failed", code="internal_error"), context, agent)

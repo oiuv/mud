@@ -8,7 +8,7 @@ from ..runtime.tools import Tool
 from .source import public_path
 
 
-def knowledge_tool(knowledge, hooks=None, allowed=None):
+def knowledge_tool(knowledge, hooks=None, allowed=None, minimum_threshold=None):
     def authorize(context, arguments):
         if "knowledge" not in context.policy.scopes:
             raise RuntimeFault("scope_denied")
@@ -17,9 +17,12 @@ def knowledge_tool(knowledge, hooks=None, allowed=None):
 
     def search(context, arguments):
         diagnostics = []
+        threshold = arguments.get("threshold", .4)
+        if minimum_threshold is not None:
+            threshold = max(threshold, minimum_threshold(context))
         docs = knowledge.hybrid_search(
             arguments["query"], limit=arguments.get("limit", 3),
-            threshold=arguments.get("threshold", .4), deadline=context.deadline,
+            threshold=threshold, deadline=context.deadline,
             context=context, hooks=hooks,
             allowed=lambda doc: public_path(doc["filename"]) and (allowed is None or allowed(context, doc)),
             remote="knowledge" in context.policy.egress_scopes, diagnostics=diagnostics)
@@ -54,4 +57,5 @@ def knowledge_tool(knowledge, hooks=None, allowed=None):
 
 def build_tools(services):
     if services.get("knowledge") is not None:
-        yield knowledge_tool(services["knowledge"], services.get("hooks"), services.get("knowledge_allowed"))
+        yield knowledge_tool(services["knowledge"], services.get("hooks"), services.get("knowledge_allowed"),
+                             services.get("knowledge_minimum_threshold"))
