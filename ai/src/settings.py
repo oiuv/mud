@@ -6,6 +6,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from dotenv import load_dotenv
 
+from .runtime.context import Policy
+
 SERVICE_DIR = Path(__file__).resolve().parents[1]
 
 
@@ -19,6 +21,7 @@ class Settings:
     port: int = 9999
     debug: bool = False
     enabled_modules: tuple = ("npc", "world")
+    runtime_policy: dict = field(default_factory=dict)
     knowledge_update_enabled: bool = True
     chat_api_key: str = field(default="", repr=False)
     chat_base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
@@ -65,6 +68,7 @@ class Settings:
     world_disk_headroom: int = 67108864
 
     def __post_init__(self):
+        Policy().restrict(self.runtime_policy)  # Fail closed on malformed deployment limits.
         if (not isinstance(self.enabled_modules, tuple)
                 or any(name not in ("npc", "world") for name in self.enabled_modules)
                 or len(set(self.enabled_modules)) != len(self.enabled_modules)):

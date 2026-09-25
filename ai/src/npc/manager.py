@@ -9,7 +9,8 @@ from urllib.parse import urlsplit
 
 from ..knowledge_qwen import QwenKnowledgeSystem
 from ..llm import ChatModel, create_chat_client
-from ..runtime.context import Budget, RunContext
+from ..runtime.access import bind_context
+from ..runtime.contracts import RuntimeFault
 from ..runtime.hooks import Hooks
 from ..runtime.runner import Runner
 from ..runtime.skills import Skills
@@ -78,6 +79,8 @@ class NPCManager:
             if not isinstance(role, dict):
                 raise ValueError(f"Invalid NPC configuration: {npc_id}")
             role = dict(role)
+            if "knowledge_paths" in role:
+                POLICY.restrict({"knowledge_paths": role["knowledge_paths"]})
             capacity = role.get("memory_capacity", 100)
             threshold = role.get("knowledge_threshold", 0.4)
             if type(capacity) is not int or capacity < 0:
@@ -107,19 +110,33 @@ class NPCManager:
     def get_npc_config(self, npc_id):
         return self.npc_configs.get(npc_id, {})
 
-    def create_context(self, request_id, npc_id, player_id, deadline=None):
+    def entry_policy(self, npc_id):
+        policy = POLICY.restrict(self.settings.runtime_policy)
+        role = self.get_npc_config(npc_id)
+        if "knowledge_paths" in role:
+            policy = policy.restrict({"knowledge_paths": role["knowledge_paths"]})
+        return policy
+
+    def create_context(self, request_id, npc_id, player_id, deadline=None, parent=None):
         limit = time.monotonic() + min(80, self.settings.request_timeout)
-        return RunContext(request_id, player_id, "player", json.dumps([npc_id, player_id]), POLICY,
-                          min(limit, deadline) if deadline is not None else limit, budget=Budget(LIMITS))
+        return bind_context(self.entry_policy(npc_id), request_id, player_id, "player",
+                            json.dumps([npc_id, player_id]),
+                            min(limit, deadline) if deadline is not None else limit, LIMITS, parent=parent)
 
     def generate_response(self, npc_id, player_name, message, player_memory, history, context,
                           deadline=None, *, run_context=None, defer_commit=False):
         role = self.get_npc_config(npc_id)
         if not role:
             raise ValueError("此人眼下无心交谈。")
-        if self.client is None:
-            return Reply(f"{role['name']}说：{role['greeting']}", simulated=True)
         run_context = run_context or self.create_context(uuid.uuid4().hex, npc_id, player_name, deadline)
+        if (run_context.audience != "player"
+                or run_context.session != json.dumps([npc_id, run_context.actor])):
+            raise RuntimeFault("session_denied")
+        if "npc_dialogue" not in run_context.policy.agents:
+            raise RuntimeFault("agent_denied")
+        if self.client is None:
+            run_context.check()
+            return Reply(f"{role['name']}说：{role['greeting']}", simulated=True)
         outcome = self.runner.run("npc_dialogue", {
             "role": role, "player_name": player_name, "message": message, "memory": player_memory,
             "history": history, "situation": context}, run_context)

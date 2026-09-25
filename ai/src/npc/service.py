@@ -8,6 +8,8 @@ import time
 from ..database import connect
 from ..protocol import error_response
 from ..runtime.contracts import RuntimeFault
+from ..runtime.access import check_session
+from .agents import POLICY
 from .history import HistoryManager
 from .memory import MemoryStore
 from .manager import NPCManager, ChatUnavailable
@@ -29,9 +31,12 @@ class NPCService:
             db.execute("""CREATE TABLE IF NOT EXISTS request_results(
                 request_id TEXT PRIMARY KEY,fingerprint TEXT NOT NULL,
                 response TEXT NOT NULL,created REAL NOT NULL)""")
+            # Sidecar preserves the four-column legacy cache/rollback contract.
+            db.execute("""CREATE TABLE IF NOT EXISTS request_authorities(
+                request_id TEXT PRIMARY KEY,authority TEXT NOT NULL)""")
         self.npc = npc_manager if npc_manager is not None else NPCManager(settings=settings)
 
-    def process_request(self, request, deadline):
+    def process_request(self, request, deadline, *, parent=None):
         deadline = min(deadline, time.monotonic() + self.settings.request_timeout)
         for key in ("npc_id", "player_id"):
             required = key != "player_id" or request["type"] != "config"
@@ -58,8 +63,18 @@ class NPCService:
         try:
             if time.monotonic() >= deadline:
                 raise TimeoutError()
+            if parent is not None:
+                check_session(parent, request["request_id"], session[1], "player", json.dumps(list(session)))
+                if not isinstance(self.npc, NPCManager):
+                    raise RuntimeFault("agent_denied")
+            policy = (self.npc.entry_policy(session[0]) if isinstance(self.npc, NPCManager)
+                      else POLICY.restrict(self.settings.runtime_policy))
+            if parent is not None:
+                policy = policy.intersect(parent.policy)
+            if "npc_dialogue" not in policy.agents:
+                raise RuntimeFault("agent_denied")
             if request["type"] == "chat":
-                return self.handle_chat(request, deadline)
+                return self.handle_chat(request, deadline, policy, parent)
             if request["type"] == "memory":
                 return dict(type="memory", request_id=request["request_id"], npc_id=request["npc_id"],
                             player_id=request["player_id"],
@@ -83,16 +98,33 @@ class NPCService:
         finally:
             lock.release()
 
-    def handle_chat(self, request, deadline):
+    def handle_chat(self, request, deadline, policy, parent=None):
         npc_id, player_id = request["npc_id"], request["player_id"]
+        authority = hashlib.sha256(json.dumps(
+            [npc_id, player_id, "player", policy.fingerprint(),
+             parent.external_model if parent is not None else True], ensure_ascii=False).encode("utf-8")).hexdigest()
+        def check_authority(db):
+            row = db.execute("SELECT authority FROM request_authorities WHERE request_id=?",
+                             (request["request_id"],)).fetchone()
+            # Old caches predate permission metadata; only the unchanged public
+            # direct-entry policy can replay them. Never upgrade an unknown scope.
+            if ((row is not None and row["authority"] != authority)
+                    or (row is None and (parent is not None or policy != POLICY))):
+                raise RuntimeFault("cache_scope_conflict")
         fingerprint = hashlib.sha256(json.dumps(
             request, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
         with connect(self.history.db_path) as db:
             cached = db.execute("SELECT * FROM request_results WHERE request_id=? AND created>?",
                                 (request["request_id"], time.time() - self.settings.request_cache_ttl)).fetchone()
+            if cached:
+                check_authority(db)
         if cached:
             if cached["fingerprint"] != fingerprint:
                 raise ValueError("请求ID已用于另一条消息。")
+            if time.monotonic() >= deadline:
+                raise TimeoutError()
+            if parent is not None:
+                parent.check()
             return json.loads(cached["response"])
         config = self.npc.get_npc_config(npc_id)
         if not config:
@@ -100,7 +132,10 @@ class NPCService:
         capacity = config.get("memory_capacity", 100)
         player_name = request.get("player_name", player_id)
         runtime = isinstance(self.npc, NPCManager)
-        context = self.npc.create_context(request["request_id"], npc_id, player_id, deadline) if runtime else None
+        context = (self.npc.create_context(request["request_id"], npc_id, player_id, deadline,
+                                          *([parent] if parent is not None else [])) if runtime else None)
+        if runtime and context.policy != policy:
+            raise RuntimeFault("policy_changed")
         history = []
         if capacity:
             summary, batch = self.history.summary_batch(
@@ -158,6 +193,7 @@ class NPCService:
                 if existing:
                     if existing["fingerprint"] != fingerprint:
                         raise ValueError("请求尚未结束，请稍候再问。")
+                    check_authority(db)
                     return json.loads(existing["response"])
                 if not reply.simulated:
                     db.executemany("""
@@ -171,11 +207,14 @@ class NPCService:
                     """, (npc_id, player_id, json.dumps(updated, ensure_ascii=False)))
                 db.execute("INSERT OR REPLACE INTO request_results VALUES(?,?,?,?)",
                            (request["request_id"], fingerprint, json.dumps(response, ensure_ascii=False), time.time()))
+                db.execute("INSERT OR REPLACE INTO request_authorities VALUES(?,?)",
+                           (request["request_id"], authority))
                 db.execute("DELETE FROM request_results WHERE created<?",
                            (time.time() - self.settings.request_cache_ttl,))
                 db.execute("""DELETE FROM request_results WHERE request_id IN
                     (SELECT request_id FROM request_results ORDER BY created DESC LIMIT -1 OFFSET ?)""",
                            (self.settings.request_cache_size,))
+                db.execute("DELETE FROM request_authorities WHERE request_id NOT IN (SELECT request_id FROM request_results)")
             return response
         if runtime and reply.outcome is not None:
             return self.npc.runner.commit(reply.outcome, commit)

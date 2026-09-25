@@ -50,7 +50,7 @@ class Generator:
         """Generate a candidate, without final success before the durable commit."""
         self.usage = {}
         context = RunContext(request_id or payload["content_key"], "world-worker", "internal",
-                             payload["content_key"], POLICY,
+                             payload["content_key"], POLICY.restrict(self.settings.runtime_policy),
                              time.monotonic() + self.settings.world_timeout, budget=Budget(LIMITS))
         outcome = self.runner.run("world_narration", payload, context)
         self.usage = dict(context.budget.usage)

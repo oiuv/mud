@@ -174,6 +174,8 @@ RERANK_ENABLED=true
 
 knowledge_threshold 控制向量召回相似度；BM25不使用该阈值。设置为1会禁用该NPC的整个知识检索。
 
+`RUNTIME_POLICY` 是可信部署权限上限，默认 `{}` 保持已有公开能力；只能收紧，不能靠填写工具名启用源码或主 Agent。可指定 `tools/skills/scopes/egress_scopes/agents` 名称数组、`knowledge_paths` 文档路径模式及 `version`。省略字段不额外限制，空数组全部禁止；示例见 `.env.example`。修改后重启服务，错误配置会阻止启动，不静默放宽。
+
 ## 角色和游戏接入
 
 角色配置位于 config/npc_roles.json，以 NPC 的AI角色ID为键。支持 name/title/role/personality/background/greeting/topics/speech_style/knowledge_base/relationship_tips 字段。
@@ -195,6 +197,10 @@ knowledge_threshold 控制向量召回相似度；BM25不使用该阈值。设�
   }
 }
 ~~~
+
+`knowledge_base` 是角色背景知识文本，不是权限白名单。需要限制某角色可检索的文档时，另加 `"knowledge_paths": ["wudang", "newbie"]`：匹配帮助索引中的相对文件名，区分大小写，支持 `*`、`?`、`[]` 通配（`*` 可跨 `/`）；不填沿用部署公开范围，`[]` 禁止所有文档。角色范围与部署、父调用范围取交集，过滤发生在候选召回和外部重排之前，私密文件仍始终排除。
+
+本机 UDP 的 `player_id` 由可信游戏端提供，不是玩家认证；不得对不可信网络开放。载荷自报 `admin`、`policy` 或 `scope` 不授予权限。成功缓存同时核对会话与有效权限；权限改变后不会重放旧答案，也不会自动重新付费生成。旧版本无权限元数据的缓存仅能在默认公开直接入口重放。
 
 NPC通过 accept_talk 调用 AI_CLIENT_D->send_chat_request(npcId, playerId, playerName, message, context)。
 context 为字符串；参考 u/mudren/npc/ai_npc_template.c。ai_npc_id 必须匹配角色配置，但不再要求与 find_living 注册名称一致。

@@ -116,7 +116,7 @@ class Tools:
                          for key in ("tools", "skills", "scopes", "egress_scopes", "agents")}
             authority.update(actor=context.actor, audience=context.audience, session=context.session,
                              agent=context.agent_id, external_model=context.external_model,
-                             policy=context.policy.version,
+                             policy=context.policy.fingerprint(),
                              ceiling=sorted(context.state.tool_ceiling) if context.state.tool_ceiling is not None else None)
             fingerprint = json_text([name, arguments, authority], 65536)
         except RuntimeFault as error:

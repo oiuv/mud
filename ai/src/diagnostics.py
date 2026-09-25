@@ -22,7 +22,8 @@ def diagnose_text(settings, client, question, *, hooks=None):
         lambda context, payload: [{"role": "user", "content": payload}], policy,
         lambda result, context: [], limits=limits, mode="single", operation="diagnostic_chat",
         timeout=min(settings.chat_timeout, 300), max_tokens=settings.max_tokens)
-    context = RunContext(uuid.uuid4().hex, "local-cli", "admin", "diagnostic-chat", policy,
+    context = RunContext(uuid.uuid4().hex, "local-cli", "admin", "diagnostic-chat",
+                         policy.restrict(settings.runtime_policy),
                          time.monotonic() + settings.request_timeout, Budget(limits))
     return Runner(ChatModel(settings, client), [agent], hooks=hooks).run(agent.name, question, context)
 
@@ -43,7 +44,7 @@ class RetrievalDiagnostic:
                              tool_calls=1, delegations=0, depth=0)
         self.policy = Policy(tools={"knowledge.search"}, scopes={"knowledge"},
                              egress_scopes={"knowledge"} if self.remote else set(),
-                             version="local-retrieval-diagnostic-v1")
+                             version="local-retrieval-diagnostic-v1").restrict(self.settings.runtime_policy)
         self.tools = Tools([knowledge_tool(knowledge, self.hooks, diagnostic=True, mode=mode)],
                            hooks=self.hooks)
 

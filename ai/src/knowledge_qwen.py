@@ -73,8 +73,8 @@ class QwenKnowledgeSystem:
     def _query_vector(self, query, deadline=None, *, context=None, hooks=None):
         # Even query-vector hits are isolated by effective authority, not merely text.
         namespace = None if context is None else (
-            context.actor, context.audience, context.session, context.agent_id, context.policy.version,
-            tuple(sorted(context.policy.scopes)), tuple(sorted(context.policy.egress_scopes)))
+            context.actor, context.audience, context.session, context.agent_id,
+            context.external_model, context.policy.fingerprint())
         key = query if context is None else (namespace, query)
         now = time.monotonic()
         with self._lock:

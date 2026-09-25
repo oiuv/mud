@@ -1,5 +1,8 @@
 """Immutable authority and request-local, shared resource accounting."""
+import hashlib
+import json
 import math
+from fnmatch import fnmatchcase
 import threading
 import time
 import uuid
@@ -82,8 +85,13 @@ class Policy:
     egress_scopes: frozenset = frozenset()
     agents: frozenset = frozenset()
     version: str = "default-deny-v1"
+    # AND between restriction layers, OR within each layer. No layers means no
+    # additional filter; an empty layer denies all documents.
+    knowledge_paths: tuple = ()
 
     def __post_init__(self):
+        if not isinstance(self.version, str) or not self.version or len(self.version) > 128:
+            raise ValueError("Invalid policy version")
         for key in ("tools", "skills", "scopes", "egress_scopes", "agents"):
             if not isinstance(getattr(self, key), (set, frozenset, tuple, list)):
                 raise ValueError("Policy identifiers must be a collection")
@@ -91,11 +99,46 @@ class Policy:
             if any(not isinstance(value, str) or not value or len(value) > 128 for value in values):
                 raise ValueError("Invalid policy identifiers")
             object.__setattr__(self, key, values)
+        layers = []
+        if not isinstance(self.knowledge_paths, (list, tuple)):
+            raise ValueError("Invalid knowledge path restrictions")
+        for patterns in self.knowledge_paths:
+            if not isinstance(patterns, (list, tuple)) or len(patterns) > 128:
+                raise ValueError("Invalid knowledge path restrictions")
+            for pattern in patterns:
+                if (not isinstance(pattern, str) or not pattern or len(pattern) > 256
+                        or any(char in pattern for char in ("\\", ":", "\x00"))
+                        or pattern.startswith("/") or ".." in pattern.split("/")):
+                    raise ValueError("Knowledge patterns must be relative public paths")
+            layers.append(tuple(sorted(set(patterns))))
+        object.__setattr__(self, "knowledge_paths", tuple(sorted(set(layers))))
 
     def intersect(self, other):
         return Policy(**{key: getattr(self, key) & getattr(other, key)
                          for key in ("tools", "skills", "scopes", "egress_scopes", "agents")},
-                      version=self.version)
+                      knowledge_paths=(*self.knowledge_paths, *other.knowledge_paths),
+                      version=self.version if self.version == other.version else hashlib.sha256(
+                          json.dumps(sorted((self.version, other.version))).encode()).hexdigest())
+
+    def restrict(self, values):
+        """Trusted deployment configuration can only narrow existing grants."""
+        keys = ("tools", "skills", "scopes", "egress_scopes", "agents")
+        if not isinstance(values, dict) or set(values) - {*keys, "version", "knowledge_paths"}:
+            raise ValueError("Invalid runtime policy fields")
+        ceiling = Policy(**{key: values.get(key, getattr(self, key)) for key in keys},
+                         version=values.get("version", self.version),
+                         knowledge_paths=(values["knowledge_paths"],) if "knowledge_paths" in values else ())
+        return self.intersect(ceiling)
+
+    def permits_knowledge(self, path):
+        return all(any(fnmatchcase(path, pattern) for pattern in patterns)
+                   for patterns in self.knowledge_paths)
+
+    def fingerprint(self):
+        values = {key: sorted(getattr(self, key)) for key in
+                  ("tools", "skills", "scopes", "egress_scopes", "agents")}
+        values.update(version=self.version, knowledge_paths=self.knowledge_paths)
+        return hashlib.sha256(json.dumps(values, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
 
 
 @dataclass

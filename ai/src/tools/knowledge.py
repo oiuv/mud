@@ -28,7 +28,9 @@ def knowledge_tool(knowledge, hooks=None, allowed=None, minimum_threshold=None, 
         threshold = arguments.get("threshold", .4)
         if minimum_threshold is not None:
             threshold = max(threshold, minimum_threshold(context))
-        permitted = lambda doc: public_path(doc["filename"]) and (allowed is None or allowed(context, doc))
+        permitted = lambda doc: (public_path(doc["filename"])
+                                 and context.policy.permits_knowledge(doc["filename"])
+                                 and (allowed is None or allowed(context, doc)))
         limit = arguments.get("limit", 3)
         if threshold >= 1:
             docs = []
