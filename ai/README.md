@@ -11,8 +11,23 @@
 | `src/npc/` | NPC 人设、会话锁、聊天/记忆/角色查询及原子持久化 |
 | `src/world/` | 静态房间事实、持久去重任务、独立模型 worker 和本地正文发布 |
 | `src/knowledge_*.py` | BM25、向量混合检索和知识库同步 |
+| `src/runtime/`、`src/tools/`、`skills/` | 正在接入业务的共享 Agent/Tool/Skill/Hook；不是第二套 socket 服务 |
 
 服务明确注册 `chat`、`memory`、`config`、`world_describe`、`world_status`；世界能力不要求 NPC/玩家聊天字段。禁用创作时世界路由返回 `retry_later`，不创建模型客户端或后台任务。接口与扩展约定见 [AI 客户端文档](../docs/daemons/ai_client_d.md)。
+
+默认 `ENABLED_MODULES=npc,world` 保持以上行为；只需要 NPC 时设置 `ENABLED_MODULES=npc`，世界模块不会加载。`WORLD_ENABLED=false` 仅停用创作并保留原路由，不能与“不注册模块”混淆。
+
+## 独立部署与适配原则
+
+以当前 MUD 的服务为主，避免强耦合，不为通用性额外增加抽象。其他 MUD 优先修改 `HELP_DIR`、`NPC_ROLES_FILE`、`DATA_DIR` 等配置接入；专业提示词后续迁为可独立修改的 Skill，不要求复制本库目录或使用相同驱动。当前 Skill/Agent 重构尚未完成，见 [架构与迁移说明](../docs/architecture/ai-service.md)。
+
+不需要文档检索的部署可设置 `KNOWLEDGE_UPDATE_ENABLED=false`，启动脚本跳过同步；显式建库命令仍可运行。无限世界的共享目录和清单/正文格式只属于该可选业务，并非所有 AI 功能的前置条件。单独部署时复制服务源码、安装依赖并创建自己的配置/数据；一个实例服务一个游戏，不复用原游戏密钥或玩家历史。本机 UDP 不提供远程管理员认证。
+
+### 新运行时开发验证
+
+新运行时的 Skill 按 `SKILLS_DIR` 扫描，向 Agent 仅提供授权名称和描述；正文及参考资料都经唯一的 `skill(name, path?)` 工具加载，直接预加载也使用该入口。Tool 和 Hook 均由受信任部署代码注册，不接受模型安装，不提供写文件或执行代码能力。现有 NPC/世界尚未迁入，完整边界及接入方法见架构文档。
+
+`python ai/scripts/verify_runtime.py` 默认只显示测试计划。取得真实模型调用授权后加 `--execute`：使用临时合成规则验证发现/加载/读取和直接预加载两条路径，整批最多 6 次模型调用，无自动重试，不读取游戏源码、玩家数据或业务数据库。`--model` 仅覆盖本次模型选择。实际记录见 [阶段验收报告](../docs/architecture/ai-runtime-validation.md)，不能将少量链路测试当作源码调查质量验收。
 
 ## 启动
 

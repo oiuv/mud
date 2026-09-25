@@ -15,6 +15,8 @@ from .database import connect, initialize
 from .knowledge_basic import BasicKnowledgeSystem
 from .settings import load_settings
 from .llm import remaining_timeout as model_timeout
+from .runtime.contracts import RuntimeFault
+from .runtime.remote import remote_call
 
 logger = logging.getLogger(__name__)
 
@@ -56,33 +58,39 @@ class QwenKnowledgeSystem:
                                      timeout=self.settings.api_timeout, max_retries=0)
             return self.client
 
-    def get_embedding(self, text, deadline=None):
+    def get_embedding(self, text, deadline=None, *, context=None, hooks=None):
         if len(text.encode("utf-8")) > self.settings.embedding_max_bytes:
             raise ValueError("Embedding input exceeds configured byte budget")
-        result = self._client().with_options(
+        result = remote_call("embedding", {"text": text}, lambda: self._client().with_options(
             timeout=remaining_timeout(self.settings, deadline)
         ).embeddings.create(model=self.model_name, input=text, dimensions=self.dimensions,
-                            encoding_format="float")
+                            encoding_format="float"), context, hooks)
         vector = np.asarray(result.data[0].embedding, dtype=np.float32)
         if vector.shape != (self.dimensions,) or not np.all(np.isfinite(vector)) or np.linalg.norm(vector) == 0:
             raise ValueError("Invalid embedding vector")
         return vector
 
-    def _query_vector(self, query, deadline=None):
+    def _query_vector(self, query, deadline=None, *, context=None, hooks=None):
+        # Even query-vector hits are isolated by effective authority, not merely text.
+        namespace = None if context is None else (
+            context.actor, context.audience, context.session, context.agent_id, context.policy.version,
+            tuple(sorted(context.policy.scopes)), tuple(sorted(context.policy.egress_scopes)))
+        key = query if context is None else (namespace, query)
         now = time.monotonic()
         with self._lock:
             self.cache_stats["total"] += 1
-            cached = self.vector_cache.get(query)
+            cached = self.vector_cache.get(key)
             if cached and now - cached[0] < self.settings.vector_cache_ttl:
                 self.cache_stats["hits"] += 1
-                self.vector_cache.move_to_end(query)
+                self.vector_cache.move_to_end(key)
                 return cached[1]
-            self.vector_cache.pop(query, None)
+            self.vector_cache.pop(key, None)
             self.cache_stats["misses"] += 1
-        vector = self.get_embedding(query, deadline)
+        vector = (self.get_embedding(query, deadline) if context is None else
+                  self.get_embedding(query, deadline, context=context, hooks=hooks))
         # Failed calls raise; zero vectors and errors never poison the cache.
         with self._lock:
-            self.vector_cache[query] = (time.monotonic(), vector)
+            self.vector_cache[key] = (time.monotonic(), vector)
             while len(self.vector_cache) > self.settings.vector_cache_size:
                 self.vector_cache.popitem(last=False)
         return vector
@@ -113,11 +121,11 @@ class QwenKnowledgeSystem:
                            [(doc_id, self.fingerprint) for doc_id in existing - active])
         return len(documents)
 
-    def semantic_search(self, query, limit=5, threshold=0.4, deadline=None):
+    def semantic_search(self, query, limit=5, threshold=0.4, deadline=None, *, context=None, hooks=None, allowed=None):
         if not query.strip() or threshold >= 1 or limit <= 0:
             return []
         _, documents = self.basic.corpus()
-        by_id = {doc["id"]: doc for doc in documents}
+        by_id = {doc["id"]: doc for doc in documents if allowed is None or allowed(doc)}
         with connect(self.db_path) as db:
             rows = db.execute("SELECT document_id,vector FROM embeddings WHERE fingerprint=?",
                               (self.fingerprint,)).fetchall()
@@ -130,14 +138,15 @@ class QwenKnowledgeSystem:
                 valid.append((row["document_id"], vector))
         if not valid:
             return []
-        query_vector = self._query_vector(query, deadline)
+        query_vector = (self._query_vector(query, deadline) if context is None else
+                        self._query_vector(query, deadline, context=context, hooks=hooks))
         matrix = np.stack([item[1] for item in valid])
         scores = (matrix @ query_vector) / (np.linalg.norm(matrix, axis=1) * np.linalg.norm(query_vector))
         ranked = np.argsort(-scores)
         return [dict(by_id[valid[i][0]], score=float(scores[i]), vector_score=float(scores[i]))
                 for i in ranked if scores[i] >= threshold][:limit]
 
-    def rerank(self, query, documents, limit, deadline=None):
+    def rerank(self, query, documents, limit, deadline=None, *, context=None, hooks=None):
         if not documents or not self.settings.rerank_enabled or not self.settings.dashscope_api_key:
             return documents[:limit]
         query_bytes = len(query.encode("utf-8"))
@@ -160,9 +169,9 @@ class QwenKnowledgeSystem:
                 "input": {"query": query, "documents": texts},
                 "parameters": {"top_n": min(limit, len(texts)),
                                "instruct": "Given a Chinese martial arts game question, retrieve relevant game help passages."}}
-        response = httpx.post(self.settings.rerank_url,
+        response = remote_call("rerank", body, lambda: httpx.post(self.settings.rerank_url,
                               headers={"Authorization": f"Bearer {self.settings.dashscope_api_key}"},
-                              json=body, timeout=remaining_timeout(self.settings, deadline))
+                              json=body, timeout=remaining_timeout(self.settings, deadline)), context, hooks)
         response.raise_for_status()
         data = response.json()
         if data.get("code"):
@@ -180,16 +189,28 @@ class QwenKnowledgeSystem:
             ranked.append(dict(selected[index], rerank_score=float(score)))
         return sorted(ranked, key=lambda doc: doc["rerank_score"], reverse=True)[:limit]
 
-    def hybrid_search(self, query, limit=None, threshold=0.4, deadline=None):
+    def hybrid_search(self, query, limit=None, threshold=0.4, deadline=None, *, context=None,
+                      hooks=None, allowed=None, remote=True, diagnostics=None):
         limit = self.settings.retrieval_top_k if limit is None else limit
         if threshold >= 1 or limit <= 0 or not query.strip():
             return []
         count = max(limit, self.settings.retrieval_candidates)
-        keyword = self.basic.search(query, count)
+        keyword = (self.basic.search(query, count) if allowed is None else
+                   self.basic.search(query, count, allowed=allowed))
         try:
-            semantic = self.semantic_search(query, count, threshold, deadline)
+            if not remote:
+                semantic = []
+            elif context is None and allowed is None:
+                semantic = self.semantic_search(query, count, threshold, deadline)
+            else:
+                semantic = self.semantic_search(query, count, threshold, deadline,
+                                                context=context, hooks=hooks, allowed=allowed)
+        except RuntimeFault:
+            raise
         except Exception as error:
             logger.warning("Vector retrieval unavailable (%s); using BM25", type(error).__name__)
+            if diagnostics is not None:
+                diagnostics.append("vector_unavailable")
             semantic = []
         fused = {}
         for source, ranking in (("bm25", keyword), ("vector", semantic)):
@@ -202,9 +223,17 @@ class QwenKnowledgeSystem:
                     entry[score_key] = doc[score_key]
         candidates = sorted(fused.values(), key=lambda doc: doc["score"], reverse=True)[:count]
         try:
-            return self.rerank(query, candidates, limit, deadline)
+            if not remote:
+                return candidates[:limit]
+            if context is None:
+                return self.rerank(query, candidates, limit, deadline)
+            return self.rerank(query, candidates, limit, deadline, context=context, hooks=hooks)
+        except RuntimeFault:
+            raise
         except Exception as error:
             logger.warning("Reranking unavailable (%s); using fused ranks", type(error).__name__)
+            if diagnostics is not None:
+                diagnostics.append("rerank_unavailable")
             return candidates[:limit]
 
     def get_cache_rate(self):

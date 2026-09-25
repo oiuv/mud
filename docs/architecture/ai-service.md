@@ -1,0 +1,120 @@
+# AI 服务架构与接入规范
+
+本服务优先满足当前 MUD 的 NPC 问答、摘要和无限世界描写，不与本 MUDLIB 强耦合，也不为可移植性预先增加抽象层。其他 MUD 应优先通过路径/角色配置和业务 Skill 调整接入；只有协议或业务语义确实不同，才修改对应业务模块。
+
+## 当前状态
+
+正在实施 `evolve-ai-capability-runtime`。已建立独立部署、结构化模型响应、通用 Agent 循环、统一 Tool/Skill 执行和 Hook 生命周期，并完成离线回归及合成资料的真实模型验证。既有 NPC、摘要及世界业务尚未迁入新运行时；业务 Skill 效果、源码调查和主 Agent 接入仍待验收，不能将设计文档视为全部已实现功能。迁移基线为 `2f8192a5`，无限世界剩余玩法和效果验收仍独立跟踪。
+
+## 依赖方向
+
+- `main.py` 显式选择和装配业务；`udp_server.py` 只负责公共报文、请求关联和有界分发。
+- `npc/`、`world/` 保留自己的输入校验、存储和结果提交责任。通用模型与后续运行时不能反向依赖这两个模块。
+- 游戏端负责在线对象、玩家权限、玩法规则、数值变化和展示；服务生成内容并保存自身历史、任务与结果。模型不直接操作游戏对象或执行代码。
+- 本游戏用 `AI_CLIENT_D` 接入；其他 MUD 只需实现相同协议，不依赖这个 LPC 对象名、FluffOS 或 mudcore。
+
+## 配置优先，不为路径建立接口
+
+保留适合本库的默认值，显式配置覆盖默认值。所有相对路径均以 `ai/` 为基准，不以启动目录为基准。
+
+| 配置 | 作用 |
+| --- | --- |
+| `ENABLED_MODULES=npc,world` | 默认注册旧有两类业务；设为 `npc` 可不加载世界模块 |
+| `KNOWLEDGE_UPDATE_ENABLED=true` | 启动脚本同步知识；不需要检索的部署可关闭，不删除已有索引 |
+| `HELP_DIR` | 本部署公开知识来源 |
+| `NPC_ROLES_FILE` | 人物身份、说话风格和专属知识 |
+| `SKILLS_DIR` | 独立业务技能包目录，默认 `ai/skills/`；目前用于新运行时装配 |
+| `DATA_DIR` | AI 服务自己的索引、历史与任务数据 |
+| `WORLD_CONTENT_DIR` | 可选无限世界模块的清单/正文共享目录 |
+
+`ENABLED_MODULES` 为空时不自动加载 NPC 或世界，可由受信任程序入口调用现有 `register()` 装配自身业务。这不是从输入动态加载 Python 的机制。`WORLD_ENABLED=false` 与移除 `world` 不同：前者保留旧世界请求的停用响应，后者不注册该业务。
+
+代码路由与主 Agent 路由不能绕过同一个业务契约。确定性状态查询不为了形式调用模型；明确生成请求也不必先交给主 Agent 分类。
+
+## 独立部署边界
+
+可以单独复制 `ai/` 的源代码和示例配置，按 `requirements.txt` 创建新的虚拟环境；不要复制原 `.env`、运行数据或跨平台虚拟环境。配置替代角色和公开知识目录后，普通 socket 客户端即可调用，见 [通信契约](../daemons/ai_client_d.md)。当前业务专业提示词尚未全部外置；后续迁移完成后，文风和调查方法由业务 Skill 调整。
+
+首期每个服务实例面向一个游戏。多个游戏使用独立进程、端口、配置和数据目录；不要把当前本机 UDP 当作多租户或远程认证服务。玩家标识是业务数据，不是管理员凭证。
+
+无限世界有明确的共享文件集成要求：该模块校验冻结清单并原子发布正文 JSON。路径可以配置，但文件格式属于其业务契约，不是整个服务的必需依赖。禁用该模块后不要求本库世界目录存在。
+
+## 运行与完成契约
+
+`src/runtime/` 保留小型共享执行循环。Agent 定义包括输入/输出 JSON Schema、专业消息装配、允许工具和技能、资源限制、结果解析及完成检查。模型提出行动，运行时验证并执行工具；工具结果返回模型继续决策。直接路由仅省略主 Agent，并不限制多步调查。
+
+- `single`：世界描写、摘要等明确生成目标，默认一次模型生成；结果不满足契约则报告未完成，不自动增加审稿模型。
+- `tool_loop`：依据反馈搜索、读取及修正候选答案；缺证据时继续调查，达到真实阻碍或预算才停止。
+- 终态区分 `completed`、`needs_input`、`incomplete`、`failed`、`cancelled`。持久化 Agent 声明 `requires_commit=True`，生成结果只是待提交候选；业务通过 `runner.commit(outcome, callback)` 提交，完成后才发唯一 `run_end`。提交失败只报告失败，不先记成功；重复提交被拒绝。回调仍需校验业务身份并使用原子事务，运行时不持有业务数据库。
+- 通用运行状态只存在于本次请求内；已有业务继续负责去重和持久任务，不新增通用任务数据库或自动跨重启续跑。
+
+根预算和子任务局部上限同时有效。模型调用、外部请求、工具尝试、委派和累计字节均有上限；无效或重复工具尝试也计入步骤。向量/重排等外部请求必须显式计账，不能藏在一个工具中绕过预算。迟到响应仍记录用量，但不再启动下一步或提交成功。
+
+模型工具能力由 `CHAT_SUPPORTS_TOOLS` 声明；不支持时明确失败，不自动换模型。旧 `complete_chat()` 仍只交付文本，工具请求不能误作答案。自动测试中的 `ScriptedModel` 验证循环行为，不证明真实模型已经具备预期调查质量。
+
+## Hook 与安全责任
+
+Hook 是部署代码中固定注册的受信任回调，不是模型安装的插件。事件覆盖运行、模型、工具和提交边界；普通观测只获取脱敏元数据，不接收原始 SDK 客户端或数据库连接。需检查原始内容的干预必须显式配置，并仅获得该事件需要的数据。
+
+固定事件为 `run_start`、`before_model`、`after_model`、`before_tool`、`after_tool`、`before_commit`、`run_error`、`run_end`，按注册顺序处理。拒绝后不再运行后续干预，但观测仍继续；拒绝不能被后续允许覆盖。事件为递归只读视图，Hook 内递归触发本调度器会被拒绝。
+
+| 干预时机 | 允许的作用 |
+| --- | --- |
+| `run_start` | 允许、拒绝或取消 |
+| `before_model` | 仅追加 `additional_context=[{"text":"补充资料","scope":"已授权范围"}]`；合计至多 8 KiB，不能整体替换系统消息；阅读及外发许可均须通过 |
+| `before_tool` | 仅修改 `arguments`，之后重新验证参数 schema 与实际资源权限 |
+| `after_model`、`after_tool`、`before_commit` | 允许、拒绝或取消，不能偷换模型原文、证据或待提交结果 |
+| `run_error`、`run_end` | 仅观测，不能回头改变终态或重复提交 |
+
+模型和工具调用成功、失败、超时、取消都产生一次对应后置事件，前置拒绝记录 `executed=false`。后置事件描述该次操作的执行结果，不等于业务已经提交。实际模型用量在后置干预前计入共享预算，即使干预拒绝也不能抹去消费。
+
+观察者失败被隔离；必需干预失败或超时关闭相关操作。身份、权限上界、受众、期限和预算不可由 Hook 修改。回调有并发和等待上限，取消后仍通知终态观察者；Python 超时不能强杀已经开始的可信回调。Hook 不是恶意代码沙箱，不应持有可变业务连接或承担外部写入职责。
+
+默认轨迹只记录关联 ID、Agent/策略、阶段、用量与错误类别，不记录玩家原文、完整提示词、源码或私有推理。读取权限、资料外发与业务成功提交是不同检查点，最终隐藏路径不等于输入资料已经安全。
+
+## Tool 接入
+
+在受信任的 `src/tools/` 模块中提供 `build_tools(services)`，返回 `Tool` 声明；装配调用 `tools.discover("src.tools", services)`。新增部署工具无需增加中央名称分支；模型不能指定 Python 导入路径。启动发现不等于授权，Agent 仅看到有效策略允许的工具，并固定本次运行的注册表。
+
+声明包括稳定名称/版本、说明、参数及结果 `Contract`、handler、authorize、`read_only`、`concurrent_safe`、`timeout`、`cancellation`、`max_bytes`、`resource` 和 `cost`。首版在一次运行中顺序执行；成本标记用于审计，内部模型请求仍必须经过共享计账边界。协议工具名把点号编码成双下划线，例如 `knowledge.search` 对模型为 `knowledge__search`；注册时拒绝别名冲突。
+
+程序和模型均通过 `tools.execute(name, arguments, context, call_id)`，不直接调用 handler。成功返回 `ok/value/call_id`；可恢复失败返回安全错误码与 `recoverable`，供模型调整调查；预算耗尽、取消或期限失败停止本次运行。相同 ID/参数可复用结果，不重复执行；参数、身份、会话、受众、策略或工具权限上界发生变化时，旧 ID 不能重放结果。
+
+工具有有界等待及固定线程容量，超时不接纳迟到结果或证据，未结束的可信 handler 仍占用容量。`concurrent_safe=False` 的同名工具在同一注册表内跨请求串行化，超时后也须等实际 handler 退出才释放门控。handler 必须遵守传入的 deadline/cancellation 并保持只读，不把超时线程当作可安全强杀的沙箱。目前没有写文件、删除、Shell、任意联网或游戏数值修改工具。
+
+## Skill 接入与版本
+
+构造 `Skills(settings.skills_dir)` 扫描业务目录，并将其交给工具发现和 `Runner(..., skills=skills)`。每个包为 `<name>/SKILL.md`：YAML 元数据必需 `name`、`description`、`version`，可选 `resources` 和 `allowed-tools` 列表；正文维护目标、方法、完成检查及例子。包名必须与目录名一致。新增包后重启装配以重新扫描；本次运行已经固定的正文不会因维护者编辑而改变。
+
+模型提示词自动包含已授权技能的名称和说明，不预先注入全部正文，也不用调用列举工具。所有包只共用一个 `skill` 工具：
+
+```json
+{"name":"source-investigation"}
+{"name":"source-investigation","path":"references/checklist.md"}
+```
+
+没有 `skill.list`、`skill.load`、`skill.read_resource` 或 `action` 参数。直接生成通过 `Agent(required_skills=("world-narration",), mode="single", ...)` 预加载，同样经过工具授权、预算和 Hook，不增加模型轮次。禁用 `skill` 时不显示可调用目录；必需技能也不能绕过限制预加载。
+
+每次运行固定元数据、正文和声明资源的 hash，记录实际加载内容。尚未读取的资源若发生变更则返回 `skill_changed`；已安全读取的快照可在本次运行复用。损坏的可选包不影响其他包；必需包不可用时拒绝相关运行，不隐式回退源码内提示词。
+
+`SKILL.md` 和单个资源至多 32 KiB，每包资源合计至多 64 KiB。超限明确失败，不发送截断的专业指导；大篇资料应拆分为按需参考文件。资源仅允许包内声明的 `references/`、`assets/` 下 `.md/.txt/.json` 文件，使用最终对象安全校验，不执行附带脚本，不读取开发用 `.agents/`、`.codex/` 或 `.claude/`。技能内容属于维护者批准外发的专业指导，不应混入玩家隐私或密钥；`allowed-tools` 只能缩小已有权限，不能授予能力。
+
+## 迁移与回退
+
+先验证临时数据副本，再部署。保留 NPC 历史、关系及有效去重记录，保留世界内容键、任务状态、调用额度和成功正文；架构、模型或 Skill 升级不自动重生成已有内容。
+
+部署切换前停止接收新请求并处理在途工作，按业务说明备份。回退保留原数据和必要审计，不删库、不用示例覆盖配置，也不同时启动两个共享业务库的写入方。源码范围和主 Agent 新入口默认关闭，实际授权与付费效果测试分别进行。
+
+## 自动验证
+
+```sh
+python -m unittest ai.tests.test_portable ai.tests.test_lifecycle -v
+python -m unittest discover -s ai/tests -v
+python ai/scripts/verify_runtime.py
+node ai/scripts/test_lpc.mjs
+node tools/tests/test_illusion_world.mjs
+```
+
+`test_portable` 将服务源码复制到无 MUDLIB 的临时目录，使用另一套人物/知识和假模型，通过真实本机 UDP 验证对话、摘要及数据归属。测试不消耗外部额度、不读取玩家存档；Linux/Windows 专属项必须在对应平台验收，跳过不代表通过。
+
+`verify_runtime.py` 默认只显示计划。取得授权后执行 `python ai/scripts/verify_runtime.py --execute`，仅发送合成规则，整批最多 6 次模型调用、不自动重试，不连接业务库或游戏。可用 `--model` 单次覆盖模型，不修改 `.env`。报告列出结果、耗时、共享调用计数、token 用量和事件状态；这不是正式源码问答准确率评测。当前进度与实际验证记录见 [运行时验收记录](ai-runtime-validation.md)。

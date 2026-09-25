@@ -135,14 +135,16 @@ class BasicKnowledgeSystem:
             self._refresh()
             return self._revision, [dict(doc) for doc in self._documents]
 
-    def search(self, query, limit=3):
+    def search(self, query, limit=3, *, allowed=None):
         if not query.strip() or limit <= 0:
             return []
         with self._lock:
             self._refresh()
-            scores = self._index.scores(query)
+            documents = self._documents if allowed is None else [doc for doc in self._documents if allowed(doc)]
+            index = self._index if allowed is None else BM25Index(documents)
+            scores = index.scores(query)
             ranked = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
-            return [dict(self._documents[i], score=scores[i], bm25_score=scores[i])
+            return [dict(documents[i], score=scores[i], bm25_score=scores[i])
                     for i in ranked if scores[i] > 0][:limit]
 
     def get_stats(self):

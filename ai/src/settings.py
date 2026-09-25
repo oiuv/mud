@@ -14,12 +14,16 @@ class Settings:
     data_dir: Path = SERVICE_DIR / "data"
     help_dir: Path = SERVICE_DIR.parent / "help"
     roles_file: Path = SERVICE_DIR / "config/npc_roles.json"
+    skills_dir: Path = SERVICE_DIR / "skills"
     host: str = "127.0.0.1"
     port: int = 9999
     debug: bool = False
+    enabled_modules: tuple = ("npc", "world")
+    knowledge_update_enabled: bool = True
     chat_api_key: str = field(default="", repr=False)
     chat_base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     chat_model: str = "qwen3.8-flash"
+    chat_supports_tools: bool = True
     chat_extra_body: dict = field(default_factory=lambda: {"enable_thinking": False})
     dashscope_api_key: str = field(default="", repr=False)
     embedding_base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
@@ -61,7 +65,14 @@ class Settings:
     world_disk_headroom: int = 67108864
 
     def __post_init__(self):
-        for name in ("data_dir", "help_dir", "roles_file", "world_content_dir"):
+        if (not isinstance(self.enabled_modules, tuple)
+                or any(name not in ("npc", "world") for name in self.enabled_modules)
+                or len(set(self.enabled_modules)) != len(self.enabled_modules)):
+            raise ValueError("ENABLED_MODULES must contain unique built-in module names: npc,world")
+        for name in ("knowledge_update_enabled", "chat_supports_tools"):
+            if type(getattr(self, name)) is not bool:
+                raise ValueError(f"{name} must be true/false")
+        for name in ("data_dir", "help_dir", "roles_file", "skills_dir", "world_content_dir"):
             path = Path(getattr(self, name)).expanduser()
             setattr(self, name, path if path.is_absolute() else SERVICE_DIR / path)
         for name in ("embedding_dimensions", "embedding_max_bytes", "rerank_max_bytes",
@@ -129,6 +140,8 @@ def load_settings(env_file=None):
             value = json.loads(value)
             if not isinstance(value, dict):
                 raise ValueError(f"{name} must be a JSON object")
+        elif isinstance(default, tuple):
+            value = tuple(part.strip() for part in value.split(",")) if value.strip() else ()
         setattr(config, name, value)
     config.__post_init__()
     return config

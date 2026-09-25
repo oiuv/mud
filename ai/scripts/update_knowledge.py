@@ -14,7 +14,11 @@ def main():
     logging.getLogger("httpx").setLevel(logging.WARNING)
     logging.getLogger("httpcore").setLevel(logging.WARNING)
     try:
-        update_knowledge(load_settings())
+        settings = load_settings()
+        if settings.knowledge_update_enabled:
+            update_knowledge(settings)
+        else:
+            logging.info("Startup knowledge update disabled by configuration")
         return 0
     except Exception as error:
         logging.error("Local knowledge update failed (%s): %s", type(error).__name__, error)

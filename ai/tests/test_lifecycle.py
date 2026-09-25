@@ -49,7 +49,7 @@ class ResourceTests(Fixture):
         manager.close()
 
     def test_factory_registers_isolated_world_and_npc_and_closes_on_failure(self):
-        with patch.object(main, "NPCService") as factory:
+        with patch("ai.src.npc.service.NPCService") as factory:
             npc = factory.return_value
             npc.request_types = ("chat", "memory", "config")
             server = main.create_server(self.settings)
@@ -58,7 +58,7 @@ class ResourceTests(Fixture):
             self.assertEqual(server._routes["world_describe"].timeout, self.settings.world_short_timeout)
             server.stop()
             npc.close.assert_called_once()
-        with patch.object(main, "NPCService") as factory, patch.object(main, "UDPServer") as factory_udp:
+        with patch("ai.src.npc.service.NPCService") as factory, patch.object(main, "UDPServer") as factory_udp:
             factory_udp.return_value.register.side_effect = ValueError("registration")
             with self.assertRaises(ValueError):
                 main.create_server(self.settings)
