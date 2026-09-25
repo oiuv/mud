@@ -77,7 +77,7 @@ NPC 适配层负责：
 
 ## Python 扩展点
 
-`ai/main.py:create_server()` 明确组装业务。目前仅注册 NPC 的 `chat`、`memory`、`config`。
+`ai/main.py:create_server()` 明确组装业务：NPC 的 `chat`、`memory`、`config`，以及世界的 `world_describe`、`world_status`。世界短请求默认独立 2 个线程、3 秒处理预算，后台模型另用单 worker，不占 NPC 容量。完整业务契约见 [无限世界 AI 创作](../systems/illusion-world-ai.md)。
 
 新增能力在组装处调用：
 
@@ -98,6 +98,8 @@ server.register(
 模型调用使用 `ai/src/llm.py` 的 `create_chat_client(settings)`、`complete_chat(settings, client, messages, deadline=..., timeout=..., max_tokens=..., operation=...)`。业务自行提供提示词；`operation` 只是日志标签。模型失败抛 `ModelUnavailable`，`code` 可为 `unconfigured`、`timeout`、`api_error`、`empty`、`truncated`。
 
 模型单次超时取显式上限与剩余业务期限的较小值。NPC 整轮预算不超过 80 秒；公共模型入口不把其他能力限制在此预算内。HTTP 超时按网络操作执行，处理方仍需拒绝迟到结果；线程池不会强制中断 Python 函数。
+
+公共模型错误另携带安全的 `status_code` 与 `retry_after` 元数据，世界 worker 用于 429 退避；不将供应商错误正文透传给玩家。可选 `usage_callback` 接收供应商返回的整数 token 计数，世界模块按尝试保存可取得的计数；无 usage 时不推算费用。
 
 组件关闭自己创建的客户端，外部注入的客户端由注入方关闭。服务停止先等待工作结束，再关闭业务资源；日志仅记录模型、主机、耗时和错误分类，不输出密钥、提示词或 SDK 错误正文。
 

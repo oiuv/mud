@@ -9,23 +9,34 @@ try:
     from .src.settings import load_settings
     from .src.udp_server import UDPServer
     from .src.npc.service import NPCService
+    from .src.world.service import WorldService
 except ImportError:
     from src.settings import load_settings
     from src.udp_server import UDPServer
     from src.npc.service import NPCService
+    from src.world.service import WorldService
 
 
 def create_server(settings):
     server = UDPServer(settings=settings)
     npc = None
+    world = None
+    npc_registered = world_registered = False
     try:
         npc = NPCService(settings)
         server.register(npc.request_types, npc.process_request, max_workers=settings.max_workers,
                         timeout=settings.request_timeout, close=npc.close)
+        npc_registered = True
+        world = WorldService(settings, chat_busy=lambda: server.capability_active("chat"))
+        server.register(world.request_types, world.process_request, max_workers=settings.world_short_workers,
+                        timeout=settings.world_short_timeout, close=world.close)
+        world_registered = True
     except Exception:
         server.stop()
-        if npc is not None:
+        if npc is not None and not npc_registered:
             npc.close()
+        if world is not None and not world_registered:
+            world.close()
         raise
     return server
 

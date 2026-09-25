@@ -1,5 +1,6 @@
 inherit F_CLEAN_UP;
 #define WORLD_D "/adm/daemons/illusion_world_d"
+#define CONTENT_D "/adm/daemons/illusion_content_d"
 
 int main(object me, string arg) {
     string *parts;
@@ -16,6 +17,11 @@ int main(object me, string arg) {
             "新入口：%s；地形缓存：%d/64。\n",
             WORLD_D->query_active_world() || "关闭（旧幻境）",
             WORLD_D->query_cached_chunks()
+        );
+        printf(
+            "场景创作：%s；内容状态：%O。\n",
+            CONTENT_D->query_enabled() ? "开启" : "关闭",
+            CONTENT_D->query_status()
         );
         return 1;
     }
@@ -39,7 +45,12 @@ int main(object me, string arg) {
         write("入口已切换，不改变仍有效的在线实例。重载守护程序后默认关闭新入口。\n");
         return 1;
     }
-    write("用法：illusion status | init test-世界ID 种子 | enter 世界ID | entry off\n"
+    if (sizeof(parts) == 2 && parts[0] == "ai" && member_array(parts[1], ({ "on", "off" })) >= 0) {
+        CONTENT_D->set_enabled(parts[1] == "on");
+        write("场景创作申请开关已更新；已保存正文仍可读取。Python 服务须另行配置 WORLD_ENABLED。\n");
+        return 1;
+    }
+    write("用法：illusion status | init test-世界ID 种子 | enter 世界ID | entry off | ai on/off\n"
         "当前仅用于测试；正式世界须在内容冻结及上线验收后启用。\n");
     return 1;
 }

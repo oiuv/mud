@@ -1,5 +1,5 @@
 // Run the real LPC implementation in a temporary MUDLIB. Never touch player data.
-import { mkdtempSync, mkdirSync, cpSync, writeFileSync, readFileSync, readdirSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, cpSync, writeFileSync, readFileSync, readdirSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,6 +8,7 @@ import { createServer, createConnection } from 'node:net';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const driver = resolve(process.argv[2] || join(root, 'bin/driver.exe'));
+const python = process.argv[3] || join(root, process.platform === 'win32' ? 'ai/.venv/Scripts/python.exe' : 'ai/.venv/bin/python');
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-illusion-'));
 console.log('Isolated illusion regression: ' + sandbox);
 for (const dir of ['tests', 'include', 'log', 'data', 'adm/daemons', 'inherit/illusion', 'inherit/room', 'd/illusion', 'u/mudren', 'cmds/adm', 'cmds/test', 'cmds/std'])
@@ -15,10 +16,13 @@ for (const dir of ['tests', 'include', 'log', 'data', 'adm/daemons', 'inherit/il
 cpSync(join(root, 'tools/tests/illusion'), join(sandbox, 'tests'), { recursive: true });
 cpSync(join(root, 'inherit/illusion'), join(sandbox, 'inherit/illusion'), { recursive: true });
 cpSync(join(root, 'adm/daemons/illusion_world_d.lpc'), join(sandbox, 'adm/daemons/illusion_world_d.lpc'));
+cpSync(join(root, 'adm/daemons/illusion_content_d.lpc'), join(sandbox, 'adm/daemons/illusion_content_d.lpc'));
+cpSync(join(root, 'adm/daemons/ai_client_d.c'), join(sandbox, 'adm/daemons/ai_client_d.c'));
+cpSync(join(root, 'mudcore/include/socket.h'), join(sandbox, 'include/socket.h'));
 cpSync(join(root, 'd/illusion'), join(sandbox, 'd/illusion'), { recursive: true });
 cpSync(join(root, 'inherit/room/illusion_base.lpc'), join(sandbox, 'inherit/room/illusion_base.lpc'));
 cpSync(join(root, 'adm/daemons/virtuald.c'), join(sandbox, 'adm/daemons/virtuald.c'));
-for (const file of ['adm/daemons/commandd.c', 'cmds/adm/illusion.lpc', 'cmds/test/illusion_world.lpc', 'cmds/std/go.c'])
+for (const file of ['adm/daemons/commandd.c', 'cmds/adm/illusion.lpc', 'cmds/test/illusion_world.lpc', 'cmds/test/illusion_content.lpc', 'cmds/std/go.c'])
     cpSync(join(root, file), join(sandbox, file));
 cpSync(join(root, 'u/mudren/maze.c'), join(sandbox, 'u/mudren/maze.c'));
 cpSync(join(root, 'mudcore/include/ansi.h'), join(sandbox, 'include/ansi.h'));
@@ -38,7 +42,20 @@ const zixuSource = readFileSync(join(root, 'adm/daemons/task/npc/zixu.c'), 'utf8
 writeFileSync(join(sandbox, 'tests/zixu_entrance.lpc'), '#include <ansi.h>\n#define MAZE "/u/mudren/maze"\n' +
     zixuSource.slice(zixuSource.indexOf('int ask_maze() {'), zixuSource.indexOf('int ask_mirror() {')), 'utf8');
 cpSync(join(root, 'mudcore/system/kernel/simul_efun/json.c'), join(sandbox, 'tests/json.c'));
+let backendOutput = '';
+const backend = spawn(python, [join(root, 'ai/tests/world_fixture.py'), sandbox], { cwd: root, windowsHide: true });
+backend.stdout.on('data', data => { backendOutput += data; });
+backend.stderr.on('data', data => { backendOutput += data; });
+const backendDone = new Promise((done, reject) => { backend.on('error', reject); backend.on('close', done); });
+let result;
+try {
+const readyDeadline = Date.now() + 10000;
+while (!existsSync(join(sandbox, 'world-ready.json')) && Date.now() < readyDeadline && backend.exitCode === null)
+    await new Promise(done => setTimeout(done, 20));
+if (!existsSync(join(sandbox, 'world-ready.json'))) throw new Error('World fixture failed: ' + backendOutput);
+const backendPort = JSON.parse(readFileSync(join(sandbox, 'world-ready.json'), 'utf8')).port;
 writeFileSync(join(sandbox, 'include/globals.h'), [
+    '#define AI_SERVER_PORT ' + backendPort, '#define AI_NPC_D "/tests/npc"',
     '#define ROOM "/tests/room_stub"', '#define NPC_D "/tests/npc"',
     '#define CLASS_D(name) "/tests"',
     '#define ROOT_UID "Root"', '#define SIMUL_EFUN_OB "/tests/sefun"',
@@ -57,7 +74,7 @@ writeFileSync(join(sandbox, 'driver.cfg'), [
     'master file : /tests/master', 'simulated efun file : /tests/sefun',
     'gametick msec : 100',
 ].join('\n') + '\n', 'utf8');
-const result = await new Promise((done, reject) => {
+result = await new Promise((done, reject) => {
     const child = spawn(driver, ['driver.cfg'], { cwd: sandbox, windowsHide: true });
     let output = '';
     let connected = false;
@@ -81,6 +98,32 @@ const result = await new Promise((done, reject) => {
     child.on('error', error => { clearTimeout(timer); reject(error); });
     child.on('close', code => { clearTimeout(timer); for (const client of clients) client.destroy(); done({ code, output }); });
 });
+if (result.code === 0 && result.output.includes('ILLUSION PASS')) {
+    writeFileSync(join(sandbox, 'restart.cfg'), readFileSync(join(sandbox, 'driver.cfg'), 'utf8')
+        .replace('master file : /tests/master', 'master file : /tests/restart'), 'utf8');
+    const restart = await new Promise((done, reject) => {
+        const child = spawn(driver, ['restart.cfg'], { cwd: sandbox, windowsHide: true });
+        let output = '';
+        const timer = setTimeout(() => child.kill(), 20000);
+        child.stdout.on('data', data => { output += data; });
+        child.stderr.on('data', data => { output += data; });
+        child.on('error', error => { clearTimeout(timer); reject(error); });
+        child.on('close', code => { clearTimeout(timer); done({ code, output }); });
+    });
+    writeFileSync(join(sandbox, 'driver-restart-output.txt'), restart.output, 'utf8');
+    if (restart.code !== 0 || !restart.output.includes('ILLUSION RESTART PASS'))
+        throw new Error('Cold driver restart failed: ' + restart.output.slice(-2000));
+    console.log('ILLUSION RESTART PASS');
+}
+} finally {
+    writeFileSync(join(sandbox, 'world-stop'), 'stop', 'utf8');
+    const stopTimer = setTimeout(() => backend.kill(), 5000);
+    const code = await backendDone;
+    clearTimeout(stopTimer);
+    writeFileSync(join(sandbox, 'world-output.txt'), backendOutput, 'utf8');
+    console.log(backendOutput.split('\n').filter(line => /ILLUSION|Error|Traceback/.test(line)).join('\n'));
+    if (code !== 0) process.exitCode = 1;
+}
 writeFileSync(join(sandbox, 'driver-output.txt'), result.output, 'utf8');
 console.log(result.output.split('\n').filter(line => /ILLUSION|FAIL:|error:/.test(line)).join('\n'));
 if (result.code !== 0 || !result.output.includes('ILLUSION PASS'))

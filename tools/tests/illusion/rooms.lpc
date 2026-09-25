@@ -172,4 +172,6 @@ void run() {
     );
     CHECK(!"/cmds/test/illusion_world"->main(first, "test-rooms-v1 0 0"),
         "ordinary player cannot run map diagnostic command");
+    CHECK(!"/cmds/test/illusion_content"->main(first, "test-rooms-v1 0 0"),
+        "ordinary player cannot export narration facts");
 }

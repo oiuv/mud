@@ -3,7 +3,7 @@
 int is_root(object ob) {
     return objectp(ob) && member_array(
         file_name(ob),
-        ({ "/tests/foundation", "/tests/rooms", "/tests/map_scan" })
+        ({ "/tests/foundation", "/tests/rooms", "/tests/map_scan", "/tests/content" })
     ) >= 0;
 }
 

@@ -4,9 +4,13 @@
 
 最低驱动版本为 **FluffOS v2026.0712.3**；构建须启用 CRYPTO，提供 SHA-256 `hash`。功能属于游戏 LIB，不向 mudcore 引入具体玩法或外部服务依赖。
 
-第一阶段已实现确定性地图、道路、旧村/残寺、虚拟房间和个人实例，通过隔离驱动回归，**尚待完整游戏验收，不是正式开放版本**。子虚道人默认仍使用旧幻境。M2 AI 创作、持久队列、正文发布及 M3 正式内容/开放准备尚未实现；当前探索不调用模型。
+已实现确定性地图、道路、旧村/残寺、虚拟房间和个人实例，并接入 M2 AI 创作、持久队列与正文发布，**尚待完整游戏及真实文案验收，不是正式开放版本**。子虚道人默认仍使用旧幻境。AI 创作在游戏和 Python 两侧均默认关闭；本次自动测试只使用假模型。M3 正式内容/开放准备仍未完成。
+
+启用与小预算试验见 [无限世界 AI 创作](illusion-world-ai.md)。AI 可用自然细节、局部地形描写和文学比喻丰富体验；地图空间结构、实际出口、任务和奖励仍由规则决定。不把未逐项列出的合理补白误判为错误，审读标准见该文档。
 
 实际进度见 [任务清单](../../openspec/changes/add-wuxia-infinite-world/tasks.md) 和 [验证记录](../../openspec/changes/add-wuxia-infinite-world/validation.md)。所有玩家可见内容遵守 [AGENTS.md](../../AGENTS.md#玩家可见文本)，包括异常与占位提示。
+
+2026-09-25 起保留当前阶段基线，暂停新增世界功能，优先进行 AI Agent 架构规范和现有能力重构。待 NPC、摘要及世界描写兼容回归通过后继续文案改善、剩余验收与 M3；本阶段提交不代表功能已全部完成或开放。
 
 ## 模块与地图规则
 
@@ -17,6 +21,8 @@
 | `inherit/illusion/catalog.lpc`、`topology.lpc` | 内容校验、生态/片区、场景与道路连通 |
 | `inherit/illusion/inspection.lpc` | 单区块及四邻区只读诊断 |
 | `adm/daemons/illusion_world_d.lpc` | 清单、64 区块 LRU、最多 256 个实例、入口开关 |
+| `inherit/illusion/content.lpc`、`adm/daemons/illusion_content_d.lpc` | 规范事实/内容键、真实进入申请、限速、256 正文 LRU |
+| `ai/src/world/` | 独立持久任务、模型调用、校验及原子 JSON 发布 |
 | `d/illusion/world.lpc`、`room.lpc` | 虚拟路径、玩家归属、默认文本与离境 |
 | `inherit/room/illusion_base.lpc` | 新旧幻境共用的原心魔遭遇与掉落逻辑 |
 | `d/illusion/catalog.json` | `test-v1` 内容表：四生态、两种九房间结构 |
@@ -70,6 +76,8 @@ node tools/tests/test_illusion_world.mjs /path/to/driver
 ```
 
 测试使用临时 MUDLIB、随机环回端口和两条连接，编译真实地图/移动实现；宿主房间、NPC 和权限使用测试替身。不读取玩家数据、不启动正式游戏、不调用模型，也不扩大驱动评估限制。
+
+M2 增加真实 UDP、SQLite 与本地假模型闭环，因此还需要已安装 `ai/requirements.txt` 的 Python 环境，默认使用 `ai/.venv`。可用第三参数指定解释器：`node tools/tests/test_illusion_world.mjs /path/to/driver /path/to/python`。这里“不调用模型”指不调用外部模型 API；假模型会产生可计数的测试正文。另启动第二个隔离驱动验证存档冷启动，不启动正式服务。
 
 输出目录保留 `driver-output.txt`、`data/map-scan.json`、`data/cross-scene.json`、`data/preview-*.txt/.json`。它们包含种子、完整事实摘要、地图和连通报告。原心魔逻辑另以提取前的 token 摘要校验。
 

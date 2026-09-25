@@ -19,7 +19,7 @@ class Settings:
     debug: bool = False
     chat_api_key: str = field(default="", repr=False)
     chat_base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
-    chat_model: str = "qwen3.7-flash"
+    chat_model: str = "qwen3.8-flash"
     chat_extra_body: dict = field(default_factory=lambda: {"enable_thinking": False})
     dashscope_api_key: str = field(default="", repr=False)
     embedding_base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
@@ -49,9 +49,19 @@ class Settings:
     vector_cache_ttl: float = 1800.0
     request_cache_size: int = 1024
     request_cache_ttl: float = 300.0
+    world_enabled: bool = False
+    world_content_dir: Path = SERVICE_DIR.parent / "data/illusion_world"
+    world_timeout: float = 90.0
+    world_lease: float = 180.0
+    world_short_timeout: float = 3.0
+    world_short_workers: int = 2
+    world_queue_limit: int = 256
+    world_daily_limit: int = 300
+    world_storage_bytes: int = 1073741824
+    world_disk_headroom: int = 67108864
 
     def __post_init__(self):
-        for name in ("data_dir", "help_dir", "roles_file"):
+        for name in ("data_dir", "help_dir", "roles_file", "world_content_dir"):
             path = Path(getattr(self, name)).expanduser()
             setattr(self, name, path if path.is_absolute() else SERVICE_DIR / path)
         for name in ("embedding_dimensions", "embedding_max_bytes", "rerank_max_bytes",
@@ -72,6 +82,18 @@ class Settings:
             raise ValueError("SERVER_PORT must be between 1 and 65535")
         if self.max_message_chars > 1000 or self.max_response_chars > 1600:
             raise ValueError("UDP limits: MAX_MESSAGE_CHARS <= 1000, MAX_RESPONSE_CHARS <= 1600")
+        for name in ("world_timeout", "world_lease", "world_short_timeout", "world_short_workers",
+                     "world_queue_limit", "world_daily_limit", "world_storage_bytes", "world_disk_headroom"):
+            value = getattr(self, name)
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
+                raise ValueError(f"{name} must be positive and finite")
+        for name in ("world_short_workers", "world_queue_limit", "world_daily_limit", "world_storage_bytes", "world_disk_headroom"):
+            if type(getattr(self, name)) is not int:
+                raise ValueError(f"{name} must be an integer")
+        if self.world_timeout > 90 or self.world_lease < self.world_timeout + 30:
+            raise ValueError("WORLD_TIMEOUT <=90 and WORLD_LEASE >= timeout+30 required")
+        if self.world_short_timeout > 5 or self.world_short_workers > 4 or self.world_queue_limit > 256:
+            raise ValueError("World short requests/queue exceed bounded capacity")
 
 
 def load_settings(env_file=None):

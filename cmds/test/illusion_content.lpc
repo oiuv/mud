@@ -1,0 +1,27 @@
+// Administrator-only static fact export; never creates ROOMs or submits AI work.
+inherit F_CLEAN_UP;
+#define WORLD_D "/adm/daemons/illusion_world_d"
+
+int main(object me, string arg) {
+    string *parts;
+    mapping world, facts, payload;
+    mixed err;
+    int x, y;
+
+    if (!SECURITY_D->valid_grant(me, "(admin)")) return 0;
+    parts = stringp(arg) ? explode(arg, " ") - ({ "" }) : ({});
+    if (sizeof(parts) != 3) return notify_fail("用法：illusion_content 世界ID X Y（导出静态创作事实，不调用模型）\n");
+    x = to_int(parts[1]); y = to_int(parts[2]);
+    if (sprintf(
+        "%d",
+        x
+    ) != parts[1] || sprintf("%d", y) != parts[2]) return notify_fail("坐标必须是规范十进制整数。\n");
+    err = catch {
+        world = WORLD_D->read_world(parts[0]); facts = WORLD_D->query_room_facts(parts[0], x, y);
+        if (!facts) error("该坐标不可进入。\n");
+        payload = "/inherit/illusion/content"->narration_payload(world, facts);
+    };
+    if (err) return notify_fail("导出失败：" + err);
+    write(json_encode(payload) + "\n");
+    return 1;
+}

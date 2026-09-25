@@ -1,0 +1,239 @@
+inherit "/inherit/illusion/content";
+#define WORLD "/adm/daemons/illusion_world_d"
+#define CONTENT "/adm/daemons/illusion_content_d"
+#define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
+
+object first, second, room, other;
+mapping payload;
+string token, token2, default_text;
+int polls, inventory_count;
+
+void start() {
+    mapping world, facts, synthetic, sample;
+    mixed *vectors;
+    int *xy;
+
+    world = WORLD->initialize_world(WORLD->catalog_manifest("test-content", 42, 1));
+    vectors = ({});
+    foreach (xy in ({ ({ 0, 0 }), ({ -61, 36 }), ({ -60, 36 }), ({ -4, 41 }), ({ 91, -240 }) })) {
+        facts = WORLD->query_room_facts("test-content", xy[0], xy[1]);
+        vectors += ({ narration_payload(world, facts) });
+    }
+    payload = vectors[0];
+    synthetic = ([ "x": -1, "y": 0, "name": "苍岭·松岗", "biome": "ridge", "biome_name": "苍岭",
+        "patch": "松岗", "theme": "悔恨", "role": "wilderness", "description": "岩坡间夹着松树。",
+        "transition": "", "secondary": "", "scene_id": "", "scene_name": "", "scene": ([]), "road": 1,
+        "fields": ([
+            "elevation": 54000,
+            "moisture": 32000,
+            "temperature": 32000,
+            "slope": 100
+        ]) ]);
+    sample = narration_payload(make_manifest("test-prose", 42, 1, "test-v1",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), synthetic);
+    CHECK(
+        sample["content_key"] == "0e267308df122f67bb3fc7ba2ad64d6eec406e757f821122cbc09ddc1caae863",
+        "fixed cross-language content key golden vector"
+    );
+    vectors += ({ sample });
+    synthetic["x"] = -1000000000; synthetic["y"] = 1000000000;
+    vectors += ({ narration_payload(world, synthetic) });
+    CHECK(
+        write_file(
+            "/data/content-vectors.json",
+            json_encode(([ "world": world, "payloads": vectors ])),
+            1
+        ),
+        "export cross-language facts vectors"
+    );
+    CHECK(
+        sizeof(json_decode(read_file("/data/model-calls.json"))) == 0,
+        "compilation and M1 room tests never call a model"
+    );
+    first = "/tests/master"->query_players()[0]; second = "/tests/master"->query_players()[1];
+    token = WORLD->register_instance(
+        first,
+        "test-content"
+    ); token2 = WORLD->register_instance(second, "test-content");
+    room = load_object(WORLD->room_path("test-content", 0, 0, token));
+    other = load_object(WORLD->room_path("test-content", 0, 0, token2));
+    first->move(room, 1);
+    default_text = room->long(); inventory_count = room->query("setup_count");
+    CHECK(!CONTENT->query_enabled(), "game generation defaults off");
+    CHECK(
+        sizeof(json_decode(read_file("/data/model-calls.json"))) == 0,
+        "disabled visit makes no request"
+    );
+    first->move(WORLD->room_path("test-content", 1, 0, token), 1);
+    CONTENT->set_enabled(1);
+    room->long(); other->long(); load_object("/d/illusion/room");
+    CHECK(CONTENT->query_status()["states"] == 0, "look and blueprint do not submit");
+    first->move(room, 1); second->move(other, 1);
+    CHECK(CONTENT->query_status()["states"] == 1, "two owners share one pending content key");
+    CHECK(room->long() == default_text, "first display does not wait for the model");
+    call_out("check_waiting", 1);
+    call_out("leave_during_generation", 4);
+}
+
+void check_waiting() {
+    CHECK(
+        CONTENT->query_status()["pending"] == 1,
+        "wrong key and expired ID do not complete current request"
+    );
+}
+
+void leave_during_generation() {
+    CHECK(
+        CONTENT->query_status()["pending"] == 0,
+        "lost acknowledgement recovered by bounded retransmission"
+    );
+    CHECK(!CONTENT->read_description(payload), "model still working after short acknowledgement");
+    CONTENT->set_enabled(0);
+    first->move(WORLD->room_path("test-content", 1, 0, token), 1);
+    second->move(WORLD->room_path("test-content", 1, 0, token2), 1);
+    call_out("await_publication", 1);
+}
+
+void check_bounds() {
+    mapping facts, chunk, sample, snapshot;
+    string directory, path, key;
+    int count, i;
+
+    write_file("/data/pause-model", "pause", 1);
+    CONTENT->set_enabled(1);
+    chunk = WORLD->query_chunk("test-content", 0, 0);
+    foreach (facts in values(chunk["cells"])) {
+        if (!facts["x"] && !facts["y"]) continue;
+        first->move(WORLD->room_path("test-content", facts["x"], facts["y"], token), 1);
+        if (++count == 8) break;
+    }
+    CHECK(
+        CONTENT->query_status()["states"] == 6,
+        "one player submits at most six new keys per minute"
+    );
+    CONTENT->set_enabled(0);
+    sample = copy(payload);
+    sample["x"] = 15;
+    CHECK(
+        !CONTENT->read_description(sample),
+        "missing file in existing directory returns fallback, not an indexing error"
+    );
+    snapshot = sample + ([ "schema_version": 1, "description": "松风拂过。", "used_fact_ids": ({}) ]);
+    map_delete(snapshot, "facts");
+    for (i = 32; i < 292; i++) {
+        key = hash("sha256", sprintf("cache-test-%d", i));
+        sample["x"] = i; sample["content_key"] = key;
+        snapshot["x"] = i; snapshot["content_key"] = key;
+        directory = sprintf("/data/illusion_world/content/test-content/%d_0", i / 16);
+        if (file_size(directory) != -2) mkdir(directory);
+        path = directory + sprintf("/%d_0.json", i);
+        write_file(path, json_encode(snapshot), 1);
+        CHECK(
+            CONTENT->read_description(sample) == "松风拂过。",
+            "bounded snapshot cache accepts valid local content"
+        );
+    }
+    CHECK(CONTENT->query_status()["cached"] == 256, "prose LRU bounded to 256 rooms");
+    CHECK(
+        sizeof(json_decode(read_file("/data/model-calls.json"))) == 1,
+        "cache reads never submit model work"
+    );
+}
+
+void finish() {
+    CONTENT->set_enabled(0);
+    "/tests/master"->run_host_rooms();
+}
+
+void start_timeout() {
+    string offline_token;
+
+    write_file("/data/silent-backend", "silence", 1);
+    WORLD->initialize_world(WORLD->catalog_manifest("test-offline", 42, 1));
+    offline_token = WORLD->register_instance(first, "test-offline");
+    CONTENT->set_enabled(1);
+    first->move(WORLD->room_path("test-offline", 0, 0, offline_token), 1);
+    CHECK(
+        CONTENT->query_status()["pending"] == 1,
+        "unresponsive service does not block room entry"
+    );
+    CHECK(strsrch(environment(first)->long(), "岩坡间") >= 0, "look uses rule prose during timeout");
+    call_out("check_timeout", 11);
+}
+
+void check_timeout() {
+    CHECK(
+        CONTENT->query_status()["pending"] == 0,
+        "unresponsive service releases pending request at deadline"
+    );
+    CHECK(strsrch(environment(first)->long(), "岩坡间") >= 0, "look remains available after timeout");
+    CHECK(
+        environment(first)->query("exits")["out"] == "/d/city/wumiao2",
+        "out remains available without AI"
+    );
+    first->move("/tests/room_stub", 1);
+    CHECK(environment(first) == find_object("/tests/room_stub"), "movement after timeout succeeds");
+    finish();
+}
+
+void await_publication() {
+    string text, path;
+    mapping snapshot;
+    object fresh;
+
+    text = CONTENT->read_description(payload);
+    if (!text) {
+        if (++polls < 12) { call_out("await_publication", 1); return; }
+        CHECK(0, "world publication timeout"); finish(); return;
+    }
+    CHECK(text == "松风掠过岩坡，针叶簌簌而落。", "published text available after both players leave");
+    CHECK(
+        sizeof(json_decode(read_file("/data/model-calls.json"))) == 1,
+        "duplicate player visits use one model call"
+    );
+    first->move(room, 1); second->move(other, 1);
+    CHECK(
+        strsrch(room->long(), text) == 0 && room->long() == other->long(),
+        "next look reads shared published text"
+    );
+    CHECK(strsrch(room->long(), "out") >= 0, "AI text never hides exit portal");
+    CHECK(
+        room->query("setup_count") == inventory_count,
+        "publication does not initialize inventory again"
+    );
+    CONTENT->set_enabled(0);
+    CHECK(strsrch(room->long(), text) == 0, "disabling generation keeps saved descriptions");
+    destruct(load_object(CONTENT));
+    CHECK(
+        CONTENT->read_description(payload) == text,
+        "daemon reload reads persisted content while disabled"
+    );
+    first->move(WORLD->room_path("test-content", 1, 0, token), 1);
+    second->move(WORLD->room_path("test-content", 1, 0, token2), 1);
+    destruct(room); fresh = load_object(WORLD->room_path("test-content", 0, 0, token));
+    CHECK(strsrch(fresh->long(), text) == 0, "room recreation reuses content");
+    path = "/data/illusion_world/content/test-content/0_0/0_0.json";
+    snapshot = json_decode(read_file(path));
+    snapshot["x"] = 1;
+    write_file(path, json_encode(snapshot), 1);
+    destruct(load_object(CONTENT));
+    CHECK(
+        !CONTENT->read_description(payload) && fresh->long() == default_text,
+        "wrong coordinate snapshot falls back"
+    );
+    snapshot["x"] = 0; snapshot["description"] = "坏文案\033[31m";
+    write_file(path, json_encode(snapshot), 1);
+    CHECK(!CONTENT->read_description(payload), "terminal controls rejected");
+    write_file(path, "{broken", 1);
+    CHECK(!CONTENT->read_description(payload), "malformed JSON falls back");
+    snapshot["description"] = text;
+    write_file(path, json_encode(snapshot), 1);
+    CHECK(CONTENT->read_description(payload) == text, "repair visible without room recreation");
+    CHECK(
+        sizeof(json_decode(read_file("/data/model-calls.json"))) == 1,
+        "repeated look/reload makes no model call"
+    );
+    debug_message("ILLUSION CONTENT gameplay: quiet async publication and fallback PASS");
+    check_bounds();
+    start_timeout();
+}

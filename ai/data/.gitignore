@@ -16,3 +16,4 @@ memories.json
 *.db-wal
 *.db-shm
 *.db-journal
+*.db.lock

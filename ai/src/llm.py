@@ -2,6 +2,8 @@
 import logging
 import math
 import time
+from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from urllib.parse import urlsplit
 
 from openai import APITimeoutError, OpenAI
@@ -10,8 +12,10 @@ logger = logging.getLogger(__name__)
 
 
 class ModelUnavailable(Exception):
-    def __init__(self, code):
+    def __init__(self, code, *, status_code=None, retry_after=0):
         self.code = code
+        self.status_code = status_code
+        self.retry_after = retry_after
         super().__init__(code)
 
 
@@ -36,7 +40,7 @@ def create_chat_client(settings):
 
 
 def complete_chat(settings, client, messages, deadline=None, max_tokens=None, *,
-                  timeout=None, operation="chat"):
+                  timeout=None, operation="chat", usage_callback=None):
     if client is None:
         raise ModelUnavailable("unconfigured")
     limit = settings.chat_timeout if timeout is None else timeout
@@ -70,6 +74,11 @@ def complete_chat(settings, client, messages, deadline=None, max_tokens=None, *,
             operation, settings.chat_model, host, time.monotonic() - started,
             input_chars, len(content),
         )
+        if usage_callback is not None:
+            usage = getattr(completion, "usage", None)
+            usage_callback({key: getattr(usage, key) for key in
+                            ("prompt_tokens", "completion_tokens", "total_tokens")
+                            if type(getattr(usage, key, None)) is int and getattr(usage, key) >= 0})
         return content.strip()
     except Exception as error:
         # SDK exception strings and response bodies may contain credentials or prompts.
@@ -83,4 +92,18 @@ def complete_chat(settings, client, messages, deadline=None, max_tokens=None, *,
         )
         if isinstance(error, (APITimeoutError, TimeoutError)):
             failure_code = "timeout"
-        raise ModelUnavailable(failure_code) from error
+        retry_after = 0
+        response = getattr(error, "response", None)
+        value = response.headers.get("retry-after") if response is not None else None
+        if value:
+            try:
+                retry_after = float(value)
+            except (TypeError, ValueError):
+                try:
+                    retry_after = (parsedate_to_datetime(value) - datetime.now(timezone.utc)).total_seconds()
+                except (TypeError, ValueError, OverflowError):
+                    pass
+            if not math.isfinite(retry_after) or retry_after < 0:
+                retry_after = 0
+        raise ModelUnavailable(failure_code, status_code=getattr(error, "status_code", None),
+                               retry_after=retry_after) from error

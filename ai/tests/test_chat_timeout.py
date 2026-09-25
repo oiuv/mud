@@ -100,7 +100,7 @@ class ChatTimeoutTests(Fixture):
             with self.assertRaisesRegex(ChatUnavailable, "超时"):
                 manager._complete([{"role": "user", "content": "private-player-question"}])
         text = "\n".join(logs.output)
-        for expected in ("operation=chat", "model=qwen3.7-flash", "host=example.test",
+        for expected in ("operation=chat", "model=qwen3.8-flash", "host=example.test",
                          "timeout_s=60.00", "error=APITimeoutError", "cause=ReadTimeout"):
             self.assertIn(expected, text)
         self.assertNotIn("secret", text)

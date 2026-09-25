@@ -1,8 +1,10 @@
 inherit "/inherit/room/illusion_base";
 
 #define WORLD_D "/adm/daemons/illusion_world_d"
+#define CONTENT_D "/adm/daemons/illusion_content_d"
 private mapping identity;
 private mapping facts;
+private mapping content;
 
 varargs void create(mapping requested) {
     mapping exits;
@@ -17,6 +19,10 @@ varargs void create(mapping requested) {
     facts = WORLD_D->query_room_facts(requested["world"], requested["x"], requested["y"]);
     if (!facts) error("illusion: inaccessible coordinate.\n");
     identity = copy(requested);
+    content = "/inherit/illusion/content"->narration_payload(
+        WORLD_D->read_world(identity["world"]),
+        facts
+    );
     set("illusion_world", identity["world"]);
     set("illusion_instance", identity["instance"]);
     set("maze", "maze");
@@ -46,10 +52,15 @@ int valid_illusion_entry(object actor) {
 }
 
 string long() {
+    string description;
+    mixed err;
+
     if (!facts) return "四下雾霭迷蒙，远近景物若隐若现，尚辨不清身在何处。\n";
     if (!WORLD_D->instance_valid(identity["world"], identity["instance"]))
         return "幻境的景物正在消散，可输入 out 安全返回武庙。\n";
-    return facts["description"] + facts["transition"] + "\n" + (facts["road"] ? "脚下有一条可辨认的旧路。\n" : "") + (facts["out"] ? "一扇闪着微光的传送门(door)立在路旁，可由此离开(out)幻境。\n" : "");
+    err = catch(description = CONTENT_D->read_description(content));
+    if (err || !description) description = facts["description"] + facts["transition"];
+    return description + "\n" + (facts["road"] ? "脚下有一条可辨认的旧路。\n" : "") + (facts["out"] ? "一扇闪着微光的传送门(door)立在路旁，可由此离开(out)幻境。\n" : "");
 }
 
 int leave_expired_instance() {
@@ -59,6 +70,7 @@ int leave_expired_instance() {
 
 void init() {
     object actor;
+    mixed err;
 
     actor = this_player();
     if (!identity || !objectp(actor) || environment(actor) != this_object()) return;
@@ -68,4 +80,6 @@ void init() {
     }
     if (interactive(actor)) add_action("leave_expired_instance", "out");
     run_illusion_encounter();
+    err = catch(CONTENT_D->request_visit(actor, identity, content));
+    if (err) debug_message(sprintf("illusion content: visit request failed: %O", err));
 }

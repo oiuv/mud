@@ -1,0 +1,67 @@
+// Public static facts only. Keep framing in sync with ai/src/world/protocol.py.
+inherit "/inherit/illusion/identity";
+
+private string *text_fields() {
+    return ({ "name", "biome", "biome_name", "patch", "theme", "role", "description",
+        "transition", "secondary", "scene_id", "scene_name", "scene_biome", "scene_theme", "material", "condition" });
+}
+
+mapping narration_facts(mapping room) {
+    mapping result, scene, landmark, mark;
+    string field, direction;
+    int dx, dy;
+
+    result = ([ "schema_version": 1, "landmarks": ({}) ]);
+    foreach (field in text_fields()) result[field] = stringp(room[field]) ? room[field] : "";
+    foreach (field in ({ "elevation", "moisture", "temperature", "slope" }))
+        result[field] = room["fields"][field];
+    result["road"] = room["road"];
+    scene = room["scene"];
+    if (mapp(scene) && sizeof(scene)) {
+        result["scene_biome"] = scene["biome"];
+        result["scene_theme"] = scene["theme"];
+        result["material"] = scene["material"];
+        result["condition"] = scene["condition"];
+        landmark = scene["landmark"];
+        dx = landmark["x"] - room["x"]; dy = landmark["y"] - room["y"];
+        if (abs(dx) <= 8 && abs(dy) <= 8) {
+            direction = (dy > 0 ? "north" : dy < 0 ? "south" : "") + (dx > 0 ? "east" : dx < 0 ? "west" : "");
+            mark = ([ "id": scene["id"] + ":landmark", "name": landmark["name"],
+                "x": landmark["x"], "y": landmark["y"], "direction": direction == "" ? "here" : direction ]);
+            result["landmarks"] = ({ mark });
+        }
+    }
+    return result;
+}
+
+string narration_digest(mapping facts) {
+    string *fields;
+    string field;
+    mapping mark;
+
+    fields = ({ "illusion-facts-v1" });
+    foreach (field in text_fields()) fields += ({ facts[field] });
+    foreach (field in ({ "elevation", "moisture", "temperature", "slope", "road" }))
+        fields += ({ sprintf("%d", facts[field]) });
+    fields += ({ sprintf("%d", sizeof(facts["landmarks"])) });
+    foreach (mark in facts["landmarks"])
+        fields += ({
+            mark["id"],
+            mark["name"],
+            sprintf("%d", mark["x"]),
+            sprintf("%d", mark["y"]),
+            mark["direction"]
+        });
+    return hash("sha256", frame_fields(fields));
+}
+
+mapping narration_payload(mapping world, mapping room) {
+    mapping facts;
+    string sha, key;
+
+    facts = narration_facts(room); sha = narration_digest(facts);
+    key = hash("sha256", frame_fields(({ "illusion-content-v1", world["manifest_digest"],
+        sprintf("%d", room["x"]), sprintf("%d", room["y"]), sha })));
+    return ([ "world_id": world["world_id"], "manifest_digest": world["manifest_digest"],
+        "x": room["x"], "y": room["y"], "facts": facts, "facts_digest": sha, "content_key": key ]);
+}

@@ -19,6 +19,7 @@ class _Capability:
         self.handler = handler
         self.timeout = timeout
         self.close = close
+        self.active = 0
         self.pool = ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix="ai")
         self.slots = threading.BoundedSemaphore(max_workers)
 
@@ -128,7 +129,13 @@ class UDPServer:
             deadline = (time.monotonic() if started is None else started) + capability.timeout
             if self._closed or time.monotonic() >= deadline:
                 raise TimeoutError()
-            response = capability.handler(request, deadline)
+            with self._inflight_lock:
+                capability.active += 1
+            try:
+                response = capability.handler(request, deadline)
+            finally:
+                with self._inflight_lock:
+                    capability.active -= 1
             if not isinstance(response, dict):
                 raise TypeError("Capability response must be an object")
             response = dict(response)
@@ -144,6 +151,11 @@ class UDPServer:
         except Exception as error:
             logger.warning("AI dispatch failed: error=%s", type(error).__name__)
             return error_response(request, "internal_error", "AI服务暂时异常，请稍后再试。")
+
+    def capability_active(self, request_type):
+        with self._inflight_lock:
+            capability = self._routes.get(request_type)
+            return bool(capability and capability.active)
 
     def _send(self, response, address):
         try:

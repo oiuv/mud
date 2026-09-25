@@ -48,12 +48,14 @@ class ResourceTests(Fixture):
         knowledge.close.assert_called_once()
         manager.close()
 
-    def test_factory_registers_only_npc_and_closes_on_failure(self):
+    def test_factory_registers_isolated_world_and_npc_and_closes_on_failure(self):
         with patch.object(main, "NPCService") as factory:
             npc = factory.return_value
             npc.request_types = ("chat", "memory", "config")
             server = main.create_server(self.settings)
-            self.assertEqual(set(server._routes), set(npc.request_types))
+            self.assertEqual(set(server._routes), set(npc.request_types) | {"world_describe", "world_status"})
+            self.assertIsNot(server._routes["chat"], server._routes["world_describe"])
+            self.assertEqual(server._routes["world_describe"].timeout, self.settings.world_short_timeout)
             server.stop()
             npc.close.assert_called_once()
         with patch.object(main, "NPCService") as factory, patch.object(main, "UDPServer") as factory_udp:

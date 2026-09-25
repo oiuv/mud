@@ -109,6 +109,8 @@ class SettingsTests(Fixture):
         self.assertEqual(settings.embedding_model, "custom-embedding")
         self.assertEqual(settings.rerank_model, "environment-rerank")
         self.assertTrue(settings.debug)
+        self.assertEqual(settings.chat_model, "qwen3.8-flash")
+        self.assertEqual(Settings().chat_model, "qwen3.8-flash")
         self.assertEqual(Settings().embedding_model, "qwen3.7-text-embedding-flash")
         self.assertEqual(Settings().rerank_model, "qwen3.7-text-rerank")
 
@@ -320,7 +322,7 @@ class ChatTests(Fixture):
         calls = client.chat.completions.create.call_args_list
         self.assertEqual(len(calls), 2)
         for call in calls:
-            self.assertEqual(call.kwargs["model"], "qwen3.7-flash")
+            self.assertEqual(call.kwargs["model"], "qwen3.8-flash")
             self.assertEqual(call.kwargs["extra_body"], {"enable_thinking": False})
         self.assertEqual(calls[0].kwargs["max_tokens"], 2048)
         self.assertEqual(calls[1].kwargs["max_tokens"], 1200)

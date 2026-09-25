@@ -1,6 +1,6 @@
 # 游戏 AI 服务
 
-独立 Python 服务，通过本机 UDP 为游戏提供 AI 能力，要求 Python 3.10+。目前提供 NPC 人设对话、游戏帮助检索、对话摘要和关系记录。
+独立 Python 服务，通过本机 UDP 为游戏提供 AI 能力，要求 Python 3.10+。提供 NPC 人设对话、游戏帮助检索、对话摘要和关系记录，以及默认关闭的幻境场景创作。
 
 游戏统一使用 `AI_CLIENT_D` 发送异步请求；`AI_NPC_D` 负责 NPC 的玩家校验与对话展示。Python 在 `main.py:create_server()` 按请求类型注册业务，各业务拥有独立工作容量和期限。
 
@@ -9,9 +9,10 @@
 | `src/udp_server.py`、`src/protocol.py` | UDP、公共报文校验、请求关联、有限并发分发 |
 | `src/llm.py` | 公共模型客户端、单次调用及期限、模型错误 |
 | `src/npc/` | NPC 人设、会话锁、聊天/记忆/角色查询及原子持久化 |
+| `src/world/` | 静态房间事实、持久去重任务、独立模型 worker 和本地正文发布 |
 | `src/knowledge_*.py` | BM25、向量混合检索和知识库同步 |
 
-生产服务仅注册 `chat`、`memory`、`config`；新增能力接入同一入口。接口与扩展约定见 [AI 客户端文档](../docs/daemons/ai_client_d.md)。
+服务明确注册 `chat`、`memory`、`config`、`world_describe`、`world_status`；世界能力不要求 NPC/玩家聊天字段。禁用创作时世界路由返回 `retry_later`，不创建模型客户端或后台任务。接口与扩展约定见 [AI 客户端文档](../docs/daemons/ai_client_d.md)。
 
 ## 启动
 
@@ -118,7 +119,7 @@ run 使用当前控制台前台运行。日志追加到 logs/ai.log。
 ## 模型和端点
 
 ~~~dotenv
-OPENAI_MODEL=qwen3.7-flash
+OPENAI_MODEL=qwen3.8-flash
 CHAT_EXTRA_BODY={"enable_thinking":false}
 EMBEDDING_MODEL=qwen3.7-text-embedding-flash
 EMBEDDING_DIMENSIONS=1024
@@ -126,7 +127,7 @@ RERANK_MODEL=qwen3.7-text-rerank
 RERANK_ENABLED=true
 ~~~
 
-默认问答和历史摘要模型均为 qwen3.7-flash，关闭思考模式；模型和额外请求参数仍可通过 .env 覆盖。参数依据[百炼深度思考文档](https://help.aliyun.com/zh/model-studio/deep-thinking)。
+默认问答、历史摘要和幻境文案模型均为 `qwen3.8-flash`，关闭思考模式；模型和额外请求参数仍可通过 `.env` 覆盖。向量和重排模型独立配置，不随聊天模型切换。参数依据[百炼深度思考文档](https://help.aliyun.com/zh/model-studio/deep-thinking)。
 
 默认使用北京 DashScope 公共地址。使用业务空间域名时配置 DASHSCOPE_WORKSPACE_ID，会生成问答、向量与重排端点；其他地域或网关可显式配置 OPENAI_BASE_URL、EMBEDDING_BASE_URL 和完整 RERANK_URL，显式配置优先。端点必须与 API Key 和模型可用地域一致。
 
@@ -200,6 +201,8 @@ aitest li bai about 你好
 - 保留现有按互动次数增长的关系规则；礼物、忌讳等仍是角色提示信息，不会自动触发游戏奖励或数值变化。
 
 ## 通信与运维
+
+幻境的启用、限额、存档与真实试验步骤见 [无限世界 AI 创作](../docs/systems/illusion-world-ai.md)。`WORLD_ENABLED=false` 为默认值；地图、默认描述和已发布正文均不依赖服务在线。启用后复用 `OPENAI_*` 模型配置，但任务、线程和 SQLite 与 NPC 独立，不使用 NPC 记忆或检索。停止服务会等待已经开始的模型调用结束，必要时将启动器的停止等待设为 120 秒或更长；HTTP 读超时不是强制终止线程的硬计时器。
 
 - 当前 NPC 模块提供 chat / memory / config；后两者只读。公共分发层不要求 NPC 或玩家字段，业务自行校验。
 - 响应回显 request_id；NPC 业务回显适用的 npc_id、player_id。错误带 type=error、code、error。
@@ -294,6 +297,8 @@ Linux：
 python -m unittest discover -s ai/tests -v
 # 真实驱动 + 假模型 UDP 闭环；默认 bin/driver.exe，可传驱动与 Python 路径
 node ai/scripts/test_lpc.mjs
+# 世界事实/真实房间 + UDP + SQLite + 假模型；另有 Python world 测试
+node tools/tests/test_illusion_world.mjs
 python ai/scripts/performance_test.py
 python ai/scripts/test_client.py config "li bai"
 python ai/scripts/test_client.py chat "li bai" "如何拜师"

@@ -1,0 +1,26 @@
+// A second real driver process reads prior output with generation disabled.
+inherit "/tests/master";
+
+void run_restart() {
+    mapping vectors, payload;
+    string text;
+
+    vectors = json_decode(read_file("/data/content-vectors.json")); payload = vectors["payloads"][0];
+    check(
+        !"/adm/daemons/illusion_content_d"->query_enabled(),
+        "generation disabled after driver restart"
+    );
+    text = "/adm/daemons/illusion_content_d"->read_description(payload);
+    check(text == "松风掠过岩坡，针叶簌簌而落。", "new driver process reads original persisted prose");
+    check(
+        sizeof(json_decode(read_file("/data/model-calls.json"))) == 1,
+        "driver restart does not regenerate content"
+    );
+    if (!failures) debug_message("ILLUSION RESTART PASS");
+    finish();
+}
+
+string *epilog(int flag) {
+    call_out("run_restart", 0);
+    return ({});
+}
