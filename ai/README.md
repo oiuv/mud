@@ -176,6 +176,8 @@ knowledge_threshold 控制向量召回相似度；BM25不使用该阈值。设�
 
 `RUNTIME_POLICY` 是可信部署权限上限，默认 `{}` 保持已有公开能力；只能收紧，不能靠填写工具名启用源码或主 Agent。可指定 `tools/skills/scopes/egress_scopes/agents` 名称数组、`knowledge_paths` 文档路径模式及 `version`。省略字段不额外限制，空数组全部禁止；示例见 `.env.example`。修改后重启服务，错误配置会阻止启动，不静默放宽。
 
+源码只读工具的部署配置通过可选 `SOURCE_SCOPES_FILE` 加载；不填没有任何源码范围。`config/source_scopes.example.json` 全部禁用且禁止外发，配置范围不自动给 NPC 授权；当前源码调查 Agent 尚未接入。配置字段、证据和安全限制见 [源码范围配置](../docs/architecture/ai-source-access.md)。
+
 ## 角色和游戏接入
 
 角色配置位于 config/npc_roles.json，以 NPC 的AI角色ID为键。支持 name/title/role/personality/background/greeting/topics/speech_style/knowledge_base/relationship_tips 字段。

@@ -22,6 +22,7 @@ class Settings:
     debug: bool = False
     enabled_modules: tuple = ("npc", "world")
     runtime_policy: dict = field(default_factory=dict)
+    source_scopes_file: Path | None = None
     knowledge_update_enabled: bool = True
     chat_api_key: str = field(default="", repr=False)
     chat_base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
@@ -79,6 +80,12 @@ class Settings:
         for name in ("data_dir", "help_dir", "roles_file", "skills_dir", "world_content_dir"):
             path = Path(getattr(self, name)).expanduser()
             setattr(self, name, path if path.is_absolute() else SERVICE_DIR / path)
+        if self.source_scopes_file is not None:
+            if not str(self.source_scopes_file).strip():
+                self.source_scopes_file = None
+            else:
+                path = Path(self.source_scopes_file).expanduser()
+                self.source_scopes_file = path if path.is_absolute() else SERVICE_DIR / path
         for name in ("embedding_dimensions", "embedding_max_bytes", "rerank_max_bytes",
                      "rerank_total_bytes", "api_timeout", "chat_timeout", "summary_timeout",
                      "request_timeout", "max_workers",

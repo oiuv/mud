@@ -16,6 +16,7 @@ from ..runtime.runner import Runner
 from ..runtime.skills import Skills
 from ..runtime.tools import Tools
 from ..settings import load_settings
+from ..source_config import load_sources
 from .agents import LIMITS, POLICY, build_agents
 
 logger = logging.getLogger(__name__)
@@ -41,6 +42,7 @@ class NPCManager:
         self._owns_client = client is None
         self.npc_configs = {}
         self.load_npc_configs()
+        self.sources = load_sources(self.settings.source_scopes_file)
         self.hooks = hooks or Hooks()
         skills = Skills(self.settings.skills_dir)
         self.knowledge = knowledge if knowledge is not None else QwenKnowledgeSystem(settings=self.settings)
@@ -49,6 +51,7 @@ class NPCManager:
             tools = Tools(hooks=self.hooks)
             tools.discover(__package__.rsplit(".", 1)[0] + ".tools",
                            {"skills": skills, "knowledge": self.knowledge, "hooks": self.hooks,
+                            "sources": self.sources,
                             "knowledge_minimum_threshold": lambda context: context.state.facts[0].get(
                                 "knowledge_threshold", .4)})
             self.runner = Runner(ChatModel(self.settings, self.client), build_agents(self.settings),

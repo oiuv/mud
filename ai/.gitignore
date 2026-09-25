@@ -1,6 +1,9 @@
 # NPC配置 - 由游戏管理员自定义
 config/npc_roles.json
 
+# 本机源码访问授权；仅提交默认禁用的示例
+config/source_scopes.json
+
 # Python环境
 __pycache__/
 *.pyc

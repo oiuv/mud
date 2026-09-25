@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "scopes": [
+    {
+      "name": "rules_example",
+      "enabled": false,
+      "root": "REPLACE_WITH_AUTHORIZED_PUBLIC_SOURCE_DIRECTORY",
+      "include": ["skills/*", "teachers/*", "include/*"],
+      "exclude": ["*/internal/*"],
+      "extensions": [".lpc", ".c", ".h"],
+      "agents": ["rules_investigator"],
+      "audiences": ["admin"],
+      "egress": false
+    }
+  ]
+}

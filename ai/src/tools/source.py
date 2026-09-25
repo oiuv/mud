@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from ..runtime.contracts import Contract, RuntimeFault
+from ..runtime.context import Policy
 from ..runtime.filesystem import SafeRoot, relative_parts
 from ..runtime.tools import Tool
 
@@ -51,6 +52,9 @@ class Scope:
                 or not self.audiences <= {"player", "admin", "internal"}
                 or any(part.casefold() in PRIVATE_PARTS or part.startswith(".") for part in self.root.parts[1:])):
             raise ValueError("Invalid source scope")
+        Policy(knowledge_paths=(self.include, self.exclude))
+        if any(not re.fullmatch(r"\.[a-z0-9]{1,12}", ext) for ext in self.extensions):
+            raise ValueError("Source extensions must be lowercase suffixes")
         SafeRoot(self.root)
 
     def accepts(self, path):
@@ -95,7 +99,7 @@ class Sources:
         if expected_hash is not None and digest != expected_hash:
             raise RuntimeFault("source_changed")
         lines = content.splitlines()
-        if start > max(1, len(lines)):
+        if start > len(lines):
             raise RuntimeFault("line_range_unavailable")
         selected = lines[start - 1:end]
         text = "\n".join(selected)
@@ -103,7 +107,7 @@ class Sources:
             raise RuntimeFault("result_too_large")
         return {"id": "source:" + uuid.uuid4().hex, "scope": scope.name, "path": path,
                 "start": start, "end": min(end, len(lines)), "content": text, "hash": digest,
-                "read_at": datetime.now(timezone.utc).isoformat(), "truncated": end < len(lines)}
+                "read_at": datetime.now(timezone.utc).isoformat(), "truncated": start > 1 or end < len(lines)}
 
     def read(self, context, arguments):
         scope = self.authorize(context, arguments)
@@ -124,11 +128,11 @@ class Sources:
             context.check()
             directory = pending.pop()
             try:
-                entries, partial = root.entries(directory, max(1, entries_left))
+                entries, partial, examined = root.entries(directory, max(1, entries_left), with_count=True)
             except RuntimeFault:
                 truncated = True
                 continue
-            entries_left -= len(entries)
+            entries_left -= examined
             truncated |= partial
             for name, is_directory in entries:
                 context.check()
@@ -143,7 +147,7 @@ class Sources:
                 if scanned >= 256 or scanned_bytes >= 4194304:
                     return {"evidence": matches, "truncated": True, "untrusted": True}
                 try:
-                    data = root.read(path)
+                    data = root.read(path, max_bytes=min(262144, 4194304 - scanned_bytes))
                     context.check()
                     if b"\0" in data:
                         continue

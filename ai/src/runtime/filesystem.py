@@ -180,23 +180,28 @@ class SafeRoot:
             opened.validate()
         return data
 
-    def entries(self, relative="", limit=4096):
+    def entries(self, relative="", limit=4096, *, with_count=False):
         with self.opened(relative, directory=True) as opened:
             target = opened.descriptor if os.name != "nt" else opened.path
             entries = []
             truncated = False
+            examined = 0
             with os.scandir(target) as iterator:
                 for index, entry in enumerate(iterator):
                     if index >= limit:
                         truncated = True
                         break
+                    examined += 1
                     info = entry.stat(follow_symlinks=False)
                     # Filter links here as well as at open; never enumerate a link target.
                     if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 0x400:
                         continue
                     entries.append((entry.name, stat.S_ISDIR(info.st_mode)))
             opened.validate()
-        return sorted(entries), truncated
+        result = (sorted(entries), truncated)
+        # Internal accounting includes filtered links, not just visible entries.
+        # Never include this count in a model/tool result.
+        return (*result, examined) if with_count else result
 
 
 class _OpenFile:
