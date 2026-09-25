@@ -106,6 +106,7 @@ class RunState:
     pending: list = field(default_factory=list)
     evidence: dict = field(default_factory=dict)
     calls: dict = field(default_factory=dict)
+    tool_observations: dict = field(default_factory=dict)
     skills: dict = field(default_factory=dict)
     skill_catalog: object = None
     tool_registry: object = None

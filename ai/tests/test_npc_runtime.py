@@ -222,15 +222,19 @@ class NPCRuntimeTests(Fixture):
         self.assertEqual(self.counts(), [10, 0, 0])
         self.assertEqual(self.events[-1][0]["status"], "incomplete")
 
-    def test_repeated_malformed_output_stops_at_budget_without_persistence(self):
+    def test_repeated_malformed_output_stops_without_progress_or_persistence(self):
         self.setup_runtime()
         self.client.chat.completions.create.return_value = completion("not JSON")
         response = self.ask()
         self.assertEqual(response["type"], "chat")
-        self.assertEqual(self.client.chat.completions.create.call_count, 5)
-        self.assertEqual(self.contexts[0].budget.snapshot()["model_calls"], 5)
+        self.assertEqual(self.client.chat.completions.create.call_count, 4)
+        self.assertEqual(self.contexts[0].budget.snapshot()["model_calls"], 4)
+        self.assertEqual(self.contexts[0].budget.snapshot()["external_calls"], 4)
         self.assertEqual(self.counts(), [0, 0, 0])
-        self.assertEqual(self.events[-1][0]["status"], "incomplete")
+        self.assertEqual([(event["status"], event["code"], count) for event, count in self.events],
+                         [("incomplete", "no_progress", 0)])
+        self.assertIn("连续 1 轮",
+                      self.client.chat.completions.create.call_args_list[2].kwargs["messages"][-1]["content"])
 
     def test_forged_privileges_never_enable_source_main_or_private_scope(self):
         self.setup_runtime()

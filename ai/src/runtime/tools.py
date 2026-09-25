@@ -10,6 +10,7 @@ from .calls import Calls
 from .contracts import Contract, RuntimeFault, json_text, parse_json
 from .hooks import Hooks
 from .lifecycle import Operation
+from .progress import observation
 
 
 @dataclass(frozen=True)
@@ -136,6 +137,7 @@ class Tools:
                 return parse_json(json_text(previous[1], 65536), 65536)
             tool = self.snapshot(context).get(name)
             fault = None
+            args = arguments
             try:
                 with Operation(self.hooks, context, "tool", tool=tool.name if tool else "unknown", call_id=call_id) as op:
                     if tool is None:
@@ -178,6 +180,7 @@ class Tools:
             except Exception:
                 reply = {"ok": False, "error": "tool_failed", "call_id": call_id, "recoverable": True}
             context.state.calls[call_id] = (fingerprint, reply)
+            context.state.tool_observations[call_id] = observation(name, args, reply)
             if fault is not None and fault.status in ("incomplete", "cancelled"):
                 raise fault
             return parse_json(json_text(reply, 65536), 65536)

@@ -11,6 +11,7 @@ from .contracts import Contract, RuntimeFault, json_text
 from .hooks import Hooks
 from .lifecycle import error_code
 from .model import call_model
+from .progress import Progress, observation
 from .tools import Tools
 
 logger = logging.getLogger(__name__)
@@ -57,6 +58,7 @@ class Agent:
     max_tokens: int = 2048
     required_skills: tuple = ()
     requires_commit: bool = False
+    no_progress_limit: int = 3
 
     def __post_init__(self):
         if (not re.fullmatch(r"[a-z][a-z0-9_]{0,63}", self.name) or not self.description
@@ -66,6 +68,7 @@ class Agent:
                 or not isinstance(self.policy, Policy) or not isinstance(self.limits, Limits)
                 or not 0 < self.timeout <= 300 or type(self.max_tokens) is not int or self.max_tokens <= 0
                 or type(self.requires_commit) is not bool
+                or type(self.no_progress_limit) is not int or not 2 <= self.no_progress_limit <= 32
                 or not isinstance(self.required_skills, tuple)
                 or any(not isinstance(name, str) or not re.fullmatch(r"[a-z][a-z0-9-]{0,47}", name)
                        for name in self.required_skills)):
@@ -154,6 +157,7 @@ class Runner:
             messages = agent.messages(context, payload)
             self._messages(messages, context)
             messages = list(messages) + self._preload(agent, context)
+            progress = Progress(agent.no_progress_limit)
             while True:
                 context.check()
                 catalog = (self.skills.catalog_message(context)
@@ -168,9 +172,20 @@ class Runner:
                     messages.append({"role": "assistant", "content": response.text or None, "tool_calls": [
                         {"id": call.id, "type": "function", "function": {
                             "name": call.name, "arguments": call.arguments}} for call in response.tool_calls]})
+                    advanced = False
                     for call in response.tool_calls:
-                        result = self.tools.execute(self.tools.canonical(call.name), call.arguments, context, call.id)
+                        tool_name = self.tools.canonical(call.name)
+                        result = self.tools.execute(tool_name, call.arguments, context, call.id)
                         messages.append({"role": "tool", "tool_call_id": call.id, "content": json_text(result, 65536)})
+                        recorded = context.state.tool_observations.get(call.id)
+                        # A call-ID conflict is not a replay of its old observation.
+                        if recorded is None or result.get("error") == "call_id_conflict":
+                            recorded = observation(tool_name or call.name, call.arguments, result)
+                        advanced = progress.tool(recorded) or advanced
+                    context.check()
+                    feedback = progress.finish_round(advanced)
+                    if feedback:
+                        messages.append({"role": "user", "content": feedback})
                     continue
                 gaps = ()
                 try:
@@ -186,6 +201,8 @@ class Runner:
                     gaps = ("invalid_result",)
                 if not gaps:
                     context.check()
+                    if result.status == "completed":
+                        context.state.pending = []
                     if result.status == "completed" and agent.requires_commit:
                         outcome = Outcome(result, context, agent)
                         context.state.pending_commit = (outcome, self, json_text(result.value))
@@ -194,10 +211,14 @@ class Runner:
                 if agent.mode == "single":
                     raise RuntimeFault("completion_incomplete", "incomplete")
                 context.state.pending = list(gaps)
+                context.check()
+                feedback = progress.finish_round(progress.completion(gaps))
                 messages.extend([{"role": "assistant", "content": response.text}, {"role": "user", "content":
                     "结果尚未满足完成条件。请在现有授权和预算内补查并核对；确有阻碍则明确说明。缺口："
-                    + json_text(list(gaps), 8192)}])
+                    + json_text(list(gaps), 8192) + ("\n" + feedback if feedback else "")}])
         except RuntimeFault as error:
+            if error.code == "no_progress" and not context.state.pending:
+                context.state.pending = ["goal_completion_unverified"]
             return self._finish(Result(error.status, code=error.code), context, agent)
         except ModelUnavailable as error:
             # Preserve scheduling metadata, never provider bodies/exception strings.
