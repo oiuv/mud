@@ -1,6 +1,9 @@
 # NPC配置 - 由游戏管理员自定义
 config/npc_roles.json
 
+# 管理员维护的 CLI 程序授权；仅提交 example 示例
+config/cli_programs.json
+
 # 本机源码访问授权；仅提交默认禁用的示例
 config/source_scopes.json
 

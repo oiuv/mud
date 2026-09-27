@@ -25,8 +25,8 @@ def messages(context, payload):
             {"role": "user", "content": json.dumps(payload["facts"], ensure_ascii=False)}]
 
 
-def verify(result, state):
-    validate_prose(result.value, state.facts[0])
+def verify(result, context):
+    validate_prose(result.value, context.state.facts[0])
     return ()
 
 
@@ -41,7 +41,7 @@ class Generator:
                       Contract({"type": "object"}), messages, POLICY, verify,
                       parse=lambda text: Result("completed", parse_json(text)), limits=LIMITS,
                       mode="single", operation="world_describe", timeout=settings.world_timeout,
-                      max_tokens=1024, required_skills=("world-narration",), requires_commit=True)
+                      max_tokens=1024, required_skills=("world-narration",), requires_commit=True, json_output=True)
         self.client = create_chat_client(settings)
         self.runner = Runner(ChatModel(settings, self.client), (agent,), tools=tools,
                              hooks=hooks, skills=skills)

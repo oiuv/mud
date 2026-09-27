@@ -10,7 +10,7 @@ import sys
 import time
 from unittest.mock import Mock, patch
 
-from ai.scripts import test_retrieval as cli
+from ai.scripts import debug_retrieval as cli
 from ai.tests.test_npc_ai import Fixture
 
 

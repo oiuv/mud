@@ -19,11 +19,12 @@ from src.runtime.runner import Agent, Result, Runner
 from src.runtime.skills import Skills
 from src.runtime.tools import Tools
 from src.settings import load_settings
+from src.usage_report import usage_report
 
 
 def run_cases(model, model_name):
-    """Two bounded cases; the caller owns the client and all provider authority."""
-    limits = Limits(model_calls=6, external_calls=6, tool_calls=8, total_bytes=262144)
+    """Two fixed cases; the caller owns the client and all provider authority."""
+    limits = Limits()
     shared = Budget(limits)
     results = []
     policy = Policy(tools={"skill"}, skills={"test-ritual", "test-summary"}, agents={"probe"})
@@ -66,10 +67,11 @@ def run_cases(model, model_name):
                         {"role": "user", "content": payload["goal"]}]
             agent = Agent("probe", "合成资料运行时验证", inputs, outputs, messages, policy,
                           lambda result, state: (), parse=lambda text: Result("completed", parse_json(text)),
-                          mode=mode, required_skills=required, max_tokens=512, timeout=25,
-                          limits=replace(limits, model_calls=5 if mode == "tool_loop" else 1))
+                          mode=mode, required_skills=required, max_tokens=512,
+                          timeout=getattr(getattr(model, "settings", None), "chat_timeout", 25),
+                          limits=limits, json_output=True)
             context = RunContext("synthetic-" + name, "synthetic-actor", "internal", "synthetic-session",
-                                 policy, time.monotonic() + 90, budget=Budget(limits, shared))
+                                 policy, None, budget=Budget(limits, shared))
             started = time.monotonic()
             outcome = Runner(model, [agent], tools, hooks, skills).run("probe", {"goal": question}, context)
             success = (outcome.result.status == "completed" and outcome.result.value == {"required": 200, "spent": 50}
@@ -85,19 +87,24 @@ def run_cases(model, model_name):
                             "budget": context.budget.snapshot(),
                             "events": [{key: event[key] for key in ("event", "status", "executed") if key in event}
                                        for event in events]})
-    return {"model": model_name, "synthetic_only": True, "passed": all(item["passed"] for item in results),
-            "cases": results, "total": shared.snapshot()}
+    settings = getattr(model, "settings", None)
+    return {"model": model_name, "synthetic_only": True, "output_mode": "json_object",
+            "passed": all(item["passed"] for item in results),
+            "cases": results, "total": shared.snapshot(),
+            "cost": usage_report(shared.snapshot(), getattr(settings, "model_prices_per_million", {}),
+                                 getattr(settings, "cost_currency", "CNY"),
+                                 successful_tasks=sum(row["passed"] for row in results))}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--execute", action="store_true", help="允许本次调用真实模型（总计最多 6 次，无自动重试）")
+    parser.add_argument("--execute", action="store_true", help="允许本次合成测试调用真实模型，不自动重跑测试")
     parser.add_argument("--env-file", type=Path, help="本地服务配置；不打印内容")
     parser.add_argument("--model", help="只为本次验证指定模型，不修改部署配置")
     options = parser.parse_args()
     if not options.execute:
         print(json.dumps({"mode": "dry_run", "cases": ["discover_and_read", "direct_preload"],
-                          "max_model_calls": 6, "data": "synthetic fixtures only"}, ensure_ascii=False))
+                          "execution": "goal_driven", "data": "synthetic fixtures only"}, ensure_ascii=False))
         return 0
     logging.basicConfig(level=logging.WARNING)
     settings = load_settings(options.env_file)
@@ -116,4 +123,6 @@ def main():
 
 
 if __name__ == "__main__":
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     raise SystemExit(main())

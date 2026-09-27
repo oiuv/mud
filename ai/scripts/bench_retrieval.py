@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Benchmark local BM25; pass --remote to call configured embedding/rerank APIs."""
+"""性能基准：默认本地 BM25；--remote 才调用向量和重排 API。"""
 import argparse
 import json
 import sys
@@ -11,6 +11,7 @@ from src.knowledge_qwen import QwenKnowledgeSystem
 from src.settings import load_settings
 from src.diagnostics import RetrievalDiagnostic
 from src.runtime.context import Budget, Limits
+from src.usage_report import usage_report
 
 QUERIES = ["丐帮如何拜师", "九阳神功", "扬州地图", "新手入门", "武当派", "怎么赚钱"]
 
@@ -23,11 +24,9 @@ def main(argv=None):
     basic = BasicKnowledgeSystem(settings=settings)
     knowledge = QwenKnowledgeSystem(settings=settings, basic=basic) if args.remote else None
     try:
-        budget = Budget(Limits(model_calls=0, external_calls=2 * len(QUERIES) if args.remote else 0,
-                               tool_calls=len(QUERIES), delegations=0, depth=0))
+        budget = Budget(Limits(depth=0))
         diagnostic = RetrievalDiagnostic(knowledge or basic, mode="hybrid" if args.remote else "bm25",
-                                         budget=budget,
-                                         deadline=time.monotonic() + len(QUERIES) * settings.request_timeout)
+                                         budget=budget)
         durations = []
         for query in QUERIES:
             started = time.perf_counter()
@@ -37,7 +36,8 @@ def main(argv=None):
             print(f"{query}: {elapsed:.2f} ms, {len(value['evidence'])} results"
                   + ("（部分结果）" if value["truncated"] else ""))
         print(json.dumps(dict(basic.get_stats(), average_ms=sum(durations) / len(durations),
-                              budget=budget.snapshot()), ensure_ascii=False, indent=2))
+                              budget=budget.snapshot(), cost=usage_report(budget.snapshot(),
+                              settings.model_prices_per_million, settings.cost_currency)), ensure_ascii=False, indent=2))
         return 0
     except Exception as error:
         print(f"性能诊断失败（{type(error).__name__}）", file=sys.stderr)

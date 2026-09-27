@@ -33,8 +33,9 @@ class Operation:
         code = error_code(error, "operation_failed") if error else ""
         if error is None:
             status = "completed"
-        elif isinstance(error, RuntimeFault) and error.status == "cancelled":
+        elif isinstance(error, KeyboardInterrupt) or (isinstance(error, RuntimeFault) and error.status == "cancelled"):
             status = "cancelled"
+            code = "cancelled"
         elif code in ("timeout", "deadline", "tool_timeout") or isinstance(error, TimeoutError):
             status = "timeout"
         elif not self.executed:

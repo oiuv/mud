@@ -9,39 +9,50 @@ import uuid
 from dataclasses import dataclass, field, replace
 
 from .contracts import RuntimeFault
+from .window import TokenMeter
+from .usage import TOKEN_FIELDS, normalize_usage, usage_known
+from .results import Results
 
 
 @dataclass(frozen=True)
 class Limits:
+    # Count fields are accepted for old deployment definitions, but are not
+    # termination limits. Payload size and delegation topology remain enforced.
     model_calls: int = 12
     external_calls: int = 36
     tool_calls: int = 48
     delegations: int = 4
-    total_bytes: int = 1048576
-    context_bytes: int = 131072
+    input_bytes: int = 131072
     output_bytes: int = 32768
     depth: int = 1
 
     def __post_init__(self):
         for name, value in vars(self).items():
-            if type(value) is not int or value < 0 or (name in ("context_bytes", "output_bytes") and value == 0):
+            if type(value) is not int or value < 0 or (name in ("input_bytes", "output_bytes") and value == 0):
                 raise ValueError(f"Invalid limit: {name}")
 
 
 class Budget:
-    """Children have local caps and atomically debit every ancestor's counters."""
-    def __init__(self, limits=None, parent=None):
+    """Request-local usage ledger; legacy count fields no longer cap execution."""
+    def __init__(self, limits=None, parent=None, *, alive=None):
         self.limits = limits or Limits()
         self.parent = parent
         self.lock = parent.lock if parent else threading.RLock()
         self.cancelled = parent.cancelled if parent else threading.Event()
+        self.alive = parent.alive if parent else alive
         self.counts = {key: 0 for key in ("model_calls", "external_calls", "tool_calls", "delegations", "total_bytes")}
-        self.usage = {key: 0 for key in ("prompt_tokens", "completion_tokens", "total_tokens")}
+        self.usage = dict.fromkeys(TOKEN_FIELDS, 0)
+        self.usage_unknown = dict.fromkeys(TOKEN_FIELDS, 0)
+        self.usage_groups = {}
+        self.usage_reports = 0
+        self.usage_incomplete_reports = 0
 
     def check(self, deadline):
+        if self.alive is not None and not self.alive():
+            self.cancelled.set()
         if self.cancelled.is_set():
             raise RuntimeFault("cancelled", "cancelled")
-        if time.monotonic() >= deadline:
+        if deadline is not None and time.monotonic() >= deadline:
             raise RuntimeFault("deadline", "incomplete")
 
     def reserve(self, deadline, **amounts):
@@ -55,26 +66,57 @@ class Budget:
             for key, amount in amounts.items():
                 if key not in self.counts or type(amount) is not int or amount < 0:
                     raise ValueError("Invalid budget reservation")
-                for budget in chain:
-                    if budget.counts[key] + amount > getattr(budget.limits, key):
-                        raise RuntimeFault("budget_exhausted", "incomplete")
             for budget in chain:
                 for key, amount in amounts.items():
                     budget.counts[key] += amount
 
-    def record_usage(self, usage):
+    def record_usage(self, usage, *, model="unknown", kind="chat", operation="unknown",
+                     agent="", role="primary", status="completed"):
+        usage = normalize_usage(usage, kind)
+        labels = dict(model=model, kind=kind, operation=operation, agent=agent, role=role)
+        group_key = tuple(labels.values())
         with self.lock:
             budget = self
             while budget:
+                budget.usage_reports += 1
+                if not usage_known(usage):
+                    budget.usage_incomplete_reports += 1
+                group = budget.usage_groups.setdefault(group_key, {
+                    **labels, "calls": 0, "statuses": {}, "usage": dict.fromkeys(TOKEN_FIELDS, 0),
+                    "unknown": dict.fromkeys(TOKEN_FIELDS, 0)})
+                group["calls"] += 1
+                group["statuses"][status] = group["statuses"].get(status, 0) + 1
                 for key in budget.usage:
-                    value = usage.get(key, 0)
-                    if type(value) is int and value >= 0:
-                        budget.usage[key] += value
+                    if key in usage:
+                        budget.usage[key] += usage[key]
+                        group["usage"][key] += usage[key]
+                    else:
+                        budget.usage_unknown[key] += 1
+                        group["unknown"][key] += 1
                 budget = budget.parent
 
-    def snapshot(self):
+    def snapshot(self, *, detail=True):
         with self.lock:
-            return {**self.counts, "usage": dict(self.usage)}
+            result = {**self.counts, "usage": dict(self.usage), "usage_reports": self.usage_reports,
+                      "usage_incomplete_reports": self.usage_incomplete_reports,
+                      "usage_unknown": dict(self.usage_unknown)}
+            if detail:
+                result["usage_groups"] = [
+                    {**group, "usage": dict(group["usage"]), "unknown": dict(group["unknown"]),
+                     "statuses": dict(group["statuses"])} for group in self.usage_groups.values()]
+            return result
+
+    def remaining(self):
+        """Deprecated legacy count headroom; never used to control execution."""
+        with self.lock:
+            remaining = {key: getattr(self.limits, key) - count for key, count in self.counts.items()
+                         if key != "total_bytes"}
+            parent = self.parent
+            while parent:
+                for key in remaining:
+                    remaining[key] = min(remaining[key], getattr(parent.limits, key) - parent.counts[key])
+                parent = parent.parent
+            return remaining
 
 
 @dataclass(frozen=True)
@@ -156,9 +198,15 @@ class RunState:
     tool_ceiling: object = None
     lock: object = field(default_factory=threading.RLock)
     tool_lock: object = field(default_factory=threading.RLock)
+    delegation_lock: object = field(default_factory=threading.Lock)
     lifecycle_lock: object = field(default_factory=threading.RLock)
     terminal: object = None
+    terminal_digest: str = ""
     pending_commit: object = None
+    token_meter: object = field(default_factory=TokenMeter)
+    compactions: list = field(default_factory=list)
+    result_refs: dict = field(default_factory=dict)
+    receipts: dict = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -168,7 +216,8 @@ class RunContext:
     audience: str
     session: str
     policy: Policy
-    deadline: float
+    # Only a short request or a single operation has a fixed deadline.
+    deadline: float | None
     budget: Budget = field(default_factory=Budget)
     external_model: bool = True
     run_id: str = field(default_factory=lambda: uuid.uuid4().hex)
@@ -178,9 +227,10 @@ class RunContext:
     ancestors: tuple = ()
     delegation_depth: int = 0
     state: RunState = field(default_factory=RunState, compare=False)
+    results: object = field(default_factory=Results, compare=False)
 
     def __post_init__(self):
-        if (type(self.deadline) not in (int, float) or not math.isfinite(self.deadline)
+        if ((self.deadline is not None and (type(self.deadline) not in (int, float) or not math.isfinite(self.deadline)))
                 or self.audience not in ("player", "admin", "internal")):
             raise ValueError("Invalid trusted run context")
         if not self.root_id:
@@ -189,12 +239,20 @@ class RunContext:
     def check(self):
         self.budget.check(self.deadline)
 
+    def remaining(self, seconds):
+        return seconds if self.deadline is None else min(seconds, max(0, self.deadline - time.monotonic()))
+
+    def bounded(self, seconds):
+        return replace(self, deadline=time.monotonic() + self.remaining(seconds))
+
     def enter(self, agent_id, policy, limits, *, delegated=False):
         self.check()
         if agent_id not in self.policy.agents or agent_id in self.ancestors:
             raise RuntimeFault("agent_denied")
         depth = self.delegation_depth + int(delegated)
-        if depth > self.budget.limits.depth:
+        # A leaf may forbid *further* delegation (depth=0) while already running
+        # inside an admitted child task. Ordinary Agent/summary entry adds no depth.
+        if delegated and (self.delegation_depth >= 1 or depth > self.budget.limits.depth):
             raise RuntimeFault("delegation_depth", "incomplete")
         if delegated:
             self.budget.reserve(self.deadline, delegations=1)

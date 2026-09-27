@@ -88,10 +88,10 @@ function Start-AIService {
     }
     Assert-Environment
     Write-Host "Checking and updating the knowledge base..."
-    Invoke-Python $venvPython @("-X", "utf8", (Join-Path $serviceDir "scripts\update_knowledge.py"))
+    Invoke-Python $venvPython @("-X", "utf8", (Join-Path $serviceDir "scripts\ops_update_knowledge.py"))
     $runId = [Guid]::NewGuid().ToString("N")
     $stopFile = Join-Path $runDir ("stop-" + $runId + ".request")
-    $runner = Join-Path $serviceDir "scripts\run_service.py"
+    $runner = Join-Path $serviceDir "scripts\ops_run_service.py"
     # Start-Process joins ArgumentList: quote paths explicitly for spaces and Unicode.
     $argumentLine = '-X utf8 -u "' + $runner + '" --stop-file "' + $stopFile + '"'
     if (-not $Foreground) { $argumentLine += ' --log-file "' + $logFile + '"' }

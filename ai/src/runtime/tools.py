@@ -3,8 +3,7 @@ import importlib
 import pkgutil
 import re
 import threading
-import time
-from dataclasses import dataclass, replace
+from dataclasses import dataclass
 
 from .calls import Calls
 from .contracts import Contract, RuntimeFault, json_text, parse_json
@@ -22,20 +21,24 @@ class Tool:
     handler: object
     authorize: object = None
     version: str = "1"
-    timeout: float = 5
+    timeout: float | None = 5
     max_bytes: int = 32768
     read_only: bool = True
     concurrent_safe: bool = False
     cancellation: str = "cooperative"
     resource: str = "none"
     cost: str = "local"
+    describe: object = None
 
     def __post_init__(self):
         if (not re.fullmatch(r"[a-z][a-z0-9_.]{0,47}", self.name)
                 or not self.description or not callable(self.handler)
                 or not isinstance(self.parameters, Contract) or not isinstance(self.returns, Contract)
                 or (self.authorize is not None and not callable(self.authorize))
-                or not 0 < self.timeout <= 90 or type(self.max_bytes) is not int or not 0 < self.max_bytes <= 65536
+                or (self.describe is not None and not callable(self.describe))
+                or (self.timeout is None and (self.resource != "agent" or self.cancellation != "cooperative"))
+                or (self.timeout is not None and not 0 < self.timeout <= 90)
+                or type(self.max_bytes) is not int or not 0 < self.max_bytes <= 65536
                 or type(self.read_only) is not bool or type(self.concurrent_safe) is not bool
                 or self.cancellation not in ("cooperative", "wait_only")
                 or self.resource not in ("none", "knowledge", "source", "skill", "agent")
@@ -79,7 +82,9 @@ class Tools:
 
     def definitions(self, context):
         return [{"type": "function", "function": {
-            "name": tool.wire_name, "description": tool.description, "parameters": tool.parameters.schema,
+            "name": tool.wire_name,
+            "description": tool.describe(context) if tool.describe else tool.description,
+            "parameters": tool.parameters.schema,
         }} for tool in self.snapshot(context).values() if self.visible(tool.name, context)]
 
     def snapshot(self, context):
@@ -106,7 +111,7 @@ class Tools:
         return validated
 
     def execute(self, name, arguments, context, call_id):
-        # Attempts, including malformed/duplicate calls, consume steps to bound loops.
+        # Record attempts, including malformed/duplicate calls, without capping loops.
         safe_id = call_id if isinstance(call_id, str) and 1 <= len(call_id) <= 128 else "invalid"
         try:
             context.budget.reserve(context.deadline, tool_calls=1)
@@ -138,21 +143,27 @@ class Tools:
             tool = self.snapshot(context).get(name)
             fault = None
             args = arguments
+            validating_input = False
             try:
                 with Operation(self.hooks, context, "tool", tool=tool.name if tool else "unknown", call_id=call_id) as op:
                     if tool is None:
                         raise RuntimeFault("unknown_tool")
+                    validating_input = True
                     args = parse_json(arguments, tool.max_bytes) if isinstance(arguments, str) else arguments
                     args = self._authorize(tool, args, context)
                     changed = op.before({"arguments": args})
                     args = self._authorize(tool, changed["arguments"], context)
-                    bounded = replace(context, deadline=min(context.deadline, time.monotonic() + tool.timeout))
+                    validating_input = False
+                    # Delegation is a task, not one I/O. Its child operations keep
+                    # their own timeouts; parent liveness/cancellation still apply.
+                    bounded = context if tool.timeout is None else context.bounded(tool.timeout)
                     try:
                         result = self.calls.invoke(lambda: tool.handler(bounded, args), bounded, op.start,
                                                    self._gates[tool.name])
                     except RuntimeFault as error:
-                        if error.code == "deadline" and time.monotonic() < context.deadline:
-                            raise RuntimeFault("tool_timeout", "incomplete") from None
+                        context.check()
+                        if error.code == "deadline":
+                            raise RuntimeFault("tool_timeout") from None
                         raise
                     result = tool.returns.validate(result, tool.max_bytes)
                     reply = {"ok": True, "value": result, "call_id": call_id}
@@ -177,6 +188,11 @@ class Tools:
                 fault = error
                 reply = {"ok": False, "error": error.code, "call_id": call_id,
                          "status": error.status, "recoverable": error.status not in ("incomplete", "cancelled")}
+                if (validating_input and error.code == "contract_violation"
+                        and tool is not None and self.visible(name, context)):
+                    # Give the model actionable input feedback, not private values
+                    # or provider errors. Reuse the already-authorized definition.
+                    reply["parameters"] = tool.parameters.schema
             except Exception:
                 reply = {"ok": False, "error": "tool_failed", "call_id": call_id, "recoverable": True}
             context.state.calls[call_id] = (fingerprint, reply)

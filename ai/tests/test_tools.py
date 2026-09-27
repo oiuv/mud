@@ -84,18 +84,19 @@ class SharedToolTests(Fixture):
         self.assertEqual(context.budget.snapshot()["external_calls"], 1)
         self.assertNotIn("private-api-key", str(reply))
 
-    def test_exhaustion_and_required_hook_do_not_fall_back_or_call_provider(self):
+    def test_legacy_count_cap_does_not_block_but_required_hook_still_does(self):
         knowledge, client = self.knowledge()
         knowledge.update_vectors()
         client.embeddings.create.reset_mock()
         root = Budget(Limits(external_calls=0))
         context = self.context(budget=Budget(parent=root))
-        with self.assertRaises(RuntimeFault) as caught:
-            Tools([knowledge_tool(knowledge)]).execute("knowledge.search", {"query": "武当"}, context, "a")
-        self.assertEqual(caught.exception.code, "budget_exhausted")
+        result = Tools([knowledge_tool(knowledge)]).execute("knowledge.search", {"query": "武当"}, context, "a")
+        self.assertTrue(result["ok"])
+        self.assertEqual(root.counts["external_calls"], 1)
+        client.embeddings.create.reset_mock()
         hooks = Hooks([Hook("before_model", lambda event: Decision("deny"), intervention=True)])
         context = self.context()
-        result = Tools([knowledge_tool(knowledge, hooks)]).execute("knowledge.search", {"query": "武当"}, context, "b")
+        result = Tools([knowledge_tool(knowledge, hooks)]).execute("knowledge.search", {"query": "少林"}, context, "b")
         self.assertEqual(result["error"], "hook_denied")
         client.embeddings.create.assert_not_called()
 

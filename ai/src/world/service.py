@@ -5,11 +5,14 @@ import sqlite3
 import threading
 import time
 
+from ..capacity import Capacity
 from ..llm import ModelUnavailable
 from ..protocol import RequestError
-from ..runtime.contracts import RuntimeFault
-from .generator import Generator, PROMPT_VERSION
-from .protocol import DIGEST
+from ..runtime.access import check_session
+from ..runtime.contracts import Contract, RuntimeFault
+from ..runtime.delegation import Delegate
+from .generator import Generator, POLICY, PROMPT_VERSION
+from .protocol import DIGEST, validate_payload
 from .store import Store
 
 logger = logging.getLogger(__name__)
@@ -29,6 +32,7 @@ class WorldService:
         self._worker = None
         self._backoff = 0.0
         self._tick_lock = threading.Lock()
+        self.capacity = Capacity(settings.world_short_workers)
         if not settings.world_enabled:
             return
         if generator is None and (not settings.chat_api_key or settings.chat_api_key.startswith("your-")):
@@ -52,9 +56,20 @@ class WorldService:
                 self.generator = None
             logger.warning("World creation disabled: error=%s; NPC service unaffected", type(error).__name__)
 
-    def process_request(self, request, deadline):
+    def process_request(self, request, deadline, *, check=None):
+        try:
+            with self.capacity.enter():
+                return self._process_request(request, deadline, check=check)
+        except RuntimeFault as error:
+            if error.code != "business_busy":
+                raise
+            raise RequestError("busy", "World request capacity is occupied") from None
+
+    def _process_request(self, request, deadline, *, check=None):
         if time.monotonic() >= deadline:
             raise TimeoutError()
+        if check is not None:
+            check()
         key = request.get("content_key")
         if not isinstance(key, str) or not DIGEST.fullmatch(key):
             raise RequestError("invalid_request", "Invalid world content key")
@@ -64,7 +79,7 @@ class WorldService:
         try:
             if request["type"] == "world_describe":
                 payload = {name: value for name, value in request.items() if name not in ("type", "request_id")}
-                row = self.store.submit(payload, deadline)
+                row = self.store.submit(payload, deadline, **({"check": check} if check is not None else {}))
                 accepted = row is not None and row["state"] == "queued" and row["attempts"] == 0
             elif request["type"] == "world_status":
                 if set(request) != {"type", "request_id", "content_key"}:
@@ -75,6 +90,8 @@ class WorldService:
                 raise ValueError("world request type")
             if row is None:
                 return response
+            if check is not None:
+                check()
             self.store.request_repair(row)
             row = self.store.get(key)
             response["status"] = ("ready" if row["published"] else "pending") if row["state"] == "ready" else (
@@ -87,6 +104,51 @@ class WorldService:
         except (OSError, sqlite3.Error):
             logger.warning("World request not acknowledged: persistence unavailable")
             return response
+
+    def delegation(self, payload, *, request_id, actor, audience, session):
+        """Bind host-supplied frozen facts to one trusted entry, never model facts.
+
+        The model can submit/query this packet, but cannot change coordinates,
+        content identity or publication targets. The durable worker remains owner
+        after acceptance; this is deliberately not a synchronous Generator call.
+        """
+        payload = json.loads(json.dumps(validate_payload(payload), ensure_ascii=False))
+
+        def authorize(context):
+            # The registry gives the child a stable subrequest ID; root binding
+            # is checked before delegation, while session identity stays exact.
+            if context.delegation_depth == 0:
+                check_session(context, request_id, actor, audience, session)
+            elif (context.actor, context.audience, context.session) != (actor, audience, session):
+                raise RuntimeFault("session_denied")
+            effective = POLICY.restrict(self.settings.runtime_policy).intersect(context.policy)
+            if (not context.external_model or not POLICY.agents <= effective.agents or not POLICY.tools <= effective.tools
+                    or not POLICY.skills <= effective.skills):
+                raise RuntimeFault("agent_denied")
+
+        def invoke(context, arguments):
+            authorize(context)
+            context.check()
+            kind = "world_describe" if arguments["action"] == "describe" else "world_status"
+            request = dict(type=kind, request_id=context.request_id,
+                           **(payload if kind == "world_describe" else {"content_key": payload["content_key"]}))
+            try:
+                response = self.process_request(request, time.monotonic() + context.remaining(self.settings.world_short_timeout),
+                                                check=context.check)
+            except RequestError as error:
+                raise RuntimeFault("business_busy" if error.code == "busy" else "business_failed") from None
+            context.check()
+            status = response["status"]
+            pending = {"ready": [], "retry_later": ["请求未受理，稍后重试。"],
+                       "failed": ["生成失败，需核查原因。"]}.get(status, ["等待景物描写生成并发布。"])
+            return {"status": {"ready": "completed", "failed": "failed", "retry_later": "incomplete"}.get(status, "pending"),
+                    "summary": "景物描写已发布。" if status == "ready" else "景物描写尚未完成。",
+                    "pending": pending,
+                    "receipt": {"content_key": payload["content_key"], "status": status}}
+
+        return Delegate("world_narration", "受理或查询宿主已绑定的景物描写；后台受理不等于正文完成。",
+                        Contract({"type": "object", "required": ["action"], "additionalProperties": False,
+                                  "properties": {"action": {"enum": ["describe", "status"]}}}), invoke, authorize)
 
     def tick(self, allowed_keys=None):
         if not self._tick_lock.acquire(blocking=False):

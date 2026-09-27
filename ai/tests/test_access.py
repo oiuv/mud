@@ -165,12 +165,21 @@ class EntryAccessTests(Fixture):
         self.client.chat.completions.create.assert_called_once()
 
     def test_legacy_cache_only_replays_under_unchanged_public_policy(self):
+        self.settings.source_enabled = False
         self.setup_service()
         first = self.ask()
         with connect(self.service.history.db_path) as db:
             db.execute("DELETE FROM request_authorities")  # Simulate old four-column cache.
         self.assertEqual(self.ask(), first)
         self.settings.runtime_policy = {"tools": ["skill"]}
+        self.assertEqual(self.ask()["type"], "error")
+        self.client.chat.completions.create.assert_called_once()
+
+    def test_repository_policy_does_not_upgrade_legacy_cache_or_recall_model(self):
+        self.setup_service()
+        self.assertEqual(self.ask()["type"], "chat")
+        with connect(self.service.history.db_path) as db:
+            db.execute("DELETE FROM request_authorities")
         self.assertEqual(self.ask()["type"], "error")
         self.client.chat.completions.create.assert_called_once()
 

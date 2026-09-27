@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build/rebuild local chunks and missing vectors for the configured model."""
+"""运维：更新文档块并生成当前模型缺失的向量，会调用远程 API。"""
 import json
 import sys
 from pathlib import Path

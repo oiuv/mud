@@ -12,7 +12,7 @@ def check_session(parent, request_id, actor, audience, session):
         raise RuntimeFault("session_denied")
 
 
-def bind_context(policy, request_id, actor, audience, session, deadline, limits, *, parent=None):
+def bind_context(policy, request_id, actor, audience, session, deadline, limits, *, parent=None, alive=None):
     """Bind an entry's fixed audience/session, preserving any parent's ceiling.
 
     The business adapter must call this before fetching session data. Network
@@ -20,8 +20,9 @@ def bind_context(policy, request_id, actor, audience, session, deadline, limits,
     Actual Agent entry/delegation and capacity remain Runner/adapter duties.
     """
     if parent is None:
-        return RunContext(request_id, actor, audience, session, policy, deadline, Budget(limits))
+        return RunContext(request_id, actor, audience, session, policy, deadline, Budget(limits, alive=alive))
     check_session(parent, request_id, actor, audience, session)
+    deadlines = [value for value in (deadline, parent.deadline) if value is not None]
     return replace(parent, policy=parent.policy.intersect(policy),
-                   deadline=min(deadline, parent.deadline), budget=Budget(limits, parent.budget),
+                   deadline=min(deadlines) if deadlines else None, budget=Budget(limits, parent.budget),
                    state=RunState())

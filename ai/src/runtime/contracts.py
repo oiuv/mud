@@ -17,7 +17,7 @@ class RuntimeFault(Exception):
 def json_text(value, limit=131072):
     try:
         text = json.dumps(value, ensure_ascii=False, allow_nan=False, separators=(",", ":"))
-        if len(text.encode("utf-8")) > limit:
+        if limit is not None and len(text.encode("utf-8")) > limit:
             raise RuntimeFault("size_limit", "incomplete")
         return text
     except (ValueError, TypeError, UnicodeError, RecursionError) as error:
@@ -25,7 +25,7 @@ def json_text(value, limit=131072):
 
 
 def parse_json(text, limit=32768):
-    if not isinstance(text, str) or len(text.encode("utf-8", errors="replace")) > limit:
+    if not isinstance(text, str) or (limit is not None and len(text.encode("utf-8", errors="replace")) > limit):
         raise RuntimeFault("invalid_json")
     def pairs(items):
         result = {}

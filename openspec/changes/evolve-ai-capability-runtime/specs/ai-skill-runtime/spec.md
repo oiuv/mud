@@ -8,12 +8,17 @@
 
 ### Requirement: Independently maintained professional skill packages
 
-专业指导 SHALL 以独立技能包维护，包含名称、适用场景、目标与完成条件、方法、检查清单、输出要求及正反例。首批 SHALL 覆盖 NPC 对话、源码调查、摘要、世界描写和主 Agent 协调。本项目技能说明 SHALL 使用中文；角色身份和部署模型 MUST 不固化在通用指导中。
+专业指导 SHALL 以独立技能包维护，声明名称和适用场景，按实际任务提供必要指导。方法、检查清单和正反例 SHALL 按需提供，不作为所有技能的必备内容。明确具体场景的 Skill MAY 指定固定工作流；其他任务 SHALL 由 Agent 根据目标、工具观察和专业指导自主规划、调整步骤，不把特定场景的流程作为通用要求。首批 SHALL 覆盖 NPC 对话、源码调查、摘要、世界描写和主 Agent 协调。本项目技能说明 SHALL 使用中文；角色身份和部署模型 MUST 不固化在通用指导中。
 
 #### Scenario: Update professional guidance
 
 - **WHEN** 维护者更新世界描写的专业指导而不改变业务契约
 - **THEN** 无需修改模型调用源码或另建提示词分支，后续运行可使用新版本，已有正文不自动重生成
+
+#### Scenario: Guidance does not impose an unrelated workflow
+
+- **WHEN** Agent 加载未要求固定工作流的专业 Skill
+- **THEN** 根据当前目标自主选择步骤，不因缺少检查清单或正反例拒绝技能，也不要求任务遍历无关检查项；明确场景仍可按该 Skill 的工作流执行
 
 ### Requirement: Discoverable and progressively loaded skills
 
@@ -57,26 +62,38 @@
 
 统一 `skill(name, path?)` SHALL 只负责在当前 Agent 上下文中加载授权指导和资源，不暗中启动模型或嵌套工具循环。需要隔离专业过程的任务 SHALL 由已注册业务 Agent 承担，通过 `agent.invoke` 委派并复用共享 Runner；专业 Agent SHALL 在自己的上下文中使用同一个 skill 工具、声明的模型配置及授权工具。一个 Agent 可复用多个 Skill，一个 Skill 可被多个 Agent 使用，新增技能 MUST 不要求新增逐技能执行器。
 
-专业任务的技能正文、参考资料和工具过程 MUST 不自动返回主 Agent；回传 SHALL 遵守业务结果、证据和未完成事项契约。直接入口的预加载 MUST 保持无额外模型调用，世界单次生成及摘要 MUST 不因技能加载增加主 Agent、审稿或结果压缩调用。独立执行 MUST 不形成另一套模型、权限或预算通道。
+专业任务的技能正文、参考资料和工具过程 MUST 不自动返回主 Agent；回传 SHALL 遵守业务结果、证据和未完成事项契约。直接入口的预加载 MUST 保持无额外模型调用，世界单次生成及摘要 MUST 不因技能加载增加主 Agent、审稿或结果压缩调用。独立执行 MUST 不形成另一套模型、权限或用量观测通道。上下文 compact SHALL 属于运行时内部维护：直接加载独立提示词并在达到阈值时调度，不经过 skill 工具、不作为业务技能发布，也不要求业务 Agent 具有 skill 权限。
 
 #### Scenario: Professional agent uses a skill privately within its task
 
 - **WHEN** 主 Agent 委派专业任务，子 Agent 加载技能及引用资料并使用工具完成工作
-- **THEN** 这些材料留在子任务上下文，主 Agent 只接收约定结果；加载本身不调用模型，专业模型调用统一计入运行时根预算
+- **THEN** 这些材料留在子任务上下文，主 Agent 只接收约定结果；加载本身不调用模型，专业模型调用统一记入运行时根用量账本
 
 #### Scenario: Simple task only needs local skill guidance
 
 - **WHEN** 当前 Agent 可以在已有上下文内完成任务，仅需加载专业指导
 - **THEN** 经统一 skill 工具直接加载，不强制创建子 Agent 或额外专业模型调用
 
+#### Scenario: Runtime compaction does not load a business skill
+
+- **WHEN** 运行时准备执行上下文压缩，包括当前 Agent 没有 skill 权限的情况
+- **THEN** 直接读取固定版本的内部提示词，不调用 skill 或新增模型可调用入口；真正压缩调用仍使用公共模型、外发授权、用量及 Hook 边界，业务 Skill 的统一入口保持不变
+
 ### Requirement: Skills do not grant authority
 
 技能声明和正文 MUST 不授予工具、源码目录、受众或外发权限；工具声明至多收紧已有授权。技能资源 MUST 限于当前授权包并接受路径、文件大小和内容外发检查。服务 MUST 不执行技能附带脚本，不允许技能引用开发者私有技能目录或任意宿主路径。
 
+Skill SHALL 能提供已获授权 CLI 的用途及参数指导，由 Agent 经统一 exec 自主选择调用；加载 Skill MUST 不自动执行命令，也不新增程序、操作或目录权限。CLI 可用范围 SHALL 仍由可信配置及运行时授权决定，MUST 不因技能包含命令示例或 allowed-tools 声明而扩大。
+
+#### Scenario: Skill explains an authorized CLI
+
+- **WHEN** 当前 Agent 已获 CodeGraph 查询授权，并加载相关用法指导
+- **THEN** 可根据目标经 exec 选择获准查询，Skill 加载本身不运行 CLI、不新增逐命令工具，也不改变现有权限
+
 #### Scenario: Skill asks for a forbidden tool
 
-- **WHEN** 技能正文或工具声明要求执行命令或访问密钥
-- **THEN** 不增加工具或目录权限，操作被拒绝
+- **WHEN** 技能正文或工具声明要求执行未授权命令、附带脚本，或访问密钥
+- **THEN** 不增加工具、程序、操作或目录权限，操作被拒绝，不能借 exec 绕过限制
 
 #### Scenario: Escaping resource reference
 
@@ -99,7 +116,21 @@
 
 ### Requirement: Preserve creative freedom within business facts
 
+问答及主 Agent 的技能指导 SHALL 允许不影响正确结论的题外展开、角色发挥、联想和建议，不以无发散或严格短答作为通用完成条件。核心答案准确且补充内容不误导时 SHALL 允许通过；确定的游戏规则仍须准确，不把创作或建议冒充可操作的既有玩法。
+
+真正缺少资料时，Skill SHALL 允许明确标注的推测或假设，并指导区分已核实事实与未知事项；MUST NOT 以一律拒答代替有帮助的解释，也不得以“推测”为名掩盖与已有证据矛盾的规则。复用现有答案及未决事项，不新增推断字段、审稿模型或固定调查流程。需要中文名称时 SHALL 优先利用可用的公共名称资料，不凭内部标识编造译名或在 Skill 中硬编码评测题的映射。
+
 世界描写技能迁移 SHALL 保持允许合理补白的创作目标，区分真实事实冲突、误导操作与一般文风问题；未逐项列出的景物细节 MUST 不单独成为拒绝理由。技能升级 MUST 不改变地理规则、内容键或已发布正文，事实结构验证与文风审读 SHALL 分开记录。
+
+#### Scenario: Helpful conversational elaboration
+
+- **WHEN** 问答已准确说明玩家所问规则，并以角色口吻延伸联想或给出不歪曲规则的建议
+- **THEN** 不因内容超出最短答案而拒绝结果或要求删减；涉及确定门槛、扣费、奖励及成功保证的补充仍须符合真实玩法
+
+#### Scenario: Missing material permits a clearly qualified inference
+
+- **WHEN** 决定性资料确实无法取得，Agent 在已确认事实之外给出明确标注的推测
+- **THEN** 不因推测本身拒绝答案；说明依据或假设及未核实部分，不冒充确定规则，也不自动将尚未完成的原问题标为 completed
 
 #### Scenario: Natural descriptive addition
 

@@ -41,7 +41,7 @@ class LauncherTests(unittest.TestCase):
         (self.root / ".env").write_text("# existing settings\n")
         (self.root / "main.py").write_text(FAKE_MAIN)
         (self.root / "scripts").mkdir()
-        (self.root / "scripts/update_knowledge.py").write_text(
+        (self.root / "scripts/ops_update_knowledge.py").write_text(
             "from pathlib import Path\n"
             "with Path(\'updates\').open(\'a\') as output: output.write(\'update\\n\')\n"
         )
@@ -93,7 +93,7 @@ class LauncherTests(unittest.TestCase):
         self.assertIsNone(outsider.poll())
 
     def test_local_update_failure_prevents_start(self):
-        (self.root / "scripts/update_knowledge.py").write_text("raise SystemExit(1)\n")
+        (self.root / "scripts/ops_update_knowledge.py").write_text("raise SystemExit(1)\n")
         self.assertNotEqual(self.command("start").returncode, 0)
         self.assertFalse((self.root / ".run/ai.pid").exists())
 

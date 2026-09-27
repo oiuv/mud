@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the local BM25 corpus. No remote API calls."""
+"""运维：构建本地 BM25 索引，不调用远程 API。"""
 import json
 import sys
 from pathlib import Path

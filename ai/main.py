@@ -16,6 +16,8 @@ except ImportError:
 def create_server(settings):
     server = UDPServer(settings=settings)
     pending = None
+    npc = None
+    world = None
     try:
         if "npc" in settings.enabled_modules:
             if __package__:
@@ -23,17 +25,30 @@ def create_server(settings):
             else:
                 from src.npc.service import NPCService
             pending = NPCService(settings)
+            npc = pending
             server.register(pending.request_types, pending.process_request, max_workers=settings.max_workers,
-                            timeout=settings.request_timeout, close=pending.close)
+                            timeout=settings.request_timeout, close=pending.close, long_types=("chat",))
             pending = None
         if "world" in settings.enabled_modules:
             if __package__:
                 from .src.world.service import WorldService
             else:
                 from src.world.service import WorldService
-            pending = WorldService(settings, chat_busy=lambda: server.capability_active("chat"))
+            pending = WorldService(settings, chat_busy=lambda: server.capability_active("chat")
+                                   or bool(npc and npc.capacity.active))
+            world = pending
             server.register(pending.request_types, pending.process_request, max_workers=settings.world_short_workers,
                             timeout=settings.world_short_timeout, close=pending.close)
+            pending = None
+        if settings.main_agent_enabled:
+            if __package__:
+                from .src.agents.router import RouterService
+            else:
+                from src.agents.router import RouterService
+            pending = RouterService(settings, npc=npc, world=world)
+            server.register(pending.request_types, pending.process_request,
+                            max_workers=settings.main_agent_workers, timeout=settings.request_timeout,
+                            close=pending.close, long_types=("agent_run",))
             pending = None
     except Exception:
         try:

@@ -133,7 +133,7 @@ class Store:
             row = db.execute("SELECT * FROM room_jobs WHERE content_key=?", (key,)).fetchone()
             return dict(row) if row else None
 
-    def submit(self, payload, deadline):
+    def submit(self, payload, deadline, *, check=None):
         validate_payload(payload)
         self.verify_world(payload)
         encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
@@ -142,6 +142,8 @@ class Store:
             db.execute("BEGIN IMMEDIATE")
             if time.monotonic() >= deadline:
                 raise TimeoutError()
+            if check is not None:
+                check()
             row = db.execute("SELECT * FROM room_jobs WHERE content_key=?", (payload["content_key"],)).fetchone()
             if row:
                 if row["payload"] != encoded:
@@ -158,6 +160,8 @@ class Store:
             db.execute("INSERT OR IGNORE INTO worlds VALUES (?,?)", (payload["world_id"], payload["manifest_digest"]))
             db.execute("INSERT INTO room_jobs(content_key,world_id,payload,state,created) VALUES (?,?,?,'queued',?)",
                        (payload["content_key"], payload["world_id"], encoded, now))
+            if check is not None:
+                check()
         return self.get(payload["content_key"])
 
     def claim(self, now=None, allowed_keys=None):

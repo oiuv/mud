@@ -10,13 +10,16 @@ from unittest.mock import Mock, patch
 from ai.src.database import connect
 from ai.src.npc.manager import NPCManager
 from ai.src.npc.service import NPCService
+from ai.src.npc.agents import reply_messages
 from ai.src.runtime.context import Budget, Limits
 from ai.src.runtime.hooks import Decision, Hook, Hooks
 from ai.tests.test_npc_ai import Fixture
 
 
-def reply(status="completed", *, answer="侠客说：少侠有礼。", kind="conversation", claims=None, pending=None):
-    return json.dumps(dict(status=status, kind=kind, answer=answer, claims=claims or [], pending=pending or []),
+def reply(status="completed", *, answer="侠客说：少侠有礼。", kind="conversation", evidence=None, parts=None, pending=None):
+    if parts is None:
+        parts = [dict(text=answer, **({"evidence": evidence} if evidence is not None else {}))] if answer else []
+    return json.dumps(dict(status=status, kind=kind, parts=parts, pending=pending or []),
                       ensure_ascii=False)
 
 
@@ -29,6 +32,17 @@ def completion(text=None, *, tool=None, arguments=None):
 
 
 class NPCRuntimeTests(Fixture):
+    def test_original_goal_and_subtask_both_remain_in_compaction_state(self):
+        context = SimpleNamespace(state=SimpleNamespace(), policy=SimpleNamespace(tools=set()))
+        payload = {"role": {"name": "侠客"}, "message": "核对消耗", "situation": {
+            "original_goal": "学习条件与施展消耗有何不同？", "scene": "静室问学"}}
+        messages = reply_messages(context, payload)
+        self.assertEqual(json.loads(context.state.goal), {
+            "original_goal": payload["situation"]["original_goal"], "subtask": "核对消耗"})
+        self.assertEqual(json.loads(messages[-1]["content"])["situation"], payload["situation"])
+        reply_messages(context, {**payload, "situation": "普通直达问话"})
+        self.assertEqual(context.state.goal, "核对消耗")
+
     def setup_runtime(self, *interventions):
         self.events, self.contexts = [], []
         self.knowledge_system, self.embedding = self.knowledge()
@@ -72,8 +86,8 @@ class NPCRuntimeTests(Fixture):
             return completion(tool="knowledge__search")
         evidence = json.loads(messages[-1]["content"])["value"]["evidence"]
         self.assertTrue(evidence)
-        return completion(reply(kind="rules", answer="侠客说：武当拜师须先寻张三丰。", claims=[
-            dict(text="武当拜师须先寻张三丰", evidence=[evidence[0]["id"]])]))
+        return completion(reply(kind="rules", answer="侠客说：武当拜师须先寻张三丰。",
+                                evidence=[evidence[0]["id"]]))
 
     def test_completed_transaction_precedes_terminal_and_replays_without_model(self):
         self.setup_runtime()
@@ -88,6 +102,33 @@ class NPCRuntimeTests(Fixture):
         restarted = NPCService(self.settings, npc_manager=self.manager)
         self.addCleanup(restarted.close)
         self.assertEqual(restarted.process_request(self.request(message="你好"), time.monotonic() + 80), first)
+        self.assertEqual(self.client.chat.completions.create.call_count, 1)
+
+    def test_old_duplicate_output_is_rejected_then_single_answer_commits(self):
+        self.setup_runtime()
+        old = json.dumps(dict(status="completed", kind="conversation", answer="侠客说：旧答案。",
+                              claims=[], pending=[]), ensure_ascii=False)
+        self.client.chat.completions.create.side_effect = [completion(old), completion(reply())]
+        response = self.ask(message="你好")
+        self.assertEqual(response["response"], "侠客说：少侠有礼。")
+        self.assertEqual(self.counts(), [2, 1, 1])
+        self.assertEqual(self.client.chat.completions.create.call_count, 2)
+        self.assertIn("single_answer_required", self.client.chat.completions.create.call_args.kwargs["messages"][-1]["content"])
+
+    def test_provider_reasoning_never_enters_player_history_or_success_cache(self):
+        self.setup_runtime()
+        marker = "仅供开发诊断的模型思考，不属于玩家对话。"
+        response = completion(reply())
+        response.choices[0].message.reasoning_content = marker
+        self.client.chat.completions.create.return_value = response
+        first = self.ask(message="你好")
+        self.assertEqual(first["type"], "chat")
+        self.assertEqual(self.counts(), [2, 1, 1])
+        self.assertNotIn(marker, json.dumps(first, ensure_ascii=False))
+        self.assertNotIn(marker, str(self.events))
+        with connect(self.service.history.db_path) as db:
+            self.assertNotIn(marker, "\n".join(db.iterdump()))
+        self.assertEqual(self.ask(message="你好"), first)
         self.assertEqual(self.client.chat.completions.create.call_count, 1)
 
     def test_backup_copy_retains_baseline_sql_contract_and_replay(self):
@@ -216,27 +257,33 @@ class NPCRuntimeTests(Fixture):
             self.contexts[-1] = context
             return context
         self.manager.create_context = limited
-        self.client.chat.completions.create.return_value = completion("玩家与侠客谈论往事。")
+        self.client.chat.completions.create.side_effect = [completion("玩家与侠客谈论往事。"), completion(reply())]
         self.assertEqual(self.ask()["type"], "chat")
-        self.assertEqual(self.client.chat.completions.create.call_count, 1)
-        self.assertEqual(self.counts(), [10, 0, 0])
-        self.assertEqual(self.events[-1][0]["status"], "incomplete")
+        self.assertEqual(self.client.chat.completions.create.call_count, 2)
+        self.assertEqual(self.contexts[0].budget.snapshot()["model_calls"], 2)
+        self.assertEqual(self.counts(), [12, 1, 1])
+        self.assertEqual(self.events[-1][0]["status"], "completed")
 
-    def test_repeated_malformed_output_stops_without_progress_or_persistence(self):
+    def test_repeated_malformed_output_gives_feedback_and_can_be_cancelled_without_persistence(self):
         self.setup_runtime()
-        self.client.chat.completions.create.return_value = completion("not JSON")
+        def malformed(**kwargs):
+            if self.client.chat.completions.create.call_count == 6:
+                self.contexts[0].budget.cancelled.set()
+            return completion("not JSON")
+        self.client.chat.completions.create.side_effect = malformed
         response = self.ask()
-        self.assertEqual(response["type"], "chat")
-        self.assertEqual(self.client.chat.completions.create.call_count, 4)
-        self.assertEqual(self.contexts[0].budget.snapshot()["model_calls"], 4)
-        self.assertEqual(self.contexts[0].budget.snapshot()["external_calls"], 4)
+        self.assertEqual(response["type"], "error")
+        self.assertEqual(self.client.chat.completions.create.call_count, 6)
+        self.assertEqual(self.contexts[0].budget.snapshot()["model_calls"], 6)
+        self.assertEqual(self.contexts[0].budget.snapshot()["external_calls"], 6)
         self.assertEqual(self.counts(), [0, 0, 0])
         self.assertEqual([(event["status"], event["code"], count) for event, count in self.events],
-                         [("incomplete", "no_progress", 0)])
+                         [("cancelled", "cancelled", 0)])
         self.assertIn("连续 1 轮",
                       self.client.chat.completions.create.call_args_list[2].kwargs["messages"][-1]["content"])
 
     def test_forged_privileges_never_enable_source_main_or_private_scope(self):
+        self.settings.source_enabled = False
         self.setup_runtime()
         request = {**self.request(), "audience": "admin", "scope": "all", "agent": "main_router",
                    "policy": {"tools": ["source.read"]}}
@@ -247,6 +294,16 @@ class NPCRuntimeTests(Fixture):
         self.assertEqual(context.policy.tools, {"skill", "knowledge.search"})
         names = {entry["function"]["name"] for entry in self.client.chat.completions.create.call_args.kwargs["tools"]}
         self.assertEqual(names, {"skill", "knowledge__search"})
+
+    def test_disabled_source_still_answers_from_documents(self):
+        self.settings.source_enabled = False
+        self.setup_runtime()
+        self.client.chat.completions.create.side_effect = self.answer_from_tool
+        response = self.ask(message="如何拜入武当？")
+        self.assertEqual(response["type"], "chat", response)
+        self.assertEqual(response["response"], "侠客说：武当拜师须先寻张三丰。")
+        self.assertNotIn("source.read", self.contexts[0].policy.tools)
+        self.assertNotIn("repository", self.contexts[0].policy.scopes)
 
     def test_another_player_receives_no_private_history_or_memory(self):
         self.setup_runtime()

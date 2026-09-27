@@ -1,0 +1,674 @@
+{
+  "version": 1,
+  "kind": "repository",
+  "name": "mud-rules-v2-public-dictionary",
+  "review_status": "source_checked_by_agent_not_live_verified",
+  "description": "继承 mud-rules-v1 的全部 20 题、16 个源码 hash、原结论与预期终态，仅补公共名称字典及左右互搏题的名称证据；缺计算实现的排除保持。按明确标注推断口径另行评测，不改写或混算旧报告，不代表实服状态已验证。",
+  "repository_files": {
+    "kungfu/class/gaibang/hong.c": {
+      "hash": "f3c62eb3632712051345b153633f6787820ace9935523698723818be1fe9a080",
+      "lines": 1003
+    },
+    "kungfu/class/wudang/zhang.c": {
+      "hash": "bf6162d40f3e56571d3f02ae3a83a40add4c61fcb9b81c270d2892ad08c874fc",
+      "lines": 919
+    },
+    "kungfu/class/quanzhen/wangchuyi.c": {
+      "hash": "62d76587a6a24f6238aadaf6bab536e07aed17802be7066c2dc32ed4df605045",
+      "lines": 201
+    },
+    "kungfu/class/quanzhen/quanzhen.h": {
+      "hash": "6beb87bf8c88f8ac95902974a64a29e38fb66dc282dd6ac611c86227809ab604",
+      "lines": 19
+    },
+    "kungfu/skill/dagou-bang/chan.c": {
+      "hash": "9506e5c2eeb18656c41f5aa0d44cc110a38ca83522ad545bb3589aef5bb15a0d",
+      "lines": 62
+    },
+    "kungfu/skill/taiji-jian/chan.c": {
+      "hash": "a1260cda9122c9cd185aa4bfe865c595b07c786d8e802f015fc3ad835aa193d4",
+      "lines": 56
+    },
+    "kungfu/skill/quanzhen-jian/chan.c": {
+      "hash": "dba3a139854b3363a5532451e70059803de2ab497b17dce34330442a3324e7b1",
+      "lines": 59
+    },
+    "kungfu/skill/taiji-jian.c": {
+      "hash": "dac4f5d46a430c194070c82a9e5ef180c9b1495cad506e8d2e41a14ec60f3540",
+      "lines": 414
+    },
+    "kungfu/skill/quanzhen-jian.c": {
+      "hash": "e487e61331b4b11fbd4cd62bbbb25010d6dd31154b264d1a6d3719285b226080",
+      "lines": 204
+    },
+    "feature/skill.c": {
+      "hash": "b6deb55de837fac81e406d027cc9a09a5d6ac0050bbd1380e8b296a31cf130a2",
+      "lines": 309
+    },
+    "feature/sserver.c": {
+      "hash": "53ebb8c42b734b1123c373aa4a1bc3824b0056f155e6b429e5817a8d91d9fe31",
+      "lines": 7
+    },
+    "cmds/skill/perform.c": {
+      "hash": "3b997ea7438d8bd6bb55ce6b7f0985ae3cce738090e33029c8c9efa4a4529042",
+      "lines": 158
+    },
+    "cmds/skill/learn.c": {
+      "hash": "5571ec257055a54bf80b3654b87dead106765b41756a66b67c5a52ec6dea298f",
+      "lines": 249
+    },
+    "cmds/std/ask.c": {
+      "hash": "568ca1c612f6efda4af6ee54e2712a56ff7ba66aa44c42024978a06b5e5836c2",
+      "lines": 154
+    },
+    "inherit/skill/skill.c": {
+      "hash": "75f03fc5449f65c3ba268075e705e273f375e92cfe7a18f7c5c81b1aa8b59031",
+      "lines": 148
+    },
+    "include/globals.h": {
+      "hash": "99e896f351cf614172d20a86deb3d7a8470fa215ba2ba90b2f0fb394d4fcf98b",
+      "lines": 244
+    },
+    "data/e2c_dict.o": {
+      "hash": "d1adf29c4af364b946c26030e4811c99faa3b34b11428167e12caeda9d8ba951",
+      "lines": 2
+    }
+  },
+  "fixtures": {
+    "game": {
+      "exclude": []
+    },
+    "without_skill_implementation": {
+      "exclude": [
+        "feature/skill.c"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "name": "hong_chan_learning",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "我已经会打狗棒法，想向洪七公请教缠字诀。他对门派、贡献、侠义和武功还有什么要求？实际扣多少贡献？",
+      "criteria": [
+        {
+          "id": "requirements",
+          "text": "洪七公的缠字诀传授检查：尚未学会此招、丐帮弟子，门贡至少300，侠义至少80000，打狗棒法本身至少60级，有效内功至少100；不要添加九袋长老要求。",
+          "evidence": [
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 102,
+              "end": 108
+            },
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 408,
+              "end": 431
+            }
+          ]
+        },
+        {
+          "id": "effective_force",
+          "text": "内功是有效等级，不是仅基本内功原始等级；基本等级的一半加激发的特殊内功和临时加成。",
+          "evidence": [
+            {
+              "path": "feature/skill.c",
+              "start": 135,
+              "end": 149
+            }
+          ]
+        },
+        {
+          "id": "cost",
+          "text": "学会后实际扣300门贡并记录已经学会。",
+          "evidence": [
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 448,
+              "end": 449
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hong_contribution_boundary",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "假设我第一次向洪七公学打狗棒法缠字诀，其他资格都够，门贡299和300有何不同？够300学完剩多少？",
+      "criteria": [
+        {
+          "id": "boundary",
+          "text": "299不足，不会传授也不扣门贡；300可通过该门槛，成功扣300后剩0；不把假设当成查询玩家实况。",
+          "evidence": [
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 412,
+              "end": 431
+            },
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 448,
+              "end": 449
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hong_effective_force",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "洪七公缠字诀的内功100，是基本内功一定要100吗？假设基本内功100、激发的特殊内功50且没有临时加成，这项检查够不够？",
+      "criteria": [
+        {
+          "id": "effective",
+          "text": "不是只查基本内功。此处查有效内功；100/2+50=100，恰好满足这一项，不代表其他学习条件也满足。",
+          "evidence": [
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 427,
+              "end": 431
+            },
+            {
+              "path": "feature/skill.c",
+              "start": 135,
+              "end": 149
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hong_repeat_question",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "已经跟洪七公学过打狗棒法缠字诀，再问一次会再扣300门贡吗？正常询问本身会不会耗精神？",
+      "criteria": [
+        {
+          "id": "no_repeat_cost",
+          "text": "已经学会时先返回，不再传授或扣300门贡。",
+          "evidence": [
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 412,
+              "end": 413
+            },
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 448,
+              "end": 449
+            }
+          ]
+        },
+        {
+          "id": "ask_cost",
+          "text": "正常活人询问可交谈NPC且进入问话处理后仍会扣10到19点精神；精神不足30会更早被拦下。鬼魂分支不扣这项精神。不能笼统说任何资源都不消耗。",
+          "evidence": [
+            {
+              "path": "cmds/std/ask.c",
+              "start": 62,
+              "end": 65
+            },
+            {
+              "path": "cmds/std/ask.c",
+              "start": 81,
+              "end": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dagou_chan_perform_cost",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "打狗棒法缠字诀的施展要多少内力、实际扣多少？对方没被缠住也扣吗？每次还要交300门贡吗？",
+      "criteria": [
+        {
+          "id": "cost",
+          "text": "当前内力至少100，进入招式攻击后先扣50，缠住与否都扣；施展入口不收门贡，300是洪七公传授时的费用。其他施展条件仍须满足。",
+          "evidence": [
+            {
+              "path": "kungfu/skill/dagou-bang/chan.c",
+              "start": 13,
+              "end": 58
+            },
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 448,
+              "end": 449
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "zhang_chan_learning",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "已经学过太极剑法，向张三丰问缠字诀还需多少门贡、侠义和太极剑等级？会扣多少门贡？",
+      "criteria": [
+        {
+          "id": "learning",
+          "text": "首次传授要求武当派弟子、太极剑法本身至少80级、门贡至少300、侠义至少80000，成功实际扣300；不要把施展内力60或普通太极剑学习条件当成本次询问新增检查。",
+          "evidence": [
+            {
+              "path": "kungfu/class/wudang/zhang.c",
+              "start": 110,
+              "end": 125
+            },
+            {
+              "path": "kungfu/class/wudang/zhang.c",
+              "start": 540,
+              "end": 560
+            },
+            {
+              "path": "kungfu/class/wudang/zhang.c",
+              "start": 578,
+              "end": 579
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "taiji_learning_vs_perform",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "我跟张三丰学会太极剑缠字诀以后，施展还要满足什么？门贡和侠义每次都要重新检查吗？",
+      "criteria": [
+        {
+          "id": "learning_separate",
+          "text": "学会后玩家仍需已解锁此招，但此招施展不重复检查或扣除门贡/侠义；传授的300门贡、80000侠义不能混成每次施展条件。",
+          "evidence": [
+            {
+              "path": "kungfu/class/wudang/zhang.c",
+              "start": 544,
+              "end": 560
+            },
+            {
+              "path": "kungfu/class/wudang/zhang.c",
+              "start": 578,
+              "end": 579
+            },
+            {
+              "path": "kungfu/skill/taiji-jian/chan.c",
+              "start": 13,
+              "end": 43
+            }
+          ]
+        },
+        {
+          "id": "perform",
+          "text": "持剑、剑法激发太极剑、太极剑原始等级至少80、当前内力至少60；目标须是活着的战斗对手且不忙，实际扣30。自身忙碌、无法施用外功及心神受扰的公共限制仍先执行。",
+          "evidence": [
+            {
+              "path": "kungfu/skill/taiji-jian/chan.c",
+              "start": 13,
+              "end": 43
+            },
+            {
+              "path": "cmds/skill/perform.c",
+              "start": 18,
+              "end": 28
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "taiji_threshold_not_cost",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "太极剑缠字诀是不是每次花60内力？假设其他施展条件正常，59和60内力分别会怎样？缠不住也耗内力吗？",
+      "criteria": [
+        {
+          "id": "cost",
+          "text": "60是持有门槛，实际扣30；59在招式内力检查处失败不扣这30，60执行后剩30；扣除在命中判断前，缠不住也扣。",
+          "evidence": [
+            {
+              "path": "kungfu/skill/taiji-jian/chan.c",
+              "start": 34,
+              "end": 52
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wang_chan_learning",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "王处一教全真剑缠字诀要什么门派、门贡、侠义和武功条件？实际花多少门贡？",
+      "criteria": [
+        {
+          "id": "learning",
+          "text": "首次传授要求全真教弟子、全真剑本身至少80、有效内功至少100、门贡至少200、侠义至少10000；成功解锁并扣200门贡。不要套用丐帮/武当的300和80000。",
+          "evidence": [
+            {
+              "path": "kungfu/class/quanzhen/wangchuyi.c",
+              "start": 64,
+              "end": 68
+            },
+            {
+              "path": "kungfu/class/quanzhen/wangchuyi.c",
+              "start": 111,
+              "end": 135
+            },
+            {
+              "path": "kungfu/class/quanzhen/wangchuyi.c",
+              "start": 151,
+              "end": 152
+            },
+            {
+              "path": "feature/skill.c",
+              "start": 135,
+              "end": 149
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "quanzhen_chan_cost",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "全真剑缠字诀跟太极剑那招一样，只要60内力、扣30吗？",
+      "criteria": [
+        {
+          "id": "distinguish",
+          "text": "不一样：全真剑缠字诀内力门槛100、扣50；太极剑对应为60、30。两者分别检查本门剑法80级及各自解锁/激发条件，不能因为招式同名混用。",
+          "evidence": [
+            {
+              "path": "kungfu/skill/quanzhen-jian/chan.c",
+              "start": 14,
+              "end": 43
+            },
+            {
+              "path": "kungfu/skill/taiji-jian/chan.c",
+              "start": 13,
+              "end": 43
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ambiguous_chan",
+      "fixture": "game",
+      "expected": "needs_input",
+      "question": "缠字诀怎么学，要多少门贡？",
+      "criteria": [
+        {
+          "id": "clarify",
+          "text": "请玩家说明是哪门武功或门派的缠字诀，不任意给定贡献数值。只请求必要信息、不作具体规则断言时无需先遍历源码；若列出具体门派/传授事实，仍须按原引用契约核验，不声称全游戏只有所列几种。基准已核对洪七公/张三丰/王处一的同名传授。",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "name": "chan_command_routing",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "我会太极剑和全真剑，perform sword.chan 到底用哪一门？是不是凭招式名字随便选？",
+      "criteria": [
+        {
+          "id": "routing",
+          "text": "看当前剑法激发。公共perform先取sword映射的武功，再由该武功的招式路径调用；激发太极剑则定位太极剑目录的chan，激发全真剑则用全真剑对应目录，不随机选同名招式。映射武功施展失败时公共命令还有基本类别回退，不能描述为无条件只调用一次。",
+          "evidence": [
+            {
+              "path": "cmds/skill/perform.c",
+              "start": 101,
+              "end": 125
+            },
+            {
+              "path": "inherit/skill/skill.c",
+              "start": 109,
+              "end": 124
+            },
+            {
+              "path": "kungfu/skill/taiji-jian.c",
+              "start": 396,
+              "end": 398
+            },
+            {
+              "path": "kungfu/skill/quanzhen-jian.c",
+              "start": 202,
+              "end": 204
+            },
+            {
+              "path": "feature/skill.c",
+              "start": 117,
+              "end": 120
+            },
+            {
+              "path": "include/globals.h",
+              "start": 105,
+              "end": 105
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wang_alternative_force",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "拜王处一为师，玄门内功和全真心法必须都80吗？还有哪些收徒要求？",
+      "criteria": [
+        {
+          "id": "alternatives",
+          "text": "两种本门内功任一原始等级达到80即可，不是都要80；还需道学心法80、侠义10000，通过全真收徒规则：没有脱离/背叛全真记录、没有叛师次数、没有其他门派身份。不把拜师条件混作缠字诀传授条件。",
+          "evidence": [
+            {
+              "path": "kungfu/class/quanzhen/wangchuyi.c",
+              "start": 86,
+              "end": 108
+            },
+            {
+              "path": "kungfu/class/quanzhen/quanzhen.h",
+              "start": 1,
+              "end": 19
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "taiji_skill_vs_special",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "太极剑缠字诀只要求太极剑80，那普通学习太极剑法是不是也只要80就行？请分开说武功学习本身的限制。",
+      "criteria": [
+        {
+          "id": "different_entry",
+          "text": "不能混同。太极剑valid_learn还查先天悟性26、最大内力1500、有效内功200、太极拳原始100、基本剑法原始100且不低于太极剑等级；learn命令实际调用此检查。缠字诀询问则是另一入口的解锁，不把这段当师父传授的所有公共限制。",
+          "evidence": [
+            {
+              "path": "kungfu/skill/taiji-jian.c",
+              "start": 287,
+              "end": 306
+            },
+            {
+              "path": "cmds/skill/learn.c",
+              "start": 96,
+              "end": 108
+            },
+            {
+              "path": "kungfu/class/wudang/zhang.c",
+              "start": 540,
+              "end": 560
+            },
+            {
+              "path": "feature/skill.c",
+              "start": 135,
+              "end": 149
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hubo_threshold",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "左右互搏100级就能用 twice 吗？到了360级是不是就没有分心失败的那次随机检查了？",
+      "criteria": [
+        {
+          "id": "boundary",
+          "text": "100级仍不行，必须超过100；还要求战斗中，不能有 count 技能等级或循影擒踪特技。101到359有分心随机失败，失败忙1；360及以上不走这项随机失败检查，但不保证具体招式必定施展/命中成功。",
+          "evidence": [
+            {
+              "path": "cmds/skill/perform.c",
+              "start": 30,
+              "end": 50
+            },
+            {
+              "path": "cmds/skill/perform.c",
+              "start": 53,
+              "end": 55
+            }
+          ]
+        },
+        {
+          "id": "name_mapping",
+          "text": "count 的公共名称是阴阳八卦，不是算术；名称映射不改变原互搏门槛及限制。",
+          "evidence": [
+            {
+              "path": "data/e2c_dict.o",
+              "start": 2,
+              "end": 2,
+              "start_column": 7524,
+              "end_column": 7537
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "current_player_unknown",
+      "fixture": "game",
+      "expected": "needs_input",
+      "question": "我现在能不能跟洪七公学缠字诀？你直接告诉我我当前门贡还差多少。",
+      "criteria": [
+        {
+          "id": "no_live_state",
+          "text": "没有当前玩家门贡/门派/武功/已学状态，需请玩家补充信息，不能编造差额或把NPC自己的数值当玩家实况。仅请求补充信息无需源码引用；如同时说明静态门槛300，应以洪七公传授入口实际读取为证据。",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "name": "learn_help_conflict",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "learn 帮助说学武耗精神跟我和老师的悟性都有关。现在每次学习扣精神真的会用到老师悟性吗？",
+      "criteria": [
+        {
+          "id": "actual_calculation",
+          "text": "帮助文字与当前实现不一致：每次jing_cost用(100+自身该技能原始等级*2)/自身int，尚未有该技能时再乘2；此计算没有读取老师悟性。玩家老师有另行疲劳检查/扣精，但也使用此jing_cost，不证明老师悟性参与；不要把帮助文字直接当当前规则。",
+          "evidence": [
+            {
+              "path": "cmds/skill/learn.c",
+              "start": 96,
+              "end": 114
+            },
+            {
+              "path": "cmds/skill/learn.c",
+              "start": 136,
+              "end": 143
+            },
+            {
+              "path": "cmds/skill/learn.c",
+              "start": 170,
+              "end": 171
+            },
+            {
+              "path": "cmds/skill/learn.c",
+              "start": 234,
+              "end": 245
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "retry_misspelt_chan",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "张三丰的太极剑“缠字决”（最后一个字可能打错了），学这招要多少门派贡献？",
+      "criteria": [
+        {
+          "id": "lookup",
+          "text": "应能改查缠字诀、张三丰或太极剑定位，首次全称无命中不代表不存在；门贡至少300，实际扣300，仍有其他资格。允许直接正确定位，不强迫制造一次无结果搜索。",
+          "evidence": [
+            {
+              "path": "kungfu/class/wudang/zhang.c",
+              "start": 123,
+              "end": 125
+            },
+            {
+              "path": "kungfu/class/wudang/zhang.c",
+              "start": 547,
+              "end": 560
+            },
+            {
+              "path": "kungfu/class/wudang/zhang.c",
+              "start": 578,
+              "end": 579
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "restricted_effective_force",
+      "fixture": "without_skill_implementation",
+      "expected": "incomplete",
+      "question": "请根据当前实现确认洪七公缠字诀的内功100怎么算：基本内功100、激发特殊内功50、没有临时加成，这项是否够？",
+      "criteria": [
+        {
+          "id": "real_scope_gap",
+          "text": "本题只排除真实feature/skill.c实现，其他源码仍可查。可以确认调用要求force值至少100，但不能在关键计算实现不获授权时把100/2+50当作已查明事实；说明有效内功计算尚无法核实，不能凭经验或其他题答案补齐。",
+          "evidence": [
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 427,
+              "end": 431
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hong_no_elder_rank_gate",
+      "fixture": "game",
+      "expected": "completed",
+      "question": "我已经有打狗棒法，学洪七公的缠字诀还必须先当九袋长老吗？别把学打狗棒法和问缠字诀混了。",
+      "criteria": [
+        {
+          "id": "specific_entry",
+          "text": "缠字诀ask_skill3自身不检查九袋长老身份；它检查已学标记、同门、打狗棒法、门贡300、侠义80000、有效内功100和打狗棒法60。其他武功传授入口的辈分限制不能移植到此入口；也不能由此声称从零学打狗棒法不受其他限制。",
+          "evidence": [
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 104,
+              "end": 108
+            },
+            {
+              "path": "kungfu/class/gaibang/hong.c",
+              "start": 408,
+              "end": 452
+            },
+            {
+              "path": "feature/skill.c",
+              "start": 135,
+              "end": 149
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

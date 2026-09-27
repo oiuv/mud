@@ -69,12 +69,12 @@
 从仓库根目录运行（Windows 可将 `python` 换为 `ai/.venv/Scripts/python.exe`）：
 
 ```sh
-python ai/scripts/world_content.py status
-python ai/scripts/world_content.py status --key CONTENT_KEY
+python ai/scripts/ops_world_content.py status
+python ai/scripts/ops_world_content.py status --key CONTENT_KEY
 # 以下写操作须停止 AI 服务，禁止与 worker 同时写入
-python ai/scripts/world_content.py repair --key CONTENT_KEY
-python ai/scripts/world_content.py backup /path/to/new-backup
-python ai/scripts/world_content.py restore /path/to/backup
+python ai/scripts/ops_world_content.py repair --key CONTENT_KEY
+python ai/scripts/ops_world_content.py backup /path/to/new-backup
+python ai/scripts/ops_world_content.py restore /path/to/backup
 ```
 
 `repair` 只导出已入库正文，不调用模型。备份前停止游戏的新世界初始化；备份通过 SQLite backup API 保存已提交事务，并复制清单与正文，最后写完成标记。恢复只接受完整备份及**尚不存在**的目标世界目录、数据库和辅助文件，拒绝覆盖现有数据。先调整配置指向空的恢复位置，验证后再切换部署；中途失败须人工处理保留的部分文件，不自动删除。不要仅复制运行中的 `.db` 而遗漏 WAL。
@@ -88,8 +88,8 @@ python ai/scripts/world_content.py restore /path/to/backup
 3. AI 服务停止时执行以下命令，先检查，再显式允许最多一次调用：
 
 ```sh
-python ai/scripts/world_content.py describe /path/to/room.json
-python ai/scripts/world_content.py describe /path/to/room.json --live --max-calls 1
+python ai/scripts/ops_world_content.py describe /path/to/room.json
+python ai/scripts/ops_world_content.py describe /path/to/room.json --live --max-calls 1
 ```
 
 诊断仅接受 `test-` 世界；也可提供 1–30 个 payload 的 JSON 数组，`--max-calls` 限制本次执行尝试数（1–30）。它只执行本批键，不消费其他排队任务，仍受日预算与重试退避限制；检查输出状态，额度不足或处于退避时可能没有产生新正文。已有成功结果只复用，不再次收费。
@@ -103,7 +103,7 @@ python ai/scripts/world_content.py describe /path/to/room.json --live --max-call
 
 ```sh
 python -m unittest discover -s ai/tests -v
-node ai/scripts/test_lpc.mjs
+node ai/scripts/verify_lpc.mjs
 node tools/tests/test_illusion_world.mjs
 ```
 

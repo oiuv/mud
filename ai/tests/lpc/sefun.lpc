@@ -2,6 +2,8 @@
 mapping players = ([]);
 void register_player(string id, object player) { players[id] = player; }
 object find_player(string id) { return players[id]; }
+// The isolated fixture has no telnet sessions; model online state explicitly.
+int interactive(object player) { return objectp(player) && !player->query("offline"); }
 string sort_string(string text, int width) { return text; }
 string remove_ansi(string text) { return text; }
 int is_root(object ob) { return 1; }

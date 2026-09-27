@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Windows background entrypoint: append stdout, stderr and startup errors to one log."""
+"""运维：Windows 后台服务入口，将标准输出、错误与启动异常追加到日志。"""
 import argparse
 from pathlib import Path
 import runpy

@@ -122,7 +122,7 @@ setup_environment() {
 
 update_knowledge() {
     printf "正在检查并更新知识库…\n"
-    "$VENV_PYTHON" -u "$SERVICE_DIR/scripts/update_knowledge.py"
+    "$VENV_PYTHON" -u "$SERVICE_DIR/scripts/ops_update_knowledge.py"
 }
 
 start_service() {

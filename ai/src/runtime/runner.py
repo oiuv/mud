@@ -1,5 +1,6 @@
 """Goal-driven loop. Business modules supply prompts and completion criteria."""
 import logging
+import hashlib
 import math
 import re
 import uuid
@@ -7,12 +8,14 @@ from dataclasses import dataclass, field, replace
 
 from ..llm import ModelUnavailable
 from .context import Budget, Limits, Policy, RunState
+from .compaction import Compactor
 from .contracts import Contract, RuntimeFault, json_text
 from .hooks import Hooks
 from .lifecycle import error_code
 from .model import call_model
 from .progress import Progress, observation
 from .tools import Tools
+from .window import model_output_tokens, model_window
 
 logger = logging.getLogger(__name__)
 STATUSES = frozenset(("completed", "needs_input", "incomplete", "failed", "cancelled"))
@@ -59,6 +62,7 @@ class Agent:
     required_skills: tuple = ()
     requires_commit: bool = False
     no_progress_limit: int = 3
+    json_output: bool = False
 
     def __post_init__(self):
         if (not re.fullmatch(r"[a-z][a-z0-9_]{0,63}", self.name) or not self.description
@@ -68,6 +72,7 @@ class Agent:
                 or not isinstance(self.policy, Policy) or not isinstance(self.limits, Limits)
                 or not 0 < self.timeout <= 300 or type(self.max_tokens) is not int or self.max_tokens <= 0
                 or type(self.requires_commit) is not bool
+                or type(self.json_output) is not bool
                 or type(self.no_progress_limit) is not int or not 2 <= self.no_progress_limit <= 32
                 or not isinstance(self.required_skills, tuple)
                 or any(not isinstance(name, str) or not re.fullmatch(r"[a-z][a-z0-9-]{0,47}", name)
@@ -100,6 +105,8 @@ class Runner:
     def register(self, agent):
         if agent.name in self.agents:
             raise ValueError("Duplicate Agent")
+        model_window(self.model).validate_output(
+            model_output_tokens(self.model, agent.max_tokens, json_output=agent.json_output))
         self.agents[agent.name] = agent
 
     def _messages(self, messages, context):
@@ -110,7 +117,9 @@ class Runner:
                     or message.get("role") not in ("system", "user", "assistant", "tool")
                     or (message.get("content") is not None and not isinstance(message["content"], str))):
                 raise RuntimeFault("invalid_messages")
-        encoded = json_text(messages, context.budget.limits.context_bytes)
+        # Full model context is checked against its own token window after Hooks.
+        # input_bytes/output_bytes bound business payloads, not conversation history.
+        encoded = json_text(messages, None)
         return len(encoded.encode("utf-8"))
 
     def _finish(self, result, context, agent):
@@ -118,6 +127,7 @@ class Runner:
             if context.state.terminal is not None:
                 return Outcome(context.state.terminal, context, agent)
             context.state.terminal = result
+            context.state.terminal_digest = hashlib.sha256(json_text(result.value).encode("utf-8")).hexdigest()
             context.state.pending_commit = None
             events = ("run_error", "run_end") if result.status == "failed" else ("run_end",)
             for event in events:
@@ -151,12 +161,17 @@ class Runner:
             if agent is None:
                 raise RuntimeFault("unknown_agent")
             context = parent.enter(agent.name, agent.policy, agent.limits, delegated=delegated)
-            payload = agent.inputs.validate(payload, context.budget.limits.context_bytes)
+            payload = agent.inputs.validate(payload, context.budget.limits.input_bytes)
             context.state.goal = payload.get("goal", "") if isinstance(payload, dict) else str(payload)
             self.hooks.emit("run_start", context)
             messages = agent.messages(context, payload)
             self._messages(messages, context)
             messages = list(messages) + self._preload(agent, context)
+            if agent.json_output and not any(
+                    message.get("role") in ("system", "user") and "json" in (message.get("content") or "").lower()
+                    for message in messages):
+                messages.append({"role": "system", "content": "最终结果请以 JSON 对象返回。"})
+            compactor = Compactor(messages)
             progress = Progress(agent.no_progress_limit)
             while True:
                 context.check()
@@ -165,13 +180,13 @@ class Runner:
                            else None)
                 request_messages = ([catalog] if catalog else []) + messages
                 definitions = self.tools.definitions(context) if agent.mode == "tool_loop" else []
-                response = call_model(self.model, request_messages, definitions, agent, context, self.hooks, self._messages)
+                response = call_model(self.model, request_messages, definitions, agent, context,
+                                      self.hooks, self._messages, compactor=compactor)
                 if response.tool_calls:
                     if agent.mode != "tool_loop":
                         raise RuntimeFault("unexpected_tool_calls")
-                    messages.append({"role": "assistant", "content": response.text or None, "tool_calls": [
-                        {"id": call.id, "type": "function", "function": {
-                            "name": call.name, "arguments": call.arguments}} for call in response.tool_calls]})
+                    messages.append(response.assistant_message(
+                        include_reasoning=getattr(self.model, "preserve_reasoning", True)))
                     advanced = False
                     for call in response.tool_calls:
                         tool_name = self.tools.canonical(call.name)
@@ -194,8 +209,10 @@ class Runner:
                         raise RuntimeFault("invalid_result")
                     value = agent.outputs.validate(result.value, context.budget.limits.output_bytes)
                     result = replace(result, value=value)
-                    gaps = tuple(agent.verify(result, context.state))
+                    gaps = tuple(agent.verify(result, context))
                 except RuntimeFault as error:
+                    if error.status in ("incomplete", "cancelled"):
+                        raise
                     gaps = (error.code,)
                 except (ValueError, TypeError):
                     gaps = ("invalid_result",)
@@ -213,11 +230,12 @@ class Runner:
                 context.state.pending = list(gaps)
                 context.check()
                 feedback = progress.finish_round(progress.completion(gaps))
-                messages.extend([{"role": "assistant", "content": response.text}, {"role": "user", "content":
-                    "结果尚未满足完成条件。请在现有授权和预算内补查并核对；确有阻碍则明确说明。缺口："
+                messages.extend([response.assistant_message(
+                    include_reasoning=getattr(self.model, "preserve_reasoning", True)), {"role": "user", "content":
+                    "结果尚未满足完成条件。请按缺口修正结果；需要新资料时在现有授权内补查，确有阻碍则明确说明。缺口："
                     + json_text(list(gaps), 8192) + ("\n" + feedback if feedback else "")}])
         except RuntimeFault as error:
-            if error.code == "no_progress" and not context.state.pending:
+            if error.code in ("no_progress", "budget_exhausted", "deadline") and not context.state.pending:
                 context.state.pending = ["goal_completion_unverified"]
             return self._finish(Result(error.status, code=error.code), context, agent)
         except ModelUnavailable as error:
@@ -246,7 +264,7 @@ class Runner:
                     raise RuntimeFault("candidate_changed")
                 self.hooks.emit("before_commit", context, {"result": result.value})
                 value = agent.outputs.validate(result.value, context.budget.limits.output_bytes)
-                if tuple(agent.verify(replace(result, value=value), context.state)):
+                if tuple(agent.verify(replace(result, value=value), context)):
                     raise RuntimeFault("completion_incomplete", "incomplete")
                 context.check()
                 committed = callback(value)

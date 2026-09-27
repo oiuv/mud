@@ -11,16 +11,19 @@ from ai.src.settings import Settings
 from ai.src.udp_server import UDPServer
 from ai.src.npc.service import NPCService
 from ai.src.npc.manager import NPCManager, Reply
+from ai.src.database import connect
 
 root = Path(sys.argv[1])
 
 
 class FakeNPC:
+    calls = []
     get_npc_config = lambda self, npc_id: {"name": "测试侠客", "memory_capacity": 0}
     update_player_memory = NPCManager.update_player_memory
 
     def generate_response(self, npc_id, player_name, message, *args):
-        time.sleep(0.15 if message != "late" else 1)
+        self.calls.append((player_name, message))
+        time.sleep(6 if message == "slow" else (1 if message == "late" else .15))
         return Reply("测试回复：" + message, False)
 
 
@@ -54,13 +57,21 @@ def echo(request, deadline):
             "attempts": counts[ident]}
 
 
+def long_echo(request, deadline, *, lifetime):
+    assert deadline is None
+    time.sleep(6)
+    return {"value": 7, "duplicate": True}
+
+
 port, paused = 0, False
 while not (root / "stop").exists():
     npc = NPCService(settings, npc_manager=FakeNPC())
     server = FixtureServer(host="127.0.0.1", port=port, settings=settings)
-    server.register(npc.request_types, npc.process_request, max_workers=4, timeout=5, close=npc.close)
+    server.register(npc.request_types, npc.process_request, max_workers=8, timeout=5, close=npc.close,
+                    long_types=("chat",))
     server.register("discard", lambda request, deadline: {}, max_workers=1, timeout=1)
     server.register("echo", echo, max_workers=4, timeout=2)
+    server.register("long_echo", long_echo, max_workers=2, timeout=1, long_types=("long_echo",))
     thread = threading.Thread(target=server.start, kwargs={"stop_file": root / "stop"})
     thread.start()
     deadline = time.monotonic() + 5
@@ -76,6 +87,10 @@ while not (root / "stop").exists():
             thread.join(5)
             if thread.is_alive():
                 raise RuntimeError("Test backend failed to stop")
+            with connect(npc.history.db_path) as db:
+                assert not db.execute("SELECT 1 FROM conversations WHERE player_id IN ('offline_player','lost_npc')").fetchone()
+            assert ("暂别的玩家", "slow") in FakeNPC.calls
+            assert ("等候的玩家", "slow") in FakeNPC.calls
             paused = True
             (root / "paused").write_text("stopped", encoding="utf-8")
             while not (root / "resume-request").exists() and not (root / "stop").exists():

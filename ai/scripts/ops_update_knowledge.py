@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Startup preflight: local corpus failures are fatal; vector failures degrade to BM25."""
+"""运维：启动前更新知识库；本地索引失败阻止启动，向量失败降级。"""
 import logging
 from pathlib import Path
 import sys

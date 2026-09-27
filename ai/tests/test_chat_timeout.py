@@ -7,11 +7,12 @@ from unittest.mock import Mock, patch
 
 from openai import APITimeoutError, APIStatusError
 
-from ai.scripts import diagnose_chat
+from ai.scripts import debug_chat
 from ai.src.knowledge_qwen import remaining_timeout
 from ai.src.npc.manager import ChatUnavailable, NPCManager
-from ai.src.llm import ModelUnavailable, complete_chat
+from ai.src.llm import ModelUnavailable, complete_chat, complete_model
 from ai.src.settings import Settings, load_settings
+from ai.src.runtime.context import Budget
 from ai.tests.test_npc_ai import Fixture
 
 
@@ -72,6 +73,55 @@ class ChatTimeoutTests(Fixture):
                 complete_chat(self.settings, client, [], deadline=100)
         client.chat.completions.create.assert_not_called()
 
+    def test_configured_slow_calls_do_not_share_a_task_deadline(self):
+        env = self.root / ".env"
+        env.write_text("CHAT_TIMEOUT=60\nREQUEST_TIMEOUT=80\n", encoding="utf-8")
+        with patch.dict(os.environ, {"CHAT_TIMEOUT": "180"}, clear=True):
+            settings = load_settings(env)
+        self.assertEqual(settings.chat_timeout, 180)
+        self.assertEqual(settings.request_timeout, 80)
+        self.assertEqual(settings.summary_timeout, 20)
+        self.assertEqual(settings.api_timeout, 20)
+        _, client = self.manager()
+        response = client.chat.completions.create.return_value
+        response.choices[0].message.content = '{"answer":"回答"}'
+        clock = [100.0]
+
+        def slow_response(**kwargs):
+            clock[0] += 90
+            return response
+
+        client.chat.completions.create.side_effect = slow_response
+        with patch("ai.src.llm.time.monotonic", side_effect=lambda: clock[0]):
+            for _ in range(2):
+                result = complete_model(settings, client, [], json_output=True)
+                self.assertEqual(result.text, '{"answer":"回答"}')
+                client.with_options.assert_called_with(timeout=180)
+        self.assertEqual(clock[0], 280)
+        self.assertEqual(client.chat.completions.create.call_count, 2)
+        kwargs = client.chat.completions.create.call_args.kwargs
+        self.assertEqual(kwargs["response_format"], {"type": "json_object"})
+        self.assertNotIn("max_tokens", kwargs)
+
+    def test_larger_io_timeout_preserves_explicit_short_deadline(self):
+        _, client = self.manager()
+        response = client.chat.completions.create.return_value
+        for io_timeout, deadline, expected_timeout in ((60, None, 60), (180, 180, 80)):
+            with self.subTest(io_timeout=io_timeout, deadline=deadline):
+                self.settings.chat_timeout = io_timeout
+                clock = [100.0]
+
+                def slow_response(**kwargs):
+                    clock[0] += 90
+                    return response
+
+                client.chat.completions.create.side_effect = slow_response
+                with patch("ai.src.llm.time.monotonic", side_effect=lambda: clock[0]), \
+                     self.assertLogs("ai.src.llm", level="WARNING"):
+                    with self.assertRaisesRegex(ModelUnavailable, "timeout"):
+                        complete_chat(self.settings, client, [], deadline=deadline)
+                client.with_options.assert_called_with(timeout=expected_timeout)
+
     def test_response_after_deadline_is_not_accepted(self):
         manager, client = self.manager()
         clock = [100.0]
@@ -124,9 +174,9 @@ class ChatDiagnosticTests(Fixture):
         self.settings.chat_api_key = "secret-api-key"
         self.settings.chat_base_url = "https://secret-user:secret-pass@example.test/v1?key=secret-query"
         output = io.StringIO()
-        with patch.object(diagnose_chat, "load_settings", return_value=self.settings), \
-             patch.object(diagnose_chat, "create_chat_client") as create, redirect_stdout(output):
-            code = diagnose_chat.main(["--config-only"])
+        with patch.object(debug_chat, "load_settings", return_value=self.settings), \
+             patch.object(debug_chat, "create_chat_client") as create, redirect_stdout(output):
+            code = debug_chat.main(["--config-only"])
         self.assertEqual(code, 0)
         create.assert_not_called()
         self.assertIn("example.test", output.getvalue())
@@ -135,12 +185,13 @@ class ChatDiagnosticTests(Fixture):
     def test_diagnostic_calls_shared_chat_path_and_closes_client(self):
         client = Mock()
         output = io.StringIO()
-        with patch.object(diagnose_chat, "load_settings", return_value=self.settings), \
-             patch.object(diagnose_chat, "create_chat_client", return_value=client), \
-             patch.object(diagnose_chat, "diagnose_text", return_value=SimpleNamespace(
+        with patch.object(debug_chat, "load_settings", return_value=self.settings), \
+             patch.object(debug_chat, "create_chat_client", return_value=client), \
+             patch.object(debug_chat, "diagnose_text", return_value=SimpleNamespace(
+                 context=SimpleNamespace(budget=Budget()),
                  result=SimpleNamespace(status="completed", value="连接正常"))) as complete, \
              redirect_stdout(output):
-            code = diagnose_chat.main(["--timeout", "30", "测试"])
+            code = debug_chat.main(["--timeout", "30", "测试"])
         self.assertEqual(code, 0)
         self.assertEqual(self.settings.chat_timeout, 30)
         self.assertEqual(complete.call_args.args[2], "测试")
@@ -150,11 +201,12 @@ class ChatDiagnosticTests(Fixture):
 
     def test_diagnostic_failure_has_nonzero_exit_and_releases_client(self):
         client = Mock()
-        with patch.object(diagnose_chat, "load_settings", return_value=self.settings), \
-             patch.object(diagnose_chat, "create_chat_client", return_value=client), \
-             patch.object(diagnose_chat, "diagnose_text", return_value=SimpleNamespace(
+        with patch.object(debug_chat, "load_settings", return_value=self.settings), \
+             patch.object(debug_chat, "create_chat_client", return_value=client), \
+             patch.object(debug_chat, "diagnose_text", return_value=SimpleNamespace(
+                 context=SimpleNamespace(budget=Budget()),
                  result=SimpleNamespace(status="incomplete", code="deadline"))), \
              redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
-            code = diagnose_chat.main([])
+            code = debug_chat.main([])
         self.assertEqual(code, 1)
         client.close.assert_called_once()

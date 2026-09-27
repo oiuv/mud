@@ -82,9 +82,10 @@ class Hooks:
                  "parent_id": context.parent_id, "agent": context.agent_id,
                  "policy": context.policy.version, **metadata}
         logger.info("AI lifecycle %s", json_text(trace, 8192))
-        # Copy using the same bound in both directions. Tool results may exceed
-        # the JSON parser's smaller default (32 KiB) while remaining valid.
-        current = parse_json(json_text(data or {}, 131072), 131072)
+        # Model calls enforce their own token window, not a generic 128 KiB cap.
+        # Other events and individual Hook additions keep their separate bounds.
+        limit = None if event in ("before_model", "after_model") else 131072
+        current = parse_json(json_text(data or {}, limit), limit)
         denied = None
         for hook in self.hooks:
             if hook.event != event:
@@ -96,7 +97,7 @@ class Hooks:
                 if hook.raw_data:
                     observed["data"] = current
                 # Observers must still see cancellation/deadline/failure settlement.
-                timeout = min(hook.timeout, context.deadline - time.monotonic()) if hook.intervention else hook.timeout
+                timeout = context.remaining(hook.timeout) if hook.intervention else hook.timeout
                 decision = self._call(hook, freeze(observed), timeout)
                 if not hook.intervention:
                     continue

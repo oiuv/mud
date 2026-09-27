@@ -1,6 +1,6 @@
 private mapping counts = ([]), results = ([]);
 private object *players = ({}), *npcs = ({});
-private object replacement;
+private object replacement, offline_player, departed_npc, waiting_player;
 void check(int ok, string label) { "/tests/master"->check(ok, label); }
 
 void receive(string key, mapping response) {
@@ -15,6 +15,13 @@ void receive(string key, mapping response) {
 }
 int validator(mapping response) { return response["value"] == 7; }
 void finish() {
+    check(strsrch(waiting_player->output(), "测试回复") < 0, "destroyed NPC gets no late reply");
+    check(counts["long"] == 1 && results["long"]["value"] == 7,
+        "long progress is not terminal; renewed request delivers once beyond short timeout");
+    check(
+        strsrch(offline_player->output(), "测试回复") < 0,
+        "disconnected live object gets no late reply"
+    );
     check(
         counts["echo"] == 1 && results["echo"]["value"] == 7,
         "correlation and duplicate response"
@@ -86,6 +93,10 @@ void check_chats() {
     write_file("/pause-request", "1");
     call_out("wait_paused", 0.1);
 }
+void disconnect_player() {
+    offline_player->set("offline", 1);
+    destruct(departed_npc);
+}
 void run() {
     mapping result, payload;
     string *ids = ({});
@@ -121,8 +132,11 @@ void run() {
         ([ "timeout": 1, "retries": 0 ]));
     AI_CLIENT_D->send_request("echo", ([]), (: receive, "throws" :));
     AI_CLIENT_D->send_request("echo", ([]), (: receive, "reenter" :));
+    AI_CLIENT_D->send_request("long_echo", ([]), (: receive, "long" :),
+        ([ "long": 1, "validator": (: validator :) ]));
     owner = new("/tests/owner");
     owner->run();
+    owner->run_long();
     destruct(owner);
 
     room = new("/tests/actor");
@@ -156,9 +170,21 @@ void run() {
     replacement = new("/tests/actor");
     register_player("reconnect", replacement);
 
+    offline_player = new("/tests/actor");
+    offline_player->configure("offline_player", "暂别的玩家");
+    register_player("offline_player", offline_player);
+    AI_NPC_D->send_chat_request("npc", "offline_player", "暂别的玩家", "slow", "", npcs[0]);
+    waiting_player = new("/tests/actor");
+    waiting_player->configure("lost_npc", "等候的玩家");
+    register_player("lost_npc", waiting_player);
+    departed_npc = new("/tests/actor");
+    departed_npc->configure("departed", "匆匆过客");
+    AI_NPC_D->send_chat_request("departed", "lost_npc", "等候的玩家", "slow", "", departed_npc);
+    call_out("disconnect_player", 0.3);
+
     check("/tests/updateall"->update_dir(players[0], "/ai/", 0, total) && total[0] == 0,
         "updateall skips ai with invalid C fixture");
     check("/tests/updateall"->update_dir(players[0], "/.hidden/nested/", 0, total) && total[0] == 0,
         "updateall skips hidden subdirectories");
-    call_out("check_chats", 2);
+    call_out("check_chats", 8);
 }

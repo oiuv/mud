@@ -138,7 +138,8 @@ class LifecycleTests(RuntimeFixture):
         agent = self.agent(policy=root.policy)
         result = Runner(model, [agent], hooks=hooks).run("answer", {"goal": "Original"}, root)
         self.assertEqual(result.result.status, "completed")
-        self.assertEqual(model.inputs[0][0], {"role": "user", "content": "Original"})
+        self.assertEqual(model.inputs[0][:-1], [{"role": "user", "content": "Original"}])
+        self.assertNotIn("运行预算提示", str(model.inputs[0]))
         self.assertIn("Supplement", model.inputs[0][-1]["content"])
         root = replace(root, policy=replace(root.policy, egress_scopes=frozenset()))
         model = ScriptedModel()
@@ -199,15 +200,14 @@ class LifecycleTests(RuntimeFixture):
         hooks, events = self.observed()
         tools = Tools([Tool("lookup", "Lookup", QUERY, DATA, handler, timeout=.02)], hooks)
         context = self.context()
-        with self.assertRaises(RuntimeFault) as caught:
-            tools.execute("lookup", {"q": "x"}, context, "slow")
-        self.assertEqual(caught.exception.code, "tool_timeout")
+        reply = tools.execute("lookup", {"q": "x"}, context, "slow")
+        self.assertEqual(reply["error"], "tool_timeout")
+        self.assertTrue(reply["recoverable"])
         release.set()
         self.assertTrue(finished.wait(1))
         self.assertEqual(context.state.evidence, {})
         self.assertEqual([e["status"] for e in events if e["event"] == "after_tool"], ["timeout"])
-        with self.assertRaises(RuntimeFault):
-            tools.execute("lookup", {"q": "x"}, context, "slow")
+        self.assertEqual(tools.execute("lookup", {"q": "x"}, context, "slow"), reply)
         self.assertEqual(sum(e["event"] == "after_tool" for e in events), 1)
 
     def test_cancelled_tool_has_one_end_and_no_evidence(self):
@@ -342,8 +342,7 @@ class LifecycleTests(RuntimeFixture):
             self.assertTrue(entered.wait(1))
             second = executor.submit(tools.execute, "lookup", {"q": "second"}, self.context(), "second")
             for future in (first, second):
-                with self.assertRaises(RuntimeFault):
-                    future.result(timeout=1)
+                self.assertEqual(future.result(timeout=1)["error"], "tool_timeout")
             self.assertEqual(handler_calls, ["first"])
             release.set()
             self.assertTrue(stopped.wait(1))

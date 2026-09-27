@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Explicit UDP smoke client with correlation and bounded receive time."""
+"""开发诊断：向已启动服务发送 UDP 请求；聊天可能计费并写入测试角色历史。"""
 import argparse
 import json
 import socket

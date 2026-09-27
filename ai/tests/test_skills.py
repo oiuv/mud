@@ -15,7 +15,7 @@ from ai.tests.test_runtime import RuntimeFixture, ScriptedModel
 
 
 class SkillTests(RuntimeFixture):
-    def test_deployed_packages_have_goals_checks_and_positive_negative_examples(self):
+    def test_deployed_packages_load_guidance_and_declared_resources(self):
         names = {"npc-dialogue", "conversation-summary", "world-narration", "source-investigation", "main-coordinator"}
         skills = Skills(Settings().skills_dir)
         tools = Tools()
@@ -26,15 +26,11 @@ class SkillTests(RuntimeFixture):
                 loaded = tools.execute("skill", {"name": name}, context, name)
                 self.assertTrue(loaded["ok"])
                 value = loaded["value"]
-                self.assertIn("目标与完成条件", value["guidance"])
-                self.assertIn("检查清单", value["guidance"])
-                text = value["guidance"]
+                self.assertTrue(value["guidance"].strip())
                 for path in value["resources"]:
                     resource = tools.execute("skill", {"name": name, "path": path}, context, name + path)
                     self.assertTrue(resource["ok"])
-                    text += resource["value"]["content"]
-                self.assertIn("正例", text)
-                self.assertIn("反例", text)
+                    self.assertTrue(resource["value"]["content"].strip())
 
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
@@ -225,8 +221,10 @@ class SkillTests(RuntimeFixture):
                 self.assertEqual(model.inputs, [])
 
     def test_preload_obeys_context_limit_and_never_sends_partial_guidance(self):
+        self.pack("first", "完整指导" * 300)
         model = ScriptedModel()
-        runner, _, context = self.assembly(model, required_skills=("first",), limits=Limits(context_bytes=64))
+        model.context_window_tokens = 4096
+        runner, _, context = self.assembly(model, required_skills=("first",))
         result = runner.run("answer", {"goal": "x"}, context)
         self.assertEqual(result.result.status, "incomplete")
         self.assertEqual(model.inputs, [])

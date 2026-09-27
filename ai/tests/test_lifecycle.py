@@ -118,7 +118,7 @@ class MigrationTests(Fixture):
 
     def test_cli_entrypoints_from_another_directory(self):
         root = Path(__file__).resolve().parents[2]
-        for script in ("main.py", "scripts/test_retrieval.py", "scripts/diagnose_chat.py"):
+        for script in ("main.py", "scripts/debug_retrieval.py", "scripts/debug_chat.py"):
             completed = subprocess.run([sys.executable, str(root / "ai" / script), "--help"],
                                        cwd=self.root, capture_output=True, timeout=10)
             self.assertEqual(completed.returncode, 0, completed.stderr)

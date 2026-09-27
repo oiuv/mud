@@ -15,7 +15,7 @@ def error_response(request, code, message):
     response = {"type": "error", "code": code, "error": message}
     if isinstance(request, dict):
         # Optional legacy correlation fields; never required by the transport.
-        for key in ("request_id", "npc_id", "player_id"):
+        for key in ("request_id", "npc_id", "player_id", "request_token"):
             value = request.get(key)
             if isinstance(value, str):
                 response[key] = value[:128].encode("utf-8", errors="replace").decode("utf-8")

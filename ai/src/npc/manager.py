@@ -18,6 +18,7 @@ from ..runtime.tools import Tools
 from ..settings import load_settings
 from ..source_config import load_sources
 from .agents import LIMITS, POLICY, build_agents
+from .investigation import SOURCE_LIMITS, SOURCE_TOOLS, source_policy
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ class NPCManager:
         self._owns_client = client is None
         self.npc_configs = {}
         self.load_npc_configs()
-        self.sources = load_sources(self.settings.source_scopes_file)
+        self.sources = load_sources(self.settings)
         self.hooks = hooks or Hooks()
         skills = Skills(self.settings.skills_dir)
         self.knowledge = knowledge if knowledge is not None else QwenKnowledgeSystem(settings=self.settings)
@@ -51,10 +52,12 @@ class NPCManager:
             tools = Tools(hooks=self.hooks)
             tools.discover(__package__.rsplit(".", 1)[0] + ".tools",
                            {"skills": skills, "knowledge": self.knowledge, "hooks": self.hooks,
-                            "sources": self.sources,
+                            "sources": self.sources, "settings": self.settings,
                             "knowledge_minimum_threshold": lambda context: context.state.facts[0].get(
                                 "knowledge_threshold", .4)})
-            self.runner = Runner(ChatModel(self.settings, self.client), build_agents(self.settings),
+            agent_policy = source_policy(POLICY, self.sources)
+            self.runner = Runner(ChatModel(self.settings, self.client), build_agents(
+                self.settings, tools=tools, policy=agent_policy),
                                  tools=tools, hooks=self.hooks, skills=skills)
         except Exception:
             if self._owns_knowledge:
@@ -84,6 +87,8 @@ class NPCManager:
             role = dict(role)
             if "knowledge_paths" in role:
                 POLICY.restrict({"knowledge_paths": role["knowledge_paths"]})
+            if "source_scopes" in role:
+                raise ValueError("NPC source_scopes is retired; remove it and configure SOURCE_ROOT / SOURCE_ENABLED")
             capacity = role.get("memory_capacity", 100)
             threshold = role.get("knowledge_threshold", 0.4)
             if type(capacity) is not int or capacity < 0:
@@ -114,17 +119,19 @@ class NPCManager:
         return self.npc_configs.get(npc_id, {})
 
     def entry_policy(self, npc_id):
-        policy = POLICY.restrict(self.settings.runtime_policy)
         role = self.get_npc_config(npc_id)
+        policy = source_policy(POLICY, self.sources)
+        policy = policy.restrict(self.settings.runtime_policy)
         if "knowledge_paths" in role:
             policy = policy.restrict({"knowledge_paths": role["knowledge_paths"]})
         return policy
 
-    def create_context(self, request_id, npc_id, player_id, deadline=None, parent=None):
-        limit = time.monotonic() + min(80, self.settings.request_timeout)
-        return bind_context(self.entry_policy(npc_id), request_id, player_id, "player",
+    def create_context(self, request_id, npc_id, player_id, deadline=None, parent=None, *, alive=None):
+        policy = self.entry_policy(npc_id)
+        limits = SOURCE_LIMITS if SOURCE_TOOLS & policy.tools else LIMITS
+        return bind_context(policy, request_id, player_id, "player",
                             json.dumps([npc_id, player_id]),
-                            min(limit, deadline) if deadline is not None else limit, LIMITS, parent=parent)
+                            deadline, limits, parent=parent, alive=alive)
 
     def generate_response(self, npc_id, player_name, message, player_memory, history, context,
                           deadline=None, *, run_context=None, defer_commit=False):

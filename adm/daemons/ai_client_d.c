@@ -10,6 +10,8 @@
 #define AI_MAX_PACKET 8192
 #define AI_MAX_PENDING 256
 #define AI_MAX_OWNER_PENDING 64
+#define AI_HEARTBEAT_SECONDS 5
+#define AI_LEASE_SECONDS 30
 
 nosave private int socket_fd = -1;
 nosave private int request_sequence;
@@ -19,6 +21,7 @@ nosave private mapping pending_requests = ([]);
 
 void request_timeout(string requestId);
 void retry_request(string requestId);
+void renew_request(string requestId);
 
 private mapping failure(string code, string message) {
     return ([ "type": "error", "code": code, "error": message ]);
@@ -35,11 +38,33 @@ private mapping take_request(string requestId) {
         remove_call_out(pending["timeout"]);
     if (pending["retry"] > 0)
         remove_call_out(pending["retry"]);
+    if (pending["heartbeat"] > 0)
+        remove_call_out(pending["heartbeat"]);
     return pending;
 }
 
 private int owner_alive(mapping pending) {
-    return objectp(pending["owner"]) && objectp(function_owner(pending["callback"])) && (!functionp(pending["validator"]) || objectp(function_owner(pending["validator"])));
+    return objectp(pending["owner"]) && objectp(function_owner(pending["callback"])) && (!functionp(pending["validator"]) || objectp(function_owner(pending["validator"]))) && (!functionp(pending["alive"]) || objectp(function_owner(pending["alive"])));
+}
+
+private int caller_alive(mapping pending) {
+    mixed err, alive;
+
+    if (!owner_alive(pending))
+        return 0;
+    if (!functionp(pending["alive"]))
+        return 1;
+    err = catch(alive = evaluate(pending["alive"]));
+    return !err && alive;
+}
+
+private void send_control(string requestId, mapping pending, string action) {
+    if (!pending["long"] || socket_fd < 0)
+        return;
+    socket_write(socket_fd, json_encode(([
+        "type": "request_control", "request_id": requestId,
+        "request_token": pending["token"], "action": action
+    ])), AI_SERVER_HOST + " " + AI_SERVER_PORT);
 }
 
 private void finish_request(string requestId, mapping response) {
@@ -100,23 +125,35 @@ varargs mapping send_request(
     object owner;
     string requestId, jsonStr, key;
     mixed err, value;
-    int timeout, retryDelay, retries, count, result;
+    int timeout, retryDelay, retries, count, result, longRequest;
 
     if (closing || !ensure_socket())
         return failure("unavailable", "AI服务通信未初始化。");
     owner = previous_object();
     if (!objectp(owner) || !functionp(callback) || !objectp(function_owner(callback)) ||
-        !stringp(requestType) || requestType == "" || requestType == "error" ||
+        !stringp(requestType) || requestType == "" || member_array(
+            requestType,
+            ({ "error", "request_control", "request_progress" })
+        ) != -1 ||
         sizeof(requestType) > 64 || !mapp(payload) ||
-        !undefinedp(payload["type"]) || !undefinedp(payload["request_id"]))
+        !undefinedp(payload["type"]) || !undefinedp(payload["request_id"]) ||
+        !undefinedp(payload["request_mode"]) || !undefinedp(payload["request_token"]))
         return failure("invalid_request", "AI请求参数无效。");
     if (!options)
         options = ([]);
     foreach (key, value in options) {
-        if (member_array(key, ({ "timeout", "retry_delay", "retries", "validator" })) == -1)
+        if (member_array(
+            key,
+            ({ "timeout", "retry_delay", "retries", "validator", "long", "alive" })
+        ) == -1)
             return failure("invalid_request", "未知AI请求选项。");
     }
-    timeout = undefinedp(options["timeout"]) ? 90 : options["timeout"];
+    longRequest = options["long"];
+    if ((!undefinedp(options["long"]) && (!intp(longRequest) || (longRequest != 0 && longRequest != 1))) ||
+        (longRequest && !undefinedp(options["timeout"])) ||
+        (!undefinedp(options["alive"]) && (!functionp(options["alive"]) || !objectp(function_owner(options["alive"])))))
+        return failure("invalid_request", "AI请求存活选项无效。");
+    timeout = longRequest ? AI_LEASE_SECONDS : (undefinedp(options["timeout"]) ? 90 : options["timeout"]);
     retryDelay = undefinedp(options["retry_delay"]) ? 5 : options["retry_delay"];
     retries = undefinedp(options["retries"]) ? 1 : options["retries"];
     if (!intp(timeout) || timeout < 1 || timeout > 300 ||
@@ -128,15 +165,25 @@ varargs mapping send_request(
 
     foreach (key in keys(pending_requests)) {
         pending = pending_requests[key];
-        if (!owner_alive(pending))
-            take_request(key);
-        else if (pending["owner"] == owner)
+        if (!caller_alive(pending)) {
+            send_control(key, pending, "cancel");
+            finish_request(key, failure("cancelled", "此番问话已中断。"));
+        } else if (pending["owner"] == owner)
             count++;
     }
     if (sizeof(pending_requests) >= AI_MAX_PENDING || count >= AI_MAX_OWNER_PENDING)
         return failure("busy", "AI正在忙碌，请稍后再试。");
     requestId = sprintf("%s-%d", instance_id, ++request_sequence);
     request = payload + ([ "type": requestType, "request_id": requestId ]);
+    if (longRequest) {
+        request["request_mode"] = "long";
+        request["request_token"] = sprintf(
+            "%s-%d-%d",
+            instance_id,
+            request_sequence,
+            random(1000000000)
+        );
+    }
     err = catch(jsonStr = json_encode(request));
     if (err)
         return failure("invalid_request", "AI请求无法编码。");
@@ -145,11 +192,14 @@ varargs mapping send_request(
     pending = ([
         "owner": owner, "callback": callback, "validator": options["validator"],
         "type": requestType, "payload": jsonStr, "deadline": time() + timeout,
-        "retry_delay": retryDelay, "retries": retries
+        "retry_delay": retryDelay, "retries": retries,
+        "long": longRequest, "token": request["request_token"], "alive": options["alive"]
     ]);
     pending_requests[requestId] = pending;
     err = catch {
         pending["timeout"] = call_out("request_timeout", timeout, requestId);
+        if (longRequest)
+            pending["heartbeat"] = call_out("renew_request", AI_HEARTBEAT_SECONDS, requestId);
         if (retries && retryDelay < timeout)
             pending["retry"] = call_out("retry_request", retryDelay, requestId);
     };
@@ -171,6 +221,7 @@ int cancel_request(string requestId) {
     pending = pending_requests[requestId];
     if (!mapp(pending) || pending["owner"] != previous_object())
         return 0;
+    send_control(requestId, pending, "cancel");
     take_request(requestId);
     return 1;
 }
@@ -186,8 +237,9 @@ void retry_request(string requestId) {
     if (!mapp(pending))
         return;
     pending["retry"] = 0;
-    if (!owner_alive(pending)) {
-        take_request(requestId);
+    if (!caller_alive(pending)) {
+        send_control(requestId, pending, "cancel");
+        finish_request(requestId, failure("cancelled", "此番问话已中断。"));
         return;
     }
     if (time() >= pending["deadline"] || pending["retries"] <= 0 || !ensure_socket())
@@ -199,7 +251,31 @@ void retry_request(string requestId) {
 }
 
 void request_timeout(string requestId) {
+    if (mapp(pending_requests[requestId]))
+        send_control(requestId, pending_requests[requestId], "cancel");
     finish_request(requestId, failure("timeout", "AI暂时没有回应，请稍后重新提问。"));
+}
+
+void renew_request(string requestId) {
+    mapping pending;
+
+    pending = pending_requests[requestId];
+    if (!mapp(pending))
+        return;
+    pending["heartbeat"] = 0;
+    if (!caller_alive(pending)) {
+        send_control(requestId, pending, "cancel");
+        finish_request(requestId, failure("cancelled", "此番问话已中断。"));
+        return;
+    }
+    if (time() >= pending["deadline"]) {
+        request_timeout(requestId);
+        return;
+    }
+    // 初次握手只由有限重传恢复；续约不能在服务重启后重新发起付费任务。
+    if (pending["acknowledged"])
+        send_control(requestId, pending, "renew");
+    pending["heartbeat"] = call_out("renew_request", AI_HEARTBEAT_SECONDS, requestId);
 }
 
 void read_callback(int fd, mixed message, string addr) {
@@ -217,12 +293,35 @@ void read_callback(int fd, mixed message, string addr) {
     pending = pending_requests[requestId];
     if (!mapp(pending))
         return;
-    if (!owner_alive(pending)) {
-        take_request(requestId);
+    if (!caller_alive(pending)) {
+        send_control(requestId, pending, "cancel");
+        finish_request(requestId, failure("cancelled", "此番问话已中断。"));
         return;
     }
     if (time() >= pending["deadline"]) {
         request_timeout(requestId);
+        return;
+    }
+    if (pending["long"] && response["type"] == "request_progress") {
+        if (response["request_token"] != pending["token"] ||
+            response["lease_seconds"] != AI_LEASE_SECONDS ||
+            response["heartbeat_seconds"] != AI_HEARTBEAT_SECONDS)
+            return;
+        pending["acknowledged"] = 1;
+        pending["deadline"] = time() + AI_LEASE_SECONDS;
+        if (pending["timeout"] > 0)
+            remove_call_out(pending["timeout"]);
+        pending["timeout"] = call_out("request_timeout", AI_LEASE_SECONDS, requestId);
+        if (pending["retry"] > 0)
+            remove_call_out(pending["retry"]);
+        pending["retry"] = 0;
+        return;
+    }
+    if (pending["long"] && (pending["acknowledged"] || response["type"] != "error") && response["request_token"] != pending["token"])
+        return;
+    if (pending["long"] && response["request_token"] == pending["token"] &&
+        response["type"] == "error" && response["code"] == "request_gone") {
+        finish_request(requestId, failure("request_gone", "此番问话已中断，请重新提问。"));
         return;
     }
     if (response["type"] != pending["type"] && response["type"] != "error")
@@ -251,6 +350,8 @@ void remove() {
     string requestId;
 
     closing = 1;
+    foreach (requestId in keys(pending_requests))
+        send_control(requestId, pending_requests[requestId], "cancel");
     if (socket_fd >= 0)
         socket_close(socket_fd);
     socket_fd = -1;

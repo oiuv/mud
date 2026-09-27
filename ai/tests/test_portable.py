@@ -113,8 +113,8 @@ class PortableTests(Fixture):
                     evidence = json.loads(messages[-1]['content'])['value']['evidence']
                     assert evidence
                     text, calls = json.dumps(dict(status='completed', kind='rules',
-                        answer='领航员说：须向领航员领取通行证。', pending=[], claims=[
-                            dict(text='向领航员领取通行证', evidence=[evidence[0]['id']])])), []
+                        pending=[], parts=[dict(text='领航员说：须向领航员领取通行证。',
+                                                evidence=[evidence[0]['id']])])), []
                 else:
                     text, calls = None, [SimpleNamespace(id='knowledge-1', type='function', function=SimpleNamespace(
                         name='knowledge__search', arguments=json.dumps(dict(query='星港通行', threshold=0))))]
@@ -159,7 +159,7 @@ class PortableTests(Fixture):
         environment = dict(os.environ, ENABLED_MODULES="", KNOWLEDGE_UPDATE_ENABLED="false",
                            DATA_DIR=str(self.root / "unused"), HELP_DIR=str(self.root / "absent"),
                            OPENAI_API_KEY="", DASHSCOPE_API_KEY="")
-        completed = subprocess.run([sys.executable, str(SERVICE_DIR / "scripts/update_knowledge.py")],
+        completed = subprocess.run([sys.executable, str(SERVICE_DIR / "scripts/ops_update_knowledge.py")],
                                    cwd=self.root, env=environment, capture_output=True, timeout=15)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         self.assertFalse((self.root / "unused").exists())

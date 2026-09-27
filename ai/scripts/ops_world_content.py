@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline status/repair/backup; model calls require explicit --live and test IDs."""
+"""运维：幻境正文状态、修复及备份恢复；模型生成须显式 --live。"""
 import argparse
 import json
 import shutil

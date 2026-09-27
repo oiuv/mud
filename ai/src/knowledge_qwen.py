@@ -61,14 +61,15 @@ class QwenKnowledgeSystem:
     def get_embedding(self, text, deadline=None, *, context=None, hooks=None):
         if len(text.encode("utf-8")) > self.settings.embedding_max_bytes:
             raise ValueError("Embedding input exceeds configured byte budget")
-        result = remote_call("embedding", {"text": text}, lambda: self._client().with_options(
+        def validate(result):
+            vector = np.asarray(result.data[0].embedding, dtype=np.float32)
+            if vector.shape != (self.dimensions,) or not np.all(np.isfinite(vector)) or np.linalg.norm(vector) == 0:
+                raise ValueError("Invalid embedding vector")
+            return vector
+        return remote_call("embedding", {"text": text}, lambda: self._client().with_options(
             timeout=remaining_timeout(self.settings, deadline)
         ).embeddings.create(model=self.model_name, input=text, dimensions=self.dimensions,
-                            encoding_format="float"), context, hooks)
-        vector = np.asarray(result.data[0].embedding, dtype=np.float32)
-        if vector.shape != (self.dimensions,) or not np.all(np.isfinite(vector)) or np.linalg.norm(vector) == 0:
-            raise ValueError("Invalid embedding vector")
-        return vector
+                            encoding_format="float"), context, hooks, model=self.model_name, validate=validate)
 
     def _query_vector(self, query, deadline=None, *, context=None, hooks=None):
         # Even query-vector hits are isolated by effective authority, not merely text.
@@ -169,25 +170,28 @@ class QwenKnowledgeSystem:
                 "input": {"query": query, "documents": texts},
                 "parameters": {"top_n": min(limit, len(texts)),
                                "instruct": "Given a Chinese martial arts game question, retrieve relevant game help passages."}}
-        response = remote_call("rerank", body, lambda: httpx.post(self.settings.rerank_url,
-                              headers={"Authorization": f"Bearer {self.settings.dashscope_api_key}"},
-                              json=body, timeout=remaining_timeout(self.settings, deadline)), context, hooks)
-        response.raise_for_status()
-        data = response.json()
-        if data.get("code"):
-            raise ValueError("Rerank API returned an error")
-        results = data["output"]["results"]
-        if not isinstance(results, list) or not results:
-            raise ValueError("Rerank API returned no results")
-        ranked, seen = [], set()
-        for result in results:
-            index, score = result["index"], result["relevance_score"]
-            if (type(index) is not int or not 0 <= index < len(selected)
-                    or index in seen or not isinstance(score, (int, float)) or not np.isfinite(score)):
-                raise ValueError("Invalid rerank result")
-            seen.add(index)
-            ranked.append(dict(selected[index], rerank_score=float(score)))
-        return sorted(ranked, key=lambda doc: doc["rerank_score"], reverse=True)[:limit]
+        def validate(response):
+            response.raise_for_status()
+            data = response.json()
+            if data.get("code"):
+                raise ValueError("Rerank API returned an error")
+            results = data["output"]["results"]
+            if not isinstance(results, list) or not results:
+                raise ValueError("Rerank API returned no results")
+            ranked, seen = [], set()
+            for result in results:
+                index, score = result["index"], result["relevance_score"]
+                if (type(index) is not int or not 0 <= index < len(selected)
+                        or index in seen or not isinstance(score, (int, float)) or not np.isfinite(score)):
+                    raise ValueError("Invalid rerank result")
+                seen.add(index)
+                ranked.append(dict(selected[index], rerank_score=float(score)))
+            return sorted(ranked, key=lambda doc: doc["rerank_score"], reverse=True)[:limit]
+        return remote_call("rerank", body, lambda: httpx.post(self.settings.rerank_url,
+                           headers={"Authorization": f"Bearer {self.settings.dashscope_api_key}"},
+                           json=body, timeout=remaining_timeout(self.settings, deadline)), context, hooks,
+                           model=self.settings.rerank_model, read_usage=lambda response: response.json().get("usage"),
+                           validate=validate)
 
     def hybrid_search(self, query, limit=None, threshold=0.4, deadline=None, *, context=None,
                       hooks=None, allowed=None, remote=True, diagnostics=None):

@@ -15,7 +15,7 @@ from ai.src.runtime.hooks import Hooks, Hook, Decision
 from ai.src.runtime.tools import Tools
 from ai.src.tools.knowledge import knowledge_tool
 from ai.tests.test_npc_ai import Fixture
-from ai.scripts import performance_test, benchmark_cache, test_retrieval
+from ai.scripts import bench_retrieval, bench_cache, debug_retrieval
 
 
 class DiagnosticRuntimeTests(Fixture):
@@ -39,6 +39,7 @@ class DiagnosticRuntimeTests(Fixture):
         outcome = diagnose_text(self.settings, client, "测试", hooks=hooks)
         self.assertEqual(outcome.result.value, "连接正常")
         self.assertTrue(outcome.finalized)
+        self.assertIsNone(outcome.context.deadline)
         self.assertEqual(outcome.context.budget.snapshot()["model_calls"], 1)
         self.assertEqual(outcome.context.budget.snapshot()["external_calls"], 1)
         self.assertEqual(outcome.context.budget.snapshot()["usage"]["total_tokens"], 5)
@@ -65,6 +66,7 @@ class DiagnosticRuntimeTests(Fixture):
         basic.process_files()
         events, hooks = self.events()
         result, ctx = RetrievalDiagnostic(basic, mode="bm25", hooks=hooks).search("武当")
+        self.assertIsNone(ctx.deadline)
         self.assertTrue(result["evidence"])
         self.assertNotIn("secret-token", str(result))
         self.assertIn("bm25_score", result["evidence"][0]["diagnostics"])
@@ -82,13 +84,12 @@ class DiagnosticRuntimeTests(Fixture):
         diagnostic = RetrievalDiagnostic(knowledge, mode="vector", hooks=hooks, budget=budget)
         diagnostic.search("武当", threshold=0)
         diagnostic.search("武当", threshold=0)
-        with self.assertRaisesRegex(RuntimeFault, "budget_exhausted"):
-            diagnostic.search("少林", threshold=0)
-        self.assertEqual(client.embeddings.create.call_count, 1)
-        self.assertEqual(budget.snapshot()["external_calls"], 1)
+        diagnostic.search("少林", threshold=0)
+        self.assertEqual(client.embeddings.create.call_count, 2)
+        self.assertEqual(budget.snapshot()["external_calls"], 2)
         self.assertEqual(budget.snapshot()["tool_calls"], 3)
         ends = [e for e in events if e["event"] == "run_end"]
-        self.assertEqual([e["status"] for e in ends], ["completed", "completed", "incomplete"])
+        self.assertEqual([e["status"] for e in ends], ["completed", "completed", "completed"])
 
     def test_cancelled_batch_does_not_execute(self):
         knowledge, client = self.knowledge()
@@ -125,22 +126,22 @@ class DiagnosticRuntimeTests(Fixture):
     def test_cli_errors_redact_untrusted_value_error(self):
         output = io.StringIO()
         with redirect_stderr(output):
-            test_retrieval.report_error(ValueError("secret-provider-body"))
+            debug_retrieval.report_error(ValueError("secret-provider-body"))
         self.assertNotIn("secret", output.getvalue())
 
     def test_performance_cli_offline_and_failure_closes_remote_client(self):
         self.corpus()
-        with patch.object(performance_test, "load_settings", return_value=self.settings), \
-             patch.object(performance_test, "QwenKnowledgeSystem") as create, \
+        with patch.object(bench_retrieval, "load_settings", return_value=self.settings), \
+             patch.object(bench_retrieval, "QwenKnowledgeSystem") as create, \
              redirect_stdout(io.StringIO()):
-            self.assertEqual(performance_test.main([]), 0)
+            self.assertEqual(bench_retrieval.main([]), 0)
         create.assert_not_called()
         knowledge = Mock(settings=self.settings)
         knowledge.hybrid_search.side_effect = RuntimeError("private-provider-body")
-        with patch.object(performance_test, "load_settings", return_value=self.settings), \
-             patch.object(performance_test, "QwenKnowledgeSystem", return_value=knowledge), \
+        with patch.object(bench_retrieval, "load_settings", return_value=self.settings), \
+             patch.object(bench_retrieval, "QwenKnowledgeSystem", return_value=knowledge), \
              redirect_stderr(io.StringIO()):
-            self.assertEqual(performance_test.main(["--remote"]), 1)
+            self.assertEqual(bench_retrieval.main(["--remote"]), 1)
         knowledge.close.assert_called_once()
 
     def test_cache_benchmark_uses_nine_tool_steps_and_closes(self):
@@ -148,11 +149,11 @@ class DiagnosticRuntimeTests(Fixture):
         knowledge.update_vectors()
         client.embeddings.create.reset_mock()
         settings = replace(self.settings, dashscope_api_key="fake")
-        with patch.object(benchmark_cache, "load_settings", return_value=settings), \
-             patch.object(benchmark_cache, "QwenKnowledgeSystem", return_value=knowledge), \
+        with patch.object(bench_cache, "load_settings", return_value=settings), \
+             patch.object(bench_cache, "QwenKnowledgeSystem", return_value=knowledge), \
              patch.object(knowledge, "close", wraps=knowledge.close) as close, \
              redirect_stdout(io.StringIO()) as output:
-            self.assertEqual(benchmark_cache.main(), 0)
+            self.assertEqual(bench_cache.main(), 0)
         self.assertEqual(client.embeddings.create.call_count, 3)
         self.assertIn('"tool_calls": 9', output.getvalue())
         close.assert_called_once()

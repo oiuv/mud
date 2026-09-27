@@ -28,7 +28,7 @@ AI 服务 SHALL 先校验公共消息，再按明确注册的请求类型分发�
 
 ### Requirement: Per-capability deadlines and work capacity
 
-业务 SHALL 能选择适合自己的响应等待期限及有界工作容量，公共入口 MUST 不将全部能力强制放进 NPC 的会话锁与工作容量。公共模型调用的超时 SHALL 与传输等待期限区分；短确认结束的是本次请求，不自动表示后台工作完成。主 Agent SHALL 有独立有界容量，委派 MUST 同时遵守子业务容量及根请求截止期限，不通过嵌套请求重置限制或死锁等待自身。
+业务 SHALL 能选择短响应或显式支持的长任务生命周期及有界工作容量，公共入口 MUST 不将全部能力强制放进 NPC 的会话锁与工作容量。单次模型/工具故障超时、短请求等待、长任务存活检测 SHALL 与任务累计运行时间区分；短确认不自动表示后台工作完成。主 Agent SHALL 有独立有界容量，委派 MUST 遵守子业务容量及根取消状态，不绕过容量或死锁等待自身。通信存活且请求有效的长任务 MUST 不因固定总等待期限终止。
 
 #### Scenario: Chat pool saturated
 
@@ -43,9 +43,35 @@ AI 服务 SHALL 先校验公共消息，再按明确注册的请求类型分发�
 #### Scenario: Main request delegates to a saturated business
 
 - **WHEN** 主 Agent 尚有容量但目标业务已满
-- **THEN** 获得受限忙碌结果并在根期限内处理，不绕过子业务容量或无限等待
+- **THEN** 获得受限忙碌结果并在有效授权及取消契约内处理，不绕过子业务容量或死锁等待
 
 ## ADDED Requirements
+
+### Requirement: Long-running request liveness and cancellation
+
+长任务 SHALL 在现有请求关联与 socket 契约上支持非终态在途状态、调用方存活续约与取消，不引入任务总时长硬上限。长任务模式 SHALL 由双方显式支持，旧短请求及世界受理/查询响应语义 MUST 保持。非终态状态 MUST 不触发终态回调、成功提交或新模型运行；存活探测 SHALL 独立于模型输出速度，同编号同内容的重传 SHALL 继续关联同一运行。
+
+玩家/回调宿主失效、显式取消、服务停止或经存活检测确认通信失联时 SHALL 停止后续操作并拒绝迟到成功提交/投递。存活检测 SHALL 容忍正常的短暂丢包，MUST 不只依赖最后一份取消报文送达。续约 SHALL 验证原调用关联，MUST 不改变权限、会话或复活终态。单次连接及失联检测期限 SHALL 保留故障含义，MUST 不被固定 80/90 秒任务总期限替代。
+
+#### Scenario: Healthy investigation lasts beyond the old timeout
+
+- **WHEN** 调查或 compact 持续超过旧 NPC/客户端总等待时间，双方仍保持存活且请求有效
+- **THEN** 继续同一任务并保留最终回调资格，在途状态不显示为最终答案、不重复收费执行
+
+#### Scenario: Model produces no text while the connection is alive
+
+- **WHEN** 单次模型操作仍在其有效故障超时内，但没有文本输出
+- **THEN** 通信存活仍由独立机制维持，不因没有模型文本误判调用方离线
+
+#### Scenario: Cancellation message is lost
+
+- **WHEN** 调用方离线或取消后停止续约，最后的取消报文未送达
+- **THEN** 服务通过失联检测撤销运行资格，停止新调用，迟到结果不更新成功记录或玩家关系
+
+#### Scenario: Progress packets are duplicated or arrive late
+
+- **WHEN** 重复在途报文、重传或终态后的续约到达
+- **THEN** 不新建任务、不重复投递终态、不复活已结束请求，原授权与请求指纹规则仍生效
 
 ### Requirement: Trusted authority binding at the entry
 

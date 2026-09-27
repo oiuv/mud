@@ -16,9 +16,39 @@ This is a UTF-8 Chinese MUD written primarily in LPC and run by FluffOS. Adminis
 
 ## AI Service
 
-Use AI_CLIENT_D for all game-side AI requests; keep NPC validation and display in AI_NPC_D. Register Python capabilities explicitly in ai/main.py, with separate bounded capacity and deadlines. Model-backed business capabilities use ai/src/runtime/Runner through the shared ai/src/llm.py adapter; retrieval goes through the unified Tool boundary. Maintain professional prompts in ai/skills/, loaded only through the single skill(name, path?) tool, including direct preloads. Keep persistence and durable deduplication in business modules: commit verified candidates through runner.commit() before reporting success. NPC summary, retrieval and dialogue share one request budget and deadline (at most 80 seconds); world jobs retain their independent queue, quotas and one-call-per-attempt limit. Do not import game business modules into the shared runtime or enable source/admin access from request fields. See docs/architecture/ai-service.md and docs/daemons/ai_client_d.md. Automated tests use temporary data and fake models; live API calls are separate and require authorization.
+遵循 KISS：优先保证正常条件下任务正确完成与常见故障恢复，选择性借鉴成熟 Agent，不为假设中的边界场景增加框架、抽象或恢复分支。模型负责判断与生成，程序保管权限、证据关联、用量、取消及提交状态；compact 只要求文本工作摘要，不要求模型用 JSON 复述证据元数据。简化实现不削弱安全和业务完成检查，效果以任务续行与正确结果验收。
+
+Use AI_CLIENT_D for game-side AI requests; keep NPC validation/display in AI_NPC_D. Register capabilities explicitly in ai/main.py with separate capacity and opt-in long request types. Model-backed business capabilities use ai/src/runtime/Runner and ai/src/llm.py; retrieval uses the unified Tool boundary. Maintain business prompts in ai/skills/, loaded through the single skill(name, path?) tool, including preloads. Runtime compact instead uses ai/src/runtime/prompts/compact.md directly, without Tool/Skill permissions; trigger at 80% of the configured model window or earlier for output space. Preserve evidence, authority, complete tool groups and shared accounting; replace history only after validation. Cumulative call counts and elapsed task time do not terminate live long requests. NPC long requests share caller liveness/cancellation across summary, investigation and compact; keep single-I/O timeouts and legacy short deadlines separate. World queue, business quotas and normal single-generation behavior remain. Keep persistence/deduplication in business modules and commit verified candidates through runner.commit() before success. Do not import game business into the runtime or derive source/admin authority from request fields. See docs/architecture/ai-service.md and docs/daemons/ai_client_d.md. Tests use temporary data/fake models; live API tests require authorization.
+
+模型调用按次结算并汇总到父级账本，区分主/子过程、业务/摘要/compact/向量/重排；输入、缓存输入、输出及失败用量缺失必须标为未知，不当作零费用。缓存输入属于总输入子集，本地检索缓存命中不产生新模型调用。费用仅按部署配置 `MODEL_PRICES_PER_MILLION` 估算，不硬编码报价、不据此中断任务；评测保留有限题集和显式真实调用授权，缺少质量验收不报告“每个正确答案”的成本。
+
+提供方实际返回的思考字段与正文分开，按模型协议保留在本 Agent 历史并纳入容量/compact，不进入玩家回复、业务成功历史/缓存或父 Agent 交付。允许通过可信本地配置显式开启受限思考诊断，结合工具轨迹和最终答案分析质量；普通日志不自动输出正文，不转储密钥配置或 SDK 异常原文。诊断目录须受 OS 权限保护、排除源码读取范围和 Git 提交，不能由玩家载荷或 Skill 开启；诊断开关不改变协议保留或触发额外模型调用。思考不是事实证据，质量仍须对照源码与标准答案验收。
+
+源码访问采用单仓库配置：`SOURCE_ENABLED` 默认启用，`SOURCE_ROOT` 默认 `ai/` 的父目录，相对路径以服务目录为准。NPC、已启用的主 Agent 和本机诊断共用仓库及统一敏感排除，允许必要片段外发，不上传整库；不再添加逐目录、逐 Agent/角色的源码权限矩阵。保留只读、仓库边界、知识/会话隔离及工具/取消/证据/提交检查，世界和摘要不获得源码工具；显式关闭后仍可文档问答。固定题与全仓库调查分开记录范围、策略版本及结果。
+
+公共名称字典 `data/e2c_dict.o` 是精确文件例外，复用 `source.search/read` 查询与外发必要片段，不开放其他存档、不执行对象。长行按真实行列截取，证据保留整文件 hash；实际私有路径排除、源码关闭和仓库边界优先，替代仓库不回读本库字典。含字典的效果题集另存版本，不改写原快照或混算旧报告。
+
+源码问答的玩家正文不得泄露内部路径、函数和证据标识；管理员证据视图仅通过 OS 授权的本机诊断入口提供，不接受网络载荷自授管理权限。`ai/scripts/debug_source.py` 默认预览，执行须有范围/外发授权并将报告保存于受保护目录。证据代表源码快照，不证明实服已加载，也不代表答案语义已经人工验收。
+
+源码问答效果题须来自本游戏真实源码，开发者先查明条件、数值及调用依赖，记录可复核依据。虚构武学只能用作自动回归，不要求游戏维护者核对虚构门规，也不能用其通过率替代实际游戏效果。将实际模型回答与源码基准对照后，再核查源码无法证明的实服状态；外发范围和模型调用授权仍独立确认。
+
+专业任务经统一 `agent.list` / `agent.invoke` 绑定既有业务，不通过 socket 自回调或绕过业务提交/容量。首期仅允许单层顺序委派；子任务保留根身份、权限交集、用量和取消，独立管理历史及模型窗口，不自动回传原始工具过程。世界委派仅操作宿主绑定的冻结事实，后台受理不代表正文完成；不要把长委派当作一次 I/O 套用固定 Tool 总超时。
+
+主 Agent 仅经默认关闭的显式 `agent_run` 接入；简单目标直接处理，不强制委派。专业成果提交后才可生成请求内引用，主 Agent 接收必要结论、限制及待办，仍负责整体完成判断。原成果由可信交付层解析，不再生成；核验归属、有效权限、完整性、取消和输出约束。compact 保留这些关联，持久成功缓存保存已解析响应及完整请求/权限指纹，不保存悬空引用，不改旧 NPC 缓存或自动重跑收费任务。
+
+AI 开发遵循简化架构：主 Agent 是 MUD 通用智能体，专业子 Agent 可直达或按需委派；Tool 提供能力、Skill 提供必要指导、Hook 负责观测和必要干预。默认由模型自主规划，仅明确场景规定工作流，不为评测题增加固定规则或强制清单。仅明确要求结构化结果的接口启用 `Agent(json_output=True)`，使用 JSON Object；文本和 compact 不启用 JSON，不增加 Schema 转换或修复模型。JSON 调用不发送 `max_tokens`，更换模型须同步核对环境变量中的上下文窗口与最大输出容量；本地证据、取消、权限和业务提交检查不能省略。
+
+Tool 只维护功能与调用接口，风险操作授权由 Hook 按管理员策略控制；外部工具由管理员配置。调用已授权接口时，不额外干预外部工具自身的缓存维护等内部行为，不把“只读查询”误解为工具内部必须零写入；这不向模型开放任意命令或源码/游戏数据修改能力。
+
+外部 CLI 共用 `exec(program, args)`，不为每个程序或子命令增加模型工具。管理员绑定程序、操作、参数和工作目录，Hook 前后复核；Skill 仅指导用法，不授予权限。CodeGraph 复用源码边界与当前证据读取，各操作调用对应真实命令，旧配置升级不自动扩大操作或工具授权。配置示例只放常用项，高级设置见 `docs/architecture/ai-configuration.md` 和 `ai-cli-tools.md`。
+
+NPC 与主 Agent 的规则答案只生成一份带证据的玩家段落 `parts`；程序原样拼接正文并提取同源结论，不让模型重复撰写 `answer/claims`。证据元数据不展示给玩家，角色表达可以保留；同源或格式合格不证明事实正确，仍按源码与业务标准验收。代码和对应 Skill 的格式说明须同步更新，旧成功缓存不重生成。
+
+真正缺资料时允许明确标注的推测或条件假设，说明依据及未核实部分；复用无证据段落与 `pending`，不增加字段或审稿模型。推断不列入已核实规则，不代替决定性证据或玩家实时状态；无害发散不判失败，但与已知事实矛盾或后文将假设肯定化仍属错误。评测审核完整正文，不只核对带证据段落。
 
 ## Coding Style & Naming Conventions
+
+AI 辅助命令统一放在 `ai/scripts/`，保持单层目录，以 `ops_`（运维）、`debug_`（诊断）、`verify_`（验证）、`bench_`（性能）、`eval_`（效果评测）、`example_`（接入示例）命名；自动测试与夹具仍放 `ai/tests/`。新增或改名时同步 `ai/scripts/README.md`、启动器、导入及文档引用，并明确写数据、连接服务和模型消费行为，不能仅凭名称认定离线或无副作用。
 
 Honor `.editorconfig`: UTF-8, LF endings, four-space indentation, trimmed trailing whitespace, and a final newline. Never use tabs in LPC. Declare variables at the start of a function, before executable statements. Use `snake_case` for all new LPC functions, including sefuns, lfuns, callbacks, and framework hooks; do not encode function origin through casing. Preserve driver-mandated names and documented legacy aliases. Constants use `UPPER_SNAKE_CASE`; descriptive camelCase local variables remain allowed. Do not rename stored fields or protocol keys for style. Follow the surrounding directory’s lowercase LPC filename and object-ID patterns. For mudcore API migration and compatibility, see `mudcore/docs/function-naming.md`.
 

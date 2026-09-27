@@ -19,6 +19,7 @@ from ai.src.settings import load_settings
 from ai.src.world.generator import Generator
 from ai.src.world.protocol import TEXT_FIELDS, content_key, digest, facts_digest
 from ai.src.world.service import WorldService
+from ai.src.usage_report import plain, usage_report
 
 
 def expected_numbers(answer):
@@ -55,7 +56,7 @@ def run_cases(settings):
             "role": "霞门掌管入门事务的长老", "knowledge_threshold": 0}}, ensure_ascii=False), encoding="utf-8")
         settings = replace(settings, data_dir=root / "state", help_dir=root / "help", roles_file=root / "roles.json",
                            world_content_dir=root / "world", world_enabled=True, dashscope_api_key="",
-                           rerank_enabled=False, knowledge_update_enabled=False)
+                           rerank_enabled=False, knowledge_update_enabled=False, source_enabled=False)
         manager = NPCManager(settings=settings, hooks=hooks)
         stack.callback(manager.close)
         service = NPCService(settings, npc_manager=manager)
@@ -67,8 +68,9 @@ def run_cases(settings):
         request = dict(type="chat", request_id="probe-chat", npc_id="probe", player_id="probe-player",
                        player_name="旅人", message="拜入霞门之前至少要有多少门派贡献，成功拜师实际扣除多少？", context="山门")
         started = time.monotonic()
-        response = service.process_request(request, time.monotonic() + 80)
-        replay = service.process_request(request, time.monotonic() + 80)
+        context = manager.create_context("probe-chat", "probe", "probe-player")
+        response = service.process_request(request, None, parent=context)
+        replay = service.process_request(request, None, parent=context)
         summary = service.history.get_summary("probe", "probe-player")
         answer = response.get("response", "")
         npc_passed = (response["type"] == "chat" and expected_numbers(answer)
@@ -76,6 +78,7 @@ def run_cases(settings):
                       and len(events) == 2 and all(e["status"] == "completed" for e in events))
         npc = dict(passed=npc_passed, elapsed_s=round(time.monotonic() - started, 3),
                    answer=answer, summary=summary["content"], replay_unchanged=response == replay)
+        npc_end_count = len(events)
         manifest, payload = world_fixture()
         (root / "world/worlds").mkdir(parents=True)
         (root / "world/worlds/test-agent-probe.json").write_text(json.dumps(manifest), encoding="utf-8")
@@ -98,17 +101,20 @@ def run_cases(settings):
         tokens = sum(e["budget"]["usage"]["total_tokens"] for e in events)
         return dict(passed=npc_passed and world_passed, model=settings.chat_model, synthetic_only=True,
                     npc=npc, world=narration, model_calls=total_calls, total_tokens=tokens,
+                    cost=usage_report([context.budget.snapshot(), *[e["budget"] for e in events[npc_end_count:]]],
+                                      settings.model_prices_per_million, settings.cost_currency,
+                                      successful_tasks=int(npc_passed) + int(world_passed)),
                     runs=[{**{key: e[key] for key in ("agent", "status", "code")},
-                           "budget": {**dict(e["budget"]), "usage": dict(e["budget"]["usage"])}}
+                           "budget": plain(e["budget"])}
                           for e in events])
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--execute", action="store_true", help="允许真实调用；总计最多7次模型调用，不自动重试失败批次")
+    parser.add_argument("--execute", action="store_true", help="允许合成场景真实调用；不自动重跑失败批次")
     options = parser.parse_args(argv)
     if not options.execute:
-        print(json.dumps(dict(mode="dry_run", cases=["npc", "summary", "world"], max_model_calls=7,
+        print(json.dumps(dict(mode="dry_run", cases=["npc", "summary", "world"], execution="goal_driven",
                               synthetic_only=True), ensure_ascii=False))
         return 0
     logging.basicConfig(level=logging.WARNING)

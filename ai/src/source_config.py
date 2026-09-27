@@ -1,65 +1,42 @@
-"""Load explicit deployment read scopes; configuration never grants tool access."""
+"""One deployment-owned repository; private runtime paths are never source."""
 import os
+from glob import escape
 from pathlib import Path
 
-from .runtime.contracts import Contract, RuntimeFault, parse_json
+from .runtime.contracts import RuntimeFault
 from .runtime.filesystem import SafeRoot
 from .tools.source import Scope, Sources
 
 
-RULES = Contract({
-    "type": "object", "required": ["version", "scopes"], "additionalProperties": False,
-    "properties": {
-        "version": {"const": 1, "type": "integer"},
-        "scopes": {"type": "array", "maxItems": 32, "items": {
-            "type": "object", "required": ["name", "root"], "additionalProperties": False,
-            "properties": {
-                "name": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,47}$"},
-                "enabled": {"type": "boolean"},
-                "root": {"type": "string", "minLength": 1, "maxLength": 1024},
-                **{key: {"type": "array", "maxItems": 128, "uniqueItems": True,
-                         "items": {"type": "string", "minLength": 1, "maxLength": 256}}
-                   for key in ("include", "exclude", "extensions", "agents")},
-                "audiences": {"type": "array", "uniqueItems": True, "maxItems": 3,
-                              "items": {"enum": ["player", "admin", "internal"]}},
-                "egress": {"type": "boolean"},
-            },
-        }},
-    },
-})
+def load_sources(settings):
+    """Disabled deployments need no source tree; roots do not depend on cwd.
 
-
-def load_sources(path=None):
-    """Roots resolve relative to the config file, never cwd or a game checkout.
-
-    Disabled entries are validated syntactically but do not touch their roots.
-    Active entries require a safely opened directory at startup. The JSON file
-    itself is trusted OS-protected configuration, not model-readable material.
+    The fixed repository identity is evidence metadata, not a scope selector.
     """
-    if path is None:
+    if not settings.source_enabled:
         return Sources()
-    path = Path(os.path.abspath(path))
+    root = Path(os.path.abspath(settings.source_root))
+    private = [settings.data_dir, settings.world_content_dir]
+    if settings.cli_programs_file is not None:
+        private.append(settings.cli_programs_file)
+    if settings.reasoning_trace_file is not None:
+        private.append(settings.reasoning_trace_file.parent)
+    excluded = []
+    for path in private:
+        # Normalize without following links; SafeRoot checks final objects.
+        path = Path(os.path.abspath(path))
+        if root == path or path in root.parents:
+            raise ValueError("SOURCE_ROOT must not be a private runtime directory")
+        try:
+            relative = path.relative_to(root).as_posix()
+        except ValueError:
+            continue
+        relative = escape(relative)
+        excluded.extend((relative, relative + "/*"))
     try:
-        with path.open("rb") as stream:
-            data = stream.read(65537)
-        config = RULES.validate(parse_json(data.decode("utf-8-sig"), 65536), 65536)
-        scopes, seen = [], set()
-        for entry in config["scopes"]:
-            entry = dict(entry)
-            enabled = entry.pop("enabled", False)
-            if entry["name"] in seen:
-                raise ValueError("Duplicate source scope")
-            seen.add(entry["name"])
-            root = Path(entry["root"])
-            if not root.is_absolute():
-                root = path.parent / root
-            entry["root"] = Path(os.path.abspath(root))  # Normalize .. without following links.
-            scope = Scope(**entry)
-            if enabled:
-                with SafeRoot(scope.root).opened("", directory=True):
-                    pass
-                scopes.append(scope)
-        return Sources(scopes)
-    except (OSError, UnicodeError, RuntimeFault, ValueError, TypeError):
-        # Avoid exposing JSON contents, private paths or filesystem error detail.
-        raise ValueError("Invalid source scope configuration") from None
+        scope = Scope("repository", root, exclude=tuple(excluded))
+        with SafeRoot(root).opened("", directory=True):
+            pass
+        return Sources((scope,))
+    except (OSError, RuntimeFault, ValueError, TypeError):
+        raise ValueError("Invalid SOURCE_ROOT repository configuration") from None

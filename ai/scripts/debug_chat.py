@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""直接诊断问答模型，复用游戏的模型调用；不读取知识库或写入玩家历史。"""
+"""开发诊断：问答模型连通性；不读取知识库或写入玩家历史。"""
 import argparse
+import json
 import logging
 import math
 from pathlib import Path
@@ -12,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.llm import ModelUnavailable, create_chat_client
 from src.diagnostics import diagnose_text
 from src.settings import load_settings
+from src.usage_report import usage_report
 
 
 def positive_timeout(value):
@@ -24,7 +26,7 @@ def positive_timeout(value):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("question", nargs="?", default="请只回答：连接正常。", help="默认发送简短连通性问题")
-    parser.add_argument("--timeout", type=positive_timeout, help="本次问答超时秒数，仍受 REQUEST_TIMEOUT 约束")
+    parser.add_argument("--timeout", type=positive_timeout, help="本次模型 I/O 故障超时秒数（最多 300）")
     parser.add_argument("--config-only", action="store_true", help="只显示脱敏配置，不调用 API")
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
@@ -49,6 +51,9 @@ def main(argv=None):
         client = create_chat_client(settings)
         started = time.monotonic()
         outcome = diagnose_text(settings, client, args.question)
+        print(json.dumps(usage_report(outcome.context.budget.snapshot(), settings.model_prices_per_million,
+                                      settings.cost_currency,
+                                      successful_tasks=int(outcome.result.status == "completed")), ensure_ascii=False))
         if outcome.result.status != "completed":
             raise ModelUnavailable(outcome.result.code)
         print(f"调用成功，耗时 {time.monotonic() - started:.2f} 秒", flush=True)

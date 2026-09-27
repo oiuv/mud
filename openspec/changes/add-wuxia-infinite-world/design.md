@@ -297,7 +297,7 @@ absent → queued → running → ready(unpublished) → ready(published)
 | `ai/src/world/store.py` | 持久任务、预算、正文和原子发布 |
 | `cmds/test/illusion_world.lpc` | 导出固定种子地图与地形/连通测试，不调用模型 |
 | `cmds/adm/illusion.lpc` | 状态、入口/生成控制、世界初始化和受限诊断 |
-| `ai/scripts/world_content.py` | 查询和修复已完成存档；真实模型试运行必须显式 `--live` |
+| `ai/scripts/ops_world_content.py` | 查询和修复已完成存档；真实模型试运行必须显式 `--live` |
 
 地图预览使用同一 LPC 生成结果导出二维字符图/JSON，必要时由离线工具渲染图；不在 Python 重新实现一套地形算法作为假验证。项目测试入口扫描和命令加载需验证 `.lpc` 可发现。
 

@@ -5,6 +5,9 @@ from dataclasses import replace
 from types import SimpleNamespace as NS
 from unittest.mock import Mock
 
+import httpx
+from openai import APIConnectionError, APITimeoutError
+
 from ai.src.llm import ModelUnavailable, complete_chat, complete_model
 from ai.src.settings import Settings
 
@@ -40,11 +43,34 @@ class ModelToolTests(unittest.TestCase):
             complete_chat(self.settings, self.client, [])
         self.assertEqual(error.exception.code, "unexpected_tool_calls")
 
+    def test_explicit_empty_tools_sends_none_for_tool_capable_provider(self):
+        self.response(content="final answer", finish="stop")
+        complete_model(self.settings, self.client, [], tools=[])
+        kwargs = self.client.chat.completions.create.call_args.kwargs
+        self.assertEqual(kwargs["tool_choice"], "none")
+        self.assertNotIn("tools", kwargs)
+        for settings, tools in ((self.settings, None),
+                                (replace(self.settings, chat_supports_tools=False), [])):
+            complete_model(settings, self.client, [], tools=tools)
+            self.assertNotIn("tool_choice", self.client.chat.completions.create.call_args.kwargs)
+
     def test_unsupported_tools_do_not_call_provider(self):
         with self.assertRaises(ModelUnavailable) as error:
             complete_model(replace(self.settings, chat_supports_tools=False), self.client, [], tools=self.tools)
         self.assertEqual(error.exception.code, "unsupported_tools")
         self.client.with_options.assert_not_called()
+
+    def test_only_classified_context_errors_enable_compact_recovery(self):
+        for code, expected in (("context_length_exceeded", "context_window_exceeded"),
+                               ("context_window_exceeded", "context_window_exceeded"),
+                               ("invalid_request", "api_error")):
+            error = RuntimeError("private provider error")
+            error.code, error.status_code = code, 400
+            self.client.chat.completions.create.side_effect = error
+            with self.assertRaises(ModelUnavailable) as caught:
+                complete_model(self.settings, self.client, [], tools=[])
+            self.assertEqual(caught.exception.code, expected)
+            self.assertNotIn("private", str(caught.exception))
 
     def test_invalid_calls_finish_and_truncation(self):
         cases = [([self.call(id="")], "tool_calls", "invalid_tools"),
@@ -54,10 +80,23 @@ class ModelToolTests(unittest.TestCase):
                  ([self.call()], "length", "truncated")]
         for calls, finish, code in cases:
             with self.subTest(code=code):
-                self.response(calls=calls, finish=finish)
-                with self.assertRaises(ModelUnavailable) as error:
-                    complete_model(self.settings, self.client, [], tools=self.tools)
+                self.response(content="private-provider-content", calls=calls, finish=finish)
+                with self.assertLogs("ai.src.llm", level="WARNING") as logs:
+                    with self.assertRaises(ModelUnavailable) as error:
+                        complete_model(self.settings, self.client, [], tools=self.tools)
                 self.assertEqual(error.exception.code, code)
+                self.assertIn("code=" + code, logs.output[0])
+                self.assertNotIn("private-provider-content", logs.output[0])
+
+    def test_connection_and_timeout_are_distinct_safe_recovery_categories(self):
+        request = httpx.Request("POST", "https://example.invalid/completions")
+        for fault, expected in ((APIConnectionError(request=request), "connection_error"),
+                                (APITimeoutError(request=request), "timeout")):
+            self.client.chat.completions.create.side_effect = fault
+            with self.assertRaises(ModelUnavailable) as caught:
+                complete_model(self.settings, self.client, [])
+            self.assertEqual(caught.exception.code, expected)
+            self.assertNotIn("https", str(caught.exception))
 
     def test_late_response_still_reports_usage(self):
         self.response(content="answer", finish="stop")

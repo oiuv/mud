@@ -15,6 +15,7 @@ from types import SimpleNamespace
 
 from ai.src.llm import ModelResponse, ModelUnavailable, complete_chat
 from ai.src.runtime.contracts import RuntimeFault
+from ai.src.capacity import Capacity
 from ai.src.runtime.hooks import Decision, Hook, Hooks
 from ai.src.protocol import RequestError
 from ai.src.settings import Settings, load_settings, SERVICE_DIR
@@ -24,7 +25,7 @@ from ai.src.world.protocol import (TEXT_FIELDS, content_key, digest, facts_diges
                                    manifest_digest, validate_payload, validate_prose)
 from ai.src.world.service import WorldService
 from ai.src.world.store import Store
-from ai.scripts.world_content import backup, restore, main as content_cli
+from ai.scripts.ops_world_content import backup, restore, main as content_cli
 
 
 def sample_manifest():
@@ -91,6 +92,9 @@ class WorldTests(unittest.TestCase):
             validate_payload(bad)
 
     def test_concurrent_dedup_persistence_and_publication(self):
+        # Exercise storage deduplication with enough admission slots; saturated
+        # direct/delegated capacity is covered separately in test_delegation.
+        self.service.capacity = Capacity(8)
         with ThreadPoolExecutor(max_workers=8) as pool:
             replies = list(pool.map(lambda _: self.submit(), range(16)))
         self.assertTrue(all(reply["status"] == "accepted" for reply in replies))
@@ -480,8 +484,8 @@ class WorldTests(unittest.TestCase):
     def test_cli_dry_run_has_no_writes_or_calls(self):
         path = Path(self.temp.name) / "payload.json"
         path.write_text(json.dumps(sample_payload()), encoding="utf-8")
-        with patch("ai.scripts.world_content.load_settings", return_value=self.settings), \
-                patch("ai.scripts.world_content.WorldService") as service, \
+        with patch("ai.scripts.ops_world_content.load_settings", return_value=self.settings), \
+                patch("ai.scripts.ops_world_content.WorldService") as service, \
                 patch("builtins.print"):
             self.assertEqual(content_cli(["describe", str(path)]), 0)
             service.assert_not_called()

@@ -1,0 +1,13 @@
+{
+    "git_info": {
+        "command": "git",
+        "cwd": "..",
+        "description": "查看本机 Git 版本。",
+        "operations": {
+            "version": {
+                "description": "返回版本，不接受其他参数。",
+                "arguments": {"type": "array", "maxItems": 0}
+            }
+        }
+    }
+}

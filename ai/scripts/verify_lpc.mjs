@@ -1,4 +1,4 @@
-// Isolated real FluffOS + Python UDP regression. No production service or model calls.
+// 隔离验证：真实 FluffOS + Python UDP 回归，不连接正式服务或模型。
 import { mkdtempSync, mkdirSync, cpSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';

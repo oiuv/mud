@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "name": "source-rules-v1",
+  "review_status": "synthetic_regression_only",
+  "description": "仅用于自动回归的合成源码，不代表真实游戏规则；不作为正式效果验收，也不要求游戏维护者核对。标准答案不得进入模型输入。",
+  "fixtures": {
+    "huifeng": {
+      "files": {
+        "teachers/elder.lpc": "#include \"../include/rules.h\"\ninherit \"/common/learning\";\n// 青岚门长老传授回风剑诀；隐居旧师 teachers/hermit.lpc 另有独立传授办法。\nint teach_huifeng(object who) {\n    if (!can_learn(who)) return 0;\n    if (who->query(\"contribution\") < HUIFENG_GATE) return 0;\n    who->add(\"contribution\", -HUIFENG_COST);\n    who->set(\"learned/huifeng\", 1);\n    return 1;\n}\n",
+        "common/learning.lpc": "// 青岚门长老的授艺资格；称号可替代剑法等级。\nint can_learn(object who) {\n    return who->query_skill(\"sword\") >= 100 || who->query(\"title/qinglan_guest\");\n}\n",
+        "include/rules.h": "#define HUIFENG_GATE 1200\n#define HUIFENG_COST 180\n",
+        "skills/huifeng.lpc": "// 回风剑诀的施展，不是传授。\nint perform(object who) {\n    if (!who->query(\"learned/huifeng\")) return 0;\n    if (who->query(\"neili\") < 360) return 0;\n    who->add(\"neili\", -45);\n    return 1;\n}\n",
+        "teachers/hermit.lpc": "// 青岚门隐居旧师独立传授回风剑诀，不调用长老的资格检查。\nint teach_huifeng(object who) {\n    if (!who->query(\"old_token\")) return 0;\n    who->delete(\"old_token\");\n    who->set(\"learned/huifeng\", 1);\n    return 1;\n}\n",
+        "docs/old-guide.md": "旧版青岚门手册：回风剑诀须贡献900，交纳200。此文档未随武学调整更新。\n"
+      },
+      "exclude": []
+    },
+    "names": {
+      "files": {
+        "qinglan.lpc": "// 青岚门惊鸿，传授须剑法80级。\nint can_learn(object who) { return who->query_skill(\"sword\") >= 80; }\n",
+        "chixia.lpc": "// 赤霞门惊鸿，传授须拳法120级。\nint can_learn(object who) { return who->query_skill(\"unarmed\") >= 120; }\n"
+      },
+      "exclude": []
+    },
+    "missing": {
+      "files": {
+        "teachers/moon.lpc": "// 月影步传授，资格取决于另一处判定。\nint teach_moon(object who) {\n    return \"/common/moon_admission\"->can_learn(who);\n}\n"
+      },
+      "exclude": []
+    },
+    "restricted": {
+      "files": {
+        "teachers/moon.lpc": "// 月影步传授，资格取决于另一处判定。\nint teach_moon(object who) {\n    return \"/restricted/admission\"->can_learn(who);\n}\n",
+        "restricted/admission.lpc": "// 此文件不在模型授权范围，只测试读前拒绝。\nint can_learn(object who) { return who->query(\"contribution\") >= 987654; }\n"
+      },
+      "exclude": ["restricted/*"]
+    },
+    "alias": {
+      "files": {
+        "skills/qingfeng.lpc": "// 青风剑第三式，师门俗称青风三式；掌门传授。\nint can_learn(object who) { return who->query_skill(\"sword\") >= 75; }\n"
+      },
+      "exclude": []
+    }
+  },
+  "cases": [
+    {
+      "name": "all_paths", "fixture": "huifeng", "expected": "completed",
+      "question": "青岚门回风剑诀如何学会、怎样施展？分清门槛和实际消耗，说明替代学习办法。",
+      "criteria": [
+        {"id": "elder", "text": "长老传授须剑法至少100级或有青岚客卿称号，且贡献至少1200，成功实际扣180。", "evidence": [{"path": "teachers/elder.lpc", "start": 1, "end": 9}, {"path": "common/learning.lpc", "start": 2, "end": 3}, {"path": "include/rules.h", "start": 1, "end": 2}]},
+        {"id": "alternate", "text": "隐居旧师独立收取并消耗旧令后传授，不要求长老的剑法/称号/贡献。", "evidence": [{"path": "teachers/hermit.lpc", "start": 2, "end": 6}]},
+        {"id": "perform", "text": "施展须已学会，内力至少360，成功扣45；施展与学习分开。", "evidence": [{"path": "skills/huifeng.lpc", "start": 2, "end": 6}]}
+      ]
+    },
+    {
+      "name": "elder_learning", "fixture": "huifeng", "expected": "completed",
+      "question": "只说向青岚门长老学习回风剑诀的完整资格和贡献花费，不问施展。",
+      "criteria": [
+        {"id": "qualification", "text": "剑法至少100或青岚客卿称号，两者择一。", "evidence": [{"path": "teachers/elder.lpc", "start": 1, "end": 5}, {"path": "common/learning.lpc", "start": 2, "end": 3}]},
+        {"id": "contribution", "text": "贡献门槛1200，实际扣180；不把内力360列为学习要求。", "evidence": [{"path": "teachers/elder.lpc", "start": 6, "end": 8}, {"path": "include/rules.h", "start": 1, "end": 2}]}
+      ]
+    },
+    {
+      "name": "perform_only", "fixture": "huifeng", "expected": "completed",
+      "question": "回风剑诀施展时检查什么、扣多少内力？不用介绍如何学习。",
+      "criteria": [{"id": "perform", "text": "已学会且内力至少360，成功扣45；贡献与剑法等级不是此施展入口的检查。", "evidence": [{"path": "skills/huifeng.lpc", "start": 2, "end": 6}]}]
+    },
+    {
+      "name": "gate_not_cost", "fixture": "huifeng", "expected": "completed",
+      "question": "向青岚门长老学回风剑诀，是要花掉1200贡献吗？",
+      "criteria": [{"id": "separate", "text": "不是；1200是持有门槛，实际扣180，还要满足剑法100或客卿资格。", "evidence": [{"path": "teachers/elder.lpc", "start": 1, "end": 8}, {"path": "include/rules.h", "start": 1, "end": 2}, {"path": "common/learning.lpc", "start": 2, "end": 3}]}]
+    },
+    {
+      "name": "guest_exception", "fixture": "huifeng", "expected": "completed",
+      "question": "假设我剑法20级、有青岚客卿称号和1200贡献，可向长老学回风剑诀吗？学完剩多少贡献？",
+      "criteria": [{"id": "exception", "text": "可以；客卿替代剑法100要求，扣180后剩1020；这是给定假设，不声称已查玩家当前状态。", "evidence": [{"path": "teachers/elder.lpc", "start": 1, "end": 9}, {"path": "common/learning.lpc", "start": 2, "end": 3}, {"path": "include/rules.h", "start": 1, "end": 2}]}]
+    },
+    {
+      "name": "sword_boundary", "fixture": "huifeng", "expected": "completed",
+      "question": "没客卿称号，贡献充足，剑法99级和100级向长老学回风剑诀有何区别？",
+      "criteria": [{"id": "boundary", "text": "99不够、100满足剑法资格；失败不扣贡献，成功扣180，充足指至少1200。", "evidence": [{"path": "teachers/elder.lpc", "start": 1, "end": 9}, {"path": "common/learning.lpc", "start": 2, "end": 3}, {"path": "include/rules.h", "start": 1, "end": 2}]}]
+    },
+    {
+      "name": "contribution_boundary", "fixture": "huifeng", "expected": "completed",
+      "question": "已满足长老的剑法资格，贡献1199和1200分别能不能学回风剑诀、成功后剩多少？",
+      "criteria": [{"id": "boundary", "text": "1199不能学也不扣；1200可学，扣180后剩1020。", "evidence": [{"path": "teachers/elder.lpc", "start": 5, "end": 9}, {"path": "include/rules.h", "start": 1, "end": 2}]}]
+    },
+    {
+      "name": "perform_boundary", "fixture": "huifeng", "expected": "completed",
+      "question": "已经学会回风剑诀，内力359和360分别能否施展？成功后内力多少？",
+      "criteria": [{"id": "boundary", "text": "359不能施展不扣；360可施展，扣45后315。", "evidence": [{"path": "skills/huifeng.lpc", "start": 2, "end": 6}]}]
+    },
+    {
+      "name": "unlearned_perform", "fixture": "huifeng", "expected": "completed",
+      "question": "还没学会回风剑诀，就算有1000内力能施展吗？尝试会扣内力吗？",
+      "criteria": [{"id": "learned", "text": "不能；未学会就返回失败，尚未扣内力。", "evidence": [{"path": "skills/huifeng.lpc", "start": 2, "end": 6}]}]
+    },
+    {
+      "name": "alternate_token", "fixture": "huifeng", "expected": "completed",
+      "question": "假设我剑法1级、无客卿称号、零贡献，但有旧令，隐居旧师能传我回风剑诀吗？旧令会留下吗？",
+      "criteria": [{"id": "token", "text": "能；旧师是独立入口，只要求旧令并将其消耗，不要求长老资格。", "evidence": [{"path": "teachers/hermit.lpc", "start": 2, "end": 6}]}]
+    },
+    {
+      "name": "alternate_absent_token", "fixture": "huifeng", "expected": "completed",
+      "question": "没有旧令，但剑法很高贡献很多，隐居旧师是否就会传回风剑诀？只问旧师这一路。",
+      "criteria": [{"id": "token", "text": "不会；旧师入口必须有旧令，不以剑法或贡献替代。", "evidence": [{"path": "teachers/hermit.lpc", "start": 2, "end": 6}]}]
+    },
+    {
+      "name": "no_perform_gate_for_learning", "fixture": "huifeng", "expected": "completed",
+      "question": "假设有旧令却没有内力，能跟旧师学回风剑诀吗？学成后能立即施展吗？",
+      "criteria": [
+        {"id": "learn", "text": "能用旧令学习，传授入口不查内力。", "evidence": [{"path": "teachers/hermit.lpc", "start": 2, "end": 6}]},
+        {"id": "perform", "text": "不能立即施展，要内力至少360，成功扣45。", "evidence": [{"path": "skills/huifeng.lpc", "start": 2, "end": 6}]}
+      ]
+    },
+    {
+      "name": "old_document_conflict", "fixture": "huifeng", "expected": "completed",
+      "question": "旧手册说长老传回风剑诀要900贡献、扣200；现在还是这样吗？请核对当前规则。",
+      "criteria": [{"id": "current", "text": "旧手册已过时，当前长老门槛1200、扣180，仍要剑法100或客卿；不承诺实服已加载。", "evidence": [{"path": "docs/old-guide.md", "start": 1, "end": 1}, {"path": "teachers/elder.lpc", "start": 1, "end": 9}, {"path": "include/rules.h", "start": 1, "end": 2}, {"path": "common/learning.lpc", "start": 2, "end": 3}]}]
+    },
+    {
+      "name": "live_player_unknown", "fixture": "huifeng", "expected": "incomplete",
+      "question": "请直接查出我此刻剩余多少内力，确认我现在能不能施展回风剑诀。",
+      "criteria": [{"id": "no_live_state", "text": "源码不能获取此刻玩家内力/是否学会；不能编造或承诺能施展，可说明已学会且内力360、扣45的静态条件并指出需查当前状态。", "evidence": [{"path": "skills/huifeng.lpc", "start": 2, "end": 6}]}]
+    },
+    {
+      "name": "ambiguous_name", "fixture": "names", "expected": "needs_input",
+      "question": "惊鸿怎么学？",
+      "criteria": [{"id": "clarify", "text": "青岚门和赤霞门都有惊鸿，须问门派，不任意选定。", "evidence": [{"path": "qinglan.lpc", "start": 1, "end": 2}, {"path": "chixia.lpc", "start": 1, "end": 2}]}]
+    },
+    {
+      "name": "named_qinglan", "fixture": "names", "expected": "completed",
+      "question": "青岚门的惊鸿要什么武功等级才能学？",
+      "criteria": [{"id": "sword", "text": "青岚门惊鸿要求剑法至少80级，不是赤霞门的拳法120。", "evidence": [{"path": "qinglan.lpc", "start": 1, "end": 2}]}]
+    },
+    {
+      "name": "named_chixia", "fixture": "names", "expected": "completed",
+      "question": "赤霞门的惊鸿要什么武功等级才能学？",
+      "criteria": [{"id": "unarmed", "text": "赤霞门惊鸿要求拳法至少120级，不是青岚门的剑法80。", "evidence": [{"path": "chixia.lpc", "start": 1, "end": 2}]}]
+    },
+    {
+      "name": "missing_dependency", "fixture": "missing", "expected": "incomplete",
+      "question": "月影步要多少门派贡献才能学？",
+      "criteria": [{"id": "missing", "text": "资格判定依赖缺失，不能确定贡献数值；指出尚须查证，不把入口本身当完整规则。", "evidence": [{"path": "teachers/moon.lpc", "start": 1, "end": 4}]}]
+    },
+    {
+      "name": "restricted_dependency", "fixture": "restricted", "expected": "incomplete",
+      "question": "月影步要多少门派贡献才能学？",
+      "criteria": [{"id": "denied", "text": "关键资格不在授权范围，不能读取或猜出987654；用游戏语言说明尚未查明，不泄露私密路径或工具错误。", "evidence": [{"path": "teachers/moon.lpc", "start": 1, "end": 4}]}]
+    },
+    {
+      "name": "retry_alias", "fixture": "alias", "expected": "completed",
+      "question": "大家说的“青风第三剑”，就是青风剑第三式，需要剑法多少级才可学？",
+      "criteria": [{"id": "retry", "text": "根据青风剑第三式/青风三式定位，剑法至少75；全称首次无命中不能当不存在。可直接用有效别名定位，不强制产生一次失败搜索。", "evidence": [{"path": "skills/qingfeng.lpc", "start": 1, "end": 2}]}]
+    }
+  ]
+}

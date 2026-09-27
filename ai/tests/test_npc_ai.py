@@ -36,7 +36,7 @@ class Fixture(unittest.TestCase):
         self.roles = self.root / "roles.json"
         self.roles.write_text(json.dumps({"npc": {"name": "侠客", "memory_capacity": 10}}), encoding="utf-8")
         self.settings = Settings(data_dir=self.root / "data", help_dir=self.help,
-                                 roles_file=self.roles, embedding_dimensions=4)
+                                 roles_file=self.roles, embedding_dimensions=4, source_root=self.root)
 
     def corpus(self):
         (self.help / "wudang").write_text("武当派拜师须先找到张三丰。学习太极剑法。", encoding="utf-8")
@@ -314,8 +314,8 @@ class ChatTests(Fixture):
         client.with_options.return_value = client
         client.chat.completions.create.side_effect = [SimpleNamespace(choices=[SimpleNamespace(
             finish_reason="stop", message=SimpleNamespace(content=text))]) for text in (
-                json.dumps(dict(status="completed", kind="conversation", answer="侠客说：少侠有礼。",
-                                claims=[], pending=[]), ensure_ascii=False), "玩家向侠客问好。")]
+                json.dumps(dict(status="completed", kind="conversation", parts=[{"text": "侠客说：少侠有礼。"}],
+                                pending=[]), ensure_ascii=False), "玩家向侠客问好。")]
         knowledge = Mock()
         knowledge.hybrid_search.return_value = []
         manager = NPCManager(settings=self.settings, client=client, knowledge=knowledge)
@@ -326,7 +326,9 @@ class ChatTests(Fixture):
         for call in calls:
             self.assertEqual(call.kwargs["model"], "qwen3.8-flash")
             self.assertEqual(call.kwargs["extra_body"], {"enable_thinking": False})
-        self.assertEqual(calls[0].kwargs["max_tokens"], 2048)
+        self.assertEqual(calls[0].kwargs["response_format"], {"type": "json_object"})
+        self.assertNotIn("max_tokens", calls[0].kwargs)
+        self.assertNotIn("response_format", calls[1].kwargs)
         self.assertEqual(calls[1].kwargs["max_tokens"], 1200)
 
     def test_summary_keeps_current_question_and_original_input(self):

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""交互查看知识库召回；默认复用游戏混合检索，--bm25 完全离线。"""
+"""开发诊断：交互查看知识召回；默认混合检索，--bm25 完全离线。"""
 import argparse
 import json
 import logging
@@ -14,6 +14,7 @@ from src.knowledge_qwen import QwenKnowledgeSystem
 from src.settings import load_settings
 from src.diagnostics import RetrievalDiagnostic
 from src.runtime.contracts import RuntimeFault
+from src.usage_report import usage_report
 
 
 PREVIEW_CHARS = 600
@@ -94,6 +95,8 @@ def search_and_display(query, diagnostic, settings, args, threshold):
     if value["degraded"]:
         print("检索降级：" + ", ".join(value["degraded"]))
     print(f"本次外部请求：{context.budget.snapshot()['external_calls']}")
+    print(json.dumps(usage_report(context.budget.snapshot(), settings.model_prices_per_million,
+                                 settings.cost_currency), ensure_ascii=False))
 
 
 def report_error(error):
@@ -122,7 +125,7 @@ def main(argv=None):
         basic = BasicKnowledgeSystem(settings=settings)
         stats = basic.get_stats()
         if not stats["total_documents"]:
-            raise DiagnosticInputError("知识库为空，请运行 scripts/update_knowledge.py 或检查 HELP_DIR")
+            raise DiagnosticInputError("知识库为空，请运行 scripts/ops_update_knowledge.py 或检查 HELP_DIR")
         print("模式：" + ("本地 BM25（离线）" if args.bm25 else "混合检索（BM25 + 向量，按配置重排）"))
         print(f"知识库：{stats['source_files']} 个文件，{stats['total_documents']} 个文档块")
         print(f"NPC：{args.npc or '未指定'}；向量阈值：{threshold:g}")
@@ -136,7 +139,7 @@ def main(argv=None):
             if not settings.dashscope_api_key:
                 print("提示：未配置 DASHSCOPE_API_KEY，将使用本地召回。")
             elif not knowledge.get_stats()["indexed_vectors"]:
-                print("提示：当前模型没有文档向量，将使用 BM25 召回；可先运行 scripts/update_knowledge.py。")
+                print("提示：当前模型没有文档向量，将使用 BM25 召回；可先运行 scripts/ops_update_knowledge.py。")
         print("分数不可跨类型比较；有重排分数时按重排排序，否则混合模式按 RRF 排序。")
         diagnostic = RetrievalDiagnostic(basic if args.bm25 else knowledge,
                                          mode="bm25" if args.bm25 else "hybrid")

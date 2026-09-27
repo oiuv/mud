@@ -30,7 +30,7 @@ class ScriptedModel:
         self.inputs = []
 
     def __call__(self, messages, **kwargs):
-        self.inputs.append(json.loads(json_text(messages)))
+        self.inputs.append(json.loads(json_text(messages, None)))
         response = next(self.responses)
         return response(messages, **kwargs) if callable(response) else response
 
@@ -65,7 +65,7 @@ class RuntimeTests(RuntimeFixture):
             return {"evidence": [{"id": "rule-1", "condition": "contribution >= 200"}]}
         model = ScriptedModel(tool_call(), ModelResponse("unverified"),
                               tool_call("two", arguments='{"q":"teacher"}'), ModelResponse("requires 200"))
-        agent = self.agent(verify=lambda result, state: () if "rule-1" in state.evidence else ("missing_rule",))
+        agent = self.agent(verify=lambda result, ctx: () if "rule-1" in ctx.state.evidence else ("missing_rule",))
         root = self.context()
         runner = Runner(model, [agent], self.tools(lookup))
         outcome = runner.run("answer", {"goal": "learning condition"}, root)
@@ -74,6 +74,18 @@ class RuntimeTests(RuntimeFixture):
         self.assertEqual(root.budget.counts["tool_calls"], 2)
         self.assertIn("missing_rule", model.inputs[2][-1]["content"])
         self.assertIn("rule-1", outcome.context.state.evidence)
+
+    def test_invalid_parameters_return_authorized_input_definition_not_argument_values(self):
+        handler = Mock()
+        tools = self.tools(handler)
+        reply = tools.execute("lookup", {"wrong": "private-value"}, self.context(), "bad")
+        self.assertEqual(reply["error"], "contract_violation")
+        self.assertEqual(reply["parameters"], QUERY.schema)
+        self.assertNotIn("private-value", str(reply))
+        handler.assert_not_called()
+        denied = tools.execute("lookup", {"wrong": "private-value"},
+                               self.context(policy=Policy(agents={"answer"})), "denied")
+        self.assertNotIn("parameters", denied)
 
     def test_invalid_tool_parameters_are_feedback_not_execution(self):
         handler = Mock(return_value={"ok": True})
@@ -128,12 +140,82 @@ class RuntimeTests(RuntimeFixture):
             "answer", {"goal": "x"}, self.context())
         self.assertEqual(outcome.result.status, "incomplete")
 
-    def test_loop_stops_at_root_budget(self):
+    def test_loop_completes_beyond_legacy_root_budget(self):
         root = self.context(limits=Limits(model_calls=2))
-        outcome = Runner(ScriptedModel(tool_call(), tool_call("two"), ModelResponse("must not happen")),
+        outcome = Runner(ScriptedModel(tool_call(), tool_call("two"), ModelResponse("verified")),
                          [self.agent()], self.tools()).run("answer", {"goal": "x"}, root)
-        self.assertEqual(outcome.result.code, "budget_exhausted")
+        self.assertEqual(outcome.result.status, "completed")
+        self.assertEqual(root.budget.counts["model_calls"], 3)
+
+    def test_remaining_budget_uses_all_ancestors_without_reserving(self):
+        root = Budget(Limits(model_calls=5, external_calls=2, tool_calls=9))
+        parent = Budget(Limits(model_calls=4, tool_calls=3), root)
+        child = Budget(Limits(model_calls=10, tool_calls=8), parent)
+        child.reserve(time.monotonic() + 10, model_calls=2, external_calls=1, tool_calls=1)
+        before = root.snapshot()
+        remaining = child.remaining()
+        self.assertEqual(remaining["model_calls"], 2)
+        self.assertEqual(remaining["external_calls"], 1)
+        self.assertEqual(remaining["tool_calls"], 2)
+        remaining["model_calls"] = 999
+        self.assertEqual(child.remaining()["model_calls"], 2)
+        self.assertEqual(root.snapshot(), before)
+
+    def test_loop_has_no_budget_notice_and_preserves_evidence_gate(self):
+        model = ScriptedModel(tool_call(), ModelResponse("unsupported"), ModelResponse("verified"))
+        root = self.context(limits=Limits(model_calls=2))
+        agent = self.agent(verify=lambda result, ctx: () if result.value == "verified" else ("missing_rule",))
+        outcome = Runner(model, [agent], self.tools()).run("answer", {"goal": "x"}, root)
+        self.assertEqual(outcome.result.status, "completed")
+        self.assertIn("missing_rule", model.inputs[2][-1]["content"])
+        for messages in model.inputs:
+            self.assertEqual(sum("运行预算提示" in (m.get("content") or "") for m in messages), 0)
+        self.assertEqual(root.budget.counts["model_calls"], 3)
+
+    def test_external_and_local_calls_are_observed_without_budget_notices(self):
+        for external in (True, False):
+            model = ScriptedModel(ModelResponse("done"))
+            model.external = external
+            root = self.context(limits=Limits(model_calls=3, external_calls=1))
+            outcome = Runner(model, [self.agent()]).run("answer", {"goal": "x"}, root)
+            self.assertEqual(outcome.result.status, "completed")
+            self.assertEqual(model.inputs[0], [{"role": "user", "content": "x"}])
+            self.assertEqual(root.budget.counts["external_calls"], int(external))
+
+    def test_single_mode_gets_no_budget_prompt(self):
+        model = ScriptedModel(ModelResponse("done"))
+        Runner(model, [self.agent(mode="single")]).run("answer", {"goal": "x"}, self.context())
+        self.assertEqual(model.inputs[0], [{"role": "user", "content": "x"}])
+
+    def test_legacy_last_turn_keeps_tools_and_still_verifies_commit(self):
+        definitions = []
+        def answer(messages, **kwargs):
+            definitions.append(kwargs["tools"])
+            return ModelResponse("verified")
+        tools = self.tools()
+        def verify(result, ctx):
+            # Trusted verifier still goes through Tool/Hook and shared counters.
+            import uuid
+            self.assertTrue(tools.execute("lookup", {"q": "verify"}, ctx, uuid.uuid4().hex)["ok"])
+            return ()
+        root = self.context(limits=Limits(model_calls=1))
+        model = ScriptedModel(answer)
+        runner = Runner(model, [self.agent(verify=verify, requires_commit=True)], tools)
+        outcome = runner.run("answer", {"goal": "x"}, root)
+        self.assertEqual(definitions, [tools.definitions(outcome.context)])
+        self.assertEqual(runner.commit(outcome, lambda value: value), "verified")
+        self.assertEqual(root.budget.counts["model_calls"], 1)
+        self.assertEqual(root.budget.counts["tool_calls"], 2)
+
+    def test_legacy_last_turn_can_continue_investigating(self):
+        handler = Mock(return_value={"found": True})
+        root = self.context(limits=Limits(model_calls=1))
+        outcome = Runner(ScriptedModel(tool_call(), ModelResponse("verified")), [self.agent()], self.tools(handler)).run(
+            "answer", {"goal": "x"}, root)
+        self.assertEqual(outcome.result.status, "completed")
         self.assertEqual(root.budget.counts["model_calls"], 2)
+        self.assertEqual(root.budget.counts["tool_calls"], 1)
+        handler.assert_called_once()
 
     def test_child_limits_and_authority_cannot_reset_parent(self):
         root = self.context(limits=Limits(external_calls=2), policy=Policy(
@@ -144,14 +226,13 @@ class RuntimeTests(RuntimeFixture):
         self.assertNotIn("write", child.policy.tools)
         parent.budget.reserve(parent.deadline, external_calls=1)
         child.budget.reserve(child.deadline, external_calls=1)
-        with self.assertRaises(RuntimeFault):
-            child.budget.reserve(child.deadline, external_calls=1)
-        self.assertEqual(root.budget.counts["external_calls"], 2)
+        child.budget.reserve(child.deadline, external_calls=1)
+        self.assertEqual(root.budget.counts["external_calls"], 3)
         self.assertEqual(root.budget.counts["delegations"], 1)
         with self.assertRaises(RuntimeFault):
             child.enter("answer", root.policy, Limits(), delegated=True)
 
-    def test_concurrent_reservations_cannot_overspend(self):
+    def test_concurrent_usage_does_not_lose_counts_or_stop_at_old_cap(self):
         root = self.context(limits=Limits(external_calls=5))
         def reserve(index):
             try:
@@ -160,8 +241,8 @@ class RuntimeTests(RuntimeFixture):
             except RuntimeFault:
                 return False
         with ThreadPoolExecutor(max_workers=8) as pool:
-            self.assertEqual(sum(pool.map(reserve, range(30))), 5)
-        self.assertEqual(root.budget.counts["external_calls"], 5)
+            self.assertEqual(sum(pool.map(reserve, range(30))), 30)
+        self.assertEqual(root.budget.counts["external_calls"], 30)
 
     def test_late_cancelled_results_cannot_commit(self):
         root = self.context()
@@ -181,7 +262,7 @@ class RuntimeTests(RuntimeFixture):
         root = self.context(deadline=time.monotonic() - 1)
         runner = Runner(ScriptedModel(), [self.agent()])
         self.assertEqual(runner.run("answer", {"goal": "x"}, root).result.code, "deadline")
-        agent = self.agent(limits=Limits(context_bytes=30))
+        agent = self.agent(limits=Limits(input_bytes=30))
         outcome = Runner(ScriptedModel(), [agent]).run("answer", {"goal": "x" * 200}, self.context())
         self.assertEqual(outcome.result.code, "size_limit")
 

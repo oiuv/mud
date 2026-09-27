@@ -29,7 +29,7 @@ class SourceTests(unittest.TestCase):
         self.outside = self.root / "outside"
         self.outside.mkdir()
         (self.outside / "hidden.lpc").write_text("PRIVATE-OUTSIDE", encoding="utf-8")
-        self.scope = Scope("rules", self.authorized, agents={"npc"}, audiences={"player", "admin"}, egress=True)
+        self.scope = Scope("rules", self.authorized)
         self.sources = Sources([self.scope])
         self.tools = Tools(build_tools({"sources": self.sources}))
         self.context = RunContext("source-test", "player", "player", "npc:player", Policy(
@@ -37,7 +37,7 @@ class SourceTests(unittest.TestCase):
             time.monotonic() + 30, agent_id="npc")
 
     def read(self, path="skill.lpc", **extra):
-        return self.tools.execute("source.read", {"scope": "rules", "path": path, **extra},
+        return self.tools.execute("source.read", {"path": path, **extra},
                                   self.context, "read-" + str(len(self.context.state.calls)))
 
     def test_read_line_snapshot_and_changed_file(self):
@@ -52,20 +52,20 @@ class SourceTests(unittest.TestCase):
         self.source.write_text("updated", encoding="utf-8")
         self.assertEqual(self.read(expected_hash=evidence["hash"])["error"], "source_changed")
 
-    def test_default_deny_and_egress_separate_from_local_access(self):
+    def test_disabled_repository_and_runtime_authority_remain_enforced(self):
         sources = Sources()
         with self.assertRaises(RuntimeFault):
-            sources.read(self.context, {"scope": "rules", "path": "skill.lpc"})
-        local = Sources([replace(self.scope, egress=False)])
-        tools = Tools(build_tools({"sources": local}))
-        args = {"scope": "rules", "path": "skill.lpc"}
-        self.assertEqual(tools.execute("source.read", args, self.context, "egress")["error"], "egress_denied")
-        context = replace(self.context, external_model=False)
+            sources.read(self.context, {"path": "skill.lpc"})
+        tools = self.tools
+        args = {"path": "skill.lpc"}
+        denied = replace(self.context, policy=replace(self.context.policy, egress_scopes=set()))
+        self.assertEqual(tools.execute("source.read", args, denied, "egress")["error"], "egress_denied")
+        context = replace(denied, external_model=False)
         self.assertTrue(tools.execute("source.read", args, context, "local")["ok"])
-        for context in (replace(self.context, agent_id="other"), replace(self.context, audience="internal"),
-                        replace(self.context, policy=replace(self.context.policy, scopes=set()))):
-            with self.assertRaises(RuntimeFault):
-                self.sources.authorize(context, args)
+        for context in (replace(self.context, agent_id="other"), replace(self.context, audience="internal")):
+            self.assertEqual(self.sources.authorize(context, args), self.scope)
+        with self.assertRaises(RuntimeFault):
+            self.sources.authorize(replace(self.context, policy=replace(self.context.policy, scopes=set())), args)
 
     def test_paths_are_rejected_before_filesystem(self):
         for path in ("../outside/hidden.lpc", "/etc/passwd", "C:/secret.lpc", "\\\\server\\share\\x",
@@ -84,7 +84,7 @@ class SourceTests(unittest.TestCase):
         scope = replace(self.scope, exclude=("excluded*",), include=("*.lpc",))
         (self.authorized / "excluded.lpc").write_text("PRIVATE-NEEDLE", encoding="utf-8")
         tools = Tools(build_tools({"sources": Sources([scope])}))
-        reply = tools.execute("source.search", {"scope": "rules", "query": "PRIVATE-NEEDLE"}, self.context, "search")
+        reply = tools.execute("source.search", {"query": "PRIVATE-NEEDLE"}, self.context, "search")
         self.assertTrue(reply["ok"], reply)
         self.assertEqual(reply["value"]["evidence"], [])
         self.assertFalse(reply["value"]["truncated"])
@@ -93,7 +93,7 @@ class SourceTests(unittest.TestCase):
 
     def test_literal_search_limits_and_oversized_or_binary_files(self):
         self.source.write_text("x.*y\n" * 12, encoding="utf-8")
-        reply = self.tools.execute("source.search", {"scope": "rules", "query": ".*", "limit": 2}, self.context, "search")
+        reply = self.tools.execute("source.search", {"query": ".*", "limit": 2}, self.context, "search")
         self.assertEqual(len(reply["value"]["evidence"]), 2)
         self.assertTrue(reply["value"]["truncated"])
         self.source.write_bytes(b"x" * 262145)
@@ -103,10 +103,59 @@ class SourceTests(unittest.TestCase):
         self.source.write_text("x\n" * 400, encoding="utf-8")
         self.assertEqual(self.read(start=1, end=300)["error"], "line_range_unavailable")
 
+    def test_path_search_reports_distinct_files_instead_of_filling_with_one_file(self):
+        for name in ("first_target.lpc", "second_target.lpc"):
+            (self.authorized / name).write_text("// public source\n" * 20, encoding="utf-8")
+        reply = self.tools.execute("source.search", {"query": "target"},
+                                   self.context, "path-search")
+        self.assertTrue(reply["ok"], reply)
+        records = reply["value"]["evidence"]
+        self.assertEqual({item["path"] for item in records}, {"first_target.lpc", "second_target.lpc"})
+        self.assertEqual(len(records), 2)
+        self.assertFalse(reply["value"]["truncated"])
+        self.assertTrue(all(item["origin"] == "source.search" for item in records))
+
+    def test_content_hits_take_precedence_over_path_only_clue(self):
+        self.source.write_text("// header\nskill = 1;\n// separator\nskill = 2;\n", encoding="utf-8")
+        reply = self.tools.execute("source.search", {"query": "skill"},
+                                   self.context, "content-search")
+        self.assertEqual([item["start"] for item in reply["value"]["evidence"]], [2, 4])
+        self.assertFalse(reply["value"]["truncated"])
+
+    def test_path_filter_narrows_before_reading_without_changing_literal_query(self):
+        helpers = self.authorized / "helpers"
+        helpers.mkdir()
+        (helpers / "shared.lpc").write_text("// x.*y\n", encoding="utf-8")
+        read = SafeRoot.read
+        reads = []
+        def capture(root, path, **kwargs):
+            reads.append(path)
+            return read(root, path, **kwargs)
+        with patch.object(SafeRoot, "read", capture):
+            reply = self.tools.execute("source.search", {"query": ".*",
+                                       "path_glob": "helpers/*"}, self.context, "filtered-search")
+        self.assertTrue(reply["ok"], reply)
+        self.assertEqual(reads, ["helpers/shared.lpc"])
+        self.assertEqual(reply["value"]["evidence"][0]["content"], "// x.*y")
+
+    def test_path_filter_cannot_reveal_excluded_private_or_outside_files(self):
+        (self.authorized / "excluded.lpc").write_text("PRIVATE-NEEDLE", encoding="utf-8")
+        (self.authorized / "data").mkdir()
+        (self.authorized / "data/hidden.lpc").write_text("PRIVATE-NEEDLE", encoding="utf-8")
+        tools = Tools(build_tools({"sources": Sources([replace(self.scope, exclude=("excluded.lpc",))])}))
+        for index, pattern in enumerate(("*", "excluded.lpc", "data/*", "../outside/*")):
+            reply = tools.execute("source.search", {"query": "PRIVATE",
+                                  "path_glob": pattern}, self.context, "filter-" + str(index))
+            self.assertTrue(reply["ok"], reply)
+            self.assertEqual(reply["value"]["evidence"], [])
+            self.assertFalse(reply["value"]["truncated"])
+            self.assertNotIn("hidden.lpc", str(reply))
+            self.assertNotIn("PRIVATE", str(reply))
+
     def test_hard_link_is_denied_without_content(self):
         os.link(self.outside / "hidden.lpc", self.authorized / "linked.lpc")
         self.assertEqual(self.read("linked.lpc")["error"], "file_unavailable")
-        reply = self.tools.execute("source.search", {"scope": "rules", "query": "PRIVATE"}, self.context, "search")
+        reply = self.tools.execute("source.search", {"query": "PRIVATE"}, self.context, "search")
         self.assertNotIn("PRIVATE-OUTSIDE", str(reply))
         self.assertNotIn("linked.lpc", str(reply))
 
@@ -118,7 +167,7 @@ class SourceTests(unittest.TestCase):
             self.skipTest(f"Cannot create OS symlink fixture: {type(error).__name__}")
         self.assertFalse(self.read("linked.lpc")["ok"])
         self.assertFalse(self.read("linked_dir/hidden.lpc")["ok"])
-        reply = self.tools.execute("source.search", {"scope": "rules", "query": "PRIVATE"}, self.context, "search")
+        reply = self.tools.execute("source.search", {"query": "PRIVATE"}, self.context, "search")
         self.assertNotIn("PRIVATE-OUTSIDE", str(reply))
 
     @unittest.skipUnless(os.name == "nt", "Windows junction/reparse test requires Windows")
@@ -128,7 +177,7 @@ class SourceTests(unittest.TestCase):
                                 capture_output=True, timeout=10)
         self.assertEqual(result.returncode, 0, "Junction fixture creation failed")
         self.assertFalse(self.read("junction/hidden.lpc")["ok"])
-        reply = self.tools.execute("source.search", {"scope": "rules", "query": "PRIVATE"}, self.context, "search")
+        reply = self.tools.execute("source.search", {"query": "PRIVATE"}, self.context, "search")
         self.assertNotIn("PRIVATE-OUTSIDE", str(reply))
 
     def test_replace_race_is_blocked_or_detected(self):
@@ -175,7 +224,7 @@ class SourceTests(unittest.TestCase):
 
     def test_hook_cannot_swap_authorized_path_or_audience(self):
         hooks = Hooks([Hook("before_tool", lambda event: Decision(changes={"arguments": {
-            "scope": "rules", "path": "../outside/hidden.lpc"}}), intervention=True)])
+            "path": "../outside/hidden.lpc"}}), intervention=True)])
         self.tools.hooks = hooks
         self.assertFalse(self.read()["ok"])
         hooks = Hooks([Hook("before_tool", lambda event: Decision(changes={"audience": "admin"}), intervention=True)])

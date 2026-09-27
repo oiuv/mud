@@ -25,7 +25,7 @@ class BusinessProbeTests(unittest.TestCase):
             self.assertEqual(probe.main([]), 0)
         load.assert_not_called()
         run.assert_not_called()
-        self.assertEqual(json.loads(output.getvalue())["max_model_calls"], 7)
+        self.assertEqual(json.loads(output.getvalue())["execution"], "goal_driven")
 
     def test_synthetic_world_uses_unchanged_protocol_and_keys(self):
         manifest, payload = probe.world_fixture()
@@ -36,6 +36,7 @@ class BusinessProbeTests(unittest.TestCase):
         client = Mock()
         client.with_options.return_value = client
         def respond(**kwargs):
+            self.assertFalse(any(t["function"]["name"].startswith("source__") for t in kwargs.get("tools", [])))
             messages = kwargs["messages"]
             guidance = "\n".join(m.get("content") or "" for m in messages
                                  if "已加载专业指导" in (m.get("content") or ""))
@@ -48,7 +49,7 @@ class BusinessProbeTests(unittest.TestCase):
                 evidence = json.loads(messages[-1]["content"])["value"]["evidence"]
                 self.assertTrue(evidence)
                 return completion(reply(kind="rules", answer="霞门长老说：须贡献至少200，拜师扣除50。",
-                                        claims=[dict(text="门槛200，扣除50", evidence=[evidence[0]["id"]])]))
+                                        evidence=[evidence[0]["id"]]))
             return completion(tool="knowledge__search", arguments={"query": "霞门拜师", "threshold": 0})
         client.chat.completions.create.side_effect = respond
         with patch("ai.src.npc.manager.create_chat_client", return_value=client), \
@@ -57,4 +58,9 @@ class BusinessProbeTests(unittest.TestCase):
         self.assertTrue(json.loads(json.dumps(report))["passed"])
         self.assertEqual(report["model_calls"], 4)
         self.assertEqual(report["total_tokens"], 60)
+        self.assertEqual(sum(row["calls"] for row in report["cost"]["groups"]), 4)
+        self.assertEqual(report["cost"]["cost_unknown_calls"], 4)
+        self.assertIsNone(report["cost"]["estimated_total_cost"])
+        self.assertEqual({row["operation"] for row in report["cost"]["groups"]},
+                         {"chat", "summary", "world_describe"})
         self.assertEqual(client.chat.completions.create.call_count, 4)

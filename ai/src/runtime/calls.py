@@ -1,7 +1,6 @@
 """Bounded waits for trusted cooperative tools; threads are never force-killed."""
 import queue
 import threading
-import time
 
 from .contracts import RuntimeFault
 
@@ -22,7 +21,7 @@ class Calls:
                 if gate is not None:
                     while not acquired:
                         context.check()
-                        acquired = gate.acquire(timeout=min(.02, max(.001, context.deadline - time.monotonic())))
+                        acquired = gate.acquire(timeout=max(.001, context.remaining(.02)))
                 context.check()
                 if started is not None:
                     started()
@@ -42,7 +41,7 @@ class Calls:
         while True:
             context.check()
             try:
-                success, value = result.get(timeout=min(.02, max(.001, context.deadline - time.monotonic())))
+                success, value = result.get(timeout=max(.001, context.remaining(.02)))
             except queue.Empty:
                 continue
             context.check()

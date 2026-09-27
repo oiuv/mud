@@ -4,3 +4,6 @@ void receive(mapping response) {
 void run() {
     AI_CLIENT_D->send_request("echo", ([ "value": 3 ]), (: receive :));
 }
+void run_long() {
+    AI_CLIENT_D->send_request("long_echo", ([]), (: receive :), ([ "long": 1 ]));
+}

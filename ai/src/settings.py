@@ -7,6 +7,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from .runtime.context import Policy
+from .runtime.window import DEFAULT_CONTEXT_WINDOW_TOKENS, ModelWindow
+from .usage_report import validate_prices
 
 SERVICE_DIR = Path(__file__).resolve().parents[1]
 
@@ -21,14 +23,27 @@ class Settings:
     port: int = 9999
     debug: bool = False
     enabled_modules: tuple = ("npc", "world")
+    main_agent_enabled: bool = False
+    main_agent_workers: int = 2
     runtime_policy: dict = field(default_factory=dict)
-    source_scopes_file: Path | None = None
+    source_enabled: bool = True
+    source_root: Path = SERVICE_DIR.parent
+    codegraph_enabled: bool = False
+    codegraph_command: str = "codegraph"
+    codegraph_operations: tuple = ("explore",)
+    cli_programs_file: Path | None = None
     knowledge_update_enabled: bool = True
     chat_api_key: str = field(default="", repr=False)
     chat_base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     chat_model: str = "qwen3.8-flash"
     chat_supports_tools: bool = True
+    chat_supports_json_object: bool = True
+    chat_reasoning_history: bool = True
+    reasoning_trace_file: Path | None = None
+    reasoning_trace_console: bool = False
     chat_extra_body: dict = field(default_factory=lambda: {"enable_thinking": False})
+    model_prices_per_million: dict = field(default_factory=dict)
+    cost_currency: str = "CNY"
     dashscope_api_key: str = field(default="", repr=False)
     embedding_base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     embedding_model: str = "qwen3.7-text-embedding-flash"
@@ -47,6 +62,8 @@ class Settings:
     max_message_chars: int = 1000
     max_response_chars: int = 1600
     max_tokens: int = 2048
+    model_max_output_tokens: int = 131072
+    context_window_tokens: int = DEFAULT_CONTEXT_WINDOW_TOKENS
     history_max_chars: int = 24000
     knowledge_max_chars: int = 10000
     chunk_size: int = 3000
@@ -69,23 +86,42 @@ class Settings:
     world_disk_headroom: int = 67108864
 
     def __post_init__(self):
+        validate_prices(self.model_prices_per_million, self.cost_currency)
+        ModelWindow(self.context_window_tokens).validate_output(self.max_tokens)
+        ModelWindow(self.context_window_tokens).validate_output(self.model_max_output_tokens)
         Policy().restrict(self.runtime_policy)  # Fail closed on malformed deployment limits.
         if (not isinstance(self.enabled_modules, tuple)
                 or any(name not in ("npc", "world") for name in self.enabled_modules)
                 or len(set(self.enabled_modules)) != len(self.enabled_modules)):
             raise ValueError("ENABLED_MODULES must contain unique built-in module names: npc,world")
-        for name in ("knowledge_update_enabled", "chat_supports_tools"):
+        for name in ("knowledge_update_enabled", "chat_supports_tools", "chat_supports_json_object", "chat_reasoning_history",
+                     "reasoning_trace_console", "main_agent_enabled", "source_enabled", "codegraph_enabled"):
             if type(getattr(self, name)) is not bool:
                 raise ValueError(f"{name} must be true/false")
+        if type(self.main_agent_workers) is not int or self.main_agent_workers <= 0:
+            raise ValueError("MAIN_AGENT_WORKERS must be a positive integer")
         for name in ("data_dir", "help_dir", "roles_file", "skills_dir", "world_content_dir"):
             path = Path(getattr(self, name)).expanduser()
             setattr(self, name, path if path.is_absolute() else SERVICE_DIR / path)
-        if self.source_scopes_file is not None:
-            if not str(self.source_scopes_file).strip():
-                self.source_scopes_file = None
-            else:
-                path = Path(self.source_scopes_file).expanduser()
-                self.source_scopes_file = path if path.is_absolute() else SERVICE_DIR / path
+        if not isinstance(self.source_root, (str, Path)) or not str(self.source_root).strip():
+            raise ValueError("SOURCE_ROOT must be a non-empty repository path")
+        path = Path(self.source_root).expanduser()
+        self.source_root = Path(os.path.abspath(path if path.is_absolute() else SERVICE_DIR / path))
+        from .tools.codegraph import command_prefix
+        command_prefix(self.codegraph_command)
+        from .tools.codegraph import OPERATIONS
+        if (not isinstance(self.codegraph_operations, tuple) or not self.codegraph_operations
+                or len(set(self.codegraph_operations)) != len(self.codegraph_operations)
+                or any(op not in OPERATIONS for op in self.codegraph_operations)):
+            raise ValueError("CODEGRAPH_OPERATIONS must list supported read-only queries")
+        for name in ("reasoning_trace_file", "cli_programs_file"):
+            value = getattr(self, name)
+            if value is not None:
+                if not str(value).strip():
+                    setattr(self, name, None)
+                else:
+                    path = Path(value).expanduser()
+                    setattr(self, name, path if path.is_absolute() else SERVICE_DIR / path)
         for name in ("embedding_dimensions", "embedding_max_bytes", "rerank_max_bytes",
                      "rerank_total_bytes", "api_timeout", "chat_timeout", "summary_timeout",
                      "request_timeout", "max_workers",
@@ -120,6 +156,8 @@ class Settings:
 
 def load_settings(env_file=None):
     load_dotenv(env_file or SERVICE_DIR / ".env", override=False)
+    if os.getenv("SOURCE_SCOPES_FILE", "").strip():
+        raise ValueError("SOURCE_SCOPES_FILE is retired; remove it and configure SOURCE_ROOT / SOURCE_ENABLED")
     config = Settings()
     env_names = {
         "data_dir": "DATA_DIR", "help_dir": "HELP_DIR", "roles_file": "NPC_ROLES_FILE",
@@ -127,6 +165,8 @@ def load_settings(env_file=None):
         "chat_api_key": "OPENAI_API_KEY", "chat_base_url": "OPENAI_BASE_URL",
         "chat_model": "OPENAI_MODEL", "dashscope_api_key": "DASHSCOPE_API_KEY",
         "max_tokens": "OPENAI_MAX_TOKENS",
+        "model_max_output_tokens": "OPENAI_MODEL_MAX_OUTPUT_TOKENS",
+        "context_window_tokens": "OPENAI_CONTEXT_WINDOW_TOKENS",
     }
     workspace = os.getenv("DASHSCOPE_WORKSPACE_ID", "").strip()
     if workspace:
