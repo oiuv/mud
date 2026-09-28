@@ -1,6 +1,33 @@
 #define WORLD "/adm/daemons/illusion_world_d"
 #define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
 
+void check_chunk_sampling() {
+    mapping batch, fields, original;
+    int seed, x, y;
+    int *xy, *box;
+    string field;
+
+    foreach (seed in ({ 0, 42, 2147483647 }))
+        foreach (xy in ({ ({ 0, 0 }), ({ -1, -1 }), ({ 31, -17 }),
+            ({ -62500000, -62500000 }), ({ 62500000, 62500000 }),
+            ({ 62500000, -62500000 }) })) {
+            batch = WORLD->sample_chunk_fields(seed, xy[0], xy[1]);
+            box = WORLD->chunk_bounds(xy[0], xy[1]);
+            CHECK(sizeof(batch) == (box[2] - box[0] + 1) * (box[3] - box[1] + 1),
+                "chunk sampling clips only to safe coordinate bounds");
+            for (y = box[1]; y <= box[3]; y++)
+                for (x = box[0]; x <= box[2]; x++) {
+                    fields = batch[WORLD->cell_key(x, y)];
+                    original = WORLD->sample_fields(seed, x, y);
+                    foreach (field in keys(original))
+                        CHECK(
+                            fields[field] == original[field],
+                            "memoized field equals scalar sampling"
+                        );
+                }
+        }
+}
+
 void run() {
     object generator, stranger;
     mapping manifest, changed, loaded, fields, again;
@@ -11,6 +38,7 @@ void run() {
     int *bounds;
 
     generator = load_object(WORLD);
+    check_chunk_sampling();
     digest = hash("sha256", "test catalog");
     manifest = generator->make_manifest("test-foundation-v1", 42, 1, "test-v1", digest);
     CHECK(generator->valid_digest(manifest["manifest_digest"]), "manifest SHA256");

@@ -23,7 +23,7 @@
 | `ops_build_vectors.py` | 补齐文档块与当前模型向量 | 写知识库；会使用远程向量额度 |
 | `ops_update_knowledge.py` | 启动前增量更新知识库 | 启动器自动调用；向量失败降级，受更新开关控制 |
 | `ops_run_service.py` | Windows 后台启动与日志重定向 | 由 `start.ps1` 调用；会启动服务，不是独立验证 |
-| `ops_world_content.py` | 幻境正文状态、修复、备份、恢复及测试生成 | `status` 只查询；其余操作可能写数据，`describe --live` 会调用模型 |
+| `ops_world_content.py` | 按世界/坐标查任务、修复、隔离、重排、备份、恢复及测试生成 | `status` 只查询；`quarantine` 停服后保留原文撤下发布、不调用模型；其余写操作见运维文档，`describe --live` 立即调用模型，`retry` 重排后可由服务消费额度 |
 
 优先通过启动器管理服务。世界备份、恢复及修复遵循[世界运维说明](../../docs/systems/illusion-world-ai.md)，确认服务停机和目标目录后再执行，不将这些入口注册为 Agent 工具。
 
@@ -37,6 +37,7 @@
 | `debug_socket.py` | 已启动服务的短请求烟测 | 直接发送；`chat` 可能计费并保存测试角色历史，不用作长任务客户端 |
 | `verify_runtime.py` | 技能发现、工具循环与单次预加载 | 默认预览；`--execute` 用合成资料调用模型 |
 | `verify_business_agents.py` | NPC、摘要、重放与世界发布联调 | 默认预览；`--execute` 使用临时库与真实模型 |
+| `verify_world_chat.py` | 周不通闲谈与场景生成并行、队列让行与重放 | 默认预览；`--execute --report` 在随机本机 UDP 端口和临时库使用真实模型，只发送该角色配置、公开 Skill 与合成场景，不读玩家历史/正式正文，不自动重试生成；报告不能覆盖 |
 | `verify_source_agent.py` | 源码调查小样本与评测共用执行 | 默认预览合成资料；`--execute` 调用模型 |
 | `verify_context_window.py` | token 估算与实际用量对照 | 默认预览；`--execute` 调用模型 |
 | `verify_compaction.py` | 文本 compact 与任务续行 | 默认预览；`--execute` 调用模型 |

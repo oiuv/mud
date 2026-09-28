@@ -1,6 +1,8 @@
 # 无限世界 AI 创作
 
-地图和玩法仍由 LPC 决定，AI 只写静态正文。当前处于内部测试：已完成 20 房间真实试生成和隔离驱动回读，19 份正文可在测试世界试看；相邻文案的重复表达和完整游戏流程仍待改进、验收。最低驱动仍为 FluffOS v2026.0712.3，不涉及 mudcore 修改。
+地图和玩法仍由 LPC 决定，AI 只写静态正文。正式内容采用独立的 `wuxia-v1` 版本，包含四种生态及旧村、残寺、荒渡、故关、废驿；正式世界与原测试世界分别冻结，旧存档不迁移、不重生成。入口是否开放以部署的运行配置和 `illusion status` 为准，实际验收范围见验证记录；文风优化与功能验收分开。最低驱动仍为 FluffOS v2026.0712.3，不涉及 mudcore 修改。
+
+2026-09-28 已按维护者授权在本部署开放 `huanjing-v1`（种子 42），游戏入口和创作申请均开启，Python 服务在线。开服前备份在 `data/illusion_backups/pre-open-20260928/`；后续状态以实服为准，不代表所有部署默认开放，也不代表剩余综合验收已完成。玩家沿用子虚道人的“心魔幻境”入口；管理员可用 `illusion entry off` 将后续入场切回旧幻境，或只用 `illusion ai off` 暂停创作申请。
 
 ## 创作目标与审读标准
 
@@ -22,10 +24,29 @@
 
 两个开关均默认关闭：
 
-- 游戏管理员：`illusion ai on` / `illusion ai off`。只控制**新申请**，关闭时取消尚待确认的本地请求，已经入库的 Python 任务仍可能完成。重载内容守护程序后恢复关闭；不影响已保存文字的读取。
+- 游戏管理员：`illusion ai on` / `illusion ai off`。只控制**新申请**，关闭时取消尚待确认的本地请求，已经入库的 Python 任务仍可能完成。设置保存到运行配置，重启后恢复；不影响已保存文字的读取。
 - Python：`ai/.env` 中 `WORLD_ENABLED=true/false`，重启生效。缺 Key、缺共享世界目录或存储不可用只停用世界创作，不阻止 NPC 模块启动。彻底停止新增模型调用，应关闭游戏申请并停止服务，或将 Python 开关关闭后重启；已发出的调用需要等待结束。
 
-`illusion status` 显示申请开关、待确认数量、状态表与正文缓存。公共新入口仍关闭，测试使用 `illusion enter test-...`，不要把 AI 开关当作公共入口开关。
+`illusion status` 显示公共入口、申请开关、待确认数量、状态表与正文缓存。测试使用 `illusion enter test-...`，不要把 AI 开关当作公共入口开关。
+
+### 管理入口与冻结
+
+以下均为管理员命令；状态查看不创建房间、不请求模型。
+
+| 命令 | 行为 |
+| --- | --- |
+| `illusion status 世界ID` | 查看不可变清单及摘要 |
+| `illusion status 世界ID X Y` | 查看当前房间事实、内容键、有效落盘正文及本地申请状态 |
+| `illusion init test-世界ID 种子` | 保留原测试初始化；相同清单幂等，不覆盖已有世界 |
+| `illusion init 正式世界ID 种子 production` | 显式冻结正式清单；拒绝测试内容表和 `test-` ID，不自动开放入口或创作 |
+| `illusion enter 世界ID` | 管理员进入指定世界检查，不改变公共入口 |
+| `illusion entry 世界ID` / `illusion entry off` | 切换子虚道人后续入场的新旧入口，不搬移已有玩家 |
+
+入口与游戏侧创作开关保存到 `data/illusion_world/runtime.json`，格式示例见 `adm/etc/illusion.example.json`。未配置时均关闭；启动预载会核对正式清单、内容表摘要与起点，再自动开放指定入口，不随机创建世界。配置损坏、清单缺失或版本失配时记录错误并退回旧入口；不会覆盖配置或存档。`illusion entry off` 同样持久保存，重启不会意外重新开放。外部修改配置后，管理员可调用 `illusion_world_d->reload_runtime()` 重新加载，保留在线实例；不要通过销毁世界守护程序刷新开关。
+
+`catalog.json` 保持原 `test-v1` 字节不变，正式初始化选用 `catalog-wuxia-v1.json`。读取已有世界时按清单版本选表并核对摘要，两者可同时使用。内容表发布后不能原地修改影响事实的字段；新版本须独立清单和回退安排。正式部署使用 `illusion init huanjing-v1 42 production` 冻结，然后备份，最后 `illusion entry huanjing-v1`；初始化本身不开放入口。AI 可独立启停，无 AI 也能探索与离境。
+
+房间诊断中的 `pending` 只表示等待本次短确认，`local_status=unknown` 表示本机没有保留申请记录，不证明后台没有任务或任务已完成。`saved=1` 只表示当前落盘正文通过读取校验。后台排队、运行、失败原因和额度以持久任务查询为准。
 
 ## 配置与容量
 
@@ -63,21 +84,34 @@
 - 主记录：`ai/data/world_content.db`，含世界身份、任务、正文、来源元数据和 UTC 调用计数。
 - 发布文件：`data/illusion_world/content/<world_id>/<cx>_<cy>/<x>_<y>.json`。区块坐标向下取整；`x=-1` 属于 `cx=-1`。
 - 冻结清单：`data/illusion_world/worlds/<world_id>.json`。
+- 部署开关：`data/illusion_world/runtime.json`，与世界数据一起备份。
 
-这些运行数据及 SQLite 辅助文件、进程锁均不提交 Git。`d/illusion/catalog.json` 是手工内容规则，继续纳入版本控制。自定义 `DATA_DIR` 或共享目录时，运维须自行确保位于仓库外或已忽略路径。
+这些运行数据及 SQLite 辅助文件、进程锁均不提交 Git。`d/illusion/catalog*.json` 是手工内容规则，继续纳入版本控制。自定义 `DATA_DIR` 或共享目录时，运维须自行确保位于仓库外或已忽略路径。
 
 从仓库根目录运行（Windows 可将 `python` 换为 `ai/.venv/Scripts/python.exe`）：
 
 ```sh
 python ai/scripts/ops_world_content.py status
 python ai/scripts/ops_world_content.py status --key CONTENT_KEY
+python ai/scripts/ops_world_content.py status --world WORLD_ID --x 11 --y 1
+python ai/scripts/ops_world_content.py status --world WORLD_ID --limit 100 --offset 0
 # 以下写操作须停止 AI 服务，禁止与 worker 同时写入
 python ai/scripts/ops_world_content.py repair --key CONTENT_KEY
+python ai/scripts/ops_world_content.py retry --key CONTENT_KEY
+python ai/scripts/ops_world_content.py quarantine --key CONTENT_KEY
 python ai/scripts/ops_world_content.py backup /path/to/new-backup
 python ai/scripts/ops_world_content.py restore /path/to/backup
 ```
 
 `repair` 只导出已入库正文，不调用模型。备份前停止游戏的新世界初始化；备份通过 SQLite backup API 保存已提交事务，并复制清单与正文，最后写完成标记。恢复只接受完整备份及**尚不存在**的目标世界目录、数据库和辅助文件，拒绝覆盖现有数据。先调整配置指向空的恢复位置，验证后再切换部署；中途失败须人工处理保留的部分文件，不自动删除。不要仅复制运行中的 `.db` 而遗漏 WAL。
+
+`status` 以只读连接访问数据库，可在服务运行时查询；按世界/坐标或内容键返回状态、坐标、尝试数、失败原因、发布标志、退避/租约时间与来源，同时显示最近七天 UTC 调用数及本次配置的限额。世界列表分页默认 100 条，上限 1000 条；空结果表示该查询未找到持久任务，不代表该坐标不可通行。
+
+`retry` 是显式重排，不立即调用模型；服务下次启用时可能消费额度。仅接受未保存正文且尚未用完三次尝试的 `failed` 任务；保留已有次数、用量、最后错误及退避，不绕过队列、日额度、磁盘和冻结清单检查。达到三次上限或含已保存正文的人工隔离任务拒绝重排，不清零历史、不自动重生成；后者须另行审查。运行中的任务和普通 `retry_wait` 无需此操作，由原 worker 按既定退避处理。
+
+`quarantine` 仅用于管理员已审定存在实质冲突的正文，不按关键词自动审稿。停止 AI 服务后，按准确的内容键将任务置为 `failed / content_quarantined`，原发布文件改名为同目录 `.quarantined-<内容键>.json`；数据库中的正文、来源、尝试数和用量全部保留。游戏下一次查看改用规则描写，房间、战斗和出口不变；后续访问、`repair`、`retry` 和服务重启均不会重新发布或生成该内容。隔离副本仍计入存储预算，并随原有备份/恢复保留。
+
+隔离操作可以重复执行。若文件占用导致改名失败，命令返回失败，任务已经停止自动处理，但原文可能仍对玩家可见；排除占用后再次执行相同命令完成撤下，不要手工重排任务。原文件缺失或尚未发布时只保留数据库正文；遇到原文件与隔离副本同时存在则拒绝覆盖，须先人工核查。此命令不提供自动改稿或恢复发布，重新采用内容须单独审查和明确操作。
 
 ## 小预算真实效果试验
 
@@ -105,11 +139,17 @@ python ai/scripts/ops_world_content.py describe /path/to/room.json --live --max-
 python -m unittest discover -s ai/tests -v
 node ai/scripts/verify_lpc.mjs
 node tools/tests/test_illusion_world.mjs
+# 可选正式地图扫描：20 个种子、每个 256 × 256 坐标及极值、乱序回读
+node tools/tests/test_illusion_world.mjs --release
+# 可选固定机器性能测量：严格区分区块/房间冷、热缓存和正文解析/命中
+node tools/tests/test_illusion_world.mjs --bench
 ```
 
 使用临时 MUDLIB、SQLite、随机环回端口和假模型，不消耗外部模型额度。真实调用结果与尚未完成的验收以 [验证记录](../../openspec/changes/add-wuxia-infinite-world/validation.md) 为准。
 
-Agent 迁移另有 `python ai/scripts/verify_business_agents.py` 合成资料联调，默认仅显示计划，授权后加 `--execute`（整批最多 7 次模型调用）。该脚本使用临时世界与库，不操作下述测试世界的已有正文；结果见 [运行时验收记录](../architecture/ai-runtime-validation.md)。
+`--bench` 在基础回归后启动独立驱动，保存机器信息、128 组地图计时、257 组正文读取、LRU 峰值及 CPU 累计时间到临时目录 `data/benchmark.json`。冷缓存指 LPC 缓存未命中，不清空操作系统文件缓存；房间创建使用真实虚拟路由与房间代码、简化宿主，不代表完整玩家移动/战斗耗时。性能目标结果与功能检查分开报告；Windows 驱动无法提供有效 `eval_cost()` 差值时标记不可用，不把零差值解释为零开销。
+
+Agent 迁移另有 `python ai/scripts/verify_business_agents.py` 合成资料联调，默认仅显示计划，授权后加 `--execute`。该脚本各提交一次 NPC 问答、摘要和世界任务；问答按目标执行，模型调用数以报告为准，不自动重跑失败批次。它使用临时世界与库，不操作下述测试世界的已有正文；结果见 [运行时验收记录](../architecture/ai-runtime-validation.md)。
 
 ## 当前模型与试看结果（2026-09-25）
 
@@ -123,4 +163,4 @@ Agent 迁移另有 `python ai/scripts/verify_business_agents.py` 合成资料联
 
 在已加载本次代码的游戏中执行 `illusion enter test-huanjing-m1`，再 `east` 到 `(1,0)`、`look` 即可试看，不需要开启自动创作。起点 `(0,0)` 仍为规则正文；旧村范围为 x=`-62..-60`、y=`35..37`，残寺已发布 `(-4,41)`、`(-4,40)`、`(-4,42)`、`(-3,41)`。
 
-本轮总上限 20 次已用完，后台创作与公共入口仍关闭。当前先提交阶段基线，暂停新增世界功能，优先完成 AI Agent 架构规范及现有 NPC、摘要和世界描写的迁移；兼容回归通过后，再优化主题表达、相邻房间辨识度并补齐游戏验收，见 [恢复顺序](../../openspec/changes/add-wuxia-infinite-world/tasks.md)。新增真实调用须另定预算，不为架构或提示词升级自动重生成这批正文。运行证据位于忽略目录 `data/illusion_world/trials/v2-flash-20/`，不提交生成数据。
+上述 20 次预算及暂停安排是 2026-09-25 的阶段记录。2026-09-28 维护者确认 AI 断线旧回复不再投递，并授权恢复无限世界正式接入；后续状态见 [恢复顺序](../../openspec/changes/add-wuxia-infinite-world/tasks.md)。不为架构或提示词升级自动重生成这批正文。原运行证据位于忽略目录 `data/illusion_world/trials/v2-flash-20/`，不提交生成数据。

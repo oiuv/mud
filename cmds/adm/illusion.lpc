@@ -5,14 +5,14 @@ inherit F_CLEAN_UP;
 int main(object me, string arg) {
     string *parts;
     string id;
-    mapping world;
+    mapping world, facts, status;
     mixed err;
-    int seed, moved;
+    int seed, moved, x, y, production;
 
     if (!SECURITY_D->valid_grant(me, "(admin)")) return 0;
     seteuid(geteuid(me));
     parts = stringp(arg) ? explode(arg, " ") - ({ "" }) : ({});
-    if (!sizeof(parts) || parts[0] == "status") {
+    if (!sizeof(parts) || (sizeof(parts) == 1 && parts[0] == "status")) {
         printf(
             "新入口：%s；地形缓存：%d/64。\n",
             WORLD_D->query_active_world() || "关闭（旧幻境）",
@@ -25,12 +25,40 @@ int main(object me, string arg) {
         );
         return 1;
     }
-    if (sizeof(parts) == 3 && parts[0] == "init") {
+    if ((sizeof(parts) == 2 || sizeof(parts) == 4) && parts[0] == "status") {
+        if (sizeof(parts) == 4) {
+            x = to_int(parts[2]); y = to_int(parts[3]);
+            if (sprintf("%d", x) != parts[2] || sprintf("%d", y) != parts[3])
+                return notify_fail("坐标必须是规范十进制整数。\n");
+        }
+        err = catch {
+            world = WORLD_D->read_world(parts[1]);
+            if (sizeof(parts) == 4) {
+                facts = WORLD_D->query_room_facts(parts[1], x, y);
+                if (!mapp(facts)) error("该坐标不是可进入房间。\n");
+                status = CONTENT_D->query_room_status(CONTENT_D->narration_payload(world, facts));
+            }
+        };
+        if (err) return notify_fail("查询失败：" + err);
+        printf("世界清单：%O\n", world);
+        if (status) {
+            printf("房间事实：%O\n本地正文状态：%O\n", facts, status);
+            write("本地状态不代表后台任务终态；可按 content_key 使用运维 CLI 查询持久任务。\n");
+        }
+        return 1;
+    }
+    if ((sizeof(parts) == 3 || (sizeof(parts) == 4 && parts[3] == "production")) && parts[0] == "init") {
+        production = sizeof(parts) == 4;
         id = parts[1]; seed = to_int(parts[2]);
         if (sprintf("%d", seed) != parts[2]) return notify_fail("种子必须是规范十进制整数。\n");
-        err = catch(world = WORLD_D->initialize_world(WORLD_D->catalog_manifest(id, seed, 1)));
-        if (err) return notify_fail("创建测试世界失败：" + err);
+        err = catch(world = WORLD_D->initialize_world(WORLD_D->catalog_manifest(
+            id,
+            seed,
+            !production
+        )));
+        if (err) return notify_fail("创建世界失败：" + err);
         printf("世界 %s 已冻结，摘要 %s。\n", id, world["manifest_digest"]);
+        write("初始化不会切换公共入口，也不会申请 AI 创作。\n");
         return 1;
     }
     if (sizeof(parts) == 2 && parts[0] == "enter") {
@@ -42,7 +70,7 @@ int main(object me, string arg) {
     if (sizeof(parts) == 2 && parts[0] == "entry") {
         err = catch(WORLD_D->set_active_world(parts[1] == "off" ? 0 : parts[1]));
         if (err) return notify_fail("入口设置失败：" + err);
-        write("入口已切换，不改变仍有效的在线实例。重载守护程序后默认关闭新入口。\n");
+        write("入口已切换并保存，不改变仍有效的在线实例；重启后校验清单并恢复设置。\n");
         return 1;
     }
     if (sizeof(parts) == 2 && parts[0] == "ai" && member_array(parts[1], ({ "on", "off" })) >= 0) {
@@ -50,7 +78,8 @@ int main(object me, string arg) {
         write("场景创作申请开关已更新；已保存正文仍可读取。Python 服务须另行配置 WORLD_ENABLED。\n");
         return 1;
     }
-    write("用法：illusion status | init test-世界ID 种子 | enter 世界ID | entry off | ai on/off\n"
-        "当前仅用于测试；正式世界须在内容冻结及上线验收后启用。\n");
+    write("用法：illusion status [世界ID [X Y]] | init test-世界ID 种子\n"
+        "      illusion init 正式世界ID 种子 production | enter 世界ID | entry 世界ID/off | ai on/off\n"
+        "正式初始化须使用非测试内容表；完成冻结、备份及上线验收后再切换入口。\n");
     return 1;
 }

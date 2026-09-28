@@ -12,7 +12,7 @@ void preload(string file) {
     if (objectp(find_object(file)))
         return;
 
-    if (file_size(file + ".c") == -1)
+    if (file_size(file + ".c") == -1 && file_size(file + ".lpc") == -1)
         return;
 
     catch(load_object(file));

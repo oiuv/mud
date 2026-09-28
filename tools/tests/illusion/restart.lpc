@@ -8,8 +8,10 @@ void run_restart() {
     vectors = json_decode(read_file("/data/content-vectors.json")); payload = vectors["payloads"][0];
     check(
         !"/adm/daemons/illusion_content_d"->query_enabled(),
-        "generation disabled after driver restart"
+        "paused generation stays disabled after driver restart"
     );
+    check("/adm/daemons/illusion_world_d"->query_active_world() == "public-fixture",
+        "public entrance restored in a fresh driver process");
     text = "/adm/daemons/illusion_content_d"->read_description(payload);
     check(text == "松风掠过岩坡，针叶簌簌而落。", "new driver process reads original persisted prose");
     check(

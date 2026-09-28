@@ -45,8 +45,10 @@ private int interpolate(int a, int b, int weight) {
     return (a * (FIXED_ONE - weight) + b * weight) / FIXED_ONE;
 }
 
-int value_noise(int seed, int x, int y, int period, int salt) {
+private int noise_value(int seed, int x, int y, int period, int salt, mapping memo) {
     int gx, gy, fx, fy, low, high;
+    int *corners;
+    string key;
 
     if (!valid_coordinate(x, y) || period < 1 || period > 512)
         error("illusion: invalid noise coordinate or period.\n");
@@ -54,44 +56,94 @@ int value_noise(int seed, int x, int y, int period, int salt) {
     gy = floor_div(y, period);
     fx = smooth_weight(local_coordinate(x, period) * FIXED_ONE / period);
     fy = smooth_weight(local_coordinate(y, period) * FIXED_ONE / period);
-    low = interpolate(coordinate_hash(seed, gx, gy, salt) & 65535,
-        coordinate_hash(seed, gx + 1, gy, salt) & 65535, fx);
-    high = interpolate(coordinate_hash(seed, gx, gy + 1, salt) & 65535,
-        coordinate_hash(seed, gx + 1, gy + 1, salt) & 65535, fx);
+    // The memo is private to one chunk/seed; salt and period identify each field.
+    if (memo) {
+        key = sprintf("%d:%d:%d:%d", period, salt, gx, gy);
+        corners = memo[key];
+    }
+    if (!corners) {
+        corners = ({ coordinate_hash(seed, gx, gy, salt) & 65535,
+            coordinate_hash(seed, gx + 1, gy, salt) & 65535,
+            coordinate_hash(seed, gx, gy + 1, salt) & 65535,
+            coordinate_hash(seed, gx + 1, gy + 1, salt) & 65535 });
+        if (memo) memo[key] = corners;
+    }
+    low = interpolate(corners[0], corners[1], fx);
+    high = interpolate(corners[2], corners[3], fx);
     return interpolate(low, high, fy);
 }
 
-private int elevation(int seed, int x, int y) {
-    return (value_noise(seed, x, y, 256, 11) * 4 + value_noise(seed, x, y, 128, 12) * 2 +
-        value_noise(seed, x, y, 64, 13)) / 7;
+int value_noise(int seed, int x, int y, int period, int salt) {
+    return noise_value(seed, x, y, period, salt, 0);
 }
 
-mapping sample_fields(int seed, int x, int y) {
+private int elevation(int seed, int x, int y, mapping memo) {
+    string key;
+    int height;
+
+    // Adjacent slope samples revisit the same heights within this chunk.
+    if (memo) {
+        key = sprintf("height:%d:%d", x, y);
+        if (!undefinedp(memo[key])) return memo[key];
+    }
+    height = (noise_value(
+        seed,
+        x,
+        y,
+        256,
+        11,
+        memo
+    ) * 4 + noise_value(seed, x, y, 128, 12, memo) * 2 +
+        noise_value(seed, x, y, 64, 13, memo)) / 7;
+    if (memo) memo[key] = height;
+    return height;
+}
+
+private mapping fields_at(int seed, int x, int y, mapping memo) {
     int h, slope, other, nx, ny;
     int *delta;
 
     if (!valid_coordinate(x, y)) error("illusion: coordinate outside world.\n");
-    h = elevation(seed, x, y);
+    h = elevation(seed, x, y, memo);
     slope = 0;
     foreach (delta in ({ ({ 0, 1 }), ({ 1, 0 }), ({ 0, -1 }), ({ -1, 0 }) })) {
         nx = x + delta[0];
         ny = y + delta[1];
         if (!valid_coordinate(nx, ny)) continue;
-        other = abs(elevation(seed, nx, ny) - h);
+        other = abs(elevation(seed, nx, ny, memo) - h);
         if (other > slope) slope = other;
     }
     return ([ "elevation": h,
-        "moisture": (value_noise(seed, x, y, 256, 21) * 2 + value_noise(seed, x, y, 128, 22)) / 3,
-        "temperature": (value_noise(
+        "moisture": (noise_value(
             seed,
             x,
             y,
             256,
-            31
-        ) * 2 + value_noise(seed, x, y, 128, 32)) / 3,
-        "theme": value_noise(seed, x, y, 512, 41),
-        "detail": (value_noise(seed, x, y, 32, 51) * 2 + value_noise(seed, x, y, 16, 52)) / 3,
+            21,
+            memo
+        ) * 2 + noise_value(seed, x, y, 128, 22, memo)) / 3,
+        "temperature": (noise_value(
+            seed,
+            x,
+            y,
+            256,
+            31,
+            memo
+        ) * 2 + noise_value(seed, x, y, 128, 32, memo)) / 3,
+        "theme": noise_value(seed, x, y, 512, 41, memo),
+        "detail": (noise_value(
+            seed,
+            x,
+            y,
+            32,
+            51,
+            memo
+        ) * 2 + noise_value(seed, x, y, 16, 52, memo)) / 3,
         "slope": slope ]);
+}
+
+mapping sample_fields(int seed, int x, int y) {
+    return fields_at(seed, x, y, 0);
 }
 
 int *chunk_bounds(int cx, int cy) {
@@ -109,4 +161,18 @@ int *chunk_bounds(int cx, int cy) {
     if (maxx > COORD_LIMIT) maxx = COORD_LIMIT;
     if (maxy > COORD_LIMIT) maxy = COORD_LIMIT;
     return ({ minx, miny, maxx, maxy });
+}
+
+mapping sample_chunk_fields(int seed, int cx, int cy) {
+    mapping memo, fields;
+    int *box;
+    int x, y;
+
+    box = chunk_bounds(cx, cy);
+    memo = ([]); fields = ([]);
+    for (y = box[1]; y <= box[3]; y++)
+        for (x = box[0]; x <= box[2]; x++)
+            fields[sprintf("%d,%d", x, y)] = fields_at(seed, x, y, memo);
+    // No persistent state: results never depend on earlier chunks or seeds.
+    return fields;
 }

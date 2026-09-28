@@ -96,7 +96,11 @@ class Store:
         if not 0 < path.stat().st_size <= 8192:
             raise ValueError("manifest size")
         world = strict_json(path.read_text(encoding="utf-8"))
-        if world["world_id"] != payload["world_id"] or manifest_digest(world) != payload["manifest_digest"]:
+        try:
+            digest = manifest_digest(world)
+        except (TypeError, KeyError) as error:
+            raise ValueError("invalid manifest") from error
+        if world["world_id"] != payload["world_id"] or digest != payload["manifest_digest"]:
             raise ValueError("frozen world mismatch")
 
     def inside_root(self, path):
@@ -163,6 +167,55 @@ class Store:
             if check is not None:
                 check()
         return self.get(payload["content_key"])
+
+    def retry_failed(self, key):
+        """Explicit operator requeue; never erase attempts, usage or completed prose."""
+        self.refresh_usage()
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            row = db.execute("SELECT * FROM room_jobs WHERE content_key=?", (key,)).fetchone()
+            if row is None or row["state"] != "failed":
+                raise ValueError("Only failed jobs can be explicitly requeued")
+            if row["attempts"] >= 3:
+                raise ValueError("The job has exhausted its three attempts; history is not reset")
+            if row["prose"] is not None or row["published"]:
+                raise ValueError("Stored prose must be reviewed separately; retry never overwrites it")
+            self.verify_world(validate_payload(json.loads(row["payload"])))
+            count = db.execute("SELECT count(*) FROM room_jobs WHERE state IN ('queued','running','retry_wait')").fetchone()[0]
+            day = datetime.now(timezone.utc).date().isoformat()
+            usage = db.execute("SELECT calls FROM daily_usage WHERE day=?", (day,)).fetchone()
+            if (count >= self.settings.world_queue_limit
+                    or (usage and usage[0] >= self.settings.world_daily_limit) or not self.space_available()):
+                raise ValueError("Queue, daily allowance or storage limit prevents retry")
+            # Preserve backoff (including Retry-After), last error and all accounting.
+            db.execute("UPDATE room_jobs SET state='retry_wait',lease=0 WHERE content_key=?", (key,))
+        return self.get(key)
+
+    def quarantine(self, key):
+        """Offline operator action: retain rejected prose without repairing or regenerating it."""
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            row = db.execute("SELECT * FROM room_jobs WHERE content_key=?", (key,)).fetchone()
+            if (row is None or row["prose"] is None or not (
+                    row["state"] == "ready" or
+                    (row["state"] == "failed" and row["error"] == "content_quarantined"))):
+                raise ValueError("Quarantine only accepts stored prose or a previous quarantine")
+            payload = validate_payload(json.loads(row["payload"]))
+            self.verify_world(payload)
+            path = self.publication_path(payload)
+            archive = path.with_name(f".quarantined-{payload['content_key']}.json")
+            self.inside_root(archive)
+            if path.exists() and archive.exists():
+                raise ValueError("Quarantine archive already exists; inspect both files before proceeding")
+            # Persist the hold first: a crash or failed rename must not allow repair
+            # or another paid attempt. Re-running this operation finishes withdrawal.
+            db.execute("UPDATE room_jobs SET state='failed',error='content_quarantined',lease=0,next_at=0 "
+                       "WHERE content_key=?", (key,))
+        if path.exists():
+            path.rename(archive)
+        with self.connect() as db:
+            db.execute("UPDATE room_jobs SET published=0 WHERE content_key=?", (key,))
+        return self.get(key)
 
     def claim(self, now=None, allowed_keys=None):
         now = time.time() if now is None else now
@@ -240,10 +293,14 @@ class Store:
         if row["state"] == "ready" and self.needs_repair(row):
             with self.connect() as db:
                 # A repeated visit must not reset an existing publication backoff.
-                db.execute("UPDATE room_jobs SET published=0,next_at=0 WHERE content_key=? AND published=1",
+                db.execute("UPDATE room_jobs SET published=0,next_at=0 WHERE content_key=? AND state='ready' AND published=1",
                            (row["content_key"],))
 
     def publish(self, row):
+        current = self.get(row["content_key"])
+        if current is None or current["state"] != "ready":
+            raise ValueError("Only ready jobs can be published")
+        row = current
         payload = json.loads(row["payload"])
         self.verify_world(payload)
         path = self.publication_path(payload)

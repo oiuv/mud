@@ -1,0 +1,195 @@
+// Real world/content implementations; no network, accounts or live world data.
+inherit "/tests/master";
+#define WORLD "/adm/daemons/illusion_world_d"
+#define CONTENT "/adm/daemons/illusion_content_d"
+#define ID "bench-world"
+#define SAMPLES 128
+
+private mapping measurements = ([]);
+private mapping world;
+private mapping catalog;
+private mapping *payloads = ({});
+private object owner;
+private string token;
+private int step;
+private int peak_chunks, peak_prose, initial_eval;
+
+void error_handler(mapping details, int caught) {
+    if (!caught) {
+        debug_message(sprintf(
+            "BENCHMARK ERROR: %s at %s:%d",
+            details["error"],
+            details["file"],
+            details["line"]
+        ));
+        ::error_handler(details, caught);
+    }
+}
+
+private mixed measure(string label, function work) {
+    mapping before, after, row;
+    mixed value;
+    int start, elapsed, cost;
+
+    before = rusage();
+    cost = eval_cost();
+    start = time_ns();
+    value = evaluate(work);
+    elapsed = (time_ns() - start) / 1000;
+    cost -= eval_cost();
+    after = rusage();
+    row = measurements[label];
+    if (!row) row = measurements[label] = ([ "wall_us": ({}), "eval": ({}), "cpu_ms": 0 ]);
+    row["wall_us"] += ({ elapsed }); row["eval"] += ({ cost });
+    // CPU deltas have coarse OS resolution; report totals, not misleading per-call p95.
+    row["cpu_ms"] += after["utime"] + after["stime"] - before["utime"] - before["stime"];
+    return value;
+}
+
+private mapping summary(int *values) {
+    int total, value;
+
+    values = sort_array(values, 1);
+    foreach (value in values) total += value;
+    return ([ "samples": sizeof(values), "min": values[0], "median": values[sizeof(values) / 2],
+        "p95": values[(sizeof(values) * 95 + 99) / 100 - 1], "max": values[<1],
+        "mean": total / sizeof(values) ]);
+}
+
+void complete_benchmark() {
+    mapping report, row;
+    string label;
+    mixed evaluation;
+
+    report = ([ "driver_version": __VERSION__, "initial_eval_cost": initial_eval,
+        "seed": 42, "catalog_version": world["catalog_version"],
+        "manifest_digest": world["manifest_digest"], "peak_chunks": peak_chunks,
+        "peak_prose": peak_prose, "metrics": ([]) ]);
+    // Non-Linux builds currently return a fixed maximum. Do not report zeros as free work.
+    report["eval_cost_available"] = summary(measurements["cold_chunk"]["eval"])["max"] > 0;
+    foreach (label, row in measurements) {
+        evaluation = "unavailable";
+        if (report["eval_cost_available"]) evaluation = summary(row["eval"]);
+        report["metrics"][label] = ([ "wall_us": summary(row["wall_us"]),
+            "eval": evaluation,
+            "cpu_ms": row["cpu_ms"]]);
+    }
+    report["targets"] = ([
+        "cold_room_below_30ms": report["metrics"]["cold_room"]["wall_us"]["p95"] < 30000,
+        "hot_room_below_5ms": report["metrics"]["hot_room"]["wall_us"]["p95"] < 5000
+    ]);
+    check(peak_chunks == 64 && peak_prose == 256, "both LRU caches reach but do not exceed limits");
+    check(!CONTENT->query_enabled() && CONTENT->query_status()["states"] == 0,
+        "benchmark has no creation requests");
+    // Performance targets are reported separately from correctness; never raise eval limits.
+    check(
+        write_file("/data/benchmark.json", json_encode(report) + "\n", 1),
+        "write benchmark report"
+    );
+    finish();
+}
+
+void sample_prose() {
+    object reader;
+    mapping payload;
+    string cold, hot;
+
+    payload = payloads[step];
+    reader = new(CONTENT);
+    cold = measure("cold_prose", (: call_other, reader, "read_description", payload :));
+    hot = measure("hot_prose", (: call_other, reader, "read_description", payload :));
+    check(stringp(cold) && cold == hot, "cold and hot validated prose match");
+    destruct(reader);
+    CONTENT->read_description(payload);
+    if (CONTENT->query_status()["cached"] > peak_prose) peak_prose = CONTENT->query_status()["cached"];
+    check(peak_prose <= 256, "prose cache bounded while traversing 257 rooms");
+    if (++step < sizeof(payloads)) call_out("sample_prose", 0);
+    else complete_benchmark();
+}
+
+void prepare_prose() {
+    mapping chunk, cell, payload, snapshot;
+    string dir;
+    int cx;
+
+    mkdir("/data/illusion_world/content/" + ID);
+    for (cx = 0; sizeof(payloads) < 257; cx++) {
+        chunk = WORLD->query_chunk(ID, cx, 0);
+        dir = sprintf("/data/illusion_world/content/%s/%d_0", ID, cx);
+        mkdir(dir);
+        foreach (cell in values(chunk["cells"])) {
+            if (sizeof(payloads) >= 257) break;
+            payload = CONTENT->narration_payload(world, cell);
+            payloads += ({ payload });
+            snapshot = ([ "schema_version": 1, "world_id": ID,
+                "manifest_digest": payload["manifest_digest"], "facts_digest": payload["facts_digest"],
+                "content_key": payload["content_key"], "x": payload["x"], "y": payload["y"],
+                "description": cell["description"], "used_fact_ids": ({}) ]);
+            check(write_file(sprintf("%s/%d_%d.json", dir, payload["x"], payload["y"]),
+                json_encode(snapshot) + "\n", 1), "write isolated rule-text fixture");
+        }
+    }
+    // stat() has second precision; only older snapshots exercise the hot-cache path.
+    step = 0;
+    call_out("sample_prose", 2);
+}
+
+void sample_map() {
+    mapping chunk, hot, facts;
+    object room;
+    string path, description;
+    int cx, cy;
+    int *hub;
+
+    // Each coordinate is new: neither neighbor inspection nor room creation warms it.
+    cx = step % 16 - 8; cy = step / 16 - 4;
+    chunk = measure("cold_chunk", (: call_other, WORLD, "query_chunk", ID, cx, cy :));
+    hot = measure("hot_chunk", (: call_other, WORLD, "query_chunk", ID, cx, cy :));
+    check(sizeof(chunk["cells"]) == sizeof(hot["cells"]), "hot chunk has same cells");
+    hub = chunk["hub"];
+    facts = measure("hot_facts", (: call_other, WORLD, "query_room_facts", ID, hub[0], hub[1] :));
+    check(mapp(facts), "hot room facts available");
+    facts["name"] = "changed by test";
+    facts["fields"]["elevation"] = -1;
+    check(WORLD->query_room_facts(ID, hub[0], hub[1])["name"] != "changed by test" &&
+        WORLD->query_room_facts(ID, hub[0], hub[1])["fields"]["elevation"] != -1,
+        "room facts are still deeply isolated from cache");
+    hot["cells"] = ([]);
+    check(sizeof(WORLD->query_chunk(ID, cx, cy)["cells"]) > 0, "chunk result remains isolated");
+    measure("pure_build_chunk", (: call_other, WORLD, "build_chunk", 42, cx, cy, catalog :));
+    measure("manifest_read", (: call_other, WORLD, "read_world", ID :));
+    measure("catalog_copy", (: call_other, WORLD, "read_catalog", "wuxia-v1" :));
+    // Disjoint chunks. Skeleton lookup does not populate the world cache.
+    hub = WORLD->chunk_skeleton(42, cx, cy + 1024)["hub"];
+    path = WORLD->room_path(ID, hub[0], hub[1], token);
+    room = measure("cold_room", (: call_other, owner, "load_room", path :));
+    if (!objectp(room)) error("benchmark: load returned no room for " + path + "\n");
+    description = measure("missing_prose_long", (: call_other, room, "long" :));
+    check(stringp(description) && description != "", "new room immediately has default prose");
+    destruct(room);
+    room = measure("hot_room", (: call_other, owner, "load_room", path :));
+    check(room->long() == description, "hot reload preserves description");
+    destruct(room);
+    if (WORLD->query_cached_chunks() > peak_chunks) peak_chunks = WORLD->query_cached_chunks();
+    check(peak_chunks <= 64, "chunk cache remains bounded");
+    if (++step < SAMPLES) call_out("sample_map", 0);
+    else call_out("prepare_prose", 0);
+}
+
+void start_benchmark() {
+    initial_eval = eval_cost();
+    world = WORLD->initialize_world(WORLD->catalog_manifest(ID, 42, 0));
+    catalog = WORLD->read_catalog("wuxia-v1");
+    WORLD->set_active_world(0);
+    CONTENT->set_enabled(0);
+    owner = new("/tests/room_stub");
+    token = WORLD->register_instance(owner, ID);
+    // Exclude compilation/JIT startup from steady-state map measurements.
+    load_object("/d/illusion/world"); load_object("/d/illusion/room");
+    call_out("sample_map", 0);
+}
+
+string *epilog(int flag) {
+    call_out("start_benchmark", 0);
+    return ({});
+}

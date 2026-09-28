@@ -1,0 +1,129 @@
+// Real administrator command against temporary catalog/world files only.
+#define WORLD "/adm/daemons/illusion_world_d"
+#define CONTENT "/adm/daemons/illusion_content_d"
+#define CMD "/cmds/adm/illusion"
+#define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
+
+void run() {
+    object actor, room;
+    mapping world, payload, status, original_facts;
+    string command, runtime;
+    int states;
+
+    actor = "/tests/master"->query_players()[0];
+    foreach (command in ({ "status", "status test-rooms-v1 0 0", "entry off", "ai on",
+        "init public-fixture 42 production", "enter test-rooms-v1" }))
+        CHECK(!CMD->main(actor, command), "ordinary player denied: " + command);
+    actor->set("admin", 1);
+    CHECK(CMD->main(actor, "init test-admin 42"), "legacy test init works");
+    CHECK(
+        !WORLD->query_active_world() && !CONTENT->query_enabled(),
+        "initialization enables neither switch"
+    );
+    original_facts = WORLD->query_room_facts("test-admin", 0, 0);
+    CHECK(
+        !CMD->main(actor, "status test-admin 00 0"),
+        "noncanonical diagnostic coordinates rejected"
+    );
+    CHECK(!CMD->main(actor, "status test-admin 1000000001 0"), "out of range diagnostic rejected");
+    CHECK(CMD->main(actor, "status test-admin"), "world manifest can be inspected");
+    states = CONTENT->query_status()["states"];
+    CHECK(
+        CMD->main(actor, "status test-admin 0 0"),
+        "room diagnostic without model or room creation"
+    );
+    CHECK(CONTENT->query_status()["states"] == states, "diagnosis does not request prose");
+    world = WORLD->read_world("test-admin");
+    payload = CONTENT->narration_payload(world, WORLD->query_room_facts("test-admin", 0, 0));
+    status = CONTENT->query_room_status(payload);
+    CHECK(status["content_key"] == payload["content_key"] && !status["saved"] &&
+        status["local_status"] == "unknown", "missing local state is unknown, not false background completion");
+    CHECK(
+        CMD->main(actor, "ai on") && CONTENT->query_enabled(),
+        "administrator enables new requests"
+    );
+    CHECK(
+        CMD->main(actor, "ai off") && !CONTENT->query_enabled(),
+        "administrator pauses new requests"
+    );
+
+    CHECK(CMD->main(actor, "init public-fixture 42 production"), "explicit production init");
+    world = WORLD->read_world("public-fixture");
+    CHECK(
+        !world["test_world"] && world["catalog_version"] == "wuxia-v1",
+        "public identity frozen"
+    );
+    CHECK(!WORLD->query_active_world(), "public init does not open entrance");
+    CHECK(
+        CMD->main(actor, "init public-fixture 42 production"),
+        "same public initialization is idempotent"
+    );
+    CHECK(!CMD->main(actor, "init public-fixture 43 production"), "public seed cannot change");
+    CHECK(!CMD->main(actor, "init test-wrong-mode 42 production"), "production rejects test ID");
+    CHECK(CMD->main(actor, "entry public-fixture"), "public entrance switch accepted");
+    CHECK(
+        WORLD->query_active_world() == "public-fixture",
+        "public entrance points at frozen world"
+    );
+    CHECK(CMD->main(actor, "enter public-fixture"), "administrator can enter frozen public world");
+    room = environment(actor);
+    CHECK(
+        CMD->main(actor, "entry off") && !WORLD->query_active_world(),
+        "rollback selects old entrance"
+    );
+    CHECK(environment(actor) == room && room->valid_illusion_entry(actor),
+        "entrance rollback leaves current instance valid");
+    WORLD->reload_runtime();
+    CHECK(!WORLD->query_active_world(), "disabled entrance persists on settings reload");
+    CHECK(environment(actor) == room && room->valid_illusion_entry(actor),
+        "settings reload does not expire existing instances");
+    CHECK(CMD->main(actor, "entry public-fixture"), "restore public entrance");
+    CHECK(CMD->main(actor, "ai on"), "persist enabled prose");
+    destruct(find_object(WORLD));
+    CHECK(WORLD->query_active_world() == "public-fixture" && CONTENT->query_enabled(),
+        "daemon reload automatically validates and opens configured world");
+    CHECK(WORLD->query_room_facts(
+        "test-admin",
+        0,
+        0
+    )["description"] == original_facts["description"],
+        "release catalog preserves original frozen test geography");
+    CHECK(CMD->main(actor, "ai off"), "persist paused prose independently from entrance");
+    runtime = read_file("/data/illusion_world/runtime.json");
+    write_file("/data/illusion_world/runtime.json", "{broken", 1);
+    destruct(find_object(WORLD));
+    CHECK(
+        !WORLD->query_active_world() && !CONTENT->query_enabled(),
+        "broken configuration fails closed without blocking daemon load"
+    );
+    write_file(
+        "/data/illusion_world/runtime.json",
+        "{\"active_world\":\"test-admin\",\"ai_enabled\":1}",
+        1
+    );
+    destruct(find_object(WORLD));
+    CHECK(
+        !WORLD->query_active_world() && !CONTENT->query_enabled(),
+        "startup cannot promote test worlds"
+    );
+    write_file("/data/illusion_world/runtime.json", runtime, 1);
+    WORLD->reload_runtime();
+    CHECK(
+        WORLD->query_active_world() == "public-fixture" && !CONTENT->query_enabled(),
+        "valid settings reload restores entrance only"
+    );
+    CHECK(
+        CMD->main(actor, "init huanjing-v1 42 production"),
+        "freeze release candidate for deployment verification"
+    );
+    world = WORLD->read_world("huanjing-v1");
+    payload = CONTENT->narration_payload(world, WORLD->query_room_facts("huanjing-v1", 0, 0));
+    write_file("/data/release-origin-payload.json", json_encode(payload) + "\n", 1);
+    "/tests/preload"->preload("/tests/preload_lpc");
+    CHECK(objectp(find_object("/tests/preload_lpc")), "real master preloader loads .lpc objects");
+    "/tests/preload"->preload("/tests/preload_c");
+    CHECK(objectp(find_object("/tests/preload_c")), "real master preloader keeps .c objects");
+    "/tests/preload"->preload("/tests/no_such_daemon");
+    CHECK(!find_object("/tests/no_such_daemon"), "missing preload entry remains harmless");
+    actor->set("admin", 0);
+}

@@ -463,10 +463,13 @@ class WorldTests(unittest.TestCase):
         with self.store.connect() as db:
             original_usage = [tuple(row) for row in db.execute("SELECT * FROM daily_usage ORDER BY day")]
         saved = Path(self.temp.name) / "backup"
+        runtime = '{"active_world":"","ai_enabled":0}\n'
+        (self.store.root / "runtime.json").write_text(runtime, encoding="utf-8")
         backup(self.store, saved)
         target = Settings(data_dir=Path(self.temp.name) / "restored-ai",
                           world_content_dir=Path(self.temp.name) / "restored-world", world_enabled=True)
         restore(target, saved)
+        self.assertEqual((target.world_content_dir / "runtime.json").read_text(encoding="utf-8"), runtime)
         with self.assertRaises(ValueError):
             restore(target, saved)
         restored = Store(target)

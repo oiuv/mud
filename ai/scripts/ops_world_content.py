@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""运维：幻境正文状态、修复及备份恢复；模型生成须显式 --live。"""
+"""运维：幻境状态、修复、正文隔离、失败任务重排及备份恢复；立即生成须显式 --live。"""
 import argparse
 import json
 import shutil
@@ -32,6 +32,11 @@ def backup(store, destination):
             if any(path.is_symlink() for path in source.rglob("*")):
                 raise ValueError("Refuse symlinks in backup")
             shutil.copytree(source, destination / name)
+    runtime = store.root / "runtime.json"
+    if runtime.exists():
+        if runtime.is_symlink():
+            raise ValueError("Refuse symlinked runtime settings")
+        shutil.copyfile(runtime, destination / "runtime.json")
     (destination / "complete.json").write_text('{"format":1}\n', encoding="utf-8")
 
 
@@ -55,6 +60,8 @@ def restore(settings, source):
     for name in ("worlds", "content"):
         if (source / name).exists():
             shutil.copytree(source / name, root / name)
+    if (source / "runtime.json").exists():
+        shutil.copyfile(source / "runtime.json", root / "runtime.json")
     # Publish the database last. A partial restore cannot silently enable jobs.
     shutil.copyfile(source / "world_content.db", database)
 
@@ -63,9 +70,19 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     status = sub.add_parser("status")
-    status.add_argument("--key")
+    selector = status.add_mutually_exclusive_group()
+    selector.add_argument("--key")
+    selector.add_argument("--world")
+    status.add_argument("--x", type=int)
+    status.add_argument("--y", type=int)
+    status.add_argument("--limit", type=int, default=100, help="每页 1–1000 条任务")
+    status.add_argument("--offset", type=int, default=0)
     repair = sub.add_parser("repair")
     repair.add_argument("--key", required=True)
+    retry = sub.add_parser("retry", help="服务停机时显式重排失败任务；之后启动服务可能消耗模型额度")
+    retry.add_argument("--key", required=True)
+    quarantine = sub.add_parser("quarantine", help="服务停机时隔离已审定的错误正文；保留原文，不重新生成")
+    quarantine.add_argument("--key", required=True)
     save = sub.add_parser("backup")
     save.add_argument("destination", type=Path)
     recover = sub.add_parser("restore")
@@ -79,17 +96,30 @@ def main(argv=None):
     store = service = None
     try:
         if args.command == "status":
+            if ((args.x is None) != (args.y is None) or (args.x is not None and not args.world)
+                    or not 1 <= args.limit <= 1000 or args.offset < 0):
+                raise ValueError("Coordinates require --world, --x and --y; limit 1..1000, offset >=0")
             path = (settings.data_dir / "world_content.db").resolve()
             with closing(sqlite3.connect(path.as_uri() + "?mode=ro", uri=True)) as db:
                 db.row_factory = sqlite3.Row
-                if args.key:
-                    rows = db.execute("SELECT content_key,world_id,state,attempts,error,published,model,prompt,usage "
-                                      "FROM room_jobs WHERE content_key=?", (args.key,))
+                if args.key or args.world:
+                    where, params = ("content_key=?", [args.key]) if args.key else ("world_id=?", [args.world])
+                    if args.x is not None:
+                        where += " AND json_extract(payload,'$.x')=? AND json_extract(payload,'$.y')=?"
+                        params.extend((args.x, args.y))
+                    rows = db.execute(
+                        "SELECT content_key,world_id,json_extract(payload,'$.x') AS x,"
+                        "json_extract(payload,'$.y') AS y,state,attempts,error,published,"
+                        "next_at,lease,model,prompt,usage FROM room_jobs WHERE " + where
+                        + " ORDER BY created,content_key LIMIT ? OFFSET ?", (*params, args.limit, args.offset))
                 else:
                     rows = db.execute("SELECT state,count(*) AS jobs,sum(attempts) AS attempts FROM room_jobs GROUP BY state")
                 print(json.dumps([dict(row) for row in rows], ensure_ascii=False, indent=2))
                 print("UTC usage:", json.dumps([dict(row) for row in db.execute(
                     "SELECT day,calls FROM daily_usage ORDER BY day DESC LIMIT 7")]))
+                print("Configured limits:", json.dumps(dict(daily_calls=settings.world_daily_limit,
+                      queued_jobs=settings.world_queue_limit, storage_bytes=settings.world_storage_bytes,
+                      disk_headroom_bytes=settings.world_disk_headroom)))
             return 0
         if args.command == "restore":
             restore(settings, args.source)
@@ -130,6 +160,17 @@ def main(argv=None):
             if not row or row["state"] != "ready":
                 raise ValueError("Repair only accepts a durably completed job; it never generates text")
             store.publish(row)
+        elif args.command == "retry":
+            row = store.retry_failed(args.key)
+            print(json.dumps({key: row[key] for key in ("content_key", "state", "attempts", "next_at", "error")},
+                             ensure_ascii=False, indent=2))
+            print("已重排；未调用模型。下次启用服务时仍受退避、三次尝试及日额度限制。")
+        elif args.command == "quarantine":
+            row = store.quarantine(args.key)
+            print(json.dumps({key: row[key] for key in ("content_key", "state", "published", "error")},
+                             ensure_ascii=False, indent=2))
+            print("已隔离；原文及用量保留在数据库，原发布文件移至同目录 .quarantined-<内容键>.json。")
+            print("原文件已缺失或尚未发布时不新建副本。不会自动修复或重新生成；游戏改用规则描写。")
         return 0
     except (OSError, ValueError, sqlite3.Error) as error:
         print(f"World operation failed: {type(error).__name__}: {error}", file=sys.stderr)

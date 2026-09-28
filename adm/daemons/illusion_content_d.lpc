@@ -5,7 +5,6 @@ inherit "/inherit/illusion/content";
 #define CLIENT_D "/adm/daemons/ai_client_d"
 #define CONTENT_ROOT "/data/illusion_world/content/"
 
-private int enabled;
 private mapping states = ([]);
 private mapping visitors = ([]);
 private mapping cache = ([]);
@@ -13,14 +12,14 @@ private string *cache_order = ({});
 
 void create() { seteuid(getuid()); }
 
-int query_enabled() { return enabled; }
+int query_enabled() { return WORLD_D->query_narration_enabled(); }
 mapping query_status() {
     mapping state;
     int pending;
 
     foreach (state in values(states)) if (state["request_id"]) pending++;
     return ([
-        "enabled": enabled,
+        "enabled": query_enabled(),
         "states": sizeof(states),
         "pending": pending,
         "cached": sizeof(cache)
@@ -32,8 +31,8 @@ void set_enabled(int value) {
 
     if (!objectp(previous_object()) || !is_root(previous_object()))
         error("illusion content: administrator authority required.\n");
-    enabled = value ? 1 : 0;
-    if (!enabled) {
+    WORLD_D->set_narration_enabled(value);
+    if (!value) {
         foreach (key in keys(states))
             if (stringp(states[key]["request_id"])) CLIENT_D->cancel_request(states[key]["request_id"]);
         states = ([]); visitors = ([]);
@@ -130,6 +129,23 @@ string read_description(mapping payload) {
     return text;
 }
 
+mapping query_room_status(mapping payload) {
+    mapping state;
+    string description;
+
+    if (!objectp(previous_object()) || !is_root(previous_object()))
+        error("illusion content: administrator authority required.\n");
+    description = read_description(payload);
+    state = states[payload["content_key"]];
+    return ([
+        "content_key": payload["content_key"],
+        "saved": stringp(description) ? 1 : 0,
+        "local_status": state ? state["status"] : "unknown",
+        "pending": state && stringp(state["request_id"]) ? 1 : 0,
+        "next_visit_at": state ? state["next_at"] : 0
+    ]);
+}
+
 int accept_response(string key, mapping response) {
     return response["type"] == "error" || (response["content_key"] == key &&
         member_array(
@@ -156,7 +172,7 @@ void request_visit(object actor, mapping identity, mapping payload) {
     int pending;
 
     room = previous_object();
-    if (!enabled || !objectp(actor) || !interactive(actor) || environment(actor) != room ||
+    if (!query_enabled() || !objectp(actor) || !interactive(actor) || environment(actor) != room ||
         !WORLD_D->instance_owned_by(identity["world"], identity["instance"], actor) ||
         file_name(room) != WORLD_D->room_path(
             identity["world"],

@@ -6,34 +6,40 @@ inherit "/inherit/illusion/topology";
 
 private mapping chunk_cache = ([]);
 private string *chunk_order = ({});
-private mapping catalog_data;
-private string catalog_sha;
+private mapping catalogs = ([]);
 private mapping instances = ([]);
 private int instance_serial;
 private string active_world;
+private int narration_enabled;
 
-mapping read_catalog() {
-    string text;
+varargs mapping read_catalog(string version) {
+    string text, path;
+    mapping entry;
 
-    if (!catalog_data) {
-        if (file_size("/d/illusion/catalog.json") < 1 || file_size("/d/illusion/catalog.json") > 65536)
+    // Keep the original test catalog byte-for-byte intact for frozen test worlds.
+    path = version == "wuxia-v1" ? "/d/illusion/catalog-wuxia-v1.json" : "/d/illusion/catalog.json";
+    entry = catalogs[path];
+    if (!entry) {
+        if (file_size(path) < 1 || file_size(path) > 65536)
             error("illusion: missing or oversized catalog.\n");
-        text = read_file("/d/illusion/catalog.json");
-        catalog_data = validate_catalog(json_decode(text));
-        catalog_sha = hash("sha256", text);
+        text = read_file(path);
+        entry = ([ "data": validate_catalog(json_decode(text)), "digest": hash("sha256", text) ]);
+        catalogs[path] = entry;
     }
-    return copy(catalog_data);
+    if (version && entry["data"]["version"] != version)
+        error("illusion: unavailable catalog version.\n");
+    return copy(entry["data"]);
 }
 
 mapping catalog_manifest(string id, int seed, int test_world) {
-    read_catalog();
-    if (!test_world && strsrch(catalog_data["version"], "test-") == 0)
-        error("illusion: test catalog cannot initialize a production world.\n");
-    return make_manifest(id, seed, test_world, catalog_data["version"], catalog_sha);
-}
+    mapping catalog;
+    string path;
 
-void create() {
-    seteuid(getuid());
+    catalog = read_catalog(test_world ? 0 : "wuxia-v1");
+    path = test_world ? "/d/illusion/catalog.json" : "/d/illusion/catalog-wuxia-v1.json";
+    if (!test_world && strsrch(catalog["version"], "test-") == 0)
+        error("illusion: test catalog cannot initialize a production world.\n");
+    return make_manifest(id, seed, test_world, catalog["version"], catalogs[path]["digest"]);
 }
 
 private string manifest_path(string id) {
@@ -61,6 +67,8 @@ mapping initialize_world(mapping requested) {
     if (!objectp(previous_object()) || !is_root(previous_object()))
         error("illusion: administrator authority required.\n");
     world = validate_manifest(requested);
+    if (!world["test_world"] && strsrch(world["catalog_version"], "test-") == 0)
+        error("illusion: test catalog cannot initialize a production world.\n");
     path = manifest_path(world["world_id"]);
     if (file_size(path) != -1) {
         existing = read_world(world["world_id"]);
@@ -83,33 +91,40 @@ mapping initialize_world(mapping requested) {
     return copy(world);
 }
 
-mapping query_chunk(string id, int cx, int cy) {
-    mapping world, chunk;
-    string key;
+// Internal cache access; only public wrappers may expose defensive copies.
+private mapping cached_chunk(string id, int cx, int cy) {
+    mapping world, chunk, catalog;
+    string key, path;
 
     world = read_world(id);
-    read_catalog();
-    if (world["catalog_version"] != catalog_data["version"] || world["catalog_digest"] != catalog_sha)
+    catalog = read_catalog(world["catalog_version"]);
+    path = world["catalog_version"] == "wuxia-v1" ? "/d/illusion/catalog-wuxia-v1.json" : "/d/illusion/catalog.json";
+    if (world["catalog_digest"] != catalogs[path]["digest"])
         error("illusion: catalog no longer matches frozen world.\n");
     key = world["manifest_digest"] + ":" + cell_key(cx, cy);
     chunk = chunk_cache[key];
     if (!chunk) {
-        chunk = build_chunk(world["seed"], cx, cy, catalog_data);
+        chunk = build_chunk(world["seed"], cx, cy, catalog);
         if (sizeof(chunk_order) == 64) {
             map_delete(chunk_cache, chunk_order[0]); chunk_order = chunk_order[1..];
         }
         chunk_cache[key] = chunk;
     }
     chunk_order -= ({ key }); chunk_order += ({ key });
-    return copy(chunk);
+    return chunk;
+}
+
+mapping query_chunk(string id, int cx, int cy) {
+    return copy(cached_chunk(id, cx, cy));
 }
 
 mapping query_room_facts(string id, int x, int y) {
-    mapping chunk;
+    mapping chunk, facts;
 
     if (!valid_coordinate(x, y)) error("illusion: coordinate outside world.\n");
-    chunk = query_chunk(id, floor_div(x, 16), floor_div(y, 16));
-    return chunk["cells"][cell_key(x, y)];
+    chunk = cached_chunk(id, floor_div(x, 16), floor_div(y, 16));
+    facts = chunk["cells"][cell_key(x, y)];
+    return facts ? copy(facts) : 0;
 }
 
 int query_cached_chunks() { return sizeof(chunk_cache); }
@@ -180,17 +195,80 @@ mapping parse_room_path(string suffix) {
 }
 
 string query_active_world() { return active_world; }
+int query_narration_enabled() { return narration_enabled; }
 
-void set_active_world(string id) {
+private void validate_entry(string id) {
     mapping world;
 
-    if (!objectp(previous_object()) || !is_root(previous_object())) error("illusion: administrator authority required.\n");
     if (id) {
         world = read_world(id);
-        if (world["test_world"]) error("illusion: test world cannot be opened as the public entrance.\n");
+        if (world["test_world"] || strsrch(world["catalog_version"], "test-") == 0)
+            error("illusion: test world cannot be opened as the public entrance.\n");
         if (!query_room_facts(id, 0, 0)) error("illusion: world origin unavailable.\n");
     }
+}
+
+private void save_runtime(string id, int ai_enabled) {
+    string path;
+
+    if (file_size(WORLD_ROOT) != -2 && !mkdir(WORLD_ROOT)) error("illusion: cannot create world root.\n");
+    path = WORLD_ROOT + "/runtime.json";
+    if (!write_file(path + ".pending", json_encode(([
+        "active_world": id || "", "ai_enabled": ai_enabled
+    ])) + "\n", 1) || rename(path + ".pending", path) != 0)
+        error("illusion: cannot save entrance settings.\n");
+}
+
+private void load_runtime() {
+    mapping settings;
+    string id, path;
+
+    path = WORLD_ROOT + "/runtime.json";
+    if (file_size(path) == -1) { active_world = 0; narration_enabled = 0; return; }
+    if (file_size(path) < 1 || file_size(path) > 4096) error("illusion: invalid runtime settings.\n");
+    settings = json_decode(read_file(path));
+    if (!mapp(settings) || sizeof(settings) != 2 || !stringp(settings["active_world"]) || undefinedp(settings["ai_enabled"]) ||
+        !intp(settings["ai_enabled"]) || member_array(settings["ai_enabled"], ({ 0, 1 })) < 0)
+        error("illusion: invalid runtime settings.\n");
+    id = settings["active_world"] == "" ? 0 : settings["active_world"];
+    validate_entry(id);
     active_world = id;
+    narration_enabled = settings["ai_enabled"];
+}
+
+void reload_runtime() {
+    if (!objectp(previous_object()) || !is_root(previous_object())) error("illusion: administrator authority required.\n");
+    load_runtime();
+}
+
+void set_active_world(string id) {
+    if (!objectp(previous_object()) || !is_root(previous_object())) error("illusion: administrator authority required.\n");
+    validate_entry(id);
+    save_runtime(id, narration_enabled);
+    active_world = id;
+}
+
+void set_narration_enabled(int value) {
+    if (!objectp(previous_object()) || !is_root(previous_object())) error("illusion: administrator authority required.\n");
+    save_runtime(active_world, value ? 1 : 0);
+    narration_enabled = value ? 1 : 0;
+}
+
+void create() {
+    mixed err;
+
+    seteuid(getuid());
+    err = catch(load_runtime());
+    if (err) {
+        active_world = 0; narration_enabled = 0;
+        debug_message("illusion: entrance disabled; inspect frozen manifest, catalog and runtime.json: " + err);
+    } else {
+        debug_message(sprintf(
+            "illusion: active_world=%s ai_enabled=%d",
+            active_world || "off",
+            narration_enabled
+        ));
+    }
 }
 
 int enter_world(object owner, string id) {

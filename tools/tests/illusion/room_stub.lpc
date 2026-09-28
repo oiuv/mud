@@ -1,5 +1,7 @@
 private mapping data = ([]);
 void create() {}
+// A non-master caller follows the same virtual-load path as normal game objects.
+object load_room(string path) { return load_object(path); }
 varargs mixed query(string key, int raw) { return data[key]; }
 mixed set(string key, mixed value) { return data[key] = value; }
 void setArea(string name, int x, int y, int z) { data["position"] = ({ x, y, z }); }

@@ -273,7 +273,7 @@ mapping build_chunk(int seed, int cx, int cy, mapping catalog) {
     int *box, *hub, *delta, *point, *heap;
     mixed *scenes, *queue;
     mapping skeleton, scene, occupied, edges, cells, field, facts, distances, parents, visited, roads;
-    mapping exits, reachable;
+    mapping exits, reachable, sampled;
     mixed row;
     string key, next, best, target, dir;
     int x, y, nx, ny, cost, best_cost, head, count, index, priority;
@@ -281,6 +281,7 @@ mapping build_chunk(int seed, int cx, int cy, mapping catalog) {
 
     box = chunk_bounds(cx, cy); skeleton = chunk_skeleton(seed, cx, cy); hub = skeleton["hub"];
     scenes = chunk_scenes(seed, cx, cy, catalog);
+    sampled = sample_chunk_fields(seed, cx, cy);
     occupied = ([]); edges = ([]); cells = ([]);
     foreach (scene in scenes) {
         for (x = scene["bounds"][0]; x <= scene["bounds"][2]; x++)
@@ -294,7 +295,7 @@ mapping build_chunk(int seed, int cx, int cy, mapping catalog) {
         for (x = box[0]; x <= box[2]; x++) {
             key = cell_key(x, y); scene = occupied[key];
             if (scene && !scene["cells"][key]) continue;
-            field = sample_fields(seed, x, y); facts = biome_facts(field, catalog);
+            field = sampled[key]; facts = biome_facts(field, catalog);
             facts += ([ "x": x, "y": y, "fields": field, "scene_id": "", "role": "wilderness",
                 "name": facts["biome_name"] + "·" + facts["patch"], "scene_name": "", "scene": ([]) ]);
             if (scene) {

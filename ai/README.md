@@ -307,6 +307,8 @@ aitest li bai about 你好
 
 ## 通信与运维
 
+正式心魔幻境由游戏侧选择冻结世界，`illusion entry huanjing-v1` 与 `illusion ai on/off` 分别控制入口及创作申请，设置保存在忽略提交的 `data/illusion_world/runtime.json`，重启自动校验并恢复。Python 仍独立使用 `WORLD_ENABLED` 开关和 `WORLD_CONTENT_DIR` 共享目录；测试世界与正式世界不互相覆盖。模板见 `adm/etc/illusion.example.json`，完整运维命令见下文链接。
+
 幻境的启用、限额、存档与真实试验步骤见 [无限世界 AI 创作](../docs/systems/illusion-world-ai.md)。`WORLD_ENABLED=false` 为默认值；地图、默认描述和已发布正文均不依赖服务在线。启用后复用 `OPENAI_*` 模型配置，但任务、线程和 SQLite 与 NPC 独立，不使用 NPC 记忆或检索。停止服务会等待已经开始的模型调用结束，必要时将启动器的停止等待设为 120 秒或更长；HTTP 读超时不是强制终止线程的硬计时器。
 
 - 当前 NPC 模块提供 chat / memory / config；后两者只读。公共分发层不要求 NPC 或玩家字段，业务自行校验。

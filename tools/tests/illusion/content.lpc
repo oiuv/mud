@@ -177,9 +177,10 @@ void check_timeout() {
 }
 
 void await_publication() {
-    string text, path;
+    string text, path, quarantine_path;
     mapping snapshot;
     object fresh;
+    int setup_count;
 
     text = CONTENT->read_description(payload);
     if (!text) {
@@ -213,6 +214,19 @@ void await_publication() {
     destruct(room); fresh = load_object(WORLD->room_path("test-content", 0, 0, token));
     CHECK(strsrch(fresh->long(), text) == 0, "room recreation reuses content");
     path = "/data/illusion_world/content/test-content/0_0/0_0.json";
+    quarantine_path = "/data/illusion_world/content/test-content/0_0/.quarantined-" + payload["content_key"] + ".json";
+    setup_count = fresh->query("setup_count");
+    rename(path, quarantine_path);
+    CHECK(
+        file_size(path) == -1 && file_size(quarantine_path) > 0,
+        "quarantine retains original outside publication path"
+    );
+    CHECK(!CONTENT->read_description(payload) && fresh->long() == default_text,
+        "quarantine invalidates cached prose on next look without reloading room");
+    CHECK(fresh->query("setup_count") == setup_count && fresh->query("exits")["out"] == "/d/city/wumiao2",
+        "quarantine keeps room setup and exit intact");
+    // Restore this isolated fixture for the existing corruption/repair tests.
+    rename(quarantine_path, path);
     snapshot = json_decode(read_file(path));
     snapshot["x"] = 1;
     write_file(path, json_encode(snapshot), 1);

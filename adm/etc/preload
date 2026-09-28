@@ -2,6 +2,7 @@
 /adm/daemons/timed
 /adm/daemons/logind
 /adm/daemons/virtuald
+/adm/daemons/illusion_world_d
 /adm/daemons/rankd
 /adm/daemons/commandd
 /adm/daemons/chinesed

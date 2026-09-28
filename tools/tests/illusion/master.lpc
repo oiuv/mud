@@ -66,6 +66,8 @@ void run_host_rooms() {
 
     err = catch(load_object("/tests/rooms")->run());
     if (err) check(0, err);
+    err = catch(load_object("/tests/admin")->run());
+    if (err) check(0, err);
     err = catch(load_object("/tests/map_scan")->start());
     if (err) { check(0, err); finish(); }
 }

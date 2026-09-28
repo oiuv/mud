@@ -1,14 +1,15 @@
 // Run the real LPC implementation in a temporary MUDLIB. Never touch player data.
 import { mkdtempSync, mkdirSync, cpSync, writeFileSync, readFileSync, readdirSync, existsSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { tmpdir, cpus, release, totalmem } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 import { createServer, createConnection } from 'node:net';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const driver = resolve(process.argv[2] || join(root, 'bin/driver.exe'));
-const python = process.argv[3] || join(root, process.platform === 'win32' ? 'ai/.venv/Scripts/python.exe' : 'ai/.venv/bin/python');
+const args = process.argv.slice(2).filter(arg => !['--release', '--bench'].includes(arg));
+const driver = resolve(args[0] || join(root, 'bin/driver.exe'));
+const python = args[1] || join(root, process.platform === 'win32' ? 'ai/.venv/Scripts/python.exe' : 'ai/.venv/bin/python');
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-illusion-'));
 console.log('Isolated illusion regression: ' + sandbox);
 for (const dir of ['tests', 'include', 'log', 'data', 'adm/daemons', 'inherit/illusion', 'inherit/room', 'd/illusion', 'u/mudren', 'cmds/adm', 'cmds/test', 'cmds/std'])
@@ -30,6 +31,11 @@ cpSync(join(root, 'mudcore/include/type.h'), join(sandbox, 'include/type.h'));
 for (const [name, body] of Object.entries({ 'legacy.c': '', 'prefer.c': '', 'prefer.lpc': '', 'iw.alias': 'illusion_world.lpc', 'old.alias': 'legacy.c', 'invalid.alias': 'does-not-exist' }))
     writeFileSync(join(sandbox, 'cmds/test', name), body + '\n', 'utf8');
 cpSync(join(root, 'tools/tests/illusion/room_stub.lpc'), join(sandbox, 'tests/demon.c'));
+const preloadSource = readFileSync(join(root, 'adm/single/master/preload.c'), 'utf8');
+writeFileSync(join(sandbox, 'tests/preload.lpc'), preloadSource.slice(
+    preloadSource.indexOf('void preload(string file)'), preloadSource.indexOf('// 调试')), 'utf8');
+writeFileSync(join(sandbox, 'tests/preload_lpc.lpc'), 'int loaded() { return 1; }\n', 'utf8');
+writeFileSync(join(sandbox, 'tests/preload_c.c'), 'int loaded() { return 1; }\n', 'utf8');
 // Compile the actual host movement implementation against a minimal data/room layer.
 writeFileSync(join(sandbox, 'tests/mover.lpc'), 'inherit "/tests/room_stub";\n' + readFileSync(join(root, 'feature/move.c'), 'utf8') +
     '\nint logon() { enable_commands(); "/tests/master"->register_connection(this_object()); return 1; }\n', 'utf8');
@@ -139,3 +145,57 @@ for (const name of previews) {
         throw new Error('Invalid preview artifact: ' + name);
 }
 console.log('ILLUSION artifacts: ' + join(sandbox, 'data') + ' (' + previews.length + ' map previews)');
+if (process.argv.includes('--bench')) {
+    // A fresh process isolates measurements from the regression and real game.
+    writeFileSync(join(sandbox, 'bench.cfg'), readFileSync(join(sandbox, 'driver.cfg'), 'utf8')
+        .replace('master file : /tests/master', 'master file : /tests/benchmark'), 'utf8');
+    const bench = await new Promise((done, reject) => {
+        const child = spawn(driver, ['bench.cfg'], { cwd: sandbox, windowsHide: true });
+        let output = '';
+        const timer = setTimeout(() => child.kill(), 120000);
+        child.stdout.on('data', data => { output += data; });
+        child.stderr.on('data', data => { output += data; });
+        child.on('error', error => { clearTimeout(timer); reject(error); });
+        child.on('close', code => { clearTimeout(timer); done({ code, output }); });
+    });
+    writeFileSync(join(sandbox, 'driver-bench-output.txt'), bench.output, 'utf8');
+    if (bench.code !== 0 || !bench.output.includes('ILLUSION PASS'))
+        throw new Error('Performance regression failed: ' + bench.output.slice(-3000));
+    const report = JSON.parse(readFileSync(join(sandbox, 'data/benchmark.json'), 'utf8'));
+    report.machine = { platform: process.platform, release: release(), arch: process.arch,
+        cpu: cpus()[0]?.model, logicalCpus: cpus().length, totalMemoryBytes: totalmem(), driver };
+    writeFileSync(join(sandbox, 'data/benchmark.json'), JSON.stringify(report, null, 2) + '\n', 'utf8');
+    console.log('BENCHMARK ' + JSON.stringify(report));
+    console.log('BENCHMARK artifacts: ' + join(sandbox, 'data/benchmark.json'));
+}
+if (process.argv.includes('--release')) {
+    writeFileSync(join(sandbox, 'release.cfg'), readFileSync(join(sandbox, 'driver.cfg'), 'utf8')
+        .replace('master file : /tests/master', 'master file : /tests/release_scan')
+        .replace('gametick msec : 100', 'gametick msec : 10'), 'utf8');
+    const release = await new Promise((done, reject) => {
+        const child = spawn(driver, ['release.cfg'], { cwd: sandbox, windowsHide: true });
+        let output = '';
+        // Fail on a stuck sweep, not merely on a healthy long-running batch.
+        let timer = setTimeout(() => child.kill(), 180000);
+        child.stdout.on('data', data => {
+            output += data;
+            if (data.toString().includes('RELEASE SEED')) {
+                clearTimeout(timer);
+                timer = setTimeout(() => child.kill(), 180000);
+            }
+            for (const line of data.toString().split('\n'))
+                if (/RELEASE|FAIL:|error:/.test(line)) console.log(line);
+        });
+        child.stderr.on('data', data => { output += data; });
+        child.on('error', error => { clearTimeout(timer); reject(error); });
+        child.on('close', code => { clearTimeout(timer); done({ code, output }); });
+    });
+    writeFileSync(join(sandbox, 'driver-release-output.txt'), release.output, 'utf8');
+    if (release.code !== 0 || !release.output.includes('ILLUSION PASS'))
+        throw new Error('Release geography regression failed: ' + release.output.slice(-3000));
+    const report = JSON.parse(readFileSync(join(sandbox, 'data/release-scan.json'), 'utf8'));
+    if (Object.keys(report.seeds).length !== 20 || report.failures ||
+        Object.values(report.seeds).some(seed => seed.chunks !== 262 || seed.shuffled_chunks !== 262))
+        throw new Error('Incomplete release sweep');
+    console.log('RELEASE artifacts: ' + join(sandbox, 'data/release-scan.json'));
+}

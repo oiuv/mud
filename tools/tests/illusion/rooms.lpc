@@ -3,13 +3,19 @@
 
 void run() {
     object first, second, room, other, next, blueprint, router, refusing;
-    mapping manifest, decoded, exits;
+    mapping manifest, decoded, exits, facts;
     mixed err;
     string token, other_token, path, invalid, dir, destination;
     int count;
 
     manifest = WORLD->catalog_manifest("test-rooms-v1", 42, 1);
     WORLD->initialize_world(manifest);
+    facts = WORLD->query_room_facts("test-rooms-v1", 0, 0);
+    facts["name"] = "modified fixture";
+    facts["fields"]["elevation"] = -1;
+    CHECK(WORLD->query_room_facts("test-rooms-v1", 0, 0)["name"] != "modified fixture" &&
+        WORLD->query_room_facts("test-rooms-v1", 0, 0)["fields"]["elevation"] != -1,
+        "individual room fact copies cannot alter nested cached facts");
     first = "/tests/master"->query_players()[0]; second = "/tests/master"->query_players()[1];
     CHECK(userp(first) && interactive(first) && userp(second), "two real loopback player sessions");
     token = WORLD->register_instance(first, "test-rooms-v1");

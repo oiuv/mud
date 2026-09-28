@@ -1,0 +1,188 @@
+// Release geography sweep, run only in the isolated test MUDLIB.
+inherit "/tests/master";
+inherit "/tests/canonical";
+inherit "/inherit/illusion/inspection";
+#define WORLD "/adm/daemons/illusion_world_d"
+
+private int *seeds = ({ 42, 0, 1, 2, 7, 13, 31, 99, 256, 1024, 4096, 65535,
+    100000, 123456, 987654, 20260928, 536870911, 1073741824, 2147483646, 2147483647 });
+private int seed_index, step;
+private string world_id;
+private mapping digests = ([]);
+private mapping biomes = ([]);
+private mapping scenes = ([]);
+private mapping samples = ([]);
+private mapping results = ([]);
+private mapping seed_biomes = ([]);
+private mapping seed_scenes = ([]);
+private int transitions, crossed, cold_max, hot_max, rooms;
+private int *timings = ({});
+
+private void inspect_chunk(int cx, int cy, int compare) {
+    mapping chunk, cell, other, seen, scene, neighbors;
+    string key, next, direction, reverse, digest, sample, neighbor;
+    string *queue;
+    int head, started, elapsed;
+    int *destination;
+    mixed row;
+    mapping opposites;
+
+    started = time_ns();
+    chunk = WORLD->query_chunk(world_id, cx, cy);
+    neighbors = ([ WORLD->cell_key(cx, cy): chunk ]);
+    elapsed = (time_ns() - started) / 1000;
+    if (!compare) { timings += ({ elapsed }); if (elapsed > cold_max) cold_max = elapsed; }
+    started = time_ns();
+    WORLD->query_chunk(world_id, cx, cy);
+    elapsed = (time_ns() - started) / 1000;
+    if (elapsed > hot_max) hot_max = elapsed;
+    key = WORLD->cell_key(cx, cy);
+    digest = hash("sha256", canonical_text(chunk));
+    if (compare) {
+        check(digest == digests[key], "shuffled reload preserves complete chunk facts");
+        return;
+    }
+    digests[key] = digest;
+    key = WORLD->cell_key(chunk["hub"][0], chunk["hub"][1]);
+    seen = ([ key: 1 ]); queue = ({ key }); head = 0;
+    opposites = ([ "north": "south", "south": "north", "west": "east", "east": "west" ]);
+    while (head < sizeof(queue)) {
+        cell = chunk["cells"][queue[head++]];
+        foreach (direction, destination in cell["exits"]) {
+            check(
+                WORLD->valid_coordinate(destination[0], destination[1]),
+                "exit remains inside world bounds"
+            );
+            next = WORLD->cell_key(destination[0], destination[1]);
+            reverse = opposites[direction];
+            if (WORLD->floor_div(
+                destination[0],
+                16
+            ) == cx && WORLD->floor_div(destination[1], 16) == cy) {
+                other = chunk["cells"][next];
+                if (!seen[next]) { seen[next] = 1; queue += ({ next }); }
+            } else {
+                neighbor = WORLD->cell_key(
+                    WORLD->floor_div(destination[0], 16),
+                    WORLD->floor_div(destination[1], 16)
+                );
+                if (!neighbors[neighbor]) neighbors[neighbor] = WORLD->query_chunk(world_id,
+                    WORLD->floor_div(destination[0], 16), WORLD->floor_div(destination[1], 16));
+                other = neighbors[neighbor]["cells"][next];
+            }
+            check(mapp(other) && arrayp(other["exits"][reverse]) &&
+                other["exits"][reverse][0] == cell["x"] && other["exits"][reverse][1] == cell["y"],
+                "all internal and boundary edges are paired");
+        }
+    }
+    check(sizeof(seen) == sizeof(chunk["cells"]), "all rooms reach chunk hub");
+    foreach (cell in values(chunk["cells"])) {
+        biomes[cell["biome"]]++;
+        seed_biomes[cell["biome"]]++;
+        transitions += cell["transition"] != "";
+        rooms++;
+    }
+    foreach (scene in chunk["scenes"]) {
+        scenes[scene["template"]["id"]] = 1;
+        seed_scenes[scene["id"]] = scene["template"]["id"];
+        if (WORLD->floor_div(scene["bounds"][0], 16) != WORLD->floor_div(scene["bounds"][2], 16) ||
+            WORLD->floor_div(
+                scene["bounds"][1],
+                16
+            ) != WORLD->floor_div(scene["bounds"][3], 16)) crossed++;
+        foreach (row in scene["rooms"]) {
+            neighbor = WORLD->cell_key(WORLD->floor_div(row[0], 16), WORLD->floor_div(row[1], 16));
+            if (!neighbors[neighbor]) neighbors[neighbor] = WORLD->query_chunk(world_id,
+                WORLD->floor_div(row[0], 16), WORLD->floor_div(row[1], 16));
+            other = neighbors[neighbor]["cells"][WORLD->cell_key(row[0], row[1])];
+            check(
+                mapp(other) && other["scene_id"] == scene["id"] && other["role"] == row[2],
+                "scene is never cut at chunk boundary"
+            );
+            foreach (direction, destination in other["exits"])
+                check(
+                    scene["edges"][WORLD->edge_key(row[0], row[1], destination[0], destination[1])],
+                    "no new doors through scene walls"
+                );
+        }
+    }
+    // Save a bounded set of real ASCII/JSON previews, not runtime ROOM objects.
+    foreach (cell in values(chunk["cells"])) {
+        sample = "biome-" + cell["biome"];
+        if (!samples[sample]) {
+            samples[sample] = ([ "world": world_id, "x": cx, "y": cy ]);
+            write_file(
+                "/data/release-" + sample + ".json",
+                json_encode(inspect_world_chunk(world_id, cx, cy)) + "\n",
+                1
+            );
+        }
+    }
+    foreach (scene in chunk["scenes"]) {
+        sample = "scene-" + scene["template"]["id"];
+        if (!samples[sample]) {
+            samples[sample] = ([ "world": world_id, "x": cx, "y": cy ]);
+            write_file(
+                "/data/release-" + sample + ".json",
+                json_encode(inspect_world_chunk(world_id, cx, cy)) + "\n",
+                1
+            );
+        }
+    }
+    check(WORLD->query_cached_chunks() <= 64, "release LRU stays bounded");
+}
+
+void sweep() {
+    int position, cx, cy, batch;
+    mapping manifest, origin;
+    mixed err;
+
+    err = catch {
+        if (!step) {
+            world_id = sprintf("release-seed-%d", seeds[seed_index]);
+            manifest = WORLD->catalog_manifest(world_id, seeds[seed_index], 0);
+            WORLD->initialize_world(manifest);
+            origin = WORLD->query_room_facts(world_id, 0, 0);
+            check(mapp(origin) && origin["out"], "origin exists and can leave without AI");
+            digests = ([]);
+            seed_biomes = ([]); seed_scenes = ([]);
+        }
+        // 256 chunks cover [-128,127] on both axes; 6 more cover safe-range extremes.
+        for (batch = 0; batch < 2 && step < 524; batch++, step++) {
+            position = step < 262 ? step : ((step - 262) * 73 + 19) % 262;
+            if (position < 256) { cx = position % 16 - 8; cy = position / 16 - 8; } else {
+                cx = position % 2 ? 62500000 : -62500000;
+                cy = position < 258 ? 0 : position < 260 ? 62500000 : -62500000;
+            }
+            inspect_chunk(cx, cy, step >= 262);
+        }
+        if (step == 524) {
+            results[world_id] = ([ "seed": seeds[seed_index], "chunks": 262,
+                "shuffled_chunks": 262, "digest": hash("sha256", canonical_text(digests)),
+                "biomes": copy(seed_biomes), "scenes": copy(seed_scenes) ]);
+            debug_message(sprintf(
+                "RELEASE SEED %d/20: %d checked",
+                seed_index + 1,
+                seeds[seed_index]
+            ));
+            write_file("/data/release-progress.json", json_encode(([ "seeds": results,
+                "checks": checks, "failures": failures ])) + "\n", 1);
+            seed_index++; step = 0;
+        }
+    };
+    if (err) { check(0, err); finish(); return; }
+    // Yield between seeds instead of raising the driver's nested zero-delay limit.
+    if (seed_index < sizeof(seeds)) { call_out("sweep", step ? 0 : 1); return; }
+    check(sizeof(biomes) == 4 && sizeof(scenes) == 5 && crossed > 0 && transitions > 0,
+        "release sweep covers four biomes, five scenes, transitions and crossing structures");
+    timings = sort_array(timings, 1);
+    write_file("/data/release-scan.json", json_encode(([ "seeds": results, "checks": checks,
+        "failures": failures, "biomes": biomes, "scenes": scenes, "samples": samples,
+        "rooms": rooms, "transitions": transitions, "crossed": crossed,
+        "cold_p95_us": timings[sizeof(timings) * 95 / 100], "cold_max_us": cold_max, "hot_max_us": hot_max ])) + "\n", 1);
+    debug_message(sprintf("RELEASE SCAN: %d checks, %d failures, cold p95 %d us / max %d us, hot max %d us",
+        checks, failures, timings[sizeof(timings) * 95 / 100], cold_max, hot_max));
+    finish();
+}
+
+string *epilog(int flag) { call_out("sweep", 0); return ({}); }
