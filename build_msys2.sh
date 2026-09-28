@@ -9,7 +9,7 @@ usage() {
 
 默认流程：
   更新 MSYS2 并安装依赖，恢复 FluffOS 已跟踪文件的本地修改，
-  拉取官方源码，编译静态 EXE，最后复制到本项目的 bin/。
+  拉取官方源码，编译驱动和发布工具的静态 EXE，最后复制到本项目的 bin/。
 
 选项：
   --local       使用本地源码和已安装依赖，跳过 pacman、checkout 和 pull
@@ -20,6 +20,7 @@ BUILD_JOBS 可指定并行任务数，例如：
   BUILD_JOBS=4 bash build_msys2.sh --local --no-install
 
 默认启用 CRYPTO（包含 hash）、SQLite，关闭 MySQL/PostgreSQL。
+只构建安装所需的程序，不构建上游单元测试或基准程序。
 MSYS2 核心升级可能要求关闭终端；重开 MinGW64 终端后重新执行脚本。
 复制驱动前请先停止游戏，也可使用 --no-install 仅完成编译。
 HELP
@@ -64,7 +65,7 @@ if ! $LOCAL_BUILD; then
     pacman --noconfirm -S --needed \
         git bison flex make \
         mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake \
-        mingw-w64-x86_64-zlib mingw-w64-x86_64-pcre mingw-w64-x86_64-icu \
+        mingw-w64-x86_64-zlib mingw-w64-x86_64-pcre2 mingw-w64-x86_64-icu \
         mingw-w64-x86_64-sqlite3 mingw-w64-x86_64-jemalloc mingw-w64-x86_64-gtest \
         mingw-w64-x86_64-openssl mingw-w64-x86_64-pkgconf mingw-w64-x86_64-libffi
 fi
@@ -94,6 +95,7 @@ START_SECONDS=$SECONDS
 printf '开始编译，并行任务数：%s\n构建目录：%s\n' "$JOBS" "$BUILD_DIR"
 # 使用独立构建目录并增量编译，不删除现有 build/ 或递归清理目录。
 cmake -S "$SOURCE_DIR" -B "$BUILD_DIR" -G "MSYS Makefiles" \
+    -U PCRE_LIBRARY -U PCRE_INCLUDE_DIR \
     -DCMAKE_C_COMPILER=/mingw64/bin/gcc.exe \
     -DCMAKE_CXX_COMPILER=/mingw64/bin/g++.exe \
     -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$BUILD_DIR" \
@@ -101,7 +103,8 @@ cmake -S "$SOURCE_DIR" -B "$BUILD_DIR" -G "MSYS Makefiles" \
     -DPACKAGE_CRYPTO=ON -DPACKAGE_DB=ON \
     -DPACKAGE_DB_MYSQL="" -DPACKAGE_DB_POSTGRESQL="" \
     -DPACKAGE_DB_SQLITE=2 -DPACKAGE_DB_DEFAULT_DB=2
-cmake --build "$BUILD_DIR" --parallel "$JOBS"
+cmake --build "$BUILD_DIR" --parallel "$JOBS" \
+    --target driver lpcc lpcshell symbol o2json json2o
 cmake --install "$BUILD_DIR"
 
 [[ -s "$BUILD_DIR/bin/driver.exe" ]] || fail "构建没有生成有效的 driver.exe。"

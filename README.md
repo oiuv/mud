@@ -46,7 +46,7 @@
 bash build_msys2.sh
 ~~~
 
-脚本默认更新 MSYS2、安装依赖，对独立的 `fluffos/` 仓库执行 `git checkout -- .` 恢复已跟踪文件，再通过 `git pull --ff-only` 更新源码。构建启用 CRYPTO（提供 `hash`）和 SQLite，生成静态 EXE；成功后复制到项目 `bin/`，复制前会检查本项目的驱动和编译工具是否仍在运行。
+脚本默认更新 MSYS2、安装依赖，对独立的 `fluffos/` 仓库执行 `git checkout -- .` 恢复已跟踪文件，再通过 `git pull --ff-only` 更新源码。构建启用 CRYPTO（提供 `hash`）和 SQLite，仅构建安装所需的驱动及发布工具，生成静态 EXE，不构建上游单元测试或基准程序；成功后复制到项目 `bin/`，复制前会检查本项目的驱动和编译工具是否仍在运行。
 
 MSYS2 核心升级若要求关闭终端，重新打开 MinGW64 终端后再次执行脚本。已有源码和依赖时，可以跳过更新，只编译验证：
 
@@ -56,6 +56,8 @@ bash build_msys2.sh --help
 ~~~
 
 `--local` 跳过软件包及源码更新；`--no-install` 保留当前项目的驱动，产物位于 `fluffos/build-msys2/bin/`。脚本可从其他目录使用完整路径调用，构建目录始终位于项目内。
+
+当前上游驱动使用 PCRE2，依赖包为 `mingw-w64-x86_64-pcre2`。脚本每次配置时重新探测 PCRE 的头文件和库，避免沿用升级前缓存中的 `libpcre.a`；无需删除整个构建目录。使用 `--local` 时须已安装相应依赖。
 
 ### Docker 部署
 
