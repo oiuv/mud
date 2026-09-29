@@ -275,7 +275,7 @@ class WorldTests(unittest.TestCase):
                     self.submit(payload)
                     self.assertTrue(self.service.tick({payload["content_key"]}))
                     row = self.store.get(payload["content_key"])
-                    self.assertEqual(row["prompt"], PROMPT_VERSION)
+                    self.assertEqual(row["prompt"], generator.prompt_version)
                     self.assertEqual(row["state"], "ready")
                     snapshot = json.loads(self.store.publication_path(payload).read_text(encoding="utf-8"))
                     self.assertEqual(snapshot["description"], text)
@@ -284,10 +284,11 @@ class WorldTests(unittest.TestCase):
 
     def test_prompt_states_creative_space_without_relaxing_output_contract(self):
         # This checks the prompt contract, not whether a real model follows it.
-        self.assertEqual(PROMPT_VERSION, "illusion-prose-v2")
         skill = (self.settings.skills_dir / "world-narration/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn('version: "illusion-prose-v3"', skill)
         for guidance in ("允许合理补白", "未逐项列在输入中不是禁写理由", "保持房间名",
-                         "局部岩面不代表整格地势", "不承诺规则未提供", "不增加其他字段"):
+                         "局部岩面不代表整格地势", "不承诺规则未提供", "不增加其他字段",
+                         "主题词不直接写入景物", "无需刻意体现主题", "`road=0` 不等于无出口"):
             self.assertIn(guidance, skill)
         self.assertNotIn("不得描写当前天气", skill)
         self.assertNotIn("只能依据提供的", skill)
@@ -421,16 +422,17 @@ class WorldTests(unittest.TestCase):
         self.submit()
         self.service.tick()
         old = sample_payload()
+        old_version = self.store.get(old["content_key"])["prompt"]
         snapshot = self.store.publication_path(old).read_bytes()
         skill = skills / "world-narration/SKILL.md"
-        skill.write_text(skill.read_text(encoding="utf-8").replace(PROMPT_VERSION, "test-prose-v3"), encoding="utf-8")
+        skill.write_text(skill.read_text(encoding="utf-8").replace(old_version, "test-prose-future"), encoding="utf-8")
         self.assertEqual(self.submit()["status"], "ready")
         self.assertFalse(self.service.tick())
         new = sample_payload(2)
         self.submit(new)
         self.service.tick()
-        self.assertEqual(self.store.get(new["content_key"])["prompt"], "test-prose-v3")
-        self.assertEqual(self.store.get(old["content_key"])["prompt"], PROMPT_VERSION)
+        self.assertEqual(self.store.get(new["content_key"])["prompt"], "test-prose-future")
+        self.assertEqual(self.store.get(old["content_key"])["prompt"], old_version)
         self.assertEqual(self.store.publication_path(old).read_bytes(), snapshot)
         self.assertEqual(client.chat.completions.create.call_count, 2)
 
