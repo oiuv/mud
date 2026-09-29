@@ -49,7 +49,7 @@ class WindowsLauncherTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name).resolve()
         shutil.copytree(self.template.name, self.root / ".venv")
-        for name in ("start.ps1", "start.bat"):
+        for name in ("run.ps1", "run.bat"):
             shutil.copy2(SERVICE / name, self.root / name)
         (self.root / "scripts").mkdir()
         shutil.copy2(SERVICE / "scripts/ops_run_service.py", self.root / "scripts/ops_run_service.py")
@@ -68,7 +68,7 @@ class WindowsLauncherTests(unittest.TestCase):
     def command(self, *args, check=False, env=None):
         result = subprocess.run(
             ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
-             "-File", str(self.root / "start.ps1"), *args],
+             "-File", str(self.root / "run.ps1"), *args],
             cwd=tempfile.gettempdir(), env=env or self.env,
             capture_output=True, encoding="utf-8", errors="replace", timeout=25,
             creationflags=subprocess.CREATE_NO_WINDOW,
@@ -79,7 +79,7 @@ class WindowsLauncherTests(unittest.TestCase):
 
     def batch_command(self, *args):
         return subprocess.run(
-            [str(self.root / "start.bat"), *args], shell=True,
+            [str(self.root / "run.bat"), *args], shell=True,
             cwd=tempfile.gettempdir(), env=self.env, capture_output=True,
             encoding="utf-8", errors="replace", timeout=25,
             creationflags=subprocess.CREATE_NO_WINDOW,
@@ -202,7 +202,7 @@ class WindowsLauncherTests(unittest.TestCase):
         with (self.root / "foreground.log").open("w", encoding="utf-8") as log:
             process = subprocess.Popen(
                 ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
-                 "-File", str(self.root / "start.ps1"), "run", "-d"],
+                 "-File", str(self.root / "run.ps1"), "run", "-d"],
                 cwd=tempfile.gettempdir(), env=self.env, stdout=log, stderr=log,
                 creationflags=subprocess.CREATE_NO_WINDOW,
             )
@@ -242,13 +242,13 @@ class WindowsLauncherTests(unittest.TestCase):
 
     def test_batch_entrypoint_help(self):
         result = subprocess.run(
-            [str(self.root / "start.bat"), "help"], shell=True,
+            [str(self.root / "run.bat"), "help"], shell=True,
             cwd=tempfile.gettempdir(), env=self.env, capture_output=True,
             encoding="utf-8", errors="replace", timeout=10,
             creationflags=subprocess.CREATE_NO_WINDOW,
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertIn("用法：start.bat", result.stdout)
+        self.assertIn("用法：run.bat", result.stdout)
         self.assertIn("后台启动 AI 服务（默认）", result.stdout)
         self.assertIn("AI_STOP_TIMEOUT", result.stdout)
         self.assertNotIn("\ufffd", result.stdout)

@@ -86,7 +86,7 @@ class WindowsLauncherTests(unittest.TestCase):
         for filename in ("run.bat", "run.ps1"):
             shutil.copyfile(ROOT / filename, path / filename)
         (path / "ai").mkdir()
-        (path / "ai/start.bat").write_text(
+        (path / "ai/run.bat").write_text(
             '@echo off\n> "%~dp0called.txt" echo unexpected\n', encoding="ascii"
         )
         if installed:
@@ -185,7 +185,7 @@ class WindowsLauncherTests(unittest.TestCase):
         second = self.project()
         output = self.launch(first)
         self.assertIn("如需使用 AI 功能", output)
-        self.assertIn("ai\\start.bat", output)
+        self.assertIn("ai\\run.bat", output)
         first_pid = self.pids(first)[-1]
         self.assert_running(first_pid)
         self.assertIn(str(first_pid), self.launch(first, "status"))

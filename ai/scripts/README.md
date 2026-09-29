@@ -1,6 +1,6 @@
 # AI 服务脚本
 
-所有命令行辅助脚本统一放在 `ai/scripts/`，采用单层目录和 `用途_对象.py` 命名。服务入口仍为 `ai/main.py`，启动器仍为 `ai/start.sh`、`start.bat` / `start.ps1`；自动测试及夹具放在 `ai/tests/`，固定效果题集放在 `ai/evals/`。
+所有命令行辅助脚本统一放在 `ai/scripts/`，采用单层目录和 `用途_对象.py` 命名。服务入口仍为 `ai/main.py`，启动器统一为 `ai/run.sh`、`run.bat` / `run.ps1`；自动测试及夹具放在 `ai/tests/`，固定效果题集放在 `ai/evals/`。
 
 ## 分类与命名
 
@@ -22,7 +22,7 @@
 | `ops_build_bm25.py` | 构建本地知识索引 | 写知识库索引；不调用远程 API |
 | `ops_build_vectors.py` | 补齐文档块与当前模型向量 | 写知识库；会使用远程向量额度 |
 | `ops_update_knowledge.py` | 启动前增量更新知识库 | 启动器自动调用；向量失败降级，受更新开关控制 |
-| `ops_run_service.py` | Windows 后台启动与日志重定向 | 由 `start.ps1` 调用；会启动服务，不是独立验证 |
+| `ops_run_service.py` | Windows 后台启动与日志重定向 | 由 `run.ps1` 调用；会启动服务，不是独立验证 |
 | `ops_world_content.py` | 按世界/坐标查任务、修复、隔离、重排、备份、恢复及测试生成 | `status` 只查询；`quarantine` 停服后保留原文撤下发布、不调用模型；其余写操作见运维文档，`describe --live` 立即调用模型，`retry` 重排后可由服务消费额度 |
 
 优先通过启动器管理服务。世界备份、恢复及修复遵循[世界运维说明](../../docs/systems/illusion-world-ai.md)，确认服务停机和目标目录后再执行，不将这些入口注册为 Agent 工具。

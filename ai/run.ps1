@@ -165,7 +165,7 @@ function Stop-AIService {
 try {
     if ($Command -eq "help") {
         Write-Host @'
-用法：start.bat [setup|start|stop|restart|status|logs|run|help] [-d]
+用法：run.bat [setup|start|stop|restart|status|logs|run|help] [-d]
 
   setup    创建虚拟环境、安装依赖，并补齐缺失的配置模板
   start    后台启动 AI 服务（默认）

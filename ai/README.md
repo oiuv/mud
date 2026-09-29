@@ -112,16 +112,16 @@ PowerShell 可用 Copy-Item 代替 cp。生产环境不需要 -d。
 
 ~~~sh
 # 首次部署：创建 ai/.venv、安装依赖、复制缺失的配置
-bash ai/start.sh setup
+bash ai/run.sh setup
 # 编辑模型密钥；已有 .env 和 NPC 角色配置不会被 setup 覆盖
 nano ai/.env
 
 # 启动前自动同步 BM25；配置 DASHSCOPE_API_KEY 后自动补齐缺失向量
-bash ai/start.sh start
-bash ai/start.sh status
-bash ai/start.sh logs
-bash ai/start.sh restart
-bash ai/start.sh stop
+bash ai/run.sh start
+bash ai/run.sh status
+bash ai/run.sh logs
+bash ai/run.sh restart
+bash ai/run.sh stop
 ~~~
 
 不传命令时默认后台启动。可以从任意目录用绝对路径调用脚本；
@@ -143,25 +143,25 @@ PID 和启动标识保存在 ai/.run/，这些运行文件已加入忽略规则�
 
 ~~~powershell
 # 直接启动：首次自动准备虚拟环境、安装依赖并补齐配置模板
-.\ai\start.bat
+.\ai\run.bat
 # 如需修改模型密钥，编辑后重启
 notepad .\ai\.env
-.\ai\start.bat status
-.\ai\start.bat logs
-.\ai\start.bat restart
-.\ai\start.bat stop
+.\ai\run.bat status
+.\ai\run.bat logs
+.\ai\run.bat restart
+.\ai\run.bat stop
 ~~~
 
-start.bat 调用同目录的 start.ps1，兼容 Windows PowerShell 5.1+；
+run.bat 调用同目录的 run.ps1，兼容 Windows PowerShell 5.1+；
 只为本次脚本进程设置执行策略，不修改系统策略。
-不传命令默认后台启动，后台运行不弹出窗口。也可直接在 PowerShell 中调用 start.ps1。
-在 ai 目录内，直接运行 .\start.bat 或 .\start.ps1 即可，无需先手动 setup。
+不传命令默认后台启动，后台运行不弹出窗口。也可直接在 PowerShell 中调用 run.ps1。
+在 ai 目录内，直接运行 .\run.bat 或 .\run.ps1 即可，无需先手动 setup。
 支持 setup/start/stop/restart/status/logs/run，start/restart/run 可加 -d；
 run 使用当前控制台前台运行。日志追加到 logs/ai.log。
 
 - start/restart/run 在缺少虚拟环境时自动创建 .venv\Scripts\python.exe、安装依赖并复制缺失的配置模板；已有 .env 和 NPC 角色配置不会被覆盖。
 - 首次安装需要联网下载 Python 依赖；失败时停止启动，下次执行会重试未完成的安装。成功准备后，日常启动只更新知识库，不会重复安装依赖。
-- setup 保留为手动准备环境或更新依赖的命令，服务运行时不能执行。需要先配置模型密钥再启动时，可先运行 start.bat setup，编辑 .env 后再 start。
+- setup 保留为手动准备环境或更新依赖的命令，服务运行时不能执行。需要先配置模型密钥再启动时，可先运行 run.bat setup，编辑 .env 后再 start。
 - 可设置 $env:AI_PYTHON 指定安装时的 Python 路径；不同操作系统需各自创建虚拟环境，不能复制复用 .venv。
 - stop 通过每次启动独有的本地停止文件请求退出，服务结束当前工作后关闭；默认等 90 秒，可设置 $env:AI_STOP_TIMEOUT。
 - 记录 PID 和进程创建时间，避免旧记录误认其他进程；启动、停止与更新依赖命令互斥执行。

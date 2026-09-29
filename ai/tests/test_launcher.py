@@ -10,7 +10,7 @@ import time
 import unittest
 
 
-LAUNCHER = Path(__file__).resolve().parents[1] / "start.sh"
+LAUNCHER = Path(__file__).resolve().parents[1] / "run.sh"
 FAKE_MAIN = """
 import os
 import signal
@@ -35,7 +35,7 @@ class LauncherTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(prefix="mud ai launcher ")
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
-        shutil.copy2(LAUNCHER, self.root / "start.sh")
+        shutil.copy2(LAUNCHER, self.root / "run.sh")
         (self.root / ".venv/bin").mkdir(parents=True)
         (self.root / ".venv/bin/python").symlink_to(sys.executable)
         (self.root / ".env").write_text("# existing settings\n")
@@ -50,7 +50,7 @@ class LauncherTests(unittest.TestCase):
 
     def command(self, *args, check=False, env=None):
         result = subprocess.run(
-            ["bash", str(self.root / "start.sh"), *args],
+            ["bash", str(self.root / "run.sh"), *args],
             cwd="/", env=env or self.env,
             capture_output=True, text=True, timeout=15,
         )
@@ -125,7 +125,7 @@ class LauncherTests(unittest.TestCase):
     def test_foreground_can_be_stopped_by_another_command(self):
         with (self.root / "foreground.log").open("w") as log:
             process = subprocess.Popen(
-                ["bash", str(self.root / "start.sh"), "run", "--debug"],
+                ["bash", str(self.root / "run.sh"), "run", "--debug"],
                 cwd="/", env=self.env, stdout=log, stderr=log,
             )
             try:

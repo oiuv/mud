@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Linux server launcher. Use: bash ai/start.sh help
+# Linux server launcher. Use: bash ai/run.sh help
 set -euo pipefail
 umask 077
 
@@ -12,7 +12,7 @@ STOP_TIMEOUT="${AI_STOP_TIMEOUT:-90}"
 
 usage() {
     cat <<'HELP'
-用法: bash ai/start.sh [命令] [-d]
+用法: bash ai/run.sh [命令] [-d]
 
   setup      创建 .venv、安装依赖，复制缺失的配置模板（首次部署/更新依赖）
   start      后台启动（默认），日志追加到 logs/ai.log
@@ -93,7 +93,7 @@ write_pid() {
 }
 
 check_environment() {
-    [[ -x "$VENV_PYTHON" ]] || fail "未找到 .venv，请先执行 bash \"$SERVICE_DIR/start.sh\" setup。"
+    [[ -x "$VENV_PYTHON" ]] || fail "未找到 .venv，请先执行 bash \"$SERVICE_DIR/run.sh\" setup。"
     [[ -f "$SERVICE_DIR/.env" ]] || fail "未找到 .env，请先执行 setup 并填写模型密钥。"
     "$VENV_PYTHON" -c 'import sys; sys.exit(0 if sys.version_info >= (3, 10) else "需要 Python 3.10+")'
 }
