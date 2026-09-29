@@ -1,0 +1,104 @@
+// Reproduce a loaded pre-batch generator, then verify dependency-first updating.
+#define GENERATOR "/inherit/illusion/generator"
+#define TOPOLOGY "/inherit/illusion/topology"
+#define UPDATE "/cmds/adm/updateall"
+#define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
+
+void check_data_exclusion(object actor) {
+    string dir, file, contents;
+    int *total;
+
+    contents = "inherit \"/missing_isolated_test_master\";\n";
+    foreach (dir in ({ "/data/illusion_world", "/data/illusion_world/trials",
+        "/data/illusion_backups", "/ai", "/ai/scratch", "/database",
+        "/d/data", "/cmds/test/updateall_fixture",
+        "/cmds/test/updateall_fixture/tests", "/cmds/test/updateall_fixture/.hidden" }))
+        mkdir(dir);
+    foreach (file in ({ "/data/stray.c", "/data/illusion_world/trials/probe.lpc",
+        "/data/illusion_backups/probe.c", "/ai/scratch/probe.lpc",
+        "/cmds/test/updateall_fixture/tests/probe.c",
+        "/cmds/test/updateall_fixture/.hidden/probe.lpc" }))
+        write_file(file, contents, 1);
+
+    foreach (dir in ({ "/data/", "/data/illusion_world/", "/data/illusion_world/trials/",
+        "/data/illusion_backups/", "/ai/scratch/" })) {
+        total = ({ 0 });
+        CHECK(
+            UPDATE->update_dir(actor, dir, 0, total),
+            "non-source path skips without compile error: " + dir
+        );
+        CHECK(!total[0], "excluded directory compiles no files: " + dir);
+    }
+    CHECK(!find_object("/data/illusion_world/trials/probe"), "trial helper never loaded");
+    CHECK(
+        read_file("/data/illusion_world/trials/probe.lpc") == contents,
+        "skipping preserves runtime files"
+    );
+
+    foreach (dir in ({ "/database/", "/d/data/", "/cmds/test/updateall_fixture/" })) {
+        write_file(dir + "current.lpc", "int marker() { return 1; }\n", 1);
+        write_file(dir + "legacy.c", "int marker() { return 1; }\n", 1);
+        total = ({ 0 });
+        CHECK(
+            UPDATE->update_dir(actor, dir, 0, total),
+            "ordinary source directory still compiles: " + dir
+        );
+        CHECK(total[0] == 2, "both LPC extensions compile, hidden/tests children excluded");
+        CHECK(
+            objectp(find_object(dir + "current")) && objectp(find_object(dir + "legacy")),
+            "allowed sources are loaded"
+        );
+    }
+    debug_message("ILLUSION updateall non-source directory filtering verified");
+}
+
+void run() {
+    string source;
+    object generator, actor;
+    mapping fields;
+    int offset, ok;
+    int *total;
+    mixed err;
+
+    source = read_file(GENERATOR + ".lpc");
+    offset = strsrch(source, "mapping sample_chunk_fields(");
+    CHECK(offset > 0, "hot reload fixture finds the added batch interface");
+    if (offset <= 0) return;
+
+    // Only the isolated MUDLIB copy is changed. Restore it even if loading fails.
+    write_file(GENERATOR + ".lpc", source[0..offset - 1], 1);
+    err = catch(generator = load_object(GENERATOR));
+    write_file(GENERATOR + ".lpc", source, 1);
+    CHECK(!err && objectp(generator), "load generator without the new interface");
+    if (err || !generator) return;
+    CHECK(
+        !function_exists("sample_chunk_fields", generator),
+        "disk update leaves old program loaded"
+    );
+
+    actor = new("/tests/room_stub");
+    total = ({ 0 });
+    debug_message("ILLUSION expected stale-inherit compilation failure follows");
+    ok = UPDATE->update_dir(actor, "/inherit/illusion/", 0, total);
+    CHECK(!ok && !total[0], "reverse filename update reaches topology before its stale parent");
+    CHECK(!find_object(TOPOLOGY), "failed topology was not loaded");
+
+    CHECK(UPDATE->update_file(actor, GENERATOR + ".lpc"), "reload parent first");
+    CHECK(
+        UPDATE->update_dir(actor, "/inherit/illusion/", 0, total),
+        "directory update succeeds after refreshing parent"
+    );
+    CHECK(
+        sizeof(total) && total[0] == sizeof(get_dir("/inherit/illusion/*.lpc")),
+        "all illusion inheritance sources compile"
+    );
+    fields = TOPOLOGY->sample_chunk_fields(42, 0, 0);
+    CHECK(sizeof(fields) == 256, "reloaded child has the new batch implementation");
+    CHECK(
+        fields["0,0"]["elevation"] == TOPOLOGY->sample_fields(42, 0, 0)["elevation"],
+        "batch and scalar fields agree after hot reload"
+    );
+    check_data_exclusion(actor);
+    destruct(actor);
+    debug_message("ILLUSION dependency-first hot reload verified");
+}

@@ -23,7 +23,7 @@ cpSync(join(root, 'mudcore/include/socket.h'), join(sandbox, 'include/socket.h')
 cpSync(join(root, 'd/illusion'), join(sandbox, 'd/illusion'), { recursive: true });
 cpSync(join(root, 'inherit/room/illusion_base.lpc'), join(sandbox, 'inherit/room/illusion_base.lpc'));
 cpSync(join(root, 'adm/daemons/virtuald.c'), join(sandbox, 'adm/daemons/virtuald.c'));
-for (const file of ['adm/daemons/commandd.c', 'cmds/adm/illusion.lpc', 'cmds/test/illusion_world.lpc', 'cmds/test/illusion_content.lpc', 'cmds/std/go.c'])
+for (const file of ['adm/daemons/commandd.c', 'cmds/adm/illusion.lpc', 'cmds/adm/updateall.c', 'cmds/test/illusion_world.lpc', 'cmds/test/illusion_content.lpc', 'cmds/std/go.c'])
     cpSync(join(root, file), join(sandbox, file));
 cpSync(join(root, 'u/mudren/maze.c'), join(sandbox, 'u/mudren/maze.c'));
 cpSync(join(root, 'mudcore/include/ansi.h'), join(sandbox, 'include/ansi.h'));

@@ -63,11 +63,12 @@ int update_dir(object me, string dir, int continueable, int *total) {
             return 1;
     }
 
-    // 不编译非游戏源码目录。
+    // 不编译非游戏源码目录，直接指定其子目录时也跳过。
     exclude = ({
         "/backup/",
         "/bin/",
         "/binaries/",
+        "/data/",
         "/doc/",
         "/dump/",
         "/fluffos/",
@@ -80,8 +81,10 @@ int update_dir(object me, string dir, int continueable, int *total) {
         "/version/",
         "/www/"
     });
-    if (member_array(dir, exclude) > -1)
-        return 1;
+    foreach (dirName in exclude) {
+        if (strsrch(dir, dirName) == 0)
+            return 1;
+    }
 
     file = get_dir(dir, -1);
     if (!sizeof(file)) {
@@ -190,6 +193,7 @@ int help(object me) {
 忆体内. 如果后面尾随标志1， 则编译遇到错误时将不会中止。
 支持 .lpc 和 .c 源文件，自动跳过路径中以 . 开头的目录及其子目录。
 自动跳过名为 tests 的隔离测试目录及其子目录；cmds/test 不受影响。
+不编译 /data/ 等非游戏源码目录及其子目录，包括运行存档和试验产物。
 HELP
     );
     return 1;

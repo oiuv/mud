@@ -9,6 +9,7 @@ int is_root(object ob) {
             "/tests/map_scan",
             "/tests/content",
             "/tests/admin",
+            "/tests/reload",
             "/cmds/adm/illusion",
             "/adm/daemons/illusion_content_d",
             "/tests/release_scan",
@@ -18,6 +19,9 @@ int is_root(object ob) {
 }
 
 void log_file(string file, string text) {}
+void message_system(string text) { debug_message(text); }
+// The reload regression calls update_file/update_dir, not the command parser.
+string resolve_path(string cwd, string path) { error("unused test command parser\n"); }
 varargs void message_vision(string text, object actor, object target) {}
 mixed element_of(mixed *items) { return items[0]; }
 int area_move(object area, object player, int x, int y) { return 1; }
