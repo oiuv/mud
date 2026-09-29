@@ -93,7 +93,15 @@ int valid_read(string file, mixed user, string func) {
     if (DEBUG)
         debug_message("[MASTER_OB]->valid_read():" + file + "(" + func + ")");
 
-    if (ob = find_object(SECURITY_D))
+    ob = find_object(SECURITY_D);
+    if (func == "recompile_object") {
+        // 驱动传入的是被更新对象；按实际调用者授权，不能借用目标的身份。
+        user = previous_object();
+        if (!ob || !objectp(user) ||
+            (geteuid(user) != ROOT_UID && ob->get_status(user) != "(admin)"))
+            return 0;
+    }
+    if (ob)
         return (int)ob->valid_read(file, user, func);
 
     return 1;

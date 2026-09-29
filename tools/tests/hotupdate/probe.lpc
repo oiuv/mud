@@ -1,0 +1,224 @@
+private object actor, command_ob, state, first, second, container;
+private object root, middle, leaf, unrelated, original_actor;
+private function old_callback;
+
+private void check(int ok, string label) { "/tests/master"->check(ok, label); }
+private void put(string path, string source) { write_file(path, source, 1); }
+private string state_source(int version) {
+    return sprintf(
+        "private int secret;\nnosave int transient;\nint births;\n%s\n"
+        "void create() { births++; }\n"
+        "void set_state(int value) { secret = value; transient = value + 1; }\n"
+        "int *values() { return ({ secret, transient, births }); }\n"
+        "int version() { return %d; }\n"
+        "int added_value() { return %s; }\n"
+        "function callback() { return (: version :); }\n"
+        "void move(object destination) { move_object(destination); }\n"
+        "void alarm() {}\n"
+        "void schedule() { call_out(\"alarm\", 60); }\n"
+        "int pending() { return find_call_out(\"alarm\") >= 0; }\n",
+        version > 1 ? "int added = 17;" : "", version, version > 1 ? "added" : "0"
+    );
+}
+private void root_source(int version) {
+    put("/cases/zroot.c", sprintf("int root_value() { return %d; }\n", version));
+}
+private void leaf_source(int version) {
+    put("/cases/aleaf.lpc", sprintf(
+        "inherit \"/cases/middle\";\nint leaf_value() { return %d; }\n", version
+    ));
+}
+private int invoke(string args) { return actor->invoke_command(command_ob, args); }
+
+void next_step(string callback) { actor->request_step(callback); }
+
+void start(object player) {
+    object untrusted;
+    mixed err;
+
+    actor = player;
+    original_actor = player;
+    command_ob = load_object("/cmds/adm/hotupdate");
+    put("/cases/state.c", state_source(1));
+    state = load_object("/cases/state");
+    first = new("/cases/state");
+    second = new("/cases/state");
+    container = load_object("/tests/cleanup");
+    move_object(container);
+    actor->move(container);
+    first->move(container);
+    second->move(first);
+    state->set_state(10);
+    first->set_state(20);
+    second->set_state(30);
+    first->schedule();
+    old_callback = first->callback();
+    root_source(1);
+    put("/cases/middle.lpc", "inherit \"/cases/zroot\";\n");
+    leaf_source(1);
+    leaf = load_object("/cases/aleaf");
+    middle = find_object("/cases/middle");
+    root = find_object("/cases/zroot");
+    put("/cases/unrelated.lpc", "int value() { return 7; }\n");
+    unrelated = load_object("/cases/unrelated");
+
+    check(getuid(state) == "Domain", "target has ordinary domain uid");
+    check(!SECURITY_D->valid_read("/cases/state.c", state, "read_file"),
+        "ordinary target is not authorized to read source");
+    check(SECURITY_D->valid_read("/cases/state.c", actor, "read_file"),
+        "administrator can read target source");
+    untrusted = load_object("/tests/untrusted");
+    err = catch(untrusted->attempt(state));
+    check(stringp(err) && strsrch(err, "read access denied") >= 0,
+        "ordinary caller cannot recompile ordinary target");
+    err = catch(untrusted->attempt(container));
+    check(stringp(err) && strsrch(err, "read access denied") >= 0,
+        "ordinary caller cannot borrow a Root target identity");
+    check(!untrusted->attempt_read(), "ordinary read permissions still apply");
+
+    actor->set_level(0);
+    check(!invoke("/cases/state"), "non-admin refused");
+    actor->set_level(5);
+    check(!invoke(0), "missing argument refused");
+    check(!invoke("-x /cases/state"), "unknown flag refused");
+    check(!invoke("/cases/state /cases/aleaf"), "multiple paths refused");
+    check(!invoke("me"), "individual player refused");
+    check(!invoke(file_name(first)), "clone path refused");
+    check(!invoke("/cmds/adm/hotupdate"), "command cannot reload itself");
+    put("/cases/unloaded.lpc", "int value() { return 1; }\n");
+    check(
+        !invoke("/cases/unloaded") && !find_object("/cases/unloaded"),
+        "unloaded source not loaded"
+    );
+    put("/cases/state.c", state_source(2));
+    check(invoke("-n state.c"), "relative explicit .c preview accepted");
+    check(first->version() == 1 && state->version() == 1, "preview does not compile");
+    check(invoke("state"), "deferred reload accepted");
+    check(first->version() == 1, "reload waits until command stack unwinds");
+    check(!invoke("/cases/state"), "concurrent request refused");
+    call_out("next_step", 1, "after_state");
+}
+void after_state() {
+    mixed err;
+    int *values;
+
+    check(find_object("/cases/state") == state, "blueprint identity retained");
+    check(first->version() == 2 && second->version() == 2, "all current clones updated");
+    check(
+        environment(first) == container && environment(second) == first,
+        "environment and inventory retained"
+    );
+    foreach (object item in ({ state, first, second })) {
+        values = item->values();
+        check(
+            values[0] == (item == state ? 10 : item == first ? 20 : 30),
+            "private state retained"
+        );
+        check(values[1] == values[0] + 1, "nosave state retained");
+        check(values[2] == 1, "create not rerun");
+        check(item->added_value() == 17, "new initializer applied");
+    }
+    check(
+        geteuid(state) != ROOT_UID && geteuid(state) != "testadmin",
+        "hotupdate does not elevate target euid"
+    );
+    check(first->pending(), "named callout retained");
+    err = catch(evaluate(old_callback));
+    check(stringp(err) && strsrch(err, "Stale") >= 0, "old local closure rejected");
+    check(evaluate(first->callback()) == 2, "new local closure works");
+    root_source(2);
+    check(invoke("/cases/zroot.c"), "base-only reload accepted");
+    call_out("next_step", 1, "after_base");
+}
+void after_base() {
+    check(
+        root->root_value() == 2 && leaf->root_value() == 1,
+        "default leaves inheritors unchanged"
+    );
+    root_source(3);
+    leaf_source(2);
+    check(invoke("-n -r /cases/zroot"), "recursive preview accepted");
+    check(leaf->root_value() == 1 && leaf->leaf_value() == 1, "recursive preview has no effects");
+    check(invoke("-r /cases/zroot"), "recursive reload accepted");
+    call_out("next_step", 1, "after_tree");
+}
+void after_tree() {
+    check(root->root_value() == 3 && middle->root_value() == 3 && leaf->root_value() == 3,
+        "three-level parent-first reload");
+    check(leaf->leaf_value() == 2, "descendant source recompiled");
+    check(find_object("/cases/aleaf") == leaf, "descendant identity retained");
+    check(unrelated->value() == 7, "unrelated program unchanged");
+    put("/cases/zroot.c", "this is deliberately invalid LPC\n");
+    leaf_source(3);
+    check(invoke("-r /cases/zroot"), "compile failure batch queued");
+    call_out("next_step", 1, "after_failure");
+}
+void after_failure() {
+    check(root->root_value() == 3 && leaf->leaf_value() == 2,
+        "compile failure preserves old program and stops descendants");
+    root_source(4);
+    check(invoke("-r /cases/zroot"), "retry after failure accepted");
+    call_out("next_step", 1, "after_retry");
+}
+void after_retry() {
+    check(root->root_value() == 4 && leaf->root_value() == 4 && leaf->leaf_value() == 3,
+        "retry completes after error");
+    put("/cases/state.c", state_source(3));
+    check(invoke("/cases/state"), "permission test queued");
+    actor->set_level(0);
+    call_out("next_step", 1, "after_revocation");
+}
+void after_revocation() {
+    check(first->version() == 2, "permission rechecked before execution");
+    actor->set_level(5);
+    check(invoke("/cases/state"), "queue reset after permission loss");
+    destruct(state);
+    state = load_object("/cases/state");
+    call_out("next_step", 1, "after_replacement");
+}
+void after_replacement() {
+    check(
+        first->version() == 2 && state->version() == 3,
+        "replaced target does not update historical clones"
+    );
+    check(invoke("/tests/actor.lpc"), "interactive actor program reload queued");
+    call_out("next_step", 1, "after_actor");
+}
+void after_actor() {
+    check(
+        actor == original_actor && interactive(actor),
+        "live connection and player identity retained"
+    );
+    check(invoke("-n here"), "here resolves loaded room blueprint");
+    root_source(5);
+    leaf_source(4);
+    "/tests/sefun"->set_log_failure(1);
+    check(invoke("-r /cases/zroot"), "log failure batch queued");
+    call_out("next_step", 1, "after_log_failure");
+}
+void after_log_failure() {
+    check(root->root_value() == 5 && leaf->root_value() == 4 && leaf->leaf_value() == 3,
+        "log error stops remaining programs after a completed swap");
+    "/tests/sefun"->set_log_failure(0);
+    check(invoke("-r /cases/zroot"), "queue reset after log error");
+    call_out("next_step", 1, "finish");
+}
+void finish() {
+    check(leaf->root_value() == 5 && leaf->leaf_value() == 4, "retry after log error completes");
+    destruct(middle);
+    root_source(6);
+    leaf_source(5);
+    check(invoke("-n -r /cases/zroot"), "preview without intermediate blueprint accepted");
+    check(!find_object("/cases/middle"), "preview does not reload missing ancestor");
+    check(invoke("-r /cases/zroot"), "recursive reload without intermediate blueprint accepted");
+    call_out("next_step", 1, "after_missing_middle");
+}
+void after_missing_middle() {
+    check(root->root_value() == 6 && leaf->root_value() == 6 && leaf->leaf_value() == 5,
+        "ancestor sorted first across a missing intermediate blueprint");
+    check(
+        find_object("/cases/middle")->root_value() == 6,
+        "missing dependency loaded against new ancestor"
+    );
+    "/tests/master"->finish();
+}

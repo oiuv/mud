@@ -1,0 +1,16 @@
+private int reject_logs;
+int is_root(object ob) {
+    return objectp(ob) && (geteuid(ob) == ROOT_UID || SECURITY_D->get_status(ob) == "(admin)");
+}
+int wiz_level(mixed who) { return SECURITY_D->get_wiz_level(who); }
+string wizhood(mixed who) { return SECURITY_D->get_status(who); }
+string log_time() { return ctime(time()); }
+string base_name(object ob) { return explode(file_name(ob), "#")[0]; }
+string resolve_path(string cwd, string path) {
+    return path[0] == '/' ? path : cwd + path;
+}
+void set_log_failure(int value) { reject_logs = value; }
+void log_file(string file, string text) {
+    if (reject_logs) error("test log write failure\n");
+    write_file("/log/" + file, text);
+}

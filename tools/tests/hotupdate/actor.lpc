@@ -1,0 +1,25 @@
+private int level = 5;
+private string phase;
+int query_level() { return level; }
+void set_level(int value) {
+    level = value;
+    SECURITY_D->set_test_status(geteuid(), value >= 5 ? "(admin)" : "(player)");
+}
+string query(string key) { return key == "cwd" ? "/cases/" : 0; }
+void move(object destination) { move_object(destination); }
+void request_step(string callback) {
+    phase = callback;
+    input_to("advance");
+    tell_object(this_object(), "HOTUPDATE STEP\n");
+}
+void advance(string input) {
+    if (phase == "start") "/tests/probe"->start(this_object());
+    else call_other("/tests/probe", phase);
+}
+int logon() {
+    seteuid("testadmin");
+    enable_commands();
+    request_step("start");
+    return 1;
+}
+int invoke_command(object command_ob, string args) { return command_ob->main(this_object(), args); }

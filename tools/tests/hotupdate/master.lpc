@@ -1,0 +1,35 @@
+int checks, failures;
+string get_root_uid() { return "Root"; }
+string get_bb_uid() { return "Root"; }
+mixed creator_file(string file) {
+    if (strsrch(file, "cases/") >= 0 || strsrch(file, "tests/untrusted") >= 0) return "Domain";
+    return "Root";
+}
+int valid_read(string file, mixed user, string func) { return 1; }
+int valid_write(string file, mixed user, string func) { return 1; }
+int valid_seteuid(object ob, string uid) {
+    object security;
+
+    security = find_object(SECURITY_D);
+    return !security || security->valid_seteuid(ob, uid);
+}
+void log_error(string file, string text) { debug_message(text); }
+object connect() { return new("/tests/actor"); }
+
+void check(int ok, string label) {
+    checks++;
+    if (!ok) { failures++; debug_message("FAIL: " + label); }
+}
+void finish() {
+    debug_message(sprintf("HOTUPDATE CHECKS: %d FAILURES: %d", checks, failures));
+    debug_message(failures ? "HOTUPDATE FAIL" : "HOTUPDATE PASS");
+    shutdown(failures ? 1 : 0);
+}
+void error_handler(mapping details, int caught) {
+    if (!caught) { check(0, details["error"]); call_out("finish", 0); }
+}
+string *epilog(int flag) {
+    load_object(SECURITY_D);
+    debug_message("HOTUPDATE READY");
+    return ({});
+}
