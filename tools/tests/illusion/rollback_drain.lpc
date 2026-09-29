@@ -1,0 +1,87 @@
+// Actual go/move and instance release, with two isolated loopback sessions.
+inherit "/tests/master";
+
+#define WORLD "/adm/daemons/illusion_world_d"
+#define CONTENT "/adm/daemons/illusion_content_d"
+#define CMD "/cmds/adm/illusion"
+
+void run_drain() {
+    object actor, origin, neighbor;
+    object *origins;
+    mapping payload;
+    string direction, reverse, path, token;
+    int index;
+
+    if (sizeof(players) < 2) {
+        if (++connection_waits > 10) { check(0, "rollback player timeout"); finish(); return; }
+        call_out("run_drain", 1);
+        return;
+    }
+    players[0]->set("admin", 1);
+    check(CMD->main(players[0], "ai off") && !CONTENT->query_enabled(), "pause AI before drain");
+    check(CMD->main(players[0], "entry public-fixture"), "select isolated public world");
+    origins = ({});
+    foreach (actor in players) {
+        check(
+            interactive(actor) && WORLD->enter_world(actor, "public-fixture"),
+            "online entry before rollback"
+        );
+        origins += ({ environment(actor) });
+    }
+    check(
+        CMD->main(players[0], "entry off") && !WORLD->query_active_world(),
+        "close new entry first"
+    );
+    foreach (actor in players) {
+        origin = origins[index++];
+        token = origin->query("illusion_instance");
+        check(origin->valid_illusion_entry(actor), "existing instance survives entry switch");
+        foreach (direction, path in origin->query("exits")) {
+            if (direction != "out") break;
+        }
+        check("/cmds/std/go"->main(actor, direction) && environment(actor) != origin,
+            "existing player can explore after entry switch");
+        neighbor = environment(actor);
+        reverse = 0;
+        foreach (direction, path in neighbor->query("exits")) {
+            if (path == file_name(origin)) { reverse = direction; break; }
+        }
+        check(stringp(reverse) && "/cmds/std/go"->main(
+            actor,
+            reverse
+        ) && environment(actor) == origin,
+            "existing player returns to canonical origin");
+        check("/cmds/std/go"->main(
+            actor,
+            "out"
+        ) && file_name(environment(actor)) == "/d/city/wumiao2",
+            "online player leaves normally before withdrawing code");
+        check(
+            !WORLD->instance_valid("public-fixture", token),
+            "actual move hook releases departed instance"
+        );
+    }
+    foreach (actor in users())
+        check(objectp(environment(actor)) && !environment(actor)->query("illusion_world"),
+            "no interactive user remains in new world");
+    payload = json_decode(read_file("/data/content-vectors.json"))["payloads"][0];
+    check(
+        CONTENT->read_description(payload) == "松风掠过岩坡，针叶簌簌而落。",
+        "saved prose survives drain without AI"
+    );
+    check(
+        sizeof(json_decode(read_file("/data/model-calls.json"))) == 1,
+        "drain makes no model calls"
+    );
+    write_file("/data/rollback-drain.json", json_encode(([
+        "checks": checks, "failures": failures, "players_drained": sizeof(players)
+    ])) + "\n", 1);
+    if (!failures) debug_message("ILLUSION ROLLBACK DRAIN PASS");
+    finish();
+}
+
+string *epilog(int flag) {
+    debug_message("ILLUSION READY");
+    call_out("run_drain", 0);
+    return ({});
+}

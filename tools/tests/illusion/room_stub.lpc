@@ -4,6 +4,11 @@ void create() {}
 object load_room(string path) { return load_object(path); }
 varargs mixed query(string key, int raw) { return data[key]; }
 mixed set(string key, mixed value) { return data[key] = value; }
+mapping query_entire_dbase() { return data; }
+mapping query_entire_temp_dbase() { return data; }
+int add(string key, int amount) { return data[key] += amount; }
+string name() { return "test actor"; }
+int valid_leave(object actor, string direction) { return 1; }
 void setArea(string name, int x, int y, int z) { data["position"] = ({ x, y, z }); }
 void removeRandomExit() {}
 void setup() { data["setup_count"]++; }

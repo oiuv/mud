@@ -1,0 +1,81 @@
+#define WORLD "/adm/daemons/illusion_world_d"
+#define QUEST "/adm/daemons/quest/_2_demon.c"
+#define DEMON "/tests/demon.c"
+#define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
+
+inherit "/tests/quest_daemon";
+
+void run() {
+    object first, second, room, npc, demon, unrelated;
+    object *before, *spawned;
+    mapping required, bonus;
+    string token;
+    int i;
+
+    first = "/tests/master"->query_players()[0];
+    second = "/tests/master"->query_players()[1];
+    npc = load_object("/adm/daemons/task/npc/zixu");
+    scan_quests();
+    required = QUEST->getKill();
+    CHECK(sizeof(required) == 1 && required[DEMON] == 20,
+        "original demon quest still requires exactly twenty matching kills");
+    first->set("combat_exp", 100000);
+    CHECK(!has_available_quest(first, npc), "demon quest keeps original experience threshold");
+    first->set("combat_exp", 100001);
+    CHECK(has_available_quest(first, npc), "eligible player may accept original demon quest");
+
+    unrelated = new("/tests/room_stub");
+    demon = new(DEMON);
+    doKilled(demon, first);
+    CHECK(!first->getToDo(QUEST), "kills before accepting do not create a quest");
+    destruct(demon);
+    confirm_quest_assignment("y", first, QUEST);
+    confirm_quest_assignment("y", second, QUEST);
+    CHECK(first->getKilled(QUEST, DEMON) == 0 && first->query_temp("quest_saves") == 1,
+        "real quest acceptance starts at zero and calls player persistence");
+    doKilled(unrelated, first);
+    doKilled(second, first);
+    CHECK(first->getKilled(QUEST, DEMON) == 0,
+        "unrelated objects and player kills do not count as demons");
+
+    WORLD->initialize_world(WORLD->catalog_manifest("test-quest-v1", 42, 1));
+    token = WORLD->register_instance(first, "test-quest-v1");
+    room = load_object(WORLD->room_path("test-quest-v1", 0, 0, token));
+    first->move(room, 1);
+    for (i = 1; i <= 20; i++) {
+        before = all_inventory(room);
+        room->spawn_illusion_demon(first);
+        spawned = all_inventory(room) - before;
+        CHECK(sizeof(spawned) == 1 && base_name(spawned[0]) == "/tests/demon",
+            "new illusion spawns original quest target identity");
+        demon = spawned[0];
+        // Simulate the combat daemon's death notification, not a full fight.
+        doKilled(demon, first);
+        destruct(demon);
+        CHECK(first->getKilled(QUEST, DEMON) == i && second->getKilled(QUEST, DEMON) == 0,
+            "each death notification increments only the killing player's count");
+        if (i == 19) {
+            CHECK(!doReward(npc, first) && first->getToDo(QUEST) &&
+                !first->query_temp("quest_reward_calls"), "nineteen demons cannot finish or pay out");
+        }
+    }
+    CHECK(doReward(npc, first) && !first->getToDo(QUEST) && first->isSolved(QUEST),
+        "twentieth demon permits original quest completion");
+    bonus = first->query_temp("quest_reward");
+    CHECK(first->query_temp("quest_reward_calls") == 1 &&
+        bonus["exp"] >= 500 && bonus["exp"] <= 549 &&
+        bonus["pot"] >= 1000 && bonus["pot"] <= 1099 &&
+        bonus["score"] >= 50 && bonus["score"] <= 54,
+        "original reward formula delivered exactly once to the reward boundary");
+    CHECK(!doReward(npc, first) && first->query_temp("quest_reward_calls") == 1,
+        "repeated hand-in without a quest does not duplicate reward");
+    CHECK(has_available_quest(first, npc), "original repeatable quest can be accepted again");
+    confirm_quest_assignment("y", first, QUEST);
+    CHECK(first->getKilled(QUEST, DEMON) == 0, "reaccepted quest resets the kill count");
+    first->delToDo(QUEST);
+    second->delToDo(QUEST);
+    first->move("/tests/room_stub", 1);
+    WORLD->release_instance(token, first);
+    destruct(room);
+    destruct(unrelated);
+}

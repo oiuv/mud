@@ -1,6 +1,85 @@
 inherit F_CLEAN_UP;
 inherit "/inherit/illusion/inspection";
 #define WORLD_D "/adm/daemons/illusion_world_d"
+#define TIMINGS "illusion_move_timings"
+
+// Opt-in measurement of one ordinary move; never walk or change switches for the caller.
+private int measure_step(object me, string direction) {
+    object origin, destination;
+    mapping exits, before, after, sample;
+    mixed result, err, target;
+    mixed *samples;
+    string kind;
+    int started, elapsed, evaluation, cost, chunks;
+
+    origin = environment(me);
+    if (!objectp(origin) || !mapp(exits = origin->query("exits")) ||
+        undefinedp(target = exits[direction]))
+        return notify_fail("当前房间没有该方向，未执行移动或记录样本。\n");
+    kind = "ordinary";
+    if (stringp(target) && strsrch(target, "/d/illusion/world/") == 0)
+        kind = objectp(find_object(target)) ? "loaded_room" : "new_room";
+    chunks = WORLD_D->query_cached_chunks();
+    samples = me->query_temp(TIMINGS);
+    if (!arrayp(samples)) samples = ({});
+    if (sizeof(samples) >= 256)
+        return notify_fail("已记录 256 个样本，请先查看 timings，再用 clear_timings 清空。未执行移动。\n");
+    before = rusage();
+    evaluation = eval_cost();
+    started = time_ns();
+    err = catch(result = "/cmds/std/go"->main(me, direction));
+    elapsed = (time_ns() - started) / 1000;
+    cost = evaluation - eval_cost();
+    after = rusage();
+    if (!objectp(me)) return 1;
+    destination = environment(me);
+    sample = ([ "kind": kind, "direction": direction, "wall_us": elapsed,
+        "cpu_ms": after["utime"] + after["stime"] - before["utime"] - before["stime"],
+        "eval_cost": cost > 0 ? cost : "unavailable",
+        "moved": objectp(destination) && destination != origin,
+        "command_ok": !err && !!result, "error": !!err,
+        "chunks_before": chunks, "chunks_after": WORLD_D->query_cached_chunks() ]);
+    me->set_temp(TIMINGS, samples + ({ sample }));
+    printf("移动采样 #%d：%s，%d μs，CPU %d ms，评估消耗 %O，实际移动 %d。\n",
+        sizeof(samples) + 1, kind, elapsed, sample["cpu_ms"], sample["eval_cost"], sample["moved"]);
+    if (err) {
+        log_file("illusion_world", sprintf("Movement measurement error: %O\n", err));
+        write("移动遇到异常，已单独记录，不纳入成功样本。\n");
+    }
+    return 1;
+}
+
+private int show_timings(object me) {
+    mapping report, group, sample;
+    mixed *samples;
+    int *times;
+    string kind;
+
+    samples = me->query_temp(TIMINGS);
+    if (!arrayp(samples)) samples = ({});
+    report = ([ "driver": __VERSION__, "samples": sizeof(samples), "failed": 0, "groups": ([]) ]);
+    foreach (sample in samples) {
+        if (!sample["command_ok"] || !sample["moved"]) { report["failed"]++; continue; }
+        kind = sample["kind"];
+        if (!mapp(group = report["groups"][kind]))
+            group = report["groups"][kind] = ([ "wall_us": ({}), "cpu_ms": 0 ]);
+        group["wall_us"] += ({ sample["wall_us"] });
+        group["cpu_ms"] += sample["cpu_ms"];
+    }
+    foreach (kind, group in report["groups"]) {
+        times = sort_array(group["wall_us"], 1);
+        group["count"] = sizeof(times);
+        group["p50_us"] = times[sizeof(times) / 2];
+        group["p95_us"] = times[(sizeof(times) * 95 + 99) / 100 - 1];
+        group["max_us"] = times[<1];
+        map_delete(group, "wall_us");
+    }
+    write(json_encode(report) + "\n");
+    write("记录实际 go → move → look/进入钩子的同步耗时，不含网络送达与客户端渲染。\n"
+        "new_room 仅表示房间对象未加载，不等于区块冷缓存；CPU 总量受系统计时精度影响。\n"
+        "采样移动会正常触发遭遇及已启用的创作，不切换入口或 AI，不额外修改角色数值与奖励。\n");
+    return 1;
+}
 
 int main(object me, string arg) {
     string *parts;
@@ -10,9 +89,18 @@ int main(object me, string arg) {
 
     if (!SECURITY_D->valid_grant(me, "(admin)")) return 0;
     parts = stringp(arg) ? explode(arg, " ") - ({ "" }) : ({});
+    if (sizeof(parts) == 2 && parts[0] == "step") return measure_step(me, parts[1]);
+    if (sizeof(parts) == 1 && parts[0] == "timings") return show_timings(me);
+    if (sizeof(parts) == 1 && parts[0] == "clear_timings") {
+        me->delete_temp(TIMINGS);
+        write("仅清空本角色的移动计时样本。\n");
+        return 1;
+    }
     if (sizeof(parts) < 3 || sizeof(parts) > 4 ||
         (sizeof(parts) == 4 && parts[3] != "json"))
-        return notify_fail("用法：illusion_world 世界ID 区块X 区块Y [json]\n");
+        return notify_fail("用法：illusion_world 世界ID 区块X 区块Y [json]\n"
+            "      illusion_world step 方向 | timings | clear_timings\n"
+            "step 会执行一次正常移动，可能遇敌并触发已启用的创作；不是无副作用预览。\n");
     cx = to_int(parts[1]); cy = to_int(parts[2]);
     if (sprintf("%d", cx) != parts[1] || sprintf("%d", cy) != parts[2])
         return notify_fail("区块坐标必须是规范十进制整数。\n");

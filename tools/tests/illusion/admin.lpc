@@ -5,10 +5,11 @@
 #define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
 
 void run() {
-    object actor, room;
+    object actor, room, neighbor;
     mapping world, payload, status, original_facts;
-    string command, runtime;
-    int states;
+    string command, runtime, direction, reverse, target;
+    int states, index;
+    mixed *samples;
 
     actor = "/tests/master"->query_players()[0];
     foreach (command in ({ "status", "status test-rooms-v1 0 0", "entry off", "ai on",
@@ -67,6 +68,49 @@ void run() {
     );
     CHECK(CMD->main(actor, "enter public-fixture"), "administrator can enter frozen public world");
     room = environment(actor);
+    foreach (direction, target in room->query("exits")) {
+        if (direction != "out") break;
+    }
+    states = CONTENT->query_status()["states"];
+    CHECK("/cmds/test/illusion_world"->main(actor, "step " + direction),
+        "movement measurement executes real go and move implementations");
+    neighbor = environment(actor);
+    samples = actor->query_temp("illusion_move_timings");
+    CHECK(neighbor != room && samples[0]["moved"] && samples[0]["command_ok"] &&
+        samples[0]["kind"] == "new_room", "new room movement recorded only after actual movement");
+    foreach (reverse, target in neighbor->query("exits")) {
+        if (target == file_name(room)) break;
+    }
+    CHECK("/cmds/test/illusion_world"->main(actor, "step " + reverse), "measure return movement");
+    samples = actor->query_temp("illusion_move_timings");
+    CHECK(environment(actor) == room && samples[1]["kind"] == "loaded_room",
+        "return measurement reuses canonical room");
+    CHECK(!"/cmds/test/illusion_world"->main(actor, "step nowhere") &&
+        sizeof(actor->query_temp("illusion_move_timings")) == 2,
+        "nonexistent exit does not move or add a timing sample");
+    CHECK("/cmds/test/illusion_world"->main(actor, "timings") &&
+        CONTENT->query_status()["states"] == states && WORLD->query_active_world() == "public-fixture",
+        "timing report does not request prose or change world switches");
+    actor->set("admin", 0);
+    CHECK(!"/cmds/test/illusion_world"->main(actor, "step " + direction) &&
+        !"/cmds/test/illusion_world"->main(actor, "clear_timings") && environment(actor) == room &&
+        sizeof(actor->query_temp("illusion_move_timings")) == 2, "measurement and reset require administrator");
+    actor->set("admin", 1);
+    actor->set("doing", "busy fixture");
+    CHECK("/cmds/test/illusion_world"->main(actor, "step " + direction), "record blocked movement");
+    actor->set("doing", 0);
+    samples = actor->query_temp("illusion_move_timings");
+    CHECK(sizeof(samples) == 3 && !samples[2]["command_ok"] && !samples[2]["moved"] &&
+        environment(actor) == room, "blocked command is not counted as a successful move");
+    samples = allocate(256);
+    for (index = 0; index < sizeof(samples); index++) samples[index] = ([ "command_ok": 0 ]);
+    actor->set_temp("illusion_move_timings", samples);
+    CHECK(!"/cmds/test/illusion_world"->main(actor, "step " + direction) &&
+        sizeof(actor->query_temp("illusion_move_timings")) == 256 && environment(actor) == room,
+        "full sample buffer never silently moves or grows");
+    CHECK("/cmds/test/illusion_world"->main(actor, "clear_timings") &&
+        !actor->query_temp("illusion_move_timings"), "clear only caller timing samples");
+    CHECK("/cmds/test/illusion_world"->main(actor, "timings"), "empty timing report is valid");
     CHECK(
         CMD->main(actor, "entry off") && !WORLD->query_active_world(),
         "rollback selects old entrance"

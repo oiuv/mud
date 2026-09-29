@@ -5,9 +5,10 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 import { createServer, createConnection } from 'node:net';
+import { runRollback } from './illusion_rollback.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const args = process.argv.slice(2).filter(arg => !['--release', '--bench'].includes(arg));
+const args = process.argv.slice(2).filter(arg => !['--release', '--bench', '--rollback'].includes(arg));
 const driver = resolve(args[0] || join(root, 'bin/driver.exe'));
 const python = args[1] || join(root, process.platform === 'win32' ? 'ai/.venv/Scripts/python.exe' : 'ai/.venv/bin/python');
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-illusion-'));
@@ -31,14 +32,37 @@ cpSync(join(root, 'mudcore/include/type.h'), join(sandbox, 'include/type.h'));
 for (const [name, body] of Object.entries({ 'legacy.c': '', 'prefer.c': '', 'prefer.lpc': '', 'iw.alias': 'illusion_world.lpc', 'old.alias': 'legacy.c', 'invalid.alias': 'does-not-exist' }))
     writeFileSync(join(sandbox, 'cmds/test', name), body + '\n', 'utf8');
 cpSync(join(root, 'tools/tests/illusion/room_stub.lpc'), join(sandbox, 'tests/demon.c'));
+// Run the existing game quest contract and framework accounting without player saves.
+mkdirSync(join(sandbox, 'adm/daemons/quest'), { recursive: true });
+mkdirSync(join(sandbox, 'adm/daemons/task/npc'), { recursive: true });
+cpSync(join(root, 'adm/daemons/quest/_2_demon.c'), join(sandbox, 'adm/daemons/quest/_2_demon.c'));
+cpSync(join(root, 'tools/tests/illusion/room_stub.lpc'), join(sandbox, 'adm/daemons/task/npc/zixu.c'));
+cpSync(join(root, 'mudcore/system/daemons/quest_d.c'), join(sandbox, 'tests/quest_daemon.c'));
+cpSync(join(root, 'mudcore/inherit/user_quest.c'), join(sandbox, 'tests/user_quest.c'));
+cpSync(join(root, 'mudcore/include/function_compat.h'), join(sandbox, 'include/function_compat.h'));
+const fileSource = readFileSync(join(root, 'mudcore/system/kernel/simul_efun/file.c'), 'utf8');
+const fileStart = fileSource.indexOf('int file_exists(string file) {');
+const fileEnd = fileSource.indexOf('string *read_lines(');
+const lpcStart = fileSource.indexOf('string lpc_object_path(string path) {');
+if (fileStart < 0 || fileEnd < fileStart || lpcStart < fileEnd)
+    throw new Error('Cannot locate quest source-file identity helpers');
+writeFileSync(join(sandbox, 'tests/quest_files.c'),
+    fileSource.slice(fileStart, fileEnd) + fileSource.slice(lpcStart), 'utf8');
 const preloadSource = readFileSync(join(root, 'adm/single/master/preload.c'), 'utf8');
 writeFileSync(join(sandbox, 'tests/preload.lpc'), preloadSource.slice(
     preloadSource.indexOf('void preload(string file)'), preloadSource.indexOf('// 调试')), 'utf8');
 writeFileSync(join(sandbox, 'tests/preload_lpc.lpc'), 'int loaded() { return 1; }\n', 'utf8');
 writeFileSync(join(sandbox, 'tests/preload_c.c'), 'int loaded() { return 1; }\n', 'utf8');
 // Compile the actual host movement implementation against a minimal data/room layer.
-writeFileSync(join(sandbox, 'tests/mover.lpc'), 'inherit "/tests/room_stub";\n' + readFileSync(join(root, 'feature/move.c'), 'utf8') +
-    '\nint logon() { enable_commands(); "/tests/master"->register_connection(this_object()); return 1; }\n', 'utf8');
+writeFileSync(join(sandbox, 'tests/mover.lpc'), 'inherit "/tests/room_stub";\ninherit "/tests/user_quest";\n' + readFileSync(join(root, 'feature/move.c'), 'utf8') +
+    '\nvoid save() { add_temp("quest_saves", 1); }\n' +
+    '\nint logon() { enable_commands(); master()->register_connection(this_object()); return 1; }\n', 'utf8');
+// Verify the real host's room-info composition, not a hand-written expected payload.
+const gmcpSource = readFileSync(join(root, 'feature/user_gmcp.c'), 'utf8');
+const gmcpStart = gmcpSource.indexOf('void gmcp(string req) {');
+if (gmcpStart < 0) throw new Error('Cannot locate host GMCP implementation');
+writeFileSync(join(sandbox, 'tests/gmcp_user.lpc'),
+    readFileSync(join(sandbox, 'tests/gmcp_user.lpc'), 'utf8') + '\n' + gmcpSource.slice(gmcpStart), 'utf8');
 for (const header of ['config.h', 'dbase.h', 'command.h']) writeFileSync(join(sandbox, 'include', header), '// test header\n', 'utf8');
 // A deliberate temporary collision tests driver priority; do not duplicate source stems in the LIB.
 writeFileSync(join(sandbox, 'tests/numeric.c'), 'inherit "/tests/room_stub";\nvarargs void create(int x, int y, int z) { setArea("test", x, y, z); set("preferred", "c"); }\n', 'utf8');
@@ -67,6 +91,8 @@ writeFileSync(join(sandbox, 'include/globals.h'), [
     '#define ROOT_UID "Root"', '#define SIMUL_EFUN_OB "/tests/sefun"',
     '#define LOOK_CMD "/tests/room_stub"', '#define VOID_OB "/tests/room_stub"',
     '#define F_CLEAN_UP "/tests/room_stub"', '#define SECURITY_D "/tests/security"',
+    '#define CORE_SAVE "/tests/quest_support"', '#define QUEST_DIR "/adm/daemons/quest/"',
+    '#define DATA_DIR "/data/"', '#define QUEST_SIZE 20', '#define GIFT_D "/tests/quest_support"',
 ].join('\n') + '\n', 'utf8');
 const socket = createServer();
 await new Promise(ready => socket.listen(0, '127.0.0.1', ready));
@@ -199,3 +225,4 @@ if (process.argv.includes('--release')) {
         throw new Error('Incomplete release sweep');
     console.log('RELEASE artifacts: ' + join(sandbox, 'data/release-scan.json'));
 }
+if (process.argv.includes('--rollback')) await runRollback({ root, sandbox, driver });

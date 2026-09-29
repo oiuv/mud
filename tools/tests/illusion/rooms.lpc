@@ -2,8 +2,8 @@
 #define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
 
 void run() {
-    object first, second, room, other, next, blueprint, router, refusing;
-    mapping manifest, decoded, exits, facts;
+    object first, second, room, other, next, blueprint, router, refusing, gmcp_user;
+    mapping manifest, decoded, exits, facts, info;
     mixed err;
     string token, other_token, path, invalid, dir, destination;
     int count;
@@ -75,6 +75,19 @@ void run() {
         "illegal coordinate leaves player in original room"
     );
     CHECK(room->query("position")[2] == 0, "public GMCP z does not contain instance ID");
+    gmcp_user = new("/tests/gmcp_user");
+    gmcp_user->move(room, 1);
+    gmcp_user->gmcp("Room.Info.Get");
+    info = gmcp_user->query_gmcp_payload();
+    CHECK(gmcp_user->query_gmcp_module() == "Room.Info" && info["name"] == room->query("short"),
+        "real host GMCP exposes the public room name");
+    CHECK(sizeof(info["exits"]) == sizeof(room->query("exits")) &&
+        member_array("out", info["exits"]) >= 0, "real host GMCP keeps current exits");
+    CHECK(!info["z"] && !info["instance"] && strsrch(json_encode(info), token) < 0,
+        "real host GMCP payload contains no raw instance identifier");
+    CHECK(!info["path"] && strsrch(json_encode(info), "/d/illusion/world/") < 0,
+        "real host GMCP does not expose internal virtual paths");
+    destruct(gmcp_user);
     CHECK(room->query("exits")["out"] == "/d/city/wumiao2", "out goes to wumiao");
     count = room->query("setup_count");
     room->long(); room->long();

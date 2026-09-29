@@ -1,0 +1,16 @@
+// The test runner appends the unchanged host gmcp() implementation.
+// Capture the payload boundary; this does not pretend to test Telnet negotiation.
+inherit "/tests/room_stub";
+
+private mapping last_payload;
+private string last_module;
+
+void log_gmcp(string text) {}
+void msp_oob(string text) {}
+string remove_ansi(string text) { return text; }
+void sendGMCP(mapping data, string first, string second) {
+    last_payload = copy(data);
+    last_module = first + "." + second;
+}
+mapping query_gmcp_payload() { return copy(last_payload); }
+string query_gmcp_module() { return last_module; }

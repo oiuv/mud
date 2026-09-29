@@ -9,6 +9,8 @@ int valid_read(string file, mixed user, string func) { return 1; }
 int valid_write(string file, mixed user, string func) { return 1; }
 int valid_seteuid(object ob, string uid) { return 1; }
 int valid_socket(object ob, string action, mixed *info) { return 1; }
+// Framework legacy/new-name dispatch explicitly calls efun::function_exists.
+int valid_override(string file, string name, string main_file) { return name == "function_exists"; }
 void log_error(string file, string text) { debug_message(text); }
 mixed compile_object(string file) { return "/adm/daemons/virtuald"->compile_object(file); }
 object connect() { return new("/tests/mover"); }
@@ -66,6 +68,8 @@ void run_rooms() {
 void run_host_rooms() {
     mixed err;
 
+    err = catch(load_object("/tests/quests")->run());
+    if (err) check(0, err);
     err = catch(load_object("/tests/rooms")->run());
     if (err) check(0, err);
     err = catch(load_object("/tests/admin")->run());

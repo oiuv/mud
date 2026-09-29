@@ -6,6 +6,7 @@ int is_root(object ob) {
         ({
             "/tests/foundation",
             "/tests/rooms",
+            "/tests/quests",
             "/tests/map_scan",
             "/tests/content",
             "/tests/admin",
@@ -13,7 +14,8 @@ int is_root(object ob) {
             "/cmds/adm/illusion",
             "/adm/daemons/illusion_content_d",
             "/tests/release_scan",
-            "/tests/benchmark"
+            "/tests/benchmark",
+            "/tests/rollback_drain"
         })
     ) >= 0;
 }

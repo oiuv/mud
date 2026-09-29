@@ -1,0 +1,11 @@
+// Persistence, speech and reward delivery boundaries only; accounting uses real source.
+#include "quest_files.c"
+
+void restore() {}
+void save() {}
+void msg(string type, string text, object npc, object player) {}
+
+void work_bonus(object player, mapping bonus) {
+    player->add_temp("quest_reward_calls", 1);
+    player->set_temp("quest_reward", copy(bonus));
+}

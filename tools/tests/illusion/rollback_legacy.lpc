@@ -1,0 +1,62 @@
+// Fresh driver with the pre-infinite-world entrance, move and virtual router.
+inherit "/tests/master";
+
+void run_legacy() {
+    object actor, room, neighbor, unavailable;
+    string direction, path;
+    int *position;
+
+    if (sizeof(players) < 2) {
+        if (++connection_waits > 10) { check(0, "legacy player timeout"); finish(); return; }
+        call_out("run_legacy", 1);
+        return;
+    }
+    check(file_size("/d/illusion") == -1 && file_size("/inherit/illusion") == -1 &&
+        file_size("/adm/daemons/illusion_world_d.lpc") == -1 &&
+        file_size("/adm/daemons/illusion_content_d.lpc") == -1,
+        "new-world implementations are absent, not merely switched off");
+    foreach (actor in players) {
+        actor->move("/tests/zixu_entrance", 1);
+        // Dispatch an action so the driver supplies the real this_player().
+        actor->run_legacy_entry();
+        room = environment(actor);
+        check(base_name(room) == "/u/mudren/maze", "historical NPC entrance executes");
+        position = room->query("position");
+        check(base_name(room) == "/u/mudren/maze" && room->query("short") == "心魔幻境" &&
+            position[0] == 0 && position[1] == 0 && position[2] == getoid(actor),
+            "historical entrance reaches old maze coordinates");
+        foreach (direction, path in room->query("exits")) {
+            if (direction != "out") break;
+        }
+        check("/cmds/std/go"->main(actor, direction), "historical movement command succeeds");
+        neighbor = environment(actor);
+        check(neighbor != room && file_name(neighbor) == path && neighbor->query("maze") == "maze",
+            "historical virtual router loads an adjacent old room");
+        check(!neighbor->query("illusion_world"), "old room has no new-world dependency");
+    }
+    // A missing virtual template may return zero rather than throw.
+    catch(unavailable = load_object("/adm/daemons/illusion_world_d"));
+    check(
+        !objectp(unavailable) && !find_object("/adm/daemons/illusion_world_d"),
+        "new daemon cannot load after withdrawal"
+    );
+    check(
+        !find_object("/adm/daemons/illusion_content_d"),
+        "legacy movement never loads new content daemon"
+    );
+    check(
+        sizeof(json_decode(read_file("/data/model-calls.json"))) == 1,
+        "legacy phase makes no model calls"
+    );
+    write_file("/data/rollback-legacy.json", json_encode(([
+        "checks": checks, "failures": failures, "players_entered": sizeof(players)
+    ])) + "\n", 1);
+    if (!failures) debug_message("ILLUSION ROLLBACK LEGACY PASS");
+    finish();
+}
+
+string *epilog(int flag) {
+    debug_message("ILLUSION READY");
+    call_out("run_legacy", 0);
+    return ({});
+}
