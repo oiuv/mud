@@ -1,10 +1,12 @@
 """One skill tool, permission-filtered discovery and immutable run snapshots."""
 import json
+import re
 import tempfile
 from dataclasses import replace
 from pathlib import Path
 
 from ai.src.llm import ModelResponse, ToolCall
+from ai.src.npc.agents import parse_reply, verify_reply
 from ai.src.runtime.context import Limits, Policy
 from ai.src.runtime.contracts import RuntimeFault
 from ai.src.runtime.runner import Runner
@@ -31,6 +33,29 @@ class SkillTests(RuntimeFixture):
                     resource = tools.execute("skill", {"name": name, "path": path}, context, name + path)
                     self.assertTrue(resource["ok"])
                     self.assertTrue(resource["value"]["content"].strip())
+
+    def test_npc_examples_match_configured_identity_and_reply_contract(self):
+        # Verify the documented template, not live-model instruction following.
+        skills = Skills(Settings().skills_dir)
+        tools = Tools()
+        tools.discover("ai.src.tools", {"skills": skills})
+        context = self.context(policy=Policy(tools={"skill"}, skills={"npc-dialogue"}))
+        reply = tools.execute("skill", {"name": "npc-dialogue", "path": "references/examples.md"},
+                              context, "npc-examples")
+        self.assertTrue(reply["ok"])
+        examples = re.findall(r"```json\n(.*?)\n```", reply["value"]["content"], re.DOTALL)
+        self.assertEqual(len(examples), 2)
+        for name in ("周不通", "黄蓉"):
+            for index, example in enumerate(examples):
+                with self.subTest(name=name, example=index):
+                    value = {"status": "completed", "kind": "rules", "pending": [],
+                             **json.loads(example.replace("<角色姓名>", name))}
+                    result = parse_reply(json.dumps(value, ensure_ascii=False))
+                    context.state.facts = [{"name": name}]
+                    context.state.evidence = {key: {"origin": "knowledge.search"}
+                                              for claim in result.value["claims"] for key in claim["evidence"]}
+                    self.assertTrue(result.value["answer"].startswith(name))
+                    self.assertEqual(verify_reply(result, context), [])
 
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()

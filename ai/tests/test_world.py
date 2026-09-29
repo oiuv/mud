@@ -251,6 +251,9 @@ class WorldTests(unittest.TestCase):
             self.assertEqual(call.call_count, 1)
             self.assertFalse(call.call_args.kwargs["tools"])
             self.assertIn("允许合理补白", call.call_args.args[2][2]["content"])
+            # Single-call generation receives the examples without resource reads.
+            self.assertIn("## 边界示例", call.call_args.args[2][2]["content"])
+            self.assertNotIn("references/", call.call_args.args[2][2]["content"])
             generator.close()
 
     def test_creative_details_and_metaphor_survive_generation_and_publication(self):
@@ -285,7 +288,7 @@ class WorldTests(unittest.TestCase):
     def test_prompt_states_creative_space_without_relaxing_output_contract(self):
         # This checks the prompt contract, not whether a real model follows it.
         skill = (self.settings.skills_dir / "world-narration/SKILL.md").read_text(encoding="utf-8")
-        self.assertIn('version: "illusion-prose-v3"', skill)
+        self.assertIn('version: "illusion-prose-v4"', skill)
         for guidance in ("允许合理补白", "未逐项列在输入中不是禁写理由", "保持房间名",
                          "局部岩面不代表整格地势", "不承诺规则未提供", "不增加其他字段",
                          "主题词不直接写入景物", "无需刻意体现主题", "`road=0` 不等于无出口"):
