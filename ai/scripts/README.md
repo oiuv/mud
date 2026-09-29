@@ -47,6 +47,7 @@
 | `bench_cache.py` | 查询向量缓存基准 | 直接调用远程向量 API，可能写本地缓存 |
 | `bench_retrieval.py` | 检索耗时基准 | 默认本地 BM25；`--remote` 调用远程向量/重排 |
 | `eval_source.py` | 固定源码题、人工审核与计分 | 默认预览；真实运行需 `--execute --allow-source-egress`；离线审核/计分不调用模型 |
+| `eval_skill.py` | 指定模型、Skill 和输入的独立效果测试 | 默认预览；`--execute` 调用真实模型，不连接游戏；可写新报告，不覆盖旧结果 |
 | `example_socket.py` | 可复制的标准库客户端 | 默认预览；`--execute` 才发送，支持长任务续约与取消 |
 
 **分类不等于无副作用。** 沿用各脚本现有参数和默认行为，不要批量执行全部脚本或假设每个脚本都支持 `--help`。真实调用须获授权；报告、思考诊断、索引和运行数据不提交 Git。质量评测方法见 [evals/README.md](../evals/README.md)。
@@ -69,6 +70,39 @@ node ai/scripts/verify_lpc.mjs
 # 本地索引维护，会写索引但不调用模型
 python ai/scripts/ops_build_bm25.py
 ```
+
+## 独立测试模型与 Skill
+
+`eval_skill.py` 复用服务的 `Runner`、模型适配、统一 `skill` 工具和 Hook，不启动 socket、NPC、知识库或世界服务，不读玩家历史、不发布房间正文。可以先独立比较输入、模型与 Skill 的效果，再进游戏做少量集成测试。
+
+```sh
+# 默认预览：不调用模型、不读取源码、不写报告
+python ai/scripts/eval_skill.py --skill world-narration --input "松岗：岩坡间有古松，山风卷起松针；暗线主题为争胜，无地标。" --json
+
+# 真正调用：只在要求结构化输出时加 --json；结果直接显示在本地终端
+python ai/scripts/eval_skill.py --skill world-narration --input "松岗：岩坡间有古松，山风卷起松针；暗线主题为争胜，无地标。" --json --execute
+
+# 自备 UTF-8 用例，固定输入分别换模型；报告目录须已存在
+python ai/scripts/eval_skill.py --skill world-narration --input-file case.json --model qwen3.8-flash --json --report ai/.run/skill-flash.json --execute
+python ai/scripts/eval_skill.py --skill world-narration --input-file case.json --model qwen3.8-max --json --report ai/.run/skill-max.json --execute
+
+# 不加载 Skill，作为模型自身能力的对照
+python ai/scripts/eval_skill.py --input "用两句话描写山间客栈。" --execute
+
+# 允许模型按需读取所选 Skill 声明的参考资料，仍只有一个 skill 工具
+python ai/scripts/eval_skill.py --skill npc-dialogue --input-file case.txt --system-file role-and-contract.txt --mode tool_loop --json --execute
+
+# 调查类测试需提供只读仓库；调用模型前明确授权必要源码外发
+python ai/scripts/eval_skill.py --skill source-investigation --input "查明入门门槛与成功后的实际扣除。" --mode tool_loop --repository C:/temp/skill-fixture --allow-source-egress --execute
+```
+
+- `--input-file` 的文本原样作为用户输入，不强制用例格式；`--system-file` 可提供测试角色、资料及入口输出契约。NPC/主 Agent 的业务格式并非全由 Skill 定义，测试者需提供相应上下文；脚本不会自动读取正式角色配置。
+- 默认 `single` 预加载所选 Skill 后单次生成，不给模型工具；`tool_loop` 才允许它通过 `skill` 按需读参考资料。`--repository` 额外开启现有 `source.search/read`，保持仓库边界、敏感排除和证据登记；不自动开启 CodeGraph、任意 CLI、知识库或子 Agent。Skill 不能自行增加权限。
+- `--skill` 可省略，`--skills-dir` 可选择另一套业务 Skill 包，不必修改源码。脚本不内置逐 Skill 分支，也不要求 MUDLIB 或游戏驱动；源码调查本身仍需测试仓库或输入中提供的资料。
+- 连接沿用 `ai/.env`，也可指定 `--env-file`；进程环境变量仍优先。`--model` 只改变本次模型，不自动识别容量。换模型时通过独立配置同步核对上下文窗口、最大输出、工具/JSON 支持与 `CHAT_EXTRA_BODY`；不会修改正式配置或静默换模型。
+- 报告记录原始输入、系统指导、答案、Skill 版本/hash、实际读取的资源、模型参数指纹、工具事件、耗时、用量和按配置估算的费用。费用/用量缺失保持未知，不计算“每个正确答案成本”。思考记录仍由可信诊断配置显式开启，不混入普通报告；独立测试配置应使用独立诊断文件。
+- `completed` 和退出码 `0` 仅表示生成结束且通过文本非空/JSON 对象格式检查，**不代表业务契约、证据引用或语义质量通过**。不自动审稿、修复 JSON 或重跑失败用例；工具循环和必要的运行时 compact 仍可产生多次调用。通过原始答案人工比较准确性、文风与创造力。
+- `--execute` 会外发本次输入、指导及获准资料并消费额度。报告可能包含输入和源码片段，应放在受保护、被 Git 忽略的目录（如 `ai/.run/`；Windows 依赖目录 ACL）；输出也会显示在本机终端。指定的报告已存在时在调用前拒绝，默认预览不创建目录或文件；按 Ctrl+C 取消，不自动续跑。
 
 ## 旧命令迁移
 
