@@ -1,0 +1,66 @@
+{
+  "baseline": "aba7d1ea710a2fca8e8b3ee7a7beed9c684756b9",
+  "total": 10771,
+  "roots": {
+    "adm": 199,
+    "b": 106,
+    "clone": 1002,
+    "cmds": 331,
+    "d": 6978,
+    "feature": 49,
+    "inherit": 95,
+    "kungfu": 1969,
+    "shadow": 3,
+    "std": 3,
+    "u": 30,
+    "world": 6
+  },
+  "groups": {
+    "npc": {
+      "files": 1555,
+      "create_only": 743
+    },
+    "item": {
+      "files": 876,
+      "create_only": 478
+    },
+    "room": {
+      "files": 4423,
+      "create_only": 3696
+    },
+    "armor": {
+      "files": 424,
+      "create_only": 383
+    },
+    "weapon": {
+      "files": 498,
+      "create_only": 404
+    },
+    "animal": {
+      "files": 80,
+      "create_only": 59
+    },
+    "board": {
+      "files": 61,
+      "create_only": 60
+    },
+    "book": {
+      "files": 163,
+      "create_only": 150
+    },
+    "drink": {
+      "files": 80,
+      "create_only": 78
+    },
+    "stack": {
+      "files": 85,
+      "create_only": 49
+    },
+    "food": {
+      "files": 194,
+      "create_only": 174
+    }
+  },
+  "lex_errors": [],
+  "inventory_rows": 4130
+}
