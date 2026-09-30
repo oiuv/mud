@@ -2,7 +2,7 @@
 
 地图和玩法仍由 LPC 决定，AI 只写静态正文。正式内容采用独立的 `wuxia-v1` 版本，包含四种生态及旧村、残寺、荒渡、故关、废驿；正式世界与原测试世界分别冻结，旧存档不迁移、不重生成。入口是否开放以部署的运行配置和 `illusion status` 为准，实际验收范围见验证记录；文风优化与功能验收分开。最低驱动仍为 FluffOS v2026.0712.3，不涉及 mudcore 修改。
 
-2026-09-28 已按维护者授权在本部署开放 `huanjing-v1`（种子 42），游戏入口和创作申请均开启，Python 服务在线。开服前备份在 `data/illusion_backups/pre-open-20260928/`；后续状态以实服为准，不代表所有部署默认开放，也不代表剩余综合验收已完成。玩家沿用子虚道人的“心魔幻境”入口；管理员可用 `illusion entry off` 将后续入场切回旧幻境，或只用 `illusion ai off` 暂停创作申请。
+2026-09-28 已按维护者授权在本部署开放 `huanjing-v1`（种子 42），游戏入口和创作申请均开启，Python 服务在线。开服前备份在 `data/illusion_backups/pre-open-20260928/`；后续状态以实服为准，不代表所有部署默认开放。维护者已于 2026-09-30 确认综合验收通过，规划已归档。玩家沿用子虚道人的“心魔幻境”入口；管理员可用 `illusion entry off` 将后续入场切回旧幻境，或只用 `illusion ai off` 暂停创作申请。
 
 ## 创作目标与审读标准
 
@@ -145,7 +145,7 @@ node tools/tests/test_illusion_world.mjs --release
 node tools/tests/test_illusion_world.mjs --bench
 ```
 
-使用临时 MUDLIB、SQLite、随机环回端口和假模型，不消耗外部模型额度。真实调用结果与尚未完成的验收以 [验证记录](../../openspec/changes/add-wuxia-infinite-world/validation.md) 为准。
+使用临时 MUDLIB、SQLite、随机环回端口和假模型，不消耗外部模型额度。真实调用结果与最终验收依据以 [验证记录](../../openspec/changes/archive/2026-09-30-add-wuxia-infinite-world/validation.md) 为准。
 
 `--bench` 在基础回归后启动独立驱动，保存机器信息、128 组地图计时、257 组正文读取、LRU 峰值及 CPU 累计时间到临时目录 `data/benchmark.json`。冷缓存指 LPC 缓存未命中，不清空操作系统文件缓存；房间创建使用真实虚拟路由与房间代码、简化宿主，不代表完整玩家移动/战斗耗时。性能目标结果与功能检查分开报告；Windows 驱动无法提供有效 `eval_cost()` 差值时标记不可用，不把零差值解释为零开销。
 
@@ -163,4 +163,4 @@ Agent 迁移另有 `python ai/scripts/verify_business_agents.py` 合成资料联
 
 在已加载本次代码的游戏中执行 `illusion enter test-huanjing-m1`，再 `east` 到 `(1,0)`、`look` 即可试看，不需要开启自动创作。起点 `(0,0)` 仍为规则正文；旧村范围为 x=`-62..-60`、y=`35..37`，残寺已发布 `(-4,41)`、`(-4,40)`、`(-4,42)`、`(-3,41)`。
 
-上述 20 次预算及暂停安排是 2026-09-25 的阶段记录。2026-09-28 维护者确认 AI 断线旧回复不再投递，并授权恢复无限世界正式接入；后续状态见 [恢复顺序](../../openspec/changes/add-wuxia-infinite-world/tasks.md)。不为架构或提示词升级自动重生成这批正文。原运行证据位于忽略目录 `data/illusion_world/trials/v2-flash-20/`，不提交生成数据。
+上述 20 次预算及暂停安排是 2026-09-25 的阶段记录。2026-09-28 维护者确认 AI 断线旧回复不再投递，并授权恢复无限世界正式接入；后续状态见 [恢复顺序](../../openspec/changes/archive/2026-09-30-add-wuxia-infinite-world/tasks.md)。不为架构或提示词升级自动重生成这批正文。原运行证据位于忽略目录 `data/illusion_world/trials/v2-flash-20/`，不提交生成数据。

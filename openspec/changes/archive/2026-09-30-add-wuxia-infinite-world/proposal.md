@@ -4,7 +4,7 @@
 
 现有心魔幻境已有无限坐标房间和完整的心魔任务，但房间外观单一、出口随对象重建随机变化，缺少可辨认、可重访的大世界。采用固定种子的程序化地形，加上后台生成并永久保存的 AI 描写，可以利用文本 MUD 的优势，同时避开 LLM 延迟对移动和战斗的影响。
 
-前置变更：[refactor-ai-service](../archive/2026-09-24-refactor-ai-service/proposal.md) 已完成并归档；验收范围见其 [validation.md](../archive/2026-09-24-refactor-ai-service/validation.md)。本变更基于统一 AI 服务实施，`ai/` 指重构后的服务目录。
+前置变更：[refactor-ai-service](../2026-09-24-refactor-ai-service/proposal.md) 已完成并归档；验收范围见其 [validation.md](../2026-09-24-refactor-ai-service/validation.md)。本变更基于统一 AI 服务实施，`ai/` 指重构后的服务目录。
 
 ## What Changes
 
@@ -39,6 +39,6 @@
 - 新增世界清单、AI 场景数据库和可被游戏离线读取的 JSON 存档；运行数据排除出 Git。首期按当前同机部署设计，由服务写入共享目录、游戏只读。
 - 更新 `help/huanjing`、服务配置示例和运维说明；不修改 FluffOS 官方源码，不向独立框架 `mudcore` 引入游戏或外部 AI 服务依赖，不要求 Web 客户端新增功能。
 
-详细技术选择、参数、风险与分期见 [design.md](design.md)；需求验收见 `specs/`，实施进度见 [tasks.md](tasks.md)，已运行检查与剩余验收见 [validation.md](validation.md)。当前完成 32/50 项：M2 自动创作闭环通过假模型回归，v2 / qwen3.8-flash 已完成 20 房间真实试生成，19 份正文发布到测试世界，1 份保留待改稿。完整游戏及真实 NPC 并行验收、M1 剩余验收和 M3 仍未完成，不代表正式开放。
+详细技术选择、参数、风险与分期见 [design.md](design.md)；需求验收见 `specs/`，实施进度见 [tasks.md](tasks.md)，验证依据见 [validation.md](validation.md)。当前 **50/50 项完成**，维护者于 2026-09-30 确认无限世界验收通过并要求归档。正式接入及历次测试范围保留在验证记录中；后续文风与玩法优化另行规划。
 
 2026-09-25 决定先提交上述阶段成果，再优先实施独立的 `evolve-ai-capability-runtime` 架构规范与重构。现有世界能力迁移并通过基线回归后，继续本变更的剩余任务；暂停不等于完成或归档，不因重构重做已保存正文。

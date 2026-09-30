@@ -4,7 +4,7 @@
 
 本设计记录 2026-09-24 确定的方案；动机与范围见 [proposal.md](proposal.md)。下表“现状”是规划时的源码基线，后续各节是目标设计，不代表全部已实现；当前实施与验收状态以 [validation.md](validation.md) 为准。
 
-前置变更 [refactor-ai-service](../archive/2026-09-24-refactor-ai-service/design.md) 已完成并归档，NPC 兼容性验收范围见其 [validation.md](../archive/2026-09-24-refactor-ai-service/validation.md)。以下 AI 服务路径使用重构后的 `ai/`；公共通信、模型调用和业务注册由前置变更提供，场景队列与发布流程由本变更实现。
+前置变更 [refactor-ai-service](../2026-09-24-refactor-ai-service/design.md) 已完成并归档，NPC 兼容性验收范围见其 [validation.md](../2026-09-24-refactor-ai-service/validation.md)。以下 AI 服务路径使用重构后的 `ai/`；公共通信、模型调用和业务注册由前置变更提供，场景队列与发布流程由本变更实现。
 
 2026-09-25 阶段安排：先提交当前 M2 实现，再暂停新增世界功能，优先完成 `evolve-ai-capability-runtime` 的规范及现有 AI 能力迁移。下文保留世界业务与数据契约；模型/提示词的具体接入方式由该架构变更演进，不重复建设另一套 Agent 运行时。兼容回归通过后按 [tasks.md](tasks.md) 恢复，本变更不提前归档。
 

@@ -4,13 +4,11 @@
 
 最低驱动版本为 **FluffOS v2026.0712.3**；构建须启用 CRYPTO，提供 SHA-256 `hash`。功能属于游戏 LIB，不向 mudcore 引入具体玩法或外部服务依赖。
 
-已实现确定性地图、道路、旧村/残寺、虚拟房间和个人实例，并接入 M2 AI 创作、持久队列与正文发布，**尚待完整游戏及真实文案验收，不是正式开放版本**。子虚道人默认仍使用旧幻境。AI 创作在游戏和 Python 两侧均默认关闭；本次自动测试只使用假模型。M3 正式内容/开放准备仍未完成。
+已实现确定性地图、道路、多房间场景、虚拟房间与个人实例，以及 AI 后台创作、持久队列、正文发布和管理回退。维护者于 **2026-09-30 确认全部验收通过**，对应 OpenSpec 变更已归档。正式世界 `huanjing-v1` 已于 2026-09-28 在本部署开放；其他部署是否开放以运行配置及 `illusion status` 为准。AI 是可选组件，停服时仍可探索默认地图并读取已保存正文。
 
 启用与小预算试验见 [无限世界 AI 创作](illusion-world-ai.md)。AI 可用自然细节、局部地形描写和文学比喻丰富体验；地图空间结构、实际出口、任务和奖励仍由规则决定。不把未逐项列出的合理补白误判为错误，审读标准见该文档。
 
-实际进度见 [任务清单](../../openspec/changes/add-wuxia-infinite-world/tasks.md) 和 [验证记录](../../openspec/changes/add-wuxia-infinite-world/validation.md)。所有玩家可见内容遵守 [AGENTS.md](../../AGENTS.md#玩家可见文本)，包括异常与占位提示。
-
-2026-09-25 起保留当前阶段基线，暂停新增世界功能，优先进行 AI Agent 架构规范和现有能力重构。待 NPC、摘要及世界描写兼容回归通过后继续文案改善、剩余验收与 M3；本阶段提交不代表功能已全部完成或开放。
+实施与验收记录见 [任务清单](../../openspec/changes/archive/2026-09-30-add-wuxia-infinite-world/tasks.md) 和 [验证记录](../../openspec/changes/archive/2026-09-30-add-wuxia-infinite-world/validation.md)。所有玩家可见内容遵守 [AGENTS.md](../../AGENTS.md#玩家可见文本)，包括异常与占位提示。
 
 ## 模块与地图规则
 
