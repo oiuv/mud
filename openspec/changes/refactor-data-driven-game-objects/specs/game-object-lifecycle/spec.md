@@ -1,68 +1,63 @@
-# 游戏对象既有生命周期
+# 游戏对象生命周期与迁移
 
 ## Purpose
 
-保证局部参数化或初始化复用保持游戏对象原有身份、创建、交易、数量及存取契约。需要另建身份适配或资产格式迁移的类别保留原实现，不把简化对象代码扩大成全局业务改造。
+允许更换品种路径，同时保持生成、使用、交易和存取功能。以新品种虚拟路径复用现有路径式机制，不保留旧文件壳或运行期路径别名。
 
 ## ADDED Requirements
 
-### Requirement: Existing path identities remain valid
+### Requirement: Canonical virtual identity supports reconstruction
 
-具有路径依赖的对象 SHALL 保留原具体程序路径、蓝图和创建入口；原生对象命名、查找、唯一性与权限语义 MUST NOT 被改写。原文件 SHALL 继续作为正式入口，不因本次重构被安排退出。
+迁移后的普通物品 SHALL 使用新品种虚拟路径进行创建、查找、蓝图读取和品种比较，new(base_name(ob)) SHALL 创建同品种的新实例。所有实际引用 SHALL 同步迁移，本批全部被替代的原物品源码 SHALL 在迁移完成时删除，MUST NOT 留下转发文件或运行期旧路径别名。品种 SHALL 以共用类中的数据或同类数据文件中的记录维护，不再为每个品种建立独立入口文件。
 
-#### Scenario: An NPC creates a weapon through its existing path
+#### Scenario: An NPC creates a migrated item
 
-- **WHEN** NPC 按原路径创建一个仅提取了公共初始化的兵器
-- **THEN** 创建、装备与其程序身份保持原样，无需增加定义解析或兼容分支
+- **WHEN** NPC 通过更新后的品种路径创建装备
+- **THEN** 得到原属性与使用效果的物品，继续按原方式移动并穿戴，物品名无需对应实体源文件
 
-#### Scenario: A unique or singleton object is referenced
+#### Scenario: A migrated family is accepted
 
-- **WHEN** 原有唯一物品或任务单例按路径加载、查找或计算实例数
-- **THEN** 其原有身份与行为不受局部改造影响
+- **WHEN** 一批物品完成抽象并准备验收
+- **THEN** 迁移清单内的旧源码全部不存在，实际调用方均使用新入口，运行期没有旧路径兼容文件或别名；新增同类普通品种只需增加数据记录
 
-### Requirement: Spawn and commerce retain existing behavior
+### Requirement: Spawn and commerce retain gameplay behavior
 
-已选类别 SHALL 保留原有生成数量、位置、归属、刷新及装备行为，也 SHALL 保留商品展示、价格、库存、交易匹配和付款规则。需要修改公共生成或交易机制才能接入的候选 MUST 保持原实现。
+迁移 SHALL 保持数量、位置、归属、刷新、商品展示、价格、库存、品种匹配与付款规则；可修改引用和必要接入检查，不建立第二套商品识别协议。
 
-#### Scenario: Two similar products are sold
+#### Scenario: Two products share a class
 
-- **WHEN** 两个显示名相近但原路径不同的商品共用了局部初始化
-- **THEN** 原商店和玩家交易仍能区分它们，价格、库存及交付不串货
+- **WHEN** 同一个公共类提供两种原本可区分的商品
+- **THEN** 商店和玩家交易继续区分各自价格、库存及交付对象，不串货
 
-#### Scenario: Room reset replaces a missing object
+#### Scenario: A room replenishes an item
 
-- **WHEN** 房间按既有规则补充一个采用局部复用的对象
-- **THEN** 原数量、home、归位及装备约定继续生效，不需要新种类的刷新引用
+- **WHEN** 房间刷新配置使用新品种路径
+- **THEN** 补充数量、归位与装备行为不变
 
-### Requirement: Stacking splitting and persistence keep their formats
+### Requirement: Persistence retains eligibility and record structure
 
-采用局部复用的物品 SHALL 保持原有合堆、拆分、数量、存储资格和存取结果；仓库与自动加载 SHALL 继续使用原记录格式及路径身份。需要新增品种比较、复制适配或存档字段才能正确工作的候选 MUST 保持原实现。
+物品存取 SHALL 保留原资格、数量和恢复结果，记录继续使用现有路径字段；必要的加载检查 SHALL 正确支持本批虚拟物品，不因缺少实体 .c 文件拒绝，也不无条件放开任意虚拟对象。未有的自动保存和实例快照能力 MUST NOT 顺带新增。
 
-#### Scenario: A stack is split through the old creation path
+#### Scenario: A valid virtual item is stored and retrieved
 
-- **WHEN** 一种保留路径的叠加物提取了重复初始化，玩家随后拆分部分数量
-- **THEN** 原复制入口仍得到同一品种，数量及允许状态与改造前一致，不误合并其他品种
+- **WHEN** 一个符合原存放条件的虚拟品种被存入后取出
+- **THEN** 按保存的新路径恢复对应品种和数量，记录结构不增加通用品种字段
 
-#### Scenario: An existing warehouse record is restored
+#### Scenario: An item remains ineligible
 
-- **WHEN** 用改造前的临时仓库记录恢复一个保留路径的品种
-- **THEN** 原记录直接恢复对应物品与数量，无需转换格式或增加新的记录类型
+- **WHEN** 物品仍有原禁止存放条件
+- **THEN** 即使它采用虚拟路径，存取规则也不被放宽
 
-#### Scenario: An item remains ineligible for storage
+### Requirement: Historical references are migrated without runtime aliases
 
-- **WHEN** 原本不允许入库或下线保留的物品只修改了初始化实现
-- **THEN** 其存取资格不扩大，不额外承诺保存原先不保存的实例属性
+删除原路径前 SHALL 核对持久引用；需要转换的记录 SHALL 通过一次性、字段明确的迁移保留对应品种与数量，不依赖运行期别名。验证 SHALL 使用临时记录，正式数据转换 SHALL 纳入部署备份与回退步骤。
 
-### Requirement: Direct parameterization stays within an independent lifecycle
+#### Scenario: An old warehouse record references a removed file
 
-直接参数化 SHALL 仅用于完整生命周期及可达出口不需要新增公共机制适配的对象。若对象可进入交易、合堆、存档或其他依赖品种路径的流程，并因此需要额外适配，该对象 MUST 保留原实现或采用保持原路径的局部复用。
+- **WHEN** 临时旧记录经过本批路径转换后恢复
+- **THEN** 得到对应新品种与原数量；无关字段保持原样，再次转换不改变结果
 
-#### Scenario: A supposedly isolated reward can enter player storage
+#### Scenario: Deployment is rolled back
 
-- **WHEN** 审查发现任务内创建的对象可以被带走存入按路径恢复的仓库，而合并程序后无法原样恢复品种
-- **THEN** 不部署该直接参数化方案，不为它新增存档格式或身份兼容层
-
-#### Scenario: A local object never needs path-based variety matching
-
-- **WHEN** 一个获准参数化的对象只在已核实的独立功能中创建、使用和销毁
-- **THEN** 该功能能直接按参数使用它，不要求其他游戏系统接受新的对象引用格式
+- **WHEN** 已切换路径和记录的版本需要回退
+- **THEN** 按对应代码与记录备份回退，不把仅撤销代码宣称为完整恢复

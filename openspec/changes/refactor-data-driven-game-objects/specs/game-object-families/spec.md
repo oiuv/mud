@@ -2,47 +2,38 @@
 
 ## Purpose
 
-明确各类对象在局部复用时必须保留的玩法与接入边界，让已有公共行为得到利用，同时允许不适合简化的对象保持原样；不以统一文件形式或迁移数量作为完成目标。
+按共同的实际行为抽取类，用数据表达差异，保证物品功能不变并减少不必要的实体文件。以长期维护是否更简单判断收益，不以本次需修改的文件数量限制改造。
 
 ## ADDED Requirements
 
 ### Requirement: Selected varieties retain their gameplay properties
 
-获准改造的品种 SHALL 保持名称、颜色、别名、描述、数值、材质、初始化顺序及衍生行为。不同行为或数值的对象 MUST NOT 因名称相同被合并。
+获准迁移的品种 SHALL 保持名称、颜色、别名、描述、数值、材质、使用效果及限制。原文件路径 SHALL 允许替换，不作为玩法等价的必要条件。
 
-#### Scenario: The five Beijing swords are evaluated or simplified
+#### Scenario: Similar clothes have different attributes
 
-- **WHEN** 评估或局部简化北京五把普通剑
-- **THEN** 原始属性作为对照基线，包括 gold 材质与其衍生稳定性；不强制合并程序，也不顺带改平衡
+- **WHEN** 相似名称的衣服迁移到共用类
+- **THEN** 各自重量、护甲、性别限制、穿脱文案及未设置属性仍与原物品一致
 
-### Requirement: Families retain specialized behavior
+### Requirement: Families follow shared behavior
 
-每个获准改造的类别 SHALL 保留其原有行为与状态：装备限制、食品消耗、饮具液体、书籍研读、药物冷却、动物掉落、NPC 角色回调及随机生成等。特殊对象 SHALL 可以继续保留自己的 LPC 实现，不强制塞入通用数据表达。
+分类 SHALL 核对继承、头文件及特殊回调，共有特殊行为 SHALL 可以提取为子类；独有行为 SHALL 允许保留专用实现。不能仅按文件名、显示名或是否存在自定义函数决定归并。
 
-#### Scenario: A food item also acts as a weapon
+#### Scenario: Clothing parents provide different capabilities
 
-- **WHEN** 某食品同时可装备且吃完会变成另一种物体
-- **THEN** 保留复合行为；不能等价简化就保持原代码
+- **WHEN** 一批衣服继承 CLOTH，另一批仅继承 EQUIP
+- **THEN** 按实际行为分别处理，不让后一批凭空获得撕布或洗涤能力
 
-#### Scenario: Medicines already share a parent
+#### Scenario: Several items share a callback
 
-- **WHEN** 复核已共用药力与冷却代码的一组药品
-- **THEN** 继续复用现成行为，仅在确有维护收益时提取剩余重复，不统一不同药效或新增效果解释器
+- **WHEN** 多个物品具有经核实相同的使用回调
+- **THEN** 可以形成同一行为子类，而非一律判为不可抽取；原效果和触发条件保持一致
 
-### Requirement: Existing business identities are preserved
+### Requirement: Partial adoption preserves unrelated features
 
-公告板、任务物、容器和生成角色 SHALL 保持原有业务身份、持久内容、归属、权限及生命周期；局部参数化 MUST NOT 将它们替换成统一物品身份。
+每批 SHALL 在其他类别继续运行的条件下接入。传统地图、货币、自制装备及本批未选的独特任务对象 SHALL 保持现状；游戏重构 MUST NOT 要求 mudcore 或驱动加入本游戏的数据体系。
 
-#### Scenario: A bulletin board needs more than a new constructor
+#### Scenario: Ordinary clothes are migrated first
 
-- **WHEN** 共用程序会要求改动公告板原有加载、移动或历史留言恢复机制
-- **THEN** 本次保留原板程序，不为合并文件扩展其生命周期
-
-### Requirement: Partial adoption does not require global conversion
-
-每批 SHALL 能在未改造对象继续运行的条件下独立接入。传统地图、唯一物、自制物、货币、复杂剧情/技能/任务及未选类别 SHALL 保持现状；游戏侧复用 MUST NOT 要求 mudcore 或 FluffOS 接入本游戏数据、外部服务或改变 efun 契约。
-
-#### Scenario: Only one local family is simplified
-
-- **WHEN** 一个经过验收的小组完成局部复用
-- **THEN** 其他物品、NPC、命令、地图和框架无需同步改造即可继续使用原接口
+- **WHEN** 普通服装采用虚拟品种入口
+- **THEN** 同步其实际调用方后可独立验收，不要求兵器、食物、NPC 和整个地图同时转换

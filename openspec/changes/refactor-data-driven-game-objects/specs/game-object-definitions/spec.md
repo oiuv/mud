@@ -1,53 +1,48 @@
-# 游戏对象局部定义与构造
+# 游戏对象定义与构造
 
 ## Purpose
 
-约束通过局部参数化复用行为的游戏对象，让开发者用清楚的参数描述同类差异，保证构造结果正确、实例状态独立且不扩大执行权限；不要求建立统一品种目录或全库身份系统。
+通过共用行为类和品种数据减少重复，使用原生虚拟对象保留路径式创建能力，不保留旧品种文件或引入第二套商品身份。
 
 ## ADDED Requirements
 
-### Requirement: Local parameters select the intended object
+### Requirement: Virtual paths select the intended variety
 
-采用直接参数化的类别 SHALL 按其公开构造参数生成对应对象，并保留所属类别的使用接口。使用定义键时，该键 SHALL 在所属类范围内明确对应数据，不能用中文名称或玩家别名猜测品种。
+迁移的普通物品 SHALL 以新的品种虚拟路径作为唯一正式商品入口。公共类内部 SHALL 用参数选择类内品种数据；不同品种 MUST NOT 因公共程序相同而失去对象路径区分。
 
-#### Scenario: Two valid parameter sets create different varieties
+#### Scenario: Two varieties share one program
 
-- **WHEN** 一个获准参数化的类分别收到两组合法品种参数
-- **THEN** 得到对应属性与行为的两个对象，不因显示名或别名相同而混淆
+- **WHEN** 调用方分别对两个有效新品种路径执行 new
+- **THEN** 得到对应物品，base_name 分别为各自品种路径；直接带参构造不被作为另一套等价商品入口
 
 ### Requirement: Mutable instance state remains independent
 
-局部复用后的对象 SHALL 保持各实例应有的状态隔离；修改实例的可变数组、映射或消耗状态 MUST NOT 污染其他实例或后续创建所用的默认数据。
+共用类 SHALL 保持实例可变状态独立，不污染其他实例或默认品种数据。
 
-#### Scenario: One instance consumes or changes a nested value
+#### Scenario: One instance changes a nested value
 
-- **WHEN** 同样参数创建两个对象，随后只修改第一个的嵌套状态或剩余用量
-- **THEN** 第二个与后续新建对象的初始状态不受影响
+- **WHEN** 同品种创建两个实例后只修改一个实例的嵌套状态
+- **THEN** 另一个实例和后续创建的物品不受影响
 
-### Requirement: Invalid parameters do not create usable partial objects
+### Requirement: Unknown varieties are rejected
 
-直接参数化构造 SHALL 拒绝缺失的必要参数、未知的局部定义键和错误类型，不静默替换为另一个品种。参数与数据 MUST NOT 赋予调用者任意文件加载、代码执行或新增权限；玩家可见失败反馈 SHALL 符合游戏语境。
+虚拟创建 SHALL 拒绝未知品种和无效路径，不回退为其他物品或产生可流通半成品。品种数据 MUST NOT 提供任意代码执行或新增权限。
 
-#### Scenario: An unknown definition is requested
+#### Scenario: An unknown key is requested
 
-- **WHEN** 一个实际实例的创建请求指定不存在的局部定义键
-- **THEN** 创建明确失败，不产生可使用、交付或交易的半成品
+- **WHEN** 创建请求使用类中不存在的品种键
+- **THEN** 请求明确失败，不产生其他品种，也不向玩家暴露内部异常原文
 
-#### Scenario: Parameters try to select executable behavior
+### Requirement: Blueprint and instance initialization preserve behavior
 
-- **WHEN** 调用方通过数据传入该类未提供的执行目标或权限设置
-- **THEN** 不执行该目标，不绕过现有权限，玩家也不看到内部路径或异常原文
+实现 SHALL 按驱动虚拟对象生命周期完成初始化，保持品种蓝图、名称缓存、属性查找、派生数值、随机时机和权限。不重复 setup，也不让无参公共程序充当可交付品种。
 
-### Requirement: Loading and construction preserve lifecycle behavior
+#### Scenario: A shop reads two virtual blueprints
 
-局部复用 SHALL 保持原有蓝图展示、实例初始化顺序及随机生成时机。直接参数化的公共程序在未创建具体实例时 MUST NOT 误触发该实例的移动、库存、计时器或存档行为。
+- **WHEN** 商店读取两个虚拟品种蓝图的名称、价格和默认属性
+- **THEN** 结果分别对应原品种，后加载的品种不会覆盖前者
 
-#### Scenario: An existing variety remains a blueprint
+#### Scenario: The driver loads the shared program
 
-- **WHEN** 一个保留路径的品种提取了公共初始化，商店仍读取其原蓝图
-- **THEN** 名称、别名、价格及默认属性与改造前一致，其他品种不覆盖其默认值
-
-#### Scenario: A parameterized program is loaded without instance parameters
-
-- **WHEN** 驱动加载公共程序，但尚未创建带参数的具体实例
-- **THEN** 不把公共程序当成一个有效品种放进游戏，也不产生实例业务副作用
+- **WHEN** 驱动无参加载公共程序而尚未指定品种
+- **THEN** 不将其作为有效物品放入游戏，不产生移动、库存或存档副作用
