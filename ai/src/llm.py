@@ -107,10 +107,11 @@ class ChatModel:
         write_trace(settings, record)
 
     def __call__(self, messages, *, context, tools, operation, timeout, max_tokens, usage_callback=None,
-                 json_output=False):
+                 json_output=False, text_callback=None):
         return complete_model(self.settings, self.client, messages, context.deadline, max_tokens,
                               timeout=timeout, tools=tools, operation=operation,
-                              usage_callback=usage_callback or context.budget.record_usage, json_output=json_output)
+                              usage_callback=usage_callback or context.budget.record_usage, json_output=json_output,
+                              text_callback=text_callback)
 
 
 def remaining_timeout(timeout, deadline=None):
@@ -143,7 +144,8 @@ def complete_chat(settings, client, messages, deadline=None, max_tokens=None, *,
 
 
 def complete_model(settings, client, messages, deadline=None, max_tokens=None, *,
-                   timeout=None, operation="chat", usage_callback=None, tools=None, json_output=False):
+                   timeout=None, operation="chat", usage_callback=None, tools=None, json_output=False,
+                   text_callback=None):
     if client is None:
         raise ModelUnavailable("unconfigured")
     if tools and not settings.chat_supports_tools:
@@ -184,6 +186,12 @@ def complete_model(settings, client, messages, deadline=None, max_tokens=None, *
         if time.monotonic() >= call_deadline:
             raise TimeoutError("AI request deadline exceeded")
         choice = completion.choices[0]
+        # Opt-in local evaluation can retain rejected text, never reasoning or SDK data.
+        # This observer does not bypass any validation or change the returned result.
+        if text_callback is not None and not getattr(choice.message, "tool_calls", None):
+            content = getattr(choice.message, "content", None)
+            if isinstance(content, str):
+                text_callback(content)
         if choice.finish_reason == "length":
             failure_code = "truncated"
             raise ValueError("Truncated completion")

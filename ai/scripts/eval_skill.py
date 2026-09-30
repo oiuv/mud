@@ -15,7 +15,7 @@ import uuid
 SERVICE_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SERVICE_DIR))
 
-from src.llm import ChatModel, create_chat_client, model_options_fingerprint
+from src.llm import ChatModel, ModelResponse, create_chat_client, model_options_fingerprint
 from src.runtime.context import Policy, RunContext
 from src.runtime.contracts import Contract, RuntimeFault, parse_json
 from src.runtime.hooks import Hook, Hooks
@@ -28,6 +28,31 @@ from src.source_config import load_sources
 from src.tools.skills import build_tools as skill_tools
 from src.tools.source import build_tools as source_tools
 from src.usage_report import usage_report
+
+
+class _ReportModel:
+    """Keep only the current evaluation reply; forward all model capabilities."""
+
+    def __init__(self, model):
+        self.model = model
+        self.answer = None
+
+    def __getattr__(self, name):
+        return getattr(self.model, name)
+
+    def _remember(self, text):
+        self.answer = text
+
+    def __call__(self, messages, **options):
+        self.answer = None
+        if options["operation"] != "skill_eval":
+            return self.model(messages, **options)
+        if isinstance(self.model, ChatModel):
+            options["text_callback"] = self._remember
+        response = self.model(messages, **options)
+        if isinstance(response, ModelResponse) and not response.tool_calls and self.answer is None:
+            self.answer = response.text
+        return response
 
 
 def run_evaluation(model, settings, prompt, *, skill=None, system="", mode="single",
@@ -72,7 +97,8 @@ def run_evaluation(model, settings, prompt, *, skill=None, system="", mode="sing
                   timeout=settings.chat_timeout, max_tokens=settings.max_tokens,
                   operation="skill_eval", json_output=json_output)
     context = RunContext(uuid.uuid4().hex, "local-evaluator", "internal", "isolated", policy, None)
-    runner = Runner(model, [agent], tools, hooks, skills)
+    captured = _ReportModel(model)
+    runner = Runner(captured, [agent], tools, hooks, skills)
     started = time.monotonic()
     outcome = None
     try:
@@ -83,11 +109,14 @@ def run_evaluation(model, settings, prompt, *, skill=None, system="", mode="sing
         result = Result("cancelled", code="cancelled")
     elapsed = time.monotonic() - started
     answer = result.value
+    if answer is None and result.code in ("truncated", "size_limit"):
+        answer = captured.answer
     valid = isinstance(answer, str) and bool(answer.strip())
     parsed = None
     if json_output and valid:
         try:
-            parsed = parse_json(answer)
+            # Check format independently of the runtime business output limit.
+            parsed = parse_json(answer, limit=None)
             valid = isinstance(parsed, dict)
         except RuntimeFault:
             valid = False

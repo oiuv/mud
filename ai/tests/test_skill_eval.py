@@ -96,6 +96,72 @@ class SkillEvalTests(unittest.TestCase):
                 self.assertEqual(report["format_valid"], valid)
                 self.assertEqual(len(model.requests), 1)
 
+    def test_oversized_answer_is_preserved_without_relaxing_runtime_limits(self):
+        for mode in ("single", "tool_loop"):
+            for json_output in (False, True):
+                with self.subTest(mode=mode, json_output=json_output):
+                    text = "景" * 11000
+                    if json_output:
+                        text = json.dumps({"description": text}, ensure_ascii=False)
+                    model, report = self.run_case(
+                        ModelResponse(text, usage={"prompt_tokens": 100, "completion_tokens": 11000,
+                                                   "total_tokens": 11100}),
+                        mode=mode, json_output=json_output)
+                    self.assertEqual(report["answer"], text)
+                    self.assertEqual((report["status"], report["code"]), ("incomplete", "size_limit"))
+                    self.assertTrue(report["format_valid"])
+                    if json_output:
+                        self.assertEqual(report["parsed"], json.loads(text))
+                    self.assertEqual(len(model.requests), 1)
+                    self.assertEqual(report["usage"]["usage_reports"], 1)
+                    self.assertEqual(report["usage"]["usage"]["completion_tokens"], 11000)
+
+    def test_cli_preserves_rejected_body_but_still_fails_without_retry(self):
+        cases = [
+            ('  {"answer":"截断前正文"}  ', "length", "failed", "truncated", True),
+            ('  {"answer":"未完成', "length", "failed", "truncated", False),
+            (json.dumps({"answer": "景" * 11000}, ensure_ascii=False), "stop", "incomplete", "size_limit", True),
+        ]
+        for mode in ("single", "tool_loop"):
+            for text, finish, status, fault, valid in cases:
+                with self.subTest(mode=mode, fault=fault, valid=valid):
+                    client = Mock()
+                    create = client.with_options.return_value.chat.completions.create
+                    create.return_value = SimpleNamespace(
+                        choices=[SimpleNamespace(finish_reason=finish, message=SimpleNamespace(
+                            content=text, tool_calls=[], reasoning_content="PRIVATE_REASONING"))],
+                        usage={"prompt_tokens": 100, "completion_tokens": 50, "total_tokens": 150})
+                    destination = self.root / f"rejected-{mode}-{fault}-{len(text)}.json"
+                    with patch.object(eval_skill, "load_settings", return_value=self.settings), \
+                            patch.object(eval_skill, "create_chat_client", return_value=client), \
+                            self.assertLogs("src.llm", level="INFO") as logs:
+                        code, output, _ = self.invoke_cli(
+                            "--input", "测试", "--json", "--mode", mode, "--report", str(destination), "--execute")
+                    report = json.loads(output)
+                    self.assertEqual(code, 1)
+                    self.assertEqual(report, json.loads(destination.read_text(encoding="utf-8")))
+                    self.assertEqual((report["status"], report["code"]), (status, fault))
+                    self.assertEqual(report["answer"], text)
+                    self.assertEqual(report["format_valid"], valid)
+                    self.assertEqual(report["usage"]["model_calls"], 1)
+                    self.assertEqual(report["usage"]["usage_reports"], 1)
+                    self.assertEqual(report["usage"]["usage"]["completion_tokens"], 50)
+                    create.assert_called_once()
+                    client.close.assert_called_once()
+                    self.assertNotIn("PRIVATE_REASONING", output)
+                    self.assertNotIn("private-key", output)
+                    self.assertNotIn(text, "\n".join(logs.output))
+                    self.assertNotIn("PRIVATE_REASONING", "\n".join(logs.output))
+
+    def test_failed_tool_loop_does_not_report_intermediate_text_as_answer(self):
+        model, report = self.run_case(
+            ModelResponse("先查资料", tool_calls=(ToolCall("ref", "skill", '{"name":"example"}'),)),
+            ModelUnavailable("truncated"), skill="example", mode="tool_loop")
+        self.assertEqual((report["status"], report["code"]), ("failed", "truncated"))
+        self.assertIsNone(report["answer"])
+        self.assertFalse(report["format_valid"])
+        self.assertEqual(len(model.requests), 2)
+
     def test_skill_edit_changes_report_hash_without_runtime_edits(self):
         _, before = self.run_case(ModelResponse("旧版"), skill="example")
         manifest = self.skills / "example/SKILL.md"
@@ -193,13 +259,14 @@ class SkillEvalTests(unittest.TestCase):
         system = self.root / "system.txt"
         prompt.write_text("自定义输入", encoding="utf-8-sig")
         system.write_text("自定义输出契约", encoding="utf-8")
-        fake = Model(ModelResponse('{"answer":"测试"}'))
         client = Mock()
+        client.with_options.return_value.chat.completions.create.return_value = SimpleNamespace(
+            choices=[SimpleNamespace(finish_reason="stop", message=SimpleNamespace(
+                content='{"answer":"测试"}', tool_calls=[]))], usage=None)
         args = ["--input-file", str(prompt), "--system-file", str(system), "--skill", "example",
                 "--model", "other-model", "--json", "--report", str(report), "--execute"]
         with patch.object(eval_skill, "load_settings", return_value=self.settings), \
-                patch.object(eval_skill, "create_chat_client", return_value=client) as factory, \
-                patch.object(eval_skill, "ChatModel", return_value=fake):
+                patch.object(eval_skill, "create_chat_client", return_value=client) as factory:
             code, output, _ = self.invoke_cli(*args)
             original = report.read_bytes()
             self.assertEqual(code, 0)
